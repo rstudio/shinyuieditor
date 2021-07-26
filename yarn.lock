@@ -370,11 +370,6 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
-htm@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/htm/-/htm-3.1.0.tgz#0c305493b60da9f6ed097a2aaf4c994bd85ea022"
-  integrity sha512-L0s3Sid5r6YwrEvkig14SK3Emmc+kIjlfLhEGn2Vy3bk21JyDEes4MoDsbJk6luaPp8bugErnxPz86ZuAw6e5Q==
-
 is-core-module@^2.2.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/is-core-module/-/is-core-module-2.5.0.tgz#f754843617c70bfd29b7bd87327400cda5c18491"
