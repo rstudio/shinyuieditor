@@ -1,0 +1,19 @@
+{
+  "name": "preact-vite",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "htm": "^3.1.0",
+    "preact": "^10.5.13",
+    "preact-router": "^3.2.1"
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "^2.0.0",
+    "typescript": "^4.3.2",
+    "vite": "^2.4.3"
+  }
+}

@@ -1,0 +1,10 @@
+.grid-preview {
+  border: 1px solid rgb(230, 230, 230);
+  width: var(--shown-size, 100px);
+  height: var(--shown-size, 100px);
+  overflow: scroll;
+  display: grid;
+  place-content: center;
+  box-shadow: rgb(50 50 93 / 25%) 0px 2px 8px 1px;
+  border-radius: var(--corner-radius, 5px);
+}
