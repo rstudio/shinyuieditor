@@ -1,4 +1,4 @@
-export default function GridPreviewItem(props: {
+export function GridPreviewItem(props: {
   rows: [number, number];
   cols: [number, number];
 }) {

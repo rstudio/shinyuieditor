@@ -1,7 +1,7 @@
 import { Router, Route } from "preact-router";
-import About from "./routes/About";
-import GridGallery from "./routes/GridGallery";
-import Header from "./components/Header";
+import { About } from "./routes/About";
+import { GridGallery } from "./routes/GridGallery";
+import { Header } from "./components/Header";
 import LayoutEditor from "./routes/LayoutEditor";
 
 export function App() {

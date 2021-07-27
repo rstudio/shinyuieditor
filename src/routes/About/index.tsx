@@ -1,4 +1,4 @@
-export default function About() {
+export function About() {
   return (
     <>
       <h2>Welcome to the Shiny Visual Layout Editor!</h2>

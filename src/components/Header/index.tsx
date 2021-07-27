@@ -3,7 +3,7 @@ import rstudioLogo from "../../assets/RStudio-Logo.svg";
 import shinyLogo from "../../assets/Shiny-Logo.png";
 import classes from "./style.module.css";
 
-function Header() {
+export function Header() {
   return (
     <header className={classes.header}>
       <Link href="/">
@@ -31,4 +31,3 @@ function Header() {
     </header>
   );
 }
-export default Header;

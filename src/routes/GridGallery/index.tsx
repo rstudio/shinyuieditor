@@ -1,8 +1,8 @@
 import layouts from "../../layouts";
-import GridPreview from "../../components/GridPreview";
+import { GridPreview } from "../../components/GridPreview";
 import classes from "./style.module.css";
 
-export default function GridGallery() {
+export function GridGallery() {
   return (
     <>
       <h1 style="text-align: center;">Choose your layout</h1>

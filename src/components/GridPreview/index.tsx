@@ -1,8 +1,8 @@
 import type { GridLayoutDef } from "../../types";
-import GridPreviewItem from "../GridPreviewItem";
+import { GridPreviewItem } from "../GridPreviewItem";
 import classes from "./style.module.css";
 
-export default function GridPreview(props: {
+export function GridPreview(props: {
   layout: GridLayoutDef;
   displaySize: number;
 }) {

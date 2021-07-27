@@ -1,9 +1,14 @@
+import { FunctionComponent } from "preact";
 import classes from "./style.module.css";
 
-export function GridCard(props: { title: string; gridArea: string }) {
+export const GridCard: FunctionComponent<{
+  title: string;
+  gridArea: string;
+}> = ({ title, gridArea, children }) => {
   return (
-    <div className={classes.card} style={{ "--grid-area": props.gridArea }}>
-      <h3 className={classes.title}>{props.title}</h3>
+    <div className={classes.card} style={{ "--grid-area": gridArea }}>
+      <h3 className={classes.title}>{title}</h3>
+      <div class={classes.body}>{children}</div>
     </div>
   );
-}
+};
