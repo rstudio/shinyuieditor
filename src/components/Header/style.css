@@ -5,7 +5,7 @@
   grid-template-rows: 100%;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--rstudio-grey);
+  box-shadow: var(--underline-shadow);
 }
 
 .header h1 {
