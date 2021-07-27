@@ -1,4 +1,10 @@
 .grid-card {
   grid-area: var(--grid-area);
-  outline: 1px solid green;
+  outline: 1px solid #c4c4c4;
+}
+
+.grid-card--title {
+  margin: 0;
+  padding: 0.5rem 0.25rem;
+  box-shadow: var(--underline-shadow);
 }
