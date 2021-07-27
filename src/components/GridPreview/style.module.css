@@ -1,4 +1,14 @@
-.holder {
+.wrapper {
+  padding: 0.5rem;
+  height: fit-content;
+  border-radius: var(--corner-radius, 5px);
+}
+
+.current {
+  box-shadow: 2px 2px 8px 0px var(--rstudio-grey);
+}
+
+.grid {
   border: 1px solid rgb(230, 230, 230);
   width: var(--shown-size, 100px);
   height: var(--shown-size, 100px);

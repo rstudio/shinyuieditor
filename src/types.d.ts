@@ -4,10 +4,13 @@ export type GridItemDef = {
   cols: [number, number];
 };
 
-export type GridLayoutDef = {
-  name: string;
+export interface GridLayoutDef {
   rows: string[];
   cols: string[];
   gap: string;
-  items?: GridItemDef[];
-};
+}
+
+export interface GridLayoutTemplate extends GridLayoutDef {
+  name: string;
+  items: GridItemDef[];
+}

@@ -1,14 +1,19 @@
-import type { GridLayoutDef } from "../../types";
+import type { GridLayoutTemplate } from "../../types";
+import { GridContainer } from "../GridContainer";
 import { GridPreviewItem } from "../GridPreviewItem";
 import classes from "./style.module.css";
 
 export function GridPreview(props: {
-  layout: GridLayoutDef;
+  layout: GridLayoutTemplate;
+  isCurrent?: boolean;
   displaySize: number;
+  onClick: () => void;
 }) {
   const {
     displaySize = 200,
+    isCurrent,
     layout: { name, rows, cols, gap, items = [] },
+    onClick,
   } = props;
   const scale = 1000 / displaySize;
 
@@ -20,25 +25,26 @@ export function GridPreview(props: {
 
   return (
     <div
+      class={classes.wrapper + (isCurrent ? " " + classes.current : "")}
       style={{
         "--shown-size": `${displaySize}px`,
         "--corner-radius": `${20 / scale}px`,
       }}
+      onClick={onClick}
     >
       <h3>{name}</h3>
-      <div
-        className={classes.holder}
-        style={{
-          gridTemplateColumns: cols.map(scaleUnit).join(" "),
-          gridTemplateRows: rows.map(scaleUnit).join(" "),
+      <GridContainer
+        className={classes.grid}
+        defs={{
+          cols: cols.map(scaleUnit),
+          rows: rows.map(scaleUnit),
           gap: `calc(${gap} / ${scale})`,
-          padding: `${30 / scale}px`,
         }}
       >
         {items.map(({ rows, cols }) => (
           <GridPreviewItem rows={rows} cols={cols} />
         ))}
-      </div>
+      </GridContainer>
     </div>
   );
 }
