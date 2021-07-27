@@ -15,6 +15,13 @@ body {
   --header-height: 60px;
 }
 
+h1,
+h2,
+h3 {
+  color: var(--rstudio-grey);
+  font-weight: 300;
+}
+
 * {
   box-sizing: border-box;
 }
