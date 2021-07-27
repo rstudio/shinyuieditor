@@ -1,9 +1,9 @@
 import { GridCard } from "../../components/GridCard";
-import "./style.css";
+import classes from "./style.module.css";
 
 export default function LayoutEditor() {
   return (
-    <div id="layout-editor">
+    <div className={classes.editor}>
       <GridCard title="Settings" gridArea="settings" />
       <GridCard title="Instructions" gridArea="instructions" />
       <GridCard title="Elements" gridArea="elements" />

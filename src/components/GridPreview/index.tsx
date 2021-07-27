@@ -1,6 +1,6 @@
 import type { GridLayoutDef } from "../../types";
 import GridPreviewItem from "../GridPreviewItem";
-import "./style.css";
+import classes from "./style.module.css";
 
 export default function GridPreview(props: {
   layout: GridLayoutDef;
@@ -27,7 +27,7 @@ export default function GridPreview(props: {
     >
       <h3>{name}</h3>
       <div
-        className="grid-preview"
+        className={classes.holder}
         style={{
           gridTemplateColumns: cols.map(scaleUnit).join(" "),
           gridTemplateRows: rows.map(scaleUnit).join(" "),

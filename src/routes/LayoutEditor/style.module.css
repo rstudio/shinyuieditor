@@ -1,4 +1,4 @@
-#layout-editor {
+.editor {
   padding: 1rem;
   display: grid;
   grid-template-columns: 300px 1fr;

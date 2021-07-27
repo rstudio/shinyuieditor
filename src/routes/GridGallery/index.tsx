@@ -1,12 +1,12 @@
 import layouts from "../../layouts";
 import GridPreview from "../../components/GridPreview";
-import "./style.css";
+import classes from "./style.module.css";
 
 export default function GridGallery() {
   return (
     <>
-      <h1 className="title">Preact Layout Gallery!</h1>
-      <div className="grid-gallery">
+      <h1 style="text-align: center;">Choose your layout</h1>
+      <div className={classes.gallery}>
         {layouts.map((layout) => (
           <GridPreview layout={layout} displaySize={200} />
         ))}

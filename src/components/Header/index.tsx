@@ -1,15 +1,15 @@
 import { Link } from "preact-router/match";
 import rstudioLogo from "../../assets/RStudio-Logo.svg";
 import shinyLogo from "../../assets/Shiny-Logo.png";
-import "./style.css";
+import classes from "./style.module.css";
 
 function Header() {
   return (
-    <header className="header">
+    <header className={classes.header}>
       <Link href="/">
         <h1>Shiny Visual Editor</h1>
       </Link>
-      <div className="logos">
+      <div className={classes.logos}>
         <img src={rstudioLogo} alt="RStudio Logo" />
         <img
           src={shinyLogo}
@@ -17,7 +17,7 @@ function Header() {
           alt="Shiny Logo"
         />
       </div>
-      <div class="links">
+      <div class={classes.links}>
         <Link activeClassName="active" href="/">
           Gallery
         </Link>
