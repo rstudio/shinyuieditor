@@ -1,0 +1,4 @@
+.grid-card {
+  grid-area: var(--grid-area);
+  outline: 1px solid green;
+}

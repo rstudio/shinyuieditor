@@ -1,5 +1,5 @@
 import layouts from "../../layouts";
-import GridPreview from "../GridPreview";
+import GridPreview from "../../components/GridPreview";
 import "./style.css";
 
 export default function GridGallery() {

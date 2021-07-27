@@ -21,6 +21,9 @@ function Header() {
         <Link activeClassName="active" href="/">
           Gallery
         </Link>
+        <Link activeClassName="active" href="/edit">
+          Layout Editor
+        </Link>
         <Link activeClassName="active" href="/about">
           About
         </Link>
