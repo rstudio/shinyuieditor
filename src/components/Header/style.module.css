@@ -17,11 +17,11 @@
   text-decoration: none;
 }
 
-.header .links {
+.links {
   font-size: 1.5rem;
 }
 
-.header .links a {
+.links a {
   padding: 5px 15px;
   margin: 0 5px;
   min-width: 50px;
@@ -31,21 +31,21 @@
   border-radius: 5px;
 }
 
-.header .links a:hover,
-.header .links a:active {
+.links a:hover,
+.links a:active {
   border: 1px solid var(--rstudio-grey);
 }
 
-.header .links a.active {
+.links a.active {
   background-color: var(--rstudio-blue);
   color: white;
 }
 
-.header .logos {
+.logos {
   height: 100%;
 }
 
-.header .logos > img {
+.logos > img {
   margin: 0 1rem;
   height: 100%;
   border-radius: 1rem;
