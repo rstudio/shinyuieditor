@@ -4,23 +4,23 @@ import classes from "./style.module.css";
 
 export function GridGallery({
   allLayouts,
-  layout,
-  updateLayout,
+  currentLayout,
+  setLayout,
 }: {
   allLayouts: Array<GridLayoutTemplate>;
-  layout: GridLayoutTemplate;
-  updateLayout: (l: GridLayoutTemplate) => void;
+  currentLayout: GridLayoutTemplate;
+  setLayout: (newLayout: GridLayoutTemplate) => void;
 }) {
   return (
     <>
       <h1 style="text-align: center;">Choose your layout</h1>
       <div className={classes.gallery}>
-        {allLayouts.map((l) => (
+        {allLayouts.map((layout) => (
           <GridPreview
-            layout={l}
+            layout={layout}
             displaySize={200}
-            isCurrent={l.name === layout.name}
-            onClick={() => updateLayout(layout)}
+            isCurrent={layout.name === currentLayout.name}
+            onClick={() => setLayout(layout)}
           />
         ))}
       </div>

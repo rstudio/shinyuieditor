@@ -18,8 +18,8 @@ export function App() {
             path="/"
             component={GridGallery}
             allLayouts={layouts}
-            layout={currentLayout}
-            updateLayout={updateLayout}
+            currentLayout={currentLayout}
+            setLayout={updateLayout}
           />
           <Route path="/edit" component={LayoutEditor} layout={currentLayout} />
           <Route path="/about" component={About} layout={currentLayout} />
