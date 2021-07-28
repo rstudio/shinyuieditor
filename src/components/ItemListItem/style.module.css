@@ -1,0 +1,14 @@
+.item {
+  margin-inline: 1rem;
+  margin-block: 0.5rem;
+  padding-inline: 1rem;
+  padding-block: 0.25rem;
+  background-color: var(--rstudio-blue);
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+.isDeletable {
+  justify-content: space-between;
+}
