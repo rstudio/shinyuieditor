@@ -22,4 +22,7 @@
 .title {
   margin: 0;
   box-shadow: var(--underline-shadow);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
