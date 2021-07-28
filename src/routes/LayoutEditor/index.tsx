@@ -12,7 +12,7 @@ export default function LayoutEditor(props: { layout: GridLayoutTemplate }) {
       <GridCard title="Settings" gridArea="settings" />
       <GridCard title="Instructions" gridArea="instructions" />
       <GridCard title="Elements" gridArea="elements" />
-      <GridCard title="Editor" gridArea="editor">
+      <GridCard gridArea="editor">
         <FakeBrowser>
           <GridContainer defs={layout}>
             {layout.items.map(({ rows, cols }) => (

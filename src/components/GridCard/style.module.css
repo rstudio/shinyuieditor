@@ -1,21 +1,25 @@
-.card {
+.cardWTitle,
+.cardNoTitle {
   grid-area: var(--grid-area);
+}
+
+.cardWTitle {
   outline: 1px solid #c4c4c4b2;
   background-color: white;
   display: grid;
   grid-template-rows: auto 1fr;
 }
 
-.card .title,
-.card .body {
+.cardNoTitle .body {
+  height: 100%;
+}
+
+.title,
+.cardWTitle .body {
   padding: 0.5rem;
 }
 
 .title {
   margin: 0;
   box-shadow: var(--underline-shadow);
-}
-
-.body {
-  /* outline: 1px solid red; */
 }
