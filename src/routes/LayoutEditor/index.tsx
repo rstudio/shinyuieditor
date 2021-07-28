@@ -1,9 +1,9 @@
 import { useState } from "preact/hooks";
 import { CssUnitInput } from "../../components/CssUnitInput";
-import { FakeBrowser } from "../../components/FakeBrowser";
+import { EditableGridItem } from "../../components/EditableGridItem";
+import { FakeBrowserBar } from "../../components/FakeBrowserBar";
 import { GridCard } from "../../components/GridCard";
 import { GridContainer, TwoColumnGrid } from "../../components/GridContainer";
-import { GridPreviewItem } from "../../components/GridPreviewItem";
 import {
   InstructionsIcon,
   ItemsIcon,
@@ -40,14 +40,12 @@ export default function LayoutEditor(props: { layout: GridLayoutTemplate }) {
           <ItemListItem name={id} isDeletable />
         ))}
       </GridCard>
-      <GridCard gridArea="editor">
-        <FakeBrowser>
-          <GridContainer defs={layout}>
-            {layout.items.map(({ rows, cols }) => (
-              <GridPreviewItem rows={rows} cols={cols} />
-            ))}
-          </GridContainer>
-        </FakeBrowser>
+      <GridCard gridArea="editor" header={<FakeBrowserBar />}>
+        <GridContainer defs={layout}>
+          {layout.items.map(({ rows, cols }) => (
+            <EditableGridItem rows={rows} cols={cols} />
+          ))}
+        </GridContainer>
       </GridCard>
     </div>
   );

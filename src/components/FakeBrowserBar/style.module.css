@@ -1,23 +1,12 @@
-.fakeBrowser {
-  --editor-radius: 5px;
-  --menu-bar-height: 35px; /* Height of the url bar */
+.menuBar {
+  --editor-radius: var(--corner-radius, 1rem);
+  --menu-bar-pad: 5px;
+  --menu-bar-height: calc(100% - 2 * var(--menu-bar-pad));
   --buttons-container-width: 70px;
   --button-diameter: 12px;
-  --vert-padding: 3px;
-  --url-box-height: calc(100% - 2 * var(--vert-padding));
   --button-color: var(--rstudio-blue);
-  --outline-color: var(--rstudio-grey);
+  --outline-color: var(--light-grey);
   --border-type: 1px solid var(--outline-color);
-  border: var(--border-type);
-  border-radius: var(--editor-radius);
-  width: 100%;
-  min-height: 100%;
-  position: relative;
-  display: grid;
-  grid-template-rows: var(--menu-bar-height) 1fr;
-}
-
-.menuBar {
   width: 100%;
   height: 100%;
   border-bottom: var(--border-type);
@@ -27,11 +16,11 @@
 }
 
 .urlBox {
-  width: calc(100% - var(--buttons-container-width) - var(--vert-padding));
-  margin-top: var(--vert-padding);
-  height: var(--url-box-height);
-  border: 1px solid black;
-  border-radius: calc(var(--menu-bar-height) - 2 * var(--vert-padding));
+  width: calc(100% - var(--buttons-container-width) - var(--menu-bar-pad));
+  margin-top: var(--menu-bar-pad);
+  height: var(--menu-bar-height);
+  border: var(--border-type);
+  border-radius: 8px;
   display: flex;
   align-items: center;
   overflow: hidden;

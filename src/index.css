@@ -12,8 +12,10 @@ body {
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   --rstudio-blue: rgb(116 170 219);
   --rstudio-grey: #404040;
+  --light-grey: #c4c4c4b2;
   --header-height: 60px;
   --underline-shadow: 0px 1px 3px 0px #c4c4c4;
+  --corner-radius: 5px;
 }
 
 h1,

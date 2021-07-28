@@ -4,7 +4,6 @@ export function GridPreviewItem(props: {
 }) {
   return (
     <div
-      className="grid-preview-item"
       style={{
         gridColumn: props.cols.join("/"),
         gridRow: props.rows.join("/"),
