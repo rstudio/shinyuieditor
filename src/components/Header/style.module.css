@@ -40,7 +40,7 @@
   text-align: center;
   color: var(--rstudio-blue);
   will-change: background-color;
-  border-radius: 5px;
+  border-radius: var(--corner-radius);
 }
 
 .links a:hover,
@@ -50,5 +50,5 @@
 
 .links a.active {
   background-color: var(--rstudio-blue);
-  color: white;
+  color: var(--rstudio-white);
 }
