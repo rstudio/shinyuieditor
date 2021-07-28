@@ -1,21 +1,20 @@
 import { FunctionComponent, JSX } from "preact";
 import { useState } from "preact/hooks";
+import { CSSMeasure, CSSUnits } from "../../types";
+import classes from "./style.module.css";
 
-type CSSUnits = "fr" | "px" | "rem" | "auto";
-type CSSMeasure = `${number}${CSSUnits}`;
 export const CssUnitInput: FunctionComponent<{
-  startCount?: number;
-  startUnit?: CSSUnits;
+  startValue?: CSSMeasure;
   onChange: (value: CSSMeasure) => void;
-}> = ({ startCount = 1, startUnit = "fr", onChange }) => {
+}> = ({ startValue = { count: 1, unit: "fr" }, onChange }) => {
   const availableUnits = ["fr", "px", "rem", "auto"];
 
-  const [currentCount, updateCount] = useState(startCount);
-  const [currentUnit, updateUnit] = useState(startUnit);
-  
+  const [currentCount, updateCount] = useState(startValue.count);
+  const [currentUnit, updateUnit] = useState(startValue.unit);
+
   const newValue = () => {
-    onChange(`${currentCount}${currentUnit}`);
-  }
+    onChange({ count: currentCount, unit: currentUnit });
+  };
 
   const onSubmit: JSX.EventHandler<JSX.TargetedEvent<
     HTMLFormElement,
@@ -41,9 +40,8 @@ export const CssUnitInput: FunctionComponent<{
     updateUnit(target.value as CSSUnits);
   };
 
-
   return (
-    <form onSubmit={onSubmit} onChange={newValue} >
+    <form class={classes.form} onSubmit={onSubmit} onChange={newValue}>
       <input
         type="number"
         min={0}

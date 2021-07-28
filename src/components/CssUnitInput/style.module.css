@@ -1,0 +1,20 @@
+.form {
+  display: grid;
+  grid-template-columns: repeat(2, 55px);
+  justify-content: center; /* Make sure to sit in middle of control */
+  grid-gap: 2px;
+  padding: 0.5rem;
+}
+
+.form input,
+.form select {
+  align-self: stretch;
+  justify-self: stretch;
+  height: 1.75rem;
+  font-size: 1.1rem;
+}
+
+.form.disabled {
+  opacity: 0.15;
+  pointer-events: none;
+}

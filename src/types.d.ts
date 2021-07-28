@@ -4,13 +4,21 @@ export type GridItemDef = {
   cols: [number, number];
 };
 
-export interface GridLayoutDef {
+export type GridLayoutDef = {
+  rows?: string[];
+  cols?: string[];
+  gap: string;
+};
+
+export type GridLayoutTemplate = {
   rows: string[];
   cols: string[];
   gap: string;
-}
-
-export interface GridLayoutTemplate extends GridLayoutDef {
   name: string;
   items: GridItemDef[];
-}
+};
+// export interface GridLayoutTemplate extends GridLayoutDef {
+// }
+
+type CSSUnits = "fr" | "px" | "rem" | "auto";
+type CSSMeasure = { count?: number; unit: CSSUnits };
