@@ -1,27 +1,24 @@
-.cardWTitle,
-.cardNoTitle {
+.cardWHeader {
   grid-area: var(--grid-area);
-}
-
-.cardWTitle {
-  outline: 1px solid #c4c4c4b2;
+  border-radius: var(--corner-radius);
+  border: 1px solid var(--light-grey, grey);
   background-color: white;
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: 35px 1fr;
 }
 
-.cardNoTitle .body {
-  height: 100%;
+.cardWHeader > *:first-child {
+  border-top-left-radius: var(--corner-radius);
+  border-top-right-radius: var(--corner-radius);
+  box-shadow: var(--underline-shadow);
 }
 
-.title,
-.cardWTitle .body {
+.body,
+.title {
   padding: 0.5rem;
 }
-
 .title {
   margin: 0;
-  box-shadow: var(--underline-shadow);
   display: flex;
   align-items: center;
   gap: 0.5rem;
