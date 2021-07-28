@@ -1,26 +1,29 @@
 import { Route, Router } from "preact-router";
-import { useReducer } from "preact/hooks";
+import { useState } from "preact/hooks";
 import { Header } from "./components/Header";
-import { CurrentLayoutCtx, initialState, stateReducer } from "./manageState";
+import layouts from "./layouts";
 import { About } from "./routes/About";
 import { GridGallery } from "./routes/GridGallery";
 import LayoutEditor from "./routes/LayoutEditor";
 
 export function App() {
-  // This initializes the state variable for the whole app
-  const [state, updateState] = useReducer(stateReducer, initialState);
+  const [currentLayout, updateLayout] = useState(layouts[0]);
 
   return (
-    // Make the current state available to all child components
-    <CurrentLayoutCtx.Provider value={{ state, updateState }}>
+    <>
       <Header />
       <div id="app-body">
         <Router>
-          <Route path="/" component={GridGallery} />
-          <Route path="/edit" component={LayoutEditor} />
-          <Route path="/about" component={About} />
+          <Route
+            path="/"
+            component={GridGallery}
+            layout={currentLayout}
+            updateLayout={updateLayout}
+          />
+          <Route path="/edit" component={LayoutEditor} layout={currentLayout} />
+          <Route path="/about" component={About} layout={currentLayout} />
         </Router>
       </div>
-    </CurrentLayoutCtx.Provider>
+    </>
   );
 }

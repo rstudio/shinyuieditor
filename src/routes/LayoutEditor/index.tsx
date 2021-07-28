@@ -1,14 +1,12 @@
-import { useContext } from "preact/hooks";
 import { FakeBrowser } from "../../components/FakeBrowser";
 import { GridCard } from "../../components/GridCard";
 import { GridContainer } from "../../components/GridContainer";
 import { GridPreviewItem } from "../../components/GridPreviewItem";
-import { CurrentLayoutCtx } from "../../manageState";
+import { GridLayoutTemplate } from "../../types";
 import classes from "./style.module.css";
 
-export default function LayoutEditor() {
-  const { state, updateState } = useContext(CurrentLayoutCtx);
-
+export default function LayoutEditor(props: { layout: GridLayoutTemplate }) {
+  const { layout } = props;
   return (
     <div className={classes.editor}>
       <GridCard title="Settings" gridArea="settings" />
@@ -16,8 +14,8 @@ export default function LayoutEditor() {
       <GridCard title="Elements" gridArea="elements" />
       <GridCard title="Editor" gridArea="editor">
         <FakeBrowser>
-          <GridContainer defs={state.layout}>
-            {state.layout.items.map(({ rows, cols }) => (
+          <GridContainer defs={layout}>
+            {layout.items.map(({ rows, cols }) => (
               <GridPreviewItem rows={rows} cols={cols} />
             ))}
           </GridContainer>
