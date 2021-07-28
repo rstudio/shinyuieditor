@@ -1,9 +1,14 @@
 .form {
   display: grid;
-  grid-template-columns: repeat(2, 55px);
+  grid-template-columns: 66px 55px;
   justify-content: center; /* Make sure to sit in middle of control */
   grid-gap: 2px;
   padding: 0.5rem;
+}
+
+.form input {
+  padding: 2px 6px;
+  font-weight: 500;
 }
 
 .form input,
@@ -12,6 +17,8 @@
   justify-self: stretch;
   height: 1.75rem;
   font-size: 1.1rem;
+  border-radius: var(--corner-radius);
+  border: 1px solid var(--light-grey);
 }
 
 .form.disabled {
