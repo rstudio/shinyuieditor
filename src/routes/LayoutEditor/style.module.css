@@ -6,5 +6,5 @@
   grid-template-areas:
     "settings     editor"
     "instructions editor"
-    "elements     editor";
+    "items     editor";
 }
