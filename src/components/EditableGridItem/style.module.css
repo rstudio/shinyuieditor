@@ -1,0 +1,6 @@
+.item {
+  grid-column: var(--cols, 1);
+  grid-row: var(--rows, 1);
+  background-color: var(--color, forestgreen);
+  border-radius: var(--corner-radius);
+}
