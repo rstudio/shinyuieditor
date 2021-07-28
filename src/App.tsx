@@ -17,6 +17,7 @@ export function App() {
           <Route
             path="/"
             component={GridGallery}
+            allLayouts={layouts}
             layout={currentLayout}
             updateLayout={updateLayout}
           />
