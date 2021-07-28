@@ -6,25 +6,27 @@ import classes from "./style.module.css";
 export function Header() {
   return (
     <header className={classes.header}>
-      <Link href="/">
-        <h1>Shiny Visual Editor</h1>
-      </Link>
-      <div className={classes.logos}>
-        <img src={rstudioLogo} alt="RStudio Logo" />
-        <img
-          src={shinyLogo}
-          style="background-color: var(--rstudio-blue)"
-          alt="Shiny Logo"
-        />
+      <div>
+        <Link href="/">
+          <h1>Shiny Visual Editor</h1>
+        </Link>
+        <div class={classes.logos}>
+          <img src={rstudioLogo} alt="RStudio Logo" />
+          <img
+            src={shinyLogo}
+            style="background-color: var(--rstudio-blue)"
+            alt="Shiny Logo"
+          />
+        </div>
       </div>
       <div class={classes.links}>
-        <Link activeClassName="active" href="/">
+        <Link activeClassName={classes.active} href="/">
           Gallery
         </Link>
-        <Link activeClassName="active" href="/edit">
+        <Link activeClassName={classes.active} href="/edit">
           Layout Editor
         </Link>
-        <Link activeClassName="active" href="/about">
+        <Link activeClassName={classes.active} href="/about">
           About
         </Link>
       </div>

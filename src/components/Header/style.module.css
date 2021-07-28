@@ -1,20 +1,32 @@
 .header {
   padding: 0.25rem 1rem;
   display: grid;
-  grid-template-columns: repeat(3, auto);
+  grid-template-columns: repeat(2, auto);
   grid-template-rows: 100%;
   justify-content: space-between;
   align-items: center;
   box-shadow: var(--underline-shadow);
 }
 
-.header h1 {
-  font-size: 2rem;
-  margin: 0;
-}
-
 .header a {
   text-decoration: none;
+}
+
+.header > div {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.logos {
+  height: 100%;
+}
+
+.logos > img {
+  margin: 0 1rem;
+  height: 100%;
+  border-radius: 1rem;
+  padding: 0.5rem;
 }
 
 .links {
@@ -39,15 +51,4 @@
 .links a.active {
   background-color: var(--rstudio-blue);
   color: white;
-}
-
-.logos {
-  height: 100%;
-}
-
-.logos > img {
-  margin: 0 1rem;
-  height: 100%;
-  border-radius: 1rem;
-  padding: 0.5rem;
 }
