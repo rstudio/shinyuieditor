@@ -3,7 +3,7 @@
   border: 1px solid var(--light-grey, grey);
   background-color: white;
   display: grid;
-  grid-template-rows: 35px 1fr;
+  grid-template-rows: var(--card-header-height, 35px) 1fr;
 }
 
 .cardWHeader > *:first-child {
@@ -12,10 +12,6 @@
   box-shadow: var(--underline-shadow);
 }
 
-.body,
-.title {
-  padding: 0.5rem;
-}
 .title {
   margin: 0;
   display: flex;
