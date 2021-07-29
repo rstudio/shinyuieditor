@@ -1,5 +1,5 @@
-import { FunctionComponent, JSX } from "preact";
-import { useState } from "preact/hooks";
+import { FunctionComponent } from "preact";
+import { useEffect, useState } from "preact/hooks";
 import {
   deparseCSSMeasure,
   parseCSSMeasure,
@@ -10,52 +10,40 @@ import classes from "./style.module.css";
 export const CssUnitInput: FunctionComponent<{
   startValue?: CSSMeasure | string;
   onChange: (value: CSSMeasure) => void;
-}> = ({ startValue = "1fr", onChange }) => {
-  const availableUnits = ["fr", "px", "rem", "auto"];
+  availableUnits?: Array<CSSUnits>;
+}> = ({
+  startValue = "1fr",
+  onChange,
+  availableUnits = ["fr", "px", "rem", "auto"],
+}) => {
+  const start = parseCSSMeasure(startValue);
+  const [currentCount, updateCount] = useState(start.count);
+  const [currentUnit, updateUnit] = useState(start.unit);
 
-  const { count: startCount, unit: startUnit } = parseCSSMeasure(startValue);
-
-  const [currentCount, updateCount] = useState(startCount);
-  const [currentUnit, updateUnit] = useState(startUnit);
-
-  const newValue = () => {
+  // Trigger the onChange callback anytime either the count or units update
+  useEffect(() => {
     onChange(deparseCSSMeasure({ count: currentCount, unit: currentUnit }));
-  };
-
-  const onSubmit: JSX.EventHandler<JSX.TargetedEvent<
-    HTMLFormElement,
-    Event
-  >> = (e) => {
-    newValue();
-    e.preventDefault();
-  };
-
-  const onCountInput: JSX.EventHandler<JSX.TargetedEvent<
-    HTMLInputElement,
-    Event
-  >> = (e) => {
-    const target = e.target as HTMLInputElement;
-    updateCount(Number(target.value));
-  };
-
-  const onUnitInput: JSX.EventHandler<JSX.TargetedEvent<
-    HTMLSelectElement,
-    Event
-  >> = (e) => {
-    const target = e.target as HTMLSelectElement;
-    updateUnit(target.value as CSSUnits);
-  };
+  }, [currentCount, currentUnit]);
 
   return (
-    <form class={classes.form} onSubmit={onSubmit} onChange={newValue}>
+    <form class={classes.form} onSubmit={(e) => e.preventDefault()}>
       <input
         type="number"
         min={0}
         value={currentCount}
         step={1}
-        onInput={onCountInput}
+        onInput={(e) => {
+          const target = e.target as HTMLInputElement;
+          updateCount(Number(target.value));
+        }}
       ></input>
-      <select value={currentUnit} onInput={onUnitInput}>
+      <select
+        value={currentUnit}
+        onInput={(e) => {
+          const target = e.target as HTMLSelectElement;
+          updateUnit(target.value as CSSUnits);
+        }}
+      >
         {availableUnits.map((unit) => (
           <option value={unit}>{unit}</option>
         ))}
