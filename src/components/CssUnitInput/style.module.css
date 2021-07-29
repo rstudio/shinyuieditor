@@ -1,9 +1,10 @@
 .form {
   display: grid;
-  grid-template-columns: 66px 55px;
+  width: var(--unit-input-width, 50px);
+  grid-template-columns: 55% 45%;
   justify-content: center; /* Make sure to sit in middle of control */
   grid-gap: 2px;
-  padding: 0.5rem;
+  padding: 5px;
 }
 
 .form input {
