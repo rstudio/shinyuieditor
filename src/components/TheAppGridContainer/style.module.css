@@ -3,8 +3,8 @@
   background-color: var(--light-grey, grey);
   border-radius: var(--corner-radius);
   --overhang: -20px;
-  --length: calc(100% - var(--overhang));
-  --thickness: min(calc(var(--gap) - 3px), 10px);
+  --length: calc(100% - 2 * var(--overhang));
+  --thickness: min(calc(var(--gap) - 3px), 6px);
   --offset: calc((var(--gap) + var(--thickness)) / -2);
 }
 

@@ -4,12 +4,12 @@ import classes from "./style.module.css";
 
 export function GridGallery({
   allLayouts,
-  currentLayout,
-  setLayout,
+  currentLayoutName,
+  chooseLayout,
 }: {
   allLayouts: Array<GridLayoutTemplate>;
-  currentLayout: GridLayoutTemplate;
-  setLayout: (newLayout: GridLayoutTemplate) => void;
+  currentLayoutName: string;
+  chooseLayout: (newLayoutName: string) => void;
 }) {
   return (
     <>
@@ -19,8 +19,8 @@ export function GridGallery({
           <GridPreview
             layout={layout}
             displaySize={200}
-            isCurrent={layout.name === currentLayout.name}
-            onClick={() => setLayout(layout)}
+            isCurrent={layout.name === currentLayoutName}
+            onClick={() => chooseLayout(layout.name)}
           />
         ))}
       </div>
