@@ -4,7 +4,7 @@ import {
   deparseCSSMeasure,
   parseCSSMeasure,
 } from "../../helper-scripts/css-helpers";
-import { CSSMeasure, CSSUnits } from "../../types";
+import type { CSSMeasure, CSSUnits } from "../../types";
 import classes from "./style.module.css";
 
 export const CssUnitInput: FunctionComponent<{
