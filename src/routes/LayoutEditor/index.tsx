@@ -10,6 +10,7 @@ import {
   SettingsIcon,
 } from "../../components/icons";
 import { ItemListItem } from "../../components/ItemListItem";
+import { TheAppGridContainer } from "../../components/TheAppGridContainer";
 import { TheInstructions } from "../../components/TheInstructions";
 import { parseCSSMeasure } from "../../helper-scripts/css-helpers";
 import { GridLayoutTemplate } from "../../types";
@@ -41,11 +42,11 @@ export default function LayoutEditor(props: { layout: GridLayoutTemplate }) {
         ))}
       </GridCard>
       <GridCard gridArea="editor" header={<FakeBrowserBar />}>
-        <GridContainer defs={layout}>
+        <TheAppGridContainer defs={layout}>
           {layout.items.map(({ rows, cols }) => (
             <EditableGridItem rows={rows} cols={cols} />
           ))}
-        </GridContainer>
+        </TheAppGridContainer>
       </GridCard>
     </div>
   );

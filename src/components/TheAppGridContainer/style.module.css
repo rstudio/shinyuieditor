@@ -1,0 +1,6 @@
+.container {
+  display: grid;
+  gap: var(--gap);
+  padding: var(--gap);
+  height: 100%;
+}
