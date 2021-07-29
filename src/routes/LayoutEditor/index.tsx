@@ -13,7 +13,9 @@ import { ItemListItem } from "../../components/ItemListItem";
 import { TheAppGridContainer } from "../../components/TheAppGridContainer";
 import { TheInstructions } from "../../components/TheInstructions";
 import { layoutUpdater } from "../../layout-updating-logic";
-import { CSSMeasure, GridLayoutTemplate } from "../../types";
+import { CSSMeasure, GridLayoutTemplate, TractValue } from "../../types";
+import { GridTractControl } from "../../components/GridTractControl";
+
 import classes from "./style.module.css";
 
 export default function LayoutEditor(props: {
@@ -28,6 +30,16 @@ export default function LayoutEditor(props: {
     updateLayout({
       type: "Change-Gap",
       gap: newGap,
+    });
+  };
+
+  const updateTract = (newTract: TractValue) => {
+    console.log(
+      `Tract Update:  ${newTract.dir} ${newTract.index} changed to ${newTract.val}`
+    );
+    updateLayout({
+      type: "Change-Tract",
+      value: newTract,
     });
   };
 
@@ -51,8 +63,24 @@ export default function LayoutEditor(props: {
           <ItemListItem name={id} isDeletable />
         ))}
       </GridCard>
-      <GridCard gridArea="editor" header={<FakeBrowserBar />}>
+      <GridCard gridArea="editor" header={<FakeBrowserBar />} padding={"0px"}>
         <TheAppGridContainer defs={layout}>
+          {layout.rows.map((r, i) => (
+            <GridTractControl
+              val={r}
+              index={i}
+              dir={"rows"}
+              onChange={updateTract}
+            />
+          ))}
+          {layout.cols.map((c, i) => (
+            <GridTractControl
+              val={c}
+              index={i}
+              dir={"cols"}
+              onChange={updateTract}
+            />
+          ))}
           {layout.items.map(({ rows, cols }) => (
             <EditableGridItem rows={rows} cols={cols} />
           ))}

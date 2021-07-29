@@ -1,0 +1,22 @@
+.rowSizeControls,
+.colSizeControls {
+  --size: 20px;
+  height: var(--size);
+  width: var(--size);
+  display: grid;
+}
+
+.rowSizeControls {
+  align-self: center;
+  margin-left: calc(-1 * (var(--size) + var(--gap)));
+  align-content: center;
+  justify-content: end;
+}
+.colSizeControls {
+  justify-self: center;
+  margin-top: calc(
+    -1 * (var(--size) + var(--gap) + var(--card-header-height, 35px))
+  );
+  justify-content: center;
+  align-content: end;
+}
