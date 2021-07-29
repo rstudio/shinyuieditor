@@ -1,22 +1,16 @@
 import { Route, Router } from "preact-router";
-import { useEffect, useReducer, useState } from "preact/hooks";
+import { useState } from "preact/hooks";
 import { Header } from "./components/Header";
-import { layoutUpdater } from "./layout-updating-logic";
 import layouts from "./layouts";
 import { About } from "./routes/About";
 import { GridGallery } from "./routes/GridGallery";
 import LayoutEditor from "./routes/LayoutEditor";
 
+const findLayout = (name: string) =>
+  layouts.find((l) => l.name === name) ?? layouts[0];
+
 export function App() {
   const [templateName, setTemplateName] = useState(layouts[0].name);
-
-  const [currentLayout, updateLayout] = useReducer(layoutUpdater, layouts[0]);
-
-  // Watch for changes in template name and update the current layout to be the
-  // fresh un-edited version of the layout by that name
-  useEffect(() => {
-    updateLayout({ type: "New-Template", name: templateName });
-  }, [templateName]);
 
   return (
     <>
@@ -33,10 +27,9 @@ export function App() {
           <Route
             path="/edit"
             component={LayoutEditor}
-            layout={currentLayout}
-            updateLayout={updateLayout}
+            startingLayout={findLayout(templateName)}
           />
-          <Route path="/about" component={About} layout={currentLayout} />
+          <Route path="/about" component={About} layoutName={templateName} />
         </Router>
       </div>
     </>

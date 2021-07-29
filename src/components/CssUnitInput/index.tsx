@@ -1,19 +1,25 @@
 import { FunctionComponent, JSX } from "preact";
 import { useState } from "preact/hooks";
+import {
+  deparseCSSMeasure,
+  parseCSSMeasure,
+} from "../../helper-scripts/css-helpers";
 import { CSSMeasure, CSSUnits } from "../../types";
 import classes from "./style.module.css";
 
 export const CssUnitInput: FunctionComponent<{
-  startValue?: CSSMeasure;
+  startValue?: CSSMeasure | string;
   onChange: (value: CSSMeasure) => void;
-}> = ({ startValue = { count: 1, unit: "fr" }, onChange }) => {
+}> = ({ startValue = "1fr", onChange }) => {
   const availableUnits = ["fr", "px", "rem", "auto"];
 
-  const [currentCount, updateCount] = useState(startValue.count);
-  const [currentUnit, updateUnit] = useState(startValue.unit);
+  const { count: startCount, unit: startUnit } = parseCSSMeasure(startValue);
+
+  const [currentCount, updateCount] = useState(startCount);
+  const [currentUnit, updateUnit] = useState(startUnit);
 
   const newValue = () => {
-    onChange({ count: currentCount, unit: currentUnit });
+    onChange(deparseCSSMeasure({ count: currentCount, unit: currentUnit }));
   };
 
   const onSubmit: JSX.EventHandler<JSX.TargetedEvent<

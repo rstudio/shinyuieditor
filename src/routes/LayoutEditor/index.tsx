@@ -1,3 +1,4 @@
+import { useReducer } from "preact/hooks";
 import { CssUnitInput } from "../../components/CssUnitInput";
 import { EditableGridItem } from "../../components/EditableGridItem";
 import { FakeBrowserBar } from "../../components/FakeBrowserBar";
@@ -11,34 +12,31 @@ import {
 import { ItemListItem } from "../../components/ItemListItem";
 import { TheAppGridContainer } from "../../components/TheAppGridContainer";
 import { TheInstructions } from "../../components/TheInstructions";
-import { parseCSSMeasure } from "../../helper-scripts/css-helpers";
-import { LayoutUpdateDispatch } from "../../layout-updating-logic";
+import { layoutUpdater } from "../../layout-updating-logic";
 import { CSSMeasure, GridLayoutTemplate } from "../../types";
 import classes from "./style.module.css";
 
 export default function LayoutEditor(props: {
-  layout: GridLayoutTemplate;
-  updateLayout: LayoutUpdateDispatch;
+  startingLayout: GridLayoutTemplate;
 }) {
-  const { layout, updateLayout } = props;
+  const [layout, updateLayout] = useReducer(
+    layoutUpdater,
+    props.startingLayout
+  );
+
   const updateGap = (newGap: CSSMeasure) => {
     updateLayout({
       type: "Change-Gap",
-      gap: `${newGap.count}${newGap.unit}`,
+      gap: newGap,
     });
   };
-
-  console.log("Rendering layout editor");
 
   return (
     <div className={classes.editor}>
       <GridCard title="Settings" icon={<SettingsIcon />} gridArea="settings">
         <TwoColumnGrid>
           <span> Grid Gap: </span>
-          <CssUnitInput
-            startValue={parseCSSMeasure(layout.gap)}
-            onChange={updateGap}
-          />
+          <CssUnitInput startValue={layout.gap} onChange={updateGap} />
         </TwoColumnGrid>
       </GridCard>
       <GridCard

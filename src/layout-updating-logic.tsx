@@ -1,15 +1,10 @@
-import layouts from "./layouts";
 import { GridLayoutTemplate } from "./types";
 
-export type LayoutUpdateActions =
-  | {
-      type: "New-Template";
-      name: string;
-    }
-  | {
-      type: "Change-Gap";
-      gap: string;
-    };
+type LayoutUpdateActions = {
+  type: "Change-Gap";
+  gap: string;
+};
+export type LayoutUpdateDispatch = (a: LayoutUpdateActions) => void;
 export const layoutUpdater = (
   currentLayout: GridLayoutTemplate,
   action: LayoutUpdateActions
@@ -20,8 +15,6 @@ export const layoutUpdater = (
         ...currentLayout,
         gap: action.gap,
       };
-    case "New-Template":
-      return layouts.find((l) => l.name === action.name) ?? currentLayout;
     default:
       throw new Error("Unexpected action");
   }

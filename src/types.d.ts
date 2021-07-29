@@ -17,8 +17,6 @@ export type GridLayoutTemplate = {
   name: string;
   items: GridItemDef[];
 };
-// export interface GridLayoutTemplate extends GridLayoutDef {
-// }
 
 type CSSUnits = "fr" | "px" | "rem" | "auto";
-type CSSMeasure = { count?: number; unit: CSSUnits };
+type CSSMeasure = `${number}${CSSUnits}`;
