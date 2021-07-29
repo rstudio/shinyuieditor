@@ -1,4 +1,5 @@
 import { ComponentChildren, JSX } from "preact";
+import { GridItem } from "../GridItem";
 import classes from "./style.module.css";
 
 export const GridCard = (props: {
@@ -8,10 +9,7 @@ export const GridCard = (props: {
   icon?: JSX.Element;
   header?: JSX.Element;
 }) => (
-  <div
-    className={classes.cardWHeader}
-    style={{ "--grid-area": props.gridArea }}
-  >
+  <GridItem className={classes.cardWHeader} gridArea={props.gridArea}>
     {"header" in props ? (
       props.header
     ) : (
@@ -21,5 +19,5 @@ export const GridCard = (props: {
       </h3>
     )}
     <div class={classes.body}>{props.children}</div>
-  </div>
+  </GridItem>
 );

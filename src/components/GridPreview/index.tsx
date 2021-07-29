@@ -1,6 +1,7 @@
 import type { GridLayoutTemplate } from "../../types";
 import { GridContainer } from "../GridContainer";
-import { GridPreviewItem } from "../GridPreviewItem";
+import { GridItem } from "../GridItem";
+
 import classes from "./style.module.css";
 
 export function GridPreview(props: {
@@ -42,7 +43,7 @@ export function GridPreview(props: {
         }}
       >
         {items.map(({ rows, cols }) => (
-          <GridPreviewItem rows={rows} cols={cols} />
+          <GridItem rows={rows} cols={cols} className={classes.item} />
         ))}
       </GridContainer>
     </div>

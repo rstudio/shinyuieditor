@@ -18,3 +18,8 @@
   box-shadow: rgb(50 50 93 / 25%) 0px 2px 8px 1px;
   border-radius: var(--corner-radius, 5px);
 }
+
+.item {
+  background-color: var(--rstudio-blue, forestgreen);
+  border-radius: var(--corner-radius);
+}

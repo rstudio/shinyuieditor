@@ -1,5 +1,4 @@
 .cardWHeader {
-  grid-area: var(--grid-area);
   border-radius: var(--corner-radius);
   border: 1px solid var(--light-grey, grey);
   background-color: white;
