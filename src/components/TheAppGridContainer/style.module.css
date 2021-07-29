@@ -1,6 +1,24 @@
-.container {
-  display: grid;
-  gap: var(--gap);
-  padding: var(--gap);
-  height: 100%;
+.colTractBoundary,
+.rowTractBoundary {
+  background-color: var(--light-grey, grey);
+  border-radius: var(--corner-radius);
+  --overhang: -20px;
+  --length: calc(100% - var(--overhang));
+  --thickness: min(calc(var(--gap) - 3px), 10px);
+  --offset: calc((var(--gap) + var(--thickness)) / -2);
+}
+
+.rowTractBoundary {
+  height: var(--thickness);
+  align-self: end;
+  margin-bottom: var(--offset);
+  width: var(--length);
+  margin-left: var(--overhang);
+}
+.colTractBoundary {
+  width: var(--thickness);
+  justify-self: end;
+  margin-right: var(--offset);
+  height: var(--length);
+  margin-top: var(--overhang);
 }
