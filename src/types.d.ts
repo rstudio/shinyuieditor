@@ -18,5 +18,12 @@ export type GridLayoutTemplate = {
   items: GridItemDef[];
 };
 
+export type GridTractDir = "rows" | "cols";
+export type TractValue = {
+  val: string | CSSMeasure;
+  dir: GridTractDir;
+  index: number;
+};
+
 type CSSUnits = "fr" | "px" | "rem" | "auto";
 type CSSMeasure = `${number}${CSSUnits}`;
