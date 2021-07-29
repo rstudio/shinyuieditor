@@ -26,7 +26,7 @@ export default [
     ] as GridItemDef[],
   },
   {
-    name: "Clasic",
+    name: "Classic",
     rows: ["100px", "1fr"],
     cols: ["150px", "1fr"],
     gap: "2rem",
