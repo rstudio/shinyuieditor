@@ -30,6 +30,7 @@ export const GridContainer: FunctionComponent<{
 };
 
 export const TwoColumnGrid: FunctionComponent = ({ children }) => {
+  console.log("Rendering TwoColumnGrid");
   return (
     <GridContainer
       defs={{ cols: ["1fr", "1fr"], gap: "0.5rem" }}

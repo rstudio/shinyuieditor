@@ -1,9 +1,8 @@
-import { useState } from "preact/hooks";
 import { CssUnitInput } from "../../components/CssUnitInput";
 import { EditableGridItem } from "../../components/EditableGridItem";
 import { FakeBrowserBar } from "../../components/FakeBrowserBar";
 import { GridCard } from "../../components/GridCard";
-import { GridContainer, TwoColumnGrid } from "../../components/GridContainer";
+import { TwoColumnGrid } from "../../components/GridContainer";
 import {
   InstructionsIcon,
   ItemsIcon,
@@ -13,20 +12,33 @@ import { ItemListItem } from "../../components/ItemListItem";
 import { TheAppGridContainer } from "../../components/TheAppGridContainer";
 import { TheInstructions } from "../../components/TheInstructions";
 import { parseCSSMeasure } from "../../helper-scripts/css-helpers";
-import { GridLayoutTemplate } from "../../types";
+import { LayoutUpdateDispatch } from "../../layout-updating-logic";
+import { CSSMeasure, GridLayoutTemplate } from "../../types";
 import classes from "./style.module.css";
 
-export default function LayoutEditor(props: { layout: GridLayoutTemplate }) {
-  const { layout } = props;
+export default function LayoutEditor(props: {
+  layout: GridLayoutTemplate;
+  updateLayout: LayoutUpdateDispatch;
+}) {
+  const { layout, updateLayout } = props;
+  const updateGap = (newGap: CSSMeasure) => {
+    updateLayout({
+      type: "Change-Gap",
+      gap: `${newGap.count}${newGap.unit}`,
+    });
+  };
 
-  const [currentGap, updateGap] = useState(parseCSSMeasure(layout.gap));
+  console.log("Rendering layout editor");
 
   return (
     <div className={classes.editor}>
       <GridCard title="Settings" icon={<SettingsIcon />} gridArea="settings">
         <TwoColumnGrid>
           <span> Grid Gap: </span>
-          <CssUnitInput startValue={currentGap} onChange={updateGap} />
+          <CssUnitInput
+            startValue={parseCSSMeasure(layout.gap)}
+            onChange={updateGap}
+          />
         </TwoColumnGrid>
       </GridCard>
       <GridCard
