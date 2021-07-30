@@ -14,3 +14,13 @@
 .isDeletable {
   justify-content: space-between;
 }
+.item button {
+  color: white;
+  background-color: var(--rstudio-blue);
+  border-width: 0px;
+  border-radius: var(--corner-radius);
+}
+
+.item button:hover {
+  box-shadow: 0px 0px 0px 1px white;
+}

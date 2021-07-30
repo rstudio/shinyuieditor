@@ -9,22 +9,26 @@ type LayoutUpdateActions =
     }
   | ({
       type: "Change-Tract";
-    } & TractValue);
+    } & TractValue)
+  | { type: "Delete-Item"; name: string };
 export type LayoutUpdateDispatch = (a: LayoutUpdateActions) => void;
 
 export const layoutUpdater = (
   currentLayout: GridLayoutTemplate,
   action: LayoutUpdateActions
 ) => {
+  const newLayout = { ...currentLayout };
   switch (action.type) {
     case "Change-Gap":
-      return {
-        ...currentLayout,
-        gap: action.gap,
-      };
+      newLayout.gap = action.gap;
+      return newLayout;
     case "Change-Tract":
-      const newLayout = { ...currentLayout };
       newLayout[action.dir][action.index] = action.val;
+      return newLayout;
+    case "Delete-Item":
+      newLayout.items = newLayout.items.filter(
+        (item) => item.id !== action.name
+      );
       return newLayout;
     default:
       throw new Error("Unexpected action");
