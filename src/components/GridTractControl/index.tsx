@@ -1,30 +1,28 @@
+import { useContext } from "preact/hooks";
+import {
+  LayoutDispatch,
+  LayoutUpdateDispatch,
+} from "../../layout-updating-logic";
 import { CSSMeasure, TractValue } from "../../types";
 import { CssUnitInput } from "../CssUnitInput";
 import { GridItem } from "../GridItem";
 import classes from "./style.module.css";
 
-export const GridTractControl = ({
-  val,
-  dir,
-  index,
-  onChange,
-}: TractValue & {
-  onChange: (newValue: TractValue) => void;
-}) => {
-  const tractPlacement: [number, number] = [index + 1, index + 1];
-  const offDirectionPlacement: [number, number] = [1, -1];
+export const GridTractControl = ({ val, dir, index }: TractValue) => {
+  const layoutDispatch = useContext(LayoutDispatch) as LayoutUpdateDispatch;
+  const gridI = index + 1;
+  const isRows = dir === "rows";
   return (
     <GridItem
-      rows={dir === "rows" ? tractPlacement : offDirectionPlacement}
-      cols={dir === "cols" ? tractPlacement : offDirectionPlacement}
-      className={
-        dir === "rows" ? classes.rowSizeControls : classes.colSizeControls
-      }
+      rows={isRows ? [gridI, gridI] : [1, -1]}
+      cols={isRows ? [1, -1] : [gridI, gridI]}
+      className={isRows ? classes.rowSizeControls : classes.colSizeControls}
     >
       <CssUnitInput
         startValue={val as CSSMeasure}
         onChange={(newVal: CSSMeasure) => {
-          onChange({
+          layoutDispatch({
+            type: "Change-Tract",
             val: newVal,
             dir,
             index,
