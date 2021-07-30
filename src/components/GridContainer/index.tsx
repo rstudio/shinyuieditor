@@ -19,8 +19,7 @@ export const GridContainer: FunctionComponent<{
   if (cols) styles.gridTemplateColumns = cols.join(" ");
   if (rows) styles.gridTemplateRows = rows.join(" ");
 
-  let containerClass = classes.container;
-  if (className) containerClass += " " + className;
+  const containerClass = classes.container + (className ? " " + className : "");
 
   return (
     <div class={containerClass} style={styles}>
