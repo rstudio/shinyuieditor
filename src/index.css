@@ -15,7 +15,7 @@ body {
   --rstudio-white: #ffffff;
   --light-grey: #c4c4c4b2;
   --header-height: 60px;
-  --underline-shadow: 0px 1px 3px 0px #c4c4c4;
+  --underline-shadow: 0px 1px 3px 0px var(--light-grey);
   --corner-radius: 5px;
   --unit-input-width: 135px;
   --card-header-height: 35px;
