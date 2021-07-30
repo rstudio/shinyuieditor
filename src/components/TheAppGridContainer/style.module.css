@@ -4,7 +4,7 @@
   border-radius: var(--corner-radius);
   --overhang: -20px;
   --length: calc(100% - 2 * var(--overhang));
-  --thickness: min(calc(var(--gap) - 3px), 6px);
+  --thickness: min(calc(var(--gap) - 3px), 4px);
   --offset: calc((var(--gap) + var(--thickness)) / -2);
 }
 
