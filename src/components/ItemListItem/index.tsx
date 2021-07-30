@@ -19,8 +19,9 @@ export const ItemListItem = ({
           onClick={() => {
             layoutDispatch({ type: "Delete-Item", name });
           }}
+          title={`Delete ${name} item`}
         >
-          <TrashcanIcon />{" "}
+          <TrashcanIcon />
         </button>
       ) : null}
     </div>
