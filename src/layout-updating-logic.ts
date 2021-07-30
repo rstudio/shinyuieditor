@@ -1,4 +1,5 @@
 import { createContext } from "preact";
+import { useContext } from "preact/hooks";
 import { GridLayoutTemplate, TractValue } from "./types";
 
 type LayoutUpdateActions =
@@ -36,3 +37,7 @@ export const layoutUpdater = (
 // rerender the component.
 // https://reactjs.org/docs/hooks-faq.html#how-to-avoid-passing-callbacks-down
 export const LayoutDispatch = createContext<LayoutUpdateDispatch | null>(null);
+
+export const useLayoutDispatch = () => {
+  return useContext(LayoutDispatch) as LayoutUpdateDispatch;
+};
