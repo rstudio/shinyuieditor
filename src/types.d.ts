@@ -1,16 +1,19 @@
-export type GridItemDef = {
+// A single export is needed in this file to let typescript know the types go out
+export
+
+type GridItemDef = {
   id: string;
   rows: [number, number];
   cols: [number, number];
 };
 
-export type GridLayoutDef = {
+type GridLayoutDef = {
   rows?: string[];
   cols?: string[];
   gap: string;
 };
 
-export type GridLayoutTemplate = {
+type GridLayoutTemplate = {
   rows: string[];
   cols: string[];
   gap: string;
@@ -18,8 +21,8 @@ export type GridLayoutTemplate = {
   items: GridItemDef[];
 };
 
-export type GridTractDir = "rows" | "cols";
-export type TractValue = {
+type GridTractDir = "rows" | "cols";
+type TractValue = {
   val: string | CSSMeasure;
   dir: GridTractDir;
   index: number;
