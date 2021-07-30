@@ -45,7 +45,7 @@
 
 .links a:hover,
 .links a:active {
-  border: 1px solid var(--rstudio-grey);
+  box-shadow: 0px 0px 0px 1px var(--rstudio-grey);
 }
 
 .links a.active {
