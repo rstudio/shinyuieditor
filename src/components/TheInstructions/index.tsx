@@ -1,7 +1,8 @@
-import { PlusIcon, TrashcanIcon } from "./icons";
+import { PlusIcon, TrashcanIcon } from "../icons";
+import classes from "./style.module.css";
 
 export const TheInstructions = () => (
-  <>
+  <div class={classes.instructionList}>
     <strong>Add or remove a row/column:</strong>
     <ul>
       <li>
@@ -34,5 +35,5 @@ export const TheInstructions = () => (
       </li>
       <li>You can't remove elements are part of a running app</li>
     </ul>
-  </>
+  </div>
 );
