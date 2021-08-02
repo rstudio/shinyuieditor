@@ -33,3 +33,6 @@ type TractValue = {
 
 type CSSUnits = "fr" | "px" | "rem" | "auto";
 type CSSMeasure = `${number}${CSSUnits}`;
+
+
+type DragDir = "topLeft" | "topRight" | "bottomLeft" | "bottomRight" | "middle";
