@@ -1,7 +1,7 @@
 import { FunctionComponent } from "preact";
 import classes from "./style.module.css";
 
-export const FakeBrowserBar = () => {
+export const TheFakeBrowserBar = () => {
   return (
     <div class={classes.menuBar}>
       <div class={classes.buttons}>
@@ -19,7 +19,7 @@ export const FakeBrowserBar = () => {
 export const FakeBrowser: FunctionComponent<{}> = ({ children }) => {
   return (
     <div class={classes.fakeBrowser}>
-      <FakeBrowserBar />
+      <TheFakeBrowserBar />
       {children}
     </div>
   );

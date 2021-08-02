@@ -1,4 +1,4 @@
-import { useLayoutDispatch } from "../../layout-updating-logic";
+import { useLayoutDispatch } from "../../state-logic/layout-updating-logic";
 import { CSSMeasure, TractValue } from "../../types";
 import { CssUnitInput } from "../CssUnitInput";
 import { GridItem } from "../GridItem";

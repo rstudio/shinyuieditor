@@ -1,6 +1,6 @@
 import { RefObject } from "preact";
 import { useRef } from "preact/hooks";
-import { useLayoutDispatch } from "../../layout-updating-logic";
+import { useLayoutDispatch } from "../../state-logic/layout-updating-logic";
 import type { DragDir, GridItemDef, ItemTractPos } from "../../types";
 import { DragHangle } from "../DragHangle";
 import classes from "./style.module.css";

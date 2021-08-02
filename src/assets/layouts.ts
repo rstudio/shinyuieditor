@@ -1,4 +1,4 @@
-import type { GridItemDef } from "./types";
+import type { GridItemDef } from "../types";
 
 export default [
   {

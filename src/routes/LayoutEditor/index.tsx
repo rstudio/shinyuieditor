@@ -3,7 +3,10 @@ import { TheAppGridContainer } from "../../components/TheAppGridContainer";
 import { TheInstructions } from "../../components/TheInstructions";
 import { TheItemsListView } from "../../components/TheItemsListView";
 import { TheSettingsPanel } from "../../components/TheSettingsPanel";
-import { LayoutDispatch, layoutUpdater } from "../../layout-updating-logic";
+import {
+  LayoutDispatch,
+  layoutUpdater,
+} from "../../state-logic/layout-updating-logic";
 import { GridLayoutTemplate } from "../../types";
 import classes from "./style.module.css";
 

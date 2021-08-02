@@ -1,7 +1,7 @@
-import { DragPos } from "../../drag-logic";
+import { DragPos } from "../../state-logic/drag-logic";
 import classes from "./style.module.css";
 
-export function DragFeedbackRect({ status }: { status: DragPos }) {
+export function TheDragFeedbackRect({ status }: { status: DragPos }) {
   if (status)
     return (
       <div

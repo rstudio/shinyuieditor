@@ -1,6 +1,6 @@
-import { PlusIcon, TrashcanIcon } from "../icons";
+import { PlusIcon, TrashcanIcon } from "../Icons";
 import { GridCard } from "../GridCard";
-import { InstructionsIcon } from "../icons";
+import { InstructionsIcon } from "../Icons";
 import classes from "./style.module.css";
 
 export const TheInstructions = () => (

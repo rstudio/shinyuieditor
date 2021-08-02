@@ -1,10 +1,10 @@
 import { FunctionComponent, JSX, RefObject } from "preact";
 import { useReducer } from "preact/hooks";
-import { DragDispatch, dragUpdater } from "../../drag-logic";
+import { DragDispatch, dragUpdater } from "../../state-logic/drag-logic";
 import { GridLayoutTemplate } from "../../types";
-import { DragFeedbackRect } from "../DragFeedbackRect";
+import { TheDragFeedbackRect } from "../TheDragFeedbackRect";
 import { EditableGridItem } from "../EditableGridItem";
-import { FakeBrowserBar } from "../FakeBrowserBar";
+import { TheFakeBrowserBar } from "../TheFakeBrowserBar";
 import { GridCard } from "../GridCard";
 import { GridContainer } from "../GridContainer";
 import { GridItem } from "../GridItem";
@@ -56,7 +56,7 @@ export const TheAppGridContainer: FunctionComponent<{
   ));
 
   return (
-    <GridCard gridArea="editor" header={<FakeBrowserBar />} padding={"0px"}>
+    <GridCard gridArea="editor" header={<TheFakeBrowserBar />} padding={"0px"}>
       <DragDispatch.Provider value={updateDragState}>
         <GridContainer defs={layout} styles={{ ...extraStyles, "--gap": gap }}>
           {gridItems}
@@ -64,7 +64,7 @@ export const TheAppGridContainer: FunctionComponent<{
           {colTractLines}
           {rowControls}
           {colControls}
-          <DragFeedbackRect status={dragState} />
+          <TheDragFeedbackRect status={dragState} />
         </GridContainer>
       </DragDispatch.Provider>
     </GridCard>

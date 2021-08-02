@@ -1,7 +1,7 @@
 import { Route, Router } from "preact-router";
 import { useState } from "preact/hooks";
-import { Header } from "./components/Header";
-import layouts from "./layouts";
+import { TheHeader } from "./components/TheHeader";
+import layouts from "./assets/layouts";
 import { About } from "./routes/About";
 import { GridGallery } from "./routes/GridGallery";
 import LayoutEditor from "./routes/LayoutEditor";
@@ -14,7 +14,7 @@ export function App() {
 
   return (
     <>
-      <Header />
+      <TheHeader />
       <div id="app-body">
         <Router>
           <Route

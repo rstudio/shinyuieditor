@@ -1,6 +1,6 @@
 import { createContext } from "preact";
 import { useContext } from "preact/hooks";
-import { GridLayoutTemplate, ItemTractPos, TractValue } from "./types";
+import { GridLayoutTemplate, ItemTractPos, TractValue } from "../types";
 
 type LayoutUpdateActions =
   | {

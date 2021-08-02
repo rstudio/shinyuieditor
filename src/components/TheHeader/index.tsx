@@ -3,7 +3,7 @@ import rstudioLogo from "../../assets/RStudio-Logo.svg";
 import shinyLogo from "../../assets/Shiny-Logo.png";
 import classes from "./style.module.css";
 
-export function Header() {
+export function TheHeader() {
   return (
     <header className={classes.header}>
       <div>

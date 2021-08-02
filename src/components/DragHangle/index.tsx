@@ -1,5 +1,5 @@
 import { RefObject } from "preact";
-import { useDragDispatch } from "../../drag-logic";
+import { useDragDispatch } from "../../state-logic/drag-logic";
 import { DragDir } from "../../types";
 import {
   BottomLeftArrow,
@@ -7,7 +7,7 @@ import {
   MoveIcon,
   TopLeftArrow,
   TopRightArrow,
-} from "../icons";
+} from "../Icons";
 import classes from "./style.module.css";
 
 export const DragHangle = ({

@@ -1,9 +1,9 @@
-import { useLayoutDispatch } from "../../layout-updating-logic";
+import { useLayoutDispatch } from "../../state-logic/layout-updating-logic";
 import { CSSMeasure, GridLayoutTemplate } from "../../types";
 import { CssUnitInput } from "../CssUnitInput";
 import { GridCard } from "../GridCard";
 import { TwoColumnGrid } from "../GridContainer";
-import { SettingsIcon } from "../icons";
+import { SettingsIcon } from "../Icons";
 
 export const TheSettingsPanel = ({
   gap,
