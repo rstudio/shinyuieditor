@@ -1,3 +1,8 @@
+import { Stringifier } from "postcss";
+import { RefObject } from "preact";
+import { useEffect, useRef } from "preact/hooks";
+import { useLayoutDispatch } from "../../layout-updating-logic";
+import { GridItemDef, ItemTractPos } from "../../types";
 import {
   BottomLeftArrow,
   BottomRightArrow,
@@ -9,61 +14,101 @@ import classes from "./style.module.css";
 
 type DragDir = "topLeft" | "topRight" | "bottomLeft" | "bottomRight" | "middle";
 
-const MoveIcon = ({ type }: { type: DragDir }) => {
+const MoveIcon = ({
+  type,
+  onDrag,
+  editorRef,
+}: {
+  type: DragDir;
+  onDrag: (type: DragDir) => void;
+  editorRef: RefObject<HTMLDivElement>;
+}) => {
+  let iconElement: JSX.Element;
   switch (type) {
     case "middle":
-      return (
-        <span class={classes.middle}>
-          <DragIcon />
-        </span>
-      );
+      iconElement = <DragIcon />;
+      break;
     case "topLeft":
-      return (
-        <span class={classes.topLeft}>
-          <TopLeftArrow />
-        </span>
-      );
+      iconElement = <TopLeftArrow />;
+      break;
     case "topRight":
-      return (
-        <span class={classes.topRight}>
-          <TopRightArrow />
-        </span>
-      );
+      iconElement = <TopRightArrow />;
+      break;
     case "bottomLeft":
-      return (
-        <span class={classes.bottomLeft}>
-          <BottomLeftArrow />
-        </span>
-      );
+      iconElement = <BottomLeftArrow />;
+      break;
     case "bottomRight":
-      return (
-        <span class={classes.bottomRight}>
-          <BottomRightArrow />
-        </span>
-      );
+      iconElement = <BottomRightArrow />;
+      break;
     default:
       console.error("That shouldnt happen");
       return null;
   }
+
+  const startDrag = (e: Event) => {
+    console.log(`Starting to drag!`);
+    editorRef.current?.addEventListener("mousemove", duringDrag);
+    editorRef.current?.addEventListener("mouseup", endDrag);
+  };
+
+  const endDrag = (e: Event) => {
+    console.log(`Ending drag!`);
+
+    editorRef.current?.removeEventListener("mousemove", duringDrag);
+    editorRef.current?.removeEventListener("mouseup", endDrag);
+  };
+
+  const duringDrag = (e: Event) => {
+    onDrag(type);
+  };
+
+  return (
+    <span class={classes[type]} onMouseDown={(e) => startDrag(e)}>
+      {iconElement}
+    </span>
+  );
 };
 
-export function EditableGridItem(props: {
-  rows: [number, number];
-  cols: [number, number];
-}) {
+const allDirections: Array<DragDir> = [
+  "middle",
+  "topLeft",
+  "topRight",
+  "bottomLeft",
+  "bottomRight",
+];
+
+export function EditableGridItem(
+  props: GridItemDef & {
+    editorRef: RefObject<HTMLDivElement>;
+  }
+) {
+  const layoutDispatch = useLayoutDispatch();
+  const gridItem = useRef<HTMLDivElement>(null);
+
+  const onDrag = (type: DragDir) => {
+    const updatedCols: ItemTractPos = [...props.cols];
+    updatedCols[0] += 1;
+
+    layoutDispatch({
+      type: "Move-Item",
+      name: props.name,
+      rows: props.rows,
+      cols: updatedCols,
+    });
+    console.log(`Dragging in ${type}`);
+  };
   return (
     <div
+      ref={gridItem}
       class={classes.item}
       style={{
         "--cols": props.cols.join("/"),
         "--rows": props.rows.join("/"),
       }}
     >
-      <MoveIcon type={"middle"} />
-      <MoveIcon type={"topLeft"} />
-      <MoveIcon type={"topRight"} />
-      <MoveIcon type={"bottomLeft"} />
-      <MoveIcon type={"bottomRight"} />
+      {allDirections.map((dir) => (
+        <MoveIcon onDrag={onDrag} type={dir} editorRef={props.editorRef} />
+      ))}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { useReducer } from "preact/hooks";
+import { useReducer, useRef } from "preact/hooks";
 import { CssUnitInput } from "../../components/CssUnitInput";
 import { EditableGridItem } from "../../components/EditableGridItem";
 import { FakeBrowserBar } from "../../components/FakeBrowserBar";
@@ -25,9 +25,13 @@ export default function LayoutEditor(props: {
     props.startingLayout
   );
 
+  // We need a reference to the main parent element of everything so we can
+  // attach event handlers for drag detection to it.
+  const editorRef = useRef<HTMLDivElement>(null);
+
   return (
     <LayoutDispatch.Provider value={updateLayout}>
-      <div className={classes.editor}>
+      <div className={classes.editor} ref={editorRef}>
         <GridCard title="Settings" icon={<SettingsIcon />} gridArea="settings">
           <TwoColumnGrid>
             <span> Grid Gap: </span>
@@ -62,8 +66,13 @@ export default function LayoutEditor(props: {
             {layout.cols.map((c, i) => (
               <GridTractControl val={c} index={i} dir={"cols"} />
             ))}
-            {layout.items.map(({ rows, cols }) => (
-              <EditableGridItem rows={rows} cols={cols} />
+            {layout.items.map(({ name, rows, cols }) => (
+              <EditableGridItem
+                name={name}
+                rows={rows}
+                cols={cols}
+                editorRef={editorRef}
+              />
             ))}
           </TheAppGridContainer>
         </GridCard>
