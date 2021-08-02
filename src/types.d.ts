@@ -1,10 +1,12 @@
 // A single export is needed in this file to let typescript know the types go out
 export
 
+type ItemTractPos = [number, number];
+
 type GridItemDef = {
-  id: string;
-  rows: [number, number];
-  cols: [number, number];
+  name: string;
+  rows: ItemTractPos;
+  cols: ItemTractPos;
 };
 
 type GridLayoutDef = {
@@ -12,6 +14,7 @@ type GridLayoutDef = {
   cols?: string[];
   gap: string;
 };
+
 
 type GridLayoutTemplate = {
   rows: string[];

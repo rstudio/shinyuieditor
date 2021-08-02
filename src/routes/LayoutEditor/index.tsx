@@ -50,8 +50,8 @@ export default function LayoutEditor(props: {
           <TheInstructions />
         </GridCard>
         <GridCard title="Items" icon={<ItemsIcon />} gridArea="items">
-          {layout.items.map(({ id }) => (
-            <ItemListItem name={id} isDeletable />
+          {layout.items.map(({ name }) => (
+            <ItemListItem name={name} isDeletable />
           ))}
         </GridCard>
         <GridCard gridArea="editor" header={<FakeBrowserBar />} padding={"0px"}>
