@@ -1,8 +1,19 @@
 import { useLayoutDispatch } from "../../layout-updating-logic";
+import { GridItemDef } from "../../types";
 import { TrashcanIcon } from "../icons";
+import { GridCard } from "../GridCard";
+import { ItemsIcon } from "../icons";
 import classes from "./style.module.css";
 
-export const ItemListItem = ({
+export const TheItemsListView = ({ items }: { items: GridItemDef[] }) => (
+  <GridCard title="Items" icon={<ItemsIcon />} gridArea="items">
+    {items.map(({ name }) => (
+      <ItemListItem name={name} isDeletable />
+    ))}
+  </GridCard>
+);
+
+const ItemListItem = ({
   name,
   isDeletable,
 }: {

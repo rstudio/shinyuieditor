@@ -1,0 +1,11 @@
+.rect {
+  outline: 3px solid tomato;
+  position: absolute;
+  top: calc(var(--top) + var(--gap));
+  left: calc(var(--left) + var(--gap));
+  pointer-events: none;
+}
+
+.hidden {
+  display: none;
+}
