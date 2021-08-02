@@ -1,6 +1,6 @@
 import { createContext } from "preact";
 import { useContext } from "preact/hooks";
-import { GridLayoutTemplate, TractValue } from "./types";
+import { GridLayoutTemplate, ItemTractPos, TractValue } from "./types";
 
 type LayoutUpdateActions =
   | {
@@ -10,7 +10,8 @@ type LayoutUpdateActions =
   | ({
       type: "Change-Tract";
     } & TractValue)
-  | { type: "Delete-Item"; name: string };
+  | { type: "Delete-Item"; name: string }
+  | { type: "Move-Item"; name: string; rows: ItemTractPos; cols: ItemTractPos };
 export type LayoutUpdateDispatch = (a: LayoutUpdateActions) => void;
 
 export const layoutUpdater = (
@@ -27,8 +28,17 @@ export const layoutUpdater = (
       return newLayout;
     case "Delete-Item":
       newLayout.items = newLayout.items.filter(
-        (item) => item.id !== action.name
+        (item) => item.name !== action.name
       );
+      return newLayout;
+    case "Move-Item":
+      newLayout.items = newLayout.items.map((item) => {
+        if (item.name === action.name) {
+          item.rows = action.rows;
+          item.cols = action.cols;
+        }
+        return item;
+      });
       return newLayout;
     default:
       throw new Error("Unexpected action");
