@@ -9,8 +9,17 @@ type LayoutUpdateActions =
       type: "Set-Tract";
       tract: TractValue;
     }
-  | { type: "Delete-Item"; name: string }
-  | { type: "Move-Item"; name: string; rows: ItemTractPos; cols: ItemTractPos };
+  | {
+      type: "Delete-Item";
+      name: string;
+    }
+  | {
+      type: "Move-Item";
+      name: string;
+      rows: ItemTractPos;
+      cols: ItemTractPos;
+    };
+
 export type LayoutUpdateDispatch = (a: LayoutUpdateActions) => void;
 
 export const layoutUpdater = (
