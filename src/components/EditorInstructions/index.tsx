@@ -1,24 +1,19 @@
-import { PlusIcon, TrashcanIcon } from "../Icons";
 import { GridCard } from "../GridCard";
-import { InstructionsIcon } from "../Icons";
+import { SvgIcon } from "../Icons";
 import classes from "./style.module.css";
 
 export const EditorInstructions = () => (
-  <GridCard
-    title="Instructions"
-    icon={<InstructionsIcon />}
-    gridArea="instructions"
-  >
+  <GridCard title="Instructions" icon="instructions" gridArea="instructions">
     <div className={classes.instructionList}>
       <strong>Add or remove a row/column:</strong>
       <ul>
         <li>
-          Click the <PlusIcon /> in gaps between rows and columns to add a row
-          or column at that location
+          Click the <SvgIcon name={"plus"} /> in gaps between rows and columns
+          to add a row or column at that location
         </li>
         <li>
-          Click the <TrashcanIcon /> next to the row/column sizing controls to
-          remove it
+          Click the <SvgIcon name={"trashcan"} /> next to the row/column sizing
+          controls to remove it
         </li>
       </ul>
       <strong>Add an element:</strong>
@@ -37,7 +32,7 @@ export const EditorInstructions = () => (
       <ul>
         <li>
           Find element entry in &quot;Added elements&quot; panel and click the
-          <TrashcanIcon />
+          <SvgIcon name={"trashcan"} />
           icon
         </li>
         <li>You can&apos;t remove elements are part of a running app</li>

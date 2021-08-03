@@ -1,6 +1,7 @@
 import { ComponentChildren, JSX } from "preact";
 import { CSSMeasure } from "../../types";
 import { GridItem } from "../GridItem";
+import { SvgIcon } from "../Icons";
 import classes from "./style.module.css";
 
 type GridCardCommonProps = {
@@ -10,7 +11,7 @@ type GridCardCommonProps = {
 };
 
 export function GridCard(
-  props: GridCardCommonProps & { title: string; icon?: JSX.Element }
+  props: GridCardCommonProps & { title: string; icon?: string }
 ): JSX.Element;
 export function GridCard(
   props: GridCardCommonProps & { header: JSX.Element }
@@ -18,7 +19,7 @@ export function GridCard(
 export function GridCard(
   props: GridCardCommonProps & {
     title?: string;
-    icon?: JSX.Element;
+    icon?: string;
     header?: JSX.Element;
   }
 ) {
@@ -29,7 +30,7 @@ export function GridCard(
         props.header
       ) : (
         <h3 className={classes.title} style={{ padding }}>
-          {props.icon}
+          <SvgIcon name={props.icon} />
           {props.title}
         </h3>
       )}
