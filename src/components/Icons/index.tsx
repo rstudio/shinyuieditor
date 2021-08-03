@@ -1,3 +1,5 @@
+import { DragDir } from "../../types";
+
 export const VerticalDragIcon = () => (
   <svg style="width:24px;height:24px" viewBox="0 0 24 24">
     <path fill="currentColor" d="M21 11H3V9H21V11M21 13H3V15H21V13Z" />
@@ -133,3 +135,21 @@ export const UpdownIcon = () => (
     />
   </svg>
 );
+
+export const DragIcon = ({ type }: { type: DragDir }) => {
+  switch (type) {
+    case "middle":
+      return <MoveIcon />;
+    case "topLeft":
+      return <TopLeftArrow />;
+    case "topRight":
+      return <TopRightArrow />;
+    case "bottomLeft":
+      return <BottomLeftArrow />;
+    case "bottomRight":
+      return <BottomRightArrow />;
+    default:
+      console.error("That direction doesn't have an icon");
+      return <MoveIcon />;
+  }
+};

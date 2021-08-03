@@ -1,7 +1,7 @@
 import type { RefObject } from "preact";
 import { DragUpdateDispatch } from "../../state-logic/drag-logic";
-import type { GridLayoutTemplate } from "../../types";
-import { DragHandles } from "../DragHangles";
+import type { DragDir, GridLayoutTemplate } from "../../types";
+import { DragIcon } from "../Icons";
 import classes from "./style.module.css";
 
 export const EditableGridItems = ({
@@ -13,6 +13,29 @@ export const EditableGridItems = ({
   editorRef: RefObject<HTMLDivElement>;
   dragDispatch: DragUpdateDispatch;
 }) => {
+  const startDrag = (e: MouseEvent) => {
+    dragDispatch({
+      type: "start",
+      pos: { x: e.offsetX, y: e.offsetY },
+    });
+    console.log("Starting to drag!!!");
+    editorRef.current?.addEventListener("mousemove", duringDrag);
+    editorRef.current?.addEventListener("mouseup", endDrag);
+  };
+
+  const endDrag = () => {
+    console.log("Ending drag!");
+    dragDispatch({ type: "end" });
+    editorRef.current?.removeEventListener("mousemove", duringDrag);
+    editorRef.current?.removeEventListener("mouseup", endDrag);
+  };
+
+  const duringDrag = (e: MouseEvent) => {
+    dragDispatch({
+      type: "move",
+      pos: { x: e.offsetX, y: e.offsetY },
+    });
+  };
   return (
     <>
       {items.map(({ name, rows, cols }) => (
@@ -25,9 +48,21 @@ export const EditableGridItems = ({
           }}
           title={name}
         >
-          <DragHandles editorRef={editorRef} dispatch={dragDispatch} />
+          {directions.map((dir) => (
+            <span key={dir} className={classes[dir]} onMouseDown={startDrag}>
+              <DragIcon type={dir} />
+            </span>
+          ))}
         </div>
       ))}
     </>
   );
 };
+
+const directions: Array<DragDir> = [
+  "middle",
+  "topLeft",
+  "topRight",
+  "bottomLeft",
+  "bottomRight",
+];
