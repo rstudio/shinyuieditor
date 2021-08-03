@@ -2,13 +2,12 @@ import { FunctionComponent, JSX, RefObject } from "preact";
 import { useReducer } from "preact/hooks";
 import { DragDispatch, dragUpdater } from "../../state-logic/drag-logic";
 import { GridLayoutTemplate } from "../../types";
-import { TheDragFeedbackRect } from "../TheDragFeedbackRect";
 import { EditableGridItem } from "../EditableGridItem";
-import { TheFakeBrowserBar } from "../TheFakeBrowserBar";
 import { GridCard } from "../GridCard";
 import { GridContainer } from "../GridContainer";
 import { GridItem } from "../GridItem";
-import { GridTractControl } from "../GridTractControl";
+import { TheDragFeedbackRect } from "../TheDragFeedbackRect";
+import { TheFakeBrowserBar } from "../TheFakeBrowserBar";
 import classes from "./style.module.css";
 
 // A grid container that also displays a grid of all cells in background
@@ -16,7 +15,7 @@ export const TheAppGridContainer: FunctionComponent<{
   layout: GridLayoutTemplate;
   styles?: JSX.CSSProperties;
   editorRef: RefObject<HTMLDivElement>;
-}> = ({ layout, styles: extraStyles, editorRef }) => {
+}> = ({ layout, styles: extraStyles, editorRef, children }) => {
   const [dragState, updateDragState] = useReducer(dragUpdater, null);
 
   const { cols = [], rows = [], gap, items } = layout;
@@ -47,14 +46,6 @@ export const TheAppGridContainer: FunctionComponent<{
     />
   ));
 
-  const rowControls = rows.map((r, i) => (
-    <GridTractControl val={r} index={i} dir={"rows"} />
-  ));
-
-  const colControls = cols.map((c, i) => (
-    <GridTractControl val={c} index={i} dir={"cols"} />
-  ));
-
   return (
     <GridCard gridArea="editor" header={<TheFakeBrowserBar />} padding={"0px"}>
       <DragDispatch.Provider value={updateDragState}>
@@ -62,8 +53,7 @@ export const TheAppGridContainer: FunctionComponent<{
           {gridItems}
           {rowTractLines}
           {colTractLines}
-          {rowControls}
-          {colControls}
+          {children}
           <TheDragFeedbackRect status={dragState} />
         </GridContainer>
       </DragDispatch.Provider>
