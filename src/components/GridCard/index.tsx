@@ -24,9 +24,9 @@ export function GridCard(
     header?: JSX.Element;
   }
 ) {
-  const { padding = "0.5rem" } = props;
+  const { padding = "0.5rem", gridArea } = props;
   return (
-    <GridItem className={classes.cardWHeader} gridArea={props.gridArea}>
+    <GridItem className={classes.cardWHeader} gridArea={gridArea}>
       {"header" in props ? (
         props.header
       ) : (
