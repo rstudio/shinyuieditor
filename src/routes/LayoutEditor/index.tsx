@@ -49,7 +49,14 @@ export default function LayoutEditor(props: {
         <GridTractControls
           rows={rows}
           cols={cols}
-          updateLayout={updateLayout}
+          setTract={({ val, dir, index }) =>
+            updateLayout({
+              type: "Change-Tract",
+              val,
+              dir,
+              index,
+            })
+          }
         />
         <EditableGridItems
           items={items}
