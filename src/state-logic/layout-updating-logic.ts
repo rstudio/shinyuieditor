@@ -5,9 +5,10 @@ type LayoutUpdateActions =
       type: "Change-Gap";
       gap: string;
     }
-  | ({
+  | {
       type: "Change-Tract";
-    } & TractValue)
+      tract: TractValue;
+    }
   | { type: "Delete-Item"; name: string }
   | { type: "Move-Item"; name: string; rows: ItemTractPos; cols: ItemTractPos };
 export type LayoutUpdateDispatch = (a: LayoutUpdateActions) => void;
@@ -22,7 +23,7 @@ export const layoutUpdater = (
       newLayout.gap = action.gap;
       return newLayout;
     case "Change-Tract":
-      newLayout[action.dir][action.index] = action.val;
+      newLayout[action.tract.dir][action.tract.index] = action.tract.val;
       return newLayout;
     case "Delete-Item":
       newLayout.items = newLayout.items.filter(
