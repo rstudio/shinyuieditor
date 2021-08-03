@@ -1,6 +1,6 @@
 import { DragDir } from "../../types";
 
-const iconPaths: { [name: string]: string } = {
+const iconPaths = {
   topLeftArrow: "M19,17.59L17.59,19L7,8.41V15H5V5H15V7H8.41L19,17.59Z",
   bottomLeftArrow: "M19,6.41L17.59,5L7,15.59V9H5V19H15V17H8.41L19,6.41Z",
   bottomRightArrow: "M5,6.41L6.41,5L17,15.59V9H19V19H9V17H15.59L5,6.41Z",
@@ -61,7 +61,8 @@ const iconPaths: { [name: string]: string } = {
 //   </svg>
 // );
 
-export const SvgIcon = ({ name = "move" }: { name?: string }) => (
+export type IconName = keyof typeof iconPaths;
+export const SvgIcon = ({ name = "move" }: { name?: IconName }) => (
   <svg style="width:24px;height:24px" viewBox="0 0 24 24">
     <path fill="currentColor" d={iconPaths[name]} />
   </svg>
