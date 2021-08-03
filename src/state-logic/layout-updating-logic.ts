@@ -1,4 +1,9 @@
-import { GridLayoutTemplate, ItemTractPos, TractValue } from "../types";
+import {
+  GridItemDef,
+  GridLayoutTemplate,
+  ItemTractPos,
+  TractValue,
+} from "../types";
 
 type LayoutUpdateActions =
   | {
@@ -15,35 +20,32 @@ type LayoutUpdateActions =
     }
   | {
       type: "Move-Item";
-      name: string;
-      rows: ItemTractPos;
-      cols: ItemTractPos;
+      itemDef: GridItemDef;
     };
 
 export type LayoutUpdateDispatch = (a: LayoutUpdateActions) => void;
 
 export const layoutUpdater = (
-  currentLayout: GridLayoutTemplate,
+  layout: GridLayoutTemplate,
   action: LayoutUpdateActions
 ) => {
   switch (action.type) {
     case "Set-Gap":
-      return {
-        ...currentLayout,
-        gap: action.gap,
-      };
+      return { ...layout, gap: action.gap };
     case "Set-Tract":
-      return setTractValue(currentLayout, action.tract);
+      return setTractValue(layout, action.tract);
     case "Delete-Item":
-      return deleteItem(currentLayout, action.name);
+      return deleteItem(layout, action.name);
     case "Move-Item":
-      return moveItem(currentLayout, action);
+      return moveItem(layout, action.itemDef);
     default:
       throw new Error("Unexpected action");
   }
 };
 
 const copyLayout = (oldLayout: GridLayoutTemplate) => {
+  // This is not a true copy as everything but the gap and name will be copied
+  // by ref so it may need to be updated once time-travel like state is added
   return { ...oldLayout };
 };
 
@@ -62,7 +64,7 @@ const deleteItem = (oldLayout: GridLayoutTemplate, name: string) => {
 
 const moveItem = (
   oldLayout: GridLayoutTemplate,
-  { name, rows, cols }: { name: string; rows: ItemTractPos; cols: ItemTractPos }
+  { name, rows, cols }: GridItemDef
 ) => {
   const layout = copyLayout(oldLayout);
 
