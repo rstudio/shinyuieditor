@@ -12,7 +12,7 @@ export const SetGapSize = ({
   <>
     <span> Grid Gap: </span>
     <CssUnitInput
-      startValue={gapSize}
+      value={gapSize}
       onChange={(newGap: CSSMeasure) => {
         updateLayout({
           type: "Change-Gap",

@@ -8,15 +8,11 @@ import type { CSSMeasure, CSSUnits } from "../../types";
 import classes from "./style.module.css";
 
 export const CssUnitInput: FunctionComponent<{
-  startValue?: CSSMeasure | string;
+  value?: CSSMeasure | string;
   onChange: (value: CSSMeasure) => void;
-  availableUnits?: Array<CSSUnits>;
-}> = ({
-  startValue = "1fr",
-  onChange,
-  availableUnits = ["fr", "px", "rem", "auto"],
-}) => {
-  const start = parseCSSMeasure(startValue);
+  units?: Array<CSSUnits>;
+}> = ({ value = "1fr", onChange, units = ["fr", "px", "rem", "auto"] }) => {
+  const start = parseCSSMeasure(value);
   const [currentCount, updateCount] = useState(start.count);
   const [currentUnit, updateUnit] = useState(start.unit);
 
@@ -44,7 +40,7 @@ export const CssUnitInput: FunctionComponent<{
           updateUnit(target.value as CSSUnits);
         }}
       >
-        {availableUnits.map((unit) => (
+        {units.map((unit) => (
           <option value={unit}>{unit}</option>
         ))}
       </select>

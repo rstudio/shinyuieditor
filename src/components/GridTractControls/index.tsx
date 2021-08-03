@@ -22,7 +22,7 @@ export const GridTractControls = ({
           className={classes.rowSizeControls}
         >
           <CssUnitInput
-            startValue={r as CSSMeasure}
+            value={r as CSSMeasure}
             onChange={(newVal: CSSMeasure) => {
               updateLayout({
                 type: "Change-Tract",
@@ -41,7 +41,7 @@ export const GridTractControls = ({
           className={classes.colSizeControls}
         >
           <CssUnitInput
-            startValue={c as CSSMeasure}
+            value={c as CSSMeasure}
             onChange={(newVal: CSSMeasure) => {
               updateLayout({
                 type: "Change-Tract",
