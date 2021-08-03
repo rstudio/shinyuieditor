@@ -1,4 +1,5 @@
 import { useReducer, useRef } from "preact/hooks";
+import { SetGapSize } from "../../components/SetGapSize";
 import { TheAppGridContainer } from "../../components/TheAppGridContainer";
 import { TheInstructions } from "../../components/TheInstructions";
 import { TheItemsListView } from "../../components/TheItemsListView";
@@ -25,7 +26,9 @@ export default function LayoutEditor(props: {
   return (
     <LayoutDispatch.Provider value={updateLayout}>
       <div className={classes.editor} ref={editorRef}>
-        <TheSettingsPanel gap={layout.gap} />
+        <TheSettingsPanel>
+          <SetGapSize gapSize={layout.gap} updateLayout={updateLayout} />
+        </TheSettingsPanel>
         <TheInstructions />
         <TheItemsListView items={layout.items} />
         <TheAppGridContainer
