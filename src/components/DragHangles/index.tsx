@@ -1,5 +1,5 @@
 import { RefObject } from "preact";
-import { useDragDispatch } from "../../state-logic/drag-logic";
+import { DragUpdateDispatch } from "../../state-logic/drag-logic";
 import { DragDir } from "../../types";
 import {
   BottomLeftArrow,
@@ -10,18 +10,23 @@ import {
 } from "../Icons";
 import classes from "./style.module.css";
 
-export const DragHangle = ({
-  type,
-  onDrag,
+const allDirections: Array<DragDir> = [
+  "middle",
+  "topLeft",
+  "topRight",
+  "bottomLeft",
+  "bottomRight",
+];
+
+export const DragHandles = ({
+  dispatch,
   editorRef,
 }: {
-  type: DragDir;
-  onDrag: (type: DragDir) => void;
+  dispatch: DragUpdateDispatch;
   editorRef: RefObject<HTMLDivElement>;
 }) => {
-  const dragDispatch = useDragDispatch();
   const startDrag = (e: MouseEvent) => {
-    dragDispatch({
+    dispatch({
       type: "start",
       pos: { x: e.offsetX, y: e.offsetY },
     });
@@ -32,23 +37,26 @@ export const DragHangle = ({
 
   const endDrag = (e: Event) => {
     console.log(`Ending drag!`);
-    dragDispatch({ type: "end" });
+    dispatch({ type: "end" });
     editorRef.current?.removeEventListener("mousemove", duringDrag);
     editorRef.current?.removeEventListener("mouseup", endDrag);
   };
 
   const duringDrag = (e: MouseEvent) => {
-    dragDispatch({
+    dispatch({
       type: "move",
       pos: { x: e.offsetX, y: e.offsetY },
     });
-    onDrag(type);
   };
 
   return (
-    <span class={classes[type]} onMouseDown={(e) => startDrag(e)}>
-      <DragIcon type={type} />
-    </span>
+    <>
+      {allDirections.map((dir) => (
+        <span class={classes[dir]} onMouseDown={(e) => startDrag(e)}>
+          <DragIcon type={dir} />
+        </span>
+      ))}
+    </>
   );
 };
 

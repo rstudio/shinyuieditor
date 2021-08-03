@@ -1,14 +1,17 @@
 import { useReducer, useRef } from "preact/hooks";
+import { CssUnitInput } from "../../components/CssUnitInput";
+import { DragFeedbackRect } from "../../components/DragFeedbackRect";
+import { EditableGridItems } from "../../components/EditableGridItems";
 import { GridTractControls } from "../../components/GridTractControls";
-import { SetGapSize } from "../../components/SetGapSize";
 import { TheAppGridContainer } from "../../components/TheAppGridContainer";
 import { TheInstructions } from "../../components/TheInstructions";
 import { TheItemsListView } from "../../components/TheItemsListView";
-import { TheSettingsPanel } from "../../components/TheSettingsPanel";
 import {
-  LayoutDispatch,
-  layoutUpdater,
-} from "../../state-logic/layout-updating-logic";
+  SettingPane,
+  TheSettingsPanel,
+} from "../../components/TheSettingsPanel";
+import { dragUpdater } from "../../state-logic/drag-logic";
+import { layoutUpdater } from "../../state-logic/layout-updating-logic";
 import { GridLayoutTemplate } from "../../types";
 import classes from "./style.module.css";
 
@@ -20,27 +23,41 @@ export default function LayoutEditor(props: {
     props.startingLayout
   );
 
+  const [dragState, updateDragState] = useReducer(dragUpdater, null);
+
   // We need a reference to the main parent element of everything so we can
   // attach event handlers for drag detection to it.
   const editorRef = useRef<HTMLDivElement>(null);
 
   const { rows, cols, items, gap } = layout;
   return (
-    <LayoutDispatch.Provider value={updateLayout}>
-      <div className={classes.editor} ref={editorRef}>
-        <TheSettingsPanel>
-          <SetGapSize gapSize={gap} updateLayout={updateLayout} />
-        </TheSettingsPanel>
-        <TheInstructions />
-        <TheItemsListView items={items} />
-        <TheAppGridContainer layout={layout} editorRef={editorRef}>
-          <GridTractControls
-            rows={rows}
-            cols={cols}
-            updateLayout={updateLayout}
+    <div className={classes.editor} ref={editorRef}>
+      <TheSettingsPanel>
+        <SettingPane label={"Gap Size"}>
+          <CssUnitInput
+            value={gap}
+            onChange={(gap) => updateLayout({ type: "Change-Gap", gap })}
           />
-        </TheAppGridContainer>
-      </div>
-    </LayoutDispatch.Provider>
+        </SettingPane>
+      </TheSettingsPanel>
+      <TheInstructions />
+      <TheItemsListView
+        items={items}
+        deleteItem={(name) => updateLayout({ type: "Delete-Item", name })}
+      />
+      <TheAppGridContainer layout={layout}>
+        <GridTractControls
+          rows={rows}
+          cols={cols}
+          updateLayout={updateLayout}
+        />
+        <EditableGridItems
+          items={items}
+          editorRef={editorRef}
+          dragDispatch={updateDragState}
+        />
+        <DragFeedbackRect status={dragState} />
+      </TheAppGridContainer>
+    </div>
   );
 }

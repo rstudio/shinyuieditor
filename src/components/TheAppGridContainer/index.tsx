@@ -1,12 +1,8 @@
-import { FunctionComponent, JSX, RefObject } from "preact";
-import { useReducer } from "preact/hooks";
-import { DragDispatch, dragUpdater } from "../../state-logic/drag-logic";
+import { FunctionComponent, JSX } from "preact";
 import { GridLayoutTemplate } from "../../types";
-import { EditableGridItem } from "../EditableGridItem";
 import { GridCard } from "../GridCard";
 import { GridContainer } from "../GridContainer";
 import { GridItem } from "../GridItem";
-import { TheDragFeedbackRect } from "../TheDragFeedbackRect";
 import { TheFakeBrowserBar } from "../TheFakeBrowserBar";
 import classes from "./style.module.css";
 
@@ -14,10 +10,7 @@ import classes from "./style.module.css";
 export const TheAppGridContainer: FunctionComponent<{
   layout: GridLayoutTemplate;
   styles?: JSX.CSSProperties;
-  editorRef: RefObject<HTMLDivElement>;
-}> = ({ layout, styles: extraStyles, editorRef, children }) => {
-  const [dragState, updateDragState] = useReducer(dragUpdater, null);
-
+}> = ({ layout, styles: extraStyles, children }) => {
   const { cols = [], rows = [], gap, items } = layout;
 
   // We need to make one less tract line that there are tracts because the
@@ -37,26 +30,13 @@ export const TheAppGridContainer: FunctionComponent<{
     />
   ));
 
-  const gridItems = items.map(({ name, rows, cols }) => (
-    <EditableGridItem
-      name={name}
-      rows={rows}
-      cols={cols}
-      editorRef={editorRef}
-    />
-  ));
-
   return (
     <GridCard gridArea="editor" header={<TheFakeBrowserBar />} padding={"0px"}>
-      <DragDispatch.Provider value={updateDragState}>
-        <GridContainer defs={layout} styles={{ ...extraStyles, "--gap": gap }}>
-          {gridItems}
-          {rowTractLines}
-          {colTractLines}
-          {children}
-          <TheDragFeedbackRect status={dragState} />
-        </GridContainer>
-      </DragDispatch.Provider>
+      <GridContainer defs={layout} styles={{ ...extraStyles, "--gap": gap }}>
+        {rowTractLines}
+        {colTractLines}
+        {children}
+      </GridContainer>
     </GridCard>
   );
 };

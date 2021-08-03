@@ -1,5 +1,3 @@
-import { createContext } from "preact";
-import { useContext } from "preact/hooks";
 import { GridLayoutTemplate, ItemTractPos, TractValue } from "../types";
 
 type LayoutUpdateActions =
@@ -43,15 +41,4 @@ export const layoutUpdater = (
     default:
       throw new Error("Unexpected action");
   }
-};
-
-// We use context to pass dispatch methods to child props as that's the
-// recomended approach from the react docs. Props only influence how the
-// element looks, thus if the updater changes for whatever reason we don't
-// rerender the component.
-// https://reactjs.org/docs/hooks-faq.html#how-to-avoid-passing-callbacks-down
-export const LayoutDispatch = createContext<LayoutUpdateDispatch | null>(null);
-
-export const useLayoutDispatch = () => {
-  return useContext(LayoutDispatch) as LayoutUpdateDispatch;
 };

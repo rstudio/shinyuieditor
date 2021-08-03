@@ -1,37 +1,34 @@
-import { useLayoutDispatch } from "../../state-logic/layout-updating-logic";
-import { GridItemDef } from "../../types";
-import { TrashcanIcon } from "../Icons";
+import { GridLayoutTemplate } from "../../types";
 import { GridCard } from "../GridCard";
-import { ItemsIcon } from "../Icons";
+import { ItemsIcon, TrashcanIcon } from "../Icons";
 import classes from "./style.module.css";
 
-export const TheItemsListView = ({ items }: { items: GridItemDef[] }) => (
+export const TheItemsListView = ({
+  items,
+  deleteItem,
+}: {
+  items: GridLayoutTemplate["items"];
+  deleteItem: (name: string) => void;
+}) => (
   <GridCard title="Items" icon={<ItemsIcon />} gridArea="items">
     {items.map(({ name }) => (
-      <ItemListItem name={name} isDeletable />
+      <ItemListItem name={name} onDelete={() => deleteItem(name)} />
     ))}
   </GridCard>
 );
 
 const ItemListItem = ({
   name,
-  isDeletable,
+  onDelete,
 }: {
   name: string;
-  isDeletable?: boolean;
+  onDelete?: () => void;
 }) => {
-  const layoutDispatch = useLayoutDispatch();
-
   return (
-    <div class={classes.item + (isDeletable ? " " + classes.isDeletable : "")}>
+    <div class={classes.item + (onDelete ? " " + classes.isDeletable : "")}>
       <span style={{ justifySelf: "start" }}>{name}</span>
-      {isDeletable ? (
-        <button
-          onClick={() => {
-            layoutDispatch({ type: "Delete-Item", name });
-          }}
-          title={`Delete ${name} item`}
-        >
+      {onDelete ? (
+        <button onClick={() => onDelete()} title={`Delete ${name} item`}>
           <TrashcanIcon />
         </button>
       ) : null}
