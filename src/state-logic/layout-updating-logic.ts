@@ -26,29 +26,52 @@ export const layoutUpdater = (
   currentLayout: GridLayoutTemplate,
   action: LayoutUpdateActions
 ) => {
-  const newLayout = { ...currentLayout };
   switch (action.type) {
     case "Set-Gap":
-      newLayout.gap = action.gap;
-      return newLayout;
+      return {
+        ...currentLayout,
+        gap: action.gap,
+      };
     case "Set-Tract":
-      newLayout[action.tract.dir][action.tract.index] = action.tract.val;
-      return newLayout;
+      return setTractValue(currentLayout, action.tract);
     case "Delete-Item":
-      newLayout.items = newLayout.items.filter(
-        (item) => item.name !== action.name
-      );
-      return newLayout;
+      return deleteItem(currentLayout, action.name);
     case "Move-Item":
-      newLayout.items = newLayout.items.map((item) => {
-        if (item.name === action.name) {
-          item.rows = action.rows;
-          item.cols = action.cols;
-        }
-        return item;
-      });
-      return newLayout;
+      return moveItem(currentLayout, action);
     default:
       throw new Error("Unexpected action");
   }
+};
+
+const copyLayout = (oldLayout: GridLayoutTemplate) => {
+  return { ...oldLayout };
+};
+
+const setTractValue = (oldLayout: GridLayoutTemplate, tract: TractValue) => {
+  const layout = copyLayout(oldLayout);
+  const { dir, index, val } = tract;
+  layout[dir][index] = val;
+  return layout;
+};
+
+const deleteItem = (oldLayout: GridLayoutTemplate, name: string) => {
+  const layout = copyLayout(oldLayout);
+  layout.items = layout.items.filter((item) => item.name !== name);
+  return layout;
+};
+
+const moveItem = (
+  oldLayout: GridLayoutTemplate,
+  { name, rows, cols }: { name: string; rows: ItemTractPos; cols: ItemTractPos }
+) => {
+  const layout = copyLayout(oldLayout);
+
+  layout.items = layout.items.map((item) => {
+    if (item.name === name) {
+      item.rows = rows;
+      item.cols = cols;
+    }
+    return item;
+  });
+  return layout;
 };
