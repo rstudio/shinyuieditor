@@ -37,7 +37,7 @@ export default function LayoutEditor(props: {
         <SettingPane label={"Gap Size"}>
           <CssUnitInput
             value={gap}
-            onChange={(gap) => updateLayout({ type: "Change-Gap", gap })}
+            onChange={(gap) => updateLayout({ type: "Set-Gap", gap })}
           />
         </SettingPane>
       </TheSettingsPanel>

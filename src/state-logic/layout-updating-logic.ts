@@ -2,7 +2,7 @@ import { GridLayoutTemplate, ItemTractPos, TractValue } from "../types";
 
 type LayoutUpdateActions =
   | {
-      type: "Change-Gap";
+      type: "Set-Gap";
       gap: string;
     }
   | {
@@ -19,7 +19,7 @@ export const layoutUpdater = (
 ) => {
   const newLayout = { ...currentLayout };
   switch (action.type) {
-    case "Change-Gap":
+    case "Set-Gap":
       newLayout.gap = action.gap;
       return newLayout;
     case "Change-Tract":
