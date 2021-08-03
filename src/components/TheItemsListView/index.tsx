@@ -12,7 +12,7 @@ export const TheItemsListView = ({
 }) => (
   <GridCard title="Items" icon={<ItemsIcon />} gridArea="items">
     {items.map(({ name }) => (
-      <ItemListItem name={name} onDelete={() => deleteItem(name)} />
+      <ItemListItem key={name} name={name} onDelete={() => deleteItem(name)} />
     ))}
   </GridCard>
 );
@@ -25,7 +25,7 @@ const ItemListItem = ({
   onDelete?: () => void;
 }) => {
   return (
-    <div class={classes.item + (onDelete ? " " + classes.isDeletable : "")}>
+    <div className={classes.item + (onDelete ? " " + classes.isDeletable : "")}>
       <span style={{ justifySelf: "start" }}>{name}</span>
       {onDelete ? (
         <button onClick={() => onDelete()} title={`Delete ${name} item`}>

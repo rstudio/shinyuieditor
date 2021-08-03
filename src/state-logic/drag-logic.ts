@@ -45,17 +45,13 @@ export const dragUpdater = (
     case "move":
       if (!currentDragPos)
         throw new Error("Can't move rectangle that is un-initialized");
-      const {
-        pos: { x, y },
-      } = action;
-      const { XStart, YStart } = currentDragPos;
+
       return {
-        XStart,
-        YStart,
-        XCurrent: x,
-        YCurrent: y,
-        width: x - XStart,
-        height: y - YStart,
+        ...currentDragPos,
+        XCurrent: action.pos.x,
+        YCurrent: action.pos.y,
+        width: action.pos.x - currentDragPos.XStart,
+        height: action.pos.y - currentDragPos.XStart,
       };
     default:
       throw new Error("Unexpected action");

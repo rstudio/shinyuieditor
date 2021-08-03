@@ -3,22 +3,22 @@ import classes from "./style.module.css";
 
 export const TheFakeBrowserBar = () => {
   return (
-    <div class={classes.menuBar}>
-      <div class={classes.buttons}>
+    <div className={classes.menuBar}>
+      <div className={classes.buttons}>
         <div></div>
         <div></div>
         <div></div>
       </div>
-      <div class={classes.urlBox}>
+      <div className={classes.urlBox}>
         <span> www.myShinyApp.com </span>
       </div>
     </div>
   );
 };
 
-export const FakeBrowser: FunctionComponent<{}> = ({ children }) => {
+export const FakeBrowser: FunctionComponent = ({ children }) => {
   return (
-    <div class={classes.fakeBrowser}>
+    <div className={classes.fakeBrowser}>
       <TheFakeBrowserBar />
       {children}
     </div>

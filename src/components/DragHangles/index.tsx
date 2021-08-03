@@ -30,13 +30,13 @@ export const DragHandles = ({
       type: "start",
       pos: { x: e.offsetX, y: e.offsetY },
     });
-    console.log(`Starting to drag!!!`);
+    console.log("Starting to drag!!!");
     editorRef.current?.addEventListener("mousemove", duringDrag);
     editorRef.current?.addEventListener("mouseup", endDrag);
   };
 
-  const endDrag = (e: Event) => {
-    console.log(`Ending drag!`);
+  const endDrag = () => {
+    console.log("Ending drag!");
     dispatch({ type: "end" });
     editorRef.current?.removeEventListener("mousemove", duringDrag);
     editorRef.current?.removeEventListener("mouseup", endDrag);
@@ -52,7 +52,11 @@ export const DragHandles = ({
   return (
     <>
       {allDirections.map((dir) => (
-        <span class={classes[dir]} onMouseDown={(e) => startDrag(e)}>
+        <span
+          key={dir}
+          className={classes[dir]}
+          onMouseDown={(e) => startDrag(e)}
+        >
           <DragIcon type={dir} />
         </span>
       ))}

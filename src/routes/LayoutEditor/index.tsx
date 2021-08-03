@@ -12,7 +12,7 @@ import {
 } from "../../components/TheSettingsPanel";
 import { dragUpdater } from "../../state-logic/drag-logic";
 import { layoutUpdater } from "../../state-logic/layout-updating-logic";
-import { GridLayoutTemplate } from "../../types";
+import type { GridLayoutTemplate } from "../../types";
 import classes from "./style.module.css";
 
 export default function LayoutEditor(props: {
@@ -30,6 +30,7 @@ export default function LayoutEditor(props: {
   const editorRef = useRef<HTMLDivElement>(null);
 
   const { rows, cols, items, gap } = layout;
+
   return (
     <div className={classes.editor} ref={editorRef}>
       <TheSettingsPanel>

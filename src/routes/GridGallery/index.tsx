@@ -17,6 +17,7 @@ export function GridGallery({
       <div className={classes.gallery}>
         {allLayouts.map((layout) => (
           <GridPreview
+            key={layout.name}
             layout={layout}
             displaySize={200}
             isCurrent={layout.name === currentLayoutName}

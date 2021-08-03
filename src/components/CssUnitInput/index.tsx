@@ -22,7 +22,7 @@ export const CssUnitInput: FunctionComponent<{
   }, [currentCount, currentUnit]);
 
   return (
-    <form class={classes.form} onSubmit={(e) => e.preventDefault()}>
+    <form className={classes.form} onSubmit={(e) => e.preventDefault()}>
       <input
         type="number"
         min={0}
@@ -41,7 +41,9 @@ export const CssUnitInput: FunctionComponent<{
         }}
       >
         {units.map((unit) => (
-          <option value={unit}>{unit}</option>
+          <option key={unit} value={unit}>
+            {unit}
+          </option>
         ))}
       </select>
     </form>

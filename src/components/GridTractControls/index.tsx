@@ -20,6 +20,7 @@ export const GridTractControls = ({
     <>
       {rows.map((r, i) => (
         <GridItem
+          key={i}
           rows={[i + 1, i + 1]}
           cols={[1, -1]}
           className={classes.rowSizeControls}
@@ -38,6 +39,7 @@ export const GridTractControls = ({
       ))}
       {cols.map((c, i) => (
         <GridItem
+          key={i}
           rows={[1, -1]}
           cols={[i + 1, i + 1]}
           className={classes.colSizeControls}

@@ -11,7 +11,7 @@ export const TheAppGridContainer: FunctionComponent<{
   layout: GridLayoutTemplate;
   styles?: JSX.CSSProperties;
 }> = ({ layout, styles: extraStyles, children }) => {
-  const { cols = [], rows = [], gap, items } = layout;
+  const { cols = [], rows = [], gap } = layout;
 
   // We need to make one less tract line that there are tracts because the
   // controls only go between and there are N-1 spots between N elements
@@ -39,4 +39,8 @@ export const TheAppGridContainer: FunctionComponent<{
       </GridContainer>
     </GridCard>
   );
+};
+
+export const my_component = () => {
+  return <div></div>;
 };

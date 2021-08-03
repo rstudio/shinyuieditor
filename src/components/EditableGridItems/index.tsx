@@ -17,7 +17,8 @@ export const EditableGridItems = ({
     <>
       {items.map(({ name, rows, cols }) => (
         <div
-          class={classes.item}
+          key={name}
+          className={classes.item}
           style={{
             "--cols": cols.join("/"),
             "--rows": rows.join("/"),

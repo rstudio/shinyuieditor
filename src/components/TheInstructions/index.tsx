@@ -9,7 +9,7 @@ export const TheInstructions = () => (
     icon={<InstructionsIcon />}
     gridArea="instructions"
   >
-    <div class={classes.instructionList}>
+    <div className={classes.instructionList}>
       <strong>Add or remove a row/column:</strong>
       <ul>
         <li>
@@ -36,11 +36,11 @@ export const TheInstructions = () => (
       <strong>Remove an element:</strong>
       <ul>
         <li>
-          Find element entry in "Added elements" panel and click the{" "}
+          Find element entry in &quot;Added elements&quot; panel and click the
           <TrashcanIcon />
           icon
         </li>
-        <li>You can't remove elements are part of a running app</li>
+        <li>You can&apos;t remove elements are part of a running app</li>
       </ul>
     </div>
   </GridCard>

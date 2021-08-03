@@ -22,7 +22,7 @@ export const GridContainer: FunctionComponent<{
   const containerClass = classes.container + (className ? " " + className : "");
 
   return (
-    <div class={containerClass} style={styles}>
+    <div className={containerClass} style={styles}>
       {children}
     </div>
   );

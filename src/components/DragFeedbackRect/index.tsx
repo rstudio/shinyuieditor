@@ -5,7 +5,7 @@ export function DragFeedbackRect({ status }: { status: DragPos }) {
   if (status)
     return (
       <div
-        class={classes.rect}
+        className={classes.rect}
         style={{
           "--top": status.YStart + "px",
           "--left": status.XStart + "px",
@@ -15,5 +15,5 @@ export function DragFeedbackRect({ status }: { status: DragPos }) {
       ></div>
     );
 
-  return <div class={classes.hidden}></div>;
+  return <div className={classes.hidden}></div>;
 }

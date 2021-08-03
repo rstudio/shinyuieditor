@@ -26,7 +26,7 @@ export function GridPreview(props: {
 
   return (
     <div
-      class={classes.wrapper + (isCurrent ? " " + classes.current : "")}
+      className={classes.wrapper + (isCurrent ? " " + classes.current : "")}
       style={{
         "--shown-size": `${displaySize}px`,
         "--corner-radius": `${20 / scale}px`,
@@ -42,8 +42,13 @@ export function GridPreview(props: {
           gap: `calc(${gap} / ${scale})`,
         }}
       >
-        {items.map(({ rows, cols }) => (
-          <GridItem rows={rows} cols={cols} className={classes.item} />
+        {items.map(({ name, rows, cols }) => (
+          <GridItem
+            key={name}
+            rows={rows}
+            cols={cols}
+            className={classes.item}
+          />
         ))}
       </GridContainer>
     </div>

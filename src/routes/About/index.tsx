@@ -1,9 +1,8 @@
-import { GridLayoutTemplate } from "../../types";
 import classes from "./style.module.css";
 
 export function About(props: { layoutName: string }) {
   return (
-    <div class={classes.about}>
+    <div className={classes.about}>
       <h1>Welcome to the Shiny Visual Layout Editor!</h1>
       <p>
         The currently selected layout is <strong>{props.layoutName}</strong>

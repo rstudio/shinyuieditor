@@ -10,7 +10,7 @@ export function TheHeader() {
         <Link href="/">
           <h1>Shiny Visual Editor</h1>
         </Link>
-        <div class={classes.logos}>
+        <div className={classes.logos}>
           <img src={rstudioLogo} alt="RStudio Logo" />
           <img
             src={shinyLogo}
@@ -19,7 +19,7 @@ export function TheHeader() {
           />
         </div>
       </div>
-      <div class={classes.links}>
+      <div className={classes.links}>
         <Link activeClassName={classes.active} href="/">
           Gallery
         </Link>
