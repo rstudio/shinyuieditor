@@ -7,7 +7,7 @@ import { TheFakeBrowserBar } from "../TheFakeBrowserBar";
 import classes from "./style.module.css";
 
 // A grid container that also displays a grid of all cells in background
-export const TheAppGridContainer: FunctionComponent<{
+export const EditorGridContainer: FunctionComponent<{
   layout: GridLayoutTemplate;
   styles?: JSX.CSSProperties;
 }> = ({ layout, styles: extraStyles, children }) => {

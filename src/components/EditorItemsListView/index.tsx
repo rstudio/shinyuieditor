@@ -3,7 +3,7 @@ import { GridCard } from "../GridCard";
 import { ItemsIcon, TrashcanIcon } from "../Icons";
 import classes from "./style.module.css";
 
-export const TheItemsListView = ({
+export const EditorItemsListView = ({
   items,
   deleteItem,
 }: {

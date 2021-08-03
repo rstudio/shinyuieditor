@@ -2,14 +2,11 @@ import { useReducer, useRef } from "preact/hooks";
 import { CssUnitInput } from "../../components/CssUnitInput";
 import { DragFeedbackRect } from "../../components/DragFeedbackRect";
 import { EditableGridItems } from "../../components/EditableGridItems";
+import { EditorGridContainer } from "../../components/EditorGridContainer";
+import { EditorInstructions } from "../../components/EditorInstructions";
+import { EditorItemsListView } from "../../components/EditorItemsListView";
+import { EditorSettings, SettingPane } from "../../components/EditorSettings";
 import { GridTractControls } from "../../components/GridTractControls";
-import { TheAppGridContainer } from "../../components/TheAppGridContainer";
-import { TheInstructions } from "../../components/TheInstructions";
-import { TheItemsListView } from "../../components/TheItemsListView";
-import {
-  SettingPane,
-  TheSettingsPanel,
-} from "../../components/TheSettingsPanel";
 import { dragUpdater } from "../../state-logic/drag-logic";
 import { layoutUpdater } from "../../state-logic/layout-updating-logic";
 import type { GridLayoutTemplate } from "../../types";
@@ -33,20 +30,20 @@ export default function LayoutEditor(props: {
 
   return (
     <div className={classes.editor} ref={editorRef}>
-      <TheSettingsPanel>
+      <EditorSettings>
         <SettingPane label={"Gap Size"}>
           <CssUnitInput
             value={gap}
             onChange={(gap) => updateLayout({ type: "Set-Gap", gap })}
           />
         </SettingPane>
-      </TheSettingsPanel>
-      <TheInstructions />
-      <TheItemsListView
+      </EditorSettings>
+      <EditorInstructions />
+      <EditorItemsListView
         items={items}
         deleteItem={(name) => updateLayout({ type: "Delete-Item", name })}
       />
-      <TheAppGridContainer layout={layout}>
+      <EditorGridContainer layout={layout}>
         <GridTractControls
           rows={rows}
           cols={cols}
@@ -58,7 +55,7 @@ export default function LayoutEditor(props: {
           dragDispatch={updateDragState}
         />
         <DragFeedbackRect status={dragState} />
-      </TheAppGridContainer>
+      </EditorGridContainer>
     </div>
   );
 }

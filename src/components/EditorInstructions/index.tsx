@@ -3,7 +3,7 @@ import { GridCard } from "../GridCard";
 import { InstructionsIcon } from "../Icons";
 import classes from "./style.module.css";
 
-export const TheInstructions = () => (
+export const EditorInstructions = () => (
   <GridCard
     title="Instructions"
     icon={<InstructionsIcon />}
