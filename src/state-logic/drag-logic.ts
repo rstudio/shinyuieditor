@@ -1,67 +1,90 @@
 import { createContext, RefObject } from "preact";
-import { useContext, useEffect } from "preact/hooks";
+import { useContext, useEffect, useRef } from "preact/hooks";
 import { DragDir, GridCellPos } from "../types";
+
+// Basic information about a given drag event. Just a subset of the position
+// info given by MouseEvent
+type DragInfo = {
+  pageX: number;
+  pageY: number;
+  offsetX: number;
+  offsetY: number;
+};
 
 export type ItemDragStart = {
   name: string;
   dir: DragDir;
-  x: number;
-  y: number;
-};
-export type ItemDragStartEvent = CustomEvent<ItemDragStart>;
+} & DragInfo;
 
-type XYPos = { x: number; y: number };
+export type ItemDragStartEvent = CustomEvent<ItemDragStart>;
 
 export type DragPos = {
   XStart: number;
   YStart: number;
   XCurrent: number;
   YCurrent: number;
+  XOffset: number;
+  YOffset: number;
   width: number;
   height: number;
 } | null;
 
+const startDragState = ({
+  pageX,
+  pageY,
+  offsetX,
+  offsetY,
+}: DragInfo): DragPos => {
+  return {
+    XStart: pageX,
+    XCurrent: pageX,
+    XOffset: pageX - offsetX,
+    YStart: pageY,
+    YCurrent: pageY,
+    YOffset: pageY - offsetY,
+    height: 0,
+    width: 0,
+  };
+};
+
+const moveDragState = (
+  oldPos: DragPos,
+  { pageX, pageY }: DragInfo
+): DragPos => {
+  if (oldPos === null) return oldPos;
+  return {
+    ...oldPos,
+    XCurrent: pageX,
+    YCurrent: pageY,
+    width: pageX - oldPos.XStart,
+    height: pageY - oldPos.YStart,
+  };
+};
+
 type DragUpdateActions =
   | {
       type: "start";
-      pos: XYPos;
+      info: DragInfo;
     }
   | {
       type: "end";
     }
   | {
       type: "move";
-      pos: XYPos;
+      info: DragInfo;
     };
 
 export const dragUpdater = (
   currentDragPos: DragPos,
   action: DragUpdateActions
 ) => {
-  console.log("Drag updater was called!");
   switch (action.type) {
     case "start":
-      return {
-        XStart: action.pos.x,
-        YStart: action.pos.y,
-        XCurrent: action.pos.x,
-        YCurrent: action.pos.y,
-        height: 0,
-        width: 0,
-      };
+      return startDragState(action.info);
     case "end":
       return null;
     case "move":
-      if (!currentDragPos)
-        throw new Error("Can't move rectangle that is un-initialized");
-
-      return {
-        ...currentDragPos,
-        XCurrent: action.pos.x,
-        YCurrent: action.pos.y,
-        width: action.pos.x - currentDragPos.XStart,
-        height: action.pos.y - currentDragPos.XStart,
-      };
+      return moveDragState(currentDragPos, action.info);
     default:
       throw new Error("Unexpected action");
   }
@@ -90,51 +113,52 @@ export const useDragHandler = ({
   updateDragState: DragUpdateDispatch;
   watchingRef: RefObject<HTMLDivElement>;
 }) => {
-  let cellPositions: Array<GridCellPos>;
-  const startDrag = (e: Event) => {
-    if (!isCustomEvent(e)) throw new Error("not a custom event");
-
-    const startInfo = e.detail as ItemDragStart;
-    updateDragState({
-      type: "start",
-      pos: startInfo,
-    });
-    const gridCells = watchingRef.current?.querySelectorAll(
-      ".gridCell"
-    ) as NodeListOf<HTMLDivElement>;
-
-    cellPositions = [...gridCells].map((cell) => ({
-      row: Number(cell.dataset.row),
-      col: Number(cell.dataset.col),
-      left: cell.offsetLeft,
-      top: cell.offsetTop,
-      w: cell.offsetWidth,
-      h: cell.offsetHeight,
-    }));
-
-    watchingRef.current?.addEventListener("mousemove", duringDrag);
-    watchingRef.current?.addEventListener("mouseup", endDrag);
-  };
-
-  const endDrag = () => {
-    console.log("Ending drag!");
-    updateDragState({ type: "end" });
-    watchingRef.current?.removeEventListener("mousemove", duringDrag);
-    watchingRef.current?.removeEventListener("mouseup", endDrag);
-  };
-
-  const duringDrag = (e: MouseEvent) => {
-    debugger;
-    cellPositions;
-    updateDragState({
-      type: "move",
-      pos: { x: e.offsetX, y: e.offsetY },
-    });
-  };
+  const cellPositionsRef = useRef<Array<GridCellPos>>([]);
 
   useEffect(() => {
+    console.log("Initializing drag handler");
+    const startDrag = (e: Event) => {
+      if (!isCustomEvent(e)) throw new Error("not a custom event");
+      console.log("--startDrag()");
+      const startInfo = e.detail as ItemDragStart;
+      updateDragState({
+        type: "start",
+        info: startInfo,
+      });
+      const gridCells = watchingRef.current?.querySelectorAll(
+        ".gridCell"
+      ) as NodeListOf<HTMLDivElement>;
+
+      cellPositionsRef.current = [...gridCells].map((cell) => ({
+        row: Number(cell.dataset.row),
+        col: Number(cell.dataset.col),
+        left: cell.offsetLeft,
+        top: cell.offsetTop,
+        w: cell.offsetWidth,
+        h: cell.offsetHeight,
+      }));
+
+      watchingRef.current?.addEventListener("mousemove", duringDrag);
+      watchingRef.current?.addEventListener("mouseup", endDrag);
+    };
+
+    const endDrag = () => {
+      console.log("--endDrag()");
+      updateDragState({ type: "end" });
+      watchingRef.current?.removeEventListener("mousemove", duringDrag);
+      watchingRef.current?.removeEventListener("mouseup", endDrag);
+    };
+
+    const duringDrag = (e: MouseEvent) => {
+      console.log("--duringDrag()");
+
+      updateDragState({ type: "move", info: e });
+    };
     watchingRef.current?.addEventListener("itemDrag", startDrag);
-    return () =>
+    return () => {
       watchingRef.current?.removeEventListener("itemDrag", startDrag);
+      watchingRef.current?.removeEventListener("mousemove", duringDrag);
+      watchingRef.current?.removeEventListener("mouseup", endDrag);
+    };
   }, []);
 };

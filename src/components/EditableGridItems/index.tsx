@@ -1,8 +1,5 @@
 import type { RefObject } from "preact";
-import {
-  DragUpdateDispatch,
-  ItemDragStart,
-} from "../../state-logic/drag-logic";
+import { ItemDragStart } from "../../state-logic/drag-logic";
 import type { DragDir, GridLayoutTemplate } from "../../types";
 import { DragIcon } from "../Icons";
 import classes from "./style.module.css";
@@ -17,7 +14,14 @@ export const EditableGridItems = ({
   const triggerDragStart = (e: MouseEvent, dir: DragDir, name: string) => {
     editorRef.current?.dispatchEvent(
       new CustomEvent<ItemDragStart>("itemDrag", {
-        detail: { name, dir, x: e.offsetX, y: e.offsetY },
+        detail: {
+          name,
+          dir,
+          pageX: e.pageX,
+          offsetX: e.offsetX,
+          pageY: e.pageY,
+          offsetY: e.offsetY,
+        },
       })
     );
   };
