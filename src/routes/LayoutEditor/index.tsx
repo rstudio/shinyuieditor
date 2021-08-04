@@ -6,19 +6,19 @@ import { EditorGridContainer } from "../../components/EditorGridContainer";
 import { EditorInstructions } from "../../components/EditorInstructions";
 import { EditorItemsListView } from "../../components/EditorItemsListView";
 import { EditorSettings, SettingPane } from "../../components/EditorSettings";
+import { GridCells } from "../../components/GridCells/GridCells";
 import { GridTractControls } from "../../components/GridTractControls";
 import { dragUpdater } from "../../state-logic/drag-logic";
 import { layoutUpdater } from "../../state-logic/layout-updating-logic";
 import type { GridLayoutTemplate } from "../../types";
 import classes from "./style.module.css";
 
-export default function LayoutEditor(props: {
+export default function LayoutEditor({
+  startingLayout,
+}: {
   startingLayout: GridLayoutTemplate;
 }) {
-  const [layout, updateLayout] = useReducer(
-    layoutUpdater,
-    props.startingLayout
-  );
+  const [layout, updateLayout] = useReducer(layoutUpdater, startingLayout);
 
   const [dragState, updateDragState] = useReducer(dragUpdater, null);
 
@@ -55,6 +55,7 @@ export default function LayoutEditor(props: {
           dragDispatch={updateDragState}
         />
         <DragFeedbackRect status={dragState} />
+        <GridCells rows={rows} cols={cols} />
       </EditorGridContainer>
     </div>
   );

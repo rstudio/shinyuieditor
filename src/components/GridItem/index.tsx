@@ -1,4 +1,4 @@
-import { FunctionComponent } from "preact";
+import { FunctionComponent, Ref } from "preact";
 
 export const GridItem: FunctionComponent<{
   rows?: [number, number];
@@ -6,7 +6,16 @@ export const GridItem: FunctionComponent<{
   gridArea?: string;
   className?: string;
   styles?: JSX.CSSProperties;
-}> = ({ rows, cols, gridArea, className, styles: extraStyles, children }) => {
+  divRef?: Ref<HTMLDivElement | undefined>;
+}> = ({
+  rows,
+  cols,
+  gridArea,
+  className,
+  styles: extraStyles,
+  children,
+  divRef,
+}) => {
   const styles = { ...extraStyles };
 
   if (gridArea && !rows && !cols) {
@@ -20,7 +29,11 @@ export const GridItem: FunctionComponent<{
     );
   }
   return (
-    <div className={className} style={styles}>
+    <div
+      ref={divRef as Ref<HTMLDivElement>}
+      className={className}
+      style={styles}
+    >
       {children}
     </div>
   );
