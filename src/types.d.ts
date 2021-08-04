@@ -3,11 +3,13 @@ export
 
 type ItemTractPos = [number, number];
 
-type GridItemDef = {
-  name: string;
+type GridPos = {
   rows: ItemTractPos;
   cols: ItemTractPos;
-};
+}
+type GridItemDef = {
+  name: string;
+} & GridPos;
 
 type GridLayoutDef = {
   rows?: string[];
@@ -30,6 +32,13 @@ type GridCellPos = {
   top: number;
   w: number;
   h: number;
+};
+
+type SelectionRect = {
+  left: number;
+  right: number;
+  top: number;
+  bottom: number;
 };
 
 type GridTractDir = "rows" | "cols";

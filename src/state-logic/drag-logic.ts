@@ -1,6 +1,6 @@
 import { createContext, RefObject } from "preact";
 import { useContext, useEffect, useRef } from "preact/hooks";
-import { DragDir, GridCellPos } from "../types";
+import { DragDir, GridCellPos, GridPos, SelectionRect } from "../types";
 
 // Basic information about a given drag event. Just a subset of the position
 // info given by MouseEvent
@@ -104,6 +104,38 @@ export const useDragDispatch = () => {
 
 function isCustomEvent(event: Event): event is CustomEvent {
   return "detail" in event;
+}
+
+function getDragExtentOnGrid(
+  gridCellPositions: GridCellPos[],
+  selectionRect: SelectionRect
+): GridPos {
+  // Reset bounding box definitions so we only use current selection extent
+  let startCol: number | null = null;
+  let startRow: number | null = null;
+  let endCol: number | null = null;
+  let endRow: number | null = null;
+
+  gridCellPositions.forEach(function (cellPosition) {
+    // Find if cell overlaps current selection
+    // If it does update the bounding box extents
+    // Cell is overlapped by selection box
+    // const overlapsCell = boxesOverlap(getBoundingRect(el), selectionRect);
+    // if (overlapsCell) {
+    //   const elRow: number = +el.dataset.row;
+    //   const elCol: number = +el.dataset.col;
+    //   selBounds.start_row = minWithMissing(selBounds.start_row, elRow);
+    //   selBounds.end_row = maxWithMissing(selBounds.end_row, elRow);
+    //   selBounds.start_col = minWithMissing(selBounds.start_col, elCol);
+    //   selBounds.end_col = maxWithMissing(selBounds.end_col, elCol);
+    // }
+  });
+
+  return {
+    rows: [startRow ?? 1, endRow ?? 1],
+    cols: [startCol ?? 1, endCol ?? 1],
+  };
+  // return selBounds;
 }
 
 export const useDragHandler = ({
