@@ -53,7 +53,6 @@ export default function LayoutEditor({
         />
         <EditableGridItems items={items} editorRef={editorRef} />
         <DragFeedbackRect status={dragState} />
-        <GridCells rows={rows} cols={cols} />
       </EditorGridContainer>
     </div>
   );

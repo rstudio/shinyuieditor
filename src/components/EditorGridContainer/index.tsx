@@ -3,6 +3,7 @@ import { GridLayoutTemplate } from "../../types";
 import { GridCard } from "../GridCard";
 import { GridContainer } from "../GridContainer";
 import { GridItem } from "../GridItem";
+import { GridCells } from "../GridCells/GridCells";
 import { TheFakeBrowserBar } from "../TheFakeBrowserBar";
 import classes from "./style.module.css";
 
@@ -36,6 +37,7 @@ export const EditorGridContainer: FunctionComponent<{
         {rowTractLines}
         {colTractLines}
         {children}
+        <GridCells rows={rows} cols={cols} />
       </GridContainer>
     </GridCard>
   );
