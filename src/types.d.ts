@@ -25,21 +25,17 @@ type GridLayoutTemplate = {
   items: GridItemDef[];
 };
 
-type GridCellPos = {
-  row: number;
-  col: number;
-  left: number;
-  top: number;
-  w: number;
-  h: number;
-};
 
-type SelectionRect = {
+interface SelectionRect {
   left: number;
   right: number;
   top: number;
   bottom: number;
-};
+}
+interface GridCellPos extends SelectionRect {
+  row: number;
+  col: number;
+}
 
 type GridTractDir = "rows" | "cols";
 type TractValue = {
@@ -53,3 +49,14 @@ type CSSMeasure = `${number}${CSSUnits}`;
 
 
 type DragDir = "topLeft" | "topRight" | "bottomLeft" | "bottomRight" | "middle";
+
+export type BoxSides =
+  | "top"
+  | "bottom"
+  | "left"
+  | "right"
+  | "top-left"
+  | "top-right"
+  | "bottom-left"
+  | "bottom-right"
+  | "center";

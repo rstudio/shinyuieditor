@@ -1,5 +1,6 @@
 import { createContext, RefObject } from "preact";
 import { useContext, useEffect, useRef } from "preact/hooks";
+import { boxesOverlap } from "../helper-scripts/overlap-helpers";
 import { DragDir, GridCellPos, GridPos, SelectionRect } from "../types";
 
 // Basic information about a given drag event. Just a subset of the position
@@ -120,15 +121,17 @@ function getDragExtentOnGrid(
     // Find if cell overlaps current selection
     // If it does update the bounding box extents
     // Cell is overlapped by selection box
-    // const overlapsCell = boxesOverlap(getBoundingRect(el), selectionRect);
-    // if (overlapsCell) {
-    //   const elRow: number = +el.dataset.row;
-    //   const elCol: number = +el.dataset.col;
-    //   selBounds.start_row = minWithMissing(selBounds.start_row, elRow);
-    //   selBounds.end_row = maxWithMissing(selBounds.end_row, elRow);
-    //   selBounds.start_col = minWithMissing(selBounds.start_col, elCol);
-    //   selBounds.end_col = maxWithMissing(selBounds.end_col, elCol);
-    // }
+    const overlapsCell = boxesOverlap(cellPosition, selectionRect);
+
+    if (overlapsCell) {
+      const elRow: number = cellPosition.row;
+      const elCol: number = cellPosition.col;
+      console.log(`Overlaps with row:${elRow} and col:${elCol}`);
+      // selBounds.start_row = minWithMissing(selBounds.start_row, elRow);
+      // selBounds.end_row = maxWithMissing(selBounds.end_row, elRow);
+      // selBounds.start_col = minWithMissing(selBounds.start_col, elCol);
+      // selBounds.end_col = maxWithMissing(selBounds.end_col, elCol);
+    }
   });
 
   return {
@@ -147,6 +150,9 @@ export const useDragHandler = ({
 }) => {
   const cellPositionsRef = useRef<Array<GridCellPos>>([]);
 
+  // TODO: Add a new reference to keep track of the current drag extent
+  // just like DragUpdateDispatch does so it can be passed to getDragExtentOnGrid()
+  // to figure out the current grid snap
   useEffect(() => {
     console.log("Initializing drag handler");
     const startDrag = (e: Event) => {
@@ -166,8 +172,8 @@ export const useDragHandler = ({
         col: Number(cell.dataset.col),
         left: cell.offsetLeft,
         top: cell.offsetTop,
-        w: cell.offsetWidth,
-        h: cell.offsetHeight,
+        right: cell.offsetLeft + cell.offsetWidth,
+        bottom: cell.offsetTop + cell.offsetWidth,
       }));
 
       watchingRef.current?.addEventListener("mousemove", duringDrag);
@@ -183,7 +189,7 @@ export const useDragHandler = ({
 
     const duringDrag = (e: MouseEvent) => {
       console.log("--duringDrag()");
-
+      // getDragExtentOnGrid(cellPositionsRef.current, e);
       updateDragState({ type: "move", info: e });
     };
     watchingRef.current?.addEventListener("itemDrag", startDrag);
