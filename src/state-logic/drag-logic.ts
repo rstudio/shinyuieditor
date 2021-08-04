@@ -1,5 +1,14 @@
-import { createContext } from "preact";
-import { useContext } from "preact/hooks";
+import { createContext, RefObject } from "preact";
+import { useContext, useEffect } from "preact/hooks";
+import { DragDir, GridCellPos } from "../types";
+
+export type ItemDragStart = {
+  name: string;
+  dir: DragDir;
+  x: number;
+  y: number;
+};
+export type ItemDragStartEvent = CustomEvent<ItemDragStart>;
 
 type XYPos = { x: number; y: number };
 
@@ -68,4 +77,64 @@ export const DragDispatch = createContext<DragUpdateDispatch | null>(null);
 
 export const useDragDispatch = () => {
   return useContext(DragDispatch) as DragUpdateDispatch;
+};
+
+function isCustomEvent(event: Event): event is CustomEvent {
+  return "detail" in event;
+}
+
+export const useDragHandler = ({
+  updateDragState,
+  watchingRef,
+}: {
+  updateDragState: DragUpdateDispatch;
+  watchingRef: RefObject<HTMLDivElement>;
+}) => {
+  let cellPositions: Array<GridCellPos>;
+  const startDrag = (e: Event) => {
+    if (!isCustomEvent(e)) throw new Error("not a custom event");
+
+    const startInfo = e.detail as ItemDragStart;
+    updateDragState({
+      type: "start",
+      pos: startInfo,
+    });
+    const gridCells = watchingRef.current?.querySelectorAll(
+      ".gridCell"
+    ) as NodeListOf<HTMLDivElement>;
+
+    cellPositions = [...gridCells].map((cell) => ({
+      row: Number(cell.dataset.row),
+      col: Number(cell.dataset.col),
+      left: cell.offsetLeft,
+      top: cell.offsetTop,
+      w: cell.offsetWidth,
+      h: cell.offsetHeight,
+    }));
+
+    watchingRef.current?.addEventListener("mousemove", duringDrag);
+    watchingRef.current?.addEventListener("mouseup", endDrag);
+  };
+
+  const endDrag = () => {
+    console.log("Ending drag!");
+    updateDragState({ type: "end" });
+    watchingRef.current?.removeEventListener("mousemove", duringDrag);
+    watchingRef.current?.removeEventListener("mouseup", endDrag);
+  };
+
+  const duringDrag = (e: MouseEvent) => {
+    debugger;
+    cellPositions;
+    updateDragState({
+      type: "move",
+      pos: { x: e.offsetX, y: e.offsetY },
+    });
+  };
+
+  useEffect(() => {
+    watchingRef.current?.addEventListener("itemDrag", startDrag);
+    return () =>
+      watchingRef.current?.removeEventListener("itemDrag", startDrag);
+  }, []);
 };

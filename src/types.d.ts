@@ -15,13 +15,21 @@ type GridLayoutDef = {
   gap: string;
 };
 
-
 type GridLayoutTemplate = {
   rows: string[];
   cols: string[];
   gap: string;
   name: string;
   items: GridItemDef[];
+};
+
+type GridCellPos = {
+  row: number;
+  col: number;
+  left: number;
+  top: number;
+  w: number;
+  h: number;
 };
 
 type GridTractDir = "rows" | "cols";

@@ -1,5 +1,8 @@
 import type { RefObject } from "preact";
-import { DragUpdateDispatch } from "../../state-logic/drag-logic";
+import {
+  DragUpdateDispatch,
+  ItemDragStart,
+} from "../../state-logic/drag-logic";
 import type { DragDir, GridLayoutTemplate } from "../../types";
 import { DragIcon } from "../Icons";
 import classes from "./style.module.css";
@@ -7,35 +10,18 @@ import classes from "./style.module.css";
 export const EditableGridItems = ({
   items,
   editorRef,
-  dragDispatch,
 }: {
   items: GridLayoutTemplate["items"];
   editorRef: RefObject<HTMLDivElement>;
-  dragDispatch: DragUpdateDispatch;
 }) => {
-  const startDrag = (e: MouseEvent) => {
-    dragDispatch({
-      type: "start",
-      pos: { x: e.offsetX, y: e.offsetY },
-    });
-    console.log("Starting to drag!!!");
-    editorRef.current?.addEventListener("mousemove", duringDrag);
-    editorRef.current?.addEventListener("mouseup", endDrag);
+  const triggerDragStart = (e: MouseEvent, dir: DragDir, name: string) => {
+    editorRef.current?.dispatchEvent(
+      new CustomEvent<ItemDragStart>("itemDrag", {
+        detail: { name, dir, x: e.offsetX, y: e.offsetY },
+      })
+    );
   };
 
-  const endDrag = () => {
-    console.log("Ending drag!");
-    dragDispatch({ type: "end" });
-    editorRef.current?.removeEventListener("mousemove", duringDrag);
-    editorRef.current?.removeEventListener("mouseup", endDrag);
-  };
-
-  const duringDrag = (e: MouseEvent) => {
-    dragDispatch({
-      type: "move",
-      pos: { x: e.offsetX, y: e.offsetY },
-    });
-  };
   return (
     <>
       {items.map(({ name, rows, cols }) => (
@@ -49,7 +35,13 @@ export const EditableGridItems = ({
           title={name}
         >
           {directions.map((dir) => (
-            <span key={dir} className={classes[dir]} onMouseDown={startDrag}>
+            <span
+              key={dir}
+              className={classes[dir]}
+              onMouseDown={(e: MouseEvent) => {
+                triggerDragStart(e, dir, name);
+              }}
+            >
               <DragIcon type={dir} />
             </span>
           ))}
