@@ -1,12 +1,12 @@
 import { useEffect, useReducer, useRef } from "preact/hooks";
 import { CssUnitInput } from "../../components/CssUnitInput";
+import { DragFeedbackRect } from "../../components/DragFeedbackRect";
 import { EditableGridItems } from "../../components/EditableGridItems";
 import { EditorGridContainer } from "../../components/EditorGridContainer";
 import { EditorInstructions } from "../../components/EditorInstructions";
 import { EditorItemsListView } from "../../components/EditorItemsListView";
 import { EditorSettings, SettingPane } from "../../components/EditorSettings";
 import { GridTractControls } from "../../components/GridTractControls";
-import { DragFeedbackRect } from "../../components/DragFeedbackRect";
 import { useDragHandler } from "../../state-logic/drag-logic";
 import { layoutUpdater } from "../../state-logic/layout-updating-logic";
 import type { GridLayoutTemplate } from "../../types";
@@ -23,11 +23,19 @@ export default function LayoutEditor({
   // attach event handlers for drag detection to it.
   const editorRef = useRef<HTMLDivElement>(null);
 
-  const dragState = useDragHandler({ watchingRef: editorRef });
+  const dragState = useDragHandler({
+    dragEventId: "ItemResizeDrag",
+    watchingRef: editorRef,
+  });
 
-  // useEffect(() => {
-  //   console.log("New drag state", dragState);
-  // }, [dragState]);
+  const newItemDragState = useDragHandler({
+    dragEventId: "NewItemDrag",
+    watchingRef: editorRef,
+  });
+
+  useEffect(() => {
+    console.log("New drag state", newItemDragState);
+  }, [newItemDragState]);
 
   const { rows, cols, items, gap } = layout;
 
@@ -53,7 +61,8 @@ export default function LayoutEditor({
           setTract={(tract) => updateLayout({ type: "Set-Tract", tract })}
         />
         <EditableGridItems items={items} editorRef={editorRef} />
-        <DragFeedbackRect status={dragState} />
+        <DragFeedbackRect status={dragState} color={"red"} />
+        <DragFeedbackRect status={newItemDragState} color={"blue"} />
       </EditorGridContainer>
     </div>
   );

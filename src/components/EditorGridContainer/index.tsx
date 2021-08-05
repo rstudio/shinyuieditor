@@ -1,4 +1,6 @@
 import { FunctionComponent, JSX } from "preact";
+import { useEffect, useRef } from "preact/hooks";
+import { triggerCustomDragEvent } from "../../state-logic/drag-logic";
 import { GridLayoutTemplate } from "../../types";
 import { GridCard } from "../GridCard";
 import { GridCells } from "../GridCells/GridCells";
@@ -12,6 +14,26 @@ export const EditorGridContainer: FunctionComponent<{
   layout: GridLayoutTemplate;
   styles?: JSX.CSSProperties;
 }> = ({ layout, styles: extraStyles, children }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = containerRef.current as HTMLDivElement;
+
+    const triggerDrag = (e: MouseEvent) => {
+      triggerCustomDragEvent({
+        el: container,
+        e,
+        type: "NewItemDrag",
+        name: "new",
+        dir: "bottomRight",
+      });
+    };
+
+    container.addEventListener("mousedown", triggerDrag);
+    () => {
+      container.removeEventListener("mousedown", triggerDrag);
+    };
+  }, []);
   const { cols = [], rows = [], gap } = layout;
 
   // We need to make one less tract line that there are tracts because the
@@ -33,7 +55,11 @@ export const EditorGridContainer: FunctionComponent<{
 
   return (
     <GridCard gridArea="editor" header={<TheFakeBrowserBar />} padding={"0px"}>
-      <GridContainer defs={layout} styles={{ ...extraStyles, "--gap": gap }}>
+      <GridContainer
+        divRef={containerRef}
+        defs={layout}
+        styles={{ ...extraStyles, "--gap": gap }}
+      >
         {rowTractLines}
         {colTractLines}
         {children}
@@ -41,8 +67,4 @@ export const EditorGridContainer: FunctionComponent<{
       </GridContainer>
     </GridCard>
   );
-};
-
-export const my_component = () => {
-  return <div></div>;
 };

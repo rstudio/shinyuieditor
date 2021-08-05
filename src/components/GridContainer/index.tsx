@@ -1,4 +1,4 @@
-import { FunctionComponent } from "preact";
+import { FunctionComponent, Ref } from "preact";
 import { GridLayoutDef } from "../../types";
 import classes from "./style.module.css";
 
@@ -6,11 +6,13 @@ export const GridContainer: FunctionComponent<{
   defs: GridLayoutDef;
   className?: string;
   styles?: JSX.CSSProperties;
+  divRef?: Ref<HTMLDivElement>;
 }> = ({
   defs: { cols, rows, gap },
   children,
   className,
   styles: extraStyles,
+  divRef,
 }) => {
   const styles: JSX.CSSProperties = {
     ...extraStyles,
@@ -22,7 +24,7 @@ export const GridContainer: FunctionComponent<{
   const containerClass = classes.container + (className ? " " + className : "");
 
   return (
-    <div className={containerClass} style={styles}>
+    <div ref={divRef} className={containerClass} style={styles}>
       {children}
     </div>
   );

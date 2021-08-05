@@ -1,7 +1,13 @@
 import type { DragState } from "../../state-logic/drag-logic";
 import classes from "./style.module.css";
 
-export function DragFeedbackRect({ status }: { status: DragState | null }) {
+export function DragFeedbackRect({
+  status,
+  color = "pink",
+}: {
+  status: DragState | null;
+  color?: string;
+}) {
   if (!status) return <div className={classes.hidden}></div>;
 
   const { xStart, xEnd, yStart, yEnd, xOffset, yOffset } = status;
@@ -9,6 +15,7 @@ export function DragFeedbackRect({ status }: { status: DragState | null }) {
   const height = yEnd - yStart;
   const top = yStart - yOffset;
   const left = xStart - xOffset;
+
   return (
     <div
       className={classes.rect}
@@ -17,6 +24,7 @@ export function DragFeedbackRect({ status }: { status: DragState | null }) {
         "--left": left + "px",
         width: width + "px",
         height: height + "px",
+        outline: `1px solid ${color}`,
       }}
     ></div>
   );

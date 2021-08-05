@@ -12,6 +12,8 @@ interface DragInfo {
   offsetY: number;
 }
 
+type DragEvents = "ItemMoveDrag" | "ItemResizeDrag" | "NewItemDrag";
+
 export interface ItemDragStart extends DragInfo {
   name: string;
   dir: DragDir;
@@ -45,6 +47,123 @@ export type DragState = {
   gridCells?: GridCellPositions;
   gridPos?: GridPos;
 };
+
+function dragUpdater(dragState: DragState | null, action: DragUpdateActions) {
+  let info: DragInfo;
+  let newState: DragState;
+
+  switch (action.type) {
+    case "start":
+      info = action.info;
+      return {
+        xStart: info.pageX,
+        xEnd: info.pageX,
+        yStart: info.pageY,
+        yEnd: info.pageY,
+        xOffset: info.pageX - info.offsetX,
+        yOffset: info.pageY - info.offsetY,
+        gridCells: action.cellPositions,
+      };
+    case "end":
+      return dragState;
+      return null;
+    case "move":
+      if (!dragState) throw new Error("Cant move an uninitialized drag");
+
+      newState = {
+        ...dragState,
+        xEnd: action.info.pageX,
+        yEnd: action.info.pageY,
+      };
+      newState.gridPos = getDragExtentOnGrid(newState);
+      return newState;
+
+    default:
+      throw new Error("Unexpected action");
+  }
+}
+
+export const useDragHandler = ({
+  dragEventId,
+  watchingRef,
+}: {
+  dragEventId: DragEvents;
+  watchingRef: RefObject<HTMLDivElement>;
+}) => {
+  const [dragState, updateDragState] = useReducer(dragUpdater, null);
+
+  useEffect(() => {
+    // const watcherOffset = {
+    //   left: watchingRef.current?.offsetLeft,
+    //   right: watchingRef.current?.offsetTop,
+    // };
+
+    const startDrag = (e: Event) => {
+      if (!isCustomEvent(e)) throw new Error("not a custom event");
+
+      updateDragState({
+        type: "start",
+        info: e.detail as ItemDragStart,
+        cellPositions: gatherCellPositions(watchingRef),
+      });
+
+      watchingRef.current?.addEventListener("mousemove", duringDrag);
+      watchingRef.current?.addEventListener("mouseup", endDrag);
+    };
+
+    const duringDrag = (e: MouseEvent) => {
+      updateDragState({
+        type: "move",
+        info: e,
+      });
+    };
+    const endDrag = () => {
+      updateDragState({ type: "end" });
+      watchingRef.current?.removeEventListener("mousemove", duringDrag);
+      watchingRef.current?.removeEventListener("mouseup", endDrag);
+    };
+
+    watchingRef.current?.addEventListener(dragEventId, startDrag);
+    return () => {
+      // Make sure to remove all event listeners on cleanup. Even though
+      // it's unlikely that the mousemove and mouseup events are still attached
+      watchingRef.current?.removeEventListener("itemDrag", startDrag);
+      watchingRef.current?.removeEventListener("mousemove", duringDrag);
+      watchingRef.current?.removeEventListener("mouseup", endDrag);
+    };
+  }, []);
+
+  return dragState;
+};
+
+export function triggerCustomDragEvent({
+  el,
+  type,
+  e,
+  dir,
+  name,
+}: {
+  el: HTMLDivElement;
+  type: DragEvents;
+  e: MouseEvent;
+  dir: DragDir;
+  name: string;
+}) {
+  console.log(`Triggering custom event ${type}`);
+  el.dispatchEvent(
+    new CustomEvent<ItemDragStart>(type, {
+      bubbles: true,
+      detail: {
+        name,
+        dir,
+        pageX: e.pageX,
+        offsetX: e.offsetX,
+        pageY: e.pageY,
+        offsetY: e.offsetY,
+      },
+    })
+  );
+}
 
 function getDragExtentOnGrid({
   xStart,
@@ -106,100 +225,6 @@ function gatherCellPositions(
   }));
 }
 
-function dragUpdater(
-  currentDragPos: DragState | null,
-  action: DragUpdateActions
-) {
-  switch (action.type) {
-    case "start":
-      return startDragState(action.info, action.cellPositions);
-    case "end":
-      return null;
-    case "move":
-      if (!currentDragPos) throw new Error("Cant move an uninitialized drag");
-      return moveDragState(currentDragPos, action.info);
-    default:
-      throw new Error("Unexpected action");
-  }
-}
-
-function startDragState(
-  { pageX, pageY, offsetX, offsetY }: DragInfo,
-  cellPositions: GridCellPositions
-): DragState {
-  return {
-    xStart: pageX,
-    xEnd: pageX,
-    yStart: pageY,
-    yEnd: pageY,
-    xOffset: pageX - offsetX,
-    yOffset: pageY - offsetY,
-    gridCells: cellPositions,
-  };
-}
-
-function moveDragState(
-  oldState: DragState,
-  { pageX, pageY }: DragInfo
-): DragState {
-  if (oldState === null || oldState.gridCells === undefined)
-    throw new Error("Drag state is somehow missing current grid positions");
-
-  const newState = {
-    ...oldState,
-    xEnd: pageX,
-    yEnd: pageY,
-  };
-  newState.gridPos = getDragExtentOnGrid(newState);
-  return newState;
-}
-
 function isCustomEvent(event: Event): event is CustomEvent {
   return "detail" in event;
 }
-
-export const useDragHandler = ({
-  watchingRef,
-}: {
-  watchingRef: RefObject<HTMLDivElement>;
-}) => {
-  const [dragState, updateDragState] = useReducer(dragUpdater, null);
-
-  useEffect(() => {
-    const startDrag = (e: Event) => {
-      if (!isCustomEvent(e)) throw new Error("not a custom event");
-
-      updateDragState({
-        type: "start",
-        info: e.detail as ItemDragStart,
-        cellPositions: gatherCellPositions(watchingRef),
-      });
-
-      watchingRef.current?.addEventListener("mousemove", duringDrag);
-      watchingRef.current?.addEventListener("mouseup", endDrag);
-    };
-
-    const endDrag = () => {
-      updateDragState({ type: "end" });
-      watchingRef.current?.removeEventListener("mousemove", duringDrag);
-      watchingRef.current?.removeEventListener("mouseup", endDrag);
-    };
-
-    const duringDrag = (e: MouseEvent) => {
-      updateDragState({
-        type: "move",
-        info: e,
-      });
-    };
-    watchingRef.current?.addEventListener("itemDrag", startDrag);
-    return () => {
-      // Make sure to remove all event listeners on cleanup. Even though
-      // it's unlikely that the mousemove and mouseup events are still attached
-      watchingRef.current?.removeEventListener("itemDrag", startDrag);
-      watchingRef.current?.removeEventListener("mousemove", duringDrag);
-      watchingRef.current?.removeEventListener("mouseup", endDrag);
-    };
-  }, []);
-
-  return dragState;
-};

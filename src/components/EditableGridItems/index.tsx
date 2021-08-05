@@ -1,5 +1,5 @@
 import type { RefObject } from "preact";
-import { ItemDragStart } from "../../state-logic/drag-logic";
+import { triggerCustomDragEvent } from "../../state-logic/drag-logic";
 import type { DragDir, GridLayoutTemplate } from "../../types";
 import { DragIcon } from "../Icons";
 import classes from "./style.module.css";
@@ -11,21 +11,6 @@ export const EditableGridItems = ({
   items: GridLayoutTemplate["items"];
   editorRef: RefObject<HTMLDivElement>;
 }) => {
-  const triggerDragStart = (e: MouseEvent, dir: DragDir, name: string) => {
-    editorRef.current?.dispatchEvent(
-      new CustomEvent<ItemDragStart>("itemDrag", {
-        detail: {
-          name,
-          dir,
-          pageX: e.pageX,
-          offsetX: e.offsetX,
-          pageY: e.pageY,
-          offsetY: e.offsetY,
-        },
-      })
-    );
-  };
-
   return (
     <>
       {items.map(({ name, rows, cols }) => (
@@ -43,7 +28,14 @@ export const EditableGridItems = ({
               key={dir}
               className={classes[dir]}
               onMouseDown={(e: MouseEvent) => {
-                triggerDragStart(e, dir, name);
+                e.stopPropagation();
+                triggerCustomDragEvent({
+                  el: editorRef.current as HTMLDivElement,
+                  e,
+                  type: "ItemResizeDrag",
+                  name,
+                  dir,
+                });
               }}
             >
               <DragIcon type={dir} />
