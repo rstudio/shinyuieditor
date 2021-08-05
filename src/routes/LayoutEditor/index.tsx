@@ -20,13 +20,13 @@ export default function LayoutEditor({
 }) {
   const [layout, updateLayout] = useReducer(layoutUpdater, startingLayout);
 
-  const [dragState, updateDragState] = useReducer(dragUpdater, null);
+  // const [dragState, updateDragState] = useReducer(dragUpdater, null);
 
   // We need a reference to the main parent element of everything so we can
   // attach event handlers for drag detection to it.
   const editorRef = useRef<HTMLDivElement>(null);
 
-  useDragHandler({ updateDragState, watchingRef: editorRef });
+  useDragHandler({ watchingRef: editorRef });
 
   const { rows, cols, items, gap } = layout;
 
@@ -52,7 +52,7 @@ export default function LayoutEditor({
           setTract={(tract) => updateLayout({ type: "Set-Tract", tract })}
         />
         <EditableGridItems items={items} editorRef={editorRef} />
-        <DragFeedbackRect status={dragState} />
+        {/* <DragFeedbackRect status={dragState} /> */}
       </EditorGridContainer>
     </div>
   );
