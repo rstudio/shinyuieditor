@@ -1,7 +1,7 @@
-import { createContext, RefObject } from "preact";
-import { useContext, useEffect, useReducer, useRef } from "preact/hooks";
+import { RefObject } from "preact";
+import { useEffect, useReducer } from "preact/hooks";
 import { boxesOverlap } from "../helper-scripts/overlap-helpers";
-import { DragDir, GridCellPos, GridPos, SelectionRect } from "../types";
+import { DragDir, GridCellPos, GridPos } from "../types";
 
 // Basic information about a given drag event. Just a subset of the position
 // info given by MouseEvent
@@ -12,60 +12,18 @@ interface DragInfo {
   offsetY: number;
 }
 
-interface ItemDragStart extends DragInfo {
+export interface ItemDragStart extends DragInfo {
   name: string;
   dir: DragDir;
 }
 
-export type ItemDragStartEvent = CustomEvent<ItemDragStart>;
-
-export type DragPos = {
-  XStart: number;
-  YStart: number;
-  XCurrent: number;
-  YCurrent: number;
-  XOffset: number;
-  YOffset: number;
-  width: number;
-  height: number;
-};
-
-const startDragState = ({
-  pageX,
-  pageY,
-  offsetX,
-  offsetY,
-}: DragInfo): DragPos => {
-  return {
-    XStart: pageX,
-    XCurrent: pageX,
-    XOffset: pageX - offsetX,
-    YStart: pageY,
-    YCurrent: pageY,
-    YOffset: pageY - offsetY,
-    height: 0,
-    width: 0,
-  };
-};
-
-const moveDragState = (
-  oldPos: DragPos,
-  { pageX, pageY }: DragInfo
-): DragPos => {
-  if (oldPos === null) return oldPos;
-  return {
-    ...oldPos,
-    XCurrent: pageX,
-    YCurrent: pageY,
-    width: pageX - oldPos.XStart,
-    height: pageY - oldPos.YStart,
-  };
-};
+type GridCellPositions = Array<GridCellPos>;
 
 type DragUpdateActions =
   | {
       type: "start";
       info: DragInfo;
+      cellPositions: Array<GridCellPos>;
     }
   | {
       type: "end";
@@ -75,42 +33,31 @@ type DragUpdateActions =
       info: DragInfo;
     };
 
-export const dragUpdater = (
-  currentDragPos: DragPos,
-  action: DragUpdateActions
-) => {
-  switch (action.type) {
-    case "start":
-      return startDragState(action.info);
-    case "end":
-      return null;
-    case "move":
-      return moveDragState(currentDragPos, action.info);
-    default:
-      throw new Error("Unexpected action");
-  }
+export type ItemDragStartEvent = CustomEvent<ItemDragStart>;
+
+export type DragState = {
+  xStart: number;
+  xEnd: number;
+  yStart: number;
+  yEnd: number;
+  xOffset: number;
+  yOffset: number;
+  gridCells?: GridCellPositions;
+  gridPos?: GridPos;
 };
 
-// We use context to pass dispatch methods to child props as that's the
-// recomended approach from the react docs. Props only influence how the
-// element looks, thus if the updater changes for whatever reason we don't
-// rerender the component.
-// https://reactjs.org/docs/hooks-faq.html#how-to-avoid-passing-callbacks-down
-export type DragUpdateDispatch = (a: DragUpdateActions) => void;
-
-function isCustomEvent(event: Event): event is CustomEvent {
-  return "detail" in event;
-}
-
-function getDragExtentOnGrid(
-  gridCellPositions: GridCellPos[],
-  dragState: DragPos
-): GridPos {
-  const dragRect: SelectionRect = {
-    left: Math.min(dragState.XStart, dragState.XCurrent),
-    right: Math.max(dragState.XStart, dragState.XCurrent),
-    top: Math.min(dragState.YStart, dragState.YCurrent),
-    bottom: Math.max(dragState.YStart, dragState.YCurrent),
+function getDragExtentOnGrid({
+  xStart,
+  xEnd,
+  yStart,
+  yEnd,
+  gridCells,
+}: DragState): GridPos {
+  const dragRect = {
+    left: Math.min(xStart, xEnd),
+    right: Math.max(xStart, xEnd),
+    top: Math.min(yStart, yEnd),
+    bottom: Math.max(yStart, yEnd),
   };
   // Reset bounding box definitions so we only use current selection extent
   let startCol: number | null = null;
@@ -118,7 +65,7 @@ function getDragExtentOnGrid(
   let endCol: number | null = null;
   let endRow: number | null = null;
 
-  gridCellPositions.forEach(function (cellPosition) {
+  (gridCells as GridCellPos[]).forEach(function (cellPosition) {
     // Find if cell overlaps current selection
     // If it does update the bounding box extents
     // Cell is overlapped by selection box
@@ -127,8 +74,6 @@ function getDragExtentOnGrid(
     if (overlapsCell) {
       const elRow: number = cellPosition.row;
       const elCol: number = cellPosition.col;
-      debugger;
-      console.log(`Overlaps with row:${elRow} and col:${elCol}`);
       startRow = Math.min(startRow ?? Infinity, elRow);
       endRow = Math.max(endRow ?? -1, elRow);
       startCol = Math.min(startCol ?? Infinity, elCol);
@@ -144,65 +89,117 @@ function getDragExtentOnGrid(
   };
 }
 
+function gatherCellPositions(
+  watchingRef: RefObject<HTMLDivElement>
+): Array<GridCellPos> {
+  const gridCells = watchingRef.current?.querySelectorAll(
+    ".gridCell"
+  ) as NodeListOf<HTMLDivElement>;
+
+  return [...gridCells].map((cell) => ({
+    row: Number(cell.dataset.row),
+    col: Number(cell.dataset.col),
+    left: cell.offsetLeft,
+    top: cell.offsetTop,
+    right: cell.offsetLeft + cell.offsetWidth,
+    bottom: cell.offsetTop + cell.offsetWidth,
+  }));
+}
+
+function dragUpdater(
+  currentDragPos: DragState | null,
+  action: DragUpdateActions
+) {
+  switch (action.type) {
+    case "start":
+      return startDragState(action.info, action.cellPositions);
+    case "end":
+      return null;
+    case "move":
+      if (!currentDragPos) throw new Error("Cant move an uninitialized drag");
+      return moveDragState(currentDragPos, action.info);
+    default:
+      throw new Error("Unexpected action");
+  }
+}
+
+function startDragState(
+  { pageX, pageY, offsetX, offsetY }: DragInfo,
+  cellPositions: GridCellPositions
+): DragState {
+  return {
+    xStart: pageX,
+    xEnd: pageX,
+    yStart: pageY,
+    yEnd: pageY,
+    xOffset: pageX - offsetX,
+    yOffset: pageY - offsetY,
+    gridCells: cellPositions,
+  };
+}
+
+function moveDragState(
+  oldState: DragState,
+  { pageX, pageY }: DragInfo
+): DragState {
+  if (oldState === null || oldState.gridCells === undefined)
+    throw new Error("Drag state is somehow missing current grid positions");
+
+  const newState = {
+    ...oldState,
+    xEnd: pageX,
+    yEnd: pageY,
+  };
+  newState.gridPos = getDragExtentOnGrid(newState);
+  return newState;
+}
+
+function isCustomEvent(event: Event): event is CustomEvent {
+  return "detail" in event;
+}
+
 export const useDragHandler = ({
   watchingRef,
 }: {
   watchingRef: RefObject<HTMLDivElement>;
 }) => {
-  // const [dragState, updateDragState] = useReducer(dragUpdater, null);
+  const [dragState, updateDragState] = useReducer(dragUpdater, null);
 
-  const cellPositionsRef = useRef<Array<GridCellPos>>([]);
-
-  // TODO: Add a new reference to keep track of the current drag extent
-  // just like DragUpdateDispatch does so it can be passed to getDragExtentOnGrid()
-  // to figure out the current grid snap
   useEffect(() => {
-    let dragState: DragPos;
-
-    console.log("Initializing drag handler");
     const startDrag = (e: Event) => {
       if (!isCustomEvent(e)) throw new Error("not a custom event");
-      console.log("--startDrag()");
-      dragState = startDragState(e.detail as ItemDragStart);
 
-      // updateDragState({
-      //   type: "start",
-      //   info: e.detail as ItemDragStart,
-      // });
-      const gridCells = watchingRef.current?.querySelectorAll(
-        ".gridCell"
-      ) as NodeListOf<HTMLDivElement>;
-
-      cellPositionsRef.current = [...gridCells].map((cell) => ({
-        row: Number(cell.dataset.row),
-        col: Number(cell.dataset.col),
-        left: cell.offsetLeft,
-        top: cell.offsetTop,
-        right: cell.offsetLeft + cell.offsetWidth,
-        bottom: cell.offsetTop + cell.offsetWidth,
-      }));
+      updateDragState({
+        type: "start",
+        info: e.detail as ItemDragStart,
+        cellPositions: gatherCellPositions(watchingRef),
+      });
 
       watchingRef.current?.addEventListener("mousemove", duringDrag);
       watchingRef.current?.addEventListener("mouseup", endDrag);
     };
 
     const endDrag = () => {
-      console.log("--endDrag()");
-      // updateDragState({ type: "end" });
+      updateDragState({ type: "end" });
       watchingRef.current?.removeEventListener("mousemove", duringDrag);
       watchingRef.current?.removeEventListener("mouseup", endDrag);
     };
 
     const duringDrag = (e: MouseEvent) => {
-      console.log("--duringDrag()");
-      getDragExtentOnGrid(cellPositionsRef.current, dragState);
-      // updateDragState({ type: "move", info: e });
+      updateDragState({
+        type: "move",
+        info: e,
+      });
     };
     watchingRef.current?.addEventListener("itemDrag", startDrag);
     return () => {
+      // Make sure to remove all event listeners on cleanup. Even though
+      // it's unlikely that the mousemove and mouseup events are still attached
       watchingRef.current?.removeEventListener("itemDrag", startDrag);
       watchingRef.current?.removeEventListener("mousemove", duringDrag);
       watchingRef.current?.removeEventListener("mouseup", endDrag);
     };
   }, []);
+
+  return dragState;
 };
