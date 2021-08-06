@@ -37,46 +37,61 @@ type DragUpdateActions =
 
 export type ItemDragStartEvent = CustomEvent<ItemDragStart>;
 
-export type DragState = {
+export type DragPos = {
   xStart: number;
   xEnd: number;
   yStart: number;
   yEnd: number;
+};
+
+export type DragState = {
+  gridCells: GridCellPositions;
+  dragPos?: DragPos;
+  gridPos?: GridPos;
   xOffset: number;
   yOffset: number;
-  gridCells?: GridCellPositions;
-  gridPos?: GridPos;
 };
 
 function dragUpdater(dragState: DragState | null, action: DragUpdateActions) {
   let info: DragInfo;
   let newState: DragState;
+  let dragPos: DragPos;
 
   switch (action.type) {
     case "start":
-      info = action.info;
+      const firstCell = action.cellPositions[0];
+
       return {
-        xStart: info.pageX,
-        xEnd: info.pageX,
-        yStart: info.pageY,
-        yEnd: info.pageY,
-        xOffset: info.pageX - info.offsetX,
-        yOffset: info.pageY - info.offsetY,
         gridCells: action.cellPositions,
+        xOffset: firstCell.left - firstCell.offsetLeft,
+        yOffset: firstCell.top - firstCell.offsetTop,
       };
-    case "end":
-      return dragState;
-      return null;
     case "move":
       if (!dragState) throw new Error("Cant move an uninitialized drag");
 
-      newState = {
-        ...dragState,
-        xEnd: action.info.pageX,
-        yEnd: action.info.pageY,
-      };
+      info = action.info;
+      if (!dragState.dragPos) {
+        // this is our first move with this so fill in whole drag position
+        dragPos = {
+          xStart: info.pageX,
+          xEnd: info.pageX,
+          yStart: info.pageY,
+          yEnd: info.pageY,
+        };
+      } else {
+        // Were already dragging so just update the end positions
+        dragPos = {
+          ...dragState.dragPos,
+          xEnd: info.pageX,
+          yEnd: info.pageY,
+        };
+      }
+      newState = { ...dragState, dragPos };
       newState.gridPos = getDragExtentOnGrid(newState);
       return newState;
+    case "end":
+      // return dragState;
+      return null;
 
     default:
       throw new Error("Unexpected action");
@@ -107,6 +122,8 @@ export const useDragHandler = ({
         cellPositions: gatherCellPositions(watchingRef),
       });
 
+      // Turnoff text selection so dragging doesnt highlight a bunch of stuff
+      watchingRef.current?.classList.add("disable-text-selection");
       watchingRef.current?.addEventListener("mousemove", duringDrag);
       watchingRef.current?.addEventListener("mouseup", endDrag);
     };
@@ -119,6 +136,8 @@ export const useDragHandler = ({
     };
     const endDrag = () => {
       updateDragState({ type: "end" });
+
+      watchingRef.current?.classList.remove("disable-text-selection");
       watchingRef.current?.removeEventListener("mousemove", duringDrag);
       watchingRef.current?.removeEventListener("mouseup", endDrag);
     };
@@ -166,12 +185,15 @@ export function triggerCustomDragEvent({
 }
 
 function getDragExtentOnGrid({
-  xStart,
-  xEnd,
-  yStart,
-  yEnd,
+  dragPos,
   gridCells,
-}: DragState): GridPos {
+}: {
+  dragPos?: DragPos;
+  gridCells?: GridCellPositions;
+}): GridPos {
+  if (!dragPos)
+    throw new Error("Need a drag position to find extent on the grid");
+  const { xStart, xEnd, yStart, yEnd } = dragPos;
   const dragRect = {
     left: Math.min(xStart, xEnd),
     right: Math.max(xStart, xEnd),
@@ -215,14 +237,19 @@ function gatherCellPositions(
     ".gridCell"
   ) as NodeListOf<HTMLDivElement>;
 
-  return [...gridCells].map((cell) => ({
-    row: Number(cell.dataset.row),
-    col: Number(cell.dataset.col),
-    left: cell.offsetLeft,
-    top: cell.offsetTop,
-    right: cell.offsetLeft + cell.offsetWidth,
-    bottom: cell.offsetTop + cell.offsetWidth,
-  }));
+  return [...gridCells].map((cell) => {
+    const { left, right, top, bottom } = cell.getBoundingClientRect();
+    return {
+      row: Number(cell.dataset.row),
+      col: Number(cell.dataset.col),
+      left,
+      top,
+      right,
+      bottom,
+      offsetLeft: cell.offsetLeft,
+      offsetTop: cell.offsetTop,
+    };
+  });
 }
 
 function isCustomEvent(event: Event): event is CustomEvent {

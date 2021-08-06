@@ -8,22 +8,19 @@ export function DragFeedbackRect({
   status: DragState | null;
   color?: string;
 }) {
-  if (!status) return <div className={classes.hidden}></div>;
+  if (!status?.dragPos) return <div className={classes.hidden}></div>;
 
-  const { xStart, xEnd, yStart, yEnd, xOffset, yOffset } = status;
-  const width = xEnd - xStart;
-  const height = yEnd - yStart;
-  const top = yStart - yOffset;
-  const left = xStart - xOffset;
+  const { xStart, xEnd, yStart, yEnd } = status.dragPos;
+  const { xOffset, yOffset } = status;
 
   return (
     <div
       className={classes.rect}
       style={{
-        "--top": top + "px",
-        "--left": left + "px",
-        width: width + "px",
-        height: height + "px",
+        "--top": `calc(${yStart - yOffset}px - var(--gap))`,
+        "--left": `calc(${xStart - xOffset}px - var(--gap))`,
+        width: `${xEnd - xStart}px`,
+        height: `${yEnd - yStart}px`,
         outline: `1px solid ${color}`,
       }}
     ></div>

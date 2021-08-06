@@ -35,6 +35,8 @@ interface SelectionRect {
 interface GridCellPos extends SelectionRect {
   row: number;
   col: number;
+  offsetLeft: number;
+  offsetTop: number;
 }
 
 type GridTractDir = "rows" | "cols";

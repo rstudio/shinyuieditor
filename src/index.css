@@ -59,3 +59,17 @@ h3 {
 .link {
   color: #fff;
 }
+
+/*
+  This disables text highlighting so you dont get those wonky visual
+  artifacts when dragging your cursor around the screen
+*/
+.disable-text-selection * {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
