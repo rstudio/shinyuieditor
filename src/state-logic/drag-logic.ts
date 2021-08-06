@@ -8,14 +8,13 @@ import { DragDir, GridCellPos, GridPos } from "../types";
 interface DragInfo {
   pageX: number;
   pageY: number;
-  offsetX: number;
-  offsetY: number;
 }
 
 type DragEvents = "ItemMoveDrag" | "ItemResizeDrag" | "NewItemDrag";
 
 export interface ItemDragStart extends DragInfo {
   name: string;
+  type: DragEvents;
   dir: DragDir;
 }
 
@@ -24,6 +23,7 @@ type GridCellPositions = Array<GridCellPos>;
 type DragUpdateActions =
   | {
       type: "start";
+      callType: DragEvents;
       info: DragInfo;
       cellPositions: Array<GridCellPos>;
     }
@@ -37,60 +37,41 @@ type DragUpdateActions =
 
 export type ItemDragStartEvent = CustomEvent<ItemDragStart>;
 
-export type DragPos = {
+export type DragState = {
+  type: DragEvents;
+  gridCells: GridCellPositions;
   xStart: number;
   xEnd: number;
   yStart: number;
   yEnd: number;
-};
-
-export type DragState = {
-  gridCells: GridCellPositions;
-  dragPos?: DragPos;
-  gridPos?: GridPos;
   xOffset: number;
   yOffset: number;
+  gridPos?: GridPos;
 };
 
+const customDragEventId = "GridDrag";
+
 function dragUpdater(dragState: DragState | null, action: DragUpdateActions) {
-  let info: DragInfo;
-  let newState: DragState;
-  let dragPos: DragPos;
+  let firstCell: GridCellPos;
+  const { pageX: dragX = 0, pageY: dragY = 0 } =
+    action.type !== "end" ? action.info : {};
 
   switch (action.type) {
     case "start":
-      const firstCell = action.cellPositions[0];
-
+      firstCell = action.cellPositions[0];
       return {
+        type: action.callType,
         gridCells: action.cellPositions,
         xOffset: firstCell.left - firstCell.offsetLeft,
         yOffset: firstCell.top - firstCell.offsetTop,
+        xStart: dragX,
+        xEnd: dragX,
+        yStart: dragY,
+        yEnd: dragY,
       };
     case "move":
-      if (!dragState) throw new Error("Cant move an uninitialized drag");
-
-      info = action.info;
-      if (!dragState.dragPos) {
-        // this is our first move with this so fill in whole drag position
-        dragPos = {
-          xStart: info.pageX,
-          xEnd: info.pageX,
-          yStart: info.pageY,
-          yEnd: info.pageY,
-        };
-      } else {
-        // Were already dragging so just update the end positions
-        dragPos = {
-          ...dragState.dragPos,
-          xEnd: info.pageX,
-          yEnd: info.pageY,
-        };
-      }
-      newState = { ...dragState, dragPos };
-      newState.gridPos = getDragExtentOnGrid(newState);
-      return newState;
+      return moveDragState(dragState, action.info);
     case "end":
-      // return dragState;
       return null;
 
     default:
@@ -98,27 +79,28 @@ function dragUpdater(dragState: DragState | null, action: DragUpdateActions) {
   }
 }
 
-export const useDragHandler = ({
-  dragEventId,
-  watchingRef,
-}: {
-  dragEventId: DragEvents;
-  watchingRef: RefObject<HTMLDivElement>;
-}) => {
+function moveDragState(state: DragState | null, info: DragInfo) {
+  if (!state) throw new Error("Cant move an uninitialized drag");
+
+  const { pageX: dragX, pageY: dragY } = info;
+  const newState: DragState = { ...state, xEnd: dragX, yEnd: dragY };
+  newState.gridPos = getDragExtentOnGrid(newState);
+  return newState;
+}
+
+export const useDragHandler = (watchingRef: RefObject<HTMLDivElement>) => {
   const [dragState, updateDragState] = useReducer(dragUpdater, null);
 
   useEffect(() => {
-    // const watcherOffset = {
-    //   left: watchingRef.current?.offsetLeft,
-    //   right: watchingRef.current?.offsetTop,
-    // };
-
     const startDrag = (e: Event) => {
       if (!isCustomEvent(e)) throw new Error("not a custom event");
 
+      const eventInfo = e.detail as ItemDragStart;
+
       updateDragState({
         type: "start",
-        info: e.detail as ItemDragStart,
+        callType: eventInfo.type,
+        info: eventInfo,
         cellPositions: gatherCellPositions(watchingRef),
       });
 
@@ -142,7 +124,7 @@ export const useDragHandler = ({
       watchingRef.current?.removeEventListener("mouseup", endDrag);
     };
 
-    watchingRef.current?.addEventListener(dragEventId, startDrag);
+    watchingRef.current?.addEventListener(customDragEventId, startDrag);
     return () => {
       // Make sure to remove all event listeners on cleanup. Even though
       // it's unlikely that the mousemove and mouseup events are still attached
@@ -170,30 +152,26 @@ export function triggerCustomDragEvent({
 }) {
   console.log(`Triggering custom event ${type}`);
   el.dispatchEvent(
-    new CustomEvent<ItemDragStart>(type, {
+    new CustomEvent<ItemDragStart>(customDragEventId, {
       bubbles: true,
       detail: {
         name,
+        type,
         dir,
         pageX: e.pageX,
-        offsetX: e.offsetX,
         pageY: e.pageY,
-        offsetY: e.offsetY,
       },
     })
   );
 }
 
 function getDragExtentOnGrid({
-  dragPos,
+  xStart,
+  xEnd,
+  yStart,
+  yEnd,
   gridCells,
-}: {
-  dragPos?: DragPos;
-  gridCells?: GridCellPositions;
-}): GridPos {
-  if (!dragPos)
-    throw new Error("Need a drag position to find extent on the grid");
-  const { xStart, xEnd, yStart, yEnd } = dragPos;
+}: DragState): GridPos {
   const dragRect = {
     left: Math.min(xStart, xEnd),
     right: Math.max(xStart, xEnd),

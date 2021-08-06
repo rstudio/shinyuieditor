@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useRef } from "preact/hooks";
+import { useReducer, useRef } from "preact/hooks";
 import { CssUnitInput } from "../../components/CssUnitInput";
 import { DragFeedbackRect } from "../../components/DragFeedbackRect";
 import { EditableGridItems } from "../../components/EditableGridItems";
@@ -23,19 +23,7 @@ export default function LayoutEditor({
   // attach event handlers for drag detection to it.
   const editorRef = useRef<HTMLDivElement>(null);
 
-  const dragState = useDragHandler({
-    dragEventId: "ItemResizeDrag",
-    watchingRef: editorRef,
-  });
-
-  const newItemDragState = useDragHandler({
-    dragEventId: "NewItemDrag",
-    watchingRef: editorRef,
-  });
-
-  useEffect(() => {
-    console.log("New drag state", newItemDragState);
-  }, [newItemDragState]);
+  const dragState = useDragHandler(editorRef);
 
   const { rows, cols, items, gap } = layout;
 
@@ -61,8 +49,7 @@ export default function LayoutEditor({
           setTract={(tract) => updateLayout({ type: "Set-Tract", tract })}
         />
         <EditableGridItems items={items} editorRef={editorRef} />
-        <DragFeedbackRect status={dragState} color={"red"} />
-        <DragFeedbackRect status={newItemDragState} color={"blue"} />
+        <DragFeedbackRect status={dragState} />
       </EditorGridContainer>
     </div>
   );

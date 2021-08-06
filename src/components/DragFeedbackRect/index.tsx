@@ -1,17 +1,11 @@
 import type { DragState } from "../../state-logic/drag-logic";
 import classes from "./style.module.css";
 
-export function DragFeedbackRect({
-  status,
-  color = "pink",
-}: {
-  status: DragState | null;
-  color?: string;
-}) {
-  if (!status?.dragPos) return <div className={classes.hidden}></div>;
+export function DragFeedbackRect({ status }: { status: DragState | null }) {
+  if (!status) return <div className={classes.hidden}></div>;
 
-  const { xStart, xEnd, yStart, yEnd } = status.dragPos;
-  const { xOffset, yOffset } = status;
+  const color = status.type === "ItemResizeDrag" ? "red" : "blue";
+  const { xStart, xEnd, yStart, yEnd, xOffset, yOffset } = status;
 
   return (
     <div
