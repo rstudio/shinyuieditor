@@ -1,8 +1,8 @@
 import { RefObject } from "preact";
 import { useEffect, useReducer } from "preact/hooks";
-import { DragFeedbackRect } from "../components/DragFeedbackRect";
 import { boxesOverlap } from "../helper-scripts/overlap-helpers";
 import { DragDir, GridCellPos, GridPos } from "../types";
+
 // Basic information about a given drag event. Just a subset of the position
 // info given by MouseEvent
 interface DragInfo {
@@ -155,6 +155,7 @@ export const useDragHandler = (watchingRef: RefObject<HTMLDivElement>) => {
       })
     );
   };
+
   const DragFeedback = () => <DragFeedbackRect status={dragState} />;
 
   // There is a chance that returning the feeback component directly here is bad
@@ -166,6 +167,27 @@ export const useDragHandler = (watchingRef: RefObject<HTMLDivElement>) => {
     DragFeedback,
   };
 };
+
+function DragFeedbackRect({ status }: { status: DragState | null }) {
+  if (!status) return <div style={{ display: "none" }}></div>;
+
+  const color = status.type === "ItemResizeDrag" ? "red" : "blue";
+  const { xStart, xEnd, yStart, yEnd, xOffset, yOffset } = status;
+
+  return (
+    <div
+      style={{
+        position: "absolute",
+        top: `${yStart - yOffset}px`,
+        left: `${xStart - xOffset}px`,
+        width: `${xEnd - xStart}px`,
+        height: `${yEnd - yStart}px`,
+        pointerEvents: "none",
+        outline: `1px solid ${color}`,
+      }}
+    ></div>
+  );
+}
 
 function getDragExtentOnGrid({
   xStart,
