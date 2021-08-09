@@ -13,19 +13,20 @@ export function GridCells({
   return (
     <>
       {Array.from({ length: numCols * numRows }).map((_, i) => {
-        const iCol = (i % numCols) + 1;
-        const iRow = Math.floor(i / numCols) + 1;
+        const col = (i % numCols) + 1;
+        const row = Math.floor(i / numCols) + 1;
         return (
           <div
             className={"gridCell"}
             style={{
-              gridRow: iRow,
-              gridColumn: iCol,
-              outline: "1px solid tomato",
+              gridRow: row,
+              gridColumn: col,
+              // Makes sure the cell fill the entire grid area and ignores gap
+              margin: "calc(var(--gap)* (-1/2))",
             }}
-            key={{ iRow, iCol }}
-            data-row={iRow}
-            data-col={iCol}
+            key={{ row, col }}
+            data-row={row}
+            data-col={col}
           />
         );
       })}
