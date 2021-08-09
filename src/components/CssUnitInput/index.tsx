@@ -22,7 +22,11 @@ export const CssUnitInput: FunctionComponent<{
   }, [currentCount, currentUnit]);
 
   return (
-    <form className={classes.form} onSubmit={(e) => e.preventDefault()}>
+    <form
+      className={classes.form}
+      onMouseDown={(e) => e.stopImmediatePropagation()}
+      onSubmit={(e) => e.preventDefault()}
+    >
       <input
         type="number"
         min={0}
