@@ -10,11 +10,11 @@ interface DragInfo {
   pageY: number;
 }
 
-type DragEvents = "ItemMoveDrag" | "ItemResizeDrag" | "NewItemDrag";
+export type DragPurpose = "ItemMoveDrag" | "ItemResizeDrag" | "NewItemDrag";
 
 export interface ItemDragStart extends DragInfo {
   name: string;
-  type: DragEvents;
+  type: DragPurpose;
   dir: DragDir;
 }
 
@@ -23,7 +23,7 @@ type GridCellPositions = Array<GridCellPos>;
 type DragUpdateActions =
   | {
       type: "start";
-      callType: DragEvents;
+      callType: DragPurpose;
       info: DragInfo;
       cellPositions: Array<GridCellPos>;
     }
@@ -38,7 +38,7 @@ type DragUpdateActions =
 export type ItemDragStartEvent = CustomEvent<ItemDragStart>;
 
 export type DragState = {
-  type: DragEvents;
+  type: DragPurpose;
   gridCells: GridCellPositions;
   xStart: number;
   xEnd: number;
@@ -88,6 +88,13 @@ function moveDragState(state: DragState | null, info: DragInfo) {
   return newState;
 }
 
+export type DragStartFn = (x: {
+  e: MouseEvent;
+  type: DragPurpose;
+  name?: string;
+  dir: DragDir;
+}) => void;
+
 export const useDragHandler = (watchingRef: RefObject<HTMLDivElement>) => {
   const [dragState, updateDragState] = useReducer(dragUpdater, null);
 
@@ -134,36 +141,23 @@ export const useDragHandler = (watchingRef: RefObject<HTMLDivElement>) => {
     };
   }, []);
 
-  return dragState;
-};
+  const startDrag: DragStartFn = ({ e, type, name = "new", dir }) => {
+    (watchingRef.current as HTMLDivElement).dispatchEvent(
+      new CustomEvent<ItemDragStart>(customDragEventId, {
+        bubbles: true,
+        detail: {
+          name,
+          type,
+          dir,
+          pageX: e.pageX,
+          pageY: e.pageY,
+        },
+      })
+    );
+  };
 
-export function triggerCustomDragEvent({
-  el,
-  type,
-  e,
-  dir,
-  name,
-}: {
-  el: HTMLDivElement;
-  type: DragEvents;
-  e: MouseEvent;
-  dir: DragDir;
-  name: string;
-}) {
-  console.log(`Triggering custom event ${type}`);
-  el.dispatchEvent(
-    new CustomEvent<ItemDragStart>(customDragEventId, {
-      bubbles: true,
-      detail: {
-        name,
-        type,
-        dir,
-        pageX: e.pageX,
-        pageY: e.pageY,
-      },
-    })
-  );
-}
+  return { dragState, startDrag };
+};
 
 function getDragExtentOnGrid({
   xStart,

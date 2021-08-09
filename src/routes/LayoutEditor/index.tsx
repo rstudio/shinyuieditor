@@ -23,7 +23,7 @@ export default function LayoutEditor({
   // attach event handlers for drag detection to it.
   const editorRef = useRef<HTMLDivElement>(null);
 
-  const dragState = useDragHandler(editorRef);
+  const { dragState, startDrag } = useDragHandler(editorRef);
 
   const { rows, cols, items, gap } = layout;
 
@@ -42,13 +42,13 @@ export default function LayoutEditor({
         items={items}
         deleteItem={(name) => updateLayout({ type: "Delete-Item", name })}
       />
-      <EditorGridContainer layout={layout}>
+      <EditorGridContainer layout={layout} onDrag={startDrag}>
         <GridTractControls
           rows={rows}
           cols={cols}
           setTract={(tract) => updateLayout({ type: "Set-Tract", tract })}
         />
-        <EditableGridItems items={items} editorRef={editorRef} />
+        <EditableGridItems items={items} onDrag={startDrag} />
         <DragFeedbackRect status={dragState} />
       </EditorGridContainer>
     </div>

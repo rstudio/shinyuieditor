@@ -1,6 +1,6 @@
 import { FunctionComponent, JSX } from "preact";
 import { useEffect, useRef } from "preact/hooks";
-import { triggerCustomDragEvent } from "../../state-logic/drag-logic";
+import { DragStartFn } from "../../state-logic/drag-logic";
 import { GridLayoutTemplate } from "../../types";
 import { GridCard } from "../GridCard";
 import { GridCells } from "../GridCells/GridCells";
@@ -13,18 +13,17 @@ import classes from "./style.module.css";
 export const EditorGridContainer: FunctionComponent<{
   layout: GridLayoutTemplate;
   styles?: JSX.CSSProperties;
-}> = ({ layout, styles: extraStyles, children }) => {
+  onDrag: DragStartFn;
+}> = ({ layout, styles: extraStyles, children, onDrag }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const container = containerRef.current as HTMLDivElement;
 
     const triggerDrag = (e: MouseEvent) => {
-      triggerCustomDragEvent({
-        el: container,
+      onDrag({
         e,
         type: "NewItemDrag",
-        name: "new",
         dir: "bottomRight",
       });
     };
