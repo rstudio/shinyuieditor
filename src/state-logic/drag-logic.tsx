@@ -162,7 +162,7 @@ export const useDragHandler = (watchingRef: RefObject<HTMLDivElement>) => {
   return {
     dragState,
     startDrag,
-    FeedbackRect: () => <DragFeedbackRect status={dragState} />,
+    DragFeedback: () => <DragFeedbackRect status={dragState} />,
   };
 };
 
