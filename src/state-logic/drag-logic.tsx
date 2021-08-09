@@ -1,5 +1,5 @@
 import { RefObject } from "preact";
-import { useEffect, useReducer } from "preact/hooks";
+import { useLayoutEffect, useReducer } from "preact/hooks";
 import { boxesOverlap } from "../helper-scripts/overlap-helpers";
 import { DragDir, GridCellPos, GridPos } from "../types";
 
@@ -110,7 +110,11 @@ export type DragStartFn = (x: {
 export const useDragHandler = (watchingRef: RefObject<HTMLDivElement>) => {
   const [dragState, updateDragState] = useReducer(dragUpdater, null);
 
-  useEffect(() => {
+  // Because this relies on the position of the current grid cells we want
+  // useLayoutEffect instead of simply useEffect. If we stick with plain
+  // useEffect sometimes this fires before the grid cells are loaded on the page
+  // it gets mad at us.
+  useLayoutEffect(() => {
     const startDrag = (e: Event) => {
       if (!isCustomEvent(e)) throw new Error("not a custom event");
 
