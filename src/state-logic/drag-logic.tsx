@@ -171,25 +171,17 @@ export const useDragHandler = (watchingRef: RefObject<HTMLDivElement>) => {
       })
     );
   };
-
-  const DragFeedback = () => <DragFeedbackRect status={dragState} />;
-
-  // There is a chance that returning the feeback component directly here is bad
-  // because it may get redefined on every update, but it seems to work fine
-  // and keeping it within here is a lot nicer than duplicating the logic outside
-  return {
-    dragState,
-    startDrag,
-    DragFeedback,
-  };
+  return { dragState, startDrag };
 };
 
-function DragFeedbackRect({ status }: { status: DragState }) {
-  if (!status) return <div style={{ display: "none" }}></div>;
+// I wish that I could bundle this in with the custom useDragHandler hook
+// but then we loose a lot of performance because react rerenders the whole
+// component at all times instead of just updating the styles when it's its
+// own independent component
+export const DragFeedback = ({ dragState }: { dragState: DragState }) => {
+  if (!dragState) return <div style={{ display: "none" }}></div>;
 
-  const color = status.type === "ItemResizeDrag" ? "red" : "blue";
-  const { xStart, xEnd, yStart, yEnd, xOffset, yOffset } = status;
-
+  const { xStart, xEnd, yStart, yEnd, xOffset, yOffset } = dragState;
   return (
     <div
       style={{
@@ -199,11 +191,13 @@ function DragFeedbackRect({ status }: { status: DragState }) {
         width: `${xEnd - xStart}px`,
         height: `${yEnd - yStart}px`,
         pointerEvents: "none",
-        outline: `1px solid ${color}`,
+        outline: `1px solid ${
+          dragState.type === "ItemResizeDrag" ? "red" : "blue"
+        }`,
       }}
     ></div>
   );
-}
+};
 
 function getDragExtentOnGrid({
   xStart,

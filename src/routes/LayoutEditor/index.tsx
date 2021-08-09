@@ -6,7 +6,7 @@ import { EditorInstructions } from "../../components/EditorInstructions";
 import { EditorItemsListView } from "../../components/EditorItemsListView";
 import { EditorSettings, SettingPane } from "../../components/EditorSettings";
 import { GridTractControls } from "../../components/GridTractControls";
-import { useDragHandler } from "../../state-logic/drag-logic";
+import { DragFeedback, useDragHandler } from "../../state-logic/drag-logic";
 import { layoutUpdater } from "../../state-logic/layout-updating-logic";
 import type { GridLayoutTemplate } from "../../types";
 import classes from "./style.module.css";
@@ -22,7 +22,7 @@ export default function LayoutEditor({
   // attach event handlers for drag detection to it.
   const editorRef = useRef<HTMLDivElement>(null);
 
-  const { dragState, startDrag, DragFeedback } = useDragHandler(editorRef);
+  const { dragState, startDrag } = useDragHandler(editorRef);
 
   const { rows, cols, items, gap } = layout;
 
@@ -48,7 +48,7 @@ export default function LayoutEditor({
           setTract={(tract) => updateLayout({ type: "Set-Tract", tract })}
         />
         <EditableGridItems items={items} onDrag={startDrag} />
-        <DragFeedback />
+        <DragFeedback dragState={dragState} />
       </EditorGridContainer>
     </div>
   );
