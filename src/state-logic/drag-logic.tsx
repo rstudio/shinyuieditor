@@ -3,6 +3,8 @@ import { useLayoutEffect, useReducer } from "preact/hooks";
 import { boxesOverlap } from "../helper-scripts/overlap-helpers";
 import { DragDir, GridCellPos, GridPos } from "../types";
 
+export type DragPurpose = "ItemMoveDrag" | "ItemResizeDrag" | "NewItemDrag";
+
 // Basic information about a given drag event. Just a subset of the position
 // info given by MouseEvent
 interface DragInfo {
@@ -10,15 +12,11 @@ interface DragInfo {
   pageY: number;
 }
 
-export type DragPurpose = "ItemMoveDrag" | "ItemResizeDrag" | "NewItemDrag";
-
 export interface ItemDragStart extends DragInfo {
   name: string;
   type: DragPurpose;
   dir: DragDir;
 }
-
-type GridCellPositions = Array<GridCellPos>;
 
 type DragUpdateActions =
   | {
@@ -35,64 +33,56 @@ type DragUpdateActions =
       info: DragInfo;
     };
 
-export type ItemDragStartEvent = CustomEvent<ItemDragStart>;
-
 // When dragging is actively happening then we will have an object with all the
 // neccesary info to infer state from it
 type ActiveDrag = {
   type: DragPurpose;
-  gridCells: GridCellPositions;
+  gridCells: Array<GridCellPos>;
   xStart: number;
   xEnd: number;
   yStart: number;
   yEnd: number;
   xOffset: number;
   yOffset: number;
-  gridPos?: GridPos;
+  gridPos: GridPos;
 };
+
 // Non-active drags will just be represented by null
-export type DragState = ActiveDrag | null;
-
-// So we dont accidentally emit and listen to different custom events
-const CUSTOM_DRAG_EVENT = "GridDrag";
-
-function startDragState({
-  callType,
-  info: { pageX: dragX, pageY: dragY },
-  cellPositions,
-}: {
-  callType: DragPurpose;
-  info: DragInfo;
-  cellPositions: Array<GridCellPos>;
-}) {
-  const firstCell = cellPositions[0];
-  return {
-    type: callType,
-    gridCells: cellPositions,
-    xOffset: firstCell.left - firstCell.offsetLeft,
-    yOffset: firstCell.top - firstCell.offsetTop,
-    xStart: dragX,
-    xEnd: dragX,
-    yStart: dragY,
-    yEnd: dragY,
-  };
-}
-
-function moveDragState(state: DragState, info: DragInfo) {
-  if (!state) throw new Error("Cant move an uninitialized drag");
-
-  const { pageX: dragX, pageY: dragY } = info;
-  const newState: ActiveDrag = { ...state, xEnd: dragX, yEnd: dragY };
-  newState.gridPos = getDragExtentOnGrid(newState);
-  return newState;
-}
+type DragState = ActiveDrag | null;
 
 function dragUpdater(dragState: DragState, action: DragUpdateActions) {
   switch (action.type) {
-    case "start":
-      return startDragState(action);
-    case "move":
-      return moveDragState(dragState, action.info);
+    case "start": {
+      const {
+        callType,
+        info: { pageX: xStart, pageY: yStart },
+        cellPositions,
+      } = action;
+      const firstCell = cellPositions[0];
+      return {
+        type: callType,
+        gridCells: cellPositions,
+        xOffset: firstCell.left - firstCell.offsetLeft,
+        yOffset: firstCell.top - firstCell.offsetTop,
+        xStart,
+        yStart,
+        xEnd: xStart,
+        yEnd: yStart,
+        gridPos: dragPosOnGrid({ xStart, yStart, gridCells: cellPositions }),
+      };
+    }
+    case "move": {
+      if (!dragState) throw new Error("Cant move an uninitialized drag");
+
+      const { xStart, yStart, gridCells } = dragState;
+      const { pageX: xEnd, pageY: yEnd } = action.info;
+      return {
+        ...dragState,
+        xEnd,
+        yEnd,
+        gridPos: dragPosOnGrid({ xStart, xEnd, yStart, yEnd, gridCells }),
+      };
+    }
     case "end":
       return null;
     default:
@@ -106,6 +96,9 @@ export type DragStartFn = (x: {
   name?: string;
   dir: DragDir;
 }) => void;
+
+// So we dont accidentally emit and listen to different custom events
+const CUSTOM_DRAG_EVENT = "GridDrag";
 
 export const useDragHandler = (watchingRef: RefObject<HTMLDivElement>) => {
   const [dragState, updateDragState] = useReducer(dragUpdater, null);
@@ -181,7 +174,7 @@ export const useDragHandler = (watchingRef: RefObject<HTMLDivElement>) => {
 export const DragFeedback = ({ dragState }: { dragState: DragState }) => {
   if (!dragState) return <div style={{ display: "none" }}></div>;
 
-  const { xStart, xEnd, yStart, yEnd, xOffset, yOffset } = dragState;
+  const { xStart, xEnd, yStart, yEnd, xOffset, yOffset, gridPos } = dragState;
   return (
     <div
       style={{
@@ -195,17 +188,27 @@ export const DragFeedback = ({ dragState }: { dragState: DragState }) => {
           dragState.type === "ItemResizeDrag" ? "red" : "blue"
         }`,
       }}
-    ></div>
+    >
+      columns: {gridPos.cols[0]} -&gt; {gridPos.cols[1]}
+      <br />
+      rows: {gridPos.rows[0]} -&gt; {gridPos.rows[1]}
+    </div>
   );
 };
 
-function getDragExtentOnGrid({
+function dragPosOnGrid({
   xStart,
-  xEnd,
   yStart,
-  yEnd,
+  xEnd = xStart,
+  yEnd = yStart,
   gridCells,
-}: ActiveDrag): GridPos {
+}: {
+  xStart: number;
+  yStart: number;
+  xEnd?: number;
+  yEnd?: number;
+  gridCells: Array<GridCellPos>;
+}): GridPos {
   const dragRect = {
     left: Math.min(xStart, xEnd),
     right: Math.max(xStart, xEnd),
