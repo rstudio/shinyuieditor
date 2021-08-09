@@ -1,6 +1,5 @@
 import { useReducer, useRef } from "preact/hooks";
 import { CssUnitInput } from "../../components/CssUnitInput";
-import { DragFeedbackRect } from "../../components/DragFeedbackRect";
 import { EditableGridItems } from "../../components/EditableGridItems";
 import { EditorGridContainer } from "../../components/EditorGridContainer";
 import { EditorInstructions } from "../../components/EditorInstructions";
@@ -23,7 +22,7 @@ export default function LayoutEditor({
   // attach event handlers for drag detection to it.
   const editorRef = useRef<HTMLDivElement>(null);
 
-  const { dragState, startDrag } = useDragHandler(editorRef);
+  const { dragState, startDrag, FeedbackRect } = useDragHandler(editorRef);
 
   const { rows, cols, items, gap } = layout;
 
@@ -49,7 +48,7 @@ export default function LayoutEditor({
           setTract={(tract) => updateLayout({ type: "Set-Tract", tract })}
         />
         <EditableGridItems items={items} onDrag={startDrag} />
-        <DragFeedbackRect status={dragState} />
+        <FeedbackRect />
       </EditorGridContainer>
     </div>
   );

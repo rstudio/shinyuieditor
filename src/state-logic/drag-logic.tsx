@@ -1,8 +1,8 @@
 import { RefObject } from "preact";
 import { useEffect, useReducer } from "preact/hooks";
+import { DragFeedbackRect } from "../components/DragFeedbackRect";
 import { boxesOverlap } from "../helper-scripts/overlap-helpers";
 import { DragDir, GridCellPos, GridPos } from "../types";
-
 // Basic information about a given drag event. Just a subset of the position
 // info given by MouseEvent
 interface DragInfo {
@@ -156,7 +156,14 @@ export const useDragHandler = (watchingRef: RefObject<HTMLDivElement>) => {
     );
   };
 
-  return { dragState, startDrag };
+  // There is a chance that returning the feeback component directly here is bad
+  // because it may get redefined on every update, but it seems to work fine
+  // and keeping it within here is a lot nicer than duplicating the logic outside
+  return {
+    dragState,
+    startDrag,
+    FeedbackRect: () => <DragFeedbackRect status={dragState} />,
+  };
 };
 
 function getDragExtentOnGrid({
