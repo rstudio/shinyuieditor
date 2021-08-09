@@ -1,9 +1,4 @@
-import {
-  GridItemDef,
-  GridLayoutTemplate,
-  ItemTractPos,
-  TractValue,
-} from "../types";
+import { GridItemDef, GridLayoutTemplate, TractValue } from "../types";
 
 type LayoutUpdateActions =
   | {

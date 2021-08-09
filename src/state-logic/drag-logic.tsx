@@ -155,6 +155,7 @@ export const useDragHandler = (watchingRef: RefObject<HTMLDivElement>) => {
       })
     );
   };
+  const DragFeedback = () => <DragFeedbackRect status={dragState} />;
 
   // There is a chance that returning the feeback component directly here is bad
   // because it may get redefined on every update, but it seems to work fine
@@ -162,7 +163,7 @@ export const useDragHandler = (watchingRef: RefObject<HTMLDivElement>) => {
   return {
     dragState,
     startDrag,
-    DragFeedback: () => <DragFeedbackRect status={dragState} />,
+    DragFeedback,
   };
 };
 

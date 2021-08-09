@@ -23,6 +23,7 @@ export function GridCells({
               gridColumn: iCol,
               outline: "1px solid tomato",
             }}
+            key={{ iRow, iCol }}
             data-row={iRow}
             data-col={iCol}
           />
