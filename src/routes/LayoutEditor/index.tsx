@@ -16,14 +16,14 @@ export default function LayoutEditor({
 }: {
   startingLayout: GridLayoutTemplate;
 }) {
-  const { layout, deleteItem, setTract, setGap } = useGridLayoutState(
+  const { layout, deleteItem, setTract, setGap, addItem } = useGridLayoutState(
     startingLayout
   );
   // We need a reference to the main parent element of everything so we can
   // attach event handlers for drag detection to it.
   const editorRef = useRef<HTMLDivElement>(null);
 
-  const { dragState, startDrag } = useDragHandler(editorRef);
+  const { dragState, startDrag } = useDragHandler(editorRef, addItem);
 
   const { rows, cols, items, gap } = layout;
 

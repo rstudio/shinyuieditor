@@ -22,6 +22,10 @@ type LayoutUpdateActions =
   | {
       type: "Move-Item";
       itemDef: GridItemDef;
+    }
+  | {
+      type: "Add-Item";
+      itemDef: GridItemDef;
     };
 
 export const layoutUpdater = (
@@ -55,6 +59,10 @@ export const layoutUpdater = (
       });
       break;
 
+    case "Add-Item":
+      layout.items.push(action.itemDef);
+      break;
+
     default:
       throw new Error("Unexpected action");
   }
@@ -67,8 +75,10 @@ export function useGridLayoutState(startingLayout: GridLayoutTemplate) {
 
   return {
     layout,
-    deleteItem: (name: string) => updateLayout({ type: "Delete-Item", name }),
-    setTract: (tract: TractValue) => updateLayout({ type: "Set-Tract", tract }),
     setGap: (gap: CSSMeasure) => updateLayout({ type: "Set-Gap", gap }),
+    setTract: (tract: TractValue) => updateLayout({ type: "Set-Tract", tract }),
+    deleteItem: (name: string) => updateLayout({ type: "Delete-Item", name }),
+    addItem: (itemDef: GridItemDef) =>
+      updateLayout({ type: "Add-Item", itemDef }),
   };
 }
