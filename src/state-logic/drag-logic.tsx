@@ -1,5 +1,6 @@
 import { RefObject } from "preact";
 import { useLayoutEffect, useReducer } from "preact/hooks";
+import { GridItem } from "../components/GridItem";
 import { boxesOverlap } from "../helper-scripts/overlap-helpers";
 import { DragDir, GridCellPos, GridPos } from "../types";
 
@@ -176,23 +177,28 @@ export const DragFeedback = ({ dragState }: { dragState: DragState }) => {
 
   const { xStart, xEnd, yStart, yEnd, xOffset, yOffset, gridPos } = dragState;
   return (
-    <div
-      style={{
-        position: "absolute",
-        top: `${yStart - yOffset}px`,
-        left: `${xStart - xOffset}px`,
-        width: `${xEnd - xStart}px`,
-        height: `${yEnd - yStart}px`,
-        pointerEvents: "none",
-        outline: `1px solid ${
-          dragState.type === "ItemResizeDrag" ? "red" : "blue"
-        }`,
-      }}
-    >
-      columns: {gridPos.cols[0]} -&gt; {gridPos.cols[1]}
-      <br />
-      rows: {gridPos.rows[0]} -&gt; {gridPos.rows[1]}
-    </div>
+    <>
+      <div
+        style={{
+          position: "absolute",
+          top: `${yStart - yOffset}px`,
+          left: `${xStart - xOffset}px`,
+          width: `${xEnd - xStart}px`,
+          height: `${yEnd - yStart}px`,
+          pointerEvents: "none",
+          outline: `1px solid ${
+            dragState.type === "ItemResizeDrag" ? "red" : "blue"
+          }`,
+        }}
+      />
+      <GridItem
+        rows={gridPos.rows}
+        cols={gridPos.cols}
+        styles={{
+          border: "2px solid tomato",
+        }}
+      />
+    </>
   );
 };
 
@@ -240,8 +246,8 @@ function dragPosOnGrid({
   // These will always be numbers the fallback should never be needed. It's just
   // so typescript is happy
   return {
-    rows: [startRow ?? 1, endRow ?? 1],
-    cols: [startCol ?? 1, endCol ?? 1],
+    rows: [startRow ?? 1, (endRow ?? 1) + 1],
+    cols: [startCol ?? 1, (endCol ?? 1) + 1],
   };
 }
 
