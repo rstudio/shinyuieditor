@@ -109,8 +109,8 @@ export const useDragHandler = (watchingRef: RefObject<HTMLDivElement>) => {
   // useEffect sometimes this fires before the grid cells are loaded on the page
   // it gets mad at us.
   useLayoutEffect(() => {
-    const startDrag = (e: Event) => {
-      if (!isCustomEvent(e)) throw new Error("not a custom event");
+    const startDrag = (e: Event | CustomEvent) => {
+      if (!(e instanceof CustomEvent)) throw new Error("not a custom event");
 
       const eventInfo = e.detail as ItemDragStart;
 
@@ -274,8 +274,4 @@ function gatherCellPositions(
       offsetTop: cell.offsetTop,
     };
   });
-}
-
-function isCustomEvent(event: Event): event is CustomEvent {
-  return "detail" in event;
 }
