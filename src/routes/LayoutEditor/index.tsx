@@ -1,4 +1,5 @@
-import { useRef } from "preact/hooks";
+import { useRef, useState } from "preact/hooks";
+import { AddItemModal, useAddItemModal } from "../../components/AddItemModal";
 import { CssUnitInput } from "../../components/CssUnitInput";
 import { EditableGridItems } from "../../components/EditableGridItems";
 import { EditorGridContainer } from "../../components/EditorGridContainer";
@@ -8,7 +9,7 @@ import { EditorSettings, SettingPane } from "../../components/EditorSettings";
 import { GridTractControls } from "../../components/GridTractControls";
 import { DragFeedback, useDragHandler } from "../../state-logic/drag-logic";
 import { useGridLayoutState } from "../../state-logic/layout-updating-logic";
-import type { GridLayoutTemplate } from "../../types";
+import type { GridLayoutTemplate, GridPos } from "../../types";
 import classes from "./style.module.css";
 
 export default function LayoutEditor({
@@ -16,14 +17,27 @@ export default function LayoutEditor({
 }: {
   startingLayout: GridLayoutTemplate;
 }) {
-  const { layout, deleteItem, setTract, setGap, addItem } = useGridLayoutState(
-    startingLayout
-  );
   // We need a reference to the main parent element of everything so we can
   // attach event handlers for drag detection to it.
   const editorRef = useRef<HTMLDivElement>(null);
 
-  const { dragState, startDrag } = useDragHandler(editorRef, addItem);
+  // Setup hooks that control app state
+
+  // Initialize the layout state and get out the various manipulation functions
+  // that go with it
+  const { layout, deleteItem, setTract, setGap, addItem } = useGridLayoutState(
+    startingLayout
+  );
+
+  // Setup the neccesary state for controlling the add-item modal
+  const {
+    addItemState,
+    openAddItemModal,
+    closeAddItemModal,
+  } = useAddItemModal();
+
+  // Initiate the drag watching behavior
+  const { dragState, startDrag } = useDragHandler(editorRef, openAddItemModal);
 
   const { rows, cols, items, gap } = layout;
 
@@ -41,6 +55,12 @@ export default function LayoutEditor({
         <EditableGridItems items={items} onDrag={startDrag} />
         <DragFeedback dragState={dragState} />
       </EditorGridContainer>
+      <AddItemModal
+        state={addItemState}
+        existingElementNames={items.map((item) => item.name)}
+        onFinish={addItem}
+        closeModal={closeAddItemModal}
+      />
     </div>
   );
 }

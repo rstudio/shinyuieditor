@@ -44,7 +44,7 @@ h3 {
   position: relative;
   /* Add some padding but also adjust the height and width to account for it 
      and make sizing easier in lower level elements */
-  padding: 1rem;
+  padding: var(--pad);
   height: calc(100% - 2 * var(--pad));
   width: calc(100% - 2 * var(--pad));
 }

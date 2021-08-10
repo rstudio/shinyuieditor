@@ -1,5 +1,11 @@
 import { RefObject } from "preact";
-import { useEffect, useLayoutEffect, useReducer, useRef } from "preact/hooks";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useReducer,
+  useRef,
+} from "preact/hooks";
 import { GridItem } from "../components/GridItem";
 import { boxesOverlap } from "../helper-scripts/overlap-helpers";
 import { DragDir, GridCellPos, GridPos } from "../types";
@@ -105,13 +111,14 @@ const CUSTOM_DRAG_END = "GridDragEnd";
 
 export const useDragHandler = (
   watchingRef: RefObject<HTMLDivElement>,
-  addItem: ReturnType<typeof useGridLayoutState>["addItem"]
+  onNewItem: (pos: GridPos) => void
 ) => {
   const [dragState, updateDragState] = useReducer(dragUpdater, null);
 
   // Create a mutable state object that our callback can use. This way we dont
   // need to keep adding and removing event listeners for each version of the
   // state that we get. A semi-annoying downside of hooks
+
   const stateRef = useRef<typeof dragState>(dragState);
   useEffect(() => {
     stateRef.current = dragState;
@@ -123,9 +130,11 @@ export const useDragHandler = (
       throw new Error("For some reason our final state is null");
 
     if (finalState.type === "NewItemDrag") {
+      onNewItem(finalState.gridPos);
       console.log("Create a new item!", stateRef.current);
     }
   }
+
   // Because this relies on the position of the current grid cells we want
   // useLayoutEffect instead of simply useEffect. If we stick with plain
   // useEffect sometimes this fires before the grid cells are loaded on the page

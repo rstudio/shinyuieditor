@@ -1,0 +1,40 @@
+.addItemModal {
+  position: absolute;
+  inset: 5rem;
+  border-radius: var(--corner-radius);
+  background-color: rgb(188, 250, 229);
+  padding: 2rem;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 0.5rem;
+  grid-template-rows: auto auto 25px auto;
+  grid-template-areas:
+    "title"
+    "input"
+    "warning"
+    "cancel";
+}
+
+.addItemModal > h1 {
+  grid-area: title;
+  justify-self: center;
+}
+
+.inputForm {
+  grid-area: input;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.warningMsg {
+  color: tomato;
+  font-style: italic;
+  margin-top: -5px;
+}
+
+.cancel {
+  grid-area: cancel;
+  width: 75px;
+}
