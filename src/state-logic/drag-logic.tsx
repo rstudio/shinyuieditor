@@ -175,7 +175,8 @@ export const useDragHandler = (watchingRef: RefObject<HTMLDivElement>) => {
 export const DragFeedback = ({ dragState }: { dragState: DragState }) => {
   if (!dragState) return <div style={{ display: "none" }}></div>;
 
-  const { xStart, xEnd, yStart, yEnd, xOffset, yOffset, gridPos } = dragState;
+  const { xStart, xEnd, yStart, yEnd, xOffset, yOffset, gridPos, type } =
+    dragState;
   return (
     <>
       <div
@@ -191,13 +192,15 @@ export const DragFeedback = ({ dragState }: { dragState: DragState }) => {
           }`,
         }}
       />
-      <GridItem
-        rows={gridPos.rows}
-        cols={gridPos.cols}
-        styles={{
-          border: "2px solid tomato",
-        }}
-      />
+      {type === "NewItemDrag" ? (
+        <GridItem
+          rows={gridPos.rows}
+          cols={gridPos.cols}
+          styles={{
+            border: "2px solid tomato",
+          }}
+        />
+      ) : null}
     </>
   );
 };
