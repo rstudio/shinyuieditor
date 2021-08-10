@@ -1,8 +1,9 @@
 import { RefObject } from "preact";
-import { useLayoutEffect, useReducer } from "preact/hooks";
+import { useEffect, useLayoutEffect, useReducer, useRef } from "preact/hooks";
 import { GridItem } from "../components/GridItem";
 import { boxesOverlap } from "../helper-scripts/overlap-helpers";
 import { DragDir, GridCellPos, GridPos } from "../types";
+import { useGridLayoutState } from "./layout-updating-logic";
 
 export type DragPurpose = "ItemMoveDrag" | "ItemResizeDrag" | "NewItemDrag";
 
@@ -99,11 +100,32 @@ export type DragStartFn = (x: {
 }) => void;
 
 // So we dont accidentally emit and listen to different custom events
-const CUSTOM_DRAG_EVENT = "GridDrag";
+const CUSTOM_DRAG_START = "GridDragStart";
+const CUSTOM_DRAG_END = "GridDragEnd";
 
-export const useDragHandler = (watchingRef: RefObject<HTMLDivElement>) => {
+export const useDragHandler = (
+  watchingRef: RefObject<HTMLDivElement>,
+  addItem: ReturnType<typeof useGridLayoutState>["addItem"]
+) => {
   const [dragState, updateDragState] = useReducer(dragUpdater, null);
 
+  // Create a mutable state object that our callback can use. This way we dont
+  // need to keep adding and removing event listeners for each version of the
+  // state that we get. A semi-annoying downside of hooks
+  const stateRef = useRef<typeof dragState>(dragState);
+  useEffect(() => {
+    stateRef.current = dragState;
+  }, [dragState]);
+
+  function onDone() {
+    const finalState = stateRef.current;
+    if (finalState === null)
+      throw new Error("For some reason our final state is null");
+
+    if (finalState.type === "NewItemDrag") {
+      console.log("Create a new item!", stateRef.current);
+    }
+  }
   // Because this relies on the position of the current grid cells we want
   // useLayoutEffect instead of simply useEffect. If we stick with plain
   // useEffect sometimes this fires before the grid cells are loaded on the page
@@ -136,24 +158,27 @@ export const useDragHandler = (watchingRef: RefObject<HTMLDivElement>) => {
     const endDrag = () => {
       updateDragState({ type: "end" });
 
+      triggerEndDrag();
       watchingRef.current?.classList.remove("disable-text-selection");
       watchingRef.current?.removeEventListener("mousemove", duringDrag);
       watchingRef.current?.removeEventListener("mouseup", endDrag);
     };
 
-    watchingRef.current?.addEventListener(CUSTOM_DRAG_EVENT, startDrag);
+    watchingRef.current?.addEventListener(CUSTOM_DRAG_END, onDone);
+    watchingRef.current?.addEventListener(CUSTOM_DRAG_START, startDrag);
     return () => {
       // Make sure to remove all event listeners on cleanup. Even though
       // it's unlikely that the mousemove and mouseup events are still attached
-      watchingRef.current?.removeEventListener("itemDrag", startDrag);
+      watchingRef.current?.removeEventListener(CUSTOM_DRAG_END, onDone);
+      watchingRef.current?.removeEventListener(CUSTOM_DRAG_START, startDrag);
       watchingRef.current?.removeEventListener("mousemove", duringDrag);
       watchingRef.current?.removeEventListener("mouseup", endDrag);
     };
   }, []);
 
-  const startDrag: DragStartFn = ({ e, type, name = "new", dir }) => {
+  const triggerStartDrag: DragStartFn = ({ e, type, name = "new", dir }) => {
     (watchingRef.current as HTMLDivElement).dispatchEvent(
-      new CustomEvent<ItemDragStart>(CUSTOM_DRAG_EVENT, {
+      new CustomEvent<ItemDragStart>(CUSTOM_DRAG_START, {
         bubbles: true,
         detail: {
           name,
@@ -165,7 +190,13 @@ export const useDragHandler = (watchingRef: RefObject<HTMLDivElement>) => {
       })
     );
   };
-  return { dragState, startDrag };
+
+  const triggerEndDrag = () => {
+    (watchingRef.current as HTMLDivElement).dispatchEvent(
+      new CustomEvent(CUSTOM_DRAG_END)
+    );
+  };
+  return { dragState, startDrag: triggerStartDrag };
 };
 
 // I wish that I could bundle this in with the custom useDragHandler hook
