@@ -4,41 +4,14 @@ import { GridItem } from "../components/GridItem";
 import { boxesOverlap } from "../helper-scripts/overlap-helpers";
 import { DragDir, GridCellPos, GridPos } from "../types";
 
-export type DragPurpose = "ItemMoveDrag" | "ItemResizeDrag" | "NewItemDrag";
-
-// Basic information about a given drag event. Just a subset of the position
-// info given by MouseEvent
-interface DragInfo {
-  pageX: number;
-  pageY: number;
-}
-
-export interface ItemDragStart extends DragInfo {
-  name: string;
-  type: DragPurpose;
-  dir: DragDir;
-}
-
-type DragUpdateActions =
-  | {
-      type: "start";
-      callType: DragPurpose;
-      info: DragInfo;
-      cellPositions: Array<GridCellPos>;
-    }
-  | {
-      type: "end";
-    }
-  | {
-      type: "move";
-      info: DragInfo;
-    };
-
 // When dragging is actively happening then we will have an object with all the
 // neccesary info to infer state from it
 type ActiveDrag = {
-  type: DragPurpose;
-  gridCells: Array<GridCellPos>;
+  // These define the type of drag happening and change behavior of snapping, etc
+  // accordingly.
+  dragType: "NewItemDrag" | "ResizeItemDrag";
+  dragDir: DragDir;
+  gridCellPositions: GridCellPos[];
   xStart: number;
   xEnd: number;
   yStart: number;
@@ -51,31 +24,93 @@ type ActiveDrag = {
 // Non-active drags will just be represented by null
 type DragState = ActiveDrag | null;
 
+// Basic information about a given drag event. Just a subset of the position
+// info given by MouseEvent
+type DragLocation = {
+  pageX: number;
+  pageY: number;
+};
+
+type ItemDragStart = {
+  loc: DragLocation;
+  dragDir: ActiveDrag["dragDir"];
+  dragType: ActiveDrag["dragType"];
+  name?: string;
+  itemRef?: RefObject<HTMLDivElement>;
+  gridCellPositions: ActiveDrag["gridCellPositions"];
+};
+
+// This is the data given to us by the DragStart callback. We later add the
+// gridCellPositions
+type DragStartEventDetails = Omit<ItemDragStart, "gridCellPositions">;
+export type DragKickoffFn = (
+  e: MouseEvent,
+  info: Omit<DragStartEventDetails, "loc">
+) => void;
+
+// This is called within the reducer
+function initDragState({
+  loc,
+  dragDir,
+  dragType,
+  name,
+  itemRef,
+  gridCellPositions,
+}: ItemDragStart): ActiveDrag {
+  let xStart: number;
+  let xEnd: number;
+  let yStart: number;
+  let yEnd: number;
+
+  switch (dragType) {
+    case "NewItemDrag":
+      xStart = xEnd = loc.pageX;
+      yStart = yEnd = loc.pageY;
+      break;
+    case "ResizeItemDrag": {
+      const gridItem = itemRef?.current;
+
+      if (!gridItem)
+        throw new Error(
+          "Somehow we're editing an item that does not exist on the page"
+        );
+      const itemBounds = gridItem.getBoundingClientRect();
+      xStart = itemBounds.left;
+      xEnd = itemBounds.right;
+      yStart = itemBounds.top;
+      yEnd = itemBounds.bottom;
+    }
+  }
+
+  const firstCell = gridCellPositions[0];
+  return {
+    dragType,
+    dragDir,
+    gridCellPositions,
+    xOffset: firstCell.left - firstCell.offsetLeft,
+    yOffset: firstCell.top - firstCell.offsetTop,
+    xStart,
+    yStart,
+    xEnd,
+    yEnd,
+    gridPos: dragPosOnGrid({ xStart, yStart, gridCells: gridCellPositions }),
+  };
+}
+
+type DragUpdateActions =
+  | ({ type: "start" } & ItemDragStart)
+  | { type: "move"; info: DragLocation }
+  | { type: "end" };
+
 function dragUpdater(dragState: DragState, action: DragUpdateActions) {
   switch (action.type) {
     case "start": {
-      const {
-        callType,
-        info: { pageX: xStart, pageY: yStart },
-        cellPositions,
-      } = action;
-      const firstCell = cellPositions[0];
-      return {
-        type: callType,
-        gridCells: cellPositions,
-        xOffset: firstCell.left - firstCell.offsetLeft,
-        yOffset: firstCell.top - firstCell.offsetTop,
-        xStart,
-        yStart,
-        xEnd: xStart,
-        yEnd: yStart,
-        gridPos: dragPosOnGrid({ xStart, yStart, gridCells: cellPositions }),
-      };
+      return initDragState(action);
     }
     case "move": {
       if (!dragState) throw new Error("Cant move an uninitialized drag");
 
-      const { xStart, yStart, gridCells } = dragState;
+      const { xStart, yStart, gridCellPositions: gridCells } = dragState;
       const { pageX: xEnd, pageY: yEnd } = action.info;
       return {
         ...dragState,
@@ -90,13 +125,6 @@ function dragUpdater(dragState: DragState, action: DragUpdateActions) {
       throw new Error("Unexpected action");
   }
 }
-
-export type DragStartFn = (x: {
-  e: MouseEvent;
-  type: DragPurpose;
-  name?: string;
-  dir: DragDir;
-}) => void;
 
 // So we dont accidentally emit and listen to different custom events
 const CUSTOM_DRAG_START = "GridDragStart";
@@ -122,7 +150,7 @@ export const useDragHandler = (
     if (finalState === null)
       throw new Error("For some reason our final state is null");
 
-    if (finalState.type === "NewItemDrag") {
+    if (finalState.dragType === "NewItemDrag") {
       onNewItem(finalState.gridPos);
       console.log("Create a new item!", stateRef.current);
     }
@@ -136,13 +164,10 @@ export const useDragHandler = (
     const startDrag = (e: Event | CustomEvent) => {
       if (!(e instanceof CustomEvent)) throw new Error("not a custom event");
 
-      const eventInfo = e.detail as ItemDragStart;
-
       updateDragState({
         type: "start",
-        callType: eventInfo.type,
-        info: eventInfo,
-        cellPositions: gatherCellPositions(watchingRef),
+        ...(e.detail as DragStartEventDetails),
+        gridCellPositions: gatherCellPositions(watchingRef),
       });
 
       // Turnoff text selection so dragging doesnt highlight a bunch of stuff
@@ -157,6 +182,7 @@ export const useDragHandler = (
         info: e,
       });
     };
+
     const endDrag = () => {
       updateDragState({ type: "end" });
 
@@ -178,16 +204,19 @@ export const useDragHandler = (
     };
   }, []);
 
-  const triggerStartDrag: DragStartFn = ({ e, type, name = "new", dir }) => {
+  const triggerStartDrag: DragKickoffFn = (
+    { pageX, pageY },
+    { dragType, dragDir, name, itemRef }
+  ) => {
     (watchingRef.current as HTMLDivElement).dispatchEvent(
-      new CustomEvent<ItemDragStart>(CUSTOM_DRAG_START, {
+      new CustomEvent<DragStartEventDetails>(CUSTOM_DRAG_START, {
         bubbles: true,
         detail: {
           name,
-          type,
-          dir,
-          pageX: e.pageX,
-          pageY: e.pageY,
+          loc: { pageX, pageY },
+          dragType,
+          dragDir,
+          itemRef,
         },
       })
     );
@@ -208,8 +237,16 @@ export const useDragHandler = (
 export const DragFeedback = ({ dragState }: { dragState: DragState }) => {
   if (!dragState) return <div style={{ display: "none" }}></div>;
 
-  const { xStart, xEnd, yStart, yEnd, xOffset, yOffset, gridPos, type } =
-    dragState;
+  const {
+    xStart,
+    xEnd,
+    yStart,
+    yEnd,
+    xOffset,
+    yOffset,
+    gridPos,
+    dragType: type,
+  } = dragState;
   return (
     <>
       <div
@@ -220,8 +257,8 @@ export const DragFeedback = ({ dragState }: { dragState: DragState }) => {
           width: `${xEnd - xStart}px`,
           height: `${yEnd - yStart}px`,
           pointerEvents: "none",
-          outline: `1px solid ${
-            dragState.type === "ItemResizeDrag" ? "red" : "blue"
+          outline: `3px solid ${
+            dragState.dragType === "ResizeItemDrag" ? "red" : "blue"
           }`,
         }}
       />
