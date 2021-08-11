@@ -1,15 +1,8 @@
 import { RefObject } from "preact";
-import {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useReducer,
-  useRef,
-} from "preact/hooks";
+import { useEffect, useLayoutEffect, useReducer, useRef } from "preact/hooks";
 import { GridItem } from "../components/GridItem";
 import { boxesOverlap } from "../helper-scripts/overlap-helpers";
 import { DragDir, GridCellPos, GridPos } from "../types";
-import { useGridLayoutState } from "./layout-updating-logic";
 
 export type DragPurpose = "ItemMoveDrag" | "ItemResizeDrag" | "NewItemDrag";
 
