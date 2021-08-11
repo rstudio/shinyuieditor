@@ -1,11 +1,27 @@
-.addItemModal {
+.modalHolder {
+  background-color: rgba(255, 255, 255, 0.6);
   position: absolute;
-  inset: 5rem;
-  border-radius: var(--corner-radius);
-  background-color: rgb(188, 250, 229);
-  padding: 2rem;
+  inset: calc(-1 * var(--pad));
   display: grid;
   place-content: center;
+}
+
+/* if backdrop-filter support: make transparent and blurred */
+@supports (
+  (-webkit-backdrop-filter: blur(4px)) or (backdrop-filter: blur(4px))
+) {
+  .modalHolder {
+    background-color: rgba(255, 255, 255, 0.05);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+  }
+}
+
+.addItemModal {
+  border-radius: var(--corner-radius);
+  background-color: var(--rstudio-blue);
+  padding: 4rem 6rem;
+  display: grid;
   justify-items: center;
   gap: 0.5rem;
   grid-template-rows: auto auto 25px auto;
@@ -17,6 +33,7 @@
 }
 
 .addItemModal > h1 {
+  color: white;
   grid-area: title;
   justify-self: center;
 }

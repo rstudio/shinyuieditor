@@ -3,18 +3,15 @@ import { useGridLayoutState } from "../../state-logic/layout-updating-logic";
 import { GridPos } from "../../types";
 import classes from "./style.module.css";
 
+// Hook that is used in conjection with AddItemModal component to control its
+// external state
 export function useAddItemModal() {
   const [addItemState, setAddItemState] = useState<GridPos | null>(null);
-  const openAddItemModal = (pos: GridPos) => {
-    console.log("Activating naming state");
-    setAddItemState(pos);
-  };
-  const closeAddItemModal = () => setAddItemState(null);
 
   return {
     addItemState,
-    openAddItemModal,
-    closeAddItemModal,
+    openAddItemModal: (pos: GridPos) => setAddItemState(pos),
+    closeAddItemModal: () => setAddItemState(null),
   };
 }
 
@@ -27,13 +24,20 @@ export function AddItemModal({
   state: GridPos | null;
   existingElementNames: string[];
   onFinish: ReturnType<typeof useGridLayoutState>["addItem"];
+  // Callback to close the modal is provided by the useAddItemModal hook
   closeModal: () => void;
 }) {
   const [warningMsg, setWarningMsg] = useState<string | null>(null);
   const nameInputRef = useRef<HTMLInputElement>(null);
 
-  const turnOffWarning = () => setWarningMsg(null);
-  function finishedNaming(e: Event) {
+  const turnOffWarningMsg = () => setWarningMsg(null);
+
+  const cancelModal = () => {
+    closeModal();
+    turnOffWarningMsg();
+  };
+
+  const submitName = (e: Event) => {
     e.preventDefault();
     const currentName = nameInputRef.current?.value;
     if (!(currentName && state)) return;
@@ -54,27 +58,25 @@ export function AddItemModal({
 
     onFinish({ name: currentName, ...state });
     closeModal();
-  }
+  };
 
-  function cancel() {
-    closeModal();
-    turnOffWarning();
-  }
   return state ? (
-    <div className={classes.addItemModal}>
-      <h1>Add your item, please!</h1>
-      <form
-        className={classes.inputForm}
-        onSubmit={finishedNaming}
-        onInput={() => turnOffWarning()}
-      >
-        <input ref={nameInputRef} type="text"></input>
-        <input type="submit">Go</input>
-      </form>
-      {warningMsg ? <p className={classes.warningMsg}>{warningMsg}</p> : null}
-      <button className={classes.cancel} onClick={() => cancel()}>
-        Cancel
-      </button>
+    <div className={classes.modalHolder}>
+      <div className={classes.addItemModal}>
+        <h1>New item name:</h1>
+        <form
+          className={classes.inputForm}
+          onSubmit={submitName}
+          onInput={() => turnOffWarningMsg()}
+        >
+          <input ref={nameInputRef} type="text"></input>
+          <input type="submit">Go</input>
+        </form>
+        {warningMsg ? <p className={classes.warningMsg}>{warningMsg}</p> : null}
+        <button className={classes.cancel} onClick={() => cancelModal()}>
+          Cancel
+        </button>
+      </div>
     </div>
   ) : (
     <div style={{ display: "none" }} />
