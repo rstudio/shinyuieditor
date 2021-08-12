@@ -97,9 +97,25 @@ function initDragState({
   };
 }
 
+function moveDragState(
+  dragState: DragState,
+  { pageX: xEnd, pageY: yEnd }: DragLocation
+) {
+  if (!dragState) throw new Error("Cant move an uninitialized drag");
+
+  const { xStart, yStart, gridCellPositions: gridCells } = dragState;
+
+  return {
+    ...dragState,
+    xEnd,
+    yEnd,
+    gridPos: dragPosOnGrid({ xStart, xEnd, yStart, yEnd, gridCells }),
+  };
+}
+
 type DragUpdateActions =
   | ({ type: "start" } & ItemDragStart)
-  | { type: "move"; info: DragLocation }
+  | { type: "move"; payload: DragLocation }
   | { type: "end" };
 
 function dragUpdater(dragState: DragState, action: DragUpdateActions) {
@@ -108,16 +124,7 @@ function dragUpdater(dragState: DragState, action: DragUpdateActions) {
       return initDragState(action);
     }
     case "move": {
-      if (!dragState) throw new Error("Cant move an uninitialized drag");
-
-      const { xStart, yStart, gridCellPositions: gridCells } = dragState;
-      const { pageX: xEnd, pageY: yEnd } = action.info;
-      return {
-        ...dragState,
-        xEnd,
-        yEnd,
-        gridPos: dragPosOnGrid({ xStart, xEnd, yStart, yEnd, gridCells }),
-      };
+      return moveDragState(dragState, action.payload);
     }
     case "end":
       return null;
@@ -179,7 +186,7 @@ export const useDragHandler = (
     const duringDrag = (e: MouseEvent) => {
       updateDragState({
         type: "move",
-        info: e,
+        payload: e,
       });
     };
 
