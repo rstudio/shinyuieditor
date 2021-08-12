@@ -51,11 +51,8 @@ export const layoutUpdater = (
 
     case "Move-Item":
       layout.items = layout.items.map((item) => {
-        if (item.name === action.itemDef.name) {
-          item.rows = action.itemDef.rows;
-          item.cols = action.itemDef.cols;
-        }
-        return item;
+        if (item.name === action.itemDef.name) return { ...action.itemDef };
+        return { ...item };
       });
       break;
 
@@ -80,5 +77,7 @@ export function useGridLayoutState(startingLayout: GridLayoutTemplate) {
     deleteItem: (name: string) => updateLayout({ type: "Delete-Item", name }),
     addItem: (itemDef: GridItemDef) =>
       updateLayout({ type: "Add-Item", itemDef }),
+    moveItem: (itemDef: GridItemDef) =>
+      updateLayout({ type: "Move-Item", itemDef }),
   };
 }

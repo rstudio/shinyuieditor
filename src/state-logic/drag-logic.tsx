@@ -2,7 +2,7 @@ import { RefObject } from "preact";
 import { useEffect, useLayoutEffect, useReducer, useRef } from "preact/hooks";
 import { GridItem } from "../components/GridItem";
 import { boxesOverlap } from "../helper-scripts/overlap-helpers";
-import { DragDir, GridCellPos, GridPos } from "../types";
+import { DragDir, GridCellPos, GridItemDef, GridPos } from "../types";
 
 type DragBox = {
   dir: DragDir;
@@ -21,6 +21,7 @@ type ActiveDrag = {
   gridCellPositions: GridCellPos[];
   xOffset: number;
   yOffset: number;
+  itemName?: string;
   gridPos: GridPos;
 };
 
@@ -97,6 +98,7 @@ function initDragState({
     gridCellPositions,
     xOffset: firstCell.left - firstCell.offsetLeft,
     yOffset: firstCell.top - firstCell.offsetTop,
+    itemName: name,
     gridPos: dragPosOnGrid(dragBox, gridCellPositions),
   };
 }
@@ -150,10 +152,29 @@ function dragUpdater(dragState: DragState, action: DragUpdateActions) {
 const CUSTOM_DRAG_START = "GridDragStart";
 const CUSTOM_DRAG_END = "GridDragEnd";
 
-export const useDragHandler = (
-  watchingRef: RefObject<HTMLDivElement>,
-  onNewItem: (pos: GridPos) => void
-) => {
+function sameGridPos(a?: GridPos, b?: GridPos) {
+  if (typeof a === "undefined" && typeof b === "undefined") return true;
+
+  // If any one of them is undefined now, then one is and the other isnt
+  if (typeof a === "undefined" || typeof b === "undefined") return false;
+
+  return (
+    a.cols[0] === b.cols[0] &&
+    a.cols[1] === b.cols[1] &&
+    a.rows[0] === b.rows[0] &&
+    a.rows[1] === b.rows[1]
+  );
+}
+
+export const useDragHandler = ({
+  watchingRef,
+  onNewItem,
+  onReposition,
+}: {
+  watchingRef: RefObject<HTMLDivElement>;
+  onNewItem: (pos: GridPos) => void;
+  onReposition: (newItemDef: GridItemDef) => void;
+}) => {
   const [dragState, updateDragState] = useReducer(dragUpdater, null);
 
   // Create a mutable state object that our callback can use. This way we dont
@@ -162,6 +183,17 @@ export const useDragHandler = (
 
   const stateRef = useRef<typeof dragState>(dragState);
   useEffect(() => {
+    if (
+      dragState?.dragType === "ResizeItemDrag" &&
+      dragState.itemName &&
+      !sameGridPos(stateRef.current?.gridPos, dragState.gridPos)
+    ) {
+      onReposition({
+        name: dragState.itemName,
+        ...(dragState.gridPos as GridPos),
+      });
+    }
+
     stateRef.current = dragState;
   }, [dragState]);
 

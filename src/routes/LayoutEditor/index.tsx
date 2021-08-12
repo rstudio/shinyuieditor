@@ -9,7 +9,7 @@ import { EditorSettings, SettingPane } from "../../components/EditorSettings";
 import { GridTractControls } from "../../components/GridTractControls";
 import { DragFeedback, useDragHandler } from "../../state-logic/drag-logic";
 import { useGridLayoutState } from "../../state-logic/layout-updating-logic";
-import type { GridLayoutTemplate } from "../../types";
+import type { GridItemDef, GridLayoutTemplate } from "../../types";
 import classes from "./style.module.css";
 
 export default function LayoutEditor({
@@ -25,9 +25,14 @@ export default function LayoutEditor({
 
   // Initialize the layout state and get out the various manipulation functions
   // that go with it
-  const { layout, deleteItem, setTract, setGap, addItem } = useGridLayoutState(
-    startingLayout
-  );
+  const {
+    layout,
+    deleteItem,
+    setTract,
+    setGap,
+    addItem,
+    moveItem,
+  } = useGridLayoutState(startingLayout);
 
   // Setup the neccesary state for controlling the add-item modal
   const {
@@ -37,7 +42,11 @@ export default function LayoutEditor({
   } = useAddItemModal();
 
   // Initiate the drag watching behavior
-  const { dragState, startDrag } = useDragHandler(editorRef, openAddItemModal);
+  const { dragState, startDrag } = useDragHandler({
+    watchingRef: editorRef,
+    onNewItem: openAddItemModal,
+    onReposition: moveItem,
+  });
 
   const { rows, cols, items, gap } = layout;
 
