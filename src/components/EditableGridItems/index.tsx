@@ -66,6 +66,10 @@ const directions: Array<DragDir> = [
   "middle",
   "topLeft",
   "topRight",
+  "left",
+  "right",
+  "top",
+  "bottom",
   "bottomLeft",
   "bottomRight",
 ];

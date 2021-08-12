@@ -16,6 +16,8 @@ const iconPaths = {
     "M12,18.54L19.37,12.8L21,14.07L12,21.07L3,14.07L4.62,12.81L12,18.54M12,16L3,9L12,2L21,9L12,16M12,4.53L6.26,9L12,13.47L17.74,9L12,4.53Z",
   plus: "M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z",
   minus: "M19,13H5V11H19V13Z",
+  verticalDrag: "M21 11H3V9H21V11M21 13H3V15H21V13Z",
+  horizontalDrag: "M11 21H9V3H11V21M15 3H13V21H15V3Z",
 };
 
 // export const VerticalDragIcon = () => (
@@ -68,20 +70,17 @@ export const SvgIcon = ({ name = "move" }: { name?: IconName }) => (
   </svg>
 );
 
+const DragDirToIcon: Record<DragDir, keyof typeof iconPaths> = {
+  middle: "move",
+  topLeft: "topLeftArrow",
+  topRight: "topRightArrow",
+  bottomLeft: "bottomLeftArrow",
+  bottomRight: "bottomRightArrow",
+  left: "horizontalDrag",
+  right: "horizontalDrag",
+  top: "verticalDrag",
+  bottom: "verticalDrag",
+};
 export const DragIcon = ({ type }: { type: DragDir }) => {
-  switch (type) {
-    case "middle":
-      return <SvgIcon name={"move"} />;
-    case "topLeft":
-      return <SvgIcon name={"topLeftArrow"} />;
-    case "topRight":
-      return <SvgIcon name={"topRightArrow"} />;
-    case "bottomLeft":
-      return <SvgIcon name={"bottomLeftArrow"} />;
-    case "bottomRight":
-      return <SvgIcon name={"bottomRightArrow"} />;
-    default:
-      console.error("That direction doesn't have an icon");
-      return <SvgIcon name={"move"} />;
-  }
+  return <SvgIcon name={DragDirToIcon[type]} />;
 };

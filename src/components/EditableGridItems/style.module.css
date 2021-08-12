@@ -5,20 +5,38 @@
   border-radius: var(--corner-radius);
   display: grid;
   grid-template-areas:
-    "topLeft    .      topRight"
-    ".          middle ."
-    "bottomLeft .      bottomRight";
+    "topLeft    top      topRight"
+    "left       middle   right"
+    "bottomLeft bottom   bottomRight";
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto 1fr auto;
 }
 
 .item > span {
   color: var(--light-grey);
+  justify-self: center;
+  align-self: center;
 }
 
 .middle {
   grid-area: middle;
   cursor: grab;
-  justify-self: center;
-  align-self: center;
+}
+.top {
+  grid-area: top;
+  cursor: n-resize;
+}
+.bottom {
+  grid-area: bottom;
+  cursor: s-resize;
+}
+.left {
+  grid-area: left;
+  cursor: w-resize;
+}
+.right {
+  grid-area: right;
+  cursor: e-resize;
 }
 .topLeft {
   grid-area: topLeft;
@@ -35,20 +53,4 @@
 .bottomRight {
   grid-area: bottomRight;
   cursor: se-resize;
-}
-.topRight,
-.bottomRight {
-  justify-self: end;
-}
-.topLeft,
-.bottomLeft {
-  justify-self: start;
-}
-.topRight,
-.topLeft {
-  align-self: start;
-}
-.bottomRight,
-.bottomLeft {
-  align-self: end;
 }
