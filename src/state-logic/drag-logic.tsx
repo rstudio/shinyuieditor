@@ -103,12 +103,28 @@ function initDragState({
 
 function moveDragState(dragState: DragState, { pageX, pageY }: DragLocation) {
   if (!dragState) throw new Error("Cant move an uninitialized drag");
-  const { dragBox, gridCellPositions } = dragState;
-  const updatedDragBox = { ...dragBox, right: pageX, bottom: pageY };
+  const { dragBox: oldDragBox, gridCellPositions } = dragState;
+  const dragDir = oldDragBox.dir;
+  const dragBox = { ...oldDragBox };
+
+  // Make sure that we update the drag correctly based on the current handle
+  if (containsDir("bottom", dragDir)) {
+    dragBox.bottom = Math.max(pageY, dragBox.top);
+  }
+  if (containsDir("top", dragDir)) {
+    dragBox.top = Math.min(pageY, dragBox.bottom);
+  }
+  if (containsDir("right", dragDir)) {
+    dragBox.right = Math.max(pageX, dragBox.left);
+  }
+  if (containsDir("left", dragDir)) {
+    dragBox.left = Math.min(pageX, dragBox.right);
+  }
+
   return {
     ...dragState,
-    dragBox: updatedDragBox,
-    gridPos: dragPosOnGrid(updatedDragBox, gridCellPositions),
+    dragBox: dragBox,
+    gridPos: dragPosOnGrid(dragBox, gridCellPositions),
   };
 }
 
@@ -333,4 +349,21 @@ function gatherCellPositions(
       offsetTop: cell.offsetTop,
     };
   });
+}
+
+function containsDir(
+  dir: "top" | "bottom" | "left" | "right",
+  mainDir: DragDir
+): boolean {
+  if (dir === mainDir) return true;
+  switch (dir) {
+    case "top":
+      return mainDir === "topLeft" || mainDir === "topRight";
+    case "left":
+      return mainDir === "topLeft" || mainDir === "bottomLeft";
+    case "bottom":
+      return mainDir === "bottomLeft" || mainDir === "bottomRight";
+    case "right":
+      return mainDir === "topRight" || mainDir === "bottomRight";
+  }
 }

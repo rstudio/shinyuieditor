@@ -50,7 +50,7 @@ type CSSUnits = "fr" | "px" | "rem" | "auto";
 type CSSMeasure = `${number}${CSSUnits}`;
 
 
-type DragDir = "topLeft" | "topRight" | "bottomLeft" | "bottomRight" | "middle";
+type DragDir = "top" | "topLeft" | "topRight" | "bottom" | "bottomLeft" | "bottomRight" | "left" | "right"| "middle";
 
 export type BoxSides =
   | "top"
