@@ -254,15 +254,16 @@ export const DragFeedback = ({ dragState }: { dragState: DragState }) => {
     gridPos,
     dragType: type,
   } = dragState;
+
   return (
     <>
       <div
         style={{
           position: "absolute",
-          top: `${yStart - yOffset}px`,
-          left: `${xStart - xOffset}px`,
-          width: `${xEnd - xStart}px`,
-          height: `${yEnd - yStart}px`,
+          top: `${Math.min(yStart, yEnd) - yOffset}px`,
+          left: `${Math.min(xStart, xEnd) - xOffset}px`,
+          width: `${Math.abs(xEnd - xStart)}px`,
+          height: `${Math.abs(yEnd - yStart)}px`,
           pointerEvents: "none",
           outline: `3px solid ${
             dragState.dragType === "ResizeItemDrag" ? "red" : "blue"
