@@ -18,7 +18,6 @@ type ActiveDrag = {
   // accordingly.
   dragBox: DragBox;
   dragType: "NewItemDrag" | "ResizeItemDrag";
-  dragDir: DragDir;
   gridCellPositions: GridCellPos[];
   xOffset: number;
   yOffset: number;
@@ -37,7 +36,7 @@ type DragLocation = {
 
 type ItemDragStart = {
   loc: DragLocation;
-  dragDir: ActiveDrag["dragDir"];
+  dragDir: DragBox["dir"];
   dragType: ActiveDrag["dragType"];
   name?: string;
   itemRef?: RefObject<HTMLDivElement>;
@@ -61,15 +60,17 @@ function initDragState({
   itemRef,
   gridCellPositions,
 }: ItemDragStart): ActiveDrag {
-  let left: number;
-  let right: number;
-  let top: number;
-  let bottom: number;
+  let dragBox: DragBox;
 
   switch (dragType) {
     case "NewItemDrag":
-      left = right = loc.pageX;
-      top = bottom = loc.pageY;
+      dragBox = {
+        dir: dragDir,
+        left: loc.pageX,
+        right: loc.pageX,
+        top: loc.pageY,
+        bottom: loc.pageY,
+      };
       break;
     case "ResizeItemDrag": {
       const gridItem = itemRef?.current;
@@ -78,35 +79,25 @@ function initDragState({
         throw new Error(
           "Somehow we're editing an item that does not exist on the page"
         );
-      const itemBounds = gridItem.getBoundingClientRect();
-      left = itemBounds.left;
-      right = itemBounds.right;
-      top = itemBounds.top;
-      bottom = itemBounds.bottom;
+      const { left, right, top, bottom } = gridItem.getBoundingClientRect();
+      dragBox = {
+        dir: dragDir,
+        left,
+        right,
+        top,
+        bottom,
+      };
     }
   }
-
-  console.log("Initializing drag box");
-  const dragBox = {
-    dir: dragDir,
-    top,
-    bottom,
-    left,
-    right,
-  };
 
   const firstCell = gridCellPositions[0];
   return {
     dragType,
-    dragDir,
     dragBox,
     gridCellPositions,
     xOffset: firstCell.left - firstCell.offsetLeft,
     yOffset: firstCell.top - firstCell.offsetTop,
-    gridPos: dragPosOnGrid({
-      dragBox,
-      gridCells: gridCellPositions,
-    }),
+    gridPos: dragPosOnGrid(dragBox, gridCellPositions),
   };
 }
 
@@ -115,7 +106,6 @@ function moveDragState(
   { pageX: xEnd, pageY: yEnd }: DragLocation
 ) {
   if (!dragState) throw new Error("Cant move an uninitialized drag");
-  console.log("Updating drag box");
   const {
     dragBox: { dir, left, top },
     gridCellPositions: gridCells,
@@ -126,14 +116,14 @@ function moveDragState(
     dragBox,
     xEnd,
     yEnd,
-    gridPos: dragPosOnGrid({ dragBox, gridCells }),
+    gridPos: dragPosOnGrid(dragBox, gridCells),
   };
 }
 
 type DragUpdateActions =
   | { type: "start"; payload: ItemDragStart }
   | { type: "move"; payload: DragLocation }
-  | { type: "end"; payload?: null };
+  | { type: "end" };
 
 function dragUpdater(dragState: DragState, action: DragUpdateActions) {
   switch (action.type) {
@@ -297,19 +287,10 @@ export const DragFeedback = ({ dragState }: { dragState: DragState }) => {
   );
 };
 
-function dragPosOnGrid({
-  dragBox,
-  gridCells,
-}: {
-  dragBox: DragBox;
-  gridCells: Array<GridCellPos>;
-}): GridPos {
-  // const dragRect = {
-  //   left: Math.min(xStart, xEnd),
-  //   right: Math.max(xStart, xEnd),
-  //   top: Math.min(yStart, yEnd),
-  //   bottom: Math.max(yStart, yEnd),
-  // };
+function dragPosOnGrid(
+  dragBox: DragBox,
+  gridCells: Array<GridCellPos>
+): GridPos {
   // Reset bounding box definitions so we only use current selection extent
   let startCol: number | null = null;
   let startRow: number | null = null;
