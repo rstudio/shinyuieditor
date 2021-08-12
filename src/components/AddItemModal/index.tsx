@@ -1,4 +1,4 @@
-import { useRef, useState } from "preact/hooks";
+import { useLayoutEffect, useRef, useState } from "preact/hooks";
 import { useGridLayoutState } from "../../state-logic/layout-updating-logic";
 import { GridPos } from "../../types";
 import classes from "./style.module.css";
@@ -31,6 +31,12 @@ export function AddItemModal({
   const nameInputRef = useRef<HTMLInputElement>(null);
 
   const turnOffWarningMsg = () => setWarningMsg(null);
+
+  // Make sure when the modal pops up focus is on the input so the user can
+  // start typing immediately without having to select then input with mouse.
+  useLayoutEffect(() => {
+    if (state) nameInputRef.current?.focus();
+  }, [state]);
 
   const cancelModal = () => {
     closeModal();
