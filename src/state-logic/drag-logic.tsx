@@ -4,11 +4,19 @@ import { GridItem } from "../components/GridItem";
 import { boxesOverlap } from "../helper-scripts/overlap-helpers";
 import { DragDir, GridCellPos, GridPos } from "../types";
 
+type DragBox = {
+  dir: DragDir;
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
+};
 // When dragging is actively happening then we will have an object with all the
 // neccesary info to infer state from it
 type ActiveDrag = {
   // These define the type of drag happening and change behavior of snapping, etc
   // accordingly.
+  dragBox: DragBox;
   dragType: "NewItemDrag" | "ResizeItemDrag";
   dragDir: DragDir;
   gridCellPositions: GridCellPos[];
@@ -61,11 +69,23 @@ function initDragState({
   let xEnd: number;
   let yStart: number;
   let yEnd: number;
+  let left: number;
+  let right: number;
+  let top: number;
+  let bottom: number;
+
+  const dragBox = {
+    dir: dragDir,
+    top: loc.pageY,
+    bottom: loc.pageY,
+    left: loc.pageX,
+    right: loc.pageX,
+  };
 
   switch (dragType) {
     case "NewItemDrag":
-      xStart = xEnd = loc.pageX;
-      yStart = yEnd = loc.pageY;
+      xStart = xEnd = left = right = loc.pageX;
+      yStart = yEnd = top = bottom = loc.pageY;
       break;
     case "ResizeItemDrag": {
       const gridItem = itemRef?.current;
@@ -75,10 +95,10 @@ function initDragState({
           "Somehow we're editing an item that does not exist on the page"
         );
       const itemBounds = gridItem.getBoundingClientRect();
-      xStart = itemBounds.left;
-      xEnd = itemBounds.right;
-      yStart = itemBounds.top;
-      yEnd = itemBounds.bottom;
+      xStart = dragBox.left = itemBounds.left;
+      xEnd = dragBox.right = itemBounds.right;
+      yStart = dragBox.top = itemBounds.top;
+      yEnd = dragBox.bottom = itemBounds.bottom;
     }
   }
 
@@ -86,6 +106,7 @@ function initDragState({
   return {
     dragType,
     dragDir,
+    dragBox,
     gridCellPositions,
     xOffset: firstCell.left - firstCell.offsetLeft,
     yOffset: firstCell.top - firstCell.offsetTop,
@@ -93,7 +114,12 @@ function initDragState({
     yStart,
     xEnd,
     yEnd,
-    gridPos: dragPosOnGrid({ xStart, yStart, gridCells: gridCellPositions }),
+    gridPos: dragPosOnGrid({
+      dragBox,
+      xStart,
+      yStart,
+      gridCells: gridCellPositions,
+    }),
   };
 }
 
@@ -103,13 +129,19 @@ function moveDragState(
 ) {
   if (!dragState) throw new Error("Cant move an uninitialized drag");
 
-  const { xStart, yStart, gridCellPositions: gridCells } = dragState;
-
+  const {
+    xStart,
+    yStart,
+    dragBox: { dir, left, top },
+    gridCellPositions: gridCells,
+  } = dragState;
+  const dragBox = { dir, left, right: xEnd, top, bottom: yEnd };
   return {
     ...dragState,
+    dragBox,
     xEnd,
     yEnd,
-    gridPos: dragPosOnGrid({ xStart, xEnd, yStart, yEnd, gridCells }),
+    gridPos: dragPosOnGrid({ dragBox, xStart, xEnd, yStart, yEnd, gridCells }),
   };
 }
 
@@ -286,22 +318,24 @@ export const DragFeedback = ({ dragState }: { dragState: DragState }) => {
 function dragPosOnGrid({
   xStart,
   yStart,
+  dragBox,
   xEnd = xStart,
   yEnd = yStart,
   gridCells,
 }: {
+  dragBox: DragBox;
   xStart: number;
   yStart: number;
   xEnd?: number;
   yEnd?: number;
   gridCells: Array<GridCellPos>;
 }): GridPos {
-  const dragRect = {
-    left: Math.min(xStart, xEnd),
-    right: Math.max(xStart, xEnd),
-    top: Math.min(yStart, yEnd),
-    bottom: Math.max(yStart, yEnd),
-  };
+  // const dragRect = {
+  //   left: Math.min(xStart, xEnd),
+  //   right: Math.max(xStart, xEnd),
+  //   top: Math.min(yStart, yEnd),
+  //   bottom: Math.max(yStart, yEnd),
+  // };
   // Reset bounding box definitions so we only use current selection extent
   let startCol: number | null = null;
   let startRow: number | null = null;
@@ -312,7 +346,7 @@ function dragPosOnGrid({
     // Find if cell overlaps current selection
     // If it does update the bounding box extents
     // Cell is overlapped by selection box
-    const overlapsCell = boxesOverlap(cellPosition, dragRect);
+    const overlapsCell = boxesOverlap(cellPosition, dragBox);
 
     if (overlapsCell) {
       const elRow: number = cellPosition.row;
