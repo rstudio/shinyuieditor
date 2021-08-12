@@ -9,7 +9,7 @@ import { EditorSettings, SettingPane } from "../../components/EditorSettings";
 import { GridTractControls } from "../../components/GridTractControls";
 import { DragFeedback, useDragHandler } from "../../state-logic/drag-logic";
 import { useGridLayoutState } from "../../state-logic/layout-updating-logic";
-import type { GridItemDef, GridLayoutTemplate } from "../../types";
+import type { GridLayoutTemplate } from "../../types";
 import classes from "./style.module.css";
 
 export default function LayoutEditor({

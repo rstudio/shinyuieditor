@@ -1,5 +1,11 @@
-import { RefObject } from "preact";
-import { useEffect, useLayoutEffect, useReducer, useRef } from "preact/hooks";
+import type { RefObject } from "preact";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useReducer,
+  useRef,
+} from "preact/hooks";
 import { GridItem } from "../components/GridItem";
 import { boxesOverlap } from "../helper-scripts/overlap-helpers";
 import { DragDir, GridCellPos, GridItemDef, GridPos } from "../types";
@@ -182,6 +188,51 @@ export const useDragHandler = ({
   // state that we get. A semi-annoying downside of hooks
 
   const stateRef = useRef<typeof dragState>(dragState);
+  const onDone = useCallback(() => {
+    const finalState = stateRef.current;
+    if (finalState === null)
+      throw new Error("For some reason our final state is null");
+
+    if (finalState.dragType === "NewItemDrag") {
+      onNewItem(finalState.gridPos);
+      console.log("Create a new item!", stateRef.current);
+    }
+  }, [dragState?.gridPos]);
+
+  const startDrag = useCallback((e: Event | CustomEvent) => {
+    if (!(e instanceof CustomEvent)) throw new Error("not a custom event");
+
+    updateDragState({
+      type: "start",
+      payload: {
+        ...(e.detail as DragStartEventDetails),
+        gridCellPositions: gatherCellPositions(watchingRef),
+      },
+    });
+
+    // Turnoff text selection so dragging doesnt highlight a bunch of stuff
+    watchingRef.current?.classList.add("disable-text-selection");
+    watchingRef.current?.addEventListener("mousemove", duringDrag);
+    watchingRef.current?.addEventListener("mouseup", endDrag);
+  }, []);
+
+  const duringDrag = useCallback((e: MouseEvent) => {
+    updateDragState({
+      type: "move",
+      payload: e,
+    });
+  }, []);
+
+  const endDrag = useCallback(() => {
+    updateDragState({ type: "end" });
+
+    // trigger end of drag event
+    watchingRef.current?.dispatchEvent(new CustomEvent(CUSTOM_DRAG_END));
+    watchingRef.current?.classList.remove("disable-text-selection");
+    watchingRef.current?.removeEventListener("mousemove", duringDrag);
+    watchingRef.current?.removeEventListener("mouseup", endDrag);
+  }, []);
+
   useEffect(() => {
     if (
       dragState?.dragType === "ResizeItemDrag" &&
@@ -195,57 +246,13 @@ export const useDragHandler = ({
     }
 
     stateRef.current = dragState;
-  }, [dragState]);
-
-  function onDone() {
-    const finalState = stateRef.current;
-    if (finalState === null)
-      throw new Error("For some reason our final state is null");
-
-    if (finalState.dragType === "NewItemDrag") {
-      onNewItem(finalState.gridPos);
-      console.log("Create a new item!", stateRef.current);
-    }
-  }
+  }, [dragState?.gridPos]);
 
   // Because this relies on the position of the current grid cells we want
   // useLayoutEffect instead of simply useEffect. If we stick with plain
   // useEffect sometimes this fires before the grid cells are loaded on the page
   // it gets mad at us.
   useLayoutEffect(() => {
-    const startDrag = (e: Event | CustomEvent) => {
-      if (!(e instanceof CustomEvent)) throw new Error("not a custom event");
-
-      updateDragState({
-        type: "start",
-        payload: {
-          ...(e.detail as DragStartEventDetails),
-          gridCellPositions: gatherCellPositions(watchingRef),
-        },
-      });
-
-      // Turnoff text selection so dragging doesnt highlight a bunch of stuff
-      watchingRef.current?.classList.add("disable-text-selection");
-      watchingRef.current?.addEventListener("mousemove", duringDrag);
-      watchingRef.current?.addEventListener("mouseup", endDrag);
-    };
-
-    const duringDrag = (e: MouseEvent) => {
-      updateDragState({
-        type: "move",
-        payload: e,
-      });
-    };
-
-    const endDrag = () => {
-      updateDragState({ type: "end" });
-
-      triggerEndDrag();
-      watchingRef.current?.classList.remove("disable-text-selection");
-      watchingRef.current?.removeEventListener("mousemove", duringDrag);
-      watchingRef.current?.removeEventListener("mouseup", endDrag);
-    };
-
     watchingRef.current?.addEventListener(CUSTOM_DRAG_END, onDone);
     watchingRef.current?.addEventListener(CUSTOM_DRAG_START, startDrag);
     return () => {
@@ -276,12 +283,10 @@ export const useDragHandler = ({
     );
   };
 
-  const triggerEndDrag = () => {
-    (watchingRef.current as HTMLDivElement).dispatchEvent(
-      new CustomEvent(CUSTOM_DRAG_END)
-    );
+  return {
+    dragState,
+    startDrag: triggerStartDrag,
   };
-  return { dragState, startDrag: triggerStartDrag };
 };
 
 // I wish that I could bundle this in with the custom useDragHandler hook
