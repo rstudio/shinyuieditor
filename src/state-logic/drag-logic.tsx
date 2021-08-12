@@ -114,18 +114,16 @@ function moveDragState(
 }
 
 type DragUpdateActions =
-  | ({ type: "start" } & ItemDragStart)
+  | { type: "start"; payload: ItemDragStart }
   | { type: "move"; payload: DragLocation }
-  | { type: "end" };
+  | { type: "end"; payload?: null };
 
 function dragUpdater(dragState: DragState, action: DragUpdateActions) {
   switch (action.type) {
-    case "start": {
-      return initDragState(action);
-    }
-    case "move": {
+    case "start":
+      return initDragState(action.payload);
+    case "move":
       return moveDragState(dragState, action.payload);
-    }
     case "end":
       return null;
     default:
@@ -173,8 +171,10 @@ export const useDragHandler = (
 
       updateDragState({
         type: "start",
-        ...(e.detail as DragStartEventDetails),
-        gridCellPositions: gatherCellPositions(watchingRef),
+        payload: {
+          ...(e.detail as DragStartEventDetails),
+          gridCellPositions: gatherCellPositions(watchingRef),
+        },
       });
 
       // Turnoff text selection so dragging doesnt highlight a bunch of stuff
