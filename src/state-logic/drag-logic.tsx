@@ -101,22 +101,14 @@ function initDragState({
   };
 }
 
-function moveDragState(
-  dragState: DragState,
-  { pageX: xEnd, pageY: yEnd }: DragLocation
-) {
+function moveDragState(dragState: DragState, { pageX, pageY }: DragLocation) {
   if (!dragState) throw new Error("Cant move an uninitialized drag");
-  const {
-    dragBox: { dir, left, top },
-    gridCellPositions: gridCells,
-  } = dragState;
-  const dragBox = { dir, left, right: xEnd, top, bottom: yEnd };
+  const { dragBox, gridCellPositions } = dragState;
+  const updatedDragBox = { ...dragBox, right: pageX, bottom: pageY };
   return {
     ...dragState,
-    dragBox,
-    xEnd,
-    yEnd,
-    gridPos: dragPosOnGrid(dragBox, gridCells),
+    dragBox: updatedDragBox,
+    gridPos: dragPosOnGrid(updatedDragBox, gridCellPositions),
   };
 }
 
