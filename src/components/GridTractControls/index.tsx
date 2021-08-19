@@ -1,4 +1,5 @@
-import { CSSMeasure, GridLayoutTemplate, GridTractDir } from "../../types";
+import { LayoutDispatch } from "../../state-logic/layout-updating-logic";
+import { CSSMeasure, GridLayoutTemplate } from "../../types";
 import { CssUnitInput } from "../CssUnitInput";
 import { GridItem } from "../GridItem";
 import classes from "./style.module.css";
@@ -6,15 +7,11 @@ import classes from "./style.module.css";
 export const GridTractControls = ({
   rows,
   cols,
-  setTract,
+  layoutDispatch,
 }: {
   rows: GridLayoutTemplate["rows"];
   cols: GridLayoutTemplate["cols"];
-  setTract: (opts: {
-    val: CSSMeasure;
-    dir: GridTractDir;
-    index: number;
-  }) => void;
+  layoutDispatch: LayoutDispatch;
 }) => {
   return (
     <>
@@ -28,10 +25,13 @@ export const GridTractControls = ({
           <CssUnitInput
             value={r as CSSMeasure}
             onChange={(newVal: CSSMeasure) => {
-              setTract({
-                val: newVal,
-                dir: "rows",
-                index: i,
+              layoutDispatch({
+                type: "Set-Tract",
+                tract: {
+                  val: newVal,
+                  dir: "rows",
+                  index: i,
+                },
               });
             }}
           />
@@ -47,10 +47,14 @@ export const GridTractControls = ({
           <CssUnitInput
             value={c as CSSMeasure}
             onChange={(newVal: CSSMeasure) => {
-              setTract({
-                val: newVal,
-                dir: "cols",
-                index: i,
+              layoutDispatch({
+                type: "Set-Tract",
+                tract: {
+                  val: newVal,
+
+                  dir: "cols",
+                  index: i,
+                },
               });
             }}
           />

@@ -27,6 +27,7 @@ export default function LayoutEditor({
   // that go with it
   const {
     layout,
+    layoutDispatch,
     deleteItem,
     setTract,
     setGap,
@@ -60,7 +61,11 @@ export default function LayoutEditor({
       <EditorInstructions />
       <EditorItemsListView items={items} deleteItem={deleteItem} />
       <EditorGridContainer layout={layout} onDrag={startDrag}>
-        <GridTractControls rows={rows} cols={cols} setTract={setTract} />
+        <GridTractControls
+          rows={rows}
+          cols={cols}
+          layoutDispatch={layoutDispatch}
+        />
         <EditableGridItems items={items} onDrag={startDrag} />
         <DragFeedback dragState={dragState} />
       </EditorGridContainer>

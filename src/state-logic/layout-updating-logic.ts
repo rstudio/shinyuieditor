@@ -67,17 +67,23 @@ export const layoutUpdater = (
   return layout;
 };
 
+export type LayoutDispatch = (action: LayoutUpdateActions) => void;
+
+// Convert these to referentially static callbacks that can be imported
+// thus avoiding unneccesary rerenders due to the setter changing.
 export function useGridLayoutState(startingLayout: GridLayoutTemplate) {
-  const [layout, updateLayout] = useReducer(layoutUpdater, startingLayout);
+  const [layout, layoutDispatch] = useReducer(layoutUpdater, startingLayout);
 
   return {
     layout,
-    setGap: (gap: CSSMeasure) => updateLayout({ type: "Set-Gap", gap }),
-    setTract: (tract: TractValue) => updateLayout({ type: "Set-Tract", tract }),
-    deleteItem: (name: string) => updateLayout({ type: "Delete-Item", name }),
+    layoutDispatch,
+    setGap: (gap: CSSMeasure) => layoutDispatch({ type: "Set-Gap", gap }),
+    setTract: (tract: TractValue) =>
+      layoutDispatch({ type: "Set-Tract", tract }),
+    deleteItem: (name: string) => layoutDispatch({ type: "Delete-Item", name }),
     addItem: (itemDef: GridItemDef) =>
-      updateLayout({ type: "Add-Item", itemDef }),
+      layoutDispatch({ type: "Add-Item", itemDef }),
     moveItem: (itemDef: GridItemDef) =>
-      updateLayout({ type: "Move-Item", itemDef }),
+      layoutDispatch({ type: "Move-Item", itemDef }),
   };
 }
