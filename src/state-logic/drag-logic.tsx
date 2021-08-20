@@ -7,6 +7,7 @@ import {
   useRef,
 } from "preact/hooks";
 import { GridItem } from "../components/GridItem";
+import { sameGridPos } from "../helper-scripts/grid-helpers";
 import { boxesOverlap } from "../helper-scripts/overlap-helpers";
 import { DragDir, GridCellPos, GridItemDef, GridPos } from "../types";
 
@@ -157,20 +158,6 @@ function dragUpdater(dragState: DragState, action: DragUpdateActions) {
 // So we dont accidentally emit and listen to different custom events
 const CUSTOM_DRAG_START = "GridDragStart";
 const CUSTOM_DRAG_END = "GridDragEnd";
-
-function sameGridPos(a?: GridPos, b?: GridPos) {
-  if (typeof a === "undefined" && typeof b === "undefined") return true;
-
-  // If any one of them is undefined now, then one is and the other isnt
-  if (typeof a === "undefined" || typeof b === "undefined") return false;
-
-  return (
-    a.startCol === b.startCol &&
-    a.endCol === b.endCol &&
-    a.startRow === b.startRow &&
-    a.endRow === b.endRow
-  );
-}
 
 export const useDragHandler = ({
   watchingRef,

@@ -17,3 +17,17 @@ export function makeColPos({
   if (endCol) pos += "/" + endCol;
   return pos;
 }
+
+export function sameGridPos(a?: GridPos, b?: GridPos) {
+  if (typeof a === "undefined" && typeof b === "undefined") return true;
+
+  // If any one of them is undefined now, then one is and the other isnt
+  if (typeof a === "undefined" || typeof b === "undefined") return false;
+
+  return (
+    a.startCol === b.startCol &&
+    a.endCol === b.endCol &&
+    a.startRow === b.startRow &&
+    a.endRow === b.endRow
+  );
+}
