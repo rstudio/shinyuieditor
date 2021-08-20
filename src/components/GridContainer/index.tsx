@@ -30,12 +30,11 @@ export const GridContainer: FunctionComponent<{
   );
 };
 
+const twoColGridDefs = { cols: ["1fr", "1fr"], gap: "0.5rem" };
+const twoColGridStyles = { alignItems: "center" };
 export const TwoColumnGrid: FunctionComponent = ({ children }) => {
   return (
-    <GridContainer
-      defs={{ cols: ["1fr", "1fr"], gap: "0.5rem" }}
-      styles={{ alignItems: "center" }}
-    >
+    <GridContainer defs={twoColGridDefs} styles={twoColGridStyles}>
       {children}
     </GridContainer>
   );
