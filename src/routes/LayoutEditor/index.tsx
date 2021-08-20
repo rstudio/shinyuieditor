@@ -67,12 +67,14 @@ export default function LayoutEditor({
         <EditableGridItems items={items} onDrag={startDrag} />
         <DragFeedback dragState={dragState} />
       </EditorGridContainer>
-      <AddItemModal
-        state={addItemState}
-        existingElementNames={items.map((item) => item.name)}
-        onFinish={addItem}
-        closeModal={closeAddItemModal}
-      />
+      {addItemState ? (
+        <AddItemModal
+          state={addItemState}
+          existingElementNames={items.map((item) => item.name)}
+          onFinish={addItem}
+          closeModal={closeAddItemModal}
+        />
+      ) : null}
     </div>
   );
 }

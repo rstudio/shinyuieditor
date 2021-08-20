@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from "preact/hooks";
+import { useCallback, useLayoutEffect, useRef, useState } from "preact/hooks";
 import { useGridLayoutState } from "../../state-logic/layout-updating-logic";
 import { GridPos } from "../../types";
 import classes from "./style.module.css";
@@ -8,10 +8,20 @@ import classes from "./style.module.css";
 export function useAddItemModal() {
   const [addItemState, setAddItemState] = useState<GridPos | null>(null);
 
+  const openAddItemModal = useCallback(
+    (pos: GridPos) => setAddItemState(pos),
+    [setAddItemState]
+  );
+
+  const closeAddItemModal = useCallback(
+    () => setAddItemState(null),
+    [setAddItemState]
+  );
+
   return {
     addItemState,
-    openAddItemModal: (pos: GridPos) => setAddItemState(pos),
-    closeAddItemModal: () => setAddItemState(null),
+    openAddItemModal,
+    closeAddItemModal,
   };
 }
 
