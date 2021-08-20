@@ -1,4 +1,4 @@
-import type { FunctionComponent } from "preact";
+import { memo } from "preact/compat";
 import { useEffect, useState } from "preact/hooks";
 import {
   deparseCSSMeasure,
@@ -7,11 +7,15 @@ import {
 import type { CSSMeasure, CSSUnits } from "../../types";
 import classes from "./style.module.css";
 
-export const CssUnitInput: FunctionComponent<{
+export const CssUnitInput = memo(function CssUnitInput({
+  value = "1fr",
+  onChange,
+  units = ["fr", "px", "rem", "auto"],
+}: {
   value?: CSSMeasure | string;
   onChange: (value: CSSMeasure) => void;
   units?: Array<CSSUnits>;
-}> = ({ value = "1fr", onChange, units = ["fr", "px", "rem", "auto"] }) => {
+}) {
   const start = parseCSSMeasure(value);
   const [currentCount, updateCount] = useState(start.count);
   const [currentUnit, updateUnit] = useState(start.unit);
@@ -52,4 +56,4 @@ export const CssUnitInput: FunctionComponent<{
       </select>
     </form>
   );
-};
+});
