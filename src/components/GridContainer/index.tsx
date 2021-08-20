@@ -1,4 +1,4 @@
-import { ComponentChildren, FunctionComponent, Ref } from "preact";
+import { FunctionComponent, Ref } from "preact";
 import { memo } from "preact/compat";
 import { GridLayoutDef } from "../../types";
 import classes from "./style.module.css";
