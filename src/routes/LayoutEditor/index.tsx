@@ -29,7 +29,6 @@ export default function LayoutEditor({
     layout,
     layoutDispatch,
     deleteItem,
-    setTract,
     setGap,
     addItem,
     moveItem,
