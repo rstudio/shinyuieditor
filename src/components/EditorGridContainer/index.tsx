@@ -1,5 +1,5 @@
 import { FunctionComponent, JSX } from "preact";
-import { useEffect, useRef } from "preact/hooks";
+import { useEffect, useMemo, useRef } from "preact/hooks";
 import { DragKickoffFn } from "../../state-logic/drag-logic";
 import { GridLayoutTemplate } from "../../types";
 import { GridCard } from "../GridCard";
@@ -12,9 +12,8 @@ import classes from "./style.module.css";
 // A grid container that also displays a grid of all cells in background
 export const EditorGridContainer: FunctionComponent<{
   layout: GridLayoutTemplate;
-  styles?: JSX.CSSProperties;
   onDrag: DragKickoffFn;
-}> = ({ layout, styles: extraStyles, children, onDrag }) => {
+}> = ({ layout, children, onDrag }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -36,29 +35,41 @@ export const EditorGridContainer: FunctionComponent<{
 
   // We need to make one less tract line that there are tracts because the
   // controls only go between and there are N-1 spots between N elements
-  const rowTractLines = Array.from({ length: rows.length - 1 }, (_, i) => (
-    <GridItem
-      startCol={1}
-      endCol={-1}
-      startRow={i + 1}
-      className={classes.rowTractBoundary}
-    />
-  ));
-  const colTractLines = Array.from({ length: cols.length - 1 }, (_, i) => (
-    <GridItem
-      startRow={1}
-      endRow={-1}
-      startCol={i + 1}
-      className={classes.colTractBoundary}
-    />
-  ));
+  const rowTractLines = useMemo(
+    () =>
+      Array.from({ length: rows.length - 1 }, (_, i) => (
+        <GridItem
+          startCol={1}
+          endCol={-1}
+          startRow={i + 1}
+          className={classes.rowTractBoundary}
+        />
+      )),
+    [rows.length]
+  );
+
+  const colTractLines = useMemo(
+    () =>
+      Array.from({ length: cols.length - 1 }, (_, i) => (
+        <GridItem
+          startRow={1}
+          endRow={-1}
+          startCol={i + 1}
+          className={classes.colTractBoundary}
+        />
+      )),
+    [cols.length]
+  );
+
+  // This feels very unneccesary but it helps avoid rerenders
+  const containerStyles = useMemo(() => ({ "--gap": gap }), [gap]);
 
   return (
     <GridCard gridArea="editor" header={FakeBrowserBar} padding={"0px"}>
       <GridContainer
         divRef={containerRef}
         defs={layout}
-        styles={{ ...extraStyles, "--gap": gap }}
+        styles={containerStyles}
       >
         {rowTractLines}
         {colTractLines}
