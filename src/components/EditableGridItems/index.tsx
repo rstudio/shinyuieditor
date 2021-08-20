@@ -1,4 +1,5 @@
 import { RefObject } from "preact";
+import { memo } from "preact/compat";
 import { useRef } from "preact/hooks";
 import { makeColPos, makeRowPos } from "../../helper-scripts/grid-helpers";
 import type { DragKickoffFn } from "../../state-logic/drag-logic";
@@ -16,52 +17,55 @@ export const EditableGridItems = ({
   return (
     <>
       {items.map((itemInfo) => (
-        <EditableGridItem key={itemInfo.name} info={itemInfo} onDrag={onDrag} />
+        <EditableGridItem key={itemInfo.name} {...itemInfo} onDrag={onDrag} />
       ))}
     </>
   );
 };
 
 export type GridItemRef = RefObject<HTMLDivElement>;
-function EditableGridItem({
-  info: itemDef,
-  onDrag,
-}: {
-  info: GridItemDef;
-  onDrag: DragKickoffFn;
-}) {
-  const itemRef: GridItemRef = useRef(null);
+const EditableGridItem = memo(
+  ({
+    startRow,
+    endRow,
+    startCol,
+    endCol,
+    name,
+    onDrag,
+  }: GridItemDef & { onDrag: DragKickoffFn }) => {
+    const itemRef: GridItemRef = useRef(null);
 
-  return (
-    <div
-      ref={itemRef}
-      className={classes.item}
-      style={{
-        "--cols": makeColPos(itemDef),
-        "--rows": makeRowPos(itemDef),
-      }}
-      title={itemDef.name}
-    >
-      {directions.map((dir) => (
-        <span
-          key={dir}
-          className={classes[dir]}
-          onMouseDown={(e: MouseEvent) => {
-            e.stopPropagation();
-            onDrag(e, {
-              dragType: "ResizeItemDrag",
-              name: itemDef.name,
-              itemRef,
-              dragDir: dir,
-            });
-          }}
-        >
-          <DragIcon type={dir} />
-        </span>
-      ))}
-    </div>
-  );
-}
+    return (
+      <div
+        ref={itemRef}
+        className={classes.item}
+        style={{
+          "--cols": makeColPos({ startCol, endCol }),
+          "--rows": makeRowPos({ startRow, endRow }),
+        }}
+        title={name}
+      >
+        {directions.map((dir) => (
+          <span
+            key={dir}
+            className={classes[dir]}
+            onMouseDown={(e: MouseEvent) => {
+              e.stopPropagation();
+              onDrag(e, {
+                dragType: "ResizeItemDrag",
+                name,
+                itemRef,
+                dragDir: dir,
+              });
+            }}
+          >
+            <DragIcon type={dir} />
+          </span>
+        ))}
+      </div>
+    );
+  }
+);
 
 const directions: Array<DragDir> = [
   "middle",
