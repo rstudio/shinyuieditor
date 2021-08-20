@@ -1,3 +1,4 @@
+import { FunctionalComponent } from "preact";
 import { memo } from "preact/compat";
 import { useState } from "preact/hooks";
 import {
@@ -7,15 +8,11 @@ import {
 import type { CSSMeasure, CSSUnits } from "../../types";
 import classes from "./style.module.css";
 
-export const CssUnitInput = memo(function CssUnitInput({
-  value = "1fr",
-  onChange,
-  units = ["fr", "px", "rem", "auto"],
-}: {
+let CssUnitInput: FunctionalComponent<{
   value?: CSSMeasure | string;
   onChange: (value: CSSMeasure) => void;
   units?: Array<CSSUnits>;
-}) {
+}> = ({ value = "1fr", onChange, units = ["fr", "px", "rem", "auto"] }) => {
   const start = parseCSSMeasure(value);
   const [currentCount, updateCount] = useState(start.count);
   const [currentUnit, updateUnit] = useState(start.unit);
@@ -55,4 +52,7 @@ export const CssUnitInput = memo(function CssUnitInput({
       </select>
     </form>
   );
-});
+};
+CssUnitInput.displayName = "CssUnitInput";
+CssUnitInput = memo(CssUnitInput);
+export { CssUnitInput };

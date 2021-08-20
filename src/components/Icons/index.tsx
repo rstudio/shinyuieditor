@@ -1,3 +1,4 @@
+import { FunctionalComponent } from "preact";
 import { memo } from "preact/compat";
 import { DragDir } from "../../types";
 
@@ -66,11 +67,15 @@ const iconPaths = {
 
 export type IconName = keyof typeof iconPaths;
 
-export const SvgIcon = memo(({ name = "move" }: { name?: IconName }) => (
+const SvgIconImpl: FunctionalComponent<{ name?: IconName }> = ({
+  name = "move",
+}) => (
   <svg style="width:24px;height:24px" viewBox="0 0 24 24">
     <path fill="currentColor" d={iconPaths[name]} />
   </svg>
-));
+);
+SvgIconImpl.displayName = "SvgIcon";
+export const SvgIcon = memo(SvgIconImpl);
 
 const DragDirToIcon: Record<DragDir, keyof typeof iconPaths> = {
   middle: "move",
