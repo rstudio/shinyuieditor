@@ -1,3 +1,4 @@
+import { memo } from "preact/compat";
 import { DragDir } from "../../types";
 
 const iconPaths = {
@@ -64,11 +65,12 @@ const iconPaths = {
 // );
 
 export type IconName = keyof typeof iconPaths;
-export const SvgIcon = ({ name = "move" }: { name?: IconName }) => (
+
+export const SvgIcon = memo(({ name = "move" }: { name?: IconName }) => (
   <svg style="width:24px;height:24px" viewBox="0 0 24 24">
     <path fill="currentColor" d={iconPaths[name]} />
   </svg>
-);
+));
 
 const DragDirToIcon: Record<DragDir, keyof typeof iconPaths> = {
   middle: "move",
@@ -81,6 +83,6 @@ const DragDirToIcon: Record<DragDir, keyof typeof iconPaths> = {
   top: "verticalDrag",
   bottom: "verticalDrag",
 };
-export const DragIcon = ({ type }: { type: DragDir }) => {
+export const DragIcon = memo(({ type }: { type: DragDir }) => {
   return <SvgIcon name={DragDirToIcon[type]} />;
-};
+});
