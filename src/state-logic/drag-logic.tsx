@@ -265,23 +265,24 @@ export const useDragHandler = ({
     };
   }, []);
 
-  const triggerStartDrag: DragKickoffFn = (
-    { pageX, pageY },
-    { dragType, dragDir, name, itemRef }
-  ) => {
-    (watchingRef.current as HTMLDivElement).dispatchEvent(
-      new CustomEvent<DragStartEventDetails>(CUSTOM_DRAG_START, {
-        bubbles: true,
-        detail: {
-          name,
-          loc: { pageX, pageY },
-          dragType,
-          dragDir,
-          itemRef,
-        },
-      })
-    );
-  };
+  // This gets passed around a lot and barely ever changes so memoize it
+  const triggerStartDrag: DragKickoffFn = useCallback(
+    ({ pageX, pageY }, { dragType, dragDir, name, itemRef }) => {
+      (watchingRef.current as HTMLDivElement).dispatchEvent(
+        new CustomEvent<DragStartEventDetails>(CUSTOM_DRAG_START, {
+          bubbles: true,
+          detail: {
+            name,
+            loc: { pageX, pageY },
+            dragType,
+            dragDir,
+            itemRef,
+          },
+        })
+      );
+    },
+    [watchingRef]
+  );
 
   return {
     dragState,
