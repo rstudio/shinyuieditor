@@ -1,18 +1,19 @@
-import { FunctionComponent, Ref } from "preact";
+import { ComponentChildren, FunctionComponent, Ref } from "preact";
+import { memo } from "preact/compat";
 import { GridLayoutDef } from "../../types";
 import classes from "./style.module.css";
 
-export const GridContainer: FunctionComponent<{
+let GridContainer: FunctionComponent<{
   defs: GridLayoutDef;
   className?: string;
   styles?: JSX.CSSProperties;
   divRef?: Ref<HTMLDivElement>;
 }> = ({
   defs: { cols, rows, gap },
-  children,
   className,
   styles: extraStyles,
   divRef,
+  children,
 }) => {
   const styles: JSX.CSSProperties = {
     ...extraStyles,
@@ -29,13 +30,17 @@ export const GridContainer: FunctionComponent<{
     </div>
   );
 };
+GridContainer.displayName = "GridContainer";
+GridContainer = memo(GridContainer);
 
 const twoColGridDefs = { cols: ["1fr", "1fr"], gap: "0.5rem" };
 const twoColGridStyles = { alignItems: "center" };
-export const TwoColumnGrid: FunctionComponent = ({ children }) => {
+const TwoColumnGrid: FunctionComponent = ({ children }) => {
   return (
     <GridContainer defs={twoColGridDefs} styles={twoColGridStyles}>
       {children}
     </GridContainer>
   );
 };
+
+export { GridContainer, TwoColumnGrid };
