@@ -38,15 +38,17 @@ export const EditorGridContainer: FunctionComponent<{
   // controls only go between and there are N-1 spots between N elements
   const rowTractLines = Array.from({ length: rows.length - 1 }, (_, i) => (
     <GridItem
-      cols={[1, -1]}
-      rows={[i + 1, i + 1]}
+      startCol={1}
+      endCol={-1}
+      startRow={i + 1}
       className={classes.rowTractBoundary}
     />
   ));
   const colTractLines = Array.from({ length: cols.length - 1 }, (_, i) => (
     <GridItem
-      rows={[1, -1]}
-      cols={[i + 1, i + 1]}
+      startRow={1}
+      endRow={-1}
+      startCol={i + 1}
       className={classes.colTractBoundary}
     />
   ));

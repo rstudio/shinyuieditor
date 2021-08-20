@@ -1,5 +1,6 @@
 import { RefObject } from "preact";
 import { useRef } from "preact/hooks";
+import { makeColPos, makeRowPos } from "../../helper-scripts/grid-helpers";
 import type { DragKickoffFn } from "../../state-logic/drag-logic";
 import type { DragDir, GridItemDef, GridLayoutTemplate } from "../../types";
 import { DragIcon } from "../Icons";
@@ -23,7 +24,7 @@ export const EditableGridItems = ({
 
 export type GridItemRef = RefObject<HTMLDivElement>;
 function EditableGridItem({
-  info: { name, rows, cols },
+  info: itemDef,
   onDrag,
 }: {
   info: GridItemDef;
@@ -36,10 +37,10 @@ function EditableGridItem({
       ref={itemRef}
       className={classes.item}
       style={{
-        "--cols": cols.join("/"),
-        "--rows": rows.join("/"),
+        "--cols": makeColPos(itemDef),
+        "--rows": makeRowPos(itemDef),
       }}
-      title={name}
+      title={itemDef.name}
     >
       {directions.map((dir) => (
         <span
@@ -49,7 +50,7 @@ function EditableGridItem({
             e.stopPropagation();
             onDrag(e, {
               dragType: "ResizeItemDrag",
-              name,
+              name: itemDef.name,
               itemRef,
               dragDir: dir,
             });

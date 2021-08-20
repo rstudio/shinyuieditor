@@ -1,15 +1,20 @@
 import { FunctionComponent, Ref } from "preact";
+import { makeColPos, makeRowPos } from "../../helper-scripts/grid-helpers";
 
 export const GridItem: FunctionComponent<{
-  rows?: [number, number];
-  cols?: [number, number];
+  startRow?: number;
+  endRow?: number;
+  startCol?: number;
+  endCol?: number;
   gridArea?: string;
   className?: string;
   styles?: JSX.CSSProperties;
   divRef?: Ref<HTMLDivElement | undefined>;
 }> = ({
-  rows,
-  cols,
+  startRow,
+  endRow,
+  startCol,
+  endCol,
   gridArea,
   className,
   styles: extraStyles,
@@ -18,11 +23,11 @@ export const GridItem: FunctionComponent<{
 }) => {
   const styles = { ...extraStyles };
 
-  if (gridArea && !rows && !cols) {
+  if (startRow && startCol) {
+    styles.gridRow = makeRowPos({ startRow, endRow });
+    styles.gridColumn = makeColPos({ startCol, endCol });
+  } else if (gridArea) {
     styles.gridArea = gridArea;
-  } else if (rows && cols && !gridArea) {
-    styles.gridRow = rows.join("/");
-    styles.gridColumn = cols.join("/");
   } else {
     console.error(
       "You need to provide one of rows and cols or gridArea for GridItem"

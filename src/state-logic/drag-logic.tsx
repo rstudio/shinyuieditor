@@ -165,10 +165,10 @@ function sameGridPos(a?: GridPos, b?: GridPos) {
   if (typeof a === "undefined" || typeof b === "undefined") return false;
 
   return (
-    a.cols[0] === b.cols[0] &&
-    a.cols[1] === b.cols[1] &&
-    a.rows[0] === b.rows[0] &&
-    a.rows[1] === b.rows[1]
+    a.startCol === b.startCol &&
+    a.endCol === b.endCol &&
+    a.startRow === b.startRow &&
+    a.endRow === b.endRow
   );
 }
 
@@ -321,8 +321,7 @@ export const DragFeedback = ({ dragState }: { dragState: DragState }) => {
       />
       {type === "NewItemDrag" ? (
         <GridItem
-          rows={gridPos.rows}
-          cols={gridPos.cols}
+          {...gridPos}
           styles={{
             border: "2px solid tomato",
           }}
@@ -361,8 +360,10 @@ function dragPosOnGrid(
   // These will always be numbers the fallback should never be needed. It's just
   // so typescript is happy
   return {
-    rows: [startRow ?? 1, (endRow ?? 1) + 1],
-    cols: [startCol ?? 1, (endCol ?? 1) + 1],
+    startRow: startRow ?? 1,
+    endRow: (endRow ?? 1) + 1,
+    startCol: startCol ?? 1,
+    endCol: (endCol ?? 1) + 1,
   };
 }
 

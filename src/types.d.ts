@@ -4,8 +4,10 @@ export
 type ItemTractPos = [number, number];
 
 type GridPos = {
-  rows: ItemTractPos;
-  cols: ItemTractPos;
+  startRow: number;
+  endRow?: number;
+  startCol: number;
+  endCol?: number;
 }
 type GridItemDef = {
   name: string;

@@ -23,8 +23,9 @@ export const GridTractControls = memo(
         {rows.map((r, i) => (
           <GridItem
             key={i}
-            rows={[i + 1, i + 1]}
-            cols={[1, -1]}
+            startRow={i + 1}
+            startCol={1}
+            endCol={-1}
             className={classes.rowSizeControls}
           >
             <CssUnitInput
@@ -45,8 +46,9 @@ export const GridTractControls = memo(
         {cols.map((c, i) => (
           <GridItem
             key={i}
-            rows={[1, -1]}
-            cols={[i + 1, i + 1]}
+            startRow={1}
+            endRow={-1}
+            startCol={i + 1}
             className={classes.colSizeControls}
           >
             <CssUnitInput
