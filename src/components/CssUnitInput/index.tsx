@@ -1,5 +1,5 @@
 import { memo } from "preact/compat";
-import { useEffect, useState } from "preact/hooks";
+import { useState } from "preact/hooks";
 import {
   deparseCSSMeasure,
   parseCSSMeasure,
@@ -20,14 +20,13 @@ export const CssUnitInput = memo(function CssUnitInput({
   const [currentCount, updateCount] = useState(start.count);
   const [currentUnit, updateUnit] = useState(start.unit);
 
-  // Trigger the onChange callback anytime either the count or units update
-  useEffect(() => {
-    onChange(deparseCSSMeasure({ count: currentCount, unit: currentUnit }));
-  }, [currentCount, currentUnit]);
-
   return (
     <form
       className={classes.form}
+      onChange={(e) => {
+        e.preventDefault;
+        onChange(deparseCSSMeasure({ count: currentCount, unit: currentUnit }));
+      }}
       onMouseDown={(e) => e.stopImmediatePropagation()}
       onSubmit={(e) => e.preventDefault()}
     >
