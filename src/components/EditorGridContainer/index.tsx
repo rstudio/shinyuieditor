@@ -6,7 +6,7 @@ import { GridCard } from "../GridCard";
 import { GridCells } from "../GridCells/GridCells";
 import { GridContainer } from "../GridContainer";
 import { GridItem } from "../GridItem";
-import { TheFakeBrowserBar } from "../TheFakeBrowserBar";
+import { FakeBrowserBar } from "../TheFakeBrowserBar";
 import classes from "./style.module.css";
 
 // A grid container that also displays a grid of all cells in background
@@ -52,7 +52,7 @@ export const EditorGridContainer: FunctionComponent<{
   ));
 
   return (
-    <GridCard gridArea="editor" header={<TheFakeBrowserBar />} padding={"0px"}>
+    <GridCard gridArea="editor" header={FakeBrowserBar} padding={"0px"}>
       <GridContainer
         divRef={containerRef}
         defs={layout}
