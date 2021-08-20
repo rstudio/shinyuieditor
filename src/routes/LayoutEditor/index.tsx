@@ -28,7 +28,6 @@ export default function LayoutEditor({
   const {
     layout,
     layoutDispatch,
-    deleteItem,
     setGap,
     addItem,
     moveItem,
@@ -58,7 +57,7 @@ export default function LayoutEditor({
         </SettingPane>
       </EditorSettings>
       {EditorInstructions}
-      <EditorItemsListView items={items} deleteItem={deleteItem} />
+      <EditorItemsListView items={items} layoutDispatch={layoutDispatch} />
       <EditorGridContainer layout={layout} onDrag={startDrag}>
         <GridTractControls
           rows={rows}
