@@ -3,7 +3,7 @@ import { GridCard } from "../GridCard";
 import { SvgIcon } from "../Icons";
 import classes from "./style.module.css";
 
-function EditorInstructionsImpl() {
+export const EditorInstructions = memo(function EditorInstructionsImpl() {
   return (
     <GridCard title="Instructions" icon="instructions" gridArea="instructions">
       <div className={classes.instructionList}>
@@ -42,6 +42,4 @@ function EditorInstructionsImpl() {
       </div>
     </GridCard>
   );
-}
-EditorInstructionsImpl.name = "EditorInstructions";
-export const EditorInstructions = memo(EditorInstructionsImpl);
+});
