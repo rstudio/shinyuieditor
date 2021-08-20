@@ -57,7 +57,7 @@ export default function LayoutEditor({
           <CssUnitInput value={gap} onChange={setGap} />
         </SettingPane>
       </EditorSettings>
-      <EditorInstructions />
+      {EditorInstructions}
       <EditorItemsListView items={items} deleteItem={deleteItem} />
       <EditorGridContainer layout={layout} onDrag={startDrag}>
         <GridTractControls

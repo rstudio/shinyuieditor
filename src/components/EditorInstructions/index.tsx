@@ -1,9 +1,9 @@
-import { memo } from "preact/compat";
 import { GridCard } from "../GridCard";
 import { SvgIcon } from "../Icons";
 import classes from "./style.module.css";
 
-export const EditorInstructions = memo(function EditorInstructionsImpl() {
+function EditorInstructionsImpl() {
+  console.log("rendered instructions");
   return (
     <GridCard title="Instructions" icon="instructions" gridArea="instructions">
       <div className={classes.instructionList}>
@@ -42,4 +42,6 @@ export const EditorInstructions = memo(function EditorInstructionsImpl() {
       </div>
     </GridCard>
   );
-});
+}
+// Render component here so it remains referentially static
+export const EditorInstructions = <EditorInstructionsImpl />;
