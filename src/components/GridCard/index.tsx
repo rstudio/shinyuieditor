@@ -1,4 +1,5 @@
 import type { ComponentChildren, JSX } from "preact";
+import { memo } from "preact/compat";
 import type { CSSMeasure } from "../../types";
 import { GridItem } from "../GridItem";
 import type { IconName } from "../Icons";
@@ -11,13 +12,13 @@ type GridCardCommonProps = {
   padding?: CSSMeasure;
 };
 
-export function GridCard(
+function GridCardImpl(
   props: GridCardCommonProps & { title: string; icon?: IconName }
 ): JSX.Element;
-export function GridCard(
+function GridCardImpl(
   props: GridCardCommonProps & { header: JSX.Element }
 ): JSX.Element;
-export function GridCard(
+function GridCardImpl(
   props: GridCardCommonProps & {
     title?: string;
     icon?: IconName;
@@ -39,3 +40,5 @@ export function GridCard(
     </GridItem>
   );
 }
+
+export const GridCard = memo(GridCardImpl);
