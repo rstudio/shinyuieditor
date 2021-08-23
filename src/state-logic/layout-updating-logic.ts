@@ -1,10 +1,4 @@
-import { useCallback, useReducer } from "preact/hooks";
-import {
-  CSSMeasure,
-  GridItemDef,
-  GridLayoutTemplate,
-  TractValue,
-} from "../types";
+import { GridItemDef, GridLayoutTemplate, TractValue } from "../types";
 
 type LayoutUpdateActions =
   | {
@@ -68,31 +62,3 @@ export const layoutUpdater = (
 };
 
 export type LayoutDispatch = (action: LayoutUpdateActions) => void;
-
-// Convert these to referentially static callbacks that can be imported
-// thus avoiding unneccesary rerenders due to the setter changing.
-export function useGridLayoutState(startingLayout: GridLayoutTemplate) {
-  const [layout, layoutDispatch] = useReducer(layoutUpdater, startingLayout);
-
-  // We are using useCallback here around our helper functions so
-  // they are referentially stable when we pass them to components. This
-  // helps us avoid implementaiton leaks that would be neccesary if we passed
-  // in the dispatch to the thing itself.
-  const setGap = useCallback(
-    (gap: CSSMeasure) => layoutDispatch({ type: "Set-Gap", gap }),
-    [layoutDispatch]
-  );
-
-  return {
-    layout,
-    layoutDispatch,
-    setGap,
-    setTract: (tract: TractValue) =>
-      layoutDispatch({ type: "Set-Tract", tract }),
-    deleteItem: (name: string) => layoutDispatch({ type: "Delete-Item", name }),
-    addItem: (itemDef: GridItemDef) =>
-      layoutDispatch({ type: "Add-Item", itemDef }),
-    moveItem: (itemDef: GridItemDef) =>
-      layoutDispatch({ type: "Move-Item", itemDef }),
-  };
-}

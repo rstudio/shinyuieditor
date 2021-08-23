@@ -1,5 +1,5 @@
 import { useCallback, useLayoutEffect, useRef, useState } from "preact/hooks";
-import { useGridLayoutState } from "../../state-logic/layout-updating-logic";
+import { LayoutDispatch } from "../../state-logic/layout-updating-logic";
 import { GridPos } from "../../types";
 import classes from "./style.module.css";
 
@@ -28,14 +28,13 @@ export function useAddItemModal() {
 export function AddItemModal({
   state,
   existingElementNames,
-  onFinish,
+  layoutDispatch,
   closeModal,
 }: {
   state: GridPos | null;
   existingElementNames: string[];
-  onFinish: ReturnType<typeof useGridLayoutState>["addItem"];
-  // Callback to close the modal is provided by the useAddItemModal hook
   closeModal: () => void;
+  layoutDispatch: LayoutDispatch;
 }) {
   const [warningMsg, setWarningMsg] = useState<string | null>(null);
   const nameInputRef = useRef<HTMLInputElement>(null);
@@ -72,7 +71,10 @@ export function AddItemModal({
       return;
     }
 
-    onFinish({ name: currentName, ...state });
+    layoutDispatch({
+      type: "Add-Item",
+      itemDef: { name: currentName, ...state },
+    });
     closeModal();
   };
 

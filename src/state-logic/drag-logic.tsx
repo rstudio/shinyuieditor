@@ -9,7 +9,8 @@ import {
 import { GridItem } from "../components/GridItem";
 import { sameGridPos } from "../helper-scripts/grid-helpers";
 import { boxesOverlap } from "../helper-scripts/overlap-helpers";
-import { DragDir, GridCellPos, GridItemDef, GridPos } from "../types";
+import { DragDir, GridCellPos, GridPos } from "../types";
+import { LayoutDispatch } from "./layout-updating-logic";
 
 type DragBox = {
   dir: DragDir;
@@ -162,11 +163,11 @@ const CUSTOM_DRAG_END = "GridDragEnd";
 export const useDragHandler = ({
   watchingRef,
   onNewItem,
-  onReposition,
+  layoutDispatch,
 }: {
   watchingRef: RefObject<HTMLDivElement>;
   onNewItem: (pos: GridPos) => void;
-  onReposition: (newItemDef: GridItemDef) => void;
+  layoutDispatch: LayoutDispatch;
 }) => {
   const [dragState, updateDragState] = useReducer(dragUpdater, null);
 
@@ -226,9 +227,12 @@ export const useDragHandler = ({
       dragState.itemName &&
       !sameGridPos(stateRef.current?.gridPos, dragState.gridPos)
     ) {
-      onReposition({
-        name: dragState.itemName,
-        ...(dragState.gridPos as GridPos),
+      layoutDispatch({
+        type: "Move-Item",
+        itemDef: {
+          name: dragState.itemName,
+          ...(dragState.gridPos as GridPos),
+        },
       });
     }
 
