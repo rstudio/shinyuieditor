@@ -1,6 +1,11 @@
 import { useCallback, useLayoutEffect, useRef, useState } from "preact/hooks";
-import { LayoutDispatch } from "../../state-logic/layout-updating-logic";
-import { GridPos } from "../../types";
+import { SetterOrUpdater, useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  gridItemsState,
+  itemNamesState,
+  LayoutDispatch,
+} from "../../state-logic/layout-updating-logic";
+import { GridItemDef, GridPos } from "../../types";
 import classes from "./style.module.css";
 
 // Hook that is used in conjection with AddItemModal component to control its
@@ -25,19 +30,25 @@ export function useAddItemModal() {
   };
 }
 
+function addItem(
+  setItems: SetterOrUpdater<GridItemDef[]>,
+  itemDef: GridItemDef
+) {
+  setItems((existingItems) => [...existingItems, itemDef]);
+}
+
 export function AddItemModal({
   state,
-  existingElementNames,
-  layoutDispatch,
   closeModal,
 }: {
   state: GridPos | null;
-  existingElementNames: string[];
   closeModal: () => void;
-  layoutDispatch: LayoutDispatch;
 }) {
   const [warningMsg, setWarningMsg] = useState<string | null>(null);
   const nameInputRef = useRef<HTMLInputElement>(null);
+
+  const existingElementNames = useRecoilValue(itemNamesState);
+  const setItems = useSetRecoilState(gridItemsState);
 
   const turnOffWarningMsg = () => setWarningMsg(null);
 
@@ -71,10 +82,7 @@ export function AddItemModal({
       return;
     }
 
-    layoutDispatch({
-      type: "Add-Item",
-      itemDef: { name: currentName, ...state },
-    });
+    addItem(setItems, { name: currentName, ...state });
     closeModal();
   };
 

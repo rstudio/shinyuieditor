@@ -1,73 +1,60 @@
 import { memo } from "preact/compat";
-import { LayoutDispatch } from "../../state-logic/layout-updating-logic";
-import { CSSMeasure, GridLayoutTemplate } from "../../types";
+import { useRecoilState } from "recoil";
+import {
+  gridTractsState,
+  updateTract,
+} from "../../state-logic/layout-updating-logic";
+import { CSSMeasure } from "../../types";
 import { CssUnitInput } from "../CssUnitInput";
 import { GridItem } from "../GridItem";
 import classes from "./style.module.css";
 
-// This memo may need to be made more complex with a comparitor function to
-// unpack the rows and columns arrays for comparison, seems to work now though
-// but that may be due to me not being strict about imutability in my state
-export const GridTractControls = memo(
-  ({
-    rows,
-    cols,
-    layoutDispatch,
-  }: {
-    rows: GridLayoutTemplate["rows"];
-    cols: GridLayoutTemplate["cols"];
-    layoutDispatch: LayoutDispatch;
-  }) => {
-    return (
-      <>
-        {rows.map((r, i) => (
-          <GridItem
-            key={i}
-            startRow={i + 1}
-            startCol={1}
-            endCol={-1}
-            className={classes.rowSizeControls}
-          >
-            <CssUnitInput
-              value={r as CSSMeasure}
-              onChange={(newVal: CSSMeasure) => {
-                layoutDispatch({
-                  type: "Set-Tract",
-                  tract: {
-                    val: newVal,
-                    dir: "rows",
-                    index: i,
-                  },
-                });
-              }}
-            />
-          </GridItem>
-        ))}
-        {cols.map((c, i) => (
-          <GridItem
-            key={i}
-            startRow={1}
-            endRow={-1}
-            startCol={i + 1}
-            className={classes.colSizeControls}
-          >
-            <CssUnitInput
-              value={c as CSSMeasure}
-              onChange={(newVal: CSSMeasure) => {
-                layoutDispatch({
-                  type: "Set-Tract",
-                  tract: {
-                    val: newVal,
-
-                    dir: "cols",
-                    index: i,
-                  },
-                });
-              }}
-            />
-          </GridItem>
-        ))}
-      </>
-    );
-  }
-);
+// Memo so we dont rerender on every drag frame
+export const GridTractControls = memo(() => {
+  const [tracts, setTracts] = useRecoilState(gridTractsState);
+  const { rows, cols } = tracts;
+  return (
+    <>
+      {rows.map((r, i) => (
+        <GridItem
+          key={i}
+          startRow={i + 1}
+          startCol={1}
+          endCol={-1}
+          className={classes.rowSizeControls}
+        >
+          <CssUnitInput
+            value={r as CSSMeasure}
+            onChange={(newVal: CSSMeasure) => {
+              updateTract(setTracts, {
+                val: newVal,
+                dir: "rows",
+                index: i,
+              });
+            }}
+          />
+        </GridItem>
+      ))}
+      {cols.map((c, i) => (
+        <GridItem
+          key={i}
+          startRow={1}
+          endRow={-1}
+          startCol={i + 1}
+          className={classes.colSizeControls}
+        >
+          <CssUnitInput
+            value={c as CSSMeasure}
+            onChange={(newVal: CSSMeasure) => {
+              updateTract(setTracts, {
+                val: newVal,
+                dir: "cols",
+                index: i,
+              });
+            }}
+          />
+        </GridItem>
+      ))}
+    </>
+  );
+});

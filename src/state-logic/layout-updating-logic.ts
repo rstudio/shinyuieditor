@@ -1,4 +1,4 @@
-import { atom } from "recoil";
+import { atom, selector, SetterOrUpdater } from "recoil";
 import { GridItemDef, GridLayoutTemplate, TractValue } from "../types";
 
 type LayoutUpdateActions =
@@ -23,46 +23,52 @@ type LayoutUpdateActions =
       itemDef: GridItemDef;
     };
 
-export const layoutUpdater = (
-  oldLayout: GridLayoutTemplate,
-  action: LayoutUpdateActions
-) => {
-  // This is not a true copy as everything but the gap and name will be copied
-  // by ref so it may need to be updated once time-travel like state is added
-  const layout = { ...oldLayout };
-
-  switch (action.type) {
-    case "Set-Gap":
-      layout.gap = action.gap;
-      break;
-
-    case "Set-Tract":
-      layout[action.tract.dir][action.tract.index] = action.tract.val;
-      break;
-
-    case "Delete-Item":
-      layout.items = layout.items.filter((item) => item.name !== action.name);
-      break;
-
-    case "Move-Item":
-      layout.items = layout.items.map((item) => {
-        if (item.name === action.itemDef.name) return { ...action.itemDef };
-        return { ...item };
-      });
-      break;
-
-    case "Add-Item":
-      layout.items.push(action.itemDef);
-      break;
-
-    default:
-      throw new Error("Unexpected action");
-  }
-
-  return layout;
-};
+export function moveItem(
+  setItems: SetterOrUpdater<GridItemDef[]>,
+  itemPos: GridItemDef
+) {
+  setItems((items) =>
+    items.map((item) => {
+      if (item.name === itemPos.name) return { ...itemPos };
+      return { ...item };
+    })
+  );
+}
 
 export type LayoutDispatch = (action: LayoutUpdateActions) => void;
+
+type GridTracts = Pick<GridLayoutTemplate, "rows" | "cols">;
+export const gridTractsState = atom<GridTracts>({
+  key: "gridTractsState",
+  default: {
+    rows: ["1fr", "1fr"],
+    cols: ["1fr", "1fr"],
+  },
+});
+
+export function updateTract(
+  setTracts: SetterOrUpdater<GridTracts>,
+  { dir, index, val }: TractValue
+) {
+  setTracts(({ rows, cols }) => {
+    const updateTracts = {
+      rows: [...rows],
+      cols: [...cols],
+    };
+    updateTracts[dir][index] = val;
+    return updateTracts;
+  });
+}
+
+export const gridItemsState = atom<GridItemDef[]>({
+  key: "gridItemsState",
+  default: [],
+});
+
+export const itemNamesState = selector({
+  key: "itemNamesState",
+  get: ({ get }) => get(gridItemsState).map((item) => item.name),
+});
 
 export const gapState = atom({
   key: "gapState", // unique ID (with respect to other atoms/selectors)

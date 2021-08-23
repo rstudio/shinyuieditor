@@ -6,11 +6,12 @@ import {
   useReducer,
   useRef,
 } from "preact/hooks";
+import { useSetRecoilState } from "recoil";
 import { GridItem } from "../components/GridItem";
 import { sameGridPos } from "../helper-scripts/grid-helpers";
 import { boxesOverlap } from "../helper-scripts/overlap-helpers";
 import { DragDir, GridCellPos, GridPos } from "../types";
-import { LayoutDispatch } from "./layout-updating-logic";
+import { gridItemsState, moveItem } from "./layout-updating-logic";
 
 type DragBox = {
   dir: DragDir;
@@ -163,12 +164,11 @@ const CUSTOM_DRAG_END = "GridDragEnd";
 export const useDragHandler = ({
   watchingRef,
   onNewItem,
-  layoutDispatch,
 }: {
   watchingRef: RefObject<HTMLDivElement>;
   onNewItem: (pos: GridPos) => void;
-  layoutDispatch: LayoutDispatch;
 }) => {
+  const setItems = useSetRecoilState(gridItemsState);
   const [dragState, updateDragState] = useReducer(dragUpdater, null);
 
   // Create a mutable state object that our callback can use. This way we dont
@@ -227,12 +227,9 @@ export const useDragHandler = ({
       dragState.itemName &&
       !sameGridPos(stateRef.current?.gridPos, dragState.gridPos)
     ) {
-      layoutDispatch({
-        type: "Move-Item",
-        itemDef: {
-          name: dragState.itemName,
-          ...(dragState.gridPos as GridPos),
-        },
+      moveItem(setItems, {
+        name: dragState.itemName,
+        ...(dragState.gridPos as GridPos),
       });
     }
 

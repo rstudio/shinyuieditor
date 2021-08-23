@@ -1,19 +1,17 @@
 import { RefObject } from "preact";
 import { memo } from "preact/compat";
 import { useRef } from "preact/hooks";
+import { useRecoilState } from "recoil";
 import { makeColPos, makeRowPos } from "../../helper-scripts/grid-helpers";
 import type { DragKickoffFn } from "../../state-logic/drag-logic";
-import type { DragDir, GridItemDef, GridLayoutTemplate } from "../../types";
+import { gridItemsState } from "../../state-logic/layout-updating-logic";
+import type { DragDir, GridItemDef } from "../../types";
 import { DragIcon } from "../Icons";
 import classes from "./style.module.css";
 
-export const EditableGridItems = ({
-  items,
-  onDrag,
-}: {
-  items: GridLayoutTemplate["items"];
-  onDrag: DragKickoffFn;
-}) => {
+export const EditableGridItems = ({ onDrag }: { onDrag: DragKickoffFn }) => {
+  const [items, setItems] = useRecoilState(gridItemsState);
+
   return (
     <>
       {items.map((itemInfo) => (

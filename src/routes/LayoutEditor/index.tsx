@@ -1,4 +1,5 @@
-import { useCallback, useMemo, useReducer, useRef } from "preact/hooks";
+import { useRef } from "preact/hooks";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { AddItemModal, useAddItemModal } from "../../components/AddItemModal";
 import { CssUnitInput } from "../../components/CssUnitInput";
 import { EditableGridItems } from "../../components/EditableGridItems";
@@ -6,10 +7,13 @@ import { EditorGridContainer } from "../../components/EditorGridContainer";
 import { EditorInstructions } from "../../components/EditorInstructions";
 import { EditorItemsListView } from "../../components/EditorItemsListView";
 import { EditorSettings, SettingPane } from "../../components/EditorSettings";
-import { GridTractControls } from "../../components/GridTractControls";
 import { DragFeedback, useDragHandler } from "../../state-logic/drag-logic";
-import { layoutUpdater } from "../../state-logic/layout-updating-logic";
-import type { CSSMeasure, GridLayoutTemplate } from "../../types";
+import {
+  gapState,
+  gridItemsState,
+  gridTractsState,
+} from "../../state-logic/layout-updating-logic";
+import type { GridLayoutTemplate } from "../../types";
 import classes from "./style.module.css";
 
 export default function LayoutEditor({
@@ -17,23 +21,20 @@ export default function LayoutEditor({
 }: {
   startingLayout: GridLayoutTemplate;
 }) {
+  const setGapSize = useSetRecoilState(gapState);
+  setGapSize(startingLayout.gap);
+
+  const setItems = useSetRecoilState(gridItemsState);
+  setItems(startingLayout.items);
+
+  const setTracts = useSetRecoilState(gridTractsState);
+  setTracts(startingLayout);
+
   // We need a reference to the main parent element of everything so we can
   // attach event handlers for drag detection to it.
   const editorRef = useRef<HTMLDivElement>(null);
 
   // Setup hooks that control app state
-
-  // Initialize the layout state and get out the various manipulation functions
-  // that go with it
-  const [layout, layoutDispatch] = useReducer(layoutUpdater, startingLayout);
-  // We are using useCallback here around our helper functions so
-  // they are referentially stable when we pass them to components. This
-  // helps us avoid implementaiton leaks that would be neccesary if we passed
-  // in the dispatch to the thing itself.
-  const setGap = useCallback(
-    (gap: CSSMeasure) => layoutDispatch({ type: "Set-Gap", gap }),
-    [layoutDispatch]
-  );
 
   // Setup the neccesary state for controlling the add-item modal
   const {
@@ -46,40 +47,31 @@ export default function LayoutEditor({
   const { dragState, startDrag } = useDragHandler({
     watchingRef: editorRef,
     onNewItem: openAddItemModal,
-    layoutDispatch,
   });
-
-  const { items } = layout;
-  const gap = useMemo(() => layout.gap, [layout.gap]);
-  const rows = useMemo(() => layout.rows, [layout.rows]);
-  const cols = useMemo(() => layout.cols, [layout.cols]);
 
   return (
     <div className={classes.editor} ref={editorRef}>
       <EditorSettings>
-        <SettingPane label="Gap Size">
-          <CssUnitInput value={gap} onChange={setGap} />
-        </SettingPane>
+        <GapSizeSetting />
       </EditorSettings>
       {EditorInstructions}
-      <EditorItemsListView items={items} layoutDispatch={layoutDispatch} />
-      <EditorGridContainer layout={layout} onDrag={startDrag}>
-        <GridTractControls
-          rows={rows}
-          cols={cols}
-          layoutDispatch={layoutDispatch}
-        />
-        <EditableGridItems items={items} onDrag={startDrag} />
+      <EditorItemsListView />
+      <EditorGridContainer onDrag={startDrag}>
+        <EditableGridItems onDrag={startDrag} />
         <DragFeedback dragState={dragState} />
       </EditorGridContainer>
       {addItemState ? (
-        <AddItemModal
-          state={addItemState}
-          existingElementNames={items.map((item) => item.name)}
-          layoutDispatch={layoutDispatch}
-          closeModal={closeAddItemModal}
-        />
+        <AddItemModal state={addItemState} closeModal={closeAddItemModal} />
       ) : null}
     </div>
+  );
+}
+
+function GapSizeSetting() {
+  const [gap, setGap] = useRecoilState(gapState);
+  return (
+    <SettingPane label="Gap Size">
+      <CssUnitInput value={gap} onChange={setGap} />
+    </SettingPane>
   );
 }

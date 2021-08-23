@@ -1,16 +1,12 @@
 import { memo } from "preact/compat";
-import type { GridLayoutDef } from "../../types";
 
 let GridCells = ({
-  cols,
-  rows,
+  numCols,
+  numRows,
 }: {
-  cols: GridLayoutDef["cols"];
-  rows: GridLayoutDef["rows"];
+  numCols: number;
+  numRows: number;
 }) => {
-  const numCols = cols?.length ?? 1;
-  const numRows = rows?.length ?? 1;
-
   return (
     <>
       {Array.from({ length: numCols * numRows }).map((_, i) => {
