@@ -1,3 +1,4 @@
+import { FunctionalComponent } from "preact";
 import { memo } from "preact/compat";
 import { LayoutDispatch } from "../../state-logic/layout-updating-logic";
 import { GridLayoutTemplate } from "../../types";
@@ -7,21 +8,19 @@ import classes from "./style.module.css";
 
 // Not totally sure why this memo works because items is an array that should
 // get replaced each state update.
-export const EditorItemsListView = memo(
-  ({
-    items,
-    layoutDispatch,
-  }: {
-    items: GridLayoutTemplate["items"];
-    layoutDispatch: LayoutDispatch;
-  }) => (
-    <GridCard title="Items" icon={"items"} gridArea="items">
-      {items.map(({ name }) => (
-        <ItemListItem key={name} name={name} layoutDispatch={layoutDispatch} />
-      ))}
-    </GridCard>
-  )
+
+let EditorItemsListView: FunctionalComponent<{
+  items: GridLayoutTemplate["items"];
+  layoutDispatch: LayoutDispatch;
+}> = ({ items, layoutDispatch }) => (
+  <GridCard title="Items" icon={"items"} gridArea="items">
+    {items.map(({ name }) => (
+      <ItemListItem key={name} name={name} layoutDispatch={layoutDispatch} />
+    ))}
+  </GridCard>
 );
+EditorItemsListView.displayName = "EditorItemsListView";
+EditorItemsListView = memo(EditorItemsListView);
 
 const ItemListItem = memo(
   ({
@@ -50,3 +49,5 @@ const ItemListItem = memo(
     );
   }
 );
+
+export { EditorItemsListView };

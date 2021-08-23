@@ -1,19 +1,21 @@
-import { FunctionComponent, Ref } from "preact";
+import { ComponentChildren, FunctionComponent, Ref } from "preact";
 import { memo } from "preact/compat";
 import { GridLayoutDef } from "../../types";
 import classes from "./style.module.css";
 
-let GridContainer: FunctionComponent<{
-  defs: GridLayoutDef;
-  className?: string;
-  styles?: JSX.CSSProperties;
-  divRef?: Ref<HTMLDivElement>;
-}> = ({
-  defs: { cols, rows, gap },
+let GridContainer = ({
+  cols,
+  rows,
+  gap,
   className,
   styles: extraStyles,
   divRef,
   children,
+}: GridLayoutDef & {
+  className?: string;
+  styles?: JSX.CSSProperties;
+  divRef?: Ref<HTMLDivElement>;
+  children: ComponentChildren;
 }) => {
   const styles: JSX.CSSProperties = {
     ...extraStyles,
@@ -30,14 +32,24 @@ let GridContainer: FunctionComponent<{
     </div>
   );
 };
-GridContainer.displayName = "GridContainer";
+
+// GridContainer.displayName = "GridContainer";
 GridContainer = memo(GridContainer);
+
+function arraysEqual<Type>(a: Type[], b: Type[]): boolean {
+  return (
+    a.length === b.length &&
+    a.every(function equalAtIndex(el: Type, index: number): boolean {
+      return el === b[index];
+    })
+  );
+}
 
 const twoColGridDefs = { cols: ["1fr", "1fr"], gap: "0.5rem" };
 const twoColGridStyles = { alignItems: "center" };
 const TwoColumnGrid: FunctionComponent = ({ children }) => {
   return (
-    <GridContainer defs={twoColGridDefs} styles={twoColGridStyles}>
+    <GridContainer {...twoColGridDefs} styles={twoColGridStyles}>
       {children}
     </GridContainer>
   );

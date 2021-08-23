@@ -1,4 +1,4 @@
-import { FunctionComponent, JSX } from "preact";
+import type { FunctionComponent } from "preact";
 import { useEffect, useMemo, useRef } from "preact/hooks";
 import { DragKickoffFn } from "../../state-logic/drag-logic";
 import { GridLayoutTemplate } from "../../types";
@@ -65,12 +65,8 @@ export const EditorGridContainer: FunctionComponent<{
   const containerStyles = useMemo(() => ({ "--gap": gap }), [gap]);
 
   return (
-    <GridCard gridArea="editor" header={FakeBrowserBar} padding={"0px"}>
-      <GridContainer
-        divRef={containerRef}
-        defs={layout}
-        styles={containerStyles}
-      >
+    <GridCard gridArea="editor" header={FakeBrowserBar} padding="0px">
+      <GridContainer {...layout} divRef={containerRef} styles={containerStyles}>
         {rowTractLines}
         {colTractLines}
         {children}
