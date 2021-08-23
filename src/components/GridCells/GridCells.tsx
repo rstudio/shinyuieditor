@@ -1,12 +1,13 @@
+import { memo } from "preact/compat";
 import type { GridLayoutDef } from "../../types";
 
-export function GridCells({
+let GridCells = ({
   cols,
   rows,
 }: {
   cols: GridLayoutDef["cols"];
   rows: GridLayoutDef["rows"];
-}) {
+}) => {
   const numCols = cols?.length ?? 1;
   const numRows = rows?.length ?? 1;
 
@@ -32,4 +33,7 @@ export function GridCells({
       })}
     </>
   );
-}
+};
+
+GridCells = memo(GridCells);
+export { GridCells };
