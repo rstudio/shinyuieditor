@@ -4,7 +4,7 @@ import { TwoColumnGrid } from "../GridContainer";
 
 export const EditorSettings: FunctionalComponent = ({ children }) => {
   return (
-    <GridCard title="Settings" icon={"settings"} gridArea="settings">
+    <GridCard title="Settings" icon="settings" gridArea="settings">
       <TwoColumnGrid>{children}</TwoColumnGrid>
     </GridCard>
   );
