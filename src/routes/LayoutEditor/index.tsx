@@ -1,4 +1,4 @@
-import { useRef } from "preact/hooks";
+import { useMemo, useRef } from "preact/hooks";
 import { AddItemModal, useAddItemModal } from "../../components/AddItemModal";
 import { CssUnitInput } from "../../components/CssUnitInput";
 import { EditableGridItems } from "../../components/EditableGridItems";
@@ -47,12 +47,15 @@ export default function LayoutEditor({
     onReposition: moveItem,
   });
 
-  const { rows, cols, items, gap } = layout;
+  const { items } = layout;
+  const gap = useMemo(() => layout.gap, [layout.gap]);
+  const rows = useMemo(() => layout.rows, [layout.rows]);
+  const cols = useMemo(() => layout.cols, [layout.cols]);
 
   return (
     <div className={classes.editor} ref={editorRef}>
       <EditorSettings>
-        <SettingPane label={"Gap Size"}>
+        <SettingPane label="Gap Size">
           <CssUnitInput value={gap} onChange={setGap} />
         </SettingPane>
       </EditorSettings>
