@@ -1,3 +1,4 @@
+import { atom } from "recoil";
 import { GridItemDef, GridLayoutTemplate, TractValue } from "../types";
 
 type LayoutUpdateActions =
@@ -62,3 +63,8 @@ export const layoutUpdater = (
 };
 
 export type LayoutDispatch = (action: LayoutUpdateActions) => void;
+
+export const gapState = atom({
+  key: "gapState", // unique ID (with respect to other atoms/selectors)
+  default: "1rem", // default value (aka initial value)
+});
