@@ -1,8 +1,7 @@
 import { FunctionalComponent } from "preact";
-import { memo, useCallback } from "preact/compat";
-import { SetterOrUpdater, useRecoilState } from "recoil";
-import { gridItemsState } from "../../state-logic/layout-updating-logic";
-import { GridItemDef } from "../../types";
+import { memo } from "preact/compat";
+import { useRecoilValue } from "recoil";
+import { itemNamesState, useDeleteItem } from "../../state-logic/gridItems";
 import { GridCard } from "../GridCard";
 import { SvgIcon } from "../Icons";
 import classes from "./style.module.css";
@@ -11,11 +10,12 @@ import classes from "./style.module.css";
 // get replaced each state update.
 
 let EditorItemsListView: FunctionalComponent = () => {
-  const [items, setItems] = useRecoilState(gridItemsState);
+  const itemNames = useRecoilValue(itemNamesState);
+
   return (
     <GridCard title="Items" icon={"items"} gridArea="items">
-      {items.map(({ name }) => (
-        <ItemListItem key={name} name={name} setItems={setItems} />
+      {itemNames.map((name) => (
+        <ItemListItem key={name} name={name} />
       ))}
     </GridCard>
   );
@@ -23,26 +23,17 @@ let EditorItemsListView: FunctionalComponent = () => {
 EditorItemsListView.displayName = "EditorItemsListView";
 EditorItemsListView = memo(EditorItemsListView);
 
-const ItemListItem = memo(
-  ({
-    name,
-    setItems,
-  }: {
-    name: string;
-    setItems: SetterOrUpdater<GridItemDef[]>;
-  }) => {
-    const deleteItem = useCallback(() => {
-      setItems((prevItems) => prevItems.filter((item) => item.name !== name));
-    }, [name]);
-    return (
-      <div className={classes.item + " " + classes.isDeletabl}>
-        <span style={{ justifySelf: "start" }}>{name}</span>
-        <button onClick={() => deleteItem()} title={`Delete ${name} item`}>
-          <SvgIcon name={"trashcan"} />
-        </button>
-      </div>
-    );
-  }
-);
+const ItemListItem = memo(({ name }: { name: string }) => {
+  const deleteItem = useDeleteItem();
+
+  return (
+    <div className={classes.item + " " + classes.isDeletabl}>
+      <span style={{ justifySelf: "start" }}>{name}</span>
+      <button onClick={() => deleteItem(name)} title={`Delete ${name} item`}>
+        <SvgIcon name={"trashcan"} />
+      </button>
+    </div>
+  );
+});
 
 export { EditorItemsListView };

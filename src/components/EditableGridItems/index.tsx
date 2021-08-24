@@ -1,21 +1,20 @@
 import { RefObject } from "preact";
 import { memo } from "preact/compat";
 import { useRef } from "preact/hooks";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { makeColPos, makeRowPos } from "../../helper-scripts/grid-helpers";
 import type { DragKickoffFn } from "../../state-logic/drag-logic";
-import { gridItemsState } from "../../state-logic/layout-updating-logic";
-import type { DragDir, GridItemDef } from "../../types";
+import { gridItemsState, itemNamesState } from "../../state-logic/gridItems";
+import type { DragDir } from "../../types";
 import { DragIcon } from "../Icons";
 import classes from "./style.module.css";
 
 export const EditableGridItems = ({ onDrag }: { onDrag: DragKickoffFn }) => {
-  const [items, setItems] = useRecoilState(gridItemsState);
-
+  const itemNames = useRecoilValue(itemNamesState);
   return (
     <>
-      {items.map((itemInfo) => (
-        <EditableGridItem key={itemInfo.name} {...itemInfo} onDrag={onDrag} />
+      {itemNames.map((name) => (
+        <EditableGridItem key={name} name={name} onDrag={onDrag} />
       ))}
     </>
   );
@@ -23,14 +22,11 @@ export const EditableGridItems = ({ onDrag }: { onDrag: DragKickoffFn }) => {
 
 export type GridItemRef = RefObject<HTMLDivElement>;
 const EditableGridItem = memo(
-  ({
-    startRow,
-    endRow,
-    startCol,
-    endCol,
-    name,
-    onDrag,
-  }: GridItemDef & { onDrag: DragKickoffFn }) => {
+  ({ name, onDrag }: { name: string; onDrag: DragKickoffFn }) => {
+    const { startRow, endRow, startCol, endCol } = useRecoilValue(
+      gridItemsState(name)
+    );
+
     const itemRef: GridItemRef = useRef(null);
 
     return (

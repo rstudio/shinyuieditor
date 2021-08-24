@@ -6,12 +6,10 @@ import {
   useReducer,
   useRef,
 } from "preact/hooks";
-import { useSetRecoilState } from "recoil";
 import { GridItem } from "../components/GridItem";
 import { sameGridPos } from "../helper-scripts/grid-helpers";
 import { boxesOverlap } from "../helper-scripts/overlap-helpers";
 import { DragDir, GridCellPos, GridPos } from "../types";
-import { gridItemsState, moveItem } from "./layout-updating-logic";
 
 type DragBox = {
   dir: DragDir;
@@ -168,7 +166,7 @@ export const useDragHandler = ({
   watchingRef: RefObject<HTMLDivElement>;
   onNewItem: (pos: GridPos) => void;
 }) => {
-  const setItems = useSetRecoilState(gridItemsState);
+  // const setItems = useSetRecoilState(gridItemsState);
   const [dragState, updateDragState] = useReducer(dragUpdater, null);
 
   // Create a mutable state object that our callback can use. This way we dont
@@ -227,10 +225,10 @@ export const useDragHandler = ({
       dragState.itemName &&
       !sameGridPos(stateRef.current?.gridPos, dragState.gridPos)
     ) {
-      moveItem(setItems, {
-        name: dragState.itemName,
-        ...(dragState.gridPos as GridPos),
-      });
+      // moveItem(setItems, {
+      //   name: dragState.itemName,
+      //   ...(dragState.gridPos as GridPos),
+      // });
     }
 
     stateRef.current = dragState;

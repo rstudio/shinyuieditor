@@ -3,14 +3,14 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import { AddItemModal, useAddItemModal } from "../../components/AddItemModal";
 import { CssUnitInput } from "../../components/CssUnitInput";
 import { EditableGridItems } from "../../components/EditableGridItems";
+import { EditorItemsListView } from "../../components/EditorItemsListView";
 import { EditorGridContainer } from "../../components/EditorGridContainer";
 import { EditorInstructions } from "../../components/EditorInstructions";
-import { EditorItemsListView } from "../../components/EditorItemsListView";
 import { EditorSettings, SettingPane } from "../../components/EditorSettings";
 import { DragFeedback, useDragHandler } from "../../state-logic/drag-logic";
+import { useAddNewItem } from "../../state-logic/gridItems";
 import {
   gapState,
-  gridItemsState,
   gridTractsState,
 } from "../../state-logic/layout-updating-logic";
 import type { GridLayoutTemplate } from "../../types";
@@ -23,9 +23,8 @@ export default function LayoutEditor({
 }) {
   const setGapSize = useSetRecoilState(gapState);
   setGapSize(startingLayout.gap);
-
-  const setItems = useSetRecoilState(gridItemsState);
-  setItems(startingLayout.items);
+  const addNewItem = useAddNewItem();
+  startingLayout.items.forEach((itemDef) => addNewItem(itemDef));
 
   const setTracts = useSetRecoilState(gridTractsState);
   setTracts(startingLayout);

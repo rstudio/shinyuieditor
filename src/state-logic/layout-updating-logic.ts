@@ -60,16 +60,6 @@ export function updateTract(
   });
 }
 
-export const gridItemsState = atom<GridItemDef[]>({
-  key: "gridItemsState",
-  default: [],
-});
-
-export const itemNamesState = selector({
-  key: "itemNamesState",
-  get: ({ get }) => get(gridItemsState).map((item) => item.name),
-});
-
 export const gapState = atom({
   key: "gapState", // unique ID (with respect to other atoms/selectors)
   default: "1rem", // default value (aka initial value)
