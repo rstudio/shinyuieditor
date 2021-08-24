@@ -1,41 +1,5 @@
 import { atom, SetterOrUpdater } from "recoil";
-import { GridItemDef, GridLayoutTemplate, TractValue } from "../types";
-
-type LayoutUpdateActions =
-  | {
-      type: "Set-Gap";
-      gap: string;
-    }
-  | {
-      type: "Set-Tract";
-      tract: TractValue;
-    }
-  | {
-      type: "Delete-Item";
-      name: string;
-    }
-  | {
-      type: "Move-Item";
-      itemDef: GridItemDef;
-    }
-  | {
-      type: "Add-Item";
-      itemDef: GridItemDef;
-    };
-
-export function moveItem(
-  setItems: SetterOrUpdater<GridItemDef[]>,
-  itemPos: GridItemDef
-) {
-  setItems((items) =>
-    items.map((item) => {
-      if (item.name === itemPos.name) return { ...itemPos };
-      return { ...item };
-    })
-  );
-}
-
-export type LayoutDispatch = (action: LayoutUpdateActions) => void;
+import { GridLayoutTemplate, TractValue } from "../types";
 
 type GridTracts = Pick<GridLayoutTemplate, "rows" | "cols">;
 export const gridTractsState = atom<GridTracts>({

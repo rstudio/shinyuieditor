@@ -1,64 +1,65 @@
 import { useCallback, useLayoutEffect, useRef, useState } from "preact/hooks";
-import { useRecoilValue } from "recoil";
+import { atom, useRecoilState, useRecoilValue } from "recoil";
 import { itemNamesState, useAddNewItem } from "../../state-logic/gridItems";
 import { GridPos } from "../../types";
 import classes from "./style.module.css";
 
 // Hook that is used in conjection with AddItemModal component to control its
 // external state
+
+export const addItemModalState = atom<GridPos | null>({
+  key: "addItemModalState",
+  default: null,
+});
+
 export function useAddItemModal() {
-  const [addItemState, setAddItemState] = useState<GridPos | null>(null);
+  const [modalState, setModalState] = useRecoilState(addItemModalState);
 
   const openAddItemModal = useCallback(
-    (pos: GridPos) => setAddItemState(pos),
-    [setAddItemState]
+    (pos: GridPos) => setModalState(pos),
+    [setModalState]
   );
 
   const closeAddItemModal = useCallback(
-    () => setAddItemState(null),
-    [setAddItemState]
+    () => setModalState(null),
+    [setModalState]
   );
 
   return {
-    addItemState,
+    modalState,
     openAddItemModal,
     closeAddItemModal,
   };
 }
 
-export function AddItemModal({
-  state,
-  closeModal,
-}: {
-  state: GridPos | null;
-  closeModal: () => void;
-}) {
+export function AddItemModal() {
+  const { modalState, closeAddItemModal } = useAddItemModal();
+
+  if (modalState === null) return null;
+
   const [warningMsg, setWarningMsg] = useState<string | null>(null);
   const nameInputRef = useRef<HTMLInputElement>(null);
   const addNewItem = useAddNewItem();
 
-  // // const addGridItem = useSetRecoilState(gridItemsState);
-  // const addItemName = useSetRecoilState(itemNamesState);
   const existingElementNames = useRecoilValue(itemNamesState);
-  // const setItems = useSetRecoilState(gridItemsState);
 
   const turnOffWarningMsg = () => setWarningMsg(null);
 
   // Make sure when the modal pops up focus is on the input so the user can
   // start typing immediately without having to select then input with mouse.
   useLayoutEffect(() => {
-    if (state) nameInputRef.current?.focus();
-  }, [state]);
+    nameInputRef.current?.focus();
+  }, []);
 
   const cancelModal = () => {
-    closeModal();
+    closeAddItemModal();
     turnOffWarningMsg();
   };
 
   const submitName = (e: Event) => {
     e.preventDefault();
     const currentName = nameInputRef.current?.value;
-    if (!(currentName && state)) return;
+    if (!currentName) return;
 
     const elementExists = existingElementNames.includes(currentName);
     if (elementExists) {
@@ -74,13 +75,11 @@ export function AddItemModal({
       return;
     }
 
-    // addItemName((names) => [...names, currentName]);
-    addNewItem({ name: currentName, ...state });
-    // addItem(setItems, );
-    closeModal();
+    addNewItem({ name: currentName, ...modalState });
+    closeAddItemModal();
   };
 
-  return state ? (
+  return (
     <div className={classes.modalHolder}>
       <div className={classes.addItemModal}>
         <h1>New item name:</h1>
@@ -98,7 +97,5 @@ export function AddItemModal({
         </button>
       </div>
     </div>
-  ) : (
-    <div style={{ display: "none" }} />
   );
 }

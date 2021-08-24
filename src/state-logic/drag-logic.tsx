@@ -1,15 +1,16 @@
 import type { RefObject } from "preact";
+import { useCallback, useLayoutEffect } from "preact/hooks";
 import {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useReducer,
-  useRef,
-} from "preact/hooks";
+  atom,
+  useRecoilCallback,
+  useRecoilValue,
+  useSetRecoilState,
+} from "recoil";
+import { useAddItemModal } from "../components/AddItemModal";
 import { GridItem } from "../components/GridItem";
-import { sameGridPos } from "../helper-scripts/grid-helpers";
 import { boxesOverlap } from "../helper-scripts/overlap-helpers";
 import { DragDir, GridCellPos, GridPos } from "../types";
+import { gridItemsState } from "./gridItems";
 
 type DragBox = {
   dir: DragDir;
@@ -34,6 +35,11 @@ type ActiveDrag = {
 
 // Non-active drags will just be represented by null
 type DragState = ActiveDrag | null;
+
+export const dragStateAtom = atom<DragState>({
+  key: "dragStateAtom",
+  default: null,
+});
 
 // Basic information about a given drag event. Just a subset of the position
 // info given by MouseEvent
@@ -137,64 +143,37 @@ function moveDragState(dragState: DragState, { pageX, pageY }: DragLocation) {
   };
 }
 
-type DragUpdateActions =
-  | { type: "start"; payload: ItemDragStart }
-  | { type: "move"; payload: DragLocation }
-  | { type: "end" };
-
-function dragUpdater(dragState: DragState, action: DragUpdateActions) {
-  switch (action.type) {
-    case "start":
-      return initDragState(action.payload);
-    case "move":
-      return moveDragState(dragState, action.payload);
-    case "end":
-      return null;
-    default:
-      throw new Error("Unexpected action");
-  }
-}
-
 // So we dont accidentally emit and listen to different custom events
 const CUSTOM_DRAG_START = "GridDragStart";
 const CUSTOM_DRAG_END = "GridDragEnd";
 
 export const useDragHandler = ({
   watchingRef,
-  onNewItem,
 }: {
   watchingRef: RefObject<HTMLDivElement>;
-  onNewItem: (pos: GridPos) => void;
 }) => {
-  // const setItems = useSetRecoilState(gridItemsState);
-  const [dragState, updateDragState] = useReducer(dragUpdater, null);
+  const setDragState = useSetRecoilState(dragStateAtom);
+  const { openAddItemModal } = useAddItemModal();
 
   // Create a mutable state object that our callback can use. This way we dont
   // need to keep adding and removing event listeners for each version of the
   // state that we get. A semi-annoying downside of hooks
 
-  const stateRef = useRef<typeof dragState>(dragState);
-  const onDone = useCallback(() => {
-    const finalState = stateRef.current;
-    if (finalState === null)
-      throw new Error("For some reason our final state is null");
-
-    if (finalState.dragType === "NewItemDrag") {
-      onNewItem(finalState.gridPos);
-      console.log("Create a new item!", stateRef.current);
+  const onDragFinished = useRecoilCallback(({ snapshot }) => async () => {
+    const finalState = await snapshot.getPromise(dragStateAtom);
+    if (finalState?.dragType === "NewItemDrag") {
+      openAddItemModal(finalState.gridPos);
     }
-  }, [dragState?.gridPos]);
+  });
 
   const startDrag = useCallback((e: Event | CustomEvent) => {
     if (!(e instanceof CustomEvent)) throw new Error("not a custom event");
-
-    updateDragState({
-      type: "start",
-      payload: {
+    setDragState(
+      initDragState({
         ...(e.detail as DragStartEventDetails),
         gridCellPositions: gatherCellPositions(watchingRef),
-      },
-    });
+      })
+    );
 
     // Turnoff text selection so dragging doesnt highlight a bunch of stuff
     watchingRef.current?.classList.add("disable-text-selection");
@@ -202,15 +181,29 @@ export const useDragHandler = ({
     watchingRef.current?.addEventListener("mouseup", endDrag);
   }, []);
 
-  const duringDrag = useCallback((e: MouseEvent) => {
-    updateDragState({
-      type: "move",
-      payload: e,
-    });
-  }, []);
+  const duringDrag = useRecoilCallback(
+    ({ set }) =>
+      (e: MouseEvent) => {
+        console.log("duringDrag()");
+        set(dragStateAtom, (dragState) => {
+          const newDragState = moveDragState(dragState, e);
+          if (
+            newDragState?.dragType === "ResizeItemDrag" &&
+            newDragState.itemName
+          ) {
+            set(gridItemsState(newDragState.itemName), (itemDef) => ({
+              ...itemDef,
+              ...(newDragState.gridPos as GridPos),
+            }));
+          }
+          return newDragState;
+        });
+      },
+    []
+  );
 
   const endDrag = useCallback(() => {
-    updateDragState({ type: "end" });
+    setDragState(null);
 
     // trigger end of drag event
     watchingRef.current?.dispatchEvent(new CustomEvent(CUSTOM_DRAG_END));
@@ -219,32 +212,17 @@ export const useDragHandler = ({
     watchingRef.current?.removeEventListener("mouseup", endDrag);
   }, []);
 
-  useEffect(() => {
-    if (
-      dragState?.dragType === "ResizeItemDrag" &&
-      dragState.itemName &&
-      !sameGridPos(stateRef.current?.gridPos, dragState.gridPos)
-    ) {
-      // moveItem(setItems, {
-      //   name: dragState.itemName,
-      //   ...(dragState.gridPos as GridPos),
-      // });
-    }
-
-    stateRef.current = dragState;
-  }, [dragState?.gridPos]);
-
   // Because this relies on the position of the current grid cells we want
   // useLayoutEffect instead of simply useEffect. If we stick with plain
   // useEffect sometimes this fires before the grid cells are loaded on the page
   // it gets mad at us.
   useLayoutEffect(() => {
-    watchingRef.current?.addEventListener(CUSTOM_DRAG_END, onDone);
+    watchingRef.current?.addEventListener(CUSTOM_DRAG_END, onDragFinished);
     watchingRef.current?.addEventListener(CUSTOM_DRAG_START, startDrag);
     return () => {
       // Make sure to remove all event listeners on cleanup. Even though
       // it's unlikely that the mousemove and mouseup events are still attached
-      watchingRef.current?.removeEventListener(CUSTOM_DRAG_END, onDone);
+      watchingRef.current?.removeEventListener(CUSTOM_DRAG_END, onDragFinished);
       watchingRef.current?.removeEventListener(CUSTOM_DRAG_START, startDrag);
       watchingRef.current?.removeEventListener("mousemove", duringDrag);
       watchingRef.current?.removeEventListener("mouseup", endDrag);
@@ -271,7 +249,6 @@ export const useDragHandler = ({
   );
 
   return {
-    dragState,
     startDrag: triggerStartDrag,
   };
 };
@@ -280,7 +257,9 @@ export const useDragHandler = ({
 // but then we loose a lot of performance because react rerenders the whole
 // component at all times instead of just updating the styles when it's its
 // own independent component
-export const DragFeedback = ({ dragState }: { dragState: DragState }) => {
+export const DragFeedback = () => {
+  const dragState = useRecoilValue(dragStateAtom);
+
   if (!dragState) return <div style={{ display: "none" }}></div>;
 
   const {

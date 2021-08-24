@@ -3,7 +3,6 @@ import { SvgIcon } from "../Icons";
 import classes from "./style.module.css";
 
 function EditorInstructionsImpl() {
-  console.log("rendered instructions");
   return (
     <GridCard title="Instructions" icon="instructions" gridArea="instructions">
       <div className={classes.instructionList}>

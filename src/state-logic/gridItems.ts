@@ -19,6 +19,7 @@ export const gridItemsState = atomFamily<GridItemDef, string>({
 
 export const useAddNewItem = () => {
   return useRecoilCallback(({ set }) => (itemDef: GridItemDef) => {
+    console.log("Adding item", itemDef);
     // Add item to both the names list and the state atom family
     set(itemNamesState, (items) => [...items, itemDef.name]);
     set(gridItemsState(itemDef.name), { ...itemDef });
@@ -27,6 +28,7 @@ export const useAddNewItem = () => {
 
 export const useDeleteItem = () => {
   return useRecoilCallback(({ set, reset }) => (name: string) => {
+    console.log(`Deleting item ${name}`);
     set(itemNamesState, (items) => items.filter((item) => item !== name));
     reset(gridItemsState(name));
   });
