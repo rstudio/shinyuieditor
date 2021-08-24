@@ -1,12 +1,11 @@
 import { useRef } from "preact/hooks";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { AddItemModal, useAddItemModal } from "../../components/AddItemModal";
-import { CssUnitInput } from "../../components/CssUnitInput";
 import { EditableGridItems } from "../../components/EditableGridItems";
 import { EditorItemsListView } from "../../components/EditorItemsListView";
 import { EditorGridContainer } from "../../components/EditorGridContainer";
 import { EditorInstructions } from "../../components/EditorInstructions";
-import { EditorSettings, SettingPane } from "../../components/EditorSettings";
+import { EditorSettings } from "../../components/EditorSettings";
 import { DragFeedback, useDragHandler } from "../../state-logic/drag-logic";
 import { useAddNewItem } from "../../state-logic/gridItems";
 import {
@@ -15,6 +14,7 @@ import {
 } from "../../state-logic/layout-updating-logic";
 import type { GridLayoutTemplate } from "../../types";
 import classes from "./style.module.css";
+import { GapSizeSetting } from "../../components/GapSizeSetting";
 
 export default function LayoutEditor({
   startingLayout,
@@ -63,14 +63,5 @@ export default function LayoutEditor({
         <AddItemModal state={addItemState} closeModal={closeAddItemModal} />
       ) : null}
     </div>
-  );
-}
-
-function GapSizeSetting() {
-  const [gap, setGap] = useRecoilState(gapState);
-  return (
-    <SettingPane label="Gap Size">
-      <CssUnitInput value={gap} onChange={setGap} />
-    </SettingPane>
   );
 }

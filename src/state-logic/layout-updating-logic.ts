@@ -1,4 +1,4 @@
-import { atom, selector, SetterOrUpdater } from "recoil";
+import { atom, SetterOrUpdater } from "recoil";
 import { GridItemDef, GridLayoutTemplate, TractValue } from "../types";
 
 type LayoutUpdateActions =
