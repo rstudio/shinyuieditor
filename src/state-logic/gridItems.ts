@@ -7,7 +7,7 @@ import {
   SetterOrUpdater,
   useRecoilCallback,
 } from "recoil";
-import { makeGridDims } from "../helper-scripts/grid-helpers";
+import { enumerateGridDims } from "../helper-scripts/grid-helpers";
 import { GridItemDef, GridPos, SelectionRect } from "../types";
 import { gridTractsState } from "./layout-updating-logic";
 
@@ -62,9 +62,10 @@ const gridCellBoundingBoxes = selector<GridItemBoundingBox[]>({
   key: "gridCellBoundingBoxes",
   get: ({ get }) => {
     const { rows, cols } = get(gridTractsState);
-    return makeGridDims({ numRows: rows.length, numCols: cols.length }).map(
-      ({ row, col }) => get(gridCellBoundingBoxFamily({ col, row }))
-    );
+    return enumerateGridDims({
+      numRows: rows.length,
+      numCols: cols.length,
+    }).map(({ row, col }) => get(gridCellBoundingBoxFamily({ col, row })));
   },
 });
 

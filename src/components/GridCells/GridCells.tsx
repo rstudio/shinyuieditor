@@ -1,6 +1,6 @@
 import { memo, useRef } from "preact/compat";
 import { useSetRecoilState } from "recoil";
-import { makeGridDims } from "../../helper-scripts/grid-helpers";
+import { enumerateGridDims } from "../../helper-scripts/grid-helpers";
 import {
   gridCellBoundingBoxFamily,
   useGridItemBoundingBoxRecorder,
@@ -15,7 +15,7 @@ let GridCells = ({
 }) => {
   return (
     <>
-      {makeGridDims({ numRows, numCols }).map(({ row, col }) => {
+      {enumerateGridDims({ numRows, numCols }).map(({ row, col }) => {
         return <GridCell key={{ row, col }} row={row} col={col} />;
       })}
     </>

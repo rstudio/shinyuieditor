@@ -32,7 +32,7 @@ export function sameGridPos(a?: GridPos, b?: GridPos) {
   );
 }
 
-export function makeGridDims({
+export function enumerateGridDims({
   numCols,
   numRows,
 }: {
