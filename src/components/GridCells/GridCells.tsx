@@ -1,7 +1,8 @@
 import { memo, useRef } from "preact/compat";
 import { useSetRecoilState } from "recoil";
+import { makeGridDims } from "../../helper-scripts/grid-helpers";
 import {
-  gridCellBoundingBoxState,
+  gridCellBoundingBoxFamily,
   useGridItemBoundingBoxRecorder,
 } from "../../state-logic/gridItems";
 
@@ -14,9 +15,7 @@ let GridCells = ({
 }) => {
   return (
     <>
-      {Array.from({ length: numCols * numRows }).map((_, i) => {
-        const col = (i % numCols) + 1;
-        const row = Math.floor(i / numCols) + 1;
+      {makeGridDims({ numRows, numCols }).map(({ row, col }) => {
         return <GridCell key={{ row, col }} row={row} col={col} />;
       })}
     </>
@@ -29,7 +28,7 @@ export { GridCells };
 function GridCell(pos: { row: number; col: number }) {
   const { row, col } = pos;
   const cellRef = useRef<HTMLDivElement>(null);
-  const setBoundingBox = useSetRecoilState(gridCellBoundingBoxState(pos));
+  const setBoundingBox = useSetRecoilState(gridCellBoundingBoxFamily(pos));
 
   useGridItemBoundingBoxRecorder({
     itemRef: cellRef,

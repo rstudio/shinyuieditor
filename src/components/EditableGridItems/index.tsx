@@ -6,7 +6,7 @@ import { makeColPos, makeRowPos } from "../../helper-scripts/grid-helpers";
 import type { DragKickoffFn } from "../../state-logic/drag-logic";
 import {
   gridItemsState,
-  itemBoundingBoxState,
+  gridItemBoundingBoxFamily,
   itemNamesState,
   useGridItemBoundingBoxRecorder,
 } from "../../state-logic/gridItems";
@@ -32,7 +32,7 @@ const EditableGridItem = memo(
       gridItemsState(name)
     );
 
-    const setBoundingBox = useSetRecoilState(itemBoundingBoxState(name));
+    const setBoundingBox = useSetRecoilState(gridItemBoundingBoxFamily(name));
 
     const itemRef: GridItemRef = useRef(null);
 

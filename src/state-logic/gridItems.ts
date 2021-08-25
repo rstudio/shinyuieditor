@@ -1,7 +1,15 @@
 import { RefObject } from "preact";
 import { useEffect } from "preact/hooks";
-import { atom, atomFamily, SetterOrUpdater, useRecoilCallback } from "recoil";
+import {
+  atom,
+  atomFamily,
+  selector,
+  SetterOrUpdater,
+  useRecoilCallback,
+} from "recoil";
+import { makeGridDims } from "../helper-scripts/grid-helpers";
 import { GridItemDef, GridPos, SelectionRect } from "../types";
+import { gridTractsState } from "./layout-updating-logic";
 
 export const itemNamesState = atom<string[]>({
   key: "itemNamesState",
@@ -16,34 +24,47 @@ type GridItemBoundingBox = GridElBoundingBox & GridPos;
 
 // These keep the bounding boxes for items for overlap detection etc.
 // Allows us to not have to pass around refs to get the info
-export const itemBoundingBoxState = atomFamily<GridItemBoundingBox, string>({
-  key: "itemBoundingBoxState",
-  default: {
-    top: -1,
-    bottom: -1,
-    left: -1,
-    right: -1,
-    startRow: 0,
-    startCol: 0,
-    offsetLeft: 0,
-    offsetTop: 0,
+const defaultBBox = {
+  top: -1,
+  bottom: -1,
+  left: -1,
+  right: -1,
+  startRow: 0,
+  startCol: 0,
+  offsetLeft: 0,
+  offsetTop: 0,
+};
+export const gridItemBoundingBoxFamily = atomFamily<
+  GridItemBoundingBox,
+  string
+>({
+  key: "gridItemBoundingBoxFamily",
+  default: defaultBBox,
+});
+// Collapses the grid item bounds to a single array
+const gridItemBoundingBoxes = selector<GridItemBoundingBox[]>({
+  key: "gridItemBoundingBoxes",
+  get: ({ get }) => {
+    const itemNames = get(itemNamesState);
+    return itemNames.map((name) => get(gridItemBoundingBoxFamily(name)));
   },
 });
 
-export const gridCellBoundingBoxState = atomFamily<
+export const gridCellBoundingBoxFamily = atomFamily<
   GridItemBoundingBox,
   { row: number; col: number }
 >({
-  key: "itemBoundingBoxState",
-  default: {
-    top: -1,
-    bottom: -1,
-    left: -1,
-    right: -1,
-    startRow: 0,
-    startCol: 0,
-    offsetLeft: 0,
-    offsetTop: 0,
+  key: "gridCellBoundingBoxFamily",
+  default: defaultBBox,
+});
+
+const gridCellBoundingBoxes = selector<GridItemBoundingBox[]>({
+  key: "gridCellBoundingBoxes",
+  get: ({ get }) => {
+    const { rows, cols } = get(gridTractsState);
+    return makeGridDims({ numRows: rows.length, numCols: cols.length }).map(
+      ({ row, col }) => get(gridCellBoundingBoxFamily({ col, row }))
+    );
   },
 });
 

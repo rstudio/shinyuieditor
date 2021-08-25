@@ -31,3 +31,16 @@ export function sameGridPos(a?: GridPos, b?: GridPos) {
     a.endRow === b.endRow
   );
 }
+
+export function makeGridDims({
+  numCols,
+  numRows,
+}: {
+  numCols: number;
+  numRows: number;
+}) {
+  return Array.from({ length: numCols * numRows }).map((_, i) => ({
+    row: Math.floor(i / numCols) + 1,
+    col: (i % numCols) + 1,
+  }));
+}
