@@ -1,7 +1,7 @@
 import type { FunctionComponent } from "preact";
 import { useEffect, useMemo, useRef } from "preact/hooks";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { DragKickoffFn } from "../../state-logic/drag-logic";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { dragOccuringAtom } from "../../state-logic/drag-logic";
 import {
   gapState,
   gridTractsState,
@@ -15,16 +15,17 @@ import { FakeBrowserBar } from "../TheFakeBrowserBar";
 import classes from "./style.module.css";
 
 // A grid container that also displays a grid of all cells in background
-export const EditorGridContainer: FunctionComponent<{
-  onDrag: DragKickoffFn;
-}> = ({ children, onDrag }) => {
+export const EditorGridContainer: FunctionComponent = ({ children }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const setDragOccurance = useSetRecoilState(dragOccuringAtom);
 
   useEffect(() => {
     const container = containerRef.current as HTMLDivElement;
 
     const triggerDrag = (e: MouseEvent) => {
-      onDrag(e, {
+      const { pageX, pageY } = e;
+      setDragOccurance({
+        loc: { pageX, pageY },
         dragType: "NewItemDrag",
         dragDir: "bottomRight",
       });
@@ -36,7 +37,7 @@ export const EditorGridContainer: FunctionComponent<{
     };
   }, []);
 
-  const [tracts, setTracts] = useRecoilState(gridTractsState);
+  const tracts = useRecoilValue(gridTractsState);
   const gap = useRecoilValue(gapState);
   const { cols, rows } = tracts;
 

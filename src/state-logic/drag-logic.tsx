@@ -1,5 +1,4 @@
-import type { RefObject } from "preact";
-import { useCallback, useLayoutEffect } from "preact/hooks";
+import { useEffect } from "preact/hooks";
 import {
   atom,
   useRecoilCallback,
@@ -9,8 +8,13 @@ import {
 import { useAddItemModal } from "../components/AddItemModal";
 import { GridItem } from "../components/GridItem";
 import { boxesOverlap } from "../helper-scripts/overlap-helpers";
-import { DragDir, GridCellPos, GridPos } from "../types";
-import { gridItemsState } from "./gridItems";
+import { DragDir, GridPos } from "../types";
+import {
+  gridCellBoundingBoxes,
+  GridItemBoundingBox,
+  gridItemBoundingBoxFamily,
+  gridItemsState,
+} from "./gridItems";
 
 type DragBox = {
   dir: DragDir;
@@ -26,7 +30,7 @@ type ActiveDrag = {
   // accordingly.
   dragBox: DragBox;
   dragType: "NewItemDrag" | "ResizeItemDrag";
-  gridCellPositions: GridCellPos[];
+  gridCellPositions: GridItemBoundingBox[];
   xOffset: number;
   yOffset: number;
   itemName?: string;
@@ -36,11 +40,6 @@ type ActiveDrag = {
 // Non-active drags will just be represented by null
 type DragState = ActiveDrag | null;
 
-export const dragStateAtom = atom<DragState>({
-  key: "dragStateAtom",
-  default: null,
-});
-
 // Basic information about a given drag event. Just a subset of the position
 // info given by MouseEvent
 type DragLocation = {
@@ -48,14 +47,32 @@ type DragLocation = {
   pageY: number;
 };
 
+type DragInitialization = {
+  loc: DragLocation;
+  dragDir: DragBox["dir"];
+  dragType: ActiveDrag["dragType"];
+  name?: string;
+};
+
 type ItemDragStart = {
   loc: DragLocation;
   dragDir: DragBox["dir"];
   dragType: ActiveDrag["dragType"];
   name?: string;
-  itemRef?: RefObject<HTMLDivElement>;
+  itemBBox?: GridItemBoundingBox;
   gridCellPositions: ActiveDrag["gridCellPositions"];
 };
+
+export const dragStateAtom = atom<DragState>({
+  key: "dragStateAtom",
+  default: null,
+});
+
+// This is a simple state object to keep track of if a drag is currently happening on the screen.
+export const dragOccuringAtom = atom<DragInitialization | false>({
+  key: "dragOccuringAtom",
+  default: false,
+});
 
 // This is the data given to us by the DragStart callback. We later add the
 // gridCellPositions
@@ -71,7 +88,7 @@ function initDragState({
   dragDir,
   dragType,
   name,
-  itemRef,
+  itemBBox,
   gridCellPositions,
 }: ItemDragStart): ActiveDrag {
   let dragBox: DragBox;
@@ -87,13 +104,11 @@ function initDragState({
       };
       break;
     case "ResizeItemDrag": {
-      const gridItem = itemRef?.current;
-
-      if (!gridItem)
+      if (!itemBBox)
         throw new Error(
           "Somehow we're editing an item that does not exist on the page"
         );
-      const { left, right, top, bottom } = gridItem.getBoundingClientRect();
+      const { left, right, top, bottom } = itemBBox;
       dragBox = {
         dir: dragDir,
         left,
@@ -118,6 +133,7 @@ function initDragState({
 
 function moveDragState(dragState: DragState, { pageX, pageY }: DragLocation) {
   if (!dragState) throw new Error("Cant move an uninitialized drag");
+
   const { dragBox: oldDragBox, gridCellPositions } = dragState;
   const dragDir = oldDragBox.dir;
   const dragBox = { ...oldDragBox };
@@ -143,15 +159,8 @@ function moveDragState(dragState: DragState, { pageX, pageY }: DragLocation) {
   };
 }
 
-// So we dont accidentally emit and listen to different custom events
-const CUSTOM_DRAG_START = "GridDragStart";
-const CUSTOM_DRAG_END = "GridDragEnd";
-
-export const useDragHandler = ({
-  watchingRef,
-}: {
-  watchingRef: RefObject<HTMLDivElement>;
-}) => {
+export const useDragHandler = () => {
+  const dragOccuring = useRecoilValue(dragOccuringAtom);
   const setDragState = useSetRecoilState(dragStateAtom);
   const { openAddItemModal } = useAddItemModal();
 
@@ -159,32 +168,40 @@ export const useDragHandler = ({
   // need to keep adding and removing event listeners for each version of the
   // state that we get. A semi-annoying downside of hooks
 
-  const onDragFinished = useRecoilCallback(({ snapshot }) => async () => {
-    const finalState = await snapshot.getPromise(dragStateAtom);
-    if (finalState?.dragType === "NewItemDrag") {
-      openAddItemModal(finalState.gridPos);
-    }
-  });
+  const startDrag = useRecoilCallback(
+    ({ snapshot }) =>
+      async ({ loc, dragDir, dragType, name }: DragInitialization) => {
+        const gridCellPositions = await snapshot.getPromise(
+          gridCellBoundingBoxes
+        );
 
-  const startDrag = useCallback((e: Event | CustomEvent) => {
-    if (!(e instanceof CustomEvent)) throw new Error("not a custom event");
-    setDragState(
-      initDragState({
-        ...(e.detail as DragStartEventDetails),
-        gridCellPositions: gatherCellPositions(watchingRef),
-      })
-    );
+        const itemBBox = name
+          ? await snapshot.getPromise(gridItemBoundingBoxFamily(name))
+          : undefined;
+        setDragState(
+          initDragState({
+            loc,
+            dragDir,
+            dragType,
+            name,
+            itemBBox,
+            gridCellPositions,
+          })
+        );
 
-    // Turnoff text selection so dragging doesnt highlight a bunch of stuff
-    watchingRef.current?.classList.add("disable-text-selection");
-    watchingRef.current?.addEventListener("mousemove", duringDrag);
-    watchingRef.current?.addEventListener("mouseup", endDrag);
-  }, []);
+        // Turnoff text selection so dragging doesnt highlight a bunch of stuff
+        document.querySelector("body")?.classList.add("disable-text-selection");
+        // After we've completed initializing the drag we can start watching the
+        // progress of the drag
+        document.addEventListener("mouseup", endDrag);
+        document.addEventListener("mousemove", duringDrag);
+      },
+    []
+  );
 
   const duringDrag = useRecoilCallback(
-    ({ set }) =>
+    ({ set, snapshot }) =>
       (e: MouseEvent) => {
-        console.log("duringDrag()");
         set(dragStateAtom, (dragState) => {
           const newDragState = moveDragState(dragState, e);
           if (
@@ -202,55 +219,35 @@ export const useDragHandler = ({
     []
   );
 
-  const endDrag = useCallback(() => {
-    setDragState(null);
+  const endDrag = useRecoilCallback(({ set, snapshot }) => async () => {
+    document.removeEventListener("mousemove", duringDrag);
+    document.querySelector("body")?.classList.remove("disable-text-selection");
 
-    // trigger end of drag event
-    watchingRef.current?.dispatchEvent(new CustomEvent(CUSTOM_DRAG_END));
-    watchingRef.current?.classList.remove("disable-text-selection");
-    watchingRef.current?.removeEventListener("mousemove", duringDrag);
-    watchingRef.current?.removeEventListener("mouseup", endDrag);
-  }, []);
+    const finalState = await snapshot.getPromise(dragStateAtom);
+    if (finalState?.dragType === "NewItemDrag") {
+      openAddItemModal(finalState.gridPos);
+    }
+    set(dragOccuringAtom, false);
+    set(dragStateAtom, null);
+  });
 
   // Because this relies on the position of the current grid cells we want
   // useLayoutEffect instead of simply useEffect. If we stick with plain
   // useEffect sometimes this fires before the grid cells are loaded on the page
   // it gets mad at us.
-  useLayoutEffect(() => {
-    watchingRef.current?.addEventListener(CUSTOM_DRAG_END, onDragFinished);
-    watchingRef.current?.addEventListener(CUSTOM_DRAG_START, startDrag);
+  useEffect(() => {
+    if (dragOccuring) {
+      startDrag(dragOccuring);
+    }
+
+    document.removeEventListener("mousemove", duringDrag);
     return () => {
       // Make sure to remove all event listeners on cleanup. Even though
       // it's unlikely that the mousemove and mouseup events are still attached
-      watchingRef.current?.removeEventListener(CUSTOM_DRAG_END, onDragFinished);
-      watchingRef.current?.removeEventListener(CUSTOM_DRAG_START, startDrag);
-      watchingRef.current?.removeEventListener("mousemove", duringDrag);
-      watchingRef.current?.removeEventListener("mouseup", endDrag);
+      document.removeEventListener("mousemove", duringDrag);
+      document.removeEventListener("mouseup", endDrag);
     };
-  }, []);
-
-  // This gets passed around a lot and barely ever changes so memoize it
-  const triggerStartDrag: DragKickoffFn = useCallback(
-    ({ pageX, pageY }, { dragType, dragDir, name, itemRef }) => {
-      (watchingRef.current as HTMLDivElement).dispatchEvent(
-        new CustomEvent<DragStartEventDetails>(CUSTOM_DRAG_START, {
-          bubbles: true,
-          detail: {
-            name,
-            loc: { pageX, pageY },
-            dragType,
-            dragDir,
-            itemRef,
-          },
-        })
-      );
-    },
-    [watchingRef]
-  );
-
-  return {
-    startDrag: triggerStartDrag,
-  };
+  }, [dragOccuring]);
 };
 
 // I wish that I could bundle this in with the custom useDragHandler hook
@@ -258,6 +255,10 @@ export const useDragHandler = ({
 // component at all times instead of just updating the styles when it's its
 // own independent component
 export const DragFeedback = () => {
+  // Initiate the drag watching behavior for new elements (see useEffect() below)
+  // and also the existing elements being resized
+  useDragHandler();
+
   const dragState = useRecoilValue(dragStateAtom);
 
   if (!dragState) return <div style={{ display: "none" }}></div>;
@@ -299,7 +300,7 @@ export const DragFeedback = () => {
 
 function dragPosOnGrid(
   dragBox: DragBox,
-  gridCells: Array<GridCellPos>
+  gridCells: GridItemBoundingBox[]
 ): GridPos {
   // Reset bounding box definitions so we only use current selection extent
   let startCol: number | null = null;
@@ -307,22 +308,21 @@ function dragPosOnGrid(
   let endCol: number | null = null;
   let endRow: number | null = null;
 
-  (gridCells as GridCellPos[]).forEach(function (cellPosition) {
+  gridCells.forEach(function (cellPosition) {
     // Find if cell overlaps current selection
     // If it does update the bounding box extents
     // Cell is overlapped by selection box
     const overlapsCell = boxesOverlap(cellPosition, dragBox);
 
     if (overlapsCell) {
-      const elRow: number = cellPosition.row;
-      const elCol: number = cellPosition.col;
+      const elRow: number = cellPosition.startRow;
+      const elCol: number = cellPosition.startCol;
       startRow = Math.min(startRow ?? Infinity, elRow);
       endRow = Math.max(endRow ?? -1, elRow);
       startCol = Math.min(startCol ?? Infinity, elCol);
       endCol = Math.max(endCol ?? -1, elCol);
     }
   });
-
   // These will always be numbers the fallback should never be needed. It's just
   // so typescript is happy
   return {
@@ -331,28 +331,6 @@ function dragPosOnGrid(
     startCol: startCol ?? 1,
     endCol: (endCol ?? 1) + 1,
   };
-}
-
-function gatherCellPositions(
-  watchingRef: RefObject<HTMLDivElement>
-): Array<GridCellPos> {
-  const gridCells = watchingRef.current?.querySelectorAll(
-    ".gridCell"
-  ) as NodeListOf<HTMLDivElement>;
-
-  return [...gridCells].map((cell) => {
-    const { left, right, top, bottom } = cell.getBoundingClientRect();
-    return {
-      row: Number(cell.dataset.row),
-      col: Number(cell.dataset.col),
-      left,
-      top,
-      right,
-      bottom,
-      offsetLeft: cell.offsetLeft,
-      offsetTop: cell.offsetTop,
-    };
-  });
 }
 
 function containsDir(

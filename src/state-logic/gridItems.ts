@@ -20,7 +20,7 @@ type GridElBoundingBox = SelectionRect & {
   offsetLeft: number;
   offsetTop: number;
 };
-type GridItemBoundingBox = GridElBoundingBox & GridPos;
+export type GridItemBoundingBox = GridElBoundingBox & GridPos;
 
 // These keep the bounding boxes for items for overlap detection etc.
 // Allows us to not have to pass around refs to get the info
@@ -58,7 +58,7 @@ export const gridCellBoundingBoxFamily = atomFamily<
   default: defaultBBox,
 });
 
-const gridCellBoundingBoxes = selector<GridItemBoundingBox[]>({
+export const gridCellBoundingBoxes = selector<GridItemBoundingBox[]>({
   key: "gridCellBoundingBoxes",
   get: ({ get }) => {
     const { rows, cols } = get(gridTractsState);
@@ -76,11 +76,9 @@ export function useGridItemBoundingBoxRecorder({
   endRow,
   endCol,
   setBoundingBox,
-  debugName,
 }: {
   itemRef: RefObject<HTMLDivElement>;
   setBoundingBox: SetterOrUpdater<GridItemBoundingBox>;
-  debugName?: string;
 } & GridPos) {
   useEffect(() => {
     const resizeObserver = new ResizeObserver((entries) => {
@@ -101,9 +99,6 @@ export function useGridItemBoundingBoxRecorder({
           startCol,
           endCol,
         });
-        if (debugName) {
-          console.log(`Set bounding box for ${debugName}`);
-        }
       }
     });
     if (itemRef.current) resizeObserver.observe(itemRef.current);
@@ -127,7 +122,6 @@ export const gridItemsState = atomFamily<GridItemDef, string>({
 
 export const useAddNewItem = () => {
   return useRecoilCallback(({ set }) => (itemDef: GridItemDef) => {
-    console.log("Adding item", itemDef);
     // Add item to both the names list and the state atom family
     set(itemNamesState, (items) => [...items, itemDef.name]);
     set(gridItemsState(itemDef.name), { ...itemDef });

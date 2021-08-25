@@ -2,7 +2,7 @@ import { GridCard } from "../GridCard";
 import { SvgIcon } from "../Icons";
 import classes from "./style.module.css";
 
-function EditorInstructionsImpl() {
+export function EditorInstructions() {
   return (
     <GridCard title="Instructions" icon="instructions" gridArea="instructions">
       <div className={classes.instructionList}>
@@ -42,5 +42,3 @@ function EditorInstructionsImpl() {
     </GridCard>
   );
 }
-// Render component here so it remains referentially static
-export const EditorInstructions = <EditorInstructionsImpl />;

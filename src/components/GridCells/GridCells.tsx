@@ -35,7 +35,6 @@ function GridCell(pos: { row: number; col: number }) {
     startRow: row,
     startCol: col,
     setBoundingBox,
-    debugName: `cell<${row},${col}>`,
   });
 
   return (

@@ -1,5 +1,5 @@
-import { useEffect, useRef } from "preact/hooks";
-import { useSetRecoilState } from "recoil";
+import { useEffect } from "preact/hooks";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { AddItemModal } from "../../components/AddItemModal";
 import { EditableGridItems } from "../../components/EditableGridItems";
 import { EditorGridContainer } from "../../components/EditorGridContainer";
@@ -7,7 +7,7 @@ import { EditorInstructions } from "../../components/EditorInstructions";
 import { EditorItemsListView } from "../../components/EditorItemsListView";
 import { EditorSettings } from "../../components/EditorSettings";
 import { GapSizeSetting } from "../../components/GapSizeSetting";
-import { DragFeedback, useDragHandler } from "../../state-logic/drag-logic";
+import { DragFeedback, dragOccuringAtom } from "../../state-logic/drag-logic";
 import { useAddNewItem } from "../../state-logic/gridItems";
 import {
   gapState,
@@ -32,27 +32,24 @@ export default function LayoutEditor({
     setGapSize(startingLayout.gap);
   }, []);
 
-  // We need a reference to the main parent element of everything so we can
-  // attach event handlers for drag detection to it.
-  const editorRef = useRef<HTMLDivElement>(null);
-
-  // Initiate the drag watching behavior
-  const { startDrag } = useDragHandler({
-    watchingRef: editorRef,
-  });
-
   return (
-    <div className={classes.editor} ref={editorRef}>
+    <div className={classes.editor}>
       <EditorSettings>
         <GapSizeSetting />
+        <DragObserver />
       </EditorSettings>
-      {EditorInstructions}
+      <EditorInstructions />
       <EditorItemsListView />
-      <EditorGridContainer onDrag={startDrag}>
-        <EditableGridItems onDrag={startDrag} />
+      <EditorGridContainer>
+        <EditableGridItems />
         <DragFeedback />
       </EditorGridContainer>
       <AddItemModal />
     </div>
   );
+}
+function DragObserver() {
+  const dragOccuring = useRecoilValue(dragOccuringAtom);
+
+  return <span>{dragOccuring ? dragOccuring.name : "No drag occuring"} </span>;
 }
