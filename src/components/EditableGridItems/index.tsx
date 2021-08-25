@@ -1,10 +1,15 @@
 import { RefObject } from "preact";
 import { memo } from "preact/compat";
 import { useRef } from "preact/hooks";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { makeColPos, makeRowPos } from "../../helper-scripts/grid-helpers";
 import type { DragKickoffFn } from "../../state-logic/drag-logic";
-import { gridItemsState, itemNamesState } from "../../state-logic/gridItems";
+import {
+  gridItemsState,
+  itemBoundingBoxState,
+  itemNamesState,
+  useGridItemBoundingBoxRecorder,
+} from "../../state-logic/gridItems";
 import type { DragDir } from "../../types";
 import { DragIcon } from "../Icons";
 import classes from "./style.module.css";
@@ -27,7 +32,19 @@ const EditableGridItem = memo(
       gridItemsState(name)
     );
 
+    const setBoundingBox = useSetRecoilState(itemBoundingBoxState(name));
+
     const itemRef: GridItemRef = useRef(null);
+
+    useGridItemBoundingBoxRecorder({
+      itemRef,
+      startRow,
+      endRow,
+      startCol,
+      endCol,
+      setBoundingBox,
+      debugName: name,
+    });
 
     return (
       <div

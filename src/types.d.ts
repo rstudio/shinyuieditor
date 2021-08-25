@@ -41,6 +41,8 @@ interface GridCellPos extends SelectionRect {
   offsetTop: number;
 }
 
+
+
 type GridTractDir = "rows" | "cols";
 type TractValue = {
   val: string | CSSMeasure;
