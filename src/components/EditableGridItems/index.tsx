@@ -3,7 +3,7 @@ import { memo } from "preact/compat";
 import { useRef } from "preact/hooks";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { makeColPos, makeRowPos } from "../../helper-scripts/grid-helpers";
-import { dragOccuringAtom } from "../../state-logic/drag-logic";
+import { useGridDragger } from "../../state-logic/drag-logic";
 import {
   gridItemBoundingBoxFamily,
   gridItemsState,
@@ -32,7 +32,6 @@ const EditableGridItem = memo(({ name }: { name: string }) => {
   );
 
   const setBoundingBox = useSetRecoilState(gridItemBoundingBoxFamily(name));
-  const setDragOccurance = useSetRecoilState(dragOccuringAtom);
 
   const itemRef: GridItemRef = useRef(null);
 
@@ -56,24 +55,22 @@ const EditableGridItem = memo(({ name }: { name: string }) => {
       title={name}
     >
       {directions.map((dir) => (
-        <span
-          key={dir}
-          className={classes[dir]}
-          onMouseDown={(e: MouseEvent) => {
-            e.stopPropagation();
-            const { pageX, pageY } = e;
-            setDragOccurance({
-              loc: { pageX, pageY },
-              name,
-              dragType: "ResizeItemDrag",
-              dragDir: dir,
-            });
-          }}
-        >
-          <DragIcon type={dir} />
-        </span>
+        <DragHandle key={name + dir} dir={dir} name={name} />
       ))}
     </div>
+  );
+});
+
+const DragHandle = memo(({ dir, name }: { dir: DragDir; name: string }) => {
+  const onMouseDown = useGridDragger({
+    dragDir: dir,
+    nameOfDragged: name,
+  });
+
+  return (
+    <span className={classes[dir]} onMouseDown={onMouseDown}>
+      <DragIcon type={dir} />
+    </span>
   );
 });
 

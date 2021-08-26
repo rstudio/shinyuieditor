@@ -1,7 +1,7 @@
 import type { FunctionComponent } from "preact";
 import { useEffect, useMemo, useRef } from "preact/hooks";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { dragOccuringAtom } from "../../state-logic/drag-logic";
+import { useRecoilValue } from "recoil";
+import { useGridDragger } from "../../state-logic/drag-logic";
 import {
   gapState,
   gridTractsState,
@@ -16,24 +16,13 @@ import classes from "./style.module.css";
 
 // A grid container that also displays a grid of all cells in background
 export const EditorGridContainer: FunctionComponent = ({ children }) => {
+  const onMouseDown = useGridDragger({});
   const containerRef = useRef<HTMLDivElement>(null);
-  const setDragOccurance = useSetRecoilState(dragOccuringAtom);
 
   useEffect(() => {
-    const container = containerRef.current as HTMLDivElement;
-
-    const triggerDrag = (e: MouseEvent) => {
-      const { pageX, pageY } = e;
-      setDragOccurance({
-        loc: { pageX, pageY },
-        dragType: "NewItemDrag",
-        dragDir: "bottomRight",
-      });
-    };
-
-    container.addEventListener("mousedown", triggerDrag);
+    containerRef.current?.addEventListener("mousedown", onMouseDown);
     () => {
-      container.removeEventListener("mousedown", triggerDrag);
+      containerRef.current?.removeEventListener("mousedown", onMouseDown);
     };
   }, []);
 

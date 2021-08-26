@@ -1,9 +1,9 @@
 import { useEffect } from "preact/hooks";
 import {
   atom,
+  SetterOrUpdater,
   useRecoilCallback,
   useRecoilValue,
-  useSetRecoilState,
 } from "recoil";
 import { useAddItemModal } from "../components/AddItemModal";
 import { GridItem } from "../components/GridItem";
@@ -47,13 +47,6 @@ type DragLocation = {
   pageY: number;
 };
 
-type DragInitialization = {
-  loc: DragLocation;
-  dragDir: DragBox["dir"];
-  dragType: ActiveDrag["dragType"];
-  name?: string;
-};
-
 type ItemDragStart = {
   loc: DragLocation;
   dragDir: DragBox["dir"];
@@ -62,6 +55,7 @@ type ItemDragStart = {
   itemBBox?: GridItemBoundingBox;
   gridCellPositions: ActiveDrag["gridCellPositions"];
 };
+type DragInitialization = Omit<ItemDragStart, "gridCellPositions">;
 
 export const dragStateAtom = atom<DragState>({
   key: "dragStateAtom",
@@ -69,21 +63,103 @@ export const dragStateAtom = atom<DragState>({
 });
 
 // This is a simple state object to keep track of if a drag is currently happening on the screen.
-export const dragOccuringAtom = atom<DragInitialization | false>({
+type DragOccurance = DragInitialization | false;
+export const dragOccuringAtom = atom<DragOccurance>({
   key: "dragOccuringAtom",
   default: false,
 });
+export type DragOccuranceSetter = SetterOrUpdater<DragOccurance>;
 
-// This is the data given to us by the DragStart callback. We later add the
-// gridCellPositions
-type DragStartEventDetails = Omit<ItemDragStart, "gridCellPositions">;
-export type DragKickoffFn = (
-  e: MouseEvent,
-  info: Omit<DragStartEventDetails, "loc">
-) => void;
+export function useGridDragger(opts: {
+  dragDir?: DragDir;
+  nameOfDragged?: string;
+}) {
+  const { dragDir = "bottomRight", nameOfDragged } = opts;
+  const { openAddItemModal } = useAddItemModal();
+  const dragType: ActiveDrag["dragType"] = nameOfDragged
+    ? "ResizeItemDrag"
+    : "NewItemDrag";
+
+  const onMouseDown = useRecoilCallback(
+    ({ snapshot, set }) =>
+      async (e: MouseEvent) => {
+        const { pageX, pageY } = e;
+        e.stopPropagation();
+        const gridCellPositions = await snapshot.getPromise(
+          gridCellBoundingBoxes
+        );
+
+        const itemBBox = nameOfDragged
+          ? await snapshot.getPromise(gridItemBoundingBoxFamily(nameOfDragged))
+          : undefined;
+
+        set(
+          dragStateAtom,
+          setupInitialDragState({
+            loc: { pageX, pageY },
+            dragDir,
+            dragType,
+            name: nameOfDragged,
+            itemBBox,
+            gridCellPositions,
+          })
+        );
+
+        // Turnoff text selection so dragging doesnt highlight a bunch of stuff
+        document.querySelector("body")?.classList.add("disable-text-selection");
+        // After we've completed initializing the drag we can start watching the
+        // progress of the drag
+        document.addEventListener("mousemove", onMouseMove);
+        document.addEventListener("mouseup", onMouseUp);
+      },
+    []
+  );
+
+  const onMouseMove = useRecoilCallback(
+    ({ set }) =>
+      (e: MouseEvent) => {
+        set(dragStateAtom, (dragState) => {
+          const newDragState = moveDragState(dragState, e);
+          if (
+            newDragState?.dragType === "ResizeItemDrag" &&
+            newDragState.itemName
+          ) {
+            set(gridItemsState(newDragState.itemName), (itemDef) => ({
+              ...itemDef,
+              ...(newDragState.gridPos as GridPos),
+            }));
+          }
+          return newDragState;
+        });
+      },
+    []
+  );
+
+  const onMouseUp = useRecoilCallback(({ set, snapshot }) => async () => {
+    const finalState = await snapshot.getPromise(dragStateAtom);
+    if (finalState?.dragType === "NewItemDrag") {
+      openAddItemModal(finalState.gridPos);
+    }
+    set(dragOccuringAtom, false);
+    set(dragStateAtom, null);
+
+    document.querySelector("body")?.classList.remove("disable-text-selection");
+    document.removeEventListener("mousemove", onMouseMove);
+  });
+
+  // Make sure we dont have any memory leaks by accidentally leaving event listeners on
+  useEffect(() => {
+    return () => {
+      document.removeEventListener("mouseup", onMouseUp);
+      document.removeEventListener("mousemove", onMouseMove);
+    };
+  }, []);
+
+  return onMouseDown;
+}
 
 // This is called within the reducer
-function initDragState({
+function setupInitialDragState({
   loc,
   dragDir,
   dragType,
@@ -92,7 +168,6 @@ function initDragState({
   gridCellPositions,
 }: ItemDragStart): ActiveDrag {
   let dragBox: DragBox;
-
   switch (dragType) {
     case "NewItemDrag":
       dragBox = {
@@ -159,97 +234,6 @@ function moveDragState(dragState: DragState, { pageX, pageY }: DragLocation) {
   };
 }
 
-export const useDragHandler = () => {
-  const dragOccuring = useRecoilValue(dragOccuringAtom);
-  const setDragState = useSetRecoilState(dragStateAtom);
-  const { openAddItemModal } = useAddItemModal();
-
-  // Create a mutable state object that our callback can use. This way we dont
-  // need to keep adding and removing event listeners for each version of the
-  // state that we get. A semi-annoying downside of hooks
-
-  const startDrag = useRecoilCallback(
-    ({ snapshot }) =>
-      async ({ loc, dragDir, dragType, name }: DragInitialization) => {
-        const gridCellPositions = await snapshot.getPromise(
-          gridCellBoundingBoxes
-        );
-
-        const itemBBox = name
-          ? await snapshot.getPromise(gridItemBoundingBoxFamily(name))
-          : undefined;
-        setDragState(
-          initDragState({
-            loc,
-            dragDir,
-            dragType,
-            name,
-            itemBBox,
-            gridCellPositions,
-          })
-        );
-
-        // Turnoff text selection so dragging doesnt highlight a bunch of stuff
-        document.querySelector("body")?.classList.add("disable-text-selection");
-        // After we've completed initializing the drag we can start watching the
-        // progress of the drag
-        document.addEventListener("mouseup", endDrag);
-        document.addEventListener("mousemove", duringDrag);
-      },
-    []
-  );
-
-  const duringDrag = useRecoilCallback(
-    ({ set, snapshot }) =>
-      (e: MouseEvent) => {
-        set(dragStateAtom, (dragState) => {
-          const newDragState = moveDragState(dragState, e);
-          if (
-            newDragState?.dragType === "ResizeItemDrag" &&
-            newDragState.itemName
-          ) {
-            set(gridItemsState(newDragState.itemName), (itemDef) => ({
-              ...itemDef,
-              ...(newDragState.gridPos as GridPos),
-            }));
-          }
-          return newDragState;
-        });
-      },
-    []
-  );
-
-  const endDrag = useRecoilCallback(({ set, snapshot }) => async () => {
-    document.removeEventListener("mousemove", duringDrag);
-    document.querySelector("body")?.classList.remove("disable-text-selection");
-
-    const finalState = await snapshot.getPromise(dragStateAtom);
-    if (finalState?.dragType === "NewItemDrag") {
-      openAddItemModal(finalState.gridPos);
-    }
-    set(dragOccuringAtom, false);
-    set(dragStateAtom, null);
-  });
-
-  // Because this relies on the position of the current grid cells we want
-  // useLayoutEffect instead of simply useEffect. If we stick with plain
-  // useEffect sometimes this fires before the grid cells are loaded on the page
-  // it gets mad at us.
-  useEffect(() => {
-    if (dragOccuring) {
-      startDrag(dragOccuring);
-    }
-
-    document.removeEventListener("mousemove", duringDrag);
-    return () => {
-      // Make sure to remove all event listeners on cleanup. Even though
-      // it's unlikely that the mousemove and mouseup events are still attached
-      document.removeEventListener("mousemove", duringDrag);
-      document.removeEventListener("mouseup", endDrag);
-    };
-  }, [dragOccuring]);
-};
-
 // I wish that I could bundle this in with the custom useDragHandler hook
 // but then we loose a lot of performance because react rerenders the whole
 // component at all times instead of just updating the styles when it's its
@@ -257,7 +241,7 @@ export const useDragHandler = () => {
 export const DragFeedback = () => {
   // Initiate the drag watching behavior for new elements (see useEffect() below)
   // and also the existing elements being resized
-  useDragHandler();
+  // useDragHandler();
 
   const dragState = useRecoilValue(dragStateAtom);
 
