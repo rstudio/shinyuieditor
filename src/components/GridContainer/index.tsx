@@ -36,15 +36,6 @@ let GridContainer = ({
 // GridContainer.displayName = "GridContainer";
 GridContainer = memo(GridContainer);
 
-function arraysEqual<Type>(a: Type[], b: Type[]): boolean {
-  return (
-    a.length === b.length &&
-    a.every(function equalAtIndex(el: Type, index: number): boolean {
-      return el === b[index];
-    })
-  );
-}
-
 const twoColGridDefs = { cols: ["1fr", "1fr"], gap: "0.5rem" };
 const twoColGridStyles = { alignItems: "center" };
 const TwoColumnGrid: FunctionComponent = ({ children }) => {

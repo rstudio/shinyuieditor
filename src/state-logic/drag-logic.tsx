@@ -1,10 +1,5 @@
 import { useEffect } from "preact/hooks";
-import {
-  atom,
-  SetterOrUpdater,
-  useRecoilCallback,
-  useRecoilValue,
-} from "recoil";
+import { atom, useRecoilCallback, useRecoilValue } from "recoil";
 import { useAddItemModal } from "../components/AddItemModal";
 import { GridItem } from "../components/GridItem";
 import { boxesOverlap } from "../helper-scripts/overlap-helpers";
@@ -55,20 +50,11 @@ type ItemDragStart = {
   itemBBox?: GridItemBoundingBox;
   gridCellPositions: ActiveDrag["gridCellPositions"];
 };
-type DragInitialization = Omit<ItemDragStart, "gridCellPositions">;
 
 export const dragStateAtom = atom<DragState>({
   key: "dragStateAtom",
   default: null,
 });
-
-// This is a simple state object to keep track of if a drag is currently happening on the screen.
-type DragOccurance = DragInitialization | false;
-export const dragOccuringAtom = atom<DragOccurance>({
-  key: "dragOccuringAtom",
-  default: false,
-});
-export type DragOccuranceSetter = SetterOrUpdater<DragOccurance>;
 
 export function useGridDragger(opts: {
   dragDir?: DragDir;
@@ -140,7 +126,6 @@ export function useGridDragger(opts: {
     if (finalState?.dragType === "NewItemDrag") {
       openAddItemModal(finalState.gridPos);
     }
-    set(dragOccuringAtom, false);
     set(dragStateAtom, null);
 
     document.querySelector("body")?.classList.remove("disable-text-selection");

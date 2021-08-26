@@ -1,5 +1,5 @@
 import { useEffect } from "preact/hooks";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { AddItemModal } from "../../components/AddItemModal";
 import { EditableGridItems } from "../../components/EditableGridItems";
 import { EditorGridContainer } from "../../components/EditorGridContainer";
@@ -7,7 +7,7 @@ import { EditorInstructions } from "../../components/EditorInstructions";
 import { EditorItemsListView } from "../../components/EditorItemsListView";
 import { EditorSettings } from "../../components/EditorSettings";
 import { GapSizeSetting } from "../../components/GapSizeSetting";
-import { DragFeedback, dragOccuringAtom } from "../../state-logic/drag-logic";
+import { DragFeedback } from "../../state-logic/drag-logic";
 import { useAddNewItem } from "../../state-logic/gridItems";
 import {
   gapState,
@@ -36,7 +36,6 @@ export default function LayoutEditor({
     <div className={classes.editor}>
       <EditorSettings>
         <GapSizeSetting />
-        <DragObserver />
       </EditorSettings>
       <EditorInstructions />
       <EditorItemsListView />
@@ -47,9 +46,4 @@ export default function LayoutEditor({
       <AddItemModal />
     </div>
   );
-}
-function DragObserver() {
-  const dragOccuring = useRecoilValue(dragOccuringAtom);
-
-  return <span>{dragOccuring ? dragOccuring.name : "No drag occuring"} </span>;
 }
