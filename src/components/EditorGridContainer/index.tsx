@@ -2,10 +2,7 @@ import type { FunctionComponent } from "preact";
 import { useEffect, useMemo, useRef } from "preact/hooks";
 import { useRecoilValue } from "recoil";
 import { useGridDragger } from "../../state-logic/drag-logic";
-import {
-  gapState,
-  gridTractsState,
-} from "../../state-logic/layout-updating-logic";
+import { gapState, gridTractsState } from "../../state-logic/recoilAtoms";
 import { GridCard } from "../GridCard";
 import { GridCells } from "../GridCells/GridCells";
 import { GridContainer } from "../GridContainer";

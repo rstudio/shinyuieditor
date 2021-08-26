@@ -1,4 +1,15 @@
-import { BoxSides, SelectionRect } from "../types";
+import { SelectionRect } from "../state-logic/recoilAtoms";
+
+type BoxSides =
+  | "top"
+  | "bottom"
+  | "left"
+  | "right"
+  | "top-left"
+  | "top-right"
+  | "bottom-left"
+  | "bottom-right"
+  | "center";
 
 // Figure out how interval B overlaps interval A
 function intervalsOverlap(

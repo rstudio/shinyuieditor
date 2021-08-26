@@ -1,73 +1,12 @@
 import { RefObject } from "preact";
 import { useEffect } from "preact/hooks";
+import { SetterOrUpdater, useRecoilCallback } from "recoil";
+import { GridItemDef, GridPos } from "../types";
 import {
-  atom,
-  atomFamily,
-  selector,
-  SetterOrUpdater,
-  useRecoilCallback,
-} from "recoil";
-import { enumerateGridDims } from "../helper-scripts/grid-helpers";
-import { GridItemDef, GridPos, SelectionRect } from "../types";
-import { gridTractsState } from "./layout-updating-logic";
-
-export const itemNamesState = atom<string[]>({
-  key: "itemNamesState",
-  default: [],
-});
-
-type GridElBoundingBox = SelectionRect & {
-  offsetLeft: number;
-  offsetTop: number;
-};
-export type GridItemBoundingBox = GridElBoundingBox & GridPos;
-
-// These keep the bounding boxes for items for overlap detection etc.
-// Allows us to not have to pass around refs to get the info
-const defaultBBox = {
-  top: -1,
-  bottom: -1,
-  left: -1,
-  right: -1,
-  startRow: 0,
-  startCol: 0,
-  offsetLeft: 0,
-  offsetTop: 0,
-};
-export const gridItemBoundingBoxFamily = atomFamily<
   GridItemBoundingBox,
-  string
->({
-  key: "gridItemBoundingBoxFamily",
-  default: defaultBBox,
-});
-// Collapses the grid item bounds to a single array
-const gridItemBoundingBoxes = selector<GridItemBoundingBox[]>({
-  key: "gridItemBoundingBoxes",
-  get: ({ get }) => {
-    const itemNames = get(itemNamesState);
-    return itemNames.map((name) => get(gridItemBoundingBoxFamily(name)));
-  },
-});
-
-export const gridCellBoundingBoxFamily = atomFamily<
-  GridItemBoundingBox,
-  { row: number; col: number }
->({
-  key: "gridCellBoundingBoxFamily",
-  default: defaultBBox,
-});
-
-export const gridCellBoundingBoxes = selector<GridItemBoundingBox[]>({
-  key: "gridCellBoundingBoxes",
-  get: ({ get }) => {
-    const { rows, cols } = get(gridTractsState);
-    return enumerateGridDims({
-      numRows: rows.length,
-      numCols: cols.length,
-    }).map(({ row, col }) => get(gridCellBoundingBoxFamily({ col, row })));
-  },
-});
+  gridItemsState,
+  itemNamesState,
+} from "./recoilAtoms";
 
 export function useGridItemBoundingBoxRecorder({
   itemRef,
@@ -108,17 +47,6 @@ export function useGridItemBoundingBoxRecorder({
     };
   });
 }
-
-export const gridItemsState = atomFamily<GridItemDef, string>({
-  key: "gridItemsState",
-  default: {
-    name: "default",
-    startRow: 1,
-    endRow: 1,
-    startCol: 1,
-    endCol: 1,
-  },
-});
 
 export const useAddNewItem = () => {
   return useRecoilCallback(({ set }) => (itemDef: GridItemDef) => {

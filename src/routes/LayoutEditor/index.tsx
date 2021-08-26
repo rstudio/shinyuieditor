@@ -9,10 +9,7 @@ import { EditorSettings } from "../../components/EditorSettings";
 import { GapSizeSetting } from "../../components/GapSizeSetting";
 import { DragFeedback } from "../../state-logic/drag-logic";
 import { useAddNewItem } from "../../state-logic/gridItems";
-import {
-  gapState,
-  gridTractsState,
-} from "../../state-logic/layout-updating-logic";
+import { gapState, gridTractsState } from "../../state-logic/recoilAtoms";
 import type { GridLayoutTemplate } from "../../types";
 import classes from "./style.module.css";
 

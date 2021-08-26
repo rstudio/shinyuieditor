@@ -1,10 +1,8 @@
 import { memo, useRef } from "preact/compat";
 import { useSetRecoilState } from "recoil";
 import { enumerateGridDims } from "../../helper-scripts/grid-helpers";
-import {
-  gridCellBoundingBoxFamily,
-  useGridItemBoundingBoxRecorder,
-} from "../../state-logic/gridItems";
+import { useGridItemBoundingBoxRecorder } from "../../state-logic/gridItems";
+import { gridCellBoundingBoxFamily } from "../../state-logic/recoilAtoms";
 
 let GridCells = ({
   numCols,

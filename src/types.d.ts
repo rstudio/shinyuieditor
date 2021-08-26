@@ -1,25 +1,16 @@
 // A single export is needed in this file to let typescript know the types go out
-export
-
-type ItemTractPos = [number, number];
-
-type GridPos = {
+export type GridPos = {
   startRow: number;
   endRow?: number;
   startCol: number;
   endCol?: number;
 }
-type GridItemDef = {
+export type GridItemDef = {
   name: string;
 } & GridPos;
 
-type GridLayoutDef = {
-  rows?: string[];
-  cols?: string[];
-  gap: string;
-};
 
-type GridLayoutTemplate = {
+export type GridLayoutTemplate = {
   rows: string[];
   cols: string[];
   gap: string;
@@ -27,42 +18,8 @@ type GridLayoutTemplate = {
   items: GridItemDef[];
 };
 
+export type CSSUnits = "fr" | "px" | "rem" | "auto";
+export type CSSMeasure = `${number}${CSSUnits}`;
 
-interface SelectionRect {
-  left: number;
-  right: number;
-  top: number;
-  bottom: number;
-}
-interface GridCellPos extends SelectionRect {
-  row: number;
-  col: number;
-  offsetLeft: number;
-  offsetTop: number;
-}
+export type DragDir = "top" | "topLeft" | "topRight" | "bottom" | "bottomLeft" | "bottomRight" | "left" | "right"| "middle";
 
-
-
-type GridTractDir = "rows" | "cols";
-type TractValue = {
-  val: string | CSSMeasure;
-  dir: GridTractDir;
-  index: number;
-};
-
-type CSSUnits = "fr" | "px" | "rem" | "auto";
-type CSSMeasure = `${number}${CSSUnits}`;
-
-
-type DragDir = "top" | "topLeft" | "topRight" | "bottom" | "bottomLeft" | "bottomRight" | "left" | "right"| "middle";
-
-export type BoxSides =
-  | "top"
-  | "bottom"
-  | "left"
-  | "right"
-  | "top-left"
-  | "top-right"
-  | "bottom-left"
-  | "bottom-right"
-  | "center";

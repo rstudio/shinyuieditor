@@ -4,12 +4,12 @@ import { useRef } from "preact/hooks";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { makeColPos, makeRowPos } from "../../helper-scripts/grid-helpers";
 import { useGridDragger } from "../../state-logic/drag-logic";
+import { useGridItemBoundingBoxRecorder } from "../../state-logic/gridItems";
 import {
   gridItemBoundingBoxFamily,
   gridItemsState,
   itemNamesState,
-  useGridItemBoundingBoxRecorder,
-} from "../../state-logic/gridItems";
+} from "../../state-logic/recoilAtoms";
 import type { DragDir } from "../../types";
 import { DragIcon } from "../Icons";
 import classes from "./style.module.css";

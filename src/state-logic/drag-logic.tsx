@@ -1,60 +1,20 @@
 import { useEffect } from "preact/hooks";
-import { atom, useRecoilCallback, useRecoilValue } from "recoil";
+import { useRecoilCallback, useRecoilValue } from "recoil";
 import { useAddItemModal } from "../components/AddItemModal";
 import { GridItem } from "../components/GridItem";
 import { boxesOverlap } from "../helper-scripts/overlap-helpers";
 import { DragDir, GridPos } from "../types";
+
 import {
+  ActiveDrag,
+  DragLocation,
+  DragState,
+  dragStateAtom,
   gridCellBoundingBoxes,
   GridItemBoundingBox,
   gridItemBoundingBoxFamily,
   gridItemsState,
-} from "./gridItems";
-
-type DragBox = {
-  dir: DragDir;
-  top: number;
-  bottom: number;
-  left: number;
-  right: number;
-};
-// When dragging is actively happening then we will have an object with all the
-// neccesary info to infer state from it
-type ActiveDrag = {
-  // These define the type of drag happening and change behavior of snapping, etc
-  // accordingly.
-  dragBox: DragBox;
-  dragType: "NewItemDrag" | "ResizeItemDrag";
-  gridCellPositions: GridItemBoundingBox[];
-  xOffset: number;
-  yOffset: number;
-  itemName?: string;
-  gridPos: GridPos;
-};
-
-// Non-active drags will just be represented by null
-type DragState = ActiveDrag | null;
-
-// Basic information about a given drag event. Just a subset of the position
-// info given by MouseEvent
-type DragLocation = {
-  pageX: number;
-  pageY: number;
-};
-
-type ItemDragStart = {
-  loc: DragLocation;
-  dragDir: DragBox["dir"];
-  dragType: ActiveDrag["dragType"];
-  name?: string;
-  itemBBox?: GridItemBoundingBox;
-  gridCellPositions: ActiveDrag["gridCellPositions"];
-};
-
-export const dragStateAtom = atom<DragState>({
-  key: "dragStateAtom",
-  default: null,
-});
+} from "./recoilAtoms";
 
 export function useGridDragger(opts: {
   dragDir?: DragDir;
@@ -142,7 +102,6 @@ export function useGridDragger(opts: {
 
   return onMouseDown;
 }
-
 // This is called within the reducer
 function setupInitialDragState({
   loc,
@@ -151,8 +110,15 @@ function setupInitialDragState({
   name,
   itemBBox,
   gridCellPositions,
-}: ItemDragStart): ActiveDrag {
-  let dragBox: DragBox;
+}: {
+  loc: DragLocation;
+  dragDir: ActiveDrag["dragBox"]["dir"];
+  dragType: ActiveDrag["dragType"];
+  name?: string;
+  itemBBox?: GridItemBoundingBox;
+  gridCellPositions: ActiveDrag["gridCellPositions"];
+}): ActiveDrag {
+  let dragBox: ActiveDrag["dragBox"];
   switch (dragType) {
     case "NewItemDrag":
       dragBox = {
@@ -268,7 +234,7 @@ export const DragFeedback = () => {
 };
 
 function dragPosOnGrid(
-  dragBox: DragBox,
+  dragBox: ActiveDrag["dragBox"],
   gridCells: GridItemBoundingBox[]
 ): GridPos {
   // Reset bounding box definitions so we only use current selection extent

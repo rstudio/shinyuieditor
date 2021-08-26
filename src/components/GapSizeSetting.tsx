@@ -1,7 +1,7 @@
 import { useRecoilState } from "recoil";
+import { gapState } from "../state-logic/recoilAtoms";
 import { CssUnitInput } from "./CssUnitInput";
 import { SettingPane } from "./EditorSettings";
-import { gapState } from "../state-logic/layout-updating-logic";
 
 export function GapSizeSetting() {
   const [gap, setGap] = useRecoilState(gapState);
