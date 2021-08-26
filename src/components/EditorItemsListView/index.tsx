@@ -28,7 +28,7 @@ const ItemListItem = memo(({ name }: { name: string }) => {
   const deleteItem = useDeleteItem();
 
   return (
-    <div className={classes.item + " " + classes.isDeletabl}>
+    <div className={classes.item + " " + classes.isDeletable}>
       <span style={{ justifySelf: "start" }}>{name}</span>
       <button onClick={() => deleteItem(name)} title={`Delete ${name} item`}>
         <SvgIcon name={"trashcan"} />
