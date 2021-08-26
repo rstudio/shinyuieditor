@@ -1,6 +1,5 @@
 import { RefObject } from "preact";
-import { memo } from "preact/compat";
-import { useRef } from "preact/hooks";
+import { useMemo, useRef } from "preact/hooks";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { makeColPos, makeRowPos } from "../../helper-scripts/grid-helpers";
 import { useGridDragger } from "../../state-logic/drag-logic";
@@ -26,7 +25,7 @@ export const EditableGridItems = () => {
 };
 
 export type GridItemRef = RefObject<HTMLDivElement>;
-const EditableGridItem = memo(({ name }: { name: string }) => {
+const EditableGridItem = ({ name }: { name: string }) => {
   const { startRow, endRow, startCol, endCol } = useRecoilValue(
     gridItemsState(name)
   );
@@ -44,6 +43,12 @@ const EditableGridItem = memo(({ name }: { name: string }) => {
     setBoundingBox,
   });
 
+  const dragHandles = useMemo(() => {
+    return directions.map((dir) => (
+      <DragHandle key={name + dir} dir={dir} name={name} />
+    ));
+  }, [name]);
+
   return (
     <div
       ref={itemRef}
@@ -54,14 +59,12 @@ const EditableGridItem = memo(({ name }: { name: string }) => {
       }}
       title={name}
     >
-      {directions.map((dir) => (
-        <DragHandle key={name + dir} dir={dir} name={name} />
-      ))}
+      {dragHandles}
     </div>
   );
-});
+};
 
-const DragHandle = memo(({ dir, name }: { dir: DragDir; name: string }) => {
+const DragHandle = ({ dir, name }: { dir: DragDir; name: string }) => {
   const onMouseDown = useGridDragger({
     dragDir: dir,
     nameOfDragged: name,
@@ -72,7 +75,7 @@ const DragHandle = memo(({ dir, name }: { dir: DragDir; name: string }) => {
       <DragIcon type={dir} />
     </span>
   );
-});
+};
 
 const directions: Array<DragDir> = [
   "middle",
