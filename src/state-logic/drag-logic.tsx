@@ -96,7 +96,6 @@ export function useGridDragger(opts: { nameOfDragged?: string }) {
   // Make sure we dont have any memory leaks by accidentally leaving event listeners on
   useEffect(() => {
     return () => {
-      console.log("Closing drag listener");
       document.removeEventListener("mouseup", onMouseUp);
       document.removeEventListener("mousemove", onMouseMove);
     };

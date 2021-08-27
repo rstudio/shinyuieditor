@@ -59,7 +59,6 @@ export const useAddNewItem = () => {
 
 export const useDeleteItem = () => {
   return useRecoilCallback(({ set, reset }) => (name: string) => {
-    console.log(`Deleting item ${name}`);
     set(itemNamesState, (items) => items.filter((item) => item !== name));
     reset(gridItemsState(name));
     reset(gridItemBoundingBoxFamily(name));
