@@ -44,3 +44,23 @@ export function enumerateGridDims({
     col: (i % numCols) + 1,
   }));
 }
+
+export function placeOnGridOrCol({
+  index,
+  dir,
+}: {
+  index: number;
+  dir: "rows" | "cols";
+}) {
+  return dir === "rows"
+    ? {
+        startRow: index + 1,
+        startCol: 1,
+        endCol: -1,
+      }
+    : {
+        startCol: index + 1,
+        startRow: 1,
+        endRow: -1,
+      };
+}

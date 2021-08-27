@@ -1,5 +1,6 @@
 import { memo, useCallback, useMemo } from "preact/compat";
 import { useRecoilValue, useSetRecoilState } from "recoil";
+import { placeOnGridOrCol } from "../../helper-scripts/grid-helpers";
 import { gridTractsState } from "../../state-logic/recoilAtoms";
 import { CSSMeasure } from "../../types";
 import { CssUnitInput } from "../CssUnitInput";
@@ -57,26 +58,17 @@ function GridTractControl({
     },
     [dir, index, setTracts]
   );
-  const position = useMemo(
-    () =>
-      dir === "rows"
-        ? {
-            startRow: index + 1,
-            startCol: 1,
-            endCol: -1,
-            className: classes.rowSizeControls,
-          }
-        : {
-            startCol: index + 1,
-            startRow: 1,
-            endRow: -1,
-            className: classes.colSizeControls,
-          },
+  const itemProps = useMemo(
+    () => ({
+      ...placeOnGridOrCol({ index, dir }),
+      className:
+        dir === "rows" ? classes.rowSizeControls : classes.colSizeControls,
+    }),
     [dir, index]
   );
 
   return (
-    <GridItem {...position}>
+    <GridItem {...itemProps}>
       <CssUnitInput value={value} onChange={updateTract} />
     </GridItem>
   );
