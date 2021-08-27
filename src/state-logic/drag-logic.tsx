@@ -79,16 +79,22 @@ export function useGridDragger(opts: {
     []
   );
 
-  const onMouseUp = useRecoilCallback(({ set, snapshot }) => async () => {
-    const finalState = await snapshot.getPromise(dragStateAtom);
-    if (finalState?.dragType === "NewItemDrag") {
-      openAddItemModal(finalState.gridPos);
-    }
-    set(dragStateAtom, null);
+  const onMouseUp = useRecoilCallback(
+    ({ set, snapshot }) =>
+      async () => {
+        const finalState = await snapshot.getPromise(dragStateAtom);
+        if (finalState?.dragType === "NewItemDrag") {
+          openAddItemModal(finalState.gridPos);
+        }
+        set(dragStateAtom, null);
 
-    document.querySelector("body")?.classList.remove("disable-text-selection");
-    document.removeEventListener("mousemove", onMouseMove);
-  });
+        document
+          .querySelector("body")
+          ?.classList.remove("disable-text-selection");
+        document.removeEventListener("mousemove", onMouseMove);
+      },
+    []
+  );
 
   // Make sure we dont have any memory leaks by accidentally leaving event listeners on
   useEffect(() => {
