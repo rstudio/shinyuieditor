@@ -3,12 +3,16 @@ import { useEffect, useMemo, useRef } from "preact/hooks";
 import { useRecoilValue } from "recoil";
 import { placeOnGridOrCol } from "../../helper-scripts/grid-helpers";
 import { useGridDragger } from "../../state-logic/drag-logic";
-import { gapState, gridTractsState } from "../../state-logic/recoilAtoms";
+import {
+  gapState,
+  gridColsState,
+  gridRowsState,
+} from "../../state-logic/recoilAtoms";
 import { GridCard } from "../GridCard";
 import { GridCells } from "../GridCells/GridCells";
 import { GridContainer } from "../GridContainer";
 import { GridItem } from "../GridItem";
-import { GridTractControls } from "../GridTractControls";
+import { GridRowsControls, GridColsControls } from "../GridTractControls";
 import { FakeBrowserBar } from "../TheFakeBrowserBar";
 import classes from "./style.module.css";
 
@@ -24,9 +28,10 @@ export const EditorGridContainer: FunctionComponent = ({ children }) => {
     };
   }, []);
 
-  const tracts = useRecoilValue(gridTractsState);
   const gap = useRecoilValue(gapState);
-  const { cols, rows } = tracts;
+  const rows = useRecoilValue(gridRowsState);
+  const cols = useRecoilValue(gridColsState);
+
   const numRows = rows.length;
   const numCols = cols.length;
   // This feels very unneccesary but it helps avoid rerenders
@@ -42,7 +47,8 @@ export const EditorGridContainer: FunctionComponent = ({ children }) => {
         styles={containerStyles}
       >
         <GridTractBoundaries numCols={numCols} numRows={numRows} />
-        <GridTractControls />
+        <GridRowsControls />
+        <GridColsControls />
         {children}
         <GridCells numRows={rows.length} numCols={cols.length} />
       </GridContainer>

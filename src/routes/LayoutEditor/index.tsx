@@ -9,8 +9,12 @@ import { EditorSettings } from "../../components/EditorSettings";
 import { GapSizeSetting } from "../../components/GapSizeSetting";
 import { DragFeedback } from "../../state-logic/drag-logic";
 import { useAddNewItem } from "../../state-logic/gridItems";
-import { gapState, gridTractsState } from "../../state-logic/recoilAtoms";
-import type { GridLayoutTemplate } from "../../types";
+import {
+  gapState,
+  gridColsState,
+  gridRowsState,
+} from "../../state-logic/recoilAtoms";
+import type { CSSMeasure, GridLayoutTemplate } from "../../types";
 import classes from "./style.module.css";
 
 export default function LayoutEditor({
@@ -20,17 +24,20 @@ export default function LayoutEditor({
 }) {
   const setGapSize = useSetRecoilState(gapState);
   const addNewItem = useAddNewItem();
-  const setTracts = useSetRecoilState(gridTractsState);
+  const setRows = useSetRecoilState(gridRowsState);
+  const setCols = useSetRecoilState(gridColsState);
 
   // Load initial state just once at the first render of component
   useEffect(() => {
     startingLayout.items.forEach((itemDef) => addNewItem(itemDef));
-    setTracts(startingLayout);
+    setRows(startingLayout.rows as CSSMeasure[]);
+    setCols(startingLayout.cols as CSSMeasure[]);
     setGapSize(startingLayout.gap);
   }, []);
 
   return (
     <div className={classes.editor}>
+      <MainGridCSSVariables />
       <EditorSettings>
         <GapSizeSetting />
       </EditorSettings>
@@ -42,5 +49,15 @@ export default function LayoutEditor({
       </EditorGridContainer>
       <AddItemModal />
     </div>
+  );
+}
+
+function MainGridCSSVariables() {
+  return (
+    <style>
+      body{"{"}
+      --specialCustomColor: tomato;
+      {"}"}
+    </style>
   );
 }

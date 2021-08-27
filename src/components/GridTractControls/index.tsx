@@ -1,75 +1,60 @@
-import { memo, useCallback, useMemo } from "preact/compat";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useCallback } from "preact/compat";
+import { SetterOrUpdater, useRecoilState } from "recoil";
 import { placeOnGridOrCol } from "../../helper-scripts/grid-helpers";
-import { gridTractsState } from "../../state-logic/recoilAtoms";
+import {
+  gridColsState,
+  gridRowsState,
+  GridTractDefs,
+} from "../../state-logic/recoilAtoms";
 import { CSSMeasure } from "../../types";
 import { CssUnitInput } from "../CssUnitInput";
 import { GridItem } from "../GridItem";
 import classes from "./style.module.css";
 
-// Memo so we dont rerender on every drag frame
-export const GridTractControls = memo(() => {
-  const tracts = useRecoilValue(gridTractsState);
-  const { rows, cols } = tracts;
+export function GridRowsControls() {
+  const [rows, setRows] = useRecoilState(gridRowsState);
+  return <GridTractControls dir={"rows"} vals={rows} setTractFn={setRows} />;
+}
+
+export function GridColsControls() {
+  const [cols, setCols] = useRecoilState(gridColsState);
+  return <GridTractControls dir={"cols"} vals={cols} setTractFn={setCols} />;
+}
+
+function GridTractControls({
+  dir,
+  vals,
+  setTractFn,
+}: {
+  dir: "rows" | "cols";
+  vals: CSSMeasure[];
+  setTractFn: SetterOrUpdater<GridTractDefs>;
+}) {
+  const className =
+    dir === "rows" ? classes.rowSizeControls : classes.colSizeControls;
+
+  const updateTract = useCallback((newVal: CSSMeasure, index: number) => {
+    setTractFn((oldVals) => {
+      const updatedVals = [...oldVals];
+      updatedVals[index] = newVal;
+      return updatedVals;
+    });
+  }, []);
 
   return (
     <>
-      {rows.map((r, i) => (
-        <GridTractControl
-          key={"rows" + i}
-          dir={"rows"}
-          value={r as CSSMeasure}
-          index={i}
-        />
-      ))}
-      {cols.map((c, i) => (
-        <GridTractControl
-          key={"cols" + i}
-          dir={"cols"}
-          value={c as CSSMeasure}
-          index={i}
-        />
+      {vals.map((val, index) => (
+        <GridItem
+          key={dir + index}
+          {...placeOnGridOrCol({ index, dir })}
+          className={className}
+        >
+          <CssUnitInput
+            value={val}
+            onChange={(newVal) => updateTract(newVal, index)}
+          />
+        </GridItem>
       ))}
     </>
-  );
-});
-
-function GridTractControl({
-  dir,
-  value,
-  index,
-}: {
-  dir: "rows" | "cols";
-  value: CSSMeasure;
-  index: number;
-}) {
-  const setTracts = useSetRecoilState(gridTractsState);
-
-  const updateTract = useCallback(
-    (newVal: CSSMeasure) => {
-      setTracts(({ rows, cols }: { rows: string[]; cols: string[] }) => {
-        const updatedTracts = {
-          rows: [...rows],
-          cols: [...cols],
-        };
-        updatedTracts[dir][index] = newVal;
-        return updatedTracts;
-      });
-    },
-    [dir, index, setTracts]
-  );
-  const itemProps = useMemo(
-    () => ({
-      ...placeOnGridOrCol({ index, dir }),
-      className:
-        dir === "rows" ? classes.rowSizeControls : classes.colSizeControls,
-    }),
-    [dir, index]
-  );
-
-  return (
-    <GridItem {...itemProps}>
-      <CssUnitInput value={value} onChange={updateTract} />
-    </GridItem>
   );
 }

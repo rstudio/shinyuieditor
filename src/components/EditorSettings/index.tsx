@@ -15,7 +15,9 @@ export const SettingPane: FunctionalComponent<{ label: string }> = ({
   children,
 }) => (
   <>
-    <span>{label}:</span>
+    <span style={{ backgroundColor: "var(--specialCustomColor)" }}>
+      {label}:
+    </span>
     {children}
   </>
 );
