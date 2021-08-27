@@ -43,11 +43,19 @@ const EditableGridItem = ({ name }: { name: string }) => {
     setBoundingBox,
   });
 
+  const onMouseDown = useGridDragger({ nameOfDragged: name });
+
   const dragHandles = useMemo(() => {
     return directions.map((dir) => (
-      <DragHandle key={name + dir} dir={dir} name={name} />
+      <span
+        key={name + dir}
+        className={classes[dir]}
+        onMouseDown={(e) => onMouseDown(e, dir)}
+      >
+        <DragIcon type={dir} />
+      </span>
     ));
-  }, [name]);
+  }, [name, onMouseDown]);
 
   return (
     <div
@@ -61,19 +69,6 @@ const EditableGridItem = ({ name }: { name: string }) => {
     >
       {dragHandles}
     </div>
-  );
-};
-
-const DragHandle = ({ dir, name }: { dir: DragDir; name: string }) => {
-  const onMouseDown = useGridDragger({
-    dragDir: dir,
-    nameOfDragged: name,
-  });
-
-  return (
-    <span className={classes[dir]} onMouseDown={onMouseDown}>
-      <DragIcon type={dir} />
-    </span>
   );
 };
 
