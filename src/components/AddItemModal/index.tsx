@@ -1,5 +1,5 @@
-import { useCallback, useLayoutEffect, useRef, useState } from "preact/hooks";
-import { atom, useRecoilState, useRecoilValue } from "recoil";
+import { useLayoutEffect, useRef, useState } from "preact/hooks";
+import { atom, useRecoilCallback, useRecoilValue } from "recoil";
 import { useAddNewItem } from "../../state-logic/gridItems";
 import { itemNamesState } from "../../state-logic/recoilAtoms";
 import { GridPos } from "../../types";
@@ -13,28 +13,31 @@ export const addItemModalState = atom<GridPos | null>({
   default: null,
 });
 
-export function useAddItemModal() {
-  const [modalState, setModalState] = useRecoilState(addItemModalState);
-
-  const openAddItemModal = useCallback(
-    (pos: GridPos) => setModalState(pos),
-    [setModalState]
+export function useAddItemModalOpener() {
+  const openAddItemModal = useRecoilCallback(
+    ({ set }) =>
+      (pos: GridPos) =>
+        set(addItemModalState, pos),
+    []
   );
 
-  const closeAddItemModal = useCallback(
-    () => setModalState(null),
-    [setModalState]
+  return openAddItemModal;
+}
+
+export function useAddItemModalCloser() {
+  const closeAddItemModal = useRecoilCallback(
+    ({ reset }) =>
+      () =>
+        reset(addItemModalState),
+    []
   );
 
-  return {
-    modalState,
-    openAddItemModal,
-    closeAddItemModal,
-  };
+  return closeAddItemModal;
 }
 
 export function AddItemModal() {
-  const { modalState, closeAddItemModal } = useAddItemModal();
+  const modalState = useRecoilValue(addItemModalState);
+  const closeAddItemModal = useAddItemModalCloser();
 
   if (modalState === null) return null;
 

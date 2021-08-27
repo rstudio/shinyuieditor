@@ -1,11 +1,10 @@
 import { useEffect } from "preact/hooks";
 import { useRecoilCallback, useRecoilValue } from "recoil";
-import { useAddItemModal } from "../components/AddItemModal";
+import { useAddItemModalOpener } from "../components/AddItemModal";
 import { GridItem } from "../components/GridItem";
 import { sameGridPos } from "../helper-scripts/grid-helpers";
 import { boxesOverlap } from "../helper-scripts/overlap-helpers";
 import { DragDir, GridPos } from "../types";
-
 import {
   ActiveDrag,
   DragLocation,
@@ -17,19 +16,17 @@ import {
   gridItemsState,
 } from "./recoilAtoms";
 
-export function useGridDragger(opts: {
-  dragDir?: DragDir;
-  nameOfDragged?: string;
-}) {
-  const { dragDir = "bottomRight", nameOfDragged } = opts;
-  const { openAddItemModal } = useAddItemModal();
+export function useGridDragger(opts: { nameOfDragged?: string }) {
+  const { nameOfDragged } = opts;
+  const openAddItemModal = useAddItemModalOpener();
   const dragType: ActiveDrag["dragType"] = nameOfDragged
     ? "ResizeItemDrag"
     : "NewItemDrag";
 
   const onMouseDown = useRecoilCallback(
     ({ snapshot, set }) =>
-      async (e: MouseEvent) => {
+      async (e: MouseEvent, dragDir?: DragDir) => {
+        dragDir = dragDir ?? "bottomRight";
         const { pageX, pageY } = e;
         e.stopPropagation();
         const gridCellPositions = await snapshot.getPromise(
@@ -99,6 +96,7 @@ export function useGridDragger(opts: {
   // Make sure we dont have any memory leaks by accidentally leaving event listeners on
   useEffect(() => {
     return () => {
+      console.log("Closing drag listener");
       document.removeEventListener("mouseup", onMouseUp);
       document.removeEventListener("mousemove", onMouseMove);
     };
