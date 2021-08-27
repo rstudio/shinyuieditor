@@ -1,60 +1,76 @@
-import { useCallback } from "preact/compat";
-import { SetterOrUpdater, useRecoilState } from "recoil";
+import { SetterOrUpdater, useRecoilState, useRecoilValue } from "recoil";
 import { placeOnGridOrCol } from "../../helper-scripts/grid-helpers";
 import {
-  gridColsState,
-  gridRowsState,
-  GridTractDefs,
+  gridColsAtomFamily,
+  gridRowsAtomFamily,
+  tractDimsState,
 } from "../../state-logic/gridLayoutAtoms";
 import { CSSMeasure } from "../../types";
 import { CssUnitInput } from "../CssUnitInput";
 import { GridItem } from "../GridItem";
 import classes from "./style.module.css";
 
-export function GridRowsControls() {
-  const [rows, setRows] = useRecoilState(gridRowsState);
-  return <GridTractControls dir={"rows"} vals={rows} setTractFn={setRows} />;
+export function GridTractControls() {
+  const { numRows, numCols } = useRecoilValue(tractDimsState);
+  return (
+    <>
+      {Array.from({ length: numRows }, (_, i) => (
+        <RowTractControl index={i} />
+      ))}
+      {Array.from({ length: numCols }, (_, i) => (
+        <ColTractControl index={i} />
+      ))}
+    </>
+  );
 }
 
-export function GridColsControls() {
-  const [cols, setCols] = useRecoilState(gridColsState);
-  return <GridTractControls dir={"cols"} vals={cols} setTractFn={setCols} />;
+function ColTractControl({ index }: { index: number }) {
+  const [value, setValue] = useRecoilState(gridColsAtomFamily(index));
+
+  return (
+    <GridTractControl
+      dir="cols"
+      index={index}
+      value={value}
+      setValue={setValue}
+    />
+  );
 }
 
-function GridTractControls({
+function RowTractControl({ index }: { index: number }) {
+  const [value, setValue] = useRecoilState(gridRowsAtomFamily(index));
+
+  return (
+    <GridTractControl
+      dir="rows"
+      index={index}
+      value={value}
+      setValue={setValue}
+    />
+  );
+}
+
+function GridTractControl({
   dir,
-  vals,
-  setTractFn,
+  index,
+  value,
+  setValue,
 }: {
   dir: "rows" | "cols";
-  vals: CSSMeasure[];
-  setTractFn: SetterOrUpdater<GridTractDefs>;
+  index: number;
+  value: CSSMeasure;
+  setValue: SetterOrUpdater<CSSMeasure>;
 }) {
   const className =
     dir === "rows" ? classes.rowSizeControls : classes.colSizeControls;
 
-  const updateTract = useCallback((newVal: CSSMeasure, index: number) => {
-    setTractFn((oldVals) => {
-      const updatedVals = [...oldVals];
-      updatedVals[index] = newVal;
-      return updatedVals;
-    });
-  }, []);
-
   return (
-    <>
-      {vals.map((val, index) => (
-        <GridItem
-          key={dir + index}
-          {...placeOnGridOrCol({ index, dir })}
-          className={className}
-        >
-          <CssUnitInput
-            value={val}
-            onChange={(newVal) => updateTract(newVal, index)}
-          />
-        </GridItem>
-      ))}
-    </>
+    <GridItem
+      key={dir + index}
+      {...placeOnGridOrCol({ index, dir })}
+      className={className}
+    >
+      <CssUnitInput value={value} onChange={(newVal) => setValue(newVal)} />
+    </GridItem>
   );
 }

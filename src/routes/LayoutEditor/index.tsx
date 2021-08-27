@@ -8,9 +8,9 @@ import { EditorSettings, SettingPane } from "../../components/EditorSettings";
 import { GapSizeSetting } from "../../components/GapSizeSetting";
 import { DragFeedback } from "../../state-logic/drag-logic";
 import {
+  allRowsState,
   gapState,
   gridColsState,
-  gridRowsState,
   useInitiateLayoutState,
 } from "../../state-logic/gridLayoutAtoms";
 import type { GridLayoutTemplate } from "../../types";
@@ -44,7 +44,7 @@ export default function LayoutEditor({
 
 function MainGridCSSVariables() {
   const gap = useRecoilValue(gapState);
-  const rows = useRecoilValue(gridRowsState);
+  const rows = useRecoilValue(allRowsState);
   const cols = useRecoilValue(gridColsState);
 
   const styleBody = `

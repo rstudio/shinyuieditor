@@ -1,33 +1,58 @@
 import { useEffect } from "preact/hooks";
-import { atom, atomFamily, useRecoilCallback, useSetRecoilState } from "recoil";
+import {
+  atom,
+  atomFamily,
+  selector,
+  useRecoilCallback,
+  useSetRecoilState,
+} from "recoil";
 import { CSSMeasure, GridItemDef, GridLayoutTemplate } from "../types";
 import { useAddNewItem } from "./gridItems";
 
 export type GridTractDefs = CSSMeasure[];
 export type GridTracts = Pick<GridLayoutTemplate, "rows" | "cols">;
 
-export const gridRowsState = atom<GridTractDefs>({
-  key: "gridRowsState",
-  default: ["1fr"],
+export const gridRowsAtomFamily = atomFamily<CSSMeasure, number>({
+  key: "gridRowsAtomFamily",
+  default: "1fr",
 });
 export const numRowsState = atom<number>({
   key: "numRowsState",
-  default: 1,
+  default: 0,
+});
+export const allRowsState = selector<GridTractDefs>({
+  key: "allRowsState",
+  get: ({ get }) => {
+    const numRows = get(numRowsState);
+    return Array.from({ length: numRows }, (_, i) =>
+      get(gridRowsAtomFamily(i))
+    );
+  },
 });
 export const useAddNewRow = () => {
   return useRecoilCallback(
-    ({ set }) =>
-      (rowSize: CSSMeasure, index?: number) => {
+    ({ set, snapshot }) =>
+      async (rowSize: CSSMeasure, index?: number) => {
+        const rowIndex = index ?? (await snapshot.getPromise(numRowsState));
         // Add item to both the names list and the state atom family
-        set(gridRowsState, (rows) => [...rows, rowSize]);
+        set(gridRowsAtomFamily(rowIndex), rowSize);
         set(numRowsState, (n) => n + 1);
       }
   );
 };
 
-export const gridColsState = atom<GridTractDefs>({
+export const gridColsAtomFamily = atomFamily<CSSMeasure, number>({
+  key: "gridColsAtomFamily",
+  default: "1fr",
+});
+export const gridColsState = selector<GridTractDefs>({
   key: "gridColsState",
-  default: ["1fr"],
+  get: ({ get }) => {
+    const numCols = get(numColsState);
+    return Array.from({ length: numCols }, (_, i) =>
+      get(gridColsAtomFamily(i))
+    );
+  },
 });
 export const numColsState = atom<number>({
   key: "numColsState",
@@ -35,14 +60,23 @@ export const numColsState = atom<number>({
 });
 export const useAddNewCol = () => {
   return useRecoilCallback(
-    ({ set }) =>
-      (colSize: CSSMeasure, index?: number) => {
+    ({ set, snapshot }) =>
+      async (colSize: CSSMeasure, index?: number) => {
+        const colIndex = index ?? (await snapshot.getPromise(numColsState));
         // Add item to both the names list and the state atom family
-        set(gridColsState, (cols) => [...cols, colSize]);
+        set(gridColsAtomFamily(colIndex), colSize);
         set(numColsState, (n) => n + 1);
       }
   );
 };
+
+export const tractDimsState = selector<{ numRows: number; numCols: number }>({
+  key: "tractDimsState",
+  get: ({ get }) => ({
+    numRows: get(numRowsState),
+    numCols: get(numColsState),
+  }),
+});
 
 export const gapState = atom({
   key: "gapState", // unique ID (with respect to other atoms/selectors)
@@ -67,17 +101,20 @@ export const gridItemsState = atomFamily<GridItemDef, string>({
 export function useInitiateLayoutState(startingLayout: GridLayoutTemplate) {
   const setGapSize = useSetRecoilState(gapState);
   const addNewItem = useAddNewItem();
-  const setRows = useSetRecoilState(gridRowsState);
-  const setNumRows = useSetRecoilState(numRowsState);
-  const setCols = useSetRecoilState(gridColsState);
   const setNumCols = useSetRecoilState(numColsState);
+  const addNewRow = useAddNewRow();
+  const addNewCol = useAddNewCol();
 
   // Load initial state just once at the first render of component
   useEffect(() => {
     startingLayout.items.forEach((itemDef) => addNewItem(itemDef));
-    setRows(startingLayout.rows as CSSMeasure[]);
-    setNumRows(startingLayout.rows.length);
-    setCols(startingLayout.cols as CSSMeasure[]);
+    (startingLayout.rows as CSSMeasure[]).forEach((rowSize, i) =>
+      addNewRow(rowSize, i)
+    );
+
+    (startingLayout.cols as CSSMeasure[]).forEach((colSize, i) =>
+      addNewCol(colSize, i)
+    );
     setNumCols(startingLayout.cols.length);
     setGapSize(startingLayout.gap);
   }, []);

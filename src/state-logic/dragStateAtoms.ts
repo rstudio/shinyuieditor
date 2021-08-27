@@ -1,11 +1,7 @@
 import { atom, atomFamily, selector } from "recoil";
 import { enumerateGridDims } from "../helper-scripts/grid-helpers";
 import { DragDir, GridPos } from "../types";
-import {
-  gridColsState,
-  gridRowsState,
-  itemNamesState,
-} from "./gridLayoutAtoms";
+import { itemNamesState, tractDimsState } from "./gridLayoutAtoms";
 
 // When dragging is actively happening then we will have an object with all the
 // neccesary info to infer state from it
@@ -86,12 +82,11 @@ export const gridCellBoundingBoxFamily = atomFamily<
 export const gridCellBoundingBoxes = selector<GridItemBoundingBox[]>({
   key: "gridCellBoundingBoxes",
   get: ({ get }) => {
-    const rows = get(gridRowsState);
-    const cols = get(gridColsState);
+    const { numRows, numCols } = get(tractDimsState);
 
     return enumerateGridDims({
-      numRows: rows.length,
-      numCols: cols.length,
+      numRows,
+      numCols,
     }).map(({ row, col }) => get(gridCellBoundingBoxFamily({ col, row })));
   },
 });

@@ -3,11 +3,11 @@ import { useEffect, useRef } from "preact/hooks";
 import { useRecoilValue } from "recoil";
 import { placeOnGridOrCol } from "../../helper-scripts/grid-helpers";
 import { useGridDragger } from "../../state-logic/drag-logic";
-import { numColsState, numRowsState } from "../../state-logic/gridLayoutAtoms";
+import { tractDimsState } from "../../state-logic/gridLayoutAtoms";
 import { GridCard } from "../GridCard";
 import { GridCells } from "../GridCells/GridCells";
 import { GridItem } from "../GridItem";
-import { GridColsControls, GridRowsControls } from "../GridTractControls";
+import { GridTractControls } from "../GridTractControls";
 import { FakeBrowserBar } from "../TheFakeBrowserBar";
 import classes from "./style.module.css";
 
@@ -27,8 +27,7 @@ export const EditorGridContainer: FunctionComponent = ({ children }) => {
     <GridCard gridArea="editor" header={FakeBrowserBar} padding="0px">
       <div ref={containerRef} className={classes.mainGridContainer}>
         <GridTractBoundaries />
-        <GridRowsControls />
-        <GridColsControls />
+        <GridTractControls />
         {children}
         <GridCells />
       </div>
@@ -37,8 +36,7 @@ export const EditorGridContainer: FunctionComponent = ({ children }) => {
 };
 
 function GridTractBoundaries() {
-  const numRows = useRecoilValue(numRowsState);
-  const numCols = useRecoilValue(numColsState);
+  const { numRows, numCols } = useRecoilValue(tractDimsState);
 
   return (
     <>
