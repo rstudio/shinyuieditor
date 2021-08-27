@@ -5,6 +5,7 @@ import { GridItem } from "../components/GridItem";
 import { sameGridPos } from "../helper-scripts/grid-helpers";
 import { boxesOverlap } from "../helper-scripts/overlap-helpers";
 import { DragDir, GridPos } from "../types";
+import { gridItemsState } from "./gridLayoutAtoms";
 import {
   ActiveDrag,
   DragLocation,
@@ -13,8 +14,7 @@ import {
   gridCellBoundingBoxes,
   GridItemBoundingBox,
   gridItemBoundingBoxFamily,
-  gridItemsState,
-} from "./recoilAtoms";
+} from "./dragStateAtoms";
 
 export function useGridDragger(opts: { nameOfDragged?: string }) {
   const { nameOfDragged } = opts;

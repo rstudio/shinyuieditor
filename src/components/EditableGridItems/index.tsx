@@ -5,10 +5,10 @@ import { makeColPos, makeRowPos } from "../../helper-scripts/grid-helpers";
 import { useGridDragger } from "../../state-logic/drag-logic";
 import { useGridItemBoundingBoxRecorder } from "../../state-logic/gridItems";
 import {
-  gridItemBoundingBoxFamily,
-  gridItemsState,
   itemNamesState,
-} from "../../state-logic/recoilAtoms";
+  gridItemsState,
+} from "../../state-logic/gridLayoutAtoms";
+import { gridItemBoundingBoxFamily } from "../../state-logic/dragStateAtoms";
 import type { DragDir } from "../../types";
 import { DragIcon } from "../Icons";
 import classes from "./style.module.css";

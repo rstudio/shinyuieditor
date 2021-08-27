@@ -2,12 +2,11 @@ import { RefObject } from "preact";
 import { useEffect } from "preact/hooks";
 import { SetterOrUpdater, useRecoilCallback } from "recoil";
 import { GridItemDef, GridPos } from "../types";
+import { gridItemsState, itemNamesState } from "./gridLayoutAtoms";
 import {
   GridItemBoundingBox,
   gridItemBoundingBoxFamily,
-  gridItemsState,
-  itemNamesState,
-} from "./recoilAtoms";
+} from "./dragStateAtoms";
 
 export function useGridItemBoundingBoxRecorder({
   itemRef,

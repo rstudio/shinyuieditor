@@ -3,7 +3,7 @@ import { useEffect, useRef } from "preact/hooks";
 import { useRecoilValue } from "recoil";
 import { placeOnGridOrCol } from "../../helper-scripts/grid-helpers";
 import { useGridDragger } from "../../state-logic/drag-logic";
-import { gridColsState, gridRowsState } from "../../state-logic/recoilAtoms";
+import { numColsState, numRowsState } from "../../state-logic/gridLayoutAtoms";
 import { GridCard } from "../GridCard";
 import { GridCells } from "../GridCells/GridCells";
 import { GridItem } from "../GridItem";
@@ -37,8 +37,8 @@ export const EditorGridContainer: FunctionComponent = ({ children }) => {
 };
 
 function GridTractBoundaries() {
-  const numRows = useRecoilValue(gridRowsState).length;
-  const numCols = useRecoilValue(gridColsState).length;
+  const numRows = useRecoilValue(numRowsState);
+  const numCols = useRecoilValue(numColsState);
 
   return (
     <>

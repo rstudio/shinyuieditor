@@ -1,12 +1,11 @@
 import { atom, atomFamily, selector } from "recoil";
 import { enumerateGridDims } from "../helper-scripts/grid-helpers";
+import { DragDir, GridPos } from "../types";
 import {
-  CSSMeasure,
-  DragDir,
-  GridItemDef,
-  GridLayoutTemplate,
-  GridPos,
-} from "../types";
+  gridColsState,
+  gridRowsState,
+  itemNamesState,
+} from "./gridLayoutAtoms";
 
 // When dragging is actively happening then we will have an object with all the
 // neccesary info to infer state from it
@@ -43,30 +42,9 @@ export type GridItemBoundingBox = SelectionRect &
     offsetTop: number;
   };
 
-export type GridTractDefs = CSSMeasure[];
-export type GridTracts = Pick<GridLayoutTemplate, "rows" | "cols">;
-
-export const gridRowsState = atom<GridTractDefs>({
-  key: "gridRowsState",
-  default: ["1fr"],
-});
-export const gridColsState = atom<GridTractDefs>({
-  key: "gridColsState",
-  default: ["1fr"],
-});
-
-export const gapState = atom({
-  key: "gapState", // unique ID (with respect to other atoms/selectors)
-  default: "1rem", // default value (aka initial value)
-});
 export const dragStateAtom = atom<DragState>({
   key: "dragStateAtom",
   default: null,
-});
-
-export const itemNamesState = atom<string[]>({
-  key: "itemNamesState",
-  default: [],
 });
 
 // These keep the bounding boxes for items for overlap detection etc.
@@ -115,16 +93,5 @@ export const gridCellBoundingBoxes = selector<GridItemBoundingBox[]>({
       numRows: rows.length,
       numCols: cols.length,
     }).map(({ row, col }) => get(gridCellBoundingBoxFamily({ col, row })));
-  },
-});
-
-export const gridItemsState = atomFamily<GridItemDef, string>({
-  key: "gridItemsState",
-  default: {
-    name: "default",
-    startRow: 1,
-    endRow: 1,
-    startCol: 1,
-    endCol: 1,
   },
 });

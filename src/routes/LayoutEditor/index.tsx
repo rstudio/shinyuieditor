@@ -1,20 +1,19 @@
-import { useEffect } from "preact/hooks";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { AddItemModal } from "../../components/AddItemModal";
 import { EditableGridItems } from "../../components/EditableGridItems";
 import { EditorGridContainer } from "../../components/EditorGridContainer";
 import { EditorInstructions } from "../../components/EditorInstructions";
 import { EditorItemsListView } from "../../components/EditorItemsListView";
-import { EditorSettings } from "../../components/EditorSettings";
+import { EditorSettings, SettingPane } from "../../components/EditorSettings";
 import { GapSizeSetting } from "../../components/GapSizeSetting";
 import { DragFeedback } from "../../state-logic/drag-logic";
-import { useAddNewItem } from "../../state-logic/gridItems";
 import {
   gapState,
   gridColsState,
   gridRowsState,
-} from "../../state-logic/recoilAtoms";
-import type { CSSMeasure, GridLayoutTemplate } from "../../types";
+  useInitiateLayoutState,
+} from "../../state-logic/gridLayoutAtoms";
+import type { GridLayoutTemplate } from "../../types";
 import classes from "./style.module.css";
 
 export default function LayoutEditor({
@@ -22,24 +21,15 @@ export default function LayoutEditor({
 }: {
   startingLayout: GridLayoutTemplate;
 }) {
-  const setGapSize = useSetRecoilState(gapState);
-  const addNewItem = useAddNewItem();
-  const setRows = useSetRecoilState(gridRowsState);
-  const setCols = useSetRecoilState(gridColsState);
-
-  // Load initial state just once at the first render of component
-  useEffect(() => {
-    startingLayout.items.forEach((itemDef) => addNewItem(itemDef));
-    setRows(startingLayout.rows as CSSMeasure[]);
-    setCols(startingLayout.cols as CSSMeasure[]);
-    setGapSize(startingLayout.gap);
-  }, []);
+  useInitiateLayoutState(startingLayout);
 
   return (
     <div className={classes.editor}>
       <MainGridCSSVariables />
       <EditorSettings>
-        <GapSizeSetting />
+        <SettingPane label="Gap Size">
+          <GapSizeSetting />
+        </SettingPane>
       </EditorSettings>
       <EditorInstructions />
       <EditorItemsListView />
@@ -64,7 +54,6 @@ function MainGridCSSVariables() {
     --main-grid-gap: ${gap}; 
     --gap: ${gap};
   }
- 
   `;
 
   return <style>{styleBody}</style>;

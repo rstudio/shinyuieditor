@@ -1,4 +1,4 @@
-import { SelectionRect } from "../state-logic/recoilAtoms";
+import { SelectionRect } from "../state-logic/dragStateAtoms";
 
 type BoxSides =
   | "top"

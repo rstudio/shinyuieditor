@@ -5,7 +5,7 @@ import {
   gridColsState,
   gridRowsState,
   GridTractDefs,
-} from "../../state-logic/recoilAtoms";
+} from "../../state-logic/gridLayoutAtoms";
 import { CSSMeasure } from "../../types";
 import { CssUnitInput } from "../CssUnitInput";
 import { GridItem } from "../GridItem";
