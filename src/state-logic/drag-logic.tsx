@@ -2,6 +2,7 @@ import { useEffect } from "preact/hooks";
 import { useRecoilCallback, useRecoilValue } from "recoil";
 import { useAddItemModal } from "../components/AddItemModal";
 import { GridItem } from "../components/GridItem";
+import { sameGridPos } from "../helper-scripts/grid-helpers";
 import { boxesOverlap } from "../helper-scripts/overlap-helpers";
 import { DragDir, GridPos } from "../types";
 
@@ -66,10 +67,7 @@ export function useGridDragger(opts: {
       (e: MouseEvent) => {
         set(dragStateAtom, (dragState) => {
           const newDragState = moveDragState(dragState, e);
-          if (
-            newDragState?.dragType === "ResizeItemDrag" &&
-            newDragState.itemName
-          ) {
+          if (newDragState.shouldUpdateItemState) {
             set(gridItemsState(newDragState.itemName), (itemDef) => ({
               ...itemDef,
               ...(newDragState.gridPos as GridPos),
@@ -107,7 +105,7 @@ function setupInitialDragState({
   loc,
   dragDir,
   dragType,
-  name,
+  name = "new-item",
   itemBBox,
   gridCellPositions,
 }: {
@@ -178,10 +176,16 @@ function moveDragState(dragState: DragState, { pageX, pageY }: DragLocation) {
     dragBox.left = Math.min(pageX, dragBox.right);
   }
 
+  const newGridPos = dragPosOnGrid(dragBox, gridCellPositions);
+
+  const shouldUpdateItemState =
+    dragState.dragType === "ResizeItemDrag" &&
+    !sameGridPos(dragState.gridPos, newGridPos);
   return {
     ...dragState,
     dragBox: dragBox,
     gridPos: dragPosOnGrid(dragBox, gridCellPositions),
+    shouldUpdateItemState,
   };
 }
 

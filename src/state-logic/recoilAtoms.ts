@@ -25,7 +25,7 @@ export type ActiveDrag = {
   gridCellPositions: GridItemBoundingBox[];
   xOffset: number;
   yOffset: number;
-  itemName?: string;
+  itemName: string;
   gridPos: GridPos;
 };
 
