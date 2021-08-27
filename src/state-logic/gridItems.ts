@@ -4,6 +4,7 @@ import { SetterOrUpdater, useRecoilCallback } from "recoil";
 import { GridItemDef, GridPos } from "../types";
 import {
   GridItemBoundingBox,
+  gridItemBoundingBoxFamily,
   gridItemsState,
   itemNamesState,
 } from "./recoilAtoms";
@@ -45,7 +46,7 @@ export function useGridItemBoundingBoxRecorder({
     return () => {
       if (itemRef.current) resizeObserver.unobserve(itemRef.current);
     };
-  });
+  }, []);
 }
 
 export const useAddNewItem = () => {
@@ -61,5 +62,6 @@ export const useDeleteItem = () => {
     console.log(`Deleting item ${name}`);
     set(itemNamesState, (items) => items.filter((item) => item !== name));
     reset(gridItemsState(name));
+    reset(gridItemBoundingBoxFamily(name));
   });
 };
