@@ -16,18 +16,9 @@ export const gridRowsAtomFamily = atomFamily<CSSMeasure, number>({
   key: "gridRowsAtomFamily",
   default: "1fr",
 });
-export const numRowsState = atom<number>({
+const numRowsState = atom<number>({
   key: "numRowsState",
   default: 0,
-});
-export const allRowsState = selector<GridTractDefs>({
-  key: "allRowsState",
-  get: ({ get }) => {
-    const numRows = get(numRowsState);
-    return Array.from({ length: numRows }, (_, i) =>
-      get(gridRowsAtomFamily(i))
-    );
-  },
 });
 export const useAddNewRow = () => {
   return useRecoilCallback(
@@ -45,16 +36,7 @@ export const gridColsAtomFamily = atomFamily<CSSMeasure, number>({
   key: "gridColsAtomFamily",
   default: "1fr",
 });
-export const gridColsState = selector<GridTractDefs>({
-  key: "gridColsState",
-  get: ({ get }) => {
-    const numCols = get(numColsState);
-    return Array.from({ length: numCols }, (_, i) =>
-      get(gridColsAtomFamily(i))
-    );
-  },
-});
-export const numColsState = atom<number>({
+const numColsState = atom<number>({
   key: "numColsState",
   default: 1,
 });
@@ -81,6 +63,26 @@ export const tractDimsState = selector<{ numRows: number; numCols: number }>({
 export const gapState = atom({
   key: "gapState", // unique ID (with respect to other atoms/selectors)
   default: "1rem", // default value (aka initial value)
+});
+
+export const allLayoutState = selector<
+  Omit<GridLayoutTemplate, "items" | "name">
+>({
+  key: "allLayoutState",
+  get: ({ get }) => {
+    const numCols = get(numColsState);
+    const numRows = get(numRowsState);
+
+    return {
+      gap: get(gapState),
+      rows: Array.from({ length: numRows }, (_, i) =>
+        get(gridRowsAtomFamily(i))
+      ),
+      cols: Array.from({ length: numCols }, (_, i) =>
+        get(gridColsAtomFamily(i))
+      ),
+    };
+  },
 });
 
 export const itemNamesState = atom<string[]>({

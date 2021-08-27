@@ -1,14 +1,8 @@
 import { useRecoilValue } from "recoil";
-import {
-  allRowsState,
-  gapState,
-  gridColsState,
-} from "../state-logic/gridLayoutAtoms";
+import { allLayoutState } from "../state-logic/gridLayoutAtoms";
 
 export function MainGridCSSVariables() {
-  const gap = useRecoilValue(gapState);
-  const rows = useRecoilValue(allRowsState);
-  const cols = useRecoilValue(gridColsState);
+  const { gap, rows, cols } = useRecoilValue(allLayoutState);
 
   const styleBody = `
   body {
