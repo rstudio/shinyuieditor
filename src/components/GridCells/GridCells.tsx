@@ -1,16 +1,16 @@
 import { memo, useRef } from "preact/compat";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { enumerateGridDims } from "../../helper-scripts/grid-helpers";
 import { useGridItemBoundingBoxRecorder } from "../../state-logic/gridItems";
-import { gridCellBoundingBoxFamily } from "../../state-logic/recoilAtoms";
+import {
+  gridCellBoundingBoxFamily,
+  gridColsState,
+  gridRowsState,
+} from "../../state-logic/recoilAtoms";
 
-let GridCells = ({
-  numCols,
-  numRows,
-}: {
-  numCols: number;
-  numRows: number;
-}) => {
+let GridCells = () => {
+  const numRows = useRecoilValue(gridRowsState).length;
+  const numCols = useRecoilValue(gridColsState).length;
   return (
     <>
       {enumerateGridDims({ numRows, numCols }).map(({ row, col }) => {

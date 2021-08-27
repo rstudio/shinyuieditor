@@ -1,6 +1,5 @@
 import { ComponentChildren, FunctionComponent, Ref } from "preact";
 import { memo } from "preact/compat";
-import { GridLayoutDef } from "../../types";
 import classes from "./style.module.css";
 
 let GridContainer = ({
@@ -11,7 +10,10 @@ let GridContainer = ({
   styles: extraStyles,
   divRef,
   children,
-}: GridLayoutDef & {
+}: {
+  cols?: string[];
+  rows?: string[];
+  gap: string;
   className?: string;
   styles?: JSX.CSSProperties;
   divRef?: Ref<HTMLDivElement>;

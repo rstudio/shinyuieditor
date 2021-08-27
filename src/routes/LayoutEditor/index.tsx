@@ -1,5 +1,5 @@
 import { useEffect } from "preact/hooks";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { AddItemModal } from "../../components/AddItemModal";
 import { EditableGridItems } from "../../components/EditableGridItems";
 import { EditorGridContainer } from "../../components/EditorGridContainer";
@@ -53,11 +53,19 @@ export default function LayoutEditor({
 }
 
 function MainGridCSSVariables() {
-  return (
-    <style>
-      body{"{"}
-      --specialCustomColor: tomato;
-      {"}"}
-    </style>
-  );
+  const gap = useRecoilValue(gapState);
+  const rows = useRecoilValue(gridRowsState);
+  const cols = useRecoilValue(gridColsState);
+
+  const styleBody = `
+  body {
+    --main-grid-columns: ${cols.join(" ")};
+    --main-grid-rows: ${rows.join(" ")};
+    --main-grid-gap: ${gap}; 
+    --gap: ${gap};
+  }
+ 
+  `;
+
+  return <style>{styleBody}</style>;
 }

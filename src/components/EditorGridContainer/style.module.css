@@ -1,3 +1,13 @@
+.mainGridContainer {
+  display: grid;
+  height: 100%;
+  position: relative;
+  grid-template-columns: var(--main-grid-columns);
+  grid-template-rows: var(--main-grid-rows);
+  gap: var(--main-grid-gap);
+  padding: var(--main-grid-gap);
+}
+
 .colTractBoundary,
 .rowTractBoundary {
   background-color: var(--light-grey, grey);

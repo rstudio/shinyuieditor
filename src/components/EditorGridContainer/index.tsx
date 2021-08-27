@@ -1,18 +1,13 @@
 import type { FunctionComponent } from "preact";
-import { useEffect, useMemo, useRef } from "preact/hooks";
+import { useEffect, useRef } from "preact/hooks";
 import { useRecoilValue } from "recoil";
 import { placeOnGridOrCol } from "../../helper-scripts/grid-helpers";
 import { useGridDragger } from "../../state-logic/drag-logic";
-import {
-  gapState,
-  gridColsState,
-  gridRowsState,
-} from "../../state-logic/recoilAtoms";
+import { gridColsState, gridRowsState } from "../../state-logic/recoilAtoms";
 import { GridCard } from "../GridCard";
 import { GridCells } from "../GridCells/GridCells";
-import { GridContainer } from "../GridContainer";
 import { GridItem } from "../GridItem";
-import { GridRowsControls, GridColsControls } from "../GridTractControls";
+import { GridColsControls, GridRowsControls } from "../GridTractControls";
 import { FakeBrowserBar } from "../TheFakeBrowserBar";
 import classes from "./style.module.css";
 
@@ -28,41 +23,23 @@ export const EditorGridContainer: FunctionComponent = ({ children }) => {
     };
   }, []);
 
-  const gap = useRecoilValue(gapState);
-  const rows = useRecoilValue(gridRowsState);
-  const cols = useRecoilValue(gridColsState);
-
-  const numRows = rows.length;
-  const numCols = cols.length;
-  // This feels very unneccesary but it helps avoid rerenders
-  const containerStyles = useMemo(() => ({ "--gap": gap }), [gap]);
-
   return (
     <GridCard gridArea="editor" header={FakeBrowserBar} padding="0px">
-      <GridContainer
-        cols={cols}
-        rows={rows}
-        gap={gap}
-        divRef={containerRef}
-        styles={containerStyles}
-      >
-        <GridTractBoundaries numCols={numCols} numRows={numRows} />
+      <div ref={containerRef} className={classes.mainGridContainer}>
+        <GridTractBoundaries />
         <GridRowsControls />
         <GridColsControls />
         {children}
-        <GridCells numRows={rows.length} numCols={cols.length} />
-      </GridContainer>
+        <GridCells />
+      </div>
     </GridCard>
   );
 };
 
-function GridTractBoundaries({
-  numRows,
-  numCols,
-}: {
-  numRows: number;
-  numCols: number;
-}) {
+function GridTractBoundaries() {
+  const numRows = useRecoilValue(gridRowsState).length;
+  const numCols = useRecoilValue(gridColsState).length;
+
   return (
     <>
       {Array.from({ length: numRows - 1 }, (_, index) => (
