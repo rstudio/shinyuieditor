@@ -36,11 +36,9 @@ export function GridPreview(props: {
       <h3>{name}</h3>
       <GridContainer
         className={classes.grid}
-        defs={{
-          cols: cols.map(scaleUnit),
-          rows: rows.map(scaleUnit),
-          gap: `calc(${gap} / ${scale})`,
-        }}
+        cols={cols.map(scaleUnit)}
+        rows={rows.map(scaleUnit)}
+        gap={`calc(${gap} / ${scale})`}
       >
         {items.map((def) => (
           <GridItem className={classes.item} key={def.name} {...def} />
