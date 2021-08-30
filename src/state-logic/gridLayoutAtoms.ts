@@ -26,16 +26,16 @@ const numRowsState = atom<number>({
 });
 
 export const useTractState = (
-  countAtom: RecoilState<number>,
-  stateAtomFamily: (param: number) => RecoilState<CSSMeasure>
+  tractCountAtom: RecoilState<number>,
+  tractsAtomFamily: (param: number) => RecoilState<CSSMeasure>
 ) => {
   const addNewTract = useRecoilCallback(
     ({ set, snapshot }) =>
       async (tractSize: CSSMeasure, index?: number) => {
-        const tractIndex = index ?? (await snapshot.getPromise(countAtom));
+        const tractIndex = index ?? (await snapshot.getPromise(tractCountAtom));
         // Add item to both the names list and the state atom family
-        set(stateAtomFamily(tractIndex), tractSize);
-        set(countAtom, (n) => n + 1);
+        set(tractsAtomFamily(tractIndex), tractSize);
+        set(tractCountAtom, (n) => n + 1);
       },
     []
   );
@@ -50,12 +50,12 @@ export const useTractState = (
   const resetTracts = useRecoilCallback(
     ({ reset, snapshot }) =>
       async () => {
-        const numTracts = await snapshot.getPromise(countAtom);
+        const numTracts = await snapshot.getPromise(tractCountAtom);
         for (let i = 0; i < numTracts; i++) {
-          reset(stateAtomFamily(i));
+          reset(tractsAtomFamily(i));
         }
 
-        reset(countAtom);
+        reset(tractCountAtom);
       },
     []
   );
