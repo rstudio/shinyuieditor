@@ -38,7 +38,7 @@ export const gridColsAtomFamily = atomFamily<CSSMeasure, number>({
 });
 const numColsState = atom<number>({
   key: "numColsState",
-  default: 1,
+  default: 0,
 });
 export const useAddNewCol = () => {
   return useRecoilCallback(
@@ -103,7 +103,6 @@ export const gridItemsState = atomFamily<GridItemDef, string>({
 export function useInitiateLayoutState(startingLayout: GridLayoutTemplate) {
   const setGapSize = useSetRecoilState(gapState);
   const addNewItem = useAddNewItem();
-  const setNumCols = useSetRecoilState(numColsState);
   const addNewRow = useAddNewRow();
   const addNewCol = useAddNewCol();
 
@@ -117,7 +116,6 @@ export function useInitiateLayoutState(startingLayout: GridLayoutTemplate) {
     (startingLayout.cols as CSSMeasure[]).forEach((colSize, i) =>
       addNewCol(colSize, i)
     );
-    setNumCols(startingLayout.cols.length);
     setGapSize(startingLayout.gap);
   }, []);
 }
