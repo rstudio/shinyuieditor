@@ -1,16 +1,20 @@
-import { useEffect } from "preact/hooks";
 import {
   atom,
   atomFamily,
+  RecoilState,
   selector,
   useRecoilCallback,
-  useSetRecoilState,
 } from "recoil";
 import { CSSMeasure, GridItemDef, GridLayoutTemplate } from "../types";
 import { useAddNewItem } from "./gridItems";
 
 export type GridTractDefs = CSSMeasure[];
 export type GridTracts = Pick<GridLayoutTemplate, "rows" | "cols">;
+
+export const gridTemplateName = atom<string>({
+  key: "gridTemplateName",
+  default: "unselected",
+});
 
 export const gridRowsAtomFamily = atomFamily<CSSMeasure, number>({
   key: "gridRowsAtomFamily",
@@ -20,16 +24,51 @@ const numRowsState = atom<number>({
   key: "numRowsState",
   default: 0,
 });
-export const useAddNewRow = () => {
-  return useRecoilCallback(
+
+export const useTractState = (
+  countAtom: RecoilState<number>,
+  stateAtomFamily: (param: number) => RecoilState<CSSMeasure>
+) => {
+  const addNewTract = useRecoilCallback(
     ({ set, snapshot }) =>
-      async (rowSize: CSSMeasure, index?: number) => {
-        const rowIndex = index ?? (await snapshot.getPromise(numRowsState));
+      async (tractSize: CSSMeasure, index?: number) => {
+        const tractIndex = index ?? (await snapshot.getPromise(countAtom));
         // Add item to both the names list and the state atom family
-        set(gridRowsAtomFamily(rowIndex), rowSize);
-        set(numRowsState, (n) => n + 1);
-      }
+        set(stateAtomFamily(tractIndex), tractSize);
+        set(countAtom, (n) => n + 1);
+      },
+    []
   );
+
+  const addNewTracts = useRecoilCallback(
+    () => (tractValues: CSSMeasure[]) => {
+      tractValues.forEach((rowSize, i) => addNewTract(rowSize, i));
+    },
+    []
+  );
+
+  const resetTracts = useRecoilCallback(
+    ({ reset, snapshot }) =>
+      async () => {
+        const numTracts = await snapshot.getPromise(countAtom);
+        for (let i = 0; i < numTracts; i++) {
+          reset(stateAtomFamily(i));
+        }
+
+        reset(countAtom);
+      },
+    []
+  );
+
+  return {
+    add: addNewTract,
+    addAll: addNewTracts,
+    reset: resetTracts,
+  };
+};
+
+export const useAddNewRow = () => {
+  return useTractState(numRowsState, gridRowsAtomFamily);
 };
 
 export const gridColsAtomFamily = atomFamily<CSSMeasure, number>({
@@ -41,15 +80,7 @@ const numColsState = atom<number>({
   default: 0,
 });
 export const useAddNewCol = () => {
-  return useRecoilCallback(
-    ({ set, snapshot }) =>
-      async (colSize: CSSMeasure, index?: number) => {
-        const colIndex = index ?? (await snapshot.getPromise(numColsState));
-        // Add item to both the names list and the state atom family
-        set(gridColsAtomFamily(colIndex), colSize);
-        set(numColsState, (n) => n + 1);
-      }
-  );
+  return useTractState(numColsState, gridColsAtomFamily);
 };
 
 export const tractDimsState = selector<{ numRows: number; numCols: number }>({
@@ -100,22 +131,34 @@ export const gridItemsState = atomFamily<GridItemDef, string>({
   },
 });
 
-export function useInitiateLayoutState(startingLayout: GridLayoutTemplate) {
-  const setGapSize = useSetRecoilState(gapState);
+export function useLayoutStateSetter() {
   const addNewItem = useAddNewItem();
-  const addNewRow = useAddNewRow();
-  const addNewCol = useAddNewCol();
+  const rowState = useAddNewRow();
+  const colState = useAddNewCol();
+  const setUpNewLayout = useRecoilCallback(
+    ({ set, snapshot }) =>
+      async ({ rows, cols, gap, name, items }: GridLayoutTemplate) => {
+        const currentLayoutName = await snapshot.getPromise(gridTemplateName);
 
-  // Load initial state just once at the first render of component
-  useEffect(() => {
-    startingLayout.items.forEach((itemDef) => addNewItem(itemDef));
-    (startingLayout.rows as CSSMeasure[]).forEach((rowSize, i) =>
-      addNewRow(rowSize, i)
-    );
+        if (currentLayoutName === name) {
+          console.log("Layout template has not changed so ending early");
+          return;
+        }
+        set(gridTemplateName, name);
 
-    (startingLayout.cols as CSSMeasure[]).forEach((colSize, i) =>
-      addNewCol(colSize, i)
-    );
-    setGapSize(startingLayout.gap);
-  }, []);
+        items.forEach((itemDef) => addNewItem(itemDef));
+        rowState.addAll(rows as CSSMeasure[]);
+        colState.addAll(cols as CSSMeasure[]);
+
+        set(gapState, gap);
+      },
+    []
+  );
+
+  return setUpNewLayout;
+}
+
+export function useInitiateLayoutState(startingLayout: GridLayoutTemplate) {
+  const layoutSetter = useLayoutStateSetter();
+  layoutSetter(startingLayout);
 }
