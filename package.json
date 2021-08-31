@@ -9,7 +9,7 @@
   "dependencies": {
     "preact": "^10.5.13",
     "preact-router": "^3.2.1",
-    "recoil": "^0.4.0"
+    "recoil": "^0.4.1"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.0.0",
