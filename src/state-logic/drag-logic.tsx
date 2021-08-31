@@ -269,9 +269,9 @@ function dragPosOnGrid(
   // so typescript is happy
   return {
     startRow: startRow ?? 1,
-    endRow: (endRow ?? 1) + 1,
+    endRow: endRow ?? 1,
     startCol: startCol ?? 1,
-    endCol: (endCol ?? 1) + 1,
+    endCol: endCol ?? 1,
   };
 }
 
