@@ -1,3 +1,4 @@
+import { useCallback } from "preact/hooks";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { placeOnGridOrCol } from "../../helper-scripts/grid-helpers";
 import {
@@ -5,11 +6,12 @@ import {
   gridRowsAtomFamily,
   tractDimsState,
   TractDirection,
+  useTractState,
 } from "../../state-logic/gridLayoutAtoms";
 import { CssUnitInput } from "../CssUnitInput";
 import { GridItem } from "../GridItem";
-import classes from "./style.module.css";
 import { SvgIcon } from "../Icons";
+import classes from "./style.module.css";
 
 function GridTractControl({
   dir,
@@ -32,7 +34,7 @@ function GridTractControl({
       className={className}
     >
       <CssUnitInput value={value} onChange={(newVal) => setValue(newVal)} />
-      <TractAddButton />
+      <TractAddButton dir={dir} index={index + 1} />
     </GridItem>
   );
 }
@@ -51,9 +53,31 @@ export function GridTractControls() {
   );
 }
 
-function TractAddButton() {
+function preventMouseDownPropigation(e: MouseEvent) {
+  e.stopPropagation();
+}
+
+function TractAddButton({
+  dir,
+  index,
+}: {
+  dir: TractDirection;
+  index: number;
+}) {
+  const tractState = useTractState(dir);
+  const onClick = useCallback(
+    (e: MouseEvent) => {
+      e.stopPropagation();
+      tractState.add("1fr", index);
+    },
+    [dir, index]
+  );
   return (
-    <button className={classes.addTractButton}>
+    <button
+      className={classes.addTractButton}
+      onMouseDown={preventMouseDownPropigation}
+      onClick={onClick}
+    >
       <SvgIcon name={"plus"} />
     </button>
   );

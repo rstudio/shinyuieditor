@@ -52,16 +52,45 @@ export const numColsState = atom<number>({
   default: 0,
 });
 
-export const useTractState = (
-  tractCountAtom: RecoilState<number>,
-  tractsAtomFamily: (param: number) => RecoilState<CSSMeasure>
-) => {
+export const useTractState = (dir: TractDirection) => {
+  const tractsAtomFamily =
+    dir === "rows" ? gridRowsAtomFamily : gridColsAtomFamily;
+  const tractCountAtom = dir === "rows" ? numRowsState : numColsState;
+
   const addNewTract = useRecoilTransaction_UNSTABLE(
-    ({ set }) =>
+    ({ set, get }) =>
       (tractSize: CSSMeasure, index: number) => {
+        const currNumTracts = get(tractCountAtom);
+        const newNumTracts = currNumTracts + 1;
+
+        if (index + 1 <= currNumTracts) {
+          // Get the tracts that exist _after_ this current one as they will
+          // have their indices shifted up one
+          const numTractsShifted = currNumTracts - index;
+          const laterTracts = Array.from(
+            { length: numTractsShifted },
+            (_, i) => {
+              const currentIndex = index + i;
+              return {
+                index: currentIndex + 1,
+                value: get(tractsAtomFamily(currentIndex)),
+              };
+            }
+          );
+
+          // Set the new tract
+          set(tractsAtomFamily(index), tractSize);
+
+          // Now update the ones above it
+          laterTracts.forEach(({ index, value }) => {
+            set(tractsAtomFamily(index), value);
+          });
+        } else {
+          set(tractsAtomFamily(index), tractSize);
+        }
+
         // Add item to both the names list and the state atom family
-        set(tractsAtomFamily(index), tractSize);
-        set(tractCountAtom, (n) => n + 1);
+        set(tractCountAtom, newNumTracts);
       }
   );
 
@@ -157,8 +186,8 @@ export const gridItemsState = atomFamily<GridItemDef, string>({
 
 export function useLayoutStateSetter() {
   const itemState = useGridItemState();
-  const rowState = useTractState(numRowsState, gridRowsAtomFamily);
-  const colState = useTractState(numColsState, gridColsAtomFamily);
+  const rowState = useTractState("rows");
+  const colState = useTractState("cols");
 
   const setUpNewLayout = useRecoilCallback(
     ({ set, reset, snapshot }) =>
