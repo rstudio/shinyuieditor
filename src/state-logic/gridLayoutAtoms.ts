@@ -85,6 +85,38 @@ export const useTractState = (dir: TractDirection) => {
           laterTracts.forEach(({ index, value }) => {
             set(tractsAtomFamily(index), value);
           });
+
+          const itemNames = get(itemNamesState);
+          itemNames.forEach((name) => {
+            const itemDef = { ...get(gridItemsState(name)) };
+            const startPos = dir === "rows" ? "startRow" : "startCol";
+            const endPos = dir === "rows" ? "endRow" : "endCol";
+            const currentStart = itemDef[startPos];
+            const currentEnd = itemDef[endPos] ?? currentStart;
+
+            // There are three options for positioning.
+            // First: the new tract is beyond the end of the item
+            //   and then nothing needs to happen
+            // Second: The new tract is before the item entirely, then both the
+            //   start and the end need to be shifted up
+            // Third: The new tract is _within_ the boundaries of the item
+            //   in this case the item needs to just have its end pos adjusted up
+
+            if (index >= currentEnd) {
+              // Beyond end of item and we dont need to do anything
+              return;
+            }
+            if (index < currentStart) {
+              // Before item
+              itemDef[startPos] = currentStart + 1;
+              itemDef[endPos] = currentEnd + 1;
+            } else {
+              // Within item bounds
+              itemDef[endPos] = currentEnd + 1;
+            }
+
+            set(gridItemsState(name), itemDef);
+          });
         } else {
           set(tractsAtomFamily(index), tractSize);
         }
@@ -119,10 +151,6 @@ export const useTractState = (dir: TractDirection) => {
   };
 };
 
-type TractAtomSetter = (
-  s: RecoilState<CSSMeasure>,
-  u: CSSMeasure | ((currVal: CSSMeasure) => CSSMeasure)
-) => void;
 type TractAtomFamily = (param: number) => RecoilState<CSSMeasure>;
 function resetTractStates(
   numTracts: number,
