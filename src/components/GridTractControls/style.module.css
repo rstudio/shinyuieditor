@@ -4,6 +4,7 @@
   height: var(--size);
   width: var(--size);
   display: grid;
+  position: relative;
 }
 
 .rowSizeControls {
@@ -11,9 +12,11 @@
   margin-left: calc(-1 * (var(--size) + var(--gap)));
   align-content: center;
   justify-content: end;
+  height: 100%;
 }
 .colSizeControls {
   justify-self: center;
+  width: 100%;
   margin-top: calc(
     -1 * (var(--size) + var(--gap) + var(--card-header-height, 35px))
   );
@@ -21,34 +24,37 @@
   align-content: end;
 }
 
-.colTractBoundary,
-.rowTractBoundary {
-  background-color: var(--light-grey, grey);
-  border-radius: var(--corner-radius);
-  --overhang: -20px;
-  --length: calc(100% - 2 * var(--overhang));
-  --thickness: min(calc(var(--gap) - 3px), 4px);
-  --offset: calc((var(--gap) + var(--thickness)) / -2);
-}
-
-.rowTractBoundary {
-  height: var(--thickness);
-  align-self: end;
-  margin-bottom: var(--offset);
-  width: var(--length);
-  margin-left: var(--overhang);
-}
-.colTractBoundary {
-  width: var(--thickness);
-  justify-self: end;
-  margin-right: var(--offset);
-  height: var(--length);
-  margin-top: var(--overhang);
-}
-
 .addTractButton {
-  --size: 30px;
+  --size: 28px;
+  --margin-offset: calc(-1 * var(--size) - 2px);
+  --pad: 5px; /* This is matched to the css input to make them lineup nice*/
   width: var(--size);
   height: var(--size);
   padding: 0px;
+  position: absolute;
+  font-size: 15px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0);
+  border: 0px solid rgba(255, 255, 255, 0);
+  color: var(--dark-gray, gray);
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.addTractButton:hover {
+  background-color: var(--dark-gray, gray);
+  color: white;
+}
+
+.addTractButton svg {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.colSizeControls .addTractButton {
+  right: var(--margin-offset);
+  bottom: var(--pad);
+}
+.rowSizeControls .addTractButton {
+  bottom: var(--margin-offset);
+  right: var(--pad);
 }
