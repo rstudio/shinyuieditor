@@ -1,26 +1,3 @@
-.rowSizeControls,
-.colSizeControls {
-  --size: 20px;
-  height: var(--size);
-  width: var(--size);
-  display: grid;
-}
-
-.rowSizeControls {
-  align-self: center;
-  margin-left: calc(-1 * (var(--size) + var(--gap)));
-  align-content: center;
-  justify-content: end;
-}
-.colSizeControls {
-  justify-self: center;
-  margin-top: calc(
-    -1 * (var(--size) + var(--gap) + var(--card-header-height, 35px))
-  );
-  justify-content: center;
-  align-content: end;
-}
-
 .colTractBoundary,
 .rowTractBoundary {
   background-color: var(--light-grey, grey);
@@ -44,11 +21,4 @@
   margin-right: var(--offset);
   height: var(--length);
   margin-top: var(--overhang);
-}
-
-.addTractButton {
-  --size: 30px;
-  width: var(--size);
-  height: var(--size);
-  padding: 0px;
 }

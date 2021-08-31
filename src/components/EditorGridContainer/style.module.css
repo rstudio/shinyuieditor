@@ -7,28 +7,3 @@
   gap: var(--main-grid-gap);
   padding: var(--main-grid-gap);
 }
-
-.colTractBoundary,
-.rowTractBoundary {
-  background-color: var(--light-grey, grey);
-  border-radius: var(--corner-radius);
-  --overhang: -20px;
-  --length: calc(100% - 2 * var(--overhang));
-  --thickness: min(calc(var(--gap) - 3px), 4px);
-  --offset: calc((var(--gap) + var(--thickness)) / -2);
-}
-
-.rowTractBoundary {
-  height: var(--thickness);
-  align-self: end;
-  margin-bottom: var(--offset);
-  width: var(--length);
-  margin-left: var(--overhang);
-}
-.colTractBoundary {
-  width: var(--thickness);
-  justify-self: end;
-  margin-right: var(--offset);
-  height: var(--length);
-  margin-top: var(--overhang);
-}

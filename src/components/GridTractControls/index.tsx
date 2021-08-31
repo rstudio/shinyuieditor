@@ -1,66 +1,27 @@
-import { SetterOrUpdater, useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { placeOnGridOrCol } from "../../helper-scripts/grid-helpers";
 import {
   gridColsAtomFamily,
   gridRowsAtomFamily,
   tractDimsState,
+  TractDirection,
 } from "../../state-logic/gridLayoutAtoms";
-import { CSSMeasure } from "../../types";
 import { CssUnitInput } from "../CssUnitInput";
 import { GridItem } from "../GridItem";
 import classes from "./style.module.css";
-
-export function GridTractControls() {
-  const { numRows, numCols } = useRecoilValue(tractDimsState);
-  return (
-    <>
-      {Array.from({ length: numRows }, (_, i) => (
-        <RowTractControl index={i} />
-      ))}
-      {Array.from({ length: numCols }, (_, i) => (
-        <ColTractControl index={i} />
-      ))}
-    </>
-  );
-}
-
-function ColTractControl({ index }: { index: number }) {
-  const [value, setValue] = useRecoilState(gridColsAtomFamily(index));
-
-  return (
-    <GridTractControl
-      dir="cols"
-      index={index}
-      value={value}
-      setValue={setValue}
-    />
-  );
-}
-
-function RowTractControl({ index }: { index: number }) {
-  const [value, setValue] = useRecoilState(gridRowsAtomFamily(index));
-
-  return (
-    <GridTractControl
-      dir="rows"
-      index={index}
-      value={value}
-      setValue={setValue}
-    />
-  );
-}
+import { SvgIcon } from "../Icons";
 
 function GridTractControl({
   dir,
   index,
-  value,
-  setValue,
 }: {
-  dir: "rows" | "cols";
+  dir: TractDirection;
   index: number;
-  value: CSSMeasure;
-  setValue: SetterOrUpdater<CSSMeasure>;
 }) {
+  const [value, setValue] = useRecoilState(
+    dir === "rows" ? gridRowsAtomFamily(index) : gridColsAtomFamily(index)
+  );
+
   const className =
     dir === "rows" ? classes.rowSizeControls : classes.colSizeControls;
 
@@ -71,6 +32,29 @@ function GridTractControl({
       className={className}
     >
       <CssUnitInput value={value} onChange={(newVal) => setValue(newVal)} />
+      <TractAddButton />
     </GridItem>
+  );
+}
+
+export function GridTractControls() {
+  const { numRows, numCols } = useRecoilValue(tractDimsState);
+  return (
+    <>
+      {Array.from({ length: numRows }, (_, i) => (
+        <GridTractControl dir="rows" index={i} />
+      ))}
+      {Array.from({ length: numCols }, (_, i) => (
+        <GridTractControl dir="cols" index={i} />
+      ))}
+    </>
+  );
+}
+
+function TractAddButton() {
+  return (
+    <button className={classes.addTractButton}>
+      <SvgIcon name={"plus"} />
+    </button>
   );
 }
