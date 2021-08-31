@@ -1,14 +1,14 @@
 import { RefObject } from "preact";
 import { useMemo, useRef } from "preact/hooks";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { makeColPos, makeRowPos } from "../../helper-scripts/grid-helpers";
+import { makeTractPos } from "../../helper-scripts/grid-helpers";
 import { useGridDragger } from "../../state-logic/drag-logic";
+import { gridItemBoundingBoxFamily } from "../../state-logic/dragStateAtoms";
 import { useGridItemBoundingBoxRecorder } from "../../state-logic/gridItems";
 import {
-  itemNamesState,
   gridItemsState,
+  itemNamesState,
 } from "../../state-logic/gridLayoutAtoms";
-import { gridItemBoundingBoxFamily } from "../../state-logic/dragStateAtoms";
 import type { DragDir } from "../../types";
 import { DragIcon } from "../Icons";
 import classes from "./style.module.css";
@@ -62,8 +62,8 @@ const EditableGridItem = ({ name }: { name: string }) => {
       ref={itemRef}
       className={classes.item}
       style={{
-        "--cols": makeColPos({ startCol, endCol }),
-        "--rows": makeRowPos({ startRow, endRow }),
+        "--cols": makeTractPos(startCol, endCol),
+        "--rows": makeTractPos(startRow, endRow),
       }}
       title={name}
     >

@@ -1,22 +1,13 @@
 import { TractDirection } from "../state-logic/gridLayoutAtoms";
 import { GridPos } from "../types";
 
-export function makeRowPos({
-  startRow,
-  endRow,
-}: Pick<GridPos, "startRow" | "endRow">) {
-  let pos = String(startRow ?? 1);
-  if (endRow) pos += "/" + endRow;
-  return pos;
-}
+export function makeTractPos(start: number, end?: number) {
+  const pos = String(start);
+  if (typeof end === "undefined") return pos;
 
-export function makeColPos({
-  startCol,
-  endCol,
-}: Pick<GridPos, "startCol" | "endCol">) {
-  let pos = String(startCol ?? 1);
-  if (endCol) pos += "/" + endCol;
-  return pos;
+  // If a negative end index was provided then just leave it be
+  const endIndex = end < 0 ? end : end + 1;
+  return pos + "/" + endIndex;
 }
 
 export function sameGridPos(a?: GridPos, b?: GridPos) {

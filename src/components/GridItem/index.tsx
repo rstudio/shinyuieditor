@@ -1,5 +1,5 @@
 import { FunctionComponent, Ref } from "preact";
-import { makeColPos, makeRowPos } from "../../helper-scripts/grid-helpers";
+import { makeTractPos } from "../../helper-scripts/grid-helpers";
 
 export const GridItem: FunctionComponent<{
   startRow?: number;
@@ -24,8 +24,8 @@ export const GridItem: FunctionComponent<{
   const styles = { ...extraStyles };
 
   if (startRow && startCol) {
-    styles.gridRow = makeRowPos({ startRow, endRow });
-    styles.gridColumn = makeColPos({ startCol, endCol });
+    styles.gridRow = makeTractPos(startRow, endRow);
+    styles.gridColumn = makeTractPos(startCol, endCol);
   } else if (gridArea) {
     styles.gridArea = gridArea;
   } else {
