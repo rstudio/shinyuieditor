@@ -7,17 +7,9 @@ import { EditorSettings, SettingPane } from "../../components/EditorSettings";
 import { GapSizeSetting } from "../../components/GapSizeSetting";
 import { MainGridCSSVariables } from "../../components/MainGridCSSVariables";
 import { DragFeedback } from "../../state-logic/drag-logic";
-import { useInitiateLayoutState } from "../../state-logic/gridLayoutAtoms";
-import type { GridLayoutTemplate } from "../../types";
 import classes from "./style.module.css";
 
-export default function LayoutEditor({
-  startingLayout,
-}: {
-  startingLayout: GridLayoutTemplate;
-}) {
-  useInitiateLayoutState(startingLayout);
-
+export default function LayoutEditor() {
   return (
     <div className={classes.editor}>
       <MainGridCSSVariables />

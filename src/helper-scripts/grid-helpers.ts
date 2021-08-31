@@ -1,3 +1,4 @@
+import { TractDirection } from "../state-logic/gridLayoutAtoms";
 import { GridPos } from "../types";
 
 export function makeRowPos({
@@ -50,7 +51,7 @@ export function placeOnGridOrCol({
   dir,
 }: {
   index: number;
-  dir: "rows" | "cols";
+  dir: TractDirection;
 }) {
   return dir === "rows"
     ? {
