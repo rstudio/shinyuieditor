@@ -1,16 +1,12 @@
 import { RefObject } from "preact";
 import { useEffect } from "preact/hooks";
-import {
-  SetterOrUpdater,
-  useRecoilCallback,
-  useRecoilTransaction_UNSTABLE,
-} from "recoil";
+import { SetterOrUpdater, useRecoilTransaction_UNSTABLE } from "recoil";
 import { GridItemDef, GridPos } from "../types";
-import { gridItemsState, itemNamesState } from "./gridLayoutAtoms";
 import {
   GridItemBoundingBox,
   gridItemBoundingBoxFamily,
 } from "./dragStateAtoms";
+import { gridItemsState, itemNamesState } from "./gridLayoutAtoms";
 
 export function useGridItemBoundingBoxRecorder({
   itemRef,
@@ -51,30 +47,41 @@ export function useGridItemBoundingBoxRecorder({
 }
 
 export const useAddNewItem = () => {
-  return useRecoilCallback(({ set }) => (itemDef: GridItemDef) => {
-    // Add item to both the names list and the state atom family
-    set(itemNamesState, (items) => [...items, itemDef.name]);
-    set(gridItemsState(itemDef.name), { ...itemDef });
-  });
+  return useRecoilTransaction_UNSTABLE(
+    ({ set }) =>
+      (itemDef: GridItemDef | GridItemDef[]) => {
+        const addAnItem = (itemDef: GridItemDef) => {
+          // Add item to both the names list and the state atom family
+          set(itemNamesState, (items) => [...items, itemDef.name]);
+          set(gridItemsState(itemDef.name), { ...itemDef });
+        };
+
+        if (Array.isArray(itemDef)) {
+          // single item
+          itemDef.forEach(addAnItem);
+        } else {
+          addAnItem(itemDef);
+        }
+      },
+    []
+  );
 };
 
 export const useDeleteItem = () => {
-  return useRecoilCallback(({ set, reset }) => (name: string) => {
-    set(itemNamesState, (items) => items.filter((item) => item !== name));
-    reset(gridItemsState(name));
-    reset(gridItemBoundingBoxFamily(name));
-  });
+  return useRecoilTransaction_UNSTABLE(
+    ({ set, reset }) =>
+      (name: string) => {
+        set(itemNamesState, (items) => items.filter((item) => item !== name));
+        reset(gridItemsState(name));
+        reset(gridItemBoundingBoxFamily(name));
+      },
+    []
+  );
 };
 
 export const useGridItemState = () => {
   const addNewItem = useAddNewItem();
   const deleteItem = useDeleteItem();
-  const addNewItems = useRecoilCallback(
-    () => (items: GridItemDef[]) => {
-      items.forEach(addNewItem);
-    },
-    []
-  );
 
   const resetItems = useRecoilTransaction_UNSTABLE(
     ({ get }) =>
@@ -87,7 +94,6 @@ export const useGridItemState = () => {
 
   return {
     add: addNewItem,
-    addAll: addNewItems,
     reset: resetItems,
   };
 };

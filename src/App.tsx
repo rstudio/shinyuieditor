@@ -12,8 +12,8 @@ import { About } from "./routes/About";
 import { GridGallery } from "./routes/GridGallery";
 import LayoutEditor from "./routes/LayoutEditor";
 import {
+  fullLayoutState,
   gridTemplateNameSel,
-  useLayoutStateSetter,
 } from "./state-logic/gridLayoutAtoms";
 
 export function App() {
@@ -30,7 +30,8 @@ const findLayout = (name: string) =>
 function AppBody() {
   const templateName = useRecoilValue(gridTemplateNameSel);
   const setTemplateName = useSetRecoilState(gridTemplateNameSel);
-  const setUpNewLayout = useLayoutStateSetter();
+  // const setUpNewLayout = useLayoutStateSetter();
+  const setUpNewLayout = useSetRecoilState(fullLayoutState);
 
   const setupByName = useCallback((name: string) => {
     console.log("Setting the layout name to", name);

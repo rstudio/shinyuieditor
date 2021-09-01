@@ -2,13 +2,13 @@ import { useCallback } from "preact/hooks";
 import {
   atom,
   atomFamily,
+  DefaultValue,
   RecoilState,
   selector,
-  useRecoilCallback,
+  selectorFamily,
   useRecoilTransaction_UNSTABLE,
 } from "recoil";
 import { CSSMeasure, GridItemDef, GridLayoutTemplate } from "../types";
-import { useGridItemState } from "./gridItems";
 
 export type TractDirection = "rows" | "cols";
 export type GridTractDefs = CSSMeasure[];
@@ -34,13 +34,17 @@ export const gridTemplateNameSel = selector<string>({
   },
 });
 
+const numTractsState = atomFamily<number, TractDirection>({
+  key: "numTractsState",
+  default: 0,
+});
 export const gridRowsAtomFamily = atomFamily<CSSMeasure, number>({
   key: "gridRowsAtomFamily",
   default: "1fr",
 });
 export const numRowsState = atom<number>({
   key: "numRowsState",
-  default: 0,
+  default: numTractsState("rows"),
 });
 
 export const gridColsAtomFamily = atomFamily<CSSMeasure, number>({
@@ -49,13 +53,54 @@ export const gridColsAtomFamily = atomFamily<CSSMeasure, number>({
 });
 export const numColsState = atom<number>({
   key: "numColsState",
-  default: 0,
+  default: numTractsState("cols"),
 });
+
+function updateItemPosForNewTract({
+  itemDef,
+  dir,
+  tractIndex,
+}: {
+  itemDef: GridItemDef;
+  dir: TractDirection;
+  tractIndex: number;
+}): GridItemDef | null {
+  // Make copy to avoid mutation
+  const startPos = dir === "rows" ? "startRow" : "startCol";
+  const endPos = dir === "rows" ? "endRow" : "endCol";
+  const currentStart = itemDef[startPos];
+  const currentEnd = itemDef[endPos] ?? currentStart;
+
+  // There are three options for positioning.
+  // First: the new tract is beyond the end of the item
+  //   and then nothing needs to happen
+  // Second: The new tract is before the item entirely, then both the
+  //   start and the end need to be shifted up
+  // Third: The new tract is _within_ the boundaries of the item
+  //   in this case the item needs to just have its end pos adjusted up
+
+  if (tractIndex >= currentEnd) {
+    // Beyond end of item and we dont need to do anything
+    return null;
+  }
+
+  const itemDefNew = { ...itemDef };
+  if (tractIndex < currentStart) {
+    // Before item
+    itemDefNew[startPos] = currentStart + 1;
+    itemDefNew[endPos] = currentEnd + 1;
+  } else {
+    // Within item bounds
+    itemDefNew[endPos] = currentEnd + 1;
+  }
+
+  return itemDefNew;
+}
 
 export const useTractState = (dir: TractDirection) => {
   const tractsAtomFamily =
     dir === "rows" ? gridRowsAtomFamily : gridColsAtomFamily;
-  const tractCountAtom = dir === "rows" ? numRowsState : numColsState;
+  const tractCountAtom = numTractsState(dir);
 
   const addNewTract = useRecoilTransaction_UNSTABLE(
     ({ set, get }) =>
@@ -88,34 +133,17 @@ export const useTractState = (dir: TractDirection) => {
 
           const itemNames = get(itemNamesState);
           itemNames.forEach((name) => {
-            const itemDef = { ...get(gridItemsState(name)) };
-            const startPos = dir === "rows" ? "startRow" : "startCol";
-            const endPos = dir === "rows" ? "endRow" : "endCol";
-            const currentStart = itemDef[startPos];
-            const currentEnd = itemDef[endPos] ?? currentStart;
+            const itemState = gridItemsState(name);
 
-            // There are three options for positioning.
-            // First: the new tract is beyond the end of the item
-            //   and then nothing needs to happen
-            // Second: The new tract is before the item entirely, then both the
-            //   start and the end need to be shifted up
-            // Third: The new tract is _within_ the boundaries of the item
-            //   in this case the item needs to just have its end pos adjusted up
+            const updatedDef = updateItemPosForNewTract({
+              itemDef: get(itemState),
+              dir,
+              tractIndex: index,
+            });
 
-            if (index >= currentEnd) {
-              // Beyond end of item and we dont need to do anything
-              return;
-            }
-            if (index < currentStart) {
-              // Before item
-              itemDef[startPos] = currentStart + 1;
-              itemDef[endPos] = currentEnd + 1;
-            } else {
-              // Within item bounds
-              itemDef[endPos] = currentEnd + 1;
-            }
-
-            set(gridItemsState(name), itemDef);
+            // If item didnt move then the updater function returns null and we
+            // can skip the update
+            if (updatedDef) set(itemState, updatedDef);
           });
         } else {
           set(tractsAtomFamily(index), tractSize);
@@ -135,9 +163,6 @@ export const useTractState = (dir: TractDirection) => {
       () => {
         const numTracts = get(tractCountAtom);
         resetTractStates(numTracts, tractsAtomFamily, reset);
-        // for (let i = 0; i < numTracts; i++) {
-        //   reset(tractsAtomFamily(i));
-        // }
 
         reset(tractCountAtom);
       },
@@ -162,13 +187,11 @@ function resetTractStates(
   }
 }
 
-// function addTract(tractSize: CSSMeasure, index: number);
-
 export const tractDimsState = selector<{ numRows: number; numCols: number }>({
   key: "tractDimsState",
   get: ({ get }) => ({
-    numRows: get(numRowsState),
-    numCols: get(numColsState),
+    numRows: get(numTractsState("rows")),
+    numCols: get(numTractsState("cols")),
   }),
 });
 
@@ -182,6 +205,7 @@ export const allLayoutState = selector<
 >({
   key: "allLayoutState",
   get: ({ get }) => {
+    // const numCols = get(numTractsState("cols"));
     const numCols = get(numColsState);
     const numRows = get(numRowsState);
 
@@ -201,6 +225,7 @@ export const itemNamesState = atom<string[]>({
   key: "itemNamesState",
   default: [],
 });
+
 export const gridItemsState = atomFamily<GridItemDef, string>({
   key: "gridItemsState",
   default: {
@@ -212,66 +237,91 @@ export const gridItemsState = atomFamily<GridItemDef, string>({
   },
 });
 
-export function useLayoutStateSetter() {
-  const itemState = useGridItemState();
-  const rowState = useTractState("rows");
-  const colState = useTractState("cols");
+const fullTractsState = selectorFamily<CSSMeasure[], TractDirection>({
+  key: "fullTractsState",
+  get:
+    (dir) =>
+    ({ get }) => {
+      const numTracts = dir === "rows" ? get(numRowsState) : get(numColsState);
+      const tractFamily =
+        dir === "rows" ? gridRowsAtomFamily : gridColsAtomFamily;
+      return Array.from({ length: numTracts }, (_, i) => get(tractFamily(i)));
+    },
+  set:
+    (dir) =>
+    ({ set }, tractValues) => {
+      if (tractValues instanceof DefaultValue) {
+        console.error("Trying to set tract values to default value");
+        return;
+      }
 
-  const setUpNewLayout = useRecoilCallback(
-    ({ set, reset, snapshot }) =>
-      async ({ rows, cols, gap, name, items }: GridLayoutTemplate) => {
-        const currentLayoutName = await snapshot.getPromise(gridTemplateName);
+      const tractFamily =
+        dir === "rows" ? gridRowsAtomFamily : gridColsAtomFamily;
+      const numTractsAtom = dir === "rows" ? numRowsState : numColsState;
+      tractValues.forEach((tractSize, i) => set(tractFamily(i), tractSize));
+      set(numTractsAtom, tractValues.length);
+    },
+});
 
-        if (currentLayoutName === name) {
-          console.log("Layout template has not changed so ending early");
-          return;
-        }
+const fullItemsState = selector<GridItemDef[]>({
+  key: "fullItemsState",
+  get: ({ get }) => {
+    const allNames = get(itemNamesState);
+    return allNames.map((name) => get(gridItemsState(name)));
+  },
+  set: ({ set }, items) => {
+    if (items instanceof DefaultValue) {
+      console.error("Trying to set item values to default value");
+      return;
+    }
+    items.forEach((itemDef: GridItemDef) => {
+      // Add item to the state atom family
+      set(gridItemsState(itemDef.name), { ...itemDef });
+    });
+    // Also update the names list
+    set(
+      itemNamesState,
+      items.map(({ name }) => name)
+    );
+  },
+});
 
-        if (currentLayoutName !== DEFAULT_TEMPLATE_NAME) {
-          console.log("We have a new layout template so we're resetting old");
-          rowState.reset();
-          colState.reset();
-          itemState.reset();
-          reset(gridTemplateName);
-          reset(gapState);
-        }
+export const fullLayoutState = selector<GridLayoutTemplate>({
+  key: "fullLayoutState",
+  get: ({ get }) => ({
+    rows: get(fullTractsState("rows")),
+    cols: get(fullTractsState("cols")),
+    items: get(fullItemsState),
+    gap: get(gapState),
+    name: get(gridTemplateName),
+  }),
+  set: ({ get, set }, template) => {
+    if (template instanceof DefaultValue) {
+      console.error("Trying to set item values to default value");
+      return;
+    }
 
-        itemState.addAll(items);
-        rowState.addAll(rows as CSSMeasure[]);
-        colState.addAll(cols as CSSMeasure[]);
+    const { rows, cols, gap, name, items } = template;
 
-        set(gridTemplateName, name);
-        set(gapState, gap);
-      },
-    []
-  );
-  // const setUpNewLayout = useRecoilTransaction_UNSTABLE(
-  //   ({ set, reset, get }) =>
-  //     ({ rows, cols, gap, name, items }: GridLayoutTemplate) => {
-  //       const currentLayoutName = get(gridTemplateName);
+    const currentLayoutName = get(gridTemplateName);
+    if (currentLayoutName === name) {
+      console.log("Layout template has not changed so ending early");
+      return;
+    }
 
-  //       if (currentLayoutName === name) {
-  //         console.log("Layout template has not changed so ending early");
-  //         return;
-  //       }
+    if (currentLayoutName !== DEFAULT_TEMPLATE_NAME) {
+      console.log("We have a new layout template so we're resetting old");
+      // rowState.reset();
+      // colState.reset();
+      // itemState.reset();
+      // reset(gridTemplateName);
+      // reset(gapState);
+    }
+    set(fullItemsState, items);
+    set(fullTractsState("rows"), rows as CSSMeasure[]);
+    set(fullTractsState("cols"), cols as CSSMeasure[]);
 
-  //       if (currentLayoutName !== DEFAULT_TEMPLATE_NAME) {
-  //         console.log("We have a new layout template so we're resetting old");
-  //         rowState.reset();
-  //         colState.reset();
-  //         itemState.reset();
-  //         reset(gridTemplateName);
-  //         reset(gapState);
-  //       }
-
-  //       itemState.addAll(items);
-  //       rowState.addAll(rows as CSSMeasure[]);
-  //       colState.addAll(cols as CSSMeasure[]);
-
-  //       set(gridTemplateName, name);
-  //       set(gapState, gap);
-  //     },
-  //   []
-  // );
-  return setUpNewLayout;
-}
+    set(gridTemplateName, name);
+    set(gapState, gap);
+  },
+});
