@@ -14,7 +14,7 @@ import LayoutEditor from "./routes/LayoutEditor";
 import {
   fullLayoutState,
   gridTemplateNameSel,
-} from "./state-logic/gridLayoutAtoms";
+} from "./state-logic/gridLayout/atoms";
 
 export function App() {
   return (
@@ -34,11 +34,9 @@ function AppBody() {
   const setUpNewLayout = useSetRecoilState(fullLayoutState);
 
   const setupByName = useCallback((name: string) => {
-    console.log("Setting the layout name to", name);
     setUpNewLayout(findLayout(name));
   }, []);
   useEffect(() => {
-    console.log("Setting up initial value");
     setupByName(layouts[0].name);
   }, []);
 

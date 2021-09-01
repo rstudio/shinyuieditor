@@ -1,9 +1,9 @@
 import { memo, useRef } from "preact/compat";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { enumerateGridDims } from "../../helper-scripts/grid-helpers";
-import { gridCellBoundingBoxFamily } from "../../state-logic/dragStateAtoms";
-import { useGridItemBoundingBoxRecorder } from "../../state-logic/gridItems";
-import { tractDimsState } from "../../state-logic/gridLayoutAtoms";
+import { gridCellBoundingBoxFamily } from "../../state-logic/dragging/atoms";
+import { useGridItemBoundingBoxRecorder } from "../../state-logic/gridItems/hooks";
+import { tractDimsState } from "../../state-logic/gridLayout/atoms";
 
 let GridCells = () => {
   const { numRows, numCols } = useRecoilValue(tractDimsState);

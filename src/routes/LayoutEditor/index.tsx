@@ -6,7 +6,7 @@ import { EditorItemsListView } from "../../components/EditorItemsListView";
 import { EditorSettings, SettingPane } from "../../components/EditorSettings";
 import { GapSizeSetting } from "../../components/GapSizeSetting";
 import { MainGridCSSVariables } from "../../components/MainGridCSSVariables";
-import { DragFeedback } from "../../state-logic/drag-logic";
+import { DragFeedback } from "../../components/DragFeedback";
 import classes from "./style.module.css";
 
 export default function LayoutEditor() {

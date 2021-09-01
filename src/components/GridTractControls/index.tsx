@@ -7,8 +7,8 @@ import {
   gridRowsAtomFamily,
   tractDimsState,
   TractDirection,
-  useTractState,
-} from "../../state-logic/gridLayoutAtoms";
+} from "../../state-logic/gridLayout/atoms";
+import { useAddTract } from "../../state-logic/gridLayout/hooks";
 import { CssUnitInput } from "../CssUnitInput";
 import { GridItem } from "../GridItem";
 import { SvgIcon } from "../Icons";
@@ -55,12 +55,13 @@ function TractSizer({ dir, index }: TractPlacement) {
 function TractAddButton({ dir, index }: TractPlacement) {
   const isFirstTract = index === -1;
 
-  const tractState = useTractState(dir);
+  const addTract = useAddTract(dir);
+
   const onClick = useCallback(
     (e: MouseEvent) => {
       e.stopPropagation();
       // the tract is positioned before the tract it may add
-      tractState.add("1fr", index + 1);
+      addTract("1fr", index + 1);
     },
     [dir, index]
   );

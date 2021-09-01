@@ -1,5 +1,5 @@
 import { useRecoilState } from "recoil";
-import { gapState } from "../state-logic/gridLayoutAtoms";
+import { gapState } from "../state-logic/gridLayout/atoms";
 import { CssUnitInput } from "./CssUnitInput";
 
 export function GapSizeSetting() {

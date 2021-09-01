@@ -1,4 +1,4 @@
-import { TractDirection } from "../state-logic/gridLayoutAtoms";
+import { TractDirection } from "../state-logic/gridLayout/atoms";
 import { GridPos } from "../types";
 
 export function makeTractPos(start: number, end?: number) {

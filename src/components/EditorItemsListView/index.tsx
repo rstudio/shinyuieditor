@@ -1,8 +1,8 @@
 import { FunctionalComponent } from "preact";
 import { memo } from "preact/compat";
 import { useRecoilValue } from "recoil";
-import { useDeleteItem } from "../../state-logic/gridItems";
-import { itemNamesState } from "../../state-logic/gridLayoutAtoms";
+import { useDeleteItem } from "../../state-logic/gridItems/hooks";
+import { itemNamesState } from "../../state-logic/gridItems/atoms";
 import { GridCard } from "../GridCard";
 import { SvgIcon } from "../Icons";
 import classes from "./style.module.css";

@@ -1,6 +1,6 @@
 import type { FunctionComponent } from "preact";
 import { useEffect, useRef } from "preact/hooks";
-import { useGridDragger } from "../../state-logic/drag-logic";
+import { useGridDragger } from "../../state-logic/dragging/hooks";
 import { GridCard } from "../GridCard";
 import { GridCells } from "../GridCells/GridCells";
 import { GridTractControls } from "../GridTractControls";

@@ -3,7 +3,7 @@ import { placeOnGridOrCol } from "../../helper-scripts/grid-helpers";
 import {
   numTractsState,
   TractDirection,
-} from "../../state-logic/gridLayoutAtoms";
+} from "../../state-logic/gridLayout/atoms";
 import { GridItem } from "../GridItem";
 import classes from "./style.module.css";
 

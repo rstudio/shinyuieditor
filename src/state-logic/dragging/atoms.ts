@@ -1,7 +1,8 @@
 import { atom, atomFamily, selector } from "recoil";
-import { enumerateGridDims } from "../helper-scripts/grid-helpers";
-import { DragDir, GridPos } from "../types";
-import { itemNamesState, tractDimsState } from "./gridLayoutAtoms";
+import { enumerateGridDims } from "../../helper-scripts/grid-helpers";
+import { DragDir, GridPos } from "../../types";
+import { tractDimsState } from "../gridLayout/atoms";
+import { itemNamesState } from "../gridItems/atoms";
 
 // When dragging is actively happening then we will have an object with all the
 // neccesary info to infer state from it

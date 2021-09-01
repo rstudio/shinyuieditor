@@ -2,13 +2,13 @@ import { RefObject } from "preact";
 import { useMemo, useRef } from "preact/hooks";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { makeTractPos } from "../../helper-scripts/grid-helpers";
-import { useGridDragger } from "../../state-logic/drag-logic";
-import { gridItemBoundingBoxFamily } from "../../state-logic/dragStateAtoms";
-import { useGridItemBoundingBoxRecorder } from "../../state-logic/gridItems";
+import { useGridDragger } from "../../state-logic/dragging/hooks";
+import { gridItemBoundingBoxFamily } from "../../state-logic/dragging/atoms";
+import { useGridItemBoundingBoxRecorder } from "../../state-logic/gridItems/hooks";
 import {
   gridItemsState,
   itemNamesState,
-} from "../../state-logic/gridLayoutAtoms";
+} from "../../state-logic/gridItems/atoms";
 import type { DragDir } from "../../types";
 import { DragIcon } from "../Icons";
 import classes from "./style.module.css";
