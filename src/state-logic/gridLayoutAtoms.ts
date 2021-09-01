@@ -34,7 +34,7 @@ export const gridTemplateNameSel = selector<string>({
   },
 });
 
-const numTractsState = atomFamily<number, TractDirection>({
+export const numTractsState = atomFamily<number, TractDirection>({
   key: "numTractsState",
   default: 0,
 });
@@ -42,18 +42,9 @@ export const gridRowsAtomFamily = atomFamily<CSSMeasure, number>({
   key: "gridRowsAtomFamily",
   default: "1fr",
 });
-export const numRowsState = atom<number>({
-  key: "numRowsState",
-  default: numTractsState("rows"),
-});
-
 export const gridColsAtomFamily = atomFamily<CSSMeasure, number>({
   key: "gridColsAtomFamily",
   default: "1fr",
-});
-export const numColsState = atom<number>({
-  key: "numColsState",
-  default: numTractsState("cols"),
 });
 
 function updateItemPosForNewTract({
@@ -205,9 +196,8 @@ export const allLayoutState = selector<
 >({
   key: "allLayoutState",
   get: ({ get }) => {
-    // const numCols = get(numTractsState("cols"));
-    const numCols = get(numColsState);
-    const numRows = get(numRowsState);
+    const numCols = get(numTractsState("cols"));
+    const numRows = get(numTractsState("rows"));
 
     return {
       gap: get(gapState),
@@ -242,7 +232,7 @@ const fullTractsState = selectorFamily<CSSMeasure[], TractDirection>({
   get:
     (dir) =>
     ({ get }) => {
-      const numTracts = dir === "rows" ? get(numRowsState) : get(numColsState);
+      const numTracts = get(numTractsState(dir));
       const tractFamily =
         dir === "rows" ? gridRowsAtomFamily : gridColsAtomFamily;
       return Array.from({ length: numTracts }, (_, i) => get(tractFamily(i)));
@@ -257,9 +247,8 @@ const fullTractsState = selectorFamily<CSSMeasure[], TractDirection>({
 
       const tractFamily =
         dir === "rows" ? gridRowsAtomFamily : gridColsAtomFamily;
-      const numTractsAtom = dir === "rows" ? numRowsState : numColsState;
       tractValues.forEach((tractSize, i) => set(tractFamily(i), tractSize));
-      set(numTractsAtom, tractValues.length);
+      set(numTractsState(dir), tractValues.length);
     },
 });
 

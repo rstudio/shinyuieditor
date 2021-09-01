@@ -1,8 +1,7 @@
 import { useRecoilValue } from "recoil";
 import { placeOnGridOrCol } from "../../helper-scripts/grid-helpers";
 import {
-  numColsState,
-  numRowsState,
+  numTractsState,
   TractDirection,
 } from "../../state-logic/gridLayoutAtoms";
 import { GridItem } from "../GridItem";
@@ -18,9 +17,7 @@ export function RowAndColBoundaries() {
 }
 
 function TractBoundaries({ dir }: { dir: TractDirection }) {
-  const tractCount = useRecoilValue(
-    dir === "cols" ? numColsState : numRowsState
-  );
+  const tractCount = useRecoilValue(numTractsState(dir));
   return (
     <>
       {Array.from({ length: tractCount - 1 }, (_, index) => (
