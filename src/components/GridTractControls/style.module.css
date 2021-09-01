@@ -40,6 +40,26 @@
   transition: color 0.2s, background-color 0.2s;
 }
 
+.colSizeControls .addTractButton {
+  bottom: var(--pad);
+}
+.colSizeControls .addTractButton:not(.firstTractButton) {
+  right: var(--margin-offset);
+}
+.colSizeControls .addTractButton.firstTractButton {
+  left: var(--margin-offset);
+}
+
+.rowSizeControls .addTractButton {
+  right: var(--pad);
+}
+.rowSizeControls .addTractButton:not(.firstTractButton) {
+  bottom: var(--margin-offset);
+}
+.rowSizeControls .addTractButton.firstTractButton {
+  top: var(--margin-offset);
+}
+
 .addTractButton:hover {
   background-color: var(--dark-gray, gray);
   color: white;
@@ -48,13 +68,4 @@
 .addTractButton svg {
   max-height: 100%;
   max-width: 100%;
-}
-
-.colSizeControls .addTractButton {
-  right: var(--margin-offset);
-  bottom: var(--pad);
-}
-.rowSizeControls .addTractButton {
-  bottom: var(--margin-offset);
-  right: var(--pad);
 }
