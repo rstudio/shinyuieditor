@@ -1,11 +1,14 @@
-import { memo, useRef } from "preact/compat";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRef } from "preact/compat";
+import { useRecoilValue } from "recoil";
 import { enumerateGridDims } from "../../helper-scripts/grid-helpers";
-import { gridCellBoundingBoxFamily } from "../../state-logic/dragging/atoms";
-import { useGridItemBoundingBoxRecorder } from "../../state-logic/gridItems/hooks";
-import { tractDimsState } from "../../state-logic/gridLayout/atoms";
+import { useGridCellBoundingBoxRecorder } from "../../state-logic/gridItems/hooks";
+import type { GridTractDimsState } from "../../state-logic/gridLayout/atoms";
 
-let GridCells = () => {
+export function GridCells({
+  tractDimsState,
+}: {
+  tractDimsState: GridTractDimsState;
+}) {
   const { numRows, numCols } = useRecoilValue(tractDimsState);
   return (
     <>
@@ -14,22 +17,13 @@ let GridCells = () => {
       })}
     </>
   );
-};
-
-GridCells = memo(GridCells);
-export { GridCells };
+}
 
 function GridCell(pos: { row: number; col: number }) {
   const { row, col } = pos;
   const cellRef = useRef<HTMLDivElement>(null);
-  const setBoundingBox = useSetRecoilState(gridCellBoundingBoxFamily(pos));
 
-  useGridItemBoundingBoxRecorder({
-    itemRef: cellRef,
-    startRow: row,
-    startCol: col,
-    setBoundingBox,
-  });
+  useGridCellBoundingBoxRecorder({ row, col, cellRef });
 
   return (
     <div

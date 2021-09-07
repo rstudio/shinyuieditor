@@ -34,7 +34,7 @@ export function EditorGridContainer({
         />
         <TractBoundaries dir="rows" countsAtom={numTractsState("rows")} />
         <TractBoundaries dir="cols" countsAtom={numTractsState("cols")} />
-        <GridCells />
+        <GridCells tractDimsState={tractDimsState} />
         <EditableGridItems />
         <DragFeedback />
       </div>

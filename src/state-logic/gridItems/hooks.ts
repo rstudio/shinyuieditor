@@ -1,12 +1,38 @@
 import { RefObject } from "preact";
 import { useEffect } from "preact/hooks";
-import { SetterOrUpdater, useRecoilTransaction_UNSTABLE } from "recoil";
+import {
+  SetterOrUpdater,
+  useRecoilTransaction_UNSTABLE,
+  useSetRecoilState,
+} from "recoil";
 import { GridItemDef, GridPos } from "../../types";
 import {
+  gridCellBoundingBoxFamily,
   GridItemBoundingBox,
   gridItemBoundingBoxFamily,
 } from "../dragging/atoms";
 import { gridItemsState, itemNamesState } from "./atoms";
+
+export function useGridCellBoundingBoxRecorder({
+  row,
+  col,
+  cellRef,
+}: {
+  row: number;
+  col: number;
+  cellRef: RefObject<HTMLDivElement>;
+}) {
+  const setBoundingBox = useSetRecoilState(
+    gridCellBoundingBoxFamily({ row, col })
+  );
+
+  useGridItemBoundingBoxRecorder({
+    itemRef: cellRef,
+    startRow: row,
+    startCol: col,
+    setBoundingBox,
+  });
+}
 
 export function useGridItemBoundingBoxRecorder({
   itemRef,
