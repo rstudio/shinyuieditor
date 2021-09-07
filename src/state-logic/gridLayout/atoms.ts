@@ -82,6 +82,7 @@ export const gapState = atom({
   key: "gapState", // unique ID (with respect to other atoms/selectors)
   default: "1rem", // default value (aka initial value)
 });
+export type GapStateAtom = typeof gapState;
 
 export const allLayoutState = selector<
   Omit<GridLayoutTemplate, "items" | "name">

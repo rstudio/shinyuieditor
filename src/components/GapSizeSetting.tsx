@@ -1,8 +1,8 @@
 import { useRecoilState } from "recoil";
-import { gapState } from "../state-logic/gridLayout/atoms";
+import type { GapStateAtom } from "../state-logic/gridLayout/atoms";
 import { CssUnitInput } from "./CssUnitInput";
 
-export function GapSizeSetting() {
-  const [gap, setGap] = useRecoilState(gapState);
+export function GapSizeSetting({gapAtom}:{gapAtom: GapStateAtom}) {
+  const [gap, setGap] = useRecoilState(gapAtom);
   return <CssUnitInput value={gap} onChange={setGap} />;
 }
