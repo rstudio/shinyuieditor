@@ -5,6 +5,7 @@ export const itemNamesState = atom<string[]>({
   key: "itemNamesState",
   default: [],
 });
+export type ItemNamesAtom = typeof itemNamesState;
 
 export const gridItemsState = atomFamily<GridItemDef, string>({
   key: "gridItemsState",

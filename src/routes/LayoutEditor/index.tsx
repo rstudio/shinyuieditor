@@ -8,6 +8,7 @@ import { GapSizeSetting } from "../../components/GapSizeSetting";
 import { MainGridCSSVariables } from "../../components/MainGridCSSVariables";
 import { DragFeedback } from "../../components/DragFeedback";
 import classes from "./style.module.css";
+import { itemNamesState } from "../../state-logic/gridItems/atoms";
 
 export default function LayoutEditor() {
   return (
@@ -19,7 +20,7 @@ export default function LayoutEditor() {
         </SettingPane>
       </EditorSettings>
       <EditorInstructions />
-      <EditorItemsListView />
+      <EditorItemsListView itemNamesAtom={itemNamesState} />
       <EditorGridContainer>
         <EditableGridItems />
         <DragFeedback />

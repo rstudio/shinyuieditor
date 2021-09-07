@@ -1,8 +1,7 @@
-import { FunctionalComponent } from "preact";
 import { memo } from "preact/compat";
 import { useRecoilValue } from "recoil";
+import { ItemNamesAtom } from "../../state-logic/gridItems/atoms";
 import { useDeleteItem } from "../../state-logic/gridItems/hooks";
-import { itemNamesState } from "../../state-logic/gridItems/atoms";
 import { GridCard } from "../GridCard";
 import { SvgIcon } from "../Icons";
 import classes from "./style.module.css";
@@ -10,9 +9,8 @@ import classes from "./style.module.css";
 // Not totally sure why this memo works because items is an array that should
 // get replaced each state update.
 
-let EditorItemsListView: FunctionalComponent = () => {
-  const itemNames = useRecoilValue(itemNamesState);
-
+export const EditorItemsListView = ({itemNamesAtom}: {itemNamesAtom: ItemNamesAtom}) => {
+  const itemNames = useRecoilValue(itemNamesAtom);
   return (
     <GridCard title="Items" icon={"items"} gridArea="items">
       {itemNames.map((name) => (
@@ -21,8 +19,6 @@ let EditorItemsListView: FunctionalComponent = () => {
     </GridCard>
   );
 };
-EditorItemsListView.displayName = "EditorItemsListView";
-EditorItemsListView = memo(EditorItemsListView);
 
 const ItemListItem = memo(({ name }: { name: string }) => {
   const deleteItem = useDeleteItem();
@@ -36,5 +32,3 @@ const ItemListItem = memo(({ name }: { name: string }) => {
     </div>
   );
 });
-
-export { EditorItemsListView };
