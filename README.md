@@ -18,6 +18,12 @@ A GUI for laying out a Shiny application that generates clean and editable UI co
 - [ ] Implement phase 2 design
 - [ ] Release
 
+
+# Stack
+- React (actually Preact) for view layer
+- Recoil for state management
+  
+
 # Development Design Dogma
 
 The following are a series of design practices that the code of this application strives to follow in the name of maintainable and efficient code. Don't hesitate to break these, just think strongly about _why_ when doing so. 
