@@ -9,8 +9,11 @@ import { MainGridCSSVariables } from "../../components/MainGridCSSVariables";
 import { DragFeedback } from "../../components/DragFeedback";
 import classes from "./style.module.css";
 import { itemNamesState } from "../../state-logic/gridItems/atoms";
+import { useDeleteItem } from "../../state-logic/gridItems/hooks";
 
 export default function LayoutEditor() {
+  const deleteItem = useDeleteItem();
+
   return (
     <div className={classes.editor}>
       <MainGridCSSVariables />
@@ -20,7 +23,7 @@ export default function LayoutEditor() {
         </SettingPane>
       </EditorSettings>
       <EditorInstructions />
-      <EditorItemsListView itemNamesAtom={itemNamesState} />
+      <EditorItemsListView itemNamesAtom={itemNamesState} deleteItem={deleteItem}/>
       <EditorGridContainer>
         <EditableGridItems />
         <DragFeedback />
