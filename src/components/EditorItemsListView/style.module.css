@@ -8,12 +8,10 @@
   color: var(--rstudio-white, white);
   display: flex;
   align-items: center;
+  justify-content: space-between;
   border-radius: var(--corner-radius);
 }
 
-.isDeletable {
-  justify-content: space-between;
-}
 .item button {
   color: white;
   background-color: var(--rstudio-blue);
