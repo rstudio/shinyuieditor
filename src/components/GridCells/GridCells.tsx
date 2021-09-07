@@ -40,6 +40,8 @@ function GridCell(pos: { row: number; col: number }) {
         gridColumn: col,
         // Makes sure the cell fill the entire grid area and ignores gap
         margin: "calc(var(--gap)* (-1/2))",
+        // So the cell doesn't intercept element interactions like dragging
+        pointerEvents: "none",
       }}
       key={{ row, col }}
       data-row={row}
