@@ -36,6 +36,7 @@ export const numTractsState = atomFamily<number, TractDirection>({
   key: "numTractsState",
   default: 0,
 });
+export type TractCountsAtom = ReturnType<typeof numTractsState>;
 export const gridRowsAtomFamily = atomFamily<CSSMeasure, number>({
   key: "gridRowsAtomFamily",
   default: "1fr",
@@ -44,6 +45,8 @@ export const gridColsAtomFamily = atomFamily<CSSMeasure, number>({
   key: "gridColsAtomFamily",
   default: "1fr",
 });
+export type GridTractAtomFamily = typeof gridRowsAtomFamily;
+export type GridTractAtom = ReturnType<GridTractAtomFamily>;
 
 const fullTractsState = selectorFamily<CSSMeasure[], TractDirection>({
   key: "fullTractsState",
@@ -77,6 +80,7 @@ export const tractDimsState = selector<{ numRows: number; numCols: number }>({
     numCols: get(numTractsState("cols")),
   }),
 });
+export type GridTractDimsState = typeof tractDimsState;
 
 export const gapState = atom({
   key: "gapState", // unique ID (with respect to other atoms/selectors)

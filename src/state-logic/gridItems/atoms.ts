@@ -17,6 +17,8 @@ export const gridItemsState = atomFamily<GridItemDef, string>({
     endCol: 1,
   },
 });
+export type GridItemsAtomFamily = typeof gridItemsState;
+
 export const fullItemsState = selector<GridItemDef[]>({
   key: "fullItemsState",
   get: ({ get }) => {

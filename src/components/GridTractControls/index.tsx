@@ -2,10 +2,10 @@ import { ComponentChildren } from "preact";
 import { useCallback } from "preact/hooks";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { placeOnGridOrCol } from "../../helper-scripts/grid-helpers";
-import {
-  gridColsAtomFamily,
-  gridRowsAtomFamily,
-  tractDimsState,
+import type {
+  GridTractAtom,
+  GridTractAtomFamily,
+  GridTractDimsState,
   TractDirection,
 } from "../../state-logic/gridLayout/atoms";
 import { useAddTract } from "../../state-logic/gridLayout/hooks";
@@ -14,26 +14,29 @@ import { GridItem } from "../GridItem";
 import { SvgIcon } from "../Icons";
 import classes from "./style.module.css";
 
-type TractPlacement = {
-  dir: TractDirection;
-  index: number;
-};
-
-export function GridTractControls() {
+export function GridTractControls({
+  tractDimsState,
+  rowsAtomFamily,
+  colsAtomFamily,
+}: {
+  tractDimsState: GridTractDimsState;
+  rowsAtomFamily: GridTractAtomFamily;
+  colsAtomFamily: GridTractAtomFamily;
+}) {
   const { numRows, numCols } = useRecoilValue(tractDimsState);
   return (
     <>
       <TractAddButton dir={"rows"} index={-1} />
       {Array.from({ length: numRows }, (_, i) => (
         <>
-          <TractSizer dir={"rows"} index={i} />
+          <TractSizer dir={"rows"} index={i} tractAtom={rowsAtomFamily(i)} />
           <TractAddButton dir={"rows"} index={i} />
         </>
       ))}
       <TractAddButton dir={"cols"} index={-1} />
       {Array.from({ length: numCols }, (_, i) => (
         <>
-          <TractSizer dir={"cols"} index={i} />
+          <TractSizer dir={"cols"} index={i} tractAtom={colsAtomFamily(i)} />
           <TractAddButton dir={"cols"} index={i} />
         </>
       ))}
@@ -41,10 +44,14 @@ export function GridTractControls() {
   );
 }
 
-function TractSizer({ dir, index }: TractPlacement) {
-  const [value, setValue] = useRecoilState(
-    dir === "rows" ? gridRowsAtomFamily(index) : gridColsAtomFamily(index)
-  );
+type TractPlacement = {
+  dir: TractDirection;
+  index: number;
+  tractAtom: GridTractAtom;
+};
+
+function TractSizer({ dir, index, tractAtom }: TractPlacement) {
+  const [value, setValue] = useRecoilState(tractAtom);
   return (
     <TractGutter dir={dir} index={index}>
       <CssUnitInput value={value} onChange={(newVal) => setValue(newVal)} />
@@ -52,7 +59,7 @@ function TractSizer({ dir, index }: TractPlacement) {
   );
 }
 
-function TractAddButton({ dir, index }: TractPlacement) {
+function TractAddButton({ dir, index }: Omit<TractPlacement, "tractAtom">) {
   const isFirstTract = index === -1;
 
   const addTract = useAddTract(dir);
