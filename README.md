@@ -7,6 +7,10 @@ A GUI for laying out a Shiny application that generates clean and editable UI co
 # Roadmap
 
 - [ ] Recreate (most) features of the GridEd layout editor in Preact as proof of concept
+  - [ ] Make sure dogma is met with code
+  - [ ] Finish the EpicReactDev course
+  - [ ] Get to desired feature parity with GridEd
+  - [ ] Setup test suite
 - [ ] Decide feature bounds of application
 - [ ] Mockup design of full visual editor (identifying feature phases)
 - [ ] Implement design of feature phase 1
