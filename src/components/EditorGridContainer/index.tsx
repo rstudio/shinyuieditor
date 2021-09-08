@@ -27,7 +27,11 @@ export function EditorGridContainer({
 
   return (
     <GridCard gridArea="editor" header={FakeBrowserBar} padding="0px">
-      <div onMouseDown={onMouseDown} className={classes.mainGridContainer}>
+      <div className={classes.mainGridContainer}>
+        <div
+          onMouseDown={onMouseDown}
+          className={classes.newItemDragDetector}
+        />
         <GridTractControls
           tractDimsState={tractDimsState}
           rowsAtomFamily={gridRowsAtomFamily}
