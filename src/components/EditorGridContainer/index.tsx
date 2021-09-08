@@ -12,7 +12,6 @@ import {
 import { DragFeedback } from "../DragFeedback";
 import { EditableGridItems } from "../EditableGridItems";
 import { GridCard } from "../GridCard";
-import { GridCells } from "../GridCells/GridCells";
 import { GridTractControls } from "../GridTractControls";
 import { FakeBrowserBar } from "../TheFakeBrowserBar";
 import classes from "./style.module.css";
@@ -34,7 +33,6 @@ export function EditorGridContainer({
           rowsAtomFamily={gridRowsAtomFamily}
           colsAtomFamily={gridColsAtomFamily}
         />
-        <GridCells tractDimsState={tractDimsState} />
         <EditableGridItems
           itemNamesState={gridItemNames}
           itemDefsState={gridItemsState}
