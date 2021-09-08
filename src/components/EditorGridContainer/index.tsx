@@ -1,7 +1,6 @@
 import { useGridDragger } from "../../state-logic/dragging/hooks";
 import {
   gridItemNames,
-  GridItemsAtomFamily,
   gridItemsState,
 } from "../../state-logic/gridItems/atoms";
 import {
@@ -17,11 +16,7 @@ import { FakeBrowserBar } from "../TheFakeBrowserBar";
 import classes from "./style.module.css";
 
 // A grid container that also displays a grid of all cells in background
-export function EditorGridContainer({
-  gridItemsFamily,
-}: {
-  gridItemsFamily: GridItemsAtomFamily;
-}) {
+export function EditorGridContainer() {
   // Setup the new-item drag behavior
   const onMouseDown = useGridDragger({});
 

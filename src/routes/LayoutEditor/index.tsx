@@ -1,16 +1,11 @@
 import { AddItemModal } from "../../components/AddItemModal";
-import { DragFeedback } from "../../components/DragFeedback";
-import { EditableGridItems } from "../../components/EditableGridItems";
 import { EditorGridContainer } from "../../components/EditorGridContainer";
 import { EditorInstructions } from "../../components/EditorInstructions";
 import { EditorItemsListView } from "../../components/EditorItemsListView";
 import { EditorSettings, SettingPane } from "../../components/EditorSettings";
 import { GapSizeSetting } from "../../components/GapSizeSetting";
 import { MainGridCSSVariables } from "../../components/MainGridCSSVariables";
-import {
-  gridItemsState,
-  gridItemNames,
-} from "../../state-logic/gridItems/atoms";
+import { gridItemNames } from "../../state-logic/gridItems/atoms";
 import { useDeleteItem } from "../../state-logic/gridItems/hooks";
 import { gapState } from "../../state-logic/gridLayout/atoms";
 import classes from "./style.module.css";
@@ -31,7 +26,7 @@ export default function LayoutEditor() {
         itemNamesAtom={gridItemNames}
         deleteItem={deleteItem}
       />
-      <EditorGridContainer gridItemsFamily={gridItemsState} />
+      <EditorGridContainer />
       <AddItemModal />
     </div>
   );
