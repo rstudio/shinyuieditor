@@ -31,6 +31,7 @@ export function GridTractControls({
         <>
           <TractSizer dir={"rows"} index={i} tractAtom={rowsAtomFamily(i)} />
           <TractAddButton dir={"rows"} index={i} />
+          {i < numRows - 1 ? <TractBoundary dir="rows" index={i} /> : null}
         </>
       ))}
       <TractAddButton dir={"cols"} index={-1} />
@@ -38,6 +39,7 @@ export function GridTractControls({
         <>
           <TractSizer dir={"cols"} index={i} tractAtom={colsAtomFamily(i)} />
           <TractAddButton dir={"cols"} index={i} />
+          {i < numCols - 1 ? <TractBoundary dir="cols" index={i} /> : null}
         </>
       ))}
     </>
@@ -47,10 +49,13 @@ export function GridTractControls({
 type TractPlacement = {
   dir: TractDirection;
   index: number;
-  tractAtom: GridTractAtom;
 };
 
-function TractSizer({ dir, index, tractAtom }: TractPlacement) {
+function TractSizer({
+  dir,
+  index,
+  tractAtom,
+}: TractPlacement & { tractAtom: GridTractAtom }) {
   const [value, setValue] = useRecoilState(tractAtom);
   return (
     <TractGutter dir={dir} index={index}>
@@ -59,7 +64,7 @@ function TractSizer({ dir, index, tractAtom }: TractPlacement) {
   );
 }
 
-function TractAddButton({ dir, index }: Omit<TractPlacement, "tractAtom">) {
+function TractAddButton({ dir, index }: TractPlacement) {
   const isFirstTract = index === -1;
 
   const addTract = useAddTract(dir);
@@ -108,6 +113,19 @@ function TractGutter({
     >
       {children}
     </GridItem>
+  );
+}
+
+function TractBoundary({ dir, index }: TractPlacement) {
+  const boundaryClass =
+    classes[dir === "cols" ? "colTractBoundary" : "rowTractBoundary"];
+
+  return (
+    <GridItem
+      key={dir + index}
+      className={boundaryClass}
+      {...placeOnGridOrCol({ dir, index })}
+    />
   );
 }
 
