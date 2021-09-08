@@ -1,46 +1,55 @@
 import { RefObject } from "preact";
 import { useMemo, useRef } from "preact/hooks";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { makeTractPos } from "../../helper-scripts/grid-helpers";
 import { useGridDragger } from "../../state-logic/dragging/hooks";
-import { gridItemBoundingBoxFamily } from "../../state-logic/dragging/atoms";
-import { useGridItemBoundingBoxRecorder } from "../../state-logic/gridItems/hooks";
-import {
-  gridItemsState,
-  itemNamesState,
+import type {
+  GridItemAtom,
+  GridItemsAtomFamily,
+  GridItemNamesAtom,
 } from "../../state-logic/gridItems/atoms";
+import { useGridItemBoundingBoxRecorder } from "../../state-logic/gridItems/hooks";
 import type { DragDir } from "../../types";
 import { DragIcon } from "../Icons";
 import classes from "./style.module.css";
 
-export const EditableGridItems = () => {
+export function EditableGridItems({
+  itemNamesState,
+  itemDefsState,
+}: {
+  itemNamesState: GridItemNamesAtom;
+  itemDefsState: GridItemsAtomFamily;
+}) {
   const itemNames = useRecoilValue(itemNamesState);
   return (
     <>
       {itemNames.map((name) => (
-        <EditableGridItem key={name} name={name} />
+        <EditableGridItem
+          key={name}
+          name={name}
+          itemDefState={itemDefsState(name)}
+        />
       ))}
     </>
   );
-};
+}
 
 export type GridItemRef = RefObject<HTMLDivElement>;
-const EditableGridItem = ({ name }: { name: string }) => {
-  const { startRow, endRow, startCol, endCol } = useRecoilValue(
-    gridItemsState(name)
-  );
-
-  const setBoundingBox = useSetRecoilState(gridItemBoundingBoxFamily(name));
+const EditableGridItem = ({
+  name,
+  itemDefState,
+}: {
+  name: string;
+  itemDefState: GridItemAtom;
+}) => {
+  const itemDef = useRecoilValue(itemDefState);
+  const { startRow, endRow, startCol, endCol } = itemDef;
 
   const itemRef: GridItemRef = useRef(null);
 
   useGridItemBoundingBoxRecorder({
     itemRef,
-    startRow,
-    endRow,
-    startCol,
-    endCol,
-    setBoundingBox,
+    ...itemDef,
   });
 
   const onMouseDown = useGridDragger({ nameOfDragged: name });

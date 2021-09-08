@@ -1,5 +1,5 @@
 import { useRecoilValue } from "recoil";
-import type { ItemNamesAtom } from "../../state-logic/gridItems/atoms";
+import type { GridItemNamesAtom } from "../../state-logic/gridItems/atoms";
 import { GridCard } from "../GridCard";
 import { SvgIcon } from "../Icons";
 import classes from "./style.module.css";
@@ -8,7 +8,7 @@ export const EditorItemsListView = ({
   itemNamesAtom,
   deleteItem,
 }: {
-  itemNamesAtom: ItemNamesAtom;
+  itemNamesAtom: GridItemNamesAtom;
   deleteItem: (name: string) => void;
 }) => {
   const itemNames = useRecoilValue(itemNamesAtom);

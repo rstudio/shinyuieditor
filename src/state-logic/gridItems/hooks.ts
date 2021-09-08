@@ -11,7 +11,7 @@ import {
   GridItemBoundingBox,
   gridItemBoundingBoxFamily,
 } from "../dragging/atoms";
-import { gridItemsState, itemNamesState } from "./atoms";
+import { gridItemsState, gridItemNames } from "./atoms";
 
 export function useGridCellBoundingBoxRecorder({
   row,
@@ -26,15 +26,62 @@ export function useGridCellBoundingBoxRecorder({
     gridCellBoundingBoxFamily({ row, col })
   );
 
-  useGridItemBoundingBoxRecorder({
+  useGridBoundingBoxRecorder({
     itemRef: cellRef,
     startRow: row,
     startCol: col,
     setBoundingBox,
   });
 }
-
 export function useGridItemBoundingBoxRecorder({
+  itemRef,
+  name,
+  startRow,
+  startCol,
+  endRow,
+  endCol,
+}: {
+  itemRef: RefObject<HTMLDivElement>;
+} & GridItemDef) {
+  const setBoundingBox = useSetRecoilState(gridItemBoundingBoxFamily(name));
+
+  useGridBoundingBoxRecorder({
+    itemRef,
+    startRow,
+    startCol,
+    endRow,
+    endCol,
+    setBoundingBox,
+  });
+
+  useEffect(() => {
+    const resizeObserver = new ResizeObserver((entries) => {
+      const itemDiv = itemRef.current;
+      if (itemDiv) {
+        const { top, bottom, left, right } = itemDiv.getBoundingClientRect();
+        const { offsetLeft, offsetTop } = itemDiv;
+        setBoundingBox({
+          top,
+          bottom,
+          left,
+          right,
+          offsetLeft,
+          offsetTop,
+          startRow,
+          endRow,
+          startCol,
+          endCol,
+        });
+      }
+    });
+    if (itemRef.current) resizeObserver.observe(itemRef.current);
+    return () => {
+      if (itemRef.current) resizeObserver.unobserve(itemRef.current);
+    };
+  }, []);
+}
+
+function useGridBoundingBoxRecorder({
   itemRef,
   startRow,
   startCol,
@@ -78,8 +125,7 @@ export const useAddNewItem = () => {
       (itemDef: GridItemDef | GridItemDef[]) => {
         const addAnItem = (itemDef: GridItemDef) => {
           // Add item to both the names list and the state atom family
-          set(itemNamesState, (items) => [...items, itemDef.name]);
-          set(gridItemsState(itemDef.name), { ...itemDef });
+          set(gridItemsState(itemDef.name), itemDef);
         };
 
         if (Array.isArray(itemDef)) {
@@ -97,7 +143,7 @@ export const useDeleteItem = () => {
   return useRecoilTransaction_UNSTABLE(
     ({ set, reset }) =>
       (name: string) => {
-        set(itemNamesState, (items) => items.filter((item) => item !== name));
+        set(gridItemNames, (items) => items.filter((item) => item !== name));
         reset(gridItemsState(name));
         reset(gridItemBoundingBoxFamily(name));
       },
@@ -112,7 +158,7 @@ export const useGridItemState = () => {
   const resetItems = useRecoilTransaction_UNSTABLE(
     ({ get }) =>
       () => {
-        const allNames = get(itemNamesState);
+        const allNames = get(gridItemNames);
         allNames.forEach(deleteItem);
       },
     []

@@ -1,5 +1,9 @@
 import { useGridDragger } from "../../state-logic/dragging/hooks";
-import { GridItemsAtomFamily } from "../../state-logic/gridItems/atoms";
+import {
+  GridItemsAtomFamily,
+  gridItemsState,
+  gridItemNames,
+} from "../../state-logic/gridItems/atoms";
 import {
   gridColsAtomFamily,
   gridRowsAtomFamily,
@@ -11,8 +15,8 @@ import { EditableGridItems } from "../EditableGridItems";
 import { GridCard } from "../GridCard";
 import { GridCells } from "../GridCells/GridCells";
 import { GridTractControls } from "../GridTractControls";
-import { TractBoundaries } from "../TractBoundaries";
 import { FakeBrowserBar } from "../TheFakeBrowserBar";
+import { TractBoundaries } from "../TractBoundaries";
 import classes from "./style.module.css";
 
 // A grid container that also displays a grid of all cells in background
@@ -35,7 +39,10 @@ export function EditorGridContainer({
         <TractBoundaries dir="rows" countsAtom={numTractsState("rows")} />
         <TractBoundaries dir="cols" countsAtom={numTractsState("cols")} />
         <GridCells tractDimsState={tractDimsState} />
-        <EditableGridItems />
+        <EditableGridItems
+          itemNamesState={gridItemNames}
+          itemDefsState={gridItemsState}
+        />
         <DragFeedback />
       </div>
     </GridCard>

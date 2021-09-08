@@ -9,7 +9,7 @@ import { GapSizeSetting } from "../../components/GapSizeSetting";
 import { MainGridCSSVariables } from "../../components/MainGridCSSVariables";
 import {
   gridItemsState,
-  itemNamesState,
+  gridItemNames,
 } from "../../state-logic/gridItems/atoms";
 import { useDeleteItem } from "../../state-logic/gridItems/hooks";
 import { gapState } from "../../state-logic/gridLayout/atoms";
@@ -28,7 +28,7 @@ export default function LayoutEditor() {
       </EditorSettings>
       <EditorInstructions />
       <EditorItemsListView
-        itemNamesAtom={itemNamesState}
+        itemNamesAtom={gridItemNames}
         deleteItem={deleteItem}
       />
       <EditorGridContainer gridItemsFamily={gridItemsState} />

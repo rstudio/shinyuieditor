@@ -6,7 +6,7 @@ import {
   gridColsAtomFamily,
   numTractsState,
 } from "./atoms";
-import { itemNamesState, gridItemsState } from "../gridItems/atoms";
+import { gridItemNames, gridItemsState } from "../gridItems/atoms";
 
 export function useAddTract(dir: TractDirection) {
   return useRecoilTransaction_UNSTABLE(
@@ -36,7 +36,7 @@ export function useAddTract(dir: TractDirection) {
           set(tractsAtomFamily(index), value);
         });
 
-        const itemNames = get(itemNamesState);
+        const itemNames = get(gridItemNames);
         itemNames.forEach((name) => {
           const itemState = gridItemsState(name);
 

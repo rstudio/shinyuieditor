@@ -2,7 +2,7 @@ import { atom, atomFamily, selector } from "recoil";
 import { enumerateGridDims } from "../../helper-scripts/grid-helpers";
 import { DragDir, GridPos } from "../../types";
 import { tractDimsState } from "../gridLayout/atoms";
-import { itemNamesState } from "../gridItems/atoms";
+import { gridItemNames } from "../gridItems/atoms";
 
 // When dragging is actively happening then we will have an object with all the
 // neccesary info to infer state from it
@@ -67,7 +67,7 @@ export const gridItemBoundingBoxFamily = atomFamily<
 const gridItemBoundingBoxes = selector<GridItemBoundingBox[]>({
   key: "gridItemBoundingBoxes",
   get: ({ get }) => {
-    const itemNames = get(itemNamesState);
+    const itemNames = get(gridItemNames);
     return itemNames.map((name) => get(gridItemBoundingBoxFamily(name)));
   },
 });

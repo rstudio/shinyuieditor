@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef, useState } from "preact/hooks";
 import { atom, useRecoilCallback, useRecoilValue } from "recoil";
 import { useAddNewItem } from "../../state-logic/gridItems/hooks";
-import { itemNamesState } from "../../state-logic/gridItems/atoms";
+import { gridItemNames } from "../../state-logic/gridItems/atoms";
 import { GridPos } from "../../types";
 import classes from "./style.module.css";
 
@@ -45,7 +45,7 @@ export function AddItemModal() {
   const nameInputRef = useRef<HTMLInputElement>(null);
   const addNewItem = useAddNewItem();
 
-  const existingElementNames = useRecoilValue(itemNamesState);
+  const existingElementNames = useRecoilValue(gridItemNames);
 
   const turnOffWarningMsg = () => setWarningMsg(null);
 
