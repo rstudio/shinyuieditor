@@ -1,12 +1,12 @@
 import { useRecoilTransaction_UNSTABLE } from "recoil";
 import { CSSMeasure } from "../../types";
+import { gridItemNames, gridItemsStateInternal } from "../gridItems/atoms";
 import {
-  TractDirection,
-  gridRowsAtomFamily,
   gridColsAtomFamily,
+  gridRowsAtomFamily,
   numTractsState,
+  TractDirection,
 } from "./atoms";
-import { gridItemNames, gridItemsState } from "../gridItems/atoms";
 
 export function useAddTract(dir: TractDirection) {
   return useRecoilTransaction_UNSTABLE(
@@ -38,7 +38,7 @@ export function useAddTract(dir: TractDirection) {
 
         const itemNames = get(gridItemNames);
         itemNames.forEach((name) => {
-          const itemState = gridItemsState(name);
+          const itemState = gridItemsStateInternal(name);
 
           const itemDef = get(itemState);
 

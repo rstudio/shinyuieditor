@@ -15,7 +15,7 @@ export type GridItemNamesAtom = typeof gridItemNames;
 
 // This gets wrapped within a selectorFamily for easier control of the names
 // so we dont use it outside of this script
-const gridItemsStateInternal = atomFamily<GridItemDef, string>({
+export const gridItemsStateInternal = atomFamily<GridItemDef, string>({
   key: "gridItemsState",
   default: {
     name: "default",
