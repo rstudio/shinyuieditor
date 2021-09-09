@@ -6,7 +6,7 @@ import {
   selectorFamily,
 } from "recoil";
 import { CSSMeasure, GridLayoutTemplate } from "../../types";
-import { fullItemsState } from "../gridItems/atoms";
+import { combinedItemsState } from "../gridItems/atoms";
 
 export type TractDirection = "rows" | "cols";
 export type GridTractDefs = CSSMeasure[];
@@ -14,22 +14,9 @@ export type GridTracts = Pick<GridLayoutTemplate, TractDirection>;
 
 const DEFAULT_TEMPLATE_NAME = "default template name";
 
-const gridTemplateName = atom<string>({
+export const gridTemplateName = atom<string>({
   key: "gridTemplateName",
   default: DEFAULT_TEMPLATE_NAME,
-});
-
-export const gridTemplateNameSel = selector<string>({
-  key: "gridTemplateSelector",
-  get: ({ get }) => {
-    console.log("Fetching the current template name");
-    const templateName = get(gridTemplateName);
-    return templateName;
-  },
-  set: ({ set }, newName) => {
-    console.log(`Setting current template name to ${newName}`);
-    set(gridTemplateName, newName);
-  },
 });
 
 export const numTractsState = atomFamily<number, TractDirection>({
@@ -48,30 +35,32 @@ export const gridColsAtomFamily = atomFamily<CSSMeasure, number>({
 export type GridTractAtomFamily = typeof gridRowsAtomFamily;
 export type GridTractAtom = ReturnType<GridTractAtomFamily>;
 
-const fullTractsState = selectorFamily<CSSMeasure[], TractDirection>({
-  key: "fullTractsState",
-  get:
-    (dir) =>
-    ({ get }) => {
-      const numTracts = get(numTractsState(dir));
-      const tractFamily =
-        dir === "rows" ? gridRowsAtomFamily : gridColsAtomFamily;
-      return Array.from({ length: numTracts }, (_, i) => get(tractFamily(i)));
-    },
-  set:
-    (dir) =>
-    ({ set }, tractValues) => {
-      if (tractValues instanceof DefaultValue) {
-        console.error("Trying to set tract values to default value");
-        return;
-      }
+export const combinedTractsState = selectorFamily<CSSMeasure[], TractDirection>(
+  {
+    key: "combinedTracts`",
+    get:
+      (dir) =>
+      ({ get }) => {
+        const numTracts = get(numTractsState(dir));
+        const tractFamily =
+          dir === "rows" ? gridRowsAtomFamily : gridColsAtomFamily;
+        return Array.from({ length: numTracts }, (_, i) => get(tractFamily(i)));
+      },
+    set:
+      (dir) =>
+      ({ set }, tractValues) => {
+        if (tractValues instanceof DefaultValue) {
+          console.error("Trying to set tract values to default value");
+          return;
+        }
 
-      const tractFamily =
-        dir === "rows" ? gridRowsAtomFamily : gridColsAtomFamily;
-      tractValues.forEach((tractSize, i) => set(tractFamily(i), tractSize));
-      set(numTractsState(dir), tractValues.length);
-    },
-});
+        const tractFamily =
+          dir === "rows" ? gridRowsAtomFamily : gridColsAtomFamily;
+        tractValues.forEach((tractSize, i) => set(tractFamily(i), tractSize));
+        set(numTractsState(dir), tractValues.length);
+      },
+  }
+);
 
 export const tractDimsState = selector<{ numRows: number; numCols: number }>({
   key: "tractDimsState",
@@ -88,33 +77,26 @@ export const gapState = atom({
 });
 export type GapStateAtom = typeof gapState;
 
-export const allLayoutState = selector<
+// Just keeps tract of the tracts and gap sizings. Useful for settings css
+export const combinedLayoutSizesState = selector<
   Omit<GridLayoutTemplate, "items" | "name">
 >({
-  key: "allLayoutState",
+  key: "combinedLayoutSizes",
   get: ({ get }) => {
-    const numCols = get(numTractsState("cols"));
-    const numRows = get(numTractsState("rows"));
-
     return {
       gap: get(gapState),
-      rows: Array.from({ length: numRows }, (_, i) =>
-        get(gridRowsAtomFamily(i))
-      ),
-      cols: Array.from({ length: numCols }, (_, i) =>
-        get(gridColsAtomFamily(i))
-      ),
+      rows: get(combinedTractsState("rows")),
+      cols: get(combinedTractsState("cols")),
     };
   },
 });
 
-export const fullLayoutState = selector<GridLayoutTemplate>({
+// Merge all the state together in its entirety.
+export const fullAppState = selector<GridLayoutTemplate>({
   key: "fullLayoutState",
   get: ({ get }) => ({
-    rows: get(fullTractsState("rows")),
-    cols: get(fullTractsState("cols")),
-    items: get(fullItemsState),
-    gap: get(gapState),
+    ...get(combinedLayoutSizesState),
+    items: get(combinedItemsState),
     name: get(gridTemplateName),
   }),
   set: ({ get, set }, template) => {
@@ -139,9 +121,9 @@ export const fullLayoutState = selector<GridLayoutTemplate>({
       // reset(gridTemplateName);
       // reset(gapState);
     }
-    set(fullItemsState, items);
-    set(fullTractsState("rows"), rows as CSSMeasure[]);
-    set(fullTractsState("cols"), cols as CSSMeasure[]);
+    set(combinedItemsState, items);
+    set(combinedTractsState("rows"), rows as CSSMeasure[]);
+    set(combinedTractsState("cols"), cols as CSSMeasure[]);
 
     set(gridTemplateName, name);
     set(gapState, gap);

@@ -1,10 +1,4 @@
-import {
-  atom,
-  atomFamily,
-  DefaultValue,
-  selector,
-  selectorFamily,
-} from "recoil";
+import { atom, atomFamily, DefaultValue, selector } from "recoil";
 import { selectedItemNameState } from "../../routes/LayoutEditor";
 import { GridItemDef } from "../../types";
 
@@ -16,7 +10,7 @@ export type GridItemNamesAtom = typeof gridItemNames;
 
 // This gets wrapped within a selectorFamily for easier control of the names
 // so we dont use it outside of this script
-export const gridItemsStateInternal = atomFamily<GridItemDef, string>({
+export const gridItemAtoms = atomFamily<GridItemDef, string>({
   key: "gridItemsState",
   default: {
     name: "default",
@@ -27,57 +21,32 @@ export const gridItemsStateInternal = atomFamily<GridItemDef, string>({
   },
 });
 
-export const gridItemsState = selectorFamily<GridItemDef, string>({
-  key: "gridItemsSelFam",
-  get:
-    (name: string) =>
-    ({ get }) =>
-      get(gridItemsStateInternal(name)),
-  set:
-    (name: string) =>
-    ({ set, reset }, itemDef) => {
-      if (itemDef instanceof DefaultValue) {
-        // Means we're in reset context
-        reset(gridItemsStateInternal(name));
-        // Remove this item from the names list
-        set(gridItemNames, (items) => items.filter((item) => item !== name));
-        return;
-      }
-
-      set(gridItemNames, (items) => {
-        // If we're updating an exisiting item (say from dragging) then we don't
-        // want to add its name again to the list of names
-        if (items.includes(name)) return items;
-        return [...items, itemDef.name];
-      });
-      set(gridItemsStateInternal(name), itemDef);
-    },
-});
-
 export const selectedItemState = selector<GridItemDef | null>({
   key: "selectedItem",
   get: ({ get }) => {
     const selectedItemName = get(selectedItemNameState);
     if (!selectedItemName) return null;
 
-    return get(gridItemsState(selectedItemName));
+    return get(gridItemAtoms(selectedItemName));
   },
   set: ({ get, set }, newDef) => {
     const selectedItemName = get(selectedItemNameState);
     if (!selectedItemName || !newDef) return;
 
-    set(gridItemsState(selectedItemName), newDef);
+    set(gridItemAtoms(selectedItemName), newDef);
   },
 });
 
-export type GridItemsAtomFamily = typeof gridItemsState;
+export type GridItemsAtomFamily = typeof gridItemAtoms;
 export type GridItemAtom = ReturnType<GridItemsAtomFamily>;
 
-export const fullItemsState = selector<GridItemDef[]>({
-  key: "fullItemsState",
+// Merges together all the atoms so we can work with all atoms at once easily
+// for settings or getting in aggregate
+export const combinedItemsState = selector<GridItemDef[]>({
+  key: "combinedItemsState",
   get: ({ get }) => {
     const allNames = get(gridItemNames);
-    return allNames.map((name) => get(gridItemsState(name)));
+    return allNames.map((name) => get(gridItemAtoms(name)));
   },
   set: ({ set }, items) => {
     if (items instanceof DefaultValue) {
@@ -87,7 +56,7 @@ export const fullItemsState = selector<GridItemDef[]>({
 
     // Add each item to the state atom family
     items.forEach((itemDef: GridItemDef) => {
-      set(gridItemsState(itemDef.name), { ...itemDef });
+      set(gridItemAtoms(itemDef.name), { ...itemDef });
     });
 
     // Also update the names list

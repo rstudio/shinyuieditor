@@ -1,7 +1,7 @@
 import { useGridDragger } from "../../state-logic/dragging/hooks";
 import {
   gridItemNames,
-  gridItemsState,
+  gridItemAtoms,
 } from "../../state-logic/gridItems/atoms";
 import {
   gridColsAtomFamily,
@@ -34,7 +34,7 @@ export function EditorGridContainer() {
         />
         <EditableGridItems
           itemNamesState={gridItemNames}
-          itemDefsState={gridItemsState}
+          itemDefsState={gridItemAtoms}
         />
         <DragFeedback />
       </div>

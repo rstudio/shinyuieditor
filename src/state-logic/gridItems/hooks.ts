@@ -11,7 +11,7 @@ import {
   GridItemBoundingBox,
   gridItemBoundingBoxFamily,
 } from "../dragging/atoms";
-import { gridItemsState, gridItemNames } from "./atoms";
+import { gridItemAtoms, gridItemNames } from "./atoms";
 
 export function useGridCellBoundingBoxRecorder({
   row,
@@ -119,53 +119,29 @@ function useGridBoundingBoxRecorder({
   }, []);
 }
 
+// Adds a new item to both the name list and creates its new state atom
 export const useAddNewItem = () => {
   return useRecoilTransaction_UNSTABLE(
     ({ set }) =>
       (itemDef: GridItemDef | GridItemDef[]) => {
-        const addAnItem = (itemDef: GridItemDef) => {
-          // Add item to both the names list and the state atom family
-          set(gridItemsState(itemDef.name), itemDef);
-        };
+        if (!Array.isArray(itemDef)) itemDef = [itemDef];
 
-        if (Array.isArray(itemDef)) {
-          // single item
-          itemDef.forEach(addAnItem);
-        } else {
-          addAnItem(itemDef);
-        }
+        itemDef.forEach((def) => {
+          set(gridItemNames, (names) => [...names, def.name]);
+          set(gridItemAtoms(def.name), def);
+        });
       },
     []
   );
 };
-
 export const useDeleteItem = () => {
   return useRecoilTransaction_UNSTABLE(
     ({ set, reset }) =>
       (name: string) => {
         set(gridItemNames, (items) => items.filter((item) => item !== name));
-        reset(gridItemsState(name));
+        reset(gridItemAtoms(name));
         reset(gridItemBoundingBoxFamily(name));
       },
     []
   );
-};
-
-export const useGridItemState = () => {
-  const addNewItem = useAddNewItem();
-  const deleteItem = useDeleteItem();
-
-  const resetItems = useRecoilTransaction_UNSTABLE(
-    ({ get }) =>
-      () => {
-        const allNames = get(gridItemNames);
-        allNames.forEach(deleteItem);
-      },
-    []
-  );
-
-  return {
-    add: addNewItem,
-    reset: resetItems,
-  };
 };

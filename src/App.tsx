@@ -11,10 +11,7 @@ import { TheHeader } from "./components/TheHeader";
 import { About } from "./routes/About";
 import { GridGallery } from "./routes/GridGallery";
 import LayoutEditor from "./routes/LayoutEditor";
-import {
-  fullLayoutState,
-  gridTemplateNameSel,
-} from "./state-logic/gridLayout/atoms";
+import { fullAppState, gridTemplateName } from "./state-logic/gridLayout/atoms";
 
 export function App() {
   return (
@@ -28,10 +25,10 @@ const findLayout = (name: string) =>
   layouts.find((l) => l.name === name) ?? layouts[0];
 
 function AppBody() {
-  const templateName = useRecoilValue(gridTemplateNameSel);
-  const setTemplateName = useSetRecoilState(gridTemplateNameSel);
+  const templateName = useRecoilValue(gridTemplateName);
+  const setTemplateName = useSetRecoilState(gridTemplateName);
   // const setUpNewLayout = useLayoutStateSetter();
-  const setUpNewLayout = useSetRecoilState(fullLayoutState);
+  const setUpNewLayout = useSetRecoilState(fullAppState);
 
   const setupByName = useCallback((name: string) => {
     setUpNewLayout(findLayout(name));
