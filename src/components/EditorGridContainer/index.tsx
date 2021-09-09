@@ -18,7 +18,7 @@ import classes from "./style.module.css";
 // A grid container that also displays a grid of all cells in background
 export function EditorGridContainer() {
   // Setup the new-item drag behavior
-  const onMouseDown = useGridDragger({});
+  const onMouseDown = useGridDragger();
 
   return (
     <GridCard gridArea="editor" header={FakeBrowserBar} padding="0px">

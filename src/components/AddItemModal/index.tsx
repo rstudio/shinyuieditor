@@ -13,17 +13,6 @@ export const addItemModalState = atom<GridPos | null>({
   default: null,
 });
 
-export function useAddItemModalOpener() {
-  const openAddItemModal = useRecoilCallback(
-    ({ set }) =>
-      (pos: GridPos) =>
-        set(addItemModalState, pos),
-    []
-  );
-
-  return openAddItemModal;
-}
-
 export function useAddItemModalCloser() {
   const closeAddItemModal = useRecoilCallback(
     ({ reset }) =>

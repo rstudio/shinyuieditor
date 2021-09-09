@@ -1,11 +1,6 @@
-import { useCallback, useEffect } from "preact/hooks";
-import {
-  DefaultValue,
-  selector,
-  useRecoilCallback,
-  useSetRecoilState,
-} from "recoil";
-import { useAddItemModalOpener } from "../../components/AddItemModal";
+import { useEffect } from "preact/hooks";
+import { useRecoilCallback } from "recoil";
+import { addItemModalState } from "../../components/AddItemModal";
 import { sameGridPos } from "../../helper-scripts/grid-helpers";
 import { boxesOverlap } from "../../helper-scripts/overlap-helpers";
 import { selectedItemNameState } from "../../routes/LayoutEditor";
@@ -13,81 +8,141 @@ import { DragDir, GridPos } from "../../types";
 import { selectedItemState } from "../gridItems/atoms";
 import {
   ActiveDrag,
-  DragLocation,
-  DragState,
   dragStateAtom,
+  gridCellBoundingBoxes,
   GridItemBoundingBox,
-  initializeDragState,
+  gridItemBoundingBoxFamily,
 } from "./atoms";
 
-const moveGridItem = selector<GridPos | null>({
-  key: "moveGridItem",
-  get: ({ get }) => get(selectedItemState),
-  set: ({ get, set }, newItemPos) => {
-    // Make sure we have a selected item
-    const existingItemDef = get(selectedItemState);
-    if (!existingItemDef || !newItemPos) return;
-    if (newItemPos instanceof DefaultValue) return;
+export function useGridDragger(
+  nameOfDragged?: string,
+  dragDir: ActiveDrag["dragBox"]["dir"] = "bottomRight"
+) {
+  const initializeDrag = useRecoilCallback(
+    ({ set, snapshot }) =>
+      async (mouseDownEvent: MouseEvent) => {
+        const dragType: ActiveDrag["dragType"] = nameOfDragged
+          ? "ResizeItemDrag"
+          : "NewItemDrag";
 
-    set(selectedItemState, {
-      ...existingItemDef,
-      ...newItemPos,
-    });
-  },
-});
+        let dragBox: ActiveDrag["dragBox"];
 
-export function useGridDragger(opts: { nameOfDragged?: string }) {
-  const { nameOfDragged = null } = opts;
-  const openAddItemModal = useAddItemModalOpener();
-  const dragType: ActiveDrag["dragType"] = nameOfDragged
-    ? "ResizeItemDrag"
-    : "NewItemDrag";
+        if (nameOfDragged) {
+          set(selectedItemNameState, nameOfDragged);
 
-  const setInitialDragState = useSetRecoilState(initializeDragState);
+          const itemBBox = await snapshot.getPromise(
+            gridItemBoundingBoxFamily(nameOfDragged)
+          );
+          if (!itemBBox) {
+            console.error("Somehow we're dragging on a non existant element");
+            return;
+          }
+          const { left, right, top, bottom } = itemBBox;
+          dragBox = {
+            dir: dragDir,
+            left,
+            right,
+            top,
+            bottom,
+          };
+        } else {
+          const { pageX, pageY } = mouseDownEvent;
 
-  const onMouseDown = useCallback((e: MouseEvent, dragDir?: DragDir) => {
-    e.stopPropagation();
-    setInitialDragState({
-      mouseDownEvent: e,
-      dragDir,
-      dragType,
-      nameOfDragged,
-    });
+          dragBox = {
+            dir: dragDir,
+            left: pageX,
+            right: pageX,
+            top: pageY,
+            bottom: pageY,
+          };
+        }
+        const gridCellPositions = await snapshot.getPromise(
+          gridCellBoundingBoxes
+        );
+        const gridPos = getDragPosOnGrid(dragBox, gridCellPositions);
+        const firstCell = gridCellPositions[0];
+        set(dragStateAtom, {
+          dragType,
+          dragBox,
+          gridCellPositions,
+          xOffset: firstCell.left - firstCell.offsetLeft,
+          yOffset: firstCell.top - firstCell.offsetTop,
+          itemName: nameOfDragged ?? "new-item",
+          gridPos,
+        });
 
-    // Turnoff text selection so dragging doesnt highlight a bunch of stuff
-    document.querySelector("body")?.classList.add("disable-text-selection");
-    // After we've completed initializing the drag we can start watching the
-    // progress of the drag
-    document.addEventListener("mousemove", onMouseMove);
-    document.addEventListener("mouseup", onMouseUp);
-  }, []);
+        // Turnoff text selection so dragging doesnt highlight a bunch of stuff
+        document.querySelector("body")?.classList.add("disable-text-selection");
+        // After we've completed initializing the drag we can start watching the
+        // progress of the drag
+        document.addEventListener("mousemove", updateDrag);
+        document.addEventListener("mouseup", finishDrag);
+      },
+    []
+  );
 
-  const onMouseMove = useRecoilCallback(
-    ({ set }) =>
-      (e: MouseEvent) => {
-        set(dragStateAtom, (dragState) => {
-          const newDragState = updateDragState(dragState, e);
-          set(moveGridItem, newDragState.gridPos as GridPos);
-          return newDragState;
+  const updateDrag = useRecoilCallback(
+    ({ set, snapshot }) =>
+      async ({ pageX, pageY }: MouseEvent) => {
+        const dragState = await snapshot.getPromise(dragStateAtom);
+        if (!dragState) throw new Error("Cant move an uninitialized drag");
+        const { dragBox: oldDragBox, gridCellPositions } = dragState;
+        const dragDir = oldDragBox.dir;
+        const dragBox = { ...oldDragBox };
+
+        // Make sure that we update the drag correctly based on the current handle
+        if (containsDir("bottom", dragDir)) {
+          dragBox.bottom = Math.max(pageY, dragBox.top);
+        }
+        if (containsDir("top", dragDir)) {
+          dragBox.top = Math.min(pageY, dragBox.bottom);
+        }
+        if (containsDir("right", dragDir)) {
+          dragBox.right = Math.max(pageX, dragBox.left);
+        }
+        if (containsDir("left", dragDir)) {
+          dragBox.left = Math.min(pageX, dragBox.right);
+        }
+
+        const newGridPos = getDragPosOnGrid(dragBox, gridCellPositions);
+
+        const shouldUpdateItemState =
+          dragState.dragType === "ResizeItemDrag" &&
+          !sameGridPos(dragState.gridPos, newGridPos);
+
+        if (shouldUpdateItemState) {
+          set(selectedItemState, (existingItemDef) => {
+            if (!existingItemDef) return null;
+            return {
+              ...existingItemDef,
+              ...newGridPos,
+            };
+          });
+        }
+        set(dragStateAtom, {
+          ...dragState,
+          dragBox: dragBox,
+          gridPos: newGridPos,
         });
       },
     []
   );
 
-  const onMouseUp = useRecoilCallback(
-    ({ set, snapshot }) =>
+  const finishDrag = useRecoilCallback(
+    ({ set, reset, snapshot }) =>
       async () => {
         const finalState = await snapshot.getPromise(dragStateAtom);
+
         if (finalState?.dragType === "NewItemDrag") {
-          openAddItemModal(finalState.gridPos);
+          set(addItemModalState, finalState.gridPos);
         }
-        set(dragStateAtom, null);
+        reset(dragStateAtom);
+        reset(selectedItemNameState);
 
         document
           .querySelector("body")
           ?.classList.remove("disable-text-selection");
-        document.removeEventListener("mousemove", onMouseMove);
-        set(selectedItemNameState, null);
+        document.removeEventListener("mousemove", updateDrag);
       },
     []
   );
@@ -95,46 +150,29 @@ export function useGridDragger(opts: { nameOfDragged?: string }) {
   // Make sure we dont have any memory leaks by accidentally leaving event listeners on
   useEffect(() => {
     return () => {
-      document.removeEventListener("mouseup", onMouseUp);
-      document.removeEventListener("mousemove", onMouseMove);
+      document.removeEventListener("mouseup", finishDrag);
+      document.removeEventListener("mousemove", updateDrag);
     };
   }, []);
 
-  return onMouseDown;
+  return initializeDrag;
 }
 
-function updateDragState(dragState: DragState, { pageX, pageY }: DragLocation) {
-  if (!dragState) throw new Error("Cant move an uninitialized drag");
-
-  const { dragBox: oldDragBox, gridCellPositions } = dragState;
-  const dragDir = oldDragBox.dir;
-  const dragBox = { ...oldDragBox };
-
-  // Make sure that we update the drag correctly based on the current handle
-  if (containsDir("bottom", dragDir)) {
-    dragBox.bottom = Math.max(pageY, dragBox.top);
+function containsDir(
+  dir: "top" | "bottom" | "left" | "right",
+  mainDir: DragDir
+): boolean {
+  if (dir === mainDir) return true;
+  switch (dir) {
+    case "top":
+      return mainDir === "topLeft" || mainDir === "topRight";
+    case "left":
+      return mainDir === "topLeft" || mainDir === "bottomLeft";
+    case "bottom":
+      return mainDir === "bottomLeft" || mainDir === "bottomRight";
+    case "right":
+      return mainDir === "topRight" || mainDir === "bottomRight";
   }
-  if (containsDir("top", dragDir)) {
-    dragBox.top = Math.min(pageY, dragBox.bottom);
-  }
-  if (containsDir("right", dragDir)) {
-    dragBox.right = Math.max(pageX, dragBox.left);
-  }
-  if (containsDir("left", dragDir)) {
-    dragBox.left = Math.min(pageX, dragBox.right);
-  }
-
-  const newGridPos = getDragPosOnGrid(dragBox, gridCellPositions);
-
-  const shouldUpdateItemState =
-    dragState.dragType === "ResizeItemDrag" &&
-    !sameGridPos(dragState.gridPos, newGridPos);
-  return {
-    ...dragState,
-    dragBox: dragBox,
-    gridPos: getDragPosOnGrid(dragBox, gridCellPositions),
-    shouldUpdateItemState,
-  };
 }
 
 function getDragPosOnGrid(
@@ -170,21 +208,4 @@ function getDragPosOnGrid(
     startCol: startCol ?? 1,
     endCol: endCol ?? 1,
   };
-}
-
-function containsDir(
-  dir: "top" | "bottom" | "left" | "right",
-  mainDir: DragDir
-): boolean {
-  if (dir === mainDir) return true;
-  switch (dir) {
-    case "top":
-      return mainDir === "topLeft" || mainDir === "topRight";
-    case "left":
-      return mainDir === "topLeft" || mainDir === "bottomLeft";
-    case "bottom":
-      return mainDir === "bottomLeft" || mainDir === "bottomRight";
-    case "right":
-      return mainDir === "topRight" || mainDir === "bottomRight";
-  }
 }
