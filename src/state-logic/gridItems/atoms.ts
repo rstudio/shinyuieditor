@@ -5,6 +5,7 @@ import {
   selector,
   selectorFamily,
 } from "recoil";
+import { selectedItemNameState } from "../../routes/LayoutEditor";
 import { GridItemDef } from "../../types";
 
 export const gridItemNames = atom<string[]>({
@@ -51,6 +52,22 @@ export const gridItemsState = selectorFamily<GridItemDef, string>({
       });
       set(gridItemsStateInternal(name), itemDef);
     },
+});
+
+export const selectedItemState = selector<GridItemDef | null>({
+  key: "selectedItem",
+  get: ({ get }) => {
+    const selectedItemName = get(selectedItemNameState);
+    if (!selectedItemName) return null;
+
+    return get(gridItemsState(selectedItemName));
+  },
+  set: ({ get, set }, newDef) => {
+    const selectedItemName = get(selectedItemNameState);
+    if (!selectedItemName || !newDef) return;
+
+    set(gridItemsState(selectedItemName), newDef);
+  },
 });
 
 export type GridItemsAtomFamily = typeof gridItemsState;

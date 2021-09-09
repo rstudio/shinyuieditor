@@ -3,10 +3,10 @@ import { useMemo, useRef } from "preact/hooks";
 import { useRecoilValue } from "recoil";
 import { makeTractPos } from "../../helper-scripts/grid-helpers";
 import { useGridDragger } from "../../state-logic/dragging/hooks";
-import type {
+import {
   GridItemAtom,
-  GridItemsAtomFamily,
   GridItemNamesAtom,
+  GridItemsAtomFamily,
 } from "../../state-logic/gridItems/atoms";
 import { useGridItemBoundingBoxRecorder } from "../../state-logic/gridItems/hooks";
 import type { DragDir } from "../../types";
@@ -52,19 +52,21 @@ const EditableGridItem = ({
     ...itemDef,
   });
 
-  const onMouseDown = useGridDragger({ nameOfDragged: name });
+  const startDrag = useGridDragger({ nameOfDragged: name });
 
   const dragHandles = useMemo(() => {
     return directions.map((dir) => (
       <span
         key={name + dir}
         className={classes[dir]}
-        onMouseDown={(e) => onMouseDown(e, dir)}
+        onMouseDown={(e) => {
+          startDrag(e, dir);
+        }}
       >
         <DragIcon type={dir} />
       </span>
     ));
-  }, [name, onMouseDown]);
+  }, [name, startDrag]);
 
   return (
     <div

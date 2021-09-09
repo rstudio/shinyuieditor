@@ -3,7 +3,7 @@
   width: var(--unit-input-width, 50px);
   grid-template-columns: 55% 45%;
   justify-content: center; /* Make sure to sit in middle of control */
-  grid-gap: 2px;
+  grid-gap: 0px;
   padding: 5px;
 }
 
