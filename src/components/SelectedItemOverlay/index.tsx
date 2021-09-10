@@ -1,9 +1,6 @@
-import { useEffect, useRef } from "preact/hooks";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import {
-  selectedItemRef,
-  selectedItemState,
-} from "../../state-logic/gridItems";
+import { useRef } from "preact/hooks";
+import { useRecoilValue } from "recoil";
+import { selectedItemState } from "../../state-logic/gridItems";
 import { useGridDragger } from "../../state-logic/itemDragging";
 import { DragDir } from "../../types";
 import { GridItem } from "../GridItem";
@@ -14,14 +11,7 @@ export function SelectedItemOverlay() {
   const selectedItem = useRecoilValue(selectedItemState);
   if (selectedItem === null) return null;
   const selectedItemName = selectedItem.name;
-
   const itemRef = useRef<HTMLDivElement>(null);
-
-  const setSelectedRef = useSetRecoilState(selectedItemRef);
-  useEffect(() => {
-    // Hook up the ref into the item state
-    setSelectedRef(itemRef);
-  }, []);
 
   const startDrag = useGridDragger(selectedItemName, itemRef);
   return (
@@ -41,7 +31,6 @@ export function SelectedItemOverlay() {
         >
           <DragIcon type={dir} />
         </span>
-        // <ItemDragHandle key={dir} name={selectedItemName} dir={dir} />
       ))}
     </GridItem>
   );

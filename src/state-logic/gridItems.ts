@@ -1,4 +1,3 @@
-import { RefObject } from "preact";
 import {
   atom,
   atomFamily,
@@ -58,11 +57,6 @@ export const useDeleteItem = () => {
 
 export const selectedItemNameState = atom<string | null>({
   key: "selectedItemName",
-  default: null,
-});
-
-export const selectedItemRef = atom<RefObject<HTMLDivElement> | null>({
-  key: "selectedItemRef",
   default: null,
 });
 
