@@ -37,7 +37,10 @@ export const EditorItemsListView = ({
         >
           {name}
           <button
-            onClick={() => deleteItem(name)}
+            onClick={(e: MouseEvent) => {
+              e.stopPropagation();
+              deleteItem(name);
+            }}
             title={`Delete ${name} item`}
           >
             <SvgIcon name="trashcan" />

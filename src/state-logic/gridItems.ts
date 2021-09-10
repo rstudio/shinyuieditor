@@ -43,9 +43,15 @@ export const useAddNewItem = () => {
 };
 export const useDeleteItem = () => {
   return useRecoilTransaction_UNSTABLE(
-    ({ set, reset }) =>
+    ({ get, set, reset }) =>
       (name: string) => {
         set(gridItemNames, (items) => items.filter((item) => item !== name));
+        const currentlySelectedItem = get(selectedItemNameState);
+
+        // Make sure that we're not leaving the deleted item selected
+        if (currentlySelectedItem === name) {
+          reset(selectedItemNameState);
+        }
         reset(gridItemAtoms(name));
       },
     []
