@@ -1,4 +1,4 @@
-import { atom, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import { AddItemModal } from "../../components/AddItemModal";
 import { EditorGridContainer } from "../../components/EditorGridContainer";
 import { EditorInstructions } from "../../components/EditorInstructions";
@@ -6,14 +6,13 @@ import { EditorItemsListView } from "../../components/EditorItemsListView";
 import { EditorSettings, SettingPane } from "../../components/EditorSettings";
 import { GapSizeSetting } from "../../components/GapSizeSetting";
 import { MainGridCSSVariables } from "../../components/MainGridCSSVariables";
-import { gridItemNames, useDeleteItem } from "../../state-logic/gridItems";
+import {
+  gridItemNames,
+  selectedItemNameState,
+  useDeleteItem,
+} from "../../state-logic/gridItems";
 import { gapState } from "../../state-logic/gridLayout/atoms";
 import classes from "./style.module.css";
-
-export const selectedItemNameState = atom<string | null>({
-  key: "selectedItemName",
-  default: null,
-});
 
 function CurrentlySelectedItem() {
   const selectedItemName = useRecoilValue(selectedItemNameState);

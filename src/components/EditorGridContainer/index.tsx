@@ -1,16 +1,17 @@
-import { useGridDragger } from "../../state-logic/itemDragging";
-import { gridItemNames, gridItemAtoms } from "../../state-logic/gridItems";
+import { gridItemAtoms, gridItemNames } from "../../state-logic/gridItems";
 import {
   gridColsAtomFamily,
   gridRowsAtomFamily,
   tractDimsState,
 } from "../../state-logic/gridLayout/atoms";
+import { useGridDragger } from "../../state-logic/itemDragging";
 import { DragFeedback } from "../DragFeedback";
 import { EditableGridItems } from "../EditableGridItems";
 import { GridCard } from "../GridCard";
 import { GridTractControls } from "../GridTractControls";
 import { FakeBrowserBar } from "../TheFakeBrowserBar";
 import classes from "./style.module.css";
+import { SelectedItemOverlay } from "../SelectedItemOverlay";
 
 // A grid container that also displays a grid of all cells in background
 export function EditorGridContainer() {
@@ -33,6 +34,7 @@ export function EditorGridContainer() {
           itemNamesState={gridItemNames}
           itemDefsState={gridItemAtoms}
         />
+        <SelectedItemOverlay />
         <DragFeedback />
       </div>
     </GridCard>

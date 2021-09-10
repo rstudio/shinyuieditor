@@ -1,3 +1,4 @@
+import { RefObject } from "preact";
 import {
   atom,
   atomFamily,
@@ -5,9 +6,7 @@ import {
   selector,
   useRecoilTransaction_UNSTABLE,
 } from "recoil";
-import { selectedItemNameState } from "../routes/LayoutEditor";
 import { GridItemDef } from "../types";
-import { gridItemBoundingBoxFamily } from "./itemDragging";
 
 export const gridItemNames = atom<string[]>({
   key: "itemNamesState",
@@ -17,7 +16,10 @@ export type GridItemNamesAtom = typeof gridItemNames;
 
 // This gets wrapped within a selectorFamily for easier control of the names
 // so we dont use it outside of this script
-export const gridItemAtoms = atomFamily<GridItemDef, string>({
+export const gridItemAtoms = atomFamily<
+  GridItemDef & { selected?: boolean },
+  string
+>({
   key: "gridItemsState",
   default: {
     name: "default",
@@ -49,11 +51,30 @@ export const useDeleteItem = () => {
       (name: string) => {
         set(gridItemNames, (items) => items.filter((item) => item !== name));
         reset(gridItemAtoms(name));
-        reset(gridItemBoundingBoxFamily(name));
       },
     []
   );
 };
+
+export const selectedItemNameState = atom<string | null>({
+  key: "selectedItemName",
+  default: null,
+});
+
+export const selectedItemRef = atom<RefObject<HTMLDivElement> | null>({
+  key: "selectedItemRef",
+  default: null,
+});
+
+export const setSelectedItemNameState = selector<string | null>({
+  key: "setSelectedItemNameState",
+  get: ({ get }) => get(selectedItemNameState),
+  set: ({ set }, nameOfItem) => {
+    set(selectedItemNameState, (previousSelection) =>
+      previousSelection === nameOfItem ? null : nameOfItem
+    );
+  },
+});
 
 export const selectedItemState = selector<GridItemDef | null>({
   key: "selectedItem",

@@ -11,6 +11,26 @@ type BoxSides =
   | "bottom-right"
   | "center";
 
+export type ItemBoundingBox = SelectionRect & {
+  offsetLeft: number;
+  offsetTop: number;
+};
+export function getBBoxOfDiv(
+  divNode: HTMLDivElement | null
+): ItemBoundingBox | null {
+  if (!divNode) return null;
+  const { top, bottom, left, right } = divNode.getBoundingClientRect();
+  const { offsetLeft, offsetTop } = divNode;
+
+  return {
+    top,
+    bottom,
+    left,
+    right,
+    offsetLeft,
+    offsetTop,
+  };
+}
 // Figure out how interval B overlaps interval A
 function intervalsOverlap(
   [aStart, aEnd]: [number, number],

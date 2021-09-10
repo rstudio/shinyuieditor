@@ -12,6 +12,10 @@
   border-radius: var(--corner-radius);
 }
 
+.selected {
+  box-shadow: var(--selected-shadow);
+}
+
 .item button {
   color: white;
   background-color: var(--rstudio-blue);

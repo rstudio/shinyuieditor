@@ -16,6 +16,7 @@ body {
   --light-grey: #c4c4c4b2;
   --header-height: 60px;
   --underline-shadow: 0px 1px 3px 0px var(--light-grey);
+  --selected-shadow: 0px 0px 0px 3px peru;
   --corner-radius: 5px;
   --unit-input-width: 135px;
   --card-header-height: 35px;

@@ -1,5 +1,5 @@
 import { ComponentChildren } from "preact";
-import { useCallback, useRef } from "preact/hooks";
+import { useCallback } from "preact/hooks";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
   enumerateGridDims,
@@ -12,7 +12,6 @@ import type {
   TractPosition,
 } from "../../state-logic/gridLayout/atoms";
 import { useAddTract } from "../../state-logic/gridLayout/hooks";
-import { useGridCellBoundingBoxRecorder } from "../../state-logic/itemDragging";
 import { CssUnitInput } from "../CssUnitInput";
 import { GridItem } from "../GridItem";
 import { SvgIcon } from "../Icons";
@@ -129,14 +128,10 @@ function TractBoundary({ dir, index }: TractPosition) {
 
 function GridCell(pos: { row: number; col: number }) {
   const { row, col } = pos;
-  const cellRef = useRef<HTMLDivElement>(null);
-
-  useGridCellBoundingBoxRecorder({ row, col, cellRef });
 
   return (
     <div
       className={"gridCell"}
-      ref={cellRef}
       style={{
         gridRow: row,
         gridColumn: col,
