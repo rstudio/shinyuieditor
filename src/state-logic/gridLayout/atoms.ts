@@ -6,9 +6,10 @@ import {
   selectorFamily,
 } from "recoil";
 import { CSSMeasure, GridLayoutTemplate } from "../../types";
-import { combinedItemsState } from "../gridItems/atoms";
+import { combinedItemsState } from "../gridItems";
 
 export type TractDirection = "rows" | "cols";
+export type TractPosition = { index: number; dir: TractDirection };
 export type GridTractDefs = CSSMeasure[];
 export type GridTracts = Pick<GridLayoutTemplate, TractDirection>;
 

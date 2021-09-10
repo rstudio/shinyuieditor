@@ -1,5 +1,5 @@
 import { useRecoilValue } from "recoil";
-import type { GridItemNamesAtom } from "../../state-logic/gridItems/atoms";
+import type { GridItemNamesAtom } from "../../state-logic/gridItems";
 import { GridCard } from "../GridCard";
 import { SvgIcon } from "../Icons";
 import classes from "./style.module.css";

@@ -5,14 +5,14 @@ import {
   enumerateGridDims,
   placeOnGridOrCol,
 } from "../../helper-scripts/grid-helpers";
-import { useGridCellBoundingBoxRecorder } from "../../state-logic/gridItems/hooks";
 import type {
   GridTractAtom,
   GridTractAtomFamily,
   GridTractDimsState,
-  TractDirection,
+  TractPosition,
 } from "../../state-logic/gridLayout/atoms";
 import { useAddTract } from "../../state-logic/gridLayout/hooks";
+import { useGridCellBoundingBoxRecorder } from "../../state-logic/itemDragging";
 import { CssUnitInput } from "../CssUnitInput";
 import { GridItem } from "../GridItem";
 import { SvgIcon } from "../Icons";
@@ -53,16 +53,11 @@ export function GridTractControls({
   );
 }
 
-type TractPlacement = {
-  dir: TractDirection;
-  index: number;
-};
-
 function TractSizer({
   dir,
   index,
   tractAtom,
-}: TractPlacement & { tractAtom: GridTractAtom }) {
+}: TractPosition & { tractAtom: GridTractAtom }) {
   const [value, setValue] = useRecoilState(tractAtom);
   return (
     <TractGutter dir={dir} index={index}>
@@ -71,7 +66,7 @@ function TractSizer({
   );
 }
 
-function TractAddButton({ dir, index }: TractPlacement) {
+function TractAddButton({ dir, index }: TractPosition) {
   const isFirstTract = index === -1;
 
   const addTract = useAddTract(dir);
@@ -104,11 +99,7 @@ function TractGutter({
   dir,
   index,
   children,
-}: {
-  dir: TractDirection;
-  index: number;
-  children: ComponentChildren;
-}) {
+}: TractPosition & { children: ComponentChildren }) {
   const className =
     dir === "rows" ? classes.rowSizeControls : classes.colSizeControls;
 
@@ -123,7 +114,7 @@ function TractGutter({
   );
 }
 
-function TractBoundary({ dir, index }: TractPlacement) {
+function TractBoundary({ dir, index }: TractPosition) {
   const boundaryClass =
     classes[dir === "cols" ? "colTractBoundary" : "rowTractBoundary"];
 

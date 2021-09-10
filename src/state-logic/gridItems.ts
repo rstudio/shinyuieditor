@@ -1,6 +1,13 @@
-import { atom, atomFamily, DefaultValue, selector } from "recoil";
-import { selectedItemNameState } from "../../routes/LayoutEditor";
-import { GridItemDef } from "../../types";
+import {
+  atom,
+  atomFamily,
+  DefaultValue,
+  selector,
+  useRecoilTransaction_UNSTABLE,
+} from "recoil";
+import { selectedItemNameState } from "../routes/LayoutEditor";
+import { GridItemDef } from "../types";
+import { gridItemBoundingBoxFamily } from "./itemDragging";
 
 export const gridItemNames = atom<string[]>({
   key: "itemNamesState",
@@ -20,6 +27,33 @@ export const gridItemAtoms = atomFamily<GridItemDef, string>({
     endCol: 1,
   },
 });
+
+// Adds a new item to both the name list and creates its new state atom
+export const useAddNewItem = () => {
+  return useRecoilTransaction_UNSTABLE(
+    ({ set }) =>
+      (itemDef: GridItemDef | GridItemDef[]) => {
+        if (!Array.isArray(itemDef)) itemDef = [itemDef];
+
+        itemDef.forEach((def) => {
+          set(gridItemNames, (names) => [...names, def.name]);
+          set(gridItemAtoms(def.name), def);
+        });
+      },
+    []
+  );
+};
+export const useDeleteItem = () => {
+  return useRecoilTransaction_UNSTABLE(
+    ({ set, reset }) =>
+      (name: string) => {
+        set(gridItemNames, (items) => items.filter((item) => item !== name));
+        reset(gridItemAtoms(name));
+        reset(gridItemBoundingBoxFamily(name));
+      },
+    []
+  );
+};
 
 export const selectedItemState = selector<GridItemDef | null>({
   key: "selectedItem",

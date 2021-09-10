@@ -6,8 +6,7 @@ import { EditorItemsListView } from "../../components/EditorItemsListView";
 import { EditorSettings, SettingPane } from "../../components/EditorSettings";
 import { GapSizeSetting } from "../../components/GapSizeSetting";
 import { MainGridCSSVariables } from "../../components/MainGridCSSVariables";
-import { gridItemNames } from "../../state-logic/gridItems/atoms";
-import { useDeleteItem } from "../../state-logic/gridItems/hooks";
+import { gridItemNames, useDeleteItem } from "../../state-logic/gridItems";
 import { gapState } from "../../state-logic/gridLayout/atoms";
 import classes from "./style.module.css";
 

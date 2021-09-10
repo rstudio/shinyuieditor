@@ -1,4 +1,4 @@
-import { SelectionRect } from "../state-logic/dragging/atoms";
+import type { SelectionRect } from "../state-logic/itemDragging";
 
 type BoxSides =
   | "top"

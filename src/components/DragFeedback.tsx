@@ -1,6 +1,6 @@
 import { useRecoilValue } from "recoil";
+import { dragStateAtom } from "../state-logic/itemDragging";
 import { GridItem } from "./GridItem";
-import { dragStateAtom } from "../state-logic/dragging/atoms";
 
 // I wish that I could bundle this in with the custom useDragHandler hook
 // but then we loose a lot of performance because react rerenders the whole

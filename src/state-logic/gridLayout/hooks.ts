@@ -1,11 +1,13 @@
 import { useRecoilTransaction_UNSTABLE } from "recoil";
-import { CSSMeasure } from "../../types";
-import { gridItemAtoms, gridItemNames } from "../gridItems/atoms";
+import { CSSMeasure, GridItemDef } from "../../types";
+import { gridItemAtoms, gridItemNames } from "../gridItems";
+import { RecoilGetter, RecoilSetter } from "../RecoilHelperClasses";
 import {
   gridColsAtomFamily,
   gridRowsAtomFamily,
   numTractsState,
   TractDirection,
+  TractPosition,
 } from "./atoms";
 
 export function useAddTract(dir: TractDirection) {
@@ -38,46 +40,55 @@ export function useAddTract(dir: TractDirection) {
 
         const itemNames = get(gridItemNames);
         itemNames.forEach((name) => {
-          const itemState = gridItemAtoms(name);
-
-          const itemDef = get(itemState);
-
-          const startPos = dir === "rows" ? "startRow" : "startCol";
-          const endPos = dir === "rows" ? "endRow" : "endCol";
-          const currentStart = itemDef[startPos];
-          const currentEnd = itemDef[endPos] ?? currentStart;
-
-          // There are three options for positioning.
-          // First: the new tract is beyond the end of the item
-          //   and then nothing needs to happen
-          // Second: The new tract is before the item entirely, then both the
-          //   start and the end need to be shifted up
-          // Third: The new tract is _within_ the boundaries of the item
-          //   in this case the item needs to just have its end pos adjusted up
-
-          if (index >= currentEnd) {
-            // Beyond end of item and we dont need to do anything
-            // If item didnt move then the updater function returns null and we
-            // can skip the update
-            return null;
-          }
-
-          // Make copy to avoid mutation problems
-          const updatedDef = { ...itemDef };
-          if (index < currentStart) {
-            // Before item
-            updatedDef[startPos] = currentStart + 1;
-            updatedDef[endPos] = currentEnd + 1;
-          } else {
-            // Within item bounds
-            updatedDef[endPos] = currentEnd + 1;
-          }
-
-          set(itemState, updatedDef);
+          updateItemBoundsForNewTract(name, get, set, {
+            index,
+            dir,
+          });
         });
 
         // Add item to both the names list and the state atom family
         set(numTractsState(dir), newNumTracts);
       }
   );
+}
+
+function updateItemBoundsForNewTract(
+  itemName: string,
+  get: RecoilGetter<GridItemDef>,
+  set: RecoilSetter<GridItemDef>,
+  { index, dir }: TractPosition
+) {
+  const itemState = gridItemAtoms(itemName);
+  const item = get(itemState);
+  const startPos = dir === "rows" ? "startRow" : "startCol";
+  const endPos = dir === "rows" ? "endRow" : "endCol";
+  const currentStart = item[startPos];
+  const currentEnd = item[endPos] ?? currentStart;
+
+  // There are three options for positioning.
+  // First: the new tract is beyond the end of the item
+  //   and then nothing needs to happen
+  // Second: The new tract is before the item entirely, then both the
+  //   start and the end need to be shifted up
+  // Third: The new tract is _within_ the boundaries of the item
+  //   in this case the item needs to just have its end pos adjusted up
+
+  if (index >= currentEnd) {
+    // Beyond end of item and we dont need to do anything
+    // If item didnt move then the updater function returns null and we
+    // can skip the update
+    return;
+  }
+
+  // Make copy to avoid mutation problems
+  const updatedDef = { ...item };
+  if (index < currentStart) {
+    // Before item
+    updatedDef[startPos] = currentStart + 1;
+    updatedDef[endPos] = currentEnd + 1;
+  } else {
+    // Within item bounds
+    updatedDef[endPos] = currentEnd + 1;
+  }
+  set(itemState, updatedDef);
 }

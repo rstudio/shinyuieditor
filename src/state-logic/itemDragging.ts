@@ -1,18 +1,50 @@
+import { RefObject } from "preact";
 import { useEffect } from "preact/hooks";
-import { useRecoilCallback } from "recoil";
-import { addItemModalState } from "../../components/AddItemModal";
-import { sameGridPos } from "../../helper-scripts/grid-helpers";
-import { boxesOverlap } from "../../helper-scripts/overlap-helpers";
-import { selectedItemNameState } from "../../routes/LayoutEditor";
-import { DragDir, GridPos } from "../../types";
-import { selectedItemState } from "../gridItems/atoms";
 import {
-  ActiveDrag,
-  dragStateAtom,
-  gridCellBoundingBoxes,
-  GridItemBoundingBox,
-  gridItemBoundingBoxFamily,
-} from "./atoms";
+  atom,
+  atomFamily,
+  selector,
+  SetterOrUpdater,
+  useRecoilCallback,
+  useSetRecoilState,
+} from "recoil";
+import { addItemModalState } from "../components/AddItemModal";
+import { enumerateGridDims, sameGridPos } from "../helper-scripts/grid-helpers";
+import { boxesOverlap } from "../helper-scripts/overlap-helpers";
+import { selectedItemNameState } from "../routes/LayoutEditor";
+import { DragDir, GridItemDef, GridPos } from "../types";
+import { selectedItemState } from "./gridItems";
+import { tractDimsState } from "./gridLayout/atoms";
+
+export type SelectionRect = {
+  left: number;
+  right: number;
+  top: number;
+  bottom: number;
+};
+
+export type ActiveDrag = {
+  // These define the type of drag happening and change behavior of snapping, etc
+  // accordingly.
+  dragBox: { dir: DragDir } & SelectionRect;
+  dragType: "NewItemDrag" | "ResizeItemDrag";
+  gridCellPositions: GridItemBoundingBox[];
+  xOffset: number;
+  yOffset: number;
+  itemName: string;
+  gridPos: GridPos;
+};
+
+export type GridItemBoundingBox = SelectionRect &
+  GridPos & {
+    offsetLeft: number;
+    offsetTop: number;
+  };
+
+export const dragStateAtom = atom<ActiveDrag | null>({
+  key: "dragStateAtom",
+  default: null,
+});
 
 export function useGridDragger(
   nameOfDragged?: string,
@@ -156,6 +188,152 @@ export function useGridDragger(
   }, []);
 
   return initializeDrag;
+}
+
+// These keep the bounding boxes for items for overlap detection etc.
+// Allows us to not have to pass around refs to get the info
+const defaultBBox = {
+  top: -1,
+  bottom: -1,
+  left: -1,
+  right: -1,
+  startRow: 0,
+  startCol: 0,
+  offsetLeft: 0,
+  offsetTop: 0,
+};
+export const gridItemBoundingBoxFamily = atomFamily<
+  GridItemBoundingBox,
+  string
+>({
+  key: "gridItemBoundingBoxFamily",
+  default: defaultBBox,
+});
+
+export const gridCellBoundingBoxFamily = atomFamily<
+  GridItemBoundingBox,
+  { row: number; col: number }
+>({
+  key: "gridCellBoundingBoxFamily",
+  default: defaultBBox,
+});
+
+export const gridCellBoundingBoxes = selector<GridItemBoundingBox[]>({
+  key: "gridCellBoundingBoxes",
+  get: ({ get }) => {
+    const { numRows, numCols } = get(tractDimsState);
+
+    return enumerateGridDims({
+      numRows,
+      numCols,
+    }).map(({ row, col }) => get(gridCellBoundingBoxFamily({ col, row })));
+  },
+});
+
+export function useGridCellBoundingBoxRecorder({
+  row,
+  col,
+  cellRef,
+}: {
+  row: number;
+  col: number;
+  cellRef: RefObject<HTMLDivElement>;
+}) {
+  const setBoundingBox = useSetRecoilState(
+    gridCellBoundingBoxFamily({ row, col })
+  );
+
+  useGridBoundingBoxRecorder({
+    itemRef: cellRef,
+    startRow: row,
+    startCol: col,
+    setBoundingBox,
+  });
+}
+export function useGridItemBoundingBoxRecorder({
+  itemRef,
+  name,
+  startRow,
+  startCol,
+  endRow,
+  endCol,
+}: {
+  itemRef: RefObject<HTMLDivElement>;
+} & GridItemDef) {
+  const setBoundingBox = useSetRecoilState(gridItemBoundingBoxFamily(name));
+
+  useGridBoundingBoxRecorder({
+    itemRef,
+    startRow,
+    startCol,
+    endRow,
+    endCol,
+    setBoundingBox,
+  });
+
+  useEffect(() => {
+    const resizeObserver = new ResizeObserver((entries) => {
+      const itemDiv = itemRef.current;
+      if (itemDiv) {
+        const { top, bottom, left, right } = itemDiv.getBoundingClientRect();
+        const { offsetLeft, offsetTop } = itemDiv;
+        setBoundingBox({
+          top,
+          bottom,
+          left,
+          right,
+          offsetLeft,
+          offsetTop,
+          startRow,
+          endRow,
+          startCol,
+          endCol,
+        });
+      }
+    });
+    if (itemRef.current) resizeObserver.observe(itemRef.current);
+    return () => {
+      if (itemRef.current) resizeObserver.unobserve(itemRef.current);
+    };
+  }, []);
+}
+
+function useGridBoundingBoxRecorder({
+  itemRef,
+  startRow,
+  startCol,
+  endRow,
+  endCol,
+  setBoundingBox,
+}: {
+  itemRef: RefObject<HTMLDivElement>;
+  setBoundingBox: SetterOrUpdater<GridItemBoundingBox>;
+} & GridPos) {
+  useEffect(() => {
+    const resizeObserver = new ResizeObserver((entries) => {
+      const itemDiv = itemRef.current;
+      if (itemDiv) {
+        const { top, bottom, left, right } = itemDiv.getBoundingClientRect();
+        const { offsetLeft, offsetTop } = itemDiv;
+        setBoundingBox({
+          top,
+          bottom,
+          left,
+          right,
+          offsetLeft,
+          offsetTop,
+          startRow,
+          endRow,
+          startCol,
+          endCol,
+        });
+      }
+    });
+    if (itemRef.current) resizeObserver.observe(itemRef.current);
+    return () => {
+      if (itemRef.current) resizeObserver.unobserve(itemRef.current);
+    };
+  }, []);
 }
 
 function containsDir(

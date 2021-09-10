@@ -1,7 +1,6 @@
 import { useLayoutEffect, useRef, useState } from "preact/hooks";
 import { atom, useRecoilCallback, useRecoilValue } from "recoil";
-import { gridItemNames } from "../../state-logic/gridItems/atoms";
-import { useAddNewItem } from "../../state-logic/gridItems/hooks";
+import { gridItemNames, useAddNewItem } from "../../state-logic/gridItems";
 import { GridPos } from "../../types";
 import classes from "./style.module.css";
 

@@ -1,8 +1,5 @@
-import { useGridDragger } from "../../state-logic/dragging/hooks";
-import {
-  gridItemNames,
-  gridItemAtoms,
-} from "../../state-logic/gridItems/atoms";
+import { useGridDragger } from "../../state-logic/itemDragging";
+import { gridItemNames, gridItemAtoms } from "../../state-logic/gridItems";
 import {
   gridColsAtomFamily,
   gridRowsAtomFamily,
