@@ -1,15 +1,23 @@
 import { RefObject } from "preact";
-import { useEffect } from "preact/hooks";
+import { useEffect, useRef } from "preact/hooks";
 import { atom, useRecoilTransaction_UNSTABLE } from "recoil";
 import { addItemModalState } from "../components/AddItemModal";
 import { sameGridPos } from "../helper-scripts/grid-helpers";
 import {
   boxesOverlap,
+  containsDir,
   getBBoxOfDiv,
   ItemBoundingBox,
+  mutateToFixOverlapOfBoxes,
 } from "../helper-scripts/overlap-helpers";
-import { DragDir, GridPos } from "../types";
-import { gridItemAtoms, selectedItemNameState } from "./gridItems";
+import { DragDir, GridItemDef, GridPos } from "../types";
+import {
+  gridItemAtoms,
+  gridItemNames,
+  GridItemsAtomFamily,
+  selectedItemNameState,
+} from "./gridItems";
+import { RecoilGetter } from "./RecoilHelperClasses";
 
 export type SelectionRect = {
   left: number;
@@ -37,40 +45,93 @@ export const dragStateAtom = atom<ActiveDrag | null>({
   default: null,
 });
 
-function getCurrentGridCellBounds(): GridItemBoundingBox[] {
+function getCurrentGridCellBounds() {
   const allCells = document.querySelectorAll(
     ".gridCell"
   ) as NodeListOf<HTMLDivElement>;
-  const cellBBoxes = [...allCells].map((cellDiv) => {
+
+  const gridIndicesToBBox = new Map<
+    `row${number}-col${number}`,
+    GridItemBoundingBox
+  >();
+  allCells.forEach((cellDiv) => {
     const absolutePos = getBBoxOfDiv(cellDiv);
     if (!absolutePos) throw "GridCells are misbehaving";
-    return {
+    const row = Number(cellDiv.dataset.row);
+    const col = Number(cellDiv.dataset.col);
+
+    gridIndicesToBBox.set(`row${row}-col${col}`, {
       ...absolutePos,
-      startRow: Number(cellDiv.dataset.row),
-      startCol: Number(cellDiv.dataset.col),
-    };
+      startRow: row,
+      startCol: col,
+    });
   });
 
-  return cellBBoxes;
+  return gridIndicesToBBox;
 }
 
-export function useGridDragger(
-  nameOfDragged?: string,
-  draggedRef?: RefObject<HTMLDivElement>
+function getItemGridBounds(
+  itemNames: string[],
+  get: RecoilGetter<GridItemDef>,
+  gridItemAtoms: GridItemsAtomFamily,
+  gridCellPositionMap: ReturnType<typeof getCurrentGridCellBounds>
 ) {
+  return itemNames.map((name) => {
+    const itemDef = get(gridItemAtoms(name));
+    if (!itemDef.endRow || !itemDef.endCol) throw "Non-complete item";
+
+    const topLeft = gridCellPositionMap.get(
+      `row${itemDef.startRow}-col${itemDef.startCol}`
+    );
+
+    const bottomRight = gridCellPositionMap.get(
+      `row${itemDef.endRow}-col${itemDef.endCol}`
+    );
+    if (!topLeft || !bottomRight)
+      throw "Failed to retrieve grid cell for item bounds";
+
+    const { top, left } = topLeft;
+    const { bottom, right } = bottomRight;
+
+    return {
+      name,
+      top,
+      left,
+      bottom,
+      right,
+    };
+  });
+}
+
+export function useGridDragger(draggedRef?: RefObject<HTMLDivElement>) {
+  const itemBoundsRef = useRef<(SelectionRect & { name: string })[]>(null);
+
   const initializeDrag = useRecoilTransaction_UNSTABLE(
-    ({ set }) =>
+    ({ get, set }) =>
       (
         mouseDownEvent: MouseEvent,
         dragDir: ActiveDrag["dragBox"]["dir"] = "bottomRight"
       ) => {
+        const nameOfDragged = get(selectedItemNameState);
         const dragType: ActiveDrag["dragType"] = nameOfDragged
           ? "ResizeItemDrag"
           : "NewItemDrag";
 
         let dragBox: ActiveDrag["dragBox"];
 
-        if (nameOfDragged && draggedRef) {
+        const gridCellPositionsMap = getCurrentGridCellBounds();
+        const gridCellPositions = [...gridCellPositionsMap.values()];
+        const otherItemNames = get(gridItemNames).filter(
+          (name) => name !== nameOfDragged
+        );
+        itemBoundsRef.current = getItemGridBounds(
+          otherItemNames,
+          get,
+          gridItemAtoms,
+          gridCellPositionsMap
+        );
+
+        if (draggedRef) {
           const divBBox = getBBoxOfDiv(draggedRef.current);
 
           if (!divBBox) {
@@ -97,7 +158,6 @@ export function useGridDragger(
           };
         }
 
-        const gridCellPositions = getCurrentGridCellBounds();
         const gridPos = getDragPosOnGrid(dragBox, gridCellPositions);
         const firstCell = gridCellPositions[0];
         set(dragStateAtom, {
@@ -130,17 +190,29 @@ export function useGridDragger(
         const dragBox = { ...oldDragBox };
 
         // Make sure that we update the drag correctly based on the current handle
-        if (containsDir("bottom", dragDir)) {
+        if (containsDir(dragDir, "bottom")) {
           dragBox.bottom = Math.max(pageY, dragBox.top);
         }
-        if (containsDir("top", dragDir)) {
+        if (containsDir(dragDir, "top")) {
           dragBox.top = Math.min(pageY, dragBox.bottom);
         }
-        if (containsDir("right", dragDir)) {
+        if (containsDir(dragDir, "right")) {
           dragBox.right = Math.max(pageX, dragBox.left);
         }
-        if (containsDir("left", dragDir)) {
+        if (containsDir(dragDir, "left")) {
           dragBox.left = Math.min(pageX, dragBox.right);
+        }
+
+        // Check to see if we overlap with an existing grid item and constrain
+        // the drag if it does
+        const itemBounds = itemBoundsRef.current;
+        if (itemBounds) {
+          itemBounds.forEach((itemBounds) => {
+            const overlap = boxesOverlap(itemBounds, dragBox);
+            if (overlap) {
+              mutateToFixOverlapOfBoxes(dragBox, itemBounds, overlap);
+            }
+          });
         }
 
         const newGridPos = getDragPosOnGrid(dragBox, gridCellPositions);
@@ -194,23 +266,6 @@ export function useGridDragger(
   }, []);
 
   return initializeDrag;
-}
-
-function containsDir(
-  dir: "top" | "bottom" | "left" | "right",
-  mainDir: DragDir
-): boolean {
-  if (dir === mainDir) return true;
-  switch (dir) {
-    case "top":
-      return mainDir === "topLeft" || mainDir === "topRight";
-    case "left":
-      return mainDir === "topLeft" || mainDir === "bottomLeft";
-    case "bottom":
-      return mainDir === "bottomLeft" || mainDir === "bottomRight";
-    case "right":
-      return mainDir === "topRight" || mainDir === "bottomRight";
-  }
 }
 
 function getDragPosOnGrid(

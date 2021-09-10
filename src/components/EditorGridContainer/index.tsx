@@ -9,9 +9,9 @@ import { DragFeedback } from "../DragFeedback";
 import { EditableGridItems } from "../EditableGridItems";
 import { GridCard } from "../GridCard";
 import { GridTractControls } from "../GridTractControls";
+import { SelectedItemOverlay } from "../SelectedItemOverlay";
 import { FakeBrowserBar } from "../TheFakeBrowserBar";
 import classes from "./style.module.css";
-import { SelectedItemOverlay } from "../SelectedItemOverlay";
 
 // A grid container that also displays a grid of all cells in background
 export function EditorGridContainer() {

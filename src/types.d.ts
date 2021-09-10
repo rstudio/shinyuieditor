@@ -4,11 +4,10 @@ export type GridPos = {
   endRow?: number;
   startCol: number;
   endCol?: number;
-}
+};
 export type GridItemDef = {
   name: string;
 } & GridPos;
-
 
 export type GridLayoutTemplate = {
   rows: string[];
@@ -21,5 +20,7 @@ export type GridLayoutTemplate = {
 export type CSSUnits = "fr" | "px" | "rem" | "auto";
 export type CSSMeasure = `${number}${CSSUnits}`;
 
-export type DragDir = "top" | "topLeft" | "topRight" | "bottom" | "bottomLeft" | "bottomRight" | "left" | "right"| "middle";
-
+export type BoxSide = "top" | "bottom" | "left" | "right";
+export type BoxCorner = "topLeft" | "topRight" | "bottomLeft" | "bottomRight";
+export type BoxOverlap = BoxSide | BoxCorner | "center";
+export type DragDir = BoxSide | BoxCorner;

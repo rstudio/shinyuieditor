@@ -10,10 +10,9 @@ import classes from "./style.module.css";
 export function SelectedItemOverlay() {
   const selectedItem = useRecoilValue(selectedItemState);
   if (selectedItem === null) return null;
-  const selectedItemName = selectedItem.name;
   const itemRef = useRef<HTMLDivElement>(null);
 
-  const startDrag = useGridDragger(selectedItemName, itemRef);
+  const startDrag = useGridDragger(itemRef);
   return (
     <GridItem
       {...selectedItem}
@@ -37,7 +36,7 @@ export function SelectedItemOverlay() {
 }
 
 const directions: Array<DragDir> = [
-  "middle",
+  // "middle",
   "topLeft",
   "topRight",
   "left",
