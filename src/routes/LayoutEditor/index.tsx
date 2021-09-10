@@ -1,4 +1,3 @@
-import { useRecoilValue } from "recoil";
 import { AddItemModal } from "../../components/AddItemModal";
 import { EditorGridContainer } from "../../components/EditorGridContainer";
 import { EditorInstructions } from "../../components/EditorInstructions";
@@ -6,23 +5,9 @@ import { EditorItemsListView } from "../../components/EditorItemsListView";
 import { EditorSettings, SettingPane } from "../../components/EditorSettings";
 import { GapSizeSetting } from "../../components/GapSizeSetting";
 import { MainGridCSSVariables } from "../../components/MainGridCSSVariables";
-import {
-  gridItemNames,
-  selectedItemNameState,
-  useDeleteItem,
-} from "../../state-logic/gridItems";
+import { gridItemNames, useDeleteItem } from "../../state-logic/gridItems";
 import { gapState } from "../../state-logic/gridLayout/atoms";
 import classes from "./style.module.css";
-
-function CurrentlySelectedItem() {
-  const selectedItemName = useRecoilValue(selectedItemNameState);
-
-  return (
-    <SettingPane label="Selected Item">
-      <span>{selectedItemName ? selectedItemName : "Nothing selected"}</span>
-    </SettingPane>
-  );
-}
 
 export default function LayoutEditor() {
   const deleteItem = useDeleteItem();
@@ -34,7 +19,6 @@ export default function LayoutEditor() {
         <SettingPane label="Gap Size">
           <GapSizeSetting gapAtom={gapState} />
         </SettingPane>
-        <CurrentlySelectedItem />
       </EditorSettings>
       <EditorInstructions />
       <EditorItemsListView
