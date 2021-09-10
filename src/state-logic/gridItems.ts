@@ -15,10 +15,7 @@ export type GridItemNamesAtom = typeof gridItemNames;
 
 // This gets wrapped within a selectorFamily for easier control of the names
 // so we dont use it outside of this script
-export const gridItemAtoms = atomFamily<
-  GridItemDef & { selected?: boolean },
-  string
->({
+export const gridItemAtoms = atomFamily<GridItemDef, string>({
   key: "gridItemsState",
   default: {
     name: "default",

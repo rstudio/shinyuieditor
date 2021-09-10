@@ -1,6 +1,6 @@
 import { RefObject } from "preact";
 import { useEffect } from "preact/hooks";
-import { atom, useRecoilCallback } from "recoil";
+import { atom, useRecoilTransaction_UNSTABLE } from "recoil";
 import { addItemModalState } from "../components/AddItemModal";
 import { sameGridPos } from "../helper-scripts/grid-helpers";
 import {
@@ -9,7 +9,7 @@ import {
   ItemBoundingBox,
 } from "../helper-scripts/overlap-helpers";
 import { DragDir, GridPos } from "../types";
-import { selectedItemState } from "./gridItems";
+import { gridItemAtoms, selectedItemNameState } from "./gridItems";
 
 export type SelectionRect = {
   left: number;
@@ -58,7 +58,7 @@ export function useGridDragger(
   nameOfDragged?: string,
   draggedRef?: RefObject<HTMLDivElement>
 ) {
-  const initializeDrag = useRecoilCallback(
+  const initializeDrag = useRecoilTransaction_UNSTABLE(
     ({ set }) =>
       (
         mouseDownEvent: MouseEvent,
@@ -120,10 +120,10 @@ export function useGridDragger(
     []
   );
 
-  const updateDrag = useRecoilCallback(
-    ({ set, snapshot }) =>
-      async ({ pageX, pageY }: MouseEvent) => {
-        const dragState = await snapshot.getPromise(dragStateAtom);
+  const updateDrag = useRecoilTransaction_UNSTABLE(
+    ({ set, get }) =>
+      ({ pageX, pageY }: MouseEvent) => {
+        const dragState = get(dragStateAtom);
         if (!dragState) throw new Error("Cant move an uninitialized drag");
         const { dragBox: oldDragBox, gridCellPositions } = dragState;
         const dragDir = oldDragBox.dir;
@@ -149,9 +149,9 @@ export function useGridDragger(
           dragState.dragType === "ResizeItemDrag" &&
           !sameGridPos(dragState.gridPos, newGridPos);
 
-        if (shouldUpdateItemState) {
-          set(selectedItemState, (existingItemDef) => {
-            if (!existingItemDef) return null;
+        const selectedItemName = get(selectedItemNameState);
+        if (shouldUpdateItemState && selectedItemName) {
+          set(gridItemAtoms(selectedItemName), (existingItemDef) => {
             return {
               ...existingItemDef,
               ...newGridPos,
@@ -167,10 +167,10 @@ export function useGridDragger(
     []
   );
 
-  const finishDrag = useRecoilCallback(
-    ({ set, reset, snapshot }) =>
-      async () => {
-        const finalState = await snapshot.getPromise(dragStateAtom);
+  const finishDrag = useRecoilTransaction_UNSTABLE(
+    ({ set, reset, get }) =>
+      () => {
+        const finalState = get(dragStateAtom);
 
         if (finalState?.dragType === "NewItemDrag") {
           set(addItemModalState, finalState.gridPos);
