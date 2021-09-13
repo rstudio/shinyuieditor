@@ -38,16 +38,6 @@ export type ActiveDrag = {
   gridPos: GridPos;
 };
 
-const mouseEventToDragBox = ({
-  pageX,
-  pageY,
-}: MouseEvent): Omit<ActiveDrag["dragBox"], "dir"> => ({
-  left: pageX,
-  right: pageX,
-  top: pageY,
-  bottom: pageY,
-});
-
 export type GridItemBoundingBox = ItemBoundingBox & GridPos;
 
 export const dragStateAtom = atom<ActiveDrag | null>({
@@ -119,7 +109,7 @@ export function useGridDragger(draggedRef?: RefObject<HTMLDivElement>) {
   const initializeDrag = useRecoilTransaction_UNSTABLE(
     ({ get, set, reset }) =>
       (
-        mouseDownEvent: MouseEvent,
+        { pageX: dragX, pageY: dragY }: MouseEvent,
         dragDir: ActiveDrag["dragBox"]["dir"] = "bottomRight"
       ) => {
         // If we're dragging on a specific item, then it's a resize drag
@@ -146,11 +136,13 @@ export function useGridDragger(draggedRef?: RefObject<HTMLDivElement>) {
           gridCellPositionsMap
         );
 
+        // If we're dragging an existing item we set the initial drag box to be
+        // that item's outline, otherwise the box starts as a point on click loc
         const dragBox: ActiveDrag["dragBox"] = {
           dir: dragDir,
           ...(dragType === "ResizeItemDrag"
             ? getBBoxOfDiv(draggedRef?.current)
-            : mouseEventToDragBox(mouseDownEvent)),
+            : { left: dragX, right: dragX, top: dragY, bottom: dragY }),
         };
 
         const firstCell = gridCellPositions[0];
