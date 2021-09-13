@@ -18,6 +18,11 @@ export function SelectedItemOverlay() {
 
   const startDrag = useGridDragger(itemRef);
 
+  // The reason that we have a separate div for triggering the resetting of the
+  // selected item is because if the click event was listening on the main div
+  // it's really hard to differentiate between the drag events and the click to
+  // close events, whereas the mouse-down on a drag handle wont trigger a click
+  // event on the cancelBox div behind it.
   return (
     <div
       ref={itemRef}
