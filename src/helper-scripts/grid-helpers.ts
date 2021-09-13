@@ -10,6 +10,34 @@ export function makeTractPos(start: number, end?: number) {
   return pos + "/" + endIndex;
 }
 
+export function addGridPosToStyles(
+  {
+    startRow,
+    startCol,
+    endRow,
+    endCol,
+    gridArea,
+  }: {
+    gridArea?: string;
+  } & Partial<GridPos>,
+  extraStyles?: JSX.CSSProperties
+): JSX.CSSProperties {
+  const styles = { ...extraStyles };
+
+  if (startRow && startCol) {
+    styles.gridRow = makeTractPos(startRow, endRow);
+    styles.gridColumn = makeTractPos(startCol, endCol);
+  } else if (gridArea) {
+    styles.gridArea = gridArea;
+  } else {
+    console.error(
+      "You need to provide one of rows and cols or gridArea for GridItem"
+    );
+  }
+
+  return styles;
+}
+
 export function sameGridPos(a?: GridPos, b?: GridPos) {
   if (typeof a === "undefined" && typeof b === "undefined") return true;
 
