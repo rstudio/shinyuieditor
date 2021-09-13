@@ -5,10 +5,11 @@ export type ItemBoundingBox = SelectionRect & {
   offsetLeft: number;
   offsetTop: number;
 };
-export function getBBoxOfDiv(
-  divNode: HTMLDivElement | null
-): ItemBoundingBox | null {
-  if (!divNode) return null;
+export function getBBoxOfDiv(divNode?: HTMLDivElement | null): ItemBoundingBox {
+  if (!divNode) {
+    throw new Error("Can't find the bounding box of a non existant element");
+  }
+
   const { top, bottom, left, right } = divNode.getBoundingClientRect();
   const { offsetLeft, offsetTop } = divNode;
 

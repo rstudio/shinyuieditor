@@ -107,15 +107,20 @@ export function useGridDragger(draggedRef?: RefObject<HTMLDivElement>) {
   const itemBoundsRef = useRef<(SelectionRect & { name: string })[]>(null);
 
   const initializeDrag = useRecoilTransaction_UNSTABLE(
-    ({ get, set }) =>
+    ({ get, set, reset }) =>
       (
         mouseDownEvent: MouseEvent,
         dragDir: ActiveDrag["dragBox"]["dir"] = "bottomRight"
       ) => {
-        const nameOfDragged = get(selectedItemNameState);
-        const dragType: ActiveDrag["dragType"] = nameOfDragged
+        // If we're dragging on a specific item, then it's a resize drag
+        const dragType: ActiveDrag["dragType"] = draggedRef
           ? "ResizeItemDrag"
           : "NewItemDrag";
+
+        const nameOfDragged =
+          dragType === "ResizeItemDrag"
+            ? get(selectedItemNameState)
+            : "new-item";
 
         let dragBox: ActiveDrag["dragBox"];
 
@@ -131,20 +136,10 @@ export function useGridDragger(draggedRef?: RefObject<HTMLDivElement>) {
           gridCellPositionsMap
         );
 
-        if (draggedRef) {
-          const divBBox = getBBoxOfDiv(draggedRef.current);
-
-          if (!divBBox) {
-            console.error("Somehow we're dragging on a non existant element");
-            return;
-          }
-          const { left, right, top, bottom } = divBBox;
+        if (dragType === "ResizeItemDrag") {
           dragBox = {
             dir: dragDir,
-            left,
-            right,
-            top,
-            bottom,
+            ...getBBoxOfDiv(draggedRef?.current),
           };
         } else {
           const { pageX, pageY } = mouseDownEvent;
@@ -156,6 +151,8 @@ export function useGridDragger(draggedRef?: RefObject<HTMLDivElement>) {
             top: pageY,
             bottom: pageY,
           };
+          // Make sure we reset our selection if we're making a new element
+          reset(selectedItemNameState);
         }
 
         const gridPos = getDragPosOnGrid(dragBox, gridCellPositions);
