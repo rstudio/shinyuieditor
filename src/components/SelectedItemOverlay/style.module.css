@@ -10,12 +10,23 @@
     "bottomLeft bottom   bottomRight";
   grid-template-columns: auto 1fr auto;
   grid-template-rows: auto 1fr auto;
+  position: relative;
+}
+
+.cancelBox {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  /* low z index so the draggers sit above the cancel listener div */
+  z-index: 0;
 }
 
 .item > span {
   color: var(--light-grey);
   justify-self: center;
   align-self: center;
+  /* High z index so the draggers sit above the cancel listener div */
+  z-index: 1000;
 }
 
 .middle {

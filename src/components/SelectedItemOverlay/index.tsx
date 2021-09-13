@@ -1,37 +1,50 @@
 import { useRef } from "preact/hooks";
-import { useRecoilValue } from "recoil";
-import { selectedItemState } from "../../state-logic/gridItems";
+import { useRecoilValue, useResetRecoilState } from "recoil";
+import { addGridPosToStyles } from "../../helper-scripts/grid-helpers";
+import {
+  selectedItemNameState,
+  selectedItemState,
+} from "../../state-logic/gridItems";
 import { useGridDragger } from "../../state-logic/itemDragging";
 import { DragDir } from "../../types";
-import { GridItem } from "../GridItem";
 import { DragIcon } from "../Icons";
 import classes from "./style.module.css";
 
 export function SelectedItemOverlay() {
+  const resetSelection = useResetRecoilState(selectedItemNameState);
   const selectedItem = useRecoilValue(selectedItemState);
   if (selectedItem === null) return null;
   const itemRef = useRef<HTMLDivElement>(null);
 
   const startDrag = useGridDragger(itemRef);
+
   return (
-    <GridItem
-      {...selectedItem}
-      styles={{
-        boxShadow: "var(--selected-shadow)",
-      }}
+    <div
+      ref={itemRef}
       className={classes.item}
-      divRef={itemRef}
+      style={addGridPosToStyles(selectedItem, {
+        boxShadow: "var(--selected-shadow)",
+      })}
     >
       {directions.map((dir) => (
         <span
           key={dir}
           className={classes[dir]}
-          onMouseDown={(e) => startDrag(e, dir)}
+          onMouseDown={(e) => {
+            startDrag(e, dir);
+          }}
+          onClick={(e) => e.stopPropagation()}
         >
           <DragIcon type={dir} />
         </span>
       ))}
-    </GridItem>
+      <div
+        className={classes.cancelBox}
+        onClick={() => {
+          resetSelection();
+        }}
+      />
+    </div>
   );
 }
 
