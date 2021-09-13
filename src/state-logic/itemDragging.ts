@@ -38,6 +38,16 @@ export type ActiveDrag = {
   gridPos: GridPos;
 };
 
+const mouseEventToDragBox = ({
+  pageX,
+  pageY,
+}: MouseEvent): Omit<ActiveDrag["dragBox"], "dir"> => ({
+  left: pageX,
+  right: pageX,
+  top: pageY,
+  bottom: pageY,
+});
+
 export type GridItemBoundingBox = ItemBoundingBox & GridPos;
 
 export const dragStateAtom = atom<ActiveDrag | null>({
@@ -117,12 +127,12 @@ export function useGridDragger(draggedRef?: RefObject<HTMLDivElement>) {
           ? "ResizeItemDrag"
           : "NewItemDrag";
 
-        const nameOfDragged =
-          dragType === "ResizeItemDrag"
-            ? get(selectedItemNameState)
-            : "new-item";
+        const nameOfDragged = get(selectedItemNameState);
 
-        let dragBox: ActiveDrag["dragBox"];
+        if (dragType === "NewItemDrag") {
+          // Make sure we reset our selection if we're making a new element
+          reset(selectedItemNameState);
+        }
 
         const gridCellPositionsMap = getCurrentGridCellBounds();
         const gridCellPositions = [...gridCellPositionsMap.values()];
@@ -136,26 +146,13 @@ export function useGridDragger(draggedRef?: RefObject<HTMLDivElement>) {
           gridCellPositionsMap
         );
 
-        if (dragType === "ResizeItemDrag") {
-          dragBox = {
-            dir: dragDir,
-            ...getBBoxOfDiv(draggedRef?.current),
-          };
-        } else {
-          const { pageX, pageY } = mouseDownEvent;
+        const dragBox: ActiveDrag["dragBox"] = {
+          dir: dragDir,
+          ...(dragType === "ResizeItemDrag"
+            ? getBBoxOfDiv(draggedRef?.current)
+            : mouseEventToDragBox(mouseDownEvent)),
+        };
 
-          dragBox = {
-            dir: dragDir,
-            left: pageX,
-            right: pageX,
-            top: pageY,
-            bottom: pageY,
-          };
-          // Make sure we reset our selection if we're making a new element
-          reset(selectedItemNameState);
-        }
-
-        const gridPos = getDragPosOnGrid(dragBox, gridCellPositions);
         const firstCell = gridCellPositions[0];
         set(dragStateAtom, {
           dragType,
@@ -164,7 +161,7 @@ export function useGridDragger(draggedRef?: RefObject<HTMLDivElement>) {
           xOffset: firstCell.left - firstCell.offsetLeft,
           yOffset: firstCell.top - firstCell.offsetTop,
           itemName: nameOfDragged ?? "new-item",
-          gridPos,
+          gridPos: getDragPosOnGrid(dragBox, gridCellPositions),
         });
 
         // Turnoff text selection so dragging doesnt highlight a bunch of stuff
