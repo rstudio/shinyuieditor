@@ -138,11 +138,14 @@ export function useGridDragger(draggedRef?: RefObject<HTMLDivElement>) {
 
         // If we're dragging an existing item we set the initial drag box to be
         // that item's outline, otherwise the box starts as a point on click loc
+        // We make the box start a tiny bit to the upper left if it's a new item
+        // drag so that we dont immediately trigger the cancel drag state that
+        // we get when the drag box is of size zero.
         const dragBox: ActiveDrag["dragBox"] = {
           dir: dragDir,
           ...(dragType === "ResizeItemDrag"
             ? getBBoxOfDiv(draggedRef?.current)
-            : { left: dragX, right: dragX, top: dragY, bottom: dragY }),
+            : { left: dragX - 1, right: dragX, top: dragY - 1, bottom: dragY }),
         };
 
         const firstCell = gridCellPositions[0];
@@ -231,7 +234,14 @@ export function useGridDragger(draggedRef?: RefObject<HTMLDivElement>) {
         const finalState = get(dragStateAtom);
 
         if (finalState?.dragType === "NewItemDrag") {
-          set(addItemModalState, finalState.gridPos);
+          // If the drag is not wanted, which we intepret as a size-zero drag box,
+          // then we dont want to actually create a new item.
+          const zeroSizeDrag =
+            finalState.dragBox.bottom === finalState.dragBox.top &&
+            finalState.dragBox.left === finalState.dragBox.right;
+          if (!zeroSizeDrag) {
+            set(addItemModalState, finalState.gridPos);
+          }
         }
         reset(dragStateAtom);
 

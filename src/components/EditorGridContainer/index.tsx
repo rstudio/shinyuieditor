@@ -5,7 +5,7 @@ import {
   tractDimsState,
 } from "../../state-logic/gridLayout/atoms";
 import { useGridDragger } from "../../state-logic/itemDragging";
-import { DragFeedback } from "../DragFeedback";
+import { DragFeedback } from "../DragFeedbackRect";
 import { EditableGridItems } from "../EditableGridItems";
 import { GridCard } from "../GridCard";
 import { GridTractControls } from "../GridTractControls";
