@@ -1,15 +1,15 @@
 .cardWHeader {
   border-radius: var(--corner-radius);
-  border: 1px solid var(--light-grey, grey);
-  background-color: white;
+  box-shadow: var(--shadow);
+  background: var(--rstudio-white);
   display: grid;
   grid-template-rows: var(--card-header-height, 35px) 1fr;
 }
 
 .cardWHeader > *:first-child {
-  border-top-left-radius: var(--corner-radius);
-  border-top-right-radius: var(--corner-radius);
-  box-shadow: var(--underline-shadow);
+  border-bottom: 1px solid #d1d0d09a;
+  margin-left: 3px;
+  margin-right: 3px;
 }
 
 .title {

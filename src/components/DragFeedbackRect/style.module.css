@@ -16,7 +16,7 @@
   text-align: center;
   background: white;
   padding: 2px;
-  box-shadow: var(--underline-shadow);
+  box-shadow: var(--shadow);
   border: 1px solid var(--light-grey);
   border-radius: var(--corner-radius);
   color: var(--rstudio-grey);

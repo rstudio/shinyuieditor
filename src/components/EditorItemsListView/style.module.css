@@ -14,6 +14,8 @@
 
 .selected {
   box-shadow: var(--selected-shadow);
+  position: relative;
+  /* outline: var(--selected-outline); */
 }
 
 .item button {

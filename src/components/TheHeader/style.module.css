@@ -5,7 +5,8 @@
   grid-template-rows: 100%;
   justify-content: space-between;
   align-items: center;
-  box-shadow: var(--underline-shadow);
+  box-shadow: var(--shadow);
+  background: var(--rstudio-white);
 }
 
 .header a {
