@@ -1,8 +1,7 @@
 /** @jsxImportSource @emotion/react */
-
 import * as React from "react";
 import { EditorInstructions } from "./EditorInstructions";
-
+import { EditorSettings, SettingPane } from "./EditorSettings";
 export function LayoutEditor() {
   return (
     <div
@@ -24,6 +23,12 @@ export function LayoutEditor() {
         `,
       }}
     >
+      <EditorSettings>
+        <SettingPane label="Gap Size">
+          <h3>Hi</h3>
+          {/* <GapSizeSetting gapAtom={gapState} /> */}
+        </SettingPane>
+      </EditorSettings>
       <EditorInstructions />
     </div>
   );
