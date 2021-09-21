@@ -1,11 +1,19 @@
 /** @jsxImportSource @emotion/react */
 import { StackDivider, VStack } from "@chakra-ui/react";
 import * as React from "react";
+import { useSetRecoilState } from "recoil";
+import layouts from "../assets/layouts";
+import { fullAppState } from "../state-logic/gridLayout/atoms";
 import { CSSUnitInput } from "./CSSUnitInput";
 import { EditorInstructions } from "./EditorInstructions";
 import { EditorSettings, SettingPane } from "./EditorSettings";
 import { MainGridCSSVariables } from "./MainGridCSSVariables";
 export function LayoutEditor() {
+  const setUpNewLayout = useSetRecoilState(fullAppState);
+
+  React.useEffect(() => {
+    setUpNewLayout(layouts[0]);
+  }, [setUpNewLayout]);
   return (
     <div
       css={{

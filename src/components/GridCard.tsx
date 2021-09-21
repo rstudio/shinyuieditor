@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
+import { Heading } from "@chakra-ui/layout";
 import * as React from "react";
 import { CSSMeasure } from "../GridTypes";
 import { GridItem } from "./GridItem";
@@ -33,7 +34,8 @@ function GridCardImpl(
       {"header" in props ? (
         props.header
       ) : (
-        <h3
+        <Heading
+          size="md"
           css={{
             margin: 0,
             display: "flex",
@@ -42,12 +44,11 @@ function GridCardImpl(
             borderBottom: "1px solid #d1d0d09a",
             marginLeft: "3px",
             marginRight: "3px",
-            // padding,
           }}
         >
           <SvgIcon name={props.icon} />
           {props.title}
-        </h3>
+        </Heading>
       )}
       <div css={{ padding }}>{props.children}</div>
     </GridItem>
