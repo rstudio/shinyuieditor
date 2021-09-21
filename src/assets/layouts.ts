@@ -1,6 +1,6 @@
-import type { GridItemDef } from "../types";
+import { GridItemDef } from "../GridTypes";
 
-export default [
+const layouts = [
   {
     name: "Tri-Split",
     rows: ["100px", "2fr"],
@@ -37,3 +37,5 @@ export default [
     ] as GridItemDef[],
   },
 ];
+
+export default layouts;

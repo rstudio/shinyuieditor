@@ -1,71 +1,66 @@
-import { Route, Router } from "preact-router";
-import { useCallback, useEffect } from "preact/hooks";
-import {
-  RecoilRoot,
-  useRecoilSnapshot,
-  useRecoilValue,
-  useSetRecoilState,
-} from "recoil";
-import layouts from "./assets/layouts";
+/** @jsxImportSource @emotion/react */
+
+import { ChakraProvider, theme } from "@chakra-ui/react";
+import { css, Global } from "@emotion/react";
+import * as React from "react";
+import { LayoutEditor } from "./components/LayoutEditor";
 import { TheHeader } from "./components/TheHeader";
-import { About } from "./routes/About";
-import { GridGallery } from "./routes/GridGallery";
-import LayoutEditor from "./routes/LayoutEditor";
-import { fullAppState, gridTemplateName } from "./state-logic/gridLayout/atoms";
 
-export function App() {
-  return (
-    <RecoilRoot>
-      <AppBody />
-    </RecoilRoot>
-  );
-}
+export const App = () => (
+  <ChakraProvider theme={theme}>
+    <Global
+      styles={css`
+        html,
+        body {
+          width: 100%;
+          padding: 0;
+          margin: 0;
+          background: #edf2f7;
+          font-weight: 400;
+          color: #444;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+            Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+          --rstudio-blue: #75aadb;
+          --rstudio-grey: #404040;
+          --rstudio-white: #ffffff;
+          --light-grey: #c4c4c4b2;
+          --header-height: 60px;
+          --shadow: 0.3px 1px 1.5px rgba(0, 0, 0, 0.11),
+            0.9px 2.6px 3.4px rgba(0, 0, 0, 0.083),
+            1.8px 5.3px 6.1px rgba(0, 0, 0, 0.075),
+            3.7px 11px 11.2px rgba(0, 0, 0, 0.067),
+            10px 30px 26px rgba(0, 0, 0, 0.051);
+          --selected-shadow: inset 0px 0px 0px 3px var(--rstudio-grey);
+          --selected-outline: 3px solid var(--rstudio-grey);
+          --selection-color: tomato;
+          --corner-radius: 5px;
+          --unit-input-width: 135px;
+          --card-header-height: 35px;
+        }
 
-const findLayout = (name: string) =>
-  layouts.find((l) => l.name === name) ?? layouts[0];
+        h1,
+        h2,
+        h3 {
+          color: var(--rstudio-grey);
+          font-weight: 300;
+        }
 
-function AppBody() {
-  const templateName = useRecoilValue(gridTemplateName);
-  const setTemplateName = useSetRecoilState(gridTemplateName);
-  // const setUpNewLayout = useLayoutStateSetter();
-  const setUpNewLayout = useSetRecoilState(fullAppState);
-
-  const setupByName = useCallback((name: string) => {
-    setUpNewLayout(findLayout(name));
-  }, []);
-  useEffect(() => {
-    setupByName(layouts[0].name);
-  }, []);
-
-  return (
-    <>
+        * {
+          box-sizing: border-box;
+        }
+      `}
+    />
+    <div
+      css={{
+        height: "100vh",
+        display: "grid",
+        gridTemplateRows: "60px 1fr",
+      }}
+    >
       <TheHeader />
-      <DebugObserver />
-
-      <div id="app-body">
-        <Router>
-          <Route
-            path="/"
-            component={GridGallery}
-            allLayouts={layouts}
-            currentLayoutName={templateName}
-            chooseLayout={setTemplateName}
-          />
-          <Route path="/edit" component={LayoutEditor} />
-          <Route path="/about" component={About} layoutName={templateName} />
-        </Router>
-      </div>
-    </>
-  );
-}
-function DebugObserver() {
-  const snapshot = useRecoilSnapshot();
-  useEffect(() => {
-    console.debug("The following atoms were modified:");
-    for (const node of snapshot.getNodes_UNSTABLE({ isModified: true })) {
-      console.debug(node.key, snapshot.getLoadable(node));
-    }
-  }, [snapshot]);
-
-  return null;
-}
+      <LayoutEditor />
+    </div>
+  </ChakraProvider>
+);

@@ -1,5 +1,5 @@
 import { useRecoilTransaction_UNSTABLE } from "recoil";
-import { CSSMeasure, GridItemDef } from "../../types";
+import { CSSMeasure, GridItemDef } from "../../GridTypes";
 import { gridItemAtoms, gridItemNames } from "../gridItems";
 import { RecoilGetter, RecoilSetter } from "../RecoilHelperClasses";
 import {
@@ -12,43 +12,42 @@ import {
 
 export function useAddTract(dir: TractDirection) {
   return useRecoilTransaction_UNSTABLE(
-    ({ set, get }) =>
-      (tractSize: CSSMeasure, index: number) => {
-        const tractsAtomFamily =
-          dir === "cols" ? gridRowsAtomFamily : gridColsAtomFamily;
-        const currNumTracts = get(numTractsState(dir));
-        const newNumTracts = currNumTracts + 1;
+    ({ set, get }) => (tractSize: CSSMeasure, index: number) => {
+      const tractsAtomFamily =
+        dir === "cols" ? gridRowsAtomFamily : gridColsAtomFamily;
+      const currNumTracts = get(numTractsState(dir));
+      const newNumTracts = currNumTracts + 1;
 
-        // Get the tracts that exist _after_ this current one as they will
-        // have their indices shifted up one
-        const numTractsShifted = currNumTracts - index;
-        const laterTracts = Array.from({ length: numTractsShifted }, (_, i) => {
-          const currentIndex = index + i;
-          return {
-            index: currentIndex + 1,
-            value: get(tractsAtomFamily(currentIndex)),
-          };
+      // Get the tracts that exist _after_ this current one as they will
+      // have their indices shifted up one
+      const numTractsShifted = currNumTracts - index;
+      const laterTracts = Array.from({ length: numTractsShifted }, (_, i) => {
+        const currentIndex = index + i;
+        return {
+          index: currentIndex + 1,
+          value: get(tractsAtomFamily(currentIndex)),
+        };
+      });
+
+      // Set the new tract
+      set(tractsAtomFamily(index), tractSize);
+
+      // Now update the ones above it
+      laterTracts.forEach(({ index, value }) => {
+        set(tractsAtomFamily(index), value);
+      });
+
+      const itemNames = get(gridItemNames);
+      itemNames.forEach((name) => {
+        updateItemBoundsForNewTract(name, get, set, {
+          index,
+          dir,
         });
+      });
 
-        // Set the new tract
-        set(tractsAtomFamily(index), tractSize);
-
-        // Now update the ones above it
-        laterTracts.forEach(({ index, value }) => {
-          set(tractsAtomFamily(index), value);
-        });
-
-        const itemNames = get(gridItemNames);
-        itemNames.forEach((name) => {
-          updateItemBoundsForNewTract(name, get, set, {
-            index,
-            dir,
-          });
-        });
-
-        // Add item to both the names list and the state atom family
-        set(numTractsState(dir), newNumTracts);
-      }
+      // Add item to both the names list and the state atom family
+      set(numTractsState(dir), newNumTracts);
+    }
   );
 }
 

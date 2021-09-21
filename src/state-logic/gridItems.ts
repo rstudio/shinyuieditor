@@ -5,7 +5,7 @@ import {
   selector,
   useRecoilTransaction_UNSTABLE,
 } from "recoil";
-import { GridItemDef } from "../types";
+import { GridItemDef } from "../GridTypes";
 
 export const gridItemNames = atom<string[]>({
   key: "itemNamesState",
@@ -29,31 +29,29 @@ export const gridItemAtoms = atomFamily<GridItemDef, string>({
 // Adds a new item to both the name list and creates its new state atom
 export const useAddNewItem = () => {
   return useRecoilTransaction_UNSTABLE(
-    ({ set }) =>
-      (itemDef: GridItemDef | GridItemDef[]) => {
-        if (!Array.isArray(itemDef)) itemDef = [itemDef];
+    ({ set }) => (itemDef: GridItemDef | GridItemDef[]) => {
+      if (!Array.isArray(itemDef)) itemDef = [itemDef];
 
-        itemDef.forEach((def) => {
-          set(gridItemNames, (names) => [...names, def.name]);
-          set(gridItemAtoms(def.name), def);
-        });
-      },
+      itemDef.forEach((def) => {
+        set(gridItemNames, (names) => [...names, def.name]);
+        set(gridItemAtoms(def.name), def);
+      });
+    },
     []
   );
 };
 export const useDeleteItem = () => {
   return useRecoilTransaction_UNSTABLE(
-    ({ get, set, reset }) =>
-      (name: string) => {
-        set(gridItemNames, (items) => items.filter((item) => item !== name));
-        const currentlySelectedItem = get(selectedItemNameState);
+    ({ get, set, reset }) => (name: string) => {
+      set(gridItemNames, (items) => items.filter((item) => item !== name));
+      const currentlySelectedItem = get(selectedItemNameState);
 
-        // Make sure that we're not leaving the deleted item selected
-        if (currentlySelectedItem === name) {
-          reset(selectedItemNameState);
-        }
-        reset(gridItemAtoms(name));
-      },
+      // Make sure that we're not leaving the deleted item selected
+      if (currentlySelectedItem === name) {
+        reset(selectedItemNameState);
+      }
+      reset(gridItemAtoms(name));
+    },
     []
   );
 };

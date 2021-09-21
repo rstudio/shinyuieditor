@@ -5,7 +5,7 @@ import {
   selector,
   selectorFamily,
 } from "recoil";
-import { CSSMeasure, GridLayoutTemplate } from "../../types";
+import { CSSMeasure, GridLayoutTemplate } from "../../GridTypes";
 import { combinedItemsState } from "../gridItems";
 
 export type TractDirection = "rows" | "cols";
@@ -39,27 +39,23 @@ export type GridTractAtom = ReturnType<GridTractAtomFamily>;
 export const combinedTractsState = selectorFamily<CSSMeasure[], TractDirection>(
   {
     key: "combinedTracts`",
-    get:
-      (dir) =>
-      ({ get }) => {
-        const numTracts = get(numTractsState(dir));
-        const tractFamily =
-          dir === "rows" ? gridRowsAtomFamily : gridColsAtomFamily;
-        return Array.from({ length: numTracts }, (_, i) => get(tractFamily(i)));
-      },
-    set:
-      (dir) =>
-      ({ set }, tractValues) => {
-        if (tractValues instanceof DefaultValue) {
-          console.error("Trying to set tract values to default value");
-          return;
-        }
+    get: (dir) => ({ get }) => {
+      const numTracts = get(numTractsState(dir));
+      const tractFamily =
+        dir === "rows" ? gridRowsAtomFamily : gridColsAtomFamily;
+      return Array.from({ length: numTracts }, (_, i) => get(tractFamily(i)));
+    },
+    set: (dir) => ({ set }, tractValues) => {
+      if (tractValues instanceof DefaultValue) {
+        console.error("Trying to set tract values to default value");
+        return;
+      }
 
-        const tractFamily =
-          dir === "rows" ? gridRowsAtomFamily : gridColsAtomFamily;
-        tractValues.forEach((tractSize, i) => set(tractFamily(i), tractSize));
-        set(numTractsState(dir), tractValues.length);
-      },
+      const tractFamily =
+        dir === "rows" ? gridRowsAtomFamily : gridColsAtomFamily;
+      tractValues.forEach((tractSize, i) => set(tractFamily(i), tractSize));
+      set(numTractsState(dir), tractValues.length);
+    },
   }
 );
 
