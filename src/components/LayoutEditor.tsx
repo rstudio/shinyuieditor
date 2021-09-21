@@ -3,8 +3,8 @@ import { StackDivider, VStack } from "@chakra-ui/react";
 import * as React from "react";
 import { CSSUnitInput } from "./CSSUnitInput";
 import { EditorInstructions } from "./EditorInstructions";
-import { MainGridCSSVariables } from "./MainGridCSSVariables";
 import { EditorSettings, SettingPane } from "./EditorSettings";
+import { MainGridCSSVariables } from "./MainGridCSSVariables";
 export function LayoutEditor() {
   return (
     <div

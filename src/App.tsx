@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-
 import { ChakraProvider, theme } from "@chakra-ui/react";
 import { css, Global } from "@emotion/react";
 import * as React from "react";
@@ -9,16 +8,13 @@ import { LayoutEditor } from "./components/LayoutEditor";
 import { TheHeader } from "./components/TheHeader";
 import { fullAppState } from "./state-logic/gridLayout/atoms";
 
-const findLayout = (name: string) =>
-  layouts.find((l) => l.name === name) ?? layouts[0];
-
 // We need a separate function here so we can use the recoil hooks inside of
 // a component wrapped in <RecoilRoot>
 function AppBody() {
   const setUpNewLayout = useSetRecoilState(fullAppState);
 
   React.useEffect(() => {
-    setUpNewLayout(findLayout(layouts[0].name));
+    setUpNewLayout(layouts[0]);
   }, [setUpNewLayout]);
 
   return (
