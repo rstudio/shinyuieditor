@@ -2,6 +2,7 @@ import { useLayoutEffect, useRef, useState } from "preact/hooks";
 import { atom, useRecoilCallback, useRecoilValue } from "recoil";
 import { gridItemNames, useAddNewItem } from "../../state-logic/gridItems";
 import { GridPos } from "../../types";
+import { UiChooser } from "../UiChooser";
 import classes from "./style.module.css";
 
 // Hook that is used in conjection with AddItemModal component to control its
@@ -76,15 +77,22 @@ export function AddItemModal() {
     <div className={classes.modalHolder}>
       <div className={classes.addItemModal}>
         <h1>New item name:</h1>
-        <form
-          className={classes.inputForm}
-          onSubmit={submitName}
-          onInput={() => turnOffWarningMsg()}
-        >
-          <input ref={nameInputRef} type="text"></input>
-          <input type="submit">Go</input>
-        </form>
-        {warningMsg ? <p className={classes.warningMsg}>{warningMsg}</p> : null}
+        <div className={classes.nameInput}>
+          <form
+            className={classes.inputForm}
+            onSubmit={submitName}
+            onInput={() => turnOffWarningMsg()}
+          >
+            <input ref={nameInputRef} type="text"></input>
+            <input type="submit">Go</input>
+          </form>
+          {warningMsg ? (
+            <p className={classes.warningMsg}>{warningMsg}</p>
+          ) : null}
+        </div>
+        <div className={classes.uiChooser}>
+          <UiChooser />
+        </div>
         <button className={classes.cancel} onClick={() => cancelModal()}>
           Cancel
         </button>

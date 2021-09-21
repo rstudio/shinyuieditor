@@ -18,18 +18,21 @@
 }
 
 .addItemModal {
-  border-radius: var(--corner-radius);
+  box-shadow: var(--shadow);
   background-color: var(--rstudio-blue);
-  padding: 4rem 6rem;
+  border-radius: var(--corner-radius);
+  padding: 4rem 5rem;
   display: grid;
   justify-items: center;
   gap: 0.5rem;
-  grid-template-rows: auto auto 25px auto;
+  width: 750px;
+  max-width: 95vw;
+  grid-template-rows: 100px 1fr 30px;
+  grid-template-columns: 1fr 1fr;
   grid-template-areas:
-    "title"
-    "input"
-    "warning"
-    "cancel";
+    "title   title"
+    "input   uiChooser"
+    "cancel  cancel  ";
 }
 
 .addItemModal > h1 {
@@ -38,17 +41,29 @@
   justify-self: center;
 }
 
-.inputForm {
+.nameInput {
   grid-area: input;
+  align-self: center;
+  width: 100%;
+  position: relative;
+}
+
+.inputForm {
   display: flex;
   justify-content: center;
   gap: 1rem;
 }
 
+.uiChooser {
+  grid-area: uiChooser;
+  outline: 1px solid white;
+}
+
 .warningMsg {
   color: tomato;
   font-style: italic;
-  margin-top: -5px;
+  width: 100%;
+  /* margin-top: -5px; */
 }
 
 .cancel {
