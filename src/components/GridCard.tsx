@@ -18,7 +18,7 @@ function GridCardImpl(
     header?: JSX.Element;
   }
 ) {
-  const { padding = "0.5rem", gridArea } = props;
+  const { padding = "1rem", gridArea } = props;
   return (
     <GridItem
       css={{
@@ -27,11 +27,6 @@ function GridCardImpl(
         background: "var(--rstudio-white)",
         display: "grid",
         gridTemplateRows: "var(--card-header-height, 35px) 1fr",
-        "> *:first-child": {
-          borderBottom: "1px solid #d1d0d09a",
-          marginLeft: "3px",
-          marginRight: "3px",
-        },
       }}
       gridArea={gridArea}
     >
@@ -44,14 +39,17 @@ function GridCardImpl(
             display: "flex",
             alignItems: "center",
             gap: "0.5rem",
+            borderBottom: "1px solid #d1d0d09a",
+            marginLeft: "3px",
+            marginRight: "3px",
+            // padding,
           }}
-          style={{ padding }}
         >
           <SvgIcon name={props.icon} />
           {props.title}
         </h3>
       )}
-      <div style={{ padding }}>{props.children}</div>
+      <div css={{ padding }}>{props.children}</div>
     </GridItem>
   );
 }

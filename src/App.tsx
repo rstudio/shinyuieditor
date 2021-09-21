@@ -3,55 +3,25 @@
 import { ChakraProvider, theme } from "@chakra-ui/react";
 import { css, Global } from "@emotion/react";
 import * as React from "react";
+import { RecoilRoot, useSetRecoilState } from "recoil";
+import layouts from "./assets/layouts";
 import { LayoutEditor } from "./components/LayoutEditor";
 import { TheHeader } from "./components/TheHeader";
+import { fullAppState } from "./state-logic/gridLayout/atoms";
 
-export const App = () => (
-  <ChakraProvider theme={theme}>
-    <Global
-      styles={css`
-        html,
-        body {
-          width: 100%;
-          padding: 0;
-          margin: 0;
-          background: #edf2f7;
-          font-weight: 400;
-          color: #444;
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
-          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-            Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-          --rstudio-blue: #75aadb;
-          --rstudio-grey: #404040;
-          --rstudio-white: #ffffff;
-          --light-grey: #c4c4c4b2;
-          --header-height: 60px;
-          --shadow: 0.3px 1px 1.5px rgba(0, 0, 0, 0.11),
-            0.9px 2.6px 3.4px rgba(0, 0, 0, 0.083),
-            1.8px 5.3px 6.1px rgba(0, 0, 0, 0.075),
-            3.7px 11px 11.2px rgba(0, 0, 0, 0.067),
-            10px 30px 26px rgba(0, 0, 0, 0.051);
-          --selected-shadow: inset 0px 0px 0px 3px var(--rstudio-grey);
-          --selected-outline: 3px solid var(--rstudio-grey);
-          --selection-color: tomato;
-          --corner-radius: 5px;
-          --unit-input-width: 135px;
-          --card-header-height: 35px;
-        }
+const findLayout = (name: string) =>
+  layouts.find((l) => l.name === name) ?? layouts[0];
 
-        h1,
-        h2,
-        h3 {
-          color: var(--rstudio-grey);
-          font-weight: 300;
-        }
+// We need a separate function here so we can use the recoil hooks inside of
+// a component wrapped in <RecoilRoot>
+function AppBody() {
+  const setUpNewLayout = useSetRecoilState(fullAppState);
 
-        * {
-          box-sizing: border-box;
-        }
-      `}
-    />
+  React.useEffect(() => {
+    setUpNewLayout(findLayout(layouts[0].name));
+  }, [setUpNewLayout]);
+
+  return (
     <div
       css={{
         height: "100vh",
@@ -62,5 +32,59 @@ export const App = () => (
       <TheHeader />
       <LayoutEditor />
     </div>
-  </ChakraProvider>
-);
+  );
+}
+
+export const App = () => {
+  return (
+    <ChakraProvider theme={theme}>
+      <RecoilRoot>
+        <Global styles={globalStyles} />
+        <AppBody />
+      </RecoilRoot>
+    </ChakraProvider>
+  );
+};
+
+const globalStyles = css`
+  html,
+  body {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    background: #edf2f7;
+    font-weight: 400;
+    color: #444;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    --rstudio-blue: #75aadb;
+    --rstudio-grey: #404040;
+    --rstudio-white: #ffffff;
+    --light-grey: #c4c4c4b2;
+    --header-height: 60px;
+    --shadow: 0.3px 1px 1.5px rgba(0, 0, 0, 0.11),
+      0.9px 2.6px 3.4px rgba(0, 0, 0, 0.083),
+      1.8px 5.3px 6.1px rgba(0, 0, 0, 0.075),
+      3.7px 11px 11.2px rgba(0, 0, 0, 0.067),
+      10px 30px 26px rgba(0, 0, 0, 0.051);
+    --selected-shadow: inset 0px 0px 0px 3px var(--rstudio-grey);
+    --selected-outline: 3px solid var(--rstudio-grey);
+    --selection-color: tomato;
+    --corner-radius: 5px;
+    --unit-input-width: 135px;
+    --card-header-height: 35px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    color: var(--rstudio-grey);
+    font-weight: 300;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+`;

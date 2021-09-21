@@ -1,6 +1,9 @@
 /** @jsxImportSource @emotion/react */
+import { StackDivider, VStack } from "@chakra-ui/react";
 import * as React from "react";
+import { CSSUnitInput } from "./CSSUnitInput";
 import { EditorInstructions } from "./EditorInstructions";
+import { MainGridCSSVariables } from "./MainGridCSSVariables";
 import { EditorSettings, SettingPane } from "./EditorSettings";
 export function LayoutEditor() {
   return (
@@ -24,10 +27,16 @@ export function LayoutEditor() {
       }}
     >
       <EditorSettings>
-        <SettingPane label="Gap Size">
-          <h3>Hi</h3>
-          {/* <GapSizeSetting gapAtom={gapState} /> */}
-        </SettingPane>
+        <MainGridCSSVariables />
+        <VStack
+          divider={<StackDivider borderColor="gray.200" />}
+          spacing={4}
+          align="stretch"
+        >
+          <SettingPane label="Grid Gap">
+            <CSSUnitInput value={3} />
+          </SettingPane>
+        </VStack>
       </EditorSettings>
       <EditorInstructions />
     </div>
