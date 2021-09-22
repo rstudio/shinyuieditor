@@ -61,7 +61,7 @@ const globalStyles = css`
     --selected-outline: 3px solid var(--rstudio-grey);
     --selection-color: tomato;
     --corner-radius: 5px;
-    --unit-input-width: 135px;
+    --unit-input-width: 145px;
     --card-header-height: 35px;
   }
 

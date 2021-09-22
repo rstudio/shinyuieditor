@@ -61,7 +61,7 @@ export function LayoutEditor() {
           deleteItem={deleteItem}
         />
       </GridCard>
-      <GridCard gridArea="editor" header={<FakeBrowserBar />}>
+      <GridCard gridArea="editor" header={<FakeBrowserBar />} padding="0px">
         <EditorGridContainer />
       </GridCard>
     </EditorWrapper>
