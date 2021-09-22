@@ -46,7 +46,7 @@ export function LayoutEditor() {
           align="stretch"
         >
           <SettingPane label="Grid Gap">
-            <CSSUnitInput value={3} />
+            <CSSUnitInput value={"3px"} onChange={console.log} />
           </SettingPane>
         </VStack>
       </EditorSettings>
