@@ -9,6 +9,7 @@ import { CSSUnitInput } from "./CSSUnitInput";
 import { EditorInstructions } from "./EditorInstructions";
 import { EditorItemsListView } from "./EditorItemsListView";
 import { EditorSettings, SettingPane } from "./EditorSettings";
+import { FakeBrowserBar } from "./FakeBrowserBar";
 import { GridCard } from "./GridCard";
 import { MainGridCSSVariables } from "./MainGridCSSVariables";
 export function LayoutEditor() {
@@ -56,6 +57,9 @@ export function LayoutEditor() {
           itemNamesAtom={gridItemNames}
           deleteItem={deleteItem}
         />
+      </GridCard>
+      <GridCard gridArea="editor" header={<FakeBrowserBar />}>
+        Test
       </GridCard>
     </div>
   );
