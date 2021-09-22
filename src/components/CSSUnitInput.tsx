@@ -17,12 +17,12 @@ export function CSSUnitInput({
   value,
   onChange,
   units = ["fr", "px", "rem", "auto"],
-  h = "30px",
+  w = "150px",
 }: {
   value: CSSMeasure;
   units?: CSSUnits[];
   onChange: (value: CSSMeasure) => void;
-  h?: string;
+  w?: string;
 }) {
   const { count: initialCount, unit: initialUnit } = parseCSSMeasure(value);
   const [count, setCount] = React.useState(initialCount);
@@ -38,8 +38,22 @@ export function CSSUnitInput({
   }, [count, unit, onChange]);
 
   return (
-    <HStack spacing="1px" align="center">
+    <HStack
+      spacing="1px"
+      align="center"
+      w={w}
+      // Shrink the dropdown icon. These styles need to be seperate from the
+      // Select component's css because the icon is technically a sibling so it
+      // cant be targeted from within the selector
+      css={{
+        ".chakra-select__icon-wrapper": {
+          width: "1rem",
+          right: "0",
+        },
+      }}
+    >
       <NumberInput
+        bg="white"
         size="sm"
         value={unit !== "auto" ? count : undefined}
         aria-label="value-count"
@@ -55,11 +69,18 @@ export function CSSUnitInput({
 
       <Select
         size="sm"
-        variant="filled"
+        w="110px"
+        bg="white"
         value={unit}
         aria-label="value-unit"
+        iconSize="10px"
         onChange={(e) => {
           setUnit(e.target.value as CSSUnits);
+        }}
+        // These are an attempt to get the select dropdown nice and compact
+        css={{
+          paddingInlineEnd: "0",
+          paddingInlineStart: "0.5rem",
         }}
       >
         {units.map((unit) => (
