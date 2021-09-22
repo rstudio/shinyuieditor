@@ -20,13 +20,6 @@ const theme = extendTheme({
         fontFamily: `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif`,
         color: "black",
       },
-      // styles for the `a`
-      a: {
-        color: "teal.500",
-        _hover: {
-          textDecoration: "underline",
-        },
-      },
     },
   },
 });
@@ -54,8 +47,6 @@ export const App = () => {
 const globalStyles = css`
   html,
   body {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     --rstudio-blue: #75aadb;
     --rstudio-grey: #404040;
     --rstudio-white: #ffffff;
