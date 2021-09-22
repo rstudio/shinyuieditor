@@ -3,13 +3,17 @@ import { StackDivider, VStack } from "@chakra-ui/react";
 import * as React from "react";
 import { useSetRecoilState } from "recoil";
 import layouts from "../assets/layouts";
+import { gridItemNames, useDeleteItem } from "../state-logic/gridItems";
 import { fullAppState } from "../state-logic/gridLayout/atoms";
 import { CSSUnitInput } from "./CSSUnitInput";
 import { EditorInstructions } from "./EditorInstructions";
+import { EditorItemsListView } from "./EditorItemsListView";
 import { EditorSettings, SettingPane } from "./EditorSettings";
+import { GridCard } from "./GridCard";
 import { MainGridCSSVariables } from "./MainGridCSSVariables";
 export function LayoutEditor() {
   const setUpNewLayout = useSetRecoilState(fullAppState);
+  const deleteItem = useDeleteItem();
 
   React.useEffect(() => {
     setUpNewLayout(layouts[0]);
@@ -47,6 +51,12 @@ export function LayoutEditor() {
         </VStack>
       </EditorSettings>
       <EditorInstructions />
+      <GridCard title="Items" icon="items" gridArea="items">
+        <EditorItemsListView
+          itemNamesAtom={gridItemNames}
+          deleteItem={deleteItem}
+        />
+      </GridCard>
     </div>
   );
 }
