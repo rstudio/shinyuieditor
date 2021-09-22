@@ -6,6 +6,7 @@ import layouts from "../assets/layouts";
 import { gridItemNames, useDeleteItem } from "../state-logic/gridItems";
 import { fullAppState } from "../state-logic/gridLayout/atoms";
 import { CSSUnitInput } from "./CSSUnitInput";
+import { EditorGridContainer } from "./EditorGridContainer";
 import { EditorInstructions } from "./EditorInstructions";
 import { EditorItemsListView } from "./EditorItemsListView";
 import { EditorSettings, SettingPane } from "./EditorSettings";
@@ -61,7 +62,7 @@ export function LayoutEditor() {
         />
       </GridCard>
       <GridCard gridArea="editor" header={<FakeBrowserBar />}>
-        Test
+        <EditorGridContainer />
       </GridCard>
     </EditorWrapper>
   );
