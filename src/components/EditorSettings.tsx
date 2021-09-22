@@ -1,13 +1,16 @@
 /** @jsxImportSource @emotion/react */
 
-import { Box, Grid, Text } from "@chakra-ui/react";
+import { Box, Grid, StackDivider, Text, VStack } from "@chakra-ui/react";
 import * as React from "react";
-import { GridCard } from "./GridCard";
 export const EditorSettings: React.FC = ({ children }) => {
   return (
-    <GridCard title="Settings" icon="settings" gridArea="settings">
+    <VStack
+      divider={<StackDivider borderColor="gray.200" />}
+      spacing={4}
+      align="stretch"
+    >
       {children}
-    </GridCard>
+    </VStack>
   );
 };
 
