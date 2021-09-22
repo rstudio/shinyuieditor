@@ -1,5 +1,6 @@
 import * as React from "react";
 import { GridPos } from "./GridTypes";
+import { TractDirection } from "./state-logic/gridLayout/atoms";
 
 export function makeTractPos(start: number, end?: number) {
   const pos = String(start);
@@ -49,4 +50,22 @@ export function sameGridPos(a?: GridPos, b?: GridPos) {
     a.startRow === b.startRow &&
     a.endRow === b.endRow
   );
+}
+
+export function placeOnGridOrCol({
+  index,
+  dir,
+}: {
+  index: number;
+  dir: TractDirection;
+}) {
+  return dir === "rows"
+    ? {
+        gridColumn: makeTractPos(1, -1),
+        gridRow: index + 1,
+      }
+    : {
+        gridRow: makeTractPos(1, -1),
+        gridColumn: index + 1,
+      };
 }
