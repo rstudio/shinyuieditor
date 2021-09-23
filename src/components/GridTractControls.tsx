@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import { Box } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import * as React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -44,66 +45,58 @@ export default function GridTractControls() {
   );
 }
 
-const TrackBoundaryLine = styled.div(({ dir, index }: TractPosition) => {
-  const lineOverhang = "-20px";
-  const lineLength = `calc(100% - 2 * ${lineOverhang})`;
-  const lineThickness = "4px";
-  const offsetToTractCenter = `calc((var(--gap) + ${lineThickness}) / -2)`;
+// Putting these values out here because they are chosen at "compile time"
+const dividerThickness = 5;
+const pad = 10;
+const lineThickness = `${dividerThickness}px`;
+const lineOffset = `calc(-1/2 * var(--gap) - ${dividerThickness / 2}px)`;
+const commonDividerStyles = {
+  borderRadius: "var(--corner-radius)",
+  backgroundColor: "var(--light-grey)",
+};
 
-  const dirStyles =
-    dir === "rows"
-      ? {
-          height: lineThickness,
-          width: lineLength,
-          alignSelf: "end",
-          marginLeft: offsetToTractCenter,
-          marginBottom: lineOverhang,
-        }
-      : {
-          width: lineThickness,
-          height: lineLength,
-          justifySelf: "end",
-          marginTop: offsetToTractCenter,
-          marginRight: lineOverhang,
-        };
-
-  return {
-    backgroundColor: "var(--light-grey, tomato)",
-    borderRadius: "var(--corner-radius, 4px)",
-    ...placeOnGridOrCol({ dir, index }),
-    ...dirStyles,
-  };
+const ColumnDivider = styled.div({
+  height: `calc(100% - var(--card-header-height) - ${2 * pad}px)`,
+  marginTop: `calc(var(--card-header-height) + ${pad}px)`,
+  width: lineThickness,
+  marginRight: lineOffset,
+  justifySelf: "end",
+  ...commonDividerStyles,
 });
 
-const TractGutter = styled.div(({ dir, index }: TractPosition) => {
-  const size = "20px";
-
-  const dirStyles =
-    dir === "rows"
-      ? {
-          alignSelf: "center",
-          marginLeft: `calc(-1 * (${size} + var(--gap)))`,
-          alignContent: "center",
-          justifyContent: "end",
-          height: "100%",
-          width: size,
-        }
-      : {
-          justifySelf: "center",
-          width: "100%",
-          height: size,
-          marginTop: `calc(-1 * (${size} + var(--gap) + var(--card-header-height, 35px)))`,
-          justifyContent: "center",
-          alignContent: "end",
-        };
-
-  return {
-    display: "grid",
-    position: "relative",
-    ...placeOnGridOrCol({ dir, index }),
-    ...dirStyles,
-  };
+const RowDivider = styled.div({
+  width: `calc(100% - ${2 * pad}px)`,
+  marginLeft: `${pad}px`,
+  height: lineThickness,
+  marginBottom: lineOffset,
+  alignSelf: "end",
+  ...commonDividerStyles,
 });
+
+function TrackBoundaryLine({ dir, index }: TractPosition) {
+  return (
+    <TractGutter dir={dir} index={index}>
+      {dir === "rows" ? <RowDivider /> : <ColumnDivider />}
+    </TractGutter>
+  );
+}
+
+const rowGutterStyles = {
+  marginLeft: `calc(-1 * var(--gap))`,
+  width: `calc(100% + 2*var(--gap))`,
+  height: "100%",
+};
+const colGutterStyles = {
+  marginTop: `calc(-1 * var(--gap) - var(--card-header-height) )`,
+  height: `calc(100% + 2*var(--gap) + var(--card-header-height))`,
+  width: "100%",
+};
+const TractGutter = styled.div(({ dir, index }: TractPosition) => ({
+  display: "grid",
+  position: "relative",
+  ...placeOnGridOrCol({ dir, index }),
+  ...(dir === "rows" ? rowGutterStyles : colGutterStyles),
+}));
 
 function TractSizer({
   dir,
@@ -111,9 +104,29 @@ function TractSizer({
   tractAtom,
 }: TractPosition & { tractAtom: GridTractAtom }) {
   const [value, setValue] = useRecoilState(tractAtom);
+  const pad = "5px";
+  const sizeOfChooser = "125px";
+
+  const placementStyles =
+    dir === "rows"
+      ? {
+          alignSelf: "center",
+          marginLeft: `calc(-${pad} - ${sizeOfChooser})`,
+        }
+      : {
+          position: "absolute",
+          bottom: `calc(100% + ${pad})`,
+          left: `calc(50% - ${sizeOfChooser}/2)`,
+        };
   return (
     <TractGutter dir={dir} index={index}>
-      <CSSUnitInput value={value} onChange={(newVal) => setValue(newVal)} />
+      <Box sx={placementStyles}>
+        <CSSUnitInput
+          value={value}
+          w={sizeOfChooser}
+          onChange={(newVal) => setValue(newVal)}
+        />
+      </Box>
     </TractGutter>
   );
 }
