@@ -1,7 +1,15 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { useState } from "react";
+import { CSSMeasure } from "../GridTypes";
 import { render } from "../test-utils";
 import { CSSUnitInput } from "./CSSUnitInput";
+
+function UseCssUnitInput({ initialValue }: { initialValue: CSSMeasure }) {
+  const [value, setValue] = useState<CSSMeasure>(initialValue);
+
+  return <CSSUnitInput value={value} onChange={setValue} />;
+}
 
 test("Initializes properly", () => {
   render(<CSSUnitInput value={"3rem"} onChange={(newVal) => {}} />);
@@ -9,26 +17,35 @@ test("Initializes properly", () => {
   expect(screen.getByLabelText("value-unit")).toHaveValue("rem");
 });
 
-test("Can be incremented by the arrows", () => {
-  const handleChange = jest.fn();
+test("Can show a subset of units", () => {
+  render(
+    <CSSUnitInput
+      value={"3rem"}
+      units={["rem", "px"]}
+      onChange={(newVal) => {}}
+    />
+  );
 
-  render(<CSSUnitInput value={"1px"} onChange={handleChange} />);
+  expect(screen.queryByText(/rem/i)).toBeTruthy();
+  expect(screen.queryByText(/px/i)).toBeTruthy();
+  expect(screen.queryByText(/auto/i)).toBeFalsy();
+  expect(screen.queryByText(/fr/i)).toBeFalsy();
+});
+
+test("Can be incremented by the arrows", () => {
+  render(<UseCssUnitInput initialValue={"1px"} />);
   expect(screen.getByLabelText("value-count")).toHaveValue("1");
   expect(screen.getByLabelText("value-unit")).toHaveValue("px");
 
   userEvent.click(screen.getByLabelText(/increase count/i));
   expect(screen.getByLabelText("value-count")).toHaveValue("2");
-  expect(handleChange).toHaveBeenCalledWith("2px");
 
   userEvent.click(screen.getByLabelText(/decrease count/i));
   expect(screen.getByLabelText("value-count")).toHaveValue("1");
-  expect(handleChange).toHaveBeenCalledWith("1px");
 });
 
 test("Auto units will disable the count input", () => {
-  const handleChange = jest.fn();
-
-  render(<CSSUnitInput value={"1px"} onChange={handleChange} />);
+  render(<UseCssUnitInput initialValue={"1px"} />);
 
   const countInput = screen.getByLabelText("value-count");
   const unitInput = screen.getByLabelText("value-unit");
@@ -39,11 +56,4 @@ test("Auto units will disable the count input", () => {
   userEvent.selectOptions(screen.getByLabelText("value-unit"), "auto");
   expect(countInput).toBeDisabled();
   expect(unitInput).toHaveValue("auto");
-  expect(handleChange).toHaveBeenCalledWith("auto");
-
-  // When going back to a counted unit the old value is remembered
-  userEvent.selectOptions(screen.getByLabelText("value-unit"), "rem");
-  expect(countInput).toHaveValue("1");
-  expect(unitInput).toHaveValue("rem");
-  expect(handleChange).toHaveBeenCalledWith("1rem");
 });
