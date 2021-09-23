@@ -5,12 +5,12 @@ import { useSetRecoilState } from "recoil";
 import layouts from "../assets/layouts";
 import { gridItemNames, useDeleteItem } from "../state-logic/gridItems";
 import { fullAppState } from "../state-logic/gridLayout/atoms";
-import { CSSUnitInput } from "./CSSUnitInput";
 import { EditorGridContainer } from "./EditorGridContainer";
 import { EditorInstructions } from "./EditorInstructions";
 import { EditorItemsListView } from "./EditorItemsListView";
 import { EditorSettings, SettingPane } from "./EditorSettings";
 import { FakeBrowserBar } from "./FakeBrowserBar";
+import { GapSizeChooser } from "./GapSizeChooser";
 import { GridCard } from "./GridCard";
 import { MainGridCSSVariables } from "./MainGridCSSVariables";
 
@@ -44,7 +44,7 @@ export function LayoutEditor() {
       <GridCard title="Settings" icon="settings" gridArea="settings">
         <EditorSettings>
           <SettingPane label="Grid Gap">
-            <CSSUnitInput value={"3px"} onChange={console.log} />
+            <GapSizeChooser />
           </SettingPane>
         </EditorSettings>
       </GridCard>
