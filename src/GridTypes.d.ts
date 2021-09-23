@@ -17,7 +17,7 @@ export type GridLayoutTemplate = {
   items: GridItemDef[];
 };
 
-export type CSSUnits = "fr" | "px" | "rem" | "auto";
+export type CSSUnits = "fr" | "px" | "rem";
 export type CSSMeasure = `${number}${CSSUnits}` | "auto";
 
 export type BoxSide = "top" | "bottom" | "left" | "right";
