@@ -44,21 +44,44 @@ export function deparseCSSMeasure(parsed: ParsedCSSMeasure): CSSMeasure {
   return `${parsed.count}${parsed.unit}`;
 }
 
+export function defaultValueForCssUnit(unitType: CSSUnits): CSSMeasure {
+  switch (unitType) {
+    case "fr":
+      return `1fr`;
+    case "px":
+      return "10px";
+    case "rem":
+      return "1rem";
+  }
+}
+
 export function updateCssUnit(
   value: CSSMeasure,
   { count: newCount, unit: newUnit }: Partial<ParsedCSSMeasure>
 ) {
   const originalMeasure = parseCSSMeasure(value);
+  const { count: oldCount, unit: oldUnit } = originalMeasure;
 
-  if (newCount) {
+  const haveNewCount = typeof newCount === "number" && newCount !== oldCount;
+  const haveNewUnit = typeof newUnit === "string" && newUnit !== oldUnit;
+  const switchingToAuto = newUnit === "auto" && !newCount;
+  const switchingFromAuto = oldUnit === "auto" && newUnit !== "auto";
+
+  if (haveNewCount) {
     originalMeasure.count = newCount;
   }
 
-  if (newUnit) {
+  if (haveNewUnit) {
     // If the units are being switched to auto and a count wasnt also provided
     // then just return auto, otherwise let the sanatize step catch the error
     // and alert the caller
-    if (newUnit === "auto" && !newCount) return "auto";
+
+    if (switchingToAuto) return "auto";
+
+    if (switchingFromAuto) {
+      // Need to assign a default unit count
+      return defaultValueForCssUnit(newUnit);
+    }
     originalMeasure.unit = newUnit;
   }
 
