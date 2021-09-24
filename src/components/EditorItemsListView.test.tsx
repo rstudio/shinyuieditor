@@ -8,7 +8,7 @@ import {
 import { EditorItemsListView } from "./EditorItemsListView";
 
 function ListViewRunner({ addLayout = true }: { addLayout?: boolean }) {
-  useInitializeToDefaultLayout(addLayout);
+  useInitializeToDefaultLayout(addLayout === true ? "default" : "none");
 
   const deleteItem = useDeleteItem();
   return (
