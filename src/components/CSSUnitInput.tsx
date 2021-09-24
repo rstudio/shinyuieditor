@@ -24,6 +24,9 @@ export function CSSUnitInput({
   onChange: (value: CSSMeasure) => void;
   w?: string;
 }) {
+  // For some reason our tract sizers will sometimes try and pass this undefined
+  // so we need to guard against that at run time
+  if (value === undefined) return null;
   const parsedValue = parseCSSMeasure(value);
   const updateCount = (newCount: number) =>
     onChange(updateCssUnit(value, { count: newCount }));
