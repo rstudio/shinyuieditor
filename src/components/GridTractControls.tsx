@@ -13,14 +13,18 @@ import {
 } from "../state-logic/gridLayout/atoms";
 import { CSSUnitInput } from "./CSSUnitInput";
 import { seqArray } from "./general-helpers";
+import { TractAddButton } from "./TractAddButton";
 
 export default function GridTractControls() {
   const { numRows, numCols } = useRecoilValue(tractDimsState);
 
   return (
     <>
+      {seqArray(numRows + 1).map((i) => (
+        <TractAddButton key={"rowAdder" + i} dir={"rows"} index={i} />
+      ))}
       {seqArray(numRows - 1).map((i) => (
-        <TrackBoundaryLine key={"rows" + i} dir="rows" index={i} />
+        <TrackBoundaryLine key={"rowBoundary" + i} dir="rows" index={i} />
       ))}
       {seqArray(numRows).map((i) => (
         <TractSizer
@@ -30,8 +34,11 @@ export default function GridTractControls() {
           tractAtom={gridRowsAtomFamily(i)}
         />
       ))}
+      {seqArray(numCols + 1).map((i) => (
+        <TractAddButton key={"colAdder" + i} dir={"cols"} index={i} />
+      ))}
       {seqArray(numCols - 1).map((i) => (
-        <TrackBoundaryLine key={"cols" + i} dir="cols" index={i} />
+        <TrackBoundaryLine key={"colBoundary" + i} dir="cols" index={i} />
       ))}
       {seqArray(numCols).map((i) => (
         <TractSizer
@@ -91,7 +98,7 @@ const colGutterStyles = {
   height: `calc(100% + 2*var(--gap) + var(--card-header-height))`,
   width: "100%",
 };
-const TractGutter = styled.div(({ dir, index }: TractPosition) => ({
+export const TractGutter = styled.div(({ dir, index }: TractPosition) => ({
   display: "grid",
   position: "relative",
   ...placeOnGridOrCol({ dir, index }),
