@@ -1,10 +1,4 @@
-import {
-  atom,
-  atomFamily,
-  DefaultValue,
-  selector,
-  selectorFamily,
-} from "recoil";
+import { atom, DefaultValue, selector } from "recoil";
 import { CSSMeasure, GridLayoutTemplate } from "../../GridTypes";
 import { combinedItemsState } from "../gridItems";
 
@@ -20,53 +14,15 @@ export const gridTemplateName = atom<string>({
   default: DEFAULT_TEMPLATE_NAME,
 });
 
-export const numTractsState = atomFamily<number, TractDirection>({
-  key: "numTractsState",
-  default: 0,
+export const rowsState = atom<GridLayoutTemplate["rows"]>({
+  key: "rows",
+  default: [],
 });
-export type TractCountsAtom = ReturnType<typeof numTractsState>;
-export const gridRowsAtomFamily = atomFamily<CSSMeasure, number>({
-  key: "gridRowsAtomFamily",
-  default: "1fr",
-});
-export const gridColsAtomFamily = atomFamily<CSSMeasure, number>({
-  key: "gridColsAtomFamily",
-  default: "1fr",
-});
-export type GridTractAtomFamily = typeof gridRowsAtomFamily;
-export type GridTractAtom = ReturnType<GridTractAtomFamily>;
 
-export const combinedTractsState = selectorFamily<CSSMeasure[], TractDirection>(
-  {
-    key: "combinedTracts`",
-    get: (dir) => ({ get }) => {
-      const numTracts = get(numTractsState(dir));
-      const tractFamily =
-        dir === "rows" ? gridRowsAtomFamily : gridColsAtomFamily;
-      return Array.from({ length: numTracts }, (_, i) => get(tractFamily(i)));
-    },
-    set: (dir) => ({ set }, tractValues) => {
-      if (tractValues instanceof DefaultValue) {
-        console.error("Trying to set tract values to default value");
-        return;
-      }
-
-      const tractFamily =
-        dir === "rows" ? gridRowsAtomFamily : gridColsAtomFamily;
-      tractValues.forEach((tractSize, i) => set(tractFamily(i), tractSize));
-      set(numTractsState(dir), tractValues.length);
-    },
-  }
-);
-
-export const tractDimsState = selector<{ numRows: number; numCols: number }>({
-  key: "tractDimsState",
-  get: ({ get }) => ({
-    numRows: get(numTractsState("rows")),
-    numCols: get(numTractsState("cols")),
-  }),
+export const colsState = atom<GridLayoutTemplate["cols"]>({
+  key: "cols",
+  default: [],
 });
-export type GridTractDimsState = typeof tractDimsState;
 
 export const gapState = atom({
   key: "gapState", // unique ID (with respect to other atoms/selectors)
@@ -82,8 +38,8 @@ export const combinedLayoutSizesState = selector<
   get: ({ get }) => {
     return {
       gap: get(gapState),
-      rows: get(combinedTractsState("rows")),
-      cols: get(combinedTractsState("cols")),
+      rows: get(rowsState),
+      cols: get(colsState),
     };
   },
 });
@@ -119,8 +75,8 @@ export const fullAppState = selector<GridLayoutTemplate>({
       // reset(gapState);
     }
     set(combinedItemsState, items);
-    set(combinedTractsState("rows"), rows as CSSMeasure[]);
-    set(combinedTractsState("cols"), cols as CSSMeasure[]);
+    set(rowsState, rows as CSSMeasure[]);
+    set(colsState, cols as CSSMeasure[]);
 
     set(gridTemplateName, name);
     set(gapState, gap);

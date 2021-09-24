@@ -31,7 +31,8 @@ export function EditorGridContainer() {
           itemDefState={gridItemAtoms(name)}
         />
       ))}
-      <GridTractControls />
+      <GridTractControls dir="rows" />
+      <GridTractControls dir="cols" />
 
       {/* <div onMouseDown={onMouseDown} className={classes.newItemDragDetector} /> */}
       {/* 

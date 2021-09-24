@@ -2,9 +2,18 @@
 import { css } from "@emotion/react";
 import * as React from "react";
 import { FaPlus } from "react-icons/fa";
-import { TractPosition } from "../state-logic/gridLayout/atoms";
-import { useAddTract } from "../state-logic/gridLayout/hooks";
-import { TractGutter } from "./GridTractControls";
+import { useRecoilTransaction_UNSTABLE } from "recoil";
+import { CSSMeasure } from "../GridTypes";
+import { gridItemNames } from "../state-logic/gridItems";
+import {
+  colsState,
+  rowsState,
+  TractDirection,
+  TractPosition,
+} from "../state-logic/gridLayout/atoms";
+import { updateItemBoundsForNewTract } from "../state-logic/gridLayout/hooks";
+import { seqArray } from "./general-helpers";
+import { TractGutter } from "./TractGutter";
 
 const adderButtonStyles = css`
   --size: var(--gap);
@@ -49,13 +58,59 @@ const adderButtonStyles = css`
   }
 `;
 
-export function TractAddButton({ dir, index }: TractPosition) {
+export function TractAddButtons({
+  tracts,
+  dir,
+}: {
+  tracts: CSSMeasure[];
+  dir: TractDirection;
+}) {
+  const newTractSize = "1fr";
+  const addTract = useRecoilTransaction_UNSTABLE(
+    ({ set, get }) => (indexToInsertAt: number) => {
+      const tractAtom = dir === "rows" ? rowsState : colsState;
+      const existingTracts = get(tractAtom);
+
+      set(tractAtom, [
+        ...existingTracts.slice(0, indexToInsertAt),
+        newTractSize,
+        ...existingTracts.slice(indexToInsertAt),
+      ]);
+
+      const itemNames = get(gridItemNames);
+      itemNames.forEach((name) => {
+        updateItemBoundsForNewTract(name, get, set, {
+          index: indexToInsertAt,
+          dir,
+        });
+      });
+    }
+  );
+
+  const numTracts = tracts.length;
+  return (
+    <>
+      {seqArray(numTracts + 1).map((i) => (
+        <TractAddButton
+          key={dir + "Adder" + i}
+          dir={dir}
+          index={i}
+          onAdd={(i) => addTract(i)}
+        />
+      ))}
+    </>
+  );
+}
+
+function TractAddButton({
+  dir,
+  index,
+  onAdd,
+}: TractPosition & { onAdd: (indexOfNewTract: number) => void }) {
   // We place the adder button for index 0 and 1 in the same tract
   // and then just alter where they sit in the tract using the .first class
   const placementIndex = Math.max(index - 1, 0);
   const isFirstTract = index === 0;
-
-  const addTract = useAddTract(dir);
 
   const description = `Add ${
     dir === "rows" ? "row" : "column"
@@ -70,7 +125,7 @@ export function TractAddButton({ dir, index }: TractPosition) {
           aria-label={description}
           title={description}
           onClick={(e) => {
-            addTract("1fr", index);
+            onAdd(index);
           }}
         >
           <FaPlus />
