@@ -3,6 +3,8 @@ import styled from "@emotion/styled";
 import * as React from "react";
 import { useRecoilValue } from "recoil";
 import { gridItemAtoms, gridItemNames } from "../state-logic/gridItems";
+import { DragFeedbackRect } from "./DragFeedbackRect";
+import { DragWatcher } from "./DragWatcher";
 import EditableGridItem from "./EditableGridItem";
 import { SelectedItemOverlay } from "./SelectedItemOverlay";
 import { TractAddButtons } from "./TractAddButtons";
@@ -21,13 +23,11 @@ const MainGridContainer = styled.div({
 
 // A grid container that also displays a grid of all cells in background
 export function EditorGridContainer() {
-  // Setup the new-item drag behavior
-  // const onMouseDown = useGridDragger();
   const itemNames = useRecoilValue(gridItemNames);
 
   return (
     <MainGridContainer>
-      <SelectedItemOverlay />
+      <DragWatcher />
 
       <TractAddButtons dir="rows" />
       <TractAddButtons dir="cols" />
@@ -42,11 +42,8 @@ export function EditorGridContainer() {
           itemDefState={gridItemAtoms(name)}
         />
       ))}
-
-      {/* <div onMouseDown={onMouseDown} className={classes.newItemDragDetector} /> */}
-      {/* 
       <SelectedItemOverlay />
-      <DragFeedback /> */}
+      <DragFeedbackRect />
     </MainGridContainer>
   );
 }
