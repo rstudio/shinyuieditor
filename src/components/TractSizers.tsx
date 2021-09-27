@@ -40,6 +40,8 @@ export function TractSizers({ dir }: { dir: TractDirection }) {
           bottom: `calc(100% + ${pad})`,
           left: `calc(50% - ${sizeOfChooser}/2)`,
         };
+
+  const singularDir = dir === "rows" ? "row" : "column";
   return (
     <>
       {tracts.map((size, index) => (
@@ -49,6 +51,7 @@ export function TractSizers({ dir }: { dir: TractDirection }) {
               value={size}
               w={sizeOfChooser}
               onChange={updateTract(index)}
+              label={`Set size of ${singularDir} ${index}`}
             />
           </Box>
         </TractGutter>

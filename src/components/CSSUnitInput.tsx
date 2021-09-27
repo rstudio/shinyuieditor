@@ -18,11 +18,13 @@ export function CSSUnitInput({
   onChange,
   units = ["fr", "px", "rem", "auto"],
   w = "150px",
+  label = "CSS units input",
 }: {
   value: CSSMeasure;
   units?: CSSUnits[];
   onChange: (value: CSSMeasure) => void;
   w?: string;
+  label?: string;
 }) {
   // For some reason our tract sizers will sometimes try and pass this undefined
   // so we need to guard against that at run time
@@ -38,6 +40,7 @@ export function CSSUnitInput({
       spacing="1px"
       align="center"
       w={w}
+      aria-label={label}
       // Shrink the dropdown icon. These styles need to be seperate from the
       // Select component's css because the icon is technically a sibling so it
       // cant be targeted from within the selector
