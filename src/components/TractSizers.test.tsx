@@ -19,101 +19,103 @@ const LayoutToTest: GridLayoutTemplate = {
 // the way it should in it's separate tests. That's why we watch the recoil
 // value instead of looking at the text of the input
 
-test("Can update tract sizing through increase/decrease buttons", () => {
-  const initialValues: CSSMeasure[] = ["1fr", "1fr", "1fr"];
-  const changedValues = [...initialValues];
+describe("Tract updaters properly update the state of the app.", () => {
+  test("Can update tract sizing through increase/decrease buttons", () => {
+    const initialValues: CSSMeasure[] = ["1fr", "1fr", "1fr"];
+    const changedValues = [...initialValues];
 
-  LayoutToTest.rows = initialValues;
-  const onChange = jest.fn();
+    LayoutToTest.rows = initialValues;
+    const onChange = jest.fn();
 
-  renderWithRecoil(
-    <AppWLayout layout={LayoutToTest}>
-      <RecoilObserver node={rowsState} onChange={onChange} />
-      <TractSizers dir="rows" />
-    </AppWLayout>
-  );
+    renderWithRecoil(
+      <AppWLayout layout={LayoutToTest}>
+        <RecoilObserver node={rowsState} onChange={onChange} />
+        <TractSizers dir="rows" />
+      </AppWLayout>
+    );
 
-  // const initialValue = startingRows[0];
-  const initialValue = parseCSSMeasure(initialValues[0]);
-  if (!initialValue.count) return; // Make sure we're testing with non-auto units
+    // const initialValue = startingRows[0];
+    const initialValue = parseCSSMeasure(initialValues[0]);
+    if (!initialValue.count) return; // Make sure we're testing with non-auto units
 
-  const firstRowSizer = screen.getByLabelText(/row 0/i);
+    const firstRowSizer = screen.getByLabelText(/row 0/i);
 
-  const increaseButton = within(firstRowSizer).getByLabelText(/increase/i);
-  const decreaseButton = within(firstRowSizer).getByLabelText(/decrease/i);
+    const increaseButton = within(firstRowSizer).getByLabelText(/increase/i);
+    const decreaseButton = within(firstRowSizer).getByLabelText(/decrease/i);
 
-  expect(onChange).toHaveBeenLastCalledWith(initialValues);
+    expect(onChange).toHaveBeenLastCalledWith(initialValues);
 
-  changedValues[0] = "2fr";
-  userEvent.click(increaseButton);
-  expect(onChange).toHaveBeenLastCalledWith(changedValues);
+    changedValues[0] = "2fr";
+    userEvent.click(increaseButton);
+    expect(onChange).toHaveBeenLastCalledWith(changedValues);
 
-  changedValues[0] = "1fr";
-  userEvent.click(decreaseButton);
-  expect(onChange).toHaveBeenLastCalledWith(changedValues);
-});
+    changedValues[0] = "1fr";
+    userEvent.click(decreaseButton);
+    expect(onChange).toHaveBeenLastCalledWith(changedValues);
+  });
 
-test("Units can be changed", () => {
-  const initialValues: CSSMeasure[] = ["1fr", "1fr", "1fr"];
-  const changedValues = [...initialValues];
-  LayoutToTest.rows = initialValues;
+  test("Units can be changed", () => {
+    const initialValues: CSSMeasure[] = ["1fr", "1fr", "1fr"];
+    const changedValues = [...initialValues];
+    LayoutToTest.rows = initialValues;
 
-  const onChange = jest.fn();
+    const onChange = jest.fn();
 
-  renderWithRecoil(
-    <AppWLayout layout={LayoutToTest}>
-      <RecoilObserver node={rowsState} onChange={onChange} />
-      <TractSizers dir="rows" />
-    </AppWLayout>
-  );
+    renderWithRecoil(
+      <AppWLayout layout={LayoutToTest}>
+        <RecoilObserver node={rowsState} onChange={onChange} />
+        <TractSizers dir="rows" />
+      </AppWLayout>
+    );
 
-  // const initialValue = startingRows[0];
-  const initialValue = parseCSSMeasure(initialValues[0]);
-  if (!initialValue.count) return; // Make sure we're testing with non-auto units
+    // const initialValue = startingRows[0];
+    const initialValue = parseCSSMeasure(initialValues[0]);
+    if (!initialValue.count) return; // Make sure we're testing with non-auto units
 
-  const unitInput = within(screen.getByLabelText(/row 0/i)).getByLabelText(
-    /value-unit/i
-  );
+    const unitInput = within(screen.getByLabelText(/row 0/i)).getByLabelText(
+      /value-unit/i
+    );
 
-  expect(onChange).toHaveBeenLastCalledWith(initialValues);
+    expect(onChange).toHaveBeenLastCalledWith(initialValues);
 
-  userEvent.selectOptions(unitInput, "px");
+    userEvent.selectOptions(unitInput, "px");
 
-  changedValues[0] = "1px";
-  expect(onChange).toHaveBeenLastCalledWith(changedValues);
-});
+    changedValues[0] = "1px";
+    expect(onChange).toHaveBeenLastCalledWith(changedValues);
+  });
 
-test("Can update tract sizing by typing in text input and using arrow keys", () => {
-  const initialValues: CSSMeasure[] = ["1fr", "1fr", "1fr"];
-  const changedValues = [...initialValues];
-  const onChange = jest.fn();
-  // const onChange = (newVal: any) => console.log(newVal);
+  test("Can update tract sizing by typing in text input and using arrow keys", () => {
+    const initialValues: CSSMeasure[] = ["1fr", "1fr", "1fr"];
+    const changedValues = [...initialValues];
+    const onChange = jest.fn();
+    // const onChange = (newVal: any) => console.log(newVal);
 
-  renderWithRecoil(
-    <AppWLayout layout={LayoutToTest}>
-      <RecoilObserver node={rowsState} onChange={onChange} />
-      <TractSizers dir="rows" />
-    </AppWLayout>
-  );
+    renderWithRecoil(
+      <AppWLayout layout={LayoutToTest}>
+        <RecoilObserver node={rowsState} onChange={onChange} />
+        <TractSizers dir="rows" />
+      </AppWLayout>
+    );
 
-  const initialValue = parseCSSMeasure(LayoutToTest.rows[0]);
-  if (!initialValue.count) return; // Make sure we're testing with non-auto units
+    const initialValue = parseCSSMeasure(LayoutToTest.rows[0]);
+    if (!initialValue.count) return; // Make sure we're testing with non-auto units
 
-  const textInput = within(screen.getByLabelText(/row 0/i)).getByLabelText(
-    /value-count/i
-  ) as HTMLInputElement;
+    const textInput = within(screen.getByLabelText(/row 0/i)).getByLabelText(
+      /value-count/i
+    ) as HTMLInputElement;
 
-  // Clear the input and type 4
-  textInput.setSelectionRange(0, textInput.value.length);
-  userEvent.type(textInput, "{backspace}4");
-  changedValues[0] = "4fr";
-  expect(onChange).toHaveBeenLastCalledWith(changedValues);
+    // Clear the input and type 4
+    textInput.setSelectionRange(0, textInput.value.length);
+    userEvent.type(textInput, "{backspace}4");
+    changedValues[0] = "4fr";
+    expect(onChange).toHaveBeenLastCalledWith(changedValues);
 
-  userEvent.type(textInput, "{arrowup}");
-  changedValues[0] = "5fr";
-  expect(onChange).toHaveBeenLastCalledWith(changedValues);
+    userEvent.type(textInput, "{arrowup}");
+    changedValues[0] = "5fr";
+    expect(onChange).toHaveBeenLastCalledWith(changedValues);
 
-  userEvent.type(textInput, "{arrowdown}{arrowdown}");
-  changedValues[0] = "3fr";
-  expect(onChange).toHaveBeenLastCalledWith(changedValues);
+    userEvent.type(textInput, "{arrowdown}{arrowdown}");
+    changedValues[0] = "3fr";
+    expect(onChange).toHaveBeenLastCalledWith(changedValues);
+  });
 });
