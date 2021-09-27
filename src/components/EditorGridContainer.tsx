@@ -27,14 +27,6 @@ export function EditorGridContainer() {
 
   return (
     <MainGridContainer>
-      {itemNames.map((name) => (
-        <EditableGridItem
-          key={name}
-          name={name}
-          itemDefState={gridItemAtoms(name)}
-        />
-      ))}
-
       <SelectedItemOverlay />
 
       <TractAddButtons dir="rows" />
@@ -43,6 +35,13 @@ export function EditorGridContainer() {
       <TractSizers dir="cols" />
       <TractBoundaryLines dir="rows" />
       <TractBoundaryLines dir="cols" />
+      {itemNames.map((name) => (
+        <EditableGridItem
+          key={name}
+          name={name}
+          itemDefState={gridItemAtoms(name)}
+        />
+      ))}
 
       {/* <div onMouseDown={onMouseDown} className={classes.newItemDragDetector} /> */}
       {/* 
