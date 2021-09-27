@@ -13,7 +13,7 @@ const LayoutToTest: GridLayoutTemplate = {
   items: [] as GridItemDef[],
 };
 
-test("Shows the list of items", () => {
+test("Adding a tract puts it in the right place and with the right value", () => {
   const addIndex = 0;
   const defaultVal = "1fr";
   const onChange = jest.fn();
