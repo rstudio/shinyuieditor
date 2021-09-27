@@ -4,6 +4,7 @@ import * as React from "react";
 import { useRecoilValue } from "recoil";
 import { gridItemAtoms, gridItemNames } from "../state-logic/gridItems";
 import EditableGridItem from "./EditableGridItem";
+import { SelectedItemOverlay } from "./SelectedItemOverlay";
 import { TractAddButtons } from "./TractAddButtons";
 import { TractBoundaryLines } from "./TractBoundaryLines";
 import { TractSizers } from "./TractSizers";
@@ -33,6 +34,8 @@ export function EditorGridContainer() {
           itemDefState={gridItemAtoms(name)}
         />
       ))}
+
+      <SelectedItemOverlay />
 
       <TractAddButtons dir="rows" />
       <TractAddButtons dir="cols" />
