@@ -33,6 +33,7 @@ export function TractSizers({ dir }: { dir: TractDirection }) {
     dir === "rows"
       ? {
           alignSelf: "center",
+          width: sizeOfChooser, // Otw it's full width and blocks click events
           marginLeft: `calc(-${pad} - ${sizeOfChooser})`,
         }
       : {
