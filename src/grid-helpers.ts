@@ -41,3 +41,16 @@ export function placeOnGridOrCol({
         gridColumn: index + 1,
       };
 }
+
+export function enumerateGridDims({
+  numCols,
+  numRows,
+}: {
+  numCols: number;
+  numRows: number;
+}) {
+  return Array.from({ length: numCols * numRows }).map((_, i) => ({
+    row: Math.floor(i / numCols) + 1,
+    col: (i % numCols) + 1,
+  }));
+}
