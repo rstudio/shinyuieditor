@@ -1,4 +1,4 @@
-import { atom, DefaultValue, selector } from "recoil";
+import { atom, DefaultValue, selector, selectorFamily } from "recoil";
 import { CSSMeasure, GridLayoutTemplate } from "../../GridTypes";
 import { combinedItemsState } from "../gridItems";
 
@@ -17,6 +17,14 @@ export const gridTemplateName = atom<string>({
 export const rowsState = atom<GridLayoutTemplate["rows"]>({
   key: "rows",
   default: [],
+});
+
+export const tractDims = selectorFamily<number, TractDirection>({
+  key: "numRows",
+  get:
+    (dir) =>
+    ({ get }) =>
+      get(dir === "rows" ? rowsState : colsState).length,
 });
 
 export const colsState = atom<GridLayoutTemplate["cols"]>({
