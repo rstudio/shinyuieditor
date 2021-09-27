@@ -118,7 +118,6 @@ export function useGridDragger(draggedRef?: RefObject<HTMLDivElement>) {
         const dragType: ActiveDrag["dragType"] = draggedRef
           ? "ResizeItemDrag"
           : "NewItemDrag";
-
         const nameOfDragged = get(selectedItemNameState);
 
         if (dragType === "NewItemDrag") {
@@ -260,7 +259,7 @@ export function useGridDragger(draggedRef?: RefObject<HTMLDivElement>) {
       document.removeEventListener("mouseup", finishDrag);
       document.removeEventListener("mousemove", updateDrag);
     };
-  }, []);
+  }, [finishDrag, updateDrag]);
 
   return initializeDrag;
 }
