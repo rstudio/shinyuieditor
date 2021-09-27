@@ -32,7 +32,7 @@ export const colsState = atom<GridLayoutTemplate["cols"]>({
   default: [],
 });
 
-export const gapState = atom({
+export const gapState = atom<CSSMeasure>({
   key: "gapState", // unique ID (with respect to other atoms/selectors)
   default: "1rem", // default value (aka initial value)
 });
@@ -83,8 +83,8 @@ export const fullAppState = selector<GridLayoutTemplate>({
       // reset(gapState);
     }
     set(combinedItemsState, items);
-    set(rowsState, rows as CSSMeasure[]);
-    set(colsState, cols as CSSMeasure[]);
+    set(rowsState, rows);
+    set(colsState, cols);
 
     set(gridTemplateName, name);
     set(gapState, gap);

@@ -10,9 +10,9 @@ export type GridItemDef = {
 } & GridPos;
 
 export type GridLayoutTemplate = {
-  rows: string[];
-  cols: string[];
-  gap: string;
+  rows: CSSMeasure[];
+  cols: CSSMeasure[];
+  gap: CSSMeasure;
   name: string;
   items: GridItemDef[];
 };

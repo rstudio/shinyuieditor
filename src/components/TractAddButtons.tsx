@@ -58,21 +58,30 @@ const adderButtonStyles = css`
   }
 `;
 
+function insertNewTract(
+  oldTracts: CSSMeasure[],
+  newValue: CSSMeasure,
+  indexToInsertAt: number
+): CSSMeasure[] {
+  const numTracts = oldTracts.length;
+  const preInsertion = oldTracts.slice(0, indexToInsertAt);
+  const postInsertion = oldTracts.slice(indexToInsertAt, numTracts);
+
+  return [...preInsertion, newValue, ...postInsertion];
+}
+
 export function TractAddButtons({ dir }: { dir: TractDirection }) {
-  const tracts = useRecoilValue(
-    dir === "rows" ? rowsState : colsState
-  ) as CSSMeasure[];
+  const tracts = useRecoilValue(dir === "rows" ? rowsState : colsState);
   const newTractSize = "1fr";
   const addTract = useRecoilTransaction_UNSTABLE(
     ({ set, get }) => (indexToInsertAt: number) => {
       const tractAtom = dir === "rows" ? rowsState : colsState;
       const existingTracts = get(tractAtom);
 
-      set(tractAtom, [
-        ...existingTracts.slice(0, indexToInsertAt),
-        newTractSize,
-        ...existingTracts.slice(indexToInsertAt),
-      ]);
+      set(
+        tractAtom,
+        insertNewTract(existingTracts, newTractSize, indexToInsertAt)
+      );
 
       const itemNames = get(gridItemNames);
       itemNames.forEach((name) => {
