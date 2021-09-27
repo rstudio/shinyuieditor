@@ -2,8 +2,8 @@
 
 import { Heading } from "@chakra-ui/layout";
 import * as React from "react";
+import { GridItemDiv } from "./GridItemDiv";
 import { CSSMeasure } from "../GridTypes";
-import { GridItem } from "./GridItem";
 import { IconName, SvgIcon } from "./icons";
 
 type GridCardCommonProps = {
@@ -21,7 +21,7 @@ function GridCardImpl(
 ) {
   const { padding = "1rem", gridArea } = props;
   return (
-    <GridItem
+    <GridItemDiv
       css={{
         borderRadius: "var(--corner-radius)",
         boxShadow: "var(--shadow)",
@@ -51,7 +51,7 @@ function GridCardImpl(
         </Heading>
       )}
       <div css={{ padding }}>{props.children}</div>
-    </GridItem>
+    </GridItemDiv>
   );
 }
 

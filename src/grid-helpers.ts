@@ -1,4 +1,3 @@
-import * as React from "react";
 import { GridPos } from "./GridTypes";
 import { TractDirection } from "./state-logic/gridLayout/atoms";
 
@@ -9,33 +8,6 @@ export function makeTractPos(start: number, end?: number) {
   // If a negative end index was provided then just leave it be
   const endIndex = end < 0 ? end : end + 1;
   return pos + "/" + endIndex;
-}
-export function addGridPosToStyles(
-  {
-    startRow,
-    startCol,
-    endRow,
-    endCol,
-    gridArea,
-  }: {
-    gridArea?: string;
-  } & Partial<GridPos>,
-  extraStyles?: React.CSSProperties
-): React.CSSProperties {
-  const styles = { ...extraStyles };
-
-  if (startRow && startCol) {
-    styles.gridRow = makeTractPos(startRow, endRow);
-    styles.gridColumn = makeTractPos(startCol, endCol);
-  } else if (gridArea) {
-    styles.gridArea = gridArea;
-  } else {
-    console.error(
-      "You need to provide one of rows and cols or gridArea for GridItem"
-    );
-  }
-
-  return styles;
 }
 
 export function sameGridPos(a?: GridPos, b?: GridPos) {
