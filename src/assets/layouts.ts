@@ -1,6 +1,6 @@
-import { GridItemDef } from "../GridTypes";
+import { GridItemDef, GridLayoutTemplate } from "../GridTypes";
 
-const layouts = [
+const layouts: GridLayoutTemplate[] = [
   {
     name: "Tri-Split",
     rows: ["100px", "2fr"],

@@ -11,9 +11,7 @@ import { CSSUnitInput } from "./CSSUnitInput";
 import { TractGutter } from "./TractGutter";
 
 export function TractSizers({ dir }: { dir: TractDirection }) {
-  const tracts = useRecoilValue(
-    dir === "rows" ? rowsState : colsState
-  ) as CSSMeasure[];
+  const tracts = useRecoilValue(dir === "rows" ? rowsState : colsState);
 
   const setTractSizes = useSetRecoilState(
     dir === "rows" ? rowsState : colsState
@@ -48,7 +46,7 @@ export function TractSizers({ dir }: { dir: TractDirection }) {
         <TractGutter key={dir + "sizer" + index} dir={dir} index={index}>
           <Box sx={placementStyles}>
             <CSSUnitInput
-              value={size as CSSMeasure}
+              value={size}
               w={sizeOfChooser}
               onChange={updateTract(index)}
             />
