@@ -46,9 +46,9 @@ export const dragStateAtom = atom<ActiveDrag | null>({
 });
 
 function getCurrentGridCellBounds() {
-  const allCells = document.querySelectorAll(".gridCell") as NodeListOf<
-    HTMLDivElement
-  >;
+  const allCells = document.querySelectorAll(
+    ".gridCell"
+  ) as NodeListOf<HTMLDivElement>;
 
   // const gridIndicesToBBox = new Map<`row${number}-col${number}`,GridItemBoundingBox>();
   type GridIndicesString = `row${number}-col${number}`;
@@ -77,7 +77,8 @@ function getItemGridBounds(
 ) {
   return itemNames.map((name) => {
     const itemDef = get(gridItemAtoms(name));
-    if (!itemDef.endRow || !itemDef.endCol) throw "Non-complete item";
+    if (!itemDef.endRow || !itemDef.endCol)
+      throw new Error("Non-complete item");
 
     const topLeft = gridCellPositionMap.get(
       `row${itemDef.startRow}-col${itemDef.startCol}`
@@ -87,7 +88,7 @@ function getItemGridBounds(
       `row${itemDef.endRow}-col${itemDef.endCol}`
     );
     if (!topLeft || !bottomRight)
-      throw "Failed to retrieve grid cell for item bounds";
+      throw new Error("Failed to retrieve grid cell for item bounds");
 
     const { top, left } = topLeft;
     const { bottom, right } = bottomRight;
@@ -103,151 +104,153 @@ function getItemGridBounds(
 }
 
 export function useGridDragger(draggedRef?: RefObject<HTMLDivElement>) {
-  const itemBoundsRef = useRef<((SelectionRect & { name: string }) )[]| null>(
+  const itemBoundsRef = useRef<(SelectionRect & { name: string })[] | null>(
     null
   );
 
   const initializeDrag = useRecoilTransaction_UNSTABLE(
-    ({ get, set, reset }) => (
-      { pageX: dragX, pageY: dragY }: MouseEvent,
-      dragDir: ActiveDrag["dragBox"]["dir"] = "bottomRight"
-    ) => {
-      // If we're dragging on a specific item, then it's a resize drag
-      const dragType: ActiveDrag["dragType"] = draggedRef
-        ? "ResizeItemDrag"
-        : "NewItemDrag";
+    ({ get, set, reset }) =>
+      (
+        { pageX: dragX, pageY: dragY }: React.MouseEvent,
+        dragDir: ActiveDrag["dragBox"]["dir"] = "bottomRight"
+      ) => {
+        // If we're dragging on a specific item, then it's a resize drag
+        const dragType: ActiveDrag["dragType"] = draggedRef
+          ? "ResizeItemDrag"
+          : "NewItemDrag";
 
-      const nameOfDragged = get(selectedItemNameState);
+        const nameOfDragged = get(selectedItemNameState);
 
-      if (dragType === "NewItemDrag") {
-        // Make sure we reset our selection if we're making a new element
-        reset(selectedItemNameState);
-      }
+        if (dragType === "NewItemDrag") {
+          // Make sure we reset our selection if we're making a new element
+          reset(selectedItemNameState);
+        }
+        const gridCellPositionsMap = getCurrentGridCellBounds();
+        const gridCellPositions = [...gridCellPositionsMap.values()];
+        const otherItemNames = get(gridItemNames).filter(
+          (name) => name !== nameOfDragged
+        );
+        itemBoundsRef.current = getItemGridBounds(
+          otherItemNames,
+          get,
+          gridItemAtoms,
+          gridCellPositionsMap
+        );
 
-      const gridCellPositionsMap = getCurrentGridCellBounds();
-      const gridCellPositions = [...gridCellPositionsMap.values()];
-      const otherItemNames = get(gridItemNames).filter(
-        (name) => name !== nameOfDragged
-      );
-      itemBoundsRef.current = getItemGridBounds(
-        otherItemNames,
-        get,
-        gridItemAtoms,
-        gridCellPositionsMap
-      );
+        // If we're dragging an existing item we set the initial drag box to be
+        // that item's outline, otherwise the box starts as a point on click loc
+        // We make the box start a tiny bit to the upper left if it's a new item
+        // drag so that we dont immediately trigger the cancel drag state that
+        // we get when the drag box is of size zero.
+        const dragBox: ActiveDrag["dragBox"] = {
+          dir: dragDir,
+          ...(dragType === "ResizeItemDrag"
+            ? getBBoxOfDiv(draggedRef?.current)
+            : { left: dragX - 1, right: dragX, top: dragY - 1, bottom: dragY }),
+        };
 
-      // If we're dragging an existing item we set the initial drag box to be
-      // that item's outline, otherwise the box starts as a point on click loc
-      // We make the box start a tiny bit to the upper left if it's a new item
-      // drag so that we dont immediately trigger the cancel drag state that
-      // we get when the drag box is of size zero.
-      const dragBox: ActiveDrag["dragBox"] = {
-        dir: dragDir,
-        ...(dragType === "ResizeItemDrag"
-          ? getBBoxOfDiv(draggedRef?.current)
-          : { left: dragX - 1, right: dragX, top: dragY - 1, bottom: dragY }),
-      };
+        const firstCell = gridCellPositions[0];
+        set(dragStateAtom, {
+          dragType,
+          dragBox,
+          gridCellPositions,
+          xOffset: firstCell.left - firstCell.offsetLeft,
+          yOffset: firstCell.top - firstCell.offsetTop,
+          itemName: nameOfDragged ?? "new-item",
+          gridPos: getDragPosOnGrid(dragBox, gridCellPositions),
+        });
 
-      const firstCell = gridCellPositions[0];
-      set(dragStateAtom, {
-        dragType,
-        dragBox,
-        gridCellPositions,
-        xOffset: firstCell.left - firstCell.offsetLeft,
-        yOffset: firstCell.top - firstCell.offsetTop,
-        itemName: nameOfDragged ?? "new-item",
-        gridPos: getDragPosOnGrid(dragBox, gridCellPositions),
-      });
-
-      // Turnoff text selection so dragging doesnt highlight a bunch of stuff
-      document.querySelector("body")?.classList.add("disable-text-selection");
-      // After we've completed initializing the drag we can start watching the
-      // progress of the drag
-      document.addEventListener("mousemove", updateDrag);
-      document.addEventListener("mouseup", finishDrag);
-    },
+        // Turnoff text selection so dragging doesnt highlight a bunch of stuff
+        document.querySelector("body")?.classList.add("disable-text-selection");
+        // After we've completed initializing the drag we can start watching the
+        // progress of the drag
+        document.addEventListener("mousemove", updateDrag);
+        document.addEventListener("mouseup", finishDrag);
+      },
     []
   );
 
   const updateDrag = useRecoilTransaction_UNSTABLE(
-    ({ set, get }) => ({ pageX, pageY }: MouseEvent) => {
-      const dragState = get(dragStateAtom);
-      if (!dragState) throw new Error("Cant move an uninitialized drag");
-      const { dragBox: oldDragBox, gridCellPositions } = dragState;
-      const dragDir = oldDragBox.dir;
-      const dragBox = { ...oldDragBox };
+    ({ set, get }) =>
+      ({ pageX, pageY }: MouseEvent) => {
+        const dragState = get(dragStateAtom);
+        if (!dragState) throw new Error("Cant move an uninitialized drag");
+        const { dragBox: oldDragBox, gridCellPositions } = dragState;
+        const dragDir = oldDragBox.dir;
+        const dragBox = { ...oldDragBox };
 
-      // Make sure that we update the drag correctly based on the current handle
-      if (containsDir(dragDir, "bottom")) {
-        dragBox.bottom = Math.max(pageY, dragBox.top);
-      }
-      if (containsDir(dragDir, "top")) {
-        dragBox.top = Math.min(pageY, dragBox.bottom);
-      }
-      if (containsDir(dragDir, "right")) {
-        dragBox.right = Math.max(pageX, dragBox.left);
-      }
-      if (containsDir(dragDir, "left")) {
-        dragBox.left = Math.min(pageX, dragBox.right);
-      }
+        // Make sure that we update the drag correctly based on the current handle
+        if (containsDir(dragDir, "bottom")) {
+          dragBox.bottom = Math.max(pageY, dragBox.top);
+        }
+        if (containsDir(dragDir, "top")) {
+          dragBox.top = Math.min(pageY, dragBox.bottom);
+        }
+        if (containsDir(dragDir, "right")) {
+          dragBox.right = Math.max(pageX, dragBox.left);
+        }
+        if (containsDir(dragDir, "left")) {
+          dragBox.left = Math.min(pageX, dragBox.right);
+        }
 
-      // Check to see if we overlap with an existing grid item and constrain
-      // the drag if it does
-      const itemBounds = itemBoundsRef.current;
-      if (itemBounds && itemBounds !== null) {
-        itemBounds.forEach((bounds) => {
-          const overlap = boxesOverlap(bounds, dragBox);
-          if (overlap) {
-            mutateToFixOverlapOfBoxes(dragBox, bounds, overlap);
-          }
+        // Check to see if we overlap with an existing grid item and constrain
+        // the drag if it does
+        const itemBounds = itemBoundsRef.current;
+        if (itemBounds && itemBounds !== null) {
+          itemBounds.forEach((bounds) => {
+            const overlap = boxesOverlap(bounds, dragBox);
+            if (overlap) {
+              mutateToFixOverlapOfBoxes(dragBox, bounds, overlap);
+            }
+          });
+        }
+
+        const newGridPos = getDragPosOnGrid(dragBox, gridCellPositions);
+
+        const shouldUpdateItemState =
+          dragState.dragType === "ResizeItemDrag" &&
+          !sameGridPos(dragState.gridPos, newGridPos);
+
+        const selectedItemName = get(selectedItemNameState);
+        if (shouldUpdateItemState && selectedItemName) {
+          set(gridItemAtoms(selectedItemName), (existingItemDef) => {
+            return {
+              ...existingItemDef,
+              ...newGridPos,
+            };
+          });
+        }
+        set(dragStateAtom, {
+          ...dragState,
+          dragBox: dragBox,
+          gridPos: newGridPos,
         });
-      }
-
-      const newGridPos = getDragPosOnGrid(dragBox, gridCellPositions);
-
-      const shouldUpdateItemState =
-        dragState.dragType === "ResizeItemDrag" &&
-        !sameGridPos(dragState.gridPos, newGridPos);
-
-      const selectedItemName = get(selectedItemNameState);
-      if (shouldUpdateItemState && selectedItemName) {
-        set(gridItemAtoms(selectedItemName), (existingItemDef) => {
-          return {
-            ...existingItemDef,
-            ...newGridPos,
-          };
-        });
-      }
-      set(dragStateAtom, {
-        ...dragState,
-        dragBox: dragBox,
-        gridPos: newGridPos,
-      });
-    },
+      },
     []
   );
 
   const finishDrag = useRecoilTransaction_UNSTABLE(
-    ({ set, reset, get }) => () => {
-      const finalState = get(dragStateAtom);
+    ({ set, reset, get }) =>
+      () => {
+        const finalState = get(dragStateAtom);
 
-      if (finalState?.dragType === "NewItemDrag") {
-        // If the drag is not wanted, which we intepret as a size-zero drag box,
-        // then we dont want to actually create a new item.
-        const zeroSizeDrag =
-          finalState.dragBox.bottom === finalState.dragBox.top &&
-          finalState.dragBox.left === finalState.dragBox.right;
-        if (!zeroSizeDrag) {
-          set(addItemModalState, finalState.gridPos);
+        if (finalState?.dragType === "NewItemDrag") {
+          // If the drag is not wanted, which we intepret as a size-zero drag box,
+          // then we dont want to actually create a new item.
+          const zeroSizeDrag =
+            finalState.dragBox.bottom === finalState.dragBox.top &&
+            finalState.dragBox.left === finalState.dragBox.right;
+          if (!zeroSizeDrag) {
+            set(addItemModalState, finalState.gridPos);
+          }
         }
-      }
-      reset(dragStateAtom);
+        reset(dragStateAtom);
 
-      document
-        .querySelector("body")
-        ?.classList.remove("disable-text-selection");
-      document.removeEventListener("mousemove", updateDrag);
-    },
+        document
+          .querySelector("body")
+          ?.classList.remove("disable-text-selection");
+        document.removeEventListener("mousemove", updateDrag);
+      },
     []
   );
 
@@ -304,7 +307,9 @@ export const addItemModalState = atom<GridPos | null>({
 
 export function useAddItemModalCloser() {
   const closeAddItemModal = useRecoilCallback(
-    ({ reset }) => () => reset(addItemModalState),
+    ({ reset }) =>
+      () =>
+        reset(addItemModalState),
     []
   );
 
