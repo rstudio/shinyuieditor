@@ -15,6 +15,12 @@ const colGutterStyles = {
 export const TractGutter = styled.div(({ dir, index }: TractPosition) => ({
   display: "grid",
   position: "relative",
+  // We dont want the main wrapper div to block actions beneath it so we turn
+  // off pointer events for it but turn them back on for all the children
+  pointerEvents: "none",
+  "&>*": {
+    pointerEvents: "all",
+  },
   ...placeOnGridOrCol({ dir, index }),
   ...(dir === "rows" ? rowGutterStyles : colGutterStyles),
 }));
