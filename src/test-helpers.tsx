@@ -38,12 +38,7 @@ export function AppWLayout({
 }) {
   useInitializeToDefaultLayout(layout);
 
-  return (
-    <>
-      <MainGridCSSVariables />
-      {children}
-    </>
-  );
+  return <>{children}</>;
 }
 
 export function RecoilObserver<T>({
