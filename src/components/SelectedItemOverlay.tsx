@@ -1,13 +1,7 @@
 /** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import * as React from "react";
-import { useRecoilValue, useResetRecoilState } from "recoil";
-import { addGridPosToStyles } from "../grid-helpers";
-import { DragDir } from "../GridTypes";
-import {
-  selectedItemNameState,
-  selectedItemState,
-} from "../state-logic/gridItems";
-import { useGridDragger } from "../state-logic/itemDragging";
+import { IconType } from "react-icons";
 import {
   BsArrowDown,
   BsArrowDownLeft,
@@ -18,8 +12,14 @@ import {
   BsArrowUpLeft,
   BsArrowUpRight,
 } from "react-icons/bs";
-import { IconType } from "react-icons";
-import { css } from "@emotion/react";
+import { useRecoilValue, useResetRecoilState } from "recoil";
+import { DragDir } from "../GridTypes";
+import {
+  selectedItemNameState,
+  selectedItemState,
+} from "../state-logic/gridItems";
+import { useGridDragger } from "../state-logic/itemDragging";
+import { GridItemDiv } from "./GridItemDiv";
 
 export function SelectedItemOverlay() {
   const resetSelection = useResetRecoilState(selectedItemNameState);
@@ -34,13 +34,7 @@ export function SelectedItemOverlay() {
   // close events, whereas the mouse-down on a drag handle wont trigger a click
   // event on the cancelBox div behind it.
   return (
-    <div
-      ref={itemRef}
-      css={overlayStyles}
-      style={addGridPosToStyles(selectedItem, {
-        boxShadow: "var(--selected-shadow)",
-      })}
-    >
+    <GridItemDiv ref={itemRef} css={overlayStyles} {...selectedItem}>
       {dirToDragger.map(({ dir, DragIcon, styles }) => (
         <span
           key={dir}
@@ -65,13 +59,11 @@ export function SelectedItemOverlay() {
           resetSelection();
         }}
       /> */}
-    </div>
+    </GridItemDiv>
   );
 }
 
 const overlayStyles = css({
-  gridColumn: "var(--cols, 1)",
-  gridRow: "var(--rows, 1)",
   backgroundColor: "var(--color, rgba(34, 139, 34, 0.835))",
   borderRadius: "var(--corner-radius)",
   display: "grid",
@@ -82,6 +74,7 @@ const overlayStyles = css({
   gridTemplateColumns: "auto 1fr auto",
   gridTemplateRows: "auto 1fr auto",
   position: "relative",
+  boxShadow: "var(--selected-shadow)",
 });
 
 const dirToDragger: {
