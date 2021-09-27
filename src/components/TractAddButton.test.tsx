@@ -1,12 +1,7 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { useRecoilValue } from "recoil";
-import { CSSMeasure, GridItemDef } from "../GridTypes";
-import {
-  colsState,
-  rowsState,
-  TractDirection,
-} from "../state-logic/gridLayout/atoms";
+import { GridItemDef } from "../GridTypes";
+import { rowsState } from "../state-logic/gridLayout/atoms";
 import { AppWLayout, RecoilObserver, renderWithRecoil } from "../test-helpers";
 import { TractAddButtons } from "./TractAddButtons";
 
@@ -18,14 +13,6 @@ const LayoutToTest = {
   items: [] as GridItemDef[],
 };
 
-function WrapWithTracts({ dir }: { dir: TractDirection }) {
-  const tracts = useRecoilValue(
-    dir === "rows" ? rowsState : colsState
-  ) as CSSMeasure[];
-
-  return <TractAddButtons tracts={tracts} dir={dir} />;
-}
-
 test("Shows the list of items", () => {
   const addIndex = 0;
   const defaultVal = "1fr";
@@ -35,7 +22,7 @@ test("Shows the list of items", () => {
   renderWithRecoil(
     <AppWLayout layout={LayoutToTest}>
       <RecoilObserver node={rowsState} onChange={onChange} />
-      <WrapWithTracts dir="rows" />
+      <TractAddButtons dir="rows" />
     </AppWLayout>
   );
 

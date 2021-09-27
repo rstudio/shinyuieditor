@@ -2,7 +2,7 @@
 import { css } from "@emotion/react";
 import * as React from "react";
 import { FaPlus } from "react-icons/fa";
-import { useRecoilTransaction_UNSTABLE } from "recoil";
+import { useRecoilTransaction_UNSTABLE, useRecoilValue } from "recoil";
 import { CSSMeasure } from "../GridTypes";
 import { gridItemNames } from "../state-logic/gridItems";
 import {
@@ -58,13 +58,10 @@ const adderButtonStyles = css`
   }
 `;
 
-export function TractAddButtons({
-  tracts,
-  dir,
-}: {
-  tracts: CSSMeasure[];
-  dir: TractDirection;
-}) {
+export function TractAddButtons({ dir }: { dir: TractDirection }) {
+  const tracts = useRecoilValue(
+    dir === "rows" ? rowsState : colsState
+  ) as CSSMeasure[];
   const newTractSize = "1fr";
   const addTract = useRecoilTransaction_UNSTABLE(
     ({ set, get }) => (indexToInsertAt: number) => {

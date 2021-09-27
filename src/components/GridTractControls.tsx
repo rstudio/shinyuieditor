@@ -18,7 +18,7 @@ export default function GridTractControls({ dir }: { dir: TractDirection }) {
 
   return (
     <>
-      <TractAddButtons tracts={tracts} dir={dir} />
+      <TractAddButtons dir={dir} />
       <TractSizers tracts={tracts} dir={dir} />
       <TractBoundaryLines dir={dir} numTracts={tracts.length} />
     </>
