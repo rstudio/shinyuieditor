@@ -3,8 +3,7 @@ import styled from "@emotion/styled";
 import * as React from "react";
 import { useRecoilValue } from "recoil";
 import { gridItemAtoms, gridItemNames } from "../state-logic/gridItems";
-import { DragFeedbackRect } from "./DragFeedbackRect";
-import { DragWatcher } from "./DragWatcher";
+import { DragFeedback } from "./DragFeedback";
 import EditableGridItem from "./EditableGridItem";
 import { SelectedItemOverlay } from "./SelectedItemOverlay";
 import { TractAddButtons } from "./TractAddButtons";
@@ -27,8 +26,7 @@ export function EditorGridContainer() {
 
   return (
     <MainGridContainer>
-      <DragWatcher />
-
+      <DragFeedback />
       <TractAddButtons dir="rows" />
       <TractAddButtons dir="cols" />
       <TractSizers dir="rows" />
@@ -43,7 +41,6 @@ export function EditorGridContainer() {
         />
       ))}
       <SelectedItemOverlay />
-      <DragFeedbackRect />
     </MainGridContainer>
   );
 }
