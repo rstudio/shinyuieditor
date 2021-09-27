@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import * as React from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { CSSMeasure } from "../GridTypes";
 import {
   colsState,
@@ -10,13 +10,11 @@ import {
 import { CSSUnitInput } from "./CSSUnitInput";
 import { TractGutter } from "./TractGutter";
 
-export function TractSizers({
-  tracts,
-  dir,
-}: {
-  tracts: CSSMeasure[];
-  dir: TractDirection;
-}) {
+export function TractSizers({ dir }: { dir: TractDirection }) {
+  const tracts = useRecoilValue(
+    dir === "rows" ? rowsState : colsState
+  ) as CSSMeasure[];
+
   const setTractSizes = useSetRecoilState(
     dir === "rows" ? rowsState : colsState
   );

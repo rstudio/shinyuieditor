@@ -4,7 +4,9 @@ import * as React from "react";
 import { useRecoilValue } from "recoil";
 import { gridItemAtoms, gridItemNames } from "../state-logic/gridItems";
 import EditableGridItem from "./EditableGridItem";
-import GridTractControls from "./GridTractControls";
+import { TractAddButtons } from "./TractAddButtons";
+import { TractBoundaryLines } from "./TractBoundaryLines";
+import { TractSizers } from "./TractSizers";
 
 const MainGridContainer = styled.div({
   display: "grid",
@@ -31,8 +33,13 @@ export function EditorGridContainer() {
           itemDefState={gridItemAtoms(name)}
         />
       ))}
-      <GridTractControls dir="rows" />
-      <GridTractControls dir="cols" />
+
+      <TractAddButtons dir="rows" />
+      <TractAddButtons dir="cols" />
+      <TractSizers dir="rows" />
+      <TractSizers dir="cols" />
+      <TractBoundaryLines dir="rows" />
+      <TractBoundaryLines dir="cols" />
 
       {/* <div onMouseDown={onMouseDown} className={classes.newItemDragDetector} /> */}
       {/* 

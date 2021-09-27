@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import * as React from "react";
-import { TractDirection } from "../state-logic/gridLayout/atoms";
+import { useRecoilValue } from "recoil";
+import { tractDims, TractDirection } from "../state-logic/gridLayout/atoms";
 import { seqArray } from "./general-helpers";
 import { TractGutter } from "./TractGutter";
 
@@ -29,13 +30,9 @@ const RowDivider = styled.div({
   alignSelf: "end",
   ...commonDividerStyles,
 });
-export function TractBoundaryLines({
-  numTracts,
-  dir,
-}: {
-  numTracts: number;
-  dir: TractDirection;
-}) {
+export function TractBoundaryLines({ dir }: { dir: TractDirection }) {
+  const numTracts = useRecoilValue(tractDims(dir));
+
   return (
     <>
       {seqArray(numTracts - 1).map((i) => (
