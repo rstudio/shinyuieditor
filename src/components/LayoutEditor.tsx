@@ -1,9 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import styled from "@emotion/styled";
 import * as React from "react";
-import { useSetRecoilState } from "recoil";
-import layouts from "../assets/layouts";
-import { fullAppState } from "../state-logic/gridLayout/atoms";
+import { useInitializeToLayout } from "../state-logic/gridLayout/hooks";
 import { EditorGridContainer } from "./EditorGridContainer";
 import { EditorInstructions } from "./EditorInstructions";
 import { EditorItemsListView } from "./EditorItemsListView";
@@ -30,12 +28,7 @@ const EditorWrapper = styled.div({
     `,
 });
 export function LayoutEditor() {
-  const setUpNewLayout = useSetRecoilState(fullAppState);
-
-  React.useEffect(() => {
-    setUpNewLayout(layouts[0]);
-  }, [setUpNewLayout]);
-
+  useInitializeToLayout("default");
   return (
     <EditorWrapper>
       <MainGridCSSVariables />

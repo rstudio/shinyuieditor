@@ -1,8 +1,30 @@
-import { useRecoilTransaction_UNSTABLE } from "recoil";
-import { CSSMeasure, GridItemDef } from "../../GridTypes";
+import React from "react";
+import { useRecoilTransaction_UNSTABLE, useSetRecoilState } from "recoil";
+import layouts from "../../assets/layouts";
+import { CSSMeasure, GridItemDef, GridLayoutTemplate } from "../../GridTypes";
 import { gridItemAtoms, gridItemNames } from "../gridItems";
 import { RecoilGetter, RecoilSetter } from "../RecoilHelperClasses";
-import { colsState, rowsState, TractDirection, TractPosition } from "./atoms";
+import {
+  colsState,
+  fullAppState,
+  rowsState,
+  TractDirection,
+  TractPosition,
+} from "./atoms";
+
+type LayoutInitialization = "default" | "none" | GridLayoutTemplate;
+export function useInitializeToLayout(
+  layout: LayoutInitialization = "default"
+) {
+  const setUpNewLayout = useSetRecoilState(fullAppState);
+  React.useEffect(() => {
+    if (layout === "default") {
+      setUpNewLayout(layouts[0]);
+    } else if (layout !== "none") {
+      setUpNewLayout(layout);
+    }
+  }, [setUpNewLayout, layout]);
+}
 
 export function useAddTract(dir: TractDirection) {
   return useRecoilTransaction_UNSTABLE(

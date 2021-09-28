@@ -1,44 +1,22 @@
 import React, { useEffect } from "react";
-import {
-  RecoilRoot,
-  RecoilValue,
-  useRecoilValue,
-  useSetRecoilState,
-} from "recoil";
-import layouts from "./assets/layouts";
-import { MainGridCSSVariables } from "./components/MainGridCSSVariables";
-import { GridLayoutTemplate } from "./GridTypes";
-import { fullAppState } from "./state-logic/gridLayout/atoms";
+import { RecoilRoot, RecoilValue, useRecoilValue } from "recoil";
+import { useInitializeToLayout } from "./state-logic/gridLayout/hooks";
 import { render } from "./test-utils";
-
-type LayoutInitialization = "default" | "none" | GridLayoutTemplate;
-export function useInitializeToDefaultLayout(
-  layout: LayoutInitialization = "default"
-) {
-  const setUpNewLayout = useSetRecoilState(fullAppState);
-  React.useEffect(() => {
-    if (layout === "default") {
-      setUpNewLayout(layouts[0]);
-    } else if (layout !== "none") {
-      setUpNewLayout(layout);
-    }
-  }, [setUpNewLayout, layout]);
-}
-
-export function renderWithRecoil(component: React.ReactNode) {
-  return render(<RecoilRoot>{component}</RecoilRoot>);
-}
 
 export function AppWLayout({
   children,
   layout = "default",
 }: {
   children: React.ReactNode;
-  layout: LayoutInitialization;
+  layout: Parameters<typeof useInitializeToLayout>[0];
 }) {
-  useInitializeToDefaultLayout(layout);
+  useInitializeToLayout(layout);
 
   return <>{children}</>;
+}
+
+export function renderWithRecoil(component: React.ReactNode) {
+  return render(<RecoilRoot>{component}</RecoilRoot>);
 }
 
 export function RecoilObserver<T>({
