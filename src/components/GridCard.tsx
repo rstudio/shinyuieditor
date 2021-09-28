@@ -2,12 +2,11 @@
 
 import { Heading } from "@chakra-ui/layout";
 import * as React from "react";
-import { GridItemDiv } from "./GridItemDiv";
 import { CSSMeasure } from "../GridTypes";
-import { IconName, SvgIcon } from "./icons";
+import { GridItemDiv } from "./GridItemDiv";
 
 type GridCardCommonProps = {
-  gridArea: string;
+  area: string;
   children: React.ReactNode;
   padding?: CSSMeasure;
 };
@@ -15,11 +14,11 @@ type GridCardCommonProps = {
 function GridCardImpl(
   props: GridCardCommonProps & {
     title?: string;
-    icon?: IconName;
+    icon?: React.ReactElement;
     header?: JSX.Element;
   }
 ) {
-  const { padding = "1rem", gridArea } = props;
+  const { padding = "1rem", area } = props;
   return (
     <GridItemDiv
       css={{
@@ -29,7 +28,7 @@ function GridCardImpl(
         display: "grid",
         gridTemplateRows: "var(--card-header-height, 35px) 1fr",
       }}
-      gridArea={gridArea}
+      gridArea={area}
     >
       {"header" in props ? (
         props.header
@@ -44,9 +43,11 @@ function GridCardImpl(
             borderBottom: "1px solid #d1d0d09a",
             marginLeft: "3px",
             marginRight: "3px",
+            padding: "0.3rem",
           }}
         >
-          <SvgIcon name={props.icon} />
+          {props.icon}
+
           {props.title}
         </Heading>
       )}

@@ -1,6 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import styled from "@emotion/styled";
 import * as React from "react";
+import { FaListUl } from "react-icons/fa";
+import { FiSettings } from "react-icons/fi";
+import { ImStack } from "react-icons/im";
 import { useInitializeToLayout } from "../state-logic/gridLayout/hooks";
 import { EditorGridContainer } from "./EditorGridContainer";
 import { EditorInstructions } from "./EditorInstructions";
@@ -32,24 +35,20 @@ export function LayoutEditor() {
   return (
     <EditorWrapper>
       <MainGridCSSVariables />
-      <GridCard title="Settings" icon="settings" gridArea="settings">
+      <GridCard title="Settings" icon={<FiSettings />} area="settings">
         <EditorSettings>
           <SettingPane label="Grid Gap">
             <GapSizeChooser />
           </SettingPane>
         </EditorSettings>
       </GridCard>
-      <GridCard
-        title="Instructions"
-        icon="instructions"
-        gridArea="instructions"
-      >
+      <GridCard title="Instructions" icon={<FaListUl />} area="instructions">
         <EditorInstructions />
       </GridCard>
-      <GridCard title="Items" icon="items" gridArea="items">
+      <GridCard title="Items" icon={<ImStack />} area="items">
         <EditorItemsListView />
       </GridCard>
-      <GridCard gridArea="editor" header={<FakeBrowserBar />} padding="0px">
+      <GridCard area="editor" header={<FakeBrowserBar />} padding="0px">
         <EditorGridContainer />
       </GridCard>
     </EditorWrapper>
