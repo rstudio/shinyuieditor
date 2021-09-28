@@ -1,25 +1,29 @@
 /** @jsxImportSource @emotion/react */
 
-import { Box, Grid, StackDivider, Text, VStack } from "@chakra-ui/react";
+import { Box, Grid } from "@chakra-ui/react";
 import * as React from "react";
 export const EditorSettings: React.FC = ({ children }) => {
   return (
-    <VStack
-      divider={<StackDivider borderColor="gray.200" />}
-      spacing={4}
-      align="stretch"
+    <Grid
+      gridTemplateColumns="auto auto"
+      alignItems="center"
+      justifyItems="end"
     >
       {children}
-    </VStack>
+    </Grid>
   );
 };
 
 export const SettingPane: React.FC<{ label: string }> = ({
   label,
   children,
-}) => (
-  <Grid h="40px" gridTemplateColumns="1fr 2fr" alignItems="center">
-    <Text>{label}</Text>
-    <Box>{children}</Box>
-  </Grid>
-);
+}) => {
+  // Since the name is used as an id we can't be having spaces in it
+  const name = `${label.replaceAll(" ", "-")}-setting`;
+  return (
+    <>
+      <label htmlFor={name}>{label}</label>
+      <Box id={name}>{children}</Box>
+    </>
+  );
+};
