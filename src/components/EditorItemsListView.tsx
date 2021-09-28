@@ -4,8 +4,9 @@ import * as CSS from "csstype";
 import { FaTrash } from "react-icons/fa";
 import { useRecoilValue } from "recoil";
 import {
-  GridItemNamesAtom,
+  gridItemNames,
   selectedItemNameState,
+  useDeleteItem,
   useToggleSelectedItem,
 } from "../state-logic/gridItems";
 
@@ -34,18 +35,13 @@ const noItemsMessageStyles = {
   fontStyle: "italic",
 };
 
-export const EditorItemsListView = ({
-  itemNamesAtom,
-  deleteItem,
-}: {
-  itemNamesAtom: GridItemNamesAtom;
-  deleteItem: (name: string) => void;
-}) => {
+export const EditorItemsListView = () => {
   const selectedItemName = useRecoilValue(selectedItemNameState);
 
   const toggleSelectedItem = useToggleSelectedItem();
+  const deleteItem = useDeleteItem();
 
-  const itemNames = useRecoilValue(itemNamesAtom);
+  const itemNames = useRecoilValue(gridItemNames);
 
   if (itemNames.length === 0) {
     return (

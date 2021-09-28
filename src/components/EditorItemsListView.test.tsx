@@ -1,36 +1,32 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { gridItemNames, useDeleteItem } from "../state-logic/gridItems";
-import {
-  renderWithRecoil,
-  useInitializeToDefaultLayout,
-} from "../test-helpers";
+import { AppWLayout, renderWithRecoil } from "../test-helpers";
 import { EditorItemsListView } from "./EditorItemsListView";
 
-function ListViewRunner({ addLayout = true }: { addLayout?: boolean }) {
-  useInitializeToDefaultLayout(addLayout === true ? "default" : "none");
-
-  const deleteItem = useDeleteItem();
-  return (
-    <EditorItemsListView
-      itemNamesAtom={gridItemNames}
-      deleteItem={deleteItem}
-    />
-  );
-}
-
 test("Shows the list of items", () => {
-  renderWithRecoil(<ListViewRunner />);
+  renderWithRecoil(
+    <AppWLayout layout="default">
+      <EditorItemsListView />
+    </AppWLayout>
+  );
   expect(screen.getAllByLabelText(/item-name/i).length).toBeGreaterThan(0);
 });
 
 test("No items = no elements", () => {
-  renderWithRecoil(<ListViewRunner addLayout={false} />);
+  renderWithRecoil(
+    <AppWLayout layout="none">
+      <EditorItemsListView />
+    </AppWLayout>
+  );
   expect(screen.getByLabelText(/no-items-message/i)).toBeInTheDocument();
 });
 
 test("Clicking on an item selects it", () => {
-  renderWithRecoil(<ListViewRunner />);
+  renderWithRecoil(
+    <AppWLayout layout="default">
+      <EditorItemsListView />
+    </AppWLayout>
+  );
 
   const listItems = screen.getAllByLabelText(/-item/);
   const [firstItem, secondItem] = listItems;

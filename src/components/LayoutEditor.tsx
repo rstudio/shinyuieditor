@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 import * as React from "react";
 import { useSetRecoilState } from "recoil";
 import layouts from "../assets/layouts";
-import { gridItemNames, useDeleteItem } from "../state-logic/gridItems";
 import { fullAppState } from "../state-logic/gridLayout/atoms";
 import { EditorGridContainer } from "./EditorGridContainer";
 import { EditorInstructions } from "./EditorInstructions";
@@ -32,7 +31,6 @@ const EditorWrapper = styled.div({
 });
 export function LayoutEditor() {
   const setUpNewLayout = useSetRecoilState(fullAppState);
-  const deleteItem = useDeleteItem();
 
   React.useEffect(() => {
     setUpNewLayout(layouts[0]);
@@ -56,10 +54,7 @@ export function LayoutEditor() {
         <EditorInstructions />
       </GridCard>
       <GridCard title="Items" icon="items" gridArea="items">
-        <EditorItemsListView
-          itemNamesAtom={gridItemNames}
-          deleteItem={deleteItem}
-        />
+        <EditorItemsListView />
       </GridCard>
       <GridCard gridArea="editor" header={<FakeBrowserBar />} padding="0px">
         <EditorGridContainer />
