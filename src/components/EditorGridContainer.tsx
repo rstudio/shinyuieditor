@@ -21,7 +21,7 @@ const MainGridContainer = styled.div({
 // A grid container that also displays a grid of all cells in background
 export function EditorGridContainer() {
   return (
-    <MainGridContainer>
+    <MainGridContainer aria-label="grid-view">
       <DragFeedback />
       <TractAddButtons dir="rows" />
       <TractAddButtons dir="cols" />
