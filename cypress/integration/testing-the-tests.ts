@@ -6,8 +6,11 @@
 // check out the link below and learn how to write your first test:
 // https://on.cypress.io/writing-first-test
 describe("My First Test", () => {
-  it("Does not do much!", () => {
-    expect(true).to.equal(true);
+  it("Can be dragged", () => {
+    cy.visit("http://localhost:3000");
+    cy.get(`[aria-label="grid-view"]`).within(() => {
+      cy.get(`[aria-label="header-item"]`).click();
+    });
   });
 });
 export {};
