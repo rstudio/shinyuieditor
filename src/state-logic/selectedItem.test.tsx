@@ -1,5 +1,6 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import ItemsGridView from "../components/ItemsGridView";
 import { ItemsListView } from "../components/ItemsListView";
 import { GridItemDef, GridLayoutTemplate } from "../GridTypes";
 import { AppWLayout, RecoilObserver, renderWithRecoil } from "../test-helpers";
@@ -65,14 +66,14 @@ describe("Items can be selected by clicking on either list or grid representatio
     expect(onChange).toHaveBeenLastCalledWith(null);
   });
 
-  test("List representation", () => {
+  test("Grid representation", () => {
     const onChange = jest.fn();
     // const onChange = (newVal: any) => console.log(newVal);
 
     renderWithRecoil(
       <AppWLayout layout={layoutToTest}>
         <RecoilObserver node={selectedItemState} onChange={onChange} />
-        <ItemsListView />
+        <ItemsGridView />
       </AppWLayout>
     );
 
@@ -81,5 +82,20 @@ describe("Items can be selected by clicking on either list or grid representatio
     const firstItemContainer = screen.getByLabelText(
       firstSelection.name + "-item"
     );
+    userEvent.click(firstItemContainer);
+
+    expect(onChange).toHaveBeenLastCalledWith(firstSelection);
+
+    // Selecting another item should switch the selected to that item
+    const secondSelection = layoutToTest.items[1];
+    const secondItemContainer = screen.getByLabelText(
+      secondSelection.name + "-item"
+    );
+    userEvent.click(secondItemContainer);
+    expect(onChange).toHaveBeenLastCalledWith(secondSelection);
+
+    // Clicking the item while it's already selected should reset selection
+    userEvent.click(secondItemContainer);
+    expect(onChange).toHaveBeenLastCalledWith(null);
   });
 });
