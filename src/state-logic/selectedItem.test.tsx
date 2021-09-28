@@ -67,6 +67,9 @@ describe("Items can be selected by clicking on either list or grid representatio
   });
 
   test("Grid representation", () => {
+    // These tests are less extensive than the list view ones because the actual
+    // visual representation of selection for a the grid display is done with
+    // the "SelectedItemOverlay" component.
     const onChange = jest.fn();
     // const onChange = (newVal: any) => console.log(newVal);
 
