@@ -66,7 +66,7 @@ export const EditorItemsListView = () => {
           <Text aria-label="item-name">{name}</Text>
           <Spacer />
           <IconButton
-            aria-label="Delete item"
+            aria-label={"Delete " + name}
             variant="outline"
             icon={<FaTrash />}
             onClick={(e) => {
