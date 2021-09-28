@@ -1,10 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import styled from "@emotion/styled";
 import * as React from "react";
-import { useRecoilValue } from "recoil";
-import { gridItemAtoms, gridItemNames } from "../state-logic/gridItems";
 import { DragFeedback } from "./DragFeedback";
-import EditableGridItem from "./EditableGridItem";
+import ItemsGridView from "./ItemsGridView";
 import { SelectedItemOverlay } from "./SelectedItemOverlay";
 import { TractAddButtons } from "./TractAddButtons";
 import { TractBoundaryLines } from "./TractBoundaryLines";
@@ -22,8 +20,6 @@ const MainGridContainer = styled.div({
 
 // A grid container that also displays a grid of all cells in background
 export function EditorGridContainer() {
-  const itemNames = useRecoilValue(gridItemNames);
-
   return (
     <MainGridContainer>
       <DragFeedback />
@@ -33,13 +29,7 @@ export function EditorGridContainer() {
       <TractSizers dir="cols" />
       <TractBoundaryLines dir="rows" />
       <TractBoundaryLines dir="cols" />
-      {itemNames.map((name) => (
-        <EditableGridItem
-          key={name}
-          name={name}
-          itemDefState={gridItemAtoms(name)}
-        />
-      ))}
+      <ItemsGridView />
       <SelectedItemOverlay />
     </MainGridContainer>
   );
