@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import * as React from "react";
 import { useRecoilValue } from "recoil";
 import {
@@ -19,16 +20,19 @@ function EditableGridItem({
 
   return (
     <GridItemDiv
-      css={{
-        backgroundColor: "var(--color, rgba(34, 139, 34, 0.835))",
-        borderRadius: "var(--corner-radius)",
-      }}
+      css={itemStyles}
       {...itemDef}
       onClick={() => onClick(name)}
       title={name}
+      aria-label={`${name}-item`}
     />
   );
 }
+
+const itemStyles = css({
+  backgroundColor: "var(--color, rgba(34, 139, 34, 0.835))",
+  borderRadius: "var(--corner-radius)",
+});
 
 export default function ItemsGridView() {
   const itemNames = useRecoilValue(gridItemNames);
