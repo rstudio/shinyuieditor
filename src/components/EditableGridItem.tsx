@@ -1,10 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import * as React from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import {
-  GridItemAtom,
-  setSelectedItemNameState,
-} from "../state-logic/gridItems";
+import { useRecoilValue } from "recoil";
+import { GridItemAtom, useToggleSelectedItem } from "../state-logic/gridItems";
 import { GridItemDiv } from "./GridItemDiv";
 
 export default function EditableGridItem({
@@ -14,7 +11,7 @@ export default function EditableGridItem({
   name: string;
   itemDefState: GridItemAtom;
 }) {
-  const setSelectedItem = useSetRecoilState(setSelectedItemNameState);
+  const toggleSelectedItem = useToggleSelectedItem();
   const itemDef = useRecoilValue(itemDefState);
 
   return (
@@ -25,8 +22,7 @@ export default function EditableGridItem({
       }}
       {...itemDef}
       onClick={() => {
-        console.log(`Clicked item ${name}`);
-        setSelectedItem(name);
+        toggleSelectedItem(name);
       }}
       title={name}
     />

@@ -1,12 +1,13 @@
 import { Spacer, Text, VStack } from "@chakra-ui/layout";
 import { Flex, IconButton } from "@chakra-ui/react";
+import * as CSS from "csstype";
 import { FaTrash } from "react-icons/fa";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import {
   GridItemNamesAtom,
   selectedItemNameState,
+  useToggleSelectedItem,
 } from "../state-logic/gridItems";
-import * as CSS from "csstype";
 
 const commonStyles: CSS.Properties = {
   width: "100%",
@@ -32,6 +33,7 @@ const noItemsMessageStyles = {
   ...commonStyles,
   fontStyle: "italic",
 };
+
 export const EditorItemsListView = ({
   itemNamesAtom,
   deleteItem,
@@ -39,15 +41,10 @@ export const EditorItemsListView = ({
   itemNamesAtom: GridItemNamesAtom;
   deleteItem: (name: string) => void;
 }) => {
-  const [selectedItemName, setSelectedItemName] = useRecoilState(
-    selectedItemNameState
-  );
+  const selectedItemName = useRecoilValue(selectedItemNameState);
 
-  const toggleSelected = (name: string) => {
-    setSelectedItemName((previousSelection) =>
-      previousSelection === name ? null : name
-    );
-  };
+  const toggleSelectedItem = useToggleSelectedItem();
+
   const itemNames = useRecoilValue(itemNamesAtom);
 
   if (itemNames.length === 0) {
@@ -68,7 +65,7 @@ export const EditorItemsListView = ({
           aria-label={`${name}-item`}
           className={name === selectedItemName ? "selected" : "normal"}
           css={itemStyles}
-          onClick={() => toggleSelected(name)}
+          onClick={() => toggleSelectedItem(name)}
         >
           <Text aria-label="item-name">{name}</Text>
           <Spacer />
