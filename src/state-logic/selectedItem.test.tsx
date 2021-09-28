@@ -1,6 +1,6 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { EditorItemsListView } from "../components/EditorItemsListView";
+import { ItemsListView } from "../components/ItemsListView";
 import { GridItemDef, GridLayoutTemplate } from "../GridTypes";
 import { AppWLayout, RecoilObserver, renderWithRecoil } from "../test-helpers";
 import { selectedItemState } from "./gridItems";
@@ -30,27 +30,56 @@ describe("Items can be selected by clicking on either list or grid representatio
     renderWithRecoil(
       <AppWLayout layout={layoutToTest}>
         <RecoilObserver node={selectedItemState} onChange={onChange} />
-        <EditorItemsListView />
+        <ItemsListView />
       </AppWLayout>
     );
 
     // Select an item by clicking on it
     const firstSelection = layoutToTest.items[0];
-    userEvent.click(screen.getByText(firstSelection.name));
+    const firstItemContainer = screen.getByLabelText(
+      firstSelection.name + "-item"
+    );
+    expect(firstItemContainer).toHaveAttribute("aria-selected", "false");
+    userEvent.click(firstItemContainer);
     expect(onChange).toHaveBeenLastCalledWith(firstSelection);
+    expect(firstItemContainer).toHaveAttribute("aria-selected", "true");
 
     // Selecting another item should switch the selected to that item
     const secondSelection = layoutToTest.items[1];
-    userEvent.click(screen.getByText(secondSelection.name));
+    const secondItemContainer = screen.getByLabelText(
+      secondSelection.name + "-item"
+    );
+    expect(secondItemContainer).toHaveAttribute("aria-selected", "false");
+    userEvent.click(secondItemContainer);
     expect(onChange).toHaveBeenLastCalledWith(secondSelection);
+    expect(secondItemContainer).toHaveAttribute("aria-selected", "true");
 
     // Clicking the item while it's already selected should reset selection
-    userEvent.click(screen.getByText(secondSelection.name));
+    userEvent.click(secondItemContainer);
+    expect(secondItemContainer).toHaveAttribute("aria-selected", "false");
     expect(onChange).toHaveBeenLastCalledWith(null);
 
     // Selecting an item and then deleting it will reset selection
-    userEvent.click(screen.getByText(firstSelection.name));
+    userEvent.click(firstItemContainer);
     userEvent.click(screen.getByLabelText("Delete " + firstSelection.name));
     expect(onChange).toHaveBeenLastCalledWith(null);
+  });
+
+  test("List representation", () => {
+    const onChange = jest.fn();
+    // const onChange = (newVal: any) => console.log(newVal);
+
+    renderWithRecoil(
+      <AppWLayout layout={layoutToTest}>
+        <RecoilObserver node={selectedItemState} onChange={onChange} />
+        <ItemsListView />
+      </AppWLayout>
+    );
+
+    // Select an item by clicking on it
+    const firstSelection = layoutToTest.items[0];
+    const firstItemContainer = screen.getByLabelText(
+      firstSelection.name + "-item"
+    );
   });
 });
