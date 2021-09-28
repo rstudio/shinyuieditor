@@ -118,14 +118,17 @@ export function useGridDragger(draggedRef?: RefObject<HTMLDivElement>) {
         const dragType: ActiveDrag["dragType"] = draggedRef
           ? "ResizeItemDrag"
           : "NewItemDrag";
-        const nameOfDragged = get(selectedItemNameState);
 
         if (dragType === "NewItemDrag") {
           // Make sure we reset our selection if we're making a new element
+          // Since we use the this state to get the "nameOfDragged" this needs
+          // to be called before we find nameOfDragged.
           reset(selectedItemNameState);
         }
+
         const gridCellPositionsMap = getCurrentGridCellBounds();
         const gridCellPositions = [...gridCellPositionsMap.values()];
+        const nameOfDragged = get(selectedItemNameState);
         const otherItemNames = get(gridItemNames).filter(
           (name) => name !== nameOfDragged
         );
