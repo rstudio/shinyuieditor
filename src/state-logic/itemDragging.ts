@@ -55,7 +55,7 @@ function getCurrentGridCellBounds() {
   const gridIndicesToBBox = new Map<GridIndicesString, GridItemBoundingBox>();
   allCells.forEach((cellDiv) => {
     const absolutePos = getBBoxOfDiv(cellDiv);
-    if (!absolutePos) throw "GridCells are misbehaving";
+    if (!absolutePos) throw new Error("GridCells are misbehaving");
     const row = Number(cellDiv.dataset.row);
     const col = Number(cellDiv.dataset.col);
 
