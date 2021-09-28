@@ -7,7 +7,7 @@ import { ImStack } from "react-icons/im";
 import { useInitializeToLayout } from "../state-logic/gridLayout/hooks";
 import { EditorGridContainer } from "./EditorGridContainer";
 import { EditorInstructions } from "./EditorInstructions";
-import { EditorItemsListView } from "./EditorItemsListView";
+import { ItemsListView } from "./ItemsListView";
 import { EditorSettings, SettingPane } from "./EditorSettings";
 import { FakeBrowserBar } from "./FakeBrowserBar";
 import { GapSizeChooser } from "./GapSizeChooser";
@@ -46,7 +46,7 @@ export function LayoutEditor() {
         <EditorInstructions />
       </GridCard>
       <GridCard title="Items" icon={<ImStack />} area="items">
-        <EditorItemsListView />
+        <ItemsListView />
       </GridCard>
       <GridCard area="editor" header={<FakeBrowserBar />} padding="0px">
         <EditorGridContainer />

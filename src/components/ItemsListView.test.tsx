@@ -1,12 +1,12 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { AppWLayout, renderWithRecoil } from "../test-helpers";
-import { EditorItemsListView } from "./EditorItemsListView";
+import { ItemsListView } from "./ItemsListView";
 
 test("Shows the list of items", () => {
   renderWithRecoil(
     <AppWLayout layout="default">
-      <EditorItemsListView />
+      <ItemsListView />
     </AppWLayout>
   );
   expect(screen.getAllByLabelText(/item-name/i).length).toBeGreaterThan(0);
@@ -15,7 +15,7 @@ test("Shows the list of items", () => {
 test("No items = no elements", () => {
   renderWithRecoil(
     <AppWLayout layout="none">
-      <EditorItemsListView />
+      <ItemsListView />
     </AppWLayout>
   );
   expect(screen.getByLabelText(/no-items-message/i)).toBeInTheDocument();
@@ -24,7 +24,7 @@ test("No items = no elements", () => {
 test("Clicking on an item selects it", () => {
   renderWithRecoil(
     <AppWLayout layout="default">
-      <EditorItemsListView />
+      <ItemsListView />
     </AppWLayout>
   );
 

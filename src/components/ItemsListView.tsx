@@ -35,7 +35,7 @@ const noItemsMessageStyles = {
   fontStyle: "italic",
 };
 
-export const EditorItemsListView = () => {
+export const ItemsListView = () => {
   const selectedItemName = useRecoilValue(selectedItemNameState);
 
   const toggleSelectedItem = useToggleSelectedItem();
@@ -54,28 +54,33 @@ export const EditorItemsListView = () => {
     );
   }
   return (
-    <VStack aria-label="item-list">
-      {itemNames.map((name) => (
-        <Flex
-          key={name}
-          aria-label={`${name}-item`}
-          className={name === selectedItemName ? "selected" : "normal"}
-          css={itemStyles}
-          onClick={() => toggleSelectedItem(name)}
-        >
-          <Text aria-label="item-name">{name}</Text>
-          <Spacer />
-          <IconButton
-            aria-label={"Delete " + name}
-            variant="outline"
-            icon={<FaTrash />}
-            onClick={(e) => {
-              e.stopPropagation();
-              deleteItem(name);
-            }}
-          />
-        </Flex>
-      ))}
+    <VStack aria-label="item-list" role="listbox">
+      {itemNames.map((name) => {
+        const isSelected = name === selectedItemName;
+        return (
+          <Flex
+            key={name}
+            role="option"
+            aria-selected={isSelected ? "true" : "false"}
+            aria-label={`${name}-item`}
+            className={isSelected ? "selected" : "normal"}
+            css={itemStyles}
+            onClick={() => toggleSelectedItem(name)}
+          >
+            <Text aria-label="item-name">{name}</Text>
+            <Spacer />
+            <IconButton
+              aria-label={"Delete " + name}
+              variant="outline"
+              icon={<FaTrash />}
+              onClick={(e) => {
+                e.stopPropagation();
+                deleteItem(name);
+              }}
+            />
+          </Flex>
+        );
+      })}
     </VStack>
   );
 };
