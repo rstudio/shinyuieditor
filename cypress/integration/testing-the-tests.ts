@@ -7,10 +7,17 @@
 // https://on.cypress.io/writing-first-test
 describe("My First Test", () => {
   it("Can be dragged", () => {
+    cy.viewport(1500, 1000);
     cy.visit("http://localhost:3000");
     cy.get(`[aria-label="grid-view"]`).within(() => {
       cy.get(`[aria-label="header-item"]`).click();
     });
+
+    cy.get('[aria-label="Resize upper-left"]').trigger("mousedown");
+
+    cy.get("body")
+      .trigger("mousemove", { clientX: 1000, clientY: 200 })
+      .trigger("mouseup");
   });
 });
 export {};
