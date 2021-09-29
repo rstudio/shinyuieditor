@@ -37,7 +37,7 @@ export function SelectedItemOverlay() {
 
   return (
     <GridItemDiv ref={itemRef} css={overlayStyles} {...selectedItem}>
-      {dirToDragger.map(({ dir, DragIcon, styles }) => (
+      {dirToDragger.map(({ dir, DragIcon, label, styles }) => (
         <span
           key={dir}
           css={{
@@ -47,6 +47,7 @@ export function SelectedItemOverlay() {
             zIndex: 1000, //High z index so the draggers sit above the cancel listener div
             ...styles,
           }}
+          aria-label={label}
           onMouseDown={(e) => {
             startDrag(e, dir);
           }}
@@ -90,45 +91,54 @@ const cancelBoxStyles = css({
 const dirToDragger: {
   dir: DragDir;
   DragIcon: IconType;
+  label: string;
   styles: React.CSSProperties;
 }[] = [
   {
     dir: "top",
+    label: "Resize up",
     DragIcon: BsArrowUp,
     styles: { gridArea: "top", cursor: "n-resize" },
   },
   {
     dir: "bottom",
+    label: "Resize down",
     DragIcon: BsArrowDown,
     styles: { gridArea: "bottom", cursor: "s-resize" },
   },
   {
     dir: "left",
+    label: "Resize left",
     DragIcon: BsArrowLeft,
     styles: { gridArea: "left", cursor: "w-resize" },
   },
   {
     dir: "right",
+    label: "Resize right",
     DragIcon: BsArrowRight,
     styles: { gridArea: "right", cursor: "e-resize" },
   },
   {
     dir: "topLeft",
+    label: "Resize upper-left",
     DragIcon: BsArrowUpLeft,
     styles: { gridArea: "topLeft", cursor: "nw-resize" },
   },
   {
     dir: "topRight",
+    label: "Resize upper-right",
     DragIcon: BsArrowUpRight,
     styles: { gridArea: "topRight", cursor: "ne-resize" },
   },
   {
     dir: "bottomLeft",
+    label: "Resize lower-left",
     DragIcon: BsArrowDownLeft,
     styles: { gridArea: "bottomLeft", cursor: "sw-resize" },
   },
   {
     dir: "bottomRight",
+    label: "Resize lower-right",
     DragIcon: BsArrowDownRight,
     styles: { gridArea: "bottomRight", cursor: "se-resize" },
   },
