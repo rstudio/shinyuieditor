@@ -39,7 +39,7 @@ function intervalsOverlap(
     } {
   // aaaa       or      aaaa
   //     bbbb       bbbb
-  if (aEnd <= bStart || aStart >= bEnd) return { type: "none", amount: 0 };
+  if (aEnd < bStart || aStart > bEnd) return { type: "none", amount: 0 };
 
   // There is full overlap either because a contains b or b contains a
   if ((aStart <= bStart && aEnd >= bEnd) || (aStart >= bStart && aEnd <= bEnd))
