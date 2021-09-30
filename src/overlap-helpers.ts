@@ -24,44 +24,43 @@ export function getBBoxOfDiv(divNode?: HTMLDivElement | null): ItemBoundingBox {
 }
 
 // Figure out how interval B overlaps interval A
-function intervalsOverlap(
+export function intervalsOverlap(
   [aStart, aEnd]: [number, number],
-  [bStart, bEnd]: [number, number],
-  orientation: "vertical" | "horizontal"
+  [bStart, bEnd]: [number, number]
 ):
   | {
-      type: BoxSide;
+      type: "start" | "end";
       amount: number;
     }
   | {
       type: "full" | "none";
-      amount: 0;
+      amount: null;
     } {
   // aaaa       or      aaaa
   //     bbbb       bbbb
-  if (aEnd < bStart || aStart > bEnd) return { type: "none", amount: 0 };
+  if (aEnd < bStart || aStart > bEnd) return { type: "none", amount: null };
 
   // There is full overlap either because a contains b or b contains a
   if ((aStart <= bStart && aEnd >= bEnd) || (aStart >= bStart && aEnd <= bEnd))
-    return { type: "full", amount: 0 };
+    return { type: "full", amount: null };
 
   //   aaaa
   // bbbb
   if (aEnd > bEnd && aStart >= bStart)
     return {
-      type: orientation === "horizontal" ? "left" : "top",
+      type: "start",
       amount: bEnd - aStart,
     };
   // aaaa
   //   bbbb
   if (aStart < bStart && aEnd <= bEnd) {
     return {
-      type: orientation === "horizontal" ? "right" : "bottom",
+      type: "end",
       amount: aEnd - bStart,
     };
   }
   console.error("Unaccounted overlap");
-  return { type: "none", amount: 0 };
+  return { type: "none", amount: null };
 }
 
 export function boxesOverlap(
@@ -70,32 +69,36 @@ export function boxesOverlap(
 ): BoxOverlap | null {
   const colOverlap = intervalsOverlap(
     [boxA.left, boxA.right],
-    [boxB.left, boxB.right],
-    "horizontal"
+    [boxB.left, boxB.right]
   );
+
   const rowOverlap = intervalsOverlap(
     [boxA.top, boxA.bottom],
-    [boxB.top, boxB.bottom],
-    "vertical"
+    [boxB.top, boxB.bottom]
   );
 
   if (colOverlap.type === "none" || rowOverlap.type === "none") return null;
-
-  if (rowOverlap.type !== "full" && colOverlap.type !== "full") {
-    // We have overlap in both directions so choose the direction with the
-    // least overlap to make the adjustment that has the least deviation from
-    // the mouse position
-
-    return rowOverlap.amount > colOverlap.amount
-      ? colOverlap.type
-      : rowOverlap.type;
-  }
-
-  if (rowOverlap.type !== "full") return rowOverlap.type;
-  if (colOverlap.type !== "full") return colOverlap.type;
-
   // This means that one of the elements is completely enclosed in the other
-  return "center";
+  if (rowOverlap.type === "full" && colOverlap.type === "full") return "center";
+
+  if (rowOverlap.type === "full")
+    return colOverlap.type === "start" ? "left" : "right";
+  if (colOverlap.type === "full")
+    return rowOverlap.type === "start" ? "top" : "bottom";
+
+  if (!rowOverlap.amount || !colOverlap.amount)
+    throw new Error("This should not occur");
+
+  // We have overlap in both directions so choose the direction with the
+  // least overlap to make the adjustment that has the least deviation from
+  // the mouse position
+  return rowOverlap.amount > colOverlap.amount
+    ? colOverlap.type === "start"
+      ? "left"
+      : "right"
+    : rowOverlap.type === "start"
+    ? "top"
+    : "bottom";
 }
 
 export function mutateToFixOverlapOfBoxes(
