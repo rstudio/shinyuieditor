@@ -81,24 +81,22 @@ export function boxesOverlap(
   // This means that one of the elements is completely enclosed in the other
   if (rowOverlap.type === "full" && colOverlap.type === "full") return "center";
 
-  if (rowOverlap.type === "full")
-    return colOverlap.type === "start" ? "left" : "right";
-  if (colOverlap.type === "full")
-    return rowOverlap.type === "start" ? "top" : "bottom";
+  // We now know we have a directional overlap of some kind so let's translate
+  // the orientation-less overlap types to oriented directios of overlap
+  const colOverlapDir = colOverlap.type === "start" ? "left" : "right";
+  const rowOverlapDir = rowOverlap.type === "start" ? "top" : "bottom";
 
+  if (rowOverlap.type === "full") return colOverlapDir;
+  if (colOverlap.type === "full") return rowOverlapDir;
+
+  // Not sure why typescript can't narrow this on its own
   if (!rowOverlap.amount || !colOverlap.amount)
-    throw new Error("This should not occur");
+    throw new Error("An unexpected box overlap scenario occured");
 
   // We have overlap in both directions so choose the direction with the
   // least overlap to make the adjustment that has the least deviation from
   // the mouse position
-  return rowOverlap.amount > colOverlap.amount
-    ? colOverlap.type === "start"
-      ? "left"
-      : "right"
-    : rowOverlap.type === "start"
-    ? "top"
-    : "bottom";
+  return rowOverlap.amount > colOverlap.amount ? colOverlapDir : rowOverlapDir;
 }
 
 export function mutateToFixOverlapOfBoxes(
