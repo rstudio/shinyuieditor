@@ -45,7 +45,9 @@
   },
   "devDependencies": {
     "@bahmutov/add-typescript-to-cypress": "^2.1.2",
+    "@types/cypress-image-snapshot": "^3.1.6",
     "cypress": "^8.5.0",
+    "cypress-image-snapshot": "^4.0.1",
     "webpack": "^5.55.0"
   }
 }

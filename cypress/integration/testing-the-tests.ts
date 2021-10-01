@@ -18,6 +18,7 @@ describe("My First Test", () => {
     cy.get("body")
       .trigger("mousemove", { clientX: 1000, clientY: 200 })
       .trigger("mouseup");
+    cy.matchImageSnapshot();
   });
 });
 export {};
