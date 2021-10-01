@@ -5,28 +5,26 @@ import * as React from "react";
 import { CSSMeasure } from "../GridTypes";
 import { GridItemDiv } from "./GridItemDiv";
 
-type GridCardCommonProps = {
+function GridCardImpl(props: {
   area: string;
   children: React.ReactNode;
   padding?: CSSMeasure;
-};
-
-function GridCardImpl(
-  props: GridCardCommonProps & {
-    title?: string;
-    icon?: React.ReactElement;
-    header?: JSX.Element;
-  }
-) {
+  title?: string;
+  icon?: React.ReactElement;
+  header?: JSX.Element;
+  overloadStyles?: React.CSSProperties;
+}) {
   const { padding = "1rem", area } = props;
   return (
     <GridItemDiv
       css={{
+        overflow: "scroll",
         borderRadius: "var(--corner-radius)",
         boxShadow: "var(--shadow)",
         background: "var(--rstudio-white)",
         display: "grid",
         gridTemplateRows: "var(--card-header-height, 35px) 1fr",
+        ...props.overloadStyles,
       }}
       gridArea={area}
     >

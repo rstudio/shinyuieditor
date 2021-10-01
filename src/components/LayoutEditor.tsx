@@ -19,6 +19,11 @@ const EditorWrapper = styled.div({
   "--row-controls-gap": "calc(var(--unit-input-width, 30px) - var(--main-gap))",
   "--col-controls-gap": "calc(50px - var(--main-gap))",
   display: "grid",
+  // min and max height are needed here or else the app will want to overflow
+  // the viewport in an attempt to fit all the content of a long card like the
+  // instructions panel.
+  minHeight: "100%",
+  maxHeight: "100%",
   gridTemplateColumns: "300px var(--row-controls-gap) 1fr",
   gridTemplateRows: "var(--col-controls-gap) auto 1fr auto",
   gap: "var(--main-gap)",
@@ -48,7 +53,12 @@ export function LayoutEditor() {
       <GridCard title="Items" icon={<ImStack />} area="items">
         <ItemsListView />
       </GridCard>
-      <GridCard area="editor" header={<FakeBrowserBar />} padding="0px">
+      <GridCard
+        area="editor"
+        header={<FakeBrowserBar />}
+        padding="0px"
+        overloadStyles={{ overflow: "visible" }} // needed to keep the tract controls visible
+      >
         <EditorGridContainer />
       </GridCard>
     </EditorWrapper>
