@@ -7,7 +7,7 @@
 // https://on.cypress.io/writing-first-test
 describe("My First Test", () => {
   it("Can be dragged", () => {
-    cy.viewport(1500, 1000);
+    cy.viewport("macbook-15");
     cy.visit("http://localhost:3000");
     cy.get(`[aria-label="grid-view"]`).within(() => {
       cy.get(`[aria-label="header-item"]`).click();
