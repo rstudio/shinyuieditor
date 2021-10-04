@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { makeTractPos } from "../grid-helpers";
+import { makeTractPos } from "utils/grid-helpers";
 import { GridPos } from "../GridTypes";
 
 export const GridItemDiv = styled.div(

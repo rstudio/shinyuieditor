@@ -1,9 +1,9 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { TractAddButtons } from "components/TractAddButtons";
+import { rowsState } from "state-logic/gridLayout/atoms";
 import { GridItemDef, GridLayoutTemplate } from "../GridTypes";
-import { rowsState } from "../state-logic/gridLayout/atoms";
 import { AppWLayout, RecoilObserver, renderWithRecoil } from "../test-helpers";
-import { TractAddButtons } from "./TractAddButtons";
 
 const LayoutToTest: GridLayoutTemplate = {
   name: "test",

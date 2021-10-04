@@ -1,4 +1,4 @@
-import { CSSMeasure, CSSUnits } from "./GridTypes";
+import { CSSMeasure, CSSUnits } from "../GridTypes";
 
 export type ParsedCSSMeasure =
   | { count: number; unit: CSSUnits }

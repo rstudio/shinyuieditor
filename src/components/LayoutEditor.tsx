@@ -4,15 +4,15 @@ import * as React from "react";
 import { FaListUl } from "react-icons/fa";
 import { FiSettings } from "react-icons/fi";
 import { ImStack } from "react-icons/im";
-import { useInitializeToLayout } from "../state-logic/gridLayout/hooks";
-import { EditorGridContainer } from "./EditorGridContainer";
-import { EditorInstructions } from "./EditorInstructions";
+import { useInitializeToLayout } from "state-logic/gridLayout/hooks";
+import { EditorGridContainer } from "components/EditorGridContainer";
+import { EditorInstructions } from "components/EditorInstructions";
 import { ItemsListView } from "./ItemsListView";
-import { EditorSettings, SettingPane } from "./EditorSettings";
-import { FakeBrowserBar } from "./FakeBrowserBar";
-import { GapSizeChooser } from "./GapSizeChooser";
-import { GridCard } from "./GridCard";
-import { MainGridCSSVariables } from "./MainGridCSSVariables";
+import { EditorSettings, SettingPane } from "components/EditorSettings";
+import { FakeBrowserBar } from "components/FakeBrowserBar";
+import { GapSizeChooser } from "components/GapSizeChooser";
+import { GridCard } from "components/GridCard";
+import { MainGridCSSVariables } from "components/MainGridCSSVariables";
 
 const EditorWrapper = styled.div({
   "--main-gap": "var(--pad, 1rem)",

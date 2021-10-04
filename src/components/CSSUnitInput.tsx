@@ -8,7 +8,7 @@ import {
   Select,
 } from "@chakra-ui/react";
 import * as React from "react";
-import { parseCSSMeasure, updateCssUnit } from "../css-helpers";
+import { parseCSSMeasure, updateCssUnit } from "utils/css-helpers";
 import { CSSMeasure } from "../GridTypes";
 
 type CSSUnits = "fr" | "px" | "rem" | "auto";

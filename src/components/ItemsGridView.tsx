@@ -6,8 +6,8 @@ import {
   gridItemAtoms,
   gridItemNames,
   useToggleSelectedItem,
-} from "../state-logic/gridItems";
-import { GridItemDiv } from "./GridItemDiv";
+} from "state-logic/gridItems";
+import { GridItemDiv } from "components/GridItemDiv";
 
 function EditableGridItem({
   name,

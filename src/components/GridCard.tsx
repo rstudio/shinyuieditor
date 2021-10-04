@@ -1,9 +1,8 @@
 /** @jsxImportSource @emotion/react */
-
 import { Heading } from "@chakra-ui/layout";
 import * as React from "react";
 import { CSSMeasure } from "../GridTypes";
-import { GridItemDiv } from "./GridItemDiv";
+import { GridItemDiv } from "components/GridItemDiv";
 
 function GridCardImpl(props: {
   area: string;

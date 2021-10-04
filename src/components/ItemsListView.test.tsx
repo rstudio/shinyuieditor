@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { AppWLayout, renderWithRecoil } from "../test-helpers";
-import { ItemsListView } from "./ItemsListView";
+import { ItemsListView } from "components/ItemsListView";
 
 test("Shows the list of items", () => {
   renderWithRecoil(

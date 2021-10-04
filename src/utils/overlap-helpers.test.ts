@@ -1,4 +1,4 @@
-import { boxesOverlap, intervalsOverlap } from "./overlap-helpers";
+import { boxesOverlap, intervalsOverlap } from "utils/overlap-helpers";
 describe("Interval overlap logic", () => {
   test("Standard partial overlap", () => {
     // B is hanging off end of A

@@ -2,7 +2,7 @@ import {
   defaultValueForCssUnit,
   parseCSSMeasure,
   updateCssUnit,
-} from "./css-helpers";
+} from "utils/css-helpers";
 
 test("Initializes properly", () => {
   expect(parseCSSMeasure("2rem")).toStrictEqual({ count: 2, unit: "rem" });

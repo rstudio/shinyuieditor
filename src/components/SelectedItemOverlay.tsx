@@ -17,9 +17,9 @@ import { DragDir } from "../GridTypes";
 import {
   selectedItemNameState,
   selectedItemState,
-} from "../state-logic/gridItems";
-import { useGridDragger } from "../state-logic/itemDragging";
-import { GridItemDiv } from "./GridItemDiv";
+} from "state-logic/gridItems";
+import { useGridDragger } from "state-logic/itemDragging";
+import { GridItemDiv } from "components/GridItemDiv";
 
 export function SelectedItemOverlay() {
   const resetSelection = useResetRecoilState(selectedItemNameState);

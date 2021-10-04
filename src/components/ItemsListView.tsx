@@ -8,7 +8,7 @@ import {
   selectedItemNameState,
   useDeleteItem,
   useToggleSelectedItem,
-} from "../state-logic/gridItems";
+} from "state-logic/gridItems";
 
 const commonStyles: CSS.Properties = {
   width: "100%",

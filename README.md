@@ -20,7 +20,8 @@ A GUI for laying out a Shiny application that generates clean and editable UI co
 
 # Stack
 
-- React (actually Preact) for view layer
+- React
+- Create React App for project setup
 - Recoil for state management
 
 # Development Design Dogma

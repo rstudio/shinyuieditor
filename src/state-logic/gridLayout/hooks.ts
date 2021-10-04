@@ -1,16 +1,16 @@
+import layouts from "assets/layouts";
 import React from "react";
 import { useRecoilTransaction_UNSTABLE, useSetRecoilState } from "recoil";
-import layouts from "../../assets/layouts";
-import { CSSMeasure, GridItemDef, GridLayoutTemplate } from "../../GridTypes";
-import { gridItemAtoms, gridItemNames } from "../gridItems";
-import { RecoilGetter, RecoilSetter } from "../RecoilHelperClasses";
+import { gridItemAtoms, gridItemNames } from "state-logic/gridItems";
 import {
   colsState,
   fullAppState,
   rowsState,
   TractDirection,
   TractPosition,
-} from "./atoms";
+} from "state-logic/gridLayout/atoms";
+import { RecoilGetter, RecoilSetter } from "utils/RecoilHelperClasses";
+import { CSSMeasure, GridItemDef, GridLayoutTemplate } from "../../GridTypes";
 
 type LayoutInitialization = "default" | "none" | GridLayoutTemplate;
 export function useInitializeToLayout(

@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
-
 import { Box, Grid } from "@chakra-ui/react";
 import * as React from "react";
+
 export const EditorSettings: React.FC = ({ children }) => {
   return (
     <Grid

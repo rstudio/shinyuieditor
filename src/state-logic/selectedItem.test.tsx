@@ -1,10 +1,10 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import ItemsGridView from "../components/ItemsGridView";
-import { ItemsListView } from "../components/ItemsListView";
+import ItemsGridView from "components/ItemsGridView";
+import { ItemsListView } from "components/ItemsListView";
+import { selectedItemState } from "state-logic/gridItems";
 import { GridItemDef, GridLayoutTemplate } from "../GridTypes";
 import { AppWLayout, RecoilObserver, renderWithRecoil } from "../test-helpers";
-import { selectedItemState } from "./gridItems";
 
 const layoutToTest: GridLayoutTemplate = {
   name: "Four Square",

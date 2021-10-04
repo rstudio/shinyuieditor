@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import * as React from "react";
 import { useRecoilValue } from "recoil";
-import { combinedLayoutSizesState } from "../state-logic/gridLayout/atoms";
+import { combinedLayoutSizesState } from "state-logic/gridLayout/atoms";
 
 export function MainGridCSSVariables() {
   const { gap, rows, cols } = useRecoilValue(combinedLayoutSizesState);

@@ -1,5 +1,5 @@
-import type { ActiveDrag, SelectionRect } from "./state-logic/itemDragging";
-import { BoxOverlap, BoxSide, DragDir } from "./GridTypes";
+import type { ActiveDrag, SelectionRect } from "state-logic/itemDragging";
+import { BoxOverlap, BoxSide, DragDir } from "../GridTypes";
 
 export type ItemBoundingBox = SelectionRect & {
   offsetLeft: number;

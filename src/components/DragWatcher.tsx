@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import * as React from "react";
 import { useRecoilValue } from "recoil";
-import { enumerateGridDims } from "../grid-helpers";
-import { tractDims } from "../state-logic/gridLayout/atoms";
-import { useGridDragger } from "../state-logic/itemDragging";
-import { GridItemDiv } from "./GridItemDiv";
+import { enumerateGridDims } from "utils/grid-helpers";
+import { tractDims } from "state-logic/gridLayout/atoms";
+import { useGridDragger } from "state-logic/itemDragging";
+import { GridItemDiv } from "components/GridItemDiv";
 
 export function DragWatcher() {
   const onMouseDown = useGridDragger();

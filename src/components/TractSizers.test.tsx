@@ -1,10 +1,10 @@
 import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { parseCSSMeasure } from "../css-helpers";
+import { TractSizers } from "components/TractSizers";
+import { rowsState } from "state-logic/gridLayout/atoms";
+import { parseCSSMeasure } from "utils/css-helpers";
 import { CSSMeasure, GridItemDef, GridLayoutTemplate } from "../GridTypes";
-import { rowsState } from "../state-logic/gridLayout/atoms";
 import { AppWLayout, RecoilObserver, renderWithRecoil } from "../test-helpers";
-import { TractSizers } from "./TractSizers";
 
 const LayoutToTest: GridLayoutTemplate = {
   name: "test",

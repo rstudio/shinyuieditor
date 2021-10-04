@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
+import { GridItemDiv } from "components/GridItemDiv";
 import * as React from "react";
 import { useRecoilValue } from "recoil";
-import { enumerateGridDims } from "../grid-helpers";
-import { tractDims } from "../state-logic/gridLayout/atoms";
-import { dragStateAtom, useGridDragger } from "../state-logic/itemDragging";
-import { GridItemDiv } from "./GridItemDiv";
+import { tractDims } from "state-logic/gridLayout/atoms";
+import { dragStateAtom, useGridDragger } from "state-logic/itemDragging";
+import { enumerateGridDims } from "utils/grid-helpers";
 
 export const newItemBoxStyles = css({
   fontSize: "0.8rem",

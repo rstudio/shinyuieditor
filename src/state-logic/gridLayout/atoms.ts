@@ -1,6 +1,6 @@
 import { atom, DefaultValue, selector, selectorFamily } from "recoil";
 import { CSSMeasure, GridLayoutTemplate } from "../../GridTypes";
-import { combinedItemsState } from "../gridItems";
+import { combinedItemsState } from "state-logic/gridItems";
 
 export type TractDirection = "rows" | "cols";
 export type TractPosition = { index: number; dir: TractDirection };

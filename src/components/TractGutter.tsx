@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
-import { placeOnGridOrCol } from "../grid-helpers";
-import { TractPosition } from "../state-logic/gridLayout/atoms";
+import { TractPosition } from "state-logic/gridLayout/atoms";
+import { placeOnGridOrCol } from "utils/grid-helpers";
 
 const rowGutterStyles = {
   marginLeft: `calc(-1 * var(--gap))`,

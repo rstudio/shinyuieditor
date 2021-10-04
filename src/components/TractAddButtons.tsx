@@ -1,19 +1,19 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
+import { TractGutter } from "components/TractGutter";
 import * as React from "react";
 import { FaPlus } from "react-icons/fa";
 import { useRecoilTransaction_UNSTABLE, useRecoilValue } from "recoil";
-import { CSSMeasure } from "../GridTypes";
-import { gridItemNames } from "../state-logic/gridItems";
+import { gridItemNames } from "state-logic/gridItems";
 import {
   colsState,
   rowsState,
   TractDirection,
   TractPosition,
-} from "../state-logic/gridLayout/atoms";
-import { updateItemBoundsForNewTract } from "../state-logic/gridLayout/hooks";
-import { seqArray } from "./general-helpers";
-import { TractGutter } from "./TractGutter";
+} from "state-logic/gridLayout/atoms";
+import { updateItemBoundsForNewTract } from "state-logic/gridLayout/hooks";
+import { seqArray } from "utils/general-helpers";
+import { CSSMeasure } from "../GridTypes";
 
 const adderButtonStyles = css`
   --size: var(--gap);

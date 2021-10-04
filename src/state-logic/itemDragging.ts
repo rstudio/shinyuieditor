@@ -2,22 +2,22 @@
 import type { RefObject } from "react";
 import { useEffect, useRef } from "react";
 import { atom, useRecoilCallback, useRecoilTransaction_UNSTABLE } from "recoil";
-import { sameGridPos } from "../grid-helpers";
+import {
+  gridItemAtoms,
+  gridItemNames,
+  GridItemsAtomFamily,
+  selectedItemNameState,
+} from "state-logic/gridItems";
+import { sameGridPos } from "utils/grid-helpers";
 import {
   boxesOverlap,
   containsDir,
   getBBoxOfDiv,
   ItemBoundingBox,
   mutateToFixOverlapOfBoxes,
-} from "../overlap-helpers";
+} from "utils/overlap-helpers";
+import { RecoilGetter } from "utils/RecoilHelperClasses";
 import { DragDir, GridItemDef, GridPos } from "../GridTypes";
-import {
-  gridItemAtoms,
-  gridItemNames,
-  GridItemsAtomFamily,
-  selectedItemNameState,
-} from "./gridItems";
-import { RecoilGetter } from "./RecoilHelperClasses";
 
 export type SelectionRect = {
   left: number;
