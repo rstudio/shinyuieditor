@@ -7,7 +7,7 @@ import { ImStack } from "react-icons/im";
 import { useInitializeToLayout } from "state-logic/gridLayout/hooks";
 import { EditorGridContainer } from "components/EditorGridContainer";
 import { EditorInstructions } from "components/EditorInstructions";
-import { ItemsListView } from "./ItemsListView";
+import { ItemsListView } from "../components/ItemsListView";
 import { EditorSettings, SettingPane } from "components/EditorSettings";
 import { FakeBrowserBar } from "components/FakeBrowserBar";
 import { GapSizeChooser } from "components/GapSizeChooser";

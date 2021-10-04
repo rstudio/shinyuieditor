@@ -2,8 +2,8 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import * as React from "react";
 import { RecoilRoot } from "recoil";
-import { LayoutEditor } from "components/LayoutEditor";
-import { TheHeader } from "components/TheHeader";
+import { LayoutEditor } from "views/LayoutEditor";
+import { TheHeader } from "views/TheHeader";
 import { theme } from "./theme";
 
 export const App = () => {
