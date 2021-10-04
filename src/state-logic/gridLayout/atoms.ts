@@ -69,13 +69,12 @@ export const fullAppState = selector<GridLayoutTemplate>({
     const { rows, cols, gap, name, items } = template;
 
     const currentLayoutName = get(gridTemplateName);
-    if (currentLayoutName === name) {
-      console.log("Layout template has not changed so ending early");
-      return;
-    }
+    // if (currentLayoutName === name) {
+    //   console.log("Layout template has not changed so ending early");
+    //   return;
+    // }
 
     if (currentLayoutName !== DEFAULT_TEMPLATE_NAME) {
-      console.log("We have a new layout template so we're resetting old");
       // rowState.reset();
       // colState.reset();
       // itemState.reset();
