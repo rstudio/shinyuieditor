@@ -1,18 +1,19 @@
 /** @jsxImportSource @emotion/react */
 import styled from "@emotion/styled";
+import { EditorGridContainer } from "components/EditorGridContainer";
+import { EditorInstructions } from "components/EditorInstructions";
+import { EditorSettings, SettingPane } from "components/EditorSettings";
+import { FakeBrowserBar } from "components/FakeBrowserBar";
+import { GapSizeChooser } from "components/GapSizeChooser";
+import { GridCard } from "components/GridCard";
+import { HistoryNav } from "components/HistoryNav";
+import { MainGridCSSVariables } from "components/MainGridCSSVariables";
 import * as React from "react";
 import { FaListUl } from "react-icons/fa";
 import { FiSettings } from "react-icons/fi";
 import { ImStack } from "react-icons/im";
 import { useInitializeToLayout } from "state-logic/gridLayout/hooks";
-import { EditorGridContainer } from "components/EditorGridContainer";
-import { EditorInstructions } from "components/EditorInstructions";
 import { ItemsListView } from "../components/ItemsListView";
-import { EditorSettings, SettingPane } from "components/EditorSettings";
-import { FakeBrowserBar } from "components/FakeBrowserBar";
-import { GapSizeChooser } from "components/GapSizeChooser";
-import { GridCard } from "components/GridCard";
-import { MainGridCSSVariables } from "components/MainGridCSSVariables";
 
 const EditorWrapper = styled.div({
   "--main-gap": "var(--pad, 1rem)",
@@ -44,6 +45,9 @@ export function LayoutEditor() {
         <EditorSettings>
           <SettingPane label="Grid Gap">
             <GapSizeChooser />
+          </SettingPane>
+          <SettingPane label="Undo-Redo">
+            <HistoryNav />
           </SettingPane>
         </EditorSettings>
       </GridCard>
