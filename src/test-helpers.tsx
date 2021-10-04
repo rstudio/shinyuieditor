@@ -1,7 +1,7 @@
+import { render } from "@testing-library/react";
 import React, { useEffect } from "react";
 import { RecoilRoot, RecoilValue, useRecoilValue } from "recoil";
 import { useInitializeToLayout } from "./state-logic/gridLayout/hooks";
-import { render } from "./test-utils";
 
 export function AppWLayout({
   children,
@@ -15,8 +15,8 @@ export function AppWLayout({
   return <>{children}</>;
 }
 
-export function renderWithRecoil(component: React.ReactNode) {
-  return render(<RecoilRoot>{component}</RecoilRoot>);
+export function renderWithRecoil(component: React.ReactElement) {
+  return render(component, { wrapper: RecoilRoot });
 }
 
 export function RecoilObserver<T>({

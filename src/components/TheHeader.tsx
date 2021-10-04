@@ -3,7 +3,6 @@ import { Heading } from "@chakra-ui/react";
 import rstudioLogo from "assets/RStudio-Logo.svg";
 import shinyLogo from "assets/Shiny-Logo.png";
 import * as React from "react";
-import { ColorModeSwitcher } from "../ColorModeSwitcher";
 
 export function TheHeader() {
   return (
@@ -46,7 +45,6 @@ export function TheHeader() {
             alt="Shiny Logo"
           />
         </div>
-        <ColorModeSwitcher justifySelf="flex-end" />
       </div>
     </header>
   );
