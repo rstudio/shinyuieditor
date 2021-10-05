@@ -1,5 +1,7 @@
 /** @jsxImportSource @emotion/react */
+import { IconButton } from "@chakra-ui/button";
 import { css } from "@emotion/react";
+import { GridItemDiv } from "components/GridItemDiv";
 import * as React from "react";
 import { IconType } from "react-icons";
 import {
@@ -12,24 +14,21 @@ import {
   BsArrowUpLeft,
   BsArrowUpRight,
 } from "react-icons/bs";
+import { FaTrash } from "react-icons/fa";
 import { useRecoilValue, useResetRecoilState } from "recoil";
-import { DragDir } from "../GridTypes";
 import {
   selectedItemNameState,
   selectedItemState,
   useDeleteItem,
 } from "state-logic/gridItems";
 import { useGridDragger } from "state-logic/itemDragging";
-import { GridItemDiv } from "components/GridItemDiv";
-import { IconButton } from "@chakra-ui/button";
-import { FaTrash } from "react-icons/fa";
+import { DragDir, GridItemDef } from "../GridTypes";
 
 export function SelectedItemOverlay() {
   const resetSelection = useResetRecoilState(selectedItemNameState);
   const selectedItem = useRecoilValue(selectedItemState);
   const itemRef = React.useRef<HTMLDivElement>(null);
   const startDrag = useGridDragger(itemRef);
-  const deleteItem = useDeleteItem();
 
   // The reason that we have a separate div for triggering the resetting of the
   // selected item is because if the click event was listening on the main div
@@ -60,40 +59,7 @@ export function SelectedItemOverlay() {
           <DragIcon size="1.3rem" />
         </span>
       ))}
-      <div
-        css={{
-          "--inset": "var(--corner-radius)",
-          position: "absolute",
-          borderRadius: "var(--corner-radius)",
-          // borderTopRightRadius: "var(--corner-radius)",
-          // borderTopLeftRadius: "var(--corner-radius)",
-          height: "auto",
-          width: "calc(100% - 2*var(--inset))",
-          right: "var(--inset)",
-          boxShadow: "var(--shadow)",
-          borderBottom: "none",
-          backgroundColor: "var(--chakra-colors-gray-200)",
-          bottom: "100%",
-          display: "flex",
-          flexWrap: "wrap",
-          padding: "0.2rem 0.5rem",
-          gap: "5px",
-          justifyContent: "space-evenly",
-          alignItems: "center",
-        }}
-      >
-        <span>{selectedItem.name}</span>
-        <IconButton
-          h="100%"
-          title={"Delete " + selectedItem.name}
-          aria-label={"Delete " + selectedItem.name}
-          icon={<FaTrash />}
-          onClick={(e) => {
-            e.stopPropagation();
-            deleteItem(selectedItem.name);
-          }}
-        />
-      </div>
+      <SettingsToolbar name={selectedItem.name} />
       <div
         css={cancelBoxStyles}
         onClick={() => {
@@ -101,6 +67,47 @@ export function SelectedItemOverlay() {
         }}
       />
     </GridItemDiv>
+  );
+}
+
+function SettingsToolbar({ name }: { name: GridItemDef["name"] }) {
+  const deleteItem = useDeleteItem();
+
+  return (
+    <div
+      css={{
+        "--inset": "var(--corner-radius)",
+        "--w": "min(calc(100% - 2*var(--inset)), 250px)",
+        position: "absolute",
+        borderRadius: "var(--corner-radius)",
+        width: "var(--w)",
+        right: "calc(50% - var(--w)/2)",
+        boxShadow: "var(--shadow)",
+        background: "var(--rstudio-blue)",
+        color: "white",
+        bottom: "100%",
+        display: "flex",
+        flexWrap: "wrap",
+        padding: "0.2rem 0.5rem",
+        gap: "5px",
+        justifyContent: "space-evenly",
+        alignItems: "center",
+      }}
+    >
+      <span>{name}</span>
+      <IconButton
+        h="100%"
+        padding="3px"
+        variant="outline"
+        title={"Delete " + name}
+        aria-label={"Delete " + name}
+        icon={<FaTrash />}
+        onClick={(e) => {
+          e.stopPropagation();
+          deleteItem(name);
+        }}
+      />
+    </div>
   );
 }
 
