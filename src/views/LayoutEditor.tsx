@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import styled from "@emotion/styled";
 import { DragFeedback } from "components/DragFeedback";
-import { EditorInstructions } from "components/EditorInstructions";
+import { EditorInstructions } from "views/EditorInstructions";
 import { EditorSettings, SettingPane } from "components/EditorSettings";
 import { FakeBrowserBar } from "components/FakeBrowserBar";
 import { GapSizeChooser } from "components/GapSizeChooser";
