@@ -2,7 +2,7 @@
 import { Heading } from "@chakra-ui/react";
 import rstudioLogo from "assets/RStudio-Logo.svg";
 import shinyLogo from "assets/Shiny-Logo.png";
-import { HistoryNav } from "components/HistoryNav";
+import HistoryNav from "components/HistoryNav";
 import * as React from "react";
 
 export function TheHeader() {
