@@ -72,8 +72,6 @@ export function useUndoRedo() {
     }
     stateHistory.current.stack = [...stateHistory.current.stack, fullLayout];
     setCanGoBackward(true);
-
-    console.log(stateHistory.current);
   }, [fullLayout]);
 
   const goToHistoryEntry = useCallback(
