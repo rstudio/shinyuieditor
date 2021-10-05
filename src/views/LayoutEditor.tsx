@@ -46,9 +46,6 @@ export function LayoutEditor() {
           <SettingPane label="Grid Gap">
             <GapSizeChooser />
           </SettingPane>
-          <SettingPane label="Undo-Redo">
-            <HistoryNav />
-          </SettingPane>
         </EditorSettings>
       </GridCard>
       <GridCard title="Instructions" icon={<FaListUl />} area="instructions">
