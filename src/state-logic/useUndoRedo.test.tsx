@@ -36,7 +36,6 @@ describe("Undo and redo buttons do what they should", () => {
   expectedRows.splice(addIndex, 0, defaultVal);
 
   const numAdderButtons = () => screen.getAllByLabelText(/add row/i).length;
-
   const initialNumButtons = numAdderButtons();
   test("Undo and redo buttons should start in proper states", () => {
     // On first load neither of the navigation buttons should be working
@@ -44,17 +43,22 @@ describe("Undo and redo buttons do what they should", () => {
     expect(undoButton).toBeDisabled();
 
     // After we add a row the state has updated and we have a history that can
-    // be navigated back into, but not forward indo
+    // be navigated back into, but not forward into
+    userEvent.click(allAdderButtons[addIndex]);
     userEvent.click(allAdderButtons[addIndex]);
     expect(undoButton).not.toBeDisabled();
     expect(redoButton).toBeDisabled();
 
     // Make sure we actually changed the state
-    expect(numAdderButtons()).toBe(initialNumButtons + 1);
+    expect(numAdderButtons()).toBe(initialNumButtons + 2);
+
     // Navigate back into the history
     userEvent.click(undoButton);
-    // First make sure that the state is back to the initial point
+    expect(numAdderButtons()).toBe(initialNumButtons + 1);
+
+    userEvent.click(undoButton);
     expect(numAdderButtons()).toBe(initialNumButtons);
+    // First make sure that the state is back to the initial point
 
     // Now that we're in the history stack the redo button should be available...
     expect(redoButton).not.toBeDisabled();
@@ -63,7 +67,6 @@ describe("Undo and redo buttons do what they should", () => {
 
     // Now we can redo our change
     userEvent.click(redoButton);
-
     // This should give us the same state as before
     expect(numAdderButtons()).toBe(initialNumButtons + 1);
 
