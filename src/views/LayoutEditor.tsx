@@ -6,7 +6,6 @@ import { EditorSettings, SettingPane } from "components/EditorSettings";
 import { FakeBrowserBar } from "components/FakeBrowserBar";
 import { GapSizeChooser } from "components/GapSizeChooser";
 import { GridCard } from "components/GridCard";
-import { HistoryNav } from "components/HistoryNav";
 import { MainGridCSSVariables } from "components/MainGridCSSVariables";
 import * as React from "react";
 import { FaListUl } from "react-icons/fa";
