@@ -29,7 +29,7 @@ test("Adding a tract puts it in the right place and with the right value", () =>
   const expectedRows = [...LayoutToTest.rows];
   expect(onChange).toHaveBeenCalledWith(expectedRows);
 
-  const allAdderButtons = screen.getAllByRole("button");
+  const allAdderButtons = screen.getAllByLabelText(/add row/i);
 
   // Click the button to add a row of the default value in the index position
   userEvent.click(allAdderButtons[addIndex]);
