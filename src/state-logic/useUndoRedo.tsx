@@ -29,22 +29,19 @@ export function useUndoRedo() {
       stateHistory.current.lastRequested
     );
 
-    // Check to make see if the undo button should be enabled
-    if (isLayoutFromHistory) {
-      const numStatesRemaining =
-        stateHistory.current.stack.length - stateHistory.current.stepsBack - 2;
-      setCanGoBackward(numStatesRemaining > 0);
-    }
-
-    // Looking at a previous state
-    if (isLayoutFromHistory && stateHistory.current.stepsBack > 0) {
-      setCanGoForward(true);
+    if (isEmptyTemplate(fullLayout)) {
+      // When initially loading an empty template is provided. We can just
+      // ignore this one entirely to not pollute the history
       return;
     }
 
-    // Forward button was pressed until being back at present
-    if (isLayoutFromHistory && stateHistory.current.stepsBack === 0) {
-      setCanGoForward(false);
+    if (isLayoutFromHistory) {
+      // We're looking at a previous state if steps back is non-zero
+      setCanGoForward(stateHistory.current.stepsBack > 0);
+      // Check to make see if the undo button should be enabled
+      const numStatesRemaining =
+        stateHistory.current.stack.length - stateHistory.current.stepsBack - 1;
+      setCanGoBackward(numStatesRemaining > 0);
       return;
     }
 
@@ -70,15 +67,15 @@ export function useUndoRedo() {
       );
       return;
     }
+
     stateHistory.current.stack = [...stateHistory.current.stack, fullLayout];
-    setCanGoBackward(true);
+    setCanGoBackward(stateHistory.current.stack.length > 1);
   }, [fullLayout]);
 
   const goToHistoryEntry = useCallback(
     (numStepsBackwards: number) => {
       const numSnapshots = stateHistory.current.stack.length;
       const newHistoryIndex = numSnapshots - numStepsBackwards - 1;
-
       stateHistory.current.lastRequested =
         stateHistory.current.stack[newHistoryIndex];
       setUpNewLayout(stateHistory.current.lastRequested);
@@ -110,4 +107,10 @@ function sameLayout(
   if (b === null) return false;
 
   return JSON.stringify(a) === JSON.stringify(b);
+}
+
+function isEmptyTemplate(template?: GridLayoutTemplate) {
+  if (typeof template === "undefined") return true;
+  const { rows, cols, items } = template;
+  return rows.length === 0 && cols.length === 0 && items.length === 0;
 }
