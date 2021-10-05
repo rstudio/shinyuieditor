@@ -3,61 +3,66 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { fullAppState } from "state-logic/gridLayout/atoms";
 
+type StateHistory = {
+  stack: GridLayoutTemplate[];
+  stepsBack: number;
+  lastRequested: GridLayoutTemplate | null;
+};
+
+const stateHistoryInit: StateHistory = {
+  stack: [],
+  stepsBack: 0,
+  lastRequested: null,
+};
+
 export function useUndoRedo() {
   const fullLayout = useRecoilValue(fullAppState);
   const [canGoForward, setCanGoForward] = useState(false);
   const [canGoBackward, setCanGoBackward] = useState(false);
 
   const setUpNewLayout = useSetRecoilState(fullAppState);
-
-  const stepsBackwards = useRef(0);
-  const lastRequestedLayout = useRef<GridLayoutTemplate | null>(null);
-  const inHistoryStack = useRef<boolean>(false);
-  const stateHistory = useRef<GridLayoutTemplate[]>([]);
+  const stateHistory = useRef<StateHistory>(stateHistoryInit);
 
   useEffect(() => {
     const isLayoutFromHistory = sameLayout(
       fullLayout,
-      lastRequestedLayout.current
+      stateHistory.current.lastRequested
     );
 
     // Check to make see if the undo button should be enabled
     if (isLayoutFromHistory) {
       const numStatesRemaining =
-        stateHistory.current.length - stepsBackwards.current - 2;
+        stateHistory.current.stack.length - stateHistory.current.stepsBack - 2;
       setCanGoBackward(numStatesRemaining > 0);
     }
 
     // Looking at a previous state
-    if (isLayoutFromHistory && stepsBackwards.current > 0) {
+    if (isLayoutFromHistory && stateHistory.current.stepsBack > 0) {
       setCanGoForward(true);
-      inHistoryStack.current = true;
       return;
     }
 
     // Forward button was pressed until being back at present
-    if (isLayoutFromHistory && stepsBackwards.current === 0) {
+    if (isLayoutFromHistory && stateHistory.current.stepsBack === 0) {
       setCanGoForward(false);
-      inHistoryStack.current = false;
       return;
     }
 
     // The user has modified the layout while back in history so we need to
     // erase the future history as they've started a new branch
-    if (inHistoryStack.current) {
-      stateHistory.current = stateHistory.current.slice(
+    if (stateHistory.current.stepsBack > 0) {
+      stateHistory.current.stack = stateHistory.current.stack.slice(
         0,
-        -stepsBackwards.current
+        -stateHistory.current.stepsBack
       );
-      stepsBackwards.current = 0;
-      inHistoryStack.current = false;
+      stateHistory.current.stepsBack = 0;
       setCanGoForward(false);
     }
 
     // Add latest history to the stack.
     const noChangeInLayout = sameLayout(
       fullLayout,
-      stateHistory.current[stateHistory.current.length - 1]
+      stateHistory.current.stack[stateHistory.current.stack.length - 1]
     );
     if (noChangeInLayout) {
       console.log(
@@ -65,36 +70,32 @@ export function useUndoRedo() {
       );
       return;
     }
-    stateHistory.current = [...stateHistory.current, fullLayout];
+    stateHistory.current.stack = [...stateHistory.current.stack, fullLayout];
     setCanGoBackward(true);
 
-    // console.log({
-    //   inHistoryStack: inHistoryStack.current,
-    //   stepsBackwards: stepsBackwards.current,
-    //   stateStackSize: stateHistory.current.length,
-    //   historyStack: stateHistory.current,
-    // });
-  }, [fullLayout, stateHistory]);
+    console.log(stateHistory.current);
+  }, [fullLayout]);
 
   const goToHistoryEntry = useCallback(
     (numStepsBackwards: number) => {
-      const numSnapshots = stateHistory.current.length;
+      const numSnapshots = stateHistory.current.stack.length;
       const newHistoryIndex = numSnapshots - numStepsBackwards - 1;
 
-      lastRequestedLayout.current = stateHistory.current[newHistoryIndex];
-      setUpNewLayout(lastRequestedLayout.current);
+      stateHistory.current.lastRequested =
+        stateHistory.current.stack[newHistoryIndex];
+      setUpNewLayout(stateHistory.current.lastRequested);
     },
     [setUpNewLayout]
   );
 
   const goBackward = useCallback(() => {
-    stepsBackwards.current++;
-    goToHistoryEntry(stepsBackwards.current);
+    stateHistory.current.stepsBack++;
+    goToHistoryEntry(stateHistory.current.stepsBack);
   }, [goToHistoryEntry]);
 
   const goForward = useCallback(() => {
-    stepsBackwards.current--;
-    goToHistoryEntry(stepsBackwards.current);
+    stateHistory.current.stepsBack--;
+    goToHistoryEntry(stateHistory.current.stepsBack);
   }, [goToHistoryEntry]);
 
   return {
