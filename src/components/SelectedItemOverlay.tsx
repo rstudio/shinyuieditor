@@ -92,6 +92,7 @@ function SettingsToolbar({ name }: { name: GridItemDef["name"] }) {
         gap: "5px",
         justifyContent: "space-evenly",
         alignItems: "center",
+        fontWeight: 500,
       }}
     >
       <span>{name}</span>
