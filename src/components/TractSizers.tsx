@@ -1,7 +1,8 @@
-import { Box } from "@chakra-ui/react";
+import { Box, IconButton } from "@chakra-ui/react";
 import { CSSUnitInput } from "components/CSSUnitInput";
 import { TractGutter } from "components/TractGutter";
 import * as React from "react";
+import { FaTrash } from "react-icons/fa";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   colsState,
@@ -11,11 +12,10 @@ import {
 import { CSSMeasure } from "../GridTypes";
 
 export function TractSizers({ dir }: { dir: TractDirection }) {
-  const tracts = useRecoilValue(dir === "rows" ? rowsState : colsState);
+  const isRows = dir === "rows";
+  const tracts = useRecoilValue(isRows ? rowsState : colsState);
 
-  const setTractSizes = useSetRecoilState(
-    dir === "rows" ? rowsState : colsState
-  );
+  const setTractSizes = useSetRecoilState(isRows ? rowsState : colsState);
 
   if (tracts.length === 0) return null;
 
@@ -27,30 +27,46 @@ export function TractSizers({ dir }: { dir: TractDirection }) {
     });
   };
 
-  const pad = "5px";
-  const sizeOfChooser = "125px";
-  const placementStyles =
-    dir === "rows"
-      ? {
-          alignSelf: "center",
-          width: sizeOfChooser, // Otw it's full width and blocks click events
-          marginLeft: `calc(-${pad} - ${sizeOfChooser})`,
-        }
-      : {
-          position: "absolute",
-          bottom: `calc(100% + ${pad})`,
-          left: `calc(50% - ${sizeOfChooser}/2)`,
-        };
+  const gridTemplates = `25px 1fr`;
+  const commonStyles = {
+    display: "grid",
+    padding: "9px",
+    position: "absolute",
+  };
+  const placementStyles = isRows
+    ? {
+        height: "100%",
+        right: "100%",
+        width: `calc(var(--row-controls-gap) + var(--gap))`,
+        gridTemplateColumns: gridTemplates,
+        alignItems: "center",
+      }
+    : {
+        width: "100%",
+        height: `calc(var(--col-controls-gap) + var(--gap))`,
+        bottom: "100%",
+        gridTemplateRows: gridTemplates,
+        justifyItems: "center",
+      };
 
-  const singularDir = dir === "rows" ? "row" : "column";
+  const singularDir = isRows ? "row" : "column";
   return (
     <>
       {tracts.map((size, index) => (
         <TractGutter key={dir + "sizer" + index} dir={dir} index={index}>
-          <Box sx={placementStyles}>
+          <Box sx={{ ...commonStyles, ...placementStyles }}>
+            <IconButton
+              variant="ghost"
+              w={isRows ? "100%" : "auto"}
+              minW={isRows ? "100%" : "auto"}
+              h={isRows ? "auto" : "100%"}
+              minH={isRows ? "auto" : "100%"}
+              aria-label={`Delete ${singularDir} ${index}`}
+              icon={<FaTrash />}
+            />
             <CSSUnitInput
               value={size}
-              w={sizeOfChooser}
+              w="100%"
               onChange={updateTract(index)}
               label={`Set size of ${singularDir} ${index}`}
             />
