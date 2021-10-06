@@ -35,11 +35,16 @@ export function CSSUnitInput({
   const updateUnit = (newUnit: CSSUnits) =>
     onChange(updateCssUnit(value, { unit: newUnit }));
 
+  // Clamp the width so we dont get super ugly wide inputs
+  const width = `min(${w}, ${widestAllowed})`;
   return (
     <HStack
       spacing="1px"
       align="center"
-      w={w}
+      w={width}
+      // For some reason grid items really need a min width to not overflow
+      minW={width}
+      minH="100%"
       aria-label={label}
       // Shrink the dropdown icon. These styles need to be seperate from the
       // Select component's css because the icon is technically a sibling so it
@@ -91,3 +96,5 @@ export function CSSUnitInput({
     </HStack>
   );
 }
+// How wide the input element is allowed to get before being clamped
+const widestAllowed = "150px";
