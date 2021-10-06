@@ -16,8 +16,9 @@ import { seqArray } from "utils/general-helpers";
 import { CSSMeasure } from "../GridTypes";
 
 const adderButtonStyles = css`
-  --size: var(--gap);
-  --offset: calc(-1 * var(--size));
+  --size: var(--main-gap);
+  --offsetToEdge: calc(-8px - var(--size));
+  --offsetToTractCenter: calc((-1 * var(--gap) - var(--size)) / 2);
   width: var(--size);
   height: var(--size);
   font-size: 15px;
@@ -39,22 +40,22 @@ const adderButtonStyles = css`
 
   &.colsAdder {
     justify-self: end;
-    margin-right: var(--offset);
-    margin-top: var(--offset);
+    margin-right: var(--offsetToTractCenter);
+    margin-top: var(--offsetToEdge);
   }
 
   &.colsAdder.first {
     justify-self: start;
-    margin-left: var(--offset);
+    margin-left: var(--offsetToTractCenter);
   }
   &.rowsAdder {
     align-self: end;
-    margin-left: var(--offset);
-    margin-bottom: var(--offset);
+    margin-left: var(--offsetToEdge);
+    margin-bottom: var(--offsetToTractCenter);
   }
   &.rowsAdder.first {
     align-self: start;
-    margin-top: var(--offset);
+    margin-top: var(--offsetToTractCenter);
   }
 `;
 

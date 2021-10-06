@@ -28,23 +28,23 @@ export function TractSizers({ dir }: { dir: TractDirection }) {
   };
 
   const gridTemplates = `25px 1fr`;
+  const sideOffset = "calc(100% + var(--main-gap)/2)";
   const commonStyles = {
     display: "grid",
-    padding: "9px",
     position: "absolute",
   };
   const placementStyles = isRows
     ? {
         height: "100%",
-        right: "100%",
-        width: `calc(var(--row-controls-gap) + var(--gap))`,
+        right: sideOffset,
+        width: `calc(var(--row-controls-gap) + var(--main-gap))`,
         gridTemplateColumns: gridTemplates,
         alignItems: "center",
       }
     : {
         width: "100%",
-        height: `calc(var(--col-controls-gap) + var(--gap))`,
-        bottom: "100%",
+        bottom: sideOffset,
+        height: `calc(var(--col-controls-gap) +  var(--main-gap))`,
         gridTemplateRows: gridTemplates,
         justifyItems: "center",
       };
