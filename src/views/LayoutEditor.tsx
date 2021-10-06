@@ -18,6 +18,7 @@ import { FaListUl } from "react-icons/fa";
 import { FiSettings } from "react-icons/fi";
 import { ImStack } from "react-icons/im";
 import { useInitializeToLayout } from "state-logic/gridLayout/hooks";
+import { AddItemModal } from "components/AddItemModal";
 
 export function LayoutEditor() {
   useInitializeToLayout("default");
@@ -55,6 +56,7 @@ export function LayoutEditor() {
           <SelectedItemOverlay />
         </MainGridContainer>
       </GridCard>
+      <AddItemModal />
     </EditorWrapper>
   );
 }
