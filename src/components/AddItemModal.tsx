@@ -9,20 +9,22 @@ import {
   Input,
 } from "@chakra-ui/react";
 import { css } from "@emotion/react";
+import { GridPos } from "GridTypes";
 import * as React from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiCheck } from "react-icons/bi";
-import { useRecoilValue } from "recoil";
+import { atom, useRecoilValue, useResetRecoilState } from "recoil";
 import { gridItemNames, useAddNewItem } from "state-logic/gridItems";
-import {
-  addItemModalState,
-  useAddItemModalCloser,
-} from "state-logic/itemDragging";
+
+export const addItemModalState = atom<GridPos | null>({
+  key: "addItemModalState",
+  default: null,
+});
 
 export function AddItemModal() {
   const modalState = useRecoilValue(addItemModalState);
+  const closeAddItemModal = useResetRecoilState(addItemModalState);
   const addNewItem = useAddNewItem();
-  const closeAddItemModal = useAddItemModalCloser();
 
   if (modalState === null) return null;
 

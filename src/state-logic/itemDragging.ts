@@ -1,7 +1,8 @@
 // import * as React from "react";
+import { addItemModalState } from "components/AddItemModal";
 import type { RefObject } from "react";
 import { useEffect, useRef } from "react";
-import { atom, useRecoilCallback, useRecoilTransaction_UNSTABLE } from "recoil";
+import { atom, useRecoilTransaction_UNSTABLE } from "recoil";
 import {
   gridItemAtoms,
   gridItemNames,
@@ -300,20 +301,4 @@ function getDragPosOnGrid(
     startCol: startCol ?? 1,
     endCol: endCol ?? 1,
   };
-}
-
-export const addItemModalState = atom<GridPos | null>({
-  key: "addItemModalState",
-  default: null,
-});
-
-export function useAddItemModalCloser() {
-  const closeAddItemModal = useRecoilCallback(
-    ({ reset }) =>
-      () =>
-        reset(addItemModalState),
-    []
-  );
-
-  return closeAddItemModal;
 }
