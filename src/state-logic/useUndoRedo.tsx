@@ -2,14 +2,7 @@ import { GridLayoutTemplate } from "GridTypes";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { fullAppState } from "state-logic/gridLayout/atoms";
-import {
-  addEntry,
-  getEntryFromHistory,
-  hasFutureState,
-  hasPreviousState,
-  StateHistory,
-  stateHistoryInit,
-} from "../modules/StateHistory";
+import StateHistory from "modules/StateHistoryClass";
 
 export function useUndoRedo() {
   const currentLayout = useRecoilValue(fullAppState);
@@ -17,20 +10,23 @@ export function useUndoRedo() {
 
   const [canGoForward, setCanGoForward] = useState(false);
   const [canGoBackward, setCanGoBackward] = useState(false);
-  const stateHistory = useRef<StateHistory>(stateHistoryInit);
+  const stateHistory = useRef<StateHistory>(
+    new StateHistory({ comparisonFn: sameLayout })
+  );
 
   useEffect(() => {
-    addEntry(currentLayout, stateHistory.current);
-    setCanGoBackward(hasPreviousState(stateHistory.current));
-    setCanGoForward(hasFutureState(stateHistory.current));
+    if (isEmptyTemplate(currentLayout)) return;
+    stateHistory.current.addEntry(currentLayout);
+    setCanGoBackward(stateHistory.current.hasPreviousState());
+    setCanGoForward(stateHistory.current.hasFutureState());
   }, [currentLayout]);
 
   const goBackward = useCallback(() => {
-    setUpNewLayout(getEntryFromHistory(stateHistory.current, -1));
+    setUpNewLayout(stateHistory.current.getPreviousEntry());
   }, [setUpNewLayout]);
 
   const goForward = useCallback(() => {
-    setUpNewLayout(getEntryFromHistory(stateHistory.current, 1));
+    setUpNewLayout(stateHistory.current.getNextEntry());
   }, [setUpNewLayout]);
 
   return {
@@ -48,4 +44,10 @@ function sameLayout(
   if (b === null) return false;
 
   return JSON.stringify(a) === JSON.stringify(b);
+}
+
+function isEmptyTemplate(template?: GridLayoutTemplate) {
+  if (typeof template === "undefined") return true;
+  const { rows, cols, items } = template;
+  return rows.length === 0 && cols.length === 0 && items.length === 0;
 }
