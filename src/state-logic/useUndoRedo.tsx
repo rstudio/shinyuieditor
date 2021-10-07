@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { fullAppState } from "state-logic/gridLayout/atoms";
 import StateHistory from "modules/StateHistory";
+import { sameLayout } from "utils/grid-helpers";
 
 export function useUndoRedo() {
   const currentLayout = useRecoilValue(fullAppState);
@@ -42,15 +43,6 @@ export function useUndoRedo() {
     canGoBackward,
     canGoForward,
   };
-}
-
-function sameLayout(
-  a: GridLayoutTemplate,
-  b: GridLayoutTemplate | null
-): boolean {
-  if (b === null) return false;
-
-  return JSON.stringify(a) === JSON.stringify(b);
 }
 
 function isEmptyTemplate(template?: GridLayoutTemplate) {

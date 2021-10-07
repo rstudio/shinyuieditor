@@ -1,4 +1,4 @@
-import { GridPos } from "../GridTypes";
+import { GridLayoutTemplate, GridPos } from "../GridTypes";
 import { TractDirection } from "state-logic/gridLayout/atoms";
 
 export function makeTractPos(start: number, end?: number) {
@@ -22,6 +22,15 @@ export function sameGridPos(a?: GridPos, b?: GridPos) {
     a.startRow === b.startRow &&
     a.endRow === b.endRow
   );
+}
+
+export function sameLayout(
+  a: GridLayoutTemplate,
+  b: GridLayoutTemplate | null
+): boolean {
+  if (b === null) return false;
+
+  return JSON.stringify(a) === JSON.stringify(b);
 }
 
 export function placeOnGridOrCol({
