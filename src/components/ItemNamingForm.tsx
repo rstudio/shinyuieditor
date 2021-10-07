@@ -1,76 +1,27 @@
-/** @jsxImportSource @emotion/react */
 import {
   Button,
   FormControl,
   FormHelperText,
   FormLabel,
-  Heading,
   HStack,
   Input,
 } from "@chakra-ui/react";
-import { css } from "@emotion/react";
 import { GridPos } from "GridTypes";
 import * as React from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiCheck } from "react-icons/bi";
-import { atom, useRecoilValue, useResetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { gridItemNames, useAddNewItem } from "state-logic/gridItems";
 
-export const addItemModalState = atom<GridPos | null>({
-  key: "addItemModalState",
-  default: null,
-});
-
-export function AddItemModal() {
-  const modalState = useRecoilValue(addItemModalState);
-  const closeAddItemModal = useResetRecoilState(addItemModalState);
+export function ItemNamingForm({
+  onClose,
+  itemPos,
+}: {
+  onClose: () => void;
+  itemPos: GridPos;
+}) {
   const addNewItem = useAddNewItem();
 
-  if (modalState === null) return null;
-
-  return (
-    <div
-      css={{
-        backgroundColor: "rgba(255, 255, 255, 0.6)",
-        position: "absolute",
-        inset: "0",
-        display: "grid",
-        placeContent: "center",
-      }}
-    >
-      <div css={addItemModalStyles}>
-        <Heading>New Item</Heading>
-        <div
-          css={{
-            gridArea: "input",
-            alignSelf: "center",
-            width: "100%",
-            maxWidth: "400px",
-            position: "relative",
-          }}
-        >
-          <ItemNamingForm
-            onFinish={(name) => {
-              addNewItem({ name, ...modalState });
-            }}
-            onClose={closeAddItemModal}
-          />
-        </div>
-        {/* <div className={classes.uiChooser}>
-          <UiChooser />
-        </div> */}
-      </div>
-    </div>
-  );
-}
-
-function ItemNamingForm({
-  onFinish,
-  onClose,
-}: {
-  onFinish: (name: string) => void;
-  onClose: () => void;
-}) {
   const nameInputRef = React.useRef<HTMLInputElement>(null);
 
   const [currentName, setCurrentName] = React.useState("");
@@ -107,8 +58,7 @@ function ItemNamingForm({
     e.preventDefault();
 
     if (currentName === "") return;
-
-    onFinish(currentName);
+    addNewItem({ name: currentName, ...itemPos });
     onClose();
   };
 
@@ -140,7 +90,6 @@ function ItemNamingForm({
           colorScheme="red"
           leftIcon={<AiOutlineClose />}
           onClick={() => {
-            setWarningMsg(null);
             onClose();
           }}
         >
@@ -150,20 +99,3 @@ function ItemNamingForm({
     </form>
   );
 }
-
-const addItemModalStyles = css`
-  box-shadow: var(--shadow);
-  background-color: var(--rstudio-white);
-  border-radius: var(--corner-radius);
-  padding: 4rem 5rem;
-  display: grid;
-  justify-items: center;
-  gap: 0.5rem;
-  width: 750px;
-  max-width: 95vw;
-  grid-template-rows: 70px 1fr;
-  grid-template-columns: 1fr 1fr;
-  grid-template-areas:
-    "title   title"
-    "input   input";
-`;

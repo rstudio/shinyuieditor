@@ -1,13 +1,13 @@
 // import * as React from "react";
-import { addItemModalState } from "components/AddItemModal";
+import { ItemNamingForm } from "components/ItemNamingForm";
 import type { RefObject } from "react";
 import { useEffect, useRef } from "react";
-import { atom, useRecoilTransaction_UNSTABLE } from "recoil";
+import { atom, useRecoilTransaction_UNSTABLE, useResetRecoilState } from "recoil";
 import {
   gridItemAtoms,
   gridItemNames,
   GridItemsAtomFamily,
-  selectedItemNameState,
+  selectedItemNameState
 } from "state-logic/gridItems";
 import { sameGridPos } from "utils/grid-helpers";
 import {
@@ -15,9 +15,10 @@ import {
   containsDir,
   getBBoxOfDiv,
   ItemBoundingBox,
-  mutateToFixOverlapOfBoxes,
+  mutateToFixOverlapOfBoxes
 } from "utils/overlap-helpers";
 import { RecoilGetter } from "utils/RecoilHelperClasses";
+import { modalStateAtom, useCloseModal } from "views/InfoModal";
 import { DragDir, GridItemDef, GridPos } from "../GridTypes";
 
 export type SelectionRect = {
@@ -104,11 +105,13 @@ function getItemGridBounds(
   });
 }
 
+
 export function useGridDragger(draggedRef?: RefObject<HTMLDivElement>) {
+  const closeModal = useCloseModal();
+
   const itemBoundsRef = useRef<(SelectionRect & { name: string })[] | null>(
     null
   );
-
   const initializeDrag = useRecoilTransaction_UNSTABLE(
     ({ get, set, reset }) =>
       (
@@ -243,8 +246,19 @@ export function useGridDragger(draggedRef?: RefObject<HTMLDivElement>) {
           const zeroSizeDrag =
             finalState.dragBox.bottom === finalState.dragBox.top &&
             finalState.dragBox.left === finalState.dragBox.right;
+
           if (!zeroSizeDrag) {
-            set(addItemModalState, finalState.gridPos);
+            set(modalStateAtom, {
+              title: "New Item",
+              content: 
+                <ItemNamingForm
+                  itemPos={finalState.gridPos}
+                  onClose={() => {
+                    closeModal();
+                    console.log("Closing the item naming dialog");
+                  }}
+                />
+            })
           }
         }
         reset(dragStateAtom);

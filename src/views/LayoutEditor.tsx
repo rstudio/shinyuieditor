@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import styled from "@emotion/styled";
 import { DragFeedback } from "components/DragFeedback";
-import { EditorInstructions } from "views/EditorInstructions";
 import { EditorSettings, SettingPane } from "components/EditorSettings";
 import { FakeBrowserBar } from "components/FakeBrowserBar";
 import { GapSizeChooser } from "components/GapSizeChooser";
@@ -18,7 +17,8 @@ import { FaListUl } from "react-icons/fa";
 import { FiSettings } from "react-icons/fi";
 import { ImStack } from "react-icons/im";
 import { useInitializeToLayout } from "state-logic/gridLayout/hooks";
-import { AddItemModal } from "components/AddItemModal";
+import { EditorInstructions } from "views/EditorInstructions";
+import InfoModal from "views/InfoModal";
 
 export function LayoutEditor() {
   useInitializeToLayout("default");
@@ -56,7 +56,7 @@ export function LayoutEditor() {
           <SelectedItemOverlay />
         </MainGridContainer>
       </GridCard>
-      <AddItemModal />
+      <InfoModal />
     </EditorWrapper>
   );
 }
