@@ -24,7 +24,7 @@ describe("Dragging Behavior", () => {
         .should("have.css", "grid-column")
         .and("equal", "2 / 4");
     });
-    cy.matchImageSnapshot();
+    // cy.matchImageSnapshot();
   });
 });
 export {};
