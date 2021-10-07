@@ -38,7 +38,7 @@ describe("Tract updaters properly update the state of the app.", () => {
     const initialValue = parseCSSMeasure(initialValues[0]);
     if (!initialValue.count) return; // Make sure we're testing with non-auto units
 
-    const firstRowSizer = screen.getByLabelText(/row 0/i);
+    const firstRowSizer = screen.getByLabelText(/set size of row 0/i);
 
     const increaseButton = within(firstRowSizer).getByLabelText(/increase/i);
     const decreaseButton = within(firstRowSizer).getByLabelText(/decrease/i);
@@ -72,9 +72,9 @@ describe("Tract updaters properly update the state of the app.", () => {
     const initialValue = parseCSSMeasure(initialValues[0]);
     if (!initialValue.count) return; // Make sure we're testing with non-auto units
 
-    const unitInput = within(screen.getByLabelText(/row 0/i)).getByLabelText(
-      /value-unit/i
-    );
+    const unitInput = within(
+      screen.getByLabelText(/set size of row 0/i)
+    ).getByLabelText(/value-unit/i);
 
     expect(onChange).toHaveBeenLastCalledWith(initialValues);
 
@@ -100,9 +100,9 @@ describe("Tract updaters properly update the state of the app.", () => {
     const initialValue = parseCSSMeasure(LayoutToTest.rows[0]);
     if (!initialValue.count) return; // Make sure we're testing with non-auto units
 
-    const textInput = within(screen.getByLabelText(/row 0/i)).getByLabelText(
-      /value-count/i
-    ) as HTMLInputElement;
+    const textInput = within(
+      screen.getByLabelText(/set size of row 0/i)
+    ).getByLabelText(/value-count/i) as HTMLInputElement;
 
     // Clear the input and type 4
     textInput.setSelectionRange(0, textInput.value.length);
