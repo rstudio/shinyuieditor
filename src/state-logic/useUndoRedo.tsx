@@ -16,7 +16,7 @@ const stateHistoryInit: StateHistory = {
 };
 
 export function useUndoRedo() {
-  const fullLayout = useRecoilValue(fullAppState);
+  const currentLayout = useRecoilValue(fullAppState);
   const [canGoForward, setCanGoForward] = useState(false);
   const [canGoBackward, setCanGoBackward] = useState(false);
 
@@ -25,11 +25,11 @@ export function useUndoRedo() {
 
   useEffect(() => {
     const isLayoutFromHistory = sameLayout(
-      fullLayout,
+      currentLayout,
       stateHistory.current.lastRequested
     );
 
-    if (isEmptyTemplate(fullLayout)) {
+    if (isEmptyTemplate(currentLayout)) {
       // When initially loading an empty template is provided. We can just
       // ignore this one entirely to not pollute the history
       return;
@@ -38,10 +38,6 @@ export function useUndoRedo() {
     if (isLayoutFromHistory) {
       // We're looking at a previous state if steps back is non-zero
       setCanGoForward(stateHistory.current.stepsBack > 0);
-      // Check to make see if the undo button should be enabled
-      const numStatesRemaining =
-        stateHistory.current.stack.length - stateHistory.current.stepsBack - 1;
-      setCanGoBackward(numStatesRemaining > 0);
       return;
     }
 
@@ -58,7 +54,7 @@ export function useUndoRedo() {
 
     // Add latest history to the stack.
     const noChangeInLayout = sameLayout(
-      fullLayout,
+      currentLayout,
       stateHistory.current.stack[stateHistory.current.stack.length - 1]
     );
     if (noChangeInLayout) {
@@ -68,9 +64,16 @@ export function useUndoRedo() {
       return;
     }
 
-    stateHistory.current.stack = [...stateHistory.current.stack, fullLayout];
-    setCanGoBackward(stateHistory.current.stack.length > 1);
-  }, [fullLayout]);
+    stateHistory.current.stack = [...stateHistory.current.stack, currentLayout];
+  }, [currentLayout]);
+
+  useEffect(() => {
+    const numStatesRemaining =
+      stateHistory.current.stack.length - stateHistory.current.stepsBack - 1;
+    setCanGoBackward(
+      stateHistory.current.stack.length > 1 && numStatesRemaining > 0
+    );
+  }, [currentLayout]);
 
   const goToHistoryEntry = useCallback(
     (numStepsBackwards: number) => {
