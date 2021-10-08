@@ -62,6 +62,8 @@ export function ConfigureNewItem({
     onClose();
   };
 
+  const hasWarning = Boolean(warningMsg);
+
   return (
     <form onSubmit={submitName}>
       <FormControl id="item-name" isRequired>
@@ -71,10 +73,16 @@ export function ConfigureNewItem({
           placeholder="Item Name"
           value={currentName}
           onChange={updateName}
+          isInvalid={hasWarning}
         />
-        <FormHelperText color={warningMsg ? "orangered" : "GrayText"}>
-          {warningMsg ??
-            "Name of the new item. Used to map to placement on grid."}
+
+        <FormHelperText
+          color={hasWarning ? "orangered" : "GrayText"}
+          aria-label={hasWarning ? "input-warning" : "input-description"}
+        >
+          {hasWarning
+            ? warningMsg
+            : "Name of the new item. Used to map to placement on grid."}
         </FormHelperText>
       </FormControl>
       <HStack spacing="6" marginTop="1rem" justify="space-evenly">
