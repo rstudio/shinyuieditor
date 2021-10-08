@@ -1,8 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import { Button, CloseButton, Heading } from "@chakra-ui/react";
+import { CloseButton, Heading } from "@chakra-ui/react";
 import { css } from "@emotion/react";
 import * as React from "react";
-import { AiOutlineClose } from "react-icons/ai";
 import { atom, useRecoilValue, useResetRecoilState } from "recoil";
 
 export const modalStateAtom = atom<{

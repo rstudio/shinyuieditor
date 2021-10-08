@@ -2,7 +2,7 @@
 import { ItemNamingForm } from "components/ItemNamingForm";
 import type { RefObject } from "react";
 import { useEffect, useRef } from "react";
-import { atom, useRecoilTransaction_UNSTABLE, useResetRecoilState } from "recoil";
+import { atom, useRecoilTransaction_UNSTABLE } from "recoil";
 import {
   gridItemAtoms,
   gridItemNames,
