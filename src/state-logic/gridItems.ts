@@ -2,6 +2,8 @@ import {
   atom,
   atomFamily,
   DefaultValue,
+  RecoilState,
+  RecoilValue,
   selector,
   useRecoilTransaction_UNSTABLE,
 } from "recoil";
@@ -41,18 +43,29 @@ export const useAddNewItem = () => {
     []
   );
 };
+
+// Allows item deletion to be easily done within a transaction without recoil
+// getting mad about calling another transaction as happens with useDeleteItem
+export function deleteAnItem(
+  name: string,
+  get: <T>(a: RecoilValue<T>) => T,
+  set: <T>(s: RecoilState<T>, u: T | ((currVal: T) => T)) => void,
+  reset: (s: RecoilState<any>) => void
+) {
+  set(gridItemNames, (items) => items.filter((item) => item !== name));
+  const currentlySelectedItem = get(selectedItemNameState);
+
+  // Make sure that we're not leaving the deleted item selected
+  if (currentlySelectedItem === name) {
+    reset(selectedItemNameState);
+  }
+  reset(gridItemAtoms(name));
+}
 export const useDeleteItem = () => {
   return useRecoilTransaction_UNSTABLE(
     ({ get, set, reset }) =>
       (name: string) => {
-        set(gridItemNames, (items) => items.filter((item) => item !== name));
-        const currentlySelectedItem = get(selectedItemNameState);
-
-        // Make sure that we're not leaving the deleted item selected
-        if (currentlySelectedItem === name) {
-          reset(selectedItemNameState);
-        }
-        reset(gridItemAtoms(name));
+        deleteAnItem(name, get, set, reset);
       },
     []
   );
