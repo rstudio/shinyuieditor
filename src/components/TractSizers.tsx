@@ -9,6 +9,7 @@ import {
   rowsState,
   TractDirection,
 } from "state-logic/gridLayout/atoms";
+import useRemoveTract from "state-logic/tractDeletion";
 import { CSSMeasure } from "../GridTypes";
 
 export function TractSizers({ dir }: { dir: TractDirection }) {
@@ -16,6 +17,7 @@ export function TractSizers({ dir }: { dir: TractDirection }) {
   const tracts = useRecoilValue(isRows ? rowsState : colsState);
 
   const setTractSizes = useSetRecoilState(isRows ? rowsState : colsState);
+  const removeTract = useRemoveTract();
 
   if (tracts.length === 0) return null;
 
@@ -63,6 +65,7 @@ export function TractSizers({ dir }: { dir: TractDirection }) {
               minH={isRows ? "auto" : "100%"}
               aria-label={`Delete ${singularDir} ${index}`}
               icon={<FaTrash />}
+              onClick={() => removeTract(dir, index)}
             />
             <CSSUnitInput
               value={size}
