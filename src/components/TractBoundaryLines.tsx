@@ -3,7 +3,7 @@ import { TractGutter } from "components/TractGutter";
 import * as React from "react";
 import { useRecoilValue } from "recoil";
 import { tractDims, TractDirection } from "state-logic/gridLayout/atoms";
-import { seqArray } from "utils/general-helpers";
+import { seqArray } from "utils/array-helpers";
 
 // Putting these values out here because they are chosen at "compile time"
 const dividerThickness = 5;

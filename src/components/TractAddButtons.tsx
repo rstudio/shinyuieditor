@@ -12,7 +12,7 @@ import {
   TractPosition,
 } from "state-logic/gridLayout/atoms";
 import { updateItemBoundsForNewTract } from "state-logic/gridLayout/hooks";
-import { seqArray } from "utils/general-helpers";
+import { seqArray } from "utils/array-helpers";
 import { CSSMeasure } from "../GridTypes";
 
 const adderButtonStyles = css`
