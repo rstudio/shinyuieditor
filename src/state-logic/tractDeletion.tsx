@@ -2,9 +2,10 @@ import { List, ListIcon, ListItem } from "@chakra-ui/layout";
 import { GridPos } from "GridTypes";
 import { ImStack } from "react-icons/im";
 import { useRecoilTransaction_UNSTABLE } from "recoil";
+import { removeAtIndex } from "utils/array-helpers";
 import { modalStateAtom } from "views/InfoModal";
 import { gridItemAtoms, gridItemNames } from "./gridItems";
-import { TractDirection } from "./gridLayout/atoms";
+import { colsState, rowsState, TractDirection } from "./gridLayout/atoms";
 
 export default function useRemoveTract() {
   const removeTract = useRecoilTransaction_UNSTABLE(
@@ -34,43 +35,28 @@ export default function useRemoveTract() {
         return;
       }
 
+      // Go through and update items that have the removed tract in their span
       itemNames.forEach((name) => {
         set(gridItemAtoms(name), (el) => {
           const startPos: keyof GridPos =
             dir === "rows" ? "startRow" : "startCol";
           const endPos: keyof GridPos = dir === "rows" ? "endRow" : "endCol";
           const newEl = { ...el };
-          if (newEl[startPos] > oneBasedIndex) {
-            newEl[startPos]--;
-          }
 
+          if (newEl[startPos] > oneBasedIndex) newEl[startPos]--;
+
+          // Since GridPos allows the end position to be left blank we need to
+          // guarentee it exists
           const endVal = newEl[endPos] ?? newEl[startPos];
-          if (endVal >= oneBasedIndex) {
-            newEl[endPos] = endVal - 1;
-          }
-
-          // THIS IS NOT WORKING. GET WORKING
+          if (endVal >= oneBasedIndex) newEl[endPos] = endVal - 1;
 
           return newEl;
         });
       });
 
-      // this.elements.forEach((el) => {
-      //   const { startId, endId } = makeStartEndForDir(dir);
-      //   const elPosition = el.position;
-
-      //   if (elPosition[startId] > index) {
-      //     elPosition[startId]--;
-      //   }
-      //   if (elPosition[endId] >= index) {
-      //     elPosition[endId]--;
-      //   }
-      //   el.position = elPosition;
-      // });
-
-      // const tractSizes = this.gridLayout[dir];
-      // tractSizes.splice(index - 1, 1);
-      debugger;
+      set(dir === "rows" ? rowsState : colsState, (existingTracts) => {
+        return removeAtIndex(existingTracts, index);
+      });
     }
   );
   return removeTract;
