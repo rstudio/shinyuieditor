@@ -13,7 +13,7 @@ import { BiCheck } from "react-icons/bi";
 import { useRecoilValue } from "recoil";
 import { gridItemNames, useAddNewItem } from "state-logic/gridItems";
 
-export function ItemNamingForm({
+export function ConfigureNewItem({
   onClose,
   itemPos,
 }: {

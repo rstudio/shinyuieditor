@@ -1,5 +1,5 @@
 // import * as React from "react";
-import { ItemNamingForm } from "components/ItemNamingForm";
+import { ConfigureNewItem } from "components/ConfigureNewItem";
 import type { RefObject } from "react";
 import { useEffect, useRef } from "react";
 import { atom, useRecoilTransaction_UNSTABLE } from "recoil";
@@ -251,7 +251,7 @@ export function useGridDragger(draggedRef?: RefObject<HTMLDivElement>) {
             set(modalStateAtom, {
               title: "New Item",
               content: 
-                <ItemNamingForm
+                <ConfigureNewItem
                   itemPos={finalState.gridPos}
                   onClose={() => {
                     closeModal();
