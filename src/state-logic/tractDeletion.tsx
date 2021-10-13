@@ -1,25 +1,52 @@
-import { HStack, VStack } from "@chakra-ui/layout";
-import { Button, Tag, TagLeftIcon } from "@chakra-ui/react";
-import { GridPos } from "GridTypes";
-import React from "react";
-import { AiOutlineClose } from "react-icons/ai";
-import { FaTrash } from "react-icons/fa";
-import { ImStack } from "react-icons/im";
-import { useRecoilTransaction_UNSTABLE } from "recoil";
+import { GridItemDef, GridPos } from "GridTypes";
+import { selector, useRecoilTransaction_UNSTABLE } from "recoil";
 import { removeAtIndex } from "utils/array-helpers";
-import { modalStateAtom, useCloseModal } from "views/InfoModal";
 import { deleteAnItem, gridItemAtoms, gridItemNames } from "./gridItems";
 import { colsState, rowsState, TractDirection } from "./gridLayout/atoms";
 
-export default function useRemoveTract() {
-  const closeModal = useCloseModal();
+type TractsToConflictsMap = {
+  rows: Map<number, string[]>;
+  cols: Map<number, string[]>;
+};
 
+function updateConflicts(
+  el: GridItemDef,
+  dir: TractDirection,
+  tractsWithIssues: TractsToConflictsMap
+) {
+  const isConflicting =
+    dir === "rows" ? el.startRow === el.endRow : el.startCol === el.endCol;
+  if (isConflicting) {
+    const zeroBasedIndex = (dir === "rows" ? el.startRow : el.startCol) - 1;
+    const existing = tractsWithIssues[dir].get(zeroBasedIndex);
+    tractsWithIssues[dir].set(zeroBasedIndex, [...(existing ?? []), el.name]);
+  }
+}
+
+export const currentTractDeletionConflicts = selector<TractsToConflictsMap>({
+  key: "currentTractDeletionConflicts",
+  get: ({ get }) => {
+    const itemNames = get(gridItemNames);
+
+    const tractsWithIssues: TractsToConflictsMap = {
+      rows: new Map(),
+      cols: new Map(),
+    };
+
+    itemNames.forEach((name) => {
+      const el = get(gridItemAtoms(name));
+
+      updateConflicts(el, "rows", tractsWithIssues);
+      updateConflicts(el, "cols", tractsWithIssues);
+    });
+
+    return tractsWithIssues;
+  },
+});
+
+export default function useRemoveTract() {
   const removeTract = useRecoilTransaction_UNSTABLE(
-    ({ get, set, reset }) => (
-      dir: TractDirection,
-      index: number,
-      deleteConflictingItems: boolean = false
-    ) => {
+    ({ get, set, reset }) => (dir: TractDirection, index: number) => {
       // First check for trouble elements before proceeding so we can error out
       // and tell the user why
 
@@ -30,7 +57,6 @@ export default function useRemoveTract() {
       const endPos: keyof GridPos = dir === "rows" ? "endRow" : "endCol";
       const itemNames = get(gridItemNames);
 
-      let troubleElementsNames: string[] = [];
       let itemsStartingAfterTract: string[] = [];
       let itemsEndingAfterTract: string[] = [];
       itemNames.forEach((name) => {
@@ -41,28 +67,12 @@ export default function useRemoveTract() {
         const elEnd = el[endPos] ?? elStart;
 
         if (elStart === elEnd && elStart === oneBasedIndex) {
-          if (deleteConflictingItems) deleteAnItem(name, get, set, reset);
-          else troubleElementsNames.push(name);
+          deleteAnItem(name, get, set, reset);
         }
 
         if (elStart > oneBasedIndex) itemsStartingAfterTract.push(name);
         if (elEnd >= oneBasedIndex) itemsEndingAfterTract.push(name);
       });
-
-      if (troubleElementsNames.length > 0) {
-        set(modalStateAtom, {
-          title: `Can't remove ${dir === "rows" ? "row" : "column"}!`,
-          content: (
-            <InTheWayItemsWarning
-              names={troubleElementsNames}
-              dir={dir}
-              index={index}
-              onClose={closeModal}
-            />
-          ),
-        });
-        return;
-      }
 
       // Go through and update items that have the removed tract in their span
       itemsStartingAfterTract.forEach((name) => {
@@ -87,50 +97,4 @@ export default function useRemoveTract() {
     }
   );
   return removeTract;
-}
-
-function InTheWayItemsWarning({
-  names,
-  dir,
-  index,
-  onClose,
-}: {
-  names: string[];
-  dir: TractDirection;
-  index: number;
-  onClose: () => void;
-}) {
-  const removeTract = useRemoveTract();
-  const dirSingular = dir === "rows" ? "row" : "column";
-  const onRemove = React.useCallback(() => {
-    removeTract(dir, index, true);
-    onClose();
-  }, [dir, index, onClose, removeTract]);
-
-  return (
-    <>
-      <p>
-        The following items are entirely contained within the {dirSingular} and
-        would be removed.
-      </p>
-
-      <VStack spacing={3} alignItems="start" padding="1rem">
-        {names.map((name) => (
-          <Tag key={name}>
-            <TagLeftIcon as={ImStack} color="green.500" />
-            {name}
-          </Tag>
-        ))}
-      </VStack>
-      <p>To remove this {dirSingular}, either move or remove these elements.</p>
-      <HStack paddingTop="1rem" justify="space-between">
-        <Button leftIcon={<FaTrash />} onClick={onRemove}>
-          Remove items & continue
-        </Button>
-        <Button leftIcon={<AiOutlineClose />} onClick={onClose}>
-          Cancel
-        </Button>
-      </HStack>
-    </>
-  );
 }
