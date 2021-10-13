@@ -85,9 +85,11 @@ describe("Deleting tracts", () => {
     };
 
     const onColsChange = jest.fn();
+    const onItemsChange = jest.fn();
 
     renderWithRecoil(
       <AppWLayout layout={LayoutToTest}>
+        <RecoilObserver node={combinedItemsState} onChange={onItemsChange} />
         <RecoilObserver node={colsState} onChange={onColsChange} />
         <TractDeleteButton dir="cols" index={0} />
       </AppWLayout>
@@ -113,7 +115,10 @@ describe("Deleting tracts", () => {
       ).getByText(/delete/i, { selector: "button" })
     );
     expect(onColsChange).toHaveBeenLastCalledWith(["2fr"]);
-
+    // The b item will be slid over to cover the first column
+    expect(onItemsChange).toHaveBeenLastCalledWith([
+      { name: "b", startRow: 1, endRow: 2, startCol: 1, endCol: 1 },
+    ]);
     // Now do the same deletion but this time exit without forcing deletion
     expect(conflictPopup).not.toBeVisible();
     userEvent.click(screen.getByLabelText(/delete column 0/i));
