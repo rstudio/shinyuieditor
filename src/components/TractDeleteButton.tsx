@@ -19,11 +19,36 @@ import * as React from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { FaTrash } from "react-icons/fa";
 import { ImStack } from "react-icons/im";
-import { useRecoilValue } from "recoil";
+import { selectorFamily, useRecoilValue } from "recoil";
+import { combinedItemsState } from "state-logic/gridItems";
 import { TractDirection } from "state-logic/gridLayout/atoms";
-import useRemoveTract, {
-  currentTractDeletionConflicts,
-} from "state-logic/tractDeletion";
+import useRemoveTract from "state-logic/tractDeletion";
+
+type TractsToConflictsMap = Map<number, string[]>;
+
+export const currentTractDeletionConflicts = selectorFamily<
+  TractsToConflictsMap,
+  TractDirection
+>({
+  key: "currentTractDeletionConflicts",
+  get: (dir) => ({ get }) => {
+    const items = get(combinedItemsState);
+
+    const tractsWithIssues: TractsToConflictsMap = new Map();
+
+    items.forEach((el) => {
+      const isConflicting =
+        dir === "rows" ? el.startRow === el.endRow : el.startCol === el.endCol;
+      if (isConflicting) {
+        const zeroBasedIndex = (dir === "rows" ? el.startRow : el.startCol) - 1;
+        const existing = tractsWithIssues.get(zeroBasedIndex);
+        tractsWithIssues.set(zeroBasedIndex, [...(existing ?? []), el.name]);
+      }
+    });
+
+    return tractsWithIssues;
+  },
+});
 
 export function TractDeleteButton({
   index,
@@ -38,7 +63,8 @@ export function TractDeleteButton({
 
   const removeTract = useRemoveTract();
 
-  const tractConflicts = useRecoilValue(currentTractDeletionConflicts);
+  const tractConflicts = useRecoilValue(currentTractDeletionConflicts(dir));
+
   const isRows = dir === "rows";
   const singularDir = isRows ? "row" : "column";
 
@@ -61,7 +87,7 @@ export function TractDeleteButton({
         }),
   };
 
-  const names = tractConflicts[dir].get(index);
+  const names = tractConflicts.get(index);
   if (names) {
     return (
       <Popover

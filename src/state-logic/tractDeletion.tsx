@@ -1,48 +1,8 @@
-import { GridItemDef, GridPos } from "GridTypes";
-import { selector, useRecoilTransaction_UNSTABLE } from "recoil";
+import { GridPos } from "GridTypes";
+import { useRecoilTransaction_UNSTABLE } from "recoil";
 import { removeAtIndex } from "utils/array-helpers";
 import { deleteAnItem, gridItemAtoms, gridItemNames } from "./gridItems";
 import { colsState, rowsState, TractDirection } from "./gridLayout/atoms";
-
-type TractsToConflictsMap = {
-  rows: Map<number, string[]>;
-  cols: Map<number, string[]>;
-};
-
-function updateConflicts(
-  el: GridItemDef,
-  dir: TractDirection,
-  tractsWithIssues: TractsToConflictsMap
-) {
-  const isConflicting =
-    dir === "rows" ? el.startRow === el.endRow : el.startCol === el.endCol;
-  if (isConflicting) {
-    const zeroBasedIndex = (dir === "rows" ? el.startRow : el.startCol) - 1;
-    const existing = tractsWithIssues[dir].get(zeroBasedIndex);
-    tractsWithIssues[dir].set(zeroBasedIndex, [...(existing ?? []), el.name]);
-  }
-}
-
-export const currentTractDeletionConflicts = selector<TractsToConflictsMap>({
-  key: "currentTractDeletionConflicts",
-  get: ({ get }) => {
-    const itemNames = get(gridItemNames);
-
-    const tractsWithIssues: TractsToConflictsMap = {
-      rows: new Map(),
-      cols: new Map(),
-    };
-
-    itemNames.forEach((name) => {
-      const el = get(gridItemAtoms(name));
-
-      updateConflicts(el, "rows", tractsWithIssues);
-      updateConflicts(el, "cols", tractsWithIssues);
-    });
-
-    return tractsWithIssues;
-  },
-});
 
 export default function useRemoveTract() {
   const removeTract = useRecoilTransaction_UNSTABLE(
@@ -55,10 +15,14 @@ export default function useRemoveTract() {
       const oneBasedIndex = index + 1;
       const startPos: keyof GridPos = dir === "rows" ? "startRow" : "startCol";
       const endPos: keyof GridPos = dir === "rows" ? "endRow" : "endCol";
-      const itemNames = get(gridItemNames);
 
       let itemsStartingAfterTract: string[] = [];
       let itemsEndingAfterTract: string[] = [];
+
+      // We're using the names here instead of the full combined items state
+      // because the full combined state is a selector which we can't use
+      // in a transaction
+      const itemNames = get(gridItemNames);
       itemNames.forEach((name) => {
         const el = get(gridItemAtoms(name));
         const elStart = el[startPos];
