@@ -4,7 +4,6 @@ import { TractControls } from "components/TractControls";
 import { combinedItemsState } from "state-logic/gridItems";
 import { colsState, rowsState } from "state-logic/gridLayout/atoms";
 import { parseCSSMeasure } from "utils/css-helpers";
-import InfoModal from "views/InfoModal";
 import { CSSMeasure, GridItemDef, GridLayoutTemplate } from "../GridTypes";
 import { AppWLayout, RecoilObserver, renderWithRecoil } from "../test-helpers";
 

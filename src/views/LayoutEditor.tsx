@@ -18,7 +18,6 @@ import { FiSettings } from "react-icons/fi";
 import { ImStack } from "react-icons/im";
 import { useInitializeToLayout } from "state-logic/gridLayout/hooks";
 import { EditorInstructions } from "views/EditorInstructions";
-import InfoModal from "views/InfoModal";
 
 export function LayoutEditor() {
   useInitializeToLayout("default");
@@ -56,7 +55,6 @@ export function LayoutEditor() {
           <SelectedItemOverlay />
         </MainGridContainer>
       </GridCard>
-      <InfoModal />
     </EditorWrapper>
   );
 }

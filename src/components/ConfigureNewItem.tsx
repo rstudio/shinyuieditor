@@ -5,20 +5,51 @@ import {
   FormLabel,
   HStack,
   Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
 } from "@chakra-ui/react";
 import { GridPos } from "GridTypes";
 import * as React from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiCheck } from "react-icons/bi";
-import { useRecoilValue } from "recoil";
+import { atom, useRecoilValue, useResetRecoilState } from "recoil";
 import { gridItemNames, useAddNewItem } from "state-logic/gridItems";
 
-export function ConfigureNewItem({
-  onClose,
+export const newItemInfoAtom = atom<GridPos | null>({
+  key: "newItemInfo",
+  default: null,
+});
+
+export function ConfigureNewItemModal() {
+  const newItemInfo = useRecoilValue(newItemInfoAtom);
+  const closeModal = useResetRecoilState(newItemInfoAtom);
+
+  if (newItemInfo === null) return null;
+
+  return (
+    <Modal isOpen={true} onClose={closeModal}>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader>Modal Title</ModalHeader>
+        <ModalCloseButton />
+        <ModalBody>
+          <ConfigureNewItemForm itemPos={newItemInfo} onClose={closeModal} />
+        </ModalBody>
+      </ModalContent>
+    </Modal>
+  );
+}
+
+export function ConfigureNewItemForm({
   itemPos,
+  onClose,
 }: {
-  onClose: () => void;
   itemPos: GridPos;
+  onClose: () => void;
 }) {
   const addNewItem = useAddNewItem();
 
@@ -97,9 +128,7 @@ export function ConfigureNewItem({
         <Button
           colorScheme="red"
           leftIcon={<AiOutlineClose />}
-          onClick={() => {
-            onClose();
-          }}
+          onClick={onClose}
         >
           Cancel
         </Button>

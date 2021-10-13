@@ -6,6 +6,7 @@ import { useRecoilValue } from "recoil";
 import { tractDims } from "state-logic/gridLayout/atoms";
 import { dragStateAtom, useGridDragger } from "state-logic/itemDragging";
 import { enumerateGridDims } from "utils/grid-helpers";
+import { ConfigureNewItemModal } from "./ConfigureNewItem";
 
 export const newItemBoxStyles = css({
   fontSize: "0.8rem",
@@ -78,6 +79,7 @@ export function DragFeedback() {
       <GridCellsMemo />
       <DragWatcher />
       <DragFeedbackRect />
+      <ConfigureNewItemModal />
     </>
   );
 }

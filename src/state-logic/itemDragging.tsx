@@ -1,5 +1,5 @@
 // import * as React from "react";
-import { ConfigureNewItem } from "components/ConfigureNewItem";
+import { newItemInfoAtom } from "components/ConfigureNewItem";
 import type { RefObject } from "react";
 import { useEffect, useRef } from "react";
 import { atom, useRecoilTransaction_UNSTABLE } from "recoil";
@@ -18,7 +18,6 @@ import {
   mutateToFixOverlapOfBoxes
 } from "utils/overlap-helpers";
 import { RecoilGetter } from "utils/RecoilHelperClasses";
-import { modalStateAtom, useCloseModal } from "views/InfoModal";
 import { DragDir, GridItemDef, GridPos } from "../GridTypes";
 
 export type SelectionRect = {
@@ -107,7 +106,6 @@ function getItemGridBounds(
 
 
 export function useGridDragger(draggedRef?: RefObject<HTMLDivElement>) {
-  const closeModal = useCloseModal();
 
   const itemBoundsRef = useRef<(SelectionRect & { name: string })[] | null>(
     null
@@ -247,18 +245,9 @@ export function useGridDragger(draggedRef?: RefObject<HTMLDivElement>) {
             finalState.dragBox.bottom === finalState.dragBox.top &&
             finalState.dragBox.left === finalState.dragBox.right;
 
+            
           if (!zeroSizeDrag) {
-            set(modalStateAtom, {
-              title: "New Item",
-              content: 
-                <ConfigureNewItem
-                  itemPos={finalState.gridPos}
-                  onClose={() => {
-                    closeModal();
-                    console.log("Closing the item naming dialog");
-                  }}
-                />
-            })
+            set(newItemInfoAtom, finalState.gridPos);
           }
         }
         reset(dragStateAtom);
