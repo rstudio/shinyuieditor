@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { combinedItemsState } from "state-logic/gridItems";
 import { GridItemDef, GridLayoutTemplate } from "../GridTypes";
 import { AppWLayout, RecoilObserver, renderWithRecoil } from "../test-helpers";
-import { ConfigureNewItem } from "./ConfigureNewItem";
+import { ConfigureNewItemForm } from "./ConfigureNewItem";
 
 const LayoutToTest: GridLayoutTemplate = {
   name: "test",
@@ -15,13 +15,14 @@ const LayoutToTest: GridLayoutTemplate = {
 
 test("Basic usage of new item adding", () => {
   const onChangeMock = jest.fn();
-  // const onChange = (newVal: any) => console.log(newVal);
   const onCloseMock = jest.fn();
+
+  // const onChange = (newVal: any) => console.log(newVal);
 
   renderWithRecoil(
     <AppWLayout layout={LayoutToTest}>
       <RecoilObserver node={combinedItemsState} onChange={onChangeMock} />
-      <ConfigureNewItem
+      <ConfigureNewItemForm
         itemPos={{ startRow: 1, endRow: 1, startCol: 1, endCol: 1 }}
         onClose={onCloseMock}
       />
@@ -39,12 +40,14 @@ test("Basic usage of new item adding", () => {
       endCol: 1,
     },
   ]);
+  expect(onCloseMock).toBeCalled();
 });
 
 test("Gives warning message when a non-conforming name is typed", () => {
   const onChangeMock = jest.fn();
-  // const onChange = (newVal: any) => console.log(newVal);
   const onCloseMock = jest.fn();
+
+  // const onChange = (newVal: any) => console.log(newVal);
 
   renderWithRecoil(
     <AppWLayout
@@ -62,7 +65,7 @@ test("Gives warning message when a non-conforming name is typed", () => {
       }}
     >
       <RecoilObserver node={combinedItemsState} onChange={onChangeMock} />
-      <ConfigureNewItem
+      <ConfigureNewItemForm
         itemPos={{ startRow: 2, endRow: 2, startCol: 1, endCol: 1 }}
         onClose={onCloseMock}
       />
@@ -104,4 +107,5 @@ test("Gives warning message when a non-conforming name is typed", () => {
       endCol: 1,
     },
   ]);
+  expect(onCloseMock).toBeCalled();
 });
