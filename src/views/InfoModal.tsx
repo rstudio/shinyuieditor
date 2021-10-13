@@ -25,6 +25,9 @@ export default function InfoModal() {
 
   return (
     <div
+      role="alertdialog"
+      aria-labelledby="modalHeading"
+      aria-describedby="modalContent"
       css={{
         backgroundColor: "rgba(255, 255, 255, 0.6)",
         position: "absolute",
@@ -34,7 +37,7 @@ export default function InfoModal() {
       }}
     >
       <div css={modalStyles}>
-        <Heading>{modalState.title}</Heading>
+        <Heading id="modalHeading">{modalState.title}</Heading>
         <CloseButton
           position="absolute"
           right="4px"
@@ -43,6 +46,7 @@ export default function InfoModal() {
         />
 
         <div
+          id="modalContent"
           css={{
             gridArea: "body",
             alignSelf: "center",
