@@ -12,7 +12,7 @@ import {
 import useRemoveTract from "state-logic/tractDeletion";
 import { CSSMeasure } from "../GridTypes";
 
-export function TractSizers({ dir }: { dir: TractDirection }) {
+export function TractControls({ dir }: { dir: TractDirection }) {
   const isRows = dir === "rows";
   const tracts = useRecoilValue(isRows ? rowsState : colsState);
 

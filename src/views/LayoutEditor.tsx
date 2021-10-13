@@ -11,7 +11,7 @@ import { MainGridCSSVariables } from "components/MainGridCSSVariables";
 import { SelectedItemOverlay } from "components/SelectedItemOverlay";
 import { TractAddButtons } from "components/TractAddButtons";
 import { TractBoundaryLines } from "components/TractBoundaryLines";
-import { TractSizers } from "components/TractSizers";
+import { TractControls } from "components/TractControls";
 import * as React from "react";
 import { FaListUl } from "react-icons/fa";
 import { FiSettings } from "react-icons/fi";
@@ -48,8 +48,8 @@ export function LayoutEditor() {
           <DragFeedback />
           <TractAddButtons dir="rows" />
           <TractAddButtons dir="cols" />
-          <TractSizers dir="rows" />
-          <TractSizers dir="cols" />
+          <TractControls dir="rows" />
+          <TractControls dir="cols" />
           <TractBoundaryLines dir="rows" />
           <TractBoundaryLines dir="cols" />
           <ItemsGridView />
