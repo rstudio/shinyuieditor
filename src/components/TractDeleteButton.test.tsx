@@ -1,9 +1,7 @@
 import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { TractControls } from "components/TractControls";
 import { combinedItemsState } from "state-logic/gridItems";
 import { colsState, rowsState } from "state-logic/gridLayout/atoms";
-import InfoModal from "views/InfoModal";
 import { GridItemDef, GridLayoutTemplate } from "../GridTypes";
 import { AppWLayout, RecoilObserver, renderWithRecoil } from "../test-helpers";
 import { TractDeleteButton } from "./TractDeleteButton";
