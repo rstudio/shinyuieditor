@@ -1,9 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { IconButton } from "@chakra-ui/button";
 import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 import { GridItemDiv } from "components/GridItemDiv";
 import * as React from "react";
 import { IconType } from "react-icons";
+import { BiMove } from "react-icons/bi";
 import {
   BsArrowDown,
   BsArrowDownLeft,
@@ -41,24 +43,19 @@ export function SelectedItemOverlay() {
   return (
     <GridItemDiv ref={itemRef} css={overlayStyles} {...selectedItem}>
       {dirToDragger.map(({ dir, DragIcon, label, styles }) => (
-        <span
+        <IconHolder
           key={dir}
-          css={{
-            color: "var(--light-grey, blue)",
-            placeSelf: "center",
-            padding: "4px",
-            zIndex: 1000, //High z index so the draggers sit above the cancel listener div
-            ...styles,
-          }}
+          css={{ ...styles }}
           aria-label={label}
-          onMouseDown={(e) => {
-            startDrag(e, dir);
-          }}
+          onMouseDown={(e) => startDrag(e, dir)}
           onClick={(e) => e.stopPropagation()}
         >
           <DragIcon size="1.3rem" />
-        </span>
+        </IconHolder>
       ))}
+      <IconHolder css={{ gridArea: "middle", cursor: "grab" }}>
+        <BiMove />
+      </IconHolder>
       <SettingsToolbar name={selectedItem.name} />
       <div
         css={cancelBoxStyles}
@@ -111,6 +108,13 @@ function SettingsToolbar({ name }: { name: GridItemDef["name"] }) {
     </div>
   );
 }
+
+const IconHolder = styled.span({
+  color: "var(--light-grey, blue)",
+  placeSelf: "center",
+  padding: "4px",
+  zIndex: 1000, //High z index so the draggers sit above the cancel listener div
+});
 
 const overlayStyles = css({
   backgroundColor: "var(--color, rgba(34, 139, 34, 0.835))",
