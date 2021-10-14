@@ -5,9 +5,7 @@ import { useEffect, useRef } from "react";
 import { atom, useRecoilTransaction_UNSTABLE } from "recoil";
 import {
   gridItemAtoms,
-  gridItemNames,
-  GridItemsAtomFamily,
-  selectedItemNameState
+  gridItemNames, selectedItemNameState
 } from "state-logic/gridItems";
 import { sameGridPos } from "utils/grid-helpers";
 import {
@@ -46,7 +44,7 @@ export const dragStateAtom = atom<ActiveDrag | null>({
   default: null,
 });
 
-function getCurrentGridCellBounds() {
+export function getCurrentGridCellBounds() {
   const allCells = document.querySelectorAll(
     ".gridCell"
   ) as NodeListOf<HTMLDivElement>;
@@ -70,10 +68,9 @@ function getCurrentGridCellBounds() {
   return gridIndicesToBBox;
 }
 
-function getItemGridBounds(
+export function getItemGridBounds(
   itemNames: string[],
   get: RecoilGetter<GridItemDef>,
-  gridItemAtoms: GridItemsAtomFamily,
   gridCellPositionMap: ReturnType<typeof getCurrentGridCellBounds>
 ) {
   return itemNames.map((name) => {
@@ -137,7 +134,6 @@ export function useGridDragger(draggedRef?: RefObject<HTMLDivElement>) {
         itemBoundsRef.current = getItemGridBounds(
           otherItemNames,
           get,
-          gridItemAtoms,
           gridCellPositionsMap
         );
 
