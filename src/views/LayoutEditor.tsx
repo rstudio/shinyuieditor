@@ -45,12 +45,12 @@ export function LayoutEditor() {
       >
         <MainGridContainer aria-label="grid-view">
           <DragFeedback />
-          <TractAddButtons dir="rows" />
-          <TractAddButtons dir="cols" />
           <TractControls dir="rows" />
           <TractControls dir="cols" />
           <TractBoundaryLines dir="rows" />
           <TractBoundaryLines dir="cols" />
+          <TractAddButtons dir="rows" />
+          <TractAddButtons dir="cols" />
           <ItemsGridView />
           <SelectedItemOverlay />
         </MainGridContainer>
