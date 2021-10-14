@@ -1,16 +1,16 @@
-import type { GridItemDef } from "../types";
+import { GridItemDef, GridLayoutTemplate } from "../GridTypes";
 
-export default [
+const layouts: GridLayoutTemplate[] = [
   {
     name: "Tri-Split",
     rows: ["100px", "2fr"],
     cols: ["1fr", "2fr", "1fr"],
     gap: "2rem",
     items: [
-      { name: "header", rows: [1, 1], cols: [1, -1] },
-      { name: "sidebar", rows: [2, 2], cols: [1, 1] },
-      { name: "main", rows: [2, 2], cols: [2, 2] },
-      { name: "sub", rows: [2, 2], cols: [3, 3] },
+      { name: "header", startRow: 1, endRow: 1, startCol: 1, endCol: 3 },
+      { name: "sidebar", startRow: 2, endRow: 2, startCol: 1, endCol: 1 },
+      { name: "main", startRow: 2, endRow: 2, startCol: 2, endCol: 2 },
+      { name: "sub", startRow: 2, endRow: 2, startCol: 3, endCol: 3 },
     ] as GridItemDef[],
   },
   {
@@ -19,10 +19,10 @@ export default [
     cols: ["1fr", "1fr"],
     gap: "2rem",
     items: [
-      { name: "A", rows: [1, 1], cols: [1, 1] },
-      { name: "B", rows: [2, 2], cols: [1, 1] },
-      { name: "C", rows: [1, 1], cols: [2, 2] },
-      { name: "D", rows: [2, 2], cols: [2, 2] },
+      { name: "A", startRow: 1, endRow: 1, startCol: 1, endCol: 1 },
+      { name: "B", startRow: 2, endRow: 2, startCol: 1, endCol: 1 },
+      { name: "C", startRow: 1, endRow: 1, startCol: 2, endCol: 2 },
+      { name: "D", startRow: 2, endRow: 2, startCol: 2, endCol: 2 },
     ] as GridItemDef[],
   },
   {
@@ -31,9 +31,11 @@ export default [
     cols: ["150px", "1fr"],
     gap: "2rem",
     items: [
-      { name: "header", rows: [1, 1], cols: [1, 3] },
-      { name: "sidebar", rows: [2, 2], cols: [1, 1] },
-      { name: "main", rows: [2, 2], cols: [2, 2] },
+      { name: "header", startRow: 1, endRow: 1, startCol: 1, endCol: 3 },
+      { name: "sidebar", startRow: 2, endRow: 2, startCol: 1, endCol: 1 },
+      { name: "main", startRow: 2, endRow: 2, startCol: 2, endCol: 2 },
     ] as GridItemDef[],
   },
 ];
+
+export default layouts;
