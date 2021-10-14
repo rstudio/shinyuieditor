@@ -169,7 +169,7 @@ export function useGridDragger(draggedRef?: RefObject<HTMLDivElement>) {
         // After we've completed initializing the drag we can start watching the
         // progress of the drag
         document.addEventListener("mousemove", updateDrag);
-        document.addEventListener("mouseup", finishDrag);
+        document.addEventListener("mouseup", finishDrag, {once: true});
       },
     []
   );
@@ -263,7 +263,6 @@ export function useGridDragger(draggedRef?: RefObject<HTMLDivElement>) {
   // Make sure we dont have any memory leaks by accidentally leaving event listeners on
   useEffect(() => {
     return () => {
-      document.removeEventListener("mouseup", finishDrag);
       document.removeEventListener("mousemove", updateDrag);
     };
   }, [finishDrag, updateDrag]);
