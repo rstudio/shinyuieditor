@@ -1,28 +1,15 @@
-import {
-  createMachine,
-  State,
-  actions,
-  assign,
-  send,
-  sendParent,
-  interpret,
-  spawn,
-} from "xstate";
-import { ItemBoundingBox } from "utils/overlap-helpers";
-import { GridPos } from "GridTypes";
-import { ActiveDrag } from "./itemDragging";
+import { createMachine } from "xstate";
 
 type MousePos = { x: number; y: number };
-type GridItemBoundingBox = ItemBoundingBox & GridPos;
 
 type DragEvent =
-  | { type: "DRAG_START"; dragDir: ActiveDrag["dragBox"]["dir"] }
+  | { type: "DRAG_START"; nameOfDragged: string }
   | { type: "DRAG"; pos: MousePos }
   | { type: "FINISH" };
 
 type DragContext = {
   currentPos?: MousePos;
-  dragDir?: ActiveDrag["dragBox"]["dir"];
+  itemName?: string;
 };
 
 type DragTypeState =
@@ -34,14 +21,14 @@ type DragTypeState =
       value: "dragging";
       context: {
         currentPos: MousePos;
-        dragDir: ActiveDrag["dragBox"]["dir"];
+        itemName: string;
       };
     };
 
-const dragMachine = createMachine<DragContext, DragEvent, DragTypeState>(
+export const dragMachine = createMachine<DragContext, DragEvent, DragTypeState>(
   {
     // Machine identifier
-    id: "dragging",
+    id: "dragToMove",
 
     // Value we start in
     initial: "idle",
@@ -60,10 +47,29 @@ const dragMachine = createMachine<DragContext, DragEvent, DragTypeState>(
         },
       },
       dragging: {
+        invoke: {
+          id: "watchForMouseMove",
+          src: (context, event) => (callback, onReceive) => {
+            const sendDragEvent = (pos: MousePos) =>
+              callback({ type: "DRAG", pos });
+
+            document.addEventListener("mousemove", sendDragEvent);
+            document.addEventListener("mouseup", () => callback("FINISH"), {
+              once: true,
+            });
+
+            return () => {
+              // Cleanup the mouse move indicator as it's no longer needed now
+              // that we're exiting the dragging state
+              document.removeEventListener("mousemove", sendDragEvent);
+            };
+          },
+        },
         on: {
           DRAG: {
             actions: ["onDrag"],
             target: "dragging",
+            internal: true,
           },
           FINISH: {
             actions: ["onFinished"],
@@ -77,17 +83,18 @@ const dragMachine = createMachine<DragContext, DragEvent, DragTypeState>(
     actions: {
       onStart: (context, event) => {
         if (event.type !== "DRAG_START") return;
-        context.dragDir = event.dragDir;
-        console.log("---Action: Starting to drag!");
+        context.itemName = event.nameOfDragged;
+        console.log(`---Action: DRAG_START`);
       },
+
       onDrag: (context, event) => {
         if (event.type !== "DRAG") return;
-        console.log("---Action: Dragging is happening!", event, context);
+        console.log("---Action: DRAG");
       },
+
       onFinished: (context, event) => {
-        console.log("---Action: Finished dragging!");
+        console.log("---Action: FINISH");
       },
     },
   }
 );
-export default dragMachine;

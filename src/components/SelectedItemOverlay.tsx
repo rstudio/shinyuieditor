@@ -24,13 +24,17 @@ import {
   useDeleteItem,
 } from "state-logic/gridItems";
 import { useGridDragger } from "state-logic/itemDragging";
+import { dragMachine } from "state-logic/itemDragToMove";
 import { DragDir, GridItemDef } from "../GridTypes";
+import { useMachine } from "@xstate/react";
 
 export function SelectedItemOverlay() {
   const resetSelection = useResetRecoilState(selectedItemNameState);
   const selectedItem = useRecoilValue(selectedItemState);
   const itemRef = React.useRef<HTMLDivElement>(null);
   const startDrag = useGridDragger(itemRef);
+
+  const [currentDrag, sendToDragMachine] = useMachine(dragMachine);
 
   // The reason that we have a separate div for triggering the resetting of the
   // selected item is because if the click event was listening on the main div
@@ -54,7 +58,14 @@ export function SelectedItemOverlay() {
         </IconHolder>
       ))}
       <IconHolder css={{ gridArea: "middle", cursor: "grab" }}>
-        <BiMove />
+        <BiMove
+          onMouseDown={() =>
+            sendToDragMachine("DRAG_START", {
+              nameOfDragged: selectedItem.name,
+            })
+          }
+          onClick={(e) => e.stopPropagation()}
+        />
       </IconHolder>
       <SettingsToolbar name={selectedItem.name} />
       <div
