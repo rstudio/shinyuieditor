@@ -256,7 +256,7 @@ export function useDragToMove() {
   );
 
   const startDrag = useRecoilTransaction_UNSTABLE(
-    ({ get, set }) => (nameOfDragged: string) => {
+    ({ get }) => (nameOfDragged: string) => {
       sendToDragMachine("DRAG_START", {
         nameOfDragged,
         currentItems: gatherAllItems(get),
