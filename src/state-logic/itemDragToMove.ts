@@ -1,29 +1,49 @@
 import { useMachine } from "@xstate/react";
+import { GridItemDef, GridPos } from "GridTypes";
 import React from "react";
-import { useRecoilTransaction_UNSTABLE, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
+import {
+  blockIsFree,
+  findCenterOfBlock,
+  getCurrentGridCellBounds,
+  getItemDims,
+  gridDimsFromCellBounds,
+  GridLocString,
+  gridLocString,
+} from "utils/grid-helpers";
 import { createMachine } from "xstate";
-import { gridItemNames } from "./gridItems";
-import { getCurrentGridCellBounds, getItemGridBounds } from "./itemDragging";
+import { combinedItemsState } from "./gridItems";
 
-type MousePos = { x: number; y: number };
+type Point = { x: number; y: number };
+type MousePos = Point;
 
+type AvailableBlocks = {
+  gridPos: GridPos;
+  center: Point;
+}[];
 type DragEvent =
   | {
       type: "DRAG_START";
       nameOfDragged: string;
       gridCellPositions: ReturnType<typeof getCurrentGridCellBounds>;
-      gridItemPositions: ReturnType<typeof getItemGridBounds>;
+      currentItems: GridItemDef[];
     }
   | { type: "DRAG"; pos: MousePos }
   | { type: "FINISH" };
 
-type DragContext = {
-  currentPos?: MousePos;
-  itemName?: string;
-  gridCellPositions?: ReturnType<typeof getCurrentGridCellBounds>;
-  gridItemPositions?: ReturnType<typeof getItemGridBounds>;
+type ActiveDrag = {
+  currentPos: MousePos;
+  itemName: string;
+  currentItems: GridItemDef[];
+  availableBlocks: AvailableBlocks;
 };
 
+type DragContext = Partial<ActiveDrag>;
+
+// Add input of all item names to initial start drag
+// See if I can get what I need from item positions in grid terms and the
+// grid cells info to avoid another recoil call and just have to pass in the
+// current grid items to the DragStart call.
 type DragTypeState =
   | {
       value: "idle";
@@ -31,12 +51,7 @@ type DragTypeState =
     }
   | {
       value: "dragging";
-      context: {
-        currentPos: MousePos;
-        itemName: string;
-        gridCellPositions: ReturnType<typeof getCurrentGridCellBounds>;
-        gridItemPositions: ReturnType<typeof getItemGridBounds>;
-      };
+      context: ActiveDrag;
     };
 
 export const dragMachine = createMachine<DragContext, DragEvent, DragTypeState>(
@@ -60,6 +75,7 @@ export const dragMachine = createMachine<DragContext, DragEvent, DragTypeState>(
           },
         },
       },
+
       dragging: {
         on: {
           DRAG: {
@@ -79,10 +95,16 @@ export const dragMachine = createMachine<DragContext, DragEvent, DragTypeState>(
     actions: {
       onStart: (context, event) => {
         if (event.type !== "DRAG_START") return;
-        context.itemName = event.nameOfDragged;
-        context.gridCellPositions = event.gridCellPositions;
-        context.gridItemPositions = event.gridItemPositions;
+        const { nameOfDragged: itemName, currentItems } = event;
 
+        context.itemName = itemName;
+        context.currentItems = currentItems;
+        context.availableBlocks = findAvailableBlocks({
+          itemName,
+          allItems: currentItems,
+        });
+
+        debugger;
         console.log(`---Action: DRAG_START`);
       },
 
@@ -98,29 +120,85 @@ export const dragMachine = createMachine<DragContext, DragEvent, DragTypeState>(
   }
 );
 
-export function useDragToMove() {
-  const itemNames = useRecoilValue(gridItemNames);
-  const [currentDrag, sendToDragMachine] = useMachine(dragMachine);
+function findAvailableBlocks({
+  itemName,
+  allItems,
+}: {
+  itemName: string;
+  allItems: GridItemDef[];
+}): AvailableBlocks {
+  const itemToMove = allItems.find((item) => item.name === itemName);
+  if (!itemToMove)
+    throw new Error("Could not find the currently selected item");
 
+  const windowSize = getItemDims(itemToMove);
+
+  const cellBounds = getCurrentGridCellBounds();
+  const {
+    numCols: numColsInGrid,
+    numRows: numRowsInGrid,
+  } = gridDimsFromCellBounds(cellBounds);
+
+  // First take note of all the cells that are occupied
+  const occupiedCells = new Set<GridLocString>();
+  allItems.forEach((item) => {
+    // We want to consider the cells occupied by the dragged item as
+    // "available" so it consider positions that overlap its current
+    if (item.name === itemName) return;
+    for (let row = item.startRow; row <= item.endRow; row++) {
+      for (let col = item.startCol; col <= item.endCol; col++) {
+        occupiedCells.add(gridLocString({ row, col }));
+      }
+    }
+  });
+
+  const availableBlocks: AvailableBlocks = [];
+
+  for (
+    let rowStart = 1;
+    rowStart <= numRowsInGrid - windowSize.numRows + 1;
+    rowStart++
+  ) {
+    for (
+      let colStart = 1;
+      colStart <= numColsInGrid - windowSize.numCols + 1;
+      colStart++
+    ) {
+      // First check if the selection box is valid (aka nothing within it is
+      // taken up by an existing item)
+      const block = {
+        startRow: rowStart,
+        endRow: rowStart + windowSize.numRows - 1,
+        startCol: colStart,
+        endCol: colStart + windowSize.numCols - 1,
+      };
+
+      if (blockIsFree(block, occupiedCells)) {
+        availableBlocks.push({
+          gridPos: block,
+          center: findCenterOfBlock(block, cellBounds),
+        });
+      }
+    }
+  }
+
+  return availableBlocks;
+}
+
+export function useDragToMove() {
+  const [currentDrag, sendToDragMachine] = useMachine(dragMachine);
+  const currentItems = useRecoilValue(combinedItemsState);
   console.log(currentDrag);
   const sendDragEvent = React.useCallback(
     (pos: MousePos) => sendToDragMachine({ type: "DRAG", pos }),
     [sendToDragMachine]
   );
 
-  const startDragToMove = useRecoilTransaction_UNSTABLE(
-    ({ get }) => (nameOfDragged: string) => {
-      const gridCellPositions = getCurrentGridCellBounds();
-      const gridItemPositions = getItemGridBounds(
-        itemNames,
-        get,
-        gridCellPositions
-      );
-
+  const startMoving = React.useCallback(
+    (nameOfDragged: string) => {
       sendToDragMachine("DRAG_START", {
         nameOfDragged,
-        gridCellPositions,
-        gridItemPositions,
+        currentItems,
       });
       document.addEventListener("mousemove", sendDragEvent);
       document.addEventListener(
@@ -133,7 +211,8 @@ export function useDragToMove() {
           once: true,
         }
       );
-    }
+    },
+    [currentItems, sendDragEvent, sendToDragMachine]
   );
 
   // Cleanup the mouse move indicator to avoid memory leaks in the chance that
@@ -143,5 +222,5 @@ export function useDragToMove() {
     [sendDragEvent]
   );
 
-  return { startDragToMove };
+  return { startMoving };
 }

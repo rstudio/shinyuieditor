@@ -33,7 +33,7 @@ export function SelectedItemOverlay() {
   const itemRef = React.useRef<HTMLDivElement>(null);
   const startDrag = useGridDragger(itemRef);
 
-  const { startDragToMove } = useDragToMove();
+  const { startMoving } = useDragToMove();
 
   // The reason that we have a separate div for triggering the resetting of the
   // selected item is because if the click event was listening on the main div
@@ -58,7 +58,7 @@ export function SelectedItemOverlay() {
       ))}
       <IconHolder css={{ gridArea: "middle", cursor: "grab" }}>
         <BiMove
-          onMouseDown={() => startDragToMove(selectedItem.name)}
+          onMouseDown={() => startMoving(selectedItem.name)}
           onClick={(e) => e.stopPropagation()}
         />
       </IconHolder>
