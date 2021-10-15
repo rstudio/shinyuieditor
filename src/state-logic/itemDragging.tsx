@@ -8,6 +8,7 @@ import {
   gridItemNames,
   selectedItemNameState,
 } from "state-logic/gridItems";
+import { toggleTextSelection } from "utils/drag-helpers";
 import { getCurrentGridCellBounds, sameGridPos } from "utils/grid-helpers";
 import {
   boxesOverlap,
@@ -134,8 +135,8 @@ export function useGridDragger(draggedRef?: RefObject<HTMLDivElement>) {
         gridPos: getDragPosOnGrid(dragBox, gridCellPositions),
       });
 
-      // Turnoff text selection so dragging doesnt highlight a bunch of stuff
-      document.querySelector("body")?.classList.add("disable-text-selection");
+      toggleTextSelection("off");
+
       // After we've completed initializing the drag we can start watching the
       // progress of the drag
       document.addEventListener("mousemove", updateDrag);
@@ -219,9 +220,9 @@ export function useGridDragger(draggedRef?: RefObject<HTMLDivElement>) {
       }
       reset(dragStateAtom);
 
-      document
-        .querySelector("body")
-        ?.classList.remove("disable-text-selection");
+      // Re-enable text selection
+      toggleTextSelection("on");
+
       document.removeEventListener("mousemove", updateDrag);
     },
     []

@@ -2,6 +2,7 @@ import { useMachine } from "@xstate/react";
 import { GridItemDef, GridPos } from "GridTypes";
 import React from "react";
 import { useRecoilTransaction_UNSTABLE } from "recoil";
+import { toggleTextSelection } from "utils/drag-helpers";
 import {
   blockIsFree,
   findCenterOfBlock,
@@ -116,6 +117,8 @@ export const dragMachine = createMachine<DragContext, DragEvent, DragTypeState>(
           allItems: currentItems,
         });
 
+        toggleTextSelection("off");
+
         console.log(`---Action: DRAG_START`);
       },
 
@@ -142,6 +145,7 @@ export const dragMachine = createMachine<DragContext, DragEvent, DragTypeState>(
       },
 
       onFinished: (context, event) => {
+        toggleTextSelection("on");
         console.log("---Action: FINISH");
       },
     },
