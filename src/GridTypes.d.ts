@@ -1,9 +1,9 @@
 // A single export is needed in this file to let typescript know the types go out
 export type GridPos = {
   startRow: number;
-  endRow?: number;
+  endRow: number;
   startCol: number;
-  endCol?: number;
+  endCol: number;
 };
 export type GridItemDef = {
   name: string;
