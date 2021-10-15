@@ -30,7 +30,7 @@ export const dragStateAtom = atom<ActiveDrag | null>({
   default: null,
 });
 
-export function getItemGridBounds(
+function getItemGridBounds(
   itemNames: string[],
   get: RecoilGetter<GridItemDef>,
   gridCellPositionMap: ReturnType<typeof getCurrentGridCellBounds>
