@@ -2,7 +2,7 @@ import { useMachine } from "@xstate/react";
 import { GridItemDef, GridPos } from "GridTypes";
 import React, { useEffect } from "react";
 import { useRecoilTransaction_UNSTABLE } from "recoil";
-import { setupClickAndDrag, toggleTextSelection } from "utils/drag-helpers";
+import { setupClickAndDrag } from "utils/drag-helpers";
 import {
   blockIsFree,
   findCenterOfBlock,
@@ -117,8 +117,6 @@ export const dragMachine = createMachine<DragContext, DragEvent, DragTypeState>(
           allItems: currentItems,
         });
 
-        toggleTextSelection("off");
-
         console.log(`---Action: DRAG_START`);
       },
 
@@ -145,7 +143,6 @@ export const dragMachine = createMachine<DragContext, DragEvent, DragTypeState>(
       },
 
       onFinished: (context, event) => {
-        toggleTextSelection("on");
         console.log("---Action: FINISH");
       },
     },
@@ -240,7 +237,7 @@ function findAvailableBlocks({
 export function useDragToMove() {
   const [currentDrag, sendToDragMachine] = useMachine(dragMachine);
 
-  const moveSelectedItem = useRecoilTransaction_UNSTABLE(
+  const moveItem = useRecoilTransaction_UNSTABLE(
     ({ get, set }) => ({
       closestBlock,
       itemName,
@@ -259,11 +256,11 @@ export function useDragToMove() {
   );
 
   const startDrag = useRecoilTransaction_UNSTABLE(
-    ({ get }) => (nameOfDragged: string) => {
+    ({ get, set }) => (nameOfDragged: string) => {
       sendToDragMachine("DRAG_START", {
         nameOfDragged,
         currentItems: gatherAllItems(get),
-        onMove: moveSelectedItem,
+        onMove: moveItem,
       });
     },
     [sendToDragMachine]

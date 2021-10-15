@@ -1,4 +1,4 @@
-export function toggleTextSelection(type: "on" | "off") {
+function toggleTextSelection(type: "on" | "off") {
   // Turnoff text selection so dragging doesnt highlight a bunch of stuff
   const bodyClasses = document.querySelector("body")?.classList;
   if (type === "off") {
@@ -17,18 +17,25 @@ export function setupClickAndDrag({
   onMove: (e: MouseEvent) => void;
   onFinish: (e: MouseEvent) => void;
 }) {
-  const onMouseDown = (payload: any) => {
-    onStart(payload);
-    document.addEventListener("mousemove", onMove);
-    document.addEventListener("mouseup", onFinish, {
-      once: true,
-    });
+  const onMouseUp = (e: MouseEvent) => {
+    onFinish(e);
+    toggleTextSelection("on");
+
+    // Stop listening to the mouse move event after we're finished
+    document.removeEventListener("mousemove", onMove);
   };
 
-  const cleanupFn = () => {
-    console.log("Cleaningup left over listeners from drag");
-    document.addEventListener("mousemove", onMove);
+  return {
+    onMouseDown: (payload: any) => {
+      onStart(payload);
+      toggleTextSelection("off");
+      document.addEventListener("mousemove", onMove);
+      document.addEventListener("mouseup", onMouseUp, {
+        once: true,
+      });
+    },
+    cleanupFn: () => {
+      document.removeEventListener("mousemove", onMove);
+    },
   };
-
-  return { onMouseDown, cleanupFn };
 }

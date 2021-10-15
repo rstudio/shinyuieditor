@@ -1,14 +1,14 @@
 // import * as React from "react";
 import { newItemInfoAtom } from "components/ConfigureNewItem";
 import type { RefObject } from "react";
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { atom, useRecoilTransaction_UNSTABLE } from "recoil";
 import {
   gridItemAtoms,
   gridItemNames,
   selectedItemNameState,
 } from "state-logic/gridItems";
-import { toggleTextSelection } from "utils/drag-helpers";
+import { setupClickAndDrag } from "utils/drag-helpers";
 import { getCurrentGridCellBounds, sameGridPos } from "utils/grid-helpers";
 import {
   boxesOverlap,
@@ -84,10 +84,16 @@ export function useGridDragger(draggedRef?: RefObject<HTMLDivElement>) {
     null
   );
   const initializeDrag = useRecoilTransaction_UNSTABLE(
-    ({ get, set, reset }) => (
-      { pageX: dragX, pageY: dragY }: React.MouseEvent,
-      dragDir: ActiveDrag["dragBox"]["dir"] = "bottomRight"
-    ) => {
+    ({ get, set, reset }) => ({
+      e,
+      dir,
+    }: {
+      e: React.MouseEvent;
+      dir: ActiveDrag["dragBox"]["dir"];
+    }) => {
+      // dragDir: ActiveDrag["dragBox"]["dir"] = "bottomRight"
+      const dragDir = dir ?? "bottomRight";
+      const { pageX: dragX, pageY: dragY } = e;
       // If we're dragging on a specific item, then it's a resize drag
       const dragType: ActiveDrag["dragType"] = draggedRef
         ? "ResizeItemDrag"
@@ -134,13 +140,6 @@ export function useGridDragger(draggedRef?: RefObject<HTMLDivElement>) {
         itemName: nameOfDragged ?? "new-item",
         gridPos: getDragPosOnGrid(dragBox, gridCellPositions),
       });
-
-      toggleTextSelection("off");
-
-      // After we've completed initializing the drag we can start watching the
-      // progress of the drag
-      document.addEventListener("mousemove", updateDrag);
-      document.addEventListener("mouseup", finishDrag, { once: true });
     },
     []
   );
@@ -219,23 +218,22 @@ export function useGridDragger(draggedRef?: RefObject<HTMLDivElement>) {
         }
       }
       reset(dragStateAtom);
-
-      // Re-enable text selection
-      toggleTextSelection("on");
-
-      document.removeEventListener("mousemove", updateDrag);
     },
     []
   );
 
-  // Make sure we dont have any memory leaks by accidentally leaving event listeners on
-  useEffect(() => {
-    return () => {
-      document.removeEventListener("mousemove", updateDrag);
-    };
-  }, [finishDrag, updateDrag]);
+  const { onMouseDown, cleanupFn } = React.useMemo(() => {
+    return setupClickAndDrag({
+      onStart: initializeDrag,
+      onMove: updateDrag,
+      onFinish: finishDrag,
+    });
+  }, [finishDrag, initializeDrag, updateDrag]);
 
-  return initializeDrag;
+  // Make sure we dont have any memory leaks by accidentally leaving event listeners on
+  useEffect(() => cleanupFn, [cleanupFn]);
+
+  return onMouseDown;
 }
 
 function getDragPosOnGrid(
