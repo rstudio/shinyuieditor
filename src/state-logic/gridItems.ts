@@ -108,14 +108,16 @@ export const selectedItemState = selector<GridItemDef | null>({
 export type GridItemsAtomFamily = typeof gridItemAtoms;
 export type GridItemAtom = ReturnType<GridItemsAtomFamily>;
 
+export function gatherAllItems(get: <T>(a: RecoilValue<T>) => T) {
+  const allNames = get(gridItemNames);
+  return allNames.map((name) => get(gridItemAtoms(name)));
+}
+
 // Merges together all the atoms so we can work with all atoms at once easily
 // for settings or getting in aggregate
 export const combinedItemsState = selector<GridItemDef[]>({
   key: "combinedItemsState",
-  get: ({ get }) => {
-    const allNames = get(gridItemNames);
-    return allNames.map((name) => get(gridItemAtoms(name)));
-  },
+  get: ({ get }) => gatherAllItems(get),
   set: ({ set }, items) => {
     if (items instanceof DefaultValue) {
       console.error("Trying to set item values to default value");
