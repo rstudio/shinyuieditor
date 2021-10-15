@@ -9,37 +9,21 @@ import {
   selectedItemNameState,
 } from "state-logic/gridItems";
 import { setupClickAndDrag } from "utils/drag-helpers";
-import { getCurrentGridCellBounds, sameGridPos } from "utils/grid-helpers";
 import {
+  getCurrentGridCellBounds,
+  GridItemBoundingBox,
+  sameGridPos,
+} from "utils/grid-helpers";
+import {
+  ActiveDrag,
   boxesOverlap,
   containsDir,
   getBBoxOfDiv,
-  ItemBoundingBox,
   mutateToFixOverlapOfBoxes,
+  SelectionRect,
 } from "utils/overlap-helpers";
 import { RecoilGetter } from "utils/RecoilHelperClasses";
-import { DragDir, GridItemDef, GridPos } from "../GridTypes";
-
-export type SelectionRect = {
-  left: number;
-  right: number;
-  top: number;
-  bottom: number;
-};
-
-export type ActiveDrag = {
-  // These define the type of drag happening and change behavior of snapping, etc
-  // accordingly.
-  dragBox: { dir: DragDir } & SelectionRect;
-  dragType: "NewItemDrag" | "ResizeItemDrag";
-  gridCellPositions: GridItemBoundingBox[];
-  xOffset: number;
-  yOffset: number;
-  itemName: string;
-  gridPos: GridPos;
-};
-
-export type GridItemBoundingBox = ItemBoundingBox & GridPos;
+import { GridItemDef, GridPos } from "../GridTypes";
 
 export const dragStateAtom = atom<ActiveDrag | null>({
   key: "dragStateAtom",
@@ -79,7 +63,7 @@ export function getItemGridBounds(
   });
 }
 
-export function useGridDragger(draggedRef?: RefObject<HTMLDivElement>) {
+export function useDragToResize(draggedRef?: RefObject<HTMLDivElement>) {
   const itemBoundsRef = useRef<(SelectionRect & { name: string })[] | null>(
     null
   );

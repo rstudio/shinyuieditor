@@ -23,7 +23,7 @@ import {
   selectedItemState,
   useDeleteItem,
 } from "state-logic/gridItems";
-import { useGridDragger } from "state-logic/itemDragging";
+import { useDragToResize } from "state-logic/itemDragToResize";
 import { useDragToMove } from "state-logic/itemDragToMove";
 import { DragDir, GridItemDef } from "../GridTypes";
 
@@ -31,7 +31,7 @@ export function SelectedItemOverlay() {
   const resetSelection = useResetRecoilState(selectedItemNameState);
   const selectedItem = useRecoilValue(selectedItemState);
   const itemRef = React.useRef<HTMLDivElement>(null);
-  const startDrag = useGridDragger(itemRef);
+  const startDrag = useDragToResize(itemRef);
 
   const { startMoving } = useDragToMove();
 

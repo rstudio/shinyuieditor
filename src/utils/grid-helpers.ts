@@ -1,7 +1,9 @@
 import { TractDirection } from "state-logic/gridLayout/atoms";
-import { GridItemBoundingBox } from "state-logic/itemDragging";
 import { GridLayoutTemplate, GridPos } from "../GridTypes";
-import { getBBoxOfDiv } from "./overlap-helpers";
+import { getBBoxOfDiv, ItemBoundingBox } from "./overlap-helpers";
+
+
+export type GridItemBoundingBox = ItemBoundingBox & GridPos;
 
 export function makeTractPos(start: number, end?: number) {
   const pos = String(start);
