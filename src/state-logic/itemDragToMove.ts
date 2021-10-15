@@ -1,7 +1,7 @@
 import { useMachine } from "@xstate/react";
 import { GridItemDef, GridPos } from "GridTypes";
 import React from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilTransaction_UNSTABLE } from "recoil";
 import {
   blockIsFree,
   findCenterOfBlock,
@@ -10,23 +10,34 @@ import {
   gridDimsFromCellBounds,
   GridLocString,
   gridLocString,
+  sameGridPos,
 } from "utils/grid-helpers";
 import { createMachine } from "xstate";
-import { combinedItemsState } from "./gridItems";
+import { gatherAllItems, gridItemAtoms } from "./gridItems";
 
 type Point = { x: number; y: number };
 type MousePos = Point;
+
+type ItemMoverFn = ({
+  closestBlock,
+  itemName,
+}: {
+  closestBlock?: GridPos;
+  itemName?: string;
+}) => void;
 
 type AvailableBlocks = {
   gridPos: GridPos;
   center: Point;
 }[];
+
 type DragEvent =
   | {
       type: "DRAG_START";
       nameOfDragged: string;
       gridCellPositions: ReturnType<typeof getCurrentGridCellBounds>;
       currentItems: GridItemDef[];
+      onMove: ItemMoverFn;
     }
   | { type: "DRAG"; pos: MousePos }
   | { type: "FINISH" };
@@ -34,8 +45,9 @@ type DragEvent =
 type ActiveDrag = {
   currentPos: MousePos;
   itemName: string;
-  currentItems: GridItemDef[];
   availableBlocks: AvailableBlocks;
+  closestBlock: GridPos;
+  onMove: ItemMoverFn;
 };
 
 type DragContext = Partial<ActiveDrag>;
@@ -95,22 +107,38 @@ export const dragMachine = createMachine<DragContext, DragEvent, DragTypeState>(
     actions: {
       onStart: (context, event) => {
         if (event.type !== "DRAG_START") return;
-        const { nameOfDragged: itemName, currentItems } = event;
+        const { nameOfDragged: itemName, currentItems, onMove } = event;
 
         context.itemName = itemName;
-        context.currentItems = currentItems;
+        context.onMove = onMove;
         context.availableBlocks = findAvailableBlocks({
           itemName,
           allItems: currentItems,
         });
 
-        debugger;
         console.log(`---Action: DRAG_START`);
       },
 
       onDrag: (context, event) => {
-        if (event.type !== "DRAG") return;
-        console.log("---Action: DRAG");
+        if (
+          event.type !== "DRAG" ||
+          !context.availableBlocks ||
+          !context.onMove
+        )
+          return;
+
+        const currentClosestBlock = findClosestAvailableBlock(
+          event.pos,
+          context.availableBlocks
+        );
+
+        if (!sameGridPos(context.closestBlock, currentClosestBlock)) {
+          context.closestBlock = currentClosestBlock;
+          context.onMove({
+            itemName: context.itemName,
+            closestBlock: currentClosestBlock,
+          });
+        }
       },
 
       onFinished: (context, event) => {
@@ -119,6 +147,26 @@ export const dragMachine = createMachine<DragContext, DragEvent, DragTypeState>(
     },
   }
 );
+
+function distBetween(a: Point, b: Point) {
+  return Math.sqrt(Math.pow(b.x - a.x, 2) + Math.pow(b.y - a.y, 2));
+}
+
+function findClosestAvailableBlock(currentPos: Point, blocks: AvailableBlocks) {
+  // Loop through all blocks possible to move to and keep track of the closest
+  // one to the current drag.
+  let distToClosest: number = Infinity;
+  let currentClosestBlock: GridPos = blocks[0].gridPos;
+  blocks.forEach(({ gridPos, center }) => {
+    const distToBlock = distBetween(currentPos, center);
+    if (distToBlock < distToClosest) {
+      currentClosestBlock = gridPos;
+      distToClosest = distToBlock;
+    }
+  });
+
+  return currentClosestBlock;
+}
 
 function findAvailableBlocks({
   itemName,
@@ -187,18 +235,36 @@ function findAvailableBlocks({
 
 export function useDragToMove() {
   const [currentDrag, sendToDragMachine] = useMachine(dragMachine);
-  const currentItems = useRecoilValue(combinedItemsState);
-  console.log(currentDrag);
+
+  const moveSelectedItem = useRecoilTransaction_UNSTABLE(
+    ({ get, set }) => ({
+      closestBlock,
+      itemName,
+    }: {
+      closestBlock: GridPos;
+      itemName: string;
+    }) => {
+      const draggedItem = get(gridItemAtoms(itemName));
+      if (draggedItem === null) return;
+      set(gridItemAtoms(itemName), {
+        ...draggedItem,
+        ...closestBlock,
+      });
+    },
+    []
+  );
+
   const sendDragEvent = React.useCallback(
     (pos: MousePos) => sendToDragMachine({ type: "DRAG", pos }),
     [sendToDragMachine]
   );
 
-  const startMoving = React.useCallback(
-    (nameOfDragged: string) => {
+  const startMoving = useRecoilTransaction_UNSTABLE(
+    ({ get }) => (nameOfDragged: string) => {
       sendToDragMachine("DRAG_START", {
         nameOfDragged,
-        currentItems,
+        currentItems: gatherAllItems(get),
+        onMove: moveSelectedItem,
       });
       document.addEventListener("mousemove", sendDragEvent);
       document.addEventListener(
@@ -212,7 +278,7 @@ export function useDragToMove() {
         }
       );
     },
-    [currentItems, sendDragEvent, sendToDragMachine]
+    [sendDragEvent, sendToDragMachine]
   );
 
   // Cleanup the mouse move indicator to avoid memory leaks in the chance that
