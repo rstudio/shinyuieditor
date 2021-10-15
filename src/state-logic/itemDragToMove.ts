@@ -44,7 +44,6 @@ type DragEvent =
   | { type: "FINISH" };
 
 type ActiveDrag = {
-  currentPos: MousePos;
   itemName: string;
   availableBlocks: AvailableBlocks;
   closestBlock: GridPos;
