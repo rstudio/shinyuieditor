@@ -7,3 +7,28 @@ export function toggleTextSelection(type: "on" | "off") {
     bodyClasses?.remove("disable-text-selection");
   }
 }
+
+export function setupClickAndDrag({
+  onStart,
+  onMove,
+  onFinish,
+}: {
+  onStart: Function;
+  onMove: (e: MouseEvent) => void;
+  onFinish: (e: MouseEvent) => void;
+}) {
+  const onMouseDown = (payload: any) => {
+    onStart(payload);
+    document.addEventListener("mousemove", onMove);
+    document.addEventListener("mouseup", onFinish, {
+      once: true,
+    });
+  };
+
+  const cleanupFn = () => {
+    console.log("Cleaningup left over listeners from drag");
+    document.addEventListener("mousemove", onMove);
+  };
+
+  return { onMouseDown, cleanupFn };
+}

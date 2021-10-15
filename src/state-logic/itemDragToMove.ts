@@ -1,8 +1,8 @@
 import { useMachine } from "@xstate/react";
 import { GridItemDef, GridPos } from "GridTypes";
-import React from "react";
+import React, { useEffect } from "react";
 import { useRecoilTransaction_UNSTABLE } from "recoil";
-import { toggleTextSelection } from "utils/drag-helpers";
+import { setupClickAndDrag, toggleTextSelection } from "utils/drag-helpers";
 import {
   blockIsFree,
   findCenterOfBlock,
@@ -258,39 +258,26 @@ export function useDragToMove() {
     []
   );
 
-  const sendDragEvent = React.useCallback(
-    (pos: MousePos) => sendToDragMachine({ type: "DRAG", pos }),
-    [sendToDragMachine]
-  );
-
-  const startMoving = useRecoilTransaction_UNSTABLE(
+  const startDrag = useRecoilTransaction_UNSTABLE(
     ({ get }) => (nameOfDragged: string) => {
       sendToDragMachine("DRAG_START", {
         nameOfDragged,
         currentItems: gatherAllItems(get),
         onMove: moveSelectedItem,
       });
-      document.addEventListener("mousemove", sendDragEvent);
-      document.addEventListener(
-        "mouseup",
-        () => {
-          sendToDragMachine("FINISH");
-          document.removeEventListener("mousemove", sendDragEvent);
-        },
-        {
-          once: true,
-        }
-      );
     },
-    [sendDragEvent, sendToDragMachine]
+    [sendToDragMachine]
   );
 
-  // Cleanup the mouse move indicator to avoid memory leaks in the chance that
-  // We never called the mouseup event
-  React.useEffect(
-    () => () => document.removeEventListener("mousemove", sendDragEvent),
-    [sendDragEvent]
-  );
+  const { onMouseDown, cleanupFn } = React.useMemo(() => {
+    return setupClickAndDrag({
+      onStart: startDrag,
+      onMove: (pos: MousePos) => sendToDragMachine({ type: "DRAG", pos }),
+      onFinish: () => sendToDragMachine("FINISH"),
+    });
+  }, [sendToDragMachine, startDrag]);
 
-  return { startMoving };
+  useEffect(() => cleanupFn, [cleanupFn]);
+
+  return { startMoving: onMouseDown };
 }
