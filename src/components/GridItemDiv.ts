@@ -31,6 +31,7 @@ export const GridItemDiv = styled.div(
     }
     if (startRow && startCol) {
       return {
+        position: "relative",
         gridRow: makeTractPos(startRow, endRow),
         gridColumn: makeTractPos(startCol, endCol),
       };
