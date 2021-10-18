@@ -7,6 +7,7 @@ import {
   selector,
   useRecoilTransaction_UNSTABLE,
 } from "recoil";
+import { ItemBoundingBox } from "utils/overlap-helpers";
 import { GridItemDef } from "../GridTypes";
 
 export const gridItemNames = atom<string[]>({
@@ -17,7 +18,10 @@ export type GridItemNamesAtom = typeof gridItemNames;
 
 // This gets wrapped within a selectorFamily for easier control of the names
 // so we dont use it outside of this script
-export const gridItemAtoms = atomFamily<GridItemDef, string>({
+export const gridItemAtoms = atomFamily<
+  GridItemDef & { absoluteBounds?: ItemBoundingBox },
+  string
+>({
   key: "gridItemsState",
   default: {
     name: "default",
