@@ -8,12 +8,12 @@ function toggleTextSelection(type: "on" | "off") {
   }
 }
 
-export function setupClickAndDrag({
+export function setupClickAndDrag<StartFnArgs extends any[]>({
   onStart,
   onMove,
   onFinish,
 }: {
-  onStart: Function;
+  onStart: (...args: StartFnArgs) => void;
   onMove: (e: MouseEvent) => void;
   onFinish: (e: MouseEvent) => void;
 }) {
@@ -26,8 +26,8 @@ export function setupClickAndDrag({
   };
 
   return {
-    onMouseDown: (payload: any) => {
-      onStart(payload);
+    onMouseDown: (...args: StartFnArgs) => {
+      onStart(...args);
       toggleTextSelection("off");
       document.addEventListener("mousemove", onMove);
       document.addEventListener("mouseup", onMouseUp, {
