@@ -1,13 +1,14 @@
 import { useMachine } from "@xstate/react";
-import { GridItemDef, GridPos } from "GridTypes";
+import { GridItemDef } from "GridTypes";
 import React, { useEffect } from "react";
 import { useRecoilTransaction_UNSTABLE } from "recoil";
 import { setupClickAndDrag } from "utils/drag-helpers";
 import {
   blockIsFree,
-  findCenterOfBlock,
+  findPositionOfBlock,
   getCurrentGridCellBounds,
   getItemDims,
+  GridBlock,
   gridDimsFromCellBounds,
   GridLocString,
   gridLocString,
@@ -22,15 +23,12 @@ type MousePos = Point;
 type ItemMoverFn = ({
   closestBlock,
   itemName,
+  final,
 }: {
-  closestBlock?: GridPos;
+  closestBlock?: GridBlock;
   itemName?: string;
+  final?: boolean;
 }) => void;
-
-type AvailableBlocks = {
-  gridPos: GridPos;
-  center: Point;
-}[];
 
 type DragEvent =
   | {
@@ -45,8 +43,8 @@ type DragEvent =
 
 type ActiveDrag = {
   itemName: string;
-  availableBlocks: AvailableBlocks;
-  closestBlock: GridPos;
+  availableBlocks: GridBlock[];
+  closestBlock: GridBlock;
   onMove: ItemMoverFn;
 };
 
@@ -109,12 +107,26 @@ export const dragMachine = createMachine<DragContext, DragEvent, DragTypeState>(
         if (event.type !== "DRAG_START") return;
         const { nameOfDragged: itemName, currentItems, onMove } = event;
 
-        context.itemName = itemName;
-        context.onMove = onMove;
-        context.availableBlocks = findAvailableBlocks({
+        const { availableBlocks } = findAvailableBlocks({
           itemName,
           allItems: currentItems,
         });
+        Object.assign(context, {
+          itemName,
+          onMove,
+          availableBlocks,
+        });
+
+        // Absolutely position the items so they can be animated as dragged
+        // debugger;
+
+        // itemNodes.forEach((el) =>
+        // absolutelyPlaceElement(
+        //     el.current as HTMLDivElement,
+        //     itemBlock.bounds,
+        //     true
+        //   )
+        // );
 
         console.log(`---Action: DRAG_START`);
       },
@@ -132,17 +144,32 @@ export const dragMachine = createMachine<DragContext, DragEvent, DragTypeState>(
           context.availableBlocks
         );
 
-        if (!sameGridPos(context.closestBlock, currentClosestBlock)) {
-          context.closestBlock = currentClosestBlock;
+        if (
+          !sameGridPos(
+            context.closestBlock?.gridPos,
+            currentClosestBlock.gridPos
+          )
+        ) {
           context.onMove({
-            itemName: context.itemName,
             closestBlock: currentClosestBlock,
+            itemName: context.itemName,
+            final: false,
           });
+
+          context.closestBlock = currentClosestBlock;
         }
       },
 
       onFinished: (context, event) => {
         console.log("---Action: FINISH");
+        if (typeof context.closestBlock === "undefined" || !context.onMove)
+          return;
+
+        context.onMove({
+          itemName: context.itemName,
+          closestBlock: context.closestBlock,
+          final: true,
+        });
       },
     },
   }
@@ -152,15 +179,15 @@ function distBetween(a: Point, b: Point) {
   return Math.sqrt(Math.pow(b.x - a.x, 2) + Math.pow(b.y - a.y, 2));
 }
 
-function findClosestAvailableBlock(currentPos: Point, blocks: AvailableBlocks) {
+function findClosestAvailableBlock(currentPos: Point, blocks: GridBlock[]) {
   // Loop through all blocks possible to move to and keep track of the closest
   // one to the current drag.
   let distToClosest: number = Infinity;
-  let currentClosestBlock: GridPos = blocks[0].gridPos;
-  blocks.forEach(({ gridPos, center }) => {
-    const distToBlock = distBetween(currentPos, center);
+  let currentClosestBlock: GridBlock = blocks[0];
+  blocks.forEach((block) => {
+    const distToBlock = distBetween(currentPos, block.center);
     if (distToBlock < distToClosest) {
-      currentClosestBlock = gridPos;
+      currentClosestBlock = block;
       distToClosest = distToBlock;
     }
   });
@@ -174,7 +201,7 @@ function findAvailableBlocks({
 }: {
   itemName: string;
   allItems: GridItemDef[];
-}): AvailableBlocks {
+}): { availableBlocks: GridBlock[]; itemBlock: GridBlock } {
   const itemToMove = allItems.find((item) => item.name === itemName);
   if (!itemToMove)
     throw new Error("Could not find the currently selected item");
@@ -200,7 +227,7 @@ function findAvailableBlocks({
     }
   });
 
-  const availableBlocks: AvailableBlocks = [];
+  const availableBlocks: GridBlock[] = [];
 
   for (
     let rowStart = 1;
@@ -222,15 +249,14 @@ function findAvailableBlocks({
       };
 
       if (blockIsFree(block, occupiedCells)) {
-        availableBlocks.push({
-          gridPos: block,
-          center: findCenterOfBlock(block, cellBounds),
-        });
+        availableBlocks.push(findPositionOfBlock(block, cellBounds));
       }
     }
   }
-
-  return availableBlocks;
+  return {
+    availableBlocks,
+    itemBlock: findPositionOfBlock(itemToMove, cellBounds),
+  };
 }
 
 export function useDragToMove() {
@@ -240,16 +266,27 @@ export function useDragToMove() {
     ({ get, set }) => ({
       closestBlock,
       itemName,
+      final,
     }: {
-      closestBlock: GridPos;
+      closestBlock: GridBlock;
       itemName: string;
+      final: boolean;
     }) => {
       const draggedItem = get(gridItemAtoms(itemName));
       if (draggedItem === null) return;
-      set(gridItemAtoms(itemName), {
-        ...draggedItem,
-        ...closestBlock,
-      });
+
+      if (final) {
+        set(gridItemAtoms(itemName), {
+          ...draggedItem,
+          ...closestBlock.gridPos,
+          absoluteBounds: undefined,
+        });
+      } else {
+        set(gridItemAtoms(itemName), {
+          ...draggedItem,
+          absoluteBounds: closestBlock.bounds,
+        });
+      }
     },
     []
   );
