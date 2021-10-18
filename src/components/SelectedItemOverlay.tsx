@@ -80,37 +80,45 @@ function SettingsToolbar({ name }: { name: GridItemDef["name"] }) {
     <div
       css={{
         "--inset": "var(--corner-radius)",
-        "--w": "min(calc(100% - 2*var(--inset)), 250px)",
-        position: "absolute",
-        borderRadius: "var(--corner-radius)",
-        width: "var(--w)",
-        right: "calc(50% - var(--w)/2)",
-        boxShadow: "var(--shadow)",
-        background: "var(--rstudio-blue)",
-        color: "white",
-        bottom: "100%",
-        display: "flex",
-        flexWrap: "wrap",
-        padding: "0.2rem 0.5rem",
-        gap: "5px",
-        justifyContent: "space-evenly",
-        alignItems: "center",
-        fontWeight: 500,
+        gridRow: "1",
+        gridColumn: "1/-1",
+        justifySelf: "center",
+        position: "relative",
+        width: "min(calc(100% - 2*var(--inset)), 250px)",
       }}
     >
-      <span>{name}</span>
-      <IconButton
-        h="100%"
-        padding="3px"
-        variant="outline"
-        title={"Delete " + name}
-        aria-label={"Delete " + name}
-        icon={<FaTrash />}
-        onClick={(e) => {
-          e.stopPropagation();
-          deleteItem(name);
+      <div
+        css={{
+          position: "absolute",
+          borderRadius: "var(--corner-radius)",
+          boxShadow: "var(--shadow)",
+          background: "var(--rstudio-blue)",
+          color: "white",
+          bottom: "100%",
+          width: "100%",
+          display: "flex",
+          flexWrap: "wrap",
+          padding: "0.2rem 0.5rem",
+          gap: "5px",
+          justifyContent: "space-evenly",
+          alignItems: "center",
+          fontWeight: 500,
         }}
-      />
+      >
+        <span>{name}</span>
+        <IconButton
+          h="100%"
+          padding="3px"
+          variant="outline"
+          title={"Delete " + name}
+          aria-label={"Delete " + name}
+          icon={<FaTrash />}
+          onClick={(e) => {
+            e.stopPropagation();
+            deleteItem(name);
+          }}
+        />
+      </div>
     </div>
   );
 }
@@ -132,7 +140,6 @@ const overlayStyles = css({
     "bottomLeft bottom   bottomRight"`,
   gridTemplateColumns: "auto 1fr auto",
   gridTemplateRows: "auto 1fr auto",
-  position: "relative",
   boxShadow: "var(--selected-shadow)",
 });
 
