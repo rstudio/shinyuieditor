@@ -101,10 +101,17 @@ export function getCurrentGridCellBounds() {
 }
 
 
-export function findCenterOfBlock(
+export type GridBlock = {
+  gridPos: GridPos;
+  bounds: ItemBoundingBox;
+  center: {x: number, y: number};
+};
+
+export function findPositionOfBlock(
   block: GridPos,
   cellBounds: ReturnType<typeof getCurrentGridCellBounds>
-) {
+): GridBlock {
+
   const topLeftCell = cellBounds.get(
     `row${block.startRow}-col${block.startCol}`
   );
@@ -117,10 +124,17 @@ export function findCenterOfBlock(
       "Failed to get all the cells needed to find position of block"
     );
 
+  const {top, left, offsetLeft, offsetTop} = topLeftCell;
+  const {bottom, right} = bottomRightCell; 
+
   return {
-    x: (topLeftCell.left + bottomRightCell.right) / 2,
-    y: (topLeftCell.top + bottomRightCell.bottom) / 2,
-  };
+    gridPos: block,
+    bounds: {top, left, bottom ,right, offsetLeft: offsetLeft, offsetTop: offsetTop},
+    center: {
+      x: (left + right) / 2,
+      y: (top + bottom) / 2,
+    }
+  }
 }
 
 export const blockIsFree = (
