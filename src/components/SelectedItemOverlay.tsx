@@ -50,7 +50,7 @@ export function SelectedItemOverlay() {
           key={dir}
           css={{ ...styles }}
           aria-label={label}
-          onMouseDown={(e) => startDrag({ e, dir })}
+          onMouseDown={(e) => startDrag(e, dir)}
           onClick={(e) => e.stopPropagation()}
         >
           <DragIcon size="1.3rem" />

@@ -68,13 +68,10 @@ export function useDragToResize(draggedRef?: RefObject<HTMLDivElement>) {
     null
   );
   const initializeDrag = useRecoilTransaction_UNSTABLE(
-    ({ get, set, reset }) => ({
-      e,
-      dir,
-    }: {
-      e: React.MouseEvent;
-      dir: ActiveDrag["dragBox"]["dir"];
-    }) => {
+    ({ get, set, reset }) => (
+      e: React.MouseEvent,
+      dir?: ActiveDrag["dragBox"]["dir"]
+    ) => {
       // dragDir: ActiveDrag["dragBox"]["dir"] = "bottomRight"
       const dragDir = dir ?? "bottomRight";
       const { pageX: dragX, pageY: dragY } = e;
