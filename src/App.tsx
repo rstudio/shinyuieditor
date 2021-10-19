@@ -13,9 +13,7 @@ export const App = () => {
       <RecoilRoot>
         <div
           css={{
-            "--shadow": makeBoxShadow({
-              height: 0.2,
-            }),
+            "--shadow": makeBoxShadow({ height: 0.2 }),
             height: "100vh",
             display: "grid",
             gridTemplateRows: "60px 1fr",
