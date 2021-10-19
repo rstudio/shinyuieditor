@@ -2,7 +2,6 @@
 import { IconButton } from "@chakra-ui/button";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { placeItemOnGrid } from "utils/placeItemOnGrid";
 import * as React from "react";
 import { IconType } from "react-icons";
 import { BiMove } from "react-icons/bi";
@@ -25,6 +24,7 @@ import {
 } from "state-logic/gridItems";
 import { useDragToMove } from "state-logic/itemDragToMove";
 import { useDragToResize } from "state-logic/itemDragToResize";
+import { placeItemOnGrid } from "utils/placeItemOnGrid";
 import { DragDir, GridItemDef } from "../GridTypes";
 
 export function SelectedItemOverlay() {
@@ -42,6 +42,8 @@ export function SelectedItemOverlay() {
   // event on the cancelBox div behind it.
 
   if (selectedItem === null) return null;
+
+  const beingDragged = typeof selectedItem.absoluteBounds !== "undefined";
   return (
     <div
       ref={itemRef}
@@ -65,7 +67,10 @@ export function SelectedItemOverlay() {
           onClick={(e) => e.stopPropagation()}
         />
       </IconHolder>
-      <SettingsToolbar name={selectedItem.name} />
+      <SettingsToolbarMemo
+        name={selectedItem.name}
+        beingDragged={beingDragged}
+      />
       <div
         css={cancelBoxStyles}
         onClick={() => {
@@ -76,7 +81,13 @@ export function SelectedItemOverlay() {
   );
 }
 
-function SettingsToolbar({ name }: { name: GridItemDef["name"] }) {
+function SettingsToolbar({
+  name,
+  beingDragged,
+}: {
+  name: GridItemDef["name"];
+  beingDragged: boolean;
+}) {
   const deleteItem = useDeleteItem();
 
   return (
@@ -93,8 +104,10 @@ function SettingsToolbar({ name }: { name: GridItemDef["name"] }) {
       <div
         css={{
           position: "absolute",
+          transition:
+            "box-shadow var(--animation-speed) var(--animation-curve)",
           borderRadius: "var(--corner-radius)",
-          boxShadow: "var(--shadow)",
+          boxShadow: beingDragged ? "var(--raised-shadow)" : "var(--shadow)",
           background: "var(--rstudio-blue)",
           color: "white",
           bottom: "calc(100% + var(--selected-border-width))",
@@ -125,6 +138,8 @@ function SettingsToolbar({ name }: { name: GridItemDef["name"] }) {
     </div>
   );
 }
+
+const SettingsToolbarMemo = React.memo(SettingsToolbar);
 
 const IconHolder = styled.span({
   color: "var(--light-grey, blue)",

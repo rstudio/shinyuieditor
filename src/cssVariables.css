@@ -8,4 +8,6 @@ body {
   --selected-border-width: 3px;
   --corner-radius: 5px;
   --card-header-height: 35px;
+  --animation-speed: 0.2s;
+  --animation-curve: ease-in-out;
 }

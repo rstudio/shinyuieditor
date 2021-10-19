@@ -14,6 +14,7 @@ export const App = () => {
         <div
           css={{
             "--shadow": makeBoxShadow({ height: 0.2 }),
+            "--raised-shadow": makeBoxShadow({ height: 1 }),
             height: "100vh",
             display: "grid",
             gridTemplateRows: "60px 1fr",

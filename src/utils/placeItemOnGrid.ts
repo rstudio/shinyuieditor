@@ -1,5 +1,4 @@
 import type { GridItemState } from "state-logic/gridItems";
-import { makeBoxShadow } from "utils/css-helpers";
 import { makeTractPos } from "utils/grid-helpers";
 
 export function placeItemOnGrid({
@@ -16,8 +15,8 @@ export function placeItemOnGrid({
   if (absoluteBounds) {
     return {
       position: "absolute",
-      boxShadow: makeBoxShadow({ height: 1 }),
-      transition: "all 0.15s ease-in-out",
+      boxShadow: "var(--raised-shadow)",
+      transition: "all var(--animation-speed) var(--animation-curve)",
       transitionProperty: "box-shadow, top, left, width, height",
       top: absoluteBounds.offsetTop + "px",
       left: absoluteBounds.offsetLeft + "px",
