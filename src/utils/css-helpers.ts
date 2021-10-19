@@ -90,3 +90,34 @@ export function updateCssUnit(
     `${originalMeasure.count ?? ""}${originalMeasure.unit}`
   );
 }
+
+export function makeBoxShadow({
+  height = 0.25,
+  aspectRatio = 1.8,
+  maxDistance = 15,
+  maxOpacity = 0.12,
+  minOpacity = 0.05,
+  numLayers = 4,
+}: Partial<{
+  height: number;
+  aspectRatio: number;
+  maxDistance: number;
+  maxOpacity: number;
+  minOpacity: number;
+  numLayers: number;
+}>) {
+  if (height < 0 || height > 1)
+    throw new Error("Box shadow height should be between 0 and 1");
+
+  const finalDist = maxDistance * height;
+  const opacity = maxOpacity - (maxOpacity - minOpacity) * height;
+
+  return [...new Array(numLayers)]
+    .map((_, i) => {
+      const xPx = Math.round((i / numLayers) * finalDist);
+      const yPx = xPx * aspectRatio;
+      const blurPx = yPx;
+      return `${xPx}px ${yPx}px ${blurPx}px hsl(0deg 0% 0% / ${opacity})`;
+    })
+    .join(",");
+}

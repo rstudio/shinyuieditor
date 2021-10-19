@@ -7,6 +7,7 @@ import {
   selector,
   useRecoilTransaction_UNSTABLE,
 } from "recoil";
+import { ItemBoundingBox } from "utils/overlap-helpers";
 import { GridItemDef } from "../GridTypes";
 
 export const gridItemNames = atom<string[]>({
@@ -17,7 +18,8 @@ export type GridItemNamesAtom = typeof gridItemNames;
 
 // This gets wrapped within a selectorFamily for easier control of the names
 // so we dont use it outside of this script
-export const gridItemAtoms = atomFamily<GridItemDef, string>({
+export type GridItemState = GridItemDef & { absoluteBounds?: ItemBoundingBox };
+export const gridItemAtoms = atomFamily<GridItemState, string>({
   key: "gridItemsState",
   default: {
     name: "default",
@@ -89,7 +91,7 @@ export function useToggleSelectedItem() {
   return toggleSelected;
 }
 
-export const selectedItemState = selector<GridItemDef | null>({
+export const selectedItemState = selector<GridItemState | null>({
   key: "selectedItem",
   get: ({ get }) => {
     const selectedItemName = get(selectedItemNameState);
@@ -108,14 +110,16 @@ export const selectedItemState = selector<GridItemDef | null>({
 export type GridItemsAtomFamily = typeof gridItemAtoms;
 export type GridItemAtom = ReturnType<GridItemsAtomFamily>;
 
+export function gatherAllItems(get: <T>(a: RecoilValue<T>) => T) {
+  const allNames = get(gridItemNames);
+  return allNames.map((name) => get(gridItemAtoms(name)));
+}
+
 // Merges together all the atoms so we can work with all atoms at once easily
 // for settings or getting in aggregate
 export const combinedItemsState = selector<GridItemDef[]>({
   key: "combinedItemsState",
-  get: ({ get }) => {
-    const allNames = get(gridItemNames);
-    return allNames.map((name) => get(gridItemAtoms(name)));
-  },
+  get: ({ get }) => gatherAllItems(get),
   set: ({ set }, items) => {
     if (items instanceof DefaultValue) {
       console.error("Trying to set item values to default value");

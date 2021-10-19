@@ -1,9 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import { IconButton } from "@chakra-ui/button";
 import { css } from "@emotion/react";
-import { GridItemDiv } from "components/GridItemDiv";
+import styled from "@emotion/styled";
+import {
+  GridItemDiv,
+  makeAbsolutePositionStyles,
+} from "components/GridItemDiv";
 import * as React from "react";
 import { IconType } from "react-icons";
+import { BiMove } from "react-icons/bi";
 import {
   BsArrowDown,
   BsArrowDownLeft,
@@ -21,14 +26,17 @@ import {
   selectedItemState,
   useDeleteItem,
 } from "state-logic/gridItems";
-import { useGridDragger } from "state-logic/itemDragging";
+import { useDragToResize } from "state-logic/itemDragToResize";
+import { useDragToMove } from "state-logic/itemDragToMove";
 import { DragDir, GridItemDef } from "../GridTypes";
 
 export function SelectedItemOverlay() {
   const resetSelection = useResetRecoilState(selectedItemNameState);
   const selectedItem = useRecoilValue(selectedItemState);
   const itemRef = React.useRef<HTMLDivElement>(null);
-  const startDrag = useGridDragger(itemRef);
+  const startDrag = useDragToResize(itemRef);
+
+  const { startMoving } = useDragToMove();
 
   // The reason that we have a separate div for triggering the resetting of the
   // selected item is because if the click event was listening on the main div
@@ -37,28 +45,31 @@ export function SelectedItemOverlay() {
   // event on the cancelBox div behind it.
 
   if (selectedItem === null) return null;
-
+  const positionStyles = makeAbsolutePositionStyles(selectedItem);
   return (
-    <GridItemDiv ref={itemRef} css={overlayStyles} {...selectedItem}>
+    <GridItemDiv
+      ref={itemRef}
+      css={overlayStyles}
+      {...selectedItem}
+      style={positionStyles}
+    >
       {dirToDragger.map(({ dir, DragIcon, label, styles }) => (
-        <span
+        <IconHolder
           key={dir}
-          css={{
-            color: "var(--light-grey, blue)",
-            placeSelf: "center",
-            padding: "4px",
-            zIndex: 1000, //High z index so the draggers sit above the cancel listener div
-            ...styles,
-          }}
+          css={{ ...styles }}
           aria-label={label}
-          onMouseDown={(e) => {
-            startDrag(e, dir);
-          }}
+          onMouseDown={(e) => startDrag(e, dir)}
           onClick={(e) => e.stopPropagation()}
         >
           <DragIcon size="1.3rem" />
-        </span>
+        </IconHolder>
       ))}
+      <IconHolder css={{ gridArea: "middle", cursor: "grab" }}>
+        <BiMove
+          onMouseDown={() => startMoving(selectedItem.name)}
+          onClick={(e) => e.stopPropagation()}
+        />
+      </IconHolder>
       <SettingsToolbar name={selectedItem.name} />
       <div
         css={cancelBoxStyles}
@@ -77,40 +88,55 @@ function SettingsToolbar({ name }: { name: GridItemDef["name"] }) {
     <div
       css={{
         "--inset": "var(--corner-radius)",
-        "--w": "min(calc(100% - 2*var(--inset)), 250px)",
-        position: "absolute",
-        borderRadius: "var(--corner-radius)",
-        width: "var(--w)",
-        right: "calc(50% - var(--w)/2)",
-        boxShadow: "var(--shadow)",
-        background: "var(--rstudio-blue)",
-        color: "white",
-        bottom: "100%",
-        display: "flex",
-        flexWrap: "wrap",
-        padding: "0.2rem 0.5rem",
-        gap: "5px",
-        justifyContent: "space-evenly",
-        alignItems: "center",
-        fontWeight: 500,
+        gridRow: "1",
+        gridColumn: "1/-1",
+        justifySelf: "center",
+        position: "relative",
+        width: "min(calc(100% - 2*var(--inset)), 250px)",
       }}
     >
-      <span>{name}</span>
-      <IconButton
-        h="100%"
-        padding="3px"
-        variant="outline"
-        title={"Delete " + name}
-        aria-label={"Delete " + name}
-        icon={<FaTrash />}
-        onClick={(e) => {
-          e.stopPropagation();
-          deleteItem(name);
+      <div
+        css={{
+          position: "absolute",
+          borderRadius: "var(--corner-radius)",
+          boxShadow: "var(--shadow)",
+          background: "var(--rstudio-blue)",
+          color: "white",
+          bottom: "100%",
+          width: "100%",
+          display: "flex",
+          flexWrap: "wrap",
+          padding: "0.2rem 0.5rem",
+          gap: "5px",
+          justifyContent: "space-evenly",
+          alignItems: "center",
+          fontWeight: 500,
         }}
-      />
+      >
+        <span>{name}</span>
+        <IconButton
+          h="100%"
+          padding="3px"
+          variant="outline"
+          title={"Delete " + name}
+          aria-label={"Delete " + name}
+          icon={<FaTrash />}
+          onClick={(e) => {
+            e.stopPropagation();
+            deleteItem(name);
+          }}
+        />
+      </div>
     </div>
   );
 }
+
+const IconHolder = styled.span({
+  color: "var(--light-grey, blue)",
+  placeSelf: "center",
+  padding: "4px",
+  zIndex: 1000, //High z index so the draggers sit above the cancel listener div
+});
 
 const overlayStyles = css({
   backgroundColor: "var(--color, rgba(34, 139, 34, 0.835))",
@@ -122,7 +148,6 @@ const overlayStyles = css({
     "bottomLeft bottom   bottomRight"`,
   gridTemplateColumns: "auto 1fr auto",
   gridTemplateRows: "auto 1fr auto",
-  position: "relative",
   boxShadow: "var(--selected-shadow)",
 });
 

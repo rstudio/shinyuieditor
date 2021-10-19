@@ -1,6 +1,23 @@
-import type { ActiveDrag, SelectionRect } from "state-logic/itemDragging";
-import { BoxOverlap, BoxSide, DragDir } from "../GridTypes";
+import { BoxOverlap, BoxSide, DragDir, GridPos } from "../GridTypes";
+import { GridItemBoundingBox } from "./grid-helpers";
 
+export type SelectionRect = {
+  left: number;
+  right: number;
+  top: number;
+  bottom: number;
+};
+export type ActiveDrag = {
+  // These define the type of drag happening and change behavior of snapping, etc
+  // accordingly.
+  dragBox: { dir: DragDir } & SelectionRect;
+  dragType: "NewItemDrag" | "ResizeItemDrag";
+  gridCellPositions: GridItemBoundingBox[];
+  xOffset: number;
+  yOffset: number;
+  itemName: string;
+  gridPos: GridPos;
+};
 export type ItemBoundingBox = SelectionRect & {
   offsetLeft: number;
   offsetTop: number;

@@ -4,7 +4,7 @@ import { GridItemDiv } from "components/GridItemDiv";
 import * as React from "react";
 import { useRecoilValue } from "recoil";
 import { tractDims } from "state-logic/gridLayout/atoms";
-import { dragStateAtom, useGridDragger } from "state-logic/itemDragging";
+import { dragStateAtom, useDragToResize } from "state-logic/itemDragToResize";
 import { enumerateGridDims } from "utils/grid-helpers";
 import { ConfigureNewItemModal } from "./ConfigureNewItem";
 
@@ -85,7 +85,7 @@ export function DragFeedback() {
 }
 
 function DragWatcher() {
-  const onMouseDown = useGridDragger();
+  const onMouseDown = useDragToResize();
 
   return (
     <GridItemDiv
