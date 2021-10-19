@@ -2,7 +2,6 @@
 import { Heading } from "@chakra-ui/layout";
 import * as React from "react";
 import { CSSMeasure } from "../GridTypes";
-import { GridItemDiv } from "components/GridItemDiv";
 
 function GridCardImpl(props: {
   area: string;
@@ -13,9 +12,9 @@ function GridCardImpl(props: {
   header?: JSX.Element;
   overloadStyles?: React.CSSProperties;
 }) {
-  const { padding = "1rem", area } = props;
+  const { padding = "1rem", area, overloadStyles } = props;
   return (
-    <GridItemDiv
+    <div
       css={{
         overflow: "scroll",
         borderRadius: "var(--corner-radius)",
@@ -23,9 +22,9 @@ function GridCardImpl(props: {
         background: "var(--rstudio-white)",
         display: "grid",
         gridTemplateRows: "var(--card-header-height, 35px) 1fr",
-        ...props.overloadStyles,
+        gridArea: area,
+        ...overloadStyles,
       }}
-      gridArea={area}
     >
       {"header" in props ? (
         props.header
@@ -49,7 +48,7 @@ function GridCardImpl(props: {
         </Heading>
       )}
       <div css={{ padding }}>{props.children}</div>
-    </GridItemDiv>
+    </div>
   );
 }
 

@@ -2,10 +2,7 @@
 import { IconButton } from "@chakra-ui/button";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import {
-  GridItemDiv,
-  makeAbsolutePositionStyles,
-} from "components/GridItemDiv";
+import { placeItemOnGrid } from "utils/placeItemOnGrid";
 import * as React from "react";
 import { IconType } from "react-icons";
 import { BiMove } from "react-icons/bi";
@@ -26,8 +23,8 @@ import {
   selectedItemState,
   useDeleteItem,
 } from "state-logic/gridItems";
-import { useDragToResize } from "state-logic/itemDragToResize";
 import { useDragToMove } from "state-logic/itemDragToMove";
+import { useDragToResize } from "state-logic/itemDragToResize";
 import { DragDir, GridItemDef } from "../GridTypes";
 
 export function SelectedItemOverlay() {
@@ -45,13 +42,11 @@ export function SelectedItemOverlay() {
   // event on the cancelBox div behind it.
 
   if (selectedItem === null) return null;
-  const positionStyles = makeAbsolutePositionStyles(selectedItem);
   return (
-    <GridItemDiv
+    <div
       ref={itemRef}
       css={overlayStyles}
-      {...selectedItem}
-      style={positionStyles}
+      style={placeItemOnGrid(selectedItem)}
     >
       {dirToDragger.map(({ dir, DragIcon, label, styles }) => (
         <IconHolder
@@ -77,7 +72,7 @@ export function SelectedItemOverlay() {
           resetSelection();
         }}
       />
-    </GridItemDiv>
+    </div>
   );
 }
 

@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { GridItemDiv } from "components/GridItemDiv";
+import { placeItemOnGrid } from "utils/placeItemOnGrid";
 import * as React from "react";
 import { useRecoilValue } from "recoil";
 import { tractDims } from "state-logic/gridLayout/atoms";
@@ -33,7 +33,6 @@ function DragFeedbackRect() {
   const dragState = useRecoilValue(dragStateAtom);
 
   if (!dragState) return null;
-
   const {
     dragBox: { left, right, top, bottom },
     xOffset,
@@ -64,9 +63,9 @@ function DragFeedbackRect() {
         ) : null}
       </div>
       {type === "NewItemDrag" ? (
-        <GridItemDiv
+        <div
           css={{ border: "solid var(--rstudio-blue, pink)" }}
-          {...gridPos}
+          style={placeItemOnGrid(gridPos)}
         />
       ) : null}
     </>
@@ -88,13 +87,10 @@ function DragWatcher() {
   const onMouseDown = useDragToResize();
 
   return (
-    <GridItemDiv
+    <div
       onMouseDown={onMouseDown}
-      startRow={1}
-      endRow={-1}
-      startCol={1}
-      endCol={-1}
       css={{
+        gridArea: "1/1/-1/1",
         padding: "1rem",
         margin: "calc(-1 * var(--main-grid-gap))",
       }}
