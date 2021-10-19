@@ -18,10 +18,8 @@ export type GridItemNamesAtom = typeof gridItemNames;
 
 // This gets wrapped within a selectorFamily for easier control of the names
 // so we dont use it outside of this script
-export const gridItemAtoms = atomFamily<
-  GridItemDef & { absoluteBounds?: ItemBoundingBox },
-  string
->({
+type GridItemState = GridItemDef & { absoluteBounds?: ItemBoundingBox };
+export const gridItemAtoms = atomFamily<GridItemState, string>({
   key: "gridItemsState",
   default: {
     name: "default",
@@ -93,7 +91,7 @@ export function useToggleSelectedItem() {
   return toggleSelected;
 }
 
-export const selectedItemState = selector<GridItemDef | null>({
+export const selectedItemState = selector<GridItemState | null>({
   key: "selectedItem",
   get: ({ get }) => {
     const selectedItemName = get(selectedItemNameState);
