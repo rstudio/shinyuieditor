@@ -18,7 +18,6 @@ import { createMachine } from "xstate";
 import { gatherAllItems, gridItemAtoms } from "./gridItems";
 
 type Point = { x: number; y: number };
-type MousePos = Point;
 
 type ItemMoverFn = ({
   closestBlock,
@@ -38,7 +37,7 @@ type DragEvent =
       currentItems: GridItemDef[];
       onMove: ItemMoverFn;
     }
-  | { type: "DRAG"; pos: MousePos }
+  | { type: "DRAG"; pos: Point }
   | { type: "FINISH" };
 
 type ActiveDrag = {
@@ -300,7 +299,7 @@ export function useDragToMove() {
   const { onMouseDown, cleanupFn } = React.useMemo(() => {
     return setupClickAndDrag({
       onStart: startDrag,
-      onMove: (pos: MousePos) => sendToDragMachine({ type: "DRAG", pos }),
+      onMove: (pos: Point) => sendToDragMachine({ type: "DRAG", pos }),
       onFinish: () => sendToDragMachine("FINISH"),
     });
   }, [sendToDragMachine, startDrag]);
