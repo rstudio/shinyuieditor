@@ -97,7 +97,7 @@ function SettingsToolbar({ name }: { name: GridItemDef["name"] }) {
           boxShadow: "var(--shadow)",
           background: "var(--rstudio-blue)",
           color: "white",
-          bottom: "100%",
+          bottom: "calc(100% + var(--selected-border-width))",
           width: "100%",
           display: "flex",
           flexWrap: "wrap",
@@ -136,6 +136,7 @@ const IconHolder = styled.span({
 const overlayStyles = css({
   backgroundColor: "var(--color, rgba(34, 139, 34, 0.835))",
   borderRadius: "var(--corner-radius)",
+  border: "var(--selected-border-width) solid var(--selected-border-color)",
   display: "grid",
   gridTemplateAreas: `
     "topLeft    top      topRight"
@@ -143,7 +144,6 @@ const overlayStyles = css({
     "bottomLeft bottom   bottomRight"`,
   gridTemplateColumns: "auto 1fr auto",
   gridTemplateRows: "auto 1fr auto",
-  boxShadow: "var(--selected-shadow)",
 });
 
 const cancelBoxStyles = css({

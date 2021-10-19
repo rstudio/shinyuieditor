@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
+import { placeItemOnGrid } from "utils/placeItemOnGrid";
 import * as React from "react";
 import { useRecoilValue } from "recoil";
 import {
@@ -7,10 +8,6 @@ import {
   gridItemNames,
   useToggleSelectedItem,
 } from "state-logic/gridItems";
-import {
-  GridItemDiv,
-  makeAbsolutePositionStyles,
-} from "components/GridItemDiv";
 
 function EditableGridItem({
   name,
@@ -20,12 +17,11 @@ function EditableGridItem({
   onClick: (name: string) => void;
 }) {
   const itemDef = useRecoilValue(gridItemAtoms(name));
-  const positionStyles = makeAbsolutePositionStyles(itemDef);
+  const positionStyles = placeItemOnGrid(itemDef);
 
   return (
-    <GridItemDiv
+    <div
       css={itemStyles}
-      {...itemDef}
       style={positionStyles}
       onClick={() => onClick(name)}
       title={name}

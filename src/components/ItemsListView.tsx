@@ -23,10 +23,12 @@ const itemStyles = {
   color: "white",
   width: "100%",
   alignItems: "center",
-  padding: "4px 10px",
+  padding: "3px 10px",
   boxShadow: "var(--shadow)",
+  borderWidth: "var(--selected-border-width)",
+  borderColor: "transparent",
   "&.selected": {
-    boxShadow: "var(--selected-shadow)",
+    borderColor: "var(--selected-border-color)",
   },
 };
 
