@@ -45,7 +45,7 @@ type ActiveDrag = {
   itemName: string;
   availableBlocks: GridBlock[];
   closestBlock: GridBlock;
-  onMove: ItemMoverFn;
+  moveToClosest: (type?: "final") => void;
 };
 
 type DragContext = Partial<ActiveDrag>;
@@ -107,21 +107,37 @@ export const dragMachine = createMachine<DragContext, DragEvent, DragTypeState>(
         if (event.type !== "DRAG_START") return;
         const { nameOfDragged: itemName, currentItems, onMove } = event;
 
-        Object.assign(context, {
+        const { availableBlocks, itemBlock } = findAvailableBlocks({
           itemName,
-          onMove,
-          availableBlocks: findAvailableBlocks({
-            itemName,
-            allItems: currentItems,
-          }),
+          allItems: currentItems,
         });
+
+        context.itemName = itemName;
+
+        context.availableBlocks = availableBlocks;
+        context.closestBlock = itemBlock;
+        const moveToClosest = (
+          type: "intermediate" | "final" = "intermediate"
+        ) => {
+          onMove({
+            closestBlock: context.closestBlock,
+            itemName: context.itemName,
+            final: type === "final",
+          });
+        };
+        context.moveToClosest = moveToClosest;
+
+        // We need to run this on the next animation frame to avoid recoil
+        // getting mad at us for triggering a state update from within the
+        // callstack of a transaction. Hacky, I know.
+        window.requestAnimationFrame(() => moveToClosest());
       },
 
       onDrag: (context, event) => {
         if (
           event.type !== "DRAG" ||
           !context.availableBlocks ||
-          !context.onMove
+          !context.moveToClosest
         )
           return;
 
@@ -136,25 +152,19 @@ export const dragMachine = createMachine<DragContext, DragEvent, DragTypeState>(
             currentClosestBlock.gridPos
           )
         ) {
-          context.onMove({
-            closestBlock: currentClosestBlock,
-            itemName: context.itemName,
-            final: false,
-          });
-
           context.closestBlock = currentClosestBlock;
+          context.moveToClosest();
         }
       },
 
       onFinished: (context, event) => {
-        if (typeof context.closestBlock === "undefined" || !context.onMove)
+        if (
+          typeof context.closestBlock === "undefined" ||
+          !context.moveToClosest
+        )
           return;
 
-        context.onMove({
-          itemName: context.itemName,
-          closestBlock: context.closestBlock,
-          final: true,
-        });
+        context.moveToClosest("final");
       },
     },
   }
@@ -186,7 +196,7 @@ function findAvailableBlocks({
 }: {
   itemName: string;
   allItems: GridItemDef[];
-}): GridBlock[] {
+}): { availableBlocks: GridBlock[]; itemBlock: GridBlock } {
   const itemToMove = allItems.find((item) => item.name === itemName);
   if (!itemToMove)
     throw new Error("Could not find the currently selected item");
@@ -238,7 +248,10 @@ function findAvailableBlocks({
       }
     }
   }
-  return availableBlocks;
+  return {
+    availableBlocks,
+    itemBlock: findPositionOfBlock(itemToMove, cellBounds),
+  };
 }
 
 export function useDragToMove() {
