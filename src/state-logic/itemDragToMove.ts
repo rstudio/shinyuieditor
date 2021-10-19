@@ -1,7 +1,7 @@
 import { useMachine } from "@xstate/react";
 import { GridItemDef } from "GridTypes";
 import React, { useEffect } from "react";
-import { useRecoilTransaction_UNSTABLE } from "recoil";
+import { useRecoilCallback, useRecoilTransaction_UNSTABLE } from "recoil";
 import { setupClickAndDrag } from "utils/drag-helpers";
 import {
   blockIsFree,
@@ -127,10 +127,8 @@ export const dragMachine = createMachine<DragContext, DragEvent, DragTypeState>(
         };
         context.moveToClosest = moveToClosest;
 
-        // We need to run this on the next animation frame to avoid recoil
-        // getting mad at us for triggering a state update from within the
-        // callstack of a transaction. Hacky, I know.
-        window.requestAnimationFrame(() => moveToClosest());
+        // Start by setting position so the item is visually moving
+        moveToClosest();
       },
 
       onDrag: (context, event) => {
@@ -257,8 +255,11 @@ function findAvailableBlocks({
 export function useDragToMove() {
   const [, sendToDragMachine] = useMachine(dragMachine);
 
-  const moveItem = useRecoilTransaction_UNSTABLE(
-    ({ get, set }) => ({
+  // We're using a callback here instead of a transaction because the callbacks
+  // can be used to set things from within a transaction without triggering
+  // issues due to them not causing effects until the next tick when used async.
+  const moveItem = useRecoilCallback(
+    ({ snapshot, set }) => async ({
       closestBlock,
       itemName,
       final,
@@ -267,21 +268,20 @@ export function useDragToMove() {
       itemName: string;
       final: boolean;
     }) => {
-      const draggedItem = get(gridItemAtoms(itemName));
+      const draggedItem = await snapshot.getPromise(gridItemAtoms(itemName));
       if (draggedItem === null) return;
 
-      if (final) {
-        set(gridItemAtoms(itemName), {
-          ...draggedItem,
-          ...closestBlock.gridPos,
-          absoluteBounds: undefined,
-        });
-      } else {
-        set(gridItemAtoms(itemName), {
-          ...draggedItem,
-          absoluteBounds: closestBlock.bounds,
-        });
-      }
+      const newPosition = final
+        ? {
+            ...draggedItem,
+            ...closestBlock.gridPos,
+            absoluteBounds: undefined,
+          }
+        : {
+            ...draggedItem,
+            absoluteBounds: closestBlock.bounds,
+          };
+      set(gridItemAtoms(itemName), newPosition);
     },
     []
   );
