@@ -25,6 +25,8 @@ const itemStyles = {
   alignItems: "center",
   padding: "3px 10px",
   boxShadow: "var(--shadow)",
+  // By keeping the border width constant but transparent adding a border when
+  // we select an item wont cause the block sizing to grow
   borderWidth: "var(--selected-border-width)",
   borderColor: "transparent",
   "&.selected": {
