@@ -107,28 +107,14 @@ export const dragMachine = createMachine<DragContext, DragEvent, DragTypeState>(
         if (event.type !== "DRAG_START") return;
         const { nameOfDragged: itemName, currentItems, onMove } = event;
 
-        const { availableBlocks } = findAvailableBlocks({
-          itemName,
-          allItems: currentItems,
-        });
         Object.assign(context, {
           itemName,
           onMove,
-          availableBlocks,
+          availableBlocks: findAvailableBlocks({
+            itemName,
+            allItems: currentItems,
+          }),
         });
-
-        // Absolutely position the items so they can be animated as dragged
-        // debugger;
-
-        // itemNodes.forEach((el) =>
-        // absolutelyPlaceElement(
-        //     el.current as HTMLDivElement,
-        //     itemBlock.bounds,
-        //     true
-        //   )
-        // );
-
-        console.log(`---Action: DRAG_START`);
       },
 
       onDrag: (context, event) => {
@@ -161,7 +147,6 @@ export const dragMachine = createMachine<DragContext, DragEvent, DragTypeState>(
       },
 
       onFinished: (context, event) => {
-        console.log("---Action: FINISH");
         if (typeof context.closestBlock === "undefined" || !context.onMove)
           return;
 
@@ -201,7 +186,7 @@ function findAvailableBlocks({
 }: {
   itemName: string;
   allItems: GridItemDef[];
-}): { availableBlocks: GridBlock[]; itemBlock: GridBlock } {
+}): GridBlock[] {
   const itemToMove = allItems.find((item) => item.name === itemName);
   if (!itemToMove)
     throw new Error("Could not find the currently selected item");
@@ -253,14 +238,11 @@ function findAvailableBlocks({
       }
     }
   }
-  return {
-    availableBlocks,
-    itemBlock: findPositionOfBlock(itemToMove, cellBounds),
-  };
+  return availableBlocks;
 }
 
 export function useDragToMove() {
-  const [currentDrag, sendToDragMachine] = useMachine(dragMachine);
+  const [, sendToDragMachine] = useMachine(dragMachine);
 
   const moveItem = useRecoilTransaction_UNSTABLE(
     ({ get, set }) => ({
