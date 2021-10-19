@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { makeBoxShadow } from "utils/css-helpers";
 import { makeTractPos } from "utils/grid-helpers";
 import { ItemBoundingBox } from "utils/overlap-helpers";
 import { GridPos } from "../GridTypes";
@@ -21,6 +22,7 @@ export const GridItemDiv = styled.div(
     if (absoluteBounds) {
       return {
         position: "absolute",
+        boxShadow: makeBoxShadow({ height: 1 }),
         transition: "all 0.15s ease-in-out",
         transitionProperty: "box-shadow, top, left, width, height",
         top: absoluteBounds.offsetTop + "px",
