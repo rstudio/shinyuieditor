@@ -3,11 +3,8 @@ body {
   --rstudio-grey: #404040;
   --rstudio-white: #ffffff;
   --light-grey: #c4c4c4b2;
-  --header-height: 60px;
-  --selected-shadow: inset 0px 0px 0px 3px var(--rstudio-grey);
-  --selected-outline: 3px solid var(--rstudio-grey);
   --selection-color: tomato;
+  --selected-shadow: inset 0px 0px 0px 3px var(--rstudio-grey);
   --corner-radius: 5px;
-  --unit-input-width: 145px;
   --card-header-height: 35px;
 }

@@ -61,7 +61,7 @@ export function LayoutEditor() {
 
 const EditorWrapper = styled.div({
   "--main-gap": "var(--pad, 1rem)",
-  "--row-controls-gap": "calc(var(--unit-input-width, 30px) - var(--main-gap))",
+  "--row-controls-gap": "calc(145px - var(--main-gap))",
   "--col-controls-gap": "calc(50px - var(--main-gap))",
   display: "grid",
   // min and max height are needed here or else the app will want to overflow
