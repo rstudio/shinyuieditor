@@ -18,7 +18,7 @@ export type GridItemNamesAtom = typeof gridItemNames;
 
 // This gets wrapped within a selectorFamily for easier control of the names
 // so we dont use it outside of this script
-type GridItemState = GridItemDef & { absoluteBounds?: ItemBoundingBox };
+export type GridItemState = GridItemDef & { absoluteBounds?: ItemBoundingBox };
 export const gridItemAtoms = atomFamily<GridItemState, string>({
   key: "gridItemsState",
   default: {

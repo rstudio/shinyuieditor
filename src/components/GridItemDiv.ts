@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { GridItemState } from "state-logic/gridItems";
 import { makeBoxShadow } from "utils/css-helpers";
 import { makeTractPos } from "utils/grid-helpers";
 import { ItemBoundingBox } from "utils/overlap-helpers";
@@ -25,10 +26,10 @@ export const GridItemDiv = styled.div(
         boxShadow: makeBoxShadow({ height: 1 }),
         transition: "all 0.15s ease-in-out",
         transitionProperty: "box-shadow, top, left, width, height",
-        top: absoluteBounds.offsetTop + "px",
-        left: absoluteBounds.offsetLeft + "px",
-        width: absoluteBounds.right - absoluteBounds.left + "px",
-        height: absoluteBounds.bottom - absoluteBounds.top + "px",
+        top: "var(--pos-top)",
+        left: "var(--pos-left)",
+        width: "var(--pos-width)",
+        height: "var(--pos-height)",
       };
     }
     if (startRow && startCol) {
@@ -48,3 +49,16 @@ export const GridItemDiv = styled.div(
     }
   }
 );
+
+export function makeAbsolutePositionStyles(itemDef: GridItemState) {
+  return itemDef.absoluteBounds
+    ? ({
+        "--pos-top": itemDef.absoluteBounds.offsetTop + "px",
+        "--pos-left": itemDef.absoluteBounds.offsetLeft + "px",
+        "--pos-width":
+          itemDef.absoluteBounds.right - itemDef.absoluteBounds.left + "px",
+        "--pos-height":
+          itemDef.absoluteBounds.bottom - itemDef.absoluteBounds.top + "px",
+      } as React.CSSProperties)
+    : undefined;
+}

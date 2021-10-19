@@ -7,7 +7,10 @@ import {
   gridItemNames,
   useToggleSelectedItem,
 } from "state-logic/gridItems";
-import { GridItemDiv } from "components/GridItemDiv";
+import {
+  GridItemDiv,
+  makeAbsolutePositionStyles,
+} from "components/GridItemDiv";
 
 function EditableGridItem({
   name,
@@ -17,11 +20,13 @@ function EditableGridItem({
   onClick: (name: string) => void;
 }) {
   const itemDef = useRecoilValue(gridItemAtoms(name));
+  const positionStyles = makeAbsolutePositionStyles(itemDef);
 
   return (
     <GridItemDiv
       css={itemStyles}
       {...itemDef}
+      style={positionStyles}
       onClick={() => onClick(name)}
       title={name}
       aria-label={`${name}-item`}
