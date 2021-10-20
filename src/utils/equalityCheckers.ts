@@ -25,18 +25,3 @@ export function sameObject(
 
   return true;
 }
-
-function omit(obj: Obj, keysToRemove: string[] | string): Obj {
-  const result: Obj = {};
-  if (typeof keysToRemove === "string") {
-    keysToRemove = [].slice.call(arguments, 1);
-  }
-  for (let prop in obj) {
-    if (!obj.hasOwnProperty || obj.hasOwnProperty(prop)) {
-      if (!keysToRemove.includes(prop)) {
-        result[prop] = obj[prop];
-      }
-    }
-  }
-  return result;
-}
