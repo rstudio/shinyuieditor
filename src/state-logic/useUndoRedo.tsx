@@ -3,7 +3,7 @@ import StateHistory from "modules/StateHistory";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { fullAppState } from "state-logic/gridLayout/atoms";
-import { sameLayout } from "utils/grid-helpers";
+import { sameLayoutTemplate } from "utils/sameLayoutTemplate";
 import { selectedItemNameState } from "./gridItems";
 
 type HistoryEntry = {
@@ -68,7 +68,7 @@ function sameHistoryEntry(newEntry: HistoryEntry, oldEntry?: HistoryEntry) {
   if (typeof oldEntry === "undefined") return false;
   if (newEntry.selectedItemName !== oldEntry.selectedItemName) return false;
 
-  return sameLayout(newEntry.layout, oldEntry.layout);
+  return sameLayoutTemplate(newEntry.layout, oldEntry.layout);
 }
 function isEmptyTemplate(template?: GridLayoutTemplate) {
   if (typeof template === "undefined") return true;
