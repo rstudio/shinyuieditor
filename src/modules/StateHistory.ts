@@ -20,8 +20,12 @@ export default class StateHistory<EntryType> {
     return this.isSameFn(entry, this.lastRequested);
   }
 
+  private lastEntry() {
+    return this.stack[this.stack.length - 1];
+  }
+
   private isDuplicateOfLastEntry(entry: EntryType) {
-    return this.isSameFn(entry, this.stack[this.stack.length - 1]);
+    return this.isSameFn(entry, this.lastEntry());
   }
 
   private startNewHistoryBranch() {
@@ -34,6 +38,7 @@ export default class StateHistory<EntryType> {
     // entry from the history itself (user has pressed back button etc) or if
     // the newest entry is the same as the last one (can happen on things like
     // page reloads).
+
     if (this.isEntryFromHistory(entry) || this.isDuplicateOfLastEntry(entry))
       return;
 
