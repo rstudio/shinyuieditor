@@ -6,11 +6,21 @@ A GUI for laying out a Shiny application that generates clean and editable UI co
 
 # Roadmap
 
-- [ ] Recreate (most) features of the GridEd layout editor in Preact as proof of concept
+- [x] Recreate (most) features of the GridEd layout editor in Preact as proof of concept
   - [x] Make sure dogma is met with code
   - [x] Finish the EpicReactDev course
-  - [ ] Get to desired feature parity with GridEd
+  - [x] Get to desired feature parity with GridEd
   - [x] Setup test suite
+- [ ] MVP demo stage
+  - [ ] Backend
+    - [ ] Build a parser of simple Shiny UI code to some IR
+    - [ ] Writer to go from IR -> Shiny UI code (first R then python).
+  - [ ] Frontend
+    - [ ] Add a staging area for un-placed items in the app
+    - [ ] Add injestion of IR to visual editor
+      - [ ] Add a `ShinyElement` component that knows how to draw itself based on item metadata like UI function type etc.
+    - [ ] Ability to translate visual editor state to valid IR
+- [ ] Hook up live apps to editor
 - [ ] Decide feature bounds of application
 - [ ] Mockup design of full visual editor (identifying feature phases)
 - [ ] Implement design of feature phase 1
@@ -23,6 +33,7 @@ A GUI for laying out a Shiny application that generates clean and editable UI co
 - React
 - Create React App for project setup
 - Recoil for state management
+- XState for complicated state transitions (e.g. item moving/resizing)
 
 # Development Design Dogma
 
