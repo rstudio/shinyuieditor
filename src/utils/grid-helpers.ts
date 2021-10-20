@@ -1,5 +1,5 @@
 import { TractDirection } from "state-logic/gridLayout/atoms";
-import { GridLayoutTemplate, GridPos } from "../GridTypes";
+import { GridPos } from "../GridTypes";
 import { getBBoxOfDiv, ItemBoundingBox } from "./overlap-helpers";
 
 
@@ -26,15 +26,6 @@ export function sameGridPos(a?: GridPos, b?: GridPos) {
     a.startRow === b.startRow &&
     a.endRow === b.endRow
   );
-}
-
-export function sameLayout(
-  a: GridLayoutTemplate,
-  b: GridLayoutTemplate | null
-): boolean {
-  if (b === null) return false;
-
-  return JSON.stringify(a) === JSON.stringify(b);
 }
 
 export function placeOnGridOrCol({
