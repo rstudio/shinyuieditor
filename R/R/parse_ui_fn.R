@@ -26,35 +26,34 @@
 #'
 #'
 #' lobstr::tree(parse_ui_fn(app_expr))
-#'
 parse_ui_fn <- function(ui_expr) {
-  if (!is.language(ui_expr)) stop("parse_ui_fn() was passed a non-language object")
-
-  expr_list <- as.list(ui_expr)
+  if (!is_known_ui_fn(ui_expr)) stop("Passed value is not a known UI function and can't be parsed.")
 
   parsed <- list(
-    fn_name = deparse(expr_list[[1]])
+    fn_name = called_fn_name(ui_expr)
   )
-  num_args <- length(expr_list) - 1
+  # First element is calling fn
+  num_args <- length(ui_expr) - 1
 
   if (num_args > 0) {
     parsed$args <- list()
 
     for (i in 1:num_args) {
-      # Add one because first element is calling fn
       arg_i <- i + 1
       arg_info <- list()
 
-      arg_name <- names(expr_list)[[arg_i]]
+      arg_name <- names(ui_expr)[[arg_i]]
       if (!is.null(arg_name) && arg_name != "") arg_info$name <- arg_name
 
-      arg_info$type <- expr_type(expr_list[[arg_i]])
+      arg_val <- ui_expr[[arg_i]]
 
-      arg_info$value <- if (arg_info$type == "call") {
-        parse_ui_fn(expr_list[[arg_i]])
-      } else {
-        as.character(expr_list[[arg_i]])
-      }
+      arg_info$type <- argument_expr_type(arg_val)
+      arg_info$value <- switch(arg_info$type,
+        constant = as.character(arg_val),
+        `ui-fn` = parse_ui_fn(arg_val),
+        `unknown-fn` = deparse(arg_val),
+        stop("Don't know how to handle type ", typeof(arg_val), call. = FALSE)
+      )
 
       parsed$args[[i]] <- arg_info
     }
@@ -63,18 +62,42 @@ parse_ui_fn <- function(ui_expr) {
   parsed
 }
 
+# Pull out name of call from an AST node in plain text
+called_fn_name <- function(x) {
+  deparse(x[[1]])
+}
 
-# Taken from Advanced R Ch 18 https://adv-r.hadley.nz/expressions.html#ast-funs
-expr_type <- function(x) {
-  if (rlang::is_syntactic_literal(x)) {
+# Get rid of the namespace prefix so we can look up functions more easily.
+# Ideally all calls would have namespace prefix so we can be sure we're
+# getting what we think instead of a user defined variable but that's a
+# pretty hefty restriction
+sanatize_fn_name <- function(fn_name) {
+  gsub(pattern = "\\w+::", replacement = "", x = fn_name, perl = TRUE)
+}
+
+
+known_ui_fns <- c(
+  "grid_page",
+  "title_panel",
+  "grid_panel",
+  "sliderInput",
+  "plotOutput"
+)
+
+# Takes an AST node and tells us if it corresponds to a known UI function call
+is_known_ui_fn <- function(x){
+  if (!is.language(x) || !is.call(x)) stop("Passed value is a not a function call object")
+  sanatize_fn_name(called_fn_name(x)) %in% known_ui_fns
+}
+
+# There are three types of values an argument can take this figures out which one
+# we have so we know how to proceed
+argument_expr_type <- function(x) {
+  if (!is.call(x)) {
     "constant"
-  } else if (is.symbol(x)) {
-    "symbol"
-  } else if (is.call(x)) {
-    "call"
-  } else if (is.pairlist(x)) {
-    "pairlist"
+  } else if (is_known_ui_fn(x)) {
+    "ui-fn"
   } else {
-    typeof(x)
+    "unknown-fn"
   }
 }
