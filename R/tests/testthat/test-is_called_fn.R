@@ -14,31 +14,17 @@ test_that("Doesn't evaluate functions", {
   expect_true(
     is_called_fn(
       rlang::expr(
-        my_custom_fn()
+        my_custom_fn(
+          myArg = "a"
+        )
       )
     )
   )
   expect_true(
     is_called_fn(
       rlang::expr(
-        my_pkg::my_custom_fn()
+        my_pkg::my_custom_fn(myArg = "a")
       )
     )
   )
-
-  expect_false(
-    is_called_fn(
-      rlang::expr(
-        my_custom_fn
-      )
-    )
-  )
-  expect_false(
-    is_called_fn(
-      rlang::expr(
-        my_pkg::my_custom_fn
-      )
-    )
-  )
-
 })
