@@ -4,24 +4,56 @@ type GridContainerStyles = {
   gridTemplateAreas: React.CSSProperties["gridTemplateAreas"];
   gridTemplateColumns: React.CSSProperties["gridTemplateColumns"];
   gridTemplateRows: React.CSSProperties["gridTemplateRows"];
+  gap: React.CSSProperties["gap"];
 };
 
+export type TemplatedGridProps = {
+  areas: string[][];
+  rowSizes?: CSSMeasure[] | CSSMeasure;
+  colSizes?: CSSMeasure[] | CSSMeasure;
+  gapSize?: CSSMeasure;
+};
 type ParsedTemplateResult = {
   numRows: number;
   numCols: number;
   styles: GridContainerStyles;
-  uniqueAreas: string[];
+  uniqueAreas: Set<string>;
 };
 
 export default function parseGridTemplateAreas({
   areas,
   rowSizes = "1fr",
   colSizes = "1fr",
-}: {
-  areas: string[][];
-  rowSizes?: CSSMeasure[] | CSSMeasure;
-  colSizes?: CSSMeasure[] | CSSMeasure;
-}): ParsedTemplateResult {
+  gapSize = "1rem",
+}: TemplatedGridProps): ParsedTemplateResult {
+  const {
+    numRows,
+    numCols,
+    gridTemplateAreas,
+    uniqueAreas,
+  } = buildGridTemplateAreas(areas);
+
+  return {
+    numRows,
+    numCols,
+    styles: {
+      gridTemplateAreas,
+      gridTemplateColumns: buildTractSizes(numCols, colSizes, "column"),
+      gridTemplateRows: buildTractSizes(numRows, rowSizes, "row"),
+      gap: gapSize,
+    },
+    uniqueAreas,
+  };
+}
+
+export function buildGridTemplateAreas(
+  areas: string[][]
+): {
+  numRows: number;
+  numCols: number;
+  gridTemplateAreas: React.CSSProperties["gridTemplateAreas"];
+  uniqueAreas: Set<string>;
+} {
   const numRows = areas.length;
   const numCols = areas[0].length;
 
@@ -39,16 +71,12 @@ export default function parseGridTemplateAreas({
   return {
     numRows,
     numCols,
-    styles: {
-      gridTemplateAreas,
-      gridTemplateColumns: buildTractSizes(numCols, colSizes, "column"),
-      gridTemplateRows: buildTractSizes(numRows, rowSizes, "row"),
-    },
-    uniqueAreas: [...uniqueAreas],
+    gridTemplateAreas,
+    uniqueAreas,
   };
 }
 
-function buildTractSizes(
+export function buildTractSizes(
   numTracts: number,
   tractSizes: CSSMeasure[] | CSSMeasure,
   dir: "row" | "column"
