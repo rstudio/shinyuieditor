@@ -31,7 +31,7 @@ export function AreaLabeledGridHolder({
 }: TemplatedGridProps & { children: React.ReactNode }) {
   const parsedProps = parseGridTemplateAreas(props);
 
-  const areaMarkers = [...parsedProps.uniqueAreas].map((area) => (
+  const areaMarkers = parsedProps.uniqueAreas.map((area) => (
     <div
       key={area}
       css={{

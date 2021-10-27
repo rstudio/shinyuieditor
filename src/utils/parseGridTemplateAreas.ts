@@ -17,7 +17,7 @@ type ParsedTemplateResult = {
   numRows: number;
   numCols: number;
   styles: GridContainerStyles;
-  uniqueAreas: Set<string>;
+  uniqueAreas: string[];
 };
 
 export default function parseGridTemplateAreas({
@@ -52,7 +52,7 @@ export function buildGridTemplateAreas(
   numRows: number;
   numCols: number;
   gridTemplateAreas: React.CSSProperties["gridTemplateAreas"];
-  uniqueAreas: Set<string>;
+  uniqueAreas: string[];
 } {
   const numRows = areas.length;
   const numCols = areas[0].length;
@@ -72,7 +72,7 @@ export function buildGridTemplateAreas(
     numRows,
     numCols,
     gridTemplateAreas,
-    uniqueAreas,
+    uniqueAreas: [...uniqueAreas],
   };
 }
 

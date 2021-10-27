@@ -14,7 +14,7 @@ describe("Properly parse grid areas template from string vector", () => {
       numRows: 2,
       numCols: 2,
       gridTemplateAreas: `"a b"\n"c d"`,
-      uniqueAreas: new Set(["a", "b", "c", "d"]),
+      uniqueAreas: ["a", "b", "c", "d"],
     });
   });
   test("Simple 2x3 grid", () => {
@@ -27,7 +27,7 @@ describe("Properly parse grid areas template from string vector", () => {
       numRows: 2,
       numCols: 3,
       gridTemplateAreas: `"a b c"\n"d e f"`,
-      uniqueAreas: new Set(["a", "b", "c", "d", "e", "f"]),
+      uniqueAreas: ["a", "b", "c", "d", "e", "f"],
     });
   });
 
@@ -36,7 +36,7 @@ describe("Properly parse grid areas template from string vector", () => {
       numRows: 1,
       numCols: 3,
       gridTemplateAreas: `"a b c"`,
-      uniqueAreas: new Set(["a", "b", "c"]),
+      uniqueAreas: ["a", "b", "c"],
     });
   });
   test("Single column", () => {
@@ -44,7 +44,7 @@ describe("Properly parse grid areas template from string vector", () => {
       numRows: 3,
       numCols: 1,
       gridTemplateAreas: `"a"\n"b"\n"c"`,
-      uniqueAreas: new Set(["a", "b", "c"]),
+      uniqueAreas: ["a", "b", "c"],
     });
   });
 
@@ -87,7 +87,7 @@ describe("Validate entire templated grid definition", () => {
     ).toStrictEqual({
       numRows: 2,
       numCols: 2,
-      uniqueAreas: new Set(["a", "b", "c", "d"]),
+      uniqueAreas: ["a", "b", "c", "d"],
       styles: {
         gap: "11px",
         gridTemplateAreas: `"a b"\n"c d"`,
