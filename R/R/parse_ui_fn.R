@@ -27,6 +27,7 @@
 #'
 #' lobstr::tree(parse_ui_fn(app_expr))
 parse_ui_fn <- function(ui_expr) {
+
   if (!is_known_ui_fn(ui_expr)) stop("Passed value is not a known UI function and can't be parsed.")
 
   parsed <- list(
@@ -51,7 +52,7 @@ parse_ui_fn <- function(ui_expr) {
       arg_info$value <- switch(arg_info$type,
         constant = as.character(arg_val),
         `ui-fn` = parse_ui_fn(arg_val),
-        `unknown-fn` = deparse(arg_val),
+        `unknown-fn` = paste(deparse(arg_val), collapse = "\n"),
         stop("Don't know how to handle type ", typeof(arg_val), call. = FALSE)
       )
 
