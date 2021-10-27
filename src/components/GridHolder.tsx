@@ -10,7 +10,7 @@ export function GridHolder({
   colSizes,
   gapSize,
   children,
-}: TemplatedGridProps & { children: React.ReactNode }) {
+}: TemplatedGridProps & { children?: React.ReactNode }) {
   const parsedProps = parseGridTemplateAreas({
     areas,
     rowSizes,
@@ -28,7 +28,7 @@ export function GridHolder({
 export function AreaLabeledGridHolder({
   children,
   ...props
-}: TemplatedGridProps & { children: React.ReactNode }) {
+}: TemplatedGridProps & { children?: React.ReactNode }) {
   const parsedProps = parseGridTemplateAreas(props);
 
   const areaMarkers = parsedProps.uniqueAreas.map((area) => (
