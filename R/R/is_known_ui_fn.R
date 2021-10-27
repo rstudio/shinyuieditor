@@ -3,7 +3,7 @@
 #' Takes an AST node and tells us if it corresponds to a known UI function call.
 #' Makes the assumption that we can't look into the environment to make sure
 #' that we are getting the function we think we are. This is because we want to
-#' be able to parse raw text instead of relying on an active evaulation context.
+#' be able to parse raw text instead of relying on an active evaluation context.
 #'
 #' @param x Language object node corresponding to a function call
 #'
@@ -16,26 +16,31 @@
 #' is_known_ui_fn(rlang::expr(custom_ui_page()))
 #'
 is_known_ui_fn <- function(x){
-  if (!is_called_fn(x)) stop("Passed value is a not a function call object")
 
-  sanatize_fn_name(called_fn_name(x)) %in% known_ui_fns
+  if (!is.language(x)) stop("Passed value is not an expression")
+
+  if (is.symbol(x) || identical(x[[1]], as.symbol("::"))) stop("Passed expression is not a function call")
+
+  full_fn_name <- called_fn_name(x)
+
+  # if (identical(full_fn_name, "::")) stop("Passed expression is not a function call")
+  # Get rid of the namespace prefix so we can look up functions more easily.
+  # Ideally all calls would have namespace prefix so we can be sure we're
+  # getting what we think instead of a user defined variable but that's a
+  # pretty hefty restriction
+
+  fn_list <- if (grepl("::", full_fn_name, fixed = TRUE)) namespaced_ui_fns else known_ui_fns
+
+  full_fn_name %in% fn_list
 }
 
 
-# Get rid of the namespace prefix so we can look up functions more easily.
-# Ideally all calls would have namespace prefix so we can be sure we're
-# getting what we think instead of a user defined variable but that's a
-# pretty hefty restriction
-sanatize_fn_name <- function(fn_name) {
-  gsub(pattern = "\\w+::", replacement = "", x = fn_name, perl = TRUE)
-}
-
-
-known_ui_fns <- c(
-  "grid_page",
-  "title_panel",
-  "grid_panel",
-  "sliderInput",
-  "plotOutput"
+namespaced_ui_fns <- c(
+  "gridlayout::grid_page",
+  "gridlayout::title_panel",
+  "gridlayout::grid_panel",
+  "shiny::sliderInput",
+  "shiny::plotOutput"
 )
+known_ui_fns <- gsub(pattern = "\\w+::", replacement = "", x = namespaced_ui_fns, perl = TRUE)
 
