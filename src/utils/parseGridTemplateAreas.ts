@@ -1,5 +1,5 @@
 import { CSSMeasure } from "GridTypes";
-import { uniqueMatrixElements } from "./array-helpers";
+import { matrixDimensions, uniqueMatrixElements } from "./array-helpers";
 
 type GridContainerStyles = {
   gridTemplateAreas: React.CSSProperties["gridTemplateAreas"];
@@ -27,8 +27,10 @@ export default function parseGridTemplateAreas({
   colSizes = "1fr",
   gapSize = "1rem",
 }: TemplatedGridProps): ParsedTemplateResult {
-  const { numRows, numCols, gridTemplateAreas } = buildGridTemplateAreas(areas);
-
+  const { numRows, numCols } = matrixDimensions(areas);
+  const gridTemplateAreas = areas
+    .map((rowDef) => `"${rowDef.join(" ")}"`)
+    .join("\n");
   return {
     numRows,
     numCols,
@@ -39,32 +41,6 @@ export default function parseGridTemplateAreas({
       gap: gapSize,
     },
     uniqueAreas: uniqueMatrixElements(areas),
-  };
-}
-
-export function buildGridTemplateAreas(
-  areas: string[][]
-): {
-  numRows: number;
-  numCols: number;
-  gridTemplateAreas: React.CSSProperties["gridTemplateAreas"];
-} {
-  const numRows = areas.length;
-  const numCols = areas[0].length;
-
-  const gridTemplateAreas = areas
-    .map((rowDef) => {
-      if (rowDef.length !== numCols)
-        throw new Error("Inconsistant number of columns in areas template");
-      return `"${rowDef.join(" ")}"`;
-    })
-    .join("\n");
-
-  return {
-    numRows,
-    numCols,
-    gridTemplateAreas,
-    // uniqueAreas: uniqueElements(areas),
   };
 }
 
