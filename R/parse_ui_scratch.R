@@ -18,27 +18,62 @@ app_expr <- rlang::expr(
   )
 )
 
-is_called_fn <- function(x){
-  if (!rlang::is_call(x)) return(FALSE)
+full_call <- rlang::expr(
+  my_pkg::test_page(a = 1)
+)
 
-  # Make sure the call isn't just the namespace operator
-  if(identical(rlang::call_fn(x), base::`::`)){
-    return(rlang::is_call(x[[3]]))
-  }
+uncalled_fn <- rlang::expr(
+  my_pkg::test_page
+)
+uncalled_long_pkg_fn <- rlang::expr(
+  my_pkgaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa::test_pageaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa()
+)
 
-  TRUE
-}
+function_factory <- rlang::expr(
+  build_a_func()(1 + 2)
+)
+x <- function_factory
+
+called_fn_name(function_factory)
+is_known_ui_fn(uncalled_long_pkg_fn)
 
 
+plain_var <- rlang::expr(
+  an_undefined_var
+)
+
+length(full_call[[1]])
+length(uncalled_fn[[1]])
+length(plain_var[[1]])
+
+is.symbol(full_call)
+is.symbol(uncalled_fn)
+is.symbol(plain_var)
+
+is.language(full_call)
+is.language(uncalled_fn)
+is.language(plain_var)
+
+
+is_known_ui_fn(full_call)
+
+is_known_ui_fn(rlang::expr(
+  my_pkg::test_page
+))
+
+is_known_ui_fn(rlang::expr(
+  an_undefined_var
+))
 lobstr::tree(parse_ui_fn(app_expr))
 
-lobstr::tree(parse_ui_fn(gridlayout::grid_page(
+lobstr::tree(parse_ui_fn(rlang::expr(gridlayout::grid_page(
   layout = "|2rem |1fr    |
             |80px |header |
             |1fr  |plot   |",
   header = gridlayout::title_panel("This is my header"),
-  plot = shiny::plotOutput("distPlot")
-)))
+  plot = shiny::plotOutput("distPlot"),
+  unknown = shinywidgets::my_widget(a = 1, my_text = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", my_text2 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+))))
 ui <- gridlayout::grid_page(
   layout = "|2rem |1fr    |
             |80px |header |
