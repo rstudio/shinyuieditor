@@ -1,34 +1,57 @@
 /** @jsxImportSource @emotion/react */
-import css from "@emotion/css";
-import { CSSMeasure } from "GridTypes";
 import React from "react";
-import { GridTractDefs } from "state-logic/gridLayout/atoms";
-
-interface GridHolderProps {
-  rows: GridTractDefs;
-  columns: GridTractDefs;
-  gap: CSSMeasure;
-}
+import parseGridTemplateAreas, {
+  TemplatedGridProps,
+} from "utils/parseGridTemplateAreas";
 
 export function GridHolder({
-  rows,
-  columns,
-  gap,
+  areas,
+  rowSizes,
+  colSizes,
+  gapSize,
   children,
-}: GridHolderProps & { children: React.ReactNode }) {
+}: TemplatedGridProps & { children: React.ReactNode }) {
+  const parsedProps = parseGridTemplateAreas({
+    areas,
+    rowSizes,
+    colSizes,
+    gapSize,
+  });
+
   return (
-    <div
-      css={{
-        backgroundColor: "blanchedalmond",
-        display: "grid",
-        gridTemplateColumns: rows.join(" "),
-        gridTemplateRows: columns.join(" "),
-        gap: gap,
-        gridTemplateAreas: `"a b"
-                            "c d"`,
-      }}
-    >
+    <div style={parsedProps.styles} css={{ display: "grid" }}>
       {children}
     </div>
+  );
+}
+
+export function AreaLabeledGridHolder({
+  children,
+  ...props
+}: TemplatedGridProps & { children: React.ReactNode }) {
+  const parsedProps = parseGridTemplateAreas(props);
+
+  const areaMarkers = [...parsedProps.uniqueAreas].map((area) => (
+    <div
+      key={area}
+      css={{
+        outline: "1px solid black",
+        display: "grid",
+        placeContent: "end",
+        fontWeight: "lighter",
+        fontStyle: "italic",
+        padding: "2px",
+        opacity: 0.2,
+      }}
+      style={{ gridArea: area }}
+    >
+      area: {area}
+    </div>
+  ));
+
+  return (
+    <GridHolder {...props}>
+      {areaMarkers} {children}
+    </GridHolder>
   );
 }
