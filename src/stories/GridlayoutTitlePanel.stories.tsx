@@ -1,14 +1,14 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import GridlayoutTitlePanel from "components/shiny-ui/GridlayoutTitlePanel";
 import React from "react";
-import { buildGridTemplateAreas } from "utils/parseGridTemplateAreas";
+import { uniqueMatrixElements } from "utils/array-helpers";
 import { AreaLabeledGridHolder } from "../components/GridHolder";
 
 const layoutAreas = [
   ["a", "a", "b", "other"],
   ["c", "d", "d", "other"],
 ];
-const { uniqueAreas } = buildGridTemplateAreas(layoutAreas);
+const uniqueAreas = uniqueMatrixElements(layoutAreas);
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
