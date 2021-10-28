@@ -11,3 +11,7 @@
   --animation-speed: 0.2s;
   --animation-curve: ease-in-out;
 }
+
+* {
+  box-sizing: border-box;
+}
