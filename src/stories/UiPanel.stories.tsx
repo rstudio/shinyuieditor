@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import allUiOutputs from "components/shiny-ui/allUiOutputs";
+import { uiOutputDefaults } from "components/shiny-ui/CreateUiElement";
 import UiPanel from "components/shiny-ui/UiPanel";
 import React from "react";
 import { uniqueMatrixElements } from "utils/array-helpers";
@@ -20,7 +20,7 @@ export default {
       control: { type: "select", options: uniqueAreas },
     },
     element: {
-      control: { type: "select", options: Object.keys(allUiOutputs) },
+      control: { type: "select", options: Object.keys(uiOutputDefaults) },
     },
   },
 } as ComponentMeta<typeof UiPanel>;
