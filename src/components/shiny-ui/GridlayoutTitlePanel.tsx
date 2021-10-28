@@ -4,7 +4,7 @@ import { makeBoxShadow } from "utils/css-helpers";
 
 export interface GridlayoutTitlePanelProps {
   title: string;
-  area: string;
+  area?: string;
 }
 
 function GridlayoutTitlePanel({ title, area }: GridlayoutTitlePanelProps) {
