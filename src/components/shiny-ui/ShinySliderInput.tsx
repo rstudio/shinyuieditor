@@ -1,10 +1,9 @@
-/** @jsxImportSource @emotion/react */
-import css from "@emotion/css";
+import styled from "@emotion/styled";
 import * as React from "react";
 import { BiSliderAlt } from "react-icons/bi";
 import { makeBoxShadow } from "utils/css-helpers";
 
-interface ShinySliderInputProps {
+export interface ShinySliderInputProps {
   id: string;
   width: string;
   height: string;
@@ -16,18 +15,18 @@ function ShinySliderInput({
   height = "200px",
 }: ShinySliderInputProps) {
   return (
-    <div style={{ height, width }} css={sliderStyles}>
+    <SliderHolder style={{ height, width }}>
       <div style={{ gridArea: "1/1", placeSelf: "center" }}>
         <BiSliderAlt size={`calc(${width}/2)`} />
       </div>
       <div style={{ gridArea: "1/1", placeSelf: "end" }}>
         This is a slider with the id {id}!
       </div>
-    </div>
+    </SliderHolder>
   );
 }
 
-const sliderStyles = css({
+const SliderHolder = styled.div({
   outline: "1px solid var(--rstudio-grey)",
   display: "grid",
   gridTemplateRows: "1fr",
