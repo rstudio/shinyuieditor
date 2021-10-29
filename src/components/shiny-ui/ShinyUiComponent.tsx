@@ -3,7 +3,7 @@ import GridlayoutTitlePanel from "./GridlayoutTitlePanel";
 import ShinyPlotOutput from "./ShinyPlotOutput";
 import ShinySliderInput from "./ShinySliderInput";
 
-export const uiComponents = {
+const uiComponents = {
   plotOutput: ShinyPlotOutput,
   sliderInput: ShinySliderInput,
   titlePanel: GridlayoutTitlePanel,
