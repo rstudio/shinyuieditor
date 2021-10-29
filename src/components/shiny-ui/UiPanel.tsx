@@ -15,26 +15,22 @@ function UiPanel({
       {componentDefinition ? (
         <ShinyUiComponent {...componentDefinition} />
       ) : (
-        ChooseElementMessage
+        <div style={{ padding: "1rem" }}>
+          <h2>Choose Shiny UI element</h2>
+        </div>
       )}
     </UiPanelHolder>
   );
 }
 
 const UiPanelHolder = styled.div({
-  outline: "1px solid var(--rstudio-grey)",
   display: "grid",
   gridTemplateRows: "1fr",
   gridTemplateColumns: "1fr",
   width: "100%",
   height: "100%",
+  placeItems: "center",
   boxShadow: makeBoxShadow({ height: 0.2 }),
 });
-
-const ChooseElementMessage = (
-  <div style={{ padding: "1rem" }}>
-    <h2>Choose Shiny UI element</h2>
-  </div>
-);
 
 export default UiPanel;
