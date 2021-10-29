@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { uiComponents } from "components/shiny-ui/CreateUiElement";
+import { uiComponents } from "components/shiny-ui/ShinyUiComponent";
 import UiPanel from "components/shiny-ui/UiPanel";
 import React from "react";
 import { uniqueMatrixElements } from "utils/array-helpers";

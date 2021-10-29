@@ -11,10 +11,13 @@ export const uiComponents = {
 
 export type UiComponentNames = keyof typeof uiComponents;
 
-export default function CreateUiElement(
-  name: UiComponentNames,
-  extraProps: object
-) {
+export default function ShinyUiComponent({
+  name,
+  props,
+}: {
+  name: UiComponentNames;
+  props: object;
+}) {
   const UiComponent = uiComponents[name];
-  return <UiComponent {...extraProps} />;
+  return <UiComponent {...props} />;
 }

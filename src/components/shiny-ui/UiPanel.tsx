@@ -1,19 +1,19 @@
 import styled from "@emotion/styled";
 import * as React from "react";
 import { makeBoxShadow } from "utils/css-helpers";
-import CreateUiElement, { UiComponentNames } from "./CreateUiElement";
+import ShinyUiComponent, { UiComponentNames } from "./ShinyUiComponent";
 
 interface UiPanelProps {
   area: string;
-  element?: UiComponentNames;
-  extraProps?: Object;
+  componentName?: UiComponentNames;
+  componentProps?: Object;
 }
 
-function UiPanel({ area, element, extraProps = {} }: UiPanelProps) {
+function UiPanel({ area, componentName, componentProps = {} }: UiPanelProps) {
   return (
     <UiPanelHolder className="ui-panel-holder" style={{ gridArea: area }}>
-      {element ? (
-        CreateUiElement(element, extraProps)
+      {componentName ? (
+        <ShinyUiComponent name={componentName} props={componentProps} />
       ) : (
         <h2>Choose Ui element</h2>
       )}
