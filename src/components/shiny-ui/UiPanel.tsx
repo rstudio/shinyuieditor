@@ -15,7 +15,7 @@ function UiPanel({ area, componentName, componentProps = {} }: UiPanelProps) {
       {componentName ? (
         <ShinyUiComponent name={componentName} props={componentProps} />
       ) : (
-        <h2>Choose Ui element</h2>
+        ChooseElementMessage
       )}
     </UiPanelHolder>
   );
@@ -30,5 +30,11 @@ const UiPanelHolder = styled.div({
   height: "100%",
   boxShadow: makeBoxShadow({ height: 0.2 }),
 });
+
+const ChooseElementMessage = (
+  <div style={{ padding: "1rem" }}>
+    <h2>Choose Shiny UI element</h2>
+  </div>
+);
 
 export default UiPanel;
