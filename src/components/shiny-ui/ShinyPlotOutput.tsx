@@ -3,14 +3,14 @@ import * as React from "react";
 import { GoGraph } from "react-icons/go";
 import { makeBoxShadow } from "utils/css-helpers";
 
-export interface ShinyPlotOutputProps {
+export type ShinyPlotOutputProps = Partial<{
   name: string;
   width: string;
   height: string;
-}
+}>;
 
 function ShinyPlotOutput({
-  name,
+  name = "shiny-plot-output",
   width = "200px",
   height = "200px",
 }: ShinyPlotOutputProps) {

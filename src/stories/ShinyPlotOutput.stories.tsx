@@ -20,9 +20,9 @@ export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {
   name: "myPlot",
+  width: "300px",
+  height: "400px",
 };
 
-export const Secondary = Template.bind({});
-Secondary.args = {
-  name: "myOtherPlot",
-};
+export const Defaults = Template.bind({});
+Defaults.args = {};
