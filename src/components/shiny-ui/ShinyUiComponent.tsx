@@ -1,7 +1,25 @@
 import React from "react";
-import GridlayoutTitlePanel from "./GridlayoutTitlePanel";
-import ShinyPlotOutput from "./ShinyPlotOutput";
-import ShinySliderInput from "./ShinySliderInput";
+import GridlayoutTitlePanel, {
+  GridlayoutTitlePanelProps,
+} from "./GridlayoutTitlePanel";
+import ShinyPlotOutput, { ShinyPlotOutputProps } from "./ShinyPlotOutput";
+import ShinySliderInput, { ShinySliderInputProps } from "./ShinySliderInput";
+
+export type UiComponentDefinition =
+  | {
+      componentName: "plotOutput";
+      componentProps: ShinyPlotOutputProps;
+    }
+  | {
+      componentName: "sliderInput";
+      componentProps: ShinySliderInputProps;
+    }
+  | {
+      componentName: "titlePanel";
+      componentProps: GridlayoutTitlePanelProps;
+    };
+
+export type UiComponentNames = UiComponentDefinition["componentName"];
 
 const uiComponents = {
   plotOutput: ShinyPlotOutput,
@@ -9,15 +27,10 @@ const uiComponents = {
   titlePanel: GridlayoutTitlePanel,
 };
 
-export type UiComponentNames = keyof typeof uiComponents;
-
 export default function ShinyUiComponent({
-  name,
-  props,
-}: {
-  name: UiComponentNames;
-  props: object;
-}) {
+  componentName: name,
+  componentProps: props,
+}: UiComponentDefinition) {
   const UiComponent = uiComponents[name];
   return <UiComponent {...props} />;
 }
