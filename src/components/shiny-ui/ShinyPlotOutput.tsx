@@ -11,8 +11,8 @@ export type ShinyPlotOutputProps = Partial<{
 
 function ShinyPlotOutput({
   name = "shiny-plot-output",
-  width = "200px",
-  height = "200px",
+  width = "100%",
+  height = "100%",
 }: ShinyPlotOutputProps) {
   return (
     <PlotHolder style={{ height, width }}>
