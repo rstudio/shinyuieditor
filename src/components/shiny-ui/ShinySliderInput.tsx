@@ -3,14 +3,14 @@ import * as React from "react";
 import { BiSliderAlt } from "react-icons/bi";
 import { makeBoxShadow } from "utils/css-helpers";
 
-export interface ShinySliderInputProps {
-  id: string;
+export type ShinySliderInputProps = Partial<{
+  name: string;
   width: string;
   height: string;
-}
+}>;
 
 function ShinySliderInput({
-  id,
+  name = "shiny-sliderInput",
   width = "200px",
   height = "200px",
 }: ShinySliderInputProps) {
@@ -20,7 +20,7 @@ function ShinySliderInput({
         <BiSliderAlt size={`calc(${width}/2)`} />
       </div>
       <div style={{ gridArea: "1/1", placeSelf: "end" }}>
-        This is a slider with the id {id}!
+        This is a slider with the name {name}!
       </div>
     </SliderHolder>
   );

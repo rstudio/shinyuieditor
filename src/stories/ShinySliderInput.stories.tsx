@@ -7,7 +7,7 @@ export default {
   title: "ShinyUI/SliderInput",
   component: ShinySliderInput,
   argTypes: {
-    id: { control: "text" },
+    name: { control: "text" },
   },
 } as ComponentMeta<typeof ShinySliderInput>;
 
@@ -19,5 +19,11 @@ const Template: ComponentStory<typeof ShinySliderInput> = (args) => (
 export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {
-  id: "mySlider",
+  name: "mySlider",
+  width: "400px",
+  height: "300px",
 };
+
+export const Defaults = Template.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+Defaults.args = {};

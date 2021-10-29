@@ -18,7 +18,7 @@ export const uiOutputDefaults: UiOutputDefaults = {
     height: "100%",
   },
   sliderInput: {
-    id: "MySlider",
+    name: "MySlider",
     width: "100%",
     height: "100%",
   },
