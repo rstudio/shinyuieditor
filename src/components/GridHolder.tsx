@@ -6,9 +6,9 @@ import parseGridTemplateAreas, {
 
 export function GridHolder({
   areas,
-  rowSizes,
-  colSizes,
-  gapSize,
+  rowSizes = "1fr",
+  colSizes = "1fr",
+  gapSize = "1rem",
   children,
 }: TemplatedGridProps & { children?: React.ReactNode }) {
   const parsedProps = parseGridTemplateAreas({
