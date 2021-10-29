@@ -3,11 +3,14 @@ import * as React from "react";
 import { makeBoxShadow } from "utils/css-helpers";
 
 export interface GridlayoutTitlePanelProps {
-  title: string;
+  title?: string;
   area?: string;
 }
 
-function GridlayoutTitlePanel({ title, area }: GridlayoutTitlePanelProps) {
+function GridlayoutTitlePanel({
+  title = "Default app title",
+  area,
+}: GridlayoutTitlePanelProps) {
   return (
     <TitlePanel style={{ gridArea: area }}>
       <h2>{title}</h2>

@@ -39,3 +39,6 @@ Primary.args = {
   title: "My App Title",
   area: uniqueAreas[0],
 };
+
+export const Seconday = Template.bind({});
+Seconday.args = { area: uniqueAreas[0] };
