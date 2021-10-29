@@ -9,10 +9,9 @@ export interface GridlayoutTitlePanelProps {
 
 function GridlayoutTitlePanel({
   title = "Default app title",
-  area,
 }: GridlayoutTitlePanelProps) {
   return (
-    <TitlePanel style={{ gridArea: area }}>
+    <TitlePanel>
       <h2>{title}</h2>
     </TitlePanel>
   );
@@ -21,10 +20,10 @@ function GridlayoutTitlePanel({
 const TitlePanel = styled.div({
   outline: "1px solid var(--rstudio-grey)",
   display: "grid",
-  gridTemplateRows: "1fr",
-  gridTemplateColumns: "1fr",
-  padding: "1rem",
   alignItems: "center",
+  width: "100%",
+  height: "100%",
+  padding: "1rem",
   boxShadow: makeBoxShadow({ height: 0.2 }),
 });
 
