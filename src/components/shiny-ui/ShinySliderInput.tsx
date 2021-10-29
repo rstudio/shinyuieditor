@@ -9,7 +9,7 @@ export type ShinySliderInputProps = Partial<{
   height: string;
 }>;
 
-function ShinySliderInput({
+export default function ShinySliderInput({
   name = "shiny-sliderInput",
   width = "200px",
   height = "200px",
@@ -34,5 +34,3 @@ const SliderHolder = styled.div({
   padding: "1rem",
   boxShadow: makeBoxShadow({ height: 0.2 }),
 });
-
-export default ShinySliderInput;
