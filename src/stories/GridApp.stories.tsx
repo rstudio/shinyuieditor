@@ -5,10 +5,12 @@ import { TemplatedGridProps } from "utils/parseGridTemplateAreas";
 
 const mainLayout: TemplatedGridProps = {
   areas: [
-    ["a", "a", "b", "other"],
-    ["c", "d", "d", "other"],
+    ["title", "title"],
+    ["settings", "plot"],
+    ["footer", "footer"],
   ],
-  rowSizes: ["200px", "300px"],
+  rowSizes: ["100px", "350px", "30px"],
+  colSizes: ["250px", "1fr"],
 };
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -26,16 +28,17 @@ export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {
   layout: mainLayout,
+  labelAreas: true,
   panels: {
-    a: {
+    title: {
       componentName: "titlePanel",
       componentProps: { title: "My App" },
     },
-    b: {
+    settings: {
       componentName: "sliderInput",
       componentProps: { name: "My slider!" },
     },
-    d: {
+    plot: {
       componentName: "plotOutput",
       componentProps: { name: "My Plot!" },
     },
