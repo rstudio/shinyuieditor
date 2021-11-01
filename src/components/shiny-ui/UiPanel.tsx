@@ -19,7 +19,8 @@ type UiComponentDefinition =
   | {
       componentName: "titlePanel";
       componentProps: GridlayoutTitlePanelProps;
-    };
+    }
+  | null;
 
 const uiComponents = {
   plotOutput: ShinyPlotOutput,
@@ -32,7 +33,7 @@ function UiPanel({
   componentDefinition,
 }: {
   area: string;
-  componentDefinition?: UiComponentDefinition;
+  componentDefinition: UiComponentDefinition;
 }) {
   let content;
 
