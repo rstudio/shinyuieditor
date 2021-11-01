@@ -1,13 +1,24 @@
+import { Button } from "@chakra-ui/button";
+import {
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverFooter,
+  PopoverHeader,
+  PopoverTrigger,
+} from "@chakra-ui/popover";
 import styled from "@emotion/styled";
 import * as React from "react";
+import { AiOutlineClose } from "react-icons/ai";
+import { FiSettings } from "react-icons/fi";
 import { makeBoxShadow } from "utils/css-helpers";
 import GridlayoutTitlePanel, {
   GridlayoutTitlePanelProps,
 } from "./GridlayoutTitlePanel";
 import ShinyPlotOutput, { ShinyPlotOutputProps } from "./ShinyPlotOutput";
 import ShinySliderInput, { ShinySliderInputProps } from "./ShinySliderInput";
-import { FiSettings } from "react-icons/fi";
-import { IconButton } from "@chakra-ui/button";
 
 export type UiComponentDefinition =
   | {
@@ -37,28 +48,53 @@ function UiPanel({
   area: string;
   componentDefinition: UiComponentDefinition;
 }) {
-  let content;
+  const [isOpen, setIsOpen] = React.useState(false);
+  const openPopover = () => setIsOpen(!isOpen);
+  const closePopover = () => setIsOpen(false);
 
-  if (componentDefinition) {
-    const { componentName, componentProps } = componentDefinition;
-    const UiComponent = uiComponents[componentName];
-    content = <UiComponent {...componentProps} />;
-  } else {
-    content = (
-      <div style={{ padding: "1rem" }}>
-        <h2>Choose Shiny UI element</h2>
-      </div>
+  if (!componentDefinition) {
+    return (
+      <UiPanelHolder className="ui-panel-holder" style={{ gridArea: area }}>
+        <div style={{ padding: "1rem" }}>
+          <h2>Choose Shiny UI element</h2>
+        </div>
+      </UiPanelHolder>
     );
   }
 
+  const { componentName, componentProps } = componentDefinition;
+  const UiComponent = uiComponents[componentName];
+
   return (
     <UiPanelHolder className="ui-panel-holder" style={{ gridArea: area }}>
-      <SettingsButtonHolder>
-        <button aria-label="Open settings for element">
-          <FiSettings />
-        </button>
-      </SettingsButtonHolder>
-      {content}
+      <Popover
+        isOpen={isOpen}
+        onClose={closePopover}
+        onOpen={openPopover}
+        closeOnBlur={true}
+      >
+        <PopoverTrigger>
+          <SettingsButtonHolder>
+            <button aria-label="Open settings for element">
+              <FiSettings />
+            </button>
+          </SettingsButtonHolder>
+        </PopoverTrigger>
+        <PopoverContent aria-label="Deletion conflict message">
+          <PopoverArrow />
+          <PopoverCloseButton />
+          <PopoverHeader>Settings panel</PopoverHeader>
+          <PopoverBody>
+            <p>To Be Filled</p>
+          </PopoverBody>
+          <PopoverFooter>
+            <Button leftIcon={<AiOutlineClose />} onClick={closePopover}>
+              Cancel
+            </Button>
+          </PopoverFooter>
+        </PopoverContent>
+      </Popover>
+      <UiComponent {...componentProps} />
     </UiPanelHolder>
   );
 }
