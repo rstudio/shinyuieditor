@@ -52,7 +52,12 @@ export default function ShinySliderInputSettings({
             onChange={(val) => setSliderSettings((s) => ({ ...s, val }))}
           />
         </FormControl>
-        <Button variant="main" leftIcon={<BiCheck />} type="submit">
+        <Button
+          variant="main"
+          leftIcon={<BiCheck />}
+          marginTop="0.75rem"
+          type="submit"
+        >
           Update Slider
         </Button>
       </form>
