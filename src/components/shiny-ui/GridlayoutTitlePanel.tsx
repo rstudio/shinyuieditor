@@ -11,7 +11,10 @@ function GridlayoutTitlePanel({
   title = "Default app title",
 }: GridlayoutTitlePanelProps) {
   return (
-    <TitlePanel>
+    <TitlePanel
+      className={"gridlayout-titlePanel"}
+      aria-label={"gridlayout-titlePanel"}
+    >
       <h2>{title}</h2>
     </TitlePanel>
   );

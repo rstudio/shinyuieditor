@@ -15,7 +15,11 @@ function ShinyPlotOutput({
   height = "100%",
 }: ShinyPlotOutputProps) {
   return (
-    <PlotHolder style={{ height, width }}>
+    <PlotHolder
+      style={{ height, width }}
+      className={"shiny-plotOutput"}
+      aria-label={"shiny-plotOutput"}
+    >
       <div style={{ gridArea: "1/1", placeSelf: "center" }}>
         <GoGraph size={`calc(${width}/2)`} />
       </div>

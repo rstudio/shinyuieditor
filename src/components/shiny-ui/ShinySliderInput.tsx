@@ -15,7 +15,11 @@ export default function ShinySliderInput({
   height = "200px",
 }: ShinySliderInputProps) {
   return (
-    <SliderHolder style={{ height, width }}>
+    <SliderHolder
+      style={{ height, width }}
+      className={"shiny-sliderInput"}
+      aria-label={"shiny-sliderInput"}
+    >
       <div style={{ gridArea: "1/1", placeSelf: "center" }}>
         <BiSliderAlt size={`calc(${width}/2)`} />
       </div>
