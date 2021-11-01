@@ -26,7 +26,3 @@ Primary.args = {
   },
   onUpdate: (newSettings: ShinySliderInputProps) => console.log(newSettings),
 };
-
-export const Defaults = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-Defaults.args = {};
