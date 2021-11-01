@@ -6,6 +6,8 @@ import GridlayoutTitlePanel, {
 } from "./GridlayoutTitlePanel";
 import ShinyPlotOutput, { ShinyPlotOutputProps } from "./ShinyPlotOutput";
 import ShinySliderInput, { ShinySliderInputProps } from "./ShinySliderInput";
+import { FiSettings } from "react-icons/fi";
+import { IconButton } from "@chakra-ui/button";
 
 export type UiComponentDefinition =
   | {
@@ -51,6 +53,11 @@ function UiPanel({
 
   return (
     <UiPanelHolder className="ui-panel-holder" style={{ gridArea: area }}>
+      <SettingsButtonHolder>
+        <button aria-label="Open settings for element">
+          <FiSettings />
+        </button>
+      </SettingsButtonHolder>
       {content}
     </UiPanelHolder>
   );
@@ -63,7 +70,17 @@ const UiPanelHolder = styled.div({
   width: "100%",
   height: "100%",
   placeItems: "center",
+  position: "relative",
   boxShadow: makeBoxShadow({ height: 0.2 }),
+});
+
+const SettingsButtonHolder = styled.button({
+  position: "absolute",
+  right: "5px",
+  top: "5px",
+  opacity: 0.5,
+  display: "grid",
+  placeContent: "center",
 });
 
 export default UiPanel;
