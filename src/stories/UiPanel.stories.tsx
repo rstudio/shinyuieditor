@@ -4,10 +4,7 @@ import React from "react";
 import { uniqueMatrixElements } from "utils/array-helpers";
 import { AreaLabeledGridHolder } from "../components/GridHolder";
 
-const layoutAreas = [
-  ["a", "a", "b", "other"],
-  ["c", "d", "d", "other"],
-];
+const layoutAreas = [["a", "b"]];
 const uniqueAreas = uniqueMatrixElements(layoutAreas);
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -25,8 +22,8 @@ export default {
 const Template: ComponentStory<typeof UiPanel> = (args) => (
   <AreaLabeledGridHolder
     areas={layoutAreas}
-    rowSizes={"200px"}
-    colSizes={"200px"}
+    rowSizes={"400px"}
+    colSizes={"400px"}
     gapSize={"1rem"}
   >
     <UiPanel {...args} />
@@ -37,4 +34,18 @@ export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {
   area: uniqueAreas[0],
+};
+
+export const Slider = Template.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+Slider.args = {
+  area: uniqueAreas[0],
+  componentDefinition: {
+    componentName: "sliderInput",
+    componentProps: {
+      min: 0,
+      max: 10,
+      val: 5,
+    },
+  },
 };
