@@ -13,6 +13,15 @@ const mainLayout: TemplatedGridProps = {
 };
 const testTitle = "My Test App Title";
 
+const originalError = console.error;
+beforeEach(() => {
+  // Use a mock to clean up the console output
+  console.error = jest.fn();
+});
+afterEach(() => {
+  console.error = originalError;
+});
+
 describe("GridApp fills with proper elements", () => {
   test("Full basic app", () => {
     render(
@@ -56,11 +65,8 @@ describe("GridApp fills with proper elements", () => {
   });
 });
 
-describe("Checks for proper matching of layout and requested elements", () => {
-  test("Mismatched grid location for item", () => {
-    // Use a mock to clean up the console output
-    const originalError = console.error;
-    console.error = jest.fn();
+describe("Errors properly", () => {
+  test("Checks for proper matching of layout and requested elements", () => {
     expect(() =>
       render(
         <GridApp
@@ -76,6 +82,25 @@ describe("Checks for proper matching of layout and requested elements", () => {
     ).toThrowError(
       "Tried to place a panel onto an area not in the defined grid layout"
     );
-    console.error = originalError;
+  });
+  test("Errors from individual ui components are not swallowed", () => {
+    expect(() =>
+      render(
+        <GridApp
+          layout={mainLayout}
+          panels={{
+            settings: {
+              componentName: "sliderInput",
+              componentProps: {
+                name: "My slider!",
+                min: 100,
+                max: 40,
+                val: 50,
+              },
+            },
+          }}
+        />
+      )
+    ).toThrowError("Need to define a minimum value that is below the max");
   });
 });
