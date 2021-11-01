@@ -1,7 +1,31 @@
 import styled from "@emotion/styled";
 import * as React from "react";
 import { makeBoxShadow } from "utils/css-helpers";
-import ShinyUiComponent, { UiComponentDefinition } from "./ShinyUiComponent";
+import GridlayoutTitlePanel, {
+  GridlayoutTitlePanelProps,
+} from "./GridlayoutTitlePanel";
+import ShinyPlotOutput, { ShinyPlotOutputProps } from "./ShinyPlotOutput";
+import ShinySliderInput, { ShinySliderInputProps } from "./ShinySliderInput";
+
+type UiComponentDefinition =
+  | {
+      componentName: "plotOutput";
+      componentProps: ShinyPlotOutputProps;
+    }
+  | {
+      componentName: "sliderInput";
+      componentProps: ShinySliderInputProps;
+    }
+  | {
+      componentName: "titlePanel";
+      componentProps: GridlayoutTitlePanelProps;
+    };
+
+const uiComponents = {
+  plotOutput: ShinyPlotOutput,
+  sliderInput: ShinySliderInput,
+  titlePanel: GridlayoutTitlePanel,
+};
 
 function UiPanel({
   area,
@@ -10,15 +34,23 @@ function UiPanel({
   area: string;
   componentDefinition: UiComponentDefinition;
 }) {
+  let content;
+
+  if (componentDefinition) {
+    const { componentName, componentProps } = componentDefinition;
+    const UiComponent = uiComponents[componentName];
+    content = <UiComponent {...componentProps} />;
+  } else {
+    content = (
+      <div style={{ padding: "1rem" }}>
+        <h2>Choose Shiny UI element</h2>
+      </div>
+    );
+  }
+
   return (
     <UiPanelHolder className="ui-panel-holder" style={{ gridArea: area }}>
-      {componentDefinition ? (
-        <ShinyUiComponent {...componentDefinition} />
-      ) : (
-        <div style={{ padding: "1rem" }}>
-          <h2>Choose Shiny UI element</h2>
-        </div>
-      )}
+      {content}
     </UiPanelHolder>
   );
 }
