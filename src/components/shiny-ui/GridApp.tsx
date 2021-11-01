@@ -2,8 +2,7 @@ import { AreaLabeledGridHolder, GridHolder } from "components/GridHolder";
 import parseGridTemplateAreas, {
   TemplatedGridProps,
 } from "utils/parseGridTemplateAreas";
-import { UiComponentDefinition } from "./ShinyUiComponent";
-import UiPanel from "./UiPanel";
+import UiPanel, { UiComponentDefinition } from "./UiPanel";
 
 type GridAppProps = {
   layout: TemplatedGridProps;

@@ -7,7 +7,7 @@ import GridlayoutTitlePanel, {
 import ShinyPlotOutput, { ShinyPlotOutputProps } from "./ShinyPlotOutput";
 import ShinySliderInput, { ShinySliderInputProps } from "./ShinySliderInput";
 
-type UiComponentDefinition =
+export type UiComponentDefinition =
   | {
       componentName: "plotOutput";
       componentProps: ShinyPlotOutputProps;
