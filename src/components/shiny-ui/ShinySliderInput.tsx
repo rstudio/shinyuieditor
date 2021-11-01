@@ -33,7 +33,9 @@ export default function ShinySliderInput({
       aria-label={"shiny-sliderInput"}
     >
       <div style={{ gridArea: "1/1", placeSelf: "center" }}>
-        <span> Current: {currentVal}</span>
+        <span>
+          Min: {settings.min}, Max: {settings.max}
+        </span>
         <input
           type="range"
           min={settings.min}
@@ -43,15 +45,17 @@ export default function ShinySliderInput({
           className="slider"
           aria-label={"slider input"}
         />
-      </div>
-      <div style={{ gridArea: "1/1", placeSelf: "end" }}>
-        This is a slider with the name {name}!
+        <span>Current: {currentVal}</span>
       </div>
     </SliderHolder>
   );
 }
 
-function buildSliderSettings({ min, max, val }: Partial<SliderSettings>) {
+export function buildSliderSettings({
+  min,
+  max,
+  val,
+}: Partial<SliderSettings>) {
   const allPresent = min && max && val;
   const nonePresent = !min && !max && !val;
 
