@@ -56,9 +56,10 @@ export function buildSliderSettings({
   max,
   val,
 }: Partial<SliderSettings>) {
-  const allPresent = min && max && val;
-  const nonePresent = !min && !max && !val;
-
+  const haveMin = typeof min === "number";
+  const haveMax = typeof max === "number";
+  const haveVal = typeof val === "number";
+  const nonePresent = !haveMin && !haveMax && !haveVal;
   if (nonePresent)
     return {
       min: 0,
@@ -66,6 +67,7 @@ export function buildSliderSettings({
       max: 100,
     };
 
+  const allPresent = haveMin && haveMax && haveVal;
   if (!allPresent)
     throw new Error(
       "A minimum, maximum, and starting value are needed for slider."
