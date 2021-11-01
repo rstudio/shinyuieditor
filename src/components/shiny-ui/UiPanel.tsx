@@ -32,7 +32,7 @@ function UiPanel({
   componentDefinition,
 }: {
   area: string;
-  componentDefinition: UiComponentDefinition;
+  componentDefinition?: UiComponentDefinition;
 }) {
   let content;
 
