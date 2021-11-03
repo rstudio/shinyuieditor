@@ -74,10 +74,8 @@ function UiPanel({
         closeOnBlur={true}
       >
         <PopoverTrigger>
-          <SettingsButtonHolder>
-            <button aria-label="Open settings for element">
-              <FiSettings />
-            </button>
+          <SettingsButtonHolder aria-label="Open settings for element">
+            <FiSettings />
           </SettingsButtonHolder>
         </PopoverTrigger>
         <PopoverContent aria-label="Deletion conflict message">
