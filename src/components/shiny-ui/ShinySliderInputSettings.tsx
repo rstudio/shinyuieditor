@@ -67,8 +67,6 @@ export default function ShinySliderInputSettings({
 
 const SettingsPanelHolder = styled.div({
   padding: "1rem",
-  input: { minHeight: "30px" },
-  button: { minHeight: "30px" },
 });
 
 function NumericInput({
