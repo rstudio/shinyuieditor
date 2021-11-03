@@ -5,9 +5,9 @@ import { BiCheck } from "react-icons/bi";
 import { ShinyPlotOutputProps } from ".";
 import {
   SettingsPanelHolder,
-  TextInput,
   UiPanelSettingsProps,
 } from "../UiPanelSettingsProps";
+import { TextInput } from "../SettingsInputs/TextInput";
 
 export default function ShinyPlotOutputSettings({
   startingSettings,

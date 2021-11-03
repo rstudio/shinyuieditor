@@ -4,10 +4,10 @@ import * as React from "react";
 import { BiCheck } from "react-icons/bi";
 import { buildSliderSettings, ShinySliderInputProps } from ".";
 import {
-  NumericInput,
   SettingsPanelHolder,
   UiPanelSettingsProps,
 } from "../UiPanelSettingsProps";
+import { NumericInput } from "../SettingsInputs/NumericInput";
 
 export default function ShinySliderInputSettings({
   startingSettings,
