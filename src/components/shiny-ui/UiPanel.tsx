@@ -96,8 +96,8 @@ function UiPanel({ area, componentDefinition, onUpdate }: UiPanelProps) {
             <ComponentSettings
               startingSettings={componentProps}
               onUpdate={(newSettings) => {
-                console.log(newSettings);
                 onUpdate(newSettings);
+                closePopover();
               }}
             />
           </PopoverBody>

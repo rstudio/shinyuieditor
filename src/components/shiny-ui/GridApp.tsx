@@ -3,6 +3,7 @@ import parseGridTemplateAreas, {
   TemplatedGridProps,
 } from "utils/parseGridTemplateAreas";
 import UiPanel, { UiComponentDefinition } from "./UiPanel";
+import * as React from "react";
 
 type GridAppProps = {
   layout: TemplatedGridProps;
@@ -12,12 +13,30 @@ type GridAppProps = {
 
 export default function GridApp({
   layout,
-  panels,
+  panels: initialPanels,
   labelAreas = false,
 }: GridAppProps) {
   const { uniqueAreas } = parseGridTemplateAreas(layout);
 
-  const panelAreas = Object.keys(panels);
+  const [allPanels, setAllPanels] = React.useState(initialPanels);
+
+  const updatePanel = React.useCallback(
+    (panelArea: string, newProps: object) => {
+      setAllPanels((currentPanels) => {
+        const existingPanel = currentPanels[panelArea];
+        if (!existingPanel) throw new Error("That panel doesn't exist");
+        const newPanels = { ...currentPanels };
+        newPanels[panelArea] = {
+          componentName: existingPanel.componentName,
+          componentProps: newProps,
+        };
+        return newPanels;
+      });
+    },
+    [setAllPanels]
+  );
+
+  const panelAreas = Object.keys(allPanels);
 
   if (panelAreas.some((area) => !uniqueAreas.includes(area)))
     throw new Error(
@@ -28,8 +47,8 @@ export default function GridApp({
     <UiPanel
       key={area}
       area={area}
-      componentDefinition={panels[area]}
-      onUpdate={(newProps) => console.log(`New props for panel ${area}`)}
+      componentDefinition={allPanels[area]}
+      onUpdate={(newProps) => updatePanel(area, newProps)}
     />
   ));
 
