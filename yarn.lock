@@ -10550,6 +10550,11 @@ junk@^3.1.0:
   resolved "https://registry.yarnpkg.com/junk/-/junk-3.1.0.tgz#31499098d902b7e98c5d9b9c80f43457a88abfa1"
   integrity sha512-pBxcB3LFc8QVgdggvZWyeys+hnrNWg4OcZIU/1X59k5jQdLBlCsYGRQaz234SqoRLTCgMH00fY0xRJH+F9METQ==
 
+just-diff@^4.1.2:
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/just-diff/-/just-diff-4.1.2.tgz#15a3df23553b550d6430d98632c4a4f12b280978"
+  integrity sha512-zfbu6etAdrfoqcuMJcCQBRi8IC4qUIy5knR6eFfqzOeP3S3ZOmnTYSta6RFbFinFazFpR9BoXX+SJwZkrXCvGA==
+
 killable@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/killable/-/killable-1.0.1.tgz#4c8ce441187a061c7474fb87ca08e2a638194892"

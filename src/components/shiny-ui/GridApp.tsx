@@ -4,6 +4,7 @@ import parseGridTemplateAreas, {
 } from "utils/parseGridTemplateAreas";
 import UiPanel, { UiComponentDefinition } from "./UiPanel";
 import * as React from "react";
+import { useShowDiffs } from "../../state-logic/useShowChanges";
 
 type GridAppProps = {
   layout: TemplatedGridProps;
@@ -19,6 +20,8 @@ export default function GridApp({
   const { uniqueAreas } = parseGridTemplateAreas(layout);
 
   const [allPanels, setAllPanels] = React.useState(initialPanels);
+
+  useShowDiffs({ val: allPanels });
 
   const updatePanel = React.useCallback(
     (panelArea: string, newProps: object) => {
