@@ -50,13 +50,14 @@ const uiComponents = {
   },
 };
 
-function UiPanel({
-  area,
-  componentDefinition,
-}: {
+type UiPanelProps = {
   area: string;
   componentDefinition: UiComponentDefinition;
-}) {
+  // I wish I could figure out how to type narrow this as well...
+  onUpdate: (newProps: object) => void;
+};
+
+function UiPanel({ area, componentDefinition, onUpdate }: UiPanelProps) {
   const [isOpen, setIsOpen] = React.useState(false);
   const openPopover = () => setIsOpen(!isOpen);
   const closePopover = () => setIsOpen(false);
@@ -94,7 +95,10 @@ function UiPanel({
           <PopoverBody>
             <ComponentSettings
               startingSettings={componentProps}
-              onUpdate={(newSettings) => console.log(newSettings)}
+              onUpdate={(newSettings) => {
+                console.log(newSettings);
+                onUpdate(newSettings);
+              }}
             />
           </PopoverBody>
         </PopoverContent>

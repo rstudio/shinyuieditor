@@ -25,7 +25,12 @@ export default function GridApp({
     );
 
   const panelComponents = panelAreas.map((area) => (
-    <UiPanel key={area} area={area} componentDefinition={panels[area]} />
+    <UiPanel
+      key={area}
+      area={area}
+      componentDefinition={panels[area]}
+      onUpdate={(newProps) => console.log(`New props for panel ${area}`)}
+    />
   ));
 
   const HolderComp = labelAreas ? AreaLabeledGridHolder : GridHolder;
