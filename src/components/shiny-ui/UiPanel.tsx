@@ -91,7 +91,9 @@ function UiPanel({ area, componentDefinition, onUpdate }: UiPanelProps) {
         <PopoverContent aria-label="Deletion conflict message">
           <PopoverArrow />
           <PopoverCloseButton />
-          <PopoverHeader>Settings panel</PopoverHeader>
+          <PopoverHeader>
+            <code>{componentName}</code> settings
+          </PopoverHeader>
           <PopoverBody>
             <ComponentSettings
               startingSettings={componentProps}
