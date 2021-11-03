@@ -18,8 +18,8 @@ A GUI for laying out a Shiny application that generates clean and editable UI co
   - [ ] Frontend
     - [ ] Add a staging area for un-placed items in the app
     - [ ] Add injestion of IR to visual editor
-      - [ ] Add a `ShinyElement` component that knows how to draw itself based on item metadata like UI function type etc.
-    - [ ] Ability to translate visual editor state to valid IR
+      - [x] Add a `ShinyElement` component that knows how to draw itself based on item metadata like UI function type etc.
+    - [x] Ability to translate visual editor state to valid IR
 - [ ] Hook up live apps to editor
 - [ ] Decide feature bounds of application
 - [ ] Mockup design of full visual editor (identifying feature phases)
