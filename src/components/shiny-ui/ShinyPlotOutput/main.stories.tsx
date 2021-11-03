@@ -4,7 +4,7 @@ import React from "react";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: "ShinyUI/PlotOutput",
+  title: "ShinyUI/ShinyPlotOutput/main",
   component: ShinyPlotOutput,
   argTypes: {
     name: { control: "text" },
