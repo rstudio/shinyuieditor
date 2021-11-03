@@ -15,6 +15,7 @@ import GridlayoutTitlePanel, {
   GridlayoutTitlePanelProps,
 } from "./GridlayoutTitlePanel";
 import ShinyPlotOutput, { ShinyPlotOutputProps } from "./ShinyPlotOutput";
+import ShinyPlotOutputSettings from "./ShinyPlotOutput/SettingsPanel";
 import ShinySliderInput, { ShinySliderInputProps } from "./ShinySliderInput";
 import ShinySliderInputSettings from "./ShinySliderInput/SettingsPanel";
 
@@ -42,7 +43,7 @@ const uiComponents = {
 };
 
 const uiComponentSettings = {
-  plotOutput: EmptySettings,
+  plotOutput: ShinyPlotOutputSettings,
   sliderInput: ShinySliderInputSettings,
   titlePanel: EmptySettings,
 };
