@@ -14,12 +14,11 @@ import { makeBoxShadow } from "utils/css-helpers";
 import GridlayoutTitlePanel, {
   GridlayoutTitlePanelProps,
 } from "./GridlayoutTitlePanel";
+import GridlayoutTitlePanelSettings from "./GridlayoutTitlePanel/SettingsPanel";
 import ShinyPlotOutput, { ShinyPlotOutputProps } from "./ShinyPlotOutput";
 import ShinyPlotOutputSettings from "./ShinyPlotOutput/SettingsPanel";
 import ShinySliderInput, { ShinySliderInputProps } from "./ShinySliderInput";
 import ShinySliderInputSettings from "./ShinySliderInput/SettingsPanel";
-
-import { EmptySettings } from "./UiPanelSettingsProps";
 
 export type UiComponentDefinition =
   | {
@@ -37,15 +36,18 @@ export type UiComponentDefinition =
   | null;
 
 const uiComponents = {
-  plotOutput: ShinyPlotOutput,
-  sliderInput: ShinySliderInput,
-  titlePanel: GridlayoutTitlePanel,
-};
-
-const uiComponentSettings = {
-  plotOutput: ShinyPlotOutputSettings,
-  sliderInput: ShinySliderInputSettings,
-  titlePanel: EmptySettings,
+  plotOutput: {
+    UiComponent: ShinyPlotOutput,
+    ComponentSettings: ShinyPlotOutputSettings,
+  },
+  sliderInput: {
+    UiComponent: ShinySliderInput,
+    ComponentSettings: ShinySliderInputSettings,
+  },
+  titlePanel: {
+    UiComponent: GridlayoutTitlePanel,
+    ComponentSettings: GridlayoutTitlePanelSettings,
+  },
 };
 
 function UiPanel({
@@ -70,8 +72,7 @@ function UiPanel({
   }
 
   const { componentName, componentProps } = componentDefinition;
-  const UiComponent = uiComponents[componentName];
-  const ComponentSettings = uiComponentSettings[componentName];
+  const { UiComponent, ComponentSettings } = uiComponents[componentName];
 
   return (
     <UiPanelHolder className="ui-panel-holder" style={{ gridArea: area }}>
