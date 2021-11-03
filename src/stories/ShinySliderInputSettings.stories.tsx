@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { ShinySliderInputProps } from "components/shiny-ui/ShinySliderInput";
-import ShinySliderInputSettings from "components/shiny-ui/ShinySliderInputSettings";
+import ShinySliderInputSettings from "components/shiny-ui/ShinySliderInput/SettingsPanel";
 import React from "react";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export

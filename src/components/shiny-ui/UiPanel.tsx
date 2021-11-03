@@ -1,17 +1,14 @@
-import { Button } from "@chakra-ui/button";
 import {
   Popover,
   PopoverArrow,
   PopoverBody,
   PopoverCloseButton,
   PopoverContent,
-  PopoverFooter,
   PopoverHeader,
   PopoverTrigger,
 } from "@chakra-ui/popover";
 import styled from "@emotion/styled";
 import * as React from "react";
-import { AiOutlineClose } from "react-icons/ai";
 import { FiSettings } from "react-icons/fi";
 import { makeBoxShadow } from "utils/css-helpers";
 import GridlayoutTitlePanel, {
@@ -19,6 +16,9 @@ import GridlayoutTitlePanel, {
 } from "./GridlayoutTitlePanel";
 import ShinyPlotOutput, { ShinyPlotOutputProps } from "./ShinyPlotOutput";
 import ShinySliderInput, { ShinySliderInputProps } from "./ShinySliderInput";
+import ShinySliderInputSettings from "./ShinySliderInput/SettingsPanel";
+
+import { EmptySettings } from "./UiPanelSettingsProps";
 
 export type UiComponentDefinition =
   | {
@@ -39,6 +39,12 @@ const uiComponents = {
   plotOutput: ShinyPlotOutput,
   sliderInput: ShinySliderInput,
   titlePanel: GridlayoutTitlePanel,
+};
+
+const uiComponentSettings = {
+  plotOutput: EmptySettings,
+  sliderInput: ShinySliderInputSettings,
+  titlePanel: EmptySettings,
 };
 
 function UiPanel({
@@ -64,6 +70,7 @@ function UiPanel({
 
   const { componentName, componentProps } = componentDefinition;
   const UiComponent = uiComponents[componentName];
+  const ComponentSettings = uiComponentSettings[componentName];
 
   return (
     <UiPanelHolder className="ui-panel-holder" style={{ gridArea: area }}>
@@ -83,13 +90,11 @@ function UiPanel({
           <PopoverCloseButton />
           <PopoverHeader>Settings panel</PopoverHeader>
           <PopoverBody>
-            <p>To Be Filled</p>
+            <ComponentSettings
+              startingSettings={componentProps}
+              onUpdate={(newSettings) => console.log(newSettings)}
+            />
           </PopoverBody>
-          <PopoverFooter>
-            <Button leftIcon={<AiOutlineClose />} onClick={closePopover}>
-              Cancel
-            </Button>
-          </PopoverFooter>
         </PopoverContent>
       </Popover>
       <UiComponent {...componentProps} />
