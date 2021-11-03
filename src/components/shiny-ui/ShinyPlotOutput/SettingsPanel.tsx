@@ -1,13 +1,13 @@
 import { FormControl } from "@chakra-ui/form-control";
-import { Button, FormLabel, Input } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import * as React from "react";
 import { BiCheck } from "react-icons/bi";
 import { ShinyPlotOutputProps } from ".";
+import { TextInput } from "../SettingsInputs/TextInput";
 import {
   SettingsPanelHolder,
   UiPanelSettingsProps,
 } from "../UiPanelSettingsProps";
-import { TextInput } from "../SettingsInputs/TextInput";
 
 export default function ShinyPlotOutputSettings({
   startingSettings,
