@@ -1,5 +1,6 @@
 import {
   FormLabel,
+  Input,
   NumberDecrementStepper,
   NumberIncrementStepper,
   NumberInput,
@@ -20,6 +21,23 @@ export function EmptySettings<T>(opts: UiPanelSettingsProps<T>) {
 export const SettingsPanelHolder = styled.div({
   padding: "1rem",
 });
+
+export function TextInput({
+  label,
+  value,
+  onChange,
+}: {
+  label: string;
+  value: string;
+  onChange: (newVal: string) => void;
+}) {
+  return (
+    <>
+      <FormLabel>{label}</FormLabel>
+      <Input value={value} onChange={(val) => onChange(val.target.value)} />
+    </>
+  );
+}
 
 export function NumericInput({
   label,

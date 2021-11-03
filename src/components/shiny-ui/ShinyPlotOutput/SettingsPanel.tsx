@@ -4,8 +4,8 @@ import * as React from "react";
 import { BiCheck } from "react-icons/bi";
 import { ShinyPlotOutputProps } from ".";
 import {
-  NumericInput,
   SettingsPanelHolder,
+  TextInput,
   UiPanelSettingsProps,
 } from "../UiPanelSettingsProps";
 
@@ -13,21 +13,24 @@ export default function ShinyPlotOutputSettings({
   startingSettings,
   onUpdate,
 }: UiPanelSettingsProps<ShinyPlotOutputProps>) {
-  const [sliderSettings, setSliderSettings] = React.useState(startingSettings);
+  const [plotSettings, setPlotSettings] = React.useState(startingSettings);
 
   const onSubmit = React.useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      onUpdate(sliderSettings);
+      onUpdate(plotSettings);
     },
-    [onUpdate, sliderSettings]
+    [onUpdate, plotSettings]
   );
   return (
     <SettingsPanelHolder>
       <form onSubmit={onSubmit}>
         <FormControl id="sliderInput-settings">
-          <FormLabel>Plot name</FormLabel>
-          <Input placeholder={sliderSettings.name} />
+          <TextInput
+            label="Plot Name"
+            value={plotSettings.name ?? "UndefinedPlotName"}
+            onChange={(name) => setPlotSettings((s) => ({ ...s, name }))}
+          />
         </FormControl>
         <Button
           variant="main"
