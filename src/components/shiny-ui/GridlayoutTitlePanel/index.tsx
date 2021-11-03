@@ -15,7 +15,7 @@ function GridlayoutTitlePanel({
       className={"gridlayout-titlePanel"}
       aria-label={"gridlayout-titlePanel"}
     >
-      <h2>{title}</h2>
+      <h1>{title}</h1>
     </TitlePanel>
   );
 }
@@ -28,6 +28,9 @@ const TitlePanel = styled.div({
   height: "100%",
   padding: "1rem",
   boxShadow: makeBoxShadow({ height: 0.2 }),
+  h1: {
+    fontSize: "2rem",
+  },
 });
 
 export default GridlayoutTitlePanel;

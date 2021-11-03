@@ -19,7 +19,7 @@ export type ShinySliderInputProps = Partial<
 export default function ShinySliderInput({
   name = "shiny-sliderInput",
   width = "200px",
-  height = "200px",
+  height = "auto",
   min,
   max,
   val,
@@ -32,10 +32,10 @@ export default function ShinySliderInput({
       className={"shiny-sliderInput"}
       aria-label={"shiny-sliderInput"}
     >
-      <div style={{ gridArea: "1/1", placeSelf: "center" }}>
-        <span>
+      <div style={{ gridArea: "1/1", placeSelf: "center", maxWidth: "300px" }}>
+        <div>
           Min: {settings.min}, Max: {settings.max}
-        </span>
+        </div>
         <input
           type="range"
           min={settings.min}
@@ -45,7 +45,7 @@ export default function ShinySliderInput({
           className="slider"
           aria-label={"slider input"}
         />
-        <span>Current: {currentVal}</span>
+        <div>Current: {currentVal}</div>
       </div>
     </SliderHolder>
   );

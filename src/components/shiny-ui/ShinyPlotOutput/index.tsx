@@ -20,9 +20,14 @@ function ShinyPlotOutput({
       className={"shiny-plotOutput"}
       aria-label={"shiny-plotOutput"}
     >
-      <div style={{ gridArea: "1/1", placeSelf: "center" }}>
-        <GoGraph size={`calc(${width}/2)`} />
-      </div>
+      <GoGraph
+        size={`calc(min(${width}, ${height})/2)`}
+        style={{
+          gridArea: "1/1",
+          placeSelf: "center",
+        }}
+      />
+
       <div style={{ gridArea: "1/1", placeSelf: "end" }}>
         This is a plot with the name {name}!
       </div>
@@ -35,6 +40,7 @@ const PlotHolder = styled.div({
   display: "grid",
   gridTemplateRows: "1fr",
   gridTemplateColumns: "1fr",
+  placeContent: "center",
   padding: "1rem",
   boxShadow: makeBoxShadow({ height: 0.2 }),
 });

@@ -36,7 +36,7 @@ Primary.args = {
     },
     settings: {
       componentName: "sliderInput",
-      componentProps: { name: "My slider!" },
+      componentProps: { name: "My slider!", height: "100%", width: "100%" },
     },
     plot: {
       componentName: "plotOutput",
