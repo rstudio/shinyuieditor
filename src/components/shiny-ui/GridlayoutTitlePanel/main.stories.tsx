@@ -12,7 +12,7 @@ const uniqueAreas = uniqueMatrixElements(layoutAreas);
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: "ShinyUI/TitlePanel",
+  title: "ShinyUI/GridlayoutTitlePanel/main",
   component: GridlayoutTitlePanel,
   argTypes: {
     area: {
@@ -29,7 +29,9 @@ const Template: ComponentStory<typeof GridlayoutTitlePanel> = (args) => (
     colSizes={"200px"}
     gapSize={"1rem"}
   >
-    <GridlayoutTitlePanel {...args} />
+    <div style={{ gridArea: args.area }}>
+      <GridlayoutTitlePanel {...args} />
+    </div>
   </AreaLabeledGridHolder>
 );
 
