@@ -23,11 +23,8 @@ export const theme = extendTheme({
   },
   styles: {
     global: {
-      // styles for the `body`
-      body: {
-        width: "100%",
-        bg: "#edf2f7",
-      },
+      // By adding a disable-text-selection class to the page we can turn of
+      // selection so dragging wont cause all sorts of ugly text selection.
       ".disable-text-selection *": {
         userSelect: "none",
       },
