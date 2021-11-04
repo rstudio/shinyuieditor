@@ -2,26 +2,30 @@ import { AreaLabeledGridHolder, GridHolder } from "components/GridHolder";
 import parseGridTemplateAreas, {
   TemplatedGridProps,
 } from "utils/parseGridTemplateAreas";
-import UiPanel, { UiComponentDefinition } from "./UiPanel";
+import UiPanel, { UiComponentDefinition } from "../UiPanel";
 import * as React from "react";
-import { useShowDiffs } from "../../state-logic/useShowChanges";
+import { useShowDiffs } from "../../../state-logic/useShowChanges";
 
+type Panels = Record<string, UiComponentDefinition>;
 type GridAppProps = {
   layout: TemplatedGridProps;
-  panels: Record<string, UiComponentDefinition>;
+  panels: Panels;
   labelAreas?: boolean;
+  onNewState?: (x: Panels) => void;
 };
 
 export default function GridApp({
   layout,
   panels: initialPanels,
   labelAreas = false,
+  onNewState,
 }: GridAppProps) {
   const { uniqueAreas } = parseGridTemplateAreas(layout);
 
   const [allPanels, setAllPanels] = React.useState(initialPanels);
 
-  useShowDiffs({ val: allPanels });
+  React.useEffect(() => onNewState?.(allPanels), [allPanels, onNewState]);
+  // useShowDiffs({ val: allPanels });
 
   const updatePanel = React.useCallback(
     (panelArea: string, newProps: object) => {
