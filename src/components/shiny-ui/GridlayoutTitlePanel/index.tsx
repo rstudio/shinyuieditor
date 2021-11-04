@@ -4,7 +4,7 @@ import { makeBoxShadow } from "utils/css-helpers";
 import { ShinyUiComponent } from "../componentTypes";
 
 export interface GridlayoutTitlePanelProps {
-  title?: string;
+  title: string;
   area?: string;
 }
 
