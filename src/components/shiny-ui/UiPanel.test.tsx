@@ -41,12 +41,6 @@ describe("UiPanel shows the proper ui element", () => {
     expect(screen.getByLabelText(/gridlayout-titlePanel/i)).toBeInTheDocument();
     expect(screen.getByText(testTitle)).toBeInTheDocument();
   });
-
-  test("No element", () => {
-    // This is when the interface for defining a component has yet to be used
-    render(<UiPanel area="a" componentDefinition={null} />);
-    expect(screen.getByText(/choose shiny ui element/i)).toBeInTheDocument();
-  });
 });
 
 describe("shiny::sliderInput can update defaults", () => {
