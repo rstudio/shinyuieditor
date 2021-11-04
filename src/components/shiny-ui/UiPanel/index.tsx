@@ -12,8 +12,10 @@ import * as React from "react";
 import { FiSettings } from "react-icons/fi";
 import { makeBoxShadow } from "utils/css-helpers";
 import {
+  ShinyUiComponent,
   ShinyUiElementNames,
   ShinyUiElementProps,
+  ShinyUiSettingsComponent,
 } from "components/shiny-ui/componentTypes";
 import GridlayoutTitlePanel from "components/shiny-ui/GridlayoutTitlePanel";
 import GridlayoutTitlePanelSettings from "components/shiny-ui/GridlayoutTitlePanel/SettingsPanel";
@@ -65,9 +67,14 @@ function UiPanel<ElName extends ShinyUiElementNames>({
 
   const { componentName, componentProps } = componentDefinition;
 
-  const { UiComponent, SettingsComponent } = uiComponentAndSettings[
-    componentName
-  ];
+  // Make sure TS knows these are compatible types
+  const components = uiComponentAndSettings[componentName];
+  const UiComponent = components.UiComponent as ShinyUiComponent<
+    typeof componentProps
+  >;
+  const SettingsComponent = components.SettingsComponent as ShinyUiSettingsComponent<
+    typeof componentProps
+  >;
 
   return (
     <UiPanelHolder
