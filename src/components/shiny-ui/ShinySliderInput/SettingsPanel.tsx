@@ -8,6 +8,7 @@ import {
   UiPanelSettingsProps,
 } from "../UiPanelSettingsProps";
 import { NumericInput } from "../SettingsInputs/NumericInput";
+import { TextInput } from "../SettingsInputs/TextInput";
 
 export default function ShinySliderInputSettings({
   startingSettings,
@@ -28,19 +29,24 @@ export default function ShinySliderInputSettings({
     <SettingsPanelHolder>
       <form onSubmit={onSubmit}>
         <FormControl id="sliderInput-settings">
+          <TextInput
+            label="Slider name"
+            value={sliderSettings.name}
+            onChange={(name) => setSliderSettings((s) => ({ ...s, name }))}
+          />
           <NumericInput
             label="Minimum value"
-            value={currentSettings.min}
+            value={sliderSettings.min}
             onChange={(min) => setSliderSettings((s) => ({ ...s, min }))}
           />
           <NumericInput
-            label="Max value"
-            value={currentSettings.max}
+            label="Maximum value"
+            value={sliderSettings.max}
             onChange={(max) => setSliderSettings((s) => ({ ...s, max }))}
           />
           <NumericInput
             label="Starting value"
-            value={currentSettings.val}
+            value={sliderSettings.val}
             onChange={(val) => setSliderSettings((s) => ({ ...s, val }))}
           />
         </FormControl>
