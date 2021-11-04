@@ -1,4 +1,4 @@
-import { FormLabel, Input } from "@chakra-ui/react";
+import { FormControl, FormLabel, Input } from "@chakra-ui/react";
 
 export function TextInput({
   label,
@@ -10,9 +10,9 @@ export function TextInput({
   onChange: (newVal: string) => void;
 }) {
   return (
-    <>
+    <FormControl>
       <FormLabel>{label}</FormLabel>
       <Input value={value} onChange={(val) => onChange(val.target.value)} />
-    </>
+    </FormControl>
   );
 }

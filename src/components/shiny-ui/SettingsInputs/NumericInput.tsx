@@ -1,4 +1,5 @@
 import {
+  FormControl,
   FormLabel,
   NumberDecrementStepper,
   NumberIncrementStepper,
@@ -17,7 +18,7 @@ export function NumericInput({
   onChange: (newVal: number) => void;
 }) {
   return (
-    <>
+    <FormControl>
       <FormLabel>{label}</FormLabel>
       <NumberInput
         defaultValue={value}
@@ -30,6 +31,6 @@ export function NumericInput({
           <NumberDecrementStepper />
         </NumberInputStepper>
       </NumberInput>
-    </>
+    </FormControl>
   );
 }
