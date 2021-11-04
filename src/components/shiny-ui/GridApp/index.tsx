@@ -3,7 +3,22 @@ import * as React from "react";
 import parseGridTemplateAreas, {
   TemplatedGridProps,
 } from "utils/parseGridTemplateAreas";
-import UiPanel, { UiComponentDefinition } from "../UiPanel";
+import { UiElementProps } from "../componentTypes";
+import UiPanel from "../UiPanel";
+
+type UiComponentDefinition =
+  | {
+      componentName: "plotOutput";
+      componentProps: UiElementProps["plotOutput"];
+    }
+  | {
+      componentName: "sliderInput";
+      componentProps: UiElementProps["sliderInput"];
+    }
+  | {
+      componentName: "titlePanel";
+      componentProps: UiElementProps["titlePanel"];
+    };
 
 type Panels = Record<string, UiComponentDefinition>;
 type GridAppProps = {

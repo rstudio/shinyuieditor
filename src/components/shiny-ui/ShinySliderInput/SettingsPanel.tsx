@@ -3,17 +3,15 @@ import { Button } from "@chakra-ui/react";
 import * as React from "react";
 import { BiCheck } from "react-icons/bi";
 import { buildSliderSettings, ShinySliderInputProps } from ".";
-import {
-  SettingsPanelHolder,
-  UiPanelSettingsProps,
-} from "../UiPanelSettingsProps";
+import { ShinyUiSettingsComponent } from "../componentTypes";
 import { NumericInput } from "../SettingsInputs/NumericInput";
 import { TextInput } from "../SettingsInputs/TextInput";
+import { SettingsPanelHolder } from "../UiPanelSettingsProps";
 
-export default function ShinySliderInputSettings({
+const ShinySliderInputSettings: ShinyUiSettingsComponent<ShinySliderInputProps> = ({
   startingSettings,
   onUpdate,
-}: UiPanelSettingsProps<ShinySliderInputProps>) {
+}) => {
   const currentSettings = buildSliderSettings(startingSettings);
 
   const [sliderSettings, setSliderSettings] = React.useState(currentSettings);
@@ -61,4 +59,6 @@ export default function ShinySliderInputSettings({
       </form>
     </SettingsPanelHolder>
   );
-}
+};
+
+export default ShinySliderInputSettings;

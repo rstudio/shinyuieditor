@@ -11,53 +11,41 @@ import styled from "@emotion/styled";
 import * as React from "react";
 import { FiSettings } from "react-icons/fi";
 import { makeBoxShadow } from "utils/css-helpers";
-import GridlayoutTitlePanel, {
-  GridlayoutTitlePanelProps,
-} from "./GridlayoutTitlePanel";
+import { UiElementNames, UiElementProps } from "./componentTypes";
+import GridlayoutTitlePanel from "./GridlayoutTitlePanel";
 import GridlayoutTitlePanelSettings from "./GridlayoutTitlePanel/SettingsPanel";
-import ShinyPlotOutput, { ShinyPlotOutputProps } from "./ShinyPlotOutput";
+import ShinyPlotOutput from "./ShinyPlotOutput";
 import ShinyPlotOutputSettings from "./ShinyPlotOutput/SettingsPanel";
-import ShinySliderInput, { ShinySliderInputProps } from "./ShinySliderInput";
+import ShinySliderInput from "./ShinySliderInput";
 import ShinySliderInputSettings from "./ShinySliderInput/SettingsPanel";
 
-export type UiComponentDefinition =
-  | {
-      componentName: "plotOutput";
-      componentProps: ShinyPlotOutputProps;
-    }
-  | {
-      componentName: "sliderInput";
-      componentProps: ShinySliderInputProps;
-    }
-  | {
-      componentName: "titlePanel";
-      componentProps: GridlayoutTitlePanelProps;
-    }
-  | null;
-
-const uiComponents = {
+const uiComponentAndSettings = {
   plotOutput: {
     UiComponent: ShinyPlotOutput,
-    ComponentSettings: ShinyPlotOutputSettings,
+    SettingsComponent: ShinyPlotOutputSettings,
   },
   sliderInput: {
     UiComponent: ShinySliderInput,
-    ComponentSettings: ShinySliderInputSettings,
+    SettingsComponent: ShinySliderInputSettings,
   },
   titlePanel: {
     UiComponent: GridlayoutTitlePanel,
-    ComponentSettings: GridlayoutTitlePanelSettings,
+    SettingsComponent: GridlayoutTitlePanelSettings,
   },
 };
 
-type UiPanelProps = {
+function UiPanel<ElName extends UiElementNames>({
+  area,
+  componentDefinition,
+  onUpdate,
+}: {
   area: string;
-  componentDefinition: UiComponentDefinition;
-  // I wish I could figure out how to type narrow this as well...
-  onUpdate: (newProps: object) => void;
-};
-
-function UiPanel({ area, componentDefinition, onUpdate }: UiPanelProps) {
+  componentDefinition: {
+    componentName: ElName;
+    componentProps: UiElementProps[ElName];
+  };
+  onUpdate?: (newProps: UiElementProps[ElName]) => void;
+}) {
   const [isOpen, setIsOpen] = React.useState(false);
   const openPopover = () => setIsOpen(!isOpen);
   const closePopover = () => setIsOpen(false);
@@ -73,7 +61,10 @@ function UiPanel({ area, componentDefinition, onUpdate }: UiPanelProps) {
   }
 
   const { componentName, componentProps } = componentDefinition;
-  const { UiComponent, ComponentSettings } = uiComponents[componentName];
+
+  const { UiComponent, SettingsComponent } = uiComponentAndSettings[
+    componentName
+  ];
 
   return (
     <UiPanelHolder
@@ -99,10 +90,10 @@ function UiPanel({ area, componentDefinition, onUpdate }: UiPanelProps) {
             <code>{componentName}</code> settings
           </PopoverHeader>
           <PopoverBody>
-            <ComponentSettings
+            <SettingsComponent
               startingSettings={componentProps}
               onUpdate={(newSettings) => {
-                onUpdate(newSettings);
+                onUpdate?.(newSettings);
                 closePopover();
               }}
             />

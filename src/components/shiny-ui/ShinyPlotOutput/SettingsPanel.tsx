@@ -3,16 +3,14 @@ import { Button } from "@chakra-ui/react";
 import * as React from "react";
 import { BiCheck } from "react-icons/bi";
 import { ShinyPlotOutputProps } from ".";
+import { ShinyUiSettingsComponent } from "../componentTypes";
 import { TextInput } from "../SettingsInputs/TextInput";
-import {
-  SettingsPanelHolder,
-  UiPanelSettingsProps,
-} from "../UiPanelSettingsProps";
+import { SettingsPanelHolder } from "../UiPanelSettingsProps";
 
-export default function ShinyPlotOutputSettings({
+const ShinyPlotOutputSettings: ShinyUiSettingsComponent<ShinyPlotOutputProps> = ({
   startingSettings,
   onUpdate,
-}: UiPanelSettingsProps<ShinyPlotOutputProps>) {
+}) => {
   const [plotSettings, setPlotSettings] = React.useState(startingSettings);
 
   const onSubmit = React.useCallback(
@@ -43,4 +41,6 @@ export default function ShinyPlotOutputSettings({
       </form>
     </SettingsPanelHolder>
   );
-}
+};
+
+export default ShinyPlotOutputSettings;

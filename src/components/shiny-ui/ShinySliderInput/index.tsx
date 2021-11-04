@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import * as React from "react";
 import { makeBoxShadow } from "utils/css-helpers";
+import { ShinyUiComponent } from "../componentTypes";
 
 type SliderSettings = {
   min: number;
@@ -16,14 +17,14 @@ export type ShinySliderInputProps = Partial<
   } & SliderSettings
 >;
 
-export default function ShinySliderInput({
+const ShinySliderInput: ShinyUiComponent<ShinySliderInputProps> = ({
   name = "shiny-sliderInput",
   width = "200px",
   height = "auto",
   min,
   max,
   val,
-}: ShinySliderInputProps) {
+}: ShinySliderInputProps) => {
   const settings = buildSliderSettings({ min, max, val });
   const [currentVal, setCurrentVal] = React.useState(settings.val);
   return (
@@ -49,7 +50,9 @@ export default function ShinySliderInput({
       </div>
     </SliderHolder>
   );
-}
+};
+
+export default ShinySliderInput;
 
 export function buildSliderSettings({
   min,

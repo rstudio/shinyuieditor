@@ -3,16 +3,14 @@ import { Button } from "@chakra-ui/react";
 import * as React from "react";
 import { BiCheck } from "react-icons/bi";
 import { GridlayoutTitlePanelProps } from ".";
+import { ShinyUiSettingsComponent } from "../componentTypes";
 import { TextInput } from "../SettingsInputs/TextInput";
-import {
-  SettingsPanelHolder,
-  UiPanelSettingsProps,
-} from "../UiPanelSettingsProps";
+import { SettingsPanelHolder } from "../UiPanelSettingsProps";
 
-export default function GridlayoutTitlePanelSettings({
+const GridlayoutTitlePanelSettings: ShinyUiSettingsComponent<GridlayoutTitlePanelProps> = ({
   startingSettings,
   onUpdate,
-}: UiPanelSettingsProps<GridlayoutTitlePanelProps>) {
+}) => {
   const [titleSettings, setTitleSettings] = React.useState(startingSettings);
 
   const onSubmit = React.useCallback(
@@ -43,4 +41,6 @@ export default function GridlayoutTitlePanelSettings({
       </form>
     </SettingsPanelHolder>
   );
-}
+};
+
+export default GridlayoutTitlePanelSettings;
