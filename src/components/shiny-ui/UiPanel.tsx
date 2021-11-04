@@ -11,7 +11,7 @@ import styled from "@emotion/styled";
 import * as React from "react";
 import { FiSettings } from "react-icons/fi";
 import { makeBoxShadow } from "utils/css-helpers";
-import { UiElementNames, UiElementProps } from "./componentTypes";
+import { ShinyUiElementNames, ShinyUiElementProps } from "./componentTypes";
 import GridlayoutTitlePanel from "./GridlayoutTitlePanel";
 import GridlayoutTitlePanelSettings from "./GridlayoutTitlePanel/SettingsPanel";
 import ShinyPlotOutput from "./ShinyPlotOutput";
@@ -34,7 +34,7 @@ const uiComponentAndSettings = {
   },
 };
 
-function UiPanel<ElName extends UiElementNames>({
+function UiPanel<ElName extends ShinyUiElementNames>({
   area,
   componentDefinition,
   onUpdate,
@@ -42,9 +42,9 @@ function UiPanel<ElName extends UiElementNames>({
   area: string;
   componentDefinition: {
     componentName: ElName;
-    componentProps: UiElementProps[ElName];
+    componentProps: ShinyUiElementProps[ElName];
   };
-  onUpdate?: (newProps: UiElementProps[ElName]) => void;
+  onUpdate?: (newProps: ShinyUiElementProps[ElName]) => void;
 }) {
   const [isOpen, setIsOpen] = React.useState(false);
   const openPopover = () => setIsOpen(!isOpen);

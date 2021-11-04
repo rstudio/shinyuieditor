@@ -2,22 +2,26 @@ import { GridlayoutTitlePanelProps } from "./GridlayoutTitlePanel";
 import { ShinyPlotOutputProps } from "./ShinyPlotOutput";
 import { ShinySliderInputProps } from "./ShinySliderInput";
 
-export type UiElementProps = {
+// All possible props for the defined UI components
+export type ShinyUiElementProps = {
   plotOutput: ShinyPlotOutputProps;
   sliderInput: ShinySliderInputProps;
   titlePanel: GridlayoutTitlePanelProps;
 };
 
-export type UiElementNames = keyof UiElementProps;
-type valueof<T> = T[keyof T];
+// The names of those components (important for most type narrowing)
+export type ShinyUiElementNames = keyof ShinyUiElementProps;
 
-export type ShinyUiComponent<PropsType extends valueof<UiElementProps>> = (
-  props: PropsType
+// Get a union type of the props for use in narrowing function generics
+type AllUiProps = ShinyUiElementProps[keyof ShinyUiElementProps];
+
+// This is the format of a UI component
+export type ShinyUiComponent<Props extends AllUiProps> = (
+  p: Props
 ) => JSX.Element;
 
-export type ShinyUiSettingsComponent<
-  PropsType extends valueof<UiElementProps>
-> = (props: {
-  startingSettings: PropsType;
-  onUpdate: (newSettings: PropsType) => void;
+// This is the format of the corresponding settings panel for a component
+export type ShinyUiSettingsComponent<Props extends AllUiProps> = (p: {
+  startingSettings: Props;
+  onUpdate: (newSettings: Props) => void;
 }) => JSX.Element;

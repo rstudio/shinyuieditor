@@ -3,21 +3,21 @@ import * as React from "react";
 import parseGridTemplateAreas, {
   TemplatedGridProps,
 } from "utils/parseGridTemplateAreas";
-import { UiElementProps } from "../componentTypes";
+import { ShinyUiElementProps } from "../componentTypes";
 import UiPanel from "../UiPanel";
 
 type UiComponentDefinition =
   | {
       componentName: "plotOutput";
-      componentProps: UiElementProps["plotOutput"];
+      componentProps: ShinyUiElementProps["plotOutput"];
     }
   | {
       componentName: "sliderInput";
-      componentProps: UiElementProps["sliderInput"];
+      componentProps: ShinyUiElementProps["sliderInput"];
     }
   | {
       componentName: "titlePanel";
-      componentProps: UiElementProps["titlePanel"];
+      componentProps: ShinyUiElementProps["titlePanel"];
     };
 
 type Panels = Record<string, UiComponentDefinition>;
