@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import UiPanel from "./UiPanel";
+import UiPanel from ".";
 
 describe("UiPanel shows the proper ui element", () => {
   test("shiny::plotOutput", () => {

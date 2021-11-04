@@ -11,13 +11,16 @@ import styled from "@emotion/styled";
 import * as React from "react";
 import { FiSettings } from "react-icons/fi";
 import { makeBoxShadow } from "utils/css-helpers";
-import { ShinyUiElementNames, ShinyUiElementProps } from "./componentTypes";
-import GridlayoutTitlePanel from "./GridlayoutTitlePanel";
-import GridlayoutTitlePanelSettings from "./GridlayoutTitlePanel/SettingsPanel";
-import ShinyPlotOutput from "./ShinyPlotOutput";
-import ShinyPlotOutputSettings from "./ShinyPlotOutput/SettingsPanel";
-import ShinySliderInput from "./ShinySliderInput";
-import ShinySliderInputSettings from "./ShinySliderInput/SettingsPanel";
+import {
+  ShinyUiElementNames,
+  ShinyUiElementProps,
+} from "components/shiny-ui/componentTypes";
+import GridlayoutTitlePanel from "components/shiny-ui/GridlayoutTitlePanel";
+import GridlayoutTitlePanelSettings from "components/shiny-ui/GridlayoutTitlePanel/SettingsPanel";
+import ShinyPlotOutput from "components/shiny-ui/ShinyPlotOutput";
+import ShinyPlotOutputSettings from "components/shiny-ui/ShinyPlotOutput/SettingsPanel";
+import ShinySliderInput from "components/shiny-ui/ShinySliderInput";
+import ShinySliderInputSettings from "components/shiny-ui/ShinySliderInput/SettingsPanel";
 
 const uiComponentAndSettings = {
   plotOutput: {
