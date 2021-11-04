@@ -4,7 +4,7 @@ import { diff } from "just-diff";
 // Hook to observe and explain changes to a changing object
 export function useShowDiffs({
   val: currVal,
-  onUpdate = console.log,
+  onUpdate = (x) => console.log(JSON.stringify(x, null, 2)),
 }: {
   val: object;
   onUpdate?: (res: { currVal: object; diff: ReturnType<typeof diff> }) => void;
