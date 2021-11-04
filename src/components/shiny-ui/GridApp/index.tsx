@@ -1,10 +1,9 @@
 import { AreaLabeledGridHolder, GridHolder } from "components/GridHolder";
+import * as React from "react";
 import parseGridTemplateAreas, {
   TemplatedGridProps,
 } from "utils/parseGridTemplateAreas";
 import UiPanel, { UiComponentDefinition } from "../UiPanel";
-import * as React from "react";
-import { useShowDiffs } from "../../../state-logic/useShowChanges";
 
 type Panels = Record<string, UiComponentDefinition>;
 type GridAppProps = {
