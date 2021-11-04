@@ -55,23 +55,25 @@ export function buildSliderSettings({
   min,
   max,
   val,
-}: Partial<SliderSettings>) {
-  const haveMin = typeof min === "number";
-  const haveMax = typeof max === "number";
-  const haveVal = typeof val === "number";
-  const nonePresent = !haveMin && !haveMax && !haveVal;
-  if (nonePresent)
-    return {
-      min: 0,
-      val: 50,
-      max: 100,
-    };
+  name,
+}: Partial<ShinySliderInputProps>) {
+  const missingAll =
+    typeof min !== "number" &&
+    typeof max !== "number" &&
+    typeof val !== "number";
+  const haveAll =
+    typeof min === "number" &&
+    typeof max === "number" &&
+    typeof val === "number";
 
-  const allPresent = haveMin && haveMax && haveVal;
-  if (!allPresent)
+  if (!missingAll && !haveAll)
     throw new Error(
       "A minimum, maximum, and starting value are needed for slider."
     );
+
+  if (typeof min !== "number") min = 0;
+  if (typeof max !== "number") max = 100;
+  if (typeof val !== "number") val = 50;
 
   if (min > max) {
     throw new Error("Need to define a minimum value that is below the max");
@@ -89,7 +91,13 @@ export function buildSliderSettings({
     );
   }
 
-  return { min, max, val };
+  // if (!haveMin) min = 0;
+
+  if (typeof name !== "string") {
+    name = "Default slider name";
+  }
+
+  return { min, max, val, name };
 }
 
 const SliderHolder = styled.div({
