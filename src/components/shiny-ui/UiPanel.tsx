@@ -76,7 +76,11 @@ function UiPanel({ area, componentDefinition, onUpdate }: UiPanelProps) {
   const { UiComponent, ComponentSettings } = uiComponents[componentName];
 
   return (
-    <UiPanelHolder className="ui-panel-holder" style={{ gridArea: area }}>
+    <UiPanelHolder
+      aria-label={`${area} panel`}
+      className="ui-panel-holder"
+      style={{ gridArea: area }}
+    >
       <Popover
         isOpen={isOpen}
         onClose={closePopover}
@@ -84,11 +88,11 @@ function UiPanel({ area, componentDefinition, onUpdate }: UiPanelProps) {
         closeOnBlur={true}
       >
         <PopoverTrigger>
-          <SettingsButtonHolder aria-label="Open settings for element">
+          <SettingsButtonHolder aria-label="Open settings dialog">
             <FiSettings />
           </SettingsButtonHolder>
         </PopoverTrigger>
-        <PopoverContent aria-label="Deletion conflict message">
+        <PopoverContent aria-label={`Settings for ${componentName}`}>
           <PopoverArrow />
           <PopoverCloseButton />
           <PopoverHeader>
