@@ -47,10 +47,13 @@ export default function GridApp({
         const existingPanel = currentPanels[panelArea];
         if (!existingPanel) throw new Error("That panel doesn't exist");
         const newPanels = { ...currentPanels };
+
+        // This needs some better typing so we know newProps will be the proper
+        // type for the given existingPanel name
         newPanels[panelArea] = {
           componentName: existingPanel.componentName,
           componentProps: newProps,
-        };
+        } as UiComponentDefinition;
         return newPanels;
       });
     },
