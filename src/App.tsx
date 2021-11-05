@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { ChakraProvider } from "@chakra-ui/react";
+import GridApp from "components/shiny-ui/GridApp";
 import * as React from "react";
 import { RecoilRoot } from "recoil";
 import { makeBoxShadow } from "utils/css-helpers";
@@ -8,6 +9,38 @@ import { TheHeader } from "views/TheHeader";
 import { theme } from "./theme";
 
 export const App = () => {
+  const App_Content =
+    process.env.REACT_APP_VERSION === "GRIDAPP" ? (
+      <GridApp
+        layout={{
+          // prettier-ignore
+          areas: [
+            ["title",    "title" ],
+            ["settings", "plot"  ],
+            ["footer",   "footer"],
+          ],
+          rowSizes: ["100px", "1fr", "30px"],
+          colSizes: ["250px", "1fr"],
+        }}
+        panels={{
+          title: {
+            componentName: "titlePanel",
+            componentProps: { title: "My App" },
+          },
+          settings: {
+            componentName: "sliderInput",
+            componentProps: { name: "My slider!" },
+          },
+          plot: {
+            componentName: "plotOutput",
+            componentProps: { name: "My Plot!" },
+          },
+        }}
+      />
+    ) : (
+      <LayoutEditor />
+    );
+
   return (
     <ChakraProvider theme={theme}>
       <RecoilRoot>
@@ -23,7 +56,7 @@ export const App = () => {
           }}
         >
           <TheHeader />
-          <LayoutEditor />
+          {App_Content}
         </div>
       </RecoilRoot>
     </ChakraProvider>
