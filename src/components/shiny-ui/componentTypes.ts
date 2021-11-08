@@ -48,3 +48,13 @@ export type ShinyUiSettingsComponent<Props extends ShinyUiProps> = (p: {
   startingSettings: Props;
   onUpdate: (newSettings: Props) => void;
 }) => JSX.Element;
+
+/**
+ * Payload describing the two main components needed for working with a UI element
+ */
+export type ShinyUiComponentAndSettings = {
+  [Name in keyof ShinyUiPropsByName]: {
+    UiComponent: ShinyUiComponent<ShinyUiPropsByName[Name]>;
+    SettingsComponent: ShinyUiSettingsComponent<ShinyUiPropsByName[Name]>;
+  };
+};

@@ -4,7 +4,7 @@ import * as React from "react";
 import parseGridTemplateAreas, {
   TemplatedGridProps,
 } from "utils/parseGridTemplateAreas";
-import { ShinyUiPropsByName, ShinyUiNameAndProps } from "../componentTypes";
+import { ShinyUiNameAndProps, ShinyUiPropsByName } from "../componentTypes";
 import UiChooser from "../UiChooser";
 import UiPanel from "../UiPanel";
 

@@ -9,8 +9,9 @@ import {
   PopoverTrigger,
 } from "@chakra-ui/popover";
 import { css } from "@emotion/react";
-import {
+import type {
   ShinyUiComponent,
+  ShinyUiComponentAndSettings,
   ShinyUiNames,
   ShinyUiPropsByName,
   ShinyUiSettingsComponent,
@@ -28,7 +29,7 @@ import {
 } from "react-icons/fi";
 import { UiPanelHolder } from "../UiPanelHolder";
 
-const uiComponentAndSettings = {
+const uiComponentAndSettings: ShinyUiComponentAndSettings = {
   plotOutput: {
     UiComponent: ShinyPlotOutput,
     SettingsComponent: ShinyPlotOutputSettings,
