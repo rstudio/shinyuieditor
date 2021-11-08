@@ -48,6 +48,7 @@ function UiPanel<ElName extends ShinyUiElementNames>({
   area,
   componentDefinition,
   onUpdate,
+  onDelete,
 }: {
   area: string;
   componentDefinition: {
@@ -55,6 +56,7 @@ function UiPanel<ElName extends ShinyUiElementNames>({
     componentProps: ShinyUiElementProps[ElName];
   };
   onUpdate?: (newProps: ShinyUiElementProps[ElName]) => void;
+  onDelete?: () => void;
 }) {
   const [isOpen, setIsOpen] = React.useState(false);
   const openPopover = () => setIsOpen(!isOpen);
@@ -87,7 +89,7 @@ function UiPanel<ElName extends ShinyUiElementNames>({
       className="ui-panel-holder"
       style={{ gridArea: area }}
     >
-      <ActionButton action="Delete" />
+      <ActionButton action="Delete" onClick={onDelete} />
       <Popover
         isOpen={isOpen}
         onClose={closePopover}
@@ -130,7 +132,13 @@ const UiPanelHolder = styled.div({
   boxShadow: makeBoxShadow({ height: 0.2 }),
 });
 
-function ActionButton({ action }: { action: "Settings" | "Delete" }) {
+function ActionButton({
+  action,
+  onClick,
+}: {
+  action: "Settings" | "Delete";
+  onClick?: () => void;
+}) {
   const inset = "2px";
   const settingsStyle = css({
     position: "absolute",
@@ -148,6 +156,7 @@ function ActionButton({ action }: { action: "Settings" | "Delete" }) {
       style={horizontalAlign}
       aria-label={label}
       css={settingsStyle}
+      onClick={onClick ? () => onClick() : undefined}
     />
   );
 }
