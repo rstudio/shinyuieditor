@@ -1,4 +1,3 @@
-import { Wrap } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { ShinyUiElementNames } from "components/shiny-ui/componentTypes";
 import { GridlayoutTitlePanelProps } from "components/shiny-ui/GridlayoutTitlePanel";
@@ -50,21 +49,21 @@ function UiChooser({
 }) {
   return (
     <UiPanelHolder area={area} aria-label={`Ui-Chooser for ${area}`}>
-      <Wrap>
+      <OptionsList>
         {availableUi.map((ui) => {
           const { componentName: name } = ui;
           return (
-            <OptionBlock
+            <OptionItem
               key={name}
               onClick={() => onChoose(ui)}
               aria-label={`Add ${name} to app`}
             >
               {previewIcons[name]}
               <code>{name}</code>
-            </OptionBlock>
+            </OptionItem>
           );
         })}
-      </Wrap>
+      </OptionsList>
     </UiPanelHolder>
   );
 }
@@ -75,7 +74,15 @@ const previewIcons: Record<ShinyUiElementNames, JSX.Element> = {
   titlePanel: <BiText />,
 };
 
-const OptionBlock = styled.button({
+const OptionsList = styled.div({
+  display: "flex",
+  justifyContent: "space-around",
+  flexWrap: "wrap",
+  padding: "5px",
+  gap: "5px",
+});
+
+const OptionItem = styled.button({
   border: "1px solid var(--light-grey)",
   boxShadow: makeBoxShadow({ height: 0.2 }),
   borderRadius: "var(--corner-radius, 10px)",
