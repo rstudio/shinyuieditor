@@ -1,6 +1,5 @@
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { clearThenType } from "test-helpers";
 import { TemplatedGridProps } from "utils/parseGridTemplateAreas";
 import GridApp from ".";
 import { ShinySliderInputProps } from "../ShinySliderInput";
@@ -24,22 +23,23 @@ afterEach(() => {
   console.error = originalError;
 });
 
-describe("Updating settings is reflected in entire app", () => {
-  test("Full basic app", () => {
-    const startingState = {
-      title: {
-        componentName: "titlePanel",
-        componentProps: { title: "My Test App Title" },
-      },
-      numBins: {
-        componentName: "sliderInput",
-        componentProps: { name: "My slider!" } as ShinySliderInputProps,
-      },
-      plot: {
-        componentName: "plotOutput",
-        componentProps: { name: "My Plot!" },
-      },
-    };
+const startingState = {
+  title: {
+    componentName: "titlePanel",
+    componentProps: { title: "My Test App Title" },
+  },
+  numBins: {
+    componentName: "sliderInput",
+    componentProps: { name: "My slider!" } as ShinySliderInputProps,
+  },
+  plot: {
+    componentName: "plotOutput",
+    componentProps: { name: "My Plot!" },
+  },
+};
+
+describe("Adding and removing panels", () => {
+  test("Existing panel", () => {
     render(
       <GridApp
         layout={mainLayout}
@@ -58,5 +58,17 @@ describe("Updating settings is reflected in entire app", () => {
     expect(settingsPanel).toBeInTheDocument();
     userEvent.click(within(settingsPanel).getByLabelText(/delete/i));
     expect(settingsPanel).not.toBeInTheDocument();
+
+    // Replace the now deleted settings panel with another plot output
+    const newPlotButton = within(
+      screen.getByLabelText(/Ui-Chooser for numBins/i)
+    ).getByLabelText(/Add plotOutput to app/);
+    userEvent.click(newPlotButton);
+
+    expect(
+      within(screen.getByLabelText(/numBins panel/i)).getByLabelText(
+        /shiny-plotOutput/i
+      )
+    ).toBeInTheDocument();
   });
 });
