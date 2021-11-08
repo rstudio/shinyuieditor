@@ -45,16 +45,20 @@ function UiChooser({
   onChoose,
 }: {
   area: string;
-  availableUi: NewElementMessage[];
+  availableUi?: NewElementMessage[];
   onChoose: (newPanel: NewElementMessage) => void;
 }) {
   return (
-    <UiPanelHolder area={area}>
+    <UiPanelHolder area={area} aria-label={`Ui-Chooser for ${area}`}>
       <Wrap>
         {availableUi.map((ui) => {
           const { componentName: name } = ui;
           return (
-            <OptionBlock key={name} onClick={() => onChoose(ui)}>
+            <OptionBlock
+              key={name}
+              onClick={() => onChoose(ui)}
+              aria-label={`Add ${name} to app`}
+            >
               {previewIcons[name]}
               <code>{name}</code>
             </OptionBlock>
