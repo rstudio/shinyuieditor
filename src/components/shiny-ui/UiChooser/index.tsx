@@ -10,7 +10,7 @@ import { GoGraph } from "react-icons/go";
 import { makeBoxShadow } from "utils/css-helpers";
 import { UiPanelHolder } from "../UiPanelHolder";
 
-type NewElementMessage =
+export type NewElementMessage =
   | {
       componentName: "plotOutput";
       componentProps: ShinyPlotOutputProps;

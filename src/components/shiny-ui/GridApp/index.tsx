@@ -5,6 +5,7 @@ import parseGridTemplateAreas, {
   TemplatedGridProps,
 } from "utils/parseGridTemplateAreas";
 import { ShinyUiElementProps } from "../componentTypes";
+import UiChooser, { NewElementMessage } from "../UiChooser";
 import UiPanel from "../UiPanel";
 
 type UiComponentDefinition =
@@ -66,6 +67,13 @@ export default function GridApp({
     [setAllPanels]
   );
 
+  const addPanel = React.useCallback(
+    (area: string, newPanel: NewElementMessage) => {
+      setAllPanels((panels) => ({ ...panels, [area]: newPanel }));
+    },
+    [setAllPanels]
+  );
+
   const panelAreas = Object.keys(allPanels);
 
   if (panelAreas.some((area) => !uniqueAreas.includes(area)))
@@ -73,17 +81,24 @@ export default function GridApp({
       "Tried to place a panel onto an area not in the defined grid layout"
     );
 
-  const panelComponents = panelAreas.map((area) => (
-    <UiPanel
-      key={area}
-      area={area}
-      componentDefinition={allPanels[area]}
-      onUpdate={(newProps) => updatePanel(area, newProps)}
-      onDelete={() => deletePanel(area)}
-    />
-  ));
+  const unusedAreas = uniqueAreas.filter((area) => !panelAreas.includes(area));
 
   const HolderComp = labelAreas ? AreaLabeledGridHolder : GridHolder;
 
-  return <HolderComp {...layout}>{panelComponents}</HolderComp>;
+  return (
+    <HolderComp {...layout}>
+      {panelAreas.map((area) => (
+        <UiPanel
+          key={area}
+          area={area}
+          componentDefinition={allPanels[area]}
+          onUpdate={(newProps) => updatePanel(area, newProps)}
+          onDelete={() => deletePanel(area)}
+        />
+      ))}
+      {unusedAreas.map((area) => (
+        <UiChooser key={area} area={area} onChoose={(x) => addPanel(area, x)} />
+      ))}
+    </HolderComp>
+  );
 }

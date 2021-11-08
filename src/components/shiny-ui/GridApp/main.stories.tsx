@@ -9,7 +9,7 @@ const mainLayout: TemplatedGridProps = {
     ["settings", "plot"],
     ["footer", "footer"],
   ],
-  rowSizes: ["100px", "350px", "30px"],
+  rowSizes: ["100px", "350px", "100px"],
   colSizes: ["250px", "1fr"],
 };
 
