@@ -9,7 +9,6 @@ import {
   PopoverTrigger,
 } from "@chakra-ui/popover";
 import { css } from "@emotion/react";
-import styled from "@emotion/styled";
 import {
   ShinyUiComponent,
   ShinyUiElementNames,
@@ -27,7 +26,7 @@ import {
   FiSettings as SettingsIcon,
   FiTrash as TrashIcon,
 } from "react-icons/fi";
-import { makeBoxShadow } from "utils/css-helpers";
+import { UiPanelHolder } from "../UiPanelHolder";
 
 const uiComponentAndSettings = {
   plotOutput: {
@@ -64,7 +63,7 @@ function UiPanel<ElName extends ShinyUiElementNames>({
 
   if (!componentDefinition) {
     return (
-      <UiPanelHolder className="ui-panel-holder" style={{ gridArea: area }}>
+      <UiPanelHolder className="ui-panel-holder" area={area}>
         <div style={{ padding: "1rem" }}>
           <h2>Choose Shiny UI element</h2>
         </div>
@@ -87,7 +86,7 @@ function UiPanel<ElName extends ShinyUiElementNames>({
     <UiPanelHolder
       aria-label={`${area} panel`}
       className="ui-panel-holder"
-      style={{ gridArea: area }}
+      area={area}
     >
       <ActionButton action="Delete" onClick={onDelete} />
       <Popover
@@ -120,17 +119,6 @@ function UiPanel<ElName extends ShinyUiElementNames>({
     </UiPanelHolder>
   );
 }
-
-const UiPanelHolder = styled.div({
-  display: "grid",
-  gridTemplateRows: "1fr",
-  gridTemplateColumns: "1fr",
-  width: "100%",
-  height: "100%",
-  placeItems: "center",
-  position: "relative",
-  boxShadow: makeBoxShadow({ height: 0.2 }),
-});
 
 function ActionButton({
   action,
