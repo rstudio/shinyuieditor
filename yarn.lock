@@ -10555,6 +10555,11 @@ just-diff@^4.1.2:
   resolved "https://registry.yarnpkg.com/just-diff/-/just-diff-4.1.2.tgz#15a3df23553b550d6430d98632c4a4f12b280978"
   integrity sha512-zfbu6etAdrfoqcuMJcCQBRi8IC4qUIy5knR6eFfqzOeP3S3ZOmnTYSta6RFbFinFazFpR9BoXX+SJwZkrXCvGA==
 
+just-omit@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/just-omit/-/just-omit-1.4.1.tgz#4808511c75223ed9c9051353a81a29cbe4226935"
+  integrity sha512-NS9DXMye6FcovMyf4q+mROFRkb+fKvp4YfHdo0VC0a6V2jbRCMh1/3Uy1OfvrBVpaA55S2PeCCSoumW3/9FxDQ==
+
 killable@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/killable/-/killable-1.0.1.tgz#4c8ce441187a061c7474fb87ca08e2a638194892"

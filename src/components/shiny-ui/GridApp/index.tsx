@@ -1,4 +1,5 @@
 import { AreaLabeledGridHolder, GridHolder } from "components/GridHolder";
+import omit from "just-omit";
 import * as React from "react";
 import parseGridTemplateAreas, {
   TemplatedGridProps,
@@ -60,6 +61,11 @@ export default function GridApp({
     [setAllPanels]
   );
 
+  const deletePanel = React.useCallback(
+    (area: string) => setAllPanels((panels) => omit(panels, area)),
+    [setAllPanels]
+  );
+
   const panelAreas = Object.keys(allPanels);
 
   if (panelAreas.some((area) => !uniqueAreas.includes(area)))
@@ -73,6 +79,7 @@ export default function GridApp({
       area={area}
       componentDefinition={allPanels[area]}
       onUpdate={(newProps) => updatePanel(area, newProps)}
+      onDelete={() => deletePanel(area)}
     />
   ));
 
