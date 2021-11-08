@@ -4,22 +4,22 @@ import * as React from "react";
 import parseGridTemplateAreas, {
   TemplatedGridProps,
 } from "utils/parseGridTemplateAreas";
-import { ShinyUiElementProps, ShinyUiNameAndProps } from "../componentTypes";
+import { ShinyUiPropsByName, ShinyUiNameAndProps } from "../componentTypes";
 import UiChooser from "../UiChooser";
 import UiPanel from "../UiPanel";
 
 type UiComponentDefinition =
   | {
       componentName: "plotOutput";
-      componentProps: ShinyUiElementProps["plotOutput"];
+      componentProps: ShinyUiPropsByName["plotOutput"];
     }
   | {
       componentName: "sliderInput";
-      componentProps: ShinyUiElementProps["sliderInput"];
+      componentProps: ShinyUiPropsByName["sliderInput"];
     }
   | {
       componentName: "titlePanel";
-      componentProps: ShinyUiElementProps["titlePanel"];
+      componentProps: ShinyUiPropsByName["titlePanel"];
     };
 
 type Panels = Record<string, UiComponentDefinition>;

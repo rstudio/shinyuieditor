@@ -3,35 +3,48 @@ import { GridlayoutTitlePanelProps } from "./GridlayoutTitlePanel";
 import { ShinyPlotOutputProps } from "./ShinyPlotOutput";
 import { ShinySliderInputProps } from "./ShinySliderInput";
 
-// All possible props for the defined UI components
-export type ShinyUiElementProps = {
+/**
+ * All possible props for the defined UI components
+ */
+export type ShinyUiPropsByName = {
   plotOutput: ShinyPlotOutputProps;
   sliderInput: ShinySliderInputProps;
   titlePanel: GridlayoutTitlePanelProps;
 };
 
+/**
+ * Union of Ui element name and associated props for easy narrowing
+ */
 export type ShinyUiNameAndProps = Values<
   {
-    [Name in keyof ShinyUiElementProps]: {
+    [Name in keyof ShinyUiPropsByName]: {
       componentName: Name;
-      componentProps: ShinyUiElementProps[Name];
+      componentProps: ShinyUiPropsByName[Name];
     };
   }
 >;
 
-// The names of those components (important for most type narrowing)
-export type ShinyUiElementNames = keyof ShinyUiElementProps;
+/**
+ * Names of all the available Ui elements
+ */
+export type ShinyUiNames = ShinyUiNameAndProps["componentName"];
 
-// Get a union type of the props for use in narrowing function generics
-type AllUiProps = ShinyUiElementProps[keyof ShinyUiElementProps];
+/**
+ * Property (arguments) of all the available Ui elements
+ */
+export type ShinyUiProps = ShinyUiNameAndProps["componentProps"];
 
-// This is the format of a UI component
-export type ShinyUiComponent<Props extends AllUiProps> = (
+/**
+ * Format of a component designating a Shiny-Ui element
+ */
+export type ShinyUiComponent<Props extends ShinyUiProps> = (
   p: Props
 ) => JSX.Element;
 
-// This is the format of the corresponding settings panel for a component
-export type ShinyUiSettingsComponent<Props extends AllUiProps> = (p: {
+/**
+ * Format of the corresponding settings panel for a component a Shiny-Ui element
+ */
+export type ShinyUiSettingsComponent<Props extends ShinyUiProps> = (p: {
   startingSettings: Props;
   onUpdate: (newSettings: Props) => void;
 }) => JSX.Element;

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import {
-  ShinyUiElementNames,
+  ShinyUiNames,
   ShinyUiNameAndProps,
 } from "components/shiny-ui/componentTypes";
 import * as React from "react";
@@ -54,7 +54,7 @@ function UiChooser({
   );
 }
 
-const previewIcons: Record<ShinyUiElementNames, JSX.Element> = {
+const previewIcons: Record<ShinyUiNames, JSX.Element> = {
   plotOutput: <GoGraph />,
   sliderInput: <BiSliderAlt />,
   titlePanel: <BiText />,

@@ -11,8 +11,8 @@ import {
 import { css } from "@emotion/react";
 import {
   ShinyUiComponent,
-  ShinyUiElementNames,
-  ShinyUiElementProps,
+  ShinyUiNames,
+  ShinyUiPropsByName,
   ShinyUiSettingsComponent,
 } from "components/shiny-ui/componentTypes";
 import GridlayoutTitlePanel from "components/shiny-ui/GridlayoutTitlePanel";
@@ -43,7 +43,7 @@ const uiComponentAndSettings = {
   },
 };
 
-function UiPanel<ElName extends ShinyUiElementNames>({
+function UiPanel<ElName extends ShinyUiNames>({
   area,
   componentDefinition,
   onUpdate,
@@ -52,9 +52,9 @@ function UiPanel<ElName extends ShinyUiElementNames>({
   area: string;
   componentDefinition: {
     componentName: ElName;
-    componentProps: ShinyUiElementProps[ElName];
+    componentProps: ShinyUiPropsByName[ElName];
   };
-  onUpdate?: (newProps: ShinyUiElementProps[ElName]) => void;
+  onUpdate?: (newProps: ShinyUiPropsByName[ElName]) => void;
   onDelete?: () => void;
 }) {
   const [isOpen, setIsOpen] = React.useState(false);
