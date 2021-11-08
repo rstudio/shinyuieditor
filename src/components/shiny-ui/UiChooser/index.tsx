@@ -24,7 +24,7 @@ type NewElementMessage =
       componentProps: GridlayoutTitlePanelProps;
     };
 
-const uiOptions: NewElementMessage[] = [
+const allPossibleUi: NewElementMessage[] = [
   {
     componentName: "plotOutput",
     componentProps: { name: "My Chosen Plot" },
@@ -41,15 +41,17 @@ const uiOptions: NewElementMessage[] = [
 
 function UiChooser({
   area,
+  availableUi = allPossibleUi,
   onChoose,
 }: {
   area: string;
+  availableUi: NewElementMessage[];
   onChoose: (newPanel: NewElementMessage) => void;
 }) {
   return (
     <UiPanelHolder area={area}>
       <Wrap>
-        {uiOptions.map((ui) => {
+        {availableUi.map((ui) => {
           const { componentName: name } = ui;
           return (
             <OptionBlock key={name} onClick={() => onChoose(ui)}>
