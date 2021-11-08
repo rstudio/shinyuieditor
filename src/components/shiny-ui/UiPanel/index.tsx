@@ -1,3 +1,4 @@
+import { IconButton } from "@chakra-ui/button";
 import {
   Popover,
   PopoverArrow,
@@ -7,10 +8,8 @@ import {
   PopoverHeader,
   PopoverTrigger,
 } from "@chakra-ui/popover";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import * as React from "react";
-import { FiSettings } from "react-icons/fi";
-import { makeBoxShadow } from "utils/css-helpers";
 import {
   ShinyUiComponent,
   ShinyUiElementNames,
@@ -23,6 +22,12 @@ import ShinyPlotOutput from "components/shiny-ui/ShinyPlotOutput";
 import ShinyPlotOutputSettings from "components/shiny-ui/ShinyPlotOutput/SettingsPanel";
 import ShinySliderInput from "components/shiny-ui/ShinySliderInput";
 import ShinySliderInputSettings from "components/shiny-ui/ShinySliderInput/SettingsPanel";
+import * as React from "react";
+import {
+  FiSettings as SettingsIcon,
+  FiTrash as TrashIcon,
+} from "react-icons/fi";
+import { makeBoxShadow } from "utils/css-helpers";
 
 const uiComponentAndSettings = {
   plotOutput: {
@@ -82,6 +87,7 @@ function UiPanel<ElName extends ShinyUiElementNames>({
       className="ui-panel-holder"
       style={{ gridArea: area }}
     >
+      <ActionButton action="Delete" />
       <Popover
         isOpen={isOpen}
         onClose={closePopover}
@@ -89,9 +95,7 @@ function UiPanel<ElName extends ShinyUiElementNames>({
         closeOnBlur={true}
       >
         <PopoverTrigger>
-          <SettingsButtonHolder aria-label="Open settings dialog">
-            <FiSettings />
-          </SettingsButtonHolder>
+          <ActionButton action="Settings" />
         </PopoverTrigger>
         <PopoverContent aria-label={`Settings for ${componentName}`}>
           <PopoverArrow />
@@ -126,13 +130,26 @@ const UiPanelHolder = styled.div({
   boxShadow: makeBoxShadow({ height: 0.2 }),
 });
 
-const SettingsButtonHolder = styled.button({
-  position: "absolute",
-  right: "5px",
-  top: "5px",
-  opacity: 0.5,
-  display: "grid",
-  placeContent: "center",
-});
+function ActionButton({ action }: { action: "Settings" | "Delete" }) {
+  const inset = "2px";
+  const settingsStyle = css({
+    position: "absolute",
+    top: inset,
+    opacity: 0.5,
+  });
+
+  const Icon = action === "Settings" ? <SettingsIcon /> : <TrashIcon />;
+  const label = action === "Settings" ? "Open settings dialog" : "Delete panel";
+  const horizontalAlign = { [action === "Settings" ? "right" : "left"]: inset };
+  return (
+    <IconButton
+      size="sm"
+      icon={Icon}
+      style={horizontalAlign}
+      aria-label={label}
+      css={settingsStyle}
+    />
+  );
+}
 
 export default UiPanel;
