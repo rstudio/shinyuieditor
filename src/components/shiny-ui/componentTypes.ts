@@ -1,3 +1,4 @@
+import { Values } from "utils/type-helpers";
 import { GridlayoutTitlePanelProps } from "./GridlayoutTitlePanel";
 import { ShinyPlotOutputProps } from "./ShinyPlotOutput";
 import { ShinySliderInputProps } from "./ShinySliderInput";
@@ -8,6 +9,15 @@ export type ShinyUiElementProps = {
   sliderInput: ShinySliderInputProps;
   titlePanel: GridlayoutTitlePanelProps;
 };
+
+export type ShinyUiNameAndProps = Values<
+  {
+    [Name in keyof ShinyUiElementProps]: {
+      componentName: Name;
+      componentProps: ShinyUiElementProps[Name];
+    };
+  }
+>;
 
 // The names of those components (important for most type narrowing)
 export type ShinyUiElementNames = keyof ShinyUiElementProps;

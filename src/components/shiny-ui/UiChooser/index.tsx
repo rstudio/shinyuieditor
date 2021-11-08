@@ -1,29 +1,15 @@
 import styled from "@emotion/styled";
-import { ShinyUiElementNames } from "components/shiny-ui/componentTypes";
-import { GridlayoutTitlePanelProps } from "components/shiny-ui/GridlayoutTitlePanel";
-import { ShinyPlotOutputProps } from "components/shiny-ui/ShinyPlotOutput";
-import { ShinySliderInputProps } from "components/shiny-ui/ShinySliderInput";
+import {
+  ShinyUiElementNames,
+  ShinyUiNameAndProps,
+} from "components/shiny-ui/componentTypes";
 import * as React from "react";
 import { BiSliderAlt, BiText } from "react-icons/bi";
 import { GoGraph } from "react-icons/go";
 import { makeBoxShadow } from "utils/css-helpers";
 import { UiPanelHolder } from "../UiPanelHolder";
 
-export type NewElementMessage =
-  | {
-      componentName: "plotOutput";
-      componentProps: ShinyPlotOutputProps;
-    }
-  | {
-      componentName: "sliderInput";
-      componentProps: ShinySliderInputProps;
-    }
-  | {
-      componentName: "titlePanel";
-      componentProps: GridlayoutTitlePanelProps;
-    };
-
-const allPossibleUi: NewElementMessage[] = [
+const allPossibleUi: ShinyUiNameAndProps[] = [
   {
     componentName: "plotOutput",
     componentProps: { name: "My Chosen Plot" },
@@ -44,8 +30,8 @@ function UiChooser({
   onChoose,
 }: {
   area: string;
-  availableUi?: NewElementMessage[];
-  onChoose: (newPanel: NewElementMessage) => void;
+  availableUi?: ShinyUiNameAndProps[];
+  onChoose: (newPanel: ShinyUiNameAndProps) => void;
 }) {
   return (
     <UiPanelHolder area={area} aria-label={`Ui-Chooser for ${area}`}>

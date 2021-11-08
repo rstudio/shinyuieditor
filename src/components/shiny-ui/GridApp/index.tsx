@@ -4,8 +4,8 @@ import * as React from "react";
 import parseGridTemplateAreas, {
   TemplatedGridProps,
 } from "utils/parseGridTemplateAreas";
-import { ShinyUiElementProps } from "../componentTypes";
-import UiChooser, { NewElementMessage } from "../UiChooser";
+import { ShinyUiElementProps, ShinyUiNameAndProps } from "../componentTypes";
+import UiChooser from "../UiChooser";
 import UiPanel from "../UiPanel";
 
 type UiComponentDefinition =
@@ -68,7 +68,7 @@ export default function GridApp({
   );
 
   const addPanel = React.useCallback(
-    (area: string, newPanel: NewElementMessage) => {
+    (area: string, newPanel: ShinyUiNameAndProps) => {
       setAllPanels((panels) => ({ ...panels, [area]: newPanel }));
     },
     [setAllPanels]
