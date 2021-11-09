@@ -5,7 +5,7 @@
   --rstudio-white: #ffffff;
   --light-grey: #c4c4c4b2;
   --selection-color: tomato;
-  --selected-border-color: var(--rstudio-grey);
+  --selected-border-color: var(--rstudio-blue);
   --selected-border-width: 3px;
   --corner-radius: 5px;
   --card-header-height: 35px;

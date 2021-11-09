@@ -149,7 +149,6 @@ const IconHolder = styled.span({
 });
 
 const overlayStyles = css({
-  backgroundColor: "var(--color, rgba(34, 139, 34, 0.835))",
   borderRadius: "var(--corner-radius)",
   border: "var(--selected-border-width) solid var(--selected-border-color)",
   display: "grid",
