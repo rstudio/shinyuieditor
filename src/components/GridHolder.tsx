@@ -19,7 +19,7 @@ export function GridHolder({
   });
 
   return (
-    <div style={parsedProps.styles} css={{ display: "grid" }}>
+    <div style={parsedProps.styles} css={{ display: "grid", padding: gapSize }}>
       {children}
     </div>
   );
