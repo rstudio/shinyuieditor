@@ -1,9 +1,13 @@
+import type { ValueOf } from "utils/type-helpers";
 import type { GridlayoutTitlePanelProps } from "./GridlayoutTitlePanel";
 import type { ShinyPlotOutputProps } from "./ShinyPlotOutput";
 import type { ShinySliderInputProps } from "./ShinySliderInput";
 
 /**
  * All possible props for the defined UI components
+ *
+ * This is the only place where any new UI element should be added as the rest
+ * of the types will automatically be built based on this type.
  */
 export type ShinyUiPropsByName = {
   plotOutput: ShinyPlotOutputProps;
@@ -24,22 +28,26 @@ export type ShinyUiProps = ShinyUiPropsByName[ShinyUiNames];
 /**
  * Union of Ui element name and associated props for easy narrowing
  */
-export type ShinyUiNameAndProps = {
-  [Name in ShinyUiNames]: {
-    componentName: Name;
-    componentProps: ShinyUiPropsByName[Name];
-  };
-}[ShinyUiNames];
+export type ShinyUiNameAndProps = ValueOf<
+  {
+    [Name in keyof ShinyUiPropsByName]: {
+      componentName: Name;
+      componentProps: ShinyUiPropsByName[Name];
+    };
+  }
+>;
 
 /**
- * Format of a component designating a Shiny-Ui element
+ * Format of a React component designating a Shiny-Ui element with a given
+ * set of input props.
  */
 export type ShinyUiComponent<Props extends ShinyUiProps> = (
   p: Props
 ) => JSX.Element;
 
 /**
- * Format of the corresponding settings panel for a component a Shiny-Ui element
+ * Format of React component used for controlling settings of a given
+ * UI component (ShinyUiComponent<Props>) with a given set of input props.
  */
 export type ShinyUiSettingsComponent<Props extends ShinyUiProps> = (p: {
   startingSettings: Props;
