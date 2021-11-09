@@ -89,7 +89,15 @@ function UiPanel<ElName extends ShinyUiNames>({
       className="ui-panel-holder"
       area={area}
     >
-      <ActionButton action="Delete" onClick={onDelete} />
+      <IconButton
+        aria-label="Delete panel"
+        size="sm"
+        variant="ghost"
+        icon={<TrashIcon />}
+        style={{ left: 0 }}
+        css={actionButtonStyles}
+        onClick={onDelete}
+      />
       <Popover
         isOpen={isOpen}
         onClose={closePopover}
@@ -97,7 +105,14 @@ function UiPanel<ElName extends ShinyUiNames>({
         closeOnBlur={true}
       >
         <PopoverTrigger>
-          <ActionButton action="Settings" />
+          <IconButton
+            size="sm"
+            variant="ghost"
+            aria-label="Open settings dialog"
+            icon={<SettingsIcon />}
+            style={{ right: 0 }}
+            css={actionButtonStyles}
+          />
         </PopoverTrigger>
         <PopoverContent aria-label={`Settings for ${componentName}`}>
           <PopoverArrow />
@@ -121,41 +136,10 @@ function UiPanel<ElName extends ShinyUiNames>({
   );
 }
 
-function ActionButton({
-  action,
-  onClick,
-}: {
-  action: "Settings" | "Delete";
-  onClick?: () => void;
-}) {
-  const settingsStyle = css({
-    position: "absolute",
-    top: 0,
-    opacity: 0.5,
-  });
-
-  const iconSettings =
-    action === "Settings"
-      ? {
-          "aria-label": "Open settings dialog",
-          icon: <SettingsIcon />,
-          style: { right: 0 },
-        }
-      : {
-          "aria-label": "Delete panel",
-          icon: <TrashIcon />,
-          style: { left: 0 },
-        };
-
-  return (
-    <IconButton
-      size="sm"
-      variant="ghost"
-      {...iconSettings}
-      css={settingsStyle}
-      onClick={onClick ? () => onClick() : undefined}
-    />
-  );
-}
+const actionButtonStyles = css({
+  position: "absolute",
+  top: 0,
+  opacity: 0.5,
+});
 
 export default UiPanel;
