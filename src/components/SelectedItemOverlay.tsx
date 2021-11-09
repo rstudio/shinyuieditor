@@ -16,7 +16,7 @@ import {
   BsArrowUpRight,
 } from "react-icons/bs";
 import { FaTrash } from "react-icons/fa";
-import { useRecoilValue, useResetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 import {
   selectedItemNameState,
   selectedItemState,
@@ -26,6 +26,25 @@ import { useDragToMove } from "state-logic/itemDragToMove";
 import { useDragToResize } from "state-logic/itemDragToResize";
 import { placeItemOnGrid } from "utils/placeItemOnGrid";
 import { DragDir, GridItemDef } from "../GridTypes";
+import {
+  FiSettings as SettingsIcon,
+  FiTrash as TrashIcon,
+} from "react-icons/fi";
+import { selectedUiElement, uiElementAtoms } from "state-logic/uiElements";
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverArrow,
+  PopoverCloseButton,
+  PopoverHeader,
+  PopoverBody,
+} from "@chakra-ui/popover";
+import { uiComponentAndSettings } from "./shiny-ui/UiPanel";
+import {
+  ShinyUiNameAndProps,
+  ShinyUiSettingsComponent,
+} from "./shiny-ui/componentTypes";
 
 export function SelectedItemOverlay() {
   const resetSelection = useResetRecoilState(selectedItemNameState);
@@ -88,7 +107,64 @@ function SettingsToolbar({
   name: GridItemDef["name"];
   beingDragged: boolean;
 }) {
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  const [itemUi, setItemUi] = useRecoilState(selectedUiElement);
+
+  const openPopover = () => setIsOpen(!isOpen);
+  const closePopover = () => setIsOpen(false);
+
   const deleteItem = useDeleteItem();
+
+  let settingsButton: JSX.Element | null = null;
+
+  if (itemUi !== null && itemUi !== "unset") {
+    const { componentName, componentProps } = itemUi;
+    // Make sure TS knows these are compatible types
+    const components = uiComponentAndSettings[componentName];
+
+    const SettingsComponent = components.SettingsComponent as ShinyUiSettingsComponent<
+      typeof componentProps
+    >;
+    settingsButton =
+      itemUi !== null ? (
+        <Popover
+          isOpen={isOpen}
+          onClose={closePopover}
+          onOpen={openPopover}
+          closeOnBlur={true}
+        >
+          <PopoverTrigger>
+            <IconButton
+              h="100%"
+              padding="3px"
+              variant="outline"
+              aria-label="Open settings dialog"
+              icon={<SettingsIcon />}
+            />
+          </PopoverTrigger>
+          <PopoverContent aria-label={`Settings for component`} color="black">
+            <PopoverArrow />
+            <PopoverCloseButton />
+            <PopoverHeader>
+              <code>{componentName}</code> settings
+            </PopoverHeader>
+            <PopoverBody>
+              <SettingsComponent
+                startingSettings={componentProps}
+                onUpdate={(newSettings) => {
+                  setItemUi({
+                    componentName,
+                    componentProps: newSettings,
+                  } as ShinyUiNameAndProps);
+                  closePopover();
+                }}
+              />
+            </PopoverBody>
+          </PopoverContent>
+        </Popover>
+      ) : null;
+  }
 
   return (
     <div
@@ -134,6 +210,7 @@ function SettingsToolbar({
             deleteItem(name);
           }}
         />
+        {settingsButton}
       </div>
     </div>
   );
