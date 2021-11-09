@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { makeBoxShadow } from "utils/css-helpers";
 
-export const UiPanelHolder = styled.div(({ area }: { area: string }) => ({
+export const UiPanelHolder = styled.div(({ area }: { area?: string }) => ({
   display: "grid",
   gridArea: area,
   gridTemplateRows: "1fr",

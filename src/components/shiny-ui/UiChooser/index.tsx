@@ -29,7 +29,7 @@ function UiChooser({
   availableUi = allPossibleUi,
   onChoose,
 }: {
-  area: string;
+  area?: string;
   availableUi?: ShinyUiNameAndProps[];
   onChoose: (newPanel: ShinyUiNameAndProps) => void;
 }) {
