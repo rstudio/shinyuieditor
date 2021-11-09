@@ -105,7 +105,7 @@ export function makeBoxShadow({
   maxOpacity: number;
   minOpacity: number;
   numLayers: number;
-}>) {
+}> = {}) {
   if (height < 0 || height > 1)
     throw new Error("Box shadow height should be between 0 and 1");
 
