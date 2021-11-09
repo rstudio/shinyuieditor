@@ -1,4 +1,4 @@
 /**
- * Get union of all values on object
+ * Get union of all values on object. Partner to keyof
  */
-export type Values<T> = T[keyof T];
+export type ValueOf<T> = T[keyof T];
