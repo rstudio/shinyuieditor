@@ -29,7 +29,7 @@ import {
 } from "react-icons/fi";
 import { UiPanelHolder } from "../UiPanelHolder";
 
-const uiComponentAndSettings: ShinyUiComponentAndSettings = {
+export const uiComponentAndSettings: ShinyUiComponentAndSettings = {
   plotOutput: {
     UiComponent: ShinyPlotOutput,
     SettingsComponent: ShinyPlotOutputSettings,
@@ -61,16 +61,6 @@ function UiPanel<ElName extends ShinyUiNames>({
   const [isOpen, setIsOpen] = React.useState(false);
   const openPopover = () => setIsOpen(!isOpen);
   const closePopover = () => setIsOpen(false);
-
-  if (!componentDefinition) {
-    return (
-      <UiPanelHolder className="ui-panel-holder" area={area}>
-        <div style={{ padding: "1rem" }}>
-          <h2>Choose Shiny UI element</h2>
-        </div>
-      </UiPanelHolder>
-    );
-  }
 
   const { componentName, componentProps } = componentDefinition;
 
