@@ -128,22 +128,30 @@ function ActionButton({
   action: "Settings" | "Delete";
   onClick?: () => void;
 }) {
-  const inset = "2px";
   const settingsStyle = css({
     position: "absolute",
-    top: inset,
+    top: 0,
     opacity: 0.5,
   });
 
-  const Icon = action === "Settings" ? <SettingsIcon /> : <TrashIcon />;
-  const label = action === "Settings" ? "Open settings dialog" : "Delete panel";
-  const horizontalAlign = { [action === "Settings" ? "right" : "left"]: inset };
+  const iconSettings =
+    action === "Settings"
+      ? {
+          "aria-label": "Open settings dialog",
+          icon: <SettingsIcon />,
+          style: { right: 0 },
+        }
+      : {
+          "aria-label": "Delete panel",
+          icon: <TrashIcon />,
+          style: { left: 0 },
+        };
+
   return (
     <IconButton
       size="sm"
-      icon={Icon}
-      style={horizontalAlign}
-      aria-label={label}
+      variant="ghost"
+      {...iconSettings}
       css={settingsStyle}
       onClick={onClick ? () => onClick() : undefined}
     />
