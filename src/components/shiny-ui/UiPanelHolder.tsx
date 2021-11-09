@@ -4,12 +4,12 @@ import { makeBoxShadow } from "utils/css-helpers";
 export const UiPanelHolder = styled.div(({ area }: { area: string }) => ({
   display: "grid",
   gridArea: area,
-  // overflow: "scroll",
   gridTemplateRows: "1fr",
   gridTemplateColumns: "1fr",
   width: "100%",
   height: "100%",
   placeItems: "center",
   position: "relative",
+  backgroundColor: "var(--rstudio-white, forestgreen)",
   boxShadow: makeBoxShadow({ height: 0.2 }),
 }));
