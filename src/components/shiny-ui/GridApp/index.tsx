@@ -4,25 +4,11 @@ import * as React from "react";
 import parseGridTemplateAreas, {
   TemplatedGridProps,
 } from "utils/parseGridTemplateAreas";
-import { ShinyUiNameAndProps, ShinyUiPropsByName } from "../componentTypes";
+import { ShinyUiNameAndProps } from "../componentTypes";
 import UiChooser from "../UiChooser";
 import UiPanel from "../UiPanel";
 
-type UiComponentDefinition =
-  | {
-      componentName: "plotOutput";
-      componentProps: ShinyUiPropsByName["plotOutput"];
-    }
-  | {
-      componentName: "sliderInput";
-      componentProps: ShinyUiPropsByName["sliderInput"];
-    }
-  | {
-      componentName: "titlePanel";
-      componentProps: ShinyUiPropsByName["titlePanel"];
-    };
-
-type Panels = Record<string, UiComponentDefinition>;
+type Panels = Record<string, ShinyUiNameAndProps>;
 type GridAppProps = {
   layout: TemplatedGridProps;
   panels: Panels;
@@ -55,7 +41,7 @@ export default function GridApp({
         newPanels[panelArea] = {
           componentName: existingPanel.componentName,
           componentProps: newProps,
-        } as UiComponentDefinition;
+        } as ShinyUiNameAndProps;
         return newPanels;
       });
     },
