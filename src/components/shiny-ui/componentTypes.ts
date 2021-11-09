@@ -1,7 +1,6 @@
-import { Values } from "utils/type-helpers";
-import { GridlayoutTitlePanelProps } from "./GridlayoutTitlePanel";
-import { ShinyPlotOutputProps } from "./ShinyPlotOutput";
-import { ShinySliderInputProps } from "./ShinySliderInput";
+import type { GridlayoutTitlePanelProps } from "./GridlayoutTitlePanel";
+import type { ShinyPlotOutputProps } from "./ShinyPlotOutput";
+import type { ShinySliderInputProps } from "./ShinySliderInput";
 
 /**
  * All possible props for the defined UI components
@@ -13,26 +12,24 @@ export type ShinyUiPropsByName = {
 };
 
 /**
- * Union of Ui element name and associated props for easy narrowing
- */
-export type ShinyUiNameAndProps = Values<
-  {
-    [Name in keyof ShinyUiPropsByName]: {
-      componentName: Name;
-      componentProps: ShinyUiPropsByName[Name];
-    };
-  }
->;
-
-/**
  * Names of all the available Ui elements
  */
-export type ShinyUiNames = ShinyUiNameAndProps["componentName"];
+export type ShinyUiNames = keyof ShinyUiPropsByName;
 
 /**
  * Property (arguments) of all the available Ui elements
  */
-export type ShinyUiProps = ShinyUiNameAndProps["componentProps"];
+export type ShinyUiProps = ShinyUiPropsByName[ShinyUiNames];
+
+/**
+ * Union of Ui element name and associated props for easy narrowing
+ */
+export type ShinyUiNameAndProps = {
+  [Name in ShinyUiNames]: {
+    componentName: Name;
+    componentProps: ShinyUiPropsByName[Name];
+  };
+}[ShinyUiNames];
 
 /**
  * Format of a component designating a Shiny-Ui element
