@@ -19,7 +19,7 @@ export const App = () => {
             ["settings", "plot"  ],
             ["footer",   "footer"],
           ],
-          rowSizes: ["100px", "1fr", "30px"],
+          rowSizes: ["100px", "1fr", "80px"],
           colSizes: ["250px", "1fr"],
         }}
         panels={{
