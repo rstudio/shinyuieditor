@@ -22,7 +22,7 @@ const ShinyPlotOutput: ShinyUiComponent<ShinyPlotOutputProps> = ({
       aria-label={"shiny-plotOutput"}
     >
       <GoGraph
-        size={`calc(min(${width}, ${height})/2)`}
+        size={`min(200px, ${height})`}
         style={{
           gridArea: "1/1",
           placeSelf: "center",
@@ -43,6 +43,7 @@ const PlotHolder = styled.div({
   gridTemplateColumns: "1fr",
   placeContent: "center",
   padding: "1rem",
+  maxHeight: "100%",
   boxShadow: makeBoxShadow({ height: 0.2 }),
 });
 
