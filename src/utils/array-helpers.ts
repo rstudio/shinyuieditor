@@ -2,6 +2,23 @@ export const seqArray = (length: number): number[] => {
   return Array.from({ length }, (_, i) => i);
 };
 
+export function arrayRange(
+  arr: number[] | Set<number>
+): { minVal: number; maxVal: number; span: number; isSequence: boolean } {
+  let minVal: number = Infinity;
+  let maxVal: number = -Infinity;
+
+  for (let el of arr) {
+    if (el < minVal) minVal = el;
+    if (el > maxVal) maxVal = el;
+  }
+
+  const span = maxVal - minVal;
+  const numEls = Array.isArray(arr) ? arr.length : arr.size;
+
+  return { minVal, maxVal, span, isSequence: span === numEls - 1 };
+}
+
 export function subtractElements<T extends string | number>(
   arr: T[],
   toRemove: T[]
