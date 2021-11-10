@@ -15,6 +15,7 @@
     "@types/react-dom": "^16.9.0",
     "@xstate/react": "^1.6.1",
     "framer-motion": "^4.0.0",
+    "just-clone": "^5.0.0",
     "just-debounce-it": "^3.0.0",
     "just-diff": "^4.1.2",
     "just-omit": "^1.4.1",

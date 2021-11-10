@@ -10550,6 +10550,11 @@ junk@^3.1.0:
   resolved "https://registry.yarnpkg.com/junk/-/junk-3.1.0.tgz#31499098d902b7e98c5d9b9c80f43457a88abfa1"
   integrity sha512-pBxcB3LFc8QVgdggvZWyeys+hnrNWg4OcZIU/1X59k5jQdLBlCsYGRQaz234SqoRLTCgMH00fY0xRJH+F9METQ==
 
+just-clone@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/just-clone/-/just-clone-5.0.0.tgz#da36de8355fe6c0cae2cbeee413b479f49bb11e5"
+  integrity sha512-XZ/N6GYZvmFQ+qnXFLaRNAOsnGF5EYXDJ8M9Xu8XaKMlvRe4lVrVv1GBbYXR3jT7KW3ywcrQSbk/70grC8MYbw==
+
 just-debounce-it@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/just-debounce-it/-/just-debounce-it-3.0.0.tgz#61e1667cb342aa669629a15799cf6b440b64ceb8"
