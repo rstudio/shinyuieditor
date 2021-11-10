@@ -1,12 +1,14 @@
 import { CSSMeasure } from "GridTypes";
 import { matrixDimensions, uniqueMatrixElements } from "./array-helpers";
 
-type GridContainerStyles = {
-  gridTemplateAreas: React.CSSProperties["gridTemplateAreas"];
-  gridTemplateColumns: React.CSSProperties["gridTemplateColumns"];
-  gridTemplateRows: React.CSSProperties["gridTemplateRows"];
-  gap: React.CSSProperties["gap"];
-};
+type GridContainerStyles = Pick<
+  React.CSSProperties,
+  | "gridTemplateAreas"
+  | "gridTemplateColumns"
+  | "gridTemplateRows"
+  | "gap"
+  | "padding"
+>;
 
 export type TemplatedGridProps = {
   areas: string[][];
@@ -39,6 +41,7 @@ export default function parseGridTemplateAreas({
       gridTemplateColumns: buildTractSizes(numCols, colSizes, "column"),
       gridTemplateRows: buildTractSizes(numRows, rowSizes, "row"),
       gap: gapSize,
+      padding: gapSize,
     },
     uniqueAreas: uniqueMatrixElements(areas),
   };
