@@ -1,4 +1,5 @@
-import { addColumn, areasToItemList } from "./gridTemplateManipulation";
+import { areasToItemList } from "./gridTemplateManipulation";
+import { addTract } from "./addTract";
 
 describe("Parse item info out of the areas matrix", () => {
   test("Valid areas parse properly", () => {

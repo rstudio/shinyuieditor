@@ -1,5 +1,10 @@
 import { CSSMeasure } from "GridTypes";
-import { matrixDimensions, uniqueMatrixElements } from "../array-helpers";
+import { TractDirection } from "state-logic/gridLayout/atoms";
+import {
+  fillArr,
+  matrixDimensions,
+  uniqueMatrixElements,
+} from "../array-helpers";
 import { TemplatedGridProps } from "./types";
 
 type GridContainerStyles = Pick<
@@ -22,17 +27,19 @@ export default function parseGridTemplateAreas({
   styles: GridContainerStyles;
   uniqueAreas: string[];
 } {
-  const { numRows, numCols } = matrixDimensions(areas);
   const gridTemplateAreas = areas
     .map((rowDef) => `"${rowDef.join(" ")}"`)
     .join("\n");
+
+  const sizes = getTractSizes({ areas, rowSizes, colSizes });
+
   return {
-    numRows,
-    numCols,
+    numRows: sizes.rows.length,
+    numCols: sizes.cols.length,
     styles: {
       gridTemplateAreas,
-      gridTemplateColumns: buildTractSizes(numCols, colSizes, "column"),
-      gridTemplateRows: buildTractSizes(numRows, rowSizes, "row"),
+      gridTemplateColumns: sizes.cols.join(" "),
+      gridTemplateRows: sizes.rows.join(" "),
       gap: gapSize,
       padding: gapSize,
     },
@@ -40,13 +47,28 @@ export default function parseGridTemplateAreas({
   };
 }
 
+export function getTractSizes({
+  areas,
+  rowSizes = "1fr",
+  colSizes = "1fr",
+}: Pick<TemplatedGridProps, "areas" | "rowSizes" | "colSizes">): Record<
+  TractDirection,
+  CSSMeasure[]
+> {
+  const { numRows, numCols } = matrixDimensions(areas);
+
+  return {
+    rows: buildTractSizes(numRows, rowSizes, "row"),
+    cols: buildTractSizes(numCols, colSizes, "column"),
+  };
+}
+
 export function buildTractSizes(
   numTracts: number,
   tractSizes: CSSMeasure[] | CSSMeasure,
   dir: "row" | "column"
-): string {
-  if (!Array.isArray(tractSizes))
-    return [...new Array(numTracts)].fill(tractSizes).join(" ");
+): CSSMeasure[] {
+  if (!Array.isArray(tractSizes)) return fillArr(tractSizes, numTracts);
 
   if (numTracts !== tractSizes.length)
     throw new Error(
@@ -54,5 +76,5 @@ export function buildTractSizes(
     Either make sure they match or use a single ${dir} size that will be repeated for all ${dir}s.`
     );
 
-  return tractSizes.join(" ");
+  return tractSizes;
 }

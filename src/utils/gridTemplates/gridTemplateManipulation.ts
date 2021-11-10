@@ -1,4 +1,3 @@
-import { CSSMeasure } from "GridTypes";
 import { arrayRange, matrixDimensions } from "utils/array-helpers";
 import { TemplatedGridProps } from "./types";
 
@@ -10,7 +9,7 @@ type ItemCells = { itemRows: Set<number>; itemCols: Set<number> };
 /**
  * Positional info of item on grid along with validity
  */
-type ItemLocation = {
+export type ItemLocation = {
   rowStart: number;
   colStart: number;
   rowSpan: number;
@@ -66,8 +65,3 @@ export function areasToItemList(areas: TemplatedGridProps["areas"]): ItemList {
 
   return itemList;
 }
-
-export function addColumn(
-  template: TemplatedGridProps,
-  { index, size }: { index: number; size: CSSMeasure }
-) {}
