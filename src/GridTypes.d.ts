@@ -24,3 +24,5 @@ export type BoxSide = "top" | "bottom" | "left" | "right";
 export type BoxCorner = "topLeft" | "topRight" | "bottomLeft" | "bottomRight";
 export type BoxOverlap = BoxSide | BoxCorner | "center";
 export type DragDir = BoxSide | BoxCorner;
+
+export type GridLocString = `row${number}-col${number}`;

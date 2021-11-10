@@ -11,7 +11,7 @@ import {
   GridBlock,
   gridDimsFromCellBounds,
   GridLocString,
-  gridLocString,
+  toStringLoc,
   sameGridPos,
 } from "utils/grid-helpers";
 import { createMachine } from "xstate";
@@ -214,7 +214,7 @@ function findAvailableBlocks({
     if (item.name === itemName) return;
     for (let row = item.startRow; row <= item.endRow; row++) {
       for (let col = item.startCol; col <= item.endCol; col++) {
-        occupiedCells.add(gridLocString({ row, col }));
+        occupiedCells.add(toStringLoc({ row, col }));
       }
     }
   });

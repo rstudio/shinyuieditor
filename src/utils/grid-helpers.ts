@@ -1,7 +1,6 @@
 import { TractDirection } from "state-logic/gridLayout/atoms";
-import { GridPos } from "../GridTypes";
+import { GridLocString, GridPos } from "../GridTypes";
 import { getBBoxOfDiv, ItemBoundingBox } from "./overlap-helpers";
-
 
 export type GridItemBoundingBox = ItemBoundingBox & GridPos;
 
@@ -50,7 +49,7 @@ export function enumerateGridDims({
   numCols,
   numRows,
   startCol = 1,
-  startRow = 1
+  startRow = 1,
 }: {
   numCols: number;
   numRows: number;
@@ -63,14 +62,20 @@ export function enumerateGridDims({
   }));
 }
 
+export function toStringLoc({
+  row,
+  col,
+}: {
+  row: number;
+  col: number;
+}): GridLocString {
+  return `row${row}-col${col}`;
+}
 
-export type GridLocString = `row${number}-col${number}`;
-export const gridLocString = ({row, col}: {row: number; col: number}): GridLocString => `row${row}-col${col}`;
 export function getCurrentGridCellBounds() {
-  const allCells = document.querySelectorAll(
-    ".gridCell"
-  ) as NodeListOf<HTMLDivElement>;
-
+  const allCells = document.querySelectorAll(".gridCell") as NodeListOf<
+    HTMLDivElement
+  >;
 
   // const gridIndicesToBBox = new Map<`row${number}-col${number}`,GridItemBoundingBox>();
   const gridIndicesToBBox = new Map<GridLocString, GridItemBoundingBox>();
@@ -79,7 +84,7 @@ export function getCurrentGridCellBounds() {
     if (!absolutePos) throw new Error("GridCells are misbehaving");
     const row = Number(cellDiv.dataset.row);
     const col = Number(cellDiv.dataset.col);
-    gridIndicesToBBox.set(gridLocString({row, col}), {
+    gridIndicesToBBox.set(toStringLoc({ row, col }), {
       ...absolutePos,
       startRow: row,
       endRow: row,
@@ -91,18 +96,16 @@ export function getCurrentGridCellBounds() {
   return gridIndicesToBBox;
 }
 
-
 export type GridBlock = {
   gridPos: GridPos;
   bounds: ItemBoundingBox;
-  center: {x: number, y: number};
+  center: { x: number; y: number };
 };
 
 export function findPositionOfBlock(
   block: GridPos,
   cellBounds: ReturnType<typeof getCurrentGridCellBounds>
 ): GridBlock {
-
   const topLeftCell = cellBounds.get(
     `row${block.startRow}-col${block.startCol}`
   );
@@ -115,17 +118,24 @@ export function findPositionOfBlock(
       "Failed to get all the cells needed to find position of block"
     );
 
-  const {top, left, offsetLeft, offsetTop} = topLeftCell;
-  const {bottom, right} = bottomRightCell; 
+  const { top, left, offsetLeft, offsetTop } = topLeftCell;
+  const { bottom, right } = bottomRightCell;
 
   return {
     gridPos: block,
-    bounds: {top, left, bottom ,right, offsetLeft: offsetLeft, offsetTop: offsetTop},
+    bounds: {
+      top,
+      left,
+      bottom,
+      right,
+      offsetLeft: offsetLeft,
+      offsetTop: offsetTop,
+    },
     center: {
       x: (left + right) / 2,
       y: (top + bottom) / 2,
-    }
-  }
+    },
+  };
 }
 
 export const blockIsFree = (
@@ -134,13 +144,15 @@ export const blockIsFree = (
 ) => {
   for (let row = startRow; row <= endRow; row++) {
     for (let col = startCol; col <= endCol; col++) {
-      if (occupiedCells.has(gridLocString({ row, col }))) return false;
+      if (occupiedCells.has(toStringLoc({ row, col }))) return false;
     }
   }
   return true;
 };
 
-export const gridDimsFromCellBounds = (cellBounds: ReturnType<typeof getCurrentGridCellBounds>) => 
+export const gridDimsFromCellBounds = (
+  cellBounds: ReturnType<typeof getCurrentGridCellBounds>
+) =>
   [...cellBounds.keys()].reduce(
     (gridDims, pos) => {
       const [rowInd, colInd] = pos.split("-");
@@ -150,13 +162,11 @@ export const gridDimsFromCellBounds = (cellBounds: ReturnType<typeof getCurrentG
       return gridDims;
     },
     { numRows: 0, numCols: 0 }
-  )
-
-
+  );
 
 export const getItemDims = (item: GridPos) => {
   return {
     numRows: item.endRow - item.startRow + 1,
     numCols: item.endCol - item.startCol + 1,
-  }
-}
+  };
+};
