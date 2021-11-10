@@ -10550,6 +10550,11 @@ junk@^3.1.0:
   resolved "https://registry.yarnpkg.com/junk/-/junk-3.1.0.tgz#31499098d902b7e98c5d9b9c80f43457a88abfa1"
   integrity sha512-pBxcB3LFc8QVgdggvZWyeys+hnrNWg4OcZIU/1X59k5jQdLBlCsYGRQaz234SqoRLTCgMH00fY0xRJH+F9METQ==
 
+just-debounce-it@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/just-debounce-it/-/just-debounce-it-3.0.0.tgz#61e1667cb342aa669629a15799cf6b440b64ceb8"
+  integrity sha512-oFlSmGcXnUUy4e1LihoZAFgLqxLJ0F2ZolE+N6kXROP52IylDma89gLPUBQS0CSttAf/uaNq/EqzfaGuUnyXBQ==
+
 just-diff@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/just-diff/-/just-diff-4.1.2.tgz#15a3df23553b550d6430d98632c4a4f12b280978"
