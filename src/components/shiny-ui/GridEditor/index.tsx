@@ -18,9 +18,12 @@ export type CellLocRef = React.MutableRefObject<
   Record<GridLocString, ItemBoundingBox>
 >;
 
-export default function GridEditor({ items, ...layoutDef }: GridEditorProps) {
+export default function GridEditor({
+  items,
+  ...initialLayoutDef
+}: GridEditorProps) {
   const { numRows, numCols, styles, uniqueAreas } = parseGridTemplateAreas(
-    layoutDef
+    initialLayoutDef
   );
 
   const itemAreas = Object.keys(items);
