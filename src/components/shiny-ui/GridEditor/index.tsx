@@ -1,28 +1,24 @@
 /** @jsxImportSource @emotion/react */
+import { GridLocString } from "GridTypes";
 import debounce from "just-debounce-it";
 import React from "react";
 import { subtractElements } from "utils/array-helpers";
-import { enumerateGridDims } from "utils/grid-helpers";
+import { enumerateGridDims, toStringLoc } from "utils/grid-helpers";
 import { getBBoxOfDiv, ItemBoundingBox } from "utils/overlap-helpers";
 import parseGridTemplateAreas, {
-  TemplatedGridProps
+  TemplatedGridProps,
 } from "utils/parseGridTemplateAreas";
 
 export type GridEditorProps = TemplatedGridProps & {
   items: Record<string, JSX.Element>;
-  
 };
 
-// prettier-ignore
-type GridStringLoc= `row${number}-col${number}`;
-
 type CellLocRef = React.MutableRefObject<
-  Record<GridStringLoc, ItemBoundingBox>
+  Record<GridLocString, ItemBoundingBox>
 >;
 
 export default function GridEditor({ items, ...layoutDef }: GridEditorProps) {
   const { numRows, numCols, styles, uniqueAreas } = parseGridTemplateAreas(
-    
     layoutDef
   );
 
@@ -49,18 +45,22 @@ export default function GridEditor({ items, ...layoutDef }: GridEditorProps) {
     </div>
   ));
 
-  const backgroundCells = enumerateGridDims({ numRows, numCols }).map(
-    ({ row, col }) => (
-      <GridCell key={toStringLoc({row,col})}gridRow={row} gridColumn={col} cellLocations={gridCellLocations}/>
-    )
-  );
+  const backgroundCells = enumerateGridDims({
+    numRows,
+    numCols,
+  }).map(({ row, col }) => (
+    <GridCell
+      key={toStringLoc({ row, col })}
+      gridRow={row}
+      gridColumn={col}
+      cellLocations={gridCellLocations}
+    />
+  ));
 
   React.useEffect(() => {
-
-
     const cellLocs = gridCellLocations.current;
     console.log("Cell locations at load", cellLocs);
-  },[])
+  }, []);
 
   return (
     <div style={styles} css={{ display: "grid" }}>
@@ -71,48 +71,47 @@ export default function GridEditor({ items, ...layoutDef }: GridEditorProps) {
   );
 }
 
-function toStringLoc({row, col}: {row:number, col:number}): GridStringLoc{
-  return `row${row}-col${col}`;
-}
-
-function GridCell (
-  { gridRow, gridColumn,  cellLocations} : { gridRow: number; gridColumn: number; cellLocations: CellLocRef },
-) {
-
-  const gridPos = toStringLoc({row: gridRow, col:gridColumn}); 
+function GridCell({
+  gridRow,
+  gridColumn,
+  cellLocations,
+}: {
+  gridRow: number;
+  gridColumn: number;
+  cellLocations: CellLocRef;
+}) {
+  const gridPos = toStringLoc({ row: gridRow, col: gridColumn });
   const cellRef = React.useRef<HTMLDivElement>(null);
 
-  const updateSize = React.useMemo(() => 
-
-    debounce(
-      () => {
-        console.log(`Gathering size for ${gridPos}`)
-        cellLocations.current[gridPos] = getBBoxOfDiv(cellRef.current)
-      },500
-    )
-  ,[cellLocations, gridPos])
+  const updateSize = React.useMemo(
+    () =>
+      debounce(() => {
+        console.log(`Gathering size for ${gridPos}`);
+        cellLocations.current[gridPos] = getBBoxOfDiv(cellRef.current);
+      }, 500),
+    [cellLocations, gridPos]
+  );
 
   React.useEffect(() => {
-
     const currentCell = cellRef.current;
-    const ro = new ResizeObserver(entries => {
-      for (let _ of entries  ) {
+    const ro = new ResizeObserver((entries) => {
+      for (let _ of entries) {
         updateSize();
       }
     });
-    
-    if (currentCell) ro.observe(currentCell)
-        
+
+    if (currentCell) ro.observe(currentCell);
+
     updateSize();
     return () => {
       console.log(`Removing resize listener for grid cell ${gridPos}`);
       ro.disconnect();
-    }
-  },[gridPos, updateSize])
+    };
+  }, [gridPos, updateSize]);
 
   return (
     <div
-    ref={cellRef}
+      ref={cellRef}
       style={{
         gridRow,
         gridColumn,
@@ -122,4 +121,4 @@ function GridCell (
       {gridRow}-{gridColumn}
     </div>
   );
-};
+}
