@@ -2,6 +2,13 @@ export const seqArray = (length: number): number[] => {
   return Array.from({ length }, (_, i) => i);
 };
 
+export function subtractElements<T extends string | number>(
+  arr: T[],
+  toRemove: T[]
+): T[] {
+  return arr.filter((x) => !toRemove.includes(x));
+}
+
 export function removeAtIndex<T>(arr: T[], index: number): T[] {
   return [...arr.slice(0, index), ...arr.slice(index + 1)];
 }
