@@ -1,3 +1,6 @@
+import clone from "just-clone";
+import { TractDirection } from "state-logic/gridLayout/atoms";
+
 export const seqArray = (length: number): number[] => {
   return Array.from({ length }, (_, i) => i);
 };
@@ -19,6 +22,10 @@ export function arrayRange(
   return { minVal, maxVal, span, isSequence: span === numEls - 1 };
 }
 
+export function fillArr<T>(val: T, length: number): T[] {
+  return [...new Array(length)].fill(val);
+}
+
 export function subtractElements<T extends string | number>(
   arr: T[],
   toRemove: T[]
@@ -28,6 +35,12 @@ export function subtractElements<T extends string | number>(
 
 export function removeAtIndex<T>(arr: T[], index: number): T[] {
   return [...arr.slice(0, index), ...arr.slice(index + 1)];
+}
+
+export function addAtIndex<T>(arr: T[], index: number, val: T) {
+  const newArr = [...arr];
+  newArr.splice(index, 0, val);
+  return newArr;
 }
 
 export type Matrix<T> = T[][];
@@ -56,4 +69,26 @@ export function uniqueMatrixElements<ElementType>(
   }
 
   return [...seen];
+}
+
+export function insertRowOrCol<T>({
+  mat,
+  index,
+  arr,
+  dir,
+}: {
+  mat: Matrix<T>;
+  index: number;
+  dir: TractDirection;
+  arr: T[];
+}): Matrix<T> {
+  const clonedMat = clone(mat);
+  switch (dir) {
+    case "rows":
+      return addAtIndex(clonedMat, index, arr);
+    case "cols":
+      return clonedMat.map((row, rowIndex) =>
+        addAtIndex(row, index, arr[rowIndex])
+      );
+  }
 }
