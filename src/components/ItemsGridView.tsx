@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 import * as React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
@@ -32,7 +33,11 @@ function EditableGridItem({
     const UiComponent = uiComponentAndSettings[itemUi.componentName]
       .UiComponent as ShinyUiComponent<typeof itemUi.componentProps>;
 
-    uiContent = <UiComponent {...itemUi.componentProps} />;
+    uiContent = (
+      <UiComponent {...itemUi.componentProps} />
+      // <CenteredContent>
+      // </CenteredContent>
+    );
   }
 
   return (
@@ -47,6 +52,13 @@ function EditableGridItem({
     </div>
   );
 }
+
+const CenteredContent = styled.div({
+  display: "grid",
+  placeContent: "center",
+  width: "100%",
+  height: "100%",
+});
 
 const itemStyles = css({
   backgroundColor: "var(--rstudio-white, pink)",

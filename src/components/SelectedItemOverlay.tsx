@@ -9,7 +9,7 @@ import {
   PopoverHeader,
   PopoverTrigger,
 } from "@chakra-ui/popover";
-import { FormControl, FormLabel, Switch } from "@chakra-ui/react";
+import { Checkbox, FormControl, FormLabel, Switch } from "@chakra-ui/react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import * as React from "react";
@@ -37,7 +37,7 @@ import { useDragToMove } from "state-logic/itemDragToMove";
 import { useDragToResize } from "state-logic/itemDragToResize";
 import { selectedUiElement } from "state-logic/uiElements";
 import { placeItemOnGrid } from "utils/placeItemOnGrid";
-import { DragDir, GridItemDef } from "../GridTypes";
+import { DragDir } from "../GridTypes";
 import {
   ShinyUiNameAndProps,
   ShinyUiSettingsComponent,
@@ -92,11 +92,17 @@ export function SelectedItemOverlay() {
       style={placeItemOnGrid(selectedItem)}
     >
       {moveHandles}
-      <SettingsToolbarMemo
-        name={selectedItem.name}
-        beingDragged={beingDragged}
-        onMoveHandleToggle={setShowMoveHandles}
-      />
+      <ToolbarTab>
+        <div className={beingDragged ? "being-dragged" : undefined}>
+          <h2>Grid Area: {selectedItem.name}</h2>
+          <div className="settings-buttons">
+            <MoveToggle onToggle={setShowMoveHandles} />
+            <DeleteButton name={selectedItem.name} />
+            <SettingsPopover />
+          </div>
+        </div>
+      </ToolbarTab>
+
       <div
         css={cancelBoxStyles}
         onClick={() => {
@@ -107,18 +113,9 @@ export function SelectedItemOverlay() {
   );
 }
 
-function SettingsToolbar({
-  name,
-  beingDragged,
-  onMoveHandleToggle,
-}: {
-  name: GridItemDef["name"];
-  beingDragged: boolean;
-  onMoveHandleToggle: (show: boolean) => void;
-}) {
+function DeleteButton({ name }: { name: string }) {
   const deleteItem = useDeleteItem();
-
-  const deleteButton = (
+  return (
     <IconButton
       h="100%"
       padding="3px"
@@ -132,26 +129,15 @@ function SettingsToolbar({
       }}
     />
   );
+}
 
-  const moveToggle = (
-    <FormControl display="inline-flex" alignItems="center">
-      <FormLabel htmlFor="on-off-switch">Move?</FormLabel>
-      <Switch
-        id="on-off-switch"
-        onChange={(e) => onMoveHandleToggle(e.target.checked)}
-      />
-    </FormControl>
-  );
-
+function MoveToggle({ onToggle }: { onToggle: (isOn: boolean) => void }) {
   return (
-    <ToolbarTab>
-      <div className={beingDragged ? "being-dragged" : undefined}>
-        <span>{name}</span>
-        {moveToggle}
-        {deleteButton}
-        <SettingsPopover />
-      </div>
-    </ToolbarTab>
+    <FormControl display="inline-flex" alignItems="center" width="auto">
+      <Checkbox onChange={(e) => onToggle(e.target.checked)}>
+        Move mode
+      </Checkbox>
+    </FormControl>
   );
 }
 
@@ -219,6 +205,17 @@ const ToolbarTab = styled.div({
   justifySelf: "center",
   position: "relative",
   width: "min(calc(100% - 2*var(--inset)), 250px)",
+  h2: {
+    borderBottom: "1px solid var(--light-grey)",
+  },
+  ".settings-buttons": {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: "5px",
+    gap: "5px",
+  },
   "&>div": {
     position: "absolute",
     transition: "box-shadow var(--animation-speed) var(--animation-curve)",
@@ -228,20 +225,13 @@ const ToolbarTab = styled.div({
     color: "white",
     bottom: "calc(100% + var(--selected-border-width))",
     width: "100%",
-    display: "flex",
-    flexWrap: "wrap",
     padding: "0.2rem 0.5rem",
-    gap: "5px",
-    justifyContent: "space-evenly",
-    alignItems: "center",
     fontWeight: 500,
   },
   "&>div.being-dragged": {
     boxShadow: "var(--raised-shadow)",
   },
 });
-
-const SettingsToolbarMemo = React.memo(SettingsToolbar);
 
 const IconHolder = styled.span({
   color: "var(--light-grey, blue)",
