@@ -33,11 +33,7 @@ function EditableGridItem({
     const UiComponent = uiComponentAndSettings[itemUi.componentName]
       .UiComponent as ShinyUiComponent<typeof itemUi.componentProps>;
 
-    uiContent = (
-      <UiComponent {...itemUi.componentProps} />
-      // <CenteredContent>
-      // </CenteredContent>
-    );
+    uiContent = <UiComponent {...itemUi.componentProps} />;
   }
 
   return (
@@ -52,13 +48,6 @@ function EditableGridItem({
     </div>
   );
 }
-
-const CenteredContent = styled.div({
-  display: "grid",
-  placeContent: "center",
-  width: "100%",
-  height: "100%",
-});
 
 const itemStyles = css({
   backgroundColor: "var(--rstudio-white, pink)",
