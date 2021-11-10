@@ -16,19 +16,18 @@ export type TemplatedGridProps = {
   colSizes?: CSSMeasure[] | CSSMeasure;
   gapSize?: CSSMeasure;
 };
-type ParsedTemplateResult = {
-  numRows: number;
-  numCols: number;
-  styles: GridContainerStyles;
-  uniqueAreas: string[];
-};
 
 export default function parseGridTemplateAreas({
   areas,
   rowSizes = "1fr",
   colSizes = "1fr",
   gapSize = "1rem",
-}: TemplatedGridProps): ParsedTemplateResult {
+}: TemplatedGridProps): {
+  numRows: number;
+  numCols: number;
+  styles: GridContainerStyles;
+  uniqueAreas: string[];
+} {
   const { numRows, numCols } = matrixDimensions(areas);
   const gridTemplateAreas = areas
     .map((rowDef) => `"${rowDef.join(" ")}"`)
