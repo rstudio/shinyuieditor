@@ -1,8 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
-import parseGridTemplateAreas, {
-  TemplatedGridProps,
-} from "utils/parseGridTemplateAreas";
+import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
+import { TemplatedGridProps } from "utils/gridTemplates/types";
 
 export function GridHolder({
   areas,

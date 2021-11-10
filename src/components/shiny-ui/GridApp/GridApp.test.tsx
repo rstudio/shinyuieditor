@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { TemplatedGridProps } from "utils/parseGridTemplateAreas";
+import { TemplatedGridProps } from "utils/gridTemplates/types";
 import GridApp from ".";
 
 const mainLayout: TemplatedGridProps = {

@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import GridApp from "components/shiny-ui/GridApp";
 import React from "react";
-import { TemplatedGridProps } from "utils/parseGridTemplateAreas";
+import { TemplatedGridProps } from "utils/gridTemplates/types";
 
 const mainLayout: TemplatedGridProps = {
   areas: [

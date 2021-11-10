@@ -1,5 +1,6 @@
 import { CSSMeasure } from "GridTypes";
-import { matrixDimensions, uniqueMatrixElements } from "./array-helpers";
+import { matrixDimensions, uniqueMatrixElements } from "../array-helpers";
+import { TemplatedGridProps } from "./types";
 
 type GridContainerStyles = Pick<
   React.CSSProperties,
@@ -9,13 +10,6 @@ type GridContainerStyles = Pick<
   | "gap"
   | "padding"
 >;
-
-export type TemplatedGridProps = {
-  areas: string[][];
-  rowSizes?: CSSMeasure[] | CSSMeasure;
-  colSizes?: CSSMeasure[] | CSSMeasure;
-  gapSize?: CSSMeasure;
-};
 
 export default function parseGridTemplateAreas({
   areas,

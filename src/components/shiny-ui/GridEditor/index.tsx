@@ -4,10 +4,9 @@ import { GridLocString } from "GridTypes";
 import React from "react";
 import { subtractElements } from "utils/array-helpers";
 import { enumerateGridDims, toStringLoc } from "utils/grid-helpers";
+import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
+import { TemplatedGridProps } from "utils/gridTemplates/types";
 import { ItemBoundingBox } from "utils/overlap-helpers";
-import parseGridTemplateAreas, {
-  TemplatedGridProps,
-} from "utils/parseGridTemplateAreas";
 import { GridCell } from "./GridCell";
 
 export type GridEditorProps = TemplatedGridProps & {

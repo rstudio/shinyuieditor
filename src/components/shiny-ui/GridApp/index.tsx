@@ -1,9 +1,8 @@
 import { AreaLabeledGridHolder, GridHolder } from "components/GridHolder";
 import omit from "just-omit";
 import * as React from "react";
-import parseGridTemplateAreas, {
-  TemplatedGridProps,
-} from "utils/parseGridTemplateAreas";
+import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
+import { TemplatedGridProps } from "utils/gridTemplates/types";
 import { ShinyUiNameAndProps } from "../componentTypes";
 import UiChooser from "../UiChooser";
 import UiPanel from "../UiPanel";
