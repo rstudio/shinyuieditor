@@ -1,19 +1,20 @@
 /** @jsxImportSource @emotion/react */
+import styled from "@emotion/styled";
 import { GridLocString } from "GridTypes";
-import debounce from "just-debounce-it";
 import React from "react";
 import { subtractElements } from "utils/array-helpers";
 import { enumerateGridDims, toStringLoc } from "utils/grid-helpers";
-import { getBBoxOfDiv, ItemBoundingBox } from "utils/overlap-helpers";
+import { ItemBoundingBox } from "utils/overlap-helpers";
 import parseGridTemplateAreas, {
   TemplatedGridProps,
 } from "utils/parseGridTemplateAreas";
+import { GridCell } from "./GridCell";
 
 export type GridEditorProps = TemplatedGridProps & {
   items: Record<string, JSX.Element>;
 };
 
-type CellLocRef = React.MutableRefObject<
+export type CellLocRef = React.MutableRefObject<
   Record<GridLocString, ItemBoundingBox>
 >;
 
@@ -28,21 +29,9 @@ export default function GridEditor({ items, ...layoutDef }: GridEditorProps) {
   const gridCellLocations: CellLocRef = React.useRef({});
 
   const areaMarkers = areasWithoutItems.map((area) => (
-    <div
-      key={area}
-      css={{
-        outline: "1px solid black",
-        display: "grid",
-        placeContent: "end",
-        fontWeight: "lighter",
-        fontStyle: "italic",
-        padding: "2px",
-        opacity: 0.2,
-      }}
-      style={{ gridArea: area }}
-    >
+    <AreaMarker key={area} style={{ gridArea: area }}>
       area: {area}
-    </div>
+    </AreaMarker>
   ));
 
   const backgroundCells = enumerateGridDims({
@@ -63,62 +52,36 @@ export default function GridEditor({ items, ...layoutDef }: GridEditorProps) {
   }, []);
 
   return (
-    <div style={styles} css={{ display: "grid" }}>
-      {Object.values(items)}
-      {areaMarkers}
-      {backgroundCells}
-    </div>
+    <EditorHolder>
+      <GridDisplay style={styles}>
+        {Object.values(items)}
+        {areaMarkers}
+        {backgroundCells}
+      </GridDisplay>
+    </EditorHolder>
   );
 }
 
-function GridCell({
-  gridRow,
-  gridColumn,
-  cellLocations,
-}: {
-  gridRow: number;
-  gridColumn: number;
-  cellLocations: CellLocRef;
-}) {
-  const gridPos = toStringLoc({ row: gridRow, col: gridColumn });
-  const cellRef = React.useRef<HTMLDivElement>(null);
+const EditorHolder = styled.div({
+  display: "grid",
+  gridTemplateColumns: "100px 1fr",
+  gridTemplateRows: "100px 1fr",
+  gridTemplateAreas: `".            column-controls"\n"row-controls main"`,
+});
 
-  const updateSize = React.useMemo(
-    () =>
-      debounce(() => {
-        console.log(`Gathering size for ${gridPos}`);
-        cellLocations.current[gridPos] = getBBoxOfDiv(cellRef.current);
-      }, 500),
-    [cellLocations, gridPos]
-  );
+const GridDisplay = styled.div({
+  gridArea: "main",
+  gridRow: 2,
+  gridColumn: 2,
+  display: "grid",
+});
 
-  React.useEffect(() => {
-    const currentCell = cellRef.current;
-    const ro = new ResizeObserver((entries) => {
-      for (let _ of entries) {
-        updateSize();
-      }
-    });
-
-    if (currentCell) ro.observe(currentCell);
-
-    updateSize();
-    return () => {
-      console.log(`Removing resize listener for grid cell ${gridPos}`);
-      ro.disconnect();
-    };
-  }, [gridPos, updateSize]);
-
-  return (
-    <div
-      ref={cellRef}
-      style={{
-        gridRow,
-        gridColumn,
-        backgroundColor: "var(--light-grey, pink)",
-      }}
-    >
-      {gridRow}-{gridColumn}
-    </div>
-  );
-}
+const AreaMarker = styled.div({
+  outline: "1px solid black",
+  display: "grid",
+  placeContent: "end",
+  fontWeight: "lighter",
+  fontStyle: "italic",
+  padding: "2px",
+  opacity: 0.2,
+});
