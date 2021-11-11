@@ -1,9 +1,13 @@
 import { CSSMeasure } from "GridTypes";
 import { TractDirection } from "state-logic/gridLayout/atoms";
 import { addAtIndex, fillArr, insertRowOrCol } from "utils/array-helpers";
+import {
+  areasToItemList,
+  emptyCell,
+  itemBoundsInDir,
+} from "./gridTemplateManipulation";
 import { getTractSizes } from "./parseGridTemplateAreas";
 import { TemplatedGridProps } from "./types";
-import { areasToItemList, ItemLocation } from "./gridTemplateManipulation";
 
 export function addTract(
   template: TemplatedGridProps,
@@ -54,18 +58,3 @@ export function addTract(
     ),
   };
 }
-function itemBoundsInDir(item: ItemLocation, dir: TractDirection) {
-  switch (dir) {
-    case "rows":
-      return {
-        itemStart: item.rowStart,
-        itemEnd: item.rowStart + item.rowSpan - 1,
-      };
-    case "cols":
-      return {
-        itemStart: item.colStart,
-        itemEnd: item.colStart + item.colSpan - 1,
-      };
-  }
-}
-const emptyCell = ".";

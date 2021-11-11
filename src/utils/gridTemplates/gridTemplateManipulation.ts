@@ -1,3 +1,4 @@
+import { TractDirection } from "state-logic/gridLayout/atoms";
 import { arrayRange, matrixDimensions } from "utils/array-helpers";
 import { TemplatedGridProps } from "./types";
 
@@ -14,9 +15,11 @@ export type ItemLocation = {
   colStart: number;
   rowSpan: number;
   colSpan: number;
-  isValid: boolean;
 };
+
 type ItemList = Map<string, ItemLocation>;
+
+export const emptyCell = ".";
 
 function areasToItemCells(
   areas: TemplatedGridProps["areas"]
@@ -43,7 +46,10 @@ function areasToItemCells(
   return itemToCells;
 }
 
-function itemCellsToLocation({ itemRows, itemCols }: ItemCells): ItemLocation {
+function itemCellsToLocation({
+  itemRows,
+  itemCols,
+}: ItemCells): ItemLocation & { isValid: boolean } {
   const rowsRange = arrayRange(itemRows);
   const colsRange = arrayRange(itemCols);
 
@@ -64,4 +70,42 @@ export function areasToItemList(areas: TemplatedGridProps["areas"]): ItemList {
   });
 
   return itemList;
+}
+
+export function itemBoundsInDir(item: ItemLocation, dir: TractDirection) {
+  switch (dir) {
+    case "rows":
+      return {
+        itemStart: item.rowStart,
+        itemEnd: item.rowStart + item.rowSpan - 1,
+      };
+    case "cols":
+      return {
+        itemStart: item.colStart,
+        itemEnd: item.colStart + item.colSpan - 1,
+      };
+  }
+}
+export type GridBounds = {
+  rowStart: number;
+  colStart: number;
+  rowEnd: number;
+  colEnd: number;
+};
+export function itemLocationToBounds(item: ItemLocation): GridBounds {
+  const { itemStart: rowStart, itemEnd: rowEnd } = itemBoundsInDir(
+    item,
+    "rows"
+  );
+  const { itemStart: colStart, itemEnd: colEnd } = itemBoundsInDir(
+    item,
+    "cols"
+  );
+
+  return {
+    rowStart,
+    rowEnd,
+    colStart,
+    colEnd,
+  };
 }
