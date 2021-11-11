@@ -1,8 +1,8 @@
-import { areasToItemList } from "./gridTemplateManipulation";
+import { areasToItemLocations } from "./itemLocations";
 
 describe("Parse item info out of the areas matrix", () => {
   test("Valid areas parse properly", () => {
-    const items = areasToItemList([
+    const items = areasToItemLocations([
       ["a", "a", "c"],
       ["b", "b", "c"],
     ]);
@@ -30,7 +30,7 @@ describe("Parse item info out of the areas matrix", () => {
     });
   });
   test("Invalid areas are noted", () => {
-    const items = areasToItemList([
+    const items = areasToItemLocations([
       ["a", "a", "bad"],
       ["bad", "b", "b"],
     ]);

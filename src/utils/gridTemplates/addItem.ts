@@ -1,10 +1,7 @@
 import clone from "just-clone";
-import {
-  emptyCell,
-  ItemLocation,
-  itemLocationToBounds,
-} from "./gridTemplateManipulation";
-import { TemplatedGridProps } from "./types";
+import { emptyCell } from "./itemLocations";
+import { itemLocationToBounds } from "./itemLocationToBounds";
+import { ItemLocation, TemplatedGridProps } from "./types";
 
 export default function addItem(
   template: TemplatedGridProps,

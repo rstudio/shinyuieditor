@@ -4,3 +4,13 @@ export type TemplatedGridProps = {
   colSizes?: CSSMeasure[] | CSSMeasure;
   gapSize?: CSSMeasure;
 };
+
+/**
+ * Positional info of item on grid along with validity
+ */
+export type ItemLocation = {
+  rowStart: number;
+  colStart: number;
+  rowSpan: number;
+  colSpan: number;
+};

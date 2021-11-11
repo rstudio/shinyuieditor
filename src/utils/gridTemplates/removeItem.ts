@@ -1,6 +1,6 @@
 import clone from "just-clone";
 import { matrixDimensions } from "utils/array-helpers";
-import { emptyCell } from "./gridTemplateManipulation";
+import { emptyCell } from "./itemLocations";
 import { TemplatedGridProps } from "./types";
 
 export default function removeItem(

@@ -1,11 +1,8 @@
 import { CSSMeasure } from "GridTypes";
 import { TractDirection } from "state-logic/gridLayout/atoms";
 import { addAtIndex, fillArr, insertRowOrCol } from "utils/array-helpers";
-import {
-  areasToItemList,
-  emptyCell,
-  itemBoundsInDir,
-} from "./gridTemplateManipulation";
+import { areasToItemLocations, emptyCell } from "./itemLocations";
+import { itemBoundsInDir } from "./itemLocationToBounds";
 import { getTractSizes } from "./parseGridTemplateAreas";
 import { TemplatedGridProps } from "./types";
 
@@ -27,7 +24,7 @@ export function addTract(
 
   if (afterIndex < 0) throw new Error(`Cant add a tract at a negative index`);
 
-  const items = areasToItemList(template.areas);
+  const items = areasToItemLocations(template.areas);
 
   let addedTract = fillArr(emptyCell, currentSizes[offDir].length);
 
