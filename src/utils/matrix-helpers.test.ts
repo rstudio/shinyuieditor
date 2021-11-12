@@ -3,15 +3,17 @@ import { insertRowOrCol, removeRowOrCol } from "./matrix-helpers";
 describe("Matrix updating", () => {
   test("Add a new row", () => {
     expect(
-      insertRowOrCol({
-        mat: [
+      insertRowOrCol(
+        [
           ["a", "b"],
           ["c", "d"],
         ],
-        index: 1,
-        arr: ["new", "new"],
-        dir: "rows",
-      })
+        {
+          index: 1,
+          arr: ["new", "new"],
+          dir: "rows",
+        }
+      )
     ).toStrictEqual([
       ["a", "b"],
       ["new", "new"],
@@ -21,15 +23,17 @@ describe("Matrix updating", () => {
 
   test("Remove a row", () => {
     expect(
-      removeRowOrCol({
-        mat: [
+      removeRowOrCol(
+        [
           ["a", "b"],
           ["x", "x"],
           ["c", "d"],
         ],
-        index: 1,
-        dir: "rows",
-      })
+        {
+          index: 1,
+          dir: "rows",
+        }
+      )
     ).toStrictEqual([
       ["a", "b"],
       ["c", "d"],
@@ -37,14 +41,16 @@ describe("Matrix updating", () => {
   });
   test("Remove a column", () => {
     expect(
-      removeRowOrCol({
-        mat: [
+      removeRowOrCol(
+        [
           ["a", "x", "b"],
           ["c", "x", "d"],
         ],
-        index: 1,
-        dir: "cols",
-      })
+        {
+          index: 1,
+          dir: "cols",
+        }
+      )
     ).toStrictEqual([
       ["a", "b"],
       ["c", "d"],

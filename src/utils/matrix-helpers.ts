@@ -4,6 +4,9 @@ import { addAtIndex, removeAtIndex } from "./array-helpers";
 
 export type Matrix<T> = T[][];
 
+export type RowOrCol = { index: number; dir: TractDirection };
+type RowOrColAndValue<T> = RowOrCol & { arr: T[] };
+
 export function matrixDimensions<ElementType>(mat: Matrix<ElementType>) {
   const numRows = mat.length;
   const numCols = mat[0].length;
@@ -30,17 +33,10 @@ export function uniqueMatrixElements<ElementType>(
   return [...seen];
 }
 
-export function insertRowOrCol<T>({
-  mat,
-  index,
-  arr,
-  dir,
-}: {
-  mat: Matrix<T>;
-  index: number;
-  dir: TractDirection;
-  arr: T[];
-}): Matrix<T> {
+export function insertRowOrCol<T>(
+  mat: Matrix<T>,
+  { index, arr, dir }: RowOrColAndValue<T>
+): Matrix<T> {
   const clonedMat = clone(mat);
   switch (dir) {
     case "rows":
@@ -52,15 +48,7 @@ export function insertRowOrCol<T>({
   }
 }
 
-export function removeRowOrCol<T>({
-  mat,
-  index,
-  dir,
-}: {
-  mat: Matrix<T>;
-  index: number;
-  dir: TractDirection;
-}) {
+export function removeRowOrCol<T>(mat: Matrix<T>, { index, dir }: RowOrCol) {
   const clonedMat = clone(mat);
   switch (dir) {
     case "rows":

@@ -43,8 +43,7 @@ export function addTract(
 
   return {
     ...template,
-    areas: insertRowOrCol({
-      mat: template.areas,
+    areas: insertRowOrCol(template.areas, {
       dir,
       index: afterIndex,
       arr: addedTract,
