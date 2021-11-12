@@ -13,17 +13,19 @@ type GridContainerStyles = Pick<
   | "padding"
 >;
 
+export type ParsedGridTemplate = {
+  numRows: number;
+  numCols: number;
+  styles: GridContainerStyles;
+  uniqueAreas: string[];
+};
+
 export default function parseGridTemplateAreas({
   areas,
   rowSizes = "1fr",
   colSizes = "1fr",
   gapSize = "1rem",
-}: TemplatedGridProps): {
-  numRows: number;
-  numCols: number;
-  styles: GridContainerStyles;
-  uniqueAreas: string[];
-} {
+}: TemplatedGridProps): ParsedGridTemplate {
   const gridTemplateAreas = areas
     .map((rowDef) => `"${rowDef.join(" ")}"`)
     .join("\n");
