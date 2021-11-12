@@ -7,20 +7,28 @@ import { TemplatedGridProps } from "./types";
 
 export default function removeTract(
   template: TemplatedGridProps,
-  tract: { index: number; dir: TractDirection }
+  tract: { index: number; dir: TractDirection },
+  force: boolean = false
 ): TemplatedGridProps {
-  const dir = tract.dir;
+  const { dir, index } = tract;
   // Convert to the 0-indexed matrix dimensions
   const indexOfTract = tract.index - 1;
 
   // Make sure no items are entirely contained within the removed tract
   const items = areasToItemLocations(template.areas);
 
-  const itemsInTract = itemsContainedInTract(items, tract);
-  if (itemsInTract.length !== 0) {
-    throw new Error(
-      `Can't remove ${dir} ${indexOfTract} as items ${joinPretty(itemsInTract)}`
-    );
+  // If we're not forcing removal, make sure removal is valid
+  if (!force) {
+    const itemsInTract = itemsContainedInTract(items, tract);
+    if (itemsInTract.length !== 0) {
+      throw new Error(
+        `Can't remove ${
+          dir === "rows" ? "row" : "col"
+        } ${index} as items ${joinPretty(
+          itemsInTract
+        )} are entirely contained within it.`
+      );
+    }
   }
 
   const updates: Partial<TemplatedGridProps> = {
