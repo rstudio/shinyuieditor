@@ -1,10 +1,11 @@
 import debounce from "just-debounce-it";
 import React from "react";
-import { toStringLoc } from "utils/grid-helpers";
+import { enumerateGridDims, toStringLoc } from "utils/grid-helpers";
+import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
 import { getBBoxOfDiv } from "utils/overlap-helpers";
 import { CellLocRef } from "./index";
 
-export function GridCell({
+function GridCell({
   gridRow,
   gridColumn,
   cellLocations,
@@ -19,7 +20,6 @@ export function GridCell({
   const updateSize = React.useMemo(
     () =>
       debounce(() => {
-        console.log(`Gathering size for ${gridPos}`);
         cellLocations.current[gridPos] = getBBoxOfDiv(cellRef.current);
       }, 500),
     [cellLocations, gridPos]
@@ -37,7 +37,6 @@ export function GridCell({
 
     updateSize();
     return () => {
-      console.log(`Removing resize listener for grid cell ${gridPos}`);
       ro.disconnect();
     };
   }, [gridPos, updateSize]);
@@ -49,9 +48,34 @@ export function GridCell({
         gridRow,
         gridColumn,
         backgroundColor: "var(--light-grey, pink)",
+        opacity: 0.2,
       }}
     >
       {gridRow}-{gridColumn}
     </div>
+  );
+}
+
+export function GridCells({
+  numRows,
+  numCols,
+  cellLocRef,
+}: Pick<ReturnType<typeof parseGridTemplateAreas>, "numCols" | "numRows"> & {
+  cellLocRef: CellLocRef;
+}) {
+  return (
+    <>
+      {enumerateGridDims({
+        numRows,
+        numCols,
+      }).map(({ row, col }) => (
+        <GridCell
+          key={toStringLoc({ row, col })}
+          gridRow={row}
+          gridColumn={col}
+          cellLocations={cellLocRef}
+        />
+      ))}
+    </>
   );
 }

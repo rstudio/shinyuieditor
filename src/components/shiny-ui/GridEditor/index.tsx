@@ -3,11 +3,12 @@ import styled from "@emotion/styled";
 import { GridLocString } from "GridTypes";
 import React from "react";
 import { subtractElements } from "utils/array-helpers";
-import { enumerateGridDims, toStringLoc } from "utils/grid-helpers";
+import { addTract, NewTract } from "utils/gridTemplates/addTract";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
 import { TemplatedGridProps } from "utils/gridTemplates/types";
 import { ItemBoundingBox } from "utils/overlap-helpers";
-import { GridCell } from "./GridCell";
+import { GridCells } from "./GridCell";
+import { TractAddButtons } from "./TractAddButtons";
 
 export type GridEditorProps = TemplatedGridProps & {
   items: Record<string, JSX.Element>;
@@ -21,8 +22,15 @@ export default function GridEditor({
   items,
   ...initialLayoutDef
 }: GridEditorProps) {
+  const [layout, setLayout] = React.useState(initialLayoutDef);
+
+  const onAddTract = React.useCallback(
+    (tract: NewTract) => setLayout((oldLayout) => addTract(oldLayout, tract)),
+    []
+  );
+
   const { numRows, numCols, styles, uniqueAreas } = parseGridTemplateAreas(
-    initialLayoutDef
+    layout
   );
 
   const itemAreas = Object.keys(items);
@@ -36,29 +44,21 @@ export default function GridEditor({
     </AreaMarker>
   ));
 
-  const backgroundCells = enumerateGridDims({
-    numRows,
-    numCols,
-  }).map(({ row, col }) => (
-    <GridCell
-      key={toStringLoc({ row, col })}
-      gridRow={row}
-      gridColumn={col}
-      cellLocations={gridCellLocations}
-    />
-  ));
-
-  React.useEffect(() => {
-    const cellLocs = gridCellLocations.current;
-    console.log("Cell locations at load", cellLocs);
-  }, []);
-
   return (
     <EditorHolder>
       <GridDisplay style={styles}>
         {Object.values(items)}
         {areaMarkers}
-        {backgroundCells}
+        <GridCells
+          numCols={numCols}
+          numRows={numRows}
+          cellLocRef={gridCellLocations}
+        />
+        <TractAddButtons
+          numCols={numCols}
+          numRows={numRows}
+          onAdd={onAddTract}
+        />
       </GridDisplay>
     </EditorHolder>
   );
