@@ -1,5 +1,5 @@
 import { useMachine } from "@xstate/react";
-import { GridItemDef } from "GridTypes";
+import { GridItemDef, GridLocString } from "GridTypes";
 import React, { useEffect } from "react";
 import { useRecoilCallback, useRecoilTransaction_UNSTABLE } from "recoil";
 import { setupClickAndDrag } from "utils/drag-helpers";
@@ -10,7 +10,6 @@ import {
   getItemDims,
   GridBlock,
   gridDimsFromCellBounds,
-  GridLocString,
   toStringLoc,
   sameGridPos,
 } from "utils/grid-helpers";
