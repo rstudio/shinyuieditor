@@ -46,6 +46,10 @@ export function joinPretty(
   finalSep: string = " and "
 ) {
   const n = arr.length;
+
+  // Just a single item doesn't need separators
+  if (n === 1) return arr[0];
+
   const lastItem = arr[n - 1];
 
   return [...arr].splice(0, n - 1).join(sep) + finalSep + lastItem;
