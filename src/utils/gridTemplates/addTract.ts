@@ -7,13 +7,14 @@ import { itemBoundsInDir } from "./itemLocationToBounds";
 import { getTractSizes } from "./parseGridTemplateAreas";
 import { TemplatedGridProps } from "./types";
 
+export type NewTract = {
+  afterIndex: number;
+  size: CSSMeasure;
+  dir: TractDirection;
+};
 export function addTract(
   template: TemplatedGridProps,
-  {
-    afterIndex,
-    size,
-    dir,
-  }: { afterIndex: number; size: CSSMeasure; dir: TractDirection }
+  { afterIndex, size, dir }: NewTract
 ): TemplatedGridProps {
   const offDir = dir === "rows" ? "cols" : "rows";
   const currentSizes = getTractSizes(template);
