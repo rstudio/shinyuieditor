@@ -73,6 +73,7 @@ function TractAddButton({
 
   return (
     <IconButton
+      variant="ghost"
       aria-label="Add tract"
       css={{ width: buttonSize, height: buttonSize }}
       style={placement}
