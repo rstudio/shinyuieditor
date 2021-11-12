@@ -1,6 +1,3 @@
-import clone from "just-clone";
-import { TractDirection } from "state-logic/gridLayout/atoms";
-
 export const seqArray = (length: number): number[] => {
   return Array.from({ length }, (_, i) => i);
 };
@@ -43,52 +40,13 @@ export function addAtIndex<T>(arr: T[], index: number, val: T) {
   return newArr;
 }
 
-export type Matrix<T> = T[][];
+export function joinPretty(
+  arr: string[],
+  sep: string = ", ",
+  finalSep: string = " and "
+) {
+  const n = arr.length;
+  const lastItem = arr[n - 1];
 
-export function matrixDimensions<ElementType>(mat: Matrix<ElementType>) {
-  const numRows = mat.length;
-  const numCols = mat[0].length;
-
-  // Make sure the matrix is properly formed
-  for (let row of mat) {
-    if (row.length !== numCols)
-      throw new Error("Inconsistant number of columns in matrix");
-  }
-
-  return { numRows, numCols };
-}
-export function uniqueMatrixElements<ElementType>(
-  mat: Matrix<ElementType>
-): ElementType[] {
-  const seen = new Set<ElementType>();
-
-  for (let row of mat) {
-    for (let el of row) {
-      seen.add(el);
-    }
-  }
-
-  return [...seen];
-}
-
-export function insertRowOrCol<T>({
-  mat,
-  index,
-  arr,
-  dir,
-}: {
-  mat: Matrix<T>;
-  index: number;
-  dir: TractDirection;
-  arr: T[];
-}): Matrix<T> {
-  const clonedMat = clone(mat);
-  switch (dir) {
-    case "rows":
-      return addAtIndex(clonedMat, index, arr);
-    case "cols":
-      return clonedMat.map((row, rowIndex) =>
-        addAtIndex(row, index, arr[rowIndex])
-      );
-  }
+  return [...arr].splice(0, n - 1).join(sep) + finalSep + lastItem;
 }

@@ -1,6 +1,7 @@
 import { CSSMeasure } from "GridTypes";
 import { TractDirection } from "state-logic/gridLayout/atoms";
-import { addAtIndex, fillArr, insertRowOrCol } from "utils/array-helpers";
+import { addAtIndex, fillArr } from "utils/array-helpers";
+import { insertRowOrCol } from "utils/matrix-helpers";
 import { areasToItemLocations, emptyCell } from "./itemLocations";
 import { itemBoundsInDir } from "./itemLocationToBounds";
 import { getTractSizes } from "./parseGridTemplateAreas";

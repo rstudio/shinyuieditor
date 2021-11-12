@@ -1,4 +1,5 @@
-import { arrayRange, insertRowOrCol } from "./array-helpers";
+import { arrayRange } from "./array-helpers";
+import { insertRowOrCol } from "./matrix-helpers";
 
 describe("Tells you if array forms consecutive sequence of numbers", () => {
   test("Valid sequence", () => {
@@ -59,40 +60,5 @@ describe("Tells you if array forms consecutive sequence of numbers", () => {
       span: 3,
       isSequence: false,
     });
-  });
-});
-
-describe("Matrix updating", () => {
-  const startMat = [
-    ["a", "b"],
-    ["c", "d"],
-  ];
-
-  test("Add a new row", () => {
-    expect(
-      insertRowOrCol({
-        mat: startMat,
-        index: 1,
-        arr: ["new", "new"],
-        dir: "rows",
-      })
-    ).toStrictEqual([
-      ["a", "b"],
-      ["new", "new"],
-      ["c", "d"],
-    ]);
-  });
-  test("Add a new column", () => {
-    expect(
-      insertRowOrCol({
-        mat: startMat,
-        index: 1,
-        arr: ["new", "new"],
-        dir: "cols",
-      })
-    ).toStrictEqual([
-      ["a", "new", "b"],
-      ["c", "new", "d"],
-    ]);
   });
 });

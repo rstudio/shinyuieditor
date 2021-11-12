@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import UiPanel from "components/shiny-ui/UiPanel";
 import React from "react";
-import { uniqueMatrixElements } from "utils/array-helpers";
+import { uniqueMatrixElements } from "utils/matrix-helpers";
 import { AreaLabeledGridHolder } from "../../GridHolder";
 
 const layoutAreas = [["a", "b"]];

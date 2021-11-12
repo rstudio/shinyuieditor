@@ -1,10 +1,7 @@
 import { CSSMeasure } from "GridTypes";
 import { TractDirection } from "state-logic/gridLayout/atoms";
-import {
-  fillArr,
-  matrixDimensions,
-  uniqueMatrixElements,
-} from "../array-helpers";
+import { fillArr } from "../array-helpers";
+import { matrixDimensions, uniqueMatrixElements } from "../matrix-helpers";
 import { TemplatedGridProps } from "./types";
 
 type GridContainerStyles = Pick<

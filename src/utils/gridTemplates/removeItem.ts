@@ -1,5 +1,5 @@
 import clone from "just-clone";
-import { matrixDimensions } from "utils/array-helpers";
+import { matrixDimensions } from "utils/matrix-helpers";
 import { emptyCell } from "./itemLocations";
 import { TemplatedGridProps } from "./types";
 
