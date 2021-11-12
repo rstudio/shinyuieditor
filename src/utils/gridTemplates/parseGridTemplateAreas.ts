@@ -40,7 +40,7 @@ export default function parseGridTemplateAreas({
       gap: gapSize,
       padding: gapSize,
     },
-    uniqueAreas: uniqueMatrixElements(areas),
+    uniqueAreas: uniqueMatrixElements(areas, { ignore: ["."] }),
   };
 }
 

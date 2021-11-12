@@ -20,13 +20,16 @@ export function matrixDimensions<ElementType>(mat: Matrix<ElementType>) {
   return { numRows, numCols };
 }
 export function uniqueMatrixElements<ElementType>(
-  mat: Matrix<ElementType>
+  mat: Matrix<ElementType>,
+  opts: { ignore?: ElementType[] } = {}
 ): ElementType[] {
   const seen = new Set<ElementType>();
 
   for (let row of mat) {
     for (let el of row) {
-      seen.add(el);
+      if (!(opts.ignore && opts.ignore.includes(el))) {
+        seen.add(el);
+      }
     }
   }
 
