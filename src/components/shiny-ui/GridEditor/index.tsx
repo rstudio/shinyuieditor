@@ -45,7 +45,7 @@ export default function GridEditor({
   ));
 
   return (
-    <EditorHolder>
+    <EditorHolder css={{ "--gap": layout.gapSize }}>
       <GridDisplay style={styles}>
         {Object.values(items)}
         {areaMarkers}
