@@ -2,6 +2,7 @@
 import styled from "@emotion/styled";
 import { GridLocString } from "GridTypes";
 import React from "react";
+import { useShowDiffs } from "state-logic/useShowChanges";
 import { subtractElements } from "utils/array-helpers";
 import { addTract, NewTract } from "utils/gridTemplates/addTract";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
@@ -19,6 +20,11 @@ export type CellLocRef = React.MutableRefObject<
   Record<GridLocString, ItemBoundingBox>
 >;
 
+type MainLayoutState = Omit<GridEditorProps, "items">;
+export const SetLayoutContext = React.createContext<React.Dispatch<
+  React.SetStateAction<MainLayoutState>
+> | null>(null);
+
 export default function GridEditor({
   items,
   ...initialLayoutDef
@@ -29,6 +35,8 @@ export default function GridEditor({
     (tract: NewTract) => setLayout((oldLayout) => addTract(oldLayout, tract)),
     []
   );
+
+  useShowDiffs({ val: layout });
 
   const {
     numRows,
@@ -50,33 +58,35 @@ export default function GridEditor({
   ));
 
   return (
-    <div
-      css={{
-        "--gap": layout.gapSize,
-        "--row-gutter": "150px",
-        "--col-gutter": "100px",
-        display: "grid",
-        gridTemplateColumns: "var(--row-gutter) 1fr",
-        gridTemplateRows: "var(--col-gutter) 1fr",
-        gridTemplateAreas: `". column-controls"\n"row-controls main"`,
-      }}
-    >
-      <GridDisplay style={styles}>
-        {Object.values(items)}
-        {areaMarkers}
-        <TractControls sizes={sizes} />
-        <GridCells
-          numCols={numCols}
-          numRows={numRows}
-          cellLocRef={gridCellLocations}
-        />
-        <TractAddButtons
-          numCols={numCols}
-          numRows={numRows}
-          onAdd={onAddTract}
-        />
-      </GridDisplay>
-    </div>
+    <SetLayoutContext.Provider value={setLayout}>
+      <div
+        css={{
+          "--gap": layout.gapSize,
+          "--row-gutter": "150px",
+          "--col-gutter": "100px",
+          display: "grid",
+          gridTemplateColumns: "var(--row-gutter) 1fr",
+          gridTemplateRows: "var(--col-gutter) 1fr",
+          gridTemplateAreas: `". column-controls"\n"row-controls main"`,
+        }}
+      >
+        <GridDisplay style={styles}>
+          {Object.values(items)}
+          {areaMarkers}
+          <TractControls sizes={sizes} />
+          <GridCells
+            numCols={numCols}
+            numRows={numRows}
+            cellLocRef={gridCellLocations}
+          />
+          <TractAddButtons
+            numCols={numCols}
+            numRows={numRows}
+            onAdd={onAddTract}
+          />
+        </GridDisplay>
+      </div>
+    </SetLayoutContext.Provider>
   );
 }
 
