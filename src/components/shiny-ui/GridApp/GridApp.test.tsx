@@ -10,6 +10,7 @@ const mainLayout: TemplatedGridProps = {
   ],
   rowSizes: ["100px", "350px", "30px"],
   colSizes: ["250px", "1fr"],
+  gapSize: "1rem",
 };
 const testTitle = "My Test App Title";
 
