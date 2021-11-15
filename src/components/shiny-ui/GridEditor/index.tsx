@@ -58,13 +58,12 @@ export default function GridEditor({
         display: "grid",
         gridTemplateColumns: "var(--row-gutter) 1fr",
         gridTemplateRows: "var(--col-gutter) 1fr",
-        gridTemplateAreas: `".            column-controls"\n"row-controls main"`,
+        gridTemplateAreas: `". column-controls"\n"row-controls main"`,
       }}
     >
       <GridDisplay style={styles}>
         {Object.values(items)}
         {areaMarkers}
-
         <TractControls sizes={sizes} />
         <GridCells
           numCols={numCols}

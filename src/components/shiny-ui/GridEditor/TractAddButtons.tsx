@@ -86,6 +86,7 @@ const SquareButton = styled.button({
   height: "var(--gap, 100px)",
   display: "grid",
   placeContent: "center",
+  color: "var(--light-grey, pink)",
 });
 
 function singular(dir: TractDirection): "row" | "column" {
