@@ -9,6 +9,7 @@ import { TemplatedGridProps } from "utils/gridTemplates/types";
 import { ItemBoundingBox } from "utils/overlap-helpers";
 import { GridCells } from "./GridCell";
 import { TractAddButtons } from "./TractAddButtons";
+import { TractControls } from "./TractControls";
 
 export type GridEditorProps = TemplatedGridProps & {
   items: Record<string, JSX.Element>;
@@ -29,9 +30,13 @@ export default function GridEditor({
     []
   );
 
-  const { numRows, numCols, styles, uniqueAreas } = parseGridTemplateAreas(
-    layout
-  );
+  const {
+    numRows,
+    numCols,
+    styles,
+    uniqueAreas,
+    sizes,
+  } = parseGridTemplateAreas(layout);
 
   const itemAreas = Object.keys(items);
   const areasWithoutItems = subtractElements(uniqueAreas, itemAreas);
@@ -45,10 +50,22 @@ export default function GridEditor({
   ));
 
   return (
-    <EditorHolder css={{ "--gap": layout.gapSize }}>
+    <div
+      css={{
+        "--gap": layout.gapSize,
+        "--row-gutter": "150px",
+        "--col-gutter": "100px",
+        display: "grid",
+        gridTemplateColumns: "var(--row-gutter) 1fr",
+        gridTemplateRows: "var(--col-gutter) 1fr",
+        gridTemplateAreas: `".            column-controls"\n"row-controls main"`,
+      }}
+    >
       <GridDisplay style={styles}>
         {Object.values(items)}
         {areaMarkers}
+
+        <TractControls sizes={sizes} />
         <GridCells
           numCols={numCols}
           numRows={numRows}
@@ -60,16 +77,9 @@ export default function GridEditor({
           onAdd={onAddTract}
         />
       </GridDisplay>
-    </EditorHolder>
+    </div>
   );
 }
-
-const EditorHolder = styled.div({
-  display: "grid",
-  gridTemplateColumns: "100px 1fr",
-  gridTemplateRows: "100px 1fr",
-  gridTemplateAreas: `".            column-controls"\n"row-controls main"`,
-});
 
 const GridDisplay = styled.div({
   gridArea: "main",

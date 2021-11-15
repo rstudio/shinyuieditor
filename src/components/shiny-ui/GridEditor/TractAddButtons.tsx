@@ -46,7 +46,7 @@ function TractAddButton({
   ...tract
 }: Parameters<typeof addTract>[1] & { onClick: (t: NewTract) => void }) {
   const pad = "2px";
-  const offsetOutOfGrid = `calc(-2*var(--gap) - ${pad})`;
+  const offsetOutOfGrid = `calc(-1*var(--gap) - ${pad})`;
   const offsetToTractCenter = `calc(-1*var(--gap, 100px))`;
   const { dir, afterIndex, size = "50px" } = tract;
 
@@ -60,19 +60,18 @@ function TractAddButton({
           gridColumn: 1,
           alignSelf: firstPosition ? "start" : "end",
           marginLeft: offsetOutOfGrid,
-          [firstPosition ? "marginTop" : "marginBottom"]: offsetToTractCenter,
+          marginBottom: firstPosition ? "0" : offsetToTractCenter,
         }
       : {
           gridColumn: placementIndex,
           gridRow: 1,
           justifySelf: firstPosition ? "start" : "end",
-          [firstPosition ? "marginLeft" : "marginRight"]: offsetToTractCenter,
+          marginRight: firstPosition ? "0" : offsetToTractCenter,
           marginTop: offsetOutOfGrid,
         };
 
   return (
     <SquareButton
-      size="var(--gap, 100px)"
       aria-label={`Add ${singular(dir)} after ${singular(dir)} ${afterIndex}`}
       style={placement}
       onClick={() => onClick({ dir, afterIndex, size })}
@@ -82,14 +81,12 @@ function TractAddButton({
   );
 }
 
-const SquareButton = styled.button(({ size }: { size: string }) => ({
-  width: size,
-  height: size,
-  maxHeight: size,
-  maxWidth: size,
+const SquareButton = styled.button({
+  width: "var(--gap, 100px)",
+  height: "var(--gap, 100px)",
   display: "grid",
   placeContent: "center",
-}));
+});
 
 function singular(dir: TractDirection): "row" | "column" {
   return dir === "rows" ? "row" : "column";

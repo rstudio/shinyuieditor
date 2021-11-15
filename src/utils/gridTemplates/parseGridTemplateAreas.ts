@@ -18,6 +18,7 @@ export type ParsedGridTemplate = {
   numCols: number;
   styles: GridContainerStyles;
   uniqueAreas: string[];
+  sizes: ReturnType<typeof getTractSizes>;
 };
 
 export default function parseGridTemplateAreas({
@@ -42,6 +43,7 @@ export default function parseGridTemplateAreas({
       gap: gapSize,
       padding: gapSize,
     },
+    sizes,
     uniqueAreas: uniqueMatrixElements(areas, { ignore: ["."] }),
   };
 }
