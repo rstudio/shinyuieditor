@@ -20,7 +20,12 @@ function GridCell({
   const updateSize = React.useMemo(
     () =>
       debounce(() => {
-        cellLocations.current[gridPos] = getBBoxOfDiv(cellRef.current);
+        try {
+          // The debouncedness of this causes it to fire after cell may have been removed
+          cellLocations.current[gridPos] = getBBoxOfDiv(cellRef.current);
+        } catch {
+          console.error("Failed to get bbox for grid cell");
+        }
       }, 500),
     [cellLocations, gridPos]
   );
