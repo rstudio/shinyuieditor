@@ -1,9 +1,9 @@
-import { AreaLabeledGridHolder, GridHolder } from "components/GridHolder";
 import omit from "just-omit";
 import * as React from "react";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
 import { TemplatedGridProps } from "utils/gridTemplates/types";
 import { ShinyUiNameAndProps } from "../componentTypes";
+import GridEditor, { GridEditorProps } from "../GridEditor";
 import UiChooser from "../UiChooser";
 import UiPanel from "../UiPanel";
 
@@ -26,7 +26,6 @@ export default function GridApp({
   const [allPanels, setAllPanels] = React.useState(initialPanels);
 
   React.useEffect(() => onNewState?.(allPanels), [allPanels, onNewState]);
-  // useShowDiffs({ val: allPanels });
 
   const updatePanel = React.useCallback(
     (panelArea: string, newProps: object) => {
@@ -66,24 +65,25 @@ export default function GridApp({
       "Tried to place a panel onto an area not in the defined grid layout"
     );
 
-  const unusedAreas = uniqueAreas.filter((area) => !panelAreas.includes(area));
+  const itemsMap: GridEditorProps["items"] = {};
+  panelAreas.forEach((area) => {
+    itemsMap[area] = (
+      <UiPanel
+        key={area}
+        area={area}
+        componentDefinition={allPanels[area]}
+        onUpdate={(newProps) => updatePanel(area, newProps)}
+        onDelete={() => deletePanel(area)}
+      />
+    );
+  });
 
-  const HolderComp = labelAreas ? AreaLabeledGridHolder : GridHolder;
+  uniqueAreas.forEach((area) => {
+    if (panelAreas.includes(area)) return;
+    itemsMap[area] = (
+      <UiChooser key={area} area={area} onChoose={(x) => addPanel(area, x)} />
+    );
+  });
 
-  return (
-    <HolderComp {...layout}>
-      {panelAreas.map((area) => (
-        <UiPanel
-          key={area}
-          area={area}
-          componentDefinition={allPanels[area]}
-          onUpdate={(newProps) => updatePanel(area, newProps)}
-          onDelete={() => deletePanel(area)}
-        />
-      ))}
-      {unusedAreas.map((area) => (
-        <UiChooser key={area} area={area} onChoose={(x) => addPanel(area, x)} />
-      ))}
-    </HolderComp>
-  );
+  return <GridEditor {...layout} items={itemsMap} />;
 }

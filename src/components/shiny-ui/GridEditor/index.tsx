@@ -9,8 +9,8 @@ import { TemplatedGridProps } from "utils/gridTemplates/types";
 import { ItemBoundingBox } from "utils/overlap-helpers";
 import { GridCells } from "./GridCell";
 import { TractAddButtons } from "./TractAddButtons";
-import { TractRemoveButton, TractRemoveButtons } from "./TractRemoveButtons";
 import { TractControls } from "./TractControls";
+import { TractRemoveButtons } from "./TractRemoveButtons";
 
 export type GridEditorProps = TemplatedGridProps & {
   items: Record<string, JSX.Element>;
@@ -20,16 +20,18 @@ export type CellLocRef = React.MutableRefObject<
   Record<GridLocString, ItemBoundingBox>
 >;
 
-type MainLayoutState = Omit<GridEditorProps, "items">;
 export const SetLayoutContext = React.createContext<React.Dispatch<
-  React.SetStateAction<MainLayoutState>
+  React.SetStateAction<TemplatedGridProps>
 > | null>(null);
 
 export default function GridEditor({
   items,
   ...initialLayoutDef
 }: GridEditorProps) {
-  const [layout, setLayout] = React.useState(initialLayoutDef);
+  const [layout, setLayout] = React.useState<TemplatedGridProps>({
+    gapSize: "1rem",
+    ...initialLayoutDef,
+  });
 
   useShowDiffs({ val: layout });
 
@@ -66,7 +68,6 @@ export default function GridEditor({
         }}
       >
         <GridDisplay style={styles}>
-          {Object.values(items)}
           {areaMarkers}
           <TractControls sizes={sizes} />
           <GridCells
@@ -80,6 +81,7 @@ export default function GridEditor({
             numCols={numCols}
             numRows={numRows}
           />
+          {Object.values(items)}
         </GridDisplay>
       </div>
     </SetLayoutContext.Provider>
