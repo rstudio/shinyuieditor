@@ -7,7 +7,7 @@ import { addTract } from "utils/gridTemplates/addTract";
 import { ParsedGridTemplate } from "utils/gridTemplates/parseGridTemplateAreas";
 import { SetLayoutContext } from ".";
 
-const directions: TractDirection[] = ["rows", "cols"];
+export const directions: TractDirection[] = ["rows", "cols"];
 export function TractAddButtons({
   numCols,
   numRows,
@@ -75,15 +75,18 @@ function TractAddButton(tract: Parameters<typeof addTract>[1]) {
     </SquareButton>
   );
 }
-
-const SquareButton = styled.button({
+export const SquareButton = styled.button({
   width: "var(--gap, 100px)",
   height: "var(--gap, 100px)",
   display: "grid",
   placeContent: "center",
   color: "var(--light-grey, pink)",
+  "&.disabled": {
+    cursor: "help",
+    opacity: 0.5,
+  },
 });
 
-function singular(dir: TractDirection): "row" | "column" {
+export function singular(dir: TractDirection): "row" | "column" {
   return dir === "rows" ? "row" : "column";
 }
