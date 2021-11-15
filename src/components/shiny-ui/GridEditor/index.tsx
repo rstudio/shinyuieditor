@@ -9,6 +9,7 @@ import { TemplatedGridProps } from "utils/gridTemplates/types";
 import { ItemBoundingBox } from "utils/overlap-helpers";
 import { GridCells } from "./GridCell";
 import { TractAddButtons } from "./TractAddButtons";
+import { TractRemoveButton, TractRemoveButtons } from "./TractRemoveButtons";
 import { TractControls } from "./TractControls";
 
 export type GridEditorProps = TemplatedGridProps & {
@@ -74,6 +75,11 @@ export default function GridEditor({
             cellLocRef={gridCellLocations}
           />
           <TractAddButtons numCols={numCols} numRows={numRows} />
+          <TractRemoveButtons
+            areas={layout.areas}
+            numCols={numCols}
+            numRows={numRows}
+          />
         </GridDisplay>
       </div>
     </SetLayoutContext.Provider>
