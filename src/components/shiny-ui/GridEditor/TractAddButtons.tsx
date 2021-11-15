@@ -80,10 +80,10 @@ export const SquareButton = styled.button({
   height: "var(--gap, 100px)",
   display: "grid",
   placeContent: "center",
-  color: "var(--light-grey, pink)",
+  color: "var(--rstudio-blue, pink)",
   "&.disabled": {
     cursor: "help",
-    opacity: 0.5,
+    color: "var(--light-grey, pink)",
   },
 });
 
