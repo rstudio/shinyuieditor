@@ -61,9 +61,10 @@ function TractControl({
 }
 const TractControlMemo = React.memo(TractControl);
 
+const controlPad = "4px";
 const rowControlStyles = css({
   width: "var(--row-gutter)",
-  marginLeft: "calc(-1*(var(--row-gutter) + var(--gap)))",
+  marginLeft: `calc(-1*(var(--row-gutter) + var(--gap) + ${controlPad}))`,
   gridColumn: 1,
   display: "grid",
   justifyContent: "end",
@@ -72,7 +73,7 @@ const rowControlStyles = css({
 
 const colControlStyles = css({
   height: "var(--col-gutter)",
-  marginTop: "calc(-1*(var(--col-gutter) + var(--gap)))",
+  marginTop: `calc(-1*(var(--col-gutter) + var(--gap) + ${controlPad}))`,
   gridRow: 1,
   display: "grid",
   alignContent: "end",
