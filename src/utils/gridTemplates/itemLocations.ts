@@ -7,6 +7,7 @@ export function areasToItemLocations(areas: TemplatedGridProps["areas"]) {
   const itemList = new Map<string, ItemLocation & { isValid: boolean }>();
 
   areasToItemCells(areas).forEach(({ itemRows, itemCols }, itemName) => {
+    if (itemName === emptyCell) return;
     const rowsRange = arrayRange(itemRows);
     const colsRange = arrayRange(itemCols);
     itemList.set(itemName, {
