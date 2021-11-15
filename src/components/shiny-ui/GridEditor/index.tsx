@@ -4,7 +4,6 @@ import { GridLocString } from "GridTypes";
 import React from "react";
 import { useShowDiffs } from "state-logic/useShowChanges";
 import { subtractElements } from "utils/array-helpers";
-import { addTract, NewTract } from "utils/gridTemplates/addTract";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
 import { TemplatedGridProps } from "utils/gridTemplates/types";
 import { ItemBoundingBox } from "utils/overlap-helpers";
@@ -30,11 +29,6 @@ export default function GridEditor({
   ...initialLayoutDef
 }: GridEditorProps) {
   const [layout, setLayout] = React.useState(initialLayoutDef);
-
-  const onAddTract = React.useCallback(
-    (tract: NewTract) => setLayout((oldLayout) => addTract(oldLayout, tract)),
-    []
-  );
 
   useShowDiffs({ val: layout });
 
@@ -79,11 +73,7 @@ export default function GridEditor({
             numRows={numRows}
             cellLocRef={gridCellLocations}
           />
-          <TractAddButtons
-            numCols={numCols}
-            numRows={numRows}
-            onAdd={onAddTract}
-          />
+          <TractAddButtons numCols={numCols} numRows={numRows} />
         </GridDisplay>
       </div>
     </SetLayoutContext.Provider>

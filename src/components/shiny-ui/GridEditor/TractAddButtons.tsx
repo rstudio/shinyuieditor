@@ -3,17 +3,15 @@ import React from "react";
 import { FaPlus as PlusIcon } from "react-icons/fa";
 import { TractDirection } from "state-logic/gridLayout/atoms";
 import { seqArray } from "utils/array-helpers";
-import { addTract, NewTract } from "utils/gridTemplates/addTract";
+import { addTract } from "utils/gridTemplates/addTract";
 import { ParsedGridTemplate } from "utils/gridTemplates/parseGridTemplateAreas";
+import { SetLayoutContext } from ".";
 
 const directions: TractDirection[] = ["rows", "cols"];
 export function TractAddButtons({
   numCols,
   numRows,
-  onAdd,
-}: Pick<ParsedGridTemplate, "numCols" | "numRows"> & {
-  onAdd: (tract: Parameters<typeof addTract>[1]) => void;
-}) {
+}: Pick<ParsedGridTemplate, "numCols" | "numRows">) {
   const tractButtons: Record<TractDirection, JSX.Element[]> = {
     rows: [],
     cols: [],
@@ -24,13 +22,7 @@ export function TractAddButtons({
     const numButtons = (dir === "rows" ? numRows : numCols) + 1;
 
     tractButtons[dir] = seqArray(numButtons).map((i) => (
-      <TractAddButton
-        key={i}
-        dir={dir}
-        afterIndex={i}
-        size="30px"
-        onClick={onAdd}
-      />
+      <TractAddButton key={i} dir={dir} afterIndex={i} size="30px" />
     ));
   }
 
@@ -41,10 +33,9 @@ export function TractAddButtons({
     </>
   );
 }
-function TractAddButton({
-  onClick,
-  ...tract
-}: Parameters<typeof addTract>[1] & { onClick: (t: NewTract) => void }) {
+function TractAddButton(tract: Parameters<typeof addTract>[1]) {
+  const setLayout = React.useContext(SetLayoutContext);
+
   const pad = "2px";
   const offsetOutOfGrid = `calc(-1*var(--gap) - ${pad})`;
   const offsetToTractCenter = `calc(-1*var(--gap, 100px))`;
@@ -74,7 +65,11 @@ function TractAddButton({
     <SquareButton
       aria-label={`Add ${singular(dir)} after ${singular(dir)} ${afterIndex}`}
       style={placement}
-      onClick={() => onClick({ dir, afterIndex, size })}
+      onClick={() => {
+        setLayout?.((oldLayout) =>
+          addTract(oldLayout, { dir, afterIndex, size })
+        );
+      }}
     >
       <PlusIcon />
     </SquareButton>
