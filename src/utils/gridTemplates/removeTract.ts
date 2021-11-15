@@ -14,12 +14,9 @@ export default function removeTract(
   // Convert to the 0-indexed matrix dimensions
   const indexOfTract = tract.index - 1;
 
-  // Make sure no items are entirely contained within the removed tract
-  const items = areasToItemLocations(template.areas);
-
   // If we're not forcing removal, make sure removal is valid
   if (!force) {
-    const itemsInTract = itemsContainedInTract(items, tract);
+    const itemsInTract = conflictsToRemoveTract(template.areas, tract);
     if (itemsInTract.length !== 0) {
       throw new Error(
         `Can't remove ${
@@ -49,6 +46,17 @@ export default function removeTract(
     ...template,
     ...updates,
   };
+}
+
+export function conflictsToRemoveTract(
+  areas: TemplatedGridProps["areas"],
+  tract: { index: number; dir: TractDirection }
+): string[] {
+  // Make sure no items are entirely contained within the removed tract
+  const items = areasToItemLocations(areas);
+
+  // If we're not forcing removal, make sure removal is valid
+  return itemsContainedInTract(items, tract);
 }
 
 /**
