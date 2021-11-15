@@ -1,5 +1,7 @@
 import { CSSMeasure } from "GridTypes";
 import { TractDirection } from "state-logic/gridLayout/atoms";
+import { fillArr } from "utils/array-helpers";
+import { matrixDimensions } from "utils/matrix-helpers";
 import { TemplatedGridProps } from "./types";
 
 export default function resizeTract(
@@ -17,9 +19,14 @@ export default function resizeTract(
     newSizes = template.colSizes;
   }
 
+  // If the sizes is a repeated or default value we need to make it an array
   if (!Array.isArray(newSizes)) {
-    throw new Error(
-      "Can't update sizes of tract because tract sizes is repeated"
+    const filledSize = typeof newSizes === "undefined" ? "1fr" : newSizes;
+    const gridDims = matrixDimensions(template.areas);
+
+    newSizes = fillArr(
+      filledSize,
+      dir === "rows" ? gridDims.numRows : gridDims.numCols
     );
   }
 
