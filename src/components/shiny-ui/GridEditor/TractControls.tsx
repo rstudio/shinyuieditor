@@ -75,7 +75,7 @@ function TractControl({
     <TractControlsHolder className={dir} style={positionStyles}>
       <CSSUnitInput
         value={size}
-        w="110px"
+        w="120px"
         onChange={(newSize) => {
           setLayout?.((layout) =>
             resizeTract(layout, { dir, index: tractIndex }, newSize)
@@ -110,10 +110,12 @@ const TractControlsHolder = styled.div({
   "--offset-margin": `calc(-1*(var(--tract-gutter-size) + var(--gap)))`,
   display: "grid",
   gap: "5px",
+  // backgroundColor: "blanchedalmond",
   "&.rows": {
     "--tract-gutter-size": "var(--row-gutter)",
+    paddingRight: "var(--gap)",
     gridTemplateColumns: "var(--control-tracts)",
-    width: "var(--row-gutter)",
+    width: "calc(var(--row-gutter) + var(--gap))",
     marginLeft: `var(--offset-margin)`,
     gridColumn: 1,
     alignItems: "center",
@@ -121,8 +123,9 @@ const TractControlsHolder = styled.div({
   },
   "&.cols": {
     "--tract-gutter-size": "var(--col-gutter)",
+    paddingBottom: "var(--gap)",
     gridTemplateRows: "var(--control-tracts)",
-    height: "var(--col-gutter)",
+    height: "calc(var(--col-gutter) + var(--gap))",
     marginTop: `var(--offset-margin)`,
     gridRow: 1,
     justifyItems: "center",
