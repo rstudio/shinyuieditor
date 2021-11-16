@@ -1,4 +1,3 @@
-import { Tooltip } from "@chakra-ui/tooltip";
 import React from "react";
 import { FaMinus as MinusIcon } from "react-icons/fa";
 import { TractDirection } from "state-logic/gridLayout/atoms";
@@ -9,7 +8,8 @@ import removeTract, {
 } from "utils/gridTemplates/removeTract";
 import { TemplatedGridProps } from "utils/gridTemplates/types";
 import { SetLayoutContext } from ".";
-import { directions, singular, SquareButton } from "./TractAddButtons";
+import { TooltipButton } from "./TooltipButton";
+import { directions, singular } from "./TractAddButtons";
 
 export function TractRemoveButtons({
   areas,
@@ -81,18 +81,17 @@ export function TractRemoveButton({
     : description;
 
   return (
-    <Tooltip label={popupText} aria-label="A tooltip">
-      <SquareButton
-        className={isDisabled ? "disabled" : undefined}
-        aria-label={description}
-        style={placement}
-        onClick={() => {
-          if (isDisabled) return;
-          setLayout?.((oldLayout) => removeTract(oldLayout, { dir, index }));
-        }}
-      >
-        <MinusIcon />
-      </SquareButton>
-    </Tooltip>
+    <TooltipButton
+      popoverText={popupText}
+      className={isDisabled ? "disabled" : undefined}
+      aria-label={description}
+      style={placement}
+      onClick={() => {
+        if (isDisabled) return;
+        setLayout?.((oldLayout) => removeTract(oldLayout, { dir, index }));
+      }}
+    >
+      <MinusIcon />
+    </TooltipButton>
   );
 }

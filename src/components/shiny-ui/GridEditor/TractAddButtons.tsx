@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import React from "react";
 import { FaPlus as PlusIcon } from "react-icons/fa";
 import { TractDirection } from "state-logic/gridLayout/atoms";
@@ -6,6 +5,7 @@ import { seqArray } from "utils/array-helpers";
 import { addTract } from "utils/gridTemplates/addTract";
 import { ParsedGridTemplate } from "utils/gridTemplates/parseGridTemplateAreas";
 import { SetLayoutContext } from ".";
+import { TooltipButton } from "./TooltipButton";
 
 export const directions: TractDirection[] = ["rows", "cols"];
 export function TractAddButtons({
@@ -61,9 +61,14 @@ function TractAddButton(tract: Parameters<typeof addTract>[1]) {
           marginTop: offsetOutOfGrid,
         };
 
+  const description = `Add ${singular(dir)} after ${singular(
+    dir
+  )} ${afterIndex}`;
+
   return (
-    <SquareButton
-      aria-label={`Add ${singular(dir)} after ${singular(dir)} ${afterIndex}`}
+    <TooltipButton
+      popoverText={description}
+      aria-label={description}
       style={placement}
       onClick={() => {
         setLayout?.((oldLayout) =>
@@ -72,21 +77,9 @@ function TractAddButton(tract: Parameters<typeof addTract>[1]) {
       }}
     >
       <PlusIcon />
-    </SquareButton>
+    </TooltipButton>
   );
 }
-export const SquareButton = styled.button({
-  width: "var(--gap, 100px)",
-  height: "var(--gap, 100px)",
-  display: "grid",
-  placeContent: "center",
-  color: "var(--rstudio-blue, pink)",
-  "&.disabled": {
-    cursor: "help",
-    color: "var(--light-grey, pink)",
-  },
-});
-
 export function singular(dir: TractDirection): "row" | "column" {
   return dir === "rows" ? "row" : "column";
 }
