@@ -25,7 +25,7 @@ export function TractRemoveButton({
   return (
     <TooltipButton
       popoverText={popupText}
-      popoverPlacement={dir === "rows" ? "left" : "top"}
+      popoverPlacement={dir === "rows" ? "right" : "bottom"}
       className={isDisabled ? "disabled" : undefined}
       aria-label={description}
       onClick={() => {
