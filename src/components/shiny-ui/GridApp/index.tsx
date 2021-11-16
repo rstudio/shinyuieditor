@@ -21,7 +21,13 @@ export default function GridApp({
   labelAreas = false,
   onNewState,
 }: GridAppProps) {
-  const { uniqueAreas } = parseGridTemplateAreas(layout);
+  const [uniqueAreas, setUniqueAreas] = React.useState(
+    parseGridTemplateAreas(layout).uniqueAreas
+  );
+
+  const onNewArea = ({ area }: { area: string }) => {
+    setUniqueAreas((oldAreas) => [...oldAreas, area]);
+  };
 
   const [allPanels, setAllPanels] = React.useState(initialPanels);
 
@@ -85,5 +91,5 @@ export default function GridApp({
     );
   });
 
-  return <GridEditor {...layout} items={itemsMap} />;
+  return <GridEditor {...layout} items={itemsMap} onNewArea={onNewArea} />;
 }

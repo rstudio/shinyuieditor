@@ -1,5 +1,7 @@
+import { IconButton } from "@chakra-ui/button";
 import debounce from "just-debounce-it";
 import React from "react";
+import { FaPlus } from "react-icons/fa";
 import { enumerateGridDims, toStringLoc } from "utils/grid-helpers";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
 import { getBBoxOfDiv } from "utils/overlap-helpers";
@@ -9,13 +11,16 @@ function GridCell({
   gridRow,
   gridColumn,
   cellLocations,
+  onClick,
 }: {
   gridRow: number;
   gridColumn: number;
   cellLocations: CellLocRef;
+  onClick?: ({ row, col }: { row: number; col: number }) => void;
 }) {
   const gridPos = toStringLoc({ row: gridRow, col: gridColumn });
   const cellRef = React.useRef<HTMLDivElement>(null);
+  const isClickable = typeof onClick !== "undefined";
 
   const updateSize = React.useMemo(
     () =>
@@ -48,15 +53,24 @@ function GridCell({
 
   return (
     <div
+      className="grid-cell"
       ref={cellRef}
       style={{
         gridRow,
         gridColumn,
         backgroundColor: "var(--light-grey, pink)",
         opacity: 0.2,
+        display: "grid",
+        placeContent: "center",
       }}
     >
-      {gridRow}-{gridColumn}
+      {isClickable ? (
+        <IconButton
+          icon={<FaPlus />}
+          aria-label={`Add new item at row ${gridRow} column ${gridColumn}`}
+          onClick={() => onClick({ row: gridRow, col: gridColumn })}
+        />
+      ) : null}
     </div>
   );
 }
@@ -65,8 +79,10 @@ export function GridCells({
   numRows,
   numCols,
   cellLocRef,
+  onClick,
 }: Pick<ReturnType<typeof parseGridTemplateAreas>, "numCols" | "numRows"> & {
   cellLocRef: CellLocRef;
+  onClick?: ({ row, col }: { row: number; col: number }) => void;
 }) {
   return (
     <>
@@ -79,6 +95,7 @@ export function GridCells({
           gridRow={row}
           gridColumn={col}
           cellLocations={cellLocRef}
+          onClick={onClick}
         />
       ))}
     </>

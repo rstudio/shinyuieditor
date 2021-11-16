@@ -4,6 +4,7 @@ import { GridLocString } from "GridTypes";
 import React from "react";
 import { useShowDiffs } from "state-logic/useShowChanges";
 import { subtractElements } from "utils/array-helpers";
+import addItem from "utils/gridTemplates/addItem";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
 import { TemplatedGridProps } from "utils/gridTemplates/types";
 import { ItemBoundingBox } from "utils/overlap-helpers";
@@ -24,12 +25,29 @@ export const SetLayoutContext = React.createContext<React.Dispatch<
 
 export default function GridEditor({
   items,
+  onNewArea,
   ...initialLayoutDef
-}: GridEditorProps) {
+}: GridEditorProps & {
+  onNewArea: (opts: { area: string }) => void;
+}) {
   const [layout, setLayout] = React.useState<TemplatedGridProps>({
     gapSize: "1rem",
     ...initialLayoutDef,
   });
+
+  const addNewItem = ({ row, col }: { row: number; col: number }) => {
+    const newAreaName = `row${row}-col${col}`;
+    setLayout((layout) =>
+      addItem(layout, {
+        name: newAreaName,
+        rowStart: row,
+        colStart: col,
+        rowSpan: 1,
+        colSpan: 1,
+      })
+    );
+    onNewArea({ area: newAreaName });
+  };
 
   useShowDiffs({ val: layout });
 
@@ -66,13 +84,14 @@ export default function GridEditor({
         }}
       >
         <GridDisplay style={styles}>
-          {areaMarkers}
           <TractControls areas={layout.areas} sizes={sizes} />
           <GridCells
             numCols={numCols}
             numRows={numRows}
             cellLocRef={gridCellLocations}
+            onClick={addNewItem}
           />
+          {areaMarkers}
           {Object.values(items)}
         </GridDisplay>
       </div>
@@ -94,5 +113,8 @@ const AreaMarker = styled.div({
   fontWeight: "lighter",
   fontStyle: "italic",
   padding: "2px",
-  opacity: 0.2,
+  // I have no idea why I need to specify a z-index here to get this to sit
+  // over the grid cell
+  zIndex: 1,
+  backgroundColor: "var(--light-grey)",
 });
