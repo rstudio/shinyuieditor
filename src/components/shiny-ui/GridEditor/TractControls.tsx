@@ -1,81 +1,166 @@
 /** @jsxImportSource @emotion/react */
 
-import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 import { CSSUnitInput } from "components/CSSUnitInput";
 import { CSSMeasure } from "GridTypes";
 import React from "react";
 import { TractDirection } from "state-logic/gridLayout/atoms";
 import { ParsedGridTemplate } from "utils/gridTemplates/parseGridTemplateAreas";
+import { conflictsToRemoveTract } from "utils/gridTemplates/removeTract";
 import resizeTract from "utils/gridTemplates/resizeTract";
+import { TemplatedGridProps } from "utils/gridTemplates/types";
 import { SetLayoutContext } from ".";
+import { directions } from "./helpers";
+import { TractAddButton } from "./TractAddButton";
+import { TractRemoveButton } from "./TractRemoveButton";
 
-const inputWidth = "110px";
 export function TractControls({
+  areas,
   sizes,
 }: {
+  areas: TemplatedGridProps["areas"];
   sizes: ParsedGridTemplate["sizes"];
 }) {
+  const tracts: Record<TractDirection, JSX.Element[]> = {
+    rows: [],
+    cols: [],
+  };
+
+  for (let dir of directions) {
+    const tractSizes = sizes[dir];
+
+    tracts[dir] = tractSizes.map((size, i) => {
+      const tractIndex = i + 1;
+      const deletionConflicts = conflictsToRemoveTract(areas, {
+        dir,
+        index: tractIndex,
+      });
+      return (
+        <TractControlMemo
+          key={i}
+          dir={dir}
+          size={size}
+          tractIndex={tractIndex}
+          deletionConflicts={deletionConflicts}
+        />
+      );
+    });
+  }
+
   return (
     <>
-      {sizes.rows.map((size, i) => (
-        <TractControlMemo key={i} dir="rows" size={size} index={i} />
-      ))}
-      {sizes.cols.map((size, i) => (
-        <TractControlMemo key={i} dir="cols" size={size} index={i} />
-      ))}
+      {tracts.rows}
+      {tracts.cols}
     </>
   );
 }
 
 function TractControl({
   dir,
-  index,
+  tractIndex,
   size,
+  deletionConflicts,
 }: {
   dir: TractDirection;
-  index: number;
+  tractIndex: number;
   size: CSSMeasure;
+  deletionConflicts: ReturnType<typeof conflictsToRemoveTract>;
 }) {
   const setLayout = React.useContext(SetLayoutContext);
-  const tractIndex = index + 1;
-  const positionStyle = {
+  const positionStyles = {
     [dir === "rows" ? "gridRow" : "gridColumn"]: tractIndex,
   };
 
   return (
-    <div
-      css={dir === "rows" ? rowControlStyles : colControlStyles}
-      style={positionStyle}
-    >
+    <TractControlsHolder className={dir} style={positionStyles}>
       <CSSUnitInput
         value={size}
-        w={inputWidth}
+        w="110px"
         onChange={(newSize) => {
           setLayout?.((layout) =>
             resizeTract(layout, { dir, index: tractIndex }, newSize)
           );
         }}
       />
-    </div>
+      <ButtonsHolder className={dir}>
+        <TractAddButton
+          dir={dir}
+          tractIndex={tractIndex}
+          size="100px"
+          beforeOrAfter="before"
+        />
+        <TractRemoveButton
+          dir={dir}
+          index={tractIndex}
+          conflicts={deletionConflicts}
+        />
+        <TractAddButton
+          dir={dir}
+          tractIndex={tractIndex}
+          size="100px"
+          beforeOrAfter="after"
+        />
+      </ButtonsHolder>
+    </TractControlsHolder>
   );
 }
-const TractControlMemo = React.memo(TractControl);
 
-const controlPad = "4px";
-const rowControlStyles = css({
-  width: "var(--row-gutter)",
-  marginLeft: `calc(-1*(var(--row-gutter) + var(--gap) + ${controlPad}))`,
-  gridColumn: 1,
+const TractControlsHolder = styled.div({
+  "--control-tracts": "1fr auto",
+  "--offset-margin": `calc(-1*(var(--tract-gutter-size) + var(--gap)))`,
   display: "grid",
-  justifyContent: "end",
-  alignContent: "center",
+  "&.rows": {
+    "--tract-gutter-size": "var(--row-gutter)",
+    gridTemplateColumns: "var(--control-tracts)",
+    width: "var(--row-gutter)",
+    marginLeft: `var(--offset-margin)`,
+    gridColumn: 1,
+    alignItems: "center",
+  },
+  "&.cols": {
+    "--tract-gutter-size": "var(--col-gutter)",
+    gridTemplateRows: "var(--control-tracts)",
+    height: "var(--col-gutter)",
+    marginTop: `var(--offset-margin)`,
+    alignItems: "end",
+    gridRow: 1,
+    justifyItems: "center",
+  },
 });
 
-const colControlStyles = css({
-  height: "var(--col-gutter)",
-  marginTop: `calc(-1*(var(--col-gutter) + var(--gap) + ${controlPad}))`,
-  gridRow: 1,
-  display: "grid",
-  alignContent: "end",
+const ButtonsHolder = styled.div({
+  "--edge-style": "2px solid var(--light-grey)",
+  height: "100%",
+  width: "100%",
+  display: "flex",
+  position: "relative",
   justifyContent: "center",
+  ".add-button": {
+    position: "absolute",
+  },
+  "&:not(:hover) .add-button": {
+    display: "none",
+  },
+  "&.rows": {
+    borderRight: "var(--edge-style)",
+    flexDirection: "column",
+    ".before": {
+      bottom: "100%",
+    },
+    ".after": {
+      top: "100%",
+    },
+  },
+  "&.cols": {
+    borderBottom: "var(--edge-style)",
+    flexDirection: "row",
+    ".before": {
+      right: "100%",
+    },
+    ".after": {
+      left: "100%",
+    },
+  },
 });
+
+const TractControlMemo = React.memo(TractControl);

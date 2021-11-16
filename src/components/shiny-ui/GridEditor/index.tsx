@@ -8,9 +8,7 @@ import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
 import { TemplatedGridProps } from "utils/gridTemplates/types";
 import { ItemBoundingBox } from "utils/overlap-helpers";
 import { GridCells } from "./GridCell";
-import { TractAddButtons } from "./TractAddButtons";
 import { TractControls } from "./TractControls";
-import { TractRemoveButtons } from "./TractRemoveButtons";
 
 export type GridEditorProps = TemplatedGridProps & {
   items: Record<string, JSX.Element>;
@@ -69,17 +67,11 @@ export default function GridEditor({
       >
         <GridDisplay style={styles}>
           {areaMarkers}
-          <TractControls sizes={sizes} />
+          <TractControls areas={layout.areas} sizes={sizes} />
           <GridCells
             numCols={numCols}
             numRows={numRows}
             cellLocRef={gridCellLocations}
-          />
-          <TractAddButtons numCols={numCols} numRows={numRows} />
-          <TractRemoveButtons
-            areas={layout.areas}
-            numCols={numCols}
-            numRows={numRows}
           />
           {Object.values(items)}
         </GridDisplay>

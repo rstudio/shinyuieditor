@@ -1,5 +1,7 @@
 import { Tooltip } from "@chakra-ui/tooltip";
 import styled from "@emotion/styled";
+import { CSSMeasure } from "GridTypes";
+import React from "react";
 
 type BaseButtonProps = React.DetailedHTMLProps<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -8,31 +10,38 @@ type BaseButtonProps = React.DetailedHTMLProps<
 
 type TooltipProps = React.ComponentProps<typeof Tooltip>;
 
-export function TooltipButton({
-  popoverText,
-  popoverPlacement,
-  ...props
-}: {
-  popoverText: string;
-  popoverPlacement?: TooltipProps["placement"];
-} & BaseButtonProps) {
-  if (typeof popoverPlacement === "undefined") popoverPlacement = "top";
-  return (
-    <Tooltip
-      label={popoverText}
-      placement={popoverPlacement}
-      border="1px solid var(--light-grey)"
-      backgroundColor="var(--rstudio-white)"
-      color="var(--rstudio-grey)"
-    >
-      <SquareButtonBase {...props}></SquareButtonBase>
-    </Tooltip>
-  );
-}
+export const TooltipButton = React.forwardRef(
+  (
+    {
+      popoverText,
+      popoverPlacement,
+      ...props
+    }: {
+      popoverText: string;
+      popoverPlacement?: TooltipProps["placement"];
+    } & BaseButtonProps,
+    ref
+  ) => {
+    if (typeof popoverPlacement === "undefined") popoverPlacement = "top";
+    return (
+      <Tooltip
+        label={popoverText}
+        placement={popoverPlacement}
+        border="1px solid var(--light-grey)"
+        backgroundColor="var(--rstudio-white)"
+        color="var(--rstudio-grey)"
+      >
+        <SquareButtonBase {...props}></SquareButtonBase>
+      </Tooltip>
+    );
+  }
+);
+
+export const tooltipButtonSize: CSSMeasure = "1rem";
 
 const SquareButtonBase = styled.button({
-  width: "var(--gap, 100px)",
-  height: "var(--gap, 100px)",
+  width: tooltipButtonSize,
+  height: tooltipButtonSize,
   display: "grid",
   placeContent: "center",
   color: "var(--rstudio-blue, pink)",
