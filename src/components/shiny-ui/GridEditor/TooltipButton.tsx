@@ -6,12 +6,25 @@ type BaseButtonProps = React.DetailedHTMLProps<
   HTMLButtonElement
 >;
 
+type TooltipProps = React.ComponentProps<typeof Tooltip>;
+
 export function TooltipButton({
   popoverText,
+  popoverPlacement,
   ...props
-}: { popoverText: string } & BaseButtonProps) {
+}: {
+  popoverText: string;
+  popoverPlacement?: TooltipProps["placement"];
+} & BaseButtonProps) {
+  if (typeof popoverPlacement === "undefined") popoverPlacement = "top";
   return (
-    <Tooltip label={popoverText}>
+    <Tooltip
+      label={popoverText}
+      placement={popoverPlacement}
+      border="1px solid var(--light-grey)"
+      backgroundColor="var(--rstudio-white)"
+      color="var(--rstudio-grey)"
+    >
       <SquareButtonBase {...props}></SquareButtonBase>
     </Tooltip>
   );

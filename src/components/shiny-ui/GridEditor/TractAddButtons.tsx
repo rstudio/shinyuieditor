@@ -68,6 +68,7 @@ function TractAddButton(tract: Parameters<typeof addTract>[1]) {
   return (
     <TooltipButton
       popoverText={description}
+      popoverPlacement={dir === "rows" ? "left" : "top"}
       aria-label={description}
       style={placement}
       onClick={() => {
