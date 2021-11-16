@@ -109,6 +109,7 @@ const TractControlsHolder = styled.div({
   "--control-tracts": "1fr auto",
   "--offset-margin": `calc(-1*(var(--tract-gutter-size) + var(--gap)))`,
   display: "grid",
+  gap: "5px",
   "&.rows": {
     "--tract-gutter-size": "var(--row-gutter)",
     gridTemplateColumns: "var(--control-tracts)",
@@ -116,20 +117,27 @@ const TractControlsHolder = styled.div({
     marginLeft: `var(--offset-margin)`,
     gridColumn: 1,
     alignItems: "center",
+    justifyItems: "end",
   },
   "&.cols": {
     "--tract-gutter-size": "var(--col-gutter)",
     gridTemplateRows: "var(--control-tracts)",
     height: "var(--col-gutter)",
     marginTop: `var(--offset-margin)`,
-    alignItems: "end",
     gridRow: 1,
     justifyItems: "center",
+    alignItems: "end",
+  },
+  "&:not(:hover) .add-button": {
+    display: "none",
+  },
+  "&:hover": {
+    "--edge-color": "var(--rstudio-blue)",
   },
 });
 
 const ButtonsHolder = styled.div({
-  "--edge-style": "2px solid var(--light-grey)",
+  "--edge-style": "2px solid var(--edge-color, var(--light-grey))",
   height: "100%",
   width: "100%",
   display: "flex",
@@ -137,9 +145,6 @@ const ButtonsHolder = styled.div({
   justifyContent: "center",
   ".add-button": {
     position: "absolute",
-  },
-  "&:not(:hover) .add-button": {
-    display: "none",
   },
   "&.rows": {
     borderRight: "var(--edge-style)",
