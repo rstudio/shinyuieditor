@@ -108,7 +108,9 @@ function TractControl({
 const TractControlsHolder = styled.div({
   "--control-tracts": "1fr auto",
   "--offset-margin": `calc(-1*(var(--tract-gutter-size) + var(--gap)))`,
+  "--offset-into-gap": "calc(-1*var(--gap))",
   display: "grid",
+  position: "relative",
   gap: "5px",
   // backgroundColor: "blanchedalmond",
   "&.rows": {
@@ -116,6 +118,8 @@ const TractControlsHolder = styled.div({
     paddingRight: "var(--gap)",
     gridTemplateColumns: "var(--control-tracts)",
     width: "calc(var(--row-gutter) + var(--gap))",
+    marginTop: "var(--offset-into-gap)",
+    marginBottom: "var(--offset-into-gap)",
     marginLeft: `var(--offset-margin)`,
     gridColumn: 1,
     alignItems: "center",
@@ -127,6 +131,8 @@ const TractControlsHolder = styled.div({
     gridTemplateRows: "var(--control-tracts)",
     height: "calc(var(--col-gutter) + var(--gap))",
     marginTop: `var(--offset-margin)`,
+    marginLeft: "var(--offset-into-gap)",
+    marginRight: "var(--offset-into-gap)",
     gridRow: 1,
     justifyItems: "center",
     alignItems: "end",
@@ -136,6 +142,24 @@ const TractControlsHolder = styled.div({
   },
   "&:hover": {
     "--edge-color": "var(--rstudio-blue)",
+    zIndex: 1000,
+  },
+  "&::after": {
+    "--thickness": "2px",
+    "--inset-to-edge": "calc(var(--gap) - var(--thickness)*2)",
+    content: `""`,
+    position: "absolute",
+    backgroundColor: "var(--edge-color, var(--light-grey))",
+  },
+  "&.cols::after": {
+    bottom: "var(--inset-to-edge)",
+    width: "calc(100% - 2*var(--gap))",
+    height: "var(--thickness)",
+  },
+  "&.rows::after": {
+    height: "calc(100% - 2*var(--gap))",
+    width: "var(--thickness)",
+    right: "var(--inset-to-edge)",
   },
 });
 
@@ -150,24 +174,17 @@ const ButtonsHolder = styled.div({
     position: "absolute",
   },
   "&.rows": {
-    borderRight: "var(--edge-style)",
+    // borderRight: "var(--edge-style)",
     flexDirection: "column",
-    ".before": {
-      bottom: "100%",
-    },
-    ".after": {
-      top: "100%",
-    },
+    ".before": { top: "0" },
+    ".after": { bottom: "0" },
   },
+
   "&.cols": {
-    borderBottom: "var(--edge-style)",
+    // borderBottom: "var(--edge-style)",
     flexDirection: "row",
-    ".before": {
-      right: "100%",
-    },
-    ".after": {
-      left: "100%",
-    },
+    ".before": { left: "0" },
+    ".after": { right: "0" },
   },
 });
 
