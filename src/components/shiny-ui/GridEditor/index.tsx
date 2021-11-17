@@ -5,9 +5,11 @@ import React from "react";
 import { useShowDiffs } from "state-logic/useShowChanges";
 import { subtractElements } from "utils/array-helpers";
 import addItem from "utils/gridTemplates/addItem";
+import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
 import { TemplatedGridProps } from "utils/gridTemplates/types";
 import { ItemBoundingBox } from "utils/overlap-helpers";
+import { AreaOverlay } from "./AreaOverlay";
 import { GridCells } from "./GridCell";
 import { TractControls } from "./TractControls";
 
@@ -15,9 +17,8 @@ export type GridEditorProps = TemplatedGridProps & {
   items: Record<string, JSX.Element>;
 };
 
-export type CellLocRef = React.MutableRefObject<
-  Record<GridLocString, ItemBoundingBox>
->;
+export type GridCellBounds = Record<GridLocString, ItemBoundingBox>;
+export type CellLocRef = React.MutableRefObject<GridCellBounds>;
 
 export const SetLayoutContext = React.createContext<React.Dispatch<
   React.SetStateAction<TemplatedGridProps>
@@ -35,6 +36,10 @@ export default function GridEditor({
     ...initialLayoutDef,
   });
 
+  const itemGridLocations = React.useMemo(
+    () => areasToItemLocations(layout.areas),
+    [layout.areas]
+  );
   const addNewItem = ({ row, col }: { row: number; col: number }) => {
     const newAreaName = `row${row}-col${col}`;
     setLayout((layout) =>
@@ -64,10 +69,14 @@ export default function GridEditor({
 
   const gridCellLocations: CellLocRef = React.useRef({});
 
-  const areaMarkers = areasWithoutItems.map((area) => (
-    <AreaMarker key={area} style={{ gridArea: area }}>
-      area: {area}
-    </AreaMarker>
+  const areaOverlays = areasWithoutItems.map((area) => (
+    <AreaOverlay
+      key={area}
+      area={area}
+      areas={layout.areas}
+      cellLocRef={gridCellLocations}
+      gridLocation={itemGridLocations.get(area)}
+    />
   ));
 
   return (
@@ -91,7 +100,7 @@ export default function GridEditor({
             cellLocRef={gridCellLocations}
             onClick={addNewItem}
           />
-          {areaMarkers}
+          {areaOverlays}
           {Object.values(items)}
         </GridDisplay>
       </div>
@@ -104,17 +113,4 @@ const GridDisplay = styled.div({
   gridRow: 2,
   gridColumn: 2,
   display: "grid",
-});
-
-const AreaMarker = styled.div({
-  outline: "1px solid black",
-  display: "grid",
-  placeContent: "end",
-  fontWeight: "lighter",
-  fontStyle: "italic",
-  padding: "2px",
-  // I have no idea why I need to specify a z-index here to get this to sit
-  // over the grid cell
-  zIndex: 1,
-  backgroundColor: "var(--light-grey)",
 });
