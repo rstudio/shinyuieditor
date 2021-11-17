@@ -1,5 +1,19 @@
-export const seqArray = (length: number): number[] => {
+export const seqArray = (
+  length: number,
+  opts?: { from: number; to: number }
+): number[] => {
   return Array.from({ length }, (_, i) => i);
+};
+export const buildRange = ({
+  from,
+  to,
+}: {
+  from: number;
+  to: number;
+}): number[] => {
+  const numEls = Math.abs(to - from) + 1;
+  const step = from < to ? 1 : -1;
+  return Array.from({ length: numEls }, (_, i) => from + i * step);
 };
 
 export function arrayRange(
