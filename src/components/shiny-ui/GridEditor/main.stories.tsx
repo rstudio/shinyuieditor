@@ -22,7 +22,7 @@ export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {
   areas: [
-    ["a", "a", "b", "other"],
+    ["a", ".", "b", "other"],
     ["c", "d", "d", "other"],
   ],
   rowSizes: ["100px", "200px"],
