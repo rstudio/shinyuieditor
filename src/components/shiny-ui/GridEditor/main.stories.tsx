@@ -30,3 +30,15 @@ Primary.args = {
   gapSize: "1rem",
   items: {},
 };
+export const SingleItem = Template.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+SingleItem.args = {
+  areas: [
+    [".", ".", ".", "."],
+    [".", "d", "d", "."],
+    [".", ".", ".", "."],
+  ],
+  rowSizes: "150px",
+  gapSize: "1rem",
+  items: {},
+};
