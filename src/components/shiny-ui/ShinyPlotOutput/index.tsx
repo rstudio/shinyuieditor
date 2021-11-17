@@ -15,14 +15,26 @@ const ShinyPlotOutput: ShinyUiComponent<ShinyPlotOutputProps> = ({
   width = "100%",
   height = "100%",
 }: ShinyPlotOutputProps) => {
+  const holderRef = React.useRef<HTMLDivElement>(null);
+
+  // Start tiny so icon isn't the reason the container is big
+  const [graphSize, setGraphSize] = React.useState(2);
+  React.useEffect(() => {
+    if (!holderRef.current) return;
+    const { offsetHeight, offsetWidth } = holderRef.current;
+    setGraphSize(Math.min(offsetHeight, offsetWidth) * 0.9);
+  }, []);
+
   return (
     <PlotHolder
+      ref={holderRef}
       style={{ height, width }}
       className={"shiny-plotOutput"}
       aria-label={"shiny-plotOutput"}
     >
       <GoGraph
-        size={`min(200px, ${height})`}
+        // Account for padding of 1 rem
+        size={`calc(${graphSize}px - 2rem)`}
         style={{
           gridArea: "1/1",
           placeSelf: "center",
