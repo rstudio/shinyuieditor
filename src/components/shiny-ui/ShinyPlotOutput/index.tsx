@@ -20,9 +20,15 @@ const ShinyPlotOutput: ShinyUiComponent<ShinyPlotOutputProps> = ({
   // Start tiny so icon isn't the reason the container is big
   const [graphSize, setGraphSize] = React.useState(2);
   React.useEffect(() => {
-    if (!holderRef.current) return;
-    const { offsetHeight, offsetWidth } = holderRef.current;
-    setGraphSize(Math.min(offsetHeight, offsetWidth) * 0.9);
+    const ro = new ResizeObserver((entries) => {
+      if (!holderRef.current) return;
+
+      const { offsetHeight, offsetWidth } = holderRef.current;
+      setGraphSize(Math.min(offsetHeight, offsetWidth) * 0.9);
+    });
+
+    if (holderRef.current) ro.observe(holderRef.current);
+    return () => ro.disconnect();
   }, []);
 
   return (
