@@ -65,14 +65,14 @@ describe("Tells you if array forms consecutive sequence of numbers", () => {
 
 describe("Build a sequence of numbers from start to end", () => {
   test("Basic usage", () => {
-    expect(buildRange({ from: 2, to: 5 })).toStrictEqual([2, 3, 4, 5]);
+    expect(buildRange(2, 5)).toStrictEqual([2, 3, 4, 5]);
   });
 
   test("Handle single length", () => {
-    expect(buildRange({ from: 2, to: 2 })).toStrictEqual([2]);
+    expect(buildRange(2, 2)).toStrictEqual([2]);
   });
 
   test("Count down", () => {
-    expect(buildRange({ from: 6, to: 3 })).toStrictEqual([6, 5, 4, 3]);
+    expect(buildRange(6, 3)).toStrictEqual([6, 5, 4, 3]);
   });
 });
