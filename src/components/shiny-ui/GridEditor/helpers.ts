@@ -8,6 +8,20 @@ export function singular(dir: TractDirection): "row" | "column" {
   return dir === "rows" ? "row" : "column";
 }
 
+export function gridLocationToExtent({
+  rowStart,
+  rowSpan,
+  colStart,
+  colSpan,
+}: ItemLocation) {
+  return {
+    rowStart,
+    rowEnd: rowStart + rowSpan - 1,
+    colStart,
+    colEnd: colStart + colSpan - 1,
+  };
+}
+
 export function gridLocationToBounds({
   gridLocation: { rowStart, rowSpan, colStart, colSpan },
   cellBounds,
@@ -34,4 +48,16 @@ export function gridLocationToBounds({
     right: left + width,
     bottom: top + height,
   };
+}
+
+export function clamp({
+  min = -Infinity,
+  val,
+  max = Infinity,
+}: {
+  min?: number;
+  val: number;
+  max?: number;
+}) {
+  return Math.min(Math.max(min, val), max);
 }
