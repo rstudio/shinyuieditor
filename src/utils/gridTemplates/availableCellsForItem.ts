@@ -103,40 +103,75 @@ export function findAvailableTracts({
   throw new Error("How'd you get here?");
 }
 
-export function expansionRoom({
+export function getExtentsForAvailableTracts({
   side,
-  availableTracts,
+  gridLocation,
+  layoutAreas,
   cellBounds,
 }: {
   side: MovementType;
-  availableTracts: TractRegion;
+  gridLocation: ItemLocation;
+  layoutAreas: TemplatedGridProps["areas"];
   cellBounds: GridCellBounds;
-}) {
-  let finalCell: { row: number; col: number };
+}): {
+  maxExtent: number;
+  extents: {
+    index: number;
+    start: number;
+    end: number;
+  }[];
+} {
+  const availableTracts = findAvailableTracts({
+    side,
+    gridLocation,
+    layoutAreas,
+  });
+
+  let extents: {
+    index: number;
+    start: number;
+    end: number;
+  }[];
+
   if (availableTracts.searchDir === "rows") {
     if (availableTracts.rowBounds === null) throw new Error(cantExpandError);
-    finalCell = { row: availableTracts.rowBounds[1], col: 1 };
+
+    extents = buildRange(...availableTracts.rowBounds).map((rowIndex) => {
+      const bounds = getCellExtents({ rowIndex }, cellBounds);
+
+      return side === "expand down"
+        ? { index: rowIndex, start: bounds.top, end: bounds.bottom }
+        : { index: rowIndex, start: bounds.bottom, end: bounds.top };
+    });
   } else {
     if (availableTracts.colBounds === null) throw new Error(cantExpandError);
-    finalCell = { row: 1, col: availableTracts.colBounds[1] };
+
+    extents = buildRange(...availableTracts.colBounds).map((colIndex) => {
+      const bounds = getCellExtents({ colIndex }, cellBounds);
+
+      return side === "expand right"
+        ? { index: colIndex, start: bounds.left, end: bounds.right }
+        : { index: colIndex, start: bounds.right, end: bounds.left };
+    });
   }
 
-  const finalCellExtents = boundingBoxToExtent(
-    cellBounds[toStringLoc(finalCell)]
-  );
+  return {
+    maxExtent: extents[extents.length - 1].end,
+    extents,
+  };
+}
 
-  switch (side) {
-    case "expand down":
-      return finalCellExtents.bottom;
-    case "expand up":
-      return finalCellExtents.top;
-    case "expand left":
-      return finalCellExtents.left;
-    case "expand right":
-      return finalCellExtents.right;
-    default:
-      throw new Error("Have yet to implement shrinking bounds");
-  }
+function getCellExtents(
+  {
+    rowIndex: row = 1,
+    colIndex: col = 1,
+  }: {
+    rowIndex?: number;
+    colIndex?: number;
+  },
+  cellBounds: GridCellBounds
+) {
+  return boundingBoxToExtent(cellBounds[toStringLoc({ row, col })]);
 }
 const cantExpandError =
   "Can't check expansion room for an item that can't be expanded";

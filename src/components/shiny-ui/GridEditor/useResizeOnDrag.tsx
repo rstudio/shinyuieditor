@@ -1,9 +1,6 @@
 import clone from "just-clone";
 import React from "react";
-import {
-  findAvailableTracts,
-  expansionRoom,
-} from "utils/gridTemplates/availableCellsForItem";
+import { getExtentsForAvailableTracts } from "utils/gridTemplates/availableCellsForItem";
 import { ItemLocation, TemplatedGridProps } from "utils/gridTemplates/types";
 import { MovementType } from "./availableMoves";
 import { clamp, gridLocationToBounds } from "./helpers";
@@ -15,7 +12,7 @@ type DragInfo = {
   movementType: MovementType;
   dragBounds: ItemBounds;
   startingBounds: ItemBounds;
-  expansionLimit?: number;
+  tractExtents: ReturnType<typeof getExtentsForAvailableTracts>;
 };
 
 export function useResizeOnDrag({
@@ -39,8 +36,14 @@ export function useResizeOnDrag({
           "For some reason we are observing dragging when we shouldn't"
         );
 
-      const movementType = dragRef.current.movementType;
-      const { dragBounds, startingBounds, expansionLimit } = dragRef.current;
+      const {
+        movementType,
+        dragBounds,
+        startingBounds,
+        tractExtents,
+      } = dragRef.current;
+
+      const expansionLimit = tractExtents.maxExtent;
 
       switch (movementType) {
         case "expand right":
@@ -49,6 +52,7 @@ export function useResizeOnDrag({
             val: x,
             max: expansionLimit,
           });
+
           break;
         case "expand left":
           dragBounds.left = clamp({
@@ -97,23 +101,16 @@ export function useResizeOnDrag({
 
       const itemBounds = gridLocationToBounds({ cellBounds, gridLocation });
 
-      const availableTracts = findAvailableTracts({
-        side: movementType,
-        gridLocation,
-        layoutAreas,
-      });
-
-      const maxExpansion = expansionRoom({
-        side: movementType,
-        availableTracts,
-        cellBounds,
-      });
-
       dragRef.current = {
         movementType,
         startingBounds: clone(itemBounds),
         dragBounds: itemBounds,
-        expansionLimit: maxExpansion,
+        tractExtents: getExtentsForAvailableTracts({
+          side: movementType,
+          gridLocation,
+          layoutAreas,
+          cellBounds,
+        }),
       };
 
       overlayEl.classList.add("dragging");
