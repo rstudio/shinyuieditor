@@ -7,12 +7,13 @@ import { GridCellBounds } from "./index";
 
 type ItemBounds = ReturnType<typeof gridLocationToBounds>;
 
-export type DragInfo = {
+type DragInfo = {
   movementType: MovementType;
   dragBounds: ItemBounds;
   startingBounds: ItemBounds;
   expansionLimit?: number;
 };
+
 export function useResizeOnDrag({
   overlayRef,
   cellBounds,
