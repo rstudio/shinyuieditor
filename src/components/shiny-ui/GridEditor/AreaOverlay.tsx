@@ -1,24 +1,13 @@
 import styled from "@emotion/styled";
-import clone from "just-clone";
 import React from "react";
 import { ItemLocation, TemplatedGridProps } from "utils/gridTemplates/types";
 import {
   availableMoves,
-  expansionRoom,
   movementToArrow,
   MovementType,
 } from "./availableMoves";
-import { clamp, gridLocationToBounds } from "./helpers";
 import { CellLocRef } from "./index";
-
-type ItemBounds = ReturnType<typeof gridLocationToBounds>;
-
-type DragInfo = {
-  movementType: MovementType;
-  dragBounds: ItemBounds;
-  startingBounds: ItemBounds;
-  expansionLimit?: number;
-};
+import { useResizeOnDrag } from "./useResizeOnDrag";
 
 export function AreaOverlay({
   area,
@@ -34,99 +23,18 @@ export function AreaOverlay({
   if (typeof gridLocation === "undefined")
     throw new Error(`Item in ${area} is not in the location map`);
 
-  const dragRef = React.useRef<DragInfo | null>(null);
-
   const overlayRef = React.useRef<HTMLDivElement>(null);
+
+  const startDrag = useResizeOnDrag({
+    overlayRef,
+    cellBounds,
+    gridLocation,
+    layoutAreas,
+  });
 
   const movementOptions = React.useMemo(
     () => availableMoves({ gridLocation, layoutAreas }),
     [gridLocation, layoutAreas]
-  );
-
-  const onDrag = React.useCallback((e: MouseEvent) => {
-    const { x, y } = e;
-    if (!dragRef.current || !overlayRef.current)
-      throw new Error(
-        "For some reason we are observing dragging when we shouldn't"
-      );
-
-    const movementType = dragRef.current.movementType;
-    const { dragBounds, startingBounds, expansionLimit } = dragRef.current;
-
-    switch (movementType) {
-      case "expand right":
-        dragBounds.right = clamp({
-          min: startingBounds.right,
-          val: x,
-          max: expansionLimit,
-        });
-        break;
-      case "expand left":
-        dragBounds.left = clamp({
-          max: startingBounds.left,
-          val: x,
-          min: expansionLimit,
-        });
-
-        break;
-      case "expand down":
-        dragBounds.bottom = clamp({
-          min: startingBounds.bottom,
-          val: y,
-          max: expansionLimit,
-        });
-
-        break;
-      case "expand up":
-        dragBounds.top = clamp({
-          min: expansionLimit,
-          val: y,
-          max: startingBounds.top,
-        });
-        break;
-      default:
-        console.log("have yet to implement", movementType);
-    }
-
-    placeItemAbsolutely(overlayRef.current, dragBounds);
-  }, []);
-
-  const endDrag = React.useCallback(() => {
-    const overlayEl = overlayRef.current;
-    if (!overlayEl) return;
-    console.log("Ending drag");
-    overlayEl.classList.remove("dragging");
-
-    document.removeEventListener("mousemove", onDrag);
-  }, [onDrag]);
-
-  const startDrag = React.useCallback(
-    (movementType: MovementType) => {
-      const overlayEl = overlayRef.current;
-      if (!overlayEl) return;
-
-      const itemBounds = gridLocationToBounds({ cellBounds, gridLocation });
-      const maxExpansion = expansionRoom({
-        side: movementType,
-        gridLocation,
-        layoutAreas,
-        cellBounds,
-      });
-      dragRef.current = {
-        movementType,
-        startingBounds: clone(itemBounds),
-        dragBounds: itemBounds,
-        expansionLimit: maxExpansion,
-      };
-
-      console.log({ maxExpansion });
-
-      overlayEl.classList.add("dragging");
-      placeItemAbsolutely(overlayEl, itemBounds);
-      document.addEventListener("mousemove", onDrag);
-      document.addEventListener("mouseup", endDrag, { once: true });
-    },
-    [cellBounds, endDrag, gridLocation, layoutAreas, onDrag]
   );
 
   const movementHandles = React.useMemo(() => {
@@ -152,21 +60,12 @@ export function AreaOverlay({
   return (
     <AreaMarker
       ref={overlayRef}
-      style={{
-        gridArea: area,
-      }}
+      style={{ gridArea: area }}
       className="grid-area-overlay"
     >
       {movementHandles}
     </AreaMarker>
   );
-}
-
-function placeItemAbsolutely(el: HTMLDivElement, bounds: ItemBounds) {
-  el.style.setProperty("--drag-top", bounds.top + "px");
-  el.style.setProperty("--drag-left", bounds.left + "px");
-  el.style.setProperty("--drag-width", bounds.right - bounds.left + "px");
-  el.style.setProperty("--drag-height", bounds.bottom - bounds.top + "px");
 }
 
 const AreaMarker = styled.div({
