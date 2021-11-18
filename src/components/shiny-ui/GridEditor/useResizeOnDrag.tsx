@@ -1,7 +1,11 @@
 import clone from "just-clone";
 import React from "react";
+import {
+  findAvailableTracts,
+  expansionRoom,
+} from "utils/gridTemplates/availableCellsForItem";
 import { ItemLocation, TemplatedGridProps } from "utils/gridTemplates/types";
-import { expansionRoom, MovementType } from "./availableMoves";
+import { MovementType } from "./availableMoves";
 import { clamp, gridLocationToBounds } from "./helpers";
 import { GridCellBounds } from "./index";
 
@@ -81,7 +85,6 @@ export function useResizeOnDrag({
   const endDrag = React.useCallback(() => {
     const overlayEl = overlayRef.current;
     if (!overlayEl) return;
-    console.log("Ending drag");
     overlayEl.classList.remove("dragging");
 
     document.removeEventListener("mousemove", onDrag);
@@ -93,12 +96,19 @@ export function useResizeOnDrag({
       if (!overlayEl) return;
 
       const itemBounds = gridLocationToBounds({ cellBounds, gridLocation });
-      const maxExpansion = expansionRoom({
+
+      const availableTracts = findAvailableTracts({
         side: movementType,
         gridLocation,
         layoutAreas,
+      });
+
+      const maxExpansion = expansionRoom({
+        side: movementType,
+        availableTracts,
         cellBounds,
       });
+
       dragRef.current = {
         movementType,
         startingBounds: clone(itemBounds),

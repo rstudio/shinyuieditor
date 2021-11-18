@@ -1,22 +1,26 @@
+import { GridCellBounds } from "components/shiny-ui/GridEditor";
 import { buildRange } from "utils/array-helpers";
+import { toStringLoc } from "utils/grid-helpers";
 import { ItemLocation, TemplatedGridProps } from "utils/gridTemplates/types";
 import { MovementType } from "../../components/shiny-ui/GridEditor/availableMoves";
-import { gridLocationToExtent } from "../../components/shiny-ui/GridEditor/helpers";
+import {
+  boundingBoxToExtent,
+  gridLocationToExtent,
+} from "../../components/shiny-ui/GridEditor/helpers";
 import { emptyCell } from "./itemLocations";
 
-type CellRegion =
+type TractBounds = [number, number];
+type TractRegion =
   | {
       searchDir: "rows";
-      rowBounds: [number, number] | null;
-      colBounds: [number, number];
+      rowBounds: TractBounds | null;
     }
   | {
       searchDir: "cols";
-      rowBounds: [number, number];
-      colBounds: [number, number] | null;
+      colBounds: TractBounds | null;
     };
 
-export function availableCellsForItem({
+export function findAvailableTracts({
   side,
   gridLocation,
   layoutAreas,
@@ -24,16 +28,16 @@ export function availableCellsForItem({
   side: MovementType;
   gridLocation: ItemLocation;
   layoutAreas: TemplatedGridProps["areas"];
-}) {
+}): TractRegion {
   const { rowStart, rowEnd, colStart, colEnd } = gridLocationToExtent(
     gridLocation
   );
 
-  let searchDir: CellRegion["searchDir"] = side.match(/down|up/)
+  let searchDir: TractRegion["searchDir"] = side.match(/down|up/)
     ? "rows"
     : "cols";
-  let rowBounds: CellRegion["rowBounds"] = [rowStart, rowEnd];
-  let colBounds: CellRegion["colBounds"] = [colStart, colEnd];
+  let rowBounds: TractBounds | null = [rowStart, rowEnd];
+  let colBounds: TractBounds | null = [colStart, colEnd];
 
   const numRows = layoutAreas.length;
   const numCols = layoutAreas[0].length;
@@ -58,9 +62,11 @@ export function availableCellsForItem({
     default:
       throw new Error(`Haven't implemented ${side}`);
   }
-
-  if (rowBounds === null || colBounds === null) {
-    return { searchDir, rowBounds, colBounds };
+  if (rowBounds === null) {
+    return { searchDir: "rows", rowBounds: null };
+  }
+  if (colBounds === null) {
+    return { searchDir: "cols", colBounds: null };
   }
 
   const cellHasItem = (rowIndex: number, colIndex: number) =>
@@ -75,10 +81,10 @@ export function availableCellsForItem({
       if (otherItemInRow) {
         // If we've entered a row with an item, back up bounds and finish
         rowBounds[1] = rowIndex - 1;
-
-        return { searchDir, rowBounds, colBounds };
+        break;
       }
     }
+    return { searchDir, rowBounds };
   }
   if (searchDir === "cols") {
     const itemRowRange = buildRange(...rowBounds);
@@ -88,10 +94,49 @@ export function availableCellsForItem({
       );
       if (otherItemInCol) {
         colBounds[1] = colIndex - 1;
-        return { searchDir, rowBounds, colBounds };
+        break;
       }
     }
+    return { searchDir, colBounds };
   }
 
-  return { searchDir, rowBounds, colBounds };
+  throw new Error("How'd you get here?");
 }
+
+export function expansionRoom({
+  side,
+  availableTracts,
+  cellBounds,
+}: {
+  side: MovementType;
+  availableTracts: TractRegion;
+  cellBounds: GridCellBounds;
+}) {
+  let finalCell: { row: number; col: number };
+  if (availableTracts.searchDir === "rows") {
+    if (availableTracts.rowBounds === null) throw new Error(cantExpandError);
+    finalCell = { row: availableTracts.rowBounds[1], col: 1 };
+  } else {
+    if (availableTracts.colBounds === null) throw new Error(cantExpandError);
+    finalCell = { row: 1, col: availableTracts.colBounds[1] };
+  }
+
+  const finalCellExtents = boundingBoxToExtent(
+    cellBounds[toStringLoc(finalCell)]
+  );
+
+  switch (side) {
+    case "expand down":
+      return finalCellExtents.bottom;
+    case "expand up":
+      return finalCellExtents.top;
+    case "expand left":
+      return finalCellExtents.left;
+    case "expand right":
+      return finalCellExtents.right;
+    default:
+      throw new Error("Have yet to implement shrinking bounds");
+  }
+}
+const cantExpandError =
+  "Can't check expansion room for an item that can't be expanded";

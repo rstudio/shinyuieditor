@@ -1,6 +1,7 @@
 import { TractDirection } from "state-logic/gridLayout/atoms";
 import { toStringLoc } from "utils/grid-helpers";
 import { ItemLocation } from "utils/gridTemplates/types";
+import { ItemBoundingBox } from "utils/overlap-helpers";
 import { GridCellBounds } from ".";
 
 export const directions: TractDirection[] = ["rows", "cols"];
@@ -57,4 +58,17 @@ export function clamp({
   max?: number;
 }) {
   return Math.min(Math.max(min, val), max);
+}
+
+export function boundingBoxToExtent(box: ItemBoundingBox) {
+  const left = box.offsetLeft;
+  const top = box.offsetTop;
+  const width = box.right - left;
+  const height = box.bottom - top;
+  return {
+    left,
+    top,
+    right: left + width,
+    bottom: top + height,
+  };
 }
