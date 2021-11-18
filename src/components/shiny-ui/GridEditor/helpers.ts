@@ -35,9 +35,6 @@ export function gridLocationToBounds({
       toStringLoc({ row: rowStart + rowSpan - 1, col: colStart + colSpan - 1 })
     ];
 
-  // debugger;
-  // Destructuring top left lets us keep the non-changing bounding box info like offsets
-
   const left = topLeft.offsetLeft;
   const top = topLeft.offsetTop;
   const width = bottomRight.right - topLeft.left;
