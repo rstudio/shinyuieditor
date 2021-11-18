@@ -98,7 +98,9 @@ const Dragger = styled.div({
   display: "grid",
   placeContent: "center",
   position: "absolute",
-  outline: "1px solid green",
+  backgroundColor: "var(--rstudio-blue)",
+  color: "var(--rstudio-white)",
+  // outline: "1px solid var(--rstudio-grey)",
   "&.up,&.down": {
     height: `${draggerShort}px`,
     width: `${draggerLong}px`,
