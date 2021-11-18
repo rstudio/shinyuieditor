@@ -4,10 +4,11 @@ import React from "react";
 import { ItemLocation, TemplatedGridProps } from "utils/gridTemplates/types";
 import {
   availableMoves,
+  expansionRoom,
   movementToArrow,
   MovementType,
 } from "./availableMoves";
-import { gridLocationToBounds } from "./helpers";
+import { clamp, gridLocationToBounds } from "./helpers";
 import { CellLocRef } from "./index";
 
 type ItemBounds = ReturnType<typeof gridLocationToBounds>;
@@ -16,6 +17,7 @@ type DragInfo = {
   movementType: MovementType;
   dragBounds: ItemBounds;
   startingBounds: ItemBounds;
+  expansionLimit?: number;
 };
 
 export function AreaOverlay({
@@ -49,24 +51,43 @@ export function AreaOverlay({
       );
 
     const movementType = dragRef.current.movementType;
-    const { dragBounds, startingBounds } = dragRef.current;
+    const { dragBounds, startingBounds, expansionLimit } = dragRef.current;
 
     switch (movementType) {
       case "expand right":
-        dragBounds.right = Math.max(startingBounds.right, x);
+        dragBounds.right = clamp({
+          min: startingBounds.right,
+          val: x,
+          max: expansionLimit,
+        });
         break;
       case "expand left":
-        dragBounds.left = Math.min(startingBounds.left, x);
+        dragBounds.left = clamp({
+          max: startingBounds.left,
+          val: x,
+          min: expansionLimit,
+        });
+
         break;
       case "expand down":
-        dragBounds.bottom = Math.max(startingBounds.bottom, y);
+        dragBounds.bottom = clamp({
+          min: startingBounds.bottom,
+          val: y,
+          max: expansionLimit,
+        });
+
         break;
       case "expand up":
-        dragBounds.top = Math.min(startingBounds.top, y);
+        dragBounds.top = clamp({
+          min: expansionLimit,
+          val: y,
+          max: startingBounds.top,
+        });
         break;
       default:
         console.log("have yet to implement", movementType);
     }
+
     placeItemAbsolutely(overlayRef.current, dragBounds);
   }, []);
 
@@ -85,17 +106,27 @@ export function AreaOverlay({
       if (!overlayEl) return;
 
       const itemBounds = gridLocationToBounds({ cellBounds, gridLocation });
+      const maxExpansion = expansionRoom({
+        side: movementType,
+        gridLocation,
+        layoutAreas,
+        cellBounds,
+      });
       dragRef.current = {
         movementType,
         startingBounds: clone(itemBounds),
         dragBounds: itemBounds,
+        expansionLimit: maxExpansion,
       };
+
+      console.log({ maxExpansion });
+
       overlayEl.classList.add("dragging");
       placeItemAbsolutely(overlayEl, itemBounds);
       document.addEventListener("mousemove", onDrag);
       document.addEventListener("mouseup", endDrag, { once: true });
     },
-    [cellBounds, endDrag, gridLocation, onDrag]
+    [cellBounds, endDrag, gridLocation, layoutAreas, onDrag]
   );
 
   const movementHandles = React.useMemo(() => {
