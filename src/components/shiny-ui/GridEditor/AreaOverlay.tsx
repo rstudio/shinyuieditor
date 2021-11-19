@@ -57,12 +57,12 @@ export function AreaOverlay({
     return movementArrows;
   }, [movementOptions, startDrag]);
 
+  React.useEffect(() => {
+    overlayRef.current?.style.setProperty("--grid-area", area);
+  }, [area]);
+
   return (
-    <AreaMarker
-      ref={overlayRef}
-      style={{ gridArea: area }}
-      className="grid-area-overlay"
-    >
+    <AreaMarker ref={overlayRef} className="grid-area-overlay">
       {movementHandles}
     </AreaMarker>
   );
@@ -81,12 +81,22 @@ const AreaMarker = styled.div({
   "&:hover": {
     outline: "2px solid orangered",
   },
+  // "&.dragging": {
+  //   position: "absolute",
+  //   top: "var(--drag-top, 10px)",
+  //   left: "var(--drag-left, 20px)",
+  //   width: "var(--drag-width, 100px)",
+  //   height: "var(--drag-height, 100px)",
+  //   backgroundColor: "blanchedalmond",
+  // },
+  "&:not(.dragging)": {
+    gridArea: "var(--grid-area)",
+  },
   "&.dragging": {
-    position: "absolute",
-    top: "var(--drag-top, 10px)",
-    left: "var(--drag-left, 20px)",
-    width: "var(--drag-width, 100px)",
-    height: "var(--drag-height, 100px)",
+    gridRowStart: "var(--drag-grid-row-start)",
+    gridRowEnd: "var(--drag-grid-row-end)",
+    gridColumnStart: "var(--drag-grid-column-start)",
+    gridColumnEnd: "var(--drag-grid-column-end)",
     backgroundColor: "blanchedalmond",
   },
 });

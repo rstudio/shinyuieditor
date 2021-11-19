@@ -111,10 +111,16 @@ export function useResizeOnDrag({
           console.log("have yet to implement", movementType);
       }
 
-      console.log(gridItemExtent);
+      placeItemOnGrid(overlayRef.current, gridItemExtent);
       placeItemAbsolutely(overlayRef.current, dragBounds);
     },
-    [overlayRef]
+    [
+      initialGridExtent.colEnd,
+      initialGridExtent.colStart,
+      initialGridExtent.rowEnd,
+      initialGridExtent.rowStart,
+      overlayRef,
+    ]
   );
 
   const endDrag = React.useCallback(() => {
@@ -146,7 +152,10 @@ export function useResizeOnDrag({
       };
 
       overlayEl.classList.add("dragging");
+
+      placeItemOnGrid(overlayRef.current, dragRef.current.gridItemExtent);
       placeItemAbsolutely(overlayEl, itemBounds);
+
       document.addEventListener("mousemove", onDrag);
       document.addEventListener("mouseup", endDrag, { once: true });
     },
@@ -161,4 +170,14 @@ function placeItemAbsolutely(el: HTMLDivElement, bounds: ItemBounds) {
   el.style.setProperty("--drag-left", bounds.left + "px");
   el.style.setProperty("--drag-width", bounds.right - bounds.left + "px");
   el.style.setProperty("--drag-height", bounds.bottom - bounds.top + "px");
+}
+
+function placeItemOnGrid(
+  el: HTMLDivElement,
+  { rowStart, rowEnd, colStart, colEnd }: GridItemExtent
+) {
+  el.style.setProperty("--drag-grid-row-start", String(rowStart));
+  el.style.setProperty("--drag-grid-row-end", String(rowEnd + 1));
+  el.style.setProperty("--drag-grid-column-start", String(colStart));
+  el.style.setProperty("--drag-grid-column-end", String(colEnd + 1));
 }
