@@ -14,7 +14,10 @@ export default function addItem(
   // grid coordinates, hence the funky bounds math.
   for (let i = rowStart - 1; i < rowEnd; i++) {
     for (let j = colStart - 1; j < colEnd; j++) {
-      if (areasCopy[i][j] !== emptyCell)
+      const existingCell = areasCopy[i][j];
+      const canWriteToCell =
+        existingCell === emptyCell || existingCell === name;
+      if (!canWriteToCell)
         throw new Error(
           `Can't add ${name} to layout, overlaps with item ${areasCopy[i][j]}.`
         );
