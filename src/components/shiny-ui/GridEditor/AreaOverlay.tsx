@@ -6,6 +6,7 @@ import {
   movementToArrow,
   MovementType,
 } from "./availableMoves";
+import { GridItemExtent } from "./helpers";
 import { CellLocRef } from "./index";
 import { useResizeOnDrag } from "./useResizeOnDrag";
 
@@ -14,11 +15,13 @@ export function AreaOverlay({
   cellLocRef: { current: cellBounds },
   gridLocation,
   areas: layoutAreas,
+  onNewPos,
 }: {
   area: string;
   cellLocRef: CellLocRef;
   gridLocation?: ItemLocation;
   areas: TemplatedGridProps["areas"];
+  onNewPos: (pos: GridItemExtent) => void;
 }) {
   if (typeof gridLocation === "undefined")
     throw new Error(`Item in ${area} is not in the location map`);
@@ -30,6 +33,7 @@ export function AreaOverlay({
     cellBounds,
     gridLocation,
     layoutAreas,
+    onDragEnd: onNewPos,
   });
 
   const movementOptions = React.useMemo(

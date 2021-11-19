@@ -11,6 +11,7 @@ import { TemplatedGridProps } from "utils/gridTemplates/types";
 import { ItemBoundingBox } from "utils/overlap-helpers";
 import { AreaOverlay } from "./AreaOverlay";
 import { GridCells } from "./GridCell";
+import { gridExtentToLocation } from "./helpers";
 import { TractControls } from "./TractControls";
 
 export type GridEditorProps = TemplatedGridProps & {
@@ -40,17 +41,21 @@ export default function GridEditor({
     () => areasToItemLocations(layout.areas),
     [layout.areas]
   );
+
+  const setItem = (itemInfo: Parameters<typeof addItem>[1]) => {
+    setLayout((layout) => addItem(layout, itemInfo));
+  };
+
   const addNewItem = ({ row, col }: { row: number; col: number }) => {
     const newAreaName = `row${row}-col${col}`;
-    setLayout((layout) =>
-      addItem(layout, {
-        name: newAreaName,
-        rowStart: row,
-        colStart: col,
-        rowSpan: 1,
-        colSpan: 1,
-      })
-    );
+
+    setItem({
+      name: newAreaName,
+      rowStart: row,
+      colStart: col,
+      rowSpan: 1,
+      colSpan: 1,
+    });
     onNewArea({ area: newAreaName });
   };
 
@@ -76,6 +81,12 @@ export default function GridEditor({
       areas={layout.areas}
       cellLocRef={gridCellLocations}
       gridLocation={itemGridLocations.get(area)}
+      onNewPos={(updatedPos) =>
+        setItem({
+          name: area,
+          ...gridExtentToLocation(updatedPos),
+        })
+      }
     />
   ));
 

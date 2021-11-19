@@ -26,11 +26,13 @@ export function useResizeOnDrag({
   cellBounds,
   gridLocation,
   layoutAreas,
+  onDragEnd,
 }: {
   overlayRef: React.RefObject<HTMLDivElement>;
   cellBounds: GridCellBounds;
   gridLocation: ItemLocation;
   layoutAreas: TemplatedGridProps["areas"];
+  onDragEnd: (pos: GridItemExtent) => void;
 }) {
   const initialGridExtent = gridLocationToExtent(gridLocation);
   const dragRef = React.useRef<DragInfo | null>(null);
@@ -126,10 +128,15 @@ export function useResizeOnDrag({
   const endDrag = React.useCallback(() => {
     const overlayEl = overlayRef.current;
     if (!overlayEl) return;
-    overlayEl.classList.remove("dragging");
 
+    if (dragRef.current?.gridItemExtent) {
+      // TODO also check if the position has actually changed to avoid unneeded
+      // refires.
+      onDragEnd(dragRef.current.gridItemExtent);
+    }
+    overlayEl.classList.remove("dragging");
     document.removeEventListener("mousemove", onDrag);
-  }, [onDrag, overlayRef]);
+  }, [onDrag, onDragEnd, overlayRef]);
 
   const startDrag = React.useCallback(
     (movementType: MovementType) => {
