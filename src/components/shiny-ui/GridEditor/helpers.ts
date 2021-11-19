@@ -24,6 +24,19 @@ export function gridLocationToExtent({
 }
 
 export type GridItemExtent = ReturnType<typeof gridLocationToExtent>;
+export function gridExtentToLocation({
+  rowStart,
+  rowEnd,
+  colStart,
+  colEnd,
+}: GridItemExtent): ItemLocation {
+  return {
+    rowStart,
+    rowSpan: rowEnd - rowStart + 1,
+    colStart,
+    colSpan: colEnd - colStart + 1,
+  };
+}
 
 export function gridLocationToBounds({
   gridLocation: { rowStart, rowSpan, colStart, colSpan },
