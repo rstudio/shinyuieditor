@@ -20,6 +20,9 @@ const ShinyPlotOutput: ShinyUiComponent<ShinyPlotOutputProps> = ({
   // Start tiny so icon isn't the reason the container is big
   const [graphSize, setGraphSize] = React.useState(2);
   React.useEffect(() => {
+    // Use conditionals here because in tests we dont have access to the
+    // ResizeObserver variable
+    if (typeof ResizeObserver === "undefined") return;
     const ro = new ResizeObserver((entries) => {
       if (!holderRef.current) return;
 
