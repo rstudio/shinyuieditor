@@ -36,6 +36,9 @@ function GridCell({
   );
 
   React.useEffect(() => {
+    // Test environment is node and thus doesn't have access to ResizeObserver
+    if (typeof ResizeObserver === "undefined") return;
+
     const currentCell = cellRef.current;
     const ro = new ResizeObserver((entries) => {
       for (let _ of entries) {
