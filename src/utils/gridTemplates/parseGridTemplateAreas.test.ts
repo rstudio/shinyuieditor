@@ -107,6 +107,10 @@ describe("Validate entire templated grid definition", () => {
       numRows: 2,
       numCols: 2,
       uniqueAreas: ["a", "b", "c", "d"],
+      sizes: {
+        rows: ["200px", "300px"],
+        cols: ["4rem", "4rem"],
+      },
       styles: {
         padding: "11px",
         gap: "11px",
