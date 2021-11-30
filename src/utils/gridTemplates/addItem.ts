@@ -10,6 +10,13 @@ export default function addItem(
   const { rowStart, rowEnd, colStart, colEnd } = itemLocationToBounds(item);
   const areasCopy = clone(template.areas);
 
+  // Wipe out any previous entry of this item name if it exists
+  for (let i = 0; i < areasCopy.length; i++) {
+    for (let j = 0; j < areasCopy[0].length; j++) {
+      if (areasCopy[i][j] === name) areasCopy[i][j] = emptyCell;
+    }
+  }
+
   // i and j are in 0-indexed coordinates where as {row,col}{Start,End} are in
   // grid coordinates, hence the funky bounds math.
   for (let i = rowStart - 1; i < rowEnd; i++) {
