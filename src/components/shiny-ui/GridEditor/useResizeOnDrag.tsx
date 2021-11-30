@@ -2,7 +2,6 @@ import clone from "just-clone";
 import React from "react";
 import { getExtentsForAvailableTracts } from "utils/gridTemplates/availableCellsForItem";
 import { ItemLocation, TemplatedGridProps } from "utils/gridTemplates/types";
-import { MovementType } from "./availableMoves";
 import {
   clamp,
   GridItemExtent,
@@ -13,8 +12,9 @@ import { GridCellBounds } from "./index";
 
 type ItemBounds = ReturnType<typeof gridLocationToBounds>;
 
+export type DragDirection = "left" | "right" | "up" | "down";
 type DragInfo = {
-  movementType: MovementType;
+  dragDirection: DragDirection;
   dragBounds: ItemBounds;
   gridItemExtent: GridItemExtent;
   startingBounds: ItemBounds;
@@ -46,7 +46,7 @@ export function useResizeOnDrag({
         );
 
       const {
-        movementType,
+        dragDirection,
         dragBounds,
         startingBounds,
         tractExtents,
@@ -54,75 +54,65 @@ export function useResizeOnDrag({
       } = dragRef.current;
 
       const expansionLimit = tractExtents.maxExtent;
+      const furthestIndex =
+        tractExtents.extents[tractExtents.extents.length - 1].index;
 
-      const insideTract = (tractStart: number, bounds: number) =>
-        movementType === "expand right" || movementType === "expand down"
-          ? tractStart < bounds
-          : tractStart > bounds;
+      // These are the directions where expanding will mean increasing
+      // the tract index
+      const growing = dragDirection === "right" || dragDirection === "down";
+      const firstTractAfterBounds = (newBounds: number) => {
+        for (let tract of tractExtents.extents) {
+          if (growing && newBounds <= tract.start) return tract.index - 1;
+          if (!growing && newBounds >= tract.start) return tract.index + 1;
+        }
+        return furthestIndex;
+      };
 
-      const firstTractAfterBounds = (newBounds: number) =>
-        tractExtents.extents.find(({ start }) => insideTract(start, newBounds))
-          ?.index;
-
-      let newGridExtent: number | undefined;
-      switch (movementType) {
-        case "expand right":
+      // Number of pixels added to prevent inversion of drag box
+      const buffer = 2;
+      switch (dragDirection) {
+        case "right":
           dragBounds.right = clamp({
-            min: startingBounds.right,
+            min: startingBounds.left + buffer,
             val: x,
             max: expansionLimit,
           });
-
-          gridItemExtent.colEnd =
-            firstTractAfterBounds(dragBounds.right) ?? initialGridExtent.colEnd;
-
+          gridItemExtent.colEnd = firstTractAfterBounds(dragBounds.right);
           break;
-        case "expand left":
-          dragBounds.left = clamp({
-            max: startingBounds.left,
-            val: x,
-            min: expansionLimit,
-          });
 
-          gridItemExtent.colStart =
-            firstTractAfterBounds(dragBounds.left) ??
-            initialGridExtent.colStart;
-
-          break;
-        case "expand down":
+        case "down":
           dragBounds.bottom = clamp({
-            min: startingBounds.bottom,
+            min: startingBounds.top + buffer,
             val: y,
             max: expansionLimit,
           });
-          gridItemExtent.rowEnd =
-            firstTractAfterBounds(dragBounds.bottom) ??
-            initialGridExtent.rowEnd;
+          gridItemExtent.rowEnd = firstTractAfterBounds(dragBounds.bottom);
+          break;
+
+        case "left":
+          dragBounds.left = clamp({
+            min: expansionLimit,
+            val: x,
+            max: startingBounds.right - buffer,
+          });
+          gridItemExtent.colStart = firstTractAfterBounds(dragBounds.left);
 
           break;
-        case "expand up":
+
+        case "up":
           dragBounds.top = clamp({
             min: expansionLimit,
             val: y,
-            max: startingBounds.top,
+            max: startingBounds.bottom - buffer,
           });
-          gridItemExtent.rowStart =
-            firstTractAfterBounds(dragBounds.top) ?? initialGridExtent.rowStart;
+          gridItemExtent.rowStart = firstTractAfterBounds(dragBounds.top);
           break;
-        default:
-          console.log("have yet to implement", movementType);
       }
 
       placeItemOnGrid(overlayRef.current, gridItemExtent);
       placeItemAbsolutely(overlayRef.current, dragBounds);
     },
-    [
-      initialGridExtent.colEnd,
-      initialGridExtent.colStart,
-      initialGridExtent.rowEnd,
-      initialGridExtent.rowStart,
-      overlayRef,
-    ]
+    [overlayRef]
   );
 
   const endDrag = React.useCallback(() => {
@@ -139,19 +129,19 @@ export function useResizeOnDrag({
   }, [onDrag, onDragEnd, overlayRef]);
 
   const startDrag = React.useCallback(
-    (movementType: MovementType) => {
+    (dragDirection: DragDirection) => {
       const overlayEl = overlayRef.current;
       if (!overlayEl) return;
 
       const itemBounds = gridLocationToBounds({ cellBounds, gridLocation });
 
       dragRef.current = {
-        movementType,
+        dragDirection,
         startingBounds: clone(itemBounds),
         dragBounds: itemBounds,
         gridItemExtent: gridLocationToExtent(gridLocation),
         tractExtents: getExtentsForAvailableTracts({
-          side: movementType,
+          dragDirection,
           gridLocation,
           layoutAreas,
           cellBounds,

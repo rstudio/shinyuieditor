@@ -51,7 +51,7 @@ export function AreaOverlay({
           <Dragger
             key={movementType}
             className={movementType}
-            onMouseDown={() => startDrag(movementType)}
+            onMouseDown={() => startDrag(simplifySide(movementType))}
           >
             {movementToArrow[movementType]}
           </Dragger>
@@ -70,6 +70,23 @@ export function AreaOverlay({
       {movementHandles}
     </AreaMarker>
   );
+}
+
+function simplifySide(side: MovementType) {
+  switch (side) {
+    case "expand down":
+    case "shrink down":
+      return "down";
+    case "expand up":
+    case "shrink up":
+      return "up";
+    case "expand left":
+    case "shrink left":
+      return "left";
+    case "expand right":
+    case "shrink right":
+      return "right";
+  }
 }
 
 const AreaMarker = styled.div({
