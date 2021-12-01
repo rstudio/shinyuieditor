@@ -23,6 +23,20 @@ export function findAvailableTracts({
   const cellHasItem = (rowIndex: number, colIndex: number) =>
     layoutAreas[rowIndex - 1][colIndex - 1] !== emptyCell;
 
+  // First check for the case where there is no expansion possible
+  // (Aka item is up against the edge)
+  if (dragDirection === "up" && rowStart === 1)
+    return { searchDir: "rows", rowBounds: [rowEnd, rowStart] };
+
+  if (dragDirection === "down" && rowEnd === numRows)
+    return { searchDir: "rows", rowBounds: [rowStart, rowEnd] };
+
+  if (dragDirection === "left" && colStart === 1)
+    return { searchDir: "cols", colBounds: [colEnd, colStart] };
+
+  if (dragDirection === "down" && colEnd === numCols)
+    return { searchDir: "cols", colBounds: [colStart, colEnd] };
+
   if (dragDirection === "up" || dragDirection === "down") {
     const itemColRange = buildRange(colStart, colEnd);
 
