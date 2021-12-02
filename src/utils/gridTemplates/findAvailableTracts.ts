@@ -17,115 +17,97 @@ export function findAvailableTracts({
   const { rowStart, rowEnd, colStart, colEnd } = gridLocationToExtent(
     gridLocation
   );
-  const numRows = layoutAreas.length;
-  const numCols = layoutAreas[0].length;
+  const nRows = layoutAreas.length;
+  const nCols = layoutAreas[0].length;
 
-  // The range and order of tracts to check if the item can expand
-  // This will be increasing for down and right and decreasing for up and left.
-  let expansionBounds: [number, number];
-
-  // The smallest tract the item can shrink to if user drags it to one tract long
-  let starting_tract: number;
-
-  // First check for the case where there is no expansion possible
-  // (Aka item is up against the edge)
-  switch (dragDirection) {
-    case "up":
-      expansionBounds = [rowStart - 1, 1];
-      starting_tract = rowEnd;
-      break;
-    case "down":
-      debugger;
-      expansionBounds = [rowEnd + 1, numRows];
-      starting_tract = rowStart;
-      break;
-    case "left":
-      expansionBounds = [colStart - 1, 1];
-      starting_tract = colEnd;
-      break;
-    case "right":
-      expansionBounds = [colEnd + 1, numCols];
-      starting_tract = colStart;
-      break;
-  }
-
-  const searchDir =
-    dragDirection === "up" || dragDirection === "down" ? "rows" : "cols";
-
-  const furthestExpansion = findFurthestExpansionTract({
-    dragDirection,
-    itemOffDirSpan:
-      searchDir === "rows" ? [colStart, colEnd] : [rowStart, rowEnd],
-    expansionBounds: expansionBounds,
-    layoutAreas,
-  });
-
-  if (searchDir === "rows") {
-    return {
-      searchDir: "rows",
-      rowBounds: [starting_tract, furthestExpansion],
-    };
-  } else {
-    return {
-      searchDir: "cols",
-      colBounds: [starting_tract, furthestExpansion],
-    };
-  }
-}
-
-function findFurthestExpansionTract({
-  dragDirection,
-  itemOffDirSpan,
-  expansionBounds: [expandStart, expandEnd],
-  layoutAreas,
-}: {
-  dragDirection: DragDirection;
-  itemOffDirSpan: [number, number];
-  expansionBounds: [number, number];
-  layoutAreas: TemplatedGridProps["areas"];
-}) {
   // Get general expansion direction and also check to make sure the item isn't
   // up against the edge of the grid meaning no expansion can happen
+
+  // The tract index we start searching outward from when scanning
+  let expandSearchStart: number;
+
+  // Last tract to test (either the start or end of the grid depending on dir)
+  let expandSearchEnd: number;
+
+  // Tract index that the item can shrink to.
+  let availableRangeStart: number;
+
+  // Tract index that the item can expand to.
+  let availableRangeEnd: number | null = null;
+
   switch (dragDirection) {
     case "up":
-      if (expandStart < 1) return 1;
+      if (rowStart === 1) availableRangeEnd = 1;
+      expandSearchStart = rowStart - 1;
+      expandSearchEnd = 1;
+      availableRangeStart = rowEnd;
       break;
 
     case "left":
-      if (expandStart < 1) return 1;
+      if (colStart === 1) availableRangeEnd = 1;
+      expandSearchStart = colStart - 1;
+      expandSearchEnd = 1;
+      availableRangeStart = colEnd;
       break;
 
-    case "down": {
-      const nRows = layoutAreas.length;
-      if (expandStart > nRows) return nRows;
+    case "down":
+      if (rowEnd === nRows) availableRangeEnd = nRows;
+      expandSearchStart = rowEnd + 1;
+      expandSearchEnd = nRows;
+      availableRangeStart = rowStart;
       break;
-    }
 
-    case "right": {
-      const nCols = layoutAreas[0].length;
-      if (expandStart > nCols) return nCols;
+    case "right":
+      if (colEnd === nCols) availableRangeEnd = nCols;
+      expandSearchStart = colEnd + 1;
+      expandSearchEnd = nCols;
+      availableRangeStart = colStart;
       break;
-    }
   }
+
+  const expansionTractDir =
+    dragDirection === "up" || dragDirection === "down" ? "rows" : "cols";
+
+  const [itemOffDirStart, itemOffDirEnd] =
+    expansionTractDir === "rows" ? [colStart, colEnd] : [rowStart, rowEnd];
 
   const cellNotEmpty = (expansionIndex: number, offDirIndex: number) => {
     const [rowIndex, colIndex] =
-      dragDirection === "up" || dragDirection === "down"
+      expansionTractDir === "rows"
         ? [expansionIndex, offDirIndex]
         : [offDirIndex, expansionIndex];
 
     return layoutAreas[rowIndex - 1][colIndex - 1] !== emptyCell;
   };
 
-  const itemOffDirRange = buildRange(...itemOffDirSpan);
-  const expansionRange = buildRange(expandStart, expandEnd);
+  const itemOffDirRange = buildRange(itemOffDirStart, itemOffDirEnd);
+  const expansionRange = buildRange(expandSearchStart, expandSearchEnd);
+
+  // Scan outward from item until we hit another item or the end of the grid
   for (let expansionIndex of expansionRange) {
+    if (availableRangeEnd) break; // we've found max expansion so finish loop
+
     for (let offDirIndex of itemOffDirRange) {
       if (cellNotEmpty(expansionIndex, offDirIndex)) {
-        return expansionIndex - 1;
+        availableRangeEnd = expansionIndex - 1;
+        break;
       }
     }
   }
 
-  return expandEnd;
+  const availableExpansionTracts: [number, number] = [
+    availableRangeStart,
+    availableRangeEnd ?? expandSearchEnd,
+  ];
+
+  if (expansionTractDir === "rows") {
+    return {
+      searchDir: "rows",
+      rowBounds: availableExpansionTracts,
+    };
+  }
+  return {
+    searchDir: "cols",
+    colBounds: availableExpansionTracts,
+  };
 }
