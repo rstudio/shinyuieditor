@@ -28,13 +28,13 @@ export function findAvailableTracts({
   if (dragDirection === "up" && rowStart === 1)
     return { searchDir: "rows", rowBounds: [rowEnd, rowStart] };
 
-  if (dragDirection === "down" && rowEnd === numRows)
-    return { searchDir: "rows", rowBounds: [rowStart, rowEnd] };
-
   if (dragDirection === "left" && colStart === 1)
     return { searchDir: "cols", colBounds: [colEnd, colStart] };
 
-  if (dragDirection === "down" && colEnd === numCols)
+  if (dragDirection === "down" && rowEnd === numRows)
+    return { searchDir: "rows", rowBounds: [rowStart, rowEnd] };
+
+  if (dragDirection === "right" && colEnd === numCols)
     return { searchDir: "cols", colBounds: [colStart, colEnd] };
 
   if (dragDirection === "up" || dragDirection === "down") {
