@@ -23,25 +23,44 @@ export function findAvailableTracts({
   const cellHasItem = (rowIndex: number, colIndex: number) =>
     layoutAreas[rowIndex - 1][colIndex - 1] !== emptyCell;
 
+  // The range and order of tracts to check if the item can expand
+  // This will be increasing for down and right and decreasing for up and left.
+  let expansionBounds: [number, number];
+
+  // The smallest tract the item can shrink to if user drags it to one tract long
+  let starting_tract: number;
+
   // First check for the case where there is no expansion possible
   // (Aka item is up against the edge)
-  if (dragDirection === "up" && rowStart === 1)
-    return { searchDir: "rows", rowBounds: [rowEnd, rowStart] };
-
-  if (dragDirection === "left" && colStart === 1)
-    return { searchDir: "cols", colBounds: [colEnd, colStart] };
-
-  if (dragDirection === "down" && rowEnd === numRows)
-    return { searchDir: "rows", rowBounds: [rowStart, rowEnd] };
-
-  if (dragDirection === "right" && colEnd === numCols)
-    return { searchDir: "cols", colBounds: [colStart, colEnd] };
+  switch (dragDirection) {
+    case "up":
+      if (rowStart === 1)
+        return { searchDir: "rows", rowBounds: [rowEnd, rowStart] };
+      expansionBounds = [rowStart - 1, 1];
+      starting_tract = rowEnd;
+      break;
+    case "down":
+      if (rowEnd === numRows)
+        return { searchDir: "rows", rowBounds: [rowStart, rowEnd] };
+      expansionBounds = [rowEnd + 1, numRows];
+      starting_tract = rowStart;
+      break;
+    case "left":
+      if (colStart === 1)
+        return { searchDir: "cols", colBounds: [colEnd, colStart] };
+      expansionBounds = [colStart - 1, 1];
+      starting_tract = colEnd;
+      break;
+    case "right":
+      if (colEnd === numCols)
+        return { searchDir: "cols", colBounds: [colStart, colEnd] };
+      expansionBounds = [colEnd + 1, numCols];
+      starting_tract = colStart;
+      break;
+  }
 
   if (dragDirection === "up" || dragDirection === "down") {
     const itemColRange = buildRange(colStart, colEnd);
-
-    const expansionBounds: [number, number] =
-      dragDirection === "down" ? [rowEnd + 1, numRows] : [rowStart - 1, 1];
 
     for (let rowIndex of buildRange(...expansionBounds)) {
       const otherItemInRow = itemColRange.some((colIndex) =>
@@ -56,16 +75,10 @@ export function findAvailableTracts({
 
     return {
       searchDir: "rows",
-      rowBounds:
-        dragDirection === "down"
-          ? [rowStart, expansionBounds[1]]
-          : [rowEnd, expansionBounds[1]],
+      rowBounds: [starting_tract, expansionBounds[1]],
     };
   } else {
     const itemRowRange = buildRange(rowStart, rowEnd);
-
-    const expansionBounds: [number, number] =
-      dragDirection === "right" ? [colEnd + 1, numCols] : [colStart - 1, 1];
 
     for (let colIndex of buildRange(...expansionBounds)) {
       const otherItemInCol = itemRowRange.some((rowIndex) =>
@@ -80,10 +93,7 @@ export function findAvailableTracts({
 
     return {
       searchDir: "cols",
-      colBounds:
-        dragDirection === "right"
-          ? [colStart, expansionBounds[1]]
-          : [colEnd, expansionBounds[1]],
+      colBounds: [starting_tract, expansionBounds[1]],
     };
   }
 }
