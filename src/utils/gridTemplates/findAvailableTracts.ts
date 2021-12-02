@@ -2,7 +2,6 @@ import { DragDirection } from "components/shiny-ui/GridEditor/useResizeOnDrag";
 import { buildRange } from "utils/array-helpers";
 import { ItemLocation, TemplatedGridProps } from "utils/gridTemplates/types";
 import { gridLocationToExtent } from "../../components/shiny-ui/GridEditor/helpers";
-import { TractRegion } from "./availableCellsForItem";
 import { emptyCell } from "./itemLocations";
 
 export function findAvailableTracts({
@@ -13,7 +12,10 @@ export function findAvailableTracts({
   dragDirection: DragDirection;
   gridLocation: ItemLocation;
   layoutAreas: TemplatedGridProps["areas"];
-}): TractRegion {
+}): {
+  searchDir: "rows" | "cols";
+  searchBounds: [number, number];
+} {
   const { rowStart, rowEnd, colStart, colEnd } = gridLocationToExtent(
     gridLocation
   );
@@ -95,19 +97,8 @@ export function findAvailableTracts({
     }
   }
 
-  const availableExpansionTracts: [number, number] = [
-    availableRangeStart,
-    availableRangeEnd ?? expandSearchEnd,
-  ];
-
-  if (expansionTractDir === "rows") {
-    return {
-      searchDir: "rows",
-      rowBounds: availableExpansionTracts,
-    };
-  }
   return {
-    searchDir: "cols",
-    colBounds: availableExpansionTracts,
+    searchDir: expansionTractDir,
+    searchBounds: [availableRangeStart, availableRangeEnd ?? expandSearchEnd],
   };
 }

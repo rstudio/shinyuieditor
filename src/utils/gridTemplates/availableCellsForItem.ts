@@ -6,17 +6,6 @@ import { ItemLocation, TemplatedGridProps } from "utils/gridTemplates/types";
 import { boundingBoxToExtent } from "../../components/shiny-ui/GridEditor/helpers";
 import { findAvailableTracts } from "./findAvailableTracts";
 
-export type TractBounds = [number, number];
-export type TractRegion =
-  | {
-      searchDir: "rows";
-      rowBounds: TractBounds | null;
-    }
-  | {
-      searchDir: "cols";
-      colBounds: TractBounds | null;
-    };
-
 export function getExtentsForAvailableTracts({
   dragDirection,
   gridLocation,
