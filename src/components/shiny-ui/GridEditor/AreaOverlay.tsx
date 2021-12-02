@@ -6,6 +6,7 @@ import {
   movementToArrow,
   MovementType,
 } from "./availableMoves";
+import { RiDragMove2Line as MoveIcon } from "react-icons/ri";
 import { GridItemExtent } from "./helpers";
 import { CellLocRef } from "./index";
 import { useResizeOnDrag } from "./useResizeOnDrag";
@@ -68,6 +69,9 @@ export function AreaOverlay({
   return (
     <AreaMarker ref={overlayRef} className="grid-area-overlay">
       {movementHandles}
+      <Dragger className="move" onMouseDown={() => startDrag("move")}>
+        <MoveIcon />
+      </Dragger>
     </AreaMarker>
   );
 }
@@ -131,6 +135,13 @@ const Dragger = styled.div({
   position: "absolute",
   backgroundColor: "var(--rstudio-blue)",
   color: "var(--rstudio-white)",
+  "&.move": {
+    height: `${draggerLong}px`,
+    width: `${draggerLong}px`,
+    left: `calc(50% - ${draggerLong / 2}px)`,
+    top: `calc(50% - ${draggerLong / 2}px)`,
+    cursor: "grab",
+  },
   "&.up,&.down": {
     height: `${draggerShort}px`,
     width: `${draggerLong}px`,

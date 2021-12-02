@@ -13,6 +13,7 @@ import { GridCellBounds } from "./index";
 type ItemBounds = ReturnType<typeof gridLocationToBounds>;
 
 export type DragDirection = "left" | "right" | "up" | "down";
+
 type DragInfo = {
   dragDirection: DragDirection;
   dragBounds: ItemBounds;
@@ -129,11 +130,17 @@ export function useResizeOnDrag({
   }, [onDrag, onDragEnd, overlayRef]);
 
   const startDrag = React.useCallback(
-    (dragDirection: DragDirection) => {
+    (dragDirection: DragDirection | "move") => {
       const overlayEl = overlayRef.current;
       if (!overlayEl) return;
 
       const itemBounds = gridLocationToBounds({ cellBounds, gridLocation });
+
+      if (dragDirection === "move") {
+        console.log("Moving item", initialGridExtent);
+
+        return;
+      }
 
       dragRef.current = {
         dragDirection,

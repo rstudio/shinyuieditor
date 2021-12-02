@@ -4,6 +4,7 @@ import {
   AiFillCaretRight,
   AiFillCaretUp,
 } from "react-icons/ai";
+
 import { buildRange } from "utils/array-helpers";
 import { emptyCell } from "utils/gridTemplates/itemLocations";
 import { ItemLocation, TemplatedGridProps } from "utils/gridTemplates/types";
