@@ -20,9 +20,6 @@ export function findAvailableTracts({
   const numRows = layoutAreas.length;
   const numCols = layoutAreas[0].length;
 
-  const cellHasItem = (rowIndex: number, colIndex: number) =>
-    layoutAreas[rowIndex - 1][colIndex - 1] !== emptyCell;
-
   // The range and order of tracts to check if the item can expand
   // This will be increasing for down and right and decreasing for up and left.
   let expansionBounds: [number, number];
@@ -34,66 +31,101 @@ export function findAvailableTracts({
   // (Aka item is up against the edge)
   switch (dragDirection) {
     case "up":
-      if (rowStart === 1)
-        return { searchDir: "rows", rowBounds: [rowEnd, rowStart] };
       expansionBounds = [rowStart - 1, 1];
       starting_tract = rowEnd;
       break;
     case "down":
-      if (rowEnd === numRows)
-        return { searchDir: "rows", rowBounds: [rowStart, rowEnd] };
+      debugger;
       expansionBounds = [rowEnd + 1, numRows];
       starting_tract = rowStart;
       break;
     case "left":
-      if (colStart === 1)
-        return { searchDir: "cols", colBounds: [colEnd, colStart] };
       expansionBounds = [colStart - 1, 1];
       starting_tract = colEnd;
       break;
     case "right":
-      if (colEnd === numCols)
-        return { searchDir: "cols", colBounds: [colStart, colEnd] };
       expansionBounds = [colEnd + 1, numCols];
       starting_tract = colStart;
       break;
   }
 
-  if (dragDirection === "up" || dragDirection === "down") {
-    const itemColRange = buildRange(colStart, colEnd);
+  const searchDir =
+    dragDirection === "up" || dragDirection === "down" ? "rows" : "cols";
 
-    for (let rowIndex of buildRange(...expansionBounds)) {
-      const otherItemInRow = itemColRange.some((colIndex) =>
-        cellHasItem(rowIndex, colIndex)
-      );
-      if (otherItemInRow) {
-        // If we've entered a row with an item, back up bounds and finish
-        expansionBounds[1] = rowIndex - 1;
-        break;
-      }
-    }
+  const furthestExpansion = findFurthestExpansionTract({
+    dragDirection,
+    itemOffDirSpan:
+      searchDir === "rows" ? [colStart, colEnd] : [rowStart, rowEnd],
+    expansionBounds: expansionBounds,
+    layoutAreas,
+  });
 
+  if (searchDir === "rows") {
     return {
       searchDir: "rows",
-      rowBounds: [starting_tract, expansionBounds[1]],
+      rowBounds: [starting_tract, furthestExpansion],
     };
   } else {
-    const itemRowRange = buildRange(rowStart, rowEnd);
-
-    for (let colIndex of buildRange(...expansionBounds)) {
-      const otherItemInCol = itemRowRange.some((rowIndex) =>
-        cellHasItem(rowIndex, colIndex)
-      );
-      if (otherItemInCol) {
-        // If we've entered a col with an item, back up bounds and finish
-        expansionBounds[1] = colIndex - 1;
-        break;
-      }
-    }
-
     return {
       searchDir: "cols",
-      colBounds: [starting_tract, expansionBounds[1]],
+      colBounds: [starting_tract, furthestExpansion],
     };
   }
+}
+
+function findFurthestExpansionTract({
+  dragDirection,
+  itemOffDirSpan,
+  expansionBounds: [expandStart, expandEnd],
+  layoutAreas,
+}: {
+  dragDirection: DragDirection;
+  itemOffDirSpan: [number, number];
+  expansionBounds: [number, number];
+  layoutAreas: TemplatedGridProps["areas"];
+}) {
+  // Get general expansion direction and also check to make sure the item isn't
+  // up against the edge of the grid meaning no expansion can happen
+  switch (dragDirection) {
+    case "up":
+      if (expandStart < 1) return 1;
+      break;
+
+    case "left":
+      if (expandStart < 1) return 1;
+      break;
+
+    case "down": {
+      const nRows = layoutAreas.length;
+      if (expandStart > nRows) return nRows;
+      break;
+    }
+
+    case "right": {
+      const nCols = layoutAreas[0].length;
+      if (expandStart > nCols) return nCols;
+      break;
+    }
+  }
+
+  const cellNotEmpty = (expansionIndex: number, offDirIndex: number) => {
+    const [rowIndex, colIndex] =
+      dragDirection === "up" || dragDirection === "down"
+        ? [expansionIndex, offDirIndex]
+        : [offDirIndex, expansionIndex];
+
+    return layoutAreas[rowIndex - 1][colIndex - 1] !== emptyCell;
+  };
+
+  const itemOffDirRange = buildRange(...itemOffDirSpan);
+  const expansionRange = buildRange(expandStart, expandEnd);
+  for (let expansionIndex of expansionRange) {
+    for (let offDirIndex of itemOffDirRange) {
+      if (cellNotEmpty(expansionIndex, offDirIndex)) {
+        return expansionIndex - 1;
+      }
+    }
+  }
+
+  return expandEnd;
 }
