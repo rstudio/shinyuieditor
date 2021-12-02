@@ -59,8 +59,6 @@ export default function GridEditor({
     onNewArea({ area: newAreaName });
   };
 
-  useShowDiffs({ val: layout });
-
   const {
     numRows,
     numCols,
