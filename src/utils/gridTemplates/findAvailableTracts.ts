@@ -12,10 +12,7 @@ export function findAvailableTracts({
   dragDirection: DragDirection;
   gridLocation: ItemLocation;
   layoutAreas: TemplatedGridProps["areas"];
-}): {
-  searchDir: "rows" | "cols";
-  searchBounds: [number, number];
-} {
+}): [number, number] {
   const { rowStart, rowEnd, colStart, colEnd } = gridLocationToExtent(
     gridLocation
   );
@@ -33,34 +30,31 @@ export function findAvailableTracts({
 
   // Tract index that the item can shrink to.
   let availableRangeStart: number;
-
-  // Tract index that the item can expand to.
-  let availableRangeEnd: number | null = null;
-
+  debugger;
   switch (dragDirection) {
     case "up":
-      if (rowStart === 1) availableRangeEnd = 1;
+      if (rowStart === 1) return [rowEnd, 1];
       expandSearchStart = rowStart - 1;
       expandSearchEnd = 1;
       availableRangeStart = rowEnd;
       break;
 
     case "left":
-      if (colStart === 1) availableRangeEnd = 1;
+      if (colStart === 1) return [colEnd, 1];
       expandSearchStart = colStart - 1;
       expandSearchEnd = 1;
       availableRangeStart = colEnd;
       break;
 
     case "down":
-      if (rowEnd === nRows) availableRangeEnd = nRows;
+      if (rowEnd === nRows) return [rowStart, nRows];
       expandSearchStart = rowEnd + 1;
       expandSearchEnd = nRows;
       availableRangeStart = rowStart;
       break;
 
     case "right":
-      if (colEnd === nCols) availableRangeEnd = nCols;
+      if (colEnd === nCols) return [colStart, nCols];
       expandSearchStart = colEnd + 1;
       expandSearchEnd = nCols;
       availableRangeStart = colStart;
@@ -87,18 +81,13 @@ export function findAvailableTracts({
 
   // Scan outward from item until we hit another item or the end of the grid
   for (let expansionIndex of expansionRange) {
-    if (availableRangeEnd) break; // we've found max expansion so finish loop
-
     for (let offDirIndex of itemOffDirRange) {
       if (cellNotEmpty(expansionIndex, offDirIndex)) {
-        availableRangeEnd = expansionIndex - 1;
-        break;
+        // we've found max expansion so finish loop
+        return [availableRangeStart, expansionIndex - 1];
       }
     }
   }
 
-  return {
-    searchDir: expansionTractDir,
-    searchBounds: [availableRangeStart, availableRangeEnd ?? expandSearchEnd],
-  };
+  return [availableRangeStart, expandSearchEnd];
 }

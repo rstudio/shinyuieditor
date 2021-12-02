@@ -30,33 +30,9 @@ export function getExtentsForAvailableTracts({
     layoutAreas,
   });
 
-  let extents: {
-    index: number;
-    start: number;
-    end: number;
-  }[];
-
-  if (availableTracts.searchDir === "rows") {
-    if (availableTracts.rowBounds === null) throw new Error(cantExpandError);
-
-    extents = buildRange(...availableTracts.rowBounds).map((rowIndex) => {
-      const bounds = getCellExtents({ rowIndex }, cellBounds);
-
-      return dragDirection === "down"
-        ? { index: rowIndex, start: bounds.top, end: bounds.bottom }
-        : { index: rowIndex, start: bounds.bottom, end: bounds.top };
-    });
-  } else {
-    if (availableTracts.colBounds === null) throw new Error(cantExpandError);
-
-    extents = buildRange(...availableTracts.colBounds).map((colIndex) => {
-      const bounds = getCellExtents({ colIndex }, cellBounds);
-
-      return dragDirection === "right"
-        ? { index: colIndex, start: bounds.left, end: bounds.right }
-        : { index: colIndex, start: bounds.right, end: bounds.left };
-    });
-  }
+  const extents = buildRange(...availableTracts).map((index) =>
+    getExtents({ dragDirection, index, cellBounds })
+  );
 
   return {
     maxExtent: extents[extents.length - 1].end,
@@ -64,17 +40,32 @@ export function getExtentsForAvailableTracts({
   };
 }
 
-function getCellExtents(
-  {
-    rowIndex: row = 1,
-    colIndex: col = 1,
-  }: {
-    rowIndex?: number;
-    colIndex?: number;
-  },
-  cellBounds: GridCellBounds
-) {
-  return boundingBoxToExtent(cellBounds[toStringLoc({ row, col })]);
+function getExtents({
+  dragDirection,
+  index,
+  cellBounds,
+}: {
+  dragDirection: DragDirection;
+  index: number;
+  cellBounds: GridCellBounds;
+}) {
+  const boxPosition =
+    dragDirection === "up" || dragDirection === "down"
+      ? { row: index, col: 1 }
+      : { col: index, row: 1 };
+
+  const { top, bottom, left, right } = boundingBoxToExtent(
+    cellBounds[toStringLoc(boxPosition)]
+  );
+
+  switch (dragDirection) {
+    case "up":
+      return { index, start: bottom, end: top };
+    case "down":
+      return { index, start: top, end: bottom };
+    case "left":
+      return { index, start: right, end: left };
+    case "right":
+      return { index, start: left, end: right };
+  }
 }
-const cantExpandError =
-  "Can't check expansion room for an item that can't be expanded";
