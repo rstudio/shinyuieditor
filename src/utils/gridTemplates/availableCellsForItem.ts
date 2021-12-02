@@ -24,13 +24,13 @@ export function getExtentsForAvailableTracts({
     end: number;
   }[];
 } {
-  const availableTracts = findAvailableTracts({
+  const { shrinkExtent, growExtent } = findAvailableTracts({
     dragDirection,
     gridLocation,
     layoutAreas,
   });
 
-  const extents = buildRange(...availableTracts).map((index) =>
+  const extents = buildRange(shrinkExtent, growExtent).map((index) =>
     getExtents({ dragDirection, index, cellBounds })
   );
 

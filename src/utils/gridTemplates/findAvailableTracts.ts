@@ -12,7 +12,7 @@ export function findAvailableTracts({
   dragDirection: DragDirection;
   gridLocation: ItemLocation;
   layoutAreas: TemplatedGridProps["areas"];
-}): [number, number] {
+}): { shrinkExtent: number; growExtent: number } {
   const { rowStart, rowEnd, colStart, colEnd } = gridLocationToExtent(
     gridLocation
   );
@@ -30,31 +30,32 @@ export function findAvailableTracts({
 
   // Tract index that the item can shrink to.
   let availableRangeStart: number;
-  debugger;
   switch (dragDirection) {
     case "up":
-      if (rowStart === 1) return [rowEnd, 1];
+      if (rowStart === 1) return { shrinkExtent: rowEnd, growExtent: 1 };
       expandSearchStart = rowStart - 1;
       expandSearchEnd = 1;
       availableRangeStart = rowEnd;
       break;
 
     case "left":
-      if (colStart === 1) return [colEnd, 1];
+      if (colStart === 1) return { shrinkExtent: colEnd, growExtent: 1 };
       expandSearchStart = colStart - 1;
       expandSearchEnd = 1;
       availableRangeStart = colEnd;
       break;
 
     case "down":
-      if (rowEnd === nRows) return [rowStart, nRows];
+      if (rowEnd === nRows)
+        return { shrinkExtent: rowStart, growExtent: nRows };
       expandSearchStart = rowEnd + 1;
       expandSearchEnd = nRows;
       availableRangeStart = rowStart;
       break;
 
     case "right":
-      if (colEnd === nCols) return [colStart, nCols];
+      if (colEnd === nCols)
+        return { shrinkExtent: colStart, growExtent: nCols };
       expandSearchStart = colEnd + 1;
       expandSearchEnd = nCols;
       availableRangeStart = colStart;
@@ -84,10 +85,13 @@ export function findAvailableTracts({
     for (let offDirIndex of itemOffDirRange) {
       if (cellNotEmpty(expansionIndex, offDirIndex)) {
         // we've found max expansion so finish loop
-        return [availableRangeStart, expansionIndex - 1];
+        return {
+          shrinkExtent: availableRangeStart,
+          growExtent: expansionIndex - 1,
+        };
       }
     }
   }
 
-  return [availableRangeStart, expandSearchEnd];
+  return { shrinkExtent: availableRangeStart, growExtent: expandSearchEnd };
 }
