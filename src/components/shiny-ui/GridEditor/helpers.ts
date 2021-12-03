@@ -63,6 +63,15 @@ export function gridLocationToBounds({
   };
 }
 
+export function centerOfBounds({
+  top,
+  left,
+  right,
+  bottom,
+}: ReturnType<typeof gridLocationToBounds>) {
+  return { x: (left + right) / 2, y: (top + bottom) / 2 };
+}
+
 export function clamp({
   min = -Infinity,
   val,

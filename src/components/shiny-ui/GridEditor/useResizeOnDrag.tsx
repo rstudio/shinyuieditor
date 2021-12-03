@@ -1,8 +1,10 @@
 import clone from "just-clone";
 import React from "react";
 import { getExtentsForAvailableTracts } from "utils/gridTemplates/availableCellsForItem";
+import { centersOfAvailableBlocks } from "utils/gridTemplates/moveCandidatesForItem";
 import { ItemLocation, TemplatedGridProps } from "utils/gridTemplates/types";
 import {
+  centerOfBounds,
   clamp,
   GridItemExtent,
   gridLocationToBounds,
@@ -14,13 +16,21 @@ type ItemBounds = ReturnType<typeof gridLocationToBounds>;
 
 export type DragDirection = "left" | "right" | "up" | "down";
 
-type DragInfo = {
-  dragDirection: DragDirection;
-  dragBounds: ItemBounds;
-  gridItemExtent: GridItemExtent;
-  startingBounds: ItemBounds;
-  tractExtents: ReturnType<typeof getExtentsForAvailableTracts>;
-};
+type DragInfo =
+  | {
+      type: "resize";
+      dragDirection: DragDirection;
+      dragBounds: ItemBounds;
+      gridItemExtent: GridItemExtent;
+      startingBounds: ItemBounds;
+      tractExtents: ReturnType<typeof getExtentsForAvailableTracts>;
+    }
+  | {
+      type: "move";
+      availableMoves: ReturnType<typeof centersOfAvailableBlocks>;
+      currentPos: { x: number; y: number };
+      gridItemExtent: GridItemExtent;
+    };
 
 export function useResizeOnDrag({
   overlayRef,
@@ -45,6 +55,10 @@ export function useResizeOnDrag({
         throw new Error(
           "For some reason we are observing dragging when we shouldn't"
         );
+      if (dragRef.current.type === "move") {
+        console.log({ x, y });
+        return;
+      }
 
       const {
         dragDirection,
@@ -139,21 +153,31 @@ export function useResizeOnDrag({
       if (dragDirection === "move") {
         console.log("Moving item", initialGridExtent);
 
-        return;
-      }
-
-      dragRef.current = {
-        dragDirection,
-        startingBounds: clone(itemBounds),
-        dragBounds: itemBounds,
-        gridItemExtent: gridLocationToExtent(gridLocation),
-        tractExtents: getExtentsForAvailableTracts({
+        dragRef.current = {
+          type: "move",
+          availableMoves: centersOfAvailableBlocks({
+            ...gridLocation,
+            layoutAreas,
+            cellBounds,
+          }),
+          currentPos: centerOfBounds(itemBounds),
+          gridItemExtent: initialGridExtent,
+        };
+      } else {
+        dragRef.current = {
+          type: "resize",
           dragDirection,
-          gridLocation,
-          layoutAreas,
-          cellBounds,
-        }),
-      };
+          startingBounds: clone(itemBounds),
+          dragBounds: itemBounds,
+          gridItemExtent: gridLocationToExtent(gridLocation),
+          tractExtents: getExtentsForAvailableTracts({
+            dragDirection,
+            gridLocation,
+            layoutAreas,
+            cellBounds,
+          }),
+        };
+      }
 
       overlayEl.classList.add("dragging");
 
@@ -163,7 +187,15 @@ export function useResizeOnDrag({
       document.addEventListener("mousemove", onDrag);
       document.addEventListener("mouseup", endDrag, { once: true });
     },
-    [cellBounds, endDrag, gridLocation, layoutAreas, onDrag, overlayRef]
+    [
+      cellBounds,
+      endDrag,
+      gridLocation,
+      initialGridExtent,
+      layoutAreas,
+      onDrag,
+      overlayRef,
+    ]
   );
 
   return startDrag;

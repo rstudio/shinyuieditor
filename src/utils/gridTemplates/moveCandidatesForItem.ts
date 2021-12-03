@@ -1,4 +1,9 @@
-import { GridItemExtent } from "components/shiny-ui/GridEditor/helpers";
+import { GridCellBounds } from "components/shiny-ui/GridEditor";
+import {
+  centerOfBounds,
+  GridItemExtent,
+  gridLocationToBounds,
+} from "components/shiny-ui/GridEditor/helpers";
 import { matrixDimensions } from "utils/matrix-helpers";
 import { emptyCell } from "./itemLocations";
 import { ItemLocation, TemplatedGridProps } from "./types";
@@ -46,3 +51,49 @@ export default function moveCandidatesForItem({
 
   return freeBlocks;
 }
+
+export function centersOfAvailableBlocks({
+  rowSpan,
+  colSpan,
+  layoutAreas,
+  cellBounds,
+}: {
+  rowSpan: number;
+  colSpan: number;
+  layoutAreas: TemplatedGridProps["areas"];
+  cellBounds: GridCellBounds;
+}): { block: ItemLocation; center: { x: number; y: number } }[] {
+  const availableBlocks = moveCandidatesForItem({
+    rowSpan,
+    colSpan,
+    layoutAreas,
+  });
+
+  return availableBlocks.map((block) => {
+    return {
+      block,
+      center: centerOfBounds(
+        gridLocationToBounds({
+          gridLocation: block,
+          cellBounds,
+        })
+      ),
+    };
+  });
+}
+
+// function findClosestAvailableBlock(currentPos: Point, blocks: GridBlock[]) {
+//   // Loop through all blocks possible to move to and keep track of the closest
+//   // one to the current drag.
+//   let distToClosest: number = Infinity;
+//   let currentClosestBlock: GridBlock = blocks[0];
+//   blocks.forEach((block) => {
+//     const distToBlock = distBetween(currentPos, block.center);
+//     if (distToBlock < distToClosest) {
+//       currentClosestBlock = block;
+//       distToClosest = distToBlock;
+//     }
+//   });
+
+//   return currentClosestBlock;
+// }
