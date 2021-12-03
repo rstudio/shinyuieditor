@@ -51,26 +51,24 @@ export default function moveCandidatesForItem(
   return freeBlocks;
 }
 
+export type AvailableBlocks = {
+  block: ItemLocation;
+  center: { x: number; y: number };
+}[];
+
 export function centersOfAvailableBlocks({
-  rowSpan,
-  colSpan,
+  itemLoc,
   layoutAreas,
   cellBounds,
 }: {
-  rowSpan: number;
-  colSpan: number;
+  itemLoc: ItemLocation;
   layoutAreas: TemplatedGridProps["areas"];
   cellBounds: GridCellBounds;
-}): { block: ItemLocation; center: { x: number; y: number } }[] {
-  const availableBlocks = moveCandidatesForItem({
-    rowSpan,
-    colSpan,
-    layoutAreas,
-  });
-
-  return availableBlocks.map((block) => {
+}): AvailableBlocks {
+  return moveCandidatesForItem(itemLoc, layoutAreas).map((block, i) => {
     return {
       block,
+      isSelf: i === 0,
       center: centerOfBounds(
         gridLocationToBounds({
           gridLocation: block,
@@ -81,18 +79,48 @@ export function centersOfAvailableBlocks({
   });
 }
 
-// function findClosestAvailableBlock(currentPos: Point, blocks: GridBlock[]) {
-//   // Loop through all blocks possible to move to and keep track of the closest
-//   // one to the current drag.
-//   let distToClosest: number = Infinity;
-//   let currentClosestBlock: GridBlock = blocks[0];
-//   blocks.forEach((block) => {
-//     const distToBlock = distBetween(currentPos, block.center);
-//     if (distToBlock < distToClosest) {
-//       currentClosestBlock = block;
-//       distToClosest = distToBlock;
-//     }
-//   });
+type Point = { x: number; y: number };
+export function findClosestAvailableBlock(
+  currentPos: Point,
+  availableBlocks: AvailableBlocks
+) {
+  // Loop through all blocks possible to move to and keep track of the closest
+  // one to the current drag.
+  let distToClosest: number = Infinity;
+  let currentClosestBlock: ItemLocation = availableBlocks[0].block;
+  availableBlocks.forEach(({ block, center }) => {
+    const distToBlock = distBetween(currentPos, center);
+    if (distToBlock < distToClosest) {
+      currentClosestBlock = block;
+      distToClosest = distToBlock;
+    }
+  });
+  return currentClosestBlock;
+}
+function distBetween(a: Point, b: Point) {
+  return Math.sqrt(Math.pow(b.x - a.x, 2) + Math.pow(b.y - a.y, 2));
+}
 
-//   return currentClosestBlock;
-// }
+export function sameLocation(
+  a?: ItemLocation | GridItemExtent,
+  b?: ItemLocation | GridItemExtent
+) {
+  if (typeof a === "undefined" && typeof b === "undefined") return true;
+
+  // If any one of them is undefined now, then one is and the other isnt
+  if (typeof a === "undefined" || typeof b === "undefined") return false;
+
+  if ("colSpan" in a) {
+    a = gridLocationToExtent(a);
+  }
+  if ("colSpan" in b) {
+    b = gridLocationToExtent(b);
+  }
+
+  return (
+    a.colStart === b.colStart &&
+    a.colEnd === b.colEnd &&
+    a.rowStart === b.rowStart &&
+    a.rowEnd === b.rowEnd
+  );
+}

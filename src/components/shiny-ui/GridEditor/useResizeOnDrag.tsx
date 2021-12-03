@@ -1,7 +1,12 @@
 import clone from "just-clone";
 import React from "react";
 import { getExtentsForAvailableTracts } from "utils/gridTemplates/availableCellsForItem";
-import { centersOfAvailableBlocks } from "utils/gridTemplates/moveCandidatesForItem";
+import {
+  AvailableBlocks,
+  centersOfAvailableBlocks,
+  findClosestAvailableBlock,
+  sameLocation,
+} from "utils/gridTemplates/moveCandidatesForItem";
 import { ItemLocation, TemplatedGridProps } from "utils/gridTemplates/types";
 import {
   centerOfBounds,
@@ -27,7 +32,7 @@ type DragInfo =
     }
   | {
       type: "move";
-      availableMoves: ReturnType<typeof centersOfAvailableBlocks>;
+      availableBlocks: AvailableBlocks;
       currentPos: { x: number; y: number };
       gridItemExtent: GridItemExtent;
     };
@@ -55,8 +60,21 @@ export function useResizeOnDrag({
         throw new Error(
           "For some reason we are observing dragging when we shouldn't"
         );
-      if (dragRef.current.type === "move") {
-        console.log({ x, y });
+      const dragState = dragRef.current;
+      if (dragState.type === "move") {
+        const currentPos = { x, y };
+        const { availableBlocks, gridItemExtent } = dragState;
+
+        const currentClosest = findClosestAvailableBlock(
+          currentPos,
+          availableBlocks
+        );
+
+        if (sameLocation(currentClosest, gridItemExtent)) return;
+
+        dragState.gridItemExtent = gridLocationToExtent(currentClosest);
+        placeItemOnGrid(overlayRef.current, dragState.gridItemExtent);
+
         return;
       }
 
@@ -66,7 +84,7 @@ export function useResizeOnDrag({
         startingBounds,
         tractExtents,
         gridItemExtent,
-      } = dragRef.current;
+      } = dragState;
 
       const expansionLimit = tractExtents.maxExtent;
       const furthestIndex =
@@ -134,14 +152,16 @@ export function useResizeOnDrag({
     const overlayEl = overlayRef.current;
     if (!overlayEl) return;
 
-    if (dragRef.current?.gridItemExtent) {
-      // TODO also check if the position has actually changed to avoid unneeded
-      // refires.
+    // Fire the end location function as long as the item location has changed
+    if (
+      dragRef.current?.gridItemExtent &&
+      !sameLocation(dragRef.current.gridItemExtent, initialGridExtent)
+    ) {
       onDragEnd(dragRef.current.gridItemExtent);
     }
     overlayEl.classList.remove("dragging");
     document.removeEventListener("mousemove", onDrag);
-  }, [onDrag, onDragEnd, overlayRef]);
+  }, [initialGridExtent, onDrag, onDragEnd, overlayRef]);
 
   const startDrag = React.useCallback(
     (dragDirection: DragDirection | "move") => {
@@ -151,12 +171,10 @@ export function useResizeOnDrag({
       const itemBounds = gridLocationToBounds({ cellBounds, gridLocation });
 
       if (dragDirection === "move") {
-        console.log("Moving item", initialGridExtent);
-
         dragRef.current = {
           type: "move",
-          availableMoves: centersOfAvailableBlocks({
-            ...gridLocation,
+          availableBlocks: centersOfAvailableBlocks({
+            itemLoc: gridLocation,
             layoutAreas,
             cellBounds,
           }),
