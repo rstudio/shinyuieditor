@@ -4,26 +4,52 @@ import { emptyCell } from "./itemLocations";
 import { ItemLocation, TemplatedGridProps } from "./types";
 
 export default function moveCandidatesForItem({
-  itemLocation: { rowStart, rowSpan, colStart, colSpan },
+  rowSpan,
+  colSpan,
   layoutAreas,
 }: {
-  itemLocation: ItemLocation;
+  rowSpan: number;
+  colSpan: number;
   layoutAreas: TemplatedGridProps["areas"];
 }): ItemLocation[] {
+  const freeBlocks: ItemLocation[] = [];
   const { numRows, numCols } = matrixDimensions(layoutAreas);
 
-  for (let i = 0; i < numRows; i++) {
-    const rowIndex = i + 1;
-    for (let j = 0; j < numCols; j++) {
-      const colIndex = j + 1;
-      const cellValue = layoutAreas[i][j];
+  const isFree = ({
+    rowIndex,
+    colIndex,
+  }: {
+    rowIndex: number;
+    colIndex: number;
+  }) =>
+    blockIsFree(
+      {
+        rowStart: rowIndex,
+        rowEnd: rowIndex + rowSpan - 1,
+        colStart: colIndex,
+        colEnd: colIndex + colSpan - 1,
+      },
+      layoutAreas
+    );
+
+  // Since we check outwards we shound not traverse the whole grid in this loop
+  for (let rowIndex = 1; rowIndex <= numRows - rowSpan + 1; rowIndex++) {
+    for (let colIndex = 1; colIndex <= numCols - colSpan + 1; colIndex++) {
+      if (isFree({ rowIndex, colIndex })) {
+        freeBlocks.push({
+          rowStart: rowIndex,
+          rowSpan,
+          colStart: colIndex,
+          colSpan,
+        });
+      }
     }
   }
 
-  return [];
+  return freeBlocks;
 }
 
-export function blockIsFree(
+function blockIsFree(
   { rowStart, rowEnd, colStart, colEnd }: GridItemExtent,
   layoutAreas: TemplatedGridProps["areas"]
 ) {
