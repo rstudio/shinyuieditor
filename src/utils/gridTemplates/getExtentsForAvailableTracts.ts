@@ -3,9 +3,15 @@ import { DragDirection } from "components/shiny-ui/GridEditor/useResizeOnDrag";
 import { buildRange } from "utils/array-helpers";
 import { toStringLoc } from "utils/grid-helpers";
 import { ItemLocation, TemplatedGridProps } from "utils/gridTemplates/types";
+import { SelectionRect } from "utils/overlap-helpers";
 import { boundingBoxToExtent } from "../../components/shiny-ui/GridEditor/helpers";
 import findAvailableTracts from "./findAvailableTracts";
 
+type TractExtent = {
+  index: number;
+  start: number;
+  end: number;
+};
 export function getExtentsForAvailableTracts({
   dragDirection,
   gridLocation,
@@ -18,11 +24,7 @@ export function getExtentsForAvailableTracts({
   cellBounds: GridCellBounds;
 }): {
   maxExtent: number;
-  extents: {
-    index: number;
-    start: number;
-    end: number;
-  }[];
+  extents: TractExtent[];
 } {
   const { shrinkExtent, growExtent } = findAvailableTracts({
     dragDirection,
@@ -30,9 +32,22 @@ export function getExtentsForAvailableTracts({
     layoutAreas,
   });
 
-  const extents = buildRange(shrinkExtent, growExtent).map((index) =>
-    getExtents({ dragDirection, index, cellBounds })
-  );
+  const searchingRows = dragDirection === "up" || dragDirection === "down";
+
+  const getStartAndEndOfExtent = startAndEndOfExtentForDir[dragDirection];
+
+  const extents = buildRange(shrinkExtent, growExtent).map((index) => {
+    const boxPosition = searchingRows
+      ? { row: index, col: 1 }
+      : { col: index, row: 1 };
+
+    return {
+      index,
+      ...getStartAndEndOfExtent(
+        boundingBoxToExtent(cellBounds[toStringLoc(boxPosition)])
+      ),
+    };
+  });
 
   return {
     maxExtent: extents[extents.length - 1].end,
@@ -40,32 +55,17 @@ export function getExtentsForAvailableTracts({
   };
 }
 
-function getExtents({
-  dragDirection,
-  index,
-  cellBounds,
-}: {
-  dragDirection: DragDirection;
-  index: number;
-  cellBounds: GridCellBounds;
-}) {
-  const boxPosition =
-    dragDirection === "up" || dragDirection === "down"
-      ? { row: index, col: 1 }
-      : { col: index, row: 1 };
-
-  const { top, bottom, left, right } = boundingBoxToExtent(
-    cellBounds[toStringLoc(boxPosition)]
-  );
-
-  switch (dragDirection) {
-    case "up":
-      return { index, start: bottom, end: top };
-    case "down":
-      return { index, start: top, end: bottom };
-    case "left":
-      return { index, start: right, end: left };
-    case "right":
-      return { index, start: left, end: right };
-  }
-}
+// A map to get the appropriate function for finding the "start" and "end" of
+// and box given we are looking at it from a given direction.
+// We're doing this separately so the direction conditional doesn't need
+// to be evaluated every iteration of our extent finding loop
+const startAndEndOfExtentForDir: {
+  [key in DragDirection]: (
+    extent: SelectionRect
+  ) => { start: number; end: number };
+} = {
+  up: ({ bottom, top }) => ({ start: bottom, end: top }),
+  down: ({ bottom, top }) => ({ start: top, end: bottom }),
+  left: ({ left, right }) => ({ start: right, end: left }),
+  right: ({ left, right }) => ({ start: left, end: right }),
+};
