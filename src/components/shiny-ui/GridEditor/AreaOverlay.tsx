@@ -1,12 +1,12 @@
 import styled from "@emotion/styled";
 import React from "react";
+import { RiDragMove2Line as MoveIcon } from "react-icons/ri";
 import { ItemLocation, TemplatedGridProps } from "utils/gridTemplates/types";
 import {
   availableMoves,
   movementToArrow,
   MovementType,
 } from "./availableMoves";
-import { RiDragMove2Line as MoveIcon } from "react-icons/ri";
 import { GridItemExtent } from "./helpers";
 import { CellLocRef } from "./index";
 import { useResizeOnDrag } from "./useResizeOnDrag";
