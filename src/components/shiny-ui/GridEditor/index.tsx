@@ -72,7 +72,7 @@ export default function GridEditor({
 
   const gridCellLocations: CellLocRef = React.useRef({});
 
-  const areaOverlays = areasWithoutItems.map((area) => (
+  const areaOverlays = itemAreas.map((area) => (
     <AreaOverlay
       key={area}
       area={area}
