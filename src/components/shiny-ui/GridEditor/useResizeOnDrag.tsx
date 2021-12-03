@@ -1,6 +1,6 @@
 import clone from "just-clone";
 import React from "react";
-import { getExtentsForAvailableTracts } from "utils/gridTemplates/availableCellsForItem";
+import { getExtentsForAvailableTracts } from "utils/gridTemplates/getExtentsForAvailableTracts";
 import {
   AvailableBlocks,
   centersOfAvailableBlocks,
