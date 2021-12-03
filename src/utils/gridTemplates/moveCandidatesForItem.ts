@@ -3,23 +3,21 @@ import {
   centerOfBounds,
   GridItemExtent,
   gridLocationToBounds,
+  gridLocationToExtent,
 } from "components/shiny-ui/GridEditor/helpers";
 import { matrixDimensions } from "utils/matrix-helpers";
 import { emptyCell } from "./itemLocations";
 import { ItemLocation, TemplatedGridProps } from "./types";
 
-export default function moveCandidatesForItem({
-  rowSpan,
-  colSpan,
-  layoutAreas,
-}: {
-  rowSpan: number;
-  colSpan: number;
-  layoutAreas: TemplatedGridProps["areas"];
-}): ItemLocation[] {
+export default function moveCandidatesForItem(
+  { rowSpan, colSpan, rowStart, colStart }: ItemLocation,
+  layoutAreas: TemplatedGridProps["areas"]
+): ItemLocation[] {
   const freeBlocks: ItemLocation[] = [];
   const { numRows, numCols } = matrixDimensions(layoutAreas);
 
+  // Get the name of the item so we can ignore it when scanning
+  const itemName = layoutAreas[rowStart - 1][colStart - 1];
   const isFree = ({
     rowIndex,
     colIndex,
@@ -29,7 +27,8 @@ export default function moveCandidatesForItem({
   }) => {
     for (let row = rowIndex; row <= rowIndex + rowSpan - 1; row++) {
       for (let col = colIndex; col <= colIndex + colSpan - 1; col++) {
-        if (layoutAreas[row - 1][col - 1] !== emptyCell) return false;
+        const cellVal = layoutAreas[row - 1][col - 1];
+        if (!(cellVal === emptyCell || cellVal === itemName)) return false;
       }
     }
     return true;
