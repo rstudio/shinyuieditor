@@ -39,6 +39,7 @@ export function findAvailableTracts({
       break;
 
     case "left":
+      debugger;
       if (colStart === 1) return { shrinkExtent: colEnd, growExtent: 1 };
       expandSearchStart = colStart - 1;
       expandSearchEnd = 1;
@@ -65,6 +66,8 @@ export function findAvailableTracts({
   const expansionTractDir =
     dragDirection === "up" || dragDirection === "down" ? "rows" : "cols";
 
+  const decreasingSearch = dragDirection === "left" || dragDirection === "up";
+
   const [itemOffDirStart, itemOffDirEnd] =
     expansionTractDir === "rows" ? [colStart, colEnd] : [rowStart, rowEnd];
 
@@ -87,7 +90,7 @@ export function findAvailableTracts({
         // we've found max expansion so finish loop
         return {
           shrinkExtent: availableRangeStart,
-          growExtent: expansionIndex - 1,
+          growExtent: expansionIndex + (decreasingSearch ? 1 : -1),
         };
       }
     }
