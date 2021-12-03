@@ -8,6 +8,7 @@ import {
   sameLocation,
 } from "utils/gridTemplates/moveCandidatesForItem";
 import { ItemLocation, TemplatedGridProps } from "utils/gridTemplates/types";
+import { SelectionRect } from "utils/overlap-helpers";
 import {
   centerOfBounds,
   clamp,
@@ -21,21 +22,169 @@ type ItemBounds = ReturnType<typeof gridLocationToBounds>;
 
 export type DragDirection = "left" | "right" | "up" | "down";
 
-type DragInfo =
-  | {
-      type: "resize";
-      dragDirection: DragDirection;
-      dragBounds: ItemBounds;
-      gridItemExtent: GridItemExtent;
-      startingBounds: ItemBounds;
-      tractExtents: ReturnType<typeof getExtentsForAvailableTracts>;
+type ResizeDragState = {
+  type: "resize";
+  dragDirection: DragDirection;
+  dragBounds: ItemBounds;
+  gridItemExtent: GridItemExtent;
+  startingBounds: ItemBounds;
+  tractExtents: ReturnType<typeof getExtentsForAvailableTracts>;
+};
+
+type MoveDragState = {
+  type: "move";
+  availableBlocks: AvailableBlocks;
+  currentPos: { x: number; y: number };
+  gridItemExtent: GridItemExtent;
+};
+
+type DragInfo = ResizeDragState | MoveDragState;
+
+function setupDragToMove({
+  itemBounds,
+  cellBounds,
+  gridLocation,
+  layoutAreas,
+}: {
+  cellBounds: GridCellBounds;
+  gridLocation: ItemLocation;
+  layoutAreas: TemplatedGridProps["areas"];
+  itemBounds: SelectionRect;
+}): MoveDragState {
+  return {
+    type: "move",
+    availableBlocks: centersOfAvailableBlocks({
+      itemLoc: gridLocation,
+      layoutAreas,
+      cellBounds,
+    }),
+    currentPos: centerOfBounds(itemBounds),
+    gridItemExtent: gridLocationToExtent(gridLocation),
+  };
+}
+
+function moveOnDrag({
+  mousePos,
+  dragState,
+}: {
+  mousePos: { x: number; y: number };
+  dragState: MoveDragState;
+}) {
+  const { availableBlocks, gridItemExtent } = dragState;
+
+  const currentClosest = findClosestAvailableBlock(mousePos, availableBlocks);
+
+  if (sameLocation(currentClosest, gridItemExtent)) return;
+
+  dragState.gridItemExtent = gridLocationToExtent(currentClosest);
+  return dragState.gridItemExtent;
+  // placeItemOnGrid(overlayEl, dragState.gridItemExtent);
+}
+
+function setupDragToResize({
+  itemBounds,
+  dragDirection,
+  cellBounds,
+  gridLocation,
+  layoutAreas,
+}: {
+  itemBounds: SelectionRect;
+  dragDirection: DragDirection;
+  cellBounds: GridCellBounds;
+  gridLocation: ItemLocation;
+  layoutAreas: TemplatedGridProps["areas"];
+}): ResizeDragState {
+  return {
+    type: "resize",
+    dragDirection,
+    startingBounds: clone(itemBounds),
+    dragBounds: itemBounds,
+    gridItemExtent: gridLocationToExtent(gridLocation),
+    tractExtents: getExtentsForAvailableTracts({
+      dragDirection,
+      gridLocation,
+      layoutAreas,
+      cellBounds,
+    }),
+  };
+}
+
+function resizeOnDrag({
+  mousePos: { x, y },
+  dragState,
+}: {
+  mousePos: { x: number; y: number };
+  dragState: ResizeDragState;
+}) {
+  const {
+    dragDirection,
+    dragBounds,
+    startingBounds,
+    tractExtents,
+    gridItemExtent,
+  } = dragState;
+
+  const expansionLimit = tractExtents.maxExtent;
+  const furthestIndex =
+    tractExtents.extents[tractExtents.extents.length - 1].index;
+
+  // These are the directions where expanding will mean increasing
+  // the tract index
+  const growing = dragDirection === "right" || dragDirection === "down";
+  const firstTractAfterBounds = (newBounds: number) => {
+    for (let tract of tractExtents.extents) {
+      if (growing && newBounds <= tract.start) return tract.index - 1;
+      if (!growing && newBounds >= tract.start) return tract.index + 1;
     }
-  | {
-      type: "move";
-      availableBlocks: AvailableBlocks;
-      currentPos: { x: number; y: number };
-      gridItemExtent: GridItemExtent;
-    };
+    return furthestIndex;
+  };
+
+  // Number of pixels added to prevent inversion of drag box
+  const buffer = 2;
+  switch (dragDirection) {
+    case "right":
+      dragBounds.right = clamp({
+        min: startingBounds.left + buffer,
+        val: x,
+        max: expansionLimit,
+      });
+      gridItemExtent.colEnd = firstTractAfterBounds(dragBounds.right);
+      break;
+
+    case "down":
+      dragBounds.bottom = clamp({
+        min: startingBounds.top + buffer,
+        val: y,
+        max: expansionLimit,
+      });
+      gridItemExtent.rowEnd = firstTractAfterBounds(dragBounds.bottom);
+      break;
+
+    case "left":
+      dragBounds.left = clamp({
+        min: expansionLimit,
+        val: x,
+        max: startingBounds.right - buffer,
+      });
+      gridItemExtent.colStart = firstTractAfterBounds(dragBounds.left);
+
+      break;
+
+    case "up":
+      dragBounds.top = clamp({
+        min: expansionLimit,
+        val: y,
+        max: startingBounds.bottom - buffer,
+      });
+      gridItemExtent.rowStart = firstTractAfterBounds(dragBounds.top);
+      break;
+  }
+
+  return gridItemExtent;
+
+  // placeItemOnGrid(overlayEl, gridItemExtent);
+  // placeItemAbsolutely(overlayEl, dragBounds);
+}
 
 export function useResizeOnDrag({
   overlayRef,
@@ -54,110 +203,36 @@ export function useResizeOnDrag({
   const dragRef = React.useRef<DragInfo | null>(null);
 
   const onDrag = React.useCallback(
-    (e: MouseEvent) => {
-      const { x, y } = e;
-      if (!dragRef.current || !overlayRef.current)
+    (mousePos: MouseEvent) => {
+      const overlayEl = overlayRef.current;
+      const dragState = dragRef.current;
+      if (!overlayEl || !dragState) {
         throw new Error(
           "For some reason we are observing dragging when we shouldn't"
         );
-      const dragState = dragRef.current;
-      if (dragState.type === "move") {
-        const currentPos = { x, y };
-        const { availableBlocks, gridItemExtent } = dragState;
-
-        const currentClosest = findClosestAvailableBlock(
-          currentPos,
-          availableBlocks
-        );
-
-        if (sameLocation(currentClosest, gridItemExtent)) return;
-
-        dragState.gridItemExtent = gridLocationToExtent(currentClosest);
-        placeItemOnGrid(overlayRef.current, dragState.gridItemExtent);
-
-        return;
       }
 
-      const {
-        dragDirection,
-        dragBounds,
-        startingBounds,
-        tractExtents,
-        gridItemExtent,
-      } = dragState;
+      const newGridPosition =
+        dragState.type === "move"
+          ? moveOnDrag({ mousePos, dragState })
+          : resizeOnDrag({ mousePos, dragState });
 
-      const expansionLimit = tractExtents.maxExtent;
-      const furthestIndex =
-        tractExtents.extents[tractExtents.extents.length - 1].index;
-
-      // These are the directions where expanding will mean increasing
-      // the tract index
-      const growing = dragDirection === "right" || dragDirection === "down";
-      const firstTractAfterBounds = (newBounds: number) => {
-        for (let tract of tractExtents.extents) {
-          if (growing && newBounds <= tract.start) return tract.index - 1;
-          if (!growing && newBounds >= tract.start) return tract.index + 1;
-        }
-        return furthestIndex;
-      };
-
-      // Number of pixels added to prevent inversion of drag box
-      const buffer = 2;
-      switch (dragDirection) {
-        case "right":
-          dragBounds.right = clamp({
-            min: startingBounds.left + buffer,
-            val: x,
-            max: expansionLimit,
-          });
-          gridItemExtent.colEnd = firstTractAfterBounds(dragBounds.right);
-          break;
-
-        case "down":
-          dragBounds.bottom = clamp({
-            min: startingBounds.top + buffer,
-            val: y,
-            max: expansionLimit,
-          });
-          gridItemExtent.rowEnd = firstTractAfterBounds(dragBounds.bottom);
-          break;
-
-        case "left":
-          dragBounds.left = clamp({
-            min: expansionLimit,
-            val: x,
-            max: startingBounds.right - buffer,
-          });
-          gridItemExtent.colStart = firstTractAfterBounds(dragBounds.left);
-
-          break;
-
-        case "up":
-          dragBounds.top = clamp({
-            min: expansionLimit,
-            val: y,
-            max: startingBounds.bottom - buffer,
-          });
-          gridItemExtent.rowStart = firstTractAfterBounds(dragBounds.top);
-          break;
-      }
-
-      placeItemOnGrid(overlayRef.current, gridItemExtent);
-      placeItemAbsolutely(overlayRef.current, dragBounds);
+      if (newGridPosition) placeItemOnGrid(overlayEl, newGridPosition);
     },
     [overlayRef]
   );
 
   const endDrag = React.useCallback(() => {
     const overlayEl = overlayRef.current;
-    if (!overlayEl) return;
+    const dragState = dragRef.current;
+    if (!overlayEl || !dragState) return;
 
     // Fire the end location function as long as the item location has changed
     if (
-      dragRef.current?.gridItemExtent &&
-      !sameLocation(dragRef.current.gridItemExtent, initialGridExtent)
+      dragState.gridItemExtent &&
+      !sameLocation(dragState.gridItemExtent, initialGridExtent)
     ) {
-      onDragEnd(dragRef.current.gridItemExtent);
+      onDragEnd(dragState.gridItemExtent);
     }
     overlayEl.classList.remove("dragging");
     document.removeEventListener("mousemove", onDrag);
@@ -170,50 +245,32 @@ export function useResizeOnDrag({
 
       const itemBounds = gridLocationToBounds({ cellBounds, gridLocation });
 
-      if (dragDirection === "move") {
-        dragRef.current = {
-          type: "move",
-          availableBlocks: centersOfAvailableBlocks({
-            itemLoc: gridLocation,
-            layoutAreas,
-            cellBounds,
-          }),
-          currentPos: centerOfBounds(itemBounds),
-          gridItemExtent: initialGridExtent,
-        };
-      } else {
-        dragRef.current = {
-          type: "resize",
-          dragDirection,
-          startingBounds: clone(itemBounds),
-          dragBounds: itemBounds,
-          gridItemExtent: gridLocationToExtent(gridLocation),
-          tractExtents: getExtentsForAvailableTracts({
-            dragDirection,
-            gridLocation,
-            layoutAreas,
-            cellBounds,
-          }),
-        };
-      }
+      dragRef.current =
+        dragDirection === "move"
+          ? setupDragToMove({
+              itemBounds,
+              cellBounds,
+              gridLocation,
+              layoutAreas,
+            })
+          : setupDragToResize({
+              dragDirection,
+              itemBounds,
+              cellBounds,
+              gridLocation,
+              layoutAreas,
+            });
 
+      // Add explicite positioning to grid item div and then turn on drag
+      // mode to transfer placement duties to those positions
+      placeItemOnGrid(overlayRef.current, dragRef.current.gridItemExtent);
       overlayEl.classList.add("dragging");
 
-      placeItemOnGrid(overlayRef.current, dragRef.current.gridItemExtent);
-      placeItemAbsolutely(overlayEl, itemBounds);
-
+      // Setup event listeners for the next steps
       document.addEventListener("mousemove", onDrag);
       document.addEventListener("mouseup", endDrag, { once: true });
     },
-    [
-      cellBounds,
-      endDrag,
-      gridLocation,
-      initialGridExtent,
-      layoutAreas,
-      onDrag,
-      overlayRef,
-    ]
+    [cellBounds, endDrag, gridLocation, layoutAreas, onDrag, overlayRef]
   );
 
   return startDrag;
