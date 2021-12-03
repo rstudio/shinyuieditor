@@ -21,16 +21,14 @@ export default function moveCandidatesForItem({
   }: {
     rowIndex: number;
     colIndex: number;
-  }) =>
-    blockIsFree(
-      {
-        rowStart: rowIndex,
-        rowEnd: rowIndex + rowSpan - 1,
-        colStart: colIndex,
-        colEnd: colIndex + colSpan - 1,
-      },
-      layoutAreas
-    );
+  }) => {
+    for (let row = rowIndex; row <= rowIndex + rowSpan - 1; row++) {
+      for (let col = colIndex; col <= colIndex + colSpan - 1; col++) {
+        if (layoutAreas[row - 1][col - 1] !== emptyCell) return false;
+      }
+    }
+    return true;
+  };
 
   // Since we check outwards we shound not traverse the whole grid in this loop
   for (let rowIndex = 1; rowIndex <= numRows - rowSpan + 1; rowIndex++) {
@@ -47,16 +45,4 @@ export default function moveCandidatesForItem({
   }
 
   return freeBlocks;
-}
-
-function blockIsFree(
-  { rowStart, rowEnd, colStart, colEnd }: GridItemExtent,
-  layoutAreas: TemplatedGridProps["areas"]
-) {
-  for (let row = rowStart; row <= rowEnd; row++) {
-    for (let col = colStart; col <= colEnd; col++) {
-      if (layoutAreas[row - 1][col - 1] !== emptyCell) return false;
-    }
-  }
-  return true;
 }
