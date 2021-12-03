@@ -63,19 +63,17 @@ export function findAvailableTracts({
       break;
   }
 
-  const expansionTractDir =
-    dragDirection === "up" || dragDirection === "down" ? "rows" : "cols";
-
+  const searchingRows = dragDirection === "up" || dragDirection === "down";
   const decreasingSearch = dragDirection === "left" || dragDirection === "up";
 
-  const [itemOffDirStart, itemOffDirEnd] =
-    expansionTractDir === "rows" ? [colStart, colEnd] : [rowStart, rowEnd];
+  const [itemOffDirStart, itemOffDirEnd] = searchingRows
+    ? [colStart, colEnd]
+    : [rowStart, rowEnd];
 
   const cellNotEmpty = (expansionIndex: number, offDirIndex: number) => {
-    const [rowIndex, colIndex] =
-      expansionTractDir === "rows"
-        ? [expansionIndex, offDirIndex]
-        : [offDirIndex, expansionIndex];
+    const [rowIndex, colIndex] = searchingRows
+      ? [expansionIndex, offDirIndex]
+      : [offDirIndex, expansionIndex];
 
     return layoutAreas[rowIndex - 1][colIndex - 1] !== emptyCell;
   };
