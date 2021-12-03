@@ -228,12 +228,12 @@ export function useResizeOnDrag({
     if (!overlayEl || !dragState) return;
 
     // Fire the end location function as long as the item location has changed
-    if (
-      dragState.gridItemExtent &&
-      !sameLocation(dragState.gridItemExtent, initialGridExtent)
-    ) {
-      onDragEnd(dragState.gridItemExtent);
+    const finalGridExtent = dragState.gridItemExtent;
+    if (!sameLocation(finalGridExtent, initialGridExtent)) {
+      onDragEnd(finalGridExtent);
     }
+
+    // Return positioning logic to the grid-area method
     overlayEl.classList.remove("dragging");
     document.removeEventListener("mousemove", onDrag);
   }, [initialGridExtent, onDrag, onDragEnd, overlayRef]);
