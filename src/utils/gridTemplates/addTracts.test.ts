@@ -1,4 +1,4 @@
-import { addTract } from "./addTract";
+import addTract from "./addTract";
 
 describe("Add empty tracts", () => {
   const baseLayout = {

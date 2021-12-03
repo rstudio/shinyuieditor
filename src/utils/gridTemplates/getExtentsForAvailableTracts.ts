@@ -4,7 +4,7 @@ import { buildRange } from "utils/array-helpers";
 import { toStringLoc } from "utils/grid-helpers";
 import { ItemLocation, TemplatedGridProps } from "utils/gridTemplates/types";
 import { boundingBoxToExtent } from "../../components/shiny-ui/GridEditor/helpers";
-import { findAvailableTracts } from "./findAvailableTracts";
+import findAvailableTracts from "./findAvailableTracts";
 
 export function getExtentsForAvailableTracts({
   dragDirection,

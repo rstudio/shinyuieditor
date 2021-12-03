@@ -4,7 +4,7 @@ import { ItemLocation, TemplatedGridProps } from "utils/gridTemplates/types";
 import { gridLocationToExtent } from "../../components/shiny-ui/GridEditor/helpers";
 import { emptyCell } from "./itemLocations";
 
-export function findAvailableTracts({
+export default function findAvailableTracts({
   dragDirection,
   gridLocation,
   layoutAreas,

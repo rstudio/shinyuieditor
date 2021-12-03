@@ -12,7 +12,8 @@ export type NewTract = {
   size: CSSMeasure;
   dir: TractDirection;
 };
-export function addTract(
+
+export default function addTract(
   template: TemplatedGridProps,
   { afterIndex, size, dir }: NewTract
 ): TemplatedGridProps {

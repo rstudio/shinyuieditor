@@ -1,4 +1,4 @@
-import { findAvailableTracts } from "./findAvailableTracts";
+import findAvailableTracts from "./findAvailableTracts";
 import { areasToItemLocations } from "./itemLocations";
 
 describe("Free to expand till end of grid", () => {

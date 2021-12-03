@@ -2,7 +2,7 @@ import { CSSMeasure } from "GridTypes";
 import React from "react";
 import { FaPlus } from "react-icons/fa";
 import { TractDirection } from "state-logic/gridLayout/atoms";
-import { addTract } from "utils/gridTemplates/addTract";
+import addTract from "utils/gridTemplates/addTract";
 import { SetLayoutContext } from ".";
 import { singular } from "./helpers";
 import { TooltipButton } from "./TooltipButton";
