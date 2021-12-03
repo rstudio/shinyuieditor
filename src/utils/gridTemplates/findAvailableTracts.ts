@@ -39,7 +39,6 @@ export function findAvailableTracts({
       break;
 
     case "left":
-      debugger;
       if (colStart === 1) return { shrinkExtent: colEnd, growExtent: 1 };
       expandSearchStart = colStart - 1;
       expandSearchEnd = 1;
