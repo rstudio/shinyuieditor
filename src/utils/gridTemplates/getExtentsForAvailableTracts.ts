@@ -1,10 +1,11 @@
-import { GridCellBounds } from "components/shiny-ui/GridEditor";
-import { DragDirection } from "components/shiny-ui/GridEditor/useResizeOnDrag";
+
+import { GridCellBounds } from "components/shiny-ui/GridApp";
+import { boundingBoxToExtent } from "components/shiny-ui/GridApp/helpers";
+import { DragDirection } from "components/shiny-ui/GridApp/useResizeOnDrag";
 import { buildRange } from "utils/array-helpers";
 import { toStringLoc } from "utils/grid-helpers";
 import { ItemLocation, TemplatedGridProps } from "utils/gridTemplates/types";
 import { SelectionRect } from "utils/overlap-helpers";
-import { boundingBoxToExtent } from "../../components/shiny-ui/GridEditor/helpers";
 import findAvailableTracts from "./findAvailableTracts";
 
 type TractExtent = {

@@ -9,7 +9,7 @@ import { ParsedGridTemplate } from "utils/gridTemplates/parseGridTemplateAreas";
 import { conflictsToRemoveTract } from "utils/gridTemplates/removeTract";
 import resizeTract from "utils/gridTemplates/resizeTract";
 import { TemplatedGridProps } from "utils/gridTemplates/types";
-import { SetLayoutContext } from ".";
+import { SetLayoutContext } from "../GridApp";
 import { directions } from "./helpers";
 import { TractAddButton } from "./TractAddButton";
 import { TractRemoveButton } from "./TractRemoveButton";

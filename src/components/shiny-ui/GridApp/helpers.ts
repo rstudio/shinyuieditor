@@ -1,8 +1,8 @@
 import { TractDirection } from "state-logic/gridLayout/atoms";
 import { toStringLoc } from "utils/grid-helpers";
-import { ItemLocation } from "utils/gridTemplates/types";
+import { GridItemExtent, ItemLocation } from "utils/gridTemplates/types";
 import { ItemBoundingBox } from "utils/overlap-helpers";
-import { GridCellBounds } from ".";
+import { GridCellBounds } from "../GridApp";
 
 export const directions: TractDirection[] = ["rows", "cols"];
 export function singular(dir: TractDirection): "row" | "column" {
@@ -23,7 +23,6 @@ export function gridLocationToExtent({
   };
 }
 
-export type GridItemExtent = ReturnType<typeof gridLocationToExtent>;
 export function gridExtentToLocation({
   rowStart,
   rowEnd,
@@ -48,7 +47,7 @@ export function gridLocationToBounds({
   const topLeft = cellBounds[toStringLoc({ row: rowStart, col: colStart })];
   const bottomRight =
     cellBounds[
-      toStringLoc({ row: rowStart + rowSpan - 1, col: colStart + colSpan - 1 })
+    toStringLoc({ row: rowStart + rowSpan - 1, col: colStart + colSpan - 1 })
     ];
 
   const left = topLeft.offsetLeft;

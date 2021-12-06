@@ -2,9 +2,9 @@ import React from "react";
 import { FaTrash } from "react-icons/fa";
 import { joinPretty } from "utils/array-helpers";
 import removeTract from "utils/gridTemplates/removeTract";
-import { SetLayoutContext } from ".";
+import { SetLayoutContext } from "../GridApp";
 import { singular } from "./helpers";
-import { TooltipButton } from "./TooltipButton";
+import { TooltipButton } from "../TooltipButton";
 
 export function TractRemoveButton({
   dir,
@@ -18,8 +18,8 @@ export function TractRemoveButton({
   const description = `remove ${singular(dir)} ${index}`;
   const popupText = isDisabled
     ? `Can't ${description} as items ${joinPretty(
-        conflicts
-      )} are entirely contained within it.`
+      conflicts
+    )} are entirely contained within it.`
     : description;
 
   return (

@@ -5,7 +5,7 @@ import { FaPlus } from "react-icons/fa";
 import { enumerateGridDims, toStringLoc } from "utils/grid-helpers";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
 import { getBBoxOfDiv } from "utils/overlap-helpers";
-import { CellLocRef } from "./index";
+import { CellLocRef } from "../GridApp";
 
 function GridCell({
   gridRow,

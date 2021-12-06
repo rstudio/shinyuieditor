@@ -1,13 +1,12 @@
-import { GridCellBounds } from "components/shiny-ui/GridEditor";
+import { GridCellBounds } from "components/shiny-ui/GridApp";
 import {
   centerOfBounds,
-  GridItemExtent,
   gridLocationToBounds,
-  gridLocationToExtent,
-} from "components/shiny-ui/GridEditor/helpers";
+  gridLocationToExtent
+} from "components/shiny-ui/GridApp/helpers";
 import { matrixDimensions } from "utils/matrix-helpers";
 import { emptyCell } from "./itemLocations";
-import { ItemLocation, TemplatedGridProps } from "./types";
+import { GridItemExtent, ItemLocation, TemplatedGridProps } from "./types";
 
 export default function moveCandidatesForItem(
   { rowSpan, colSpan, rowStart, colStart }: ItemLocation,

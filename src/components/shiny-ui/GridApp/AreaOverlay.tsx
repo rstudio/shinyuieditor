@@ -1,14 +1,13 @@
 import styled from "@emotion/styled";
 import React from "react";
+import { AiFillCaretDown, AiFillCaretLeft, AiFillCaretRight, AiFillCaretUp } from "react-icons/ai";
 import { RiDragMove2Line as MoveIcon } from "react-icons/ri";
-import { ItemLocation, TemplatedGridProps } from "utils/gridTemplates/types";
+import { GridItemExtent, ItemLocation, TemplatedGridProps } from "utils/gridTemplates/types";
+import { CellLocRef } from ".";
 import {
   availableMoves,
-  movementToArrow,
-  MovementType,
-} from "./availableMoves";
-import { GridItemExtent } from "./helpers";
-import { CellLocRef } from "./index";
+  MovementType
+} from "../../../utils/gridTemplates/availableMoves";
 import { useResizeOnDrag } from "./useResizeOnDrag";
 
 export function AreaOverlay({
@@ -41,6 +40,7 @@ export function AreaOverlay({
     () => availableMoves({ gridLocation, layoutAreas }),
     [gridLocation, layoutAreas]
   );
+
 
   const movementHandles = React.useMemo(() => {
     let movementArrows: JSX.Element[] = [];
@@ -163,3 +163,19 @@ const Dragger = styled.div({
   "&.shrink.right": { right: "0" },
   "&.shrink.left": { left: "0" },
 });
+
+const RightArrow = AiFillCaretRight;
+const LeftArrow = AiFillCaretLeft;
+const UpArrow = AiFillCaretUp;
+const DownArrow = AiFillCaretDown;
+
+export const movementToArrow: Record<MovementType, JSX.Element> = {
+  "expand up": <UpArrow />,
+  "expand down": <DownArrow />,
+  "shrink down": <UpArrow />,
+  "shrink up": <DownArrow />,
+  "expand left": <LeftArrow />,
+  "expand right": <RightArrow />,
+  "shrink left": <RightArrow />,
+  "shrink right": <LeftArrow />,
+};

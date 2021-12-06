@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import React from "react";
-import { EditMode } from "./index";
+import { EditMode } from "../GridApp";
 
 export function EditModeToggle({ selected, onSelect }: { selected: EditMode; onSelect: (selection: EditMode) => void; }) {
     return <Container>

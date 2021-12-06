@@ -1,14 +1,9 @@
 import { TractDirection } from "state-logic/gridLayout/atoms";
-import { ItemLocation } from "./types";
+import { GridItemExtent, ItemLocation } from "./types";
 
 export function itemLocationToBounds(
   item: ItemLocation
-): {
-  rowStart: number;
-  colStart: number;
-  rowEnd: number;
-  colEnd: number;
-} {
+): GridItemExtent {
   const { itemStart: rowStart, itemEnd: rowEnd } = itemBoundsInDir(
     item,
     "rows"

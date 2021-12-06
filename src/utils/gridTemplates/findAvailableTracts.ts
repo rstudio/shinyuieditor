@@ -1,7 +1,7 @@
-import { DragDirection } from "components/shiny-ui/GridEditor/useResizeOnDrag";
+import { DragDirection } from "components/shiny-ui/GridApp/useResizeOnDrag";
 import { buildRange } from "utils/array-helpers";
 import { ItemLocation, TemplatedGridProps } from "utils/gridTemplates/types";
-import { gridLocationToExtent } from "../../components/shiny-ui/GridEditor/helpers";
+import { gridLocationToExtent } from "../../components/shiny-ui/GridApp/helpers";
 import { emptyCell } from "./itemLocations";
 
 export default function findAvailableTracts({

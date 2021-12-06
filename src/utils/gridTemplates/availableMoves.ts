@@ -1,13 +1,7 @@
-import {
-  AiFillCaretDown,
-  AiFillCaretLeft,
-  AiFillCaretRight,
-  AiFillCaretUp,
-} from "react-icons/ai";
-
 import { buildRange } from "utils/array-helpers";
 import { emptyCell } from "utils/gridTemplates/itemLocations";
 import { ItemLocation, TemplatedGridProps } from "utils/gridTemplates/types";
+
 
 export function availableMoves({
   gridLocation: { rowStart, rowSpan, colStart, colSpan },
@@ -84,18 +78,3 @@ function colIsFree({
 
 export type MovementType = keyof ReturnType<typeof availableMoves>;
 
-const RightArrow = AiFillCaretRight;
-const LeftArrow = AiFillCaretLeft;
-const UpArrow = AiFillCaretUp;
-const DownArrow = AiFillCaretDown;
-
-export const movementToArrow: Record<MovementType, JSX.Element> = {
-  "expand up": <UpArrow />,
-  "expand down": <DownArrow />,
-  "shrink down": <UpArrow />,
-  "shrink up": <DownArrow />,
-  "expand left": <LeftArrow />,
-  "expand right": <RightArrow />,
-  "shrink left": <RightArrow />,
-  "shrink right": <LeftArrow />,
-};

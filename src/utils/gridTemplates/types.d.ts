@@ -14,3 +14,10 @@ export type ItemLocation = {
   rowSpan: number;
   colSpan: number;
 };
+
+export type GridItemExtent = {
+  rowStart: number;
+  colStart: number;
+  rowEnd: number;
+  colEnd: number;
+};

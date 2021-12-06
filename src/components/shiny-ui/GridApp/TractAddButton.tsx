@@ -3,9 +3,9 @@ import React from "react";
 import { FaPlus } from "react-icons/fa";
 import { TractDirection } from "state-logic/gridLayout/atoms";
 import addTract from "utils/gridTemplates/addTract";
-import { SetLayoutContext } from ".";
+import { SetLayoutContext } from "../GridApp";
 import { singular } from "./helpers";
-import { TooltipButton } from "./TooltipButton";
+import { TooltipButton } from "../TooltipButton";
 
 export const TractAddButton = ({
   dir,

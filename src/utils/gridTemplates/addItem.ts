@@ -1,13 +1,15 @@
 import clone from "just-clone";
 import { emptyCell } from "./itemLocations";
-import { itemLocationToBounds } from "./itemLocationToBounds";
-import { ItemLocation, TemplatedGridProps } from "./types";
+import { GridItemExtent, ItemLocation, TemplatedGridProps } from "./types";
 
 export default function addItem(
   template: TemplatedGridProps,
-  { name, ...item }: ItemLocation & { name: string }
+  { name, ...item }: { name: string } & (ItemLocation | GridItemExtent)
 ): TemplatedGridProps {
-  const { rowStart, rowEnd, colStart, colEnd } = itemLocationToBounds(item);
+  const { rowStart, colStart } = item;
+  const rowEnd = "rowEnd" in item ? item.rowEnd : rowStart + item.rowSpan - 1;
+  const colEnd = "colEnd" in item ? item.colEnd : colStart + item.colSpan - 1;
+
   const areasCopy = clone(template.areas);
 
   // i and j are in 0-indexed coordinates where as {row,col}{Start,End} are in
@@ -35,3 +37,4 @@ export default function addItem(
 
   return { ...template, areas: areasCopy };
 }
+export type NewItemInfo = Parameters<typeof addItem>[1];
