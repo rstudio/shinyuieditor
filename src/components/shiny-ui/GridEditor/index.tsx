@@ -135,6 +135,7 @@ const GridDisplay = styled.div({
 
 const SettingsBar = styled.div({
   gridArea: "settings",
-  display: "grid",
+  display: "flex",
+  justifyContent: "end",
 });
 
