@@ -1,9 +1,11 @@
 :root {
   --bg-color: #edf2f7;
   --rstudio-blue: #75aadb;
+  --rstudio-blue-transparent: #75aadb80;
   --rstudio-grey: #404040;
   --rstudio-white: #ffffff;
   --light-grey: #dddddd;
+  --light-grey-transparent: #dddddd80;
   --selection-color: tomato;
   --selected-border-color: var(--rstudio-blue);
   --selected-border-width: 3px;

@@ -102,9 +102,9 @@ const AreaMarker = styled.div({
   // I have no idea why I need to specify a z-index here to get this to sit
   // over the grid cell
   zIndex: 1,
-  // backgroundColor: "var(--light-grey)",
+  backgroundColor: "var(--light-grey-transparent)",
   "&:hover": {
-    outline: "2px solid orangered",
+    outline: "2px solid var(--rstudio-blue)",
   },
   // "&.dragging": {
   //   position: "absolute",
@@ -122,7 +122,7 @@ const AreaMarker = styled.div({
     gridRowEnd: "var(--drag-grid-row-end)",
     gridColumnStart: "var(--drag-grid-column-start)",
     gridColumnEnd: "var(--drag-grid-column-end)",
-    backgroundColor: "blanchedalmond",
+    backgroundColor: "var(--rstudio-blue-transparent)",
   },
 });
 
