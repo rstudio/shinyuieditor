@@ -14,10 +14,7 @@ import { GridCells } from "./GridCell";
 import { gridExtentToLocation } from "./helpers";
 import { TractControls } from "./TractControls";
 
-export type GridEditorProps = TemplatedGridProps & {
-  items: Record<string, JSX.Element>;
-};
-
+export type GridEditorProps = TemplatedGridProps;
 export type GridCellBounds = Record<GridLocString, ItemBoundingBox>;
 export type CellLocRef = React.MutableRefObject<GridCellBounds>;
 
@@ -27,10 +24,11 @@ export const SetLayoutContext = React.createContext<React.Dispatch<
 
 export type EditMode = "UI" | "Layout";
 export default function GridEditor({
-  items,
   onNewArea,
+  children,
   ...initialLayoutDef
 }: GridEditorProps & {
+  children: React.ReactNode;
   onNewArea: (opts: { area: string }) => void;
 }) {
   const [layout, setLayout] = React.useState<TemplatedGridProps>({
@@ -70,9 +68,7 @@ export default function GridEditor({
     sizes,
   } = parseGridTemplateAreas(layout);
 
-  const itemAreas = Object.keys(items);
-  const areasWithoutItems = subtractElements(uniqueAreas, itemAreas);
-
+  const itemAreas = uniqueAreas;
   const gridCellLocations: CellLocRef = React.useRef({});
 
   const areaOverlays = itemAreas.map((area) => (
@@ -119,7 +115,7 @@ export default function GridEditor({
             onClick={addNewItem}
           />
           {editMode === "Layout" ? areaOverlays : null}
-          {Object.values(items)}
+          {children}
         </GridDisplay>
       </div>
     </SetLayoutContext.Provider>
