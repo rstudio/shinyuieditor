@@ -1,4 +1,4 @@
-import { TractDirection } from "state-logic/gridLayout/atoms";
+import { TractDirection } from "components/shiny-ui/GridApp/helpers";
 import { joinPretty, removeAtIndex } from "utils/array-helpers";
 import { removeRowOrCol } from "utils/matrix-helpers";
 import { areasToItemLocations } from "./itemLocations";
@@ -19,8 +19,7 @@ export default function removeTract(
     const itemsInTract = conflictsToRemoveTract(template.areas, tract);
     if (itemsInTract.length !== 0) {
       throw new Error(
-        `Can't remove ${
-          dir === "rows" ? "row" : "col"
+        `Can't remove ${dir === "rows" ? "row" : "col"
         } ${index} as items ${joinPretty(
           itemsInTract
         )} are entirely contained within it.`

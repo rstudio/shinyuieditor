@@ -1,5 +1,5 @@
 import clone from "just-clone";
-import { TractDirection } from "state-logic/gridLayout/atoms";
+import { TractDirection } from "components/shiny-ui/GridApp/helpers";
 import { addAtIndex, removeAtIndex } from "./array-helpers";
 
 export type Matrix<T> = T[][];

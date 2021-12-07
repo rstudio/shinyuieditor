@@ -4,13 +4,12 @@ import styled from "@emotion/styled";
 import { CSSUnitInput } from "components/CSSUnitInput";
 import { CSSMeasure } from "GridTypes";
 import React from "react";
-import { TractDirection } from "state-logic/gridLayout/atoms";
 import { ParsedGridTemplate } from "utils/gridTemplates/parseGridTemplateAreas";
 import { conflictsToRemoveTract } from "utils/gridTemplates/removeTract";
 import resizeTract from "utils/gridTemplates/resizeTract";
 import { TemplatedGridProps } from "utils/gridTemplates/types";
 import { SetLayoutContext } from "../GridApp";
-import { directions } from "./helpers";
+import { directions, TractDirection } from "./helpers";
 import { TractAddButton } from "./TractAddButton";
 import { TractRemoveButton } from "./TractRemoveButton";
 

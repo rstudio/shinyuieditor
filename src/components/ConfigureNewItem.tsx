@@ -17,7 +17,7 @@ import * as React from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiCheck } from "react-icons/bi";
 import { atom, useRecoilValue, useResetRecoilState } from "recoil";
-import { gridItemNames, useAddNewItem } from "state-logic/gridItems";
+
 
 export const newItemInfoAtom = atom<GridPos | null>({
   key: "newItemInfo",
@@ -51,7 +51,7 @@ export function ConfigureNewItemForm({
   itemPos: GridPos;
   onClose: () => void;
 }) {
-  const addNewItem = useAddNewItem();
+
 
   const nameInputRef = React.useRef<HTMLInputElement>(null);
 
@@ -61,7 +61,9 @@ export function ConfigureNewItemForm({
     setCurrentName(e.target.value);
     validateName(e.target.value);
   };
-  const existingElementNames = useRecoilValue(gridItemNames);
+
+  // TODO Update this to actually correspond to existing names
+  const existingElementNames = ["A", "B", "C"]
   // Make sure when the modal pops up focus is on the input so the user can
   // start typing immediately without having to select then input with mouse.
   React.useLayoutEffect(() => {
@@ -89,7 +91,7 @@ export function ConfigureNewItemForm({
     e.preventDefault();
 
     if (currentName === "") return;
-    addNewItem({ name: currentName, ...itemPos });
+    console.log("New Item", { name: currentName, ...itemPos });
     onClose();
   };
 

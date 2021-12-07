@@ -1,5 +1,5 @@
 import { CSSMeasure } from "GridTypes";
-import { TractDirection } from "state-logic/gridLayout/atoms";
+import { TractDirection } from "components/shiny-ui/GridApp/helpers";
 import { fillArr } from "utils/array-helpers";
 import { matrixDimensions } from "utils/matrix-helpers";
 import { TemplatedGridProps } from "./types";

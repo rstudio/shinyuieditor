@@ -1,4 +1,4 @@
-import { TractDirection } from "state-logic/gridLayout/atoms";
+import { TractDirection } from "components/shiny-ui/GridApp/helpers";
 import { GridLocString, GridPos } from "../GridTypes";
 import { getBBoxOfDiv, ItemBoundingBox } from "./overlap-helpers";
 
@@ -36,13 +36,13 @@ export function placeOnGridOrCol({
 }) {
   return dir === "rows"
     ? {
-        gridColumn: makeTractPos(1, -1),
-        gridRow: index + 1,
-      }
+      gridColumn: makeTractPos(1, -1),
+      gridRow: index + 1,
+    }
     : {
-        gridRow: makeTractPos(1, -1),
-        gridColumn: index + 1,
-      };
+      gridRow: makeTractPos(1, -1),
+      gridColumn: index + 1,
+    };
 }
 
 export function enumerateGridDims({

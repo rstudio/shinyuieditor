@@ -1,4 +1,4 @@
-import { TractDirection } from "state-logic/gridLayout/atoms";
+import { TractDirection } from "components/shiny-ui/GridApp/helpers";
 import { GridItemExtent, ItemLocation } from "./types";
 
 export function itemLocationToBounds(

@@ -1,10 +1,9 @@
 import { CSSMeasure } from "GridTypes";
 import React from "react";
 import { FaPlus } from "react-icons/fa";
-import { TractDirection } from "state-logic/gridLayout/atoms";
 import addTract from "utils/gridTemplates/addTract";
 import { SetLayoutContext } from "../GridApp";
-import { singular } from "./helpers";
+import { singular, TractDirection } from "./helpers";
 import { TooltipButton } from "../TooltipButton";
 
 export const TractAddButton = ({

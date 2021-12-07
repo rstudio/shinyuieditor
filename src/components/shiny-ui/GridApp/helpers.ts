@@ -1,8 +1,9 @@
-import { TractDirection } from "state-logic/gridLayout/atoms";
 import { toStringLoc } from "utils/grid-helpers";
 import { GridItemExtent, ItemLocation } from "utils/gridTemplates/types";
 import { ItemBoundingBox } from "utils/overlap-helpers";
 import { GridCellBounds } from "../GridApp";
+
+export type TractDirection = "rows" | "cols";
 
 export const directions: TractDirection[] = ["rows", "cols"];
 export function singular(dir: TractDirection): "row" | "column" {
