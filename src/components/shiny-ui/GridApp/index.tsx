@@ -33,30 +33,35 @@ export type GridCellBounds = Record<GridLocString, ItemBoundingBox>;
 export type CellLocRef = React.MutableRefObject<GridCellBounds>;
 export type EditMode = "UI" | "Layout";
 
-export const LayoutDispatchContext = React.createContext<React.Dispatch<GridLayoutAction
-> | null>(null);
-
+export const LayoutDispatchContext =
+  React.createContext<React.Dispatch<GridLayoutAction> | null>(null);
 
 type GridLayoutAction =
-  { type: "ADD_ITEM" } |
-  { type: "REMOVE_ITEM", name: string } |
-  { type: "MOVE_ITEM", name: string, pos: GridItemExtent } |
-  {
-    type: "ADD_TRACT", dir: TractDirection;
-    afterIndex: number;
-    size: CSSMeasure;
-  } |
-  {
-    type: "REMOVE_TRACT", dir: TractDirection;
-    index: number;
-  } |
-  {
-    type: "RESIZE_TRACT", dir: TractDirection;
-    index: number;
-    size: CSSMeasure;
-  };
+  | { type: "ADD_ITEM" }
+  | { type: "REMOVE_ITEM"; name: string }
+  | { type: "MOVE_ITEM"; name: string; pos: GridItemExtent }
+  | {
+      type: "ADD_TRACT";
+      dir: TractDirection;
+      afterIndex: number;
+      size: CSSMeasure;
+    }
+  | {
+      type: "REMOVE_TRACT";
+      dir: TractDirection;
+      index: number;
+    }
+  | {
+      type: "RESIZE_TRACT";
+      dir: TractDirection;
+      index: number;
+      size: CSSMeasure;
+    };
 
-function gridLayoutReducer(layout: TemplatedGridProps, action: GridLayoutAction): TemplatedGridProps {
+function gridLayoutReducer(
+  layout: TemplatedGridProps,
+  action: GridLayoutAction
+): TemplatedGridProps {
   switch (action.type) {
     case "ADD_ITEM":
       console.error("Yet to implement ADD_ITEM");
@@ -70,7 +75,11 @@ function gridLayoutReducer(layout: TemplatedGridProps, action: GridLayoutAction)
     case "REMOVE_TRACT":
       return removeTract(layout, action);
     case "RESIZE_TRACT":
-      return resizeTract(layout, { dir: action.dir, index: action.index }, action.size);
+      return resizeTract(
+        layout,
+        { dir: action.dir, index: action.index },
+        action.size
+      );
     default:
       console.error(action);
       throw new Error("Have yet to implement layout action type");
@@ -83,22 +92,17 @@ export default function GridApp({
   labelAreas = false,
   onNewState,
 }: GridAppProps) {
-
   const [allPanels, setAllPanels] = React.useState(initialPanels);
-  // const [layout, setLayout] = React.useState<TemplatedGridProps>({ gapSize: "1rem", ...initialLayout } as TemplatedGridProps);
-
-  const [layout, layoutDispatch] = React.useReducer(gridLayoutReducer, { gapSize: "1rem", ...initialLayout } as TemplatedGridProps);
+  const [layout, layoutDispatch] = React.useReducer(gridLayoutReducer, {
+    gapSize: "1rem",
+    ...initialLayout,
+  } as TemplatedGridProps);
   const [editMode, setEditMode] = React.useState<EditMode>("UI");
   const gridCellLocations: CellLocRef = React.useRef({});
 
   // Can probably be memoized
-  const {
-    numRows,
-    numCols,
-    styles,
-    sizes,
-    uniqueAreas,
-  } = parseGridTemplateAreas(layout);
+  const { numRows, numCols, styles, sizes, uniqueAreas } =
+    parseGridTemplateAreas(layout);
 
   const itemGridLocations = React.useMemo(
     () => areasToItemLocations(layout.areas),
@@ -118,9 +122,8 @@ export default function GridApp({
   };
 
   React.useEffect(() => {
-
     console.log("New layout", layout);
-  }, [layout])
+  }, [layout]);
 
   React.useEffect(() => onNewState?.(allPanels), [allPanels, onNewState]);
 
@@ -146,8 +149,8 @@ export default function GridApp({
   const deletePanel = React.useCallback(
     (area: string) => {
       layoutDispatch({ type: "REMOVE_ITEM", name: area });
-      console.log("Removing area from layout")
-      setAllPanels((panels) => omit(panels, area))
+      console.log("Removing area from layout");
+      setAllPanels((panels) => omit(panels, area));
     },
     [setAllPanels]
   );
@@ -162,7 +165,7 @@ export default function GridApp({
 
   const moveItem = React.useCallback((name: string, pos: GridItemExtent) => {
     layoutDispatch({ type: "MOVE_ITEM", name, pos });
-  }, [])
+  }, []);
 
   const panelAreas = Object.keys(allPanels);
 
@@ -182,14 +185,15 @@ export default function GridApp({
     />
   ));
 
-  const gridItems =
-    panelAreas.map((area) => <UiPanel
+  const gridItems = panelAreas.map((area) => (
+    <UiPanel
       key={area}
       area={area}
       componentDefinition={allPanels[area]}
       onUpdate={(newProps) => updatePanel(area, newProps)}
       onDelete={() => deletePanel(area)}
-    />);
+    />
+  ));
 
   // If we have any unset panels, give then the ui chooser interface and add to the grid items children
   uniqueAreas.forEach((area) => {
@@ -233,8 +237,7 @@ const AppContainer = styled.div(({ gapSize }: { gapSize: string }) => ({
   gridTemplateAreas: `"           settings settings"\n
                       "           . column-controls"\n
                       "row-controls main"`,
-})
-)
+}));
 
 const GridDisplay = styled.div({
   gridArea: "main",
@@ -248,4 +251,3 @@ const SettingsBar = styled.div({
   display: "flex",
   justifyContent: "end",
 });
-
