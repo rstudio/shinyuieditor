@@ -2,7 +2,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import GridlayoutTitlePanel from "components/shiny-ui/GridlayoutTitlePanel";
 import React from "react";
 import { uniqueMatrixElements } from "utils/matrix-helpers";
-import { AreaLabeledGridHolder } from "../../GridHolder";
+import { LabeledGridHolder } from "../../LabeledGridHolder";
 
 const layoutAreas = [
   ["a", "a", "b", "other"],
@@ -23,7 +23,7 @@ export default {
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template: ComponentStory<typeof GridlayoutTitlePanel> = (args) => (
-  <AreaLabeledGridHolder
+  <LabeledGridHolder
     areas={layoutAreas}
     rowSizes={"200px"}
     colSizes={"200px"}
@@ -32,7 +32,7 @@ const Template: ComponentStory<typeof GridlayoutTitlePanel> = (args) => (
     <div style={{ gridArea: args.area }}>
       <GridlayoutTitlePanel {...args} />
     </div>
-  </AreaLabeledGridHolder>
+  </LabeledGridHolder>
 );
 
 export const Primary = Template.bind({});

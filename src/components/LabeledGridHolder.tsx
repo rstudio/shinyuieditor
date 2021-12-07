@@ -24,7 +24,7 @@ export function GridHolder({
   );
 }
 
-export function AreaLabeledGridHolder({
+export function LabeledGridHolder({
   children,
   ...props
 }: TemplatedGridProps & { children?: React.ReactNode }) {

@@ -1,21 +1,21 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
-import { AreaLabeledGridHolder } from "../components/GridHolder";
+import { LabeledGridHolder } from "../components/LabeledGridHolder";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
   title: "ShinyUI/GridPage",
-  component: AreaLabeledGridHolder,
+  component: LabeledGridHolder,
   // argTypes: {
   //   area: {
   //     control: { type: "select", options: uniqueAreas },
   //   },
   // },
-} as ComponentMeta<typeof AreaLabeledGridHolder>;
+} as ComponentMeta<typeof LabeledGridHolder>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof AreaLabeledGridHolder> = (args) => (
-  <AreaLabeledGridHolder {...args}></AreaLabeledGridHolder>
+const Template: ComponentStory<typeof LabeledGridHolder> = (args) => (
+  <LabeledGridHolder {...args}></LabeledGridHolder>
 );
 
 export const Primary = Template.bind({});

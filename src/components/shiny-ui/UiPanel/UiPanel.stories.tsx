@@ -2,7 +2,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import UiPanel from "components/shiny-ui/UiPanel";
 import React from "react";
 import { uniqueMatrixElements } from "utils/matrix-helpers";
-import { AreaLabeledGridHolder } from "../../GridHolder";
+import { LabeledGridHolder } from "../../LabeledGridHolder";
 
 const layoutAreas = [["a", "b"]];
 const uniqueAreas = uniqueMatrixElements(layoutAreas);
@@ -20,14 +20,14 @@ export default {
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template: ComponentStory<typeof UiPanel> = (args) => (
-  <AreaLabeledGridHolder
+  <LabeledGridHolder
     areas={layoutAreas}
     rowSizes={"400px"}
     colSizes={"400px"}
     gapSize={"1rem"}
   >
     <UiPanel {...args} />
-  </AreaLabeledGridHolder>
+  </LabeledGridHolder>
 );
 
 export const Primary = Template.bind({});
