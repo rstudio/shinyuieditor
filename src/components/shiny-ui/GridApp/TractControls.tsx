@@ -6,9 +6,8 @@ import { CSSMeasure } from "GridTypes";
 import React from "react";
 import { ParsedGridTemplate } from "utils/gridTemplates/parseGridTemplateAreas";
 import { conflictsToRemoveTract } from "utils/gridTemplates/removeTract";
-import resizeTract from "utils/gridTemplates/resizeTract";
 import { TemplatedGridProps } from "utils/gridTemplates/types";
-import { SetLayoutContext } from "../GridApp";
+import { LayoutDispatchContext } from "../GridApp";
 import { directions, TractDirection } from "./helpers";
 import { TractAddButton } from "./TractAddButton";
 import { TractRemoveButton } from "./TractRemoveButton";
@@ -65,7 +64,7 @@ function TractControl({
   size: CSSMeasure;
   deletionConflicts: ReturnType<typeof conflictsToRemoveTract>;
 }) {
-  const setLayout = React.useContext(SetLayoutContext);
+  const setLayout = React.useContext(LayoutDispatchContext);
   const positionStyles = {
     [dir === "rows" ? "gridRow" : "gridColumn"]: tractIndex,
   };
@@ -76,8 +75,8 @@ function TractControl({
         value={size}
         w="120px"
         onChange={(newSize) => {
-          setLayout?.((layout) =>
-            resizeTract(layout, { dir, index: tractIndex }, newSize)
+          setLayout?.(
+            { type: "RESIZE_TRACT", dir, index: tractIndex, size: newSize }
           );
         }}
       />

@@ -1,10 +1,9 @@
 import { CSSMeasure } from "GridTypes";
 import React from "react";
 import { FaPlus } from "react-icons/fa";
-import addTract from "utils/gridTemplates/addTract";
-import { SetLayoutContext } from "../GridApp";
-import { singular, TractDirection } from "./helpers";
+import { LayoutDispatchContext } from "../GridApp";
 import { TooltipButton } from "../TooltipButton";
+import { singular, TractDirection } from "./helpers";
 
 export const TractAddButton = ({
   dir,
@@ -17,7 +16,7 @@ export const TractAddButton = ({
   size: CSSMeasure;
   beforeOrAfter: "before" | "after";
 }) => {
-  const setLayout = React.useContext(SetLayoutContext);
+  const setLayout = React.useContext(LayoutDispatchContext);
   const afterIndex = beforeOrAfter === "before" ? tractIndex - 1 : tractIndex;
 
   const description = `Add ${singular(dir)} ${beforeOrAfter} ${singular(
@@ -31,8 +30,7 @@ export const TractAddButton = ({
       popoverPlacement={dir === "rows" ? "left" : "top"}
       aria-label={description}
       onClick={() => {
-        setLayout?.((oldLayout) =>
-          addTract(oldLayout, { dir, afterIndex, size })
+        setLayout?.({ type: "ADD_TRACT", dir, afterIndex, size }
         );
       }}
     >
