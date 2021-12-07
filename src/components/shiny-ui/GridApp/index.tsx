@@ -18,7 +18,7 @@ import { EditModeToggle } from "./EditModeToggle";
 import { GridCells } from "./GridCell";
 import { TractControls } from "./TractControls";
 
-type Panels = Record<string, ShinyUiNameAndProps>;
+export type Panels = Record<string, ShinyUiNameAndProps>;
 type GridAppProps = {
   layout: TemplatedGridProps;
   panels: Panels;
@@ -155,20 +155,7 @@ export default function GridApp({
 
   return (
     <SetLayoutContext.Provider value={setLayout}>
-      <div
-        css={{
-          "--gap": layout.gapSize,
-          "--settings-bar": "50px",
-          "--row-gutter": "150px",
-          "--col-gutter": "100px",
-          display: "grid",
-          gridTemplateColumns: "var(--row-gutter) 1fr",
-          gridTemplateRows: "var(--settings-bar) var(--col-gutter) 1fr",
-          gridTemplateAreas: `"           settings settings"\n
-                              "           . column-controls"\n
-                              "row-controls main"`,
-        }}
-      >
+      <AppContainer gapSize={layout.gapSize}>
         <SettingsBar>
           <EditModeToggle selected={editMode} onSelect={setEditMode} />
         </SettingsBar>
@@ -183,10 +170,25 @@ export default function GridApp({
           {editMode === "Layout" ? areaOverlays : null}
           {gridItems}
         </GridDisplay>
-      </div>
+      </AppContainer>
     </SetLayoutContext.Provider>
   );
 }
+
+const AppContainer = styled.div(({ gapSize }: { gapSize: string }) => ({
+  "--gap": gapSize,
+  "--settings-bar": "50px",
+  "--row-gutter": "150px",
+  "--col-gutter": "100px",
+  height: "100%",
+  display: "grid",
+  gridTemplateColumns: "var(--row-gutter) 1fr",
+  gridTemplateRows: "var(--settings-bar) var(--col-gutter) 1fr",
+  gridTemplateAreas: `"           settings settings"\n
+                      "           . column-controls"\n
+                      "row-controls main"`,
+})
+)
 
 const GridDisplay = styled.div({
   gridArea: "main",
