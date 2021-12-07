@@ -1,9 +1,7 @@
 import { TractDirection } from "components/shiny-ui/GridApp/helpers";
 import { GridItemExtent, ItemLocation } from "./types";
 
-export function itemLocationToBounds(
-  item: ItemLocation
-): GridItemExtent {
+export function itemLocationToBounds(item: ItemLocation): GridItemExtent {
   const { itemStart: rowStart, itemEnd: rowEnd } = itemBoundsInDir(
     item,
     "rows"

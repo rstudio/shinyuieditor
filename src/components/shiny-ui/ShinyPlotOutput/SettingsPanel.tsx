@@ -4,10 +4,9 @@ import { ShinyUiSettingsComponent } from "../componentTypes";
 import { TextInput } from "../SettingsInputs/TextInput";
 import UiSettingsForm from "../UiSettingsForm";
 
-const ShinyPlotOutputSettings: ShinyUiSettingsComponent<ShinyPlotOutputProps> = ({
-  startingSettings,
-  onUpdate,
-}) => {
+const ShinyPlotOutputSettings: ShinyUiSettingsComponent<
+  ShinyPlotOutputProps
+> = ({ startingSettings, onUpdate }) => {
   const [plotSettings, setPlotSettings] = React.useState(startingSettings);
 
   return (

@@ -2,7 +2,6 @@ import { buildRange } from "utils/array-helpers";
 import { emptyCell } from "utils/gridTemplates/itemLocations";
 import { ItemLocation, TemplatedGridProps } from "utils/gridTemplates/types";
 
-
 export function availableMoves({
   gridLocation: { rowStart, rowSpan, colStart, colSpan },
   layoutAreas,
@@ -77,4 +76,3 @@ function colIsFree({
 }
 
 export type MovementType = keyof ReturnType<typeof availableMoves>;
-

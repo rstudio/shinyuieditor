@@ -5,10 +5,9 @@ import { ShinyUiSettingsComponent } from "../componentTypes";
 import { TextInput } from "../SettingsInputs/TextInput";
 import UiSettingsForm from "../UiSettingsForm";
 
-const GridlayoutTitlePanelSettings: ShinyUiSettingsComponent<GridlayoutTitlePanelProps> = ({
-  startingSettings,
-  onUpdate,
-}) => {
+const GridlayoutTitlePanelSettings: ShinyUiSettingsComponent<
+  GridlayoutTitlePanelProps
+> = ({ startingSettings, onUpdate }) => {
   const [titleSettings, setTitleSettings] = React.useState(startingSettings);
 
   return (

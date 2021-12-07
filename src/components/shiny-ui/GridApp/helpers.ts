@@ -48,7 +48,7 @@ export function gridLocationToBounds({
   const topLeft = cellBounds[toStringLoc({ row: rowStart, col: colStart })];
   const bottomRight =
     cellBounds[
-    toStringLoc({ row: rowStart + rowSpan - 1, col: colStart + colSpan - 1 })
+      toStringLoc({ row: rowStart + rowSpan - 1, col: colStart + colSpan - 1 })
     ];
 
   const left = topLeft.offsetLeft;

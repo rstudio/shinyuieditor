@@ -8,7 +8,6 @@ import * as React from "react";
 import { makeBoxShadow } from "utils/css-helpers";
 import { theme } from "./theme";
 
-
 const startingLayout = {
   // prettier-ignore
   areas: [
@@ -51,11 +50,8 @@ export const App = () => {
           </div>
           {/* <HistoryNav /> */}
         </HeaderBar>
-        <EditorHolder >
-          <GridApp
-            layout={startingLayout}
-            panels={startingPanels}
-          />
+        <EditorHolder>
+          <GridApp layout={startingLayout} panels={startingPanels} />
         </EditorHolder>
       </Container>
     </ChakraProvider>
@@ -70,8 +66,7 @@ const Container = styled.div({
   backgroundColor: "var(--bg-color, #edf2f7)",
   display: "grid",
   gridTemplateRows: "60px 1fr",
-})
-
+});
 
 const HeaderBar = styled.header({
   padding: "0.25rem 1rem",
@@ -93,16 +88,13 @@ const HeaderBar = styled.header({
       height: "100%",
       borderRadius: "1rem",
       padding: "0.5rem",
-    }
+    },
   },
-})
-
+});
 
 const EditorHolder = styled.div({
   padding: "2rem",
   height: "100%",
   width: "100%",
   position: "relative",
-})
-
-
+});

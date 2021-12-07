@@ -19,7 +19,8 @@ export default function removeTract(
     const itemsInTract = conflictsToRemoveTract(template.areas, tract);
     if (itemsInTract.length !== 0) {
       throw new Error(
-        `Can't remove ${dir === "rows" ? "row" : "col"
+        `Can't remove ${
+          dir === "rows" ? "row" : "col"
         } ${index} as items ${joinPretty(
           itemsInTract
         )} are entirely contained within it.`

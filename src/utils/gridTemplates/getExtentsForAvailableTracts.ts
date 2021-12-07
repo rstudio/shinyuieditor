@@ -1,4 +1,3 @@
-
 import { GridCellBounds } from "components/shiny-ui/GridApp";
 import { boundingBoxToExtent } from "components/shiny-ui/GridApp/helpers";
 import { DragDirection } from "components/shiny-ui/GridApp/useResizeOnDrag";
@@ -61,9 +60,10 @@ export function getExtentsForAvailableTracts({
 // We're doing this separately so the direction conditional doesn't need
 // to be evaluated every iteration of our extent finding loop
 const startAndEndOfExtentForDir: {
-  [key in DragDirection]: (
-    extent: SelectionRect
-  ) => { start: number; end: number };
+  [key in DragDirection]: (extent: SelectionRect) => {
+    start: number;
+    end: number;
+  };
 } = {
   up: ({ bottom, top }) => ({ start: bottom, end: top }),
   down: ({ bottom, top }) => ({ start: top, end: bottom }),

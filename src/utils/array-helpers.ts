@@ -10,9 +10,12 @@ export const buildRange = (from: number, to: number): number[] => {
   return Array.from({ length: numEls }, (_, i) => from + i * step);
 };
 
-export function arrayRange(
-  arr: number[] | Set<number>
-): { minVal: number; maxVal: number; span: number; isSequence: boolean } {
+export function arrayRange(arr: number[] | Set<number>): {
+  minVal: number;
+  maxVal: number;
+  span: number;
+  isSequence: boolean;
+} {
   let minVal: number = Infinity;
   let maxVal: number = -Infinity;
 

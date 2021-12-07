@@ -75,9 +75,12 @@ function TractControl({
         value={size}
         w="120px"
         onChange={(newSize) => {
-          setLayout?.(
-            { type: "RESIZE_TRACT", dir, index: tractIndex, size: newSize }
-          );
+          setLayout?.({
+            type: "RESIZE_TRACT",
+            dir,
+            index: tractIndex,
+            size: newSize,
+          });
         }}
       />
       <ButtonsHolder className={dir}>

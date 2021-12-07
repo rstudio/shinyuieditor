@@ -53,9 +53,8 @@ describe("Updating settings is reflected in entire app", () => {
     );
 
     const numBinsPanel = screen.getByLabelText(/numBins panel/i);
-    const openSettingsButton = within(numBinsPanel).getByLabelText(
-      /open settings/i
-    );
+    const openSettingsButton =
+      within(numBinsPanel).getByLabelText(/open settings/i);
     const settingsDialog = within(numBinsPanel).getByLabelText(
       /settings for sliderInput/i
     );

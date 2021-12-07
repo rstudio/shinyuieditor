@@ -30,8 +30,7 @@ export const TractAddButton = ({
       popoverPlacement={dir === "rows" ? "left" : "top"}
       aria-label={description}
       onClick={() => {
-        setLayout?.({ type: "ADD_TRACT", dir, afterIndex, size }
-        );
+        setLayout?.({ type: "ADD_TRACT", dir, afterIndex, size });
       }}
     >
       <FaPlus />

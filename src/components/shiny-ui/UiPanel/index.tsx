@@ -69,9 +69,10 @@ function UiPanel<ElName extends ShinyUiNames>({
   const UiComponent = components.UiComponent as ShinyUiComponent<
     typeof componentProps
   >;
-  const SettingsComponent = components.SettingsComponent as ShinyUiSettingsComponent<
-    typeof componentProps
-  >;
+  const SettingsComponent =
+    components.SettingsComponent as ShinyUiSettingsComponent<
+      typeof componentProps
+    >;
 
   return (
     <UiPanelHolder

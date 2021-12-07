@@ -18,8 +18,8 @@ export function TractRemoveButton({
   const description = `remove ${singular(dir)} ${index}`;
   const popupText = isDisabled
     ? `Can't ${description} as items ${joinPretty(
-      conflicts
-    )} are entirely contained within it.`
+        conflicts
+      )} are entirely contained within it.`
     : description;
 
   return (

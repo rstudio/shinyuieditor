@@ -1,12 +1,21 @@
 import styled from "@emotion/styled";
 import React from "react";
-import { AiFillCaretDown, AiFillCaretLeft, AiFillCaretRight, AiFillCaretUp } from "react-icons/ai";
+import {
+  AiFillCaretDown,
+  AiFillCaretLeft,
+  AiFillCaretRight,
+  AiFillCaretUp,
+} from "react-icons/ai";
 import { RiDragMove2Line as MoveIcon } from "react-icons/ri";
-import { GridItemExtent, ItemLocation, TemplatedGridProps } from "utils/gridTemplates/types";
+import {
+  GridItemExtent,
+  ItemLocation,
+  TemplatedGridProps,
+} from "utils/gridTemplates/types";
 import { CellLocRef } from ".";
 import {
   availableMoves,
-  MovementType
+  MovementType,
 } from "../../../utils/gridTemplates/availableMoves";
 import { useResizeOnDrag } from "./useResizeOnDrag";
 
@@ -40,7 +49,6 @@ export function AreaOverlay({
     () => availableMoves({ gridLocation, layoutAreas }),
     [gridLocation, layoutAreas]
   );
-
 
   const movementHandles = React.useMemo(() => {
     let movementArrows: JSX.Element[] = [];

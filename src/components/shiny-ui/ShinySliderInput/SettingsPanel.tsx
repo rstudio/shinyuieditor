@@ -5,10 +5,9 @@ import { NumericInput } from "../SettingsInputs/NumericInput";
 import { TextInput } from "../SettingsInputs/TextInput";
 import UiSettingsForm from "../UiSettingsForm";
 
-const ShinySliderInputSettings: ShinyUiSettingsComponent<ShinySliderInputProps> = ({
-  startingSettings,
-  onUpdate,
-}) => {
+const ShinySliderInputSettings: ShinyUiSettingsComponent<
+  ShinySliderInputProps
+> = ({ startingSettings, onUpdate }) => {
   const currentSettings = buildSliderSettings(startingSettings);
 
   const [sliderSettings, setSliderSettings] = React.useState(currentSettings);

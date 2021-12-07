@@ -18,7 +18,6 @@ import { AiOutlineClose } from "react-icons/ai";
 import { BiCheck } from "react-icons/bi";
 import { atom, useRecoilValue, useResetRecoilState } from "recoil";
 
-
 export const newItemInfoAtom = atom<GridPos | null>({
   key: "newItemInfo",
   default: null,
@@ -51,8 +50,6 @@ export function ConfigureNewItemForm({
   itemPos: GridPos;
   onClose: () => void;
 }) {
-
-
   const nameInputRef = React.useRef<HTMLInputElement>(null);
 
   const [currentName, setCurrentName] = React.useState("");
@@ -63,7 +60,7 @@ export function ConfigureNewItemForm({
   };
 
   // TODO Update this to actually correspond to existing names
-  const existingElementNames = ["A", "B", "C"]
+  const existingElementNames = ["A", "B", "C"];
   // Make sure when the modal pops up focus is on the input so the user can
   // start typing immediately without having to select then input with mouse.
   React.useLayoutEffect(() => {

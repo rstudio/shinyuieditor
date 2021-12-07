@@ -36,13 +36,13 @@ export function placeOnGridOrCol({
 }) {
   return dir === "rows"
     ? {
-      gridColumn: makeTractPos(1, -1),
-      gridRow: index + 1,
-    }
+        gridColumn: makeTractPos(1, -1),
+        gridRow: index + 1,
+      }
     : {
-      gridRow: makeTractPos(1, -1),
-      gridColumn: index + 1,
-    };
+        gridRow: makeTractPos(1, -1),
+        gridColumn: index + 1,
+      };
 }
 
 export function enumerateGridDims({
@@ -73,9 +73,9 @@ export function toStringLoc({
 }
 
 export function getCurrentGridCellBounds() {
-  const allCells = document.querySelectorAll(".gridCell") as NodeListOf<
-    HTMLDivElement
-  >;
+  const allCells = document.querySelectorAll(
+    ".gridCell"
+  ) as NodeListOf<HTMLDivElement>;
 
   // const gridIndicesToBBox = new Map<`row${number}-col${number}`,GridItemBoundingBox>();
   const gridIndicesToBBox = new Map<GridLocString, GridItemBoundingBox>();

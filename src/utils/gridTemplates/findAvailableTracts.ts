@@ -13,9 +13,8 @@ export default function findAvailableTracts({
   gridLocation: ItemLocation;
   layoutAreas: TemplatedGridProps["areas"];
 }): { shrinkExtent: number; growExtent: number } {
-  const { rowStart, rowEnd, colStart, colEnd } = gridLocationToExtent(
-    gridLocation
-  );
+  const { rowStart, rowEnd, colStart, colEnd } =
+    gridLocationToExtent(gridLocation);
   const nRows = layoutAreas.length;
   const nCols = layoutAreas[0].length;
 

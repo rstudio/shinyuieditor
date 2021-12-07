@@ -46,7 +46,7 @@ export function useUndoRedo() {
   //   [setSelectedName, setUpNewLayout]
   // );
   const goBackward = useCallback(() => {
-    console.log("Navigating backwards")
+    console.log("Navigating backwards");
     // setState(stateHistory.current.goBackwards());
   }, []);
 

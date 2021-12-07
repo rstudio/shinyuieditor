@@ -5,16 +5,20 @@ import {
   AvailableBlocks,
   centersOfAvailableBlocks,
   findClosestAvailableBlock,
-  sameLocation
+  sameLocation,
 } from "utils/gridTemplates/moveCandidatesForItem";
-import { GridItemExtent, ItemLocation, TemplatedGridProps } from "utils/gridTemplates/types";
+import {
+  GridItemExtent,
+  ItemLocation,
+  TemplatedGridProps,
+} from "utils/gridTemplates/types";
 import { SelectionRect } from "utils/overlap-helpers";
 import { GridCellBounds } from ".";
 import {
   centerOfBounds,
   clamp,
   gridLocationToBounds,
-  gridLocationToExtent
+  gridLocationToExtent,
 } from "./helpers";
 
 type ItemBounds = ReturnType<typeof gridLocationToBounds>;
@@ -247,18 +251,18 @@ export function useResizeOnDrag({
       dragRef.current =
         dragDirection === "move"
           ? setupDragToMove({
-            itemBounds,
-            cellBounds,
-            gridLocation,
-            layoutAreas,
-          })
+              itemBounds,
+              cellBounds,
+              gridLocation,
+              layoutAreas,
+            })
           : setupDragToResize({
-            dragDirection,
-            itemBounds,
-            cellBounds,
-            gridLocation,
-            layoutAreas,
-          });
+              dragDirection,
+              itemBounds,
+              cellBounds,
+              gridLocation,
+              layoutAreas,
+            });
 
       // Add explicite positioning to grid item div and then turn on drag
       // mode to transfer placement duties to those positions

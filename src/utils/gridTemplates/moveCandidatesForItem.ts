@@ -2,7 +2,7 @@ import { GridCellBounds } from "components/shiny-ui/GridApp";
 import {
   centerOfBounds,
   gridLocationToBounds,
-  gridLocationToExtent
+  gridLocationToExtent,
 } from "components/shiny-ui/GridApp/helpers";
 import { matrixDimensions } from "utils/matrix-helpers";
 import { emptyCell } from "./itemLocations";

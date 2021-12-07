@@ -28,14 +28,12 @@ export type ShinyUiProps = ShinyUiPropsByName[ShinyUiNames];
 /**
  * Union of Ui element name and associated props for easy narrowing
  */
-export type ShinyUiNameAndProps = ValueOf<
-  {
-    [Name in keyof ShinyUiPropsByName]: {
-      componentName: Name;
-      componentProps: ShinyUiPropsByName[Name];
-    };
-  }
->;
+export type ShinyUiNameAndProps = ValueOf<{
+  [Name in keyof ShinyUiPropsByName]: {
+    componentName: Name;
+    componentProps: ShinyUiPropsByName[Name];
+  };
+}>;
 
 /**
  * Format of a React component designating a Shiny-Ui element with a given
