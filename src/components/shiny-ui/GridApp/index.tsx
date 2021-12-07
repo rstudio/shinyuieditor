@@ -2,18 +2,12 @@
 
 import styled from "@emotion/styled";
 import { CSSUnitInput } from "components/CSSUnitInput";
-import { CSSMeasure, GridLocString } from "GridTypes";
-import clone from "just-clone";
+import { GridLocString } from "GridTypes";
 import omit from "just-omit";
 import * as React from "react";
-import addItem from "utils/gridTemplates/addItem";
-import addTract from "utils/gridTemplates/addTract";
 import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
-import removeItem from "utils/gridTemplates/removeItem";
-import removeTract from "utils/gridTemplates/removeTract";
-import resizeTract from "utils/gridTemplates/resizeTract";
-import { GridItemExtent, TemplatedGridProps } from "utils/gridTemplates/types";
+import { TemplatedGridProps } from "utils/gridTemplates/types";
 import { ItemBoundingBox } from "utils/overlap-helpers";
 import { ShinyUiNameAndProps } from "../componentTypes";
 import UiChooser from "../UiChooser";
@@ -21,8 +15,8 @@ import UiPanel from "../UiPanel";
 import { AreaOverlay } from "./AreaOverlay";
 import { EditModeToggle } from "./EditModeToggle";
 import { GridCells } from "./GridCell";
-import { TractDirection } from "./helpers";
 import { TractControls } from "./TractControls";
+import { GridLayoutAction, useGridLayoutReducer } from "./useGridLayoutReducer";
 
 export type Panels = Record<string, ShinyUiNameAndProps>;
 type GridAppProps = {
@@ -37,72 +31,15 @@ export type EditMode = "UI" | "Layout";
 export const LayoutDispatchContext =
   React.createContext<React.Dispatch<GridLayoutAction> | null>(null);
 
-type GridLayoutAction =
-  | { type: "ADD_ITEM" }
-  | { type: "REMOVE_ITEM"; name: string }
-  | { type: "MOVE_ITEM"; name: string; pos: GridItemExtent }
-  | {
-      type: "ADD_TRACT";
-      dir: TractDirection;
-      afterIndex: number;
-      size: CSSMeasure;
-    }
-  | {
-      type: "REMOVE_TRACT";
-      dir: TractDirection;
-      index: number;
-    }
-  | {
-      type: "RESIZE_TRACT";
-      dir: TractDirection;
-      index: number;
-      size: CSSMeasure;
-    }
-  | {
-      type: "SET_GAP";
-      size: CSSMeasure;
-    };
-
-function gridLayoutReducer(
-  layout: TemplatedGridProps,
-  action: GridLayoutAction
-): TemplatedGridProps {
-  switch (action.type) {
-    case "ADD_ITEM":
-      console.error("Yet to implement ADD_ITEM");
-      return layout;
-    case "REMOVE_ITEM":
-      return removeItem(layout, action.name);
-    case "MOVE_ITEM":
-      return addItem(layout, { name: action.name, ...action.pos });
-    case "ADD_TRACT":
-      return addTract(layout, action);
-    case "REMOVE_TRACT":
-      return removeTract(layout, action);
-    case "RESIZE_TRACT":
-      return resizeTract(
-        layout,
-        { dir: action.dir, index: action.index },
-        action.size
-      );
-    case "SET_GAP":
-      return { ...clone(layout), gapSize: action.size };
-    default:
-      console.error(action);
-      throw new Error("Have yet to implement layout action type");
-  }
-}
-
 export default function GridApp({
   layout: initialLayout,
   panels: initialPanels,
   onNewState,
 }: GridAppProps) {
   const [allPanels, setAllPanels] = React.useState(initialPanels);
-  const [layout, layoutDispatch] = React.useReducer(gridLayoutReducer, {
-    gapSize: "1rem",
-    ...initialLayout,
-  } as TemplatedGridProps);
+  const { layout, layoutDispatch, moveItem, removeItem } =
+    useGridLayoutReducer(initialLayout);
+
   const [editMode, setEditMode] = React.useState<EditMode>("UI");
   const gridCellLocations: CellLocRef = React.useRef({});
 
@@ -150,7 +87,7 @@ export default function GridApp({
 
   const deletePanel = React.useCallback(
     (area: string) => {
-      layoutDispatch({ type: "REMOVE_ITEM", name: area });
+      removeItem(area);
       setAllPanels((panels) => omit(panels, area));
     },
     [setAllPanels]
@@ -163,10 +100,6 @@ export default function GridApp({
     [setAllPanels]
   );
 
-  const moveItem = React.useCallback((name: string, pos: GridItemExtent) => {
-    layoutDispatch({ type: "MOVE_ITEM", name, pos });
-  }, []);
-
   const panelAreas = Object.keys(allPanels);
 
   if (panelAreas.some((area) => !uniqueAreas.includes(area)))
@@ -174,16 +107,19 @@ export default function GridApp({
       "Tried to place a panel onto an area not in the defined grid layout"
     );
 
-  const areaOverlays = uniqueAreas.map((area) => (
-    <AreaOverlay
-      key={area}
-      area={area}
-      areas={layout.areas}
-      cellLocRef={gridCellLocations}
-      gridLocation={itemGridLocations.get(area)}
-      onNewPos={(pos) => moveItem(area, pos)}
-    />
-  ));
+  const areaOverlays =
+    editMode === "Layout"
+      ? uniqueAreas.map((area) => (
+          <AreaOverlay
+            key={area}
+            area={area}
+            areas={layout.areas}
+            cellLocRef={gridCellLocations}
+            gridLocation={itemGridLocations.get(area)}
+            onNewPos={(pos) => moveItem(area, pos)}
+          />
+        ))
+      : null;
 
   const gridItems = panelAreas.map((area) => (
     <UiPanel
@@ -230,7 +166,7 @@ export default function GridApp({
             cellLocRef={gridCellLocations}
             onClick={onNewItem}
           />
-          {editMode === "Layout" ? areaOverlays : null}
+          {areaOverlays}
           {gridItems}
         </GridDisplay>
       </AppContainer>
