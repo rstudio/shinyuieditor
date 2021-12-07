@@ -28,7 +28,6 @@ export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {
   layout: mainLayout,
-  labelAreas: true,
   panels: {
     title: {
       componentName: "titlePanel",
@@ -49,6 +48,5 @@ export const Empty = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Empty.args = {
   layout: mainLayout,
-  labelAreas: true,
   panels: {},
 };

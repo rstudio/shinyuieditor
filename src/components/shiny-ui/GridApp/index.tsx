@@ -26,7 +26,6 @@ export type Panels = Record<string, ShinyUiNameAndProps>;
 type GridAppProps = {
   layout: TemplatedGridProps;
   panels: Panels;
-  labelAreas?: boolean;
   onNewState?: (x: Panels) => void;
 };
 export type GridCellBounds = Record<GridLocString, ItemBoundingBox>;
@@ -89,7 +88,6 @@ function gridLayoutReducer(
 export default function GridApp({
   layout: initialLayout,
   panels: initialPanels,
-  labelAreas = false,
   onNewState,
 }: GridAppProps) {
   const [allPanels, setAllPanels] = React.useState(initialPanels);
@@ -121,10 +119,6 @@ export default function GridApp({
     // });
   };
 
-  React.useEffect(() => {
-    console.log("New layout", layout);
-  }, [layout]);
-
   React.useEffect(() => onNewState?.(allPanels), [allPanels, onNewState]);
 
   const updatePanel = React.useCallback(
@@ -149,7 +143,6 @@ export default function GridApp({
   const deletePanel = React.useCallback(
     (area: string) => {
       layoutDispatch({ type: "REMOVE_ITEM", name: area });
-      console.log("Removing area from layout");
       setAllPanels((panels) => omit(panels, area));
     },
     [setAllPanels]
@@ -158,7 +151,6 @@ export default function GridApp({
   const addPanel = React.useCallback(
     (area: string, newPanel: ShinyUiNameAndProps) => {
       setAllPanels((panels) => ({ ...panels, [area]: newPanel }));
-      // setLayout(l => )
     },
     [setAllPanels]
   );
@@ -197,7 +189,7 @@ export default function GridApp({
 
   // If we have any unset panels, give then the ui chooser interface and add to the grid items children
   uniqueAreas.forEach((area) => {
-    if (panelAreas.includes(area)) return;
+    if (area in allPanels) return;
     gridItems.push(
       <UiChooser key={area} area={area} onChoose={(x) => addPanel(area, x)} />
     );
