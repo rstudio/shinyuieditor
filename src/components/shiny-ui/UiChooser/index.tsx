@@ -1,15 +1,9 @@
-import styled from "@emotion/styled";
-import {
-  ShinyUiNames,
-  ShinyUiNameAndProps,
-} from "components/shiny-ui/componentTypes";
+import { ShinyUiNameAndProps } from "components/shiny-ui/componentTypes";
 import * as React from "react";
-import { BiSliderAlt, BiText } from "react-icons/bi";
-import { GoGraph } from "react-icons/go";
-import { makeBoxShadow } from "utils/css-helpers";
 import { UiPanelHolder } from "../UiPanelHolder";
+import { OptionsList, OptionItem, previewIcons } from "../UiOptionsList";
 
-const allPossibleUi: ShinyUiNameAndProps[] = [
+export const allPossibleUi: ShinyUiNameAndProps[] = [
   {
     componentName: "plotOutput",
     componentProps: { name: "My Chosen Plot" },
@@ -53,29 +47,5 @@ function UiChooser({
     </UiPanelHolder>
   );
 }
-
-const previewIcons: Record<ShinyUiNames, JSX.Element> = {
-  plotOutput: <GoGraph />,
-  sliderInput: <BiSliderAlt />,
-  titlePanel: <BiText />,
-};
-
-const OptionsList = styled.div({
-  display: "flex",
-  justifyContent: "space-around",
-  flexWrap: "wrap",
-  padding: "5px",
-  gap: "5px",
-});
-
-const OptionItem = styled.button({
-  border: "1px solid var(--light-grey)",
-  boxShadow: makeBoxShadow({ height: 0.2 }),
-  borderRadius: "var(--corner-radius, 10px)",
-  width: "120px",
-  display: "grid",
-  gridTemplateRows: "40px 25px",
-  placeItems: "center",
-});
 
 export default UiChooser;

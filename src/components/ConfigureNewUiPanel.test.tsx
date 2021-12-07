@@ -24,7 +24,7 @@ test("Basic usage of new item adding", () => {
       <RecoilObserver node={combinedItemsState} onChange={onChangeMock} />
       <ConfigureNewItemForm
         itemPos={{ startRow: 1, endRow: 1, startCol: 1, endCol: 1 }}
-        onClose={onCloseMock}
+        onFinish={onCloseMock}
       />
     </AppWLayout>
   );
@@ -67,7 +67,7 @@ test("Gives warning message when a non-conforming name is typed", () => {
       <RecoilObserver node={combinedItemsState} onChange={onChangeMock} />
       <ConfigureNewItemForm
         itemPos={{ startRow: 2, endRow: 2, startCol: 1, endCol: 1 }}
-        onClose={onCloseMock}
+        onFinish={onCloseMock}
       />
     </AppWLayout>
   );

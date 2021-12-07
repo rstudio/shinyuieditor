@@ -7,7 +7,11 @@ import omit from "just-omit";
 import * as React from "react";
 import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
-import { TemplatedGridProps } from "utils/gridTemplates/types";
+import {
+  GridItemExtent,
+  ItemLocation,
+  TemplatedGridProps,
+} from "utils/gridTemplates/types";
 import { ItemBoundingBox } from "utils/overlap-helpers";
 import { ShinyUiNameAndProps } from "../componentTypes";
 import UiChooser from "../UiChooser";
@@ -15,6 +19,7 @@ import UiPanel from "../UiPanel";
 import { AreaOverlay } from "./AreaOverlay";
 import { EditModeToggle } from "./EditModeToggle";
 import { GridCells } from "./GridCell";
+import { NewItemConfigurationModal } from "./NewItemConfigurationModal";
 import { TractControls } from "./TractControls";
 import { GridLayoutAction, useGridLayoutReducer } from "./useGridLayoutReducer";
 
@@ -39,8 +44,11 @@ export default function GridApp({
   const [allPanels, setAllPanels] = React.useState(initialPanels);
   const { layout, layoutDispatch, moveItem, removeItem } =
     useGridLayoutReducer(initialLayout);
-
   const [editMode, setEditMode] = React.useState<EditMode>("UI");
+
+  const [newPanelPosition, setNewPanelPosition] =
+    React.useState<GridItemExtent | null>(null);
+
   const gridCellLocations: CellLocRef = React.useRef({});
 
   // Can probably be memoized
@@ -54,6 +62,12 @@ export default function GridApp({
 
   const onNewItem = ({ row, col }: { row: number; col: number }) => {
     const newAreaName = `row${row}-col${col}`;
+    setNewPanelPosition({
+      rowStart: row,
+      rowEnd: row,
+      colStart: col,
+      colEnd: col,
+    });
     console.log("Building a new item...", newAreaName);
     // onNewArea({
     //   name: newAreaName,
@@ -170,6 +184,11 @@ export default function GridApp({
           {gridItems}
         </GridDisplay>
       </AppContainer>
+      <NewItemConfigurationModal
+        newPanelPosition={newPanelPosition}
+        existingNames={uniqueAreas}
+        onClose={() => setNewPanelPosition(null)}
+      />
     </LayoutDispatchContext.Provider>
   );
 }

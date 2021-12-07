@@ -5,62 +5,34 @@ import {
   FormLabel,
   HStack,
   Input,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalHeader,
-  ModalOverlay,
 } from "@chakra-ui/react";
-import { GridPos } from "GridTypes";
 import * as React from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiCheck } from "react-icons/bi";
-import { atom, useRecoilValue, useResetRecoilState } from "recoil";
+import { ShinyUiNameAndProps } from "./shiny-ui/componentTypes";
+import { UiOptionsList } from "./shiny-ui/UiOptionsList";
 
-export const newItemInfoAtom = atom<GridPos | null>({
-  key: "newItemInfo",
-  default: null,
-});
-
-export function ConfigureNewItemModal() {
-  const newItemInfo = useRecoilValue(newItemInfoAtom);
-  const closeModal = useResetRecoilState(newItemInfoAtom);
-
-  if (newItemInfo === null) return null;
-
-  return (
-    <Modal isOpen={true} onClose={closeModal}>
-      <ModalOverlay />
-      <ModalContent>
-        <ModalHeader>Modal Title</ModalHeader>
-        <ModalCloseButton />
-        <ModalBody>
-          <ConfigureNewItemForm itemPos={newItemInfo} onClose={closeModal} />
-        </ModalBody>
-      </ModalContent>
-    </Modal>
-  );
-}
-
-export function ConfigureNewItemForm({
-  itemPos,
-  onClose,
+export function ConfigureNewUiPanel({
+  onFinish,
+  onCancel,
+  existingElementNames,
 }: {
-  itemPos: GridPos;
-  onClose: () => void;
+  onFinish: ({}: { name: string; ui: ShinyUiNameAndProps }) => void;
+  onCancel: () => void;
+  existingElementNames: string[];
 }) {
   const nameInputRef = React.useRef<HTMLInputElement>(null);
 
   const [currentName, setCurrentName] = React.useState("");
+  const [currentUi, setCurrentUi] = React.useState<ShinyUiNameAndProps | null>(
+    null
+  );
   const [warningMsg, setWarningMsg] = React.useState<string | null>(null);
   const updateName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCurrentName(e.target.value);
     validateName(e.target.value);
   };
 
-  // TODO Update this to actually correspond to existing names
-  const existingElementNames = ["A", "B", "C"];
   // Make sure when the modal pops up focus is on the input so the user can
   // start typing immediately without having to select then input with mouse.
   React.useLayoutEffect(() => {
@@ -84,18 +56,18 @@ export function ConfigureNewItemForm({
     setWarningMsg(null);
   };
 
-  const submitName = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (currentName === "") return;
-    console.log("New Item", { name: currentName, ...itemPos });
-    onClose();
+    if (currentName === "" || currentUi === null) return;
+
+    onFinish({ name: currentName, ui: currentUi });
   };
 
   const hasWarning = Boolean(warningMsg);
 
   return (
-    <form onSubmit={submitName}>
+    <form onSubmit={onSubmit}>
       <FormControl id="item-name" isRequired>
         <FormLabel>Item Name</FormLabel>
         <Input
@@ -115,6 +87,12 @@ export function ConfigureNewItemForm({
             : "Name of the new item. Used to map to placement on grid."}
         </FormHelperText>
       </FormControl>
+
+      <UiOptionsList
+        onChoose={(ui) => setCurrentUi(ui)}
+        selected={currentUi?.componentName}
+      />
+
       <HStack spacing="6" marginTop="1rem" justify="space-evenly">
         <Button
           variant="main"
@@ -127,7 +105,7 @@ export function ConfigureNewItemForm({
         <Button
           colorScheme="red"
           leftIcon={<AiOutlineClose />}
-          onClick={onClose}
+          onClick={onCancel}
         >
           Cancel
         </Button>
