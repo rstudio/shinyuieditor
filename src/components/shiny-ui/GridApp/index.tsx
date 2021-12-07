@@ -1,7 +1,9 @@
 /** @jsxImportSource @emotion/react */
 
 import styled from "@emotion/styled";
+import { CSSUnitInput } from "components/CSSUnitInput";
 import { CSSMeasure, GridLocString } from "GridTypes";
+import clone from "just-clone";
 import omit from "just-omit";
 import * as React from "react";
 import addItem from "utils/gridTemplates/addItem";
@@ -55,6 +57,10 @@ type GridLayoutAction =
       dir: TractDirection;
       index: number;
       size: CSSMeasure;
+    }
+  | {
+      type: "SET_GAP";
+      size: CSSMeasure;
     };
 
 function gridLayoutReducer(
@@ -79,6 +85,8 @@ function gridLayoutReducer(
         { dir: action.dir, index: action.index },
         action.size
       );
+    case "SET_GAP":
+      return { ...clone(layout), gapSize: action.size };
     default:
       console.error(action);
       throw new Error("Have yet to implement layout action type");
@@ -199,7 +207,20 @@ export default function GridApp({
     <LayoutDispatchContext.Provider value={layoutDispatch}>
       <AppContainer gapSize={layout.gapSize}>
         <SettingsBar>
-          <EditModeToggle selected={editMode} onSelect={setEditMode} />
+          <h1>Layout settings</h1>
+          <div>
+            <div className="label">Gap Size:</div>
+            <CSSUnitInput
+              value={layout.gapSize ?? "2rem"}
+              units={["px", "rem"]}
+              w="130px"
+              onChange={(x) => layoutDispatch({ type: "SET_GAP", size: x })}
+            />
+          </div>
+          <div>
+            <div className="label">Edit Mode:</div>
+            <EditModeToggle selected={editMode} onSelect={setEditMode} />
+          </div>
         </SettingsBar>
         <GridDisplay style={styles}>
           <TractControls areas={layout.areas} sizes={sizes} />
@@ -241,5 +262,18 @@ const GridDisplay = styled.div({
 const SettingsBar = styled.div({
   gridArea: "settings",
   display: "flex",
-  justifyContent: "end",
+  justifyContent: "space-between",
+  alignItems: "center",
+  gap: "1rem",
+  paddingBottom: "0.5rem",
+  borderBottom: "2px solid var(--light-grey)",
+  "& > h1": {
+    fontSize: "1.5rem",
+  },
+  "& > div": {
+    display: "flex",
+    alignItems: "center",
+    gap: "3px",
+    ".label": { fontWeight: 300 },
+  },
 });

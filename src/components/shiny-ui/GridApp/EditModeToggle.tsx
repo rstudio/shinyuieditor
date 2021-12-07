@@ -10,32 +10,22 @@ export function EditModeToggle({
   onSelect: (selection: EditMode) => void;
 }) {
   return (
-    <Container>
-      <div className="label">Edit Mode:</div>
-      <ButtonsHolder
-        className={selected === "UI" ? "left-selected" : "right-selected"}
+    <ButtonsHolder
+      className={selected === "UI" ? "left-selected" : "right-selected"}
+    >
+      <button value="UI" className="left" onClick={() => onSelect("UI")}>
+        UI
+      </button>
+      <button
+        value="Layout"
+        className="right"
+        onClick={() => onSelect("Layout")}
       >
-        <button value="UI" className="left" onClick={() => onSelect("UI")}>
-          UI
-        </button>
-        <button
-          value="Layout"
-          className="right"
-          onClick={() => onSelect("Layout")}
-        >
-          Layout
-        </button>
-      </ButtonsHolder>
-    </Container>
+        Layout
+      </button>
+    </ButtonsHolder>
   );
 }
-
-const Container = styled.div({
-  display: "flex",
-  alignItems: "center",
-  gap: "3px",
-  ".label": { fontWeight: 300 },
-});
 
 const ButtonsHolder = styled.div({
   "--roundness": "3px",
