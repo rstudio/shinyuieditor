@@ -1,6 +1,9 @@
 import * as React from "react";
 import { buildSliderSettings, ShinySliderInputProps } from ".";
-import { ShinyUiSettingsComponent } from "../componentTypes";
+import {
+  ShinyUiSettingsComponent,
+  ShinyUiSettingsFields,
+} from "../componentTypes";
 import { NumericInput } from "../SettingsInputs/NumericInput";
 import { TextInput } from "../SettingsInputs/TextInput";
 import UiSettingsForm from "../UiSettingsForm";
@@ -8,33 +11,46 @@ import UiSettingsForm from "../UiSettingsForm";
 const ShinySliderInputSettings: ShinyUiSettingsComponent<
   ShinySliderInputProps
 > = ({ startingSettings, onUpdate }) => {
-  const currentSettings = buildSliderSettings(startingSettings);
-
-  const [sliderSettings, setSliderSettings] = React.useState(currentSettings);
+  const [sliderSettings, setSliderSettings] = React.useState(startingSettings);
 
   return (
     <UiSettingsForm onUpdate={() => onUpdate(sliderSettings)}>
+      <ShinySliderInputSettingsOptions
+        currentSettings={sliderSettings}
+        onChange={setSliderSettings}
+      />
+    </UiSettingsForm>
+  );
+};
+
+const ShinySliderInputSettingsOptions: ShinyUiSettingsFields<
+  ShinySliderInputProps
+> = ({ currentSettings, onChange }) => {
+  const settings = buildSliderSettings(currentSettings);
+
+  return (
+    <>
       <TextInput
         label="Slider name"
-        value={sliderSettings.name}
-        onChange={(name) => setSliderSettings((s) => ({ ...s, name }))}
+        value={settings.name}
+        onChange={(name) => onChange({ ...settings, name })}
       />
       <NumericInput
         label="Minimum value"
-        value={sliderSettings.min}
-        onChange={(min) => setSliderSettings((s) => ({ ...s, min }))}
+        value={settings.min}
+        onChange={(min) => onChange({ ...settings, min })}
       />
       <NumericInput
         label="Maximum value"
-        value={sliderSettings.max}
-        onChange={(max) => setSliderSettings((s) => ({ ...s, max }))}
+        value={settings.max}
+        onChange={(max) => onChange({ ...settings, max })}
       />
       <NumericInput
         label="Starting value"
-        value={sliderSettings.val}
-        onChange={(val) => setSliderSettings((s) => ({ ...s, val }))}
+        value={settings.val}
+        onChange={(val) => onChange({ ...settings, val })}
       />
-    </UiSettingsForm>
+    </>
   );
 };
 
