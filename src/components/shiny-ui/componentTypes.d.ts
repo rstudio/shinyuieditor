@@ -53,6 +53,15 @@ export type ShinyUiSettingsComponent<Props extends ShinyUiProps> = (p: {
 }) => JSX.Element;
 
 /**
+ * Format of form inputs for ShinyUiSettingsComponent. This is not wrapped in a
+ * form element and thus can be embedded in other forms.
+ */
+export type ShinyUiSettingsFields<Props extends ShinyUiProps> = (p: {
+  currentSettings: Props;
+  onChange: (newSettings: Props) => void;
+}) => JSX.Element;
+
+/**
  * Payload describing the two main components needed for working with a UI element
  */
 export type ShinyUiComponentAndSettings = {
