@@ -9,8 +9,8 @@ import {
 import * as React from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiCheck } from "react-icons/bi";
-import { ShinyUiNameAndProps } from "./shiny-ui/componentTypes";
-import { UiOptionsList } from "./shiny-ui/UiOptionsList";
+import { ShinyUiNameAndProps } from "../componentTypes";
+import { UiOptionsList } from "../UiOptionsList";
 
 export function ConfigureNewUiPanel({
   onFinish,

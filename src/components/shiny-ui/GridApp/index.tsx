@@ -19,7 +19,7 @@ import UiPanel from "../UiPanel";
 import { AreaOverlay } from "./AreaOverlay";
 import { EditModeToggle } from "./EditModeToggle";
 import { GridCells } from "./GridCell";
-import { NewItemConfigurationModal } from "./NewItemConfigurationModal";
+import { NewElementConfigurationModal } from "../NewUiElement/NewElementConfigurationModal";
 import { TractControls } from "./TractControls";
 import { GridLayoutAction, useGridLayoutReducer } from "./useGridLayoutReducer";
 
@@ -184,7 +184,7 @@ export default function GridApp({
           {gridItems}
         </GridDisplay>
       </AppContainer>
-      <NewItemConfigurationModal
+      <NewElementConfigurationModal
         newPanelPosition={newPanelPosition}
         existingNames={uniqueAreas}
         onClose={() => setNewPanelPosition(null)}

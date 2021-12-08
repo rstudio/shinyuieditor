@@ -6,11 +6,11 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/react";
-import { ConfigureNewUiPanel } from "components/ConfiguredNewUiPanel";
+import { ConfigureNewUiPanel } from "components/shiny-ui/NewUiElement/ConfigureNewUiPanel";
 import * as React from "react";
 import { GridItemExtent } from "utils/gridTemplates/types";
 
-export function NewItemConfigurationModal({
+export function NewElementConfigurationModal({
   newPanelPosition,
   existingNames,
   onClose,
