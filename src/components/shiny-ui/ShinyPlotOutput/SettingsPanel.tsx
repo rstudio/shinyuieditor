@@ -22,7 +22,7 @@ const ShinyPlotOutputSettings: ShinyUiSettingsComponent<
   );
 };
 
-const ShinyPlotOutputSettingsOptions: ShinyUiSettingsFields<
+export const ShinyPlotOutputSettingsOptions: ShinyUiSettingsFields<
   ShinyPlotOutputProps
 > = ({ currentSettings, onChange }) => {
   const { name } = currentSettings;

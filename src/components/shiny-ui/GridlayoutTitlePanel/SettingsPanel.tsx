@@ -23,7 +23,7 @@ const GridlayoutTitlePanelSettings: ShinyUiSettingsComponent<
   );
 };
 
-const GridlayoutTitlePanelSettingsOptions: ShinyUiSettingsFields<
+export const GridlayoutTitlePanelSettingsOptions: ShinyUiSettingsFields<
   GridlayoutTitlePanelProps
 > = ({ currentSettings, onChange }) => {
   return (

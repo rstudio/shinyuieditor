@@ -23,7 +23,7 @@ const ShinySliderInputSettings: ShinyUiSettingsComponent<
   );
 };
 
-const ShinySliderInputSettingsOptions: ShinyUiSettingsFields<
+export const ShinySliderInputSettingsOptions: ShinyUiSettingsFields<
   ShinySliderInputProps
 > = ({ currentSettings, onChange }) => {
   const settings = buildSliderSettings(currentSettings);
