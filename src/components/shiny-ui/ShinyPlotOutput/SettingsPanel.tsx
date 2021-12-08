@@ -3,7 +3,7 @@ import { ShinyPlotOutputProps } from ".";
 import { ShinyUiSettingsFields } from "../componentTypes";
 import { TextInput } from "../SettingsInputs/TextInput";
 
-export const ShinyPlotOutputSettingsOptions: ShinyUiSettingsFields<
+export const ShinyPlotOutputSettings: ShinyUiSettingsFields<
   ShinyPlotOutputProps
 > = ({ currentSettings, onChange }) => {
   const { name } = currentSettings;

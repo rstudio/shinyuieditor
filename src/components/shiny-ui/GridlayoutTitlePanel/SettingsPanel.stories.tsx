@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { GridlayoutTitlePanelProps } from "components/shiny-ui/GridlayoutTitlePanel";
-import { GridlayoutTitlePanelSettingsOptions } from "components/shiny-ui/GridlayoutTitlePanel/SettingsPanel";
+import { GridlayoutTitlePanelSettings } from "components/shiny-ui/GridlayoutTitlePanel/SettingsPanel";
 import React from "react";
 import { ShinyUiSettingsComponent } from "../componentTypes";
 import UiSettingsComponent from "../GridApp/SettingsPanelPopover";
@@ -17,7 +17,7 @@ const Template: ComponentStory<
 > = (args) => (
   <div style={{ width: "400px", height: "400px", outline: "1px solid black" }}>
     <UiSettingsComponent
-      SettingsInputs={GridlayoutTitlePanelSettingsOptions}
+      SettingsInputs={GridlayoutTitlePanelSettings}
       {...args}
     />
   </div>

@@ -17,11 +17,11 @@ import type {
   ShinyUiSettingsFields,
 } from "components/shiny-ui/componentTypes";
 import GridlayoutTitlePanel from "components/shiny-ui/GridlayoutTitlePanel";
-import { GridlayoutTitlePanelSettingsOptions } from "components/shiny-ui/GridlayoutTitlePanel/SettingsPanel";
+import { GridlayoutTitlePanelSettings } from "components/shiny-ui/GridlayoutTitlePanel/SettingsPanel";
 import ShinyPlotOutput from "components/shiny-ui/ShinyPlotOutput";
-import { ShinyPlotOutputSettingsOptions } from "components/shiny-ui/ShinyPlotOutput/SettingsPanel";
+import { ShinyPlotOutputSettings } from "components/shiny-ui/ShinyPlotOutput/SettingsPanel";
 import ShinySliderInput from "components/shiny-ui/ShinySliderInput";
-import { ShinySliderInputSettingsOptions } from "components/shiny-ui/ShinySliderInput/SettingsPanel";
+import { ShinySliderInputSettings } from "components/shiny-ui/ShinySliderInput/SettingsPanel";
 import * as React from "react";
 import {
   FiSettings as SettingsIcon,
@@ -33,15 +33,15 @@ import { UiPanelHolder } from "../UiPanelHolder";
 export const uiComponentAndSettings: ShinyUiComponentAndSettings = {
   plotOutput: {
     UiComponent: ShinyPlotOutput,
-    SettingsComponent: ShinyPlotOutputSettingsOptions,
+    SettingsComponent: ShinyPlotOutputSettings,
   },
   sliderInput: {
     UiComponent: ShinySliderInput,
-    SettingsComponent: ShinySliderInputSettingsOptions,
+    SettingsComponent: ShinySliderInputSettings,
   },
   titlePanel: {
     UiComponent: GridlayoutTitlePanel,
-    SettingsComponent: GridlayoutTitlePanelSettingsOptions,
+    SettingsComponent: GridlayoutTitlePanelSettings,
   },
 };
 

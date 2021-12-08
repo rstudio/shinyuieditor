@@ -4,7 +4,7 @@ import { ShinyUiSettingsFields } from "../componentTypes";
 import { NumericInput } from "../SettingsInputs/NumericInput";
 import { TextInput } from "../SettingsInputs/TextInput";
 
-export const ShinySliderInputSettingsOptions: ShinyUiSettingsFields<
+export const ShinySliderInputSettings: ShinyUiSettingsFields<
   ShinySliderInputProps
 > = ({ currentSettings, onChange }) => {
   const settings = buildSliderSettings(currentSettings);

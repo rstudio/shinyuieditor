@@ -4,7 +4,7 @@ import type { ShinyPlotOutputProps } from "components/shiny-ui/ShinyPlotOutput";
 import React from "react";
 import { ShinyUiSettingsComponent } from "../componentTypes";
 import UiSettingsComponent from "../GridApp/SettingsPanelPopover";
-import { ShinyPlotOutputSettingsOptions } from "./SettingsPanel";
+import { ShinyPlotOutputSettings } from "./SettingsPanel";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -20,10 +20,7 @@ const Template: ComponentStory<
     <div
       style={{ width: "400px", height: "400px", outline: "1px solid black" }}
     >
-      <UiSettingsComponent
-        SettingsInputs={ShinyPlotOutputSettingsOptions}
-        {...args}
-      />
+      <UiSettingsComponent SettingsInputs={ShinyPlotOutputSettings} {...args} />
     </div>
   );
 };

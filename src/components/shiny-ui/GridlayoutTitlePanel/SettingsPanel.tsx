@@ -4,7 +4,7 @@ import { GridlayoutTitlePanelProps } from ".";
 import { ShinyUiSettingsFields } from "../componentTypes";
 import { TextInput } from "../SettingsInputs/TextInput";
 
-export const GridlayoutTitlePanelSettingsOptions: ShinyUiSettingsFields<
+export const GridlayoutTitlePanelSettings: ShinyUiSettingsFields<
   GridlayoutTitlePanelProps
 > = ({ currentSettings, onChange }) => {
   return (
