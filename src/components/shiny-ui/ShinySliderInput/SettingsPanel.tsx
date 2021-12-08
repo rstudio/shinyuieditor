@@ -1,27 +1,8 @@
 import * as React from "react";
 import { buildSliderSettings, ShinySliderInputProps } from ".";
-import {
-  ShinyUiSettingsComponent,
-  ShinyUiSettingsFields,
-} from "../componentTypes";
+import { ShinyUiSettingsFields } from "../componentTypes";
 import { NumericInput } from "../SettingsInputs/NumericInput";
 import { TextInput } from "../SettingsInputs/TextInput";
-import UiSettingsForm from "../UiSettingsForm";
-
-const ShinySliderInputSettings: ShinyUiSettingsComponent<
-  ShinySliderInputProps
-> = ({ startingSettings, onUpdate }) => {
-  const [sliderSettings, setSliderSettings] = React.useState(startingSettings);
-
-  return (
-    <UiSettingsForm onUpdate={() => onUpdate(sliderSettings)}>
-      <ShinySliderInputSettingsOptions
-        currentSettings={sliderSettings}
-        onChange={setSliderSettings}
-      />
-    </UiSettingsForm>
-  );
-};
 
 export const ShinySliderInputSettingsOptions: ShinyUiSettingsFields<
   ShinySliderInputProps
@@ -53,5 +34,3 @@ export const ShinySliderInputSettingsOptions: ShinyUiSettingsFields<
     </>
   );
 };
-
-export default ShinySliderInputSettings;

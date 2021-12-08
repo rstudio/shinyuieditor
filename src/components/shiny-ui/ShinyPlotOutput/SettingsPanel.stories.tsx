@@ -1,20 +1,32 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { ShinyPlotOutputProps } from "components/shiny-ui/ShinyPlotOutput";
-import ShinyPlotOutputSettings from "components/shiny-ui/ShinyPlotOutput/SettingsPanel";
+import type { ShinyPlotOutputProps } from "components/shiny-ui/ShinyPlotOutput";
+
 import React from "react";
+import { ShinyUiSettingsComponent } from "../componentTypes";
+import UiSettingsComponent from "../GridApp/SettingsPanelPopover";
+import { ShinyPlotOutputSettingsOptions } from "./SettingsPanel";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
   title: "ShinyUI/ShinyPlotOutput/SettingsPanel",
-  component: ShinyPlotOutputSettings,
-} as ComponentMeta<typeof ShinyPlotOutputSettings>;
+  component: UiSettingsComponent,
+} as ComponentMeta<typeof UiSettingsComponent>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof ShinyPlotOutputSettings> = (args) => (
-  <div style={{ width: "400px", height: "400px", outline: "1px solid black" }}>
-    <ShinyPlotOutputSettings {...args} />
-  </div>
-);
+const Template: ComponentStory<
+  ShinyUiSettingsComponent<ShinyPlotOutputProps>
+> = (args) => {
+  return (
+    <div
+      style={{ width: "400px", height: "400px", outline: "1px solid black" }}
+    >
+      <UiSettingsComponent
+        SettingsInputs={ShinyPlotOutputSettingsOptions}
+        {...args}
+      />
+    </div>
+  );
+};
 
 export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
@@ -24,5 +36,5 @@ Primary.args = {
     width: "400px",
     height: "300px",
   },
-  onUpdate: (newSettings: ShinyPlotOutputProps) => console.log(newSettings),
+  onUpdate: (newSettings) => console.log(newSettings),
 };

@@ -1,26 +1,7 @@
 import * as React from "react";
 import { ShinyPlotOutputProps } from ".";
-import {
-  ShinyUiSettingsComponent,
-  ShinyUiSettingsFields,
-} from "../componentTypes";
+import { ShinyUiSettingsFields } from "../componentTypes";
 import { TextInput } from "../SettingsInputs/TextInput";
-import UiSettingsForm from "../UiSettingsForm";
-
-const ShinyPlotOutputSettings: ShinyUiSettingsComponent<
-  ShinyPlotOutputProps
-> = ({ startingSettings, onUpdate }) => {
-  const [plotSettings, setPlotSettings] = React.useState(startingSettings);
-
-  return (
-    <UiSettingsForm onUpdate={() => onUpdate(plotSettings)}>
-      <ShinyPlotOutputSettingsOptions
-        currentSettings={plotSettings}
-        onChange={setPlotSettings}
-      />
-    </UiSettingsForm>
-  );
-};
 
 export const ShinyPlotOutputSettingsOptions: ShinyUiSettingsFields<
   ShinyPlotOutputProps
@@ -34,5 +15,3 @@ export const ShinyPlotOutputSettingsOptions: ShinyUiSettingsFields<
     />
   );
 };
-
-export default ShinyPlotOutputSettings;

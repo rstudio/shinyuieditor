@@ -6,11 +6,13 @@ import {
   HStack,
   Input,
 } from "@chakra-ui/react";
+import styled from "@emotion/styled";
 import * as React from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiCheck } from "react-icons/bi";
-import { ShinyUiNameAndProps } from "../componentTypes";
+import { ShinyUiNameAndProps, ShinyUiSettingsFields } from "../componentTypes";
 import { UiOptionsList } from "../UiOptionsList";
+import { uiComponentAndSettings } from "../UiPanel";
 
 export function ConfigureNewUiPanel({
   onFinish,
@@ -32,6 +34,31 @@ export function ConfigureNewUiPanel({
     setCurrentName(e.target.value);
     validateName(e.target.value);
   };
+
+  let settingsWidget: JSX.Element;
+  if (currentUi) {
+    const { componentName, componentProps } = currentUi;
+    const SettingsComponent = uiComponentAndSettings[componentName]
+      .SettingsComponent as ShinyUiSettingsFields<
+      typeof currentUi.componentProps
+    >;
+
+    settingsWidget = (
+      <SettingsComponent
+        currentSettings={componentProps}
+        onChange={(newSettings) => {
+          setCurrentUi({
+            componentName,
+            componentProps: newSettings,
+          } as ShinyUiNameAndProps);
+        }}
+      />
+    );
+  } else {
+    settingsWidget = <span>Select a UI element to adjust settings</span>;
+  }
+
+  // Make sure TS knows these are compatible types
 
   // Make sure when the modal pops up focus is on the input so the user can
   // start typing immediately without having to select then input with mouse.
@@ -68,48 +95,64 @@ export function ConfigureNewUiPanel({
 
   return (
     <form onSubmit={onSubmit}>
-      <FormControl id="item-name" isRequired>
-        <FormLabel>Item Name</FormLabel>
-        <Input
-          ref={nameInputRef}
-          placeholder="Item Name"
-          value={currentName}
-          onChange={updateName}
-          isInvalid={hasWarning}
-        />
+      <VerticalStack>
+        <FormControl id="item-name" isRequired>
+          <FormLabel>Area Name</FormLabel>
+          <Input
+            ref={nameInputRef}
+            placeholder="Item Name"
+            value={currentName}
+            onChange={updateName}
+            isInvalid={hasWarning}
+          />
 
-        <FormHelperText
-          color={hasWarning ? "orangered" : "GrayText"}
-          aria-label={hasWarning ? "input-warning" : "input-description"}
-        >
-          {hasWarning
-            ? warningMsg
-            : "Name of the new item. Used to map to placement on grid."}
-        </FormHelperText>
-      </FormControl>
+          <FormHelperText
+            color={hasWarning ? "orangered" : "GrayText"}
+            aria-label={hasWarning ? "input-warning" : "input-description"}
+          >
+            {hasWarning
+              ? warningMsg
+              : "Name of the grid region containing UI. Used to map to placement on grid."}
+          </FormHelperText>
+        </FormControl>
 
-      <UiOptionsList
-        onChoose={(ui) => setCurrentUi(ui)}
-        selected={currentUi?.componentName}
-      />
+        <FormControl id="ui-chooser">
+          <FormLabel>UI Type</FormLabel>
+          <UiOptionsList
+            onChoose={(ui) => setCurrentUi(ui)}
+            selected={currentUi?.componentName}
+          />
 
-      <HStack spacing="6" marginTop="1rem" justify="space-evenly">
-        <Button
-          variant="main"
-          leftIcon={<BiCheck />}
-          type="submit"
-          disabled={currentName === "" || warningMsg !== null}
-        >
-          Add Item
-        </Button>
-        <Button
-          colorScheme="red"
-          leftIcon={<AiOutlineClose />}
-          onClick={onCancel}
-        >
-          Cancel
-        </Button>
-      </HStack>
+          <FormHelperText color="GrayText" aria-label="input-description">
+            The type of UI element you want to add:
+          </FormHelperText>
+        </FormControl>
+        {settingsWidget}
+
+        <HStack spacing="6" marginTop="1rem" justify="space-evenly">
+          <Button
+            variant="main"
+            leftIcon={<BiCheck />}
+            type="submit"
+            disabled={currentName === "" || warningMsg !== null}
+          >
+            Add Item
+          </Button>
+          <Button
+            colorScheme="red"
+            leftIcon={<AiOutlineClose />}
+            onClick={onCancel}
+          >
+            Cancel
+          </Button>
+        </HStack>
+      </VerticalStack>
     </form>
   );
 }
+
+const VerticalStack = styled.div({
+  display: "flex",
+  flexDirection: "column",
+  gap: "1rem",
+});

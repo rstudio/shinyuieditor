@@ -1,20 +1,25 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { GridlayoutTitlePanelProps } from "components/shiny-ui/GridlayoutTitlePanel";
-import GridlayoutTitlePanelSettings from "components/shiny-ui/GridlayoutTitlePanel/SettingsPanel";
+import { GridlayoutTitlePanelSettingsOptions } from "components/shiny-ui/GridlayoutTitlePanel/SettingsPanel";
 import React from "react";
+import { ShinyUiSettingsComponent } from "../componentTypes";
+import UiSettingsComponent from "../GridApp/SettingsPanelPopover";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
   title: "ShinyUI/GridlayoutTitlePanel/SettingsPanel",
-  component: GridlayoutTitlePanelSettings,
-} as ComponentMeta<typeof GridlayoutTitlePanelSettings>;
+  component: UiSettingsComponent,
+} as ComponentMeta<typeof UiSettingsComponent>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof GridlayoutTitlePanelSettings> = (
-  args
-) => (
+const Template: ComponentStory<
+  ShinyUiSettingsComponent<GridlayoutTitlePanelProps>
+> = (args) => (
   <div style={{ width: "400px", height: "400px", outline: "1px solid black" }}>
-    <GridlayoutTitlePanelSettings {...args} />
+    <UiSettingsComponent
+      SettingsInputs={GridlayoutTitlePanelSettingsOptions}
+      {...args}
+    />
   </div>
 );
 

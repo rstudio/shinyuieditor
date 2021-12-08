@@ -1,18 +1,25 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { ShinySliderInputProps } from "components/shiny-ui/ShinySliderInput";
-import ShinySliderInputSettings from "components/shiny-ui/ShinySliderInput/SettingsPanel";
 import React from "react";
+import { ShinyUiSettingsComponent } from "../componentTypes";
+import UiSettingsComponent from "../GridApp/SettingsPanelPopover";
+import { ShinySliderInputSettingsOptions } from "./SettingsPanel";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
   title: "ShinyUI/ShinySliderInput/SettingsPanel",
-  component: ShinySliderInputSettings,
-} as ComponentMeta<typeof ShinySliderInputSettings>;
+  component: UiSettingsComponent,
+} as ComponentMeta<typeof UiSettingsComponent>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof ShinySliderInputSettings> = (args) => (
+const Template: ComponentStory<
+  ShinyUiSettingsComponent<ShinySliderInputProps>
+> = (args) => (
   <div style={{ width: "400px", height: "400px", outline: "1px solid black" }}>
-    <ShinySliderInputSettings {...args} />
+    <UiSettingsComponent
+      SettingsInputs={ShinySliderInputSettingsOptions}
+      {...args}
+    />
   </div>
 );
 
