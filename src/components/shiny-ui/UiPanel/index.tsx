@@ -14,33 +14,34 @@ import type {
   ShinyUiComponentAndSettings,
   ShinyUiNames,
   ShinyUiPropsByName,
-  ShinyUiSettingsComponent,
+  ShinyUiSettingsFields,
 } from "components/shiny-ui/componentTypes";
 import GridlayoutTitlePanel from "components/shiny-ui/GridlayoutTitlePanel";
-import GridlayoutTitlePanelSettings from "components/shiny-ui/GridlayoutTitlePanel/SettingsPanel";
+import { GridlayoutTitlePanelSettingsOptions } from "components/shiny-ui/GridlayoutTitlePanel/SettingsPanel";
 import ShinyPlotOutput from "components/shiny-ui/ShinyPlotOutput";
-import ShinyPlotOutputSettings from "components/shiny-ui/ShinyPlotOutput/SettingsPanel";
+import { ShinyPlotOutputSettingsOptions } from "components/shiny-ui/ShinyPlotOutput/SettingsPanel";
 import ShinySliderInput from "components/shiny-ui/ShinySliderInput";
-import ShinySliderInputSettings from "components/shiny-ui/ShinySliderInput/SettingsPanel";
+import { ShinySliderInputSettingsOptions } from "components/shiny-ui/ShinySliderInput/SettingsPanel";
 import * as React from "react";
 import {
   FiSettings as SettingsIcon,
   FiTrash as TrashIcon,
 } from "react-icons/fi";
+import UiSettingsComponent from "../GridApp/SettingsPanelPopover";
 import { UiPanelHolder } from "../UiPanelHolder";
 
 export const uiComponentAndSettings: ShinyUiComponentAndSettings = {
   plotOutput: {
     UiComponent: ShinyPlotOutput,
-    SettingsComponent: ShinyPlotOutputSettings,
+    SettingsComponent: ShinyPlotOutputSettingsOptions,
   },
   sliderInput: {
     UiComponent: ShinySliderInput,
-    SettingsComponent: ShinySliderInputSettings,
+    SettingsComponent: ShinySliderInputSettingsOptions,
   },
   titlePanel: {
     UiComponent: GridlayoutTitlePanel,
-    SettingsComponent: GridlayoutTitlePanelSettings,
+    SettingsComponent: GridlayoutTitlePanelSettingsOptions,
   },
 };
 
@@ -69,10 +70,6 @@ function UiPanel<ElName extends ShinyUiNames>({
   const UiComponent = components.UiComponent as ShinyUiComponent<
     typeof componentProps
   >;
-  const SettingsComponent =
-    components.SettingsComponent as ShinyUiSettingsComponent<
-      typeof componentProps
-    >;
 
   return (
     <UiPanelHolder
@@ -112,7 +109,12 @@ function UiPanel<ElName extends ShinyUiNames>({
             <code>{componentName}</code> settings
           </PopoverHeader>
           <PopoverBody>
-            <SettingsComponent
+            <UiSettingsComponent
+              SettingsInputs={
+                components.SettingsComponent as ShinyUiSettingsFields<
+                  typeof componentProps
+                >
+              }
               startingSettings={componentProps}
               onUpdate={(newSettings) => {
                 onUpdate?.(newSettings);

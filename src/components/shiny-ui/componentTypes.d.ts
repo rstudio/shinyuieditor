@@ -67,6 +67,6 @@ export type ShinyUiSettingsFields<Props extends ShinyUiProps> = (p: {
 export type ShinyUiComponentAndSettings = {
   [Name in keyof ShinyUiPropsByName]: {
     UiComponent: ShinyUiComponent<ShinyUiPropsByName[Name]>;
-    SettingsComponent: ShinyUiSettingsComponent<ShinyUiPropsByName[Name]>;
+    SettingsComponent: ShinyUiSettingsFields<ShinyUiPropsByName[Name]>;
   };
 };
