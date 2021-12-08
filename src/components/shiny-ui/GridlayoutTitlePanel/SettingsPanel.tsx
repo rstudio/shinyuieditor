@@ -1,7 +1,10 @@
 import { FormControl } from "@chakra-ui/form-control";
 import * as React from "react";
 import { GridlayoutTitlePanelProps } from ".";
-import { ShinyUiSettingsComponent } from "../componentTypes";
+import {
+  ShinyUiSettingsComponent,
+  ShinyUiSettingsFields,
+} from "../componentTypes";
 import { TextInput } from "../SettingsInputs/TextInput";
 import UiSettingsForm from "../UiSettingsForm";
 
@@ -12,14 +15,25 @@ const GridlayoutTitlePanelSettings: ShinyUiSettingsComponent<
 
   return (
     <UiSettingsForm onUpdate={() => onUpdate(titleSettings)}>
-      <FormControl id="sliderInput-settings">
-        <TextInput
-          label="App title"
-          value={titleSettings.title ?? "UndefinedAppTitle"}
-          onChange={(title) => setTitleSettings((s) => ({ ...s, title }))}
-        />
-      </FormControl>
+      <GridlayoutTitlePanelSettingsOptions
+        currentSettings={titleSettings}
+        onChange={setTitleSettings}
+      />
     </UiSettingsForm>
+  );
+};
+
+const GridlayoutTitlePanelSettingsOptions: ShinyUiSettingsFields<
+  GridlayoutTitlePanelProps
+> = ({ currentSettings, onChange }) => {
+  return (
+    <FormControl id="sliderInput-settings">
+      <TextInput
+        label="App title"
+        value={currentSettings.title ?? "UndefinedAppTitle"}
+        onChange={(title) => onChange({ ...currentSettings, title })}
+      />
+    </FormControl>
   );
 };
 
