@@ -19,7 +19,7 @@ export function ConfigureNewUiPanel({
   onCancel,
   existingElementNames,
 }: {
-  onFinish: ({}: { name: string; ui: ShinyUiNameAndProps }) => void;
+  onFinish: (opts: { name: string; ui: ShinyUiNameAndProps }) => void;
   onCancel: () => void;
   existingElementNames: string[];
 }) {
