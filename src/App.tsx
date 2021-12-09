@@ -3,7 +3,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import rstudioLogo from "assets/RStudio-Logo.svg";
 import shinyLogo from "assets/Shiny-Logo.png";
-import GridApp, { Panels } from "components/shiny-ui/GridApp";
+import GridApp, { Panels } from "components/Shiny-Ui-Elements/Layouts/GridApp";
 import * as React from "react";
 import { makeBoxShadow } from "utils/css-helpers";
 import { theme } from "./theme";

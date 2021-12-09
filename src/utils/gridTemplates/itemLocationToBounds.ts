@@ -1,4 +1,4 @@
-import { TractDirection } from "components/shiny-ui/GridApp/helpers";
+import { TractDirection } from "components/Shiny-Ui-Elements/Layouts/GridApp/helpers";
 import { GridItemExtent, ItemLocation } from "./types";
 
 export function itemLocationToBounds(item: ItemLocation): GridItemExtent {

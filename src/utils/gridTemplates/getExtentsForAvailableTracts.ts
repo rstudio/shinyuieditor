@@ -1,6 +1,6 @@
-import { GridCellBounds } from "components/shiny-ui/GridApp";
-import { boundingBoxToExtent } from "components/shiny-ui/GridApp/helpers";
-import { DragDirection } from "components/shiny-ui/GridApp/useResizeOnDrag";
+import { GridCellBounds } from "components/Shiny-Ui-Elements/Layouts/GridApp";
+import { boundingBoxToExtent } from "components/Shiny-Ui-Elements/Layouts/GridApp/helpers";
+import { DragDirection } from "components/Shiny-Ui-Elements/Layouts/GridApp/useResizeOnDrag";
 import { buildRange } from "utils/array-helpers";
 import { toStringLoc } from "utils/grid-helpers";
 import { ItemLocation, TemplatedGridProps } from "utils/gridTemplates/types";

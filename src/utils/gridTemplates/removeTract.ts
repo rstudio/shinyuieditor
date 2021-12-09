@@ -1,4 +1,4 @@
-import { TractDirection } from "components/shiny-ui/GridApp/helpers";
+import { TractDirection } from "components/Shiny-Ui-Elements/Layouts/GridApp/helpers";
 import { joinPretty, removeAtIndex } from "utils/array-helpers";
 import { removeRowOrCol } from "utils/matrix-helpers";
 import { areasToItemLocations } from "./itemLocations";
