@@ -15,7 +15,7 @@ import {
   ShinyUiSettingsFields,
 } from "../Elements/componentTypes";
 import { uiComponentAndSettings } from "../Elements/uiComponentAndSettings";
-import { UiOptionsList } from "./UiOptionsList";
+import { UiOptionsList } from "../ConfigureNewElement/UiOptionsList";
 
 export function ConfigureNewUiPanel({
   onFinish,

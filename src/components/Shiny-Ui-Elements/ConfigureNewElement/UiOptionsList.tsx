@@ -6,7 +6,7 @@ import {
 import * as React from "react";
 import { BiSliderAlt, BiText } from "react-icons/bi";
 import { GoGraph } from "react-icons/go";
-import { defaultSettingsForElements } from "./Elements/uiComponentAndSettings";
+import { defaultSettingsForElements } from "../Elements/uiComponentAndSettings";
 
 export function UiOptionsList({
   availableUi = defaultSettingsForElements,
