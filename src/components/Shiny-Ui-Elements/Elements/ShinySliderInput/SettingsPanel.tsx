@@ -1,8 +1,8 @@
 import * as React from "react";
 import { buildSliderSettings, ShinySliderInputProps } from ".";
 import { ShinyUiSettingsFields } from "components/Shiny-Ui-Elements/Elements/componentTypes";
-import { NumericInput } from "components/Shiny-Ui-Elements/UiSettings/Inputs/NumericInput";
-import { TextInput } from "components/Shiny-Ui-Elements/UiSettings/Inputs/TextInput";
+import { NumericInput } from "components/Inputs/NumericInput";
+import { TextInput } from "components/Inputs/TextInput";
 
 export const ShinySliderInputSettings: ShinyUiSettingsFields<
   ShinySliderInputProps

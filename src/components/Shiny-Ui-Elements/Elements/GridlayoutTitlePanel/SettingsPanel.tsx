@@ -1,8 +1,8 @@
 import { FormControl } from "@chakra-ui/form-control";
+import { TextInput } from "components/Inputs/TextInput";
 import * as React from "react";
 import { GridlayoutTitlePanelProps } from ".";
 import { ShinyUiSettingsFields } from "../componentTypes";
-import { TextInput } from "../../UiSettings/Inputs/TextInput";
 
 export const GridlayoutTitlePanelSettings: ShinyUiSettingsFields<
   GridlayoutTitlePanelProps
