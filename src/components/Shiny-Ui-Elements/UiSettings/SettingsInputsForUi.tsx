@@ -1,6 +1,6 @@
 import React from "react";
-import { ShinyUiNames, UiSettingsCompByName } from "./Elements/componentTypes";
-import { uiComponentAndSettings } from "./Elements/uiComponentAndSettings";
+import { ShinyUiNames, UiSettingsCompByName } from "../Elements/componentTypes";
+import { uiComponentAndSettings } from "../Elements/uiComponentAndSettings";
 
 export function SettingsInputsForUi<UiName extends ShinyUiNames>({
   uiName,

@@ -8,6 +8,7 @@ import {
   PopoverHeader,
   PopoverTrigger,
 } from "@chakra-ui/popover";
+import { Button } from "@chakra-ui/react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import type {
@@ -16,14 +17,14 @@ import type {
   UiSettingsCompByName,
 } from "components/Shiny-Ui-Elements/Elements/componentTypes";
 import * as React from "react";
+import { BiCheck } from "react-icons/bi";
 import {
   FiSettings as SettingsIcon,
   FiTrash as TrashIcon,
 } from "react-icons/fi";
 import { makeBoxShadow } from "utils/css-helpers";
 import { uiComponentAndSettings } from "../Elements/uiComponentAndSettings";
-import UiSettingsForm from "../UiSettings/UiSettingsForm";
-import { SettingsInputsForUi } from "../SettingsInputsForUi";
+import { SettingsInputsForUi } from "../UiSettings/SettingsInputsForUi";
 
 function UiComponent<UiName extends ShinyUiNames>({
   uiName,
@@ -44,13 +45,28 @@ function UiSettingsComponent<UiName extends ShinyUiNames>({
   const [currentSettings, setCurrentSettings] = React.useState(settings);
 
   return (
-    <UiSettingsForm onUpdate={() => onChange(currentSettings)}>
-      <SettingsInputsForUi
-        uiName={uiName}
-        settings={currentSettings}
-        onChange={setCurrentSettings}
-      />
-    </UiSettingsForm>
+    <div css={{ padding: "1rem" }}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          onChange(currentSettings);
+        }}
+      >
+        <SettingsInputsForUi
+          uiName={uiName}
+          settings={currentSettings}
+          onChange={setCurrentSettings}
+        />
+        <Button
+          variant="main"
+          leftIcon={<BiCheck />}
+          marginTop="0.75rem"
+          type="submit"
+        >
+          Update
+        </Button>
+      </form>
+    </div>
   );
 }
 

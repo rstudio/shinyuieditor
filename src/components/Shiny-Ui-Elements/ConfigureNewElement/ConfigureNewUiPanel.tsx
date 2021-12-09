@@ -11,7 +11,7 @@ import * as React from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiCheck } from "react-icons/bi";
 import { ShinyUiNameAndProps } from "../Elements/componentTypes";
-import { SettingsInputsForUi } from "../SettingsInputsForUi";
+import { SettingsInputsForUi } from "../UiSettings/SettingsInputsForUi";
 import { UiOptionsList } from "./UiOptionsList";
 
 export function ConfigureNewUiPanel({
