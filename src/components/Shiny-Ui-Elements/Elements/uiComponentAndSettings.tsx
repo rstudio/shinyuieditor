@@ -1,4 +1,7 @@
-import { ShinyUiComponentAndSettings } from "components/Shiny-Ui-Elements/Elements/componentTypes";
+import {
+  ShinyUiComponentAndSettings,
+  ShinyUiNameAndProps,
+} from "components/Shiny-Ui-Elements/Elements/componentTypes";
 import GridlayoutTitlePanel from "components/Shiny-Ui-Elements/Elements/GridlayoutTitlePanel";
 import { GridlayoutTitlePanelSettings } from "components/Shiny-Ui-Elements/Elements/GridlayoutTitlePanel/SettingsPanel";
 import ShinyPlotOutput from "./ShinyPlotOutput";
@@ -20,3 +23,18 @@ export const uiComponentAndSettings: ShinyUiComponentAndSettings = {
     SettingsComponent: GridlayoutTitlePanelSettings,
   },
 };
+
+export const defaultSettingsForElements: ShinyUiNameAndProps[] = [
+  {
+    componentName: "plotOutput",
+    componentProps: { name: "My Chosen Plot" },
+  },
+  {
+    componentName: "sliderInput",
+    componentProps: { min: 0, val: 5, max: 10 },
+  },
+  {
+    componentName: "titlePanel",
+    componentProps: { title: "Title from Chooser" },
+  },
+];

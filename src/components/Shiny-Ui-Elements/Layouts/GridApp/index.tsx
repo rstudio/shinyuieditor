@@ -7,19 +7,14 @@ import omit from "just-omit";
 import * as React from "react";
 import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
-import {
-  GridItemExtent,
-  ItemLocation,
-  TemplatedGridProps,
-} from "utils/gridTemplates/types";
+import { GridItemExtent, TemplatedGridProps } from "utils/gridTemplates/types";
 import { ItemBoundingBox } from "utils/overlap-helpers";
+import { NewElementConfigurationModal } from "../../ConfigureNewElement/NewElementConfigurationModal";
 import { ShinyUiNameAndProps } from "../../Elements/componentTypes";
-import UiChooser from "../../UiChooser";
 import UiPanel from "../../UiPanel";
 import { AreaOverlay } from "./AreaOverlay";
 import { EditModeToggle } from "./EditModeToggle";
 import { GridCells } from "./GridCell";
-import { NewElementConfigurationModal } from "../../ConfigureNewElement/NewElementConfigurationModal";
 import { TractControls } from "./TractControls";
 import { GridLayoutAction, useGridLayoutReducer } from "./useGridLayoutReducer";
 
@@ -144,14 +139,6 @@ export default function GridApp({
       onDelete={() => deletePanel(area)}
     />
   ));
-
-  // If we have any unset panels, give then the ui chooser interface and add to the grid items children
-  uniqueAreas.forEach((area) => {
-    if (area in allPanels) return;
-    gridItems.push(
-      <UiChooser key={area} area={area} onChoose={(x) => addPanel(area, x)} />
-    );
-  });
 
   return (
     <LayoutDispatchContext.Provider value={layoutDispatch}>

@@ -6,10 +6,10 @@ import {
 import * as React from "react";
 import { BiSliderAlt, BiText } from "react-icons/bi";
 import { GoGraph } from "react-icons/go";
-import { allPossibleUi } from "./UiChooser/index";
+import { defaultSettingsForElements } from "./Elements/uiComponentAndSettings";
 
 export function UiOptionsList({
-  availableUi = allPossibleUi,
+  availableUi = defaultSettingsForElements,
   selected,
   onChoose,
 }: {
