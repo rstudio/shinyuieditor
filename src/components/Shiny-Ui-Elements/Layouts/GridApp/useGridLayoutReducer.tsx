@@ -10,7 +10,7 @@ import { GridItemExtent, TemplatedGridProps } from "utils/gridTemplates/types";
 import { TractDirection } from "./helpers";
 
 export type GridLayoutAction =
-  | { type: "ADD_ITEM" }
+  | { type: "ADD_ITEM"; name: string; pos: GridItemExtent }
   | { type: "REMOVE_ITEM"; name: string }
   | { type: "MOVE_ITEM"; name: string; pos: GridItemExtent }
   | {
@@ -41,14 +41,12 @@ function gridLayoutReducer(
 ): TemplatedGridProps {
   switch (action.type) {
     case "ADD_ITEM":
-      console.error("Yet to implement ADD_ITEM");
-      return layout;
+    // eslint-disable-next-line no-fallthrough
+    case "MOVE_ITEM":
+      return addItem(layout, { name: action.name, ...action.pos });
 
     case "REMOVE_ITEM":
       return removeItem(layout, action.name);
-
-    case "MOVE_ITEM":
-      return addItem(layout, { name: action.name, ...action.pos });
 
     case "ADD_TRACT":
       return addTract(layout, action);
@@ -82,9 +80,13 @@ export function useGridLayoutReducer(initialLayout: TemplatedGridProps) {
     layoutDispatch({ type: "MOVE_ITEM", name, pos });
   }, []);
 
+  const addItem = React.useCallback((name: string, pos: GridItemExtent) => {
+    layoutDispatch({ type: "ADD_ITEM", name, pos });
+  }, []);
+
   const removeItem = React.useCallback((area: string) => {
     layoutDispatch({ type: "REMOVE_ITEM", name: area });
   }, []);
 
-  return { layout, layoutDispatch, moveItem, removeItem };
+  return { layout, layoutDispatch, moveItem, removeItem, addItem };
 }
