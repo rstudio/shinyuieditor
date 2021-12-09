@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ShinyPlotOutputProps } from ".";
 import { ShinyUiSettingsFields } from "components/Shiny-Ui-Elements/Elements/componentTypes";
-import { TextInput } from "components/Shiny-Ui-Elements/UiSettings/TextInput";
+import { TextInput } from "components/Shiny-Ui-Elements/UiSettings/Inputs/TextInput";
 
 export const ShinyPlotOutputSettings: ShinyUiSettingsFields<
   ShinyPlotOutputProps
