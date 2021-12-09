@@ -279,12 +279,12 @@ export function useResizeOnDrag({
   return startDrag;
 }
 
-function placeItemAbsolutely(el: HTMLDivElement, bounds: ItemBounds) {
-  el.style.setProperty("--drag-top", bounds.top + "px");
-  el.style.setProperty("--drag-left", bounds.left + "px");
-  el.style.setProperty("--drag-width", bounds.right - bounds.left + "px");
-  el.style.setProperty("--drag-height", bounds.bottom - bounds.top + "px");
-}
+// function placeItemAbsolutely(el: HTMLDivElement, bounds: ItemBounds) {
+//   el.style.setProperty("--drag-top", bounds.top + "px");
+//   el.style.setProperty("--drag-left", bounds.left + "px");
+//   el.style.setProperty("--drag-width", bounds.right - bounds.left + "px");
+//   el.style.setProperty("--drag-height", bounds.bottom - bounds.top + "px");
+// }
 
 function placeItemOnGrid(
   el: HTMLDivElement,

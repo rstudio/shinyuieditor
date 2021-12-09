@@ -99,15 +99,15 @@ export default function GridApp({
       removeItem(area);
       setAllPanels((panels) => omit(panels, area));
     },
-    [setAllPanels]
+    [removeItem]
   );
 
-  const addPanel = React.useCallback(
-    (area: string, newPanel: ShinyUiNameAndProps) => {
-      setAllPanels((panels) => ({ ...panels, [area]: newPanel }));
-    },
-    [setAllPanels]
-  );
+  // const addPanel = React.useCallback(
+  //   (area: string, newPanel: ShinyUiNameAndProps) => {
+  //     setAllPanels((panels) => ({ ...panels, [area]: newPanel }));
+  //   },
+  //   [setAllPanels]
+  // );
 
   const panelAreas = Object.keys(allPanels);
 
