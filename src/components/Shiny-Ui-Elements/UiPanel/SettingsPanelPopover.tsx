@@ -27,7 +27,7 @@ export default function UiSettingsComponent<UiName extends ShinyUiNames>({
   );
 }
 
-function UiSettingsInputs<UiName extends ShinyUiNames>({
+export function UiSettingsInputs<UiName extends ShinyUiNames>({
   uiName,
   settings: currentSettings,
   onChange,

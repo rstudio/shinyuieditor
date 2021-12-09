@@ -10,11 +10,8 @@ import styled from "@emotion/styled";
 import * as React from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiCheck } from "react-icons/bi";
-import {
-  ShinyUiNameAndProps,
-  ShinyUiSettingsFields,
-} from "../Elements/componentTypes";
-import { uiComponentAndSettings } from "../Elements/uiComponentAndSettings";
+import { ShinyUiNameAndProps } from "../Elements/componentTypes";
+import { UiSettingsInputs } from "../UiPanel/SettingsPanelPopover";
 import { UiOptionsList } from "./UiOptionsList";
 
 export function ConfigureNewUiPanel({
@@ -38,29 +35,6 @@ export function ConfigureNewUiPanel({
     validateName(e.target.value);
   };
 
-  let settingsWidget: JSX.Element;
-  if (currentUi) {
-    const { componentName, componentProps } = currentUi;
-    const SettingsComponent = uiComponentAndSettings[componentName]
-      .SettingsComponent as ShinyUiSettingsFields<
-      typeof currentUi.componentProps
-    >;
-
-    settingsWidget = (
-      <SettingsComponent
-        currentSettings={componentProps}
-        onChange={(newSettings) => {
-          setCurrentUi({
-            componentName,
-            componentProps: newSettings,
-          } as ShinyUiNameAndProps);
-        }}
-      />
-    );
-  } else {
-    settingsWidget = <span>Select a UI element to adjust settings</span>;
-  }
-
   // Make sure TS knows these are compatible types
 
   // Make sure when the modal pops up focus is on the input so the user can
@@ -68,6 +42,7 @@ export function ConfigureNewUiPanel({
   React.useLayoutEffect(() => {
     nameInputRef.current?.focus();
   }, []);
+
   const validateName = (name: string) => {
     const elementExists = existingElementNames.includes(name);
     if (elementExists) {
@@ -131,7 +106,21 @@ export function ConfigureNewUiPanel({
           </FormHelperText>
         </FormControl>
 
-        {settingsWidget}
+        {/* Render the form for a given component settings if a ui element is selected */}
+        {currentUi ? (
+          <UiSettingsInputs
+            uiName={currentUi.componentName}
+            settings={currentUi.componentProps}
+            onChange={(newSettings) => {
+              setCurrentUi({
+                componentName: currentUi.componentName,
+                componentProps: newSettings,
+              });
+            }}
+          />
+        ) : (
+          <span>Select a UI element to adjust settings</span>
+        )}
 
         <HStack spacing="6" marginTop="1rem" justify="space-evenly">
           <Button
