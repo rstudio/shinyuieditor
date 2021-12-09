@@ -36,22 +36,21 @@ function GridCell({
   );
 
   React.useEffect(() => {
+    // Watch for changes in the size of a given cell and update it's recorded size accordingly.
+    // This means we know we're getting up-to-date sizing info for our dragging/moving of
+    // elements within the grid.
+
     // Test environment is node and thus doesn't have access to ResizeObserver
     if (typeof ResizeObserver === "undefined") return;
 
-    const currentCell = cellRef.current;
-    const ro = new ResizeObserver((entries) => {
-      for (let _ of entries) {
-        updateSize();
-      }
-    });
+    const ro = new ResizeObserver(() => updateSize());
 
-    if (currentCell) ro.observe(currentCell);
+    if (cellRef.current) ro.observe(cellRef.current);
 
+    // Run resize once on load so we dont have to wait for a resize event to have size info
     updateSize();
-    return () => {
-      ro.disconnect();
-    };
+
+    return () => ro.disconnect();
   }, [gridPos, updateSize]);
 
   return (
