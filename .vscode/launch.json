@@ -23,10 +23,20 @@
       "internalConsoleOptions": "neverOpen"
     },
     {
-      "name": "Chrome",
+      "name": "Run App in Chrome with Debug",
       "type": "chrome",
       "request": "launch",
       "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/src",
+      "sourceMapPathOverrides": {
+        "webpack:///src/*": "${webRoot}/*"
+      }
+    },
+    {
+      "name": "Run Storybook in Chrome with Debug",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:6006",
       "webRoot": "${workspaceFolder}/src",
       "sourceMapPathOverrides": {
         "webpack:///src/*": "${webRoot}/*"
