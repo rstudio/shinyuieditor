@@ -21,24 +21,25 @@ export function UiOptionsList({
     <OptionsList>
       {availableUi.map((ui) => {
         const { componentName: name } = ui;
+        const isSelected = selected === name;
         return (
-          <OptionItem
-            key={name}
-            className={selected === name ? "selected" : ""}
-            onClick={(e) => {
-              e.preventDefault(); // Don't cause form submission when clicked
-              onChoose(ui);
-            }}
-            aria-label={`Add ${name} to app`}
-          >
-            {previewIcons[name]}
-            <code>{name}</code>
+          <OptionItem key={name} className={isSelected ? "selected" : ""}>
+            <input
+              type="radio"
+              name="Ui-Options"
+              id={name}
+              value={name}
+              onChange={() => onChoose(ui)}
+              checked={isSelected}
+            />
+            <code>{name}</code> {previewIcons[name]}
           </OptionItem>
         );
       })}
     </OptionsList>
   );
 }
+
 export const previewIcons: Record<ShinyUiNames, JSX.Element> = {
   plotOutput: <GoGraph />,
   sliderInput: <BiSliderAlt />,
@@ -53,13 +54,30 @@ export const OptionsList = styled.div({
   gap: "5px",
 });
 
-export const OptionItem = styled.button({
+export const OptionItem = styled.label({
   border: "1px solid var(--light-grey)",
   borderRadius: "var(--corner-radius, 10px)",
   width: "120px",
   display: "grid",
-  gridTemplateRows: "40px 25px",
+  gridTemplateRows: "auto 40px 25px",
   placeItems: "center",
+  position: "relative",
+  // Hide the radio button itself
+  "& > input[type='radio']": {
+    appearance: "none",
+    backgroundColor: "#fff",
+    margin: 0,
+  },
+  // Give focus visibility via a before psuedoelement
+  "& > input[type='radio']:focus::before": {
+    content: `""`,
+    position: "absolute",
+    left: 0,
+    width: "100%",
+    height: "100%",
+    borderRadius: "var(--corner-radius, 10px)",
+    outline: "2px solid var(--rstudio-grey)",
+  },
   "&.selected": {
     backgroundColor: "var(--rstudio-blue)",
     color: "var(--rstudio-white)",
