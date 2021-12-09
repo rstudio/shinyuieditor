@@ -14,7 +14,6 @@ import type {
   ShinyUiComponent,
   ShinyUiNames,
   ShinyUiPropsByName,
-  ShinyUiSettingsFields,
 } from "components/Shiny-Ui-Elements/Elements/componentTypes";
 import * as React from "react";
 import {
@@ -90,13 +89,9 @@ function UiPanel<ElName extends ShinyUiNames>({
           </PopoverHeader>
           <PopoverBody>
             <UiSettingsComponent
-              SettingsInputs={
-                components.SettingsComponent as ShinyUiSettingsFields<
-                  typeof componentProps
-                >
-              }
-              startingSettings={componentProps}
-              onUpdate={(newSettings) => {
+              uiName={componentName}
+              settings={componentProps}
+              onChange={(newSettings) => {
                 onUpdate?.(newSettings);
                 closePopover();
               }}

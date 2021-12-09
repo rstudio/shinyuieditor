@@ -130,6 +130,7 @@ export function ConfigureNewUiPanel({
             The type of UI element you want to add:
           </FormHelperText>
         </FormControl>
+
         {settingsWidget}
 
         <HStack spacing="6" marginTop="1rem" justify="space-evenly">

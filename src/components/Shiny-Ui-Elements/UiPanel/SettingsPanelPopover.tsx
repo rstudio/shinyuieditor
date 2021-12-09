@@ -1,21 +1,40 @@
 import React from "react";
-import {
-  ShinyUiProps,
-  ShinyUiSettingsFields,
-} from "../Elements/componentTypes";
+import { ShinyUiNames, ShinyUiPropsByName } from "../Elements/componentTypes";
+import { uiComponentAndSettings } from "../Elements/uiComponentAndSettings";
 import UiSettingsForm from "../UiSettings/UiSettingsForm";
 
-export default function UiSettingsComponent<Props extends ShinyUiProps>(p: {
-  startingSettings: Props;
-  onUpdate: (newSettings: Props) => void;
-  SettingsInputs: ShinyUiSettingsFields<Props>;
-}) {
-  const { startingSettings, onUpdate, SettingsInputs } = p;
-  const [settings, setSettings] = React.useState(startingSettings);
+type UiSettingsCompByName<UiName extends ShinyUiNames> = {
+  uiName: UiName;
+  settings: ShinyUiPropsByName[UiName];
+  onChange: (newSettings: ShinyUiPropsByName[UiName]) => void;
+};
+
+export default function UiSettingsComponent<UiName extends ShinyUiNames>({
+  uiName,
+  settings,
+  onChange,
+}: UiSettingsCompByName<UiName>) {
+  const [currentSettings, setCurrentSettings] = React.useState(settings);
 
   return (
-    <UiSettingsForm onUpdate={() => onUpdate(settings)}>
-      <SettingsInputs currentSettings={settings} onChange={setSettings} />
+    <UiSettingsForm onUpdate={() => onChange(currentSettings)}>
+      <UiSettingsInputs
+        uiName={uiName}
+        settings={currentSettings}
+        onChange={setCurrentSettings}
+      />
     </UiSettingsForm>
+  );
+}
+
+function UiSettingsInputs<UiName extends ShinyUiNames>({
+  uiName,
+  settings: currentSettings,
+  onChange,
+}: UiSettingsCompByName<UiName>) {
+  const SettingsInputs = uiComponentAndSettings[uiName].SettingsComponent;
+
+  return (
+    <SettingsInputs currentSettings={currentSettings} onChange={onChange} />
   );
 }
