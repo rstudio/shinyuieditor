@@ -11,9 +11,9 @@ import {
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import type {
-  ShinyUiComponent,
   ShinyUiNames,
   ShinyUiPropsByName,
+  UiSettingsCompByName,
 } from "components/Shiny-Ui-Elements/Elements/componentTypes";
 import * as React from "react";
 import {
@@ -22,7 +22,37 @@ import {
 } from "react-icons/fi";
 import { makeBoxShadow } from "utils/css-helpers";
 import { uiComponentAndSettings } from "../Elements/uiComponentAndSettings";
-import UiSettingsComponent from "./SettingsPanelPopover";
+import UiSettingsForm from "../UiSettings/UiSettingsForm";
+import { SettingsInputsForUi } from "../SettingsInputsForUi";
+
+function UiComponent<UiName extends ShinyUiNames>({
+  uiName,
+  settings,
+}: {
+  uiName: UiName;
+  settings: ShinyUiPropsByName[UiName];
+}) {
+  const Comp = uiComponentAndSettings[uiName].UiComponent;
+  return <Comp {...settings} />;
+}
+
+function UiSettingsComponent<UiName extends ShinyUiNames>({
+  uiName,
+  settings,
+  onChange,
+}: UiSettingsCompByName<UiName>) {
+  const [currentSettings, setCurrentSettings] = React.useState(settings);
+
+  return (
+    <UiSettingsForm onUpdate={() => onChange(currentSettings)}>
+      <SettingsInputsForUi
+        uiName={uiName}
+        settings={currentSettings}
+        onChange={setCurrentSettings}
+      />
+    </UiSettingsForm>
+  );
+}
 
 function UiPanel<ElName extends ShinyUiNames>({
   area,
@@ -43,12 +73,6 @@ function UiPanel<ElName extends ShinyUiNames>({
   const closePopover = () => setIsOpen(false);
 
   const { componentName, componentProps } = componentDefinition;
-
-  // Make sure TS knows these are compatible types
-  const components = uiComponentAndSettings[componentName];
-  const UiComponent = components.UiComponent as ShinyUiComponent<
-    typeof componentProps
-  >;
 
   return (
     <UiPanelHolder
@@ -99,7 +123,7 @@ function UiPanel<ElName extends ShinyUiNames>({
           </PopoverBody>
         </PopoverContent>
       </Popover>
-      <UiComponent {...componentProps} />
+      <UiComponent uiName={componentName} settings={componentProps} />
     </UiPanelHolder>
   );
 }

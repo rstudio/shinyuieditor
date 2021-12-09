@@ -61,6 +61,12 @@ export type ShinyUiSettingsFields<Props extends ShinyUiProps> = (p: {
   onChange: (newSettings: Props) => void;
 }) => JSX.Element;
 
+export type UiSettingsCompByName<UiName extends ShinyUiNames> = {
+  uiName: UiName;
+  settings: ShinyUiPropsByName[UiName];
+  onChange: (newSettings: ShinyUiPropsByName[UiName]) => void;
+};
+
 /**
  * Payload describing the two main components needed for working with a UI element
  */

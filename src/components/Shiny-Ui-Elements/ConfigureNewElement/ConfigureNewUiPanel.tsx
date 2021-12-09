@@ -11,7 +11,7 @@ import * as React from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiCheck } from "react-icons/bi";
 import { ShinyUiNameAndProps } from "../Elements/componentTypes";
-import { UiSettingsInputs } from "../UiPanel/SettingsPanelPopover";
+import { SettingsInputsForUi } from "../SettingsInputsForUi";
 import { UiOptionsList } from "./UiOptionsList";
 
 export function ConfigureNewUiPanel({
@@ -108,7 +108,7 @@ export function ConfigureNewUiPanel({
 
         {/* Render the form for a given component settings if a ui element is selected */}
         {currentUi ? (
-          <UiSettingsInputs
+          <SettingsInputsForUi
             uiName={currentUi.componentName}
             settings={currentUi.componentProps}
             onChange={(newSettings) => {
