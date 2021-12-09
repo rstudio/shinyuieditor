@@ -63,7 +63,6 @@ export default function ConfigureNewUiElement({
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("On submit run");
     if (currentName === "" || currentUi === null) return;
 
     onFinish({ name: currentName, ui: currentUi });
@@ -75,7 +74,7 @@ export default function ConfigureNewUiElement({
     <form onSubmit={onSubmit}>
       <VerticalStack>
         <FormControl id="item-name" isRequired>
-          <FormLabel>Area Name</FormLabel>
+          <FormLabel>Grid Area Name</FormLabel>
           <Input
             ref={nameInputRef}
             placeholder="Item Name"
@@ -96,8 +95,8 @@ export default function ConfigureNewUiElement({
 
         <hr />
 
-        <FormControl id="ui-chooser">
-          <FormLabel>UI Type</FormLabel>
+        <FormControl id="ui-chooser" isRequired>
+          <FormLabel>UI Element</FormLabel>
           <UiOptionsList
             onChoose={setCurrentUi}
             selected={currentUi?.componentName}
@@ -109,11 +108,11 @@ export default function ConfigureNewUiElement({
         </FormControl>
 
         {/* Render the form for a given component settings if a ui element is selected */}
-        <FormControl id="ui-settings">
-          <FormLabel>Settings for UI Element</FormLabel>
+        {currentUi ? (
+          <FormControl id="ui-settings">
+            <FormLabel>Settings for {currentUi.componentName}</FormLabel>
 
-          <div style={{ paddingLeft: "1.5rem" }}>
-            {currentUi ? (
+            <div style={{ paddingLeft: "1.5rem" }}>
               <SettingsInputsForUi
                 uiName={currentUi.componentName}
                 settings={currentUi.componentProps}
@@ -124,22 +123,26 @@ export default function ConfigureNewUiElement({
                   });
                 }}
               />
-            ) : (
-              <span>Select a UI element to adjust settings</span>
-            )}
-          </div>
+            </div>
 
-          <FormHelperText color="GrayText" aria-label="input-description">
-            Configure chosen UI element.
-          </FormHelperText>
-        </FormControl>
+            <FormHelperText color="GrayText" aria-label="input-description">
+              Configure chosen UI element.
+            </FormHelperText>
+          </FormControl>
+        ) : (
+          <span style={{ fontStyle: "italic" }}>
+            Select a UI element to adjust settings...
+          </span>
+        )}
 
         <HStack spacing="6" marginTop="1rem" justify="space-evenly">
           <Button
             variant="main"
             leftIcon={<BiCheck />}
             type="submit"
-            disabled={currentName === "" || warningMsg !== null}
+            disabled={
+              currentName === "" || currentUi === null || warningMsg !== null
+            }
           >
             Add Item
           </Button>
