@@ -14,7 +14,7 @@ import { ShinyUiNameAndProps } from "../Elements/componentTypes";
 import { SettingsInputsForUi } from "../UiSettings/SettingsInputsForUi";
 import { UiOptionsList } from "./UiOptionsList";
 
-export function ConfigureNewUiPanel({
+export default function ConfigureNewUiElement({
   onFinish,
   onCancel,
   existingElementNames,
@@ -63,7 +63,7 @@ export function ConfigureNewUiPanel({
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    console.log("On submit run");
     if (currentName === "" || currentUi === null) return;
 
     onFinish({ name: currentName, ui: currentUi });
@@ -94,33 +94,45 @@ export function ConfigureNewUiPanel({
           </FormHelperText>
         </FormControl>
 
+        <hr />
+
         <FormControl id="ui-chooser">
           <FormLabel>UI Type</FormLabel>
           <UiOptionsList
-            onChoose={(ui) => setCurrentUi(ui)}
+            onChoose={setCurrentUi}
             selected={currentUi?.componentName}
           />
 
           <FormHelperText color="GrayText" aria-label="input-description">
-            The type of UI element you want to add:
+            The type of UI element you want to add
           </FormHelperText>
         </FormControl>
 
         {/* Render the form for a given component settings if a ui element is selected */}
-        {currentUi ? (
-          <SettingsInputsForUi
-            uiName={currentUi.componentName}
-            settings={currentUi.componentProps}
-            onChange={(newSettings) => {
-              setCurrentUi({
-                componentName: currentUi.componentName,
-                componentProps: newSettings,
-              });
-            }}
-          />
-        ) : (
-          <span>Select a UI element to adjust settings</span>
-        )}
+        <FormControl id="ui-settings">
+          <FormLabel>Settings for UI Element</FormLabel>
+
+          <div style={{ paddingLeft: "1.5rem" }}>
+            {currentUi ? (
+              <SettingsInputsForUi
+                uiName={currentUi.componentName}
+                settings={currentUi.componentProps}
+                onChange={(newSettings) => {
+                  setCurrentUi({
+                    componentName: currentUi.componentName,
+                    componentProps: newSettings,
+                  });
+                }}
+              />
+            ) : (
+              <span>Select a UI element to adjust settings</span>
+            )}
+          </div>
+
+          <FormHelperText color="GrayText" aria-label="input-description">
+            Configure chosen UI element.
+          </FormHelperText>
+        </FormControl>
 
         <HStack spacing="6" marginTop="1rem" justify="space-evenly">
           <Button

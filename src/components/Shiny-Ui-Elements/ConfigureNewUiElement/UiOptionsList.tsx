@@ -25,7 +25,10 @@ export function UiOptionsList({
           <OptionItem
             key={name}
             className={selected === name ? "selected" : ""}
-            onClick={() => onChoose(ui)}
+            onClick={(e) => {
+              e.preventDefault(); // Don't cause form submission when clicked
+              onChoose(ui);
+            }}
             aria-label={`Add ${name} to app`}
           >
             {previewIcons[name]}
@@ -41,6 +44,7 @@ export const previewIcons: Record<ShinyUiNames, JSX.Element> = {
   sliderInput: <BiSliderAlt />,
   titlePanel: <BiText />,
 };
+
 export const OptionsList = styled.div({
   display: "flex",
   justifyContent: "space-around",
@@ -48,6 +52,7 @@ export const OptionsList = styled.div({
   padding: "5px",
   gap: "5px",
 });
+
 export const OptionItem = styled.button({
   border: "1px solid var(--light-grey)",
   borderRadius: "var(--corner-radius, 10px)",

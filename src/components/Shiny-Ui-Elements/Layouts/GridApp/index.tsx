@@ -1,7 +1,16 @@
 /** @jsxImportSource @emotion/react */
 
+import {
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
+} from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { CSSUnitInput } from "components/CSSUnitInput";
+import ConfigureNewUiElement from "components/Shiny-Ui-Elements/ConfigureNewUiElement";
 import { GridLocString } from "GridTypes";
 import omit from "just-omit";
 import * as React from "react";
@@ -9,7 +18,6 @@ import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
 import { GridItemExtent, TemplatedGridProps } from "utils/gridTemplates/types";
 import { ItemBoundingBox } from "utils/overlap-helpers";
-import { NewElementConfigurationModal } from "../../ConfigureNewElement/NewElementConfigurationModal";
 import { ShinyUiNameAndProps } from "../../Elements/componentTypes";
 import UiPanel from "../../UiPanel";
 import { AreaOverlay } from "./AreaOverlay";
@@ -37,12 +45,14 @@ export default function GridApp({
   onNewState,
 }: GridAppProps) {
   const [allPanels, setAllPanels] = React.useState(initialPanels);
-  const { layout, layoutDispatch, moveItem, removeItem } =
+  const { layout, layoutDispatch, addItem, moveItem, removeItem } =
     useGridLayoutReducer(initialLayout);
   const [editMode, setEditMode] = React.useState<EditMode>("UI");
 
   const [newPanelPosition, setNewPanelPosition] =
     React.useState<GridItemExtent | null>(null);
+
+  const closeNewPanelModal = () => setNewPanelPosition(null);
 
   const gridCellLocations: CellLocRef = React.useRef({});
 
@@ -56,21 +66,13 @@ export default function GridApp({
   );
 
   const onNewItem = ({ row, col }: { row: number; col: number }) => {
-    const newAreaName = `row${row}-col${col}`;
     setNewPanelPosition({
       rowStart: row,
       rowEnd: row,
       colStart: col,
       colEnd: col,
     });
-    console.log("Building a new item...", newAreaName);
-    // onNewArea({
-    //   name: newAreaName,
-    //   rowStart: row,
-    //   colStart: col,
-    //   rowSpan: 1,
-    //   colSpan: 1,
-    // });
+    console.log("Building a new item...");
   };
 
   React.useEffect(() => onNewState?.(allPanels), [allPanels, onNewState]);
@@ -102,12 +104,13 @@ export default function GridApp({
     [removeItem]
   );
 
-  // const addPanel = React.useCallback(
-  //   (area: string, newPanel: ShinyUiNameAndProps) => {
-  //     setAllPanels((panels) => ({ ...panels, [area]: newPanel }));
-  //   },
-  //   [setAllPanels]
-  // );
+  const addPanel = React.useCallback(
+    (area: string, pos: GridItemExtent, newPanel: ShinyUiNameAndProps) => {
+      setAllPanels((panels) => ({ ...panels, [area]: newPanel }));
+      addItem(area, pos);
+    },
+    [addItem]
+  );
 
   const panelAreas = Object.keys(allPanels);
 
@@ -171,11 +174,29 @@ export default function GridApp({
           {gridItems}
         </GridDisplay>
       </AppContainer>
-      <NewElementConfigurationModal
-        newPanelPosition={newPanelPosition}
-        existingNames={uniqueAreas}
-        onClose={() => setNewPanelPosition(null)}
-      />
+
+      <Modal isOpen={newPanelPosition !== null} onClose={closeNewPanelModal}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Configure Ui Element</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <ConfigureNewUiElement
+              onFinish={({ name, ui }) => {
+                if (!newPanelPosition)
+                  throw new Error(
+                    "Somehow we have no position for the newly configured item..."
+                  );
+
+                addPanel(name, newPanelPosition, ui);
+                closeNewPanelModal();
+              }}
+              onCancel={closeNewPanelModal}
+              existingElementNames={uniqueAreas}
+            />
+          </ModalBody>
+        </ModalContent>
+      </Modal>
     </LayoutDispatchContext.Provider>
   );
 }

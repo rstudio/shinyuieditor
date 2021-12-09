@@ -1,9 +1,6 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { combinedItemsState } from "state-logic/gridItems";
-import { GridItemDef, GridLayoutTemplate } from "../GridTypes";
-import { AppWLayout, RecoilObserver, renderWithRecoil } from "../test-helpers";
-import { ConfigureNewItemForm } from "./ConfigureNewItem";
+import { GridLayoutTemplate, GridItemDef } from "GridTypes";
 
 const LayoutToTest: GridLayoutTemplate = {
   name: "test",
