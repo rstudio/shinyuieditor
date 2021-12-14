@@ -1,6 +1,7 @@
-import { screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { GridLayoutTemplate, GridItemDef } from "GridTypes";
+import ConfigureNewUiElement from ".";
 
 const LayoutToTest: GridLayoutTemplate = {
   name: "test",
@@ -11,98 +12,96 @@ const LayoutToTest: GridLayoutTemplate = {
 };
 
 test("Basic usage of new item adding", () => {
-  const onChangeMock = jest.fn();
-  const onCloseMock = jest.fn();
+  const onFinishMock = jest.fn();
+  const onCancelMock = jest.fn();
 
-  // const onChange = (newVal: any) => console.log(newVal);
-
-  renderWithRecoil(
-    <AppWLayout layout={LayoutToTest}>
-      <RecoilObserver node={combinedItemsState} onChange={onChangeMock} />
-      <ConfigureNewItemForm
-        itemPos={{ startRow: 1, endRow: 1, startCol: 1, endCol: 1 }}
-        onFinish={onCloseMock}
-      />
-    </AppWLayout>
+  render(
+    <ConfigureNewUiElement
+      onFinish={onFinishMock}
+      onCancel={onCancelMock}
+      existingElementNames={[]}
+    />
   );
 
-  userEvent.type(screen.getByLabelText(/item name/i), "my-new-item");
+  userEvent.type(screen.getByLabelText(/grid area name/i), "my-new-item");
+  userEvent.click(screen.getByText(/plotOutput/i));
   userEvent.click(screen.getByText(/add item/i));
-  expect(onChangeMock).toHaveBeenLastCalledWith([
-    {
+
+  // Avoid hardcoding the default props
+  expect(onFinishMock).toHaveBeenLastCalledWith(
+    expect.objectContaining({
       name: "my-new-item",
-      startRow: 1,
-      endRow: 1,
-      startCol: 1,
-      endCol: 1,
-    },
-  ]);
-  expect(onCloseMock).toBeCalled();
-});
-
-test("Gives warning message when a non-conforming name is typed", () => {
-  const onChangeMock = jest.fn();
-  const onCloseMock = jest.fn();
-
-  // const onChange = (newVal: any) => console.log(newVal);
-
-  renderWithRecoil(
-    <AppWLayout
-      layout={{
-        ...LayoutToTest,
-        items: [
-          {
-            name: "existing-item",
-            startRow: 1,
-            endRow: 1,
-            startCol: 1,
-            endCol: 1,
-          },
-        ],
-      }}
-    >
-      <RecoilObserver node={combinedItemsState} onChange={onChangeMock} />
-      <ConfigureNewItemForm
-        itemPos={{ startRow: 2, endRow: 2, startCol: 1, endCol: 1 }}
-        onFinish={onCloseMock}
-      />
-    </AppWLayout>
+      ui: {
+        componentName: "plotOutput",
+        componentProps: expect.any(Object),
+      },
+    })
   );
-
-  const nameInput = screen.getByLabelText(/item name/i);
-
-  // Invalid names are caught in real-time
-  userEvent.type(nameInput, "1a");
-  expect(nameInput).toBeInvalid();
-
-  // Goes away when fixed
-  userEvent.type(nameInput, "{backspace}{backspace}a");
-  expect(nameInput).not.toBeInvalid();
-
-  // Invalidation also occurs if the current name typed is the same as an
-  // existing item
-  userEvent.type(nameInput, "{backspace}existing-item");
-  expect(nameInput).toBeInvalid();
-
-  userEvent.type(nameInput, "2");
-  expect(nameInput).not.toBeInvalid();
-  userEvent.click(screen.getByText(/add item/i));
-
-  expect(onChangeMock).toHaveBeenLastCalledWith([
-    {
-      name: "existing-item",
-      startRow: 1,
-      endRow: 1,
-      startCol: 1,
-      endCol: 1,
-    },
-    {
-      name: "existing-item2",
-      startRow: 2,
-      endRow: 2,
-      startCol: 1,
-      endCol: 1,
-    },
-  ]);
-  expect(onCloseMock).toBeCalled();
 });
+
+// test("Gives warning message when a non-conforming name is typed", () => {
+//   const onChangeMock = jest.fn();
+//   const onCloseMock = jest.fn();
+
+//   // const onChange = (newVal: any) => console.log(newVal);
+
+//   renderWithRecoil(
+//     <AppWLayout
+//       layout={{
+//         ...LayoutToTest,
+//         items: [
+//           {
+//             name: "existing-item",
+//             startRow: 1,
+//             endRow: 1,
+//             startCol: 1,
+//             endCol: 1,
+//           },
+//         ],
+//       }}
+//     >
+//       <RecoilObserver node={combinedItemsState} onChange={onChangeMock} />
+//       <ConfigureNewItemForm
+//         itemPos={{ startRow: 2, endRow: 2, startCol: 1, endCol: 1 }}
+//         onFinish={onCloseMock}
+//       />
+//     </AppWLayout>
+//   );
+
+//   const nameInput = screen.getByLabelText(/item name/i);
+
+//   // Invalid names are caught in real-time
+//   userEvent.type(nameInput, "1a");
+//   expect(nameInput).toBeInvalid();
+
+//   // Goes away when fixed
+//   userEvent.type(nameInput, "{backspace}{backspace}a");
+//   expect(nameInput).not.toBeInvalid();
+
+//   // Invalidation also occurs if the current name typed is the same as an
+//   // existing item
+//   userEvent.type(nameInput, "{backspace}existing-item");
+//   expect(nameInput).toBeInvalid();
+
+//   userEvent.type(nameInput, "2");
+//   expect(nameInput).not.toBeInvalid();
+//   userEvent.click(screen.getByText(/add item/i));
+
+//   expect(onChangeMock).toHaveBeenLastCalledWith([
+//     {
+//       name: "existing-item",
+//       startRow: 1,
+//       endRow: 1,
+//       startCol: 1,
+//       endCol: 1,
+//     },
+//     {
+//       name: "existing-item2",
+//       startRow: 2,
+//       endRow: 2,
+//       startCol: 1,
+//       endCol: 1,
+//     },
+//   ]);
+//   expect(onCloseMock).toBeCalled();
+// });
