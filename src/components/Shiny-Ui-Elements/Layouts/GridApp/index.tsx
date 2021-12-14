@@ -72,7 +72,6 @@ export default function GridApp({
       colStart: col,
       colEnd: col,
     });
-    console.log("Building a new item...");
   };
 
   React.useEffect(() => onNewState?.(allPanels), [allPanels, onNewState]);
