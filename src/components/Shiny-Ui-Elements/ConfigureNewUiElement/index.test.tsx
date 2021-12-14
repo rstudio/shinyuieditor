@@ -69,3 +69,52 @@ test("Gives warning message when a non-conforming names are typed", () => {
     },
   });
 });
+
+test("Form for filling out props updates based on selected element", () => {
+  const onFinishMock = jest.fn();
+  const onCancelMock = jest.fn();
+
+  render(
+    <ConfigureNewUiElement
+      onFinish={onFinishMock}
+      onCancel={onCancelMock}
+      existingElementNames={[]}
+    />
+  );
+
+  // Start by selecting the plotOutput element
+  userEvent.click(screen.getByText(/plotOutput/i));
+
+  // The option for naming that element should exist
+  expect(screen.queryByLabelText(/plot name/i)).not.toBeNull();
+
+  // Now switch to the sliderInput being selected.
+  userEvent.click(screen.getByText(/sliderInput/i));
+
+  // The plot name input should now not exist
+  expect(screen.queryByLabelText(/plot name/i)).toBeNull();
+
+  // But the minimum value should
+  expect(screen.queryByLabelText(/minimum value/i)).not.toBeNull();
+
+  // Update the minimum value
+  userEvent.type(screen.getByLabelText(/minimum value/i), "{backspace}3");
+
+  // Now submitted form should reflect the proper element name and props
+
+  // Fill in the area so we can submit
+  userEvent.type(screen.getByLabelText(/grid area name/i), "my-new-item");
+
+  userEvent.click(screen.getByText(/add item/i));
+
+  // We should see the updated minimum value reflected in returned object
+  expect(onFinishMock).toHaveBeenLastCalledWith({
+    name: "my-new-item",
+    ui: {
+      componentName: "sliderInput",
+      componentProps: expect.objectContaining({
+        min: 3,
+      }),
+    },
+  });
+});
