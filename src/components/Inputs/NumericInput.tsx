@@ -14,7 +14,7 @@ export function NumericInput({
   onChange,
 }: {
   label: string;
-  value: number;
+  value?: number;
   onChange: (newVal: number) => void;
 }) {
   return (
