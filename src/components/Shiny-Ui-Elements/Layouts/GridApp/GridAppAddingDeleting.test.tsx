@@ -1,8 +1,9 @@
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { ShinySliderInputProps } from "components/Shiny-Ui-Elements/Elements/ShinySliderInput";
+import { clearThenType } from "test-helpers";
 import { TemplatedGridProps } from "utils/gridTemplates/types";
 import GridApp from ".";
-import { ShinySliderInputProps } from "../../Shiny-Ui-Elements/ShinySliderInput";
 
 const mainLayout: TemplatedGridProps = {
   areas: [
@@ -60,15 +61,25 @@ describe("Adding and removing panels", () => {
     expect(settingsPanel).not.toBeInTheDocument();
 
     // Replace the now deleted settings panel with another plot output
-    const newPlotButton = within(
-      screen.getByLabelText(/Ui-Chooser for numBins/i)
-    ).getByLabelText(/Add plotOutput to app/);
-    userEvent.click(newPlotButton);
+    userEvent.click(screen.getByLabelText(/Add new item at row 2 column 1/i));
+
+    const configurePanel = screen.getByLabelText(/configure new ui element/i);
+
+    userEvent.type(
+      within(configurePanel).getByLabelText(/grid area name/i),
+      "sidebar"
+    );
+    userEvent.click(within(configurePanel).getByText(/plotOutput/i));
+
+    clearThenType(
+      within(configurePanel).getByLabelText(/plot name/i),
+      "second-plot"
+    );
+
+    userEvent.click(within(configurePanel).getByText(/add item/i));
 
     expect(
-      within(screen.getByLabelText(/numBins panel/i)).getByLabelText(
-        /shiny-plotOutput/i
-      )
+      screen.getByText("second-plot", { exact: false })
     ).toBeInTheDocument();
   });
 });

@@ -7,12 +7,16 @@ import { ShinyUiSettingsFields } from "../componentTypes";
 export const GridlayoutTitlePanelSettings: ShinyUiSettingsFields<
   GridlayoutTitlePanelProps
 > = ({ currentSettings, onChange }) => {
+  // All inputs are valid currently but later when this is expanded we will make this
+  // variable more dynamic
+  const isValid = true;
+
   return (
     <FormControl id="sliderInput-settings">
       <TextInput
         label="App title"
         value={currentSettings.title ?? "UndefinedAppTitle"}
-        onChange={(title) => onChange({ ...currentSettings, title })}
+        onChange={(title) => onChange({ ...currentSettings, title }, isValid)}
       />
     </FormControl>
   );

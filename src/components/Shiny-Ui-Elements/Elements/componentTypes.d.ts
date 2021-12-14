@@ -44,22 +44,13 @@ export type ShinyUiComponent<Props extends ShinyUiProps> = (
 ) => JSX.Element;
 
 /**
- * Format of React component used for controlling settings of a given
- * UI component (ShinyUiComponent<Props>) with a given set of input props.
- */
-export type ShinyUiSettingsComponent<Props extends ShinyUiProps> = (p: {
-  startingSettings: Props;
-  onUpdate: (newSettings: Props) => void;
-}) => JSX.Element;
-
-/**
  * Interface for the settings panels for a given UI component. UiName is used to
  * map to the correct component for the given ui element
  */
 export type UiSettingsCompByName<UiName extends ShinyUiNames> = {
   uiName: UiName;
   settings: ShinyUiPropsByName[UiName];
-  onChange: (newSettings: ShinyUiPropsByName[UiName]) => void;
+  onChange: ShinyUiSettingsUpdate<ShinyUiPropsByName[UiName]>;
 };
 
 /**
@@ -68,8 +59,18 @@ export type UiSettingsCompByName<UiName extends ShinyUiNames> = {
  */
 export type ShinyUiSettingsFields<Props extends ShinyUiProps> = (p: {
   currentSettings: Props;
-  onChange: (newSettings: Props) => void;
+  onChange: ShinyUiSettingsUpdate<Props>;
 }) => JSX.Element;
+
+/**
+ * Update function for a given elements settings.
+ * isValid tells injestor if the settings are good to go or need updating before
+ * they should be accepted
+ */
+export type ShinyUiSettingsUpdate<Props extends ShinyUiProps> = (
+  newSettings: Props,
+  isValid: boolean
+) => void;
 
 /**
  * Payload describing the two main components needed for working with a UI element

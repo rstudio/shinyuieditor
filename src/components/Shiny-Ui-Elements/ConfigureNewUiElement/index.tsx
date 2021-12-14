@@ -29,6 +29,10 @@ export default function ConfigureNewUiElement({
   const [currentUi, setCurrentUi] = React.useState<ShinyUiNameAndProps | null>(
     null
   );
+  // Default to having settings be valid because we're suppliying the default
+  // values and thus they will be good.
+  const [uiSettingsAreValid, setUiSettingsAreValid] =
+    React.useState<boolean>(true);
   const [warningMsg, setWarningMsg] = React.useState<string | null>(null);
   const updateName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCurrentName(e.target.value);
@@ -71,7 +75,7 @@ export default function ConfigureNewUiElement({
   const hasWarning = Boolean(warningMsg);
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} aria-label="Configure new UI Element">
       <VerticalStack>
         <FormControl id="item-name" isRequired>
           <FormLabel>Grid Area Name</FormLabel>
@@ -116,11 +120,13 @@ export default function ConfigureNewUiElement({
               <SettingsInputsForUi
                 uiName={currentUi.componentName}
                 settings={currentUi.componentProps}
-                onChange={(newSettings) => {
+                onChange={(newSettings, isValid) => {
                   setCurrentUi({
                     componentName: currentUi.componentName,
                     componentProps: newSettings,
                   });
+
+                  setUiSettingsAreValid(isValid);
                 }}
               />
             </div>
@@ -141,7 +147,10 @@ export default function ConfigureNewUiElement({
             leftIcon={<BiCheck />}
             type="submit"
             disabled={
-              currentName === "" || currentUi === null || warningMsg !== null
+              currentName === "" ||
+              currentUi === null ||
+              warningMsg !== null ||
+              !uiSettingsAreValid
             }
           >
             Add Item

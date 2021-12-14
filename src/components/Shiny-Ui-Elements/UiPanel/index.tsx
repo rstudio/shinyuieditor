@@ -43,25 +43,30 @@ function UiSettingsComponent<UiName extends ShinyUiNames>({
   onChange,
 }: UiSettingsCompByName<UiName>) {
   const [currentSettings, setCurrentSettings] = React.useState(settings);
+  const [settingsAreValid, setSettingsAreValid] = React.useState(true);
 
   return (
     <div css={{ padding: "1rem" }}>
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          onChange(currentSettings);
+          onChange(currentSettings, true);
         }}
       >
         <SettingsInputsForUi
           uiName={uiName}
           settings={currentSettings}
-          onChange={setCurrentSettings}
+          onChange={(settings, isValid) => {
+            setCurrentSettings(settings);
+            setSettingsAreValid(isValid);
+          }}
         />
         <Button
           variant="main"
           leftIcon={<BiCheck />}
           marginTop="0.75rem"
           type="submit"
+          disabled={!settingsAreValid}
         >
           Update
         </Button>

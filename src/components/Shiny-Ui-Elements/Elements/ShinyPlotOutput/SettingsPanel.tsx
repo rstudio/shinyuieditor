@@ -7,11 +7,17 @@ export const ShinyPlotOutputSettings: ShinyUiSettingsFields<
   ShinyPlotOutputProps
 > = ({ currentSettings, onChange }) => {
   const { name } = currentSettings;
+  // All inputs are valid currently but later when this is expanded we will make this
+  // variable more dynamic
+  const isValid = true;
+
   return (
     <TextInput
       label="Plot Name"
       value={name ?? "UndefinedPlotName"}
-      onChange={(newName) => onChange({ ...currentSettings, name: newName })}
+      onChange={(newName) =>
+        onChange({ ...currentSettings, name: newName }, isValid)
+      }
     />
   );
 };
