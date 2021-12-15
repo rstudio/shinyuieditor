@@ -1,5 +1,4 @@
 import { CSSMeasure, GridItemDef, GridLayoutTemplate } from "GridTypes";
-import { GridItemState } from "state-logic/gridItems";
 import { sameLayoutTemplate } from "./sameLayoutTemplate";
 
 const baseLayout: GridLayoutTemplate = {
@@ -95,7 +94,7 @@ describe("Can do deep equality check on layout templates", () => {
           offsetTop: 50,
         },
       },
-    ] as GridItemState[];
+    ];
     const itemsWAbsoluteBounds: GridLayoutTemplate = {
       ...baseLayout,
       items: newItems,
