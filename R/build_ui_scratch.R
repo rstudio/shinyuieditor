@@ -55,3 +55,4 @@ parsed_dump <- jsonlite::parse_json(app_dump)
 lobstr::tree(parsed_dump)
 
 cat(to_gridlayout_ui(parsed_dump))
+
