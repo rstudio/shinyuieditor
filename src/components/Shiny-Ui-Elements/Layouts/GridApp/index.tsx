@@ -1,12 +1,20 @@
 /** @jsxImportSource @emotion/react */
 
 import {
+  Button,
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
   ModalHeader,
   ModalOverlay,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger,
 } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { CSSUnitInput } from "components/CSSUnitInput";
@@ -14,6 +22,7 @@ import ConfigureNewUiElement from "components/Shiny-Ui-Elements/ConfigureNewUiEl
 import { GridLocString } from "GridTypes";
 import omit from "just-omit";
 import * as React from "react";
+import { prettyJSON } from "state-logic/useShowChanges";
 import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
 import { GridItemExtent, TemplatedGridProps } from "utils/gridTemplates/types";
@@ -35,7 +44,10 @@ type GridAppProps = {
 export type GridCellBounds = Record<GridLocString, ItemBoundingBox>;
 export type CellLocRef = React.MutableRefObject<GridCellBounds>;
 export type EditMode = "UI" | "Layout";
-
+type StateDump = {
+  layout: { type: "gridlayout"; options: TemplatedGridProps };
+  elements: Panels;
+};
 export const LayoutDispatchContext =
   React.createContext<React.Dispatch<GridLayoutAction> | null>(null);
 
@@ -51,6 +63,11 @@ export default function GridApp({
 
   const [newPanelPosition, setNewPanelPosition] =
     React.useState<GridItemExtent | null>(null);
+
+  const fullState: StateDump = {
+    layout: { type: "gridlayout", options: layout },
+    elements: allPanels,
+  };
 
   const closeNewPanelModal = () => setNewPanelPosition(null);
 
@@ -160,6 +177,27 @@ export default function GridApp({
             <div className="label">Edit Mode:</div>
             <EditModeToggle selected={editMode} onSelect={setEditMode} />
           </div>
+          <Popover placement="left-end">
+            <PopoverTrigger>
+              <Button
+                bg="var(--rstudio-blue)"
+                color="var(--rstudio-white)"
+                aria-label="Get dump of current UI state as JSON blob"
+              >
+                Get State
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent>
+              <PopoverArrow />
+              <PopoverCloseButton />
+              <PopoverHeader>Copy the following:</PopoverHeader>
+              <PopoverBody>
+                <pre style={{ fontSize: "0.8rem" }}>
+                  {prettyJSON(fullState)}
+                </pre>
+              </PopoverBody>
+            </PopoverContent>
+          </Popover>
         </SettingsBar>
         <GridDisplay style={styles}>
           <TractControls areas={layout.areas} sizes={sizes} />
