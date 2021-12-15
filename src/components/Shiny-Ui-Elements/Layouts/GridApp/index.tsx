@@ -191,7 +191,7 @@ export default function GridApp({
                 closeNewPanelModal();
               }}
               onCancel={closeNewPanelModal}
-              existingElementNames={uniqueAreas}
+              existingElementNames={Object.keys(allPanels)}
             />
           </ModalBody>
         </ModalContent>
