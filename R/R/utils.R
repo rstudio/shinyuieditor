@@ -17,3 +17,34 @@ argument_expr_type <- function(x) {
     "unknown-fn"
   }
 }
+
+
+str_replace_all <- function(text, pattern, replacement, fixed = FALSE){
+  gsub(pattern = pattern, replacement = replacement, x = text, perl = !fixed, fixed = fixed)
+}
+
+indent_text <- function(text, num_spaces = 2) {
+
+  # If we have a single length vector, assume it needs to be split on new-lines
+  if (length(text) == 1) {
+    text <- strsplit(
+      text,
+      split = "\n"
+    )[[1]]
+  }
+
+  text <- if (num_spaces > 0) {
+    paste0(
+      paste(rep(" ", times = num_spaces), collapse = ""),
+      text
+    )
+  } else {
+    str_replace_all(
+      text,
+      pattern = paste0("^(\\s{1,", abs(num_spaces), "})"),
+      replacement = ""
+    )
+  }
+
+  paste(text, collapse = "\n")
+}
