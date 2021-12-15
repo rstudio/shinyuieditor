@@ -1,10 +1,13 @@
 import * as React from "react";
 import { diff } from "just-diff";
 
+export function prettyJSON(x: object) {
+  return JSON.stringify(x, null, 2);
+}
 // Hook to observe and explain changes to a changing object
 export function useShowDiffs({
   val: currVal,
-  onUpdate = (x) => console.log(JSON.stringify(x, null, 2)),
+  onUpdate = (x) => console.log(prettyJSON(x)),
 }: {
   val: object;
   onUpdate?: (res: { currVal: object; diff: ReturnType<typeof diff> }) => void;
