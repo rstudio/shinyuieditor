@@ -4,12 +4,12 @@ import type { ShinyPlotOutputProps } from "../Shiny-Ui-Elements/ShinyPlotOutput"
 import type { ShinySliderInputProps } from "../Shiny-Ui-Elements/ShinySliderInput";
 
 /**
- * All possible props for the defined UI components
+ * All possible props/arguments for the defined UI components
  *
  * This is the only place where any new UI element should be added as the rest
  * of the types will automatically be built based on this type.
  */
-export type ShinyUiSettingsByName = {
+export type ShinyUiArgumentsByName = {
   plotOutput: ShinyPlotOutputProps;
   sliderInput: ShinySliderInputProps;
   titlePanel: GridlayoutTitlePanelProps;
@@ -18,20 +18,20 @@ export type ShinyUiSettingsByName = {
 /**
  * Names of all the available Ui elements
  */
-export type ShinyUiNames = keyof ShinyUiSettingsByName;
+export type ShinyUiNames = keyof ShinyUiArgumentsByName;
 
 /**
  * Property (arguments) of all the available Ui elements
  */
-export type ShinyUiSettings = ShinyUiSettingsByName[ShinyUiNames];
+export type ShinyUiArguments = ShinyUiArgumentsByName[ShinyUiNames];
 
 /**
- * Union of Ui element name and associated props for easy narrowing
+ * Union of Ui element name and associated arguments for easy narrowing
  */
-export type ShinyUiNameAndSettings = ValueOf<{
-  [Name in keyof ShinyUiSettingsByName]: {
-    name: Name;
-    settings: ShinyUiSettingsByName[Name];
+export type ShinyUiNameAndArguments = ValueOf<{
+  [Name in keyof ShinyUiArgumentsByName]: {
+    uiName: Name;
+    uiArguments: ShinyUiArgumentsByName[Name];
   };
 }>;
 
@@ -39,7 +39,7 @@ export type ShinyUiNameAndSettings = ValueOf<{
  * Format of a React component designating a Shiny-Ui element with a given
  * set of input props.
  */
-export type ShinyUiComponent<Props extends ShinyUiSettings> = (
+export type ShinyUiComponent<Props extends ShinyUiArguments> = (
   p: Props
 ) => JSX.Element;
 
@@ -47,19 +47,19 @@ export type ShinyUiComponent<Props extends ShinyUiSettings> = (
  * Interface for the settings panels for a given UI component. UiName is used to
  * map to the correct component for the given ui element
  */
-export type UiSettingsCompByName<UiName extends ShinyUiNames> = {
+export type UiArgumentsCompByName<UiName extends ShinyUiNames> = {
   uiName: UiName;
-  settings: ShinyUiSettingsByName[UiName];
-  onChange: ShinyUiSettingsUpdate<ShinyUiSettingsByName[UiName]>;
+  settings: ShinyUiArgumentsByName[UiName];
+  onChange: ShinyUiArgumentsUpdate<ShinyUiArgumentsByName[UiName]>;
 };
 
 /**
- * Format of form inputs for ShinyUiSettingsComponent. This is not wrapped in a
- * form element and thus can be embedded in other forms.
+ * Component containing a series of inputs to control arguments for a Shiny UI function.
+ * This is not wrapped in a form element and thus can be embedded in other forms.
  */
-export type ShinyUiSettingsFields<Settings extends ShinyUiSettings> = (p: {
-  currentSettings: Settings;
-  onChange: ShinyUiSettingsUpdate<Settings>;
+export type ShinyUiArgumentsFields<Args extends ShinyUiArguments> = (p: {
+  currentSettings: Args;
+  onChange: ShinyUiArgumentsUpdate<Args>;
 }) => JSX.Element;
 
 /**
@@ -67,17 +67,17 @@ export type ShinyUiSettingsFields<Settings extends ShinyUiSettings> = (p: {
  * isValid tells injestor if the settings are good to go or need updating before
  * they should be accepted
  */
-export type ShinyUiSettingsUpdate<Settings extends ShinyUiSettings> = (
-  newSettings: Settings,
+export type ShinyUiArgumentsUpdate<Args extends ShinyUiArguments> = (
+  newSettings: Args,
   isValid: boolean
 ) => void;
 
 /**
  * Payload describing the two main components needed for working with a UI element
  */
-export type ShinyUiComponentAndSettings = {
-  [Name in keyof ShinyUiSettingsByName]: {
-    UiComponent: ShinyUiComponent<ShinyUiSettingsByName[Name]>;
-    SettingsComponent: ShinyUiSettingsFields<ShinyUiSettingsByName[Name]>;
+export type ShinyUiComponentAndArguments = {
+  [Name in keyof ShinyUiArgumentsByName]: {
+    UiComponent: ShinyUiComponent<ShinyUiArgumentsByName[Name]>;
+    SettingsComponent: ShinyUiArgumentsFields<ShinyUiArgumentsByName[Name]>;
   };
 };

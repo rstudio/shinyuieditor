@@ -26,16 +26,16 @@ afterEach(() => {
 
 const startingState = {
   title: {
-    name: "titlePanel",
-    settings: { title: "My Test App Title" },
+    uiName: "titlePanel",
+    uiArguments: { title: "My Test App Title" },
   },
   numBins: {
-    name: "sliderInput",
-    settings: { name: "My slider!" } as ShinySliderInputProps,
+    uiName: "sliderInput",
+    uiArguments: { name: "My slider!" } as ShinySliderInputProps,
   },
   plot: {
-    name: "plotOutput",
-    settings: { name: "My Plot!" },
+    uiName: "plotOutput",
+    uiArguments: { name: "My Plot!" },
   },
 };
 

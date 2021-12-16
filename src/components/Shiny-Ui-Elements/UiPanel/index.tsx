@@ -13,8 +13,8 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import type {
   ShinyUiNames,
-  ShinyUiSettingsByName,
-  UiSettingsCompByName,
+  ShinyUiArgumentsByName,
+  UiArgumentsCompByName,
 } from "components/Shiny-Ui-Elements/Elements/componentTypes";
 import * as React from "react";
 import { BiCheck } from "react-icons/bi";
@@ -31,7 +31,7 @@ function UiComponent<UiName extends ShinyUiNames>({
   settings,
 }: {
   uiName: UiName;
-  settings: ShinyUiSettingsByName[UiName];
+  settings: ShinyUiArgumentsByName[UiName];
 }) {
   const Comp = uiComponentAndSettings[uiName].UiComponent;
   return <Comp {...settings} />;
@@ -41,7 +41,7 @@ function UiSettingsComponent<UiName extends ShinyUiNames>({
   uiName,
   settings,
   onChange,
-}: UiSettingsCompByName<UiName>) {
+}: UiArgumentsCompByName<UiName>) {
   const [currentSettings, setCurrentSettings] = React.useState(settings);
   const [settingsAreValid, setSettingsAreValid] = React.useState(true);
 
@@ -83,17 +83,17 @@ function UiPanel<ElName extends ShinyUiNames>({
 }: {
   area: string;
   componentDefinition: {
-    name: ElName;
-    settings: ShinyUiSettingsByName[ElName];
+    uiName: ElName;
+    uiArguments: ShinyUiArgumentsByName[ElName];
   };
-  onUpdate?: (newProps: ShinyUiSettingsByName[ElName]) => void;
+  onUpdate?: (newProps: ShinyUiArgumentsByName[ElName]) => void;
   onDelete?: () => void;
 }) {
   const [isOpen, setIsOpen] = React.useState(false);
   const openPopover = () => setIsOpen(!isOpen);
   const closePopover = () => setIsOpen(false);
 
-  const { name, settings } = componentDefinition;
+  const { uiName: name, uiArguments: settings } = componentDefinition;
 
   return (
     <UiPanelHolder

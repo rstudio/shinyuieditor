@@ -1,9 +1,9 @@
 import * as React from "react";
 import { ShinyPlotOutputProps } from ".";
-import { ShinyUiSettingsFields } from "components/Shiny-Ui-Elements/Elements/componentTypes";
+import { ShinyUiArgumentsFields } from "components/Shiny-Ui-Elements/Elements/componentTypes";
 import { TextInput } from "components/Inputs/TextInput";
 
-export const ShinyPlotOutputSettings: ShinyUiSettingsFields<
+export const ShinyPlotOutputSettings: ShinyUiArgumentsFields<
   ShinyPlotOutputProps
 > = ({ currentSettings, onChange }) => {
   const { name } = currentSettings;

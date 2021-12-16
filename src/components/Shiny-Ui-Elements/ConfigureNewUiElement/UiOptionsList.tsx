@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import {
-  ShinyUiNameAndSettings,
+  ShinyUiNameAndArguments,
   ShinyUiNames,
 } from "components/Shiny-Ui-Elements/Elements/componentTypes";
 import * as React from "react";
@@ -13,14 +13,14 @@ export function UiOptionsList({
   selected,
   onChoose,
 }: {
-  availableUi?: ShinyUiNameAndSettings[];
+  availableUi?: ShinyUiNameAndArguments[];
   selected?: ShinyUiNames;
-  onChoose: (newPanel: ShinyUiNameAndSettings) => void;
+  onChoose: (newPanel: ShinyUiNameAndArguments) => void;
 }) {
   return (
     <OptionsList>
       {availableUi.map((ui) => {
-        const { name: name } = ui;
+        const { uiName: name } = ui;
         const isSelected = selected === name;
         return (
           <OptionItem key={name} className={isSelected ? "selected" : ""}>

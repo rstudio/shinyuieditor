@@ -21,16 +21,16 @@ const startingLayout = {
 
 const startingPanels = {
   title: {
-    name: "titlePanel",
-    settings: { title: "My App" },
+    uiName: "titlePanel",
+    uiArguments: { title: "My App" },
   },
   settings: {
-    name: "sliderInput",
-    settings: { name: "My slider!" },
+    uiName: "sliderInput",
+    uiArguments: { name: "My slider!" },
   },
   plot: {
-    name: "plotOutput",
-    settings: { name: "My Plot!" },
+    uiName: "plotOutput",
+    uiArguments: { name: "My Plot!" },
   },
 } as Panels;
 

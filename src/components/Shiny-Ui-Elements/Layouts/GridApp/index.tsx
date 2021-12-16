@@ -27,7 +27,7 @@ import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
 import { GridItemExtent, TemplatedGridProps } from "utils/gridTemplates/types";
 import { ItemBoundingBox } from "utils/overlap-helpers";
-import { ShinyUiNameAndSettings } from "../../Elements/componentTypes";
+import { ShinyUiNameAndArguments } from "../../Elements/componentTypes";
 import UiPanel from "../../UiPanel";
 import { AreaOverlay } from "./AreaOverlay";
 import { EditModeToggle } from "./EditModeToggle";
@@ -35,7 +35,7 @@ import { GridCells } from "./GridCell";
 import { TractControls } from "./TractControls";
 import { GridLayoutAction, useGridLayoutReducer } from "./useGridLayoutReducer";
 
-export type Panels = Record<string, ShinyUiNameAndSettings>;
+export type Panels = Record<string, ShinyUiNameAndArguments>;
 type GridAppProps = {
   layout: TemplatedGridProps;
   panels: Panels;
@@ -103,9 +103,9 @@ export default function GridApp({
         // This needs some better typing so we know newProps will be the proper
         // type for the given existingPanel name
         newPanels[panelArea] = {
-          name: existingPanel.name,
-          settings: newProps,
-        } as ShinyUiNameAndSettings;
+          uiName: existingPanel.uiName,
+          uiArguments: newProps,
+        } as ShinyUiNameAndArguments;
         return newPanels;
       });
     },
@@ -121,7 +121,7 @@ export default function GridApp({
   );
 
   const addPanel = React.useCallback(
-    (area: string, pos: GridItemExtent, newPanel: ShinyUiNameAndSettings) => {
+    (area: string, pos: GridItemExtent, newPanel: ShinyUiNameAndArguments) => {
       setAllPanels((panels) => ({ ...panels, [area]: newPanel }));
       addItem(area, pos);
     },

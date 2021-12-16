@@ -32,16 +32,16 @@ describe("Updating settings is reflected in entire app", () => {
 
     const startingState = {
       title: {
-        name: "titlePanel",
-        settings: { title: testTitle },
+        uiName: "titlePanel",
+        uiArguments: { title: testTitle },
       },
       numBins: {
-        name: "sliderInput",
-        settings: { name: "My slider!" } as ShinySliderInputProps,
+        uiName: "sliderInput",
+        uiArguments: { name: "My slider!" } as ShinySliderInputProps,
       },
       plot: {
-        name: "plotOutput",
-        settings: { name: "My Plot!" },
+        uiName: "plotOutput",
+        uiArguments: { name: "My Plot!" },
       },
     };
     render(

@@ -1,10 +1,10 @@
 import { NumericInput } from "components/Inputs/NumericInput";
 import { TextInput } from "components/Inputs/TextInput";
-import { ShinyUiSettingsFields } from "components/Shiny-Ui-Elements/Elements/componentTypes";
+import { ShinyUiArgumentsFields } from "components/Shiny-Ui-Elements/Elements/componentTypes";
 import * as React from "react";
 import { ShinySliderInputProps } from ".";
 
-export const ShinySliderInputSettings: ShinyUiSettingsFields<
+export const ShinySliderInputSettings: ShinyUiArgumentsFields<
   ShinySliderInputProps
 > = ({ currentSettings, onChange }) => {
   const settings = { ...currentSettings };

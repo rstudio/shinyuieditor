@@ -10,7 +10,7 @@ import styled from "@emotion/styled";
 import * as React from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiCheck } from "react-icons/bi";
-import { ShinyUiNameAndSettings } from "../Elements/componentTypes";
+import { ShinyUiNameAndArguments } from "../Elements/componentTypes";
 import { SettingsInputsForUi } from "../UiSettings/SettingsInputsForUi";
 import { UiOptionsList } from "./UiOptionsList";
 
@@ -19,7 +19,7 @@ export default function ConfigureNewUiElement({
   onCancel,
   existingElementNames,
 }: {
-  onFinish: (opts: { name: string; ui: ShinyUiNameAndSettings }) => void;
+  onFinish: (opts: { name: string; ui: ShinyUiNameAndArguments }) => void;
   onCancel: () => void;
   existingElementNames: string[];
 }) {
@@ -27,7 +27,7 @@ export default function ConfigureNewUiElement({
 
   const [currentName, setCurrentName] = React.useState("");
   const [currentUi, setCurrentUi] =
-    React.useState<ShinyUiNameAndSettings | null>(null);
+    React.useState<ShinyUiNameAndArguments | null>(null);
   // Default to having settings be valid because we're suppliying the default
   // values and thus they will be good.
   const [uiSettingsAreValid, setUiSettingsAreValid] =
@@ -100,7 +100,7 @@ export default function ConfigureNewUiElement({
 
         <FormControl id="ui-chooser" isRequired>
           <FormLabel>UI Element</FormLabel>
-          <UiOptionsList onChoose={setCurrentUi} selected={currentUi?.name} />
+          <UiOptionsList onChoose={setCurrentUi} selected={currentUi?.uiName} />
 
           <FormHelperText color="GrayText" aria-label="input-description">
             The type of UI element you want to add
@@ -110,17 +110,17 @@ export default function ConfigureNewUiElement({
         {/* Render the form for a given component settings if a ui element is selected */}
         {currentUi ? (
           <FormControl id="ui-settings">
-            <FormLabel>Settings for {currentUi.name}</FormLabel>
+            <FormLabel>Settings for {currentUi.uiName}</FormLabel>
 
             <div style={{ paddingLeft: "1.5rem" }}>
               <SettingsInputsForUi
-                uiName={currentUi.name}
-                settings={currentUi.settings}
+                uiName={currentUi.uiName}
+                settings={currentUi.uiArguments}
                 onChange={(newSettings, isValid) => {
                   setCurrentUi({
-                    name: currentUi.name,
-                    settings: newSettings,
-                  } as ShinyUiNameAndSettings);
+                    uiName: currentUi.uiName,
+                    uiArguments: newSettings,
+                  } as ShinyUiNameAndArguments);
 
                   setUiSettingsAreValid(isValid);
                 }}
