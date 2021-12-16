@@ -27,13 +27,13 @@ app_dump <- '
   },
   "elements": {
     "title": {
-      "componentName": "titlePanel",
+      "name": "titlePanel",
       "componentProps": {
         "title": "My App"
       }
     },
     "settings": {
-      "componentName": "sliderInput",
+      "name": "sliderInput",
       "componentProps": {
         "name": "My slider!",
         "min": 2,
@@ -42,7 +42,7 @@ app_dump <- '
       }
     },
     "plot": {
-      "componentName": "plotOutput",
+      "name": "plotOutput",
       "componentProps": {
         "name": "My Plot!"
       }

@@ -103,7 +103,7 @@ export default function GridApp({
         // This needs some better typing so we know newProps will be the proper
         // type for the given existingPanel name
         newPanels[panelArea] = {
-          componentName: existingPanel.componentName,
+          name: existingPanel.name,
           componentProps: newProps,
         } as ShinyUiNameAndProps;
         return newPanels;

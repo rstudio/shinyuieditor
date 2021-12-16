@@ -30,7 +30,7 @@ export type ShinyUiProps = ShinyUiPropsByName[ShinyUiNames];
  */
 export type ShinyUiNameAndProps = ValueOf<{
   [Name in keyof ShinyUiPropsByName]: {
-    componentName: Name;
+    name: Name;
     componentProps: ShinyUiPropsByName[Name];
   };
 }>;

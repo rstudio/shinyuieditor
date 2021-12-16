@@ -7,7 +7,7 @@ describe("UiPanel shows the proper ui element", () => {
       <UiPanel
         area="a"
         componentDefinition={{
-          componentName: "plotOutput",
+          name: "plotOutput",
           componentProps: { name: "My Plot Test" },
         }}
       />
@@ -19,7 +19,7 @@ describe("UiPanel shows the proper ui element", () => {
       <UiPanel
         area="a"
         componentDefinition={{
-          componentName: "sliderInput",
+          name: "sliderInput",
           componentProps: { name: "My Slider Input" },
         }}
       />
@@ -33,7 +33,7 @@ describe("UiPanel shows the proper ui element", () => {
       <UiPanel
         area="a"
         componentDefinition={{
-          componentName: "titlePanel",
+          name: "titlePanel",
           componentProps: { title: testTitle },
         }}
       />
@@ -49,7 +49,7 @@ describe("shiny::sliderInput can update defaults", () => {
       <UiPanel
         area="a"
         componentDefinition={{
-          componentName: "sliderInput",
+          name: "sliderInput",
           componentProps: {
             name: "My Slider Input",
             min: 10,
@@ -76,7 +76,7 @@ describe("shiny::sliderInput can update defaults", () => {
         <UiPanel
           area="a"
           componentDefinition={{
-            componentName: "sliderInput",
+            name: "sliderInput",
             componentProps: { name: "My Slider Input", min: 10, val: 20 },
           }}
         />

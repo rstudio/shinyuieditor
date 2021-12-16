@@ -21,15 +21,15 @@ const startingLayout = {
 
 const startingPanels = {
   title: {
-    componentName: "titlePanel",
+    name: "titlePanel",
     componentProps: { title: "My App" },
   },
   settings: {
-    componentName: "sliderInput",
+    name: "sliderInput",
     componentProps: { name: "My slider!" },
   },
   plot: {
-    componentName: "plotOutput",
+    name: "plotOutput",
     componentProps: { name: "My Plot!" },
   },
 } as Panels;

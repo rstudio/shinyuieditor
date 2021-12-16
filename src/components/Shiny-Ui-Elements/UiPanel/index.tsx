@@ -83,7 +83,7 @@ function UiPanel<ElName extends ShinyUiNames>({
 }: {
   area: string;
   componentDefinition: {
-    componentName: ElName;
+    name: ElName;
     componentProps: ShinyUiPropsByName[ElName];
   };
   onUpdate?: (newProps: ShinyUiPropsByName[ElName]) => void;
@@ -93,7 +93,7 @@ function UiPanel<ElName extends ShinyUiNames>({
   const openPopover = () => setIsOpen(!isOpen);
   const closePopover = () => setIsOpen(false);
 
-  const { componentName, componentProps } = componentDefinition;
+  const { name, componentProps } = componentDefinition;
 
   return (
     <UiPanelHolder
@@ -126,15 +126,15 @@ function UiPanel<ElName extends ShinyUiNames>({
             css={actionButtonStyles}
           />
         </PopoverTrigger>
-        <PopoverContent aria-label={`Settings for ${componentName}`}>
+        <PopoverContent aria-label={`Settings for ${name}`}>
           <PopoverArrow />
           <PopoverCloseButton />
           <PopoverHeader>
-            <code>{componentName}</code> settings
+            <code>{name}</code> settings
           </PopoverHeader>
           <PopoverBody>
             <UiSettingsComponent
-              uiName={componentName}
+              uiName={name}
               settings={componentProps}
               onChange={(newSettings) => {
                 onUpdate?.(newSettings);
@@ -144,7 +144,7 @@ function UiPanel<ElName extends ShinyUiNames>({
           </PopoverBody>
         </PopoverContent>
       </Popover>
-      <UiComponent uiName={componentName} settings={componentProps} />
+      <UiComponent uiName={name} settings={componentProps} />
     </UiPanelHolder>
   );
 }

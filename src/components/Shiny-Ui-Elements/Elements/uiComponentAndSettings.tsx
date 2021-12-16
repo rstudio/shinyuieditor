@@ -26,15 +26,15 @@ export const uiComponentAndSettings: ShinyUiComponentAndSettings = {
 
 export const defaultSettingsForElements: ShinyUiNameAndProps[] = [
   {
-    componentName: "plotOutput",
+    name: "plotOutput",
     componentProps: { name: "My Chosen Plot" },
   },
   {
-    componentName: "sliderInput",
+    name: "sliderInput",
     componentProps: { min: 0, val: 5, max: 10 },
   },
   {
-    componentName: "titlePanel",
+    name: "titlePanel",
     componentProps: { title: "Title from Chooser" },
   },
 ];

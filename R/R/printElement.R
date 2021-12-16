@@ -11,7 +11,7 @@ printElement <- function(element_def){
   args_written <- paste0(names(args), "=", args_wrapped, collapse = ", ")
 
   paste0(
-    element_def$componentName, "(", args_written, ")"
+    element_def$name, "(", args_written, ")"
   )
 }
 

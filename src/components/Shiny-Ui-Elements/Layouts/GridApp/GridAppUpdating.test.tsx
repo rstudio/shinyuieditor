@@ -32,15 +32,15 @@ describe("Updating settings is reflected in entire app", () => {
 
     const startingState = {
       title: {
-        componentName: "titlePanel",
+        name: "titlePanel",
         componentProps: { title: testTitle },
       },
       numBins: {
-        componentName: "sliderInput",
+        name: "sliderInput",
         componentProps: { name: "My slider!" } as ShinySliderInputProps,
       },
       plot: {
-        componentName: "plotOutput",
+        name: "plotOutput",
         componentProps: { name: "My Plot!" },
       },
     };

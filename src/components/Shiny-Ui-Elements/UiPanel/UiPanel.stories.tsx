@@ -41,7 +41,7 @@ export const Slider = Template.bind({});
 Slider.args = {
   area: uniqueAreas[0],
   componentDefinition: {
-    componentName: "sliderInput",
+    name: "sliderInput",
     componentProps: {
       min: 0,
       max: 10,

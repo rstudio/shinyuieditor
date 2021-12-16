@@ -30,15 +30,15 @@ describe("GridApp fills with proper elements", () => {
         layout={mainLayout}
         panels={{
           title: {
-            componentName: "titlePanel",
+            name: "titlePanel",
             componentProps: { title: testTitle },
           },
           settings: {
-            componentName: "sliderInput",
+            name: "sliderInput",
             componentProps: { name: "My slider!" },
           },
           plot: {
-            componentName: "plotOutput",
+            name: "plotOutput",
             componentProps: { name: "My Plot!" },
           },
         }}
@@ -74,7 +74,7 @@ describe("Errors properly", () => {
           layout={mainLayout}
           panels={{
             appTitle: {
-              componentName: "titlePanel",
+              name: "titlePanel",
               componentProps: { title: testTitle },
             },
           }}
@@ -91,7 +91,7 @@ describe("Errors properly", () => {
           layout={mainLayout}
           panels={{
             settings: {
-              componentName: "sliderInput",
+              name: "sliderInput",
               componentProps: {
                 name: "My slider!",
                 min: 100,

@@ -20,7 +20,7 @@ export function UiOptionsList({
   return (
     <OptionsList>
       {availableUi.map((ui) => {
-        const { componentName: name } = ui;
+        const { name: name } = ui;
         const isSelected = selected === name;
         return (
           <OptionItem key={name} className={isSelected ? "selected" : ""}>

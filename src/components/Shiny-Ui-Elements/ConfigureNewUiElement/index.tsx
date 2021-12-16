@@ -101,10 +101,7 @@ export default function ConfigureNewUiElement({
 
         <FormControl id="ui-chooser" isRequired>
           <FormLabel>UI Element</FormLabel>
-          <UiOptionsList
-            onChoose={setCurrentUi}
-            selected={currentUi?.componentName}
-          />
+          <UiOptionsList onChoose={setCurrentUi} selected={currentUi?.name} />
 
           <FormHelperText color="GrayText" aria-label="input-description">
             The type of UI element you want to add
@@ -114,17 +111,17 @@ export default function ConfigureNewUiElement({
         {/* Render the form for a given component settings if a ui element is selected */}
         {currentUi ? (
           <FormControl id="ui-settings">
-            <FormLabel>Settings for {currentUi.componentName}</FormLabel>
+            <FormLabel>Settings for {currentUi.name}</FormLabel>
 
             <div style={{ paddingLeft: "1.5rem" }}>
               <SettingsInputsForUi
-                uiName={currentUi.componentName}
+                uiName={currentUi.name}
                 settings={currentUi.componentProps}
                 onChange={(newSettings, isValid) => {
                   setCurrentUi({
-                    componentName: currentUi.componentName,
+                    name: currentUi.name,
                     componentProps: newSettings,
-                  });
+                  } as ShinyUiNameAndProps);
 
                   setUiSettingsAreValid(isValid);
                 }}

@@ -26,15 +26,15 @@ afterEach(() => {
 
 const startingState = {
   title: {
-    componentName: "titlePanel",
+    name: "titlePanel",
     componentProps: { title: "My Test App Title" },
   },
   numBins: {
-    componentName: "sliderInput",
+    name: "sliderInput",
     componentProps: { name: "My slider!" } as ShinySliderInputProps,
   },
   plot: {
-    componentName: "plotOutput",
+    name: "plotOutput",
     componentProps: { name: "My Plot!" },
   },
 };
