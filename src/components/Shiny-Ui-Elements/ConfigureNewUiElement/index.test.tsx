@@ -22,8 +22,8 @@ test("Basic usage of new item adding", () => {
   expect(onFinishMock).toHaveBeenLastCalledWith({
     name: "my-new-item",
     ui: {
-      name: "plotOutput",
-      settings: expect.any(Object),
+      uiName: "plotOutput",
+      uiArguments: expect.any(Object),
     },
   });
 });
@@ -64,8 +64,8 @@ test("Gives warning message when a non-conforming names are typed", () => {
   expect(onFinishMock).toHaveBeenLastCalledWith({
     name: "existing-item2",
     ui: {
-      name: "plotOutput",
-      settings: expect.any(Object),
+      uiName: "plotOutput",
+      uiArguments: expect.any(Object),
     },
   });
 });
@@ -111,8 +111,8 @@ test("Form for filling out props updates based on selected element", () => {
   expect(onFinishMock).toHaveBeenLastCalledWith({
     name: "my-new-item",
     ui: {
-      name: "sliderInput",
-      settings: expect.objectContaining({
+      uiName: "sliderInput",
+      uiArguments: expect.objectContaining({
         min: 3,
       }),
     },

@@ -2,31 +2,25 @@ import styled from "@emotion/styled";
 import { ShinyUiComponent } from "components/Shiny-Ui-Elements/Elements/componentTypes";
 import * as React from "react";
 import { makeBoxShadow } from "utils/css-helpers";
+import {
+  buildSliderSettings,
+  ShinySliderInputProps,
+  sliderDefaultSettings,
+} from "./arguments";
 
-type SliderSettings = {
-  min: number;
-  val: number;
-  max: number;
-};
-
-export type ShinySliderInputProps = Partial<
-  {
-    name: string;
-    width: string;
-    height: string;
-  } & SliderSettings
->;
-
-const ShinySliderInput: ShinyUiComponent<ShinySliderInputProps> = ({
-  name = "shiny-sliderInput",
-  width = "200px",
-  height = "auto",
-  min,
-  max,
-  val,
-}: ShinySliderInputProps) => {
-  const settings = buildSliderSettings({ min, max, val });
-  const [currentVal, setCurrentVal] = React.useState(settings.val);
+const ShinySliderInput: ShinyUiComponent<ShinySliderInputProps> = (
+  props: ShinySliderInputProps
+) => {
+  const {
+    inputId = "shiny-sliderInput",
+    min,
+    max,
+    value,
+  } = { ...sliderDefaultSettings, ...props };
+  const width = "200px";
+  const height = "auto";
+  const settings = buildSliderSettings({ min, max, value });
+  const [currentVal, setCurrentVal] = React.useState(settings.value);
   return (
     <SliderHolder
       style={{ height, width }}
@@ -53,55 +47,6 @@ const ShinySliderInput: ShinyUiComponent<ShinySliderInputProps> = ({
 };
 
 export default ShinySliderInput;
-
-export function buildSliderSettings({
-  min,
-  max,
-  val,
-  name,
-}: Partial<ShinySliderInputProps>) {
-  const missingAll =
-    typeof min !== "number" &&
-    typeof max !== "number" &&
-    typeof val !== "number";
-  const haveAll =
-    typeof min === "number" &&
-    typeof max === "number" &&
-    typeof val === "number";
-
-  if (!missingAll && !haveAll)
-    throw new Error(
-      "A minimum, maximum, and starting value are needed for slider."
-    );
-
-  if (typeof min !== "number") min = 0;
-  if (typeof max !== "number") max = 100;
-  if (typeof val !== "number") val = 50;
-
-  if (min > max) {
-    throw new Error("Need to define a minimum value that is below the max");
-  }
-
-  if (val > max) {
-    throw new Error(
-      "Cant set starting value of slider above the maximum allowed value"
-    );
-  }
-
-  if (val < min) {
-    throw new Error(
-      "Cant set starting value of slider below the minimum allowed value"
-    );
-  }
-
-  // if (!haveMin) min = 0;
-
-  if (typeof name !== "string") {
-    name = "Default slider name";
-  }
-
-  return { min, max, val, name };
-}
 
 const SliderHolder = styled.div({
   outline: "1px solid var(--rstudio-grey)",

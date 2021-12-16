@@ -2,7 +2,8 @@ import { NumericInput } from "components/Inputs/NumericInput";
 import { TextInput } from "components/Inputs/TextInput";
 import { ShinyUiArgumentsFields } from "components/Shiny-Ui-Elements/Elements/componentTypes";
 import * as React from "react";
-import { ShinySliderInputProps } from ".";
+import { ShinySliderInputProps, validateSliderSettings } from "./arguments";
+import { ShowProblems } from "../../UiSettings/ShowProblems";
 
 export const ShinySliderInputSettings: ShinyUiArgumentsFields<
   ShinySliderInputProps
@@ -20,9 +21,9 @@ export const ShinySliderInputSettings: ShinyUiArgumentsFields<
   return (
     <>
       <TextInput
-        label="Slider name"
-        value={settings.name ?? "Default name"}
-        onChange={(name) => validateAndUpdate({ name })}
+        label="inputId"
+        value={settings.inputId ?? "Default name"}
+        onChange={(inputId) => validateAndUpdate({ inputId })}
       />
       <NumericInput
         label="Minimum value"
@@ -40,74 +41,10 @@ export const ShinySliderInputSettings: ShinyUiArgumentsFields<
 
       <NumericInput
         label="Starting value"
-        value={settings.val}
-        onChange={(val) => validateAndUpdate({ val })}
+        value={settings.value}
+        onChange={(val) => validateAndUpdate({ value: val })}
       />
-      <ShowProblems problems={problems} which="val" />
+      <ShowProblems problems={problems} which="value" />
     </>
   );
 };
-
-type InputProblem = { which: keyof ShinySliderInputProps; msg: string };
-export function validateSliderSettings({
-  min,
-  max,
-  val,
-  name,
-}: Partial<ShinySliderInputProps>): InputProblem[] {
-  const missingAny =
-    typeof min !== "number" ||
-    typeof max !== "number" ||
-    typeof val !== "number";
-
-  const problems: InputProblem[] = [];
-  if (missingAny) return problems;
-  // throw new Error(
-  //   "A minimum, maximum, and starting value are needed for slider."
-  // );
-
-  if (min > max) {
-    problems.push({
-      which: "min",
-      msg: "Need to define a minimum value that is below the max",
-    });
-    problems.push({
-      which: "max",
-      msg: "Need to define a minimum value that is below the max",
-    });
-  }
-
-  if (val > max) {
-    problems.push({
-      which: "val",
-      msg: "Cant set starting value of slider above the maximum allowed value",
-    });
-  }
-
-  if (val < min) {
-    problems.push({
-      which: "val",
-      msg: "Cant set starting value of slider below the minimum allowed value",
-    });
-  }
-
-  return problems;
-}
-
-function ShowProblems({
-  which,
-  problems,
-}: {
-  which: InputProblem["which"];
-  problems: InputProblem[];
-}) {
-  return (
-    <>
-      {problems
-        .filter((p) => p.which === which)
-        .map(({ msg }) => (
-          <span style={{ color: "orangered" }}>{msg}</span>
-        ))}
-    </>
-  );
-}

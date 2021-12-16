@@ -1,0 +1,110 @@
+import {
+  InputProblem,
+  UiSettingsValidator,
+} from "components/Shiny-Ui-Elements/UiSettings/types";
+
+export type SliderSettings = {
+  inputId: string;
+  label?: string;
+  min: number;
+  value: number;
+  max: number;
+};
+
+export const sliderDefaultSettings: SliderSettings = {
+  inputId: "mySlider",
+  min: 0,
+  max: 10,
+  value: 5,
+};
+
+export type ShinySliderInputProps = Partial<SliderSettings>;
+
+export function buildSliderSettings({
+  min,
+  max,
+  value,
+  inputId,
+}: Partial<SliderSettings>): SliderSettings {
+  const missingAll =
+    typeof min !== "number" &&
+    typeof max !== "number" &&
+    typeof value !== "number";
+  const haveAll =
+    typeof min === "number" &&
+    typeof max === "number" &&
+    typeof value === "number";
+
+  if (!missingAll && !haveAll)
+    throw new Error(
+      "A minimum, maximum, and starting value are needed for slider."
+    );
+
+  if (typeof min !== "number") min = 0;
+  if (typeof max !== "number") max = 100;
+  if (typeof value !== "number") value = 50;
+
+  if (min > max) {
+    throw new Error("Need to define a minimum value that is below the max");
+  }
+
+  if (value > max) {
+    throw new Error(
+      "Cant set starting value of slider above the maximum allowed value"
+    );
+  }
+
+  if (value < min) {
+    throw new Error(
+      "Cant set starting value of slider below the minimum allowed value"
+    );
+  }
+
+  if (typeof inputId !== "string") {
+    inputId = "Default slider name";
+  }
+
+  return { min, max, value, inputId };
+}
+
+export const validateSliderSettings: UiSettingsValidator<
+  ShinySliderInputProps
+> = ({ min, max, value: val, inputId }) => {
+  const missingAny =
+    typeof min !== "number" ||
+    typeof max !== "number" ||
+    typeof val !== "number";
+
+  const problems: InputProblem[] = [];
+  if (missingAny) return problems;
+  // throw new Error(
+  //   "A minimum, maximum, and starting value are needed for slider."
+  // );
+
+  if (min > max) {
+    problems.push({
+      which: "min",
+      msg: "Need to define a minimum value that is below the max",
+    });
+    problems.push({
+      which: "max",
+      msg: "Need to define a minimum value that is below the max",
+    });
+  }
+
+  if (val > max) {
+    problems.push({
+      which: "value",
+      msg: "Cant set starting value of slider above the maximum allowed value",
+    });
+  }
+
+  if (val < min) {
+    problems.push({
+      which: "value",
+      msg: "Cant set starting value of slider below the minimum allowed value",
+    });
+  }
+
+  return problems;
+};

@@ -1,6 +1,6 @@
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { ShinySliderInputProps } from "components/Shiny-Ui-Elements/Elements/ShinySliderInput";
+import { ShinySliderInputProps } from "components/Shiny-Ui-Elements/Elements/ShinySliderInput/arguments";
 import { clearThenType } from "test-helpers";
 import { TemplatedGridProps } from "utils/gridTemplates/types";
 import GridApp from ".";

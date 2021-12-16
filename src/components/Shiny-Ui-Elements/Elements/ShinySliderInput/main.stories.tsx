@@ -19,9 +19,7 @@ const Template: ComponentStory<typeof ShinySliderInput> = (args) => (
 export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {
-  name: "mySlider",
-  width: "400px",
-  height: "300px",
+  inputId: "mySlider",
 };
 
 export const Defaults = Template.bind({});
