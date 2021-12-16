@@ -57,9 +57,9 @@ export type UiSettingsCompByName<UiName extends ShinyUiNames> = {
  * Format of form inputs for ShinyUiSettingsComponent. This is not wrapped in a
  * form element and thus can be embedded in other forms.
  */
-export type ShinyUiSettingsFields<Props extends ShinyUiSettings> = (p: {
-  currentSettings: Props;
-  onChange: ShinyUiSettingsUpdate<Props>;
+export type ShinyUiSettingsFields<Settings extends ShinyUiSettings> = (p: {
+  currentSettings: Settings;
+  onChange: ShinyUiSettingsUpdate<Settings>;
 }) => JSX.Element;
 
 /**
@@ -67,8 +67,8 @@ export type ShinyUiSettingsFields<Props extends ShinyUiSettings> = (p: {
  * isValid tells injestor if the settings are good to go or need updating before
  * they should be accepted
  */
-export type ShinyUiSettingsUpdate<Props extends ShinyUiSettings> = (
-  newSettings: Props,
+export type ShinyUiSettingsUpdate<Settings extends ShinyUiSettings> = (
+  newSettings: Settings,
   isValid: boolean
 ) => void;
 
