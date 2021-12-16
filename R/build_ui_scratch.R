@@ -6,18 +6,14 @@ app_dump <- '
     "options": {
       "gapSize": "1rem",
       "areas": [
-        [
-          "title",
-          "title"
-        ],
-        [
-          "settings",
-          "plot"
-        ]
+        [   "title",  "title"],
+        ["settings",   "plot"],
+        [  "footer", "footer"]
       ],
       "rowSizes": [
         "100px",
-        "1fr"
+        "1fr",
+        "80px"
       ],
       "colSizes": [
         "250px",
@@ -27,23 +23,23 @@ app_dump <- '
   },
   "elements": {
     "title": {
-      "name": "titlePanel",
-      "settings": {
+      "uiName": "titlePanel",
+      "uiArguments": {
         "title": "My App"
       }
     },
     "settings": {
-      "name": "sliderInput",
-      "settings": {
+      "uiName": "sliderInput",
+      "uiArguments": {
         "name": "My slider!",
-        "min": 2,
-        "max": 15,
+        "min": 5,
+        "max": 10,
         "val": 7
       }
     },
     "plot": {
-      "name": "plotOutput",
-      "settings": {
+      "uiName": "plotOutput",
+      "uiArguments": {
         "name": "My Plot!"
       }
     }
