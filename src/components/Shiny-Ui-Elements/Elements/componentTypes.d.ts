@@ -9,7 +9,7 @@ import type { ShinySliderInputProps } from "../Shiny-Ui-Elements/ShinySliderInpu
  * This is the only place where any new UI element should be added as the rest
  * of the types will automatically be built based on this type.
  */
-export type ShinyUiPropsByName = {
+export type ShinyUiSettingsByName = {
   plotOutput: ShinyPlotOutputProps;
   sliderInput: ShinySliderInputProps;
   titlePanel: GridlayoutTitlePanelProps;
@@ -18,20 +18,20 @@ export type ShinyUiPropsByName = {
 /**
  * Names of all the available Ui elements
  */
-export type ShinyUiNames = keyof ShinyUiPropsByName;
+export type ShinyUiNames = keyof ShinyUiSettingsByName;
 
 /**
  * Property (arguments) of all the available Ui elements
  */
-export type ShinyUiProps = ShinyUiPropsByName[ShinyUiNames];
+export type ShinyUiSettings = ShinyUiSettingsByName[ShinyUiNames];
 
 /**
  * Union of Ui element name and associated props for easy narrowing
  */
-export type ShinyUiNameAndProps = ValueOf<{
-  [Name in keyof ShinyUiPropsByName]: {
+export type ShinyUiNameAndSettings = ValueOf<{
+  [Name in keyof ShinyUiSettingsByName]: {
     name: Name;
-    componentProps: ShinyUiPropsByName[Name];
+    settings: ShinyUiSettingsByName[Name];
   };
 }>;
 
@@ -39,7 +39,7 @@ export type ShinyUiNameAndProps = ValueOf<{
  * Format of a React component designating a Shiny-Ui element with a given
  * set of input props.
  */
-export type ShinyUiComponent<Props extends ShinyUiProps> = (
+export type ShinyUiComponent<Props extends ShinyUiSettings> = (
   p: Props
 ) => JSX.Element;
 
@@ -49,15 +49,15 @@ export type ShinyUiComponent<Props extends ShinyUiProps> = (
  */
 export type UiSettingsCompByName<UiName extends ShinyUiNames> = {
   uiName: UiName;
-  settings: ShinyUiPropsByName[UiName];
-  onChange: ShinyUiSettingsUpdate<ShinyUiPropsByName[UiName]>;
+  settings: ShinyUiSettingsByName[UiName];
+  onChange: ShinyUiSettingsUpdate<ShinyUiSettingsByName[UiName]>;
 };
 
 /**
  * Format of form inputs for ShinyUiSettingsComponent. This is not wrapped in a
  * form element and thus can be embedded in other forms.
  */
-export type ShinyUiSettingsFields<Props extends ShinyUiProps> = (p: {
+export type ShinyUiSettingsFields<Props extends ShinyUiSettings> = (p: {
   currentSettings: Props;
   onChange: ShinyUiSettingsUpdate<Props>;
 }) => JSX.Element;
@@ -67,7 +67,7 @@ export type ShinyUiSettingsFields<Props extends ShinyUiProps> = (p: {
  * isValid tells injestor if the settings are good to go or need updating before
  * they should be accepted
  */
-export type ShinyUiSettingsUpdate<Props extends ShinyUiProps> = (
+export type ShinyUiSettingsUpdate<Props extends ShinyUiSettings> = (
   newSettings: Props,
   isValid: boolean
 ) => void;
@@ -76,8 +76,8 @@ export type ShinyUiSettingsUpdate<Props extends ShinyUiProps> = (
  * Payload describing the two main components needed for working with a UI element
  */
 export type ShinyUiComponentAndSettings = {
-  [Name in keyof ShinyUiPropsByName]: {
-    UiComponent: ShinyUiComponent<ShinyUiPropsByName[Name]>;
-    SettingsComponent: ShinyUiSettingsFields<ShinyUiPropsByName[Name]>;
+  [Name in keyof ShinyUiSettingsByName]: {
+    UiComponent: ShinyUiComponent<ShinyUiSettingsByName[Name]>;
+    SettingsComponent: ShinyUiSettingsFields<ShinyUiSettingsByName[Name]>;
   };
 };

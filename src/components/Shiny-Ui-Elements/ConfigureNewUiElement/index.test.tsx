@@ -23,7 +23,7 @@ test("Basic usage of new item adding", () => {
     name: "my-new-item",
     ui: {
       name: "plotOutput",
-      componentProps: expect.any(Object),
+      settings: expect.any(Object),
     },
   });
 });
@@ -65,7 +65,7 @@ test("Gives warning message when a non-conforming names are typed", () => {
     name: "existing-item2",
     ui: {
       name: "plotOutput",
-      componentProps: expect.any(Object),
+      settings: expect.any(Object),
     },
   });
 });
@@ -112,7 +112,7 @@ test("Form for filling out props updates based on selected element", () => {
     name: "my-new-item",
     ui: {
       name: "sliderInput",
-      componentProps: expect.objectContaining({
+      settings: expect.objectContaining({
         min: 3,
       }),
     },

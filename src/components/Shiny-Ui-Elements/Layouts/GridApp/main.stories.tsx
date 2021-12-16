@@ -31,15 +31,15 @@ Primary.args = {
   panels: {
     title: {
       name: "titlePanel",
-      componentProps: { title: "My App" },
+      settings: { title: "My App" },
     },
     settings: {
       name: "sliderInput",
-      componentProps: { name: "My slider!", height: "100%", width: "100%" },
+      settings: { name: "My slider!", height: "100%", width: "100%" },
     },
     plot: {
       name: "plotOutput",
-      componentProps: { name: "My Plot!" },
+      settings: { name: "My Plot!" },
     },
   },
 };

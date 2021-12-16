@@ -10,7 +10,7 @@ import styled from "@emotion/styled";
 import * as React from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiCheck } from "react-icons/bi";
-import { ShinyUiNameAndProps } from "../Elements/componentTypes";
+import { ShinyUiNameAndSettings } from "../Elements/componentTypes";
 import { SettingsInputsForUi } from "../UiSettings/SettingsInputsForUi";
 import { UiOptionsList } from "./UiOptionsList";
 
@@ -19,16 +19,15 @@ export default function ConfigureNewUiElement({
   onCancel,
   existingElementNames,
 }: {
-  onFinish: (opts: { name: string; ui: ShinyUiNameAndProps }) => void;
+  onFinish: (opts: { name: string; ui: ShinyUiNameAndSettings }) => void;
   onCancel: () => void;
   existingElementNames: string[];
 }) {
   const nameInputRef = React.useRef<HTMLInputElement>(null);
 
   const [currentName, setCurrentName] = React.useState("");
-  const [currentUi, setCurrentUi] = React.useState<ShinyUiNameAndProps | null>(
-    null
-  );
+  const [currentUi, setCurrentUi] =
+    React.useState<ShinyUiNameAndSettings | null>(null);
   // Default to having settings be valid because we're suppliying the default
   // values and thus they will be good.
   const [uiSettingsAreValid, setUiSettingsAreValid] =
@@ -116,12 +115,12 @@ export default function ConfigureNewUiElement({
             <div style={{ paddingLeft: "1.5rem" }}>
               <SettingsInputsForUi
                 uiName={currentUi.name}
-                settings={currentUi.componentProps}
+                settings={currentUi.settings}
                 onChange={(newSettings, isValid) => {
                   setCurrentUi({
                     name: currentUi.name,
-                    componentProps: newSettings,
-                  } as ShinyUiNameAndProps);
+                    settings: newSettings,
+                  } as ShinyUiNameAndSettings);
 
                   setUiSettingsAreValid(isValid);
                 }}

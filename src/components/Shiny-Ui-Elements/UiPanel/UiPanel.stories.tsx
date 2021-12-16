@@ -42,7 +42,7 @@ Slider.args = {
   area: uniqueAreas[0],
   componentDefinition: {
     name: "sliderInput",
-    componentProps: {
+    settings: {
       min: 0,
       max: 10,
       val: 5,

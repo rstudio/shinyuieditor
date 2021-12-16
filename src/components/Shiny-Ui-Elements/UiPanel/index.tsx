@@ -13,7 +13,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import type {
   ShinyUiNames,
-  ShinyUiPropsByName,
+  ShinyUiSettingsByName,
   UiSettingsCompByName,
 } from "components/Shiny-Ui-Elements/Elements/componentTypes";
 import * as React from "react";
@@ -31,7 +31,7 @@ function UiComponent<UiName extends ShinyUiNames>({
   settings,
 }: {
   uiName: UiName;
-  settings: ShinyUiPropsByName[UiName];
+  settings: ShinyUiSettingsByName[UiName];
 }) {
   const Comp = uiComponentAndSettings[uiName].UiComponent;
   return <Comp {...settings} />;
@@ -84,16 +84,16 @@ function UiPanel<ElName extends ShinyUiNames>({
   area: string;
   componentDefinition: {
     name: ElName;
-    componentProps: ShinyUiPropsByName[ElName];
+    settings: ShinyUiSettingsByName[ElName];
   };
-  onUpdate?: (newProps: ShinyUiPropsByName[ElName]) => void;
+  onUpdate?: (newProps: ShinyUiSettingsByName[ElName]) => void;
   onDelete?: () => void;
 }) {
   const [isOpen, setIsOpen] = React.useState(false);
   const openPopover = () => setIsOpen(!isOpen);
   const closePopover = () => setIsOpen(false);
 
-  const { name, componentProps } = componentDefinition;
+  const { name, settings } = componentDefinition;
 
   return (
     <UiPanelHolder
@@ -135,7 +135,7 @@ function UiPanel<ElName extends ShinyUiNames>({
           <PopoverBody>
             <UiSettingsComponent
               uiName={name}
-              settings={componentProps}
+              settings={settings}
               onChange={(newSettings) => {
                 onUpdate?.(newSettings);
                 closePopover();
@@ -144,7 +144,7 @@ function UiPanel<ElName extends ShinyUiNames>({
           </PopoverBody>
         </PopoverContent>
       </Popover>
-      <UiComponent uiName={name} settings={componentProps} />
+      <UiComponent uiName={name} settings={settings} />
     </UiPanelHolder>
   );
 }

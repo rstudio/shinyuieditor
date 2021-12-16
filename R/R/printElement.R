@@ -1,7 +1,7 @@
 
 printElement <- function(element_def){
 
-  args <- element_def$componentProps
+  args <- element_def$settings
 
   args_wrapped <- lapply(args, function(arg){
     if(typeof(arg) == "character") return(paste0('"',arg ,'"'))

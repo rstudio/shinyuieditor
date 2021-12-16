@@ -33,15 +33,15 @@ describe("Updating settings is reflected in entire app", () => {
     const startingState = {
       title: {
         name: "titlePanel",
-        componentProps: { title: testTitle },
+        settings: { title: testTitle },
       },
       numBins: {
         name: "sliderInput",
-        componentProps: { name: "My slider!" } as ShinySliderInputProps,
+        settings: { name: "My slider!" } as ShinySliderInputProps,
       },
       plot: {
         name: "plotOutput",
-        componentProps: { name: "My Plot!" },
+        settings: { name: "My Plot!" },
       },
     };
     render(
@@ -98,7 +98,7 @@ describe("Updating settings is reflected in entire app", () => {
 
     // expect(popoverHolder).not.toBeVisible();
 
-    // startingState.numBins.componentProps = newProps;
+    // startingState.numBins.settings = newProps;
     // expect(onUpdateMock).toHaveBeenLastCalledWith(startingState);
   });
 });
