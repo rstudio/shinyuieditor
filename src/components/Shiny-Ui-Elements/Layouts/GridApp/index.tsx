@@ -59,6 +59,29 @@ export default function GridApp({
   const [allPanels, setAllPanels] = React.useState(initialPanels);
   const { layout, layoutDispatch, addItem, moveItem, removeItem } =
     useGridLayoutReducer(initialLayout);
+
+  React.useEffect(() => {
+    // const websocket_address = `ws://${window.location.host}/`;
+    // const websocket_address = `ws://localhost:8888/`;
+    console.log("GridApp has mounted. Sending message to R server");
+
+    // const socket = new WebSocket(websocket_address);
+    // socket.onopen = (e) => {
+    //   socket.send("Hello from React");
+    // };
+    // socket.onerror = (e) => {
+    //   console.error("Failed to connect to websocket with error", e);
+    // };
+    // socket.onmessage = (msg) => console.log("Message from R:", msg);
+    // socket.onclose = (e) =>
+    //   console.log("websocket connection closed by server", e);
+
+    fetch("hello/", { method: "POST", body: "Hi there" });
+
+    return () => {
+      // socket.close();
+    };
+  }, []);
   const [editMode, setEditMode] = React.useState<EditMode>("UI");
 
   const [newPanelPosition, setNewPanelPosition] =

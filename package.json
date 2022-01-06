@@ -62,6 +62,7 @@
       "last 1 safari version"
     ]
   },
+  "proxy": "http://localhost:8888",
   "devDependencies": {
     "@bahmutov/add-typescript-to-cypress": "^2.1.2",
     "@storybook/addon-actions": "^6.4.1",
