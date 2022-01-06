@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/static/css/main.0ee15147.css",
+    "main.js": "/static/js/main.baa89d18.js",
+    "static/js/186.0cdabd00.chunk.js": "/static/js/186.0cdabd00.chunk.js",
+    "static/media/Shiny-Logo.png": "/static/media/Shiny-Logo.2fd8063bbe2c9673b39f.png",
+    "static/media/RStudio-Logo.svg": "/static/media/RStudio-Logo.04a07a8af606b5094b55c5151ba40a0c.svg",
+    "index.html": "/index.html",
+    "main.0ee15147.css.map": "/static/css/main.0ee15147.css.map",
+    "main.baa89d18.js.map": "/static/js/main.baa89d18.js.map",
+    "186.0cdabd00.chunk.js.map": "/static/js/186.0cdabd00.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0ee15147.css",
+    "static/js/main.baa89d18.js"
+  ]
+}
