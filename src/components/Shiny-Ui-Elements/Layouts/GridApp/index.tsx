@@ -76,7 +76,16 @@ export default function GridApp({
     // socket.onclose = (e) =>
     //   console.log("websocket connection closed by server", e);
 
-    fetch("hello/", { method: "POST", body: "Hi there" });
+    fetch("app-please", { method: "GET" })
+      .then(function (response) {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(function (response) {
+        console.log(response);
+      });
 
     return () => {
       // socket.close();
