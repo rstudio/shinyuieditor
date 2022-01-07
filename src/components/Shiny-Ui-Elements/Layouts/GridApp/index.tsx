@@ -209,6 +209,13 @@ export default function GridApp({
             <div className="label">Edit Mode:</div>
             <EditModeToggle selected={editMode} onSelect={setEditMode} />
           </div>
+          <Button
+            bg="var(--rstudio-blue)"
+            color="var(--rstudio-white)"
+            onClick={() => sendUiStateToBackend(fullState)}
+          >
+            Send state to backend
+          </Button>
           <Popover placement="left-end">
             <PopoverTrigger>
               <Button
@@ -268,6 +275,23 @@ export default function GridApp({
       </Modal>
     </LayoutDispatchContext.Provider>
   );
+}
+
+function sendUiStateToBackend(state: StateDump) {
+  const stateBlob = new Blob([JSON.stringify(state, null, 2)], {
+    type: "application/json",
+  });
+
+  fetch("UiDump", { method: "POST", body: stateBlob })
+    .then(function (response) {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(function (response) {
+      console.log("Response after sending state blob", response);
+    });
 }
 
 const AppContainer = styled.div(({ gapSize }: { gapSize: string }) => ({
