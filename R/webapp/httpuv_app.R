@@ -53,7 +53,6 @@ app_blob <- '
 ' %>% jsonlite::parse_json()
 
 handleGet <- function(path){
-
   if (path != "/app-please") stop("Only /app-please path supported for GET requests")
 
   list(
@@ -65,6 +64,12 @@ handleGet <- function(path){
 
 handlePost <- function(path, body){
   if (path != "/UiDump") stop("Only /UiDump path supported for POST requests")
+
+  parsed_layout <- jsonlite::parse_json(body)
+
+  # lobstr::tree(parsed_layout)
+  cat("Generated ui.R\n============================================================\n")
+  cat(to_gridlayout_ui(parsed_layout), "\n============================================================\n")
 
   list(
     status = 200L,
@@ -82,13 +87,14 @@ call <- function(req){
     ),
     error = function(e) {
       print("Failed to handle request.")
+      print(e)
       list(
         status = 400L,
         headers = list('Content-Type' = 'text/html'),
         body = e$message
       )
     },
-    finally = print("Handled http request")
+    finally = print("Finished request handling")
   )
 }
 
