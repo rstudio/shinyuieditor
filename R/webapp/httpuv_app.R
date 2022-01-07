@@ -52,25 +52,43 @@ app_blob <- '
 }
 ' %>% jsonlite::parse_json()
 
-call <- function(req){
+handleGet <- function(path){
 
-  if(req$REQUEST_METHOD == "GET" & req$PATH_INFO == "/app-please") {
-    print("Client has requested app blob")
-    return(
-      list(
-        status = 200L,
-        headers = list('Content-Type' = 'application/json'),
-        body = jsonlite::toJSON(app_blob, auto_unbox = TRUE)
-      )
-    )
-  }
-  req_body <- rawToChar(req$rook.input$read())
+  if (path != "/app-please") stop("Only /app-please path supported for GET requests")
 
-  body <- paste0("Time: ", Sys.time(), "<br>Path requested: ", req$PATH_INFO)
+  list(
+    status = 200L,
+    headers = list('Content-Type' = 'application/json'),
+    body = jsonlite::toJSON(app_blob, auto_unbox = TRUE)
+  )
+}
+
+handlePost <- function(path, body){
+  if (path != "/UiDump") stop("Only /UiDump path supported for POST requests")
+
   list(
     status = 200L,
     headers = list('Content-Type' = 'text/html'),
-    body = body
+    body = "App Dump received, thanks"
+  )
+}
+
+call <- function(req){
+  tryCatch(
+    switch(
+      req$REQUEST_METHOD,
+      GET = handleGet(req$PATH_INFO),
+      POST = handlePost(req$PATH_INFO, body = rawToChar(req$rook.input$read()))
+    ),
+    error = function(e) {
+      print("Failed to handle request.")
+      list(
+        status = 400L,
+        headers = list('Content-Type' = 'text/html'),
+        body = e$message
+      )
+    },
+    finally = print("Handled http request")
   )
 }
 
@@ -79,10 +97,8 @@ call <- function(req){
 s <- startServer(
   host = "0.0.0.0", port = 8888,
   app = list(
-    call = function(req) {
-      call(req)
-    }
+    call = function(req) { call(req) }
   )
 )
 
-s$stop()
+# s$stop()
