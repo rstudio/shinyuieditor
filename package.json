@@ -13,7 +13,6 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
-    "@xstate/react": "^1.6.1",
     "framer-motion": "^4.0.0",
     "just-clone": "^5.0.0",
     "just-debounce-it": "^3.0.0",
@@ -23,10 +22,8 @@
     "react-dom": "^17.0.2",
     "react-icons": "^3.0.0",
     "react-scripts": "5.0.0",
-    "recoil": "^0.4.1",
     "typescript": "^4.4.0",
-    "web-vitals": "^0.2.2",
-    "xstate": "^4.25.0"
+    "web-vitals": "^0.2.2"
   },
   "scripts": {
     "start": "react-scripts start",
