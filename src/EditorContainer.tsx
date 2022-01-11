@@ -2,8 +2,8 @@ import styled from "@emotion/styled";
 import GridApp, { Panels } from "components/Shiny-Ui-Elements/Layouts/GridApp";
 import * as React from "react";
 import { useQuery } from "react-query";
-import { TemplatedGridProps } from "utils/gridTemplates/types";
 import { makeBoxShadow } from "utils/css-helpers";
+import { TemplatedGridProps } from "utils/gridTemplates/types";
 import { Header } from "./Header";
 
 async function getInitialState() {
@@ -53,28 +53,4 @@ const Container = styled.div({
   backgroundColor: "var(--bg-color, #edf2f7)",
   display: "grid",
   gridTemplateRows: "60px 1fr",
-});
-
-const HeaderBar = styled.header({
-  padding: "0.25rem 1rem",
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  boxShadow: "var(--shadow)",
-  background: "var(--rstudio-white, white)",
-  "& h1": {
-    fontSize: "1.75rem",
-  },
-  "& > div.left-side": {
-    display: "flex",
-    alignItems: "center",
-    height: "100%",
-    "& > img": {
-      display: "inline-block",
-      margin: "0 1rem",
-      height: "100%",
-      borderRadius: "1rem",
-      padding: "0.5rem",
-    },
-  },
 });
