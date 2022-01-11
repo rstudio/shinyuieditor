@@ -3,58 +3,36 @@ import { ChakraProvider } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import rstudioLogo from "assets/RStudio-Logo.svg";
 import shinyLogo from "assets/Shiny-Logo.png";
-import GridApp, { Panels } from "components/Shiny-Ui-Elements/Layouts/GridApp";
 import * as React from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { makeBoxShadow } from "utils/css-helpers";
+import { EditorContainer } from "./EditorContainer";
 import { theme } from "./theme";
 
-const startingLayout = {
-  // prettier-ignore
-  areas: [
-    ["title", "title"],
-    ["settings", "plot"],
-    ["footer", "footer"],
-  ],
-  rowSizes: ["100px", "1fr", "80px"],
-  colSizes: ["250px", "1fr"],
-};
-
-const startingPanels = {
-  title: {
-    uiName: "titlePanel",
-    uiArguments: { title: "My App" },
-  },
-  settings: {
-    uiName: "sliderInput",
-    uiArguments: { name: "My slider!" },
-  },
-  plot: {
-    uiName: "plotOutput",
-    uiArguments: { name: "My Plot!" },
-  },
-} as Panels;
+// Create a client
+const queryClient = new QueryClient();
 
 export const App = () => {
   return (
-    <ChakraProvider theme={theme}>
-      <Container>
-        <HeaderBar>
-          <div className="left-side">
-            <h1>Shiny Visual Editor</h1>
-            <img src={rstudioLogo} alt="RStudio Logo" />
-            <img
-              src={shinyLogo}
-              css={{ backgroundColor: "var(--rstudio-blue, pink)" }}
-              alt="Shiny Logo"
-            />
-          </div>
-          {/* <HistoryNav /> */}
-        </HeaderBar>
-        <EditorHolder>
-          <GridApp layout={startingLayout} panels={startingPanels} />
-        </EditorHolder>
-      </Container>
-    </ChakraProvider>
+    <QueryClientProvider client={queryClient}>
+      <ChakraProvider theme={theme}>
+        <Container>
+          <HeaderBar>
+            <div className="left-side">
+              <h1>Shiny Visual Editor</h1>
+              <img src={rstudioLogo} alt="RStudio Logo" />
+              <img
+                src={shinyLogo}
+                css={{ backgroundColor: "var(--rstudio-blue, pink)" }}
+                alt="Shiny Logo"
+              />
+            </div>
+            {/* <HistoryNav /> */}
+          </HeaderBar>
+          <EditorContainer />
+        </Container>
+      </ChakraProvider>
+    </QueryClientProvider>
   );
 };
 
@@ -90,11 +68,4 @@ const HeaderBar = styled.header({
       padding: "0.5rem",
     },
   },
-});
-
-const EditorHolder = styled.div({
-  padding: "2rem",
-  height: "100%",
-  width: "100%",
-  position: "relative",
 });
