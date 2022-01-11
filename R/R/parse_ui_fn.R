@@ -28,35 +28,31 @@
 #' lobstr::tree(parse_ui_fn(app_expr))
 parse_ui_fn <- function(ui_expr) {
 
+  # Fill in all the names of unnamed arguments
+  ui_expr <- rlang::call_standardise(ui_expr)
+
   if (!is_known_ui_fn(ui_expr)) stop("Passed value is not a known UI function and can't be parsed.")
 
   parsed <- list(
-    fn_name = called_fn_name(ui_expr)
+    uiName = called_uiName(ui_expr)
   )
   # First element is calling fn
   num_args <- length(ui_expr) - 1
 
   if (num_args > 0) {
-    parsed$args <- list()
+    parsed$uiArguments <- list()
 
     for (i in 1:num_args) {
       arg_i <- i + 1
-      arg_info <- list()
-
       arg_name <- names(ui_expr)[[arg_i]]
-      if (!is.null(arg_name) && arg_name != "") arg_info$name <- arg_name
-
       arg_val <- ui_expr[[arg_i]]
 
-      arg_info$type <- argument_expr_type(arg_val)
-      arg_info$value <- switch(arg_info$type,
+      parsed$uiArguments[[arg_name]] <- switch(argument_expr_type(arg_val),
         constant = as.character(arg_val),
         `ui-fn` = parse_ui_fn(arg_val),
         `unknown-fn` = paste(deparse(arg_val), collapse = "\n"),
         stop("Don't know how to handle type ", typeof(arg_val), call. = FALSE)
       )
-
-      parsed$args[[i]] <- arg_info
     }
   }
 

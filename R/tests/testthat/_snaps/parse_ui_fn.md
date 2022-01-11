@@ -6,7 +6,7 @@
         title = "Settings", shiny::sliderInput("bins", "Number of bins:", min = 1,
           value = 5, max = 10)), plot = shiny::plotOutput("distPlot"))))
     Output
-      $fn_name
+      $uiName
       [1] "gridlayout::grid_page"
 
       $args
@@ -40,7 +40,7 @@
       [1] "ui-fn"
 
       $args[[3]]$value
-      $args[[3]]$value$fn_name
+      $args[[3]]$value$uiName
       [1] "gridlayout::title_panel"
 
       $args[[3]]$value$args
@@ -63,7 +63,7 @@
       [1] "ui-fn"
 
       $args[[4]]$value
-      $args[[4]]$value$fn_name
+      $args[[4]]$value$uiName
       [1] "gridlayout::grid_panel"
 
       $args[[4]]$value$args
@@ -83,7 +83,7 @@
       [1] "ui-fn"
 
       $args[[4]]$value$args[[2]]$value
-      $args[[4]]$value$args[[2]]$value$fn_name
+      $args[[4]]$value$args[[2]]$value$uiName
       [1] "shiny::sliderInput"
 
       $args[[4]]$value$args[[2]]$value$args
@@ -150,7 +150,7 @@
       [1] "ui-fn"
 
       $args[[5]]$value
-      $args[[5]]$value$fn_name
+      $args[[5]]$value$uiName
       [1] "shiny::plotOutput"
 
       $args[[5]]$value$args

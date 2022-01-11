@@ -1,6 +1,6 @@
 
 # Pull out name of call from an AST node in plain text
-called_fn_name <- function(x) {
+called_uiName <- function(x) {
   deparse(x[[1]])
 }
 

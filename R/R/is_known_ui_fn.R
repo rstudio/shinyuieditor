@@ -21,17 +21,17 @@ is_known_ui_fn <- function(x){
 
   if (is.symbol(x) || identical(x[[1]], as.symbol("::"))) stop("Passed expression is not a function call")
 
-  full_fn_name <- called_fn_name(x)
+  full_uiName <- called_uiName(x)
 
-  # if (identical(full_fn_name, "::")) stop("Passed expression is not a function call")
+  # if (identical(full_uiName, "::")) stop("Passed expression is not a function call")
   # Get rid of the namespace prefix so we can look up functions more easily.
   # Ideally all calls would have namespace prefix so we can be sure we're
   # getting what we think instead of a user defined variable but that's a
   # pretty hefty restriction
 
-  fn_list <- if (grepl("::", full_fn_name, fixed = TRUE)) namespaced_ui_fns else known_ui_fns
+  fn_list <- if (grepl("::", full_uiName, fixed = TRUE)) namespaced_ui_fns else known_ui_fns
 
-  full_fn_name %in% fn_list
+  full_uiName %in% fn_list
 }
 
 

@@ -4,53 +4,68 @@ library(httpuv)
 library(here)
 library(magrittr)
 
-app_blob <- '
-{
-  "layout": {
-    "type": "gridlayout",
-    "options": {
-      "gapSize": "1rem",
-      "areas": [
-        [   "title",  "title"],
-        ["settings",   "plot"],
-        [  "footer", "footer"]
-      ],
-      "rowSizes": [
-        "100px",
-        "1fr",
-        "80px"
-      ],
-      "colSizes": [
-        "250px",
-        "1fr"
-      ]
-    }
-  },
-  "elements": {
-    "title": {
-      "uiName": "titlePanel",
-      "uiArguments": {
-        "title": "My App"
-      }
-    },
-    "settings": {
-      "uiName": "sliderInput",
-      "uiArguments": {
-        "name": "My slider!",
-        "min": 5,
-        "max": 10,
-        "val": 7
-      }
-    },
-    "plot": {
-      "uiName": "plotOutput",
-      "uiArguments": {
-        "name": "My Plot!"
-      }
-    }
-  }
-}
-' %>% jsonlite::parse_json()
+
+
+ui_expr <- rlang::expr(
+  gridlayout::grid_page(
+    layout = "
+|2rem  |200px   |1fr    |
+|80px  |header  |header |
+|1fr   |sidebar |plot   |",
+    header = gridlayout::title_panel("This is my header"),
+    plot = shiny::plotOutput("distPlot")
+  )
+)
+
+app_blob <- parse_ui_fn(ui_expr) %>% parse_gridlayout()
+
+# app_blob <- '
+# {
+#   "layout": {
+#     "type": "gridlayout",
+#     "options": {
+#       "gapSize": "1rem",
+#       "areas": [
+#         [   "title",  "title"],
+#         ["settings",   "plot"],
+#         [  "footer", "footer"]
+#       ],
+#       "rowSizes": [
+#         "100px",
+#         "1fr",
+#         "80px"
+#       ],
+#       "colSizes": [
+#         "250px",
+#         "1fr"
+#       ]
+#     }
+#   },
+#   "elements": {
+#     "title": {
+#       "uiName": "titlePanel",
+#       "uiArguments": {
+#         "title": "My App from the server!"
+#       }
+#     },
+#     "settings": {
+#       "uiName": "sliderInput",
+#       "uiArguments": {
+#         "name": "My slider!",
+#         "min": 5,
+#         "max": 10,
+#         "val": 7
+#       }
+#     },
+#     "plot": {
+#       "uiName": "plotOutput",
+#       "uiArguments": {
+#         "name": "My Plot!"
+#       }
+#     }
+#   }
+# }
+# ' %>% jsonlite::parse_json()
 
 handleGet <- function(path){
   if (path != "/app-please") stop("Only /app-please path supported for GET requests")
@@ -83,7 +98,8 @@ call <- function(req){
     switch(
       req$REQUEST_METHOD,
       GET = handleGet(req$PATH_INFO),
-      POST = handlePost(req$PATH_INFO, body = rawToChar(req$rook.input$read()))
+      POST = handlePost(req$PATH_INFO, body = rawToChar(req$rook.input$read())),
+      stop("Unknown request method")
     ),
     error = function(e) {
       print("Failed to handle request.")
