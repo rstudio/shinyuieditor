@@ -226,7 +226,11 @@ export default function GridApp({
         </GridDisplay>
       </AppContainer>
 
-      <Modal isOpen={newPanelPosition !== null} onClose={closeNewPanelModal}>
+      <Modal
+        isOpen={newPanelPosition !== null}
+        onClose={closeNewPanelModal}
+        size="xl"
+      >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Configure Ui Element</ModalHeader>

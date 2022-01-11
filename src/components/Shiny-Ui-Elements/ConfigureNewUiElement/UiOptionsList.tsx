@@ -32,7 +32,7 @@ export function UiOptionsList({
               onChange={() => onChoose(ui)}
               checked={isSelected}
             />
-            <code>{name}</code> {previewIcons[name]}
+            <code>{name.replace(/[\w]+::/, "")}</code> {previewIcons[name]}
           </OptionItem>
         );
       })}
@@ -57,7 +57,7 @@ export const OptionsList = styled.div({
 export const OptionItem = styled.label({
   border: "1px solid var(--light-grey)",
   borderRadius: "var(--corner-radius, 10px)",
-  width: "120px",
+  width: "150px",
   display: "grid",
   gridTemplateRows: "auto 40px 25px",
   placeItems: "center",
