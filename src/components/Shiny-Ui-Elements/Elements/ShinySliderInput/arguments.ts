@@ -20,12 +20,23 @@ export const sliderDefaultSettings: SliderSettings = {
 
 export type ShinySliderInputProps = Partial<SliderSettings>;
 
-export function buildSliderSettings({
-  min,
-  max,
-  value,
-  inputId,
-}: Partial<SliderSettings>): SliderSettings {
+function validateNumber(x?: string | number) {
+  if (typeof x === "number") return x;
+
+  const parsed = Number(x);
+
+  if (isNaN(parsed)) return null;
+
+  return parsed;
+}
+
+export function buildSliderSettings(
+  settings: Partial<SliderSettings>
+): SliderSettings {
+  let { inputId } = settings;
+  let min = validateNumber(settings.min);
+  let max = validateNumber(settings.max);
+  let value = validateNumber(settings.value);
   const missingAll =
     typeof min !== "number" &&
     typeof max !== "number" &&
