@@ -30,15 +30,15 @@ describe("GridApp fills with proper elements", () => {
         layout={mainLayout}
         panels={{
           title: {
-            uiName: "gridlayout__titlePanel",
+            uiName: "gridlayout::titlePanel",
             uiArguments: { title: testTitle },
           },
           settings: {
-            uiName: "shiny__sliderInput",
+            uiName: "shiny::sliderInput",
             uiArguments: { name: "My slider!" },
           },
           plot: {
-            uiName: "shiny__plotOutput",
+            uiName: "shiny::plotOutput",
             uiArguments: { name: "My Plot!" },
           },
         }}
@@ -46,10 +46,10 @@ describe("GridApp fills with proper elements", () => {
     );
 
     expect(
-      screen.getByLabelText(/shiny-shiny__plotOutput/i)
+      screen.getByLabelText(/shiny-shiny::plotOutput/i)
     ).toBeInTheDocument();
     expect(
-      screen.getByLabelText(/shinyshiny__sliderInput/i)
+      screen.getByLabelText(/shinyshiny::sliderInput/i)
     ).toBeInTheDocument();
     expect(screen.getByLabelText(/gridlayout-titlePanel/i)).toBeInTheDocument();
     expect(screen.getByText(testTitle)).toBeInTheDocument();
@@ -59,10 +59,10 @@ describe("GridApp fills with proper elements", () => {
     render(<GridApp layout={mainLayout} panels={{}} />);
 
     expect(
-      screen.queryByLabelText(/shiny-shiny__plotOutput/i)
+      screen.queryByLabelText(/shiny-shiny::plotOutput/i)
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByLabelText(/shinyshiny__sliderInput/i)
+      screen.queryByLabelText(/shinyshiny::sliderInput/i)
     ).not.toBeInTheDocument();
     expect(
       screen.queryByLabelText(/gridlayout-titlePanel/i)
@@ -78,7 +78,7 @@ describe("Errors properly", () => {
           layout={mainLayout}
           panels={{
             appTitle: {
-              uiName: "gridlayout__titlePanel",
+              uiName: "gridlayout::titlePanel",
               uiArguments: { title: testTitle },
             },
           }}
@@ -95,7 +95,7 @@ describe("Errors properly", () => {
           layout={mainLayout}
           panels={{
             settings: {
-              uiName: "shiny__sliderInput",
+              uiName: "shiny::sliderInput",
               uiArguments: {
                 name: "My slider!",
                 min: 100,

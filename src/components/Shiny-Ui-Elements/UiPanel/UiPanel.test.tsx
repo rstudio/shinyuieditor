@@ -2,32 +2,32 @@ import { render, screen } from "@testing-library/react";
 import UiPanel from ".";
 
 describe("UiPanel shows the proper ui element", () => {
-  test("shiny::shiny__plotOutput", () => {
+  test("shiny::shiny::plotOutput", () => {
     render(
       <UiPanel
         area="a"
         componentDefinition={{
-          uiName: "shiny__plotOutput",
+          uiName: "shiny::plotOutput",
           uiArguments: { name: "My Plot Test" },
         }}
       />
     );
     expect(
-      screen.getByLabelText(/shiny-shiny__plotOutput/i)
+      screen.getByLabelText(/shiny-shiny::plotOutput/i)
     ).toBeInTheDocument();
   });
-  test("shiny__sliderInput", () => {
+  test("shiny::sliderInput", () => {
     render(
       <UiPanel
         area="a"
         componentDefinition={{
-          uiName: "shiny__sliderInput",
+          uiName: "shiny::sliderInput",
           uiArguments: { name: "My Slider Input" },
         }}
       />
     );
     expect(
-      screen.getByLabelText(/shinyshiny__sliderInput/i)
+      screen.getByLabelText(/shinyshiny::sliderInput/i)
     ).toBeInTheDocument();
   });
 
@@ -37,7 +37,7 @@ describe("UiPanel shows the proper ui element", () => {
       <UiPanel
         area="a"
         componentDefinition={{
-          uiName: "gridlayout__titlePanel",
+          uiName: "gridlayout::titlePanel",
           uiArguments: { title: testTitle },
         }}
       />
@@ -47,13 +47,13 @@ describe("UiPanel shows the proper ui element", () => {
   });
 });
 
-describe("shiny:shiny__sliderInput can update defaults", () => {
+describe("shiny:shiny::sliderInput can update defaults", () => {
   test("Desired values are properly mirrored", () => {
     render(
       <UiPanel
         area="a"
         componentDefinition={{
-          uiName: "shiny__sliderInput",
+          uiName: "shiny::sliderInput",
           uiArguments: {
             name: "My Slider Input",
             min: 10,
@@ -80,7 +80,7 @@ describe("shiny:shiny__sliderInput can update defaults", () => {
         <UiPanel
           area="a"
           componentDefinition={{
-            uiName: "shiny__sliderInput",
+            uiName: "shiny::sliderInput",
             uiArguments: { name: "My Slider Input", min: 10, val: 20 },
           }}
         />

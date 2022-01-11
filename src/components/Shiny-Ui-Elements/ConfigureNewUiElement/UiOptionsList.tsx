@@ -6,7 +6,6 @@ import {
 import * as React from "react";
 import { BiSliderAlt, BiText } from "react-icons/bi";
 import { GoGraph } from "react-icons/go";
-import { underscoreToColonNamespace } from ".";
 import { defaultSettingsForElements } from "../Elements/uiComponentAndSettings";
 
 export function UiOptionsList({
@@ -33,7 +32,7 @@ export function UiOptionsList({
               onChange={() => onChoose(ui)}
               checked={isSelected}
             />
-            <code>{underscoreToColonNamespace(name)}</code> {previewIcons[name]}
+            <code>{name}</code> {previewIcons[name]}
           </OptionItem>
         );
       })}
@@ -42,9 +41,9 @@ export function UiOptionsList({
 }
 
 export const previewIcons: Record<ShinyUiNames, JSX.Element> = {
-  shiny__plotOutput: <GoGraph />,
-  shiny__sliderInput: <BiSliderAlt />,
-  gridlayout__titlePanel: <BiText />,
+  "shiny::plotOutput": <GoGraph />,
+  "shiny::sliderInput": <BiSliderAlt />,
+  "gridlayout::titlePanel": <BiText />,
 };
 
 export const OptionsList = styled.div({

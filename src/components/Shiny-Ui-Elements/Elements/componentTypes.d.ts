@@ -10,9 +10,9 @@ import type { ShinySliderInputProps } from "../Shiny-Ui-Elements/ShinySliderInpu
  * of the types will automatically be built based on this type.
  */
 export type ShinyUiArgumentsByName = {
-  shiny__plotOutput: ShinyPlotOutputProps;
-  shiny__sliderInput: ShinySliderInputProps;
-  gridlayout__titlePanel: GridlayoutTitlePanelProps;
+  "shiny::plotOutput": ShinyPlotOutputProps;
+  "shiny::sliderInput": ShinySliderInputProps;
+  "gridlayout::titlePanel": GridlayoutTitlePanelProps;
 };
 
 /**

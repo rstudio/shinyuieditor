@@ -43,13 +43,13 @@ app_blob <- '
   },
   "elements": {
     "title": {
-      "uiName": "gridlayout__titlePanel",
+      "uiName": "gridlayout::titlePanel",
       "uiArguments": {
         "title": "My App from the server!"
       }
     },
     "settings": {
-      "uiName": "shiny__sliderInput",
+      "uiName": "shiny::sliderInput",
       "uiArguments": {
         "name": "My slider!",
         "min": 5,
@@ -58,7 +58,7 @@ app_blob <- '
       }
     },
     "plot": {
-      "uiName": "shiny__plotOutput",
+      "uiName": "shiny::plotOutput",
       "uiArguments": {
         "name": "My Plot!"
       }
