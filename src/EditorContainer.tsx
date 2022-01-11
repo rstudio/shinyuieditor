@@ -3,6 +3,8 @@ import GridApp, { Panels } from "components/Shiny-Ui-Elements/Layouts/GridApp";
 import * as React from "react";
 import { useQuery } from "react-query";
 import { TemplatedGridProps } from "utils/gridTemplates/types";
+import { makeBoxShadow } from "utils/css-helpers";
+import { Header } from "./Header";
 
 async function getInitialState() {
   const response = await fetch("app-please", { method: "GET" });
@@ -27,9 +29,12 @@ export function EditorContainer() {
   const initialPanels = data.elements as Panels;
 
   return (
-    <EditorHolderContainer>
-      <GridApp layout={initialLayout} panels={initialPanels} />
-    </EditorHolderContainer>
+    <Container>
+      <Header />
+      <EditorHolderContainer>
+        <GridApp layout={initialLayout} panels={initialPanels} />
+      </EditorHolderContainer>
+    </Container>
   );
 }
 
@@ -38,4 +43,38 @@ const EditorHolderContainer = styled.div({
   height: "100%",
   width: "100%",
   position: "relative",
+});
+
+const Container = styled.div({
+  "--shadow": makeBoxShadow({ height: 0.2 }),
+  "--raised-shadow": makeBoxShadow({ height: 1 }),
+  height: "100vh",
+  width: "100%",
+  backgroundColor: "var(--bg-color, #edf2f7)",
+  display: "grid",
+  gridTemplateRows: "60px 1fr",
+});
+
+const HeaderBar = styled.header({
+  padding: "0.25rem 1rem",
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  boxShadow: "var(--shadow)",
+  background: "var(--rstudio-white, white)",
+  "& h1": {
+    fontSize: "1.75rem",
+  },
+  "& > div.left-side": {
+    display: "flex",
+    alignItems: "center",
+    height: "100%",
+    "& > img": {
+      display: "inline-block",
+      margin: "0 1rem",
+      height: "100%",
+      borderRadius: "1rem",
+      padding: "0.5rem",
+    },
+  },
 });
