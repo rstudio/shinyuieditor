@@ -11,12 +11,7 @@ import {
 const ShinySliderInput: ShinyUiComponent<ShinySliderInputProps> = (
   props: ShinySliderInputProps
 ) => {
-  const {
-    inputId = "shiny::sliderInput",
-    min,
-    max,
-    value,
-  } = { ...sliderDefaultSettings, ...props };
+  const { inputId, min, max, value } = { ...sliderDefaultSettings, ...props };
   const width = "200px";
   const height = "auto";
   const settings = buildSliderSettings({ min, max, value });
@@ -40,7 +35,9 @@ const ShinySliderInput: ShinyUiComponent<ShinySliderInputProps> = (
           className="slider"
           aria-label={"slider input"}
         />
-        <div>Current: {currentVal}</div>
+        <div>
+          input${inputId} = {currentVal}
+        </div>
       </div>
     </SliderHolder>
   );

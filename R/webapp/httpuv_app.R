@@ -4,20 +4,17 @@ library(httpuv)
 library(here)
 library(magrittr)
 
-
-
-ui_expr <- rlang::expr(
+app_blob <-rlang::expr(
   gridlayout::grid_page(
     layout = "
-|2rem  |200px   |1fr    |
+|2rem  |250px   |1fr    |
 |80px  |header  |header |
 |1fr   |sidebar |plot   |",
-    header = gridlayout::title_panel("This is my header"),
-    plot = shiny::plotOutput("distPlot")
+    header = gridlayout::title_panel("This is my header2"),
+    plot = shiny::plotOutput("distPlot"),
+    sidebar = shiny::sliderInput("numBins", min = 5, max = 10, value = 7)
   )
-)
-
-app_blob <- parse_ui_fn(ui_expr) %>% parse_gridlayout()
+) %>%  parse_ui_fn() %>% parse_gridlayout()
 
 lobstr::tree(app_blob)
 app_blob <- '
@@ -52,7 +49,7 @@ app_blob <- '
     "settings": {
       "uiName": "shiny::sliderInput",
       "uiArguments": {
-        "name": "My slider!",
+        "inputId": "num_bins",
         "min": 5,
         "max": 10,
         "val": 7
