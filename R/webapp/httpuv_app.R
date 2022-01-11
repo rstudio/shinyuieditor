@@ -4,21 +4,22 @@ library(httpuv)
 library(here)
 library(magrittr)
 
-#
-#
-# ui_expr <- rlang::expr(
-#   gridlayout::grid_page(
-#     layout = "
-# |2rem  |200px   |1fr    |
-# |80px  |header  |header |
-# |1fr   |sidebar |plot   |",
-#     header = gridlayout::title_panel("This is my header"),
-#     plot = shiny::plotOutput("distPlot")
-#   )
-# )
-#
-# app_blob <- parse_ui_fn(ui_expr) %>% parse_gridlayout()
 
+
+ui_expr <- rlang::expr(
+  gridlayout::grid_page(
+    layout = "
+|2rem  |200px   |1fr    |
+|80px  |header  |header |
+|1fr   |sidebar |plot   |",
+    header = gridlayout::title_panel("This is my header"),
+    plot = shiny::plotOutput("distPlot")
+  )
+)
+
+app_blob <- parse_ui_fn(ui_expr) %>% parse_gridlayout()
+
+lobstr::tree(app_blob)
 app_blob <- '
 {
   "layout": {
@@ -60,7 +61,7 @@ app_blob <- '
     "plot": {
       "uiName": "shiny::plotOutput",
       "uiArguments": {
-        "name": "My Plot!"
+        "outputId": "My Plot2!"
       }
     }
   }

@@ -6,7 +6,7 @@ import { TextInput } from "components/Inputs/TextInput";
 export const ShinyPlotOutputSettings: ShinyUiArgumentsFields<
   ShinyPlotOutputProps
 > = ({ currentSettings, onChange }) => {
-  const { name } = currentSettings;
+  const { outputId } = currentSettings;
   // All inputs are valid currently but later when this is expanded we will make this
   // variable more dynamic
   const isValid = true;
@@ -14,9 +14,9 @@ export const ShinyPlotOutputSettings: ShinyUiArgumentsFields<
   return (
     <TextInput
       label="Plot Name"
-      value={name ?? "UndefinedPlotName"}
+      value={outputId ?? "UndefinedPlotName"}
       onChange={(newName) =>
-        onChange({ ...currentSettings, name: newName }, isValid)
+        onChange({ ...currentSettings, outputId: newName }, isValid)
       }
     />
   );

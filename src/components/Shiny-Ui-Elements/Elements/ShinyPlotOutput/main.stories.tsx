@@ -8,7 +8,7 @@ export default {
   title: "ShinyUI/ShinyPlotOutput/main",
   component: ShinyPlotOutput,
   argTypes: {
-    name: { control: "text" },
+    outputId: { control: "text" },
   },
 } as ComponentMeta<typeof ShinyPlotOutput>;
 
@@ -20,7 +20,7 @@ const Template: ComponentStory<typeof ShinyPlotOutput> = (args) => (
 export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {
-  name: "myPlot",
+  outputId: "myPlot",
   width: "300px",
   height: "400px",
 };

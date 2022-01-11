@@ -5,13 +5,13 @@ import { GoGraph } from "react-icons/go";
 import { makeBoxShadow } from "utils/css-helpers";
 
 export type ShinyPlotOutputProps = Partial<{
-  name: string;
+  outputId: string;
   width: string;
   height: string;
 }>;
 
 const ShinyPlotOutput: ShinyUiComponent<ShinyPlotOutputProps> = ({
-  name = "shiny-plot-output",
+  outputId = "shiny-plot-output",
   width = "100%",
   height = "100%",
 }: ShinyPlotOutputProps) => {
@@ -51,7 +51,7 @@ const ShinyPlotOutput: ShinyUiComponent<ShinyPlotOutputProps> = ({
       />
 
       <div style={{ gridArea: "1/1", placeSelf: "end" }}>
-        This is a plot with the name {name}!
+        This is a plot with the name {outputId}!
       </div>
     </PlotHolder>
   );
