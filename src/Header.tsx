@@ -1,5 +1,3 @@
-/** @jsxImportSource @emotion/react */
-
 import * as React from "react";
 import rstudioLogo from "assets/RStudio-Logo.svg";
 import shinyLogo from "assets/Shiny-Logo.png";
