@@ -110,7 +110,9 @@ export default function ConfigureNewUiElement({
         {/* Render the form for a given component settings if a ui element is selected */}
         {currentUi ? (
           <FormControl id="ui-settings">
-            <FormLabel>Settings for {currentUi.uiName}</FormLabel>
+            <FormLabel>
+              Settings for {underscoreToColonNamespace(currentUi.uiName)}
+            </FormLabel>
 
             <div style={{ paddingLeft: "1.5rem" }}>
               <SettingsInputsForUi
@@ -169,3 +171,10 @@ const VerticalStack = styled.div({
   flexDirection: "column",
   gap: "1rem",
 });
+
+// We can't use the pkg::fn syntax from R in js because the colon is reserved
+// so instead we use two underscores. This function makes sure we don't print
+// that format for the user
+export function underscoreToColonNamespace(underscored_name: string) {
+  return underscored_name.replace("__", "::");
+}

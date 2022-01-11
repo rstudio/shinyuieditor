@@ -6,6 +6,7 @@ import {
 import * as React from "react";
 import { BiSliderAlt, BiText } from "react-icons/bi";
 import { GoGraph } from "react-icons/go";
+import { underscoreToColonNamespace } from ".";
 import { defaultSettingsForElements } from "../Elements/uiComponentAndSettings";
 
 export function UiOptionsList({
@@ -32,7 +33,7 @@ export function UiOptionsList({
               onChange={() => onChoose(ui)}
               checked={isSelected}
             />
-            <code>{name}</code> {previewIcons[name]}
+            <code>{underscoreToColonNamespace(name)}</code> {previewIcons[name]}
           </OptionItem>
         );
       })}
