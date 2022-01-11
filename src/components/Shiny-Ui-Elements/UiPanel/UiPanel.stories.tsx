@@ -41,7 +41,7 @@ export const Slider = Template.bind({});
 Slider.args = {
   area: uniqueAreas[0],
   componentDefinition: {
-    uiName: "sliderInput",
+    uiName: "shiny__sliderInput",
     uiArguments: {
       min: 0,
       max: 10,

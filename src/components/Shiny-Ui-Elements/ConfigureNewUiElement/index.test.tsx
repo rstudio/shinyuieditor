@@ -15,14 +15,14 @@ test("Basic usage of new item adding", () => {
   );
 
   userEvent.type(screen.getByLabelText(/grid area name/i), "my-new-item");
-  userEvent.click(screen.getByText(/plotOutput/i));
+  userEvent.click(screen.getByText(/shiny__plotOutput/i));
   userEvent.click(screen.getByText(/add item/i));
 
   // Avoid hardcoding the default props
   expect(onFinishMock).toHaveBeenLastCalledWith({
     name: "my-new-item",
     ui: {
-      uiName: "plotOutput",
+      uiName: "shiny__plotOutput",
       uiArguments: expect.any(Object),
     },
   });
@@ -56,7 +56,7 @@ test("Gives warning message when a non-conforming names are typed", () => {
   expect(nameInput).toBeInvalid();
 
   userEvent.type(nameInput, "2");
-  userEvent.click(screen.getByText(/plotOutput/i));
+  userEvent.click(screen.getByText(/shiny__plotOutput/i));
   expect(nameInput).not.toBeInvalid();
   userEvent.click(screen.getByText(/add item/i));
 
@@ -64,7 +64,7 @@ test("Gives warning message when a non-conforming names are typed", () => {
   expect(onFinishMock).toHaveBeenLastCalledWith({
     name: "existing-item2",
     ui: {
-      uiName: "plotOutput",
+      uiName: "shiny__plotOutput",
       uiArguments: expect.any(Object),
     },
   });
@@ -82,14 +82,14 @@ test("Form for filling out props updates based on selected element", () => {
     />
   );
 
-  // Start by selecting the plotOutput element
-  userEvent.click(screen.getByText(/plotOutput/i));
+  // Start by selecting the shiny__plotOutput element
+  userEvent.click(screen.getByText(/shiny__plotOutput/i));
 
   // The option for naming that element should exist
   expect(screen.queryByLabelText(/plot name/i)).not.toBeNull();
 
-  // Now switch to the sliderInput being selected.
-  userEvent.click(screen.getByText(/sliderInput/i));
+  // Now switch to theshiny__sliderInput being selected.
+  userEvent.click(screen.getByText(/shiny__sliderInput/i));
 
   // The plot name input should now not exist
   expect(screen.queryByLabelText(/plot name/i)).toBeNull();
@@ -111,7 +111,7 @@ test("Form for filling out props updates based on selected element", () => {
   expect(onFinishMock).toHaveBeenLastCalledWith({
     name: "my-new-item",
     ui: {
-      uiName: "sliderInput",
+      uiName: "shiny__sliderInput",
       uiArguments: expect.objectContaining({
         min: 3,
       }),

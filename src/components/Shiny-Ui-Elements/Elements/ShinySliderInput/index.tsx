@@ -12,7 +12,7 @@ const ShinySliderInput: ShinyUiComponent<ShinySliderInputProps> = (
   props: ShinySliderInputProps
 ) => {
   const {
-    inputId = "shiny-sliderInput",
+    inputId = "shiny__sliderInput",
     min,
     max,
     value,
@@ -24,8 +24,8 @@ const ShinySliderInput: ShinyUiComponent<ShinySliderInputProps> = (
   return (
     <SliderHolder
       style={{ height, width }}
-      className={"shiny-sliderInput"}
-      aria-label={"shiny-sliderInput"}
+      className={"shiny__sliderInput"}
+      aria-label={"shiny__sliderInput"}
     >
       <div style={{ gridArea: "1/1", placeSelf: "center", maxWidth: "300px" }}>
         <div>

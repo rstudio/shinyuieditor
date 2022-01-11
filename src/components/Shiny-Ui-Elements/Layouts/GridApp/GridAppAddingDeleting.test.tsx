@@ -26,15 +26,15 @@ afterEach(() => {
 
 const startingState = {
   title: {
-    uiName: "titlePanel",
+    uiName: "gridlayout__titlePanel",
     uiArguments: { title: "My Test App Title" },
   },
   numBins: {
-    uiName: "sliderInput",
+    uiName: "shiny__sliderInput",
     uiArguments: { inputId: "My slider!" } as ShinySliderInputProps,
   },
   plot: {
-    uiName: "plotOutput",
+    uiName: "shiny__plotOutput",
     uiArguments: { name: "My Plot!" },
   },
 };
@@ -69,7 +69,7 @@ describe("Adding and removing panels", () => {
       within(configurePanel).getByLabelText(/grid area name/i),
       "sidebar"
     );
-    userEvent.click(within(configurePanel).getByText(/plotOutput/i));
+    userEvent.click(within(configurePanel).getByText(/shiny__plotOutput/i));
 
     clearThenType(
       within(configurePanel).getByLabelText(/plot name/i),

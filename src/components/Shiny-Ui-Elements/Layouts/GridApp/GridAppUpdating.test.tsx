@@ -32,15 +32,15 @@ describe("Updating settings is reflected in entire app", () => {
 
     const startingState = {
       title: {
-        uiName: "titlePanel",
+        uiName: "gridlayout__titlePanel",
         uiArguments: { title: testTitle },
       },
       numBins: {
-        uiName: "sliderInput",
+        uiName: "shiny__sliderInput",
         uiArguments: { name: "My slider!" } as ShinySliderInputProps,
       },
       plot: {
-        uiName: "plotOutput",
+        uiName: "shiny__plotOutput",
         uiArguments: { name: "My Plot!" },
       },
     };
@@ -56,7 +56,7 @@ describe("Updating settings is reflected in entire app", () => {
     const openSettingsButton =
       within(numBinsPanel).getByLabelText(/open settings/i);
     const settingsDialog = within(numBinsPanel).getByLabelText(
-      /settings for sliderInput/i
+      /settings forshiny__sliderInput/i
     );
     // The thing that gets the visibility attribute changed is actually the
     // parent of the popover body due to how Chakra structures the dom

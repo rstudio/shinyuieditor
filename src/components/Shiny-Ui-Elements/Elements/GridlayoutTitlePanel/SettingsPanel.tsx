@@ -12,7 +12,7 @@ export const GridlayoutTitlePanelSettings: ShinyUiArgumentsFields<
   const isValid = true;
 
   return (
-    <FormControl id="sliderInput-settings">
+    <FormControl id="shiny__sliderInput-settings">
       <TextInput
         label="App title"
         value={currentSettings.title ?? "UndefinedAppTitle"}

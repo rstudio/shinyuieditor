@@ -10,15 +10,15 @@ import ShinySliderInput from "./ShinySliderInput";
 import { ShinySliderInputSettings } from "./ShinySliderInput/SettingsPanel";
 
 export const uiComponentAndSettings: ShinyUiComponentAndArguments = {
-  plotOutput: {
+  shiny__plotOutput: {
     UiComponent: ShinyPlotOutput,
     SettingsComponent: ShinyPlotOutputSettings,
   },
-  sliderInput: {
+  shiny__sliderInput: {
     UiComponent: ShinySliderInput,
     SettingsComponent: ShinySliderInputSettings,
   },
-  titlePanel: {
+  gridlayout__titlePanel: {
     UiComponent: GridlayoutTitlePanel,
     SettingsComponent: GridlayoutTitlePanelSettings,
   },
@@ -26,15 +26,15 @@ export const uiComponentAndSettings: ShinyUiComponentAndArguments = {
 
 export const defaultSettingsForElements: ShinyUiNameAndArguments[] = [
   {
-    uiName: "plotOutput",
+    uiName: "shiny__plotOutput",
     uiArguments: { name: "My Chosen Plot" },
   },
   {
-    uiName: "sliderInput",
+    uiName: "shiny__sliderInput",
     uiArguments: { min: 0, val: 5, max: 10 },
   },
   {
-    uiName: "titlePanel",
+    uiName: "gridlayout__titlePanel",
     uiArguments: { title: "Title from Chooser" },
   },
 ];

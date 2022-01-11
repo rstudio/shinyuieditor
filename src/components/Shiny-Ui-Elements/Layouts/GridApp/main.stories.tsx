@@ -30,15 +30,15 @@ Primary.args = {
   layout: mainLayout,
   panels: {
     title: {
-      uiName: "titlePanel",
+      uiName: "gridlayout__titlePanel",
       uiArguments: { title: "My App" },
     },
     settings: {
-      uiName: "sliderInput",
+      uiName: "shiny__sliderInput",
       uiArguments: { name: "My slider!", height: "100%", width: "100%" },
     },
     plot: {
-      uiName: "plotOutput",
+      uiName: "shiny__plotOutput",
       uiArguments: { name: "My Plot!" },
     },
   },
