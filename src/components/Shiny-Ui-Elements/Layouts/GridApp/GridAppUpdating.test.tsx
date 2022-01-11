@@ -32,7 +32,7 @@ describe("Updating settings is reflected in entire app", () => {
 
     const startingState = {
       title: {
-        uiName: "gridlayout::titlePanel",
+        uiName: "gridlayout::title_panel",
         uiArguments: { title: testTitle },
       },
       numBins: {

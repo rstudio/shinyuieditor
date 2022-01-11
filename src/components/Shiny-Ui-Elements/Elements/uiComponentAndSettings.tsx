@@ -18,7 +18,7 @@ export const uiComponentAndSettings: ShinyUiComponentAndArguments = {
     UiComponent: ShinySliderInput,
     SettingsComponent: ShinySliderInputSettings,
   },
-  "gridlayout::titlePanel": {
+  "gridlayout::title_panel": {
     UiComponent: GridlayoutTitlePanel,
     SettingsComponent: GridlayoutTitlePanelSettings,
   },
@@ -34,7 +34,7 @@ export const defaultSettingsForElements: ShinyUiNameAndArguments[] = [
     uiArguments: { min: 0, val: 5, max: 10 },
   },
   {
-    uiName: "gridlayout::titlePanel",
+    uiName: "gridlayout::title_panel",
     uiArguments: { title: "Title from Chooser" },
   },
 ];

@@ -26,7 +26,7 @@ afterEach(() => {
 
 const startingState = {
   title: {
-    uiName: "gridlayout::titlePanel",
+    uiName: "gridlayout::title_panel",
     uiArguments: { title: "My Test App Title" },
   },
   numBins: {

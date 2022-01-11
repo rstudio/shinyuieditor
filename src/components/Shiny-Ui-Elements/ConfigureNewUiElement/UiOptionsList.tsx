@@ -43,7 +43,7 @@ export function UiOptionsList({
 export const previewIcons: Record<ShinyUiNames, JSX.Element> = {
   "shiny::plotOutput": <GoGraph />,
   "shiny::sliderInput": <BiSliderAlt />,
-  "gridlayout::titlePanel": <BiText />,
+  "gridlayout::title_panel": <BiText />,
 };
 
 export const OptionsList = styled.div({

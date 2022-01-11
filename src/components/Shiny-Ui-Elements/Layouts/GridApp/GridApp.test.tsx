@@ -30,7 +30,7 @@ describe("GridApp fills with proper elements", () => {
         layout={mainLayout}
         panels={{
           title: {
-            uiName: "gridlayout::titlePanel",
+            uiName: "gridlayout::title_panel",
             uiArguments: { title: testTitle },
           },
           settings: {
@@ -78,7 +78,7 @@ describe("Errors properly", () => {
           layout={mainLayout}
           panels={{
             appTitle: {
-              uiName: "gridlayout::titlePanel",
+              uiName: "gridlayout::title_panel",
               uiArguments: { title: testTitle },
             },
           }}

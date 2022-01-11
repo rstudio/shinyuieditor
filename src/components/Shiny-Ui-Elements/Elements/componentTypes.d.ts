@@ -12,7 +12,7 @@ import type { ShinySliderInputProps } from "../Shiny-Ui-Elements/ShinySliderInpu
 export type ShinyUiArgumentsByName = {
   "shiny::plotOutput": ShinyPlotOutputProps;
   "shiny::sliderInput": ShinySliderInputProps;
-  "gridlayout::titlePanel": GridlayoutTitlePanelProps;
+  "gridlayout::title_panel": GridlayoutTitlePanelProps;
 };
 
 /**

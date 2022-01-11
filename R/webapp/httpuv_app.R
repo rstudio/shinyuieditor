@@ -43,7 +43,7 @@ app_blob <- '
   },
   "elements": {
     "title": {
-      "uiName": "gridlayout::titlePanel",
+      "uiName": "gridlayout::title_panel",
       "uiArguments": {
         "title": "My App from the server!"
       }

@@ -31,13 +31,13 @@ describe("UiPanel shows the proper ui element", () => {
     ).toBeInTheDocument();
   });
 
-  test("gridlayout::titlePanel", () => {
+  test("gridlayout::title_panel", () => {
     const testTitle = "My Test App Title";
     render(
       <UiPanel
         area="a"
         componentDefinition={{
-          uiName: "gridlayout::titlePanel",
+          uiName: "gridlayout::title_panel",
           uiArguments: { title: testTitle },
         }}
       />

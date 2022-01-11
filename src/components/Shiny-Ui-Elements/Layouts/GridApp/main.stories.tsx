@@ -30,7 +30,7 @@ Primary.args = {
   layout: mainLayout,
   panels: {
     title: {
-      uiName: "gridlayout::titlePanel",
+      uiName: "gridlayout::title_panel",
       uiArguments: { title: "My App" },
     },
     settings: {
