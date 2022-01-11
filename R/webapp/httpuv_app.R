@@ -7,63 +7,18 @@ library(magrittr)
 app_blob <-rlang::expr(
   gridlayout::grid_page(
     layout = "
-|2rem  |250px   |1fr    |
-|80px  |header  |header |
-|1fr   |sidebar |plot   |",
-    header = gridlayout::title_panel("This is my header2"),
-    plot = shiny::plotOutput("distPlot"),
-    sidebar = shiny::sliderInput("numBins", min = 5, max = 10, value = 7)
+    | 2rem | 250px   | 1fr    |
+    |------|---------|--------|
+    | 80px | header  | header |
+    | 1fr  | sidebar |  plot  |",
+    header = gridlayout::title_panel(title="This is my header"),
+    plot = shiny::plotOutput(outputId="distPlot"),
+    sidebar = shiny::sliderInput(inputId="numBins", min="5", max="10", value="7")
   )
 ) %>%  parse_ui_fn() %>% parse_gridlayout()
 
 lobstr::tree(app_blob)
-app_blob <- '
-{
-  "layout": {
-    "type": "gridlayout",
-    "options": {
-      "gapSize": "1rem",
-      "areas": [
-        [   "title",  "title"],
-        ["settings",   "plot"],
-        [  "footer", "footer"]
-      ],
-      "rowSizes": [
-        "100px",
-        "1fr",
-        "80px"
-      ],
-      "colSizes": [
-        "250px",
-        "1fr"
-      ]
-    }
-  },
-  "elements": {
-    "title": {
-      "uiName": "gridlayout::title_panel",
-      "uiArguments": {
-        "title": "My App from the server!"
-      }
-    },
-    "settings": {
-      "uiName": "shiny::sliderInput",
-      "uiArguments": {
-        "inputId": "num_bins",
-        "min": 5,
-        "max": 10,
-        "val": 7
-      }
-    },
-    "plot": {
-      "uiName": "shiny::plotOutput",
-      "uiArguments": {
-        "outputId": "My Plot2!"
-      }
-    }
-  }
-}
-' %>% jsonlite::parse_json()
+
 
 handleGet <- function(path){
   if (path != "/app-please") stop("Only /app-please path supported for GET requests")

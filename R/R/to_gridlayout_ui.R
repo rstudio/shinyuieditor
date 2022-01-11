@@ -12,10 +12,10 @@ to_gridlayout_ui <- function(ui_tree){
 construct_gridlayout_code <- function(layout, elements, indent = 2){
   elements_def <- paste(names(elements), "=", elements, collapse = ",\n")
 
-  layout_def <- paste(
-    "layout = \"",
+  layout_def <- paste0(
+    "layout = \"\n",
     indent_text(paste0(gridlayout::to_md(layout),"\""), num_spaces = indent),
-    sep = "\n"
+    ","
   )
 
   layout_fn_body <- paste(
@@ -25,9 +25,7 @@ construct_gridlayout_code <- function(layout, elements, indent = 2){
   )
 
   paste(
-    "library(shiny)\nlibrary(gridlayout)",
-    "",
-    "ui <- grid_page(",
+    "gridlayout::grid_page(",
     indent_text(layout_fn_body,num_spaces = indent),
     ")",
     sep = "\n"
