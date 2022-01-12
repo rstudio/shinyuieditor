@@ -4,29 +4,27 @@ library(httpuv)
 library(here)
 library(magrittr)
 
-app_blob <-rlang::expr(
-  gridlayout::grid_page(
-    layout = "
-    | 2rem | 250px   | 1fr    |
-    |------|---------|--------|
-    | 80px | header  | header |
-    | 1fr  | sidebar |  plot  |",
-    header = gridlayout::title_panel(title="This is my header"),
-    plot = shiny::plotOutput(outputId="distPlot"),
-    sidebar = shiny::sliderInput(inputId="numBins", min="5", max="10", value="7")
+
+get_ui_from_file <- function(file_loc){
+  print("Getting ui from file")
+  ui_defn_text <- paste(readLines(file_loc), collapse = "\n")
+  ui_expr <- rlang::parse_exprs(ui_defn_text)[[1]]
+  parse_ui_fn(ui_expr) %>% parse_gridlayout()
+}
+
+save_ui_to_file <- function(ui_string, file_loc){
+  writeLines(
+    text = ui_string,
+    con = file_loc
   )
-) %>%  parse_ui_fn() %>% parse_gridlayout()
-
-lobstr::tree(app_blob)
-
+}
 
 handleGet <- function(path){
   if (path != "/app-please") stop("Only /app-please path supported for GET requests")
-
   list(
     status = 200L,
     headers = list('Content-Type' = 'application/json'),
-    body = jsonlite::toJSON(app_blob, auto_unbox = TRUE)
+    body = jsonlite::toJSON(get_ui_from_file(here("webapp/ui.R")), auto_unbox = TRUE)
   )
 }
 
@@ -35,9 +33,11 @@ handlePost <- function(path, body){
 
   parsed_layout <- jsonlite::parse_json(body)
 
-  # lobstr::tree(parsed_layout)
-  cat("Generated ui.R\n============================================================\n")
-  cat(to_gridlayout_ui(parsed_layout), "\n============================================================\n")
+  updated_ui_string <- to_gridlayout_ui(parsed_layout)
+  cat("Generated ui.R\n============================================================\n",
+      updated_ui_string,
+      "\n============================================================\n")
+  save_ui_to_file(updated_ui_string, here("webapp/ui.R"))
 
   list(
     status = 200L,
@@ -71,9 +71,7 @@ call <- function(req){
 
 s <- startServer(
   host = "0.0.0.0", port = 8888,
-  app = list(
-    call = function(req) { call(req) }
-  )
+  app = list(call = function(req) { call(req) })
 )
 
 # s$stop()
