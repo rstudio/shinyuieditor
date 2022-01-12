@@ -60,12 +60,6 @@ export default function GridApp({
   const { layout, layoutDispatch, addItem, moveItem, removeItem } =
     useGridLayoutReducer(initialLayout);
 
-  console.log("Grid App Render", {
-    initialLayout,
-    initialPanels,
-    layout,
-    allPanels,
-  });
   const [editMode, setEditMode] = React.useState<EditMode>("UI");
 
   const [newPanelPosition, setNewPanelPosition] =
