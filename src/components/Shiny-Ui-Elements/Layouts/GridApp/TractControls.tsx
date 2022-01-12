@@ -110,10 +110,10 @@ const TractControlsHolder = styled.div({
   "--control-tracts": "1fr auto",
   "--offset-margin": `calc(-1*(var(--tract-gutter-size) + var(--gap)))`,
   "--offset-into-gap": "calc(-1*var(--gap))",
+  "--add-button-offset": "calc(var(--gap)/2)",
   display: "grid",
   position: "relative",
   gap: "5px",
-  // backgroundColor: "blanchedalmond",
   "&.rows": {
     "--tract-gutter-size": "var(--row-gutter)",
     paddingRight: "var(--gap)",
@@ -175,17 +175,15 @@ const ButtonsHolder = styled.div({
     position: "absolute",
   },
   "&.rows": {
-    // borderRight: "var(--edge-style)",
     flexDirection: "column",
-    ".before": { top: "0" },
-    ".after": { bottom: "0" },
+    ".before": { top: "var(--add-button-offset)" },
+    ".after": { bottom: "var(--add-button-offset)" },
   },
 
   "&.cols": {
-    // borderBottom: "var(--edge-style)",
     flexDirection: "row",
-    ".before": { left: "0" },
-    ".after": { right: "0" },
+    ".before": { left: "var(--add-button-offset)" },
+    ".after": { right: "var(--add-button-offset)" },
   },
 });
 
