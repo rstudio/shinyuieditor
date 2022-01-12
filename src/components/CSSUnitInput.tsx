@@ -1,5 +1,6 @@
+/** @jsxImportSource @emotion/react */
+
 import {
-  HStack,
   NumberDecrementStepper,
   NumberIncrementStepper,
   NumberInput,
@@ -14,7 +15,7 @@ import { CSSMeasure } from "../GridTypes";
 type CSSUnits = "fr" | "px" | "rem" | "auto";
 
 export function CSSUnitInput({
-  value,
+  value: initialValue,
   onChange,
   units = ["fr", "px", "rem", "auto"],
   w = "150px",
@@ -26,29 +27,50 @@ export function CSSUnitInput({
   w?: string;
   label?: string;
 }) {
-  // For some reason our tract sizers will sometimes try and pass this undefined
-  // so we need to guard against that at run time
-  if (value === undefined) return null;
-  const parsedValue = parseCSSMeasure(value);
-  const updateCount = (newCount: number) =>
-    onChange(updateCssUnit(value, { count: newCount }));
-  const updateUnit = (newUnit: CSSUnits) =>
-    onChange(updateCssUnit(value, { unit: newUnit }));
+  const [value, setValue] = React.useState<CSSMeasure>(initialValue);
+
+  const parsedValue = React.useMemo(() => parseCSSMeasure(value), [value]);
+
+  const updateCount = React.useCallback(
+    (newCount: number) =>
+      setValue((old) => updateCssUnit(old, { count: newCount })),
+    [setValue]
+  );
+
+  const updateUnit = React.useCallback(
+    (newUnit: CSSUnits) =>
+      setValue((old) => updateCssUnit(old, { unit: newUnit })),
+    [setValue]
+  );
 
   // Clamp the width so we dont get super ugly wide inputs
   const width = `min(${w}, ${widestAllowed})`;
+
+  // For some reason our tract sizers will sometimes try and pass this undefined
+  // so we need to guard against that at run time
+  if (initialValue === undefined) return null;
   return (
-    <HStack
-      spacing="1px"
-      align="center"
-      w={width}
-      // For some reason grid items really need a min width to not overflow
-      minW={width}
+    <form
       aria-label={label}
+      onBlur={(e) => {
+        const blurOutsideComponent = !e.currentTarget.contains(e.relatedTarget);
+        // Only trigger submit if the user has focused outside of the input.
+        // This means that going from the count to the unit input doesn't count
+        if (blurOutsideComponent) onChange(value);
+      }}
+      onSubmit={(e) => {
+        // Submits on pressing of enter
+        e.preventDefault();
+        onChange(value);
+      }}
       // Shrink the dropdown icon. These styles need to be seperate from the
       // Select component's css because the icon is technically a sibling so it
       // cant be targeted from within the selector
       css={{
+        width,
+        minWidth: width,
+        display: "flex",
+        flexDirection: "row",
         ".chakra-select__icon-wrapper": {
           width: "1rem",
           right: "0",
@@ -92,7 +114,7 @@ export function CSSUnitInput({
           </option>
         ))}
       </Select>
-    </HStack>
+    </form>
   );
 }
 // How wide the input element is allowed to get before being clamped
