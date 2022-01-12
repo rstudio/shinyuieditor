@@ -15,7 +15,7 @@ test("Basic usage of new item adding", () => {
   );
 
   userEvent.type(screen.getByLabelText(/grid area name/i), "my-new-item");
-  userEvent.click(screen.getByText(/"shiny::plotOutput"/i));
+  userEvent.click(screen.getByText(/plotOutput/i));
   userEvent.click(screen.getByText(/add item/i));
 
   // Avoid hardcoding the default props
@@ -56,7 +56,7 @@ test("Gives warning message when a non-conforming names are typed", () => {
   expect(nameInput).toBeInvalid();
 
   userEvent.type(nameInput, "2");
-  userEvent.click(screen.getByText(/"shiny::plotOutput"/i));
+  userEvent.click(screen.getByText(/plotOutput/i));
   expect(nameInput).not.toBeInvalid();
   userEvent.click(screen.getByText(/add item/i));
 
@@ -83,13 +83,13 @@ test("Form for filling out props updates based on selected element", () => {
   );
 
   // Start by selecting the "shiny::plotOutput" element
-  userEvent.click(screen.getByText(/"shiny::plotOutput"/i));
+  userEvent.click(screen.getByText(/plotOutput/i));
 
   // The option for naming that element should exist
   expect(screen.queryByLabelText(/plot name/i)).not.toBeNull();
 
   // Now switch to theshiny::sliderInput being selected.
-  userEvent.click(screen.getByText(/shiny::sliderInput/i));
+  userEvent.click(screen.getByText(/sliderInput/i));
 
   // The plot name input should now not exist
   expect(screen.queryByLabelText(/plot name/i)).toBeNull();
