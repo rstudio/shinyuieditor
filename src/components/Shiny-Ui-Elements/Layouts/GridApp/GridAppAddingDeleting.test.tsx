@@ -69,10 +69,10 @@ describe("Adding and removing panels", () => {
       within(configurePanel).getByLabelText(/grid area name/i),
       "sidebar"
     );
-    userEvent.click(within(configurePanel).getByText(/shiny::plotOutput/i));
+    userEvent.click(within(configurePanel).getByText(/plotOutput/i));
 
     clearThenType(
-      within(configurePanel).getByLabelText(/plot name/i),
+      within(configurePanel).getByLabelText(/outputId/i),
       "second-plot"
     );
 
