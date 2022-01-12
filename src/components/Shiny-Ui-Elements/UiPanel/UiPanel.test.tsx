@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import UiPanel from ".";
 
 describe("UiPanel shows the proper ui element", () => {
-  test("shiny::shiny::plotOutput", () => {
+  test("shiny::plotOutput", () => {
     render(
       <UiPanel
         area="a"
@@ -13,7 +13,7 @@ describe("UiPanel shows the proper ui element", () => {
       />
     );
     expect(
-      screen.getByLabelText(/shiny-shiny::plotOutput/i)
+      screen.getByLabelText(/panel with shiny::plotOutput/i)
     ).toBeInTheDocument();
   });
   test("shiny::sliderInput", () => {
@@ -27,7 +27,7 @@ describe("UiPanel shows the proper ui element", () => {
       />
     );
     expect(
-      screen.getByLabelText(/shinyshiny::sliderInput/i)
+      screen.getByLabelText(/panel with shiny::sliderInput/i)
     ).toBeInTheDocument();
   });
 
@@ -42,7 +42,9 @@ describe("UiPanel shows the proper ui element", () => {
         }}
       />
     );
-    expect(screen.getByLabelText(/gridlayout-titlePanel/i)).toBeInTheDocument();
+    expect(
+      screen.getByLabelText(/panel with gridlayout::title_panel/i)
+    ).toBeInTheDocument();
     expect(screen.getByText(testTitle)).toBeInTheDocument();
   });
 });
@@ -58,7 +60,7 @@ describe("shiny:shiny::sliderInput can update defaults", () => {
             name: "My Slider Input",
             min: 10,
             max: 90,
-            val: 20,
+            value: 20,
           },
         }}
       />
@@ -81,7 +83,7 @@ describe("shiny:shiny::sliderInput can update defaults", () => {
           area="a"
           componentDefinition={{
             uiName: "shiny::sliderInput",
-            uiArguments: { name: "My Slider Input", min: 10, val: 20 },
+            uiArguments: { inputId: "My Slider Input", min: 10, value: 20 },
           }}
         />
       )
