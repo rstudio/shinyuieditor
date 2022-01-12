@@ -8,13 +8,6 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
-  Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverCloseButton,
-  PopoverContent,
-  PopoverHeader,
-  PopoverTrigger,
 } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { CSSUnitInput } from "components/CSSUnitInput";
@@ -22,7 +15,6 @@ import ConfigureNewUiElement from "components/Shiny-Ui-Elements/ConfigureNewUiEl
 import { GridLocString } from "GridTypes";
 import omit from "just-omit";
 import * as React from "react";
-import { prettyJSON } from "state-logic/useShowChanges";
 import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
 import { GridItemExtent, TemplatedGridProps } from "utils/gridTemplates/types";
@@ -60,12 +52,6 @@ export default function GridApp({
   const { layout, layoutDispatch, addItem, moveItem, removeItem } =
     useGridLayoutReducer(initialLayout);
 
-  console.log("Grid App Render", {
-    initialLayout,
-    initialPanels,
-    layout,
-    allPanels,
-  });
   const [editMode, setEditMode] = React.useState<EditMode>("UI");
 
   const [newPanelPosition, setNewPanelPosition] =
@@ -191,27 +177,6 @@ export default function GridApp({
           >
             Send state to backend
           </Button>
-          <Popover placement="left-end">
-            <PopoverTrigger>
-              <Button
-                bg="var(--rstudio-blue)"
-                color="var(--rstudio-white)"
-                aria-label="Get dump of current UI state as JSON blob"
-              >
-                Get State
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent>
-              <PopoverArrow />
-              <PopoverCloseButton />
-              <PopoverHeader>Copy the following:</PopoverHeader>
-              <PopoverBody>
-                <pre style={{ fontSize: "0.8rem" }}>
-                  {prettyJSON(fullState)}
-                </pre>
-              </PopoverBody>
-            </PopoverContent>
-          </Popover>
         </SettingsBar>
         <GridDisplay style={styles}>
           <TractControls areas={layout.areas} sizes={sizes} />

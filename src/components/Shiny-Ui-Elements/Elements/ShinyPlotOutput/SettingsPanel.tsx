@@ -13,8 +13,8 @@ export const ShinyPlotOutputSettings: ShinyUiArgumentsFields<
 
   return (
     <TextInput
-      label="Plot Name"
-      value={outputId ?? "UndefinedPlotName"}
+      label="outputId"
+      value={outputId ?? "defaultPlotOutput"}
       onChange={(newName) =>
         onChange({ ...currentSettings, outputId: newName }, isValid)
       }

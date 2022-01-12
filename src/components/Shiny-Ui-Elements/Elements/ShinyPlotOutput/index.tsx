@@ -38,8 +38,7 @@ const ShinyPlotOutput: ShinyUiComponent<ShinyPlotOutputProps> = ({
     <PlotHolder
       ref={holderRef}
       style={{ height, width }}
-      className={"shiny-shiny::plotOutput"}
-      aria-label={"shiny-shiny::plotOutput"}
+      aria-label="shiny::plotOutput placeholder"
     >
       <GoGraph
         // Account for padding of 1 rem
