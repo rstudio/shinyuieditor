@@ -97,7 +97,7 @@ function UiPanel<ElName extends ShinyUiNames>({
 
   return (
     <UiPanelHolder
-      aria-label={`${area} panel`}
+      aria-label={`${area} panel with ${name}`}
       className="ui-panel-holder"
       area={area}
     >
