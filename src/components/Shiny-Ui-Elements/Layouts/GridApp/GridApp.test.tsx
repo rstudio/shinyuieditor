@@ -102,7 +102,7 @@ describe("Errors properly", () => {
                 name: "My slider!",
                 min: 100,
                 max: 40,
-                val: 50,
+                value: 50,
               },
             },
           }}
