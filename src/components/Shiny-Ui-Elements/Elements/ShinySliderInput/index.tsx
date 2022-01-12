@@ -2,19 +2,14 @@ import styled from "@emotion/styled";
 import { ShinyUiComponent } from "components/Shiny-Ui-Elements/Elements/componentTypes";
 import * as React from "react";
 import { makeBoxShadow } from "utils/css-helpers";
-import {
-  buildSliderSettings,
-  ShinySliderInputProps,
-  sliderDefaultSettings,
-} from "./arguments";
+import { buildSliderSettings, ShinySliderInputProps } from "./arguments";
 
 const ShinySliderInput: ShinyUiComponent<ShinySliderInputProps> = (
   props: ShinySliderInputProps
 ) => {
-  const { inputId, min, max, value } = { ...sliderDefaultSettings, ...props };
   const width = "200px";
   const height = "auto";
-  const settings = buildSliderSettings({ min, max, value });
+  const settings = buildSliderSettings({ ...props });
   const [currentVal, setCurrentVal] = React.useState(settings.value);
   return (
     <SliderHolder
@@ -36,7 +31,7 @@ const ShinySliderInput: ShinyUiComponent<ShinySliderInputProps> = (
           aria-label={"slider input"}
         />
         <div>
-          input${inputId} = {currentVal}
+          input${settings.inputId} = {currentVal}
         </div>
       </div>
     </SliderHolder>
