@@ -86,7 +86,7 @@ test("Form for filling out props updates based on selected element", () => {
   userEvent.click(screen.getByText(/plotOutput/i));
 
   // The option for naming that element should exist
-  expect(screen.queryByLabelText(/plot name/i)).not.toBeNull();
+  expect(screen.queryByLabelText(/outputId/i)).not.toBeNull();
 
   // Now switch to theshiny::sliderInput being selected.
   userEvent.click(screen.getByText(/sliderInput/i));
