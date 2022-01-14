@@ -6,10 +6,18 @@ import { makeBoxShadow } from "utils/css-helpers";
 import { TemplatedGridProps } from "utils/gridTemplates/types";
 import { Header } from "./Header";
 
-async function getInitialState() {
+type InitialState = {
+  elements: Panels;
+  layout: { type: "gridlayout"; options: TemplatedGridProps };
+};
+
+async function getInitialState(): Promise<InitialState> {
   const response = await fetch("app-please", { method: "GET" });
 
-  if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+  if (!response.ok) {
+    console.error(`HTTP error! status: ${response.status}`);
+    return backupState;
+  }
 
   return await response.json();
 }
@@ -21,12 +29,12 @@ export function EditorContainer() {
     return <h3>Loading initial state from server</h3>;
   }
 
-  if (error) {
+  if (error || !data) {
     return <h3 style={{ color: "orangered" }}>Error with server request</h3>;
   }
-
-  const initialLayout = data.layout.options as TemplatedGridProps;
-  const initialPanels = data.elements as Panels;
+  const initialLayout: TemplatedGridProps = data.layout.options;
+  const initialPanels: Panels = data.elements;
+  console.log(data);
 
   return (
     <Container>
@@ -37,6 +45,51 @@ export function EditorContainer() {
     </Container>
   );
 }
+
+const backupState: InitialState = {
+  layout: {
+    type: "gridlayout",
+    options: {
+      rowSizes: ["120px", "1fr", "100px"],
+      colSizes: ["250px", "1fr"],
+      gapSize: "2rem",
+      areas: [
+        ["header", "header"],
+        ["sidebar", "plot"],
+        ["footer", "footer"],
+      ],
+    },
+  },
+  elements: {
+    header: {
+      uiName: "gridlayout::title_panel",
+      uiArguments: {
+        title: "Header from backup state",
+      },
+    },
+    plot: {
+      uiName: "shiny::plotOutput",
+      uiArguments: {
+        outputId: "distPlot",
+      },
+    },
+    sidebar: {
+      uiName: "shiny::sliderInput",
+      uiArguments: {
+        inputId: "numBins",
+        min: "5",
+        max: "10",
+        value: "7",
+      },
+    },
+    footer: {
+      uiName: "gridlayout::title_panel",
+      uiArguments: {
+        title: "My app's footer",
+      },
+    },
+  },
+};
 
 const EditorHolderContainer = styled.div({
   padding: "2rem",
