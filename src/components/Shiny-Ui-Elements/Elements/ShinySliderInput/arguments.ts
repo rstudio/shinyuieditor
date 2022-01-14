@@ -5,7 +5,7 @@ import {
 
 export type SliderSettings = {
   inputId: string;
-  label?: string;
+  label: string;
   min: number;
   value: number;
   max: number;
@@ -13,6 +13,7 @@ export type SliderSettings = {
 
 export const sliderDefaultSettings: SliderSettings = {
   inputId: "mySlider",
+  label: "slider input",
   min: 0,
   max: 10,
   value: 5,
@@ -33,7 +34,7 @@ function validateNumber(x?: string | number) {
 export function buildSliderSettings(
   settings: Partial<SliderSettings>
 ): SliderSettings {
-  let { inputId } = settings;
+  let { inputId, label } = settings;
   let min = validateNumber(settings.min);
   let max = validateNumber(settings.max);
   let value = validateNumber(settings.value);
@@ -75,7 +76,11 @@ export function buildSliderSettings(
     inputId = "Default slider name";
   }
 
-  return { min, max, value, inputId };
+  if (typeof label !== "string") {
+    label = "Default slider label";
+  }
+
+  return { min, max, value, inputId, label };
 }
 
 export const validateSliderSettings: UiSettingsValidator<

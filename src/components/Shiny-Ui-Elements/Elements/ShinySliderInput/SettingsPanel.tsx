@@ -2,13 +2,17 @@ import { NumericInput } from "components/Inputs/NumericInput";
 import { TextInput } from "components/Inputs/TextInput";
 import { ShinyUiArgumentsFields } from "components/Shiny-Ui-Elements/Elements/componentTypes";
 import * as React from "react";
-import { ShinySliderInputProps, validateSliderSettings } from "./arguments";
+import {
+  buildSliderSettings,
+  ShinySliderInputProps,
+  validateSliderSettings,
+} from "./arguments";
 import { ShowProblems } from "../../UiSettings/ShowProblems";
 
 export const ShinySliderInputSettings: ShinyUiArgumentsFields<
   ShinySliderInputProps
 > = ({ currentSettings, onChange }) => {
-  const settings = { ...currentSettings };
+  const settings = { ...buildSliderSettings(currentSettings) };
 
   const problems = validateSliderSettings(currentSettings);
 
@@ -24,6 +28,11 @@ export const ShinySliderInputSettings: ShinyUiArgumentsFields<
         label="inputId"
         value={settings.inputId ?? "Default name"}
         onChange={(inputId) => validateAndUpdate({ inputId })}
+      />
+      <TextInput
+        label="label"
+        value={settings.label ?? "Default label"}
+        onChange={(label) => validateAndUpdate({ label })}
       />
       <NumericInput
         label="Minimum value"

@@ -18,9 +18,7 @@ const ShinySliderInput: ShinyUiComponent<ShinySliderInputProps> = (
       aria-label={"shiny::sliderInput"}
     >
       <div style={{ gridArea: "1/1", placeSelf: "center", maxWidth: "300px" }}>
-        <div>
-          Min: {settings.min}, Max: {settings.max}
-        </div>
+        <div>{settings.label}</div>
         <input
           type="range"
           min={settings.min}
@@ -30,6 +28,9 @@ const ShinySliderInput: ShinyUiComponent<ShinySliderInputProps> = (
           className="slider"
           aria-label={"slider input"}
         />
+        <div>
+          Min: {settings.min}, Max: {settings.max}
+        </div>
         <div>
           input${settings.inputId} = {currentVal}
         </div>
