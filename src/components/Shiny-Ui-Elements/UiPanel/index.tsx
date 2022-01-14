@@ -15,6 +15,7 @@ import type {
   ShinyUiNames,
   ShinyUiArgumentsByName,
   UiArgumentsCompByName,
+  ShinyUiNameAndArguments,
 } from "components/Shiny-Ui-Elements/Elements/componentTypes";
 import * as React from "react";
 import { BiCheck } from "react-icons/bi";
@@ -37,6 +38,23 @@ function UiComponent<UiName extends ShinyUiNames>({
   return <Comp {...settings} />;
 }
 
+function checkIfArgumentsValid(state: ShinyUiNameAndArguments) {
+  const stateBlob = new Blob([JSON.stringify(state, null, 2)], {
+    type: "application/json",
+  });
+  console.log("Sending arguments to server for validation", state);
+
+  fetch("ValidateArgs", { method: "POST", body: stateBlob })
+    .then(function (response) {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(function (response) {
+      console.log("Response after sending state blob", response);
+    });
+}
 function UiSettingsComponent<UiName extends ShinyUiNames>({
   uiName,
   settings,
@@ -50,6 +68,8 @@ function UiSettingsComponent<UiName extends ShinyUiNames>({
       <form
         onSubmit={(e) => {
           e.preventDefault();
+          // Check if valid
+          checkIfArgumentsValid({ uiName, uiArguments: currentSettings });
           onChange(currentSettings, true);
         }}
       >

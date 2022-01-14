@@ -23,6 +23,10 @@ str_replace_all <- function(text, pattern, replacement, fixed = FALSE){
   gsub(pattern = pattern, replacement = replacement, x = text, perl = !fixed, fixed = fixed)
 }
 
+str_remove <- function(text, pattern, fixed = FALSE){
+  gsub(pattern = pattern, replacement = "", x = text, perl = !fixed, fixed = fixed)
+}
+
 indent_text <- function(text, num_spaces = 2) {
 
   # If we have a single length vector, assume it needs to be split on new-lines
@@ -47,4 +51,14 @@ indent_text <- function(text, num_spaces = 2) {
   }
 
   paste(text, collapse = "\n")
+}
+
+# Via https://stackoverflow.com/questions/10022436/do-call-in-combination-with
+do_call_namespaced <- function(what, args, ...){
+  if(is.function(what)){
+    what <- deparse(as.list(match.call())$what);
+  }
+  myfuncall <- parse(text=what)[[1]];
+  mycall <- as.call(c(list(myfuncall), args));
+  eval(mycall, ...);
 }
