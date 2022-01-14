@@ -16,7 +16,7 @@ Boolean
 Takes an AST node and tells us if it corresponds to a known UI function call.
 Makes the assumption that we can't look into the environment to make sure
 that we are getting the function we think we are. This is because we want to
-be able to parse raw text instead of relying on an active evaulation context.
+be able to parse raw text instead of relying on an active evaluation context.
 }
 \examples{
 
