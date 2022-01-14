@@ -45,7 +45,7 @@ launch_editor <- function(ui_loc, port=8888, show_logs = TRUE, run_in_background
     parsed_layout <- jsonlite::parse_json(body)
 
     updated_ui_string <- to_gridlayout_ui(parsed_layout)
-    save_ui_to_file(updated_ui_string, here("webapp/ui.R"))
+    save_ui_to_file(updated_ui_string, ui_loc)
     writeLog("<= Saved new ui state from client")
 
     list(
