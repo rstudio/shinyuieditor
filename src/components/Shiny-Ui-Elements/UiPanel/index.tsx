@@ -8,126 +8,22 @@ import {
   PopoverHeader,
   PopoverTrigger,
 } from "@chakra-ui/popover";
-import { Button } from "@chakra-ui/react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import type {
-  ShinyUiNames,
   ShinyUiArgumentsByName,
-  UiArgumentsCompByName,
-  ShinyUiNameAndArguments,
+  ShinyUiNames,
 } from "components/Shiny-Ui-Elements/Elements/componentTypes";
 import * as React from "react";
-import { BiCheck } from "react-icons/bi";
 import {
   FiSettings as SettingsIcon,
   FiTrash as TrashIcon,
 } from "react-icons/fi";
 import { makeBoxShadow } from "utils/css-helpers";
-import { uiComponentAndSettings } from "../Elements/uiComponentAndSettings";
-import { SettingsInputsForUi } from "../UiSettings/SettingsInputsForUi";
+import { UiComponent } from "./UiComponent";
+import { UiSettingsComponent } from "./UiSettingsComponent";
 
-function UiComponent<UiName extends ShinyUiNames>({
-  uiName,
-  settings,
-}: {
-  uiName: UiName;
-  settings: ShinyUiArgumentsByName[UiName];
-}) {
-  const Comp = uiComponentAndSettings[uiName].UiComponent;
-  return <Comp {...settings} />;
-}
-
-type ValidateArgsResponse =
-  | {
-      type: "valid";
-      html: string;
-    }
-  | { type: "error"; error_msg: string };
-
-function checkIfArgumentsValid({
-  state,
-  onValid,
-  onError,
-}: {
-  state: ShinyUiNameAndArguments;
-  onValid: (x?: string) => void;
-  onError: (x: string) => void;
-}) {
-  const stateBlob = new Blob([JSON.stringify(state, null, 2)], {
-    type: "application/json",
-  });
-  console.log("Sending arguments to server for validation", state);
-
-  fetch("ValidateArgs", { method: "POST", body: stateBlob })
-    .then(function (response) {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then(function (response) {
-      const r = response as ValidateArgsResponse;
-      if (r.type === "valid") {
-        onValid();
-      }
-      if (r.type === "error") {
-        onError(r.error_msg);
-      }
-    });
-}
-
-function UiSettingsComponent<UiName extends ShinyUiNames>({
-  uiName,
-  settings,
-  onChange,
-}: UiArgumentsCompByName<UiName>) {
-  const [currentSettings, setCurrentSettings] = React.useState(settings);
-  const [settingsAreValid, setSettingsAreValid] = React.useState(true);
-  const [errorMsg, setErrorMsg] = React.useState<string | null>(null);
-
-  return (
-    <div css={{ padding: "1rem" }}>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          // Check if valid
-          checkIfArgumentsValid({
-            state: { uiName, uiArguments: currentSettings },
-            onValid: () => onChange(currentSettings, true),
-            onError: setErrorMsg,
-          });
-        }}
-      >
-        <SettingsInputsForUi
-          uiName={uiName}
-          settings={currentSettings}
-          onChange={(settings, isValid) => {
-            setCurrentSettings(settings);
-            setSettingsAreValid(isValid);
-          }}
-        />
-        {errorMsg ? (
-          <div>
-            Input settings are not valid. The following errors were received:
-            <ErrorMsg>{errorMsg}</ErrorMsg>
-          </div>
-        ) : null}
-        <Button
-          variant="main"
-          leftIcon={<BiCheck />}
-          marginTop="0.75rem"
-          type="submit"
-          disabled={!settingsAreValid}
-        >
-          Update
-        </Button>
-      </form>
-    </div>
-  );
-}
-
-function UiPanel<ElName extends ShinyUiNames>({
+export function UiPanel<ElName extends ShinyUiNames>({
   area,
   componentDefinition,
   onUpdate,
@@ -145,6 +41,7 @@ function UiPanel<ElName extends ShinyUiNames>({
   const openPopover = () => setIsOpen(!isOpen);
   const closePopover = () => setIsOpen(false);
 
+  const [elementHTML, setElementHTML] = React.useState<string | null>(null);
   const { uiName: name, uiArguments: settings } = componentDefinition;
 
   return (
@@ -196,7 +93,11 @@ function UiPanel<ElName extends ShinyUiNames>({
           </PopoverBody>
         </PopoverContent>
       </Popover>
-      <UiComponent uiName={name} settings={settings} />
+      {elementHTML ? (
+        <div>Here's the actually generated element from R</div>
+      ) : (
+        <UiComponent uiName={name} settings={settings} />
+      )}
     </UiPanelHolder>
   );
 }
@@ -214,13 +115,10 @@ export const UiPanelHolder = styled.div(({ area }: { area?: string }) => ({
   boxShadow: makeBoxShadow({ height: 0.2 }),
 }));
 
-const actionButtonStyles = css({
+export const actionButtonStyles = css({
   position: "absolute",
   top: 0,
   opacity: 0.5,
 });
 
-const ErrorMsg = styled.pre({
-  color: "orangered",
-});
 export default UiPanel;
