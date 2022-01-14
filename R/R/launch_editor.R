@@ -8,12 +8,15 @@
 #'   be saved to the path.
 #' @param port Port to launch server on. Should only be changed for dev work.
 #' @param show_logs Print status messages to the console? For debugging.
+#' @param run_in_background Should the app run in a background process or block
+#'   the console? See `?httpuv::startServer()` vs `?httpuv::runServer()`.
 #'
-#' @return An `httpuv` app server object. To terminate before finishing with the
-#'   app run `s$stop()` (assuming `s` is the return value of this function.)
+#' @return An `httpuv` app server object (as returned by `httpuv::startServer`).
+#'   To terminate before finishing with the app run `s$stop()` (assuming `s` is
+#'   the return value of this function.)
 #' @export
 #'
-launch_editor <- function(ui_loc, port=8888, show_logs = TRUE){
+launch_editor <- function(ui_loc, port=8888, show_logs = TRUE, run_in_background = FALSE){
 
   writeLog <- function(msg){
     if(show_logs){
@@ -56,7 +59,9 @@ launch_editor <- function(ui_loc, port=8888, show_logs = TRUE){
     s$stop()
   }
 
-  s <- httpuv::startServer(
+  startup_fn <- if(run_in_background) httpuv::startServer else httpuv::runServer
+
+  s <- startup_fn(
     host = "0.0.0.0", port = port,
     app = list(call = function(req){
       tryCatch(
@@ -78,6 +83,7 @@ launch_editor <- function(ui_loc, port=8888, show_logs = TRUE){
       )
     })
   )
+
 
   writeLog(paste("Server listening on port", port))
 
