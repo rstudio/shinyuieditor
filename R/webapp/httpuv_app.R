@@ -6,7 +6,7 @@ library(magrittr)
 
 
 get_ui_from_file <- function(file_loc){
-  print("Getting ui from file")
+  print("=> Sent parsed ui to client")
   ui_defn_text <- paste(readLines(file_loc), collapse = "\n")
   ui_expr <- rlang::parse_exprs(ui_defn_text)[[1]]
   parse_ui_fn(ui_expr) %>% parse_gridlayout()
@@ -34,10 +34,11 @@ handlePost <- function(path, body){
   parsed_layout <- jsonlite::parse_json(body)
 
   updated_ui_string <- to_gridlayout_ui(parsed_layout)
-  cat("Generated ui.R\n============================================================\n",
-      updated_ui_string,
-      "\n============================================================\n")
+  # cat("Generated ui.R\n============================================================\n",
+  #     updated_ui_string,
+  #     "\n============================================================\n")
   save_ui_to_file(updated_ui_string, here("webapp/ui.R"))
+  print("<= Saved new ui state from client")
 
   list(
     status = 200L,
@@ -62,9 +63,8 @@ call <- function(req){
         headers = list('Content-Type' = 'text/html'),
         body = e$message
       )
-    },
-    finally = print("Finished request handling")
-  )
+    }
+    )
 }
 
 
