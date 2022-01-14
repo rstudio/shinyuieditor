@@ -7,16 +7,13 @@ export const ShinyPlotOutputSettings: ShinyUiArgumentsFields<
   ShinyPlotOutputProps
 > = ({ currentSettings, onChange }) => {
   const { outputId } = currentSettings;
-  // All inputs are valid currently but later when this is expanded we will make this
-  // variable more dynamic
-  const isValid = true;
 
   return (
     <TextInput
       label="outputId"
       value={outputId ?? "defaultPlotOutput"}
       onChange={(newName) =>
-        onChange({ ...currentSettings, outputId: newName }, isValid)
+        onChange({ ...currentSettings, outputId: newName })
       }
     />
   );

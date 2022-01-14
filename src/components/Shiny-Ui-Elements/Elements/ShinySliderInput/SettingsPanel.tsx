@@ -13,9 +13,7 @@ export const ShinySliderInputSettings: ShinyUiArgumentsFields<
   if (settings.value) settings.value = validateNumber(settings.value);
 
   const validateAndUpdate = (newValues: Partial<ShinySliderInputProps>) => {
-    const updatedValues = { ...settings, ...newValues };
-
-    onChange(updatedValues, true);
+    onChange({ ...settings, ...newValues });
   };
 
   return (

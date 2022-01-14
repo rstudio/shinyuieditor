@@ -68,8 +68,7 @@ export type ShinyUiArgumentsFields<Args extends ShinyUiArguments> = (p: {
  * they should be accepted
  */
 export type ShinyUiArgumentsUpdate<Args extends ShinyUiArguments> = (
-  newSettings: Args,
-  isValid: boolean
+  newSettings: Args
 ) => void;
 
 /**

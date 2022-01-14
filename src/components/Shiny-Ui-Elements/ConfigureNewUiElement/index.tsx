@@ -116,13 +116,11 @@ export default function ConfigureNewUiElement({
               <SettingsInputsForUi
                 uiName={currentUi.uiName}
                 settings={currentUi.uiArguments}
-                onChange={(newSettings, isValid) => {
+                onChange={(newSettings) => {
                   setCurrentUi({
                     uiName: currentUi.uiName,
                     uiArguments: newSettings,
                   } as ShinyUiNameAndArguments);
-
-                  setUiSettingsAreValid(isValid);
                 }}
               />
             </div>

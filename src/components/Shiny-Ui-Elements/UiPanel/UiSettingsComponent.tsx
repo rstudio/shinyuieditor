@@ -14,7 +14,6 @@ export function UiSettingsComponent<UiName extends ShinyUiNames>({
   onChange,
 }: UiArgumentsCompByName<UiName>) {
   const [currentSettings, setCurrentSettings] = React.useState(settings);
-  const [settingsAreValid, setSettingsAreValid] = React.useState(true);
   const [errorMsg, setErrorMsg] = React.useState<string | null>(null);
 
   return (
@@ -25,7 +24,7 @@ export function UiSettingsComponent<UiName extends ShinyUiNames>({
           // Check if valid
           checkIfArgumentsValid({
             state: { uiName, uiArguments: currentSettings },
-            onValid: () => onChange(currentSettings, true),
+            onValid: () => onChange(currentSettings),
             onError: setErrorMsg,
           });
         }}
@@ -33,9 +32,8 @@ export function UiSettingsComponent<UiName extends ShinyUiNames>({
         <SettingsInputsForUi
           uiName={uiName}
           settings={currentSettings}
-          onChange={(settings, isValid) => {
+          onChange={(settings) => {
             setCurrentSettings(settings);
-            setSettingsAreValid(isValid);
           }}
         />
         {errorMsg ? (
@@ -49,7 +47,6 @@ export function UiSettingsComponent<UiName extends ShinyUiNames>({
           leftIcon={<BiCheck />}
           marginTop="0.75rem"
           type="submit"
-          disabled={!settingsAreValid}
         >
           Update
         </Button>
