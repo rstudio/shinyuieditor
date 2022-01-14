@@ -56,7 +56,7 @@ launch_editor <- function(ui_loc, port=8888, show_logs = TRUE, run_in_background
 
     writeLog("Shutting down server...")
 
-    # s$stop()
+    # s$stop() # or httpuv::interupt() if in blocking mode
   }
 
   startup_fn <- if(run_in_background) httpuv::startServer else httpuv::runServer
@@ -88,10 +88,6 @@ launch_editor <- function(ui_loc, port=8888, show_logs = TRUE, run_in_background
   writeLog(paste("Server listening on port", port))
 
   s
-}
-
-get_post_body <- function(req){
-  rawToChar(req$rook.input$read())
 }
 
 

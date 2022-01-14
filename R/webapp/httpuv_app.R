@@ -11,22 +11,32 @@ writeLog <- function(msg){
   }
 }
 
-get_app_blob <- function(){
-  jsonlite::toJSON(get_ui_from_file(ui_loc), auto_unbox = TRUE)
-}
 
 handleGet <- function(path){
   if (path != "/app-please") stop("Only /app-please path supported for GET requests")
 
   writeLog("=> Parsing app blob and sending to client")
-  list(
-    status = 200L,
-    headers = list('Content-Type' = 'application/json'),
-    body = get_app_blob()
-  )
+
+  jsonResponse(get_ui_from_file(ui_loc))
 }
 
+validate_ui_fn_call <- function(uiName, uiArguments){
+  tryCatch({
+    generated_html <- do_call_namespaced(what = uiName, args = uiArguments)
 
+    list(
+      res="valid",
+      html = as.character(generated_html)
+    )
+  },
+  error = function(e){
+    writeLog("~ Function call errored")
+    list(
+      res="error",
+      error_msg = as.character(e)
+    )
+  })
+}
 
 handlePost <- function(path, body){
   # Remove the prefixing slash so we can switch on path easier
@@ -49,25 +59,14 @@ handlePost <- function(path, body){
     },
     ValidateArgs = {
       writeLog("~ Calling ui function with supplied arguments")
-      fn_res <- tryCatch({
-        as.character(do_call_namespaced(what = parsed_body$uiName, args = parsed_body$uiArguments))
-      },
-      error = function(e){
-        writeLog("~ Function call errored")
-        as.character(e)
-      })
-
-      list(
-        status = 200L,
-        headers = list('Content-Type' = 'text/html'),
-        body = fn_res
-      )
+      jsonResponse(validate_ui_fn_call(parsed_body$uiName, parsed_body$uiArguments))
     },
     stop("Unsupported POST path")
   )
 
 
   # writeLog("Shutting down server...")
+
 
 }
 
