@@ -20,19 +20,24 @@ handleGet <- function(path){
   jsonResponse(get_ui_from_file(ui_loc))
 }
 
+
 validate_ui_fn_call <- function(uiName, uiArguments){
+  # return( list(
+  #   type="error",
+  #   error_msg = 'That was not a good attempt...'
+  # ))
   tryCatch({
     generated_html <- do_call_namespaced(what = uiName, args = uiArguments)
 
     list(
-      res="valid",
+      type="valid",
       html = as.character(generated_html)
     )
   },
   error = function(e){
     writeLog("~ Function call errored")
     list(
-      res="error",
+      type="error",
       error_msg = as.character(e)
     )
   })

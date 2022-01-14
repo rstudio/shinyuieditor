@@ -38,7 +38,22 @@ function UiComponent<UiName extends ShinyUiNames>({
   return <Comp {...settings} />;
 }
 
-function checkIfArgumentsValid(state: ShinyUiNameAndArguments) {
+type ValidateArgsResponse =
+  | {
+      type: "valid";
+      html: string;
+    }
+  | { type: "error"; error_msg: string };
+
+function checkIfArgumentsValid({
+  state,
+  onValid,
+  onError,
+}: {
+  state: ShinyUiNameAndArguments;
+  onValid: (x?: string) => void;
+  onError: (x: string) => void;
+}) {
   const stateBlob = new Blob([JSON.stringify(state, null, 2)], {
     type: "application/json",
   });
@@ -49,12 +64,19 @@ function checkIfArgumentsValid(state: ShinyUiNameAndArguments) {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      return response.text();
+      return response.json();
     })
     .then(function (response) {
-      console.log("Response after sending state blob", response);
+      const r = response as ValidateArgsResponse;
+      if (r.type === "valid") {
+        onValid();
+      }
+      if (r.type === "error") {
+        onError(r.error_msg);
+      }
     });
 }
+
 function UiSettingsComponent<UiName extends ShinyUiNames>({
   uiName,
   settings,
@@ -62,6 +84,7 @@ function UiSettingsComponent<UiName extends ShinyUiNames>({
 }: UiArgumentsCompByName<UiName>) {
   const [currentSettings, setCurrentSettings] = React.useState(settings);
   const [settingsAreValid, setSettingsAreValid] = React.useState(true);
+  const [errorMsg, setErrorMsg] = React.useState<string | null>(null);
 
   return (
     <div css={{ padding: "1rem" }}>
@@ -69,8 +92,11 @@ function UiSettingsComponent<UiName extends ShinyUiNames>({
         onSubmit={(e) => {
           e.preventDefault();
           // Check if valid
-          checkIfArgumentsValid({ uiName, uiArguments: currentSettings });
-          onChange(currentSettings, true);
+          checkIfArgumentsValid({
+            state: { uiName, uiArguments: currentSettings },
+            onValid: () => onChange(currentSettings, true),
+            onError: setErrorMsg,
+          });
         }}
       >
         <SettingsInputsForUi
@@ -81,6 +107,12 @@ function UiSettingsComponent<UiName extends ShinyUiNames>({
             setSettingsAreValid(isValid);
           }}
         />
+        {errorMsg ? (
+          <div>
+            Input settings are not valid. The following errors were received:
+            <ErrorMsg>{errorMsg}</ErrorMsg>
+          </div>
+        ) : null}
         <Button
           variant="main"
           leftIcon={<BiCheck />}
@@ -188,4 +220,7 @@ const actionButtonStyles = css({
   opacity: 0.5,
 });
 
+const ErrorMsg = styled.pre({
+  color: "orangered",
+});
 export default UiPanel;
