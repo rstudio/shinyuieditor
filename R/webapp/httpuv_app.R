@@ -36,6 +36,8 @@ validate_ui_fn_call <- function(uiName, uiArguments){
   },
   error = function(e){
     writeLog("~ Function call errored")
+    lobstr::tree(list(uiName, uiArguments))
+    lobstr::tree(e)
     list(
       type="error",
       error_msg = as.character(e)
