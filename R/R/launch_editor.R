@@ -56,7 +56,7 @@ launch_editor <- function(ui_loc, port=8888, show_logs = TRUE, run_in_background
 
     writeLog("Shutting down server...")
 
-    s$stop()
+    # s$stop()
   }
 
   startup_fn <- if(run_in_background) httpuv::startServer else httpuv::runServer
