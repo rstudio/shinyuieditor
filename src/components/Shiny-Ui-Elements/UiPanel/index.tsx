@@ -1,25 +1,13 @@
 import { IconButton } from "@chakra-ui/button";
-import {
-  Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverCloseButton,
-  PopoverContent,
-  PopoverHeader,
-  PopoverTrigger,
-} from "@chakra-ui/popover";
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import type {
   ShinyUiArgumentsByName,
   ShinyUiNames,
 } from "components/Shiny-Ui-Elements/Elements/componentTypes";
 import * as React from "react";
-import {
-  FiSettings as SettingsIcon,
-  FiTrash as TrashIcon,
-} from "react-icons/fi";
+import { FiTrash as TrashIcon } from "react-icons/fi";
 import { makeBoxShadow } from "utils/css-helpers";
+import { SettingsPopover } from "../../SettingsPopover";
 import { UiComponent } from "./UiComponent";
 import { UiSettingsComponent } from "./UiSettingsComponent";
 
@@ -55,44 +43,25 @@ export function UiPanel<ElName extends ShinyUiNames>({
         size="sm"
         variant="ghost"
         icon={<TrashIcon />}
-        style={{ left: 0 }}
-        css={actionButtonStyles}
+        style={{ left: 0, position: "absolute", top: 0, opacity: 0.5 }}
         onClick={onDelete}
       />
-      <Popover
+      <SettingsPopover
+        name={name}
         isOpen={isOpen}
         onClose={closePopover}
         onOpen={openPopover}
-        closeOnBlur={true}
       >
-        <PopoverTrigger>
-          <IconButton
-            size="sm"
-            variant="ghost"
-            aria-label="Open settings dialog"
-            icon={<SettingsIcon />}
-            style={{ right: 0 }}
-            css={actionButtonStyles}
-          />
-        </PopoverTrigger>
-        <PopoverContent aria-label={`Settings for ${name}`}>
-          <PopoverArrow />
-          <PopoverCloseButton />
-          <PopoverHeader>
-            <code>{name}</code> settings
-          </PopoverHeader>
-          <PopoverBody>
-            <UiSettingsComponent
-              uiName={name}
-              settings={settings}
-              onChange={(newSettings) => {
-                onUpdate?.(newSettings);
-                closePopover();
-              }}
-            />
-          </PopoverBody>
-        </PopoverContent>
-      </Popover>
+        <UiSettingsComponent
+          uiName={name}
+          settings={settings}
+          onChange={(newSettings) => {
+            onUpdate?.(newSettings);
+            closePopover();
+          }}
+        />
+      </SettingsPopover>
+
       {elementHTML ? (
         <div>Here's the actually generated element from R</div>
       ) : (
@@ -114,11 +83,5 @@ export const UiPanelHolder = styled.div(({ area }: { area?: string }) => ({
   backgroundColor: "var(--rstudio-white, forestgreen)",
   boxShadow: makeBoxShadow({ height: 0.2 }),
 }));
-
-export const actionButtonStyles = css({
-  position: "absolute",
-  top: 0,
-  opacity: 0.5,
-});
 
 export default UiPanel;
