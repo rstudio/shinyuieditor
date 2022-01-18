@@ -46,9 +46,10 @@ const backupState: InitialState = {
       uiName: "shiny::sliderInput",
       uiArguments: {
         inputId: "numBins",
-        min: "5",
-        max: "10",
-        value: "7",
+        label: "Number of Bins",
+        min: 5,
+        max: 10,
+        value: 7,
       },
     },
     footer: {

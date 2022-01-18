@@ -27,11 +27,17 @@ export const uiComponentAndSettings: ShinyUiComponentAndArguments = {
 export const defaultSettingsForElements: ShinyUiNameAndArguments[] = [
   {
     uiName: "shiny::plotOutput",
-    uiArguments: { name: "My Chosen Plot" },
+    uiArguments: { outputId: "plot" },
   },
   {
     uiName: "shiny::sliderInput",
-    uiArguments: { min: 0, val: 5, max: 10 },
+    uiArguments: {
+      inputId: "slider",
+      label: "Slider",
+      min: 0,
+      value: 5,
+      max: 10,
+    },
   },
   {
     uiName: "gridlayout::title_panel",

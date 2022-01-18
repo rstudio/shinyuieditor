@@ -35,7 +35,7 @@ describe("GridApp fills with proper elements", () => {
           },
           settings: {
             uiName: "shiny::sliderInput",
-            uiArguments: { inputId: "My slider!" },
+            uiArguments: { inputId: "mySlider", label: "My Slider!" },
           },
           plot: {
             uiName: "shiny::plotOutput",
@@ -99,7 +99,8 @@ describe("Errors properly", () => {
             settings: {
               uiName: "shiny::sliderInput",
               uiArguments: {
-                name: "My slider!",
+                inputId: "mySlider",
+                label: "My slider!",
                 min: 100,
                 max: 40,
                 value: 50,
