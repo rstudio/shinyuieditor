@@ -1,7 +1,7 @@
 import type { ValueOf } from "utils/type-helpers";
-import type { GridlayoutTitlePanelProps } from "./GridlayoutTitlePanel";
-import type { ShinyPlotOutputProps } from "../Shiny-Ui-Elements/ShinyPlotOutput";
-import type { ShinySliderInputProps } from "../Shiny-Ui-Elements/ShinySliderInput";
+import { GridlayoutTitlePanelProps } from "./GridlayoutTitlePanel";
+import { ShinyPlotOutputProps } from "./ShinyPlotOutput";
+import { ShinySliderInputProps } from "./ShinySliderInput/arguments";
 
 /**
  * All possible props/arguments for the defined UI components
@@ -76,7 +76,7 @@ export type ShinyUiArgumentsUpdate<Args extends ShinyUiArguments> = (
  */
 export type ShinyUiComponentAndArguments = {
   [Name in keyof ShinyUiArgumentsByName]: {
-    UiComponent: ShinyUiComponent<ShinyUiArgumentsByName[Name]>;
+    UiComponent: ShinyUiComponent[Name];
     SettingsComponent: ShinyUiArgumentsFields<ShinyUiArgumentsByName[Name]>;
   };
 };
