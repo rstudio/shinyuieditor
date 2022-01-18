@@ -1,11 +1,9 @@
-import { IconButton } from "@chakra-ui/button";
 import styled from "@emotion/styled";
 import type {
   ShinyUiArgumentsByName,
   ShinyUiNames,
 } from "components/Shiny-Ui-Elements/Elements/componentTypes";
 import * as React from "react";
-import { FiTrash as TrashIcon } from "react-icons/fi";
 import { makeBoxShadow } from "utils/css-helpers";
 import { SettingsPopover } from "../../SettingsPopover";
 import { UiComponent } from "./UiComponent";
@@ -26,9 +24,6 @@ export function UiPanel<ElName extends ShinyUiNames>({
   onDelete?: () => void;
 }) {
   const [isOpen, setIsOpen] = React.useState(false);
-  const openPopover = () => setIsOpen(!isOpen);
-  const closePopover = () => setIsOpen(false);
-
   const [elementHTML, setElementHTML] = React.useState<string | null>(null);
   const { uiName: name, uiArguments: settings } = componentDefinition;
 
@@ -38,26 +33,18 @@ export function UiPanel<ElName extends ShinyUiNames>({
       className="ui-panel-holder"
       area={area}
     >
-      <IconButton
-        aria-label="Delete panel"
-        size="sm"
-        variant="ghost"
-        icon={<TrashIcon />}
-        style={{ left: 0, position: "absolute", top: 0, opacity: 0.5 }}
-        onClick={onDelete}
-      />
       <SettingsPopover
         name={name}
         isOpen={isOpen}
-        onClose={closePopover}
-        onOpen={openPopover}
+        setIsOpen={setIsOpen}
+        onDelete={onDelete}
       >
         <UiSettingsComponent
           uiName={name}
           settings={settings}
           onChange={(newSettings) => {
             onUpdate?.(newSettings);
-            closePopover();
+            setIsOpen(false);
           }}
         />
       </SettingsPopover>
