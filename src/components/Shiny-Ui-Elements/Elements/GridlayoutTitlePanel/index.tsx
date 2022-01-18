@@ -8,7 +8,7 @@ export interface GridlayoutTitlePanelProps {
   area?: string;
 }
 
-const GridlayoutTitlePanel: ShinyUiComponent<GridlayoutTitlePanelProps> = ({
+const GridlayoutTitlePanel: ShinyUiComponent["gridlayout::title_panel"] = ({
   title = "Default app title",
 }: GridlayoutTitlePanelProps) => {
   return (

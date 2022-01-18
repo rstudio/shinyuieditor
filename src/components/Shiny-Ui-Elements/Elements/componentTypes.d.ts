@@ -39,9 +39,9 @@ export type ShinyUiNameAndArguments = ValueOf<{
  * Format of a React component designating a Shiny-Ui element with a given
  * set of input props.
  */
-export type ShinyUiComponent<Props extends ShinyUiArguments> = (
-  p: Props
-) => JSX.Element;
+export type ShinyUiComponent = {
+  [UiName in ShinyUiNames]: (p: ShinyUiArgumentsByName[UiName]) => JSX.Element;
+};
 
 /**
  * Interface for the settings panels for a given UI component. UiName is used to

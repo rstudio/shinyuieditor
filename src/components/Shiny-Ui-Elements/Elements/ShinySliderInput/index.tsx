@@ -4,7 +4,7 @@ import * as React from "react";
 import { makeBoxShadow } from "utils/css-helpers";
 import { buildSliderSettings, ShinySliderInputProps } from "./arguments";
 
-const ShinySliderInput: ShinyUiComponent<ShinySliderInputProps> = (
+const ShinySliderInput: ShinyUiComponent["shiny::sliderInput"] = (
   props: ShinySliderInputProps
 ) => {
   const width = "200px";

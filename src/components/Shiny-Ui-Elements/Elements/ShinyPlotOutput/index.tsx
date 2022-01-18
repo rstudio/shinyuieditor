@@ -10,7 +10,7 @@ export type ShinyPlotOutputProps = Partial<{
   height: string;
 }>;
 
-const ShinyPlotOutput: ShinyUiComponent<ShinyPlotOutputProps> = ({
+const ShinyPlotOutput: ShinyUiComponent["shiny::plotOutput"] = ({
   outputId = "shiny-plot-output",
   width = "100%",
   height = "100%",
