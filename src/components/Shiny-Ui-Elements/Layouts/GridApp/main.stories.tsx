@@ -35,11 +35,11 @@ Primary.args = {
     },
     settings: {
       uiName: "shiny::sliderInput",
-      uiArguments: { name: "My slider!", height: "100%", width: "100%" },
+      uiArguments: { inputId: "mySlider", label: "My slider!" },
     },
     plot: {
       uiName: "shiny::plotOutput",
-      uiArguments: { name: "My Plot!" },
+      uiArguments: { outputId: "MyPlot" },
     },
   },
 };

@@ -45,7 +45,7 @@ Slider.args = {
     uiArguments: {
       min: 0,
       max: 10,
-      val: 5,
+      value: 5,
     },
   },
 };
