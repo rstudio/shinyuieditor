@@ -1,0 +1,23 @@
+.container {
+  outline: 1px solid salmon;
+  margin: 1rem;
+  width: 70%;
+  height: 70%;
+  min-width: 100px;
+  min-height: 100px;
+  display: flex;
+  justify-content: var(--horizontalAlign);
+  align-items: var(--verticalAlign);
+  background-color: rgba(34, 139, 34, 0.228);
+  position: relative;
+}
+
+.container > * {
+  outline: 1px solid grey;
+}
+
+.pathLabel {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
