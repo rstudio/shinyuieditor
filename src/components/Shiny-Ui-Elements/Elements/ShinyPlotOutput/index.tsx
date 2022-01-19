@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { ShinyUiComponent } from "components/Shiny-Ui-Elements/Elements/componentTypes";
 import * as React from "react";
 import { GoGraph } from "react-icons/go";
 import { makeBoxShadow } from "utils/css-helpers";
@@ -10,11 +9,11 @@ export type ShinyPlotOutputProps = Partial<{
   height: string;
 }>;
 
-const ShinyPlotOutput: ShinyUiComponent["shiny::plotOutput"] = ({
+function ShinyPlotOutput({
   outputId = "shiny-plot-output",
   width = "100%",
   height = "100%",
-}: ShinyPlotOutputProps) => {
+}: ShinyPlotOutputProps) {
   const holderRef = React.useRef<HTMLDivElement>(null);
 
   // Start tiny so icon isn't the reason the container is big
@@ -54,7 +53,7 @@ const ShinyPlotOutput: ShinyUiComponent["shiny::plotOutput"] = ({
       </div>
     </PlotHolder>
   );
-};
+}
 
 const PlotHolder = styled.div({
   outline: "1px solid var(--rstudio-grey)",

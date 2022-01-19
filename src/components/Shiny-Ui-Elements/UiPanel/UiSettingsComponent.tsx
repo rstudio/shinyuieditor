@@ -1,20 +1,25 @@
 import { Button } from "@chakra-ui/react";
 import {
-  ShinyUiNames,
-  UiArgumentsCompByName,
+  ShinyUiNameAndArguments,
+  UiSettingsComponentProps,
 } from "components/Shiny-Ui-Elements/Elements/componentTypes";
 import * as React from "react";
 import { BiCheck } from "react-icons/bi";
 import { SettingsInputsForUi } from "../UiSettings/SettingsInputsForUi";
 import { checkIfArgumentsValid } from "./checkIfArgumentsValid";
 
-export function UiSettingsComponent<UiName extends ShinyUiNames>({
+export function UiSettingsComponent({
   uiName,
-  settings,
+  uiArguments,
   onChange,
-}: UiArgumentsCompByName<UiName>) {
-  const [currentSettings, setCurrentSettings] = React.useState(settings);
+}: UiSettingsComponentProps) {
+  const [currentSettings, setCurrentSettings] = React.useState(uiArguments);
   const [errorMsg, setErrorMsg] = React.useState<string | null>(null);
+
+  const currentState = {
+    uiName,
+    uiArguments: currentSettings,
+  } as ShinyUiNameAndArguments;
 
   return (
     <div css={{ padding: "1rem" }}>
@@ -23,8 +28,8 @@ export function UiSettingsComponent<UiName extends ShinyUiNames>({
           e.preventDefault();
           // Check if valid
           checkIfArgumentsValid({
-            state: { uiName, uiArguments: currentSettings },
-            onValid: () => onChange(currentSettings),
+            state: currentState,
+            onValid: () => onChange(currentState.uiArguments),
             onError: setErrorMsg,
           });
         }}

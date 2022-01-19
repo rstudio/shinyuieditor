@@ -1,4 +1,3 @@
-import type { ValueOf } from "utils/type-helpers";
 import { GridlayoutTitlePanelProps } from "./GridlayoutTitlePanel";
 import { ShinyPlotOutputProps } from "./ShinyPlotOutput";
 import { ShinySliderInputProps } from "./ShinySliderInput/arguments";
@@ -28,55 +27,39 @@ export type ShinyUiArguments = ShinyUiArgumentsByName[ShinyUiNames];
 /**
  * Union of Ui element name and associated arguments for easy narrowing
  */
-export type ShinyUiNameAndArguments = ValueOf<{
-  [Name in keyof ShinyUiArgumentsByName]: {
-    uiName: Name;
-    uiArguments: ShinyUiArgumentsByName[Name];
+export type ShinyUiNameAndArguments = {
+  [UiName in ShinyUiNames]: {
+    uiName: UiName;
+    uiArguments: ShinyUiArgumentsByName[UiName];
   };
-}>;
+}[ShinyUiNames];
 
-/**
- * Format of a React component designating a Shiny-Ui element with a given
- * set of input props.
- */
-export type ShinyUiComponent = {
-  [UiName in ShinyUiNames]: (p: ShinyUiArgumentsByName[UiName]) => JSX.Element;
+export type UiSettingsComponentProps = {
+  [UiName in ShinyUiNames]: {
+    uiName: UiName;
+    uiArguments: ShinyUiArgumentsByName[UiName];
+    // Using object type here because I can't get narrowing to work properly inside UiSettingsComponent()
+    onChange: (newSettings: object) => void;
+  };
+}[ShinyUiNames];
+
+export type SettingsUpdateComponentProps<T extends object> = {
+  settings: T;
+  onChange: (newSettings: T) => void;
 };
+
+export type SettingsUpdateComponent<T extends object> = (
+  p: SettingsUpdateComponentProps<T>
+) => JSX.Element;
 
 /**
  * Interface for the settings panels for a given UI component. UiName is used to
  * map to the correct component for the given ui element
  */
-export type UiArgumentsCompByName<UiName extends ShinyUiNames> = {
-  uiName: UiName;
-  settings: ShinyUiArgumentsByName[UiName];
-  onChange: ShinyUiArgumentsUpdate<ShinyUiArgumentsByName[UiName]>;
-};
-
-/**
- * Component containing a series of inputs to control arguments for a Shiny UI function.
- * This is not wrapped in a form element and thus can be embedded in other forms.
- */
-export type ShinyUiArgumentsFields<Args extends ShinyUiArguments> = (p: {
-  currentSettings: Args;
-  onChange: ShinyUiArgumentsUpdate<Args>;
-}) => JSX.Element;
-
-/**
- * Update function for a given elements settings.
- * isValid tells injestor if the settings are good to go or need updating before
- * they should be accepted
- */
-export type ShinyUiArgumentsUpdate<Args extends ShinyUiArguments> = (
-  newSettings: Args
-) => void;
-
-/**
- * Payload describing the two main components needed for working with a UI element
- */
-export type ShinyUiComponentAndArguments = {
-  [Name in keyof ShinyUiArgumentsByName]: {
-    UiComponent: ShinyUiComponent[Name];
-    SettingsComponent: ShinyUiArgumentsFields<ShinyUiArgumentsByName[Name]>;
+export type UiArgumentsCompByName = {
+  [UiName in ShinyUiNames]: SettingsUpdateComponentProps<
+    ShinyUiArgumentsByName[UiName]
+  > & {
+    uiName: UiName;
   };
 };

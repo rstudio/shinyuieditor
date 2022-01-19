@@ -40,7 +40,7 @@ export const Slider = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Slider.args = {
   area: uniqueAreas[0],
-  componentDefinition: {
+  uiDef: {
     uiName: "shiny::sliderInput",
     uiArguments: {
       min: 0,

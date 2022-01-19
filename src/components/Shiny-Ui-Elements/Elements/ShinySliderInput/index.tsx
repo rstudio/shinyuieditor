@@ -1,12 +1,9 @@
 import styled from "@emotion/styled";
-import { ShinyUiComponent } from "components/Shiny-Ui-Elements/Elements/componentTypes";
 import * as React from "react";
 import { makeBoxShadow } from "utils/css-helpers";
 import { buildSliderSettings, ShinySliderInputProps } from "./arguments";
 
-const ShinySliderInput: ShinyUiComponent["shiny::sliderInput"] = (
-  props: ShinySliderInputProps
-) => {
+function ShinySliderInput(props: ShinySliderInputProps) {
   const width = "200px";
   const height = "auto";
   const settings = buildSliderSettings({ ...props });
@@ -37,7 +34,7 @@ const ShinySliderInput: ShinyUiComponent["shiny::sliderInput"] = (
       </div>
     </SliderHolder>
   );
-};
+}
 
 export default ShinySliderInput;
 

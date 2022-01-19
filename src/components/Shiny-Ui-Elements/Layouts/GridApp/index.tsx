@@ -146,7 +146,7 @@ export default function GridApp({
     <UiPanel
       key={area}
       area={area}
-      componentDefinition={allPanels[area]}
+      uiDef={allPanels[area]}
       onUpdate={(newProps) => updatePanel(area, newProps)}
       onDelete={() => deletePanel(area)}
     />
