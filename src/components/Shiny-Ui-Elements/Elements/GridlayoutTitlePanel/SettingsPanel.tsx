@@ -2,17 +2,18 @@ import { FormControl } from "@chakra-ui/form-control";
 import { TextInput } from "components/Inputs/TextInput";
 import * as React from "react";
 import { GridlayoutTitlePanelProps } from ".";
-import { ShinyUiArgumentsFields } from "../componentTypes";
+import { SettingsUpdateComponentProps } from "../componentTypes";
 
-export const GridlayoutTitlePanelSettings: ShinyUiArgumentsFields<
-  GridlayoutTitlePanelProps
-> = ({ currentSettings, onChange }) => {
+export const GridlayoutTitlePanelSettings = ({
+  settings,
+  onChange,
+}: SettingsUpdateComponentProps<GridlayoutTitlePanelProps>) => {
   return (
     <FormControl id="shiny::sliderInput-settings">
       <TextInput
         label="App title"
-        value={currentSettings.title ?? "UndefinedAppTitle"}
-        onChange={(title) => onChange({ ...currentSettings, title })}
+        value={settings.title ?? "UndefinedAppTitle"}
+        onChange={(title) => onChange({ ...settings, title })}
       />
     </FormControl>
   );

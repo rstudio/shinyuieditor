@@ -1,20 +1,19 @@
+import { TextInput } from "components/Inputs/TextInput";
+import { SettingsUpdateComponentProps } from "components/Shiny-Ui-Elements/Elements/componentTypes";
 import * as React from "react";
 import { ShinyPlotOutputProps } from ".";
-import { ShinyUiArgumentsFields } from "components/Shiny-Ui-Elements/Elements/componentTypes";
-import { TextInput } from "components/Inputs/TextInput";
 
-export const ShinyPlotOutputSettings: ShinyUiArgumentsFields<
-  ShinyPlotOutputProps
-> = ({ currentSettings, onChange }) => {
-  const { outputId } = currentSettings;
+export const ShinyPlotOutputSettings = ({
+  settings,
+  onChange,
+}: SettingsUpdateComponentProps<ShinyPlotOutputProps>) => {
+  const { outputId } = settings;
 
   return (
     <TextInput
       label="outputId"
       value={outputId ?? "defaultPlotOutput"}
-      onChange={(newName) =>
-        onChange({ ...currentSettings, outputId: newName })
-      }
+      onChange={(newName) => onChange({ ...settings, outputId: newName })}
     />
   );
 };

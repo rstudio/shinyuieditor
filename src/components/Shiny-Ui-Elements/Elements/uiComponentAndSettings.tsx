@@ -1,7 +1,4 @@
-import {
-  ShinyUiComponentAndArguments,
-  ShinyUiNameAndArguments,
-} from "components/Shiny-Ui-Elements/Elements/componentTypes";
+import { ShinyUiNameAndArguments } from "components/Shiny-Ui-Elements/Elements/componentTypes";
 import GridlayoutTitlePanel from "components/Shiny-Ui-Elements/Elements/GridlayoutTitlePanel";
 import { GridlayoutTitlePanelSettings } from "components/Shiny-Ui-Elements/Elements/GridlayoutTitlePanel/SettingsPanel";
 import ShinyPlotOutput from "./ShinyPlotOutput";
@@ -9,7 +6,7 @@ import { ShinyPlotOutputSettings } from "./ShinyPlotOutput/SettingsPanel";
 import ShinySliderInput from "./ShinySliderInput";
 import { ShinySliderInputSettings } from "./ShinySliderInput/SettingsPanel";
 
-export const uiComponentAndSettings: ShinyUiComponentAndArguments = {
+export const uiComponentAndSettings = {
   "shiny::plotOutput": {
     UiComponent: ShinyPlotOutput,
     SettingsComponent: ShinyPlotOutputSettings,

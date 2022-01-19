@@ -1,16 +1,15 @@
 import styled from "@emotion/styled";
 import * as React from "react";
 import { makeBoxShadow } from "utils/css-helpers";
-import { ShinyUiComponent } from "../componentTypes";
 
 export interface GridlayoutTitlePanelProps {
   title: string;
   area?: string;
 }
 
-const GridlayoutTitlePanel: ShinyUiComponent<GridlayoutTitlePanelProps> = ({
+function GridlayoutTitlePanel({
   title = "Default app title",
-}: GridlayoutTitlePanelProps) => {
+}: GridlayoutTitlePanelProps) {
   return (
     <TitlePanel
       className={"gridlayout-titlePanel"}
@@ -19,7 +18,7 @@ const GridlayoutTitlePanel: ShinyUiComponent<GridlayoutTitlePanelProps> = ({
       <h1>{title}</h1>
     </TitlePanel>
   );
-};
+}
 
 const TitlePanel = styled.div({
   outline: "1px solid var(--rstudio-grey)",
