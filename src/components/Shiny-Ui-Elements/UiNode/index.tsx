@@ -1,5 +1,10 @@
 import { ShinyUiNameAndArguments } from "../Elements/componentTypes";
+import { UiElement } from "../UiElement";
 import { UiComponent } from "../UiElement/UiComponent";
+import {
+  FiSettings as SettingsIcon,
+  FiTrash as TrashIcon,
+} from "react-icons/fi";
 import classes from "./styles.module.css";
 
 type UiContainerNode = {
@@ -58,14 +63,24 @@ function UiNode({ path = [0], ...props }: NodeLocation & UiNodeProps) {
       )}
     >
       <span
-        className={classes.pathLabel}
+        className={classes.editButton}
         onClick={() => {
           console.log(
             `user has clicked on the node at position ${pathString} to make an edit`
           );
         }}
       >
-        {pathString}
+        <SettingsIcon />
+      </span>
+      <span
+        className={classes.deleteButton}
+        onClick={() => {
+          console.log(
+            `user has clicked on the node at position ${pathString} to make an edit`
+          );
+        }}
+      >
+        <TrashIcon />
       </span>
       {body}
     </div>

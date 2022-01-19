@@ -1,5 +1,5 @@
 .container {
-  outline: 1px solid salmon;
+  outline: 1px solid grey;
   margin: 1rem;
   width: 70%;
   height: 70%;
@@ -8,7 +8,6 @@
   display: flex;
   justify-content: var(--horizontalAlign);
   align-items: var(--verticalAlign);
-  background-color: rgba(34, 139, 34, 0.228);
   position: relative;
 }
 
@@ -16,8 +15,24 @@
   outline: 1px solid grey;
 }
 
-.pathLabel {
+.deleteButton {
   position: absolute;
-  left: 0;
-  top: 0;
+  left: -8px;
+  top: -8px;
+}
+
+.editButton {
+  position: absolute;
+  right: -8px;
+  top: -8px;
+}
+
+.deleteButton,
+.editButton {
+  cursor: pointer;
+  background-color: white;
+  border-radius: 6px;
+  outline: none;
+  width: 16px;
+  height: 16px;
 }

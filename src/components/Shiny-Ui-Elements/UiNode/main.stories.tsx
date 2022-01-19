@@ -18,7 +18,7 @@ Primary.args = {
   uiChildren: [
     {},
     {
-      containerSettings: { horizontalAlign: "right", verticalAlign: "bottom" },
+      containerSettings: { horizontalAlign: "right", verticalAlign: "center" },
       uiChildren: [
         {
           uiInfo: {
