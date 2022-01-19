@@ -2,22 +2,15 @@ import styled from "@emotion/styled";
 import type { ShinyUiNameAndArguments } from "components/Shiny-Ui-Elements/Elements/componentTypes";
 import * as React from "react";
 import { makeBoxShadow } from "utils/css-helpers";
-import { SettingsPopover } from "../../SettingsPopover";
-import { UiComponent } from "./UiComponent";
-import { UiSettingsComponent } from "./UiSettingsComponent";
+import { UiElement } from "../UiElement";
 
-export function UiPanel({
-  area,
-  uiDef,
-  onUpdate,
-  onDelete,
-}: {
+export function UiPanel(props: {
   area: string;
   uiDef: ShinyUiNameAndArguments;
   onUpdate?: (newProps: object) => void;
   onDelete?: () => void;
 }) {
-  const [isOpen, setIsOpen] = React.useState(false);
+  const { area, uiDef } = props;
 
   return (
     <UiPanelHolder
@@ -25,22 +18,7 @@ export function UiPanel({
       className="ui-panel-holder"
       area={area}
     >
-      <SettingsPopover
-        name={uiDef.uiName}
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        onDelete={onDelete}
-      >
-        <UiSettingsComponent
-          {...uiDef}
-          onChange={(newSettings) => {
-            onUpdate?.(newSettings);
-            setIsOpen(false);
-          }}
-        />
-      </SettingsPopover>
-
-      <UiComponent {...uiDef} />
+      <UiElement {...props} />
     </UiPanelHolder>
   );
 }

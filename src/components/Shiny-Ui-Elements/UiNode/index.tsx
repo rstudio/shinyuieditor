@@ -1,5 +1,5 @@
 import { ShinyUiNameAndArguments } from "../Elements/componentTypes";
-import { UiComponent } from "../UiPanel/UiComponent";
+import { UiComponent } from "../UiElement/UiComponent";
 import classes from "./styles.module.css";
 
 type UiContainerNode = {
