@@ -1,12 +1,22 @@
 import { Button } from "@chakra-ui/react";
 import {
+  ShinyUiArguments,
   ShinyUiNameAndArguments,
-  UiSettingsComponentProps,
+  ShinyUiNames,
 } from "components/Shiny-Ui-Elements/Elements/componentTypes";
 import * as React from "react";
 import { BiCheck } from "react-icons/bi";
 import { SettingsInputsForUi } from "../UiSettings/SettingsInputsForUi";
 import { checkIfArgumentsValid } from "./checkIfArgumentsValid";
+
+type UiSettingsComponentProps = {
+  [UiName in ShinyUiNames]: {
+    uiName: UiName;
+    uiArguments: ShinyUiArguments[UiName];
+    // Using object type here because I can't get narrowing to work properly inside UiSettingsComponent()
+    onChange: (newSettings: object) => void;
+  };
+}[ShinyUiNames];
 
 export function UiSettingsComponent({
   uiName,

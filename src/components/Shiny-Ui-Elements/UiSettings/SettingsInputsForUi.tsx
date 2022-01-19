@@ -1,20 +1,22 @@
 import React from "react";
 import {
-  SettingsUpdateComponent,
-  ShinyUiArgumentsByName,
+  SettingsUpdateComponentProps,
+  ShinyUiArguments,
   ShinyUiNames,
 } from "../Elements/componentTypes";
 import { uiComponentAndSettings } from "../Elements/uiComponentAndSettings";
 
 export function SettingsInputsForUi<UiName extends ShinyUiNames>(props: {
   uiName: UiName;
-  settings: ShinyUiArgumentsByName[UiName];
-  onChange: (newSettings: ShinyUiArgumentsByName[UiName]) => void;
+  settings: ShinyUiArguments[UiName];
+  onChange: (newSettings: ShinyUiArguments[UiName]) => void;
 }) {
+  // Convince typescript this is the correct type of prop from the object. Not
+  // sure why this is needed.
   const SettingsInputs = uiComponentAndSettings[props.uiName]
-    .SettingsComponent as SettingsUpdateComponent<
-    ShinyUiArgumentsByName[UiName]
-  >;
+    .SettingsComponent as (
+    p: SettingsUpdateComponentProps<ShinyUiArguments[UiName]>
+  ) => JSX.Element;
 
   return <SettingsInputs settings={props.settings} onChange={props.onChange} />;
 }

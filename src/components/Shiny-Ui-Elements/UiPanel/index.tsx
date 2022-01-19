@@ -1,9 +1,5 @@
 import styled from "@emotion/styled";
-import type {
-  ShinyUiArgumentsByName,
-  ShinyUiNameAndArguments,
-  ShinyUiNames,
-} from "components/Shiny-Ui-Elements/Elements/componentTypes";
+import type { ShinyUiNameAndArguments } from "components/Shiny-Ui-Elements/Elements/componentTypes";
 import * as React from "react";
 import { makeBoxShadow } from "utils/css-helpers";
 import { SettingsPopover } from "../../SettingsPopover";
