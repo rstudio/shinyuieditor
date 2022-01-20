@@ -18,6 +18,35 @@ Primary.args = {
   containerSettings: { horizontalAlign: "center", verticalAlign: "center" },
   uiChildren: [
     {
+      containerSettings: { horizontalAlign: "center", verticalAlign: "center" },
+      uiChildren: [
+        {
+          uiInfo: {
+            uiName: "shiny::sliderInput",
+            uiArguments: {
+              inputId: "mySlider",
+              label: "slider 1",
+              min: 1,
+              max: 10,
+              value: 7,
+            },
+          },
+        },
+        {
+          uiInfo: {
+            uiName: "shiny::sliderInput",
+            uiArguments: {
+              inputId: "mySlider",
+              label: "slider 2",
+              min: 1,
+              max: 10,
+              value: 7,
+            },
+          },
+        },
+      ],
+    },
+    {
       containerSettings: { horizontalAlign: "right", verticalAlign: "center" },
       uiChildren: [
         {
