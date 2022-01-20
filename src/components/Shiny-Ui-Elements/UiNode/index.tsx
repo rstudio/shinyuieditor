@@ -18,7 +18,7 @@ import { UiSettingsComponent } from "../UiElement/UiSettingsComponent";
 import { NodeUpdateContext } from "../UiTree";
 import classes from "./styles.module.css";
 
-type UiContainerNode = {
+export type UiContainerNode = {
   // Any children of this node
   uiChildren: UiNodeProps[];
 

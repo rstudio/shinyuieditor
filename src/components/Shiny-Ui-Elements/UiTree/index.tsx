@@ -22,7 +22,7 @@ export default function UiTree(uiTree: UiNodeProps) {
       updateNode: (path: NodePath, newNode: UiNodeProps) =>
         setTree((oldTree) => replaceNode({ tree: oldTree, path, newNode })),
       deleteNode: (path: NodePath) =>
-        setTree((oldTree) => removeNode(oldTree, path)),
+        setTree((oldTree) => removeNode({ tree: oldTree, path })),
     }),
     []
   );
