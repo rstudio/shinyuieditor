@@ -2,8 +2,7 @@ import React from "react";
 import { NodePath, UiNode, UiNodeProps } from "../UiNode/index";
 
 // Immutable updater functions
-import { removeNode } from "../UiNode/removeNode";
-import { replaceNode } from "../UiNode/updateNode";
+import { removeNode, replaceNode } from "../UiNode/treeManipulation";
 
 export const NodeUpdateContext = React.createContext({
   updateNode: (path: NodePath, newNode: UiNodeProps) =>
