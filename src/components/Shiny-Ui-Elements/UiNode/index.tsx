@@ -80,7 +80,7 @@ export function UiNode({ path = [], ...props }: NodeLocation & UiNodeProps) {
   return (
     <div
       id={pathString}
-      className={classes.container}
+      className={isLeafNode ? classes.leaf : classes.container}
       style={makeContainerStyles(
         "uiChildren" in props ? props.containerSettings : null
       )}
@@ -121,7 +121,10 @@ export function UiNode({ path = [], ...props }: NodeLocation & UiNodeProps) {
                 checkValid={false}
               />
             ) : (
-              <span>Container node settings</span>
+              <div>
+                <h3>Container node settings</h3>
+                <span>Current settings: {JSON.stringify(props)}</span>
+              </div>
             )}
           </PopoverBody>
         </PopoverContent>

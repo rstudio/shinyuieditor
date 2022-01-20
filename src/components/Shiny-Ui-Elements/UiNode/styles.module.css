@@ -1,13 +1,24 @@
 .container {
   outline: 1px solid grey;
-  margin: 1rem;
   width: 70%;
   height: 70%;
   min-width: 100px;
   min-height: 100px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: var(--horizontalAlign);
   align-items: var(--verticalAlign);
+}
+
+.leaf {
+  outline: 1px solid forestgreen;
+  min-width: 100px;
+  min-height: 100px;
+}
+
+.container,
+.leaf {
+  margin: 1rem;
   position: relative;
 }
 
