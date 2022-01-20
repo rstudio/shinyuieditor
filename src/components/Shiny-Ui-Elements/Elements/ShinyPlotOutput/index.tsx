@@ -11,8 +11,8 @@ export type ShinyPlotOutputProps = Partial<{
 
 function ShinyPlotOutput({
   outputId = "shiny-plot-output",
-  width = "100%",
-  height = "100%",
+  width = "300px",
+  height = "200px",
 }: ShinyPlotOutputProps) {
   const holderRef = React.useRef<HTMLDivElement>(null);
 
