@@ -1,4 +1,4 @@
-import { UiNodeProps, NodePath, isContainerNode } from "../UiNode/index";
+import { UiNodeProps, NodePath, isContainerNode } from "./index";
 
 import produce from "immer";
 
@@ -27,6 +27,7 @@ function removeNodeMutating(tree: UiNodeProps, path: NodePath) {
   currNode.uiChildren.splice(lastPath, 1);
 }
 
+// Use immer to turn our mutation into a deep copied version of the tree
 export function removeNode(tree: UiNodeProps, path: NodePath) {
   return produce(tree, (treeDraft) => removeNodeMutating(treeDraft, path));
 }

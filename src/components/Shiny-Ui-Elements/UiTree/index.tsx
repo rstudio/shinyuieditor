@@ -1,11 +1,6 @@
 import React from "react";
-import {
-  isContainerNode,
-  NodePath,
-  UiNode,
-  UiNodeProps,
-} from "../UiNode/index";
-import { removeNode } from "./removeNode";
+import { NodePath, UiNode, UiNodeProps } from "../UiNode/index";
+import { removeNode } from "../UiNode/removeNode";
 
 function buildUiPath(path: NodePath) {
   let fullPath: (string | number)[] = [];
@@ -15,20 +10,6 @@ function buildUiPath(path: NodePath) {
     fullPath.push(childIndex);
   }
   return fullPath;
-}
-
-function getNode(tree: UiNodeProps, path: NodePath): UiNodeProps {
-  let currNode: UiNodeProps = tree;
-  let currPath: number;
-  for (currPath of path) {
-    if (!isContainerNode(currNode)) {
-      throw new Error("Somehow trying to enter a leaf node");
-    }
-
-    currNode = currNode.uiChildren[currPath];
-  }
-
-  return currNode;
 }
 
 function printPath(path: NodePath) {

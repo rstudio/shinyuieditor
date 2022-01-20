@@ -5,7 +5,7 @@ import {
 } from "react-icons/fi";
 import { ShinyUiNameAndArguments } from "../Elements/componentTypes";
 import { UiComponent } from "../UiElement/UiComponent";
-import { NodeUpdateContext } from "../UiTree/NodeWrapper";
+import { NodeUpdateContext } from "../UiTree";
 import classes from "./styles.module.css";
 
 type UiContainerNode = {
