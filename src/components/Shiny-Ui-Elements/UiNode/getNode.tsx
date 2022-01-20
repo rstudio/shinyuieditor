@@ -1,6 +1,9 @@
 import { isContainerNode, NodePath, UiNodeProps } from "./index";
 
-function getNode(tree: UiNodeProps, path: NodePath): UiNodeProps {
+export default function getNode(
+  tree: UiNodeProps,
+  path: NodePath
+): UiNodeProps {
   let currNode: UiNodeProps = tree;
   let currPath: number;
   for (currPath of path) {

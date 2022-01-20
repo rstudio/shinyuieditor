@@ -1,4 +1,5 @@
 import React from "react";
+import getNode from "../UiNode/getNode";
 import { NodePath, UiNode, UiNodeProps } from "../UiNode/index";
 import { removeNode } from "../UiNode/removeNode";
 
@@ -30,20 +31,16 @@ export const NodeUpdateContext = React.createContext({
 });
 
 export default function UiTree(uiTree: UiNodeProps) {
-  console.log("Rendered UiTree");
-
   const [tree, setTree] = React.useState(uiTree);
 
   const updateNode = React.useCallback(
     (path: NodePath, newNode: UiNodeProps) => {
-      console.log("Update node internally");
+      console.log("Editing node", getNode(tree, path));
     },
-    []
+    [tree]
   );
 
   const deleteNode = React.useCallback((path: NodePath) => {
-    console.log(`Deleting node at path ${printPath(path)}`);
-
     setTree((oldTree) => removeNode(oldTree, path));
   }, []);
 
