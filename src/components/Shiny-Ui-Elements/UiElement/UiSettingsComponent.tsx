@@ -22,7 +22,8 @@ export function UiSettingsComponent({
   uiName,
   uiArguments,
   onChange,
-}: UiSettingsComponentProps) {
+  checkValid = true,
+}: UiSettingsComponentProps & { checkValid?: boolean }) {
   const [currentSettings, setCurrentSettings] = React.useState(uiArguments);
   const [errorMsg, setErrorMsg] = React.useState<string | null>(null);
 
@@ -37,11 +38,15 @@ export function UiSettingsComponent({
         onSubmit={(e) => {
           e.preventDefault();
           // Check if valid
-          checkIfArgumentsValid({
-            state: currentState,
-            onValid: () => onChange(currentState.uiArguments),
-            onError: setErrorMsg,
-          });
+          if (checkValid) {
+            checkIfArgumentsValid({
+              state: currentState,
+              onValid: () => onChange(currentState.uiArguments),
+              onError: setErrorMsg,
+            });
+          } else {
+            onChange(currentState.uiArguments);
+          }
         }}
       >
         <SettingsInputsForUi
