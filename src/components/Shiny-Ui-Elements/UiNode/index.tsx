@@ -1,10 +1,11 @@
-import { ShinyUiNameAndArguments } from "../Elements/componentTypes";
-import { UiElement } from "../UiElement";
-import { UiComponent } from "../UiElement/UiComponent";
+import React from "react";
 import {
   FiSettings as SettingsIcon,
   FiTrash as TrashIcon,
 } from "react-icons/fi";
+import { ShinyUiNameAndArguments } from "../Elements/componentTypes";
+import { UiComponent } from "../UiElement/UiComponent";
+import { NodeUpdateContext } from "../UiTree/NodeWrapper";
 import classes from "./styles.module.css";
 
 type UiContainerNode = {
@@ -25,15 +26,25 @@ type UiLeafNode = {
   uiInfo?: ShinyUiNameAndArguments;
 };
 
+// Path to a given node. Starts at [0] for the root. The first child for
+// instance would be then [0,1]
+export type NodePath = number[];
+
 type NodeLocation = {
   // Unique ID of this node (for use locating within tree)
-  path?: number[];
+  path?: NodePath;
 };
 
-type UiNodeProps = UiContainerNode | UiLeafNode;
+export type UiNodeProps = UiContainerNode | UiLeafNode;
 
-function UiNode({ path = [0], ...props }: NodeLocation & UiNodeProps) {
+export function isContainerNode(node: UiNodeProps): node is UiContainerNode {
+  return (node as UiContainerNode).uiChildren !== undefined;
+}
+
+export function UiNode({ path = [], ...props }: NodeLocation & UiNodeProps) {
   const pathString = path.join("-");
+
+  const nodeUpdaters = React.useContext(NodeUpdateContext);
 
   let body: JSX.Element;
 
@@ -65,9 +76,7 @@ function UiNode({ path = [0], ...props }: NodeLocation & UiNodeProps) {
       <span
         className={classes.editButton}
         onClick={() => {
-          console.log(
-            `user has clicked on the node at position ${pathString} to make an edit`
-          );
+          nodeUpdaters.updateNode(path, {});
         }}
       >
         <SettingsIcon />
@@ -75,9 +84,7 @@ function UiNode({ path = [0], ...props }: NodeLocation & UiNodeProps) {
       <span
         className={classes.deleteButton}
         onClick={() => {
-          console.log(
-            `user has clicked on the node at position ${pathString} to make an edit`
-          );
+          nodeUpdaters.deleteNode(path);
         }}
       >
         <TrashIcon />
