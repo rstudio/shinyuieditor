@@ -17,7 +17,6 @@ export const Primary = Template.bind({});
 Primary.args = {
   containerSettings: { horizontalAlign: "center", verticalAlign: "center" },
   uiChildren: [
-    {},
     {
       containerSettings: { horizontalAlign: "right", verticalAlign: "center" },
       uiChildren: [
@@ -35,6 +34,9 @@ Primary.args = {
             uiArguments: {
               inputId: "mySlider",
               label: "slider",
+              min: 1,
+              max: 10,
+              value: 7,
             },
           },
         },

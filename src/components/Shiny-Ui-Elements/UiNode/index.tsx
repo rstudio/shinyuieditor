@@ -1,3 +1,12 @@
+import {
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger,
+} from "@chakra-ui/react";
 import React from "react";
 import {
   FiSettings as SettingsIcon,
@@ -5,6 +14,7 @@ import {
 } from "react-icons/fi";
 import { ShinyUiNameAndArguments } from "../Elements/componentTypes";
 import { UiComponent } from "../UiElement/UiComponent";
+import { UiSettingsComponent } from "../UiElement/UiSettingsComponent";
 import { NodeUpdateContext } from "../UiTree";
 import classes from "./styles.module.css";
 
@@ -23,7 +33,7 @@ type ContainerSettings = {
 
 type UiLeafNode = {
   // Name and properties of the UI function used for this node
-  uiInfo?: ShinyUiNameAndArguments;
+  uiInfo: ShinyUiNameAndArguments;
 };
 
 // Path to a given node. Starts at [0] for the root. The first child for
@@ -42,13 +52,16 @@ export function isContainerNode(node: UiNodeProps): node is UiContainerNode {
 }
 
 export function UiNode({ path = [], ...props }: NodeLocation & UiNodeProps) {
+  const isLeafNode = !isContainerNode(props);
   const pathString = path.join("-");
 
   const nodeUpdaters = React.useContext(NodeUpdateContext);
 
+  const [isOpen, setIsOpen] = React.useState(false);
+
   let body: JSX.Element;
 
-  if ("uiChildren" in props) {
+  if (!isLeafNode) {
     body = (
       <>
         {props.uiChildren
@@ -59,8 +72,7 @@ export function UiNode({ path = [], ...props }: NodeLocation & UiNodeProps) {
       </>
     );
   } else if ("uiInfo" in props && props.uiInfo) {
-    const { uiInfo } = props;
-    body = <UiComponent {...uiInfo} />;
+    body = <UiComponent {...props.uiInfo} />;
   } else {
     body = <span> Un-defined leaf node</span>;
   }
@@ -73,14 +85,48 @@ export function UiNode({ path = [], ...props }: NodeLocation & UiNodeProps) {
         "uiChildren" in props ? props.containerSettings : null
       )}
     >
-      <span
-        className={classes.editButton}
-        onClick={() => {
-          nodeUpdaters.updateNode(path, {});
-        }}
+      <Popover
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        onOpen={() => setIsOpen(!isOpen)}
+        closeOnBlur={true}
       >
-        <SettingsIcon />
-      </span>
+        <PopoverTrigger>
+          <span className={classes.editButton}>
+            <SettingsIcon />
+          </span>
+        </PopoverTrigger>
+        <PopoverContent aria-label={`Settings panel`}>
+          <PopoverArrow />
+          <PopoverCloseButton />
+          <PopoverHeader>Settings</PopoverHeader>
+          <PopoverBody>
+            {isLeafNode && props.uiInfo ? (
+              <UiSettingsComponent
+                {...props.uiInfo}
+                onChange={(newSettings) => {
+                  console.log(
+                    `New settings for node at ${pathString}`,
+                    newSettings
+                  );
+                  const newNode = {
+                    uiName: props.uiInfo.uiName,
+                    uiArguments: newSettings,
+                  };
+                  nodeUpdaters.updateNode(path, {
+                    uiInfo: newNode,
+                  } as UiLeafNode);
+                  setIsOpen(false);
+                }}
+                checkValid={false}
+              />
+            ) : (
+              <span>Container node settings</span>
+            )}
+          </PopoverBody>
+        </PopoverContent>
+      </Popover>
+
       <span
         className={classes.deleteButton}
         onClick={() => {

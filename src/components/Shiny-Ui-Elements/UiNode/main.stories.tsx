@@ -16,7 +16,6 @@ export const Primary = Template.bind({});
 Primary.args = {
   containerSettings: { horizontalAlign: "center", verticalAlign: "center" },
   uiChildren: [
-    {},
     {
       containerSettings: { horizontalAlign: "right", verticalAlign: "center" },
       uiChildren: [

@@ -1,7 +1,7 @@
 import React from "react";
-import getNode from "../UiNode/getNode";
 import { NodePath, UiNode, UiNodeProps } from "../UiNode/index";
 import { removeNode } from "../UiNode/removeNode";
+import { replaceNode } from "../UiNode/updateNode";
 
 function buildUiPath(path: NodePath) {
   let fullPath: (string | number)[] = [];
@@ -33,11 +33,12 @@ export const NodeUpdateContext = React.createContext({
 export default function UiTree(uiTree: UiNodeProps) {
   const [tree, setTree] = React.useState(uiTree);
 
+  console.log(JSON.stringify(tree, null, 2));
   const updateNode = React.useCallback(
     (path: NodePath, newNode: UiNodeProps) => {
-      console.log("Editing node", getNode(tree, path));
+      setTree((oldTree) => replaceNode({ tree: oldTree, path, newNode }));
     },
-    [tree]
+    []
   );
 
   const deleteNode = React.useCallback((path: NodePath) => {
