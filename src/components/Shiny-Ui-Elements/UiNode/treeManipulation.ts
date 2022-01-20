@@ -9,7 +9,7 @@ import {
 /**
  * Navigate to a node in a UiTree at the provided path
  */
-export function getNode(tree: UiNodeProps, path: NodePath): UiNodeProps {
+function getNode(tree: UiNodeProps, path: NodePath): UiNodeProps {
   let currNode: UiNodeProps = tree;
   let currPath: number;
   for (currPath of path) {
@@ -27,7 +27,7 @@ export function getNode(tree: UiNodeProps, path: NodePath): UiNodeProps {
  * Get the containing node of another node by its path. Also returns the final
  * index to get to the node so it can be easily modified
  */
-export function navigateToParent(
+function navigateToParent(
   tree: UiNodeProps,
   path: NodePath
 ): { parentNode: UiContainerNode; indexToNode: number } {
