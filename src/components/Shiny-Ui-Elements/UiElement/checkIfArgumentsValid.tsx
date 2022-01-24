@@ -7,7 +7,7 @@ type ValidateArgsResponse =
     }
   | { type: "error"; error_msg: string };
 
-export function checkIfArgumentsValid({
+export async function checkIfArgumentsValid({
   state,
   onValid,
   onError,
@@ -21,20 +21,33 @@ export function checkIfArgumentsValid({
   });
   console.log("Sending arguments to server for validation", state);
 
-  fetch("ValidateArgs", { method: "POST", body: stateBlob })
-    .then(function (response) {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then(function (response) {
-      const r = response as ValidateArgsResponse;
-      if (r.type === "valid") {
-        onValid();
-      }
-      if (r.type === "error") {
-        onError(r.error_msg);
-      }
-    });
+  const validateResponse = await fetch("ValidateArgs", {
+    method: "POST",
+    body: stateBlob,
+  });
+
+  if (!validateResponse.ok) {
+    console.error(`HTTP error! status: ${validateResponse.status}`);
+    if (
+      window.confirm(
+        "Could not check with backend for settings validation. You're on your own."
+      ) === true
+    ) {
+      onValid();
+      return;
+    }
+    onError(
+      "Failed to validate settings for component. Try again or check to make sure your R session didn't crash."
+    );
+    return;
+  }
+
+  const responseBody = (await validateResponse.json()) as ValidateArgsResponse;
+
+  if (responseBody.type === "valid") {
+    onValid();
+  }
+  if (responseBody.type === "error") {
+    onError(responseBody.error_msg);
+  }
 }
