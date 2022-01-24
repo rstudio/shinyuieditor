@@ -30,6 +30,7 @@ export default function ConfigureNewUiElement({
     React.useState<ShinyUiNameAndArguments | null>(null);
   // Default to having settings be valid because we're suppliying the default
   // values and thus they will be good.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [uiSettingsAreValid, setUiSettingsAreValid] =
     React.useState<boolean>(true);
   const [warningMsg, setWarningMsg] = React.useState<string | null>(null);
