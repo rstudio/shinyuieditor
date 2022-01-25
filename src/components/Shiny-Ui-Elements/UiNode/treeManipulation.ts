@@ -1,19 +1,20 @@
 import produce from "immer";
-import {
-  isContainerNode,
-  NodePath,
-  UiContainerNode,
-  UiNodeProps,
-} from "./index";
+import { NodePath, UiContainerNode, UiNodeProps } from "./index";
+
+export function checkIfContainerNode(
+  node: UiNodeProps
+): node is UiContainerNode {
+  return (node as UiContainerNode).uiChildren !== undefined;
+}
 
 /**
  * Navigate to a node in a UiTree at the provided path
  */
-function getNode(tree: UiNodeProps, path: NodePath): UiNodeProps {
+export function getNode(tree: UiNodeProps, path: NodePath): UiNodeProps {
   let currNode: UiNodeProps = tree;
   let currPath: number;
   for (currPath of path) {
-    if (!isContainerNode(currNode)) {
+    if (!checkIfContainerNode(currNode)) {
       throw new Error("Somehow trying to enter a leaf node");
     }
 
@@ -38,7 +39,7 @@ function navigateToParent(
 
   const parentNode = getNode(tree, pathCopy);
 
-  if (!isContainerNode(parentNode)) {
+  if (!checkIfContainerNode(parentNode)) {
     throw new Error("Somehow trying to enter a leaf node");
   }
 
@@ -84,5 +85,32 @@ export function replaceNode({
 
     // Update requested child
     parentNode.uiChildren[indexToNode] = newNode;
+  });
+}
+
+/**
+ * Immutably add a node in a container node of the UiTree
+ *
+ * Note that this freezes the parent tree.
+ */
+export function addNode({
+  tree,
+  path,
+  newNode,
+}: {
+  tree: UiNodeProps;
+  path: NodePath;
+  newNode: UiNodeProps;
+}) {
+  return produce(tree, (treeDraft) => {
+    const parentNode = getNode(treeDraft, path);
+    if (!checkIfContainerNode(parentNode)) {
+      throw new Error(
+        "Can't add a child to a non-container node. Check the path"
+      );
+    }
+
+    // Add the new child
+    parentNode.uiChildren.push(newNode);
   });
 }

@@ -17,6 +17,7 @@ import { UiComponent } from "../UiElement/UiComponent";
 import { UiSettingsComponent } from "../UiElement/UiSettingsComponent";
 import { NodeUpdateContext } from "../UiTree";
 import classes from "./styles.module.css";
+import { checkIfContainerNode } from "./treeManipulation";
 
 export type UiContainerNode = {
   // Any children of this node
@@ -31,7 +32,7 @@ type ContainerSettings = {
   verticalAlign: "top" | "center" | "bottom";
 };
 
-type UiLeafNode = {
+export type UiLeafNode = {
   // Name and properties of the UI function used for this node
   uiInfo: ShinyUiNameAndArguments;
 };
@@ -47,10 +48,6 @@ type NodeLocation = {
 
 export type UiNodeProps = UiContainerNode | UiLeafNode;
 
-export function isContainerNode(node: UiNodeProps): node is UiContainerNode {
-  return (node as UiContainerNode).uiChildren !== undefined;
-}
-
 function highlightDropability(e: React.DragEvent<HTMLDivElement>) {
   if (e.currentTarget === e.target) {
     e.currentTarget.classList.add(classes.canDrop);
@@ -62,7 +59,8 @@ function removeHighlight(e: React.DragEvent<HTMLDivElement>) {
 }
 
 export function UiNode({ path = [], ...props }: NodeLocation & UiNodeProps) {
-  const isLeafNode = !isContainerNode(props);
+  const isContainerNode = checkIfContainerNode(props);
+  const isLeafNode = !isContainerNode;
   const pathString = path.join("-");
 
   const nodeUpdaters = React.useContext(NodeUpdateContext);
@@ -94,22 +92,33 @@ export function UiNode({ path = [], ...props }: NodeLocation & UiNodeProps) {
       style={makeContainerStyles(
         "uiChildren" in props ? props.containerSettings : null
       )}
-      onDragOver={(e) => {
-        e.preventDefault();
-        if (isLeafNode) return;
-
-        highlightDropability(e);
-      }}
-      onDragLeave={(e) => {
-        e.preventDefault();
-        if (isLeafNode) return;
-        removeHighlight(e);
-      }}
-      onDrop={(e) => {
-        const droppedUi = e.dataTransfer.getData("element-type");
-        console.log(`Element of the type ${droppedUi} was dropped`);
-        removeHighlight(e);
-      }}
+      onDragOver={
+        isContainerNode
+          ? (e) => {
+              e.preventDefault();
+              // Update styles to indicate the user can drop item here
+              highlightDropability(e);
+            }
+          : undefined
+      }
+      onDragLeave={
+        isContainerNode
+          ? (e) => {
+              e.preventDefault();
+              removeHighlight(e);
+            }
+          : undefined
+      }
+      onDrop={
+        isContainerNode
+          ? (e) => {
+              // Get the type of dropped element and act on it
+              const droppedUi = e.dataTransfer.getData("element-type");
+              console.log(`Element of the type ${droppedUi} was dropped`);
+              removeHighlight(e);
+            }
+          : undefined
+      }
     >
       <Popover
         isOpen={isOpen}
