@@ -18,6 +18,7 @@ import { UiSettingsComponent } from "../UiElement/UiSettingsComponent";
 import { NodeUpdateContext } from "../UiTree";
 import classes from "./styles.module.css";
 import { checkIfContainerNode } from "./treeManipulation";
+import { useDragAndDropElements } from "./useDragAndDropElements";
 
 export type UiContainerNode = {
   // Any children of this node
@@ -48,22 +49,13 @@ type NodeLocation = {
 
 export type UiNodeProps = UiContainerNode | UiLeafNode;
 
-function highlightDropability(e: React.DragEvent<HTMLDivElement>) {
-  if (e.currentTarget === e.target) {
-    e.currentTarget.classList.add(classes.canDrop);
-  }
-}
-
-function removeHighlight(e: React.DragEvent<HTMLDivElement>) {
-  e.currentTarget.classList.remove(classes.canDrop);
-}
-
 export function UiNode({ path = [], ...props }: NodeLocation & UiNodeProps) {
   const isContainerNode = checkIfContainerNode(props);
   const isLeafNode = !isContainerNode;
   const pathString = path.join("-");
 
   const nodeUpdaters = React.useContext(NodeUpdateContext);
+  const dragAndDropCallbacks = useDragAndDropElements(path, isLeafNode);
 
   const [isOpen, setIsOpen] = React.useState(false);
 
@@ -92,33 +84,7 @@ export function UiNode({ path = [], ...props }: NodeLocation & UiNodeProps) {
       style={makeContainerStyles(
         "uiChildren" in props ? props.containerSettings : null
       )}
-      onDragOver={
-        isContainerNode
-          ? (e) => {
-              e.preventDefault();
-              // Update styles to indicate the user can drop item here
-              highlightDropability(e);
-            }
-          : undefined
-      }
-      onDragLeave={
-        isContainerNode
-          ? (e) => {
-              e.preventDefault();
-              removeHighlight(e);
-            }
-          : undefined
-      }
-      onDrop={
-        isContainerNode
-          ? (e) => {
-              // Get the type of dropped element and act on it
-              const droppedUi = e.dataTransfer.getData("element-type");
-              console.log(`Element of the type ${droppedUi} was dropped`);
-              removeHighlight(e);
-            }
-          : undefined
-      }
+      {...dragAndDropCallbacks}
     >
       <Popover
         isOpen={isOpen}
