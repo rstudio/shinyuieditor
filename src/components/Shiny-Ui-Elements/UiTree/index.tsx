@@ -2,11 +2,13 @@ import React from "react";
 import { NodePath, UiNode, UiNodeProps } from "../UiNode/index";
 
 // Immutable updater functions
-import { removeNode, replaceNode } from "../UiNode/treeManipulation";
+import { addNode, removeNode, replaceNode } from "../UiNode/treeManipulation";
 
 export const NodeUpdateContext = React.createContext({
   updateNode: (path: NodePath, newNode: UiNodeProps) =>
     console.log(`Updating placeholder`),
+  addNode: (path: NodePath, newNode: UiNodeProps) =>
+    console.log(`Adding placeholder`),
   deleteNode: (path: NodePath) => console.log(`Deleting placeholder`),
 });
 
@@ -20,6 +22,8 @@ export default function UiTree(uiTree: UiNodeProps) {
     () => ({
       updateNode: (path: NodePath, newNode: UiNodeProps) =>
         setTree((oldTree) => replaceNode({ tree: oldTree, path, newNode })),
+      addNode: (path: NodePath, newNode: UiNodeProps) =>
+        setTree((oldTree) => addNode({ tree: oldTree, path, newNode })),
       deleteNode: (path: NodePath) =>
         setTree((oldTree) => removeNode({ tree: oldTree, path })),
     }),
