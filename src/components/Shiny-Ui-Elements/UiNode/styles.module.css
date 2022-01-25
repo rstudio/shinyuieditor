@@ -1,7 +1,5 @@
 .container {
   outline: 1px solid grey;
-  width: 70%;
-  height: 70%;
   min-width: 100px;
   min-height: 100px;
   display: flex;
