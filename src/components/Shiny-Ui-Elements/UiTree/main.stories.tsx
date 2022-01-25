@@ -16,13 +16,16 @@ const Template: ComponentStory<typeof UiTree> = (args) => (
       display: "grid",
       gridTemplateColumns: "150px 1fr",
       height: "100%",
+      gap: "2rem",
     }}
   >
     <div
       style={{
         outline: "1px solid grey",
+        padding: "5px",
       }}
     >
+      <h2>Elements Palette</h2>
       <ElementsPalette />
     </div>
 
