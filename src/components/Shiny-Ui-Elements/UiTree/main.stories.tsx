@@ -1,6 +1,7 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
 import UiTree from ".";
+import ElementsPalette from "../ElementsPalette";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -9,7 +10,25 @@ export default {
 } as ComponentMeta<typeof UiTree>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof UiTree> = (args) => <UiTree {...args} />;
+const Template: ComponentStory<typeof UiTree> = (args) => (
+  <div
+    style={{
+      display: "grid",
+      gridTemplateColumns: "150px 1fr",
+      height: "100%",
+    }}
+  >
+    <div
+      style={{
+        outline: "1px solid grey",
+      }}
+    >
+      <ElementsPalette />
+    </div>
+
+    <UiTree {...args} />
+  </div>
+);
 
 export const Primary = Template.bind({});
 

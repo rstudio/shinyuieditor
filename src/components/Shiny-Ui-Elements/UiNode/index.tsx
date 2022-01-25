@@ -51,6 +51,16 @@ export function isContainerNode(node: UiNodeProps): node is UiContainerNode {
   return (node as UiContainerNode).uiChildren !== undefined;
 }
 
+function highlightDropability(e: React.DragEvent<HTMLDivElement>) {
+  if (e.currentTarget === e.target) {
+    e.currentTarget.classList.add(classes.canDrop);
+  }
+}
+
+function removeHighlight(e: React.DragEvent<HTMLDivElement>) {
+  e.currentTarget.classList.remove(classes.canDrop);
+}
+
 export function UiNode({ path = [], ...props }: NodeLocation & UiNodeProps) {
   const isLeafNode = !isContainerNode(props);
   const pathString = path.join("-");
@@ -84,6 +94,22 @@ export function UiNode({ path = [], ...props }: NodeLocation & UiNodeProps) {
       style={makeContainerStyles(
         "uiChildren" in props ? props.containerSettings : null
       )}
+      onDragOver={(e) => {
+        e.preventDefault();
+        if (isLeafNode) return;
+
+        highlightDropability(e);
+      }}
+      onDragLeave={(e) => {
+        e.preventDefault();
+        if (isLeafNode) return;
+        removeHighlight(e);
+      }}
+      onDrop={(e) => {
+        const droppedUi = e.dataTransfer.getData("element-type");
+        console.log(`Element of the type ${droppedUi} was dropped`);
+        removeHighlight(e);
+      }}
     >
       <Popover
         isOpen={isOpen}

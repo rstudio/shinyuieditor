@@ -10,6 +10,10 @@
   align-items: var(--verticalAlign);
 }
 
+.container.canDrop {
+  outline: 3px solid salmon;
+}
+
 .leaf {
   outline: 1px solid forestgreen;
   min-width: 100px;
