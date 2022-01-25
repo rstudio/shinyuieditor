@@ -23,6 +23,7 @@ export default function ElementsPalette({
             key={name}
             draggable
             onDragStart={(e) => {
+              // Tag the drag event with the element type being dragged
               e.dataTransfer.setData("element-type", name);
             }}
           >
