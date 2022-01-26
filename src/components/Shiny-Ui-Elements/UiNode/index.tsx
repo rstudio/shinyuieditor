@@ -12,10 +12,10 @@ import {
   FiSettings as SettingsIcon,
   FiTrash as TrashIcon,
 } from "react-icons/fi";
-import { ShinyUiNameAndArguments } from "../Elements/componentTypes";
 import { UiComponent } from "../UiElement/UiComponent";
 import { UiSettingsComponent } from "../UiElement/UiSettingsComponent";
 import { NodeUpdateContext } from "../UiTree";
+import { ContainerSettingsForm } from "./ContainerSettingsForm";
 import { checkIfContainerNode, NodePath, UiNodeProps } from "./nodeTypes";
 import classes from "./styles.module.css";
 import { useDragAndDropElements } from "./useDragAndDropElements";
@@ -57,9 +57,9 @@ export function UiNode({
               path={path}
               onChange={(newSettings) => {
                 nodeUpdaters.updateNode(path, {
-                  uiName: props.uiName,
+                  ...props,
                   uiArguments: newSettings,
-                } as ShinyUiNameAndArguments);
+                } as UiNodeProps);
                 setIsOpen(false);
               }}
               {...props}
@@ -94,10 +94,7 @@ function SettingsBody({
 } & UiNodeProps) {
   if (checkIfContainerNode(props)) {
     return (
-      <div>
-        <h3>Container node settings</h3>
-        <span>Current settings: {JSON.stringify(props)}</span>
-      </div>
+      <ContainerSettingsForm settings={props.uiArguments} onChange={onChange} />
     );
   }
   return (
