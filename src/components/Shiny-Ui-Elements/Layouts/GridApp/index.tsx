@@ -152,17 +152,22 @@ export default function GridApp({
   //     onDelete={() => deletePanel(area)}
   //   />
   // ));
-  const gridItems = panelAreas.map((area) => {
+  const gridItems = panelAreas.map((area, i) => {
     const node = allPanels[area];
     return (
-      <UiPanelHolder
-        aria-label={`${area} panel with ${node.uiName}`}
-        key={area}
-        className="ui-panel-holder"
-        area={area}
-      >
-        <UiNode {...node} />
-      </UiPanelHolder>
+      <UiNode
+        path={[i]}
+        uiName="container"
+        uiArguments={{ area }}
+        uiChildren={[node]}
+      />
+      // <UiPanelHolder
+      //   aria-label={`${area} panel with ${node.uiName}`}
+      //   key={area}
+      //   className="ui-panel-holder"
+      //   area={area}
+      // >
+      // </UiPanelHolder>
     );
   });
 

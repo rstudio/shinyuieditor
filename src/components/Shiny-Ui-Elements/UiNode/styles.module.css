@@ -1,31 +1,14 @@
-.container {
-  outline: 1px solid grey;
-  min-width: 100px;
-  min-height: 100px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: var(--horizontalAlign);
-  align-items: var(--verticalAlign);
-}
-
-.container.canDrop {
-  outline: 3px solid salmon;
-}
-
 .leaf {
   outline: 1px solid forestgreen;
-  min-width: 100px;
-  min-height: 100px;
+}
+
+.canDrop {
+  outline: 3px solid salmon;
 }
 
 .container,
 .leaf {
-  margin: 1rem;
   position: relative;
-}
-
-.container > * {
-  outline: 1px solid grey;
 }
 
 .deleteButton {

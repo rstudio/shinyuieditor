@@ -1,4 +1,5 @@
 import { ShinyUiNameAndArguments } from "../componentTypes";
+import { GridPanelSettings } from "../Elements/GridlayoutGridPanel";
 
 /**
  * UiNode that can have children container within it
@@ -10,10 +11,7 @@ export type UiContainerNode = {
   uiChildren: UiNodeProps[];
 };
 
-export type ContainerSettings = {
-  horizontalAlign: "left" | "center" | "right";
-  verticalAlign: "top" | "center" | "bottom";
-};
+export type ContainerSettings = GridPanelSettings;
 
 /**
  * Path to a given node. Starts at [0] for the root. The first child for

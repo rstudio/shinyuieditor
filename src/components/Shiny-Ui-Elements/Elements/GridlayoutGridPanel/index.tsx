@@ -1,9 +1,9 @@
 import classes from "./styles.module.css";
 
-type GridPanelSettings = {
+export type GridPanelSettings = {
   area?: string;
-  horizontalAlign: "left" | "center" | "right";
-  verticalAlign: "top" | "center" | "bottom";
+  horizontalAlign?: "left" | "center" | "right";
+  verticalAlign?: "top" | "center" | "bottom";
 };
 export default function GridlayoutGridPanel({
   settings,
@@ -24,8 +24,9 @@ export default function GridlayoutGridPanel({
       style={
         {
           gridArea: settings.area,
-          "--verticalAlign": dirToFlexProp[settings.verticalAlign],
-          "--horizontalAlign": dirToFlexProp[settings.horizontalAlign],
+          "--verticalAlign": dirToFlexProp[settings.verticalAlign ?? "center"],
+          "--horizontalAlign":
+            dirToFlexProp[settings.horizontalAlign ?? "center"],
         } as React.CSSProperties
       }
       {...divProps}
