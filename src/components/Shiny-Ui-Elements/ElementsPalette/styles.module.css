@@ -20,4 +20,5 @@
   place-items: center;
   position: relative;
   background-color: var(--rstudio-white);
+  cursor: grab;
 }
