@@ -1,0 +1,65 @@
+.container {
+  height: 100vh;
+  width: 100%;
+  background-color: var(--bg-color, #edf2f7);
+  display: grid;
+  grid-template-rows: 60px 1fr;
+  grid-template-columns: 150px 1fr;
+  grid-template-areas:
+    "header  header"
+    "sidebar editor";
+}
+
+.container > * {
+  outline: 1px solid var(--dark-grey);
+}
+
+.sidebar {
+  grid-area: sidebar;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.sidebar > h3 {
+  width: 100%;
+  background-color: var(--dark-grey, forestgreen);
+  display: grid;
+  place-content: center;
+  font-size: 22px;
+  color: white;
+}
+
+.editorHolder {
+  grid-area: editor;
+  padding: 2rem;
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+.header {
+  grid-area: header;
+  padding: 0.25rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow);
+  background: var(--rstudio-white, white);
+}
+
+.title {
+  font-size: 1.75rem;
+}
+
+.leftSide {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.leftSide > img {
+  display: inline-block;
+  margin: 0 1rem;
+  height: 100%;
+  border-radius: 1rem;
+  padding: 0.5rem;
+}

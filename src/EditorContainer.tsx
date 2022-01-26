@@ -1,11 +1,11 @@
-import styled from "@emotion/styled";
+import rstudioLogo from "assets/RStudio-Logo.svg";
+import shinyLogo from "assets/Shiny-Logo.png";
+import ElementsPalette from "components/Shiny-Ui-Elements/ElementsPalette";
 import GridApp from "components/Shiny-Ui-Elements/Layouts/GridApp";
 import * as React from "react";
 import { useQuery } from "react-query";
-import { makeBoxShadow } from "utils/css-helpers";
+import classes from "./EditorContainer.module.css";
 import { getInitialState } from "./getInitialState";
-import { Header } from "./Header";
-
 export function EditorContainer() {
   const { isLoading, error, data } = useQuery("initial-state", getInitialState);
 
@@ -18,28 +18,25 @@ export function EditorContainer() {
   }
 
   return (
-    <Container>
-      <Header />
-      <EditorHolderContainer>
+    <div className={classes.container}>
+      <div className={classes.header}>
+        <div className={classes.leftSide}>
+          <h1 className={classes.title}>Shiny Visual Editor</h1>
+          <img src={rstudioLogo} alt="RStudio Logo" />
+          <img
+            src={shinyLogo}
+            css={{ backgroundColor: "var(--rstudio-blue, pink)" }}
+            alt="Shiny Logo"
+          />
+        </div>
+      </div>
+      <div className={classes.sidebar}>
+        <h3>Objects</h3>
+        <ElementsPalette />
+      </div>
+      <div className={classes.editorHolder}>
         <GridApp layout={data.layout.options} panels={data.elements} />
-      </EditorHolderContainer>
-    </Container>
+      </div>
+    </div>
   );
 }
-
-const EditorHolderContainer = styled.div({
-  padding: "2rem",
-  height: "100%",
-  width: "100%",
-  position: "relative",
-});
-
-const Container = styled.div({
-  "--shadow": makeBoxShadow({ height: 0.2 }),
-  "--raised-shadow": makeBoxShadow({ height: 1 }),
-  height: "100vh",
-  width: "100%",
-  backgroundColor: "var(--bg-color, #edf2f7)",
-  display: "grid",
-  gridTemplateRows: "60px 1fr",
-});
