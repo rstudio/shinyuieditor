@@ -5,7 +5,13 @@ import { NodePath, UiNodeProps } from "../UiNode/nodeTypes";
 // Immutable updater functions
 import { addNode, removeNode, replaceNode } from "../UiNode/treeManipulation";
 
-export const NodeUpdateContext = React.createContext({
+export type NodeUpdaters = {
+  updateNode: (path: NodePath, newNode: UiNodeProps) => void;
+  addNode: (path: NodePath, newNode: UiNodeProps) => void;
+  deleteNode: (path: NodePath) => void;
+};
+
+export const NodeUpdateContext = React.createContext<NodeUpdaters>({
   updateNode: (path: NodePath, newNode: UiNodeProps) =>
     console.log(`Updating placeholder`),
   addNode: (path: NodePath, newNode: UiNodeProps) =>
