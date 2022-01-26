@@ -15,7 +15,7 @@ import {
 import { ShinyUiNameAndArguments } from "../Elements/componentTypes";
 import { UiComponent } from "../UiElement/UiComponent";
 import { UiSettingsComponent } from "../UiElement/UiSettingsComponent";
-import { NodeUpdateContext, NodeUpdaters } from "../UiTree";
+import { NodeUpdateContext } from "../UiTree";
 import { checkIfContainerNode, NodePath, UiNodeProps } from "./nodeTypes";
 import classes from "./styles.module.css";
 import { useDragAndDropElements } from "./useDragAndDropElements";
@@ -55,8 +55,13 @@ export function UiNode({
           <PopoverBody>
             <SettingsBody
               path={path}
-              updateNode={nodeUpdaters.updateNode}
-              close={() => setIsOpen(false)}
+              onChange={(newSettings) => {
+                nodeUpdaters.updateNode(path, {
+                  uiName: props.uiName,
+                  uiArguments: newSettings,
+                } as ShinyUiNameAndArguments);
+                setIsOpen(false);
+              }}
               {...props}
             />
           </PopoverBody>
@@ -81,13 +86,11 @@ export function UiNode({
  */
 function SettingsBody({
   path,
-  updateNode,
-  close,
+  onChange,
   ...props
 }: {
   path: NodePath;
-  updateNode: NodeUpdaters["updateNode"];
-  close: () => void;
+  onChange: (newSettings: object) => void;
 } & UiNodeProps) {
   if (checkIfContainerNode(props)) {
     return (
@@ -98,17 +101,7 @@ function SettingsBody({
     );
   }
   return (
-    <UiSettingsComponent
-      {...props}
-      onChange={(newSettings) => {
-        updateNode(path, {
-          uiName: props.uiName,
-          uiArguments: newSettings,
-        } as ShinyUiNameAndArguments);
-        close();
-      }}
-      checkValid={false}
-    />
+    <UiSettingsComponent {...props} onChange={onChange} checkValid={false} />
   );
 }
 
