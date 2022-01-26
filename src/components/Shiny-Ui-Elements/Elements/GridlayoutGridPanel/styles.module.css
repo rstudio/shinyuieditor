@@ -1,0 +1,10 @@
+.container {
+  position: relative;
+  outline: 1px solid red;
+  min-width: 100px;
+  min-height: 100px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: var(--horizontalAlign);
+  align-items: var(--verticalAlign);
+}

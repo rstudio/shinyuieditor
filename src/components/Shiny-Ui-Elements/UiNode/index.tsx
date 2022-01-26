@@ -13,6 +13,7 @@ import {
   FiTrash as TrashIcon,
 } from "react-icons/fi";
 import { ShinyUiNameAndArguments } from "../componentTypes";
+import GridlayoutGridPanel from "../Elements/GridlayoutGridPanel";
 import { UiComponent } from "../UiElement/UiComponent";
 import { UiSettingsComponent } from "../UiElement/UiSettingsComponent";
 import { NodeUpdateContext } from "../UiTree";
@@ -147,34 +148,19 @@ function ContainerNodeWrapper({
     path,
     !checkIfContainerNode(props)
   );
+
+  const ContainerComponent = GridlayoutGridPanel;
   const containerSettings = props.uiArguments;
   return (
-    <div
-      className={classes.container}
-      style={
-        {
-          "--verticalAlign": dirToFlexProp[containerSettings.verticalAlign],
-          "--horizontalAlign": dirToFlexProp[containerSettings.horizontalAlign],
-        } as React.CSSProperties
-      }
-      {...dragAndDropCallbacks}
-    >
+    <ContainerComponent settings={containerSettings} {...dragAndDropCallbacks}>
       {children}
       <>
         {props.uiChildren.map((childNode, i) => (
           <UiNode key={path.join(".") + i} path={[...path, i]} {...childNode} />
         ))}
       </>
-    </div>
+    </ContainerComponent>
   );
 }
-
-const dirToFlexProp = {
-  center: "center",
-  left: "start",
-  top: "start",
-  right: "end",
-  bottom: "end",
-};
 
 export default UiNode;
