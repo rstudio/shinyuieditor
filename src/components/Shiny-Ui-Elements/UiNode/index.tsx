@@ -12,44 +12,23 @@ import {
   FiSettings as SettingsIcon,
   FiTrash as TrashIcon,
 } from "react-icons/fi";
-import { ShinyUiNameAndArguments } from "../Elements/componentTypes";
 import { UiComponent } from "../UiElement/UiComponent";
 import { UiSettingsComponent } from "../UiElement/UiSettingsComponent";
 import { NodeUpdateContext } from "../UiTree";
+import {
+  checkIfContainerNode,
+  ContainerSettings,
+  NodePath,
+  UiLeafNode,
+  UiNodeProps,
+} from "./nodeTypes";
 import classes from "./styles.module.css";
-import { checkIfContainerNode } from "./treeManipulation";
 import { useDragAndDropElements } from "./useDragAndDropElements";
 
-export type UiContainerNode = {
-  // Any children of this node
-  uiChildren: UiNodeProps[];
-
-  // Settings for the container div
-  containerSettings?: ContainerSettings;
-};
-
-type ContainerSettings = {
-  horizontalAlign: "left" | "center" | "right";
-  verticalAlign: "top" | "center" | "bottom";
-};
-
-export type UiLeafNode = {
-  // Name and properties of the UI function used for this node
-  uiInfo: ShinyUiNameAndArguments;
-};
-
-// Path to a given node. Starts at [0] for the root. The first child for
-// instance would be then [0,1]
-export type NodePath = number[];
-
-type NodeLocation = {
-  // Unique ID of this node (for use locating within tree)
-  path?: NodePath;
-};
-
-export type UiNodeProps = UiContainerNode | UiLeafNode;
-
-export function UiNode({ path = [], ...props }: NodeLocation & UiNodeProps) {
+export function UiNode({
+  path = [],
+  ...props
+}: { path?: NodePath } & UiNodeProps) {
   const isContainerNode = checkIfContainerNode(props);
   const isLeafNode = !isContainerNode;
   const pathString = path.join("-");

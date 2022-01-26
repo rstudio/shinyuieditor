@@ -3,7 +3,7 @@ import { ShinyUiNames } from "../Elements/componentTypes";
 import { defaultSettingsForElements } from "../Elements/uiComponentAndSettings";
 import { NodeUpdateContext } from "../UiTree";
 import classes from "./styles.module.css";
-import { NodePath, UiLeafNode } from "./index";
+import { NodePath, UiLeafNode } from "./nodeTypes";
 
 export function useDragAndDropElements(path: NodePath, isLeafNode: boolean) {
   const nodeUpdaters = React.useContext(NodeUpdateContext);

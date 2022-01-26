@@ -1,11 +1,10 @@
 import produce from "immer";
-import { NodePath, UiContainerNode, UiNodeProps } from "./index";
-
-export function checkIfContainerNode(
-  node: UiNodeProps
-): node is UiContainerNode {
-  return (node as UiContainerNode).uiChildren !== undefined;
-}
+import {
+  checkIfContainerNode,
+  NodePath,
+  UiContainerNode,
+  UiNodeProps,
+} from "./nodeTypes";
 
 /**
  * Navigate to a node in a UiTree at the provided path

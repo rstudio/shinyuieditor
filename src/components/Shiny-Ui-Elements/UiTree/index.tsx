@@ -1,5 +1,6 @@
 import React from "react";
-import { NodePath, UiNode, UiNodeProps } from "../UiNode/index";
+import { UiNode } from "../UiNode/index";
+import { NodePath, UiNodeProps } from "../UiNode/nodeTypes";
 
 // Immutable updater functions
 import { addNode, removeNode, replaceNode } from "../UiNode/treeManipulation";
