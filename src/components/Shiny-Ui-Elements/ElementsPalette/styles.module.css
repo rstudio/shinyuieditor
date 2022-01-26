@@ -1,18 +1,23 @@
 .OptionsList {
+  height: 100%;
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  align-content: center;
+  justify-content: space-evenly;
   flex-wrap: wrap;
-  padding: 5px;
+  padding: 12px;
   gap: 5px;
 }
 
 .OptionItem {
+  --size: 115px;
   border: 1px solid var(--light-grey);
   border-radius: var(--corner-radius, 10px);
-  width: 125px;
-  height: 125px;
+  width: var(--size);
+  height: var(--size);
   display: grid;
   grid-template-rows: auto auto;
   place-items: center;
   position: relative;
+  background-color: var(--rstudio-white);
 }
