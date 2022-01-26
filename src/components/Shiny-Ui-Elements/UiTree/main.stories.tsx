@@ -22,7 +22,8 @@ const Template: ComponentStory<typeof UiTree> = (args) => (
     <div
       style={{
         outline: "1px solid grey",
-        padding: "5px",
+        borderRadius: "8px",
+        padding: "8px",
       }}
     >
       <h2>Elements Palette</h2>
