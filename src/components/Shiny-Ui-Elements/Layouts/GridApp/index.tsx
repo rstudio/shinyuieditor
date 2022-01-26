@@ -12,6 +12,7 @@ import {
 import styled from "@emotion/styled";
 import { CSSUnitInput } from "components/CSSUnitInput";
 import ConfigureNewUiElement from "components/Shiny-Ui-Elements/ConfigureNewUiElement";
+import UiNode from "components/Shiny-Ui-Elements/UiNode";
 import { GridLocString } from "GridTypes";
 import omit from "just-omit";
 import * as React from "react";
@@ -20,7 +21,7 @@ import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
 import { GridItemExtent, TemplatedGridProps } from "utils/gridTemplates/types";
 import { ItemBoundingBox } from "utils/overlap-helpers";
 import { ShinyUiNameAndArguments } from "../../Elements/componentTypes";
-import UiPanel from "../../UiPanel";
+import UiPanel, { UiPanelHolder } from "../../UiPanel";
 import { AreaOverlay } from "./AreaOverlay";
 import { EditModeToggle } from "./EditModeToggle";
 import { GridCells } from "./GridCell";
@@ -142,15 +143,28 @@ export default function GridApp({
         ))
       : null;
 
-  const gridItems = panelAreas.map((area) => (
-    <UiPanel
-      key={area}
-      area={area}
-      uiDef={allPanels[area]}
-      onUpdate={(newProps) => updatePanel(area, newProps)}
-      onDelete={() => deletePanel(area)}
-    />
-  ));
+  // const gridItems = panelAreas.map((area) => (
+  //   <UiPanel
+  //     key={area}
+  //     area={area}
+  //     uiDef={allPanels[area]}
+  //     onUpdate={(newProps) => updatePanel(area, newProps)}
+  //     onDelete={() => deletePanel(area)}
+  //   />
+  // ));
+  const gridItems = panelAreas.map((area) => {
+    const node = allPanels[area];
+    return (
+      <UiPanelHolder
+        aria-label={`${area} panel with ${node.uiName}`}
+        key={area}
+        className="ui-panel-holder"
+        area={area}
+      >
+        <UiNode {...node} />
+      </UiPanelHolder>
+    );
+  });
 
   return (
     <LayoutDispatchContext.Provider value={layoutDispatch}>
