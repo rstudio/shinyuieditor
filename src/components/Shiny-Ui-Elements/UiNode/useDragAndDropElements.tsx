@@ -1,5 +1,5 @@
 import React from "react";
-import { ShinyUiNames } from "../Elements/componentTypes";
+import { ShinyUiNames } from "../componentTypes";
 import { defaultSettingsForElements } from "../Elements/uiComponentAndSettings";
 import { NodeUpdateContext } from "../UiTree";
 import { NodePath } from "./nodeTypes";

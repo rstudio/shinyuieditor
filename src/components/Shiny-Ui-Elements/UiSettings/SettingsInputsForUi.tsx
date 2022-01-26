@@ -3,7 +3,7 @@ import {
   SettingsUpdateComponentProps,
   ShinyUiArguments,
   ShinyUiNames,
-} from "../Elements/componentTypes";
+} from "../componentTypes";
 import { uiComponentAndSettings } from "../Elements/uiComponentAndSettings";
 
 export function SettingsInputsForUi<UiName extends ShinyUiNames>(props: {

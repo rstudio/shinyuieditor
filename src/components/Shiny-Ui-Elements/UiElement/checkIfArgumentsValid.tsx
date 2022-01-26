@@ -1,4 +1,4 @@
-import { ShinyUiNameAndArguments } from "components/Shiny-Ui-Elements/Elements/componentTypes";
+import { ShinyUiNameAndArguments } from "components/Shiny-Ui-Elements/componentTypes";
 
 type ValidateArgsResponse =
   | {

@@ -1,6 +1,6 @@
-import { GridlayoutTitlePanelProps } from "./GridlayoutTitlePanel";
-import { ShinyPlotOutputProps } from "./ShinyPlotOutput";
-import { ShinySliderInputProps } from "./ShinySliderInput/arguments";
+import { GridlayoutTitlePanelProps } from "./Elements/GridlayoutTitlePanel";
+import { ShinyPlotOutputProps } from "./Elements/ShinyPlotOutput";
+import { ShinySliderInputProps } from "./Elements/ShinySliderInput/arguments";
 
 /**
  * All possible props/arguments for the defined UI components

@@ -20,7 +20,7 @@ import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
 import { GridItemExtent, TemplatedGridProps } from "utils/gridTemplates/types";
 import { ItemBoundingBox } from "utils/overlap-helpers";
-import { ShinyUiNameAndArguments } from "../../Elements/componentTypes";
+import { ShinyUiNameAndArguments } from "../../componentTypes";
 import UiPanel, { UiPanelHolder } from "../../UiPanel";
 import { AreaOverlay } from "./AreaOverlay";
 import { EditModeToggle } from "./EditModeToggle";

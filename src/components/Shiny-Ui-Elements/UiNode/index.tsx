@@ -12,11 +12,17 @@ import {
   FiSettings as SettingsIcon,
   FiTrash as TrashIcon,
 } from "react-icons/fi";
+import { ShinyUiNameAndArguments } from "../componentTypes";
 import { UiComponent } from "../UiElement/UiComponent";
 import { UiSettingsComponent } from "../UiElement/UiSettingsComponent";
 import { NodeUpdateContext } from "../UiTree";
 import { ContainerSettingsForm } from "./ContainerSettingsForm";
-import { checkIfContainerNode, NodePath, UiNodeProps } from "./nodeTypes";
+import {
+  checkIfContainerNode,
+  NodePath,
+  UiContainerNode,
+  UiNodeProps,
+} from "./nodeTypes";
 import classes from "./styles.module.css";
 import { useDragAndDropElements } from "./useDragAndDropElements";
 
@@ -28,15 +34,11 @@ export function UiNode({
   ...props
 }: { path?: NodePath } & UiNodeProps) {
   const nodeUpdaters = React.useContext(NodeUpdateContext);
-  const dragAndDropCallbacks = useDragAndDropElements(
-    path,
-    !checkIfContainerNode(props)
-  );
 
   const [isOpen, setIsOpen] = React.useState(false);
 
-  return (
-    <NodeWrapper dragAndDropCallbacks={dragAndDropCallbacks} {...props}>
+  const controls = (
+    <>
       <Popover
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
@@ -76,8 +78,20 @@ export function UiNode({
       >
         <TrashIcon />
       </span>
-      <NodeBody path={path} {...props} />
-    </NodeWrapper>
+    </>
+  );
+
+  if (checkIfContainerNode(props)) {
+    return (
+      <ContainerNodeWrapper path={path} {...props}>
+        {controls}
+      </ContainerNodeWrapper>
+    );
+  }
+  return (
+    <LeafNodeWrapper path={path} {...props}>
+      {controls}
+    </LeafNodeWrapper>
   );
 }
 
@@ -102,58 +116,57 @@ function SettingsBody({
   );
 }
 
-/**
- * Generate the main body of the UI Node that is wrapped in the popover. This is
- * the rendered children in the case of the container or the content in the case
- * of leaf nodes.
- */
-function NodeBody({ path, ...props }: { path: NodePath } & UiNodeProps) {
-  if (checkIfContainerNode(props)) {
-    return (
-      <>
-        {props.uiChildren.map((childNode, i) => (
-          <UiNode key={path.join(".") + i} path={[...path, i]} {...childNode} />
-        ))}
-      </>
-    );
-  }
-
-  return <UiComponent {...props} />;
-}
-
+type LeafNodeProps = ShinyUiNameAndArguments;
 /**
  * Generate the overall wrapping div of the node. Sets the proper classes for
  * styling and adds the drag-and-drop callbacks to the appropriate (container)
  * nodes.
  */
-function NodeWrapper({
-  dragAndDropCallbacks,
+function LeafNodeWrapper({
+  path,
   children,
   ...props
-}: {
-  dragAndDropCallbacks: ReturnType<typeof useDragAndDropElements>;
-  children: React.ReactNode;
-} & UiNodeProps) {
-  if (checkIfContainerNode(props)) {
-    const containerSettings = props.uiArguments;
-    return (
-      <div
-        className={classes.container}
-        style={
-          {
-            "--verticalAlign": dirToFlexProp[containerSettings.verticalAlign],
-            "--horizontalAlign":
-              dirToFlexProp[containerSettings.horizontalAlign],
-          } as React.CSSProperties
-        }
-        {...dragAndDropCallbacks}
-      >
-        {children}
-      </div>
-    );
-  }
+}: { path: NodePath; children: React.ReactNode } & LeafNodeProps) {
+  return (
+    <div className={classes.leaf}>
+      {children}
+      <UiComponent {...props} />
+    </div>
+  );
+}
 
-  return <div className={classes.leaf}>{children}</div>;
+/**
+ * Generate the main body of a container UI Node that is wrapped in the popover.
+ */
+function ContainerNodeWrapper({
+  path,
+  children,
+  ...props
+}: { path: NodePath; children: React.ReactNode } & UiContainerNode) {
+  const dragAndDropCallbacks = useDragAndDropElements(
+    path,
+    !checkIfContainerNode(props)
+  );
+  const containerSettings = props.uiArguments;
+  return (
+    <div
+      className={classes.container}
+      style={
+        {
+          "--verticalAlign": dirToFlexProp[containerSettings.verticalAlign],
+          "--horizontalAlign": dirToFlexProp[containerSettings.horizontalAlign],
+        } as React.CSSProperties
+      }
+      {...dragAndDropCallbacks}
+    >
+      {children}
+      <>
+        {props.uiChildren.map((childNode, i) => (
+          <UiNode key={path.join(".") + i} path={[...path, i]} {...childNode} />
+        ))}
+      </>
+    </div>
+  );
 }
 
 const dirToFlexProp = {

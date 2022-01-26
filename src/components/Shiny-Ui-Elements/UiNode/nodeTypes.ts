@@ -1,4 +1,4 @@
-import { ShinyUiNameAndArguments } from "../Elements/componentTypes";
+import { ShinyUiNameAndArguments } from "../componentTypes";
 
 /**
  * UiNode that can have children container within it
