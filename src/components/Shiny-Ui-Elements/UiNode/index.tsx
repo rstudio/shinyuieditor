@@ -12,6 +12,7 @@ import {
   FiSettings as SettingsIcon,
   FiTrash as TrashIcon,
 } from "react-icons/fi";
+import { ShinyUiNameAndArguments } from "../Elements/componentTypes";
 import { UiComponent } from "../UiElement/UiComponent";
 import { UiSettingsComponent } from "../UiElement/UiSettingsComponent";
 import { NodeUpdateContext } from "../UiTree";
@@ -19,7 +20,6 @@ import {
   checkIfContainerNode,
   ContainerSettings,
   NodePath,
-  UiLeafNode,
   UiNodeProps,
 } from "./nodeTypes";
 import classes from "./styles.module.css";
@@ -50,19 +50,15 @@ export function UiNode({
           : null}
       </>
     );
-  } else if ("uiInfo" in props && props.uiInfo) {
-    body = <UiComponent {...props.uiInfo} />;
   } else {
-    body = <span> Un-defined leaf node</span>;
+    body = <UiComponent {...props} />;
   }
 
   return (
     <div
       id={pathString}
       className={isLeafNode ? classes.leaf : classes.container}
-      style={makeContainerStyles(
-        "uiChildren" in props ? props.containerSettings : null
-      )}
+      style={makeContainerStyles(isContainerNode ? props.uiArguments : null)}
       {...dragAndDropCallbacks}
     >
       <Popover
@@ -81,21 +77,19 @@ export function UiNode({
           <PopoverCloseButton />
           <PopoverHeader>Settings</PopoverHeader>
           <PopoverBody>
-            {isLeafNode && props.uiInfo ? (
+            {isLeafNode ? (
               <UiSettingsComponent
-                {...props.uiInfo}
+                {...props}
                 onChange={(newSettings) => {
                   console.log(
                     `New settings for node at ${pathString}`,
                     newSettings
                   );
                   const newNode = {
-                    uiName: props.uiInfo.uiName,
+                    uiName: props.uiName,
                     uiArguments: newSettings,
-                  };
-                  nodeUpdaters.updateNode(path, {
-                    uiInfo: newNode,
-                  } as UiLeafNode);
+                  } as ShinyUiNameAndArguments;
+                  nodeUpdaters.updateNode(path, newNode);
                   setIsOpen(false);
                 }}
                 checkValid={false}

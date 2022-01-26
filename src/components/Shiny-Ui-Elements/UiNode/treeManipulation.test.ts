@@ -2,31 +2,29 @@ import { UiContainerNode, UiNodeProps } from "./nodeTypes";
 import { addNode, getNode, removeNode, replaceNode } from "./treeManipulation";
 
 const baseNode: UiNodeProps = {
-  containerSettings: { horizontalAlign: "center", verticalAlign: "center" },
+  uiName: "container",
+  uiArguments: { horizontalAlign: "center", verticalAlign: "center" },
   uiChildren: [
     {
       // path = [0]
-      containerSettings: {
+      uiName: "container",
+      uiArguments: {
         horizontalAlign: "right",
         verticalAlign: "center",
       },
       uiChildren: [
+        // path = [0, 0]
         {
-          // path = [0, 0]
-          uiInfo: {
-            uiName: "shiny::plotOutput",
-            uiArguments: {
-              outputId: "myPlot",
-            },
+          uiName: "shiny::plotOutput",
+          uiArguments: {
+            outputId: "myPlot",
           },
         },
+        // path = [0, 1]
         {
-          // path = [0, 1]
-          uiInfo: {
-            uiName: "shiny::plotOutput",
-            uiArguments: {
-              outputId: "myPlot2",
-            },
+          uiName: "shiny::plotOutput",
+          uiArguments: {
+            outputId: "myPlot2",
           },
         },
       ],
@@ -36,11 +34,9 @@ const baseNode: UiNodeProps = {
 
 test("Remove a node", () => {
   expect(getNode(baseNode, [0, 1])).toEqual({
-    uiInfo: {
-      uiName: "shiny::plotOutput",
-      uiArguments: {
-        outputId: "myPlot2",
-      },
+    uiName: "shiny::plotOutput",
+    uiArguments: {
+      outputId: "myPlot2",
     },
   });
   const withoutNode = removeNode({
@@ -53,20 +49,16 @@ test("Remove a node", () => {
 
 test("Modify a node", () => {
   expect(getNode(baseNode, [0, 0])).toEqual({
-    uiInfo: {
-      uiName: "shiny::plotOutput",
-      uiArguments: {
-        outputId: "myPlot",
-      },
+    uiName: "shiny::plotOutput",
+    uiArguments: {
+      outputId: "myPlot",
     },
   });
 
   const nodeToReplaceWith: UiNodeProps = {
-    uiInfo: {
-      uiName: "shiny::plotOutput",
-      uiArguments: {
-        outputId: "replacedNode",
-      },
+    uiName: "shiny::plotOutput",
+    uiArguments: {
+      outputId: "replacedNode",
     },
   };
   const updatedNode = replaceNode({
@@ -84,11 +76,9 @@ test("Add a node", () => {
   );
 
   const newUiNode: UiNodeProps = {
-    uiInfo: {
-      uiName: "gridlayout::title_panel",
-      uiArguments: {
-        title: "myNewNode",
-      },
+    uiName: "gridlayout::title_panel",
+    uiArguments: {
+      title: "myNewNode",
     },
   };
 

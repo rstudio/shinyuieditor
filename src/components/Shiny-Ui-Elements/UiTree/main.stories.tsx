@@ -37,58 +37,53 @@ export const Primary = Template.bind({});
 
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {
-  containerSettings: { horizontalAlign: "center", verticalAlign: "center" },
+  uiName: "container",
+  uiArguments: { horizontalAlign: "center", verticalAlign: "center" },
   uiChildren: [
     {
-      containerSettings: { horizontalAlign: "center", verticalAlign: "center" },
+      uiName: "container",
+      uiArguments: { horizontalAlign: "center", verticalAlign: "center" },
       uiChildren: [
         {
-          uiInfo: {
-            uiName: "shiny::sliderInput",
-            uiArguments: {
-              inputId: "mySlider",
-              label: "slider 1",
-              min: 1,
-              max: 10,
-              value: 7,
-            },
+          uiName: "shiny::sliderInput",
+          uiArguments: {
+            inputId: "mySlider",
+            label: "slider 1",
+            min: 1,
+            max: 10,
+            value: 7,
           },
         },
         {
-          uiInfo: {
-            uiName: "shiny::sliderInput",
-            uiArguments: {
-              inputId: "mySlider",
-              label: "slider 2",
-              min: 1,
-              max: 10,
-              value: 7,
-            },
+          uiName: "shiny::sliderInput",
+          uiArguments: {
+            inputId: "mySlider",
+            label: "slider 2",
+            min: 1,
+            max: 10,
+            value: 7,
           },
         },
       ],
     },
     {
-      containerSettings: { horizontalAlign: "right", verticalAlign: "center" },
+      uiName: "container",
+      uiArguments: { horizontalAlign: "right", verticalAlign: "center" },
       uiChildren: [
         {
-          uiInfo: {
-            uiName: "shiny::plotOutput",
-            uiArguments: {
-              outputId: "myPlot",
-            },
+          uiName: "shiny::plotOutput",
+          uiArguments: {
+            outputId: "myPlot",
           },
         },
         {
-          uiInfo: {
-            uiName: "shiny::sliderInput",
-            uiArguments: {
-              inputId: "mySlider",
-              label: "slider",
-              min: 1,
-              max: 10,
-              value: 7,
-            },
+          uiName: "shiny::sliderInput",
+          uiArguments: {
+            inputId: "mySlider",
+            label: "slider",
+            min: 1,
+            max: 10,
+            value: 7,
           },
         },
       ],

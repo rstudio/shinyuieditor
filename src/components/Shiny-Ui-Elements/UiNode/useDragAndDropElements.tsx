@@ -2,8 +2,8 @@ import React from "react";
 import { ShinyUiNames } from "../Elements/componentTypes";
 import { defaultSettingsForElements } from "../Elements/uiComponentAndSettings";
 import { NodeUpdateContext } from "../UiTree";
+import { NodePath } from "./nodeTypes";
 import classes from "./styles.module.css";
-import { NodePath, UiLeafNode } from "./nodeTypes";
 
 export function useDragAndDropElements(path: NodePath, isLeafNode: boolean) {
   const nodeUpdaters = React.useContext(NodeUpdateContext);
@@ -47,9 +47,7 @@ export function useDragAndDropElements(path: NodePath, isLeafNode: boolean) {
               }
 
               // Let the state know we have a new child node
-              nodeUpdaters.addNode(path, {
-                uiInfo: newElement,
-              } as UiLeafNode);
+              nodeUpdaters.addNode(path, newElement);
 
               removeHighlight(e);
             },

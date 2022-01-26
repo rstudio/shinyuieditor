@@ -1,11 +1,10 @@
 import { ShinyUiNameAndArguments } from "../Elements/componentTypes";
 
 export type UiContainerNode = {
+  uiName: "container";
+  uiArguments: ContainerSettings;
   // Any children of this node
   uiChildren: UiNodeProps[];
-
-  // Settings for the container div
-  containerSettings?: ContainerSettings;
 };
 
 export type ContainerSettings = {
@@ -13,16 +12,11 @@ export type ContainerSettings = {
   verticalAlign: "top" | "center" | "bottom";
 };
 
-export type UiLeafNode = {
-  // Name and properties of the UI function used for this node
-  uiInfo: ShinyUiNameAndArguments;
-};
-
 // Path to a given node. Starts at [0] for the root. The first child for
 // instance would be then [0,1]
 export type NodePath = number[];
 
-export type UiNodeProps = UiContainerNode | UiLeafNode;
+export type UiNodeProps = UiContainerNode | ShinyUiNameAndArguments;
 
 export function checkIfContainerNode(
   node: UiNodeProps
