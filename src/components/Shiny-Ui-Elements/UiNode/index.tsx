@@ -106,7 +106,7 @@ function UiNodeWrapper({
     !checkIfContainerNode(props)
   );
   const Comp = uiComponentAndSettings[uiName].UiComponent as UiNodeComponent<
-    ShinyUiArguments[typeof uiName]
+    typeof uiArguments
   >;
 
   return (
