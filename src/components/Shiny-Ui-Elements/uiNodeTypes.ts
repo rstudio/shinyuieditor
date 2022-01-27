@@ -38,6 +38,8 @@ export type ShinyUiNameAndArguments = {
   [UiName in ShinyUiNames]: {
     uiName: UiName;
     uiArguments: ShinyUiArguments[UiName];
+    /** Any children of this node */
+    uiChildren?: UiNodeProps[];
   };
 }[ShinyUiNames];
 
