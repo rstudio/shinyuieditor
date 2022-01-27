@@ -97,8 +97,11 @@ export const Secondary = Template.bind({});
 Secondary.args = {
   uiName: "gridlayout::grid_page",
   uiArguments: {
-    areas: [["sidebar", "plot"]],
-    rowSizes: ["1fr"],
+    areas: [
+      ["sidebar", "plot"],
+      ["sidebar", "plot"],
+    ],
+    rowSizes: ["1fr", "1fr"],
     colSizes: ["250px", "1fr"],
   },
   uiChildren: [
