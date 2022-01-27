@@ -155,6 +155,7 @@ export default function GridApp({
     const node = allPanels[area];
     return (
       <UiNode
+        key={area}
         path={[i]}
         uiName="gridlayout::grid_panel"
         uiArguments={{ area }}
