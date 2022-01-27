@@ -109,13 +109,8 @@ function UiNodeWrapper({
     ShinyUiArguments[typeof uiName]
   >;
 
-  const placementStyles =
-    props.uiName === "gridlayout::grid_panel"
-      ? { gridArea: props.uiArguments.area }
-      : {};
-
   return (
-    <Comp uiArguments={uiArguments}>
+    <Comp uiArguments={uiArguments} {...dragAndDropCallbacks}>
       {uiChildren?.map((childNode, i) => (
         <UiNode key={path.join(".") + i} path={[...path, i]} {...childNode} />
       ))}
