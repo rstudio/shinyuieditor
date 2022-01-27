@@ -1,4 +1,4 @@
-import { ShinyUiNameAndArguments } from "components/Shiny-Ui-Elements/componentTypes";
+import { ShinyUiNameAndArguments } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import GridlayoutTitlePanel from "components/Shiny-Ui-Elements/Elements/GridlayoutTitlePanel";
 import { GridlayoutTitlePanelSettings } from "components/Shiny-Ui-Elements/Elements/GridlayoutTitlePanel/SettingsPanel";
 import ShinyPlotOutput from "./ShinyPlotOutput";

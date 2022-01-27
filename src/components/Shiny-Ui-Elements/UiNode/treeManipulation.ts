@@ -1,10 +1,10 @@
 import produce from "immer";
 import {
-  checkIfContainerNode,
-  NodePath,
-  UiContainerNode,
   UiNodeProps,
-} from "./nodeTypes";
+  NodePath,
+  checkIfContainerNode,
+  UiContainerNode,
+} from "../uiNodeTypes";
 
 /**
  * Navigate to a node in a UiTree at the provided path

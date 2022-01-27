@@ -10,7 +10,7 @@ import styled from "@emotion/styled";
 import * as React from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiCheck } from "react-icons/bi";
-import { ShinyUiNameAndArguments } from "../componentTypes";
+import { ShinyUiNameAndArguments } from "../uiNodeTypes";
 import { SettingsInputsForUi } from "../UiSettings/SettingsInputsForUi";
 import { UiOptionsList } from "./UiOptionsList";
 

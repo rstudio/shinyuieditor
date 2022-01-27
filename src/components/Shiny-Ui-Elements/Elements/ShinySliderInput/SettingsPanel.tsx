@@ -1,6 +1,6 @@
 import { NumericInput } from "components/Inputs/NumericInput";
 import { TextInput } from "components/Inputs/TextInput";
-import { SettingsUpdateComponentProps } from "components/Shiny-Ui-Elements/componentTypes";
+import { SettingsUpdateComponentProps } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import * as React from "react";
 import { ShinySliderInputProps, validateNumber } from "./arguments";
 

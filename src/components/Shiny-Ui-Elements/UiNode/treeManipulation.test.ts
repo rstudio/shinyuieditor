@@ -1,4 +1,4 @@
-import { UiContainerNode, UiNodeProps } from "./nodeTypes";
+import { UiContainerNode, UiNodeProps } from "../uiNodeTypes";
 import { addNode, getNode, removeNode, replaceNode } from "./treeManipulation";
 
 const baseNode: UiNodeProps = {

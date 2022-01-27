@@ -1,4 +1,4 @@
-import { ShinyUiNameAndArguments } from "components/Shiny-Ui-Elements/componentTypes";
+import { ShinyUiNameAndArguments } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import * as React from "react";
 import { SettingsPopover } from "../../SettingsPopover";
 import { UiComponent } from "./UiComponent";

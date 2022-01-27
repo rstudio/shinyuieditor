@@ -1,8 +1,7 @@
 import React from "react";
-import { ShinyUiNames } from "../componentTypes";
+import { NodePath, ShinyUiNames } from "../uiNodeTypes";
 import { defaultSettingsForElements } from "../Elements/uiComponentAndSettings";
 import { NodeUpdateContext } from "../UiTree";
-import { NodePath } from "./nodeTypes";
 import classes from "./styles.module.css";
 
 export function useDragAndDropElements(path: NodePath, isLeafNode: boolean) {

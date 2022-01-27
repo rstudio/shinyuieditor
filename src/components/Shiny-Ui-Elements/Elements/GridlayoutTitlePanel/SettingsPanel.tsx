@@ -2,7 +2,7 @@ import { FormControl } from "@chakra-ui/form-control";
 import { TextInput } from "components/Inputs/TextInput";
 import * as React from "react";
 import { GridlayoutTitlePanelProps } from ".";
-import { SettingsUpdateComponentProps } from "../../componentTypes";
+import { SettingsUpdateComponentProps } from "../../uiNodeTypes";
 
 export const GridlayoutTitlePanelSettings = ({
   settings,

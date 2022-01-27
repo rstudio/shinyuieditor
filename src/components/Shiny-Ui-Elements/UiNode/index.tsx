@@ -12,18 +12,19 @@ import {
   FiSettings as SettingsIcon,
   FiTrash as TrashIcon,
 } from "react-icons/fi";
-import { ShinyUiNameAndArguments } from "../componentTypes";
+import {
+  checkIfContainerNode,
+  NodePath,
+  ShinyUiNameAndArguments,
+  UiContainerNode,
+  UiNodeProps,
+} from "../uiNodeTypes";
 import GridlayoutGridPanel from "../Elements/GridlayoutGridPanel";
 import { UiComponent } from "../UiElement/UiComponent";
 import { UiSettingsComponent } from "../UiElement/UiSettingsComponent";
 import { NodeUpdateContext } from "../UiTree";
 import { ContainerSettingsForm } from "./ContainerSettingsForm";
-import {
-  checkIfContainerNode,
-  NodePath,
-  UiContainerNode,
-  UiNodeProps,
-} from "./nodeTypes";
+
 import classes from "./styles.module.css";
 import { useDragAndDropElements } from "./useDragAndDropElements";
 

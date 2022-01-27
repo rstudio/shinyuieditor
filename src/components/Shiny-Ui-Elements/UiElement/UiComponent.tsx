@@ -1,7 +1,7 @@
 import {
   ShinyUiArguments,
   ShinyUiNameAndArguments,
-} from "components/Shiny-Ui-Elements/componentTypes";
+} from "components/Shiny-Ui-Elements/uiNodeTypes";
 import * as React from "react";
 import { uiComponentAndSettings } from "../Elements/uiComponentAndSettings";
 

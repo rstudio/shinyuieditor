@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import type { ShinyUiNameAndArguments } from "components/Shiny-Ui-Elements/componentTypes";
+import type { ShinyUiNameAndArguments } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import * as React from "react";
 import { makeBoxShadow } from "utils/css-helpers";
 import { UiElement } from "../UiElement";

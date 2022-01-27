@@ -1,8 +1,8 @@
 import { Button } from "@chakra-ui/react";
 import React from "react";
 import { BiCheck } from "react-icons/bi";
+import { ContainerSettings } from "../uiNodeTypes";
 import classes from "./ContainerSettingsForm.module.css";
-import { ContainerSettings } from "./nodeTypes";
 
 export function ContainerSettingsForm({
   settings,

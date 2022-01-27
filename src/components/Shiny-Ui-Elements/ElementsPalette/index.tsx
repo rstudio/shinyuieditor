@@ -1,7 +1,7 @@
 import {
   ShinyUiNameAndArguments,
   ShinyUiNames,
-} from "components/Shiny-Ui-Elements/componentTypes";
+} from "components/Shiny-Ui-Elements/uiNodeTypes";
 import * as React from "react";
 import { BiSliderAlt, BiText } from "react-icons/bi";
 import { GoGraph } from "react-icons/go";
