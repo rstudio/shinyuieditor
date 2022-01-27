@@ -1,3 +1,4 @@
+import { UiNodeComponent } from "../uiComponentAndSettings";
 import classes from "./styles.module.css";
 
 export type GridPanelSettings = {
@@ -6,21 +7,24 @@ export type GridPanelSettings = {
   verticalAlign?: "top" | "center" | "bottom";
 };
 
-const GridlayoutGridPanel: React.FC<GridPanelSettings> = ({
+const GridlayoutGridPanel: UiNodeComponent<GridPanelSettings> = ({
   children,
-  ...settings
+  area,
+  verticalAlign,
+  horizontalAlign,
+  ...passthroughProps
 }) => {
   return (
     <div
       className={classes.container}
       style={
         {
-          gridArea: settings.area,
-          "--verticalAlign": dirToFlexProp[settings.verticalAlign ?? "center"],
-          "--horizontalAlign":
-            dirToFlexProp[settings.horizontalAlign ?? "center"],
+          gridArea: area,
+          "--verticalAlign": dirToFlexProp[verticalAlign ?? "center"],
+          "--horizontalAlign": dirToFlexProp[horizontalAlign ?? "center"],
         } as React.CSSProperties
       }
+      {...passthroughProps}
     >
       {children}
     </div>

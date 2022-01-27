@@ -8,6 +8,15 @@ import { ShinySliderInputSettings } from "./ShinySliderInput/SettingsPanel";
 import GridlayoutGridPanel from "./GridlayoutGridPanel";
 import { GridlayoutGridPanelSettings } from "./GridlayoutGridPanel/SettingsPanel";
 
+type AllowedBaseElements = HTMLDivElement;
+export type UiNodeComponent<NodeSettings extends object> = React.FC<
+  NodeSettings &
+    React.DetailedHTMLProps<
+      React.HTMLAttributes<AllowedBaseElements>,
+      AllowedBaseElements
+    >
+>;
+
 export const uiComponentAndSettings = {
   "shiny::plotOutput": {
     UiComponent: ShinyPlotOutput,

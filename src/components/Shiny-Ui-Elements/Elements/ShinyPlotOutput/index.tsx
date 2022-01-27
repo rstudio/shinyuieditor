@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import * as React from "react";
 import { GoGraph } from "react-icons/go";
 import { makeBoxShadow } from "utils/css-helpers";
+import { UiNodeComponent } from "../uiComponentAndSettings";
 
 export type ShinyPlotOutputProps = Partial<{
   outputId: string;
@@ -9,11 +10,12 @@ export type ShinyPlotOutputProps = Partial<{
   height: string;
 }>;
 
-const ShinyPlotOutput: React.FC<ShinyPlotOutputProps> = ({
+const ShinyPlotOutput: UiNodeComponent<ShinyPlotOutputProps> = ({
   outputId = "shiny-plot-output",
   width = "300px",
   height = "200px",
   children,
+  ...passthroughProps
 }) => {
   const holderRef = React.useRef<HTMLDivElement>(null);
 
@@ -39,6 +41,7 @@ const ShinyPlotOutput: React.FC<ShinyPlotOutputProps> = ({
       ref={holderRef}
       style={{ height, width }}
       aria-label="shiny::plotOutput placeholder"
+      {...passthroughProps}
     >
       <GoGraph
         // Account for padding of 1 rem

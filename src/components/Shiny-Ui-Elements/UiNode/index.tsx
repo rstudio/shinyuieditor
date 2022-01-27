@@ -112,18 +112,12 @@ function UiNodeWrapper({
       : {};
 
   return (
-    <div
-      className={classes.leaf}
-      {...dragAndDropCallbacks}
-      style={placementStyles}
-    >
-      <Comp {...uiArguments}>
-        {uiChildren?.map((childNode, i) => (
-          <UiNode key={path.join(".") + i} path={[...path, i]} {...childNode} />
-        ))}
-        {settingsPopover}
-      </Comp>
-    </div>
+    <Comp {...uiArguments}>
+      {uiChildren?.map((childNode, i) => (
+        <UiNode key={path.join(".") + i} path={[...path, i]} {...childNode} />
+      ))}
+      {settingsPopover}
+    </Comp>
   );
 }
 

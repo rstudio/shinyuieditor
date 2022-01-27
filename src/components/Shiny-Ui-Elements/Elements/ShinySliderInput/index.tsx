@@ -1,21 +1,28 @@
 import styled from "@emotion/styled";
 import * as React from "react";
 import { makeBoxShadow } from "utils/css-helpers";
+import { UiNodeComponent } from "../uiComponentAndSettings";
 import { buildSliderSettings, ShinySliderInputProps } from "./arguments";
 
-const ShinySliderInput: React.FC<ShinySliderInputProps> = ({
+const ShinySliderInput: UiNodeComponent<ShinySliderInputProps> = ({
   children,
-  ...props
+  inputId,
+  label,
+  min,
+  max,
+  value,
+  ...passthroughProps
 }) => {
   const width = "200px";
   const height = "auto";
-  const settings = buildSliderSettings({ ...props });
+  const settings = buildSliderSettings({ inputId, label, min, max, value });
   const [currentVal, setCurrentVal] = React.useState(settings.value);
   return (
     <SliderHolder
       style={{ height, width }}
       className={"shiny::sliderInput"}
       aria-label={"shiny::sliderInput"}
+      {...passthroughProps}
     >
       <div style={{ gridArea: "1/1", placeSelf: "center", maxWidth: "300px" }}>
         <div>{settings.label}</div>
