@@ -12,20 +12,18 @@ import {
   FiSettings as SettingsIcon,
   FiTrash as TrashIcon,
 } from "react-icons/fi";
-import GridlayoutGridPanel from "../Elements/GridlayoutGridPanel";
 import { uiComponentAndSettings } from "../Elements/uiComponentAndSettings";
-import { UiSettingsComponent } from "./UiSettingsComponent";
 import {
   checkIfContainerNode,
   NodePath,
   ShinyUiArguments,
   ShinyUiNameAndArguments,
-  UiContainerNode,
   UiNodeProps,
 } from "../uiNodeTypes";
 import { NodeUpdateContext } from "../UiTree";
 import { ContainerSettingsForm } from "./ContainerSettingsForm";
 import classes from "./styles.module.css";
+import { UiSettingsComponent } from "./UiSettingsComponent";
 import { useDragAndDropElements } from "./useDragAndDropElements";
 
 /**
@@ -83,13 +81,6 @@ export function UiNode({
     </>
   );
 
-  // if (checkIfContainerNode(props)) {
-  //   return (
-  //     <ContainerNodeWrapper path={path} {...props}>
-  //       {controls}
-  //     </ContainerNodeWrapper>
-  //   );
-  // }
   return (
     <UiNodeWrapper path={path} {...props}>
       {controls}
@@ -118,7 +109,6 @@ function SettingsBody({
   );
 }
 
-type LeafNodeProps = ShinyUiNameAndArguments;
 /**
  * Generate the overall wrapping div of the node. Sets the proper classes for
  * styling and adds the drag-and-drop callbacks to the appropriate (container)
@@ -128,7 +118,7 @@ function UiNodeWrapper({
   path,
   children: settingsPopover,
   ...props
-}: { path: NodePath; children: React.ReactNode } & LeafNodeProps) {
+}: { path: NodePath; children: React.ReactNode } & ShinyUiNameAndArguments) {
   const { uiName, uiArguments, uiChildren } = props;
   const dragAndDropCallbacks = useDragAndDropElements(
     path,
@@ -158,30 +148,5 @@ function UiNodeWrapper({
     </div>
   );
 }
-
-// /**
-//  * Generate the main body of a container UI Node that is wrapped in the popover.
-//  */
-// function ContainerNodeWrapper({
-//   path,
-//   children: settingsPopover,
-//   ...props
-// }: { path: NodePath; children: React.ReactNode } & UiContainerNode) {
-//   const dragAndDropCallbacks = useDragAndDropElements(
-//     path,
-//     !checkIfContainerNode(props)
-//   );
-
-//   const ContainerComponent = GridlayoutGridPanel;
-//   const containerSettings = props.uiArguments;
-//   return (
-//     <ContainerComponent settings={containerSettings} {...dragAndDropCallbacks}>
-//       {settingsPopover}
-//       {props.uiChildren.map((childNode, i) => (
-//         <UiNode key={path.join(".") + i} path={[...path, i]} {...childNode} />
-//       ))}
-//     </ContainerComponent>
-//   );
-// }
 
 export default UiNode;
