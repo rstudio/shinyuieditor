@@ -70,6 +70,42 @@ test("Modify a node", () => {
   expect(getNode(baseNode, [0, 0])).not.toEqual(nodeToReplaceWith);
 });
 
+test("Modify a node at first level", () => {
+  const baseNode: UiNodeProps = {
+    uiName: "gridlayout::grid_panel",
+    uiArguments: { horizontalAlign: "center", verticalAlign: "center" },
+    uiChildren: [
+      // path = [0]
+      {
+        uiName: "shiny::plotOutput",
+        uiArguments: {
+          outputId: "myPlot",
+        },
+      },
+    ],
+  };
+  expect(getNode(baseNode, [0])).toEqual({
+    uiName: "shiny::plotOutput",
+    uiArguments: {
+      outputId: "myPlot",
+    },
+  });
+
+  const nodeToReplaceWith: UiNodeProps = {
+    uiName: "shiny::plotOutput",
+    uiArguments: {
+      outputId: "replacedNode",
+    },
+  };
+  const updatedNode = replaceNode({
+    tree: baseNode as UiNodeProps,
+    path: [0],
+    newNode: nodeToReplaceWith,
+  });
+  expect(getNode(updatedNode, [0])).toEqual(nodeToReplaceWith);
+  expect(getNode(baseNode, [0])).not.toEqual(nodeToReplaceWith);
+});
+
 test("Add a node", () => {
   expect((getNode(baseNode, [0]) as UiContainerNode).uiChildren).toHaveLength(
     2

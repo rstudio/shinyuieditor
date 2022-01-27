@@ -36,7 +36,9 @@ function navigateToParent(
   if (typeof indexToNode === "undefined")
     throw new Error("Path to node must have at least one element");
 
-  const parentNode = getNode(tree, pathCopy);
+  // If we're only going one level deep, then we just need to return the tree
+  // itself to get to the "parent"
+  const parentNode = pathCopy.length === 0 ? tree : getNode(tree, pathCopy);
 
   if (!checkIfContainerNode(parentNode)) {
     throw new Error("Somehow trying to enter a leaf node");
