@@ -156,7 +156,7 @@ export default function GridApp({
     return (
       <UiNode
         path={[i]}
-        uiName="container"
+        uiName="gridlayout::grid_panel"
         uiArguments={{ area }}
         uiChildren={[node]}
       />

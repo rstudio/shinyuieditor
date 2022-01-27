@@ -20,8 +20,8 @@ export type ShinyUiArguments = {
  * UiNode that can have children container within it
  * */
 export type UiContainerNode = {
-  uiName: "container";
-  uiArguments: ContainerSettings;
+  uiName: "gridlayout::grid_panel";
+  uiArguments: GridPanelSettings;
   /** Any children of this node */
   uiChildren: UiNodeProps[];
 };

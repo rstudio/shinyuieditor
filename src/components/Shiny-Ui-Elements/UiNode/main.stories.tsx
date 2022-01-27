@@ -14,11 +14,11 @@ const Template: ComponentStory<typeof UiNode> = (args) => <UiNode {...args} />;
 export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {
-  uiName: "container",
+  uiName: "gridlayout::grid_panel",
   uiArguments: { horizontalAlign: "center", verticalAlign: "center" },
   uiChildren: [
     {
-      uiName: "container",
+      uiName: "gridlayout::grid_panel",
       uiArguments: { horizontalAlign: "right", verticalAlign: "center" },
       uiChildren: [
         {

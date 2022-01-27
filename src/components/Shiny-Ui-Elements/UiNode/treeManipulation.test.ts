@@ -2,12 +2,12 @@ import { UiContainerNode, UiNodeProps } from "../uiNodeTypes";
 import { addNode, getNode, removeNode, replaceNode } from "./treeManipulation";
 
 const baseNode: UiNodeProps = {
-  uiName: "container",
+  uiName: "gridlayout::grid_panel",
   uiArguments: { horizontalAlign: "center", verticalAlign: "center" },
   uiChildren: [
     {
       // path = [0]
-      uiName: "container",
+      uiName: "gridlayout::grid_panel",
       uiArguments: {
         horizontalAlign: "right",
         verticalAlign: "center",
