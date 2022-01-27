@@ -3,7 +3,7 @@ import { NodePath, UiNodeProps } from "../uiNodeTypes";
 import { UiNode } from "../UiNode/index";
 
 // Immutable updater functions
-import { addNode, removeNode, replaceNode } from "../UiNode/treeManipulation";
+import { addNode, removeNode, updateNode } from "../UiNode/treeManipulation";
 
 export type NodeUpdaters = {
   updateNode: (path: NodePath, newNode: UiNodeProps) => void;
@@ -28,7 +28,7 @@ export default function UiTree(uiTree: UiNodeProps) {
   const editCallbacks = React.useMemo(
     () => ({
       updateNode: (path: NodePath, newNode: UiNodeProps) =>
-        setTree((oldTree) => replaceNode({ tree: oldTree, path, newNode })),
+        setTree((oldTree) => updateNode({ tree: oldTree, path, newNode })),
       addNode: (path: NodePath, newNode: UiNodeProps) =>
         setTree((oldTree) => addNode({ tree: oldTree, path, newNode })),
       deleteNode: (path: NodePath) =>

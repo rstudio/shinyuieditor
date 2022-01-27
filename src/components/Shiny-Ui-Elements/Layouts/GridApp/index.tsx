@@ -14,7 +14,7 @@ import { CSSUnitInput } from "components/CSSUnitInput";
 import ConfigureNewUiElement from "components/Shiny-Ui-Elements/ConfigureNewUiElement";
 import UiNode from "components/Shiny-Ui-Elements/UiNode";
 import {
-  replaceNode,
+  updateNode,
   addNode,
   removeNode,
 } from "components/Shiny-Ui-Elements/UiNode/treeManipulation";
@@ -178,7 +178,7 @@ export default function GridApp({
           debugger;
           const existingPanel = currentPanels[panelArea];
           if (!existingPanel) throw new Error("That panel doesn't exist");
-          const newPanel = replaceNode({
+          const newPanel = updateNode({
             tree: existingPanel,
             path: restOfPath,
             newNode,

@@ -91,6 +91,32 @@ export function replaceNode({
 }
 
 /**
+ * Update the uiArguments and uiName of a node but leave the uiChildren alone
+ */
+export function updateNode({
+  tree,
+  path,
+  newNode,
+}: {
+  tree: UiNodeProps;
+  path: NodePath;
+  newNode: UiNodeProps;
+}) {
+  return produce(tree, (treeDraft) => {
+    const { parentNode, indexToNode } = navigateToParent(treeDraft, path);
+
+    // Update requested child
+    if (!checkIfContainerNode(parentNode)) {
+      throw new Error("Somehow trying to enter a leaf node");
+    }
+    parentNode.uiChildren[indexToNode] = {
+      ...parentNode.uiChildren[indexToNode],
+      ...newNode,
+    };
+  });
+}
+
+/**
  * Immutably add a node in a container node of the UiTree
  *
  * Note that this freezes the parent tree.
