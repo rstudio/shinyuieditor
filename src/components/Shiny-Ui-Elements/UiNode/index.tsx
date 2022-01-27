@@ -121,8 +121,8 @@ function UiNodeWrapper({
         {uiChildren?.map((childNode, i) => (
           <UiNode key={path.join(".") + i} path={[...path, i]} {...childNode} />
         ))}
+        {settingsPopover}
       </Comp>
-      {settingsPopover}
     </div>
   );
 }
