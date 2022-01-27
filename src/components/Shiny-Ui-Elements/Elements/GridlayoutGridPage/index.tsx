@@ -1,6 +1,5 @@
 import { AreaOverlay } from "components/Shiny-Ui-Elements/Layouts/GridApp/AreaOverlay";
 import { GridCells } from "components/Shiny-Ui-Elements/Layouts/GridApp/GridCell";
-import { useGridLayoutReducer } from "components/Shiny-Ui-Elements/Layouts/GridApp/useGridLayoutReducer";
 import { NodeUpdateContext } from "components/Shiny-Ui-Elements/UiTree";
 import { GridLocString } from "GridTypes";
 import React from "react";
@@ -39,12 +38,9 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
     area: string;
     pos: GridItemExtent;
   }) => {
-    const newGridSettings = addItem(uiArguments, { name: area, ...pos });
-    console.log(`Moving item ${area} to`, pos);
-    console.log("New Grid", newGridSettings);
-    nodeUpdaters.updateNode([0], {
+    nodeUpdaters.updateNode([], {
       uiName: "gridlayout::grid_page",
-      uiArguments: newGridSettings,
+      uiArguments: addItem(uiArguments, { name: area, ...pos }),
     });
   };
 
