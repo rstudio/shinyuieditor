@@ -1,5 +1,5 @@
 import { UiNodeProps } from "../uiNodeTypes";
-import { addNode, getNode, removeNode, replaceNode } from "./treeManipulation";
+import { addNode, getNode, removeNode, updateNode } from "./treeManipulation";
 
 const baseNode: UiNodeProps = {
   uiName: "gridlayout::grid_panel",
@@ -61,7 +61,7 @@ test("Modify a node", () => {
       outputId: "replacedNode",
     },
   };
-  const updatedNode = replaceNode({
+  const updatedNode = updateNode({
     tree: baseNode as UiNodeProps,
     path: [0, 0],
     newNode: nodeToReplaceWith,
@@ -97,13 +97,79 @@ test("Modify a node at first level", () => {
       outputId: "replacedNode",
     },
   };
-  const updatedNode = replaceNode({
+  const updatedNode = updateNode({
     tree: baseNode as UiNodeProps,
     path: [0],
     newNode: nodeToReplaceWith,
   });
   expect(getNode(updatedNode, [0])).toEqual(nodeToReplaceWith);
   expect(getNode(baseNode, [0])).not.toEqual(nodeToReplaceWith);
+});
+
+test("Update the settings of the root node", () => {
+  const grid_app = {
+    uiName: "gridlayout::grid_page",
+    uiArguments: {
+      areas: [["sidebar", "plot"]],
+      rowSizes: ["1fr"],
+      colSizes: ["250px", "1fr"],
+    },
+    uiChildren: [
+      {
+        uiName: "gridlayout::grid_panel",
+        uiArguments: {
+          area: "sidebar",
+          horizontalAlign: "right",
+          verticalAlign: "center",
+        },
+        uiChildren: [
+          {
+            uiName: "shiny::sliderInput",
+            uiArguments: {
+              inputId: "mySlider",
+              label: "slider",
+              min: 1,
+              max: 10,
+              value: 7,
+            },
+          },
+        ],
+      },
+      {
+        uiName: "gridlayout::grid_panel",
+        uiArguments: {
+          area: "plot",
+          horizontalAlign: "right",
+          verticalAlign: "center",
+        },
+        uiChildren: [
+          {
+            uiName: "shiny::plotOutput",
+            uiArguments: {
+              outputId: "myPlot",
+            },
+          },
+        ],
+      },
+    ],
+  };
+
+  const updated_app = updateNode({
+    tree: grid_app as UiNodeProps,
+    path: [],
+    newNode: {
+      uiName: "gridlayout::grid_page",
+      uiArguments: {
+        areas: [["new_sidebar_name", "plot"]],
+        rowSizes: ["1fr"],
+        colSizes: ["250px", "1fr"],
+      },
+    },
+  });
+
+  expect((updated_app.uiArguments as any).areas[0][0]).toEqual(
+    "new_sidebar_name"
+  );
 });
 
 test("Add a node", () => {
