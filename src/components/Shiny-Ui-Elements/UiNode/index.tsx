@@ -21,7 +21,6 @@ import {
   UiNodeProps,
 } from "../uiNodeTypes";
 import { NodeUpdateContext } from "../UiTree";
-import { ContainerSettingsForm } from "./ContainerSettingsForm";
 import classes from "./styles.module.css";
 import { UiSettingsComponent } from "./UiSettingsComponent";
 import { useDragAndDropElements } from "./useDragAndDropElements";
@@ -55,8 +54,8 @@ export function UiNode({
           <PopoverCloseButton />
           <PopoverHeader>Settings</PopoverHeader>
           <PopoverBody>
-            <SettingsBody
-              path={path}
+            <UiSettingsComponent
+              {...props}
               onChange={(newSettings) => {
                 nodeUpdaters.updateNode(path, {
                   ...props,
@@ -64,7 +63,7 @@ export function UiNode({
                 } as UiNodeProps);
                 setIsOpen(false);
               }}
-              {...props}
+              checkValid={false}
             />
           </PopoverBody>
         </PopoverContent>
@@ -85,27 +84,6 @@ export function UiNode({
     <UiNodeWrapper path={path} {...props}>
       {controls}
     </UiNodeWrapper>
-  );
-}
-
-/**
- * Generate the contents of the settings panel popover
- */
-function SettingsBody({
-  path,
-  onChange,
-  ...props
-}: {
-  path: NodePath;
-  onChange: (newSettings: object) => void;
-} & UiNodeProps) {
-  if (checkIfContainerNode(props)) {
-    return (
-      <ContainerSettingsForm settings={props.uiArguments} onChange={onChange} />
-    );
-  }
-  return (
-    <UiSettingsComponent {...props} onChange={onChange} checkValid={false} />
   );
 }
 
