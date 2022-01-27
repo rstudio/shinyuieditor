@@ -21,7 +21,6 @@ import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
 import { GridItemExtent, TemplatedGridProps } from "utils/gridTemplates/types";
 import { ItemBoundingBox } from "utils/overlap-helpers";
 import { ShinyUiNameAndArguments } from "../../uiNodeTypes";
-import UiPanel, { UiPanelHolder } from "../../UiPanel";
 import { AreaOverlay } from "./AreaOverlay";
 import { EditModeToggle } from "./EditModeToggle";
 import { GridCells } from "./GridCell";

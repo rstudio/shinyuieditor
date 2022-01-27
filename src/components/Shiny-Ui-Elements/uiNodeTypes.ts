@@ -13,6 +13,17 @@ export type ShinyUiArguments = {
   "shiny::plotOutput": ShinyPlotOutputProps;
   "shiny::sliderInput": ShinySliderInputProps;
   "gridlayout::title_panel": GridlayoutTitlePanelProps;
+  "gridlayout::grid_panel": GridPanelSettings;
+};
+
+/**
+ * UiNode that can have children container within it
+ * */
+export type UiContainerNode = {
+  uiName: "container";
+  uiArguments: ContainerSettings;
+  /** Any children of this node */
+  uiChildren: UiNodeProps[];
 };
 
 /**
@@ -33,16 +44,6 @@ export type ShinyUiNameAndArguments = {
 export type SettingsUpdateComponentProps<T extends object> = {
   settings: T;
   onChange: (newSettings: T) => void;
-};
-
-/**
- * UiNode that can have children container within it
- * */
-export type UiContainerNode = {
-  uiName: "container";
-  uiArguments: ContainerSettings;
-  /** Any children of this node */
-  uiChildren: UiNodeProps[];
 };
 
 export type ContainerSettings = GridPanelSettings;

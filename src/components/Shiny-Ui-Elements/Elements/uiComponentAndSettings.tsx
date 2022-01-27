@@ -5,6 +5,8 @@ import ShinyPlotOutput from "./ShinyPlotOutput";
 import { ShinyPlotOutputSettings } from "./ShinyPlotOutput/SettingsPanel";
 import ShinySliderInput from "./ShinySliderInput";
 import { ShinySliderInputSettings } from "./ShinySliderInput/SettingsPanel";
+import GridlayoutGridPanel from "./GridlayoutGridPanel";
+import { GridlayoutGridPanelSettings } from "./GridlayoutGridPanel/SettingsPanel";
 
 export const uiComponentAndSettings = {
   "shiny::plotOutput": {
@@ -18,6 +20,10 @@ export const uiComponentAndSettings = {
   "gridlayout::title_panel": {
     UiComponent: GridlayoutTitlePanel,
     SettingsComponent: GridlayoutTitlePanelSettings,
+  },
+  "gridlayout::grid_panel": {
+    UiComponent: GridlayoutGridPanel,
+    SettingsComponent: GridlayoutGridPanelSettings,
   },
 };
 

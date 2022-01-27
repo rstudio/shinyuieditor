@@ -5,6 +5,7 @@ import {
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import * as React from "react";
 import { BiSliderAlt, BiText } from "react-icons/bi";
+import { BsBoundingBoxCircles } from "react-icons/bs";
 import { GoGraph } from "react-icons/go";
 import { defaultSettingsForElements } from "../Elements/uiComponentAndSettings";
 
@@ -44,6 +45,7 @@ export const previewIcons: Record<ShinyUiNames, JSX.Element> = {
   "shiny::plotOutput": <GoGraph />,
   "shiny::sliderInput": <BiSliderAlt />,
   "gridlayout::title_panel": <BiText />,
+  "gridlayout::grid_panel": <BsBoundingBoxCircles size="40px" />,
 };
 
 export const OptionsList = styled.div({

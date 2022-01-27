@@ -12,19 +12,19 @@ import {
   FiSettings as SettingsIcon,
   FiTrash as TrashIcon,
 } from "react-icons/fi";
+import GridlayoutGridPanel from "../Elements/GridlayoutGridPanel";
+import { uiComponentAndSettings } from "../Elements/uiComponentAndSettings";
+import { UiSettingsComponent } from "./UiSettingsComponent";
 import {
   checkIfContainerNode,
   NodePath,
+  ShinyUiArguments,
   ShinyUiNameAndArguments,
   UiContainerNode,
   UiNodeProps,
 } from "../uiNodeTypes";
-import GridlayoutGridPanel from "../Elements/GridlayoutGridPanel";
-import { UiComponent } from "../UiElement/UiComponent";
-import { UiSettingsComponent } from "../UiElement/UiSettingsComponent";
 import { NodeUpdateContext } from "../UiTree";
 import { ContainerSettingsForm } from "./ContainerSettingsForm";
-
 import classes from "./styles.module.css";
 import { useDragAndDropElements } from "./useDragAndDropElements";
 
@@ -126,13 +126,18 @@ type LeafNodeProps = ShinyUiNameAndArguments;
  */
 function LeafNodeWrapper({
   path,
-  children,
+  children: settingsPopover,
   ...props
 }: { path: NodePath; children: React.ReactNode } & LeafNodeProps) {
+  const { uiName, uiArguments } = props;
+  const Comp = uiComponentAndSettings[uiName].UiComponent as (
+    p: ShinyUiArguments[typeof uiName]
+  ) => JSX.Element;
+
   return (
     <div className={classes.leaf}>
-      {children}
-      <UiComponent {...props} />
+      {settingsPopover}
+      <Comp {...uiArguments} />
     </div>
   );
 }
