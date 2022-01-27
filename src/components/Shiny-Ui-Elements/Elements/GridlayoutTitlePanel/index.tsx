@@ -7,18 +7,20 @@ export interface GridlayoutTitlePanelProps {
   area?: string;
 }
 
-function GridlayoutTitlePanel({
+const GridlayoutTitlePanel: React.FC<GridlayoutTitlePanelProps> = ({
   title = "Default app title",
-}: GridlayoutTitlePanelProps) {
+  children,
+}) => {
   return (
     <TitlePanel
       className={"gridlayout-titlePanel"}
       aria-label={"gridlayout-titlePanel"}
     >
       <h1>{title}</h1>
+      {children}
     </TitlePanel>
   );
-}
+};
 
 const TitlePanel = styled.div({
   outline: "1px solid var(--rstudio-grey)",

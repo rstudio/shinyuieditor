@@ -9,11 +9,12 @@ export type ShinyPlotOutputProps = Partial<{
   height: string;
 }>;
 
-function ShinyPlotOutput({
+const ShinyPlotOutput: React.FC<ShinyPlotOutputProps> = ({
   outputId = "shiny-plot-output",
   width = "300px",
   height = "200px",
-}: ShinyPlotOutputProps) {
+  children,
+}) => {
   const holderRef = React.useRef<HTMLDivElement>(null);
 
   // Start tiny so icon isn't the reason the container is big
@@ -51,9 +52,10 @@ function ShinyPlotOutput({
       <div style={{ gridArea: "1/1", placeSelf: "end" }}>
         This is a plot with the name {outputId}!
       </div>
+      {children}
     </PlotHolder>
   );
-}
+};
 
 const PlotHolder = styled.div({
   outline: "1px solid var(--rstudio-grey)",

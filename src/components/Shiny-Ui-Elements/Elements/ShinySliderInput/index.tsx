@@ -3,7 +3,10 @@ import * as React from "react";
 import { makeBoxShadow } from "utils/css-helpers";
 import { buildSliderSettings, ShinySliderInputProps } from "./arguments";
 
-function ShinySliderInput(props: ShinySliderInputProps) {
+const ShinySliderInput: React.FC<ShinySliderInputProps> = ({
+  children,
+  ...props
+}) => {
   const width = "200px";
   const height = "auto";
   const settings = buildSliderSettings({ ...props });
@@ -32,9 +35,10 @@ function ShinySliderInput(props: ShinySliderInputProps) {
           input${settings.inputId} = {currentVal}
         </div>
       </div>
+      {children}
     </SliderHolder>
   );
-}
+};
 
 export default ShinySliderInput;
 
