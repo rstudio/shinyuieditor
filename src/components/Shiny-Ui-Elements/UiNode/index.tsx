@@ -19,7 +19,6 @@ import {
 import {
   checkIfContainerNode,
   NodePath,
-  ShinyUiArguments,
   ShinyUiNameAndArguments,
   UiNodeProps,
 } from "../uiNodeTypes";
