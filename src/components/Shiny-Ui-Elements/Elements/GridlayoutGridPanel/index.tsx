@@ -8,12 +8,11 @@ export type GridPanelSettings = {
 };
 
 const GridlayoutGridPanel: UiNodeComponent<GridPanelSettings> = ({
+  uiArguments,
   children,
-  area,
-  verticalAlign,
-  horizontalAlign,
   ...passthroughProps
 }) => {
+  const { area, verticalAlign, horizontalAlign } = uiArguments;
   return (
     <div
       className={classes.container}

@@ -29,18 +29,15 @@ const Template: ComponentStory<typeof GridlayoutTitlePanel> = (args) => (
     colSizes={"200px"}
     gapSize={"1rem"}
   >
-    <div style={{ gridArea: args.area }}>
-      <GridlayoutTitlePanel {...args} />
-    </div>
+    <GridlayoutTitlePanel {...args} />
   </LabeledGridHolder>
 );
 
 export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {
-  title: "My App Title",
-  area: uniqueAreas[0],
+  uiArguments: {
+    title: "My App Title",
+    area: uniqueAreas[0],
+  },
 };
-
-export const Seconday = Template.bind({});
-Seconday.args = { area: uniqueAreas[0] };

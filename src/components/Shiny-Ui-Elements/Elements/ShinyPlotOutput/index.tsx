@@ -11,12 +11,15 @@ export type ShinyPlotOutputProps = Partial<{
 }>;
 
 const ShinyPlotOutput: UiNodeComponent<ShinyPlotOutputProps> = ({
-  outputId = "shiny-plot-output",
-  width = "300px",
-  height = "200px",
+  uiArguments,
   children,
   ...passthroughProps
 }) => {
+  const {
+    outputId = "shiny-plot-output",
+    width = "300px",
+    height = "200px",
+  } = uiArguments;
   const holderRef = React.useRef<HTMLDivElement>(null);
 
   // Start tiny so icon isn't the reason the container is big

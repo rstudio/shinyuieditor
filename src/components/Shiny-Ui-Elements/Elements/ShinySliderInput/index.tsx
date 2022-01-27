@@ -6,16 +6,12 @@ import { buildSliderSettings, ShinySliderInputProps } from "./arguments";
 
 const ShinySliderInput: UiNodeComponent<ShinySliderInputProps> = ({
   children,
-  inputId,
-  label,
-  min,
-  max,
-  value,
+  uiArguments,
   ...passthroughProps
 }) => {
   const width = "200px";
   const height = "auto";
-  const settings = buildSliderSettings({ inputId, label, min, max, value });
+  const settings = buildSliderSettings({ ...uiArguments });
   const [currentVal, setCurrentVal] = React.useState(settings.value);
   return (
     <SliderHolder

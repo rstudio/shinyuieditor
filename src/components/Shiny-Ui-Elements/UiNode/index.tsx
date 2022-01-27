@@ -12,7 +12,10 @@ import {
   FiSettings as SettingsIcon,
   FiTrash as TrashIcon,
 } from "react-icons/fi";
-import { uiComponentAndSettings } from "../Elements/uiComponentAndSettings";
+import {
+  uiComponentAndSettings,
+  UiNodeComponent,
+} from "../Elements/uiComponentAndSettings";
 import {
   checkIfContainerNode,
   NodePath,
@@ -102,9 +105,9 @@ function UiNodeWrapper({
     path,
     !checkIfContainerNode(props)
   );
-  const Comp = uiComponentAndSettings[uiName].UiComponent as (
-    p: ShinyUiArguments[typeof uiName]
-  ) => JSX.Element;
+  const Comp = uiComponentAndSettings[uiName].UiComponent as UiNodeComponent<
+    ShinyUiArguments[typeof uiName]
+  >;
 
   const placementStyles =
     props.uiName === "gridlayout::grid_panel"
@@ -112,7 +115,7 @@ function UiNodeWrapper({
       : {};
 
   return (
-    <Comp {...uiArguments}>
+    <Comp uiArguments={uiArguments}>
       {uiChildren?.map((childNode, i) => (
         <UiNode key={path.join(".") + i} path={[...path, i]} {...childNode} />
       ))}

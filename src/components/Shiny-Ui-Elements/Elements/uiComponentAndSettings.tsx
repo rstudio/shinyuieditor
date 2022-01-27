@@ -9,12 +9,12 @@ import GridlayoutGridPanel from "./GridlayoutGridPanel";
 import { GridlayoutGridPanelSettings } from "./GridlayoutGridPanel/SettingsPanel";
 
 type AllowedBaseElements = HTMLDivElement;
+type PassthroughProps = React.DetailedHTMLProps<
+  React.HTMLAttributes<AllowedBaseElements>,
+  AllowedBaseElements
+>;
 export type UiNodeComponent<NodeSettings extends object> = React.FC<
-  NodeSettings &
-    React.DetailedHTMLProps<
-      React.HTMLAttributes<AllowedBaseElements>,
-      AllowedBaseElements
-    >
+  { uiArguments: NodeSettings } & PassthroughProps
 >;
 
 export const uiComponentAndSettings = {
