@@ -46,4 +46,11 @@ export const defaultSettingsForElements: ShinyUiNameAndArguments[] = [
     uiName: "gridlayout::title_panel",
     uiArguments: { title: "Title from Chooser" },
   },
+  {
+    uiName: "gridlayout::grid_panel",
+    uiArguments: {
+      verticalAlign: "center",
+      horizontalAlign: "center",
+    },
+  },
 ];

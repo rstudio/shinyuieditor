@@ -5,19 +5,11 @@ export type GridPanelSettings = {
   horizontalAlign?: "left" | "center" | "right";
   verticalAlign?: "top" | "center" | "bottom";
 };
-export default function GridlayoutGridPanel({
-  settings,
+
+const GridlayoutGridPanel: React.FC<GridPanelSettings> = ({
   children,
-  ...divProps
-}: {
-  settings: GridPanelSettings;
-  children: React.ReactNode;
-} & /**
- * Used to passthrough callbacks like drag events etc..
- */ React.DetailedHTMLProps<
-  React.HTMLAttributes<HTMLDivElement>,
-  HTMLDivElement
->) {
+  ...settings
+}) => {
   return (
     <div
       className={classes.container}
@@ -29,12 +21,11 @@ export default function GridlayoutGridPanel({
             dirToFlexProp[settings.horizontalAlign ?? "center"],
         } as React.CSSProperties
       }
-      {...divProps}
     >
       {children}
     </div>
   );
-}
+};
 
 const dirToFlexProp = {
   center: "center",
@@ -43,3 +34,4 @@ const dirToFlexProp = {
   right: "end",
   bottom: "end",
 };
+export default GridlayoutGridPanel;
