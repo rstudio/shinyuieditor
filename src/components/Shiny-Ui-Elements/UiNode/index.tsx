@@ -48,7 +48,7 @@ export function UiNode({
         closeOnBlur={true}
       >
         <PopoverTrigger>
-          <span className={classes.editButton}>
+          <span className={classes.editButton} style={{ position: "absolute" }}>
             <SettingsIcon />
           </span>
         </PopoverTrigger>
@@ -73,6 +73,7 @@ export function UiNode({
       </Popover>
 
       <span
+        style={{ position: "absolute" }}
         className={classes.deleteButton}
         onClick={() => {
           nodeUpdaters.deleteNode(path);
