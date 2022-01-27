@@ -57,14 +57,14 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
 
   return (
     <div style={styles} className={classes.container} {...passthroughProps}>
-      {children}
-      {areaOverlays}
       <GridCells
         numCols={numCols}
         numRows={numRows}
         cellLocRef={gridCellLocations}
         onClick={() => console.log("Clicked a cell")}
       />
+      {children}
+      {areaOverlays}
     </div>
   );
 };
