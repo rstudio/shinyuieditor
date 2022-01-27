@@ -91,9 +91,9 @@ export function UiNode({
     );
   }
   return (
-    <LeafNodeWrapper path={path} {...props}>
+    <UiNodeWrapper path={path} {...props}>
       {controls}
-    </LeafNodeWrapper>
+    </UiNodeWrapper>
   );
 }
 
@@ -124,12 +124,12 @@ type LeafNodeProps = ShinyUiNameAndArguments;
  * styling and adds the drag-and-drop callbacks to the appropriate (container)
  * nodes.
  */
-function LeafNodeWrapper({
+function UiNodeWrapper({
   path,
   children: settingsPopover,
   ...props
 }: { path: NodePath; children: React.ReactNode } & LeafNodeProps) {
-  const { uiName, uiArguments } = props;
+  const { uiName, uiArguments, uiChildren } = props;
   const Comp = uiComponentAndSettings[uiName].UiComponent as (
     p: ShinyUiArguments[typeof uiName]
   ) => JSX.Element;
@@ -137,7 +137,7 @@ function LeafNodeWrapper({
   return (
     <div className={classes.leaf}>
       {settingsPopover}
-      <Comp {...uiArguments} />
+      <Comp {...uiArguments}></Comp>
     </div>
   );
 }
@@ -147,7 +147,7 @@ function LeafNodeWrapper({
  */
 function ContainerNodeWrapper({
   path,
-  children,
+  children: settingsPopover,
   ...props
 }: { path: NodePath; children: React.ReactNode } & UiContainerNode) {
   const dragAndDropCallbacks = useDragAndDropElements(
@@ -159,12 +159,10 @@ function ContainerNodeWrapper({
   const containerSettings = props.uiArguments;
   return (
     <ContainerComponent settings={containerSettings} {...dragAndDropCallbacks}>
-      {children}
-      <>
-        {props.uiChildren.map((childNode, i) => (
-          <UiNode key={path.join(".") + i} path={[...path, i]} {...childNode} />
-        ))}
-      </>
+      {settingsPopover}
+      {props.uiChildren.map((childNode, i) => (
+        <UiNode key={path.join(".") + i} path={[...path, i]} {...childNode} />
+      ))}
     </ContainerComponent>
   );
 }
