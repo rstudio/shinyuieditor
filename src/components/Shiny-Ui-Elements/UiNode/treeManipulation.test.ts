@@ -1,4 +1,4 @@
-import { UiContainerNode, UiNodeProps } from "../uiNodeTypes";
+import { UiNodeProps } from "../uiNodeTypes";
 import { addNode, getNode, removeNode, replaceNode } from "./treeManipulation";
 
 const baseNode: UiNodeProps = {
@@ -107,9 +107,7 @@ test("Modify a node at first level", () => {
 });
 
 test("Add a node", () => {
-  expect((getNode(baseNode, [0]) as UiContainerNode).uiChildren).toHaveLength(
-    2
-  );
+  expect(getNode(baseNode, [0]).uiChildren).toHaveLength(2);
 
   const newUiNode: UiNodeProps = {
     uiName: "gridlayout::title_panel",
@@ -124,7 +122,7 @@ test("Add a node", () => {
     newNode: newUiNode,
   });
 
-  const newContainer = getNode(withNewNode, [0]) as UiContainerNode;
+  const newContainer = getNode(withNewNode, [0]);
   expect(newContainer.uiChildren).toHaveLength(3);
-  expect(newContainer.uiChildren[2]).toEqual(newUiNode);
+  expect(newContainer.uiChildren?.[2]).toEqual(newUiNode);
 });

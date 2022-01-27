@@ -91,3 +91,52 @@ Primary.args = {
     },
   ],
 };
+export const Secondary = Template.bind({});
+
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+Secondary.args = {
+  uiName: "gridlayout::grid_page",
+  uiArguments: {
+    areas: [["sidebar", "plot"]],
+    rowSizes: ["1fr"],
+    colSizes: ["250px", "1fr"],
+  },
+  uiChildren: [
+    {
+      uiName: "gridlayout::grid_panel",
+      uiArguments: {
+        area: "sidebar",
+        horizontalAlign: "right",
+        verticalAlign: "center",
+      },
+      uiChildren: [
+        {
+          uiName: "shiny::sliderInput",
+          uiArguments: {
+            inputId: "mySlider",
+            label: "slider",
+            min: 1,
+            max: 10,
+            value: 7,
+          },
+        },
+      ],
+    },
+    {
+      uiName: "gridlayout::grid_panel",
+      uiArguments: {
+        area: "plot",
+        horizontalAlign: "right",
+        verticalAlign: "center",
+      },
+      uiChildren: [
+        {
+          uiName: "shiny::plotOutput",
+          uiArguments: {
+            outputId: "myPlot",
+          },
+        },
+      ],
+    },
+  ],
+};

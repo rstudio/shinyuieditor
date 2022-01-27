@@ -1,3 +1,4 @@
+import { TemplatedGridProps } from "utils/gridTemplates/types";
 import { GridPanelSettings } from "./Elements/GridlayoutGridPanel";
 import { GridlayoutTitlePanelProps } from "./Elements/GridlayoutTitlePanel";
 import { ShinyPlotOutputProps } from "./Elements/ShinyPlotOutput";
@@ -14,16 +15,7 @@ export type ShinyUiArguments = {
   "shiny::sliderInput": ShinySliderInputProps;
   "gridlayout::title_panel": GridlayoutTitlePanelProps;
   "gridlayout::grid_panel": GridPanelSettings;
-};
-
-/**
- * UiNode that can have children container within it
- * */
-export type UiContainerNode = {
-  uiName: "gridlayout::grid_panel";
-  uiArguments: GridPanelSettings;
-  /** Any children of this node */
-  uiChildren: UiNodeProps[];
+  "gridlayout::grid_page": TemplatedGridProps;
 };
 
 /**
@@ -43,10 +35,10 @@ export type ShinyUiNameAndArguments = {
   };
 }[ShinyUiNames];
 
-export type SettingsUpdateComponentProps<T extends object> = {
+export type SettingsUpdaterComponent<T extends object> = (p: {
   settings: T;
   onChange: (newSettings: T) => void;
-};
+}) => JSX.Element;
 
 export type ContainerSettings = GridPanelSettings;
 
@@ -56,8 +48,9 @@ export type ContainerSettings = GridPanelSettings;
  */
 export type NodePath = number[];
 
-export type UiNodeProps = UiContainerNode | ShinyUiNameAndArguments;
+export type UiNodeProps = ShinyUiNameAndArguments;
 
+type UiContainerNode = Required<UiNodeProps>;
 export function checkIfContainerNode(
   node: UiNodeProps
 ): node is UiContainerNode {

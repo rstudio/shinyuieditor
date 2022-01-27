@@ -1,12 +1,11 @@
-import { SettingsUpdateComponentProps } from "components/Shiny-Ui-Elements/uiNodeTypes";
+import { SettingsUpdaterComponent } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import * as React from "react";
 import { GridPanelSettings } from ".";
 import classes from "./SettingsPanel.module.css";
 
-export const GridlayoutGridPanelSettings = ({
-  settings: currentSettings,
-  onChange,
-}: SettingsUpdateComponentProps<GridPanelSettings>) => {
+export const GridlayoutGridPanelSettings: SettingsUpdaterComponent<
+  GridPanelSettings
+> = ({ settings: currentSettings, onChange }) => {
   const settings = { ...currentSettings };
 
   return (

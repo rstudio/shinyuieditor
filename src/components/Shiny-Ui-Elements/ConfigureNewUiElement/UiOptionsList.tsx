@@ -46,6 +46,7 @@ export const previewIcons: Record<ShinyUiNames, JSX.Element> = {
   "shiny::sliderInput": <BiSliderAlt />,
   "gridlayout::title_panel": <BiText />,
   "gridlayout::grid_panel": <BsBoundingBoxCircles size="40px" />,
+  "gridlayout::grid_page": <BsBoundingBoxCircles size="40px" />,
 };
 
 export const OptionsList = styled.div({

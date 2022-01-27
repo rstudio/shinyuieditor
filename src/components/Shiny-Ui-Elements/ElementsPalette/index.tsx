@@ -42,4 +42,5 @@ const previewIcons: Record<ShinyUiNames, JSX.Element> = {
   "shiny::sliderInput": <BiSliderAlt size="40px" />,
   "gridlayout::title_panel": <BiText size="40px" />,
   "gridlayout::grid_panel": <BsBoundingBoxCircles size="40px" />,
+  "gridlayout::grid_page": <BsBoundingBoxCircles size="40px" />,
 };

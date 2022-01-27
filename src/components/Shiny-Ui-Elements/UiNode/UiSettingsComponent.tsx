@@ -1,12 +1,13 @@
 import { Button } from "@chakra-ui/react";
 import {
+  SettingsUpdaterComponent,
   ShinyUiArguments,
   ShinyUiNameAndArguments,
   ShinyUiNames,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import * as React from "react";
 import { BiCheck } from "react-icons/bi";
-import { SettingsInputsForUi } from "../UiSettings/SettingsInputsForUi";
+import { uiComponentAndSettings } from "../Elements/uiComponentAndSettings";
 import { checkIfArgumentsValid } from "./checkIfArgumentsValid";
 
 type UiSettingsComponentProps = {
@@ -32,6 +33,13 @@ export function UiSettingsComponent({
     uiArguments: currentSettings,
   } as ShinyUiNameAndArguments;
 
+  // Convince typescript this is the correct type of prop from the object. Not
+  // sure why this is needed.
+  const SettingsInputs = uiComponentAndSettings[uiName]
+    .SettingsComponent as SettingsUpdaterComponent<typeof uiArguments>;
+
+  // return <SettingsInputs settings={props.settings} onChange={props.onChange} />;
+
   return (
     <div css={{ padding: "1rem" }}>
       <form
@@ -49,13 +57,13 @@ export function UiSettingsComponent({
           }
         }}
       >
-        <SettingsInputsForUi
-          uiName={uiName}
+        <SettingsInputs
           settings={currentSettings}
           onChange={(settings) => {
             setCurrentSettings(settings);
           }}
         />
+
         {errorMsg ? (
           <div>
             Input settings are not valid. The following errors were received:

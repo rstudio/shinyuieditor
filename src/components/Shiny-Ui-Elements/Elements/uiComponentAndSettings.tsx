@@ -7,6 +7,8 @@ import ShinySliderInput from "./ShinySliderInput";
 import { ShinySliderInputSettings } from "./ShinySliderInput/SettingsPanel";
 import GridlayoutGridPanel from "./GridlayoutGridPanel";
 import { GridlayoutGridPanelSettings } from "./GridlayoutGridPanel/SettingsPanel";
+import GridlayoutGridPage from "./GridlayoutGridPage";
+import { GridlayoutGridPageSettings } from "./GridlayoutGridPage/SettingsPanel";
 
 type AllowedBaseElements = HTMLDivElement;
 type PassthroughProps = React.DetailedHTMLProps<
@@ -33,6 +35,10 @@ export const uiComponentAndSettings = {
   "gridlayout::grid_panel": {
     UiComponent: GridlayoutGridPanel,
     SettingsComponent: GridlayoutGridPanelSettings,
+  },
+  "gridlayout::grid_page": {
+    UiComponent: GridlayoutGridPage,
+    SettingsComponent: GridlayoutGridPageSettings,
   },
 };
 

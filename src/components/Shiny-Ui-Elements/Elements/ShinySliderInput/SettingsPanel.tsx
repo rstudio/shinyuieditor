@@ -1,13 +1,12 @@
 import { NumericInput } from "components/Inputs/NumericInput";
 import { TextInput } from "components/Inputs/TextInput";
-import { SettingsUpdateComponentProps } from "components/Shiny-Ui-Elements/uiNodeTypes";
+import { SettingsUpdaterComponent } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import * as React from "react";
 import { ShinySliderInputProps, validateNumber } from "./arguments";
 
-export const ShinySliderInputSettings = ({
-  settings: currentSettings,
-  onChange,
-}: SettingsUpdateComponentProps<ShinySliderInputProps>) => {
+export const ShinySliderInputSettings: SettingsUpdaterComponent<
+  ShinySliderInputProps
+> = ({ settings: currentSettings, onChange }) => {
   const settings = { ...currentSettings };
   if (settings.min) settings.min = validateNumber(settings.min);
   if (settings.max) settings.max = validateNumber(settings.max);

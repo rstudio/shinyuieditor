@@ -1,10 +1,5 @@
 import produce from "immer";
-import {
-  UiNodeProps,
-  NodePath,
-  checkIfContainerNode,
-  UiContainerNode,
-} from "../uiNodeTypes";
+import { UiNodeProps, NodePath, checkIfContainerNode } from "../uiNodeTypes";
 
 /**
  * Navigate to a node in a UiTree at the provided path
@@ -30,7 +25,7 @@ export function getNode(tree: UiNodeProps, path: NodePath): UiNodeProps {
 function navigateToParent(
   tree: UiNodeProps,
   path: NodePath
-): { parentNode: UiContainerNode; indexToNode: number } {
+): { parentNode: UiNodeProps; indexToNode: number } {
   const pathCopy = [...path];
   const indexToNode = pathCopy.pop();
   if (typeof indexToNode === "undefined")
@@ -63,6 +58,9 @@ export function removeNode({
     const { parentNode, indexToNode } = navigateToParent(treeDraft, path);
 
     // Splice out this child
+    if (!checkIfContainerNode(parentNode)) {
+      throw new Error("Somehow trying to enter a leaf node");
+    }
     parentNode.uiChildren.splice(indexToNode, 1);
   });
 }
@@ -85,6 +83,9 @@ export function replaceNode({
     const { parentNode, indexToNode } = navigateToParent(treeDraft, path);
 
     // Update requested child
+    if (!checkIfContainerNode(parentNode)) {
+      throw new Error("Somehow trying to enter a leaf node");
+    }
     parentNode.uiChildren[indexToNode] = newNode;
   });
 }
