@@ -13,6 +13,12 @@ import styled from "@emotion/styled";
 import { CSSUnitInput } from "components/CSSUnitInput";
 import ConfigureNewUiElement from "components/Shiny-Ui-Elements/ConfigureNewUiElement";
 import UiNode from "components/Shiny-Ui-Elements/UiNode";
+import {
+  replaceNode,
+  addNode,
+  removeNode,
+} from "components/Shiny-Ui-Elements/UiNode/treeManipulation";
+import { NodeUpdateContext } from "components/Shiny-Ui-Elements/UiTree";
 import { GridLocString } from "GridTypes";
 import omit from "just-omit";
 import * as React from "react";
@@ -20,14 +26,18 @@ import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
 import { GridItemExtent, TemplatedGridProps } from "utils/gridTemplates/types";
 import { ItemBoundingBox } from "utils/overlap-helpers";
-import { ShinyUiNameAndArguments } from "../../uiNodeTypes";
+import {
+  NodePath,
+  ShinyUiNameAndArguments,
+  UiNodeProps,
+} from "../../uiNodeTypes";
 import { AreaOverlay } from "./AreaOverlay";
 import { EditModeToggle } from "./EditModeToggle";
 import { GridCells } from "./GridCell";
 import { TractControls } from "./TractControls";
 import { GridLayoutAction, useGridLayoutReducer } from "./useGridLayoutReducer";
 
-export type Panels = Record<string, ShinyUiNameAndArguments>;
+export type Panels = Record<string, UiNodeProps>;
 type GridAppProps = {
   layout: TemplatedGridProps;
   panels: Panels;
@@ -155,71 +165,107 @@ export default function GridApp({
     );
   });
 
+  // Since these just use the setters they will never change over the lifecycle
+  // of the component, so by wrapping in useMemo we can avoid unneccesary
+  // rerenders caused by this object changing
+  const editCallbacks = React.useMemo(
+    () => ({
+      updateNode: (path: NodePath, newNode: UiNodeProps) => {
+        setAllPanels((currentPanels) => {
+          const [areaIndex, ...restOfPath] = path;
+          const panelArea = panelAreas[areaIndex];
+          console.log("Update node", { panelArea, restOfPath, newNode });
+          debugger;
+          const existingPanel = currentPanels[panelArea];
+          if (!existingPanel) throw new Error("That panel doesn't exist");
+          const newPanel = replaceNode({
+            tree: existingPanel,
+            path: restOfPath,
+            newNode,
+          });
+          return { ...currentPanels, [panelArea]: newPanel };
+        });
+      },
+      addNode: (path: NodePath, newNode: UiNodeProps) =>
+        console.log("Add node", { path, newNode }),
+      deleteNode: (path: NodePath) => console.log("Delete node", { path }),
+      // updateNode: (path: NodePath, newNode: UiNodeProps) =>
+      //   setTree((oldTree) => replaceNode({ tree: oldTree, path, newNode })),
+      // addNode: (path: NodePath, newNode: UiNodeProps) =>
+      //   setTree((oldTree) => addNode({ tree: oldTree, path, newNode })),
+      // deleteNode: (path: NodePath) =>
+      //   setTree((oldTree) => removeNode({ tree: oldTree, path })),
+    }),
+    []
+  );
+
   return (
     <LayoutDispatchContext.Provider value={layoutDispatch}>
-      <AppContainer gapSize={layout.gapSize}>
-        <SettingsBar>
-          <h1>Layout settings</h1>
-          <div>
-            <div className="label">Gap Size:</div>
-            <CSSUnitInput
-              value={layout.gapSize ?? "2rem"}
-              units={["px", "rem"]}
-              w="130px"
-              onChange={(x) => layoutDispatch({ type: "SET_GAP", size: x })}
+      <NodeUpdateContext.Provider value={editCallbacks}>
+        <AppContainer gapSize={layout.gapSize}>
+          <SettingsBar>
+            <h1>Layout settings</h1>
+            <div>
+              <div className="label">Gap Size:</div>
+              <CSSUnitInput
+                value={layout.gapSize ?? "2rem"}
+                units={["px", "rem"]}
+                w="130px"
+                onChange={(x) => layoutDispatch({ type: "SET_GAP", size: x })}
+              />
+            </div>
+            <div>
+              <div className="label">Edit Mode:</div>
+              <EditModeToggle selected={editMode} onSelect={setEditMode} />
+            </div>
+            <Button
+              bg="var(--rstudio-blue)"
+              color="var(--rstudio-white)"
+              onClick={() => sendUiStateToBackend(fullState)}
+            >
+              Send state to backend
+            </Button>
+          </SettingsBar>
+          <GridDisplay style={styles}>
+            <TractControls areas={layout.areas} sizes={sizes} />
+            <GridCells
+              numCols={numCols}
+              numRows={numRows}
+              cellLocRef={gridCellLocations}
+              onClick={onNewItem}
             />
-          </div>
-          <div>
-            <div className="label">Edit Mode:</div>
-            <EditModeToggle selected={editMode} onSelect={setEditMode} />
-          </div>
-          <Button
-            bg="var(--rstudio-blue)"
-            color="var(--rstudio-white)"
-            onClick={() => sendUiStateToBackend(fullState)}
-          >
-            Send state to backend
-          </Button>
-        </SettingsBar>
-        <GridDisplay style={styles}>
-          <TractControls areas={layout.areas} sizes={sizes} />
-          <GridCells
-            numCols={numCols}
-            numRows={numRows}
-            cellLocRef={gridCellLocations}
-            onClick={onNewItem}
-          />
-          {areaOverlays}
-          {gridItems}
-        </GridDisplay>
-      </AppContainer>
+            {areaOverlays}
+            {gridItems}
+          </GridDisplay>
+        </AppContainer>
 
-      <Modal
-        isOpen={newPanelPosition !== null}
-        onClose={closeNewPanelModal}
-        size="xl"
-      >
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Configure Ui Element</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <ConfigureNewUiElement
-              onFinish={({ name, ui }) => {
-                if (!newPanelPosition)
-                  throw new Error(
-                    "Somehow we have no position for the newly configured item..."
-                  );
+        <Modal
+          isOpen={newPanelPosition !== null}
+          onClose={closeNewPanelModal}
+          size="xl"
+        >
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Configure Ui Element</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <ConfigureNewUiElement
+                onFinish={({ name, ui }) => {
+                  if (!newPanelPosition)
+                    throw new Error(
+                      "Somehow we have no position for the newly configured item..."
+                    );
 
-                addPanel(name, newPanelPosition, ui);
-                closeNewPanelModal();
-              }}
-              onCancel={closeNewPanelModal}
-              existingElementNames={Object.keys(allPanels)}
-            />
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+                  addPanel(name, newPanelPosition, ui);
+                  closeNewPanelModal();
+                }}
+                onCancel={closeNewPanelModal}
+                existingElementNames={Object.keys(allPanels)}
+              />
+            </ModalBody>
+          </ModalContent>
+        </Modal>
+      </NodeUpdateContext.Provider>
     </LayoutDispatchContext.Provider>
   );
 }
