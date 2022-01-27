@@ -142,15 +142,6 @@ export default function GridApp({
         ))
       : null;
 
-  // const gridItems = panelAreas.map((area) => (
-  //   <UiPanel
-  //     key={area}
-  //     area={area}
-  //     uiDef={allPanels[area]}
-  //     onUpdate={(newProps) => updatePanel(area, newProps)}
-  //     onDelete={() => deletePanel(area)}
-  //   />
-  // ));
   const gridItems = panelAreas.map((area, i) => {
     const node = allPanels[area];
     return (
@@ -161,13 +152,6 @@ export default function GridApp({
         uiArguments={{ area }}
         uiChildren={[node]}
       />
-      // <UiPanelHolder
-      //   aria-label={`${area} panel with ${node.uiName}`}
-      //   key={area}
-      //   className="ui-panel-holder"
-      //   area={area}
-      // >
-      // </UiPanelHolder>
     );
   });
 
