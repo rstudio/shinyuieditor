@@ -103,16 +103,8 @@ export function updateNode({
   newNode: UiNodeProps;
 }) {
   return produce(tree, (treeDraft) => {
-    const { parentNode, indexToNode } = navigateToParent(treeDraft, path);
-
-    // Update requested child
-    if (!checkIfContainerNode(parentNode)) {
-      throw new Error("Somehow trying to enter a leaf node");
-    }
-    parentNode.uiChildren[indexToNode] = {
-      ...parentNode.uiChildren[indexToNode],
-      ...newNode,
-    };
+    const node = getNode(treeDraft, path);
+    Object.assign(node, newNode);
   });
 }
 
