@@ -1,8 +1,7 @@
 .container {
   display: grid;
-  grid-template-rows: 1fr 1fr;
-  grid-template-columns: 1fr 1fr;
   background-color: rgb(168, 186, 168);
+  position: relative;
 }
 
 /* Make sure the children are position relative so floating buttons etc will sit
