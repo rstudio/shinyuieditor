@@ -1,0 +1,36 @@
+.buttonHolderRows,
+.buttonHolderCols {
+  --edge-style: 2px solid var(--edge-color, var(--light-grey));
+  --padding-from-edge: 4px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+}
+
+.buttonHolder.addButton {
+  position: absolute;
+}
+
+.buttonHolderRows {
+  flex-direction: column;
+  padding-right: var(--padding-from-edge);
+}
+.buttonHolderRows.before {
+  top: var(--add-button-offset);
+}
+.buttonHolderRows.after {
+  bottom: var(--add-button-offset);
+}
+
+.buttonHolderCols {
+  flex-direction: row;
+  padding-bottom: var(--padding-from-edge);
+}
+.buttonHolderCols.before {
+  left: var(--add-button-offset);
+}
+.buttonHolderCols.after {
+  right: var(--add-button-offset);
+}

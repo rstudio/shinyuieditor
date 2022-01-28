@@ -11,6 +11,7 @@ import { LayoutDispatchContext } from ".";
 import { directions, TractDirection } from "./helpers";
 import { TractAddButton } from "./TractAddButton";
 import { TractRemoveButton } from "./TractRemoveButton";
+import classes from "./TractControls.module.css";
 
 export function TractControls({
   areas,
@@ -83,7 +84,11 @@ function TractControl({
           });
         }}
       />
-      <ButtonsHolder className={dir}>
+      <div
+        className={
+          dir === "rows" ? classes.buttonHolderRows : classes.buttonHolderCols
+        }
+      >
         <TractAddButton
           dir={dir}
           tractIndex={tractIndex}
@@ -101,7 +106,7 @@ function TractControl({
           size="100px"
           beforeOrAfter="after"
         />
-      </ButtonsHolder>
+      </div>
     </TractControlsHolder>
   );
 }
@@ -127,8 +132,6 @@ const TractControlsHolder = styled.div({
     justifyItems: "end",
   },
   "&.cols": {
-    // backgroundColor: "thistle",
-    // outline: "1px dashed black",
     "--tract-gutter-size": "var(--col-gutter)",
     paddingBottom: "var(--gap)",
     gridTemplateRows: "var(--control-tracts)",
@@ -141,7 +144,7 @@ const TractControlsHolder = styled.div({
     alignItems: "end",
   },
   "&:not(:hover) .add-button": {
-    display: "none",
+    opacity: "0",
   },
   "&:hover": {
     "--edge-color": "var(--rstudio-blue)",
@@ -167,29 +170,6 @@ const TractControlsHolder = styled.div({
     height: "calc(100% - 2*var(--inset-to-edge))",
     borderLeft: "1px solid var(--edge-color)",
     borderRight: "1px solid var(--edge-color)",
-  },
-});
-
-const ButtonsHolder = styled.div({
-  "--edge-style": "2px solid var(--edge-color, var(--light-grey))",
-  height: "100%",
-  width: "100%",
-  display: "flex",
-  position: "relative",
-  justifyContent: "center",
-  ".add-button": {
-    position: "absolute",
-  },
-  "&.rows": {
-    flexDirection: "column",
-    ".before": { top: "var(--add-button-offset)" },
-    ".after": { bottom: "var(--add-button-offset)" },
-  },
-
-  "&.cols": {
-    flexDirection: "row",
-    ".before": { left: "var(--add-button-offset)" },
-    ".after": { right: "var(--add-button-offset)" },
   },
 });
 
