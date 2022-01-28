@@ -1,6 +1,6 @@
 .container {
   display: grid;
-  background-color: rgb(168, 186, 168);
+  background-color: var(--bg-color);
   position: relative;
 }
 
