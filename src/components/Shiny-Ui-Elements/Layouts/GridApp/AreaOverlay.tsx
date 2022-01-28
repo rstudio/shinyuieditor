@@ -107,6 +107,9 @@ const AreaMarker = styled.div({
   fontStyle: "italic",
   padding: "2px",
   position: "relative",
+  // Disable pointer events on the container so we can passthrough drag and drop
+  // and other click events to the actual element underneath the overlay
+  pointerEvents: "none",
   // I have no idea why I need to specify a z-index here to get this to sit
   // over the grid cell
   zIndex: 1,
@@ -143,6 +146,9 @@ const Dragger = styled.div({
   position: "absolute",
   backgroundColor: "var(--rstudio-blue)",
   color: "var(--rstudio-white)",
+  // Re-enable pointer events on the drag handles themselves because we disabled
+  // it on the containing div to allow for passthrough of click events etc.
+  pointerEvents: "auto",
   "&.move": {
     height: `${draggerLong}px`,
     width: `${draggerLong}px`,
