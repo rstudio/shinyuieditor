@@ -127,6 +127,8 @@ const TractControlsHolder = styled.div({
     justifyItems: "end",
   },
   "&.cols": {
+    // backgroundColor: "thistle",
+    // outline: "1px dashed black",
     "--tract-gutter-size": "var(--col-gutter)",
     paddingBottom: "var(--gap)",
     gridTemplateRows: "var(--control-tracts)",
@@ -147,20 +149,24 @@ const TractControlsHolder = styled.div({
   },
   "&::after": {
     "--thickness": "2px",
-    "--inset-to-edge": "calc(var(--gap) - var(--thickness)*2)",
+    "--inset-to-edge": "calc(var(--gap) + 5px)",
+    "--edge-color": "var(--light-grey)",
     content: `""`,
     position: "absolute",
-    backgroundColor: "var(--edge-color, var(--light-grey))",
+  },
+  "&.rows::after": {
+    height: "calc(100% - 2*var(--gap))",
+    width: "calc(100% - 2*var(--inset-to-edge))",
+    right: "var(--inset-to-edge)",
+    borderTop: "1px solid var(--edge-color)",
+    borderBottom: "1px solid var(--edge-color)",
   },
   "&.cols::after": {
     bottom: "var(--inset-to-edge)",
     width: "calc(100% - 2*var(--gap))",
-    height: "var(--thickness)",
-  },
-  "&.rows::after": {
-    height: "calc(100% - 2*var(--gap))",
-    width: "var(--thickness)",
-    right: "var(--inset-to-edge)",
+    height: "calc(100% - 2*var(--inset-to-edge))",
+    borderLeft: "1px solid var(--edge-color)",
+    borderRight: "1px solid var(--edge-color)",
   },
 });
 
