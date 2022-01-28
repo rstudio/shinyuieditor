@@ -1,22 +1,16 @@
 import { LayoutDispatchContext } from "components/Shiny-Ui-Elements/Layouts/GridApp";
 import { AreaOverlay } from "components/Shiny-Ui-Elements/Layouts/GridApp/AreaOverlay";
 import { GridCells } from "components/Shiny-Ui-Elements/Layouts/GridApp/GridCell";
-import { TractDirection } from "components/Shiny-Ui-Elements/Layouts/GridApp/helpers";
 import { TractControls } from "components/Shiny-Ui-Elements/Layouts/GridApp/TractControls";
 import { NodeUpdateContext } from "components/Shiny-Ui-Elements/UiTree";
-import { CSSMeasure, GridLocString } from "GridTypes";
-import clone from "just-clone";
+import { GridLocString } from "GridTypes";
 import React from "react";
-import addItem from "utils/gridTemplates/addItem";
-import addTract from "utils/gridTemplates/addTract";
 import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
-import removeItem from "utils/gridTemplates/removeItem";
-import removeTract from "utils/gridTemplates/removeTract";
-import resizeTract from "utils/gridTemplates/resizeTract";
-import { GridItemExtent, TemplatedGridProps } from "utils/gridTemplates/types";
+import { TemplatedGridProps } from "utils/gridTemplates/types";
 import { ItemBoundingBox } from "utils/overlap-helpers";
 import { UiNodeComponent } from "../uiComponentAndSettings";
+import { GridLayoutAction, gridLayoutReducer } from "./gridLayoutReducer";
 import classes from "./styles.module.css";
 
 export type GridCellBounds = Record<GridLocString, ItemBoundingBox>;
@@ -86,66 +80,5 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
     </LayoutDispatchContext.Provider>
   );
 };
-
-export type GridLayoutAction =
-  | { type: "ADD_ITEM"; name: string; pos: GridItemExtent }
-  | { type: "REMOVE_ITEM"; name: string }
-  | { type: "MOVE_ITEM"; name: string; pos: GridItemExtent }
-  | {
-      type: "ADD_TRACT";
-      dir: TractDirection;
-      afterIndex: number;
-      size: CSSMeasure;
-    }
-  | {
-      type: "REMOVE_TRACT";
-      dir: TractDirection;
-      index: number;
-    }
-  | {
-      type: "RESIZE_TRACT";
-      dir: TractDirection;
-      index: number;
-      size: CSSMeasure;
-    }
-  | {
-      type: "SET_GAP";
-      size: CSSMeasure;
-    };
-
-function gridLayoutReducer(
-  layout: TemplatedGridProps,
-  action: GridLayoutAction
-): TemplatedGridProps {
-  switch (action.type) {
-    case "ADD_ITEM":
-    // eslint-disable-next-line no-fallthrough
-    case "MOVE_ITEM":
-      return addItem(layout, { name: action.name, ...action.pos });
-
-    case "REMOVE_ITEM":
-      return removeItem(layout, action.name);
-
-    case "ADD_TRACT":
-      return addTract(layout, action);
-
-    case "REMOVE_TRACT":
-      return removeTract(layout, action);
-
-    case "RESIZE_TRACT":
-      return resizeTract(
-        layout,
-        { dir: action.dir, index: action.index },
-        action.size
-      );
-
-    case "SET_GAP":
-      return { ...clone(layout), gapSize: action.size };
-
-    default:
-      console.error(action);
-      throw new Error("Have yet to implement layout action type");
-  }
-}
 
 export default GridlayoutGridPage;
