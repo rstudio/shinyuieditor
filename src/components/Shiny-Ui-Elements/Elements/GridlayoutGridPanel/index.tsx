@@ -1,10 +1,12 @@
 import { UiNodeComponent } from "../uiComponentAndSettings";
 import classes from "./styles.module.css";
 
+export type HorizontalAlignments = "left" | "center" | "right" | "spread";
+export type VerticalAlignments = "top" | "center" | "bottom" | "spread";
 export type GridPanelSettings = {
   area?: string;
-  horizontalAlign?: "left" | "center" | "right";
-  verticalAlign?: "top" | "center" | "bottom";
+  horizontalAlign?: HorizontalAlignments;
+  verticalAlign?: VerticalAlignments;
 };
 
 const GridlayoutGridPanel: UiNodeComponent<GridPanelSettings> = ({
@@ -16,13 +18,11 @@ const GridlayoutGridPanel: UiNodeComponent<GridPanelSettings> = ({
   return (
     <div
       className={classes.container}
-      style={
-        {
-          gridArea: area,
-          "--verticalAlign": dirToFlexProp[verticalAlign ?? "center"],
-          "--horizontalAlign": dirToFlexProp[horizontalAlign ?? "center"],
-        } as React.CSSProperties
-      }
+      style={{
+        gridArea: area,
+        justifyContent: dirToFlexProp[horizontalAlign ?? "spread"],
+        alignContent: dirToFlexProp[verticalAlign ?? "spread"],
+      }}
       {...passthroughProps}
     >
       {children}
@@ -30,11 +30,13 @@ const GridlayoutGridPanel: UiNodeComponent<GridPanelSettings> = ({
   );
 };
 
-const dirToFlexProp = {
-  center: "center",
-  left: "start",
-  top: "start",
-  right: "end",
-  bottom: "end",
-};
+const dirToFlexProp: Record<HorizontalAlignments | VerticalAlignments, string> =
+  {
+    center: "center",
+    left: "start",
+    top: "start",
+    right: "end",
+    bottom: "end",
+    spread: "space-evenly",
+  };
 export default GridlayoutGridPanel;
