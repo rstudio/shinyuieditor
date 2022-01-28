@@ -102,7 +102,7 @@ function simplifySide(side: MovementType) {
 }
 
 const AreaMarker = styled.div({
-  outline: "1px solid black",
+  // outline: "1px solid black",
   fontWeight: "lighter",
   fontStyle: "italic",
   padding: "2px",

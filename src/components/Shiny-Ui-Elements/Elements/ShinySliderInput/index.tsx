@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import * as React from "react";
-import { makeBoxShadow } from "utils/css-helpers";
 import { UiNodeComponent } from "../uiComponentAndSettings";
 import { buildSliderSettings, ShinySliderInputProps } from "./arguments";
 
@@ -46,10 +45,8 @@ const ShinySliderInput: UiNodeComponent<ShinySliderInputProps> = ({
 export default ShinySliderInput;
 
 const SliderHolder = styled.div({
-  outline: "1px solid var(--rstudio-grey)",
   display: "grid",
   gridTemplateRows: "1fr",
   gridTemplateColumns: "1fr",
   padding: "1rem",
-  boxShadow: makeBoxShadow({ height: 0.2 }),
 });

@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import * as React from "react";
 import { GoGraph } from "react-icons/go";
-import { makeBoxShadow } from "utils/css-helpers";
 import { UiNodeComponent } from "../uiComponentAndSettings";
 
 export type ShinyPlotOutputProps = Partial<{
@@ -64,14 +63,12 @@ const ShinyPlotOutput: UiNodeComponent<ShinyPlotOutputProps> = ({
 };
 
 const PlotHolder = styled.div({
-  outline: "1px solid var(--rstudio-grey)",
   display: "grid",
   gridTemplateRows: "1fr",
   gridTemplateColumns: "1fr",
   placeContent: "center",
   padding: "1rem",
   maxHeight: "100%",
-  boxShadow: makeBoxShadow({ height: 0.2 }),
 });
 
 export default ShinyPlotOutput;
