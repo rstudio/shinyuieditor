@@ -16,12 +16,7 @@ import {
   uiComponentAndSettings,
   UiNodeComponent,
 } from "../Elements/uiComponentAndSettings";
-import {
-  checkIfContainerNode,
-  NodePath,
-  ShinyUiNameAndArguments,
-  UiNodeProps,
-} from "../uiNodeTypes";
+import { checkIfContainerNode, NodePath, UiNodeProps } from "../uiNodeTypes";
 import { NodeUpdateContext } from "../UiTree";
 import classes from "./styles.module.css";
 import { UiSettingsComponent } from "./UiSettingsComponent";
@@ -35,6 +30,8 @@ const UiNode = ({ path = [], ...props }: { path?: NodePath } & UiNodeProps) => {
   const nodeUpdaters = React.useContext(NodeUpdateContext);
 
   const [isOpen, setIsOpen] = React.useState(false);
+  const settingsButtonRef = React.useRef<HTMLSpanElement>(null);
+  const deleteButtonRef = React.useRef<HTMLSpanElement>(null);
 
   const controls = (
     <>
@@ -45,7 +42,11 @@ const UiNode = ({ path = [], ...props }: { path?: NodePath } & UiNodeProps) => {
         closeOnBlur={true}
       >
         <PopoverTrigger>
-          <span className={classes.editButton} style={{ position: "absolute" }}>
+          <span
+            className={classes.editButton}
+            style={{ position: "absolute" }}
+            ref={settingsButtonRef}
+          >
             <SettingsIcon />
           </span>
         </PopoverTrigger>
@@ -75,29 +76,13 @@ const UiNode = ({ path = [], ...props }: { path?: NodePath } & UiNodeProps) => {
         onClick={() => {
           nodeUpdaters.deleteNode(path);
         }}
+        ref={deleteButtonRef}
       >
         <TrashIcon />
       </span>
     </>
   );
 
-  return (
-    <UiNodeWrapper path={path} {...props}>
-      {controls}
-    </UiNodeWrapper>
-  );
-};
-
-/**
- * Generate the overall wrapping div of the node. Sets the proper classes for
- * styling and adds the drag-and-drop callbacks to the appropriate (container)
- * nodes.
- */
-function UiNodeWrapper({
-  path,
-  children: settingsPopover,
-  ...props
-}: { path: NodePath; children: React.ReactNode } & ShinyUiNameAndArguments) {
   const { uiName, uiArguments, uiChildren } = props;
   const dragAndDropCallbacks = useDragAndDropElements(
     path,
@@ -107,14 +92,32 @@ function UiNodeWrapper({
     typeof uiArguments
   >;
 
+  const handleHoverOver = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    console.log("Entering", { path, uiName });
+    settingsButtonRef.current?.classList.add(classes.selected);
+    deleteButtonRef.current?.classList.add(classes.selected);
+  };
+  const handleHoverOff = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    console.log("Leaving", { path, uiName });
+    settingsButtonRef.current?.classList.remove(classes.selected);
+    deleteButtonRef.current?.classList.remove(classes.selected);
+  };
+
   return (
-    <Comp uiArguments={uiArguments} {...dragAndDropCallbacks}>
+    <Comp
+      uiArguments={uiArguments}
+      {...dragAndDropCallbacks}
+      onMouseOver={handleHoverOver}
+      onMouseLeave={handleHoverOff}
+    >
       {uiChildren?.map((childNode, i) => (
         <UiNode key={path.join(".") + i} path={[...path, i]} {...childNode} />
       ))}
-      {settingsPopover}
+      {controls}
     </Comp>
   );
-}
+};
 
 export default UiNode;

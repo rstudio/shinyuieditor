@@ -11,6 +11,17 @@
   position: relative;
 }
 
+.deleteButton,
+.editButton {
+  cursor: pointer;
+  background-color: white;
+  border-radius: 6px;
+  outline: none;
+  width: 16px;
+  height: 16px;
+  display: none;
+}
+
 .deleteButton {
   position: absolute;
   left: -8px;
@@ -23,12 +34,7 @@
   top: -8px;
 }
 
-.deleteButton,
-.editButton {
-  cursor: pointer;
-  background-color: white;
-  border-radius: 6px;
-  outline: none;
-  width: 16px;
-  height: 16px;
+.editButton.selected,
+.deleteButton.selected {
+  display: block;
 }
