@@ -16,7 +16,8 @@ const Template: ComponentStory<typeof UiTree> = (args) => (
       display: "grid",
       gridTemplateColumns: "150px 1fr",
       height: "800px",
-      gap: "2rem",
+      gap: "150px",
+      paddingTop: "100px",
     }}
   >
     <div
@@ -104,6 +105,7 @@ Secondary.args = {
     ],
     rowSizes: ["100px", "1fr", "1fr"],
     colSizes: ["250px", "1fr"],
+    gapSize: "1rem",
   },
   uiChildren: [
     {
