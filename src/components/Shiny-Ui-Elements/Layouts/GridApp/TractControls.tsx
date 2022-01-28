@@ -156,6 +156,7 @@ const TractControlsHolder = styled.div({
     "--edge-color": "var(--light-grey)",
     content: `""`,
     position: "absolute",
+    pointerEvents: "none",
   },
   "&.rows::after": {
     height: "calc(100% - 2*var(--gap))",
