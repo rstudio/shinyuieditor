@@ -1,6 +1,7 @@
 .container {
   display: grid;
   background-color: var(--bg-color);
+  outline: 1px solid var(--light-grey);
   position: relative;
 }
 
