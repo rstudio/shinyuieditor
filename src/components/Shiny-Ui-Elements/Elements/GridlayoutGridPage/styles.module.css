@@ -3,6 +3,8 @@
   background-color: var(--bg-color);
   outline: 1px solid var(--light-grey);
   position: relative;
+  height: 100%;
+  width: 100%;
 }
 
 /* Make sure the children are position relative so floating buttons etc will sit

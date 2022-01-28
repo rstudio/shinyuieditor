@@ -16,8 +16,6 @@ const Template: ComponentStory<typeof UiTree> = (args) => (
       display: "grid",
       gridTemplateColumns: "150px 1fr",
       height: "800px",
-      gap: "150px",
-      paddingTop: "100px",
     }}
   >
     <div
@@ -31,7 +29,18 @@ const Template: ComponentStory<typeof UiTree> = (args) => (
       <ElementsPalette />
     </div>
 
-    <UiTree {...args} />
+    <div
+      className="App-Container"
+      style={{
+        height: "100%",
+        width: "100%",
+        position: "relative",
+        paddingTop: "80px",
+        paddingLeft: "160px",
+      }}
+    >
+      <UiTree {...args} />
+    </div>
   </div>
 );
 
