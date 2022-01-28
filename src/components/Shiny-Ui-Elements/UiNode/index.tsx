@@ -30,10 +30,8 @@ import { useDragAndDropElements } from "./useDragAndDropElements";
 /**
  * Recursively render the nodes in a UI Tree
  */
-export function UiNode({
-  path = [],
-  ...props
-}: { path?: NodePath } & UiNodeProps) {
+
+const UiNode = ({ path = [], ...props }: { path?: NodePath } & UiNodeProps) => {
   const nodeUpdaters = React.useContext(NodeUpdateContext);
 
   const [isOpen, setIsOpen] = React.useState(false);
@@ -88,7 +86,7 @@ export function UiNode({
       {controls}
     </UiNodeWrapper>
   );
-}
+};
 
 /**
  * Generate the overall wrapping div of the node. Sets the proper classes for
