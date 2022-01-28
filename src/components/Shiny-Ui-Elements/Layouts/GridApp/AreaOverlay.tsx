@@ -144,6 +144,8 @@ const Dragger = styled.div({
   display: "grid",
   placeContent: "center",
   position: "absolute",
+  opacity: 0.2,
+  ":hover": { opacity: 1 },
   backgroundColor: "var(--rstudio-blue)",
   color: "var(--rstudio-white)",
   // Re-enable pointer events on the drag handles themselves because we disabled
