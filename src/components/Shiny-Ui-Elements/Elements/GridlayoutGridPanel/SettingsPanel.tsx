@@ -10,55 +10,56 @@ export const GridlayoutGridPanelSettings: SettingsUpdaterComponent<
 
   return (
     <>
-      <div className={classes.formSection}>
-        <p>Vertical Alignment:</p>
-        <fieldset
-          className={classes.radioInputs}
-          onChange={(e) => {
-            const updatedVerticalAlign = (e.target as HTMLInputElement)
-              .value as GridPanelSettings["verticalAlign"];
-
-            onChange({ ...settings, verticalAlign: updatedVerticalAlign });
-          }}
-        >
-          {["top", "center", "bottom"].map((dir) => (
-            <div key={dir}>
-              <input
-                name="vertical-alignment"
-                type="radio"
-                value={dir}
-                defaultChecked={dir === currentSettings.verticalAlign}
-              />
-              <label htmlFor={dir}>{dir}</label>
-            </div>
-          ))}
-        </fieldset>
-      </div>
-      <div className={classes.formSection}>
-        <p>Horizontal Alignment:</p>
-        <fieldset
-          className={classes.radioInputs}
-          onChange={(e) => {
-            onChange({
-              ...settings,
-              horizontalAlign: (e.target as HTMLInputElement)
-                .value as GridPanelSettings["horizontalAlign"],
-            });
-          }}
-        >
-          {["left", "center", "right"].map((dir) => (
-            <div key={dir}>
-              <input
-                name="horizontal-alignment"
-                type="radio"
-                value={dir}
-                defaultChecked={dir === currentSettings.horizontalAlign}
-              />
-              <label htmlFor={dir}>{dir}</label>
-            </div>
-          ))}
-        </fieldset>
-      </div>
+      <RadioInputs
+        name="Vertical Alignment"
+        options={["top", "center", "bottom", "spread"]}
+        currentSelection={currentSettings.verticalAlign ?? "spread"}
+        onChange={(verticalAlign) => onChange({ ...settings, verticalAlign })}
+      />
+      <RadioInputs
+        name="Horizontal Alignment"
+        options={["left", "center", "right", "spread"]}
+        currentSelection={currentSettings.horizontalAlign ?? "spread"}
+        onChange={(horizontalAlign) =>
+          onChange({ ...settings, horizontalAlign })
+        }
+      />
     </>
   );
 };
+
+function RadioInputs<OptionType extends string>({
+  name,
+  options,
+  currentSelection,
+  onChange,
+}: {
+  name: string;
+  options: OptionType[];
+  currentSelection: OptionType;
+  onChange: (selection: OptionType) => void;
+}) {
+  return (
+    <div className={classes.formSection}>
+      <p>{name}:</p>
+      <fieldset
+        className={classes.radioInputs}
+        onChange={(e) => {
+          onChange((e.target as HTMLInputElement).value as OptionType);
+        }}
+      >
+        {options.map((option) => (
+          <div key={option}>
+            <input
+              name={name}
+              type="radio"
+              value={option}
+              defaultChecked={option === currentSelection}
+            />
+            <label htmlFor={option}>{option}</label>
+          </div>
+        ))}
+      </fieldset>
+    </div>
+  );
+}
