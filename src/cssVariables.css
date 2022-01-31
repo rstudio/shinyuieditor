@@ -14,7 +14,8 @@
   --card-header-height: 35px;
   --animation-speed: 0.2s;
   --animation-curve: ease-in-out;
-  --outline: 1px solid var(--light-grey);
+  --outline-color: #9c9c9c;
+  --outline: 1px solid var(--outline-color);
 }
 
 * {
