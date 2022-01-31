@@ -27,7 +27,7 @@ export const TooltipButton = React.forwardRef(
       <Tooltip
         label={popoverText}
         placement={popoverPlacement}
-        border="1px solid var(--light-grey)"
+        border="var(--outline)"
         backgroundColor="var(--rstudio-white)"
         color="var(--rstudio-grey)"
       >

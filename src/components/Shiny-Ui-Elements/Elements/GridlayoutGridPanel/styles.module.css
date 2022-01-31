@@ -5,12 +5,12 @@
   display: flex;
   flex-wrap: wrap;
   background-color: var(--rstudio-white, green);
-  outline: 1px solid var(--light-grey);
+  outline: var(--outline);
 }
 
 /* Make sure the children are position relative so floating buttons etc will sit
 in the proper places */
 .container > * {
   position: relative;
-  outline: 1px solid var(--light-grey);
+  outline: var(--outline);
 }

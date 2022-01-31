@@ -1,6 +1,6 @@
 .titlePanel {
   background-color: var(--rstudio-white);
-  outline: 1px solid var(--light-grey);
+  outline: var(--outline);
   display: grid;
   align-items: center;
   width: 100%;

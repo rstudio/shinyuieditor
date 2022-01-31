@@ -11,7 +11,7 @@
 
 .OptionItem {
   --size: 115px;
-  border: 1px solid var(--light-grey);
+  border: var(--outline);
   border-radius: var(--corner-radius, 10px);
   width: var(--size);
   height: var(--size);

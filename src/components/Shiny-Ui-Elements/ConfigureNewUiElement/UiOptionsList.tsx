@@ -58,7 +58,7 @@ export const OptionsList = styled.div({
 });
 
 export const OptionItem = styled.label({
-  border: "1px solid var(--light-grey)",
+  border: "var(--outline)",
   borderRadius: "var(--corner-radius, 10px)",
   width: "150px",
   display: "grid",
