@@ -1,11 +1,14 @@
 import { IconButton } from "@chakra-ui/button";
+import { defaultSettingsForElements } from "components/Shiny-Ui-Elements/Elements/uiComponentAndSettings";
+import { ShinyUiNames } from "components/Shiny-Ui-Elements/uiNodeTypes";
+import { NodeUpdateContext } from "components/Shiny-Ui-Elements/UiTree";
 import debounce from "just-debounce-it";
 import React from "react";
 import { FaPlus } from "react-icons/fa";
 import { enumerateGridDims, toStringLoc } from "utils/grid-helpers";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
 import { getBBoxOfDiv } from "utils/overlap-helpers";
-import { CellLocRef } from ".";
+import { CellLocRef, LayoutDispatchContext } from ".";
 
 function GridCell({
   gridRow,
@@ -21,6 +24,8 @@ function GridCell({
   const gridPos = toStringLoc({ row: gridRow, col: gridColumn });
   const cellRef = React.useRef<HTMLDivElement>(null);
   const isClickable = typeof onClick !== "undefined";
+  const nodeUpdaters = React.useContext(NodeUpdateContext);
+  const layoutDispatch = React.useContext(LayoutDispatchContext);
 
   const updateSize = React.useMemo(
     () =>
@@ -64,6 +69,59 @@ function GridCell({
         opacity: 0.2,
         display: "grid",
         placeContent: "center",
+      }}
+      onDragOver={(e) => {
+        console.log("Dragged over cell", { gridRow, gridColumn });
+        if (cellRef.current) {
+          cellRef.current.style.outline = "2px solid salmon";
+        }
+      }}
+      onDrop={(e) => {
+        e.stopPropagation();
+        // Get the type of dropped element and act on it
+        const nameOfDroppedUi = e.dataTransfer.getData(
+          "element-type"
+        ) as ShinyUiNames;
+
+        console.log("Cell had " + nameOfDroppedUi + " dropped on it");
+        // For right now we'll just use the default settings for the
+        // dropped ui element
+        const newElement = defaultSettingsForElements.find(
+          ({ uiName }) => uiName === nameOfDroppedUi
+        );
+
+        if (!newElement) {
+          throw new Error(
+            "Could not find default settings for node of type " +
+              nameOfDroppedUi
+          );
+        }
+
+        // This will eventually filter by element type
+        const allowedDrop = true;
+
+        const newAreaName = "MyNewGridArea";
+        layoutDispatch?.({
+          type: "ADD_ITEM",
+          name: newAreaName,
+          pos: {
+            rowStart: gridRow,
+            rowEnd: gridRow,
+            colStart: gridColumn,
+            colEnd: gridColumn,
+          },
+        });
+
+        // Let the state know we have a new child node
+        nodeUpdaters.addNode([], {
+          uiName: "gridlayout::grid_panel",
+          uiArguments: {
+            area: newAreaName,
+            horizontalAlign: "spread",
+            verticalAlign: "spread",
+          },
+          uiChildren: [newElement],
+        });
       }}
     >
       {isClickable ? (
