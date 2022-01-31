@@ -13,25 +13,27 @@
 
 .deleteButton,
 .editButton {
+  --button-size: 16px;
+  --inset: 1px;
   cursor: pointer;
   background-color: white;
   border-radius: 6px;
   outline: none;
-  width: 16px;
-  height: 16px;
+  width: var(--button-size);
+  height: var(--button-size);
   display: none;
 }
 
 .deleteButton {
   position: absolute;
-  left: -8px;
-  top: -8px;
+  left: var(--inset);
+  top: var(--inset);
 }
 
 .editButton {
   position: absolute;
-  right: -8px;
-  top: -8px;
+  right: var(--inset);
+  top: var(--inset);
 }
 
 .editButton.selected,
