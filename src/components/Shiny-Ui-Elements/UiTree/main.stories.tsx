@@ -20,12 +20,13 @@ const Template: ComponentStory<typeof UiTree> = (args) => (
   >
     <div
       style={{
-        outline: "1px solid grey",
-        borderRadius: "8px",
+        // outline: "1px solid grey",
+        // borderRadius: "8px",
+        backgroundColor: "silver",
         padding: "8px",
       }}
     >
-      <h2>Elements Palette</h2>
+      <h2 style={{ color: "white", fontWeight: "bold" }}>Elements Palette</h2>
       <ElementsPalette />
     </div>
 
