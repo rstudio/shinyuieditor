@@ -94,13 +94,11 @@ const UiNode = ({ path = [], ...props }: { path?: NodePath } & UiNodeProps) => {
 
   const handleHoverOver = (e: React.MouseEvent) => {
     e.stopPropagation();
-    console.log("Entering", { path, uiName });
     settingsButtonRef.current?.classList.add(classes.selected);
     deleteButtonRef.current?.classList.add(classes.selected);
   };
   const handleHoverOff = (e: React.MouseEvent) => {
     e.stopPropagation();
-    console.log("Leaving", { path, uiName });
     settingsButtonRef.current?.classList.remove(classes.selected);
     deleteButtonRef.current?.classList.remove(classes.selected);
   };
