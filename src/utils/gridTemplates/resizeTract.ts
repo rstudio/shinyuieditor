@@ -3,37 +3,31 @@ import { TractDirection } from "components/Shiny-Ui-Elements/Layouts/GridApp/hel
 import { fillArr } from "utils/array-helpers";
 import { matrixDimensions } from "utils/matrix-helpers";
 import { TemplatedGridProps } from "./types";
+import produce from "immer";
 
 export default function resizeTract(
-  template: TemplatedGridProps,
+  templateOriginal: TemplatedGridProps,
   { index, dir }: { index: number; dir: TractDirection },
   size: CSSMeasure
 ): TemplatedGridProps {
-  const sizeForDirProp = dir === "rows" ? "rowSizes" : "colSizes";
+  return produce(templateOriginal, (template) => {
+    const tractProp = dir === "rows" ? "rowSizes" : "colSizes";
 
-  let newSizes: CSSMeasure[] | CSSMeasure | undefined;
+    // If the sizes is a repeated or default value we need to make it an array
+    if (!Array.isArray(template[tractProp])) {
+      // Completely empty means we give a default value of 1fr
+      const filledSize =
+        typeof template[tractProp] === "undefined"
+          ? "1fr"
+          : template[tractProp];
+      const gridDims = matrixDimensions(template.areas);
 
-  if (dir === "rows") {
-    newSizes = template.rowSizes;
-  } else {
-    newSizes = template.colSizes;
-  }
+      template[tractProp] = fillArr(
+        filledSize,
+        dir === "rows" ? gridDims.numRows : gridDims.numCols
+      );
+    }
 
-  // If the sizes is a repeated or default value we need to make it an array
-  if (!Array.isArray(newSizes)) {
-    const filledSize = typeof newSizes === "undefined" ? "1fr" : newSizes;
-    const gridDims = matrixDimensions(template.areas);
-
-    newSizes = fillArr(
-      filledSize,
-      dir === "rows" ? gridDims.numRows : gridDims.numCols
-    );
-  }
-
-  newSizes[index - 1] = size;
-
-  return {
-    ...template,
-    [sizeForDirProp]: newSizes,
-  };
+    template[tractProp][index - 1] = size;
+  });
 }
