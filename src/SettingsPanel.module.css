@@ -18,4 +18,7 @@
   background-color: var(--rstudio-white);
   border-radius: var(--corner-radius);
   align-self: center;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }

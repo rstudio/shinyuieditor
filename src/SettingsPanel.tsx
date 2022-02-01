@@ -7,6 +7,7 @@ import {
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import * as React from "react";
 import classes from "./SettingsPanel.module.css";
+import { FiTrash as TrashIcon } from "react-icons/fi";
 
 export function SettingsPanel({
   tree,
@@ -57,7 +58,7 @@ export function SettingsPanel({
           nodeUpdaters.deleteNode(selectedPath);
         }}
       >
-        Delete Element
+        <TrashIcon /> Delete Element
       </button>
     </div>
   );
