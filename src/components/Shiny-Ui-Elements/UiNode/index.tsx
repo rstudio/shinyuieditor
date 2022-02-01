@@ -71,7 +71,7 @@ const UiNode = ({
       {...dragAndDropCallbacks}
       onMouseOver={handleHoverOver}
       onMouseLeave={handleHoverOff}
-      onDoubleClick={handleDoubleClick}
+      onClick={handleDoubleClick}
     >
       {uiChildren?.map((childNode, i) => (
         <UiNode
