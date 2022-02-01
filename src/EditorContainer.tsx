@@ -2,6 +2,7 @@ import rstudioLogo from "assets/RStudio-Logo.svg";
 import shinyLogo from "assets/Shiny-Logo.png";
 import ElementsPalette from "components/Shiny-Ui-Elements/ElementsPalette";
 import UiNode from "components/Shiny-Ui-Elements/UiNode";
+import NodeUpdateContext from "components/Shiny-Ui-Elements/UiNode/NodeUpdateContext";
 import {
   addNode,
   removeNode,

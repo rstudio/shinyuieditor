@@ -2,7 +2,7 @@ import { LayoutDispatchContext } from "components/Shiny-Ui-Elements/Layouts/Grid
 import { AreaOverlay } from "components/Shiny-Ui-Elements/Layouts/GridApp/AreaOverlay";
 import { GridCells } from "components/Shiny-Ui-Elements/Layouts/GridApp/GridCell";
 import { TractControls } from "components/Shiny-Ui-Elements/Layouts/GridApp/TractControls";
-import { NodeUpdateContext } from "components/Shiny-Ui-Elements/UiTree";
+import NodeUpdateContext from "components/Shiny-Ui-Elements/UiNode/NodeUpdateContext";
 import { GridLocString } from "GridTypes";
 import React from "react";
 import { areasToItemLocations } from "utils/gridTemplates/itemLocations";

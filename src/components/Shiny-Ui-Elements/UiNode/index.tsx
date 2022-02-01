@@ -17,7 +17,7 @@ import {
   UiNodeComponent,
 } from "../Elements/uiComponentAndSettings";
 import { checkIfContainerNode, NodePath, UiNodeProps } from "../uiNodeTypes";
-import { NodeUpdateContext } from "../UiTree";
+import NodeUpdateContext from "./NodeUpdateContext";
 import classes from "./styles.module.css";
 import { UiSettingsComponent } from "./UiSettingsComponent";
 import { useDragAndDropElements } from "./useDragAndDropElements";

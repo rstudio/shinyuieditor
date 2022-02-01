@@ -18,7 +18,7 @@ import {
   addNode,
   removeNode,
 } from "components/Shiny-Ui-Elements/UiNode/treeManipulation";
-import { NodeUpdateContext } from "components/Shiny-Ui-Elements/UiTree";
+import NodeUpdateContext from "components/Shiny-Ui-Elements/UiNode/NodeUpdateContext";
 import { GridLocString } from "GridTypes";
 import omit from "just-omit";
 import * as React from "react";

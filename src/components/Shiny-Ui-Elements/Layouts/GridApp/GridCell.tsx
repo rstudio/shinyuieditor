@@ -1,7 +1,7 @@
 import { IconButton } from "@chakra-ui/button";
 import { defaultSettingsForElements } from "components/Shiny-Ui-Elements/Elements/uiComponentAndSettings";
 import { ShinyUiNames } from "components/Shiny-Ui-Elements/uiNodeTypes";
-import { NodeUpdateContext } from "components/Shiny-Ui-Elements/UiTree";
+import NodeUpdateContext from "components/Shiny-Ui-Elements/UiNode/NodeUpdateContext";
 import debounce from "just-debounce-it";
 import React from "react";
 import { FaPlus } from "react-icons/fa";
