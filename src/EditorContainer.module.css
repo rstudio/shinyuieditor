@@ -1,7 +1,5 @@
 .container {
   height: 100vh;
-  --background-grey: #e9edf3;
-  --header-grey: #a5b3c2;
   width: 100%;
   background-color: var(--background-grey, #edf2f7);
   display: grid;
