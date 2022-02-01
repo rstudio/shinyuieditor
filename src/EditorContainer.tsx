@@ -5,16 +5,18 @@ import UiNode from "components/Shiny-Ui-Elements/UiNode";
 import NodeUpdateContext from "components/Shiny-Ui-Elements/UiNode/NodeUpdateContext";
 import {
   addNode,
+  getNode,
   removeNode,
   updateNode,
 } from "components/Shiny-Ui-Elements/UiNode/treeManipulation";
+import { UiSettingsComponent } from "components/Shiny-Ui-Elements/UiNode/UiSettingsComponent";
 import {
   NodePath,
   UiNodeProps,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
-import { NodeUpdateContext } from "components/Shiny-Ui-Elements/UiTree";
 import * as React from "react";
 import classes from "./EditorContainer.module.css";
+
 export function EditorContainer() {
   // const { isLoading, error, data } = useQuery("initial-state", getInitialState);
 
@@ -26,6 +28,7 @@ export function EditorContainer() {
   //   return <h3 style={{ color: "orangered" }}>Error with server request</h3>;
   // }
 
+  const [selectedPath, setSelectedPath] = React.useState<NodePath | null>(null);
   const [tree, setTree] = React.useState(initialState);
 
   // Since these just use the setters they will never change over the lifecycle
@@ -39,36 +42,80 @@ export function EditorContainer() {
         setTree((oldTree) => addNode({ tree: oldTree, path, newNode })),
       deleteNode: (path: NodePath) =>
         setTree((oldTree) => removeNode({ tree: oldTree, path })),
+      selectNode: (path: NodePath) => setSelectedPath(path),
     }),
     []
   );
 
   return (
-    <div className={classes.container}>
-      <div className={classes.header}>
-        <div className={classes.leftSide}>
-          <h1 className={classes.title}>Shiny Visual Editor</h1>
-          <img src={rstudioLogo} alt="RStudio Logo" />
-          <img
-            src={shinyLogo}
-            style={{ backgroundColor: "var(--rstudio-blue, pink)" }}
-            alt="Shiny Logo"
-          />
+    <NodeUpdateContext.Provider value={editCallbacks}>
+      <div className={classes.container}>
+        <div className={classes.header}>
+          <div className={classes.leftSide}>
+            <h1 className={classes.title}>Shiny Visual Editor</h1>
+            <img src={rstudioLogo} alt="RStudio Logo" />
+            <img
+              src={shinyLogo}
+              style={{ backgroundColor: "var(--rstudio-blue, pink)" }}
+              alt="Shiny Logo"
+            />
+          </div>
+        </div>
+        <div className={`${classes.elementsPanel} ${classes.titledPanel}`}>
+          <h3>Elements</h3>
+          <ElementsPalette />
+        </div>
+        <div className={`${classes.propertiesPanel} ${classes.titledPanel}`}>
+          <h3>Properties</h3>
+          <SettingsPanel tree={tree} selectedPath={selectedPath} />
+        </div>
+        <div className={classes.editorHolder}>
+          <UiNode {...tree} selectedPath={selectedPath} />
         </div>
       </div>
-      <div className={`${classes.elementsPanel} ${classes.titledPanel}`}>
-        <h3>Elements</h3>
-        <ElementsPalette />
-      </div>
-      <div className={`${classes.propertiesPanel} ${classes.titledPanel}`}>
-        <h3>Properties</h3>
-        <div>Select an element to edit properties</div>
-      </div>
-      <div className={classes.editorHolder}>
-        <NodeUpdateContext.Provider value={editCallbacks}>
-          <UiNode {...tree} />
-        </NodeUpdateContext.Provider>
-      </div>
+    </NodeUpdateContext.Provider>
+  );
+}
+
+function SettingsPanel({
+  tree,
+  selectedPath,
+}: {
+  tree: UiNodeProps;
+  selectedPath: NodePath | null;
+}) {
+  const nodeUpdaters = React.useContext(NodeUpdateContext);
+
+  if (selectedPath === null) {
+    return <div>Select an element to edit properties</div>;
+  }
+  const currentNode = getNode(tree, selectedPath);
+
+  const { uiName, uiArguments } = currentNode;
+
+  return (
+    <div>
+      <p>
+        <strong>Element:</strong> {uiName}
+      </p>
+      <p>
+        <strong>Path:</strong> [{selectedPath.join(",")}]
+      </p>
+      <hr style={{ padding: "1.5rem" }} />
+      <UiSettingsComponent
+        {...currentNode}
+        onChange={(newSettings) => {
+          console.log("New settings for a node!", {
+            path: selectedPath,
+            node: { uiName, uiArguments: newSettings },
+          });
+          nodeUpdaters.updateNode(selectedPath, {
+            ...currentNode,
+            uiArguments: newSettings,
+          } as UiNodeProps);
+        }}
+        checkValid={false}
+      />
     </div>
   );
 }
@@ -104,11 +151,21 @@ const initialState: UiNodeProps = {
         {
           uiName: "shiny::sliderInput",
           uiArguments: {
-            inputId: "mySlider",
-            label: "slider",
+            inputId: "mySlider1",
+            label: "Slider 1",
+            min: 2,
+            max: 11,
+            value: 7,
+          },
+        },
+        {
+          uiName: "shiny::sliderInput",
+          uiArguments: {
+            inputId: "mySlider2",
+            label: "Slider 2",
             min: 1,
             max: 10,
-            value: 7,
+            value: 3,
           },
         },
       ],

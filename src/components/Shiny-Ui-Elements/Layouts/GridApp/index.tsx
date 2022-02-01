@@ -158,6 +158,7 @@ export default function GridApp({
       <UiNode
         key={area}
         path={[i]}
+        selectedPath={null}
         uiName="gridlayout::grid_panel"
         uiArguments={{ area }}
         uiChildren={[node]}
@@ -189,6 +190,8 @@ export default function GridApp({
       addNode: (path: NodePath, newNode: UiNodeProps) =>
         console.log("Add node", { path, newNode }),
       deleteNode: (path: NodePath) => console.log("Delete node", { path }),
+      selectNode: (path: NodePath) =>
+        console.log(`Selected node placeholder`, path),
       // updateNode: (path: NodePath, newNode: UiNodeProps) =>
       //   setTree((oldTree) => replaceNode({ tree: oldTree, path, newNode })),
       // addNode: (path: NodePath, newNode: UiNodeProps) =>

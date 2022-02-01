@@ -1,17 +1,6 @@
-import {
-  Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverCloseButton,
-  PopoverContent,
-  PopoverHeader,
-  PopoverTrigger,
-} from "@chakra-ui/react";
 import React from "react";
-import {
-  FiSettings as SettingsIcon,
-  FiTrash as TrashIcon,
-} from "react-icons/fi";
+import { FiTrash as TrashIcon } from "react-icons/fi";
+import { sameArray } from "utils/equalityCheckers";
 import {
   uiComponentAndSettings,
   UiNodeComponent,
@@ -19,57 +8,25 @@ import {
 import { checkIfContainerNode, NodePath, UiNodeProps } from "../uiNodeTypes";
 import NodeUpdateContext from "./NodeUpdateContext";
 import classes from "./styles.module.css";
-import { UiSettingsComponent } from "./UiSettingsComponent";
 import { useDragAndDropElements } from "./useDragAndDropElements";
 
 /**
  * Recursively render the nodes in a UI Tree
  */
 
-const UiNode = ({ path = [], ...props }: { path?: NodePath } & UiNodeProps) => {
+const UiNode = ({
+  path = [],
+  selectedPath,
+  ...props
+}: { path?: NodePath; selectedPath: NodePath | null } & UiNodeProps) => {
   const nodeUpdaters = React.useContext(NodeUpdateContext);
 
-  const [isOpen, setIsOpen] = React.useState(false);
   const settingsButtonRef = React.useRef<HTMLSpanElement>(null);
   const deleteButtonRef = React.useRef<HTMLSpanElement>(null);
+  const isSelected = selectedPath ? sameArray(path, selectedPath) : false;
 
   const controls = (
     <>
-      <Popover
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        onOpen={() => setIsOpen(!isOpen)}
-        closeOnBlur={true}
-      >
-        <PopoverTrigger>
-          <span
-            className={classes.editButton}
-            style={{ position: "absolute" }}
-            ref={settingsButtonRef}
-          >
-            <SettingsIcon />
-          </span>
-        </PopoverTrigger>
-        <PopoverContent aria-label={`Settings panel`}>
-          <PopoverArrow />
-          <PopoverCloseButton />
-          <PopoverHeader>Settings</PopoverHeader>
-          <PopoverBody>
-            <UiSettingsComponent
-              {...props}
-              onChange={(newSettings) => {
-                nodeUpdaters.updateNode(path, {
-                  ...props,
-                  uiArguments: newSettings,
-                } as UiNodeProps);
-                setIsOpen(false);
-              }}
-              checkValid={false}
-            />
-          </PopoverBody>
-        </PopoverContent>
-      </Popover>
-
       <span
         style={{ position: "absolute" }}
         className={classes.deleteButton}
@@ -88,9 +45,6 @@ const UiNode = ({ path = [], ...props }: { path?: NodePath } & UiNodeProps) => {
     path,
     !checkIfContainerNode(props)
   );
-  const Comp = uiComponentAndSettings[uiName].UiComponent as UiNodeComponent<
-    typeof uiArguments
-  >;
 
   const handleHoverOver = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -103,17 +57,32 @@ const UiNode = ({ path = [], ...props }: { path?: NodePath } & UiNodeProps) => {
     deleteButtonRef.current?.classList.remove(classes.selected);
   };
 
+  const handleDoubleClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    nodeUpdaters.selectNode(path);
+  };
+
+  const Comp = uiComponentAndSettings[uiName].UiComponent as UiNodeComponent<
+    typeof uiArguments
+  >;
   return (
     <Comp
       uiArguments={uiArguments}
       {...dragAndDropCallbacks}
       onMouseOver={handleHoverOver}
       onMouseLeave={handleHoverOff}
+      onDoubleClick={handleDoubleClick}
     >
       {uiChildren?.map((childNode, i) => (
-        <UiNode key={path.join(".") + i} path={[...path, i]} {...childNode} />
+        <UiNode
+          key={path.join(".") + i}
+          path={[...path, i]}
+          selectedPath={selectedPath}
+          {...childNode}
+        />
       ))}
       {controls}
+      {isSelected ? <div className={classes.selectedOverlay} /> : null}
     </Comp>
   );
 };

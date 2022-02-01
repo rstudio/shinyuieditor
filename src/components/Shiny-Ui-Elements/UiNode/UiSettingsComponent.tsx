@@ -28,10 +28,24 @@ export function UiSettingsComponent({
   const [currentSettings, setCurrentSettings] = React.useState(uiArguments);
   const [errorMsg, setErrorMsg] = React.useState<string | null>(null);
 
+  // Watch for changes in the props and update the state values to reflect.
+  // Otherwise the component will always use the settings from the first
+  // component it saw.
+  React.useEffect(() => {
+    console.log("UiSettingsComponent has new uiArguments!", {
+      uiName,
+      uiArguments,
+    });
+
+    setCurrentSettings(uiArguments);
+  }, [uiName, uiArguments]);
+
   const currentState = {
     uiName,
     uiArguments: currentSettings,
   } as ShinyUiNameAndArguments;
+
+  // debugger;
 
   // Convince typescript this is the correct type of prop from the object. Not
   // sure why this is needed.
@@ -39,6 +53,11 @@ export function UiSettingsComponent({
     .SettingsComponent as SettingsUpdaterComponent<typeof uiArguments>;
 
   // return <SettingsInputs settings={props.settings} onChange={props.onChange} />;
+
+  console.log(
+    `Rendering the settings for element type ${uiName} with starting settings`,
+    currentSettings
+  );
 
   return (
     <div css={{ padding: "1rem" }}>
@@ -53,7 +72,7 @@ export function UiSettingsComponent({
               onError: setErrorMsg,
             });
           } else {
-            onChange(currentState.uiArguments);
+            onChange(currentSettings);
           }
         }}
       >
