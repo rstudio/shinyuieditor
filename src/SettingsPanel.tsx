@@ -51,7 +51,14 @@ export function SettingsPanel({
         />
       </div>
 
-      <button className={classes.deleteButton}>Delete Element</button>
+      <button
+        className={classes.deleteButton}
+        onClick={() => {
+          nodeUpdaters.deleteNode(selectedPath);
+        }}
+      >
+        Delete Element
+      </button>
     </div>
   );
 }

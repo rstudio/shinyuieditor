@@ -37,10 +37,14 @@ export function EditorContainer() {
     () => ({
       updateNode: (path: NodePath, newNode: UiNodeProps) =>
         setTree((oldTree) => updateNode({ tree: oldTree, path, newNode })),
-      addNode: (path: NodePath, newNode: UiNodeProps) =>
-        setTree((oldTree) => addNode({ tree: oldTree, path, newNode })),
-      deleteNode: (path: NodePath) =>
-        setTree((oldTree) => removeNode({ tree: oldTree, path })),
+      addNode: (path: NodePath, newNode: UiNodeProps) => {
+        setTree((oldTree) => addNode({ tree: oldTree, path, newNode }));
+      },
+      deleteNode: (path: NodePath) => {
+        // Unselect node
+        setSelectedPath(null);
+        setTree((oldTree) => removeNode({ tree: oldTree, path }));
+      },
       selectNode: (path: NodePath) => setSelectedPath(path),
     }),
     []
