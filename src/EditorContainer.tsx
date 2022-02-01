@@ -56,12 +56,12 @@ export function EditorContainer() {
         </div>
       </div>
       <div className={`${classes.elementsPanel} ${classes.titledPanel}`}>
-        <h3>Elements Palette</h3>
+        <h3>Elements</h3>
         <ElementsPalette />
       </div>
       <div className={`${classes.propertiesPanel} ${classes.titledPanel}`}>
         <h3>Properties</h3>
-        <div>Properties go here</div>
+        <div>Select an element to edit properties</div>
       </div>
       <div className={classes.editorHolder}>
         <NodeUpdateContext.Provider value={editCallbacks}>
