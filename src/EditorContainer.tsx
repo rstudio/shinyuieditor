@@ -16,6 +16,10 @@ import * as React from "react";
 import classes from "./EditorContainer.module.css";
 import { SettingsPanel } from "./SettingsPanel";
 
+export const NodeSelectionContext = React.createContext<
+  (path: NodePath) => void
+>((path: NodePath) => console.log(`Selected node placeholder`, path));
+
 export function EditorContainer() {
   // const { isLoading, error, data } = useQuery("initial-state", getInitialState);
 
@@ -45,37 +49,38 @@ export function EditorContainer() {
         setSelectedPath(null);
         setTree((oldTree) => removeNode({ tree: oldTree, path }));
       },
-      selectNode: (path: NodePath) => setSelectedPath(path),
     }),
     []
   );
 
   return (
     <NodeUpdateContext.Provider value={editCallbacks}>
-      <div className={classes.container}>
-        <div className={classes.header}>
-          <div className={classes.leftSide}>
-            <h1 className={classes.title}>Shiny Visual Editor</h1>
-            <img src={rstudioLogo} alt="RStudio Logo" />
-            <img
-              src={shinyLogo}
-              style={{ backgroundColor: "var(--rstudio-blue, pink)" }}
-              alt="Shiny Logo"
-            />
+      <NodeSelectionContext.Provider value={setSelectedPath}>
+        <div className={classes.container}>
+          <div className={classes.header}>
+            <div className={classes.leftSide}>
+              <h1 className={classes.title}>Shiny Visual Editor</h1>
+              <img src={rstudioLogo} alt="RStudio Logo" />
+              <img
+                src={shinyLogo}
+                style={{ backgroundColor: "var(--rstudio-blue, pink)" }}
+                alt="Shiny Logo"
+              />
+            </div>
+          </div>
+          <div className={`${classes.elementsPanel} ${classes.titledPanel}`}>
+            <h3>Elements</h3>
+            <ElementsPalette />
+          </div>
+          <div className={`${classes.propertiesPanel} ${classes.titledPanel}`}>
+            <h3>Properties</h3>
+            <SettingsPanel tree={tree} selectedPath={selectedPath} />
+          </div>
+          <div className={classes.editorHolder}>
+            <UiNode {...tree} selectedPath={selectedPath} />
           </div>
         </div>
-        <div className={`${classes.elementsPanel} ${classes.titledPanel}`}>
-          <h3>Elements</h3>
-          <ElementsPalette />
-        </div>
-        <div className={`${classes.propertiesPanel} ${classes.titledPanel}`}>
-          <h3>Properties</h3>
-          <SettingsPanel tree={tree} selectedPath={selectedPath} />
-        </div>
-        <div className={classes.editorHolder}>
-          <UiNode {...tree} selectedPath={selectedPath} />
-        </div>
-      </div>
+      </NodeSelectionContext.Provider>
     </NodeUpdateContext.Provider>
   );
 }

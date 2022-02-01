@@ -1,11 +1,11 @@
+import { NodeSelectionContext } from "EditorContainer";
 import React from "react";
 import { sameArray } from "utils/equalityCheckers";
 import {
   uiComponentAndSettings,
   UiNodeComponent,
 } from "../Elements/uiComponentAndSettings";
-import { checkIfContainerNode, NodePath, UiNodeProps } from "../uiNodeTypes";
-import NodeUpdateContext from "./NodeUpdateContext";
+import { NodePath, UiNodeProps } from "../uiNodeTypes";
 import classes from "./styles.module.css";
 import { useDragAndDropElements } from "./useDragAndDropElements";
 
@@ -16,25 +16,24 @@ import { useDragAndDropElements } from "./useDragAndDropElements";
 const UiNode = ({
   path = [],
   selectedPath,
-  ...props
+  uiName,
+  uiArguments,
+  uiChildren,
 }: { path?: NodePath; selectedPath: NodePath | null } & UiNodeProps) => {
-  const nodeUpdaters = React.useContext(NodeUpdateContext);
-
+  const setNodeSelection = React.useContext(NodeSelectionContext);
   const settingsButtonRef = React.useRef<HTMLSpanElement>(null);
   const deleteButtonRef = React.useRef<HTMLSpanElement>(null);
   const isSelected = selectedPath ? sameArray(path, selectedPath) : false;
 
-  const { uiName, uiArguments, uiChildren } = props;
-  const dragAndDropCallbacks = useDragAndDropElements(
-    path,
-    !checkIfContainerNode(props)
-  );
+  const isLeafNode = typeof uiChildren === undefined;
+  const dragAndDropCallbacks = useDragAndDropElements(path, isLeafNode);
 
   const handleHoverOver = (e: React.MouseEvent) => {
     e.stopPropagation();
     settingsButtonRef.current?.classList.add(classes.selected);
     deleteButtonRef.current?.classList.add(classes.selected);
   };
+
   const handleHoverOff = (e: React.MouseEvent) => {
     e.stopPropagation();
     settingsButtonRef.current?.classList.remove(classes.selected);
@@ -43,12 +42,13 @@ const UiNode = ({
 
   const handleDoubleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    nodeUpdaters.selectNode(path);
+    setNodeSelection(path);
   };
 
   const Comp = uiComponentAndSettings[uiName].UiComponent as UiNodeComponent<
     typeof uiArguments
   >;
+
   return (
     <Comp
       uiArguments={uiArguments}
