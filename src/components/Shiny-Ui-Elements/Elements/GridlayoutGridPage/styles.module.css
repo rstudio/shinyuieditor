@@ -6,9 +6,3 @@
   height: 100%;
   width: 100%;
 }
-
-/* Make sure the children are position relative so floating buttons etc will sit
-in the proper places */
-.container > * {
-  position: relative;
-}
