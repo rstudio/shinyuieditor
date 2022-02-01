@@ -39,12 +39,15 @@
 }
 
 .titledPanel {
+  --label-h: 40px;
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: var(--label-h) 1fr;
   background-color: var(--background-grey);
 }
+
 .titledPanel > h3 {
   text-align: center;
+  line-height: var(--label-h);
   background-color: var(--header-grey, forestgreen);
   font-size: 22px;
   color: white;
