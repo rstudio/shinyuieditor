@@ -1,0 +1,21 @@
+.settingsPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.currentElementAbout {
+}
+
+.settingsForm {
+  /* Make the settings form take up whatever space it has until bottom */
+  flex-grow: 1;
+}
+
+.deleteButton {
+  padding: 0.5rem 1rem;
+  outline: 1px solid var(--red);
+  background-color: var(--rstudio-white);
+  border-radius: var(--corner-radius);
+  align-self: center;
+}

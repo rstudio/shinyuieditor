@@ -5,17 +5,16 @@ import UiNode from "components/Shiny-Ui-Elements/UiNode";
 import NodeUpdateContext from "components/Shiny-Ui-Elements/UiNode/NodeUpdateContext";
 import {
   addNode,
-  getNode,
   removeNode,
   updateNode,
 } from "components/Shiny-Ui-Elements/UiNode/treeManipulation";
-import { UiSettingsComponent } from "components/Shiny-Ui-Elements/UiNode/UiSettingsComponent";
 import {
   NodePath,
   UiNodeProps,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import * as React from "react";
 import classes from "./EditorContainer.module.css";
+import { SettingsPanel } from "./SettingsPanel";
 
 export function EditorContainer() {
   // const { isLoading, error, data } = useQuery("initial-state", getInitialState);
@@ -74,49 +73,6 @@ export function EditorContainer() {
         </div>
       </div>
     </NodeUpdateContext.Provider>
-  );
-}
-
-function SettingsPanel({
-  tree,
-  selectedPath,
-}: {
-  tree: UiNodeProps;
-  selectedPath: NodePath | null;
-}) {
-  const nodeUpdaters = React.useContext(NodeUpdateContext);
-
-  if (selectedPath === null) {
-    return <div>Select an element to edit properties</div>;
-  }
-  const currentNode = getNode(tree, selectedPath);
-
-  const { uiName, uiArguments } = currentNode;
-
-  return (
-    <div>
-      <p>
-        <strong>Element:</strong> {uiName}
-      </p>
-      <p>
-        <strong>Path:</strong> [{selectedPath.join(",")}]
-      </p>
-      <hr style={{ padding: "1.5rem" }} />
-      <UiSettingsComponent
-        {...currentNode}
-        onChange={(newSettings) => {
-          console.log("New settings for a node!", {
-            path: selectedPath,
-            node: { uiName, uiArguments: newSettings },
-          });
-          nodeUpdaters.updateNode(selectedPath, {
-            ...currentNode,
-            uiArguments: newSettings,
-          } as UiNodeProps);
-        }}
-        checkValid={false}
-      />
-    </div>
   );
 }
 
