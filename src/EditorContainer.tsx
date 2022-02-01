@@ -96,8 +96,8 @@ const initialState: UiNodeProps = {
       uiName: "gridlayout::grid_panel",
       uiArguments: {
         area: "sidebar",
-        horizontalAlign: "right",
-        verticalAlign: "center",
+        horizontalAlign: "spread",
+        verticalAlign: "spread",
       },
       uiChildren: [
         {
@@ -116,7 +116,7 @@ const initialState: UiNodeProps = {
       uiName: "gridlayout::grid_panel",
       uiArguments: {
         area: "plot",
-        horizontalAlign: "right",
+        horizontalAlign: "spread",
         verticalAlign: "center",
       },
       uiChildren: [
