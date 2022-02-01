@@ -1,5 +1,4 @@
 import React from "react";
-import { FiTrash as TrashIcon } from "react-icons/fi";
 import { sameArray } from "utils/equalityCheckers";
 import {
   uiComponentAndSettings,
@@ -24,21 +23,6 @@ const UiNode = ({
   const settingsButtonRef = React.useRef<HTMLSpanElement>(null);
   const deleteButtonRef = React.useRef<HTMLSpanElement>(null);
   const isSelected = selectedPath ? sameArray(path, selectedPath) : false;
-
-  const controls = (
-    <>
-      <span
-        style={{ position: "absolute" }}
-        className={classes.deleteButton}
-        onClick={() => {
-          nodeUpdaters.deleteNode(path);
-        }}
-        ref={deleteButtonRef}
-      >
-        <TrashIcon />
-      </span>
-    </>
-  );
 
   const { uiName, uiArguments, uiChildren } = props;
   const dragAndDropCallbacks = useDragAndDropElements(
@@ -81,7 +65,6 @@ const UiNode = ({
           {...childNode}
         />
       ))}
-      {controls}
       {isSelected ? <div className={classes.selectedOverlay} /> : null}
     </Comp>
   );

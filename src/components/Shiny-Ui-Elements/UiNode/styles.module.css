@@ -18,33 +18,3 @@
 .leaf {
   position: relative;
 }
-
-.deleteButton,
-.editButton {
-  --button-size: 16px;
-  --inset: 1px;
-  cursor: pointer;
-  background-color: white;
-  border-radius: 6px;
-  outline: none;
-  width: var(--button-size);
-  height: var(--button-size);
-  display: none;
-}
-
-.deleteButton {
-  position: absolute;
-  left: var(--inset);
-  top: var(--inset);
-}
-
-.editButton {
-  position: absolute;
-  right: var(--inset);
-  top: var(--inset);
-}
-
-.editButton.selected,
-.deleteButton.selected {
-  display: block;
-}
