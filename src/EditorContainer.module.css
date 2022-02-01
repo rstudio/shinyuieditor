@@ -1,55 +1,68 @@
 .container {
   height: 100vh;
+  --background-grey: #e9edf3;
+  --header-grey: #a5b3c2;
   width: 100%;
-  background-color: var(--bg-color, #edf2f7);
+  background-color: var(--background-grey, #edf2f7);
   display: grid;
-  grid-template-rows: 60px 1fr;
-  grid-template-columns: 150px 1fr;
+  grid-template-rows: 50px 1fr;
+  grid-template-columns: 170px 1fr 250px;
   grid-template-areas:
-    "header  header"
-    "sidebar editor";
+    "header   header header    "
+    "elements editor properties";
 }
 
 .container > * {
-  outline: 1px solid var(--dark-grey);
+  outline: 1px solid var(--header-grey);
 }
 
-.sidebar {
-  grid-area: sidebar;
-  display: grid;
-  grid-template-rows: auto 1fr;
+.elementsPanel {
+  grid-area: elements;
 }
 
-.sidebar > h3 {
-  width: 100%;
-  background-color: var(--dark-grey, forestgreen);
-  display: grid;
-  place-content: center;
-  font-size: 22px;
-  color: white;
+.propertiesPanel {
+  grid-area: properties;
+}
+
+.propertiesPanel > div {
+  padding: 1rem;
 }
 
 .editorHolder {
   grid-area: editor;
-  padding: 2rem;
+  background-color: var(--rstudio-white);
+  padding-top: 100px;
+  padding-left: 160px;
+  padding-right: 30px;
+  padding-bottom: 30px;
   height: 100%;
   width: 100%;
   position: relative;
 }
+
+.titledPanel {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background-color: var(--background-grey);
+}
+.titledPanel > h3 {
+  text-align: center;
+  background-color: var(--header-grey, forestgreen);
+  font-size: 22px;
+  color: white;
+}
+
 .header {
   grid-area: header;
   padding: 0.25rem 1rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  box-shadow: var(--shadow);
-  background: var(--rstudio-white, white);
 }
 
 .title {
   font-size: 1.75rem;
 }
-
 .leftSide {
   display: flex;
   align-items: center;
