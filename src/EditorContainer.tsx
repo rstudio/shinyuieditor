@@ -19,8 +19,8 @@ import classes from "./EditorContainer.module.css";
 import { SettingsPanel } from "./SettingsPanel";
 
 export const NodeSelectionContext = React.createContext<
-  (path: NodePath) => void
->((path: NodePath) => console.log(`Selected node placeholder`, path));
+  (path: NodePath | null) => void
+>((path: NodePath | null) => console.log(`Selected node placeholder`, path));
 
 export function EditorContainer() {
   // const { isLoading, error, data } = useQuery("initial-state", getInitialState);
