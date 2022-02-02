@@ -34,6 +34,12 @@ export function fillArr<T>(val: T, length: number): T[] {
   return [...new Array(length)].fill(val);
 }
 
+/**
+ *
+ * @param arr Array of elements that will be filtered
+ * @param toRemove Array of elements to be removed from the first array
+ * @returns A subset of arr with any elements in toRemove taken out
+ */
 export function subtractElements<T extends string | number>(
   arr: T[],
   toRemove: T[]
