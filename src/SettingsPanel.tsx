@@ -43,10 +43,15 @@ export function SettingsPanel({
               path: selectedPath,
               node: { uiName, uiArguments: newSettings },
             });
-            nodeUpdaters.updateNode(selectedPath, {
-              ...currentNode,
-              uiArguments: newSettings,
-            } as UiNodeProps);
+
+            nodeUpdaters({
+              type: "UPDATE_NODE",
+              path: selectedPath,
+              newNode: {
+                ...currentNode,
+                uiArguments: newSettings,
+              } as UiNodeProps,
+            });
           }}
           checkValid={false}
         />
@@ -55,7 +60,7 @@ export function SettingsPanel({
       <button
         className={classes.deleteButton}
         onClick={() => {
-          nodeUpdaters.deleteNode(selectedPath);
+          nodeUpdaters({ type: "DELETE_NODE", path: selectedPath });
         }}
       >
         <TrashIcon /> Delete Element

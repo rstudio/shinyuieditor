@@ -34,9 +34,13 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
   );
 
   const handleLayoutUpdate = (action: GridLayoutAction) => {
-    nodeUpdaters.updateNode([], {
-      uiName: "gridlayout::grid_page",
-      uiArguments: gridLayoutReducer(uiArguments, action),
+    nodeUpdaters({
+      type: "UPDATE_NODE",
+      path: [],
+      newNode: {
+        uiName: "gridlayout::grid_page",
+        uiArguments: gridLayoutReducer(uiArguments, action),
+      },
     });
   };
 

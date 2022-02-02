@@ -113,14 +113,18 @@ function GridCell({
         });
 
         // Let the state know we have a new child node
-        nodeUpdaters.addNode([], {
-          uiName: "gridlayout::grid_panel",
-          uiArguments: {
-            area: newAreaName,
-            horizontalAlign: "spread",
-            verticalAlign: "spread",
+        nodeUpdaters({
+          type: "ADD_NODE",
+          parentPath: [],
+          newNode: {
+            uiName: "gridlayout::grid_panel",
+            uiArguments: {
+              area: newAreaName,
+              horizontalAlign: "spread",
+              verticalAlign: "spread",
+            },
+            uiChildren: [newElement],
           },
-          uiChildren: [newElement],
         });
       }}
     >

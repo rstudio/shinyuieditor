@@ -2,7 +2,9 @@ import rstudioLogo from "assets/RStudio-Logo.svg";
 import shinyLogo from "assets/Shiny-Logo.png";
 import ElementsPalette from "components/Shiny-Ui-Elements/ElementsPalette";
 import UiNode from "components/Shiny-Ui-Elements/UiNode";
-import NodeUpdateContext from "components/Shiny-Ui-Elements/UiNode/NodeUpdateContext";
+import NodeUpdateContext, {
+  treeUpdateReducer,
+} from "components/Shiny-Ui-Elements/UiNode/NodeUpdateContext";
 import {
   addNode,
   removeNode,
@@ -32,29 +34,33 @@ export function EditorContainer() {
   // }
 
   const [selectedPath, setSelectedPath] = React.useState<NodePath | null>(null);
-  const [tree, setTree] = React.useState(initialState);
+  // const [tree, setTree] = React.useState(initialState);
+
+  const [tree, updateTree] = React.useReducer(treeUpdateReducer, initialState);
 
   // Since these just use the setters they will never change over the lifecycle
   // of the component, so by wrapping in useMemo we can avoid unneccesary
   // rerenders caused by this object changing
-  const editCallbacks = React.useMemo(
-    () => ({
-      updateNode: (path: NodePath, newNode: UiNodeProps) =>
-        setTree((oldTree) => updateNode({ tree: oldTree, path, newNode })),
-      addNode: (path: NodePath, newNode: UiNodeProps) => {
-        setTree((oldTree) => addNode({ tree: oldTree, path, newNode }));
-      },
-      deleteNode: (path: NodePath) => {
-        // Unselect node
-        setSelectedPath(null);
-        setTree((oldTree) => removeNode({ tree: oldTree, path }));
-      },
-    }),
-    []
-  );
+  // const editCallbacks = React.useMemo(
+  //   () => ({
+  //     updateNode: (path: NodePath, newNode: UiNodeProps) =>
+  //       setTree((oldTree) => updateNode({ tree: oldTree, path, newNode })),
+  //     addNode: (path: NodePath, newNode: UiNodeProps) => {
+  //       setTree((oldTree) => addNode({ tree: oldTree, path, newNode }));
+  //     },
+  //     deleteNode: (path: NodePath) => {
+  //       // Unselect node
+  //       setSelectedPath(null);
+  //       setTree((oldTree) => removeNode({ tree: oldTree, path }));
+  //     },
+  //   }),
+  //   []
+  // );
+
+  console.log({ tree });
 
   return (
-    <NodeUpdateContext.Provider value={editCallbacks}>
+    <NodeUpdateContext.Provider value={updateTree}>
       <NodeSelectionContext.Provider value={setSelectedPath}>
         <div className={classes.container}>
           <div className={classes.header}>

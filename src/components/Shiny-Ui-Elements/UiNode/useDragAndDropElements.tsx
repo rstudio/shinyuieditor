@@ -46,7 +46,11 @@ export function useDragAndDropElements(path: NodePath, isLeafNode: boolean) {
               }
 
               // Let the state know we have a new child node
-              nodeUpdaters.addNode(path, newElement);
+              nodeUpdaters({
+                type: "ADD_NODE",
+                parentPath: path,
+                newNode: newElement,
+              });
 
               removeHighlight(e);
             },

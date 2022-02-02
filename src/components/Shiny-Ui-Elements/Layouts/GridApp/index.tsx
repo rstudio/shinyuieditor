@@ -204,7 +204,7 @@ export default function GridApp({
 
   return (
     <LayoutDispatchContext.Provider value={layoutDispatch}>
-      <NodeUpdateContext.Provider value={editCallbacks}>
+      <NodeUpdateContext.Provider value={(x) => console.log(x)}>
         <AppContainer gapSize={layout.gapSize}>
           <SettingsBar>
             <h1>Layout settings</h1>
