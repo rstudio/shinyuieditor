@@ -1,12 +1,15 @@
+import { Button } from "@chakra-ui/react";
+import { uiComponentAndSettings } from "components/Shiny-Ui-Elements/Elements/uiComponentAndSettings";
 import NodeUpdateContext from "components/Shiny-Ui-Elements/UiNode/NodeUpdateContext";
 import { getNode } from "components/Shiny-Ui-Elements/UiNode/treeManipulation";
-import { UiSettingsComponent } from "components/Shiny-Ui-Elements/UiNode/UiSettingsComponent";
 import {
   NodePath,
+  SettingsUpdaterComponent,
   UiNodeProps,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { NodeSelectionContext } from "EditorContainer";
 import * as React from "react";
+import { BiCheck } from "react-icons/bi";
 import { FiTrash as TrashIcon } from "react-icons/fi";
 import classes from "./SettingsPanel.module.css";
 
@@ -20,12 +23,37 @@ export function SettingsPanel({
   const nodeUpdaters = React.useContext(NodeUpdateContext);
   const setNodeSelection = React.useContext(NodeSelectionContext);
 
+  const [currentNode, setCurrentNode] = React.useState<UiNodeProps | null>(
+    selectedPath !== null ? getNode(tree, selectedPath) : null
+  );
+  const [errorMsg, setErrorMsg] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    const selectedNode =
+      selectedPath !== null ? getNode(tree, selectedPath) : null;
+    setCurrentNode(selectedNode);
+  }, [tree, selectedPath]);
+
   if (selectedPath === null) {
     return <div>Select an element to edit properties</div>;
   }
-  const currentNode = getNode(tree, selectedPath);
+  if (currentNode === null) {
+    return (
+      <div>Error finding requested node at path {selectedPath.join(".")}</div>
+    );
+  }
 
   const { uiName, uiArguments } = currentNode;
+
+  const updateArguments = (newArguments: typeof uiArguments) => {
+    setCurrentNode({
+      ...currentNode,
+      uiArguments: newArguments,
+    } as typeof currentNode);
+  };
+
+  const SettingsInputs = uiComponentAndSettings[uiName]
+    .SettingsComponent as SettingsUpdaterComponent<typeof uiArguments>;
 
   return (
     <div className={classes.settingsPanel}>
@@ -38,25 +66,50 @@ export function SettingsPanel({
         </p>
       </div>
       <div className={classes.settingsForm}>
-        <UiSettingsComponent
-          {...currentNode}
-          onChange={(newSettings) => {
-            console.log("New settings for a node!", {
-              path: selectedPath,
-              node: { uiName, uiArguments: newSettings },
-            });
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
 
+            // Sync the state that's been updated from the form to the main tree
             nodeUpdaters({
               type: "UPDATE_NODE",
               path: selectedPath,
-              newNode: {
-                ...currentNode,
-                uiArguments: newSettings,
-              } as UiNodeProps,
+              newNode: currentNode,
             });
+
+            // // Check if valid
+            // if (checkValid) {
+            //   checkIfArgumentsValid({
+            //     state: currentState,
+            //     onValid: () => onChange(currentState.uiArguments),
+            //     onError: setErrorMsg,
+            //   });
+            // } else {
+            //   onChange(currentSettings);
+            // }
           }}
-          checkValid={false}
-        />
+        >
+          <SettingsInputs
+            settings={uiArguments}
+            onChange={(settings) => {
+              updateArguments(settings);
+            }}
+          />
+          {errorMsg ? (
+            <div>
+              Input settings are not valid. The following errors were received:
+              <pre style={{ color: "orangered" }}>{errorMsg}</pre>
+            </div>
+          ) : null}
+          <Button
+            variant="main"
+            leftIcon={<BiCheck />}
+            marginTop="0.75rem"
+            type="submit"
+          >
+            Update
+          </Button>
+        </form>
       </div>
 
       <button
