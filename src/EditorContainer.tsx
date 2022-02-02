@@ -6,11 +6,6 @@ import NodeUpdateContext, {
   treeUpdateReducer,
 } from "components/Shiny-Ui-Elements/UiNode/NodeUpdateContext";
 import {
-  addNode,
-  removeNode,
-  updateNode,
-} from "components/Shiny-Ui-Elements/UiNode/treeManipulation";
-import {
   NodePath,
   UiNodeProps,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
@@ -34,30 +29,8 @@ export function EditorContainer() {
   // }
 
   const [selectedPath, setSelectedPath] = React.useState<NodePath | null>(null);
-  // const [tree, setTree] = React.useState(initialState);
 
   const [tree, updateTree] = React.useReducer(treeUpdateReducer, initialState);
-
-  // Since these just use the setters they will never change over the lifecycle
-  // of the component, so by wrapping in useMemo we can avoid unneccesary
-  // rerenders caused by this object changing
-  // const editCallbacks = React.useMemo(
-  //   () => ({
-  //     updateNode: (path: NodePath, newNode: UiNodeProps) =>
-  //       setTree((oldTree) => updateNode({ tree: oldTree, path, newNode })),
-  //     addNode: (path: NodePath, newNode: UiNodeProps) => {
-  //       setTree((oldTree) => addNode({ tree: oldTree, path, newNode }));
-  //     },
-  //     deleteNode: (path: NodePath) => {
-  //       // Unselect node
-  //       setSelectedPath(null);
-  //       setTree((oldTree) => removeNode({ tree: oldTree, path }));
-  //     },
-  //   }),
-  //   []
-  // );
-
-  console.log({ tree });
 
   return (
     <NodeUpdateContext.Provider value={updateTree}>

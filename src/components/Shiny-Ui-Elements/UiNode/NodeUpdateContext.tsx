@@ -1,19 +1,11 @@
 import React from "react";
 import { NodePath, UiNodeProps } from "../uiNodeTypes";
-import { updateNode, removeNode, addNode } from "./treeManipulation";
-
-export type NodeUpdaters = {
-  updateNode: (path: NodePath, newNode: UiNodeProps) => void;
-  addNode: (path: NodePath, newNode: UiNodeProps) => void;
-  deleteNode: (path: NodePath) => void;
-};
+import { addNode, removeNode, updateNode } from "./treeManipulation";
 
 export type TreeUpdateAction =
   | { type: "UPDATE_NODE"; path: NodePath; newNode: UiNodeProps }
   | { type: "ADD_NODE"; parentPath: NodePath; newNode: UiNodeProps }
   | { type: "DELETE_NODE"; path: NodePath };
-
-type treeUpdateDispatch = React.Dispatch<TreeUpdateAction>;
 
 export function treeUpdateReducer(
   tree: UiNodeProps,
@@ -35,8 +27,8 @@ export function treeUpdateReducer(
   }
 }
 
-const NodeUpdateContext = React.createContext<treeUpdateDispatch>((action) =>
-  console.log("Updated state with action", action)
+const NodeUpdateContext = React.createContext<React.Dispatch<TreeUpdateAction>>(
+  (action) => console.log("Updated state with action", action)
 );
 
 export default NodeUpdateContext;

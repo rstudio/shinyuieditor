@@ -13,12 +13,8 @@ import styled from "@emotion/styled";
 import { CSSUnitInput } from "components/CSSUnitInput";
 import ConfigureNewUiElement from "components/Shiny-Ui-Elements/ConfigureNewUiElement";
 import UiNode from "components/Shiny-Ui-Elements/UiNode";
-import {
-  updateNode,
-  addNode,
-  removeNode,
-} from "components/Shiny-Ui-Elements/UiNode/treeManipulation";
 import NodeUpdateContext from "components/Shiny-Ui-Elements/UiNode/NodeUpdateContext";
+import { updateNode } from "components/Shiny-Ui-Elements/UiNode/treeManipulation";
 import { GridLocString } from "GridTypes";
 import omit from "just-omit";
 import * as React from "react";
