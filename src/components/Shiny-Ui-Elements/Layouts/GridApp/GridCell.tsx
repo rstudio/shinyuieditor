@@ -99,7 +99,7 @@ function GridCell({
 
         // This will eventually filter by element type
         const allowedDrop = true;
-
+        if (!allowedDrop) return;
         const newAreaName = "MyNewGridArea";
         layoutDispatch?.({
           type: "ADD_ITEM",
