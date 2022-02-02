@@ -6,7 +6,6 @@ import NodeUpdateContext from "components/Shiny-Ui-Elements/UiNode/NodeUpdateCon
 import { GridLocString } from "GridTypes";
 import React from "react";
 import { subtractElements } from "utils/array-helpers";
-import { sameArray } from "utils/equalityCheckers";
 import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
 import { TemplatedGridProps } from "utils/gridTemplates/types";
@@ -63,13 +62,9 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
     );
 
     if (extra_areas_in_layout.length > 0) {
-      // Note that this only does a single item at a time and will trigger
-      // multple re-renders until everything neccesary has been removed. This
-      // can be fixed by adding support for removing multiple items to the
-      // action.
       handleLayoutUpdate({
-        type: "REMOVE_ITEM",
-        name: extra_areas_in_layout[0],
+        type: "REMOVE_ITEMS",
+        names: extra_areas_in_layout,
       });
     }
   }, [children, handleLayoutUpdate, uniqueAreas]);

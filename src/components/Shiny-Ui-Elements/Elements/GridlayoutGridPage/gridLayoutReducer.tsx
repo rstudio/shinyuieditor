@@ -11,6 +11,7 @@ import { GridItemExtent, TemplatedGridProps } from "utils/gridTemplates/types";
 export type GridLayoutAction =
   | { type: "ADD_ITEM"; name: string; pos: GridItemExtent }
   | { type: "REMOVE_ITEM"; name: string }
+  | { type: "REMOVE_ITEMS"; names: string[] }
   | { type: "MOVE_ITEM"; name: string; pos: GridItemExtent }
   | {
       type: "ADD_TRACT";
@@ -45,6 +46,13 @@ export function gridLayoutReducer(
 
     case "REMOVE_ITEM":
       return removeItem(layout, action.name);
+
+    case "REMOVE_ITEMS":
+      return action.names.reduce(
+        (current_layout, current_name) =>
+          removeItem(current_layout, current_name),
+        layout
+      );
 
     case "ADD_TRACT":
       return addTract(layout, action);
