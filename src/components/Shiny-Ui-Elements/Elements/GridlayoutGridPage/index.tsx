@@ -5,6 +5,8 @@ import { TractControls } from "components/Shiny-Ui-Elements/Layouts/GridApp/Trac
 import NodeUpdateContext from "components/Shiny-Ui-Elements/UiNode/NodeUpdateContext";
 import { GridLocString } from "GridTypes";
 import React from "react";
+import { subtractElements } from "utils/array-helpers";
+import { sameArray } from "utils/equalityCheckers";
 import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
 import { TemplatedGridProps } from "utils/gridTemplates/types";
@@ -33,16 +35,44 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
     [areas]
   );
 
-  const handleLayoutUpdate = (action: GridLayoutAction) => {
-    nodeUpdaters({
-      type: "UPDATE_NODE",
-      path: [],
-      newNode: {
-        uiName: "gridlayout::grid_page",
-        uiArguments: gridLayoutReducer(uiArguments, action),
-      },
-    });
-  };
+  const handleLayoutUpdate = React.useCallback(
+    (action: GridLayoutAction) => {
+      nodeUpdaters({
+        type: "UPDATE_NODE",
+        path: [],
+        newNode: {
+          uiName: "gridlayout::grid_page",
+          uiArguments: gridLayoutReducer(uiArguments, action),
+        },
+      });
+    },
+    [nodeUpdaters, uiArguments]
+  );
+
+  React.useEffect(() => {
+    // If a user removes a grid panel from the app there will be an extra area
+    // in the layout that's floating around unused which can cause issues. Here
+    // we make sure everytime the component renders that all the areas in the
+    // layout definition are mirrored in the children and update the layout to
+    // remove areas that are in the layout but not the children. This won't fix
+    // the reverse situation where there is a child with a grid area now in the
+    // layout.
+    const extra_areas_in_layout = subtractElements(
+      uniqueAreas,
+      areasOfChildren(children)
+    );
+
+    if (extra_areas_in_layout.length > 0) {
+      // Note that this only does a single item at a time and will trigger
+      // multple re-renders until everything neccesary has been removed. This
+      // can be fixed by adding support for removing multiple items to the
+      // action.
+      handleLayoutUpdate({
+        type: "REMOVE_ITEM",
+        name: extra_areas_in_layout[0],
+      });
+    }
+  }, [children, handleLayoutUpdate, uniqueAreas]);
 
   const areaOverlays = uniqueAreas.map((area) => (
     <AreaOverlay
@@ -84,5 +114,25 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
     </LayoutDispatchContext.Provider>
   );
 };
+
+/** Get the grid areas present in the children nodes passed to the Grid_Page()
+ * component. This assumes that they are stored in the "area" property on the
+ * uiArguments */
+function areasOfChildren(children: React.ReactNode) {
+  let all_children_areas: string[] = [];
+  React.Children.forEach(children, (child) => {
+    if (
+      child &&
+      typeof child === "object" &&
+      "props" in child &&
+      "uiArguments" in child.props &&
+      "area" in child.props.uiArguments
+    ) {
+      all_children_areas.push(child.props.uiArguments.area);
+    }
+  });
+
+  return all_children_areas;
+}
 
 export default GridlayoutGridPage;
