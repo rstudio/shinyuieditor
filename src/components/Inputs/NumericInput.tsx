@@ -21,7 +21,7 @@ export function NumericInput({
     <FormControl>
       <FormLabel>{label}</FormLabel>
       <NumberInput
-        defaultValue={value}
+        value={value}
         onChange={(val) => onChange(Number(val))}
         minHeight="30px"
       >

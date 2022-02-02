@@ -27,7 +27,7 @@ export function RadioInputs<OptionType extends string>({
               name={name}
               type="radio"
               value={option}
-              defaultChecked={option === currentSelection}
+              checked={option === currentSelection}
             />
             <label htmlFor={option}>{option}</label>
           </div>
