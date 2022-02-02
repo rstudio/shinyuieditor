@@ -3,7 +3,7 @@ import { CSSMeasure } from "GridTypes";
 import clone from "just-clone";
 import addItem from "utils/gridTemplates/addItem";
 import addTract from "utils/gridTemplates/addTract";
-import removeItem from "utils/gridTemplates/removeItem";
+import { removeItems, removeItem } from "utils/gridTemplates/removeItem";
 import removeTract from "utils/gridTemplates/removeTract";
 import resizeTract from "utils/gridTemplates/resizeTract";
 import { GridItemExtent, TemplatedGridProps } from "utils/gridTemplates/types";
@@ -48,11 +48,7 @@ export function gridLayoutReducer(
       return removeItem(layout, action.name);
 
     case "REMOVE_ITEMS":
-      return action.names.reduce(
-        (current_layout, current_name) =>
-          removeItem(current_layout, current_name),
-        layout
-      );
+      return removeItems(layout, action.names);
 
     case "ADD_TRACT":
       return addTract(layout, action);

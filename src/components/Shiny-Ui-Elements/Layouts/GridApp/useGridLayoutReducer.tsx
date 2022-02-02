@@ -3,7 +3,7 @@ import clone from "just-clone";
 import * as React from "react";
 import addItem from "utils/gridTemplates/addItem";
 import addTract from "utils/gridTemplates/addTract";
-import removeItem from "utils/gridTemplates/removeItem";
+import { removeItem } from "utils/gridTemplates/removeItem";
 import removeTract from "utils/gridTemplates/removeTract";
 import resizeTract from "utils/gridTemplates/resizeTract";
 import { GridItemExtent, TemplatedGridProps } from "utils/gridTemplates/types";
