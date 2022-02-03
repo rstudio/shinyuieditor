@@ -215,11 +215,10 @@ function NameNewPanelModal({
   );
   return (
     <PortalModal
-      title="Name new grid panel"
+      title="Adding new grid area"
       onConfirm={() => onDone(newItemName)}
       onCancel={onCancel}
     >
-      <pre>{uiName}</pre>
       <TextInput
         label="Name of new grid area"
         name="New-Item-Name"
