@@ -166,7 +166,6 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
                 },
               });
             }}
-            onClick={() => console.log("Clicked a cell from GridApp()")}
           />
         ))}
 

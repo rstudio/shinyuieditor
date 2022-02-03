@@ -1,8 +1,5 @@
-import { IconButton } from "@chakra-ui/button";
 import debounce from "just-debounce-it";
-import PortalModal from "Portal";
 import React from "react";
-import { FaPlus } from "react-icons/fa";
 import { toStringLoc } from "utils/grid-helpers";
 import { getBBoxOfDiv } from "utils/overlap-helpers";
 import { CellLocRef } from ".";
@@ -16,19 +13,15 @@ export function GridCell({
   gridRow,
   gridColumn,
   cellLocations,
-  onClick,
   ...dropHandlers
 }: {
   gridRow: number;
   gridColumn: number;
   cellLocations: CellLocRef;
-  onClick?: ({ row, col }: { row: number; col: number }) => void;
 } & DragAndDropHandlers) {
   const gridPos = toStringLoc({ row: gridRow, col: gridColumn });
   const cellRef = React.useRef<HTMLDivElement>(null);
-  const isClickable = typeof onClick !== "undefined";
-  const [showPortal, setShowPortal] = React.useState(false);
-  console.log({ showPortal });
+
   const updateSize = React.useMemo(
     () =>
       debounce(() => {
@@ -73,18 +66,6 @@ export function GridCell({
         placeContent: "center",
       }}
       {...dropHandlers}
-    >
-      {isClickable ? (
-        <IconButton
-          icon={<FaPlus />}
-          aria-label={`Add new item at row ${gridRow} column ${gridColumn}`}
-          onClick={() => {
-            console.log("Clicked show portal!");
-            setShowPortal(true);
-          }}
-        />
-      ) : null}
-      {showPortal ? <PortalModal>Hi, I'm a portal</PortalModal> : null}
-    </div>
+    ></div>
   );
 }
