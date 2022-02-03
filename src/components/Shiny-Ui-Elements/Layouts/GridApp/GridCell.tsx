@@ -1,32 +1,34 @@
 import { IconButton } from "@chakra-ui/button";
-import { defaultSettingsForElements } from "components/Shiny-Ui-Elements/Elements/uiComponentAndSettings";
-import NodeUpdateContext from "components/Shiny-Ui-Elements/UiNode/NodeUpdateContext";
-import { ShinyUiNames } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import debounce from "just-debounce-it";
+import PortalModal from "Portal";
 import React from "react";
 import { FaPlus } from "react-icons/fa";
-import { enumerateGridDims, toStringLoc } from "utils/grid-helpers";
-import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
+import { toStringLoc } from "utils/grid-helpers";
 import { getBBoxOfDiv } from "utils/overlap-helpers";
-import { CellLocRef, LayoutDispatchContext } from ".";
+import { CellLocRef } from ".";
 
-function GridCell({
+type DragAndDropHandlers = Pick<
+  React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+  "onDrop" | "onDragOver"
+>;
+
+export function GridCell({
   gridRow,
   gridColumn,
   cellLocations,
   onClick,
+  ...dropHandlers
 }: {
   gridRow: number;
   gridColumn: number;
   cellLocations: CellLocRef;
   onClick?: ({ row, col }: { row: number; col: number }) => void;
-}) {
+} & DragAndDropHandlers) {
   const gridPos = toStringLoc({ row: gridRow, col: gridColumn });
   const cellRef = React.useRef<HTMLDivElement>(null);
   const isClickable = typeof onClick !== "undefined";
   const [showPortal, setShowPortal] = React.useState(false);
-  const layoutDispatch = React.useContext(LayoutDispatchContext);
-
+  console.log({ showPortal });
   const updateSize = React.useMemo(
     () =>
       debounce(() => {
@@ -70,63 +72,7 @@ function GridCell({
         display: "grid",
         placeContent: "center",
       }}
-      onDragOver={(e) => {
-        console.log("Dragged over cell", { gridRow, gridColumn });
-        if (cellRef.current) {
-          cellRef.current.style.outline = "2px solid salmon";
-        }
-      }}
-      onDrop={(e) => {
-        e.stopPropagation();
-        // Get the type of dropped element and act on it
-        const nameOfDroppedUi = e.dataTransfer.getData(
-          "element-type"
-        ) as ShinyUiNames;
-
-        console.log("Cell had " + nameOfDroppedUi + " dropped on it");
-        // For right now we'll just use the default settings for the
-        // dropped ui element
-        const newElement = defaultSettingsForElements.find(
-          ({ uiName }) => uiName === nameOfDroppedUi
-        );
-
-        if (!newElement) {
-          throw new Error(
-            "Could not find default settings for node of type " +
-              nameOfDroppedUi
-          );
-        }
-
-        // This will eventually filter by element type
-        const allowedDrop = true;
-        if (!allowedDrop) return;
-        const newAreaName = "MyNewGridArea";
-        layoutDispatch?.({
-          type: "ADD_ITEM",
-          name: newAreaName,
-          pos: {
-            rowStart: gridRow,
-            rowEnd: gridRow,
-            colStart: gridColumn,
-            colEnd: gridColumn,
-          },
-        });
-
-        // Let the state know we have a new child node
-        nodeUpdaters({
-          type: "ADD_NODE",
-          parentPath: [],
-          newNode: {
-            uiName: "gridlayout::grid_panel",
-            uiArguments: {
-              area: newAreaName,
-              horizontalAlign: "spread",
-              verticalAlign: "spread",
-            },
-            uiChildren: [newElement],
-          },
-        });
-      }}
+      {...dropHandlers}
     >
       {isClickable ? (
         <IconButton
@@ -140,32 +86,5 @@ function GridCell({
       ) : null}
       {showPortal ? <PortalModal>Hi, I'm a portal</PortalModal> : null}
     </div>
-  );
-}
-
-export function GridCells({
-  numRows,
-  numCols,
-  cellLocRef,
-  onClick,
-}: Pick<ReturnType<typeof parseGridTemplateAreas>, "numCols" | "numRows"> & {
-  cellLocRef: CellLocRef;
-  onClick?: ({ row, col }: { row: number; col: number }) => void;
-}) {
-  return (
-    <>
-      {enumerateGridDims({
-        numRows,
-        numCols,
-      }).map(({ row, col }) => (
-        <GridCell
-          key={toStringLoc({ row, col })}
-          gridRow={row}
-          gridColumn={col}
-          cellLocations={cellLocRef}
-          onClick={onClick}
-        />
-      ))}
-    </>
   );
 }

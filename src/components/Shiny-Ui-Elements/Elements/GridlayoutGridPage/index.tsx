@@ -1,16 +1,21 @@
 import { LayoutDispatchContext } from "components/Shiny-Ui-Elements/Layouts/GridApp";
 import { AreaOverlay } from "components/Shiny-Ui-Elements/Layouts/GridApp/AreaOverlay";
-import { GridCells } from "components/Shiny-Ui-Elements/Layouts/GridApp/GridCell";
+import { GridCell } from "components/Shiny-Ui-Elements/Layouts/GridApp/GridCell";
 import { TractControls } from "components/Shiny-Ui-Elements/Layouts/GridApp/TractControls";
 import NodeUpdateContext from "components/Shiny-Ui-Elements/UiNode/NodeUpdateContext";
+import { ShinyUiNames } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { GridLocString } from "GridTypes";
 import React from "react";
 import { subtractElements } from "utils/array-helpers";
+import { enumerateGridDims, toStringLoc } from "utils/grid-helpers";
 import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
 import { TemplatedGridProps } from "utils/gridTemplates/types";
 import { ItemBoundingBox } from "utils/overlap-helpers";
-import { UiNodeComponent } from "../uiComponentAndSettings";
+import {
+  defaultSettingsForElements,
+  UiNodeComponent,
+} from "../uiComponentAndSettings";
 import { GridLayoutAction, gridLayoutReducer } from "./gridLayoutReducer";
 import classes from "./styles.module.css";
 
@@ -96,12 +101,75 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
         className={classes.container}
         {...passthroughProps}
       >
-        <GridCells
-          numCols={numCols}
-          numRows={numRows}
-          cellLocRef={gridCellLocations}
-          onClick={() => console.log("Clicked a cell")}
-        />
+        {enumerateGridDims({
+          numRows,
+          numCols,
+        }).map(({ row, col }) => (
+          <GridCell
+            key={toStringLoc({ row, col })}
+            gridRow={row}
+            gridColumn={col}
+            cellLocations={gridCellLocations}
+            onDragOver={(e) => {
+              if (e.currentTarget) {
+                e.currentTarget.style.outline = "2px solid salmon";
+              }
+            }}
+            onDrop={(e) => {
+              e.stopPropagation();
+              // Get the type of dropped element and act on it
+              const nameOfDroppedUi = e.dataTransfer.getData(
+                "element-type"
+              ) as ShinyUiNames;
+
+              console.log("Cell had " + nameOfDroppedUi + " dropped on it");
+              // For right now we'll just use the default settings for the
+              // dropped ui element
+              const newElement = defaultSettingsForElements.find(
+                ({ uiName }) => uiName === nameOfDroppedUi
+              );
+
+              if (!newElement) {
+                throw new Error(
+                  "Could not find default settings for node of type " +
+                    nameOfDroppedUi
+                );
+              }
+
+              // This will eventually filter by element type
+              const allowedDrop = true;
+              if (!allowedDrop) return;
+              const newAreaName = "MyNewGridArea";
+              handleLayoutUpdate({
+                type: "ADD_ITEM",
+                name: newAreaName,
+                pos: {
+                  rowStart: row,
+                  rowEnd: row,
+                  colStart: col,
+                  colEnd: col,
+                },
+              });
+
+              // Let the state know we have a new child node
+              nodeUpdaters({
+                type: "ADD_NODE",
+                parentPath: [],
+                newNode: {
+                  uiName: "gridlayout::grid_panel",
+                  uiArguments: {
+                    area: newAreaName,
+                    horizontalAlign: "spread",
+                    verticalAlign: "spread",
+                  },
+                  uiChildren: [newElement],
+                },
+              });
+            }}
+            onClick={() => console.log("Clicked a cell from GridApp()")}
+          />
+        ))}
+
         <TractControls areas={areas} sizes={sizes} />
         {children}
         {areaOverlays}
