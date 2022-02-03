@@ -1,5 +1,4 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import GridApp from "components/Shiny-Ui-Elements/Layouts/GridApp";
 import React from "react";
 import ConfigureNewUiElement from ".";
 
@@ -7,7 +6,7 @@ import ConfigureNewUiElement from ".";
 export default {
   title: "NewItemConfiguration",
   component: ConfigureNewUiElement,
-} as ComponentMeta<typeof GridApp>;
+} as ComponentMeta<typeof ConfigureNewUiElement>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template: ComponentStory<typeof ConfigureNewUiElement> = (args) => (
