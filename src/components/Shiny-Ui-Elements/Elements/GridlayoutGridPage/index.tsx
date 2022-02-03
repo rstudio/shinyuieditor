@@ -18,6 +18,7 @@ import {
 } from "../uiComponentAndSettings";
 import { GridLayoutAction, gridLayoutReducer } from "./gridLayoutReducer";
 import classes from "./styles.module.css";
+import PortalModal from "PortalModal";
 
 export type GridCellBounds = Record<GridLocString, ItemBoundingBox>;
 export type CellLocRef = React.MutableRefObject<GridCellBounds>;
