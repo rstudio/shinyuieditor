@@ -239,6 +239,7 @@ export function useResizeOnDrag({
     // Return positioning logic to the grid-area method
     overlayEl.classList.remove("dragging");
     document.removeEventListener("mousemove", onDrag);
+    toggleTextSelection("on");
   }, [initialGridExtent, onDrag, onDragEnd, overlayRef]);
 
   const startDrag = React.useCallback(
@@ -272,11 +273,22 @@ export function useResizeOnDrag({
       // Setup event listeners for the next steps
       document.addEventListener("mousemove", onDrag);
       document.addEventListener("mouseup", endDrag, { once: true });
+      toggleTextSelection("off");
     },
     [cellBounds, endDrag, gridLocation, layoutAreas, onDrag, overlayRef]
   );
 
   return startDrag;
+}
+
+function toggleTextSelection(type: "on" | "off") {
+  // Turnoff text selection so dragging doesnt highlight a bunch of stuff
+  const bodyClasses = document.querySelector("body")?.classList;
+  if (type === "off") {
+    bodyClasses?.add("disable-text-selection");
+  } else {
+    bodyClasses?.remove("disable-text-selection");
+  }
 }
 
 // function placeItemAbsolutely(el: HTMLDivElement, bounds: ItemBounds) {
