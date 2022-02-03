@@ -3,7 +3,7 @@ import debounce from "just-debounce-it";
 import React from "react";
 import { toStringLoc } from "utils/grid-helpers";
 import { getBBoxOfDiv } from "utils/overlap-helpers";
-import { CellLocRef } from ".";
+import { CellLocRef } from "../../Layouts/GridApp";
 
 export function GridCell({
   gridRow,
