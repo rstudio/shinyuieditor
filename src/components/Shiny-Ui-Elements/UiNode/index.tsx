@@ -21,26 +21,13 @@ const UiNode = ({
   uiChildren,
 }: { path?: NodePath; selectedPath: NodePath | null } & UiNodeProps) => {
   const setNodeSelection = React.useContext(NodeSelectionContext);
-  const settingsButtonRef = React.useRef<HTMLSpanElement>(null);
-  const deleteButtonRef = React.useRef<HTMLSpanElement>(null);
+
   const isSelected = selectedPath ? sameArray(path, selectedPath) : false;
 
   const isLeafNode = typeof uiChildren === undefined;
   const dragAndDropCallbacks = useDragAndDropElements(path, isLeafNode);
 
-  const handleHoverOver = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    settingsButtonRef.current?.classList.add(classes.selected);
-    deleteButtonRef.current?.classList.add(classes.selected);
-  };
-
-  const handleHoverOff = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    settingsButtonRef.current?.classList.remove(classes.selected);
-    deleteButtonRef.current?.classList.remove(classes.selected);
-  };
-
-  const handleDoubleClick = (e: React.MouseEvent) => {
+  const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     setNodeSelection(path);
   };
@@ -53,9 +40,7 @@ const UiNode = ({
     <Comp
       uiArguments={uiArguments}
       {...dragAndDropCallbacks}
-      onMouseOver={handleHoverOver}
-      onMouseLeave={handleHoverOff}
-      onClick={handleDoubleClick}
+      onClick={handleClick}
     >
       {uiChildren?.map((childNode, i) => (
         <UiNode
