@@ -1,3 +1,4 @@
+import { TextInput } from "components/Inputs/TextInput";
 import { LayoutDispatchContext } from "components/Shiny-Ui-Elements/Layouts/GridApp";
 import { AreaOverlay } from "components/Shiny-Ui-Elements/Layouts/GridApp/AreaOverlay";
 import { GridCell } from "components/Shiny-Ui-Elements/Layouts/GridApp/GridCell";
@@ -219,13 +220,12 @@ function NameNewPanelModal({
       onCancel={onCancel}
     >
       <pre>{uiName}</pre>
-      <p>Name of new grid item:</p>
-      <input
-        type="text"
+      <TextInput
+        label="Name of new grid area"
+        name="New-Item-Name"
         value={newItemName}
-        onChange={(e) => setNewItemName(e.target.value)}
+        onChange={setNewItemName}
       />
-      <hr />
     </PortalModal>
   );
 }
