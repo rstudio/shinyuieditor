@@ -1,0 +1,15 @@
+.portalHolder {
+  background-color: rgba(255, 255, 255, 0.735);
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+}
+
+.portalModal {
+  outline: 1px solid grey;
+  width: 400px;
+  height: 300px;
+  background-color: var(--rstudio-white);
+  padding: 1rem;
+}
