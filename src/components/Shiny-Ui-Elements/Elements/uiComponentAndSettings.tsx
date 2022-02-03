@@ -11,10 +11,14 @@ import GridlayoutGridPage from "./GridlayoutGridPage";
 import { GridlayoutGridPageSettings } from "./GridlayoutGridPage/SettingsPanel";
 
 type AllowedBaseElements = HTMLDivElement;
-type PassthroughProps = React.DetailedHTMLProps<
-  React.HTMLAttributes<AllowedBaseElements>,
-  AllowedBaseElements
+type PassthroughProps = Pick<
+  React.DetailedHTMLProps<
+    React.HTMLAttributes<AllowedBaseElements>,
+    AllowedBaseElements
+  >,
+  "onDrop" | "onDragEnter" | "onDragLeave" | "onClick"
 >;
+
 export type UiNodeComponent<NodeSettings extends object> = React.FC<
   { uiArguments: NodeSettings } & PassthroughProps
 >;
