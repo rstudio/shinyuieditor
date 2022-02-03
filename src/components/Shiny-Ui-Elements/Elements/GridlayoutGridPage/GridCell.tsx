@@ -4,6 +4,7 @@ import React from "react";
 import { toStringLoc } from "utils/grid-helpers";
 import { getBBoxOfDiv } from "utils/overlap-helpers";
 import { CellLocRef } from "../../Layouts/GridApp";
+import classes from "./GridCell.module.css";
 
 export function GridCell({
   gridRow,
@@ -51,15 +52,11 @@ export function GridCell({
 
   return (
     <div
-      className="grid-cell"
+      className={`grid-cell ${classes.cell}`}
       ref={cellRef}
       style={{
         gridRow,
         gridColumn,
-        backgroundColor: "var(--light-grey, pink)",
-        opacity: 0.2,
-        display: "grid",
-        placeContent: "center",
       }}
       {...dropHandlers}
     ></div>

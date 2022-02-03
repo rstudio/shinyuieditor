@@ -20,6 +20,7 @@ import {
 } from "../uiComponentAndSettings";
 import { GridLayoutAction, gridLayoutReducer } from "./gridLayoutReducer";
 import classes from "./styles.module.css";
+import CellClasses from "./GridCell.module.css";
 
 export type GridCellBounds = Record<GridLocString, ItemBoundingBox>;
 export type CellLocRef = React.MutableRefObject<GridCellBounds>;
@@ -159,14 +160,16 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
             gridColumn={col}
             cellLocations={gridCellLocations}
             onDragEnter={(e) => {
-              e.currentTarget.style.outline = "2px solid salmon";
+              e.currentTarget.classList.add(CellClasses.droppable);
             }}
             onDragOver={(e) => e.preventDefault()}
             onDragLeave={(e) => {
-              e.currentTarget.style.outline = "unset";
+              e.currentTarget.classList.remove(CellClasses.droppable);
             }}
             onDrop={(e) => {
               e.stopPropagation();
+              e.currentTarget.classList.remove(CellClasses.droppable);
+
               // Get the type of dropped element and act on it
               const nameOfDroppedUi = e.dataTransfer.getData(
                 "element-type"
