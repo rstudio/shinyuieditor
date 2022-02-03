@@ -7,7 +7,8 @@ import {
 } from "../Elements/uiComponentAndSettings";
 import { NodePath, UiNodeProps } from "../uiNodeTypes";
 import classes from "./styles.module.css";
-import { useDragAndDropElements } from "./useDragAndDropElements";
+
+import { useDragAndDropElements } from "../DragAndDropHelpers/useDragAndDropElements";
 
 /**
  * Recursively render the nodes in a UI Tree

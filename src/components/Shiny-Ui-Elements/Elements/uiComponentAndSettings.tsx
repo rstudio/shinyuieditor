@@ -1,7 +1,7 @@
 import GridlayoutTitlePanel from "components/Shiny-Ui-Elements/Elements/GridlayoutTitlePanel";
 import { GridlayoutTitlePanelSettings } from "components/Shiny-Ui-Elements/Elements/GridlayoutTitlePanel/SettingsPanel";
 import { ShinyUiNameAndArguments } from "components/Shiny-Ui-Elements/uiNodeTypes";
-import { DragAndDropHandlers } from "../UiNode/useDragAndDropElements";
+import { DragAndDropHandlers } from "../DragAndDropHelpers/useDragAndDropElements";
 import GridlayoutGridPage from "./GridlayoutGridPage";
 import { GridlayoutGridPageSettings } from "./GridlayoutGridPage/SettingsPanel";
 import GridlayoutGridPanel from "./GridlayoutGridPanel";

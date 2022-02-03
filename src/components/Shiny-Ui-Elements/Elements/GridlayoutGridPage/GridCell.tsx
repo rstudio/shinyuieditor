@@ -1,4 +1,4 @@
-import { DragAndDropHandlers } from "components/Shiny-Ui-Elements/UiNode/useDragAndDropElements";
+import { DragAndDropHandlers } from "components/Shiny-Ui-Elements/DragAndDropHelpers/useDragAndDropElements";
 import debounce from "just-debounce-it";
 import React from "react";
 import { toStringLoc } from "utils/grid-helpers";

@@ -1,8 +1,8 @@
 import React from "react";
 import { defaultSettingsForElements } from "../Elements/uiComponentAndSettings";
 import { NodePath, ShinyUiNames } from "../uiNodeTypes";
-import NodeUpdateContext from "./NodeUpdateContext";
-import classes from "./styles.module.css";
+import NodeUpdateContext from "../UiNode/NodeUpdateContext";
+import classes from "./DragAndDrop.module.css";
 
 export type DragAndDropTargetEvents =
   | "onDrop"
