@@ -161,6 +161,7 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
             onDragEnter={(e) => {
               e.currentTarget.style.outline = "2px solid salmon";
             }}
+            onDragOver={(e) => e.preventDefault()}
             onDragLeave={(e) => {
               e.currentTarget.style.outline = "unset";
             }}

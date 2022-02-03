@@ -4,6 +4,17 @@ import { NodePath, ShinyUiNames } from "../uiNodeTypes";
 import NodeUpdateContext from "./NodeUpdateContext";
 import classes from "./styles.module.css";
 
+export type DragAndDropTargetEvents =
+  | "onDrop"
+  | "onDragEnter"
+  | "onDragOver"
+  | "onDragLeave";
+
+export type DragAndDropHandlers = Pick<
+  React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+  DragAndDropTargetEvents
+>;
+
 export function useDragAndDropElements(path: NodePath, isLeafNode: boolean) {
   const nodeUpdaters = React.useContext(NodeUpdateContext);
 
@@ -12,10 +23,16 @@ export function useDragAndDropElements(path: NodePath, isLeafNode: boolean) {
       isLeafNode
         ? {}
         : {
-            onDragOver: (e: React.DragEvent<HTMLDivElement>) => {
+            onDragEnter: (e: React.DragEvent<HTMLDivElement>) => {
               e.preventDefault();
               // Update styles to indicate the user can drop item here
               highlightDropability(e);
+            },
+
+            onDragOver: (e: React.DragEvent<HTMLDivElement>) => {
+              e.preventDefault();
+              // This callback just needs to be here and prevent the default
+              // otherwise the onDrop event won't fire
             },
 
             onDragLeave: (e: React.DragEvent<HTMLDivElement>) => {

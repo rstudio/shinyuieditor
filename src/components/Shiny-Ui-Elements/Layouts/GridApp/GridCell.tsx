@@ -1,13 +1,9 @@
+import { DragAndDropHandlers } from "components/Shiny-Ui-Elements/UiNode/useDragAndDropElements";
 import debounce from "just-debounce-it";
 import React from "react";
 import { toStringLoc } from "utils/grid-helpers";
 import { getBBoxOfDiv } from "utils/overlap-helpers";
 import { CellLocRef } from ".";
-
-type DragAndDropHandlers = Pick<
-  React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-  "onDrop" | "onDragEnter" | "onDragLeave"
->;
 
 export function GridCell({
   gridRow,

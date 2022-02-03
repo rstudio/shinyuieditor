@@ -1,23 +1,25 @@
-import { ShinyUiNameAndArguments } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import GridlayoutTitlePanel from "components/Shiny-Ui-Elements/Elements/GridlayoutTitlePanel";
 import { GridlayoutTitlePanelSettings } from "components/Shiny-Ui-Elements/Elements/GridlayoutTitlePanel/SettingsPanel";
+import { ShinyUiNameAndArguments } from "components/Shiny-Ui-Elements/uiNodeTypes";
+import { DragAndDropHandlers } from "../UiNode/useDragAndDropElements";
+import GridlayoutGridPage from "./GridlayoutGridPage";
+import { GridlayoutGridPageSettings } from "./GridlayoutGridPage/SettingsPanel";
+import GridlayoutGridPanel from "./GridlayoutGridPanel";
+import { GridlayoutGridPanelSettings } from "./GridlayoutGridPanel/SettingsPanel";
 import ShinyPlotOutput from "./ShinyPlotOutput";
 import { ShinyPlotOutputSettings } from "./ShinyPlotOutput/SettingsPanel";
 import ShinySliderInput from "./ShinySliderInput";
 import { ShinySliderInputSettings } from "./ShinySliderInput/SettingsPanel";
-import GridlayoutGridPanel from "./GridlayoutGridPanel";
-import { GridlayoutGridPanelSettings } from "./GridlayoutGridPanel/SettingsPanel";
-import GridlayoutGridPage from "./GridlayoutGridPage";
-import { GridlayoutGridPageSettings } from "./GridlayoutGridPage/SettingsPanel";
 
 type AllowedBaseElements = HTMLDivElement;
-type PassthroughProps = Pick<
-  React.DetailedHTMLProps<
-    React.HTMLAttributes<AllowedBaseElements>,
-    AllowedBaseElements
-  >,
-  "onDrop" | "onDragEnter" | "onDragLeave" | "onClick"
->;
+type PassthroughProps = DragAndDropHandlers &
+  Pick<
+    React.DetailedHTMLProps<
+      React.HTMLAttributes<AllowedBaseElements>,
+      AllowedBaseElements
+    >,
+    "onClick"
+  >;
 
 export type UiNodeComponent<NodeSettings extends object> = React.FC<
   { uiArguments: NodeSettings } & PassthroughProps
