@@ -10,7 +10,7 @@ import { subtractElements } from "utils/array-helpers";
 import { enumerateGridDims, toStringLoc } from "utils/grid-helpers";
 import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
-import { TemplatedGridProps } from "utils/gridTemplates/types";
+import { GridItemExtent, TemplatedGridProps } from "utils/gridTemplates/types";
 import { ItemBoundingBox } from "utils/overlap-helpers";
 import {
   defaultSettingsForElements,
@@ -22,6 +22,11 @@ import PortalModal from "PortalModal";
 
 export type GridCellBounds = Record<GridLocString, ItemBoundingBox>;
 export type CellLocRef = React.MutableRefObject<GridCellBounds>;
+
+type NewItemInfo = {
+  uiName: ShinyUiNames;
+  pos: GridItemExtent;
+};
 
 const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
   uiArguments,
@@ -39,6 +44,8 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
     () => areasToItemLocations(areas),
     [areas]
   );
+
+  const [showModal, setShowModal] = React.useState<NewItemInfo | null>(null);
 
   const handleLayoutUpdate = React.useCallback(
     (action: GridLayoutAction) => {
@@ -124,6 +131,7 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
               ) as ShinyUiNames;
 
               console.log("Cell had " + nameOfDroppedUi + " dropped on it");
+
               // For right now we'll just use the default settings for the
               // dropped ui element
               const newElement = defaultSettingsForElements.find(
@@ -141,9 +149,8 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
               const allowedDrop = true;
               if (!allowedDrop) return;
               const newAreaName = "MyNewGridArea";
-              handleLayoutUpdate({
-                type: "ADD_ITEM",
-                name: newAreaName,
+              setShowModal({
+                uiName: nameOfDroppedUi,
                 pos: {
                   rowStart: row,
                   rowEnd: row,
@@ -152,20 +159,31 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
                 },
               });
 
-              // Let the state know we have a new child node
-              nodeUpdaters({
-                type: "ADD_NODE",
-                parentPath: [],
-                newNode: {
-                  uiName: "gridlayout::grid_panel",
-                  uiArguments: {
-                    area: newAreaName,
-                    horizontalAlign: "spread",
-                    verticalAlign: "spread",
-                  },
-                  uiChildren: [newElement],
-                },
-              });
+              // handleLayoutUpdate({
+              //   type: "ADD_ITEM",
+              //   name: newAreaName,
+              //   pos: {
+              //     rowStart: row,
+              //     rowEnd: row,
+              //     colStart: col,
+              //     colEnd: col,
+              //   },
+              // });
+
+              // // Let the state know we have a new child node
+              // nodeUpdaters({
+              //   type: "ADD_NODE",
+              //   parentPath: [],
+              //   newNode: {
+              //     uiName: "gridlayout::grid_panel",
+              //     uiArguments: {
+              //       area: newAreaName,
+              //       horizontalAlign: "spread",
+              //       verticalAlign: "spread",
+              //     },
+              //     uiChildren: [newElement],
+              //   },
+              // });
             }}
           />
         ))}
@@ -174,6 +192,12 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
         {children}
         {areaOverlays}
       </div>
+      {showModal ? (
+        <PortalModal>
+          <p>UiElement: {showModal.uiName}</p>
+          <p>Position: {JSON.stringify(showModal.pos)}</p>
+        </PortalModal>
+      ) : null}
     </LayoutDispatchContext.Provider>
   );
 };
