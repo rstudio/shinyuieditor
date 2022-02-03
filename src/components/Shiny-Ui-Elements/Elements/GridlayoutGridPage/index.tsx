@@ -1,6 +1,6 @@
 import { TextInput } from "components/Inputs/TextInput";
 import { LayoutDispatchContext } from "components/Shiny-Ui-Elements/Layouts/GridApp";
-import { AreaOverlay } from "components/Shiny-Ui-Elements/Layouts/GridApp/AreaOverlay";
+import { AreaOverlay } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/AreaOverlay";
 import { GridCell } from "components/Shiny-Ui-Elements/Layouts/GridApp/GridCell";
 import { TractControls } from "components/Shiny-Ui-Elements/Layouts/GridApp/TractControls";
 import NodeUpdateContext from "components/Shiny-Ui-Elements/UiNode/NodeUpdateContext";

@@ -12,7 +12,7 @@ import {
   ItemLocation,
   TemplatedGridProps,
 } from "utils/gridTemplates/types";
-import { CellLocRef } from ".";
+import { CellLocRef } from "../../Layouts/GridApp";
 import {
   availableMoves,
   MovementType,

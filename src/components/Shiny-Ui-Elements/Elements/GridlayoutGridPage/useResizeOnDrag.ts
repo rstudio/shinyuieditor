@@ -13,13 +13,13 @@ import {
   TemplatedGridProps,
 } from "utils/gridTemplates/types";
 import { SelectionRect } from "utils/overlap-helpers";
-import { GridCellBounds } from ".";
+import { GridCellBounds } from "../../Layouts/GridApp";
 import {
   centerOfBounds,
   clamp,
   gridLocationToBounds,
   gridLocationToExtent,
-} from "./helpers";
+} from "../../Layouts/GridApp/helpers";
 
 type ItemBounds = ReturnType<typeof gridLocationToBounds>;
 
