@@ -218,8 +218,14 @@ function NameNewPanelModal({
       onConfirm={() => onDone(newItemName)}
       onCancel={onCancel}
     >
-      <p>UiElement: {uiName}</p>
-      <p>Position: {JSON.stringify(pos)}</p>
+      <pre>{uiName}</pre>
+      <p>Name of new grid item:</p>
+      <input
+        type="text"
+        value={newItemName}
+        onChange={(e) => setNewItemName(e.target.value)}
+      />
+      <hr />
     </PortalModal>
   );
 }
