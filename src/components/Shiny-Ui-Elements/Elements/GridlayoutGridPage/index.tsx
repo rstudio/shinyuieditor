@@ -193,14 +193,33 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
         {areaOverlays}
       </div>
       {showModal ? (
-        <PortalModal>
-          <p>UiElement: {showModal.uiName}</p>
-          <p>Position: {JSON.stringify(showModal.pos)}</p>
-        </PortalModal>
+        <NameNewPanelModal
+          info={showModal}
+          onCancel={() => setShowModal(null)}
+        />
       ) : null}
     </LayoutDispatchContext.Provider>
   );
 };
+
+function NameNewPanelModal({
+  info: { uiName, pos },
+  onCancel,
+}: {
+  info: NewItemInfo;
+  onCancel: () => void;
+}) {
+  return (
+    <PortalModal
+      title="Name new grid panel"
+      onConfirm={() => console.log("Good to go with item")}
+      onCancel={onCancel}
+    >
+      <p>UiElement: {uiName}</p>
+      <p>Position: {JSON.stringify(pos)}</p>
+    </PortalModal>
+  );
+}
 
 /** Get the grid areas present in the children nodes passed to the Grid_Page()
  * component. This assumes that they are stored in the "area" property on the

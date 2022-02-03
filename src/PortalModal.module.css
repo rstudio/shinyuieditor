@@ -11,5 +11,25 @@
   width: 400px;
   height: 300px;
   background-color: var(--rstudio-white);
+  /* padding: 1rem; */
+  display: flex;
+  flex-direction: column;
+}
+
+.portalModal > div {
   padding: 1rem;
+}
+
+.title {
+  color: white;
+  background-color: var(--header-grey, green);
+}
+
+.body {
+  flex-grow: 1;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-around;
 }
