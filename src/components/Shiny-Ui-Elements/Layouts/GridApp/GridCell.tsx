@@ -24,7 +24,7 @@ function GridCell({
   const gridPos = toStringLoc({ row: gridRow, col: gridColumn });
   const cellRef = React.useRef<HTMLDivElement>(null);
   const isClickable = typeof onClick !== "undefined";
-  const nodeUpdaters = React.useContext(NodeUpdateContext);
+  const [showPortal, setShowPortal] = React.useState(false);
   const layoutDispatch = React.useContext(LayoutDispatchContext);
 
   const updateSize = React.useMemo(
@@ -132,9 +132,13 @@ function GridCell({
         <IconButton
           icon={<FaPlus />}
           aria-label={`Add new item at row ${gridRow} column ${gridColumn}`}
-          onClick={() => onClick({ row: gridRow, col: gridColumn })}
+          onClick={() => {
+            console.log("Clicked show portal!");
+            setShowPortal(true);
+          }}
         />
       ) : null}
+      {showPortal ? <PortalModal>Hi, I'm a portal</PortalModal> : null}
     </div>
   );
 }
