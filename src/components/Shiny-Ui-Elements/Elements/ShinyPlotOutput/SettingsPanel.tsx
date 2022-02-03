@@ -1,4 +1,4 @@
-import { TextInput } from "components/Inputs/TextInput";
+import { TextInputChakra } from "components/Inputs/TextInput";
 import { SettingsUpdaterComponent } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import * as React from "react";
 import { ShinyPlotOutputProps } from ".";
@@ -9,7 +9,7 @@ export const ShinyPlotOutputSettings: SettingsUpdaterComponent<
   const { outputId } = settings;
 
   return (
-    <TextInput
+    <TextInputChakra
       label="outputId"
       value={outputId ?? "defaultPlotOutput"}
       onChange={(newName) => onChange({ ...settings, outputId: newName })}

@@ -1,5 +1,5 @@
 import { FormControl } from "@chakra-ui/form-control";
-import { TextInput } from "components/Inputs/TextInput";
+import { TextInputChakra } from "components/Inputs/TextInput";
 import * as React from "react";
 import { GridlayoutTitlePanelProps } from ".";
 import { SettingsUpdaterComponent } from "../../uiNodeTypes";
@@ -9,7 +9,7 @@ export const GridlayoutTitlePanelSettings: SettingsUpdaterComponent<
 > = ({ settings, onChange }) => {
   return (
     <FormControl id="shiny::sliderInput-settings">
-      <TextInput
+      <TextInputChakra
         label="App title"
         value={settings.title ?? "UndefinedAppTitle"}
         onChange={(title) => onChange({ ...settings, title })}

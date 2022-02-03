@@ -1,6 +1,6 @@
 import { FormControl, FormLabel, Input } from "@chakra-ui/react";
 
-export function TextInput({
+export function TextInputChakra({
   label,
   value,
   onChange,
