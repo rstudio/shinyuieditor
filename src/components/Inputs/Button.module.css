@@ -1,0 +1,19 @@
+.button {
+  --outline-color: var(--light-grey);
+  padding: 0.5rem 1rem;
+  outline: 1px solid var(--outline-color);
+  background-color: var(--rstudio-white);
+  border-radius: var(--corner-radius);
+  align-self: center;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.regular {
+  --outline-color: var(--rstudio-blue);
+}
+
+.delete {
+  --outline-color: var(--red);
+}
