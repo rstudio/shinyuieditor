@@ -1,0 +1,6 @@
+/* 
+ By adding a disable-text-selection class to the page we can turn of selection
+ so dragging wont cause all sorts of ugly text selection. */
+.disable-text-selection * {
+  user-select: none;
+}

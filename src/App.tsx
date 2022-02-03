@@ -4,6 +4,7 @@ import * as React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { EditorContainer } from "./EditorContainer";
 import { theme } from "./theme";
+import "App.css";
 
 // Create a client
 const queryClient = new QueryClient();
