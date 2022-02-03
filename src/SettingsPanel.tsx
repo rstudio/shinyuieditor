@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import Button from "components/Inputs/Button";
 import { uiComponentAndSettings } from "components/Shiny-Ui-Elements/Elements/uiComponentAndSettings";
 import NodeUpdateContext from "components/Shiny-Ui-Elements/UiNode/NodeUpdateContext";
 import { getNode } from "components/Shiny-Ui-Elements/UiNode/treeManipulation";
@@ -102,25 +102,22 @@ export function SettingsPanel({
             </div>
           ) : null}
           <Button
-            variant="main"
-            leftIcon={<BiCheck />}
-            marginTop="0.75rem"
-            type="submit"
+          // type="submit"
           >
-            Update
+            <BiCheck /> Update
           </Button>
         </form>
       </div>
 
-      <button
-        className={classes.deleteButton}
+      <Button
         onClick={() => {
           setNodeSelection(null);
           nodeUpdaters({ type: "DELETE_NODE", path: selectedPath });
         }}
+        variant="delete"
       >
         <TrashIcon /> Delete Element
-      </button>
+      </Button>
     </div>
   );
 }

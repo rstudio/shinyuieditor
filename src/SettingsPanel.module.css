@@ -11,14 +11,3 @@
   /* Make the settings form take up whatever space it has until bottom */
   flex-grow: 1;
 }
-
-.deleteButton {
-  padding: 0.5rem 1rem;
-  outline: 1px solid var(--red);
-  background-color: var(--rstudio-white);
-  border-radius: var(--corner-radius);
-  align-self: center;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
