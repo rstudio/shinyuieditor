@@ -158,10 +158,11 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
             gridRow={row}
             gridColumn={col}
             cellLocations={gridCellLocations}
-            onDragOver={(e) => {
-              if (e.currentTarget) {
-                e.currentTarget.style.outline = "2px solid salmon";
-              }
+            onDragEnter={(e) => {
+              e.currentTarget.style.outline = "2px solid salmon";
+            }}
+            onDragLeave={(e) => {
+              e.currentTarget.style.outline = "unset";
             }}
             onDrop={(e) => {
               e.stopPropagation();

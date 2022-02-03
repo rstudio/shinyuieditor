@@ -6,7 +6,7 @@ import { CellLocRef } from ".";
 
 type DragAndDropHandlers = Pick<
   React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-  "onDrop" | "onDragOver"
+  "onDrop" | "onDragEnter" | "onDragLeave"
 >;
 
 export function GridCell({
