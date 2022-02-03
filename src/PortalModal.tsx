@@ -17,8 +17,6 @@ const Portal: React.FC<IProps> = ({ children, el = "div" }: IProps) => {
   const [container] = React.useState(document.createElement(el));
 
   React.useEffect(() => {
-    container.classList.add(classes.portalHolder);
-
     document.body.appendChild(container);
     return () => {
       document.body.removeChild(container);
@@ -35,14 +33,24 @@ const PortalModal: React.FC<{
 }> = ({ children, title, onConfirm, onCancel }) => {
   return (
     <Portal>
-      <div className={classes.portalModal}>
-        {title ? <div className={classes.title}>{title}</div> : null}
-        <div className={classes.body}>{children}</div>
-        <div className={classes.footer}>
-          <Button variant="delete" onClick={() => onCancel()}>
-            Cancel
-          </Button>
-          <Button onClick={() => onConfirm()}>Done</Button>
+      <div
+        className={classes.portalHolder}
+        // Clicking outside the modal will trigger the onCancel event
+        onClick={() => onCancel()}
+      >
+        <div
+          className={classes.portalModal}
+          // Dont let the clicking on the modal itself trigger canceling
+          onClick={(e) => e.stopPropagation()}
+        >
+          {title ? <div className={classes.title}>{title}</div> : null}
+          <div className={classes.body}>{children}</div>
+          <div className={classes.footer}>
+            <Button variant="delete" onClick={() => onCancel()}>
+              Cancel
+            </Button>
+            <Button onClick={() => onConfirm()}>Done</Button>
+          </div>
         </div>
       </div>
     </Portal>
