@@ -1,0 +1,16 @@
+/* Styles common to multiple input components */
+
+.container {
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.label {
+  font-weight: 300;
+  font-style: italic;
+  width: auto;
+}

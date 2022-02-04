@@ -1,5 +1,6 @@
 import * as React from "react";
 import classes from "./RadioInputs.module.css";
+import inputClasses from "./Inputs.module.css";
 
 export function RadioInputs<OptionType extends string>({
   name,
@@ -13,11 +14,13 @@ export function RadioInputs<OptionType extends string>({
   onChange: (selection: OptionType) => void;
 }) {
   return (
-    <div className={classes.formSection}>
-      <p>{name}:</p>
+    <div className={inputClasses.container}>
+      <label htmlFor={name} className={inputClasses.label}>
+        {name}:
+      </label>
       <fieldset className={classes.radioInputs}>
         {options.map((option) => (
-          <div key={option}>
+          <div className={classes.option} key={option}>
             <input
               name={name}
               type="radio"

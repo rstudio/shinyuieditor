@@ -1,5 +1,6 @@
 import { FormControl, FormLabel, Input } from "@chakra-ui/react";
 import classes from "./TextInput.module.css";
+import inputClasses from "./Inputs.module.css";
 
 export function TextInputChakra({
   label,
@@ -30,8 +31,8 @@ export function TextInput({
   onChange: (x: string) => void;
 }) {
   return (
-    <div className={classes.container}>
-      <label className={classes.label} htmlFor={name}>
+    <div className={inputClasses.container}>
+      <label className={inputClasses.label} htmlFor={name}>
         {label ?? name}:
       </label>
       <input
