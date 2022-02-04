@@ -5,12 +5,14 @@ import addItem from "utils/gridTemplates/addItem";
 import addTract from "utils/gridTemplates/addTract";
 import { removeItems, removeItem } from "utils/gridTemplates/removeItem";
 import removeTract from "utils/gridTemplates/removeTract";
+import { renameItem } from "utils/gridTemplates/renameItem";
 import resizeTract from "utils/gridTemplates/resizeTract";
 import { GridItemExtent, TemplatedGridProps } from "utils/gridTemplates/types";
 
 export type GridLayoutAction =
   | { type: "ADD_ITEM"; name: string; pos: GridItemExtent }
   | { type: "REMOVE_ITEM"; name: string }
+  | { type: "RENAME_ITEM"; oldName: string; newName: string }
   | { type: "REMOVE_ITEMS"; names: string[] }
   | { type: "MOVE_ITEM"; name: string; pos: GridItemExtent }
   | {
@@ -34,6 +36,7 @@ export type GridLayoutAction =
       type: "SET_GAP";
       size: CSSMeasure;
     };
+
 export function gridLayoutReducer(
   layout: TemplatedGridProps,
   action: GridLayoutAction
@@ -43,6 +46,9 @@ export function gridLayoutReducer(
     // eslint-disable-next-line no-fallthrough
     case "MOVE_ITEM":
       return addItem(layout, { name: action.name, ...action.pos });
+
+    case "RENAME_ITEM":
+      return renameItem(layout, action.oldName, action.newName);
 
     case "REMOVE_ITEM":
       return removeItem(layout, action.name);
