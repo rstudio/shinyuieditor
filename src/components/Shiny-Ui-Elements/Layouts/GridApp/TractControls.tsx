@@ -54,6 +54,8 @@ export function TractControls({
   );
 }
 
+const NEW_TRACT_SIZE = "120px";
+
 function TractControl({
   dir,
   tractIndex,
@@ -92,7 +94,7 @@ function TractControl({
         <TractAddButton
           dir={dir}
           tractIndex={tractIndex}
-          size="100px"
+          size={NEW_TRACT_SIZE}
           beforeOrAfter="before"
         />
         <TractRemoveButton
@@ -103,7 +105,7 @@ function TractControl({
         <TractAddButton
           dir={dir}
           tractIndex={tractIndex}
-          size="100px"
+          size={NEW_TRACT_SIZE}
           beforeOrAfter="after"
         />
       </div>
