@@ -35,8 +35,8 @@ export function TractControls({
         index: tractIndex,
       });
       return (
-        <TractControlMemo
-          key={i}
+        <TractControl
+          key={size + i}
           dir={dir}
           size={size}
           tractIndex={tractIndex}
