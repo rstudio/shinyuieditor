@@ -25,25 +25,21 @@ export function sendTreeUpdateMessage(updateAction: TreeUpdateAction) {
 }
 
 export function useListenForTreeUpdateEvent(
-  onUpdate: (updateAction: TreeUpdateAction) => void
+  onEvent: (e: TreeUpdateEvent) => void
 ) {
-  const handleUpdateEvent = React.useCallback(
-    ({ detail }: TreeUpdateEvent) => {
-      onUpdate(detail);
-    },
-    [onUpdate]
-  );
-
   React.useEffect(() => {
-    document.addEventListener("tree-update", handleUpdateEvent);
-    return () => document.removeEventListener("tree-update", handleUpdateEvent);
-  }, [handleUpdateEvent]);
+    document.addEventListener("tree-update", onEvent);
+    return () => document.removeEventListener("tree-update", onEvent);
+  }, [onEvent]);
 }
 
 export function useEventUpdatedTree(initialState: ShinyUiNameAndArguments) {
   const [tree, updateTree] = React.useReducer(treeUpdateReducer, initialState);
 
-  useListenForTreeUpdateEvent(updateTree);
+  const handleUpdateEvent = React.useCallback(({ detail }: TreeUpdateEvent) => {
+    updateTree(detail);
+  }, []);
+  useListenForTreeUpdateEvent(handleUpdateEvent);
 
   return tree;
 }

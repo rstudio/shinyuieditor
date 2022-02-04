@@ -18,7 +18,10 @@ import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
 import { GridItemExtent, TemplatedGridProps } from "utils/gridTemplates/types";
 import { ItemBoundingBox } from "utils/overlap-helpers";
-import { sendTreeUpdateMessage } from "../treeUpdateEvents";
+import {
+  sendTreeUpdateMessage,
+  useListenForTreeUpdateEvent,
+} from "../treeUpdateEvents";
 import {
   defaultSettingsForElements,
   UiNodeComponent,
@@ -65,14 +68,14 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
     [uiArguments]
   );
 
-  React.useEffect(() => {
-    document.addEventListener("tree-update", function ({ detail }) {
-      console.log(
-        "Received custom tree-update message in GridlayoutGridPage",
-        detail
-      );
-    });
-  }, []);
+  useListenForTreeUpdateEvent((e) => {
+    console.log(
+      "Intercepted custom tree-update message in GridlayoutGridPage",
+      e
+    );
+
+    e.stopImmediatePropagation();
+  });
 
   React.useEffect(() => {
     // If a user removes a grid panel from the app there will be an extra area
