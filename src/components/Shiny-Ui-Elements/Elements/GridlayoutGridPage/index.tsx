@@ -1,5 +1,8 @@
 import { TextInput } from "components/Inputs/TextInput";
-import { dragAndDropTargetEvents } from "components/Shiny-Ui-Elements/DragAndDropHelpers/useDragAndDropElements";
+import {
+  buildDragAndDropHandlers,
+  dragAndDropTargetEvents,
+} from "components/Shiny-Ui-Elements/DragAndDropHelpers/useDragAndDropElements";
 import { AreaOverlay } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/AreaOverlay";
 import { GridCell } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/GridCell";
 import { LayoutDispatchContext } from "components/Shiny-Ui-Elements/Layouts/GridApp";
@@ -16,7 +19,6 @@ import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
 import { GridItemExtent, TemplatedGridProps } from "utils/gridTemplates/types";
 import { ItemBoundingBox } from "utils/overlap-helpers";
-import DragClasses from "../../DragAndDropHelpers/DragAndDrop.module.css";
 import {
   defaultSettingsForElements,
   UiNodeComponent,
@@ -168,22 +170,7 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
             gridRow={row}
             gridColumn={col}
             cellLocations={gridCellLocations}
-            onDragEnter={(e) => {
-              e.currentTarget.classList.add(DragClasses.canDrop);
-            }}
-            onDragOver={(e) => e.preventDefault()}
-            onDragLeave={(e) => {
-              e.currentTarget.classList.remove(DragClasses.canDrop);
-            }}
-            onDrop={(e) => {
-              e.stopPropagation();
-              e.currentTarget.classList.remove(DragClasses.canDrop);
-
-              // Get the type of dropped element and act on it
-              const nameOfDroppedUi = e.dataTransfer.getData(
-                "element-type"
-              ) as ShinyUiNames;
-
+            {...buildDragAndDropHandlers((nameOfDroppedUi) => {
               // This will eventually filter by element type
               const allowedDrop = true;
               if (!allowedDrop) return;
@@ -196,7 +183,7 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
                   colEnd: col,
                 },
               });
-            }}
+            })}
           />
         ))}
 

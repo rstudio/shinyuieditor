@@ -1,7 +1,7 @@
 import React from "react";
 import { defaultSettingsForElements } from "../Elements/uiComponentAndSettings";
-import { NodePath, ShinyUiNames } from "../uiNodeTypes";
 import NodeUpdateContext from "../UiNode/NodeUpdateContext";
+import { NodePath, ShinyUiNames } from "../uiNodeTypes";
 import classes from "./DragAndDrop.module.css";
 
 export type DragAndDropTargetEvents =
@@ -22,6 +22,47 @@ export type DragAndDropHandlers = Pick<
   DragAndDropTargetEvents
 >;
 
+export function buildDragAndDropHandlers(
+  onDrop: (nameOfDropped: ShinyUiNames) => void
+) {
+  return {
+    onDragEnter: (e: React.DragEvent<HTMLDivElement>) => {
+      console.log("Highlight on drag enter!");
+      e.preventDefault();
+      // Update styles to indicate the user can drop item here
+      highlightDropability(e);
+    },
+    onDragLeave: (e: React.DragEvent<HTMLDivElement>) => {
+      e.preventDefault();
+      removeHighlight(e);
+    },
+    onDragOver: (e: React.DragEvent<HTMLDivElement>) => {
+      e.preventDefault();
+      // This callback just needs to be here and prevent the default
+      // otherwise the onDrop event won't fire
+    },
+    onDrop: (e: React.DragEvent<HTMLDivElement>) => {
+      // Make sure only the deepest container gets the drop event
+      e.stopPropagation();
+
+      removeHighlight(e);
+
+      // Get the type of dropped element and act on it
+      const nameOfDroppedUi = e.dataTransfer.getData(
+        "element-type"
+      ) as ShinyUiNames;
+
+      if (!nameOfDroppedUi) {
+        throw new Error(
+          "Could not find default settings for node of type " + nameOfDroppedUi
+        );
+      }
+
+      onDrop(nameOfDroppedUi);
+    },
+  };
+}
+
 export function useDragAndDropElements(path: NodePath, isLeafNode: boolean) {
   const nodeUpdaters = React.useContext(NodeUpdateContext);
 
@@ -29,56 +70,27 @@ export function useDragAndDropElements(path: NodePath, isLeafNode: boolean) {
     () =>
       isLeafNode
         ? {}
-        : {
-            onDragEnter: (e: React.DragEvent<HTMLDivElement>) => {
-              e.preventDefault();
-              // Update styles to indicate the user can drop item here
-              highlightDropability(e);
-            },
+        : buildDragAndDropHandlers((nameOfDroppedUi) => {
+            // For right now we'll just use the default settings for the
+            // dropped ui element
+            const newElement = defaultSettingsForElements.find(
+              ({ uiName }) => uiName === nameOfDroppedUi
+            );
 
-            onDragOver: (e: React.DragEvent<HTMLDivElement>) => {
-              e.preventDefault();
-              // This callback just needs to be here and prevent the default
-              // otherwise the onDrop event won't fire
-            },
-
-            onDragLeave: (e: React.DragEvent<HTMLDivElement>) => {
-              e.preventDefault();
-              removeHighlight(e);
-            },
-
-            onDrop: (e: React.DragEvent<HTMLDivElement>) => {
-              // Make sure only the deepest container gets the drop event
-              e.stopPropagation();
-
-              // Get the type of dropped element and act on it
-              const nameOfDroppedUi = e.dataTransfer.getData(
-                "element-type"
-              ) as ShinyUiNames;
-
-              // For right now we'll just use the default settings for the
-              // dropped ui element
-              const newElement = defaultSettingsForElements.find(
-                ({ uiName }) => uiName === nameOfDroppedUi
+            if (!newElement) {
+              throw new Error(
+                "Could not find default settings for node of type " +
+                  nameOfDroppedUi
               );
+            }
 
-              if (!newElement) {
-                throw new Error(
-                  "Could not find default settings for node of type " +
-                    nameOfDroppedUi
-                );
-              }
-
-              // Let the state know we have a new child node
-              nodeUpdaters({
-                type: "ADD_NODE",
-                parentPath: path,
-                newNode: newElement,
-              });
-
-              removeHighlight(e);
-            },
-          },
+            // Let the state know we have a new child node
+            nodeUpdaters({
+              type: "ADD_NODE",
+              parentPath: path,
+              newNode: newElement,
+            });
+          }),
     [isLeafNode, nodeUpdaters, path]
   );
 
