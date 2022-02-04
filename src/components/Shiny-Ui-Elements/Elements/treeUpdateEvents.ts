@@ -7,6 +7,47 @@ type TreeUpdateAction =
   | { type: "ADD_NODE"; parentPath: NodePath; newNode: UiNodeProps }
   | { type: "DELETE_NODE"; path: NodePath };
 
+type TreeUpdateEvent = CustomEvent<TreeUpdateAction>;
+
+// Let Typescript know this is a valid new event type
+declare global {
+  interface DocumentEventMap {
+    "tree-update": TreeUpdateEvent;
+  }
+}
+
+export function sendTreeUpdateMessage(updateAction: TreeUpdateAction) {
+  document.dispatchEvent(
+    new CustomEvent("tree-update", {
+      detail: updateAction,
+    })
+  );
+}
+
+export function useListenForTreeUpdateEvent(
+  onUpdate: (updateAction: TreeUpdateAction) => void
+) {
+  const handleUpdateEvent = React.useCallback(
+    ({ detail }: TreeUpdateEvent) => {
+      onUpdate(detail);
+    },
+    [onUpdate]
+  );
+
+  React.useEffect(() => {
+    document.addEventListener("tree-update", handleUpdateEvent);
+    return () => document.removeEventListener("tree-update", handleUpdateEvent);
+  }, [handleUpdateEvent]);
+}
+
+export function useEventUpdatedTree(initialState: ShinyUiNameAndArguments) {
+  const [tree, updateTree] = React.useReducer(treeUpdateReducer, initialState);
+
+  useListenForTreeUpdateEvent(updateTree);
+
+  return tree;
+}
+
 function treeUpdateReducer(
   tree: UiNodeProps,
   action: TreeUpdateAction
@@ -25,36 +66,4 @@ function treeUpdateReducer(
     case "DELETE_NODE":
       return removeNode({ tree, path: action.path });
   }
-}
-
-type TreeUpdateEvent = CustomEvent<TreeUpdateAction>;
-
-// Let Typescript know this is a valid new event type
-declare global {
-  interface DocumentEventMap {
-    "tree-update": TreeUpdateEvent;
-  }
-}
-
-export function sendTreeUpdateMessage(updateAction: TreeUpdateAction) {
-  document.dispatchEvent(
-    new CustomEvent("tree-update", {
-      detail: updateAction,
-    })
-  );
-}
-
-export function useEventUpdatedTree(initialState: ShinyUiNameAndArguments) {
-  const [tree, updateTree] = React.useReducer(treeUpdateReducer, initialState);
-
-  const handleNewTreeData = React.useCallback(({ detail }: TreeUpdateEvent) => {
-    updateTree(detail);
-  }, []);
-
-  React.useEffect(() => {
-    document.addEventListener("tree-update", handleNewTreeData);
-    return () => document.removeEventListener("tree-update", handleNewTreeData);
-  }, [handleNewTreeData]);
-
-  return tree;
 }
