@@ -73,8 +73,6 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
       "Intercepted custom tree-update message in GridlayoutGridPage",
       e
     );
-
-    e.stopImmediatePropagation();
   });
 
   React.useEffect(() => {

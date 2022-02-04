@@ -14,8 +14,16 @@ declare global {
   interface DocumentEventMap {
     "tree-update": TreeUpdateEvent;
   }
+
+  interface HTMLElementEventMap {
+    "tree-update": TreeUpdateEvent;
+  }
 }
 
+/**
+ * Send tree update message on the document object
+ * @param updateAction Object describing the action to be dispatched
+ */
 export function sendTreeUpdateMessage(updateAction: TreeUpdateAction) {
   document.dispatchEvent(
     new CustomEvent("tree-update", {
@@ -24,22 +32,36 @@ export function sendTreeUpdateMessage(updateAction: TreeUpdateAction) {
   );
 }
 
+/**
+ * Run a function anytime a tree update event passes by this component
+ * @param onUpdate Callback to run after receiving a tree update action
+ */
 export function useListenForTreeUpdateEvent(
-  onEvent: (e: TreeUpdateEvent) => void
+  onUpdate: (action: TreeUpdateAction) => void
 ) {
+  const handleUpdateEvent = React.useCallback(
+    ({ detail }: TreeUpdateEvent) => {
+      onUpdate(detail);
+    },
+    [onUpdate]
+  );
+
   React.useEffect(() => {
-    document.addEventListener("tree-update", onEvent);
-    return () => document.removeEventListener("tree-update", onEvent);
-  }, [onEvent]);
+    document.addEventListener("tree-update", handleUpdateEvent);
+    return () => document.removeEventListener("tree-update", handleUpdateEvent);
+  }, [handleUpdateEvent]);
 }
 
+/**
+ * Create a UI Node tree dataset that will update in response to tree update
+ * events
+ * @param initialState Starting state of the UI Tree
+ * @returns Most recent state of the ui tree
+ */
 export function useEventUpdatedTree(initialState: ShinyUiNameAndArguments) {
   const [tree, updateTree] = React.useReducer(treeUpdateReducer, initialState);
 
-  const handleUpdateEvent = React.useCallback(({ detail }: TreeUpdateEvent) => {
-    updateTree(detail);
-  }, []);
-  useListenForTreeUpdateEvent(handleUpdateEvent);
+  useListenForTreeUpdateEvent(updateTree);
 
   return tree;
 }
