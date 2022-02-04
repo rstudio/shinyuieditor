@@ -4,5 +4,5 @@ prefixing is to give this style the greatest possible specificity. It will cause
 troubles if in the future another element type can be dropped into, but that
 seems unlikely to happen. */
 div.canDrop {
-  outline: 3px solid salmon;
+  outline: 3px solid var(--red);
 }
