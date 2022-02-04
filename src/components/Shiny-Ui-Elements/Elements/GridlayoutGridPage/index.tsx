@@ -18,6 +18,7 @@ import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
 import { GridItemExtent, TemplatedGridProps } from "utils/gridTemplates/types";
 import { ItemBoundingBox } from "utils/overlap-helpers";
+import { GridPanelSettings } from "../GridlayoutGridPanel";
 import {
   sendTreeUpdateMessage,
   useListenForTreeUpdateEvent,
@@ -73,6 +74,28 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
       "Intercepted custom tree-update message in GridlayoutGridPage",
       e
     );
+
+    // We're assuming that this grid layout is at the root of the tree. This
+    // will break if we have nested grid layouts...
+    const childNodeChange = e.type === "UPDATE_NODE" && e.path.length === 1;
+    if (childNodeChange) {
+      const oldAreaName = areasOfChildren(children)[e.path[0]];
+      const newAreaName = (e.newNode.uiArguments as GridPanelSettings).area;
+      if (typeof newAreaName === "undefined") {
+        console.error(
+          "Somehow a child of the gridlayout page doesn't have a grid area value..."
+        );
+        return;
+      }
+
+      if (oldAreaName !== newAreaName) {
+        handleLayoutUpdate({
+          type: "RENAME_ITEM",
+          oldName: oldAreaName,
+          newName: newAreaName,
+        });
+      }
+    }
   });
 
   React.useEffect(() => {
