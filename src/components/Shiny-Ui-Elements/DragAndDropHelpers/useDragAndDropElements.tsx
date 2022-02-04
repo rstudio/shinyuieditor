@@ -10,6 +10,13 @@ export type DragAndDropTargetEvents =
   | "onDragOver"
   | "onDragLeave";
 
+export const dragAndDropTargetEvents: DragAndDropTargetEvents[] = [
+  "onDrop",
+  "onDragEnter",
+  "onDragOver",
+  "onDragLeave",
+];
+
 export type DragAndDropHandlers = Pick<
   React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
   DragAndDropTargetEvents

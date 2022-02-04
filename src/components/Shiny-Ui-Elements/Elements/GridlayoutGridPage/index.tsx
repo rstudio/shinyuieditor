@@ -1,11 +1,13 @@
 import { TextInput } from "components/Inputs/TextInput";
-import { LayoutDispatchContext } from "components/Shiny-Ui-Elements/Layouts/GridApp";
+import { dragAndDropTargetEvents } from "components/Shiny-Ui-Elements/DragAndDropHelpers/useDragAndDropElements";
 import { AreaOverlay } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/AreaOverlay";
 import { GridCell } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/GridCell";
+import { LayoutDispatchContext } from "components/Shiny-Ui-Elements/Layouts/GridApp";
 import { TractControls } from "components/Shiny-Ui-Elements/Layouts/GridApp/TractControls";
 import NodeUpdateContext from "components/Shiny-Ui-Elements/UiNode/NodeUpdateContext";
 import { ShinyUiNames } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { GridLocString } from "GridTypes";
+import omit from "just-omit";
 import PortalModal from "PortalModal";
 import React from "react";
 import { subtractElements } from "utils/array-helpers";
@@ -14,13 +16,13 @@ import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
 import { GridItemExtent, TemplatedGridProps } from "utils/gridTemplates/types";
 import { ItemBoundingBox } from "utils/overlap-helpers";
+import DragClasses from "../../DragAndDropHelpers/DragAndDrop.module.css";
 import {
   defaultSettingsForElements,
   UiNodeComponent,
 } from "../uiComponentAndSettings";
 import { GridLayoutAction, gridLayoutReducer } from "./gridLayoutReducer";
 import classes from "./styles.module.css";
-import DragClasses from "../../DragAndDropHelpers/DragAndDrop.module.css";
 
 export type GridCellBounds = Record<GridLocString, ItemBoundingBox>;
 export type CellLocRef = React.MutableRefObject<GridCellBounds>;
@@ -143,12 +145,19 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
     [handleLayoutUpdate, nodeUpdaters]
   );
 
+  // Don't let the drag and drop behavior trigger on the background of the
+  // containing div as the grid cells are responsible for handling that here
+  const noDragAndDropPassthrough = omit(
+    passthroughProps,
+    dragAndDropTargetEvents
+  );
+
   return (
     <LayoutDispatchContext.Provider value={handleLayoutUpdate}>
       <div
         style={stylesForGrid}
         className={classes.container}
-        {...passthroughProps}
+        {...noDragAndDropPassthrough}
       >
         {enumerateGridDims({
           numRows,
