@@ -1,6 +1,6 @@
 import React from "react";
+import { sendTreeUpdateMessage } from "../Elements/treeUpdateEvents";
 import { defaultSettingsForElements } from "../Elements/uiComponentAndSettings";
-import NodeUpdateContext from "../UiNode/NodeUpdateContext";
 import { NodePath, ShinyUiNames } from "../uiNodeTypes";
 import classes from "./DragAndDrop.module.css";
 
@@ -64,8 +64,6 @@ export function buildDragAndDropHandlers(
 }
 
 export function useDragAndDropElements(path: NodePath, isLeafNode: boolean) {
-  const nodeUpdaters = React.useContext(NodeUpdateContext);
-
   const callbacks = React.useMemo(
     () =>
       isLeafNode
@@ -85,13 +83,13 @@ export function useDragAndDropElements(path: NodePath, isLeafNode: boolean) {
             }
 
             // Let the state know we have a new child node
-            nodeUpdaters({
+            sendTreeUpdateMessage({
               type: "ADD_NODE",
               parentPath: path,
               newNode: newElement,
             });
           }),
-    [isLeafNode, nodeUpdaters, path]
+    [isLeafNode, path]
   );
 
   return callbacks;

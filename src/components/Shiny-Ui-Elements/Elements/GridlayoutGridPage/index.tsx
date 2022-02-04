@@ -7,7 +7,6 @@ import { AreaOverlay } from "components/Shiny-Ui-Elements/Elements/GridlayoutGri
 import { GridCell } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/GridCell";
 import { LayoutDispatchContext } from "components/Shiny-Ui-Elements/Layouts/GridApp";
 import { TractControls } from "components/Shiny-Ui-Elements/Layouts/GridApp/TractControls";
-import NodeUpdateContext from "components/Shiny-Ui-Elements/UiNode/NodeUpdateContext";
 import { ShinyUiNames } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { GridLocString } from "GridTypes";
 import omit from "just-omit";
@@ -19,6 +18,7 @@ import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
 import { GridItemExtent, TemplatedGridProps } from "utils/gridTemplates/types";
 import { ItemBoundingBox } from "utils/overlap-helpers";
+import { sendTreeUpdateMessage } from "../treeUpdateEvents";
 import {
   defaultSettingsForElements,
   UiNodeComponent,
@@ -43,8 +43,6 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
   const { numRows, numCols, styles, sizes, uniqueAreas } =
     parseGridTemplateAreas(uiArguments);
 
-  const nodeUpdaters = React.useContext(NodeUpdateContext);
-
   const gridCellLocations: CellLocRef = React.useRef({});
   const itemGridLocations = React.useMemo(
     () => areasToItemLocations(areas),
@@ -55,7 +53,7 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
 
   const handleLayoutUpdate = React.useCallback(
     (action: GridLayoutAction) => {
-      nodeUpdaters({
+      sendTreeUpdateMessage({
         type: "UPDATE_NODE",
         path: [],
         newNode: {
@@ -64,8 +62,17 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
         },
       });
     },
-    [nodeUpdaters, uiArguments]
+    [uiArguments]
   );
+
+  React.useEffect(() => {
+    document.addEventListener("tree-update", function ({ detail }) {
+      console.log(
+        "Received custom tree-update message in GridlayoutGridPage",
+        detail
+      );
+    });
+  }, []);
 
   React.useEffect(() => {
     // If a user removes a grid panel from the app there will be an extra area
@@ -127,7 +134,7 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
         pos: info.pos,
       });
       // Let the state know we have a new child node
-      nodeUpdaters({
+      sendTreeUpdateMessage({
         type: "ADD_NODE",
         parentPath: [],
         newNode: {
@@ -144,7 +151,7 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
       // Reset the modal/new item info state
       setShowModal(null);
     },
-    [handleLayoutUpdate, nodeUpdaters]
+    [handleLayoutUpdate]
   );
 
   // Don't let the drag and drop behavior trigger on the background of the

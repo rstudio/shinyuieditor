@@ -1,6 +1,6 @@
 import Button from "components/Inputs/Button";
+import { sendTreeUpdateMessage } from "components/Shiny-Ui-Elements/Elements/treeUpdateEvents";
 import { uiComponentAndSettings } from "components/Shiny-Ui-Elements/Elements/uiComponentAndSettings";
-import NodeUpdateContext from "components/Shiny-Ui-Elements/UiNode/NodeUpdateContext";
 import { getNode } from "components/Shiny-Ui-Elements/UiNode/treeManipulation";
 import {
   NodePath,
@@ -20,7 +20,6 @@ export function SettingsPanel({
   tree: UiNodeProps;
   selectedPath: NodePath | null;
 }) {
-  const nodeUpdaters = React.useContext(NodeUpdateContext);
   const setNodeSelection = React.useContext(NodeSelectionContext);
 
   const [currentNode, setCurrentNode] = React.useState<UiNodeProps | null>(
@@ -71,7 +70,7 @@ export function SettingsPanel({
             e.preventDefault();
 
             // Sync the state that's been updated from the form to the main tree
-            nodeUpdaters({
+            sendTreeUpdateMessage({
               type: "UPDATE_NODE",
               path: selectedPath,
               newNode: currentNode,
@@ -112,7 +111,7 @@ export function SettingsPanel({
       <Button
         onClick={() => {
           setNodeSelection(null);
-          nodeUpdaters({ type: "DELETE_NODE", path: selectedPath });
+          sendTreeUpdateMessage({ type: "DELETE_NODE", path: selectedPath });
         }}
         variant="delete"
       >
