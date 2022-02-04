@@ -25,7 +25,7 @@ const UiNode = ({
 
   const isSelected = selectedPath ? sameArray(path, selectedPath) : false;
 
-  const isLeafNode = typeof uiChildren === undefined;
+  const isLeafNode = typeof uiChildren === "undefined";
   const dragAndDropCallbacks = useDragAndDropElements(path, isLeafNode);
 
   const handleClick = (e: React.MouseEvent) => {
