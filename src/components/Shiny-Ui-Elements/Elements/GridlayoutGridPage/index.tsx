@@ -1,4 +1,3 @@
-import { TextInput } from "components/Inputs/TextInput";
 import {
   buildDragAndDropHandlers,
   dragAndDropTargetEvents,
@@ -10,7 +9,6 @@ import { TractControls } from "components/Shiny-Ui-Elements/Layouts/GridApp/Trac
 import { ShinyUiNames } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { GridLocString } from "GridTypes";
 import omit from "just-omit";
-import PortalModal from "PortalModal";
 import React from "react";
 import { subtractElements } from "utils/array-helpers";
 import { enumerateGridDims, toStringLoc } from "utils/grid-helpers";
@@ -28,12 +26,13 @@ import {
   UiNodeComponent,
 } from "../uiComponentAndSettings";
 import { GridLayoutAction, gridLayoutReducer } from "./gridLayoutReducer";
+import { NameNewPanelModal } from "./NameNewPanelModal";
 import classes from "./styles.module.css";
 
 export type GridCellBounds = Record<GridLocString, ItemBoundingBox>;
 export type CellLocRef = React.MutableRefObject<GridCellBounds>;
 
-type NewItemInfo = {
+export type NewItemInfo = {
   uiName: ShinyUiNames;
   pos: GridItemExtent;
 };
@@ -232,34 +231,6 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
     </LayoutDispatchContext.Provider>
   );
 };
-
-function NameNewPanelModal({
-  info: { uiName, pos },
-  onCancel,
-  onDone,
-}: {
-  info: NewItemInfo;
-  onCancel: () => void;
-  onDone: (name: string) => void;
-}) {
-  const [newItemName, setNewItemName] = React.useState<string>(
-    "NewGridItemFromPortal"
-  );
-  return (
-    <PortalModal
-      title="Adding new grid area"
-      onConfirm={() => onDone(newItemName)}
-      onCancel={onCancel}
-    >
-      <TextInput
-        label="Name of new grid area"
-        name="New-Item-Name"
-        value={newItemName}
-        onChange={setNewItemName}
-      />
-    </PortalModal>
-  );
-}
 
 /** Get the grid areas present in the children nodes passed to the Grid_Page()
  * component. This assumes that they are stored in the "area" property on the
