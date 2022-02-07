@@ -9,10 +9,36 @@ import {
   Select,
 } from "@chakra-ui/react";
 import * as React from "react";
-import { parseCSSMeasure, updateCssUnit } from "utils/css-helpers";
+import {
+  parseCSSMeasure,
+  ParsedCSSMeasure,
+  updateCssUnit,
+} from "utils/css-helpers";
 import { CSSMeasure } from "../../GridTypes";
 
 type CSSUnits = "fr" | "px" | "rem" | "auto";
+
+function useCSSUnitState(initialValue: CSSMeasure) {
+  const [value, setValue] = React.useState<CSSMeasure>(initialValue);
+
+  const updateCount = React.useCallback(
+    (newCount: number) =>
+      setValue((old) => updateCssUnit(old, { count: newCount })),
+    [setValue]
+  );
+
+  const updateUnit = React.useCallback(
+    (newUnit: CSSUnits) =>
+      setValue((old) => updateCssUnit(old, { unit: newUnit })),
+    [setValue]
+  );
+
+  return {
+    value,
+    updateCount,
+    updateUnit,
+  };
+}
 
 export function CSSUnitInput({
   value: initialValue,
@@ -27,21 +53,7 @@ export function CSSUnitInput({
   w?: string;
   label?: string;
 }) {
-  const [value, setValue] = React.useState<CSSMeasure>(initialValue);
-
-  const parsedValue = React.useMemo(() => parseCSSMeasure(value), [value]);
-
-  const updateCount = React.useCallback(
-    (newCount: number) =>
-      setValue((old) => updateCssUnit(old, { count: newCount })),
-    [setValue]
-  );
-
-  const updateUnit = React.useCallback(
-    (newUnit: CSSUnits) =>
-      setValue((old) => updateCssUnit(old, { unit: newUnit })),
-    [setValue]
-  );
+  const { value, updateUnit, updateCount } = useCSSUnitState(initialValue);
 
   // Clamp the width so we dont get super ugly wide inputs
   const width = `min(${w}, ${widestAllowed})`;
@@ -50,7 +62,7 @@ export function CSSUnitInput({
   // so we need to guard against that at run time
   if (initialValue === undefined) return null;
   return (
-    <form
+    <div
       aria-label={label}
       onBlur={(e) => {
         const blurOutsideComponent = !e.currentTarget.contains(e.relatedTarget);
@@ -58,10 +70,12 @@ export function CSSUnitInput({
         // This means that going from the count to the unit input doesn't count
         if (blurOutsideComponent) onChange(value);
       }}
-      onSubmit={(e) => {
-        // Submits on pressing of enter
-        e.preventDefault();
-        onChange(value);
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          // Submits on pressing of enter
+          e.preventDefault();
+          onChange(value);
+        }
       }}
       // Shrink the dropdown icon. These styles need to be seperate from the
       // Select component's css because the icon is technically a sibling so it
@@ -77,12 +91,37 @@ export function CSSUnitInput({
         },
       }}
     >
+      <InputUI
+        value={value}
+        units={units}
+        onNewCount={updateCount}
+        onNewUnit={updateUnit}
+      />
+    </div>
+  );
+}
+
+function InputUI({
+  value,
+  units,
+  onNewCount,
+  onNewUnit,
+}: {
+  value: CSSMeasure;
+  units: CSSUnits[];
+  onNewCount: (x: number) => void;
+  onNewUnit: (newUnit: CSSUnits) => void;
+}) {
+  const parsedValue = parseCSSMeasure(value);
+
+  return (
+    <>
       <NumberInput
         bg="white"
         size="sm"
         value={parsedValue.unit !== "auto" ? parsedValue.count : undefined}
         aria-label="value-count"
-        onChange={(e) => updateCount(Number(e))}
+        onChange={(e) => onNewCount(Number(e))}
         isDisabled={parsedValue.unit === "auto"}
       >
         <NumberInputStepper>
@@ -100,7 +139,7 @@ export function CSSUnitInput({
         aria-label="value-unit"
         iconSize="10px"
         onChange={(e) => {
-          updateUnit(e.target.value as CSSUnits);
+          onNewUnit(e.target.value as CSSUnits);
         }}
         // These are an attempt to get the select dropdown nice and compact
         css={{
@@ -114,7 +153,7 @@ export function CSSUnitInput({
           </option>
         ))}
       </Select>
-    </form>
+    </>
   );
 }
 
