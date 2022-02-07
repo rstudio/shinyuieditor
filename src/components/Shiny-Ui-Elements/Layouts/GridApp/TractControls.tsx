@@ -150,8 +150,11 @@ const TractControlsHolder = styled.div({
   "& > .display-size": {
     fontStyle: "italic",
     opacity: 0.7,
-    gridColumn: "1/-1",
-    placeSelf: "center",
+    position: "absolute",
+    display: "grid",
+    width: "100%",
+    height: "100%",
+    placeContent: "center",
   },
   "&:not(:hover) > *:not(.display-size)": {
     opacity: "0",
