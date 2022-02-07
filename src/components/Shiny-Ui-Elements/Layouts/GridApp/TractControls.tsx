@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import styled from "@emotion/styled";
-import { CSSUnitInput } from "components/CSSUnitInput";
+import { CSSUnitInput } from "components/Inputs/CSSUnitInput";
 import { CSSMeasure } from "GridTypes";
 import React from "react";
 import { ParsedGridTemplate } from "utils/gridTemplates/parseGridTemplateAreas";

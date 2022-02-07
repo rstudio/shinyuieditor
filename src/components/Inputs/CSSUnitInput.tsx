@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import * as React from "react";
 import { parseCSSMeasure, updateCssUnit } from "utils/css-helpers";
-import { CSSMeasure } from "../GridTypes";
+import { CSSMeasure } from "../../GridTypes";
 
 type CSSUnits = "fr" | "px" | "rem" | "auto";
 
@@ -117,5 +117,6 @@ export function CSSUnitInput({
     </form>
   );
 }
+
 // How wide the input element is allowed to get before being clamped
 const widestAllowed = "150px";

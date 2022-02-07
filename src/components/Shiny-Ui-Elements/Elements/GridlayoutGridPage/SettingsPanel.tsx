@@ -1,4 +1,4 @@
-import { CSSUnitInput } from "components/CSSUnitInput";
+import { CSSUnitInput } from "components/Inputs/CSSUnitInput";
 import { SettingsUpdaterComponent } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import * as React from "react";
 import { TemplatedGridProps } from "utils/gridTemplates/types";
