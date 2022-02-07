@@ -104,7 +104,7 @@ export function SettingsPanel({
             </div>
           ) : null}
           <div className={classes.submitHolder}>
-            <Button onClick={finishUpdating}>
+            <Button type="submit">
               <BiCheck /> Update
             </Button>
           </div>
