@@ -86,6 +86,8 @@ function TractControl({
           });
         }}
       />
+
+      <div className="display-size">{size}</div>
       <div
         className={
           dir === "rows" ? classes.buttonHolderRows : classes.buttonHolderCols
@@ -145,8 +147,17 @@ const TractControlsHolder = styled.div({
     justifyItems: "center",
     alignItems: "end",
   },
-  "&:not(:hover) .add-button": {
+  "& > .display-size": {
+    fontStyle: "italic",
+    opacity: 0.7,
+    gridColumn: "1/-1",
+    placeSelf: "center",
+  },
+  "&:not(:hover) > *:not(.display-size)": {
     opacity: "0",
+  },
+  "&:hover > .display-size": {
+    display: "none",
   },
   "&:hover": {
     "--edge-color": "var(--rstudio-blue)",
@@ -157,6 +168,7 @@ const TractControlsHolder = styled.div({
     "--inset-to-edge": "calc(var(--gap) + 5px)",
     "--edge-color": "var(--light-grey)",
     content: `""`,
+    opacity: 1,
     position: "absolute",
     pointerEvents: "none",
   },
