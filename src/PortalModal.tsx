@@ -1,4 +1,3 @@
-import Button from "components/Inputs/Button";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import classes from "./PortalModal.module.css";
@@ -45,12 +44,6 @@ const PortalModal: React.FC<{
         >
           {title ? <div className={classes.title}>{title}</div> : null}
           <div className={classes.body}>{children}</div>
-          <div className={classes.footer}>
-            <Button variant="delete" onClick={() => onCancel()}>
-              Cancel
-            </Button>
-            <Button onClick={() => onConfirm()}>Done</Button>
-          </div>
         </div>
       </div>
     </Portal>

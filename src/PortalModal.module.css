@@ -15,20 +15,28 @@
   border-radius: var(--corner-radius);
 }
 
-.portalModal > div {
-  padding: 1rem;
-}
-
 .title {
   color: white;
   background-color: var(--header-grey, green);
+  padding: 1rem;
 }
 
 .body {
   flex-grow: 1;
+  padding: 1rem;
 }
 
-.footer {
+.portalForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.portalFormInputs {
+  flex-grow: 1;
+}
+
+.portalFormFooter {
+  padding-top: 1rem;
   display: flex;
   justify-content: space-around;
 }
