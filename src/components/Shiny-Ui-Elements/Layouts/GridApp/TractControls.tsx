@@ -10,8 +10,8 @@ import { TemplatedGridProps } from "utils/gridTemplates/types";
 import { LayoutDispatchContext } from ".";
 import { directions, TractDirection } from "./helpers";
 import { TractAddButton } from "./TractAddButton";
-import { TractRemoveButton } from "./TractRemoveButton";
 import classes from "./TractControls.module.css";
+import { TractRemoveButton } from "./TractRemoveButton";
 
 export function TractControls({
   areas,
@@ -164,16 +164,14 @@ const TractControlsHolder = styled.div({
     height: "calc(100% - 2*var(--gap))",
     width: "calc(100% - 2*var(--inset-to-edge))",
     right: "var(--inset-to-edge)",
-    borderTop: "1px solid var(--edge-color)",
-    borderBottom: "1px solid var(--edge-color)",
+    borderTop: "1px dashed var(--edge-color)",
+    borderBottom: "1px dashed var(--edge-color)",
   },
   "&.cols::after": {
     bottom: "var(--inset-to-edge)",
     width: "calc(100% - 2*var(--gap))",
     height: "calc(100% - 2*var(--inset-to-edge))",
-    borderLeft: "1px solid var(--edge-color)",
-    borderRight: "1px solid var(--edge-color)",
+    borderLeft: "1px dashed var(--edge-color)",
+    borderRight: "1px dashed var(--edge-color)",
   },
 });
-
-const TractControlMemo = React.memo(TractControl);
