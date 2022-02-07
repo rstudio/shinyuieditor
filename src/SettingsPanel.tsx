@@ -54,7 +54,8 @@ export function SettingsPanel({
   const SettingsInputs = uiComponentAndSettings[uiName]
     .SettingsComponent as SettingsUpdaterComponent<typeof uiArguments>;
 
-  const finishUpdating = () => {
+  const finishUpdating = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     // Sync the state that's been updated from the form to the main tree
     sendTreeUpdateMessage({
       type: "UPDATE_NODE",
@@ -85,12 +86,7 @@ export function SettingsPanel({
         </p>
       </div>
       <div className={classes.settingsForm}>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            finishUpdating();
-          }}
-        >
+        <form onSubmit={finishUpdating}>
           <SettingsInputs
             settings={uiArguments}
             onChange={(settings) => {
