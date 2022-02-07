@@ -54,6 +54,26 @@ export function SettingsPanel({
   const SettingsInputs = uiComponentAndSettings[uiName]
     .SettingsComponent as SettingsUpdaterComponent<typeof uiArguments>;
 
+  const finishUpdating = () => {
+    // Sync the state that's been updated from the form to the main tree
+    sendTreeUpdateMessage({
+      type: "UPDATE_NODE",
+      path: selectedPath,
+      newNode: currentNode,
+    });
+
+    // // Check if valid
+    // if (checkValid) {
+    //   checkIfArgumentsValid({
+    //     state: currentState,
+    //     onValid: () => onChange(currentState.uiArguments),
+    //     onError: setErrorMsg,
+    //   });
+    // } else {
+    //   onChange(currentSettings);
+    // }
+  };
+
   return (
     <div className={classes.settingsPanel}>
       <div className={classes.currentElementAbout}>
@@ -68,24 +88,7 @@ export function SettingsPanel({
         <form
           onSubmit={(e) => {
             e.preventDefault();
-
-            // Sync the state that's been updated from the form to the main tree
-            sendTreeUpdateMessage({
-              type: "UPDATE_NODE",
-              path: selectedPath,
-              newNode: currentNode,
-            });
-
-            // // Check if valid
-            // if (checkValid) {
-            //   checkIfArgumentsValid({
-            //     state: currentState,
-            //     onValid: () => onChange(currentState.uiArguments),
-            //     onError: setErrorMsg,
-            //   });
-            // } else {
-            //   onChange(currentSettings);
-            // }
+            finishUpdating();
           }}
         >
           <SettingsInputs
