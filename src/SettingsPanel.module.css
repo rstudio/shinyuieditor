@@ -11,3 +11,10 @@
   /* Make the settings form take up whatever space it has until bottom */
   flex-grow: 1;
 }
+
+.submitHolder {
+  /* outline: 1px solid red; */
+  padding: 4px;
+  display: flex;
+  justify-content: center;
+}

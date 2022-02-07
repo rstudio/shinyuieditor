@@ -100,11 +100,11 @@ export function SettingsPanel({
               <pre style={{ color: "orangered" }}>{errorMsg}</pre>
             </div>
           ) : null}
-          <Button
-          // type="submit"
-          >
-            <BiCheck /> Update
-          </Button>
+          <div className={classes.submitHolder}>
+            <Button onClick={finishUpdating}>
+              <BiCheck /> Update
+            </Button>
+          </div>
         </form>
       </div>
 
