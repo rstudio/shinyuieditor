@@ -1,31 +1,14 @@
 import * as React from "react";
-import { parseCSSMeasure, updateCssUnit } from "utils/css-helpers";
+import {
+  deparseCSSMeasure,
+  parseCSSMeasure,
+  ParsedCSSMeasure,
+  updateCssUnit,
+} from "utils/css-helpers";
 import { CSSMeasure } from "../../GridTypes";
 import classes from "./CSSUnitInput.module.css";
 
 type CSSUnits = "fr" | "px" | "rem" | "auto";
-
-function useCSSUnitState(initialValue: CSSMeasure) {
-  const [value, setValue] = React.useState<CSSMeasure>(initialValue);
-
-  const updateCount = React.useCallback(
-    (newCount: number) =>
-      setValue((old) => updateCssUnit(old, { count: newCount })),
-    [setValue]
-  );
-
-  const updateUnit = React.useCallback(
-    (newUnit: CSSUnits) =>
-      setValue((old) => updateCssUnit(old, { unit: newUnit })),
-    [setValue]
-  );
-
-  return {
-    value,
-    updateCount,
-    updateUnit,
-  };
-}
 
 export function CSSUnitInput({
   value: initialValue,
@@ -40,9 +23,9 @@ export function CSSUnitInput({
   w?: string;
   label?: string;
 }) {
-  const { value, updateUnit, updateCount } = useCSSUnitState(initialValue);
-
-  const parsedValue = parseCSSMeasure(value);
+  const [cssValue, setCssValue] = React.useState<ParsedCSSMeasure>(
+    parseCSSMeasure(initialValue)
+  );
 
   // For some reason our tract sizers will sometimes try and pass this undefined
   // so we need to guard against that at run time
@@ -55,31 +38,57 @@ export function CSSUnitInput({
         const blurOutsideComponent = !e.currentTarget.contains(e.relatedTarget);
         // Only trigger submit if the user has focused outside of the input.
         // This means that going from the count to the unit input doesn't count
-        if (blurOutsideComponent) onChange(value);
+        if (blurOutsideComponent) onChange(deparseCSSMeasure(cssValue));
       }}
       onKeyDown={(e) => {
         if (e.key === "Enter") {
           // Submits on pressing of enter
           e.preventDefault();
-          onChange(value);
+          onChange(deparseCSSMeasure(cssValue));
         }
       }}
     >
       <input
         aria-label="value-count"
         type="number"
-        disabled={parsedValue.unit === "auto"}
-        value={parsedValue.count ?? ""}
+        disabled={cssValue.unit === "auto"}
+        value={cssValue.count ?? ""}
+        min={0}
         onChange={(e) => {
-          updateCount(Number(e.target.value));
+          if (cssValue.unit === "auto") {
+            console.error("How did you change the count of an auto unit?");
+            return;
+          }
+
+          setCssValue({ unit: cssValue.unit, count: Number(e.target.value) });
         }}
       />
       <select
         aria-label="value-unit"
         name="value-unit"
-        value={parsedValue.unit}
+        value={cssValue.unit}
         onChange={(e) => {
-          updateUnit(e.target.value as CSSUnits);
+          const oldUnit = cssValue.unit;
+          const newUnit = e.target.value as CSSUnits;
+
+          if (newUnit === "auto") {
+            setCssValue({
+              unit: newUnit,
+              count: null,
+            });
+            return;
+          }
+
+          if (oldUnit === "auto") {
+            setCssValue({ unit: newUnit, count: defaultCounts[newUnit] });
+            return;
+          }
+
+          // All we're doing is changing the unit the count stays the same
+          setCssValue({
+            unit: newUnit,
+            count: cssValue.count,
+          });
         }}
       >
         {units.map((unit) => (
@@ -91,3 +100,9 @@ export function CSSUnitInput({
     </div>
   );
 }
+
+const defaultCounts = {
+  fr: 1,
+  px: 10,
+  rem: 1,
+};
