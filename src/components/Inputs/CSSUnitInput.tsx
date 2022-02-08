@@ -35,12 +35,13 @@ function useCSSUnitState(initialValue: CSSMeasure) {
 
   const handleArrowKeys = React.useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
-      const scale = e.shiftKey ? 10 : 1;
-      if (e.key === "ArrowUp" || e.key === "ArrowRight") {
-        incrementCount(scale);
-      }
-      if (e.key === "ArrowDown" || e.key === "ArrowLeft") {
-        incrementCount(-scale);
+      // If the user is holding the shift key while incrementing, go by
+      // increments of 10
+      if (e.shiftKey && (e.key === "ArrowUp" || e.key === "ArrowDown")) {
+        // Ignore the default otherwise we'd be adding 11 on each press
+        e.preventDefault();
+        const dir = e.key === "ArrowUp" ? 1 : -1;
+        incrementCount(dir * 10);
       }
     },
     [incrementCount]
@@ -87,7 +88,7 @@ export function CSSUnitInput({
   w?: string;
   label?: string;
 }) {
-  const { cssValue, updateCount, updateUnit, incrementCount, handleArrowKeys } =
+  const { cssValue, updateCount, updateUnit, handleArrowKeys } =
     useCSSUnitState(initialValue);
 
   // For some reason our tract sizers will sometimes try and pass this undefined
@@ -114,16 +115,18 @@ export function CSSUnitInput({
       <input
         className={classes.countInput}
         aria-label="value-count"
-        // We're using a text type input here and sanatizing to a number to
-        // avoid the awkward leading zeros that accompany a controlled number
-        // input
-        type="text"
+        type="number"
         disabled={cssValue.unit === "auto"}
-        value={cssValue.count ?? ""}
+        // The toString() here makes sure that we dont get prefixed zeros
+        // anytime the user deletes back to nothing and then types a new value.
+        // Otherwise the comparison that react does to know to update the value
+        // would consider `02` equal to `2`
+        value={cssValue.count?.toString() ?? ""}
         onChange={(e) => {
-          const newCount = Number(e.target.value.replaceAll(/[^0-9.]/g, ""));
+          const newCount = Number(e.target.value);
           updateCount(newCount);
         }}
+        min={0}
         onKeyDown={handleArrowKeys}
       />
       <select

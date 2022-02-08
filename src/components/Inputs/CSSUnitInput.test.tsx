@@ -12,7 +12,7 @@ function UseCssUnitInput({ initialValue }: { initialValue: CSSMeasure }) {
 
 test("Initializes properly", () => {
   render(<CSSUnitInput value={"3rem"} onChange={(newVal) => {}} />);
-  expect(screen.getByLabelText("value-count")).toHaveValue("3");
+  expect(screen.getByLabelText("value-count")).toHaveValue(3);
   expect(screen.getByLabelText("value-unit")).toHaveValue("rem");
 });
 
