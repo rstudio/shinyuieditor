@@ -88,7 +88,7 @@ export function CSSUnitInput({
   w?: string;
   label?: string;
 }) {
-  const { cssValue, updateCount, updateUnit, handleArrowKeys } =
+  const { cssValue, updateCount, updateUnit, handleArrowKeys, incrementCount } =
     useCSSUnitState(initialValue);
 
   // For some reason our tract sizers will sometimes try and pass this undefined
@@ -112,23 +112,33 @@ export function CSSUnitInput({
         }
       }}
     >
-      <input
-        className={classes.countInput}
-        aria-label="value-count"
-        type="number"
-        disabled={cssValue.unit === "auto"}
-        // The toString() here makes sure that we dont get prefixed zeros
-        // anytime the user deletes back to nothing and then types a new value.
-        // Otherwise the comparison that react does to know to update the value
-        // would consider `02` equal to `2`
-        value={cssValue.count?.toString() ?? ""}
-        onChange={(e) => {
-          const newCount = Number(e.target.value);
-          updateCount(newCount);
-        }}
-        min={0}
-        onKeyDown={handleArrowKeys}
-      />
+      <div className={classes.countContainer}>
+        <input
+          className={classes.countInput}
+          aria-label="value-count"
+          type="number"
+          disabled={cssValue.unit === "auto"}
+          // The toString() here makes sure that we dont get prefixed zeros
+          // anytime the user deletes back to nothing and then types a new value.
+          // Otherwise the comparison that react does to know to update the value
+          // would consider `02` equal to `2`
+          value={cssValue.count?.toString() ?? ""}
+          onChange={(e) => {
+            const newCount = Number(e.target.value);
+            updateCount(newCount);
+          }}
+          min={0}
+          onKeyDown={handleArrowKeys}
+        />
+        <div className={classes.incrementerArrows}>
+          <div aria-label="increase count" onClick={() => incrementCount(1)}>
+            &#5169;
+          </div>
+          <div aria-label="decrease count" onClick={() => incrementCount(-1)}>
+            &#5167;
+          </div>
+        </div>
+      </div>
       <select
         aria-label="value-unit"
         name="value-unit"
