@@ -1,20 +1,7 @@
-/** @jsxImportSource @emotion/react */
-
-import {
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  Select,
-} from "@chakra-ui/react";
 import * as React from "react";
-import {
-  parseCSSMeasure,
-  ParsedCSSMeasure,
-  updateCssUnit,
-} from "utils/css-helpers";
+import { parseCSSMeasure, updateCssUnit } from "utils/css-helpers";
 import { CSSMeasure } from "../../GridTypes";
+import classes from "./CSSUnitInput.module.css";
 
 type CSSUnits = "fr" | "px" | "rem" | "auto";
 
@@ -55,14 +42,14 @@ export function CSSUnitInput({
 }) {
   const { value, updateUnit, updateCount } = useCSSUnitState(initialValue);
 
-  // Clamp the width so we dont get super ugly wide inputs
-  const width = `min(${w}, ${widestAllowed})`;
+  const parsedValue = parseCSSMeasure(value);
 
   // For some reason our tract sizers will sometimes try and pass this undefined
   // so we need to guard against that at run time
   if (initialValue === undefined) return null;
   return (
     <div
+      className={classes.wrapper}
       aria-label={label}
       onBlur={(e) => {
         const blurOutsideComponent = !e.currentTarget.contains(e.relatedTarget);
@@ -77,74 +64,22 @@ export function CSSUnitInput({
           onChange(value);
         }
       }}
-      // Shrink the dropdown icon. These styles need to be seperate from the
-      // Select component's css because the icon is technically a sibling so it
-      // cant be targeted from within the selector
-      css={{
-        width,
-        minWidth: width,
-        display: "flex",
-        flexDirection: "row",
-        ".chakra-select__icon-wrapper": {
-          width: "1rem",
-          right: "0",
-        },
-      }}
     >
-      <InputUI
-        value={value}
-        units={units}
-        onNewCount={updateCount}
-        onNewUnit={updateUnit}
-      />
-    </div>
-  );
-}
-
-function InputUI({
-  value,
-  units,
-  onNewCount,
-  onNewUnit,
-}: {
-  value: CSSMeasure;
-  units: CSSUnits[];
-  onNewCount: (x: number) => void;
-  onNewUnit: (newUnit: CSSUnits) => void;
-}) {
-  const parsedValue = parseCSSMeasure(value);
-
-  return (
-    <>
-      <NumberInput
-        bg="white"
-        size="sm"
-        value={parsedValue.unit !== "auto" ? parsedValue.count : undefined}
+      <input
         aria-label="value-count"
-        onChange={(e) => onNewCount(Number(e))}
-        isDisabled={parsedValue.unit === "auto"}
-      >
-        <NumberInputStepper>
-          <NumberIncrementStepper aria-label="increase count" />
-          <NumberDecrementStepper aria-label="decrease count" />
-        </NumberInputStepper>
-        <NumberInputField />
-      </NumberInput>
-
-      <Select
-        size="sm"
-        w="110px"
-        bg="white"
-        value={parsedValue.unit}
-        aria-label="value-unit"
-        iconSize="10px"
+        type="number"
+        disabled={parsedValue.unit === "auto"}
+        value={parsedValue.count ?? ""}
         onChange={(e) => {
-          onNewUnit(e.target.value as CSSUnits);
+          updateCount(Number(e.target.value));
         }}
-        // These are an attempt to get the select dropdown nice and compact
-        css={{
-          paddingInlineEnd: "0",
-          paddingInlineStart: "0.5rem",
+      />
+      <select
+        aria-label="value-unit"
+        name="value-unit"
+        value={parsedValue.unit}
+        onChange={(e) => {
+          updateUnit(e.target.value as CSSUnits);
         }}
       >
         {units.map((unit) => (
@@ -152,10 +87,7 @@ function InputUI({
             {unit}
           </option>
         ))}
-      </Select>
-    </>
+      </select>
+    </div>
   );
 }
-
-// How wide the input element is allowed to get before being clamped
-const widestAllowed = "150px";

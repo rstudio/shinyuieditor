@@ -1,0 +1,26 @@
+.wrapper {
+  padding: 2px;
+  max-width: 120px;
+  display: flex;
+  position: relative;
+  gap: 5px;
+}
+
+input[type="number"],
+select {
+  border: 1px solid var(--light-grey);
+  border-radius: var(--corner-radius);
+}
+
+input[type="number"] {
+  flex-grow: 1;
+  width: 100%;
+  text-align: end;
+  padding: 0px 8px;
+}
+
+input:disabled {
+  outline: 1px solid red;
+  opacity: 0.25;
+  cursor: not-allowed;
+}
