@@ -25,23 +25,29 @@ function useCSSUnitState(initialValue: CSSMeasure) {
     [cssValue.unit]
   );
 
-  const incrementCount = React.useCallback((amount: number = 1) => {
-    setCssValue((oldCss) => {
-      if (oldCss.unit === "auto") return oldCss;
+  const incrementCount = React.useCallback(
+    (amount: number = 1, largeIncrement: boolean = false) => {
+      setCssValue((oldCss) => {
+        if (oldCss.unit === "auto") return oldCss;
 
-      return { unit: oldCss.unit, count: Math.max(oldCss.count + amount, 0) };
-    });
-  }, []);
+        const scale = largeIncrement ? 10 : 1;
+        return {
+          unit: oldCss.unit,
+          count: Math.max(oldCss.count + amount * scale, 0),
+        };
+      });
+    },
+    []
+  );
 
   const handleArrowKeys = React.useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
       // If the user is holding the shift key while incrementing, go by
       // increments of 10
-      if (e.shiftKey && (e.key === "ArrowUp" || e.key === "ArrowDown")) {
+      if (e.key === "ArrowUp" || e.key === "ArrowDown") {
         // Ignore the default otherwise we'd be adding 11 on each press
         e.preventDefault();
-        const dir = e.key === "ArrowUp" ? 1 : -1;
-        incrementCount(dir * 10);
+        incrementCount(e.key === "ArrowUp" ? 1 : -1, e.shiftKey);
       }
     },
     [incrementCount]
@@ -131,10 +137,16 @@ export function CSSUnitInput({
           onKeyDown={handleArrowKeys}
         />
         <div className={classes.incrementerArrows}>
-          <div aria-label="increase count" onClick={() => incrementCount(1)}>
+          <div
+            aria-label="increase count"
+            onClick={(e) => incrementCount(1, e.shiftKey)}
+          >
             &#5169;
           </div>
-          <div aria-label="decrease count" onClick={() => incrementCount(-1)}>
+          <div
+            aria-label="decrease count"
+            onClick={(e) => incrementCount(-1, e.shiftKey)}
+          >
             &#5167;
           </div>
         </div>
