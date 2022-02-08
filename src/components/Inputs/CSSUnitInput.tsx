@@ -115,7 +115,6 @@ export function CSSUnitInput({
       onKeyDown={(e) => {
         if (e.key === "Enter") {
           // Submits on pressing of enter
-          e.preventDefault();
           onChange(deparseCSSMeasure(cssValue));
         }
       }}
