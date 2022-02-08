@@ -3,13 +3,54 @@ import {
   deparseCSSMeasure,
   parseCSSMeasure,
   ParsedCSSMeasure,
-  updateCssUnit,
 } from "utils/css-helpers";
 import { CSSMeasure } from "../../GridTypes";
 import classes from "./CSSUnitInput.module.css";
 
 type CSSUnits = "fr" | "px" | "rem" | "auto";
 
+function useCSSUnitState(initialValue: CSSMeasure) {
+  const [cssValue, setCssValue] = React.useState<ParsedCSSMeasure>(
+    parseCSSMeasure(initialValue)
+  );
+  const updateCount = React.useCallback(
+    (newCount: number) => {
+      if (cssValue.unit === "auto") {
+        console.error("How did you change the count of an auto unit?");
+        return;
+      }
+
+      setCssValue({ unit: cssValue.unit, count: newCount });
+    },
+    [cssValue.unit]
+  );
+
+  const updateUnit = React.useCallback((newUnit: CSSUnits) => {
+    // All we're doing is changing the unit the count stays the same
+
+    setCssValue((oldCSS) => {
+      const oldUnit = oldCSS.unit;
+      if (newUnit === "auto") {
+        return {
+          unit: newUnit,
+          count: null,
+        };
+      }
+
+      if (oldUnit === "auto") {
+        return { unit: newUnit, count: defaultCounts[newUnit] };
+      }
+
+      return { unit: newUnit, count: oldCSS.count };
+    });
+  }, []);
+
+  return {
+    cssValue,
+    updateCount,
+    updateUnit,
+  };
+}
 export function CSSUnitInput({
   value: initialValue,
   onChange,
@@ -23,9 +64,7 @@ export function CSSUnitInput({
   w?: string;
   label?: string;
 }) {
-  const [cssValue, setCssValue] = React.useState<ParsedCSSMeasure>(
-    parseCSSMeasure(initialValue)
-  );
+  const { cssValue, updateCount, updateUnit } = useCSSUnitState(initialValue);
 
   // For some reason our tract sizers will sometimes try and pass this undefined
   // so we need to guard against that at run time
@@ -54,42 +93,13 @@ export function CSSUnitInput({
         disabled={cssValue.unit === "auto"}
         value={cssValue.count ?? ""}
         min={0}
-        onChange={(e) => {
-          if (cssValue.unit === "auto") {
-            console.error("How did you change the count of an auto unit?");
-            return;
-          }
-
-          setCssValue({ unit: cssValue.unit, count: Number(e.target.value) });
-        }}
+        onChange={(e) => updateCount(Number(e.target.value))}
       />
       <select
         aria-label="value-unit"
         name="value-unit"
         value={cssValue.unit}
-        onChange={(e) => {
-          const oldUnit = cssValue.unit;
-          const newUnit = e.target.value as CSSUnits;
-
-          if (newUnit === "auto") {
-            setCssValue({
-              unit: newUnit,
-              count: null,
-            });
-            return;
-          }
-
-          if (oldUnit === "auto") {
-            setCssValue({ unit: newUnit, count: defaultCounts[newUnit] });
-            return;
-          }
-
-          // All we're doing is changing the unit the count stays the same
-          setCssValue({
-            unit: newUnit,
-            count: cssValue.count,
-          });
-        }}
+        onChange={(e) => updateUnit(e.target.value as CSSUnits)}
       >
         {units.map((unit) => (
           <option key={unit} value={unit}>
