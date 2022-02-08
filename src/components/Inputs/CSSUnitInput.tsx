@@ -25,6 +25,27 @@ function useCSSUnitState(initialValue: CSSMeasure) {
     [cssValue.unit]
   );
 
+  const incrementCount = React.useCallback((amount: number = 1) => {
+    setCssValue((oldCss) => {
+      if (oldCss.unit === "auto") return oldCss;
+
+      return { unit: oldCss.unit, count: Math.max(oldCss.count + amount, 0) };
+    });
+  }, []);
+
+  const handleArrowKeys = React.useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      const scale = e.shiftKey ? 10 : 1;
+      if (e.key === "ArrowUp" || e.key === "ArrowRight") {
+        incrementCount(scale);
+      }
+      if (e.key === "ArrowDown" || e.key === "ArrowLeft") {
+        incrementCount(-scale);
+      }
+    },
+    [incrementCount]
+  );
+
   const updateUnit = React.useCallback((newUnit: CSSUnits) => {
     // All we're doing is changing the unit the count stays the same
 
@@ -48,6 +69,8 @@ function useCSSUnitState(initialValue: CSSMeasure) {
   return {
     cssValue,
     updateCount,
+    incrementCount,
+    handleArrowKeys,
     updateUnit,
   };
 }
@@ -64,7 +87,8 @@ export function CSSUnitInput({
   w?: string;
   label?: string;
 }) {
-  const { cssValue, updateCount, updateUnit } = useCSSUnitState(initialValue);
+  const { cssValue, updateCount, updateUnit, incrementCount, handleArrowKeys } =
+    useCSSUnitState(initialValue);
 
   // For some reason our tract sizers will sometimes try and pass this undefined
   // so we need to guard against that at run time
@@ -88,12 +112,19 @@ export function CSSUnitInput({
       }}
     >
       <input
+        className={classes.countInput}
         aria-label="value-count"
-        type="number"
+        // We're using a text type input here and sanatizing to a number to
+        // avoid the awkward leading zeros that accompany a controlled number
+        // input
+        type="text"
         disabled={cssValue.unit === "auto"}
         value={cssValue.count ?? ""}
-        min={0}
-        onChange={(e) => updateCount(Number(e.target.value))}
+        onChange={(e) => {
+          const newCount = Number(e.target.value.replaceAll(/[^0-9.]/g, ""));
+          updateCount(newCount);
+        }}
+        onKeyDown={handleArrowKeys}
       />
       <select
         aria-label="value-unit"

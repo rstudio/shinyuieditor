@@ -6,13 +6,13 @@
   gap: 5px;
 }
 
-input[type="number"],
+input.countInput,
 select {
   border: 1px solid var(--light-grey);
   border-radius: var(--corner-radius);
 }
 
-input[type="number"] {
+input.countInput {
   flex-grow: 1;
   width: 100%;
   text-align: end;
