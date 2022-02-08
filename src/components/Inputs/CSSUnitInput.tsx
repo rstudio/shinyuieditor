@@ -6,6 +6,7 @@ import {
 } from "utils/css-helpers";
 import { CSSMeasure } from "../../GridTypes";
 import classes from "./CSSUnitInput.module.css";
+import inputClasses from "./Inputs.module.css";
 
 type CSSUnits = "fr" | "px" | "rem" | "auto";
 
@@ -81,19 +82,20 @@ function useCSSUnitState(initialValue: CSSMeasure) {
     updateUnit,
   };
 }
+
+type CSSUnitInputProps = {
+  value: CSSMeasure;
+  units?: CSSUnits[];
+  onChange: (value: CSSMeasure) => void;
+  name?: string;
+};
+
 export function CSSUnitInput({
   value: initialValue,
   onChange,
   units = ["fr", "px", "rem", "auto"],
-  w = "150px",
-  label = "CSS units input",
-}: {
-  value: CSSMeasure;
-  units?: CSSUnits[];
-  onChange: (value: CSSMeasure) => void;
-  w?: string;
-  label?: string;
-}) {
+  name,
+}: CSSUnitInputProps) {
   const { cssValue, updateCount, updateUnit, handleArrowKeys, incrementCount } =
     useCSSUnitState(initialValue);
 
@@ -103,7 +105,7 @@ export function CSSUnitInput({
   return (
     <div
       className={classes.wrapper}
-      aria-label={label}
+      aria-label={name ?? "Css Unit Input"}
       onBlur={(e) => {
         const blurOutsideComponent = !e.currentTarget.contains(e.relatedTarget);
         // Only trigger submit if the user has focused outside of the input.
@@ -172,3 +174,15 @@ const defaultCounts = {
   px: 10,
   rem: 1,
 };
+
+export function LabeledCSSUnitInput({
+  label,
+  ...props
+}: CSSUnitInputProps & { label: string }) {
+  return (
+    <div className={inputClasses.container}>
+      <label className={inputClasses.label}>{label}:</label>
+      <CSSUnitInput {...props} />
+    </div>
+  );
+}

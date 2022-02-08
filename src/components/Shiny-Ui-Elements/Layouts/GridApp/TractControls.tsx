@@ -76,7 +76,6 @@ function TractControl({
     <TractControlsHolder className={dir} style={positionStyles}>
       <CSSUnitInput
         value={size}
-        w="120px"
         onChange={(newSize) => {
           setLayout?.({
             type: "RESIZE_TRACT",
