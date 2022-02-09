@@ -1,14 +1,29 @@
 
+library(gridlayout)
+
 ui_expr <- rlang::expr(
   grid_page(
     layout = "
 |2rem  |200px   |1fr    |
 |80px  |header  |header |
 |1fr   |sidebar |plot   |",
-    header = title_panel("This is my header"),
-    plot = plotOutput("distPlot")
+    gridlayout::title_panel(
+      area = "header",
+      title = "My App Title"
+    ),
+    gridlayout::grid_panel(
+      area = "sidebar",
+      shiny::sliderInput(inputId="slider1", label="my slider is cool", min="1", max="10", value="7"),
+      shiny::sliderInput(inputId="slider3", min="2", max="10", value="5")
+    ),
+    gridlayout::grid_panel(
+      area = "plot",
+      plotOutput(inputId = "distPlot")
+    )
   )
 )
+
+
 
 gridlayout_node <- parse_ui_fn(ui_expr)
 lobstr::tree(gridlayout_node)

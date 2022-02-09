@@ -26,33 +26,43 @@
 #'
 #'
 #' lobstr::tree(parse_ui_fn(app_expr))
-parse_ui_fn <- function(ui_expr) {
+parse_ui_fn <- function(ui_node_expr) {
+
+  # First check if we should even try and parsing this node. If it's a constant
+  # like a string just return that.
+  is_constant <- !is.call(ui_node_expr)
+  if(is_constant) return(ui_node_expr)
 
   # Fill in all the names of unnamed arguments
-  ui_expr <- rlang::call_standardise(ui_expr)
+  # ui_expr <- rlang::call_standardise(ui_expr)
 
-  if (!is_known_ui_fn(ui_expr)) stop("Passed value is not a known UI function and can't be parsed.")
+  # Since first element of the AST is the function call itself, it makes our
+  # life easier going forward if we remove it before walking through arguments
+  call_arguments <- as.list(ui_node_expr) |> tail(-1)
+  num_args <- length(call_arguments)
+  arg_names <- names(call_arguments)
 
   parsed <- list(
-    uiName = called_uiName(ui_expr)
+    uiName = called_uiName(ui_node_expr),
+    uiArguments = list()
   )
-  # First element is calling fn
-  num_args <- length(ui_expr) - 1
 
-  if (num_args > 0) {
-    parsed$uiArguments <- list()
+  # A child node is detected when there is an argument without a name.
+  if (length(arg_names == "") > 0) {
+    parsed$uiChildren <- c()
+  }
 
-    for (i in 1:num_args) {
-      arg_i <- i + 1
-      arg_name <- names(ui_expr)[[arg_i]]
-      arg_val <- ui_expr[[arg_i]]
+  for (i in 1:num_args) {
+    arg_name <- names(call_arguments)[[i]]
+    arg_val <- call_arguments[[i]]
 
-      parsed$uiArguments[[arg_name]] <- switch(argument_expr_type(arg_val),
-        constant = as.character(arg_val),
-        `ui-fn` = parse_ui_fn(arg_val),
-        `unknown-fn` = paste(deparse(arg_val), collapse = "\n"),
-        stop("Don't know how to handle type ", typeof(arg_val), call. = FALSE)
-      )
+    node_val <- parse_ui_fn(arg_val)
+
+    is_child_node <- arg_name == ""
+    if (is_child_node){
+      parsed$uiChildren <- parsed$uiChildren |> append(list(node_val))
+    } else {
+      parsed$uiArguments[[arg_name]] <- node_val
     }
   }
 
