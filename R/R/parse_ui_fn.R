@@ -34,7 +34,7 @@ parse_ui_fn <- function(ui_node_expr) {
   if(is_constant) return(ui_node_expr)
 
   # Fill in all the names of unnamed arguments
-  # ui_expr <- rlang::call_standardise(ui_expr)
+  ui_node_expr <- rlang::call_standardise(ui_node_expr)
 
   # Since first element of the AST is the function call itself, it makes our
   # life easier going forward if we remove it before walking through arguments
