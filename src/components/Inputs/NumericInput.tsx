@@ -1,42 +1,6 @@
-import {
-  FormControl,
-  FormLabel,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-} from "@chakra-ui/react";
 import React from "react";
-import classes from "./NumericInput.module.css";
 import inputClasses from "./Inputs.module.css";
-
-export function NumericInputChakra({
-  label,
-  value,
-  onChange,
-}: {
-  label: string;
-  value?: number;
-  onChange: (newVal: number) => void;
-}) {
-  return (
-    <FormControl>
-      <FormLabel>{label}</FormLabel>
-      <NumberInput
-        value={value}
-        onChange={(val) => onChange(Number(val))}
-        minHeight="30px"
-      >
-        <NumberInputField />
-        <NumberInputStepper>
-          <NumberIncrementStepper />
-          <NumberDecrementStepper />
-        </NumberInputStepper>
-      </NumberInput>
-    </FormControl>
-  );
-}
+import classes from "./NumericInput.module.css";
 
 export default function NumericInput({
   label,

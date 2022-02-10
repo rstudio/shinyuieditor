@@ -1,5 +1,5 @@
-import { NumericInput } from "components/Inputs/NumericInput";
-import { TextInputChakra } from "components/Inputs/TextInput";
+import NumericInput from "components/Inputs/NumericInput";
+import { TextInput } from "components/Inputs/TextInput";
 import { SettingsUpdaterComponent } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import * as React from "react";
 import { ShinySliderInputProps, validateNumber } from "./arguments";
@@ -18,13 +18,15 @@ export const ShinySliderInputSettings: SettingsUpdaterComponent<
 
   return (
     <>
-      <TextInputChakra
+      <TextInput
         label="inputId"
+        name="inputId"
         value={settings.inputId ?? "Default name"}
         onChange={(inputId) => validateAndUpdate({ inputId })}
       />
-      <TextInputChakra
+      <TextInput
         label="label"
+        name="label"
         value={settings.label ?? "Default label"}
         onChange={(label) => validateAndUpdate({ label })}
       />
