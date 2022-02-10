@@ -94,7 +94,7 @@ launch_editor <- function(ui_loc, port=8888, show_logs = TRUE, run_in_background
 get_ui_from_file <- function(file_loc){
   ui_defn_text <- paste(readLines(file_loc), collapse = "\n")
   ui_expr <- rlang::parse_exprs(ui_defn_text)[[1]]
-  parse_ui_fn(ui_expr) %>% parse_gridlayout()
+  ui_expr %>% parse_ui_fn() %>% update_ui_nodes()
 }
 
 save_ui_to_file <- function(ui_string, file_loc){
