@@ -27,7 +27,6 @@ export const TractAddButton = ({
     <TooltipButton
       className={"add-button " + beforeOrAfter}
       popoverText={description}
-      popoverPlacement={dir === "rows" ? "left" : "top"}
       aria-label={description}
       onClick={() => {
         setLayout?.({ type: "ADD_TRACT", dir, afterIndex, size });

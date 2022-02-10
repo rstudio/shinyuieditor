@@ -1,4 +1,3 @@
-import { Tooltip } from "@chakra-ui/tooltip";
 import styled from "@emotion/styled";
 import { CSSMeasure } from "GridTypes";
 import React from "react";
@@ -8,32 +7,17 @@ type BaseButtonProps = React.DetailedHTMLProps<
   HTMLButtonElement
 >;
 
-type TooltipProps = React.ComponentProps<typeof Tooltip>;
-
 export const TooltipButton = React.forwardRef(
   (
     {
       popoverText,
-      popoverPlacement,
       ...props
     }: {
       popoverText: string;
-      popoverPlacement?: TooltipProps["placement"];
     } & BaseButtonProps,
     ref
   ) => {
-    if (typeof popoverPlacement === "undefined") popoverPlacement = "top";
-    return (
-      <Tooltip
-        label={popoverText}
-        placement={popoverPlacement}
-        border="var(--outline)"
-        backgroundColor="var(--rstudio-white)"
-        color="var(--rstudio-grey)"
-      >
-        <SquareButtonBase {...props}></SquareButtonBase>
-      </Tooltip>
-    );
+    return <SquareButtonBase title={popoverText} {...props}></SquareButtonBase>;
   }
 );
 
