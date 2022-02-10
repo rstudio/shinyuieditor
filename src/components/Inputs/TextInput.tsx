@@ -1,24 +1,6 @@
-import { FormControl, FormLabel, Input } from "@chakra-ui/react";
-import classes from "./TextInput.module.css";
-import inputClasses from "./Inputs.module.css";
 import React from "react";
-
-export function TextInputChakra({
-  label,
-  value,
-  onChange,
-}: {
-  label: string;
-  value: string;
-  onChange: (newVal: string) => void;
-}) {
-  return (
-    <FormControl>
-      <FormLabel>{label}</FormLabel>
-      <Input value={value} onChange={(val) => onChange(val.target.value)} />
-    </FormControl>
-  );
-}
+import inputClasses from "./Inputs.module.css";
+import classes from "./TextInput.module.css";
 
 export function TextInput({
   name,
