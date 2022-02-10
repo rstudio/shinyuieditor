@@ -11,38 +11,11 @@ input.countInput {
   width: 100%;
   text-align: end;
   --arrow-pad: 5px;
-  padding: 2px;
-  padding-right: calc(2 * var(--arrow-pad) + var(--incrementerSize));
-  margin-right: calc(-1 * var(--arrow-pad) - var(--incrementerSize));
+  padding: 5px;
 }
 
 input:disabled {
   outline: 1px solid red;
   opacity: 0.25;
   cursor: not-allowed;
-}
-
-.incrementerArrows {
-  right: 0;
-  top: 0;
-  height: 100%;
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 1px;
-  margin-right: 5px;
-  font-size: 8px;
-  font-weight: bold;
-}
-
-.incrementerArrows > div {
-  width: var(--incrementerSize);
-  text-align: center;
-  user-select: none;
-}
-
-.incrementerArrows > div:hover {
-  cursor: pointer;
-  background-color: var(--light-grey-transparent);
 }

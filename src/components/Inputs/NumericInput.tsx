@@ -52,20 +52,6 @@ export default function NumericInput({
           }
         }}
       />
-      <div className={classes.incrementerArrows}>
-        <div
-          aria-label="increase count"
-          onClick={(e) => incrementCount(1, e.shiftKey)}
-        >
-          &#5169;
-        </div>
-        <div
-          aria-label="decrease count"
-          onClick={(e) => incrementCount(-1, e.shiftKey)}
-        >
-          &#5167;
-        </div>
-      </div>
     </div>
   );
 
