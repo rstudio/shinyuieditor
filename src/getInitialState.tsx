@@ -1,11 +1,12 @@
 import { Panels } from "components/Shiny-Ui-Elements/Layouts/GridApp";
+import { UiNodeProps } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { TemplatedGridProps } from "utils/gridTemplates/types";
 
 export type InitialState = {
   elements: Panels;
   layout: { type: "gridlayout"; options: TemplatedGridProps };
 };
-export async function getInitialState(): Promise<InitialState> {
+export async function getInitialState(): Promise<UiNodeProps> {
   const response = await fetch("app-please", { method: "GET" });
 
   if (!response.ok) {
@@ -15,48 +16,72 @@ export async function getInitialState(): Promise<InitialState> {
 
   return await response.json();
 }
-const backupState: InitialState = {
-  layout: {
-    type: "gridlayout",
-    options: {
-      rowSizes: ["120px", "1fr", "100px"],
-      colSizes: ["250px", "1fr"],
-      gapSize: "2rem",
-      areas: [
-        ["header", "header"],
-        ["sidebar", "plot"],
-        ["footer", "footer"],
+
+const backupState: UiNodeProps = {
+  uiName: "gridlayout::grid_page",
+  uiArguments: {
+    areas: [
+      ["header", "header"],
+      ["sidebar", "plot"],
+      ["sidebar", "plot"],
+    ],
+    rowSizes: ["100px", "1fr", "1fr"],
+    colSizes: ["250px", "1fr"],
+    gapSize: "1rem",
+  },
+  uiChildren: [
+    {
+      uiName: "gridlayout::title_panel",
+      uiArguments: {
+        area: "header",
+        title: "My App",
+      },
+    },
+    {
+      uiName: "gridlayout::grid_panel",
+      uiArguments: {
+        area: "sidebar",
+        horizontalAlign: "spread",
+        verticalAlign: "spread",
+      },
+      uiChildren: [
+        {
+          uiName: "shiny::sliderInput",
+          uiArguments: {
+            inputId: "mySlider1",
+            label: "Slider 1",
+            min: 2,
+            max: 11,
+            value: 7,
+          },
+        },
+        {
+          uiName: "shiny::sliderInput",
+          uiArguments: {
+            inputId: "mySlider2",
+            label: "Slider 2",
+            min: 1,
+            max: 10,
+            value: 3,
+          },
+        },
       ],
     },
-  },
-  elements: {
-    header: {
-      uiName: "gridlayout::title_panel",
+    {
+      uiName: "gridlayout::grid_panel",
       uiArguments: {
-        title: "Header from backup state",
+        area: "plot",
+        horizontalAlign: "spread",
+        verticalAlign: "center",
       },
+      uiChildren: [
+        {
+          uiName: "shiny::plotOutput",
+          uiArguments: {
+            outputId: "myPlot",
+          },
+        },
+      ],
     },
-    plot: {
-      uiName: "shiny::plotOutput",
-      uiArguments: {
-        outputId: "distPlot",
-      },
-    },
-    sidebar: {
-      uiName: "shiny::sliderInput",
-      uiArguments: {
-        inputId: "numBins",
-        label: "Number of Bins",
-        min: 5,
-        max: 10,
-        value: 7,
-      },
-    },
-    footer: {
-      uiName: "gridlayout::title_panel",
-      uiArguments: {
-        title: "My app's footer",
-      },
-    },
-  },
+  ],
 };
