@@ -1,10 +1,8 @@
 
 update_gridlayout <- function(gridlayout_node){
-  gridlayout_node$uiName
-  arguments <- gridlayout_node$uiArguments
-  children <- gridlayout_node$uiChildren
-
-  if (gridlayout_node$uiName != "grid_page" & gridlayout_node$uiName != "gridlayout::grid_page") stop("Passed UI node does not appear to be a gridlayout call")
+  if (gridlayout_node$uiName != "gridlayout::grid_page") {
+    return(gridlayout_node)
+  }
 
   # Start by setting up the layout settings object
   layout_obj <- gridlayout::new_gridlayout(layout_def = gridlayout_node$uiArguments$layout)
@@ -20,18 +18,18 @@ update_gridlayout <- function(gridlayout_node){
 }
 
 
-# Any function that can modify a node go here, keyed by the name of the node
+
+# Any function that can modify a node go here, each get run on each node
 node_updaters <- list(
-  "gridlayout::grid_page" = update_gridlayout
+  update_gridlayout
 )
 
 # Recursively update the ui tree with values that update the arguments
 update_ui_nodes <- function(ui_node){
 
   # First run any updater functions for this node if they exist
-  updater_for_node <- node_updaters[[ui_node$uiName]]
-  if (!is.null(updater_for_node)) {
-    ui_node <- updater_for_node(ui_node)
+  for(updater_fn in node_updaters) {
+    ui_node <- updater_fn(ui_node)
   }
 
   # Next walk through all the children and do the same
