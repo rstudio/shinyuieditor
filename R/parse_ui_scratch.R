@@ -24,7 +24,16 @@ ui_expr <- rlang::expr(
 )
 
 
-gridlayout_node <- parse_ui_fn(ui_expr)
+gridlayout_node <- ui_expr %>% parse_ui_fn() %>% update_ui_nodes
 lobstr::tree(gridlayout_node)
+
+
+
+
+updated_gl_node <- update_ui_nodes(gridlayout_node)
+
+updated_gl_node %>% lobstr::tree()
+
+
 
 parse_gridlayout(gridlayout_node) %>% lobstr::tree()
