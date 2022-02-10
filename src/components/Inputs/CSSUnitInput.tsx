@@ -7,6 +7,7 @@ import {
 import { CSSMeasure } from "../../GridTypes";
 import classes from "./CSSUnitInput.module.css";
 import inputClasses from "./Inputs.module.css";
+import NumericInput from "./NumericInput";
 
 type CSSUnits = "fr" | "px" | "rem" | "auto";
 
@@ -24,34 +25,6 @@ function useCSSUnitState(initialValue: CSSMeasure) {
       setCssValue({ unit: cssValue.unit, count: newCount });
     },
     [cssValue.unit]
-  );
-
-  const incrementCount = React.useCallback(
-    (amount: number = 1, largeIncrement: boolean = false) => {
-      setCssValue((oldCss) => {
-        if (oldCss.unit === "auto") return oldCss;
-
-        const scale = largeIncrement ? 10 : 1;
-        return {
-          unit: oldCss.unit,
-          count: Math.max(oldCss.count + amount * scale, 0),
-        };
-      });
-    },
-    []
-  );
-
-  const handleArrowKeys = React.useCallback(
-    (e: React.KeyboardEvent<HTMLInputElement>) => {
-      // If the user is holding the shift key while incrementing, go by
-      // increments of 10
-      if (e.key === "ArrowUp" || e.key === "ArrowDown") {
-        // Ignore the default otherwise we'd be adding 11 on each press
-        e.preventDefault();
-        incrementCount(e.key === "ArrowUp" ? 1 : -1, e.shiftKey);
-      }
-    },
-    [incrementCount]
   );
 
   const updateUnit = React.useCallback((newUnit: CSSUnits) => {
@@ -77,8 +50,6 @@ function useCSSUnitState(initialValue: CSSMeasure) {
   return {
     cssValue,
     updateCount,
-    incrementCount,
-    handleArrowKeys,
     updateUnit,
   };
 }
@@ -96,8 +67,7 @@ export function CSSUnitInput({
   units = ["fr", "px", "rem", "auto"],
   name,
 }: CSSUnitInputProps) {
-  const { cssValue, updateCount, updateUnit, handleArrowKeys, incrementCount } =
-    useCSSUnitState(initialValue);
+  const { cssValue, updateCount, updateUnit } = useCSSUnitState(initialValue);
 
   // For some reason our tract sizers will sometimes try and pass this undefined
   // so we need to guard against that at run time
@@ -119,39 +89,14 @@ export function CSSUnitInput({
         }
       }}
     >
-      <div className={classes.countContainer}>
-        <input
-          className={classes.countInput}
-          aria-label="value-count"
-          type="number"
-          disabled={cssValue.unit === "auto"}
-          // The toString() here makes sure that we dont get prefixed zeros
-          // anytime the user deletes back to nothing and then types a new value.
-          // Otherwise the comparison that react does to know to update the value
-          // would consider `02` equal to `2`
-          value={cssValue.count?.toString() ?? ""}
-          onChange={(e) => {
-            const newCount = Number(e.target.value);
-            updateCount(newCount);
-          }}
-          min={0}
-          onKeyDown={handleArrowKeys}
-        />
-        <div className={classes.incrementerArrows}>
-          <div
-            aria-label="increase count"
-            onClick={(e) => incrementCount(1, e.shiftKey)}
-          >
-            &#5169;
-          </div>
-          <div
-            aria-label="decrease count"
-            onClick={(e) => incrementCount(-1, e.shiftKey)}
-          >
-            &#5167;
-          </div>
-        </div>
-      </div>
+      <NumericInput
+        ariaLabel="value-count"
+        disabled={cssValue.unit === "auto"}
+        value={cssValue.count ?? undefined}
+        onChange={updateCount}
+        min={0}
+      />
+
       <select
         aria-label="value-unit"
         name="value-unit"
