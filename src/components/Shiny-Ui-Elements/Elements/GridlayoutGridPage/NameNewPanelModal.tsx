@@ -48,3 +48,21 @@ export function NameNewPanelModal({
     </PortalModal>
   );
 }
+
+// Old code to validate a grid areas name before allowing submission. Should be
+// hooked up to new format const validateName = (name: string) => { const
+// elementExists = existingElementNames.includes(name); if (elementExists) {
+// setWarningMsg( `You already have an item with the name "${name}", all names
+// need to be unique.`
+//     );
+//     return;
+//   }
+
+//   const invalidCharacters = name.match(/^[^a-zA-Z]/g);
+//   if (invalidCharacters) {
+//     setWarningMsg("Valid item names need to start with a character.");
+//     return;
+//   }
+
+//   setWarningMsg(null);
+// };
