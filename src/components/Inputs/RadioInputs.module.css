@@ -25,6 +25,7 @@ and background colors */
   padding: 4px 12px;
   border: 1px solid var(--light-grey);
   border-radius: var(--corner-radius);
+  background-color: var(--rstudio-white);
 }
 
 input:checked + label {
