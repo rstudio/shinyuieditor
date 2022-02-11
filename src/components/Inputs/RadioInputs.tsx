@@ -23,13 +23,13 @@ export function RadioInputs<OptionType extends string>({
           <div className={classes.option} key={option}>
             <input
               name={name}
-              id={option}
+              id={name + option}
               type="radio"
               value={option}
               onChange={() => onChange(option)}
               checked={option === currentSelection}
             />
-            <label htmlFor={option}>{option}</label>
+            <label htmlFor={name + option}>{option}</label>
           </div>
         ))}
       </fieldset>
