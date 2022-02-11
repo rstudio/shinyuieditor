@@ -4,7 +4,7 @@
   background-color: var(--background-grey, #edf2f7);
   display: grid;
   grid-template-rows: 50px 1fr;
-  grid-template-columns: 170px 1fr 250px;
+  grid-template-columns: 170px 1fr 275px;
   grid-template-areas:
     "header   header header    "
     "elements editor properties";
