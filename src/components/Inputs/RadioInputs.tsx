@@ -18,11 +18,12 @@ export function RadioInputs<OptionType extends string>({
       <label htmlFor={name} className={inputClasses.label}>
         {name}:
       </label>
-      <fieldset className={classes.radioInputs}>
+      <fieldset id={name}>
         {options.map((option) => (
           <div className={classes.option} key={option}>
             <input
               name={name}
+              id={option}
               type="radio"
               value={option}
               onChange={() => onChange(option)}

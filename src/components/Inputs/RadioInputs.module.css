@@ -1,16 +1,27 @@
-.radioInputs {
+fieldset {
   display: flex;
   gap: 5px;
   justify-content: space-around;
+  border: none;
 }
 
-.option {
+/* Hide the little button icon because we take over the showing with outlines
+and background colors */
+input {
+  display: none;
+}
+
+.option label {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  padding: 4px 12px;
+  border: 1px solid var(--light-grey);
+  border-radius: var(--corner-radius);
 }
 
-.radioInputs input {
-  margin-right: 5px;
+input:checked + label {
+  background-color: var(--rstudio-blue);
+  color: var(--rstudio-white);
+  font-weight: bold;
 }
