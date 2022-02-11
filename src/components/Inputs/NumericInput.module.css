@@ -1,20 +1,16 @@
-.countContainer {
-  --incrementerSize: 10px;
-  position: relative;
-  max-width: 200px;
-}
-
-input.countInput {
+input.numericInput {
   border: 1px solid var(--light-grey);
   border-radius: var(--corner-radius);
   flex-grow: 1;
-  width: 100%;
+  width: auto;
   text-align: end;
   --arrow-pad: 5px;
-  padding: 5px;
+  padding: 6px;
+  max-width: 90px;
+  min-width: 40px;
 }
 
-input:disabled {
+input.numericInput:disabled {
   outline: 1px solid red;
   opacity: 0.25;
   cursor: not-allowed;
