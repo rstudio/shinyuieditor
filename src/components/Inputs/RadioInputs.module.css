@@ -1,15 +1,9 @@
 fieldset {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
   gap: 5px;
   justify-content: space-around;
   border: none;
-}
-
-.option {
-  flex-grow: 1;
-  flex-shrink: 1;
-  flex-basis: 0;
+  width: 100%;
 }
 
 /* Hide the little button icon because we take over the showing with outlines
