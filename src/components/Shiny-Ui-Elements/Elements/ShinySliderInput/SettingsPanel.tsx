@@ -1,5 +1,6 @@
 import NumericInput from "components/Inputs/NumericInput";
 import { TextInput } from "components/Inputs/TextInput";
+import { WrappedSection } from "components/Inputs/WrappedSection";
 import { SettingsUpdaterComponent } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import * as React from "react";
 import { ShinySliderInputProps, validateNumber } from "./arguments";
@@ -30,21 +31,24 @@ export const ShinySliderInputSettings: SettingsUpdaterComponent<
         value={settings.label ?? "Default label"}
         onChange={(label) => validateAndUpdate({ label })}
       />
-      <NumericInput
-        label="Minimum value"
-        value={settings.min}
-        onChange={(min) => validateAndUpdate({ min })}
-      />
-      <NumericInput
-        label="Maximum value"
-        value={settings.max}
-        onChange={(max) => validateAndUpdate({ max })}
-      />
-      <NumericInput
-        label="Starting value"
-        value={settings.value}
-        onChange={(val) => validateAndUpdate({ value: val })}
-      />
+
+      <WrappedSection name="Values">
+        <NumericInput
+          label="Min"
+          value={settings.min}
+          onChange={(min) => validateAndUpdate({ min })}
+        />
+        <NumericInput
+          label="Max"
+          value={settings.max}
+          onChange={(max) => validateAndUpdate({ max })}
+        />
+        <NumericInput
+          label="Start"
+          value={settings.value}
+          onChange={(val) => validateAndUpdate({ value: val })}
+        />
+      </WrappedSection>
     </>
   );
 };

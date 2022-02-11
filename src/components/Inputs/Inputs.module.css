@@ -17,3 +17,18 @@ input {
   font-style: italic;
   width: auto;
 }
+
+.sectionLabel {
+  color: orangered;
+  position: relative;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.sectionLabel .sectionLabelDash {
+  flex-grow: 1;
+  background-color: var(--dark-grey);
+  height: 1px;
+  border-radius: 50%;
+}
