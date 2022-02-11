@@ -5,7 +5,6 @@ input.numericInput {
   width: auto;
   text-align: end;
   --arrow-pad: 5px;
-  padding: 6px;
   max-width: 90px;
   min-width: 40px;
 }
