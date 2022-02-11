@@ -1,8 +1,15 @@
 fieldset {
   display: flex;
+  flex-wrap: wrap;
   gap: 5px;
   justify-content: space-around;
   border: none;
+}
+
+.option {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0;
 }
 
 /* Hide the little button icon because we take over the showing with outlines
@@ -24,4 +31,8 @@ input:checked + label {
   background-color: var(--rstudio-blue);
   color: var(--rstudio-white);
   font-weight: bold;
+}
+
+input:hover + label {
+  outline: 2px solid var(--rstudio-blue);
 }
