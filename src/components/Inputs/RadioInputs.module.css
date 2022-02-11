@@ -7,7 +7,7 @@ fieldset {
 
 /* Hide the little button icon because we take over the showing with outlines
 and background colors */
-input {
+.option > input {
   display: none;
 }
 
