@@ -73,8 +73,6 @@ function TractControl({
     [dir === "rows" ? "gridRow" : "gridColumn"]: tractIndex,
   };
 
-  const dirSingular = singular(dir);
-
   return (
     <TractControlsHolder className={dir} style={positionStyles}>
       <CSSUnitInput
@@ -198,7 +196,7 @@ function TractRemoveButton({
 const TractControlsHolder = styled.div({
   "--control-tracts": "1fr auto",
   "--offset-margin": `calc(-1*(var(--tract-gutter-size) + var(--gap)))`,
-  "--offset-into-gap": "calc(-1*var(--gap))",
+  "--offset-into-gap": "calc(-1*var(--gap)/2)",
   "--add-button-offset": "calc(var(--gap)/2)",
   display: "grid",
   position: "relative",
@@ -237,7 +235,7 @@ const TractControlsHolder = styled.div({
     placeContent: "center",
   },
   "&:not(:hover) > *:not(.display-size)": {
-    // opacity: "0",
+    opacity: "0",
   },
   "&:hover > .display-size": {
     display: "none",
