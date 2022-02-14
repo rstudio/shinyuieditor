@@ -1,0 +1,15 @@
+.popover {
+  pointer-events: none;
+  opacity: 0;
+  border-radius: var(--corner-radius);
+  padding: 5px;
+  background-color: var(--rstudio-white);
+  outline: 1px solid var(--light-grey);
+  width: max-content;
+  font-style: italic;
+}
+
+.popover[data-show] {
+  opacity: 1;
+  z-index: 9999;
+}
