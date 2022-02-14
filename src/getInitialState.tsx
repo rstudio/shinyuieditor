@@ -1,12 +1,5 @@
 import { UiNodeProps } from "components/Shiny-Ui-Elements/uiNodeTypes";
-import { TemplatedGridProps } from "utils/gridTemplates/types";
 
-type Panels = Record<string, UiNodeProps>;
-
-export type InitialState = {
-  elements: Panels;
-  layout: { type: "gridlayout"; options: TemplatedGridProps };
-};
 export async function getInitialState(): Promise<UiNodeProps> {
   const response = await fetch("app-please", { method: "GET" });
 
