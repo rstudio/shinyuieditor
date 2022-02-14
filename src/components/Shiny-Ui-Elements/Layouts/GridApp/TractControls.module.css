@@ -9,6 +9,16 @@
   justify-content: space-between;
 }
 
+.buttonHolderRows {
+  flex-direction: column;
+  padding-right: var(--padding-from-edge);
+}
+
+.buttonHolderCols {
+  flex-direction: row;
+  padding-bottom: var(--padding-from-edge);
+}
+
 .tractAddBeforeButton,
 .tractAddAfterButton,
 .tractDeleteButton {
@@ -37,14 +47,4 @@
 .tractDeleteButton:disabled {
   color: var(--light-grey);
   cursor: not-allowed;
-}
-
-.buttonHolderRows {
-  flex-direction: column;
-  padding-right: var(--padding-from-edge);
-}
-
-.buttonHolderCols {
-  flex-direction: row;
-  padding-bottom: var(--padding-from-edge);
 }
