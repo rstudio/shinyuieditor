@@ -1,7 +1,7 @@
-import styled from "@emotion/styled";
 import * as React from "react";
 import { UiNodeComponent } from "../uiComponentAndSettings";
 import { buildSliderSettings, ShinySliderInputProps } from "./arguments";
+import classes from "./styles.module.css";
 
 const ShinySliderInput: UiNodeComponent<ShinySliderInputProps> = ({
   children,
@@ -13,9 +13,9 @@ const ShinySliderInput: UiNodeComponent<ShinySliderInputProps> = ({
   const settings = buildSliderSettings({ ...uiArguments });
   const [currentVal, setCurrentVal] = React.useState(settings.value);
   return (
-    <SliderHolder
+    <div
+      className={classes.container + " shiny::sliderInput"}
       style={{ height, width }}
-      className={"shiny::sliderInput"}
       aria-label={"shiny::sliderInput"}
       {...passthroughProps}
     >
@@ -38,15 +38,8 @@ const ShinySliderInput: UiNodeComponent<ShinySliderInputProps> = ({
         </div>
       </div>
       {children}
-    </SliderHolder>
+    </div>
   );
 };
 
 export default ShinySliderInput;
-
-const SliderHolder = styled.div({
-  display: "grid",
-  gridTemplateRows: "1fr",
-  gridTemplateColumns: "1fr",
-  padding: "1rem",
-});
