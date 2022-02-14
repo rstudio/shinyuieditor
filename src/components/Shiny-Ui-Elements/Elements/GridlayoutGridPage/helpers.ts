@@ -1,7 +1,7 @@
 import { toStringLoc } from "utils/grid-helpers";
 import { GridItemExtent, ItemLocation } from "utils/gridTemplates/types";
 import { ItemBoundingBox } from "utils/overlap-helpers";
-import { GridCellBounds } from ".";
+import { GridCellBounds } from "./GridCell";
 
 export type TractDirection = "rows" | "cols";
 

@@ -1,4 +1,4 @@
-import { TractDirection } from "components/Shiny-Ui-Elements/Layouts/GridApp/helpers";
+import { TractDirection } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/helpers";
 import { CSSMeasure } from "GridTypes";
 import { addAtIndex, fillArr } from "utils/array-helpers";
 import { insertRowOrCol } from "utils/matrix-helpers";

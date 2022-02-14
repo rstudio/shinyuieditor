@@ -1,10 +1,13 @@
 import { DragAndDropHandlers } from "components/Shiny-Ui-Elements/DragAndDropHelpers/useDragAndDropElements";
+import { GridLocString } from "GridTypes";
 import debounce from "just-debounce-it";
 import React from "react";
 import { toStringLoc } from "utils/grid-helpers";
-import { getBBoxOfDiv } from "utils/overlap-helpers";
-import { CellLocRef } from "../../Layouts/GridApp";
+import { getBBoxOfDiv, ItemBoundingBox } from "utils/overlap-helpers";
 import classes from "./GridCell.module.css";
+
+export type GridCellBounds = Record<GridLocString, ItemBoundingBox>;
+export type CellLocRef = React.MutableRefObject<GridCellBounds>;
 
 export function GridCell({
   gridRow,

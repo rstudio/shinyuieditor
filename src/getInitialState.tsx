@@ -1,6 +1,7 @@
-import { Panels } from "components/Shiny-Ui-Elements/Layouts/GridApp";
 import { UiNodeProps } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { TemplatedGridProps } from "utils/gridTemplates/types";
+
+type Panels = Record<string, UiNodeProps>;
 
 export type InitialState = {
   elements: Panels;

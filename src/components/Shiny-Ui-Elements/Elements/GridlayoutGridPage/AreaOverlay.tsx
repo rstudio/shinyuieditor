@@ -12,11 +12,11 @@ import {
   ItemLocation,
   TemplatedGridProps,
 } from "utils/gridTemplates/types";
-import { CellLocRef } from "../../Layouts/GridApp";
 import {
   availableMoves,
   MovementType,
 } from "../../../../utils/gridTemplates/availableMoves";
+import { CellLocRef } from "./GridCell";
 import { useResizeOnDrag } from "./useResizeOnDrag";
 
 export function AreaOverlay({

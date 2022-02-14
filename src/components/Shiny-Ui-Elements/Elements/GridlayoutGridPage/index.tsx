@@ -3,11 +3,11 @@ import {
   dragAndDropTargetEvents,
 } from "components/Shiny-Ui-Elements/DragAndDropHelpers/useDragAndDropElements";
 import { AreaOverlay } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/AreaOverlay";
-import { GridCell } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/GridCell";
-import { LayoutDispatchContext } from "components/Shiny-Ui-Elements/Layouts/GridApp";
-import { TractControls } from "components/Shiny-Ui-Elements/Layouts/GridApp/TractControls";
+import {
+  CellLocRef,
+  GridCell,
+} from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/GridCell";
 import { ShinyUiNames } from "components/Shiny-Ui-Elements/uiNodeTypes";
-import { GridLocString } from "GridTypes";
 import omit from "just-omit";
 import React from "react";
 import { subtractElements } from "utils/array-helpers";
@@ -15,7 +15,6 @@ import { enumerateGridDims, toStringLoc } from "utils/grid-helpers";
 import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
 import { GridItemExtent, TemplatedGridProps } from "utils/gridTemplates/types";
-import { ItemBoundingBox } from "utils/overlap-helpers";
 import { GridPanelSettings } from "../GridlayoutGridPanel";
 import {
   sendTreeUpdateMessage,
@@ -28,14 +27,15 @@ import {
 import { GridLayoutAction, gridLayoutReducer } from "./gridLayoutReducer";
 import { NameNewPanelModal } from "./NameNewPanelModal";
 import classes from "./styles.module.css";
-
-export type GridCellBounds = Record<GridLocString, ItemBoundingBox>;
-export type CellLocRef = React.MutableRefObject<GridCellBounds>;
+import { TractControls } from "./TractControls";
 
 export type NewItemInfo = {
   uiName: ShinyUiNames;
   pos: GridItemExtent;
 };
+
+export const LayoutDispatchContext =
+  React.createContext<React.Dispatch<GridLayoutAction> | null>(null);
 
 const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
   uiArguments,
