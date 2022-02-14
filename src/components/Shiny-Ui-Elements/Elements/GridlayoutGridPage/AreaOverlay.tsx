@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import React from "react";
 import {
   AiFillCaretDown,
@@ -16,6 +15,7 @@ import {
   availableMoves,
   MovementType,
 } from "../../../../utils/gridTemplates/availableMoves";
+import classes from "./AreaOverlay.module.css";
 import { CellLocRef } from "./GridCell";
 import { useResizeOnDrag } from "./useResizeOnDrag";
 
@@ -57,13 +57,13 @@ export function AreaOverlay({
       const movementType = key as MovementType;
       if (movementOptions[movementType]) {
         movementArrows.push(
-          <Dragger
+          <div
             key={movementType}
-            className={movementType}
+            className={classes.dragger + " " + movementType}
             onMouseDown={() => startDrag(simplifySide(movementType))}
           >
             {movementToArrow[movementType]}
-          </Dragger>
+          </div>
         );
       }
     }
@@ -75,12 +75,15 @@ export function AreaOverlay({
   }, [area]);
 
   return (
-    <AreaMarker ref={overlayRef} className="grid-area-overlay">
+    <div ref={overlayRef} className={classes.marker + " grid-area-overlay"}>
       {movementHandles}
-      <Dragger className="move" onMouseDown={() => startDrag("move")}>
+      <div
+        className={classes.dragger + " " + classes.move}
+        onMouseDown={() => startDrag("move")}
+      >
         <MoveIcon />
-      </Dragger>
-    </AreaMarker>
+      </div>
+    </div>
   );
 }
 
@@ -100,85 +103,6 @@ function simplifySide(side: MovementType) {
       return "right";
   }
 }
-
-const AreaMarker = styled.div({
-  // outline: "1px solid black",
-  fontWeight: "lighter",
-  fontStyle: "italic",
-  padding: "2px",
-  position: "relative",
-  // Disable pointer events on the container so we can passthrough drag and drop
-  // and other click events to the actual element underneath the overlay
-  pointerEvents: "none",
-  // I have no idea why I need to specify a z-index here to get this to sit
-  // over the grid cell
-  zIndex: 1,
-  // backgroundColor: "var(--light-grey-transparent)",
-  "&:hover": {
-    outline: "2px solid var(--rstudio-blue)",
-  },
-  // "&.dragging": {
-  //   position: "absolute",
-  //   top: "var(--drag-top, 10px)",
-  //   left: "var(--drag-left, 20px)",
-  //   width: "var(--drag-width, 100px)",
-  //   height: "var(--drag-height, 100px)",
-  //   backgroundColor: "blanchedalmond",
-  // },
-  "&:not(.dragging)": {
-    gridArea: "var(--grid-area)",
-  },
-  "&.dragging": {
-    gridRowStart: "var(--drag-grid-row-start)",
-    gridRowEnd: "var(--drag-grid-row-end)",
-    gridColumnStart: "var(--drag-grid-column-start)",
-    gridColumnEnd: "var(--drag-grid-column-end)",
-    backgroundColor: "var(--rstudio-blue-transparent)",
-  },
-});
-
-const draggerShort = 12;
-const draggerAspect = 2;
-const draggerLong = draggerShort * draggerAspect;
-const Dragger = styled.div({
-  display: "grid",
-  placeContent: "center",
-  position: "absolute",
-  opacity: 0.2,
-  ":hover": { opacity: 1 },
-  backgroundColor: "var(--rstudio-blue)",
-  color: "var(--rstudio-white)",
-  // Re-enable pointer events on the drag handles themselves because we disabled
-  // it on the containing div to allow for passthrough of click events etc.
-  pointerEvents: "auto",
-  "&.move": {
-    height: `${draggerLong}px`,
-    width: `${draggerLong}px`,
-    left: `calc(50% - ${draggerLong / 2}px)`,
-    top: `calc(50% - ${draggerLong / 2}px)`,
-    cursor: "grab",
-  },
-  "&.up,&.down": {
-    height: `${draggerShort}px`,
-    width: `${draggerLong}px`,
-    left: `calc(50% - ${draggerLong / 2}px)`,
-    cursor: "ns-resize",
-  },
-  "&.right,&.left": {
-    width: `${draggerShort}px`,
-    height: `${draggerLong}px`,
-    top: `calc(50% - ${draggerLong / 2}px)`,
-    cursor: "ew-resize",
-  },
-  "&.expand.up": { bottom: "100%" },
-  "&.shrink.up": { top: "0" },
-  "&.expand.down": { top: "100%" },
-  "&.shrink.down": { bottom: "0" },
-  "&.expand.right": { left: "100%" },
-  "&.expand.left": { right: "100%" },
-  "&.shrink.right": { right: "0" },
-  "&.shrink.left": { left: "0" },
-});
 
 const RightArrow = AiFillCaretRight;
 const LeftArrow = AiFillCaretLeft;
