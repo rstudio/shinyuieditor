@@ -1,6 +1,3 @@
-/** @jsxImportSource @emotion/react */
-
-import styled from "@emotion/styled";
 import { CSSUnitInput } from "components/Inputs/CSSUnitInput";
 import { GridLayoutAction } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/gridLayoutReducer";
 import { CSSMeasure } from "GridTypes";
@@ -74,7 +71,10 @@ function TractControl({
   };
 
   return (
-    <TractControlsHolder className={dir} style={positionStyles}>
+    <div
+      className={classes.container + " " + classes[dir]}
+      style={positionStyles}
+    >
       <CSSUnitInput
         value={size}
         onChange={(newSize) => {
@@ -86,13 +86,8 @@ function TractControl({
           });
         }}
       />
-
-      <div className="display-size">{size}</div>
-      <div
-        className={
-          dir === "rows" ? classes.buttonHolderRows : classes.buttonHolderCols
-        }
-      >
+      <div className={classes.displaySize}>{size}</div>
+      <div className={classes.buttonHolder}>
         <AddTractButton
           dir={dir}
           beforeOrAfter="before"
@@ -112,7 +107,7 @@ function TractControl({
           setLayout={setLayout}
         />
       </div>
-    </TractControlsHolder>
+    </div>
   );
 }
 
@@ -193,79 +188,3 @@ function TractRemoveButton({
     </button>
   );
 }
-
-const TractControlsHolder = styled.div({
-  "--control-tracts": "1fr auto",
-  "--offset-margin": `calc(-1*(var(--tract-gutter-size) + var(--gap)))`,
-  "--offset-into-gap": "calc(-1*var(--gap)/2)",
-  "--add-button-offset": "calc(var(--gap)/2)",
-  display: "grid",
-  position: "relative",
-  gap: "5px",
-  "&.rows": {
-    "--tract-gutter-size": "var(--row-gutter)",
-    paddingRight: "var(--gap)",
-    gridTemplateColumns: "var(--control-tracts)",
-    width: "calc(var(--row-gutter) + var(--gap))",
-    marginTop: "var(--offset-into-gap)",
-    marginBottom: "var(--offset-into-gap)",
-    marginLeft: `var(--offset-margin)`,
-    gridColumn: 1,
-    alignItems: "center",
-    justifyItems: "end",
-  },
-  "&.cols": {
-    "--tract-gutter-size": "var(--col-gutter)",
-    paddingBottom: "var(--gap)",
-    gridTemplateRows: "var(--control-tracts)",
-    height: "calc(var(--col-gutter) + var(--gap))",
-    marginTop: `var(--offset-margin)`,
-    marginLeft: "var(--offset-into-gap)",
-    marginRight: "var(--offset-into-gap)",
-    gridRow: 1,
-    justifyItems: "center",
-    alignItems: "end",
-  },
-  "& > .display-size": {
-    fontStyle: "italic",
-    opacity: 0.7,
-    position: "absolute",
-    display: "grid",
-    width: "100%",
-    height: "100%",
-    placeContent: "center",
-  },
-  "&:not(:hover) > *:not(.display-size)": {
-    opacity: "0",
-  },
-  "&:hover > .display-size": {
-    display: "none",
-  },
-  "&:hover": {
-    "--edge-color": "var(--rstudio-blue)",
-    zIndex: 1000,
-  },
-  "&::after": {
-    "--thickness": "2px",
-    "--inset-to-edge": "calc(var(--gap) + 5px)",
-    "--edge-color": "var(--light-grey)",
-    content: `""`,
-    opacity: 1,
-    position: "absolute",
-    pointerEvents: "none",
-  },
-  "&.rows::after": {
-    height: "calc(100% - 2*var(--gap))",
-    width: "calc(100% - 2*var(--inset-to-edge))",
-    right: "var(--inset-to-edge)",
-    borderTop: "1px dashed var(--edge-color)",
-    borderBottom: "1px dashed var(--edge-color)",
-  },
-  "&.cols::after": {
-    bottom: "var(--inset-to-edge)",
-    width: "calc(100% - 2*var(--gap))",
-    height: "calc(100% - 2*var(--inset-to-edge))",
-    borderLeft: "1px dashed var(--edge-color)",
-    borderRight: "1px dashed var(--edge-color)",
-  },
-});
