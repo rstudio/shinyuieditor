@@ -1,9 +1,9 @@
 import { CSSUnitInput } from "components/Inputs/CSSUnitInput";
 import { GridLayoutAction } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/gridLayoutReducer";
 import {
-  TractDirection,
   directions,
   singular,
+  TractDirection,
 } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/helpers";
 import { CSSMeasure } from "GridTypes";
 import React from "react";
@@ -13,6 +13,7 @@ import { ParsedGridTemplate } from "utils/gridTemplates/parseGridTemplateAreas";
 import { conflictsToRemoveTract } from "utils/gridTemplates/removeTract";
 import { TemplatedGridProps } from "utils/gridTemplates/types";
 import { LayoutDispatchContext } from ".";
+import { PopoverButton } from "../../../Inputs/PopoverButton";
 import classes from "./TractControls.module.css";
 
 export function TractControls({
@@ -131,14 +132,14 @@ function AddTractButton({
   const description = `Add ${dirSingular} before ${dirSingular} ${index}`;
 
   return (
-    <button
+    <PopoverButton
       className={
         beforeOrAfter === "before"
           ? classes.tractAddBeforeButton
           : classes.tractAddAfterButton
       }
-      title={description}
       aria-label={description}
+      popoverText={description}
       onClick={() =>
         setLayout?.({
           type: "ADD_TRACT",
@@ -149,10 +150,9 @@ function AddTractButton({
       }
     >
       <FaPlus />
-    </button>
+    </PopoverButton>
   );
 }
-
 function TractRemoveButton({
   dir,
   index,
@@ -162,7 +162,6 @@ function TractRemoveButton({
   dir: TractDirection;
   index: number;
   setLayout: React.Dispatch<GridLayoutAction> | null;
-
   conflicts: string[];
 }) {
   const dirSingular = singular(dir);
@@ -177,18 +176,19 @@ function TractRemoveButton({
     : description;
 
   return (
-    <button
-      className={classes.tractDeleteButton}
+    <PopoverButton
+      className={
+        classes.tractDeleteButton + " " + (cantDelete ? classes.disabled : null)
+      }
       aria-label={description}
-      title={popupText}
-      disabled={cantDelete}
       onClick={
         cantDelete
           ? undefined
           : () => setLayout?.({ type: "REMOVE_TRACT", dir, index })
       }
+      popoverText={popupText}
     >
       <FaTrash />
-    </button>
+    </PopoverButton>
   );
 }

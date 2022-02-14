@@ -121,7 +121,7 @@
   margin-right: calc(var(--size) / -2);
 }
 
-.tractDeleteButton:disabled {
+.tractDeleteButton.disabled {
   color: var(--light-grey);
   cursor: not-allowed;
 }
