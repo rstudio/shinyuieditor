@@ -2,16 +2,17 @@
 
 import styled from "@emotion/styled";
 import { CSSUnitInput } from "components/Inputs/CSSUnitInput";
+import { GridLayoutAction } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/gridLayoutReducer";
 import { CSSMeasure } from "GridTypes";
 import React from "react";
+import { FaPlus, FaTrash } from "react-icons/fa";
+import { joinPretty } from "utils/array-helpers";
 import { ParsedGridTemplate } from "utils/gridTemplates/parseGridTemplateAreas";
 import { conflictsToRemoveTract } from "utils/gridTemplates/removeTract";
 import { TemplatedGridProps } from "utils/gridTemplates/types";
 import { LayoutDispatchContext } from ".";
-import { directions, TractDirection } from "./helpers";
-import { TractAddButton } from "./TractAddButton";
+import { directions, singular, TractDirection } from "./helpers";
 import classes from "./TractControls.module.css";
-import { TractRemoveButton } from "./TractRemoveButton";
 
 export function TractControls({
   areas,
@@ -72,6 +73,8 @@ function TractControl({
     [dir === "rows" ? "gridRow" : "gridColumn"]: tractIndex,
   };
 
+  const dirSingular = singular(dir);
+
   return (
     <TractControlsHolder className={dir} style={positionStyles}>
       <CSSUnitInput
@@ -92,25 +95,103 @@ function TractControl({
           dir === "rows" ? classes.buttonHolderRows : classes.buttonHolderCols
         }
       >
-        <TractAddButton
+        <AddTractButton
           dir={dir}
-          tractIndex={tractIndex}
-          size={NEW_TRACT_SIZE}
           beforeOrAfter="before"
+          index={tractIndex}
+          setLayout={setLayout}
         />
         <TractRemoveButton
           dir={dir}
           index={tractIndex}
           conflicts={deletionConflicts}
+          setLayout={setLayout}
         />
-        <TractAddButton
+        <AddTractButton
           dir={dir}
-          tractIndex={tractIndex}
-          size={NEW_TRACT_SIZE}
           beforeOrAfter="after"
+          index={tractIndex}
+          setLayout={setLayout}
         />
       </div>
     </TractControlsHolder>
+  );
+}
+
+function AddTractButton({
+  dir,
+  beforeOrAfter,
+  index,
+  setLayout,
+}: {
+  dir: TractDirection;
+  beforeOrAfter: "before" | "after";
+  index: number;
+  setLayout: React.Dispatch<GridLayoutAction> | null;
+}) {
+  const dirSingular = singular(dir);
+
+  const description = `Add ${dirSingular} before ${dirSingular} ${index}`;
+
+  return (
+    <button
+      className={
+        beforeOrAfter === "before"
+          ? classes.tractAddBeforeButton
+          : classes.tractAddAfterButton
+      }
+      title={description}
+      aria-label={description}
+      onClick={() =>
+        setLayout?.({
+          type: "ADD_TRACT",
+          dir,
+          afterIndex: beforeOrAfter === "before" ? index - 1 : index,
+          size: NEW_TRACT_SIZE,
+        })
+      }
+    >
+      <FaPlus />
+    </button>
+  );
+}
+
+function TractRemoveButton({
+  dir,
+  index,
+  conflicts,
+  setLayout,
+}: {
+  dir: TractDirection;
+  index: number;
+  setLayout: React.Dispatch<GridLayoutAction> | null;
+
+  conflicts: string[];
+}) {
+  const dirSingular = singular(dir);
+
+  const cantDelete = conflicts.length > 0;
+
+  const description = `remove ${dirSingular} ${index}`;
+  const popupText = cantDelete
+    ? `Can't ${description} as items ${joinPretty(
+        conflicts
+      )} are entirely contained within it.`
+    : description;
+
+  return (
+    <button
+      className={classes.tractDeleteButton}
+      aria-label={description}
+      title={popupText}
+      onClick={
+        cantDelete
+          ? undefined
+          : () => setLayout?.({ type: "REMOVE_TRACT", dir, index })
+      }
+    >
+      <FaTrash />
+    </button>
   );
 }
 
@@ -156,7 +237,7 @@ const TractControlsHolder = styled.div({
     placeContent: "center",
   },
   "&:not(:hover) > *:not(.display-size)": {
-    opacity: "0",
+    // opacity: "0",
   },
   "&:hover > .display-size": {
     display: "none",

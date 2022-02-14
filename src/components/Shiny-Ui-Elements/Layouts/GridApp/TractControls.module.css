@@ -9,6 +9,18 @@
   justify-content: space-between;
 }
 
+.tractAddBeforeButton {
+  color: green;
+}
+
+.tractAddAfterButton {
+  color: goldenrod;
+}
+
+.tractDeleteButton {
+  color: orangered;
+}
+
 .buttonHolder.addButton {
   position: absolute;
 }
@@ -16,21 +28,22 @@
 .buttonHolderRows {
   flex-direction: column;
   padding-right: var(--padding-from-edge);
+  padding-top: calc(var(--gap) / 2);
 }
-.buttonHolderRows.before {
+/* .buttonHolderRows .before {
   top: var(--add-button-offset);
 }
 .buttonHolderRows.after {
   bottom: var(--add-button-offset);
-}
+} */
 
 .buttonHolderCols {
   flex-direction: row;
   padding-bottom: var(--padding-from-edge);
 }
-.buttonHolderCols.before {
+/* .buttonHolderCols.before {
   left: var(--add-button-offset);
 }
 .buttonHolderCols.after {
   right: var(--add-button-offset);
-}
+} */
