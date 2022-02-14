@@ -182,6 +182,7 @@ function TractRemoveButton({
       className={classes.tractDeleteButton}
       aria-label={description}
       title={popupText}
+      disabled={cantDelete}
       onClick={
         cantDelete
           ? undefined
