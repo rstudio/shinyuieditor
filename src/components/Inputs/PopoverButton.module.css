@@ -5,8 +5,9 @@
   padding: 5px;
   background-color: var(--rstudio-white);
   outline: 1px solid var(--light-grey);
-  width: max-content;
   font-style: italic;
+  width: max-content;
+  max-width: 200px;
 }
 
 .popover[data-show] {
