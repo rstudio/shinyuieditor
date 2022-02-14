@@ -128,7 +128,6 @@ function AddTractButton({
   setLayout: React.Dispatch<GridLayoutAction> | null;
 }) {
   const dirSingular = singular(dir);
-
   const description = `Add ${dirSingular} before ${dirSingular} ${index}`;
 
   return (
@@ -138,6 +137,7 @@ function AddTractButton({
           ? classes.tractAddBeforeButton
           : classes.tractAddAfterButton
       }
+      placement={dir === "rows" ? "right" : "bottom"}
       aria-label={description}
       popoverText={description}
       onClick={() =>
@@ -180,6 +180,7 @@ function TractRemoveButton({
       className={
         classes.tractDeleteButton + " " + (cantDelete ? classes.disabled : null)
       }
+      placement={dir === "rows" ? "right" : "bottom"}
       aria-label={description}
       onClick={
         cantDelete

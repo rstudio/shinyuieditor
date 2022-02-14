@@ -1,3 +1,4 @@
+import { Placement } from "@popperjs/core";
 import React from "react";
 import { usePopper } from "react-popper";
 import classes from "./PopoverButton.module.css";
@@ -5,8 +6,9 @@ import classes from "./PopoverButton.module.css";
 export const PopoverButton: React.FC<
   {
     popoverText: string;
+    placement?: Placement;
   } & React.HTMLAttributes<HTMLButtonElement>
-> = ({ children, popoverText, ...passthroughProps }) => {
+> = ({ children, placement = "right", popoverText, ...passthroughProps }) => {
   const [referenceElement, setReferenceElement] =
     React.useState<HTMLButtonElement | null>(null);
 
@@ -14,7 +16,7 @@ export const PopoverButton: React.FC<
     React.useState<HTMLDivElement | null>(null);
 
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
-    placement: "right",
+    placement,
     modifiers: [{ name: "offset", options: { offset: [0, 5] } }],
   });
 
