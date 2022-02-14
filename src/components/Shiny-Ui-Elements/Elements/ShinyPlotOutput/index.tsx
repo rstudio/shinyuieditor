@@ -1,8 +1,7 @@
-import styled from "@emotion/styled";
 import * as React from "react";
 import { GoGraph } from "react-icons/go";
 import { UiNodeComponent } from "../uiComponentAndSettings";
-
+import classes from "./styles.module.css";
 export type ShinyPlotOutputProps = Partial<{
   outputId: string;
   width: string;
@@ -39,7 +38,8 @@ const ShinyPlotOutput: UiNodeComponent<ShinyPlotOutputProps> = ({
   }, []);
 
   return (
-    <PlotHolder
+    <div
+      className={classes.container}
       ref={holderRef}
       style={{ height, width }}
       aria-label="shiny::plotOutput placeholder"
@@ -58,17 +58,8 @@ const ShinyPlotOutput: UiNodeComponent<ShinyPlotOutputProps> = ({
         This is a plot with the name {outputId}!
       </div>
       {children}
-    </PlotHolder>
+    </div>
   );
 };
-
-const PlotHolder = styled.div({
-  display: "grid",
-  gridTemplateRows: "1fr",
-  gridTemplateColumns: "1fr",
-  placeContent: "center",
-  padding: "1rem",
-  maxHeight: "100%",
-});
 
 export default ShinyPlotOutput;
