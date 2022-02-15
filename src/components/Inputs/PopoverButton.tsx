@@ -15,10 +15,21 @@ export const PopoverButton: React.FC<
   const [popperElement, setPopperElement] =
     React.useState<HTMLDivElement | null>(null);
 
-  const { styles, attributes } = usePopper(referenceElement, popperElement, {
-    placement,
-    modifiers: [{ name: "offset", options: { offset: [0, 5] } }],
-  });
+  const [arrowElement, setArrowElement] = React.useState<HTMLDivElement | null>(
+    null
+  );
+
+  const { styles, attributes, update } = usePopper(
+    referenceElement,
+    popperElement,
+    {
+      placement,
+      modifiers: [
+        { name: "arrow", options: { element: arrowElement } },
+        { name: "offset", options: { offset: [0, 10] } },
+      ],
+    }
+  );
 
   function showPopper() {
     popperElement?.setAttribute("data-show", "");
@@ -44,6 +55,11 @@ export const PopoverButton: React.FC<
         {...attributes.popper}
       >
         {popoverText}
+        <div
+          ref={setArrowElement}
+          className={classes.popperArrow}
+          style={styles.arrow}
+        />
       </div>
     </>
   );
