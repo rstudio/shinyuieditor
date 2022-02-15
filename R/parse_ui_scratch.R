@@ -4,12 +4,12 @@ library(gridlayout)
 ui_expr <- rlang::expr(
   gridlayout::grid_page(
     layout = "
-|2rem  |200px   |1fr    |
-|80px  |header  |header |
-|1fr   |sidebar |plot   |",
+    |2rem  |200px   |1fr    |
+    |80px  |header  |header |
+    |1fr   |sidebar |plot   |",
     gridlayout::title_panel(
       "header",
-      title = "My App Title"
+      title = "My App Title from R2"
     ),
     gridlayout::grid_panel(
       "sidebar",
@@ -20,6 +20,10 @@ ui_expr <- rlang::expr(
       "plot",
       shiny::plotOutput("distPlot")
     )
+    # lapply(
+    #   c(1,2,3),
+    #   FUN=function(x){x}
+    # )
   )
 )
 

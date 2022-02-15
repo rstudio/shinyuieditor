@@ -45,6 +45,8 @@ validate_ui_fn_call <- function(uiName, uiArguments){
   })
 }
 
+
+ui_tree <- list()
 handlePost <- function(path, body){
   # Remove the prefixing slash so we can switch on path easier
   path <- str_remove(path, "^\\/")
@@ -55,8 +57,9 @@ handlePost <- function(path, body){
     UiDump = {
 
       print(parsed_body)
-      # updated_ui_string <- to_gridlayout_ui(parsed_body)
-      # save_ui_to_file(updated_ui_string, ui_loc)
+      ui_tree <<- parsed_body
+      updated_ui_string <- generate_ui_code(parsed_body)
+      save_ui_to_file(updated_ui_string, ui_loc)
       writeLog("<= Saved new ui state from client")
 
       list(
