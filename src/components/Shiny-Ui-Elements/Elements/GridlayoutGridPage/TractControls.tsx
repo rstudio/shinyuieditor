@@ -153,6 +153,7 @@ function AddTractButton({
     </PopoverButton>
   );
 }
+
 function TractRemoveButton({
   dir,
   index,
@@ -169,11 +170,17 @@ function TractRemoveButton({
   const cantDelete = conflicts.length > 0;
 
   const description = `remove ${dirSingular} ${index}`;
-  const popupText = cantDelete
-    ? `Can't ${description} as items ${joinPretty(
-        conflicts
-      )} are entirely contained within it.`
-    : description;
+
+  let popupText = description;
+
+  if (conflicts.length === 1) {
+    popupText = `Can't ${description} as item ${conflicts[0]} is entirely contained within it.`;
+  }
+  if (conflicts.length > 1) {
+    popupText = `Can't ${description} as the items ${joinPretty(
+      conflicts
+    )} are entirely contained within it.`;
+  }
 
   return (
     <PopoverButton
