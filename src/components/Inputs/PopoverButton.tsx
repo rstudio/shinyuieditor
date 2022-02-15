@@ -32,6 +32,7 @@ export const PopoverButton: React.FC<
   );
 
   function showPopper() {
+    update?.();
     popperElement?.setAttribute("data-show", "");
   }
   function hidePopper() {
