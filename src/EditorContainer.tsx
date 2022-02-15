@@ -1,5 +1,6 @@
 import rstudioLogo from "assets/RStudio-Logo.svg";
 import shinyLogo from "assets/Shiny-Logo.png";
+import Button from "components/Inputs/Button";
 import { useEventUpdatedTree } from "components/Shiny-Ui-Elements/Elements/treeUpdateEvents";
 import ElementsPalette from "components/Shiny-Ui-Elements/ElementsPalette";
 import UiNode from "components/Shiny-Ui-Elements/UiNode";
@@ -39,6 +40,9 @@ function EditorContainerWithData({
               alt="Shiny Logo"
             />
           </div>
+          <div>
+            <Button onClick={() => sendUiStateToBackend(tree)}>Done</Button>
+          </div>
         </div>
         <div className={`${classes.elementsPanel} ${classes.titledPanel}`}>
           <h3>Elements</h3>
@@ -68,4 +72,22 @@ export function EditorContainer() {
   }
 
   return <EditorContainerWithData initialState={data} />;
+}
+
+function sendUiStateToBackend(state: UiNodeProps) {
+  console.log("Sending state to backend", state);
+  const stateBlob = new Blob([JSON.stringify(state, null, 2)], {
+    type: "application/json",
+  });
+
+  fetch("UiDump", { method: "POST", body: stateBlob })
+    .then(function (response) {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(function (response) {
+      console.log("Response after sending state blob", response);
+    });
 }
