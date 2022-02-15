@@ -54,8 +54,9 @@ handlePost <- function(path, body){
     path,
     UiDump = {
 
-      updated_ui_string <- to_gridlayout_ui(parsed_body)
-      save_ui_to_file(updated_ui_string, ui_loc)
+      print(parsed_body)
+      # updated_ui_string <- to_gridlayout_ui(parsed_body)
+      # save_ui_to_file(updated_ui_string, ui_loc)
       writeLog("<= Saved new ui state from client")
 
       list(
