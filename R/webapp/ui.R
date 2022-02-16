@@ -11,17 +11,11 @@ gridlayout::grid_page(
   gridlayout::grid_panel(
     area = "sidebar",
     shiny::sliderInput(
-      inputId = "slider1",
-      label = "my slider is cool",
-      min = "1",
-      max = "10",
-      value = "7"
-    ),
-    shiny::sliderInput(
-      inputId = "slider3",
-      min = "2",
-      max = "10",
-      value = "5"
+      inputId = "slider",
+      label = "Slider",
+      min = 0L,
+      value = 5L,
+      max = 10L
     )
   ),
   gridlayout::grid_panel(
