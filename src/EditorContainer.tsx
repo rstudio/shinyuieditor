@@ -1,6 +1,5 @@
 import rstudioLogo from "assets/RStudio-Logo.svg";
 import shinyLogo from "assets/Shiny-Logo.png";
-import Button from "components/Inputs/Button";
 import { useEventUpdatedTree } from "components/Shiny-Ui-Elements/Elements/treeUpdateEvents";
 import ElementsPalette from "components/Shiny-Ui-Elements/ElementsPalette";
 import UiNode from "components/Shiny-Ui-Elements/UiNode";
@@ -25,7 +24,7 @@ function EditorContainerWithData({
 }) {
   const [selectedPath, setSelectedPath] = React.useState<NodePath | null>(null);
 
-  const tree = useEventUpdatedTree(initialState);
+  const tree = useEventUpdatedTree(initialState, sendUiStateToBackend);
 
   return (
     <NodeSelectionContext.Provider value={setSelectedPath}>
@@ -39,9 +38,6 @@ function EditorContainerWithData({
               style={{ backgroundColor: "var(--rstudio-blue, pink)" }}
               alt="Shiny Logo"
             />
-          </div>
-          <div>
-            <Button onClick={() => sendUiStateToBackend(tree)}>Done</Button>
           </div>
         </div>
         <div className={`${classes.elementsPanel} ${classes.titledPanel}`}>

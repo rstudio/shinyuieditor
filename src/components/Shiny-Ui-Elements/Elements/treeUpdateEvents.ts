@@ -56,10 +56,16 @@ export function useListenForTreeUpdateEvent(
  * Create a UI Node tree dataset that will update in response to tree update
  * events
  * @param initialState Starting state of the UI Tree
+ * @param onStateChange Callback to be run everytime the state is updated
  * @returns Most recent state of the ui tree
  */
-export function useEventUpdatedTree(initialState: ShinyUiNameAndArguments) {
+export function useEventUpdatedTree(
+  initialState: ShinyUiNameAndArguments,
+  onStateChange: (state: ShinyUiNameAndArguments) => void
+) {
   const [tree, updateTree] = React.useReducer(treeUpdateReducer, initialState);
+
+  React.useEffect(() => onStateChange(tree), [onStateChange, tree]);
 
   useListenForTreeUpdateEvent(updateTree);
 
