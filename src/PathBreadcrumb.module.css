@@ -1,0 +1,17 @@
+.container {
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.node {
+  font-family: monospace;
+  font-size: 1.02rem;
+  background-color: var(--rstudio-blue);
+  color: var(--rstudio-white);
+  padding: 5px;
+  border-radius: var(--corner-radius);
+  width: fit-content;
+  cursor: pointer;
+}

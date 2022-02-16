@@ -11,6 +11,7 @@ import { NodeSelectionContext } from "EditorContainer";
 import * as React from "react";
 import { BiCheck } from "react-icons/bi";
 import { FiTrash as TrashIcon } from "react-icons/fi";
+import PathBreadcrumb from "./PathBreadcrumb";
 import classes from "./SettingsPanel.module.css";
 
 export function SettingsPanel({
@@ -78,12 +79,14 @@ export function SettingsPanel({
   return (
     <div className={classes.settingsPanel}>
       <div className={classes.currentElementAbout}>
-        <p>
-          <strong>Element:</strong> {uiName}
-        </p>
-        <p>
-          <strong>Path:</strong> [{selectedPath.join(",")}]
-        </p>
+        <div>
+          <strong>Path:</strong>
+          <PathBreadcrumb
+            tree={tree}
+            path={selectedPath}
+            onSelect={setNodeSelection}
+          />
+        </div>
       </div>
       <div className={classes.settingsForm}>
         <form onSubmit={finishUpdating}>
