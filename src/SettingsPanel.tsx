@@ -85,7 +85,11 @@ export function SettingsPanel({
     sendTreeUpdateMessage({
       type: "UPDATE_NODE",
       path: selectedPath,
-      newNode: currentNode,
+      newNode: {
+        ...currentNode,
+        // Add resulting html from setting validation (if present)
+        uiHTML: "uiHTML" in result ? result.uiHTML : undefined,
+      },
     });
   };
 

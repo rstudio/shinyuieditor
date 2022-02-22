@@ -32,6 +32,7 @@ export type ShinyUiNode = {
     uiArguments: ShinyUiArguments[UiName];
     /** Any children of this node */
     uiChildren?: ShinyUiNode[];
+    uiHTML?: string;
   };
 }[ShinyUiNames];
 
