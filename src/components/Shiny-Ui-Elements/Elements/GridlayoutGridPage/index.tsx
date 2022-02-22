@@ -9,7 +9,7 @@ import {
 } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/GridCell";
 import {
   ShinyUiNames,
-  UiNodeProps,
+  ShinyUiNode,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import omit from "just-omit";
 import React from "react";
@@ -163,7 +163,7 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
       // If we're using a grid-aware node already then we just need to put the
       // new name into its settings. Otherwise automatically wrap the item in a
       // grid container
-      let newNode: UiNodeProps;
+      let newNode: ShinyUiNode;
       if (
         newElement.uiName === "gridlayout::grid_panel" ||
         newElement.uiName === "gridlayout::title_panel"

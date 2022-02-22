@@ -1,7 +1,7 @@
-import { UiNodeProps } from "../uiNodeTypes";
+import { ShinyUiNode } from "../uiNodeTypes";
 import { addNode, getNode, removeNode, updateNode } from "./treeManipulation";
 
-const baseNode: UiNodeProps = {
+const baseNode: ShinyUiNode = {
   uiName: "gridlayout::grid_panel",
   uiArguments: { horizontalAlign: "center", verticalAlign: "center" },
   uiChildren: [
@@ -40,7 +40,7 @@ test("Remove a node", () => {
     },
   });
   const withoutNode = removeNode({
-    tree: baseNode as UiNodeProps,
+    tree: baseNode as ShinyUiNode,
     path: [0, 1],
   });
   expect(getNode(withoutNode, [0, 1])).toEqual(undefined);
@@ -55,14 +55,14 @@ test("Modify a node", () => {
     },
   });
 
-  const nodeToReplaceWith: UiNodeProps = {
+  const nodeToReplaceWith: ShinyUiNode = {
     uiName: "shiny::plotOutput",
     uiArguments: {
       outputId: "replacedNode",
     },
   };
   const updatedNode = updateNode({
-    tree: baseNode as UiNodeProps,
+    tree: baseNode as ShinyUiNode,
     path: [0, 0],
     newNode: nodeToReplaceWith,
   });
@@ -71,7 +71,7 @@ test("Modify a node", () => {
 });
 
 test("Modify a node at first level", () => {
-  const baseNode: UiNodeProps = {
+  const baseNode: ShinyUiNode = {
     uiName: "gridlayout::grid_panel",
     uiArguments: { horizontalAlign: "center", verticalAlign: "center" },
     uiChildren: [
@@ -91,14 +91,14 @@ test("Modify a node at first level", () => {
     },
   });
 
-  const nodeToReplaceWith: UiNodeProps = {
+  const nodeToReplaceWith: ShinyUiNode = {
     uiName: "shiny::plotOutput",
     uiArguments: {
       outputId: "replacedNode",
     },
   };
   const updatedNode = updateNode({
-    tree: baseNode as UiNodeProps,
+    tree: baseNode as ShinyUiNode,
     path: [0],
     newNode: nodeToReplaceWith,
   });
@@ -155,7 +155,7 @@ test("Update the settings of the root node", () => {
   };
 
   const updated_app = updateNode({
-    tree: grid_app as UiNodeProps,
+    tree: grid_app as ShinyUiNode,
     path: [],
     newNode: {
       uiName: "gridlayout::grid_page",
@@ -175,7 +175,7 @@ test("Update the settings of the root node", () => {
 test("Add a node", () => {
   expect(getNode(baseNode, [0]).uiChildren).toHaveLength(2);
 
-  const newUiNode: UiNodeProps = {
+  const newUiNode: ShinyUiNode = {
     uiName: "gridlayout::title_panel",
     uiArguments: {
       title: "myNewNode",

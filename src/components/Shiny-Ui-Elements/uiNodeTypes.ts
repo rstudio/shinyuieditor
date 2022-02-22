@@ -31,7 +31,7 @@ export type ShinyUiNode = {
     uiName: UiName;
     uiArguments: ShinyUiArguments[UiName];
     /** Any children of this node */
-    uiChildren?: UiNodeProps[];
+    uiChildren?: ShinyUiNode[];
   };
 }[ShinyUiNames];
 
@@ -48,11 +48,11 @@ export type ContainerSettings = GridPanelSettings;
  */
 export type NodePath = number[];
 
-export type UiNodeProps = ShinyUiNode;
+// export type ShinyUiNode = ShinyUiNode;
 
-type UiContainerNode = Required<UiNodeProps>;
+type UiContainerNode = Required<ShinyUiNode>;
 export function checkIfContainerNode(
-  node: UiNodeProps
+  node: ShinyUiNode
 ): node is UiContainerNode {
   return (node as UiContainerNode).uiChildren !== undefined;
 }

@@ -1,11 +1,11 @@
 import produce from "immer";
-import { UiNodeProps, NodePath, checkIfContainerNode } from "../uiNodeTypes";
+import { ShinyUiNode, NodePath, checkIfContainerNode } from "../uiNodeTypes";
 
 /**
  * Navigate to a node in a UiTree at the provided path
  */
-export function getNode(tree: UiNodeProps, path: NodePath): UiNodeProps {
-  let currNode: UiNodeProps = tree;
+export function getNode(tree: ShinyUiNode, path: NodePath): ShinyUiNode {
+  let currNode: ShinyUiNode = tree;
   let currPath: number;
   for (currPath of path) {
     if (!checkIfContainerNode(currNode)) {
@@ -23,9 +23,9 @@ export function getNode(tree: UiNodeProps, path: NodePath): UiNodeProps {
  * index to get to the node so it can be easily modified
  */
 function navigateToParent(
-  tree: UiNodeProps,
+  tree: ShinyUiNode,
   path: NodePath
-): { parentNode: UiNodeProps; indexToNode: number } {
+): { parentNode: ShinyUiNode; indexToNode: number } {
   const pathCopy = [...path];
   const indexToNode = pathCopy.pop();
   if (typeof indexToNode === "undefined")
@@ -51,7 +51,7 @@ export function removeNode({
   tree,
   path,
 }: {
-  tree: UiNodeProps;
+  tree: ShinyUiNode;
   path: NodePath;
 }) {
   return produce(tree, (treeDraft) => {
@@ -75,9 +75,9 @@ export function replaceNode({
   path,
   newNode,
 }: {
-  tree: UiNodeProps;
+  tree: ShinyUiNode;
   path: NodePath;
-  newNode: UiNodeProps;
+  newNode: ShinyUiNode;
 }) {
   return produce(tree, (treeDraft) => {
     const { parentNode, indexToNode } = navigateToParent(treeDraft, path);
@@ -98,9 +98,9 @@ export function updateNode({
   path,
   newNode,
 }: {
-  tree: UiNodeProps;
+  tree: ShinyUiNode;
   path: NodePath;
-  newNode: UiNodeProps;
+  newNode: ShinyUiNode;
 }) {
   return produce(tree, (treeDraft) => {
     const node = getNode(treeDraft, path);
@@ -118,9 +118,9 @@ export function addNode({
   path,
   newNode,
 }: {
-  tree: UiNodeProps;
+  tree: ShinyUiNode;
   path: NodePath;
-  newNode: UiNodeProps;
+  newNode: ShinyUiNode;
 }) {
   return produce(tree, (treeDraft) => {
     const parentNode = getNode(treeDraft, path);

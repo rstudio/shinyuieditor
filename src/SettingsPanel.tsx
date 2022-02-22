@@ -6,7 +6,7 @@ import { getNode } from "components/Shiny-Ui-Elements/UiNode/treeManipulation";
 import {
   NodePath,
   SettingsUpdaterComponent,
-  UiNodeProps,
+  ShinyUiNode,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { NodeSelectionContext } from "EditorContainer";
 import * as React from "react";
@@ -19,12 +19,12 @@ export function SettingsPanel({
   tree,
   selectedPath,
 }: {
-  tree: UiNodeProps;
+  tree: ShinyUiNode;
   selectedPath: NodePath | null;
 }) {
   const setNodeSelection = React.useContext(NodeSelectionContext);
 
-  const [currentNode, setCurrentNode] = React.useState<UiNodeProps | null>(
+  const [currentNode, setCurrentNode] = React.useState<ShinyUiNode | null>(
     selectedPath !== null ? getNode(tree, selectedPath) : null
   );
   const [errorMsg, setErrorMsg] = React.useState<string | null>(null);

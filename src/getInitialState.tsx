@@ -1,6 +1,6 @@
-import { UiNodeProps } from "components/Shiny-Ui-Elements/uiNodeTypes";
+import { ShinyUiNode } from "components/Shiny-Ui-Elements/uiNodeTypes";
 
-export async function getInitialState(): Promise<UiNodeProps> {
+export async function getInitialState(): Promise<ShinyUiNode> {
   const response = await fetch("app-please", { method: "GET" });
 
   if (!response.ok) {
@@ -11,7 +11,7 @@ export async function getInitialState(): Promise<UiNodeProps> {
   return await response.json();
 }
 
-const backupState: UiNodeProps = {
+const backupState: ShinyUiNode = {
   uiName: "gridlayout::grid_page",
   uiArguments: {
     areas: [

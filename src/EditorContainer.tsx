@@ -5,7 +5,7 @@ import ElementsPalette from "components/Shiny-Ui-Elements/ElementsPalette";
 import UiNode from "components/Shiny-Ui-Elements/UiNode";
 import {
   NodePath,
-  UiNodeProps,
+  ShinyUiNode,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { getInitialState } from "getInitialState";
 import * as React from "react";
@@ -20,7 +20,7 @@ export const NodeSelectionContext = React.createContext<
 function EditorContainerWithData({
   initialState,
 }: {
-  initialState: UiNodeProps;
+  initialState: ShinyUiNode;
 }) {
   const [selectedPath, setSelectedPath] = React.useState<NodePath | null>(null);
 
@@ -70,7 +70,7 @@ export function EditorContainer() {
   return <EditorContainerWithData initialState={data} />;
 }
 
-function sendUiStateToBackend(state: UiNodeProps) {
+function sendUiStateToBackend(state: ShinyUiNode) {
   console.log("Sending state to backend", state);
   const stateBlob = new Blob([JSON.stringify(state, null, 2)], {
     type: "application/json",

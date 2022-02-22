@@ -5,7 +5,7 @@ import {
   uiComponentAndSettings,
   UiNodeComponent,
 } from "../Elements/uiComponentAndSettings";
-import { NodePath, UiNodeProps } from "../uiNodeTypes";
+import { NodePath, ShinyUiNode } from "../uiNodeTypes";
 import classes from "./styles.module.css";
 
 import { useDragAndDropElements } from "../DragAndDropHelpers/useDragAndDropElements";
@@ -20,7 +20,7 @@ const UiNode = ({
   uiName,
   uiArguments,
   uiChildren,
-}: { path?: NodePath; selectedPath: NodePath | null } & UiNodeProps) => {
+}: { path?: NodePath; selectedPath: NodePath | null } & ShinyUiNode) => {
   const setNodeSelection = React.useContext(NodeSelectionContext);
 
   const isSelected = selectedPath ? sameArray(path, selectedPath) : false;

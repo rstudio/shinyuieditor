@@ -1,16 +1,16 @@
 import React from "react";
-import { NodePath, UiNodeProps } from "../uiNodeTypes";
+import { NodePath, ShinyUiNode } from "../uiNodeTypes";
 import { addNode, removeNode, updateNode } from "./treeManipulation";
 
 export type TreeUpdateAction =
-  | { type: "UPDATE_NODE"; path: NodePath; newNode: UiNodeProps }
-  | { type: "ADD_NODE"; parentPath: NodePath; newNode: UiNodeProps }
+  | { type: "UPDATE_NODE"; path: NodePath; newNode: ShinyUiNode }
+  | { type: "ADD_NODE"; parentPath: NodePath; newNode: ShinyUiNode }
   | { type: "DELETE_NODE"; path: NodePath };
 
 export function treeUpdateReducer(
-  tree: UiNodeProps,
+  tree: ShinyUiNode,
   action: TreeUpdateAction
-): UiNodeProps {
+): ShinyUiNode {
   switch (action.type) {
     case "ADD_NODE":
       return addNode({
