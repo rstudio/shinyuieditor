@@ -1,6 +1,7 @@
 import Button from "components/Inputs/Button";
 import { sendTreeUpdateMessage } from "components/Shiny-Ui-Elements/Elements/treeUpdateEvents";
 import { uiComponentAndSettings } from "components/Shiny-Ui-Elements/Elements/uiComponentAndSettings";
+import { checkIfArgumentsValid } from "components/Shiny-Ui-Elements/UiNode/checkIfArgumentsValid";
 import { getNode } from "components/Shiny-Ui-Elements/UiNode/treeManipulation";
 import {
   NodePath,
@@ -57,23 +58,19 @@ export function SettingsPanel({
 
   const finishUpdating = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Sync the state that's been updated from the form to the main tree
-    sendTreeUpdateMessage({
-      type: "UPDATE_NODE",
-      path: selectedPath,
-      newNode: currentNode,
-    });
 
-    // // Check if valid
-    // if (checkValid) {
-    //   checkIfArgumentsValid({
-    //     state: currentState,
-    //     onValid: () => onChange(currentState.uiArguments),
-    //     onError: setErrorMsg,
-    //   });
-    // } else {
-    //   onChange(currentSettings);
-    // }
+    checkIfArgumentsValid({
+      state: currentNode,
+      onValid: () => {
+        // Sync the state that's been updated from the form to the main tree
+        sendTreeUpdateMessage({
+          type: "UPDATE_NODE",
+          path: selectedPath,
+          newNode: currentNode,
+        });
+      },
+      onError: setErrorMsg,
+    });
   };
 
   return (

@@ -27,11 +27,12 @@ validate_ui_fn_call <- function(uiName, uiArguments){
   #   error_msg = 'That was not a good attempt...'
   # ))
   tryCatch({
+    print("Validating ui call")
     generated_html <- do_call_namespaced(what = uiName, args = uiArguments)
 
     list(
       type="valid",
-      html = as.character(generated_html)
+      uiHTML = as.character(generated_html)
     )
   },
   error = function(e){
@@ -56,7 +57,7 @@ handlePost <- function(path, body){
     path,
     UiDump = {
 
-      print(parsed_body)
+      # print(parsed_body)
       ui_tree <<- parsed_body
       updated_ui_string <- generate_ui_code(parsed_body)
       save_ui_to_file(updated_ui_string, ui_loc)

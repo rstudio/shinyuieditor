@@ -13,8 +13,8 @@ gridlayout::grid_page(
     shiny::sliderInput(
       inputId = "slider2",
       label = "First Slider",
-      min = 0L,
-      max = 10L,
+      min = 2L,
+      max = 9L,
       value = 5L
     ),
     shiny::sliderInput(
