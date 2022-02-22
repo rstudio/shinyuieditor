@@ -7,7 +7,10 @@ import {
   CellLocRef,
   GridCell,
 } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/GridCell";
-import { ShinyUiNames } from "components/Shiny-Ui-Elements/uiNodeTypes";
+import {
+  ShinyUiNames,
+  UiNodeProps,
+} from "components/Shiny-Ui-Elements/uiNodeTypes";
 import omit from "just-omit";
 import React from "react";
 import { subtractElements } from "utils/array-helpers";
@@ -156,11 +159,19 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
         name: name,
         pos: info.pos,
       });
-      // Let the state know we have a new child node
-      sendTreeUpdateMessage({
-        type: "ADD_NODE",
-        parentPath: [],
-        newNode: {
+
+      // If we're using a grid-aware node already then we just need to put the
+      // new name into its settings. Otherwise automatically wrap the item in a
+      // grid container
+      let newNode: UiNodeProps;
+      if (
+        newElement.uiName === "gridlayout::grid_panel" ||
+        newElement.uiName === "gridlayout::title_panel"
+      ) {
+        newElement.uiArguments.area = name;
+        newNode = newElement;
+      } else {
+        newNode = {
           uiName: "gridlayout::grid_panel",
           uiArguments: {
             area: name,
@@ -168,7 +179,14 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
             verticalAlign: "spread",
           },
           uiChildren: [newElement],
-        },
+        };
+      }
+
+      // Let the state know we have a new child node
+      sendTreeUpdateMessage({
+        type: "ADD_NODE",
+        parentPath: [],
+        newNode: newNode,
       });
 
       // Reset the modal/new item info state
