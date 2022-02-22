@@ -15,7 +15,7 @@ import { FiTrash as TrashIcon } from "react-icons/fi";
 import PathBreadcrumb from "./PathBreadcrumb";
 import classes from "./SettingsPanel.module.css";
 
-export function SettingsPanel({
+function useUpdateSettings({
   tree,
   selectedPath,
 }: {
@@ -35,6 +35,79 @@ export function SettingsPanel({
     setCurrentNode(selectedNode);
   }, [tree, selectedPath]);
 
+  const finishUpdating = React.useCallback(
+    async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+
+      if (!currentNode || !selectedPath) return;
+
+      const result = await getUiNodeValidation({ node: currentNode });
+
+      if (result.type === "error") {
+        setErrorMsg(result.error_msg);
+        return;
+      }
+
+      if (result.type === "server-error") {
+        // Otherwise we have a server error and need to make sure the user knows this
+        // before continuing
+        console.error(`HTTP error! status: ${result.status}`);
+
+        const userAcknowledgedLackOfServer = window.confirm(
+          "Could not check with backend for settings validation. You're on your own."
+        );
+        if (!userAcknowledgedLackOfServer) {
+          setErrorMsg(
+            "Failed to validate settings for component. Try again or check to make sure your R session didn't crash."
+          );
+        }
+      }
+
+      // Sync the state that's been updated from the form to the main tree
+      sendTreeUpdateMessage({
+        type: "UPDATE_NODE",
+        path: selectedPath,
+        newNode: {
+          ...currentNode,
+          // Add resulting html from setting validation (if present)
+          uiHTML: "uiHTML" in result ? result.uiHTML : undefined,
+        },
+      });
+    },
+    [currentNode, selectedPath]
+  );
+
+  const updateArguments = (newArguments: typeof tree.uiArguments) => {
+    setCurrentNode({
+      ...currentNode,
+      uiArguments: newArguments,
+    } as typeof currentNode);
+  };
+
+  return {
+    currentNode,
+    errorMsg,
+    finishUpdating,
+    updateArguments,
+    setNodeSelection,
+  };
+}
+
+export function SettingsPanel({
+  tree,
+  selectedPath,
+}: {
+  tree: ShinyUiNode;
+  selectedPath: NodePath | null;
+}) {
+  const {
+    currentNode,
+    errorMsg,
+    finishUpdating,
+    updateArguments,
+    setNodeSelection,
+  } = useUpdateSettings({ tree, selectedPath });
+
   if (selectedPath === null) {
     return <div>Select an element to edit properties</div>;
   }
@@ -46,52 +119,8 @@ export function SettingsPanel({
 
   const { uiName, uiArguments } = currentNode;
 
-  const updateArguments = (newArguments: typeof uiArguments) => {
-    setCurrentNode({
-      ...currentNode,
-      uiArguments: newArguments,
-    } as typeof currentNode);
-  };
-
   const SettingsInputs = uiComponentAndSettings[uiName]
     .SettingsComponent as SettingsUpdaterComponent<typeof uiArguments>;
-
-  const finishUpdating = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const result = await getUiNodeValidation({ node: currentNode });
-
-    if (result.type === "error") {
-      setErrorMsg(result.error_msg);
-      return;
-    }
-
-    if (result.type === "server-error") {
-      // Otherwise we have a server error and need to make sure the user knows this
-      // before continuing
-      console.error(`HTTP error! status: ${result.status}`);
-
-      const userAcknowledgedLackOfServer = window.confirm(
-        "Could not check with backend for settings validation. You're on your own."
-      );
-      if (!userAcknowledgedLackOfServer) {
-        setErrorMsg(
-          "Failed to validate settings for component. Try again or check to make sure your R session didn't crash."
-        );
-      }
-    }
-
-    // Sync the state that's been updated from the form to the main tree
-    sendTreeUpdateMessage({
-      type: "UPDATE_NODE",
-      path: selectedPath,
-      newNode: {
-        ...currentNode,
-        // Add resulting html from setting validation (if present)
-        uiHTML: "uiHTML" in result ? result.uiHTML : undefined,
-      },
-    });
-  };
 
   return (
     <div className={classes.settingsPanel}>
