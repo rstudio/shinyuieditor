@@ -6,16 +6,23 @@ gridlayout::grid_page(
 | 1fr  | sidebar |  plot  |",
   gridlayout::title_panel(
     area = "header",
-    title = "My App Title from R3"
+    title = "My App Title from Javascript"
   ),
   gridlayout::grid_panel(
     area = "sidebar",
     shiny::sliderInput(
-      inputId = "slider",
-      label = "Slider",
+      inputId = "slider2",
+      label = "First Slider",
       min = 0L,
-      value = 5L,
-      max = 10L
+      max = 10L,
+      value = 5L
+    ),
+    shiny::sliderInput(
+      inputId = "slider2",
+      label = "Second Slider",
+      min = 0L,
+      max = 10L,
+      value = 5L
     )
   ),
   gridlayout::grid_panel(
