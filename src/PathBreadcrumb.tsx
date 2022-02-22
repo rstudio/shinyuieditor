@@ -25,7 +25,7 @@ export default function PathBreadcrumb({
     <div className={classes.container}>
       {pathString.map((name, i) => (
         <div
-          key={name}
+          key={name + i}
           className={classes.node}
           onClick={
             // Only run selection callback when selection will change current
