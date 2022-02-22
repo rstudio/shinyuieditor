@@ -1,7 +1,7 @@
 import Button from "components/Inputs/Button";
 import { sendTreeUpdateMessage } from "components/Shiny-Ui-Elements/Elements/treeUpdateEvents";
 import { uiComponentAndSettings } from "components/Shiny-Ui-Elements/Elements/uiComponentAndSettings";
-import { checkIfArgumentsValid } from "components/Shiny-Ui-Elements/UiNode/checkIfArgumentsValid";
+import { getUiNodeValidation } from "components/Shiny-Ui-Elements/UiNode/getUiNodeValidation";
 import { getNode } from "components/Shiny-Ui-Elements/UiNode/treeManipulation";
 import {
   NodePath,
@@ -56,20 +56,36 @@ export function SettingsPanel({
   const SettingsInputs = uiComponentAndSettings[uiName]
     .SettingsComponent as SettingsUpdaterComponent<typeof uiArguments>;
 
-  const finishUpdating = (e: React.FormEvent<HTMLFormElement>) => {
+  const finishUpdating = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    checkIfArgumentsValid({
-      state: currentNode,
-      onValid: () => {
-        // Sync the state that's been updated from the form to the main tree
-        sendTreeUpdateMessage({
-          type: "UPDATE_NODE",
-          path: selectedPath,
-          newNode: currentNode,
-        });
-      },
-      onError: setErrorMsg,
+    const result = await getUiNodeValidation({ node: currentNode });
+
+    if (result.type === "error") {
+      setErrorMsg(result.error_msg);
+      return;
+    }
+
+    if (result.type === "server-error") {
+      // Otherwise we have a server error and need to make sure the user knows this
+      // before continuing
+      console.error(`HTTP error! status: ${result.status}`);
+      if (
+        window.confirm(
+          "Could not check with backend for settings validation. You're on your own."
+        ) === true
+      ) {
+      }
+      setErrorMsg(
+        "Failed to validate settings for component. Try again or check to make sure your R session didn't crash."
+      );
+    }
+
+    // Sync the state that's been updated from the form to the main tree
+    sendTreeUpdateMessage({
+      type: "UPDATE_NODE",
+      path: selectedPath,
+      newNode: currentNode,
     });
   };
 
