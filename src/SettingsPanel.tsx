@@ -116,7 +116,7 @@ export function SettingsPanel({
           {errorMsg ? (
             <div>
               Input settings are not valid. The following errors were received:
-              <pre style={{ color: "orangered" }}>{errorMsg}</pre>
+              <div className={classes.validationErrorMsg}>{errorMsg}</div>
             </div>
           ) : null}
           <div className={classes.submitHolder}>
