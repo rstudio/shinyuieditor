@@ -1,8 +1,3 @@
-import {
-  InputProblem,
-  UiSettingsValidator,
-} from "components/Shiny-Ui-Elements/UiSettings/types";
-
 export type SliderSettings = {
   inputId: string;
   label: string;
@@ -40,45 +35,3 @@ export function buildSliderSettings(
 
   return settings;
 }
-
-export const validateSliderSettings: UiSettingsValidator<
-  ShinySliderInputProps
-> = ({ min, max, value: val, inputId }) => {
-  const missingAny =
-    typeof min !== "number" ||
-    typeof max !== "number" ||
-    typeof val !== "number";
-
-  const problems: InputProblem[] = [];
-  if (missingAny) return problems;
-  // throw new Error(
-  //   "A minimum, maximum, and starting value are needed for slider."
-  // );
-
-  if (min > max) {
-    problems.push({
-      which: "min",
-      msg: "Need to define a minimum value that is below the max",
-    });
-    problems.push({
-      which: "max",
-      msg: "Need to define a minimum value that is below the max",
-    });
-  }
-
-  if (val > max) {
-    problems.push({
-      which: "value",
-      msg: "Cant set starting value of slider above the maximum allowed value",
-    });
-  }
-
-  if (val < min) {
-    problems.push({
-      which: "value",
-      msg: "Cant set starting value of slider below the minimum allowed value",
-    });
-  }
-
-  return problems;
-};
