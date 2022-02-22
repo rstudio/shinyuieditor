@@ -1,4 +1,4 @@
-import { ShinyUiNameAndArguments } from "components/Shiny-Ui-Elements/uiNodeTypes";
+import { ShinyUiNode } from "components/Shiny-Ui-Elements/uiNodeTypes";
 
 type ValidateArgsResponse =
   | {
@@ -10,7 +10,7 @@ type ValidateArgsResponse =
 async function getUiNodeValidation({
   node,
 }: {
-  node: ShinyUiNameAndArguments;
+  node: ShinyUiNode;
 }): Promise<ValidateArgsResponse | { type: "server-error"; status: string }> {
   const stateBlob = new Blob([JSON.stringify(node, null, 2)], {
     type: "application/json",
@@ -36,7 +36,7 @@ export async function checkIfArgumentsValid({
   onValid,
   onError,
 }: {
-  state: ShinyUiNameAndArguments;
+  state: ShinyUiNode;
   onValid: (x?: string) => void;
   onError: (x: string) => void;
 }) {

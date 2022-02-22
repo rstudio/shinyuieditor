@@ -1,6 +1,6 @@
 import GridlayoutTitlePanel from "components/Shiny-Ui-Elements/Elements/GridlayoutTitlePanel";
 import { GridlayoutTitlePanelSettings } from "components/Shiny-Ui-Elements/Elements/GridlayoutTitlePanel/SettingsPanel";
-import { ShinyUiNameAndArguments } from "components/Shiny-Ui-Elements/uiNodeTypes";
+import { ShinyUiNode } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { DragAndDropHandlers } from "../DragAndDropHelpers/useDragAndDropElements";
 import GridlayoutGridPage from "./GridlayoutGridPage";
 import { GridlayoutGridPageSettings } from "./GridlayoutGridPage/SettingsPanel";
@@ -48,7 +48,7 @@ export const uiComponentAndSettings = {
   },
 };
 
-export const defaultSettingsForElements: ShinyUiNameAndArguments[] = [
+export const defaultSettingsForElements: ShinyUiNode[] = [
   {
     uiName: "shiny::plotOutput",
     uiArguments: { outputId: "plot" },

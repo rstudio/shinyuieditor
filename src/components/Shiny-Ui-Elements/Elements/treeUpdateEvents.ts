@@ -1,6 +1,6 @@
 import React from "react";
 import { addNode, removeNode, updateNode } from "../UiNode/treeManipulation";
-import { NodePath, ShinyUiNameAndArguments, UiNodeProps } from "../uiNodeTypes";
+import { NodePath, ShinyUiNode, UiNodeProps } from "../uiNodeTypes";
 
 type TreeUpdateAction =
   | { type: "UPDATE_NODE"; path: NodePath; newNode: UiNodeProps }
@@ -60,8 +60,8 @@ export function useListenForTreeUpdateEvent(
  * @returns Most recent state of the ui tree
  */
 export function useEventUpdatedTree(
-  initialState: ShinyUiNameAndArguments,
-  onStateChange: (state: ShinyUiNameAndArguments) => void
+  initialState: ShinyUiNode,
+  onStateChange: (state: ShinyUiNode) => void
 ) {
   const [tree, updateTree] = React.useReducer(treeUpdateReducer, initialState);
 

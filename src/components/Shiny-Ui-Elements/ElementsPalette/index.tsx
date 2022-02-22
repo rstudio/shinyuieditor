@@ -1,5 +1,5 @@
 import {
-  ShinyUiNameAndArguments,
+  ShinyUiNode,
   ShinyUiNames,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import * as React from "react";
@@ -12,7 +12,7 @@ import classes from "./styles.module.css";
 export default function ElementsPalette({
   availableUi = defaultSettingsForElements,
 }: {
-  availableUi?: ShinyUiNameAndArguments[];
+  availableUi?: ShinyUiNode[];
 }) {
   return (
     <div className={classes.OptionsList}>

@@ -26,7 +26,7 @@ export type ShinyUiNames = keyof ShinyUiArguments;
 /**
  * Union of Ui element name and associated arguments for easy narrowing
  */
-export type ShinyUiNameAndArguments = {
+export type ShinyUiNode = {
   [UiName in ShinyUiNames]: {
     uiName: UiName;
     uiArguments: ShinyUiArguments[UiName];
@@ -48,7 +48,7 @@ export type ContainerSettings = GridPanelSettings;
  */
 export type NodePath = number[];
 
-export type UiNodeProps = ShinyUiNameAndArguments;
+export type UiNodeProps = ShinyUiNode;
 
 type UiContainerNode = Required<UiNodeProps>;
 export function checkIfContainerNode(
