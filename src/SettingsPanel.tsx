@@ -70,15 +70,15 @@ export function SettingsPanel({
       // Otherwise we have a server error and need to make sure the user knows this
       // before continuing
       console.error(`HTTP error! status: ${result.status}`);
-      if (
-        window.confirm(
-          "Could not check with backend for settings validation. You're on your own."
-        ) === true
-      ) {
-      }
-      setErrorMsg(
-        "Failed to validate settings for component. Try again or check to make sure your R session didn't crash."
+
+      const userAcknowledgedLackOfServer = window.confirm(
+        "Could not check with backend for settings validation. You're on your own."
       );
+      if (!userAcknowledgedLackOfServer) {
+        setErrorMsg(
+          "Failed to validate settings for component. Try again or check to make sure your R session didn't crash."
+        );
+      }
     }
 
     // Sync the state that's been updated from the form to the main tree
