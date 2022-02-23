@@ -38,8 +38,10 @@ export function buildDragAndDropHandlers(
     },
     onDragOver: (e: React.DragEvent<HTMLDivElement>) => {
       e.preventDefault();
-      // This callback just needs to be here and prevent the default
-      // otherwise the onDrop event won't fire
+      // Make sure our dropability is properly highlighted. This fires very fast
+      // so if this function gets any more complicated the callback should most
+      // likely be throttled
+      highlightDropability(e);
     },
     onDrop: (e: React.DragEvent<HTMLDivElement>) => {
       // Make sure only the deepest container gets the drop event
