@@ -35,7 +35,7 @@ function useUpdateSettings({
     setCurrentNode(selectedNode);
   }, [tree, selectedPath]);
 
-  const finishUpdating = React.useCallback(
+  const handleSubmit = React.useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
@@ -84,10 +84,17 @@ function useUpdateSettings({
     } as typeof currentNode);
   };
 
+  const deleteNode = React.useCallback(() => {
+    if (selectedPath === null) return;
+    setNodeSelection(null);
+    sendTreeUpdateMessage({ type: "DELETE_NODE", path: selectedPath });
+  }, [selectedPath, setNodeSelection]);
+
   return {
     currentNode,
     errorMsg,
-    finishUpdating,
+    handleSubmit,
+    deleteNode,
     updateArguments,
     setNodeSelection,
   };
@@ -103,7 +110,8 @@ export function SettingsPanel({
   const {
     currentNode,
     errorMsg,
-    finishUpdating,
+    deleteNode,
+    handleSubmit,
     updateArguments,
     setNodeSelection,
   } = useUpdateSettings({ tree, selectedPath });
@@ -135,19 +143,9 @@ export function SettingsPanel({
         </div>
       </div>
       <div className={classes.settingsForm}>
-        <form onSubmit={finishUpdating}>
-          <SettingsInputs
-            settings={uiArguments}
-            onChange={(settings) => {
-              updateArguments(settings);
-            }}
-          />
-          {errorMsg ? (
-            <div>
-              Input settings are not valid. The following errors were received:
-              <div className={classes.validationErrorMsg}>{errorMsg}</div>
-            </div>
-          ) : null}
+        <form onSubmit={handleSubmit}>
+          <SettingsInputs settings={uiArguments} onChange={updateArguments} />
+          <ErrorMessageDisplay errorMsg={errorMsg} />
           <div className={classes.submitHolder}>
             <Button type="submit">
               <BiCheck /> Update
@@ -156,15 +154,22 @@ export function SettingsPanel({
         </form>
       </div>
 
-      <Button
-        onClick={() => {
-          setNodeSelection(null);
-          sendTreeUpdateMessage({ type: "DELETE_NODE", path: selectedPath });
-        }}
-        variant="delete"
-      >
+      <Button onClick={() => deleteNode()} variant="delete">
         <TrashIcon /> Delete Element
       </Button>
     </div>
   );
+}
+
+function ErrorMessageDisplay({ errorMsg }: { errorMsg: string | null }) {
+  if (errorMsg) {
+    return (
+      <div>
+        Input settings are not valid. The following errors were received:
+        <div className={classes.validationErrorMsg}>{errorMsg}</div>
+      </div>
+    );
+  }
+
+  return null;
 }
