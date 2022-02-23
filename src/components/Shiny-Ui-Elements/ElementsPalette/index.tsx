@@ -34,8 +34,8 @@ function ElementIcon(node: ShinyUiNode) {
         assignElementDragData(e, { node });
       }}
     >
-      <code>{node.uiName.replace(/[\w]+::/, "")}</code>
       {previewIcons[node.uiName]}
+      <code>{node.uiName.replace(/[\w]+::/, "")}</code>
     </div>
   );
 }
