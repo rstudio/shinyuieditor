@@ -6,6 +6,7 @@ import * as React from "react";
 import { BiSliderAlt, BiText } from "react-icons/bi";
 import { BsBoundingBoxCircles } from "react-icons/bs";
 import { GoGraph } from "react-icons/go";
+import { assignElementDragData } from "../DragAndDropHelpers/useDragAndDropElements";
 import { defaultSettingsForElements } from "../Elements/uiComponentAndSettings";
 import classes from "./styles.module.css";
 
@@ -30,7 +31,7 @@ function ElementIcon(node: ShinyUiNode) {
       draggable
       onDragStart={(e) => {
         // Tag the drag event with the element type being dragged
-        e.dataTransfer.setData("element-type", node.uiName);
+        assignElementDragData(e, { node });
       }}
     >
       <code>{node.uiName.replace(/[\w]+::/, "")}</code>
