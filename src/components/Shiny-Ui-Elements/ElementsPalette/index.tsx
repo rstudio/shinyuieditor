@@ -1,6 +1,6 @@
 import {
-  ShinyUiNode,
   ShinyUiNames,
+  ShinyUiNode,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import * as React from "react";
 import { BiSliderAlt, BiText } from "react-icons/bi";
@@ -16,23 +16,25 @@ export default function ElementsPalette({
 }) {
   return (
     <div className={classes.OptionsList}>
-      {availableUi.map((ui) => {
-        const { uiName: name } = ui;
-        return (
-          <div
-            className={classes.OptionItem}
-            key={name}
-            draggable
-            onDragStart={(e) => {
-              // Tag the drag event with the element type being dragged
-              e.dataTransfer.setData("element-type", name);
-            }}
-          >
-            <code>{name.replace(/[\w]+::/, "")}</code>
-            {previewIcons[name]}
-          </div>
-        );
+      {availableUi.map((node) => {
+        return <ElementIcon key={node.uiName} {...node} />;
       })}
+    </div>
+  );
+}
+
+function ElementIcon(node: ShinyUiNode) {
+  return (
+    <div
+      className={classes.OptionItem}
+      draggable
+      onDragStart={(e) => {
+        // Tag the drag event with the element type being dragged
+        e.dataTransfer.setData("element-type", node.uiName);
+      }}
+    >
+      <code>{node.uiName.replace(/[\w]+::/, "")}</code>
+      {previewIcons[node.uiName]}
     </div>
   );
 }
