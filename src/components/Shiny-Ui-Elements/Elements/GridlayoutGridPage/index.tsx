@@ -7,10 +7,7 @@ import {
   CellLocRef,
   GridCell,
 } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/GridCell";
-import {
-  ShinyUiNames,
-  ShinyUiNode,
-} from "components/Shiny-Ui-Elements/uiNodeTypes";
+import { ShinyUiNode } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import omit from "just-omit";
 import React from "react";
 import { subtractElements } from "utils/array-helpers";
@@ -23,17 +20,14 @@ import {
   sendTreeUpdateMessage,
   useListenForTreeUpdateEvent,
 } from "../treeUpdateEvents";
-import {
-  defaultSettingsForElements,
-  UiNodeComponent,
-} from "../uiComponentAndSettings";
+import { UiNodeComponent } from "../uiComponentAndSettings";
 import { GridLayoutAction, gridLayoutReducer } from "./gridLayoutReducer";
 import { NameNewPanelModal } from "./NameNewPanelModal";
 import classes from "./styles.module.css";
 import { TractControls } from "./TractControls";
 
 export type NewItemInfo = {
-  uiName: ShinyUiNames;
+  node: ShinyUiNode;
   pos: GridItemExtent;
 };
 
@@ -142,34 +136,21 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
   } as React.CSSProperties;
 
   const addNewGridItem = React.useCallback(
-    (name: string, info: NewItemInfo) => {
-      // For right now we'll just use the default settings for the
-      // dropped ui element
-      const newElement = defaultSettingsForElements.find(
-        ({ uiName }) => uiName === info.uiName
-      );
-
-      if (!newElement) {
-        throw new Error(
-          "Could not find default settings for node of type " + info.uiName
-        );
-      }
+    (name: string, { node: newNode, pos }: NewItemInfo) => {
       handleLayoutUpdate({
         type: "ADD_ITEM",
         name: name,
-        pos: info.pos,
+        pos: pos,
       });
 
       // If we're using a grid-aware node already then we just need to put the
       // new name into its settings. Otherwise automatically wrap the item in a
       // grid container
-      let newNode: ShinyUiNode;
       if (
-        newElement.uiName === "gridlayout::grid_panel" ||
-        newElement.uiName === "gridlayout::title_panel"
+        newNode.uiName === "gridlayout::grid_panel" ||
+        newNode.uiName === "gridlayout::title_panel"
       ) {
-        newElement.uiArguments.area = name;
-        newNode = newElement;
+        newNode.uiArguments.area = name;
       } else {
         newNode = {
           uiName: "gridlayout::grid_panel",
@@ -178,7 +159,7 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
             horizontalAlign: "spread",
             verticalAlign: "spread",
           },
-          uiChildren: [newElement],
+          uiChildren: [newNode],
         };
       }
 
@@ -223,9 +204,8 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
               const allowedDrop = true;
               if (!allowedDrop) return;
 
-              const nameOfDroppedUi = node.uiName;
               setShowModal({
-                uiName: nameOfDroppedUi,
+                node,
                 pos: {
                   rowStart: row,
                   rowEnd: row,
