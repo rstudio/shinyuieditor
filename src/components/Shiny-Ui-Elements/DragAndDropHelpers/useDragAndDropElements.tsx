@@ -1,7 +1,6 @@
 import React from "react";
 import { sendTreeUpdateMessage } from "../Elements/treeUpdateEvents";
-import { defaultSettingsForElements } from "../Elements/uiComponentAndSettings";
-import { NodePath, ShinyUiNames, ShinyUiNode } from "../uiNodeTypes";
+import { NodePath, ShinyUiNode } from "../uiNodeTypes";
 import classes from "./DragAndDrop.module.css";
 
 export type DragAndDropTargetEvents =
@@ -61,7 +60,7 @@ function readDroppedNodeInfo(e: React.DragEvent<HTMLElement>): DraggedNodeInfo {
 }
 
 export function buildDragAndDropHandlers(
-  onDrop: (nameOfDropped: ShinyUiNames) => void
+  onDrop: (droppedNode: DraggedNodeInfo) => void
 ) {
   return {
     onDragEnter: (e: React.DragEvent<HTMLDivElement>) => {
@@ -87,9 +86,9 @@ export function buildDragAndDropHandlers(
       removeHighlight(e);
 
       // Get the type of dropped element and act on it
-      const { node } = readDroppedNodeInfo(e);
+      const droppedNodeinfo = readDroppedNodeInfo(e);
 
-      onDrop(node.uiName);
+      onDrop(droppedNodeinfo);
     },
   };
 }
@@ -99,25 +98,12 @@ export function useDragAndDropElements(path: NodePath, isLeafNode: boolean) {
     () =>
       isLeafNode
         ? {}
-        : buildDragAndDropHandlers((nameOfDroppedUi) => {
-            // For right now we'll just use the default settings for the
-            // dropped ui element
-            const newElement = defaultSettingsForElements.find(
-              ({ uiName }) => uiName === nameOfDroppedUi
-            );
-
-            if (!newElement) {
-              throw new Error(
-                "Could not find default settings for node of type " +
-                  nameOfDroppedUi
-              );
-            }
-
+        : buildDragAndDropHandlers(({ node }) => {
             // Let the state know we have a new child node
             sendTreeUpdateMessage({
               type: "ADD_NODE",
               parentPath: path,
-              newNode: newElement,
+              newNode: node,
             });
           }),
     [isLeafNode, path]
