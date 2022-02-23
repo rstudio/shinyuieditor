@@ -6,3 +6,5 @@ dist-ssr
 .Rproj.user
 
 R/.Rhistory
+
+R/webapp/ui.R
