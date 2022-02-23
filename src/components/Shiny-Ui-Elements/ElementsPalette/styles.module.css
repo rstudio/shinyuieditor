@@ -22,3 +22,7 @@
   background-color: var(--rstudio-white);
   cursor: grab;
 }
+
+.OptionItem:active {
+  cursor: grabbing;
+}
