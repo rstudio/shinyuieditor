@@ -21,7 +21,7 @@ export type DragAndDropHandlers = Pick<
   DragAndDropTargetEvents
 >;
 
-type DraggedNodeInfo = { node: ShinyUiNode; path?: NodePath };
+type DraggedNodeInfo = { node: ShinyUiNode; currentPath?: NodePath };
 /**
  * Attach info about a ui node to the drag event so it can be properly acted upon at the destination
  * @param e Drag event object
@@ -35,8 +35,8 @@ export function assignElementDragData(
   // If a path to the node was provided, attach this as well. Helps the dropped
   // item to know if this is a move of an existing node or the creation of a new
   // node
-  if (info.path) {
-    e.dataTransfer.setData("nodePath", info.path.join("."));
+  if (info.currentPath) {
+    e.dataTransfer.setData("nodePath", info.currentPath.join("."));
   }
 }
 
@@ -49,7 +49,9 @@ function readDroppedNodeInfo(e: React.DragEvent<HTMLElement>): DraggedNodeInfo {
 
     const droppedNodePath = e.dataTransfer.getData("nodePath");
     if (droppedNodePath !== "") {
-      droppedUiNode.path = droppedNodePath.split(".").map((i) => Number(i));
+      droppedUiNode.currentPath = droppedNodePath
+        .split(".")
+        .map((i) => Number(i));
     }
 
     return droppedUiNode;
