@@ -2,7 +2,7 @@ import { ShinyUiNode } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import * as React from "react";
 import { assignElementDragData } from "../DragAndDropHelpers/useDragAndDropElements";
 import { defaultSettingsForElements } from "../Elements/uiComponentAndSettings";
-import { previewIconsSrc } from "./previewIconsSrc";
+import elementIcons from "./elementIcons";
 import classes from "./styles.module.css";
 
 export default function ElementsPalette({
@@ -20,6 +20,7 @@ export default function ElementsPalette({
 }
 
 function ElementIcon(node: ShinyUiNode) {
+  const { iconSrc, title } = elementIcons[node.uiName];
   return (
     <div
       className={classes.OptionItem}
@@ -29,8 +30,8 @@ function ElementIcon(node: ShinyUiNode) {
         assignElementDragData(e, { node });
       }}
     >
-      <img src={previewIconsSrc[node.uiName]} alt={node.uiName} />
-      <code>{node.uiName.replace(/[\w]+::/, "")}</code>
+      <img src={iconSrc} alt={title} />
+      <label>{title}</label>
     </div>
   );
 }
