@@ -1,23 +1,20 @@
 .OptionsList {
   height: 100%;
   display: grid;
-  /* As many 100px wide columns as will fit, but stretch to now allow any dead
-  space */
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  /* As many columns as will fit */
+  grid-template-columns: repeat(auto-fit, auto);
   justify-content: center;
   justify-items: center;
   align-content: start;
   padding: 12px;
-  gap: 10px;
+  gap: 4px;
 }
 
 .OptionItem {
-  --size: 120px;
   width: 100%;
   aspect-ratio: 1;
   border-radius: var(--corner-radius, 10px);
   display: grid;
-  gap: 5px;
   grid-template-rows: auto auto;
   justify-content: center;
   align-content: center;
@@ -25,13 +22,18 @@
   position: relative;
   cursor: grab;
   font-size: 1.05rem;
+  padding: 5px;
 }
 
 .OptionItem:hover {
-  border: var(--outline);
+  outline: var(--outline);
 }
 .OptionItem:active {
   cursor: grabbing;
+}
+.OptionItem > img {
+  --scaling: 2;
+  width: calc(150px / var(--scaling));
 }
 .OptionItem > svg {
   color: var(--rstudio-blue);

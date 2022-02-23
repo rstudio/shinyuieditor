@@ -1,13 +1,8 @@
-import {
-  ShinyUiNames,
-  ShinyUiNode,
-} from "components/Shiny-Ui-Elements/uiNodeTypes";
+import { ShinyUiNode } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import * as React from "react";
-import { BiSliderAlt, BiText } from "react-icons/bi";
-import { BsBoundingBoxCircles } from "react-icons/bs";
-import { GoGraph } from "react-icons/go";
 import { assignElementDragData } from "../DragAndDropHelpers/useDragAndDropElements";
 import { defaultSettingsForElements } from "../Elements/uiComponentAndSettings";
+import { previewIconsSrc } from "./previewIconsSrc";
 import classes from "./styles.module.css";
 
 export default function ElementsPalette({
@@ -34,16 +29,8 @@ function ElementIcon(node: ShinyUiNode) {
         assignElementDragData(e, { node });
       }}
     >
-      {previewIcons[node.uiName]}
+      <img src={previewIconsSrc[node.uiName]} alt={node.uiName} />
       <code>{node.uiName.replace(/[\w]+::/, "")}</code>
     </div>
   );
 }
-
-const previewIcons: Record<ShinyUiNames, JSX.Element> = {
-  "shiny::plotOutput": <GoGraph size="40px" />,
-  "shiny::sliderInput": <BiSliderAlt size="40px" />,
-  "gridlayout::title_panel": <BiText size="40px" />,
-  "gridlayout::grid_panel": <BsBoundingBoxCircles size="40px" />,
-  "gridlayout::grid_page": <BsBoundingBoxCircles size="40px" />,
-};
