@@ -218,10 +218,12 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
             gridRow={row}
             gridColumn={col}
             cellLocations={gridCellLocations}
-            {...buildDragAndDropHandlers((nameOfDroppedUi) => {
+            {...buildDragAndDropHandlers(({ node }) => {
               // This will eventually filter by element type
               const allowedDrop = true;
               if (!allowedDrop) return;
+
+              const nameOfDroppedUi = node.uiName;
               setShowModal({
                 uiName: nameOfDroppedUi,
                 pos: {

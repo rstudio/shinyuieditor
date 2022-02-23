@@ -1,24 +1,40 @@
 .OptionsList {
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
-  padding: 12px;
-  gap: 5px;
+  display: grid;
+  /* As many columns as will fit */
+  grid-template-columns: repeat(auto-fit, auto);
+  justify-content: center;
+  justify-items: center;
+  align-content: start;
+  padding: 8px;
+  gap: 12px;
 }
 
 .OptionItem {
-  --size: 115px;
-  border: var(--outline);
+  width: 100%;
+  aspect-ratio: 1;
   border-radius: var(--corner-radius, 10px);
-  width: var(--size);
-  height: var(--size);
   display: grid;
   grid-template-rows: auto auto;
+  justify-content: center;
+  align-content: center;
   place-items: center;
   position: relative;
-  background-color: var(--rstudio-white);
   cursor: grab;
+  font-size: 1.05rem;
+  padding: 5px;
+}
+
+.OptionItem:hover {
+  outline: var(--outline);
+}
+.OptionItem:active {
+  cursor: grabbing;
+}
+.OptionItem > img {
+  --scaling: 2;
+  width: calc(150px / var(--scaling));
+}
+.OptionItem > svg {
+  color: var(--rstudio-blue);
 }

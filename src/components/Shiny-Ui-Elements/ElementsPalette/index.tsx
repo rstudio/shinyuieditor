@@ -1,12 +1,8 @@
-import {
-  ShinyUiNode,
-  ShinyUiNames,
-} from "components/Shiny-Ui-Elements/uiNodeTypes";
+import { ShinyUiNode } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import * as React from "react";
-import { BiSliderAlt, BiText } from "react-icons/bi";
-import { BsBoundingBoxCircles } from "react-icons/bs";
-import { GoGraph } from "react-icons/go";
+import { assignElementDragData } from "../DragAndDropHelpers/useDragAndDropElements";
 import { defaultSettingsForElements } from "../Elements/uiComponentAndSettings";
+import elementIcons from "./elementIcons";
 import classes from "./styles.module.css";
 
 export default function ElementsPalette({
@@ -16,31 +12,26 @@ export default function ElementsPalette({
 }) {
   return (
     <div className={classes.OptionsList}>
-      {availableUi.map((ui) => {
-        const { uiName: name } = ui;
-        return (
-          <div
-            className={classes.OptionItem}
-            key={name}
-            draggable
-            onDragStart={(e) => {
-              // Tag the drag event with the element type being dragged
-              e.dataTransfer.setData("element-type", name);
-            }}
-          >
-            <code>{name.replace(/[\w]+::/, "")}</code>
-            {previewIcons[name]}
-          </div>
-        );
+      {availableUi.map((node) => {
+        return <ElementIcon key={node.uiName} {...node} />;
       })}
     </div>
   );
 }
 
-const previewIcons: Record<ShinyUiNames, JSX.Element> = {
-  "shiny::plotOutput": <GoGraph size="40px" />,
-  "shiny::sliderInput": <BiSliderAlt size="40px" />,
-  "gridlayout::title_panel": <BiText size="40px" />,
-  "gridlayout::grid_panel": <BsBoundingBoxCircles size="40px" />,
-  "gridlayout::grid_page": <BsBoundingBoxCircles size="40px" />,
-};
+function ElementIcon(node: ShinyUiNode) {
+  const { iconSrc, title } = elementIcons[node.uiName];
+  return (
+    <div
+      className={classes.OptionItem}
+      draggable
+      onDragStart={(e) => {
+        // Tag the drag event with the element type being dragged
+        assignElementDragData(e, { node });
+      }}
+    >
+      <img src={iconSrc} alt={title} />
+      <label>{title}</label>
+    </div>
+  );
+}
