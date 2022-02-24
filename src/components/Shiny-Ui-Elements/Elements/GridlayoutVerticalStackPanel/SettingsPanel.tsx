@@ -28,7 +28,7 @@ export const GridlayoutVerticalStackPanelSettings: SettingsUpdaterComponent<
       />
       <RadioInputs
         name="Item Alignment"
-        options={["top", "center", "spread", "bottom"]}
+        options={["top", "center", "bottom", "spread"]}
         optionIcons={alignmentIcons}
         currentSelection={settings.item_alignment ?? "top"}
         onChange={(item_alignment) => onChange({ ...settings, item_alignment })}
