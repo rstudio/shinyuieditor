@@ -130,6 +130,8 @@ export function SettingsPanel({
     );
   }
 
+  const isRootNode = selectedPath.length === 0;
+
   const { uiName, uiArguments } = currentNode;
 
   const SettingsInputs = uiComponentAndSettings[uiName]
@@ -159,9 +161,11 @@ export function SettingsPanel({
         </form>
       </div>
 
-      <Button onClick={() => deleteNode()} variant="delete">
-        <TrashIcon /> Delete Element
-      </Button>
+      {!isRootNode ? (
+        <Button onClick={() => deleteNode()} variant="delete">
+          <TrashIcon /> Delete Element
+        </Button>
+      ) : null}
     </div>
   );
 }
