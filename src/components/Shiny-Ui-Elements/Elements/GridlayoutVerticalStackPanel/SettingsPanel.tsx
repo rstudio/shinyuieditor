@@ -1,3 +1,4 @@
+import { LabeledCSSUnitInput } from "components/Inputs/CSSUnitInput";
 import { RadioInputs } from "components/Inputs/RadioInputs";
 import { TextInput } from "components/Inputs/TextInput";
 import { SettingsUpdaterComponent } from "components/Shiny-Ui-Elements/uiNodeTypes";
@@ -31,7 +32,13 @@ export const GridlayoutVerticalStackPanelSettings: SettingsUpdaterComponent<
         optionIcons={alignmentIcons}
         currentSelection={settings.item_alignment ?? "top"}
         onChange={(item_alignment) => onChange({ ...settings, item_alignment })}
-        optionsPerColumn={4}
+        optionsPerColumn={2}
+      />
+      <LabeledCSSUnitInput
+        value={settings.item_gap ?? "15px"}
+        label="Gap Size"
+        units={["px", "rem"]}
+        onChange={(item_gap) => onChange({ ...settings, item_gap })}
       />
     </>
   );
