@@ -6,6 +6,10 @@ import GridlayoutGridPage from "./GridlayoutGridPage";
 import { GridlayoutGridPageSettings } from "./GridlayoutGridPage/SettingsPanel";
 import GridlayoutGridPanel from "./GridlayoutGridPanel";
 import { GridlayoutGridPanelSettings } from "./GridlayoutGridPanel/SettingsPanel";
+import GridlayoutVerticalStackPanel, {
+  gridlayoutVerticalStackPanelDefaultSettings,
+} from "./GridlayoutVerticalStackPanel";
+import { GridlayoutVerticalStackPanelSettings } from "./GridlayoutVerticalStackPanel/SettingsPanel";
 import ShinyPlotOutput from "./ShinyPlotOutput";
 import { ShinyPlotOutputSettings } from "./ShinyPlotOutput/SettingsPanel";
 import ShinySliderInput from "./ShinySliderInput";
@@ -46,6 +50,10 @@ export const uiComponentAndSettings = {
     UiComponent: GridlayoutGridPage,
     SettingsComponent: GridlayoutGridPageSettings,
   },
+  "gridlayout::vertical_stack_panel": {
+    UiComponent: GridlayoutVerticalStackPanel,
+    SettingsComponent: GridlayoutVerticalStackPanelSettings,
+  },
 };
 
 export const defaultSettingsForElements: ShinyUiNode[] = [
@@ -73,5 +81,9 @@ export const defaultSettingsForElements: ShinyUiNode[] = [
       verticalAlign: "center",
       horizontalAlign: "center",
     },
+  },
+  {
+    uiName: "gridlayout::vertical_stack_panel",
+    uiArguments: gridlayoutVerticalStackPanelDefaultSettings,
   },
 ];
