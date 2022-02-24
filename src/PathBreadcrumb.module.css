@@ -13,6 +13,8 @@
   font-size: 1.02rem;
   padding: var(--pad);
   width: fit-content;
+  max-width: 100%;
+  overflow-wrap: break-word;
   position: relative;
   cursor: pointer;
   background-color: var(--rstudio-white);
