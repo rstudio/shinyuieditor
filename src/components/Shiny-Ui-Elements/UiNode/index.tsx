@@ -1,14 +1,13 @@
 import { NodeSelectionContext } from "EditorContainer";
 import React from "react";
 import { sameArray } from "utils/equalityCheckers";
+import { useDragAndDropElements } from "../DragAndDropHelpers/useDragAndDropElements";
 import {
   uiComponentAndSettings,
   UiNodeComponent,
 } from "../Elements/uiComponentAndSettings";
 import { NodePath, ShinyUiNode } from "../uiNodeTypes";
 import classes from "./styles.module.css";
-
-import { useDragAndDropElements } from "../DragAndDropHelpers/useDragAndDropElements";
 
 /**
  * Recursively render the nodes in a UI Tree
@@ -23,19 +22,20 @@ const UiNode = ({
 }: { path?: NodePath; selectedPath: NodePath | null } & ShinyUiNode) => {
   const setNodeSelection = React.useContext(NodeSelectionContext);
 
+  const componentInfo = uiComponentAndSettings[uiName];
+  const Comp = componentInfo.UiComponent as UiNodeComponent<typeof uiArguments>;
+
   const isSelected = selectedPath ? sameArray(path, selectedPath) : false;
 
-  const isLeafNode = typeof uiChildren === "undefined";
-  const dragAndDropCallbacks = useDragAndDropElements(path, isLeafNode);
+  const dragAndDropCallbacks = useDragAndDropElements(
+    path,
+    componentInfo.acceptsChildren
+  );
 
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     setNodeSelection(path);
   };
-
-  const Comp = uiComponentAndSettings[uiName].UiComponent as UiNodeComponent<
-    typeof uiArguments
-  >;
 
   return (
     <Comp
