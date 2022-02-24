@@ -50,12 +50,3 @@ export type ContainerSettings = GridPanelSettings;
  * instance would be then [0,1]
  */
 export type NodePath = number[];
-
-// export type ShinyUiNode = ShinyUiNode;
-
-type UiContainerNode = Required<ShinyUiNode>;
-export function checkIfContainerNode(
-  node: ShinyUiNode
-): node is UiContainerNode {
-  return (node as UiContainerNode).uiChildren !== undefined;
-}
