@@ -86,7 +86,12 @@ function useUpdateSettings({
 
   const deleteNode = React.useCallback(() => {
     if (selectedPath === null) return;
-    setNodeSelection(null);
+
+    // Move selection to parent
+    const newPath = [...selectedPath];
+    newPath.pop();
+    setNodeSelection(newPath);
+
     sendTreeUpdateMessage({ type: "DELETE_NODE", path: selectedPath });
   }, [selectedPath, setNodeSelection]);
 
