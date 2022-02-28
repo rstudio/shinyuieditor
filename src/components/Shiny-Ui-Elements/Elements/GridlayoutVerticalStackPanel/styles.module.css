@@ -1,0 +1,21 @@
+.container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--rstudio-white, green);
+  outline: var(--outline);
+}
+
+/* Make sure the children are position relative so floating buttons etc will sit
+in the proper places */
+.container > * {
+  position: relative;
+  outline: var(--outline);
+}
+
+.container > *:not(:last-child) {
+  margin-bottom: var(--item-gap, 1rem);
+}

@@ -1,5 +1,20 @@
 import produce from "immer";
-import { ShinyUiNode, NodePath, checkIfContainerNode } from "../uiNodeTypes";
+import { uiComponentAndSettings } from "../Elements/uiComponentAndSettings";
+import { NodePath, ShinyUiNode } from "../uiNodeTypes";
+
+/**
+ * Like Required but you can choose what subset of properties are required
+ */
+type RequireProp<T, K extends keyof T> = T & {
+  [P in K]-?: T[P];
+};
+type UiContainerNode = RequireProp<ShinyUiNode, "uiChildren">;
+
+export function checkIfContainerNode(
+  node: ShinyUiNode
+): node is UiContainerNode {
+  return (node as UiContainerNode).uiChildren !== undefined;
+}
 
 /**
  * Navigate to a node in a UiTree at the provided path
@@ -124,13 +139,17 @@ export function addNode({
 }) {
   return produce(tree, (treeDraft) => {
     const parentNode = getNode(treeDraft, path);
-    if (!checkIfContainerNode(parentNode)) {
+    if (!uiComponentAndSettings[parentNode.uiName].acceptsChildren) {
       throw new Error(
         "Can't add a child to a non-container node. Check the path"
       );
     }
 
-    // Add the new child
+    // If this is the first child we may need to create the uiChildren array first
+    if (!Array.isArray(parentNode.uiChildren)) {
+      parentNode.uiChildren = [];
+    }
+
     parentNode.uiChildren.push(newNode);
   });
 }

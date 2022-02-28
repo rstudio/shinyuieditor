@@ -10,6 +10,10 @@ const elementIcons: Record<ShinyUiNames, { iconSrc: string; title: string }> = {
   "shiny::sliderInput": { iconSrc: sliderIcon, title: "Slider Input" },
   "gridlayout::title_panel": { iconSrc: textIcon, title: "Title Panel" },
   "gridlayout::grid_panel": { iconSrc: containerIcon, title: "Grid Panel" },
+  "gridlayout::vertical_stack_panel": {
+    iconSrc: containerIcon,
+    title: "Vertical Stack Panel",
+  },
   "gridlayout::grid_page": { iconSrc: gridIcon, title: "Grid Page" },
 };
 export default elementIcons;

@@ -1,6 +1,7 @@
 import { TemplatedGridProps } from "utils/gridTemplates/types";
 import { GridPanelSettings } from "./Elements/GridlayoutGridPanel";
 import { GridlayoutTitlePanelProps } from "./Elements/GridlayoutTitlePanel";
+import { VerticalStackPanelSettings } from "./Elements/GridlayoutVerticalStackPanel";
 import { ShinyPlotOutputProps } from "./Elements/ShinyPlotOutput";
 import { ShinySliderInputProps } from "./Elements/ShinySliderInput/arguments";
 
@@ -16,6 +17,7 @@ export type ShinyUiArguments = {
   "gridlayout::title_panel": GridlayoutTitlePanelProps;
   "gridlayout::grid_panel": GridPanelSettings;
   "gridlayout::grid_page": TemplatedGridProps;
+  "gridlayout::vertical_stack_panel": VerticalStackPanelSettings;
 };
 
 /**
@@ -48,12 +50,3 @@ export type ContainerSettings = GridPanelSettings;
  * instance would be then [0,1]
  */
 export type NodePath = number[];
-
-// export type ShinyUiNode = ShinyUiNode;
-
-type UiContainerNode = Required<ShinyUiNode>;
-export function checkIfContainerNode(
-  node: ShinyUiNode
-): node is UiContainerNode {
-  return (node as UiContainerNode).uiChildren !== undefined;
-}

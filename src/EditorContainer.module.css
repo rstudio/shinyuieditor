@@ -12,6 +12,7 @@
 
 .container > * {
   outline: 1px solid var(--header-grey);
+  min-width: 0;
 }
 
 .elementsPanel {
@@ -43,6 +44,9 @@
   display: grid;
   grid-template-rows: var(--label-h) 1fr;
   background-color: var(--background-grey);
+}
+.titledPanel > * {
+  min-width: 0;
 }
 
 .titledPanel > h3 {

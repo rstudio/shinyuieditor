@@ -95,20 +95,23 @@ export function buildDragAndDropHandlers(
   };
 }
 
-export function useDragAndDropElements(path: NodePath, isLeafNode: boolean) {
+export function useDragAndDropElements(
+  path: NodePath,
+  acceptsChildren: boolean
+) {
   const callbacks = React.useMemo(
     () =>
-      isLeafNode
-        ? {}
-        : buildDragAndDropHandlers(({ node }) => {
+      acceptsChildren
+        ? buildDragAndDropHandlers(({ node }) => {
             // Let the state know we have a new child node
             sendTreeUpdateMessage({
               type: "ADD_NODE",
               parentPath: path,
               newNode: node,
             });
-          }),
-    [isLeafNode, path]
+          })
+        : {},
+    [acceptsChildren, path]
   );
 
   return callbacks;

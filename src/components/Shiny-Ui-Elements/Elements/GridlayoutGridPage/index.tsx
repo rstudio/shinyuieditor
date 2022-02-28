@@ -148,7 +148,8 @@ const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
       // grid container
       if (
         newNode.uiName === "gridlayout::grid_panel" ||
-        newNode.uiName === "gridlayout::title_panel"
+        newNode.uiName === "gridlayout::title_panel" ||
+        newNode.uiName === "gridlayout::vertical_stack_panel"
       ) {
         newNode.uiArguments.area = name;
       } else {
