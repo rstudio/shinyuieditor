@@ -1,7 +1,7 @@
 import produce from "immer";
 import {
-  NodePath,
   ShinyUiNode,
+  NodePath,
   shinyUiNodeInfo,
 } from "../Elements/uiNodeTypes";
 

@@ -1,7 +1,7 @@
 import { TextInput } from "components/Inputs/TextInput";
-import { SettingsUpdaterComponent } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import * as React from "react";
 import { ShinyPlotOutputProps } from ".";
+import { SettingsUpdaterComponent } from "../uiNodeTypes";
 
 export const ShinyPlotOutputSettings: SettingsUpdaterComponent<
   ShinyPlotOutputProps

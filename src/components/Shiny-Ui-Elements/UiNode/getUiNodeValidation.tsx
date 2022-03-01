@@ -1,4 +1,4 @@
-import { ShinyUiNode } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
+import { ShinyUiNode } from "../Elements/uiNodeTypes";
 
 type ValidateArgsResponse =
   | {
