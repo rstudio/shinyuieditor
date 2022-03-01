@@ -1,12 +1,12 @@
 import Button from "components/Inputs/Button";
 import { sendTreeUpdateMessage } from "components/Shiny-Ui-Elements/Elements/treeUpdateEvents";
-import { uiComponentAndSettings } from "components/Shiny-Ui-Elements/Elements/uiComponentAndSettings";
 import { getUiNodeValidation } from "components/Shiny-Ui-Elements/UiNode/getUiNodeValidation";
 import { getNode } from "components/Shiny-Ui-Elements/UiNode/treeManipulation";
 import {
   NodePath,
   SettingsUpdaterComponent,
   ShinyUiNode,
+  uiComponentAndSettings,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { NodeSelectionContext } from "EditorContainer";
 import * as React from "react";

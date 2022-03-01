@@ -1,10 +1,10 @@
 import {
   ShinyUiNames,
   ShinyUiNode,
+  uiComponentAndSettings,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import * as React from "react";
 import { assignElementDragData } from "../DragAndDropHelpers/useDragAndDropElements";
-import { uiComponentAndSettings } from "../Elements/uiComponentAndSettings";
 import classes from "./styles.module.css";
 
 export default function ElementsPalette({

@@ -1,9 +1,24 @@
 import { TemplatedGridProps } from "utils/gridTemplates/types";
-import { GridPanelSettings } from "./Elements/GridlayoutGridPanel";
-import { GridlayoutTitlePanelProps } from "./Elements/GridlayoutTitlePanel";
-import { VerticalStackPanelSettings } from "./Elements/GridlayoutVerticalStackPanel";
-import { ShinyPlotOutputProps } from "./Elements/ShinyPlotOutput";
+import { gridlayoutGridPageInfo } from "./Elements/GridlayoutGridPage";
+import {
+  gridLayoutGridPanelInfo,
+  GridPanelSettings,
+} from "./Elements/GridlayoutGridPanel";
+import {
+  gridlayoutTitlePanelInfo,
+  GridlayoutTitlePanelProps,
+} from "./Elements/GridlayoutTitlePanel";
+import {
+  gridlayoutVerticalStackPanelInfo,
+  VerticalStackPanelSettings,
+} from "./Elements/GridlayoutVerticalStackPanel";
+import {
+  shinyPlotOutputInfo,
+  ShinyPlotOutputProps,
+} from "./Elements/ShinyPlotOutput";
+import { shinySliderInputInfo } from "./Elements/ShinySliderInput";
 import { ShinySliderInputProps } from "./Elements/ShinySliderInput/arguments";
+import { UiComponentInfo } from "./Elements/UiComponentInfo";
 
 /**
  * All possible props/arguments for the defined UI components
@@ -18,6 +33,17 @@ export type ShinyUiArguments = {
   "gridlayout::grid_panel": GridPanelSettings;
   "gridlayout::grid_page": TemplatedGridProps;
   "gridlayout::vertical_stack_panel": VerticalStackPanelSettings;
+};
+
+export const uiComponentAndSettings: {
+  [UiName in ShinyUiNames]: UiComponentInfo<ShinyUiArguments[UiName]>;
+} = {
+  "shiny::plotOutput": shinyPlotOutputInfo,
+  "shiny::sliderInput": shinySliderInputInfo,
+  "gridlayout::title_panel": gridlayoutTitlePanelInfo,
+  "gridlayout::grid_panel": gridLayoutGridPanelInfo,
+  "gridlayout::grid_page": gridlayoutGridPageInfo,
+  "gridlayout::vertical_stack_panel": gridlayoutVerticalStackPanelInfo,
 };
 
 /**
