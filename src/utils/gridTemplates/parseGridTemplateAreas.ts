@@ -3,6 +3,7 @@ import { CSSMeasure } from "GridTypes";
 
 import { fillArr } from "../array-helpers";
 import { matrixDimensions, uniqueMatrixElements } from "../matrix-helpers";
+
 import { TemplatedGridProps } from "./types";
 
 type GridContainerStyles = Pick<

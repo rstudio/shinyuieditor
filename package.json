@@ -60,6 +60,8 @@
               "groups": [
                 "builtin",
                 "external",
+                "parent",
+                "index",
                 "internal"
               ],
               "pathGroups": [

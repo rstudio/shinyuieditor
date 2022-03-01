@@ -5,6 +5,7 @@ import { TextInput } from "components/Inputs/TextInput";
 import { WrappedSection } from "components/Inputs/WrappedSection";
 
 import { SettingsUpdaterComponent } from "../uiNodeTypes";
+
 import { ShinySliderInputProps, validateNumber } from "./arguments";
 
 export const ShinySliderInputSettings: SettingsUpdaterComponent<

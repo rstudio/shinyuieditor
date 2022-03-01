@@ -7,6 +7,7 @@ import {
 } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 
 import { assignElementDragData } from "../DragAndDropHelpers/useDragAndDropElements";
+
 import classes from "./styles.module.css";
 
 export default function ElementsPalette({

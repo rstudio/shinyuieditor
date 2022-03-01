@@ -17,6 +17,7 @@ import {
   availableMoves,
   MovementType,
 } from "../../../../utils/gridTemplates/availableMoves";
+
 import classes from "./AreaOverlay.module.css";
 import { CellLocRef } from "./GridCell";
 import { useResizeOnDrag } from "./useResizeOnDrag";

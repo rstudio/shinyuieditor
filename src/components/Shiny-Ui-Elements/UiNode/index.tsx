@@ -10,12 +10,12 @@ import {
   shinyUiNodeInfo,
   UiNodeComponent,
 } from "../Elements/uiNodeTypes";
+
 import classes from "./styles.module.css";
 
 /**
  * Recursively render the nodes in a UI Tree
  */
-
 const UiNode = ({
   path = [],
   selectedPath,

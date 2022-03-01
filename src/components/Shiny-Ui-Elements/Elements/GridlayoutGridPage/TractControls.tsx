@@ -15,6 +15,7 @@ import { conflictsToRemoveTract } from "utils/gridTemplates/removeTract";
 import { TemplatedGridProps } from "utils/gridTemplates/types";
 
 import { PopoverButton } from "../../../Inputs/PopoverButton";
+
 import { LayoutDispatchContext } from "./GridlayoutGridPage";
 import classes from "./TractControls.module.css";
 

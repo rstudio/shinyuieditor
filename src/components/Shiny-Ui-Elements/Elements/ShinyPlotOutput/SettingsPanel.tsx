@@ -2,8 +2,10 @@ import * as React from "react";
 
 import { TextInput } from "components/Inputs/TextInput";
 
-import { ShinyPlotOutputProps } from ".";
 import { SettingsUpdaterComponent } from "../uiNodeTypes";
+
+import { ShinyPlotOutputProps } from ".";
+
 
 export const ShinyPlotOutputSettings: SettingsUpdaterComponent<
   ShinyPlotOutputProps
