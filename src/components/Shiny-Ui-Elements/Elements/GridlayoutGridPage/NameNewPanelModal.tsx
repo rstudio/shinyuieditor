@@ -3,7 +3,7 @@ import { TextInput } from "components/Inputs/TextInput";
 import PortalModal from "PortalModal";
 import classes from "PortalModal.module.css";
 import React from "react";
-import { NewItemInfo } from "./index";
+import { NewItemInfo } from "./GridlayoutGridPage";
 
 export function NameNewPanelModal({
   onCancel,

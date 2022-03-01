@@ -1,32 +1,12 @@
-import * as React from "react";
-import { UiNodeComponent } from "../uiComponentAndSettings";
-import { UiComponentInfo } from "../UiComponentInfo";
-import { GridlayoutTitlePanelSettings } from "./SettingsPanel";
-import classes from "./styles.module.css";
 import textIcon from "assets/icons/shinyText.png";
+import { UiComponentInfo } from "../UiComponentInfo";
+import GridlayoutTitlePanel from "./GridlayoutTitlePanel";
+import { GridlayoutTitlePanelSettings } from "./SettingsPanel";
 
 export interface GridlayoutTitlePanelProps {
   title: string;
   area?: string;
 }
-
-const GridlayoutTitlePanel: UiNodeComponent<GridlayoutTitlePanelProps> = ({
-  uiArguments: { title, area },
-  children,
-  ...passthroughProps
-}) => {
-  return (
-    <div
-      className={classes.titlePanel + " gridlayout-titlePanel"}
-      style={{ gridArea: area }}
-      aria-label={"gridlayout-titlePanel"}
-      {...passthroughProps}
-    >
-      <h1>{title}</h1>
-      {children}
-    </div>
-  );
-};
 
 export const gridlayoutTitlePanelInfo: UiComponentInfo<GridlayoutTitlePanelProps> =
   {

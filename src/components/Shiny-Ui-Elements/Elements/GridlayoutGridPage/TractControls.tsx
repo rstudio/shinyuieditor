@@ -12,8 +12,8 @@ import { joinPretty } from "utils/array-helpers";
 import { ParsedGridTemplate } from "utils/gridTemplates/parseGridTemplateAreas";
 import { conflictsToRemoveTract } from "utils/gridTemplates/removeTract";
 import { TemplatedGridProps } from "utils/gridTemplates/types";
-import { LayoutDispatchContext } from ".";
 import { PopoverButton } from "../../../Inputs/PopoverButton";
+import { LayoutDispatchContext } from "./GridlayoutGridPage";
 import classes from "./TractControls.module.css";
 
 export function TractControls({
