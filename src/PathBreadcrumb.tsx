@@ -34,9 +34,13 @@ export default function PathBreadcrumb({
             i === totalDepth ? undefined : () => onSelect(path.slice(0, i))
           }
         >
-          {name}
+          {removeNamespaceFromUiName(name)}
         </div>
       ))}
     </div>
   );
+}
+
+function removeNamespaceFromUiName(uiName: string): string {
+  return uiName.replace(/[a-z]+::/, "");
 }
