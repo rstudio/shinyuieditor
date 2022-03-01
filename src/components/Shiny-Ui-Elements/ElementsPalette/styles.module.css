@@ -23,6 +23,7 @@
   cursor: grab;
   font-size: 1.05rem;
   padding: 5px;
+  text-align: center;
 }
 
 .OptionItem:hover {
