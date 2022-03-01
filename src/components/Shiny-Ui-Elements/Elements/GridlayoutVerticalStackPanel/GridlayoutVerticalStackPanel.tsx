@@ -6,7 +6,6 @@ import classes from "./styles.module.css";
 const GridlayoutVerticalStackPanel: UiNodeComponent<
   VerticalStackPanelSettings
 > = (props) => {
-  console.log("Vertical Stack Panel", props);
   const { uiArguments, children, ...passthroughProps } = props;
   const { area, item_alignment, item_gap } = uiArguments;
   return (
