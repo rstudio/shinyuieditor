@@ -1,3 +1,4 @@
+import gridIcon from "assets/icons/shinyDatatable.png";
 import {
   buildDragAndDropHandlers,
   dragAndDropTargetEvents,
@@ -21,8 +22,10 @@ import {
   useListenForTreeUpdateEvent,
 } from "../treeUpdateEvents";
 import { UiNodeComponent } from "../uiComponentAndSettings";
+import { UiComponentInfo } from "../UiComponentInfo";
 import { GridLayoutAction, gridLayoutReducer } from "./gridLayoutReducer";
 import { NameNewPanelModal } from "./NameNewPanelModal";
+import { GridlayoutGridPageSettings } from "./SettingsPanel";
 import classes from "./styles.module.css";
 import { TractControls } from "./TractControls";
 
@@ -252,5 +255,22 @@ function areasOfChildren(children: React.ReactNode) {
 
   return all_children_areas;
 }
+
+export const gridlayoutGridPageInfo: UiComponentInfo<TemplatedGridProps> = {
+  title: "Slider Input",
+  UiComponent: GridlayoutGridPage,
+  SettingsComponent: GridlayoutGridPageSettings,
+  acceptsChildren: true,
+  defaultSettings: {
+    areas: [
+      ["header", "header"],
+      ["sidebar", "main"],
+    ],
+    rowSizes: ["100px", "1fr"],
+    colSizes: ["250px", "1fr"],
+    gapSize: "1rem",
+  },
+  iconSrc: gridIcon,
+};
 
 export default GridlayoutGridPage;

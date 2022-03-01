@@ -1,4 +1,8 @@
 import { UiNodeComponent } from "../uiComponentAndSettings";
+import { UiComponentInfo } from "../UiComponentInfo";
+import { GridlayoutGridPanelSettings } from "./SettingsPanel";
+import containerIcon from "assets/icons/shinyContainer.png";
+
 import classes from "./styles.module.css";
 
 export type HorizontalAlignments = "left" | "center" | "right" | "spread";
@@ -39,4 +43,18 @@ const dirToFlexProp: Record<HorizontalAlignments | VerticalAlignments, string> =
     bottom: "end",
     spread: "space-evenly",
   };
+
+export const gridLayoutGridPanelInfo: UiComponentInfo<GridPanelSettings> = {
+  title: "Vertical Stack Panel",
+  UiComponent: GridlayoutGridPanel,
+  SettingsComponent: GridlayoutGridPanelSettings,
+  acceptsChildren: true,
+  defaultSettings: {
+    area: "default-grid-panel-area",
+    verticalAlign: "center",
+    horizontalAlign: "center",
+  },
+  iconSrc: containerIcon,
+};
+
 export default GridlayoutGridPanel;

@@ -1,7 +1,11 @@
+import plotIcon from "assets/icons/shinyPlot.png";
 import * as React from "react";
 import { GoGraph } from "react-icons/go";
 import { UiNodeComponent } from "../uiComponentAndSettings";
+import { UiComponentInfo } from "../UiComponentInfo";
+import { ShinyPlotOutputSettings } from "./SettingsPanel";
 import classes from "./styles.module.css";
+
 export type ShinyPlotOutputProps = Partial<{
   outputId: string;
   width: string;
@@ -60,6 +64,15 @@ const ShinyPlotOutput: UiNodeComponent<ShinyPlotOutputProps> = ({
       {children}
     </div>
   );
+};
+
+export const shinyPlotOutputInfo: UiComponentInfo<ShinyPlotOutputProps> = {
+  title: "Plot Output",
+  UiComponent: ShinyPlotOutput,
+  SettingsComponent: ShinyPlotOutputSettings,
+  acceptsChildren: true,
+  defaultSettings: { outputId: "plot" },
+  iconSrc: plotIcon,
 };
 
 export default ShinyPlotOutput;

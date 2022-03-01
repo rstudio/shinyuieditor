@@ -1,7 +1,10 @@
 import * as React from "react";
 import { UiNodeComponent } from "../uiComponentAndSettings";
+import { UiComponentInfo } from "../UiComponentInfo";
 import { buildSliderSettings, ShinySliderInputProps } from "./arguments";
+import { ShinySliderInputSettings } from "./SettingsPanel";
 import classes from "./styles.module.css";
+import sliderIcon from "assets/icons/shinySlider.png";
 
 const ShinySliderInput: UiNodeComponent<ShinySliderInputProps> = ({
   children,
@@ -40,6 +43,21 @@ const ShinySliderInput: UiNodeComponent<ShinySliderInputProps> = ({
       {children}
     </div>
   );
+};
+
+export const shinySliderInputInfo: UiComponentInfo<ShinySliderInputProps> = {
+  title: "Slider Input",
+  UiComponent: ShinySliderInput,
+  SettingsComponent: ShinySliderInputSettings,
+  acceptsChildren: false,
+  defaultSettings: {
+    inputId: "slider",
+    label: "Slider",
+    min: 0,
+    value: 5,
+    max: 10,
+  },
+  iconSrc: sliderIcon,
 };
 
 export default ShinySliderInput;

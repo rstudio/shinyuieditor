@@ -1,7 +1,10 @@
 import { CSSMeasure } from "GridTypes";
 import React from "react";
 import { UiNodeComponent } from "../uiComponentAndSettings";
+import { GridlayoutVerticalStackPanelSettings } from "./SettingsPanel";
 import classes from "./styles.module.css";
+import containerIcon from "assets/icons/shinyContainer.png";
+import { UiComponentInfo } from "../UiComponentInfo";
 
 export type AlignmentOptions = "top" | "center" | "bottom" | "spread";
 export type VerticalStackPanelSettings = {
@@ -49,4 +52,19 @@ const dirToFlexProp: Record<
   bottom: "flex-end",
   spread: "space-evenly",
 };
+
+export const gridlayoutVerticalStackPanelInfo: UiComponentInfo<VerticalStackPanelSettings> =
+  {
+    title: "Vertical Stack Panel",
+    UiComponent: GridlayoutVerticalStackPanel,
+    SettingsComponent: GridlayoutVerticalStackPanelSettings,
+    acceptsChildren: true,
+    defaultSettings: {
+      area: "default-area",
+      item_alignment: "top",
+      item_gap: "12px",
+    },
+    iconSrc: containerIcon,
+  };
+
 export default GridlayoutVerticalStackPanel;

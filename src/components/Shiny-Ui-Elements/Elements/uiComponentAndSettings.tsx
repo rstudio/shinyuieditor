@@ -1,5 +1,4 @@
-import GridlayoutTitlePanel from "components/Shiny-Ui-Elements/Elements/GridlayoutTitlePanel";
-import { GridlayoutTitlePanelSettings } from "components/Shiny-Ui-Elements/Elements/GridlayoutTitlePanel/SettingsPanel";
+import { gridlayoutTitlePanelInfo } from "components/Shiny-Ui-Elements/Elements/GridlayoutTitlePanel";
 import {
   SettingsUpdaterComponent,
   ShinyUiArguments,
@@ -7,18 +6,14 @@ import {
   ShinyUiNode,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { DragAndDropHandlers } from "../DragAndDropHelpers/useDragAndDropElements";
-import GridlayoutGridPage from "./GridlayoutGridPage";
-import { GridlayoutGridPageSettings } from "./GridlayoutGridPage/SettingsPanel";
-import GridlayoutGridPanel from "./GridlayoutGridPanel";
-import { GridlayoutGridPanelSettings } from "./GridlayoutGridPanel/SettingsPanel";
-import GridlayoutVerticalStackPanel, {
+import { gridlayoutGridPageInfo } from "./GridlayoutGridPage";
+import { gridLayoutGridPanelInfo } from "./GridlayoutGridPanel";
+import {
   gridlayoutVerticalStackPanelDefaultSettings,
+  gridlayoutVerticalStackPanelInfo,
 } from "./GridlayoutVerticalStackPanel";
-import { GridlayoutVerticalStackPanelSettings } from "./GridlayoutVerticalStackPanel/SettingsPanel";
-import ShinyPlotOutput from "./ShinyPlotOutput";
-import { ShinyPlotOutputSettings } from "./ShinyPlotOutput/SettingsPanel";
-import ShinySliderInput from "./ShinySliderInput";
-import { ShinySliderInputSettings } from "./ShinySliderInput/SettingsPanel";
+import { shinyPlotOutputInfo } from "./ShinyPlotOutput";
+import { shinySliderInputInfo } from "./ShinySliderInput";
 
 type AllowedBaseElements = HTMLDivElement;
 type PassthroughProps = DragAndDropHandlers &
@@ -41,36 +36,12 @@ export const uiComponentAndSettings: {
     acceptsChildren: boolean;
   };
 } = {
-  "shiny::plotOutput": {
-    UiComponent: ShinyPlotOutput,
-    SettingsComponent: ShinyPlotOutputSettings,
-    acceptsChildren: false,
-  },
-  "shiny::sliderInput": {
-    UiComponent: ShinySliderInput,
-    SettingsComponent: ShinySliderInputSettings,
-    acceptsChildren: false,
-  },
-  "gridlayout::title_panel": {
-    UiComponent: GridlayoutTitlePanel,
-    SettingsComponent: GridlayoutTitlePanelSettings,
-    acceptsChildren: false,
-  },
-  "gridlayout::grid_panel": {
-    UiComponent: GridlayoutGridPanel,
-    SettingsComponent: GridlayoutGridPanelSettings,
-    acceptsChildren: true,
-  },
-  "gridlayout::grid_page": {
-    UiComponent: GridlayoutGridPage,
-    SettingsComponent: GridlayoutGridPageSettings,
-    acceptsChildren: true,
-  },
-  "gridlayout::vertical_stack_panel": {
-    UiComponent: GridlayoutVerticalStackPanel,
-    SettingsComponent: GridlayoutVerticalStackPanelSettings,
-    acceptsChildren: true,
-  },
+  "shiny::plotOutput": shinyPlotOutputInfo,
+  "shiny::sliderInput": shinySliderInputInfo,
+  "gridlayout::title_panel": gridlayoutTitlePanelInfo,
+  "gridlayout::grid_panel": gridLayoutGridPanelInfo,
+  "gridlayout::grid_page": gridlayoutGridPageInfo,
+  "gridlayout::vertical_stack_panel": gridlayoutVerticalStackPanelInfo,
 };
 
 export const defaultSettingsForElements: ShinyUiNode[] = [
