@@ -1,5 +1,5 @@
+import { UiNodeComponent } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import * as React from "react";
-import { UiNodeComponent } from "../uiComponentAndSettings";
 import { buildSliderSettings, ShinySliderInputProps } from "./arguments";
 import classes from "./styles.module.css";
 

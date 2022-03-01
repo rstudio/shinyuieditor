@@ -1,5 +1,4 @@
-import { SettingsUpdaterComponent } from "../uiNodeTypes";
-import { UiNodeComponent } from "./uiComponentAndSettings";
+import { SettingsUpdaterComponent, UiNodeComponent } from "../uiNodeTypes";
 
 /**
  * Defines everything needed to add a new Shiny UI component to the app

@@ -2,8 +2,12 @@ import { NodeSelectionContext } from "EditorContainer";
 import React from "react";
 import { sameArray } from "utils/equalityCheckers";
 import { useDragAndDropElements } from "../DragAndDropHelpers/useDragAndDropElements";
-import { UiNodeComponent } from "../Elements/uiComponentAndSettings";
-import { NodePath, ShinyUiNode, uiComponentAndSettings } from "../uiNodeTypes";
+import {
+  NodePath,
+  ShinyUiNode,
+  uiComponentAndSettings,
+  UiNodeComponent,
+} from "../uiNodeTypes";
 import classes from "./styles.module.css";
 
 /**

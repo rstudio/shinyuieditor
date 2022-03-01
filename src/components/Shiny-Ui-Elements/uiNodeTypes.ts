@@ -1,4 +1,5 @@
 import { TemplatedGridProps } from "utils/gridTemplates/types";
+import { DragAndDropHandlers } from "./DragAndDropHelpers/useDragAndDropElements";
 import { gridlayoutGridPageInfo } from "./Elements/GridlayoutGridPage";
 import {
   gridLayoutGridPanelInfo,
@@ -63,6 +64,20 @@ export type ShinyUiNode = {
     uiHTML?: string;
   };
 }[ShinyUiNames];
+
+type AllowedBaseElements = HTMLDivElement;
+type PassthroughProps = DragAndDropHandlers &
+  Pick<
+    React.DetailedHTMLProps<
+      React.HTMLAttributes<AllowedBaseElements>,
+      AllowedBaseElements
+    >,
+    "onClick"
+  >;
+
+export type UiNodeComponent<NodeSettings extends object> = React.FC<
+  { uiArguments: NodeSettings } & PassthroughProps
+>;
 
 export type SettingsUpdaterComponent<T extends object> = (p: {
   settings: T;

@@ -1,8 +1,8 @@
+import { UiNodeComponent } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import * as React from "react";
 import { GoGraph } from "react-icons/go";
-import { UiNodeComponent } from "../uiComponentAndSettings";
-import classes from "./styles.module.css";
 import { ShinyPlotOutputProps } from "./index";
+import classes from "./styles.module.css";
 
 const ShinyPlotOutput: UiNodeComponent<ShinyPlotOutputProps> = ({
   uiArguments,

@@ -7,7 +7,10 @@ import {
   CellLocRef,
   GridCell,
 } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/GridCell";
-import { ShinyUiNode } from "components/Shiny-Ui-Elements/uiNodeTypes";
+import {
+  ShinyUiNode,
+  UiNodeComponent,
+} from "components/Shiny-Ui-Elements/uiNodeTypes";
 import omit from "just-omit";
 import React from "react";
 import { subtractElements } from "utils/array-helpers";
@@ -20,7 +23,6 @@ import {
   sendTreeUpdateMessage,
   useListenForTreeUpdateEvent,
 } from "../treeUpdateEvents";
-import { UiNodeComponent } from "../uiComponentAndSettings";
 import { GridLayoutAction, gridLayoutReducer } from "./gridLayoutReducer";
 import { NameNewPanelModal } from "./NameNewPanelModal";
 import classes from "./styles.module.css";

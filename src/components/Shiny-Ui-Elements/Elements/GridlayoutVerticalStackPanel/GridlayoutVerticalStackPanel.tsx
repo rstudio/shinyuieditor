@@ -1,7 +1,7 @@
+import { UiNodeComponent } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import React from "react";
-import { UiNodeComponent } from "../uiComponentAndSettings";
+import { AlignmentOptions, VerticalStackPanelSettings } from "./index";
 import classes from "./styles.module.css";
-import { VerticalStackPanelSettings, AlignmentOptions } from "./index";
 
 const GridlayoutVerticalStackPanel: UiNodeComponent<
   VerticalStackPanelSettings

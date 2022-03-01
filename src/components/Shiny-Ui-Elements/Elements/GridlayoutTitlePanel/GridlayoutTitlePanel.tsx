@@ -1,7 +1,7 @@
+import { UiNodeComponent } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import * as React from "react";
-import { UiNodeComponent } from "../uiComponentAndSettings";
-import classes from "./styles.module.css";
 import { GridlayoutTitlePanelProps } from "./index";
+import classes from "./styles.module.css";
 
 const GridlayoutTitlePanel: UiNodeComponent<GridlayoutTitlePanelProps> = ({
   uiArguments: { title, area },

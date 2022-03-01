@@ -1,4 +1,4 @@
-import { UiNodeComponent } from "../uiComponentAndSettings";
+import { UiNodeComponent } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import {
   GridPanelSettings,
   HorizontalAlignments,
