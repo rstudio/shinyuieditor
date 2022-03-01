@@ -66,25 +66,21 @@ export type ShinyUiNode = {
 }[ShinyUiNames];
 
 type AllowedBaseElements = HTMLDivElement;
-type PassthroughProps = DragAndDropHandlers &
-  Pick<
-    React.DetailedHTMLProps<
-      React.HTMLAttributes<AllowedBaseElements>,
-      AllowedBaseElements
-    >,
-    "onClick"
-  >;
-
 export type UiNodeComponent<NodeSettings extends object> = React.FC<
-  { uiArguments: NodeSettings } & PassthroughProps
+  { uiArguments: NodeSettings } & DragAndDropHandlers &
+    Pick<
+      React.DetailedHTMLProps<
+        React.HTMLAttributes<AllowedBaseElements>,
+        AllowedBaseElements
+      >,
+      "onClick"
+    >
 >;
 
 export type SettingsUpdaterComponent<T extends object> = (p: {
   settings: T;
   onChange: (newSettings: T) => void;
 }) => JSX.Element;
-
-export type ContainerSettings = GridPanelSettings;
 
 /**
  * Path to a given node. Starts at [0] for the root. The first child for
