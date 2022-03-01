@@ -1,4 +1,5 @@
 import { ButtonHTMLAttributes } from "react";
+
 import classes from "./Button.module.css";
 
 type PropsForEl<T extends HTMLElement> = React.DetailedHTMLProps<

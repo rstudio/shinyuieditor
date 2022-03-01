@@ -5,6 +5,7 @@ import { buildRange } from "utils/array-helpers";
 import { toStringLoc } from "utils/grid-helpers";
 import { ItemLocation, TemplatedGridProps } from "utils/gridTemplates/types";
 import { SelectionRect } from "utils/overlap-helpers";
+
 import findAvailableTracts from "./findAvailableTracts";
 
 type TractExtent = {

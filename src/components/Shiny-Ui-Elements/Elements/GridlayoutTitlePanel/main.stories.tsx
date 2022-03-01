@@ -1,6 +1,7 @@
+import React from "react";
+
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import GridlayoutTitlePanel from "components/Shiny-Ui-Elements/Elements/GridlayoutTitlePanel";
-import React from "react";
 import { uniqueMatrixElements } from "utils/matrix-helpers";
 
 const layoutAreas = [

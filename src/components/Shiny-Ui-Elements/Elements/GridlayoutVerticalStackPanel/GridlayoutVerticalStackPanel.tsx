@@ -1,5 +1,7 @@
-import { UiNodeComponent } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import React from "react";
+
+import { UiNodeComponent } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
+
 import { AlignmentOptions, VerticalStackPanelSettings } from "./index";
 import classes from "./styles.module.css";
 

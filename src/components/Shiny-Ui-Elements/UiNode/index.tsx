@@ -1,6 +1,8 @@
-import { NodeSelectionContext } from "EditorContainer";
 import React from "react";
+
+import { NodeSelectionContext } from "EditorContainer";
 import { sameArray } from "utils/equalityCheckers";
+
 import { useDragAndDropElements } from "../DragAndDropHelpers/useDragAndDropElements";
 import {
   NodePath,

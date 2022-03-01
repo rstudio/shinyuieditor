@@ -1,8 +1,10 @@
+import React from "react";
+
 import Button from "components/Inputs/Button";
 import { TextInput } from "components/Inputs/TextInput";
 import PortalModal from "PortalModal";
 import classes from "PortalModal.module.css";
-import React from "react";
+
 import { NewItemInfo } from "./GridlayoutGridPage";
 
 export function NameNewPanelModal({

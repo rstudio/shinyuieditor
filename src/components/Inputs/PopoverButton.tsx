@@ -1,6 +1,8 @@
-import { Placement } from "@popperjs/core";
 import React from "react";
+
+import { Placement } from "@popperjs/core";
 import { usePopper } from "react-popper";
+
 import classes from "./PopoverButton.module.css";
 
 export const PopoverButton: React.FC<

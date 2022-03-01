@@ -1,4 +1,5 @@
 import * as React from "react";
+
 import { diff } from "just-diff";
 
 export function prettyJSON(x: object) {

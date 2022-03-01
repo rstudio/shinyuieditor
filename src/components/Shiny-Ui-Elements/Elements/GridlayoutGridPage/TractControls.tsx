@@ -1,3 +1,5 @@
+import React from "react";
+
 import { CSSUnitInput } from "components/Inputs/CSSUnitInput";
 import { GridLayoutAction } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/gridLayoutReducer";
 import {
@@ -6,12 +8,12 @@ import {
   TractDirection,
 } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/helpers";
 import { CSSMeasure } from "GridTypes";
-import React from "react";
 import { FaPlus, FaTrash } from "react-icons/fa";
 import { joinPretty } from "utils/array-helpers";
 import { ParsedGridTemplate } from "utils/gridTemplates/parseGridTemplateAreas";
 import { conflictsToRemoveTract } from "utils/gridTemplates/removeTract";
 import { TemplatedGridProps } from "utils/gridTemplates/types";
+
 import { PopoverButton } from "../../../Inputs/PopoverButton";
 import { LayoutDispatchContext } from "./GridlayoutGridPage";
 import classes from "./TractControls.module.css";

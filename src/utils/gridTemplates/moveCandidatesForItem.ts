@@ -5,6 +5,7 @@ import {
   gridLocationToExtent,
 } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/helpers";
 import { matrixDimensions } from "utils/matrix-helpers";
+
 import { emptyCell } from "./itemLocations";
 import { GridItemExtent, ItemLocation, TemplatedGridProps } from "./types";
 

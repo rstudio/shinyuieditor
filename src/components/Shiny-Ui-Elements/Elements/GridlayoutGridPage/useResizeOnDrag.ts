@@ -1,5 +1,6 @@
-import clone from "just-clone";
 import React from "react";
+
+import clone from "just-clone";
 import { getExtentsForAvailableTracts } from "utils/gridTemplates/getExtentsForAvailableTracts";
 import {
   AvailableBlocks,
@@ -13,6 +14,7 @@ import {
   TemplatedGridProps,
 } from "utils/gridTemplates/types";
 import { SelectionRect } from "utils/overlap-helpers";
+
 import { GridCellBounds } from "./GridCell";
 import {
   centerOfBounds,

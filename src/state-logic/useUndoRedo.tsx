@@ -1,6 +1,7 @@
+import { useCallback, useEffect, useRef, useState } from "react";
+
 import { GridLayoutTemplate } from "GridTypes";
 import StateHistory from "modules/StateHistory";
-import { useCallback, useEffect, useRef, useState } from "react";
 import { sameLayoutTemplate } from "utils/sameLayoutTemplate";
 
 type HistoryEntry = {

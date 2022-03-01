@@ -1,4 +1,5 @@
 import plotIcon from "assets/icons/shinyPlot.png";
+
 import { UiComponentInfo } from "../uiNodeTypes";
 import { ShinyPlotOutputSettings } from "./SettingsPanel";
 import ShinyPlotOutput from "./ShinyPlotOutput";

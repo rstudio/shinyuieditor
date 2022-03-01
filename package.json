@@ -33,9 +33,11 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "lint": "eslint src --fix"
   },
   "eslintConfig": {
+    "parser": "@typescript-eslint/parser",
     "extends": "react-app",
     "overrides": [
       {
@@ -44,6 +46,39 @@
         ],
         "rules": {
           "import/no-anonymous-default-export": "off"
+        }
+      },
+      {
+        "files": [
+          "**/*.tsx",
+          "**/*.ts"
+        ],
+        "rules": {
+          "import/order": [
+            "error",
+            {
+              "groups": [
+                "builtin",
+                "external",
+                "internal"
+              ],
+              "pathGroups": [
+                {
+                  "pattern": "react",
+                  "group": "external",
+                  "position": "before"
+                }
+              ],
+              "pathGroupsExcludedImportTypes": [
+                "react"
+              ],
+              "newlines-between": "always",
+              "alphabetize": {
+                "order": "asc",
+                "caseInsensitive": true
+              }
+            }
+          ]
         }
       }
     ]
@@ -72,8 +107,10 @@
     "@storybook/preset-create-react-app": "^4.0.0",
     "@storybook/react": "^6.4.13",
     "@types/cypress-image-snapshot": "^3.1.6",
+    "@typescript-eslint/parser": "^5.13.0",
     "cypress": "^8.5.0",
     "cypress-image-snapshot": "^4.0.1",
+    "eslint-plugin-import": "^2.25.4",
     "prettier": "2.5.1",
     "webpack": "5"
   }

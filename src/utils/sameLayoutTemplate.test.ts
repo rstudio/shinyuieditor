@@ -1,4 +1,5 @@
 import { CSSMeasure, GridItemDef, GridLayoutTemplate } from "GridTypes";
+
 import { sameLayoutTemplate } from "./sameLayoutTemplate";
 
 const baseLayout: GridLayoutTemplate = {

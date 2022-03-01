@@ -1,5 +1,7 @@
-import { TextInput } from "components/Inputs/TextInput";
 import * as React from "react";
+
+import { TextInput } from "components/Inputs/TextInput";
+
 import { GridlayoutTitlePanelProps } from ".";
 import { SettingsUpdaterComponent } from "../uiNodeTypes";
 

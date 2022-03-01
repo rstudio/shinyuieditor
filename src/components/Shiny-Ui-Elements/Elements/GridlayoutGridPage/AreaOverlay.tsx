@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   AiFillCaretDown,
   AiFillCaretLeft,
@@ -11,6 +12,7 @@ import {
   ItemLocation,
   TemplatedGridProps,
 } from "utils/gridTemplates/types";
+
 import {
   availableMoves,
   MovementType,
