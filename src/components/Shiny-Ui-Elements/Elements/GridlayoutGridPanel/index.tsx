@@ -12,7 +12,7 @@ export type GridPanelSettings = {
 };
 
 export const gridLayoutGridPanelInfo: UiComponentInfo<GridPanelSettings> = {
-  title: "Vertical Stack Panel",
+  title: "Grid Panel",
   UiComponent: GridlayoutGridPanel,
   SettingsComponent: GridlayoutGridPanelSettings,
   acceptsChildren: true,

@@ -10,7 +10,7 @@ export interface GridlayoutTitlePanelProps {
 
 export const gridlayoutTitlePanelInfo: UiComponentInfo<GridlayoutTitlePanelProps> =
   {
-    title: "Vertical Stack Panel",
+    title: "Title Panel",
     UiComponent: GridlayoutTitlePanel,
     SettingsComponent: GridlayoutTitlePanelSettings,
     acceptsChildren: false,
