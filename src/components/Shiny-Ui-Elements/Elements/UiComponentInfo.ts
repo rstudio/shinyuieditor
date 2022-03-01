@@ -29,7 +29,8 @@ export type UiComponentInfo<NodeSettings extends object> = {
    */
   defaultSettings: NodeSettings;
   /**
-   * The source of the icon. This comes from the importing of a png.
+   * The source of the icon. This comes from the importing of a png. If this is
+   * not provided then the node will not show up in the element palette.
    */
-  iconSrc: string;
+  iconSrc?: string;
 };
