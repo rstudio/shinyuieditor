@@ -2,11 +2,6 @@ import { ButtonHTMLAttributes } from "react";
 
 import classes from "./Button.module.css";
 
-type PropsForEl<T extends HTMLElement> = React.DetailedHTMLProps<
-  React.HTMLAttributes<T>,
-  T
->;
-
 const Button: React.FC<
   {
     variant?: "delete" | "regular";
