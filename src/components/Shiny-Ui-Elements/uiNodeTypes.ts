@@ -36,7 +36,7 @@ export type ShinyUiArguments = {
   "gridlayout::vertical_stack_panel": VerticalStackPanelSettings;
 };
 
-export const uiComponentAndSettings: {
+export const shinyUiNodeInfo: {
   [UiName in ShinyUiNames]: UiComponentInfo<ShinyUiArguments[UiName]>;
 } = {
   "shiny::plotOutput": shinyPlotOutputInfo,

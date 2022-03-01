@@ -1,16 +1,16 @@
 import {
   ShinyUiNames,
   ShinyUiNode,
-  uiComponentAndSettings,
+  shinyUiNodeInfo,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import * as React from "react";
 import { assignElementDragData } from "../DragAndDropHelpers/useDragAndDropElements";
 import classes from "./styles.module.css";
 
 export default function ElementsPalette({
-  availableUi = uiComponentAndSettings,
+  availableUi = shinyUiNodeInfo,
 }: {
-  availableUi?: typeof uiComponentAndSettings;
+  availableUi?: typeof shinyUiNodeInfo;
 }) {
   const uiNames = Object.keys(availableUi) as ShinyUiNames[];
 

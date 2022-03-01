@@ -6,7 +6,7 @@ import {
   NodePath,
   SettingsUpdaterComponent,
   ShinyUiNode,
-  uiComponentAndSettings,
+  shinyUiNodeInfo,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { NodeSelectionContext } from "EditorContainer";
 import * as React from "react";
@@ -134,7 +134,7 @@ export function SettingsPanel({
 
   const { uiName, uiArguments } = currentNode;
 
-  const SettingsInputs = uiComponentAndSettings[uiName]
+  const SettingsInputs = shinyUiNodeInfo[uiName]
     .SettingsComponent as SettingsUpdaterComponent<typeof uiArguments>;
 
   return (
