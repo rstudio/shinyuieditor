@@ -13,7 +13,7 @@ export const shinyPlotOutputInfo: UiComponentInfo<ShinyPlotOutputProps> = {
   title: "Plot Output",
   UiComponent: ShinyPlotOutput,
   SettingsComponent: ShinyPlotOutputSettings,
-  acceptsChildren: true,
+  acceptsChildren: false,
   defaultSettings: { outputId: "plot" },
   iconSrc: plotIcon,
 };
