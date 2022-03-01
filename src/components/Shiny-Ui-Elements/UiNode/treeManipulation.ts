@@ -1,5 +1,9 @@
 import produce from "immer";
-import { NodePath, ShinyUiNode, shinyUiNodeInfo } from "../uiNodeTypes";
+import {
+  NodePath,
+  ShinyUiNode,
+  shinyUiNodeInfo,
+} from "../Elements/uiNodeTypes";
 
 /**
  * Like Required but you can choose what subset of properties are required

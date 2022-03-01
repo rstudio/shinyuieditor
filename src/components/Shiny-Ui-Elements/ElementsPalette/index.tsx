@@ -2,7 +2,7 @@ import {
   ShinyUiNames,
   ShinyUiNode,
   shinyUiNodeInfo,
-} from "components/Shiny-Ui-Elements/uiNodeTypes";
+} from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import * as React from "react";
 import { assignElementDragData } from "../DragAndDropHelpers/useDragAndDropElements";
 import classes from "./styles.module.css";

@@ -7,7 +7,7 @@ import {
   SettingsUpdaterComponent,
   ShinyUiNode,
   shinyUiNodeInfo,
-} from "components/Shiny-Ui-Elements/uiNodeTypes";
+} from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import { NodeSelectionContext } from "EditorContainer";
 import * as React from "react";
 import { BiCheck } from "react-icons/bi";

@@ -2,7 +2,7 @@ import { getNode } from "components/Shiny-Ui-Elements/UiNode/treeManipulation";
 import {
   NodePath,
   ShinyUiNode,
-} from "components/Shiny-Ui-Elements/uiNodeTypes";
+} from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import * as React from "react";
 import classes from "./PathBreadcrumb.module.css";
 

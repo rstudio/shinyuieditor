@@ -1,4 +1,4 @@
-import { ShinyUiNode } from "components/Shiny-Ui-Elements/uiNodeTypes";
+import { ShinyUiNode } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 
 export async function getInitialState(): Promise<ShinyUiNode> {
   const response = await fetch("app-please", { method: "GET" });

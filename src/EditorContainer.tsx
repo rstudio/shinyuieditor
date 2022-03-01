@@ -6,7 +6,7 @@ import UiNode from "components/Shiny-Ui-Elements/UiNode";
 import {
   NodePath,
   ShinyUiNode,
-} from "components/Shiny-Ui-Elements/uiNodeTypes";
+} from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import { getInitialState } from "getInitialState";
 import * as React from "react";
 import { useQuery } from "react-query";

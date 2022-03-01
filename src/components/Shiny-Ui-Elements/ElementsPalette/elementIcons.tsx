@@ -3,7 +3,7 @@ import gridIcon from "assets/icons/shinyDatatable.png";
 import plotIcon from "assets/icons/shinyPlot.png";
 import sliderIcon from "assets/icons/shinySlider.png";
 import textIcon from "assets/icons/shinyText.png";
-import { ShinyUiNames } from "components/Shiny-Ui-Elements/uiNodeTypes";
+import { ShinyUiNames } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 
 const elementIcons: Record<ShinyUiNames, { iconSrc: string; title: string }> = {
   "shiny::plotOutput": { iconSrc: plotIcon, title: "Plot" },

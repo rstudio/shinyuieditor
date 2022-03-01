@@ -7,7 +7,7 @@ import {
   ShinyUiNode,
   shinyUiNodeInfo,
   UiNodeComponent,
-} from "../uiNodeTypes";
+} from "../Elements/uiNodeTypes";
 import classes from "./styles.module.css";
 
 /**

@@ -1,4 +1,4 @@
-import { UiNodeComponent } from "components/Shiny-Ui-Elements/uiNodeTypes";
+import { UiNodeComponent } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import * as React from "react";
 import { GridlayoutTitlePanelProps } from "./index";
 import classes from "./styles.module.css";
