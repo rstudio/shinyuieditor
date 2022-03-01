@@ -1,6 +1,6 @@
 import { RadioInputs } from "components/Inputs/RadioInputs";
 import { TextInput } from "components/Inputs/TextInput";
-import { SettingsUpdaterComponent } from "components/Shiny-Ui-Elements/uiNodeTypes";
+import { SettingsUpdaterComponent } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import * as React from "react";
 import { AiOutlineVerticalAlignMiddle } from "react-icons/ai";
 import {

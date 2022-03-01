@@ -2,7 +2,7 @@ import { getNode } from "components/Shiny-Ui-Elements/UiNode/treeManipulation";
 import {
   NodePath,
   ShinyUiNode,
-} from "components/Shiny-Ui-Elements/uiNodeTypes";
+} from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import * as React from "react";
 import classes from "./PathBreadcrumb.module.css";
 
@@ -34,9 +34,13 @@ export default function PathBreadcrumb({
             i === totalDepth ? undefined : () => onSelect(path.slice(0, i))
           }
         >
-          {name}
+          {removeNamespaceFromUiName(name)}
         </div>
       ))}
     </div>
   );
+}
+
+function removeNamespaceFromUiName(uiName: string): string {
+  return uiName.replace(/[a-z]+::/, "");
 }

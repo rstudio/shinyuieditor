@@ -1,6 +1,9 @@
 import produce from "immer";
-import { uiComponentAndSettings } from "../Elements/uiComponentAndSettings";
-import { NodePath, ShinyUiNode } from "../uiNodeTypes";
+import {
+  NodePath,
+  ShinyUiNode,
+  shinyUiNodeInfo,
+} from "../Elements/uiNodeTypes";
 
 /**
  * Like Required but you can choose what subset of properties are required
@@ -139,7 +142,7 @@ export function addNode({
 }) {
   return produce(tree, (treeDraft) => {
     const parentNode = getNode(treeDraft, path);
-    if (!uiComponentAndSettings[parentNode.uiName].acceptsChildren) {
+    if (!shinyUiNodeInfo[parentNode.uiName].acceptsChildren) {
       throw new Error(
         "Can't add a child to a non-container node. Check the path"
       );

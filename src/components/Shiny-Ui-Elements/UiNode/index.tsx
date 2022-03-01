@@ -3,10 +3,11 @@ import React from "react";
 import { sameArray } from "utils/equalityCheckers";
 import { useDragAndDropElements } from "../DragAndDropHelpers/useDragAndDropElements";
 import {
-  uiComponentAndSettings,
+  NodePath,
+  ShinyUiNode,
+  shinyUiNodeInfo,
   UiNodeComponent,
-} from "../Elements/uiComponentAndSettings";
-import { NodePath, ShinyUiNode } from "../uiNodeTypes";
+} from "../Elements/uiNodeTypes";
 import classes from "./styles.module.css";
 
 /**
@@ -22,7 +23,7 @@ const UiNode = ({
 }: { path?: NodePath; selectedPath: NodePath | null } & ShinyUiNode) => {
   const setNodeSelection = React.useContext(NodeSelectionContext);
 
-  const componentInfo = uiComponentAndSettings[uiName];
+  const componentInfo = shinyUiNodeInfo[uiName];
   const Comp = componentInfo.UiComponent as UiNodeComponent<typeof uiArguments>;
 
   const isSelected = selectedPath ? sameArray(path, selectedPath) : false;

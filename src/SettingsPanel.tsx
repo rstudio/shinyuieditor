@@ -1,13 +1,13 @@
 import Button from "components/Inputs/Button";
 import { sendTreeUpdateMessage } from "components/Shiny-Ui-Elements/Elements/treeUpdateEvents";
-import { uiComponentAndSettings } from "components/Shiny-Ui-Elements/Elements/uiComponentAndSettings";
 import { getUiNodeValidation } from "components/Shiny-Ui-Elements/UiNode/getUiNodeValidation";
 import { getNode } from "components/Shiny-Ui-Elements/UiNode/treeManipulation";
 import {
   NodePath,
   SettingsUpdaterComponent,
   ShinyUiNode,
-} from "components/Shiny-Ui-Elements/uiNodeTypes";
+  shinyUiNodeInfo,
+} from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import { NodeSelectionContext } from "EditorContainer";
 import * as React from "react";
 import { BiCheck } from "react-icons/bi";
@@ -134,7 +134,7 @@ export function SettingsPanel({
 
   const { uiName, uiArguments } = currentNode;
 
-  const SettingsInputs = uiComponentAndSettings[uiName]
+  const SettingsInputs = shinyUiNodeInfo[uiName]
     .SettingsComponent as SettingsUpdaterComponent<typeof uiArguments>;
 
   return (

@@ -1,7 +1,10 @@
+import containerIcon from "assets/icons/shinyContainer.png";
 import { CSSMeasure } from "GridTypes";
-import React from "react";
-import { UiNodeComponent } from "../uiComponentAndSettings";
-import classes from "./styles.module.css";
+import { UiComponentInfo } from "../uiNodeTypes";
+// import { UiComponentInfo } from "../uiNodeTypes";
+
+import GridlayoutVerticalStackPanel from "./GridlayoutVerticalStackPanel";
+import { GridlayoutVerticalStackPanelSettings } from "./SettingsPanel";
 
 export type AlignmentOptions = "top" | "center" | "bottom" | "spread";
 export type VerticalStackPanelSettings = {
@@ -17,36 +20,18 @@ export const gridlayoutVerticalStackPanelDefaultSettings: VerticalStackPanelSett
     item_gap: "12px",
   };
 
-const GridlayoutVerticalStackPanel: UiNodeComponent<
-  VerticalStackPanelSettings
-> = (props) => {
-  console.log("Vertical Stack Panel", props);
-  const { uiArguments, children, ...passthroughProps } = props;
-  const { area, item_alignment, item_gap } = uiArguments;
-  return (
-    <div
-      className={classes.container}
-      style={
-        {
-          gridArea: area,
-          justifyContent: dirToFlexProp[item_alignment ?? "top"],
-          "--item-gap": item_gap,
-        } as React.CSSProperties
-      }
-      {...passthroughProps}
-    >
-      {children}
-    </div>
-  );
-};
+export const gridlayoutVerticalStackPanelInfo: UiComponentInfo<VerticalStackPanelSettings> =
+  {
+    title: "Vertical Stack Panel",
+    UiComponent: GridlayoutVerticalStackPanel,
+    SettingsComponent: GridlayoutVerticalStackPanelSettings,
+    acceptsChildren: true,
+    defaultSettings: {
+      area: "default-area",
+      item_alignment: "top",
+      item_gap: "12px",
+    },
+    iconSrc: containerIcon,
+  };
 
-const dirToFlexProp: Record<
-  AlignmentOptions,
-  React.CSSProperties["justifyContent"]
-> = {
-  top: "flex-start",
-  center: "center",
-  bottom: "flex-end",
-  spread: "space-evenly",
-};
 export default GridlayoutVerticalStackPanel;
