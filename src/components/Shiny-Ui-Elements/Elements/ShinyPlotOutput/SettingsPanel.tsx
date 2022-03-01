@@ -1,7 +1,11 @@
-import { TextInput } from "components/Inputs/TextInput";
 import * as React from "react";
-import { ShinyPlotOutputProps } from ".";
+
+import { TextInput } from "components/Inputs/TextInput";
+
 import { SettingsUpdaterComponent } from "../uiNodeTypes";
+
+import { ShinyPlotOutputProps } from ".";
+
 
 export const ShinyPlotOutputSettings: SettingsUpdaterComponent<
   ShinyPlotOutputProps

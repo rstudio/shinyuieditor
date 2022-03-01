@@ -1,5 +1,4 @@
 import { arrayRange, buildRange } from "./array-helpers";
-import { insertRowOrCol } from "./matrix-helpers";
 
 describe("Tells you if array forms consecutive sequence of numbers", () => {
   test("Valid sequence", () => {

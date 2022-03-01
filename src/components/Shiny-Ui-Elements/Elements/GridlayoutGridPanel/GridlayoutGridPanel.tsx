@@ -1,9 +1,11 @@
 import { UiNodeComponent } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
+
 import {
   GridPanelSettings,
   HorizontalAlignments,
   VerticalAlignments,
 } from "./index";
+
 import classes from "./styles.module.css";
 
 const GridlayoutGridPanel: UiNodeComponent<GridPanelSettings> = ({

@@ -1,4 +1,5 @@
 import { GridLayoutTemplate } from "GridTypes";
+
 import { sameArray, sameObject } from "./equalityCheckers";
 
 export function sameLayoutTemplate(

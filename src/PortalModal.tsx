@@ -1,5 +1,7 @@
 import * as React from "react";
+
 import * as ReactDOM from "react-dom";
+
 import classes from "./PortalModal.module.css";
 
 interface IProps {

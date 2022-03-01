@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   AiFillCaretDown,
   AiFillCaretLeft,
@@ -11,10 +12,12 @@ import {
   ItemLocation,
   TemplatedGridProps,
 } from "utils/gridTemplates/types";
+
 import {
   availableMoves,
   MovementType,
 } from "../../../../utils/gridTemplates/availableMoves";
+
 import classes from "./AreaOverlay.module.css";
 import { CellLocRef } from "./GridCell";
 import { useResizeOnDrag } from "./useResizeOnDrag";

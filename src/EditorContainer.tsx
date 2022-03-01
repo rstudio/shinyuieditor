@@ -1,3 +1,5 @@
+import * as React from "react";
+
 import rstudioLogo from "assets/RStudio-Logo.svg";
 import shinyLogo from "assets/Shiny-Logo.png";
 import { useEventUpdatedTree } from "components/Shiny-Ui-Elements/Elements/treeUpdateEvents";
@@ -7,10 +9,9 @@ import {
 } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import ElementsPalette from "components/Shiny-Ui-Elements/ElementsPalette";
 import UiNode from "components/Shiny-Ui-Elements/UiNode";
-
 import { getInitialState } from "getInitialState";
-import * as React from "react";
 import { useQuery } from "react-query";
+
 import classes from "./EditorContainer.module.css";
 import { SettingsPanel } from "./SettingsPanel/SettingsPanel";
 

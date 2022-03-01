@@ -1,76 +1,78 @@
-import { GridLayoutTemplate } from "GridTypes";
-import StateHistory from "modules/StateHistory";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { sameLayoutTemplate } from "utils/sameLayoutTemplate";
+// import { useCallback, useRef, useState } from "react";
 
-type HistoryEntry = {
-  layout: GridLayoutTemplate;
-  selectedItemName: string | null;
-};
+// import { GridLayoutTemplate } from "GridTypes";
+// import StateHistory from "modules/StateHistory";
+// import { sameLayoutTemplate } from "utils/sameLayoutTemplate";
 
-export function useUndoRedo() {
-  // const currentLayout = useRecoilValue(fullAppState);
-  // const [currentSelectedName, setSelectedName] = useRecoilState(
-  //   selectedItemNameState
-  // );
-  // const setUpNewLayout = useSetRecoilState(fullAppState);
+// type HistoryEntry = {
+//   layout: GridLayoutTemplate;
+//   selectedItemName: string | null;
+// };
 
-  const [canGoForward, setCanGoForward] = useState(false);
-  const [canGoBackward, setCanGoBackward] = useState(false);
-  const stateHistory = useRef<StateHistory<HistoryEntry>>(
-    new StateHistory({ comparisonFn: sameHistoryEntry })
-  );
+// export function useUndoRedo() {
+//   // const currentLayout = useRecoilValue(fullAppState);
+//   // const [currentSelectedName, setSelectedName] = useRecoilState(
+//   //   selectedItemNameState
+//   // );
+//   // const setUpNewLayout = useSetRecoilState(fullAppState);
 
-  // useEffect(() => {
-  //   // Ignore the initialization state
-  //   if (isEmptyTemplate(currentLayout)) return;
+//   const [canGoForward, setCanGoForward] = useState(false);
+//   const [canGoBackward, setCanGoBackward] = useState(false);
+//   const stateHistory = useRef<StateHistory<HistoryEntry>>(
+//     new StateHistory({ comparisonFn: sameHistoryEntry })
+//   );
 
-  //   const history = stateHistory.current;
+//   // useEffect(() => {
+//   //   // Ignore the initialization state
+//   //   if (isEmptyTemplate(currentLayout)) return;
 
-  //   // Send latest layout to the history
-  //   history.addEntry({
-  //     layout: currentLayout,
-  //     selectedItemName: currentSelectedName,
-  //   });
+//   //   const history = stateHistory.current;
 
-  //   // Make sure back and forward buttons are properly enabled or disabled
-  //   setCanGoBackward(history.canGoBackwards());
-  //   setCanGoForward(history.canGoForwards());
-  // }, [currentLayout, currentSelectedName]);
+//   //   // Send latest layout to the history
+//   //   history.addEntry({
+//   //     layout: currentLayout,
+//   //     selectedItemName: currentSelectedName,
+//   //   });
 
-  // const setState = useCallback(
-  //   ({ layout, selectedItemName }: HistoryEntry) => {
-  //     setUpNewLayout(layout);
-  //     setSelectedName(selectedItemName);
-  //   },
-  //   [setSelectedName, setUpNewLayout]
-  // );
-  const goBackward = useCallback(() => {
-    console.log("Navigating backwards");
-    // setState(stateHistory.current.goBackwards());
-  }, []);
+//   //   // Make sure back and forward buttons are properly enabled or disabled
+//   //   setCanGoBackward(history.canGoBackwards());
+//   //   setCanGoForward(history.canGoForwards());
+//   // }, [currentLayout, currentSelectedName]);
 
-  const goForward = useCallback(() => {
-    console.log("Navigating forwards");
-    // setState(stateHistory.current.goForwards());
-  }, []);
+//   // const setState = useCallback(
+//   //   ({ layout, selectedItemName }: HistoryEntry) => {
+//   //     setUpNewLayout(layout);
+//   //     setSelectedName(selectedItemName);
+//   //   },
+//   //   [setSelectedName, setUpNewLayout]
+//   // );
+//   const goBackward = useCallback(() => {
+//     console.log("Navigating backwards");
+//     // setState(stateHistory.current.goBackwards());
+//   }, []);
 
-  return {
-    goBackward,
-    goForward,
-    canGoBackward,
-    canGoForward,
-  };
-}
+//   const goForward = useCallback(() => {
+//     console.log("Navigating forwards");
+//     // setState(stateHistory.current.goForwards());
+//   }, []);
 
-function sameHistoryEntry(newEntry: HistoryEntry, oldEntry?: HistoryEntry) {
-  if (typeof oldEntry === "undefined") return false;
-  if (newEntry.selectedItemName !== oldEntry.selectedItemName) return false;
+//   return {
+//     goBackward,
+//     goForward,
+//     canGoBackward,
+//     canGoForward,
+//   };
+// }
 
-  return sameLayoutTemplate(newEntry.layout, oldEntry.layout);
-}
-function isEmptyTemplate(template?: GridLayoutTemplate) {
-  if (typeof template === "undefined") return true;
-  const { rows, cols, items } = template;
-  return rows.length === 0 && cols.length === 0 && items.length === 0;
-}
+// function sameHistoryEntry(newEntry: HistoryEntry, oldEntry?: HistoryEntry) {
+//   if (typeof oldEntry === "undefined") return false;
+//   if (newEntry.selectedItemName !== oldEntry.selectedItemName) return false;
+
+//   return sameLayoutTemplate(newEntry.layout, oldEntry.layout);
+// }
+// function isEmptyTemplate(template?: GridLayoutTemplate) {
+//   if (typeof template === "undefined") return true;
+//   const { rows, cols, items } = template;
+//   return rows.length === 0 && cols.length === 0 && items.length === 0;
+// }
+export {};

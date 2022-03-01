@@ -1,5 +1,5 @@
-import classes from "./WrappedSection.module.css";
 import inputClasses from "./Inputs.module.css";
+import classes from "./WrappedSection.module.css";
 
 const SectionLabel = ({ name }: { name: string }) => {
   return (

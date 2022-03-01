@@ -1,5 +1,6 @@
 import produce from "immer";
 import { matrixDimensions } from "utils/matrix-helpers";
+
 import { TemplatedGridProps } from "./types";
 
 /**

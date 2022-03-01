@@ -1,10 +1,6 @@
 import { ButtonHTMLAttributes } from "react";
-import classes from "./Button.module.css";
 
-type PropsForEl<T extends HTMLElement> = React.DetailedHTMLProps<
-  React.HTMLAttributes<T>,
-  T
->;
+import classes from "./Button.module.css";
 
 const Button: React.FC<
   {

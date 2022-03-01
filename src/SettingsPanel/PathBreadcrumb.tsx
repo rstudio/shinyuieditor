@@ -1,9 +1,11 @@
-import { getNode } from "components/Shiny-Ui-Elements/UiNode/treeManipulation";
+import * as React from "react";
+
 import {
   NodePath,
   ShinyUiNode,
 } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
-import * as React from "react";
+import { getNode } from "components/Shiny-Ui-Elements/UiNode/treeManipulation";
+
 import classes from "./PathBreadcrumb.module.css";
 
 export default function PathBreadcrumb({

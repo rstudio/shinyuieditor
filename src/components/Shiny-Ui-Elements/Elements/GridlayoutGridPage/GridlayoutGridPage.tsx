@@ -1,3 +1,5 @@
+import React from "react";
+
 import {
   buildDragAndDropHandlers,
   dragAndDropTargetEvents,
@@ -12,17 +14,18 @@ import {
   UiNodeComponent,
 } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import omit from "just-omit";
-import React from "react";
 import { subtractElements } from "utils/array-helpers";
 import { enumerateGridDims, toStringLoc } from "utils/grid-helpers";
 import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
 import { GridItemExtent, TemplatedGridProps } from "utils/gridTemplates/types";
+
 import { GridPanelSettings } from "../GridlayoutGridPanel";
 import {
   sendTreeUpdateMessage,
   useListenForTreeUpdateEvent,
 } from "../treeUpdateEvents";
+
 import { GridLayoutAction, gridLayoutReducer } from "./gridLayoutReducer";
 import { NameNewPanelModal } from "./NameNewPanelModal";
 import classes from "./styles.module.css";

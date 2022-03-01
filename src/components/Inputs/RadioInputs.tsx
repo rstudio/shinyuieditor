@@ -1,6 +1,7 @@
 import * as React from "react";
-import classes from "./RadioInputs.module.css";
+
 import inputClasses from "./Inputs.module.css";
+import classes from "./RadioInputs.module.css";
 
 export function RadioInputs<OptionType extends string>({
   name,

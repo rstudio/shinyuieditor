@@ -1,8 +1,11 @@
+import * as React from "react";
+
 import NumericInput from "components/Inputs/NumericInput";
 import { TextInput } from "components/Inputs/TextInput";
 import { WrappedSection } from "components/Inputs/WrappedSection";
-import * as React from "react";
+
 import { SettingsUpdaterComponent } from "../uiNodeTypes";
+
 import { ShinySliderInputProps, validateNumber } from "./arguments";
 
 export const ShinySliderInputSettings: SettingsUpdaterComponent<

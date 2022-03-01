@@ -1,6 +1,7 @@
+import React from "react";
+
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import React from "react";
 import ShinyPlotOutput from ".";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export

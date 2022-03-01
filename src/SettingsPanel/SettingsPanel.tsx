@@ -1,3 +1,5 @@
+import * as React from "react";
+
 import Button from "components/Inputs/Button";
 import { sendTreeUpdateMessage } from "components/Shiny-Ui-Elements/Elements/treeUpdateEvents";
 import {
@@ -8,11 +10,10 @@ import {
 } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import { getUiNodeValidation } from "components/Shiny-Ui-Elements/UiNode/getUiNodeValidation";
 import { getNode } from "components/Shiny-Ui-Elements/UiNode/treeManipulation";
-
 import { NodeSelectionContext } from "EditorContainer";
-import * as React from "react";
 import { BiCheck } from "react-icons/bi";
 import { FiTrash as TrashIcon } from "react-icons/fi";
+
 import PathBreadcrumb from "./PathBreadcrumb";
 import classes from "./SettingsPanel.module.css";
 
