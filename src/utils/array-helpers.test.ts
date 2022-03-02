@@ -1,4 +1,4 @@
-import { arrayRange, buildRange } from "./array-helpers";
+import { addAtIndex, arrayRange, buildRange } from "./array-helpers";
 
 describe("Tells you if array forms consecutive sequence of numbers", () => {
   test("Valid sequence", () => {
@@ -73,5 +73,33 @@ describe("Build a sequence of numbers from start to end", () => {
 
   test("Count down", () => {
     expect(buildRange(6, 3)).toStrictEqual([6, 5, 4, 3]);
+  });
+});
+
+describe("Insert items into an array", () => {
+  test("Index is within array bounds", () => {
+    expect(addAtIndex(["a", "b", "c"], 0, "z")).toEqual(["z", "a", "b", "c"]);
+    expect(addAtIndex(["a", "b", "c"], 1, "z")).toEqual(["a", "z", "b", "c"]);
+    expect(addAtIndex(["a", "b", "c"], 2, "z")).toEqual(["a", "b", "z", "c"]);
+    expect(addAtIndex(["a", "b", "c"], 3, "z")).toEqual(["a", "b", "c", "z"]);
+  });
+  test("Extends array if index of addition is outside of bounds", () => {
+    // eslint-disable-next-line no-sparse-arrays
+    expect(addAtIndex(["a", "b", "c"], 4, "z")).toEqual(["a", "b", "c", , "z"]);
+    // eslint-disable-next-line no-sparse-arrays
+    expect(addAtIndex(["a", "b", "c"], 5, "z")).toEqual([
+      "a",
+      "b",
+      "c",
+      ,
+      ,
+      "z",
+    ]);
+  });
+
+  test("Can't add an item _before_ the array", () => {
+    expect(() => {
+      addAtIndex(["a", "b", "c"], -1, "z");
+    }).toThrowError("Can't add item at a negative index");
   });
 });
