@@ -1,8 +1,8 @@
 import React from "react";
 
-import { addNode, removeNode, updateNode } from "../UiNode/treeManipulation";
+import { NodePath, ShinyUiNode } from "../../Elements/uiNodeTypes";
 
-import { NodePath, ShinyUiNode } from "./uiNodeTypes";
+import { addNode, removeNode, updateNode } from "./treeManipulation";
 
 export type TreeUpdateAction =
   | { type: "UPDATE_NODE"; path: NodePath; newNode: ShinyUiNode }

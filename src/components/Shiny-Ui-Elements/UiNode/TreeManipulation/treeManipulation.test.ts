@@ -1,4 +1,4 @@
-import { ShinyUiNode } from "../Elements/uiNodeTypes";
+import { ShinyUiNode } from "../../Elements/uiNodeTypes";
 
 import { addNode, getNode, removeNode, updateNode } from "./treeManipulation";
 

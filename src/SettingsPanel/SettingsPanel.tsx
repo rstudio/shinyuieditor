@@ -1,15 +1,15 @@
 import * as React from "react";
 
 import Button from "components/Inputs/Button";
-import { sendTreeUpdateMessage } from "components/Shiny-Ui-Elements/Elements/treeUpdateEvents";
 import {
-  NodePath,
-  SettingsUpdaterComponent,
   ShinyUiNode,
+  NodePath,
   shinyUiNodeInfo,
+  SettingsUpdaterComponent,
 } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import { getUiNodeValidation } from "components/Shiny-Ui-Elements/UiNode/getUiNodeValidation";
-import { getNode } from "components/Shiny-Ui-Elements/UiNode/treeManipulation";
+import { getNode } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/treeManipulation";
+import { sendTreeUpdateMessage } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/treeUpdateEvents";
 import { NodeSelectionContext } from "EditorContainer";
 import { BiCheck } from "react-icons/bi";
 import { FiTrash as TrashIcon } from "react-icons/fi";

@@ -4,7 +4,7 @@ import {
   ShinyUiNode,
   NodePath,
   shinyUiNodeInfo,
-} from "../Elements/uiNodeTypes";
+} from "../../Elements/uiNodeTypes";
 
 /**
  * Like Required but you can choose what subset of properties are required

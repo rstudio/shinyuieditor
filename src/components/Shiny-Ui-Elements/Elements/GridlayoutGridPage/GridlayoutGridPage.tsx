@@ -20,11 +20,11 @@ import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
 import { GridItemExtent, TemplatedGridProps } from "utils/gridTemplates/types";
 
-import { GridPanelSettings } from "../GridlayoutGridPanel";
 import {
   sendTreeUpdateMessage,
   useListenForTreeUpdateEvent,
-} from "../treeUpdateEvents";
+} from "../../UiNode/TreeManipulation/treeUpdateEvents";
+import { GridPanelSettings } from "../GridlayoutGridPanel";
 
 import { GridLayoutAction, gridLayoutReducer } from "./gridLayoutReducer";
 import { NameNewPanelModal } from "./NameNewPanelModal";
