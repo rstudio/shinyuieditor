@@ -46,7 +46,7 @@ const UiNode = ({ path = [], ...node }: { path?: NodePath } & ShinyUiNode) => {
     return (
       <Comp
         uiArguments={uiArguments}
-        uiChildren={node.uiChildren ?? []}
+        uiChildren={uiChildren ?? []}
         {...dragAndDropCallbacks}
         draggable
         onDragStart={handleStartDrag}
