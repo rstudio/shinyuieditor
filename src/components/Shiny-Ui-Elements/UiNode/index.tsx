@@ -3,7 +3,10 @@ import React from "react";
 import { NodeSelectionContext } from "EditorContainer";
 import { sameArray } from "utils/equalityCheckers";
 
-import { useDragAndDropElements } from "../DragAndDropHelpers/useDragAndDropElements";
+import {
+  createDragStartCallback,
+  useDragAndDropElements,
+} from "../DragAndDropHelpers/useDragAndDropElements";
 import {
   NodePath,
   ShinyUiNode,
@@ -19,10 +22,9 @@ import classes from "./styles.module.css";
 const UiNode = ({
   path = [],
   selectedPath,
-  uiName,
-  uiArguments,
-  uiChildren,
+  ...node
 }: { path?: NodePath; selectedPath: NodePath | null } & ShinyUiNode) => {
+  const { uiName, uiArguments, uiChildren } = node;
   const setNodeSelection = React.useContext(NodeSelectionContext);
 
   const componentInfo = shinyUiNodeInfo[uiName];
@@ -40,10 +42,14 @@ const UiNode = ({
     setNodeSelection(path);
   };
 
+  const handleStartDrag = createDragStartCallback({ node, currentPath: path });
+
   return (
     <Comp
       uiArguments={uiArguments}
       {...dragAndDropCallbacks}
+      draggable
+      onDragStart={handleStartDrag}
       onClick={handleClick}
     >
       {uiChildren?.map((childNode, i) => (

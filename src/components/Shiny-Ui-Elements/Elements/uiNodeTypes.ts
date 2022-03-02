@@ -1,4 +1,7 @@
-import { DragAndDropHandlers } from "../DragAndDropHelpers/useDragAndDropElements";
+import {
+  DragAndDropDraggedEvents,
+  DragAndDropHandlers,
+} from "../DragAndDropHelpers/useDragAndDropElements";
 
 import { gridlayoutGridPageInfo } from "./GridlayoutGridPage";
 import { gridLayoutGridPanelInfo } from "./GridlayoutGridPanel";
@@ -91,7 +94,7 @@ export type UiNodeComponent<NodeSettings extends object> = React.FC<
         React.HTMLAttributes<AllowedBaseElements>,
         AllowedBaseElements
       >,
-      "onClick"
+      "onClick" | DragAndDropDraggedEvents
     >
 >;
 
