@@ -1,10 +1,6 @@
 import produce from "immer";
 
-import {
-  ShinyUiNode,
-  NodePath,
-  shinyUiNodeInfo,
-} from "../../Elements/uiNodeTypes";
+import { ShinyUiNode, NodePath } from "../../Elements/uiNodeTypes";
 
 /**
  * Like Required but you can choose what subset of properties are required
@@ -138,51 +134,4 @@ export function updateNode({
     const node = getNode(treeDraft, path);
     Object.assign(node, newNode);
   });
-}
-
-/**
- * Immutably add a node in a container node of the UiTree
- *
- * Note that this freezes the parent tree.
- */
-export function addNode({
-  tree,
-  path,
-  newNode,
-}: {
-  tree: ShinyUiNode;
-  path: NodePath;
-  newNode: ShinyUiNode;
-}) {
-  return produce(tree, (treeDraft) => {
-    addNodeMutating({
-      tree: treeDraft,
-      path,
-      newNode,
-    });
-  });
-}
-
-export function addNodeMutating({
-  tree,
-  path,
-  newNode,
-}: {
-  tree: ShinyUiNode;
-  path: NodePath;
-  newNode: ShinyUiNode;
-}): void {
-  const parentNode = getNode(tree, path);
-  if (!shinyUiNodeInfo[parentNode.uiName].acceptsChildren) {
-    throw new Error(
-      "Can't add a child to a non-container node. Check the path"
-    );
-  }
-
-  // If this is the first child we may need to create the uiChildren array first
-  if (!Array.isArray(parentNode.uiChildren)) {
-    parentNode.uiChildren = [];
-  }
-
-  parentNode.uiChildren.push(newNode);
 }

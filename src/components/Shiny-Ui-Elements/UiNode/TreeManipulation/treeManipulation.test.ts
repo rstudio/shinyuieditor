@@ -1,6 +1,7 @@
 import { ShinyUiNode } from "../../Elements/uiNodeTypes";
 
-import { addNode, getNode, removeNode, updateNode } from "./treeManipulation";
+import { addNode } from "./addNode";
+import { getNode, removeNode, updateNode } from "./treeManipulation";
 
 const baseNode: ShinyUiNode = {
   uiName: "gridlayout::grid_panel",
@@ -185,7 +186,7 @@ test("Add a node", () => {
 
   const withNewNode = addNode({
     tree: baseNode,
-    path: [0],
+    parentPath: [0],
     newNode: newUiNode,
   });
 

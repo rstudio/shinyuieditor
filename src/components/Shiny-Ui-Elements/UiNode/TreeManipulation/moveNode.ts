@@ -5,11 +5,8 @@ import {
 import produce from "immer";
 import { sameArray } from "utils/equalityCheckers";
 
-import {
-  addNodeMutating,
-  getNode,
-  removeNodeMutating,
-} from "./treeManipulation";
+import { addNodeMutating } from "./addNode";
+import { getNode, removeNodeMutating } from "./treeManipulation";
 
 export default function moveNode({
   tree,
@@ -31,7 +28,7 @@ export default function moveNode({
     // Add it to the new position
     addNodeMutating({
       tree: treeDraft,
-      path: toPath,
+      parentPath: toPath,
       newNode: nodeToMove,
     });
 
