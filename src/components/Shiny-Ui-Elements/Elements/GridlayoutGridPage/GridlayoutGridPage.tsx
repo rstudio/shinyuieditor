@@ -191,6 +191,9 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
         style={stylesForGrid}
         className={classes.container}
         {...noDragAndDropPassthrough}
+        // Disable dragging on the main app
+        draggable={false}
+        onDragStart={() => {}}
       >
         {enumerateGridDims({
           numRows,
