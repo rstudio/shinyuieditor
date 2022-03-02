@@ -6,7 +6,7 @@ import {
   shinyUiNodeInfo,
 } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 
-import { assignElementDragData } from "../DragAndDropHelpers/useDragAndDropElements";
+import { createDragStartCallback } from "../DragAndDropHelpers/useDragAndDropElements";
 
 import classes from "./styles.module.css";
 
@@ -33,10 +33,7 @@ export default function ElementsPalette({
             key={uiName}
             className={classes.OptionItem}
             draggable
-            onDragStart={(e) => {
-              // Tag the drag event with the element type being dragged
-              assignElementDragData(e, { node: uiNode });
-            }}
+            onDragStart={createDragStartCallback({ node: uiNode })}
           >
             <img src={iconSrc} alt={title} />
             <label>{title}</label>

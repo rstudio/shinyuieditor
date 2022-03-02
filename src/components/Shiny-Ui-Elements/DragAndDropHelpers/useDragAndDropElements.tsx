@@ -5,6 +5,8 @@ import { NodePath, ShinyUiNode } from "../Elements/uiNodeTypes";
 
 import classes from "./DragAndDrop.module.css";
 
+export type DragAndDropDraggedEvents = "onDragStart" | "draggable";
+
 export type DragAndDropTargetEvents =
   | "onDrop"
   | "onDragEnter"
@@ -29,7 +31,7 @@ type DraggedNodeInfo = { node: ShinyUiNode; currentPath?: NodePath };
  * @param e Drag event object
  * @param node Ui node with uiName and uiArguments on it to be attached to drag
  */
-export function assignElementDragData(
+function assignElementDragData(
   e: React.DragEvent<HTMLElement>,
   info: DraggedNodeInfo
 ) {
@@ -40,6 +42,19 @@ export function assignElementDragData(
   if (info.currentPath) {
     e.dataTransfer.setData("nodePath", info.currentPath.join("."));
   }
+}
+
+/**
+ *
+ * @param info Information about the node and potentially its current path to
+ * attach to the drag event.
+ * @returns A callback appropriate for the onDragStart event
+ */
+export function createDragStartCallback(info: DraggedNodeInfo) {
+  return function (e: React.DragEvent<HTMLElement>) {
+    e.stopPropagation();
+    assignElementDragData(e, info);
+  };
 }
 
 function readDroppedNodeInfo(e: React.DragEvent<HTMLElement>): DraggedNodeInfo {
