@@ -1,4 +1,4 @@
-import { UiNodeComponent } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
+import { UiContainerNodeComponent } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 
 import {
   GridPanelSettings,
@@ -8,7 +8,8 @@ import {
 
 import classes from "./styles.module.css";
 
-const GridlayoutGridPanel: UiNodeComponent<GridPanelSettings> = ({
+const GridlayoutGridPanel: UiContainerNodeComponent<GridPanelSettings> = ({
+  uiChildren,
   uiArguments,
   children,
   ...passthroughProps

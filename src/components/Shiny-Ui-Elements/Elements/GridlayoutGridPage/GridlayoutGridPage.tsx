@@ -11,6 +11,7 @@ import {
 } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/GridCell";
 import {
   ShinyUiNode,
+  UiContainerNodeComponent,
   UiNodeComponent,
 } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import omit from "just-omit";
@@ -39,11 +40,9 @@ export type NewItemInfo = {
 export const LayoutDispatchContext =
   React.createContext<React.Dispatch<GridLayoutAction> | null>(null);
 
-export const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
-  uiArguments,
-  children,
-  ...passthroughProps
-}) => {
+export const GridlayoutGridPage: UiContainerNodeComponent<
+  TemplatedGridProps
+> = ({ uiArguments, uiChildren, children, ...passthroughProps }) => {
   const { areas } = uiArguments;
   const { numRows, numCols, styles, sizes, uniqueAreas } =
     parseGridTemplateAreas(uiArguments);

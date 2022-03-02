@@ -1,15 +1,15 @@
 import React from "react";
 
-import { UiNodeComponent } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
+import { UiContainerNodeComponent } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 
 import { AlignmentOptions, VerticalStackPanelSettings } from "./index";
 
 import classes from "./styles.module.css";
 
-const GridlayoutVerticalStackPanel: UiNodeComponent<
+const GridlayoutVerticalStackPanel: UiContainerNodeComponent<
   VerticalStackPanelSettings
 > = (props) => {
-  const { uiArguments, children, ...passthroughProps } = props;
+  const { uiArguments, uiChildren, children, ...passthroughProps } = props;
   const { area, item_alignment, item_gap } = uiArguments;
   return (
     <div
