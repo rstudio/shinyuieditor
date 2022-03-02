@@ -1,6 +1,6 @@
 import React from "react";
 
-import { NodeSelectionContext } from "EditorContainer";
+import { NodeSelectionContext } from "NodeSelectionContext";
 import { sameArray } from "utils/equalityCheckers";
 
 import {
@@ -20,13 +20,10 @@ import classes from "./styles.module.css";
 /**
  * Recursively render the nodes in a UI Tree
  */
-const UiNode = ({
-  path = [],
-  selectedPath,
-  ...node
-}: { path?: NodePath; selectedPath: NodePath | null } & ShinyUiNode) => {
+const UiNode = ({ path = [], ...node }: { path?: NodePath } & ShinyUiNode) => {
   const { uiName, uiArguments, uiChildren } = node;
-  const setNodeSelection = React.useContext(NodeSelectionContext);
+  const [selectedPath, setNodeSelection] =
+    React.useContext(NodeSelectionContext);
   const isSelected = selectedPath ? sameArray(path, selectedPath) : false;
 
   const componentInfo = shinyUiNodeInfo[uiName];
@@ -54,14 +51,10 @@ const UiNode = ({
         draggable
         onDragStart={handleStartDrag}
         onClick={handleClick}
+        path={path}
       >
         {uiChildren?.map((childNode, i) => (
-          <UiNode
-            key={path.join(".") + i}
-            path={[...path, i]}
-            selectedPath={selectedPath}
-            {...childNode}
-          />
+          <UiNode key={path.join(".") + i} path={[...path, i]} {...childNode} />
         ))}
         {isSelected ? <div className={classes.selectedOverlay} /> : null}
       </Comp>
@@ -75,6 +68,7 @@ const UiNode = ({
       draggable
       onDragStart={handleStartDrag}
       onClick={handleClick}
+      path={path}
     >
       {isSelected ? <div className={classes.selectedOverlay} /> : null}
     </Comp>

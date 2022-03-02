@@ -113,14 +113,16 @@ type passthroughProps = DragAndDropHandlers &
     >,
     "onClick" | DragAndDropDraggedEvents
   >;
+
+type CommonNodeComponentProps<NodeSettings extends object> = {
+  uiArguments: NodeSettings;
+  path: NodePath;
+};
 export type UiNodeComponent<NodeSettings extends object> = React.FC<
-  {
-    uiArguments: NodeSettings;
-  } & passthroughProps
+  CommonNodeComponentProps<NodeSettings> & passthroughProps
 >;
 export type UiContainerNodeComponent<NodeSettings extends object> = React.FC<
-  {
-    uiArguments: NodeSettings;
+  CommonNodeComponentProps<NodeSettings> & {
     uiChildren: ShinyUiChildren;
   } & passthroughProps
 >;
