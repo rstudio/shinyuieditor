@@ -32,11 +32,10 @@ const backupState: ShinyUiNode = {
       },
     },
     {
-      uiName: "gridlayout::grid_panel",
+      uiName: "gridlayout::vertical_stack_panel",
       uiArguments: {
         area: "sidebar",
-        horizontalAlign: "spread",
-        verticalAlign: "spread",
+        item_alignment: "center",
       },
       uiChildren: [
         {
