@@ -122,13 +122,21 @@ export function useDragAndDropElements(
   const callbacks = React.useMemo(
     () =>
       acceptsChildren
-        ? buildDragAndDropHandlers(({ node }) => {
+        ? buildDragAndDropHandlers(({ node, currentPath }) => {
+            const action: TreeUpdateAction = currentPath
+              ? {
+                  type: "MOVE_NODE",
+                  node,
+                  fromPath: currentPath,
+                  toPath: path,
+                }
+              : {
+                  type: "ADD_NODE",
+                  parentPath: path,
+                  newNode: node,
+                };
             // Let the state know we have a new child node
-            sendTreeUpdateMessage({
-              type: "ADD_NODE",
-              parentPath: path,
-              newNode: node,
-            });
+            sendTreeUpdateMessage(action);
           })
         : {},
     [acceptsChildren, path]

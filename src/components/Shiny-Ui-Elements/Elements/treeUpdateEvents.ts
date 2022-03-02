@@ -4,9 +4,15 @@ import { addNode, removeNode, updateNode } from "../UiNode/treeManipulation";
 
 import { NodePath, ShinyUiNode } from "./uiNodeTypes";
 
-type TreeUpdateAction =
+export type TreeUpdateAction =
   | { type: "UPDATE_NODE"; path: NodePath; newNode: ShinyUiNode }
   | { type: "ADD_NODE"; parentPath: NodePath; newNode: ShinyUiNode }
+  | {
+      type: "MOVE_NODE";
+      node: ShinyUiNode;
+      fromPath: NodePath;
+      toPath: NodePath;
+    }
   | { type: "DELETE_NODE"; path: NodePath };
 
 type TreeUpdateEvent = CustomEvent<TreeUpdateAction>;
@@ -91,5 +97,9 @@ function treeUpdateReducer(
 
     case "DELETE_NODE":
       return removeNode({ tree, path: action.path });
+
+    case "MOVE_NODE":
+      console.warn("Have yet to implement MOVE_NODE event.");
+      return tree;
   }
 }
