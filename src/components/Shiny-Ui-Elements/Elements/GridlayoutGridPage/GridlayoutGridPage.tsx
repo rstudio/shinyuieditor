@@ -12,7 +12,6 @@ import {
 import {
   ShinyUiNode,
   UiContainerNodeComponent,
-  UiNodeComponent,
 } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import omit from "just-omit";
 import { subtractElements } from "utils/array-helpers";
