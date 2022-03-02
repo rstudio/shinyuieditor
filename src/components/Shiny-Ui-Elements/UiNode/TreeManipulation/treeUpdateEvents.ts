@@ -2,6 +2,7 @@ import React from "react";
 
 import { NodePath, ShinyUiNode } from "../../Elements/uiNodeTypes";
 
+import moveNode from "./moveNode";
 import { addNode, removeNode, updateNode } from "./treeManipulation";
 
 export type TreeUpdateAction =
@@ -99,7 +100,10 @@ function treeUpdateReducer(
       return removeNode({ tree, path: action.path });
 
     case "MOVE_NODE":
-      console.warn("Have yet to implement MOVE_NODE event.");
-      return tree;
+      return moveNode({
+        tree,
+        fromPath: action.fromPath,
+        toPath: action.toPath,
+      });
   }
 }
