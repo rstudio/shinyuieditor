@@ -52,6 +52,9 @@ export function removeAtIndex<T>(arr: T[], index: number): T[] {
 }
 
 export function addAtIndex<T>(arr: T[], index: number, val: T) {
+  if (index < 0) {
+    throw new Error("Can't add item at a negative index");
+  }
   const newArr = [...arr];
 
   // Make sure that the array is long enough to have elements placed where desired
