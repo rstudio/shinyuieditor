@@ -10,6 +10,7 @@ import {
   GridCell,
 } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/GridCell";
 import {
+  ShinyUiChildren,
   ShinyUiNode,
   UiContainerNodeComponent,
 } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
@@ -44,6 +45,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
   TemplatedGridProps
 > = ({ uiArguments, uiChildren, path, children, ...passthroughProps }) => {
   const { areas } = uiArguments;
+
   const { numRows, numCols, styles, sizes, uniqueAreas } =
     parseGridTemplateAreas(uiArguments);
 
@@ -70,16 +72,11 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
   );
 
   useListenForTreeUpdateEvent((e) => {
-    console.log(
-      "Intercepted custom tree-update message in GridlayoutGridPage",
-      e
-    );
-
     // We're assuming that this grid layout is at the root of the tree. This
     // will break if we have nested grid layouts...
     const childNodeChange = e.type === "UPDATE_NODE" && e.path.length === 1;
     if (childNodeChange) {
-      const oldAreaName = areasOfChildren(children)[e.path[0]];
+      const oldAreaName = areasOfChildren(uiChildren)[e.path[0]];
       const newAreaName = (e.newNode.uiArguments as GridPanelSettings).area;
       if (typeof newAreaName === "undefined") {
         console.error(
@@ -108,7 +105,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
     // layout.
     const extra_areas_in_layout = subtractElements(
       uniqueAreas,
-      areasOfChildren(children)
+      areasOfChildren(uiChildren)
     );
 
     if (extra_areas_in_layout.length > 0) {
@@ -117,7 +114,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
         names: extra_areas_in_layout,
       });
     }
-  }, [children, handleLayoutUpdate, uniqueAreas]);
+  }, [children, handleLayoutUpdate, uiChildren, uniqueAreas]);
 
   const areaOverlays = uniqueAreas.map((area) => (
     <AreaOverlay
@@ -242,17 +239,12 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
 /** Get the grid areas present in the children nodes passed to the Grid_Page()
  * component. This assumes that they are stored in the "area" property on the
  * uiArguments */
-function areasOfChildren(children: React.ReactNode) {
+function areasOfChildren(children: ShinyUiChildren) {
   let all_children_areas: string[] = [];
-  React.Children.forEach(children, (child) => {
-    if (
-      child &&
-      typeof child === "object" &&
-      "props" in child &&
-      "uiArguments" in child.props &&
-      "area" in child.props.uiArguments
-    ) {
-      all_children_areas.push(child.props.uiArguments.area);
+  children.forEach((child) => {
+    if ("area" in child.uiArguments && child.uiArguments.area !== undefined) {
+      const area = child.uiArguments.area;
+      all_children_areas.push(area);
     }
   });
 
