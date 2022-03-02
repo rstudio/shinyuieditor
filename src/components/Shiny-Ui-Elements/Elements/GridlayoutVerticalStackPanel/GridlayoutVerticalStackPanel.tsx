@@ -1,6 +1,7 @@
 import React from "react";
 
 import { UiContainerNodeComponent } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
+import UiNode from "components/Shiny-Ui-Elements/UiNode";
 
 import { AlignmentOptions, VerticalStackPanelSettings } from "./index";
 
@@ -8,8 +9,7 @@ import classes from "./styles.module.css";
 
 const GridlayoutVerticalStackPanel: UiContainerNodeComponent<
   VerticalStackPanelSettings
-> = (props) => {
-  const { uiArguments, uiChildren, children, ...passthroughProps } = props;
+> = ({ uiArguments, uiChildren, path, children, ...passthroughProps }) => {
   const { area, item_alignment, item_gap } = uiArguments;
   return (
     <div
@@ -23,6 +23,9 @@ const GridlayoutVerticalStackPanel: UiContainerNodeComponent<
       }
       {...passthroughProps}
     >
+      {uiChildren?.map((childNode, i) => (
+        <UiNode key={path.join(".") + i} path={[...path, i]} {...childNode} />
+      ))}
       {children}
     </div>
   );

@@ -53,9 +53,6 @@ const UiNode = ({ path = [], ...node }: { path?: NodePath } & ShinyUiNode) => {
         onClick={handleClick}
         path={path}
       >
-        {uiChildren?.map((childNode, i) => (
-          <UiNode key={path.join(".") + i} path={[...path, i]} {...childNode} />
-        ))}
         {isSelected ? <div className={classes.selectedOverlay} /> : null}
       </Comp>
     );

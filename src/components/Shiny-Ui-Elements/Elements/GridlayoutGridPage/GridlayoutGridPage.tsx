@@ -13,6 +13,7 @@ import {
   ShinyUiNode,
   UiContainerNodeComponent,
 } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
+import UiNode from "components/Shiny-Ui-Elements/UiNode";
 import omit from "just-omit";
 import { subtractElements } from "utils/array-helpers";
 import { enumerateGridDims, toStringLoc } from "utils/grid-helpers";
@@ -41,7 +42,7 @@ export const LayoutDispatchContext =
 
 export const GridlayoutGridPage: UiContainerNodeComponent<
   TemplatedGridProps
-> = ({ uiArguments, uiChildren, children, ...passthroughProps }) => {
+> = ({ uiArguments, uiChildren, path, children, ...passthroughProps }) => {
   const { areas } = uiArguments;
   const { numRows, numCols, styles, sizes, uniqueAreas } =
     parseGridTemplateAreas(uiArguments);
@@ -222,6 +223,9 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
         ))}
 
         <TractControls areas={areas} sizes={sizes} />
+        {uiChildren?.map((childNode, i) => (
+          <UiNode key={path.join(".") + i} path={[...path, i]} {...childNode} />
+        ))}
         {children}
         {areaOverlays}
       </div>

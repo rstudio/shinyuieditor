@@ -1,4 +1,5 @@
 import { UiContainerNodeComponent } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
+import UiNode from "components/Shiny-Ui-Elements/UiNode";
 
 import {
   GridPanelSettings,
@@ -11,6 +12,7 @@ import classes from "./styles.module.css";
 const GridlayoutGridPanel: UiContainerNodeComponent<GridPanelSettings> = ({
   uiChildren,
   uiArguments,
+  path,
   children,
   ...passthroughProps
 }) => {
@@ -25,6 +27,9 @@ const GridlayoutGridPanel: UiContainerNodeComponent<GridPanelSettings> = ({
       }}
       {...passthroughProps}
     >
+      {uiChildren?.map((childNode, i) => (
+        <UiNode key={path.join(".") + i} path={[...path, i]} {...childNode} />
+      ))}
       {children}
     </div>
   );
