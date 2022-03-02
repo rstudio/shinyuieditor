@@ -1,6 +1,6 @@
 import { ShinyUiNode } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 
-import moveNode from "./moveNode";
+import moveNode, { nodesAreDirectAncestors } from "./moveNode";
 import { getNode } from "./treeManipulation";
 
 // Two Panels, one with a slider and a plot and the other with just a plot
@@ -63,6 +63,22 @@ const baseNode: ShinyUiNode = {
     },
   ],
 };
+
+describe("Move Validation", () => {
+  test("A is child of B", () => {
+    expect(nodesAreDirectAncestors([0, 1, 2, 3], [0, 1, 2])).toEqual(true);
+  });
+  test("B is child of A", () => {
+    expect(nodesAreDirectAncestors([2, 1, 3], [2, 1, 3, 4])).toEqual(true);
+  });
+  test("A and B are the same", () => {
+    expect(nodesAreDirectAncestors([2, 1], [2, 1])).toEqual(true);
+  });
+  test("Siblings are not direct", () => {
+    expect(nodesAreDirectAncestors([0, 1, 2, 3], [0, 1, 2, 4])).toEqual(false);
+    expect(nodesAreDirectAncestors([0, 1, 2, 3], [0, 1, 2, 4])).toEqual(false);
+  });
+});
 
 describe("Move nodes", () => {
   test("Move latterally", () => {

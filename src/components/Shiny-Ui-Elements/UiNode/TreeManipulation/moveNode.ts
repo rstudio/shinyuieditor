@@ -48,18 +48,25 @@ function invalidMove({
   toPath: NodePath;
 }): boolean {
   // Can't make an item its own child
-  if (aChildOfB(toPath, fromPath)) return true;
+  if (nodesAreDirectAncestors(toPath, fromPath)) return true;
 
   return false;
 }
 
-function aChildOfB(aPath: NodePath, bPath: NodePath): boolean {
+/**
+ * Are nodes A and B direct ancestors of eachother (parent, grandparent, etc...)?
+ * @param aPath Path to node A
+ * @param bPath Path to node B
+ */
+export function nodesAreDirectAncestors(
+  aPath: NodePath,
+  bPath: NodePath
+): boolean {
   const aDepth = aPath.length;
   const bDepth = bPath.length;
-  if (aDepth < bDepth) {
-    return false;
-  }
+
+  const compareDepth = Math.min(aDepth, bDepth);
 
   // If the path up to the depth of b is the same, then we have a child
-  return sameArray(aPath.slice(0, bDepth), bPath);
+  return sameArray(aPath.slice(0, compareDepth), bPath.slice(0, compareDepth));
 }
