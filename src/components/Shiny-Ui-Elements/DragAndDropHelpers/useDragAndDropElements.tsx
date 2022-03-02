@@ -1,6 +1,9 @@
 import React from "react";
 
-import { sendTreeUpdateMessage } from "../Elements/treeUpdateEvents";
+import {
+  sendTreeUpdateMessage,
+  TreeUpdateAction,
+} from "../Elements/treeUpdateEvents";
 import { NodePath, ShinyUiNode } from "../Elements/uiNodeTypes";
 
 import classes from "./DragAndDrop.module.css";
