@@ -74,14 +74,27 @@ export function removeNode({
   path: NodePath;
 }) {
   return produce(tree, (treeDraft) => {
-    const { parentNode, indexToNode } = navigateToParent(treeDraft, path);
-
-    // Splice out this child
-    if (!checkIfContainerNode(parentNode)) {
-      throw new Error("Somehow trying to enter a leaf node");
-    }
-    parentNode.uiChildren.splice(indexToNode, 1);
+    removeNodeMutating({
+      tree: treeDraft,
+      path,
+    });
   });
+}
+
+export function removeNodeMutating({
+  tree,
+  path,
+}: {
+  tree: ShinyUiNode;
+  path: NodePath;
+}): void {
+  const { parentNode, indexToNode } = navigateToParent(tree, path);
+
+  // Splice out this child
+  if (!checkIfContainerNode(parentNode)) {
+    throw new Error("Somehow trying to enter a leaf node");
+  }
+  parentNode.uiChildren.splice(indexToNode, 1);
 }
 
 /**
@@ -142,18 +155,34 @@ export function addNode({
   newNode: ShinyUiNode;
 }) {
   return produce(tree, (treeDraft) => {
-    const parentNode = getNode(treeDraft, path);
-    if (!shinyUiNodeInfo[parentNode.uiName].acceptsChildren) {
-      throw new Error(
-        "Can't add a child to a non-container node. Check the path"
-      );
-    }
-
-    // If this is the first child we may need to create the uiChildren array first
-    if (!Array.isArray(parentNode.uiChildren)) {
-      parentNode.uiChildren = [];
-    }
-
-    parentNode.uiChildren.push(newNode);
+    addNodeMutating({
+      tree: treeDraft,
+      path,
+      newNode,
+    });
   });
+}
+
+export function addNodeMutating({
+  tree,
+  path,
+  newNode,
+}: {
+  tree: ShinyUiNode;
+  path: NodePath;
+  newNode: ShinyUiNode;
+}): void {
+  const parentNode = getNode(tree, path);
+  if (!shinyUiNodeInfo[parentNode.uiName].acceptsChildren) {
+    throw new Error(
+      "Can't add a child to a non-container node. Check the path"
+    );
+  }
+
+  // If this is the first child we may need to create the uiChildren array first
+  if (!Array.isArray(parentNode.uiChildren)) {
+    parentNode.uiChildren = [];
+  }
+
+  parentNode.uiChildren.push(newNode);
 }
