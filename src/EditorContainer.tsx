@@ -13,23 +13,20 @@ import { getInitialState } from "getInitialState";
 import { useQuery } from "react-query";
 
 import classes from "./EditorContainer.module.css";
+import { NodeSelectionContext } from "./NodeSelectionContext";
 import { SettingsPanel } from "./SettingsPanel/SettingsPanel";
-
-export const NodeSelectionContext = React.createContext<
-  (path: NodePath | null) => void
->((path: NodePath | null) => console.log(`Selected node placeholder`, path));
 
 function EditorContainerWithData({
   initialState,
 }: {
   initialState: ShinyUiNode;
 }) {
-  const [selectedPath, setSelectedPath] = React.useState<NodePath | null>(null);
+  const nodeSelectionState = React.useState<NodePath | null>(null);
 
   const tree = useEventUpdatedTree(initialState, sendUiStateToBackend);
 
   return (
-    <NodeSelectionContext.Provider value={setSelectedPath}>
+    <NodeSelectionContext.Provider value={nodeSelectionState}>
       <div className={classes.container}>
         <div className={classes.header}>
           <div className={classes.leftSide}>
@@ -48,10 +45,10 @@ function EditorContainerWithData({
         </div>
         <div className={`${classes.propertiesPanel} ${classes.titledPanel}`}>
           <h3>Properties</h3>
-          <SettingsPanel tree={tree} selectedPath={selectedPath} />
+          <SettingsPanel tree={tree} />
         </div>
         <div className={classes.editorHolder}>
-          <UiNode {...tree} selectedPath={selectedPath} />
+          <UiNode {...tree} />
         </div>
       </div>
     </NodeSelectionContext.Provider>

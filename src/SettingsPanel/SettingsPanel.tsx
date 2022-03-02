@@ -2,29 +2,23 @@ import * as React from "react";
 
 import Button from "components/Inputs/Button";
 import {
-  ShinyUiNode,
-  NodePath,
-  shinyUiNodeInfo,
   SettingsUpdaterComponent,
+  ShinyUiNode,
+  shinyUiNodeInfo,
 } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import { getUiNodeValidation } from "components/Shiny-Ui-Elements/UiNode/getUiNodeValidation";
 import { getNode } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/treeManipulation";
 import { sendTreeUpdateMessage } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/treeUpdateEvents";
-import { NodeSelectionContext } from "EditorContainer";
+import { NodeSelectionContext } from "NodeSelectionContext";
 import { BiCheck } from "react-icons/bi";
 import { FiTrash as TrashIcon } from "react-icons/fi";
 
 import PathBreadcrumb from "./PathBreadcrumb";
 import classes from "./SettingsPanel.module.css";
 
-function useUpdateSettings({
-  tree,
-  selectedPath,
-}: {
-  tree: ShinyUiNode;
-  selectedPath: NodePath | null;
-}) {
-  const setNodeSelection = React.useContext(NodeSelectionContext);
+function useUpdateSettings({ tree }: { tree: ShinyUiNode }) {
+  const [selectedPath, setNodeSelection] =
+    React.useContext(NodeSelectionContext);
 
   const [currentNode, setCurrentNode] = React.useState<ShinyUiNode | null>(
     selectedPath !== null ? getNode(tree, selectedPath) : null
@@ -103,25 +97,21 @@ function useUpdateSettings({
     handleSubmit,
     deleteNode,
     updateArguments,
+    selectedPath,
     setNodeSelection,
   };
 }
 
-export function SettingsPanel({
-  tree,
-  selectedPath,
-}: {
-  tree: ShinyUiNode;
-  selectedPath: NodePath | null;
-}) {
+export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
   const {
     currentNode,
     errorMsg,
     deleteNode,
     handleSubmit,
     updateArguments,
+    selectedPath,
     setNodeSelection,
-  } = useUpdateSettings({ tree, selectedPath });
+  } = useUpdateSettings({ tree });
 
   if (selectedPath === null) {
     return <div>Select an element to edit properties</div>;
