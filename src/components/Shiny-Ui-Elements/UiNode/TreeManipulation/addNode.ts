@@ -1,4 +1,5 @@
 import produce from "immer";
+import { addAtIndex } from "utils/array-helpers";
 
 import {
   ShinyUiNode,
@@ -21,6 +22,13 @@ type AddNodeArguments = {
    */
   parentPath: NodePath;
   /**
+   * Where in the children should the node be placed? An integer can be used to
+   * specify the position exactly, or "last" can be provided if the node should
+   * just be added as the last child without needing to know the number of
+   * existing children.
+   */
+  positionInChildren?: number | "last";
+  /**
    * Node to be added
    */
   newNode: ShinyUiNode;
@@ -31,12 +39,18 @@ type AddNodeArguments = {
  *
  * Note that this freezes the parent tree.
  */
-export function addNode({ tree, parentPath, newNode }: AddNodeArguments) {
+export function addNode({
+  tree,
+  parentPath,
+  newNode,
+  positionInChildren = 0,
+}: AddNodeArguments) {
   return produce(tree, (treeDraft) => {
     addNodeMutating({
       tree: treeDraft,
       parentPath: parentPath,
       newNode,
+      positionInChildren,
     });
   });
 }
@@ -45,7 +59,8 @@ export function addNodeMutating({
   tree,
   parentPath,
   newNode,
-}: AddNodeArguments): void {
+  positionInChildren,
+}: Required<AddNodeArguments>): void {
   const parentNode = getNode(tree, parentPath);
   if (!shinyUiNodeInfo[parentNode.uiName].acceptsChildren) {
     throw new Error(
@@ -58,5 +73,17 @@ export function addNodeMutating({
     parentNode.uiChildren = [];
   }
 
-  parentNode.uiChildren.push(newNode);
+  const exactlyPositioned = typeof positionInChildren === "number";
+
+  if (exactlyPositioned) {
+    parentNode.uiChildren = addAtIndex(
+      parentNode.uiChildren,
+      positionInChildren,
+      newNode
+    );
+  }
+
+  if (positionInChildren === "last") {
+    parentNode.uiChildren.push(newNode);
+  }
 }

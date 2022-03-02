@@ -30,6 +30,7 @@ export default function moveNode({
       tree: treeDraft,
       parentPath: toPath,
       newNode: nodeToMove,
+      positionInChildren: 0,
     });
 
     // Remove it from its previous position
