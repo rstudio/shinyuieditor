@@ -1,8 +1,8 @@
 import { ShinyUiNode } from "../../Elements/uiNodeTypes";
 
+import { getNode } from "./getNode";
 import { placeNode } from "./placeNode";
 import { removeNode } from "./removeNode";
-import { getNode } from "./treeManipulation";
 import { updateNode } from "./updateNode";
 
 const baseNode: ShinyUiNode = {

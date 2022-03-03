@@ -8,8 +8,8 @@ import {
   shinyUiNodeInfo,
 } from "../../Elements/uiNodeTypes";
 
+import { getNode } from "./getNode";
 import { removeNodeMutating } from "./removeNode";
-import { getNode } from "./treeManipulation";
 
 /**
  * Arguments to add a new node to a Shiny Ui Node tree

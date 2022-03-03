@@ -7,7 +7,7 @@ import {
   shinyUiNodeInfo,
 } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import { getUiNodeValidation } from "components/Shiny-Ui-Elements/UiNode/getUiNodeValidation";
-import { getNode } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/treeManipulation";
+import { getNode } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/getNode";
 import { sendTreeUpdateMessage } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/treeUpdateEvents";
 import { NodeSelectionContext } from "NodeSelectionContext";
 import { BiCheck } from "react-icons/bi";

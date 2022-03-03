@@ -2,7 +2,7 @@ import produce from "immer";
 
 import { ShinyUiNode, NodePath } from "../../Elements/uiNodeTypes";
 
-import { getNode } from "./treeManipulation";
+import { getNode } from "./getNode";
 
 /**
  * Arguments to remove node from the Shiny Ui Node tree
