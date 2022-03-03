@@ -4,7 +4,7 @@ import { NodePath, ShinyUiNode } from "../../Elements/uiNodeTypes";
 
 import { placeNode, PlaceNodeArguments } from "./placeNode";
 import { removeNode } from "./removeNode";
-import { updateNode } from "./treeManipulation";
+import { updateNode } from "./updateNode";
 
 export type TreeUpdateAction =
   | { type: "UPDATE_NODE"; path: NodePath; node: ShinyUiNode }
@@ -82,7 +82,7 @@ function treeUpdateReducer(
 ): ShinyUiNode {
   switch (action.type) {
     case "UPDATE_NODE":
-      return updateNode({ tree, path: action.path, node: action.node });
+      return updateNode(tree, { path: action.path, node: action.node });
 
     case "DELETE_NODE":
       return removeNode(tree, { path: action.path });

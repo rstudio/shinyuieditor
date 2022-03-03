@@ -2,7 +2,8 @@ import { ShinyUiNode } from "../../Elements/uiNodeTypes";
 
 import { placeNode } from "./placeNode";
 import { removeNode } from "./removeNode";
-import { getNode, updateNode } from "./treeManipulation";
+import { getNode } from "./treeManipulation";
+import { updateNode } from "./updateNode";
 
 const baseNode: ShinyUiNode = {
   uiName: "gridlayout::grid_panel",
@@ -63,8 +64,7 @@ test("Modify a node", () => {
       outputId: "replacedNode",
     },
   };
-  const updatedNode = updateNode({
-    tree: baseNode as ShinyUiNode,
+  const updatedNode = updateNode(baseNode as ShinyUiNode, {
     path: [0, 0],
     node: nodeToReplaceWith,
   });
@@ -99,8 +99,7 @@ test("Modify a node at first level", () => {
       outputId: "replacedNode",
     },
   };
-  const updatedNode = updateNode({
-    tree: baseNode as ShinyUiNode,
+  const updatedNode = updateNode(baseNode as ShinyUiNode, {
     path: [0],
     node: nodeToReplaceWith,
   });
@@ -156,8 +155,7 @@ test("Update the settings of the root node", () => {
     ],
   };
 
-  const updated_app = updateNode({
-    tree: grid_app as ShinyUiNode,
+  const updated_app = updateNode(grid_app as ShinyUiNode, {
     path: [],
     node: {
       uiName: "gridlayout::grid_page",

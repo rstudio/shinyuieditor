@@ -1,5 +1,3 @@
-import produce from "immer";
-
 import { ShinyUiNode, NodePath } from "../../Elements/uiNodeTypes";
 
 /**
@@ -55,22 +53,4 @@ export function navigateToParent(
   }
 
   return { parentNode, indexToNode };
-}
-
-/**
- * Update the uiArguments and uiName of a node but leave the uiChildren alone
- */
-export function updateNode({
-  tree,
-  path,
-  node,
-}: {
-  tree: ShinyUiNode;
-  path: NodePath;
-  node: ShinyUiNode;
-}) {
-  return produce(tree, (treeDraft) => {
-    const existingNode = getNode(treeDraft, path);
-    Object.assign(existingNode, node);
-  });
 }
