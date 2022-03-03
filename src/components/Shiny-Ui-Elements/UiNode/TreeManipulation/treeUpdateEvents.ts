@@ -101,10 +101,11 @@ function treeUpdateReducer(
       return removeNode({ tree, path: action.path });
 
     case "MOVE_NODE":
-      return moveNode({
+      return addNode({
         tree,
-        fromPath: action.fromPath,
-        toPath: action.toPath,
+        currentPath: action.fromPath,
+        parentPath: action.toPath,
+        newNode: action.node,
       });
   }
 }
