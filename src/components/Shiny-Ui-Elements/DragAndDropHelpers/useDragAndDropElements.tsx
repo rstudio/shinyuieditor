@@ -5,7 +5,7 @@ import { sendTreeUpdateMessage } from "../UiNode/TreeManipulation/treeUpdateEven
 
 import classes from "./DragAndDrop.module.css";
 
-export type DragAndDropDraggedEvents = "onDragStart" | "draggable";
+export type DragStartEvents = "onDragStart" | "draggable";
 
 export type DragAndDropTargetEvents =
   | "onDrop"
@@ -20,7 +20,7 @@ export const dragAndDropTargetEvents: DragAndDropTargetEvents[] = [
   "onDragLeave",
 ];
 
-export type DragAndDropHandlers = Pick<
+export type DropHandlers = Pick<
   React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
   DragAndDropTargetEvents
 >;
@@ -78,7 +78,7 @@ function readDroppedNodeInfo(e: React.DragEvent<HTMLElement>): DraggedNodeInfo {
   }
 }
 
-export function buildDragAndDropHandlers(
+export function buildDropHandlers(
   onDrop: (droppedNode: DraggedNodeInfo) => void
 ) {
   return {
@@ -119,7 +119,7 @@ export function useDragAndDropElements(
   const callbacks = React.useMemo(
     () =>
       acceptsChildren
-        ? buildDragAndDropHandlers(({ node, currentPath }) => {
+        ? buildDropHandlers(({ node, currentPath }) => {
             // Let the state know we have a new child node
             sendTreeUpdateMessage({
               type: "PLACE_NODE",

@@ -1,7 +1,7 @@
 import React from "react";
 
 import {
-  buildDragAndDropHandlers,
+  buildDropHandlers,
   dragAndDropTargetEvents,
 } from "components/Shiny-Ui-Elements/DragAndDropHelpers/useDragAndDropElements";
 import { AreaOverlay } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/AreaOverlay";
@@ -43,7 +43,14 @@ export const LayoutDispatchContext =
 
 export const GridlayoutGridPage: UiContainerNodeComponent<
   TemplatedGridProps
-> = ({ uiArguments, uiChildren, path, children, ...passthroughProps }) => {
+> = ({
+  uiArguments,
+  uiChildren,
+  path,
+  children,
+  dropHandlers,
+  ...passthroughProps
+}) => {
   const { areas } = uiArguments;
 
   const { numRows, numCols, styles, sizes, uniqueAreas } =
@@ -204,7 +211,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
             gridRow={row}
             gridColumn={col}
             cellLocations={gridCellLocations}
-            {...buildDragAndDropHandlers(({ node }) => {
+            {...buildDropHandlers(({ node }) => {
               // This will eventually filter by element type
               const allowedDrop = true;
               if (!allowedDrop) return;

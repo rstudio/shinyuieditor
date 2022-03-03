@@ -14,6 +14,7 @@ const GridlayoutGridPanel: UiContainerNodeComponent<GridPanelSettings> = ({
   uiArguments,
   path,
   children,
+  dropHandlers,
   ...passthroughProps
 }) => {
   const { area, verticalAlign, horizontalAlign } = uiArguments;
@@ -25,6 +26,7 @@ const GridlayoutGridPanel: UiContainerNodeComponent<GridPanelSettings> = ({
         justifyContent: dirToFlexProp[horizontalAlign ?? "spread"],
         alignContent: dirToFlexProp[verticalAlign ?? "spread"],
       }}
+      {...dropHandlers}
       {...passthroughProps}
     >
       {uiChildren?.map((childNode, i) => (

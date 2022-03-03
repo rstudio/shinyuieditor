@@ -1,6 +1,6 @@
 import {
-  DragAndDropDraggedEvents,
-  DragAndDropHandlers,
+  DragStartEvents,
+  DropHandlers,
 } from "../DragAndDropHelpers/useDragAndDropElements";
 
 import { gridlayoutGridPageInfo } from "./GridlayoutGridPage";
@@ -105,25 +105,26 @@ export type ShinyUiNode = {
 
 type AllowedBaseElements = HTMLDivElement;
 
-type passthroughProps = DragAndDropHandlers &
-  Pick<
-    React.DetailedHTMLProps<
-      React.HTMLAttributes<AllowedBaseElements>,
-      AllowedBaseElements
-    >,
-    "onClick" | DragAndDropDraggedEvents
-  >;
+type BaseElementProps = React.DetailedHTMLProps<
+  React.HTMLAttributes<AllowedBaseElements>,
+  AllowedBaseElements
+>;
+
+type passthroughProps = Pick<BaseElementProps, "onClick" | DragStartEvents>;
 
 type CommonNodeComponentProps<NodeSettings extends object> = {
   uiArguments: NodeSettings;
   path: NodePath;
 };
+
 export type UiNodeComponent<NodeSettings extends object> = React.FC<
   CommonNodeComponentProps<NodeSettings> & passthroughProps
 >;
+
 export type UiContainerNodeComponent<NodeSettings extends object> = React.FC<
   CommonNodeComponentProps<NodeSettings> & {
     uiChildren: ShinyUiChildren;
+    dropHandlers: DropHandlers;
   } & passthroughProps
 >;
 

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { buildDragAndDropHandlers } from "components/Shiny-Ui-Elements/DragAndDropHelpers/useDragAndDropElements";
+import { buildDropHandlers } from "components/Shiny-Ui-Elements/DragAndDropHelpers/useDragAndDropElements";
 import { UiContainerNodeComponent } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import UiNode from "components/Shiny-Ui-Elements/UiNode";
 import { sendTreeUpdateMessage } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/treeUpdateEvents";
@@ -11,11 +11,18 @@ import classes from "./styles.module.css";
 
 const GridlayoutVerticalStackPanel: UiContainerNodeComponent<
   VerticalStackPanelSettings
-> = ({ uiArguments, uiChildren, path, children, ...passthroughProps }) => {
+> = ({
+  uiArguments,
+  uiChildren,
+  path,
+  children,
+  dropHandlers,
+  ...passthroughProps
+}) => {
   const { area, item_alignment, item_gap } = uiArguments;
 
   const buildDropListeners = (index: number) =>
-    buildDragAndDropHandlers((droppedNode) => {
+    buildDropHandlers((droppedNode) => {
       sendTreeUpdateMessage({
         type: "PLACE_NODE",
         ...droppedNode,
@@ -34,7 +41,7 @@ const GridlayoutVerticalStackPanel: UiContainerNodeComponent<
           "--item-gap": item_gap,
         } as React.CSSProperties
       }
-      // {...passthroughProps}
+      {...passthroughProps}
     >
       <DropWatcherPanel
         index={0}
@@ -63,7 +70,7 @@ function DropWatcherPanel({
 }: {
   index: number;
   numChildren: number;
-  dropHandlers?: ReturnType<typeof buildDragAndDropHandlers>;
+  dropHandlers?: ReturnType<typeof buildDropHandlers>;
 }) {
   const position_class = dropWatcherPositionClass(index, numChildren);
 
