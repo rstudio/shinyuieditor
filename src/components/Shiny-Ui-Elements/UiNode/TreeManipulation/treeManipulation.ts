@@ -94,44 +94,19 @@ export function removeNodeMutating({
 }
 
 /**
- * Immutably replace a node in the UiTree with a new node
- *
- * Note that this freezes the parent tree.
- */
-export function replaceNode({
-  tree,
-  path,
-  newNode,
-}: {
-  tree: ShinyUiNode;
-  path: NodePath;
-  newNode: ShinyUiNode;
-}) {
-  return produce(tree, (treeDraft) => {
-    const { parentNode, indexToNode } = navigateToParent(treeDraft, path);
-
-    // Update requested child
-    if (!checkIfContainerNode(parentNode)) {
-      throw new Error("Somehow trying to enter a leaf node");
-    }
-    parentNode.uiChildren[indexToNode] = newNode;
-  });
-}
-
-/**
  * Update the uiArguments and uiName of a node but leave the uiChildren alone
  */
 export function updateNode({
   tree,
   path,
-  newNode,
+  node,
 }: {
   tree: ShinyUiNode;
   path: NodePath;
-  newNode: ShinyUiNode;
+  node: ShinyUiNode;
 }) {
   return produce(tree, (treeDraft) => {
-    const node = getNode(treeDraft, path);
-    Object.assign(node, newNode);
+    const existingNode = getNode(treeDraft, path);
+    Object.assign(existingNode, node);
   });
 }

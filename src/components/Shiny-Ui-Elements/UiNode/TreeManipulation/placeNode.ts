@@ -32,7 +32,7 @@ type PlaceNodeArguments = {
   /**
    * Node to be added
    */
-  newNode: ShinyUiNode;
+  node: ShinyUiNode;
   /**
    * The full current path of the node, if it is being moved and added
    */
@@ -47,7 +47,7 @@ type PlaceNodeArguments = {
 export function placeNode({
   tree,
   parentPath,
-  newNode,
+  node,
   positionInChildren = "last",
   currentPath,
 }: PlaceNodeArguments) {
@@ -55,7 +55,7 @@ export function placeNode({
     addNodeMutating({
       tree: treeDraft,
       parentPath: parentPath,
-      newNode,
+      node: node,
       positionInChildren,
       currentPath,
     });
@@ -65,7 +65,7 @@ export function placeNode({
 export function addNodeMutating({
   tree,
   parentPath,
-  newNode,
+  node,
   positionInChildren,
   currentPath,
 }: PlaceNodeArguments): void {
@@ -93,12 +93,12 @@ export function addNodeMutating({
     parentNode.uiChildren = addAtIndex(
       parentNode.uiChildren,
       positionInChildren,
-      newNode
+      node
     );
   }
 
   if (positionInChildren === "last") {
-    parentNode.uiChildren.push(newNode);
+    parentNode.uiChildren.push(node);
   }
 
   // If this is a move then we need to remove the node from the previous position

@@ -62,7 +62,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
       sendTreeUpdateMessage({
         type: "UPDATE_NODE",
         path: [],
-        newNode: {
+        node: {
           uiName: "gridlayout::grid_page",
           uiArguments: gridLayoutReducer(uiArguments, action),
         },
@@ -77,7 +77,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
     const childNodeChange = e.type === "UPDATE_NODE" && e.path.length === 1;
     if (childNodeChange) {
       const oldAreaName = areasOfChildren(uiChildren)[e.path[0]];
-      const newAreaName = (e.newNode.uiArguments as GridPanelSettings).area;
+      const newAreaName = (e.node.uiArguments as GridPanelSettings).area;
       if (typeof newAreaName === "undefined") {
         console.error(
           "Somehow a child of the gridlayout page doesn't have a grid area value..."
@@ -137,7 +137,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
   } as React.CSSProperties;
 
   const addNewGridItem = React.useCallback(
-    (name: string, { node: newNode, pos }: NewItemInfo) => {
+    (name: string, { node, pos }: NewItemInfo) => {
       handleLayoutUpdate({
         type: "ADD_ITEM",
         name: name,
@@ -148,20 +148,20 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
       // new name into its settings. Otherwise automatically wrap the item in a
       // grid container
       if (
-        newNode.uiName === "gridlayout::grid_panel" ||
-        newNode.uiName === "gridlayout::title_panel" ||
-        newNode.uiName === "gridlayout::vertical_stack_panel"
+        node.uiName === "gridlayout::grid_panel" ||
+        node.uiName === "gridlayout::title_panel" ||
+        node.uiName === "gridlayout::vertical_stack_panel"
       ) {
-        newNode.uiArguments.area = name;
+        node.uiArguments.area = name;
       } else {
-        newNode = {
+        node = {
           uiName: "gridlayout::grid_panel",
           uiArguments: {
             area: name,
             horizontalAlign: "spread",
             verticalAlign: "spread",
           },
-          uiChildren: [newNode],
+          uiChildren: [node],
         };
       }
 
@@ -169,7 +169,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
       sendTreeUpdateMessage({
         type: "ADD_NODE",
         parentPath: [],
-        newNode: newNode,
+        node: node,
       });
 
       // Reset the modal/new item info state

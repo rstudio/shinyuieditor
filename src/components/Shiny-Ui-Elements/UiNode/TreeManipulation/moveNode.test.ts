@@ -90,7 +90,7 @@ describe("Move nodes within tree", () => {
   test("Move latterally", () => {
     const plotToRight = placeNode({
       tree: baseNode,
-      newNode: plotANode,
+      node: plotANode,
       currentPath: [0, 1],
       parentPath: [1],
     });
@@ -120,7 +120,7 @@ describe("Move nodes within tree", () => {
         tree: baseNode,
         currentPath: [0, 0],
         parentPath: [0, 0, 1],
-        newNode: plotANode,
+        node: plotANode,
       })
     ).toThrowError();
   });

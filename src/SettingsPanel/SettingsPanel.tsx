@@ -63,7 +63,7 @@ function useUpdateSettings({ tree }: { tree: ShinyUiNode }) {
       sendTreeUpdateMessage({
         type: "UPDATE_NODE",
         path: selectedPath,
-        newNode: {
+        node: {
           ...currentNode,
           // Add resulting html from setting validation (if present)
           uiHTML: "uiHTML" in result ? result.uiHTML : undefined,

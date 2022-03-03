@@ -133,7 +133,7 @@ export function useDragAndDropElements(
               : {
                   type: "ADD_NODE",
                   parentPath: path,
-                  newNode: node,
+                  node: node,
                 };
             // Let the state know we have a new child node
             sendTreeUpdateMessage(action);

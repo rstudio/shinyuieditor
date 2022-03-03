@@ -66,7 +66,7 @@ test("Modify a node", () => {
   const updatedNode = updateNode({
     tree: baseNode as ShinyUiNode,
     path: [0, 0],
-    newNode: nodeToReplaceWith,
+    node: nodeToReplaceWith,
   });
   expect(getNode(updatedNode, [0, 0])).toEqual(nodeToReplaceWith);
   expect(getNode(baseNode, [0, 0])).not.toEqual(nodeToReplaceWith);
@@ -102,7 +102,7 @@ test("Modify a node at first level", () => {
   const updatedNode = updateNode({
     tree: baseNode as ShinyUiNode,
     path: [0],
-    newNode: nodeToReplaceWith,
+    node: nodeToReplaceWith,
   });
   expect(getNode(updatedNode, [0])).toEqual(nodeToReplaceWith);
   expect(getNode(baseNode, [0])).not.toEqual(nodeToReplaceWith);
@@ -159,7 +159,7 @@ test("Update the settings of the root node", () => {
   const updated_app = updateNode({
     tree: grid_app as ShinyUiNode,
     path: [],
-    newNode: {
+    node: {
       uiName: "gridlayout::grid_page",
       uiArguments: {
         areas: [["new_sidebar_name", "plot"]],
@@ -187,7 +187,7 @@ test("Add a node", () => {
   const withNewNode = placeNode({
     tree: baseNode,
     parentPath: [0],
-    newNode: newUiNode,
+    node: newUiNode,
   });
 
   const newContainer = getNode(withNewNode, [0]);
