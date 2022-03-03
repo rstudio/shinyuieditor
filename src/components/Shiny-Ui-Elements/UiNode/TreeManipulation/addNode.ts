@@ -43,7 +43,7 @@ export function addNode({
   tree,
   parentPath,
   newNode,
-  positionInChildren = 0,
+  positionInChildren = "last",
 }: AddNodeArguments) {
   return produce(tree, (treeDraft) => {
     addNodeMutating({
