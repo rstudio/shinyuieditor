@@ -71,7 +71,7 @@ export function addNodeMutating({
 }: PlaceNodeArguments): void {
   const isMove = currentPath !== undefined;
 
-  if (isMove && invalidMove({ fromPath: currentPath, toPath: parentPath })) {
+  if (isMove && nodesAreDirectAncestors(currentPath, parentPath)) {
     throw new Error("Invalid move request");
   }
 
@@ -105,19 +105,6 @@ export function addNodeMutating({
   if (currentPath !== undefined) {
     removeNodeMutating({ tree, path: currentPath });
   }
-}
-
-export function invalidMove({
-  fromPath,
-  toPath,
-}: {
-  fromPath: NodePath;
-  toPath: NodePath;
-}): boolean {
-  // Can't make an item its own child
-  if (nodesAreDirectAncestors(toPath, fromPath)) return true;
-
-  return false;
 }
 
 /**
