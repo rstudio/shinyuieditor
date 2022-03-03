@@ -1,5 +1,6 @@
 import React from "react";
 
+import { buildDragAndDropHandlers } from "components/Shiny-Ui-Elements/DragAndDropHelpers/useDragAndDropElements";
 import { UiContainerNodeComponent } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import UiNode from "components/Shiny-Ui-Elements/UiNode";
 
@@ -12,18 +13,13 @@ const GridlayoutVerticalStackPanel: UiContainerNodeComponent<
 > = ({ uiArguments, uiChildren, path, children, ...passthroughProps }) => {
   const { area, item_alignment, item_gap } = uiArguments;
 
-  // Assign special classes to the drop watcher divs to note their positions
-  const dropWatcherPositionClass = (i: number) => {
-    if (i === -1) {
-      return classes.firstDropWatcher;
-    }
-
-    if (i === uiChildren.length - 1) {
-      return classes.lastDropWatcher;
-    }
-
-    return classes.middleDropWatcher;
-  };
+  const buildDropListeners = (index: number) =>
+    buildDragAndDropHandlers((droppedNode) => {
+      console.log(
+        `Add node at path ${[...path, index].join("-")}`,
+        droppedNode
+      );
+    });
 
   return (
     <div
@@ -35,16 +31,20 @@ const GridlayoutVerticalStackPanel: UiContainerNodeComponent<
           "--item-gap": item_gap,
         } as React.CSSProperties
       }
-      {...passthroughProps}
+      // {...passthroughProps}
     >
-      <div
-        className={classes.dropWatcher + " " + dropWatcherPositionClass(-1)}
-      ></div>
+      <DropWatcherPanel
+        index={0}
+        numChildren={uiChildren.length}
+        dropHandlers={buildDropListeners(0)}
+      />
       {uiChildren?.map((childNode, i) => (
         <React.Fragment key={path.join(".") + i}>
           <UiNode path={[...path, i]} {...childNode} />
-          <div
-            className={classes.dropWatcher + " " + dropWatcherPositionClass(i)}
+          <DropWatcherPanel
+            index={i + 1}
+            numChildren={uiChildren.length}
+            dropHandlers={buildDropListeners(i + 1)}
           />
         </React.Fragment>
       ))}
@@ -52,4 +52,37 @@ const GridlayoutVerticalStackPanel: UiContainerNodeComponent<
     </div>
   );
 };
+
+function DropWatcherPanel({
+  index,
+  numChildren,
+  dropHandlers,
+}: {
+  index: number;
+  numChildren: number;
+  dropHandlers?: ReturnType<typeof buildDragAndDropHandlers>;
+}) {
+  const position_class = dropWatcherPositionClass(index, numChildren);
+
+  return (
+    <div
+      className={classes.dropWatcher + " " + position_class}
+      {...dropHandlers}
+    />
+  );
+}
+
+// Assign special classes to the drop watcher divs to note their positions
+function dropWatcherPositionClass(i: number, numChildren: number) {
+  if (i === 0) {
+    return classes.firstDropWatcher;
+  }
+
+  if (i === numChildren) {
+    return classes.lastDropWatcher;
+  }
+
+  return classes.middleDropWatcher;
+}
+
 export default GridlayoutVerticalStackPanel;

@@ -14,7 +14,6 @@
 in the proper places */
 .container > * {
   position: relative;
-  outline: var(--outline);
 }
 
 .container[data-alignment="top"] {
@@ -35,7 +34,7 @@ in the proper places */
 /* By default the drop watcher is just the height of the spacing between the
 elements */
 div.dropWatcher {
-  outline: none;
+  /* outline: none; */
   height: var(--spacing);
   width: 100%;
 }
