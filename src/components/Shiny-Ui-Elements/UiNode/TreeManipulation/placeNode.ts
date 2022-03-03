@@ -1,5 +1,5 @@
 import produce from "immer";
-import { addAtIndex } from "utils/array-helpers";
+import { addAtIndex, moveElement } from "utils/array-helpers";
 import { sameArray } from "utils/equalityCheckers";
 
 import {
@@ -46,11 +46,11 @@ export function placeNode(
   placeArguments: PlaceNodeArguments
 ) {
   return produce(tree, (treeDraft) => {
-    addNodeMutating(treeDraft, placeArguments);
+    placeNodeMutating(treeDraft, placeArguments);
   });
 }
 
-export function addNodeMutating(
+export function placeNodeMutating(
   tree: ShinyUiNode,
   {
     parentPath,
@@ -59,13 +59,8 @@ export function addNodeMutating(
     currentPath,
   }: PlaceNodeArguments
 ): void {
-  const isMove = currentPath !== undefined;
-
-  if (isMove && nodesAreDirectAncestors(currentPath, parentPath)) {
-    throw new Error("Invalid move request");
-  }
-
   const parentNode = getNode(tree, parentPath);
+
   if (!shinyUiNodeInfo[parentNode.uiName].acceptsChildren) {
     throw new Error(
       "Can't add a child to a non-container node. Check the path"
@@ -77,24 +72,39 @@ export function addNodeMutating(
     parentNode.uiChildren = [];
   }
 
-  const exactlyPositioned = typeof positionInChildren === "number";
+  const nextIndex =
+    positionInChildren === "last"
+      ? parentNode.uiChildren.length
+      : positionInChildren;
 
-  if (exactlyPositioned) {
-    parentNode.uiChildren = addAtIndex(
-      parentNode.uiChildren,
-      positionInChildren,
-      node
-    );
-  }
-
-  if (positionInChildren === "last") {
-    parentNode.uiChildren.push(node);
-  }
-
-  // If this is a move then we need to remove the node from the previous position
+  // If there's a current path for the node, then this is a move rather than a
+  // pure add of a node
   if (currentPath !== undefined) {
+    const nextPath = [...parentPath, nextIndex];
+
+    if (nodesAreDirectAncestors(currentPath, nextPath)) {
+      throw new Error("Invalid move request");
+    }
+
+    // A special case of moving is reordering a node within the children.
+    if (nodesAreSiblings(currentPath, nextPath)) {
+      const previousIndex = currentPath[currentPath.length - 1];
+
+      parentNode.uiChildren = moveElement(
+        parentNode.uiChildren,
+        previousIndex,
+        nextIndex
+      );
+
+      // We're done now so return early
+      return;
+    }
+
+    // If this is a move then we need to remove the node from the previous position
     removeNodeMutating(tree, { path: currentPath });
   }
+
+  parentNode.uiChildren = addAtIndex(parentNode.uiChildren, nextIndex, node);
 }
 
 /**
@@ -113,4 +123,16 @@ export function nodesAreDirectAncestors(
 
   // If the path up to the depth of b is the same, then we have a child
   return sameArray(aPath.slice(0, compareDepth), bPath.slice(0, compareDepth));
+}
+
+/**
+ * Are nodes A and B siblings of eachother?
+ * @param aPath Path to node A
+ * @param bPath Path to node B
+ */
+export function nodesAreSiblings(aPath: NodePath, bPath: NodePath): boolean {
+  const parentDepth = Math.min(aPath.length, bPath.length) - 1;
+
+  // If the path up to the depth of b is the same, then we have a child
+  return sameArray(aPath.slice(0, parentDepth), bPath.slice(0, parentDepth));
 }

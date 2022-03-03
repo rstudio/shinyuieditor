@@ -123,3 +123,54 @@ describe("Move nodes within tree", () => {
     ).toThrowError();
   });
 });
+
+describe("Move node around within its current container", () => {
+  const sliderA: ShinyUiNode = {
+    uiName: "shiny::sliderInput",
+    uiArguments: {
+      inputId: "A",
+      label: "A",
+    },
+  };
+
+  const sliderB: ShinyUiNode = {
+    uiName: "shiny::sliderInput",
+    uiArguments: {
+      inputId: "B",
+      label: "B",
+    },
+  };
+  const sliderC: ShinyUiNode = {
+    uiName: "shiny::sliderInput",
+    uiArguments: {
+      inputId: "C",
+      label: "C",
+    },
+  };
+  const sliderPanel: ShinyUiNode = {
+    uiName: "gridlayout::vertical_stack_panel",
+    uiArguments: { area: "controls-holder", item_alignment: "center" },
+    uiChildren: [
+      sliderA, // [0]
+      sliderB, // [1]
+      sliderC, // [2]
+    ],
+  };
+
+  // Sanity check that nodes are where they should be
+  expect(getNode(sliderPanel, [0])).toEqual(sliderA);
+  expect(getNode(sliderPanel, [1])).toEqual(sliderB);
+  expect(getNode(sliderPanel, [2])).toEqual(sliderC);
+
+  // Move slider B above slider A
+  const updatedSliderPanel = placeNode(sliderPanel, {
+    node: sliderB,
+    currentPath: [1],
+    parentPath: [],
+    positionInChildren: 0,
+  });
+
+  expect(getNode(updatedSliderPanel, [0])).toEqual(sliderB);
+  expect(getNode(updatedSliderPanel, [1])).toEqual(sliderA);
+  expect(getNode(updatedSliderPanel, [2])).toEqual(sliderC);
+});
