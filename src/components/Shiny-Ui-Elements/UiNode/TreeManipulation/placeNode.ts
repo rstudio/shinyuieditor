@@ -15,10 +15,6 @@ import { getNode, removeNodeMutating } from "./treeManipulation";
  */
 export type PlaceNodeArguments = {
   /**
-   * UiNode tree that node will be placed in
-   */
-  tree: ShinyUiNode;
-  /**
    * Path to the parent the node will be placed within
    */
   parentPath: NodePath;
@@ -44,31 +40,24 @@ export type PlaceNodeArguments = {
  *
  * Note that this freezes the parent tree.
  */
-export function placeNode({
-  tree,
-  parentPath,
-  node,
-  positionInChildren = "last",
-  currentPath,
-}: PlaceNodeArguments) {
+export function placeNode(
+  tree: ShinyUiNode,
+  placeArguments: PlaceNodeArguments
+) {
   return produce(tree, (treeDraft) => {
-    addNodeMutating({
-      tree: treeDraft,
-      parentPath: parentPath,
-      node: node,
-      positionInChildren,
-      currentPath,
-    });
+    addNodeMutating(treeDraft, placeArguments);
   });
 }
 
-export function addNodeMutating({
-  tree,
-  parentPath,
-  node,
-  positionInChildren,
-  currentPath,
-}: PlaceNodeArguments): void {
+export function addNodeMutating(
+  tree: ShinyUiNode,
+  {
+    parentPath,
+    node,
+    positionInChildren = "last",
+    currentPath,
+  }: PlaceNodeArguments
+): void {
   const isMove = currentPath !== undefined;
 
   if (isMove && nodesAreDirectAncestors(currentPath, parentPath)) {

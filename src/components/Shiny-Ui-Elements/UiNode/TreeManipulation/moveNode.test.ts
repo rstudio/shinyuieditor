@@ -88,8 +88,7 @@ describe("Move nodes within tree", () => {
     },
   };
   test("Move latterally", () => {
-    const plotToRight = placeNode({
-      tree: baseNode,
+    const plotToRight = placeNode(baseNode, {
       node: plotANode,
       currentPath: [0, 1],
       parentPath: [1],
@@ -116,8 +115,7 @@ describe("Move nodes within tree", () => {
 
   test("Can't move up current branch", () => {
     expect(() =>
-      placeNode({
-        tree: baseNode,
+      placeNode(baseNode, {
         currentPath: [0, 0],
         parentPath: [0, 0, 1],
         node: plotANode,

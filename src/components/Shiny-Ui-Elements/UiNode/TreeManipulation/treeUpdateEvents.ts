@@ -7,7 +7,7 @@ import { removeNode, updateNode } from "./treeManipulation";
 
 export type TreeUpdateAction =
   | { type: "UPDATE_NODE"; path: NodePath; node: ShinyUiNode }
-  | ({ type: "PLACE_NODE" } & Omit<PlaceNodeArguments, "tree">)
+  | ({ type: "PLACE_NODE" } & PlaceNodeArguments)
   | { type: "DELETE_NODE"; path: NodePath };
 
 type TreeUpdateEvent = CustomEvent<TreeUpdateAction>;
@@ -87,6 +87,6 @@ function treeUpdateReducer(
       return removeNode({ tree, path: action.path });
 
     case "PLACE_NODE":
-      return placeNode({ tree, ...action });
+      return placeNode(tree, { ...action });
   }
 }
