@@ -167,7 +167,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
 
       // Let the state know we have a new child node
       sendTreeUpdateMessage({
-        type: "ADD_NODE",
+        type: "PLACE_NODE",
         parentPath: [],
         node: node,
       });

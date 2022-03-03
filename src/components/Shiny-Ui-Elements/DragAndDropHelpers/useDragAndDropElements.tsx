@@ -1,10 +1,7 @@
 import React from "react";
 
 import { NodePath, ShinyUiNode } from "../Elements/uiNodeTypes";
-import {
-  sendTreeUpdateMessage,
-  TreeUpdateAction,
-} from "../UiNode/TreeManipulation/treeUpdateEvents";
+import { sendTreeUpdateMessage } from "../UiNode/TreeManipulation/treeUpdateEvents";
 
 import classes from "./DragAndDrop.module.css";
 
@@ -123,20 +120,13 @@ export function useDragAndDropElements(
     () =>
       acceptsChildren
         ? buildDragAndDropHandlers(({ node, currentPath }) => {
-            const action: TreeUpdateAction = currentPath
-              ? {
-                  type: "MOVE_NODE",
-                  node,
-                  fromPath: currentPath,
-                  toPath: path,
-                }
-              : {
-                  type: "ADD_NODE",
-                  parentPath: path,
-                  node: node,
-                };
             // Let the state know we have a new child node
-            sendTreeUpdateMessage(action);
+            sendTreeUpdateMessage({
+              type: "PLACE_NODE",
+              node,
+              currentPath,
+              parentPath: path,
+            });
           })
         : {},
     [acceptsChildren, path]

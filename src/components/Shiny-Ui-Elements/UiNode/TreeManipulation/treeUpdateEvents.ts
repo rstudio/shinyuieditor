@@ -7,7 +7,6 @@ import { removeNode, updateNode } from "./treeManipulation";
 
 export type TreeUpdateAction =
   | { type: "UPDATE_NODE"; path: NodePath; node: ShinyUiNode }
-  | { type: "ADD_NODE"; parentPath: NodePath; node: ShinyUiNode }
   | {
       type: "MOVE_NODE";
       node: ShinyUiNode;
@@ -87,13 +86,6 @@ function treeUpdateReducer(
   action: TreeUpdateAction
 ): ShinyUiNode {
   switch (action.type) {
-    case "ADD_NODE":
-      return placeNode({
-        tree,
-        parentPath: action.parentPath,
-        node: action.node,
-      });
-
     case "UPDATE_NODE":
       return updateNode({ tree, path: action.path, node: action.node });
 
