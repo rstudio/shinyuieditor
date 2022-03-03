@@ -12,10 +12,12 @@ export default function moveNode({
   tree,
   fromPath,
   toPath,
+  positionInChildren = "last",
 }: {
   tree: ShinyUiNode;
   fromPath: NodePath;
   toPath: NodePath;
+  positionInChildren?: number | "last";
 }) {
   // Sanity checks before performing move
   if (invalidMove({ fromPath, toPath })) {
@@ -30,7 +32,7 @@ export default function moveNode({
       tree: treeDraft,
       parentPath: toPath,
       newNode: nodeToMove,
-      positionInChildren: 0,
+      positionInChildren,
     });
 
     // Remove it from its previous position
