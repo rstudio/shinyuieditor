@@ -37,7 +37,7 @@ export function getNode(tree: ShinyUiNode, path: NodePath): ShinyUiNode {
  * Get the containing node of another node by its path. Also returns the final
  * index to get to the node so it can be easily modified
  */
-function navigateToParent(
+export function navigateToParent(
   tree: ShinyUiNode,
   path: NodePath
 ): { parentNode: ShinyUiNode; indexToNode: number } {
@@ -55,42 +55,6 @@ function navigateToParent(
   }
 
   return { parentNode, indexToNode };
-}
-
-/**
- * Immutably remove a node from the UiTree.
- *
- * Note that this freezes the parent tree.
- */
-export function removeNode({
-  tree,
-  path,
-}: {
-  tree: ShinyUiNode;
-  path: NodePath;
-}) {
-  return produce(tree, (treeDraft) => {
-    removeNodeMutating({
-      tree: treeDraft,
-      path,
-    });
-  });
-}
-
-export function removeNodeMutating({
-  tree,
-  path,
-}: {
-  tree: ShinyUiNode;
-  path: NodePath;
-}): void {
-  const { parentNode, indexToNode } = navigateToParent(tree, path);
-
-  // Splice out this child
-  if (!checkIfContainerNode(parentNode)) {
-    throw new Error("Somehow trying to enter a leaf node");
-  }
-  parentNode.uiChildren.splice(indexToNode, 1);
 }
 
 /**

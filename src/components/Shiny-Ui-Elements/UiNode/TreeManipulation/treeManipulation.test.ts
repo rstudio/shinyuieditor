@@ -1,7 +1,8 @@
 import { ShinyUiNode } from "../../Elements/uiNodeTypes";
 
 import { placeNode } from "./placeNode";
-import { getNode, removeNode, updateNode } from "./treeManipulation";
+import { removeNode } from "./removeNode";
+import { getNode, updateNode } from "./treeManipulation";
 
 const baseNode: ShinyUiNode = {
   uiName: "gridlayout::grid_panel",
@@ -41,8 +42,7 @@ test("Remove a node", () => {
       outputId: "myPlot2",
     },
   });
-  const withoutNode = removeNode({
-    tree: baseNode as ShinyUiNode,
+  const withoutNode = removeNode(baseNode as ShinyUiNode, {
     path: [0, 1],
   });
   expect(getNode(withoutNode, [0, 1])).toEqual(undefined);

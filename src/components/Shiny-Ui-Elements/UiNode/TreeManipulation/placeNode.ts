@@ -8,7 +8,8 @@ import {
   shinyUiNodeInfo,
 } from "../../Elements/uiNodeTypes";
 
-import { getNode, removeNodeMutating } from "./treeManipulation";
+import { removeNodeMutating } from "./removeNode";
+import { getNode } from "./treeManipulation";
 
 /**
  * Arguments to add a new node to a Shiny Ui Node tree
@@ -92,7 +93,7 @@ export function addNodeMutating(
 
   // If this is a move then we need to remove the node from the previous position
   if (currentPath !== undefined) {
-    removeNodeMutating({ tree, path: currentPath });
+    removeNodeMutating(tree, { path: currentPath });
   }
 }
 
