@@ -13,7 +13,7 @@ import { getNode, removeNodeMutating } from "./treeManipulation";
 /**
  * Arguments to add a new node to a Shiny Ui Node tree
  */
-type PlaceNodeArguments = {
+export type PlaceNodeArguments = {
   /**
    * UiNode tree that node will be placed in
    */

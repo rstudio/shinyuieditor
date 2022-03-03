@@ -2,7 +2,7 @@ import React from "react";
 
 import { NodePath, ShinyUiNode } from "../../Elements/uiNodeTypes";
 
-import { placeNode } from "./placeNode";
+import { placeNode, PlaceNodeArguments } from "./placeNode";
 import { removeNode, updateNode } from "./treeManipulation";
 
 export type TreeUpdateAction =
@@ -14,6 +14,7 @@ export type TreeUpdateAction =
       fromPath: NodePath;
       toPath: NodePath;
     }
+  | ({ type: "PLACE_NODE" } & Omit<PlaceNodeArguments, "tree">)
   | { type: "DELETE_NODE"; path: NodePath };
 
 type TreeUpdateEvent = CustomEvent<TreeUpdateAction>;
@@ -106,5 +107,8 @@ function treeUpdateReducer(
         parentPath: action.toPath,
         node: action.node,
       });
+
+    case "PLACE_NODE":
+      return placeNode({ tree, ...action });
   }
 }
