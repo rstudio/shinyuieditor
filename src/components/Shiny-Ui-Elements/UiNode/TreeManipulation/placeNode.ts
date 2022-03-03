@@ -13,7 +13,7 @@ import { getNode, removeNodeMutating } from "./treeManipulation";
 /**
  * Arguments to add a new node to a Shiny Ui Node tree
  */
-type AddNodeArguments = {
+type PlaceNodeArguments = {
   /**
    * UiNode tree that node will be placed in
    */
@@ -40,17 +40,17 @@ type AddNodeArguments = {
 };
 
 /**
- * Immutably add a node in a container node of the UiTree
+ * Immutably add/move a node in a container node of the UiTree
  *
  * Note that this freezes the parent tree.
  */
-export function addNode({
+export function placeNode({
   tree,
   parentPath,
   newNode,
   positionInChildren = "last",
   currentPath,
-}: AddNodeArguments) {
+}: PlaceNodeArguments) {
   return produce(tree, (treeDraft) => {
     addNodeMutating({
       tree: treeDraft,
@@ -68,7 +68,7 @@ export function addNodeMutating({
   newNode,
   positionInChildren,
   currentPath,
-}: AddNodeArguments): void {
+}: PlaceNodeArguments): void {
   const isMove = currentPath !== undefined;
 
   if (isMove && invalidMove({ fromPath: currentPath, toPath: parentPath })) {

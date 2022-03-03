@@ -2,7 +2,7 @@ import React from "react";
 
 import { NodePath, ShinyUiNode } from "../../Elements/uiNodeTypes";
 
-import { addNode } from "./addNode";
+import { placeNode } from "./placeNode";
 import { removeNode, updateNode } from "./treeManipulation";
 
 export type TreeUpdateAction =
@@ -87,7 +87,7 @@ function treeUpdateReducer(
 ): ShinyUiNode {
   switch (action.type) {
     case "ADD_NODE":
-      return addNode({
+      return placeNode({
         tree,
         parentPath: action.parentPath,
         newNode: action.newNode,
@@ -100,7 +100,7 @@ function treeUpdateReducer(
       return removeNode({ tree, path: action.path });
 
     case "MOVE_NODE":
-      return addNode({
+      return placeNode({
         tree,
         currentPath: action.fromPath,
         parentPath: action.toPath,

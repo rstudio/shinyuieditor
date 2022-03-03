@@ -1,6 +1,6 @@
 import { ShinyUiNode } from "../../Elements/uiNodeTypes";
 
-import { addNode } from "./addNode";
+import { placeNode } from "./placeNode";
 import { getNode, removeNode, updateNode } from "./treeManipulation";
 
 const baseNode: ShinyUiNode = {
@@ -184,7 +184,7 @@ test("Add a node", () => {
     },
   };
 
-  const withNewNode = addNode({
+  const withNewNode = placeNode({
     tree: baseNode,
     parentPath: [0],
     newNode: newUiNode,

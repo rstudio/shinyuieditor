@@ -1,6 +1,6 @@
 import { ShinyUiNode } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 
-import { addNode, nodesAreDirectAncestors } from "./addNode";
+import { placeNode, nodesAreDirectAncestors } from "./placeNode";
 import { getNode } from "./treeManipulation";
 
 // Two Panels, one with a slider and a plot and the other with just a plot
@@ -88,7 +88,7 @@ describe("Move nodes within tree", () => {
     },
   };
   test("Move latterally", () => {
-    const plotToRight = addNode({
+    const plotToRight = placeNode({
       tree: baseNode,
       newNode: plotANode,
       currentPath: [0, 1],
@@ -116,7 +116,7 @@ describe("Move nodes within tree", () => {
 
   test("Can't move up current branch", () => {
     expect(() =>
-      addNode({
+      placeNode({
         tree: baseNode,
         currentPath: [0, 0],
         parentPath: [0, 0, 1],
