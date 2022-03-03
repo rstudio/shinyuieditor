@@ -1,7 +1,6 @@
 import { ShinyUiNode } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 
-import { addNode } from "./addNode";
-import moveNode, { nodesAreDirectAncestors } from "./moveNode";
+import { addNode, nodesAreDirectAncestors } from "./addNode";
 import { getNode } from "./treeManipulation";
 
 // Two Panels, one with a slider and a plot and the other with just a plot
@@ -81,45 +80,7 @@ describe("Move Validation", () => {
   });
 });
 
-describe("Move nodes", () => {
-  test("Move latterally", () => {
-    const plotToRight = moveNode({
-      tree: baseNode,
-      fromPath: [0, 1],
-      toPath: [1],
-    });
-
-    expect(getNode(baseNode, [0, 1])).toEqual({
-      uiName: "shiny::plotOutput",
-      uiArguments: {
-        outputId: "plotA",
-      },
-    });
-
-    // Should be gone from that position in the new tree
-    expect(getNode(plotToRight, [0, 1])).toEqual(undefined);
-
-    // And should be placed as the last child of the toPath
-    expect(getNode(plotToRight, [1, 1])).toEqual({
-      uiName: "shiny::plotOutput",
-      uiArguments: {
-        outputId: "plotA",
-      },
-    });
-  });
-
-  test("Can't move up current branch", () => {
-    expect(() =>
-      moveNode({
-        tree: baseNode,
-        fromPath: [0, 0],
-        toPath: [0, 0, 1],
-      })
-    ).toThrowError();
-  });
-});
-
-describe("Move nodes addNode() version", () => {
+describe("Move nodes within tree", () => {
   const plotANode: ShinyUiNode = {
     uiName: "shiny::plotOutput",
     uiArguments: {

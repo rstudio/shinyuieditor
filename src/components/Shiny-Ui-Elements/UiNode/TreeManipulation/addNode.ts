@@ -1,5 +1,6 @@
 import produce from "immer";
 import { addAtIndex } from "utils/array-helpers";
+import { sameArray } from "utils/equalityCheckers";
 
 import {
   ShinyUiNode,
@@ -7,7 +8,6 @@ import {
   shinyUiNodeInfo,
 } from "../../Elements/uiNodeTypes";
 
-import { invalidMove } from "./moveNode";
 import { getNode, removeNodeMutating } from "./treeManipulation";
 
 /**
@@ -105,4 +105,35 @@ export function addNodeMutating({
   if (currentPath !== undefined) {
     removeNodeMutating({ tree, path: currentPath });
   }
+}
+
+export function invalidMove({
+  fromPath,
+  toPath,
+}: {
+  fromPath: NodePath;
+  toPath: NodePath;
+}): boolean {
+  // Can't make an item its own child
+  if (nodesAreDirectAncestors(toPath, fromPath)) return true;
+
+  return false;
+}
+
+/**
+ * Are nodes A and B direct ancestors of eachother (parent, grandparent, etc...)?
+ * @param aPath Path to node A
+ * @param bPath Path to node B
+ */
+export function nodesAreDirectAncestors(
+  aPath: NodePath,
+  bPath: NodePath
+): boolean {
+  const aDepth = aPath.length;
+  const bDepth = bPath.length;
+
+  const compareDepth = Math.min(aDepth, bDepth);
+
+  // If the path up to the depth of b is the same, then we have a child
+  return sameArray(aPath.slice(0, compareDepth), bPath.slice(0, compareDepth));
 }

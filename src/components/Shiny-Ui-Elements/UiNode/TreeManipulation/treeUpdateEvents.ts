@@ -3,7 +3,6 @@ import React from "react";
 import { NodePath, ShinyUiNode } from "../../Elements/uiNodeTypes";
 
 import { addNode } from "./addNode";
-import moveNode from "./moveNode";
 import { removeNode, updateNode } from "./treeManipulation";
 
 export type TreeUpdateAction =
