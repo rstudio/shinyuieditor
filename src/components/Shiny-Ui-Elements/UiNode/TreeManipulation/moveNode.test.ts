@@ -1,5 +1,6 @@
 import { ShinyUiNode } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 
+import { addNode } from "./addNode";
 import moveNode, { nodesAreDirectAncestors } from "./moveNode";
 import { getNode } from "./treeManipulation";
 
@@ -113,6 +114,52 @@ describe("Move nodes", () => {
         tree: baseNode,
         fromPath: [0, 0],
         toPath: [0, 0, 1],
+      })
+    ).toThrowError();
+  });
+});
+
+describe("Move nodes addNode() version", () => {
+  const plotANode: ShinyUiNode = {
+    uiName: "shiny::plotOutput",
+    uiArguments: {
+      outputId: "plotA",
+    },
+  };
+  test("Move latterally", () => {
+    const plotToRight = addNode({
+      tree: baseNode,
+      newNode: plotANode,
+      currentPath: [0, 1],
+      parentPath: [1],
+    });
+
+    expect(getNode(baseNode, [0, 1])).toEqual({
+      uiName: "shiny::plotOutput",
+      uiArguments: {
+        outputId: "plotA",
+      },
+    });
+
+    // Should be gone from that position in the new tree
+    expect(getNode(plotToRight, [0, 1])).toEqual(undefined);
+
+    // And should be placed as the last child of the toPath
+    expect(getNode(plotToRight, [1, 1])).toEqual({
+      uiName: "shiny::plotOutput",
+      uiArguments: {
+        outputId: "plotA",
+      },
+    });
+  });
+
+  test("Can't move up current branch", () => {
+    expect(() =>
+      addNode({
+        tree: baseNode,
+        currentPath: [0, 0],
+        parentPath: [0, 0, 1],
+        newNode: plotANode,
       })
     ).toThrowError();
   });
