@@ -3,6 +3,7 @@ import React from "react";
 import { buildDragAndDropHandlers } from "components/Shiny-Ui-Elements/DragAndDropHelpers/useDragAndDropElements";
 import { UiContainerNodeComponent } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import UiNode from "components/Shiny-Ui-Elements/UiNode";
+import { sendTreeUpdateMessage } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/treeUpdateEvents";
 
 import { VerticalStackPanelSettings } from "./index";
 
@@ -15,10 +16,12 @@ const GridlayoutVerticalStackPanel: UiContainerNodeComponent<
 
   const buildDropListeners = (index: number) =>
     buildDragAndDropHandlers((droppedNode) => {
-      console.log(
-        `Add node at path ${[...path, index].join("-")}`,
-        droppedNode
-      );
+      sendTreeUpdateMessage({
+        type: "PLACE_NODE",
+        ...droppedNode,
+        parentPath: path,
+        positionInChildren: index,
+      });
     });
 
   return (
