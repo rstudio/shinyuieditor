@@ -40,7 +40,7 @@ export default function moveNode({
   });
 }
 
-function invalidMove({
+export function invalidMove({
   fromPath,
   toPath,
 }: {

@@ -7,7 +7,8 @@ import {
   shinyUiNodeInfo,
 } from "../../Elements/uiNodeTypes";
 
-import { getNode } from "./treeManipulation";
+import { invalidMove } from "./moveNode";
+import { getNode, removeNodeMutating } from "./treeManipulation";
 
 /**
  * Arguments to add a new node to a Shiny Ui Node tree
@@ -32,6 +33,10 @@ type AddNodeArguments = {
    * Node to be added
    */
   newNode: ShinyUiNode;
+  /**
+   * The full current path of the node, if it is being moved and added
+   */
+  currentPath?: NodePath;
 };
 
 /**
@@ -44,6 +49,7 @@ export function addNode({
   parentPath,
   newNode,
   positionInChildren = "last",
+  currentPath,
 }: AddNodeArguments) {
   return produce(tree, (treeDraft) => {
     addNodeMutating({
@@ -51,6 +57,7 @@ export function addNode({
       parentPath: parentPath,
       newNode,
       positionInChildren,
+      currentPath,
     });
   });
 }
@@ -60,7 +67,14 @@ export function addNodeMutating({
   parentPath,
   newNode,
   positionInChildren,
-}: Required<AddNodeArguments>): void {
+  currentPath,
+}: AddNodeArguments): void {
+  const isMove = currentPath !== undefined;
+
+  if (isMove && invalidMove({ fromPath: currentPath, toPath: parentPath })) {
+    throw new Error("Invalid move request");
+  }
+
   const parentNode = getNode(tree, parentPath);
   if (!shinyUiNodeInfo[parentNode.uiName].acceptsChildren) {
     throw new Error(
@@ -85,5 +99,10 @@ export function addNodeMutating({
 
   if (positionInChildren === "last") {
     parentNode.uiChildren.push(newNode);
+  }
+
+  // If this is a move then we need to remove the node from the previous position
+  if (currentPath !== undefined) {
+    removeNodeMutating({ tree, path: currentPath });
   }
 }
