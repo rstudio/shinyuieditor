@@ -1,4 +1,9 @@
-import { addAtIndex, arrayRange, buildRange } from "./array-helpers";
+import {
+  addAtIndex,
+  arrayRange,
+  buildRange,
+  moveElement,
+} from "./array-helpers";
 
 describe("Tells you if array forms consecutive sequence of numbers", () => {
   test("Valid sequence", () => {
@@ -101,5 +106,22 @@ describe("Insert items into an array", () => {
     expect(() => {
       addAtIndex(["a", "b", "c"], -1, "z");
     }).toThrowError("Can't add item at a negative index");
+  });
+});
+
+describe("Moving element within an element", () => {
+  const startArray = ["a", "b", "c", "z", "d"];
+  test("Can move an element infront its current place", () => {
+    expect(moveElement(startArray, 3, 5)).toEqual(["a", "b", "c", "d", "z"]);
+  });
+  test("Can move an element before its current place", () => {
+    expect(moveElement(startArray, 3, 1)).toEqual(["a", "z", "b", "c", "d"]);
+  });
+  test("Can move an element to start of array", () => {
+    expect(moveElement(startArray, 3, 0)).toEqual(["z", "a", "b", "c", "d"]);
+  });
+  test("Element can be moved next to itself (essentially a no-op)", () => {
+    expect(moveElement(startArray, 3, 3)).toEqual(startArray);
+    expect(moveElement(startArray, 3, 4)).toEqual(startArray);
   });
 });
