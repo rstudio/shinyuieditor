@@ -1,7 +1,6 @@
 import React from "react";
 
 import { NodePath, ShinyUiNode } from "../Elements/uiNodeTypes";
-import { sendTreeUpdateMessage } from "../UiNode/TreeManipulation/treeUpdateEvents";
 
 import classes from "./DragAndDrop.module.css";
 
@@ -112,28 +111,6 @@ export function buildDropHandlers(
   };
 }
 
-export function useDragAndDropElements(
-  path: NodePath,
-  acceptsChildren: boolean
-) {
-  const callbacks = React.useMemo(
-    () =>
-      acceptsChildren
-        ? buildDropHandlers(({ node, currentPath }) => {
-            // Let the state know we have a new child node
-            sendTreeUpdateMessage({
-              type: "PLACE_NODE",
-              node,
-              currentPath,
-              parentPath: path,
-            });
-          })
-        : {},
-    [acceptsChildren, path]
-  );
-
-  return callbacks;
-}
 function highlightDropability(e: React.DragEvent<HTMLDivElement>) {
   if (e.currentTarget === e.target) {
     e.currentTarget.classList.add(classes.canDrop);

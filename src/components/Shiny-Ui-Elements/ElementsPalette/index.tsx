@@ -6,7 +6,7 @@ import {
   shinyUiNodeInfo,
 } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 
-import { createDragStartCallback } from "../DragAndDropHelpers/useDragAndDropElements";
+import { createDragStartCallback } from "../DragAndDropHelpers/DragAndDropHelpers";
 
 import classes from "./styles.module.css";
 

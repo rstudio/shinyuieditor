@@ -1,6 +1,6 @@
 import React from "react";
 
-import { buildDropHandlers } from "components/Shiny-Ui-Elements/DragAndDropHelpers/useDragAndDropElements";
+import { buildDropHandlers } from "components/Shiny-Ui-Elements/DragAndDropHelpers/DragAndDropHelpers";
 import { UiContainerNodeComponent } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import UiNode from "components/Shiny-Ui-Elements/UiNode";
 import { sendTreeUpdateMessage } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/treeUpdateEvents";

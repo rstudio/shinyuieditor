@@ -1,7 +1,7 @@
 import {
   DragStartEvents,
   DropHandlers,
-} from "../DragAndDropHelpers/useDragAndDropElements";
+} from "../DragAndDropHelpers/DragAndDropHelpers";
 
 import { gridlayoutGridPageInfo } from "./GridlayoutGridPage";
 import { gridLayoutGridPanelInfo } from "./GridlayoutGridPanel";

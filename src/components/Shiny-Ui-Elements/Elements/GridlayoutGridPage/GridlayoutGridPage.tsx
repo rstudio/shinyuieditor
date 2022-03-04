@@ -1,9 +1,6 @@
 import React from "react";
 
-import {
-  buildDropHandlers,
-  dragAndDropTargetEvents,
-} from "components/Shiny-Ui-Elements/DragAndDropHelpers/useDragAndDropElements";
+import { buildDropHandlers } from "components/Shiny-Ui-Elements/DragAndDropHelpers/DragAndDropHelpers";
 import { AreaOverlay } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/AreaOverlay";
 import {
   CellLocRef,
@@ -15,7 +12,6 @@ import {
   UiContainerNodeComponent,
 } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import UiNode from "components/Shiny-Ui-Elements/UiNode";
-import omit from "just-omit";
 import { subtractElements } from "utils/array-helpers";
 import { enumerateGridDims, toStringLoc } from "utils/grid-helpers";
 import { areasToItemLocations } from "utils/gridTemplates/itemLocations";

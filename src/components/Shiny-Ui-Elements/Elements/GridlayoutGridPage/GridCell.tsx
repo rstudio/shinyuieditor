@@ -1,6 +1,6 @@
 import React from "react";
 
-import { DropHandlers } from "components/Shiny-Ui-Elements/DragAndDropHelpers/useDragAndDropElements";
+import { DropHandlers } from "components/Shiny-Ui-Elements/DragAndDropHelpers/DragAndDropHelpers";
 import { GridLocString } from "GridTypes";
 import debounce from "just-debounce-it";
 import { toStringLoc } from "utils/grid-helpers";

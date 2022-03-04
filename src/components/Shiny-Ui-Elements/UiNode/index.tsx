@@ -4,9 +4,9 @@ import { NodeSelectionContext } from "NodeSelectionContext";
 import { sameArray } from "utils/equalityCheckers";
 
 import {
+  buildDropHandlers,
   createDragStartCallback,
-  useDragAndDropElements,
-} from "../DragAndDropHelpers/useDragAndDropElements";
+} from "../DragAndDropHelpers/DragAndDropHelpers";
 import {
   NodePath,
   ShinyUiNode,
@@ -16,6 +16,7 @@ import {
 } from "../Elements/uiNodeTypes";
 
 import classes from "./styles.module.css";
+import { sendTreeUpdateMessage } from "./TreeManipulation/treeUpdateEvents";
 
 /**
  * Recursively render the nodes in a UI Tree
@@ -28,10 +29,6 @@ const UiNode = ({ path = [], ...node }: { path?: NodePath } & ShinyUiNode) => {
 
   const componentInfo = shinyUiNodeInfo[uiName];
 
-  const dragAndDropCallbacks = useDragAndDropElements(
-    path,
-    componentInfo.acceptsChildren
-  );
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     setNodeSelection(path);
@@ -42,6 +39,15 @@ const UiNode = ({ path = [], ...node }: { path?: NodePath } & ShinyUiNode) => {
     const Comp = componentInfo.UiComponent as UiContainerNodeComponent<
       typeof uiArguments
     >;
+    const dragAndDropCallbacks = buildDropHandlers(({ node, currentPath }) => {
+      // Let the state know we have a new child node
+      sendTreeUpdateMessage({
+        type: "PLACE_NODE",
+        node,
+        currentPath,
+        parentPath: path,
+      });
+    });
 
     return (
       <Comp
