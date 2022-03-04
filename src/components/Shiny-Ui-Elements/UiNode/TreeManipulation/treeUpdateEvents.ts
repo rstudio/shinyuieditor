@@ -98,10 +98,6 @@ export function useEventUpdatedTree(
     }
   });
 
-  React.useEffect(() => {
-    console.log("Selected Path", selectedPath);
-  }, [selectedPath]);
-
   return { tree, selectedPath, setSelectedPath };
 }
 
