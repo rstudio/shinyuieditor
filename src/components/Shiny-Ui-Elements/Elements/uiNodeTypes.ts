@@ -1,4 +1,7 @@
-import { DragAndDropHandlers } from "../DragAndDropHelpers/useDragAndDropElements";
+import {
+  DragStartEvents,
+  DropHandlers,
+} from "../DragAndDropHelpers/useDragAndDropElements";
 
 import { gridlayoutGridPageInfo } from "./GridlayoutGridPage";
 import { gridLayoutGridPanelInfo } from "./GridlayoutGridPanel";
@@ -16,19 +19,9 @@ export type UiComponentInfo<NodeSettings extends object> = {
    */
   title: string;
   /**
-   * The component that is used to actually draw the main interface for ui
-   * element
-   */
-  UiComponent: UiNodeComponent<NodeSettings>;
-  /**
    * Component for rendering the settings/ arguments form
    */
   SettingsComponent: SettingsUpdaterComponent<NodeSettings>;
-  /**
-   * Does this component accept children? This is used to enable or disable the
-   * drag-to-drop callbacks.
-   */
-  acceptsChildren: boolean;
   /**
    * The settings that a freshly initialized node will take. These will also be
    * used to fill in any missing arguments if they are provided.
@@ -39,7 +32,32 @@ export type UiComponentInfo<NodeSettings extends object> = {
    * not provided then the node will not show up in the element palette.
    */
   iconSrc?: string;
-};
+} & (
+  | {
+      /**
+       * Does this component accept children? This is used to enable or disable the
+       * drag-to-drop callbacks.
+       */
+      acceptsChildren: false;
+      /**
+       * The component that is used to actually draw the main interface for ui
+       * element
+       */
+      UiComponent: UiNodeComponent<NodeSettings>;
+    }
+  | {
+      /**
+       * Does this component accept children? This is used to enable or disable the
+       * drag-to-drop callbacks.
+       */
+      acceptsChildren: true;
+      /**
+       * The component that is used to actually draw the main interface for ui
+       * element
+       */
+      UiComponent: UiContainerNodeComponent<NodeSettings>;
+    }
+);
 
 /**
  * This is the main object that contains the info about a given uiNode. Once the
@@ -70,6 +88,8 @@ type ShinyUiArguments = {
  */
 export type ShinyUiNames = keyof ShinyUiArguments;
 
+export type ShinyUiChildren = ShinyUiNode[];
+
 /**
  * Union of Ui element name and associated arguments for easy narrowing
  */
@@ -78,21 +98,34 @@ export type ShinyUiNode = {
     uiName: UiName;
     uiArguments: ShinyUiArguments[UiName];
     /** Any children of this node */
-    uiChildren?: ShinyUiNode[];
+    uiChildren?: ShinyUiChildren;
     uiHTML?: string;
   };
 }[ShinyUiNames];
 
 type AllowedBaseElements = HTMLDivElement;
+
+type BaseElementProps = React.DetailedHTMLProps<
+  React.HTMLAttributes<AllowedBaseElements>,
+  AllowedBaseElements
+>;
+
+type passthroughProps = Pick<BaseElementProps, "onClick" | DragStartEvents>;
+
+type CommonNodeComponentProps<NodeSettings extends object> = {
+  uiArguments: NodeSettings;
+  path: NodePath;
+};
+
 export type UiNodeComponent<NodeSettings extends object> = React.FC<
-  { uiArguments: NodeSettings } & DragAndDropHandlers &
-    Pick<
-      React.DetailedHTMLProps<
-        React.HTMLAttributes<AllowedBaseElements>,
-        AllowedBaseElements
-      >,
-      "onClick"
-    >
+  CommonNodeComponentProps<NodeSettings> & passthroughProps
+>;
+
+export type UiContainerNodeComponent<NodeSettings extends object> = React.FC<
+  CommonNodeComponentProps<NodeSettings> & {
+    uiChildren: ShinyUiChildren;
+    dropHandlers: DropHandlers;
+  } & passthroughProps
 >;
 
 export type SettingsUpdaterComponent<T extends object> = (p: {

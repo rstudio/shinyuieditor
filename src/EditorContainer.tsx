@@ -2,34 +2,29 @@ import * as React from "react";
 
 import rstudioLogo from "assets/RStudio-Logo.svg";
 import shinyLogo from "assets/Shiny-Logo.png";
-import { useEventUpdatedTree } from "components/Shiny-Ui-Elements/Elements/treeUpdateEvents";
-import {
-  NodePath,
-  ShinyUiNode,
-} from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
+import { ShinyUiNode } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import ElementsPalette from "components/Shiny-Ui-Elements/ElementsPalette";
 import UiNode from "components/Shiny-Ui-Elements/UiNode";
+import { useEventUpdatedTree } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/treeUpdateEvents";
 import { getInitialState } from "getInitialState";
 import { useQuery } from "react-query";
 
 import classes from "./EditorContainer.module.css";
+import { NodeSelectionContext } from "./NodeSelectionContext";
 import { SettingsPanel } from "./SettingsPanel/SettingsPanel";
-
-export const NodeSelectionContext = React.createContext<
-  (path: NodePath | null) => void
->((path: NodePath | null) => console.log(`Selected node placeholder`, path));
 
 function EditorContainerWithData({
   initialState,
 }: {
   initialState: ShinyUiNode;
 }) {
-  const [selectedPath, setSelectedPath] = React.useState<NodePath | null>(null);
-
-  const tree = useEventUpdatedTree(initialState, sendUiStateToBackend);
+  const { tree, selectedPath, setSelectedPath } = useEventUpdatedTree(
+    initialState,
+    sendUiStateToBackend
+  );
 
   return (
-    <NodeSelectionContext.Provider value={setSelectedPath}>
+    <NodeSelectionContext.Provider value={[selectedPath, setSelectedPath]}>
       <div className={classes.container}>
         <div className={classes.header}>
           <div className={classes.leftSide}>
@@ -48,10 +43,10 @@ function EditorContainerWithData({
         </div>
         <div className={`${classes.propertiesPanel} ${classes.titledPanel}`}>
           <h3>Properties</h3>
-          <SettingsPanel tree={tree} selectedPath={selectedPath} />
+          <SettingsPanel tree={tree} />
         </div>
         <div className={classes.editorHolder}>
-          <UiNode {...tree} selectedPath={selectedPath} />
+          <UiNode {...tree} />
         </div>
       </div>
     </NodeSelectionContext.Provider>

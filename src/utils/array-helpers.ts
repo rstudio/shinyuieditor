@@ -52,9 +52,54 @@ export function removeAtIndex<T>(arr: T[], index: number): T[] {
 }
 
 export function addAtIndex<T>(arr: T[], index: number, val: T) {
+  if (index < 0) {
+    throw new Error("Can't add item at a negative index");
+  }
   const newArr = [...arr];
+
+  // Make sure that the array is long enough to have elements placed where desired
+  if (index > newArr.length - 1) {
+    newArr.length = index;
+  }
+
   newArr.splice(index, 0, val);
   return newArr;
+}
+
+/**
+ *
+ * @param arr Array to update. Note that any undefined elements will be removed by this
+ * @param fromIndex Index of element in `arr`
+ * @param toIndex Index to move element (will get placed _before_ element existing in that index)
+ * @returns Updated array with element moved
+ */
+export function moveElement<T>(
+  arr: T[],
+  fromIndex: number,
+  toIndex: number
+): T[] {
+  if (toIndex < 0) {
+    throw new Error("Can't add item at a negative index");
+  }
+
+  // Make sure something actually exists at the index
+  if (fromIndex < 0 || fromIndex > arr.length) {
+    throw new Error("Requested to move an element that is not in array");
+  }
+
+  // First we remove the item being moved from the array and put a placeholder
+  // within the array at its position. The palceholder is needed so the array
+  // doesn't change shape when removing the item and thus the indices for moving
+  // remain valid
+  let newArr = [...arr] as (T | undefined)[];
+  const movedElement = newArr[fromIndex];
+  newArr[fromIndex] = undefined;
+
+  // Now we add the element to the desired position
+  newArr = addAtIndex(newArr, toIndex, movedElement);
+
+  // Last we filter out the undefined element we added as a placeholder to finish
+  return newArr.filter((el) => typeof el !== "undefined") as T[];
 }
 
 export function joinPretty(

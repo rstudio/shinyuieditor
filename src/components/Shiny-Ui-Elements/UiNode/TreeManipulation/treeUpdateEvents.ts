@@ -1,12 +1,14 @@
 import React from "react";
 
-import { addNode, removeNode, updateNode } from "../UiNode/treeManipulation";
+import { NodePath, ShinyUiNode } from "../../Elements/uiNodeTypes";
 
-import { NodePath, ShinyUiNode } from "./uiNodeTypes";
+import { placeNode, PlaceNodeArguments } from "./placeNode";
+import { removeNode } from "./removeNode";
+import { updateNode } from "./updateNode";
 
-type TreeUpdateAction =
-  | { type: "UPDATE_NODE"; path: NodePath; newNode: ShinyUiNode }
-  | { type: "ADD_NODE"; parentPath: NodePath; newNode: ShinyUiNode }
+export type TreeUpdateAction =
+  | { type: "UPDATE_NODE"; path: NodePath; node: ShinyUiNode }
+  | ({ type: "PLACE_NODE" } & PlaceNodeArguments)
   | { type: "DELETE_NODE"; path: NodePath };
 
 type TreeUpdateEvent = CustomEvent<TreeUpdateAction>;
@@ -66,12 +68,37 @@ export function useEventUpdatedTree(
   onStateChange: (state: ShinyUiNode) => void
 ) {
   const [tree, updateTree] = React.useReducer(treeUpdateReducer, initialState);
+  const [selectedPath, setSelectedPath] = React.useState<NodePath | null>(null);
 
   React.useEffect(() => onStateChange(tree), [onStateChange, tree]);
 
-  useListenForTreeUpdateEvent(updateTree);
+  useListenForTreeUpdateEvent((action) => {
+    updateTree(action);
 
-  return tree;
+    if (action.type === "PLACE_NODE") {
+      console.log("Action", action);
+      // Update the selection to be wherever that node was placed
+      const newPath = action.parentPath;
+      if (typeof action.positionInChildren === "number") {
+        newPath.push(action.positionInChildren);
+      }
+
+      console.log("Setting a new path", newPath);
+      setSelectedPath(newPath);
+    }
+
+    if (action.type === "DELETE_NODE") {
+      setSelectedPath((oldPath) => {
+        if (oldPath === null) {
+          return null;
+        }
+
+        return oldPath.slice(0, oldPath.length - 1);
+      });
+    }
+  });
+
+  return { tree, selectedPath, setSelectedPath };
 }
 
 function treeUpdateReducer(
@@ -79,17 +106,13 @@ function treeUpdateReducer(
   action: TreeUpdateAction
 ): ShinyUiNode {
   switch (action.type) {
-    case "ADD_NODE":
-      return addNode({
-        tree,
-        path: action.parentPath,
-        newNode: action.newNode,
-      });
-
     case "UPDATE_NODE":
-      return updateNode({ tree, path: action.path, newNode: action.newNode });
+      return updateNode(tree, { path: action.path, node: action.node });
 
     case "DELETE_NODE":
-      return removeNode({ tree, path: action.path });
+      return removeNode(tree, { path: action.path });
+
+    case "PLACE_NODE":
+      return placeNode(tree, { ...action });
   }
 }

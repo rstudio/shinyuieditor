@@ -1,10 +1,8 @@
-import * as React from "react";
-
 import {
   NodePath,
   ShinyUiNode,
 } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
-import { getNode } from "components/Shiny-Ui-Elements/UiNode/treeManipulation";
+import { getNode } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/getNode";
 
 import classes from "./PathBreadcrumb.module.css";
 
@@ -20,7 +18,13 @@ export default function PathBreadcrumb({
   const totalDepth = path.length;
   let pathString: string[] = [];
   for (let depth = 0; depth <= totalDepth; depth++) {
-    pathString.push(getNode(tree, path.slice(0, depth)).uiName);
+    const nodeAtDepth = getNode(tree, path.slice(0, depth));
+    if (nodeAtDepth === undefined) {
+      // If the selection is not valid (node probably just got moved) then don't
+      // render breadcrumb
+      return null;
+    }
+    pathString.push(nodeAtDepth.uiName);
   }
 
   return (

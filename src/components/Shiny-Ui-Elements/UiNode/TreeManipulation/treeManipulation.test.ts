@@ -1,6 +1,9 @@
-import { ShinyUiNode } from "../Elements/uiNodeTypes";
+import { ShinyUiNode } from "../../Elements/uiNodeTypes";
 
-import { addNode, getNode, removeNode, updateNode } from "./treeManipulation";
+import { getNode } from "./getNode";
+import { placeNode } from "./placeNode";
+import { removeNode } from "./removeNode";
+import { updateNode } from "./updateNode";
 
 const baseNode: ShinyUiNode = {
   uiName: "gridlayout::grid_panel",
@@ -40,8 +43,7 @@ test("Remove a node", () => {
       outputId: "myPlot2",
     },
   });
-  const withoutNode = removeNode({
-    tree: baseNode as ShinyUiNode,
+  const withoutNode = removeNode(baseNode as ShinyUiNode, {
     path: [0, 1],
   });
   expect(getNode(withoutNode, [0, 1])).toEqual(undefined);
@@ -62,10 +64,9 @@ test("Modify a node", () => {
       outputId: "replacedNode",
     },
   };
-  const updatedNode = updateNode({
-    tree: baseNode as ShinyUiNode,
+  const updatedNode = updateNode(baseNode as ShinyUiNode, {
     path: [0, 0],
-    newNode: nodeToReplaceWith,
+    node: nodeToReplaceWith,
   });
   expect(getNode(updatedNode, [0, 0])).toEqual(nodeToReplaceWith);
   expect(getNode(baseNode, [0, 0])).not.toEqual(nodeToReplaceWith);
@@ -98,10 +99,9 @@ test("Modify a node at first level", () => {
       outputId: "replacedNode",
     },
   };
-  const updatedNode = updateNode({
-    tree: baseNode as ShinyUiNode,
+  const updatedNode = updateNode(baseNode as ShinyUiNode, {
     path: [0],
-    newNode: nodeToReplaceWith,
+    node: nodeToReplaceWith,
   });
   expect(getNode(updatedNode, [0])).toEqual(nodeToReplaceWith);
   expect(getNode(baseNode, [0])).not.toEqual(nodeToReplaceWith);
@@ -155,10 +155,9 @@ test("Update the settings of the root node", () => {
     ],
   };
 
-  const updated_app = updateNode({
-    tree: grid_app as ShinyUiNode,
+  const updated_app = updateNode(grid_app as ShinyUiNode, {
     path: [],
-    newNode: {
+    node: {
       uiName: "gridlayout::grid_page",
       uiArguments: {
         areas: [["new_sidebar_name", "plot"]],
@@ -183,10 +182,9 @@ test("Add a node", () => {
     },
   };
 
-  const withNewNode = addNode({
-    tree: baseNode,
-    path: [0],
-    newNode: newUiNode,
+  const withNewNode = placeNode(baseNode, {
+    parentPath: [0],
+    node: newUiNode,
   });
 
   const newContainer = getNode(withNewNode, [0]);

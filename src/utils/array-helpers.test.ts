@@ -1,4 +1,9 @@
-import { arrayRange, buildRange } from "./array-helpers";
+import {
+  addAtIndex,
+  arrayRange,
+  buildRange,
+  moveElement,
+} from "./array-helpers";
 
 describe("Tells you if array forms consecutive sequence of numbers", () => {
   test("Valid sequence", () => {
@@ -73,5 +78,50 @@ describe("Build a sequence of numbers from start to end", () => {
 
   test("Count down", () => {
     expect(buildRange(6, 3)).toStrictEqual([6, 5, 4, 3]);
+  });
+});
+
+describe("Insert items into an array", () => {
+  test("Index is within array bounds", () => {
+    expect(addAtIndex(["a", "b", "c"], 0, "z")).toEqual(["z", "a", "b", "c"]);
+    expect(addAtIndex(["a", "b", "c"], 1, "z")).toEqual(["a", "z", "b", "c"]);
+    expect(addAtIndex(["a", "b", "c"], 2, "z")).toEqual(["a", "b", "z", "c"]);
+    expect(addAtIndex(["a", "b", "c"], 3, "z")).toEqual(["a", "b", "c", "z"]);
+  });
+  test("Extends array if index of addition is outside of bounds", () => {
+    // eslint-disable-next-line no-sparse-arrays
+    expect(addAtIndex(["a", "b", "c"], 4, "z")).toEqual(["a", "b", "c", , "z"]);
+    // eslint-disable-next-line no-sparse-arrays
+    expect(addAtIndex(["a", "b", "c"], 5, "z")).toEqual([
+      "a",
+      "b",
+      "c",
+      ,
+      ,
+      "z",
+    ]);
+  });
+
+  test("Can't add an item _before_ the array", () => {
+    expect(() => {
+      addAtIndex(["a", "b", "c"], -1, "z");
+    }).toThrowError("Can't add item at a negative index");
+  });
+});
+
+describe("Moving element within an element", () => {
+  const startArray = ["a", "b", "c", "z", "d"];
+  test("Can move an element infront its current place", () => {
+    expect(moveElement(startArray, 3, 5)).toEqual(["a", "b", "c", "d", "z"]);
+  });
+  test("Can move an element before its current place", () => {
+    expect(moveElement(startArray, 3, 1)).toEqual(["a", "z", "b", "c", "d"]);
+  });
+  test("Can move an element to start of array", () => {
+    expect(moveElement(startArray, 3, 0)).toEqual(["z", "a", "b", "c", "d"]);
+  });
+  test("Element can be moved next to itself (essentially a no-op)", () => {
+    expect(moveElement(startArray, 3, 3)).toEqual(startArray);
+    expect(moveElement(startArray, 3, 4)).toEqual(startArray);
   });
 });

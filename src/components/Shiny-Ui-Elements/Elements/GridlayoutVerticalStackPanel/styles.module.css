@@ -1,4 +1,5 @@
 .container {
+  --spacing: var(--item-gap, 1rem);
   position: relative;
   height: 100%;
   width: 100%;
@@ -13,9 +14,47 @@
 in the proper places */
 .container > * {
   position: relative;
-  outline: var(--outline);
 }
 
-.container > *:not(:last-child) {
-  margin-bottom: var(--item-gap, 1rem);
+.container[data-alignment="top"] {
+  justify-content: top;
+}
+.container[data-alignment="center"] {
+  justify-content: center;
+}
+.container[data-alignment="spread"] {
+  justify-content: space-evenly;
+}
+.container[data-alignment="bottom"] {
+  justify-content: end;
+}
+
+/* Setup expansion of the drag watching divs based on the alignment type */
+
+/* By default the drop watcher is just the height of the spacing between the
+elements */
+div.dropWatcher {
+  /* outline: none; */
+  height: var(--spacing);
+  width: 100%;
+}
+
+/* When in the top alignment mode only the final watcher needs to expand */
+.container[data-alignment="top"] > div.lastDropWatcher,
+
+/* In the bottom alignment just the first watcher needs to expand */
+.container[data-alignment="bottom"] > div.firstDropWatcher,
+
+/* Center alignment means both top and bottom need to expand */
+.container[data-alignment="center"] > div.firstDropWatcher,
+.container[data-alignment="center"] > div.lastDropWatcher,
+
+/* When in spread mode the drop watchers fill the entire space. This actually
+makes the justify-content property not neccesary but we'll keep it incase we
+change how we do this in the future. */
+.container[data-alignment="spread"] > div.lastDropWatcher,
+.container[data-alignment="spread"] > div.firstDropWatcher,
+.container[data-alignment="spread"] > div.middleDropWatcher {
+  flex-grow: 1;
+  height: unset;
 }

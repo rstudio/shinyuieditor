@@ -1,7 +1,7 @@
 import React from "react";
 
 import {
-  buildDragAndDropHandlers,
+  buildDropHandlers,
   dragAndDropTargetEvents,
 } from "components/Shiny-Ui-Elements/DragAndDropHelpers/useDragAndDropElements";
 import { AreaOverlay } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/AreaOverlay";
@@ -10,9 +10,11 @@ import {
   GridCell,
 } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/GridCell";
 import {
+  ShinyUiChildren,
   ShinyUiNode,
-  UiNodeComponent,
+  UiContainerNodeComponent,
 } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
+import UiNode from "components/Shiny-Ui-Elements/UiNode";
 import omit from "just-omit";
 import { subtractElements } from "utils/array-helpers";
 import { enumerateGridDims, toStringLoc } from "utils/grid-helpers";
@@ -20,11 +22,11 @@ import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
 import { GridItemExtent, TemplatedGridProps } from "utils/gridTemplates/types";
 
-import { GridPanelSettings } from "../GridlayoutGridPanel";
 import {
   sendTreeUpdateMessage,
   useListenForTreeUpdateEvent,
-} from "../treeUpdateEvents";
+} from "../../UiNode/TreeManipulation/treeUpdateEvents";
+import { GridPanelSettings } from "../GridlayoutGridPanel";
 
 import { GridLayoutAction, gridLayoutReducer } from "./gridLayoutReducer";
 import { NameNewPanelModal } from "./NameNewPanelModal";
@@ -39,12 +41,18 @@ export type NewItemInfo = {
 export const LayoutDispatchContext =
   React.createContext<React.Dispatch<GridLayoutAction> | null>(null);
 
-export const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
+export const GridlayoutGridPage: UiContainerNodeComponent<
+  TemplatedGridProps
+> = ({
   uiArguments,
+  uiChildren,
+  path,
   children,
+  dropHandlers,
   ...passthroughProps
 }) => {
   const { areas } = uiArguments;
+
   const { numRows, numCols, styles, sizes, uniqueAreas } =
     parseGridTemplateAreas(uiArguments);
 
@@ -61,7 +69,7 @@ export const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
       sendTreeUpdateMessage({
         type: "UPDATE_NODE",
         path: [],
-        newNode: {
+        node: {
           uiName: "gridlayout::grid_page",
           uiArguments: gridLayoutReducer(uiArguments, action),
         },
@@ -71,17 +79,12 @@ export const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
   );
 
   useListenForTreeUpdateEvent((e) => {
-    console.log(
-      "Intercepted custom tree-update message in GridlayoutGridPage",
-      e
-    );
-
     // We're assuming that this grid layout is at the root of the tree. This
     // will break if we have nested grid layouts...
     const childNodeChange = e.type === "UPDATE_NODE" && e.path.length === 1;
     if (childNodeChange) {
-      const oldAreaName = areasOfChildren(children)[e.path[0]];
-      const newAreaName = (e.newNode.uiArguments as GridPanelSettings).area;
+      const oldAreaName = areasOfChildren(uiChildren)[e.path[0]];
+      const newAreaName = (e.node.uiArguments as GridPanelSettings).area;
       if (typeof newAreaName === "undefined") {
         console.error(
           "Somehow a child of the gridlayout page doesn't have a grid area value..."
@@ -109,7 +112,7 @@ export const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
     // layout.
     const extra_areas_in_layout = subtractElements(
       uniqueAreas,
-      areasOfChildren(children)
+      areasOfChildren(uiChildren)
     );
 
     if (extra_areas_in_layout.length > 0) {
@@ -118,7 +121,7 @@ export const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
         names: extra_areas_in_layout,
       });
     }
-  }, [children, handleLayoutUpdate, uniqueAreas]);
+  }, [children, handleLayoutUpdate, uiChildren, uniqueAreas]);
 
   const areaOverlays = uniqueAreas.map((area) => (
     <AreaOverlay
@@ -141,7 +144,7 @@ export const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
   } as React.CSSProperties;
 
   const addNewGridItem = React.useCallback(
-    (name: string, { node: newNode, pos }: NewItemInfo) => {
+    (name: string, { node, pos }: NewItemInfo) => {
       handleLayoutUpdate({
         type: "ADD_ITEM",
         name: name,
@@ -152,28 +155,28 @@ export const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
       // new name into its settings. Otherwise automatically wrap the item in a
       // grid container
       if (
-        newNode.uiName === "gridlayout::grid_panel" ||
-        newNode.uiName === "gridlayout::title_panel" ||
-        newNode.uiName === "gridlayout::vertical_stack_panel"
+        node.uiName === "gridlayout::grid_panel" ||
+        node.uiName === "gridlayout::title_panel" ||
+        node.uiName === "gridlayout::vertical_stack_panel"
       ) {
-        newNode.uiArguments.area = name;
+        node.uiArguments.area = name;
       } else {
-        newNode = {
+        node = {
           uiName: "gridlayout::grid_panel",
           uiArguments: {
             area: name,
             horizontalAlign: "spread",
             verticalAlign: "spread",
           },
-          uiChildren: [newNode],
+          uiChildren: [node],
         };
       }
 
       // Let the state know we have a new child node
       sendTreeUpdateMessage({
-        type: "ADD_NODE",
+        type: "PLACE_NODE",
         parentPath: [],
-        newNode: newNode,
+        node: node,
       });
 
       // Reset the modal/new item info state
@@ -195,6 +198,9 @@ export const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
         style={stylesForGrid}
         className={classes.container}
         {...noDragAndDropPassthrough}
+        // Disable dragging on the main app
+        draggable={false}
+        onDragStart={() => {}}
       >
         {enumerateGridDims({
           numRows,
@@ -205,7 +211,7 @@ export const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
             gridRow={row}
             gridColumn={col}
             cellLocations={gridCellLocations}
-            {...buildDragAndDropHandlers(({ node }) => {
+            {...buildDropHandlers(({ node }) => {
               // This will eventually filter by element type
               const allowedDrop = true;
               if (!allowedDrop) return;
@@ -224,6 +230,9 @@ export const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
         ))}
 
         <TractControls areas={areas} sizes={sizes} />
+        {uiChildren?.map((childNode, i) => (
+          <UiNode key={path.join(".") + i} path={[...path, i]} {...childNode} />
+        ))}
         {children}
         {areaOverlays}
       </div>
@@ -240,17 +249,12 @@ export const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
 /** Get the grid areas present in the children nodes passed to the Grid_Page()
  * component. This assumes that they are stored in the "area" property on the
  * uiArguments */
-function areasOfChildren(children: React.ReactNode) {
+function areasOfChildren(children: ShinyUiChildren) {
   let all_children_areas: string[] = [];
-  React.Children.forEach(children, (child) => {
-    if (
-      child &&
-      typeof child === "object" &&
-      "props" in child &&
-      "uiArguments" in child.props &&
-      "area" in child.props.uiArguments
-    ) {
-      all_children_areas.push(child.props.uiArguments.area);
+  children.forEach((child) => {
+    if ("area" in child.uiArguments && child.uiArguments.area !== undefined) {
+      const area = child.uiArguments.area;
+      all_children_areas.push(area);
     }
   });
 

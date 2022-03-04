@@ -1,6 +1,6 @@
 import React from "react";
 
-import { DragAndDropHandlers } from "components/Shiny-Ui-Elements/DragAndDropHelpers/useDragAndDropElements";
+import { DropHandlers } from "components/Shiny-Ui-Elements/DragAndDropHelpers/useDragAndDropElements";
 import { GridLocString } from "GridTypes";
 import debounce from "just-debounce-it";
 import { toStringLoc } from "utils/grid-helpers";
@@ -20,7 +20,7 @@ export function GridCell({
   gridRow: number;
   gridColumn: number;
   cellLocations: CellLocRef;
-} & DragAndDropHandlers) {
+} & DropHandlers) {
   const gridPos = toStringLoc({ row: gridRow, col: gridColumn });
   const cellRef = React.useRef<HTMLDivElement>(null);
 
