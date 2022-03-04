@@ -2,10 +2,7 @@ import * as React from "react";
 
 import rstudioLogo from "assets/RStudio-Logo.svg";
 import shinyLogo from "assets/Shiny-Logo.png";
-import {
-  NodePath,
-  ShinyUiNode,
-} from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
+import { ShinyUiNode } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import ElementsPalette from "components/Shiny-Ui-Elements/ElementsPalette";
 import UiNode from "components/Shiny-Ui-Elements/UiNode";
 import { useEventUpdatedTree } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/treeUpdateEvents";
@@ -21,12 +18,13 @@ function EditorContainerWithData({
 }: {
   initialState: ShinyUiNode;
 }) {
-  const nodeSelectionState = React.useState<NodePath | null>(null);
-
-  const tree = useEventUpdatedTree(initialState, sendUiStateToBackend);
+  const { tree, selectedPath, setSelectedPath } = useEventUpdatedTree(
+    initialState,
+    sendUiStateToBackend
+  );
 
   return (
-    <NodeSelectionContext.Provider value={nodeSelectionState}>
+    <NodeSelectionContext.Provider value={[selectedPath, setSelectedPath]}>
       <div className={classes.container}>
         <div className={classes.header}>
           <div className={classes.leftSide}>

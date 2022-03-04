@@ -68,12 +68,41 @@ export function useEventUpdatedTree(
   onStateChange: (state: ShinyUiNode) => void
 ) {
   const [tree, updateTree] = React.useReducer(treeUpdateReducer, initialState);
+  const [selectedPath, setSelectedPath] = React.useState<NodePath | null>(null);
 
   React.useEffect(() => onStateChange(tree), [onStateChange, tree]);
 
-  useListenForTreeUpdateEvent(updateTree);
+  useListenForTreeUpdateEvent((action) => {
+    updateTree(action);
 
-  return tree;
+    if (action.type === "PLACE_NODE") {
+      console.log("Action", action);
+      // Update the selection to be wherever that node was placed
+      const newPath = action.parentPath;
+      if (typeof action.positionInChildren === "number") {
+        newPath.push(action.positionInChildren);
+      }
+
+      console.log("Setting a new path", newPath);
+      setSelectedPath(newPath);
+    }
+
+    if (action.type === "DELETE_NODE") {
+      setSelectedPath((oldPath) => {
+        if (oldPath === null) {
+          return null;
+        }
+
+        return oldPath.slice(0, oldPath.length - 1);
+      });
+    }
+  });
+
+  React.useEffect(() => {
+    console.log("Selected Path", selectedPath);
+  }, [selectedPath]);
+
+  return { tree, selectedPath, setSelectedPath };
 }
 
 function treeUpdateReducer(
