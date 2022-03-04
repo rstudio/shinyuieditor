@@ -43,14 +43,9 @@ export const LayoutDispatchContext =
 
 export const GridlayoutGridPage: UiContainerNodeComponent<
   TemplatedGridProps
-> = ({
-  uiArguments,
-  uiChildren,
-  path,
-  children,
-  dropHandlers,
-  ...passthroughProps
-}) => {
+> = ({ uiArguments, uiChildren, children, eventHandlers, nodeInfo }) => {
+  const { onClick } = eventHandlers;
+  const { path } = nodeInfo;
   const { areas } = uiArguments;
 
   const { numRows, numCols, styles, sizes, uniqueAreas } =
@@ -185,19 +180,12 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
     [handleLayoutUpdate]
   );
 
-  // Don't let the drag and drop behavior trigger on the background of the
-  // containing div as the grid cells are responsible for handling that here
-  const noDragAndDropPassthrough = omit(
-    passthroughProps,
-    dragAndDropTargetEvents
-  );
-
   return (
     <LayoutDispatchContext.Provider value={handleLayoutUpdate}>
       <div
         style={stylesForGrid}
         className={classes.container}
-        {...noDragAndDropPassthrough}
+        onClick={onClick}
         // Disable dragging on the main app
         draggable={false}
         onDragStart={() => {}}

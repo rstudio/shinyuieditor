@@ -12,11 +12,11 @@ import classes from "./styles.module.css";
 const GridlayoutGridPanel: UiContainerNodeComponent<GridPanelSettings> = ({
   uiChildren,
   uiArguments,
-  path,
+  nodeInfo,
   children,
-  dropHandlers,
-  ...passthroughProps
+  eventHandlers,
 }) => {
+  const { path } = nodeInfo;
   const { area, verticalAlign, horizontalAlign } = uiArguments;
   return (
     <div
@@ -26,8 +26,7 @@ const GridlayoutGridPanel: UiContainerNodeComponent<GridPanelSettings> = ({
         justifyContent: dirToFlexProp[horizontalAlign ?? "spread"],
         alignContent: dirToFlexProp[verticalAlign ?? "spread"],
       }}
-      {...dropHandlers}
-      {...passthroughProps}
+      {...eventHandlers}
     >
       {uiChildren?.map((childNode, i) => (
         <UiNode key={path.join(".") + i} path={[...path, i]} {...childNode} />

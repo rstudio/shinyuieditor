@@ -8,7 +8,7 @@ import classes from "./styles.module.css";
 const ShinySliderInput: UiNodeComponent<ShinySliderInputProps> = ({
   children,
   uiArguments,
-  ...passthroughProps
+  eventHandlers,
 }) => {
   const width = "200px";
   const height = "auto";
@@ -19,7 +19,7 @@ const ShinySliderInput: UiNodeComponent<ShinySliderInputProps> = ({
       className={classes.container + " shiny::sliderInput"}
       style={{ height, width }}
       aria-label={"shiny::sliderInput"}
-      {...passthroughProps}
+      {...eventHandlers}
     >
       <div style={{ gridArea: "1/1", placeSelf: "center", maxWidth: "300px" }}>
         <div>{settings.label}</div>

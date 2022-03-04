@@ -11,14 +11,8 @@ import classes from "./styles.module.css";
 
 const GridlayoutVerticalStackPanel: UiContainerNodeComponent<
   VerticalStackPanelSettings
-> = ({
-  uiArguments,
-  uiChildren,
-  path,
-  children,
-  dropHandlers,
-  ...passthroughProps
-}) => {
+> = ({ uiArguments, uiChildren, nodeInfo, children, eventHandlers }) => {
+  const { path } = nodeInfo;
   const { area, item_alignment, item_gap } = uiArguments;
 
   const buildDropListeners = (index: number) =>
@@ -41,7 +35,6 @@ const GridlayoutVerticalStackPanel: UiContainerNodeComponent<
           "--item-gap": item_gap,
         } as React.CSSProperties
       }
-      {...passthroughProps}
     >
       <DropWatcherPanel
         index={0}

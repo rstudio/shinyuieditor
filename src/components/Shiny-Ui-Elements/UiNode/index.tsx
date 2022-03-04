@@ -47,11 +47,12 @@ const UiNode = ({ path = [], ...node }: { path?: NodePath } & ShinyUiNode) => {
       <Comp
         uiArguments={uiArguments}
         uiChildren={uiChildren ?? []}
-        dropHandlers={dragAndDropCallbacks}
-        draggable
-        onDragStart={handleStartDrag}
-        onClick={handleClick}
-        path={path}
+        eventHandlers={{
+          ...dragAndDropCallbacks,
+          onClick: handleClick,
+          onDragStart: handleStartDrag,
+        }}
+        nodeInfo={{ path }}
       >
         {isSelected ? <div className={classes.selectedOverlay} /> : null}
       </Comp>
@@ -62,10 +63,12 @@ const UiNode = ({ path = [], ...node }: { path?: NodePath } & ShinyUiNode) => {
   return (
     <Comp
       uiArguments={uiArguments}
-      draggable
-      onDragStart={handleStartDrag}
-      onClick={handleClick}
-      path={path}
+      eventHandlers={{
+        onClick: handleClick,
+        onDragStart: handleStartDrag,
+        draggable: true,
+      }}
+      nodeInfo={{ path }}
     >
       {isSelected ? <div className={classes.selectedOverlay} /> : null}
     </Comp>

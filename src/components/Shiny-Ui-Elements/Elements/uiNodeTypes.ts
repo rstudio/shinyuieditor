@@ -110,23 +110,23 @@ type BaseElementProps = React.DetailedHTMLProps<
   AllowedBaseElements
 >;
 
-type passthroughProps = Pick<BaseElementProps, "onClick" | DragStartEvents>;
-
-type CommonNodeComponentProps<NodeSettings extends object> = {
-  uiArguments: NodeSettings;
+type NodeInfo = {
   path: NodePath;
 };
 
-export type UiNodeComponent<NodeSettings extends object> = React.FC<
-  CommonNodeComponentProps<NodeSettings> & passthroughProps
->;
+export type UiNodeComponent<NodeSettings extends object> = React.FC<{
+  uiArguments: NodeSettings;
+  nodeInfo: NodeInfo;
+  eventHandlers: Pick<BaseElementProps, "onClick" | DragStartEvents>;
+}>;
 
-export type UiContainerNodeComponent<NodeSettings extends object> = React.FC<
-  CommonNodeComponentProps<NodeSettings> & {
-    uiChildren: ShinyUiChildren;
-    dropHandlers: DropHandlers;
-  } & passthroughProps
->;
+export type UiContainerNodeComponent<NodeSettings extends object> = React.FC<{
+  uiArguments: NodeSettings;
+  uiChildren: ShinyUiChildren;
+  nodeInfo: NodeInfo;
+  eventHandlers: Pick<BaseElementProps, "onClick" | DragStartEvents> &
+    DropHandlers;
+}>;
 
 export type SettingsUpdaterComponent<T extends object> = (p: {
   settings: T;

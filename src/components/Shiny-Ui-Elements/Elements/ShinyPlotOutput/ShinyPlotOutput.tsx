@@ -10,7 +10,7 @@ import classes from "./styles.module.css";
 const ShinyPlotOutput: UiNodeComponent<ShinyPlotOutputProps> = ({
   uiArguments,
   children,
-  ...passthroughProps
+  eventHandlers,
 }) => {
   const {
     outputId = "shiny-plot-output",
@@ -42,7 +42,7 @@ const ShinyPlotOutput: UiNodeComponent<ShinyPlotOutputProps> = ({
       ref={holderRef}
       style={{ height, width }}
       aria-label="shiny::plotOutput placeholder"
-      {...passthroughProps}
+      {...eventHandlers}
     >
       <GoGraph
         // Account for padding of 1 rem
