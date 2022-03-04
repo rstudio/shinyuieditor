@@ -18,7 +18,13 @@ export default function PathBreadcrumb({
   const totalDepth = path.length;
   let pathString: string[] = [];
   for (let depth = 0; depth <= totalDepth; depth++) {
-    pathString.push(getNode(tree, path.slice(0, depth)).uiName);
+    const nodeAtDepth = getNode(tree, path.slice(0, depth));
+    if (nodeAtDepth === undefined) {
+      // If the selection is not valid (node probably just got moved) then don't
+      // render breadcrumb
+      return null;
+    }
+    pathString.push(nodeAtDepth.uiName);
   }
 
   return (

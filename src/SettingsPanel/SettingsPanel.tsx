@@ -26,9 +26,19 @@ function useUpdateSettings({ tree }: { tree: ShinyUiNode }) {
   const [errorMsg, setErrorMsg] = React.useState<string | null>(null);
 
   React.useEffect(() => {
-    const selectedNode =
-      selectedPath !== null ? getNode(tree, selectedPath) : null;
-    setCurrentNode(selectedNode);
+    if (selectedPath === null) {
+      setCurrentNode(null);
+      return;
+    }
+    const selectedNode = getNode(tree, selectedPath);
+
+    // Sometimes the selection will fail because the selected node was just
+    // moved. In this case back up until we get to an available parent
+    if (selectedNode === undefined) {
+      return;
+    }
+
+    setCurrentNode(getNode(tree, selectedPath));
   }, [tree, selectedPath]);
 
   const handleSubmit = React.useCallback(
