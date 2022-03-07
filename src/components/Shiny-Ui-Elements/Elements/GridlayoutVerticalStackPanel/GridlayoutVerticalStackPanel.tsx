@@ -1,15 +1,11 @@
 import React from "react";
 
-import {
-  useAddOnDropHandlers,
-  useDropHandlers,
-} from "components/Shiny-Ui-Elements/DragAndDropHelpers/useDropHandlers";
+import { useAddOnDropHandlers } from "components/Shiny-Ui-Elements/DragAndDropHelpers/useDropHandlers";
 import {
   NodePath,
   UiContainerNodeComponent,
 } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import UiNode from "components/Shiny-Ui-Elements/UiNode";
-import { sendTreeUpdateMessage } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/treeUpdateEvents";
 
 import { VerticalStackPanelSettings } from "./index";
 
@@ -65,6 +61,14 @@ function DropWatcherPanel({
   const dropListeners = useAddOnDropHandlers({
     parentPath,
     positionInChildren: index,
+    dropFilters: {
+      rejectedNodes: [
+        "gridlayout::grid_page",
+        "gridlayout::grid_panel",
+        "gridlayout::title_panel",
+        "gridlayout::vertical_stack_panel",
+      ],
+    },
   });
 
   const position_class = dropWatcherPositionClass(index, numChildren);

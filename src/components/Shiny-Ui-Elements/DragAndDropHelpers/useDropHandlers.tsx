@@ -1,6 +1,6 @@
 import React from "react";
 
-import { NodePath } from "../Elements/uiNodeTypes";
+import { NodePath, shinyUiNames, ShinyUiNames } from "../Elements/uiNodeTypes";
 import { sendTreeUpdateMessage } from "../UiNode/TreeManipulation/treeUpdateEvents";
 
 import {
@@ -10,10 +10,32 @@ import {
 } from "./DragAndDropHelpers";
 import { useCurrentDraggedNode } from "./useCurrentDraggedNode";
 
-export function useDropHandlers(
-  onDrop: (droppedNode: DraggedNodeInfo) => void
-) {
+type DropFilters =
+  | {
+      acceptedNodes: ShinyUiNames[];
+    }
+  | {
+      rejectedNodes: ShinyUiNames[];
+    };
+
+export function useDropHandlers({
+  onDrop,
+  dropFilters = { rejectedNodes: [] },
+}: {
+  onDrop: (droppedNode: DraggedNodeInfo) => void;
+  dropFilters?: DropFilters;
+}) {
   const currentlyDragged = useCurrentDraggedNode();
+
+  const acceptedNodes =
+    "acceptedNodes" in dropFilters
+      ? dropFilters.acceptedNodes
+      : shinyUiNames.filter(
+          (uiName) => !dropFilters.rejectedNodes.includes(uiName)
+        );
+
+  console.log("Accepting drops from the following ui types", acceptedNodes);
+
   return {
     onDragEnter: (e: React.DragEvent<HTMLDivElement>) => {
       e.preventDefault();
@@ -50,16 +72,21 @@ export function useDropHandlers(
 export function useAddOnDropHandlers({
   parentPath,
   positionInChildren,
+  dropFilters,
 }: {
   parentPath: NodePath;
   positionInChildren: number;
+  dropFilters?: DropFilters;
 }) {
-  return useDropHandlers((droppedNode) => {
-    sendTreeUpdateMessage({
-      type: "PLACE_NODE",
-      ...droppedNode,
-      parentPath,
-      positionInChildren,
-    });
+  return useDropHandlers({
+    onDrop: (droppedNode) => {
+      sendTreeUpdateMessage({
+        type: "PLACE_NODE",
+        ...droppedNode,
+        parentPath,
+        positionInChildren,
+      });
+    },
+    dropFilters,
   });
 }
