@@ -15,11 +15,13 @@ const GridlayoutGridPanel: UiContainerNodeComponent<GridPanelSettings> = ({
   nodeInfo,
   children,
   eventHandlers,
+  compRef,
 }) => {
   const { path } = nodeInfo;
   const { area, verticalAlign, horizontalAlign } = uiArguments;
   return (
     <div
+      ref={compRef}
       className={classes.container}
       style={{
         gridArea: area,

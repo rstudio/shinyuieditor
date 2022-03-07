@@ -10,9 +10,11 @@ const GridlayoutTitlePanel: UiNodeComponent<GridlayoutTitlePanelProps> = ({
   uiArguments: { title, area },
   children,
   eventHandlers,
+  compRef,
 }) => {
   return (
     <div
+      ref={compRef}
       className={classes.titlePanel + " gridlayout-titlePanel"}
       style={{ gridArea: area }}
       aria-label={"gridlayout-titlePanel"}

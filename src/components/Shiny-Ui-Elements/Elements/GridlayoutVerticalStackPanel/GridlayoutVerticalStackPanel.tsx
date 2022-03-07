@@ -13,12 +13,20 @@ import classes from "./styles.module.css";
 
 const GridlayoutVerticalStackPanel: UiContainerNodeComponent<
   VerticalStackPanelSettings
-> = ({ uiArguments, uiChildren, nodeInfo, children, eventHandlers }) => {
+> = ({
+  uiArguments,
+  uiChildren,
+  nodeInfo,
+  children,
+  eventHandlers,
+  compRef,
+}) => {
   const { path } = nodeInfo;
   const { area, item_alignment, item_gap } = uiArguments;
 
   return (
     <div
+      ref={compRef}
       className={classes.container}
       data-alignment={item_alignment ?? "top"}
       style={

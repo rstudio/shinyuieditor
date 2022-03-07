@@ -39,7 +39,14 @@ export const LayoutDispatchContext =
 
 export const GridlayoutGridPage: UiContainerNodeComponent<
   TemplatedGridProps
-> = ({ uiArguments, uiChildren, children, eventHandlers, nodeInfo }) => {
+> = ({
+  uiArguments,
+  uiChildren,
+  children,
+  eventHandlers,
+  nodeInfo,
+  compRef,
+}) => {
   const { onClick } = eventHandlers;
   const { path } = nodeInfo;
   const { areas } = uiArguments;
@@ -179,6 +186,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
   return (
     <LayoutDispatchContext.Provider value={handleLayoutUpdate}>
       <div
+        ref={compRef}
         style={stylesForGrid}
         className={classes.container}
         onClick={onClick}
