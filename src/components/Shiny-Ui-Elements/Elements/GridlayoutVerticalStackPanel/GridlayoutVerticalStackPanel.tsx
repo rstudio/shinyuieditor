@@ -35,6 +35,7 @@ const GridlayoutVerticalStackPanel: UiContainerNodeComponent<
           "--item-gap": item_gap,
         } as React.CSSProperties
       }
+      onClick={eventHandlers.onClick}
     >
       <DropWatcherPanel
         index={0}
