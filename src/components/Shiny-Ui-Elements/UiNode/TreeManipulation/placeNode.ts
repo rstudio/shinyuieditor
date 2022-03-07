@@ -131,7 +131,13 @@ export function nodesAreDirectAncestors(
  * @param bPath Path to node B
  */
 export function nodesAreSiblings(aPath: NodePath, bPath: NodePath): boolean {
-  const parentDepth = Math.min(aPath.length, bPath.length) - 1;
+  const aDepth = aPath.length;
+  const bDepth = bPath.length;
+
+  // Siblings have to be at the same depth in the tree
+  if (aDepth !== bDepth) return false;
+
+  const parentDepth = aDepth - 1;
 
   // If the path up to the depth of b is the same, then we have a child
   return sameArray(aPath.slice(0, parentDepth), bPath.slice(0, parentDepth));
