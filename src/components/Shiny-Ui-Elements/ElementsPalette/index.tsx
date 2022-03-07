@@ -35,18 +35,12 @@ function ElementOption({ uiName }: { uiName: ShinyUiNames }) {
 
   const elRef = React.useRef<HTMLDivElement>(null);
   useMakeDraggable(elRef, { node });
-  // const setCurrentDraggedNode = useSetCurrentDraggedNode({ node });
 
   if (iconSrc === undefined) {
     return null;
   }
   return (
-    <div
-      ref={elRef}
-      className={classes.OptionItem}
-      draggable
-      // onDragStart={setCurrentDraggedNode}
-    >
+    <div ref={elRef} className={classes.OptionItem}>
       <img src={iconSrc} alt={title} />
       <label>{title}</label>
     </div>

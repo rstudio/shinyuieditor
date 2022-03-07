@@ -69,7 +69,11 @@ export function useMakeDraggable(
     const watcherEl = watcherRef.current;
     if (!watcherEl) return;
 
+    watcherEl.setAttribute("draggable", "");
     watcherEl.addEventListener("dragstart", startDrag);
+
+    // This event takes a while to fire because of the animation of the dragged
+    // snapping back so we may want to turn it into a mouse-up watcher instead
     watcherEl.addEventListener("dragend", endDrag);
 
     return () => {
