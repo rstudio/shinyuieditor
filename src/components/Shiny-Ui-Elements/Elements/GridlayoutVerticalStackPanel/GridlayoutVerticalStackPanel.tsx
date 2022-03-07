@@ -1,7 +1,10 @@
 import React from "react";
 
-import { buildDropHandlers } from "components/Shiny-Ui-Elements/DragAndDropHelpers/DragAndDropHelpers";
-import { UiContainerNodeComponent } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
+import { useDropHandlers } from "components/Shiny-Ui-Elements/DragAndDropHelpers/useDropHandlers";
+import {
+  NodePath,
+  UiContainerNodeComponent,
+} from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import UiNode from "components/Shiny-Ui-Elements/UiNode";
 import { sendTreeUpdateMessage } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/treeUpdateEvents";
 
@@ -14,16 +17,6 @@ const GridlayoutVerticalStackPanel: UiContainerNodeComponent<
 > = ({ uiArguments, uiChildren, nodeInfo, children, eventHandlers }) => {
   const { path } = nodeInfo;
   const { area, item_alignment, item_gap } = uiArguments;
-
-  const buildDropListeners = (index: number) =>
-    buildDropHandlers((droppedNode) => {
-      sendTreeUpdateMessage({
-        type: "PLACE_NODE",
-        ...droppedNode,
-        parentPath: path,
-        positionInChildren: index,
-      });
-    });
 
   return (
     <div
@@ -39,8 +32,8 @@ const GridlayoutVerticalStackPanel: UiContainerNodeComponent<
     >
       <DropWatcherPanel
         index={0}
+        parentPath={path}
         numChildren={uiChildren.length}
-        dropHandlers={buildDropListeners(0)}
       />
       {uiChildren?.map((childNode, i) => (
         <React.Fragment key={path.join(".") + i}>
@@ -48,7 +41,7 @@ const GridlayoutVerticalStackPanel: UiContainerNodeComponent<
           <DropWatcherPanel
             index={i + 1}
             numChildren={uiChildren.length}
-            dropHandlers={buildDropListeners(i + 1)}
+            parentPath={path}
           />
         </React.Fragment>
       ))}
@@ -60,18 +53,27 @@ const GridlayoutVerticalStackPanel: UiContainerNodeComponent<
 function DropWatcherPanel({
   index,
   numChildren,
-  dropHandlers,
+  parentPath,
 }: {
   index: number;
   numChildren: number;
-  dropHandlers?: ReturnType<typeof buildDropHandlers>;
+  parentPath: NodePath;
 }) {
+  const dropListeners = useDropHandlers((droppedNode) => {
+    sendTreeUpdateMessage({
+      type: "PLACE_NODE",
+      ...droppedNode,
+      parentPath,
+      positionInChildren: index,
+    });
+  });
+
   const position_class = dropWatcherPositionClass(index, numChildren);
 
   return (
     <div
       className={classes.dropWatcher + " " + position_class}
-      {...dropHandlers}
+      {...dropListeners}
     />
   );
 }

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { assignElementDragData, DraggedNodeInfo } from "./DragAndDropHelpers";
+import { DraggedNodeInfo } from "./DragAndDropHelpers";
 
 export type DraggedNodeState = [
   DraggedNodeInfo | null,
@@ -38,6 +38,6 @@ export function useSetCurrentDraggedNode(nodeInfo: DraggedNodeInfo) {
   return function (e: React.DragEvent<HTMLElement>) {
     e.stopPropagation();
     setDraggedNode(nodeInfo);
-    assignElementDragData(e, nodeInfo);
+    // assignElementDragData(e, nodeInfo);
   };
 }

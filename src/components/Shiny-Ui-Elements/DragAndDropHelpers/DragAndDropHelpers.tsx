@@ -112,12 +112,12 @@ export function buildDropHandlers(
   };
 }
 
-function highlightDropability(e: React.DragEvent<HTMLDivElement>) {
+export function highlightDropability(e: React.DragEvent<HTMLDivElement>) {
   if (e.currentTarget === e.target) {
     e.currentTarget.classList.add(classes.canDrop);
   }
 }
 
-function removeHighlight(e: React.DragEvent<HTMLDivElement>) {
+export function removeHighlight(e: React.DragEvent<HTMLDivElement>) {
   e.currentTarget.classList.remove(classes.canDrop);
 }
