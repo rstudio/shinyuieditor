@@ -3,10 +3,8 @@ import React from "react";
 import { useNodeSelectionState } from "NodeSelectionState";
 import { sameArray } from "utils/equalityCheckers";
 
-import {
-  buildDropHandlers,
-  createDragStartCallback,
-} from "../DragAndDropHelpers/DragAndDropHelpers";
+import { buildDropHandlers } from "../DragAndDropHelpers/DragAndDropHelpers";
+import { useSetCurrentDraggedNode } from "../DragAndDropHelpers/useCurrentDraggedNode";
 import {
   NodePath,
   ShinyUiNode,
@@ -32,7 +30,7 @@ const UiNode = ({ path = [], ...node }: { path?: NodePath } & ShinyUiNode) => {
     e.stopPropagation();
     setNodeSelection(path);
   };
-  const handleStartDrag = createDragStartCallback({ node, currentPath: path });
+  const handleStartDrag = useSetCurrentDraggedNode({ node, currentPath: path });
 
   if (componentInfo.acceptsChildren === true) {
     const Comp = componentInfo.UiComponent as UiContainerNodeComponent<

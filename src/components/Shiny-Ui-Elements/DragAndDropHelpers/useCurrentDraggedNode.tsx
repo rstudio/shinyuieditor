@@ -23,9 +23,15 @@ export const CurrentDraggedNodeProvider: React.FC = ({ children }) => {
 };
 
 export function useCurrentDraggedNode() {
-  return React.useContext(DraggedNodeContext);
+  return React.useContext(DraggedNodeContext)[0];
 }
 
+/**
+ *
+ * @param info Information about the node and potentially its current path to
+ * attach to the drag event.
+ * @returns A callback appropriate for the onDragStart event
+ */
 export function useSetCurrentDraggedNode(nodeInfo: DraggedNodeInfo) {
   const [, setDraggedNode] = React.useContext(DraggedNodeContext);
 
