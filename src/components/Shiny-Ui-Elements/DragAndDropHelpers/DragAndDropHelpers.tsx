@@ -112,12 +112,29 @@ export function buildDropHandlers(
   };
 }
 
-export function highlightDropability(e: React.DragEvent<HTMLDivElement>) {
+export function highlightDropAvailability(el: HTMLElement) {
+  el.classList.add(classes.availableForDrop);
+}
+
+export function highlightDropability(
+  e: DragEvent | React.DragEvent<HTMLDivElement>
+) {
+  if (!e.currentTarget) return;
   if (e.currentTarget === e.target) {
-    e.currentTarget.classList.add(classes.canDrop);
+    (e.currentTarget as HTMLElement).classList.add(classes.canDrop);
   }
 }
 
-export function removeHighlight(e: React.DragEvent<HTMLDivElement>) {
-  e.currentTarget.classList.remove(classes.canDrop);
+export function removeHighlight(
+  e: DragEvent | React.DragEvent<HTMLDivElement>
+) {
+  if (!e.currentTarget) return;
+
+  const el = e.currentTarget as HTMLElement;
+  el.classList.remove(classes.canDrop);
+}
+
+export function resetHighlights(el: HTMLElement) {
+  el.classList.remove(classes.canDrop);
+  el.classList.remove(classes.availableForDrop);
 }

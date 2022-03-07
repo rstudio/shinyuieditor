@@ -1,3 +1,7 @@
+div.availableForDrop {
+  outline: 1px solid var(--red);
+}
+
 /* This is currently overlapped by the selectedOverlay so selected items don't
 give visual feedback about their ability to be dropped onto. The use of div
 prefixing is to give this style the greatest possible specificity. It will cause

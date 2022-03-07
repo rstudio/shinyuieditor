@@ -58,7 +58,8 @@ function DropWatcherPanel({
   numChildren: number;
   parentPath: NodePath;
 }) {
-  const dropListeners = useAddOnDropHandlers({
+  const watcherRef = React.useRef<HTMLDivElement>(null);
+  useAddOnDropHandlers(watcherRef, {
     parentPath,
     positionInChildren: index,
     dropFilters: {
@@ -75,8 +76,8 @@ function DropWatcherPanel({
 
   return (
     <div
+      ref={watcherRef}
       className={classes.dropWatcher + " " + position_class}
-      {...dropListeners}
     />
   );
 }

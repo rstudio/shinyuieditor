@@ -6,10 +6,7 @@ import {
   shinyUiNodeInfo,
 } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 
-import {
-  useMakeDraggable,
-  useSetCurrentDraggedNode,
-} from "../DragAndDropHelpers/useCurrentDraggedNode";
+import { useMakeDraggable } from "../DragAndDropHelpers/useCurrentDraggedNode";
 
 import classes from "./styles.module.css";
 
