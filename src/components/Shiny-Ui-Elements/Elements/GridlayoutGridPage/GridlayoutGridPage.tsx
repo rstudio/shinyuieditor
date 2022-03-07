@@ -1,6 +1,5 @@
 import React from "react";
 
-import { buildDropHandlers } from "components/Shiny-Ui-Elements/DragAndDropHelpers/DragAndDropHelpers";
 import { AreaOverlay } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/AreaOverlay";
 import {
   CellLocRef,
@@ -203,21 +202,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
             gridRow={row}
             gridColumn={col}
             cellLocations={gridCellLocations}
-            {...buildDropHandlers(({ node }) => {
-              // This will eventually filter by element type
-              const allowedDrop = true;
-              if (!allowedDrop) return;
-
-              setShowModal({
-                node,
-                pos: {
-                  rowStart: row,
-                  rowEnd: row,
-                  colStart: col,
-                  colEnd: col,
-                },
-              });
-            })}
+            onDroppedNode={setShowModal}
           />
         ))}
 

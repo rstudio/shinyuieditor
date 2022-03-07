@@ -120,7 +120,7 @@ type NodeInfo = {
 export type UiNodeComponent<NodeSettings extends object> = React.FC<{
   uiArguments: NodeSettings;
   nodeInfo: NodeInfo;
-  eventHandlers: Pick<BaseElementProps, "onClick" | DragStartEvents>;
+  eventHandlers: Pick<BaseElementProps, "onClick">;
   compRef: React.RefObject<HTMLDivElement>;
 }>;
 
@@ -129,8 +129,7 @@ export type UiContainerNodeComponent<NodeSettings extends object> = React.FC<{
   uiChildren: ShinyUiChildren;
   nodeInfo: NodeInfo;
   compRef: React.RefObject<HTMLDivElement>;
-  eventHandlers: Pick<BaseElementProps, "onClick" | DragStartEvents> &
-    DropHandlers;
+  eventHandlers: Pick<BaseElementProps, "onClick">;
 }>;
 
 export type SettingsUpdaterComponent<T extends object> = (p: {
