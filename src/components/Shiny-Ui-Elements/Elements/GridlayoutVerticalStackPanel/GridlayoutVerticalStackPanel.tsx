@@ -59,13 +59,9 @@ function DropWatcherPanel({
   numChildren: number;
   parentPath: NodePath;
 }) {
-  const dropListeners = useDropHandlers((droppedNode) => {
-    sendTreeUpdateMessage({
-      type: "PLACE_NODE",
-      ...droppedNode,
-      parentPath,
-      positionInChildren: index,
-    });
+  const dropListeners = useDropHandlers({
+    parentPath,
+    positionInChildren: index,
   });
 
   const position_class = dropWatcherPositionClass(index, numChildren);
