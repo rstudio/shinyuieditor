@@ -2,6 +2,7 @@ import * as React from "react";
 
 import rstudioLogo from "assets/RStudio-Logo.svg";
 import shinyLogo from "assets/Shiny-Logo.png";
+import { CurrentDraggedNodeProvider } from "components/Shiny-Ui-Elements/DragAndDropHelpers/useCurrentDraggedNode";
 import { ShinyUiNode } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import ElementsPalette from "components/Shiny-Ui-Elements/ElementsPalette";
 import UiNode from "components/Shiny-Ui-Elements/UiNode";
@@ -24,32 +25,34 @@ function EditorContainerWithData({
   );
 
   return (
-    <NodeSelectionContext.Provider value={[selectedPath, setSelectedPath]}>
-      <div className={classes.container}>
-        <div className={classes.header}>
-          <div className={classes.leftSide}>
-            <h1 className={classes.title}>Shiny Visual Editor</h1>
-            <img src={rstudioLogo} alt="RStudio Logo" />
-            <img
-              src={shinyLogo}
-              style={{ backgroundColor: "var(--rstudio-blue, pink)" }}
-              alt="Shiny Logo"
-            />
+    <CurrentDraggedNodeProvider>
+      <NodeSelectionContext.Provider value={[selectedPath, setSelectedPath]}>
+        <div className={classes.container}>
+          <div className={classes.header}>
+            <div className={classes.leftSide}>
+              <h1 className={classes.title}>Shiny Visual Editor</h1>
+              <img src={rstudioLogo} alt="RStudio Logo" />
+              <img
+                src={shinyLogo}
+                style={{ backgroundColor: "var(--rstudio-blue, pink)" }}
+                alt="Shiny Logo"
+              />
+            </div>
+          </div>
+          <div className={`${classes.elementsPanel} ${classes.titledPanel}`}>
+            <h3>Elements</h3>
+            <ElementsPalette />
+          </div>
+          <div className={`${classes.propertiesPanel} ${classes.titledPanel}`}>
+            <h3>Properties</h3>
+            <SettingsPanel tree={tree} />
+          </div>
+          <div className={classes.editorHolder}>
+            <UiNode {...tree} />
           </div>
         </div>
-        <div className={`${classes.elementsPanel} ${classes.titledPanel}`}>
-          <h3>Elements</h3>
-          <ElementsPalette />
-        </div>
-        <div className={`${classes.propertiesPanel} ${classes.titledPanel}`}>
-          <h3>Properties</h3>
-          <SettingsPanel tree={tree} />
-        </div>
-        <div className={classes.editorHolder}>
-          <UiNode {...tree} />
-        </div>
-      </div>
-    </NodeSelectionContext.Provider>
+      </NodeSelectionContext.Provider>
+    </CurrentDraggedNodeProvider>
   );
 }
 

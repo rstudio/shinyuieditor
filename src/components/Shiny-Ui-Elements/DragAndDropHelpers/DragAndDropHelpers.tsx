@@ -24,13 +24,14 @@ export type DropHandlers = Pick<
   DragAndDropTargetEvents
 >;
 
-type DraggedNodeInfo = { node: ShinyUiNode; currentPath?: NodePath };
+export type DraggedNodeInfo = { node: ShinyUiNode; currentPath?: NodePath };
+
 /**
  * Attach info about a ui node to the drag event so it can be properly acted upon at the destination
  * @param e Drag event object
  * @param node Ui node with uiName and uiArguments on it to be attached to drag
  */
-function assignElementDragData(
+export function assignElementDragData(
   e: React.DragEvent<HTMLElement>,
   info: DraggedNodeInfo
 ) {
@@ -116,6 +117,7 @@ function highlightDropability(e: React.DragEvent<HTMLDivElement>) {
     e.currentTarget.classList.add(classes.canDrop);
   }
 }
+
 function removeHighlight(e: React.DragEvent<HTMLDivElement>) {
   e.currentTarget.classList.remove(classes.canDrop);
 }
