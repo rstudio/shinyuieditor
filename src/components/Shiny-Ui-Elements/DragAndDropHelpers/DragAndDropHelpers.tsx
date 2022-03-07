@@ -4,20 +4,11 @@ import { NodePath, ShinyUiNode } from "../Elements/uiNodeTypes";
 
 import classes from "./DragAndDrop.module.css";
 
-export type DragStartEvents = "onDragStart" | "draggable";
-
-export type DragAndDropTargetEvents =
+type DragAndDropTargetEvents =
   | "onDrop"
   | "onDragEnter"
   | "onDragOver"
   | "onDragLeave";
-
-export const dragAndDropTargetEvents: DragAndDropTargetEvents[] = [
-  "onDrop",
-  "onDragEnter",
-  "onDragOver",
-  "onDragLeave",
-];
 
 export type DropHandlers = Pick<
   React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,

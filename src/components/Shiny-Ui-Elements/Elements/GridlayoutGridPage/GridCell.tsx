@@ -1,6 +1,5 @@
 import React from "react";
 
-import { DropHandlers } from "components/Shiny-Ui-Elements/DragAndDropHelpers/DragAndDropHelpers";
 import { useDropHandlers } from "components/Shiny-Ui-Elements/DragAndDropHelpers/useDropHandlers";
 import { GridLocString } from "GridTypes";
 import debounce from "just-debounce-it";
@@ -18,13 +17,12 @@ export function GridCell({
   gridColumn,
   cellLocations,
   onDroppedNode,
-  ...dropHandlers
 }: {
   gridRow: number;
   gridColumn: number;
   cellLocations: CellLocRef;
   onDroppedNode: (nodeInfo: NewItemInfo) => void;
-} & DropHandlers) {
+}) {
   const gridPos = toStringLoc({ row: gridRow, col: gridColumn });
   const cellRef = React.useRef<HTMLDivElement>(null);
 
@@ -85,7 +83,6 @@ export function GridCell({
         gridRow,
         gridColumn,
       }}
-      {...dropHandlers}
     ></div>
   );
 }
