@@ -3,16 +3,16 @@ import React from "react";
 import { NodePath } from "../Elements/uiNodeTypes";
 import { sendTreeUpdateMessage } from "../UiNode/TreeManipulation/treeUpdateEvents";
 
-import { highlightDropability, removeHighlight } from "./DragAndDropHelpers";
+import {
+  DraggedNodeInfo,
+  highlightDropability,
+  removeHighlight,
+} from "./DragAndDropHelpers";
 import { useCurrentDraggedNode } from "./useCurrentDraggedNode";
 
-export function useDropHandlers({
-  parentPath,
-  positionInChildren,
-}: {
-  parentPath: NodePath;
-  positionInChildren: number;
-}) {
+export function useDropHandlers(
+  onDrop: (droppedNode: DraggedNodeInfo) => void
+) {
   const currentlyDragged = useCurrentDraggedNode();
   return {
     onDragEnter: (e: React.DragEvent<HTMLDivElement>) => {
@@ -42,13 +42,24 @@ export function useDropHandlers({
         console.error("No dragged node in context but a drop was detected...");
         return;
       }
-
-      sendTreeUpdateMessage({
-        type: "PLACE_NODE",
-        ...currentlyDragged,
-        parentPath,
-        positionInChildren,
-      });
+      onDrop(currentlyDragged);
     },
   };
+}
+
+export function useAddOnDropHandlers({
+  parentPath,
+  positionInChildren,
+}: {
+  parentPath: NodePath;
+  positionInChildren: number;
+}) {
+  return useDropHandlers((droppedNode) => {
+    sendTreeUpdateMessage({
+      type: "PLACE_NODE",
+      ...droppedNode,
+      parentPath,
+      positionInChildren,
+    });
+  });
 }

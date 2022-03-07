@@ -1,6 +1,9 @@
 import React from "react";
 
-import { useDropHandlers } from "components/Shiny-Ui-Elements/DragAndDropHelpers/useDropHandlers";
+import {
+  useAddOnDropHandlers,
+  useDropHandlers,
+} from "components/Shiny-Ui-Elements/DragAndDropHelpers/useDropHandlers";
 import {
   NodePath,
   UiContainerNodeComponent,
@@ -59,7 +62,7 @@ function DropWatcherPanel({
   numChildren: number;
   parentPath: NodePath;
 }) {
-  const dropListeners = useDropHandlers({
+  const dropListeners = useAddOnDropHandlers({
     parentPath,
     positionInChildren: index,
   });
