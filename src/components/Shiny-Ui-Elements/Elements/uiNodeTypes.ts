@@ -87,6 +87,7 @@ type ShinyUiArguments = {
  * Names of all the available Ui elements
  */
 export type ShinyUiNames = keyof ShinyUiArguments;
+export const shinyUiNames = Object.keys(shinyUiNodeInfo) as ShinyUiNames[];
 
 export type ShinyUiChildren = ShinyUiNode[];
 
