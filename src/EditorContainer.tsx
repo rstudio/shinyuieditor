@@ -11,7 +11,7 @@ import { getInitialState } from "getInitialState";
 import { useQuery } from "react-query";
 
 import classes from "./EditorContainer.module.css";
-import { NodeSelectionContext } from "./NodeSelectionContext";
+import { NodeSelectionProvider } from "./NodeSelectionState";
 import { SettingsPanel } from "./SettingsPanel/SettingsPanel";
 
 function EditorContainerWithData({
@@ -26,7 +26,7 @@ function EditorContainerWithData({
 
   return (
     <CurrentDraggedNodeProvider>
-      <NodeSelectionContext.Provider value={[selectedPath, setSelectedPath]}>
+      <NodeSelectionProvider selectionState={[selectedPath, setSelectedPath]}>
         <div className={classes.container}>
           <div className={classes.header}>
             <div className={classes.leftSide}>
@@ -51,7 +51,7 @@ function EditorContainerWithData({
             <UiNode {...tree} />
           </div>
         </div>
-      </NodeSelectionContext.Provider>
+      </NodeSelectionProvider>
     </CurrentDraggedNodeProvider>
   );
 }

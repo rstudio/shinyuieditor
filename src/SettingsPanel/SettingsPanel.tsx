@@ -9,7 +9,7 @@ import {
 import { getUiNodeValidation } from "components/Shiny-Ui-Elements/UiNode/getUiNodeValidation";
 import { getNode } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/getNode";
 import { sendTreeUpdateMessage } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/treeUpdateEvents";
-import { NodeSelectionContext } from "NodeSelectionContext";
+import { useNodeSelectionState } from "NodeSelectionState";
 import { BiCheck } from "react-icons/bi";
 import { FiTrash as TrashIcon } from "react-icons/fi";
 
@@ -17,8 +17,7 @@ import PathBreadcrumb from "./PathBreadcrumb";
 import classes from "./SettingsPanel.module.css";
 
 function useUpdateSettings({ tree }: { tree: ShinyUiNode }) {
-  const [selectedPath, setNodeSelection] =
-    React.useContext(NodeSelectionContext);
+  const [selectedPath, setNodeSelection] = useNodeSelectionState();
 
   const [currentNode, setCurrentNode] = React.useState<ShinyUiNode | null>(
     selectedPath !== null ? getNode(tree, selectedPath) : null

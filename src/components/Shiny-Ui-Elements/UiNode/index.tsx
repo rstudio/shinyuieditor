@@ -1,6 +1,6 @@
 import React from "react";
 
-import { NodeSelectionContext } from "NodeSelectionContext";
+import { useNodeSelectionState } from "NodeSelectionState";
 import { sameArray } from "utils/equalityCheckers";
 
 import {
@@ -23,8 +23,7 @@ import { sendTreeUpdateMessage } from "./TreeManipulation/treeUpdateEvents";
  */
 const UiNode = ({ path = [], ...node }: { path?: NodePath } & ShinyUiNode) => {
   const { uiName, uiArguments, uiChildren } = node;
-  const [selectedPath, setNodeSelection] =
-    React.useContext(NodeSelectionContext);
+  const [selectedPath, setNodeSelection] = useNodeSelectionState();
   const isSelected = selectedPath ? sameArray(path, selectedPath) : false;
 
   const componentInfo = shinyUiNodeInfo[uiName];
