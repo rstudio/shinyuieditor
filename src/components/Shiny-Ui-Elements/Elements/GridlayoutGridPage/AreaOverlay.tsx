@@ -63,7 +63,12 @@ export function AreaOverlay({
           <div
             key={movementType}
             className={classes.dragger + " " + movementType}
-            onMouseDown={() => startDrag(simplifySide(movementType))}
+            onMouseDown={(e) => {
+              // These prevent this mousedown from triggering things like drag on the parent
+              e.preventDefault();
+              e.stopPropagation();
+              startDrag(simplifySide(movementType));
+            }}
           >
             {movementToArrow[movementType]}
           </div>
