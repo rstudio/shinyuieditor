@@ -1,5 +1,6 @@
 import React from "react";
 
+import { DraggedNodeInfo } from "components/Shiny-Ui-Elements/DragAndDropHelpers/DragAndDropHelpers";
 import { AreaOverlay } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/AreaOverlay";
 import {
   CellLocRef,
@@ -28,8 +29,7 @@ import { NameNewPanelModal } from "./NameNewPanelModal";
 import classes from "./styles.module.css";
 import { TractControls } from "./TractControls";
 
-export type NewItemInfo = {
-  node: ShinyUiNode;
+export type NewItemInfo = DraggedNodeInfo & {
   pos: GridItemExtent;
 };
 
@@ -141,7 +141,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
   } as React.CSSProperties;
 
   const addNewGridItem = React.useCallback(
-    (name: string, { node, pos }: NewItemInfo) => {
+    (name: string, { node, currentPath, pos }: NewItemInfo) => {
       handleLayoutUpdate({
         type: "ADD_ITEM",
         name: name,
@@ -159,11 +159,10 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
         node.uiArguments.area = name;
       } else {
         node = {
-          uiName: "gridlayout::grid_panel",
+          uiName: "gridlayout::vertical_stack_panel",
           uiArguments: {
             area: name,
-            horizontalAlign: "spread",
-            verticalAlign: "spread",
+            item_alignment: "center",
           },
           uiChildren: [node],
         };
@@ -174,6 +173,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
         type: "PLACE_NODE",
         parentPath: [],
         node: node,
+        currentPath,
       });
 
       // Reset the modal/new item info state

@@ -27,13 +27,13 @@ export function GridCell({
   const cellRef = React.useRef<HTMLDivElement>(null);
 
   useDropHandlers(cellRef, {
-    onDrop: ({ node }) => {
+    onDrop: (nodeInfo) => {
       // This will eventually filter by element type
       const allowedDrop = true;
       if (!allowedDrop) return;
 
       onDroppedNode({
-        node,
+        ...nodeInfo,
         pos: {
           rowStart: gridRow,
           rowEnd: gridRow,
