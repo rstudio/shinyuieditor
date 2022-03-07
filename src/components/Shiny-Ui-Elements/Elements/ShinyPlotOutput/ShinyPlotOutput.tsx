@@ -11,13 +11,13 @@ const ShinyPlotOutput: UiNodeComponent<ShinyPlotOutputProps> = ({
   uiArguments,
   children,
   eventHandlers,
+  compRef,
 }) => {
   const {
     outputId = "shiny-plot-output",
     width = "300px",
     height = "200px",
   } = uiArguments;
-  const holderRef = React.useRef<HTMLDivElement>(null);
 
   // Start tiny so icon isn't the reason the container is big
   const [graphSize, setGraphSize] = React.useState(2);
@@ -26,20 +26,20 @@ const ShinyPlotOutput: UiNodeComponent<ShinyPlotOutputProps> = ({
     // ResizeObserver variable
     if (typeof ResizeObserver === "undefined") return;
     const ro = new ResizeObserver((entries) => {
-      if (!holderRef.current) return;
+      if (!compRef.current) return;
 
-      const { offsetHeight, offsetWidth } = holderRef.current;
+      const { offsetHeight, offsetWidth } = compRef.current;
       setGraphSize(Math.min(offsetHeight, offsetWidth) * 0.9);
     });
 
-    if (holderRef.current) ro.observe(holderRef.current);
+    if (compRef.current) ro.observe(compRef.current);
     return () => ro.disconnect();
-  }, []);
+  }, [compRef]);
 
   return (
     <div
       className={classes.container}
-      ref={holderRef}
+      ref={compRef}
       style={{ height, width }}
       aria-label="shiny::plotOutput placeholder"
       {...eventHandlers}

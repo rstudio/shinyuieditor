@@ -9,6 +9,7 @@ const ShinySliderInput: UiNodeComponent<ShinySliderInputProps> = ({
   children,
   uiArguments,
   eventHandlers,
+  compRef,
 }) => {
   const width = "200px";
   const height = "auto";
@@ -19,6 +20,7 @@ const ShinySliderInput: UiNodeComponent<ShinySliderInputProps> = ({
       className={classes.container + " shiny::sliderInput"}
       style={{ height, width }}
       aria-label={"shiny::sliderInput"}
+      ref={compRef}
       {...eventHandlers}
     >
       <div style={{ gridArea: "1/1", placeSelf: "center", maxWidth: "300px" }}>

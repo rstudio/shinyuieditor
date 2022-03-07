@@ -20,6 +20,7 @@ import { sendTreeUpdateMessage } from "./TreeManipulation/treeUpdateEvents";
  * Recursively render the nodes in a UI Tree
  */
 const UiNode = ({ path = [], ...node }: { path?: NodePath } & ShinyUiNode) => {
+  const componentRef = React.useRef<HTMLDivElement>(null);
   const { uiName, uiArguments, uiChildren } = node;
   const [selectedPath, setNodeSelection] = useNodeSelectionState();
   const isSelected = selectedPath ? sameArray(path, selectedPath) : false;
@@ -50,6 +51,7 @@ const UiNode = ({ path = [], ...node }: { path?: NodePath } & ShinyUiNode) => {
       <Comp
         uiArguments={uiArguments}
         uiChildren={uiChildren ?? []}
+        compRef={componentRef}
         eventHandlers={{
           ...dragAndDropCallbacks,
           onClick: handleClick,
@@ -66,6 +68,7 @@ const UiNode = ({ path = [], ...node }: { path?: NodePath } & ShinyUiNode) => {
   return (
     <Comp
       uiArguments={uiArguments}
+      compRef={componentRef}
       eventHandlers={{
         onClick: handleClick,
         onDragStart: handleStartDrag,

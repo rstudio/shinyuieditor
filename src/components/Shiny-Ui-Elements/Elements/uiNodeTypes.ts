@@ -1,3 +1,5 @@
+import React from "react";
+
 import {
   DragStartEvents,
   DropHandlers,
@@ -119,12 +121,14 @@ export type UiNodeComponent<NodeSettings extends object> = React.FC<{
   uiArguments: NodeSettings;
   nodeInfo: NodeInfo;
   eventHandlers: Pick<BaseElementProps, "onClick" | DragStartEvents>;
+  compRef: React.RefObject<HTMLDivElement>;
 }>;
 
 export type UiContainerNodeComponent<NodeSettings extends object> = React.FC<{
   uiArguments: NodeSettings;
   uiChildren: ShinyUiChildren;
   nodeInfo: NodeInfo;
+  compRef: React.RefObject<HTMLDivElement>;
   eventHandlers: Pick<BaseElementProps, "onClick" | DragStartEvents> &
     DropHandlers;
 }>;
