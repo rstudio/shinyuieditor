@@ -6,7 +6,10 @@ import {
   shinyUiNodeInfo,
 } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 
-import { useSetCurrentDraggedNode } from "../DragAndDropHelpers/useCurrentDraggedNode";
+import {
+  useMakeDraggable,
+  useSetCurrentDraggedNode,
+} from "../DragAndDropHelpers/useCurrentDraggedNode";
 
 import classes from "./styles.module.css";
 
@@ -32,17 +35,20 @@ function ElementOption({ uiName }: { uiName: ShinyUiNames }) {
     uiName,
     uiArguments: defaultSettings,
   } as ShinyUiNode;
-  const setCurrentDraggedNode = useSetCurrentDraggedNode({ node });
+
+  const elRef = React.useRef<HTMLDivElement>(null);
+  useMakeDraggable(elRef, { node });
+  // const setCurrentDraggedNode = useSetCurrentDraggedNode({ node });
 
   if (iconSrc === undefined) {
     return null;
   }
   return (
     <div
-      key={uiName}
+      ref={elRef}
       className={classes.OptionItem}
       draggable
-      onDragStart={setCurrentDraggedNode}
+      // onDragStart={setCurrentDraggedNode}
     >
       <img src={iconSrc} alt={title} />
       <label>{title}</label>
