@@ -26,22 +26,6 @@ export function useCurrentDraggedNode() {
   return React.useContext(DraggedNodeContext)[0];
 }
 
-/**
- *
- * @param info Information about the node and potentially its current path to
- * attach to the drag event.
- * @returns A callback appropriate for the onDragStart event
- */
-export function useSetCurrentDraggedNode(nodeInfo: DraggedNodeInfo) {
-  const [, setDraggedNode] = React.useContext(DraggedNodeContext);
-
-  return function (e: React.DragEvent<HTMLElement>) {
-    e.stopPropagation();
-    setDraggedNode(nodeInfo);
-    // assignElementDragData(e, nodeInfo);
-  };
-}
-
 export function useMakeDraggable(
   watcherRef: React.RefObject<HTMLDivElement>,
   nodeInfo: DraggedNodeInfo
@@ -69,7 +53,7 @@ export function useMakeDraggable(
     const watcherEl = watcherRef.current;
     if (!watcherEl) return;
 
-    watcherEl.setAttribute("draggable", "");
+    watcherEl.setAttribute("draggable", "true");
     watcherEl.addEventListener("dragstart", startDrag);
 
     // This event takes a while to fire because of the animation of the dragged

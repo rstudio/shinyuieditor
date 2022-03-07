@@ -4,7 +4,7 @@ import { useNodeSelectionState } from "NodeSelectionState";
 import { sameArray } from "utils/equalityCheckers";
 
 import { buildDropHandlers } from "../DragAndDropHelpers/DragAndDropHelpers";
-import { useSetCurrentDraggedNode } from "../DragAndDropHelpers/useCurrentDraggedNode";
+import { useMakeDraggable } from "../DragAndDropHelpers/useCurrentDraggedNode";
 import {
   NodePath,
   ShinyUiNode,
@@ -31,7 +31,8 @@ const UiNode = ({ path = [], ...node }: { path?: NodePath } & ShinyUiNode) => {
     e.stopPropagation();
     setNodeSelection(path);
   };
-  const handleStartDrag = useSetCurrentDraggedNode({ node, currentPath: path });
+
+  useMakeDraggable(componentRef, { node, currentPath: path });
 
   if (componentInfo.acceptsChildren === true) {
     const Comp = componentInfo.UiComponent as UiContainerNodeComponent<
@@ -55,7 +56,6 @@ const UiNode = ({ path = [], ...node }: { path?: NodePath } & ShinyUiNode) => {
         eventHandlers={{
           ...dragAndDropCallbacks,
           onClick: handleClick,
-          onDragStart: handleStartDrag,
         }}
         nodeInfo={{ path }}
       >
@@ -71,8 +71,6 @@ const UiNode = ({ path = [], ...node }: { path?: NodePath } & ShinyUiNode) => {
       compRef={componentRef}
       eventHandlers={{
         onClick: handleClick,
-        onDragStart: handleStartDrag,
-        draggable: true,
       }}
       nodeInfo={{ path }}
     >
