@@ -6,18 +6,14 @@ import {
   AiFillCaretRight,
   AiFillCaretUp,
 } from "react-icons/ai";
-import { RiDragMove2Line as MoveIcon } from "react-icons/ri";
 import type {
   GridItemExtent,
   ItemLocation,
   TemplatedGridProps,
 } from "utils/gridTemplates/types";
 
-import type {
-  MovementType} from "../../../../utils/gridTemplates/availableMoves";
-import {
-  availableMoves
-} from "../../../../utils/gridTemplates/availableMoves";
+import type { MovementType } from "../../../../utils/gridTemplates/availableMoves";
+import { availableMoves } from "../../../../utils/gridTemplates/availableMoves";
 
 import classes from "./AreaOverlay.module.css";
 import type { CellLocRef } from "./GridCell";
@@ -84,15 +80,6 @@ export function AreaOverlay({
   return (
     <div ref={overlayRef} className={classes.marker + " grid-area-overlay"}>
       {movementHandles}
-      <div
-        className={classes.dragger + " " + classes.move}
-        onMouseDown={(e) => {
-          stopParentDrag(e);
-          startDrag("move");
-        }}
-      >
-        <MoveIcon />
-      </div>
     </div>
   );
 }
