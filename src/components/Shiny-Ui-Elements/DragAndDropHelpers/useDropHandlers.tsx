@@ -5,8 +5,7 @@ import { shinyUiNames } from "../Elements/uiNodeTypes";
 import { getIsValidMove } from "../UiNode/TreeManipulation/placeNode";
 import { sendTreeUpdateMessage } from "../UiNode/TreeManipulation/treeUpdateEvents";
 
-import type {
-  DraggedNodeInfo} from "./DragAndDropHelpers";
+import type { DraggedNodeInfo } from "./DragAndDropHelpers";
 import {
   highlightDropability,
   highlightDropAvailability,
@@ -40,7 +39,7 @@ export function useDropHandlers(
   watcherRef: React.RefObject<HTMLDivElement>,
   opts: DropHandlerArguments
 ) {
-  const currentlyDragged = useCurrentDraggedNode();
+  const [currentlyDragged, setCurrentlyDragged] = useCurrentDraggedNode();
 
   const { dropFilters = { rejectedNodes: [] } } = opts;
   const acceptedNodes = React.useMemo(
@@ -95,6 +94,9 @@ export function useDropHandlers(
 
       removeHighlight(e);
 
+      // Let the app know that the drag is over and drop listeners can reset
+      setCurrentlyDragged(null);
+
       // Get the type of dropped element and act on it
       if (!currentlyDragged) {
         console.error("No dragged node in context but a drop was detected...");
@@ -117,7 +119,7 @@ export function useDropHandlers(
         console.error("Incompatable drag pairing");
       }
     },
-    [canAcceptDragged, currentlyDragged, opts]
+    [canAcceptDragged, currentlyDragged, opts, setCurrentlyDragged]
   );
 
   React.useEffect(() => {
@@ -141,5 +143,5 @@ export function useDropHandlers(
       watcherEl.removeEventListener("dragover", handleDragOver);
       watcherEl.removeEventListener("drop", handleDrop);
     };
-  }, [canAcceptDragged, handleDrop, watcherRef]);
+  }, [canAcceptDragged, currentlyDragged, handleDrop, watcherRef]);
 }

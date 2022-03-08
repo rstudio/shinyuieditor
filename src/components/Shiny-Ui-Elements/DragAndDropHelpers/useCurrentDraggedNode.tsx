@@ -23,7 +23,7 @@ export const CurrentDraggedNodeProvider: React.FC = ({ children }) => {
 };
 
 export function useCurrentDraggedNode() {
-  return React.useContext(DraggedNodeContext)[0];
+  return React.useContext(DraggedNodeContext);
 }
 
 export function useMakeDraggable(
