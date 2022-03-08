@@ -1,6 +1,7 @@
 import React from "react";
 
 import { NodePath, shinyUiNames, ShinyUiNames } from "../Elements/uiNodeTypes";
+import { getIsValidMove } from "../UiNode/TreeManipulation/placeNode";
 import { sendTreeUpdateMessage } from "../UiNode/TreeManipulation/treeUpdateEvents";
 
 import {
@@ -50,9 +51,21 @@ export function useDropHandlers(
     [dropFilters]
   );
 
-  const canAcceptDragged = currentlyDragged
+  const canAcceptDraggedType = currentlyDragged
     ? acceptedNodes.includes(currentlyDragged.node.uiName)
     : false;
+
+  // Check to make sure that the drop position isn't the same position that the
+  // node is currently in. Aka that moving will make a difference.
+  const isValidMove =
+    opts.onDrop !== "add-node" ||
+    currentlyDragged?.currentPath === undefined ||
+    getIsValidMove({
+      fromPath: currentlyDragged.currentPath,
+      toPath: [...opts.parentPath, opts.positionInChildren],
+    });
+
+  const canAcceptDragged = canAcceptDraggedType && isValidMove;
 
   const handleDragEnter = (e: DragEvent) => {
     e.preventDefault();
