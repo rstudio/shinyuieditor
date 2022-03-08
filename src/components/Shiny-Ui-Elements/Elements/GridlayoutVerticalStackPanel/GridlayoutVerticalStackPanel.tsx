@@ -1,13 +1,13 @@
 import React from "react";
 
 import { useDropHandlers } from "components/Shiny-Ui-Elements/DragAndDropHelpers/useDropHandlers";
-import {
+import type {
   NodePath,
   UiContainerNodeComponent,
 } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import UiNode from "components/Shiny-Ui-Elements/UiNode";
 
-import { VerticalStackPanelSettings } from "./index";
+import type { VerticalStackPanelSettings } from "./index";
 
 import classes from "./styles.module.css";
 

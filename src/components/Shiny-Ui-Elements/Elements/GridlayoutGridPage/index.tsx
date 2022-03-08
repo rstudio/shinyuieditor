@@ -1,6 +1,6 @@
-import { TemplatedGridProps } from "utils/gridTemplates/types";
+import type { TemplatedGridProps } from "utils/gridTemplates/types";
 
-import { UiComponentInfo } from "../uiNodeTypes";
+import type { UiComponentInfo } from "../uiNodeTypes";
 
 import { GridlayoutGridPage } from "./GridlayoutGridPage";
 import { GridlayoutGridPageSettings } from "./SettingsPanel";

@@ -3,12 +3,12 @@ import * as React from "react";
 import { LabeledCSSUnitInput } from "components/Inputs/CSSUnitInput";
 import { RadioInputs } from "components/Inputs/RadioInputs";
 import { TextInput } from "components/Inputs/TextInput";
-import { SettingsUpdaterComponent } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
+import type { SettingsUpdaterComponent } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import { AiOutlineVerticalAlignMiddle } from "react-icons/ai";
 import { CgAlignBottom, CgAlignMiddle, CgAlignTop } from "react-icons/cg";
 
 import type { AlignmentOptions } from ".";
-import { VerticalStackPanelSettings } from ".";
+import type { VerticalStackPanelSettings } from ".";
 
 const alignmentIcons: Record<AlignmentOptions, JSX.Element> = {
   top: <CgAlignTop size="25px" />,

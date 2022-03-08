@@ -1,10 +1,10 @@
-import { TractDirection } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/helpers";
+import type { TractDirection } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/helpers";
 import { joinPretty, removeAtIndex } from "utils/array-helpers";
 import { removeRowOrCol } from "utils/matrix-helpers";
 
 import { areasToItemLocations } from "./itemLocations";
 import { itemBoundsInDir } from "./itemLocationToBounds";
-import { TemplatedGridProps } from "./types";
+import type { TemplatedGridProps } from "./types";
 
 export default function removeTract(
   template: TemplatedGridProps,

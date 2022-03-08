@@ -1,7 +1,7 @@
 import clone from "just-clone";
 
 import { emptyCell } from "./itemLocations";
-import { GridItemExtent, ItemLocation, TemplatedGridProps } from "./types";
+import type { GridItemExtent, ItemLocation, TemplatedGridProps } from "./types";
 
 export default function addItem(
   template: TemplatedGridProps,

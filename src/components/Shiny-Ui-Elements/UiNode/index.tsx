@@ -4,12 +4,13 @@ import { useNodeSelectionState } from "NodeSelectionState";
 import { sameArray } from "utils/equalityCheckers";
 
 import { useMakeDraggable } from "../DragAndDropHelpers/useCurrentDraggedNode";
-import {
+import type {
   NodePath,
   ShinyUiNode,
-  shinyUiNodeInfo,
   UiContainerNodeComponent,
-  UiNodeComponent,
+  UiNodeComponent} from "../Elements/uiNodeTypes";
+import {
+  shinyUiNodeInfo
 } from "../Elements/uiNodeTypes";
 
 import classes from "./styles.module.css";

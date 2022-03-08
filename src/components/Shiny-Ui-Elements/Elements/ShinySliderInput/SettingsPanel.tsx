@@ -4,9 +4,10 @@ import NumericInput from "components/Inputs/NumericInput";
 import { TextInput } from "components/Inputs/TextInput";
 import { WrappedSection } from "components/Inputs/WrappedSection";
 
-import { SettingsUpdaterComponent } from "../uiNodeTypes";
+import type { SettingsUpdaterComponent } from "../uiNodeTypes";
 
-import { ShinySliderInputProps, validateNumber } from "./arguments";
+import type { ShinySliderInputProps} from "./arguments";
+import { validateNumber } from "./arguments";
 
 export const ShinySliderInputSettings: SettingsUpdaterComponent<
   ShinySliderInputProps

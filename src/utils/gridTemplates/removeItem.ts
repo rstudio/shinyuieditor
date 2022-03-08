@@ -2,7 +2,7 @@ import produce from "immer";
 import { matrixDimensions } from "utils/matrix-helpers";
 
 import { emptyCell } from "./itemLocations";
-import { TemplatedGridProps } from "./types";
+import type { TemplatedGridProps } from "./types";
 
 function removeItemMutating({ areas }: TemplatedGridProps, itemName: string) {
   const { numRows, numCols } = matrixDimensions(areas);

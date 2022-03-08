@@ -1,4 +1,4 @@
-import { ShinyUiNode } from "../../Elements/uiNodeTypes";
+import type { ShinyUiNode } from "../../Elements/uiNodeTypes";
 
 import { getNode } from "./getNode";
 import { placeNode } from "./placeNode";

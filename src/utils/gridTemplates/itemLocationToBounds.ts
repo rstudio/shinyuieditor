@@ -1,6 +1,6 @@
-import { TractDirection } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/helpers";
+import type { TractDirection } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/helpers";
 
-import { GridItemExtent, ItemLocation } from "./types";
+import type { GridItemExtent, ItemLocation } from "./types";
 
 export function itemLocationToBounds(item: ItemLocation): GridItemExtent {
   const { itemStart: rowStart, itemEnd: rowEnd } = itemBoundsInDir(

@@ -1,6 +1,6 @@
 import produce from "immer";
 
-import { ShinyUiNode, NodePath } from "../../Elements/uiNodeTypes";
+import type { ShinyUiNode, NodePath } from "../../Elements/uiNodeTypes";
 
 import { getNode } from "./getNode";
 

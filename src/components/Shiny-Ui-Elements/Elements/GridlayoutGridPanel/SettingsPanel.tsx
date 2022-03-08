@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { RadioInputs } from "components/Inputs/RadioInputs";
 import { TextInput } from "components/Inputs/TextInput";
-import { SettingsUpdaterComponent } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
+import type { SettingsUpdaterComponent } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import { AiOutlineVerticalAlignMiddle } from "react-icons/ai";
 import {
   CgAlignBottom,
@@ -13,7 +13,7 @@ import {
   CgAlignTop,
 } from "react-icons/cg";
 
-import { GridPanelSettings } from ".";
+import type { GridPanelSettings } from ".";
 
 const verticalAlignIcons = {
   top: <CgAlignTop size="25px" />,

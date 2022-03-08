@@ -1,4 +1,4 @@
-import { GridItemDef, GridLayoutTemplate } from "../GridTypes";
+import type { GridItemDef, GridLayoutTemplate } from "../GridTypes";
 
 const layouts: GridLayoutTemplate[] = [
   {

@@ -1,4 +1,4 @@
-import { GridLayoutTemplate } from "GridTypes";
+import type { GridLayoutTemplate } from "GridTypes";
 
 import { sameArray, sameObject } from "./equalityCheckers";
 

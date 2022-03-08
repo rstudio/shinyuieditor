@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Placement } from "@popperjs/core";
+import type { Placement } from "@popperjs/core";
 import { usePopper } from "react-popper";
 
 import classes from "./PopoverButton.module.css";

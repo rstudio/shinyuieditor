@@ -1,12 +1,13 @@
 import React from "react";
 
-import { DraggedNodeInfo } from "components/Shiny-Ui-Elements/DragAndDropHelpers/DragAndDropHelpers";
+import type { DraggedNodeInfo } from "components/Shiny-Ui-Elements/DragAndDropHelpers/DragAndDropHelpers";
 import { AreaOverlay } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/AreaOverlay";
+import type {
+  CellLocRef} from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/GridCell";
 import {
-  CellLocRef,
   GridCell,
 } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/GridCell";
-import {
+import type {
   ShinyUiChildren,
   UiContainerNodeComponent,
 } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
@@ -15,15 +16,16 @@ import { subtractElements } from "utils/array-helpers";
 import { enumerateGridDims, toStringLoc } from "utils/grid-helpers";
 import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
-import { GridItemExtent, TemplatedGridProps } from "utils/gridTemplates/types";
+import type { GridItemExtent, TemplatedGridProps } from "utils/gridTemplates/types";
 
 import {
   sendTreeUpdateMessage,
   useListenForTreeUpdateEvent,
 } from "../../UiNode/TreeManipulation/treeUpdateEvents";
-import { GridPanelSettings } from "../GridlayoutGridPanel";
+import type { GridPanelSettings } from "../GridlayoutGridPanel";
 
-import { GridLayoutAction, gridLayoutReducer } from "./gridLayoutReducer";
+import type { GridLayoutAction} from "./gridLayoutReducer";
+import { gridLayoutReducer } from "./gridLayoutReducer";
 import { NameNewPanelModal } from "./NameNewPanelModal";
 import classes from "./styles.module.css";
 import { TractControls } from "./TractControls";

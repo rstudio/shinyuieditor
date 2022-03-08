@@ -1,8 +1,8 @@
 import sliderIcon from "assets/icons/shinySlider.png";
 
-import { UiComponentInfo } from "../uiNodeTypes";
+import type { UiComponentInfo } from "../uiNodeTypes";
 
-import { ShinySliderInputProps } from "./arguments";
+import type { ShinySliderInputProps } from "./arguments";
 import { ShinySliderInputSettings } from "./SettingsPanel";
 import ShinySliderInput from "./ShinySliderInput";
 

@@ -1,7 +1,7 @@
 import { arrayRange } from "utils/array-helpers";
 import { matrixDimensions } from "utils/matrix-helpers";
 
-import { ItemLocation, TemplatedGridProps } from "./types";
+import type { ItemLocation, TemplatedGridProps } from "./types";
 export const emptyCell = ".";
 
 export function areasToItemLocations(areas: TemplatedGridProps["areas"]) {

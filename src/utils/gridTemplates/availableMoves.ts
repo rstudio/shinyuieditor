@@ -1,6 +1,6 @@
 import { buildRange } from "utils/array-helpers";
 import { emptyCell } from "utils/gridTemplates/itemLocations";
-import { ItemLocation, TemplatedGridProps } from "utils/gridTemplates/types";
+import type { ItemLocation, TemplatedGridProps } from "utils/gridTemplates/types";
 
 export function availableMoves({
   gridLocation: { rowStart, rowSpan, colStart, colSpan },

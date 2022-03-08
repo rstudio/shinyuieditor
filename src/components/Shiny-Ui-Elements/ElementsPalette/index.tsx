@@ -1,8 +1,9 @@
 import * as React from "react";
 
-import {
+import type {
   ShinyUiNames,
-  ShinyUiNode,
+  ShinyUiNode} from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
+import {
   shinyUiNodeInfo,
 } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 

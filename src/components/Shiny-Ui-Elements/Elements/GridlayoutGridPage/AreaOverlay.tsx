@@ -7,19 +7,20 @@ import {
   AiFillCaretUp,
 } from "react-icons/ai";
 import { RiDragMove2Line as MoveIcon } from "react-icons/ri";
-import {
+import type {
   GridItemExtent,
   ItemLocation,
   TemplatedGridProps,
 } from "utils/gridTemplates/types";
 
+import type {
+  MovementType} from "../../../../utils/gridTemplates/availableMoves";
 import {
-  availableMoves,
-  MovementType,
+  availableMoves
 } from "../../../../utils/gridTemplates/availableMoves";
 
 import classes from "./AreaOverlay.module.css";
-import { CellLocRef } from "./GridCell";
+import type { CellLocRef } from "./GridCell";
 import { useResizeOnDrag } from "./useResizeOnDrag";
 
 export function AreaOverlay({

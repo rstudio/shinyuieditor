@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { NodePath } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
+import type { NodePath } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 
 export type NodeSelectionState = [
   NodePath | null,

@@ -1,10 +1,10 @@
-import { TractDirection } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/helpers";
-import { CSSMeasure } from "GridTypes";
+import type { TractDirection } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/helpers";
+import type { CSSMeasure } from "GridTypes";
 import produce from "immer";
 import { fillArr } from "utils/array-helpers";
 import { matrixDimensions } from "utils/matrix-helpers";
 
-import { TemplatedGridProps } from "./types";
+import type { TemplatedGridProps } from "./types";
 
 
 export default function resizeTract(

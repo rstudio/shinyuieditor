@@ -2,9 +2,10 @@ import produce from "immer";
 import { addAtIndex, moveElement } from "utils/array-helpers";
 import { sameArray } from "utils/equalityCheckers";
 
-import {
+import type {
   ShinyUiNode,
-  NodePath,
+  NodePath} from "../../Elements/uiNodeTypes";
+import {
   shinyUiNodeInfo,
 } from "../../Elements/uiNodeTypes";
 

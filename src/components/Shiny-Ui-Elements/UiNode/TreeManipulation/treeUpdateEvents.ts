@@ -1,8 +1,9 @@
 import React from "react";
 
-import { NodePath, ShinyUiNode } from "../../Elements/uiNodeTypes";
+import type { NodePath, ShinyUiNode } from "../../Elements/uiNodeTypes";
 
-import { placeNode, PlaceNodeArguments } from "./placeNode";
+import type { PlaceNodeArguments } from "./placeNode";
+import { placeNode } from "./placeNode";
 import { removeNode } from "./removeNode";
 import { updateNode } from "./updateNode";
 
@@ -96,6 +97,7 @@ export function useEventUpdatedTree(
       });
     }
   }, []);
+
   useListenForTreeUpdateEvent(handleUpdateEvent);
 
   return { tree, selectedPath, setSelectedPath };

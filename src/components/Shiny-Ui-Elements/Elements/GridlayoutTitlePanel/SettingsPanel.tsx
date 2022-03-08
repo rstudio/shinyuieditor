@@ -2,9 +2,9 @@ import * as React from "react";
 
 import { TextInput } from "components/Inputs/TextInput";
 
-import { SettingsUpdaterComponent } from "../uiNodeTypes";
+import type { SettingsUpdaterComponent } from "../uiNodeTypes";
 
-import { GridlayoutTitlePanelProps } from ".";
+import type { GridlayoutTitlePanelProps } from ".";
 
 export const GridlayoutTitlePanelSettings: SettingsUpdaterComponent<
   GridlayoutTitlePanelProps

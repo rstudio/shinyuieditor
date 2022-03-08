@@ -1,6 +1,6 @@
 import textIcon from "assets/icons/shinyText.png";
 
-import { UiComponentInfo } from "../uiNodeTypes";
+import type { UiComponentInfo } from "../uiNodeTypes";
 
 import GridlayoutTitlePanel from "./GridlayoutTitlePanel";
 import { GridlayoutTitlePanelSettings } from "./SettingsPanel";

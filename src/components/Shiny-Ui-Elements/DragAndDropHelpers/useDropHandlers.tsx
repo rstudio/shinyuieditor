@@ -1,11 +1,13 @@
 import React from "react";
 
-import { NodePath, shinyUiNames, ShinyUiNames } from "../Elements/uiNodeTypes";
+import type { NodePath, ShinyUiNames } from "../Elements/uiNodeTypes";
+import { shinyUiNames } from "../Elements/uiNodeTypes";
 import { getIsValidMove } from "../UiNode/TreeManipulation/placeNode";
 import { sendTreeUpdateMessage } from "../UiNode/TreeManipulation/treeUpdateEvents";
 
+import type {
+  DraggedNodeInfo} from "./DragAndDropHelpers";
 import {
-  DraggedNodeInfo,
   highlightDropability,
   highlightDropAvailability,
   removeHighlight,

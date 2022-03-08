@@ -1,12 +1,13 @@
 import * as React from "react";
 
+import type {
+  ParsedCSSMeasure} from "utils/css-helpers";
 import {
   deparseCSSMeasure,
-  parseCSSMeasure,
-  ParsedCSSMeasure,
+  parseCSSMeasure
 } from "utils/css-helpers";
 
-import { CSSMeasure } from "../../GridTypes";
+import type { CSSMeasure } from "../../GridTypes";
 
 import classes from "./CSSUnitInput.module.css";
 import inputClasses from "./Inputs.module.css";

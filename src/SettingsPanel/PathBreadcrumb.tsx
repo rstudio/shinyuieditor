@@ -1,4 +1,4 @@
-import {
+import type {
   NodePath,
   ShinyUiNode,
 } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";

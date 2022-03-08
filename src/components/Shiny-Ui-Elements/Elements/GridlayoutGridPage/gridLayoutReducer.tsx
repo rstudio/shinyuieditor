@@ -1,5 +1,5 @@
-import { TractDirection } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/helpers";
-import { CSSMeasure } from "GridTypes";
+import type { TractDirection } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/helpers";
+import type { CSSMeasure } from "GridTypes";
 import clone from "just-clone";
 import addItem from "utils/gridTemplates/addItem";
 import addTract from "utils/gridTemplates/addTract";
@@ -7,7 +7,7 @@ import { removeItems, removeItem } from "utils/gridTemplates/removeItem";
 import removeTract from "utils/gridTemplates/removeTract";
 import { renameItem } from "utils/gridTemplates/renameItem";
 import resizeTract from "utils/gridTemplates/resizeTract";
-import { GridItemExtent, TemplatedGridProps } from "utils/gridTemplates/types";
+import type { GridItemExtent, TemplatedGridProps } from "utils/gridTemplates/types";
 
 export type GridLayoutAction =
   | { type: "ADD_ITEM"; name: string; pos: GridItemExtent }

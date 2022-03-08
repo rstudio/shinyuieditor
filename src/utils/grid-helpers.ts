@@ -1,8 +1,9 @@
-import { TractDirection } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/helpers";
+import type { TractDirection } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/helpers";
 
-import { GridLocString, GridPos } from "../GridTypes";
+import type { GridLocString, GridPos } from "../GridTypes";
 
-import { getBBoxOfDiv, ItemBoundingBox } from "./overlap-helpers";
+import type { ItemBoundingBox } from "./overlap-helpers";
+import { getBBoxOfDiv } from "./overlap-helpers";
 
 export type GridItemBoundingBox = ItemBoundingBox & GridPos;
 

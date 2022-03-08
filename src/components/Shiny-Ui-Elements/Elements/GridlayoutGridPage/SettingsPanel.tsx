@@ -1,8 +1,8 @@
 import * as React from "react";
 
 import { LabeledCSSUnitInput } from "components/Inputs/CSSUnitInput";
-import { SettingsUpdaterComponent } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
-import { TemplatedGridProps } from "utils/gridTemplates/types";
+import type { SettingsUpdaterComponent } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
+import type { TemplatedGridProps } from "utils/gridTemplates/types";
 
 import classes from "./SettingsPanel.module.css";
 

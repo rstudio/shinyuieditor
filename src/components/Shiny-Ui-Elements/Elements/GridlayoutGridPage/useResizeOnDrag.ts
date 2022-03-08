@@ -2,20 +2,21 @@ import React from "react";
 
 import clone from "just-clone";
 import { getExtentsForAvailableTracts } from "utils/gridTemplates/getExtentsForAvailableTracts";
+import type {
+  AvailableBlocks} from "utils/gridTemplates/moveCandidatesForItem";
 import {
-  AvailableBlocks,
   centersOfAvailableBlocks,
   findClosestAvailableBlock,
   sameLocation,
 } from "utils/gridTemplates/moveCandidatesForItem";
-import {
+import type {
   GridItemExtent,
   ItemLocation,
   TemplatedGridProps,
 } from "utils/gridTemplates/types";
-import { SelectionRect } from "utils/overlap-helpers";
+import type { SelectionRect } from "utils/overlap-helpers";
 
-import { GridCellBounds } from "./GridCell";
+import type { GridCellBounds } from "./GridCell";
 import {
   centerOfBounds,
   clamp,

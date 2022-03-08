@@ -1,6 +1,6 @@
-import React from "react";
+import type React from "react";
 
-import { NodePath, ShinyUiNode } from "../Elements/uiNodeTypes";
+import type { NodePath, ShinyUiNode } from "../Elements/uiNodeTypes";
 
 import classes from "./DragAndDrop.module.css";
 

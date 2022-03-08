@@ -1,11 +1,11 @@
 import { useDropHandlers } from "components/Shiny-Ui-Elements/DragAndDropHelpers/useDropHandlers";
-import {
+import type {
   ShinyUiNames,
   UiContainerNodeComponent,
 } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import UiNode from "components/Shiny-Ui-Elements/UiNode";
 
-import {
+import type {
   GridPanelSettings,
   HorizontalAlignments,
   VerticalAlignments,

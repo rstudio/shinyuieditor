@@ -1,6 +1,6 @@
 import React from "react";
 
-import { DraggedNodeInfo } from "./DragAndDropHelpers";
+import type { DraggedNodeInfo } from "./DragAndDropHelpers";
 
 export type DraggedNodeState = [
   DraggedNodeInfo | null,
