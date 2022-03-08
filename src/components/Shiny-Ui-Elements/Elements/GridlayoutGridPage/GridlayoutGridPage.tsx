@@ -2,11 +2,8 @@ import React from "react";
 
 import type { DraggedNodeInfo } from "components/Shiny-Ui-Elements/DragAndDropHelpers/DragAndDropHelpers";
 import { AreaOverlay } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/AreaOverlay";
-import type {
-  CellLocRef} from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/GridCell";
-import {
-  GridCell,
-} from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/GridCell";
+import type { CellLocRef } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/GridCell";
+import { GridCell } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/GridCell";
 import type {
   ShinyUiChildren,
   UiContainerNodeComponent,
@@ -16,7 +13,10 @@ import { subtractElements } from "utils/array-helpers";
 import { enumerateGridDims, toStringLoc } from "utils/grid-helpers";
 import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
-import type { GridItemExtent, TemplatedGridProps } from "utils/gridTemplates/types";
+import type {
+  GridItemExtent,
+  TemplatedGridProps,
+} from "utils/gridTemplates/types";
 
 import {
   sendTreeUpdateMessage,
@@ -24,7 +24,7 @@ import {
 } from "../../UiNode/TreeManipulation/treeUpdateEvents";
 import type { GridPanelSettings } from "../GridlayoutGridPanel";
 
-import type { GridLayoutAction} from "./gridLayoutReducer";
+import type { GridLayoutAction } from "./gridLayoutReducer";
 import { gridLayoutReducer } from "./gridLayoutReducer";
 import { NameNewPanelModal } from "./NameNewPanelModal";
 import classes from "./styles.module.css";
@@ -61,6 +61,38 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
   );
 
   const [showModal, setShowModal] = React.useState<NewItemInfo | null>(null);
+
+  const handleNodeDrop = (nodeInfo: NewItemInfo) => {
+    const { node, currentPath, pos } = nodeInfo;
+    const isNodeMove = currentPath !== undefined;
+    const isGridPanel = [
+      "gridlayout::grid_panel",
+      "gridlayout::title_panel",
+      "gridlayout::vertical_stack_panel",
+    ].includes(node.uiName);
+    if (
+      isNodeMove &&
+      isGridPanel &&
+      "area" in node.uiArguments &&
+      node.uiArguments.area
+    ) {
+      // Just move the panel and let the layout know to update
+      const areaName = node.uiArguments.area;
+
+      handleLayoutUpdate({ type: "MOVE_ITEM", name: areaName, pos });
+
+      // Let the state know we have a new child node
+      sendTreeUpdateMessage({
+        type: "PLACE_NODE",
+        parentPath: [],
+        node: node,
+        currentPath,
+      });
+      return;
+    }
+
+    setShowModal(nodeInfo);
+  };
 
   const handleLayoutUpdate = React.useCallback(
     (action: GridLayoutAction) => {
@@ -203,7 +235,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
             gridRow={row}
             gridColumn={col}
             cellLocations={gridCellLocations}
-            onDroppedNode={setShowModal}
+            onDroppedNode={handleNodeDrop}
           />
         ))}
 
