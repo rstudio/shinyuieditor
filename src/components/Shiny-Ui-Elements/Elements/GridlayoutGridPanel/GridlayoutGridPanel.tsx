@@ -1,4 +1,8 @@
-import { UiContainerNodeComponent } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
+import { useDropHandlers } from "components/Shiny-Ui-Elements/DragAndDropHelpers/useDropHandlers";
+import {
+  ShinyUiNames,
+  UiContainerNodeComponent,
+} from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import UiNode from "components/Shiny-Ui-Elements/UiNode";
 
 import {
@@ -9,25 +13,40 @@ import {
 
 import classes from "./styles.module.css";
 
+const rejectedNodes: ShinyUiNames[] = [
+  "gridlayout::grid_page",
+  "gridlayout::grid_panel",
+  "gridlayout::title_panel",
+  "gridlayout::vertical_stack_panel",
+];
 const GridlayoutGridPanel: UiContainerNodeComponent<GridPanelSettings> = ({
   uiChildren,
   uiArguments,
-  path,
+  nodeInfo,
   children,
-  dropHandlers,
-  ...passthroughProps
+  eventHandlers,
+  compRef,
 }) => {
+  const { path } = nodeInfo;
   const { area, verticalAlign, horizontalAlign } = uiArguments;
+
+  useDropHandlers(compRef, {
+    onDrop: "add-node",
+    parentPath: nodeInfo.path,
+    positionInChildren: 0,
+    dropFilters: { rejectedNodes },
+  });
+
   return (
     <div
+      ref={compRef}
       className={classes.container}
       style={{
         gridArea: area,
         justifyContent: dirToFlexProp[horizontalAlign ?? "spread"],
         alignContent: dirToFlexProp[verticalAlign ?? "spread"],
       }}
-      {...dropHandlers}
-      {...passthroughProps}
+      onClick={eventHandlers.onClick}
     >
       {uiChildren?.map((childNode, i) => (
         <UiNode key={path.join(".") + i} path={[...path, i]} {...childNode} />

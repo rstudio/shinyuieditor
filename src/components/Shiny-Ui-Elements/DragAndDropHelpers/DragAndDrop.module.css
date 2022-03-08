@@ -1,8 +1,34 @@
+div.availableForDrop {
+  outline-style: solid;
+  outline-color: var(--rstudio-blue);
+  outline-width: 2px;
+  outline-offset: -1px;
+
+  /* background-color: var(--rstudio-blue); */
+  animation-duration: 3s;
+  animation-name: pulse;
+  animation-iteration-count: infinite;
+}
+
+@keyframes pulse {
+  from {
+    outline-width: 2px;
+  }
+
+  50% {
+    outline-width: 4px;
+    outline-offset: -3px;
+  }
+  to {
+    outline-width: 2px;
+  }
+}
+
 /* This is currently overlapped by the selectedOverlay so selected items don't
 give visual feedback about their ability to be dropped onto. The use of div
 prefixing is to give this style the greatest possible specificity. It will cause
 troubles if in the future another element type can be dropped into, but that
 seems unlikely to happen. */
-div.canDrop {
-  outline: 3px solid var(--red);
+div.availableForDrop.canDrop {
+  background-color: var(--rstudio-blue-light);
 }

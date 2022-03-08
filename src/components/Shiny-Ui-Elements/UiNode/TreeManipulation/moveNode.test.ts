@@ -1,7 +1,11 @@
 import { ShinyUiNode } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 
 import { getNode } from "./getNode";
-import { placeNode, nodesAreDirectAncestors } from "./placeNode";
+import {
+  placeNode,
+  nodesAreDirectAncestors,
+  nodesAreSiblings,
+} from "./placeNode";
 
 // Two Panels, one with a slider and a plot and the other with just a plot
 const baseNode: ShinyUiNode = {
@@ -77,6 +81,16 @@ describe("Move Validation", () => {
   test("Siblings are not direct", () => {
     expect(nodesAreDirectAncestors([0, 1, 2, 3], [0, 1, 2, 4])).toEqual(false);
     expect(nodesAreDirectAncestors([0, 1, 2, 3], [0, 1, 2, 4])).toEqual(false);
+  });
+});
+
+describe("Can detect when siblings", () => {
+  test("A is a sibling of B", () => {
+    expect(nodesAreSiblings([0, 1, 2], [0, 1, 3])).toEqual(true);
+  });
+  test("A is not a sibling of B", () => {
+    expect(nodesAreSiblings([0, 2, 2], [0, 1, 3])).toEqual(false);
+    expect(nodesAreSiblings([0, 1], [0, 1, 3])).toEqual(false);
   });
 });
 

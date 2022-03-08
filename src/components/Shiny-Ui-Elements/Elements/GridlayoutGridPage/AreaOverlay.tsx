@@ -63,7 +63,10 @@ export function AreaOverlay({
           <div
             key={movementType}
             className={classes.dragger + " " + movementType}
-            onMouseDown={() => startDrag(simplifySide(movementType))}
+            onMouseDown={(e) => {
+              stopParentDrag(e);
+              startDrag(simplifySide(movementType));
+            }}
           >
             {movementToArrow[movementType]}
           </div>
@@ -82,12 +85,21 @@ export function AreaOverlay({
       {movementHandles}
       <div
         className={classes.dragger + " " + classes.move}
-        onMouseDown={() => startDrag("move")}
+        onMouseDown={(e) => {
+          stopParentDrag(e);
+          startDrag("move");
+        }}
       >
         <MoveIcon />
       </div>
     </div>
   );
+}
+
+function stopParentDrag(e: React.MouseEvent<HTMLElement>) {
+  // These prevent this mousedown from triggering things like drag on the parent
+  e.preventDefault();
+  e.stopPropagation();
 }
 
 function simplifySide(side: MovementType) {

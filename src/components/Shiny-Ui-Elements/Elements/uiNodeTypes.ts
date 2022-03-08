@@ -1,7 +1,4 @@
-import {
-  DragStartEvents,
-  DropHandlers,
-} from "../DragAndDropHelpers/useDragAndDropElements";
+import React from "react";
 
 import { gridlayoutGridPageInfo } from "./GridlayoutGridPage";
 import { gridLayoutGridPanelInfo } from "./GridlayoutGridPanel";
@@ -87,6 +84,7 @@ type ShinyUiArguments = {
  * Names of all the available Ui elements
  */
 export type ShinyUiNames = keyof ShinyUiArguments;
+export const shinyUiNames = Object.keys(shinyUiNodeInfo) as ShinyUiNames[];
 
 export type ShinyUiChildren = ShinyUiNode[];
 
@@ -110,23 +108,24 @@ type BaseElementProps = React.DetailedHTMLProps<
   AllowedBaseElements
 >;
 
-type passthroughProps = Pick<BaseElementProps, "onClick" | DragStartEvents>;
-
-type CommonNodeComponentProps<NodeSettings extends object> = {
-  uiArguments: NodeSettings;
+type NodeInfo = {
   path: NodePath;
 };
 
-export type UiNodeComponent<NodeSettings extends object> = React.FC<
-  CommonNodeComponentProps<NodeSettings> & passthroughProps
->;
+export type UiNodeComponent<NodeSettings extends object> = React.FC<{
+  uiArguments: NodeSettings;
+  nodeInfo: NodeInfo;
+  eventHandlers: Pick<BaseElementProps, "onClick">;
+  compRef: React.RefObject<HTMLDivElement>;
+}>;
 
-export type UiContainerNodeComponent<NodeSettings extends object> = React.FC<
-  CommonNodeComponentProps<NodeSettings> & {
-    uiChildren: ShinyUiChildren;
-    dropHandlers: DropHandlers;
-  } & passthroughProps
->;
+export type UiContainerNodeComponent<NodeSettings extends object> = React.FC<{
+  uiArguments: NodeSettings;
+  uiChildren: ShinyUiChildren;
+  nodeInfo: NodeInfo;
+  compRef: React.RefObject<HTMLDivElement>;
+  eventHandlers: Pick<BaseElementProps, "onClick">;
+}>;
 
 export type SettingsUpdaterComponent<T extends object> = (p: {
   settings: T;

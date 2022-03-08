@@ -1,12 +1,13 @@
 import React from "react";
 
-import { DropHandlers } from "components/Shiny-Ui-Elements/DragAndDropHelpers/useDragAndDropElements";
+import { useDropHandlers } from "components/Shiny-Ui-Elements/DragAndDropHelpers/useDropHandlers";
 import { GridLocString } from "GridTypes";
 import debounce from "just-debounce-it";
 import { toStringLoc } from "utils/grid-helpers";
 import { getBBoxOfDiv, ItemBoundingBox } from "utils/overlap-helpers";
 
 import classes from "./GridCell.module.css";
+import { NewItemInfo } from "./GridlayoutGridPage";
 
 export type GridCellBounds = Record<GridLocString, ItemBoundingBox>;
 export type CellLocRef = React.MutableRefObject<GridCellBounds>;
@@ -15,14 +16,33 @@ export function GridCell({
   gridRow,
   gridColumn,
   cellLocations,
-  ...dropHandlers
+  onDroppedNode,
 }: {
   gridRow: number;
   gridColumn: number;
   cellLocations: CellLocRef;
-} & DropHandlers) {
+  onDroppedNode: (nodeInfo: NewItemInfo) => void;
+}) {
   const gridPos = toStringLoc({ row: gridRow, col: gridColumn });
   const cellRef = React.useRef<HTMLDivElement>(null);
+
+  useDropHandlers(cellRef, {
+    onDrop: (nodeInfo) => {
+      // This will eventually filter by element type
+      const allowedDrop = true;
+      if (!allowedDrop) return;
+
+      onDroppedNode({
+        ...nodeInfo,
+        pos: {
+          rowStart: gridRow,
+          rowEnd: gridRow,
+          colStart: gridColumn,
+          colEnd: gridColumn,
+        },
+      });
+    },
+  });
 
   const updateSize = React.useMemo(
     () =>
@@ -63,7 +83,6 @@ export function GridCell({
         gridRow,
         gridColumn,
       }}
-      {...dropHandlers}
     ></div>
   );
 }

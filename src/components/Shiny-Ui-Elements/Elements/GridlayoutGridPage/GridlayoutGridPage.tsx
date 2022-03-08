@@ -1,9 +1,6 @@
 import React from "react";
 
-import {
-  buildDropHandlers,
-  dragAndDropTargetEvents,
-} from "components/Shiny-Ui-Elements/DragAndDropHelpers/useDragAndDropElements";
+import { DraggedNodeInfo } from "components/Shiny-Ui-Elements/DragAndDropHelpers/DragAndDropHelpers";
 import { AreaOverlay } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/AreaOverlay";
 import {
   CellLocRef,
@@ -11,11 +8,9 @@ import {
 } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/GridCell";
 import {
   ShinyUiChildren,
-  ShinyUiNode,
   UiContainerNodeComponent,
 } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import UiNode from "components/Shiny-Ui-Elements/UiNode";
-import omit from "just-omit";
 import { subtractElements } from "utils/array-helpers";
 import { enumerateGridDims, toStringLoc } from "utils/grid-helpers";
 import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
@@ -33,8 +28,7 @@ import { NameNewPanelModal } from "./NameNewPanelModal";
 import classes from "./styles.module.css";
 import { TractControls } from "./TractControls";
 
-export type NewItemInfo = {
-  node: ShinyUiNode;
+export type NewItemInfo = DraggedNodeInfo & {
   pos: GridItemExtent;
 };
 
@@ -46,11 +40,13 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
 > = ({
   uiArguments,
   uiChildren,
-  path,
   children,
-  dropHandlers,
-  ...passthroughProps
+  eventHandlers,
+  nodeInfo,
+  compRef,
 }) => {
+  const { onClick } = eventHandlers;
+  const { path } = nodeInfo;
   const { areas } = uiArguments;
 
   const { numRows, numCols, styles, sizes, uniqueAreas } =
@@ -144,7 +140,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
   } as React.CSSProperties;
 
   const addNewGridItem = React.useCallback(
-    (name: string, { node, pos }: NewItemInfo) => {
+    (name: string, { node, currentPath, pos }: NewItemInfo) => {
       handleLayoutUpdate({
         type: "ADD_ITEM",
         name: name,
@@ -162,11 +158,10 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
         node.uiArguments.area = name;
       } else {
         node = {
-          uiName: "gridlayout::grid_panel",
+          uiName: "gridlayout::vertical_stack_panel",
           uiArguments: {
             area: name,
-            horizontalAlign: "spread",
-            verticalAlign: "spread",
+            item_alignment: "center",
           },
           uiChildren: [node],
         };
@@ -177,6 +172,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
         type: "PLACE_NODE",
         parentPath: [],
         node: node,
+        currentPath,
       });
 
       // Reset the modal/new item info state
@@ -185,19 +181,13 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
     [handleLayoutUpdate]
   );
 
-  // Don't let the drag and drop behavior trigger on the background of the
-  // containing div as the grid cells are responsible for handling that here
-  const noDragAndDropPassthrough = omit(
-    passthroughProps,
-    dragAndDropTargetEvents
-  );
-
   return (
     <LayoutDispatchContext.Provider value={handleLayoutUpdate}>
       <div
+        ref={compRef}
         style={stylesForGrid}
         className={classes.container}
-        {...noDragAndDropPassthrough}
+        onClick={onClick}
         // Disable dragging on the main app
         draggable={false}
         onDragStart={() => {}}
@@ -211,21 +201,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
             gridRow={row}
             gridColumn={col}
             cellLocations={gridCellLocations}
-            {...buildDropHandlers(({ node }) => {
-              // This will eventually filter by element type
-              const allowedDrop = true;
-              if (!allowedDrop) return;
-
-              setShowModal({
-                node,
-                pos: {
-                  rowStart: row,
-                  rowEnd: row,
-                  colStart: col,
-                  colEnd: col,
-                },
-              });
-            })}
+            onDroppedNode={setShowModal}
           />
         ))}
 

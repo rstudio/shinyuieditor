@@ -9,14 +9,16 @@ import classes from "./styles.module.css";
 const GridlayoutTitlePanel: UiNodeComponent<GridlayoutTitlePanelProps> = ({
   uiArguments: { title, area },
   children,
-  ...passthroughProps
+  eventHandlers,
+  compRef,
 }) => {
   return (
     <div
+      ref={compRef}
       className={classes.titlePanel + " gridlayout-titlePanel"}
       style={{ gridArea: area }}
       aria-label={"gridlayout-titlePanel"}
-      {...passthroughProps}
+      {...eventHandlers}
     >
       <h1>{title}</h1>
       {children}
