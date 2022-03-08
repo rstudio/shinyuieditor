@@ -1,4 +1,4 @@
-import { useAddOnDropHandlers } from "components/Shiny-Ui-Elements/DragAndDropHelpers/useDropHandlers";
+import { useDropHandlers } from "components/Shiny-Ui-Elements/DragAndDropHelpers/useDropHandlers";
 import {
   ShinyUiNames,
   UiContainerNodeComponent,
@@ -30,7 +30,8 @@ const GridlayoutGridPanel: UiContainerNodeComponent<GridPanelSettings> = ({
   const { path } = nodeInfo;
   const { area, verticalAlign, horizontalAlign } = uiArguments;
 
-  useAddOnDropHandlers(compRef, {
+  useDropHandlers(compRef, {
+    onDrop: "add-node",
     parentPath: nodeInfo.path,
     positionInChildren: 0,
     dropFilters: { rejectedNodes },

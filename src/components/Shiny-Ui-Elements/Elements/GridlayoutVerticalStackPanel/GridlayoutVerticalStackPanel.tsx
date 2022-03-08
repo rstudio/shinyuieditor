@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useAddOnDropHandlers } from "components/Shiny-Ui-Elements/DragAndDropHelpers/useDropHandlers";
+import { useDropHandlers } from "components/Shiny-Ui-Elements/DragAndDropHelpers/useDropHandlers";
 import {
   NodePath,
   UiContainerNodeComponent,
@@ -67,7 +67,8 @@ function DropWatcherPanel({
   parentPath: NodePath;
 }) {
   const watcherRef = React.useRef<HTMLDivElement>(null);
-  useAddOnDropHandlers(watcherRef, {
+  useDropHandlers(watcherRef, {
+    onDrop: "add-node",
     parentPath,
     positionInChildren: index,
     dropFilters: {

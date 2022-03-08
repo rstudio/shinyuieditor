@@ -20,18 +20,26 @@ type DropFilters =
       rejectedNodes: ShinyUiNames[];
     };
 
+type DropHandlerArguments = {
+  dropFilters?: DropFilters;
+} & (
+  | {
+      onDrop: "add-node";
+      parentPath: NodePath;
+      positionInChildren: number;
+    }
+  | {
+      onDrop: (droppedNode: DraggedNodeInfo) => void;
+    }
+);
+
 export function useDropHandlers(
   watcherRef: React.RefObject<HTMLDivElement>,
-  {
-    onDrop: afterDrop,
-    dropFilters = { rejectedNodes: [] },
-  }: {
-    onDrop: (droppedNode: DraggedNodeInfo) => void;
-    dropFilters?: DropFilters;
-  }
+  opts: DropHandlerArguments
 ) {
   const currentlyDragged = useCurrentDraggedNode();
 
+  const { dropFilters = { rejectedNodes: [] } } = opts;
   const acceptedNodes = React.useMemo(
     () =>
       "acceptedNodes" in dropFilters
@@ -79,12 +87,22 @@ export function useDropHandlers(
       }
 
       if (canAcceptDragged) {
-        afterDrop(currentlyDragged);
+        if (opts.onDrop === "add-node") {
+          const { parentPath, positionInChildren } = opts;
+          sendTreeUpdateMessage({
+            type: "PLACE_NODE",
+            ...currentlyDragged,
+            parentPath,
+            positionInChildren,
+          });
+        } else {
+          opts.onDrop(currentlyDragged);
+        }
       } else {
         console.error("Incompatable drag pairing");
       }
     },
-    [afterDrop, canAcceptDragged, currentlyDragged]
+    [canAcceptDragged, currentlyDragged, opts]
   );
 
   React.useEffect(() => {
@@ -109,29 +127,4 @@ export function useDropHandlers(
       watcherEl.removeEventListener("drop", handleDrop);
     };
   }, [canAcceptDragged, handleDrop, watcherRef]);
-}
-
-export function useAddOnDropHandlers(
-  watcherRef: React.RefObject<HTMLDivElement>,
-  {
-    parentPath,
-    positionInChildren,
-    dropFilters,
-  }: {
-    parentPath: NodePath;
-    positionInChildren: number;
-    dropFilters?: DropFilters;
-  }
-) {
-  useDropHandlers(watcherRef, {
-    onDrop: (droppedNode) => {
-      sendTreeUpdateMessage({
-        type: "PLACE_NODE",
-        ...droppedNode,
-        parentPath,
-        positionInChildren,
-      });
-    },
-    dropFilters,
-  });
 }
