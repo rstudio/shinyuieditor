@@ -142,3 +142,24 @@ export function nodesAreSiblings(aPath: NodePath, bPath: NodePath): boolean {
   // If the path up to the depth of b is the same, then we have a child
   return sameArray(aPath.slice(0, parentDepth), bPath.slice(0, parentDepth));
 }
+
+export function getIsValidMove({
+  fromPath,
+  toPath,
+}: {
+  fromPath: NodePath;
+  toPath: NodePath;
+}): boolean {
+  if (nodesAreDirectAncestors(fromPath, toPath)) return false;
+
+  if (nodesAreSiblings(fromPath, toPath)) {
+    // A move of a node to its own position or the one immediately following are
+    // effectivly 'no ops' so we count them as invalid
+    const depth = fromPath.length;
+    const fromIndex = fromPath[depth - 1];
+    const toIndex = toPath[depth - 1];
+    if (fromIndex === toIndex || fromIndex === toIndex - 1) return false;
+  }
+
+  return true;
+}
