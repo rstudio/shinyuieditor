@@ -76,18 +76,11 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
       "area" in node.uiArguments &&
       node.uiArguments.area
     ) {
-      // Just move the panel and let the layout know to update
+      // Just move the panel and let the layout know to update. No need to
+      // update the tree because nothing about the node itself changed
       const areaName = node.uiArguments.area;
-
       handleLayoutUpdate({ type: "MOVE_ITEM", name: areaName, pos });
 
-      // Let the state know we have a new child node
-      sendTreeUpdateMessage({
-        type: "PLACE_NODE",
-        parentPath: [],
-        node: node,
-        currentPath,
-      });
       return;
     }
 
