@@ -72,18 +72,17 @@ export function useEventUpdatedTree(
 
   React.useEffect(() => onStateChange(tree), [onStateChange, tree]);
 
-  useListenForTreeUpdateEvent((action) => {
+  // We memoize this callback so we aren't constantly adding and removing the
+  // tree-update event listener which may miss messages
+  const handleUpdateEvent = React.useCallback((action: TreeUpdateAction) => {
     updateTree(action);
 
     if (action.type === "PLACE_NODE") {
-      console.log("Action", action);
       // Update the selection to be wherever that node was placed
       const newPath = action.parentPath;
       if (typeof action.positionInChildren === "number") {
         newPath.push(action.positionInChildren);
       }
-
-      console.log("Setting a new path", newPath);
       setSelectedPath(newPath);
     }
 
@@ -96,7 +95,8 @@ export function useEventUpdatedTree(
         return oldPath.slice(0, oldPath.length - 1);
       });
     }
-  });
+  }, []);
+  useListenForTreeUpdateEvent(handleUpdateEvent);
 
   return { tree, selectedPath, setSelectedPath };
 }
