@@ -1,6 +1,7 @@
 :root {
   --bg-color: #edf2f7;
   --rstudio-blue: #75aadb;
+  --rstudio-blue-light: hsl(209, 59%, 85%);
   --rstudio-blue-transparent: #75aadb80;
   --rstudio-grey: #404040;
   --rstudio-white: #ffffff;
