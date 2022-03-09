@@ -10,7 +10,7 @@
   --background-grey: #e9edf3;
   --header-grey: #a5b3c2;
   --dark-grey: #95a7b7;
-  --red: orangered;
+  --red: rgb(250, 83, 22);
   --font-color: #23262a;
   --selected-border-color: var(--rstudio-blue);
   --selected-border-width: 3px;

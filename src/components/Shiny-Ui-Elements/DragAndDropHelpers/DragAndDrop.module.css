@@ -1,26 +1,26 @@
 div.availableForDrop {
-  outline-style: solid;
-  outline-color: var(--rstudio-blue);
-  outline-width: 2px;
-  outline-offset: -1px;
+  --outline-start-width: 2px;
+  --outline-end-width: 5px;
+  --start-shadow: inset 0px 0 0px var(--outline-start-width) var(--red);
+  --end-shadow: inset 0px 0 0px var(--outline-end-width) var(--red);
+  box-shadow: var(--start-shadow);
 
-  /* background-color: var(--rstudio-blue); */
   animation-duration: 3s;
   animation-name: pulse;
+  animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
 }
 
 @keyframes pulse {
   from {
-    outline-width: 2px;
+    box-shadow: var(--start-shadow);
   }
 
   50% {
-    outline-width: 4px;
-    outline-offset: -3px;
+    box-shadow: var(--end-shadow);
   }
   to {
-    outline-width: 2px;
+    box-shadow: var(--start-shadow);
   }
 }
 
@@ -30,5 +30,5 @@ prefixing is to give this style the greatest possible specificity. It will cause
 troubles if in the future another element type can be dropped into, but that
 seems unlikely to happen. */
 div.availableForDrop.canDrop {
-  background-color: var(--rstudio-blue-light);
+  background-color: var(--red);
 }
