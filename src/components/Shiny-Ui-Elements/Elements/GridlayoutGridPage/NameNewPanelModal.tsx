@@ -84,6 +84,10 @@ function validateGridAreaName({
   name: string;
   existingAreaNames: string[];
 }) {
+  if (name === "") {
+    return "A name is needed for the grid area";
+  }
+
   const elementExists = existingAreaNames.includes(name);
   if (elementExists) {
     return `You already have an item with the name "${name}", all names
