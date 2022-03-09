@@ -68,13 +68,13 @@ export function NameNewPanelModal({
             <div className={classes.validationMsg}>{warningMsg}</div>
           ) : null}
         </div>
-        <div className={classes.portalFormFooter}>
-          <Button variant="delete" onClick={onCancel}>
-            Cancel
-          </Button>
-          <Button onClick={() => handleSubmit()}>Done</Button>
-        </div>
       </form>
+      <div className={classes.portalFormFooter}>
+        <Button variant="delete" onClick={onCancel}>
+          Cancel
+        </Button>
+        <Button onClick={() => handleSubmit()}>Done</Button>
+      </div>
     </PortalModal>
   );
 }
