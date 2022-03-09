@@ -244,6 +244,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
           info={showModal}
           onCancel={() => setShowModal(null)}
           onDone={(name) => addNewGridItem(name, showModal)}
+          existingAreaNames={uniqueAreas}
         />
       ) : null}
     </LayoutDispatchContext.Provider>

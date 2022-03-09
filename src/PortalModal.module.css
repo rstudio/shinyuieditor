@@ -35,10 +35,16 @@
   flex-grow: 1;
   display: flex;
   justify-content: center;
+  flex-direction: column;
 }
 
 .portalFormFooter {
   padding-top: 1rem;
   display: flex;
   justify-content: space-around;
+}
+
+.validationMsg {
+  color: var(--red);
+  font-style: italic;
 }
