@@ -8,7 +8,7 @@
 
 .portalModal {
   outline: 1px solid grey;
-  width: 400px;
+  width: 450px;
   background-color: var(--rstudio-white);
   display: flex;
   flex-direction: column;
@@ -33,6 +33,8 @@
 
 .portalFormInputs {
   flex-grow: 1;
+  display: flex;
+  justify-content: center;
 }
 
 .portalFormFooter {
