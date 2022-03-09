@@ -2,12 +2,11 @@ import * as React from "react";
 
 import type {
   ShinyUiNames,
-  ShinyUiNode} from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
-import {
-  shinyUiNodeInfo,
+  ShinyUiNode,
 } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
+import { shinyUiNodeInfo } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 
-import { useMakeDraggable } from "../DragAndDropHelpers/useCurrentDraggedNode";
+import { useMakeDraggable } from "../DragAndDropHelpers/useMakeDraggable";
 
 import classes from "./styles.module.css";
 
