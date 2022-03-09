@@ -94,9 +94,6 @@ export function useDropHandlers(
 
       removeHighlight(e);
 
-      // Let the app know that the drag is over and drop listeners can reset
-      setCurrentlyDragged(null);
-
       // Get the type of dropped element and act on it
       if (!currentlyDragged) {
         console.error("No dragged node in context but a drop was detected...");
