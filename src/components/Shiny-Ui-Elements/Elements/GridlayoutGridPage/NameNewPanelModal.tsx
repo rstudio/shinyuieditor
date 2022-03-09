@@ -69,7 +69,9 @@ export function NameNewPanelModal({
           ) : null}
         </div>
         <div className={classes.portalFormFooter}>
-          <Button variant="delete">Cancel</Button>
+          <Button variant="delete" onClick={onCancel}>
+            Cancel
+          </Button>
           <Button onClick={() => handleSubmit()}>Done</Button>
         </div>
       </form>
