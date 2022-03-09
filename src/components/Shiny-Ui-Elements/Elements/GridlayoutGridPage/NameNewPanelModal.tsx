@@ -17,9 +17,7 @@ export function NameNewPanelModal({
   onDone: (name: string) => void;
   existingAreaNames: string[];
 }) {
-  const [newItemName, setNewItemName] = React.useState<string>(
-    "NewGridItemFromPortal"
-  );
+  const [newItemName, setNewItemName] = React.useState<string>("");
 
   const [warningMsg, setWarningMsg] = React.useState<string | null>(null);
 
@@ -62,6 +60,7 @@ export function NameNewPanelModal({
             label="Name of new grid area"
             name="New-Item-Name"
             value={newItemName}
+            placeholder="Name of grid area"
             onChange={handleNameUpdate}
             autoFocus={true}
           />
