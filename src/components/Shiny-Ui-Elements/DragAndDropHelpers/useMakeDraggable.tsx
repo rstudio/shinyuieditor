@@ -14,9 +14,9 @@ export function useMakeDraggable(
   const [, setDraggedNode] = React.useContext(DraggedNodeContext);
 
   // The drag can end three different ways
-  // 1. The user drags the item onto a subtable drop target. Then the dragend
+  // 1. The user drags the item onto a suitable drop target. Then the dragend
   //    event is triggered immediately and all is good
-  // 2. The user stops the drag somewhere on the app but not on a subtable drop
+  // 2. The user stops the drag somewhere on the app but not on a suitable drop
   //    target. We detect this with event listeners on the body for drop. The
   //    reason for doing this is the drop event fires immediately upon the user
   //    releasing the mouse button, unlike the dragEnd event which needs to wait
