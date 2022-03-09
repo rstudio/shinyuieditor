@@ -3,15 +3,14 @@ import React from "react";
 import { useNodeSelectionState } from "NodeSelectionState";
 import { sameArray } from "utils/equalityCheckers";
 
-import { useMakeDraggable } from "../DragAndDropHelpers/useCurrentDraggedNode";
+import { useMakeDraggable } from "../DragAndDropHelpers/useMakeDraggable";
 import type {
   NodePath,
   ShinyUiNode,
   UiContainerNodeComponent,
-  UiNodeComponent} from "../Elements/uiNodeTypes";
-import {
-  shinyUiNodeInfo
+  UiNodeComponent,
 } from "../Elements/uiNodeTypes";
+import { shinyUiNodeInfo } from "../Elements/uiNodeTypes";
 
 import classes from "./styles.module.css";
 
