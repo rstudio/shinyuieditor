@@ -106,5 +106,10 @@ function validateGridAreaName({
     return "Spaces not allowed in grid area names";
   }
 
+  const hasSpecialCharacters = name.match(/[^\w]/g);
+  if (hasSpecialCharacters) {
+    return "Only letters and numbers allowed in area names";
+  }
+
   return null;
 }
