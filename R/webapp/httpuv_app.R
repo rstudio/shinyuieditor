@@ -5,6 +5,11 @@ run_in_background <- TRUE
 show_logs <- TRUE
 devtools::load_all(".")
 
+
+# Turn on live-reload and dev mode
+shiny::devmode(TRUE)
+options(shiny.autoreload = TRUE)
+
 writeLog <- function(msg){
   if(show_logs){
     cat(msg, "\n")
