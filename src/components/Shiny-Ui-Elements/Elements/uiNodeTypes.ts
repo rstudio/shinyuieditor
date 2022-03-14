@@ -4,6 +4,7 @@ import { gridlayoutGridPageInfo } from "./GridlayoutGridPage";
 import { gridLayoutGridPanelInfo } from "./GridlayoutGridPanel";
 import { gridlayoutTitlePanelInfo } from "./GridlayoutTitlePanel";
 import { gridlayoutVerticalStackPanelInfo } from "./GridlayoutVerticalStackPanel";
+import { shinyActionButtonInfo } from "./ShinyActionButton";
 import { shinyPlotOutputInfo } from "./ShinyPlotOutput";
 import { shinySliderInputInfo } from "./ShinySliderInput";
 
@@ -64,6 +65,7 @@ export type UiComponentInfo<NodeSettings extends object> = {
 export const shinyUiNodeInfo = {
   "shiny::plotOutput": shinyPlotOutputInfo,
   "shiny::sliderInput": shinySliderInputInfo,
+  "shiny::actionButton": shinyActionButtonInfo,
   "gridlayout::title_panel": gridlayoutTitlePanelInfo,
   "gridlayout::grid_panel": gridLayoutGridPanelInfo,
   "gridlayout::grid_page": gridlayoutGridPageInfo,
