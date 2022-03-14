@@ -8,6 +8,7 @@ import { gridlayoutVerticalStackPanelInfo } from "./GridlayoutVerticalStackPanel
 import { shinyActionButtonInfo } from "./ShinyActionButton";
 import { shinyPlotOutputInfo } from "./ShinyPlotOutput";
 import { shinySliderInputInfo } from "./ShinySliderInput";
+import { shinyUiOutputInfo } from "./ShinyUiOutput";
 
 /**
  * Defines everything needed to add a new Shiny UI component to the app
@@ -67,6 +68,7 @@ export const shinyUiNodeInfo = {
   "shiny::plotOutput": shinyPlotOutputInfo,
   "shiny::sliderInput": shinySliderInputInfo,
   "shiny::actionButton": shinyActionButtonInfo,
+  "shiny::uiOutput": shinyUiOutputInfo,
   "gridlayout::title_panel": gridlayoutTitlePanelInfo,
   "gridlayout::text_panel": gridlayoutTextPanelInfo,
   "gridlayout::grid_panel": gridLayoutGridPanelInfo,
