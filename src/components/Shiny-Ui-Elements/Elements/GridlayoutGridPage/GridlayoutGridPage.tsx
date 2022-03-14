@@ -168,12 +168,6 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
 
   const addNewGridItem = React.useCallback(
     (name: string, { node, currentPath, pos }: NewItemInfo) => {
-      handleLayoutUpdate({
-        type: "ADD_ITEM",
-        name: name,
-        pos: pos,
-      });
-
       // If we're using a grid-aware node already then we just need to put the
       // new name into its settings. Otherwise automatically wrap the item in a
       // grid container
@@ -182,7 +176,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
         node.uiName === "gridlayout::title_panel" ||
         node.uiName === "gridlayout::vertical_stack_panel"
       ) {
-        node.uiArguments.area = name;
+        node.uiArguments = { ...node.uiArguments, area: name };
       } else {
         node = {
           uiName: "gridlayout::vertical_stack_panel",
@@ -200,6 +194,12 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
         parentPath: [],
         node: node,
         currentPath,
+      });
+
+      handleLayoutUpdate({
+        type: "ADD_ITEM",
+        name: name,
+        pos: pos,
       });
 
       // Reset the modal/new item info state
