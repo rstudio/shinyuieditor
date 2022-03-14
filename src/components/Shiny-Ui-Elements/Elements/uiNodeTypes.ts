@@ -2,6 +2,7 @@ import type React from "react";
 
 import { gridlayoutGridPageInfo } from "./GridlayoutGridPage";
 import { gridLayoutGridPanelInfo } from "./GridlayoutGridPanel";
+import { gridlayoutTextPanelInfo } from "./GridlayoutTextPanel";
 import { gridlayoutTitlePanelInfo } from "./GridlayoutTitlePanel";
 import { gridlayoutVerticalStackPanelInfo } from "./GridlayoutVerticalStackPanel";
 import { shinyActionButtonInfo } from "./ShinyActionButton";
@@ -67,6 +68,7 @@ export const shinyUiNodeInfo = {
   "shiny::sliderInput": shinySliderInputInfo,
   "shiny::actionButton": shinyActionButtonInfo,
   "gridlayout::title_panel": gridlayoutTitlePanelInfo,
+  "gridlayout::text_panel": gridlayoutTextPanelInfo,
   "gridlayout::grid_panel": gridLayoutGridPanelInfo,
   "gridlayout::grid_page": gridlayoutGridPageInfo,
   "gridlayout::vertical_stack_panel": gridlayoutVerticalStackPanelInfo,

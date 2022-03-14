@@ -6,6 +6,7 @@ import type { CellLocRef } from "components/Shiny-Ui-Elements/Elements/Gridlayou
 import { GridCell } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/GridCell";
 import type {
   ShinyUiChildren,
+  ShinyUiNames,
   UiContainerNodeComponent,
 } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import UiNode from "components/Shiny-Ui-Elements/UiNode";
@@ -166,16 +167,18 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
     "--col-gutter": "100px",
   } as React.CSSProperties;
 
+  const gridAwareNodes: ShinyUiNames[] = [
+    "gridlayout::grid_panel",
+    "gridlayout::title_panel",
+    "gridlayout::text_panel",
+    "gridlayout::vertical_stack_panel",
+  ];
   const addNewGridItem = React.useCallback(
     (name: string, { node, currentPath, pos }: NewItemInfo) => {
       // If we're using a grid-aware node already then we just need to put the
       // new name into its settings. Otherwise automatically wrap the item in a
       // grid container
-      if (
-        node.uiName === "gridlayout::grid_panel" ||
-        node.uiName === "gridlayout::title_panel" ||
-        node.uiName === "gridlayout::vertical_stack_panel"
-      ) {
+      if (gridAwareNodes.includes(node.uiName)) {
         node.uiArguments = { ...node.uiArguments, area: name };
       } else {
         node = {
