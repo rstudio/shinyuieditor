@@ -30,8 +30,14 @@
   box-sizing: border-box;
 }
 
+html {
+  height: 100%;
+}
+
 body {
   font-family: var(--fonts-body);
+  line-height: 1.5;
+
   color: var(--font-color);
   margin: 0;
 }
