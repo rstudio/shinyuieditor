@@ -115,6 +115,9 @@ export function useDropHandlers(
       } else {
         console.error("Incompatable drag pairing");
       }
+
+      // Turn off drag
+      setCurrentlyDragged(null);
     },
     [canAcceptDragged, currentlyDragged, opts, setCurrentlyDragged]
   );

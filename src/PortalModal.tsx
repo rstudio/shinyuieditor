@@ -38,6 +38,11 @@ const PortalModal: React.FC<{
         className={classes.portalHolder}
         // Clicking outside the modal will trigger the onCancel event
         onClick={() => onCancel()}
+        onKeyDown={(e) => {
+          if (e.key === "Escape") {
+            onCancel();
+          }
+        }}
       >
         <div
           className={classes.portalModal}

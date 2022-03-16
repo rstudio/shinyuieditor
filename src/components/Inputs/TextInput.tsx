@@ -7,12 +7,14 @@ export function TextInput({
   name,
   label,
   value,
+  placeholder,
   onChange,
   autoFocus = false,
 }: {
   name: string;
   label?: string;
   value: string;
+  placeholder?: string;
   onChange: (x: string) => void;
   autoFocus?: boolean;
 }) {
@@ -37,6 +39,7 @@ export function TextInput({
         type="text"
         name={name}
         value={value}
+        placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
       />
     </div>

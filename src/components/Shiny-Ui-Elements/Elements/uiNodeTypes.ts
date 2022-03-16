@@ -2,10 +2,13 @@ import type React from "react";
 
 import { gridlayoutGridPageInfo } from "./GridlayoutGridPage";
 import { gridLayoutGridPanelInfo } from "./GridlayoutGridPanel";
+import { gridlayoutTextPanelInfo } from "./GridlayoutTextPanel";
 import { gridlayoutTitlePanelInfo } from "./GridlayoutTitlePanel";
 import { gridlayoutVerticalStackPanelInfo } from "./GridlayoutVerticalStackPanel";
+import { shinyActionButtonInfo } from "./ShinyActionButton";
 import { shinyPlotOutputInfo } from "./ShinyPlotOutput";
 import { shinySliderInputInfo } from "./ShinySliderInput";
+import { shinyUiOutputInfo } from "./ShinyUiOutput";
 
 /**
  * Defines everything needed to add a new Shiny UI component to the app
@@ -64,7 +67,10 @@ export type UiComponentInfo<NodeSettings extends object> = {
 export const shinyUiNodeInfo = {
   "shiny::plotOutput": shinyPlotOutputInfo,
   "shiny::sliderInput": shinySliderInputInfo,
+  "shiny::actionButton": shinyActionButtonInfo,
+  "shiny::uiOutput": shinyUiOutputInfo,
   "gridlayout::title_panel": gridlayoutTitlePanelInfo,
+  "gridlayout::text_panel": gridlayoutTextPanelInfo,
   "gridlayout::grid_panel": gridLayoutGridPanelInfo,
   "gridlayout::grid_page": gridlayoutGridPageInfo,
   "gridlayout::vertical_stack_panel": gridlayoutVerticalStackPanelInfo,
