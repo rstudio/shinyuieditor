@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 
+import selectedPathReducer from "./selectedPath";
 import uiTreeReducer from "./uiTree";
 
 export const store = configureStore({
   reducer: {
     uiTree: uiTreeReducer,
+    selectedPath: selectedPathReducer,
   },
 });
 
