@@ -9,8 +9,10 @@ export const selectedPathSlice = createSlice({
   name: "selectedPath",
   initialState: null as NodePath | null,
   reducers: {
-    SET_SELECTION: (selectedPath, action: PayloadAction<{ path: NodePath }>) =>
-      action.payload.path,
+    SET_SELECTION: (
+      selectedPath,
+      action: PayloadAction<{ path: NodePath | null }>
+    ) => action.payload.path,
     RESET_SELECTION: (selectedPath) => null,
   },
 });

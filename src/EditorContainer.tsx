@@ -3,13 +3,16 @@ import * as React from "react";
 import rstudioLogo from "assets/RStudio-Logo.svg";
 import shinyLogo from "assets/Shiny-Logo.png";
 import { CurrentDraggedNodeProvider } from "components/Shiny-Ui-Elements/DragAndDropHelpers/useCurrentDraggedNode";
-import type { ShinyUiNode } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
+import type {
+  NodePath,
+  ShinyUiNode,
+} from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import ElementsPalette from "components/Shiny-Ui-Elements/ElementsPalette";
 import UiNode from "components/Shiny-Ui-Elements/UiNode";
-import { useEventUpdatedTree } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/treeUpdateEvents";
 import { getInitialState } from "getInitialState";
 import { useQuery } from "react-query";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { SET_SELECTION } from "state/selectedPath";
 import type { RootState } from "state/store";
 
 import classes from "./EditorContainer.module.css";
@@ -21,12 +24,14 @@ function EditorContainerWithData({
 }: {
   initialState: ShinyUiNode;
 }) {
+  const dispatch = useDispatch();
   const tree = useSelector((state: RootState) => state.uiTree);
-
-  console.log({ tree });
-  const { selectedPath, setSelectedPath } = useEventUpdatedTree(
-    initialState,
-    sendUiStateToBackend
+  const selectedPath = useSelector((state: RootState) => state.selectedPath);
+  const setSelectedPath = React.useCallback(
+    (path: NodePath | null) => {
+      dispatch(SET_SELECTION({ path }));
+    },
+    [dispatch]
   );
 
   return (
