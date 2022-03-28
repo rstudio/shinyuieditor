@@ -1,12 +1,11 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import type {
-  NodePath,
-  ShinyUiNode,
-} from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
+import type { ShinyUiNode } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import type { PlaceNodeArguments } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/placeNode";
 import { placeNode } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/placeNode";
+import type { RemoveNodeArguments } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/removeNode";
 import { removeNode } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/removeNode";
+import type { UpdateNodeArguments } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/updateNode";
 import { updateNode } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/updateNode";
 
 const initialState: ShinyUiNode = {
@@ -82,20 +81,12 @@ export const uiTreeSlice = createSlice({
   name: "uiTree",
   initialState: initialState as ShinyUiNode,
   reducers: {
-    UPDATE_NODE: (
-      tree,
-      action: PayloadAction<{ path: NodePath; newNode: ShinyUiNode }>
-    ) =>
-      updateNode(tree, {
-        path: action.payload.path,
-        node: action.payload.newNode,
-      }),
+    UPDATE_NODE: (tree, action: PayloadAction<UpdateNodeArguments>) =>
+      updateNode(tree, action.payload),
     ADD_NODE: (tree, action: PayloadAction<PlaceNodeArguments>) =>
       placeNode(tree, action.payload),
-    DELETE_NODE: (tree, action: PayloadAction<{ path: NodePath }>) =>
-      removeNode(tree, {
-        path: action.payload.path,
-      }),
+    DELETE_NODE: (tree, action: PayloadAction<RemoveNodeArguments>) =>
+      removeNode(tree, action.payload),
   },
 });
 
