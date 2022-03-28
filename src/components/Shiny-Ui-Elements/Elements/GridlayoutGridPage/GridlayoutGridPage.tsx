@@ -21,9 +21,6 @@ import type {
   TemplatedGridProps,
 } from "utils/gridTemplates/types";
 
-import { useListenForTreeUpdateEvent } from "../../UiNode/TreeManipulation/treeUpdateEvents";
-import type { GridPanelSettings } from "../GridlayoutGridPanel";
-
 import type { GridLayoutAction } from "./gridLayoutReducer";
 import { gridLayoutReducer } from "./gridLayoutReducer";
 import { NameNewPanelModal } from "./NameNewPanelModal";
@@ -50,8 +47,10 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
   const dispatch = useDispatch();
 
   const { onClick } = eventHandlers;
-  const { path } = nodeInfo;
+
   const { areas } = uiArguments;
+
+  console.log("Gridlayout grid panel at path", nodeInfo.path);
 
   const { numRows, numCols, styles, sizes, uniqueAreas } =
     parseGridTemplateAreas(uiArguments);
@@ -104,30 +103,6 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
     [dispatch, uiArguments]
   );
 
-  useListenForTreeUpdateEvent((e) => {
-    // We're assuming that this grid layout is at the root of the tree. This
-    // will break if we have nested grid layouts...
-    const childNodeChange = e.type === "UPDATE_NODE" && e.path.length === 1;
-    if (childNodeChange) {
-      const oldAreaName = areasOfChildren(uiChildren)[e.path[0]];
-      const newAreaName = (e.node.uiArguments as GridPanelSettings).area;
-      if (typeof newAreaName === "undefined") {
-        console.error(
-          "Somehow a child of the gridlayout page doesn't have a grid area value..."
-        );
-        return;
-      }
-
-      if (oldAreaName !== newAreaName) {
-        handleLayoutUpdate({
-          type: "RENAME_ITEM",
-          oldName: oldAreaName,
-          newName: newAreaName,
-        });
-      }
-    }
-  });
-
   React.useEffect(() => {
     // If a user removes a grid panel from the app there will be an extra area
     // in the layout that's floating around unused which can cause issues. Here
@@ -142,10 +117,10 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
     );
 
     if (extra_areas_in_layout.length > 0) {
-      handleLayoutUpdate({
-        type: "REMOVE_ITEMS",
-        names: extra_areas_in_layout,
-      });
+      // handleLayoutUpdate({
+      //   type: "REMOVE_ITEMS",
+      //   names: extra_areas_in_layout,
+      // });
     }
   }, [children, handleLayoutUpdate, uiChildren, uniqueAreas]);
 
@@ -234,7 +209,11 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
 
         <TractControls areas={areas} sizes={sizes} />
         {uiChildren?.map((childNode, i) => (
-          <UiNode key={path.join(".") + i} path={[...path, i]} {...childNode} />
+          <UiNode
+            key={nodeInfo.path.join(".") + i}
+            path={[...nodeInfo.path, i]}
+            {...childNode}
+          />
         ))}
         {children}
         {areaOverlays}
@@ -253,7 +232,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
 /** Get the grid areas present in the children nodes passed to the Grid_Page()
  * component. This assumes that they are stored in the "area" property on the
  * uiArguments */
-function areasOfChildren(children: ShinyUiChildren) {
+export function areasOfChildren(children: ShinyUiChildren) {
   let all_children_areas: string[] = [];
   children.forEach((child) => {
     if ("area" in child.uiArguments && child.uiArguments.area !== undefined) {
@@ -266,7 +245,7 @@ function areasOfChildren(children: ShinyUiChildren) {
 }
 
 // These are nodes that don't need to be wrapped in a grid_panel if dropped
-const gridAwareNodes: ShinyUiNames[] = [
+export const gridAwareNodes: ShinyUiNames[] = [
   "gridlayout::grid_panel",
   "gridlayout::title_panel",
   "gridlayout::text_panel",

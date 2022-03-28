@@ -6,7 +6,9 @@ import { placeNode } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/
 import type { RemoveNodeArguments } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/removeNode";
 import { removeNode } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/removeNode";
 import type { UpdateNodeArguments } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/updateNode";
-import { updateNode } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/updateNode";
+import { updateNode_mutating } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/updateNode";
+
+import { watchAndReactToGridAreaUpdatesupdate } from "./watchAndReactToGridAreaUpdatesupdate";
 
 const initialState: ShinyUiNode = {
   uiName: "gridlayout::grid_page",
@@ -81,8 +83,10 @@ export const uiTreeSlice = createSlice({
   name: "uiTree",
   initialState: initialState as ShinyUiNode,
   reducers: {
-    UPDATE_NODE: (tree, action: PayloadAction<UpdateNodeArguments>) =>
-      updateNode(tree, action.payload),
+    UPDATE_NODE: (tree, action: PayloadAction<UpdateNodeArguments>) => {
+      watchAndReactToGridAreaUpdatesupdate({ tree, ...action.payload });
+      updateNode_mutating(tree, action.payload);
+    },
     PLACE_NODE: (tree, action: PayloadAction<PlaceNodeArguments>) =>
       placeNode(tree, action.payload),
     DELETE_NODE: (tree, action: PayloadAction<RemoveNodeArguments>) =>

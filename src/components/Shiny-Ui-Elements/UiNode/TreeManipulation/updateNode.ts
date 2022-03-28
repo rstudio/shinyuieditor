@@ -27,7 +27,14 @@ export function updateNode(
   { path, node }: UpdateNodeArguments
 ) {
   return produce(tree, (treeDraft) => {
-    const existingNode = getNode(treeDraft, path);
-    Object.assign(existingNode, node);
+    updateNode_mutating(treeDraft, { path, node });
   });
+}
+
+export function updateNode_mutating(
+  tree: ShinyUiNode,
+  { path, node }: UpdateNodeArguments
+): void {
+  const existingNode = getNode(tree, path);
+  Object.assign(existingNode, node);
 }
