@@ -9,6 +9,8 @@ import UiNode from "components/Shiny-Ui-Elements/UiNode";
 import { useEventUpdatedTree } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/treeUpdateEvents";
 import { getInitialState } from "getInitialState";
 import { useQuery } from "react-query";
+import { useSelector } from "react-redux";
+import type { RootState } from "state/store";
 
 import classes from "./EditorContainer.module.css";
 import { NodeSelectionProvider } from "./NodeSelectionState";
@@ -19,7 +21,10 @@ function EditorContainerWithData({
 }: {
   initialState: ShinyUiNode;
 }) {
-  const { tree, selectedPath, setSelectedPath } = useEventUpdatedTree(
+  const tree = useSelector((state: RootState) => state.uiTree);
+
+  console.log({ tree });
+  const { selectedPath, setSelectedPath } = useEventUpdatedTree(
     initialState,
     sendUiStateToBackend
   );

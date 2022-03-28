@@ -3,21 +3,24 @@ import * as React from "react";
 import Button from "components/Inputs/Button";
 import type {
   SettingsUpdaterComponent,
-  ShinyUiNode} from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
-import {
-  shinyUiNodeInfo,
+  ShinyUiNode,
 } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
+import { shinyUiNodeInfo } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import { getUiNodeValidation } from "components/Shiny-Ui-Elements/UiNode/getUiNodeValidation";
 import { getNode } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/getNode";
 import { sendTreeUpdateMessage } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/treeUpdateEvents";
 import { useNodeSelectionState } from "NodeSelectionState";
 import { BiCheck } from "react-icons/bi";
 import { FiTrash as TrashIcon } from "react-icons/fi";
+import { useDispatch } from "react-redux";
+import { UPDATE_NODE } from "state/uiTree";
 
 import PathBreadcrumb from "./PathBreadcrumb";
 import classes from "./SettingsPanel.module.css";
 
 function useUpdateSettings({ tree }: { tree: ShinyUiNode }) {
+  const dispatch = useDispatch();
+
   const [selectedPath, setNodeSelection] = useNodeSelectionState();
 
   const [currentNode, setCurrentNode] = React.useState<ShinyUiNode | null>(
@@ -70,15 +73,16 @@ function useUpdateSettings({ tree }: { tree: ShinyUiNode }) {
       }
 
       // Sync the state that's been updated from the form to the main tree
-      sendTreeUpdateMessage({
-        type: "UPDATE_NODE",
-        path: selectedPath,
-        node: {
-          ...currentNode,
-          // Add resulting html from setting validation (if present)
-          uiHTML: "uiHTML" in result ? result.uiHTML : undefined,
-        },
-      });
+      dispatch(
+        UPDATE_NODE({
+          path: selectedPath,
+          node: {
+            ...currentNode,
+            // Add resulting html from setting validation (if present)
+            uiHTML: "uiHTML" in result ? result.uiHTML : undefined,
+          },
+        })
+      );
     },
     [currentNode, selectedPath]
   );
