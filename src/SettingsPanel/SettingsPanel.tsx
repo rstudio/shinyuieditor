@@ -8,12 +8,11 @@ import type {
 import { shinyUiNodeInfo } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import { getUiNodeValidation } from "components/Shiny-Ui-Elements/UiNode/getUiNodeValidation";
 import { getNode } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/getNode";
-import { sendTreeUpdateMessage } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/treeUpdateEvents";
 import { useNodeSelectionState } from "NodeSelectionState";
 import { BiCheck } from "react-icons/bi";
 import { FiTrash as TrashIcon } from "react-icons/fi";
 import { useDispatch } from "react-redux";
-import { UPDATE_NODE } from "state/uiTree";
+import { DELETE_NODE, UPDATE_NODE } from "state/uiTree";
 
 import PathBreadcrumb from "./PathBreadcrumb";
 import classes from "./SettingsPanel.module.css";
@@ -84,7 +83,7 @@ function useUpdateSettings({ tree }: { tree: ShinyUiNode }) {
         })
       );
     },
-    [currentNode, selectedPath]
+    [currentNode, dispatch, selectedPath]
   );
 
   const updateArguments = (newArguments: typeof tree.uiArguments) => {
@@ -97,8 +96,8 @@ function useUpdateSettings({ tree }: { tree: ShinyUiNode }) {
   const deleteNode = React.useCallback(() => {
     if (selectedPath === null) return;
 
-    sendTreeUpdateMessage({ type: "DELETE_NODE", path: selectedPath });
-  }, [selectedPath]);
+    dispatch(DELETE_NODE({ path: selectedPath }));
+  }, [dispatch, selectedPath]);
 
   return {
     currentNode,
