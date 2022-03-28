@@ -83,7 +83,7 @@ export const uiTreeSlice = createSlice({
   reducers: {
     UPDATE_NODE: (tree, action: PayloadAction<UpdateNodeArguments>) =>
       updateNode(tree, action.payload),
-    ADD_NODE: (tree, action: PayloadAction<PlaceNodeArguments>) =>
+    PLACE_NODE: (tree, action: PayloadAction<PlaceNodeArguments>) =>
       placeNode(tree, action.payload),
     DELETE_NODE: (tree, action: PayloadAction<RemoveNodeArguments>) =>
       removeNode(tree, action.payload),
@@ -91,6 +91,6 @@ export const uiTreeSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { UPDATE_NODE, ADD_NODE, DELETE_NODE } = uiTreeSlice.actions;
+export const { UPDATE_NODE, PLACE_NODE, DELETE_NODE } = uiTreeSlice.actions;
 
 export default uiTreeSlice.reducer;

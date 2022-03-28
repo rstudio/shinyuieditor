@@ -1,9 +1,11 @@
 import React from "react";
 
+import { useDispatch } from "react-redux";
+import { PLACE_NODE } from "state/uiTree";
+
 import type { NodePath, ShinyUiNames } from "../Elements/uiNodeTypes";
 import { shinyUiNames } from "../Elements/uiNodeTypes";
 import { getIsValidMove } from "../UiNode/TreeManipulation/placeNode";
-import { sendTreeUpdateMessage } from "../UiNode/TreeManipulation/treeUpdateEvents";
 
 import type { DraggedNodeInfo } from "./DragAndDropHelpers";
 import {
@@ -39,6 +41,8 @@ export function useDropHandlers(
   watcherRef: React.RefObject<HTMLDivElement>,
   opts: DropHandlerArguments
 ) {
+  const dispatch = useDispatch();
+
   const [currentlyDragged, setCurrentlyDragged] = useCurrentDraggedNode();
 
   const { dropFilters = { rejectedNodes: [] } } = opts;
@@ -103,12 +107,14 @@ export function useDropHandlers(
       if (canAcceptDragged) {
         if (opts.onDrop === "add-node") {
           const { parentPath, positionInChildren } = opts;
-          sendTreeUpdateMessage({
-            type: "PLACE_NODE",
-            ...currentlyDragged,
-            parentPath,
-            positionInChildren,
-          });
+
+          dispatch(
+            PLACE_NODE({
+              ...currentlyDragged,
+              parentPath,
+              positionInChildren,
+            })
+          );
         } else {
           opts.onDrop(currentlyDragged);
         }
@@ -119,7 +125,7 @@ export function useDropHandlers(
       // Turn off drag
       setCurrentlyDragged(null);
     },
-    [canAcceptDragged, currentlyDragged, opts, setCurrentlyDragged]
+    [canAcceptDragged, currentlyDragged, dispatch, opts, setCurrentlyDragged]
   );
 
   React.useEffect(() => {
