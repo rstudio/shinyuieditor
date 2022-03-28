@@ -26,18 +26,6 @@ declare global {
 }
 
 /**
- * Send tree update message on the document object
- * @param updateAction Object describing the action to be dispatched
- */
-export function sendTreeUpdateMessage(updateAction: TreeUpdateAction) {
-  document.dispatchEvent(
-    new CustomEvent("tree-update", {
-      detail: updateAction,
-    })
-  );
-}
-
-/**
  * Run a function anytime a tree update event passes by this component
  * @param onUpdate Callback to run after receiving a tree update action
  */

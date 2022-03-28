@@ -10,6 +10,8 @@ import type {
   UiContainerNodeComponent,
 } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import UiNode from "components/Shiny-Ui-Elements/UiNode";
+import { useDispatch } from "react-redux";
+import { PLACE_NODE, UPDATE_NODE } from "state/uiTree";
 import { subtractElements } from "utils/array-helpers";
 import { enumerateGridDims, toStringLoc } from "utils/grid-helpers";
 import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
@@ -19,10 +21,7 @@ import type {
   TemplatedGridProps,
 } from "utils/gridTemplates/types";
 
-import {
-  sendTreeUpdateMessage,
-  useListenForTreeUpdateEvent,
-} from "../../UiNode/TreeManipulation/treeUpdateEvents";
+import { useListenForTreeUpdateEvent } from "../../UiNode/TreeManipulation/treeUpdateEvents";
 import type { GridPanelSettings } from "../GridlayoutGridPanel";
 
 import type { GridLayoutAction } from "./gridLayoutReducer";
@@ -48,6 +47,8 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
   nodeInfo,
   compRef,
 }) => {
+  const dispatch = useDispatch();
+
   const { onClick } = eventHandlers;
   const { path } = nodeInfo;
   const { areas } = uiArguments;
@@ -90,16 +91,17 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
 
   const handleLayoutUpdate = React.useCallback(
     (action: GridLayoutAction) => {
-      sendTreeUpdateMessage({
-        type: "UPDATE_NODE",
-        path: [],
-        node: {
-          uiName: "gridlayout::grid_page",
-          uiArguments: gridLayoutReducer(uiArguments, action),
-        },
-      });
+      dispatch(
+        UPDATE_NODE({
+          path: [],
+          node: {
+            uiName: "gridlayout::grid_page",
+            uiArguments: gridLayoutReducer(uiArguments, action),
+          },
+        })
+      );
     },
-    [uiArguments]
+    [dispatch, uiArguments]
   );
 
   useListenForTreeUpdateEvent((e) => {
@@ -167,12 +169,6 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
     "--col-gutter": "100px",
   } as React.CSSProperties;
 
-  const gridAwareNodes: ShinyUiNames[] = [
-    "gridlayout::grid_panel",
-    "gridlayout::title_panel",
-    "gridlayout::text_panel",
-    "gridlayout::vertical_stack_panel",
-  ];
   const addNewGridItem = React.useCallback(
     (name: string, { node, currentPath, pos }: NewItemInfo) => {
       // If we're using a grid-aware node already then we just need to put the
@@ -192,12 +188,13 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
       }
 
       // Let the state know we have a new child node
-      sendTreeUpdateMessage({
-        type: "PLACE_NODE",
-        parentPath: [],
-        node: node,
-        currentPath,
-      });
+      dispatch(
+        PLACE_NODE({
+          parentPath: [],
+          node: node,
+          currentPath,
+        })
+      );
 
       handleLayoutUpdate({
         type: "ADD_ITEM",
@@ -208,7 +205,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
       // Reset the modal/new item info state
       setShowModal(null);
     },
-    [handleLayoutUpdate]
+    [dispatch, handleLayoutUpdate]
   );
 
   return (
@@ -267,3 +264,11 @@ function areasOfChildren(children: ShinyUiChildren) {
 
   return all_children_areas;
 }
+
+// These are nodes that don't need to be wrapped in a grid_panel if dropped
+const gridAwareNodes: ShinyUiNames[] = [
+  "gridlayout::grid_panel",
+  "gridlayout::title_panel",
+  "gridlayout::text_panel",
+  "gridlayout::vertical_stack_panel",
+];
