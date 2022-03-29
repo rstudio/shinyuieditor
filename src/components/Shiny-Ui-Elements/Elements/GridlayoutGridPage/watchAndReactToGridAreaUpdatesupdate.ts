@@ -29,6 +29,8 @@ export function watchAndReactToGridAreaUpdatesupdate(
   const oldAreaName = areasOfChildren(gridPageNode.uiChildren)[path[0]];
   const newAreaName = (node.uiArguments as GridPanelSettings).area ?? emptyCell;
 
+  if (oldAreaName === newAreaName) return;
+
   gridPageNode.uiArguments = gridLayoutReducer(gridPageNode.uiArguments, {
     type: "RENAME_ITEM",
     oldName: oldAreaName,
