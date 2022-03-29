@@ -6,8 +6,9 @@ import { CurrentDraggedNodeProvider } from "components/Shiny-Ui-Elements/DragAnd
 import type { ShinyUiNode } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import ElementsPalette from "components/Shiny-Ui-Elements/ElementsPalette";
 import UiNode from "components/Shiny-Ui-Elements/UiNode";
-import { useGetInitialStateQuery } from "getInitialState";
 import { useDispatch, useSelector } from "react-redux";
+import { useGetInitialStateQuery } from "state/getInitialState";
+import { sendUiStateToBackend } from "state/sendUiStateToBackend";
 import type { RootState } from "state/store";
 import { INIT_STATE } from "state/uiTree";
 
@@ -75,22 +76,4 @@ export function EditorContainer() {
   console.log("Data!", data);
 
   return <EditorContainerWithData initialState={data} />;
-}
-
-function sendUiStateToBackend(state: ShinyUiNode) {
-  console.log("Sending state to backend", state);
-  const stateBlob = new Blob([JSON.stringify(state, null, 2)], {
-    type: "application/json",
-  });
-
-  fetch("UiDump", { method: "POST", body: stateBlob })
-    .then(function (response) {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return response.text();
-    })
-    .then(function (response) {
-      console.log("Response after sending state blob", response);
-    });
 }

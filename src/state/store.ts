@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { backendApi } from "getInitialState";
+import { backendApi } from "state/getInitialState";
 
 import selectedPathReducer from "./selectedPath";
 import uiTreeReducer from "./uiTree";
