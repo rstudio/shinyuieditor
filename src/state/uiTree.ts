@@ -8,7 +8,10 @@ import { removeNodeMutating } from "components/Shiny-Ui-Elements/UiNode/TreeMani
 import type { UpdateNodeArguments } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/updateNode";
 import { updateNode_mutating } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/updateNode";
 
-import { watchAndReactToGridAreaUpdatesupdate } from "./watchAndReactToGridAreaUpdatesupdate";
+import {
+  watchAndReactToGridAreaDeletions,
+  watchAndReactToGridAreaUpdatesupdate,
+} from "./watchAndReactToGridAreaUpdatesupdate";
 
 const initialState: ShinyUiNode = {
   uiName: "gridlayout::grid_page",
@@ -77,15 +80,10 @@ const initialState: ShinyUiNode = {
   ],
 };
 
-// Series of functions that get access to the UPDATE_NODE action and can perform
-// state mutations in response in addition to the plain updating of the node
-// (which will occur last)
+// Series of functions that get access to the various reducer actions and can
+// perform state mutations in response in addition to the plain updating of the
+// node (which will occur last)
 const updateNodeSubscribers = [watchAndReactToGridAreaUpdatesupdate];
-
-function watchAndReactToGridAreaDeletions(
-  tree: ShinyUiNode,
-  { path }: RemoveNodeArguments
-) {}
 const deleteNodeSubscribers = [watchAndReactToGridAreaDeletions];
 
 // Note: Currently we're using Immer already so it's double immering this stuff
