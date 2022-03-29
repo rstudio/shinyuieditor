@@ -10,11 +10,10 @@ import { emptyCell } from "utils/gridTemplates/itemLocations";
 // updates the parent's layout names accordingly. Note that it mutates the tree
 // object in place and so should only be used inside of an immer-ized function
 // like a redux reducer
-export function watchAndReactToGridAreaUpdatesupdate({
-  tree,
-  path,
-  node,
-}: { tree: ShinyUiNode } & UpdateNodeArguments) {
+export function watchAndReactToGridAreaUpdatesupdate(
+  tree: ShinyUiNode,
+  { path, node }: UpdateNodeArguments
+) {
   console.log("Checking for grid updates");
   // Node that's not a child of a grid element changed. This sould be
   // updated to be more general in the future

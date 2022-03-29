@@ -77,6 +77,11 @@ const initialState: ShinyUiNode = {
   ],
 };
 
+// Series of functions that get access to the UPDATE_NODE action and can perform
+// state mutations in response in addition to the plain updating of the node
+// (which will occur last)
+const updateNodeSubscribers = [watchAndReactToGridAreaUpdatesupdate];
+
 // Note: Currently we're using Immer already so it's double immering this stuff
 // which is not efficient.
 export const uiTreeSlice = createSlice({
@@ -84,8 +89,9 @@ export const uiTreeSlice = createSlice({
   initialState: initialState as ShinyUiNode,
   reducers: {
     UPDATE_NODE: (tree, action: PayloadAction<UpdateNodeArguments>) => {
-      watchAndReactToGridAreaUpdatesupdate({ tree, ...action.payload });
-      updateNode_mutating(tree, action.payload);
+      [...updateNodeSubscribers, updateNode_mutating].forEach((subscriberFn) =>
+        subscriberFn(tree, action.payload)
+      );
     },
     PLACE_NODE: (tree, action: PayloadAction<PlaceNodeArguments>) =>
       placeNode(tree, action.payload),
