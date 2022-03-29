@@ -5,8 +5,8 @@ import type { UiComponentInfo } from "../uiNodeTypes";
 import { GridlayoutGridPage } from "./GridlayoutGridPage";
 import { GridlayoutGridPageSettings } from "./SettingsPanel";
 import {
-  watchAndReactToGridAreaDeletions,
-  watchAndReactToGridAreaUpdatesupdate,
+  removeDeletedGridAreaFromLayout,
+  updateGridLayoutAreaOnItemAreaChange,
 } from "./watchAndReactToGridAreaUpdatesupdate";
 
 export const gridlayoutGridPageInfo: UiComponentInfo<TemplatedGridProps> = {
@@ -24,8 +24,8 @@ export const gridlayoutGridPageInfo: UiComponentInfo<TemplatedGridProps> = {
     gapSize: "1rem",
   },
   stateUpdateSubscribers: {
-    UPDATE_NODE: watchAndReactToGridAreaUpdatesupdate,
-    DELETE_NODE: watchAndReactToGridAreaDeletions,
+    UPDATE_NODE: updateGridLayoutAreaOnItemAreaChange,
+    DELETE_NODE: removeDeletedGridAreaFromLayout,
   },
 };
 

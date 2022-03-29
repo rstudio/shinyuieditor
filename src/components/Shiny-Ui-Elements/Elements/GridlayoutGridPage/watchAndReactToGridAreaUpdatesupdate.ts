@@ -14,7 +14,7 @@ import { emptyCell } from "utils/gridTemplates/itemLocations";
 // updates the parent's layout names accordingly. Note that it mutates the tree
 // object in place and so should only be used inside of an immer-ized function
 // like a redux reducer
-export function watchAndReactToGridAreaUpdatesupdate(
+export function updateGridLayoutAreaOnItemAreaChange(
   tree: ShinyUiNode,
   { path, node }: UpdateNodeArguments
 ) {
@@ -38,7 +38,7 @@ export function watchAndReactToGridAreaUpdatesupdate(
   });
 }
 
-export function watchAndReactToGridAreaDeletions(
+export function removeDeletedGridAreaFromLayout(
   tree: ShinyUiNode,
   { path }: RemoveNodeArguments
 ) {
