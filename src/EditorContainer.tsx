@@ -6,7 +6,7 @@ import { CurrentDraggedNodeProvider } from "components/Shiny-Ui-Elements/DragAnd
 import type { ShinyUiNode } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import ElementsPalette from "components/Shiny-Ui-Elements/ElementsPalette";
 import UiNode from "components/Shiny-Ui-Elements/UiNode";
-import { getInitialState } from "getInitialState";
+import { getInitialState, useGetInitialStateQuery } from "getInitialState";
 import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
 import type { RootState } from "state/store";
@@ -52,7 +52,9 @@ function EditorContainerWithData({
 }
 
 export function EditorContainer() {
-  const { isLoading, error, data } = useQuery("initial-state", getInitialState);
+  // console.log({ reduxQuery });
+
+  const { isLoading, error, data } = useGetInitialStateQuery("test");
 
   if (isLoading) {
     return <h3>Loading initial state from server</h3>;
@@ -61,6 +63,8 @@ export function EditorContainer() {
   if (error || !data) {
     return <h3 style={{ color: "orangered" }}>Error with server request</h3>;
   }
+
+  console.log("Data!", data);
 
   return <EditorContainerWithData initialState={data} />;
 }
