@@ -2,7 +2,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import type { ShinyUiNode } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import type { PlaceNodeArguments } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/placeNode";
-import { placeNode } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/placeNode";
+import { placeNodeMutating } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/placeNode";
 import type { RemoveNodeArguments } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/removeNode";
 import { removeNodeMutating } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/removeNode";
 import type { UpdateNodeArguments } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/updateNode";
@@ -80,8 +80,9 @@ const initialState: ShinyUiNode = {
   ],
 };
 
-// Note: Currently we're using Immer already so it's double immering this stuff
-// which is not efficient.
+// Note: The reducer callbacks use immer so the mutations we make to the object
+// are safe and we just make the needed mutations to the tree object and don't
+// return anything
 export const uiTreeSlice = createSlice({
   name: "uiTree",
   initialState: initialState as ShinyUiNode,
@@ -89,8 +90,9 @@ export const uiTreeSlice = createSlice({
     UPDATE_NODE: (tree, action: PayloadAction<UpdateNodeArguments>) => {
       updateNode_mutating(tree, action.payload);
     },
-    PLACE_NODE: (tree, action: PayloadAction<PlaceNodeArguments>) =>
-      placeNode(tree, action.payload),
+    PLACE_NODE: (tree, action: PayloadAction<PlaceNodeArguments>) => {
+      placeNodeMutating(tree, action.payload);
+    },
     DELETE_NODE: (tree, action: PayloadAction<RemoveNodeArguments>) => {
       removeNodeMutating(tree, action.payload);
     },
