@@ -6,10 +6,10 @@ import { CurrentDraggedNodeProvider } from "components/Shiny-Ui-Elements/DragAnd
 import type { ShinyUiNode } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import ElementsPalette from "components/Shiny-Ui-Elements/ElementsPalette";
 import UiNode from "components/Shiny-Ui-Elements/UiNode";
-import { getInitialState, useGetInitialStateQuery } from "getInitialState";
-import { useQuery } from "react-query";
-import { useSelector } from "react-redux";
+import { useGetInitialStateQuery } from "getInitialState";
+import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "state/store";
+import { INIT_STATE } from "state/uiTree";
 
 import classes from "./EditorContainer.module.css";
 import { SettingsPanel } from "./SettingsPanel/SettingsPanel";
@@ -19,7 +19,17 @@ function EditorContainerWithData({
 }: {
   initialState: ShinyUiNode;
 }) {
+  const dispatch = useDispatch();
+
   const tree = useSelector((state: RootState) => state.uiTree);
+
+  React.useEffect(() => {
+    dispatch(INIT_STATE({ initialState }));
+  }, [dispatch, initialState]);
+
+  React.useEffect(() => {
+    sendUiStateToBackend(tree);
+  }, [tree]);
 
   return (
     <CurrentDraggedNodeProvider>
@@ -52,8 +62,6 @@ function EditorContainerWithData({
 }
 
 export function EditorContainer() {
-  // console.log({ reduxQuery });
-
   const { isLoading, error, data } = useGetInitialStateQuery("test");
 
   if (isLoading) {
