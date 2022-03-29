@@ -4,7 +4,7 @@ import type { ShinyUiNode } from "components/Shiny-Ui-Elements/Elements/uiNodeTy
 import type { PlaceNodeArguments } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/placeNode";
 import { placeNode } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/placeNode";
 import type { RemoveNodeArguments } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/removeNode";
-import { removeNode } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/removeNode";
+import { removeNodeMutating } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/removeNode";
 import type { UpdateNodeArguments } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/updateNode";
 import { updateNode_mutating } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/updateNode";
 
@@ -82,6 +82,12 @@ const initialState: ShinyUiNode = {
 // (which will occur last)
 const updateNodeSubscribers = [watchAndReactToGridAreaUpdatesupdate];
 
+function watchAndReactToGridAreaDeletions(
+  tree: ShinyUiNode,
+  { path }: RemoveNodeArguments
+) {}
+const deleteNodeSubscribers = [watchAndReactToGridAreaDeletions];
+
 // Note: Currently we're using Immer already so it's double immering this stuff
 // which is not efficient.
 export const uiTreeSlice = createSlice({
@@ -95,8 +101,11 @@ export const uiTreeSlice = createSlice({
     },
     PLACE_NODE: (tree, action: PayloadAction<PlaceNodeArguments>) =>
       placeNode(tree, action.payload),
-    DELETE_NODE: (tree, action: PayloadAction<RemoveNodeArguments>) =>
-      removeNode(tree, action.payload),
+    DELETE_NODE: (tree, action: PayloadAction<RemoveNodeArguments>) => {
+      [...deleteNodeSubscribers, removeNodeMutating].forEach((subscriberFn) =>
+        subscriberFn(tree, action.payload)
+      );
+    },
   },
 });
 
