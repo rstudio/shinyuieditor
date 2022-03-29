@@ -1,7 +1,6 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import type { ShinyUiNode } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
-import { shinyUiNodeInfo } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import type { PlaceNodeArguments } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/placeNode";
 import { placeNode } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/placeNode";
 import type { RemoveNodeArguments } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/removeNode";
@@ -88,25 +87,11 @@ export const uiTreeSlice = createSlice({
   initialState: initialState as ShinyUiNode,
   reducers: {
     UPDATE_NODE: (tree, action: PayloadAction<UpdateNodeArguments>) => {
-      for (let info of Object.values(shinyUiNodeInfo)) {
-        const nodeUpdateSubscriber = info?.stateUpdateSubscribers?.UPDATE_NODE;
-        if (nodeUpdateSubscriber) {
-          nodeUpdateSubscriber(tree, action.payload);
-        }
-      }
-
       updateNode_mutating(tree, action.payload);
     },
     PLACE_NODE: (tree, action: PayloadAction<PlaceNodeArguments>) =>
       placeNode(tree, action.payload),
     DELETE_NODE: (tree, action: PayloadAction<RemoveNodeArguments>) => {
-      for (let info of Object.values(shinyUiNodeInfo)) {
-        const nodeUpdateSubscriber = info?.stateUpdateSubscribers?.DELETE_NODE;
-        if (nodeUpdateSubscriber) {
-          nodeUpdateSubscriber(tree, action.payload);
-        }
-      }
-
       removeNodeMutating(tree, action.payload);
     },
   },

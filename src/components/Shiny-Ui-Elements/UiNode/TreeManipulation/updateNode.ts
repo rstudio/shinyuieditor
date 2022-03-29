@@ -1,6 +1,7 @@
 import produce from "immer";
 
 import type { ShinyUiNode, NodePath } from "../../Elements/uiNodeTypes";
+import { shinyUiNodeInfo } from "../../Elements/uiNodeTypes";
 
 import { getNode } from "./getNode";
 
@@ -35,6 +36,14 @@ export function updateNode_mutating(
   tree: ShinyUiNode,
   { path, node }: UpdateNodeArguments
 ): void {
+  // Make sure the tree is valid here
+  for (let info of Object.values(shinyUiNodeInfo)) {
+    const nodeUpdateSubscriber = info?.stateUpdateSubscribers?.UPDATE_NODE;
+    if (nodeUpdateSubscriber) {
+      nodeUpdateSubscriber(tree, { path, node });
+    }
+  }
   const existingNode = getNode(tree, path);
+
   Object.assign(existingNode, node);
 }
