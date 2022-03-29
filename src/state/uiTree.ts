@@ -87,6 +87,8 @@ export const uiTreeSlice = createSlice({
   name: "uiTree",
   initialState: initialState as ShinyUiNode,
   reducers: {
+    INIT_STATE: (tree, action: PayloadAction<{ initialState: ShinyUiNode }>) =>
+      action.payload.initialState,
     UPDATE_NODE: (tree, action: PayloadAction<UpdateNodeArguments>) => {
       updateNodeMutating(tree, action.payload);
     },
@@ -100,7 +102,8 @@ export const uiTreeSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { UPDATE_NODE, PLACE_NODE, DELETE_NODE } = uiTreeSlice.actions;
+export const { UPDATE_NODE, PLACE_NODE, DELETE_NODE, INIT_STATE } =
+  uiTreeSlice.actions;
 
 export type UpdateAction = (
   tree: ShinyUiNode,
