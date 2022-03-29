@@ -8,11 +8,6 @@ import { removeNodeMutating } from "components/Shiny-Ui-Elements/UiNode/TreeMani
 import type { UpdateNodeArguments } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/updateNode";
 import { updateNodeMutating } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/updateNode";
 
-// Collect all the update subscribers from the implemented ui nodes.
-// These are a series of functions that get access to the various reducer actions and can
-// perform state mutations in response in addition to the plain updating of the
-// node (which will occur last)
-
 const initialState: ShinyUiNode = {
   uiName: "gridlayout::grid_page",
   uiArguments: {
