@@ -28,11 +28,11 @@ export function updateNode(
   { path, node }: UpdateNodeArguments
 ) {
   return produce(tree, (treeDraft) => {
-    updateNode_mutating(treeDraft, { path, node });
+    updateNodeMutating(treeDraft, { path, node });
   });
 }
 
-export function updateNode_mutating(
+export function updateNodeMutating(
   tree: ShinyUiNode,
   { path, node }: UpdateNodeArguments
 ): void {

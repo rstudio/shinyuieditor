@@ -6,7 +6,7 @@ import { placeNodeMutating } from "components/Shiny-Ui-Elements/UiNode/TreeManip
 import type { RemoveNodeArguments } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/removeNode";
 import { removeNodeMutating } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/removeNode";
 import type { UpdateNodeArguments } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/updateNode";
-import { updateNode_mutating } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/updateNode";
+import { updateNodeMutating } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/updateNode";
 
 // Collect all the update subscribers from the implemented ui nodes.
 // These are a series of functions that get access to the various reducer actions and can
@@ -88,7 +88,7 @@ export const uiTreeSlice = createSlice({
   initialState: initialState as ShinyUiNode,
   reducers: {
     UPDATE_NODE: (tree, action: PayloadAction<UpdateNodeArguments>) => {
-      updateNode_mutating(tree, action.payload);
+      updateNodeMutating(tree, action.payload);
     },
     PLACE_NODE: (tree, action: PayloadAction<PlaceNodeArguments>) => {
       placeNodeMutating(tree, action.payload);
