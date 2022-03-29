@@ -1,5 +1,7 @@
 import type React from "react";
 
+import type { DeleteAction, UpdateAction } from "state/uiTree";
+
 import { gridlayoutGridPageInfo } from "./GridlayoutGridPage";
 import { gridLayoutGridPanelInfo } from "./GridlayoutGridPanel";
 import { gridlayoutTextPanelInfo } from "./GridlayoutTextPanel";
@@ -32,6 +34,17 @@ export type UiComponentInfo<NodeSettings extends object> = {
    * not provided then the node will not show up in the element palette.
    */
   iconSrc?: string;
+  /**
+   * Optional functions that will hook into the state update reducers and allow
+   * a component the ability to respond to state manipulation before the main
+   * tree update action has been preformed. These are dangerous and should only
+   * be used as a last resort. perform state mutations in response in addition
+   * to the plain updating of the node (which will occur last)
+   */
+  stateUpdateSubscribers?: {
+    UPDATE_NODE?: UpdateAction;
+    DELETE_NODE?: DeleteAction;
+  };
 } & (
   | {
       /**

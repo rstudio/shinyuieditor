@@ -1,6 +1,10 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import type { ShinyUiNode } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
+import type {
+  ShinyUiNode,
+  UiComponentInfo,
+} from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
+import { shinyUiNodeInfo } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import type { PlaceNodeArguments } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/placeNode";
 import { placeNode } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/placeNode";
 import type { RemoveNodeArguments } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/removeNode";
@@ -8,10 +12,27 @@ import { removeNodeMutating } from "components/Shiny-Ui-Elements/UiNode/TreeMani
 import type { UpdateNodeArguments } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/updateNode";
 import { updateNode_mutating } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/updateNode";
 
-import {
-  watchAndReactToGridAreaDeletions,
-  watchAndReactToGridAreaUpdatesupdate,
-} from "./watchAndReactToGridAreaUpdatesupdate";
+// Collect all the update subscribers from the implemented ui nodes.
+// These are a series of functions that get access to the various reducer actions and can
+// perform state mutations in response in addition to the plain updating of the
+// node (which will occur last)
+type StateUpdateSubscribers = Required<
+  Required<UiComponentInfo<{}>>["stateUpdateSubscribers"]
+>;
+const updateNodeSubscribers: StateUpdateSubscribers["UPDATE_NODE"][] = [];
+const deleteNodeSubscribers: StateUpdateSubscribers["DELETE_NODE"][] = [];
+
+for (let info of Object.values(shinyUiNodeInfo)) {
+  const nodeUpdateSubscriber = info?.stateUpdateSubscribers?.UPDATE_NODE;
+  if (nodeUpdateSubscriber) {
+    updateNodeSubscribers.push(nodeUpdateSubscriber);
+  }
+
+  const nodeDeleteSubscriber = info?.stateUpdateSubscribers?.DELETE_NODE;
+  if (nodeDeleteSubscriber) {
+    deleteNodeSubscribers.push(nodeDeleteSubscriber);
+  }
+}
 
 const initialState: ShinyUiNode = {
   uiName: "gridlayout::grid_page",
@@ -80,12 +101,6 @@ const initialState: ShinyUiNode = {
   ],
 };
 
-// Series of functions that get access to the various reducer actions and can
-// perform state mutations in response in addition to the plain updating of the
-// node (which will occur last)
-const updateNodeSubscribers = [watchAndReactToGridAreaUpdatesupdate];
-const deleteNodeSubscribers = [watchAndReactToGridAreaDeletions];
-
 // Note: Currently we're using Immer already so it's double immering this stuff
 // which is not efficient.
 export const uiTreeSlice = createSlice({
@@ -109,5 +124,14 @@ export const uiTreeSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const { UPDATE_NODE, PLACE_NODE, DELETE_NODE } = uiTreeSlice.actions;
+
+export type UpdateAction = (
+  tree: ShinyUiNode,
+  payload: UpdateNodeArguments
+) => void;
+export type DeleteAction = (
+  tree: ShinyUiNode,
+  payload: RemoveNodeArguments
+) => void;
 
 export default uiTreeSlice.reducer;
