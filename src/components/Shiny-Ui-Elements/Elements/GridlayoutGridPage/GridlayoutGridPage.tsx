@@ -12,7 +12,6 @@ import type {
 import UiNode from "components/Shiny-Ui-Elements/UiNode";
 import { useDispatch } from "react-redux";
 import { PLACE_NODE, UPDATE_NODE } from "state/uiTree";
-import { subtractElements } from "utils/array-helpers";
 import { enumerateGridDims, toStringLoc } from "utils/grid-helpers";
 import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
@@ -49,8 +48,6 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
   const { onClick } = eventHandlers;
 
   const { areas } = uiArguments;
-
-  console.log("Gridlayout grid panel at path", nodeInfo.path);
 
   const { numRows, numCols, styles, sizes, uniqueAreas } =
     parseGridTemplateAreas(uiArguments);
@@ -102,27 +99,6 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
     },
     [dispatch, uiArguments]
   );
-
-  React.useEffect(() => {
-    // If a user removes a grid panel from the app there will be an extra area
-    // in the layout that's floating around unused which can cause issues. Here
-    // we make sure everytime the component renders that all the areas in the
-    // layout definition are mirrored in the children and update the layout to
-    // remove areas that are in the layout but not the children. This won't fix
-    // the reverse situation where there is a child with a grid area now in the
-    // layout.
-    const extra_areas_in_layout = subtractElements(
-      uniqueAreas,
-      areasOfChildren(uiChildren)
-    );
-
-    if (extra_areas_in_layout.length > 0) {
-      // handleLayoutUpdate({
-      //   type: "REMOVE_ITEMS",
-      //   names: extra_areas_in_layout,
-      // });
-    }
-  }, [children, handleLayoutUpdate, uiChildren, uniqueAreas]);
 
   const areaOverlays = uniqueAreas.map((area) => (
     <AreaOverlay
