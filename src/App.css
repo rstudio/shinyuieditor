@@ -1,14 +1,19 @@
 :root {
   --bg-color: #edf2f7;
-  --rstudio-blue: #75aadb;
-  --rstudio-blue-light: hsl(209, 59%, 85%);
-  --rstudio-blue-transparent: #75aadb80;
 
-  --rstudio-grey-hue: 0;
-  --rstudio-grey-saturation: 0%;
-  --rstudio-grey-lightness: 25%;
-  --rstudio-grey-hsl: var(--rstudio-grey-hue) var(--rstudio-grey-saturation)
-    var(--rstudio-grey-lightness);
+  --rstudio-blue-h: 209;
+  --rstudio-blue-s: 59%;
+  --rstudio-blue-l: 66%;
+  --rstudio-blue-hsl: var(--rstudio-blue-h) var(--rstudio-blue-s)
+    var(--rstudio-blue-l);
+  --rstudio-blue: hsl(var(--rstudio-blue-hsl));
+  --rstudio-blue-transparent: hsl(var(--rstudio-blue-hsl) / 0.5);
+
+  --rstudio-grey-h: 0;
+  --rstudio-grey-s: 0%;
+  --rstudio-grey-l: 25%;
+  --rstudio-grey-hsl: var(--rstudio-grey-h) var(--rstudio-grey-s)
+    var(--rstudio-grey-l);
   --rstudio-grey: hsl(var(--rstudio-grey-hsl));
   --rstudio-grey-transparent: hsl(var(--rstudio-grey-hsl) / 0.5);
 
