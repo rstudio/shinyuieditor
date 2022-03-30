@@ -1,17 +1,15 @@
 import "App.css";
 import * as React from "react";
 
-import { QueryClient, QueryClientProvider } from "react-query";
+import { Provider } from "react-redux";
 
 import { EditorContainer } from "./EditorContainer";
-
-// Create a client
-const queryClient = new QueryClient();
+import { store } from "./state/store";
 
 export const App = () => {
   return (
-    <QueryClientProvider client={queryClient}>
+    <Provider store={store}>
       <EditorContainer />
-    </QueryClientProvider>
+    </Provider>
   );
 };

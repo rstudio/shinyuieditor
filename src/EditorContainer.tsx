@@ -6,12 +6,14 @@ import { CurrentDraggedNodeProvider } from "components/Shiny-Ui-Elements/DragAnd
 import type { ShinyUiNode } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import ElementsPalette from "components/Shiny-Ui-Elements/ElementsPalette";
 import UiNode from "components/Shiny-Ui-Elements/UiNode";
-import { useEventUpdatedTree } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/treeUpdateEvents";
-import { getInitialState } from "getInitialState";
-import { useQuery } from "react-query";
+import { useDispatch, useSelector } from "react-redux";
+import { useGetInitialStateQuery } from "state/getInitialState";
+import { sendUiStateToBackend } from "state/sendUiStateToBackend";
+import type { RootState } from "state/store";
+import { INIT_STATE } from "state/uiTree";
 
+import { UndoRedoButtons } from "./components/UndoRedoButtons";
 import classes from "./EditorContainer.module.css";
-import { NodeSelectionProvider } from "./NodeSelectionState";
 import { SettingsPanel } from "./SettingsPanel/SettingsPanel";
 
 function EditorContainerWithData({
@@ -19,45 +21,51 @@ function EditorContainerWithData({
 }: {
   initialState: ShinyUiNode;
 }) {
-  const { tree, selectedPath, setSelectedPath } = useEventUpdatedTree(
-    initialState,
-    sendUiStateToBackend
-  );
+  const dispatch = useDispatch();
+
+  const tree = useSelector((state: RootState) => state.uiTree);
+
+  React.useEffect(() => {
+    dispatch(INIT_STATE({ initialState }));
+  }, [dispatch, initialState]);
+
+  React.useEffect(() => {
+    sendUiStateToBackend(tree);
+  }, [tree]);
 
   return (
     <CurrentDraggedNodeProvider>
-      <NodeSelectionProvider selectionState={[selectedPath, setSelectedPath]}>
-        <div className={classes.container}>
-          <div className={classes.header}>
-            <div className={classes.leftSide}>
-              <h1 className={classes.title}>Shiny Visual Editor</h1>
-              <img src={rstudioLogo} alt="RStudio Logo" />
-              <img
-                src={shinyLogo}
-                style={{ backgroundColor: "var(--rstudio-blue, pink)" }}
-                alt="Shiny Logo"
-              />
-            </div>
+      <div className={classes.container}>
+        <div className={classes.header}>
+          <div className={classes.leftSide}>
+            <h1 className={classes.title}>Shiny Visual Editor</h1>
+            <img src={rstudioLogo} alt="RStudio Logo" />
+            <img
+              src={shinyLogo}
+              style={{ backgroundColor: "var(--rstudio-blue, pink)" }}
+              alt="Shiny Logo"
+            />
           </div>
-          <div className={`${classes.elementsPanel} ${classes.titledPanel}`}>
-            <h3>Elements</h3>
-            <ElementsPalette />
-          </div>
-          <div className={`${classes.propertiesPanel} ${classes.titledPanel}`}>
-            <h3>Properties</h3>
-            <SettingsPanel tree={tree} />
-          </div>
-          <div className={classes.editorHolder}>
-            <UiNode {...tree} />
-          </div>
+          <UndoRedoButtons />
         </div>
-      </NodeSelectionProvider>
+        <div className={`${classes.elementsPanel} ${classes.titledPanel}`}>
+          <h3>Elements</h3>
+          <ElementsPalette />
+        </div>
+        <div className={`${classes.propertiesPanel} ${classes.titledPanel}`}>
+          <h3>Properties</h3>
+          <SettingsPanel tree={tree} />
+        </div>
+        <div className={classes.editorHolder}>
+          <UiNode {...tree} />
+        </div>
+      </div>
     </CurrentDraggedNodeProvider>
   );
 }
 
 export function EditorContainer() {
-  const { isLoading, error, data } = useQuery("initial-state", getInitialState);
+  const { isLoading, error, data } = useGetInitialStateQuery("test");
 
   if (isLoading) {
     return <h3>Loading initial state from server</h3>;
@@ -68,22 +76,4 @@ export function EditorContainer() {
   }
 
   return <EditorContainerWithData initialState={data} />;
-}
-
-function sendUiStateToBackend(state: ShinyUiNode) {
-  console.log("Sending state to backend", state);
-  const stateBlob = new Blob([JSON.stringify(state, null, 2)], {
-    type: "application/json",
-  });
-
-  fetch("UiDump", { method: "POST", body: stateBlob })
-    .then(function (response) {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return response.text();
-    })
-    .then(function (response) {
-      console.log("Response after sending state blob", response);
-    });
 }

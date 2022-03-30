@@ -1,78 +1,62 @@
-// import { useCallback, useRef, useState } from "react";
+import React from "react";
 
-// import { GridLayoutTemplate } from "GridTypes";
-// import StateHistory from "modules/StateHistory";
-// import { sameLayoutTemplate } from "utils/sameLayoutTemplate";
+import type { ShinyUiNode } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
+import StateHistory from "modules/StateHistory";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "state/store";
+import { initialUiTree, INIT_STATE } from "state/uiTree";
 
-// type HistoryEntry = {
-//   layout: GridLayoutTemplate;
-//   selectedItemName: string | null;
-// };
+type HistoryEntry = ShinyUiNode;
 
-// export function useUndoRedo() {
-//   // const currentLayout = useRecoilValue(fullAppState);
-//   // const [currentSelectedName, setSelectedName] = useRecoilState(
-//   //   selectedItemNameState
-//   // );
-//   // const setUpNewLayout = useSetRecoilState(fullAppState);
+export function useUndoRedo() {
+  const tree = useSelector((state: RootState) => state.uiTree);
+  const dispatch = useDispatch();
 
-//   const [canGoForward, setCanGoForward] = useState(false);
-//   const [canGoBackward, setCanGoBackward] = useState(false);
-//   const stateHistory = useRef<StateHistory<HistoryEntry>>(
-//     new StateHistory({ comparisonFn: sameHistoryEntry })
-//   );
+  const [canGoForward, setCanGoForward] = React.useState(false);
+  const [canGoBackward, setCanGoBackward] = React.useState(false);
+  const stateHistory = React.useRef<StateHistory<HistoryEntry>>(
+    new StateHistory({ comparisonFn: sameHistoryEntry })
+  );
 
-//   // useEffect(() => {
-//   //   // Ignore the initialization state
-//   //   if (isEmptyTemplate(currentLayout)) return;
+  React.useEffect(() => {
+    // Ignore the initialization state
+    if (!tree || tree === initialUiTree) return;
 
-//   //   const history = stateHistory.current;
+    const history = stateHistory.current;
 
-//   //   // Send latest layout to the history
-//   //   history.addEntry({
-//   //     layout: currentLayout,
-//   //     selectedItemName: currentSelectedName,
-//   //   });
+    // Send latest layout to the history
+    history.addEntry(tree);
 
-//   //   // Make sure back and forward buttons are properly enabled or disabled
-//   //   setCanGoBackward(history.canGoBackwards());
-//   //   setCanGoForward(history.canGoForwards());
-//   // }, [currentLayout, currentSelectedName]);
+    // Make sure back and forward buttons are properly enabled or disabled
+    setCanGoBackward(history.canGoBackwards());
+    setCanGoForward(history.canGoForwards());
+  }, [tree]);
 
-//   // const setState = useCallback(
-//   //   ({ layout, selectedItemName }: HistoryEntry) => {
-//   //     setUpNewLayout(layout);
-//   //     setSelectedName(selectedItemName);
-//   //   },
-//   //   [setSelectedName, setUpNewLayout]
-//   // );
-//   const goBackward = useCallback(() => {
-//     console.log("Navigating backwards");
-//     // setState(stateHistory.current.goBackwards());
-//   }, []);
+  const setState = React.useCallback(
+    (updatedTree: HistoryEntry) => {
+      dispatch(INIT_STATE({ initialState: updatedTree }));
+    },
+    [dispatch]
+  );
+  const goBackward = React.useCallback(() => {
+    console.log("Navigating backwards");
+    setState(stateHistory.current.goBackwards());
+  }, [setState]);
 
-//   const goForward = useCallback(() => {
-//     console.log("Navigating forwards");
-//     // setState(stateHistory.current.goForwards());
-//   }, []);
+  const goForward = React.useCallback(() => {
+    console.log("Navigating forwards");
+    setState(stateHistory.current.goForwards());
+  }, [setState]);
 
-//   return {
-//     goBackward,
-//     goForward,
-//     canGoBackward,
-//     canGoForward,
-//   };
-// }
+  return {
+    goBackward,
+    goForward,
+    canGoBackward,
+    canGoForward,
+  };
+}
 
-// function sameHistoryEntry(newEntry: HistoryEntry, oldEntry?: HistoryEntry) {
-//   if (typeof oldEntry === "undefined") return false;
-//   if (newEntry.selectedItemName !== oldEntry.selectedItemName) return false;
-
-//   return sameLayoutTemplate(newEntry.layout, oldEntry.layout);
-// }
-// function isEmptyTemplate(template?: GridLayoutTemplate) {
-//   if (typeof template === "undefined") return true;
-//   const { rows, cols, items } = template;
-//   return rows.length === 0 && cols.length === 0 && items.length === 0;
-// }
-export {};
+function sameHistoryEntry(newEntry: HistoryEntry, oldEntry?: HistoryEntry) {
+  if (typeof oldEntry === "undefined") return false;
+  return newEntry === oldEntry;
+}
