@@ -5,7 +5,7 @@
   /* This is a hard coded value that needs to be this way because css's calc
   function can't divide two same-unit numbers to get a ratio */
   --app-scale-amnt: 0.24;
-  --animation-speed: 1s;
+  --animation-speed-timing: 1s ease;
   --expand-btn-inset: 3px;
   --expand-btn-size: 1rem;
 
@@ -16,6 +16,7 @@
   display: grid;
   place-content: center;
   position: relative;
+  background-color: inherit;
 }
 
 .container.fullScreen {
@@ -29,6 +30,7 @@
   height: 100vh;
   z-index: 10;
   background-color: var(--rstudio-white-transparent);
+  transition: background-color var(--animation-speed-timing);
 
   --expand-btn-inset: 20px;
   --expand-btn-size: 2rem;
@@ -38,7 +40,7 @@
   width: 90vw;
   height: 90vh;
   transform: scale(1);
-  transition: transform var(--animation-speed) ease;
+  transition: transform var(--animation-speed-timing);
 }
 
 .container:not(.fullScreen) > .previewFrame {
