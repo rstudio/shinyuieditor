@@ -5,7 +5,7 @@
   /* This is a hard coded value that needs to be this way because css's calc
   function can't divide two same-unit numbers to get a ratio */
   --app-scale-amnt: 0.24;
-  --animation-speed-timing: 1s ease;
+  --animation-speed-timing: 0.5s ease;
   --expand-btn-inset: 3px;
   --expand-btn-size: 1rem;
 
@@ -41,6 +41,7 @@
   height: 90vh;
   transform: scale(1);
   transition: transform var(--animation-speed-timing);
+  box-shadow: var(--shadow-elevation-medium);
 }
 
 .container:not(.fullScreen) > .previewFrame {
@@ -56,6 +57,7 @@
   width: var(--app-rendered-w);
   height: var(--app-rendered-h);
   transform: scale(var(--app-scale-amnt));
+  border: 1px solid var(--outline-color);
   display: block;
 }
 

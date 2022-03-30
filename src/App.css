@@ -23,7 +23,7 @@
   --rstudio-white-hsl: var(--rstudio-white-h) var(--rstudio-white-s)
     var(--rstudio-white-l);
   --rstudio-white: hsl(var(--rstudio-white-hsl));
-  --rstudio-white-transparent: hsl(var(--rstudio-white-hsl) / 0.85);
+  --rstudio-white-transparent: hsl(var(--rstudio-white-hsl) / 0.9);
 
   --light-grey: #dddddd;
   --light-grey-transparent: #dddddd80;
@@ -49,6 +49,12 @@
     Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   --fonts-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
     sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+  --shadow-color: 0deg 0% 63%;
+  --shadow-elevation-medium: 0.3px 0.5px 0.7px hsl(var(--shadow-color) / 0.36),
+    0.8px 1.6px 2px -0.8px hsl(var(--shadow-color) / 0.36),
+    2.1px 4.1px 5.2px -1.7px hsl(var(--shadow-color) / 0.36),
+    5px 10px 12.6px -2.5px hsl(var(--shadow-color) / 0.36);
 }
 
 * {
