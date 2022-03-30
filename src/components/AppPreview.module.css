@@ -1,4 +1,10 @@
 .container {
+  --app-rendered-w: 1000px;
+  --app-aspect-ratio: 0.8;
+  --app-rendered-h: calc(var(--app-rendered-w) * var(--app-aspect-ratio));
+  /* This is a hard coded value that needs to be this way because css's calc
+  function can't divide two same-unit numbers to get a ratio */
+  --app-scale-amnt: 0.24;
   /* background-color: aqua; */
   width: 100%;
   height: 100%;
@@ -6,10 +12,24 @@
   overflow: hidden;
   display: grid;
   place-content: center;
+  position: relative;
 }
 
-.container::hover .previewFrame {
-  transform: scale(1.5);
+.container.fullScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 100vw;
+  height: 100vh;
+}
+
+.container.fullScreen > .previewFrame {
+  width: 90vw;
+  height: 90vh;
+  transform: scale(1);
 }
 
 .container > h2 {
@@ -18,8 +38,16 @@
 
 .previewFrame {
   background-color: var(--rstudio-white);
-  width: 1000px;
-  height: 800px;
-  transform: scale(0.24);
+  width: var(--app-rendered-w);
+  height: var(--app-rendered-h);
+  transform: scale(var(--app-scale-amnt));
+  transition: transform 1s ease-in;
   display: block;
+}
+
+.expandButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  /* color: red; */
 }

@@ -13,12 +13,17 @@
   --red: rgb(250, 83, 22);
   --font-color: #23262a;
   --selected-border-color: var(--rstudio-blue);
+  --outline-color: #9c9c9c;
+
+  --layout-header-h: 55px;
+  --layout-elements-panel-w: 160px;
+  --layout-properties-panel-w: 275px;
+
   --selected-border-width: 3px;
   --corner-radius: 5px;
   --card-header-height: 35px;
   --animation-speed: 0.2s;
   --animation-curve: ease-in-out;
-  --outline-color: #9c9c9c;
   --outline: 1px solid var(--outline-color);
   --fonts-heading: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
     Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
