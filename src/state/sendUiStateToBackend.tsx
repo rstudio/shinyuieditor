@@ -1,7 +1,6 @@
 import type { ShinyUiNode } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 
 export function sendUiStateToBackend(state: ShinyUiNode) {
-  console.log("Sending state to backend", state);
   const stateBlob = new Blob([JSON.stringify(state, null, 2)], {
     type: "application/json",
   });
@@ -13,7 +12,7 @@ export function sendUiStateToBackend(state: ShinyUiNode) {
       }
       return response.text();
     })
-    .then(function (response) {
-      console.log("Response after sending state blob", response);
+    .catch((e) => {
+      console.error("Error with sending state to backend", e);
     });
 }
