@@ -5,7 +5,10 @@
   /* This is a hard coded value that needs to be this way because css's calc
   function can't divide two same-unit numbers to get a ratio */
   --app-scale-amnt: 0.24;
-  /* background-color: aqua; */
+  --animation-speed: 1s;
+  --expand-btn-inset: 3px;
+  --expand-btn-size: 1rem;
+
   width: 100%;
   height: 100%;
   padding-top: 20px;
@@ -24,12 +27,22 @@
   margin: auto;
   width: 100vw;
   height: 100vh;
+  z-index: 10;
+  background-color: var(--rstudio-white-transparent);
+
+  --expand-btn-inset: 20px;
+  --expand-btn-size: 2rem;
 }
 
 .container.fullScreen > .previewFrame {
   width: 90vw;
   height: 90vh;
   transform: scale(1);
+  transition: transform var(--animation-speed) ease;
+}
+
+.container:not(.fullScreen) > .previewFrame {
+  transition: none;
 }
 
 .container > h2 {
@@ -41,13 +54,13 @@
   width: var(--app-rendered-w);
   height: var(--app-rendered-h);
   transform: scale(var(--app-scale-amnt));
-  transition: transform 1s ease-in;
   display: block;
 }
 
 .expandButton {
   position: absolute;
-  top: 0;
-  right: 0;
-  /* color: red; */
+  top: var(--expand-btn-inset);
+  right: var(--expand-btn-inset);
+  font-size: var(--expand-btn-size);
+  color: var(--rstudio-grey);
 }
