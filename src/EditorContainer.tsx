@@ -2,6 +2,7 @@ import * as React from "react";
 
 import rstudioLogo from "assets/RStudio-Logo.svg";
 import shinyLogo from "assets/Shiny-Logo.png";
+import AppPreview from "components/AppPreview";
 import { CurrentDraggedNodeProvider } from "components/Shiny-Ui-Elements/DragAndDropHelpers/useCurrentDraggedNode";
 import type { ShinyUiNode } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
 import ElementsPalette from "components/Shiny-Ui-Elements/ElementsPalette";
@@ -15,6 +16,8 @@ import { INIT_STATE } from "state/uiTree";
 import { UndoRedoButtons } from "./components/UndoRedoButtons";
 import classes from "./EditorContainer.module.css";
 import { SettingsPanel } from "./SettingsPanel/SettingsPanel";
+
+const runningAppURL = "http://127.0.0.1:6826/";
 
 function EditorContainerWithData({
   initialState,
@@ -52,12 +55,16 @@ function EditorContainerWithData({
           <h3>Elements</h3>
           <ElementsPalette />
         </div>
+        <div className={classes.editorHolder}>
+          <UiNode {...tree} />
+        </div>
         <div className={`${classes.propertiesPanel} ${classes.titledPanel}`}>
           <h3>Properties</h3>
           <SettingsPanel tree={tree} />
-        </div>
-        <div className={classes.editorHolder}>
-          <UiNode {...tree} />
+          <h3>App Preview</h3>
+          <div className={classes.appViewerHolder}>
+            <AppPreview url={runningAppURL} />
+          </div>
         </div>
       </div>
     </CurrentDraggedNodeProvider>

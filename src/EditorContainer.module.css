@@ -83,3 +83,9 @@
   border-radius: 1rem;
   padding: 0.5rem;
 }
+
+.appViewerHolder {
+  /* outline: 1px solid salmon; */
+  width: 100%;
+  height: 280px;
+}
