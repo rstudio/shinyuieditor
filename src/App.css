@@ -3,8 +3,23 @@
   --rstudio-blue: #75aadb;
   --rstudio-blue-light: hsl(209, 59%, 85%);
   --rstudio-blue-transparent: #75aadb80;
-  --rstudio-grey: #404040;
-  --rstudio-white: #ffffff;
+
+  --rstudio-grey-hue: 0;
+  --rstudio-grey-saturation: 0%;
+  --rstudio-grey-lightness: 25%;
+  --rstudio-grey-hsl: var(--rstudio-grey-hue) var(--rstudio-grey-saturation)
+    var(--rstudio-grey-lightness);
+  --rstudio-grey: hsl(var(--rstudio-grey-hsl));
+  --rstudio-grey-transparent: hsl(var(--rstudio-grey-hsl) / 0.5);
+
+  --rstudio-white-h: 0;
+  --rstudio-white-s: 0%;
+  --rstudio-white-l: 100%;
+  --rstudio-white-hsl: var(--rstudio-white-h) var(--rstudio-white-s)
+    var(--rstudio-white-l);
+  --rstudio-white: hsl(var(--rstudio-white-hsl));
+  --rstudio-white-transparent: hsl(var(--rstudio-white-hsl) / 0.85);
+
   --light-grey: #dddddd;
   --light-grey-transparent: #dddddd80;
   --background-grey: #e9edf3;
