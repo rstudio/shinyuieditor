@@ -59,19 +59,21 @@
 
 .header {
   grid-area: header;
-  padding: 0.25rem 1rem;
+  padding-inline: 16px;
+  padding-block: 5px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
 
-.title {
-  font-size: 1.75rem;
-}
 .leftSide {
   display: flex;
   align-items: center;
   height: 100%;
+}
+
+.title {
+  font-size: 1.75rem;
 }
 
 .leftSide > img {

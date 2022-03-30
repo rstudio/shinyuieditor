@@ -8,7 +8,7 @@ import { removeNodeMutating } from "components/Shiny-Ui-Elements/UiNode/TreeMani
 import type { UpdateNodeArguments } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/updateNode";
 import { updateNodeMutating } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/updateNode";
 
-const initialState: ShinyUiNode = {
+export const initialUiTree: ShinyUiNode = {
   uiName: "gridlayout::grid_page",
   uiArguments: {
     areas: [
@@ -80,7 +80,7 @@ const initialState: ShinyUiNode = {
 // return anything
 export const uiTreeSlice = createSlice({
   name: "uiTree",
-  initialState: initialState as ShinyUiNode,
+  initialState: initialUiTree as ShinyUiNode,
   reducers: {
     INIT_STATE: (tree, action: PayloadAction<{ initialState: ShinyUiNode }>) =>
       action.payload.initialState,

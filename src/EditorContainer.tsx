@@ -12,6 +12,7 @@ import { sendUiStateToBackend } from "state/sendUiStateToBackend";
 import type { RootState } from "state/store";
 import { INIT_STATE } from "state/uiTree";
 
+import { UndoRedoButtons } from "./components/UndoRedoButtons";
 import classes from "./EditorContainer.module.css";
 import { SettingsPanel } from "./SettingsPanel/SettingsPanel";
 
@@ -45,6 +46,7 @@ function EditorContainerWithData({
               alt="Shiny Logo"
             />
           </div>
+          <UndoRedoButtons />
         </div>
         <div className={`${classes.elementsPanel} ${classes.titledPanel}`}>
           <h3>Elements</h3>
@@ -72,8 +74,6 @@ export function EditorContainer() {
   if (error || !data) {
     return <h3 style={{ color: "orangered" }}>Error with server request</h3>;
   }
-
-  console.log("Data!", data);
 
   return <EditorContainerWithData initialState={data} />;
 }
