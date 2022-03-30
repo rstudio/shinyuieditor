@@ -19,6 +19,7 @@ export default function AppPreview({ url }: { url: string }) {
       <Button
         variant="icon"
         className={classes.expandButton}
+        title={isFullScreen ? "Shrink app preview" : "Expand app preview"}
         onClick={() =>
           setIsFullScreen((currentlyFullScreen) => !currentlyFullScreen)
         }
