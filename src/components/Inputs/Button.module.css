@@ -17,6 +17,11 @@
   gap: 4px;
 }
 
+.button:disabled {
+  --text-color: var(--rstudio-grey-transparent);
+  cursor: not-allowed;
+}
+
 .regular {
   --outline-color: var(--rstudio-blue);
 }
@@ -26,7 +31,8 @@
 }
 
 .icon {
-  --outline-width: 2px;
+  --outline-width: 1px;
+  --outline-color: var(--header-grey);
   display: grid;
   place-content: center;
   padding: 8px;
