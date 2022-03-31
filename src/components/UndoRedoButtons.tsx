@@ -11,10 +11,20 @@ export function UndoRedoButtons() {
 
   return (
     <div className={classes.container}>
-      <Button disabled={!canGoBackward} aria-label="undo" onClick={goBackward}>
+      <Button
+        variant="icon"
+        disabled={!canGoBackward}
+        aria-label="undo"
+        onClick={goBackward}
+      >
         <FaUndo />
       </Button>
-      <Button disabled={!canGoForward} aria-label="redo" onClick={goForward}>
+      <Button
+        variant="icon"
+        disabled={!canGoForward}
+        aria-label="redo"
+        onClick={goForward}
+      >
         <FaRedo />
       </Button>
     </div>
