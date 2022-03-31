@@ -17,8 +17,6 @@ import { UndoRedoButtons } from "./components/UndoRedoButtons";
 import classes from "./EditorContainer.module.css";
 import { SettingsPanel } from "./SettingsPanel/SettingsPanel";
 
-const runningAppURL = "http://127.0.0.1:7583/";
-
 function EditorContainerWithData({
   initialState,
 }: {
@@ -63,7 +61,7 @@ function EditorContainerWithData({
           <SettingsPanel tree={tree} />
           <h3>App Preview</h3>
           <div className={classes.appViewerHolder}>
-            <AppPreview url={runningAppURL} />
+            <AppPreview />
           </div>
         </div>
       </div>

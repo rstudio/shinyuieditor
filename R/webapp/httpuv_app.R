@@ -6,6 +6,8 @@ show_logs <- TRUE
 devtools::load_all(".")
 
 
+running_app_location <- "http://127.0.0.1:4513"
+
 # Turn on live-reload and dev mode
 shiny::devmode(TRUE)
 options(shiny.autoreload = TRUE)
@@ -18,11 +20,20 @@ writeLog <- function(msg){
 
 
 handleGet <- function(path){
-  if (path != "/app-please") stop("Only /app-please path supported for GET requests")
 
-  writeLog("=> Parsing app blob and sending to client")
+  if (path == "/app-please"){
+    writeLog("=> Parsing app blob and sending to client")
+    return(jsonResponse(get_ui_from_file(ui_loc)))
+  }
 
-  jsonResponse(get_ui_from_file(ui_loc))
+  if (path == "/shiny-app-location"){
+    writeLog("=> Sending over location of running Shiny App")
+    return(
+      jsonResponse(running_app_location)
+    )
+  }
+  stop("Only /app-please path supported for GET requests")
+
 }
 
 
@@ -91,23 +102,33 @@ startup_fn <- if(run_in_background) httpuv::startServer else httpuv::runServer
 
 s <- startup_fn(
   host = "0.0.0.0", port = port,
-  app = list(call = function(req){
-    tryCatch(
-      switch(
-        req$REQUEST_METHOD,
-        GET = handleGet(req$PATH_INFO),
-        POST = handlePost(req$PATH_INFO, body = get_post_body(req)),
-        stop("Unknown request method")
-      ),
-      error = function(e) {
-        print("Failed to handle request.")
-        print(e)
-        list(
-          status = 400L,
-          headers = list('Content-Type' = 'text/html'),
-          body = e$message
-        )
-      }
-    )
-  })
+  app = list(
+    call = function(req){
+      tryCatch(
+        switch(
+          req$REQUEST_METHOD,
+          GET = handleGet(req$PATH_INFO),
+          POST = handlePost(req$PATH_INFO, body = get_post_body(req)),
+          stop("Unknown request method")
+        ),
+        error = function(e) {
+          print("Failed to handle request.")
+          print(e)
+          list(
+            status = 400L,
+            headers = list('Content-Type' = 'text/html'),
+            body = e$message
+          )
+        }
+      )
+    }
+    # ,
+    # staticPaths = list(
+    #   "/" =
+    #     httpuv::staticPath(
+    #       here::here("/Users/nicholasstrayer/dev/Shiny-Visual-Editor/build"),
+    #       indexhtml = TRUE
+    #     )
+    # )
+  )
 )
