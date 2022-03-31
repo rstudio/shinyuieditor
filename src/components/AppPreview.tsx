@@ -1,6 +1,7 @@
 import React from "react";
 
-import { AiOutlineExpand, AiOutlineShrink } from "react-icons/ai";
+import { AiOutlineShrink } from "react-icons/ai";
+import { FaExpand } from "react-icons/fa";
 
 import classes from "./AppPreview.module.css";
 import Button from "./Inputs/Button";
@@ -24,7 +25,7 @@ export default function AppPreview({ url }: { url: string }) {
           setIsFullScreen((currentlyFullScreen) => !currentlyFullScreen)
         }
       >
-        {isFullScreen ? <AiOutlineShrink /> : <AiOutlineExpand />}
+        {isFullScreen ? <AiOutlineShrink /> : <FaExpand />}
       </Button>
       <iframe
         className={classes.previewFrame}
