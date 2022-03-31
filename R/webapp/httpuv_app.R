@@ -1,22 +1,49 @@
+
 # Basic server to communicate between react app and R
 ui_loc <- here::here("webapp/ui.R")
 port <- 8888
 run_in_background <- TRUE
 show_logs <- TRUE
+
 devtools::load_all(".")
 
-
-running_app_location <- "http://127.0.0.1:4513"
-
-# Turn on live-reload and dev mode
-shiny::devmode(TRUE)
-options(shiny.autoreload = TRUE)
 
 writeLog <- function(msg){
   if(show_logs){
     cat(msg, "\n")
   }
 }
+
+
+# Logic for starting up Shiny app in background and returning the app URL.
+# Will only start up the app once
+
+# Gets replaced with callR R6 object after first call of get_running_ap
+shiny_background_process <- NULL
+
+shiny_background_port <- 4444
+running_app_location <- paste0("http://127.0.0.1:", shiny_background_port)
+
+get_running_app_location <- function() {
+  if (is.null(shiny_background_process)) {
+    writeLog("=> No running shiny app... starting up first...")
+
+    shiny_background_process <<- callr::r_bg(function(shiny_background_port) {
+      # Turn on live-reload and dev mode
+      shiny::devmode(TRUE)
+      options(shiny.autoreload = TRUE)
+      shiny::runApp("webapp", port = shiny_background_port)
+    }, args = list(shiny_background_port))
+
+    # Give the app a tiny bit to spin up
+    Sys.sleep(1)
+  } else {
+    writeLog("=> Shiny app already running...")
+  }
+
+  running_app_location
+}
+
 
 
 handleGet <- function(path){
@@ -28,12 +55,10 @@ handleGet <- function(path){
 
   if (path == "/shiny-app-location"){
     writeLog("=> Sending over location of running Shiny App")
-    return(
-      jsonResponse(running_app_location)
-    )
+    return(jsonResponse(get_running_app_location()))
   }
-  stop("Only /app-please path supported for GET requests")
 
+  stop("Only /app-please path supported for GET requests")
 }
 
 
