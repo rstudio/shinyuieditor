@@ -1,8 +1,15 @@
 .button {
+  --background-color: var(--rstudio-white);
+  --text-color: var(--rstudio-grey);
   --outline-color: var(--light-grey);
+  --outline-width: 1px;
+
   padding: 0.5rem 1rem;
-  outline: 1px solid var(--outline-color);
-  background-color: var(--rstudio-white);
+
+  outline: var(--outline-width) solid var(--outline-color);
+  background-color: var(--background-color);
+  color: var(--text-color);
+
   border-radius: var(--corner-radius);
   align-self: center;
   display: flex;
@@ -16,4 +23,12 @@
 
 .delete {
   --outline-color: var(--red);
+}
+
+.icon {
+  --outline-width: 2px;
+  display: grid;
+  place-content: center;
+  padding: 8px;
+  aspect-ratio: 1;
 }

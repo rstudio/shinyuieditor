@@ -3,8 +3,10 @@
   width: 100%;
   background-color: var(--background-grey, #edf2f7);
   display: grid;
-  grid-template-rows: 50px 1fr;
-  grid-template-columns: 170px 1fr 275px;
+  grid-template-rows: var(--layout-header-h) 1fr;
+  grid-template-columns: var(--layout-elements-panel-w) 1fr var(
+      --layout-properties-panel-w
+    );
   grid-template-areas:
     "header   header header    "
     "elements editor properties";
@@ -82,4 +84,10 @@
   height: 100%;
   border-radius: 1rem;
   padding: 0.5rem;
+}
+
+.appViewerHolder {
+  /* outline: 1px solid salmon; */
+  width: 100%;
+  height: 280px;
 }

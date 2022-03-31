@@ -1,10 +1,30 @@
 :root {
   --bg-color: #edf2f7;
-  --rstudio-blue: #75aadb;
-  --rstudio-blue-light: hsl(209, 59%, 85%);
-  --rstudio-blue-transparent: #75aadb80;
-  --rstudio-grey: #404040;
-  --rstudio-white: #ffffff;
+
+  --rstudio-blue-h: 209;
+  --rstudio-blue-s: 59%;
+  --rstudio-blue-l: 66%;
+  --rstudio-blue-hsl: var(--rstudio-blue-h) var(--rstudio-blue-s)
+    var(--rstudio-blue-l);
+  --rstudio-blue: hsl(var(--rstudio-blue-hsl));
+  --rstudio-blue-transparent: hsl(var(--rstudio-blue-hsl) / 0.5);
+
+  --rstudio-grey-h: 0;
+  --rstudio-grey-s: 0%;
+  --rstudio-grey-l: 25%;
+  --rstudio-grey-hsl: var(--rstudio-grey-h) var(--rstudio-grey-s)
+    var(--rstudio-grey-l);
+  --rstudio-grey: hsl(var(--rstudio-grey-hsl));
+  --rstudio-grey-transparent: hsl(var(--rstudio-grey-hsl) / 0.5);
+
+  --rstudio-white-h: 0;
+  --rstudio-white-s: 0%;
+  --rstudio-white-l: 100%;
+  --rstudio-white-hsl: var(--rstudio-white-h) var(--rstudio-white-s)
+    var(--rstudio-white-l);
+  --rstudio-white: hsl(var(--rstudio-white-hsl));
+  --rstudio-white-transparent: hsl(var(--rstudio-white-hsl) / 0.9);
+
   --light-grey: #dddddd;
   --light-grey-transparent: #dddddd80;
   --background-grey: #e9edf3;
@@ -13,17 +33,28 @@
   --red: rgb(250, 83, 22);
   --font-color: #23262a;
   --selected-border-color: var(--rstudio-blue);
+  --outline-color: #9c9c9c;
+
+  --layout-header-h: 55px;
+  --layout-elements-panel-w: 160px;
+  --layout-properties-panel-w: 275px;
+
   --selected-border-width: 3px;
   --corner-radius: 5px;
   --card-header-height: 35px;
   --animation-speed: 0.2s;
   --animation-curve: ease-in-out;
-  --outline-color: #9c9c9c;
   --outline: 1px solid var(--outline-color);
   --fonts-heading: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
     Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   --fonts-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
     sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+  --shadow-color: 0deg 0% 63%;
+  --shadow-elevation-medium: 0.3px 0.5px 0.7px hsl(var(--shadow-color) / 0.36),
+    0.8px 1.6px 2px -0.8px hsl(var(--shadow-color) / 0.36),
+    2.1px 4.1px 5.2px -1.7px hsl(var(--shadow-color) / 0.36),
+    5px 10px 12.6px -2.5px hsl(var(--shadow-color) / 0.36);
 }
 
 * {
