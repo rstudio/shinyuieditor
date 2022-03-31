@@ -29,7 +29,7 @@ input {
 
 .sectionLabel .sectionLabelDash {
   flex-grow: 1;
-  background-color: var(--dark-grey);
+  background-color: var(--font-color);
   height: 1px;
   border-radius: 50%;
 }

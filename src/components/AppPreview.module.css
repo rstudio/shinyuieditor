@@ -60,6 +60,7 @@
   height: calc(100vh - var(--inset-amnt));
   transform: scale(1);
   transition: transform var(--animation-speed-timing);
+  border: none;
   box-shadow: var(--shadow-elevation-medium);
 }
 

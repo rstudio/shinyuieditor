@@ -27,17 +27,20 @@
   --rstudio-white: hsl(var(--rstudio-white-hsl));
   --rstudio-white-transparent: hsl(var(--rstudio-white-hsl) / 0.9);
 
-  --light-grey: #dddddd;
-  --light-grey-transparent: #dddddd80;
+  --grey: hsl(211 19% 70%);
+  --light-grey: hsl(211 19% 95%);
+  --dark-grey: hsl(211 19% 50%);
 
-  --background-grey: hsl(225, 14%, 95%);
-  --header-grey: #a5b3c2;
-  --dark-grey: #95a7b7;
+  --background-grey: var(--light-grey);
+  --header-grey: var(--grey);
 
   --red: rgb(250, 83, 22);
-  --font-color: #23262a;
+
+  --font-color: hsl(214 9% 15%);
+  --font-color-disabled: hsl(214 9% 15% / 0.5);
+
   --selected-border-color: var(--rstudio-blue);
-  --outline-color: #9c9c9c;
+  --outline-color: var(--grey);
 
   --layout-header-h: 55px;
   --layout-elements-panel-w: 160px;
@@ -52,10 +55,8 @@
 
   --fonts: "Raleway", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
     Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  --fonts-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
-    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 
-  --shadow-color: 0deg 0% 63%;
+  --shadow-color: 0deg 0% 13%;
   --shadow-elevation-medium: 0.3px 0.5px 0.7px hsl(var(--shadow-color) / 0.36),
     0.8px 1.6px 2px -0.8px hsl(var(--shadow-color) / 0.36),
     2.1px 4.1px 5.2px -1.7px hsl(var(--shadow-color) / 0.36),

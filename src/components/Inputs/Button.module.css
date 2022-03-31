@@ -1,6 +1,6 @@
 .button {
   --background-color: var(--rstudio-white);
-  --text-color: var(--rstudio-grey);
+  --text-color: var(--font-color);
   --outline-color: var(--light-grey);
   --outline-width: 1px;
 
@@ -18,7 +18,7 @@
 }
 
 .button:disabled {
-  --text-color: var(--rstudio-grey-transparent);
+  --text-color: var(--font-color-disabled);
   cursor: not-allowed;
 }
 
