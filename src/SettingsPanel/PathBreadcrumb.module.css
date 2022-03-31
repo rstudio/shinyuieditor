@@ -31,7 +31,7 @@
   --dot-size: 6px;
   --line-width: 2px;
   --offset: 5px;
-  --color: var(--dark-grey);
+  --color: var(--header-grey);
   content: "";
   position: absolute;
 }
