@@ -17,7 +17,7 @@ import { UndoRedoButtons } from "./components/UndoRedoButtons";
 import classes from "./EditorContainer.module.css";
 import { SettingsPanel } from "./SettingsPanel/SettingsPanel";
 
-const runningAppURL = "http://127.0.0.1:6826/";
+const runningAppURL = "http://127.0.0.1:7583/";
 
 function EditorContainerWithData({
   initialState,

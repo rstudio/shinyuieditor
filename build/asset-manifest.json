@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/static/css/main.37cb9c43.css",
-    "main.js": "/static/js/main.615335ab.js",
-    "static/js/186.0cdabd00.chunk.js": "/static/js/186.0cdabd00.chunk.js",
+    "main.css": "/static/css/main.bb2fbc41.css",
+    "main.js": "/static/js/main.53a08611.js",
+    "static/js/186.344041c6.chunk.js": "/static/js/186.344041c6.chunk.js",
     "static/media/Shiny-Logo.png": "/static/media/Shiny-Logo.2fd8063bbe2c9673b39f.png",
     "static/media/RStudio-Logo.svg": "/static/media/RStudio-Logo.04a07a8af606b5094b55c5151ba40a0c.svg",
     "index.html": "/index.html",
-    "main.37cb9c43.css.map": "/static/css/main.37cb9c43.css.map",
-    "main.615335ab.js.map": "/static/js/main.615335ab.js.map",
-    "186.0cdabd00.chunk.js.map": "/static/js/186.0cdabd00.chunk.js.map"
+    "main.bb2fbc41.css.map": "/static/css/main.bb2fbc41.css.map",
+    "main.53a08611.js.map": "/static/js/main.53a08611.js.map",
+    "186.344041c6.chunk.js.map": "/static/js/186.344041c6.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.37cb9c43.css",
-    "static/js/main.615335ab.js"
+    "static/css/main.bb2fbc41.css",
+    "static/js/main.53a08611.js"
   ]
 }
