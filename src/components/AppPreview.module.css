@@ -19,39 +19,6 @@
   background-color: inherit;
 }
 
-.container.fullScreen {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-  width: 100vw;
-  height: 100vh;
-  z-index: 10;
-  background-color: var(--rstudio-white-transparent);
-  transition: background-color var(--animation-speed-timing);
-
-  --expand-btn-inset: 20px;
-  --expand-btn-size: 2rem;
-}
-
-.container.fullScreen > .previewFrame {
-  width: 90vw;
-  height: 90vh;
-  transform: scale(1);
-  transition: transform var(--animation-speed-timing);
-  box-shadow: var(--shadow-elevation-medium);
-}
-
-.container:not(.fullScreen) > .previewFrame {
-  transition: none;
-}
-
-.container > h2 {
-  color: var(--rstudio-grey);
-}
-
 .previewFrame {
   background-color: var(--rstudio-white);
   width: var(--app-rendered-w);
@@ -66,5 +33,40 @@
   top: var(--expand-btn-inset);
   right: var(--expand-btn-inset);
   font-size: var(--expand-btn-size);
+  background-color: var(--rstudio-blue);
+  color: var(--rstudio-white);
+}
+
+.container.fullScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  background-color: hsl(var(--rstudio-grey-hsl) / 0.8);
+  transition: background-color var(--animation-speed-timing);
+
+  --expand-btn-inset: 10px;
+  --expand-btn-size: 1.5rem;
+}
+
+.container.fullScreen > .previewFrame {
+  --inset-amnt: 100px;
+  width: calc(100vw - var(--inset-amnt));
+  height: calc(100vh - var(--inset-amnt));
+  transform: scale(1);
+  transition: transform var(--animation-speed-timing);
+  box-shadow: var(--shadow-elevation-medium);
+}
+
+.container:not(.fullScreen) > .previewFrame {
+  transition: none;
+}
+
+.container > h2 {
   color: var(--rstudio-grey);
 }
