@@ -1,10 +1,26 @@
 
-# Send a list as a json blob to client
-json_response <- function(response_obj){
+format_response <- function(response_body, content_type, status = 200L){
   list(
-    status = 200L,
-    headers = list('Content-Type' = 'application/json'),
-    body = jsonlite::toJSON(response_obj, auto_unbox = TRUE)
+    status = status,
+    headers = list('Content-Type' = content_type),
+    body = response_body
+  )
+}
+
+# Send a list as a json blob to client
+json_response <- function(response_obj, ...){
+  format_response(
+    response_body = jsonlite::toJSON(response_obj, auto_unbox = TRUE),
+    content_type = 'application/json',
+    ...
+  )
+}
+
+text_response <- function(txt,...){
+  format_response(
+    response_body = txt,
+    content_type = "text/html",
+    ...
   )
 }
 

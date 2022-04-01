@@ -109,11 +109,7 @@ launch_editor <- function(ui_loc,
                 updated_ui_string <- generate_ui_code(body)
                 save_ui_to_file(updated_ui_string, ui_loc)
                 writeLog("<= Saved new ui state from client")
-                list(
-                  status = 200L,
-                  headers = list("Content-Type" = "text/html"),
-                  body = "App Dump received, thanks"
-                )
+                text_response("App Dump received, thanks")
               },
               "/ValidateArgs" = function(body) {
                 json_response(
@@ -129,10 +125,9 @@ launch_editor <- function(ui_loc,
           error = function(e) {
             print("Failed to handle request.")
             print(e)
-            list(
-              status = 400L,
-              headers = list("Content-Type" = "text/html"),
-              body = e$message
+            text_response(
+              e$message,
+              status = 400L
             )
           }
         )
