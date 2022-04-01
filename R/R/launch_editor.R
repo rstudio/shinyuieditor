@@ -29,45 +29,34 @@ launch_editor <- function(
     show_logs = TRUE,
     run_in_background = FALSE
 ) {
+
   writeLog <- function(msg) {
     if (show_logs) {
       cat(msg, "\n")
     }
   }
 
-
   # Logic for starting up Shiny app in background and returning the app URL.
   # Will only start up the app once
 
-  # Gets replaced with callR R6 object after first call of get_running_ap
+  # Gets replaced with callR R6 object after first call of get_running_app
   shiny_background_process <- NULL
 
-  running_app_location <- paste0("http://127.0.0.1:", shiny_background_port)
-
+  # Getter for app running in background that will lazily launch the app.
   get_running_app_location <- function() {
     if (is.null(shiny_background_process)) {
       writeLog("=> No running shiny app... starting up first...")
 
-      shiny_background_process <<- callr::r_bg(
-        func = function(port, host) {
-          # Turn on live-reload and dev mode
-          shiny::devmode(TRUE)
-          options(shiny.autoreload = TRUE)
-          shiny::runApp("webapp", port = port, host = host)
-        },
-        args = list(shiny_background_port, host),
-        supervise = TRUE
+      shiny_background_process <<- start_shiny_in_background(
+        app_loc = "webapp",
+        port = shiny_background_port,
+        host = host
       )
 
-      # Give the app a tiny bit to spin up
-      Sys.sleep(1)
-
-      writeLog(paste("=> ...Shiny app running in background: PID =", shiny_background_process$get_pid()))
-    } else {
-      writeLog("=> Shiny app already running...")
+      writeLog(paste("=> ...Shiny app running in background: PID =", shiny_background_process$process$get_pid()))
     }
 
-    running_app_location
+    shiny_background_process$url
   }
 
 
@@ -188,6 +177,35 @@ launch_editor <- function(
           )
       )
     )
+  )
+}
+
+
+start_shiny_in_background <- function(app_loc, host, port){
+  p <- callr::r_bg(
+    func = function(app_loc, host, port) {
+      # Turn on live-reload and dev mode
+      shiny::devmode(TRUE)
+      options(shiny.autoreload = TRUE)
+      shiny::runApp(app_loc, port = port, host = host)
+    },
+    args = list(app_loc, host, port)
+  )
+
+  # Give the app a tiny bit to spin up
+  Sys.sleep(1)
+
+  path_to_app <- if(host == "0.0.0.0") {
+    # Don't use 0.0.0.0 directly as browsers don't give it a free pass for lack
+    # of SSL like they do localhost and 127.0.0.1
+    '127.0.0.1'
+  } else {
+    host
+  }
+
+  list(
+    url =  paste0("http://", path_to_app, ":", port),
+    process = p
   )
 }
 
