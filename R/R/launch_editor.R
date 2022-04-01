@@ -7,10 +7,14 @@
 #' @param ui_loc Path to the `ui.R` file containing the ui to be edited. If file
 #'   does not exist a default starter template will be used upon finishing will
 #'   be saved to the path.
-#' @param shiny_background_port Port to launch the running app preview on. Again only used for dev work.
+#' @param shiny_background_port Port to launch the running app preview on. Again
+#'   only used for dev work.
 #' @param show_logs Print status messages to the console? For debugging.
 #' @param run_in_background Should the app run in a background process or block
-#'   the console? See `?httpuv::startServer()` vs `?httpuv::runServer()`.
+#'   the console? See `?httpuv::startServer()` vs `?httpuv::runServer()`. Note
+#'   that this potentially will result in orphaned Shiny processes because
+#'   there's no way to know when the user is done with the app preview. Use with
+#'   caution.
 #'
 #' @return An `httpuv` app server object (as returned by `httpuv::startServer`).
 #'   To terminate before finishing with the app run `s$stop()` (assuming `s` is
@@ -114,7 +118,6 @@ launch_editor <- function(
     parsed_body <- jsonlite::parse_json(body)
     switch(path,
            UiDump = {
-
              ui_tree <<- parsed_body
              updated_ui_string <- generate_ui_code(parsed_body)
              save_ui_to_file(updated_ui_string, ui_loc)
@@ -136,7 +139,26 @@ launch_editor <- function(
 
   startup_fn <- if (run_in_background) httpuv::startServer else httpuv::runServer
 
+  # Cleanup on closing of the server... This should be be ignored when we're
+  # running in the background, however, otherwise it will kill the shiny server
+  # immediately (if it's started immediately).
+  on.exit({
+    if (run_in_background) { return() }
+    if (!is.null(shiny_background_process) ) {
+      writeLog("=> Shutting down running shiny app...")
+
+      shiny_background_process$kill()
+
+      if(shiny_background_process$is_alive()){
+        warning("Encountered issue shutting down running Shiny app")
+      }
+    }
+  })
+
+  # This needs to go before we actually start the server in case we're running
+  # in blocking mode, which would prevent anything after from ever being run
   cat(paste0("Live editor running at http://localhost:", port, "/app\n"))
+
   s <- startup_fn(
     host = "0.0.0.0", port = port,
     app = list(
