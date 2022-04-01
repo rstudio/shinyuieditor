@@ -21,15 +21,12 @@
 #'   the return value of this function.)
 #' @export
 #'
-launch_editor <- function(
-    ui_loc,
-    host = "127.0.0.1",
-    port = 8888,
-    shiny_background_port = 4444,
-    show_logs = TRUE,
-    run_in_background = FALSE
-) {
-
+launch_editor <- function(ui_loc,
+                          host = "127.0.0.1",
+                          port = 8888,
+                          shiny_background_port = 4444,
+                          show_logs = TRUE,
+                          run_in_background = FALSE) {
   writeLog <- function(msg) {
     if (show_logs) {
       cat(msg, "\n")
@@ -80,27 +77,27 @@ launch_editor <- function(
 
     parsed_body <- jsonlite::parse_json(body)
     switch(path,
-           UiDump = {
-             updated_ui_string <- generate_ui_code(parsed_body)
-             save_ui_to_file(updated_ui_string, ui_loc)
-             writeLog("<= Saved new ui state from client")
+      UiDump = {
+        updated_ui_string <- generate_ui_code(parsed_body)
+        save_ui_to_file(updated_ui_string, ui_loc)
+        writeLog("<= Saved new ui state from client")
 
-             list(
-               status = 200L,
-               headers = list("Content-Type" = "text/html"),
-               body = "App Dump received, thanks"
-             )
-           },
-           ValidateArgs = {
-             jsonResponse(
-               validate_ui_fn_call(
-                 parsed_body$uiName,
-                 parsed_body$uiArguments,
-                 logFn=writeLog
-               )
-             )
-           },
-           stop("Unsupported POST path")
+        list(
+          status = 200L,
+          headers = list("Content-Type" = "text/html"),
+          body = "App Dump received, thanks"
+        )
+      },
+      ValidateArgs = {
+        jsonResponse(
+          validate_ui_fn_call(
+            parsed_body$uiName,
+            parsed_body$uiArguments,
+            logFn = writeLog
+          )
+        )
+      },
+      stop("Unsupported POST path")
     )
   }
 
@@ -110,13 +107,15 @@ launch_editor <- function(
   # running in the background, however, otherwise it will kill the shiny server
   # immediately (if it's started immediately).
   on.exit({
-    if (run_in_background) { return() }
-    if (!is.null(shiny_background_process) ) {
+    if (run_in_background) {
+      return()
+    }
+    if (!is.null(shiny_background_process)) {
       writeLog("=> Shutting down running shiny app...")
 
       shiny_background_process$kill()
 
-      if(shiny_background_process$is_alive()){
+      if (shiny_background_process$is_alive()) {
         warning("Encountered issue shutting down running Shiny app")
       }
     }
@@ -132,9 +131,9 @@ launch_editor <- function(
       call = function(req) {
         tryCatch(
           switch(req$REQUEST_METHOD,
-                 GET = handleGet(req$PATH_INFO),
-                 POST = handlePost(req$PATH_INFO, body = get_post_body(req)),
-                 stop("Unknown request method")
+            GET = handleGet(req$PATH_INFO),
+            POST = handlePost(req$PATH_INFO, body = get_post_body(req)),
+            stop("Unknown request method")
           ),
           error = function(e) {
             print("Failed to handle request.")
@@ -148,18 +147,17 @@ launch_editor <- function(
         )
       },
       staticPaths = list(
-        "/app" =
-          httpuv::staticPath(
-            PATH_TO_REACT_APP,
-            indexhtml = TRUE
-          )
+        "/app" = httpuv::staticPath(
+          PATH_TO_REACT_APP,
+          indexhtml = TRUE
+        )
       )
     )
   )
 }
 
 
-start_shiny_in_background <- function(app_loc, host, port){
+start_shiny_in_background <- function(app_loc, host, port) {
   p <- callr::r_bg(
     func = function(app_loc, host, port) {
       # Turn on live-reload and dev mode
@@ -173,16 +171,16 @@ start_shiny_in_background <- function(app_loc, host, port){
   # Give the app a tiny bit to spin up
   Sys.sleep(1)
 
-  path_to_app <- if(host == "0.0.0.0") {
+  path_to_app <- if (host == "0.0.0.0") {
     # Don't use 0.0.0.0 directly as browsers don't give it a free pass for lack
     # of SSL like they do localhost and 127.0.0.1
-    '127.0.0.1'
+    "127.0.0.1"
   } else {
     host
   }
 
   list(
-    url =  paste0("http://", path_to_app, ":", port),
+    url = paste0("http://", path_to_app, ":", port),
     process = p
   )
 }
