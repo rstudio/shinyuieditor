@@ -4,16 +4,33 @@
 \alias{launch_editor}
 \title{Launch visual editor server}
 \usage{
-launch_editor(ui_loc, port = 8888, show_logs = TRUE)
+launch_editor(
+  ui_loc,
+  host = "127.0.0.1",
+  port = 8888,
+  shiny_background_port = 4444,
+  show_logs = TRUE,
+  run_in_background = FALSE
+)
 }
 \arguments{
 \item{ui_loc}{Path to the \code{ui.R} file containing the ui to be edited. If file
 does not exist a default starter template will be used upon finishing will
 be saved to the path.}
 
-\item{port}{Port to launch server on. Should only be changed for dev work.}
+\item{host}{A string that is a valid IPv4 address that is owned by this
+server, or \code{"0.0.0.0"} to listen on all IP addresses.}
+
+\item{port}{A number or integer that indicates the server port that should be
+listened on. Note that on most Unix-like systems including Linux and Mac OS
+X, port numbers smaller than 1025 require root privileges.}
+
+\item{shiny_background_port}{Port to launch the running app preview on. Again only used for dev work.}
 
 \item{show_logs}{Print status messages to the console? For debugging.}
+
+\item{run_in_background}{Should the app run in a background process or block
+the console? See \code{?httpuv::startServer()} vs \code{?httpuv::runServer()}.}
 }
 \value{
 An \code{httpuv} app server object (as returned by \code{httpuv::startServer}).
