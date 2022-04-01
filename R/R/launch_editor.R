@@ -100,6 +100,13 @@ launch_editor <- function(ui_loc,
     app = list(
       call = build_run_handler(list(
         "GET" = list(
+          "/" = function(body) {
+            # Redirect root paths to the app path
+            list(
+              status = 308L,
+              headers = list('Location' = '/app')
+            )
+          },
           "/app-please" = function(body) {
             writeLog("=> Parsing app blob and sending to client")
             json_response(get_ui_from_file(ui_loc))
