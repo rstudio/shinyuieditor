@@ -125,6 +125,8 @@ handlePost <- function(path, body){
 
 startup_fn <- if(run_in_background) httpuv::startServer else httpuv::runServer
 
+PATH_TO_REACT_APP <- "/Users/nicholasstrayer/dev/Shiny-Visual-Editor/build"
+
 s <- startup_fn(
   host = "0.0.0.0", port = port,
   app = list(
@@ -146,14 +148,13 @@ s <- startup_fn(
           )
         }
       )
-    }
-    # ,
-    # staticPaths = list(
-    #   "/" =
-    #     httpuv::staticPath(
-    #       here::here("/Users/nicholasstrayer/dev/Shiny-Visual-Editor/build"),
-    #       indexhtml = TRUE
-    #     )
-    # )
+    },
+    staticPaths = list(
+      "/app" =
+        httpuv::staticPath(
+          PATH_TO_REACT_APP,
+          indexhtml = TRUE
+        )
+    )
   )
 )
