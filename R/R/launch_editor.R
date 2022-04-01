@@ -70,7 +70,10 @@ launch_editor <- function(ui_loc,
 
       tryCatch(
         {
-          shiny_background_process$process$kill()
+          shiny_background_process$process$interrupt()
+
+          Sys.sleep(1)
+
           if (shiny_background_process$process$is_alive()) {
             stop("Shiny app not terminated")
           }
