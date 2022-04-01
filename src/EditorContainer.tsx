@@ -20,13 +20,14 @@ import { SettingsPanel } from "./SettingsPanel/SettingsPanel";
 function EditorContainerWithData({
   initialState,
 }: {
-  initialState: ShinyUiNode;
+  initialState?: ShinyUiNode;
 }) {
   const dispatch = useDispatch();
 
   const tree = useSelector((state: RootState) => state.uiTree);
 
   React.useEffect(() => {
+    if (!initialState) return;
     dispatch(INIT_STATE({ initialState }));
   }, [dispatch, initialState]);
 
@@ -77,7 +78,10 @@ export function EditorContainer() {
   }
 
   if (error || !data) {
-    return <h3 style={{ color: "orangered" }}>Error with server request</h3>;
+    console.error(
+      "Error retreiving app template from server. Running in static mode",
+      error ?? "no error"
+    );
   }
 
   return <EditorContainerWithData initialState={data} />;
