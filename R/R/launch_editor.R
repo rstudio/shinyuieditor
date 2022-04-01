@@ -92,46 +92,34 @@ launch_editor <- function(ui_loc,
   startup_fn(
     host = host, port = port,
     app = list(
-      call = function(req) {
-        tryCatch(
-          run_handler(list(
-            "GET" = list(
-              "/app-please" = function(body) {
-                writeLog("=> Parsing app blob and sending to client")
-                json_response(get_ui_from_file(ui_loc))
-              },
-              "/shiny-app-location" = function(body) {
-                json_response(get_running_app_location())
-              }
-            ),
-            "POST" = list(
-              "/UiDump" = function(body) {
-                updated_ui_string <- generate_ui_code(body)
-                save_ui_to_file(updated_ui_string, ui_loc)
-                writeLog("<= Saved new ui state from client")
-                text_response("App Dump received, thanks")
-              },
-              "/ValidateArgs" = function(body) {
-                json_response(
-                  validate_ui_fn_call(
-                    body$uiName,
-                    body$uiArguments,
-                    log_fn = writeLog
-                  )
-                )
-              }
-            )
-          ), req),
-          error = function(e) {
-            print("Failed to handle request.")
-            print(e)
-            text_response(
-              e$message,
-              status = 400L
+      call = build_run_handler(list(
+        "GET" = list(
+          "/app-please" = function(body) {
+            writeLog("=> Parsing app blob and sending to client")
+            json_response(get_ui_from_file(ui_loc))
+          },
+          "/shiny-app-location" = function(body) {
+            json_response(get_running_app_location())
+          }
+        ),
+        "POST" = list(
+          "/UiDump" = function(body) {
+            updated_ui_string <- generate_ui_code(body)
+            save_ui_to_file(updated_ui_string, ui_loc)
+            writeLog("<= Saved new ui state from client")
+            text_response("App Dump received, thanks")
+          },
+          "/ValidateArgs" = function(body) {
+            json_response(
+              validate_ui_fn_call(
+                body$uiName,
+                body$uiArguments,
+                log_fn = writeLog
+              )
             )
           }
         )
-      },
+      )),
       staticPaths = list(
         "/app" = httpuv::staticPath(
           PATH_TO_REACT_APP,

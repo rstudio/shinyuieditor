@@ -30,14 +30,28 @@ get_post_body <- function(req){
   jsonlite::parse_json(rawToChar(req$rook.input$read()))
 }
 
-run_handler <- function(handlers, req){
-  method <- req$REQUEST_METHOD
-  path <- req$PATH_INFO
-  handlerFn <- handlers[[method]][[path]]
+# Return a function that gets the req object and then deligates running to a
+# given method/path pair in a supplied handlers list
+build_run_handler <- function(handlers){
+  function(req){
+    tryCatch({
+      method <- req$REQUEST_METHOD
+      path <- req$PATH_INFO
+      handlerFn <- handlers[[method]][[path]]
 
-  if (is.null(handlerFn)) {
-    stop(paste0("No call endpoint defined for path '", path, "'."))
+      if (is.null(handlerFn)) {
+        stop(paste0("No call endpoint defined for path '", path, "'."))
+      }
+
+      handlerFn(get_post_body(req))
+    },
+    error = function(e) {
+      print("Failed to handle request.")
+      print(e)
+      text_response(
+        e$message,
+        status = 400L
+      )
+    })
   }
-
-  handlerFn(get_post_body(req))
 }
