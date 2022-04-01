@@ -58,7 +58,7 @@ handleGet <- function(path){
     return(jsonResponse(get_running_app_location()))
   }
 
-  stop("Only /app-please path supported for GET requests")
+  stop(paste0("No call endpoint defined for path '", path ,"'."))
 }
 
 
