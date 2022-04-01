@@ -1,11 +1,21 @@
+devtools::load_all(".")
+
+
+launch_editor(
+  ui_loc = here::here("webapp/ui.R"),
+  port = 9000
+)
 
 # Basic server to communicate between react app and R
 ui_loc <- here::here("webapp/ui.R")
-port <- 8888
+httpuv_port <- 8888
+shiny_background_port <- 4444
+host <- "127.0.0.1"
 run_in_background <- TRUE
 show_logs <- TRUE
 
-devtools::load_all(".")
+PATH_TO_REACT_APP <- "/Users/nicholasstrayer/dev/Shiny-Visual-Editor/build"
+
 
 
 writeLog <- function(msg){
@@ -21,19 +31,18 @@ writeLog <- function(msg){
 # Gets replaced with callR R6 object after first call of get_running_ap
 shiny_background_process <- NULL
 
-shiny_background_port <- 4444
 running_app_location <- paste0("http://127.0.0.1:", shiny_background_port)
 
 get_running_app_location <- function() {
   if (is.null(shiny_background_process)) {
     writeLog("=> No running shiny app... starting up first...")
 
-    shiny_background_process <<- callr::r_bg(function(shiny_background_port) {
+    shiny_background_process <<- callr::r_bg(function(port, host) {
       # Turn on live-reload and dev mode
       shiny::devmode(TRUE)
       options(shiny.autoreload = TRUE)
-      shiny::runApp("webapp", port = shiny_background_port)
-    }, args = list(shiny_background_port))
+      shiny::runApp("webapp", port = port, host = host)
+    }, args = list(shiny_background_port, host))
 
     # Give the app a tiny bit to spin up
     Sys.sleep(1)
@@ -63,10 +72,7 @@ handleGet <- function(path){
 
 
 validate_ui_fn_call <- function(uiName, uiArguments){
-  # return( list(
-  #   type="error",
-  #   error_msg = 'That was not a good attempt...'
-  # ))
+
   tryCatch({
     print("Validating ui call")
     generated_html <- do_call_namespaced(what = uiName, args = uiArguments)
@@ -116,19 +122,12 @@ handlePost <- function(path, body){
     },
     stop("Unsupported POST path")
   )
-
-
-  # writeLog("Shutting down server...")
-
-
 }
 
 startup_fn <- if(run_in_background) httpuv::startServer else httpuv::runServer
 
-PATH_TO_REACT_APP <- "/Users/nicholasstrayer/dev/Shiny-Visual-Editor/build"
-
 s <- startup_fn(
-  host = "0.0.0.0", port = port,
+  host = "0.0.0.0", port = httpuv_port,
   app = list(
     call = function(req){
       tryCatch(
@@ -158,3 +157,5 @@ s <- startup_fn(
     )
   )
 )
+
+cat(paste0("Live editor running at http://localhost:",  httpuv_port, "/app\n"))

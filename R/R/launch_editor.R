@@ -3,10 +3,11 @@
 #' Spins up an `httpuv` server that handles parsing and deparsing of the UI tree
 #' and saving.
 #'
+#' @inheritParams httpuv::startServer
 #' @param ui_loc Path to the `ui.R` file containing the ui to be edited. If file
 #'   does not exist a default starter template will be used upon finishing will
 #'   be saved to the path.
-#' @param port Port to launch server on. Should only be changed for dev work.
+#' @param shiny_background_port Port to launch the running app preview on. Again only used for dev work.
 #' @param show_logs Print status messages to the console? For debugging.
 #' @param run_in_background Should the app run in a background process or block
 #'   the console? See `?httpuv::startServer()` vs `?httpuv::runServer()`.
@@ -16,88 +17,169 @@
 #'   the return value of this function.)
 #' @export
 #'
-launch_editor <- function(ui_loc, port=8888, show_logs = TRUE, run_in_background = FALSE){
-
-  writeLog <- function(msg){
-    if(show_logs){
+launch_editor <- function(
+    ui_loc,
+    host = "127.0.0.1",
+    port = 8888,
+    shiny_background_port = 4444,
+    show_logs = TRUE,
+    run_in_background = FALSE
+) {
+  writeLog <- function(msg) {
+    if (show_logs) {
       cat(msg, "\n")
     }
   }
 
-  get_app_blob <- function(){
-    jsonlite::toJSON(get_ui_from_file(ui_loc), auto_unbox = TRUE)
+
+  # Logic for starting up Shiny app in background and returning the app URL.
+  # Will only start up the app once
+
+  # Gets replaced with callR R6 object after first call of get_running_ap
+  shiny_background_process <- NULL
+
+  running_app_location <- paste0("http://127.0.0.1:", shiny_background_port)
+
+  get_running_app_location <- function() {
+    if (is.null(shiny_background_process)) {
+      writeLog("=> No running shiny app... starting up first...")
+
+      shiny_background_process <<- callr::r_bg(
+        func = function(port, host) {
+          # Turn on live-reload and dev mode
+          shiny::devmode(TRUE)
+          options(shiny.autoreload = TRUE)
+          shiny::runApp("webapp", port = port, host = host)
+        },
+        args = list(shiny_background_port, host),
+        supervise = TRUE
+      )
+
+      # Give the app a tiny bit to spin up
+      Sys.sleep(1)
+
+      writeLog(paste("=> ...Shiny app running in background: PID =", shiny_background_process$get_pid()))
+    } else {
+      writeLog("=> Shiny app already running...")
+    }
+
+    running_app_location
   }
 
-  handleGet <- function(path){
-    if (path != "/app-please") stop("Only /app-please path supported for GET requests")
 
-    writeLog("=> Parsing app blob and sending to client")
-    list(
-      status = 200L,
-      headers = list('Content-Type' = 'application/json'),
-      body = get_app_blob()
+  handleGet <- function(path) {
+    if (path == "/app-please") {
+      writeLog("=> Parsing app blob and sending to client")
+      return(jsonResponse(get_ui_from_file(ui_loc)))
+    }
+
+    if (path == "/shiny-app-location") {
+      writeLog("=> Sending over location of running Shiny App")
+      return(jsonResponse(get_running_app_location()))
+    }
+
+    stop(paste0("No call endpoint defined for path '", path, "'."))
+  }
+
+
+  validate_ui_fn_call <- function(uiName, uiArguments) {
+    tryCatch(
+      {
+        writeLog("Validating ui call")
+        generated_html <- do_call_namespaced(what = uiName, args = uiArguments)
+
+        list(
+          type = "valid",
+          uiHTML = as.character(generated_html)
+        )
+      },
+      error = function(e) {
+        writeLog("~ Function call errored")
+        lobstr::tree(list(uiName, uiArguments))
+        lobstr::tree(e)
+        list(
+          type = "error",
+          error_msg = as.character(e)
+        )
+      }
     )
   }
 
-  handlePost <- function(path, body){
-    if (path != "/UiDump") stop("Only /UiDump path supported for POST requests")
 
-    parsed_layout <- jsonlite::parse_json(body)
+  ui_tree <- list()
+  handlePost <- function(path, body) {
+    # Remove the prefixing slash so we can switch on path easier
+    path <- str_remove(path, "^\\/")
 
-    updated_ui_string <- to_gridlayout_ui(parsed_layout)
-    save_ui_to_file(updated_ui_string, ui_loc)
-    writeLog("<= Saved new ui state from client")
+    parsed_body <- jsonlite::parse_json(body)
+    switch(path,
+           UiDump = {
 
-    list(
-      status = 200L,
-      headers = list('Content-Type' = 'text/html'),
-      body = "App Dump received, thanks"
+             ui_tree <<- parsed_body
+             updated_ui_string <- generate_ui_code(parsed_body)
+             save_ui_to_file(updated_ui_string, ui_loc)
+             writeLog("<= Saved new ui state from client")
+
+             list(
+               status = 200L,
+               headers = list("Content-Type" = "text/html"),
+               body = "App Dump received, thanks"
+             )
+           },
+           ValidateArgs = {
+             writeLog("~ Calling ui function with supplied arguments")
+             jsonResponse(validate_ui_fn_call(parsed_body$uiName, parsed_body$uiArguments))
+           },
+           stop("Unsupported POST path")
     )
-
-    writeLog("Shutting down server...")
-
-    # s$stop() # or httpuv::interupt() if in blocking mode
   }
 
-  startup_fn <- if(run_in_background) httpuv::startServer else httpuv::runServer
+  startup_fn <- if (run_in_background) httpuv::startServer else httpuv::runServer
 
+  cat(paste0("Live editor running at http://localhost:", port, "/app\n"))
   s <- startup_fn(
     host = "0.0.0.0", port = port,
-    app = list(call = function(req){
-      tryCatch(
-        switch(
-          req$REQUEST_METHOD,
-          GET = handleGet(req$PATH_INFO),
-          POST = handlePost(req$PATH_INFO, body = get_post_body(req)),
-          stop("Unknown request method")
-        ),
-        error = function(e) {
-          print("Failed to handle request.")
-          print(e)
-          list(
-            status = 400L,
-            headers = list('Content-Type' = 'text/html'),
-            body = e$message
+    app = list(
+      call = function(req) {
+        tryCatch(
+          switch(req$REQUEST_METHOD,
+                 GET = handleGet(req$PATH_INFO),
+                 POST = handlePost(req$PATH_INFO, body = get_post_body(req)),
+                 stop("Unknown request method")
+          ),
+          error = function(e) {
+            print("Failed to handle request.")
+            print(e)
+            list(
+              status = 400L,
+              headers = list("Content-Type" = "text/html"),
+              body = e$message
+            )
+          }
+        )
+      },
+      staticPaths = list(
+        "/app" =
+          httpuv::staticPath(
+            PATH_TO_REACT_APP,
+            indexhtml = TRUE
           )
-        }
       )
-    })
+    )
   )
-
-
-  writeLog(paste("Server listening on port", port))
-
-  s
 }
 
+PATH_TO_REACT_APP <- "/Users/nicholasstrayer/dev/Shiny-Visual-Editor/build"
 
-get_ui_from_file <- function(file_loc){
+get_ui_from_file <- function(file_loc) {
   ui_defn_text <- paste(readLines(file_loc), collapse = "\n")
   ui_expr <- rlang::parse_exprs(ui_defn_text)[[1]]
-  ui_expr %>% parse_ui_fn() %>% update_ui_nodes()
+  ui_expr %>%
+    parse_ui_fn() %>%
+    update_ui_nodes()
 }
 
-save_ui_to_file <- function(ui_string, file_loc){
+save_ui_to_file <- function(ui_string, file_loc) {
   writeLines(
     text = ui_string,
     con = file_loc
