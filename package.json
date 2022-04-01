@@ -1,6 +1,7 @@
 {
   "name": "shiny-visual-editor",
   "version": "0.1.0",
+  "homepage": "app",
   "private": true,
   "dependencies": {
     "@popperjs/core": "^2.11.2",
