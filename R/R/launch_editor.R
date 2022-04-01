@@ -92,6 +92,9 @@ launch_editor <- function(ui_loc,
   cat(paste0("Live editor running at http://localhost:", port, "/app\n"))
 
   startup_fn <- if (run_in_background) httpuv::startServer else httpuv::runServer
+
+  # TODO: If in background mode, wrap the return with a callback that cleans
+  # stuff up for us
   startup_fn(
     host = host, port = port,
     app = list(
@@ -142,7 +145,8 @@ start_shiny_in_background <- function(app_loc, host, port) {
       options(shiny.autoreload = TRUE)
       shiny::runApp(app_loc, port = port, host = host)
     },
-    args = list(app_loc, host, port)
+    args = list(app_loc, host, port),
+    supervise = TRUE # Extra security for process being cleaned up properly
   )
 
   # Give the app a tiny bit to spin up
