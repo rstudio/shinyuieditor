@@ -74,32 +74,6 @@ launch_editor <- function(
     stop(paste0("No call endpoint defined for path '", path, "'."))
   }
 
-
-  validate_ui_fn_call <- function(uiName, uiArguments) {
-    tryCatch(
-      {
-        writeLog("Validating ui call")
-        generated_html <- do_call_namespaced(what = uiName, args = uiArguments)
-
-        list(
-          type = "valid",
-          uiHTML = as.character(generated_html)
-        )
-      },
-      error = function(e) {
-        writeLog("~ Function call errored")
-        lobstr::tree(list(uiName, uiArguments))
-        lobstr::tree(e)
-        list(
-          type = "error",
-          error_msg = as.character(e)
-        )
-      }
-    )
-  }
-
-
-  ui_tree <- list()
   handlePost <- function(path, body) {
     # Remove the prefixing slash so we can switch on path easier
     path <- str_remove(path, "^\\/")
@@ -107,7 +81,6 @@ launch_editor <- function(
     parsed_body <- jsonlite::parse_json(body)
     switch(path,
            UiDump = {
-             ui_tree <<- parsed_body
              updated_ui_string <- generate_ui_code(parsed_body)
              save_ui_to_file(updated_ui_string, ui_loc)
              writeLog("<= Saved new ui state from client")
@@ -119,8 +92,13 @@ launch_editor <- function(
              )
            },
            ValidateArgs = {
-             writeLog("~ Calling ui function with supplied arguments")
-             jsonResponse(validate_ui_fn_call(parsed_body$uiName, parsed_body$uiArguments))
+             jsonResponse(
+               validate_ui_fn_call(
+                 parsed_body$uiName,
+                 parsed_body$uiArguments,
+                 logFn=writeLog
+               )
+             )
            },
            stop("Unsupported POST path")
     )
@@ -223,5 +201,29 @@ save_ui_to_file <- function(ui_string, file_loc) {
   writeLines(
     text = ui_string,
     con = file_loc
+  )
+}
+
+
+validate_ui_fn_call <- function(uiName, uiArguments, logFn) {
+  tryCatch(
+    {
+      logFn("Validating ui call")
+      generated_html <- do_call_namespaced(what = uiName, args = uiArguments)
+
+      list(
+        type = "valid",
+        uiHTML = as.character(generated_html)
+      )
+    },
+    error = function(e) {
+      logFn("~ Function call errored")
+      lobstr::tree(list(uiName, uiArguments))
+      lobstr::tree(e)
+      list(
+        type = "error",
+        error_msg = as.character(e)
+      )
+    }
   )
 }
