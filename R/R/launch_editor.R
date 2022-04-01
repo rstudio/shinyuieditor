@@ -23,8 +23,8 @@
 #'
 launch_editor <- function(ui_loc,
                           host = "127.0.0.1",
-                          port = 8888,
-                          shiny_background_port = 4444,
+                          port = httpuv::randomPort(),
+                          shiny_background_port = httpuv::randomPort(),
                           show_logs = TRUE,
                           run_in_background = FALSE) {
   writeLog <- function(msg) {
