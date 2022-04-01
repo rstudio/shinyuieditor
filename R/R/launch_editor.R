@@ -53,55 +53,10 @@ launch_editor <- function(ui_loc,
       writeLog(paste("=> ...Shiny app running in background: PID =", shiny_background_process$process$get_pid()))
     }
 
+    writeLog("=> Sending over location of running Shiny App")
     shiny_background_process$url
   }
 
-
-  handleGet <- function(path) {
-    if (path == "/app-please") {
-      writeLog("=> Parsing app blob and sending to client")
-      return(jsonResponse(get_ui_from_file(ui_loc)))
-    }
-
-    if (path == "/shiny-app-location") {
-      writeLog("=> Sending over location of running Shiny App")
-      return(jsonResponse(get_running_app_location()))
-    }
-
-    stop(paste0("No call endpoint defined for path '", path, "'."))
-  }
-
-  handlePost <- function(path, body) {
-    # Remove the prefixing slash so we can switch on path easier
-    path <- str_remove(path, "^\\/")
-
-    parsed_body <- jsonlite::parse_json(body)
-    switch(path,
-      UiDump = {
-        updated_ui_string <- generate_ui_code(parsed_body)
-        save_ui_to_file(updated_ui_string, ui_loc)
-        writeLog("<= Saved new ui state from client")
-
-        list(
-          status = 200L,
-          headers = list("Content-Type" = "text/html"),
-          body = "App Dump received, thanks"
-        )
-      },
-      ValidateArgs = {
-        jsonResponse(
-          validate_ui_fn_call(
-            parsed_body$uiName,
-            parsed_body$uiArguments,
-            logFn = writeLog
-          )
-        )
-      },
-      stop("Unsupported POST path")
-    )
-  }
-
-  startup_fn <- if (run_in_background) httpuv::startServer else httpuv::runServer
 
   # Cleanup on closing of the server... This should be be ignored when we're
   # running in the background, however, otherwise it will kill the shiny server
@@ -113,28 +68,64 @@ launch_editor <- function(ui_loc,
     if (!is.null(shiny_background_process)) {
       writeLog("=> Shutting down running shiny app...")
 
-      shiny_background_process$kill()
-
-      if (shiny_background_process$is_alive()) {
-        warning("Encountered issue shutting down running Shiny app")
-      }
+      tryCatch(
+        {
+          shiny_background_process$process$kill()
+          if (shiny_background_process$process$is_alive()) {
+            stop("Shiny app not terminated")
+          }
+        },
+        error = function(e) {
+          print("Error shutting down background Shiny app:")
+          print(e)
+        }
+      )
     }
   })
+
 
   # This needs to go before we actually start the server in case we're running
   # in blocking mode, which would prevent anything after from ever being run
   cat(paste0("Live editor running at http://localhost:", port, "/app\n"))
 
-  s <- startup_fn(
+  startup_fn <- if (run_in_background) httpuv::startServer else httpuv::runServer
+  startup_fn(
     host = "0.0.0.0", port = port,
     app = list(
       call = function(req) {
         tryCatch(
-          switch(req$REQUEST_METHOD,
-            GET = handleGet(req$PATH_INFO),
-            POST = handlePost(req$PATH_INFO, body = get_post_body(req)),
-            stop("Unknown request method")
-          ),
+          run_handler(list(
+            "GET" = list(
+              "/app-please" = function(body) {
+                writeLog("=> Parsing app blob and sending to client")
+                jsonResponse(get_ui_from_file(ui_loc))
+              },
+              "/shiny-app-location" = function(body) {
+                jsonResponse(get_running_app_location())
+              }
+            ),
+            "POST" = list(
+              "/UiDump" = function(body) {
+                updated_ui_string <- generate_ui_code(body)
+                save_ui_to_file(updated_ui_string, ui_loc)
+                writeLog("<= Saved new ui state from client")
+                list(
+                  status = 200L,
+                  headers = list("Content-Type" = "text/html"),
+                  body = "App Dump received, thanks"
+                )
+              },
+              "/ValidateArgs" = function(body) {
+                jsonResponse(
+                  validate_ui_fn_call(
+                    body$uiName,
+                    body$uiArguments,
+                    logFn = writeLog
+                  )
+                )
+              }
+            )
+          ), req),
           error = function(e) {
             print("Failed to handle request.")
             print(e)

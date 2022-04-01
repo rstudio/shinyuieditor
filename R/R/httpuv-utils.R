@@ -11,5 +11,17 @@ jsonResponse <- function(response_obj){
 
 # Get message body from a POST request
 get_post_body <- function(req){
-  rawToChar(req$rook.input$read())
+  jsonlite::parse_json(rawToChar(req$rook.input$read()))
+}
+
+run_handler <- function(handlers, req){
+  method <- req$REQUEST_METHOD
+  path <- req$PATH_INFO
+  handlerFn <- handlers[[method]][[path]]
+
+  if (is.null(handlerFn)) {
+    stop(paste0("No call endpoint defined for path '", path, "'."))
+  }
+
+  handlerFn(get_post_body(req))
 }
