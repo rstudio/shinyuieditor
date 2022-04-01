@@ -90,7 +90,7 @@ launch_editor <- function(ui_loc,
 
   startup_fn <- if (run_in_background) httpuv::startServer else httpuv::runServer
   startup_fn(
-    host = "0.0.0.0", port = port,
+    host = host, port = port,
     app = list(
       call = function(req) {
         tryCatch(
