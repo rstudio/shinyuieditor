@@ -104,7 +104,7 @@ launch_editor <- function(ui_loc,
             # Redirect root paths to the app path
             list(
               status = 308L,
-              headers = list('Location' = '/app')
+              headers = list("Location" = "/app")
             )
           },
           "/app-please" = function(body) {
@@ -142,7 +142,6 @@ launch_editor <- function(ui_loc,
     )
   )
 }
-
 
 start_shiny_in_background <- function(app_loc, host, port) {
   p <- callr::r_bg(
