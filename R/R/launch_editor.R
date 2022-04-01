@@ -98,10 +98,10 @@ launch_editor <- function(ui_loc,
             "GET" = list(
               "/app-please" = function(body) {
                 writeLog("=> Parsing app blob and sending to client")
-                jsonResponse(get_ui_from_file(ui_loc))
+                json_response(get_ui_from_file(ui_loc))
               },
               "/shiny-app-location" = function(body) {
-                jsonResponse(get_running_app_location())
+                json_response(get_running_app_location())
               }
             ),
             "POST" = list(
@@ -116,11 +116,11 @@ launch_editor <- function(ui_loc,
                 )
               },
               "/ValidateArgs" = function(body) {
-                jsonResponse(
+                json_response(
                   validate_ui_fn_call(
                     body$uiName,
                     body$uiArguments,
-                    logFn = writeLog
+                    log_fn = writeLog
                   )
                 )
               }
@@ -194,10 +194,10 @@ save_ui_to_file <- function(ui_string, file_loc) {
 }
 
 
-validate_ui_fn_call <- function(uiName, uiArguments, logFn) {
+validate_ui_fn_call <- function(uiName, uiArguments, log_fn) {
   tryCatch(
     {
-      logFn("Validating ui call")
+      log_fn("Validating ui call")
       generated_html <- do_call_namespaced(what = uiName, args = uiArguments)
 
       list(
@@ -206,7 +206,7 @@ validate_ui_fn_call <- function(uiName, uiArguments, logFn) {
       )
     },
     error = function(e) {
-      logFn("~ Function call errored")
+      log_fn("~ Function call errored")
       lobstr::tree(list(uiName, uiArguments))
       lobstr::tree(e)
       list(

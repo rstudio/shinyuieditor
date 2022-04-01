@@ -1,6 +1,6 @@
 
 # Send a list as a json blob to client
-jsonResponse <- function(response_obj){
+json_response <- function(response_obj){
   list(
     status = 200L,
     headers = list('Content-Type' = 'application/json'),
