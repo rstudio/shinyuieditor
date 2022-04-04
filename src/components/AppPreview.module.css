@@ -26,6 +26,8 @@
   transform: scale(var(--app-scale-amnt));
   border: 1px solid var(--outline-color);
   display: block;
+  /* Ever-so-slightly soften corners */
+  border-radius: 2px;
 }
 
 .expandButton {
@@ -47,8 +49,13 @@
   width: 100vw;
   height: 100vh;
   z-index: 10;
-  background-color: hsl(var(--rstudio-grey-hsl) / 0.8);
-  transition: background-color var(--animation-speed-timing);
+  background-color: hsl(var(--rstudio-grey-hsl) / 0.15);
+  backdrop-filter: blur(6px);
+
+  transition: all var(--animation-speed-timing);
+  /* This overwrites the "all" above and only makes transitions occur on
+  specified properties */
+  transition-property: backdrop-filter background-color;
 
   --expand-btn-inset: 10px;
   --expand-btn-size: 1.5rem;
