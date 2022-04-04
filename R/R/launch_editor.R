@@ -95,6 +95,19 @@ launch_editor <- function(app_loc,
     }
   }
 
+
+  check_if_app_exists <- function(){
+    has_existing_app <- fs::dir_exists(app_loc)
+
+    if (!has_existing_app){
+
+      writeLog("== No app found. Using starter template...")
+      template_loc <- system.file("app-templates/geyser", package="ShinyUiEditor")
+
+      fs::dir_copy(template_loc, app_loc)
+    }
+  }
+
   on.exit({ cleanup_on_end() })
 
 
@@ -119,6 +132,8 @@ launch_editor <- function(app_loc,
             )
           },
           "/app-please" = function(body) {
+            check_if_app_exists()
+
             writeLog("=> Parsing app blob and sending to client")
             json_response(get_ui_from_file(app_loc))
           },
