@@ -1,15 +1,13 @@
-Package: R
-Title: What the Package Does (One Line, Title Case)
+Package: ShinyUiEditor
+Title: Build and Modify your Shiny UI, visually.
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Nick",
+           family = "Strayer",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+           email = "nick.strayer@rstudio.com")
+Description: Packages an app to build Shiny app ui's with a simple drag-and-drop style interface.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
