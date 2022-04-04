@@ -34,12 +34,21 @@ launch_editor <- function(app_loc,
                           shiny_background_port = httpuv::randomPort(),
                           show_logs = TRUE,
                           run_in_background = FALSE) {
-
   writeLog <- function(msg) {
-    if (show_logs) {
-      cat(msg, "\n")
-    }
+    if (show_logs) { cat(msg, "\n") }
   }
+
+  # Check and make sure that the app location provided actually has an app
+  has_existing_app <- fs::dir_exists(app_loc)
+
+  if (!has_existing_app){
+    writeLog("No app found. Using starter template...")
+    template_loc <- system.file("app-templates/geyser", package="ShinyUiEditor")
+
+    fs::dir_copy(template_loc, app_loc)
+  }
+
+
 
   # Logic for starting up Shiny app in background and returning the app URL.
   # Will only start up the app once
@@ -80,12 +89,6 @@ launch_editor <- function(app_loc,
       tryCatch(
         {
           shiny_background_process$process$interrupt()
-
-          Sys.sleep(1)
-
-          if (shiny_background_process$process$is_alive()) {
-            stop("Shiny app not terminated")
-          }
         },
         error = function(e) {
           print("Error shutting down background Shiny app:")
@@ -95,21 +98,7 @@ launch_editor <- function(app_loc,
     }
   }
 
-
-  check_if_app_exists <- function(){
-    has_existing_app <- fs::dir_exists(app_loc)
-
-    if (!has_existing_app){
-
-      writeLog("== No app found. Using starter template...")
-      template_loc <- system.file("app-templates/geyser", package="ShinyUiEditor")
-
-      fs::dir_copy(template_loc, app_loc)
-    }
-  }
-
   on.exit({ cleanup_on_end() })
-
 
   # This needs to go before we actually start the server in case we're running
   # in blocking mode, which would prevent anything after from ever being run
@@ -132,8 +121,6 @@ launch_editor <- function(app_loc,
             )
           },
           "/app-please" = function(body) {
-            check_if_app_exists()
-
             writeLog("=> Parsing app blob and sending to client")
             json_response(get_ui_from_file(app_loc))
           },
