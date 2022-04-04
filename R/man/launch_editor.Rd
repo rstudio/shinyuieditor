@@ -7,8 +7,8 @@
 launch_editor(
   ui_loc,
   host = "127.0.0.1",
-  port = 8888,
-  shiny_background_port = 4444,
+  port = httpuv::randomPort(),
+  shiny_background_port = httpuv::randomPort(),
   show_logs = TRUE,
   run_in_background = FALSE
 )
@@ -25,19 +25,31 @@ server, or \code{"0.0.0.0"} to listen on all IP addresses.}
 listened on. Note that on most Unix-like systems including Linux and Mac OS
 X, port numbers smaller than 1025 require root privileges.}
 
-\item{shiny_background_port}{Port to launch the running app preview on. Again only used for dev work.}
+\item{shiny_background_port}{Port to launch the running app preview on. Again
+only used for dev work.}
 
 \item{show_logs}{Print status messages to the console? For debugging.}
 
 \item{run_in_background}{Should the app run in a background process or block
-the console? See \code{?httpuv::startServer()} vs \code{?httpuv::runServer()}.}
+the console? See \code{?httpuv::startServer()} vs \code{?httpuv::runServer()}. Note
+that this potentially will result in orphaned Shiny processes because
+there's no way to know when the user is done with the app preview. Use with
+caution.}
 }
 \value{
-An \code{httpuv} app server object (as returned by \code{httpuv::startServer}).
-To terminate before finishing with the app run \code{s$stop()} (assuming \code{s} is
-the return value of this function.)
+A list containing the \verb{$server}: The app server object (as returned
+by \code{httpuv::startServer}) and the function \verb{$stop()} for safely terminating
+the server and preview shiny app.
 }
 \description{
 Spins up an \code{httpuv} server that handles parsing and deparsing of the UI tree
 and saving.
+}
+\details{
+\subsection{Stopping server When running with \code{run_in_background = TRUE}, it's}{
+
+recomended you use the \verb{$stop()} function in the returned list object instead
+of the build in \verb{$stop()} function on the returned \verb{$server} object as this
+will ensure the running Shiny app preview will also shutdown.
+}
 }
