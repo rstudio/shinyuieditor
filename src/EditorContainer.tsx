@@ -60,10 +60,7 @@ function EditorContainerWithData({
         <div className={`${classes.propertiesPanel} ${classes.titledPanel}`}>
           <h3>Properties</h3>
           <SettingsPanel tree={tree} />
-          <h3>App Preview</h3>
-          <div className={classes.appViewerHolder}>
-            <AppPreview />
-          </div>
+          <AppPreview />
         </div>
       </div>
     </CurrentDraggedNodeProvider>

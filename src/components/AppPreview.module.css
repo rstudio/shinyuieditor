@@ -1,3 +1,9 @@
+.appViewerHolder {
+  /* outline: 1px solid salmon; */
+  width: 100%;
+  height: 280px;
+}
+
 .container {
   --app-rendered-w: 1000px;
   --app-aspect-ratio: 0.8;
