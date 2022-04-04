@@ -27,12 +27,13 @@
 #'   the server and preview shiny app.
 #' @export
 #'
-launch_editor <- function(ui_loc,
+launch_editor <- function(app_loc,
                           host = "127.0.0.1",
                           port = httpuv::randomPort(),
                           shiny_background_port = httpuv::randomPort(),
                           show_logs = TRUE,
                           run_in_background = FALSE) {
+
   writeLog <- function(msg) {
     if (show_logs) {
       cat(msg, "\n")
@@ -52,7 +53,7 @@ launch_editor <- function(ui_loc,
       writeLog("=> No running shiny app... starting up first...")
 
       shiny_background_process <<- start_shiny_in_background(
-        app_loc = "webapp",
+        app_loc = app_loc,
         port = shiny_background_port,
         host = host
       )
@@ -118,7 +119,7 @@ launch_editor <- function(ui_loc,
           },
           "/app-please" = function(body) {
             writeLog("=> Parsing app blob and sending to client")
-            json_response(get_ui_from_file(ui_loc))
+            json_response(get_ui_from_file(app_loc))
           },
           "/shiny-app-location" = function(body) {
             json_response(get_running_app_location())
@@ -127,7 +128,7 @@ launch_editor <- function(ui_loc,
         "POST" = list(
           "/UiDump" = function(body) {
             updated_ui_string <- generate_ui_code(body)
-            save_ui_to_file(updated_ui_string, ui_loc)
+            save_ui_to_file(updated_ui_string, app_loc)
             writeLog("<= Saved new ui state from client")
             text_response("App Dump received, thanks")
           },
@@ -193,18 +194,31 @@ start_shiny_in_background <- function(app_loc, host, port) {
 
 PATH_TO_REACT_APP <- "/Users/nicholasstrayer/dev/Shiny-Visual-Editor/build"
 
-get_ui_from_file <- function(file_loc) {
-  ui_defn_text <- paste(readLines(file_loc), collapse = "\n")
+
+get_app_ui_file <- function(app_loc){
+  plain_ui_file <- fs::path(app_loc, "ui.R")
+
+  if (!fs::file_exists(plain_ui_file)) {
+    stop("Only two-file apps are supported at this point.",
+         " Make sure that you're pointing to a folder with",
+         " a ui.R and a server.R file defining your Shiny app.")
+  }
+
+  plain_ui_file
+}
+
+get_ui_from_file <- function(app_loc) {
+  ui_defn_text <- paste(readLines(get_app_ui_file(app_loc)), collapse = "\n")
   ui_expr <- rlang::parse_exprs(ui_defn_text)[[1]]
   ui_expr %>%
     parse_ui_fn() %>%
     update_ui_nodes()
 }
 
-save_ui_to_file <- function(ui_string, file_loc) {
+save_ui_to_file <- function(ui_string, app_loc) {
   writeLines(
     text = ui_string,
-    con = file_loc
+    con = get_app_ui_file(app_loc)
   )
 }
 
