@@ -10,9 +10,10 @@
 #' will ensure the running Shiny app preview will also shutdown.
 #'
 #' @inheritParams httpuv::startServer
-#' @param ui_loc Path to the `ui.R` file containing the ui to be edited. If file
-#'   does not exist a default starter template will be used upon finishing will
-#'   be saved to the path.
+#' @param app_loc Path to directory containing Shiny app to be visually edited.
+#'   Currently this only supports two-file app formats, and thus there needs to
+#'   be a `ui.R` file in this directory. If file does not exist a default
+#'   starter template will be used upon finishing will be saved to the path.
 #' @param shiny_background_port Port to launch the running app preview on. Again
 #'   only used for dev work.
 #' @param show_logs Print status messages to the console? For debugging.

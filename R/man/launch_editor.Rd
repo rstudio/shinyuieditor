@@ -5,7 +5,7 @@
 \title{Launch visual editor server}
 \usage{
 launch_editor(
-  ui_loc,
+  app_loc,
   host = "127.0.0.1",
   port = httpuv::randomPort(),
   shiny_background_port = httpuv::randomPort(),
@@ -14,9 +14,10 @@ launch_editor(
 )
 }
 \arguments{
-\item{ui_loc}{Path to the \code{ui.R} file containing the ui to be edited. If file
-does not exist a default starter template will be used upon finishing will
-be saved to the path.}
+\item{app_loc}{Path to directory containing Shiny app to be visually edited.
+Currently this only supports two-file app formats, and thus there needs to
+be a \code{ui.R} file in this directory. If file does not exist a default
+starter template will be used upon finishing will be saved to the path.}
 
 \item{host}{A string that is a valid IPv4 address that is owned by this
 server, or \code{"0.0.0.0"} to listen on all IP addresses.}
