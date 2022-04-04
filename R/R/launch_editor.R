@@ -35,20 +35,20 @@ launch_editor <- function(app_loc,
                           show_logs = TRUE,
                           run_in_background = FALSE) {
   writeLog <- function(msg) {
-    if (show_logs) { cat(msg, "\n") }
+    if (show_logs) {
+      cat(msg, "\n")
+    }
   }
 
   # Check and make sure that the app location provided actually has an app
   has_existing_app <- fs::dir_exists(app_loc)
 
-  if (!has_existing_app){
+  if (!has_existing_app) {
     writeLog("No app found. Using starter template...")
-    template_loc <- system.file("app-templates/geyser", package="ShinyUiEditor")
+    template_loc <- system.file("app-templates/geyser", package = "ShinyUiEditor")
 
     fs::dir_copy(template_loc, app_loc)
   }
-
-
 
   # Logic for starting up Shiny app in background and returning the app URL.
   # Will only start up the app once
@@ -79,7 +79,7 @@ launch_editor <- function(app_loc,
   # Cleanup on closing of the server... This should be be ignored when we're
   # running in the background, however, otherwise it will kill the shiny server
   # immediately (if it's started immediately).
-  cleanup_on_end <- function(){
+  cleanup_on_end <- function() {
     if (run_in_background) {
       return()
     }
@@ -98,7 +98,9 @@ launch_editor <- function(app_loc,
     }
   }
 
-  on.exit({ cleanup_on_end() })
+  on.exit({
+    cleanup_on_end()
+  })
 
   # This needs to go before we actually start the server in case we're running
   # in blocking mode, which would prevent anything after from ever being run
@@ -159,7 +161,7 @@ launch_editor <- function(app_loc,
   # the startup call above
   list(
     server = s,
-    stop = function(){
+    stop = function() {
       s$stop()
       cleanup_on_end()
     }
@@ -198,13 +200,15 @@ start_shiny_in_background <- function(app_loc, host, port) {
 PATH_TO_REACT_APP <- "/Users/nicholasstrayer/dev/Shiny-Visual-Editor/build"
 
 
-get_app_ui_file <- function(app_loc){
+get_app_ui_file <- function(app_loc) {
   plain_ui_file <- fs::path(app_loc, "ui.R")
 
   if (!fs::file_exists(plain_ui_file)) {
-    stop("Only two-file apps are supported at this point.",
-         " Make sure that you're pointing to a folder with",
-         " a ui.R and a server.R file defining your Shiny app.")
+    stop(
+      "Only two-file apps are supported at this point.",
+      " Make sure that you're pointing to a folder with",
+      " a ui.R and a server.R file defining your Shiny app."
+    )
   }
 
   plain_ui_file
