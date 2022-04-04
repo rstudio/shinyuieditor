@@ -9,6 +9,7 @@ launch_editor(
   host = "127.0.0.1",
   port = httpuv::randomPort(),
   shiny_background_port = httpuv::randomPort(),
+  app_preview = TRUE,
   show_logs = TRUE,
   run_in_background = FALSE
 )
@@ -28,6 +29,10 @@ X, port numbers smaller than 1025 require root privileges.}
 
 \item{shiny_background_port}{Port to launch the running app preview on. Again
 only used for dev work.}
+
+\item{app_preview}{Should a live version of the Shiny app being edited run
+and auto-show updates made? You may want to disable this if the app has
+long-running or processor intensive initialization steps.}
 
 \item{show_logs}{Print status messages to the console? For debugging.}
 

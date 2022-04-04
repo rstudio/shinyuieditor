@@ -11,7 +11,7 @@ export default function AppPreview() {
   const [isFullScreen, setIsFullScreen] = React.useState(false);
   const { isLoading, error, data: appURL } = useGetRunningAppLocQuery("");
 
-  if (error) {
+  if (error || appURL === "no-preview") {
     console.error("Problem in retreiving running app location", error);
     return null;
   }

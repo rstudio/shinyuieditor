@@ -16,6 +16,9 @@
 #'   starter template will be used upon finishing will be saved to the path.
 #' @param shiny_background_port Port to launch the running app preview on. Again
 #'   only used for dev work.
+#' @param app_preview Should a live version of the Shiny app being edited run
+#'   and auto-show updates made? You may want to disable this if the app has
+#'   long-running or processor intensive initialization steps.
 #' @param show_logs Print status messages to the console? For debugging.
 #' @param run_in_background Should the app run in a background process or block
 #'   the console? See `?httpuv::startServer()` vs `?httpuv::runServer()`. Note
@@ -32,6 +35,7 @@ launch_editor <- function(app_loc,
                           host = "127.0.0.1",
                           port = httpuv::randomPort(),
                           shiny_background_port = httpuv::randomPort(),
+                          app_preview = TRUE,
                           show_logs = TRUE,
                           run_in_background = FALSE) {
   writeLog <- function(msg) {
@@ -59,6 +63,10 @@ launch_editor <- function(app_loc,
 
   # Getter for app running in background that will lazily launch the app.
   get_running_app_location <- function() {
+    if (identical(app_preview, FALSE)) {
+      return("no-preview")
+    }
+
     if (is.null(shiny_background_process)) {
       writeLog("=> No running shiny app... starting up first...")
 
