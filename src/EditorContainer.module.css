@@ -12,6 +12,11 @@
     "elements editor properties";
 }
 
+.container * {
+  /* Soften edges just the tiniest bit to make stuff less jarring */
+  border-radius: 1px;
+}
+
 .container > * {
   outline: 1px solid var(--header-grey);
   min-width: 0;
