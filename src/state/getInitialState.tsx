@@ -9,7 +9,10 @@ export const backendApi = createApi({
     getInitialState: builder.query<ShinyUiNode, string>({
       query: (name) => `app-please`,
     }),
+    getRunningAppLoc: builder.query<string, string>({
+      query: (id) => `shiny-app-location`,
+    }),
   }),
 });
 
-export const { useGetInitialStateQuery } = backendApi;
+export const { useGetInitialStateQuery, useGetRunningAppLocQuery } = backendApi;

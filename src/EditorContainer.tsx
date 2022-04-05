@@ -17,18 +17,17 @@ import { UndoRedoButtons } from "./components/UndoRedoButtons";
 import classes from "./EditorContainer.module.css";
 import { SettingsPanel } from "./SettingsPanel/SettingsPanel";
 
-const runningAppURL = "http://127.0.0.1:7583/";
-
 function EditorContainerWithData({
   initialState,
 }: {
-  initialState: ShinyUiNode;
+  initialState?: ShinyUiNode;
 }) {
   const dispatch = useDispatch();
 
   const tree = useSelector((state: RootState) => state.uiTree);
 
   React.useEffect(() => {
+    if (!initialState) return;
     dispatch(INIT_STATE({ initialState }));
   }, [dispatch, initialState]);
 
@@ -61,10 +60,7 @@ function EditorContainerWithData({
         <div className={`${classes.propertiesPanel} ${classes.titledPanel}`}>
           <h3>Properties</h3>
           <SettingsPanel tree={tree} />
-          <h3>App Preview</h3>
-          <div className={classes.appViewerHolder}>
-            <AppPreview url={runningAppURL} />
-          </div>
+          <AppPreview />
         </div>
       </div>
     </CurrentDraggedNodeProvider>
@@ -79,7 +75,10 @@ export function EditorContainer() {
   }
 
   if (error || !data) {
-    return <h3 style={{ color: "orangered" }}>Error with server request</h3>;
+    console.error(
+      "Error retreiving app template from server. Running in static mode",
+      error ?? "no error"
+    );
   }
 
   return <EditorContainerWithData initialState={data} />;
