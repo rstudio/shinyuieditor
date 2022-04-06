@@ -3,11 +3,11 @@ import * as React from "react";
 import type { ParsedCSSMeasure } from "utils/css-helpers";
 import { deparseCSSMeasure, parseCSSMeasure } from "utils/css-helpers";
 
-import type { CSSMeasure } from "../../GridTypes";
+import type { CSSMeasure } from "../../../GridTypes";
+import inputClasses from "../Inputs.module.css";
+import NumericInput from "../NumericInput";
 
 import classes from "./CSSUnitInput.module.css";
-import inputClasses from "./Inputs.module.css";
-import NumericInput from "./NumericInput";
 
 type CSSUnits = "fr" | "px" | "rem" | "auto";
 
@@ -58,14 +58,12 @@ type CSSUnitInputProps = {
   value: CSSMeasure;
   units?: CSSUnits[];
   onChange: (value: CSSMeasure) => void;
-  name?: string;
 };
 
 export function CSSUnitInput({
   value: initialValue,
   onChange,
   units = ["fr", "px", "rem", "auto"],
-  name,
 }: CSSUnitInputProps) {
   const { cssValue, updateCount, updateUnit } = useCSSUnitState(initialValue);
 
@@ -75,7 +73,7 @@ export function CSSUnitInput({
   return (
     <div
       className={classes.wrapper}
-      aria-label={name ?? "Css Unit Input"}
+      aria-label={"Css Unit Input"}
       onBlur={(e) => {
         const blurOutsideComponent = !e.currentTarget.contains(e.relatedTarget);
         // Only trigger submit if the user has focused outside of the input.
@@ -122,13 +120,22 @@ const defaultCounts = {
 };
 
 export function LabeledCSSUnitInput({
+  name,
   label,
+  onChange,
   ...props
-}: CSSUnitInputProps & { label: string }) {
+}: {
+  name: string;
+  label?: string;
+  onChange: (x: { name: string; value: CSSMeasure }) => void;
+} & Omit<CSSUnitInputProps, "onChange">) {
   return (
     <div className={inputClasses.container}>
-      <label className={inputClasses.label}>{label}:</label>
-      <CSSUnitInput {...props} />
+      <label className={inputClasses.label}>{name ?? label}:</label>
+      <CSSUnitInput
+        {...props}
+        onChange={(value) => onChange({ name, value })}
+      />
     </div>
   );
 }

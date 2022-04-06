@@ -2,7 +2,7 @@ import React from "react";
 
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { CSSUnitInput } from "./CSSUnitInput";
+import { CSSUnitInput } from ".";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {

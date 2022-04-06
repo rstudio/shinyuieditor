@@ -13,10 +13,11 @@ export const GridlayoutGridPageSettings: SettingsUpdaterComponent<
     <>
       <div className={classes.formSection}>Settings for grid page:</div>
       <LabeledCSSUnitInput
-        value={settings.gapSize}
+        name="gapSize"
         label="Gap Size"
+        value={settings.gapSize}
         units={["px", "rem"]}
-        onChange={(gapSize) => onChange({ name: "gapSize", value: gapSize })}
+        onChange={onChange}
       />
     </>
   );

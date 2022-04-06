@@ -22,9 +22,10 @@ export const ShinyPlotOutputSettings: SettingsUpdaterComponent<
         onChange={onChange}
       />
       <LabeledCSSUnitInput
+        name="width"
         label="Width"
         value={width as CSSMeasure}
-        onChange={(width) => onChange({ name: "width", value: width })}
+        onChange={onChange}
       />
     </>
   );

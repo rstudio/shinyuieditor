@@ -38,10 +38,11 @@ export const GridlayoutVerticalStackPanelSettings: SettingsUpdaterComponent<
         optionsPerColumn={2}
       />
       <LabeledCSSUnitInput
+        name="item_gap"
         value={settings.item_gap ?? "15px"}
         label="Gap Size"
         units={["px", "rem"]}
-        onChange={(item_gap) => onChange({ name: "item_gap", value: item_gap })}
+        onChange={onChange}
       />
     </>
   );
