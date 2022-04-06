@@ -1,14 +1,13 @@
 import "App.css";
 import * as React from "react";
 
-import { ReduxProvider } from "react-redux";
+import ReduxProvider from "state/ReduxProvider";
 
 import { EditorContainer } from "./EditorContainer";
-import { store } from "./state/store";
 
 export const App = () => {
   return (
-    <ReduxProvider store={store}>
+    <ReduxProvider>
       <EditorContainer />
     </ReduxProvider>
   );
