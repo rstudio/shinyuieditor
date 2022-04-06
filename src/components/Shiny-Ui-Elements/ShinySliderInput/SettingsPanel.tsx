@@ -45,19 +45,19 @@ export const ShinySliderInputSettings: SettingsUpdaterComponent<
 
       <WrappedSection name="Values">
         <NumericInput
-          label="Min"
+          name="min"
           value={settings.min}
-          onChange={(min) => validateAndUpdate({ min })}
+          onChange={updateSettings}
         />
         <NumericInput
-          label="Max"
+          name="max"
           value={settings.max}
-          onChange={(max) => validateAndUpdate({ max })}
+          onChange={updateSettings}
         />
         <NumericInput
-          label="Start"
+          name="start"
           value={settings.value}
-          onChange={(val) => validateAndUpdate({ value: val })}
+          onChange={updateSettings}
         />
       </WrappedSection>
 

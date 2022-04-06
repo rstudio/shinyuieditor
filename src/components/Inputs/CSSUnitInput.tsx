@@ -1,11 +1,7 @@
 import * as React from "react";
 
-import type {
-  ParsedCSSMeasure} from "utils/css-helpers";
-import {
-  deparseCSSMeasure,
-  parseCSSMeasure
-} from "utils/css-helpers";
+import type { ParsedCSSMeasure } from "utils/css-helpers";
+import { deparseCSSMeasure, parseCSSMeasure } from "utils/css-helpers";
 
 import type { CSSMeasure } from "../../GridTypes";
 
@@ -94,11 +90,13 @@ export function CSSUnitInput({
       }}
     >
       <NumericInput
+        name="count"
         ariaLabel="value-count"
         disabled={cssValue.unit === "auto"}
         value={cssValue.count ?? undefined}
-        onChange={updateCount}
+        onChange={({ value }) => updateCount(value)}
         min={0}
+        noLabel={true}
       />
 
       <select

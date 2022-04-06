@@ -35,10 +35,10 @@ export default function OptionalInput({
   const inputComponent =
     type === "number" ? (
       <NumericInput
-        label={name}
+        name={name}
         value={value}
         disabled={isDisabled}
-        onChange={(value) => onChange({ name, value })}
+        onChange={onChange}
       />
     ) : (
       <TextInput
