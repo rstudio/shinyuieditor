@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { LabeledCSSUnitInput } from "components/Inputs/CSSUnitInput";
-import { RadioInputs } from "components/Inputs/RadioInputs";
+import { RadioInputs } from "components/Inputs/RadioInputs/RadioInputs";
 import { TextInput } from "components/Inputs/TextInput";
 import type { SettingsUpdaterComponent } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { AiOutlineVerticalAlignMiddle } from "react-icons/ai";
@@ -29,13 +29,12 @@ export const GridlayoutVerticalStackPanelSettings: SettingsUpdaterComponent<
         onChange={onChange}
       />
       <RadioInputs
-        name="Item Alignment"
+        name="item_alignment"
+        label="Item Alignment"
         options={["top", "center", "bottom", "spread"]}
         optionIcons={alignmentIcons}
         currentSelection={settings.item_alignment ?? "top"}
-        onChange={(item_alignment) =>
-          onChange({ name: "item_alignment", value: item_alignment })
-        }
+        onChange={onChange}
         optionsPerColumn={2}
       />
       <LabeledCSSUnitInput

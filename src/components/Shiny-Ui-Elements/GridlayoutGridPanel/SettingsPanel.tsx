@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { RadioInputs } from "components/Inputs/RadioInputs";
+import { RadioInputs } from "components/Inputs/RadioInputs/RadioInputs";
 import { TextInput } from "components/Inputs/TextInput";
 import type { SettingsUpdaterComponent } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { AiOutlineVerticalAlignMiddle } from "react-icons/ai";
@@ -41,23 +41,21 @@ export const GridlayoutGridPanelSettings: SettingsUpdaterComponent<
         onChange={onChange}
       />
       <RadioInputs
-        name="Vertical Alignment"
+        name="verticalAlign"
+        label="Vertical Alignment"
         options={["top", "spread", "bottom"]}
         optionIcons={verticalAlignIcons}
         currentSelection={settings.verticalAlign ?? "spread"}
-        onChange={(verticalAlign) =>
-          onChange({ name: "verticalAlign", value: verticalAlign })
-        }
+        onChange={onChange}
         optionsPerColumn={3}
       />
       <RadioInputs
-        name="Horizontal Alignment"
+        name="horizontalAlign"
+        label="Horizontal Alignment"
         options={["left", "spread", "right"]}
         optionIcons={horizontalAlignIcons}
         currentSelection={settings.horizontalAlign ?? "spread"}
-        onChange={(horizontalAlign) =>
-          onChange({ name: "horizontalAlign", value: horizontalAlign })
-        }
+        onChange={onChange}
         optionsPerColumn={3}
       />
     </>

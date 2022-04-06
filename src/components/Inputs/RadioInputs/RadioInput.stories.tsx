@@ -19,7 +19,7 @@ const Template: ComponentStory<typeof RadioInputs> = (args) => {
     <RadioInputs
       options={options}
       currentSelection={selected}
-      onChange={setSelected}
+      onChange={({ value }) => setSelected(value)}
       {...otherArgs}
     />
   );
