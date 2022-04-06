@@ -21,16 +21,6 @@ export const sliderDefaultSettings: ShinySliderInputProps = {
   value: 5,
 };
 
-export function validateNumber(x?: string | number) {
-  if (typeof x === "number") return x;
-
-  const parsed = Number(x);
-
-  if (isNaN(parsed)) return undefined;
-
-  return parsed;
-}
-
 export const shinySliderInputInfo: UiComponentInfo<ShinySliderInputProps> = {
   title: "Slider Input",
   UiComponent: ShinySliderInput,
