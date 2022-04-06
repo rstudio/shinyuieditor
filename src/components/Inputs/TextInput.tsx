@@ -10,6 +10,7 @@ export function TextInput({
   placeholder,
   onChange,
   autoFocus = false,
+  disabled,
 }: {
   name: string;
   label?: string;
@@ -17,6 +18,7 @@ export function TextInput({
   placeholder?: string;
   onChange: (x: string) => void;
   autoFocus?: boolean;
+  disabled?: boolean;
 }) {
   const inputElement = React.useRef<HTMLInputElement>(null);
   React.useEffect(() => {
@@ -41,6 +43,7 @@ export function TextInput({
         value={value}
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
+        disabled={disabled}
       />
     </div>
   );
