@@ -1,12 +1,12 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import type { ShinyUiNode } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
-import type { PlaceNodeArguments } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/placeNode";
-import { placeNodeMutating } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/placeNode";
-import type { RemoveNodeArguments } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/removeNode";
-import { removeNodeMutating } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/removeNode";
-import type { UpdateNodeArguments } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/updateNode";
-import { updateNodeMutating } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/updateNode";
+import type { ShinyUiNode } from "components/Shiny-Ui-Elements/uiNodeTypes";
+import type { PlaceNodeArguments } from "components/Shiny-Ui-Helpers/UiNode/TreeManipulation/placeNode";
+import { placeNodeMutating } from "components/Shiny-Ui-Helpers/UiNode/TreeManipulation/placeNode";
+import type { RemoveNodeArguments } from "components/Shiny-Ui-Helpers/UiNode/TreeManipulation/removeNode";
+import { removeNodeMutating } from "components/Shiny-Ui-Helpers/UiNode/TreeManipulation/removeNode";
+import type { UpdateNodeArguments } from "components/Shiny-Ui-Helpers/UiNode/TreeManipulation/updateNode";
+import { updateNodeMutating } from "components/Shiny-Ui-Helpers/UiNode/TreeManipulation/updateNode";
 
 export const initialUiTree: ShinyUiNode = {
   uiName: "gridlayout::grid_page",

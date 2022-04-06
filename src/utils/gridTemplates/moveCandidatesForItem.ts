@@ -1,9 +1,9 @@
-import type { GridCellBounds } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/GridCell";
+import type { GridCellBounds } from "components/Shiny-Ui-Elements/GridlayoutGridPage/GridCell";
 import {
   centerOfBounds,
   gridLocationToBounds,
   gridLocationToExtent,
-} from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/helpers";
+} from "components/Shiny-Ui-Elements/GridlayoutGridPage/helpers";
 import { matrixDimensions } from "utils/matrix-helpers";
 
 import { emptyCell } from "./itemLocations";

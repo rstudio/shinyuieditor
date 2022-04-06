@@ -1,4 +1,4 @@
-import type { TractDirection } from "components/Shiny-Ui-Elements/Elements/GridlayoutGridPage/helpers";
+import type { TractDirection } from "components/Shiny-Ui-Elements/GridlayoutGridPage/helpers";
 import { joinPretty, removeAtIndex } from "utils/array-helpers";
 import { removeRowOrCol } from "utils/matrix-helpers";
 

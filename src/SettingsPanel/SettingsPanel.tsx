@@ -4,10 +4,10 @@ import Button from "components/Inputs/Button";
 import type {
   SettingsUpdaterComponent,
   ShinyUiNode,
-} from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
-import { shinyUiNodeInfo } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
-import { getUiNodeValidation } from "components/Shiny-Ui-Elements/UiNode/getUiNodeValidation";
-import { getNode } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/getNode";
+} from "components/Shiny-Ui-Elements/uiNodeTypes";
+import { shinyUiNodeInfo } from "components/Shiny-Ui-Elements/uiNodeTypes";
+import { getUiNodeValidation } from "components/Shiny-Ui-Helpers/UiNode/getUiNodeValidation";
+import { getNode } from "components/Shiny-Ui-Helpers/UiNode/TreeManipulation/getNode";
 import { useNodeSelectionState } from "NodeSelectionState";
 import { BiCheck } from "react-icons/bi";
 import { FiTrash as TrashIcon } from "react-icons/fi";
