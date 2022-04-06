@@ -3,12 +3,14 @@ import inputClasses from "./Inputs.module.css";
 const Checkbox: React.FC<{
   label?: string;
   ariaLabel?: string;
+  title?: string;
   isChecked?: boolean;
   onChange: (newVal: boolean) => void;
   disabled?: boolean;
 }> = ({
   label,
   ariaLabel,
+  title,
   isChecked,
   onChange = (isChecked) => console.log(isChecked),
   disabled,
@@ -19,6 +21,7 @@ const Checkbox: React.FC<{
       type="checkbox"
       disabled={disabled}
       checked={isChecked}
+      title={title}
       onChange={(e) => onChange(e.target.checked)}
     />
   );
