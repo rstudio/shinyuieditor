@@ -6,7 +6,7 @@ import { WrappedSection } from "components/Inputs/WrappedSection";
 
 import type { SettingsUpdaterComponent } from "../uiNodeTypes";
 
-import type { ShinySliderInputProps } from "./arguments";
+import type { ShinySliderInputProps } from ".";
 
 export const ShinySliderInputSettings: SettingsUpdaterComponent<
   ShinySliderInputProps

@@ -2,7 +2,8 @@ import * as React from "react";
 
 import type { UiNodeComponent } from "components/Shiny-Ui-Elements/uiNodeTypes";
 
-import type { ShinySliderInputProps } from "./arguments";
+import type { ShinySliderInputProps } from ".";
+
 import classes from "./styles.module.css";
 
 const ShinySliderInput: UiNodeComponent<ShinySliderInputProps> = ({
