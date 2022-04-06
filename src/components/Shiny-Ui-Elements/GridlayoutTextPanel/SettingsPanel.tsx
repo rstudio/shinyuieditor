@@ -18,28 +18,19 @@ const alignmentIcons: Record<GridlayoutTextPanelProps["h_align"], JSX.Element> =
 export const GridlayoutTextPanelSettings: SettingsUpdaterComponent<
   GridlayoutTextPanelProps
 > = ({ settings, onChange }) => {
-  const updateSettings = ({
-    name,
-    value,
-  }: {
-    name: string;
-    value?: number | string;
-  }) => {
-    onChange({ ...settings, [name]: value });
-  };
   return (
     <>
       <TextInput
         name="area"
         label="Name of grid area"
         value={settings.area ?? "empty grid area"}
-        onChange={updateSettings}
+        onChange={onChange}
       />
       <TextInput
         name="content"
         label="Panel content"
         value={settings.content}
-        onChange={updateSettings}
+        onChange={onChange}
       />
 
       <RadioInputs
@@ -47,7 +38,7 @@ export const GridlayoutTextPanelSettings: SettingsUpdaterComponent<
         options={["start", "center", "end"]}
         optionIcons={alignmentIcons}
         currentSelection={settings.h_align}
-        onChange={(h_align) => onChange({ ...settings, h_align })}
+        onChange={(h_align) => onChange({ name: "h_align", value: h_align })}
         optionsPerColumn={3}
       />
     </>

@@ -16,7 +16,7 @@ export const GridlayoutGridPageSettings: SettingsUpdaterComponent<
         value={settings.gapSize}
         label="Gap Size"
         units={["px", "rem"]}
-        onChange={(gapSize) => onChange({ ...settings, gapSize })}
+        onChange={(gapSize) => onChange({ name: "gapSize", value: gapSize })}
       />
     </>
   );

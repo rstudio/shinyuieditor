@@ -93,6 +93,23 @@ function useUpdateSettings({ tree }: { tree: ShinyUiNode }) {
     } as typeof currentNode);
   };
 
+  const updateArgumentsByName = ({
+    name,
+    value,
+  }: {
+    name: string;
+    value?: number | string;
+  }) => {
+    console.log("Updating arguments by name!", { name, value });
+    setCurrentNode(
+      (node) =>
+        ({
+          ...node,
+          uiArguments: { ...node?.uiArguments, [name]: value },
+        } as typeof currentNode)
+    );
+  };
+
   const deleteNode = React.useCallback(() => {
     if (selectedPath === null) return;
 
@@ -105,6 +122,7 @@ function useUpdateSettings({ tree }: { tree: ShinyUiNode }) {
     handleSubmit,
     deleteNode,
     updateArguments,
+    updateArgumentsByName,
     selectedPath,
     setNodeSelection,
   };
@@ -116,7 +134,8 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
     errorMsg,
     deleteNode,
     handleSubmit,
-    updateArguments,
+
+    updateArgumentsByName,
     selectedPath,
     setNodeSelection,
   } = useUpdateSettings({ tree });
@@ -151,7 +170,10 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
       </div>
       <div className={classes.settingsForm}>
         <form onSubmit={handleSubmit}>
-          <SettingsInputs settings={uiArguments} onChange={updateArguments} />
+          <SettingsInputs
+            settings={uiArguments}
+            onChange={updateArgumentsByName}
+          />
           <ErrorMessageDisplay errorMsg={errorMsg} />
           <div className={classes.submitHolder}>
             <Button type="submit">

@@ -148,7 +148,7 @@ export type UiContainerNodeComponent<NodeSettings extends object> = React.FC<{
 
 export type SettingsUpdaterComponent<T extends object> = (p: {
   settings: T;
-  onChange: (newSettings: T) => void;
+  onChange: (x: { name: string; value: string | number | undefined }) => void;
 }) => JSX.Element;
 
 /**

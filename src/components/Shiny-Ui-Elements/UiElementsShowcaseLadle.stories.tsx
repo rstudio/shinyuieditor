@@ -33,7 +33,15 @@ export const UiElementsShowcase: Story<{
 
   const SettingsInputs =
     nodeInfo.SettingsComponent as SettingsUpdaterComponent<NodeSettingsType>;
-
+  const updateSettings = ({
+    name,
+    value,
+  }: {
+    name: string;
+    value?: number | string;
+  }) => {
+    setUiSettings({ ...uiSettings, [name]: value });
+  };
   return (
     <div className={classes.container}>
       <div>
@@ -54,7 +62,7 @@ export const UiElementsShowcase: Story<{
       </div>
       <div>
         <h1>Settings Panel</h1>
-        <SettingsInputs settings={uiSettings} onChange={setUiSettings} />
+        <SettingsInputs settings={uiSettings} onChange={updateSettings} />
       </div>
     </div>
   );
