@@ -4,8 +4,8 @@ import type {
   NodePath,
   UiContainerNodeComponent,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
-import { useDropHandlers } from "components/Shiny-Ui-Helpers/DragAndDropHelpers/useDropHandlers";
 import UiNode from "components/UiNode";
+import { useDropHandlers } from "DragAndDropHelpers/useDropHandlers";
 
 import type { VerticalStackPanelSettings } from "./index";
 

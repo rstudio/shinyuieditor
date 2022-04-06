@@ -8,8 +8,8 @@ import type {
   ShinyUiNames,
   UiContainerNodeComponent,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
-import type { DraggedNodeInfo } from "components/Shiny-Ui-Helpers/DragAndDropHelpers/DragAndDropHelpers";
 import UiNode from "components/UiNode";
+import type { DraggedNodeInfo } from "DragAndDropHelpers/DragAndDropHelpers";
 import { useDispatch } from "react-redux";
 import { PLACE_NODE, UPDATE_NODE } from "state/uiTree";
 import { enumerateGridDims, toStringLoc } from "utils/grid-helpers";

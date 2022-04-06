@@ -8,7 +8,7 @@ import { shinyUiNames } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { useDispatch } from "react-redux";
 import { PLACE_NODE } from "state/uiTree";
 
-import { getIsValidMove } from "../../UiNode/TreeManipulation/placeNode";
+import { getIsValidMove } from "../components/UiNode/TreeManipulation/placeNode";
 
 import type { DraggedNodeInfo } from "./DragAndDropHelpers";
 import {
