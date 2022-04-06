@@ -20,13 +20,22 @@ const alignmentIcons: Record<AlignmentOptions, JSX.Element> = {
 export const GridlayoutVerticalStackPanelSettings: SettingsUpdaterComponent<
   VerticalStackPanelSettings
 > = ({ settings, onChange }) => {
+  const updateSettings = ({
+    name,
+    value,
+  }: {
+    name: string;
+    value?: number | string;
+  }) => {
+    onChange({ ...settings, [name]: value });
+  };
   return (
     <>
       <TextInput
-        name="Grid-Area"
+        name="area"
         label="Name of grid area"
         value={settings.area ?? "empty grid area"}
-        onChange={(area) => onChange({ ...settings, area })}
+        onChange={updateSettings}
       />
       <RadioInputs
         name="Item Alignment"

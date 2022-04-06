@@ -10,20 +10,28 @@ export const ShinyActionButtonSettings: SettingsUpdaterComponent<
   ShinyActionButtonProps
 > = ({ settings, onChange }) => {
   const { inputId, label } = settings;
-
+  const updateSettings = ({
+    name,
+    value,
+  }: {
+    name: string;
+    value?: number | string;
+  }) => {
+    onChange({ ...settings, [name]: value });
+  };
   return (
     <>
       <TextInput
         label="inputId"
         name="inputId"
         value={inputId ?? "defaultActionButton"}
-        onChange={(newName) => onChange({ ...settings, inputId: newName })}
+        onChange={updateSettings}
       />
       <TextInput
         label="input label"
         name="label"
         value={label ?? "default actionButton label"}
-        onChange={(newLabel) => onChange({ ...settings, label: newLabel })}
+        onChange={updateSettings}
       />
     </>
   );

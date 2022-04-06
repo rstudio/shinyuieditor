@@ -34,13 +34,13 @@ export const ShinySliderInputSettings: SettingsUpdaterComponent<
         label="inputId"
         name="inputId"
         value={settings.inputId ?? "Default name"}
-        onChange={(inputId) => validateAndUpdate({ inputId })}
+        onChange={updateSettings}
       />
       <TextInput
         label="label"
         name="label"
         value={settings.label ?? "Default label"}
-        onChange={(label) => validateAndUpdate({ label })}
+        onChange={updateSettings}
       />
 
       <WrappedSection name="Values">

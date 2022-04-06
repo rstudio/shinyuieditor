@@ -32,13 +32,22 @@ const horizontalAlignIcons = {
 export const GridlayoutGridPanelSettings: SettingsUpdaterComponent<
   GridPanelSettings
 > = ({ settings, onChange }) => {
+  const updateSettings = ({
+    name,
+    value,
+  }: {
+    name: string;
+    value?: number | string;
+  }) => {
+    onChange({ ...settings, [name]: value });
+  };
   return (
     <>
       <TextInput
         name="Grid-Area"
         label="Name of grid area"
         value={settings.area ?? "empty grid area"}
-        onChange={(area) => onChange({ ...settings, area })}
+        onChange={updateSettings}
       />
       <RadioInputs
         name="Vertical Alignment"

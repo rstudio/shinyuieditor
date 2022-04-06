@@ -10,13 +10,22 @@ export const ShinyuiOutputSettings: SettingsUpdaterComponent<
   ShinyUiOutputProps
 > = ({ settings, onChange }) => {
   const { outputId } = settings;
+  const updateSettings = ({
+    name,
+    value,
+  }: {
+    name: string;
+    value?: number | string;
+  }) => {
+    onChange({ ...settings, [name]: value });
+  };
 
   return (
     <TextInput
       label="outputId"
       name="outputId"
       value={outputId ?? "defaultUiOutput"}
-      onChange={(newName) => onChange({ ...settings, outputId: newName })}
+      onChange={updateSettings}
     />
   );
 };

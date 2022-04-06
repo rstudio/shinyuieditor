@@ -11,14 +11,16 @@ export function TextInput({
   onChange,
   autoFocus = false,
   disabled,
+  noLabel = false,
 }: {
   name: string;
   label?: string;
   value: string;
   placeholder?: string;
-  onChange: (x: string) => void;
+  onChange: (x: { name: string; value: string }) => void;
   autoFocus?: boolean;
   disabled?: boolean;
+  noLabel?: boolean;
 }) {
   const inputElement = React.useRef<HTMLInputElement>(null);
   React.useEffect(() => {
@@ -30,21 +32,27 @@ export function TextInput({
     }
   }, [autoFocus]);
 
-  return (
+  const mainInput = (
+    <input
+      ref={inputElement}
+      className={classes.input}
+      type="text"
+      name={name}
+      value={value}
+      placeholder={placeholder}
+      onChange={(e) => onChange({ name, value: e.target.value })}
+      disabled={disabled}
+    />
+  );
+
+  return noLabel ? (
+    mainInput
+  ) : (
     <div className={inputClasses.container}>
       <label className={inputClasses.label} htmlFor={name}>
         {label ?? name}:
       </label>
-      <input
-        ref={inputElement}
-        className={classes.input}
-        type="text"
-        name={name}
-        value={value}
-        placeholder={placeholder}
-        onChange={(e) => onChange(e.target.value)}
-        disabled={disabled}
-      />
+      {mainInput}
     </div>
   );
 }

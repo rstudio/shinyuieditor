@@ -12,6 +12,15 @@ export const ShinyPlotOutputSettings: SettingsUpdaterComponent<
   ShinyPlotOutputProps
 > = ({ settings, onChange }) => {
   const { outputId, width = "100px" } = settings;
+  const updateSettings = ({
+    name,
+    value,
+  }: {
+    name: string;
+    value?: number | string;
+  }) => {
+    onChange({ ...settings, [name]: value });
+  };
 
   return (
     <>
@@ -19,7 +28,7 @@ export const ShinyPlotOutputSettings: SettingsUpdaterComponent<
         label="outputId"
         name="outputId"
         value={outputId ?? "defaultPlotOutput"}
-        onChange={(newName) => onChange({ ...settings, outputId: newName })}
+        onChange={updateSettings}
       />
       <LabeledCSSUnitInput
         label="Width"

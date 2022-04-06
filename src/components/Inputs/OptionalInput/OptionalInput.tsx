@@ -46,7 +46,7 @@ export default function OptionalInput({
         label={name}
         value={value ?? ""}
         disabled={isDisabled}
-        onChange={(value) => onChange({ name, value })}
+        onChange={onChange}
       />
     );
 
