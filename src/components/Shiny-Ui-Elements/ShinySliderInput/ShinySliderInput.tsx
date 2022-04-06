@@ -36,7 +36,8 @@ const ShinySliderInput: UiNodeComponent<ShinySliderInputProps> = ({
           aria-label={"slider input"}
         />
         <div>
-          Min: {settings.min}, Max: {settings.max}
+          Min: {settings.min}, Max: {settings.max}{" "}
+          {settings.step ? `Step: ${settings.step}` : null}
         </div>
         <div>
           input${settings.inputId} = {currentVal}

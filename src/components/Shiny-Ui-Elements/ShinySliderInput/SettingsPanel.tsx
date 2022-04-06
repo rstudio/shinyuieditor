@@ -1,6 +1,8 @@
 import * as React from "react";
 
+import Checkbox from "components/Inputs/Checkbox";
 import NumericInput from "components/Inputs/NumericInput";
+import OptionalInput from "components/Inputs/OptionalInput/OptionalInput";
 import { TextInput } from "components/Inputs/TextInput";
 import { WrappedSection } from "components/Inputs/WrappedSection";
 
@@ -49,6 +51,15 @@ export const ShinySliderInputSettings: SettingsUpdaterComponent<
           onChange={(val) => validateAndUpdate({ value: val })}
         />
       </WrappedSection>
+
+      <OptionalInput
+        name="step"
+        value={settings.step}
+        defaultValue={1}
+        onChange={({ name, value }) => {
+          onChange({ ...settings, [name]: value });
+        }}
+      />
     </>
   );
 };

@@ -11,6 +11,7 @@ export type ShinySliderInputProps = {
   min: number;
   value: number;
   max: number;
+  step?: number;
 };
 
 export const sliderDefaultSettings: ShinySliderInputProps = {
