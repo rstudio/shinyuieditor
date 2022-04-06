@@ -9,7 +9,7 @@ import type {
   UiContainerNodeComponent,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import type { DraggedNodeInfo } from "components/Shiny-Ui-Helpers/DragAndDropHelpers/DragAndDropHelpers";
-import UiNode from "components/Shiny-Ui-Helpers/UiNode";
+import UiNode from "components/UiNode";
 import { useDispatch } from "react-redux";
 import { PLACE_NODE, UPDATE_NODE } from "state/uiTree";
 import { enumerateGridDims, toStringLoc } from "utils/grid-helpers";

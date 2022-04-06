@@ -5,9 +5,9 @@ import type {
   NodePath,
   ShinyUiNode,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
-import { getNode } from "components/Shiny-Ui-Helpers/UiNode/TreeManipulation/getNode";
-import type { RemoveNodeArguments } from "components/Shiny-Ui-Helpers/UiNode/TreeManipulation/removeNode";
-import type { UpdateNodeArguments } from "components/Shiny-Ui-Helpers/UiNode/TreeManipulation/updateNode";
+import { getNode } from "components/UiNode/TreeManipulation/getNode";
+import type { RemoveNodeArguments } from "components/UiNode/TreeManipulation/removeNode";
+import type { UpdateNodeArguments } from "components/UiNode/TreeManipulation/updateNode";
 import { emptyCell } from "utils/gridTemplates/itemLocations";
 
 // This function watches for changes in a grid layout childs grid area and

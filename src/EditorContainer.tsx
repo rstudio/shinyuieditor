@@ -6,7 +6,7 @@ import AppPreview from "components/AppPreview";
 import type { ShinyUiNode } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { CurrentDraggedNodeProvider } from "components/Shiny-Ui-Helpers/DragAndDropHelpers/useCurrentDraggedNode";
 import ElementsPalette from "components/Shiny-Ui-Helpers/ElementsPalette";
-import UiNode from "components/Shiny-Ui-Helpers/UiNode";
+import UiNode from "components/UiNode";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetInitialStateQuery } from "state/getInitialState";
 import { sendUiStateToBackend } from "state/sendUiStateToBackend";

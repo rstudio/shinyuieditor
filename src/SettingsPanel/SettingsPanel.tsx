@@ -6,8 +6,8 @@ import type {
   ShinyUiNode,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { shinyUiNodeInfo } from "components/Shiny-Ui-Elements/uiNodeTypes";
-import { getUiNodeValidation } from "components/Shiny-Ui-Helpers/UiNode/getUiNodeValidation";
-import { getNode } from "components/Shiny-Ui-Helpers/UiNode/TreeManipulation/getNode";
+import { getUiNodeValidation } from "components/UiNode/getUiNodeValidation";
+import { getNode } from "components/UiNode/TreeManipulation/getNode";
 import { useNodeSelectionState } from "NodeSelectionState";
 import { BiCheck } from "react-icons/bi";
 import { FiTrash as TrashIcon } from "react-icons/fi";

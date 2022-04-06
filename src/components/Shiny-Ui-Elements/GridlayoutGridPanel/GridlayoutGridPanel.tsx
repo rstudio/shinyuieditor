@@ -3,7 +3,7 @@ import type {
   UiContainerNodeComponent,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { useDropHandlers } from "components/Shiny-Ui-Helpers/DragAndDropHelpers/useDropHandlers";
-import UiNode from "components/Shiny-Ui-Helpers/UiNode";
+import UiNode from "components/UiNode";
 
 import type {
   GridPanelSettings,

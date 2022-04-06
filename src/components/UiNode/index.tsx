@@ -10,7 +10,7 @@ import { shinyUiNodeInfo } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { useNodeSelectionState } from "NodeSelectionState";
 import { sameArray } from "utils/equalityCheckers";
 
-import { useMakeDraggable } from "../DragAndDropHelpers/useMakeDraggable";
+import { useMakeDraggable } from "../Shiny-Ui-Helpers/DragAndDropHelpers/useMakeDraggable";
 
 import classes from "./styles.module.css";
 
