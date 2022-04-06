@@ -6,7 +6,7 @@ import type {
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { shinyUiNodeInfo } from "components/Shiny-Ui-Elements/uiNodeTypes";
 
-import { useMakeDraggable } from "../DragAndDropHelpers/useMakeDraggable";
+import { useMakeDraggable } from "../Shiny-Ui-Helpers/DragAndDropHelpers/useMakeDraggable";
 
 import classes from "./styles.module.css";
 
