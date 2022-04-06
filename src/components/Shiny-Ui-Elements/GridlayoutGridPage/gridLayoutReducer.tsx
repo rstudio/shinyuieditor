@@ -1,5 +1,5 @@
 import type { TractDirection } from "components/Shiny-Ui-Elements/GridlayoutGridPage/helpers";
-import type { CSSMeasure } from "GridTypes";
+import type { CSSMeasure } from "CSSMeasure";
 import clone from "just-clone";
 import addItem from "utils/gridTemplates/addItem";
 import addTract from "utils/gridTemplates/addTract";

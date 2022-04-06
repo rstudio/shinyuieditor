@@ -1,5 +1,5 @@
 import containerIcon from "assets/icons/shinyContainer.png";
-import type { CSSMeasure } from "GridTypes";
+import type { CSSMeasure } from "CSSMeasure";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 

@@ -1,4 +1,5 @@
-import type { CSSMeasure, GridItemDef, GridLayoutTemplate } from "GridTypes";
+import type { CSSMeasure } from "CSSMeasure";
+import type { GridItemDef, GridLayoutTemplate } from "GridTypes";
 
 import { sameLayoutTemplate } from "./sameLayoutTemplate";
 

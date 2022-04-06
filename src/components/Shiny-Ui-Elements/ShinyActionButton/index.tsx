@@ -1,5 +1,5 @@
 import buttonIcon from "assets/icons/shinyButton.png";
-import type { CSSMeasure } from "GridTypes";
+import type { CSSMeasure } from "CSSMeasure";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 

@@ -1,5 +1,5 @@
 import type { TractDirection } from "components/Shiny-Ui-Elements/GridlayoutGridPage/helpers";
-import type { CSSMeasure } from "GridTypes";
+import type { CSSMeasure } from "CSSMeasure";
 
 import { fillArr } from "../array-helpers";
 import { matrixDimensions, uniqueMatrixElements } from "../matrix-helpers";

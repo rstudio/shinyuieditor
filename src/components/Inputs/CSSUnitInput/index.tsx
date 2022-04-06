@@ -3,13 +3,13 @@ import * as React from "react";
 import type { ParsedCSSMeasure } from "utils/css-helpers";
 import { deparseCSSMeasure, parseCSSMeasure } from "utils/css-helpers";
 
-import type { CSSMeasure } from "../../../GridTypes";
+import type { CSSMeasure } from "../../../CSSMeasure";
 import inputClasses from "../Inputs.module.css";
 import NumericInput from "../NumericInput";
 
 import classes from "./CSSUnitInput.module.css";
 
-type CSSUnits = "fr" | "px" | "rem" | "auto";
+type CSSUnits = "fr" | "px" | "rem" | "auto" | "%";
 
 function useCSSUnitState(initialValue: CSSMeasure) {
   const [cssValue, setCssValue] = React.useState<ParsedCSSMeasure>(
@@ -117,6 +117,7 @@ const defaultCounts = {
   fr: 1,
   px: 10,
   rem: 1,
+  "%": 100,
 };
 
 export function LabeledCSSUnitInput({

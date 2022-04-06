@@ -7,7 +7,7 @@ import {
   directions,
   singular,
 } from "components/Shiny-Ui-Elements/GridlayoutGridPage/helpers";
-import type { CSSMeasure } from "GridTypes";
+import type { CSSMeasure } from "CSSMeasure";
 import { FaPlus, FaTrash } from "react-icons/fa";
 import { joinPretty } from "utils/array-helpers";
 import type { ParsedGridTemplate } from "utils/gridTemplates/parseGridTemplateAreas";
