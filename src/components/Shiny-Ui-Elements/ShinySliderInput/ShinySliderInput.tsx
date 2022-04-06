@@ -3,7 +3,6 @@ import * as React from "react";
 import type { UiNodeComponent } from "components/Shiny-Ui-Elements/uiNodeTypes";
 
 import type { ShinySliderInputProps } from "./arguments";
-import { buildSliderSettings } from "./arguments";
 import classes from "./styles.module.css";
 
 const ShinySliderInput: UiNodeComponent<ShinySliderInputProps> = ({
@@ -14,7 +13,7 @@ const ShinySliderInput: UiNodeComponent<ShinySliderInputProps> = ({
 }) => {
   const width = "200px";
   const height = "auto";
-  const settings = buildSliderSettings({ ...uiArguments });
+  const settings = { ...uiArguments };
   const [currentVal, setCurrentVal] = React.useState(settings.value);
   return (
     <div

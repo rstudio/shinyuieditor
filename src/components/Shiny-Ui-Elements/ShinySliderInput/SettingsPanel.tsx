@@ -6,16 +6,12 @@ import { WrappedSection } from "components/Inputs/WrappedSection";
 
 import type { SettingsUpdaterComponent } from "../uiNodeTypes";
 
-import type { ShinySliderInputProps} from "./arguments";
-import { validateNumber } from "./arguments";
+import type { ShinySliderInputProps } from "./arguments";
 
 export const ShinySliderInputSettings: SettingsUpdaterComponent<
   ShinySliderInputProps
 > = ({ settings: currentSettings, onChange }) => {
   const settings = { ...currentSettings };
-  if (settings.min) settings.min = validateNumber(settings.min);
-  if (settings.max) settings.max = validateNumber(settings.max);
-  if (settings.value) settings.value = validateNumber(settings.value);
 
   const validateAndUpdate = (newValues: Partial<ShinySliderInputProps>) => {
     onChange({ ...settings, ...newValues });

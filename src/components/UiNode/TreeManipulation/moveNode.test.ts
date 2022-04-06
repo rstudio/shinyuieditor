@@ -28,7 +28,7 @@ const baseNode: ShinyUiNode = {
           uiChildren: [
             {
               // path = [0, 0, 0]
-              uiName: "shiny::sliderInput",
+              uiName: "shiny::actionButton",
               uiArguments: {
                 inputId: "bins",
                 label: "Number of Bins",
@@ -139,23 +139,23 @@ describe("Move nodes within tree", () => {
 });
 
 describe("Move node around within its current container", () => {
-  const sliderA: ShinyUiNode = {
-    uiName: "shiny::sliderInput",
+  const buttonA: ShinyUiNode = {
+    uiName: "shiny::actionButton",
     uiArguments: {
       inputId: "A",
       label: "A",
     },
   };
 
-  const sliderB: ShinyUiNode = {
-    uiName: "shiny::sliderInput",
+  const buttonB: ShinyUiNode = {
+    uiName: "shiny::actionButton",
     uiArguments: {
       inputId: "B",
       label: "B",
     },
   };
-  const sliderC: ShinyUiNode = {
-    uiName: "shiny::sliderInput",
+  const buttonC: ShinyUiNode = {
+    uiName: "shiny::actionButton",
     uiArguments: {
       inputId: "C",
       label: "C",
@@ -165,26 +165,26 @@ describe("Move node around within its current container", () => {
     uiName: "gridlayout::vertical_stack_panel",
     uiArguments: { area: "controls-holder", item_alignment: "center" },
     uiChildren: [
-      sliderA, // [0]
-      sliderB, // [1]
-      sliderC, // [2]
+      buttonA, // [0]
+      buttonB, // [1]
+      buttonC, // [2]
     ],
   };
 
   // Sanity check that nodes are where they should be
-  expect(getNode(sliderPanel, [0])).toEqual(sliderA);
-  expect(getNode(sliderPanel, [1])).toEqual(sliderB);
-  expect(getNode(sliderPanel, [2])).toEqual(sliderC);
+  expect(getNode(sliderPanel, [0])).toEqual(buttonA);
+  expect(getNode(sliderPanel, [1])).toEqual(buttonB);
+  expect(getNode(sliderPanel, [2])).toEqual(buttonC);
 
   // Move slider B above slider A
   const updatedSliderPanel = placeNode(sliderPanel, {
-    node: sliderB,
+    node: buttonB,
     currentPath: [1],
     parentPath: [],
     positionInChildren: 0,
   });
 
-  expect(getNode(updatedSliderPanel, [0])).toEqual(sliderB);
-  expect(getNode(updatedSliderPanel, [1])).toEqual(sliderA);
-  expect(getNode(updatedSliderPanel, [2])).toEqual(sliderC);
+  expect(getNode(updatedSliderPanel, [0])).toEqual(buttonB);
+  expect(getNode(updatedSliderPanel, [1])).toEqual(buttonA);
+  expect(getNode(updatedSliderPanel, [2])).toEqual(buttonC);
 });
