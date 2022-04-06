@@ -16,7 +16,7 @@ export const shinyPlotOutputInfo: UiComponentInfo<ShinyPlotOutputProps> = {
   UiComponent: ShinyPlotOutput,
   SettingsComponent: ShinyPlotOutputSettings,
   acceptsChildren: false,
-  defaultSettings: { outputId: "plot" },
+  defaultSettings: { outputId: "plot", width: "100%", height: "400px" },
   iconSrc: plotIcon,
 };
 
