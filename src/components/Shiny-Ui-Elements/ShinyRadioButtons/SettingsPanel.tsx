@@ -14,7 +14,11 @@ const ShinyRadioButtonsSettings: SettingsUpdaterComponent<
     <>
       <TextInput name="inputId" value={settings.inputId} />
       <TextInput name="label" value={settings.label} />
-      <ListInput name="choices" value={settings.choices} />
+      <ListInput
+        name="choices"
+        value={settings.choices}
+        newItemValue="choice"
+      />
     </>
   );
 };

@@ -24,7 +24,8 @@ export default function ListInput({
   value,
   onChange,
   optional = false,
-}: InputWidgetCommonProps<string[]> & {}) {
+  newItemValue = "item",
+}: InputWidgetCommonProps<string[]> & { newItemValue?: string }) {
   const [state, setState] = React.useState<ItemType[]>(
     value?.map((x, i) => ({ id: i, value: x })) ?? []
   );
@@ -49,9 +50,12 @@ export default function ListInput({
   // been edited a lot
   const addItem = React.useCallback(() => {
     setState((list) =>
-      [...list, { id: -1, value: "" }].map(({ value }, i) => ({ id: i, value }))
+      [...list, { id: -1, value: newItemValue }].map(({ value }, i) => ({
+        id: i,
+        value,
+      }))
     );
-  }, []);
+  }, [newItemValue]);
 
   return (
     <div className={classes.container}>
@@ -60,10 +64,9 @@ export default function ListInput({
         <ReactSortable list={state} setList={setState}>
           {state.map((item, i) => (
             <div className={classes.item} key={item.id}>
-              <MdDragHandle
-                className={classes.dragHandle}
-                title="Reorder list"
-              />
+              <div className={classes.dragHandle} title="Reorder list">
+                <MdDragHandle />
+              </div>
               <input
                 type="text"
                 value={item.value}
@@ -75,6 +78,7 @@ export default function ListInput({
                 }}
               />
               <Button
+                className={classes.deleteButton}
                 onClick={() => deleteItem(item.id)}
                 variant="icon"
                 title={`Delete ${item.value}`}
