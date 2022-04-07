@@ -1,4 +1,4 @@
-import radioButtonIcons from "assets/icons/shinyRadioButtons.png";
+import radioButtonIcons from "assets/icons/shinyRadiobuttons.png";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 
