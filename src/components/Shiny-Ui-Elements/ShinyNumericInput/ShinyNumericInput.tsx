@@ -15,6 +15,13 @@ const ShinyNumericInput: UiNodeComponent<ShinyNumericInputProps> = ({
   const width = "200px";
   const height = "auto";
   const settings = { ...uiArguments };
+
+  const [value, setValue] = React.useState(settings.value);
+
+  React.useEffect(() => {
+    setValue(settings.value);
+  }, [settings.value]);
+
   return (
     <div
       className={classes.container + " shiny::numericInput"}
@@ -23,7 +30,14 @@ const ShinyNumericInput: UiNodeComponent<ShinyNumericInputProps> = ({
       ref={compRef}
       {...eventHandlers}
     >
-      <span>Numeric Input with value {settings.value}</span>
+      <span>{settings.label}</span>
+      <input
+        type="number"
+        value={value}
+        onChange={(e) => setValue(Number(e.target.value))}
+        min={settings.min}
+        max={settings.max}
+      />
       {children}
     </div>
   );
