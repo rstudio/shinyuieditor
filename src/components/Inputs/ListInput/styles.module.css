@@ -8,6 +8,11 @@
   flex-direction: column;
   align-items: center;
   gap: var(--gap-size);
+  padding-block: calc(2 * var(--gap-size));
+  margin-block: calc(2 * var(--gap-size));
+  --border: 1px solid var(--grey);
+  border-top: var(--border);
+  border-bottom: var(--border);
 }
 
 .item {
