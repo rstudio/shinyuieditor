@@ -8,7 +8,7 @@ fieldset {
 
 /* Hide the little button icon because we take over the showing with outlines
 and background colors */
-.option > input {
+.option > input[type="radio"] {
   display: none;
 }
 
@@ -22,12 +22,12 @@ and background colors */
   background-color: var(--rstudio-white);
 }
 
-input:checked + label {
+input[type="radio"]:checked + label {
   background-color: var(--rstudio-blue);
   color: var(--rstudio-white);
   font-weight: bold;
 }
 
-input:hover + label {
+input[type="radio"]:hover + label {
   outline: 2px solid var(--rstudio-blue);
 }
