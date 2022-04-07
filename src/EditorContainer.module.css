@@ -15,6 +15,7 @@
 .container * {
   /* Soften edges just the tiniest bit to make stuff less jarring */
   border-radius: 1px;
+  min-height: 0;
 }
 
 .container > * {
@@ -24,6 +25,7 @@
 
 .elementsPanel {
   grid-area: elements;
+  overflow: auto;
 }
 
 .propertiesPanel {
