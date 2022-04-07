@@ -19,7 +19,15 @@ function useCSSUnitState(initialValue: CSSMeasure) {
     parseCSSMeasure(initialValue)
   );
   const updateCount = React.useCallback(
-    (newCount: number) => {
+    (newCount?: number) => {
+      if (newCount === undefined) {
+        if (cssValue.unit !== "auto") {
+          throw new Error("Undefined count with auto units");
+        }
+
+        setCssValue({ unit: cssValue.unit, count: null });
+        return;
+      }
       if (cssValue.unit === "auto") {
         console.error("How did you change the count of an auto unit?");
         return;
