@@ -33,10 +33,10 @@ export const ShinySliderInputSettings: SettingsUpdaterComponent<
         <NumericInput name="start" value={settings.value} />
       </WrappedSection>
 
-      <OptionalInput
-        type="number"
+      <NumericInput
         name="step"
         value={settings.step}
+        optional={true}
         defaultValue={1}
       />
     </>

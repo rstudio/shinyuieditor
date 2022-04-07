@@ -2,6 +2,7 @@ import React from "react";
 
 import inputClasses from "./Inputs.module.css";
 import classes from "./NumericInput.module.css";
+import { OptionalCheckbox } from "./OptionalInput/OptionalInput";
 import type { OnChangeCallback } from "./SettingsUpdateContext";
 import { useOnChange } from "./SettingsUpdateContext";
 
@@ -14,6 +15,8 @@ export default function NumericInput({
   onChange,
   disabled = false,
   noLabel = false,
+  optional = false,
+  defaultValue = 1,
 }: {
   name: string;
   value?: number;
@@ -23,6 +26,8 @@ export default function NumericInput({
   onChange?: (x: { name: string; value: number }) => void;
   disabled?: boolean;
   noLabel?: boolean;
+  optional?: boolean;
+  defaultValue?: number;
 }) {
   const onNewValue = useOnChange(onChange as OnChangeCallback);
 
@@ -61,10 +66,19 @@ export default function NumericInput({
     />
   );
 
+  const isDisabled = value === undefined;
+
   return noLabel ? (
     mainInput
   ) : (
     <div className={inputClasses.container}>
+      {optional ? (
+        <OptionalCheckbox
+          name={name}
+          isDisabled={isDisabled}
+          defaultValue={defaultValue}
+        />
+      ) : null}
       <label className={inputClasses.label}>{name}:</label>
       {mainInput}
     </div>
