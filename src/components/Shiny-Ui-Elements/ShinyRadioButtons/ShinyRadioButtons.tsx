@@ -11,7 +11,7 @@ const ShinyRadioButtons: UiNodeComponent<ShinyRadioButtonsProps> = ({
   compRef,
 }) => {
   return (
-    <div className={classes.container}>
+    <div ref={compRef} className={classes.container} {...eventHandlers}>
       <label>{uiArguments.label}</label>
       <div>
         {uiArguments.choices.map((x) => (
