@@ -1,5 +1,7 @@
 import React from "react";
 
+import type { InputWidgetCommonProps } from ".";
+
 import inputClasses from "./Inputs.module.css";
 import { OptionalCheckbox } from "./OptionalInput/OptionalInput";
 import type { OnChangeCallback } from "./SettingsUpdateContext";
@@ -16,16 +18,9 @@ export function TextInput({
   noLabel = false,
   optional = false,
   defaultValue = "my-text",
-}: {
-  name: string;
-  label?: string;
-  value: string;
+}: InputWidgetCommonProps<string> & {
   placeholder?: string;
-  onChange?: (x: { name: string; value: string }) => void;
   autoFocus?: boolean;
-  noLabel?: boolean;
-  optional?: boolean;
-  defaultValue?: string;
 }) {
   const onNewValue = useOnChange(onChange as OnChangeCallback);
   const isDisabled = value === undefined;

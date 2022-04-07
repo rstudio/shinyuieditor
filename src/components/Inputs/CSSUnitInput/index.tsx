@@ -3,6 +3,7 @@ import * as React from "react";
 import type { ParsedCSSMeasure } from "utils/css-helpers";
 import { deparseCSSMeasure, parseCSSMeasure } from "utils/css-helpers";
 
+import type { InputWidgetCommonProps } from "..";
 import type { CSSMeasure } from "../../../CSSMeasure";
 import inputClasses from "../Inputs.module.css";
 import NumericInput from "../NumericInput";
@@ -91,7 +92,7 @@ export function CSSUnitInput({
     >
       <NumericInput
         name="count"
-        ariaLabel="value-count"
+        label="value-count"
         value={cssValue.count ?? undefined}
         onChange={({ value }) => updateCount(value)}
         min={0}
@@ -126,11 +127,10 @@ export function LabeledCSSUnitInput({
   label,
   onChange,
   ...props
-}: {
-  name: string;
-  label?: string;
-  onChange?: (x: { name: string; value: CSSMeasure }) => void;
-} & Omit<CSSUnitInputProps, "onChange">) {
+}: InputWidgetCommonProps<CSSMeasure> & {} & Omit<
+    CSSUnitInputProps,
+    "onChange"
+  >) {
   const onNewValue = useOnChange(onChange as OnChangeCallback);
 
   return (

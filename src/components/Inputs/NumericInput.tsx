@@ -1,5 +1,7 @@
 import React from "react";
 
+import type { InputWidgetCommonProps } from ".";
+
 import inputClasses from "./Inputs.module.css";
 import classes from "./NumericInput.module.css";
 import { OptionalCheckbox } from "./OptionalInput/OptionalInput";
@@ -8,7 +10,7 @@ import { useOnChange } from "./SettingsUpdateContext";
 
 export default function NumericInput({
   name,
-  ariaLabel,
+  label: ariaLabel,
   value,
   min = 0,
   max = Infinity,
@@ -16,16 +18,9 @@ export default function NumericInput({
   noLabel = false,
   optional = false,
   defaultValue = 1,
-}: {
-  name: string;
-  value?: number;
-  ariaLabel?: string;
+}: InputWidgetCommonProps<number> & {
   min?: number;
   max?: number;
-  onChange?: (x: { name: string; value: number }) => void;
-  noLabel?: boolean;
-  optional?: boolean;
-  defaultValue?: number;
 }) {
   const onNewValue = useOnChange(onChange as OnChangeCallback);
 
