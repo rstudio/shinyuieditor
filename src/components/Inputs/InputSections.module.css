@@ -1,9 +1,17 @@
+.inputSection,
 .wrappedSection {
   display: flex;
-  flex-wrap: wrap;
   gap: 5px;
-  justify-content: space-around;
   border: none;
+}
+
+.inputSection {
+  flex-direction: column;
+}
+
+.wrappedSection {
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 .wrappedSection > * {

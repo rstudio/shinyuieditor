@@ -1,9 +1,9 @@
 import * as React from "react";
 
+import { WrappedSection } from "components/Inputs/InputSections";
 import NumericInput from "components/Inputs/NumericInput";
 import OptionalInput from "components/Inputs/OptionalInput/OptionalInput";
 import { TextInput } from "components/Inputs/TextInput";
-import { WrappedSection } from "components/Inputs/WrappedSection";
 
 import type { SettingsUpdaterComponent } from "../uiNodeTypes";
 
