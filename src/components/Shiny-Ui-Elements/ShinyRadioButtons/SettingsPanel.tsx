@@ -1,8 +1,6 @@
 import * as React from "react";
 
-import { InputSection } from "components/Inputs/InputSections";
 import ListInput from "components/Inputs/ListInput";
-import NumericInput from "components/Inputs/NumericInput";
 import { TextInput } from "components/Inputs/TextInput";
 
 import type { SettingsUpdaterComponent } from "../uiNodeTypes";
