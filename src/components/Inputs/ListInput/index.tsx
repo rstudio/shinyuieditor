@@ -4,6 +4,7 @@ import { FaPlus } from "react-icons/fa";
 import { FiTrash } from "react-icons/fi";
 import { MdDragHandle } from "react-icons/md";
 import { ReactSortable } from "react-sortablejs";
+import { sameArray } from "utils/equalityCheckers";
 
 import type { InputWidgetCommonProps } from "..";
 import Button from "../Button";
@@ -25,10 +26,17 @@ export default function ListInput({
     value?.map((x, i) => ({ id: i, value: x })) ?? []
   );
 
+  const onNewValue = useOnChange(onChange as OnChangeCallback);
+
   React.useEffect(() => {
-    console.log("New list value:", state);
-    // onChange({ name, value: state });
-  }, [state]);
+    const newList = simplifyToChoices(state);
+
+    if (sameArray(newList, value ?? [])) {
+      // Same array detected. No changes should be made
+      return;
+    }
+    onNewValue({ name, value: newList });
+  }, [name, onNewValue, state, value]);
 
   const deleteItem = React.useCallback((itemId: number) => {
     setState((list) => list.filter(({ id }) => id !== itemId));
@@ -74,4 +82,8 @@ export default function ListInput({
       </div>
     </div>
   );
+}
+
+function simplifyToChoices(withId: ItemType[]): string[] {
+  return withId.map(({ value }) => value);
 }

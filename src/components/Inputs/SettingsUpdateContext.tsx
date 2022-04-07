@@ -2,7 +2,7 @@ import React from "react";
 
 export type OnChangeCallback = (x: {
   name: string;
-  value: string | number | undefined;
+  value: string | number | undefined | string[];
 }) => void;
 
 export const OnChangeContext = React.createContext<OnChangeCallback | null>(
