@@ -16,6 +16,7 @@ export const AllCSS = () => {
         units={["%", "auto", "fr", "rem", "px"]}
         onChange={({ name, value }) => {
           console.log(`Changed ${name} to ${value}`);
+          if (!value) return;
           setValue(value);
         }}
       />

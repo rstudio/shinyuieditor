@@ -1,6 +1,7 @@
 import React from "react";
 
 import type { Story } from "@ladle/react";
+import type { OnChangeCallback } from "components/Inputs/SettingsUpdateContext";
 import { SettingsUpdateContext } from "components/Inputs/SettingsUpdateContext";
 import type {
   SettingsUpdaterComponent,
@@ -34,13 +35,7 @@ export const UiElementsShowcase: Story<{
 
   const SettingsInputs =
     nodeInfo.SettingsComponent as SettingsUpdaterComponent<NodeSettingsType>;
-  const updateSettings = ({
-    name,
-    value,
-  }: {
-    name: string;
-    value?: number | string;
-  }) => {
+  const updateSettings: OnChangeCallback = ({ name, value }) => {
     setUiSettings({ ...uiSettings, [name]: value });
   };
   return (

@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import Button from "components/Inputs/Button";
+import type { OnChangeCallback } from "components/Inputs/SettingsUpdateContext";
 import { SettingsUpdateContext } from "components/Inputs/SettingsUpdateContext";
 import type {
   SettingsUpdaterComponent,
@@ -94,13 +95,7 @@ function useUpdateSettings({ tree }: { tree: ShinyUiNode }) {
     } as typeof currentNode);
   };
 
-  const updateArgumentsByName = ({
-    name,
-    value,
-  }: {
-    name: string;
-    value?: number | string;
-  }) => {
+  const updateArgumentsByName: OnChangeCallback = ({ name, value }) => {
     console.log("Updating arguments by name!", { name, value });
     setCurrentNode(
       (node) =>
@@ -135,7 +130,6 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
     errorMsg,
     deleteNode,
     handleSubmit,
-
     updateArgumentsByName,
     selectedPath,
     setNodeSelection,
