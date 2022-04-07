@@ -1,6 +1,8 @@
 import React from "react";
 
 import inputClasses from "./Inputs.module.css";
+import type { OnChangeCallback } from "./SettingsUpdateContext";
+import { useOnChange } from "./SettingsUpdateContext";
 import classes from "./TextInput.module.css";
 
 export function TextInput({
@@ -17,11 +19,13 @@ export function TextInput({
   label?: string;
   value: string;
   placeholder?: string;
-  onChange: (x: { name: string; value: string }) => void;
+  onChange?: (x: { name: string; value: string }) => void;
   autoFocus?: boolean;
   disabled?: boolean;
   noLabel?: boolean;
 }) {
+  const onNewValue = useOnChange(onChange as OnChangeCallback);
+
   const inputElement = React.useRef<HTMLInputElement>(null);
   React.useEffect(() => {
     if (inputElement.current && autoFocus) {
@@ -40,7 +44,7 @@ export function TextInput({
       name={name}
       value={value}
       placeholder={placeholder}
-      onChange={(e) => onChange({ name, value: e.target.value })}
+      onChange={(e) => onNewValue({ name, value: e.target.value })}
       disabled={disabled}
     />
   );
