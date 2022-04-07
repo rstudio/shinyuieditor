@@ -34,3 +34,20 @@
 .dragHandle {
   cursor: ns-resize;
 }
+
+.item svg {
+  width: 16px;
+}
+
+.deleteButton {
+  /* This padding and then inverse offset is used to increase the hitsize for
+  the button */
+  --offset: 4px;
+  padding: var(--offset);
+  margin: calc(var(--offset) * -1);
+  outline: none;
+}
+
+.deleteButton:hover > svg {
+  stroke-width: 3;
+}
