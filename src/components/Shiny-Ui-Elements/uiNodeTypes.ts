@@ -8,6 +8,7 @@ import { gridlayoutTextPanelInfo } from "./GridlayoutTextPanel";
 import { gridlayoutTitlePanelInfo } from "./GridlayoutTitlePanel";
 import { gridlayoutVerticalStackPanelInfo } from "./GridlayoutVerticalStackPanel";
 import { shinyActionButtonInfo } from "./ShinyActionButton";
+import { shinyNumericInputInfo } from "./ShinyNumericInput";
 import { shinyPlotOutputInfo } from "./ShinyPlotOutput";
 import { shinySliderInputInfo } from "./ShinySliderInput";
 import { shinyUiOutputInfo } from "./ShinyUiOutput";
@@ -80,6 +81,7 @@ export type UiComponentInfo<NodeSettings extends object> = {
 export const shinyUiNodeInfo = {
   "shiny::plotOutput": shinyPlotOutputInfo,
   "shiny::sliderInput": shinySliderInputInfo,
+  "shiny::numericInput": shinyNumericInputInfo,
   "shiny::actionButton": shinyActionButtonInfo,
   "shiny::uiOutput": shinyUiOutputInfo,
   "gridlayout::title_panel": gridlayoutTitlePanelInfo,
