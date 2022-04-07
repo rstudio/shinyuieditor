@@ -14,11 +14,16 @@
   display: flex;
   gap: var(--gap-size);
   align-items: baseline;
-  margin-block: var(--gap-size);
+  padding: var(--gap-size);
+}
+
+.item:global(.sortable-chosen) {
+  outline: 2px solid var(--rstudio-blue);
 }
 
 .item > input {
-  width: 150px;
+  /* Make the input take up all the space in the middle it can */
+  flex: 1;
 }
 
 .dragHandle {
