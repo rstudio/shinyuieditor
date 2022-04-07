@@ -61,7 +61,11 @@ export default function ListInput({
     <div className={classes.container}>
       <InputLabel>{name ?? label}:</InputLabel>
       <div className={classes.list}>
-        <ReactSortable list={state} setList={setState}>
+        <ReactSortable
+          list={state}
+          setList={setState}
+          handle={`.${classes.dragHandle}`}
+        >
           {state.map((item, i) => (
             <div className={classes.item} key={item.id}>
               <div className={classes.dragHandle} title="Reorder list">
