@@ -26,6 +26,8 @@
     "react-popper": "^2.2.5",
     "react-redux": "^7.2.6",
     "react-scripts": "5.0.0",
+    "react-sortablejs": "^6.1.1",
+    "sortablejs": "^1.15.0",
     "typescript": "^4.6.0-beta",
     "web-vitals": "^0.2.2",
     "yarn": "^1.22.18"
@@ -114,6 +116,7 @@
     "@storybook/preset-create-react-app": "^4.0.0",
     "@storybook/react": "^6.4.13",
     "@types/cypress-image-snapshot": "^3.1.6",
+    "@types/sortablejs": "^1.10.7",
     "@typescript-eslint/parser": "^5.13.0",
     "cypress": "^8.5.0",
     "cypress-image-snapshot": "^4.0.1",

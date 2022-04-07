@@ -1,0 +1,26 @@
+.container {
+  --gap-size: 4px;
+}
+
+.list {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-size);
+}
+
+.item {
+  display: flex;
+  gap: var(--gap-size);
+  align-items: baseline;
+  margin-block: var(--gap-size);
+}
+
+.item > input {
+  width: 150px;
+}
+
+.dragHandle {
+  cursor: ns-resize;
+}
