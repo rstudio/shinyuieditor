@@ -1,6 +1,7 @@
 /* Styles common to multiple input components */
 input {
   padding: 6px;
+  border: 1px solid var(--light-grey);
 }
 
 .container {
