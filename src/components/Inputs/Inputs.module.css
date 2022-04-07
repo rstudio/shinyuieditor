@@ -5,7 +5,7 @@ input {
 
 .container {
   display: flex;
-  gap: 0.25rem;
+  gap: 5px;
   flex-wrap: wrap;
   align-items: center;
   margin-top: 1rem;

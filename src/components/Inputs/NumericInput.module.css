@@ -1,4 +1,4 @@
-input.numericInput {
+input[type="number"].numericInput {
   border: 1px solid var(--light-grey);
   border-radius: var(--corner-radius);
   flex-grow: 1;
@@ -10,7 +10,7 @@ input.numericInput {
 }
 
 input.numericInput:disabled {
-  outline: 1px solid red;
+  outline: 1px solid var(--grey, red);
   opacity: 0.25;
   cursor: not-allowed;
 }
