@@ -1,4 +1,4 @@
-import sliderIcon from "assets/icons/shinySlider.png";
+import numericInputIcon from "assets/icons/shinyNumericinput.png";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 
@@ -29,5 +29,5 @@ export const shinyNumericInputInfo: UiComponentInfo<ShinyNumericInputProps> = {
   SettingsComponent: ShinyNumericInputSettings,
   acceptsChildren: false,
   defaultSettings: numericInputDefaultSettings,
-  iconSrc: sliderIcon,
+  iconSrc: numericInputIcon,
 };
