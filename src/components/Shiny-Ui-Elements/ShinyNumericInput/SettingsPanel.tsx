@@ -11,22 +11,11 @@ import type { ShinyNumericInputProps } from ".";
 
 export const ShinyNumericInputSettings: SettingsUpdaterComponent<
   ShinyNumericInputProps
-> = ({ settings: currentSettings }) => {
-  const settings = { ...currentSettings };
-
+> = ({ settings }) => {
   return (
     <>
-      <TextInput
-        label="inputId"
-        name="inputId"
-        value={settings.inputId ?? "Default name"}
-      />
-      <TextInput
-        label="label"
-        name="label"
-        value={settings.label ?? "Default label"}
-      />
-
+      <TextInput name="inputId" value={settings.inputId} />
+      <TextInput name="label" value={settings.label} />
       <InputSection name="Values">
         <NumericInput name="value" value={settings.value} />
         <OptionalInput

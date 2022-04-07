@@ -37,6 +37,7 @@ const ShinyNumericInput: UiNodeComponent<ShinyNumericInputProps> = ({
         onChange={(e) => setValue(Number(e.target.value))}
         min={settings.min}
         max={settings.max}
+        step={settings.step}
       />
       {children}
     </div>
