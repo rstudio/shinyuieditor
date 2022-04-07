@@ -2,7 +2,6 @@ import * as React from "react";
 
 import { InputSection } from "components/Inputs/InputSections";
 import NumericInput from "components/Inputs/NumericInput";
-import OptionalInput from "components/Inputs/OptionalInput/OptionalInput";
 import { TextInput } from "components/Inputs/TextInput";
 
 import type { SettingsUpdaterComponent } from "../uiNodeTypes";
@@ -18,22 +17,22 @@ export const ShinyNumericInputSettings: SettingsUpdaterComponent<
       <TextInput name="label" value={settings.label} />
       <InputSection name="Values">
         <NumericInput name="value" value={settings.value} />
-        <OptionalInput
-          type="number"
+        <NumericInput
           name="min"
           value={settings.min}
+          optional={true}
           defaultValue={0}
         />
-        <OptionalInput
-          type="number"
+        <NumericInput
           name="max"
           value={settings.max}
+          optional={true}
           defaultValue={10}
         />
-        <OptionalInput
-          type="number"
+        <NumericInput
           name="step"
           value={settings.step}
+          optional={true}
           defaultValue={1}
         />
       </InputSection>

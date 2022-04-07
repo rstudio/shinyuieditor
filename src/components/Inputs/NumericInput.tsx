@@ -13,7 +13,6 @@ export default function NumericInput({
   min = 0,
   max = Infinity,
   onChange,
-  disabled = false,
   noLabel = false,
   optional = false,
   defaultValue = 1,
@@ -24,7 +23,6 @@ export default function NumericInput({
   min?: number;
   max?: number;
   onChange?: (x: { name: string; value: number }) => void;
-  disabled?: boolean;
   noLabel?: boolean;
   optional?: boolean;
   defaultValue?: number;
@@ -41,12 +39,14 @@ export default function NumericInput({
     [max, min, name, onNewValue, value]
   );
 
+  const isDisabled = value === undefined;
+
   const mainInput = (
     <input
       className={classes.numericInput}
       aria-label={ariaLabel ?? name ?? "Numeric Input"}
       type="number"
-      disabled={disabled}
+      disabled={isDisabled}
       // The toString() here makes sure that we dont get prefixed zeros
       // anytime the user deletes back to nothing and then types a new value.
       // Otherwise the comparison that react does to know to update the value
@@ -65,8 +65,6 @@ export default function NumericInput({
       }}
     />
   );
-
-  const isDisabled = value === undefined;
 
   return noLabel ? (
     mainInput

@@ -92,7 +92,6 @@ export function CSSUnitInput({
       <NumericInput
         name="count"
         ariaLabel="value-count"
-        disabled={cssValue.unit === "auto"}
         value={cssValue.count ?? undefined}
         onChange={({ value }) => updateCount(value)}
         min={0}

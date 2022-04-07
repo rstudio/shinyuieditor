@@ -1,6 +1,7 @@
 import React from "react";
 
 import inputClasses from "./Inputs.module.css";
+import { OptionalCheckbox } from "./OptionalInput/OptionalInput";
 import type { OnChangeCallback } from "./SettingsUpdateContext";
 import { useOnChange } from "./SettingsUpdateContext";
 import classes from "./TextInput.module.css";
@@ -12,8 +13,9 @@ export function TextInput({
   placeholder,
   onChange,
   autoFocus = false,
-  disabled,
   noLabel = false,
+  optional = false,
+  defaultValue = "my-text",
 }: {
   name: string;
   label?: string;
@@ -21,10 +23,12 @@ export function TextInput({
   placeholder?: string;
   onChange?: (x: { name: string; value: string }) => void;
   autoFocus?: boolean;
-  disabled?: boolean;
   noLabel?: boolean;
+  optional?: boolean;
+  defaultValue?: string;
 }) {
   const onNewValue = useOnChange(onChange as OnChangeCallback);
+  const isDisabled = value === undefined;
 
   const inputElement = React.useRef<HTMLInputElement>(null);
   React.useEffect(() => {
@@ -45,7 +49,7 @@ export function TextInput({
       value={value}
       placeholder={placeholder}
       onChange={(e) => onNewValue({ name, value: e.target.value })}
-      disabled={disabled}
+      disabled={isDisabled}
     />
   );
 
@@ -53,6 +57,13 @@ export function TextInput({
     mainInput
   ) : (
     <div className={inputClasses.container}>
+      {optional ? (
+        <OptionalCheckbox
+          name={name}
+          isDisabled={isDisabled}
+          defaultValue={defaultValue}
+        />
+      ) : null}
       <label className={inputClasses.label} htmlFor={name}>
         {label ?? name}:
       </label>
