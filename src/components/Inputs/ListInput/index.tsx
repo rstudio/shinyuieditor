@@ -8,6 +8,9 @@ import { sameArray } from "utils/equalityCheckers";
 
 import type { InputWidgetCommonProps } from "..";
 import Button from "../Button";
+import { InputLabel } from "../InputSections";
+import type { OnChangeCallback } from "../SettingsUpdateContext";
+import { useOnChange } from "../SettingsUpdateContext";
 
 import classes from "./styles.module.css";
 
@@ -52,7 +55,7 @@ export default function ListInput({
 
   return (
     <div className={classes.container}>
-      <h3>{name ?? label} options:</h3>
+      <InputLabel>{name ?? label}:</InputLabel>
       <div className={classes.list}>
         <ReactSortable list={state} setList={setState}>
           {state.map((item, i) => (

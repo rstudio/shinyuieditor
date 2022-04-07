@@ -8,6 +8,6 @@ export type InputWidgetCommonProps<T> = {
   noLabel?: boolean;
   optional?: boolean;
   value?: T;
-  onChange?: (x: { name: string; value: T }) => void;
+  onChange?: (x: { name: string; value?: T }) => void;
   defaultValue?: T;
 };

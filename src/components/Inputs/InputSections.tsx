@@ -32,3 +32,7 @@ export const InputSection: React.FC<{ name: string }> = ({
     </div>
   );
 };
+
+export const InputLabel: React.FC = ({ children }) => {
+  return <div className={inputClasses.label}>{children}</div>;
+};

@@ -1,0 +1,23 @@
+import * as React from "react";
+
+import { InputSection } from "components/Inputs/InputSections";
+import ListInput from "components/Inputs/ListInput";
+import NumericInput from "components/Inputs/NumericInput";
+import { TextInput } from "components/Inputs/TextInput";
+
+import type { SettingsUpdaterComponent } from "../uiNodeTypes";
+
+import type { ShinyRadioButtonsProps } from ".";
+
+const ShinyRadioButtonsSettings: SettingsUpdaterComponent<
+  ShinyRadioButtonsProps
+> = ({ settings }) => {
+  return (
+    <>
+      <TextInput name="inputId" value={settings.inputId} />
+      <TextInput name="label" value={settings.label} />
+      <ListInput name="choices" value={settings.choices} />
+    </>
+  );
+};
+export default ShinyRadioButtonsSettings;

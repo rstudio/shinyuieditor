@@ -10,6 +10,7 @@ import { gridlayoutVerticalStackPanelInfo } from "./GridlayoutVerticalStackPanel
 import { shinyActionButtonInfo } from "./ShinyActionButton";
 import { shinyNumericInputInfo } from "./ShinyNumericInput";
 import { shinyPlotOutputInfo } from "./ShinyPlotOutput";
+import { shinyRadioButtonsInfo } from "./ShinyRadioButtons";
 import { shinySliderInputInfo } from "./ShinySliderInput";
 import { shinyUiOutputInfo } from "./ShinyUiOutput";
 
@@ -82,6 +83,7 @@ export const shinyUiNodeInfo = {
   "shiny::plotOutput": shinyPlotOutputInfo,
   "shiny::sliderInput": shinySliderInputInfo,
   "shiny::numericInput": shinyNumericInputInfo,
+  "shiny::radioButtons": shinyRadioButtonsInfo,
   "shiny::actionButton": shinyActionButtonInfo,
   "shiny::uiOutput": shinyUiOutputInfo,
   "gridlayout::title_panel": gridlayoutTitlePanelInfo,
