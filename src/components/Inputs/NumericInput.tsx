@@ -2,6 +2,8 @@ import React from "react";
 
 import inputClasses from "./Inputs.module.css";
 import classes from "./NumericInput.module.css";
+import type { OnChangeCallback } from "./SettingsUpdateContext";
+import { useOnChange } from "./SettingsUpdateContext";
 
 export default function NumericInput({
   name,
@@ -18,18 +20,20 @@ export default function NumericInput({
   ariaLabel?: string;
   min?: number;
   max?: number;
-  onChange: (x: { name: string; value: number }) => void;
+  onChange?: (x: { name: string; value: number }) => void;
   disabled?: boolean;
   noLabel?: boolean;
 }) {
+  const onNewValue = useOnChange(onChange as OnChangeCallback);
+
   const incrementCount = React.useCallback(
     (amount: number = 1, largeIncrement: boolean = false) => {
       const scale = largeIncrement ? 10 : 1;
       const oldVal = value ?? 0;
       const newValue = Math.min(Math.max(oldVal + amount * scale, min), max);
-      onChange({ name, value: newValue });
+      onNewValue({ name, value: newValue });
     },
-    [max, min, name, onChange, value]
+    [max, min, name, onNewValue, value]
   );
 
   const mainInput = (
@@ -43,7 +47,7 @@ export default function NumericInput({
       // Otherwise the comparison that react does to know to update the value
       // would consider `02` equal to `2`
       value={value?.toString() ?? ""}
-      onChange={(e) => onChange({ name, value: Number(e.target.value) })}
+      onChange={(e) => onNewValue({ name, value: Number(e.target.value) })}
       min={0}
       onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
         // If the user is holding the shift key while incrementing, go by

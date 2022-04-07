@@ -1,5 +1,7 @@
 import Checkbox from "../Checkbox";
 import NumericInput from "../NumericInput";
+import type { OnChangeCallback } from "../SettingsUpdateContext";
+import { useOnChange } from "../SettingsUpdateContext";
 import { TextInput } from "../TextInput";
 
 import classes from "./styles.module.css";
@@ -11,14 +13,14 @@ type InputSettings =
       defaultValue: number;
       min?: number;
       max?: number;
-      onChange: (x: { name: string; value: number | undefined }) => void;
+      onChange?: (x: { name: string; value: number | undefined }) => void;
     }
   | {
       type: "string";
       value?: string;
       defaultValue: string;
       placeholder?: string;
-      onChange: (x: { name: string; value: string | undefined }) => void;
+      onChange?: (x: { name: string; value: string | undefined }) => void;
     };
 
 export default function OptionalInput({
@@ -30,6 +32,8 @@ export default function OptionalInput({
 }: {
   name: string;
 } & InputSettings) {
+  const onNewValue = useOnChange(onChange as OnChangeCallback);
+
   const isDisabled = value === undefined;
 
   const inputComponent =
@@ -38,7 +42,7 @@ export default function OptionalInput({
         name={name}
         value={value}
         disabled={isDisabled}
-        onChange={onChange}
+        onChange={onNewValue}
       />
     ) : (
       <TextInput
@@ -46,7 +50,7 @@ export default function OptionalInput({
         label={name}
         value={value ?? ""}
         disabled={isDisabled}
-        onChange={onChange}
+        onChange={onNewValue}
       />
     );
 
@@ -58,9 +62,9 @@ export default function OptionalInput({
         onChange={(isTrue) => {
           const newValue = isTrue ? defaultValue : undefined;
           if (type === "number") {
-            onChange({ name, value: newValue as number });
+            onNewValue({ name, value: newValue as number });
           } else {
-            onChange({ name, value: newValue as string });
+            onNewValue({ name, value: newValue as string });
           }
         }}
       />

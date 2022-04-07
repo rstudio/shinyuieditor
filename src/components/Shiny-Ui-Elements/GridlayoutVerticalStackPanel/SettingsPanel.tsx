@@ -19,14 +19,13 @@ const alignmentIcons: Record<AlignmentOptions, JSX.Element> = {
 
 export const GridlayoutVerticalStackPanelSettings: SettingsUpdaterComponent<
   VerticalStackPanelSettings
-> = ({ settings, onChange }) => {
+> = ({ settings }) => {
   return (
     <>
       <TextInput
         name="area"
         label="Name of grid area"
         value={settings.area ?? "empty grid area"}
-        onChange={onChange}
       />
       <RadioInputs
         name="item_alignment"
@@ -34,7 +33,6 @@ export const GridlayoutVerticalStackPanelSettings: SettingsUpdaterComponent<
         options={["top", "center", "bottom", "spread"]}
         optionIcons={alignmentIcons}
         currentSelection={settings.item_alignment ?? "top"}
-        onChange={onChange}
         optionsPerColumn={2}
       />
       <LabeledCSSUnitInput
@@ -42,7 +40,6 @@ export const GridlayoutVerticalStackPanelSettings: SettingsUpdaterComponent<
         value={settings.item_gap ?? "15px"}
         label="Gap Size"
         units={["px", "rem"]}
-        onChange={onChange}
       />
     </>
   );

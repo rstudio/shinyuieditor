@@ -8,13 +8,12 @@ import type { ShinyUiOutputProps } from ".";
 
 export const ShinyuiOutputSettings: SettingsUpdaterComponent<
   ShinyUiOutputProps
-> = ({ settings, onChange }) => {
+> = ({ settings }) => {
   return (
     <TextInput
       label="outputId"
       name="outputId"
       value={settings.outputId ?? "defaultUiOutput"}
-      onChange={onChange}
     />
   );
 };

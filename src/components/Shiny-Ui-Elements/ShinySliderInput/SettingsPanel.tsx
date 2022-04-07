@@ -11,7 +11,7 @@ import type { ShinySliderInputProps } from ".";
 
 export const ShinySliderInputSettings: SettingsUpdaterComponent<
   ShinySliderInputProps
-> = ({ settings: currentSettings, onChange }) => {
+> = ({ settings: currentSettings }) => {
   const settings = { ...currentSettings };
 
   return (
@@ -20,19 +20,17 @@ export const ShinySliderInputSettings: SettingsUpdaterComponent<
         label="inputId"
         name="inputId"
         value={settings.inputId ?? "Default name"}
-        onChange={onChange}
       />
       <TextInput
         label="label"
         name="label"
         value={settings.label ?? "Default label"}
-        onChange={onChange}
       />
 
       <WrappedSection name="Values">
-        <NumericInput name="min" value={settings.min} onChange={onChange} />
-        <NumericInput name="max" value={settings.max} onChange={onChange} />
-        <NumericInput name="start" value={settings.value} onChange={onChange} />
+        <NumericInput name="min" value={settings.min} />
+        <NumericInput name="max" value={settings.max} />
+        <NumericInput name="start" value={settings.value} />
       </WrappedSection>
 
       <OptionalInput
@@ -40,7 +38,6 @@ export const ShinySliderInputSettings: SettingsUpdaterComponent<
         name="step"
         value={settings.step}
         defaultValue={1}
-        onChange={onChange}
       />
     </>
   );

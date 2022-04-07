@@ -6,6 +6,8 @@ import { deparseCSSMeasure, parseCSSMeasure } from "utils/css-helpers";
 import type { CSSMeasure } from "../../../CSSMeasure";
 import inputClasses from "../Inputs.module.css";
 import NumericInput from "../NumericInput";
+import type { OnChangeCallback } from "../SettingsUpdateContext";
+import { useOnChange } from "../SettingsUpdateContext";
 
 import classes from "./CSSUnitInput.module.css";
 
@@ -128,14 +130,19 @@ export function LabeledCSSUnitInput({
 }: {
   name: string;
   label?: string;
-  onChange: (x: { name: string; value: CSSMeasure }) => void;
+  onChange?: (x: { name: string; value: CSSMeasure }) => void;
 } & Omit<CSSUnitInputProps, "onChange">) {
+  const onNewValue = useOnChange(onChange as OnChangeCallback);
+
   return (
     <div className={inputClasses.container}>
       <label className={inputClasses.label}>{name ?? label}:</label>
       <CSSUnitInput
         {...props}
-        onChange={(value) => onChange({ name, value })}
+        onChange={(value) => {
+          console.log("onChage", value);
+          onNewValue({ name, value });
+        }}
       />
     </div>
   );

@@ -146,9 +146,14 @@ export type UiContainerNodeComponent<NodeSettings extends object> = React.FC<{
   eventHandlers: Pick<BaseElementProps, "onClick">;
 }>;
 
+/**
+ * The settings updater component is simply takes the settings object and is
+ * populated with the custom input widgets. There is a context that provides the
+ * callback needed for changing the states. The main requirement is that the
+ * `name` of the input matches the name of the property in the settings object.
+ */
 export type SettingsUpdaterComponent<T extends object> = (p: {
   settings: T;
-  onChange: (x: { name: string; value: string | number | undefined }) => void;
 }) => JSX.Element;
 
 /**

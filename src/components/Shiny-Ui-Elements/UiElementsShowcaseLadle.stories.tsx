@@ -1,6 +1,7 @@
 import React from "react";
 
 import type { Story } from "@ladle/react";
+import { SettingsUpdateContext } from "components/Inputs/SettingsUpdateContext";
 import type {
   SettingsUpdaterComponent,
   UiContainerNodeComponent,
@@ -62,7 +63,9 @@ export const UiElementsShowcase: Story<{
       </div>
       <div>
         <h1>Settings Panel</h1>
-        <SettingsInputs settings={uiSettings} onChange={updateSettings} />
+        <SettingsUpdateContext onChange={updateSettings}>
+          <SettingsInputs settings={uiSettings} />
+        </SettingsUpdateContext>
       </div>
     </div>
   );

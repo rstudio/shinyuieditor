@@ -31,14 +31,13 @@ const horizontalAlignIcons = {
 
 export const GridlayoutGridPanelSettings: SettingsUpdaterComponent<
   GridPanelSettings
-> = ({ settings, onChange }) => {
+> = ({ settings }) => {
   return (
     <>
       <TextInput
-        name="Grid-Area"
+        name="area"
         label="Name of grid area"
         value={settings.area ?? "empty grid area"}
-        onChange={onChange}
       />
       <RadioInputs
         name="verticalAlign"
@@ -46,7 +45,6 @@ export const GridlayoutGridPanelSettings: SettingsUpdaterComponent<
         options={["top", "spread", "bottom"]}
         optionIcons={verticalAlignIcons}
         currentSelection={settings.verticalAlign ?? "spread"}
-        onChange={onChange}
         optionsPerColumn={3}
       />
       <RadioInputs
@@ -55,7 +53,6 @@ export const GridlayoutGridPanelSettings: SettingsUpdaterComponent<
         options={["left", "spread", "right"]}
         optionIcons={horizontalAlignIcons}
         currentSelection={settings.horizontalAlign ?? "spread"}
-        onChange={onChange}
         optionsPerColumn={3}
       />
     </>

@@ -8,7 +8,7 @@ import classes from "./SettingsPanel.module.css";
 
 export const GridlayoutGridPageSettings: SettingsUpdaterComponent<
   TemplatedGridProps
-> = ({ settings, onChange }) => {
+> = ({ settings }) => {
   return (
     <>
       <div className={classes.formSection}>Settings for grid page:</div>
@@ -17,7 +17,6 @@ export const GridlayoutGridPageSettings: SettingsUpdaterComponent<
         label="Gap Size"
         value={settings.gapSize}
         units={["px", "rem"]}
-        onChange={onChange}
       />
     </>
   );

@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import Button from "components/Inputs/Button";
+import { SettingsUpdateContext } from "components/Inputs/SettingsUpdateContext";
 import type {
   SettingsUpdaterComponent,
   ShinyUiNode,
@@ -170,10 +171,9 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
       </div>
       <div className={classes.settingsForm}>
         <form onSubmit={handleSubmit}>
-          <SettingsInputs
-            settings={uiArguments}
-            onChange={updateArgumentsByName}
-          />
+          <SettingsUpdateContext onChange={updateArgumentsByName}>
+            <SettingsInputs settings={uiArguments} />
+          </SettingsUpdateContext>
           <ErrorMessageDisplay errorMsg={errorMsg} />
           <div className={classes.submitHolder}>
             <Button type="submit">
