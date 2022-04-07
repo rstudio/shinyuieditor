@@ -12,7 +12,7 @@ const ShinyRadioButtons: UiNodeComponent<ShinyRadioButtonsProps> = ({
 }) => {
   return (
     <div className={classes.container}>
-      <h2>{uiArguments.label}</h2>
+      <label>{uiArguments.label}</label>
       <div>
         {uiArguments.choices.map((x) => (
           <div key={x}>{x}</div>

@@ -1,9 +1,12 @@
 .container {
   position: relative;
   padding: 4px;
-  outline: 1px solid salmon;
 }
 
 .container > input {
   width: 100%;
+}
+
+.container > label {
+  font-weight: 700;
 }
