@@ -60,7 +60,10 @@ export default function ListInput({
         <ReactSortable list={state} setList={setState}>
           {state.map((item, i) => (
             <div className={classes.item} key={item.id}>
-              <MdDragHandle className={classes.dragHandle} />
+              <MdDragHandle
+                className={classes.dragHandle}
+                title="Reorder list"
+              />
               <input
                 type="text"
                 value={item.value}
@@ -71,14 +74,18 @@ export default function ListInput({
                   setState(newList);
                 }}
               />
-              <Button onClick={() => deleteItem(item.id)} variant="icon">
+              <Button
+                onClick={() => deleteItem(item.id)}
+                variant="icon"
+                title={`Delete ${item.value}`}
+              >
                 <FiTrash />
               </Button>
             </div>
           ))}
         </ReactSortable>
         <div>
-          <Button onClick={() => addItem()} variant="icon">
+          <Button onClick={() => addItem()} variant="icon" title="Add new item">
             <FaPlus />
           </Button>
         </div>
