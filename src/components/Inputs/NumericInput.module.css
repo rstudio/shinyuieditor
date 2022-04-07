@@ -11,6 +11,7 @@ input[type="number"].numericInput {
 
 input.numericInput:disabled {
   outline: 1px solid var(--grey, red);
+  background-color: var(--light-grey);
   opacity: 0.25;
   cursor: not-allowed;
 }
