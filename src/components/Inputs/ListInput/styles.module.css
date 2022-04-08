@@ -16,7 +16,10 @@
 }
 
 .item {
-  display: flex;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 15px 1fr auto 1fr 15px;
+  grid-template-areas: "drag key colon value delete";
   gap: var(--gap-size);
   align-items: baseline;
   padding: var(--gap-size);
@@ -26,12 +29,21 @@
   outline: 2px solid var(--rstudio-blue);
 }
 
-.item > input {
-  /* Make the input take up all the space in the middle it can */
-  flex: 1;
+.keyField {
+  grid-area: key;
+}
+
+.valueField {
+  grid-area: value;
+}
+
+.header {
+  margin-bottom: calc(var(--gap-size) * -2);
+  text-align: center;
 }
 
 .dragHandle {
+  grid-area: drag;
   cursor: ns-resize;
 }
 
@@ -42,6 +54,7 @@
 .deleteButton {
   /* This padding and then inverse offset is used to increase the hitsize for
   the button */
+  grid-area: delete;
   --offset: 4px;
   padding: var(--offset);
   margin: calc(var(--offset) * -1);
