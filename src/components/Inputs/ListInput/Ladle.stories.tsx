@@ -2,8 +2,8 @@ import React from "react";
 
 import ListInputOriginal from ".";
 
-import type { NamedList } from "./NamedListINput";
-import NamedListInputOriginal from "./NamedListINput";
+import type { NamedList } from "./NamedListInput";
+import NamedListInputOriginal from "./NamedListInput";
 export const ListInput = () => {
   const [list, setList] = React.useState<string[] | undefined>(["a", "b", "c"]);
   return (

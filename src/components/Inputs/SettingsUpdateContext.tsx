@@ -1,6 +1,6 @@
 import React from "react";
 
-import type { NamedList } from "./ListInput/NamedListINput";
+import type { NamedList } from "./ListInput/NamedListInput";
 
 export type OnChangeCallback = (x: {
   name: string;
