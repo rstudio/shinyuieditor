@@ -10,20 +10,21 @@ const ShinyRadioButtons: UiNodeComponent<ShinyRadioButtonsProps> = ({
   eventHandlers,
   compRef,
 }) => {
+  const choices = uiArguments.choices;
   return (
     <div ref={compRef} className={classes.container} {...eventHandlers}>
       <label>{uiArguments.label}</label>
       <div>
-        {uiArguments.choices.map((x, i) => (
-          <div className={classes.radio} key={x}>
+        {Object.keys(choices).map((key, i) => (
+          <div className={classes.radio} key={key}>
             <label>
               <input
                 type="radio"
-                name="dist"
-                value="norm"
+                name={choices[key]}
+                value={choices[key]}
                 defaultChecked={i === 0}
               />
-              <span>{x}</span>
+              <span>{key}</span>
             </label>
           </div>
         ))}

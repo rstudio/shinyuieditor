@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import ListInput from "components/Inputs/ListInput";
+import NamedListInput from "components/Inputs/ListInput/NamedListInput";
 import { TextInput } from "components/Inputs/TextInput";
 
 import type { SettingsUpdaterComponent } from "../uiNodeTypes";
@@ -14,10 +14,10 @@ const ShinyRadioButtonsSettings: SettingsUpdaterComponent<
     <>
       <TextInput name="inputId" value={settings.inputId} />
       <TextInput name="label" value={settings.label} />
-      <ListInput
+      <NamedListInput
         name="choices"
         value={settings.choices}
-        newItemValue="choice"
+        newItemValue={{ key: "choice", value: "value" }}
       />
     </>
   );
