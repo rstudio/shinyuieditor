@@ -21,7 +21,7 @@ export const ShinySliderInputSettings: SettingsUpdaterComponent<
       <WrappedSection name="Values">
         <NumericInput name="min" value={settings.min} />
         <NumericInput name="max" value={settings.max} />
-        <NumericInput name="start" value={settings.value} />
+        <NumericInput name="value" label="start" value={settings.value} />
       </WrappedSection>
 
       <NumericInput
