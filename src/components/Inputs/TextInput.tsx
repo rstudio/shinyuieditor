@@ -41,7 +41,7 @@ export function TextInput({
       className={classes.input}
       type="text"
       name={name}
-      value={value}
+      value={value ?? ""}
       placeholder={placeholder}
       onChange={(e) => onNewValue({ name, value: e.target.value })}
       disabled={isDisabled}
