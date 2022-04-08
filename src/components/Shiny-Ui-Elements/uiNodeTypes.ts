@@ -14,6 +14,7 @@ import { shinyRadioButtonsInfo } from "./ShinyRadioButtons";
 import { shinySelectInputInfo } from "./ShinySelectInput";
 import { shinySliderInputInfo } from "./ShinySliderInput";
 import { shinyTextInputInfo } from "./ShinyTextInput";
+import { shinyTextOutputInfo } from "./ShinyTextOutput";
 import { shinyUiOutputInfo } from "./ShinyUiOutput";
 
 /**
@@ -90,6 +91,7 @@ export const shinyUiNodeInfo = {
   "shiny::selectInput": shinySelectInputInfo,
   "shiny::actionButton": shinyActionButtonInfo,
   "shiny::uiOutput": shinyUiOutputInfo,
+  "shiny::textOutput": shinyTextOutputInfo,
   "gridlayout::title_panel": gridlayoutTitlePanelInfo,
   "gridlayout::text_panel": gridlayoutTextPanelInfo,
   "gridlayout::grid_panel": gridLayoutGridPanelInfo,
