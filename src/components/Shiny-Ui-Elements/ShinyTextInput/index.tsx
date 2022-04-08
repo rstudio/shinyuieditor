@@ -17,7 +17,7 @@ export type ShinyTextInputProps = {
 export const textInputDefaultSettings: ShinyTextInputProps = {
   inputId: "myTextInput",
   label: "Text Input",
-  value: "Start Text",
+  value: "",
 };
 
 export const shinyTextInputInfo: UiComponentInfo<ShinyTextInputProps> = {
