@@ -1,7 +1,4 @@
-import * as React from "react";
-
-import type { ParsedCSSMeasure } from "utils/css-helpers";
-import { deparseCSSMeasure, parseCSSMeasure } from "utils/css-helpers";
+import { deparseCSSMeasure } from "utils/css-helpers";
 
 import type { InputWidgetCommonProps } from "..";
 import type { CSSMeasure } from "../../../CSSMeasure";
@@ -11,59 +8,9 @@ import type { OnChangeCallback } from "../SettingsUpdateContext";
 import { useOnChange } from "../SettingsUpdateContext";
 
 import classes from "./CSSUnitInput.module.css";
+import { useCSSUnitState } from "./useCSSUnitState";
 
-type CSSUnits = "fr" | "px" | "rem" | "auto" | "%";
-
-function useCSSUnitState(initialValue: CSSMeasure) {
-  const [cssValue, setCssValue] = React.useState<ParsedCSSMeasure>(
-    parseCSSMeasure(initialValue)
-  );
-  const updateCount = React.useCallback(
-    (newCount?: number) => {
-      if (newCount === undefined) {
-        if (cssValue.unit !== "auto") {
-          throw new Error("Undefined count with auto units");
-        }
-
-        setCssValue({ unit: cssValue.unit, count: null });
-        return;
-      }
-      if (cssValue.unit === "auto") {
-        console.error("How did you change the count of an auto unit?");
-        return;
-      }
-
-      setCssValue({ unit: cssValue.unit, count: newCount });
-    },
-    [cssValue.unit]
-  );
-
-  const updateUnit = React.useCallback((newUnit: CSSUnits) => {
-    // All we're doing is changing the unit the count stays the same
-
-    setCssValue((oldCSS) => {
-      const oldUnit = oldCSS.unit;
-      if (newUnit === "auto") {
-        return {
-          unit: newUnit,
-          count: null,
-        };
-      }
-
-      if (oldUnit === "auto") {
-        return { unit: newUnit, count: defaultCounts[newUnit] };
-      }
-
-      return { unit: newUnit, count: oldCSS.count };
-    });
-  }, []);
-
-  return {
-    cssValue,
-    updateCount,
-    updateUnit,
-  };
-}
+export type CSSUnits = "fr" | "px" | "rem" | "auto" | "%";
 
 type CSSUnitInputProps = {
   value: CSSMeasure;
