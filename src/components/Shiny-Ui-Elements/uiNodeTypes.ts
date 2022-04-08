@@ -13,6 +13,7 @@ import { shinyPlotOutputInfo } from "./ShinyPlotOutput";
 import { shinyRadioButtonsInfo } from "./ShinyRadioButtons";
 import { shinySelectInputInfo } from "./ShinySelectInput";
 import { shinySliderInputInfo } from "./ShinySliderInput";
+import { shinyTextInputInfo } from "./ShinyTextInput";
 import { shinyUiOutputInfo } from "./ShinyUiOutput";
 
 /**
@@ -84,6 +85,7 @@ export const shinyUiNodeInfo = {
   "shiny::plotOutput": shinyPlotOutputInfo,
   "shiny::sliderInput": shinySliderInputInfo,
   "shiny::numericInput": shinyNumericInputInfo,
+  "shiny::textInput": shinyTextInputInfo,
   "shiny::radioButtons": shinyRadioButtonsInfo,
   "shiny::selectInput": shinySelectInputInfo,
   "shiny::actionButton": shinyActionButtonInfo,
