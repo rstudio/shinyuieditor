@@ -31,7 +31,27 @@ parse_ui_fn <- function(ui_node_expr) {
   # First check if we should even try and parsing this node. If it's a constant
   # like a string just return that.
   is_constant <- !is.call(ui_node_expr)
-  if(is_constant) return(ui_node_expr)
+
+  if(is_constant) {
+    return(ui_node_expr)
+  }
+
+  func_name <- called_uiName(ui_node_expr)
+  # browser() Lists of things will just get passed wholesale in... This probably
+  # should be testing if it's a known function name rather than a list of
+  # unknowns
+  if (func_name == "list" | func_name == "c"){
+
+    list_val <- eval(ui_node_expr)
+
+    # If we have a named vector then the names will be swallowed in conversion
+    # to JSON unless we explicitly make it a list
+    if (!identical(names(list_val), NULL)){
+      list_val <- as.list(list_val)
+    }
+
+    return(list_val)
+  }
 
   # Fill in all the names of unnamed arguments
   ui_node_expr <- rlang::call_standardise(ui_node_expr)

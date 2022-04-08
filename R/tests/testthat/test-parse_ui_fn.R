@@ -34,3 +34,25 @@ test_that("Makes sure the UI given is known", {
     )
   }, "Passed value is not a known UI function and can't be parsed.")
 })
+
+test_that("Handles list arguments", {
+
+  parsed <- parse_ui_fn(
+    rlang::expr(
+      shiny::selectInput(
+        inputId = "mySelectInput",
+        label = "Select Input",
+        choices = list(
+          `choice a` = "a",
+          `choice b` = "b"
+        )
+      )
+    )
+  )
+
+  expect_equal(
+    parsed$uiArguments$choices,
+    list("choice a" = "a",
+         "choice b" = "b")
+  )
+})
