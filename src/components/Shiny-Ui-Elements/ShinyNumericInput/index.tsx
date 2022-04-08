@@ -1,12 +1,10 @@
 import numericInputIcon from "assets/icons/shinyNumericinput.png";
+import type { CSSMeasure } from "CSSMeasure";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import { ShinyNumericInputSettings } from "./SettingsPanel";
 import ShinyNumericInput from "./ShinyNumericInput";
-
-// import { ShinySliderInputSettings } from "./SettingsPanel";
-// import ShinySliderInput from "./ShinySliderInput";
 
 export type ShinyNumericInputProps = {
   inputId: string;
@@ -15,6 +13,7 @@ export type ShinyNumericInputProps = {
   min?: number;
   max?: number;
   step?: number;
+  width?: CSSMeasure;
 };
 
 export const numericInputDefaultSettings: ShinyNumericInputProps = {

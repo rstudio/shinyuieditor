@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import { LabeledCSSUnitInput } from "components/Inputs/CSSUnitInput";
 import { InputSection } from "components/Inputs/InputSections";
 import NumericInput from "components/Inputs/NumericInput";
 import { TextInput } from "components/Inputs/TextInput";
@@ -36,6 +37,13 @@ export const ShinyNumericInputSettings: SettingsUpdaterComponent<
           defaultValue={1}
         />
       </InputSection>
+      <LabeledCSSUnitInput
+        name="width"
+        value={settings.width}
+        optional={true}
+        units={["px", "%", "auto"]}
+        defaultValue="400px"
+      />
     </>
   );
 };

@@ -12,9 +12,9 @@ const ShinyNumericInput: UiNodeComponent<ShinyNumericInputProps> = ({
   eventHandlers,
   compRef,
 }) => {
-  const width = "200px";
-  const height = "auto";
   const settings = { ...uiArguments };
+
+  const width = settings.width ?? "200px";
 
   const [value, setValue] = React.useState(settings.value);
 
@@ -25,7 +25,7 @@ const ShinyNumericInput: UiNodeComponent<ShinyNumericInputProps> = ({
   return (
     <div
       className={classes.container + " shiny::numericInput"}
-      style={{ height, width }}
+      style={{ width }}
       aria-label={"shiny::numericInput"}
       ref={compRef}
       {...eventHandlers}
