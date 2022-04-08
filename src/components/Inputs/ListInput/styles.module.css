@@ -31,10 +31,12 @@
 
 .keyField {
   grid-area: key;
+  min-width: 0;
 }
 
 .valueField {
   grid-area: value;
+  min-width: 0;
 }
 
 .header {
@@ -58,6 +60,7 @@
   --offset: 4px;
   padding: var(--offset);
   margin: calc(var(--offset) * -1);
+  background-color: transparent;
   outline: none;
 }
 
