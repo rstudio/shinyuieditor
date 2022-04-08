@@ -10,4 +10,5 @@ export type InputWidgetCommonProps<T> = {
   value?: T;
   onChange?: (x: { name: string; value?: T }) => void;
   defaultValue?: T;
+  disabled?: boolean;
 };

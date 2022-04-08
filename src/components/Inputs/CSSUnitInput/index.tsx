@@ -4,6 +4,7 @@ import type { InputWidgetCommonProps } from "..";
 import type { CSSMeasure } from "../../../CSSMeasure";
 import inputClasses from "../Inputs.module.css";
 import NumericInput from "../NumericInput";
+import { OptionalCheckbox } from "../OptionalInput/OptionalInput";
 import type { OnChangeCallback } from "../SettingsUpdateContext";
 import { useOnChange } from "../SettingsUpdateContext";
 
@@ -13,8 +14,9 @@ import { useCSSUnitState } from "./useCSSUnitState";
 export type CSSUnits = "fr" | "px" | "rem" | "auto" | "%";
 
 type CSSUnitInputProps = {
-  value: CSSMeasure;
+  value?: CSSMeasure;
   units?: CSSUnits[];
+  disabled?: boolean;
   onChange: (value: CSSMeasure) => void;
 };
 
@@ -22,12 +24,18 @@ export function CSSUnitInput({
   value: initialValue,
   onChange,
   units = ["fr", "px", "rem", "auto"],
+  disabled = false,
 }: CSSUnitInputProps) {
-  const { cssValue, updateCount, updateUnit } = useCSSUnitState(initialValue);
+  const { cssValue, updateCount, updateUnit } = useCSSUnitState(
+    initialValue ?? "auto"
+  );
 
   // For some reason our tract sizers will sometimes try and pass this undefined
   // so we need to guard against that at run time
-  if (initialValue === undefined) return null;
+  if (initialValue === undefined && !disabled) {
+    return null;
+  }
+
   return (
     <div
       className={classes.wrapper}
@@ -49,6 +57,7 @@ export function CSSUnitInput({
         name="count"
         label="value-count"
         value={cssValue.count ?? undefined}
+        disabled={disabled}
         onChange={({ value }) => updateCount(value)}
         min={0}
         noLabel={true}
@@ -58,6 +67,7 @@ export function CSSUnitInput({
         aria-label="value-unit"
         name="value-unit"
         value={cssValue.unit}
+        disabled={disabled}
         onChange={(e) => updateUnit(e.target.value as CSSUnits)}
       >
         {units.map((unit) => (
@@ -70,7 +80,7 @@ export function CSSUnitInput({
   );
 }
 
-const defaultCounts = {
+export const defaultCounts = {
   fr: 1,
   px: 10,
   rem: 1,
@@ -81,23 +91,37 @@ export function LabeledCSSUnitInput({
   name,
   label,
   onChange,
+  optional,
+  value,
+  defaultValue = "10px",
   ...props
-}: InputWidgetCommonProps<CSSMeasure> & {} & Omit<
-    CSSUnitInputProps,
-    "onChange"
-  >) {
+}: InputWidgetCommonProps<CSSMeasure> &
+  Omit<CSSUnitInputProps, "onChange" | "value">) {
   const onNewValue = useOnChange(onChange as OnChangeCallback);
+  const isDisabled = value === undefined;
 
+  const mainInput = (
+    <CSSUnitInput
+      value={value ?? defaultValue}
+      {...props}
+      disabled={isDisabled}
+      onChange={(value) => {
+        console.log("onChage", value);
+        onNewValue({ name, value });
+      }}
+    />
+  );
   return (
     <div className={inputClasses.container}>
+      {optional ? (
+        <OptionalCheckbox
+          name={name}
+          isDisabled={isDisabled}
+          defaultValue={defaultValue}
+        />
+      ) : null}
       <label className={inputClasses.label}>{name ?? label}:</label>
-      <CSSUnitInput
-        {...props}
-        onChange={(value) => {
-          console.log("onChage", value);
-          onNewValue({ name, value });
-        }}
-      />
+      {mainInput}
     </div>
   );
 }

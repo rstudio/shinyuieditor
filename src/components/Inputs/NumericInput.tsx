@@ -18,6 +18,7 @@ export default function NumericInput({
   noLabel = false,
   optional = false,
   defaultValue = 1,
+  disabled = value === undefined,
 }: InputWidgetCommonProps<number> & {
   min?: number;
   max?: number;
@@ -34,14 +35,12 @@ export default function NumericInput({
     [max, min, name, onNewValue, value]
   );
 
-  const isDisabled = value === undefined;
-
   const mainInput = (
     <input
       className={classes.numericInput}
       aria-label={ariaLabel ?? name ?? "Numeric Input"}
       type="number"
-      disabled={isDisabled}
+      disabled={disabled}
       // The toString() here makes sure that we dont get prefixed zeros
       // anytime the user deletes back to nothing and then types a new value.
       // Otherwise the comparison that react does to know to update the value
@@ -68,7 +67,7 @@ export default function NumericInput({
       {optional ? (
         <OptionalCheckbox
           name={name}
-          isDisabled={isDisabled}
+          isDisabled={disabled}
           defaultValue={defaultValue}
         />
       ) : null}
