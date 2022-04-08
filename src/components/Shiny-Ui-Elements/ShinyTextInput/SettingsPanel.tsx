@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import { LabeledCSSUnitInput } from "components/Inputs/CSSUnitInput";
 import { InputSection } from "components/Inputs/InputSections";
 import { TextInput } from "components/Inputs/TextInput";
 
@@ -23,6 +24,13 @@ export const ShinyTextInputSettings: SettingsUpdaterComponent<
           defaultValue="placeholder text"
         />
       </InputSection>
+      <LabeledCSSUnitInput
+        name="width"
+        value={settings.width}
+        optional={true}
+        units={["px", "%", "auto"]}
+        defaultValue="400px"
+      />
     </>
   );
 };

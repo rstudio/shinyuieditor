@@ -13,6 +13,13 @@ import { useCSSUnitState } from "./useCSSUnitState";
 
 export type CSSUnits = "fr" | "px" | "rem" | "auto" | "%";
 
+export const defaultCounts = {
+  fr: 1,
+  px: 10,
+  rem: 1,
+  "%": 100,
+};
+
 type CSSUnitInputProps = {
   value?: CSSMeasure;
   units?: CSSUnits[];
@@ -80,13 +87,6 @@ export function CSSUnitInput({
   );
 }
 
-export const defaultCounts = {
-  fr: 1,
-  px: 10,
-  rem: 1,
-  "%": 100,
-};
-
 export function LabeledCSSUnitInput({
   name,
   label,
@@ -95,7 +95,7 @@ export function LabeledCSSUnitInput({
   value,
   defaultValue = "10px",
   ...props
-}: InputWidgetCommonProps<CSSMeasure> &
+}: Omit<InputWidgetCommonProps<CSSMeasure>, "disabled"> &
   Omit<CSSUnitInputProps, "onChange" | "value">) {
   const onNewValue = useOnChange(onChange as OnChangeCallback);
   const isDisabled = value === undefined;
@@ -106,7 +106,6 @@ export function LabeledCSSUnitInput({
       {...props}
       disabled={isDisabled}
       onChange={(value) => {
-        console.log("onChage", value);
         onNewValue({ name, value });
       }}
     />
