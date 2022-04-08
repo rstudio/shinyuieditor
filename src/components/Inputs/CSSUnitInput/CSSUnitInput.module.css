@@ -7,7 +7,7 @@
   --incrementerSize: 10px;
 }
 
-select {
+.wrapper > select {
   border: 1px solid var(--light-grey);
   border-radius: var(--corner-radius);
 }

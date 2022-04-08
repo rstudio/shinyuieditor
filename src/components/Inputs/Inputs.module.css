@@ -34,3 +34,11 @@ input {
   height: 1px;
   border-radius: 50%;
 }
+
+input:disabled,
+select:disabled {
+  background-color: var(--light-grey);
+  outline: 1px solid var(--grey, red);
+  opacity: 0.25;
+  cursor: not-allowed;
+}

@@ -8,10 +8,3 @@ input[type="number"].numericInput {
   max-width: 90px;
   min-width: 40px;
 }
-
-input.numericInput:disabled {
-  outline: 1px solid var(--grey, red);
-  background-color: var(--light-grey);
-  opacity: 0.25;
-  cursor: not-allowed;
-}
