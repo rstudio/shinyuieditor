@@ -93,6 +93,10 @@ function DropWatcherPanel({
 
 // Assign special classes to the drop watcher divs to note their positions
 function dropWatcherPositionClass(i: number, numChildren: number) {
+  if (i === 0 && numChildren === 0) {
+    return classes.onlyDropWatcher;
+  }
+
   if (i === 0) {
     return classes.firstDropWatcher;
   }

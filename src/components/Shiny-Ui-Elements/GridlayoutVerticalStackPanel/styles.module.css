@@ -59,7 +59,11 @@ makes the justify-content property not neccesary but we'll keep it incase we
 change how we do this in the future. */
 .container[data-alignment="spread"] > div.lastDropWatcher,
 .container[data-alignment="spread"] > div.firstDropWatcher,
-.container[data-alignment="spread"] > div.middleDropWatcher {
+.container[data-alignment="spread"] > div.middleDropWatcher,
+
+/* When the panel is entirely empty and the drop watcher is present then let it
+take up the whole space */
+div.onlyDropWatcher {
   flex-grow: 1;
   height: unset;
 }
