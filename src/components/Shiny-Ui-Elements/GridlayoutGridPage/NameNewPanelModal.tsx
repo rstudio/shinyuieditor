@@ -17,9 +17,8 @@ export function NameNewPanelModal({
   onDone: (name: string) => void;
   existingAreaNames: string[];
 }) {
-  const [newItemName, setNewItemName] = React.useState<string>(
-    `area${existingAreaNames.length}`
-  );
+  const defaultName = `area${existingAreaNames.length}`;
+  const [newItemName, setNewItemName] = React.useState<string>(defaultName);
 
   const [warningMsg, setWarningMsg] = React.useState<string | null>(null);
 
@@ -43,12 +42,15 @@ export function NameNewPanelModal({
     [existingAreaNames, newItemName, onDone]
   );
 
-  const handleNameUpdate = React.useCallback((newName) => {
-    // Reset the warning message (if it exists) when the user types so stale
-    // warnings dont linger.
-    setWarningMsg(null);
-    setNewItemName(newName);
-  }, []);
+  const handleNameUpdate = React.useCallback(
+    ({ value: newName }: { value?: string }) => {
+      // Reset the warning message (if it exists) when the user types so stale
+      // warnings dont linger.
+      setWarningMsg(null);
+      setNewItemName(newName ?? defaultName);
+    },
+    [defaultName]
+  );
 
   return (
     <PortalModal
@@ -63,7 +65,7 @@ export function NameNewPanelModal({
             name="New-Item-Name"
             value={newItemName}
             placeholder="Name of grid area"
-            onChange={({ value }) => handleNameUpdate(value)}
+            onChange={handleNameUpdate}
             autoFocus={true}
           />
           {warningMsg ? (
