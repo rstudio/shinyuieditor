@@ -89,7 +89,7 @@ export const shinyUiNodeInfo = {
   "shiny::numericInput": shinyNumericInputInfo,
   "shiny::textInput": shinyTextInputInfo,
   "shiny::radioButtons": shinyRadioButtonsInfo,
-  "shint::checkboxInput": shinyCheckboxInputInfo,
+  "shiny::checkboxInput": shinyCheckboxInputInfo,
   "shiny::selectInput": shinySelectInputInfo,
   "shiny::actionButton": shinyActionButtonInfo,
   "shiny::uiOutput": shinyUiOutputInfo,
