@@ -43,6 +43,8 @@ export function CSSUnitInput({
     return null;
   }
 
+  const countIsDisabled = disabled || cssValue.count === null;
+
   return (
     <div
       className={classes.wrapper}
@@ -63,8 +65,8 @@ export function CSSUnitInput({
       <NumericInput
         name="count"
         label="value-count"
-        value={cssValue.count ?? undefined}
-        disabled={disabled}
+        value={countIsDisabled ? undefined : cssValue.count}
+        disabled={countIsDisabled}
         onChange={({ value }) => updateCount(value)}
         min={0}
         noLabel={true}
