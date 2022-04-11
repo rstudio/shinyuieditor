@@ -170,9 +170,11 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
           </SettingsUpdateContext>
           <ErrorMessageDisplay errorMsg={errorMsg} />
           <div className={classes.submitHolder}>
-            <Button type="submit">
-              <BiCheck /> Update
-            </Button>
+            {uiName !== "unknownUiFunction" ? (
+              <Button type="submit">
+                <BiCheck /> Update
+              </Button>
+            ) : null}
           </div>
         </form>
       </div>

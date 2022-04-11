@@ -18,6 +18,7 @@ import { shinySliderInputInfo } from "./ShinySliderInput";
 import { shinyTextInputInfo } from "./ShinyTextInput";
 import { shinyTextOutputInfo } from "./ShinyTextOutput";
 import { shinyUiOutputInfo } from "./ShinyUiOutput";
+import { unknownUiFunctionInfo } from "./UnknownUiNode";
 
 /**
  * Defines everything needed to add a new Shiny UI component to the app
@@ -85,6 +86,7 @@ export type UiComponentInfo<NodeSettings extends object> = {
  * the editor
  */
 export const shinyUiNodeInfo = {
+  unknownUiFunction: unknownUiFunctionInfo,
   "shiny::plotOutput": shinyPlotOutputInfo,
   "shiny::sliderInput": shinySliderInputInfo,
   "shiny::numericInput": shinyNumericInputInfo,

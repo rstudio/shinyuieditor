@@ -1,0 +1,12 @@
+.container {
+  width: 100%;
+  padding: 4px;
+  background-color: var(--light-grey);
+  border-radius: var(--corner-radius);
+  position: relative;
+}
+
+.codeHolder {
+  overflow: auto;
+  font-family: var(--mono-fonts);
+}
