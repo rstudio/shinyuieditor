@@ -1,5 +1,6 @@
 import radioButtonIcons from "assets/icons/shinyRadiobuttons.png";
 import type { NamedList } from "components/Inputs/ListInput/NamedListInput";
+import type { CSSMeasure } from "CSSMeasure";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 
@@ -10,6 +11,7 @@ export type ShinyRadioButtonsProps = {
   inputId: string;
   label: string;
   choices: NamedList;
+  width?: CSSMeasure;
 };
 
 export const radioButtonsDefaultSettings: ShinyRadioButtonsProps = {

@@ -12,7 +12,12 @@ const ShinyRadioButtons: UiNodeComponent<ShinyRadioButtonsProps> = ({
 }) => {
   const choices = uiArguments.choices;
   return (
-    <div ref={compRef} className={classes.container} {...eventHandlers}>
+    <div
+      ref={compRef}
+      className={classes.container}
+      style={{ width: uiArguments.width }}
+      {...eventHandlers}
+    >
       <label>{uiArguments.label}</label>
       <div>
         {Object.keys(choices).map((key, i) => (
