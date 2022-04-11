@@ -37,9 +37,9 @@ parse_ui_fn <- function(ui_node_expr) {
   }
 
   func_name <- called_uiName(ui_node_expr)
-  # browser() Lists of things will just get passed wholesale in... This probably
-  # should be testing if it's a known function name rather than a list of
-  # unknowns
+
+  # We know how to handle just a few types of function calls, so make sure that
+  # we're working with one of those before proceeding
   if (func_name == "list" | func_name == "c"){
 
     list_val <- eval(ui_node_expr)
@@ -51,6 +51,10 @@ parse_ui_fn <- function(ui_node_expr) {
     }
 
     return(list_val)
+  } else if (!get_is_known_ui_fn(func_name)) {
+    stop(
+      paste0("The function ", func_name, "() is not supported by the UI editor -- sorry!")
+    )
   }
 
   # Fill in all the names of unnamed arguments
