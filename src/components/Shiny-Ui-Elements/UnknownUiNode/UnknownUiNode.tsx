@@ -21,7 +21,7 @@ const UnknownUiFunction: UiNodeComponent<UnknownUiFunctionProps> = ({
       aria-label="shiny::uiOutput placeholder"
       {...eventHandlers}
     >
-      <div className={classes.codeHolder}>{text}</div>
+      <div>unknown ui output</div>
       {children}
     </div>
   );

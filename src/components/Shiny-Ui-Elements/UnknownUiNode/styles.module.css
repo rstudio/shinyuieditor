@@ -1,9 +1,12 @@
 .container {
-  width: 100%;
+  width: calc(100% - 10px);
+  height: min(calc(100% - 10px), 75px);
   padding: 4px;
   background-color: var(--light-grey);
   border-radius: var(--corner-radius);
   position: relative;
+  display: grid;
+  place-content: center;
 }
 
 .codeHolder {
