@@ -17,7 +17,7 @@
   font-family: monospace;
 }
 
-.checkboxLabel {
+label.checkboxLabel {
   --height: 30px;
   --aspect-ratio: 1.6;
   --animation-speed: 0.2s;
