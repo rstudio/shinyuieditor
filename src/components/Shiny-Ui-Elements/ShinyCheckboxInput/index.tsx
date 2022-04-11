@@ -1,4 +1,4 @@
-import textInputIcon from "assets/icons/shinyTextinput.png";
+import inputIcon from "assets/icons/shinycheckbox.png";
 import type { CSSMeasure } from "CSSMeasure";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
@@ -26,5 +26,5 @@ export const shinyCheckboxInputInfo: UiComponentInfo<ShinyCheckboxInputProps> =
     SettingsComponent: ShinyCheckboxInputSettings,
     acceptsChildren: false,
     defaultSettings: checkboxInputDefaultSettings,
-    iconSrc: textInputIcon,
+    iconSrc: inputIcon,
   };
