@@ -17,7 +17,9 @@ export function NameNewPanelModal({
   onDone: (name: string) => void;
   existingAreaNames: string[];
 }) {
-  const [newItemName, setNewItemName] = React.useState<string>("");
+  const [newItemName, setNewItemName] = React.useState<string>(
+    `area${existingAreaNames.length}`
+  );
 
   const [warningMsg, setWarningMsg] = React.useState<string | null>(null);
 
