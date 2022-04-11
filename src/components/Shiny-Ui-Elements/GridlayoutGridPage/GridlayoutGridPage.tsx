@@ -125,7 +125,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
       // If we're using a grid-aware node already then we just need to put the
       // new name into its settings. Otherwise automatically wrap the item in a
       // grid container
-      if (gridAwareNodes.includes(node.uiName)) {
+      if ("area" in node.uiArguments && gridAwareNodes.includes(node.uiName)) {
         node.uiArguments = { ...node.uiArguments, area: name };
       } else {
         node = {
