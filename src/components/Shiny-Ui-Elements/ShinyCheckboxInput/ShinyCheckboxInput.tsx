@@ -12,8 +12,8 @@ const ShinyCheckboxInput: UiNodeComponent<ShinyCheckboxInputProps> = ({
   eventHandlers,
   compRef,
 }) => {
-  const width = "200px";
-  const height = "auto";
+  const width = uiArguments.width ?? "auto";
+
   const settings = { ...uiArguments };
 
   const [value, setValue] = React.useState(settings.value);
@@ -24,19 +24,21 @@ const ShinyCheckboxInput: UiNodeComponent<ShinyCheckboxInputProps> = ({
 
   return (
     <div
-      className={classes.container + " shiny::textInput"}
-      style={{ height, width }}
-      aria-label={"shiny::textInput"}
+      className={classes.container + " shiny::checkbox"}
+      style={{ width }}
+      aria-label={"shiny::checkbox"}
       ref={compRef}
       {...eventHandlers}
     >
-      <label htmlFor={settings.inputId}>{settings.label}</label>
-      <input
-        id={settings.inputId}
-        type="checkbox"
-        checked={value}
-        onChange={(e) => setValue(e.target.checked)}
-      />
+      <label htmlFor={settings.inputId}>
+        <input
+          id={settings.inputId}
+          type="checkbox"
+          checked={value}
+          onChange={(e) => setValue(e.target.checked)}
+        />
+        <span className={classes.label}>{settings.label}</span>
+      </label>
       {children}
     </div>
   );
