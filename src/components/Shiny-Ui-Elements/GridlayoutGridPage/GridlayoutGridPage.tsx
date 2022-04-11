@@ -6,6 +6,7 @@ import { GridCell } from "components/Shiny-Ui-Elements/GridlayoutGridPage/GridCe
 import type {
   ShinyUiChildren,
   ShinyUiNames,
+  shinyUiNodeInfo,
   UiContainerNodeComponent,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import UiNode from "components/UiNode";
@@ -63,11 +64,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
   const handleNodeDrop = (nodeInfo: NewItemInfo) => {
     const { node, currentPath, pos } = nodeInfo;
     const isNodeMove = currentPath !== undefined;
-    const isGridPanel = [
-      "gridlayout::grid_panel",
-      "gridlayout::title_panel",
-      "gridlayout::vertical_stack_panel",
-    ].includes(node.uiName);
+    const isGridPanel = gridAwareNodes.includes(node.uiName);
     if (
       isNodeMove &&
       isGridPanel &&
@@ -125,8 +122,13 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
       // If we're using a grid-aware node already then we just need to put the
       // new name into its settings. Otherwise automatically wrap the item in a
       // grid container
-      if ("area" in node.uiArguments && gridAwareNodes.includes(node.uiName)) {
-        node.uiArguments = { ...node.uiArguments, area: name };
+
+      if (gridAwareNodes.includes(node.uiName)) {
+        const argsWithArea: GridAwareNodeArgs = {
+          ...node.uiArguments,
+          area: name,
+        };
+        node.uiArguments = argsWithArea;
       } else {
         node = {
           uiName: "gridlayout::vertical_stack_panel",
@@ -219,6 +221,15 @@ export function areasOfChildren(children: ShinyUiChildren) {
 
   return all_children_areas;
 }
+
+type GridAwareNodes =
+  | "gridlayout::grid_panel"
+  | "gridlayout::title_panel"
+  | "gridlayout::text_panel"
+  | "gridlayout::vertical_stack_panel";
+
+type GridAwareNodeArgs =
+  typeof shinyUiNodeInfo[GridAwareNodes]["defaultSettings"];
 
 // These are nodes that don't need to be wrapped in a grid_panel if dropped
 export const gridAwareNodes: ShinyUiNames[] = [
