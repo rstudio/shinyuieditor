@@ -1,13 +1,18 @@
 .container {
+  /* We dont actually need the gap to be used for the gap property as the drop
+  watchers accomplish the spacing for us */
   --spacing: var(--item-gap, 1rem);
   position: relative;
   height: 100%;
   width: 100%;
+  /* Stop blowout and enable properties like padding to be used as expected */
+  min-width: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: var(--rstudio-white, green);
   outline: var(--outline);
+  padding: 6px;
 }
 
 /* Make sure the children are position relative so floating buttons etc will sit
