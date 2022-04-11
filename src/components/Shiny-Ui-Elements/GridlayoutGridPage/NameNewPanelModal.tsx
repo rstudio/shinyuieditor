@@ -61,7 +61,7 @@ export function NameNewPanelModal({
             name="New-Item-Name"
             value={newItemName}
             placeholder="Name of grid area"
-            onChange={handleNameUpdate}
+            onChange={({ value }) => handleNameUpdate(value)}
             autoFocus={true}
           />
           {warningMsg ? (
