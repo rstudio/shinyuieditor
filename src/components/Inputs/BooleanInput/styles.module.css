@@ -1,0 +1,62 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.checkboxInput {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+  /* Giving a non-flow position will mean the flexbox wont give a gap around the
+  actual hidden input */
+  position: absolute;
+}
+
+.valueLabel {
+  font-family: monospace;
+}
+
+.checkboxLabel {
+  --height: 30px;
+  --aspect-ratio: 1.6;
+  --animation-speed: 0.2s;
+  --on-color: var(--rstudio-blue, pink);
+  --off-color: var(--grey);
+  --width: calc(var(--height) * var(--aspect-ratio));
+  --toggle-r: calc(var(--height) * 0.85);
+  --toggle-offset: calc((var(--height) - var(--toggle-r)) / 2);
+  cursor: pointer;
+  text-indent: -9999px;
+  width: var(--width);
+  height: var(--height);
+  background: var(--off-color);
+  display: block;
+  border-radius: var(--height);
+  position: relative;
+}
+
+.checkboxLabel:after {
+  content: "";
+  position: absolute;
+  top: var(--toggle-offset);
+  left: var(--toggle-offset);
+  width: var(--toggle-r);
+  height: var(--toggle-r);
+  background: #fff;
+  border-radius: var(--toggle-r);
+  transition: var(--animation-speed);
+}
+
+.checkboxInput:checked + .checkboxLabel {
+  background: var(--on-color);
+}
+
+.checkboxInput:checked + .checkboxLabel:after {
+  left: calc(100% - var(--toggle-offset));
+  transform: translateX(-100%);
+}
+
+.checkboxLabel:active:after {
+  width: calc(var(--width) / 1.5);
+}

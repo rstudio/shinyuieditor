@@ -4,7 +4,7 @@ import type { NamedList } from "./ListInput/NamedListInput";
 
 export type OnChangeCallback = (x: {
   name: string;
-  value: string | number | undefined | string[] | NamedList;
+  value: string | number | boolean | undefined | string[] | NamedList;
 }) => void;
 
 export const OnChangeContext = React.createContext<OnChangeCallback | null>(
