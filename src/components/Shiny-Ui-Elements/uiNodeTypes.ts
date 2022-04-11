@@ -8,6 +8,7 @@ import { gridlayoutTextPanelInfo } from "./GridlayoutTextPanel";
 import { gridlayoutTitlePanelInfo } from "./GridlayoutTitlePanel";
 import { gridlayoutVerticalStackPanelInfo } from "./GridlayoutVerticalStackPanel";
 import { shinyActionButtonInfo } from "./ShinyActionButton";
+import { shinyCheckboxGroupInputInfo } from "./ShinyCheckboxGroupInput";
 import { shinyCheckboxInputInfo } from "./ShinyCheckboxInput";
 import { shinyNumericInputInfo } from "./ShinyNumericInput";
 import { shinyPlotOutputInfo } from "./ShinyPlotOutput";
@@ -90,6 +91,7 @@ export const shinyUiNodeInfo = {
   "shiny::textInput": shinyTextInputInfo,
   "shiny::radioButtons": shinyRadioButtonsInfo,
   "shiny::checkboxInput": shinyCheckboxInputInfo,
+  "shiny::checkboxGroupInput": shinyCheckboxGroupInputInfo,
   "shiny::selectInput": shinySelectInputInfo,
   "shiny::actionButton": shinyActionButtonInfo,
   "shiny::uiOutput": shinyUiOutputInfo,
