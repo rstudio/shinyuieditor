@@ -34,18 +34,6 @@ test("Can show a subset of units", () => {
   expect(screen.queryByText(/fr/i)).toBeFalsy();
 });
 
-test("Can be incremented by the arrows", () => {
-  render(<UseCssUnitInput initialValue={"1px"} />);
-  expect(screen.getByLabelText("value-count")).toHaveValue(1);
-  expect(screen.getByLabelText("value-unit")).toHaveValue("px");
-
-  userEvent.click(screen.getByLabelText(/increase count/i));
-  expect(screen.getByLabelText("value-count")).toHaveValue(2);
-
-  userEvent.click(screen.getByLabelText(/decrease count/i));
-  expect(screen.getByLabelText("value-count")).toHaveValue(1);
-});
-
 test("Auto units will disable the count input", () => {
   render(<UseCssUnitInput initialValue={"1px"} />);
 
