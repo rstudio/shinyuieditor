@@ -18,8 +18,7 @@ export function BooleanInput({
   const labelValue = noLabel ? undefined : label ?? name;
   const checkboxId = `${name}-checkbox-input`;
   const mainCheckbox = (
-    <div className={classes.container}>
-      <span className={classes.valueLabel}>FALSE</span>
+    <>
       <input
         className={classes.checkboxInput}
         id={checkboxId}
@@ -29,11 +28,14 @@ export function BooleanInput({
         checked={value}
         onChange={(e) => onNewValue({ name, value: e.target.checked })}
       />
-      <label className={classes.checkboxLabel} htmlFor={checkboxId}>
+      <label
+        className={classes.checkboxLabel}
+        htmlFor={checkboxId}
+        data-value={value ? "TRUE" : "FALSE"}
+      >
         Toggle
       </label>
-      <span className={classes.valueLabel}>TRUE</span>
-    </div>
+    </>
   );
 
   return labelValue !== undefined ? (
