@@ -39,6 +39,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
+    "ladle": "ladle serve",
     "build-storybook": "build-storybook -s public",
     "lint": "eslint src --fix"
   },
