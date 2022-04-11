@@ -9,6 +9,11 @@ tree_to_exp <- function(ui_tree){
   ui_fn <- ui_tree$uiName
   ui_args <- ui_tree$uiArguments
 
+  if (ui_fn == "unknownUiFunction"){
+    # Just mirror back whatever the unknown function call was
+    return(str2lang(ui_args$text))
+  }
+
   if(is.null(ui_fn) || is.null(ui_args)) {
     str(ui_tree)
     stop("Improperly formatted ui tree found")

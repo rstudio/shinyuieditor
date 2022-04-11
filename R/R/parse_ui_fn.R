@@ -52,9 +52,16 @@ parse_ui_fn <- function(ui_node_expr) {
 
     return(list_val)
   } else if (!get_is_known_ui_fn(func_name)) {
-    stop(
-      paste0("The function ", func_name, "() is not supported by the UI editor -- sorry!")
+
+    return(
+      list(
+        uiName = "unknownUiFunction",
+        uiArguments = list(
+          text = rlang::expr_text(ui_node_expr)
+        )
+      )
     )
+
   }
 
   # Fill in all the names of unnamed arguments
