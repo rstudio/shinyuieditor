@@ -6,8 +6,8 @@
 #
 #    http://shiny.rstudio.com/
 #
-
 library(shiny)
+library(DT)
 
 # Define server logic required to draw a histogram
 function(input, output) {
@@ -29,5 +29,12 @@ function(input, output) {
     # draw the histogram with the specified number of bins
     hist(x, breaks = bins, col = 'steelblue', border = 'white')
   })
+
+  output$tbl = renderDT({
+    print("Rendering data table")
+    iris
+  }
+
+  )
 }
 
