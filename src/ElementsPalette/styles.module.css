@@ -6,7 +6,7 @@
   grid-template-columns: repeat(auto-fit, minmax(75px, 1fr));
   justify-content: center;
   justify-items: center;
-  align-content: space-between;
+  align-content: space-around;
   padding: 8px;
   gap: 8px;
 }
