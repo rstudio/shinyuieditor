@@ -23,7 +23,7 @@ export const gridLayoutGridPanelInfo: UiComponentInfo<GridPanelSettings> = {
     verticalAlign: "center",
     horizontalAlign: "center",
   },
-  iconSrc: containerIcon,
+  // iconSrc: containerIcon,
 };
 
 export default GridlayoutGridPanel;
