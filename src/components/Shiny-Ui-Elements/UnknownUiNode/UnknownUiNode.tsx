@@ -12,8 +12,6 @@ const UnknownUiFunction: UiNodeComponent<UnknownUiFunctionProps> = ({
   eventHandlers,
   compRef,
 }) => {
-  const { text } = uiArguments;
-
   return (
     <div
       className={classes.container}
