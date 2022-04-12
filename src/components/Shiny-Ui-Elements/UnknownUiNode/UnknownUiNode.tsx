@@ -6,12 +6,15 @@ import type { UnknownUiFunctionProps } from "./index";
 
 import classes from "./styles.module.css";
 
+const num_preview_chars = 20;
 const UnknownUiFunction: UiNodeComponent<UnknownUiFunctionProps> = ({
   uiArguments,
   children,
   eventHandlers,
   compRef,
 }) => {
+  const functionName =
+    uiArguments.text.slice(0, num_preview_chars).replaceAll(/\s$/g, "") + "...";
   return (
     <div
       className={classes.container}
@@ -19,7 +22,10 @@ const UnknownUiFunction: UiNodeComponent<UnknownUiFunctionProps> = ({
       aria-label="shiny::uiOutput placeholder"
       {...eventHandlers}
     >
-      <div>unknown ui output</div>
+      <div>
+        unknown ui output: <code>{functionName}</code>
+      </div>
+
       {children}
     </div>
   );
