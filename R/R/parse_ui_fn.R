@@ -31,7 +31,38 @@ parse_ui_fn <- function(ui_node_expr) {
   # First check if we should even try and parsing this node. If it's a constant
   # like a string just return that.
   is_constant <- !is.call(ui_node_expr)
-  if(is_constant) return(ui_node_expr)
+
+  if(is_constant) {
+    return(ui_node_expr)
+  }
+
+  func_name <- called_uiName(ui_node_expr)
+
+  # We know how to handle just a few types of function calls, so make sure that
+  # we're working with one of those before proceeding
+  if (func_name == "list" | func_name == "c"){
+
+    list_val <- eval(ui_node_expr)
+
+    # If we have a named vector then the names will be swallowed in conversion
+    # to JSON unless we explicitly make it a list
+    if (!identical(names(list_val), NULL)){
+      list_val <- as.list(list_val)
+    }
+
+    return(list_val)
+  } else if (!get_is_known_ui_fn(func_name)) {
+
+    return(
+      list(
+        uiName = "unknownUiFunction",
+        uiArguments = list(
+          text = rlang::expr_text(ui_node_expr)
+        )
+      )
+    )
+
+  }
 
   # Fill in all the names of unnamed arguments
   ui_node_expr <- rlang::call_standardise(ui_node_expr)

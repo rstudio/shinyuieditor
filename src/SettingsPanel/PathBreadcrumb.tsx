@@ -1,8 +1,8 @@
 import type {
   NodePath,
   ShinyUiNode,
-} from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
-import { getNode } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/getNode";
+} from "components/Shiny-Ui-Elements/uiNodeTypes";
+import { getNode } from "components/UiNode/TreeManipulation/getNode";
 
 import classes from "./PathBreadcrumb.module.css";
 

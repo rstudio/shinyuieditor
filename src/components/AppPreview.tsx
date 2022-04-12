@@ -11,8 +11,10 @@ export default function AppPreview() {
   const [isFullScreen, setIsFullScreen] = React.useState(false);
   const { isLoading, error, data: appURL } = useGetRunningAppLocQuery("");
 
-  if (error || appURL === "no-preview") {
+  if (error) {
     console.error("Problem in retreiving running app location", error);
+  }
+  if (appURL === "no-preview") {
     return null;
   }
 
@@ -29,11 +31,6 @@ export default function AppPreview() {
         >
           {isLoading ? (
             <h2>Loading app preview...</h2>
-          ) : error ? (
-            <>
-              <h2 className={classes.error}>Error loading app preview.</h2>
-              <p>Check app server code to make sure it's valid.</p>
-            </>
           ) : (
             <>
               <Button
@@ -48,11 +45,15 @@ export default function AppPreview() {
               >
                 {isFullScreen ? <AiOutlineShrink /> : <FaExpand />}
               </Button>
-              <iframe
-                className={classes.previewFrame}
-                src={appURL}
-                title="Application Preview"
-              />
+              {error ? (
+                <FakeDashboard />
+              ) : (
+                <iframe
+                  className={classes.previewFrame}
+                  src={appURL}
+                  title="Application Preview"
+                />
+              )}
             </>
           )}
         </div>
@@ -60,3 +61,16 @@ export default function AppPreview() {
     </>
   );
 }
+
+const FakeDashboard = () => {
+  return (
+    <div className={classes.fakeDashboard + " " + classes.previewFrame}>
+      <div className={classes.header}>
+        <h1>App preview not available</h1>
+      </div>
+      <div className={classes.sidebar}></div>
+      <div className={classes.top}></div>
+      <div className={classes.bottom}></div>
+    </div>
+  );
+};

@@ -1,38 +1,44 @@
 import React from "react";
 
+import type { InputWidgetCommonProps } from ".";
+
 import inputClasses from "./Inputs.module.css";
 import classes from "./NumericInput.module.css";
+import { OptionalCheckbox } from "./OptionalInput/OptionalInput";
+import type { OnChangeCallback } from "./SettingsUpdateContext";
+import { useOnChange } from "./SettingsUpdateContext";
 
 export default function NumericInput({
-  label,
-  ariaLabel,
+  name,
+  label: ariaLabel,
   value,
   min = 0,
   max = Infinity,
   onChange,
-  disabled = false,
-}: {
-  label?: string;
-  ariaLabel?: string;
-  value?: number;
+  noLabel = false,
+  optional = false,
+  defaultValue = 1,
+  disabled = value === undefined,
+}: InputWidgetCommonProps<number> & {
   min?: number;
   max?: number;
-  onChange: (newVal: number) => void;
-  disabled?: boolean;
 }) {
+  const onNewValue = useOnChange(onChange as OnChangeCallback);
+
   const incrementCount = React.useCallback(
     (amount: number = 1, largeIncrement: boolean = false) => {
       const scale = largeIncrement ? 10 : 1;
       const oldVal = value ?? 0;
-      onChange(Math.min(Math.max(oldVal + amount * scale, min), max));
+      const newValue = Math.min(Math.max(oldVal + amount * scale, min), max);
+      onNewValue({ name, value: newValue });
     },
-    [max, min, onChange, value]
+    [max, min, name, onNewValue, value]
   );
 
   const mainInput = (
     <input
       className={classes.numericInput}
-      aria-label={ariaLabel ?? label ?? "Numeric Input"}
+      aria-label={ariaLabel ?? name ?? "Numeric Input"}
       type="number"
       disabled={disabled}
       // The toString() here makes sure that we dont get prefixed zeros
@@ -40,7 +46,7 @@ export default function NumericInput({
       // Otherwise the comparison that react does to know to update the value
       // would consider `02` equal to `2`
       value={value?.toString() ?? ""}
-      onChange={(e) => onChange(Number(e.target.value))}
+      onChange={(e) => onNewValue({ name, value: Number(e.target.value) })}
       min={0}
       onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
         // If the user is holding the shift key while incrementing, go by
@@ -54,12 +60,19 @@ export default function NumericInput({
     />
   );
 
-  return label !== undefined ? (
+  return noLabel ? (
+    mainInput
+  ) : (
     <div className={inputClasses.container}>
-      <label className={inputClasses.label}>{label}:</label>
+      {optional ? (
+        <OptionalCheckbox
+          name={name}
+          isDisabled={disabled}
+          defaultValue={defaultValue}
+        />
+      ) : null}
+      <label className={inputClasses.label}>{name}:</label>
       {mainInput}
     </div>
-  ) : (
-    mainInput
   );
 }

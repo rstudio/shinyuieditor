@@ -1,4 +1,4 @@
-import type { ShinyUiNode } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
+import type { ShinyUiNode } from "components/Shiny-Ui-Elements/uiNodeTypes";
 
 export function sendUiStateToBackend(state: ShinyUiNode) {
   const stateBlob = new Blob([JSON.stringify(state, null, 2)], {

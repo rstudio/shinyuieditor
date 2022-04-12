@@ -1,4 +1,4 @@
-import type { CSSMeasure, CSSUnits } from "../GridTypes";
+import type { CSSMeasure, CSSUnits } from "../CSSMeasure";
 
 export type ParsedCSSMeasure =
   | { count: number; unit: CSSUnits }
@@ -52,6 +52,8 @@ export function defaultValueForCssUnit(unitType: CSSUnits): CSSMeasure {
       return "10px";
     case "rem":
       return "1rem";
+    case "%":
+      return "100%";
   }
 }
 

@@ -12,6 +12,12 @@
     "elements editor properties";
 }
 
+.container * {
+  /* Soften edges just the tiniest bit to make stuff less jarring */
+  border-radius: 1px;
+  min-height: 0;
+}
+
 .container > * {
   outline: 1px solid var(--header-grey);
   min-width: 0;
@@ -19,6 +25,7 @@
 
 .elementsPanel {
   grid-area: elements;
+  overflow: auto;
 }
 
 .propertiesPanel {

@@ -21,26 +21,33 @@ is_known_ui_fn <- function(x){
 
   if (is.symbol(x) || identical(x[[1]], as.symbol("::"))) stop("Passed expression is not a function call")
 
-  full_uiName <- called_uiName(x)
-
-  # if (identical(full_uiName, "::")) stop("Passed expression is not a function call")
-  # Get rid of the namespace prefix so we can look up functions more easily.
-  # Ideally all calls would have namespace prefix so we can be sure we're
-  # getting what we think instead of a user defined variable but that's a
-  # pretty hefty restriction
-
-  fn_list <- if (grepl("::", full_uiName, fixed = TRUE)) namespaced_ui_fns else known_ui_fns
-
-  full_uiName %in% fn_list
+  get_is_known_ui_fn(called_uiName(x))
 }
 
 
+get_is_known_ui_fn <- function(name){
+  name %in% c(namespaced_ui_fns, known_ui_fns)
+}
+
+# This list should be kept up to date with `shinyUiNodeInfo` in uiNodeTypes.ts
 namespaced_ui_fns <- c(
-  "gridlayout::grid_page",
-  "gridlayout::title_panel",
-  "gridlayout::grid_panel",
+  "shiny::plotOutput",
   "shiny::sliderInput",
-  "shiny::plotOutput"
+  "shiny::numericInput",
+  "shiny::textInput",
+  "shiny::radioButtons",
+  "shiny::checkboxInput",
+  "shiny::checkboxGroupInput",
+  "shiny::selectInput",
+  "shiny::actionButton",
+  "shiny::uiOutput",
+  "shiny::textOutput",
+  "gridlayout::title_panel",
+  "gridlayout::text_panel",
+  "gridlayout::grid_panel",
+  "gridlayout::grid_page",
+  "gridlayout::vertical_stack_panel"
 )
+
 known_ui_fns <- gsub(pattern = "\\w+::", replacement = "", x = namespaced_ui_fns, perl = TRUE)
 

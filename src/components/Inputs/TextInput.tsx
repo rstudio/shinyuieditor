@@ -1,6 +1,11 @@
 import React from "react";
 
+import type { InputWidgetCommonProps } from ".";
+
 import inputClasses from "./Inputs.module.css";
+import { OptionalCheckbox } from "./OptionalInput/OptionalInput";
+import type { OnChangeCallback } from "./SettingsUpdateContext";
+import { useOnChange } from "./SettingsUpdateContext";
 import classes from "./TextInput.module.css";
 
 export function TextInput({
@@ -10,14 +15,16 @@ export function TextInput({
   placeholder,
   onChange,
   autoFocus = false,
-}: {
-  name: string;
-  label?: string;
-  value: string;
+  noLabel = false,
+  optional = false,
+  defaultValue = "my-text",
+}: InputWidgetCommonProps<string> & {
   placeholder?: string;
-  onChange: (x: string) => void;
   autoFocus?: boolean;
 }) {
+  const onNewValue = useOnChange(onChange as OnChangeCallback);
+  const isDisabled = value === undefined;
+
   const inputElement = React.useRef<HTMLInputElement>(null);
   React.useEffect(() => {
     if (inputElement.current && autoFocus) {
@@ -28,20 +35,34 @@ export function TextInput({
     }
   }, [autoFocus]);
 
-  return (
+  const mainInput = (
+    <input
+      ref={inputElement}
+      className={classes.input}
+      type="text"
+      name={name}
+      value={value ?? ""}
+      placeholder={placeholder}
+      onChange={(e) => onNewValue({ name, value: e.target.value })}
+      disabled={isDisabled}
+    />
+  );
+
+  return noLabel ? (
+    mainInput
+  ) : (
     <div className={inputClasses.container}>
+      {optional ? (
+        <OptionalCheckbox
+          name={name}
+          isDisabled={isDisabled}
+          defaultValue={defaultValue}
+        />
+      ) : null}
       <label className={inputClasses.label} htmlFor={name}>
         {label ?? name}:
       </label>
-      <input
-        ref={inputElement}
-        className={classes.input}
-        type="text"
-        name={name}
-        value={value}
-        placeholder={placeholder}
-        onChange={(e) => onChange(e.target.value)}
-      />
+      {mainInput}
     </div>
   );
 }

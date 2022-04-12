@@ -1,13 +1,15 @@
 import * as React from "react";
 
 import Button from "components/Inputs/Button";
+import type { OnChangeCallback } from "components/Inputs/SettingsUpdateContext";
+import { SettingsUpdateContext } from "components/Inputs/SettingsUpdateContext";
 import type {
   SettingsUpdaterComponent,
   ShinyUiNode,
-} from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
-import { shinyUiNodeInfo } from "components/Shiny-Ui-Elements/Elements/uiNodeTypes";
-import { getUiNodeValidation } from "components/Shiny-Ui-Elements/UiNode/getUiNodeValidation";
-import { getNode } from "components/Shiny-Ui-Elements/UiNode/TreeManipulation/getNode";
+} from "components/Shiny-Ui-Elements/uiNodeTypes";
+import { shinyUiNodeInfo } from "components/Shiny-Ui-Elements/uiNodeTypes";
+import { getUiNodeValidation } from "components/UiNode/getUiNodeValidation";
+import { getNode } from "components/UiNode/TreeManipulation/getNode";
 import { useNodeSelectionState } from "NodeSelectionState";
 import { BiCheck } from "react-icons/bi";
 import { FiTrash as TrashIcon } from "react-icons/fi";
@@ -93,6 +95,17 @@ function useUpdateSettings({ tree }: { tree: ShinyUiNode }) {
     } as typeof currentNode);
   };
 
+  const updateArgumentsByName: OnChangeCallback = ({ name, value }) => {
+    console.log("Updating arguments by name!", { name, value });
+    setCurrentNode(
+      (node) =>
+        ({
+          ...node,
+          uiArguments: { ...node?.uiArguments, [name]: value },
+        } as typeof currentNode)
+    );
+  };
+
   const deleteNode = React.useCallback(() => {
     if (selectedPath === null) return;
 
@@ -105,6 +118,7 @@ function useUpdateSettings({ tree }: { tree: ShinyUiNode }) {
     handleSubmit,
     deleteNode,
     updateArguments,
+    updateArgumentsByName,
     selectedPath,
     setNodeSelection,
   };
@@ -116,7 +130,7 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
     errorMsg,
     deleteNode,
     handleSubmit,
-    updateArguments,
+    updateArgumentsByName,
     selectedPath,
     setNodeSelection,
   } = useUpdateSettings({ tree });
@@ -151,12 +165,16 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
       </div>
       <div className={classes.settingsForm}>
         <form onSubmit={handleSubmit}>
-          <SettingsInputs settings={uiArguments} onChange={updateArguments} />
+          <SettingsUpdateContext onChange={updateArgumentsByName}>
+            <SettingsInputs settings={uiArguments} />
+          </SettingsUpdateContext>
           <ErrorMessageDisplay errorMsg={errorMsg} />
           <div className={classes.submitHolder}>
-            <Button type="submit">
-              <BiCheck /> Update
-            </Button>
+            {uiName !== "unknownUiFunction" ? (
+              <Button type="submit">
+                <BiCheck /> Update
+              </Button>
+            ) : null}
           </div>
         </form>
       </div>

@@ -1,11 +1,12 @@
 /* Styles common to multiple input components */
 input {
   padding: 6px;
+  border: 1px solid var(--light-grey);
 }
 
 .container {
   display: flex;
-  gap: 0.25rem;
+  gap: 5px;
   flex-wrap: wrap;
   align-items: center;
   margin-top: 1rem;
@@ -19,17 +20,10 @@ input {
   width: auto;
 }
 
-.sectionLabel {
-  color: orangered;
-  position: relative;
-  display: flex;
-  gap: 4px;
-  align-items: center;
-}
-
-.sectionLabel .sectionLabelDash {
-  flex-grow: 1;
-  background-color: var(--font-color);
-  height: 1px;
-  border-radius: 50%;
+input:disabled,
+select:disabled {
+  background-color: var(--light-grey);
+  outline: 1px solid var(--grey, red);
+  opacity: 0.25;
+  cursor: not-allowed;
 }
