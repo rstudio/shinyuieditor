@@ -1,5 +1,3 @@
-import containerIcon from "assets/icons/shinyContainer.png";
-
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import GridlayoutGridPanel from "./GridlayoutGridPanel";
