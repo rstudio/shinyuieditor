@@ -3,9 +3,9 @@ import classes from "./InputSections.module.css";
 
 export const SectionLabel = ({ name }: { name: string }) => {
   return (
-    <div className={inputClasses.sectionLabel}>
+    <div className={classes.sectionLabel}>
       <h2>{name}</h2>
-      <div className={inputClasses.sectionLabelDash} />
+      <div className={classes.sectionLabelDash} />
     </div>
   );
 };
@@ -15,7 +15,7 @@ export const WrappedSection: React.FC<{ name: string }> = ({
   children,
 }) => {
   return (
-    <div>
+    <div className={classes.wrappedSectionContainer}>
       <SectionLabel name={name} />
       <div className={classes.wrappedSection}>{children}</div>
     </div>

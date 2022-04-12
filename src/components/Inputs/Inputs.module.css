@@ -20,21 +20,6 @@ input {
   width: auto;
 }
 
-.sectionLabel {
-  color: orangered;
-  position: relative;
-  display: flex;
-  gap: 4px;
-  align-items: center;
-}
-
-.sectionLabel .sectionLabelDash {
-  flex-grow: 1;
-  background-color: var(--font-color);
-  height: 1px;
-  border-radius: 50%;
-}
-
 input:disabled,
 select:disabled {
   background-color: var(--light-grey);
