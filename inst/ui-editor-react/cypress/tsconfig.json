@@ -1,0 +1,11 @@
+{
+  "extends": "../tsconfig.json",
+  "include": [
+    "../node_modules/cypress",
+    "*/*.ts",
+    "integration/testing-the-tests.js"
+  ],
+  "compilerOptions": {
+    "noEmit": false
+  }
+}

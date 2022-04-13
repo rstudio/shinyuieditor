@@ -1,0 +1,14 @@
+.formSection {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.formSection input {
+  margin-right: 5px;
+}
+
+.radioInputs {
+  display: flex;
+  gap: 5px;
+  justify-content: space-around;
+}

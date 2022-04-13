@@ -1,0 +1,27 @@
+.container {
+  width: calc(100% - 10px);
+  height: min(calc(100% - 10px), 75px);
+  padding: 4px;
+  background-color: var(--light-grey);
+  border-radius: var(--corner-radius);
+  position: relative;
+  display: grid;
+  place-content: center;
+}
+
+.infoMsg {
+  font-size: 1.1rem;
+}
+
+.infoMsg > svg {
+  color: var(--rstudio-blue);
+  margin-right: 4px;
+  margin-bottom: -2px;
+}
+.codeHolder {
+  overflow: auto;
+  font-family: var(--mono-fonts);
+  outline: 1px solid var(--rstudio-grey);
+  background-color: var(--rstudio-white);
+  padding: 5px;
+}

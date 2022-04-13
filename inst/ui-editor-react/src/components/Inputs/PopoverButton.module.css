@@ -1,0 +1,49 @@
+.popover {
+  pointer-events: none;
+  opacity: 0;
+  border-radius: var(--corner-radius);
+  padding: 5px;
+  background-color: var(--background-grey);
+  font-style: italic;
+  width: max-content;
+  max-width: 200px;
+}
+
+.popover[data-show] {
+  opacity: 1;
+  z-index: 9999;
+}
+
+.popperArrow,
+.popperArrow::before {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: inherit;
+}
+
+.popperArrow {
+  visibility: hidden;
+}
+
+.popperArrow::before {
+  visibility: visible;
+  content: "";
+  transform: rotate(45deg);
+}
+
+.popover[data-popper-placement^="top"] > .popperArrow {
+  bottom: -4px;
+}
+
+.popover[data-popper-placement^="bottom"] > .popperArrow {
+  top: -4px;
+}
+
+.popover[data-popper-placement^="left"] > .popperArrow {
+  right: -4px;
+}
+
+.popover[data-popper-placement^="right"] > .popperArrow {
+  left: -4px;
+}

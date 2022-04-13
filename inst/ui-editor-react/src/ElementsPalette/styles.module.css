@@ -1,0 +1,41 @@
+.OptionsList {
+  height: 100%;
+  display: grid;
+  align-items: start;
+  grid-template-columns: repeat(2, var(--element-palette-icon-size));
+  justify-content: center;
+  justify-items: center;
+  align-content: start;
+  padding: var(--element-palette-padding);
+  gap: var(--element-palette-padding);
+}
+
+.OptionItem {
+  width: var(--element-palette-icon-size);
+  height: 120px;
+  border-radius: var(--corner-radius, 10px);
+  position: relative;
+  cursor: grab;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.OptionItem > label {
+  margin-top: -18px;
+  display: block;
+}
+
+.OptionItem:hover {
+  outline: var(--outline);
+}
+.OptionItem:active {
+  cursor: grabbing;
+}
+.OptionItem > img {
+  margin: 0;
+  display: block;
+  width: 100%;
+}
+.OptionItem > svg {
+  color: var(--rstudio-blue);
+}

@@ -1,0 +1,12 @@
+.container {
+  position: relative;
+  padding: 4px;
+}
+
+.container > input {
+  width: 100%;
+}
+
+.container > label {
+  font-weight: 700;
+}
