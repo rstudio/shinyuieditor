@@ -1,4 +1,5 @@
 import sliderIcon from "assets/icons/shinySlider.png";
+import type { CSSMeasure } from "CSSMeasure";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 
@@ -12,14 +13,16 @@ export type ShinySliderInputProps = {
   value: number;
   max: number;
   step?: number;
+  width?: CSSMeasure;
 };
 
 export const sliderDefaultSettings: ShinySliderInputProps = {
   inputId: "mySlider",
-  label: "slider input",
+  label: "Slider Input",
   min: 0,
   max: 10,
   value: 5,
+  width: "100%",
 };
 
 export const shinySliderInputInfo: UiComponentInfo<ShinySliderInputProps> = {
@@ -27,13 +30,7 @@ export const shinySliderInputInfo: UiComponentInfo<ShinySliderInputProps> = {
   UiComponent: ShinySliderInput,
   SettingsComponent: ShinySliderInputSettings,
   acceptsChildren: false,
-  defaultSettings: {
-    inputId: "slider",
-    label: "Slider",
-    min: 0,
-    value: 5,
-    max: 10,
-  },
+  defaultSettings: sliderDefaultSettings,
   iconSrc: sliderIcon,
 };
 

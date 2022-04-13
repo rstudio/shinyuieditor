@@ -14,14 +14,13 @@ const ShinySliderInput: UiNodeComponent<ShinySliderInputProps> = ({
   eventHandlers,
   compRef,
 }) => {
-  const width = "200px";
-  const height = "auto";
   const settings = { ...uiArguments };
+  const { width = "200px" } = settings;
   const [currentVal, setCurrentVal] = React.useState(settings.value);
   return (
     <div
       className={classes.container + " shiny::sliderInput"}
-      style={{ height, width }}
+      style={{ width }}
       aria-label={"shiny::sliderInput"}
       ref={compRef}
       {...eventHandlers}
