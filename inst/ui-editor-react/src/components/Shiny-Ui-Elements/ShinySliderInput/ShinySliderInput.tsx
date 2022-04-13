@@ -38,6 +38,14 @@ const ShinySliderInput: UiNodeComponent<ShinySliderInputProps> = ({
             aria-label={"slider input"}
             data-min={settings.min}
             data-max={settings.max}
+            // In order to allow the user to actually drag the slider we need to
+            // kill the event before it can propigate to the parent. Inorder to
+            // intercept it we need to flag the item as draggable
+            draggable={true}
+            onDragStartCapture={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+            }}
           />
         </div>
         <div>
