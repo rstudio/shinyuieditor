@@ -3,7 +3,7 @@ gridlayout::grid_page(
 | 1rem  | 250px   | 1fr    |
 |-------|---------|--------|
 | 100px | header  | header |
-| 1fr   | sidebar |  plot  |
+| 1fr   | sidebar |  blue  |
 | 1fr   | sidebar |  plot  |",
   gridlayout::title_panel(
     area = "header",
@@ -25,5 +25,14 @@ gridlayout::grid_page(
     area = "plot",
     item_alignment = "center",
     shiny::plotOutput(outputId = "distPlot")
+  ),
+  gridlayout::vertical_stack_panel(
+    area = "blue",
+    item_alignment = "center",
+    shiny::plotOutput(
+      outputId = "bluePlot",
+      width = "100%",
+      height = "400px"
+    )
   )
 )
