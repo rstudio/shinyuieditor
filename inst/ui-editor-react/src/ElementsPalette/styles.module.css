@@ -12,7 +12,7 @@
 
 .OptionItem {
   width: var(--element-palette-icon-size);
-  height: 125px;
+  height: 120px;
   border-radius: var(--corner-radius, 10px);
   position: relative;
   cursor: grab;
