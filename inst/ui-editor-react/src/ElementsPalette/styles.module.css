@@ -2,27 +2,27 @@
   height: 100%;
   display: grid;
   align-items: start;
-  /* As many columns as will fit */
-  grid-template-columns: repeat(auto-fit, minmax(75px, 1fr));
+  grid-template-columns: repeat(2, var(--element-palette-icon-size));
   justify-content: center;
   justify-items: center;
-  align-content: space-around;
-  padding: 8px;
-  gap: 8px;
+  align-content: start;
+  padding: var(--element-palette-padding);
+  gap: var(--element-palette-padding);
 }
 
 .OptionItem {
+  width: var(--element-palette-icon-size);
+  height: 125px;
   border-radius: var(--corner-radius, 10px);
-  display: grid;
-  grid-template-rows: auto auto;
-  justify-content: center;
-  align-content: center;
-  place-items: center;
   position: relative;
   cursor: grab;
-  font-size: 1rem;
-  padding: 5px;
+  font-size: 0.9rem;
   text-align: center;
+}
+
+.OptionItem > label {
+  margin-top: -18px;
+  display: block;
 }
 
 .OptionItem:hover {
@@ -32,8 +32,9 @@
   cursor: grabbing;
 }
 .OptionItem > img {
-  --scaling: 2;
-  width: calc(150px / var(--scaling));
+  margin: 0;
+  display: block;
+  width: 100%;
 }
 .OptionItem > svg {
   color: var(--rstudio-blue);

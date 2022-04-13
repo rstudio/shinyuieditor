@@ -42,8 +42,13 @@
   --selected-border-color: var(--rstudio-blue);
   --outline-color: var(--grey);
 
+  /* Sizes */
+  --element-palette-icon-size: 75px;
+  --element-palette-padding: 1rem;
   --layout-header-h: 55px;
-  --layout-elements-panel-w: 220px;
+  --layout-elements-panel-w: calc(
+    var(--element-palette-icon-size) * 2 + var(--element-palette-padding) * 3
+  );
   --layout-properties-panel-w: 275px;
 
   --selected-border-width: 3px;
