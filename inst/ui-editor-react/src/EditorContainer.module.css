@@ -62,7 +62,7 @@
   text-align: center;
   line-height: var(--label-h);
   background-color: var(--header-grey, forestgreen);
-  font-size: 18px;
+  font-size: 1.125rem;
   color: white;
 }
 
