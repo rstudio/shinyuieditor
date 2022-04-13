@@ -1,7 +1,4 @@
 .container {
-  /* display: grid;
-  grid-template-rows: 1fr;
-  grid-template-columns: 1fr; */
   padding: 1rem;
 
   --tract-thickness: 12px;
@@ -44,7 +41,8 @@ input[type="range"].sliderInput::-webkit-slider-thumb {
   position: absolute;
   bottom: calc(50% + var(--handle-diameter) / 2 + 2px);
   background-color: var(--light-grey);
-  padding: 3px;
+  padding-inline: 4px;
+  padding-block: 2px;
   font-size: 12px;
   border-radius: 2px;
 }
