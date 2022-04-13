@@ -3,6 +3,8 @@ import * as React from "react";
 import type { UiNodeComponent } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { GoGraph } from "react-icons/go";
 
+import { InputOutputTitle } from "../InputOutputTitle";
+
 import type { ShinyPlotOutputProps } from "./index";
 
 import classes from "./styles.module.css";
@@ -29,7 +31,7 @@ const ShinyPlotOutput: UiNodeComponent<ShinyPlotOutputProps> = ({
       if (!compRef.current) return;
 
       const { offsetHeight, offsetWidth } = compRef.current;
-      setGraphSize(Math.min(offsetHeight, offsetWidth) * 0.9);
+      setGraphSize(Math.min(offsetHeight, offsetWidth));
     });
 
     if (compRef.current) ro.observe(compRef.current);
@@ -44,18 +46,17 @@ const ShinyPlotOutput: UiNodeComponent<ShinyPlotOutputProps> = ({
       aria-label="shiny::plotOutput placeholder"
       {...eventHandlers}
     >
+      <InputOutputTitle
+        className={classes.label}
+        type="output"
+        name={outputId}
+      />
+      {/* <code className={classes.label}>output${outputId}</code> */}
       <GoGraph
-        // Account for padding of 1 rem
-        size={`calc(${graphSize}px - 2rem)`}
-        style={{
-          gridArea: "1/1",
-          placeSelf: "center",
-        }}
+        // Account for padding of 30px + label height of 30px
+        size={`calc(${graphSize}px - 60px)`}
       />
 
-      <div style={{ gridArea: "1/1", placeSelf: "end" }}>
-        This is a plot with the name {outputId}!
-      </div>
       {children}
     </div>
   );
