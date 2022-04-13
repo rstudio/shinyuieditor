@@ -2,6 +2,8 @@ import * as React from "react";
 
 import type { UiNodeComponent } from "components/Shiny-Ui-Elements/uiNodeTypes";
 
+import { InputOutputTitle } from "../InputOutputTitle";
+
 import type { ShinySliderInputProps } from ".";
 
 import classes from "./styles.module.css";
@@ -26,21 +28,22 @@ const ShinySliderInput: UiNodeComponent<ShinySliderInputProps> = ({
     >
       <div style={{ gridArea: "1/1", placeSelf: "center", maxWidth: "300px" }}>
         <div>{settings.label}</div>
-        <input
-          type="range"
-          min={settings.min}
-          max={settings.max}
-          value={currentVal}
-          onChange={(e) => setCurrentVal(Number(e.target.value))}
-          className="slider"
-          aria-label={"slider input"}
-        />
-        <div>
-          Min: {settings.min}, Max: {settings.max}{" "}
-          {settings.step ? `Step: ${settings.step}` : null}
+        <div className={classes.sliderWrapper}>
+          <input
+            type="range"
+            min={settings.min}
+            max={settings.max}
+            value={currentVal}
+            onChange={(e) => setCurrentVal(Number(e.target.value))}
+            className={"slider " + classes.sliderInput}
+            aria-label={"slider input"}
+            data-min={settings.min}
+            data-max={settings.max}
+          />
         </div>
         <div>
-          input${settings.inputId} = {currentVal}
+          <InputOutputTitle type="input" name={settings.inputId} /> ={" "}
+          {currentVal}
         </div>
       </div>
       {children}

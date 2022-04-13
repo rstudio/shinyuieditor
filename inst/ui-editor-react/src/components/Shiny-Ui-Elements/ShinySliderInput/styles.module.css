@@ -1,6 +1,58 @@
 .container {
-  display: grid;
+  /* display: grid;
   grid-template-rows: 1fr;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr; */
   padding: 1rem;
+
+  --tract-thickness: 12px;
+  --handle-diameter: 17px;
+  --tract-color: var(--rstudio-blue);
+  --handle-color: var(--light-grey);
+  --handle-outline: 1px solid var(--grey);
+}
+
+.sliderWrapper {
+  padding-top: var(--tract-thickness);
+  padding-right: 3px;
+}
+
+.sliderInput {
+  -webkit-appearance: none; /* Override default CSS styles */
+  appearance: none;
+  width: 100%; /* Full-width */
+  height: var(--tract-thickness);
+  background-color: var(--tract-color);
+  padding: 0;
+  margin-top: 15px;
+  position: relative;
+  border-radius: var(--tract-thickness);
+}
+
+.sliderInput::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: var(--handle-diameter);
+  height: var(--handle-diameter);
+  border-radius: 50%;
+  background: var(--handle-color); /* Green background */
+  outline: var(--handle-outline);
+  cursor: pointer; /* Cursor on hover */
+}
+
+.sliderInput::before,
+.sliderInput::after {
+  position: absolute;
+  bottom: calc(50% + var(--handle-diameter) / 2 + 2px);
+  background-color: var(--light-grey);
+  padding: 3px;
+  font-size: 12px;
+  border-radius: 2px;
+}
+.sliderInput::before {
+  content: attr(data-min);
+  left: 0;
+}
+.sliderInput::after {
+  content: attr(data-max);
+  right: 0;
 }
