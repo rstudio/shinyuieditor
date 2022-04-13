@@ -61,7 +61,7 @@
   --fonts: "Lucida Sans", "DejaVu Sans", "Lucida Grande", "Segoe UI",
     -apple-system, BlinkMacSystemFont, Verdana, Helvetica, sans-serif;
 
-  --mono-fonts: "Courier New", Courier, monospace;
+  --mono-fonts: Consolas, "Lucida Console", Monaco, monospace;
 
   --shadow-color: 0deg 0% 13%;
   --shadow-elevation-medium: 0.3px 0.5px 0.7px hsl(var(--shadow-color) / 0.36),
@@ -78,7 +78,8 @@ html {
   height: 100%;
 }
 
-body {
+body,
+input {
   font-family: var(--fonts);
   font-weight: 450;
   line-height: 1.5;
