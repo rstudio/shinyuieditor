@@ -25,33 +25,30 @@ const ShinySliderInput: UiNodeComponent<ShinySliderInputProps> = ({
       ref={compRef}
       {...eventHandlers}
     >
-      <div style={{ gridArea: "1/1", placeSelf: "center", maxWidth: "300px" }}>
-        <div>{settings.label}</div>
-        <div className={classes.sliderWrapper}>
-          <input
-            type="range"
-            min={settings.min}
-            max={settings.max}
-            value={currentVal}
-            onChange={(e) => setCurrentVal(Number(e.target.value))}
-            className={"slider " + classes.sliderInput}
-            aria-label={"slider input"}
-            data-min={settings.min}
-            data-max={settings.max}
-            // In order to allow the user to actually drag the slider we need to
-            // kill the event before it can propigate to the parent. Inorder to
-            // intercept it we need to flag the item as draggable
-            draggable={true}
-            onDragStartCapture={(e) => {
-              e.stopPropagation();
-              e.preventDefault();
-            }}
-          />
-        </div>
-        <div>
-          <InputOutputTitle type="input" name={settings.inputId} /> ={" "}
-          {currentVal}
-        </div>
+      <div>{settings.label}</div>
+      <div className={classes.sliderWrapper}>
+        <input
+          type="range"
+          min={settings.min}
+          max={settings.max}
+          value={currentVal}
+          onChange={(e) => setCurrentVal(Number(e.target.value))}
+          className={"slider " + classes.sliderInput}
+          aria-label={"slider input"}
+          data-min={settings.min}
+          data-max={settings.max}
+          // In order to allow the user to actually drag the slider we need to
+          // kill the event before it can propigate to the parent. Inorder to
+          // intercept it we need to flag the item as draggable
+          draggable={true}
+          onDragStartCapture={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+          }}
+        />
+      </div>
+      <div>
+        <InputOutputTitle type="input" name={settings.inputId} /> = {currentVal}
       </div>
       {children}
     </div>
