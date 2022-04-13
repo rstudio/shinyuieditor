@@ -205,7 +205,7 @@ start_shiny_in_background <- function(app_loc, host, port) {
   )
 }
 
-PATH_TO_REACT_APP <- "/Users/nicholasstrayer/dev/Shiny-Visual-Editor/build"
+PATH_TO_REACT_APP <- system.file("ui-editor-react/build", package = "ShinyUiEditor")
 
 
 get_app_ui_file <- function(app_loc) {
