@@ -11,6 +11,27 @@ import { updateNodeMutating } from "components/UiNode/TreeManipulation/updateNod
 export const initialUiTree: ShinyUiNode = {
   uiName: "gridlayout::grid_page",
   uiArguments: {
+    areas: [["msg"]],
+    rowSizes: ["1fr"],
+    colSizes: ["1fr"],
+    gapSize: "1rem",
+  },
+  uiChildren: [
+    {
+      uiName: "gridlayout::text_panel",
+      uiArguments: {
+        area: "msg",
+        content: "Loading App...",
+        h_align: "center",
+      },
+    },
+  ],
+};
+
+// Ui Tree used if there's no backend connection
+export const backupUiTree: ShinyUiNode = {
+  uiName: "gridlayout::grid_page",
+  uiArguments: {
     areas: [
       ["header", "header"],
       ["sidebar", "plot"],

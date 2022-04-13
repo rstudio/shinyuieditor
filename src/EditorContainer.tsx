@@ -11,14 +11,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { useGetInitialStateQuery } from "state/getInitialState";
 import { sendUiStateToBackend } from "state/sendUiStateToBackend";
 import type { RootState } from "state/store";
-import { INIT_STATE } from "state/uiTree";
+import { backupUiTree, INIT_STATE } from "state/uiTree";
 
 import { UndoRedoButtons } from "./components/UndoRedoButtons";
 import classes from "./EditorContainer.module.css";
 import { SettingsPanel } from "./SettingsPanel/SettingsPanel";
 
 function EditorContainerWithData({
-  initialState,
+  // We use a pre-build ui tree in the case of no initial state being provide,
+  // which indicates we're in a client-side-only mode
+  initialState = backupUiTree,
 }: {
   initialState?: ShinyUiNode;
 }) {
