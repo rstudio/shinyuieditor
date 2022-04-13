@@ -10,7 +10,7 @@ export type ShinyTextOutputProps = {
 };
 
 export const shinyTextOutputInfo: UiComponentInfo<ShinyTextOutputProps> = {
-  title: "Dynamic Text Output",
+  title: "Text Output",
   UiComponent: ShinyTextOutput,
   SettingsComponent: ShinyTextOutputSettings,
   acceptsChildren: false,

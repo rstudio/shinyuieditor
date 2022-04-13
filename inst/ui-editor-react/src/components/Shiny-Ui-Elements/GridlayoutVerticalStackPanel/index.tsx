@@ -22,7 +22,7 @@ export const gridlayoutVerticalStackPanelDefaultSettings: VerticalStackPanelSett
 
 export const gridlayoutVerticalStackPanelInfo: UiComponentInfo<VerticalStackPanelSettings> =
   {
-    title: "Vertical Stack Panel",
+    title: "Stack Panel",
     UiComponent: GridlayoutVerticalStackPanel,
     SettingsComponent: GridlayoutVerticalStackPanelSettings,
     acceptsChildren: true,
