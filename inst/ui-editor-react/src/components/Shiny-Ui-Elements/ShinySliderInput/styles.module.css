@@ -16,7 +16,7 @@
   padding-right: 3px;
 }
 
-.sliderInput {
+input[type="range"].sliderInput {
   -webkit-appearance: none; /* Override default CSS styles */
   appearance: none;
   width: 100%; /* Full-width */
@@ -28,7 +28,7 @@
   border-radius: var(--tract-thickness);
 }
 
-.sliderInput::-webkit-slider-thumb {
+input[type="range"].sliderInput::-webkit-slider-thumb {
   -webkit-appearance: none; /* Override default look */
   appearance: none;
   width: var(--handle-diameter);
