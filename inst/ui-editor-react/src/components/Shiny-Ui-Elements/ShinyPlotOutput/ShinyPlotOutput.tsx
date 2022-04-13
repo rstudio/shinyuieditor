@@ -22,22 +22,14 @@ const ShinyPlotOutput: UiNodeComponent<ShinyPlotOutputProps> = ({
   } = uiArguments;
 
   // Start tiny so icon isn't the reason the container is big
-  const [graphSize, setGraphSize] = React.useState(2);
-  React.useEffect(() => {
-    // Use conditionals here because in tests we dont have access to the
-    // ResizeObserver variable
-    if (typeof ResizeObserver === "undefined") return;
-    const ro = new ResizeObserver((entries) => {
-      if (!compRef.current) return;
+  const containerDimensions = useContainerDimensions(compRef);
 
-      const { offsetHeight, offsetWidth } = compRef.current;
-      setGraphSize(Math.min(offsetHeight, offsetWidth));
-    });
+  const smallestDim =
+    containerDimensions === null
+      ? 100
+      : Math.min(containerDimensions.width, containerDimensions.height);
 
-    if (compRef.current) ro.observe(compRef.current);
-    return () => ro.disconnect();
-  }, [compRef]);
-
+  console.log("Dimensions of plot " + outputId, containerDimensions);
   return (
     <div
       className={classes.container}
@@ -51,14 +43,37 @@ const ShinyPlotOutput: UiNodeComponent<ShinyPlotOutputProps> = ({
         type="output"
         name={outputId}
       />
-      {/* <code className={classes.label}>output${outputId}</code> */}
       <GoGraph
         // Account for padding of 30px + label height of 30px
-        size={`calc(${graphSize}px - 60px)`}
+        size={`calc(${smallestDim}px - 60px)`}
       />
 
       {children}
     </div>
   );
 };
+
+function useContainerDimensions(containerRef: React.RefObject<HTMLElement>) {
+  const [dimensions, setDimensions] = React.useState<{
+    width: number;
+    height: number;
+  } | null>(null);
+  React.useEffect(() => {
+    // Use conditionals here because in tests we dont have access to the
+    // ResizeObserver variable
+    if (typeof ResizeObserver === "undefined") return;
+    const ro = new ResizeObserver((entries) => {
+      if (!containerRef.current) return;
+
+      const { offsetHeight, offsetWidth } = containerRef.current;
+      setDimensions({ width: offsetWidth, height: offsetHeight });
+    });
+
+    if (containerRef.current) ro.observe(containerRef.current);
+    return () => ro.disconnect();
+  }, [containerRef]);
+
+  return dimensions;
+}
+
 export default ShinyPlotOutput;
