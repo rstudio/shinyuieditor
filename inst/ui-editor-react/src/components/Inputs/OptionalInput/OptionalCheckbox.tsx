@@ -1,4 +1,3 @@
-import Checkbox from "../Checkbox";
 import type { OnChangeCallbackArgs } from "../SettingsUpdateContext";
 import { useOnChange } from "../SettingsUpdateContext";
 
@@ -15,12 +14,19 @@ export function OptionalCheckbox<
 }) {
   const onNewValue = useOnChange();
 
+  const effectDescription = `${isDisabled ? "set" : "unset"} ${name} property`;
+
   return (
-    <Checkbox
-      isChecked={!isDisabled}
-      title={`Set ${name} value?`}
-      onChange={(isTrue) => {
-        onNewValue({ name, value: isTrue ? defaultValue : undefined });
+    <input
+      aria-label={effectDescription}
+      type="checkbox"
+      checked={!isDisabled}
+      title={effectDescription}
+      onChange={(e) => {
+        onNewValue({
+          name,
+          value: e.target.checked ? defaultValue : undefined,
+        });
       }}
     />
   );

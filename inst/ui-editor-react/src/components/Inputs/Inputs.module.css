@@ -32,3 +32,13 @@ select:disabled {
   opacity: 0.25;
   cursor: not-allowed;
 }
+
+.mainInput {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.mainInput > input[type="checkbox"] {
+  width: fit-content;
+}
