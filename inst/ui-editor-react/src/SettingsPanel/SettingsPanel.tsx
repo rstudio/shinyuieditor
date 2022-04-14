@@ -8,7 +8,6 @@ import { shinyUiNodeInfo } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { BiCheck } from "react-icons/bi";
 import { FiTrash as TrashIcon } from "react-icons/fi";
 
-import { ErrorMessageDisplay } from "./ErrorMessageDisplay";
 import PathBreadcrumb from "./PathBreadcrumb";
 import classes from "./SettingsPanel.module.css";
 import { useUpdateSettings } from "./useUpdateSettings";
@@ -57,7 +56,12 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
           <SettingsUpdateContext onChange={updateArgumentsByName}>
             <SettingsInputs settings={uiArguments} />
           </SettingsUpdateContext>
-          <ErrorMessageDisplay errorMsg={errorMsg} />
+          {errorMsg ? (
+            <div>
+              Input settings are not valid. The following errors were received:
+              <div className={classes.validationErrorMsg}>{errorMsg}</div>
+            </div>
+          ) : null}
           <div className={classes.submitHolder}>
             {uiName !== "unknownUiFunction" ? (
               <Button type="submit" aria-label="Submit new settings">
