@@ -13,6 +13,7 @@ gridlayout::grid_page(
     area = "sidebar",
     item_alignment = "center",
     item_gap = "12px",
+    title = "Settings",
     shiny::sliderInput(
       inputId = "bins",
       label = "Number of Bins",
@@ -40,6 +41,7 @@ gridlayout::grid_page(
     area = "blue",
     item_alignment = "center",
     item_gap = "12px",
+    title = "Blue Plot",
     shiny::plotOutput(
       outputId = "distPlot",
       width = "100%",

@@ -22,10 +22,13 @@ export const GridlayoutVerticalStackPanelSettings: SettingsUpdaterComponent<
 > = ({ settings }) => {
   return (
     <>
+      <TextInput name="area" label="Name of grid area" value={settings.area} />
       <TextInput
-        name="area"
-        label="Name of grid area"
-        value={settings.area ?? "empty grid area"}
+        name="title"
+        label="Panel title"
+        value={settings.title}
+        optional={true}
+        defaultValue={settings.area}
       />
       <RadioInputs
         name="item_alignment"
