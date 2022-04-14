@@ -1,9 +1,6 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import type {
-  ShinyUiChildren,
-  ShinyUiNode,
-} from "components/Shiny-Ui-Elements/uiNodeTypes";
+import type { ShinyUiNode } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { shinyUiNodeInfo } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import type { PlaceNodeArguments } from "components/UiNode/TreeManipulation/placeNode";
 import { placeNodeMutating } from "components/UiNode/TreeManipulation/placeNode";
