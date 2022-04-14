@@ -4,17 +4,14 @@ import { LabeledCSSUnitInput } from "components/Inputs/CSSUnitInput";
 import type { SettingsUpdaterComponent } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import type { TemplatedGridProps } from "utils/gridTemplates/types";
 
-import classes from "./SettingsPanel.module.css";
-
 export const GridlayoutGridPageSettings: SettingsUpdaterComponent<
   TemplatedGridProps
 > = ({ settings }) => {
   return (
     <>
-      <div className={classes.formSection}>Settings for grid page:</div>
       <LabeledCSSUnitInput
         name="gapSize"
-        label="Gap Size"
+        label="Gap between panels"
         value={settings.gapSize}
         units={["px", "rem"]}
       />
