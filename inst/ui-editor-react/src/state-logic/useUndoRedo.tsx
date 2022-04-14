@@ -4,7 +4,7 @@ import type { ShinyUiNode } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import StateHistory from "modules/StateHistory";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "state/store";
-import { initialUiTree, INIT_STATE } from "state/uiTree";
+import { initialUiTree, SET_FULL_STATE } from "state/uiTree";
 
 type HistoryEntry = ShinyUiNode;
 
@@ -34,7 +34,7 @@ export function useUndoRedo() {
 
   const setState = React.useCallback(
     (updatedTree: HistoryEntry) => {
-      dispatch(INIT_STATE({ initialState: updatedTree }));
+      dispatch(SET_FULL_STATE({ state: updatedTree }));
     },
     [dispatch]
   );

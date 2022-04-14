@@ -108,6 +108,11 @@ export const uiTreeSlice = createSlice({
   name: "uiTree",
   initialState: initialUiTree as ShinyUiNode,
   reducers: {
+    // This is used to teleport to a given state wholesale. E.g. undo-redo
+    SET_FULL_STATE: (tree, action: PayloadAction<{ state: ShinyUiNode }>) =>
+      action.payload.state,
+    // This will initialize a state while also making sure the arguments match
+    // what we expect in the app
     INIT_STATE: (tree, action: PayloadAction<{ initialState: ShinyUiNode }>) =>
       fillInDefaultValues(action.payload.initialState),
     UPDATE_NODE: (tree, action: PayloadAction<UpdateNodeArguments>) => {
@@ -162,8 +167,13 @@ function fillInDefaultValues(uiTree: ShinyUiNode): ShinyUiNode {
 }
 
 // Action creators are generated for each case reducer function
-export const { UPDATE_NODE, PLACE_NODE, DELETE_NODE, INIT_STATE } =
-  uiTreeSlice.actions;
+export const {
+  UPDATE_NODE,
+  PLACE_NODE,
+  DELETE_NODE,
+  INIT_STATE,
+  SET_FULL_STATE,
+} = uiTreeSlice.actions;
 
 export type UpdateAction = (
   tree: ShinyUiNode,
