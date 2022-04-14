@@ -18,7 +18,7 @@ import { shinySliderInputInfo } from "./ShinySliderInput";
 import { shinyTextInputInfo } from "./ShinyTextInput";
 import { shinyTextOutputInfo } from "./ShinyTextOutput";
 import { shinyUiOutputInfo } from "./ShinyUiOutput";
-import { unknownUiFunctionInfo } from "./UnknownUiNode";
+import { unknownUiFunctionInfo } from "./UnknownUiFunction";
 
 /**
  * Defines everything needed to add a new Shiny UI component to the app
