@@ -2,14 +2,14 @@ import * as React from "react";
 
 import Button from "components/Inputs/Button";
 import { FaMapMarked } from "react-icons/fa";
-import Joyride, { ACTIONS, EVENTS, STATUS } from "react-joyride";
-import type { Step, Styles, CallBackProps } from "react-joyride";
+import type { CallBackProps, Step, Styles } from "react-joyride";
+import Joyride, { ACTIONS, EVENTS } from "react-joyride";
 
 export const joyrideSteps: Step[] = [
   {
     target: ".elements-panel",
     content:
-      "Drag elements from here into the app pane on the right to add them to your app",
+      "Drag elements from the elements palette into the app pane on the right to add them to your app",
     placementBeacon: "right",
     placement: "right-start",
     disableBeacon: true,
@@ -17,13 +17,12 @@ export const joyrideSteps: Step[] = [
   {
     target: ".properties-panel",
     content:
-      "After selecting an element in your app, the settings for that element will appear here",
+      "After selecting an element in your app, the you can adjust the settings for that element in the properties pane",
     placement: "left-start",
   },
   {
     target: ".app-preview",
-    content:
-      "You can see how the changes impact your app with the app preview...",
+    content: "You can see how the changes impact your app with the app preview",
     placement: "top-start",
   },
   {
