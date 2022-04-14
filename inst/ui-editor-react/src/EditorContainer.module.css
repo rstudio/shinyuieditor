@@ -70,8 +70,9 @@
   grid-area: header;
   padding-inline: 16px;
   padding-block: 5px;
+  gap: 16px;
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
   align-items: center;
 }
 
@@ -79,6 +80,7 @@
   display: flex;
   align-items: center;
   height: 100%;
+  margin-inline-end: auto;
 }
 
 .title {

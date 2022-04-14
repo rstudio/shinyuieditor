@@ -40,7 +40,6 @@ function EditorContainerWithData({
 
   return (
     <CurrentDraggedNodeProvider>
-      <AppTour />
       <div className={classes.container}>
         <div className={classes.header}>
           <div className={classes.leftSide}>
@@ -52,6 +51,7 @@ function EditorContainerWithData({
               alt="Shiny Logo"
             />
           </div>
+          <AppTour />
           <UndoRedoButtons />
         </div>
         <div
@@ -63,9 +63,7 @@ function EditorContainerWithData({
         <div className={classes.editorHolder}>
           <UiNode {...tree} />
         </div>
-        <div
-          className={`${classes.propertiesPanel} ${classes.titledPanel} properties-panel`}
-        >
+        <div className={`${classes.propertiesPanel} ${classes.titledPanel}`}>
           <h3>Properties</h3>
           <SettingsPanel tree={tree} />
           <AppPreview />

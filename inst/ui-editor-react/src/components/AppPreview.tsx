@@ -21,7 +21,7 @@ export default function AppPreview() {
   return (
     <>
       <h3>App Preview</h3>
-      <div className={classes.appViewerHolder}>
+      <div className={classes.appViewerHolder + " app-preview"}>
         <div
           className={
             classes.container +

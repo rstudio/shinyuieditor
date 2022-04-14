@@ -40,7 +40,7 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
     .SettingsComponent as SettingsUpdaterComponent<typeof uiArguments>;
 
   return (
-    <div className={classes.settingsPanel}>
+    <div className={classes.settingsPanel + " properties-panel"}>
       <div className={classes.currentElementAbout}>
         <div>
           <strong>Path:</strong>

@@ -10,7 +10,7 @@ export function UndoRedoButtons() {
   const { goBackward, goForward, canGoBackward, canGoForward } = useUndoRedo();
 
   return (
-    <div className={classes.container}>
+    <div className={classes.container + " undo-redo-buttons"}>
       <Button
         variant="icon"
         disabled={!canGoBackward}
