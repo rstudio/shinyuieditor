@@ -2,10 +2,11 @@ import React from "react";
 
 import type { NamedList } from "./ListInput/NamedListInput";
 
-export type OnChangeCallback = (x: {
+export type OnChangeCallbackArgs = {
   name: string;
   value: string | number | boolean | undefined | string[] | NamedList;
-}) => void;
+};
+export type OnChangeCallback = (x: OnChangeCallbackArgs) => void;
 
 export const OnChangeContext = React.createContext<OnChangeCallback | null>(
   null

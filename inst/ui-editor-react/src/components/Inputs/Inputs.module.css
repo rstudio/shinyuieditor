@@ -5,19 +5,24 @@ input {
 }
 
 .container {
-  display: flex;
-  gap: 5px;
-  flex-wrap: wrap;
-  align-items: center;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  max-width: max-content;
+  max-width: 100%;
+  min-width: 0;
+  width: 100%;
+  position: relative;
 }
 
 .label {
+  display: block;
+  padding-bottom: 3px;
   font-weight: 300;
-  font-style: italic;
   width: auto;
+}
+
+.container input {
+  max-width: 100%;
+  width: 100%;
 }
 
 input:disabled,
@@ -26,4 +31,14 @@ select:disabled {
   outline: 1px solid var(--grey, red);
   opacity: 0.25;
   cursor: not-allowed;
+}
+
+.mainInput {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.mainInput > input[type="checkbox"] {
+  width: fit-content;
 }

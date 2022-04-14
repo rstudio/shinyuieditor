@@ -2,43 +2,49 @@ import React from "react";
 
 import type { InputWidgetCommonProps } from ".";
 
-import inputClasses from "./Inputs.module.css";
+import { InputWrapper } from "./InputWrapper";
 import classes from "./NumericInput.module.css";
-import { OptionalCheckbox } from "./OptionalInput/OptionalInput";
 import type { OnChangeCallback } from "./SettingsUpdateContext";
 import { useOnChange } from "./SettingsUpdateContext";
 
-export default function NumericInput({
-  name,
-  label: ariaLabel,
+export function NumericInputSimple({
   value,
-  min = 0,
-  max = Infinity,
+  ariaLabel,
   onChange,
-  noLabel = false,
-  optional = false,
-  defaultValue = 1,
-  disabled = value === undefined,
-}: InputWidgetCommonProps<number> & {
+  min,
+  max,
+  disabled = false,
+}: {
+  value?: number;
+  ariaLabel?: string;
+  onChange: (x: number) => void;
   min?: number;
   max?: number;
+  disabled?: boolean;
 }) {
-  const onNewValue = useOnChange(onChange as OnChangeCallback);
-
   const incrementCount = React.useCallback(
     (amount: number = 1, largeIncrement: boolean = false) => {
       const scale = largeIncrement ? 10 : 1;
-      const oldVal = value ?? 0;
-      const newValue = Math.min(Math.max(oldVal + amount * scale, min), max);
-      onNewValue({ name, value: newValue });
+
+      let newValue = (value ?? 0) + amount * scale;
+
+      if (min) {
+        newValue = Math.max(newValue, min);
+      }
+
+      if (max) {
+        newValue = Math.min(newValue, max);
+      }
+
+      onChange(newValue);
     },
-    [max, min, name, onNewValue, value]
+    [max, min, onChange, value]
   );
 
-  const mainInput = (
+  return (
     <input
       className={classes.numericInput}
-      aria-label={ariaLabel ?? name ?? "Numeric Input"}
+      aria-label={ariaLabel ?? "Numeric Input"}
       type="number"
       disabled={disabled}
       // The toString() here makes sure that we dont get prefixed zeros
@@ -46,8 +52,8 @@ export default function NumericInput({
       // Otherwise the comparison that react does to know to update the value
       // would consider `02` equal to `2`
       value={value?.toString() ?? ""}
-      onChange={(e) => onNewValue({ name, value: Number(e.target.value) })}
-      min={0}
+      onChange={(e) => onChange(Number(e.target.value))}
+      min={min}
       onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
         // If the user is holding the shift key while incrementing, go by
         // increments of 10
@@ -59,20 +65,41 @@ export default function NumericInput({
       }}
     />
   );
+}
 
-  return noLabel ? (
-    mainInput
-  ) : (
-    <div className={inputClasses.container}>
-      {optional ? (
-        <OptionalCheckbox
-          name={name}
-          isDisabled={disabled}
-          defaultValue={defaultValue}
+export default function NumericInput({
+  name,
+  label,
+  value,
+  min = 0,
+  max,
+  onChange,
+  optional = false,
+  defaultValue = 1,
+  disabled = value === undefined,
+}: InputWidgetCommonProps<number> & {
+  min?: number;
+  max?: number;
+}) {
+  const onNewValue = useOnChange(onChange as OnChangeCallback);
+
+  return (
+    <InputWrapper
+      name={name}
+      label={label}
+      optional={optional}
+      isDisabled={disabled}
+      defaultValue={defaultValue}
+      mainInput={
+        <NumericInputSimple
+          ariaLabel={label ?? name}
+          disabled={disabled}
+          value={value}
+          onChange={(newValue) => onNewValue({ name, value: newValue })}
+          min={min}
+          max={max}
         />
-      ) : null}
-      <label className={inputClasses.label}>{name}:</label>
-      {mainInput}
-    </div>
+      }
+    />
   );
 }

@@ -11,12 +11,12 @@
 }
 
 .OptionItem {
+  font-size: 0.8rem;
   width: var(--element-palette-icon-size);
-  height: 120px;
+  height: 100px;
   border-radius: var(--corner-radius, 10px);
   position: relative;
   cursor: grab;
-  font-size: 0.9rem;
   text-align: center;
 }
 

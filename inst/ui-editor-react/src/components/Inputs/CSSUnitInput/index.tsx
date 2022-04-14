@@ -2,9 +2,8 @@ import { deparseCSSMeasure } from "utils/css-helpers";
 
 import type { InputWidgetCommonProps } from "..";
 import type { CSSMeasure } from "../../../CSSMeasure";
-import inputClasses from "../Inputs.module.css";
-import NumericInput from "../NumericInput";
-import { OptionalCheckbox } from "../OptionalInput/OptionalInput";
+import { InputWrapper } from "../InputWrapper";
+import { NumericInputSimple } from "../NumericInput";
 import type { OnChangeCallback } from "../SettingsUpdateContext";
 import { useOnChange } from "../SettingsUpdateContext";
 
@@ -62,14 +61,12 @@ export function CSSUnitInput({
         }
       }}
     >
-      <NumericInput
-        name="count"
-        label="value-count"
+      <NumericInputSimple
+        ariaLabel="value-count"
         value={countIsDisabled ? undefined : cssValue.count}
         disabled={countIsDisabled}
-        onChange={({ value }) => updateCount(value)}
+        onChange={updateCount}
         min={0}
-        noLabel={true}
       />
 
       <select
@@ -102,27 +99,23 @@ export function LabeledCSSUnitInput({
   const onNewValue = useOnChange(onChange as OnChangeCallback);
   const isDisabled = value === undefined;
 
-  const mainInput = (
-    <CSSUnitInput
-      value={value ?? defaultValue}
-      {...props}
-      disabled={isDisabled}
-      onChange={(value) => {
-        onNewValue({ name, value });
-      }}
-    />
-  );
   return (
-    <div className={inputClasses.container}>
-      {optional ? (
-        <OptionalCheckbox
-          name={name}
-          isDisabled={isDisabled}
-          defaultValue={defaultValue}
+    <InputWrapper
+      name={name}
+      label={label}
+      optional={optional}
+      isDisabled={isDisabled}
+      defaultValue={defaultValue}
+      mainInput={
+        <CSSUnitInput
+          value={value ?? defaultValue}
+          {...props}
+          disabled={isDisabled}
+          onChange={(value) => {
+            onNewValue({ name, value });
+          }}
         />
-      ) : null}
-      <label className={inputClasses.label}>{name ?? label}:</label>
-      {mainInput}
-    </div>
+      }
+    />
   );
 }

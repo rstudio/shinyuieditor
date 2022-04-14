@@ -22,5 +22,10 @@
 .validationErrorMsg {
   padding: 0.5rem;
   color: orangered;
-  font-family: monospace;
+  font-family: var(--mono-fonts);
+}
+
+.deleteButton {
+  /* Sends it to the bottom of the panel */
+  margin-top: auto;
 }

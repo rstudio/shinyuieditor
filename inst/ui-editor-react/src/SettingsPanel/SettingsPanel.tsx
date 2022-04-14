@@ -1,128 +1,16 @@
-import * as React from "react";
-
 import Button from "components/Inputs/Button";
-import type { OnChangeCallback } from "components/Inputs/SettingsUpdateContext";
 import { SettingsUpdateContext } from "components/Inputs/SettingsUpdateContext";
 import type {
   SettingsUpdaterComponent,
   ShinyUiNode,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { shinyUiNodeInfo } from "components/Shiny-Ui-Elements/uiNodeTypes";
-import { getUiNodeValidation } from "components/UiNode/getUiNodeValidation";
-import { getNode } from "components/UiNode/TreeManipulation/getNode";
-import { useNodeSelectionState } from "NodeSelectionState";
 import { BiCheck } from "react-icons/bi";
 import { FiTrash as TrashIcon } from "react-icons/fi";
-import { useDispatch } from "react-redux";
-import { DELETE_NODE, UPDATE_NODE } from "state/uiTree";
 
 import PathBreadcrumb from "./PathBreadcrumb";
 import classes from "./SettingsPanel.module.css";
-
-function useUpdateSettings({ tree }: { tree: ShinyUiNode }) {
-  const dispatch = useDispatch();
-
-  const [selectedPath, setNodeSelection] = useNodeSelectionState();
-
-  const [currentNode, setCurrentNode] = React.useState<ShinyUiNode | null>(
-    selectedPath !== null ? getNode(tree, selectedPath) : null
-  );
-  const [errorMsg, setErrorMsg] = React.useState<string | null>(null);
-
-  React.useEffect(() => {
-    if (selectedPath === null) {
-      setCurrentNode(null);
-      return;
-    }
-    const selectedNode = getNode(tree, selectedPath);
-
-    // Sometimes the selection will fail because the selected node was just
-    // moved. In this case back up until we get to an available parent
-    if (selectedNode === undefined) {
-      return;
-    }
-
-    setCurrentNode(getNode(tree, selectedPath));
-  }, [tree, selectedPath]);
-
-  const handleSubmit = React.useCallback(
-    async (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-
-      if (!currentNode || !selectedPath) return;
-
-      const result = await getUiNodeValidation({ node: currentNode });
-
-      if (result.type === "error") {
-        setErrorMsg(result.error_msg);
-        return;
-      }
-
-      if (result.type === "server-error") {
-        // Otherwise we have a server error and need to make sure the user knows this
-        // before continuing
-        console.error(`HTTP error! status: ${result.status}`);
-
-        const userAcknowledgedLackOfServer = window.confirm(
-          "Could not check with backend for settings validation. You're on your own."
-        );
-        if (!userAcknowledgedLackOfServer) {
-          setErrorMsg(
-            "Failed to validate settings for component. Try again or check to make sure your R session didn't crash."
-          );
-        }
-      }
-
-      // Sync the state that's been updated from the form to the main tree
-      dispatch(
-        UPDATE_NODE({
-          path: selectedPath,
-          node: {
-            ...currentNode,
-            // Add resulting html from setting validation (if present)
-            uiHTML: "uiHTML" in result ? result.uiHTML : undefined,
-          },
-        })
-      );
-    },
-    [currentNode, dispatch, selectedPath]
-  );
-
-  const updateArguments = (newArguments: typeof tree.uiArguments) => {
-    setCurrentNode({
-      ...currentNode,
-      uiArguments: newArguments,
-    } as typeof currentNode);
-  };
-
-  const updateArgumentsByName: OnChangeCallback = ({ name, value }) => {
-    console.log("Updating arguments by name!", { name, value });
-    setCurrentNode(
-      (node) =>
-        ({
-          ...node,
-          uiArguments: { ...node?.uiArguments, [name]: value },
-        } as typeof currentNode)
-    );
-  };
-
-  const deleteNode = React.useCallback(() => {
-    if (selectedPath === null) return;
-
-    dispatch(DELETE_NODE({ path: selectedPath }));
-  }, [dispatch, selectedPath]);
-
-  return {
-    currentNode,
-    errorMsg,
-    handleSubmit,
-    deleteNode,
-    updateArguments,
-    updateArgumentsByName,
-    selectedPath,
-    setNodeSelection,
-  };
-}
+import { useUpdateSettings } from "./useUpdateSettings";
 
 export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
   const {
@@ -168,10 +56,15 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
           <SettingsUpdateContext onChange={updateArgumentsByName}>
             <SettingsInputs settings={uiArguments} />
           </SettingsUpdateContext>
-          <ErrorMessageDisplay errorMsg={errorMsg} />
+          {errorMsg ? (
+            <div>
+              Input settings are not valid. The following errors were received:
+              <div className={classes.validationErrorMsg}>{errorMsg}</div>
+            </div>
+          ) : null}
           <div className={classes.submitHolder}>
             {uiName !== "unknownUiFunction" ? (
-              <Button type="submit">
+              <Button type="submit" aria-label="Submit new settings">
                 <BiCheck /> Update
               </Button>
             ) : null}
@@ -180,23 +73,15 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
       </div>
 
       {!isRootNode ? (
-        <Button onClick={() => deleteNode()} variant="delete">
+        <Button
+          className={classes.deleteButton}
+          onClick={() => deleteNode()}
+          variant="delete"
+          aria-label="Delete Node"
+        >
           <TrashIcon /> Delete Element
         </Button>
       ) : null}
     </div>
   );
-}
-
-function ErrorMessageDisplay({ errorMsg }: { errorMsg: string | null }) {
-  if (errorMsg) {
-    return (
-      <div>
-        Input settings are not valid. The following errors were received:
-        <div className={classes.validationErrorMsg}>{errorMsg}</div>
-      </div>
-    );
-  }
-
-  return null;
 }

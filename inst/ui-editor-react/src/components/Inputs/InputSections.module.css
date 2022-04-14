@@ -35,8 +35,12 @@
 }
 
 .wrappedSection > * {
-  width: 50px;
+  /* width: 50px; */
   flex-grow: 1;
   flex-shrink: 1;
   flex-basis: 0;
+}
+
+.wrappedSection input {
+  max-width: unset;
 }

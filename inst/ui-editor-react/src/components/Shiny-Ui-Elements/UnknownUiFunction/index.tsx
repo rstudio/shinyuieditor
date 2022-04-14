@@ -1,7 +1,7 @@
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import { UnknownUiFunctionSettings } from "./SettingsPanel";
-import UnknownUiFunction from "./UnknownUiNode";
+import UnknownUiFunction from "./UnknownUiFunction";
 
 export type UnknownUiFunctionProps = {
   text: string;
