@@ -7,7 +7,7 @@ import type { NodePath } from "components/Shiny-Ui-Elements/uiNodeTypes";
 
 export const selectedPathSlice = createSlice({
   name: "selectedPath",
-  initialState: null as NodePath | null,
+  initialState: [] as NodePath | null,
   reducers: {
     SET_SELECTION: (
       selectedPath,
