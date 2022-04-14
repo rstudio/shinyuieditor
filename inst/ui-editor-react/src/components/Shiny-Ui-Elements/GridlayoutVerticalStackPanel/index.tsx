@@ -9,6 +9,7 @@ import { GridlayoutVerticalStackPanelSettings } from "./SettingsPanel";
 export type AlignmentOptions = "top" | "center" | "bottom" | "spread";
 export type VerticalStackPanelSettings = {
   area: string;
+  title?: string;
   item_alignment?: AlignmentOptions;
   item_gap?: CSSMeasure;
 };
@@ -26,11 +27,7 @@ export const gridlayoutVerticalStackPanelInfo: UiComponentInfo<VerticalStackPane
     UiComponent: GridlayoutVerticalStackPanel,
     SettingsComponent: GridlayoutVerticalStackPanelSettings,
     acceptsChildren: true,
-    defaultSettings: {
-      area: "default-area",
-      item_alignment: "top",
-      item_gap: "12px",
-    },
+    defaultSettings: gridlayoutVerticalStackPanelDefaultSettings,
     iconSrc: containerIcon,
   };
 

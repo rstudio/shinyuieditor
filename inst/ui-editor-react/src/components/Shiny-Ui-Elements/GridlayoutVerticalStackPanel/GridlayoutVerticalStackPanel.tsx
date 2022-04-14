@@ -22,13 +22,12 @@ const GridlayoutVerticalStackPanel: UiContainerNodeComponent<
   compRef,
 }) => {
   const { path } = nodeInfo;
-  const { area, item_alignment, item_gap } = uiArguments;
+  const { area, item_alignment, item_gap, title } = uiArguments;
 
   return (
     <div
+      className={classes.container + " " + (title ? classes.withTitle : "")}
       ref={compRef}
-      className={classes.container}
-      data-alignment={item_alignment ?? "top"}
       style={
         {
           gridArea: area,
@@ -37,21 +36,27 @@ const GridlayoutVerticalStackPanel: UiContainerNodeComponent<
       }
       onClick={eventHandlers.onClick}
     >
-      <DropWatcherPanel
-        index={0}
-        parentPath={path}
-        numChildren={uiChildren.length}
-      />
-      {uiChildren?.map((childNode, i) => (
-        <React.Fragment key={path.join(".") + i}>
-          <UiNode path={[...path, i]} {...childNode} />
-          <DropWatcherPanel
-            index={i + 1}
-            numChildren={uiChildren.length}
-            parentPath={path}
-          />
-        </React.Fragment>
-      ))}
+      {title ? <h2 className={classes.panelTitle}>{title}</h2> : null}
+      <div
+        className={classes.contentHolder}
+        data-alignment={item_alignment ?? "top"}
+      >
+        <DropWatcherPanel
+          index={0}
+          parentPath={path}
+          numChildren={uiChildren.length}
+        />
+        {uiChildren?.map((childNode, i) => (
+          <React.Fragment key={path.join(".") + i}>
+            <UiNode path={[...path, i]} {...childNode} />
+            <DropWatcherPanel
+              index={i + 1}
+              numChildren={uiChildren.length}
+              parentPath={path}
+            />
+          </React.Fragment>
+        ))}
+      </div>
       {children}
     </div>
   );
