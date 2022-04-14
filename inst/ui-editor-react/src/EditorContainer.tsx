@@ -13,6 +13,7 @@ import { sendUiStateToBackend } from "state/sendUiStateToBackend";
 import type { RootState } from "state/store";
 import { backupUiTree, INIT_STATE } from "state/uiTree";
 
+import { AppTour } from "./AppTour";
 import { UndoRedoButtons } from "./components/UndoRedoButtons";
 import classes from "./EditorContainer.module.css";
 import { SettingsPanel } from "./SettingsPanel/SettingsPanel";
@@ -39,6 +40,7 @@ function EditorContainerWithData({
 
   return (
     <CurrentDraggedNodeProvider>
+      <AppTour />
       <div className={classes.container}>
         <div className={classes.header}>
           <div className={classes.leftSide}>
@@ -52,14 +54,18 @@ function EditorContainerWithData({
           </div>
           <UndoRedoButtons />
         </div>
-        <div className={`${classes.elementsPanel} ${classes.titledPanel}`}>
+        <div
+          className={`${classes.elementsPanel} ${classes.titledPanel} elements-panel`}
+        >
           <h3>Elements</h3>
           <ElementsPalette />
         </div>
         <div className={classes.editorHolder}>
           <UiNode {...tree} />
         </div>
-        <div className={`${classes.propertiesPanel} ${classes.titledPanel}`}>
+        <div
+          className={`${classes.propertiesPanel} ${classes.titledPanel} properties-panel`}
+        >
           <h3>Properties</h3>
           <SettingsPanel tree={tree} />
           <AppPreview />
