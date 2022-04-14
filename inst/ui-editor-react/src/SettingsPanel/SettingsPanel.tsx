@@ -60,7 +60,7 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
           <ErrorMessageDisplay errorMsg={errorMsg} />
           <div className={classes.submitHolder}>
             {uiName !== "unknownUiFunction" ? (
-              <Button type="submit">
+              <Button type="submit" aria-label="Submit new settings">
                 <BiCheck /> Update
               </Button>
             ) : null}
@@ -69,7 +69,12 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
       </div>
 
       {!isRootNode ? (
-        <Button onClick={() => deleteNode()} variant="delete">
+        <Button
+          className={classes.deleteButton}
+          onClick={() => deleteNode()}
+          variant="delete"
+          aria-label="Delete Node"
+        >
           <TrashIcon /> Delete Element
         </Button>
       ) : null}

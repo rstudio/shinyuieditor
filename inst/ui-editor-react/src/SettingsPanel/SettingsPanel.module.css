@@ -24,3 +24,8 @@
   color: orangered;
   font-family: var(--mono-fonts);
 }
+
+.deleteButton {
+  /* Sends it to the bottom of the panel */
+  margin-top: auto;
+}
