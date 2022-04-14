@@ -4,7 +4,7 @@ import type { InputWidgetCommonProps } from ".";
 
 import inputClasses from "./Inputs.module.css";
 import classes from "./NumericInput.module.css";
-import { OptionalCheckbox } from "./OptionalInput/OptionalInput";
+import { OptionInputWrapper } from "./OptionalInput/OptionInputWrapper";
 import type { OnChangeCallback } from "./SettingsUpdateContext";
 import { useOnChange } from "./SettingsUpdateContext";
 
@@ -64,15 +64,17 @@ export default function NumericInput({
     mainInput
   ) : (
     <div className={inputClasses.container}>
+      <label className={inputClasses.label}>{name}:</label>
       {optional ? (
-        <OptionalCheckbox
+        <OptionInputWrapper
           name={name}
           isDisabled={disabled}
           defaultValue={defaultValue}
+          mainInput={mainInput}
         />
-      ) : null}
-      <label className={inputClasses.label}>{name}:</label>
-      {mainInput}
+      ) : (
+        mainInput
+      )}
     </div>
   );
 }

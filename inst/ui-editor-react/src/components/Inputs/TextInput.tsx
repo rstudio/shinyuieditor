@@ -3,7 +3,8 @@ import React from "react";
 import type { InputWidgetCommonProps } from ".";
 
 import inputClasses from "./Inputs.module.css";
-import { OptionalCheckbox } from "./OptionalInput/OptionalInput";
+import { OptionalCheckbox } from "./OptionalInput/OptionalCheckbox";
+import { OptionInputWrapper } from "./OptionalInput/OptionInputWrapper";
 import type { OnChangeCallback } from "./SettingsUpdateContext";
 import { useOnChange } from "./SettingsUpdateContext";
 import classes from "./TextInput.module.css";
@@ -52,17 +53,19 @@ export function TextInput({
     mainInput
   ) : (
     <div className={inputClasses.container}>
-      {optional ? (
-        <OptionalCheckbox
-          name={name}
-          isDisabled={isDisabled}
-          defaultValue={defaultValue}
-        />
-      ) : null}
       <label className={inputClasses.label} htmlFor={name}>
         {label ?? name}:
       </label>
-      {mainInput}
+      {optional ? (
+        <OptionInputWrapper
+          name={name}
+          isDisabled={isDisabled}
+          defaultValue={defaultValue}
+          mainInput={mainInput}
+        />
+      ) : (
+        mainInput
+      )}
     </div>
   );
 }

@@ -4,7 +4,8 @@ import type { InputWidgetCommonProps } from "..";
 import type { CSSMeasure } from "../../../CSSMeasure";
 import inputClasses from "../Inputs.module.css";
 import NumericInput from "../NumericInput";
-import { OptionalCheckbox } from "../OptionalInput/OptionalInput";
+import { OptionalCheckbox } from "../OptionalInput/OptionalCheckbox";
+import { OptionInputWrapper } from "../OptionalInput/OptionInputWrapper";
 import type { OnChangeCallback } from "../SettingsUpdateContext";
 import { useOnChange } from "../SettingsUpdateContext";
 
@@ -114,15 +115,17 @@ export function LabeledCSSUnitInput({
   );
   return (
     <div className={inputClasses.container}>
+      <label className={inputClasses.label}>{name ?? label}:</label>
       {optional ? (
-        <OptionalCheckbox
+        <OptionInputWrapper
           name={name}
           isDisabled={isDisabled}
           defaultValue={defaultValue}
+          mainInput={mainInput}
         />
-      ) : null}
-      <label className={inputClasses.label}>{name ?? label}:</label>
-      {mainInput}
+      ) : (
+        mainInput
+      )}
     </div>
   );
 }
