@@ -1,0 +1,46 @@
+.inputSection,
+.wrappedSection {
+  display: flex;
+  gap: 5px;
+  border: none;
+}
+
+.inputSection {
+  flex-direction: column;
+}
+
+.sectionLabel {
+  position: relative;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  margin-block-start: 20px;
+  margin-block-end: 12px;
+}
+
+.sectionLabel .sectionLabelDash {
+  flex-grow: 1;
+  background-color: var(--font-color);
+  height: 1px;
+  border-radius: 50%;
+}
+
+.wrappedSectionContainer > .sectionLabel {
+  margin-block-end: -6px;
+}
+
+.wrappedSection {
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.wrappedSection > * {
+  /* width: 50px; */
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0;
+}
+
+.wrappedSection input {
+  max-width: unset;
+}

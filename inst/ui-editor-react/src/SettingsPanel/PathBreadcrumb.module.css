@@ -1,0 +1,74 @@
+.container {
+  --flex-gap: 8px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--flex-gap);
+  position: relative;
+}
+
+.node {
+  --pad: 5px;
+  font-family: var(--mono-fonts);
+  font-size: 1.02rem;
+  padding: var(--pad);
+  width: fit-content;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  position: relative;
+  cursor: pointer;
+  background-color: var(--rstudio-white);
+  outline: 2px solid var(--light-grey);
+  border-radius: var(--corner-radius);
+}
+
+.node:last-child {
+  outline: 2px solid var(--rstudio-blue);
+}
+
+.node::before,
+.node::after {
+  --dot-size: 6px;
+  --line-width: 2px;
+  --offset: 5px;
+  --color: var(--header-grey);
+  content: "";
+  position: absolute;
+}
+
+.node::after {
+  width: var(--dot-size);
+  height: var(--dot-size);
+  background-color: var(--background-grey);
+  outline-width: var(--line-width);
+  outline-style: solid;
+  outline-color: var(--color);
+  border-radius: 50%;
+  left: calc(-1 * (var(--pad) + var(--dot-size) / 2 + var(--offset)));
+  top: calc(50% - var(--dot-size) / 2);
+}
+
+.node:first-child::after {
+  border-radius: 0;
+}
+
+.node::before {
+  background-color: var(--color);
+  width: var(--line-width);
+  height: calc(100% + var(--flex-gap));
+  left: calc(-1 * (var(--pad) + var(--line-width) / 2 + var(--offset)));
+  top: calc(-1 * var(--flex-gap) / 2);
+}
+
+/* Hide the line if there's only a single hierarchy level */
+.node:only-child::before {
+  display: none;
+}
+
+.node:first-child::before,
+.node:last-child::before {
+  height: calc(50% + var(--flex-gap) / 2);
+}
+.node:first-child::before {
+  top: 50%;
+}
