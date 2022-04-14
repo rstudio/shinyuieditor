@@ -1,6 +1,8 @@
 .container {
-  width: calc(100% - 10px);
-  height: min(calc(100% - 10px), 75px);
+  --gap: 10px;
+  width: calc(100% - var(--gap));
+  margin: auto;
+  height: min(calc(100% - var(--gap)), 75px);
   padding: 4px;
   background-color: var(--light-grey);
   border-radius: var(--corner-radius);
