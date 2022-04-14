@@ -12,9 +12,11 @@ import classes from "./styles.module.css";
 export const UnknownUiFunctionSettings: SettingsUpdaterComponent<
   UnknownUiFunctionProps
 > = ({ settings }) => {
+  // Split up functions with arguments to format somewhat nicely
   const formattedText = settings.text
-    .replaceAll(/\(/g, "(\n  ")
-    .replaceAll(/\)/g, "\n)  ")
+    .replaceAll(/\(\s*\)/g, "()")
+    .replaceAll(/\((?!\))/g, "(\n  ")
+    .replaceAll(/(?<!\()\)/g, "\n)  ")
     .replaceAll(/,/g, ",\n ");
   return (
     <div>
