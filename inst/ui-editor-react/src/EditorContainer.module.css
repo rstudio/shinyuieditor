@@ -30,10 +30,13 @@
 
 .propertiesPanel {
   grid-area: properties;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.propertiesPanel > div {
-  padding: 1rem;
+.propertiesPanel > :global(.properties-panel) {
+  flex-grow: 1;
 }
 
 .editorHolder {
@@ -58,6 +61,10 @@
   min-width: 0;
 }
 
+.titledPanel > div {
+  padding: 16px;
+}
+
 .titledPanel > h3 {
   text-align: center;
   line-height: var(--label-h);
@@ -72,7 +79,7 @@
   padding-block: 5px;
   gap: 16px;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: center;
 }
 
