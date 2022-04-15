@@ -78,6 +78,10 @@ html {
   height: 100%;
 }
 
+body {
+  overflow: hidden;
+}
+
 body,
 input {
   font-family: var(--fonts);
@@ -85,7 +89,6 @@ input {
   line-height: 1.5;
   color: var(--font-color);
   margin: 0;
-  overflow: hidden;
 }
 
 h1,
