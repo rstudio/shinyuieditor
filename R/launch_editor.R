@@ -69,36 +69,25 @@ launch_editor <- function(app_loc,
     app_loc = app_loc,
     port = shiny_background_port,
     host = host,
+    show_logs = show_logs,
     show_preview_app_logs = show_preview_app_logs
   )
 
-  log_background_app <- function(lines){
-    cat(
-      paste0(
-        crayon::bold$magenta("Logs from preview app:\n"),
-        crayon::magenta(paste(lines, collapse = "\n")),
-        "\n"
-      )
-    )
-  }
-
   if (show_preview_app_logs) {
-    shiny_background_process$subscribeToOnLog(log_background_app)
+    shiny_background_process$on_log$subscribe(log_background_app)
   }
 
-  writeLog(paste("=> ...Shiny app running in background: PID =", shiny_background_process$process$get_pid()))
+  shiny_background_process$on_crash$subscribe(function(status){
+    cat(crayon::bgCyan(status))
+  })
 
+  writeLog("=> ...Shiny app running in background")
 
   # Getter for app running in background that will lazily launch the app.
   get_running_app_location <- function() {
+
     if (identical(app_preview, FALSE)) {
       return("no-preview")
-    }
-
-    if (is.null(shiny_background_process)) {
-      writeLog("=> No running shiny app... starting up first...")
-
-      writeLog(paste("=> ...Shiny app running in background: PID =", shiny_background_process$process$get_pid()))
     }
 
     writeLog("=> Sending over location of running Shiny App")
@@ -110,25 +99,16 @@ launch_editor <- function(app_loc,
   # running in the background, however, otherwise it will kill the shiny server
   # immediately (if it's started immediately).
   cleanup_on_end <- function() {
+    # Stop all the event listeners
+    shiny_background_process$cleanup()
+  }
+
+  on.exit({
     if (run_in_background) {
       return()
     }
-    if (!is.null(shiny_background_process)) {
-      writeLog("=> Shutting down running shiny app...")
-
-      tryCatch(
-        {
-          shiny_background_process$process$interrupt()
-        },
-        error = function(e) {
-          print("Error shutting down background Shiny app:")
-          print(e)
-        }
-      )
-    }
-  }
-
-  on.exit({cleanup_on_end()})
+    cleanup_on_end()
+  })
 
   # This needs to go before we actually start the server in case we're running
   # in blocking mode, which would prevent anything after from ever being run
@@ -197,7 +177,15 @@ launch_editor <- function(app_loc,
 }
 
 
-
+log_background_app <- function(lines){
+  cat(
+    paste0(
+      crayon::bold$magenta("Logs from preview app:\n"),
+      crayon::magenta(paste(lines, collapse = "\n")),
+      "\n"
+    )
+  )
+}
 
 PATH_TO_REACT_APP <- system.file("ui-editor-react/build", package = "ShinyUiEditor")
 
