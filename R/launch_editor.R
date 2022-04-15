@@ -40,6 +40,7 @@ launch_editor <- function(app_loc,
                           run_in_background = FALSE) {
   writeLog <- function(msg) {
     if (show_logs) {
+      # TODO: Move these to standard error as they are meant for human consumption
       cat(msg, "\n")
     }
   }
@@ -176,6 +177,9 @@ launch_editor <- function(app_loc,
   )
 }
 
+
+# TODO: Return object that has events that can be subscribed to attached to it
+
 start_shiny_in_background <- function(app_loc, host, port) {
   p <- callr::r_bg(
     func = function(app_loc, host, port) {
@@ -189,7 +193,18 @@ start_shiny_in_background <- function(app_loc, host, port) {
   )
 
   # Give the app a tiny bit to spin up
+
+  # TODO: Switch this to trying to connect to the socket because some apps will start up for longer than 1 second, some may take less. Also make sure we handle it failing.
   Sys.sleep(1)
+
+
+  subscribe_to_fn_output(
+    source_fn = p$read_error_lines,
+    event_handler_fn = function(lines){
+      print("lines from background app...")
+      print(lines)
+    }
+  )
 
   path_to_app <- if (host == "0.0.0.0") {
     # Don't use 0.0.0.0 directly as browsers don't give it a free pass for lack
@@ -221,6 +236,35 @@ get_app_ui_file <- function(app_loc) {
 
   plain_ui_file
 }
+
+
+subscribe_to_fn_output <- function(source_fn, event_handler_fn){
+
+  unsubscribe <- NULL
+
+  poll <- function(){
+
+    out <- source_fn()
+
+    on.exit(
+      unsubscribe <<- later::later(poll, delay = 0.1)
+    )
+
+    if(length(out) > 0) {
+      event_handler_fn(out)
+    }
+  }
+
+  # Kick off loop
+  poll()
+
+  function(){
+    if(!is.null(unsubscribe)) {
+      unsubscribe()
+    }
+  }
+}
+
 
 get_ui_from_file <- function(app_loc) {
   ui_defn_text <- paste(readLines(get_app_ui_file(app_loc)), collapse = "\n")
