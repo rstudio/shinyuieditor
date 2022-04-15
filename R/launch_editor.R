@@ -84,6 +84,7 @@ launch_editor <- function(app_loc,
   preview_app_available <- FALSE
   listen_for_ready <- shiny_background_process$on_ready$subscribe(function(app_ready){
     preview_app_available <<- TRUE
+    writeLog("=> ...Shiny app running")
     # Once we get the ready signal, turn off the subscription
     listen_for_ready()
   })
@@ -163,6 +164,18 @@ launch_editor <- function(app_loc,
           }
         )
       )),
+      onWSOpen = function(ws) {
+        # The ws object is a WebSocket object
+        cat("Server connection opened.\n")
+
+        ws$onMessage(function(binary, message) {
+          cat("Server received message:", message, "\n")
+          ws$send(message)
+        })
+        ws$onClose(function() {
+          cat("Server connection closed.\n")
+        })
+      },
       staticPaths = list(
         "/app" = httpuv::staticPath(
           PATH_TO_REACT_APP,

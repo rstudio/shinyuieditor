@@ -11,6 +11,8 @@ export default function AppPreview() {
   const [isFullScreen, setIsFullScreen] = React.useState(false);
   const { isLoading, error, data: appURL } = useGetRunningAppLocQuery("");
 
+  const websocketMsg = useCommunicateWithWebsocket();
+
   if (error) {
     console.error("Problem in retreiving running app location", error);
   }
@@ -74,3 +76,29 @@ const FakeDashboard = () => {
     </div>
   );
 };
+
+function useCommunicateWithWebsocket() {
+  const [lastMsg, setLastMsg] = React.useState("Waiting for websocket...");
+
+  React.useEffect(() => {
+    if (!document.location.host) return;
+
+    // const websocket_location = `ws://${document.location.host}`;
+    const websocket_location = `ws://localhost:8888`;
+
+    console.log("Attempting to connect to websocket at " + websocket_location);
+    const ws = new WebSocket(websocket_location);
+
+    ws.onopen = (event) => {
+      console.log("Websocket successfully opened with httpuv");
+      ws.send("Hi from AppPreview");
+      setLastMsg("Connected to websocket!");
+    };
+
+    return () => {
+      ws.close();
+    };
+  }, []);
+
+  return lastMsg;
+}
