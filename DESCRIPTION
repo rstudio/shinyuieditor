@@ -15,7 +15,9 @@ RoxygenNote: 7.1.2
 StagedInstall: no
 Imports: 
     callr,
+    crayon,
     fs,
+    later,
     lobstr,
     rlang,
     shiny
