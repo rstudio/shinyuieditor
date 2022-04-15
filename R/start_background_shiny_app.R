@@ -14,10 +14,22 @@ start_background_shiny_app <- function(app_loc, host, port,show_logs, show_previ
     supervise = TRUE # Extra security for process being cleaned up properly
   )
 
-  # Give the app a tiny bit to spin up
+  path_to_app <- if (host == "0.0.0.0") {
+    # Don't use 0.0.0.0 directly as browsers don't give it a free pass for lack
+    # of SSL like they do localhost and 127.0.0.1
+    "127.0.0.1"
+  } else {
+    host
+  }
+  app_url <- paste0("http://", path_to_app, ":", port)
 
-  # TODO: Switch this to trying to connect to the socket because some apps will start up for longer than 1 second, some may take less. Also make sure we handle it failing.
-  # Sys.sleep(1)
+  # Listens for the app to be ready for connections
+  on_ready <- create_output_subscribers(
+    source_fn = function(){
+      server_exists(app_url)
+    },
+    filter_fn = function(is_ready) is_ready
+  )
 
   on_log <- create_output_subscribers(
     source_fn = p$read_error_lines,
@@ -34,17 +46,10 @@ start_background_shiny_app <- function(app_loc, host, port,show_logs, show_previ
     delay = 1
   )
 
-  path_to_app <- if (host == "0.0.0.0") {
-    # Don't use 0.0.0.0 directly as browsers don't give it a free pass for lack
-    # of SSL like they do localhost and 127.0.0.1
-    "127.0.0.1"
-  } else {
-    host
-  }
-
   cleanup <-  function(){
     on_log$stop_listening()
     on_crash$stop_listening()
+    on_ready$stop_listening()
 
     tryCatch(
       {
@@ -59,7 +64,8 @@ start_background_shiny_app <- function(app_loc, host, port,show_logs, show_previ
   }
 
   list(
-    url = paste0("http://", path_to_app, ":", port),
+    url = app_url,
+    on_ready = on_ready,
     on_log = on_log,
     on_crash = on_crash,
     cleanup = cleanup
@@ -144,3 +150,15 @@ create_output_subscribers <- function(
   )
 }
 
+server_exists <- function(url_id) {
+  # Using a url object instead of the url as a string because readLines() with
+  # url string will cause failed connections to stay open
+  url_obj <- url(url_id)
+  on.exit({close(url_obj)}, add = TRUE)
+
+  ret <- !inherits(
+    try({suppressWarnings(readLines(url_obj, 1))}, silent = TRUE),
+    "try-error"
+  )
+  ret
+}

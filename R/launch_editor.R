@@ -81,6 +81,13 @@ launch_editor <- function(app_loc,
     cat(crayon::bgCyan(status))
   })
 
+  preview_app_available <- FALSE
+  listen_for_ready <- shiny_background_process$on_ready$subscribe(function(app_ready){
+    preview_app_available <<- TRUE
+    # Once we get the ready signal, turn off the subscription
+    listen_for_ready()
+  })
+
   writeLog("=> ...Shiny app running in background")
 
   # Getter for app running in background that will lazily launch the app.
