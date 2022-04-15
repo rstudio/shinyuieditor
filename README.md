@@ -1,6 +1,26 @@
-# Shiny Visual Editor
+# Shiny Visual UI Editor
 
-A GUI for laying out a Shiny application that generates clean and editable UI code.
+A GUI for laying out a Shiny application that generates clean and human-readable UI code.
+
+## Quick Start
+
+Pre-reqs:
+
+- Two-file shiny app (or at least willingness to use the two file format)
+
+### Installing
+
+While in development the package is only available on github:
+
+```
+remotes::install_github('rstudio/shiny-visual-editor')
+```
+
+ℹ️ _You may need to setup your github PAT to access as the repo is still private. However, if you're reading this, you have access._
+
+###
+
+###
 
 ---
 
