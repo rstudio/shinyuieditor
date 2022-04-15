@@ -7,10 +7,15 @@ import Joyride, { ACTIONS, EVENTS } from "react-joyride";
 
 export const joyrideSteps: Step[] = [
   {
+    target: ".app-view",
+    content:
+      "The app view shows the current state of your UI. You can click on elements to select them or drag them around to reposition or resize them",
+    disableBeacon: true,
+  },
+  {
     target: ".elements-panel",
     content:
       "Drag elements from the elements palette into the app pane on the right to add them to your app",
-    placementBeacon: "right",
     placement: "right-start",
     disableBeacon: true,
   },

@@ -60,7 +60,7 @@ function EditorContainerWithData({
           <h3>Elements</h3>
           <ElementsPalette />
         </div>
-        <div className={classes.editorHolder}>
+        <div className={classes.editorHolder + " app-view"}>
           <UiNode {...tree} />
         </div>
         <div className={`${classes.propertiesPanel}`}>
