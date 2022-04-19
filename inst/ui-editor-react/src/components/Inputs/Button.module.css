@@ -39,3 +39,8 @@
   padding: 8px;
   aspect-ratio: 1;
 }
+
+.icon > svg {
+  /* This helps the inline displayed icons to be centered in their container */
+  margin-bottom: -2px;
+}
