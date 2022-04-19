@@ -6,6 +6,7 @@ import { FaExpand } from "react-icons/fa";
 import Button from "../Inputs/Button";
 
 import classes from "./AppPreview.module.css";
+import FakeDashboard from "./FakeDashboard";
 import { LogsViewer } from "./LogsViewer";
 import { useCommunicateWithWebsocket } from "./useCommunicateWithWebsocket";
 
@@ -16,11 +17,13 @@ const properties_bar_w_px = 275 - 16 * 2;
 export default function AppPreview() {
   const [isFullScreen, setIsFullScreen] = React.useState(false);
 
-  const { appLoc, appLogs, clearLogs } = useCommunicateWithWebsocket();
+  const { status, appLoc, appLogs, clearLogs } = useCommunicateWithWebsocket();
 
   const previewScale = usePreviewScale();
 
-  const isLoading = appLoc === null;
+  React.useEffect(() => {
+    console.log("Status", status);
+  }, [status]);
 
   if (appLoc === "no-preview") {
     return null;
@@ -40,7 +43,7 @@ export default function AppPreview() {
           } as React.CSSProperties
         }
       >
-        {isLoading ? (
+        {status === "loading" ? (
           <h2>Loading app preview...</h2>
         ) : (
           <>
@@ -58,20 +61,18 @@ export default function AppPreview() {
                 {isFullScreen ? <AiOutlineShrink /> : <FaExpand />}
               </Button>
             </div>
-
             <div className={classes.container}>
-              <iframe
-                className={classes.previewFrame}
-                src={appLoc}
-                title="Application Preview"
-              />
-            </div>
-            <LogsViewer appLogs={appLogs} clearLogs={clearLogs} />
-
-            {/* {error ? (
+              {status === "error" ? (
                 <FakeDashboard />
               ) : (
-              )} */}
+                <iframe
+                  className={classes.previewFrame}
+                  src={appLoc}
+                  title="Application Preview"
+                />
+              )}
+            </div>
+            <LogsViewer appLogs={appLogs} clearLogs={clearLogs} />
           </>
         )}
       </div>

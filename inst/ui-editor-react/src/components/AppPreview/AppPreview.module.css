@@ -1,7 +1,5 @@
 .appViewerHolder {
   --inset-amnt: 100px;
-  --app-rendered-w: calc(100vw - var(--inset-amnt));
-  --app-rendered-h: calc(100vh - var(--inset-amnt));
 
   /* This is over-ridden by an inline style but we just have it here in case */
   --app-scale-amnt: 0.24;
@@ -12,12 +10,17 @@
   --logs-font-size: 0.65rem;
   --logs-padding: 10px;
 
-  --controls-height: 30px;
-  --logs-height: 35px;
-  --viewer-height: calc(var(--app-rendered-h) * var(--app-scale-amnt));
-  grid-template-rows: var(--controls-height) var(--viewer-height) var(
-      --logs-height
-    );
+  --controls-h: 30px;
+  --logs-h: 35px;
+
+  --app-rendered-w: calc(100vw - var(--inset-amnt));
+  --app-rendered-h: calc(
+    100vh - var(--inset-amnt) - var(--controls-h) - var(--logs-h)
+  );
+
+  --viewer-h: calc(var(--app-rendered-h) * var(--app-scale-amnt));
+
+  grid-template-rows: var(--controls-h) var(--viewer-h) var(--logs-h);
   grid-template-areas:
     "controls"
     "viewer"
@@ -33,9 +36,9 @@
   --logs-font-size: 0.9rem;
   --logs-padding: 32px;
 
-  --controls-height: 50px;
-  --logs-height: 50px;
-  --viewer-height: 1fr;
+  --controls-h: 50px;
+  --viewer-h: 1fr;
+  --logs-h: 50px;
 }
 
 .controls {
@@ -46,12 +49,13 @@
 
 .container {
   grid-area: viewer;
-  overflow: hidden;
   display: grid;
   place-content: center;
   position: relative;
   width: 100%;
   height: 100%;
+  min-width: 0;
+  min-height: 0;
 }
 
 /* Logs section */
@@ -110,6 +114,7 @@
 }
 
 .appViewerHolder.fullScreen .previewFrame {
+  /* height: 100%; */
   transform: scale(1);
   transition: transform var(--animation-speed-timing);
   border: none;

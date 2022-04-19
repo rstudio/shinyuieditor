@@ -6,6 +6,7 @@ import { GrClear } from "react-icons/gr";
 import Button from "../Inputs/Button";
 
 import classes from "./LogsViewer.module.css";
+import type { AppLogs } from "./useCommunicateWithWebsocket";
 
 export function LogsViewer({
   appLogs,
@@ -64,7 +65,6 @@ export function LogsViewer({
   );
 }
 
-export type AppLogs = string[];
 export function useExpandableLogs(appLogs: AppLogs) {
   const [logsExpanded, setLogsExpanded] = React.useState(false);
   const [unseenLogs, setUnseenLogs] = React.useState(false);
