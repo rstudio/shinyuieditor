@@ -168,9 +168,32 @@ launch_editor <- function(app_loc,
         # The ws object is a WebSocket object
         cat("Server connection opened.\n")
 
+        listen_for_ready <- shiny_background_process$on_ready$subscribe(function(app_ready){
+
+          ws$send(
+            build_ws_message(
+              "SHINY_READY",
+              payload = shiny_background_process$url
+            )
+          )
+
+          # Once we get the ready signal, turn off the subscription
+          listen_for_ready()
+        })
+
+        shiny_background_process$on_log$subscribe(function(log_lines){
+          ws$send(
+            build_ws_message(
+              "SHINY_LOGS",
+              payload = log_lines
+            )
+          )
+        })
+
         ws$onMessage(function(binary, message) {
+
           cat("Server received message:", message, "\n")
-          ws$send(message)
+
         })
         ws$onClose(function() {
           cat("Server connection closed.\n")
@@ -194,6 +217,13 @@ launch_editor <- function(app_loc,
       cleanup_on_end()
     }
   )
+}
+
+build_ws_message <- function(type, payload){
+  jsonlite::toJSON(list(
+    msg = type,
+    payload = payload
+  ), auto_unbox = TRUE)
 }
 
 

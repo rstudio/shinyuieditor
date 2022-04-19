@@ -2,24 +2,24 @@ import React from "react";
 
 import { AiOutlineShrink } from "react-icons/ai";
 import { FaExpand } from "react-icons/fa";
-import { useGetRunningAppLocQuery } from "state/getInitialState";
 
 import classes from "./AppPreview.module.css";
 import Button from "./Inputs/Button";
 
 export default function AppPreview() {
   const [isFullScreen, setIsFullScreen] = React.useState(false);
-  const { isLoading, error, data: appURL } = useGetRunningAppLocQuery("");
 
-  const websocketMsg = useCommunicateWithWebsocket();
+  const { appLoc, appLogs } = useCommunicateWithWebsocket();
 
-  if (error) {
-    console.error("Problem in retreiving running app location", error);
-  }
-  if (appURL === "no-preview") {
+  const isLoading = appLoc === null;
+
+  React.useEffect(() => {
+    console.log("New logs", appLogs);
+  }, [appLogs]);
+
+  if (appLoc === "no-preview") {
     return null;
   }
-
   return (
     <>
       <h3>App Preview</h3>
@@ -47,15 +47,15 @@ export default function AppPreview() {
               >
                 {isFullScreen ? <AiOutlineShrink /> : <FaExpand />}
               </Button>
-              {error ? (
+              <iframe
+                className={classes.previewFrame}
+                src={appLoc}
+                title="Application Preview"
+              />
+              {/* {error ? (
                 <FakeDashboard />
               ) : (
-                <iframe
-                  className={classes.previewFrame}
-                  src={appURL}
-                  title="Application Preview"
-                />
-              )}
+              )} */}
             </>
           )}
         </div>
@@ -77,8 +77,21 @@ const FakeDashboard = () => {
   );
 };
 
+type WS_MSG =
+  | {
+      msg: "SHINY_READY";
+      payload: string;
+    }
+  | { msg: "SHINY_LOGS"; payload: string[] };
+
 function useCommunicateWithWebsocket() {
-  const [lastMsg, setLastMsg] = React.useState("Waiting for websocket...");
+  const [appLoc, setAppLoc] = React.useState<string | null>(null);
+  const [appLogs, setAppLogs] = React.useState<string[]>([]);
+
+  const updateLogs = React.useCallback((new_logs: string[]) => {
+    console.log("Updating logs with new logs", new_logs);
+    setAppLogs((logs) => [...logs, ...new_logs]);
+  }, []);
 
   React.useEffect(() => {
     if (!document.location.host) return;
@@ -92,13 +105,33 @@ function useCommunicateWithWebsocket() {
     ws.onopen = (event) => {
       console.log("Websocket successfully opened with httpuv");
       ws.send("Hi from AppPreview");
-      setLastMsg("Connected to websocket!");
+    };
+
+    ws.onmessage = (event) => {
+      const msg_data = JSON.parse(event.data) as WS_MSG;
+      console.log("Message from websocket", msg_data);
+
+      switch (msg_data.msg) {
+        case "SHINY_READY":
+          setAppLoc(msg_data.payload);
+          break;
+        case "SHINY_LOGS":
+          updateLogs(msg_data.payload);
+          break;
+        default:
+          console.error("Unknown message from websocket. Ignoring", {
+            msg_data,
+          });
+      }
     };
 
     return () => {
       ws.close();
     };
-  }, []);
+  }, [updateLogs]);
 
-  return lastMsg;
+  return {
+    appLoc,
+    appLogs,
+  };
 }
