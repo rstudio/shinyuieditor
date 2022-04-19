@@ -75,20 +75,28 @@
   background-color: inherit;
   height: var(--logs-height);
   padding: 2px;
-  position: relative;
+  gap: 2px;
 }
 
 .logsContents {
+  border-top: 1px solid var(--light-grey);
   height: calc(100% - var(--logs-height));
-  font-family: var(--mono-fonts);
-  font-size: var(--logs-font-size);
   padding: var(--logs-padding);
-  position: relative;
 }
 
 p.logLine {
+  font-family: var(--mono-fonts);
+  font-size: var(--logs-font-size);
   margin: 0;
 }
+
+.noLogsMsg {
+  opacity: 0.8;
+  height: 100%;
+  text-align: center;
+  font-size: 1rem;
+}
+
 .clearLogsButton {
   outline: none;
   display: none;
@@ -104,6 +112,7 @@ p.logLine {
 .expandLogsButton {
   flex-grow: 1;
   text-align: center;
+  font-size: calc(var(--logs-font-size) * 1.3);
 }
 
 .expandButton {
@@ -113,6 +122,10 @@ p.logLine {
 .appViewerHolder button {
   outline: none;
   background-color: transparent;
+}
+
+.appViewerHolder.fullScreen button {
+  background-color: var(--rstudio-white);
 }
 
 .appViewerHolder button:hover,

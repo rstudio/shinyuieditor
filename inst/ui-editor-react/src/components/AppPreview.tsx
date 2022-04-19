@@ -22,6 +22,8 @@ export default function AppPreview() {
 
   const isLoading = appLoc === null;
 
+  const noLogs = appLogs.length === 0;
+
   if (appLoc === "no-preview") {
     return null;
   }
@@ -84,7 +86,7 @@ export default function AppPreview() {
                   {logsExpanded ? <BsChevronDown /> : <BsChevronUp />}
                 </Button>
                 {/* We only need to show the clear button if there actually are lines to clear */}
-                {appLogs.length !== 0 ? (
+                {!noLogs ? (
                   <Button
                     variant="icon"
                     title="clear logs"
@@ -96,11 +98,15 @@ export default function AppPreview() {
                 ) : null}
               </div>
               <div className={classes.logsContents}>
-                {appLogs.map((line, i) => (
-                  <p className={classes.logLine} key={i}>
-                    {line}
-                  </p>
-                ))}
+                {noLogs ? (
+                  <p className={classes.noLogsMsg}>No recent logs</p>
+                ) : (
+                  appLogs.map((line, i) => (
+                    <p className={classes.logLine} key={i}>
+                      {line}
+                    </p>
+                  ))
+                )}
               </div>
             </div>
             {/* {error ? (
