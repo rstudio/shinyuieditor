@@ -12,11 +12,15 @@
   --expand-btn-size: 1rem;
   --logs-font-size: 0.65rem;
 
-  --logs-height: 35px;
+  --logs-padding: 10px;
 
   width: 100%;
   display: grid;
-  grid-template-rows: 30px calc(var(--app-rendered-h) * var(--app-scale-amnt)) var(
+
+  --controls-height: 30px;
+  --logs-height: 35px;
+  --viewer-height: calc(var(--app-rendered-h) * var(--app-scale-amnt));
+  grid-template-rows: var(--controls-height) var(--viewer-height) var(
       --logs-height
     );
   grid-template-areas:
@@ -25,6 +29,17 @@
     "logs";
 
   gap: 5px;
+}
+
+.appViewerHolder.fullScreen {
+  --expand-btn-inset: 10px;
+  --expand-btn-size: 1.5rem;
+  --logs-font-size: 0.9rem;
+  --logs-padding: 32px;
+
+  --controls-height: 50px;
+  --logs-height: 50px;
+  --viewer-height: 1fr;
 }
 
 .controls {
@@ -49,9 +64,10 @@
 }
 
 .expandedLogs {
-  grid-row-start: 1;
+  grid-row-start: 2;
   grid-row-end: -1;
   z-index: 2;
+  background-color: var(--rstudio-white-transparent);
 }
 
 .logsHeader {
@@ -63,12 +79,10 @@
 }
 
 .logsContents {
-  /* outline: 2px solid red; */
   height: calc(100% - var(--logs-height));
-  background-color: var(--rstudio-white-transparent);
   font-family: var(--mono-fonts);
   font-size: var(--logs-font-size);
-  padding: 16px;
+  padding: var(--logs-padding);
   position: relative;
 }
 
@@ -111,7 +125,6 @@ p.logLine {
   width: 100vw;
   height: 100vh;
   z-index: 10;
-  grid-template-rows: 50px 1fr 50px;
   background-color: hsl(var(--rstudio-grey-hsl) / 0.15);
   backdrop-filter: blur(6px);
 
@@ -119,9 +132,6 @@ p.logLine {
   /* This overwrites the "all" above and only makes transitions occur on
   specified properties */
   transition-property: backdrop-filter background-color;
-
-  --expand-btn-inset: 10px;
-  --expand-btn-size: 1.5rem;
 }
 
 .appViewerHolder.fullScreen .previewFrame {
