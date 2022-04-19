@@ -15,3 +15,5 @@ const FakeDashboard = () => {
     </div>
   );
 };
+
+export default FakeDashboard;
