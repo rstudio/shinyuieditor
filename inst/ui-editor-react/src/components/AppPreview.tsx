@@ -90,7 +90,12 @@ export default function AppPreview() {
                 >
                   <GrClear />
                 </Button>
-                {appLogs.join("\n")}
+
+                {appLogs.map((line, i) => (
+                  <p className={classes.logLine} key={i}>
+                    {line}
+                  </p>
+                ))}
               </div>
             </div>
             {/* {error ? (

@@ -72,6 +72,9 @@
   position: relative;
 }
 
+p.logLine {
+  margin: 0;
+}
 .clearLogs {
   position: absolute;
   right: 2px;
@@ -119,7 +122,6 @@
 
   --expand-btn-inset: 10px;
   --expand-btn-size: 1.5rem;
-  --logs-font-size: 0.9rem;
 }
 
 .appViewerHolder.fullScreen .previewFrame {
