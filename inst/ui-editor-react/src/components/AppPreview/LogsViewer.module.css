@@ -1,0 +1,87 @@
+/* Logs section */
+.logs {
+  grid-area: logs;
+  overflow: hidden;
+}
+
+.expandedLogs {
+  grid-row-start: 2;
+  grid-row-end: -1;
+  z-index: 2;
+  background-color: var(--rstudio-white-transparent);
+}
+
+.logsHeader {
+  display: flex;
+  justify-content: center;
+  background-color: inherit;
+  height: var(--logs-height);
+}
+
+.logsContents {
+  border-top: 1px solid var(--light-grey);
+  height: calc(100% - var(--logs-height));
+  padding: var(--logs-padding);
+}
+
+p.logLine {
+  font-family: var(--mono-fonts);
+  font-size: var(--logs-font-size);
+  margin: 0;
+}
+
+.noLogsMsg {
+  opacity: 0.8;
+  height: 100%;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.clearLogsButton {
+  display: none;
+  height: 100%;
+}
+
+.expandedLogs .clearLogsButton {
+  display: block;
+}
+
+.expandedLogs .logsContents {
+  overflow: auto;
+}
+
+.expandLogsButton {
+  flex-grow: 1;
+  text-align: center;
+  font-size: calc(var(--logs-font-size) * 1.3);
+  height: 100%;
+}
+
+.unseenLogsNotification {
+  color: var(--red);
+  right: 0;
+  opacity: 0;
+  font-size: 9px;
+}
+.unseenLogsNotification[data-show="true"] {
+  opacity: 1;
+  animation-duration: 2s;
+  animation-name: slidein;
+  animation-iteration-count: 3;
+  animation-timing-function: ease-in-out;
+  transition: opacity 1s;
+}
+
+@keyframes slidein {
+  from {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.5);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}

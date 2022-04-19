@@ -2,16 +2,14 @@
   --inset-amnt: 100px;
   --app-rendered-w: calc(100vw - var(--inset-amnt));
   --app-rendered-h: calc(100vh - var(--inset-amnt));
-  /* --app-rendered-w: 1000px; */
-  /* --app-aspect-ratio: 0.8; */
-  /* This is a hard coded value that needs to be this way because css's calc
-  function can't divide two same-unit numbers to get a ratio */
+
+  /* This is over-ridden by an inline style but we just have it here in case */
   --app-scale-amnt: 0.24;
   --animation-speed-timing: 0.5s ease;
-  --expand-btn-inset: 3px;
   --expand-btn-size: 1rem;
-  --logs-font-size: 0.65rem;
 
+  /* These take effect in LogsViewer.module.css but depend on the expansion so we set them here */
+  --logs-font-size: 0.65rem;
   --logs-padding: 10px;
 
   --controls-height: 30px;
@@ -25,14 +23,13 @@
     "viewer"
     "logs";
 
-  width: 100%;
   display: grid;
-  gap: 5px;
+  gap: 3px;
 }
 
 .appViewerHolder.fullScreen {
-  --expand-btn-inset: 10px;
   --expand-btn-size: 1.5rem;
+
   --logs-font-size: 0.9rem;
   --logs-padding: 32px;
 
@@ -61,90 +58,6 @@
 .logs {
   grid-area: logs;
   overflow: hidden;
-}
-
-.expandedLogs {
-  grid-row-start: 2;
-  grid-row-end: -1;
-  z-index: 2;
-  background-color: var(--rstudio-white-transparent);
-}
-
-.logsHeader {
-  display: flex;
-  justify-content: center;
-  background-color: inherit;
-  height: var(--logs-height);
-  /* padding: 2px; */
-  gap: 2px;
-}
-
-.logsContents {
-  border-top: 1px solid var(--light-grey);
-  height: calc(100% - var(--logs-height));
-  padding: var(--logs-padding);
-}
-
-p.logLine {
-  font-family: var(--mono-fonts);
-  font-size: var(--logs-font-size);
-  margin: 0;
-}
-
-.noLogsMsg {
-  opacity: 0.8;
-  height: 100%;
-  text-align: center;
-  font-size: 1rem;
-}
-
-.clearLogsButton {
-  display: none;
-  height: 100%;
-}
-
-.expandedLogs .clearLogsButton {
-  display: block;
-}
-
-.expandedLogs .logsContents {
-  overflow: auto;
-}
-
-.expandLogsButton {
-  flex-grow: 1;
-  text-align: center;
-  font-size: calc(var(--logs-font-size) * 1.3);
-  height: 100%;
-}
-
-.unseenLogsNotification {
-  color: var(--red);
-  right: 0;
-  opacity: 0;
-  font-size: 9px;
-}
-.unseenLogsNotification[data-show="true"] {
-  opacity: 1;
-  animation-duration: 2s;
-  animation-name: slidein;
-  animation-iteration-count: 3;
-  animation-timing-function: ease-in-out;
-  transition: opacity 1s;
-}
-
-@keyframes slidein {
-  from {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.5);
-  }
-
-  to {
-    transform: scale(1);
-  }
 }
 
 .expandButton {
@@ -197,8 +110,6 @@ p.logLine {
 }
 
 .appViewerHolder.fullScreen .previewFrame {
-  /* width: var(--calc(100vw - var(--inset-amnt));
-  height: calc(100vh - var(--inset-amnt)); */
   transform: scale(1);
   transition: transform var(--animation-speed-timing);
   border: none;
@@ -206,6 +117,7 @@ p.logLine {
 }
 
 .appViewerHolder:not(.fullScreen) .previewFrame {
+  /* Don't reverse the growing animation, just snap back to smaller */
   transition: none;
 }
 
@@ -218,47 +130,4 @@ p.logLine {
 
 h2.error {
   color: var(--red);
-}
-
-.fakeApp {
-  display: grid;
-  place-content: center;
-  font-size: 4rem;
-}
-
-.fakeDashboard {
-  display: grid;
-  gap: 5px;
-  grid:
-    "header   header" 100px
-    "sidebar  top   " 2fr
-    "sidebar  bottom" 1fr
-    / 150px 1fr;
-}
-
-.fakeDashboard > div {
-  width: 100%;
-  height: 100%;
-}
-
-.fakeDashboard > .header {
-  grid-area: header;
-  background-color: hsl(288 59% 58% / 0.7);
-  display: grid;
-  place-content: center;
-}
-.header > h1 {
-  color: white;
-}
-.fakeDashboard > .sidebar {
-  grid-area: sidebar;
-  background-color: hsl(30 59% 53% / 0.7);
-}
-.fakeDashboard > .top {
-  grid-area: top;
-  background-color: hsl(120 61% 34% / 0.7);
-}
-.fakeDashboard > .bottom {
-  grid-area: bottom;
-  background-color: hsl(207 44% 49% / 0.7);
 }
