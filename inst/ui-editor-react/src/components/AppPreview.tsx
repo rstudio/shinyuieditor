@@ -79,9 +79,10 @@ export default function AppPreview() {
                   title={logsExpanded ? "hide logs" : "show logs"}
                   onClick={toggleLogExpansion}
                 >
-                  {unseenLogs ? (
-                    <BsCircleFill color="var(--rstudio-blue)" size={8} />
-                  ) : null}
+                  <BsCircleFill
+                    className={classes.unseenLogsNotification}
+                    data-show={unseenLogs}
+                  />
                   App Logs
                   {logsExpanded ? <BsChevronDown /> : <BsChevronUp />}
                 </Button>
