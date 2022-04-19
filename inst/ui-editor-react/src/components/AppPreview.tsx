@@ -6,12 +6,18 @@ import { FaExpand } from "react-icons/fa";
 import classes from "./AppPreview.module.css";
 import Button from "./Inputs/Button";
 
+// This could be retreived from the css programatically. The 16*2 accounts for
+// the padding
+const properties_bar_w_px = 275 - 16 * 2;
+
 export default function AppPreview() {
   const [isFullScreen, setIsFullScreen] = React.useState(false);
 
   const { appLoc, appLogs } = useCommunicateWithWebsocket();
 
   const isLoading = appLoc === null;
+
+  const previewScale = usePreviewScale();
 
   React.useEffect(() => {
     console.log("New logs", appLogs);
@@ -23,18 +29,23 @@ export default function AppPreview() {
   return (
     <>
       <h3>App Preview</h3>
-      <div className={classes.appViewerHolder}>
-        <div
-          className={
-            classes.container +
-            " " +
-            (isFullScreen ? classes.fullScreen : classes.previewMode)
-          }
-        >
-          {isLoading ? (
-            <h2>Loading app preview...</h2>
-          ) : (
-            <>
+      <div
+        className={
+          classes.appViewerHolder +
+          " " +
+          (isFullScreen ? classes.fullScreen : classes.previewMode)
+        }
+        style={
+          {
+            "--app-scale-amnt": previewScale,
+          } as React.CSSProperties
+        }
+      >
+        {isLoading ? (
+          <h2>Loading app preview...</h2>
+        ) : (
+          <>
+            <div className={classes.controls}>
               <Button
                 variant="icon"
                 className={classes.expandButton}
@@ -47,18 +58,22 @@ export default function AppPreview() {
               >
                 {isFullScreen ? <AiOutlineShrink /> : <FaExpand />}
               </Button>
+            </div>
+
+            <div className={classes.container}>
               <iframe
                 className={classes.previewFrame}
                 src={appLoc}
                 title="Application Preview"
               />
-              {/* {error ? (
+            </div>
+            <div className={classes.logs}>Logs</div>
+            {/* {error ? (
                 <FakeDashboard />
               ) : (
               )} */}
-            </>
-          )}
-        </div>
+          </>
+        )}
       </div>
     </>
   );
@@ -134,4 +149,37 @@ function useCommunicateWithWebsocket() {
     appLoc,
     appLogs,
   };
+}
+
+function useGetPageSize() {
+  const [pageSize, setPageSize] = React.useState<{
+    width: number;
+    height: number;
+  } | null>(null);
+
+  React.useEffect(() => {
+    if (!window) {
+      return;
+    }
+
+    const { innerWidth, innerHeight } = window;
+    setPageSize({
+      width: innerWidth,
+      height: innerHeight,
+    });
+  }, []);
+
+  return pageSize;
+}
+
+function usePreviewScale() {
+  const [previewScale, setPreviewScale] = React.useState(0.2);
+
+  const pageSize = useGetPageSize();
+  React.useEffect(() => {
+    if (!pageSize) return;
+    setPreviewScale(properties_bar_w_px / pageSize.width);
+  }, [pageSize]);
+
+  return previewScale;
 }

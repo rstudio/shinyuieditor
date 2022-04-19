@@ -1,13 +1,9 @@
 .appViewerHolder {
-  /* outline: 1px solid salmon; */
-  width: 100%;
-  height: 280px;
-}
-
-.container {
-  --app-rendered-w: 1000px;
-  --app-aspect-ratio: 0.8;
-  --app-rendered-h: calc(var(--app-rendered-w) * var(--app-aspect-ratio));
+  --inset-amnt: 100px;
+  --app-rendered-w: calc(100vw - var(--inset-amnt));
+  --app-rendered-h: calc(100vh - var(--inset-amnt));
+  /* --app-rendered-w: 1000px; */
+  /* --app-aspect-ratio: 0.8; */
   /* This is a hard coded value that needs to be this way because css's calc
   function can't divide two same-unit numbers to get a ratio */
   --app-scale-amnt: 0.24;
@@ -16,13 +12,38 @@
   --expand-btn-size: 1rem;
 
   width: 100%;
-  height: 100%;
-  padding-top: 20px;
+  display: grid;
+  grid-template-rows: 30px calc(var(--app-rendered-h) * var(--app-scale-amnt)) 30px;
+  grid-template-areas:
+    "controls"
+    "viewer"
+    "logs";
+
+  gap: 5px;
+}
+
+.controls {
+  grid-area: controls;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.container {
+  grid-area: viewer;
   overflow: hidden;
   display: grid;
   place-content: center;
   position: relative;
-  background-color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.logs {
+  grid-area: logs;
+}
+
+.expandButton {
+  font-size: var(--expand-btn-size);
 }
 
 .previewFrame {
@@ -36,14 +57,7 @@
   border-radius: 2px;
 }
 
-.expandButton {
-  position: absolute;
-  top: var(--expand-btn-inset);
-  right: var(--expand-btn-inset);
-  font-size: var(--expand-btn-size);
-}
-
-.container.fullScreen {
+.appViewerHolder.fullScreen {
   position: fixed;
   top: 0;
   left: 0;
@@ -53,6 +67,7 @@
   width: 100vw;
   height: 100vh;
   z-index: 10;
+  grid-template-rows: 50px 1fr 50px;
   background-color: hsl(var(--rstudio-grey-hsl) / 0.15);
   backdrop-filter: blur(6px);
 
@@ -65,21 +80,20 @@
   --expand-btn-size: 1.5rem;
 }
 
-.container.fullScreen > .previewFrame {
-  --inset-amnt: 100px;
-  width: calc(100vw - var(--inset-amnt));
-  height: calc(100vh - var(--inset-amnt));
+.appViewerHolder.fullScreen .previewFrame {
+  /* width: var(--calc(100vw - var(--inset-amnt));
+  height: calc(100vh - var(--inset-amnt)); */
   transform: scale(1);
   transition: transform var(--animation-speed-timing);
   border: none;
   box-shadow: var(--shadow-elevation-medium);
 }
 
-.container:not(.fullScreen) > .previewFrame {
+.appViewerHolder:not(.fullScreen) .previewFrame {
   transition: none;
 }
 
-.container > h2 {
+.appViewerHolder > h2 {
   font-size: 1.25rem;
   color: var(--rstudio-grey);
   text-align: center;
