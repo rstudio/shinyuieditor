@@ -83,14 +83,17 @@ export default function AppPreview() {
                   App Logs
                   {logsExpanded ? <BsChevronDown /> : <BsChevronUp />}
                 </Button>
-                <Button
-                  variant="icon"
-                  title="clear logs"
-                  className={classes.clearLogsButton}
-                  onClick={clearLogs}
-                >
-                  <GrClear />
-                </Button>
+                {/* We only need to show the clear button if there actually are lines to clear */}
+                {appLogs.length !== 0 ? (
+                  <Button
+                    variant="icon"
+                    title="clear logs"
+                    className={classes.clearLogsButton}
+                    onClick={clearLogs}
+                  >
+                    <GrClear />
+                  </Button>
+                ) : null}
               </div>
               <div className={classes.logsContents}>
                 {appLogs.map((line, i) => (
