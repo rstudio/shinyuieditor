@@ -1,7 +1,9 @@
 import React from "react";
 
 import { AiOutlineShrink } from "react-icons/ai";
+import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { FaExpand } from "react-icons/fa";
+import { GrClear } from "react-icons/gr";
 
 import classes from "./AppPreview.module.css";
 import Button from "./Inputs/Button";
@@ -13,15 +15,12 @@ const properties_bar_w_px = 275 - 16 * 2;
 export default function AppPreview() {
   const [isFullScreen, setIsFullScreen] = React.useState(false);
 
-  const { appLoc, appLogs } = useCommunicateWithWebsocket();
-
-  const isLoading = appLoc === null;
-
+  const { appLoc, appLogs, clearLogs } = useCommunicateWithWebsocket();
+  const { logsExpanded, toggleLogExpansion, unseenLogs } =
+    useExpandableLogs(appLogs);
   const previewScale = usePreviewScale();
 
-  React.useEffect(() => {
-    console.log("New logs", appLogs);
-  }, [appLogs]);
+  const isLoading = appLoc === null;
 
   if (appLoc === "no-preview") {
     return null;
@@ -67,7 +66,33 @@ export default function AppPreview() {
                 title="Application Preview"
               />
             </div>
-            <div className={classes.logs}>Logs</div>
+            <div
+              className={
+                classes.logs + (logsExpanded ? " " + classes.expandedLogs : "")
+              }
+            >
+              <div className={classes.logsHeader}>
+                <Button
+                  title={logsExpanded ? "hide logs" : "show logs"}
+                  onClick={toggleLogExpansion}
+                >
+                  {unseenLogs ? "*" : ""}
+                  {logsExpanded ? "hide logs" : "show logs"}
+                  {logsExpanded ? <BsChevronDown /> : <BsChevronUp />}
+                </Button>
+              </div>
+              <div className={classes.logsContents}>
+                <Button
+                  variant="icon"
+                  title="clear logs"
+                  className={classes.clearLogs}
+                  onClick={clearLogs}
+                >
+                  <GrClear />
+                </Button>
+                {appLogs.join("\n")}
+              </div>
+            </div>
             {/* {error ? (
                 <FakeDashboard />
               ) : (
@@ -99,13 +124,51 @@ type WS_MSG =
     }
   | { msg: "SHINY_LOGS"; payload: string[] };
 
+type AppLogs = string[];
+function useExpandableLogs(appLogs: AppLogs) {
+  const [logsExpanded, setLogsExpanded] = React.useState(false);
+  const [unseenLogs, setUnseenLogs] = React.useState(false);
+  const [logsLastExpanded, setLogsLastExpanded] = React.useState<Date | null>(
+    null
+  );
+  const [logsLastReceived, setLogsLastReceived] = React.useState<Date>(
+    new Date()
+  );
+  const toggleLogExpansion = React.useCallback(() => {
+    if (logsExpanded) {
+      setLogsExpanded(false);
+      setLogsLastExpanded(new Date());
+      return;
+    }
+    setLogsExpanded(true);
+    setUnseenLogs(false);
+  }, [logsExpanded]);
+
+  React.useEffect(() => {
+    setLogsLastReceived(new Date());
+  }, [appLogs]);
+
+  React.useEffect(() => {
+    if (logsExpanded || appLogs.length === 0) {
+      setUnseenLogs(false);
+      return;
+    }
+
+    if (logsLastExpanded === null || logsLastExpanded < logsLastReceived) {
+      setUnseenLogs(true);
+      return;
+    }
+  }, [appLogs.length, logsExpanded, logsLastExpanded, logsLastReceived]);
+
+  return { logsExpanded, toggleLogExpansion, unseenLogs };
+}
+
 function useCommunicateWithWebsocket() {
   const [appLoc, setAppLoc] = React.useState<string | null>(null);
-  const [appLogs, setAppLogs] = React.useState<string[]>([]);
+  const [appLogs, setAppLogs] = React.useState<AppLogs>([]);
 
-  const updateLogs = React.useCallback((new_logs: string[]) => {
-    console.log("Updating logs with new logs", new_logs);
-    setAppLogs((logs) => [...logs, ...new_logs]);
+  const clearLogs = React.useCallback(() => {
+    setAppLogs([]);
   }, []);
 
   React.useEffect(() => {
@@ -131,7 +194,7 @@ function useCommunicateWithWebsocket() {
           setAppLoc(msg_data.payload);
           break;
         case "SHINY_LOGS":
-          updateLogs(msg_data.payload);
+          setAppLogs(msg_data.payload);
           break;
         default:
           console.error("Unknown message from websocket. Ignoring", {
@@ -143,11 +206,12 @@ function useCommunicateWithWebsocket() {
     return () => {
       ws.close();
     };
-  }, [updateLogs]);
+  }, []);
 
   return {
     appLoc,
     appLogs,
+    clearLogs,
   };
 }
 

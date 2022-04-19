@@ -10,10 +10,15 @@
   --animation-speed-timing: 0.5s ease;
   --expand-btn-inset: 3px;
   --expand-btn-size: 1rem;
+  --logs-font-size: 0.65rem;
+
+  --logs-height: 35px;
 
   width: 100%;
   display: grid;
-  grid-template-rows: 30px calc(var(--app-rendered-h) * var(--app-scale-amnt)) 30px;
+  grid-template-rows: 30px calc(var(--app-rendered-h) * var(--app-scale-amnt)) var(
+      --logs-height
+    );
   grid-template-areas:
     "controls"
     "viewer"
@@ -40,6 +45,42 @@
 
 .logs {
   grid-area: logs;
+  overflow: hidden;
+}
+
+.expandedLogs {
+  grid-row-start: 1;
+  grid-row-end: -1;
+  z-index: 2;
+}
+
+.logsHeader {
+  display: flex;
+  justify-content: center;
+  background-color: inherit;
+  height: var(--logs-height);
+  padding: 2px;
+}
+
+.logsContents {
+  /* outline: 2px solid red; */
+  height: calc(100% - var(--logs-height));
+  background-color: var(--rstudio-white-transparent);
+  font-family: var(--mono-fonts);
+  font-size: var(--logs-font-size);
+  padding: 16px;
+  position: relative;
+}
+
+.clearLogs {
+  position: absolute;
+  right: 2px;
+  top: 2px;
+  outline: none;
+}
+
+.expandedLogs .logsContents {
+  overflow: auto;
 }
 
 .expandButton {
@@ -78,6 +119,7 @@
 
   --expand-btn-inset: 10px;
   --expand-btn-size: 1.5rem;
+  --logs-font-size: 0.9rem;
 }
 
 .appViewerHolder.fullScreen .previewFrame {
