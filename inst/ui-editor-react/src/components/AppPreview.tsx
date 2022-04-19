@@ -1,7 +1,7 @@
 import React from "react";
 
 import { AiOutlineShrink } from "react-icons/ai";
-import { BsChevronDown, BsChevronUp } from "react-icons/bs";
+import { BsChevronDown, BsChevronUp, BsCircleFill } from "react-icons/bs";
 import { FaExpand } from "react-icons/fa";
 import { GrClear } from "react-icons/gr";
 
@@ -73,24 +73,26 @@ export default function AppPreview() {
             >
               <div className={classes.logsHeader}>
                 <Button
+                  className={classes.expandLogsButton}
                   title={logsExpanded ? "hide logs" : "show logs"}
                   onClick={toggleLogExpansion}
                 >
-                  {unseenLogs ? "*" : ""}
-                  {logsExpanded ? "hide logs" : "show logs"}
+                  {unseenLogs ? (
+                    <BsCircleFill color="var(--rstudio-blue)" size={8} />
+                  ) : null}
+                  App Logs
                   {logsExpanded ? <BsChevronDown /> : <BsChevronUp />}
                 </Button>
-              </div>
-              <div className={classes.logsContents}>
                 <Button
                   variant="icon"
                   title="clear logs"
-                  className={classes.clearLogs}
+                  className={classes.clearLogsButton}
                   onClick={clearLogs}
                 >
                   <GrClear />
                 </Button>
-
+              </div>
+              <div className={classes.logsContents}>
                 {appLogs.map((line, i) => (
                   <p className={classes.logLine} key={i}>
                     {line}

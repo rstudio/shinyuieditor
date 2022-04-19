@@ -14,9 +14,6 @@
 
   --logs-padding: 10px;
 
-  width: 100%;
-  display: grid;
-
   --controls-height: 30px;
   --logs-height: 35px;
   --viewer-height: calc(var(--app-rendered-h) * var(--app-scale-amnt));
@@ -28,6 +25,8 @@
     "viewer"
     "logs";
 
+  width: 100%;
+  display: grid;
   gap: 5px;
 }
 
@@ -76,6 +75,7 @@
   background-color: inherit;
   height: var(--logs-height);
   padding: 2px;
+  position: relative;
 }
 
 .logsContents {
@@ -89,19 +89,35 @@
 p.logLine {
   margin: 0;
 }
-.clearLogs {
-  position: absolute;
-  right: 2px;
-  top: 2px;
+.clearLogsButton {
   outline: none;
+  display: none;
+}
+.expandedLogs .clearLogsButton {
+  display: block;
 }
 
 .expandedLogs .logsContents {
   overflow: auto;
 }
 
+.expandLogsButton {
+  flex-grow: 1;
+  text-align: center;
+}
+
 .expandButton {
   font-size: var(--expand-btn-size);
+}
+
+.appViewerHolder button {
+  outline: none;
+  background-color: transparent;
+}
+
+.appViewerHolder button:hover,
+.appViewerHolder button:active {
+  outline: 1px solid var(--rstudio-grey);
 }
 
 .previewFrame {
