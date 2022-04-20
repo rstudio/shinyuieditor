@@ -16,6 +16,7 @@ import { useCommunicateWithWebsocket } from "./useCommunicateWithWebsocket";
 const properties_bar_w_px = 275 - 16 * 2;
 
 export default function AppPreview() {
+  const iframeRef = React.useRef<HTMLIFrameElement>(null);
   const [isFullScreen, setIsFullScreen] = React.useState(false);
 
   const { status, appLoc, appLogs, clearLogs, restartApp } =
@@ -26,6 +27,11 @@ export default function AppPreview() {
   React.useEffect(() => {
     console.log("Status", status);
   }, [status]);
+
+  const reloadApp = React.useCallback(() => {
+    if (!iframeRef.current || !appLoc) return;
+    iframeRef.current.src = appLoc;
+  }, [appLoc]);
 
   if (appLoc === "no-preview") {
     return null;
@@ -49,27 +55,25 @@ export default function AppPreview() {
           <h2>Loading app preview...</h2>
         ) : (
           <>
-            {/* <div className={classes.controls}>
-            </div> */}
             <Button
               variant="icon"
               className={classes.restartButton}
               title="Restart app session"
-              onClick={() => {
-                console.log("Clicked restart app");
-                restartApp();
-              }}
+              onClick={reloadApp}
             >
               <VscDebugRestart />
             </Button>
             <div className={classes.container}>
               {status === "error" ? (
                 <FakeDashboard />
+              ) : status === "crashed" ? (
+                <h2>Crash!</h2>
               ) : (
                 <iframe
                   className={classes.previewFrame}
                   src={appLoc}
                   title="Application Preview"
+                  ref={iframeRef}
                 />
               )}
               <Button

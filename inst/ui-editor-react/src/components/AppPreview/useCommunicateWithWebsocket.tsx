@@ -2,6 +2,14 @@ import React from "react";
 
 export type AppLogs = string[];
 
+type WS_MSG =
+  | {
+      msg: "SHINY_READY";
+      payload: string;
+    }
+  | { msg: "SHINY_LOGS"; payload: string[] }
+  | { msg: "SHINY_CRASH"; payload: string };
+
 type CommonState = {
   appLogs: AppLogs;
   clearLogs: () => void;
@@ -22,15 +30,24 @@ type SuccessState = {
 
 type ErrorState = {
   status: "error";
-  error: string;
   appLoc: null;
+  error: string;
 };
 
-export function useCommunicateWithWebsocket(): CommonState &
-  (LoadingState | SuccessState | ErrorState) {
+type CrashState = {
+  status: "crashed";
+  appLoc: string | null;
+  error: string;
+};
+
+type CommunicationState = CommonState &
+  (LoadingState | SuccessState | ErrorState | CrashState);
+
+export function useCommunicateWithWebsocket(): CommunicationState {
   const [appLoc, setAppLoc] = React.useState<string | null>(null);
   const [appLogs, setAppLogs] = React.useState<AppLogs>([]);
   const [error, setError] = React.useState<string | null>(null);
+  const [crashed, setCrashed] = React.useState<string | false>(false);
 
   const [restartApp, setRestartApp] = React.useState<() => void>(() =>
     console.log("No app running to reset")
@@ -72,6 +89,9 @@ export function useCommunicateWithWebsocket(): CommonState &
         case "SHINY_LOGS":
           setAppLogs(msg_data.payload);
           break;
+        case "SHINY_CRASH":
+          setCrashed(msg_data.payload);
+          break;
         default:
           console.error("Unknown message from websocket. Ignoring", {
             msg_data,
@@ -84,40 +104,47 @@ export function useCommunicateWithWebsocket(): CommonState &
     };
   }, []);
 
+  const state: CommonState = {
+    appLogs,
+    clearLogs,
+    restartApp,
+  };
+
   if (error) {
-    return {
+    const error_state: ErrorState = {
       status: "error",
       error,
-      appLogs,
-      clearLogs,
       appLoc: null,
-      restartApp,
     };
+
+    return Object.assign(state, error_state);
+  }
+
+  if (crashed) {
+    const crash_state: CrashState = {
+      status: "crashed",
+      error: crashed,
+      appLoc: null,
+    };
+
+    return Object.assign(state, crash_state);
   }
 
   if (appLoc) {
-    return {
+    const finished_state: SuccessState = {
       status: "finished",
       appLoc,
-      appLogs,
-      clearLogs,
       error: null,
-      restartApp,
     };
+
+    return Object.assign(state, finished_state);
   }
 
-  return {
+  const loading_state: LoadingState = {
     status: "loading",
     appLoc: null,
-    appLogs,
-    clearLogs,
     error: null,
-    restartApp,
   };
+
+  return Object.assign(state, loading_state);
 }
-type WS_MSG =
-  | {
-      msg: "SHINY_READY";
-      payload: string;
-    }
-  | { msg: "SHINY_LOGS"; payload: string[] };
