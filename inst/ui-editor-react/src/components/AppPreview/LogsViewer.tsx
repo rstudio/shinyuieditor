@@ -20,36 +20,19 @@ export function LogsViewer({
   const noLogs = appLogs.length === 0;
 
   return (
-    <div
-      className={
-        classes.logs + (logsExpanded ? " " + classes.expandedLogs : "")
-      }
-    >
-      <div className={classes.logsHeader}>
-        <Button
-          className={classes.expandLogsButton}
-          title={logsExpanded ? "hide logs" : "show logs"}
-          onClick={toggleLogExpansion}
-        >
-          <BsCircleFill
-            className={classes.unseenLogsNotification}
-            data-show={unseenLogs}
-          />
-          App Logs
-          {logsExpanded ? <BsChevronDown /> : <BsChevronUp />}
-        </Button>
-        {/* We only need to show the clear button if there actually are lines to clear */}
-        {!noLogs ? (
-          <Button
-            variant="icon"
-            title="clear logs"
-            className={classes.clearLogsButton}
-            onClick={clearLogs}
-          >
-            <GrClear />
-          </Button>
-        ) : null}
-      </div>
+    <div className={classes.logs} data-expanded={logsExpanded}>
+      <button
+        className={classes.expandTab}
+        title={logsExpanded ? "hide logs" : "show logs"}
+        onClick={toggleLogExpansion}
+      >
+        <BsCircleFill
+          className={classes.unseenLogsNotification}
+          data-show={unseenLogs}
+        />
+        App Logs
+        {logsExpanded ? <BsChevronDown /> : <BsChevronUp />}
+      </button>
       <div className={classes.logsContents}>
         {noLogs ? (
           <p className={classes.noLogsMsg}>No recent logs</p>
@@ -60,6 +43,16 @@ export function LogsViewer({
             </p>
           ))
         )}
+        {!noLogs ? (
+          <Button
+            variant="icon"
+            title="clear logs"
+            className={classes.clearLogsButton}
+            onClick={clearLogs}
+          >
+            <GrClear />
+          </Button>
+        ) : null}
       </div>
     </div>
   );

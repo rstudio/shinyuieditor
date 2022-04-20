@@ -1,29 +1,75 @@
 /* Logs section */
 .logs {
+  --tab-height: 30px;
+  --background-color: var(--rstudio-white);
+  --outline-color: var(--rstudio-grey, red);
+  --side-offset: calc(var(--pad, 10px) / 2);
+  position: absolute;
+  bottom: 0;
+  left: var(--side-offset);
+  right: var(--side-offset);
+  top: 0;
   grid-area: logs;
-  overflow: hidden;
+  /* Enable stacking context so z-indices work */
+  isolation: isolate;
+  transform: translateY(calc(100% - var(--tab-height)));
 }
 
-.expandedLogs {
-  grid-row-start: 2;
-  grid-row-end: -1;
+.logs[data-expanded="true"] {
+  transform: translateY(5px);
+  transition: transform 0.5s ease-in;
+}
+
+.logs[data-expanded="true"] .logsContents {
+  overflow: auto;
+}
+
+button.expandTab,
+.logsContents {
+  background-color: var(--background-color);
+}
+
+button.expandTab {
   z-index: 2;
-  background-color: var(--rstudio-white-transparent);
+  border-radius: 10px 10px 0 0 !important;
+  width: fit-content;
+  height: var(--tab-height);
+  margin-inline: auto;
+  display: flex;
+  gap: 5px;
+  padding-inline: 10px;
+  justify-content: center;
+  background-color: var(--background-color);
+  outline: var(--outline);
+  display: flex;
+  align-items: center;
+  position: relative;
 }
 
-.logsHeader {
-  display: flex;
-  justify-content: center;
-  background-color: inherit;
-  height: var(--logs-height);
+/* Cover up the bottom border to make tab appear to pop out of the contents */
+button.expandTab::after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 3px;
+  bottom: -2px;
+  background-color: var(--background-color);
 }
 
 .logsContents {
-  border-top: 1px solid var(--light-grey);
-  height: calc(100% - var(--logs-height));
+  z-index: 1;
+  border: var(--outline);
+  height: calc(100% - var(--tab-height));
   padding: var(--logs-padding);
+  position: relative;
 }
 
+.clearLogsButton {
+  outline: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
 p.logLine {
   font-family: var(--mono-fonts);
   font-size: var(--logs-font-size);
@@ -36,15 +82,15 @@ p.logLine {
   text-align: center;
   font-size: 1rem;
 }
-
+/* 
 .clearLogsButton {
   display: none;
   height: 100%;
-}
+} */
 
-.expandedLogs .clearLogsButton {
+/* .expandedLogs .clearLogsButton {
   display: block;
-}
+} */
 
 .expandedLogs .logsContents {
   overflow: auto;

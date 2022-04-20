@@ -47,7 +47,18 @@ export default function AppPreview() {
           <h2>Loading app preview...</h2>
         ) : (
           <>
-            <div className={classes.controls}>
+            {/* <div className={classes.controls}>
+            </div> */}
+            <div className={classes.container}>
+              {status === "error" ? (
+                <FakeDashboard />
+              ) : (
+                <iframe
+                  className={classes.previewFrame}
+                  src={appLoc}
+                  title="Application Preview"
+                />
+              )}
               <Button
                 variant="icon"
                 className={classes.expandButton}
@@ -60,17 +71,6 @@ export default function AppPreview() {
               >
                 {isFullScreen ? <AiOutlineShrink /> : <FaExpand />}
               </Button>
-            </div>
-            <div className={classes.container}>
-              {status === "error" ? (
-                <FakeDashboard />
-              ) : (
-                <iframe
-                  className={classes.previewFrame}
-                  src={appLoc}
-                  title="Application Preview"
-                />
-              )}
             </div>
             <LogsViewer appLogs={appLogs} clearLogs={clearLogs} />
           </>

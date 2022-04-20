@@ -1,4 +1,4 @@
-.appViewerHolder {
+div.appViewerHolder {
   --inset-amnt: 100px;
 
   /* This is over-ridden by an inline style but we just have it here in case */
@@ -18,16 +18,58 @@
     100vh - var(--inset-amnt) - var(--controls-h) - var(--logs-h)
   );
 
+  --pad: 30px;
   --viewer-h: calc(var(--app-rendered-h) * var(--app-scale-amnt));
 
+  height: calc(var(--viewer-h) + var(--pad) * 2.5);
   grid-template-rows: var(--controls-h) var(--viewer-h) var(--logs-h);
-  grid-template-areas:
-    "controls"
-    "viewer"
-    "logs";
+
+  position: relative;
+  padding-inline: var(--pad);
+  padding-top: var(--pad);
+  padding-bottom: calc(1.5 * var(--pad));
+}
+
+.container {
+  position: relative;
+  /* outline: 1px solid red; */
+  width: 100%;
+  height: 100%;
 
   display: grid;
-  gap: 3px;
+  place-content: center;
+  /* overflow: hidden; */
+}
+
+.expandButton {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  font-size: 50px;
+  opacity: 0;
+  color: transparent;
+  background-color: transparent;
+  /* background-color: var(--rstudio-white-transparent); */
+  outline: none;
+}
+
+.expandButton:hover {
+  color: inherit;
+  opacity: 1;
+  transition-property: opacity, color;
+  transition-duration: 0.25s;
+  transition-timing-function: ease-in;
+}
+
+.appViewerHolder.fullScreen .expandButton {
+  /* background-color: aqua; */
+  color: inherit;
+  width: fit-content;
+  height: fit-content;
+  font-size: 2.5rem;
+  opacity: 1;
+  top: -10px;
+  right: -10px;
 }
 
 .appViewerHolder.fullScreen {
@@ -41,34 +83,7 @@
   --logs-h: 50px;
 }
 
-.controls {
-  grid-area: controls;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.container {
-  grid-area: viewer;
-  display: grid;
-  place-content: center;
-  position: relative;
-  width: 100%;
-  height: 100%;
-  min-width: 0;
-  min-height: 0;
-}
-
-/* Logs section */
-.logs {
-  grid-area: logs;
-  overflow: hidden;
-}
-
-.expandButton {
-  font-size: var(--expand-btn-size);
-}
-
-.appViewerHolder button {
+/* .appViewerHolder button {
   outline: none;
   background-color: transparent;
 }
@@ -81,7 +96,7 @@
 .appViewerHolder button:active {
   outline: 1px solid var(--rstudio-grey);
   outline-offset: -1px;
-}
+} */
 
 .previewFrame {
   background-color: var(--rstudio-white);
