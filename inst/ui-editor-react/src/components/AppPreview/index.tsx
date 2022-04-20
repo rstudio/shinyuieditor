@@ -2,6 +2,7 @@ import React from "react";
 
 import { AiOutlineShrink } from "react-icons/ai";
 import { FaExpand } from "react-icons/fa";
+import { VscDebugRestart } from "react-icons/vsc";
 
 import Button from "../Inputs/Button";
 
@@ -17,7 +18,8 @@ const properties_bar_w_px = 275 - 16 * 2;
 export default function AppPreview() {
   const [isFullScreen, setIsFullScreen] = React.useState(false);
 
-  const { status, appLoc, appLogs, clearLogs } = useCommunicateWithWebsocket();
+  const { status, appLoc, appLogs, clearLogs, restartApp } =
+    useCommunicateWithWebsocket();
 
   const previewScale = usePreviewScale();
 
@@ -49,6 +51,17 @@ export default function AppPreview() {
           <>
             {/* <div className={classes.controls}>
             </div> */}
+            <Button
+              variant="icon"
+              className={classes.restartButton}
+              title="Restart app session"
+              onClick={() => {
+                console.log("Clicked restart app");
+                restartApp();
+              }}
+            >
+              <VscDebugRestart />
+            </Button>
             <div className={classes.container}>
               {status === "error" ? (
                 <FakeDashboard />

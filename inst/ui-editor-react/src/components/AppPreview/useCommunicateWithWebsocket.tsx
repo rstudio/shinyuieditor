@@ -2,18 +2,21 @@ import React from "react";
 
 export type AppLogs = string[];
 
+type CommonState = {
+  appLogs: AppLogs;
+  clearLogs: () => void;
+  restartApp: () => void;
+};
+
 type LoadingState = {
   status: "loading";
   appLoc: null;
-  appLogs: AppLogs;
-  clearLogs: () => void;
   error: null;
 };
+
 type SuccessState = {
   status: "finished";
   appLoc: string;
-  appLogs: AppLogs;
-  clearLogs: () => void;
   error: null;
 };
 
@@ -21,17 +24,17 @@ type ErrorState = {
   status: "error";
   error: string;
   appLoc: null;
-  appLogs: AppLogs;
-  clearLogs: () => void;
 };
 
-export function useCommunicateWithWebsocket():
-  | LoadingState
-  | SuccessState
-  | ErrorState {
+export function useCommunicateWithWebsocket(): CommonState &
+  (LoadingState | SuccessState | ErrorState) {
   const [appLoc, setAppLoc] = React.useState<string | null>(null);
   const [appLogs, setAppLogs] = React.useState<AppLogs>([]);
   const [error, setError] = React.useState<string | null>(null);
+
+  const [restartApp, setRestartApp] = React.useState<() => void>(() =>
+    console.log("No app running to reset")
+  );
 
   const clearLogs = React.useCallback(() => {
     setAppLogs([]);
@@ -53,6 +56,8 @@ export function useCommunicateWithWebsocket():
 
     ws.onopen = (event) => {
       console.log("Websocket successfully opened with httpuv");
+
+      setRestartApp(() => () => ws.send("RESTART_PREVIEW"));
       ws.send("Hi from AppPreview");
     };
 
@@ -86,6 +91,7 @@ export function useCommunicateWithWebsocket():
       appLogs,
       clearLogs,
       appLoc: null,
+      restartApp,
     };
   }
 
@@ -96,6 +102,7 @@ export function useCommunicateWithWebsocket():
       appLogs,
       clearLogs,
       error: null,
+      restartApp,
     };
   }
 
@@ -105,6 +112,7 @@ export function useCommunicateWithWebsocket():
     appLogs,
     clearLogs,
     error: null,
+    restartApp,
   };
 }
 type WS_MSG =

@@ -18,7 +18,7 @@ div.appViewerHolder {
     100vh - var(--inset-amnt) - var(--controls-h) - var(--logs-h)
   );
 
-  --pad: 30px;
+  --pad: 40px;
   --viewer-h: calc(var(--app-rendered-h) * var(--app-scale-amnt));
 
   --logs-offset: 0px;
@@ -29,7 +29,7 @@ div.appViewerHolder {
   position: relative;
   padding-inline: var(--pad);
   padding-top: var(--pad);
-  padding-bottom: calc(1.5 * var(--pad));
+  padding-bottom: calc(10px + var(--pad));
 }
 
 .container {
@@ -62,8 +62,21 @@ div.appViewerHolder {
   transition-timing-function: ease-in;
 }
 
+button.restartButton {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: fit-content;
+  outline: none;
+  background-color: transparent;
+}
+button.restartButton:hover,
+button.restartButton:active {
+  outline: 1px solid var(--rstudio-grey);
+  outline-offset: -1px;
+}
+
 .appViewerHolder.fullScreen .expandButton {
-  /* background-color: aqua; */
   color: inherit;
   width: fit-content;
   height: fit-content;
@@ -85,21 +98,6 @@ div.appViewerHolder {
 
   --logs-offset: 35px;
 }
-
-/* .appViewerHolder button {
-  outline: none;
-  background-color: transparent;
-}
-
-.appViewerHolder.fullScreen button {
-  background-color: var(--rstudio-white);
-}
-
-.appViewerHolder button:hover,
-.appViewerHolder button:active {
-  outline: 1px solid var(--rstudio-grey);
-  outline-offset: -1px;
-} */
 
 .previewFrame {
   background-color: var(--rstudio-white);
