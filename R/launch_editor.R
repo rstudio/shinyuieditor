@@ -65,7 +65,7 @@ launch_editor <- function(app_loc,
   # first call of get_running_app
   # shiny_background_process <- NULL
   writeLog("=> Starting Shiny preview app...")
-  shiny_background_process <- start_background_shiny_app(
+  preview_app <- start_background_shiny_app(
     app_loc = app_loc,
     port = shiny_background_port,
     host = host,
@@ -74,41 +74,21 @@ launch_editor <- function(app_loc,
   )
 
   if (show_preview_app_logs) {
-    shiny_background_process$on_log$subscribe(log_background_app)
+    preview_app$on_log$subscribe(log_background_app)
   }
 
-  shiny_background_process$on_crash$subscribe(function(status){
+  preview_app$on_crash$subscribe(function(status){
     cat(crayon::bgCyan(status))
   })
 
-  preview_app_available <- FALSE
-  listen_for_ready <- shiny_background_process$on_ready$subscribe(function(app_ready){
-    preview_app_available <<- TRUE
-    writeLog("=> ...Shiny app running")
-    # Once we get the ready signal, turn off the subscription
-    listen_for_ready()
-  })
-
   writeLog("=> ...Shiny app running in background")
-
-  # Getter for app running in background that will lazily launch the app.
-  get_running_app_location <- function() {
-
-    if (identical(app_preview, FALSE)) {
-      return("no-preview")
-    }
-
-    writeLog("=> Sending over location of running Shiny App")
-    shiny_background_process$url
-  }
-
 
   # Cleanup on closing of the server... This should be be ignored when we're
   # running in the background, however, otherwise it will kill the shiny server
   # immediately (if it's started immediately).
   cleanup_on_end <- function() {
     # Stop all the event listeners
-    shiny_background_process$cleanup()
+    preview_app$cleanup()
   }
 
   on.exit({
@@ -141,9 +121,6 @@ launch_editor <- function(app_loc,
           "/app-please" = function(body) {
             writeLog("=> Parsing app blob and sending to client")
             json_response(get_ui_from_file(app_loc))
-          },
-          "/shiny-app-location" = function(body) {
-            json_response(get_running_app_location())
           }
         ),
         "POST" = list(
@@ -168,12 +145,12 @@ launch_editor <- function(app_loc,
         # The ws object is a WebSocket object
         cat("Server connection opened.\n")
 
-        listen_for_ready <- shiny_background_process$on_ready$subscribe(function(app_ready){
+        listen_for_ready <- preview_app$on_ready$subscribe(function(app_ready){
 
           ws$send(
             build_ws_message(
               "SHINY_READY",
-              payload = shiny_background_process$url
+              payload = preview_app$url
             )
           )
 
@@ -181,7 +158,7 @@ launch_editor <- function(app_loc,
           listen_for_ready()
         })
 
-        shiny_background_process$on_log$subscribe(function(log_lines){
+        preview_app$on_log$subscribe(function(log_lines){
           ws$send(
             build_ws_message(
               "SHINY_LOGS",
