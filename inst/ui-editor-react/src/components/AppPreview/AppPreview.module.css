@@ -21,6 +21,8 @@ div.appViewerHolder {
   --pad: 30px;
   --viewer-h: calc(var(--app-rendered-h) * var(--app-scale-amnt));
 
+  --logs-offset: 0px;
+
   height: calc(var(--viewer-h) + var(--pad) * 2.5);
   grid-template-rows: var(--controls-h) var(--viewer-h) var(--logs-h);
 
@@ -49,7 +51,6 @@ div.appViewerHolder {
   opacity: 0;
   color: transparent;
   background-color: transparent;
-  /* background-color: var(--rstudio-white-transparent); */
   outline: none;
 }
 
@@ -81,6 +82,8 @@ div.appViewerHolder {
   --controls-h: 50px;
   --viewer-h: 1fr;
   --logs-h: 50px;
+
+  --logs-offset: 35px;
 }
 
 /* .appViewerHolder button {

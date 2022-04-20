@@ -12,7 +12,9 @@
   grid-area: logs;
   /* Enable stacking context so z-indices work */
   isolation: isolate;
-  transform: translateY(calc(100% - var(--tab-height)));
+  transform: translateY(
+    calc(100% - var(--tab-height) - var(--logs-offset, 0px))
+  );
 }
 
 .logs[data-expanded="true"] {
