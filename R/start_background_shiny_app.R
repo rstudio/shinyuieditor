@@ -3,6 +3,7 @@
 # TODO: Return object that has events that can be subscribed to attached to it
 # Use the callbacks class from Shiny
 start_background_shiny_app <- function(app_loc, host, port,show_logs, show_preview_app_logs) {
+  cat("Starting up background shiny app")
   p <- callr::r_bg(
     func = function(app_loc, host, port) {
       # Turn on live-reload and dev mode
@@ -38,23 +39,41 @@ start_background_shiny_app <- function(app_loc, host, port,show_logs, show_previ
     }
   )
 
+  if (show_preview_app_logs) {
+    on_log$subscribe(log_background_app)
+  }
+
   on_crash <- create_output_subscribers(
-    source_fn = p$get_status,
-    filter_fn = function(status){
-      status != "running"
+    source_fn = p$is_alive,
+    filter_fn = function(alive){
+      !alive
     },
     delay = 1
   )
 
-  cleanup <-  function(){
+  status <- create_output_subscribers(
+    source_fn = p$is_alive,
+    delay = 1
+  )
+
+  stop_listeners <- function(){
     on_log$stop_listening()
     on_crash$stop_listening()
     on_ready$stop_listening()
+    status$stop_listening()
+  }
 
+  cleanup <-  function(){
+    stop_listeners()
+    stop_app()
+  }
+
+  stop_app <- function(){
     tryCatch(
       {
         if (show_logs) cat("=> Shutting down running shiny app...\n")
-        p$interrupt()
+        # tools::SIGINT = 2
+        p$signal(3L)
       },
       error = function(e) {
         print("Error shutting down background Shiny app:")
@@ -63,12 +82,20 @@ start_background_shiny_app <- function(app_loc, host, port,show_logs, show_previ
     )
   }
 
+  restart <- function(){
+
+    stop_app()
+    # browser()
+  }
+
   list(
     url = app_url,
     on_ready = on_ready,
     on_log = on_log,
     on_crash = on_crash,
-    cleanup = cleanup
+    status = status,
+    cleanup = cleanup,
+    restart = restart
   )
 }
 
@@ -124,15 +151,27 @@ create_output_subscribers <- function(
   unsubscribe <- NULL
 
   poll <- function(){
-    on.exit(
+    had_error <- FALSE
+    on.exit({
+      if (had_error) return();
+
       unsubscribe <<- later::later(poll, delay = delay)
+    })
+
+    tryCatch(
+      {
+        out <- source_fn()
+
+        if(filter_fn(out)) {
+          callbacks$invoke(out)
+        }
+      },
+      error = function(e) {
+        print("Error in subscription, unsubscribing")
+        print(e)
+        had_error <<- TRUE
+      }
     )
-
-    out <- source_fn()
-
-    if(filter_fn(out)) {
-      callbacks$invoke(out)
-    }
   }
 
   # Kick off loop

@@ -84,6 +84,8 @@ export function useCommunicateWithWebsocket(): CommunicationState {
 
       switch (msg_data.msg) {
         case "SHINY_READY":
+          setCrashed(false);
+          setError(null);
           setAppLoc(msg_data.payload);
           break;
         case "SHINY_LOGS":

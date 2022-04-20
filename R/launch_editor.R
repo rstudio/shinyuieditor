@@ -73,14 +73,6 @@ launch_editor <- function(app_loc,
     show_preview_app_logs = show_preview_app_logs
   )
 
-  if (show_preview_app_logs) {
-    preview_app$on_log$subscribe(log_background_app)
-  }
-
-  preview_app$on_crash$subscribe(function(status){
-    cat(crayon::bgCyan(status))
-  })
-
   writeLog("=> ...Shiny app running in background")
 
   # Cleanup on closing of the server... This should be be ignored when we're
@@ -145,36 +137,65 @@ launch_editor <- function(app_loc,
         # The ws object is a WebSocket object
         cat("Server connection opened.\n")
 
-        listen_for_ready <- preview_app$on_ready$subscribe(function(app_ready){
+        msg_when_ready(preview_app, ws)
+        msg_app_logs(preview_app, ws)
+
+        on_crash <- preview_app$on_crash$subscribe(function(status){
+          cat(crayon::bgCyan("Crash detected\n"))
+          # Stop other event listeners
 
           ws$send(
             build_ws_message(
-              "SHINY_READY",
-              payload = preview_app$url
+              "SHINY_CRASH",
+              payload = "uh-oh"
             )
           )
-
-          # Once we get the ready signal, turn off the subscription
-          listen_for_ready()
+          on_crash()
         })
 
-        preview_app$on_log$subscribe(function(log_lines){
-          ws$send(
-            build_ws_message(
-              "SHINY_LOGS",
-              payload = log_lines
-            )
-          )
-        })
 
         ws$onMessage(function(binary, message) {
 
           cat("Server received message:", message, "\n")
 
+          # TODO: This logic needs some work as it only successfully restarts
+          # one time then complains of reused TCP addresses
+
+          if(message == "RESTART_PREVIEW"){
+            cat("Triggering Restart\n")
+            preview_app$restart()
+
+            Sys.sleep(2)
+
+            cat("Waiting for the app to say it's shut-down...\n")
+
+            on_crash <- preview_app$on_crash$subscribe(function(status){
+              cat(crayon::bgCyan("Crash detected\n"))
+              # Stop other event listeners
+              preview_app$cleanup()
+
+              preview_app <- start_background_shiny_app(
+                app_loc = app_loc,
+                port = shiny_background_port,
+                host = host,
+
+                show_logs = show_logs,
+                show_preview_app_logs = show_preview_app_logs
+              )
+
+              # resubscribe to events
+              msg_when_ready(preview_app, ws)
+              msg_app_logs(preview_app, ws)
+
+              on_crash()
+            })
+          }
         })
+
         ws$onClose(function() {
           cat("Server connection closed.\n")
         })
+
       },
       staticPaths = list(
         "/app" = httpuv::staticPath(
@@ -195,6 +216,37 @@ launch_editor <- function(app_loc,
     }
   )
 }
+
+
+msg_when_ready <- function(preview_app, ws){
+
+  cat("Setting up listener for shiny ready")
+  listen_for_ready <- preview_app$on_ready$subscribe(function(app_ready){
+
+    cat("~~~~App Ready~~~~~\n")
+    ws$send(
+      build_ws_message(
+        "SHINY_READY",
+        payload = preview_app$url
+      )
+    )
+
+    # Once we get the ready signal, turn off the subscription
+    listen_for_ready()
+  })
+}
+
+msg_app_logs <- function(preview_app, ws){
+  preview_app$on_log$subscribe(function(log_lines){
+    ws$send(
+      build_ws_message(
+        "SHINY_LOGS",
+        payload = log_lines
+      )
+    )
+  })
+}
+
 
 build_ws_message <- function(type, payload){
   jsonlite::toJSON(list(

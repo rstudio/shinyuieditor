@@ -59,7 +59,9 @@ export default function AppPreview() {
               variant="icon"
               className={classes.restartButton}
               title="Restart app session"
-              onClick={reloadApp}
+              onClick={() => {
+                reloadApp();
+              }}
             >
               <VscDebugRestart />
             </Button>
@@ -67,7 +69,10 @@ export default function AppPreview() {
               {status === "error" ? (
                 <FakeDashboard />
               ) : status === "crashed" ? (
-                <h2>Crash!</h2>
+                <>
+                  <p>App preview crashed. Try and restart?</p>
+                  <Button>Restart app preview</Button>
+                </>
               ) : (
                 <iframe
                   className={classes.previewFrame}
