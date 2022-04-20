@@ -61,10 +61,6 @@
   min-width: 0;
 }
 
-.titledPanel > div {
-  padding: 16px;
-}
-
 .titledPanel > h3 {
   text-align: center;
   line-height: var(--label-h);
