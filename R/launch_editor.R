@@ -82,6 +82,24 @@ launch_editor <- function(app_loc,
     show_preview_app_logs = show_preview_app_logs
   )
 
+  failure_to_start_check <- preview_app$on_crash$subscribe(function(is_dead) {
+    stop("Failed to start up shiny app. Check logs for more info:")
+  })
+
+  app_is_ready_check <- preview_app$on_ready$subscribe(function(app_ready){
+
+
+    cat("~~~~App Ready~~~~~ Disabling\n")
+    failure_to_start_check()
+
+    # Once we get the ready signal, turn off the subscription
+    app_is_ready_check()
+  })
+
+  preview_app$status$subscribe(function(status){
+    cat(crayon::bgGreen("Status", status,"\n"))
+  })
+
   writeLog("=> ...Shiny app running in background")
 
   # Cleanup on closing of the server... This should be be ignored when we're
@@ -149,7 +167,7 @@ launch_editor <- function(app_loc,
         msg_when_ready(preview_app, ws)
         msg_app_logs(preview_app, ws)
 
-        on_crash <- preview_app$on_crash$subscribe(function(status){
+        on_crash <- preview_app$on_crash$subscribe(function(){
           cat(crayon::bgCyan("Crash detected\n"))
           # Stop other event listeners
 
@@ -159,7 +177,7 @@ launch_editor <- function(app_loc,
               payload = "uh-oh"
             )
           )
-          on_crash()
+          # on_crash()
         })
 
 

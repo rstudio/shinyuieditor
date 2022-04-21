@@ -15,6 +15,7 @@ start_background_shiny_app <- function(app_loc, host, port,show_logs, show_previ
     supervise = TRUE # Extra security for process being cleaned up properly
   )
 
+  cat(crayon::red("App PID:", p$get_pid()))
   path_to_app <- if (host == "0.0.0.0") {
     # Don't use 0.0.0.0 directly as browsers don't give it a free pass for lack
     # of SSL like they do localhost and 127.0.0.1
@@ -22,6 +23,7 @@ start_background_shiny_app <- function(app_loc, host, port,show_logs, show_previ
   } else {
     host
   }
+
   app_url <- paste0("http://", path_to_app, ":", port)
 
   # Listens for the app to be ready for connections
@@ -46,21 +48,22 @@ start_background_shiny_app <- function(app_loc, host, port,show_logs, show_previ
   on_crash <- create_output_subscribers(
     source_fn = p$is_alive,
     filter_fn = function(alive){
+      cat("Checking if alive...", alive, "\n")
       !alive
     },
     delay = 1
   )
 
   status <- create_output_subscribers(
-    source_fn = p$is_alive,
+    source_fn = p$get_status,
     delay = 1
   )
 
   stop_listeners <- function(){
-    on_log$stop_listening()
-    on_crash$stop_listening()
-    on_ready$stop_listening()
-    status$stop_listening()
+    on_log$cancel_all()
+    on_crash$cancel_all()
+    on_ready$cancel_all()
+    status$cancel_all()
   }
 
   cleanup <-  function(){
@@ -73,7 +76,7 @@ start_background_shiny_app <- function(app_loc, host, port,show_logs, show_previ
       {
         if (show_logs) cat("=> Shutting down running shiny app...\n")
         # tools::SIGINT = 2
-        p$signal(3L)
+        p$signal(2L)
       },
       error = function(e) {
         print("Error shutting down background Shiny app:")
@@ -138,7 +141,7 @@ start_background_shiny_app <- function(app_loc, host, port,show_logs, show_previ
 #' popcorn()
 #'
 #' # stop listening entirely
-#' clock$stop_listening()
+#' clock$cancel_all()
 #'
 create_output_subscribers <- function(
   source_fn,
@@ -177,7 +180,7 @@ create_output_subscribers <- function(
   # Kick off loop
   poll()
 
-  stop_listening <- function(){
+  cancel_all <- function(){
     if(!is.null(unsubscribe)) {
       unsubscribe()
     }
@@ -185,7 +188,7 @@ create_output_subscribers <- function(
 
   list(
     subscribe = callbacks$register,
-    stop_listening = stop_listening
+    cancel_all = cancel_all
   )
 }
 
