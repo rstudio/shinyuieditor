@@ -88,7 +88,6 @@ launch_editor <- function(app_loc,
 
   app_is_ready_check <- preview_app$on_ready(function(app_ready){
 
-
     cat("~~~~App Ready~~~~~ Disabling\n")
     failure_to_start_check()
 
@@ -164,19 +163,7 @@ launch_editor <- function(app_loc,
         msg_when_ready(preview_app, ws)
         msg_app_logs(preview_app, ws)
 
-        on_crash <- preview_app$on_crash(function(){
-          cat(crayon::bgCyan("Crash detected\n"))
-          # Stop other event listeners
-
-          ws$send(
-            build_ws_message(
-              "SHINY_CRASH",
-              payload = "uh-oh"
-            )
-          )
-          # on_crash()
-        })
-
+        listen_for_crash(preview_app, ws)
 
         ws$onMessage(function(binary, message) {
 
@@ -189,30 +176,11 @@ launch_editor <- function(app_loc,
             cat("Triggering Restart\n")
             preview_app$restart()
 
-            Sys.sleep(2)
+            Sys.sleep(1)
+            cat("Restarted app, listening for ready and new crashes...\n")
+            msg_when_ready(preview_app, ws)
+            listen_for_crash(preview_app, ws, 'restart')
 
-            cat("Waiting for the app to say it's shut-down...\n")
-
-            on_crash <- preview_app$on_crash(function(status){
-              cat(crayon::bgCyan("Crash detected\n"))
-              # Stop other event listeners
-              preview_app$cleanup()
-
-              preview_app <- start_background_shiny_app(
-                app_loc = app_loc,
-                port = shiny_background_port,
-                host = host,
-
-                show_logs = show_logs,
-                show_preview_app_logs = show_preview_app_logs
-              )
-
-              # resubscribe to events
-              msg_when_ready(preview_app, ws)
-              msg_app_logs(preview_app, ws)
-
-              on_crash()
-            })
           }
         })
 
@@ -271,6 +239,20 @@ msg_app_logs <- function(preview_app, ws){
   })
 }
 
+
+listen_for_crash <- function(preview_app, ws, id = 1){
+  on_crash <- preview_app$on_crash(function(is_alive){
+    cat(crayon::bgCyan("Crash detected id=",id,"\n"))
+
+    ws$send(
+      build_ws_message(
+        "SHINY_CRASH",
+        payload = "uh-oh"
+      )
+    )
+    on_crash()
+  })
+}
 
 build_ws_message <- function(type, payload){
   jsonlite::toJSON(list(

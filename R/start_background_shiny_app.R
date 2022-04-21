@@ -4,16 +4,20 @@
 # Use the callbacks class from Shiny
 start_background_shiny_app <- function(app_loc, host, port,show_logs, show_preview_app_logs) {
   cat("Starting up background shiny app")
-  p <- callr::r_bg(
-    func = function(app_loc, host, port) {
-      # Turn on live-reload and dev mode
-      # shiny::devmode(TRUE)
-      options(shiny.autoreload = TRUE)
-      shiny::runApp(app_loc, port = port, host = host)
-    },
-    args = list(app_loc, host, port),
-    supervise = TRUE # Extra security for process being cleaned up properly
-  )
+
+  start_app <- function(){
+    callr::r_bg(
+      func = function(app_loc, host, port) {
+        # Turn on live-reload and dev mode
+        # shiny::devmode(TRUE)
+        options(shiny.autoreload = TRUE)
+        shiny::runApp(app_loc, port = port, host = host)
+      },
+      args = list(app_loc, host, port),
+      supervise = TRUE # Extra security for process being cleaned up properly
+    )
+  }
+  p <- start_app()
 
   cat(crayon::red("App PID:", p$get_pid()))
   path_to_app <- if (host == "0.0.0.0") {
@@ -34,19 +38,20 @@ start_background_shiny_app <- function(app_loc, host, port,show_logs, show_previ
     filter_fn = function(is_ready) is_ready
   )
 
+  get_logs <- p$read_error_lines
+  get_is_alive <- function(){
+    cat("Using old alive tester\n")
+    p$is_alive()
+  }
   on_log <- create_output_subscribers(
-    source_fn = p$read_error_lines,
+    source_fn = get_logs,
     filter_fn = function(lines){
       length(lines) > 0
     }
   )
-
-  if (show_preview_app_logs) {
-    on_log$subscribe(log_background_app)
-  }
-
+  get_is_alive <- p$is_alive
   on_crash <- create_output_subscribers(
-    source_fn = p$is_alive,
+    source_fn = get_is_alive,
     filter_fn = function(alive){
       cat("Checking if alive...", alive, "\n")
       !alive
@@ -54,7 +59,12 @@ start_background_shiny_app <- function(app_loc, host, port,show_logs, show_previ
     delay = 1
   )
 
+  if (show_preview_app_logs) {
+    on_log$subscribe(log_background_app)
+  }
+
   stop_listeners <- function(){
+    cat("Stopping listeners\n")
     on_log$cancel_all()
     on_crash$cancel_all()
     on_ready$cancel_all()
@@ -81,8 +91,36 @@ start_background_shiny_app <- function(app_loc, host, port,show_logs, show_previ
 
   restart <- function(){
 
-    stop_app()
-    # browser()
+    cat("Restarting app...\n\n")
+    p <<- start_app()
+
+    # Steal all the callbacks from the event listeners and startup with the new
+    # processes callbacks
+    on_log_callbacks <- on_log$callbacks
+    on_log$cancel_all()
+    on_log <<- create_output_subscribers(
+      source_fn = p$read_error_lines,
+      filter_fn = function(lines){
+        length(lines) > 0
+      },
+      callbacks = on_log_callbacks
+    )
+
+    on_crash_callbacks <- on_crash$callbacks
+    on_crash$cancel_all()
+    on_crash <<- create_output_subscribers(
+      source_fn = function(){
+        cat("Using new alive tester\n")
+        p$is_alive()
+      },
+      filter_fn = function(alive){
+        cat("Checking if alive...", alive, "\n")
+        !alive
+      },
+      delay = 1,
+      callbacks = on_crash_callbacks
+    )
+
   }
 
   list(
@@ -139,10 +177,13 @@ start_background_shiny_app <- function(app_loc, host, port,show_logs, show_previ
 create_output_subscribers <- function(
   source_fn,
   filter_fn = function(...) TRUE,
-  delay = 0.1
+  delay = 0.1,
+  callbacks = shiny:::Callbacks$new()
 ){
 
-  callbacks <- shiny:::Callbacks$new()
+  # callbacks <- shiny:::Callbacks$new()
+
+  subscribed_fn <- source_fn
 
   unsubscribe <- NULL
 
@@ -156,14 +197,14 @@ create_output_subscribers <- function(
 
     tryCatch(
       {
-        out <- source_fn()
+        out <- subscribed_fn()
 
         if(filter_fn(out)) {
           callbacks$invoke(out)
         }
       },
       error = function(e) {
-        print("Error in subscription, unsubscribing")
+        cat(crayon::red("Error in subscription, unsubscribing\n"))
         print(e)
         had_error <<- TRUE
       }
@@ -179,9 +220,15 @@ create_output_subscribers <- function(
     }
   }
 
+  update_subscribed <- function(new_fn){
+    subscribed_fn <<- new_fn
+  }
+
   list(
     subscribe = callbacks$register,
-    cancel_all = cancel_all
+    cancel_all = cancel_all,
+    update_subscribed = update_subscribed,
+    callbacks = callbacks
   )
 }
 
