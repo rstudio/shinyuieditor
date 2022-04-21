@@ -33,7 +33,7 @@ test_that("Real UI snapshot", {
 })
 
 
-test_that("Unknown code is preserved through the parsing and deparsing steps", {
+test_that("Unknown functions are preserved through the parsing and deparsing steps", {
   original_expression <- rlang::expr(
     gridlayout::vertical_stack_panel(
       area = "plot",
@@ -57,6 +57,38 @@ test_that("Unknown code is preserved through the parsing and deparsing steps", {
       uiName = "unknownUiFunction",
       uiArguments = list(
         text = "DT::dataTableOutput(\"myDataTable\", width = \"90%\")"
+      )
+    )
+  )
+
+  # Expressions themselves are identical
+  expect_equal(
+    original_expression,
+    tree_to_exp(original_ui_tree)
+  )
+})
+
+test_that("Unknown variables are preserved through the parsing and deparsing steps", {
+  original_expression <- rlang::expr(
+    gridlayout::vertical_stack_panel(
+      area = "plot",
+      item_alignment = "center",
+      my_data_table_var,
+      shiny::plotOutput(
+        outputId = "distPlot",
+        height = "100%"
+      )
+    )
+  )
+
+  original_ui_tree <- parse_ui_fn(original_expression)
+
+  expect_equal(
+    original_ui_tree$uiChildren[[1]],
+    list(
+      uiName = "unknownUiFunction",
+      uiArguments = list(
+        text = "my_data_table_var"
       )
     )
   )

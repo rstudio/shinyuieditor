@@ -28,15 +28,7 @@
 #' lobstr::tree(parse_ui_fn(app_expr))
 parse_ui_fn <- function(ui_node_expr, is_argument = FALSE) {
 
-  # First check if we should even try and parsing this node. If it's a constant
-  # like a string just return that.
-  if(expr_is_constant(ui_node_expr)) {
-    return(ui_node_expr)
-  }
-
-  func_name <- called_uiName(ui_node_expr)
-
-  if (!get_is_known_ui_fn(func_name)) {
+  if (!can_parse_ui_expr(ui_node_expr)) {
     return(
       list(
         uiName = "unknownUiFunction",
@@ -83,6 +75,17 @@ parse_ui_fn <- function(ui_node_expr, is_argument = FALSE) {
 
 expr_is_constant <- function(expr){
   !is.call(expr)
+}
+
+can_parse_ui_expr <- function(expr){
+  tryCatch(
+    {
+      get_is_known_ui_fn(called_uiName(expr))
+    },
+    error = function(e) {
+     FALSE
+    }
+  )
 }
 
 parse_argument <- function(arg_expr){
