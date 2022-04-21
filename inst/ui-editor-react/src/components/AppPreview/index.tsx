@@ -40,11 +40,8 @@ export default function AppPreview() {
     <>
       <h3>App Preview</h3>
       <div
-        className={
-          classes.appViewerHolder +
-          " " +
-          (isFullScreen ? classes.fullScreen : classes.previewMode)
-        }
+        className={classes.appViewerHolder}
+        data-expanded={isFullScreen}
         style={
           {
             "--app-scale-amnt": previewScale,
@@ -65,7 +62,7 @@ export default function AppPreview() {
             >
               <VscDebugRestart />
             </Button>
-            <div className={classes.container}>
+            <div className={classes.appContainer}>
               {status === "error" ? (
                 <FakeDashboard />
               ) : status === "crashed" ? (

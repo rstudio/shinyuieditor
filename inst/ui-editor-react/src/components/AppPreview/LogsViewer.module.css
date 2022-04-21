@@ -1,6 +1,6 @@
 /* Logs section */
 .logs {
-  --tab-height: 26px;
+  --tab-height: var(--logs-button-h, 20px);
   --background-color: var(--rstudio-white);
   --outline-color: var(--rstudio-grey, red);
   --side-offset: 8px;
