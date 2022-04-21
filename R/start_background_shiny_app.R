@@ -54,16 +54,10 @@ start_background_shiny_app <- function(app_loc, host, port,show_logs, show_previ
     delay = 1
   )
 
-  status <- create_output_subscribers(
-    source_fn = p$get_status,
-    delay = 1
-  )
-
   stop_listeners <- function(){
     on_log$cancel_all()
     on_crash$cancel_all()
     on_ready$cancel_all()
-    status$cancel_all()
   }
 
   cleanup <-  function(){
@@ -93,10 +87,9 @@ start_background_shiny_app <- function(app_loc, host, port,show_logs, show_previ
 
   list(
     url = app_url,
-    on_ready = on_ready,
-    on_log = on_log,
-    on_crash = on_crash,
-    status = status,
+    on_ready = on_ready$subscribe,
+    on_log = on_log$subscribe,
+    on_crash = on_crash$subscribe,
     cleanup = cleanup,
     restart = restart
   )

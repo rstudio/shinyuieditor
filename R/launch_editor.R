@@ -82,11 +82,11 @@ launch_editor <- function(app_loc,
     show_preview_app_logs = show_preview_app_logs
   )
 
-  failure_to_start_check <- preview_app$on_crash$subscribe(function(is_dead) {
+  failure_to_start_check <- preview_app$on_crash(function(is_dead) {
     stop("Failed to start up shiny app. Check logs for more info:")
   })
 
-  app_is_ready_check <- preview_app$on_ready$subscribe(function(app_ready){
+  app_is_ready_check <- preview_app$on_ready(function(app_ready){
 
 
     cat("~~~~App Ready~~~~~ Disabling\n")
@@ -96,9 +96,6 @@ launch_editor <- function(app_loc,
     app_is_ready_check()
   })
 
-  preview_app$status$subscribe(function(status){
-    cat(crayon::bgGreen("Status", status,"\n"))
-  })
 
   writeLog("=> ...Shiny app running in background")
 
@@ -167,7 +164,7 @@ launch_editor <- function(app_loc,
         msg_when_ready(preview_app, ws)
         msg_app_logs(preview_app, ws)
 
-        on_crash <- preview_app$on_crash$subscribe(function(){
+        on_crash <- preview_app$on_crash(function(){
           cat(crayon::bgCyan("Crash detected\n"))
           # Stop other event listeners
 
@@ -196,7 +193,7 @@ launch_editor <- function(app_loc,
 
             cat("Waiting for the app to say it's shut-down...\n")
 
-            on_crash <- preview_app$on_crash$subscribe(function(status){
+            on_crash <- preview_app$on_crash(function(status){
               cat(crayon::bgCyan("Crash detected\n"))
               # Stop other event listeners
               preview_app$cleanup()
@@ -248,7 +245,7 @@ launch_editor <- function(app_loc,
 msg_when_ready <- function(preview_app, ws){
 
   cat("Setting up listener for shiny ready")
-  listen_for_ready <- preview_app$on_ready$subscribe(function(app_ready){
+  listen_for_ready <- preview_app$on_ready(function(app_ready){
 
     cat("~~~~App Ready~~~~~\n")
     ws$send(
@@ -264,7 +261,7 @@ msg_when_ready <- function(preview_app, ws){
 }
 
 msg_app_logs <- function(preview_app, ws){
-  preview_app$on_log$subscribe(function(log_lines){
+  preview_app$on_log(function(log_lines){
     ws$send(
       build_ws_message(
         "SHINY_LOGS",
