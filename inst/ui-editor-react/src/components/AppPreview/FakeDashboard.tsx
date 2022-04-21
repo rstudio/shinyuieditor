@@ -5,7 +5,7 @@ import classes from "./FakeDashboard.module.css";
 
 const FakeDashboard = () => {
   return (
-    <div className={previewClasses.container}>
+    <div className={previewClasses.appContainer}>
       <div
         className={classes.fakeDashboard + " " + previewClasses.previewFrame}
       >
