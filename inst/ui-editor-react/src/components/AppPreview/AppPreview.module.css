@@ -3,7 +3,9 @@ div.appViewerHolder {
 
   /* This is over-ridden by an inline style but we just have it here in case */
   --app-scale-amnt: 0.24;
-  --animation-speed-timing: 0.5s ease;
+
+  --animation-speed: 0.25s;
+  --animation-speed-timing: var(--animation-speed) ease;
   --expand-btn-size: 1rem;
 
   /* These take effect in LogsViewer.module.css but depend on the expansion so we set them here */

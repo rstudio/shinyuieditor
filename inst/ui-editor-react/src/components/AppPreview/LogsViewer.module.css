@@ -1,9 +1,9 @@
 /* Logs section */
 .logs {
-  --tab-height: 30px;
+  --tab-height: 26px;
   --background-color: var(--rstudio-white);
   --outline-color: var(--rstudio-grey, red);
-  --side-offset: calc(var(--pad, 10px) / 2);
+  --side-offset: 8px;
   position: absolute;
   bottom: 0;
   left: var(--side-offset);
@@ -15,11 +15,11 @@
   transform: translateY(
     calc(100% - var(--tab-height) - var(--logs-offset, 0px))
   );
+  transition: transform var(--animation-speed, 0.25s) ease-in;
 }
 
 .logs[data-expanded="true"] {
   transform: translateY(5px);
-  transition: transform 0.5s ease-in;
 }
 
 .logs[data-expanded="true"] .logsContents {
