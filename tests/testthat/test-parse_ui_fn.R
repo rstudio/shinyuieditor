@@ -122,3 +122,23 @@ test_that("Handles list arguments", {
     )
   )
 })
+
+
+test_that("Errors with malformed trees", {
+  original_expression <- rlang::expr(
+    gridlayout::vertical_stack_panel(
+      area = "plot",
+      item_alignment = "center",
+      shiny::plotOutput(
+        outputId = "distPlot",
+        height2 = "100%"
+      )
+    )
+  )
+
+  expect_error(
+    parse_ui_fn(original_expression),
+    "Problem with arguments supplied to shiny::plotOutput()",
+    fixed = TRUE
+  )
+})
