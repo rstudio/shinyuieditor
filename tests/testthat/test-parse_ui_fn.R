@@ -124,7 +124,7 @@ test_that("Handles list arguments", {
 })
 
 
-test_that("Errors with malformed trees", {
+test_that("Errors with invalid arguments", {
   original_expression <- rlang::expr(
     gridlayout::vertical_stack_panel(
       area = "plot",
