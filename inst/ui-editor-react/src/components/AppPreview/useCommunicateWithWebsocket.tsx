@@ -1,10 +1,6 @@
 import React from "react";
 
-import { useDispatch } from "react-redux";
-import {
-  DISCONNECTED_FROM_SERVER,
-  useSetDisconnectedFromServer,
-} from "state/connectedToServer";
+import { useSetDisconnectedFromServer } from "state/connectedToServer";
 
 export type AppLogs = string[];
 
