@@ -17,10 +17,13 @@ Imports:
     callr,
     crayon,
     fs,
+    httpuv,
+    jsonlite,
     later,
     lobstr,
     rlang,
-    shiny
+    shiny,
+    styler
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
