@@ -1,7 +1,7 @@
 #' Parse UI function node
 #'
 #' Function to recursively parse a Shiny UI definition. Will build a nested list of known UI functions and their arguments.
-#' @param ui_expr A language object representing the call of a known Shiny UI function.
+#' @param ui_node_expr A language object representing the call of a known Shiny UI function.
 #'
 #' @return A nested list describing the UI of the app for use in the Shiny Visual Editor
 #' @export
@@ -26,7 +26,7 @@
 #'
 #'
 #' lobstr::tree(parse_ui_fn(app_expr))
-parse_ui_fn <- function(ui_node_expr, is_argument = FALSE) {
+parse_ui_fn <- function(ui_node_expr) {
 
   if (!can_parse_ui_expr(ui_node_expr)) {
     return(

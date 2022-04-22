@@ -4,10 +4,10 @@
 \alias{parse_ui_fn}
 \title{Parse UI function node}
 \usage{
-parse_ui_fn(ui_node_expr, is_argument = FALSE)
+parse_ui_fn(ui_node_expr)
 }
 \arguments{
-\item{ui_expr}{A language object representing the call of a known Shiny UI function.}
+\item{ui_node_expr}{A language object representing the call of a known Shiny UI function.}
 }
 \value{
 A nested list describing the UI of the app for use in the Shiny Visual Editor
