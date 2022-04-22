@@ -1,7 +1,5 @@
 
 
-# TODO: Return object that has events that can be subscribed to attached to it
-# Use the callbacks class from Shiny
 start_background_shiny_app <- function(app_loc, host, port, writeLog, show_preview_app_logs) {
 
   start_app <- function(){
@@ -88,34 +86,8 @@ start_background_shiny_app <- function(app_loc, host, port, writeLog, show_previ
 
     writeLog("Restarting app...\n\n")
     p <<- start_app()
-
-    # Steal all the callbacks from the event listeners and startup with the new
-    # processes callbacks
-    on_log_callbacks <- on_log$callbacks
-    on_log$cancel_all()
-    on_log <<- create_output_subscribers(
-      source_fn = p$read_error_lines,
-      filter_fn = function(lines){
-        length(lines) > 0
-      },
-      callbacks = on_log_callbacks
-    )
-
-    on_crash_callbacks <- on_crash$callbacks
-    on_crash$cancel_all()
-    on_crash <<- create_output_subscribers(
-      source_fn = function(){
-        writeLog("Using new alive tester\n")
-        p$is_alive()
-      },
-      filter_fn = function(alive){
-        writeLog("Checking if alive...", alive, "\n")
-        !alive
-      },
-      delay = 1,
-      callbacks = on_crash_callbacks
-    )
-
+    on_log <<- on_log$update_subscribed(p$read_error_lines)
+    on_crash <<- on_crash$update_subscribed(p$is_alive)
   }
 
   list(
@@ -216,7 +188,18 @@ create_output_subscribers <- function(
   }
 
   update_subscribed <- function(new_fn){
-    subscribed_fn <<- new_fn
+
+    # Cancel the current event loop for the subscribed function
+    cancel_all()
+
+    # Create a new output subscribers result that carries over all the same
+    # callback subscriptions with it
+    create_output_subscribers(
+      source_fn = new_fn,
+      filter_fn = filter_fn,
+      delay = delay,
+      callbacks = callbacks
+    )
   }
 
   list(
