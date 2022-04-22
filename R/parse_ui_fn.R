@@ -1,9 +1,14 @@
 #' Parse UI function node
 #'
-#' Function to recursively parse a Shiny UI definition. Will build a nested list of known UI functions and their arguments.
-#' @param ui_node_expr A language object representing the call of a known Shiny UI function.
+#' Function to recursively parse a Shiny UI definition. Will build a nested list
+#' of known UI functions and their arguments.
+#' @param ui_node_expr A language object representing the call of a known Shiny
+#'   UI function.
+#' @param env Environment in which to evaluate arguments. Necessary for filling
+#'   in the names of all arguments. Almost always left as the default.
 #'
-#' @return A nested list describing the UI of the app for use in the Shiny Visual Editor
+#' @return A nested list describing the UI of the app for use in the Shiny
+#'   Visual Editor
 #' @export
 #'
 #' @examples

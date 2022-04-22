@@ -7,13 +7,19 @@
 parse_ui_fn(ui_node_expr, env = rlang::caller_env())
 }
 \arguments{
-\item{ui_node_expr}{A language object representing the call of a known Shiny UI function.}
+\item{ui_node_expr}{A language object representing the call of a known Shiny
+UI function.}
+
+\item{env}{Environment in which to evaluate arguments. Necessary for filling
+in the names of all arguments. Almost always left as the default.}
 }
 \value{
-A nested list describing the UI of the app for use in the Shiny Visual Editor
+A nested list describing the UI of the app for use in the Shiny
+Visual Editor
 }
 \description{
-Function to recursively parse a Shiny UI definition. Will build a nested list of known UI functions and their arguments.
+Function to recursively parse a Shiny UI definition. Will build a nested list
+of known UI functions and their arguments.
 }
 \examples{
 
