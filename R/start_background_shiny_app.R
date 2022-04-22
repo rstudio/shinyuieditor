@@ -2,11 +2,11 @@
 
 # TODO: Return object that has events that can be subscribed to attached to it
 # Use the callbacks class from Shiny
-start_background_shiny_app <- function(app_loc, host, port,show_logs, show_preview_app_logs) {
-  cat("Starting up background shiny app")
+start_background_shiny_app <- function(app_loc, host, port, writeLog, show_preview_app_logs) {
 
   start_app <- function(){
-    callr::r_bg(
+    writeLog("Starting up background shiny app")
+    p <- callr::r_bg(
       func = function(app_loc, host, port) {
         # Turn on live-reload and dev mode
         # shiny::devmode(TRUE)
@@ -16,10 +16,11 @@ start_background_shiny_app <- function(app_loc, host, port,show_logs, show_previ
       args = list(app_loc, host, port),
       supervise = TRUE # Extra security for process being cleaned up properly
     )
+    writeLog("Started Shiny preview app: ", crayon::red("App PID:", p$get_pid()))
+    p
   }
   p <- start_app()
 
-  cat(crayon::red("App PID:", p$get_pid()))
   path_to_app <- if (host == "0.0.0.0") {
     # Don't use 0.0.0.0 directly as browsers don't give it a free pass for lack
     # of SSL like they do localhost and 127.0.0.1
@@ -38,22 +39,16 @@ start_background_shiny_app <- function(app_loc, host, port,show_logs, show_previ
     filter_fn = function(is_ready) is_ready
   )
 
-  get_logs <- p$read_error_lines
-  get_is_alive <- function(){
-    cat("Using old alive tester\n")
-    p$is_alive()
-  }
   on_log <- create_output_subscribers(
-    source_fn = get_logs,
+    source_fn = p$read_error_lines,
     filter_fn = function(lines){
       length(lines) > 0
     }
   )
-  get_is_alive <- p$is_alive
+
   on_crash <- create_output_subscribers(
-    source_fn = get_is_alive,
+    source_fn = p$is_alive,
     filter_fn = function(alive){
-      cat("Checking if alive...", alive, "\n")
       !alive
     },
     delay = 1
@@ -64,7 +59,7 @@ start_background_shiny_app <- function(app_loc, host, port,show_logs, show_previ
   }
 
   stop_listeners <- function(){
-    cat("Stopping listeners\n")
+    writeLog("Stopping listeners\n")
     on_log$cancel_all()
     on_crash$cancel_all()
     on_ready$cancel_all()
@@ -78,12 +73,12 @@ start_background_shiny_app <- function(app_loc, host, port,show_logs, show_previ
   stop_app <- function(){
     tryCatch(
       {
-        if (show_logs) cat("=> Shutting down running shiny app...\n")
+        writeLog("=> Shutting down running shiny app...")
         # tools::SIGINT = 2
         p$signal(2L)
       },
       error = function(e) {
-        print("Error shutting down background Shiny app:")
+        writeLog("Error shutting down background Shiny app:")
         print(e)
       }
     )
@@ -91,7 +86,7 @@ start_background_shiny_app <- function(app_loc, host, port,show_logs, show_previ
 
   restart <- function(){
 
-    cat("Restarting app...\n\n")
+    writeLog("Restarting app...\n\n")
     p <<- start_app()
 
     # Steal all the callbacks from the event listeners and startup with the new
@@ -110,11 +105,11 @@ start_background_shiny_app <- function(app_loc, host, port,show_logs, show_previ
     on_crash$cancel_all()
     on_crash <<- create_output_subscribers(
       source_fn = function(){
-        cat("Using new alive tester\n")
+        writeLog("Using new alive tester\n")
         p$is_alive()
       },
       filter_fn = function(alive){
-        cat("Checking if alive...", alive, "\n")
+        writeLog("Checking if alive...", alive, "\n")
         !alive
       },
       delay = 1,

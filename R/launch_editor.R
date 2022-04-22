@@ -41,10 +41,11 @@ launch_editor <- function(app_loc,
                           show_logs = TRUE,
                           show_preview_app_logs = TRUE,
                           run_in_background = FALSE) {
-  writeLog <- function(msg) {
+
+  writeLog <- function(...) {
     if (show_logs) {
       # TODO: Move these to standard error as they are meant for human consumption
-      cat(msg, "\n")
+      cat(..., "\n")
     }
   }
 
@@ -78,7 +79,7 @@ launch_editor <- function(app_loc,
     app_loc = app_loc,
     port = shiny_background_port,
     host = host,
-    show_logs = show_logs,
+    writeLog = writeLog,
     show_preview_app_logs = show_preview_app_logs
   )
 
@@ -88,7 +89,7 @@ launch_editor <- function(app_loc,
 
   app_is_ready_check <- preview_app$on_ready(function(app_ready){
 
-    cat("~~~~App Ready~~~~~ Disabling\n")
+    writeLog("~~~~App Ready~~~~~\n")
     failure_to_start_check()
 
     # Once we get the ready signal, turn off the subscription
@@ -177,7 +178,7 @@ launch_editor <- function(app_loc,
             preview_app$restart()
 
             Sys.sleep(1)
-            cat("Restarted app, listening for ready and new crashes...\n")
+            writeLog("Restarted app, listening for ready and new crashes...\n")
             msg_when_ready(preview_app, ws)
             listen_for_crash(preview_app, ws, 'restart')
 
@@ -212,10 +213,8 @@ launch_editor <- function(app_loc,
 
 msg_when_ready <- function(preview_app, ws){
 
-  cat("Setting up listener for shiny ready")
   listen_for_ready <- preview_app$on_ready(function(app_ready){
 
-    cat("~~~~App Ready~~~~~\n")
     ws$send(
       build_ws_message(
         "SHINY_READY",
