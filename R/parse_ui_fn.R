@@ -10,22 +10,33 @@
 #'
 #' app_expr <- rlang::expr(
 #'   gridlayout::grid_page(
-#'     layout = gridlayout::new_gridlayout("
-#'       |2rem  |200px   |1fr    |
-#'       |80px  |header  |header |
-#'       |1fr   |sidebar |plot   |"),
-#'     theme = bslib::bs_theme(),
-#'     header = gridlayout::title_panel("This is my header"),
-#'     sidebar = gridlayout::grid_panel(
-#'       title = "Settings",
-#'       shiny::sliderInput("bins", "Number of bins:", min = 1, value = 5, max = 10)
+#'     layout = "
+#'             | 1rem | 250px   | 1fr  |
+#'             |------|---------|------|
+#'             | 1fr  | sidebar | plot |",
+#'     gridlayout::vertical_stack_panel(
+#'       area = "sidebar",
+#'       item_alignment = "center",
+#'       shiny::sliderInput(
+#'         inputId = "bins",
+#'         label = "Num Bins",
+#'         min = 10L,
+#'         max = 100L,
+#'         value = 40L
+#'       )
 #'     ),
-#'     plot = shiny::plotOutput("distPlot")
+#'     gridlayout::vertical_stack_panel(
+#'       area = "plot",
+#'       item_alignment = "center",
+#'       shiny::plotOutput(
+#'         outputId = "distPlot",
+#'         height = "100%"
+#'       )
+#'     )
 #'   )
 #' )
-#'
-#'
 #' lobstr::tree(parse_ui_fn(app_expr))
+#'
 parse_ui_fn <- function(ui_node_expr) {
 
   if (!can_parse_ui_expr(ui_node_expr)) {
