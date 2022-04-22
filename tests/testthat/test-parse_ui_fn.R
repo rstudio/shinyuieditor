@@ -34,12 +34,16 @@ test_that("Real UI snapshot", {
 
 
 test_that("Unknown functions are preserved through the parsing and deparsing steps", {
+
+  custom_widget_fn <- function(inputId, width){
+    shiny::h1("Custom Widget")
+  }
   original_expression <- rlang::expr(
     gridlayout::vertical_stack_panel(
       area = "plot",
       item_alignment = "center",
-      DT::dataTableOutput(
-        "myDataTable",
+      custom_widget_fn(
+        "myWidget",
         width = "90%"
       ),
       shiny::plotOutput(
@@ -56,7 +60,7 @@ test_that("Unknown functions are preserved through the parsing and deparsing ste
     list(
       uiName = "unknownUiFunction",
       uiArguments = list(
-        text = "DT::dataTableOutput(\"myDataTable\", width = \"90%\")"
+        text = "custom_widget_fn(\"myWidget\", width = \"90%\")"
       )
     )
   )
