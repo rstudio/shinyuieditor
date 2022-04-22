@@ -11,6 +11,7 @@ launch_editor(
   shiny_background_port = httpuv::randomPort(),
   app_preview = TRUE,
   show_logs = TRUE,
+  show_preview_app_logs = TRUE,
   run_in_background = FALSE
 )
 }
@@ -36,6 +37,9 @@ long-running or processor intensive initialization steps.}
 
 \item{show_logs}{Print status messages to the console? For debugging.}
 
+\item{show_preview_app_logs}{Should the logged output of the app preview be
+printed? Useful for debugging an app that's not working properly.}
+
 \item{run_in_background}{Should the app run in a background process or block
 the console? See \code{?httpuv::startServer()} vs \code{?httpuv::runServer()}. Note
 that this potentially will result in orphaned Shiny processes because
@@ -54,8 +58,8 @@ and saving.
 \details{
 \subsection{Stopping server When running with \code{run_in_background = TRUE}, it's}{
 
-recomended you use the \verb{$stop()} function in the returned list object instead
-of the build in \verb{$stop()} function on the returned \verb{$server} object as this
-will ensure the running Shiny app preview will also shutdown.
+recommended you use the \verb{$stop()} function in the returned list object
+instead of the build in \verb{$stop()} function on the returned \verb{$server} object
+as this will ensure the running Shiny app preview will also shutdown.
 }
 }
