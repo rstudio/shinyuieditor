@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/app/static/css/main.531a4a1b.css",
-    "main.js": "/app/static/js/main.4d7cbe0c.js",
-    "static/js/186.0cdabd00.chunk.js": "/app/static/js/186.0cdabd00.chunk.js",
-    "static/media/Shiny-Logo.png": "/app/static/media/Shiny-Logo.2fd8063bbe2c9673b39f.png",
-    "static/media/RStudio-Logo.svg": "/app/static/media/RStudio-Logo.04a07a8af606b5094b55c5151ba40a0c.svg",
-    "index.html": "/app/index.html",
-    "main.531a4a1b.css.map": "/app/static/css/main.531a4a1b.css.map",
-    "main.4d7cbe0c.js.map": "/app/static/js/main.4d7cbe0c.js.map",
-    "186.0cdabd00.chunk.js.map": "/app/static/js/186.0cdabd00.chunk.js.map"
+    "main.css": "/static/css/main.531a4a1b.css",
+    "main.js": "/static/js/main.1ad5c017.js",
+    "static/js/186.0cdabd00.chunk.js": "/static/js/186.0cdabd00.chunk.js",
+    "static/media/Shiny-Logo.png": "/static/media/Shiny-Logo.2fd8063bbe2c9673b39f.png",
+    "static/media/RStudio-Logo.svg": "/static/media/RStudio-Logo.04a07a8af606b5094b55c5151ba40a0c.svg",
+    "index.html": "/index.html",
+    "main.531a4a1b.css.map": "/static/css/main.531a4a1b.css.map",
+    "main.1ad5c017.js.map": "/static/js/main.1ad5c017.js.map",
+    "186.0cdabd00.chunk.js.map": "/static/js/186.0cdabd00.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.531a4a1b.css",
-    "static/js/main.4d7cbe0c.js"
+    "static/js/main.1ad5c017.js"
   ]
 }
