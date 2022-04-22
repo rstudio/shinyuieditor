@@ -23,7 +23,8 @@ Imports:
     lobstr,
     rlang,
     shiny,
-    styler
+    styler,
+    utils
 Suggests: 
     gridlayout,
     testthat (>= 3.0.0)

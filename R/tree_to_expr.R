@@ -15,7 +15,7 @@ tree_to_exp <- function(ui_tree){
   }
 
   if(is.null(ui_fn) || is.null(ui_args)) {
-    str(ui_tree)
+    lobstr::tree(ui_tree)
     stop("Improperly formatted ui tree found")
   }
 
