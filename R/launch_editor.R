@@ -45,7 +45,7 @@ launch_editor <- function(app_loc,
   writeLog <- function(...) {
     if (show_logs) {
       # TODO: Move these to standard error as they are meant for human consumption
-      cat(..., "\n")
+      cat(..., "\n", file = stderr())
     }
   }
 
