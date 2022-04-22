@@ -11,13 +11,12 @@ import FakeDashboard from "./FakeDashboard";
 import { LogsViewer } from "./LogsViewer";
 import { useCommunicateWithWebsocket } from "./useCommunicateWithWebsocket";
 
-// This could be retreived from the css programatically. The 16*2 accounts for
-// the padding
-const properties_bar_w_px = 275 - 16 * 2;
-
 export default function AppPreview() {
   const iframeRef = React.useRef<HTMLIFrameElement>(null);
   const [isFullScreen, setIsFullScreen] = React.useState(false);
+  const toggleFullscreen = React.useCallback(() => {
+    setIsFullScreen((currentlyFullScreen) => !currentlyFullScreen);
+  }, []);
 
   const { status, appLoc, appLogs, clearLogs, restartApp } =
     useCommunicateWithWebsocket();
@@ -49,27 +48,22 @@ export default function AppPreview() {
         }
       >
         {status === "loading" ? (
-          <h2>Loading app preview...</h2>
+          <LoadingMessage />
+        ) : status === "crashed" ? (
+          <RestartPrompt onClick={restartApp} />
         ) : (
           <>
             <Button
               variant="icon"
-              className={classes.restartButton}
-              title="Restart app session"
-              onClick={() => {
-                reloadApp();
-              }}
+              className={classes.reloadButton}
+              title="Reload app session"
+              onClick={reloadApp}
             >
               <VscDebugRestart />
             </Button>
             <div className={classes.appContainer}>
               {status === "error" ? (
                 <FakeDashboard />
-              ) : status === "crashed" ? (
-                <>
-                  <p>App preview crashed. Try and restart?</p>
-                  <Button>Restart app preview</Button>
-                </>
               ) : (
                 <iframe
                   className={classes.previewFrame}
@@ -84,9 +78,7 @@ export default function AppPreview() {
                 title={
                   isFullScreen ? "Shrink app preview" : "Expand app preview"
                 }
-                onClick={() =>
-                  setIsFullScreen((currentlyFullScreen) => !currentlyFullScreen)
-                }
+                onClick={toggleFullscreen}
               >
                 {isFullScreen ? <AiOutlineShrink /> : <FaExpand />}
               </Button>
@@ -96,6 +88,31 @@ export default function AppPreview() {
         )}
       </div>
     </>
+  );
+}
+
+function RestartPrompt({ onClick }: { onClick: () => void }) {
+  return (
+    <div className={classes.appContainer}>
+      <p>
+        App preview crashed.<br></br> Try and restart?
+      </p>
+      <Button
+        className={classes.restartButton}
+        title="Restart app preview"
+        onClick={onClick}
+      >
+        Restart app preview <VscDebugRestart />
+      </Button>
+    </div>
+  );
+}
+
+function LoadingMessage() {
+  return (
+    <div className={classes.loadingMessage}>
+      <h2>Loading app preview...</h2>
+    </div>
   );
 }
 
@@ -119,6 +136,10 @@ function useGetPageSize() {
 
   return pageSize;
 }
+
+// This could be retreived from the css programatically. The 16 is added for
+// some reason I can't figure out but is needed.
+const properties_bar_w_px = 275 - 30 * 2 + 16;
 
 function usePreviewScale() {
   const [previewScale, setPreviewScale] = React.useState(0.2);

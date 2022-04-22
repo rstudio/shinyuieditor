@@ -126,7 +126,7 @@ div.appViewerHolder {
 }
 
 .expandButton,
-.restartButton {
+.reloadButton {
   position: absolute;
   background-color: transparent;
   outline: none;
@@ -149,7 +149,7 @@ div.appViewerHolder {
   transform: scale(1.1);
 }
 .appViewerHolder[data-expanded="true"] .expandButton,
-.appViewerHolder[data-expanded="true"] .restartButton {
+.appViewerHolder[data-expanded="true"] .reloadButton {
   width: var(--expanded-inset-left);
   height: var(--expanded-inset-top);
   font-size: 2.5rem;
@@ -163,14 +163,14 @@ div.appViewerHolder {
   right: 0;
 }
 
-button.restartButton {
+button.reloadButton {
   top: 0;
   left: 0;
   width: fit-content;
 }
 
-button.restartButton:hover,
-button.restartButton:active {
+button.reloadButton:hover,
+button.reloadButton:active {
   transform: scale(1.1);
 }
 
@@ -181,6 +181,22 @@ button.restartButton:active {
   font-style: italic;
 }
 
+.loadingMessage {
+  display: grid;
+  place-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+}
+.loadingMessage > h2 {
+  text-align: center;
+}
+
 h2.error {
   color: var(--red);
+}
+
+.restartButton {
+  width: fit-content;
+  margin-inline: auto;
 }
