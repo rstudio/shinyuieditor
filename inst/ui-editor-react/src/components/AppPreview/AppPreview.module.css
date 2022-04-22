@@ -1,0 +1,202 @@
+div.appViewerHolder {
+  /* This is over-ridden by an inline style but we just have it here in case */
+  --app-scale-amnt: 0.24;
+
+  --animation-speed: 0.25s;
+  --animation-speed-timing: var(--animation-speed) ease;
+  --expand-btn-size: 1rem;
+
+  /* These take effect in LogsViewer.module.css but depend on the expansion so we set them here */
+  --logs-font-size: 0.65rem;
+  --logs-padding: 10px;
+
+  /* Sizes */
+
+  /* How much in from the edges should the expanded app be? */
+  --expanded-inset-left: 70px;
+  --expanded-inset-right: 70px;
+  --expanded-inset-top: 70px;
+  --expanded-inset-bottom: calc(70px + var(--logs-offset-expanded));
+
+  /* How much in from the edges should the shrunken app be? */
+  --preview-inset-left: 30px;
+  --preview-inset-right: 30px;
+  --preview-inset-top: 30px;
+  --preview-inset-bottom: calc(
+    30px + var(--logs-button-h) + var(--logs-offset)
+  );
+
+  /* How tall should the tab to expand the logs be? */
+  --logs-button-h: 28px;
+  /* How much of the logs page should be peaking out from bottom of the container? */
+  --logs-offset: 0px;
+  --logs-offset-expanded: 30px;
+
+  /* Sizes of the app when expanded. Used to scale the preview window without triggering a resize */
+  --app-expanded-w: calc(
+    100vw - var(--expanded-inset-left) - var(--expanded-inset-right)
+  );
+  --app-expanded-h: calc(
+    100vh - var(--expanded-inset-top) - var(--expanded-inset-bottom)
+  );
+
+  /* Size of the app window when shrunk down */
+  --app-preview-w: calc(var(--app-expanded-w) * var(--app-scale-amnt));
+  --app-preview-h: calc(var(--app-expanded-h) * var(--app-scale-amnt));
+
+  /* Height of the app window in preview mode */
+  height: calc(
+    var(--app-preview-h) + var(--preview-inset-top) +
+      var(--preview-inset-bottom)
+  );
+
+  position: relative;
+}
+
+.appViewerHolder[data-expanded="true"] {
+  --expand-btn-size: 1.5rem;
+
+  --logs-font-size: 0.9rem;
+  --logs-padding: 32px;
+
+  --viewer-h: 1fr;
+  --logs-button-h: 30px;
+
+  --logs-offset: 35px;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  background-color: hsl(var(--rstudio-grey-hsl) / 0.15);
+  backdrop-filter: blur(6px);
+
+  transition: all var(--animation-speed-timing);
+  /* This overwrites the "all" above and only makes transitions occur on
+  specified properties */
+  transition-property: backdrop-filter background-color;
+}
+
+.appContainer {
+  display: grid;
+  place-content: center;
+  /* overflow: hidden; */
+}
+
+.appViewerHolder[data-expanded="false"] > .appContainer {
+  position: absolute;
+  top: var(--preview-inset-top);
+  left: var(--preview-inset-left);
+  width: var(--app-preview-w);
+  height: var(--app-preview-h);
+}
+.appViewerHolder[data-expanded="true"] > .appContainer {
+  position: absolute;
+  top: var(--expanded-inset-top);
+  left: var(--expanded-inset-left);
+  width: var(--app-expanded-w);
+  height: var(--app-expanded-h);
+}
+
+.previewFrame {
+  background-color: var(--rstudio-white);
+  width: var(--app-expanded-w);
+  height: var(--app-expanded-h);
+  transform: scale(var(--app-scale-amnt));
+  border: 1px solid var(--outline-color);
+  display: block;
+  /* Ever-so-slightly soften corners */
+  border-radius: 2px;
+}
+
+.appViewerHolder[data-expanded="true"] .previewFrame {
+  transform: scale(1);
+  transition: transform var(--animation-speed-timing);
+  border: none;
+  box-shadow: var(--shadow-elevation-medium);
+}
+
+.appViewerHolder[data-expanded="false"] .previewFrame {
+  /* Don't reverse the growing animation, just snap back to smaller */
+  transition: none;
+}
+
+.expandButton,
+.reloadButton {
+  position: absolute;
+  background-color: transparent;
+  outline: none;
+  transition-property: opacity, color, transform;
+  transition-duration: 0.25s;
+  transition-timing-function: ease-in;
+}
+
+.expandButton {
+  width: 100%;
+  height: 100%;
+  font-size: 50px;
+  opacity: 0;
+  color: transparent;
+}
+
+.expandButton:hover {
+  color: inherit;
+  opacity: 1;
+  transform: scale(1.1);
+}
+.appViewerHolder[data-expanded="true"] .expandButton,
+.appViewerHolder[data-expanded="true"] .reloadButton {
+  width: var(--expanded-inset-left);
+  height: var(--expanded-inset-top);
+  font-size: 2.5rem;
+  opacity: 1;
+  position: fixed;
+  top: 0;
+}
+
+.appViewerHolder[data-expanded="true"] .expandButton {
+  color: inherit;
+  right: 0;
+}
+
+button.reloadButton {
+  top: 0;
+  left: 0;
+  width: fit-content;
+}
+
+button.reloadButton:hover,
+button.reloadButton:active {
+  transform: scale(1.1);
+}
+
+.appViewerHolder > h2 {
+  font-size: 1.25rem;
+  color: var(--rstudio-grey);
+  text-align: center;
+  font-style: italic;
+}
+
+.loadingMessage {
+  display: grid;
+  place-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+}
+.loadingMessage > h2 {
+  text-align: center;
+}
+
+h2.error {
+  color: var(--red);
+}
+
+.restartButton {
+  width: fit-content;
+  margin-inline: auto;
+}

@@ -1,0 +1,135 @@
+/* Logs section */
+.logs {
+  --tab-height: var(--logs-button-h, 20px);
+  --background-color: var(--rstudio-white);
+  --outline-color: var(--rstudio-grey, red);
+  --side-offset: 8px;
+  position: absolute;
+  bottom: 0;
+  left: var(--side-offset);
+  right: var(--side-offset);
+  top: 0;
+  grid-area: logs;
+  /* Enable stacking context so z-indices work */
+  isolation: isolate;
+  transform: translateY(
+    calc(100% - var(--tab-height) - var(--logs-offset, 0px))
+  );
+  transition: transform var(--animation-speed, 0.25s) ease-in;
+}
+
+.logs[data-expanded="true"] {
+  transform: translateY(5px);
+}
+
+.logs[data-expanded="true"] .logsContents {
+  overflow: auto;
+}
+
+button.expandTab,
+.logsContents {
+  background-color: var(--background-color);
+}
+
+button.expandTab {
+  z-index: 2;
+  border-radius: 10px 10px 0 0 !important;
+  width: fit-content;
+  height: var(--tab-height);
+  margin-inline: auto;
+  display: flex;
+  gap: 5px;
+  padding-inline: 10px;
+  justify-content: center;
+  background-color: var(--background-color);
+  outline: var(--outline);
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+/* Cover up the bottom border to make tab appear to pop out of the contents */
+button.expandTab::after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 3px;
+  bottom: -2px;
+  background-color: var(--background-color);
+}
+
+.logsContents {
+  z-index: 1;
+  border: var(--outline);
+  height: calc(100% - var(--tab-height));
+  padding: var(--logs-padding);
+  position: relative;
+}
+
+.clearLogsButton {
+  outline: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+p.logLine {
+  font-family: var(--mono-fonts);
+  font-size: var(--logs-font-size);
+  margin: 0;
+}
+
+.noLogsMsg {
+  opacity: 0.8;
+  height: 100%;
+  text-align: center;
+  font-size: 1rem;
+}
+/* 
+.clearLogsButton {
+  display: none;
+  height: 100%;
+} */
+
+/* .expandedLogs .clearLogsButton {
+  display: block;
+} */
+
+.expandedLogs .logsContents {
+  overflow: auto;
+}
+
+.expandLogsButton {
+  flex-grow: 1;
+  text-align: center;
+  font-size: calc(var(--logs-font-size) * 1.3);
+  height: 100%;
+}
+
+.unseenLogsNotification {
+  color: var(--red);
+  right: 0;
+  opacity: 0;
+  font-size: 9px;
+}
+.unseenLogsNotification[data-show="true"] {
+  opacity: 1;
+  animation-duration: 2s;
+  animation-name: slidein;
+  animation-iteration-count: 3;
+  animation-timing-function: ease-in-out;
+  transition: opacity 1s;
+}
+
+@keyframes slidein {
+  from {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.5);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}

@@ -1,0 +1,42 @@
+.fakeApp {
+  display: grid;
+  place-content: center;
+  font-size: 4rem;
+}
+
+.fakeDashboard {
+  display: grid;
+  gap: 5px;
+  grid:
+    "header   header" 100px
+    "sidebar  top   " 2fr
+    "sidebar  bottom" 1fr
+    / 150px 1fr;
+}
+
+.fakeDashboard > div {
+  width: 100%;
+  height: 100%;
+}
+
+.fakeDashboard > .header {
+  grid-area: header;
+  background-color: hsl(288 59% 58% / 0.7);
+  display: grid;
+  place-content: center;
+}
+.header > h1 {
+  color: white;
+}
+.fakeDashboard > .sidebar {
+  grid-area: sidebar;
+  background-color: hsl(30 59% 53% / 0.7);
+}
+.fakeDashboard > .top {
+  grid-area: top;
+  background-color: hsl(120 61% 34% / 0.7);
+}
+.fakeDashboard > .bottom {
+  grid-area: bottom;
+  background-color: hsl(207 44% 49% / 0.7);
+}

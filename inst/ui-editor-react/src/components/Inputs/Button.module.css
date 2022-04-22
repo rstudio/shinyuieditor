@@ -14,6 +14,7 @@
   align-self: center;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 4px;
 }
 
@@ -37,4 +38,9 @@
   place-content: center;
   padding: 8px;
   aspect-ratio: 1;
+}
+
+.icon > svg {
+  /* This helps the inline displayed icons to be centered in their container */
+  margin-bottom: -2px;
 }

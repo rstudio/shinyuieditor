@@ -1,6 +1,32 @@
-# Shiny Visual Editor
+# Shiny Visual UI Editor
 
-A GUI for laying out a Shiny application that generates clean and editable UI code.
+A GUI for laying out a Shiny application that generates clean and human-readable UI code.
+
+## Quick Start
+
+### Pre-reqs
+
+- Two-file shiny app (or at least willingness to use the two file format)
+
+### Installing
+
+While in development the package is only available on github:
+
+```r
+install.packages("pak")
+pak::pkg_install('rstudio/Shiny-Visual-Editor')
+```
+
+ℹ️ _You may need to setup your github PAT to access as the repo is still private. However, if you're reading this, you have access. To set this up run `usethis::create_github_token()` in the terminal and follow the prompts._
+
+### Running
+
+Assuming theres an existing `ui.R` and `server.R` in the folder `existing-app/` relative to your current working directly (`getwd()`), then you start the ui-editor on that app by running the following code and pasting the returned link into your web-browser.
+
+```r
+ShinyUiEditor::launch_editor(app_loc = "existing-app/")
+#> Live editor running at http://localhost:44509/app
+```
 
 ---
 

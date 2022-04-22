@@ -8,6 +8,7 @@
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  background-color: var(--light-grey);
 }
 
 .container .label {

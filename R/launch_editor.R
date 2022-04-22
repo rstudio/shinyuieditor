@@ -5,9 +5,9 @@
 #'
 #'
 #' ## Stopping server When running with `run_in_background = TRUE`, it's
-#' recomended you use the `$stop()` function in the returned list object instead
-#' of the build in `$stop()` function on the returned `$server` object as this
-#' will ensure the running Shiny app preview will also shutdown.
+#' recommended you use the `$stop()` function in the returned list object
+#' instead of the build in `$stop()` function on the returned `$server` object
+#' as this will ensure the running Shiny app preview will also shutdown.
 #'
 #' @inheritParams httpuv::startServer
 #' @param app_loc Path to directory containing Shiny app to be visually edited.
@@ -20,6 +20,8 @@
 #'   and auto-show updates made? You may want to disable this if the app has
 #'   long-running or processor intensive initialization steps.
 #' @param show_logs Print status messages to the console? For debugging.
+#' @param show_preview_app_logs Should the logged output of the app preview be
+#'   printed? Useful for debugging an app that's not working properly.
 #' @param run_in_background Should the app run in a background process or block
 #'   the console? See `?httpuv::startServer()` vs `?httpuv::runServer()`. Note
 #'   that this potentially will result in orphaned Shiny processes because
@@ -37,10 +39,13 @@ launch_editor <- function(app_loc,
                           shiny_background_port = httpuv::randomPort(),
                           app_preview = TRUE,
                           show_logs = TRUE,
+                          show_preview_app_logs = TRUE,
                           run_in_background = FALSE) {
-  writeLog <- function(msg) {
+
+  writeLog <- function(...) {
     if (show_logs) {
-      cat(msg, "\n")
+      # TODO: Move these to standard error as they are meant for human consumption
+      cat(..., "\n", file = stderr())
     }
   }
 
@@ -54,65 +59,67 @@ launch_editor <- function(app_loc,
     fs::dir_copy(template_loc, app_loc)
   }
 
+  # Make sure the ui is actually valid
+  tryCatch({
+    source(get_app_ui_file(app_loc))
+  }, error = function(e){
+    cat(crayon::red("Failed to start app editor: app UI definition invalid: \n"))
+    stop(e)
+  })
+
+
   # Logic for starting up Shiny app in background and returning the app URL.
   # Will only start up the app once
 
   # Gets replaced with list containing callR R6 object and url of app after
   # first call of get_running_app
-  shiny_background_process <- NULL
+  # shiny_background_process <- NULL
+  writeLog("=> Starting Shiny preview app...")
+  preview_app <- start_background_shiny_app(
+    app_loc = app_loc,
+    port = shiny_background_port,
+    host = host,
+    writeLog = writeLog,
+    show_preview_app_logs = show_preview_app_logs
+  )
 
-  # Getter for app running in background that will lazily launch the app.
-  get_running_app_location <- function() {
-    if (identical(app_preview, FALSE)) {
-      return("no-preview")
-    }
+  failure_to_start_check <- preview_app$on_crash(function(is_dead) {
+    stop("Failed to start up shiny app. Check logs for more info:")
+  })
 
-    if (is.null(shiny_background_process)) {
-      writeLog("=> No running shiny app... starting up first...")
+  app_is_ready_check <- preview_app$on_ready(function(app_ready){
 
-      shiny_background_process <<- start_shiny_in_background(
-        app_loc = app_loc,
-        port = shiny_background_port,
-        host = host
-      )
+    writeLog("~~~~App Ready~~~~~\n")
+    failure_to_start_check()
 
-      writeLog(paste("=> ...Shiny app running in background: PID =", shiny_background_process$process$get_pid()))
-    }
+    # Once we get the ready signal, turn off the subscription
+    app_is_ready_check()
+  })
 
-    writeLog("=> Sending over location of running Shiny App")
-    shiny_background_process$url
-  }
 
+  writeLog("=> ...Shiny app running in background")
 
   # Cleanup on closing of the server... This should be be ignored when we're
   # running in the background, however, otherwise it will kill the shiny server
   # immediately (if it's started immediately).
   cleanup_on_end <- function() {
-    if (run_in_background) {
-      return()
-    }
-    if (!is.null(shiny_background_process)) {
-      writeLog("=> Shutting down running shiny app...")
-
-      tryCatch(
-        {
-          shiny_background_process$process$interrupt()
-        },
-        error = function(e) {
-          print("Error shutting down background Shiny app:")
-          print(e)
-        }
-      )
-    }
+    # Stop all the event listeners
+    preview_app$cleanup()
   }
 
   on.exit({
+    if (run_in_background) {
+      return()
+    }
     cleanup_on_end()
   })
 
   # This needs to go before we actually start the server in case we're running
   # in blocking mode, which would prevent anything after from ever being run
-  cat(paste0("Live editor running at http://localhost:", port, "/app\n"))
+  loaded_msg <- ascii_box(
+    paste0("Live editor running at http://localhost:", port, "/app")
+  )
+  cat(crayon::bold(loaded_msg))
 
   startup_fn <- if (run_in_background) httpuv::startServer else httpuv::runServer
 
@@ -133,9 +140,6 @@ launch_editor <- function(app_loc,
           "/app-please" = function(body) {
             writeLog("=> Parsing app blob and sending to client")
             json_response(get_ui_from_file(app_loc))
-          },
-          "/shiny-app-location" = function(body) {
-            json_response(get_running_app_location())
           }
         ),
         "POST" = list(
@@ -156,6 +160,39 @@ launch_editor <- function(app_loc,
           }
         )
       )),
+      onWSOpen = function(ws) {
+        # The ws object is a WebSocket object
+        cat("Server connection opened.\n")
+
+        msg_when_ready(preview_app, ws)
+        msg_app_logs(preview_app, ws)
+
+        listen_for_crash(preview_app, ws)
+
+        ws$onMessage(function(binary, message) {
+
+          cat("Server received message:", message, "\n")
+
+          # TODO: This logic needs some work as it only successfully restarts
+          # one time then complains of reused TCP addresses
+
+          if(message == "RESTART_PREVIEW"){
+            cat("Triggering Restart\n")
+            preview_app$restart()
+
+            Sys.sleep(1)
+            writeLog("Restarted app, listening for ready and new crashes...\n")
+            msg_when_ready(preview_app, ws)
+            listen_for_crash(preview_app, ws, 'restart')
+
+          }
+        })
+
+        ws$onClose(function() {
+          cat("Server connection closed.\n")
+        })
+
+      },
       staticPaths = list(
         "/app" = httpuv::staticPath(
           PATH_TO_REACT_APP,
@@ -176,32 +213,64 @@ launch_editor <- function(app_loc,
   )
 }
 
-start_shiny_in_background <- function(app_loc, host, port) {
-  p <- callr::r_bg(
-    func = function(app_loc, host, port) {
-      # Turn on live-reload and dev mode
-      shiny::devmode(TRUE)
-      options(shiny.autoreload = TRUE)
-      shiny::runApp(app_loc, port = port, host = host)
-    },
-    args = list(app_loc, host, port),
-    supervise = TRUE # Extra security for process being cleaned up properly
-  )
 
-  # Give the app a tiny bit to spin up
-  Sys.sleep(1)
+msg_when_ready <- function(preview_app, ws){
 
-  path_to_app <- if (host == "0.0.0.0") {
-    # Don't use 0.0.0.0 directly as browsers don't give it a free pass for lack
-    # of SSL like they do localhost and 127.0.0.1
-    "127.0.0.1"
-  } else {
-    host
-  }
+  listen_for_ready <- preview_app$on_ready(function(app_ready){
 
-  list(
-    url = paste0("http://", path_to_app, ":", port),
-    process = p
+    ws$send(
+      build_ws_message(
+        "SHINY_READY",
+        payload = preview_app$url
+      )
+    )
+
+    # Once we get the ready signal, turn off the subscription
+    listen_for_ready()
+  })
+}
+
+msg_app_logs <- function(preview_app, ws){
+  preview_app$on_log(function(log_lines){
+    ws$send(
+      build_ws_message(
+        "SHINY_LOGS",
+        payload = log_lines
+      )
+    )
+  })
+}
+
+
+listen_for_crash <- function(preview_app, ws, id = 1){
+  on_crash <- preview_app$on_crash(function(is_alive){
+    cat(crayon::bgCyan("Crash detected id=",id,"\n"))
+
+    ws$send(
+      build_ws_message(
+        "SHINY_CRASH",
+        payload = "uh-oh"
+      )
+    )
+    on_crash()
+  })
+}
+
+build_ws_message <- function(type, payload){
+  jsonlite::toJSON(list(
+    msg = type,
+    payload = payload
+  ), auto_unbox = TRUE)
+}
+
+
+log_background_app <- function(lines){
+  cat(
+    paste0(
+      crayon::bold$magenta("Logs from preview app:\n"),
+      crayon::magenta(paste(lines, collapse = "\n")),
+      "\n"
+    )
   )
 }
 
@@ -222,13 +291,24 @@ get_app_ui_file <- function(app_loc) {
   plain_ui_file
 }
 
+
+
 get_ui_from_file <- function(app_loc) {
   ui_defn_text <- paste(readLines(get_app_ui_file(app_loc)), collapse = "\n")
   ui_expr <- rlang::parse_exprs(ui_defn_text)[[1]]
-  ui_expr %>%
-    parse_ui_fn() %>%
+  ui_expr |>
+    parse_ui_fn() |>
     update_ui_nodes()
 }
+
+get_ui_from_file <- function(app_loc) {
+  ui_defn_text <- paste(readLines(get_app_ui_file(app_loc)), collapse = "\n")
+  ui_expr <- rlang::parse_exprs(ui_defn_text)[[1]]
+  ui_expr |>
+    parse_ui_fn() |>
+    update_ui_nodes()
+}
+
 
 save_ui_to_file <- function(ui_string, app_loc) {
   writeLines(

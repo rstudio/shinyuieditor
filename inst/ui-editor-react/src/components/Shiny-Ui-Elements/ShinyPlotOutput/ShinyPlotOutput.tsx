@@ -29,7 +29,6 @@ const ShinyPlotOutput: UiNodeComponent<ShinyPlotOutputProps> = ({
       ? 100
       : Math.min(containerDimensions.width, containerDimensions.height);
 
-  console.log("Dimensions of plot " + outputId, containerDimensions);
   return (
     <div
       className={classes.container}

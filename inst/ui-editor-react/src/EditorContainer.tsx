@@ -13,6 +13,7 @@ import { sendUiStateToBackend } from "state/sendUiStateToBackend";
 import type { RootState } from "state/store";
 import { backupUiTree, INIT_STATE } from "state/uiTree";
 
+import { AppTour } from "./AppTour";
 import { UndoRedoButtons } from "./components/UndoRedoButtons";
 import classes from "./EditorContainer.module.css";
 import { SettingsPanel } from "./SettingsPanel/SettingsPanel";
@@ -50,19 +51,26 @@ function EditorContainerWithData({
               alt="Shiny Logo"
             />
           </div>
+          <AppTour />
           <UndoRedoButtons />
         </div>
-        <div className={`${classes.elementsPanel} ${classes.titledPanel}`}>
+        <div
+          className={`${classes.elementsPanel} ${classes.titledPanel} elements-panel`}
+        >
           <h3>Elements</h3>
           <ElementsPalette />
         </div>
-        <div className={classes.editorHolder}>
+        <div className={classes.editorHolder + " app-view"}>
           <UiNode {...tree} />
         </div>
-        <div className={`${classes.propertiesPanel} ${classes.titledPanel}`}>
-          <h3>Properties</h3>
-          <SettingsPanel tree={tree} />
-          <AppPreview />
+        <div className={`${classes.propertiesPanel}`}>
+          <div className={`${classes.titledPanel} properties-panel`}>
+            <h3>Properties</h3>
+            <SettingsPanel tree={tree} />
+          </div>
+          <div className={`${classes.titledPanel} app-preview`}>
+            <AppPreview />
+          </div>
         </div>
       </div>
     </CurrentDraggedNodeProvider>

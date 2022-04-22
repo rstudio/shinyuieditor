@@ -25,13 +25,14 @@ input[type="range"].sliderInput {
   border-radius: var(--tract-thickness);
 }
 
+/* The handle */
 input[type="range"].sliderInput::-webkit-slider-thumb {
   -webkit-appearance: none; /* Override default look */
   appearance: none;
   width: var(--handle-diameter);
   height: var(--handle-diameter);
   border-radius: 50%;
-  background: var(--handle-color); /* Green background */
+  background: var(--handle-color);
   outline: var(--handle-outline);
   cursor: pointer; /* Cursor on hover */
 }

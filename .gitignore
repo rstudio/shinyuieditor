@@ -8,3 +8,5 @@ dist-ssr
 R/.Rhistory
 
 R/webapp/ui.R
+
+.Rhistory

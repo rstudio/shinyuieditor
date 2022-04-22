@@ -88,6 +88,7 @@ export function TextInput({
           placeholder={placeholder}
           onChange={(x) => onNewValue({ name, value: x })}
           autoFocus={autoFocus}
+          disabled={isDisabled}
         />
       }
     />
