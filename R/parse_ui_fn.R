@@ -37,7 +37,7 @@
 #' )
 #' lobstr::tree(parse_ui_fn(app_expr))
 #'
-parse_ui_fn <- function(ui_node_expr) {
+parse_ui_fn <- function(ui_node_expr, env = rlang::caller_env()) {
 
   if (!can_parse_ui_expr(ui_node_expr)) {
     return(
@@ -52,7 +52,7 @@ parse_ui_fn <- function(ui_node_expr) {
 
   # Fill in all the names of unnamed arguments
   ui_node_expr <- tryCatch({
-    rlang::call_standardise(ui_node_expr)
+    rlang::call_standardise(ui_node_expr, env=env)
   }, error = function(e){
     stop(
       paste0(
@@ -88,7 +88,7 @@ parse_ui_fn <- function(ui_node_expr) {
 
     is_child_node <- arg_name == ""
     if (is_child_node){
-      parsed$uiChildren <- parsed$uiChildren |> append(list(parse_ui_fn(arg_val)))
+      parsed$uiChildren <- parsed$uiChildren |> append(list(parse_ui_fn(arg_val, env=env)))
     } else {
       parsed$uiArguments[[arg_name]] <- parse_argument(arg_val)
     }

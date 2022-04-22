@@ -4,7 +4,7 @@
 \alias{parse_ui_fn}
 \title{Parse UI function node}
 \usage{
-parse_ui_fn(ui_node_expr)
+parse_ui_fn(ui_node_expr, env = rlang::caller_env())
 }
 \arguments{
 \item{ui_node_expr}{A language object representing the call of a known Shiny UI function.}
