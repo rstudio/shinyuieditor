@@ -9,8 +9,6 @@
 
 .node {
   --pad: 5px;
-  font-family: var(--mono-fonts);
-  font-size: 1.02rem;
   padding: var(--pad);
   width: fit-content;
   max-width: 100%;

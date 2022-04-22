@@ -2,6 +2,7 @@ import type {
   NodePath,
   ShinyUiNode,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
+import { shinyUiNodeInfo } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { getNode } from "components/UiNode/TreeManipulation/getNode";
 
 import classes from "./PathBreadcrumb.module.css";
@@ -24,7 +25,8 @@ export default function PathBreadcrumb({
       // render breadcrumb
       return null;
     }
-    pathString.push(nodeAtDepth.uiName);
+
+    pathString.push(shinyUiNodeInfo[nodeAtDepth.uiName].title);
   }
 
   return (
