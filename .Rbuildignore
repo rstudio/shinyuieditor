@@ -1,8 +1,5 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^inst\/ui-editor-react\/[^build]+$
-node_modules$
-^inst/ui-editor-react/node_modules$
-^inst/ui-editor-react/cypress$
-^inst/ui-editor-react/src$
-^inst/ui-editor-react/public$
+^inst\/ui\-editor\-react\/(?!build).+$
+^scratch$
+^LICENSE\.md$
