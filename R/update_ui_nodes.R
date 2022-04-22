@@ -1,8 +1,11 @@
 
 update_gridlayout <- function(gridlayout_node){
+
   if (gridlayout_node$uiName != "gridlayout::grid_page") {
     return(gridlayout_node)
   }
+
+  requireNamespace("gridlayout", quietly = TRUE)
 
   # Start by setting up the layout settings object
   layout_obj <- gridlayout::new_gridlayout(layout_def = gridlayout_node$uiArguments$layout)

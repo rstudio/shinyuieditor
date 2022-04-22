@@ -27,6 +27,8 @@ simplify_gridlayout_args <- function(node){
     return(node)
   }
 
+  requireNamespace("gridlayout", quietly = TRUE)
+
   areas <- node$uiArguments$areas
   rowSizes <- node$uiArguments$rowSizes
   colSizes <- node$uiArguments$colSizes
