@@ -1,5 +1,11 @@
 import React from "react";
 
+import { useDispatch } from "react-redux";
+import {
+  DISCONNECTED_FROM_SERVER,
+  useSetDisconnectedFromServer,
+} from "state/connectedToServer";
+
 export type AppLogs = string[];
 
 type WS_MSG =
@@ -44,6 +50,7 @@ type CommunicationState = CommonState &
   (LoadingState | SuccessState | ErrorState | CrashState);
 
 export function useCommunicateWithWebsocket(): CommunicationState {
+  const set_disconnected = useSetDisconnectedFromServer();
   const [appLoc, setAppLoc] = React.useState<string | null>(null);
   const [appLogs, setAppLogs] = React.useState<AppLogs>([]);
   const [error, setError] = React.useState<string | null>(null);
@@ -101,10 +108,16 @@ export function useCommunicateWithWebsocket(): CommunicationState {
       }
     };
 
+    ws.onclose = (event) => {
+      // Let state know that we've lost connection so we can alert the user
+      console.error("Lost connection to backend.");
+      set_disconnected();
+    };
+
     return () => {
       ws.close();
     };
-  }, []);
+  }, [set_disconnected]);
 
   const state: CommonState = {
     appLogs,
