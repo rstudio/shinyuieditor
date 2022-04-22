@@ -38,6 +38,7 @@ test_that("Unknown functions are preserved through the parsing and deparsing ste
   custom_widget_fn <- function(inputId, width){
     shiny::h1("Custom Widget")
   }
+
   original_expression <- rlang::expr(
     gridlayout::vertical_stack_panel(
       area = "plot",

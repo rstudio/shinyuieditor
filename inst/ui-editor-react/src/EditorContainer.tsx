@@ -7,6 +7,7 @@ import type { ShinyUiNode } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import UiNode from "components/UiNode";
 import { CurrentDraggedNodeProvider } from "DragAndDropHelpers/useCurrentDraggedNode";
 import ElementsPalette from "ElementsPalette";
+import PortalModal from "PortalModal";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetInitialStateQuery } from "state/getInitialState";
 import { sendUiStateToBackend } from "state/sendUiStateToBackend";
@@ -28,6 +29,9 @@ function EditorContainerWithData({
   const dispatch = useDispatch();
 
   const tree = useSelector((state: RootState) => state.uiTree);
+  const connectedToServer = useSelector(
+    (state: RootState) => state.connectedToServer
+  );
 
   React.useEffect(() => {
     if (!initialState) return;
@@ -73,7 +77,28 @@ function EditorContainerWithData({
           </div>
         </div>
       </div>
+      <LostConnectionPopup />
     </CurrentDraggedNodeProvider>
+  );
+}
+
+function LostConnectionPopup() {
+  const connectedToServer = useSelector(
+    (state: RootState) => state.connectedToServer
+  );
+
+  if (connectedToServer) return null;
+
+  return (
+    <PortalModal
+      onConfirm={() => console.log("User confirmed")}
+      onCancel={() => console.log("user canceled")}
+    >
+      <p style={{ color: "var(--red, pink)", textAlign: "center" }}>
+        Lost connection to backend. Check console where editor was launched for
+        details.
+      </p>
+    </PortalModal>
   );
 }
 
