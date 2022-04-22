@@ -61,19 +61,10 @@ If the UI is confusing, there's a tour mode that walks you through the various c
   - [x] Finish the EpicReactDev course
   - [x] Get to desired feature parity with GridEd
   - [x] Setup test suite
-- [ ] MVP demo stage
-  - [ ] Backend
-    - [ ] Build a parser of simple Shiny UI code to some IR
-    - [ ] Writer to go from IR -> Shiny UI code (first R then python).
-  - [ ] Frontend
-    - [ ] Add a staging area for un-placed items in the app
-    - [ ] Add injestion of IR to visual editor
-      - [x] Add a `ShinyElement` component that knows how to draw itself based on item metadata like UI function type etc.
-    - [x] Ability to translate visual editor state to valid IR
-- [ ] Hook up live apps to editor
-- [ ] Decide feature bounds of application
-- [ ] Mockup design of full visual editor (identifying feature phases)
-- [ ] Implement design of feature phase 1
+- [x] MVP demo stage
+- [x] Hook up live apps to editor
+- [x] Decide feature bounds of application
+- [x] Implement design of feature phase 1
 - [ ] Dogfood for a series of apps to work out major bugs/ poor ergonomics
 - [ ] Implement phase 2 design
 - [ ] Release
