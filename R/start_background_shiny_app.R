@@ -108,6 +108,8 @@ start_background_shiny_app <- function(app_loc, host, port, writeLog, show_previ
 #' @param filter_fn Optional function returning boolean that can be used to skip
 #'   invoking all the subscribed functions on a given loop.
 #' @param delay How frequently to poll `source_fn`.
+#' @param callbacks `Shiny:::Callbacks` R6 class containing all subscriptions.
+#'   Created automatically if not supplied.
 #'
 #' @return A list with two callbacks attached: `$subscribe()` which will add a
 #'   new callback to the subscription queue that takes as its input the output
