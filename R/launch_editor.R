@@ -116,7 +116,10 @@ launch_editor <- function(app_loc,
 
   # This needs to go before we actually start the server in case we're running
   # in blocking mode, which would prevent anything after from ever being run
-  cat(paste0("Live editor running at http://localhost:", port, "/app\n"))
+  loaded_msg <- ascii_box(
+    paste0("Live editor running at http://localhost:", port, "/app")
+  )
+  cat(crayon::bold(loaded_msg))
 
   startup_fn <- if (run_in_background) httpuv::startServer else httpuv::runServer
 
