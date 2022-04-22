@@ -1,14 +1,11 @@
 {
   "files": {
     "main.css": "/app/static/css/main.3e8b051e.css",
-    "main.js": "/app/static/js/main.dc5bdbe6.js",
+    "main.js": "/app/static/js/main.0a347fa7.js",
     "static/js/138.53a8f42f.chunk.js": "/app/static/js/138.53a8f42f.chunk.js",
     "static/media/Shiny-Logo.png": "/app/static/media/Shiny-Logo.2fd8063bbe2c9673b39f.png",
     "static/media/RStudio-Logo.svg": "/app/static/media/RStudio-Logo.svg",
     "index.html": "/app/index.html"
   },
-  "entrypoints": [
-    "static/css/main.3e8b051e.css",
-    "static/js/main.dc5bdbe6.js"
-  ]
+  "entrypoints": ["static/css/main.3e8b051e.css", "static/js/main.0a347fa7.js"]
 }
