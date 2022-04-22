@@ -42,6 +42,18 @@ _In the future more starting templates will be offered, however, currently only 
 
 ---
 
+### Using
+
+Once you're in the editor, any changes you make will automatically be written to your app's UI and the changes can be seen in real-time with the "App Preview" window.
+
+### Finishing
+
+When you're done, simply close the browswer window and stop the editor preview process in R. Since all changes are eagerly applied there's no need to save.
+
+## Getting help
+
+If the UI is confusing, there's a tour mode that walks you through the various components of the Ui Editor. Simple click the button titled "Tour App" to enter the tour mode.
+
 # Roadmap
 
 - [x] Recreate (most) features of the GridEd layout editor in Preact as proof of concept
