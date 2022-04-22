@@ -14,7 +14,7 @@ update_gridlayout <- function(gridlayout_node){
     rowSizes= layout_obj$layout$row_sizes,
     colSizes= layout_obj$layout$col_sizes,
     gapSize = layout_obj$layout$gap,
-    areas = gridlayout:::to_matrix(layout_obj)
+    areas = gridlayout::to_matrix(layout_obj)
   )
 
   gridlayout_node
