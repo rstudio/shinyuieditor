@@ -184,7 +184,11 @@ launch_editor <- function(app_loc,
             writeLog("Restarted app, listening for ready and new crashes...\n")
             msg_when_ready(preview_app, ws)
             listen_for_crash(preview_app, ws, 'restart')
+          }
 
+          if(message == "STOP_PREVIEW"){
+            cat("Triggering STOP\n")
+            preview_app$stop()
           }
         })
 

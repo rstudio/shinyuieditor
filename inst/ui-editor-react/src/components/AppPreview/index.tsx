@@ -61,7 +61,7 @@ export default function AppPreview() {
             >
               <VscDebugRestart />
             </Button>
-            <Button
+            {/* <Button
               style={{
                 position: "absolute",
                 right: 0,
@@ -72,7 +72,7 @@ export default function AppPreview() {
               onClick={stopApp}
             >
               stop
-            </Button>
+            </Button> */}
             <div className={classes.appContainer}>
               {status === "error" ? (
                 <FakeDashboard />

@@ -16,6 +16,7 @@ type CommonState = {
   appLogs: AppLogs;
   clearLogs: () => void;
   restartApp: () => void;
+  stopApp: () => void;
 };
 
 type LoadingState = {
@@ -55,6 +56,9 @@ export function useCommunicateWithWebsocket(): CommunicationState {
   const [restartApp, setRestartApp] = React.useState<() => void>(() =>
     console.log("No app running to reset")
   );
+  const [stopApp, setStopApp] = React.useState<() => void>(() =>
+    console.log("No app running to stop")
+  );
 
   const clearLogs = React.useCallback(() => {
     setAppLogs([]);
@@ -63,7 +67,10 @@ export function useCommunicateWithWebsocket(): CommunicationState {
   React.useEffect(() => {
     if (!document.location.host) return;
 
-    // const websocket_location = `ws://${document.location.host}`;
+    // TODO: This needs to be switched to between the build and dev environments
+    // because the dev-server proxy doesn't do websockets const
+
+    // websocket_location = `ws://${document.location.host}`;
     const websocket_location = `ws://localhost:8888`;
 
     console.log("Attempting to connect to websocket at " + websocket_location);
@@ -78,6 +85,7 @@ export function useCommunicateWithWebsocket(): CommunicationState {
       console.log("Websocket successfully opened with httpuv");
 
       setRestartApp(() => () => ws.send("RESTART_PREVIEW"));
+      setStopApp(() => () => ws.send("STOP_PREVIEW"));
       ws.send("Hi from AppPreview");
     };
 
@@ -119,6 +127,7 @@ export function useCommunicateWithWebsocket(): CommunicationState {
     appLogs,
     clearLogs,
     restartApp,
+    stopApp,
   };
 
   if (error) {

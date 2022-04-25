@@ -73,7 +73,8 @@ start_background_shiny_app <- function(app_loc, host, port, writeLog, show_previ
       {
         writeLog("=> Shutting down running shiny app...")
         # tools::SIGINT = 2
-        p$signal(2L)
+        # tools::SIGTERM = 15
+        p$signal(15L)
       },
       error = function(e) {
         writeLog("Error shutting down background Shiny app:")
@@ -96,7 +97,8 @@ start_background_shiny_app <- function(app_loc, host, port, writeLog, show_previ
     on_log = on_log$subscribe,
     on_crash = on_crash$subscribe,
     cleanup = cleanup,
-    restart = restart
+    restart = restart,
+    stop = stop_app
   )
 }
 
