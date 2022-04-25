@@ -81,6 +81,7 @@ function DropWatcherPanel({
         "gridlayout::grid_page",
         "gridlayout::grid_panel",
         "gridlayout::title_panel",
+        "gridlayout::text_panel",
         "gridlayout::vertical_stack_panel",
       ],
     },
