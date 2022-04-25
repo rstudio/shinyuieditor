@@ -15,7 +15,7 @@ While in development the package is only available on github:
 ```r
 install.packages("pak")
 pak::pkg_install('rstudio/Shiny-Visual-Editor')
-pak::pkg_install('rstudio/gridlayout)
+pak::pkg_install('rstudio/gridlayout')
 ```
 
 ℹ️ _You may need to setup your github PAT to access as the repo is still private. However, if you're reading this, you have access. To set this up run `usethis::create_github_token()` in the terminal and follow the prompts._
