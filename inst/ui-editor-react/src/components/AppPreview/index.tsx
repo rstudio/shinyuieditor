@@ -18,7 +18,7 @@ export default function AppPreview() {
     setIsFullScreen((currentlyFullScreen) => !currentlyFullScreen);
   }, []);
 
-  const { status, appLoc, appLogs, clearLogs, restartApp } =
+  const { status, appLoc, appLogs, clearLogs, restartApp, stopApp } =
     useCommunicateWithWebsocket();
 
   const previewScale = usePreviewScale();
@@ -60,6 +60,18 @@ export default function AppPreview() {
               onClick={reloadApp}
             >
               <VscDebugRestart />
+            </Button>
+            <Button
+              style={{
+                position: "absolute",
+                right: 0,
+                top: 0,
+              }}
+              className={classes.stopButton}
+              // title="Reload app session"
+              onClick={stopApp}
+            >
+              stop
             </Button>
             <div className={classes.appContainer}>
               {status === "error" ? (
