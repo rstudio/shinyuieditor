@@ -48,6 +48,11 @@ export function useMakeDraggable(
   );
 
   React.useEffect(() => {
+    if (nodeInfo.currentPath?.length === 0) {
+      // Don't let the root node be dragged. It can't go anywhere and causes
+      // super annoying visual shift
+      return;
+    }
     const watcherEl = watcherRef.current;
     if (!watcherEl) return;
 
@@ -62,7 +67,7 @@ export function useMakeDraggable(
       watcherEl.removeEventListener("dragstart", startDrag);
       watcherEl.removeEventListener("dragend", endDrag);
     };
-  }, [endDrag, startDrag, watcherRef]);
+  }, [endDrag, nodeInfo.currentPath, startDrag, watcherRef]);
 }
 
 // This is just needed to let the drop event fire
