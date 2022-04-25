@@ -12,7 +12,7 @@ export const GridlayoutTitlePanelSettings: SettingsUpdaterComponent<
   return (
     <>
       <TextInput
-        name="Grid-Area"
+        name="area"
         label="Name of grid area"
         value={settings.area ?? "empty grid area"}
       />
