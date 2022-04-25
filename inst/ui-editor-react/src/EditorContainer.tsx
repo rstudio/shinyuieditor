@@ -47,8 +47,7 @@ function EditorContainerWithData({
       <div className={classes.container}>
         <div className={classes.header}>
           <div className={classes.leftSide}>
-            <h1 className={classes.title}>Shiny Visual Editor</h1>
-            <img src={rstudioLogo} alt="RStudio Logo" />
+            <h1 className={classes.title}>Shiny UI Editor</h1>
             <img
               src={shinyLogo}
               style={{ backgroundColor: "var(--rstudio-blue, pink)" }}
