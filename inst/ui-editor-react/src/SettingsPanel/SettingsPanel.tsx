@@ -42,16 +42,15 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
   return (
     <div className={classes.settingsPanel + " properties-panel"}>
       <div className={classes.currentElementAbout}>
-        <div>
-          <strong>Path:</strong>
-          <PathBreadcrumb
-            tree={tree}
-            path={selectedPath}
-            onSelect={setNodeSelection}
-          />
-        </div>
+        <strong>Position:</strong>
+        <PathBreadcrumb
+          tree={tree}
+          path={selectedPath}
+          onSelect={setNodeSelection}
+        />
       </div>
       <div className={classes.settingsForm}>
+        <strong>Settings:</strong>
         <form onSubmit={handleSubmit}>
           <SettingsUpdateContext onChange={updateArgumentsByName}>
             <SettingsInputs settings={uiArguments} />
@@ -73,14 +72,16 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
       </div>
 
       {!isRootNode ? (
-        <Button
-          className={classes.deleteButton}
-          onClick={() => deleteNode()}
-          variant="delete"
-          aria-label="Delete Node"
-        >
-          <TrashIcon /> Delete Element
-        </Button>
+        <div className={classes.deleteHolder}>
+          <Button
+            className={classes.deleteButton}
+            onClick={() => deleteNode()}
+            variant="delete"
+            aria-label="Delete Node"
+          >
+            <TrashIcon /> Delete Element
+          </Button>
+        </div>
       ) : null}
     </div>
   );
