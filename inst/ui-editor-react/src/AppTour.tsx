@@ -22,7 +22,7 @@ export const joyrideSteps: Step[] = [
   {
     target: ".properties-panel",
     content:
-      "After selecting an element in your app, the you can adjust the settings for that element in the properties pane",
+      "After selecting an element in your app, you can adjust the settings for that element in the properties pane",
     placement: "left-start",
   },
   {
