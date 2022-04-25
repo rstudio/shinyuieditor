@@ -51,6 +51,12 @@
   position: relative;
 }
 
+.editorHolder h1,
+.editorHolder h2,
+.editorHolder h3 {
+  letter-spacing: unset;
+}
+
 .titledPanel {
   --label-h: 40px;
   display: grid;
