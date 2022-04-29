@@ -298,9 +298,7 @@ get_app_ui_file <- function(app_loc) {
 get_ui_from_file <- function(app_loc) {
   ui_defn_text <- paste(readLines(get_app_ui_file(app_loc)), collapse = "\n")
   ui_expr <- rlang::parse_exprs(ui_defn_text)[[1]]
-  ui_expr |>
-    parse_ui_fn() |>
-    update_ui_nodes()
+  ui_code_to_tree(ui_expr)
 }
 
 
