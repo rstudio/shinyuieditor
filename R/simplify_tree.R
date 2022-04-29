@@ -34,39 +34,29 @@ simplify_gridlayout_args <- function(node){
   colSizes <- simplify2array(node$uiArguments$colSizes)
   gapSize <-  simplify2array(node$uiArguments$gapSize)
 
-  n_rows <- length(rowSizes)
-  n_cols <- length(colSizes)
 
-  layout_areas <- t(simplify2array(areas))
+  # Depending on the json parsing etc the areas, especially when a single row or
+  # column can get mangled. This function brings it back to the proper dimensions
+  shape_areas <- function(x){
+    matrix(x, nrow = length(rowSizes), ncol = length(colSizes))
+  }
 
-  # browser()
-  aligned_columns <- apply(layout_areas, FUN = function(x) format(gridlayout:::flatten(x), justify = "left"), MARGIN = 2)
+
+  # We need to flatten to an array here because when parsing the json jsonlite
+  # loves to build nested lists and we need to get to an array that can be
+  # coerced to a matrix
+  layout_areas <- shape_areas(t(simplify2array(areas)))
+
+  aligned_columns <- shape_areas(
+    apply(layout_areas, FUN = function(x) format(x, justify = "left"), MARGIN = 2)
+  )
 
   array_layout <- apply(
-    matrix(
-      aligned_columns,
-      nrow = n_rows,
-      ncol = n_cols
-    ),
+    aligned_columns,
     FUN = function(line) paste(line, collapse = " "),
-    MARGIN = 1L)
-  # array_layout <- apply(matrix(aligned_columns, nrow=length(aligned_columns)), FUN = function(line) paste(line, collapse = " "), MARGIN = 1L)
-#
-#   # Add border bars
-#   layout_table <- paste(
-#     apply(layout_areas,
-#           FUN = function(x) paste0("| ", paste(x, collapse=" | "), " |"),
-#           MARGIN = 1),
-#     collapse = "\n")
-#
-#   layout_arg <- gridlayout::to_md(
-#     gridlayout::new_gridlayout(
-#       layout_def = layout_table,
-#       col_sizes = simplify2array(colSizes),
-#       row_sizes = simplify2array(rowSizes),
-#       gap = gapSize
-#     )
-#   )
+    MARGIN = 1L
+  )
+
 
   # Replace the old verbose arguments with the single layout arg
   node$uiArguments$areas <- NULL
