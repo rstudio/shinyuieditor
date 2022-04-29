@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useGetInitialStateQuery } from "state/getInitialState";
 import { sendUiStateToBackend } from "state/sendUiStateToBackend";
 import type { RootState } from "state/store";
-import { backupUiTree, INIT_STATE } from "state/uiTree";
+import { backupUiTree, initialUiTree, INIT_STATE } from "state/uiTree";
 
 import { AppTour } from "./AppTour";
 import { UndoRedoButtons } from "./components/UndoRedoButtons";
@@ -39,6 +39,7 @@ function EditorContainerWithData({
   }, [dispatch, initialState]);
 
   React.useEffect(() => {
+    if (tree === initialUiTree) return;
     sendUiStateToBackend(tree);
   }, [tree]);
 
