@@ -30,35 +30,56 @@ simplify_gridlayout_args <- function(node){
   requireNamespace("gridlayout", quietly = TRUE)
 
   areas <- node$uiArguments$areas
-  rowSizes <- node$uiArguments$rowSizes
-  colSizes <- node$uiArguments$colSizes
-  gapSize <- node$uiArguments$gapSize
+  rowSizes <- simplify2array(node$uiArguments$rowSizes)
+  colSizes <- simplify2array(node$uiArguments$colSizes)
+  gapSize <-  simplify2array(node$uiArguments$gapSize)
+
+  n_rows <- length(rowSizes)
+  n_cols <- length(colSizes)
 
   layout_areas <- t(simplify2array(areas))
 
-  # Add border bars
-  layout_table <- paste(
-    apply(layout_areas,
-          FUN = function(x) paste0("| ", paste(x, collapse=" | "), " |"),
-          MARGIN = 1),
-    collapse = "\n")
+  # browser()
+  aligned_columns <- apply(layout_areas, FUN = function(x) format(gridlayout:::flatten(x), justify = "left"), MARGIN = 2)
 
-  layout_arg <- gridlayout::to_md(
-    gridlayout::new_gridlayout(
-      layout_def = layout_table,
-      col_sizes = simplify2array(colSizes),
-      row_sizes = simplify2array(rowSizes),
-      gap = gapSize
-    )
-  )
+  array_layout <- apply(
+    matrix(
+      aligned_columns,
+      nrow = n_rows,
+      ncol = n_cols
+    ),
+    FUN = function(line) paste(line, collapse = " "),
+    MARGIN = 1L)
+  # array_layout <- apply(matrix(aligned_columns, nrow=length(aligned_columns)), FUN = function(line) paste(line, collapse = " "), MARGIN = 1L)
+#
+#   # Add border bars
+#   layout_table <- paste(
+#     apply(layout_areas,
+#           FUN = function(x) paste0("| ", paste(x, collapse=" | "), " |"),
+#           MARGIN = 1),
+#     collapse = "\n")
+#
+#   layout_arg <- gridlayout::to_md(
+#     gridlayout::new_gridlayout(
+#       layout_def = layout_table,
+#       col_sizes = simplify2array(colSizes),
+#       row_sizes = simplify2array(rowSizes),
+#       gap = gapSize
+#     )
+#   )
 
   # Replace the old verbose arguments with the single layout arg
   node$uiArguments$areas <- NULL
   node$uiArguments$rowSizes <- NULL
   node$uiArguments$colSizes <- NULL
   node$uiArguments$gapSize <- NULL
+
   # Put layout on a new line so that the table lines up across lines
-  node$uiArguments$layout <- paste0("\n", layout_arg)
+  node$uiArguments$layout <- array_layout
+  node$uiArguments$row_sizes <- rowSizes
+  node$uiArguments$col_sizes <- colSizes
+  node$uiArguments$gap_size <- gapSize
+
 
   node
 }
