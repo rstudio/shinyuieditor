@@ -1,14 +1,19 @@
 gridlayout::grid_page(
-  layout = "
-| 1rem  | 250px   | 1fr    |
-|-------|---------|--------|
-| 100px | header  | header |
-| 1fr   | sidebar |  blue  |
-| 1fr   | sidebar |  plot  |",
-  gridlayout::title_panel(
-    title = "My App",
-    area = "header"
+  layout = c(
+    "header  header",
+    "sidebar blueplot",
+    "sidebar plot"
   ),
+  row_sizes = c(
+    "100px",
+    "1fr",
+    "1fr"
+  ),
+  col_sizes = c(
+    "250px",
+    "1fr"
+  ),
+  gap_size = "1rem",
   gridlayout::vertical_stack_panel(
     area = "sidebar",
     item_alignment = "center",
@@ -38,7 +43,7 @@ gridlayout::grid_page(
     )
   ),
   gridlayout::vertical_stack_panel(
-    area = "blue",
+    area = "blueplot",
     item_alignment = "center",
     item_gap = "12px",
     title = "Blue Plot",
@@ -47,5 +52,10 @@ gridlayout::grid_page(
       width = "100%",
       height = "400px"
     )
+  ),
+  gridlayout::text_panel(
+    content = "Text from Chooser",
+    h_align = "start",
+    area = "header"
   )
 )
