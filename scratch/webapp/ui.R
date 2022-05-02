@@ -2,10 +2,12 @@ gridlayout::grid_page(
   layout = c(
     "header header",
     "sidebar blueplot",
+    "sidebar table",
     "sidebar plot"
   ),
   row_sizes = c(
     "100px",
+    "1fr",
     "1fr",
     "1fr"
   ),
@@ -27,9 +29,6 @@ gridlayout::grid_page(
       value = 30L,
       width = "100%",
       step = 1L
-    ),
-    DT::DTOutput("my-table",
-      width = "90%"
     )
   ),
   gridlayout::grid_panel_stack(
@@ -58,5 +57,13 @@ gridlayout::grid_page(
     h_align = "start",
     area = "header",
     is_title = FALSE
+  ),
+  gridlayout::grid_panel_stack(
+    area = "table",
+    item_alignment = "center",
+    item_gap = "12px",
+    scrollable = TRUE,
+    title = "Table",
+    gt::gt_output("stockTable")
   )
 )
