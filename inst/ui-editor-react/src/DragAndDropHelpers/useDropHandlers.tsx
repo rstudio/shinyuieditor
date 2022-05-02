@@ -30,7 +30,7 @@ export function useDropHandlers(
   watcherRef: React.RefObject<HTMLDivElement>,
   {
     dropFilters = { rejectedNodes: [] },
-    positionInChildren = 0,
+    positionInChildren = Infinity,
     parentPath,
     onDrop,
   }: DropHandlerArguments
@@ -46,6 +46,7 @@ export function useDropHandlers(
     [currentlyDragged, dropFilters]
   );
 
+  // If there's no position in the children provided then we know that
   const canAcceptDrop =
     acceptsDraggedNode &&
     getIsValidMove({

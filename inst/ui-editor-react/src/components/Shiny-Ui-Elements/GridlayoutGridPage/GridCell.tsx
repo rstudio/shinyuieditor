@@ -34,10 +34,6 @@ export function GridCell({
   useDropHandlers(cellRef, {
     parentPath: containerPath,
     onDrop: (nodeInfo) => {
-      // This will eventually filter by element type
-      const allowedDrop = true;
-      if (!allowedDrop) return;
-
       onDroppedNode({
         ...nodeInfo,
         pos: {
