@@ -14,7 +14,7 @@ gridlayout::grid_page(
     "1fr"
   ),
   gap_size = "1rem",
-  gridlayout::vertical_stack_panel(
+  gridlayout::grid_panel_stack(
     area = "sidebar",
     item_alignment = "center",
     item_gap = "12px",
@@ -32,7 +32,7 @@ gridlayout::grid_page(
       width = "90%"
     )
   ),
-  gridlayout::vertical_stack_panel(
+  gridlayout::grid_panel_stack(
     area = "plot",
     item_alignment = "center",
     item_gap = "12px",
@@ -42,7 +42,7 @@ gridlayout::grid_page(
       height = "400px"
     )
   ),
-  gridlayout::vertical_stack_panel(
+  gridlayout::grid_panel_stack(
     area = "blueplot",
     item_alignment = "center",
     item_gap = "12px",
@@ -53,7 +53,7 @@ gridlayout::grid_page(
       height = "400px"
     )
   ),
-  gridlayout::text_panel(
+  gridlayout::grid_panel_text(
     content = "Text from Chooser",
     h_align = "start",
     area = "header",

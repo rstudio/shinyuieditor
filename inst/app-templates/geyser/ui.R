@@ -5,11 +5,11 @@ gridlayout::grid_page(
 | 100px | header  |  header  |
 | 1fr   | sidebar | bluePlot |
 | 1fr   | sidebar |   plot   |",
-  gridlayout::text_panel(
+  gridlayout::grid_panel_text(
     area = "header",
     title = "Geysers!"
   ),
-  gridlayout::vertical_stack_panel(
+  gridlayout::grid_panel_stack(
     area = "sidebar",
     item_alignment = "center",
     shiny::sliderInput(
@@ -20,12 +20,12 @@ gridlayout::grid_page(
       value = 20L
     )
   ),
-  gridlayout::vertical_stack_panel(
+  gridlayout::grid_panel_stack(
     area = "plot",
     item_alignment = "center",
     shiny::plotOutput(outputId = "distPlot")
   ),
-  gridlayout::vertical_stack_panel(
+  gridlayout::grid_panel_stack(
     area = "bluePlot",
     item_alignment = "center",
     shiny::plotOutput(outputId = "bluePlot")

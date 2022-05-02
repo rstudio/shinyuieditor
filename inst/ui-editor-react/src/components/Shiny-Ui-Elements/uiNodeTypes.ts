@@ -97,10 +97,10 @@ export const shinyUiNodeInfo = {
   "shiny::actionButton": shinyActionButtonInfo,
   "shiny::uiOutput": shinyUiOutputInfo,
   "shiny::textOutput": shinyTextOutputInfo,
-  "gridlayout::text_panel": gridlayoutTextPanelInfo,
+  "gridlayout::grid_panel_text": gridlayoutTextPanelInfo,
   "gridlayout::grid_panel": gridLayoutGridPanelInfo,
   "gridlayout::grid_page": gridlayoutGridPageInfo,
-  "gridlayout::vertical_stack_panel": gridlayoutVerticalStackPanelInfo,
+  "gridlayout::grid_panel_stack": gridlayoutVerticalStackPanelInfo,
 };
 
 /**

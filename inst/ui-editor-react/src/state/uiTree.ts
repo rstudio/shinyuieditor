@@ -20,7 +20,7 @@ export const initialUiTree: ShinyUiNode = {
   },
   uiChildren: [
     {
-      uiName: "gridlayout::text_panel",
+      uiName: "gridlayout::grid_panel_text",
       uiArguments: {
         area: "msg",
         content: "Loading App...",
@@ -45,7 +45,7 @@ export const backupUiTree: ShinyUiNode = {
   },
   uiChildren: [
     {
-      uiName: "gridlayout::text_panel",
+      uiName: "gridlayout::grid_panel_text",
       uiArguments: {
         area: "header",
         content: "My App",
@@ -54,7 +54,7 @@ export const backupUiTree: ShinyUiNode = {
       },
     },
     {
-      uiName: "gridlayout::vertical_stack_panel",
+      uiName: "gridlayout::grid_panel_stack",
       uiArguments: {
         area: "sidebar",
         item_alignment: "center",
@@ -83,7 +83,7 @@ export const backupUiTree: ShinyUiNode = {
       ],
     },
     {
-      uiName: "gridlayout::vertical_stack_panel",
+      uiName: "gridlayout::grid_panel_stack",
       uiArguments: {
         area: "plot",
         item_alignment: "center",

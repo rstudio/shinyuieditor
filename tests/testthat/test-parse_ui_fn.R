@@ -7,7 +7,7 @@ test_that("Real UI snapshot", {
             | 1rem | 250px   | 1fr  |
             |------|---------|------|
             | 1fr  | sidebar | plot |",
-          gridlayout::vertical_stack_panel(
+          gridlayout::grid_panel_stack(
             area = "sidebar",
             item_alignment = "center",
             shiny::sliderInput(
@@ -18,7 +18,7 @@ test_that("Real UI snapshot", {
               value = 40L
             )
           ),
-          gridlayout::vertical_stack_panel(
+          gridlayout::grid_panel_stack(
             area = "plot",
             item_alignment = "center",
             shiny::plotOutput(
@@ -40,7 +40,7 @@ test_that("Unknown functions are preserved through the parsing and deparsing ste
   }
 
   original_expression <- rlang::expr(
-    gridlayout::vertical_stack_panel(
+    gridlayout::grid_panel_stack(
       area = "plot",
       item_alignment = "center",
       custom_widget_fn(
@@ -75,7 +75,7 @@ test_that("Unknown functions are preserved through the parsing and deparsing ste
 
 test_that("Unknown variables are preserved through the parsing and deparsing steps", {
   original_expression <- rlang::expr(
-    gridlayout::vertical_stack_panel(
+    gridlayout::grid_panel_stack(
       area = "plot",
       item_alignment = "center",
       my_data_table_var,
@@ -131,7 +131,7 @@ test_that("Handles list arguments", {
 
 test_that("Errors with invalid arguments", {
   original_expression <- rlang::expr(
-    gridlayout::vertical_stack_panel(
+    gridlayout::grid_panel_stack(
       area = "plot",
       item_alignment = "center",
       shiny::plotOutput(

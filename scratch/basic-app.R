@@ -17,7 +17,7 @@ app <- shinyApp(
     layout = my_layout,
     theme = bslib::bs_theme(),
     use_bslib_card_styles = TRUE,
-    header = text_panel("This is my header"),
+    header = grid_panel_text("This is my header"),
     sidebar = grid_panel(
       title = "Settings",
       sliderInput("bins","Number of bins:", min = 1, max = 50, value = 30, width = "100%")

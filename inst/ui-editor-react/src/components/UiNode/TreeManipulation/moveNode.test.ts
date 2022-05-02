@@ -36,7 +36,7 @@ const baseNode: ShinyUiNode = {
             },
             {
               // path = [0, 0, 1]
-              uiName: "gridlayout::vertical_stack_panel",
+              uiName: "gridlayout::grid_panel_stack",
               uiArguments: { area: "controls-sub" },
               uiChildren: [],
             },
@@ -162,7 +162,7 @@ describe("Move node around within its current container", () => {
     },
   };
   const sliderPanel: ShinyUiNode = {
-    uiName: "gridlayout::vertical_stack_panel",
+    uiName: "gridlayout::grid_panel_stack",
     uiArguments: { area: "controls-holder", item_alignment: "center" },
     uiChildren: [
       buttonA, // [0]

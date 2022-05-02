@@ -80,8 +80,8 @@ function DropWatcherPanel({
       rejectedNodes: [
         "gridlayout::grid_page",
         "gridlayout::grid_panel",
-        "gridlayout::text_panel",
-        "gridlayout::vertical_stack_panel",
+        "gridlayout::grid_panel_text",
+        "gridlayout::grid_panel_stack",
       ],
     },
   });

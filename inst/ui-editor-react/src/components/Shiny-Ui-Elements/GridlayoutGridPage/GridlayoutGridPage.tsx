@@ -131,7 +131,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
         node.uiArguments = argsWithArea;
       } else {
         node = {
-          uiName: "gridlayout::vertical_stack_panel",
+          uiName: "gridlayout::grid_panel_stack",
           uiArguments: {
             area: name,
             item_alignment: "center",
@@ -224,8 +224,8 @@ export function areasOfChildren(children: ShinyUiChildren) {
 
 type GridAwareNodes =
   | "gridlayout::grid_panel"
-  | "gridlayout::text_panel"
-  | "gridlayout::vertical_stack_panel";
+  | "gridlayout::grid_panel_text"
+  | "gridlayout::grid_panel_stack";
 
 type GridAwareNodeArgs =
   typeof shinyUiNodeInfo[GridAwareNodes]["defaultSettings"];
@@ -233,6 +233,6 @@ type GridAwareNodeArgs =
 // These are nodes that don't need to be wrapped in a grid_panel if dropped
 export const gridAwareNodes: ShinyUiNames[] = [
   "gridlayout::grid_panel",
-  "gridlayout::text_panel",
-  "gridlayout::vertical_stack_panel",
+  "gridlayout::grid_panel_text",
+  "gridlayout::grid_panel_stack",
 ];
