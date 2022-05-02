@@ -5,7 +5,7 @@ gridlayout::grid_page(
 | 100px | header  |  header  |
 | 1fr   | sidebar | bluePlot |
 | 1fr   | sidebar |   plot   |",
-  gridlayout::title_panel(
+  gridlayout::text_panel(
     area = "header",
     title = "Geysers!"
   ),
