@@ -9,6 +9,7 @@ export interface GridlayoutTextPanelProps {
   content: string;
   h_align: "center" | "start" | "end";
   area?: string;
+  is_title?: boolean;
 }
 
 export const gridlayoutTextPanelInfo: UiComponentInfo<GridlayoutTextPanelProps> =
