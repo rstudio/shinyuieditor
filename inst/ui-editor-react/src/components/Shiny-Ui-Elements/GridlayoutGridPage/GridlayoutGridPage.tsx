@@ -182,6 +182,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
             gridColumn={col}
             cellLocations={gridCellLocations}
             onDroppedNode={handleNodeDrop}
+            containerPath={nodeInfo.path}
           />
         ))}
 

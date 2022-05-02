@@ -7,6 +7,8 @@ import { toStringLoc } from "utils/grid-helpers";
 import type { ItemBoundingBox } from "utils/overlap-helpers";
 import { getBBoxOfDiv } from "utils/overlap-helpers";
 
+import type { NodePath } from "../uiNodeTypes";
+
 import classes from "./GridCell.module.css";
 import type { NewItemInfo } from "./GridlayoutGridPage";
 
@@ -18,16 +20,19 @@ export function GridCell({
   gridColumn,
   cellLocations,
   onDroppedNode,
+  containerPath,
 }: {
   gridRow: number;
   gridColumn: number;
   cellLocations: CellLocRef;
+  containerPath: NodePath;
   onDroppedNode: (nodeInfo: NewItemInfo) => void;
 }) {
   const gridPos = toStringLoc({ row: gridRow, col: gridColumn });
   const cellRef = React.useRef<HTMLDivElement>(null);
 
   useDropHandlers(cellRef, {
+    parentPath: containerPath,
     onDrop: (nodeInfo) => {
       // This will eventually filter by element type
       const allowedDrop = true;

@@ -5,7 +5,10 @@ import type {
   UiContainerNodeComponent,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import UiNode from "components/UiNode";
+import type { DraggedNodeInfo } from "DragAndDropHelpers/DragAndDropHelpers";
 import { useDropHandlers } from "DragAndDropHelpers/useDropHandlers";
+import { useDispatch } from "react-redux";
+import { PLACE_NODE } from "state/uiTree";
 
 import type { VerticalStackPanelSettings } from "./index";
 
@@ -71,15 +74,39 @@ function DropWatcherPanel({
   numChildren: number;
   parentPath: NodePath;
 }) {
+  const dispatch = useDispatch();
+
   const watcherRef = React.useRef<HTMLDivElement>(null);
+
+  const handleDrop = React.useCallback(
+    ({ node, currentPath }: DraggedNodeInfo) => {
+      const isGridPanel = node.uiName === "gridlayout::grid_panel";
+      const nodeToPlace = isGridPanel ? node.uiChildren?.[0] : node;
+      // const currentPath
+      if (!nodeToPlace) {
+        throw new Error("No node to place...");
+      }
+
+      dispatch(
+        PLACE_NODE({
+          node: nodeToPlace,
+          currentPath,
+          parentPath,
+          positionInChildren: index,
+        })
+      );
+    },
+    [dispatch, index, parentPath]
+  );
+
   useDropHandlers(watcherRef, {
-    onDrop: "add-node",
+    onDrop: handleDrop,
     parentPath,
     positionInChildren: index,
     dropFilters: {
       rejectedNodes: [
         "gridlayout::grid_page",
-        "gridlayout::grid_panel",
+        // "gridlayout::grid_panel",
         "gridlayout::grid_panel_text",
         "gridlayout::grid_panel_stack",
       ],

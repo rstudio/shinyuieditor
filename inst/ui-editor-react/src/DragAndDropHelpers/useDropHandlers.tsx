@@ -4,7 +4,6 @@ import type {
   NodePath,
   ShinyUiNames,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
-import { shinyUiNames } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { useDispatch } from "react-redux";
 import { PLACE_NODE } from "state/uiTree";
 
@@ -19,21 +18,13 @@ import {
 } from "./DragAndDropHelpers";
 import { useCurrentDraggedNode } from "./useCurrentDraggedNode";
 
-type DropFilters =
-  | {
-      acceptedNodes: ShinyUiNames[];
-    }
-  | {
-      rejectedNodes: ShinyUiNames[];
-    };
-
 type DropHandlerArguments = {
   dropFilters?: DropFilters;
+  parentPath: NodePath;
+  positionInChildren?: number;
 } & (
   | {
       onDrop: "add-node";
-      parentPath: NodePath;
-      positionInChildren: number;
     }
   | {
       onDrop: (droppedNode: DraggedNodeInfo) => void;
@@ -48,32 +39,26 @@ export function useDropHandlers(
 
   const [currentlyDragged, setCurrentlyDragged] = useCurrentDraggedNode();
 
-  const { dropFilters = { rejectedNodes: [] } } = opts;
-  const acceptedNodes = React.useMemo(
-    () =>
-      "acceptedNodes" in dropFilters
-        ? dropFilters.acceptedNodes
-        : shinyUiNames.filter(
-            (uiName) => !dropFilters.rejectedNodes.includes(uiName)
-          ),
-    [dropFilters]
-  );
+  const pathIfDropped: NodePath = [
+    ...opts.parentPath,
+    opts.positionInChildren ?? 0,
+  ];
 
-  const canAcceptDraggedType = currentlyDragged
-    ? acceptedNodes.includes(currentlyDragged.node.uiName)
-    : false;
+  const canAcceptDrop = getCanAcceptDrop(
+    opts.dropFilters ?? { rejectedNodes: [] }
+  );
 
   // Check to make sure that the drop position isn't the same position that the
   // node is currently in. Aka that moving will make a difference.
   const isValidMove =
-    opts.onDrop !== "add-node" ||
+    // opts.onDrop !== "add-node" ||
     currentlyDragged?.currentPath === undefined ||
     getIsValidMove({
       fromPath: currentlyDragged.currentPath,
-      toPath: [...opts.parentPath, opts.positionInChildren],
+      toPath: pathIfDropped,
     });
 
-  const canAcceptDragged = canAcceptDraggedType && isValidMove;
+  const canAcceptDragged = canAcceptDrop(currentlyDragged) && isValidMove;
 
   const handleDragEnter = (e: DragEvent) => {
     e.preventDefault();
@@ -153,4 +138,41 @@ export function useDropHandlers(
       watcherEl.removeEventListener("drop", handleDrop);
     };
   }, [canAcceptDragged, currentlyDragged, handleDrop, watcherRef]);
+}
+
+type DropFilters =
+  | {
+      acceptedNodes: ShinyUiNames[];
+    }
+  | {
+      rejectedNodes: ShinyUiNames[];
+    }
+  | {
+      getCanAcceptDrop: (droppedNode: DraggedNodeInfo) => boolean;
+    };
+
+function getCanAcceptDrop(
+  dropFilters: DropFilters
+): (draggedNode: DraggedNodeInfo | null) => boolean {
+  let canAcceptDraggedType: (draggedNode: DraggedNodeInfo) => boolean;
+
+  if ("getCanAcceptDrop" in dropFilters) {
+    canAcceptDraggedType = dropFilters.getCanAcceptDrop;
+  } else if ("acceptedNodes" in dropFilters) {
+    canAcceptDraggedType = (draggedNode) =>
+      dropFilters.acceptedNodes.includes(draggedNode.node.uiName);
+  } else if ("rejectedNodes" in dropFilters) {
+    canAcceptDraggedType = (draggedNode) =>
+      !dropFilters.rejectedNodes.includes(draggedNode.node.uiName);
+  } else {
+    throw new Error(
+      "Unexpected drop filter setup. Check accepted and rejected node types."
+    );
+  }
+
+  return (draggedNode: DraggedNodeInfo | null) => {
+    if (!draggedNode) return false;
+
+    return canAcceptDraggedType(draggedNode);
+  };
 }
