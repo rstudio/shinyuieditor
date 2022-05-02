@@ -13,9 +13,6 @@ export function useMakeDraggable({
   // A way of disabling drag behavior
   immovable?: boolean;
 }) {
-  if (immovable) {
-    debugger;
-  }
   // Keep track of if we're in the middle of a drag. This will help avoid
   // unneccesary duplicate work when of calling endDrag twice we get when the
   // user abandons a drag
@@ -49,7 +46,6 @@ export function useMakeDraggable({
     (e: DragEvent) => {
       e.stopPropagation();
       setDraggedNode(nodeInfo);
-      debugger;
       dragHappening.current = true;
       document.body.addEventListener("dragover", dummyDragOverListener);
       document.body.addEventListener("drop", endDrag);
