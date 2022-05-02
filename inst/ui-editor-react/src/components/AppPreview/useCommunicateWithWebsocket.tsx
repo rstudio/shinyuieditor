@@ -67,14 +67,14 @@ export function useCommunicateWithWebsocket(): CommunicationState {
   React.useEffect(() => {
     if (!document.location.host) return;
 
-    // TODO: This needs to be switched to between the build and dev environments
-    // because the dev-server proxy doesn't do websockets const
+    // If we're using the dev proxy we should just go straight to websocket.
+    // Otherwise use the same location as the main app
+    const websocket_host =
+      process.env.NODE_ENV === "development"
+        ? "localhost:8888"
+        : window.location.host;
 
-    // websocket_location = `ws://${document.location.host}`;
-    const websocket_location = `ws://localhost:8888`;
-
-    console.log("Attempting to connect to websocket at " + websocket_location);
-    const ws = new WebSocket(websocket_location);
+    const ws = new WebSocket(`ws://${websocket_host}`);
 
     ws.onerror = (event) => {
       console.error("Failed to connect to websocket", event);
