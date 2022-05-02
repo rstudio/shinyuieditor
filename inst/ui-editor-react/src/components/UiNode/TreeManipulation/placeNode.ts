@@ -146,9 +146,11 @@ export function getIsValidMove({
   fromPath,
   toPath,
 }: {
-  fromPath: NodePath;
+  fromPath: NodePath | undefined | null;
   toPath: NodePath;
 }): boolean {
+  if (fromPath === undefined || fromPath === null) return true;
+
   if (nodesAreDirectAncestors(fromPath, toPath)) return false;
 
   if (nodesAreSiblings(fromPath, toPath)) {
