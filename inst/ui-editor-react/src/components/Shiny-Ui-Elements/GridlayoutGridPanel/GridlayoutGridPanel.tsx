@@ -27,7 +27,7 @@ const GridlayoutGridPanel: UiContainerNodeComponent<GridPanelSettings> = ({
   compRef,
 }) => {
   const { path } = nodeInfo;
-  const { area, verticalAlign, horizontalAlign } = uiArguments;
+  const { area, verticalAlign, horizontalAlign, title } = uiArguments;
 
   useDropHandlers(compRef, {
     onDrop: "add-node",
@@ -39,17 +39,31 @@ const GridlayoutGridPanel: UiContainerNodeComponent<GridPanelSettings> = ({
   return (
     <div
       ref={compRef}
-      className={classes.container}
+      className={classes.grid_panel}
       style={{
         gridArea: area,
         justifyContent: dirToFlexProp[horizontalAlign ?? "spread"],
         alignContent: dirToFlexProp[verticalAlign ?? "spread"],
       }}
-      onClick={eventHandlers.onClick}
+      onClick={(e) => {
+        if (eventHandlers.onClick) {
+          console.log("Clicked a grid_panel()");
+
+          eventHandlers.onClick?.(e);
+        }
+      }}
     >
-      {uiChildren?.map((childNode, i) => (
-        <UiNode key={path.join(".") + i} path={[...path, i]} {...childNode} />
-      ))}
+      {title ? <h2 className={classes.panel_title}>{title}</h2> : null}
+      <div className={classes.panel_content}>
+        {uiChildren?.map((childNode, i) => (
+          <UiNode
+            key={path.join(".") + i}
+            path={[...path, i]}
+            canMove={false}
+            {...childNode}
+          />
+        ))}
+      </div>
       {children}
     </div>
   );

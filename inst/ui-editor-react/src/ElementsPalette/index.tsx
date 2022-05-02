@@ -34,7 +34,7 @@ function ElementOption({ uiName }: { uiName: ShinyUiNames }) {
   } as ShinyUiNode;
 
   const elRef = React.useRef<HTMLDivElement>(null);
-  useMakeDraggable(elRef, { node });
+  useMakeDraggable({ ref: elRef, nodeInfo: { node } });
 
   if (iconSrc === undefined) {
     return null;

@@ -31,14 +31,16 @@ gridlayout::grid_page(
       step = 1L
     )
   ),
-  gridlayout::grid_panel_stack(
+  gridlayout::grid_panel(
     area = "plot",
+    verticalAlign = "center",
+    horizontalAlign = "center",
     item_alignment = "center",
-    item_gap = "12px",
+    title = "grid_panel()",
     shiny::plotOutput(
       outputId = "bluePlot",
       width = "100%",
-      height = "400px"
+      height = "100%"
     )
   ),
   gridlayout::grid_panel_stack(
@@ -62,8 +64,8 @@ gridlayout::grid_page(
     area = "table",
     item_alignment = "center",
     item_gap = "12px",
-    scrollable = TRUE,
     title = "Table",
+    scrollable = TRUE,
     gt::gt_output("stockTable")
   )
 )

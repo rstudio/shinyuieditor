@@ -1,16 +1,56 @@
-.container {
+.grid_panel {
+  --card-padding: 6px;
   position: relative;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  background-color: var(--rstudio-white, green);
+  background-color: var(--rstudio-white, white);
   outline: var(--outline);
+  box-sizing: border-box;
+  display: grid;
+  grid-template-areas:
+    "title"
+    "content";
+  /* The content-height variable gets over-written to enable collapsible cards*/
+  /* When there's no title the column will dissapear */
+  grid-template-rows: min-content minmax(0, var(--content-height, 1fr));
+  grid-template-columns: 100%;
+}
+
+/* If we just use 1fr for the content, then it can
+sometimes overflow and cause the cell to be larger
+than it should. Not totally sure why but this
+css-tricks article contained the solution:
+https://css-tricks.com/preventing-a-grid-blowout/ */
+.grid_panel * {
+  min-width: 0;
+}
+
+/* --- Optional Title Bar ----------------------------------- */
+.panel_title {
+  width: 100%;
+  grid-area: title;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  border-bottom: var(--outline);
+  padding: calc(var(--card-padding) / 2) var(--card-padding);
+}
+
+.grid_panel .panel_title > h3 {
+  margin: 0;
+  height: 100%;
+}
+
+/* --- Panel Content ---------------------------------------- */
+/* This is the div that actually holds the children of the panel */
+
+.panel_content {
+  padding: var(--card-padding);
+  grid-area: content;
+  position: relative;
 }
 
 /* Make sure the children are position relative so floating buttons etc will sit
 in the proper places */
-.container > * {
+.panel_content > * {
   position: relative;
   outline: var(--outline);
 }

@@ -9,6 +9,7 @@ export type GridPanelSettings = {
   area?: string;
   horizontalAlign?: HorizontalAlignments;
   verticalAlign?: VerticalAlignments;
+  title?: string;
 };
 
 export const gridLayoutGridPanelInfo: UiComponentInfo<GridPanelSettings> = {
