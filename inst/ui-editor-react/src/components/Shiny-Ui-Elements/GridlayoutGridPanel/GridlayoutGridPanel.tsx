@@ -16,7 +16,6 @@ import classes from "./styles.module.css";
 const rejectedNodes: ShinyUiNames[] = [
   "gridlayout::grid_page",
   "gridlayout::grid_panel",
-  "gridlayout::title_panel",
   "gridlayout::vertical_stack_panel",
 ];
 const GridlayoutGridPanel: UiContainerNodeComponent<GridPanelSettings> = ({

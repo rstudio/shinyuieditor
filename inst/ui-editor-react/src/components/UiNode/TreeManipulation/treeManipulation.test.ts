@@ -176,9 +176,10 @@ test("Add a node", () => {
   expect(getNode(baseNode, [0]).uiChildren).toHaveLength(2);
 
   const newUiNode: ShinyUiNode = {
-    uiName: "gridlayout::title_panel",
+    uiName: "shiny::actionButton",
     uiArguments: {
-      title: "myNewNode",
+      inputId: "button",
+      label: "My Button",
     },
   };
 

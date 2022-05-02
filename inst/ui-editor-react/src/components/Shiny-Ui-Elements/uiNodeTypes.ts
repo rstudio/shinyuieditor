@@ -5,7 +5,6 @@ import type { DeleteAction, UpdateAction } from "state/uiTree";
 import { gridlayoutGridPageInfo } from "./GridlayoutGridPage";
 import { gridLayoutGridPanelInfo } from "./GridlayoutGridPanel";
 import { gridlayoutTextPanelInfo } from "./GridlayoutTextPanel";
-import { gridlayoutTitlePanelInfo } from "./GridlayoutTitlePanel";
 import { gridlayoutVerticalStackPanelInfo } from "./GridlayoutVerticalStackPanel";
 import { shinyActionButtonInfo } from "./ShinyActionButton";
 import { shinyCheckboxGroupInputInfo } from "./ShinyCheckboxGroupInput";
@@ -98,7 +97,6 @@ export const shinyUiNodeInfo = {
   "shiny::actionButton": shinyActionButtonInfo,
   "shiny::uiOutput": shinyUiOutputInfo,
   "shiny::textOutput": shinyTextOutputInfo,
-  "gridlayout::title_panel": gridlayoutTitlePanelInfo,
   "gridlayout::text_panel": gridlayoutTextPanelInfo,
   "gridlayout::grid_panel": gridLayoutGridPanelInfo,
   "gridlayout::grid_page": gridlayoutGridPageInfo,

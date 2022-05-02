@@ -1,6 +1,6 @@
 gridlayout::grid_page(
   layout = c(
-    "header  header",
+    "header header",
     "sidebar blueplot",
     "sidebar plot"
   ),
@@ -56,6 +56,7 @@ gridlayout::grid_page(
   gridlayout::text_panel(
     content = "Text from Chooser",
     h_align = "start",
-    area = "header"
+    area = "header",
+    is_title = FALSE
   )
 )

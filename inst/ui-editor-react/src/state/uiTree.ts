@@ -45,10 +45,12 @@ export const backupUiTree: ShinyUiNode = {
   },
   uiChildren: [
     {
-      uiName: "gridlayout::title_panel",
+      uiName: "gridlayout::text_panel",
       uiArguments: {
         area: "header",
-        title: "My App",
+        content: "My App",
+        h_align: "start",
+        is_title: true,
       },
     },
     {

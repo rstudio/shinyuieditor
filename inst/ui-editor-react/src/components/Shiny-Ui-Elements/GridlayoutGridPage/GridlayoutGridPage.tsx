@@ -224,7 +224,6 @@ export function areasOfChildren(children: ShinyUiChildren) {
 
 type GridAwareNodes =
   | "gridlayout::grid_panel"
-  | "gridlayout::title_panel"
   | "gridlayout::text_panel"
   | "gridlayout::vertical_stack_panel";
 
@@ -234,7 +233,6 @@ type GridAwareNodeArgs =
 // These are nodes that don't need to be wrapped in a grid_panel if dropped
 export const gridAwareNodes: ShinyUiNames[] = [
   "gridlayout::grid_panel",
-  "gridlayout::title_panel",
   "gridlayout::text_panel",
   "gridlayout::vertical_stack_panel",
 ];
