@@ -7,6 +7,7 @@ import { removeItems, removeItem } from "utils/gridTemplates/removeItem";
 import removeTract from "utils/gridTemplates/removeTract";
 import { renameItem } from "utils/gridTemplates/renameItem";
 import resizeTract from "utils/gridTemplates/resizeTract";
+import swapItems from "utils/gridTemplates/swapItems";
 import type {
   GridItemExtent,
   TemplatedGridProps,
@@ -17,6 +18,7 @@ export type GridLayoutAction =
   | { type: "REMOVE_ITEM"; name: string }
   | { type: "RENAME_ITEM"; oldName: string; newName: string }
   | { type: "REMOVE_ITEMS"; names: string[] }
+  | { type: "SWAP_ITEMS"; item_a: string; item_b: string }
   | { type: "MOVE_ITEM"; name: string; pos: GridItemExtent }
   | {
       type: "ADD_TRACT";
@@ -58,6 +60,9 @@ export function gridLayoutReducer(
 
     case "REMOVE_ITEMS":
       return removeItems(layout, action.names);
+
+    case "SWAP_ITEMS":
+      return swapItems(layout, action);
 
     case "ADD_TRACT":
       return addTract(layout, action);
