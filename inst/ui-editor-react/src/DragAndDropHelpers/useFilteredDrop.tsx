@@ -8,32 +8,49 @@ type DropHandlerArguments = {
   watcherRef: React.RefObject<HTMLDivElement>;
   getCanAcceptDrop?: (droppedNode: DraggedNodeInfo) => void;
   onDrop: (droppedNode: DraggedNodeInfo) => void;
+  canAcceptDropClass?: string;
+  hoveringOverClass?: string;
 };
 
 export function useFilteredDrop({
   watcherRef,
   getCanAcceptDrop = () => true,
   onDrop,
+  canAcceptDropClass = classes.canAcceptDrop,
+  hoveringOverClass = classes.hoveringOver,
 }: DropHandlerArguments) {
   const [currentlyDragged, setCurrentlyDragged] = useCurrentDraggedNode();
+
+  const {
+    addCanAcceptDropHighlight,
+    addHoveredOverHighlight,
+    removeHoveredOverHighlight,
+    removeAllHighlights,
+  } = useDropHighlights({ canAcceptDropClass, hoveringOverClass });
 
   // If there's no position in the children provided then we know that
   const canAcceptDrop = currentlyDragged
     ? getCanAcceptDrop(currentlyDragged)
     : false;
 
-  const handleDragOver = (e: DragEvent) => {
-    e.preventDefault();
-    // Make sure our dropability is properly highlighted. This fires very fast
-    // so if this function gets any more complicated the callback should most
-    // likely be throttled
-    addHoveredOverHighlight(e);
-  };
+  const handleDragOver = React.useCallback(
+    (e: DragEvent) => {
+      e.preventDefault();
+      // Make sure our dropability is properly highlighted. This fires very fast
+      // so if this function gets any more complicated the callback should most
+      // likely be throttled
+      addHoveredOverHighlight(e);
+    },
+    [addHoveredOverHighlight]
+  );
 
-  const handleDragLeave = (e: DragEvent) => {
-    e.preventDefault();
-    removeHoveredOverHighlight(e);
-  };
+  const handleDragLeave = React.useCallback(
+    (e: DragEvent) => {
+      e.preventDefault();
+      removeHoveredOverHighlight(e);
+    },
+    [removeHoveredOverHighlight]
+  );
 
   const handleDrop = React.useCallback(
     (e: DragEvent) => {
@@ -57,7 +74,13 @@ export function useFilteredDrop({
       // Turn off drag
       setCurrentlyDragged(null);
     },
-    [canAcceptDrop, currentlyDragged, onDrop, setCurrentlyDragged]
+    [
+      canAcceptDrop,
+      currentlyDragged,
+      onDrop,
+      removeHoveredOverHighlight,
+      setCurrentlyDragged,
+    ]
   );
 
   React.useEffect(() => {
@@ -81,40 +104,63 @@ export function useFilteredDrop({
       watcherEl.removeEventListener("dragover", handleDragOver);
       watcherEl.removeEventListener("drop", handleDrop);
     };
-  }, [canAcceptDrop, currentlyDragged, handleDrop, watcherRef]);
+  }, [
+    addCanAcceptDropHighlight,
+    canAcceptDrop,
+    handleDragLeave,
+    handleDragOver,
+    handleDrop,
+    removeAllHighlights,
+    watcherRef,
+  ]);
 }
 
-function addCanAcceptDropHighlight(el: HTMLElement) {
-  el.classList.add(classes.availableForDrop);
-}
+function useDropHighlights({
+  canAcceptDropClass,
+  hoveringOverClass,
+}: {
+  canAcceptDropClass: string;
+  hoveringOverClass: string;
+}) {
+  const addCanAcceptDropHighlight = React.useCallback(
+    (el: HTMLElement) => {
+      el.classList.add(canAcceptDropClass);
+    },
+    [canAcceptDropClass]
+  );
 
-function getIsCurrentTarget(
-  e: DragEvent | React.DragEvent<HTMLDivElement>
-): boolean {
-  if (!e.currentTarget) return false;
+  const addHoveredOverHighlight = React.useCallback(
+    (e: DragEvent | React.DragEvent<HTMLDivElement>) => {
+      if (!e.currentTarget) return;
+      if (e.currentTarget === e.target) {
+        (e.currentTarget as HTMLElement).classList.add(hoveringOverClass);
+      }
+    },
+    [hoveringOverClass]
+  );
 
-  return e.currentTarget === e.target;
-}
+  const removeHoveredOverHighlight = React.useCallback(
+    (e: DragEvent | React.DragEvent<HTMLDivElement>) => {
+      if (!e.currentTarget) return;
 
-function addHoveredOverHighlight(
-  e: DragEvent | React.DragEvent<HTMLDivElement>
-) {
-  if (getIsCurrentTarget(e)) if (!e.currentTarget) return;
-  if (e.currentTarget === e.target) {
-    (e.currentTarget as HTMLElement).classList.add(classes.canDrop);
-  }
-}
+      const el = e.currentTarget as HTMLElement;
+      el.classList.remove(hoveringOverClass);
+    },
+    [hoveringOverClass]
+  );
 
-function removeHoveredOverHighlight(
-  e: DragEvent | React.DragEvent<HTMLDivElement>
-) {
-  if (!e.currentTarget) return;
+  const removeAllHighlights = React.useCallback(
+    (el: HTMLElement) => {
+      el.classList.remove(hoveringOverClass);
+      el.classList.remove(canAcceptDropClass);
+    },
+    [canAcceptDropClass, hoveringOverClass]
+  );
 
-  const el = e.currentTarget as HTMLElement;
-  el.classList.remove(classes.canDrop);
-}
-
-function removeAllHighlights(el: HTMLElement) {
-  el.classList.remove(classes.canDrop);
-  el.classList.remove(classes.availableForDrop);
+  return {
+    addCanAcceptDropHighlight,
+    addHoveredOverHighlight,
+    removeHoveredOverHighlight,
+    removeAllHighlights,
+  };
 }
