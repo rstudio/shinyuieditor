@@ -1,12 +1,7 @@
 import React from "react";
 
+import classes from "./DragAndDrop.module.css";
 import type { DraggedNodeInfo } from "./DragAndDropHelpers";
-import {
-  highlightDropability,
-  highlightDropAvailability,
-  removeHighlight,
-  resetHighlights,
-} from "./DragAndDropHelpers";
 import { useCurrentDraggedNode } from "./useCurrentDraggedNode";
 
 type DropHandlerArguments = {
@@ -27,23 +22,17 @@ export function useFilteredDrop({
     ? getCanAcceptDrop(currentlyDragged)
     : false;
 
-  const handleDragEnter = (e: DragEvent) => {
-    e.preventDefault();
-    // Update styles to indicate the user can drop item here
-    highlightDropability(e);
-  };
-
-  const handleDragLeave = (e: DragEvent) => {
-    e.preventDefault();
-    removeHighlight(e);
-  };
-
   const handleDragOver = (e: DragEvent) => {
     e.preventDefault();
     // Make sure our dropability is properly highlighted. This fires very fast
     // so if this function gets any more complicated the callback should most
     // likely be throttled
-    highlightDropability(e);
+    addHoveredOverHighlight(e);
+  };
+
+  const handleDragLeave = (e: DragEvent) => {
+    e.preventDefault();
+    removeHoveredOverHighlight(e);
   };
 
   const handleDrop = React.useCallback(
@@ -51,7 +40,7 @@ export function useFilteredDrop({
       // Make sure only the deepest container gets the drop event
       e.stopPropagation();
 
-      removeHighlight(e);
+      removeHoveredOverHighlight(e);
 
       // Get the type of dropped element and act on it
       if (!currentlyDragged) {
@@ -76,21 +65,56 @@ export function useFilteredDrop({
     if (!watcherEl) return;
 
     if (canAcceptDrop) {
-      highlightDropAvailability(watcherEl);
+      addCanAcceptDropHighlight(watcherEl);
 
-      watcherEl.addEventListener("dragenter", handleDragEnter);
+      watcherEl.addEventListener("dragenter", handleDragOver);
       watcherEl.addEventListener("dragleave", handleDragLeave);
       watcherEl.addEventListener("dragover", handleDragOver);
       watcherEl.addEventListener("drop", handleDrop);
     }
 
     return () => {
-      resetHighlights(watcherEl);
+      removeAllHighlights(watcherEl);
 
-      watcherEl.removeEventListener("dragenter", handleDragEnter);
+      watcherEl.removeEventListener("dragenter", handleDragOver);
       watcherEl.removeEventListener("dragleave", handleDragLeave);
       watcherEl.removeEventListener("dragover", handleDragOver);
       watcherEl.removeEventListener("drop", handleDrop);
     };
   }, [canAcceptDrop, currentlyDragged, handleDrop, watcherRef]);
+}
+
+function addCanAcceptDropHighlight(el: HTMLElement) {
+  el.classList.add(classes.availableForDrop);
+}
+
+function getIsCurrentTarget(
+  e: DragEvent | React.DragEvent<HTMLDivElement>
+): boolean {
+  if (!e.currentTarget) return false;
+
+  return e.currentTarget === e.target;
+}
+
+function addHoveredOverHighlight(
+  e: DragEvent | React.DragEvent<HTMLDivElement>
+) {
+  if (getIsCurrentTarget(e)) if (!e.currentTarget) return;
+  if (e.currentTarget === e.target) {
+    (e.currentTarget as HTMLElement).classList.add(classes.canDrop);
+  }
+}
+
+function removeHoveredOverHighlight(
+  e: DragEvent | React.DragEvent<HTMLDivElement>
+) {
+  if (!e.currentTarget) return;
+
+  const el = e.currentTarget as HTMLElement;
+  el.classList.remove(classes.canDrop);
+}
+
+function removeAllHighlights(el: HTMLElement) {
+  el.classList.remove(classes.canDrop);
+  el.classList.remove(classes.availableForDrop);
 }
