@@ -26,7 +26,7 @@ export function useFilteredDrop({
     addHoveredOverHighlight,
     removeHoveredOverHighlight,
     removeAllHighlights,
-  } = useDropHighlights({ canAcceptDropClass, hoveringOverClass });
+  } = useDropHighlights({ watcherRef, canAcceptDropClass, hoveringOverClass });
 
   // If there's no position in the children provided then we know that
   const canAcceptDrop = currentlyDragged
@@ -40,15 +40,15 @@ export function useFilteredDrop({
       // Make sure our dropability is properly highlighted. This fires very fast
       // so if this function gets any more complicated the callback should most
       // likely be throttled
-      addHoveredOverHighlight(e);
+      addHoveredOverHighlight();
     },
-    [addHoveredOverHighlight]
+    [addHoveredOverHighlight, onDragOver]
   );
 
   const handleDragLeave = React.useCallback(
     (e: DragEvent) => {
       e.preventDefault();
-      removeHoveredOverHighlight(e);
+      removeHoveredOverHighlight();
     },
     [removeHoveredOverHighlight]
   );
@@ -58,7 +58,7 @@ export function useFilteredDrop({
       // Make sure only the deepest container gets the drop event
       e.stopPropagation();
 
-      removeHoveredOverHighlight(e);
+      removeHoveredOverHighlight();
 
       // Get the type of dropped element and act on it
       if (!currentlyDragged) {
@@ -89,7 +89,7 @@ export function useFilteredDrop({
     if (!watcherEl) return;
 
     if (canAcceptDrop) {
-      addCanAcceptDropHighlight(watcherEl);
+      addCanAcceptDropHighlight();
 
       watcherEl.addEventListener("dragenter", handleDragOver);
       watcherEl.addEventListener("dragleave", handleDragLeave);
@@ -98,7 +98,7 @@ export function useFilteredDrop({
     }
 
     return () => {
-      removeAllHighlights(watcherEl);
+      removeAllHighlights();
 
       watcherEl.removeEventListener("dragenter", handleDragOver);
       watcherEl.removeEventListener("dragleave", handleDragLeave);
@@ -117,46 +117,37 @@ export function useFilteredDrop({
 }
 
 function useDropHighlights({
+  watcherRef,
   canAcceptDropClass,
   hoveringOverClass,
 }: {
+  watcherRef: React.RefObject<HTMLDivElement>;
   canAcceptDropClass: string;
   hoveringOverClass: string;
 }) {
-  const addCanAcceptDropHighlight = React.useCallback(
-    (el: HTMLElement) => {
-      el.classList.add(canAcceptDropClass);
-    },
-    [canAcceptDropClass]
-  );
+  const addCanAcceptDropHighlight = React.useCallback(() => {
+    if (!watcherRef.current) return;
+    watcherRef.current.classList.add(canAcceptDropClass);
+  }, [canAcceptDropClass, watcherRef]);
 
-  const addHoveredOverHighlight = React.useCallback(
-    (e: DragEvent | React.DragEvent<HTMLDivElement>) => {
-      if (!e.currentTarget) return;
-      if (e.currentTarget === e.target) {
-        (e.currentTarget as HTMLElement).classList.add(hoveringOverClass);
-      }
-    },
-    [hoveringOverClass]
-  );
+  const addHoveredOverHighlight = React.useCallback(() => {
+    if (!watcherRef.current) return;
 
-  const removeHoveredOverHighlight = React.useCallback(
-    (e: DragEvent | React.DragEvent<HTMLDivElement>) => {
-      if (!e.currentTarget) return;
+    watcherRef.current.classList.add(hoveringOverClass);
+  }, [hoveringOverClass, watcherRef]);
 
-      const el = e.currentTarget as HTMLElement;
-      el.classList.remove(hoveringOverClass);
-    },
-    [hoveringOverClass]
-  );
+  const removeHoveredOverHighlight = React.useCallback(() => {
+    if (!watcherRef.current) return;
 
-  const removeAllHighlights = React.useCallback(
-    (el: HTMLElement) => {
-      el.classList.remove(hoveringOverClass);
-      el.classList.remove(canAcceptDropClass);
-    },
-    [canAcceptDropClass, hoveringOverClass]
-  );
+    watcherRef.current.classList.remove(hoveringOverClass);
+  }, [hoveringOverClass, watcherRef]);
+
+  const removeAllHighlights = React.useCallback(() => {
+    if (!watcherRef.current) return;
+
+    watcherRef.current.classList.remove(hoveringOverClass);
+    watcherRef.current.classList.remove(canAcceptDropClass);
+  }, [canAcceptDropClass, hoveringOverClass, watcherRef]);
 
   return {
     addCanAcceptDropHighlight,
