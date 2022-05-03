@@ -11,13 +11,7 @@ import { PLACE_NODE } from "state/uiTree";
 import { getIsValidMove } from "../components/UiNode/TreeManipulation/placeNode";
 
 import type { DraggedNodeInfo } from "./DragAndDropHelpers";
-import {
-  highlightDropability,
-  highlightDropAvailability,
-  removeHighlight,
-  resetHighlights,
-} from "./DragAndDropHelpers";
-import { useCurrentDraggedNode } from "./useCurrentDraggedNode";
+import { useFilteredDrop } from "./useFilteredDrop";
 
 type DropHandlerArguments = {
   dropFilters?: DropFilters;
@@ -37,107 +31,42 @@ export function useDropHandlers(
 ) {
   const dispatch = useDispatch();
 
-  const [currentlyDragged, setCurrentlyDragged] = useCurrentDraggedNode();
+  const getCanAcceptDrop: (dragInfo: DraggedNodeInfo) => boolean =
+    React.useCallback(
+      ({ node, currentPath }: DraggedNodeInfo) => {
+        return (
+          getAcceptsDraggedNode(dropFilters, node) &&
+          getIsValidMove({
+            fromPath: currentPath,
+            toPath: [...parentPath, positionInChildren],
+          })
+        );
+      },
+      [dropFilters, parentPath, positionInChildren]
+    );
 
-  // Function that tests a given dragged node to see if the current container is
-  // capable of housing it as a child
-  const acceptsDraggedNode = React.useMemo(
-    () => getAcceptsDraggedNode(dropFilters, currentlyDragged?.node),
-    [currentlyDragged, dropFilters]
-  );
-
-  // If there's no position in the children provided then we know that
-  const canAcceptDrop =
-    acceptsDraggedNode &&
-    getIsValidMove({
-      fromPath: currentlyDragged?.currentPath,
-      toPath: [...parentPath, positionInChildren],
-    });
-
-  const handleDragEnter = (e: DragEvent) => {
-    e.preventDefault();
-    // Update styles to indicate the user can drop item here
-    highlightDropability(e);
-  };
-
-  const handleDragLeave = (e: DragEvent) => {
-    e.preventDefault();
-    removeHighlight(e);
-  };
-
-  const handleDragOver = (e: DragEvent) => {
-    e.preventDefault();
-    // Make sure our dropability is properly highlighted. This fires very fast
-    // so if this function gets any more complicated the callback should most
-    // likely be throttled
-    highlightDropability(e);
-  };
-
-  const handleDrop = React.useCallback(
-    (e: DragEvent) => {
-      // Make sure only the deepest container gets the drop event
-      e.stopPropagation();
-
-      removeHighlight(e);
-
-      // Get the type of dropped element and act on it
-      if (!currentlyDragged) {
-        console.error("No dragged node in context but a drop was detected...");
-        return;
-      }
-
-      if (canAcceptDrop) {
-        if (onDrop === "add-node") {
-          dispatch(
-            PLACE_NODE({
-              ...currentlyDragged,
-              parentPath,
-              positionInChildren,
-            })
-          );
-        } else {
-          onDrop(currentlyDragged);
-        }
+  const handleDrop: (dragInfo: DraggedNodeInfo) => void = React.useCallback(
+    (dragInfo: DraggedNodeInfo) => {
+      if (onDrop === "add-node") {
+        dispatch(
+          PLACE_NODE({
+            ...dragInfo,
+            parentPath,
+            positionInChildren,
+          })
+        );
       } else {
-        console.error("Incompatable drag pairing");
+        onDrop(dragInfo);
       }
-
-      // Turn off drag
-      setCurrentlyDragged(null);
     },
-    [
-      canAcceptDrop,
-      currentlyDragged,
-      dispatch,
-      onDrop,
-      parentPath,
-      positionInChildren,
-      setCurrentlyDragged,
-    ]
+    [dispatch, onDrop, parentPath, positionInChildren]
   );
 
-  React.useEffect(() => {
-    const watcherEl = watcherRef.current;
-    if (!watcherEl) return;
-
-    if (canAcceptDrop) {
-      highlightDropAvailability(watcherEl);
-
-      watcherEl.addEventListener("dragenter", handleDragEnter);
-      watcherEl.addEventListener("dragleave", handleDragLeave);
-      watcherEl.addEventListener("dragover", handleDragOver);
-      watcherEl.addEventListener("drop", handleDrop);
-    }
-
-    return () => {
-      resetHighlights(watcherEl);
-
-      watcherEl.removeEventListener("dragenter", handleDragEnter);
-      watcherEl.removeEventListener("dragleave", handleDragLeave);
-      watcherEl.removeEventListener("dragover", handleDragOver);
-      watcherEl.removeEventListener("drop", handleDrop);
-    };
-  }, [canAcceptDrop, currentlyDragged, handleDrop, watcherRef]);
+  useFilteredDrop({
+    watcherRef,
+    getCanAcceptDrop,
+    onDrop: handleDrop,
+  });
 }
 
 type DropFilters =
