@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useDropHandlers } from "DragAndDropHelpers/useDropHandlers";
+import { useFilteredDrop } from "DragAndDropHelpers/useFilteredDrop";
 import type { GridLocString } from "GridTypes";
 import debounce from "just-debounce-it";
 import { toStringLoc } from "utils/grid-helpers";
@@ -31,8 +31,8 @@ export function GridCell({
   const gridPos = toStringLoc({ row: gridRow, col: gridColumn });
   const cellRef = React.useRef<HTMLDivElement>(null);
 
-  useDropHandlers(cellRef, {
-    parentPath: containerPath,
+  useFilteredDrop({
+    watcherRef: cellRef,
     onDrop: (nodeInfo) => {
       onDroppedNode({
         ...nodeInfo,

@@ -11,13 +11,13 @@ import { useCurrentDraggedNode } from "./useCurrentDraggedNode";
 
 type DropHandlerArguments = {
   watcherRef: React.RefObject<HTMLDivElement>;
-  getCanAcceptDrop: (droppedNode: DraggedNodeInfo) => void;
+  getCanAcceptDrop?: (droppedNode: DraggedNodeInfo) => void;
   onDrop: (droppedNode: DraggedNodeInfo) => void;
 };
 
 export function useFilteredDrop({
   watcherRef,
-  getCanAcceptDrop,
+  getCanAcceptDrop = () => true,
   onDrop,
 }: DropHandlerArguments) {
   const [currentlyDragged, setCurrentlyDragged] = useCurrentDraggedNode();
