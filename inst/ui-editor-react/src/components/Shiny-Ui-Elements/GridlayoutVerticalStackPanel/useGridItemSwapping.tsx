@@ -5,6 +5,7 @@ import { nodesAreSiblings } from "components/UiNode/TreeManipulation/placeNode";
 import type { DraggedNodeInfo } from "DragAndDropHelpers/DragAndDropHelpers";
 import { useFilteredDrop } from "DragAndDropHelpers/useFilteredDrop";
 
+import classes from "./styles.module.css";
 export function useGridItemSwapping({
   containerRef,
   path,
@@ -32,5 +33,7 @@ export function useGridItemSwapping({
     onDrop: (dropInfo) => {
       console.log(`Swapped panel in grid area: ${area} with `, dropInfo.node);
     },
+    canAcceptDropClass: classes.availableToSwap,
+    hoveringOverClass: classes.hoveringOverSwap,
   });
 }

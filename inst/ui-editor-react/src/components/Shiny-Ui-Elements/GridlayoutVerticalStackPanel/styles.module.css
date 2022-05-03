@@ -92,3 +92,34 @@ div.onlyDropWatcher {
   flex-grow: 1;
   height: unset;
 }
+
+div.hoveringOverSwap {
+  background-color: rgb(0, 70, 0) !important;
+}
+
+div.availableToSwap {
+  --color: forestgreen;
+  --outline-start-width: 2px;
+  --outline-end-width: 5px;
+  --start-shadow: inset 0px 0 0px var(--outline-start-width) var(--color);
+  --end-shadow: inset 0px 0 0px var(--outline-end-width) var(--color);
+  box-shadow: var(--start-shadow);
+
+  animation-duration: 3s;
+  animation-name: pulse;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+@keyframes pulse {
+  from {
+    box-shadow: var(--start-shadow);
+  }
+
+  50% {
+    box-shadow: var(--end-shadow);
+  }
+  to {
+    box-shadow: var(--start-shadow);
+  }
+}
