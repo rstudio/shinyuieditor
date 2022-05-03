@@ -36,6 +36,7 @@ export function useFilteredDrop({
   const handleDragOver = React.useCallback(
     (e: DragEvent) => {
       e.preventDefault();
+      e.stopPropagation();
       // Make sure our dropability is properly highlighted. This fires very fast
       // so if this function gets any more complicated the callback should most
       // likely be throttled
