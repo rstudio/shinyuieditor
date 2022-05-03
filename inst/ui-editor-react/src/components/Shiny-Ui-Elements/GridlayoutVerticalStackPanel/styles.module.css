@@ -93,8 +93,20 @@ div.onlyDropWatcher {
   height: unset;
 }
 
-div.hoveringOverSwap {
-  background-color: rgb(0, 70, 0) !important;
+/* div.hoveringOverSwap {
+  /* background-color: rgb(0, 70, 0) !important; */
+} */
+
+div.hoveringOverSwap::after {
+  content: "Swap items";
+  position: absolute;
+  background-color: var(--rstudio-blue);
+  color: var(--rstudio-white);
+  bottom: 100%;
+  inset-inline: 20px;
+  z-index: 2;
+  text-align: center;
+  padding-block: 4px;
 }
 
 div.availableToSwap {
