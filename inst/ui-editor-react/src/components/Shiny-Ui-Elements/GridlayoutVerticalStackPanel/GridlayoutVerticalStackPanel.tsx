@@ -2,7 +2,6 @@ import React from "react";
 
 import type {
   NodePath,
-  ShinyUiNode,
   UiContainerNodeComponent,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import UiNode from "components/UiNode";
