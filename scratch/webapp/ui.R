@@ -3,7 +3,7 @@ gridlayout::grid_page(
     "header header",
     "sidebar blueplot",
     "sidebar table",
-    "sidebar plot"
+    ". plot"
   ),
   row_sizes = c(
     "100px",
