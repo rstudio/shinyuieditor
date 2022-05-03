@@ -2,6 +2,7 @@ import React from "react";
 
 import type {
   NodePath,
+  ShinyUiNode,
   UiContainerNodeComponent,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import UiNode from "components/UiNode";
@@ -9,6 +10,7 @@ import UiNode from "components/UiNode";
 import type { VerticalStackPanelSettings } from "./index";
 
 import classes from "./styles.module.css";
+import { useGridItemSwapping } from "./useGridItemSwapping";
 import { useGridPanelDropDetectors } from "./useGridPanelDropDetectors";
 
 const GridlayoutVerticalStackPanel: UiContainerNodeComponent<
@@ -23,6 +25,8 @@ const GridlayoutVerticalStackPanel: UiContainerNodeComponent<
 }) => {
   const { path } = nodeInfo;
   const { area, item_alignment, item_gap, title } = uiArguments;
+
+  useGridItemSwapping({ containerRef: compRef, area, path });
 
   return (
     <div
