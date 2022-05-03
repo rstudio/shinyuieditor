@@ -5,8 +5,7 @@ import type {
   ShinyUiNames,
   ShinyUiNode,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
-import { useDispatch } from "react-redux";
-import { PLACE_NODE } from "state/uiTree";
+import { usePlaceNode } from "state/uiTree";
 
 import { getIsValidMove } from "../components/UiNode/TreeManipulation/placeNode";
 
@@ -29,7 +28,7 @@ export function useDropHandlers(
     onDrop,
   }: DropHandlerArguments
 ) {
-  const dispatch = useDispatch();
+  const place_node = usePlaceNode();
 
   const getCanAcceptDrop: (dragInfo: DraggedNodeInfo) => boolean =
     React.useCallback(
@@ -48,18 +47,16 @@ export function useDropHandlers(
   const handleDrop: (dragInfo: DraggedNodeInfo) => void = React.useCallback(
     (dragInfo: DraggedNodeInfo) => {
       if (onDrop === "add-node") {
-        dispatch(
-          PLACE_NODE({
-            ...dragInfo,
-            parentPath,
-            positionInChildren,
-          })
-        );
+        place_node({
+          ...dragInfo,
+          parentPath,
+          positionInChildren,
+        });
       } else {
         onDrop(dragInfo);
       }
     },
-    [dispatch, onDrop, parentPath, positionInChildren]
+    [onDrop, parentPath, place_node, positionInChildren]
   );
 
   useFilteredDrop({

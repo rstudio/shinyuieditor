@@ -12,7 +12,7 @@ import type {
 import UiNode from "components/UiNode";
 import type { DraggedNodeInfo } from "DragAndDropHelpers/DragAndDropHelpers";
 import { useDispatch } from "react-redux";
-import { PLACE_NODE, UPDATE_NODE } from "state/uiTree";
+import { UPDATE_NODE, usePlaceNode } from "state/uiTree";
 import { enumerateGridDims, toStringLoc } from "utils/grid-helpers";
 import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
@@ -45,6 +45,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
   compRef,
 }) => {
   const dispatch = useDispatch();
+  const place_node = usePlaceNode();
 
   const { onClick } = eventHandlers;
 
@@ -141,13 +142,11 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
       }
 
       // Let the state know we have a new child node
-      dispatch(
-        PLACE_NODE({
-          parentPath: [],
-          node: node,
-          currentPath,
-        })
-      );
+      place_node({
+        parentPath: [],
+        node: node,
+        currentPath,
+      });
 
       handleLayoutUpdate({
         type: "ADD_ITEM",
@@ -158,7 +157,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
       // Reset the modal/new item info state
       setShowModal(null);
     },
-    [dispatch, handleLayoutUpdate]
+    [handleLayoutUpdate, place_node]
   );
 
   return (

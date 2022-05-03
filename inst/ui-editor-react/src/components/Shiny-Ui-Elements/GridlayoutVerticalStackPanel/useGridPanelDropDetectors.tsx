@@ -5,10 +5,10 @@ import type {
   ShinyUiNames,
   ShinyUiNode,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
+import { getIsValidMove } from "components/UiNode/TreeManipulation/placeNode";
 import type { DraggedNodeInfo } from "DragAndDropHelpers/DragAndDropHelpers";
-import { useDropHandlers } from "DragAndDropHelpers/useDropHandlers";
-import { useDispatch } from "react-redux";
-import { PLACE_NODE } from "state/uiTree";
+import { useFilteredDrop } from "DragAndDropHelpers/useFilteredDrop";
+import { usePlaceNode } from "state/uiTree";
 
 const unacceptedNodes: ShinyUiNames[] = [
   "gridlayout::grid_page",
@@ -25,36 +25,44 @@ export function useGridPanelDropDetectors({
   index: number;
   parentPath: NodePath;
 }) {
-  const dispatch = useDispatch();
+  const place_node = usePlaceNode();
 
-  const canAcceptDrop = React.useCallback(
-    (node: ShinyUiNode) => getInfoOfDropped(node) !== null,
-    []
-  );
-  const handleDrop = React.useCallback(
+  const getCanAcceptDrop: (dragInfo: DraggedNodeInfo) => boolean =
+    React.useCallback(
+      ({ node, currentPath }: DraggedNodeInfo) => {
+        const hasNodeToAccept = getInfoOfDropped(node) !== null;
+        return (
+          hasNodeToAccept &&
+          getIsValidMove({
+            fromPath: currentPath,
+            toPath: [...parentPath, Infinity],
+          })
+        );
+      },
+      [parentPath]
+    );
+
+  const onDrop = React.useCallback(
     ({ node, currentPath }: DraggedNodeInfo) => {
       const nodeToPlace = getInfoOfDropped(node);
       if (!nodeToPlace) {
         throw new Error("No node to place...");
       }
 
-      dispatch(
-        PLACE_NODE({
-          node: nodeToPlace,
-          currentPath,
-          parentPath,
-          positionInChildren: index,
-        })
-      );
+      place_node({
+        node: nodeToPlace,
+        currentPath,
+        parentPath,
+        positionInChildren: index,
+      });
     },
-    [dispatch, index, parentPath]
+    [index, parentPath, place_node]
   );
 
-  useDropHandlers(watcherRef, {
-    onDrop: handleDrop,
-    parentPath,
-    positionInChildren: index,
-    dropFilters: { getCanAcceptDrop: canAcceptDrop },
+  useFilteredDrop({
+    watcherRef,
+    getCanAcceptDrop,
+    onDrop,
   });
 }
 
