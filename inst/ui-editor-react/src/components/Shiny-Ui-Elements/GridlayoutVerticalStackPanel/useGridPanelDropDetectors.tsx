@@ -18,11 +18,11 @@ const unacceptedNodes: ShinyUiNames[] = [
 
 export function useGridPanelDropDetectors({
   watcherRef,
-  index,
+  positionInChildren,
   parentPath,
 }: {
   watcherRef: React.RefObject<HTMLDivElement>;
-  index: number;
+  positionInChildren: number;
   parentPath: NodePath;
 }) {
   const place_node = usePlaceNode();
@@ -31,15 +31,16 @@ export function useGridPanelDropDetectors({
     React.useCallback(
       ({ node, currentPath }: DraggedNodeInfo) => {
         const hasNodeToAccept = getInfoOfDropped(node) !== null;
+
         return (
           hasNodeToAccept &&
           getIsValidMove({
             fromPath: currentPath,
-            toPath: [...parentPath, Infinity],
+            toPath: [...parentPath, positionInChildren],
           })
         );
       },
-      [parentPath]
+      [positionInChildren, parentPath]
     );
 
   const onDrop = React.useCallback(
@@ -53,10 +54,10 @@ export function useGridPanelDropDetectors({
         node: nodeToPlace,
         currentPath,
         parentPath,
-        positionInChildren: index,
+        positionInChildren,
       });
     },
-    [index, parentPath, place_node]
+    [positionInChildren, parentPath, place_node]
   );
 
   useFilteredDrop({

@@ -78,7 +78,7 @@ function DropWatcherPanel({
   const watcherRef = React.useRef<HTMLDivElement>(null);
   useGridPanelDropDetectors({
     watcherRef,
-    index,
+    positionInChildren: index,
     parentPath,
   });
 
