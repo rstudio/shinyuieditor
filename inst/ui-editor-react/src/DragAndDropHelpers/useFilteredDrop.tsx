@@ -8,6 +8,7 @@ type DropHandlerArguments = {
   watcherRef: React.RefObject<HTMLDivElement>;
   getCanAcceptDrop?: (droppedNode: DraggedNodeInfo) => void;
   onDrop: (droppedNode: DraggedNodeInfo) => void;
+  onDragOver?: () => void;
   canAcceptDropClass?: string;
   hoveringOverClass?: string;
 };
@@ -16,6 +17,7 @@ export function useFilteredDrop({
   watcherRef,
   getCanAcceptDrop = () => true,
   onDrop,
+  onDragOver,
   canAcceptDropClass = classes.canAcceptDrop,
   hoveringOverClass = classes.hoveringOver,
 }: DropHandlerArguments) {
@@ -41,6 +43,7 @@ export function useFilteredDrop({
       // so if this function gets any more complicated the callback should most
       // likely be throttled
       addHoveredOverHighlight();
+      onDragOver?.();
     },
     [addHoveredOverHighlight, onDragOver]
   );
