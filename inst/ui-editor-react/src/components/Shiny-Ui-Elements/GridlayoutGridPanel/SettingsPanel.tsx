@@ -15,18 +15,18 @@ import {
 
 import type { GridPanelSettings } from ".";
 
-const verticalAlignIcons = {
-  start: <CgAlignTop size="25px" />,
-  end: <CgAlignBottom size="25px" />,
-  center: <AiOutlineVerticalAlignMiddle size="25px" />,
-  spread: <CgAlignMiddle size="25px" />,
+const verticalAlignOptions = {
+  start: { icon: <CgAlignTop size="25px" />, label: "top" },
+  center: { icon: <AiOutlineVerticalAlignMiddle size="25px" /> },
+  end: { icon: <CgAlignBottom size="25px" />, label: "bottom" },
+  spread: { icon: <CgAlignMiddle size="25px" /> },
 };
 
-const horizontalAlignIcons = {
-  start: <CgAlignLeft size="25px" />,
-  center: <CgAlignCenter size="25px" />,
-  end: <CgAlignRight size="25px" />,
-  spread: <CgAlignCenter size="25px" />,
+const horizontalAlignOptions = {
+  start: { icon: <CgAlignLeft size="25px" />, label: "left" },
+  center: { icon: <CgAlignCenter size="25px" />, label: "middle" },
+  end: { icon: <CgAlignRight size="25px" />, label: "right" },
+  spread: { icon: <CgAlignCenter size="25px" />, label: "spread" },
 };
 
 export const GridlayoutGridPanelSettings: SettingsUpdaterComponent<
@@ -42,16 +42,14 @@ export const GridlayoutGridPanelSettings: SettingsUpdaterComponent<
       <RadioInputs
         name="v_align"
         label="Vertical Alignment"
-        options={["start", "center", "end", "spread"]}
-        optionIcons={verticalAlignIcons}
+        options={verticalAlignOptions}
         currentSelection={settings.v_align ?? "center"}
         optionsPerColumn={2}
       />
       <RadioInputs
         name="h_align"
         label="Horizontal Alignment"
-        options={["start", "center", "end", "spread"]}
-        optionIcons={horizontalAlignIcons}
+        options={horizontalAlignOptions}
         currentSelection={settings.h_align ?? "center"}
         optionsPerColumn={2}
       />

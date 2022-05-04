@@ -21,6 +21,10 @@ and background colors */
   border-radius: var(--corner-radius);
   background-color: var(--rstudio-white);
 }
+.option label .optionIcon {
+  display: grid;
+  place-content: center;
+}
 
 input[type="radio"]:checked + label {
   background-color: var(--rstudio-blue);
@@ -30,4 +34,28 @@ input[type="radio"]:checked + label {
 
 input[type="radio"]:hover + label {
   outline: 2px solid var(--rstudio-blue);
+}
+
+input[type="radio"] + label::after {
+  content: attr(data-name);
+  opacity: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+input[type="radio"]:hover + label::after,
+input[type="radio"]:hover + label .optionIcon {
+  transition-property: opacity;
+  transition-duration: 1s;
+  transition-delay: 0.5s;
+}
+
+input[type="radio"]:hover + label::after {
+  transition-timing-function: ease-in;
+  opacity: 1;
+}
+
+input[type="radio"]:hover + label .optionIcon {
+  transition-timing-function: ease-out;
+  opacity: 0;
 }

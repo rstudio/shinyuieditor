@@ -10,19 +10,18 @@ export function RadioInputs<OptionType extends string>({
   name,
   label,
   options,
-  optionIcons,
   currentSelection,
   onChange,
   optionsPerColumn,
 }: {
   name: string;
   label?: string;
-  options: OptionType[];
-  optionIcons?: Record<OptionType, JSX.Element>;
+  options: Record<OptionType, { icon: JSX.Element; label?: string }>;
   currentSelection: OptionType;
   onChange?: (x: { name: string; value: OptionType }) => void;
   optionsPerColumn?: number;
 }) {
+  const values = Object.keys(options) as OptionType[];
   const onNewValue = useOnChange(onChange as OnChangeCallback);
 
   return (
@@ -38,7 +37,9 @@ export function RadioInputs<OptionType extends string>({
           }, minmax(65px, 1fr))`,
         }}
       >
-        {options.map((option) => {
+        {values.map((option) => {
+          const { icon, label = option } = options[option] ?? {};
+
           return (
             <div className={classes.option} key={option}>
               <input
@@ -49,8 +50,8 @@ export function RadioInputs<OptionType extends string>({
                 onChange={() => onNewValue({ name, value: option })}
                 checked={option === currentSelection}
               />
-              <label htmlFor={name + option}>
-                {optionIcons?.[option] ?? option}
+              <label htmlFor={name + option} data-name={label}>
+                <span className={classes.optionIcon}>{icon ?? option}</span>
               </label>
             </div>
           );

@@ -9,12 +9,11 @@ import type { SettingsUpdaterComponent } from "../uiNodeTypes";
 
 import type { GridlayoutTextPanelProps } from ".";
 
-const alignmentIcons: Record<GridlayoutTextPanelProps["h_align"], JSX.Element> =
-  {
-    start: <CgAlignLeft size="25px" />,
-    center: <CgAlignCenter size="25px" />,
-    end: <CgAlignRight size="25px" />,
-  };
+const alignmentOptions = {
+  start: { icon: <CgAlignLeft size="25px" />, label: "left" },
+  center: { icon: <CgAlignCenter size="25px" />, label: "middle" },
+  end: { icon: <CgAlignRight size="25px" />, label: "right" },
+};
 
 export const GridlayoutTextPanelSettings: SettingsUpdaterComponent<
   GridlayoutTextPanelProps
@@ -34,8 +33,7 @@ export const GridlayoutTextPanelSettings: SettingsUpdaterComponent<
       <RadioInputs
         name="h_align"
         label="Text Alignment"
-        options={["start", "center", "end"]}
-        optionIcons={alignmentIcons}
+        options={alignmentOptions}
         currentSelection={settings.h_align}
         optionsPerColumn={3}
       />
