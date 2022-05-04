@@ -62,6 +62,9 @@
   display: grid;
   grid-template-rows: var(--label-h) 1fr;
   background-color: var(--background-grey);
+  /* Make sure z-indices dont leak out of panels and overlap things like modals
+  */
+  isolation: isolate;
 }
 .titledPanel > * {
   min-width: 0;
