@@ -1,6 +1,7 @@
 .elementsPalette {
   height: 100%;
   overflow: auto;
+  padding: var(--element-palette-padding);
 }
 
 .categoryHeader {
@@ -8,8 +9,12 @@
   text-align: center;
   position: relative;
   isolation: isolate;
-  padding: 5px;
-  margin-inline: 5px;
+  margin-top: 18px;
+}
+
+/* Reduce vertical padding for first category list */
+.categoryHeader:first-child {
+  margin-top: 0;
 }
 
 .categoryHeader > span {
@@ -36,7 +41,6 @@
   justify-content: center;
   justify-items: center;
   align-content: start;
-  padding: var(--element-palette-padding);
   gap: var(--element-palette-padding);
 }
 
