@@ -1,15 +1,13 @@
 import React from "react";
 
-import Button from "components/Inputs/Button";
 import type {
   ShinyUiNames,
   UiContainerNodeComponent,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import UiNode from "components/UiNode";
 import { useDropHandlers } from "DragAndDropHelpers/useDropHandlers";
-import { FiTrash as TrashIcon } from "react-icons/fi";
-import { useDeleteNode } from "SettingsPanel/useDeleteNode";
 
+import { EmptyGridPanelMessage } from "../GridLayoutPanelHelpers/EmptyPanelMessage";
 import { useGridItemSwapping } from "../GridlayoutVerticalStackPanel/useGridItemSwapping";
 
 import type {
@@ -43,7 +41,6 @@ const GridlayoutGridPanel: UiContainerNodeComponent<GridPanelSettings> = ({
     positionInChildren: 0,
     dropFilters: { rejectedNodes },
   });
-  const deletePanel = useDeleteNode(path);
 
   return (
     <div
@@ -75,15 +72,7 @@ const GridlayoutGridPanel: UiContainerNodeComponent<GridPanelSettings> = ({
           ))
         ) : (
           <div ref={dropListenerDivRef} className={classes.dropListener}>
-            Empty grid panel. Delete?{" "}
-            <Button
-              className={classes.deleteButton}
-              onClick={() => deletePanel()}
-              variant="delete"
-              aria-label="Delete Node"
-            >
-              <TrashIcon /> Delete Element
-            </Button>
+            <EmptyGridPanelMessage path={path} />
           </div>
         )}
       </div>

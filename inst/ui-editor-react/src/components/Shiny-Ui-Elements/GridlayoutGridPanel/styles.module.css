@@ -60,3 +60,9 @@ in the proper places */
   display: grid;
   place-content: center;
 }
+
+.emptyGridPanel {
+  height: 100%;
+  display: grid;
+  place-content: center;
+}
