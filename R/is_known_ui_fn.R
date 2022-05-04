@@ -42,9 +42,10 @@ namespaced_ui_fns <- c(
   "shiny::actionButton",
   "shiny::uiOutput",
   "shiny::textOutput",
-  "gridlayout::grid_panel_text",
-  "gridlayout::grid_panel",
   "gridlayout::grid_page",
+  "gridlayout::grid_panel",
+  "gridlayout::grid_panel_text",
+  "gridlayout::grid_panel_plot",
   "gridlayout::grid_panel_stack"
 )
 
