@@ -5,11 +5,11 @@ import type { UiComponentInfo } from "../uiNodeTypes";
 import { ShinyPlotOutputSettings } from "./SettingsPanel";
 import ShinyPlotOutput from "./ShinyPlotOutput";
 
-export type ShinyPlotOutputProps = Partial<{
+export type ShinyPlotOutputProps = {
   outputId: string;
-  width: string;
-  height: string;
-}>;
+  width?: string;
+  height?: string;
+};
 
 export const shinyPlotOutputInfo: UiComponentInfo<ShinyPlotOutputProps> = {
   title: "Plot Output",

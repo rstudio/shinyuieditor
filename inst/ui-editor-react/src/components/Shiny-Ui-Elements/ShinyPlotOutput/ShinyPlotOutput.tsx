@@ -1,34 +1,18 @@
 import * as React from "react";
 
 import type { UiNodeComponent } from "components/Shiny-Ui-Elements/uiNodeTypes";
-import { GoGraph } from "react-icons/go";
-
-import { InputOutputTitle } from "../InputOutputTitle";
 
 import type { ShinyPlotOutputProps } from "./index";
 
+import { PlotPlaceholder } from "./PlotPlaceholder";
 import classes from "./styles.module.css";
 
 const ShinyPlotOutput: UiNodeComponent<ShinyPlotOutputProps> = ({
-  uiArguments,
+  uiArguments: { outputId, width = "300px", height = "200px" },
   children,
   eventHandlers,
   compRef,
 }) => {
-  const {
-    outputId = "shiny-plot-output",
-    width = "300px",
-    height = "200px",
-  } = uiArguments;
-
-  // Start tiny so icon isn't the reason the container is big
-  const containerDimensions = useContainerDimensions(compRef);
-
-  const smallestDim =
-    containerDimensions === null
-      ? 100
-      : Math.min(containerDimensions.width, containerDimensions.height);
-
   return (
     <div
       className={classes.container}
@@ -37,22 +21,15 @@ const ShinyPlotOutput: UiNodeComponent<ShinyPlotOutputProps> = ({
       aria-label="shiny::plotOutput placeholder"
       {...eventHandlers}
     >
-      <InputOutputTitle
-        className={classes.label}
-        type="output"
-        name={outputId}
-      />
-      <GoGraph
-        // Account for padding of 30px + label height of 30px
-        size={`calc(${smallestDim}px - 60px)`}
-      />
-
+      <PlotPlaceholder outputId={outputId} compRef={compRef} />
       {children}
     </div>
   );
 };
 
-function useContainerDimensions(containerRef: React.RefObject<HTMLElement>) {
+export function useContainerDimensions(
+  containerRef: React.RefObject<HTMLElement>
+) {
   const [dimensions, setDimensions] = React.useState<{
     width: number;
     height: number;
