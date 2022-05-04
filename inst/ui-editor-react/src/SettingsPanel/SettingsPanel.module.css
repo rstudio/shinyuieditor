@@ -12,7 +12,7 @@
   flex-basis: fit-content;
 }
 
-.settingsForm {
+.settingsFormContainer {
   /* Make the settings form take up whatever space it has until bottom */
   flex: 1;
   --deliniation: 1px solid var(--rstudio-white);
@@ -21,8 +21,10 @@
   overflow: auto;
 }
 
+form.settingsForm {
+  margin-top: 10px;
+}
 .submitHolder {
-  /* outline: 1px solid red; */
   padding: 4px;
   display: flex;
   justify-content: center;
