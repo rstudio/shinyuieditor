@@ -6,6 +6,8 @@ import type {
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import UiNode from "components/UiNode";
 
+import { EmptyGridPanelMessage } from "../GridLayoutPanelHelpers/EmptyPanelMessage";
+
 import type { VerticalStackPanelSettings } from "./index";
 
 import classes from "./styles.module.css";
@@ -22,6 +24,8 @@ const GridlayoutVerticalStackPanel: UiContainerNodeComponent<
   eventHandlers,
   compRef,
 }) => {
+  const has_children = uiChildren.length > 0;
+
   useGridItemSwapping({ containerRef: compRef, area, path });
 
   return (
@@ -46,16 +50,21 @@ const GridlayoutVerticalStackPanel: UiContainerNodeComponent<
           parentPath={path}
           numChildren={uiChildren.length}
         />
-        {uiChildren?.map((childNode, i) => (
-          <React.Fragment key={path.join(".") + i}>
-            <UiNode path={[...path, i]} {...childNode} />
-            <DropWatcherPanel
-              index={i + 1}
-              numChildren={uiChildren.length}
-              parentPath={path}
-            />
-          </React.Fragment>
-        ))}
+        {}
+        {has_children ? (
+          uiChildren?.map((childNode, i) => (
+            <React.Fragment key={path.join(".") + i}>
+              <UiNode path={[...path, i]} {...childNode} />
+              <DropWatcherPanel
+                index={i + 1}
+                numChildren={uiChildren.length}
+                parentPath={path}
+              />
+            </React.Fragment>
+          ))
+        ) : (
+          <EmptyGridPanelMessage path={path} />
+        )}
       </div>
       {children}
     </div>
