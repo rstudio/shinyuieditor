@@ -15,12 +15,23 @@ export default function ElementsPalette({
 }: {
   availableUi?: typeof shinyUiNodeInfo;
 }) {
-  const uiNames = Object.keys(availableUi) as ShinyUiNames[];
+  const ui_by_category = makeCategories({ availableUi });
 
   return (
-    <div className={classes.OptionsList}>
-      {uiNames.map((uiName) => (
-        <ElementOption key={uiName} uiName={uiName} />
+    <div className={classes.elementsPalette}>
+      {ui_by_category.map(({ category, nodes }) => (
+        <>
+          {category ? (
+            <div className={classes.categoryHeader}>
+              <span>{category}</span>
+            </div>
+          ) : null}
+          <div className={classes.OptionsList}>
+            {nodes.map((uiName) => (
+              <ElementOption key={uiName} uiName={uiName} />
+            ))}
+          </div>
+        </>
       ))}
     </div>
   );
@@ -45,4 +56,42 @@ function ElementOption({ uiName }: { uiName: ShinyUiNames }) {
       <label>{title}</label>
     </div>
   );
+}
+
+function makeCategories({
+  availableUi = shinyUiNodeInfo,
+}: {
+  availableUi?: typeof shinyUiNodeInfo;
+}): { category?: string; nodes: ShinyUiNames[] }[] {
+  const by_category: Record<string | symbol, ShinyUiNames[]> = {};
+
+  const uncategorized: ShinyUiNames[] = [];
+
+  let uiName: ShinyUiNames;
+  for (uiName in availableUi) {
+    const { category, iconSrc } = availableUi[uiName];
+
+    if (!iconSrc) {
+      continue;
+    }
+
+    if (!category) {
+      uncategorized.push(uiName);
+      continue;
+    }
+
+    if (!by_category[category]) {
+      by_category[category] = [];
+    }
+    by_category[category].push(uiName);
+  }
+
+  const category_list: { category?: string; nodes: ShinyUiNames[] }[] =
+    Object.keys(by_category).map((category) => ({
+      category,
+      nodes: by_category[category],
+    }));
+
+  // Add the uncategorized
+  return [{ nodes: uncategorized }, ...category_list];
 }
