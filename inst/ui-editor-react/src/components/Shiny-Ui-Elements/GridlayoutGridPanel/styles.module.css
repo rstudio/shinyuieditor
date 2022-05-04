@@ -46,6 +46,7 @@ https://css-tricks.com/preventing-a-grid-blowout/ */
   padding: var(--card-padding);
   grid-area: content;
   position: relative;
+  display: grid;
 }
 
 /* Make sure the children are position relative so floating buttons etc will sit

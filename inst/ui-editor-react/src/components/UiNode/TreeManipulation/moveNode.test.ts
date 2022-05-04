@@ -12,8 +12,6 @@ const baseNode: ShinyUiNode = {
   uiName: "gridlayout::grid_panel",
   uiArguments: {
     area: "panel",
-    horizontalAlign: "center",
-    verticalAlign: "center",
   },
   uiChildren: [
     {
@@ -21,8 +19,6 @@ const baseNode: ShinyUiNode = {
       uiName: "gridlayout::grid_panel",
       uiArguments: {
         area: "left",
-        horizontalAlign: "right",
-        verticalAlign: "center",
       },
       uiChildren: [
         // path = [0, 0]

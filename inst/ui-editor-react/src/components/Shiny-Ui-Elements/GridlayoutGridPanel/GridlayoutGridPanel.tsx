@@ -10,11 +10,7 @@ import { useDropHandlers } from "DragAndDropHelpers/useDropHandlers";
 import { EmptyGridPanelMessage } from "../GridLayoutPanelHelpers/EmptyPanelMessage";
 import { useGridItemSwapping } from "../GridlayoutVerticalStackPanel/useGridItemSwapping";
 
-import type {
-  GridPanelSettings,
-  HorizontalAlignments,
-  VerticalAlignments,
-} from "./index";
+import type { GridPanelSettings, Alignments } from "./index";
 
 import classes from "./styles.module.css";
 
@@ -25,7 +21,7 @@ const rejectedNodes: ShinyUiNames[] = [
 ];
 const GridlayoutGridPanel: UiContainerNodeComponent<GridPanelSettings> = ({
   uiChildren,
-  uiArguments: { area, verticalAlign, horizontalAlign, title },
+  uiArguments: { area, v_align, h_align, title },
   nodeInfo: { path },
   children,
   eventHandlers,
@@ -48,8 +44,6 @@ const GridlayoutGridPanel: UiContainerNodeComponent<GridPanelSettings> = ({
       className={classes.grid_panel}
       style={{
         gridArea: area,
-        justifyContent: dirToFlexProp[horizontalAlign ?? "spread"],
-        alignContent: dirToFlexProp[verticalAlign ?? "spread"],
       }}
       onClick={(e) => {
         if (eventHandlers.onClick) {
@@ -60,7 +54,13 @@ const GridlayoutGridPanel: UiContainerNodeComponent<GridPanelSettings> = ({
       }}
     >
       {title ? <h2 className={classes.panel_title}>{title}</h2> : null}
-      <div className={classes.panel_content}>
+      <div
+        className={classes.panel_content}
+        style={{
+          justifyItems: alignmentToCSSVal(h_align),
+          alignItems: alignmentToCSSVal(v_align),
+        }}
+      >
         {has_children ? (
           uiChildren.map((childNode, i) => (
             <UiNode
@@ -83,12 +83,9 @@ const GridlayoutGridPanel: UiContainerNodeComponent<GridPanelSettings> = ({
 
 export default GridlayoutGridPanel;
 
-const dirToFlexProp: Record<HorizontalAlignments | VerticalAlignments, string> =
-  {
-    center: "center",
-    left: "start",
-    top: "start",
-    right: "end",
-    bottom: "end",
-    spread: "space-evenly",
-  };
+const alignmentToCSSVal = (val?: Alignments) => {
+  if (!val) return "center";
+  if (val === "spread") return "space-evenly";
+
+  return val;
+};

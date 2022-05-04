@@ -9,8 +9,6 @@ const baseNode: ShinyUiNode = {
   uiName: "gridlayout::grid_panel",
   uiArguments: {
     area: "panel",
-    horizontalAlign: "center",
-    verticalAlign: "center",
   },
   uiChildren: [
     {
@@ -18,8 +16,6 @@ const baseNode: ShinyUiNode = {
       uiName: "gridlayout::grid_panel",
       uiArguments: {
         area: "panel2",
-        horizontalAlign: "right",
-        verticalAlign: "center",
       },
       uiChildren: [
         // path = [0, 0]
@@ -82,8 +78,6 @@ test("Modify a node at first level", () => {
     uiName: "gridlayout::grid_panel",
     uiArguments: {
       area: "panel",
-      horizontalAlign: "center",
-      verticalAlign: "center",
     },
     uiChildren: [
       // path = [0]
