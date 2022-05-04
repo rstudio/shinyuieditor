@@ -54,6 +54,13 @@
   justify-content: end;
 }
 
+/* This is here so the things that need to know where their parent exists work
+with the children nodes. Otherwise we'd rely on every child settings position
+relative themselves */
+.contentHolder > div {
+  position: relative;
+}
+
 /* Setup expansion of the drag watching divs based on the alignment type */
 
 /* By default the drop watcher is just the height of the spacing between the
