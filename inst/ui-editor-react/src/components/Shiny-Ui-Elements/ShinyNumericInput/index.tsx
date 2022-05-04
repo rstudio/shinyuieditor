@@ -29,4 +29,5 @@ export const shinyNumericInputInfo: UiComponentInfo<ShinyNumericInputProps> = {
   acceptsChildren: false,
   defaultSettings: numericInputDefaultSettings,
   iconSrc: numericInputIcon,
+  category: "Inputs",
 };

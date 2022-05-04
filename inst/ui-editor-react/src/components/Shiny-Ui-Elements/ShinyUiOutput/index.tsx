@@ -16,6 +16,7 @@ export const shinyUiOutputInfo: UiComponentInfo<ShinyUiOutputProps> = {
   acceptsChildren: false,
   defaultSettings: { outputId: "myUi" },
   iconSrc: uiIcon,
+  category: "Outputs",
 };
 
 export default ShinyUiOutput;

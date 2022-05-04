@@ -32,6 +32,7 @@ export const shinySliderInputInfo: UiComponentInfo<ShinySliderInputProps> = {
   acceptsChildren: false,
   defaultSettings: sliderDefaultSettings,
   iconSrc: sliderIcon,
+  category: "Inputs",
 };
 
 export default ShinySliderInput;

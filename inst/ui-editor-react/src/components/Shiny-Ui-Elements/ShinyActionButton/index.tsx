@@ -19,6 +19,7 @@ export const shinyActionButtonInfo: UiComponentInfo<ShinyActionButtonProps> = {
   acceptsChildren: false,
   defaultSettings: { inputId: "myButton", label: "My Button" },
   iconSrc: buttonIcon,
+  category: "Inputs",
 };
 
 export default ShinyActionButton;
