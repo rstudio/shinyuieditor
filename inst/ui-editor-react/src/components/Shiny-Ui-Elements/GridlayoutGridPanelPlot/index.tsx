@@ -7,7 +7,7 @@ import { GridlayoutGridPanelPlotSettings } from "./SettingsPanel";
 
 export interface GridlayoutGridPanelPlotProps {
   area: string;
-  outputId: string;
+  outputId?: string;
 }
 
 export const GridlayoutGridPanelPlotInfo: UiComponentInfo<GridlayoutGridPanelPlotProps> =
@@ -16,10 +16,7 @@ export const GridlayoutGridPanelPlotInfo: UiComponentInfo<GridlayoutGridPanelPlo
     UiComponent: GridlayoutGridPanelPlot,
     SettingsComponent: GridlayoutGridPanelPlotSettings,
     acceptsChildren: false,
-    defaultSettings: {
-      area: "plot_panel",
-      outputId: "plot",
-    },
+    defaultSettings: { area: "plot" },
     iconSrc: icon,
   };
 

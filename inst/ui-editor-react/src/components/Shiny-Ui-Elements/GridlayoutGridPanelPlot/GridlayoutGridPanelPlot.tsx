@@ -28,7 +28,7 @@ const GridlayoutGridPanelPlot: UiNodeComponent<
       aria-label={"gridlayout-gridPanelPlot"}
       {...eventHandlers}
     >
-      <PlotPlaceholder outputId={outputId} compRef={compRef} />
+      <PlotPlaceholder outputId={outputId ?? area} compRef={compRef} />
       {children}
     </div>
   );

@@ -12,7 +12,13 @@ export const GridlayoutGridPanelPlotSettings: SettingsUpdaterComponent<
   return (
     <>
       <TextInput name="area" label="Name of grid area" value={area} />
-      <TextInput label="outputId" name="outputId" value={outputId} />
+      <TextInput
+        label="outputId"
+        name="outputId"
+        value={outputId}
+        optional={true}
+        defaultValue={area}
+      />
     </>
   );
 };
