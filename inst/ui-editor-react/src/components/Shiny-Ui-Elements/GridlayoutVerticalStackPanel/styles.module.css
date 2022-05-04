@@ -61,6 +61,8 @@ elements */
 div.dropWatcher {
   height: var(--spacing);
   width: 100%;
+  /* Make sure these guys sit above other so they can access the drop events */
+  z-index: 2;
 }
 
 /* When in the top alignment mode only the final watcher needs to expand */
