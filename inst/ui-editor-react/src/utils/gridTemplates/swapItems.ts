@@ -6,6 +6,9 @@ function swapItems(
   originalTemplate: TemplatedGridProps,
   { item_a, item_b }: { item_a: string; item_b: string }
 ): TemplatedGridProps {
+  // Swapping an item with itself is a no-op
+  if (item_a === item_b) return originalTemplate;
+
   return produce(originalTemplate, (template) => {
     const { n_rows, n_cols } = getLayoutDimensions(template.areas);
 

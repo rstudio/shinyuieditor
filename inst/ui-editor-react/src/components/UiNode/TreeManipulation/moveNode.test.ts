@@ -96,6 +96,9 @@ describe("Can detect when siblings", () => {
     expect(nodesAreSiblings([0, 2, 2], [0, 1, 3])).toEqual(false);
     expect(nodesAreSiblings([0, 1], [0, 1, 3])).toEqual(false);
   });
+  test("A node is not its own sibling", () => {
+    expect(nodesAreSiblings([0, 1, 3], [0, 1, 3])).toEqual(false);
+  });
 });
 
 describe("Move nodes within tree", () => {
