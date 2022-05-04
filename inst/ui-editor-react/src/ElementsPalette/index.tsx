@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import CategoryHeader from "components/CategoryHeader";
 import type {
   ShinyUiNames,
   ShinyUiNode,
@@ -21,11 +22,7 @@ export default function ElementsPalette({
     <div className={classes.elementsPalette}>
       {ui_by_category.map(({ category, nodes }) => (
         <>
-          {category ? (
-            <div className={classes.categoryHeader}>
-              <span>{category}</span>
-            </div>
-          ) : null}
+          {category ? <CategoryHeader category={category} /> : null}
           <div className={classes.OptionsList}>
             {nodes.map((uiName) => (
               <ElementOption key={uiName} uiName={uiName} />
