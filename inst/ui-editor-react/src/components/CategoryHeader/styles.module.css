@@ -9,6 +9,7 @@
 .categoryHeader > span {
   padding: 2px 8px;
   background-color: var(--light-grey);
+  font-weight: bold;
 }
 
 .categoryHeader::before {
