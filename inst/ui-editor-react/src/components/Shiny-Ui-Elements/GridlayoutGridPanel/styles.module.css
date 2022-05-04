@@ -54,3 +54,9 @@ in the proper places */
   position: relative;
   outline: var(--outline);
 }
+
+.dropListener {
+  height: 100%;
+  display: grid;
+  place-content: center;
+}
