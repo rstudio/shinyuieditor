@@ -27,6 +27,7 @@ export const gridlayoutGridPageInfo: UiComponentInfo<TemplatedGridProps> = {
     UPDATE_NODE: updateGridLayoutAreaOnItemAreaChange,
     DELETE_NODE: removeDeletedGridAreaFromLayout,
   },
+  category: "gridlayout",
 };
 
 export default GridlayoutGridPage;

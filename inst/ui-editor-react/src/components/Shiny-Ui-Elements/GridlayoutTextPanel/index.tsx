@@ -24,6 +24,7 @@ export const gridlayoutTextPanelInfo: UiComponentInfo<GridlayoutTextPanelProps> 
       h_align: "start",
     },
     iconSrc: textIcon,
+    category: "gridlayout",
   };
 
 export default GridlayoutTextPanel;

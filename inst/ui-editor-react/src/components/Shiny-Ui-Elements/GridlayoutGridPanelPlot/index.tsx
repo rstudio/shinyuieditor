@@ -18,6 +18,7 @@ export const GridlayoutGridPanelPlotInfo: UiComponentInfo<GridlayoutGridPanelPlo
     acceptsChildren: false,
     defaultSettings: { area: "plot" },
     iconSrc: icon,
+    category: "gridlayout",
   };
 
 export default GridlayoutGridPanelPlot;

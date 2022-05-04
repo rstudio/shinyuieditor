@@ -42,6 +42,13 @@ export type UiComponentInfo<NodeSettings extends object> = {
    * not provided then the node will not show up in the element palette.
    */
   iconSrc?: string;
+
+  /**
+   * Optional category of the node. Used to organize the elements palette. All
+   * nodes with the same category will be grouped together under that categories
+   * header.
+   */
+  category?: string;
   /**
    * Optional functions that will hook into the state update reducers and allow
    * a component the ability to respond to state manipulation before the main

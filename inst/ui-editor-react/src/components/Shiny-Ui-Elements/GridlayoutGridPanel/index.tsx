@@ -21,6 +21,8 @@ export const gridLayoutGridPanelInfo: UiComponentInfo<GridPanelSettings> = {
   defaultSettings: {
     area: "default-grid-panel-area",
   },
+  category: "gridlayout",
+
   // iconSrc: containerIcon,
 };
 

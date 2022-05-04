@@ -29,6 +29,7 @@ export const gridlayoutVerticalStackPanelInfo: UiComponentInfo<VerticalStackPane
     acceptsChildren: true,
     defaultSettings: gridlayoutVerticalStackPanelDefaultSettings,
     iconSrc: containerIcon,
+    category: "gridlayout",
   };
 
 export default GridlayoutVerticalStackPanel;
