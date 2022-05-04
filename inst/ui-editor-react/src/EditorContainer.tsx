@@ -1,6 +1,5 @@
 import * as React from "react";
 
-import rstudioLogo from "assets/RStudio-Logo.svg";
 import shinyLogo from "assets/Shiny-Logo.png";
 import AppPreview from "components/AppPreview";
 import type { ShinyUiNode } from "components/Shiny-Ui-Elements/uiNodeTypes";
@@ -29,9 +28,6 @@ function EditorContainerWithData({
   const dispatch = useDispatch();
 
   const tree = useSelector((state: RootState) => state.uiTree);
-  const connectedToServer = useSelector(
-    (state: RootState) => state.connectedToServer
-  );
 
   React.useEffect(() => {
     if (!initialState) return;
