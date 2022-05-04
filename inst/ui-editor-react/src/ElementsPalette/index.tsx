@@ -86,12 +86,16 @@ function makeCategories({
     by_category[category].push(uiName);
   }
 
-  const category_list: { category?: string; nodes: ShinyUiNames[] }[] =
+  let category_list: { category?: string; nodes: ShinyUiNames[] }[] =
     Object.keys(by_category).map((category) => ({
       category,
       nodes: by_category[category],
     }));
 
-  // Add the uncategorized
-  return [{ nodes: uncategorized }, ...category_list];
+  // Add the uncategorized if they're present
+  if (uncategorized.length > 0) {
+    category_list = [{ nodes: uncategorized }, ...category_list];
+  }
+
+  return category_list;
 }
