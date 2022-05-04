@@ -6,7 +6,7 @@ import { GridlayoutGridPanelSettings } from "./SettingsPanel";
 export type HorizontalAlignments = "left" | "center" | "right" | "spread";
 export type VerticalAlignments = "top" | "center" | "bottom" | "spread";
 export type GridPanelSettings = {
-  area?: string;
+  area: string;
   horizontalAlign?: HorizontalAlignments;
   verticalAlign?: VerticalAlignments;
   title?: string;

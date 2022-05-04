@@ -10,7 +10,11 @@ import {
 // Two Panels, one with a slider and a plot and the other with just a plot
 const baseNode: ShinyUiNode = {
   uiName: "gridlayout::grid_panel",
-  uiArguments: { horizontalAlign: "center", verticalAlign: "center" },
+  uiArguments: {
+    area: "panel",
+    horizontalAlign: "center",
+    verticalAlign: "center",
+  },
   uiChildren: [
     {
       // path = [0]

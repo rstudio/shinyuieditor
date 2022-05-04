@@ -8,7 +8,7 @@ import { GridlayoutTextPanelSettings } from "./SettingsPanel";
 export interface GridlayoutTextPanelProps {
   content: string;
   h_align: "center" | "start" | "end";
-  area?: string;
+  area: string;
   is_title?: boolean;
 }
 
@@ -18,7 +18,11 @@ export const gridlayoutTextPanelInfo: UiComponentInfo<GridlayoutTextPanelProps> 
     UiComponent: GridlayoutTextPanel,
     SettingsComponent: GridlayoutTextPanelSettings,
     acceptsChildren: false,
-    defaultSettings: { content: "Text from Chooser", h_align: "start" },
+    defaultSettings: {
+      area: "text_panel",
+      content: "Text from Chooser",
+      h_align: "start",
+    },
     iconSrc: textIcon,
   };
 
