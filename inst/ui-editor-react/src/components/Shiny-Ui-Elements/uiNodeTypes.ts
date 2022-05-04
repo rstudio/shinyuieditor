@@ -4,6 +4,7 @@ import type { DeleteAction, UpdateAction } from "state/uiTree";
 
 import { gridlayoutGridPageInfo } from "./GridlayoutGridPage";
 import { gridLayoutGridPanelInfo } from "./GridlayoutGridPanel";
+import { GridlayoutGridPanelPlotInfo } from "./GridlayoutGridPanelPlot";
 import { gridlayoutTextPanelInfo } from "./GridlayoutTextPanel";
 import { gridlayoutVerticalStackPanelInfo } from "./GridlayoutVerticalStackPanel";
 import { shinyActionButtonInfo } from "./ShinyActionButton";
@@ -97,10 +98,11 @@ export const shinyUiNodeInfo = {
   "shiny::actionButton": shinyActionButtonInfo,
   "shiny::uiOutput": shinyUiOutputInfo,
   "shiny::textOutput": shinyTextOutputInfo,
-  "gridlayout::grid_panel_text": gridlayoutTextPanelInfo,
-  "gridlayout::grid_panel": gridLayoutGridPanelInfo,
   "gridlayout::grid_page": gridlayoutGridPageInfo,
+  "gridlayout::grid_panel": gridLayoutGridPanelInfo,
   "gridlayout::grid_panel_stack": gridlayoutVerticalStackPanelInfo,
+  "gridlayout::grid_panel_text": gridlayoutTextPanelInfo,
+  "gridlayout::grid_panel_plot": GridlayoutGridPanelPlotInfo,
 };
 
 /**

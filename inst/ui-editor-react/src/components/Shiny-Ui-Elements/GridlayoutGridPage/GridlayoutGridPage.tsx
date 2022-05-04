@@ -235,4 +235,5 @@ export const gridAwareNodes: ShinyUiNames[] = [
   "gridlayout::grid_panel",
   "gridlayout::grid_panel_text",
   "gridlayout::grid_panel_stack",
+  "gridlayout::grid_panel_plot",
 ];
