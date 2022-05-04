@@ -40,7 +40,6 @@
   /* Slightly tweak padding of button to make it look right */
   padding-block: 14px 13px;
 }
-
-.deleteButton {
+.deleteHolder > * {
   margin-inline: auto;
 }

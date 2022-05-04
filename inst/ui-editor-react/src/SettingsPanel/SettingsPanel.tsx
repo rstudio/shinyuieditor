@@ -1,3 +1,4 @@
+import DeleteNodeButton from "components/DeleteNodeButton";
 import Button from "components/Inputs/Button";
 import { SettingsUpdateContext } from "components/Inputs/SettingsUpdateContext";
 import type {
@@ -6,7 +7,6 @@ import type {
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { shinyUiNodeInfo } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { BiCheck } from "react-icons/bi";
-import { FiTrash as TrashIcon } from "react-icons/fi";
 
 import PathBreadcrumb from "./PathBreadcrumb";
 import classes from "./SettingsPanel.module.css";
@@ -16,7 +16,6 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
   const {
     currentNode,
     errorMsg,
-    deleteNode,
     handleSubmit,
     updateArgumentsByName,
     selectedPath,
@@ -73,14 +72,7 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
 
       {!isRootNode ? (
         <div className={classes.deleteHolder}>
-          <Button
-            className={classes.deleteButton}
-            onClick={() => deleteNode()}
-            variant="delete"
-            aria-label="Delete Node"
-          >
-            <TrashIcon /> Delete Element
-          </Button>
+          <DeleteNodeButton path={selectedPath} />
         </div>
       ) : null}
     </div>

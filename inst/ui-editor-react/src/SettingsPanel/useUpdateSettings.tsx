@@ -8,8 +8,6 @@ import { useNodeSelectionState } from "NodeSelectionState";
 import { useDispatch } from "react-redux";
 import { UPDATE_NODE } from "state/uiTree";
 
-import { useDeleteNode } from "./useDeleteNode";
-
 export function useUpdateSettings({ tree }: { tree: ShinyUiNode }) {
   const dispatch = useDispatch();
 
@@ -19,8 +17,6 @@ export function useUpdateSettings({ tree }: { tree: ShinyUiNode }) {
     selectedPath !== null ? getNode(tree, selectedPath) : null
   );
   const [errorMsg, setErrorMsg] = React.useState<string | null>(null);
-
-  const deleteNode = useDeleteNode(selectedPath);
 
   React.useEffect(() => {
     if (selectedPath === null) {
@@ -103,7 +99,6 @@ export function useUpdateSettings({ tree }: { tree: ShinyUiNode }) {
     currentNode,
     errorMsg,
     handleSubmit,
-    deleteNode,
     updateArguments,
     updateArgumentsByName,
     selectedPath,
