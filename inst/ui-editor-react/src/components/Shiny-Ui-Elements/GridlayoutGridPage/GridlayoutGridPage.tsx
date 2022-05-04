@@ -5,7 +5,6 @@ import type { CellLocRef } from "components/Shiny-Ui-Elements/GridlayoutGridPage
 import { GridCell } from "components/Shiny-Ui-Elements/GridlayoutGridPage/GridCell";
 import type {
   ShinyUiChildren,
-  ShinyUiNames,
   shinyUiNodeInfo,
   UiContainerNodeComponent,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
@@ -20,6 +19,9 @@ import type {
   GridItemExtent,
   TemplatedGridProps,
 } from "utils/gridTemplates/types";
+
+import type { GridAwareNodes } from "../GridLayoutPanelHelpers/EmptyPanelMessage/gridAwareNodes";
+import { gridAwareNodes } from "../GridLayoutPanelHelpers/EmptyPanelMessage/gridAwareNodes";
 
 import type { GridLayoutAction } from "./gridLayoutReducer";
 import { gridLayoutReducer } from "./gridLayoutReducer";
@@ -222,18 +224,5 @@ export function areasOfChildren(children: ShinyUiChildren) {
   return all_children_areas;
 }
 
-type GridAwareNodes =
-  | "gridlayout::grid_panel"
-  | "gridlayout::grid_panel_text"
-  | "gridlayout::grid_panel_stack";
-
 type GridAwareNodeArgs =
   typeof shinyUiNodeInfo[GridAwareNodes]["defaultSettings"];
-
-// These are nodes that don't need to be wrapped in a grid_panel if dropped
-export const gridAwareNodes: ShinyUiNames[] = [
-  "gridlayout::grid_panel",
-  "gridlayout::grid_panel_text",
-  "gridlayout::grid_panel_stack",
-  "gridlayout::grid_panel_plot",
-];

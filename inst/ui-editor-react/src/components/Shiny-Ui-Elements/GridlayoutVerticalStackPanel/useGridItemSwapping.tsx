@@ -1,22 +1,15 @@
 import React from "react";
 
-import type {
-  NodePath,
-  ShinyUiNames,
-} from "components/Shiny-Ui-Elements/uiNodeTypes";
+import type { NodePath } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { nodesAreSiblings } from "components/UiNode/TreeManipulation/placeNode";
 import type { DraggedNodeInfo } from "DragAndDropHelpers/DragAndDropHelpers";
 import { useFilteredDrop } from "DragAndDropHelpers/useFilteredDrop";
 
 import { useSetLayout } from "../GridlayoutGridPage/useSetLayout";
+import { gridAwareNodes } from "../GridLayoutPanelHelpers/EmptyPanelMessage/gridAwareNodes";
 
 import classes from "./styles.module.css";
 
-const allowed_panels: ShinyUiNames[] = [
-  "gridlayout::grid_panel",
-  "gridlayout::grid_panel_stack",
-  "gridlayout::grid_panel_text",
-];
 export function useGridItemSwapping({
   containerRef,
   path,
@@ -33,17 +26,15 @@ export function useGridItemSwapping({
       ({ node, currentPath }: DraggedNodeInfo) => {
         if (currentPath === undefined) return false;
 
-        if (!allowed_panels.includes(node.uiName)) return false;
+        if (!gridAwareNodes.includes(node.uiName)) return false;
 
         return nodesAreSiblings(currentPath, path);
       },
       [path]
     );
 
-  useFilteredDrop({
-    watcherRef: containerRef,
-    getCanAcceptDrop: getIsValidSwap,
-    onDrop: (dropInfo) => {
+  const onDrop = React.useCallback(
+    (dropInfo) => {
       if (!("area" in dropInfo.node.uiArguments)) {
         console.error("Invalid grid area swap drop", { dropInfo });
         return;
@@ -57,7 +48,13 @@ export function useGridItemSwapping({
 
       setLayout?.({ type: "SWAP_ITEMS", item_a: area, item_b: droppedArea });
     },
+    [area, setLayout]
+  );
 
+  useFilteredDrop({
+    watcherRef: containerRef,
+    getCanAcceptDrop: getIsValidSwap,
+    onDrop,
     canAcceptDropClass: classes.availableToSwap,
     hoveringOverClass: classes.hoveringOverSwap,
   });
