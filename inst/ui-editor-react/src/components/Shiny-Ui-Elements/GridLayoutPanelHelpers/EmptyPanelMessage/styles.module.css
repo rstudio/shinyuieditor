@@ -1,9 +1,11 @@
 .emptyGridPanel {
+  position: absolute;
   height: 100%;
   display: grid;
   place-content: center;
   justify-items: center;
   gap: 10px;
+  width: 100%;
 }
 
 .emptyMessage {

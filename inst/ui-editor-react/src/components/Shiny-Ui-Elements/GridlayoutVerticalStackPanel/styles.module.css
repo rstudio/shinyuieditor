@@ -41,12 +41,6 @@
   padding: var(--card-padding);
 }
 
-/* Make sure the children are position relative so floating buttons etc will sit
-in the proper places */
-.contentHolder > * {
-  position: relative;
-}
-
 .contentHolder[data-alignment="top"] {
   justify-content: top;
 }

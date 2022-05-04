@@ -50,7 +50,6 @@ const GridlayoutVerticalStackPanel: UiContainerNodeComponent<
           parentPath={path}
           numChildren={uiChildren.length}
         />
-        {}
         {has_children ? (
           uiChildren?.map((childNode, i) => (
             <React.Fragment key={path.join(".") + i}>
