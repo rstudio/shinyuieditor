@@ -15,16 +15,13 @@ import { useGridPanelDropDetectors } from "./useGridPanelDropDetectors";
 const GridlayoutVerticalStackPanel: UiContainerNodeComponent<
   VerticalStackPanelSettings
 > = ({
-  uiArguments,
+  uiArguments: { area, item_alignment, item_gap, title },
   uiChildren,
-  nodeInfo,
+  nodeInfo: { path },
   children,
   eventHandlers,
   compRef,
 }) => {
-  const { path } = nodeInfo;
-  const { area, item_alignment, item_gap, title } = uiArguments;
-
   useGridItemSwapping({ containerRef: compRef, area, path });
 
   return (
