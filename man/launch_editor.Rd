@@ -12,6 +12,7 @@ launch_editor(
   app_preview = TRUE,
   show_logs = TRUE,
   show_preview_app_logs = TRUE,
+  launch_browser = TRUE,
   run_in_background = FALSE
 )
 }
@@ -39,6 +40,9 @@ long-running or processor intensive initialization steps.}
 
 \item{show_preview_app_logs}{Should the logged output of the app preview be
 printed? Useful for debugging an app that's not working properly.}
+
+\item{launch_browser}{Should the browser be automatically opened to the
+editor?}
 
 \item{run_in_background}{Should the app run in a background process or block
 the console? See \code{?httpuv::startServer()} vs \code{?httpuv::runServer()}. Note
