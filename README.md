@@ -36,7 +36,7 @@ ShinyUiEditor::launch_editor(app_loc = "existing-app/")
 If you provide an app location that does not yet exist, a simple template app will be written there for you to use with building.
 
 ```r
-ShinyUiEditor::launch_editor(app_loc = "new-app/", port = 8888)
+ShinyUiEditor::launch_editor(app_loc = "new-app/")
 ```
 
 _In the future more starting templates will be offered, however, currently only a simple grid-layout recreation of the classic "Geyser" app is available._
