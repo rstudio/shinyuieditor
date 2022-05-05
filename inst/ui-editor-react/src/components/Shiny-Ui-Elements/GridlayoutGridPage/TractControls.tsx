@@ -131,7 +131,7 @@ function AddTractButton({
   setLayout: React.Dispatch<GridLayoutAction> | null;
 }) {
   const dirSingular = singular(dir);
-  const description = `Add ${dirSingular} before ${dirSingular} ${index}`;
+  const description = `Add ${dirSingular}`;
 
   return (
     <PopoverButton
