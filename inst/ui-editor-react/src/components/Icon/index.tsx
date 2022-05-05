@@ -1,5 +1,3 @@
-// import alignBottom from "assets/icons/alignItemBottom.png";
-// import alignBottom from "assets/icons/alignItemBottom.svg";
 import alignBottom, {
   ReactComponent as AlignBottom,
 } from "assets/icons/alignItemBottom.svg";
@@ -26,8 +24,10 @@ import alignVSpread, {
   ReactComponent as AlignVSpread,
 } from "assets/icons/alignItemVSpread.svg";
 import redo from "assets/icons/redo.png";
+import { ReactComponent as RedoIcon } from "assets/icons/redo.svg";
 import tour from "assets/icons/tour.png";
 import undo from "assets/icons/undo.png";
+import { ReactComponent as UndoIcon } from "assets/icons/undo.svg";
 
 import classes from "./styles.module.css";
 
@@ -55,6 +55,8 @@ export {
   AlignRight,
   AlignVCenter,
   AlignVSpread,
+  RedoIcon,
+  UndoIcon,
 };
 
 function Icon({

@@ -51,8 +51,8 @@ the label */
 .radioInput:hover + .radioLabel::after,
 .radioInput:hover + .radioLabel .optionIcon {
   transition-property: opacity;
-  transition-duration: 1s;
-  transition-delay: 0.25s;
+  transition-duration: 1.5s;
+  transition-delay: 0.15s;
 }
 
 .radioInput + .radioLabel::after {

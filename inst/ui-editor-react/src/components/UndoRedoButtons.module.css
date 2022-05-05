@@ -10,3 +10,17 @@
 .container > button > img {
   height: 20px;
 }
+.container > button > svg {
+  height: 28px;
+  fill: var(--rstudio-blue);
+  color: var(--rstudio-blue);
+}
+
+.container > button {
+  height: 38px;
+}
+
+.container > button:disabled > svg {
+  fill: var(--light-grey);
+  color: var(--light-grey);
+}
