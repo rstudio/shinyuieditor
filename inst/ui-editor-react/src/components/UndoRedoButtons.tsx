@@ -1,6 +1,6 @@
 import React from "react";
 
-import Icon, { RedoIcon, UndoIcon } from "components/Icon";
+import { RedoIcon, UndoIcon } from "components/Icon";
 import { useUndoRedo } from "state-logic/useUndoRedo";
 
 import Button from "./Inputs/Button";

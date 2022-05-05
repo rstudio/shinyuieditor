@@ -28,7 +28,7 @@ https://css-tricks.com/preventing-a-grid-blowout/ */
   width: 100%;
   grid-area: title;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   border-bottom: var(--outline);
   padding: calc(var(--card-padding) / 2) var(--card-padding);
