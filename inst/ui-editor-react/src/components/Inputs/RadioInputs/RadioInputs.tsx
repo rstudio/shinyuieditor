@@ -30,6 +30,7 @@ export function RadioInputs<OptionType extends string>({
         {label ?? name}:
       </label>
       <fieldset
+        className={classes.radioContainer}
         id={name}
         style={{
           gridTemplateColumns: `repeat(${
@@ -43,6 +44,7 @@ export function RadioInputs<OptionType extends string>({
           return (
             <div className={classes.option} key={option}>
               <input
+                className={classes.radioInput}
                 name={name}
                 id={name + option}
                 type="radio"
@@ -50,7 +52,11 @@ export function RadioInputs<OptionType extends string>({
                 onChange={() => onNewValue({ name, value: option })}
                 checked={option === currentSelection}
               />
-              <label htmlFor={name + option} data-name={label}>
+              <label
+                className={classes.radioLabel}
+                htmlFor={name + option}
+                data-name={label}
+              >
                 <span className={classes.optionIcon}>
                   {typeof icon === "string" ? (
                     <img src={icon} alt={label} className={classes.icon} />

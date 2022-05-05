@@ -1,18 +1,18 @@
 import * as React from "react";
 
+import { AlignHCenter, AlignLeft, AlignRight } from "components/Icon";
 import BooleanInput from "components/Inputs/BooleanInput";
 import { RadioInputs } from "components/Inputs/RadioInputs/RadioInputs";
 import { TextInput } from "components/Inputs/TextInput";
-import { CgAlignCenter, CgAlignLeft, CgAlignRight } from "react-icons/cg";
 
 import type { SettingsUpdaterComponent } from "../uiNodeTypes";
 
 import type { GridlayoutTextPanelProps } from ".";
 
-const alignmentOptions = {
-  start: { icon: <CgAlignLeft size="25px" />, label: "left" },
-  center: { icon: <CgAlignCenter size="25px" />, label: "middle" },
-  end: { icon: <CgAlignRight size="25px" />, label: "right" },
+const horizontalAlignOptions = {
+  start: { icon: <AlignLeft />, label: "left" },
+  center: { icon: <AlignHCenter />, label: "center" },
+  end: { icon: <AlignRight />, label: "right" },
 };
 
 export const GridlayoutTextPanelSettings: SettingsUpdaterComponent<
@@ -33,7 +33,7 @@ export const GridlayoutTextPanelSettings: SettingsUpdaterComponent<
       <RadioInputs
         name="h_align"
         label="Text Alignment"
-        options={alignmentOptions}
+        options={horizontalAlignOptions}
         currentSelection={settings.h_align}
         optionsPerColumn={3}
       />
