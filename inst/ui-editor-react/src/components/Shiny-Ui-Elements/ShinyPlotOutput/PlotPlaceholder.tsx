@@ -16,8 +16,6 @@ export function PlotPlaceholder({
   // Start tiny so icon isn't the reason the container is big
   const containerDimensions = useContainerDimensions(compRef);
 
-  console.log({ containerDimensions });
-
   const smallestDim =
     containerDimensions === null
       ? 100
