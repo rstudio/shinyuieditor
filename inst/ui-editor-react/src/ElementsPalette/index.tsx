@@ -21,14 +21,14 @@ export default function ElementsPalette({
   return (
     <div className={classes.elementsPalette}>
       {ui_by_category.map(({ category, nodes }) => (
-        <>
+        <React.Fragment key={category}>
           {category ? <CategoryHeader category={category} /> : null}
           <div className={classes.OptionsList}>
             {nodes.map((uiName) => (
               <ElementOption key={uiName} uiName={uiName} />
             ))}
           </div>
-        </>
+        </React.Fragment>
       ))}
     </div>
   );
