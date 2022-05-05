@@ -42,6 +42,9 @@
   --selected-border-color: var(--rstudio-blue);
   --outline-color: var(--grey);
 
+  --disabled-color: hsl(var(--rstudio-grey-hsl) / 0.5);
+  --disabled-outline: 1px solid hsl(var(--rstudio-grey-hsl) / 0.15);
+
   /* Sizes */
   --element-palette-icon-size: 75px;
   --element-palette-padding: 16px;

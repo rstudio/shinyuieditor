@@ -12,9 +12,6 @@ input {
   width: 100%;
   position: relative;
   isolation: isolate;
-
-  --disabled-color: hsl(var(--rstudio-grey-hsl) / 0.5);
-  --disabled-outline: 1px solid hsl(var(--rstudio-grey-hsl) / 0.15);
 }
 
 .label {

@@ -20,7 +20,9 @@
   height: 38px;
 }
 
-.container > button:disabled > svg {
-  fill: var(--light-grey);
-  color: var(--light-grey);
+.container > button:disabled {
+  fill: var(--disabled-color);
+  color: var(--disabled-color);
+  background-color: var(--light-grey);
+  opacity: 0.4;
 }
