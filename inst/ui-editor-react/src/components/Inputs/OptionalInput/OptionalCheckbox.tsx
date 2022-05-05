@@ -14,7 +14,9 @@ export function OptionalCheckbox<
 }) {
   const onNewValue = useOnChange();
 
-  const effectDescription = `${isDisabled ? "set" : "unset"} ${name} property`;
+  const effectDescription = `Click to ${
+    isDisabled ? "set" : "unset"
+  } ${name} property`;
 
   return (
     <input

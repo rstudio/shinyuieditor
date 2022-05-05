@@ -20,11 +20,8 @@ export function InputWrapper({
   mainInput: JSX.Element;
 }) {
   return (
-    <div className={inputClasses.container}>
+    <div className={inputClasses.container} data-disabled={isDisabled}>
       <label className={inputClasses.label} htmlFor={name}>
-        {label ?? name}:
-      </label>
-      <div className={inputClasses.mainInput}>
         {optional ? (
           <OptionalCheckbox
             name={name}
@@ -32,8 +29,9 @@ export function InputWrapper({
             defaultValue={defaultValue}
           />
         ) : null}
-        {mainInput}
-      </div>
+        {label ?? name}:
+      </label>
+      <div className={inputClasses.mainInput}>{mainInput}</div>
     </div>
   );
 }

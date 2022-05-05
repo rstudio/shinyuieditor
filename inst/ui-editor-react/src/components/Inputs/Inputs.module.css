@@ -11,6 +11,10 @@ input {
   min-width: 0;
   width: 100%;
   position: relative;
+  isolation: isolate;
+
+  --disabled-color: hsl(var(--rstudio-grey-hsl) / 0.5);
+  --disabled-outline: 1px solid hsl(var(--rstudio-grey-hsl) / 0.15);
 }
 
 .label {
@@ -18,6 +22,16 @@ input {
   padding-bottom: 3px;
   font-weight: 300;
   width: auto;
+  display: flex;
+  justify-items: flex-start;
+  align-items: center;
+  gap: 8px;
+}
+
+.label input[type="checkbox"] {
+  width: fit-content;
+  /* By shifting the box down a tiny bit we balance the vertical alignment */
+  margin-bottom: -2px;
 }
 
 .container input {
@@ -28,15 +42,41 @@ input {
 input:disabled,
 select:disabled {
   background-color: var(--light-grey);
-  outline: 1px solid var(--grey, red);
+  outline: var(--disabled-outline);
   opacity: 0.25;
   cursor: not-allowed;
 }
 
+.container[data-disabled="true"] {
+  color: var(--disabled-color);
+}
+
 .mainInput {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
+  margin-left: 1px;
+  margin-right: 1px;
+  position: relative;
+}
+
+.container[data-disabled="true"] .mainInput {
+  width: fit-content;
+}
+.container[data-disabled="true"] .mainInput::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  outline: var(--disabled-outline);
+  background-color: var(--light-grey);
+  z-index: 1;
+  pointer-events: none;
+}
+.container[data-disabled="true"] .mainInput::after {
+  content: "Default";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 2;
 }
 
 .mainInput > input[type="checkbox"] {
