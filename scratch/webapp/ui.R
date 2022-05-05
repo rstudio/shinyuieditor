@@ -1,9 +1,9 @@
 gridlayout::grid_page(
   layout = c(
     "header header",
-    "sidebar blueplot",
+    "sidebar distPlot",
     "sidebar table",
-    ". plot"
+    "sidebar bluePlot"
   ),
   row_sizes = c(
     "100px",
@@ -18,9 +18,14 @@ gridlayout::grid_page(
   gap_size = "1rem",
   gridlayout::grid_panel_stack(
     area = "sidebar",
-    item_alignment = "center",
+    item_alignment = "top",
     item_gap = "12px",
     title = "Settings",
+    shiny::numericInput(
+      inputId = "myNumericInput",
+      label = "Numeric Input",
+      value = 10L
+    ),
     shiny::sliderInput(
       inputId = "bins",
       label = "Number of Bins",
@@ -31,33 +36,10 @@ gridlayout::grid_page(
       step = 1L
     )
   ),
-  gridlayout::grid_panel(
-    area = "plot",
-    verticalAlign = "center",
-    horizontalAlign = "center",
-    item_alignment = "center",
-    title = "grid_panel()",
-    shiny::plotOutput(
-      outputId = "bluePlot",
-      width = "100%",
-      height = "100%"
-    )
-  ),
-  gridlayout::grid_panel_stack(
-    area = "blueplot",
-    item_alignment = "center",
-    item_gap = "12px",
-    title = "Blue Plot",
-    shiny::plotOutput(
-      outputId = "distPlot",
-      width = "100%",
-      height = "400px"
-    )
-  ),
   gridlayout::grid_panel_text(
+    area = "header",
     content = "Text from Chooser",
     h_align = "start",
-    area = "header",
     is_title = FALSE
   ),
   gridlayout::grid_panel_stack(
@@ -67,5 +49,7 @@ gridlayout::grid_page(
     title = "Table",
     scrollable = TRUE,
     gt::gt_output("stockTable")
-  )
+  ),
+  gridlayout::grid_panel_plot(area = "bluePlot"),
+  gridlayout::grid_panel_plot(area = "distPlot")
 )
