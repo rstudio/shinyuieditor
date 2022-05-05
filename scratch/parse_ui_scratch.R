@@ -7,7 +7,7 @@ ui_expr <- rlang::expr(
     |2rem  |200px   |1fr    |
     |80px  |header  |header |
     |1fr   |sidebar |plot   |",
-    gridlayout::title_panel(
+    gridlayout::grid_panel_text(
       "header",
       title = "My App Title from R2"
     ),

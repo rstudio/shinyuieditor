@@ -10,15 +10,15 @@ import {
 // Two Panels, one with a slider and a plot and the other with just a plot
 const baseNode: ShinyUiNode = {
   uiName: "gridlayout::grid_panel",
-  uiArguments: { horizontalAlign: "center", verticalAlign: "center" },
+  uiArguments: {
+    area: "panel",
+  },
   uiChildren: [
     {
       // path = [0]
       uiName: "gridlayout::grid_panel",
       uiArguments: {
         area: "left",
-        horizontalAlign: "right",
-        verticalAlign: "center",
       },
       uiChildren: [
         // path = [0, 0]
@@ -36,7 +36,7 @@ const baseNode: ShinyUiNode = {
             },
             {
               // path = [0, 0, 1]
-              uiName: "gridlayout::vertical_stack_panel",
+              uiName: "gridlayout::grid_panel_stack",
               uiArguments: { area: "controls-sub" },
               uiChildren: [],
             },
@@ -91,6 +91,9 @@ describe("Can detect when siblings", () => {
   test("A is not a sibling of B", () => {
     expect(nodesAreSiblings([0, 2, 2], [0, 1, 3])).toEqual(false);
     expect(nodesAreSiblings([0, 1], [0, 1, 3])).toEqual(false);
+  });
+  test("A node is not its own sibling", () => {
+    expect(nodesAreSiblings([0, 1, 3], [0, 1, 3])).toEqual(false);
   });
 });
 
@@ -162,7 +165,7 @@ describe("Move node around within its current container", () => {
     },
   };
   const sliderPanel: ShinyUiNode = {
-    uiName: "gridlayout::vertical_stack_panel",
+    uiName: "gridlayout::grid_panel_stack",
     uiArguments: { area: "controls-holder", item_alignment: "center" },
     uiChildren: [
       buttonA, // [0]

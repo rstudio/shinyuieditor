@@ -139,16 +139,26 @@ export function nodesAreSiblings(aPath: NodePath, bPath: NodePath): boolean {
   const parentDepth = aDepth - 1;
 
   // If the path up to the depth of b is the same, then we have a child
-  return sameArray(aPath.slice(0, parentDepth), bPath.slice(0, parentDepth));
+  const haveSameParent = sameArray(
+    aPath.slice(0, parentDepth),
+    bPath.slice(0, parentDepth)
+  );
+
+  if (!haveSameParent) return false;
+
+  // A node is not its own sibling
+  return aPath.slice(-1)[0] !== bPath.slice(-1)[0];
 }
 
 export function getIsValidMove({
   fromPath,
   toPath,
 }: {
-  fromPath: NodePath;
+  fromPath: NodePath | undefined | null;
   toPath: NodePath;
 }): boolean {
+  if (fromPath === undefined || fromPath === null) return true;
+
   if (nodesAreDirectAncestors(fromPath, toPath)) return false;
 
   if (nodesAreSiblings(fromPath, toPath)) {

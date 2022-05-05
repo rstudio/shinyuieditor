@@ -42,11 +42,11 @@ namespaced_ui_fns <- c(
   "shiny::actionButton",
   "shiny::uiOutput",
   "shiny::textOutput",
-  "gridlayout::title_panel",
-  "gridlayout::text_panel",
-  "gridlayout::grid_panel",
   "gridlayout::grid_page",
-  "gridlayout::vertical_stack_panel"
+  "gridlayout::grid_panel",
+  "gridlayout::grid_panel_text",
+  "gridlayout::grid_panel_plot",
+  "gridlayout::grid_panel_stack"
 )
 
 known_ui_fns <- gsub(pattern = "\\w+::", replacement = "", x = namespaced_ui_fns, perl = TRUE)

@@ -1,11 +1,13 @@
 import React from "react";
 
-import { useDropHandlers } from "DragAndDropHelpers/useDropHandlers";
+import { useFilteredDrop } from "DragAndDropHelpers/useFilteredDrop";
 import type { GridLocString } from "GridTypes";
 import debounce from "just-debounce-it";
 import { toStringLoc } from "utils/grid-helpers";
 import type { ItemBoundingBox } from "utils/overlap-helpers";
 import { getBBoxOfDiv } from "utils/overlap-helpers";
+
+import type { NodePath } from "../uiNodeTypes";
 
 import classes from "./GridCell.module.css";
 import type { NewItemInfo } from "./GridlayoutGridPage";
@@ -18,21 +20,20 @@ export function GridCell({
   gridColumn,
   cellLocations,
   onDroppedNode,
+  containerPath,
 }: {
   gridRow: number;
   gridColumn: number;
   cellLocations: CellLocRef;
+  containerPath: NodePath;
   onDroppedNode: (nodeInfo: NewItemInfo) => void;
 }) {
   const gridPos = toStringLoc({ row: gridRow, col: gridColumn });
   const cellRef = React.useRef<HTMLDivElement>(null);
 
-  useDropHandlers(cellRef, {
+  useFilteredDrop({
+    watcherRef: cellRef,
     onDrop: (nodeInfo) => {
-      // This will eventually filter by element type
-      const allowedDrop = true;
-      if (!allowedDrop) return;
-
       onDroppedNode({
         ...nodeInfo,
         pos: {

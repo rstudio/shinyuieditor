@@ -27,4 +27,5 @@ export const shinyTextInputInfo: UiComponentInfo<ShinyTextInputProps> = {
   acceptsChildren: false,
   defaultSettings: textInputDefaultSettings,
   iconSrc: textInputIcon,
+  category: "Inputs",
 };

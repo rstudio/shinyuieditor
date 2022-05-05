@@ -7,14 +7,15 @@ import { updateNode } from "./updateNode";
 
 const baseNode: ShinyUiNode = {
   uiName: "gridlayout::grid_panel",
-  uiArguments: { horizontalAlign: "center", verticalAlign: "center" },
+  uiArguments: {
+    area: "panel",
+  },
   uiChildren: [
     {
       // path = [0]
       uiName: "gridlayout::grid_panel",
       uiArguments: {
-        horizontalAlign: "right",
-        verticalAlign: "center",
+        area: "panel2",
       },
       uiChildren: [
         // path = [0, 0]
@@ -75,7 +76,9 @@ test("Modify a node", () => {
 test("Modify a node at first level", () => {
   const baseNode: ShinyUiNode = {
     uiName: "gridlayout::grid_panel",
-    uiArguments: { horizontalAlign: "center", verticalAlign: "center" },
+    uiArguments: {
+      area: "panel",
+    },
     uiChildren: [
       // path = [0]
       {
@@ -176,9 +179,10 @@ test("Add a node", () => {
   expect(getNode(baseNode, [0]).uiChildren).toHaveLength(2);
 
   const newUiNode: ShinyUiNode = {
-    uiName: "gridlayout::title_panel",
+    uiName: "shiny::actionButton",
     uiArguments: {
-      title: "myNewNode",
+      inputId: "button",
+      label: "My Button",
     },
   };
 

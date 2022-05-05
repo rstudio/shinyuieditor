@@ -3,7 +3,7 @@ test_that("Works when passed the a proper call expression", {
     layout = "|2rem |1fr    |
               |80px |header |
               |1fr  |plot   |",
-    gridlayout::title_panel(
+    gridlayout::grid_panel_text(
       area = "header",
       title = "This is my header",
     ),
@@ -22,11 +22,11 @@ test_that("Spits errors when the wrong type of input is passed", {
     layout = "|2rem |1fr    |
               |80px |header |
               |1fr  |plot   |",
-    gridlayout::title_panel(
+    gridlayout::grid_panel_text(
       area = "header",
       "This is my header"
     ),
-    gridlayout::vertical_stack_panel(
+    gridlayout::grid_panel_stack(
       area = "plot",
       shiny::plotOutput("distPlot")
     )

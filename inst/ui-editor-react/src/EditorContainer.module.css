@@ -51,11 +51,20 @@
   position: relative;
 }
 
+.editorHolder h1,
+.editorHolder h2,
+.editorHolder h3 {
+  letter-spacing: unset;
+}
+
 .titledPanel {
   --label-h: 40px;
   display: grid;
   grid-template-rows: var(--label-h) 1fr;
   background-color: var(--background-grey);
+  /* Make sure z-indices dont leak out of panels and overlap things like modals
+  */
+  isolation: isolate;
 }
 .titledPanel > * {
   min-width: 0;

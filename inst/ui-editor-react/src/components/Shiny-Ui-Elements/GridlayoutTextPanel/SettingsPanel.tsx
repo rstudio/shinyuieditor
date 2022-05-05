@@ -1,19 +1,19 @@
 import * as React from "react";
 
+import { AlignHCenter, AlignLeft, AlignRight } from "components/Icon";
+import BooleanInput from "components/Inputs/BooleanInput";
 import { RadioInputs } from "components/Inputs/RadioInputs/RadioInputs";
 import { TextInput } from "components/Inputs/TextInput";
-import { CgAlignCenter, CgAlignLeft, CgAlignRight } from "react-icons/cg";
 
 import type { SettingsUpdaterComponent } from "../uiNodeTypes";
 
 import type { GridlayoutTextPanelProps } from ".";
 
-const alignmentIcons: Record<GridlayoutTextPanelProps["h_align"], JSX.Element> =
-  {
-    start: <CgAlignLeft size="25px" />,
-    center: <CgAlignCenter size="25px" />,
-    end: <CgAlignRight size="25px" />,
-  };
+const horizontalAlignOptions = {
+  start: { icon: <AlignLeft />, label: "left" },
+  center: { icon: <AlignHCenter />, label: "center" },
+  end: { icon: <AlignRight />, label: "right" },
+};
 
 export const GridlayoutTextPanelSettings: SettingsUpdaterComponent<
   GridlayoutTextPanelProps
@@ -33,10 +33,14 @@ export const GridlayoutTextPanelSettings: SettingsUpdaterComponent<
       <RadioInputs
         name="h_align"
         label="Text Alignment"
-        options={["start", "center", "end"]}
-        optionIcons={alignmentIcons}
+        options={horizontalAlignOptions}
         currentSelection={settings.h_align}
         optionsPerColumn={3}
+      />
+      <BooleanInput
+        name="is_title"
+        label="Use text as app title"
+        value={settings.is_title}
       />
     </>
   );

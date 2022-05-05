@@ -5,14 +5,13 @@ import type { CellLocRef } from "components/Shiny-Ui-Elements/GridlayoutGridPage
 import { GridCell } from "components/Shiny-Ui-Elements/GridlayoutGridPage/GridCell";
 import type {
   ShinyUiChildren,
-  ShinyUiNames,
   shinyUiNodeInfo,
   UiContainerNodeComponent,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import UiNode from "components/UiNode";
 import type { DraggedNodeInfo } from "DragAndDropHelpers/DragAndDropHelpers";
 import { useDispatch } from "react-redux";
-import { PLACE_NODE, UPDATE_NODE } from "state/uiTree";
+import { UPDATE_NODE, usePlaceNode } from "state/uiTree";
 import { enumerateGridDims, toStringLoc } from "utils/grid-helpers";
 import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
@@ -20,6 +19,9 @@ import type {
   GridItemExtent,
   TemplatedGridProps,
 } from "utils/gridTemplates/types";
+
+import type { GridAwareNodes } from "../GridLayoutPanelHelpers/EmptyPanelMessage/gridAwareNodes";
+import { gridAwareNodes } from "../GridLayoutPanelHelpers/EmptyPanelMessage/gridAwareNodes";
 
 import type { GridLayoutAction } from "./gridLayoutReducer";
 import { gridLayoutReducer } from "./gridLayoutReducer";
@@ -45,6 +47,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
   compRef,
 }) => {
   const dispatch = useDispatch();
+  const place_node = usePlaceNode();
 
   const { onClick } = eventHandlers;
 
@@ -131,7 +134,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
         node.uiArguments = argsWithArea;
       } else {
         node = {
-          uiName: "gridlayout::vertical_stack_panel",
+          uiName: "gridlayout::grid_panel_stack",
           uiArguments: {
             area: name,
             item_alignment: "center",
@@ -141,13 +144,11 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
       }
 
       // Let the state know we have a new child node
-      dispatch(
-        PLACE_NODE({
-          parentPath: [],
-          node: node,
-          currentPath,
-        })
-      );
+      place_node({
+        parentPath: [],
+        node: node,
+        currentPath,
+      });
 
       handleLayoutUpdate({
         type: "ADD_ITEM",
@@ -158,7 +159,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
       // Reset the modal/new item info state
       setShowModal(null);
     },
-    [dispatch, handleLayoutUpdate]
+    [handleLayoutUpdate, place_node]
   );
 
   return (
@@ -182,6 +183,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
             gridColumn={col}
             cellLocations={gridCellLocations}
             onDroppedNode={handleNodeDrop}
+            containerPath={nodeInfo.path}
           />
         ))}
 
@@ -222,19 +224,5 @@ export function areasOfChildren(children: ShinyUiChildren) {
   return all_children_areas;
 }
 
-type GridAwareNodes =
-  | "gridlayout::grid_panel"
-  | "gridlayout::title_panel"
-  | "gridlayout::text_panel"
-  | "gridlayout::vertical_stack_panel";
-
 type GridAwareNodeArgs =
   typeof shinyUiNodeInfo[GridAwareNodes]["defaultSettings"];
-
-// These are nodes that don't need to be wrapped in a grid_panel if dropped
-export const gridAwareNodes: ShinyUiNames[] = [
-  "gridlayout::grid_panel",
-  "gridlayout::title_panel",
-  "gridlayout::text_panel",
-  "gridlayout::vertical_stack_panel",
-];

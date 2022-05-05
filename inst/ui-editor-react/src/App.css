@@ -42,6 +42,9 @@
   --selected-border-color: var(--rstudio-blue);
   --outline-color: var(--grey);
 
+  --disabled-color: hsl(var(--rstudio-grey-hsl) / 0.5);
+  --disabled-outline: 1px solid hsl(var(--rstudio-grey-hsl) / 0.15);
+
   /* Sizes */
   --element-palette-icon-size: 75px;
   --element-palette-padding: 16px;
@@ -52,7 +55,7 @@
   --layout-properties-panel-w: 275px;
 
   --selected-border-width: 3px;
-  --corner-radius: 5px;
+  --corner-radius: 2px;
   --card-header-height: 35px;
   --animation-speed: 0.2s;
   --animation-curve: ease-in-out;
@@ -97,6 +100,7 @@ h3 {
   margin: 0;
   font-weight: 550;
   color: var(--rstudio-grey);
+  letter-spacing: 4px;
 }
 
 /* 

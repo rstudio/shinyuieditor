@@ -1,12 +1,20 @@
-.OptionsList {
+.elementsPalette {
   height: 100%;
+  overflow: auto;
+  padding: var(--element-palette-padding);
+}
+/* Reduce vertical padding for first category list */
+.elementsPalette > :first-child {
+  margin-top: 0;
+}
+
+.OptionsList {
   display: grid;
   align-items: start;
   grid-template-columns: repeat(2, var(--element-palette-icon-size));
   justify-content: center;
   justify-items: center;
   align-content: start;
-  padding: var(--element-palette-padding);
   gap: var(--element-palette-padding);
 }
 

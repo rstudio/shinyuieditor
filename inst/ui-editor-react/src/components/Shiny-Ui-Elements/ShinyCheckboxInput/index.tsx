@@ -27,4 +27,5 @@ export const shinyCheckboxInputInfo: UiComponentInfo<ShinyCheckboxInputProps> =
     acceptsChildren: false,
     defaultSettings: checkboxInputDefaultSettings,
     iconSrc: inputIcon,
+    category: "Inputs",
   };

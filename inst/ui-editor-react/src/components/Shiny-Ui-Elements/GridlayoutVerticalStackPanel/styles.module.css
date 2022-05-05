@@ -41,12 +41,6 @@
   padding: var(--card-padding);
 }
 
-/* Make sure the children are position relative so floating buttons etc will sit
-in the proper places */
-.contentHolder > * {
-  position: relative;
-}
-
 .contentHolder[data-alignment="top"] {
   justify-content: top;
 }
@@ -60,6 +54,13 @@ in the proper places */
   justify-content: end;
 }
 
+/* This is here so the things that need to know where their parent exists work
+with the children nodes. Otherwise we'd rely on every child settings position
+relative themselves */
+.contentHolder > div {
+  position: relative;
+}
+
 /* Setup expansion of the drag watching divs based on the alignment type */
 
 /* By default the drop watcher is just the height of the spacing between the
@@ -67,6 +68,8 @@ elements */
 div.dropWatcher {
   height: var(--spacing);
   width: 100%;
+  /* Make sure these guys sit above other so they can access the drop events */
+  z-index: 2;
 }
 
 /* When in the top alignment mode only the final watcher needs to expand */
@@ -91,4 +94,48 @@ take up the whole space */
 div.onlyDropWatcher {
   flex-grow: 1;
   height: unset;
+}
+
+.hoveringOverSwap,
+.availableToSwap {
+  --highlight-color: var(--rstudio-blue, pink);
+}
+
+div.hoveringOverSwap::after {
+  content: "Swap positions";
+  position: absolute;
+  background-color: var(--highlight-color);
+  color: var(--rstudio-white);
+  bottom: 100%;
+  inset-inline: 20px;
+  z-index: 2;
+  text-align: center;
+  padding-block: 4px;
+}
+
+div.availableToSwap {
+  --outline-start-width: 2px;
+  --outline-end-width: 5px;
+  --start-shadow: inset 0px 0 0px var(--outline-start-width)
+    var(--highlight-color);
+  --end-shadow: inset 0px 0 0px var(--outline-end-width) var(--highlight-color);
+
+  box-shadow: var(--start-shadow);
+  animation-duration: 3s;
+  animation-name: pulse;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+@keyframes pulse {
+  from {
+    box-shadow: var(--start-shadow);
+  }
+
+  50% {
+    box-shadow: var(--end-shadow);
+  }
+  to {
+    box-shadow: var(--start-shadow);
+  }
 }

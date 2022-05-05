@@ -1,20 +1,30 @@
 .settingsPanel {
   display: flex;
   flex-direction: column;
-  gap: 25px;
-  padding: 16px;
+  padding-inline: 16px;
+}
+
+.settingsPanel > * {
+  padding-block: 10px;
 }
 
 .currentElementAbout {
+  flex-basis: fit-content;
 }
 
-.settingsForm {
+.settingsFormContainer {
   /* Make the settings form take up whatever space it has until bottom */
-  /* flex-grow: 1; */
+  flex: 1;
+  --deliniation: 1px solid var(--rstudio-white);
+  border-top: var(--deliniation);
+  border-bottom: var(--deliniation);
+  overflow: auto;
 }
 
+form.settingsForm {
+  margin-top: 10px;
+}
 .submitHolder {
-  /* outline: 1px solid red; */
   padding: 4px;
   display: flex;
   justify-content: center;
@@ -26,7 +36,12 @@
   font-family: var(--mono-fonts);
 }
 
-.deleteButton {
-  /* Sends it to the bottom of the panel */
+.deleteHolder {
+  position: relative;
   margin-top: auto;
+  /* Slightly tweak padding of button to make it look right */
+  padding-block: 14px 13px;
+}
+.deleteHolder > * {
+  margin-inline: auto;
 }

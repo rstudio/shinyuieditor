@@ -1,33 +1,39 @@
 gridlayout::grid_page(
-  layout = "
-| 1rem  | 250px   | 1fr      |
-|-------|---------|----------|
-| 100px | header  |  header  |
-| 1fr   | sidebar | bluePlot |
-| 1fr   | sidebar |   plot   |",
-  gridlayout::title_panel(
-    area = "header",
-    title = "Geysers!"
+  layout = c(
+    "header header",
+    "sidebar bluePlot",
+    "sidebar distPlot"
   ),
-  gridlayout::vertical_stack_panel(
+  row_sizes = c(
+    "100px",
+    "1fr",
+    "1fr"
+  ),
+  col_sizes = c(
+    "250px",
+    "1fr"
+  ),
+  gap_size = "15px",
+  gridlayout::grid_panel_text(
+    area = "header",
+    content = "Geysers!",
+    h_align = "start",
+    title = "Geysers!",
+    is_title = TRUE
+  ),
+  gridlayout::grid_panel_stack(
     area = "sidebar",
-    item_alignment = "center",
+    item_alignment = "top",
+    item_gap = "12px",
     shiny::sliderInput(
       inputId = "bins",
       label = "Number of Bins",
       min = 5L,
       max = 50L,
-      value = 20L
+      value = 20L,
+      width = "100%"
     )
   ),
-  gridlayout::vertical_stack_panel(
-    area = "plot",
-    item_alignment = "center",
-    shiny::plotOutput(outputId = "distPlot")
-  ),
-  gridlayout::vertical_stack_panel(
-    area = "bluePlot",
-    item_alignment = "center",
-    shiny::plotOutput(outputId = "bluePlot")
-  )
+  gridlayout::grid_panel_plot(area = "distPlot"),
+  gridlayout::grid_panel_plot(area = "bluePlot")
 )

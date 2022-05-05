@@ -5,11 +5,11 @@ gridlayout::grid_page(
 | 100px | header  | header |
 | 1fr   | sidebar |  blue  |
 | 1fr   | sidebar |  plot  |",
-  gridlayout::title_panel(
+  gridlayout::grid_panel_text(
     area = "header",
     title = "My App"
   ),
-  gridlayout::vertical_stack_panel(
+  gridlayout::grid_panel_stack(
     area = "sidebar",
     item_alignment = "center",
     item_gap = "12px",
@@ -23,7 +23,7 @@ gridlayout::grid_page(
       width = "100%"
     )
   ),
-  gridlayout::vertical_stack_panel(
+  gridlayout::grid_panel_stack(
     area = "plot",
     item_alignment = "center",
     item_gap = "12px",
@@ -33,7 +33,7 @@ gridlayout::grid_page(
       height = "400px"
     )
   ),
-  gridlayout::vertical_stack_panel(
+  gridlayout::grid_panel_stack(
     area = "blue",
     item_alignment = "center",
     item_gap = "12px",

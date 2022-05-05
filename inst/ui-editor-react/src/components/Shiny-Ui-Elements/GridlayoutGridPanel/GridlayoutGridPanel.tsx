@@ -1,3 +1,5 @@
+import React from "react";
+
 import type {
   ShinyUiNames,
   UiContainerNodeComponent,
@@ -5,34 +7,33 @@ import type {
 import UiNode from "components/UiNode";
 import { useDropHandlers } from "DragAndDropHelpers/useDropHandlers";
 
-import type {
-  GridPanelSettings,
-  HorizontalAlignments,
-  VerticalAlignments,
-} from "./index";
+import { EmptyGridPanelMessage } from "../GridLayoutPanelHelpers/EmptyPanelMessage";
+import { useGridItemSwapping } from "../GridlayoutVerticalStackPanel/useGridItemSwapping";
+
+import type { GridPanelSettings, Alignments } from "./index";
 
 import classes from "./styles.module.css";
 
 const rejectedNodes: ShinyUiNames[] = [
   "gridlayout::grid_page",
   "gridlayout::grid_panel",
-  "gridlayout::title_panel",
-  "gridlayout::vertical_stack_panel",
+  "gridlayout::grid_panel_stack",
 ];
 const GridlayoutGridPanel: UiContainerNodeComponent<GridPanelSettings> = ({
   uiChildren,
-  uiArguments,
-  nodeInfo,
+  uiArguments: { area, v_align, h_align, title },
+  nodeInfo: { path },
   children,
   eventHandlers,
   compRef,
 }) => {
-  const { path } = nodeInfo;
-  const { area, verticalAlign, horizontalAlign } = uiArguments;
+  const dropListenerDivRef = React.useRef(null);
+  const has_children = uiChildren.length > 0;
 
-  useDropHandlers(compRef, {
+  useGridItemSwapping({ containerRef: compRef, area, path });
+  useDropHandlers(dropListenerDivRef, {
     onDrop: "add-node",
-    parentPath: nodeInfo.path,
+    parentPath: path,
     positionInChildren: 0,
     dropFilters: { rejectedNodes },
   });
@@ -40,17 +41,41 @@ const GridlayoutGridPanel: UiContainerNodeComponent<GridPanelSettings> = ({
   return (
     <div
       ref={compRef}
-      className={classes.container}
+      className={classes.grid_panel}
       style={{
         gridArea: area,
-        justifyContent: dirToFlexProp[horizontalAlign ?? "spread"],
-        alignContent: dirToFlexProp[verticalAlign ?? "spread"],
       }}
-      onClick={eventHandlers.onClick}
+      onClick={(e) => {
+        if (eventHandlers.onClick) {
+          console.log("Clicked a grid_panel()");
+
+          eventHandlers.onClick?.(e);
+        }
+      }}
     >
-      {uiChildren?.map((childNode, i) => (
-        <UiNode key={path.join(".") + i} path={[...path, i]} {...childNode} />
-      ))}
+      {title ? <h2 className={classes.panel_title}>{title}</h2> : null}
+      <div
+        className={classes.panel_content}
+        style={{
+          justifyItems: alignmentToCSSVal(h_align),
+          alignItems: alignmentToCSSVal(v_align),
+        }}
+      >
+        {has_children ? (
+          uiChildren.map((childNode, i) => (
+            <UiNode
+              key={path.join(".") + i}
+              path={[...path, i]}
+              canMove={false}
+              {...childNode}
+            />
+          ))
+        ) : (
+          <div ref={dropListenerDivRef} className={classes.dropListener}>
+            <EmptyGridPanelMessage path={path} />
+          </div>
+        )}
+      </div>
       {children}
     </div>
   );
@@ -58,12 +83,9 @@ const GridlayoutGridPanel: UiContainerNodeComponent<GridPanelSettings> = ({
 
 export default GridlayoutGridPanel;
 
-const dirToFlexProp: Record<HorizontalAlignments | VerticalAlignments, string> =
-  {
-    center: "center",
-    left: "start",
-    top: "start",
-    right: "end",
-    bottom: "end",
-    spread: "space-evenly",
-  };
+const alignmentToCSSVal = (val?: Alignments) => {
+  if (!val) return "center";
+  if (val === "spread") return "space-evenly";
+
+  return val;
+};

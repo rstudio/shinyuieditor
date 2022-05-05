@@ -3,21 +3,68 @@ import React from "react";
 import type {
   NodePath,
   ShinyUiNames,
+  ShinyUiNode,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
-import { shinyUiNames } from "components/Shiny-Ui-Elements/uiNodeTypes";
-import { useDispatch } from "react-redux";
-import { PLACE_NODE } from "state/uiTree";
+import { usePlaceNode } from "state/uiTree";
 
 import { getIsValidMove } from "../components/UiNode/TreeManipulation/placeNode";
 
 import type { DraggedNodeInfo } from "./DragAndDropHelpers";
-import {
-  highlightDropability,
-  highlightDropAvailability,
-  removeHighlight,
-  resetHighlights,
-} from "./DragAndDropHelpers";
-import { useCurrentDraggedNode } from "./useCurrentDraggedNode";
+import { useFilteredDrop } from "./useFilteredDrop";
+
+type DropHandlerArguments = {
+  dropFilters?: DropFilters;
+  parentPath: NodePath;
+  positionInChildren?: number;
+  onDrop: "add-node" | ((droppedNode: DraggedNodeInfo) => void);
+};
+
+export function useDropHandlers(
+  watcherRef: React.RefObject<HTMLDivElement>,
+  {
+    dropFilters = { rejectedNodes: [] },
+    positionInChildren = Infinity,
+    parentPath,
+    onDrop,
+  }: DropHandlerArguments
+) {
+  const place_node = usePlaceNode();
+
+  const getCanAcceptDrop: (dragInfo: DraggedNodeInfo) => boolean =
+    React.useCallback(
+      ({ node, currentPath }: DraggedNodeInfo) => {
+        return (
+          getAcceptsDraggedNode(dropFilters, node) &&
+          getIsValidMove({
+            fromPath: currentPath,
+            toPath: [...parentPath, positionInChildren],
+          })
+        );
+      },
+      [dropFilters, parentPath, positionInChildren]
+    );
+
+  const handleDrop: (dragInfo: DraggedNodeInfo) => void = React.useCallback(
+    (dragInfo: DraggedNodeInfo) => {
+      if (onDrop === "add-node") {
+        place_node({
+          ...dragInfo,
+          parentPath,
+          positionInChildren,
+        });
+      } else {
+        onDrop(dragInfo);
+      }
+    },
+    [onDrop, parentPath, place_node, positionInChildren]
+  );
+
+  useFilteredDrop({
+    watcherRef,
+    getCanAcceptDrop,
+    onDrop: handleDrop,
+  });
+}
 
 type DropFilters =
   | {
@@ -25,132 +72,32 @@ type DropFilters =
     }
   | {
       rejectedNodes: ShinyUiNames[];
-    };
-
-type DropHandlerArguments = {
-  dropFilters?: DropFilters;
-} & (
-  | {
-      onDrop: "add-node";
-      parentPath: NodePath;
-      positionInChildren: number;
     }
   | {
-      onDrop: (droppedNode: DraggedNodeInfo) => void;
-    }
-);
-
-export function useDropHandlers(
-  watcherRef: React.RefObject<HTMLDivElement>,
-  opts: DropHandlerArguments
-) {
-  const dispatch = useDispatch();
-
-  const [currentlyDragged, setCurrentlyDragged] = useCurrentDraggedNode();
-
-  const { dropFilters = { rejectedNodes: [] } } = opts;
-  const acceptedNodes = React.useMemo(
-    () =>
-      "acceptedNodes" in dropFilters
-        ? dropFilters.acceptedNodes
-        : shinyUiNames.filter(
-            (uiName) => !dropFilters.rejectedNodes.includes(uiName)
-          ),
-    [dropFilters]
-  );
-
-  const canAcceptDraggedType = currentlyDragged
-    ? acceptedNodes.includes(currentlyDragged.node.uiName)
-    : false;
-
-  // Check to make sure that the drop position isn't the same position that the
-  // node is currently in. Aka that moving will make a difference.
-  const isValidMove =
-    opts.onDrop !== "add-node" ||
-    currentlyDragged?.currentPath === undefined ||
-    getIsValidMove({
-      fromPath: currentlyDragged.currentPath,
-      toPath: [...opts.parentPath, opts.positionInChildren],
-    });
-
-  const canAcceptDragged = canAcceptDraggedType && isValidMove;
-
-  const handleDragEnter = (e: DragEvent) => {
-    e.preventDefault();
-    // Update styles to indicate the user can drop item here
-    highlightDropability(e);
-  };
-
-  const handleDragLeave = (e: DragEvent) => {
-    e.preventDefault();
-    removeHighlight(e);
-  };
-
-  const handleDragOver = (e: DragEvent) => {
-    e.preventDefault();
-    // Make sure our dropability is properly highlighted. This fires very fast
-    // so if this function gets any more complicated the callback should most
-    // likely be throttled
-    highlightDropability(e);
-  };
-
-  const handleDrop = React.useCallback(
-    (e: DragEvent) => {
-      // Make sure only the deepest container gets the drop event
-      e.stopPropagation();
-
-      removeHighlight(e);
-
-      // Get the type of dropped element and act on it
-      if (!currentlyDragged) {
-        console.error("No dragged node in context but a drop was detected...");
-        return;
-      }
-
-      if (canAcceptDragged) {
-        if (opts.onDrop === "add-node") {
-          const { parentPath, positionInChildren } = opts;
-
-          dispatch(
-            PLACE_NODE({
-              ...currentlyDragged,
-              parentPath,
-              positionInChildren,
-            })
-          );
-        } else {
-          opts.onDrop(currentlyDragged);
-        }
-      } else {
-        console.error("Incompatable drag pairing");
-      }
-
-      // Turn off drag
-      setCurrentlyDragged(null);
-    },
-    [canAcceptDragged, currentlyDragged, dispatch, opts, setCurrentlyDragged]
-  );
-
-  React.useEffect(() => {
-    const watcherEl = watcherRef.current;
-    if (!watcherEl) return;
-
-    if (canAcceptDragged) {
-      highlightDropAvailability(watcherEl);
-
-      watcherEl.addEventListener("dragenter", handleDragEnter);
-      watcherEl.addEventListener("dragleave", handleDragLeave);
-      watcherEl.addEventListener("dragover", handleDragOver);
-      watcherEl.addEventListener("drop", handleDrop);
-    }
-
-    return () => {
-      resetHighlights(watcherEl);
-
-      watcherEl.removeEventListener("dragenter", handleDragEnter);
-      watcherEl.removeEventListener("dragleave", handleDragLeave);
-      watcherEl.removeEventListener("dragover", handleDragOver);
-      watcherEl.removeEventListener("drop", handleDrop);
+      getCanAcceptDrop: (droppedNode: ShinyUiNode) => boolean;
     };
-  }, [canAcceptDragged, currentlyDragged, handleDrop, watcherRef]);
+
+function getAcceptsDraggedNode(
+  dropFilters: DropFilters,
+  draggedNode?: ShinyUiNode
+): boolean {
+  if (draggedNode === undefined) {
+    return false;
+  }
+
+  if ("getCanAcceptDrop" in dropFilters) {
+    return dropFilters.getCanAcceptDrop(draggedNode);
+  }
+
+  if ("acceptedNodes" in dropFilters) {
+    return dropFilters.acceptedNodes.includes(draggedNode.uiName);
+  }
+
+  if ("rejectedNodes" in dropFilters) {
+    return !dropFilters.rejectedNodes.includes(draggedNode.uiName);
+  }
+
+  throw new Error(
+    "Unexpected drop filter setup. Check accepted and rejected node types."
+  );
 }

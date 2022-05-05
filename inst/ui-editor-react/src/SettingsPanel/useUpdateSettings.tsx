@@ -6,7 +6,7 @@ import { getUiNodeValidation } from "components/UiNode/getUiNodeValidation";
 import { getNode } from "components/UiNode/TreeManipulation/getNode";
 import { useNodeSelectionState } from "NodeSelectionState";
 import { useDispatch } from "react-redux";
-import { DELETE_NODE, UPDATE_NODE } from "state/uiTree";
+import { UPDATE_NODE } from "state/uiTree";
 
 export function useUpdateSettings({ tree }: { tree: ShinyUiNode }) {
   const dispatch = useDispatch();
@@ -95,17 +95,10 @@ export function useUpdateSettings({ tree }: { tree: ShinyUiNode }) {
     );
   };
 
-  const deleteNode = React.useCallback(() => {
-    if (selectedPath === null) return;
-
-    dispatch(DELETE_NODE({ path: selectedPath }));
-  }, [dispatch, selectedPath]);
-
   return {
     currentNode,
     errorMsg,
     handleSubmit,
-    deleteNode,
     updateArguments,
     updateArgumentsByName,
     selectedPath,

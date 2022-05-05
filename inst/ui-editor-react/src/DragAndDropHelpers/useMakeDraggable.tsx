@@ -3,10 +3,16 @@ import React from "react";
 import type { DraggedNodeInfo } from "./DragAndDropHelpers";
 import { DraggedNodeContext } from "./useCurrentDraggedNode";
 
-export function useMakeDraggable(
-  watcherRef: React.RefObject<HTMLDivElement>,
-  nodeInfo: DraggedNodeInfo
-) {
+export function useMakeDraggable({
+  ref,
+  nodeInfo,
+  immovable = false,
+}: {
+  ref: React.RefObject<HTMLDivElement>;
+  nodeInfo: DraggedNodeInfo;
+  // A way of disabling drag behavior
+  immovable?: boolean;
+}) {
   // Keep track of if we're in the middle of a drag. This will help avoid
   // unneccesary duplicate work when of calling endDrag twice we get when the
   // user abandons a drag
@@ -29,12 +35,12 @@ export function useMakeDraggable(
   // 3. The user starts a drag then drops the item somewhere outside the browser
   //    window. This will trigger the dragend event instantly.
   const endDrag = React.useCallback(() => {
-    if (dragHappening.current === false) return;
+    if (dragHappening.current === false || immovable) return;
     setDraggedNode(null);
     dragHappening.current = false;
     document.body.removeEventListener("dragover", dummyDragOverListener);
     document.body.removeEventListener("drop", endDrag);
-  }, [setDraggedNode]);
+  }, [immovable, setDraggedNode]);
 
   const startDrag = React.useCallback(
     (e: DragEvent) => {
@@ -48,7 +54,13 @@ export function useMakeDraggable(
   );
 
   React.useEffect(() => {
-    const watcherEl = watcherRef.current;
+    if (nodeInfo.currentPath?.length === 0 || immovable) {
+      // Don't let the root node be dragged. It can't go anywhere and causes
+      // super annoying visual shift
+      return;
+    }
+
+    const watcherEl = ref.current;
     if (!watcherEl) return;
 
     watcherEl.setAttribute("draggable", "true");
@@ -62,7 +74,7 @@ export function useMakeDraggable(
       watcherEl.removeEventListener("dragstart", startDrag);
       watcherEl.removeEventListener("dragend", endDrag);
     };
-  }, [endDrag, startDrag, watcherRef]);
+  }, [endDrag, immovable, nodeInfo.currentPath, startDrag, ref]);
 }
 
 // This is just needed to let the drop event fire

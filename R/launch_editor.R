@@ -22,6 +22,8 @@
 #' @param show_logs Print status messages to the console? For debugging.
 #' @param show_preview_app_logs Should the logged output of the app preview be
 #'   printed? Useful for debugging an app that's not working properly.
+#' @param launch_browser Should the browser be automatically opened to the
+#'   editor?
 #' @param run_in_background Should the app run in a background process or block
 #'   the console? See `?httpuv::startServer()` vs `?httpuv::runServer()`. Note
 #'   that this potentially will result in orphaned Shiny processes because
@@ -40,6 +42,7 @@ launch_editor <- function(app_loc,
                           app_preview = TRUE,
                           show_logs = TRUE,
                           show_preview_app_logs = TRUE,
+                          launch_browser = TRUE,
                           run_in_background = FALSE) {
 
   writeLog <- function(...) {
@@ -116,12 +119,17 @@ launch_editor <- function(app_loc,
 
   # This needs to go before we actually start the server in case we're running
   # in blocking mode, which would prevent anything after from ever being run
+  location_of_editor <-  paste0("http://localhost:", port, "/app")
   loaded_msg <- ascii_box(
-    paste0("Live editor running at http://localhost:", port, "/app")
+    paste("Live editor running at", location_of_editor)
   )
   cat(crayon::bold(loaded_msg))
 
   startup_fn <- if (run_in_background) httpuv::startServer else httpuv::runServer
+
+  if (launch_browser) {
+    browseURL(location_of_editor)
+  }
 
   # TODO: If in background mode, wrap the return with a callback that cleans
   # stuff up for us
@@ -171,7 +179,7 @@ launch_editor <- function(app_loc,
 
         ws$onMessage(function(binary, message) {
 
-          cat("Server received message:", message, "\n")
+          # cat("Server received message:", message, "\n")
 
           # TODO: This logic needs some work as it only successfully restarts
           # one time then complains of reused TCP addresses
@@ -298,9 +306,7 @@ get_app_ui_file <- function(app_loc) {
 get_ui_from_file <- function(app_loc) {
   ui_defn_text <- paste(readLines(get_app_ui_file(app_loc)), collapse = "\n")
   ui_expr <- rlang::parse_exprs(ui_defn_text)[[1]]
-  ui_expr |>
-    parse_ui_fn() |>
-    update_ui_nodes()
+  ui_code_to_tree(ui_expr)
 }
 
 

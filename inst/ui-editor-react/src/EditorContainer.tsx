@@ -1,6 +1,5 @@
 import * as React from "react";
 
-import rstudioLogo from "assets/RStudio-Logo.svg";
 import shinyLogo from "assets/Shiny-Logo.png";
 import AppPreview from "components/AppPreview";
 import type { ShinyUiNode } from "components/Shiny-Ui-Elements/uiNodeTypes";
@@ -12,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useGetInitialStateQuery } from "state/getInitialState";
 import { sendUiStateToBackend } from "state/sendUiStateToBackend";
 import type { RootState } from "state/store";
-import { backupUiTree, INIT_STATE } from "state/uiTree";
+import { backupUiTree, initialUiTree, INIT_STATE } from "state/uiTree";
 
 import { AppTour } from "./AppTour";
 import { UndoRedoButtons } from "./components/UndoRedoButtons";
@@ -29,9 +28,6 @@ function EditorContainerWithData({
   const dispatch = useDispatch();
 
   const tree = useSelector((state: RootState) => state.uiTree);
-  const connectedToServer = useSelector(
-    (state: RootState) => state.connectedToServer
-  );
 
   React.useEffect(() => {
     if (!initialState) return;
@@ -39,6 +35,7 @@ function EditorContainerWithData({
   }, [dispatch, initialState]);
 
   React.useEffect(() => {
+    if (tree === initialUiTree) return;
     sendUiStateToBackend(tree);
   }, [tree]);
 

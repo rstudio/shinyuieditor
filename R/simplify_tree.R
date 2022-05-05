@@ -30,35 +30,46 @@ simplify_gridlayout_args <- function(node){
   requireNamespace("gridlayout", quietly = TRUE)
 
   areas <- node$uiArguments$areas
-  rowSizes <- node$uiArguments$rowSizes
-  colSizes <- node$uiArguments$colSizes
-  gapSize <- node$uiArguments$gapSize
+  rowSizes <- simplify2array(node$uiArguments$rowSizes)
+  colSizes <- simplify2array(node$uiArguments$colSizes)
+  gapSize <-  simplify2array(node$uiArguments$gapSize)
 
-  layout_areas <- t(simplify2array(areas))
 
-  # Add border bars
-  layout_table <- paste(
-    apply(layout_areas,
-          FUN = function(x) paste0("| ", paste(x, collapse=" | "), " |"),
-          MARGIN = 1),
-    collapse = "\n")
+  # Depending on the json parsing etc the areas, especially when a single row or
+  # column can get mangled. This function brings it back to the proper dimensions
+  shape_areas <- function(x){
+    matrix(x, nrow = length(rowSizes), ncol = length(colSizes))
+  }
 
-  layout_arg <- gridlayout::to_md(
-    gridlayout::new_gridlayout(
-      layout_def = layout_table,
-      col_sizes = simplify2array(colSizes),
-      row_sizes = simplify2array(rowSizes),
-      gap = gapSize
-    )
+
+  # We need to flatten to an array here because when parsing the json jsonlite
+  # loves to build nested lists and we need to get to an array that can be
+  # coerced to a matrix
+  layout_areas <- shape_areas(t(simplify2array(areas)))
+
+  aligned_columns <- shape_areas(
+    apply(layout_areas, FUN = function(x) format(x, justify = "left"), MARGIN = 2)
   )
+
+  array_layout <- apply(
+    aligned_columns,
+    FUN = function(line) paste(line, collapse = " "),
+    MARGIN = 1L
+  )
+
 
   # Replace the old verbose arguments with the single layout arg
   node$uiArguments$areas <- NULL
   node$uiArguments$rowSizes <- NULL
   node$uiArguments$colSizes <- NULL
   node$uiArguments$gapSize <- NULL
+
   # Put layout on a new line so that the table lines up across lines
-  node$uiArguments$layout <- paste0("\n", layout_arg)
+  node$uiArguments$layout <- array_layout
+  node$uiArguments$row_sizes <- rowSizes
+  node$uiArguments$col_sizes <- colSizes
+  node$uiArguments$gap_size <- gapSize
+
 
   node
 }

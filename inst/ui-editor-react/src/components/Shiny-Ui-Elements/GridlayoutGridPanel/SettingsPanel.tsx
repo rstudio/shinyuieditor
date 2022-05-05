@@ -1,32 +1,33 @@
 import * as React from "react";
 
+import {
+  AlignBottom,
+  AlignHCenter,
+  AlignHSpread,
+  AlignLeft,
+  AlignRight,
+  AlignTop,
+  AlignVCenter,
+  AlignVSpread,
+} from "components/Icon";
 import { RadioInputs } from "components/Inputs/RadioInputs/RadioInputs";
 import { TextInput } from "components/Inputs/TextInput";
 import type { SettingsUpdaterComponent } from "components/Shiny-Ui-Elements/uiNodeTypes";
-import { AiOutlineVerticalAlignMiddle } from "react-icons/ai";
-import {
-  CgAlignBottom,
-  CgAlignCenter,
-  CgAlignLeft,
-  CgAlignMiddle,
-  CgAlignRight,
-  CgAlignTop,
-} from "react-icons/cg";
 
 import type { GridPanelSettings } from ".";
 
-const verticalAlignIcons = {
-  top: <CgAlignTop size="25px" />,
-  bottom: <CgAlignBottom size="25px" />,
-  center: <AiOutlineVerticalAlignMiddle size="25px" />,
-  spread: <CgAlignMiddle size="25px" />,
+const verticalAlignOptions = {
+  start: { icon: <AlignTop />, label: "top" },
+  center: { icon: <AlignVCenter />, label: "middle" },
+  end: { icon: <AlignBottom />, label: "bottom" },
+  spread: { icon: <AlignVSpread /> },
 };
 
-const horizontalAlignIcons = {
-  left: <CgAlignLeft size="25px" />,
-  spread: <CgAlignCenter size="25px" />,
-  center: <CgAlignCenter size="25px" />,
-  right: <CgAlignRight size="25px" />,
+const horizontalAlignOptions = {
+  start: { icon: <AlignLeft />, label: "left" },
+  center: { icon: <AlignHCenter />, label: "center" },
+  end: { icon: <AlignRight />, label: "right" },
+  spread: { icon: <AlignHSpread />, label: "spread" },
 };
 
 export const GridlayoutGridPanelSettings: SettingsUpdaterComponent<
@@ -40,20 +41,18 @@ export const GridlayoutGridPanelSettings: SettingsUpdaterComponent<
         value={settings.area ?? "empty grid area"}
       />
       <RadioInputs
-        name="verticalAlign"
+        name="v_align"
         label="Vertical Alignment"
-        options={["top", "spread", "bottom"]}
-        optionIcons={verticalAlignIcons}
-        currentSelection={settings.verticalAlign ?? "spread"}
-        optionsPerColumn={3}
+        options={verticalAlignOptions}
+        currentSelection={settings.v_align ?? "center"}
+        optionsPerColumn={2}
       />
       <RadioInputs
-        name="horizontalAlign"
+        name="h_align"
         label="Horizontal Alignment"
-        options={["left", "spread", "right"]}
-        optionIcons={horizontalAlignIcons}
-        currentSelection={settings.horizontalAlign ?? "spread"}
-        optionsPerColumn={3}
+        options={horizontalAlignOptions}
+        currentSelection={settings.h_align ?? "center"}
+        optionsPerColumn={2}
       />
     </>
   );

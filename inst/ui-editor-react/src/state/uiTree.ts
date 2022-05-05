@@ -1,3 +1,5 @@
+import React from "react";
+
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import type { ShinyUiNode } from "components/Shiny-Ui-Elements/uiNodeTypes";
@@ -8,6 +10,7 @@ import type { RemoveNodeArguments } from "components/UiNode/TreeManipulation/rem
 import { removeNodeMutating } from "components/UiNode/TreeManipulation/removeNode";
 import type { UpdateNodeArguments } from "components/UiNode/TreeManipulation/updateNode";
 import { updateNodeMutating } from "components/UiNode/TreeManipulation/updateNode";
+import { useDispatch } from "react-redux";
 import { subtractElements } from "utils/array-helpers";
 
 export const initialUiTree: ShinyUiNode = {
@@ -20,7 +23,7 @@ export const initialUiTree: ShinyUiNode = {
   },
   uiChildren: [
     {
-      uiName: "gridlayout::text_panel",
+      uiName: "gridlayout::grid_panel_text",
       uiArguments: {
         area: "msg",
         content: "Loading App...",
@@ -45,14 +48,16 @@ export const backupUiTree: ShinyUiNode = {
   },
   uiChildren: [
     {
-      uiName: "gridlayout::title_panel",
+      uiName: "gridlayout::grid_panel_text",
       uiArguments: {
         area: "header",
-        title: "My App",
+        content: "My App",
+        h_align: "start",
+        is_title: true,
       },
     },
     {
-      uiName: "gridlayout::vertical_stack_panel",
+      uiName: "gridlayout::grid_panel_stack",
       uiArguments: {
         area: "sidebar",
         item_alignment: "center",
@@ -81,7 +86,7 @@ export const backupUiTree: ShinyUiNode = {
       ],
     },
     {
-      uiName: "gridlayout::vertical_stack_panel",
+      uiName: "gridlayout::grid_panel_stack",
       uiArguments: {
         area: "plot",
         item_alignment: "center",
@@ -180,5 +185,18 @@ export type DeleteAction = (
   tree: ShinyUiNode,
   payload: RemoveNodeArguments
 ) => void;
+
+export function usePlaceNode() {
+  const dispatch = useDispatch();
+
+  const place_node = React.useCallback(
+    (opts: PlaceNodeArguments) => {
+      dispatch(PLACE_NODE(opts));
+    },
+    [dispatch]
+  );
+
+  return place_node;
+}
 
 export default uiTreeSlice.reducer;

@@ -6,3 +6,23 @@
 .container > button {
   font-size: 1.3rem;
 }
+
+.container > button > img {
+  height: 20px;
+}
+.container > button > svg {
+  height: 28px;
+  fill: var(--rstudio-blue);
+  color: var(--rstudio-blue);
+}
+
+.container > button {
+  height: 38px;
+}
+
+.container > button:disabled {
+  fill: var(--disabled-color);
+  color: var(--disabled-color);
+  background-color: var(--light-grey);
+  opacity: 0.4;
+}

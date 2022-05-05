@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { SectionLabel } from "components/Inputs/InputSections";
+import CategoryHeader from "components/CategoryHeader";
 import { AiOutlineQuestionCircle } from "react-icons/ai";
 
 import type { SettingsUpdaterComponent } from "../uiNodeTypes";
@@ -24,7 +24,7 @@ export const UnknownUiFunctionSettings: SettingsUpdaterComponent<
         <AiOutlineQuestionCircle />
         Unknown function call. Can't modify with visual editor.
       </span>
-      <SectionLabel name="Code" />
+      <CategoryHeader category="Code" />
       <pre className={classes.codeHolder}>{formattedText}</pre>
     </div>
   );

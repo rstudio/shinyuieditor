@@ -1,20 +1,23 @@
 import * as React from "react";
 
+import {
+  AlignBottom,
+  AlignTop,
+  AlignVCenter,
+  AlignVSpread,
+} from "components/Icon";
 import { LabeledCSSUnitInput } from "components/Inputs/CSSUnitInput";
 import { RadioInputs } from "components/Inputs/RadioInputs/RadioInputs";
 import { TextInput } from "components/Inputs/TextInput";
 import type { SettingsUpdaterComponent } from "components/Shiny-Ui-Elements/uiNodeTypes";
-import { AiOutlineVerticalAlignMiddle } from "react-icons/ai";
-import { CgAlignBottom, CgAlignMiddle, CgAlignTop } from "react-icons/cg";
 
-import type { AlignmentOptions } from ".";
 import type { VerticalStackPanelSettings } from ".";
 
-const alignmentIcons: Record<AlignmentOptions, JSX.Element> = {
-  top: <CgAlignTop size="25px" />,
-  bottom: <CgAlignBottom size="25px" />,
-  center: <AiOutlineVerticalAlignMiddle size="25px" />,
-  spread: <CgAlignMiddle size="25px" />,
+const alignmentOptions = {
+  top: { icon: <AlignTop />, label: "top" },
+  center: { icon: <AlignVCenter />, label: "middle" },
+  bottom: { icon: <AlignBottom />, label: "bottom" },
+  spread: { icon: <AlignVSpread /> },
 };
 
 export const GridlayoutVerticalStackPanelSettings: SettingsUpdaterComponent<
@@ -33,8 +36,7 @@ export const GridlayoutVerticalStackPanelSettings: SettingsUpdaterComponent<
       <RadioInputs
         name="item_alignment"
         label="Item Alignment"
-        options={["top", "center", "bottom", "spread"]}
-        optionIcons={alignmentIcons}
+        options={alignmentOptions}
         currentSelection={settings.item_alignment ?? "top"}
         optionsPerColumn={2}
       />

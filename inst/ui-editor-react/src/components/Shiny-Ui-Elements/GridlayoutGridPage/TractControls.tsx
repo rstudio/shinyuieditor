@@ -16,8 +16,8 @@ import type { TemplatedGridProps } from "utils/gridTemplates/types";
 
 import { PopoverButton } from "../../Inputs/PopoverButton";
 
-import { LayoutDispatchContext } from "./GridlayoutGridPage";
 import classes from "./TractControls.module.css";
+import { useSetLayout } from "./useSetLayout";
 
 export function TractControls({
   areas,
@@ -73,7 +73,7 @@ function TractControl({
   size: CSSMeasure;
   deletionConflicts: ReturnType<typeof conflictsToRemoveTract>;
 }) {
-  const setLayout = React.useContext(LayoutDispatchContext);
+  const setLayout = useSetLayout();
   const positionStyles = {
     [dir === "rows" ? "gridRow" : "gridColumn"]: tractIndex,
   };
@@ -131,7 +131,7 @@ function AddTractButton({
   setLayout: React.Dispatch<GridLayoutAction> | null;
 }) {
   const dirSingular = singular(dir);
-  const description = `Add ${dirSingular} before ${dirSingular} ${index}`;
+  const description = `Add ${dirSingular}`;
 
   return (
     <PopoverButton

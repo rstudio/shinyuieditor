@@ -2,6 +2,8 @@ import * as React from "react";
 
 import type { UiNodeComponent } from "components/Shiny-Ui-Elements/uiNodeTypes";
 
+import { useGridItemSwapping } from "../GridlayoutVerticalStackPanel/useGridItemSwapping";
+
 import type { GridlayoutTextPanelProps } from "./index";
 
 import classes from "./styles.module.css";
@@ -9,9 +11,12 @@ import classes from "./styles.module.css";
 const GridlayoutTextPanel: UiNodeComponent<GridlayoutTextPanelProps> = ({
   uiArguments: { content: title, area, h_align },
   children,
+  nodeInfo: { path },
   eventHandlers,
   compRef,
 }) => {
+  useGridItemSwapping({ containerRef: compRef, area, path });
+
   return (
     <div
       ref={compRef}

@@ -4,8 +4,8 @@ import type { DeleteAction, UpdateAction } from "state/uiTree";
 
 import { gridlayoutGridPageInfo } from "./GridlayoutGridPage";
 import { gridLayoutGridPanelInfo } from "./GridlayoutGridPanel";
+import { GridlayoutGridPanelPlotInfo } from "./GridlayoutGridPanelPlot";
 import { gridlayoutTextPanelInfo } from "./GridlayoutTextPanel";
-import { gridlayoutTitlePanelInfo } from "./GridlayoutTitlePanel";
 import { gridlayoutVerticalStackPanelInfo } from "./GridlayoutVerticalStackPanel";
 import { shinyActionButtonInfo } from "./ShinyActionButton";
 import { shinyCheckboxGroupInputInfo } from "./ShinyCheckboxGroupInput";
@@ -42,6 +42,13 @@ export type UiComponentInfo<NodeSettings extends object> = {
    * not provided then the node will not show up in the element palette.
    */
   iconSrc?: string;
+
+  /**
+   * Optional category of the node. Used to organize the elements palette. All
+   * nodes with the same category will be grouped together under that categories
+   * header.
+   */
+  category?: string;
   /**
    * Optional functions that will hook into the state update reducers and allow
    * a component the ability to respond to state manipulation before the main
@@ -98,11 +105,11 @@ export const shinyUiNodeInfo = {
   "shiny::actionButton": shinyActionButtonInfo,
   "shiny::uiOutput": shinyUiOutputInfo,
   "shiny::textOutput": shinyTextOutputInfo,
-  "gridlayout::title_panel": gridlayoutTitlePanelInfo,
-  "gridlayout::text_panel": gridlayoutTextPanelInfo,
-  "gridlayout::grid_panel": gridLayoutGridPanelInfo,
   "gridlayout::grid_page": gridlayoutGridPageInfo,
-  "gridlayout::vertical_stack_panel": gridlayoutVerticalStackPanelInfo,
+  "gridlayout::grid_panel": gridLayoutGridPanelInfo,
+  "gridlayout::grid_panel_stack": gridlayoutVerticalStackPanelInfo,
+  "gridlayout::grid_panel_text": gridlayoutTextPanelInfo,
+  "gridlayout::grid_panel_plot": GridlayoutGridPanelPlotInfo,
 };
 
 /**

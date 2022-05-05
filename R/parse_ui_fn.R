@@ -19,7 +19,7 @@
 #'             | 1rem | 250px   | 1fr  |
 #'             |------|---------|------|
 #'             | 1fr  | sidebar | plot |",
-#'     gridlayout::vertical_stack_panel(
+#'     gridlayout::grid_panel_stack(
 #'       area = "sidebar",
 #'       item_alignment = "center",
 #'       shiny::sliderInput(
@@ -30,7 +30,7 @@
 #'         value = 40L
 #'       )
 #'     ),
-#'     gridlayout::vertical_stack_panel(
+#'     gridlayout::grid_panel_stack(
 #'       area = "plot",
 #'       item_alignment = "center",
 #'       shiny::plotOutput(

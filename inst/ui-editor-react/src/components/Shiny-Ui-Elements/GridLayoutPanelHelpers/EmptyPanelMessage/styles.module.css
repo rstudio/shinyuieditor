@@ -1,0 +1,19 @@
+.emptyGridPanel {
+  position: absolute;
+  height: 100%;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.emptyMessage {
+  font-style: italic;
+  opacity: 0.5;
+}
+
+.emptyGridPanel > button {
+  font-size: 1.2rem;
+  color: var(--red);
+}
