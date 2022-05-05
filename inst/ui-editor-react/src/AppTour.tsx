@@ -1,7 +1,7 @@
 import * as React from "react";
 
+import Icon from "components/Icon";
 import Button from "components/Inputs/Button";
-import { FaMapMarked } from "react-icons/fa";
 import type { CallBackProps, Step, Styles } from "react-joyride";
 import Joyride, { ACTIONS, EVENTS } from "react-joyride";
 
@@ -76,7 +76,8 @@ export function AppTour() {
   return (
     <>
       <Button onClick={startTour} title="Take a guided tour of app">
-        <FaMapMarked size="1.2rem" /> Tour App
+        <Icon id="tour" size="22px" />
+        Tour App
       </Button>
       <Joyride
         callback={handleJoyrideCallback}

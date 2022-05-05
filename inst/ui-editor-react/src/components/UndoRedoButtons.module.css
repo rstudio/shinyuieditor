@@ -6,3 +6,7 @@
 .container > button {
   font-size: 1.3rem;
 }
+
+.container > button > img {
+  height: 20px;
+}

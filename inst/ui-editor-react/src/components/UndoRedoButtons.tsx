@@ -1,6 +1,6 @@
 import React from "react";
 
-import { MdRedo, MdUndo } from "react-icons/md";
+import Icon from "components/Icon";
 import { useUndoRedo } from "state-logic/useUndoRedo";
 
 import Button from "./Inputs/Button";
@@ -18,7 +18,8 @@ export function UndoRedoButtons() {
         title="Undo last change"
         onClick={goBackward}
       >
-        <MdUndo />
+        <Icon id="undo" />
+        {/* <MdUndo /> */}
       </Button>
       <Button
         variant="icon"
@@ -27,7 +28,7 @@ export function UndoRedoButtons() {
         title="Redo last change"
         onClick={goForward}
       >
-        <MdRedo />
+        <Icon id="redo" />
       </Button>
     </div>
   );
