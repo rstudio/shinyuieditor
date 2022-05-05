@@ -20,6 +20,8 @@ and background colors */
   border: 1px solid var(--light-grey);
   border-radius: var(--corner-radius);
   background-color: var(--rstudio-white);
+  max-height: 105px;
+  padding: 4px;
 }
 .option label .optionIcon {
   display: grid;
@@ -27,12 +29,13 @@ and background colors */
 }
 
 input[type="radio"]:checked + label {
-  background-color: var(--rstudio-blue);
-  color: var(--rstudio-white);
+  outline: 3px solid var(--rstudio-blue);
+  outline-offset: -2px;
+  /* color: var(--rstudio-white); */
   font-weight: bold;
 }
 
-input[type="radio"]:hover + label {
+input[type="radio"]:hover:not(:checked) + label {
   outline: 2px solid var(--rstudio-blue);
 }
 

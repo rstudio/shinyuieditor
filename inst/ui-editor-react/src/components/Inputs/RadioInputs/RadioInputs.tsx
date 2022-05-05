@@ -16,7 +16,7 @@ export function RadioInputs<OptionType extends string>({
 }: {
   name: string;
   label?: string;
-  options: Record<OptionType, { icon: JSX.Element; label?: string }>;
+  options: Record<OptionType, { icon: JSX.Element | string; label?: string }>;
   currentSelection: OptionType;
   onChange?: (x: { name: string; value: OptionType }) => void;
   optionsPerColumn?: number;
@@ -51,7 +51,13 @@ export function RadioInputs<OptionType extends string>({
                 checked={option === currentSelection}
               />
               <label htmlFor={name + option} data-name={label}>
-                <span className={classes.optionIcon}>{icon ?? option}</span>
+                <span className={classes.optionIcon}>
+                  {typeof icon === "string" ? (
+                    <img src={icon} alt={label} className={classes.icon} />
+                  ) : (
+                    icon
+                  )}
+                </span>
               </label>
             </div>
           );

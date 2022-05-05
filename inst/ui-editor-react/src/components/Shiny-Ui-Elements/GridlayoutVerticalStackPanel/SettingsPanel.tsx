@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import Icon from "components/Icon";
 import { LabeledCSSUnitInput } from "components/Inputs/CSSUnitInput";
 import { RadioInputs } from "components/Inputs/RadioInputs/RadioInputs";
 import { TextInput } from "components/Inputs/TextInput";
@@ -10,10 +11,10 @@ import { CgAlignBottom, CgAlignMiddle, CgAlignTop } from "react-icons/cg";
 import type { VerticalStackPanelSettings } from ".";
 
 const alignmentOptions = {
-  top: { icon: <CgAlignTop size="25px" /> },
-  center: { icon: <AiOutlineVerticalAlignMiddle size="25px" /> },
-  bottom: { icon: <CgAlignBottom size="25px" /> },
-  spread: { icon: <CgAlignMiddle size="25px" /> },
+  top: { icon: <Icon id="alignTop" />, label: "top" },
+  center: { icon: <Icon id="alignVCenter" />, label: "middle" },
+  bottom: { icon: <Icon id="alignBottom" />, label: "bottom" },
+  spread: { icon: <Icon id="alignVSpread" /> },
 };
 
 export const GridlayoutVerticalStackPanelSettings: SettingsUpdaterComponent<

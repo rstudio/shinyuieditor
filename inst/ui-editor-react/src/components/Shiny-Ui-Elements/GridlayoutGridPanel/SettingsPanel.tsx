@@ -1,32 +1,24 @@
 import * as React from "react";
 
+import Icon from "components/Icon";
 import { RadioInputs } from "components/Inputs/RadioInputs/RadioInputs";
 import { TextInput } from "components/Inputs/TextInput";
 import type { SettingsUpdaterComponent } from "components/Shiny-Ui-Elements/uiNodeTypes";
-import { AiOutlineVerticalAlignMiddle } from "react-icons/ai";
-import {
-  CgAlignBottom,
-  CgAlignCenter,
-  CgAlignLeft,
-  CgAlignMiddle,
-  CgAlignRight,
-  CgAlignTop,
-} from "react-icons/cg";
 
 import type { GridPanelSettings } from ".";
 
 const verticalAlignOptions = {
-  start: { icon: <CgAlignTop size="25px" />, label: "top" },
-  center: { icon: <AiOutlineVerticalAlignMiddle size="25px" /> },
-  end: { icon: <CgAlignBottom size="25px" />, label: "bottom" },
-  spread: { icon: <CgAlignMiddle size="25px" /> },
+  start: { icon: <Icon id="alignTop" />, label: "top" },
+  center: { icon: <Icon id="alignVCenter" />, label: "middle" },
+  end: { icon: <Icon id="alignBottom" />, label: "bottom" },
+  spread: { icon: <Icon id="alignVSpread" /> },
 };
 
 const horizontalAlignOptions = {
-  start: { icon: <CgAlignLeft size="25px" />, label: "left" },
-  center: { icon: <CgAlignCenter size="25px" />, label: "middle" },
-  end: { icon: <CgAlignRight size="25px" />, label: "right" },
-  spread: { icon: <CgAlignCenter size="25px" />, label: "spread" },
+  start: { icon: <Icon id="alignLeft" />, label: "left" },
+  center: { icon: <Icon id="alignHCenter" />, label: "center" },
+  end: { icon: <Icon id="alignRight" />, label: "right" },
+  spread: { icon: <Icon id="alignHSpread" />, label: "spread" },
 };
 
 export const GridlayoutGridPanelSettings: SettingsUpdaterComponent<
