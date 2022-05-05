@@ -18,7 +18,6 @@ gridlayout::grid_page(
     area = "header",
     content = "Geysers!",
     h_align = "start",
-    title = "Geysers!",
     is_title = TRUE
   ),
   gridlayout::grid_panel_stack(
