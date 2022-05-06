@@ -20,7 +20,7 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
     updateArgumentsByName,
     selectedPath,
     setNodeSelection,
-  } = useUpdateSettings({ tree });
+  } = useUpdateSettings({ tree, validateSettings: false });
 
   if (selectedPath === null) {
     return <div>Select an element to edit properties</div>;

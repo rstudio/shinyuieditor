@@ -8,7 +8,13 @@ import { useNodeSelectionState } from "NodeSelectionState";
 import { useDispatch } from "react-redux";
 import { UPDATE_NODE } from "state/uiTree";
 
-export function useUpdateSettings({ tree }: { tree: ShinyUiNode }) {
+export function useUpdateSettings({
+  tree,
+  validateSettings,
+}: {
+  tree: ShinyUiNode;
+  validateSettings: boolean;
+}) {
   const dispatch = useDispatch();
 
   const [selectedPath, setNodeSelection] = useNodeSelectionState();
@@ -40,41 +46,38 @@ export function useUpdateSettings({ tree }: { tree: ShinyUiNode }) {
 
       if (!currentNode || !selectedPath) return;
 
-      const result = await getUiNodeValidation({ node: currentNode });
+      const updated_node: ShinyUiNode = { ...currentNode };
 
-      if (result.type === "error") {
-        setErrorMsg(result.error_msg);
-        return;
-      }
+      if (validateSettings) {
+        const result = await getUiNodeValidation({ node: currentNode });
 
-      if (result.type === "server-error") {
-        // Otherwise we have a server error and need to make sure the user knows this
-        // before continuing
-        console.error(`HTTP error! status: ${result.status}`);
-
-        const userAcknowledgedLackOfServer = window.confirm(
-          "Could not check with backend for settings validation. You're on your own."
-        );
-        if (!userAcknowledgedLackOfServer) {
-          setErrorMsg(
-            "Failed to validate settings for component. Try again or check to make sure your R session didn't crash."
-          );
+        if (result.type === "error") {
+          setErrorMsg(result.error_msg);
+          return;
         }
+
+        if (result.type === "server-error") {
+          // Otherwise we have a server error and need to make sure the user knows this
+          // before continuing
+          console.error(`HTTP error! status: ${result.status}`);
+
+          const userAcknowledgedLackOfServer = window.confirm(
+            "Could not check with backend for settings validation. You're on your own."
+          );
+          if (!userAcknowledgedLackOfServer) {
+            setErrorMsg(
+              "Failed to validate settings for component. Try again or check to make sure your R session didn't crash."
+            );
+          }
+        }
+
+        updated_node.uiHTML = "uiHTML" in result ? result.uiHTML : undefined;
       }
 
       // Sync the state that's been updated from the form to the main tree
-      dispatch(
-        UPDATE_NODE({
-          path: selectedPath,
-          node: {
-            ...currentNode,
-            // Add resulting html from setting validation (if present)
-            uiHTML: "uiHTML" in result ? result.uiHTML : undefined,
-          },
-        })
-      );
+      dispatch(UPDATE_NODE({ path: selectedPath, node: updated_node }));
     },
-    [currentNode, dispatch, selectedPath]
+    [currentNode, dispatch, selectedPath, validateSettings]
   );
 
   const updateArguments = (newArguments: typeof tree.uiArguments) => {
@@ -85,7 +88,6 @@ export function useUpdateSettings({ tree }: { tree: ShinyUiNode }) {
   };
 
   const updateArgumentsByName: OnChangeCallback = ({ name, value }) => {
-    console.log("Updating arguments by name!", { name, value });
     setCurrentNode(
       (node) =>
         ({
