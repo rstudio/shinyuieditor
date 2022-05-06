@@ -53,46 +53,7 @@ launch_editor <- function(app_loc,
   }
 
   # Check and make sure that the app location provided actually has an app
-  has_existing_app <- fs::dir_exists(app_loc)
-
-  if (!has_existing_app) {
-
-    wants_to_use_template <- ask_question(
-      "No app was found at location ",
-      app_loc, ".\n",
-      "Would you like to start a new app from a template?",
-      answers = c('yes', "no")
-    )
-
-    if (!identical(wants_to_use_template, "yes")){
-      stop("No app present to run ui editor", call. = FALSE)
-    }
-
-    starter_templates <- c("geyser")
-
-    chosen_template <- ask_question(
-      "Which starter template would you like to use?",
-      answers = starter_templates
-    )
-
-    if (identical(chosen_template, character(0L))){
-      stop("Exiting launcher", call. = FALSE)
-    }
-
-    writeLog("Writing starter template", chosen_template, "to", app_loc, "...")
-    template_loc <- system.file(paste0("app-templates/", chosen_template), package = "ShinyUiEditor")
-
-    fs::dir_copy(template_loc, app_loc)
-  }
-
-  # Make sure the ui is actually valid
-  tryCatch({
-    source(get_app_ui_file(app_loc))
-  }, error = function(e){
-    cat(crayon::red("Failed to start app editor: app UI definition invalid: \n"))
-    stop(e)
-  })
-
+  check_and_validate_app(app_loc)
 
   # Logic for starting up Shiny app in background and returning the app URL.
   # Will only start up the app once
