@@ -77,3 +77,7 @@ ascii_box <- function(msg){
   )
 }
 
+ask_question <- function(..., answers) {
+  cat(cat(paste0(..., collapse = "")))
+  answers[utils::menu(answers)]
+}

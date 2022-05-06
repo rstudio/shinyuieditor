@@ -56,8 +56,31 @@ launch_editor <- function(app_loc,
   has_existing_app <- fs::dir_exists(app_loc)
 
   if (!has_existing_app) {
-    writeLog("No app found. Using starter template...")
-    template_loc <- system.file("app-templates/geyser", package = "ShinyUiEditor")
+
+    wants_to_use_template <- ask_question(
+      "No app was found at location ",
+      app_loc, ".\n",
+      "Would you like to start a new app from a template?",
+      answers = c('yes', "no")
+    )
+
+    if (!identical(wants_to_use_template, "yes")){
+      stop("No app present to run ui editor", call. = FALSE)
+    }
+
+    starter_templates <- c("geyser")
+
+    chosen_template <- ask_question(
+      "Which starter template would you like to use?",
+      answers = starter_templates
+    )
+
+    if (identical(chosen_template, character(0L))){
+      stop("Exiting launcher", call. = FALSE)
+    }
+
+    writeLog("Writing starter template", chosen_template, "to", app_loc, "...")
+    template_loc <- system.file(paste0("app-templates/", chosen_template), package = "ShinyUiEditor")
 
     fs::dir_copy(template_loc, app_loc)
   }
