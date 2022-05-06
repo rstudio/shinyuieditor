@@ -18,9 +18,11 @@
   min-height: 0;
 }
 
-.container > * {
+.container > div {
   outline: 1px solid var(--header-grey);
   min-width: 0;
+  /* Each sub-section gets its own stacking context so it won't leak over others */
+  isolation: isolate;
 }
 
 .elementsPanel {
