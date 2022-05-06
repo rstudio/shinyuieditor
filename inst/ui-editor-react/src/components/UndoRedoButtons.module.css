@@ -3,21 +3,16 @@
   gap: 5px;
 }
 
-.container > button {
-  font-size: 1.3rem;
-}
-
-.container > button > img {
-  height: 20px;
-}
 .container > button > svg {
-  height: 28px;
+  width: 100%;
   fill: var(--rstudio-blue);
   color: var(--rstudio-blue);
 }
 
 .container > button {
   height: 38px;
+  padding: 3px;
+  position: relative;
 }
 
 .container > button:disabled {
