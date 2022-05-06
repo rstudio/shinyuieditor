@@ -2,6 +2,8 @@
 
 A GUI for laying out a Shiny application that generates clean and human-readable UI code.
 
+ℹ️ _The editor currently is only tested in Chrome, but Safari support is coming shortly._
+
 ## Quick Start
 
 [Video walkthrough of using visual editor to create and edit a new app](https://youtu.be/_RB38KDiaCE). _Note: video is unlisted, but public so please don't share the link._
