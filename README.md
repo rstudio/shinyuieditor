@@ -4,6 +4,8 @@ A GUI for laying out a Shiny application that generates clean and human-readable
 
 ## Quick Start
 
+[Video walkthrough of using visual editor to create and edit a new app](https://youtu.be/_RB38KDiaCE). _Note: video is unlisted, but public so please don't share the link._
+
 ### Pre-reqs
 
 - Two-file shiny app (or at least willingness to use the two file format)
