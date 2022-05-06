@@ -48,9 +48,11 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
           onSelect={setNodeSelection}
         />
       </div>
-      <div className={classes.settingsFormContainer}>
-        <strong>Settings:</strong>
-        <form className={classes.settingsForm} onSubmit={handleSubmit}>
+      <form className={classes.settingsForm} onSubmit={handleSubmit}>
+        <div className={classes.settingsHeader}>
+          <strong>Settings:</strong>
+        </div>
+        <div className={classes.settingsInputs}>
           <SettingsUpdateContext onChange={updateArgumentsByName}>
             <SettingsInputs settings={uiArguments} />
           </SettingsUpdateContext>
@@ -60,21 +62,20 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
               <div className={classes.validationErrorMsg}>{errorMsg}</div>
             </div>
           ) : null}
-          <div className={classes.submitHolder}>
-            {uiName !== "unknownUiFunction" ? (
-              <Button type="submit" aria-label="Submit new settings">
-                <BiCheck /> Update
-              </Button>
-            ) : null}
-          </div>
-        </form>
-      </div>
-
-      {!isRootNode ? (
-        <div className={classes.deleteHolder}>
-          <DeleteNodeButton path={selectedPath} />
         </div>
-      ) : null}
+        <div className={classes.buttonsHolder}>
+          {uiName !== "unknownUiFunction" ? (
+            <Button
+              type="submit"
+              aria-label="Submit new settings"
+              title="Update Element"
+            >
+              <BiCheck /> Update
+            </Button>
+          ) : null}
+          {!isRootNode ? <DeleteNodeButton path={selectedPath} /> : null}
+        </div>
+      </form>
     </div>
   );
 }

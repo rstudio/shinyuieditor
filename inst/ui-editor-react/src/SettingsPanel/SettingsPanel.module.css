@@ -1,47 +1,59 @@
 .settingsPanel {
+  --vertical-gap: 10px;
   display: flex;
   flex-direction: column;
   padding-inline: 16px;
-}
-
-.settingsPanel > * {
-  padding-block: 10px;
+  padding-block-start: var(--vertical-gap);
+  height: 100%;
 }
 
 .currentElementAbout {
-  flex-basis: fit-content;
-}
-
-.settingsFormContainer {
-  /* Make the settings form take up whatever space it has until bottom */
-  flex: 1;
-  --deliniation: 1px solid var(--rstudio-white);
-  border-top: var(--deliniation);
-  border-bottom: var(--deliniation);
-  overflow: auto;
+  /* Don't let the path size change */
+  flex-shrink: 0;
 }
 
 form.settingsForm {
-  margin-top: 10px;
+  flex: 1;
+  height: 100%;
+  overflow: auto;
+  --deliniation: 1px solid var(--rstudio-white);
+  isolation: isolate;
 }
-.submitHolder {
-  padding: 4px;
+
+.settingsInputs {
+  border-top: var(--deliniation);
+  overflow: auto;
+}
+
+/* Both the title and action buttons on top and bottom should always be visible */
+.settingsHeader,
+.buttonsHolder {
+  position: sticky;
+  z-index: 2;
+}
+.settingsHeader {
+  top: 0;
+  background-color: var(--light-grey);
+  padding-block: var(--vertical-gap);
+  border-bottom: var(--deliniation);
+}
+
+.buttonsHolder {
+  bottom: 0;
+  border-top: var(--deliniation);
+  background-color: var(--light-grey);
+  padding-block: var(--vertical-gap);
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.buttonsHolder > Button {
+  height: 35px;
 }
 
 .validationErrorMsg {
   padding: 0.5rem;
   color: orangered;
   font-family: var(--mono-fonts);
-}
-
-.deleteHolder {
-  position: relative;
-  margin-top: auto;
-  /* Slightly tweak padding of button to make it look right */
-  padding-block: 14px 13px;
-}
-.deleteHolder > * {
-  margin-inline: auto;
 }
