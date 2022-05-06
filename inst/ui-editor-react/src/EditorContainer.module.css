@@ -38,7 +38,10 @@
 }
 
 .propertiesPanel > :global(.properties-panel) {
-  flex-grow: 1;
+  flex: 1;
+}
+.propertiesPanel > :global(.app-preview) {
+  flex-grow: 0;
 }
 
 .editorHolder {
