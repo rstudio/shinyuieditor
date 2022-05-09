@@ -3,5 +3,5 @@ The components in this folder are automatically generated using the library `svg
 To add a new icon or update existing run the following command
 
 ```
-npx @svgr/cli --out-dir src/components/Icons/generated -- src/assets/svg-icons
+yarn build-icons
 ```
