@@ -1,18 +1,14 @@
-# Options for starting
-# 1. Path to app is empty
-# 2. Path to app exists
-#   1. Doesn't have server file
-#
-#   1. Has full (app.r and server.R)
-#     1. app.R doesn't parse
-#     2. app.R parses
+# Makes sure that there is an app where there's supposed to be and offers to
+# fill in any missing components if they exist. If missing components are
+# refused then the function returns that the app is not valid and message about
+# why. stop()'s are used from internal functions to pass these reasons.
 check_and_validate_app <- function(app_loc){
-  # Options for starting
 
-  # Check and make sure that the app location provided actually has an app
-  has_existing_app <- get_app_exists(app_loc)
-
+  # We bubble up the reason for a non-valid app via throwing errors, hence the
+  # tryCatch
   tryCatch({
+    # Check and make sure that the app location provided actually has an app
+    has_existing_app <- get_app_exists(app_loc)
 
     if (has_existing_app){
       # Validate and optionally fill in server and ui
