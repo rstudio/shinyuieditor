@@ -45,15 +45,20 @@ launch_editor <- function(app_loc,
                           launch_browser = TRUE,
                           run_in_background = FALSE) {
 
+
   writeLog <- function(...) {
     if (show_logs) {
-      # TODO: Move these to standard error as they are meant for human consumption
-      cat(..., "\n", file = stderr())
+      logger(...)
     }
   }
 
   # Check and make sure that the app location provided actually has an app
-  check_and_validate_app(app_loc)
+  app_status <- check_and_validate_app(app_loc)
+
+  if (!app_status$is_valid){
+    logger(app_status$message)
+    invisible(return())
+  }
 
   # Logic for starting up Shiny app in background and returning the app URL.
   # Will only start up the app once
@@ -209,6 +214,9 @@ launch_editor <- function(app_loc,
   )
 }
 
+logger <- function(...){
+  cat(..., "\n", file = stderr())
+}
 
 msg_when_ready <- function(preview_app, ws){
 

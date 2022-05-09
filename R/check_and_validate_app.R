@@ -12,19 +12,32 @@ check_and_validate_app <- function(app_loc){
   # Check and make sure that the app location provided actually has an app
   has_existing_app <- get_app_exists(app_loc)
 
-  if (has_existing_app){
-    # Validate and optionaly fill in server and ui
-    check_server_file(app_loc)
-    check_ui_file(app_loc)
+  tryCatch({
 
-  } else {
-    # If no ui.R or server.R is present in location, let the user choose from
-    # some templates
-    fill_in_app_template(app_loc)
-  }
+    if (has_existing_app){
+      # Validate and optionally fill in server and ui
+      check_server_file(app_loc)
+      check_ui_file(app_loc)
+    } else {
+      # If no ui.R or server.R is present in location, let the user choose from
+      # some templates
+      fill_in_app_template(app_loc)
+    }
+
+    list(is_valid = TRUE)
+
+  }, error = function(e){
+
+    list(
+      is_valid = FALSE,
+      message = e$message
+    )
+
+  })
 }
 
-
+# All available templates as found in inst/app-templates
+starter_templates <- c("geyser")
 
 fill_in_app_template <- function(app_loc){
   ask_to_continue(
@@ -33,10 +46,9 @@ fill_in_app_template <- function(app_loc){
     "Would you like to start a new app from a template?"
   )
 
-  starter_templates <- c("geyser")
-
   chosen_template <- ask_question(
-    "Which starter template would you like to use?",
+    "Which starter template would you like to use? ",
+    "(Sorry, it's an easy choice currently.)",
     answers = starter_templates
   )
 
@@ -47,23 +59,29 @@ fill_in_app_template <- function(app_loc){
   # Make sure the directory exists
   fs::dir_create(app_loc)
 
-  template_loc <- system.file(paste0("app-templates/", chosen_template), package = "ShinyUiEditor")
+  add_server_template(chosen_template, app_loc)
+  add_ui_template(chosen_template, app_loc)
+}
 
-  add_server_template(
-    fs::path(template_loc, "server.R"),
-    app_loc
-  )
-  add_ui_template(
-    fs::path(template_loc, "ui.R"),
-    app_loc
+
+
+get_path_to_template <- function(template_name){
+  if (!template_name %in% c(starter_templates, "empty")) {
+    stop("Unknown template: ", template_name)
+  }
+
+  system.file(paste0("app-templates/", template_name), package = "ShinyUiEditor")
+}
+
+
+add_server_template <- function(template_name, app_loc){
+  fs::file_copy(
+    fs::path(get_path_to_template(template_name), "server.R"),
+    fs::path(app_loc, "server.R")
   )
 }
 
-add_server_template <- function(server_template_loc, app_loc){
-  fs::file_copy(server_template_loc, fs::path(app_loc, "server.R"))
-}
-
-add_ui_template <- function(ui_template_loc, app_loc){
+add_ui_template <- function(template_name, app_loc){
   app_ui_path <- fs::path(app_loc, "ui.R")
   has_ui_file <- fs::file_exists(app_ui_path)
 
@@ -75,13 +93,12 @@ add_ui_template <- function(ui_template_loc, app_loc){
     )
   }
 
-  fs::file_copy(ui_template_loc, app_ui_path)
+  fs::file_copy(
+    fs::path(get_path_to_template(template_name), "ui.R"),
+    app_ui_path
+  )
 }
 
-add_empty_ui <- function(app_loc){
-  empty_ui_template <- system.file("app-templates/empty_ui.R", package = "ShinyUiEditor")
-  add_ui_template(empty_ui_template, app_loc)
-}
 
 check_server_file <- function(app_loc){
   # Does the server.R file exist?
@@ -91,14 +108,12 @@ check_server_file <- function(app_loc){
   if (!has_server_file){
     ask_to_continue(
       "No server.R file was found in app directory. ",
-      "Would you like an empty one created and added?"
+      "Would you like an empty one created and added?",
+      reason_if_no = "No server.R present"
     )
 
-    empty_server <- system.file("app-templates/empty_server.R", package = "ShinyUiEditor")
-    add_server_template(empty_server, app_loc)
+    add_server_template("empty", app_loc)
   }
-
-  TRUE
 }
 
 check_ui_file <- function(app_loc){
@@ -108,11 +123,12 @@ check_ui_file <- function(app_loc){
   if (!has_ui_file){
     ask_to_continue(
       "No ui.R was found. ",
-      "Would you like an empty one created and added?"
+      "Would you like an empty one created and added?",
+      reason_if_no = "No ui.R present"
     )
 
-    add_empty_ui(app_loc)
-    return(TRUE)
+    add_ui_template("empty", app_loc)
+    return()
   }
 
   # Make sure the ui is actually valid
@@ -125,27 +141,24 @@ check_ui_file <- function(app_loc){
     FALSE
   })
 
-  if (is_parsable_ui) { return(TRUE) }
+  if (is_parsable_ui) { return() }
 
   ask_to_continue(
     "Current ui.R is not able to be parsed: sorry! ",
     "Would you like to add a new ui.R for use with your existing server? ",
-    "(Don't worry, the existing ui will be kept as ui.backup.R.)"
+    "(Don't worry, the existing ui will be kept as ui.backup.R.)",
+    reason_if_no = "Can't parse ui.R"
   )
 
-  add_empty_ui(app_loc)
-
-  return(TRUE)
+  add_ui_template("empty", app_loc)
 }
 
 get_has_ui_file <- function(app_loc){
-  app_ui_path <- fs::path(app_loc, "ui.R")
-  fs::file_exists(app_ui_path)
+  fs::file_exists(fs::path(app_loc, "ui.R"))
 }
 
 get_has_server_file <- function(app_loc){
-  app_server_path <- fs::path(app_loc, "server.R")
-  fs::file_exists(app_server_path)
+  fs::file_exists(fs::path(app_loc, "server.R"))
 }
 
 get_app_exists <- function(app_loc){
@@ -156,19 +169,19 @@ get_app_exists <- function(app_loc){
   has_ui_file | has_server_file
 }
 
-end_early <- function(){
-  print("Ending early")
-  stop("Exiting launcher", call. = FALSE)
+end_early <- function(reason = "No app to run"){
+  # print("Ending early")
+  stop(reason, call. = FALSE)
 }
 
-ask_to_continue <- function(...){
+ask_to_continue <- function(..., reason_if_no = "No app to run"){
   res <- ask_question(
     ...,
     answers = c('yes', "no")
   )
 
   if (!identical(res, 'yes')) {
-    end_early()
+    end_early(reason_if_no)
   }
 
 }

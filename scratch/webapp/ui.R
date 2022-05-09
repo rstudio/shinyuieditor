@@ -15,21 +15,16 @@ gridlayout::grid_page(
     "250px",
     "1fr"
   ),
-  gap_size = "1rem",
+  gap_size = "10px",
   gridlayout::grid_panel_stack(
     area = "sidebar",
     item_alignment = "top",
     item_gap = "12px",
     title = "Settings",
-    shiny::numericInput(
-      inputId = "myNumericInput",
-      label = "Numeric Input",
-      value = 10L
-    ),
     shiny::sliderInput(
       inputId = "bins",
       label = "Number of Bins",
-      min = 5L,
+      min = 15L,
       max = 100L,
       value = 30L,
       width = "100%",
