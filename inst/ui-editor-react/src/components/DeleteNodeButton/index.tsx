@@ -1,6 +1,6 @@
+import { Trash } from "components/Icons";
 import Button from "components/Inputs/Button";
 import type { NodePath } from "components/Shiny-Ui-Elements/uiNodeTypes";
-import { FiTrash as TrashIcon } from "react-icons/fi";
 import { useDeleteNode } from "SettingsPanel/useDeleteNode";
 
 import classes from "./styles.module.css";
@@ -16,7 +16,7 @@ function DeleteNodeButton({ path }: { path: NodePath }) {
       aria-label="Delete Node"
       title="Delete Element"
     >
-      <TrashIcon />
+      <Trash />
     </Button>
   );
 }
