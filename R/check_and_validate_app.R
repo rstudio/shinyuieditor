@@ -49,7 +49,7 @@ fill_in_app_template <- function(app_loc){
   )
 
   if (identical(chosen_template, character(0L))){
-    exit_early()
+    end_early()
   }
 
   # Make sure the directory exists
