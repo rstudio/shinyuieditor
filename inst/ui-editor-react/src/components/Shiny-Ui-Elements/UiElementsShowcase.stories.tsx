@@ -66,12 +66,14 @@ export const UiElementsShowcase: Story<{
   );
 };
 
-UiElementsShowcase.args = {
-  nameOfElement: "shiny::plotOutput",
-};
+const uiNodeNames = Object.keys(shinyUiNodeInfo);
 UiElementsShowcase.argTypes = {
   nameOfElement: {
     control: { type: "select" },
-    options: Object.keys(shinyUiNodeInfo),
+    options: uiNodeNames,
   },
+};
+
+UiElementsShowcase.args = {
+  nameOfElement: "shiny::plotOutput",
 };
