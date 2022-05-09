@@ -5,7 +5,7 @@ import {
   AlignTop,
   AlignVCenter,
   AlignVSpread,
-} from "components/Icon";
+} from "components/Icons";
 import { LabeledCSSUnitInput } from "components/Inputs/CSSUnitInput";
 import { RadioInputs } from "components/Inputs/RadioInputs/RadioInputs";
 import { TextInput } from "components/Inputs/TextInput";

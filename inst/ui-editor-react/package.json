@@ -44,7 +44,8 @@
     "storybook": "start-storybook -p 6006 -s public",
     "ladle": "ladle serve",
     "build-storybook": "build-storybook -s public",
-    "lint": "eslint src --fix"
+    "lint": "eslint src --fix",
+    "build-icons": "@svgr/cli --out-dir src/components/Icons/generated -- src/assets/svg-icons"
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
@@ -119,6 +120,7 @@
     "@storybook/node-logger": "^6.4.13",
     "@storybook/preset-create-react-app": "^4.0.0",
     "@storybook/react": "^6.4.13",
+    "@svgr/cli": "^6.2.1",
     "@types/cypress-image-snapshot": "^3.1.6",
     "@types/sortablejs": "^1.10.7",
     "@typescript-eslint/parser": "^5.13.0",

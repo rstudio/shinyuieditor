@@ -9,7 +9,7 @@ import {
   AlignTop,
   AlignVCenter,
   AlignVSpread,
-} from "components/Icon";
+} from "components/Icons";
 import { RadioInputs } from "components/Inputs/RadioInputs/RadioInputs";
 import { TextInput } from "components/Inputs/TextInput";
 import type { SettingsUpdaterComponent } from "components/Shiny-Ui-Elements/uiNodeTypes";
