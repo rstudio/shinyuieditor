@@ -45,31 +45,20 @@ launch_editor <- function(app_loc,
                           launch_browser = TRUE,
                           run_in_background = FALSE) {
 
+
   writeLog <- function(...) {
     if (show_logs) {
-      # TODO: Move these to standard error as they are meant for human consumption
-      cat(..., "\n", file = stderr())
+      logger(...)
     }
   }
 
   # Check and make sure that the app location provided actually has an app
-  has_existing_app <- fs::dir_exists(app_loc)
+  app_status <- check_and_validate_app(app_loc)
 
-  if (!has_existing_app) {
-    writeLog("No app found. Using starter template...")
-    template_loc <- system.file("app-templates/geyser", package = "ShinyUiEditor")
-
-    fs::dir_copy(template_loc, app_loc)
+  if (!app_status$is_valid){
+    logger(app_status$message)
+    invisible(return())
   }
-
-  # Make sure the ui is actually valid
-  tryCatch({
-    source(get_app_ui_file(app_loc))
-  }, error = function(e){
-    cat(crayon::red("Failed to start app editor: app UI definition invalid: \n"))
-    stop(e)
-  })
-
 
   # Logic for starting up Shiny app in background and returning the app URL.
   # Will only start up the app once
@@ -128,7 +117,7 @@ launch_editor <- function(app_loc,
   startup_fn <- if (run_in_background) httpuv::startServer else httpuv::runServer
 
   if (launch_browser) {
-    browseURL(location_of_editor)
+    utils::browseURL(location_of_editor)
   }
 
   # TODO: If in background mode, wrap the return with a callback that cleans
@@ -225,6 +214,9 @@ launch_editor <- function(app_loc,
   )
 }
 
+logger <- function(...){
+  cat(..., "\n", file = stderr())
+}
 
 msg_when_ready <- function(preview_app, ws){
 
