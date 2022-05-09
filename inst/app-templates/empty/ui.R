@@ -1,12 +1,10 @@
 gridlayout::grid_page(
   layout = c(
     "header header",
-    "sidebar bluePlot",
     "sidebar distPlot"
   ),
   row_sizes = c(
     "100px",
-    "1fr",
     "1fr"
   ),
   col_sizes = c(
@@ -16,7 +14,7 @@ gridlayout::grid_page(
   gap_size = "15px",
   gridlayout::grid_panel_text(
     area = "header",
-    content = "Geysers!",
+    content = "My App",
     h_align = "start",
     is_title = TRUE
   ),
@@ -24,6 +22,7 @@ gridlayout::grid_page(
     area = "sidebar",
     item_alignment = "top",
     item_gap = "12px",
+    title = "Settings",
     shiny::sliderInput(
       inputId = "bins",
       label = "Number of Bins",
@@ -33,6 +32,5 @@ gridlayout::grid_page(
       width = "100%"
     )
   ),
-  gridlayout::grid_panel_plot(area = "distPlot"),
-  gridlayout::grid_panel_plot(area = "bluePlot")
+  gridlayout::grid_panel_plot(area = "distPlot")
 )
