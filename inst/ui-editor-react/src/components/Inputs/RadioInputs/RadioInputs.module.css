@@ -27,6 +27,7 @@ and background colors */
 .radioLabel svg {
   height: 1.65rem;
   padding: 1px;
+  font-size: 1.6rem;
 }
 
 .radioLabel .optionIcon {
