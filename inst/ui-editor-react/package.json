@@ -45,7 +45,7 @@
     "ladle": "ladle serve",
     "build-storybook": "build-storybook -s public",
     "lint": "eslint src --fix",
-    "build-icons": "svgr --out-dir src/components/Icons/generated -- src/assets/svg-icons"
+    "build-icons": "svgr --out-dir src/components/Icons/generated --typescript -- src/assets/svg-icons"
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
