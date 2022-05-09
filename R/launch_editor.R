@@ -117,7 +117,7 @@ launch_editor <- function(app_loc,
   startup_fn <- if (run_in_background) httpuv::startServer else httpuv::runServer
 
   if (launch_browser) {
-    browseURL(location_of_editor)
+    utils::browseURL(location_of_editor)
   }
 
   # TODO: If in background mode, wrap the return with a callback that cleans
