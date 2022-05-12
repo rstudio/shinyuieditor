@@ -73,7 +73,7 @@ parse_ui_fn <- function(ui_node_expr, env = rlang::caller_env()) {
 
   # Since first element of the AST is the function call itself, it makes our
   # life easier going forward if we remove it before walking through arguments
-  call_arguments <- as.list(ui_node_expr) |> utils::tail(-1)
+  call_arguments <- as.list(ui_node_expr) %>% utils::tail(-1)
   num_args <- length(call_arguments)
   arg_names <- names(call_arguments)
 
@@ -93,7 +93,7 @@ parse_ui_fn <- function(ui_node_expr, env = rlang::caller_env()) {
 
     is_child_node <- arg_name == ""
     if (is_child_node){
-      parsed$uiChildren <- parsed$uiChildren |> append(list(parse_ui_fn(arg_val, env=env)))
+      parsed$uiChildren <- parsed$uiChildren %>% append(list(parse_ui_fn(arg_val, env=env)))
     } else {
       parsed$uiArguments[[arg_name]] <- parse_argument(arg_val)
     }
