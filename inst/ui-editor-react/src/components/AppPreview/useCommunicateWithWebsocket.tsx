@@ -129,6 +129,7 @@ export function useCommunicateWithWebsocket(): CommunicationState {
       console.warn(
         "Failure to initialize websocket at all. Probably on netlify"
       );
+      setError("Failed to connect to shiny app preview");
     }
   }, [set_disconnected]);
 
