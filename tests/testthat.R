@@ -1,4 +1,4 @@
 library(testthat)
-library(ShinyUiEditor)
+library(shinyuieditor)
 
-test_check("ShinyUiEditor")
+test_check("shinyuieditor")

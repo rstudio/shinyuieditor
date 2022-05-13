@@ -14,8 +14,7 @@ UI function.}
 in the names of all arguments. Almost always left as the default.}
 }
 \value{
-A nested list describing the UI of the app for use in the Shiny
-Visual Editor
+A nested list describing the UI of the app for use in the ui editor
 }
 \description{
 Function to recursively parse a Shiny UI definition. Will build a nested list

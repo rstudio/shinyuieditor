@@ -66,7 +66,7 @@ get_path_to_template <- function(template_name){
     stop("Unknown template: ", template_name)
   }
 
-  system.file(paste0("app-templates/", template_name), package = "ShinyUiEditor")
+  system.file(paste0("app-templates/", template_name), package = "shinyuieditor")
 }
 
 

@@ -15,7 +15,7 @@
 #'
 #' @examples
 #'
-#' clock <- ShinyUiEditor:::create_output_subscribers(
+#' clock <- shinyuieditor:::create_output_subscribers(
 #'   source_fn = Sys.time,
 #'   delay = 1
 #' )
