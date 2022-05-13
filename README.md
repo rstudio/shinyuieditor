@@ -31,7 +31,7 @@ pak::pkg_install('rstudio/Shiny-Visual-Editor')
 Assuming theres an existing `ui.R` and `server.R` in the folder `existing-app/` relative to your current working directly (`getwd()`), then you start the ui-editor on that app by running the following code and pasting the returned link into your web-browser.
 
 ```r
-ShinyUiEditor::launch_editor(app_loc = "existing-app/")
+shinyuieditor::launch_editor(app_loc = "existing-app/")
 #> Live editor running at http://localhost:44509/app
 ```
 
@@ -40,7 +40,7 @@ ShinyUiEditor::launch_editor(app_loc = "existing-app/")
 If you provide an app location that does not yet exist, a simple template app will be written there for you to use with building.
 
 ```r
-ShinyUiEditor::launch_editor(app_loc = "new-app/")
+shinyuieditor::launch_editor(app_loc = "new-app/")
 ```
 
 _In the future more starting templates will be offered, however, currently only a simple grid-layout recreation of the classic "Geyser" app is available._

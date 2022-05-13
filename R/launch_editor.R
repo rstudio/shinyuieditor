@@ -196,7 +196,7 @@ launch_editor <- function(app_loc,
       },
       staticPaths = list(
         "/app" = httpuv::staticPath(
-          system.file("ui-editor-react/build", package = "ShinyUiEditor"),
+          system.file("ui-editor-react/build", package = "shinyuieditor"),
           indexhtml = TRUE
         )
       )
