@@ -1,6 +1,5 @@
 .container {
   display: flex;
-  /* gap: 5px; */
 }
 
 .container > button > svg {
