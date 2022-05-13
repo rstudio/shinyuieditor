@@ -84,16 +84,13 @@ export function useCommunicateWithWebsocket(): CommunicationState {
 
     ws.onopen = (event) => {
       console.log("Websocket successfully opened with httpuv");
-
       setRestartApp(() => () => ws.send("RESTART_PREVIEW"));
       setStopApp(() => () => ws.send("STOP_PREVIEW"));
       haveConnectedToWebsocket.current = true;
-      ws.send("Hi from AppPreview");
     };
 
     ws.onmessage = (event) => {
       const msg_data = JSON.parse(event.data) as WS_MSG;
-      console.log("Message from websocket", msg_data);
 
       switch (msg_data.msg) {
         case "SHINY_READY":
@@ -108,7 +105,7 @@ export function useCommunicateWithWebsocket(): CommunicationState {
           setCrashed(msg_data.payload);
           break;
         default:
-          console.error("Unknown message from websocket. Ignoring", {
+          console.warn("Unknown message from websocket. Ignoring", {
             msg_data,
           });
       }
@@ -120,7 +117,7 @@ export function useCommunicateWithWebsocket(): CommunicationState {
         return;
       }
       // Let state know that we've lost connection so we can alert the user
-      console.error("Lost connection to backend.");
+      console.error("Lost connection to httpuv.");
       set_disconnected();
     };
 
