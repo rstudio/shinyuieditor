@@ -41,7 +41,6 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
   return (
     <div className={classes.settingsPanel + " properties-panel"}>
       <div className={classes.currentElementAbout}>
-        <strong>Position:</strong>
         <PathBreadcrumb
           tree={tree}
           path={selectedPath}
@@ -49,9 +48,6 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
         />
       </div>
       <form className={classes.settingsForm} onSubmit={handleSubmit}>
-        <div className={classes.settingsHeader}>
-          <strong>Settings:</strong>
-        </div>
         <div className={classes.settingsInputs}>
           <SettingsUpdateContext onChange={updateArgumentsByName}>
             <SettingsInputs settings={uiArguments} />
