@@ -12,7 +12,7 @@ export function UndoRedoButtons() {
   return (
     <div className={classes.container + " undo-redo-buttons"}>
       <Button
-        variant="icon"
+        variant={["transparent", "icon"]}
         disabled={!canGoBackward}
         aria-label="Undo last change"
         title="Undo last change"
@@ -21,7 +21,7 @@ export function UndoRedoButtons() {
         <Undo />
       </Button>
       <Button
-        variant="icon"
+        variant={["transparent", "icon"]}
         disabled={!canGoForward}
         aria-label="Redo last change"
         title="Redo last change"

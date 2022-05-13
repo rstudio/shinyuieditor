@@ -1,6 +1,6 @@
 .container {
   display: flex;
-  gap: 5px;
+  /* gap: 5px; */
 }
 
 .container > button > svg {
@@ -13,12 +13,11 @@
   height: 38px;
   padding: 3px;
   position: relative;
-  font-size: 1.5rem;
+  font-size: 2rem;
 }
 
 .container > button:disabled {
   fill: var(--disabled-color);
   color: var(--disabled-color);
-  background-color: var(--light-grey);
-  opacity: 0.4;
+  opacity: 0.2;
 }

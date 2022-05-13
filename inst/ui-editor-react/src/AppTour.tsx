@@ -75,7 +75,11 @@ export function AppTour() {
 
   return (
     <>
-      <Button onClick={startTour} title="Take a guided tour of app">
+      <Button
+        onClick={startTour}
+        title="Take a guided tour of app"
+        variant="transparent"
+      >
         <PngIcon id="tour" size="22px" />
         Tour App
       </Button>

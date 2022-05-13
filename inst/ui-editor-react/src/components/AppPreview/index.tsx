@@ -54,7 +54,7 @@ export default function AppPreview() {
         ) : (
           <>
             <Button
-              variant="icon"
+              variant={["transparent", "icon"]}
               className={classes.reloadButton}
               title="Reload app session"
               onClick={reloadApp}
