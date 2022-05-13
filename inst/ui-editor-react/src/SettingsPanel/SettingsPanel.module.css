@@ -10,6 +10,8 @@
 .currentElementAbout {
   /* Don't let the path size change */
   flex-shrink: 0;
+  /* Add padding on the bottom so our whitespace on top and bottom is equal */
+  padding-bottom: 10px;
 }
 
 form.settingsForm {
