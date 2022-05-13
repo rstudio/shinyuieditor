@@ -52,6 +52,7 @@ export function useCommunicateWithWebsocket(): CommunicationState {
   const [appLogs, setAppLogs] = React.useState<AppLogs>([]);
   const [error, setError] = React.useState<string | null>(null);
   const [crashed, setCrashed] = React.useState<string | false>(false);
+  const haveConnectedToWebsocket = React.useRef(false);
 
   const [restartApp, setRestartApp] = React.useState<() => void>(() =>
     console.log("No app running to reset")
@@ -86,6 +87,7 @@ export function useCommunicateWithWebsocket(): CommunicationState {
 
       setRestartApp(() => () => ws.send("RESTART_PREVIEW"));
       setStopApp(() => () => ws.send("STOP_PREVIEW"));
+      haveConnectedToWebsocket.current = true;
       ws.send("Hi from AppPreview");
     };
 
@@ -113,6 +115,10 @@ export function useCommunicateWithWebsocket(): CommunicationState {
     };
 
     ws.onclose = (event) => {
+      if (!haveConnectedToWebsocket.current) {
+        // Never connected to websocket, so we haven't disconected
+        return;
+      }
       // Let state know that we've lost connection so we can alert the user
       console.error("Lost connection to backend.");
       set_disconnected();
