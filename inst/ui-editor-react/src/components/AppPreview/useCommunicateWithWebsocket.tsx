@@ -52,6 +52,7 @@ export function useCommunicateWithWebsocket(): CommunicationState {
   const [appLogs, setAppLogs] = React.useState<AppLogs>([]);
   const [error, setError] = React.useState<string | null>(null);
   const [crashed, setCrashed] = React.useState<string | false>(false);
+  const haveConnectedToWebsocket = React.useRef(false);
 
   const [restartApp, setRestartApp] = React.useState<() => void>(() =>
     console.log("No app running to reset")
@@ -74,53 +75,61 @@ export function useCommunicateWithWebsocket(): CommunicationState {
         ? "localhost:8888"
         : window.location.host;
 
-    const ws = new WebSocket(`ws://${websocket_host}`);
+    try {
+      const ws = new WebSocket(`ws://${websocket_host}`);
 
-    ws.onerror = (event) => {
-      console.error("Failed to connect to websocket", event);
-      setError("Failed to connect to shiny app preview");
-    };
+      ws.onerror = (event) => {
+        console.error("Failed to connect to websocket", event);
+        setError("Failed to connect to shiny app preview");
+      };
 
-    ws.onopen = (event) => {
-      console.log("Websocket successfully opened with httpuv");
+      ws.onopen = (event) => {
+        console.log("Websocket successfully opened with httpuv");
+        setRestartApp(() => () => ws.send("RESTART_PREVIEW"));
+        setStopApp(() => () => ws.send("STOP_PREVIEW"));
+        haveConnectedToWebsocket.current = true;
+      };
 
-      setRestartApp(() => () => ws.send("RESTART_PREVIEW"));
-      setStopApp(() => () => ws.send("STOP_PREVIEW"));
-      ws.send("Hi from AppPreview");
-    };
+      ws.onmessage = (event) => {
+        const msg_data = JSON.parse(event.data) as WS_MSG;
 
-    ws.onmessage = (event) => {
-      const msg_data = JSON.parse(event.data) as WS_MSG;
-      console.log("Message from websocket", msg_data);
+        switch (msg_data.msg) {
+          case "SHINY_READY":
+            setCrashed(false);
+            setError(null);
+            setAppLoc(msg_data.payload);
+            break;
+          case "SHINY_LOGS":
+            setAppLogs(msg_data.payload);
+            break;
+          case "SHINY_CRASH":
+            setCrashed(msg_data.payload);
+            break;
+          default:
+            console.warn("Unknown message from websocket. Ignoring", {
+              msg_data,
+            });
+        }
+      };
 
-      switch (msg_data.msg) {
-        case "SHINY_READY":
-          setCrashed(false);
-          setError(null);
-          setAppLoc(msg_data.payload);
-          break;
-        case "SHINY_LOGS":
-          setAppLogs(msg_data.payload);
-          break;
-        case "SHINY_CRASH":
-          setCrashed(msg_data.payload);
-          break;
-        default:
-          console.error("Unknown message from websocket. Ignoring", {
-            msg_data,
-          });
-      }
-    };
+      ws.onclose = (event) => {
+        if (!haveConnectedToWebsocket.current) {
+          // Never connected to websocket, so we haven't disconected
+          return;
+        }
+        // Let state know that we've lost connection so we can alert the user
+        console.error("Lost connection to httpuv.");
+        set_disconnected();
+      };
 
-    ws.onclose = (event) => {
-      // Let state know that we've lost connection so we can alert the user
-      console.error("Lost connection to backend.");
-      set_disconnected();
-    };
-
-    return () => {
-      ws.close();
-    };
+      return () => {
+        ws.close();
+      };
+    } catch {
+      console.warn(
+        "Failure to initialize websocket at all. Probably on netlify"
+      );
+    }
   }, [set_disconnected]);
 
   const state: CommonState = {

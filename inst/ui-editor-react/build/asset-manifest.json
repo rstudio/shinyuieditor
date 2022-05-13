@@ -1,26 +1,16 @@
 {
   "files": {
-    "main.css": "/app/static/css/main.33c0e9ec.css",
-    "main.js": "/app/static/js/main.bebd99e7.js",
+    "main.css": "/app/static/css/main.62649481.css",
+    "main.js": "/app/static/js/main.09ad3b6e.js",
     "static/js/186.0cdabd00.chunk.js": "/app/static/js/186.0cdabd00.chunk.js",
     "static/media/Shiny-Logo.png": "/app/static/media/Shiny-Logo.2fd8063bbe2c9673b39f.png",
     "index.html": "/app/index.html",
-    "static/media/alignItemHSpread.svg": "/app/static/media/alignItemHSpread.4488876c0cff1581b67c5f0a58543da1.svg",
-    "static/media/alignItemVSpread.svg": "/app/static/media/alignItemVSpread.e33757502c63db3eb55c85cb06482a31.svg",
-    "static/media/alignItemVCenter.svg": "/app/static/media/alignItemVCenter.5a6ec4f1491a5285d530ea1d590bbc54.svg",
-    "static/media/undo.svg": "/app/static/media/undo.1fb7bbcf3dee0d9b2637eff753826fc3.svg",
-    "static/media/redo.svg": "/app/static/media/redo.da84daf9d59068968b9310aaf73b9fca.svg",
-    "static/media/alignItemTop.svg": "/app/static/media/alignItemTop.32031b84dd64d9c4011bc571c939305e.svg",
-    "static/media/alignItemHCenter.svg": "/app/static/media/alignItemHCenter.40a16f4fb05507665e134fd536c9c5ed.svg",
-    "static/media/alignItemRight.svg": "/app/static/media/alignItemRight.75325025de8f2edfd40dac40d19b559f.svg",
-    "static/media/alignItemBottom.svg": "/app/static/media/alignItemBottom.6300fe8294cf780d6ac681282ea84e1e.svg",
-    "static/media/alignItemLeft.svg": "/app/static/media/alignItemLeft.9f23fc7983fc1530b8d93bbacdfb0ddb.svg",
-    "main.33c0e9ec.css.map": "/app/static/css/main.33c0e9ec.css.map",
-    "main.bebd99e7.js.map": "/app/static/js/main.bebd99e7.js.map",
+    "main.62649481.css.map": "/app/static/css/main.62649481.css.map",
+    "main.09ad3b6e.js.map": "/app/static/js/main.09ad3b6e.js.map",
     "186.0cdabd00.chunk.js.map": "/app/static/js/186.0cdabd00.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.33c0e9ec.css",
-    "static/js/main.bebd99e7.js"
+    "static/css/main.62649481.css",
+    "static/js/main.09ad3b6e.js"
   ]
 }

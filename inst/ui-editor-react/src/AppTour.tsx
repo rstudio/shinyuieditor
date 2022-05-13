@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import Icon from "components/Icon";
+import PngIcon from "components/Icons";
 import Button from "components/Inputs/Button";
 import type { CallBackProps, Step, Styles } from "react-joyride";
 import Joyride, { ACTIONS, EVENTS } from "react-joyride";
@@ -76,7 +76,7 @@ export function AppTour() {
   return (
     <>
       <Button onClick={startTour} title="Take a guided tour of app">
-        <Icon id="tour" size="22px" />
+        <PngIcon id="tour" size="22px" />
         Tour App
       </Button>
       <Joyride
