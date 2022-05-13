@@ -5,7 +5,6 @@
 
 .container > button > svg {
   width: 100%;
-  fill: var(--rstudio-blue);
   color: var(--rstudio-blue);
 }
 
@@ -17,7 +16,6 @@
 }
 
 .container > button:disabled {
-  fill: var(--disabled-color);
   color: var(--disabled-color);
   opacity: 0.2;
 }
