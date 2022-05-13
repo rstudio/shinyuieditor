@@ -7,8 +7,7 @@
 #' @param env Environment in which to evaluate arguments. Necessary for filling
 #'   in the names of all arguments. Almost always left as the default.
 #'
-#' @return A nested list describing the UI of the app for use in the Shiny
-#'   Visual Editor
+#' @return A nested list describing the UI of the app for use in the ui editor
 #' @export
 #'
 #' @examples

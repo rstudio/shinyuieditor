@@ -2,7 +2,7 @@
 % Please edit documentation in R/launch_editor.R
 \name{launch_editor}
 \alias{launch_editor}
-\title{Launch visual editor server}
+\title{Launch ui editor server}
 \usage{
 launch_editor(
   app_loc,

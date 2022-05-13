@@ -1,4 +1,4 @@
-# Shiny Visual UI Editor
+# Shiny UI Editor
 
 A GUI for laying out a Shiny application that generates clean and human-readable UI code.
 
@@ -6,7 +6,7 @@ A GUI for laying out a Shiny application that generates clean and human-readable
 
 ## Quick Start
 
-[Video walkthrough of using visual editor to create and edit a new app](https://youtu.be/_RB38KDiaCE). _Note: video is unlisted, but public so please don't share the link._
+[Video walkthrough of using ui editor to create and edit a new app](https://youtu.be/_RB38KDiaCE). _Note: video is unlisted, but public so please don't share the link._
 
 ### Pre-reqs
 
@@ -19,7 +19,7 @@ While in development the package is only available on github:
 ```r
 install.packages("pak")
 pak::pkg_install('rstudio/gridlayout')
-pak::pkg_install('rstudio/Shiny-Visual-Editor')
+pak::pkg_install('rstudio/shinyuieditor')
 ```
 
 ℹ️ _You may need to setup your github PAT to access as the repo is still private. However, if you're reading this, you have access. To set this up run `usethis::create_github_token()` in the terminal and follow the prompts._

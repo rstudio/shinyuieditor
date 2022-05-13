@@ -1,4 +1,4 @@
-#' Launch visual editor server
+#' Launch ui editor server
 #'
 #' Spins up an `httpuv` server that handles parsing and deparsing of the UI tree
 #' and saving.
