@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import CategoryHeader from "components/CategoryHeader";
+import inputClasses from "components/Inputs/Inputs.module.css";
 import { AiOutlineQuestionCircle } from "react-icons/ai";
 
 import type { SettingsUpdaterComponent } from "../uiNodeTypes";
@@ -20,10 +21,12 @@ export const UnknownUiFunctionSettings: SettingsUpdaterComponent<
     .replaceAll(/,/g, ",\n ");
   return (
     <div>
-      <span className={classes.infoMsg}>
-        <AiOutlineQuestionCircle />
-        Unknown function call. Can't modify with visual editor.
-      </span>
+      <div className={inputClasses.container}>
+        <span className={classes.infoMsg}>
+          <AiOutlineQuestionCircle />
+          Unknown function call. Can't modify with visual editor.
+        </span>
+      </div>
       <CategoryHeader category="Code" />
       <pre className={classes.codeHolder}>{formattedText}</pre>
     </div>
