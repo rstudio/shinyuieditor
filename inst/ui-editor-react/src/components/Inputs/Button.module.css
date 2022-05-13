@@ -6,7 +6,7 @@
 
   padding: 0.5rem 1rem;
 
-  outline: var(--outline-width) solid var(--outline-color);
+  border: var(--outline-width) solid var(--outline-color);
   background-color: var(--background-color);
   color: var(--text-color);
 
