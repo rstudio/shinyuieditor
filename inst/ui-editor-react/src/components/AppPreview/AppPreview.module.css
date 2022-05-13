@@ -175,7 +175,6 @@ button.reloadButton:active {
 }
 
 .appViewerHolder > h2 {
-  font-size: 1.25rem;
   color: var(--rstudio-grey);
   text-align: center;
   font-style: italic;

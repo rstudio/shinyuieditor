@@ -92,6 +92,7 @@ input {
   line-height: 1.5;
   color: var(--font-color);
   margin: 0;
+  font-size: 16px;
 }
 
 h1,
@@ -114,8 +115,4 @@ button {
   border: none;
   background: none;
   cursor: pointer;
-}
-
-input {
-  font-size: 1.08rem;
 }

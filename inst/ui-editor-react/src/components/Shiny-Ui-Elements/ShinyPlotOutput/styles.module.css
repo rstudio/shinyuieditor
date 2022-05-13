@@ -19,7 +19,6 @@
 .plotPlaceholder .label {
   height: var(--label-height);
   line-height: var(--label-height);
-  font-size: 1.1rem;
 }
 
 .plotPlaceholder > svg {
