@@ -5,8 +5,9 @@ input {
 }
 
 .container {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  --vertical-pad: 10px;
+  margin-top: var(--vertical-pad);
+  margin-bottom: var(--vertical-pad);
   max-width: 100%;
   min-width: 0;
   width: 100%;
