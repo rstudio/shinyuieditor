@@ -23,7 +23,6 @@ form.settingsForm {
 }
 
 .settingsInputs {
-  border-top: var(--deliniation);
   overflow: auto;
 }
 
