@@ -4,7 +4,7 @@
   display: grid;
   place-content: center;
   justify-items: center;
-  gap: 10px;
+  gap: var(--vertical-spacing);
   width: 100%;
 }
 

@@ -1,6 +1,6 @@
 .container {
   --flex-gap: 8px;
-  padding: 10px;
+  padding: var(--vertical-spacing);
   display: flex;
   flex-direction: column;
   gap: var(--flex-gap);

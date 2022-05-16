@@ -5,7 +5,7 @@ input {
 }
 
 .container {
-  --vertical-pad: 10px;
+  --vertical-pad: var(--vertical-spacing);
   margin-top: var(--vertical-pad);
   margin-bottom: var(--vertical-pad);
   max-width: 100%;

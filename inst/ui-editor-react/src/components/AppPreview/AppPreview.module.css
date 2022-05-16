@@ -8,7 +8,7 @@ div.appViewerHolder {
 
   /* These take effect in LogsViewer.module.css but depend on the expansion so we set them here */
   --logs-font-size: 0.65rem;
-  --logs-padding: 10px;
+  --logs-padding: var(--vertical-spacing);
 
   /* Sizes */
 

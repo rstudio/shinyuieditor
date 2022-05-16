@@ -22,7 +22,7 @@
   font-size: 0.8rem;
   width: var(--element-palette-icon-size);
   height: 100px;
-  border-radius: var(--corner-radius, 10px);
+  border-radius: var(--corner-radius);
   position: relative;
   cursor: grab;
   text-align: center;
