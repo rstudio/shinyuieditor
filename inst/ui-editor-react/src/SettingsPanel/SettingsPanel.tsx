@@ -8,7 +8,8 @@ import type {
 import { shinyUiNodeInfo } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { BiCheck } from "react-icons/bi";
 
-import PathBreadcrumb from "./PathBreadcrumb";
+// import PathBreadcrumb from "./PathBreadcrumb";
+import PathBreadcrumbLinear from "./PathBreadcrumbLinear";
 import classes from "./SettingsPanel.module.css";
 import { useUpdateSettings } from "./useUpdateSettings";
 
@@ -41,7 +42,12 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
   return (
     <div className={classes.settingsPanel + " properties-panel"}>
       <div className={classes.currentElementAbout}>
-        <PathBreadcrumb
+        {/* <PathBreadcrumb
+          tree={tree}
+          path={selectedPath}
+          onSelect={setNodeSelection}
+        /> */}
+        <PathBreadcrumbLinear
           tree={tree}
           path={selectedPath}
           onSelect={setNodeSelection}

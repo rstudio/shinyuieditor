@@ -1,0 +1,44 @@
+.container {
+  --spacing: 14px;
+  padding-block: var(--vertical-spacing);
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing);
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  overflow: auto;
+}
+
+.node {
+  width: fit-content;
+  max-width: 300px;
+  white-space: nowrap;
+  position: relative;
+  cursor: pointer;
+}
+
+.node:hover {
+  text-decoration: underline;
+}
+
+.node[data-disable-click="true"] {
+  cursor: unset;
+  pointer-events: none;
+}
+
+.node:last-child {
+  color: var(--rstudio-blue);
+  text-decoration: underline;
+}
+
+.node:not(:last-child)::after {
+  content: "›";
+  font-size: 1.2rem;
+  line-height: 100%;
+  text-align: center;
+  position: absolute;
+  width: var(--spacing);
+  height: 100%;
+  opacity: 0.5;
+}
