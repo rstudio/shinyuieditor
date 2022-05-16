@@ -52,7 +52,7 @@
   --layout-elements-panel-w: calc(
     var(--element-palette-icon-size) * 2 + var(--element-palette-padding) * 3
   );
-  --layout-properties-panel-w: 275px;
+  --layout-properties-panel-w: 350px;
 
   --corner-radius: 10px;
   --vertical-spacing: 10px;
