@@ -1,4 +1,9 @@
 .deleteButton {
-  font-size: 1.5rem;
   color: var(--red);
+  display: flex;
+  align-items: center;
+}
+
+.deleteButton > svg {
+  font-size: 1.5rem;
 }

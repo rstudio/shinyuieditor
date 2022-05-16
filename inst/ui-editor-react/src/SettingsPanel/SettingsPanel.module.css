@@ -46,16 +46,20 @@ form.settingsForm {
   background-color: var(--light-grey);
   padding-block: var(--vertical-gap);
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  gap: 10px;
 }
 
 .buttonsHolder > Button {
-  height: 35px;
+  height: 40px;
+  width: 100%;
+  border: none;
 }
 
 .validationErrorMsg {
   padding: 0.5rem;
-  color: orangered;
+  color: var(--red);
   font-family: var(--mono-fonts);
 }
