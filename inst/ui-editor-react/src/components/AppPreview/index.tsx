@@ -1,6 +1,7 @@
 import React from "react";
 
 import { PROPERTIES_PANEL_WIDTH_PX } from "EditorContainer";
+import debounce from "just-debounce-it";
 import { AiOutlineShrink } from "react-icons/ai";
 import { FaExpand } from "react-icons/fa";
 import { VscDebugRestart } from "react-icons/vsc";
@@ -123,17 +124,26 @@ function useGetPageSize() {
     height: number;
   } | null>(null);
 
-  React.useEffect(() => {
-    if (!window) {
-      return;
-    }
+  // Debounce the callback to window size updating so we're not slowing app down
+  // keeping up with resize
+  const updateWindowSize = React.useMemo(
+    () =>
+      debounce(() => {
+        const { innerWidth, innerHeight } = window;
+        setPageSize({
+          width: innerWidth,
+          height: innerHeight,
+        });
+      }, 500),
+    []
+  );
 
-    const { innerWidth, innerHeight } = window;
-    setPageSize({
-      width: innerWidth,
-      height: innerHeight,
-    });
-  }, []);
+  React.useEffect(() => {
+    updateWindowSize();
+    window.addEventListener("resize", updateWindowSize);
+
+    return () => window.removeEventListener("resize", updateWindowSize);
+  }, [updateWindowSize]);
 
   return pageSize;
 }
