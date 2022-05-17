@@ -18,12 +18,12 @@ Imports:
     httpuv,
     jsonlite,
     later,
-    lobstr,
+    lobstr (>= 1.1.1.9000),
     rlang,
     shiny,
     styler,
     utils,
-    gridlayout,
+    gridlayout (>= 0.1.0),
     magrittr
 Suggests: 
     testthat (>= 3.0.0)
