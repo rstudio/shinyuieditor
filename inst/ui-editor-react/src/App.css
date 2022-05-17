@@ -45,15 +45,6 @@
   --disabled-color: hsl(var(--rstudio-grey-hsl) / 0.5);
   --disabled-outline: 1px solid hsl(var(--rstudio-grey-hsl) / 0.15);
 
-  /* Sizes */
-  --element-palette-icon-size: 75px;
-  --element-palette-padding: 16px;
-  --layout-header-h: 55px;
-  --layout-elements-panel-w: calc(
-    var(--element-palette-icon-size) * 2 + var(--element-palette-padding) * 3
-  );
-  --layout-properties-panel-w: 350px;
-
   --corner-radius: 10px;
   --vertical-spacing: 10px;
   --selected-border-width: 3px;

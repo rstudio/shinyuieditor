@@ -6,7 +6,7 @@ import ElementsPalette from ".";
 export const ElementsPaletteDemo = () => (
   <div
     style={{
-      width: "var(--layout-elements-panel-w, 100px)",
+      width: "var(--layout-elements-panel-w, 200px)",
       height: "90vh",
       outline: "1px solid grey",
       backgroundColor: "var(--light-grey)",
