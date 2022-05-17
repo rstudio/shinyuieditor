@@ -27,5 +27,7 @@ Imports:
     magrittr
 Suggests: 
     testthat (>= 3.0.0)
+Remotes:
+    rstudio/gridlayout
 Config/testthat/edition: 3
 URL: https://rstudio.github.io/shinyuieditor/
