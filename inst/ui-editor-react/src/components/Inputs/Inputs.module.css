@@ -5,8 +5,9 @@ input {
 }
 
 .container {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  --vertical-pad: var(--vertical-spacing);
+  margin-top: var(--vertical-pad);
+  margin-bottom: var(--vertical-pad);
   max-width: 100%;
   min-width: 0;
   width: 100%;
@@ -61,6 +62,7 @@ select:disabled {
   content: "";
   position: absolute;
   inset: 0;
+  border-radius: var(--corner-radius);
   outline: var(--disabled-outline);
   background-color: var(--light-grey);
   z-index: 1;

@@ -3,3 +3,7 @@
 ^inst\/ui\-editor\-react\/(?!build).+$
 ^scratch$
 ^LICENSE\.md$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^\.github$

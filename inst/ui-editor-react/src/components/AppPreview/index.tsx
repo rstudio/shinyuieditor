@@ -1,5 +1,7 @@
 import React from "react";
 
+import { PROPERTIES_PANEL_WIDTH_PX } from "EditorContainer";
+import debounce from "just-debounce-it";
 import { AiOutlineShrink } from "react-icons/ai";
 import { FaExpand } from "react-icons/fa";
 import { VscDebugRestart } from "react-icons/vsc";
@@ -54,7 +56,7 @@ export default function AppPreview() {
         ) : (
           <>
             <Button
-              variant="icon"
+              variant={["transparent", "icon"]}
               className={classes.reloadButton}
               title="Reload app session"
               onClick={reloadApp}
@@ -122,24 +124,35 @@ function useGetPageSize() {
     height: number;
   } | null>(null);
 
-  React.useEffect(() => {
-    if (!window) {
-      return;
-    }
+  // Debounce the callback to window size updating so we're not slowing app down
+  // keeping up with resize
+  const updateWindowSize = React.useMemo(
+    () =>
+      debounce(() => {
+        const { innerWidth, innerHeight } = window;
+        setPageSize({
+          width: innerWidth,
+          height: innerHeight,
+        });
+      }, 500),
+    []
+  );
 
-    const { innerWidth, innerHeight } = window;
-    setPageSize({
-      width: innerWidth,
-      height: innerHeight,
-    });
-  }, []);
+  React.useEffect(() => {
+    updateWindowSize();
+    window.addEventListener("resize", updateWindowSize);
+
+    return () => window.removeEventListener("resize", updateWindowSize);
+  }, [updateWindowSize]);
 
   return pageSize;
 }
 
-// This could be retreived from the css programatically. The 16 is added for
-// some reason I can't figure out but is needed.
-const properties_bar_w_px = 275 - 30 * 2 + 16;
+function getPreviewScale(page_width_px: number) {
+  // This could be retreived from the css programatically. The 16 is added for
+  // some reason I can't figure out but is needed.
+  return (PROPERTIES_PANEL_WIDTH_PX - 30 * 2 + 16) / page_width_px;
+}
 
 function usePreviewScale() {
   const [previewScale, setPreviewScale] = React.useState(0.2);
@@ -147,7 +160,7 @@ function usePreviewScale() {
   const pageSize = useGetPageSize();
   React.useEffect(() => {
     if (!pageSize) return;
-    setPreviewScale(properties_bar_w_px / pageSize.width);
+    setPreviewScale(getPreviewScale(pageSize.width));
   }, [pageSize]);
 
   return previewScale;

@@ -1,7 +1,10 @@
 .elementsPalette {
+  --icon-size: 75px;
+  --padding: 16px;
+
   height: 100%;
   overflow: auto;
-  padding: var(--element-palette-padding);
+  padding: var(--padding);
 }
 /* Reduce vertical padding for first category list */
 .elementsPalette > :first-child {
@@ -11,18 +14,18 @@
 .OptionsList {
   display: grid;
   align-items: start;
-  grid-template-columns: repeat(2, var(--element-palette-icon-size));
+  grid-template-columns: repeat(2, var(--icon-size));
   justify-content: center;
   justify-items: center;
   align-content: start;
-  gap: var(--element-palette-padding);
+  gap: var(--padding);
 }
 
 .OptionItem {
   font-size: 0.8rem;
-  width: var(--element-palette-icon-size);
+  width: var(--icon-size);
   height: 100px;
-  border-radius: var(--corner-radius, 10px);
+  border-radius: var(--corner-radius);
   position: relative;
   cursor: grab;
   text-align: center;

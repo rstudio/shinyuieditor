@@ -1,24 +1,20 @@
 .container {
   display: flex;
-  gap: 5px;
 }
 
 .container > button > svg {
   width: 100%;
-  fill: var(--rstudio-blue);
   color: var(--rstudio-blue);
 }
 
 .container > button {
   height: 38px;
-  padding: 3px;
+  padding: 0px;
   position: relative;
-  font-size: 1.5rem;
+  font-size: 2.5rem;
 }
 
 .container > button:disabled {
-  fill: var(--disabled-color);
   color: var(--disabled-color);
-  background-color: var(--light-grey);
-  opacity: 0.4;
+  opacity: 0.2;
 }

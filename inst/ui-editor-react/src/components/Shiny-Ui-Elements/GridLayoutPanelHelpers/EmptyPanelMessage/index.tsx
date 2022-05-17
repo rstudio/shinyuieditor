@@ -7,7 +7,7 @@ export function EmptyGridPanelMessage({ path }: { path: NodePath }) {
   return (
     <div className={classes.emptyGridPanel}>
       <span className={classes.emptyMessage}>Empty grid panel. Delete?</span>
-      <DeleteNodeButton path={path} />
+      <DeleteNodeButton path={path} justIcon={true} />
     </div>
   );
 }

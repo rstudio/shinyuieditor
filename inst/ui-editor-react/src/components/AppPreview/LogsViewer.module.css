@@ -33,7 +33,7 @@ button.expandTab,
 
 button.expandTab {
   z-index: 2;
-  border-radius: 10px 10px 0 0 !important;
+  border-radius: var(--corner-radius) var(--corner-radius) 0 0 !important;
   width: fit-content;
   height: var(--tab-height);
   margin-inline: auto;

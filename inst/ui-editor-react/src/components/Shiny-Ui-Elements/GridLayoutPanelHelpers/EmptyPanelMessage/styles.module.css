@@ -4,16 +4,11 @@
   display: grid;
   place-content: center;
   justify-items: center;
-  gap: 10px;
+  gap: var(--vertical-spacing);
   width: 100%;
 }
 
 .emptyMessage {
   font-style: italic;
   opacity: 0.5;
-}
-
-.emptyGridPanel > button {
-  font-size: 1.2rem;
-  color: var(--red);
 }

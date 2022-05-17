@@ -3,18 +3,16 @@
   width: 100%;
   background-color: var(--background-grey, #edf2f7);
   display: grid;
-  grid-template-rows: var(--layout-header-h) 1fr;
-  grid-template-columns: var(--layout-elements-panel-w) 1fr var(
-      --layout-properties-panel-w
-    );
+  grid-template-rows: 55px 1fr;
+
+  /* This is provided by inline styles in Editor Container so value can be stored in JS */
+  grid-template-columns: auto 1fr var(--properties-panel-width);
   grid-template-areas:
     "header   header header    "
     "elements editor properties";
 }
 
 .container * {
-  /* Soften edges just the tiniest bit to make stuff less jarring */
-  border-radius: 1px;
   min-height: 0;
 }
 

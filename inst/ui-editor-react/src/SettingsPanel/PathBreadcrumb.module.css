@@ -1,16 +1,19 @@
 .container {
   --flex-gap: 8px;
-  padding: 10px;
+  padding: var(--vertical-spacing);
   display: flex;
   flex-direction: column;
   gap: var(--flex-gap);
   position: relative;
+  width: fit-content;
+  max-width: 100%;
 }
 
 .node {
-  --pad: 5px;
-  padding: var(--pad);
-  width: fit-content;
+  --pad: 6px;
+  padding-inline: var(--pad);
+  padding-block: calc(var(--pad) / 2);
+  width: 100%;
   max-width: 100%;
   overflow-wrap: break-word;
   position: relative;
@@ -21,7 +24,8 @@
 }
 
 .node:last-child {
-  outline: 2px solid var(--rstudio-blue);
+  background-color: var(--rstudio-blue);
+  color: var(--rstudio-white);
 }
 
 .node::before,

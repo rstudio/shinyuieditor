@@ -1,5 +1,5 @@
 .settingsPanel {
-  --vertical-gap: 10px;
+  --vertical-gap: var(--vertical-spacing);
   display: flex;
   flex-direction: column;
   padding-inline: 16px;
@@ -10,6 +10,8 @@
 .currentElementAbout {
   /* Don't let the path size change */
   flex-shrink: 0;
+  /* Add padding on the bottom so our whitespace on top and bottom is equal */
+  padding-bottom: var(--vertical-gap);
 }
 
 form.settingsForm {
@@ -21,7 +23,6 @@ form.settingsForm {
 }
 
 .settingsInputs {
-  border-top: var(--deliniation);
   overflow: auto;
 }
 
@@ -44,16 +45,20 @@ form.settingsForm {
   background-color: var(--light-grey);
   padding-block: var(--vertical-gap);
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  gap: var(--vertical-spacing);
 }
 
 .buttonsHolder > Button {
-  height: 35px;
+  height: 40px;
+  width: 100%;
+  border: none;
 }
 
 .validationErrorMsg {
   padding: 0.5rem;
-  color: orangered;
+  color: var(--red);
   font-family: var(--mono-fonts);
 }

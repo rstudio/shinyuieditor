@@ -18,6 +18,12 @@ import { UndoRedoButtons } from "./components/UndoRedoButtons";
 import classes from "./EditorContainer.module.css";
 import { SettingsPanel } from "./SettingsPanel/SettingsPanel";
 
+export const PROPERTIES_PANEL_WIDTH_PX = 300;
+
+const sizes_inline_styles = {
+  "--properties-panel-width": `${PROPERTIES_PANEL_WIDTH_PX}px`,
+} as React.CSSProperties;
+
 function EditorContainerWithData({
   // We use a pre-build ui tree in the case of no initial state being provide,
   // which indicates we're in a client-side-only mode
@@ -41,7 +47,7 @@ function EditorContainerWithData({
 
   return (
     <CurrentDraggedNodeProvider>
-      <div className={classes.container}>
+      <div className={classes.container} style={sizes_inline_styles}>
         <div className={classes.header}>
           <div className={classes.leftSide}>
             <h1 className={classes.title}>Shiny UI Editor</h1>

@@ -11,10 +11,6 @@
   place-content: center;
 }
 
-.infoMsg {
-  font-size: 1.1rem;
-}
-
 .infoMsg > svg {
   color: var(--rstudio-blue);
   margin-right: 4px;
