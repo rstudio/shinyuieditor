@@ -21,6 +21,7 @@ function DeleteNodeButton({
       aria-label="Delete Node"
       title="Delete Element"
       variant={justIcon ? "icon" : "delete"}
+      type="button"
     >
       <Trash />
       {justIcon ? null : "Delete Element"}

@@ -1,12 +1,10 @@
 import DeleteNodeButton from "components/DeleteNodeButton";
-import Button from "components/Inputs/Button";
 import { SettingsUpdateContext } from "components/Inputs/SettingsUpdateContext";
 import type {
   SettingsUpdaterComponent,
   ShinyUiNode,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { shinyUiNodeInfo } from "components/Shiny-Ui-Elements/uiNodeTypes";
-import { BiCheck } from "react-icons/bi";
 
 // import PathBreadcrumb from "./PathBreadcrumb";
 import PathBreadcrumbLinear from "./PathBreadcrumbLinear";
@@ -14,14 +12,8 @@ import classes from "./SettingsPanel.module.css";
 import { useUpdateSettings } from "./useUpdateSettings";
 
 export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
-  const {
-    currentNode,
-    errorMsg,
-    handleSubmit,
-    updateArgumentsByName,
-    selectedPath,
-    setNodeSelection,
-  } = useUpdateSettings({ tree, validateSettings: false });
+  const { currentNode, updateArgumentsByName, selectedPath, setNodeSelection } =
+    useUpdateSettings(tree);
 
   if (selectedPath === null) {
     return <div>Select an element to edit properties</div>;
@@ -53,31 +45,20 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
           onSelect={setNodeSelection}
         />
       </div>
-      <form className={classes.settingsForm} onSubmit={handleSubmit}>
+      <form className={classes.settingsForm} onSubmit={stopDefaultSubmit}>
         <div className={classes.settingsInputs}>
           <SettingsUpdateContext onChange={updateArgumentsByName}>
             <SettingsInputs settings={uiArguments} />
           </SettingsUpdateContext>
-          {errorMsg ? (
-            <div>
-              Input settings are not valid. The following errors were received:
-              <div className={classes.validationErrorMsg}>{errorMsg}</div>
-            </div>
-          ) : null}
         </div>
         <div className={classes.buttonsHolder}>
-          {uiName !== "unknownUiFunction" ? (
-            <Button
-              type="submit"
-              aria-label="Submit new settings"
-              title="Update Element"
-            >
-              <BiCheck /> Update
-            </Button>
-          ) : null}
           {!isRootNode ? <DeleteNodeButton path={selectedPath} /> : null}
         </div>
       </form>
     </div>
   );
+}
+
+function stopDefaultSubmit(e: React.FormEvent<HTMLFormElement>) {
+  e.preventDefault();
 }
