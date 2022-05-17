@@ -3,7 +3,6 @@ input[type="number"].numericInput {
   border-radius: var(--corner-radius);
   flex-grow: 1;
   text-align: end;
-  --arrow-pad: 5px;
-  max-width: 90px;
-  min-width: 40px;
+  --incrementer-pad: 5px;
+  /* padding-right: 15px; */
 }

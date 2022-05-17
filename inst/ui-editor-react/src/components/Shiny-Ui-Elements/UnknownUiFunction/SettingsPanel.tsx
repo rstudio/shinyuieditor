@@ -28,7 +28,9 @@ export const UnknownUiFunctionSettings: SettingsUpdaterComponent<
         </span>
       </div>
       <CategoryHeader category="Code" />
-      <pre className={classes.codeHolder}>{formattedText}</pre>
+      <div className={inputClasses.container}>
+        <pre className={classes.codeHolder}>{formattedText}</pre>
+      </div>
     </div>
   );
 };

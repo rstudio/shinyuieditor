@@ -50,20 +50,15 @@ select:disabled {
 }
 
 .mainInput {
-  margin-left: 1px;
-  margin-right: 1px;
   position: relative;
 }
 
-.container[data-disabled="true"] .mainInput {
-  width: fit-content;
-}
 .container[data-disabled="true"] .mainInput::before {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: var(--corner-radius);
-  outline: var(--disabled-outline);
+  border: var(--disabled-outline);
   background-color: var(--light-grey);
   z-index: 1;
   pointer-events: none;

@@ -19,7 +19,7 @@
 .codeHolder {
   overflow: auto;
   font-family: var(--mono-fonts);
-  outline: 1px solid var(--rstudio-grey);
+  border: 1px solid var(--rstudio-grey);
   background-color: var(--rstudio-white);
   padding: 5px;
 }
