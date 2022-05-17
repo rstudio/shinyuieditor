@@ -62,6 +62,7 @@ select:disabled {
   content: "";
   position: absolute;
   inset: 0;
+  border-radius: var(--corner-radius);
   outline: var(--disabled-outline);
   background-color: var(--light-grey);
   z-index: 1;
