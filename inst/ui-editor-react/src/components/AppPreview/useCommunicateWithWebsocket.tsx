@@ -9,7 +9,7 @@ type WS_MSG =
       msg: "SHINY_READY";
       payload: string;
     }
-  | { msg: "SHINY_LOGS"; payload: string[] }
+  | { msg: "SHINY_LOGS"; payload: string | string[] }
   | { msg: "SHINY_CRASH"; payload: string };
 
 type CommonState = {
@@ -100,7 +100,7 @@ export function useCommunicateWithWebsocket(): CommunicationState {
             setAppLoc(msg_data.payload);
             break;
           case "SHINY_LOGS":
-            setAppLogs(msg_data.payload);
+            setAppLogs(ensureArray(msg_data.payload));
             break;
           case "SHINY_CRASH":
             setCrashed(msg_data.payload);
@@ -177,4 +177,10 @@ export function useCommunicateWithWebsocket(): CommunicationState {
   };
 
   return Object.assign(state, loading_state);
+}
+
+function ensureArray<T>(x: T | T[]): T[] {
+  if (Array.isArray(x)) return x;
+
+  return [x];
 }
