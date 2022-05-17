@@ -11,3 +11,8 @@
   border: 1px solid var(--light-grey);
   border-radius: var(--corner-radius);
 }
+
+.wrapper > input[type="number"] {
+  max-width: 90px;
+  min-width: 40px;
+}
