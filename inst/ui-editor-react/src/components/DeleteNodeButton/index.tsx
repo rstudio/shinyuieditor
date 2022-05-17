@@ -20,6 +20,7 @@ function DeleteNodeButton({
       onClick={() => deletePanel()}
       aria-label="Delete Node"
       title="Delete Element"
+      variant={justIcon ? "icon" : "delete"}
     >
       <Trash />
       {justIcon ? null : "Delete Element"}
