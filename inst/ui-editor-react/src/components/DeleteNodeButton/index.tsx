@@ -5,7 +5,13 @@ import type { NodePath } from "components/Shiny-Ui-Elements/uiNodeTypes";
 
 import classes from "./styles.module.css";
 
-function DeleteNodeButton({ path }: { path: NodePath }) {
+function DeleteNodeButton({
+  path,
+  justIcon = false,
+}: {
+  path: NodePath;
+  justIcon?: boolean;
+}) {
   const deletePanel = useDeleteNode(path);
 
   return (
@@ -16,7 +22,7 @@ function DeleteNodeButton({ path }: { path: NodePath }) {
       title="Delete Element"
     >
       <Trash />
-      Delete Element
+      {justIcon ? null : "Delete Element"}
     </Button>
   );
 }
