@@ -19,6 +19,25 @@ describe("App landing", () => {
   it("successfully loads", () => {
     cy.viewport("macbook-15");
     cy.visit("http://localhost:3000");
+
+    // Select the side panel
+    cy.get('div[data-sue-path="1-0"]').click();
+
+    cy.get('div[data-sue-path="1-0"]').should(
+      "not.contain.text",
+      "Bins in histogram"
+    );
+
+    // Change the label for the slider
+    cy.get(".properties-panel")
+      .contains("label:")
+      .find("input")
+      .type("{selectAll}Bins in histogram");
+
+    cy.get('div[data-sue-path="1-0"]').should(
+      "contain.text",
+      "Bins in histogram"
+    );
   });
 });
 
