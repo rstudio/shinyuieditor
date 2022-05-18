@@ -21,17 +21,19 @@ export function InputWrapper({
 }) {
   return (
     <div className={inputClasses.container} data-disabled={isDisabled}>
-      <label className={inputClasses.label} htmlFor={name}>
-        {optional ? (
-          <OptionalCheckbox
-            name={name}
-            isDisabled={isDisabled}
-            defaultValue={defaultValue}
-          />
-        ) : null}
-        {label ?? name}:
+      <label>
+        <div className={inputClasses.label}>
+          {optional ? (
+            <OptionalCheckbox
+              name={name}
+              isDisabled={isDisabled}
+              defaultValue={defaultValue}
+            />
+          ) : null}
+          {label ?? name}:
+        </div>
+        <div className={inputClasses.mainInput}>{mainInput}</div>
       </label>
-      <div className={inputClasses.mainInput}>{mainInput}</div>
     </div>
   );
 }
