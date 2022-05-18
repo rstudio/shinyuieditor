@@ -13,6 +13,7 @@ import { sameArray } from "utils/equalityCheckers";
 import { useMakeDraggable } from "../../DragAndDropHelpers/useMakeDraggable";
 
 import classes from "./styles.module.css";
+import { useDataPath } from "./useDataPath";
 
 type UiNodeSettings = {
   path?: NodePath;
@@ -50,6 +51,7 @@ const UiNode = ({
     nodeInfo: { node, currentPath: path },
     immovable: !canMove,
   });
+  useDataPath({ ref: componentRef, path });
 
   if (componentInfo.acceptsChildren === true) {
     const Comp = componentInfo.UiComponent as UiContainerNodeComponent<
