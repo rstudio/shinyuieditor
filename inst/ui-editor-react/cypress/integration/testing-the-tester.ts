@@ -8,7 +8,12 @@
 
 describe("App landing", () => {
   beforeEach(() => {
-    cy.intercept("GET", "/app-please", { fixture: "appPlease.json" });
+    cy.intercept("GET", "/app-please", { fixture: "appPlease.json" }).as(
+      "app-please/ stub"
+    );
+    cy.intercept("POST", "/UiDump", "App Dump received, thanks").as(
+      "UiDump/ stub"
+    );
   });
 
   it("successfully loads", () => {
