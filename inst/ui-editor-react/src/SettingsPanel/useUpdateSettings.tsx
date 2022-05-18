@@ -28,22 +28,15 @@ export function useUpdateSettings(tree: ShinyUiNode) {
   // R backend and cause bad slowdowns.
   const sendNewSettings = React.useMemo(
     () =>
-      debounce(
-        (updated_node: ShinyUiNode) => {
-          if (!selectedPath) return;
-          // Don't send updates when the selected node has changed. See comments
-          // for formHasBeenUpdated for more info
-          if (!formHasBeenUpdated.current) return;
+      debounce((updated_node: ShinyUiNode) => {
+        if (!selectedPath) return;
+        // Don't send updates when the selected node has changed. See comments
+        // for formHasBeenUpdated for more info
+        if (!formHasBeenUpdated.current) return;
 
-          // Sync the state that's been updated from the form to the main tree
-          dispatch(UPDATE_NODE({ path: selectedPath, node: updated_node }));
-        },
-        300,
-        // This true means that the debounced function will get called once
-        // immediately which is nice to not have a lag if the user does
-        // something like incrementing a number one
-        true
-      ),
+        // Sync the state that's been updated from the form to the main tree
+        dispatch(UPDATE_NODE({ path: selectedPath, node: updated_node }));
+      }, 250),
     [dispatch, selectedPath]
   );
 

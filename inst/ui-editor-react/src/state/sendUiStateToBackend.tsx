@@ -1,6 +1,7 @@
 import type { ShinyUiNode } from "components/Shiny-Ui-Elements/uiNodeTypes";
+import debounce from "just-debounce-it";
 
-export function sendUiStateToBackend(state: ShinyUiNode) {
+function sendToBackend(state: ShinyUiNode) {
   const stateBlob = new Blob([JSON.stringify(state, null, 2)], {
     type: "application/json",
   });
@@ -16,3 +17,5 @@ export function sendUiStateToBackend(state: ShinyUiNode) {
       console.error("Error with sending state to backend", e);
     });
 }
+
+export const sendUiStateToBackend = debounce(sendToBackend, 500);
