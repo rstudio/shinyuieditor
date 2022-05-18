@@ -3,19 +3,19 @@
   "uiArguments": {
     "areas": [
       ["header", "header"],
-      ["sidebar", "plot"],
-      ["sidebar", "plot"]
+      ["sidebar", "bluePlot"],
+      ["sidebar", "distPlot"]
     ],
     "rowSizes": ["100px", "1fr", "1fr"],
     "colSizes": ["250px", "1fr"],
-    "gapSize": "1rem"
+    "gapSize": "15px"
   },
   "uiChildren": [
     {
       "uiName": "gridlayout::grid_panel_text",
       "uiArguments": {
         "area": "header",
-        "content": "Stubbed initial app state",
+        "content": "Geysers!",
         "h_align": "start",
         "is_title": true
       }
@@ -24,45 +24,34 @@
       "uiName": "gridlayout::grid_panel_stack",
       "uiArguments": {
         "area": "sidebar",
-        "item_alignment": "center"
+        "item_alignment": "top",
+        "item_gap": "12px"
       },
       "uiChildren": [
         {
           "uiName": "shiny::sliderInput",
           "uiArguments": {
-            "inputId": "mySlider1",
-            "label": "Slider 1",
-            "min": 2,
-            "max": 11,
-            "value": 7
-          }
-        },
-        {
-          "uiName": "shiny::sliderInput",
-          "uiArguments": {
-            "inputId": "mySlider2",
-            "label": "Slider 2",
-            "min": 1,
-            "max": 10,
-            "value": 3
+            "inputId": "bins",
+            "label": "Number of Bins",
+            "min": 5,
+            "max": 50,
+            "value": 20,
+            "width": "100%"
           }
         }
       ]
     },
     {
-      "uiName": "gridlayout::grid_panel_stack",
+      "uiName": "gridlayout::grid_panel_plot",
       "uiArguments": {
-        "area": "plot",
-        "item_alignment": "center"
-      },
-      "uiChildren": [
-        {
-          "uiName": "shiny::plotOutput",
-          "uiArguments": {
-            "outputId": "myPlot"
-          }
-        }
-      ]
+        "area": "distPlot"
+      }
+    },
+    {
+      "uiName": "gridlayout::grid_panel_plot",
+      "uiArguments": {
+        "area": "bluePlot"
+      }
     }
   ]
 }
