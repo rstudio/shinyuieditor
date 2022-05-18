@@ -25,10 +25,6 @@ export default function AppPreview() {
 
   const previewScale = usePreviewScale();
 
-  React.useEffect(() => {
-    console.log("Status", status);
-  }, [status]);
-
   const reloadApp = React.useCallback(() => {
     if (!iframeRef.current || !appLoc) return;
     iframeRef.current.src = appLoc;

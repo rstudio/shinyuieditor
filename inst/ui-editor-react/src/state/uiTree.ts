@@ -146,16 +146,16 @@ function fillInDefaultValues(uiTree: ShinyUiNode): ShinyUiNode {
 
   const newUiArguments = { ...defaultSettingsForNode, ...uiArguments };
 
-  const addedSettings = subtractElements(
-    Object.keys(newUiArguments),
-    Object.keys(uiArguments)
-  );
-  if (addedSettings.length > 0) {
-    console.log(
-      "Filled in missing arguments for node " + uiTree.uiName,
-      addedSettings
-    );
-  }
+  // const addedSettings = subtractElements(
+  //   Object.keys(newUiArguments),
+  //   Object.keys(uiArguments)
+  // );
+  // if (addedSettings.length > 0) {
+  //   console.log(
+  //     "Filled in missing arguments for node " + uiTree.uiName,
+  //     addedSettings
+  //   );
+  // }
 
   const newUiChildren = uiChildren
     ? uiChildren.map((childNode) => fillInDefaultValues(childNode))
