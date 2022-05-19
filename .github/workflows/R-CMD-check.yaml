@@ -69,6 +69,12 @@ jobs:
           Rscript -e "install.packages('pak')"
           Rscript -e "pak::local_install('gridlayout/')"
 
+      - name: Update gridlayout dependency to use local package instead of github repo
+        run: |
+          pwd
+          ls -l
+          sed -i -e 's/rstudio\/gridlayout/local::..\/gridlayout/g' shinyuieditor/DESCRIPTION
+
       # End gridlayout setup
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
