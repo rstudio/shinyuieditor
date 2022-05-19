@@ -11,7 +11,6 @@ import { removeNodeMutating } from "components/UiNode/TreeManipulation/removeNod
 import type { UpdateNodeArguments } from "components/UiNode/TreeManipulation/updateNode";
 import { updateNodeMutating } from "components/UiNode/TreeManipulation/updateNode";
 import { useDispatch } from "react-redux";
-import { subtractElements } from "utils/array-helpers";
 
 export const initialUiTree: ShinyUiNode = {
   uiName: "gridlayout::grid_page",
@@ -145,17 +144,6 @@ function fillInDefaultValues(uiTree: ShinyUiNode): ShinyUiNode {
   const defaultSettingsForNode = shinyUiNodeInfo[uiName].defaultSettings;
 
   const newUiArguments = { ...defaultSettingsForNode, ...uiArguments };
-
-  // const addedSettings = subtractElements(
-  //   Object.keys(newUiArguments),
-  //   Object.keys(uiArguments)
-  // );
-  // if (addedSettings.length > 0) {
-  //   console.log(
-  //     "Filled in missing arguments for node " + uiTree.uiName,
-  //     addedSettings
-  //   );
-  // }
 
   const newUiChildren = uiChildren
     ? uiChildren.map((childNode) => fillInDefaultValues(childNode))
