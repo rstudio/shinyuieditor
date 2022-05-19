@@ -71,9 +71,10 @@ jobs:
 
       - name: Update gridlayout dependency to use local package instead of github repo
         run: |
-          pwd
-          ls -l
-          sed -i -e 's/rstudio\/gridlayout/local::gridlayout/g' DESCRIPTION
+          grep -v rstudio/gridlayout DESCRIPTION > DESCRIPTION.temp
+          rm DESCRIPTION
+          mv DESCRIPTION.temp DESCRIPTION
+          cat DESCRIPTION
 
       # End gridlayout setup
       - uses: r-lib/actions/setup-r-dependencies@v2
