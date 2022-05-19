@@ -11,6 +11,7 @@ jobs:
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run
+        working-directory: ./inst/ui-editor-react
         uses: cypress-io/github-action@v2
         with:
           build: npm run build
