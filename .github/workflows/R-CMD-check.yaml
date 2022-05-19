@@ -73,7 +73,7 @@ jobs:
         run: |
           pwd
           ls -l
-          sed -i -e 's/rstudio\/gridlayout/local::..\/gridlayout/g' shinyuieditor/DESCRIPTION
+          sed -i -e 's/rstudio\/gridlayout/local::gridlayout/g' DESCRIPTION
 
       # End gridlayout setup
       - uses: r-lib/actions/setup-r-dependencies@v2
