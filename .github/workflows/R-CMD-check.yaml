@@ -58,13 +58,13 @@ jobs:
 
       - name: Check out gridlayout
         env:
-          SSH_AUTH_SOCK: /tmp/ssh_agent_py-shiny.sock
+          SSH_AUTH_SOCK: /tmp/ssh_agent_gridlayout.sock
         run: |
           git clone git@github.com:rstudio/gridlayout.git
 
       - name: Install gridlayout
         env:
-          SSH_AUTH_SOCK: /tmp/ssh_agent_py-shiny.sock
+          SSH_AUTH_SOCK: /tmp/ssh_agent_gridlayout.sock
         run: |
           RScript -e "pak::local_install('gridlayout/')"
 
