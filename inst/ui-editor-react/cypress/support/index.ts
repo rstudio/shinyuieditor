@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 // ***********************************************************
 // This example support/index.js is processed and
 // loaded automatically before your test files.
@@ -14,3 +16,14 @@
 // ***********************************************************
 
 import "./commands";
+
+// This makes cypress ignore resize-observer loop errors that sometimes happen
+// on CI. Solution was proposed by Cypress people directly so it feel
+// acceptable. https://github.com/quasarframework/quasar/issues/2233
+const resizeObserverLoopErrRe = /^[^(ResizeObserver loop limit exceeded)]/;
+Cypress.on("uncaught:exception", (err) => {
+  /* returning false here prevents Cypress from failing the test */
+  if (resizeObserverLoopErrRe.test(err.message)) {
+    return false;
+  }
+});
