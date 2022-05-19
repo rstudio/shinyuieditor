@@ -66,7 +66,7 @@ jobs:
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent_gridlayout.sock
         run: |
-          RScript -e "pak::local_install('gridlayout/')"
+          Rscript -e "pak::local_install('gridlayout/')"
 
       # End gridlayout setup
       - uses: r-lib/actions/setup-r-dependencies@v2
