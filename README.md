@@ -18,13 +18,38 @@ While in development the package is only available on github:
 
 ```r
 install.packages("pak")
-pak::pkg_install('rstudio/gridlayout')
-pak::pkg_install('rstudio/shinyuieditor')
+pak::pkg_install("rstudio/shinyuieditor")
+
+# Alternatively, using the remotes package
+remotes::install_github("rstudio/shinyuieditor")
 ```
 
 ℹ️ _You may need to setup your github PAT to access as the repo is still private. However, if you're reading this, you have access. To set this up run `usethis::create_github_token()` in the terminal and follow the prompts._
 
 ### Running
+
+#### New app
+
+If you set the argument `app_loc` to a location that does not yet exist, the launcher will ask a few and setup a simple template app for you to use with building.
+
+```r
+shinyuieditor::launch_editor(app_loc = "new-app/")
+
+#> No app was found at location /Users/me/new_app.
+#> Would you like to start a new app from a template?
+#> 1: yes
+#> 2: no
+#>
+#> Selection: 1
+#> Which starter template would you like to use? (Sorry, it's an easy choice currently.)
+#> 1: geyser
+#>
+#> Selection: 1
+#> => Starting Shiny preview app...
+#> ...
+```
+
+_In the future more starting templates will be offered, however, currently only a simple grid-layout recreation of the classic "Geyser" app is available._
 
 #### Existing app
 
@@ -34,16 +59,6 @@ Assuming theres an existing `ui.R` and `server.R` in the folder `existing-app/` 
 shinyuieditor::launch_editor(app_loc = "existing-app/")
 #> Live editor running at http://localhost:44509/app
 ```
-
-#### New app
-
-If you provide an app location that does not yet exist, a simple template app will be written there for you to use with building.
-
-```r
-shinyuieditor::launch_editor(app_loc = "new-app/")
-```
-
-_In the future more starting templates will be offered, however, currently only a simple grid-layout recreation of the classic "Geyser" app is available._
 
 ---
 
