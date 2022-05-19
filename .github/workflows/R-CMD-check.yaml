@@ -35,7 +35,6 @@ jobs:
           - { os: ubuntu-latest, r: "oldrel-1" }
 
     env:
-      GITHUB_PAT: ${{ secrets.GHA_PAT }}
       R_KEEP_PKG_SOURCE: yes
 
     steps:
@@ -49,6 +48,27 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
+      # Setup private dependency gridlayout
+      - name: Setup SSH key for gridlayout
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent_gridlayout.sock
+        run: |
+          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+          ssh-add - <<< "${{ secrets.GHA_GRIDLAYOUT_DEPLOY_KEY }}"
+
+      - name: Check out gridlayout
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent_py-shiny.sock
+        run: |
+          git clone git@github.com:rstudio/gridlayout.git
+
+      - name: Install gridlayout
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent_py-shiny.sock
+        run: |
+          RScript -e "pak::local_install('gridlayout/')"
+
+      # End gridlayout setup
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: any::rcmdcheck
