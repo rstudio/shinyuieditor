@@ -13,4 +13,5 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
+          start: yarn start
           working-directory: inst/ui-editor-react
