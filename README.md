@@ -6,11 +6,16 @@ A GUI for laying out a Shiny application that generates clean and human-readable
 
 ## Quick Start
 
-[Video walkthrough of using ui editor to create and edit a new app](https://youtu.be/_RB38KDiaCE). _Note: video is unlisted, but public so please don't share the link._
+[Video walkthrough of using ui editor to create and edit a new app](https://youtu.be/_RB38KDiaCE).
+
+A few notes on the video:
+
+- It is public but unlisted, so please don't share the link.
+- The UI has updated a bit since the video, (e.g. updating settings now happens automatically, without needing to press "update") but the general usage patterns are the same. If you feel anything needs updating, don't hestiate to reach out via email or github issues.
 
 ### Pre-reqs
 
-- Two-file shiny app (or at least willingness to use the two file format)
+- Two-file shiny app (or at least willingness to use the two-file format)
 
 ### Installing
 
