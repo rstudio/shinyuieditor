@@ -38,6 +38,23 @@ describe("App landing", () => {
       "contain.text",
       "Bins in histogram"
     );
+
+    // Drag and element from the elemenets palette into the sidebar.
+
+    // First make sure the element inst already in the sidebar (sanity check)
+    cy.get(
+      'div[data-sue-path="1"] div[aria-label="shiny::numericInput"'
+    ).should("not.exist");
+
+    // Do the drag
+    cy.get('.elements-panel *[data-ui-name="shiny::numericInput"]').drag(
+      'div[data-sue-path="1"] div[aria-label="drop watcher"]'
+    );
+
+    // Now it should be in the sidebar
+    cy.get(
+      'div[data-sue-path="1"] div[aria-label="shiny::numericInput"'
+    ).should("exist");
   });
 });
 

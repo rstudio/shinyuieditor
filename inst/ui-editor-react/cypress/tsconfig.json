@@ -6,6 +6,7 @@
     "integration/testing-the-tests.js"
   ],
   "compilerOptions": {
-    "noEmit": false
+    "noEmit": false,
+    "types": ["cypress", "@4tw/cypress-drag-drop"]
   }
 }

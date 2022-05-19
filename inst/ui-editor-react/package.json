@@ -112,6 +112,7 @@
   },
   "proxy": "http://localhost:8888",
   "devDependencies": {
+    "@4tw/cypress-drag-drop": "^2.1.0",
     "@bahmutov/add-typescript-to-cypress": "^2.1.2",
     "@storybook/addon-actions": "^6.4.13",
     "@storybook/addon-essentials": "^6.4.13",
