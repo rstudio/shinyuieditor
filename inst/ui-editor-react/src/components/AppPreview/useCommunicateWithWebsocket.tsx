@@ -54,11 +54,11 @@ export function useCommunicateWithWebsocket(): CommunicationState {
   const [crashed, setCrashed] = React.useState<string | false>(false);
   const haveConnectedToWebsocket = React.useRef(false);
 
-  const [restartApp, setRestartApp] = React.useState<() => void>(() =>
-    console.log("No app running to reset")
+  const [restartApp, setRestartApp] = React.useState<() => void>(
+    () => () => console.log("No app running to reset")
   );
-  const [stopApp, setStopApp] = React.useState<() => void>(() =>
-    console.log("No app running to stop")
+  const [stopApp, setStopApp] = React.useState<() => void>(
+    () => () => console.log("No app running to stop")
   );
 
   const clearLogs = React.useCallback(() => {

@@ -51,6 +51,9 @@ div.appViewerHolder {
   );
 
   position: relative;
+  /* Don't let the app logs drawer cause the main div to be larger than it
+  should be */
+  overflow: hidden;
 }
 
 .appViewerHolder[data-expanded="true"] {

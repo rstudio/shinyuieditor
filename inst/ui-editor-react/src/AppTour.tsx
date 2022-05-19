@@ -42,7 +42,6 @@ export function AppTour() {
   const [stepIndex, setStepIndex] = React.useState(0);
   const [run, setRun] = React.useState(false);
 
-  console.log({ run, stepIndex });
   const handleJoyrideCallback: (data: CallBackProps) => void =
     React.useCallback((data) => {
       const { action, index, status, type } = data;
