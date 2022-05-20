@@ -13,10 +13,47 @@ on:
 name: Package checks
 
 jobs:
-  website:
+  pkgdown:
+    runs-on: ubuntu-20.04
     env:
       GITHUB_PAT: ${{ secrets.GHA_PAT }}
-    uses: rstudio/shiny-workflows/.github/workflows/website.yaml@v1
+
+    steps:
+      - name: Checkout GitHub repo
+        uses: rstudio/shiny-workflows/.github/internal/checkout@v1
+
+      - name: Install R, system dependencies, and package dependencies
+        uses: rstudio/shiny-workflows/setup-r-package@v1
+        with:
+          pandoc-version: ${{ inputs.pandoc-version }}
+          cache-version: ${{ inputs.cache-version }}
+          needs: website
+          extra-packages: |
+            any::pkgdown
+            any::testthat
+            local::.
+            ${{ inputs.extra-packages }}
+      - name: Run 'website' script
+        uses: rstudio/shiny-workflows/.github/internal/run-local-script@v1
+        with:
+          name: website
+
+      - name: Verify index reference (PR)
+        if: github.event_name != 'push'
+        uses: rstudio/shiny-workflows/.github/internal/verify-pkgdown@v1
+        with:
+          check-title: ${{ inputs.check-title }}
+
+      - name: Setup git (push)
+        uses: rstudio/shiny-workflows/.github/internal/setup-git@v1
+
+      - name: Build and deploy pkgdown site (push)
+        if: github.event_name == 'push'
+        shell: Rscript {0}
+        run: |
+          if ("${{inputs.check-title}}" == "false") options(rmarkdown.html_vignette.check_title = FALSE)
+          pkgdown::deploy_to_branch(new_process = FALSE, clean = (${{ inputs.clean }}) )
+
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
 
