@@ -23,7 +23,7 @@ The things most useful for feedback at this stage are:
 
 ## Quick Start
 
-[Video walkthrough of using ui editor to create and edit a new app](https://youtu.be/_RB38KDiaCE).
+[Video walkthrough of using ui editor to create and edit a new app](https://youtu.be/2Z0NfNLEJJQ).
 
 A few notes on the video:
 
