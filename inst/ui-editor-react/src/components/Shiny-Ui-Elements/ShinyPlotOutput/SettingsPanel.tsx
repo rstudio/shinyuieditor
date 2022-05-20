@@ -16,7 +16,7 @@ export const ShinyPlotOutputSettings: SettingsUpdaterComponent<
   return (
     <>
       <TextInput
-        label="outputId"
+        label="Output ID"
         name="outputId"
         value={outputId ?? "defaultPlotOutput"}
       />
