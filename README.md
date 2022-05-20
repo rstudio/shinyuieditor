@@ -5,7 +5,7 @@ A GUI for laying out a Shiny application that generates clean and human-readable
 **Extended goal**
 The overarching goal of the Shiny Ui Editor is to be a way for people to build the broad-level UI for their Shiny app without writing code. The people the editor is indented for are those who may not be comfortable with the HTML style of Shiny's UI functions or who simply don't want to fiddle with sizes to get things laid out correctly.
 
-The goal is not to handle every possible use case. Instead, we're trying hard to constrain the feature set as lots of the no-code UI builder experiences expose so many options that, ultimately, they're more complex to use than just writing the code by hand. By generating code for the user, we're letting them flesh out those details by hand on top of a solid foundation instead of forcing them to do it in a (probably sub-optimal) visual paradigm.
+We're trying hard to constrain the feature set so we have fewer but higher-quality features. Lots of the no-code UI builders expose so many options that, ultimately, they're more complex to use than just writing the code by hand. By generating code for the user, we're letting them flesh out those details by hand on top of a solid foundation instead of forcing them to do it in a (probably sub-optimal) visual paradigm.
 
 ## Feedback
 
