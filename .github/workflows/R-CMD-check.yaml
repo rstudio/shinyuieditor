@@ -13,12 +13,10 @@ on:
 name: Package checks
 
 jobs:
-  # website:
-  #   uses: rstudio/shiny-workflows/.github/workflows/website.yaml@v1
-  # routine:
-  #   uses: rstudio/shiny-workflows/.github/workflows/routine.yaml@v1
-  # R-CMD-check:
-  #   uses: rstudio/shiny-workflows/.github/workflows/R-CMD-check.yaml@v1
+  website:
+    env:
+      GITHUB_PAT: ${{ secrets.GHA_PAT }}
+    uses: rstudio/shiny-workflows/.github/workflows/website.yaml@v1
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
 
