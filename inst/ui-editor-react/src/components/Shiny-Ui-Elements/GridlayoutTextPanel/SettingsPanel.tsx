@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import PngIcon, { AlignHCenter, AlignLeft, AlignRight } from "components/Icons";
+import PngIcon from "components/Icons";
 import BooleanInput from "components/Inputs/BooleanInput";
 import { RadioInputs } from "components/Inputs/RadioInputs/RadioInputs";
 import { TextInput } from "components/Inputs/TextInput";
