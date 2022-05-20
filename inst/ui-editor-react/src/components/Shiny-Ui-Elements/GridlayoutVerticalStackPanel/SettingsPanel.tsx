@@ -1,11 +1,6 @@
 import * as React from "react";
 
-import {
-  AlignBottom,
-  AlignTop,
-  AlignVCenter,
-  AlignVSpread,
-} from "components/Icons";
+import PngIcon from "components/Icons";
 import { LabeledCSSUnitInput } from "components/Inputs/CSSUnitInput";
 import { RadioInputs } from "components/Inputs/RadioInputs/RadioInputs";
 import { TextInput } from "components/Inputs/TextInput";
@@ -14,10 +9,10 @@ import type { SettingsUpdaterComponent } from "components/Shiny-Ui-Elements/uiNo
 import type { VerticalStackPanelSettings } from ".";
 
 const alignmentOptions = {
-  top: { icon: <AlignTop />, label: "top" },
-  center: { icon: <AlignVCenter />, label: "middle" },
-  bottom: { icon: <AlignBottom />, label: "bottom" },
-  spread: { icon: <AlignVSpread /> },
+  top: { icon: <PngIcon id="alignTop" />, label: "top" },
+  center: { icon: <PngIcon id="alignCenter" />, label: "middle" },
+  bottom: { icon: <PngIcon id="alignBottom" />, label: "bottom" },
+  spread: { icon: <PngIcon id="alignSpread" />, label: "spread" },
 };
 
 export const GridlayoutVerticalStackPanelSettings: SettingsUpdaterComponent<

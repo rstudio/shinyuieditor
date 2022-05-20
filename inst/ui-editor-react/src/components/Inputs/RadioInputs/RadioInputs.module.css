@@ -24,6 +24,7 @@ and background colors */
   background-color: var(--rstudio-white);
   max-height: 105px;
   padding: 4px;
+  color: var(--rstudio-blue);
 }
 
 .radioLabel svg {
@@ -40,8 +41,6 @@ and background colors */
 .radioInput:checked + .radioLabel {
   outline: 3px solid var(--rstudio-blue);
   outline-offset: -2px;
-  color: var(--rstudio-white);
-  background-color: var(--rstudio-blue);
   font-weight: bold;
 }
 
