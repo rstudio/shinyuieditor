@@ -46,7 +46,7 @@ pak::pkg_install("rstudio/shinyuieditor")
 remotes::install_github("rstudio/shinyuieditor")
 ```
 
-ℹ️ _You may need to setup your github PAT to access as the repo is still private. However, if you're reading this, you have access. To set this up run `usethis::create_github_token()` in the terminal and follow the prompts._
+🚨 _Installation fail? See the [Trouble installing section.](#trouble-installing)_
 
 ### Running
 
@@ -95,6 +95,51 @@ When you're done, simply close the browswer window and stop the editor preview p
 ## Getting help
 
 If the UI is confusing, there's a tour mode that walks you through the various components of the Ui Editor. Simple click the button titled "Tour App" to enter the tour mode.
+
+## Trouble installing
+
+Because the package uses a private dependency (`gridlayout`) installation can sometimes fail in confusing ways.
+
+### HTTP error 404, Not Found
+
+```
+> remotes::install_github('rstudio/shinyuieditor')
+Error: Failed to install 'shinyuieditor' from GitHub:
+  HTTP error 404.
+  Not Found
+
+  Did you spell the repo owner (`rstudio`) and repo name (`shinyuieditor`) correctly?
+  - If spelling is correct, check that you have the required permissions to access the repo.
+```
+
+You may need to setup your github PAT to access as the repo is still private. However, if you're reading this, you have access. To set this up run `usethis::create_github_token()` in the terminal and follow the prompts.
+
+**Using remotes?**
+
+`usethis::create_github_token()` no longer puts your PAT in an environment variable, however that's the method `remotes` uses for authentication. You can get around this by using the `withr` package to temporarily set the environment variable.
+
+```r
+withr::with_envvar(
+  list( GITHUB_PAT = gitcreds::gitcreds_get()$password ),
+  remotes::install_github('rstudio/shinyuieditor')
+)
+```
+
+### Subscript out of bounds
+
+```
+> pak::pkg_install('rstudio/shinyuieditor')
+Error: subscript out of bounds
+Type .Last.error.trace to see where the error occurred
+```
+
+This occurs for some reason when trying to reinstall or update the package using `pak`. The easiest solution is to either use `remotes` (see above), or to uninstall both `shinyuieditor` and `gridlayout` and then reinstall.
+
+```r
+remove.packages(c('shinyuieditor', 'gridlayout'))
+# now works
+pak::pkg_install("rstudio/shinyuieditor")
+```
 
 # Stack
 
