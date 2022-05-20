@@ -3,7 +3,9 @@
   gap: 5px;
   justify-content: space-around;
   border: none;
-  width: 100%;
+  /* Due to grid-blowout we need to set a max-width here or the inputs will
+  subtly creep out of the box and cause horizontal scrollbars to appear */
+  max-width: 100%;
 }
 
 /* Hide the little button icon because we take over the showing with outlines
