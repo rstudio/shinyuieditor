@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { AlignHCenter, AlignLeft, AlignRight } from "components/Icons";
+import PngIcon, { AlignHCenter, AlignLeft, AlignRight } from "components/Icons";
 import BooleanInput from "components/Inputs/BooleanInput";
 import { RadioInputs } from "components/Inputs/RadioInputs/RadioInputs";
 import { TextInput } from "components/Inputs/TextInput";
@@ -10,9 +10,9 @@ import type { SettingsUpdaterComponent } from "../uiNodeTypes";
 import type { GridlayoutTextPanelProps } from ".";
 
 const horizontalAlignOptions = {
-  start: { icon: <AlignLeft />, label: "left" },
-  center: { icon: <AlignHCenter />, label: "center" },
-  end: { icon: <AlignRight />, label: "right" },
+  start: { icon: <PngIcon id="alignTextLeft" />, label: "left" },
+  center: { icon: <PngIcon id="alignTextCenter" />, label: "center" },
+  end: { icon: <PngIcon id="alignTextRight" />, label: "right" },
 };
 
 export const GridlayoutTextPanelSettings: SettingsUpdaterComponent<

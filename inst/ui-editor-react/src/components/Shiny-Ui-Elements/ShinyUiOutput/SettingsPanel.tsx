@@ -11,7 +11,7 @@ export const ShinyuiOutputSettings: SettingsUpdaterComponent<
 > = ({ settings }) => {
   return (
     <TextInput
-      label="outputId"
+      label="Output ID"
       name="outputId"
       value={settings.outputId ?? "defaultUiOutput"}
     />

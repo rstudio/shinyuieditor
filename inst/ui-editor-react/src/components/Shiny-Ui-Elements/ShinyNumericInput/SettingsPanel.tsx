@@ -14,7 +14,7 @@ export const ShinyNumericInputSettings: SettingsUpdaterComponent<
 > = ({ settings }) => {
   return (
     <>
-      <TextInput name="inputId" value={settings.inputId} />
+      <TextInput name="inputId" label="Input ID" value={settings.inputId} />
       <TextInput name="label" value={settings.label} />
       <InputSection name="Values">
         <NumericInput name="value" value={settings.value} />

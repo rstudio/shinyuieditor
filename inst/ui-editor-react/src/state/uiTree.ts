@@ -59,45 +59,37 @@ export const backupUiTree: ShinyUiNode = {
       uiName: "gridlayout::grid_panel_stack",
       uiArguments: {
         area: "sidebar",
-        item_alignment: "center",
+        item_alignment: "top",
       },
       uiChildren: [
         {
           uiName: "shiny::sliderInput",
           uiArguments: {
-            inputId: "mySlider1",
-            label: "Slider 1",
+            inputId: "mySlider",
+            label: "Slider",
             min: 2,
             max: 11,
             value: 7,
           },
         },
         {
-          uiName: "shiny::sliderInput",
+          uiName: "shiny::numericInput",
           uiArguments: {
-            inputId: "mySlider2",
-            label: "Slider 2",
-            min: 1,
-            max: 10,
-            value: 3,
+            inputId: "myNumericInput",
+            label: "Numeric Input",
+            min: 2,
+            max: 11,
+            value: 7,
+            width: "100%",
           },
         },
       ],
     },
     {
-      uiName: "gridlayout::grid_panel_stack",
+      uiName: "gridlayout::grid_panel_plot",
       uiArguments: {
         area: "plot",
-        item_alignment: "center",
       },
-      uiChildren: [
-        {
-          uiName: "shiny::plotOutput",
-          uiArguments: {
-            outputId: "myPlot",
-          },
-        },
-      ],
     },
   ],
 };

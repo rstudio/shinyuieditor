@@ -3,7 +3,9 @@
   gap: 5px;
   justify-content: space-around;
   border: none;
-  width: 100%;
+  /* Due to grid-blowout we need to set a max-width here or the inputs will
+  subtly creep out of the box and cause horizontal scrollbars to appear */
+  max-width: 100%;
 }
 
 /* Hide the little button icon because we take over the showing with outlines
@@ -22,6 +24,7 @@ and background colors */
   background-color: var(--rstudio-white);
   max-height: 105px;
   padding: 4px;
+  color: var(--rstudio-blue);
 }
 
 .radioLabel svg {
@@ -38,8 +41,6 @@ and background colors */
 .radioInput:checked + .radioLabel {
   outline: 3px solid var(--rstudio-blue);
   outline-offset: -2px;
-  color: var(--rstudio-white);
-  background-color: var(--rstudio-blue);
   font-weight: bold;
 }
 

@@ -10,6 +10,6 @@ export const ShinyTextOutputSettings: SettingsUpdaterComponent<
   ShinyTextOutputProps
 > = ({ settings }) => {
   return (
-    <TextInput label="outputId" name="outputId" value={settings.outputId} />
+    <TextInput label="Output ID" name="outputId" value={settings.outputId} />
   );
 };
