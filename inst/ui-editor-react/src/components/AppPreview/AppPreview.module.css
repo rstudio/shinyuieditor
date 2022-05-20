@@ -133,6 +133,7 @@ div.appViewerHolder {
   position: absolute;
   background-color: transparent;
   outline: none;
+  border: none;
   transition-property: opacity, color, transform;
   transition-duration: 0.25s;
   transition-timing-function: ease-in;
