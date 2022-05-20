@@ -2,6 +2,23 @@
 
 A GUI for laying out a Shiny application that generates clean and human-readable UI code.
 
+**Extended goal**
+The overarching goal of the Shiny Ui Editor is to be a way for people to build the broad-level UI for their Shiny app without writing code. The people the editor is indented for are those who may not be comfortable with the HTML style of Shiny's UI functions or who simply don't want to fiddle with sizes to get things laid out correctly.
+
+The goal is not to handle every possible use case. Instead, we're trying hard to constrain the feature set as lots of the no-code UI builder experiences expose so many options that, ultimately, they're more complex to use than just writing the code by hand. By generating code for the user, we're letting them flesh out those details by hand on top of a solid foundation instead of forcing them to do it in a (probably sub-optimal) visual paradigm.
+
+## Feedback
+
+Any thoughts or comments you have on the editor can come via email (nick.strayer@rstudio.com), the [github repo's issues.](https://github.com/rstudio/shinyuieditor/issues), or the RStudio slack channel `#shiny-ui-editor`.
+
+The things most useful for feedback at this stage are:
+
+- Are there interaction patterns you kept wanting to do that were either unavailable or not intuitive? E.g., Wanting to delete an element with the delete key or by throwing the element off the screen.
+- Did the app crash? If so
+  - Was the crash reflected in errors in the R console?
+  - if not, were there errors in the browser's javascript console? (Keyboard shortcut Ctrl-Shift-J on Windows, or Cmd-Option-J on Mac.)
+- Do you have any ideas about how you could see yourself or others using the editor that are not currently supported?
+
 ℹ️ _The editor currently is only tested in Chrome, but Safari support is coming shortly._
 
 ## Quick Start
