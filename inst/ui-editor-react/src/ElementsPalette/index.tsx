@@ -1,6 +1,5 @@
 import * as React from "react";
 
-import CategoryHeader from "components/CategoryHeader";
 import type {
   ShinyUiNames,
   ShinyUiNode,
@@ -16,19 +15,12 @@ export default function ElementsPalette({
 }: {
   availableUi?: typeof shinyUiNodeInfo;
 }) {
-  const ui_by_category = makeCategories({ availableUi });
+  const ui_node_names = Object.keys(availableUi) as ShinyUiNames[];
 
   return (
     <div className={classes.elementsPalette}>
-      {ui_by_category.map(({ category, nodes }) => (
-        <React.Fragment key={category}>
-          {category ? <CategoryHeader category={category} /> : null}
-          <div className={classes.OptionsList}>
-            {nodes.map((uiName) => (
-              <ElementOption key={uiName} uiName={uiName} />
-            ))}
-          </div>
-        </React.Fragment>
+      {ui_node_names.map((uiName) => (
+        <ElementOption key={uiName} uiName={uiName} />
       ))}
     </div>
   );
@@ -53,46 +45,4 @@ function ElementOption({ uiName }: { uiName: ShinyUiNames }) {
       <label>{title}</label>
     </div>
   );
-}
-
-function makeCategories({
-  availableUi = shinyUiNodeInfo,
-}: {
-  availableUi?: typeof shinyUiNodeInfo;
-}): { category?: string; nodes: ShinyUiNames[] }[] {
-  const by_category: Record<string | symbol, ShinyUiNames[]> = {};
-
-  const uncategorized: ShinyUiNames[] = [];
-
-  let uiName: ShinyUiNames;
-  for (uiName in availableUi) {
-    const { category, iconSrc } = availableUi[uiName];
-
-    if (!iconSrc) {
-      continue;
-    }
-
-    if (!category) {
-      uncategorized.push(uiName);
-      continue;
-    }
-
-    if (!by_category[category]) {
-      by_category[category] = [];
-    }
-    by_category[category].push(uiName);
-  }
-
-  let category_list: { category?: string; nodes: ShinyUiNames[] }[] =
-    Object.keys(by_category).map((category) => ({
-      category,
-      nodes: by_category[category],
-    }));
-
-  // Add the uncategorized if they're present
-  if (uncategorized.length > 0) {
-    category_list = [{ nodes: uncategorized }, ...category_list];
-  }
-
-  return category_list;
 }
