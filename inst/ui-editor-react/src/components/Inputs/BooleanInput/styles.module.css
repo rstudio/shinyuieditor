@@ -22,6 +22,7 @@ label.checkboxLabel {
   color: transparent;
   width: var(--width);
   height: var(--height);
+  border-radius: var(--corner-radius);
   background: var(--off-color);
   display: block;
   position: relative;
@@ -39,6 +40,7 @@ label.checkboxLabel {
   left: var(--toggle-inset);
   width: var(--toggle-w);
   height: var(--toggle-h);
+  border-radius: calc(var(--corner-radius) - var(--toggle-inset));
   background: var(--rstudio-white);
   transition: var(--animation-speed);
 }
