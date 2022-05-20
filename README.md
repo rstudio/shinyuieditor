@@ -28,7 +28,7 @@ The things most useful for feedback at this stage are:
 A few notes on the video:
 
 - It is public but unlisted, so please don't share the link.
-- The UI has updated a bit since the video, (e.g. updating settings now happens automatically, without needing to press "update") but the general usage patterns are the same. If you feel anything needs updating, don't hestiate to reach out via email or github issues.
+- The UI and features of the app are continuously evolving and the video will updated periodically but if you notice something is egregiously/ confusingly out of date, don't hestiate to reach out and I will update it ASAP.
 
 ### Pre-reqs
 
