@@ -16,7 +16,6 @@
 /* Reduce vertical padding for first category list */
 
 .OptionItem {
-  font-size: 0.75rem;
   width: var(--icon-size);
   height: 75px;
   border-radius: var(--corner-radius);
