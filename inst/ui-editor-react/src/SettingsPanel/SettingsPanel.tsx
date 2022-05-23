@@ -51,10 +51,10 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
             <SettingsInputs settings={uiArguments} />
           </SettingsUpdateContext>
         </div>
-        <div className={classes.buttonsHolder}>
-          {!isRootNode ? <DeleteNodeButton path={selectedPath} /> : null}
-        </div>
       </form>
+      <div className={classes.buttonsHolder}>
+        {!isRootNode ? <DeleteNodeButton path={selectedPath} /> : null}
+      </div>
     </div>
   );
 }

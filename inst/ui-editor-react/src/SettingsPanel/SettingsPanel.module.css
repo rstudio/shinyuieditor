@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   padding-inline: 16px;
-  padding-block-start: var(--vertical-gap);
+  padding-block: var(--vertical-gap);
   height: 100%;
 }
 
@@ -18,7 +18,6 @@ form.settingsForm {
   flex: 1;
   height: 100%;
   overflow: auto;
-  --deliniation: 1px solid var(--rstudio-white);
   isolation: isolate;
 }
 
@@ -26,22 +25,8 @@ form.settingsForm {
   overflow: auto;
 }
 
-/* Both the title and action buttons on top and bottom should always be visible */
-.settingsHeader,
 .buttonsHolder {
-  position: sticky;
-  z-index: 2;
-}
-.settingsHeader {
-  top: 0;
-  background-color: var(--light-grey);
-  padding-block: var(--vertical-gap);
-  border-bottom: var(--deliniation);
-}
-
-.buttonsHolder {
-  bottom: 0;
-  border-top: var(--deliniation);
+  margin-top: auto;
   background-color: var(--light-grey);
   padding-block: var(--vertical-gap);
   display: flex;
