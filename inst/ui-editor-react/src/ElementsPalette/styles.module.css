@@ -27,11 +27,10 @@
 
 .OptionIcon {
   margin: 0;
-  margin-top: -10px;
+  margin-top: -12px;
   display: block;
   width: 100%;
-  /* outline: 1px solid green; */
-  outline-offset: -1px;
+  pointer-events: none;
 }
 
 .OptionLabel {
