@@ -61,7 +61,7 @@
 }
 
 .titledPanel {
-  --label-h: 40px;
+  --label-h: 37px;
   display: grid;
   grid-template-rows: var(--label-h) 1fr;
   background-color: var(--background-grey);
@@ -77,8 +77,9 @@
   text-align: center;
   line-height: var(--label-h);
   background-color: var(--header-grey, forestgreen);
-  font-size: 1.125rem;
-  color: white;
+  font-size: 1.05rem;
+  font-weight: lighter;
+  color: var(--rstudio-white);
 }
 
 .header {
