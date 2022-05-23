@@ -49,16 +49,18 @@ function EditorContainerWithData({
     <CurrentDraggedNodeProvider>
       <div className={classes.container} style={sizes_inline_styles}>
         <div className={classes.header}>
-          <div className={classes.leftSide}>
-            <h1 className={classes.title}>Shiny UI Editor</h1>
-            <img
-              src={shinyLogo}
-              style={{ backgroundColor: "var(--rstudio-blue, pink)" }}
-              alt="Shiny Logo"
-            />
-          </div>
+          <img
+            className={classes.shinyLogo}
+            src={shinyLogo}
+            style={{ backgroundColor: "var(--rstudio-blue, pink)" }}
+            alt="Shiny Logo"
+          />
+          <h1 className={classes.title}>Shiny UI Editor</h1>
+          <div className={classes.splitter} />
           <AppTour />
+          <div className={classes.divider} />
           <UndoRedoButtons />
+          <div className={classes.spacer} />
         </div>
         <div
           className={`${classes.elementsPanel} ${classes.titledPanel} elements-panel`}

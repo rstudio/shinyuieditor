@@ -84,29 +84,44 @@
 
 .header {
   grid-area: header;
-  padding-inline: 16px;
-  padding-block: 5px;
+  padding-block: 2px;
   gap: 16px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-items: center;
 }
 
-.leftSide {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  margin-inline-end: auto;
+.header > :global(.react-joyride) {
+  display: none;
+}
+.header > .splitter {
+  margin-left: auto;
+}
+
+.header > .divider {
+  height: 50%;
+  background-color: var(--grey);
+  width: 1px;
+}
+
+.header > .spacer {
+  width: 95px;
 }
 
 .title {
-  font-size: 1.75rem;
+  font-size: 1.35rem;
+  color: var(--rstudio-blue);
 }
 
-.leftSide > img {
+.shinyLogo {
   display: inline-block;
-  margin: 0 1rem;
   height: 100%;
-  border-radius: 1rem;
-  padding: 0.5rem;
+  border-radius: 0 15px 15px 0;
+  padding: 3px;
+}
+
+/* Because the buttons don't have borders, padding just causes confusing spaces
+*/
+.header button {
+  padding: 0;
 }
