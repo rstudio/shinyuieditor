@@ -35,7 +35,17 @@ export default function AppPreview() {
   }
   return (
     <>
-      <h3>App Preview</h3>
+      <h3 className={classes.title}>
+        <Button
+          variant={["transparent", "icon"]}
+          className={classes.reloadButton}
+          title="Reload app session"
+          onClick={reloadApp}
+        >
+          <VscDebugRestart />
+        </Button>{" "}
+        App Preview
+      </h3>
       <div
         className={classes.appViewerHolder}
         data-expanded={isFullScreen}

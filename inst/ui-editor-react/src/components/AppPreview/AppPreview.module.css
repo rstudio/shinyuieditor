@@ -56,6 +56,12 @@ div.appViewerHolder {
   overflow: hidden;
 }
 
+.title {
+  /* z-index: 0; */
+  /* display: flex; */
+  position: relative;
+}
+
 .appViewerHolder[data-expanded="true"] {
   --expand-btn-size: 1.5rem;
 
@@ -87,7 +93,6 @@ div.appViewerHolder {
 .appContainer {
   display: grid;
   place-content: center;
-  /* overflow: hidden; */
 }
 
 .appViewerHolder[data-expanded="false"] > .appContainer {
@@ -128,6 +133,8 @@ div.appViewerHolder {
   transition: none;
 }
 
+/* ====== Buttons ========================================== */
+
 .expandButton,
 .reloadButton {
   position: absolute;
@@ -139,6 +146,35 @@ div.appViewerHolder {
   transition-timing-function: ease-in;
 }
 
+.reloadButton {
+  top: 0;
+  bottom: 0;
+  color: currentColor;
+  font-size: 1.5rem;
+}
+
+.appViewerHolder .reloadButton {
+  /* Hide reload button in the main panel until we're in full screen mode. We
+  have two reload buttons because the reload button in the header isn't
+  available in that zoom level */
+  display: none;
+}
+
+.reloadButton {
+  --normal-transform: scaleY(-1) rotate(90deg);
+  transform: var(--normal-transform);
+}
+
+.reloadButton:hover,
+.reloadButton:active,
+.expandButton:hover {
+  transform: var(--normal-transform, scale(1)) scale(1.1);
+}
+.expandButton:hover {
+  color: inherit;
+  opacity: 1;
+}
+
 .expandButton {
   width: 100%;
   height: 100%;
@@ -147,11 +183,11 @@ div.appViewerHolder {
   color: transparent;
 }
 
-.expandButton:hover {
-  color: inherit;
-  opacity: 1;
-  transform: scale(1.1);
+.restartButton {
+  width: fit-content;
+  margin-inline: auto;
 }
+
 .appViewerHolder[data-expanded="true"] .expandButton,
 .appViewerHolder[data-expanded="true"] .reloadButton {
   width: var(--expanded-inset-left);
@@ -160,22 +196,12 @@ div.appViewerHolder {
   opacity: 1;
   position: fixed;
   top: 0;
+  display: block;
 }
 
 .appViewerHolder[data-expanded="true"] .expandButton {
   color: inherit;
   right: 0;
-}
-
-button.reloadButton {
-  top: 0;
-  left: 0;
-  width: fit-content;
-}
-
-button.reloadButton:hover,
-button.reloadButton:active {
-  transform: scale(1.1);
 }
 
 .appViewerHolder > h2 {
@@ -197,9 +223,4 @@ button.reloadButton:active {
 
 h2.error {
   color: var(--red);
-}
-
-.restartButton {
-  width: fit-content;
-  margin-inline: auto;
 }
