@@ -54,6 +54,9 @@
   --animation-curve: ease-in-out;
   --outline: 1px solid var(--outline-color);
 
+  --input-vertical-padding: 1px;
+  --input-horizontal-padding: 5px;
+
   --fonts: "Lucida Sans", "DejaVu Sans", "Lucida Grande", "Segoe UI",
     -apple-system, BlinkMacSystemFont, Verdana, Helvetica, sans-serif;
 

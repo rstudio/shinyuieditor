@@ -10,16 +10,13 @@
 }
 
 .node {
-  --pad: 6px;
-  padding-inline: var(--pad);
-  padding-block: calc(var(--pad) / 2);
+  padding: var(--input-vertical-padding) var(--input-horizontal-padding);
   width: 100%;
   max-width: 100%;
   overflow-wrap: break-word;
   position: relative;
   cursor: pointer;
   background-color: var(--rstudio-white);
-  outline: 2px solid var(--light-grey);
   border-radius: var(--corner-radius);
 }
 
@@ -46,7 +43,9 @@
   outline-style: solid;
   outline-color: var(--color);
   border-radius: 50%;
-  left: calc(-1 * (var(--pad) + var(--dot-size) / 2 + var(--offset)));
+  left: calc(
+    -1 * (var(--input-horizontal-padding) + var(--dot-size) / 2 + var(--offset))
+  );
   top: calc(50% - var(--dot-size) / 2);
 }
 
@@ -58,7 +57,10 @@
   background-color: var(--color);
   width: var(--line-width);
   height: calc(100% + var(--flex-gap));
-  left: calc(-1 * (var(--pad) + var(--line-width) / 2 + var(--offset)));
+  left: calc(
+    -1 * (var(--input-horizontal-padding) + var(--line-width) / 2 +
+          var(--offset))
+  );
   top: calc(-1 * var(--flex-gap) / 2);
 }
 

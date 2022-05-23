@@ -1,6 +1,6 @@
 /* Styles common to multiple input components */
 input {
-  padding: 3px 6px;
+  padding: var(--input-vertical-padding) var(--input-horizontal-padding);
   border: 1px solid var(--light-grey);
 }
 
