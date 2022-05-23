@@ -40,7 +40,6 @@ input {
 
 input:disabled,
 select:disabled {
-  background-color: var(--light-grey);
   outline: var(--disabled-outline);
   opacity: 0.25;
   cursor: not-allowed;
@@ -60,7 +59,7 @@ select:disabled {
   inset: 0;
   border-radius: var(--corner-radius);
   border: var(--disabled-outline);
-  background-color: var(--light-grey);
+  background-color: var(--rstudio-white);
   z-index: 1;
   pointer-events: none;
 }
