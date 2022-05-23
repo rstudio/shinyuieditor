@@ -41,8 +41,8 @@ function ElementOption({ uiName }: { uiName: ShinyUiNames }) {
   }
   return (
     <div ref={elRef} className={classes.OptionItem} data-ui-name={uiName}>
-      <img src={iconSrc} alt={title} />
-      <label>{title}</label>
+      <img src={iconSrc} alt={title} className={classes.OptionIcon} />
+      <label className={classes.OptionLabel}>{title}</label>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 .elementsPalette {
   --icon-size: 75px;
-  --padding: 16px;
+  --padding: 8px;
 
   height: 100%;
   overflow: auto;
@@ -16,18 +16,29 @@
 /* Reduce vertical padding for first category list */
 
 .OptionItem {
+  /* outline: 1px solid red; */
   font-size: 0.8rem;
   width: var(--icon-size);
-  height: 100px;
+  height: 75px;
   border-radius: var(--corner-radius);
   position: relative;
   cursor: grab;
   text-align: center;
 }
 
-.OptionItem > label {
+.OptionIcon {
+  margin: 0;
+  margin-top: -10px;
+  display: block;
+  width: 100%;
+  /* outline: 1px solid green; */
+  outline-offset: -1px;
+}
+
+.OptionLabel {
   margin-top: -18px;
   display: block;
+  line-height: 15px;
 }
 
 .OptionItem:hover {
@@ -36,11 +47,7 @@
 .OptionItem:active {
   cursor: grabbing;
 }
-.OptionItem > img {
-  margin: 0;
-  display: block;
-  width: 100%;
-}
+
 .OptionItem > svg {
   color: var(--rstudio-blue);
 }
