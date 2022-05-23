@@ -79,7 +79,7 @@ export function useCommunicateWithWebsocket(): CommunicationState {
       const ws = new WebSocket(`ws://${websocket_host}`);
 
       ws.onerror = (event) => {
-        console.error("Failed to connect to websocket", event);
+        console.log("Failed to connect to websocket", event);
         setError("Failed to connect to shiny app preview");
       };
 
@@ -118,7 +118,7 @@ export function useCommunicateWithWebsocket(): CommunicationState {
           return;
         }
         // Let state know that we've lost connection so we can alert the user
-        console.error("Lost connection to httpuv.");
+        console.warn("Lost connection to httpuv.");
         set_disconnected();
       };
 

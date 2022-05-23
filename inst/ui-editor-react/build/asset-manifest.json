@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/app/static/css/main.f0246a8c.css",
-    "main.js": "/app/static/js/main.3baf04c7.js",
+    "main.css": "/app/static/css/main.894f9d97.css",
+    "main.js": "/app/static/js/main.09dd5ab0.js",
     "static/js/186.a36d41f4.chunk.js": "/app/static/js/186.a36d41f4.chunk.js",
     "static/media/Shiny-Logo.png": "/app/static/media/Shiny-Logo.2fd8063bbe2c9673b39f.png",
     "index.html": "/app/index.html",
-    "main.f0246a8c.css.map": "/app/static/css/main.f0246a8c.css.map",
-    "main.3baf04c7.js.map": "/app/static/js/main.3baf04c7.js.map",
+    "main.894f9d97.css.map": "/app/static/css/main.894f9d97.css.map",
+    "main.09dd5ab0.js.map": "/app/static/js/main.09dd5ab0.js.map",
     "186.a36d41f4.chunk.js.map": "/app/static/js/186.a36d41f4.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f0246a8c.css",
-    "static/js/main.3baf04c7.js"
+    "static/css/main.894f9d97.css",
+    "static/js/main.09dd5ab0.js"
   ]
 }

@@ -114,7 +114,7 @@ export function EditorContainer() {
   }
 
   if (error || !data) {
-    console.error(
+    console.warn(
       "Error retreiving app template from server. Running in static mode",
       error ?? "no error"
     );

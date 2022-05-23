@@ -14,7 +14,7 @@ function sendToBackend(state: ShinyUiNode) {
       return response.text();
     })
     .catch((e) => {
-      console.error("Error with sending state to backend", e);
+      // console.warn("Failed to send error to backend", e);
     });
 }
 
