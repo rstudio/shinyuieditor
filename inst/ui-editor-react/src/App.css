@@ -30,6 +30,7 @@
   --grey: hsl(211 19% 70%);
   --light-grey: #e9edf3;
   --dark-grey: hsl(211 19% 50%);
+  --divider-color: #a5b3c2;
 
   --background-grey: var(--light-grey);
   --header-grey: var(--grey);
