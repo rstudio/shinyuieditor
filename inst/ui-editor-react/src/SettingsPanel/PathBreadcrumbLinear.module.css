@@ -35,10 +35,10 @@
 .node:not(:last-child)::after {
   content: "›";
   font-size: 1.2rem;
-  line-height: 100%;
+  line-height: 0.8rem;
   text-align: center;
   position: absolute;
   width: var(--spacing);
-  height: 100%;
+  top: 2px;
   opacity: 0.5;
 }
