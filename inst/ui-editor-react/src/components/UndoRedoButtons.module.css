@@ -11,7 +11,7 @@
   height: 38px;
   padding: 0px;
   position: relative;
-  font-size: 2.5rem;
+  font-size: 2rem;
 }
 
 .container > button:disabled {

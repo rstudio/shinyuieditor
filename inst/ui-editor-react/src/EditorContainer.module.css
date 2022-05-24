@@ -100,7 +100,7 @@
 }
 
 .header > .spacer {
-  width: 35px;
+  width: 30px;
 }
 
 .title {
@@ -118,5 +118,5 @@
 /* Because the buttons don't have borders, padding just causes confusing spaces
 */
 .header button {
-  padding: 0;
+  padding: 0 5px;
 }
