@@ -5,5 +5,19 @@ input[type="number"].numericInput {
   text-align: end;
   --incrementer-pad: 5px;
   width: 62px;
-  /* padding-right: 15px; */
+  padding-right: 19px;
+}
+input[type="number"].numericInput::-webkit-inner-spin-button,
+input[type="number"].numericInput::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAA6CAYAAADybArcAAAACXBIWXMAACE4AAAhOAFFljFgAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAKpSURBVHgB7ZpNbtNAFIDfJKkKoosewUhNJFZwhOYGZEMJmyYnwIsksMPsUBMpcIKkmzplxQ3SI5QVkBQ1R8gKEG08zIs0NGrt2DN+47jSfJtI/sn404xnPO89AIsandNp3/UvHTBEATLgzWgy4BzcLbYYm5JhYBB3cLm7/fCqHwBrrDQ5g0JQ676onAMhxkRQovTg6owx9hTutjoHxquUMkZE1krctEwqQ/6OJJJAOOwCZ+POyY/nQABpj+CLjC+0eEpH5T4h3Tg62DuGFJCJ6Er8f5CUMiRDK60Ewjkfdk6+u6BJahEKCQkvFPti4XwHGqQaWpQSqzAG3tFB+b3SPaCJKQmJqoyWSPvz5BlOncsp1CAqMsoiWUlIksooiWQtIUkik3jW6pxeHG5CAhFfzl57dDFYd02iHkEJnOdh47Bh9+VeM/RM3K35kZCEy6wVaY9+vgYIPkL+OHv0u1Tzmo/n8kCkCK6wODYhv5wLmaqUKYVdgYtdEFyjpNLqmjW/tv/ui58vYLFYLBaLxWKxWO4joRsr3I+U4NqBnMOKfC7zK5E7xJY/GYoI+SHkFi5SeFCLFUHyK8NnRb6ofqg/mckjsVGU/MnclUBiA3S9eqUhghA52buHSyCJQ6Ytf+qJ0KVW7oKGaAlEKfa7OZn1EohSxqpXL3tZDzMR5fwaJ4Fo5Uey6hmU2Pmztb8aUYxCO2NlWkZFAkmVQ2yNpq74gz4Qw0Vsd+dWbDeO1Hn2tj9piEzMAIgQPXGMUz4oQlIwQCWjK4GQFAx065WheIrmslBGkzQSCGktim6OEad0nNohBeRlTqoyFBIIeZnT8rOa8eryMzsGKgnEWAXdW/+bs2DFsWjCCTtPKYEYrWmMkqGWQIyKILdlTEggxkUQKcMD9qn3qmwkS/wPNV9hc90dgAAAAAAASUVORK5CYII=);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: left;
+  width: 1em;
+  opacity: 1; /* shows Spin Buttons per default (Chrome >= 39) */
+  position: absolute;
+  top: 4px;
+  right: 2px;
+  bottom: 4.5px;
 }
