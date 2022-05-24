@@ -10,9 +10,7 @@ import type { ShinyPlotOutputProps } from ".";
 
 export const ShinyPlotOutputSettings: SettingsUpdaterComponent<
   ShinyPlotOutputProps
-> = ({ settings }) => {
-  const { outputId, width = "100%", height = "400px" } = settings;
-
+> = ({ settings: { outputId, width = "100%", height = "400px" } }) => {
   return (
     <>
       <TextInput
