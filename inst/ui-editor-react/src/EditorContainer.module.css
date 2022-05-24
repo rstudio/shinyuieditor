@@ -1,5 +1,5 @@
 .container {
-  --header-height: 40px;
+  --header-height: 31px;
   height: 100vh;
   width: 100%;
   background-color: var(--background-grey, #edf2f7);
