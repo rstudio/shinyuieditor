@@ -48,8 +48,8 @@
 
   --corner-radius: 10px;
   --vertical-spacing: 10px;
+  --horizontal-spacing: 15px;
   --selected-border-width: 3px;
-  --card-header-height: 35px;
   --animation-speed: 0.2s;
   --animation-curve: ease-in-out;
   --outline: 1px solid var(--outline-color);

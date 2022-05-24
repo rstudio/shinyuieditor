@@ -1,5 +1,6 @@
 .container {
   --header-height: 31px;
+  --padding: var(--horizontal-spacing);
   height: 100vh;
   width: 100%;
   background-color: var(--background-grey, #edf2f7);
@@ -79,7 +80,7 @@
 .header {
   grid-area: header;
   padding-block: 2px;
-  gap: 16px;
+  gap: var(--padding);
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -99,7 +100,7 @@
 }
 
 .header > .spacer {
-  width: 32px;
+  width: 35px;
 }
 
 .title {

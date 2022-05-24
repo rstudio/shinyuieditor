@@ -2,7 +2,7 @@
   --vertical-gap: var(--vertical-spacing);
   display: flex;
   flex-direction: column;
-  padding-inline: 16px;
+  padding-inline: var(--horizontal-spacing);
   padding-block: var(--vertical-gap);
   height: 100%;
 }
@@ -11,7 +11,7 @@
   /* Don't let the path size change */
   flex-shrink: 0;
   /* Add padding on the bottom so our whitespace on top and bottom is equal */
-  padding-bottom: var(--vertical-gap);
+  /* padding-bottom: var(--vertical-gap); */
 }
 
 form.settingsForm {
