@@ -1,7 +1,7 @@
 import React from "react";
 
-import Button from "components/Inputs/Button";
-import { TextInput } from "components/Inputs/TextInput";
+import Button from "components/Inputs/Button/Button";
+import { TextInput } from "components/Inputs/TextInput/TextInput";
 import PortalModal from "PortalModal";
 import classes from "PortalModal.module.css";
 

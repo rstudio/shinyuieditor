@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import Button from "components/Inputs/Button";
+import Button from "components/Inputs/Button/Button";
 import type { UiNodeComponent } from "components/Shiny-Ui-Elements/uiNodeTypes";
 
 import type { ShinyActionButtonProps } from "./index";

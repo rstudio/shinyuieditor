@@ -11,29 +11,33 @@ export function InputWrapper({
   isDisabled,
   defaultValue,
   mainInput,
+  fullWidth = false,
 }: {
   label?: string;
   name: string;
   optional?: boolean;
   isDisabled: boolean;
+  fullWidth?: boolean;
   defaultValue: NonNullable<OnChangeCallbackArgs["value"]>;
   mainInput: JSX.Element;
 }) {
   return (
-    <div className={inputClasses.container} data-disabled={isDisabled}>
-      <label>
-        <div className={inputClasses.label}>
-          {optional ? (
-            <OptionalCheckbox
-              name={name}
-              isDisabled={isDisabled}
-              defaultValue={defaultValue}
-            />
-          ) : null}
-          {label ?? name}:
-        </div>
-        <div className={inputClasses.mainInput}>{mainInput}</div>
-      </label>
-    </div>
+    <label
+      className={inputClasses.container}
+      data-disabled={isDisabled}
+      data-full-width={fullWidth}
+    >
+      <div className={inputClasses.label}>
+        {optional ? (
+          <OptionalCheckbox
+            name={name}
+            isDisabled={isDisabled}
+            defaultValue={defaultValue}
+          />
+        ) : null}
+        {label ?? name}:
+      </div>
+      <div className={inputClasses.mainInput}>{mainInput}</div>
+    </label>
   );
 }

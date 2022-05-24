@@ -1,12 +1,7 @@
-.inputSection,
 .wrappedSection {
   display: flex;
   gap: 5px;
   border: none;
-}
-
-.inputSection {
-  flex-direction: column;
 }
 
 .sectionContainer {
@@ -19,10 +14,10 @@
 }
 
 .wrappedSection > * {
-  /* width: 50px; */
   flex-grow: 1;
   flex-shrink: 1;
   flex-basis: 0;
+  margin-bottom: 0;
 }
 
 .wrappedSection input {

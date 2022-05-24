@@ -7,7 +7,7 @@ import { ReactSortable } from "react-sortablejs";
 import { sameArray } from "utils/equalityCheckers";
 
 import type { InputWidgetCommonProps } from "..";
-import Button from "../Button";
+import Button from "../Button/Button";
 import { InputLabel } from "../InputSections";
 import type { OnChangeCallback } from "../SettingsUpdateContext";
 import { useOnChange } from "../SettingsUpdateContext";

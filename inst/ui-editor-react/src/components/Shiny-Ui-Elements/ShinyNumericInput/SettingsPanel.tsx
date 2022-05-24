@@ -2,8 +2,8 @@ import * as React from "react";
 
 import { LabeledCSSUnitInput } from "components/Inputs/CSSUnitInput";
 import { InputSection } from "components/Inputs/InputSections";
-import NumericInput from "components/Inputs/NumericInput";
-import { TextInput } from "components/Inputs/TextInput";
+import NumericInput from "components/Inputs/NumericInput/NumericInput";
+import { TextInput } from "components/Inputs/TextInput/TextInput";
 
 import type { SettingsUpdaterComponent } from "../uiNodeTypes";
 

@@ -1,6 +1,6 @@
 import { useDeleteNode } from "components/DeleteNodeButton/useDeleteNode";
 import { Trash } from "components/Icons";
-import Button from "components/Inputs/Button";
+import Button from "components/Inputs/Button/Button";
 import type { NodePath } from "components/Shiny-Ui-Elements/uiNodeTypes";
 
 import classes from "./styles.module.css";

@@ -6,7 +6,7 @@ import { AiOutlineShrink } from "react-icons/ai";
 import { FaExpand } from "react-icons/fa";
 import { VscDebugRestart } from "react-icons/vsc";
 
-import Button from "../Inputs/Button";
+import Button from "../Inputs/Button/Button";
 
 import classes from "./AppPreview.module.css";
 import FakeDashboard from "./FakeDashboard";

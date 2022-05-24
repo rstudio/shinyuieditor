@@ -2,7 +2,7 @@ import * as React from "react";
 
 import BooleanInput from "components/Inputs/BooleanInput";
 import { LabeledCSSUnitInput } from "components/Inputs/CSSUnitInput";
-import { TextInput } from "components/Inputs/TextInput";
+import { TextInput } from "components/Inputs/TextInput/TextInput";
 
 import type { SettingsUpdaterComponent } from "../uiNodeTypes";
 

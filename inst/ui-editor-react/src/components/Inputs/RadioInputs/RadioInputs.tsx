@@ -25,7 +25,7 @@ export function RadioInputs<OptionType extends string>({
   const onNewValue = useOnChange(onChange as OnChangeCallback);
 
   return (
-    <div className={inputClasses.container}>
+    <div className={inputClasses.container} data-full-width="true">
       <label htmlFor={name} className={inputClasses.label}>
         {label ?? name}:
       </label>

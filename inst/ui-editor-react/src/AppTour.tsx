@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import PngIcon from "components/Icons";
-import Button from "components/Inputs/Button";
+import Button from "components/Inputs/Button/Button";
 import type { CallBackProps, Step, Styles } from "react-joyride";
 import Joyride, { ACTIONS, EVENTS } from "react-joyride";
 

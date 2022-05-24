@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { LabeledCSSUnitInput } from "components/Inputs/CSSUnitInput";
-import { TextInput } from "components/Inputs/TextInput";
+import { TextInput } from "components/Inputs/TextInput/TextInput";
 import type { CSSMeasure } from "CSSMeasure";
 
 import type { SettingsUpdaterComponent } from "../uiNodeTypes";

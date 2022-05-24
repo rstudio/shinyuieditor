@@ -1,10 +1,10 @@
 import React from "react";
 
-import type { InputWidgetCommonProps } from ".";
+import type { InputWidgetCommonProps } from "..";
+import { InputWrapper } from "../InputWrapper";
+import type { OnChangeCallback } from "../SettingsUpdateContext";
+import { useOnChange } from "../SettingsUpdateContext";
 
-import { InputWrapper } from "./InputWrapper";
-import type { OnChangeCallback } from "./SettingsUpdateContext";
-import { useOnChange } from "./SettingsUpdateContext";
 import classes from "./TextInput.module.css";
 
 export function TextInputSimple({
@@ -81,6 +81,7 @@ export function TextInput({
       optional={optional}
       isDisabled={isDisabled}
       defaultValue={defaultValue}
+      fullWidth={true}
       mainInput={
         <TextInputSimple
           ariaLabel={"input for " + name}

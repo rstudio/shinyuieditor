@@ -3,7 +3,7 @@ import React from "react";
 import { BsChevronDown, BsChevronUp, BsCircleFill } from "react-icons/bs";
 import { GrClear } from "react-icons/gr";
 
-import Button from "../Inputs/Button";
+import Button from "../Inputs/Button/Button";
 
 import classes from "./LogsViewer.module.css";
 import type { AppLogs } from "./useCommunicateWithWebsocket";

@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import NamedListInput from "components/Inputs/ListInput/NamedListInput";
-import { TextInput } from "components/Inputs/TextInput";
+import { TextInput } from "components/Inputs/TextInput/TextInput";
 
 import type { SettingsUpdaterComponent } from "../uiNodeTypes";
 

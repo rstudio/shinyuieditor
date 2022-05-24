@@ -3,7 +3,7 @@ import * as React from "react";
 import PngIcon from "components/Icons";
 import BooleanInput from "components/Inputs/BooleanInput";
 import { RadioInputs } from "components/Inputs/RadioInputs/RadioInputs";
-import { TextInput } from "components/Inputs/TextInput";
+import { TextInput } from "components/Inputs/TextInput/TextInput";
 
 import type { SettingsUpdaterComponent } from "../uiNodeTypes";
 

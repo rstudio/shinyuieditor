@@ -5,14 +5,19 @@ input {
 }
 
 .container {
-  --vertical-pad: var(--vertical-spacing);
+  --vertical-pad: calc(var(--vertical-spacing) * 1.5);
   margin-top: var(--vertical-pad);
   margin-bottom: var(--vertical-pad);
   max-width: 100%;
   min-width: 0;
-  width: 100%;
+  width: var(--input-width, fit-content);
   position: relative;
   isolation: isolate;
+  display: block;
+}
+
+.container[data-full-width="true"] {
+  --input-width: 100%;
 }
 
 .label {
@@ -35,7 +40,7 @@ input {
 
 .container input {
   max-width: 100%;
-  width: 100%;
+  /* width: 100%; */
 }
 
 input:disabled,

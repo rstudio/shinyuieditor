@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { TextInput } from "components/Inputs/TextInput";
+import { TextInput } from "components/Inputs/TextInput/TextInput";
 
 import type { SettingsUpdaterComponent } from "../uiNodeTypes";
 

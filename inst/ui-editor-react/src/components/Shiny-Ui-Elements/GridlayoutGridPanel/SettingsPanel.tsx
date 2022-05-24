@@ -11,7 +11,7 @@ import {
   AlignVSpread,
 } from "components/Icons";
 import { RadioInputs } from "components/Inputs/RadioInputs/RadioInputs";
-import { TextInput } from "components/Inputs/TextInput";
+import { TextInput } from "components/Inputs/TextInput/TextInput";
 import type { SettingsUpdaterComponent } from "components/Shiny-Ui-Elements/uiNodeTypes";
 
 import type { GridPanelSettings } from ".";

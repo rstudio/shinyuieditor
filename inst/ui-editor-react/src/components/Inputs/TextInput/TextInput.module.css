@@ -4,6 +4,7 @@
   flex-wrap: wrap;
   align-items: center;
   margin-bottom: 1rem;
+  width: 100%;
 }
 
 .label {
@@ -15,4 +16,5 @@
 .input {
   border: 1px solid var(--light-grey);
   border-radius: var(--corner-radius);
+  width: 100%;
 }

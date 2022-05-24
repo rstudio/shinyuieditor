@@ -3,7 +3,7 @@ import { deparseCSSMeasure } from "utils/css-helpers";
 import type { InputWidgetCommonProps } from "..";
 import type { CSSMeasure } from "../../../CSSMeasure";
 import { InputWrapper } from "../InputWrapper";
-import { NumericInputSimple } from "../NumericInput";
+import { NumericInputSimple } from "../NumericInput/NumericInput";
 import type { OnChangeCallback } from "../SettingsUpdateContext";
 import { useOnChange } from "../SettingsUpdateContext";
 

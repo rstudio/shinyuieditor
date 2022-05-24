@@ -1,11 +1,11 @@
 import React from "react";
 
-import type { InputWidgetCommonProps } from ".";
+import type { InputWidgetCommonProps } from "..";
+import { InputWrapper } from "../InputWrapper";
+import type { OnChangeCallback } from "../SettingsUpdateContext";
+import { useOnChange } from "../SettingsUpdateContext";
 
-import { InputWrapper } from "./InputWrapper";
 import classes from "./NumericInput.module.css";
-import type { OnChangeCallback } from "./SettingsUpdateContext";
-import { useOnChange } from "./SettingsUpdateContext";
 
 export function NumericInputSimple({
   value,
