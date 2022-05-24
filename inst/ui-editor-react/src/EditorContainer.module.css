@@ -86,21 +86,31 @@
   align-items: center;
 }
 
-.header > :global(.react-joyride) {
+.rightSide {
+  margin-left: auto;
+  width: var(--properties-panel-width);
+  display: inherit;
+  align-items: center;
+  gap: 14px;
+}
+
+.rightSide > :first-child {
+  /* Move the button over a bit so it visually lines up with the edge of the properties panel */
+  margin-left: -6px;
+}
+
+.rightSide :global(.react-joyride) {
   display: none;
 }
-.header > .splitter {
-  margin-left: auto;
+
+.rightSide > :global(.undo-redo-buttons) {
+  transform: translate(-8px, -1px);
 }
 
-.header > .divider {
-  height: 50%;
-  background-color: var(--grey);
-  width: 1px;
-}
-
-.header > .spacer {
-  width: 30px;
+.divider {
+  height: 20px;
+  background-color: var(--divider-color);
+  width: 2px;
 }
 
 .title {
@@ -118,5 +128,5 @@
 /* Because the buttons don't have borders, padding just causes confusing spaces
 */
 .header button {
-  padding: 0 5px;
+  padding: 0;
 }

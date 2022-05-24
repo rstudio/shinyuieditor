@@ -56,11 +56,11 @@ function EditorContainerWithData({
             alt="Shiny Logo"
           />
           <h1 className={classes.title}>Shiny UI Editor</h1>
-          <div className={classes.splitter} />
-          <AppTour />
-          <div className={classes.divider} />
-          <UndoRedoButtons />
-          <div className={classes.spacer} />
+          <div className={classes.rightSide}>
+            <AppTour />
+            <div className={classes.divider} />
+            <UndoRedoButtons />
+          </div>
         </div>
         <div
           className={`${classes.elementsPanel} ${classes.titledPanel} elements-panel`}

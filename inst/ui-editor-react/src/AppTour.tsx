@@ -79,7 +79,7 @@ export function AppTour() {
         title="Take a guided tour of app"
         variant="transparent"
       >
-        <PngIcon id="tour" size="22px" />
+        <PngIcon id="tour" size="24px" />
         Tour App
       </Button>
       <Joyride
