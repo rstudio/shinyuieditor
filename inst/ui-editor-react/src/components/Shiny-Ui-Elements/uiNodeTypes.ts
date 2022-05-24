@@ -93,23 +93,23 @@ export type UiComponentInfo<NodeSettings extends object> = {
  * the editor
  */
 export const shinyUiNodeInfo = {
-  unknownUiFunction: unknownUiFunctionInfo,
-  "shiny::plotOutput": shinyPlotOutputInfo,
-  "shiny::sliderInput": shinySliderInputInfo,
+  "shiny::actionButton": shinyActionButtonInfo,
   "shiny::numericInput": shinyNumericInputInfo,
+  "shiny::sliderInput": shinySliderInputInfo,
   "shiny::textInput": shinyTextInputInfo,
-  "shiny::radioButtons": shinyRadioButtonsInfo,
   "shiny::checkboxInput": shinyCheckboxInputInfo,
   "shiny::checkboxGroupInput": shinyCheckboxGroupInputInfo,
   "shiny::selectInput": shinySelectInputInfo,
-  "shiny::actionButton": shinyActionButtonInfo,
-  "shiny::uiOutput": shinyUiOutputInfo,
+  "shiny::radioButtons": shinyRadioButtonsInfo,
+  "shiny::plotOutput": shinyPlotOutputInfo,
   "shiny::textOutput": shinyTextOutputInfo,
+  "shiny::uiOutput": shinyUiOutputInfo,
   "gridlayout::grid_page": gridlayoutGridPageInfo,
   "gridlayout::grid_panel": gridLayoutGridPanelInfo,
   "gridlayout::grid_panel_stack": gridlayoutVerticalStackPanelInfo,
   "gridlayout::grid_panel_text": gridlayoutTextPanelInfo,
   "gridlayout::grid_panel_plot": GridlayoutGridPanelPlotInfo,
+  unknownUiFunction: unknownUiFunctionInfo,
 };
 
 /**

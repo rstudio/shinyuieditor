@@ -28,7 +28,7 @@ function sortByCategory(nameA: ShinyUiNames, nameB: ShinyUiNames): number {
   if (categoryA < categoryB) return -1;
   if (categoryA > categoryB) return 1;
 
-  return nameA < nameB ? -1 : 1;
+  return 0;
 }
 
 export default function ElementsPalette({
