@@ -84,7 +84,6 @@ body {
 body,
 input {
   font-family: var(--fonts);
-  font-weight: 450;
   line-height: 1.5;
   color: var(--font-color);
   margin: 0;
@@ -95,7 +94,6 @@ h1,
 h2,
 h3 {
   margin: 0;
-  font-weight: 550;
   color: var(--rstudio-grey);
 }
 

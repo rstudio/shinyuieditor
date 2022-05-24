@@ -23,7 +23,6 @@ input {
 .label {
   display: block;
   padding-bottom: 3px;
-  font-weight: 300;
   width: auto;
   display: flex;
   justify-items: flex-start;
