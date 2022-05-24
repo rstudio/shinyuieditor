@@ -7,7 +7,7 @@ import type {
 import { shinyUiNodeInfo } from "components/Shiny-Ui-Elements/uiNodeTypes";
 
 import PathBreadcrumb from "./PathBreadcrumb";
-// import PathBreadcrumbLinear from "./PathBreadcrumbLinear";
+// import PathBreadcrumb from "./PathBreadcrumbLinear";
 import classes from "./SettingsPanel.module.css";
 import { useUpdateSettings } from "./useUpdateSettings";
 
@@ -39,11 +39,6 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
           path={selectedPath}
           onSelect={setNodeSelection}
         />
-        {/* <PathBreadcrumbLinear
-          tree={tree}
-          path={selectedPath}
-          onSelect={setNodeSelection}
-        /> */}
       </div>
       <form className={classes.settingsForm} onSubmit={stopDefaultSubmit}>
         <div className={classes.settingsInputs}>
