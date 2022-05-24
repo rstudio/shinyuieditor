@@ -18,7 +18,7 @@ import { UndoRedoButtons } from "./components/UndoRedoButtons";
 import classes from "./EditorContainer.module.css";
 import { SettingsPanel } from "./SettingsPanel/SettingsPanel";
 
-export const PROPERTIES_PANEL_WIDTH_PX = 300;
+export const PROPERTIES_PANEL_WIDTH_PX = 236;
 
 const sizes_inline_styles = {
   "--properties-panel-width": `${PROPERTIES_PANEL_WIDTH_PX}px`,
