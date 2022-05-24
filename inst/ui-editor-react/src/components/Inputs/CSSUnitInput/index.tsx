@@ -70,6 +70,7 @@ export function CSSUnitInput({
       />
 
       <select
+        className={classes.unitSelector}
         aria-label="value-unit"
         name="value-unit"
         value={cssValue.unit}
