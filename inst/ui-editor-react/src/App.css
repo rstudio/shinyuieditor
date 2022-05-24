@@ -46,7 +46,7 @@
   --disabled-color: hsl(var(--rstudio-grey-hsl) / 0.5);
   --disabled-outline: 1px solid hsl(var(--rstudio-grey-hsl) / 0.15);
 
-  --corner-radius: 10px;
+  --corner-radius: 8px;
   --vertical-spacing: 10px;
   --horizontal-spacing: 15px;
   --selected-border-width: 3px;
