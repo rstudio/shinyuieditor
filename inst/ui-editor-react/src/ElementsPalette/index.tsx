@@ -10,12 +10,36 @@ import { useMakeDraggable } from "../DragAndDropHelpers/useMakeDraggable";
 
 import classes from "./styles.module.css";
 
+const categoryOrder: string[] = [
+  "Inputs",
+  "Outputs",
+  "gridlayout",
+  "uncategorized",
+];
+
+function sortByCategory(nameA: ShinyUiNames, nameB: ShinyUiNames): number {
+  const categoryA = categoryOrder.indexOf(
+    shinyUiNodeInfo[nameA]?.category || "uncategorized"
+  );
+  const categoryB = categoryOrder.indexOf(
+    shinyUiNodeInfo[nameB]?.category || "uncategorized"
+  );
+
+  if (categoryA < categoryB) return -1;
+  if (categoryA > categoryB) return 1;
+
+  return nameA < nameB ? -1 : 1;
+}
+
 export default function ElementsPalette({
   availableUi = shinyUiNodeInfo,
 }: {
   availableUi?: typeof shinyUiNodeInfo;
 }) {
-  const ui_node_names = Object.keys(availableUi) as ShinyUiNames[];
+  const ui_node_names = React.useMemo(
+    () => (Object.keys(availableUi) as ShinyUiNames[]).sort(sortByCategory),
+    [availableUi]
+  );
 
   return (
     <div className={classes.elementsPalette}>
