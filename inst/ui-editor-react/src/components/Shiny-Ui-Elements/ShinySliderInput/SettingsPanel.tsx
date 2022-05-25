@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import CategoryHeader from "components/CategoryHeader";
 import { LabeledCSSUnitInput } from "components/Inputs/CSSUnitInput";
 import { WrappedSection } from "components/Inputs/InputSections";
 import NumericInput from "components/Inputs/NumericInput/NumericInput";
@@ -31,6 +32,9 @@ export const ShinySliderInputSettings: SettingsUpdaterComponent<
         optional={true}
         defaultValue={1}
       />
+
+      <CategoryHeader />
+
       <LabeledCSSUnitInput
         name="width"
         value={settings.width}
