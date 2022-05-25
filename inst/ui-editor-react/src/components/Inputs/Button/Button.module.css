@@ -1,7 +1,7 @@
 .button {
   --background-color: var(--rstudio-white);
   --text-color: var(--font-color);
-  --outline-color: var(--light-grey);
+  --outline-color: transparent;
   --outline-width: 1px;
 
   padding: 0.5rem 1rem;
@@ -32,8 +32,7 @@
 }
 
 .icon {
-  --outline-width: 1px;
-  --outline-color: var(--header-grey);
+  --outline-width: 0px;
   display: grid;
   place-content: center;
   padding: 8px;
