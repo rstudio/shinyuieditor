@@ -79,7 +79,6 @@
 
 .header {
   grid-area: header;
-  padding-block: 2px;
   gap: var(--padding);
   display: flex;
   justify-content: flex-start;
