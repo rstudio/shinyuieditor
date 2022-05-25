@@ -116,11 +116,14 @@ export default function NamedListInput({
             </div>
           ))}
         </ReactSortable>
-        <div>
-          <Button onClick={() => addItem()} variant="icon" title="Add new item">
-            <FaPlus />
-          </Button>
-        </div>
+        <Button
+          className={classes.addItemButton}
+          onClick={() => addItem()}
+          variant={["icon", "transparent"]}
+          title="Add new item"
+        >
+          <FaPlus />
+        </Button>
       </div>
     </div>
   );
