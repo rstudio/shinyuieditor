@@ -8,11 +8,8 @@
   flex-direction: column;
   align-items: center;
   gap: var(--gap-size);
-  padding-block: calc(2 * var(--gap-size));
   margin-block: calc(2 * var(--gap-size));
   --border: 1px solid var(--grey);
-  border-top: var(--border);
-  border-bottom: var(--border);
 }
 
 .item {
@@ -47,6 +44,7 @@
 .dragHandle {
   grid-area: drag;
   cursor: ns-resize;
+  transform: translateY(2px);
 }
 
 .item svg {
@@ -58,10 +56,15 @@
   the button */
   grid-area: delete;
   --offset: 4px;
-  padding: var(--offset);
-  margin: calc(var(--offset) * -1);
+  /* padding: var(--offset); */
+  /* margin: calc(var(--offset) * -1); */
   background-color: transparent;
+  transform: translate(-2px, -2px);
   outline: none;
+}
+
+.separator {
+  transform: translateY(-1px);
 }
 
 .deleteButton:hover > svg {

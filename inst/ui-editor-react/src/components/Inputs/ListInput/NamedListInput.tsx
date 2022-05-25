@@ -1,14 +1,14 @@
 import React from "react";
 
+import CategoryDivider from "components/CategoryDivider";
+import { Trash } from "components/Icons";
 import { FaPlus } from "react-icons/fa";
-import { FiTrash } from "react-icons/fi";
 import { MdDragHandle } from "react-icons/md";
 import { ReactSortable } from "react-sortablejs";
 import { sameObject } from "utils/equalityCheckers";
 
 import type { InputWidgetCommonProps } from "..";
 import Button from "../Button/Button";
-import { InputLabel } from "../InputSections";
 import type { OnChangeCallback } from "../SettingsUpdateContext";
 import { useOnChange } from "../SettingsUpdateContext";
 
@@ -68,7 +68,7 @@ export default function NamedListInput({
 
   return (
     <div className={classes.container}>
-      <InputLabel>{name ?? label}:</InputLabel>
+      <CategoryDivider category={name ?? label} />
       <div className={classes.list}>
         <div className={classes.item + " " + classes.header}>
           <span className={classes.keyField}>Key</span>
@@ -94,7 +94,7 @@ export default function NamedListInput({
                   setState(newList);
                 }}
               />
-              <span>:</span>
+              <span className={classes.separator}>:</span>
               <input
                 className={classes.valueField}
                 type="text"
@@ -108,10 +108,10 @@ export default function NamedListInput({
               <Button
                 className={classes.deleteButton}
                 onClick={() => deleteItem(item.id)}
-                variant="icon"
+                variant={["icon", "transparent"]}
                 title={`Delete ${item.value}`}
               >
-                <FiTrash />
+                <Trash />
               </Button>
             </div>
           ))}
