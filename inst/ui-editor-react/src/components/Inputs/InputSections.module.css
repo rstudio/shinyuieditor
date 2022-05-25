@@ -1,22 +1,16 @@
 .wrappedSection {
   display: flex;
-  gap: 5px;
   border: none;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-block-end: var(--vertical-spacing);
 }
 
 .sectionContainer {
   margin-block-start: 25px;
 }
 
-.wrappedSection {
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-
 .wrappedSection > * {
-  flex-grow: 1;
-  flex-shrink: 1;
-  flex-basis: 0;
   margin-bottom: 0;
 }
 
