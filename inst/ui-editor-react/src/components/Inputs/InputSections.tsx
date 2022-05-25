@@ -1,4 +1,4 @@
-import CategoryHeader from "components/CategoryHeader";
+import CategoryDivider from "components/CategoryDivider";
 
 import inputClasses from "./Inputs.module.css";
 import classes from "./InputSections.module.css";
@@ -9,7 +9,7 @@ export const WrappedSection: React.FC<{ name: string }> = ({
 }) => {
   return (
     <div className={classes.sectionContainer}>
-      <CategoryHeader category={name} />
+      <CategoryDivider category={name} />
       <div className={classes.wrappedSection}>{children}</div>
     </div>
   );
@@ -20,7 +20,7 @@ export const InputSection: React.FC<{ name: string }> = ({
 }) => {
   return (
     <div className={classes.sectionContainer}>
-      <CategoryHeader category={name} />
+      <CategoryDivider category={name} />
       <div className={classes.inputSection}>{children}</div>
     </div>
   );

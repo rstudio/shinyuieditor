@@ -1,4 +1,4 @@
-.categoryHeader {
+.categoryDivider {
   display: block;
   position: relative;
   isolation: isolate;
@@ -7,11 +7,11 @@
   align-items: center;
 }
 
-.categoryHeader > span {
+.categoryDivider > span {
   background-color: var(--light-grey);
 }
 
-.categoryHeader::before {
+.categoryDivider::before {
   content: "";
   position: absolute;
   top: 50%;

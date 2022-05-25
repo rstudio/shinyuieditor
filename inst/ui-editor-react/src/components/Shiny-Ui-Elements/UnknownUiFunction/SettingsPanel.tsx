@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import CategoryHeader from "components/CategoryHeader";
+import CategoryDivider from "components/CategoryDivider";
 import inputClasses from "components/Inputs/Inputs.module.css";
 import { AiOutlineQuestionCircle } from "react-icons/ai";
 
@@ -27,7 +27,7 @@ export const UnknownUiFunctionSettings: SettingsUpdaterComponent<
           Unknown function call. Can't modify with visual editor.
         </span>
       </div>
-      <CategoryHeader category="Code" />
+      <CategoryDivider category="Code" />
       <div className={inputClasses.container}>
         <pre className={classes.codeHolder}>{formattedText}</pre>
       </div>
