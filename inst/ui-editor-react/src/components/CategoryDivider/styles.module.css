@@ -8,6 +8,7 @@
 }
 
 .categoryDivider > span {
+  text-transform: capitalize;
   background-color: var(--light-grey);
 }
 
