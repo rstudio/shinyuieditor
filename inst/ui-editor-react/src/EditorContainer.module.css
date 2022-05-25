@@ -122,7 +122,8 @@
   display: inline-block;
   height: 100%;
   border-radius: 0 15px 15px 0;
-  padding: 3px;
+  padding-block: 3px;
+  padding-inline: 5px;
 }
 
 /* Because the buttons don't have borders, padding just causes confusing spaces

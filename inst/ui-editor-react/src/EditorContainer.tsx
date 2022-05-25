@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import shinyLogo from "assets/Shiny-Logo.png";
+import shinyLogo from "assets/shiny-logo.svg";
 import AppPreview from "components/AppPreview";
 import type { ShinyUiNode } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import UiNode from "components/UiNode";
