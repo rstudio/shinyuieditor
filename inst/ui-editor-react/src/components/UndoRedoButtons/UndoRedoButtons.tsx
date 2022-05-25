@@ -3,7 +3,8 @@ import React from "react";
 import { Redo, Undo } from "components/Icons";
 import { useUndoRedo } from "state-logic/useUndoRedo";
 
-import Button from "./Inputs/Button/Button";
+import Button from "../Inputs/Button/Button";
+
 import classes from "./UndoRedoButtons.module.css";
 
 export function UndoRedoButtons() {
@@ -18,7 +19,7 @@ export function UndoRedoButtons() {
         title="Undo last change"
         onClick={goBackward}
       >
-        <Undo />
+        <Undo height="100%" />
       </Button>
       <Button
         variant={["transparent", "icon"]}
@@ -27,7 +28,7 @@ export function UndoRedoButtons() {
         title="Redo last change"
         onClick={goForward}
       >
-        <Redo />
+        <Redo height="100%" />
       </Button>
     </div>
   );

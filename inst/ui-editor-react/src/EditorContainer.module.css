@@ -104,7 +104,7 @@
 }
 
 .rightSide > :global(.undo-redo-buttons) {
-  transform: translate(-8px, -1px);
+  transform: translate(-1px, -1px);
 }
 
 .divider {

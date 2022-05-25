@@ -14,7 +14,7 @@ import type { RootState } from "state/store";
 import { backupUiTree, initialUiTree, INIT_STATE } from "state/uiTree";
 
 import { AppTour } from "./AppTour";
-import { UndoRedoButtons } from "./components/UndoRedoButtons";
+import { UndoRedoButtons } from "./components/UndoRedoButtons/UndoRedoButtons";
 import classes from "./EditorContainer.module.css";
 import { SettingsPanel } from "./SettingsPanel/SettingsPanel";
 

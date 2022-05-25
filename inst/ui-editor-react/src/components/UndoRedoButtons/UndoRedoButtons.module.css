@@ -1,14 +1,14 @@
 .container {
   display: flex;
+  position: relative;
 }
 
 .container > button > svg {
-  width: 100%;
-  color: var(--rstudio-blue);
+  color: var(--icon-color, silver);
 }
 
 .container > button {
-  height: 38px;
+  height: var(--header-height, 100%);
   padding: 0px;
   position: relative;
   font-size: 2rem;
