@@ -24,14 +24,13 @@ export const ShinySliderInputSettings: SettingsUpdaterComponent<
         <NumericInput name="min" value={settings.min} />
         <NumericInput name="max" value={settings.max} />
         <NumericInput name="value" label="start" value={settings.value} />
+        <NumericInput
+          name="step"
+          value={settings.step}
+          optional={true}
+          defaultValue={1}
+        />
       </WrappedSection>
-
-      <NumericInput
-        name="step"
-        value={settings.step}
-        optional={true}
-        defaultValue={1}
-      />
 
       <CategoryDivider />
 

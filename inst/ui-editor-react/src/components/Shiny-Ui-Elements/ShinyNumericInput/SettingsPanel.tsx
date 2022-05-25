@@ -1,7 +1,8 @@
 import * as React from "react";
 
+import CategoryDivider from "components/CategoryDivider";
 import { LabeledCSSUnitInput } from "components/Inputs/CSSUnitInput";
-import { InputSection } from "components/Inputs/InputSections";
+import { WrappedSection } from "components/Inputs/InputSections";
 import NumericInput from "components/Inputs/NumericInput/NumericInput";
 import { TextInput } from "components/Inputs/TextInput/TextInput";
 
@@ -16,7 +17,8 @@ export const ShinyNumericInputSettings: SettingsUpdaterComponent<
     <>
       <TextInput name="inputId" label="Input ID" value={settings.inputId} />
       <TextInput name="label" value={settings.label} />
-      <InputSection name="Values">
+
+      <WrappedSection name="Values">
         <NumericInput name="value" value={settings.value} />
         <NumericInput
           name="min"
@@ -36,7 +38,10 @@ export const ShinyNumericInputSettings: SettingsUpdaterComponent<
           optional={true}
           defaultValue={1}
         />
-      </InputSection>
+      </WrappedSection>
+
+      <CategoryDivider />
+
       <LabeledCSSUnitInput
         name="width"
         value={settings.width}
