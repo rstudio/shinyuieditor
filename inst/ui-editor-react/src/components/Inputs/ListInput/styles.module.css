@@ -1,5 +1,6 @@
 .container {
   --gap-size: 4px;
+  margin-top: 21px;
 }
 
 .list {
@@ -36,7 +37,8 @@
 }
 
 .header {
-  margin-bottom: calc(var(--gap-size) * -2);
+  margin-top: -5px;
+  margin-bottom: -5px;
   text-align: center;
 }
 
@@ -64,7 +66,7 @@
   color: var(--icon-color);
   font-size: 14px;
   padding: 4px;
-  transform: translateY(-3px);
+  transform: translateY(-2px);
 }
 
 .separator {
