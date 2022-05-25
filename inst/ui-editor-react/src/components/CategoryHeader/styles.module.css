@@ -6,13 +6,7 @@
 }
 
 .categoryHeader > span {
-  padding-inline-end: 6px;
-
   background-color: var(--light-grey);
-}
-
-.categoryHeader > span::after {
-  content: ":";
 }
 
 .categoryHeader::before {
