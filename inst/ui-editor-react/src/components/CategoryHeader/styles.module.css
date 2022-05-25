@@ -2,7 +2,9 @@
   display: block;
   position: relative;
   isolation: isolate;
-  margin-top: 18px;
+  height: var(--vertical-spacing);
+  display: flex;
+  align-items: center;
 }
 
 .categoryHeader > span {
