@@ -1,16 +1,15 @@
 {
   "files": {
     "main.css": "/app/static/css/main.ed6b9a8d.css",
-    "main.js": "/app/static/js/main.37948c30.js",
+    "main.js": "/app/static/js/main.4c45bfc1.js",
     "static/js/186.a36d41f4.chunk.js": "/app/static/js/186.a36d41f4.chunk.js",
-    "static/media/shiny-logo.svg": "/app/static/media/shiny-logo.a56ab20d3002f41cd28b882a2ce10864.svg",
     "index.html": "/app/index.html",
     "main.ed6b9a8d.css.map": "/app/static/css/main.ed6b9a8d.css.map",
-    "main.37948c30.js.map": "/app/static/js/main.37948c30.js.map",
+    "main.4c45bfc1.js.map": "/app/static/js/main.4c45bfc1.js.map",
     "186.a36d41f4.chunk.js.map": "/app/static/js/186.a36d41f4.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ed6b9a8d.css",
-    "static/js/main.37948c30.js"
+    "static/js/main.4c45bfc1.js"
   ]
 }
