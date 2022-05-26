@@ -62,13 +62,11 @@ export function RadioInputs<OptionType extends string>({
                 htmlFor={name + option}
                 data-name={label}
               >
-                <span className={classes.optionIcon}>
-                  {typeof icon === "string" ? (
-                    <img src={icon} alt={label} className={classes.icon} />
-                  ) : (
-                    icon
-                  )}
-                </span>
+                {typeof icon === "string" ? (
+                  <img src={icon} alt={label} className={classes.icon} />
+                ) : (
+                  icon
+                )}
               </label>
             </div>
           );

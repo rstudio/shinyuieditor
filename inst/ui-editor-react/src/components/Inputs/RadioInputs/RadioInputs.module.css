@@ -13,7 +13,7 @@
 }
 
 .option {
-  height: 35px;
+  height: 25px;
   width: 100%;
 }
 
@@ -33,10 +33,15 @@ and background colors */
   background-color: var(--rstudio-white);
   max-height: 105px;
   height: 100%;
-  padding: 4px;
+  padding: 2px;
   color: var(--rstudio-blue);
+  position: relative;
 }
 
+.icon {
+  height: 100%;
+  display: block;
+}
 .radioLabel svg {
   height: 1.65rem;
   padding: 1px;
@@ -47,6 +52,7 @@ and background colors */
   display: grid;
   place-content: center;
   height: 100%;
+  padding: 1px;
 }
 
 .radioInput:checked + .radioLabel {
