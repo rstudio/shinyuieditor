@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import shinyLogo from "assets/shiny-logo.svg";
 import AppPreview from "components/AppPreview";
+import SvgShinyLogo from "components/Icons/ShinyLogo";
 import type { ShinyUiNode } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import UiNode from "components/UiNode";
 import { CurrentDraggedNodeProvider } from "DragAndDropHelpers/useCurrentDraggedNode";
@@ -49,12 +49,16 @@ function EditorContainerWithData({
     <CurrentDraggedNodeProvider>
       <div className={classes.container} style={sizes_inline_styles}>
         <div className={classes.header}>
-          <img
+          <SvgShinyLogo
+            className={classes.shinyLogo}
+            style={{ backgroundColor: "var(--rstudio-blue, pink)" }}
+          />
+          {/* <img
             className={classes.shinyLogo}
             src={shinyLogo}
             style={{ backgroundColor: "var(--rstudio-blue, pink)" }}
             alt="Shiny Logo"
-          />
+          /> */}
           <h1 className={classes.title}>Shiny UI Editor</h1>
           <div className={classes.rightSide}>
             <AppTour />
