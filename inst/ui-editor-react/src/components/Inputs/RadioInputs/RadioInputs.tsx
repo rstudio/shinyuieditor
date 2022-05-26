@@ -24,6 +24,15 @@ export function RadioInputs<OptionType extends string>({
   const values = Object.keys(options) as OptionType[];
   const onNewValue = useOnChange(onChange as OnChangeCallback);
 
+  const columns_style_defn = React.useMemo(
+    () => ({
+      gridTemplateColumns: optionsPerColumn
+        ? `repeat(${optionsPerColumn}, 1fr)`
+        : undefined,
+    }),
+    [optionsPerColumn]
+  );
+
   return (
     <div className={inputClasses.container} data-full-width="true">
       <label htmlFor={name} className={inputClasses.label}>
@@ -32,15 +41,11 @@ export function RadioInputs<OptionType extends string>({
       <fieldset
         className={classes.radioContainer}
         id={name}
-        style={{
-          gridTemplateColumns: `repeat(${
-            optionsPerColumn ?? "auto-fill"
-          }, minmax(65px, 1fr))`,
-        }}
+        style={columns_style_defn}
       >
         {values.map((option) => {
           const { icon, label = option } = options[option] ?? {};
-
+          console.log({ option, icon });
           return (
             <div className={classes.option} key={option}>
               <input

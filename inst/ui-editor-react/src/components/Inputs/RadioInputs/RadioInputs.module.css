@@ -2,10 +2,19 @@
   display: grid;
   gap: 5px;
   justify-content: space-around;
+  align-content: center;
   border: none;
   /* Due to grid-blowout we need to set a max-width here or the inputs will
   subtly creep out of the box and cause horizontal scrollbars to appear */
   max-width: 100%;
+  min-width: 0;
+  grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+  padding: 0;
+}
+
+.option {
+  height: 35px;
+  width: 100%;
 }
 
 /* Hide the little button icon because we take over the showing with outlines
@@ -23,6 +32,7 @@ and background colors */
   border-radius: var(--corner-radius);
   background-color: var(--rstudio-white);
   max-height: 105px;
+  height: 100%;
   padding: 4px;
   color: var(--rstudio-blue);
 }
@@ -36,6 +46,7 @@ and background colors */
 .radioLabel .optionIcon {
   display: grid;
   place-content: center;
+  height: 100%;
 }
 
 .radioInput:checked + .radioLabel {
