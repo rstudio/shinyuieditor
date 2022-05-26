@@ -11,14 +11,16 @@ input {
   margin-bottom: var(--vertical-pad);
   max-width: 100%;
   min-width: 0;
-  width: var(--input-width, fit-content);
   position: relative;
   isolation: isolate;
   display: block;
 }
 
-.container[data-full-width="true"] {
-  --input-width: 100%;
+.container[data-width-setting="fit"] {
+  width: fit-content;
+}
+.container[data-width-setting="full"] {
+  width: 100%;
 }
 
 .label {

@@ -11,13 +11,14 @@ export function InputWrapper({
   isDisabled,
   defaultValue,
   mainInput,
-  fullWidth = false,
+  width_setting = "full",
 }: {
   label?: string;
   name: string;
   optional?: boolean;
   isDisabled: boolean;
   fullWidth?: boolean;
+  width_setting?: "full" | "fit";
   defaultValue: NonNullable<OnChangeCallbackArgs["value"]>;
   mainInput: JSX.Element;
 }) {
@@ -25,7 +26,7 @@ export function InputWrapper({
     <label
       className={inputClasses.container}
       data-disabled={isDisabled}
-      data-full-width={fullWidth}
+      data-width-setting={width_setting}
     >
       <div className={inputClasses.label}>
         {optional ? (
