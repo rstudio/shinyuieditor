@@ -107,6 +107,7 @@ export function LabeledCSSUnitInput({
       optional={optional}
       isDisabled={isDisabled}
       defaultValue={defaultValue}
+      width_setting="fit"
       mainInput={
         <CSSUnitInput
           value={value ?? defaultValue}

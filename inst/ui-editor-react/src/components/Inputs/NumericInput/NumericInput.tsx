@@ -90,6 +90,7 @@ export default function NumericInput({
       optional={optional}
       isDisabled={disabled}
       defaultValue={defaultValue}
+      width_setting="fit"
       mainInput={
         <NumericInputSimple
           ariaLabel={label ?? name}

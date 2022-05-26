@@ -81,7 +81,7 @@ export function TextInput({
       optional={optional}
       isDisabled={isDisabled}
       defaultValue={defaultValue}
-      fullWidth={true}
+      width_setting="full"
       mainInput={
         <TextInputSimple
           ariaLabel={"input for " + name}
