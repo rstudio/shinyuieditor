@@ -1,6 +1,5 @@
 import React from "react";
 
-import { PROPERTIES_PANEL_WIDTH_PX } from "EditorContainer";
 import debounce from "just-debounce-it";
 import { AiOutlineShrink } from "react-icons/ai";
 import { FaExpand } from "react-icons/fa";
@@ -12,6 +11,10 @@ import classes from "./AppPreview.module.css";
 import FakeDashboard from "./FakeDashboard";
 import { LogsViewer } from "./LogsViewer";
 import { useCommunicateWithWebsocket } from "./useCommunicateWithWebsocket";
+import { usePreviewScale } from "./usePreviewScale";
+
+export const PREVIEW_INSET_HORIZONTAL_PX = 16;
+export const EXPANDED_INSET_HORIZONTAL_PX = 55;
 
 export default function AppPreview() {
   const iframeRef = React.useRef<HTMLIFrameElement>(null);
@@ -43,7 +46,7 @@ export default function AppPreview() {
           onClick={reloadApp}
         >
           <VscDebugRestart />
-        </Button>{" "}
+        </Button>
         App Preview
       </h3>
       <div
@@ -52,6 +55,8 @@ export default function AppPreview() {
         style={
           {
             "--app-scale-amnt": previewScale,
+            "--preview-inset-horizontal": `${PREVIEW_INSET_HORIZONTAL_PX}px`,
+            "--expanded-inset-horizontal": `${EXPANDED_INSET_HORIZONTAL_PX}px`,
           } as React.CSSProperties
         }
       >
@@ -124,7 +129,7 @@ function LoadingMessage() {
   );
 }
 
-function useGetPageSize() {
+export function useGetPageSize() {
   const [pageSize, setPageSize] = React.useState<{
     width: number;
     height: number;
@@ -152,22 +157,4 @@ function useGetPageSize() {
   }, [updateWindowSize]);
 
   return pageSize;
-}
-
-function getPreviewScale(page_width_px: number) {
-  // This could be retreived from the css programatically. The 16 is added for
-  // some reason I can't figure out but is needed.
-  return (PROPERTIES_PANEL_WIDTH_PX - 30 * 2 + 16) / page_width_px;
-}
-
-function usePreviewScale() {
-  const [previewScale, setPreviewScale] = React.useState(0.2);
-
-  const pageSize = useGetPageSize();
-  React.useEffect(() => {
-    if (!pageSize) return;
-    setPreviewScale(getPreviewScale(pageSize.width));
-  }, [pageSize]);
-
-  return previewScale;
 }

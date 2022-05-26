@@ -13,17 +13,15 @@ div.appViewerHolder {
   /* Sizes */
 
   /* How much in from the edges should the expanded app be? */
-  --expanded-inset-left: 70px;
-  --expanded-inset-right: 70px;
+  --expanded-inset-horizontal: 70px;
   --expanded-inset-top: 70px;
   --expanded-inset-bottom: calc(70px + var(--logs-offset-expanded));
 
   /* How much in from the edges should the shrunken app be? */
-  --preview-inset-left: 30px;
-  --preview-inset-right: 30px;
-  --preview-inset-top: 30px;
+  --preview-inset-horizontal: 10px;
+  --preview-inset-top: 10px;
   --preview-inset-bottom: calc(
-    30px + var(--logs-button-h) + var(--logs-offset)
+    var(--preview-inset-top) + var(--logs-button-h) + var(--logs-offset)
   );
 
   /* How tall should the tab to expand the logs be? */
@@ -33,9 +31,7 @@ div.appViewerHolder {
   --logs-offset-expanded: 30px;
 
   /* Sizes of the app when expanded. Used to scale the preview window without triggering a resize */
-  --app-expanded-w: calc(
-    100vw - var(--expanded-inset-left) - var(--expanded-inset-right)
-  );
+  --app-expanded-w: calc(100vw - var(--expanded-inset-horizontal) * 2);
   --app-expanded-h: calc(
     100vh - var(--expanded-inset-top) - var(--expanded-inset-bottom)
   );
@@ -98,15 +94,15 @@ div.appViewerHolder {
 .appViewerHolder[data-expanded="false"] > .appContainer {
   position: absolute;
   top: var(--preview-inset-top);
-  left: var(--preview-inset-left);
+  right: var(--preview-inset-horizontal);
   width: var(--app-preview-w);
   height: var(--app-preview-h);
 }
+
 .appViewerHolder[data-expanded="true"] > .appContainer {
   position: absolute;
+  inset-inline: var(--expanded-inset-horizontal);
   top: var(--expanded-inset-top);
-  left: var(--expanded-inset-left);
-  width: var(--app-expanded-w);
   height: var(--app-expanded-h);
 }
 
