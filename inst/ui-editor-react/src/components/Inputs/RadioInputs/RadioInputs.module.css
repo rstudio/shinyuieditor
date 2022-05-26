@@ -48,13 +48,6 @@ and background colors */
   font-size: 1.6rem;
 }
 
-.radioLabel .optionIcon {
-  display: grid;
-  place-content: center;
-  height: 100%;
-  padding: 1px;
-}
-
 .radioInput:checked + .radioLabel {
   outline: 3px solid var(--rstudio-blue);
   outline-offset: -2px;
@@ -68,7 +61,7 @@ and background colors */
 /* When the user hovers over an icon for a second, fade out the icon and fade in
 the label */
 .radioInput:hover + .radioLabel::after,
-.radioInput:hover + .radioLabel .optionIcon {
+.radioInput:hover + .radioLabel .icon {
   transition-property: opacity;
   transition-duration: 1.5s;
   transition-delay: 0.15s;
@@ -86,7 +79,7 @@ the label */
   opacity: 1;
 }
 
-.radioInput:hover + .radioLabel .optionIcon {
+.radioInput:hover + .radioLabel .icon {
   transition-timing-function: ease-out;
   opacity: 0;
 }
