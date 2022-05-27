@@ -1,8 +1,17 @@
 import * as React from "react";
 
+import type { CSSMeasure } from "CSSMeasure";
+
 import { getHasRelativeUnits } from "./dragToResizeHelpers";
 import classes from "./resizableGrid.module.css";
 import { useDragToResizeGrid } from "./useDragToResizeGrid";
+
+export type GridLayoutDef = {
+  areas: string[][];
+  rowSizes: string[];
+  colSizes: string[];
+  gapSize: CSSMeasure;
+};
 
 function EditableGridContainer({
   className,
@@ -10,13 +19,11 @@ function EditableGridContainer({
   areas,
   rowSizes,
   colSizes,
+  gapSize,
 }: {
   className?: string;
   children?: React.ReactNode;
-  areas: string[][];
-  rowSizes: string[];
-  colSizes: string[];
-}) {
+} & GridLayoutDef) {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const styles = {
     gridTemplateAreas: areas.map((x) => `"${x.join(" ")}"`).join(" \n "),
