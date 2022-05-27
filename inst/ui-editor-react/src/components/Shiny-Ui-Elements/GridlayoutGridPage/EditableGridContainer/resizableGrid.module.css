@@ -14,6 +14,8 @@
   padding: 0;
   gap: var(--grid-gap);
   position: relative;
+  /* Setup z-index stack so we can ensure our tract controls sit below the items  */
+  isolation: isolate;
 }
 
 .ResizableGrid > * {
@@ -26,7 +28,9 @@
 
 div.columnSizer,
 div.rowSizer {
-  background-color: aquamarine;
+  /* Make sure tract controls don't overlap the items */
+  z-index: -1;
+  background-color: transparent;
   opacity: 1;
   position: relative;
   /*
@@ -35,6 +39,24 @@ div.rowSizer {
      returning to the same place it is nowhere to be found.
     */
   transition: transform 1s 0.5s;
+}
+
+div.columnSizer::after,
+div.rowSizer::after {
+  --sizer-thickness: 2px;
+  content: "";
+  position: absolute;
+  background-color: var(--rstudio-blue);
+}
+div.columnSizer::after {
+  height: 100%;
+  width: var(--sizer-thickness);
+  left: calc(50% - var(--sizer-thickness) / 2);
+}
+div.rowSizer::after {
+  width: 100%;
+  height: var(--sizer-thickness);
+  top: calc(50% - var(--sizer-thickness) / 2);
 }
 
 .columnSizer {
@@ -55,7 +77,6 @@ div.rowSizer {
 
 .columnSizer:hover,
 .rowSizer:hover {
-  z-index: 9999;
   /* Make the transition to larger instant */
   transition: transform 0s;
 }
