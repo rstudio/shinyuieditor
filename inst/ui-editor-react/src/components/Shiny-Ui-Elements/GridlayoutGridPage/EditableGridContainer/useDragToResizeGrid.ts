@@ -2,6 +2,7 @@ import React from "react";
 
 import type { DragState } from "./dragToResizeHelpers";
 import { initDragState, updateDragState } from "./dragToResizeHelpers";
+import { getLayoutFromGridElement } from "./utils";
 
 export function useDragToResizeGrid({
   containerRef,
@@ -87,6 +88,8 @@ export function useDragToResizeGrid({
     // TODO: Update the javascript arrays containing the sizes to remove
     // reliance on node state for sizing
     stopListeningForMouseMove();
+
+    console.log("New layout", getLayoutFromGridElement(container));
 
     // Get the final sizes after dragging
     if (onDragEnd) {

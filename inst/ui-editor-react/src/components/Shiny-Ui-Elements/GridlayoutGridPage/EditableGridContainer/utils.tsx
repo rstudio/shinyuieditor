@@ -1,3 +1,5 @@
+import type { CSSMeasure } from "CSSMeasure";
+
 import type { GridLayoutDef } from ".";
 
 export function buildRange(from: number, to: number): number[] {
@@ -18,4 +20,30 @@ export function layoutDefToStyles({
     gridTemplateColumns: colSizes.join(" "),
     "--grid-gap": gapSize,
   } as React.CSSProperties;
+}
+
+function getTractSizesFromStyleDeclaration(
+  templateProperty: string
+): GridLayoutDef["colSizes"] {
+  return templateProperty.split(" ");
+}
+
+function getAreaMatrixFromStyleDeclaration(
+  areaProperty: string
+): GridLayoutDef["areas"] {
+  const rows_match = areaProperty.match(/"([\w\s]+)"/g);
+  if (!rows_match) throw new Error("Can't parse area definition");
+
+  return rows_match.map((r) => r.replaceAll(`"`, ``).split(" "));
+}
+
+export function getLayoutFromGridElement(el: HTMLElement): GridLayoutDef {
+  const rowSizes = getTractSizesFromStyleDeclaration(el.style.gridTemplateRows);
+  const colSizes = getTractSizesFromStyleDeclaration(
+    el.style.gridTemplateColumns
+  );
+  const areas = getAreaMatrixFromStyleDeclaration(el.style.gridTemplateAreas);
+  const gapSize = el.style.getPropertyValue("--grid-gap") as CSSMeasure;
+
+  return { rowSizes, colSizes, areas, gapSize };
 }
