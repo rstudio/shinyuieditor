@@ -1,16 +1,18 @@
 .ResizableGrid {
+  --grid-gap: "5px";
+
   --pad: 2px;
-  --panel-gap: 3px;
-  --sizer-margin-offset: calc(-1 * var(--panel-gap));
+  --sizer-margin-offset: calc(-1 * var(--grid-gap));
   /* How much does the handle expand to make it easier to grab? */
-  --expansion-scale: 3;
+  --expansion-scale: 1.3;
+
   height: 100%;
   width: 100%;
   min-height: 80px;
   min-width: 400px;
   display: grid;
   padding: 0;
-  gap: var(--panel-gap);
+  gap: var(--grid-gap);
   position: relative;
 }
 
@@ -24,7 +26,8 @@
 
 div.columnSizer,
 div.rowSizer {
-  opacity: 0;
+  background-color: aquamarine;
+  opacity: 1;
   position: relative;
   /*
      Transformation back to default size is nice and slow to make it less
@@ -36,7 +39,7 @@ div.rowSizer {
 
 .columnSizer {
   grid-row: 1/-1;
-  width: var(--panel-gap);
+  width: var(--grid-gap);
   margin-left: var(--sizer-margin-offset);
   height: 100%;
   cursor: ew-resize;
@@ -44,7 +47,7 @@ div.rowSizer {
 
 .rowSizer {
   grid-column: 1/-1;
-  height: var(--panel-gap);
+  height: var(--grid-gap);
   margin-top: var(--sizer-margin-offset);
   width: 100%;
   cursor: ns-resize;

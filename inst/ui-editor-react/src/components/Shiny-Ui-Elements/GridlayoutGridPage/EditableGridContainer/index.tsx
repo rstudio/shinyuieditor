@@ -29,6 +29,7 @@ function EditableGridContainer({
     gridTemplateAreas: areas.map((x) => `"${x.join(" ")}"`).join(" \n "),
     gridTemplateRows: rowSizes.join(" "),
     gridTemplateColumns: colSizes.join(" "),
+    "--grid-gap": gapSize,
   } as React.CSSProperties;
 
   // Build indices of the sizers needed. If there is only a single tract then no

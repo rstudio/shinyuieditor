@@ -16,8 +16,6 @@ export const EditableGridContainerShowcase: Story<{
         <GridItem area="c" color="MediumOrchid" />
         <GridItem area="d" color="Peru" />
       </EditableGridContainer>
-      {/* <div style={{ outline: "1px solid forestgreen", height: "100%" }}>
-      </div> */}
     </div>
   );
 };
@@ -34,6 +32,7 @@ function GridItem({ area, color }: { area: string; color: string }) {
         backgroundColor: color,
         color: "white",
         fontSize: "2rem",
+        pointerEvents: "none",
       }}
     >
       {area}
