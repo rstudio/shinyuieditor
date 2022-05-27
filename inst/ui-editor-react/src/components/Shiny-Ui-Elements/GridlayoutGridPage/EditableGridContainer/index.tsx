@@ -5,6 +5,7 @@ import type { CSSMeasure } from "CSSMeasure";
 import { getHasRelativeUnits } from "./dragToResizeHelpers";
 import classes from "./resizableGrid.module.css";
 import { useDragToResizeGrid } from "./useDragToResizeGrid";
+import { buildRange, layoutDefToStyles } from "./utils";
 
 export type GridLayoutDef = {
   areas: string[][];
@@ -16,21 +17,14 @@ export type GridLayoutDef = {
 function EditableGridContainer({
   className,
   children,
-  areas,
-  rowSizes,
-  colSizes,
-  gapSize,
+  ...layout
 }: {
   className?: string;
   children?: React.ReactNode;
 } & GridLayoutDef) {
+  const { rowSizes, colSizes } = layout;
   const containerRef = React.useRef<HTMLDivElement>(null);
-  const styles = {
-    gridTemplateAreas: areas.map((x) => `"${x.join(" ")}"`).join(" \n "),
-    gridTemplateRows: rowSizes.join(" "),
-    gridTemplateColumns: colSizes.join(" "),
-    "--grid-gap": gapSize,
-  } as React.CSSProperties;
+  const styles = layoutDefToStyles(layout);
 
   // Build indices of the sizers needed. If there is only a single tract then no
   // resizers are needed.
@@ -63,9 +57,7 @@ function EditableGridContainer({
           onMouseDown={(e) =>
             startDrag({ e, dir: "columns", index: gap_index })
           }
-          style={{
-            gridColumn: gap_index,
-          }}
+          style={{ gridColumn: gap_index }}
         />
       ))}
       {rowSizers.map((gap_index) => (
@@ -73,20 +65,12 @@ function EditableGridContainer({
           key={"row" + gap_index}
           onMouseDown={(e) => startDrag({ e, dir: "rows", index: gap_index })}
           className={classes.rowSizer}
-          style={{
-            gridRow: gap_index,
-          }}
+          style={{ gridRow: gap_index }}
         />
       ))}
       {children}
     </div>
   );
-}
-
-function buildRange(from: number, to: number): number[] {
-  const numEls = Math.abs(to - from) + 1;
-  const step = from < to ? 1 : -1;
-  return Array.from({ length: numEls }, (_, i) => from + i * step);
 }
 
 export default EditableGridContainer;
