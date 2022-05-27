@@ -1,16 +1,43 @@
 import React from "react";
 
+import type { GridLayoutDef } from ".";
+
 import type { DragState } from "./dragToResizeHelpers";
 import { initDragState, updateDragState } from "./dragToResizeHelpers";
 import { getLayoutFromGridElement } from "./utils";
+
+type TractDir = "rows" | "columns";
+export type TractInfo = {
+  dir: TractDir;
+  index: number;
+  size: string;
+};
+type DragStatus =
+  | {
+      status: "idle";
+    }
+  | {
+      status: "dragging";
+      tracts: [TractInfo, TractInfo];
+    };
 
 export function useDragToResizeGrid({
   containerRef,
   onDragEnd,
 }: {
   containerRef: React.RefObject<HTMLDivElement>;
-  onDragEnd?: (newSizes: { dir: "rows" | "columns"; sizes: string[] }) => void;
+  onDragEnd?: (layout: GridLayoutDef) => void;
 }) {
+  const [dragStatus, setDragStatus] = React.useState<DragStatus>({
+    status: "idle",
+  });
+  // const [dragStatus, setDragStatus] = React.useState<DragStatus>({
+  //   status: "dragging",
+  //   tracts: [
+  //     { dir: "columns", size: "100px", index: 1 },
+  //     { dir: "columns", size: "200px", index: 2 },
+  //   ],
+  // });
   const dragStateRef = React.useRef<DragState | null>(null);
 
   const startDrag = React.useCallback(
@@ -20,7 +47,7 @@ export function useDragToResizeGrid({
       index,
     }: {
       e: React.MouseEvent;
-      dir: "rows" | "columns";
+      dir: TractDir;
       index: number;
     }) => {
       if (!containerRef.current) {
@@ -45,6 +72,7 @@ export function useDragToResizeGrid({
         container: containerRef.current,
       });
 
+      setDragStatus(dragStateToStatus(dragStateRef.current));
       startListeningForMouseMove();
     },
     [containerRef]
@@ -60,16 +88,20 @@ export function useDragToResizeGrid({
         return;
       }
 
-      if (!dragStateRef.current) {
+      const dragState = dragStateRef.current;
+
+      if (!dragState) {
         console.error("Mouse move detected without any current drag state.");
         return;
       }
 
       updateDragState({
         mousePosition: e,
-        drag: dragStateRef.current,
+        drag: dragState,
         container,
       });
+
+      setDragStatus(dragStateToStatus(dragState));
     },
     [containerRef, dragStateRef]
   );
@@ -89,20 +121,13 @@ export function useDragToResizeGrid({
     // reliance on node state for sizing
     stopListeningForMouseMove();
 
-    console.log("New layout", getLayoutFromGridElement(container));
-
     // Get the final sizes after dragging
     if (onDragEnd) {
-      const { dir } = dragStateRef.current;
-      const finalSizes =
-        dir === "columns"
-          ? container.style.gridTemplateColumns
-          : container.style.gridTemplateRows;
-
-      onDragEnd({ dir, sizes: finalSizes.split(" ") });
+      onDragEnd(getLayoutFromGridElement(container));
     }
+    setDragStatus({ status: "idle" });
     dragStateRef.current = null;
-  }, []);
+  }, [containerRef, onDragEnd]);
 
   const dragWatcherDivRef = React.useRef<HTMLDivElement | null>(null);
 
@@ -152,6 +177,19 @@ export function useDragToResizeGrid({
   }, [onMouseMove]);
 
   return {
+    dragStatus,
     startDrag,
+  };
+}
+
+function dragStateToStatus(dragState: DragState): DragStatus {
+  const { dir, afterIndex, beforeIndex, currentSizes } = dragState;
+
+  return {
+    status: "dragging",
+    tracts: [
+      { dir, index: beforeIndex, size: currentSizes[0] },
+      { dir, index: afterIndex, size: currentSizes[1] },
+    ],
   };
 }

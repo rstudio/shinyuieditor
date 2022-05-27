@@ -95,3 +95,29 @@ div#size-detection-cell {
   grid-row: 1/-1;
   grid-column: 1/-1;
 }
+
+.tractInfoDisplay {
+  background-color: var(--rstudio-white);
+  /* outline: 1px solid var(--divider-color); */
+  border-radius: var(--corner-radius);
+  box-shadow: 1px 1px 5px var(--rstudio-grey);
+  height: fit-content;
+  width: fit-content;
+  padding-block: 1px;
+  padding-inline: 5px;
+  z-index: 1;
+  margin: 3px;
+}
+
+.tractInfoDisplay[data-drag-dir="rows"] {
+  grid-column: 1;
+  grid-row: var(--tract-index);
+  /* transform: translateX(-50%); */
+  align-self: center;
+}
+.tractInfoDisplay[data-drag-dir="columns"] {
+  grid-row: 1;
+  grid-column: var(--tract-index);
+  /* transform: translateY(-50%); */
+  justify-self: center;
+}

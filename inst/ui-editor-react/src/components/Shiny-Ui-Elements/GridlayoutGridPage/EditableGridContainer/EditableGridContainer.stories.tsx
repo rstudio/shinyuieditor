@@ -7,10 +7,13 @@ import EditableGridContainer from ".";
 
 export const EditableGridContainerShowcase: Story<{
   layout: GridLayoutDef;
-}> = ({ layout }) => {
+}> = (opts) => {
+  const [layout, setLayout] = React.useState(opts.layout);
+
+  console.log("Layout from state:", layout);
   return (
     <div style={containerStyles}>
-      <EditableGridContainer {...layout}>
+      <EditableGridContainer {...layout} onNewLayout={setLayout}>
         <GridItem area="a" color="Tomato" />
         <GridItem area="b" color="LightSeaGreen" />
         <GridItem area="c" color="MediumOrchid" />
@@ -40,7 +43,7 @@ function GridItem({ area, color }: { area: string; color: string }) {
 }
 
 const containerStyles: React.CSSProperties = {
-  outline: "1px solid red",
+  outline: "4px solid grey",
   width: "900px",
   height: "700px",
   padding: "20px",

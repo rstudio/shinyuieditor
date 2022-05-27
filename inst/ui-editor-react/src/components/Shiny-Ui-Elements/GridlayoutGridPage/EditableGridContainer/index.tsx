@@ -4,6 +4,7 @@ import type { CSSMeasure } from "CSSMeasure";
 
 import { getHasRelativeUnits } from "./dragToResizeHelpers";
 import classes from "./resizableGrid.module.css";
+import type { TractInfo } from "./useDragToResizeGrid";
 import { useDragToResizeGrid } from "./useDragToResizeGrid";
 import { buildRange, layoutDefToStyles } from "./utils";
 
@@ -17,10 +18,12 @@ export type GridLayoutDef = {
 function EditableGridContainer({
   className,
   children,
+  onNewLayout,
   ...layout
 }: {
   className?: string;
   children?: React.ReactNode;
+  onNewLayout: (layout: GridLayoutDef) => void;
 } & GridLayoutDef) {
   const { rowSizes, colSizes } = layout;
   const containerRef = React.useRef<HTMLDivElement>(null);
@@ -37,8 +40,9 @@ function EditableGridContainer({
       ? buildRange(2, rowSizes.length + (hasRelativeRows ? 0 : 1))
       : [];
 
-  const { startDrag } = useDragToResizeGrid({
+  const { startDrag, dragStatus } = useDragToResizeGrid({
     containerRef,
+    onDragEnd: onNewLayout,
   });
 
   const containerClasses = [classes.ResizableGrid];
@@ -69,6 +73,28 @@ function EditableGridContainer({
         />
       ))}
       {children}
+      {dragStatus.status === "dragging" ? (
+        <>
+          <TractInfoDisplay {...dragStatus.tracts[0]} />
+          <TractInfoDisplay {...dragStatus.tracts[1]} />
+        </>
+      ) : null}
+    </div>
+  );
+}
+
+function TractInfoDisplay({ dir, index, size }: TractInfo) {
+  return (
+    <div
+      className={classes.tractInfoDisplay}
+      data-drag-dir={dir}
+      style={
+        {
+          "--tract-index": index + 1,
+        } as React.CSSProperties
+      }
+    >
+      {size}
     </div>
   );
 }

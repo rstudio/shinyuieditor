@@ -4,6 +4,7 @@ export type DragState = {
   afterIndex: number;
   mouseStart: number;
   originalSizes: string[];
+  currentSizes: string[];
   pixelToFrRatio?: number;
 } & DragInfo;
 
@@ -193,6 +194,7 @@ export function initDragState({
     dir,
     mouseStart: getMousePosition(mousePosition, dir),
     originalSizes,
+    currentSizes: [...originalSizes],
     beforeIndex,
     afterIndex,
     ...dragInfo,
@@ -279,6 +281,8 @@ export function updateDragState({
       return;
     }
   }
+  //   console.log("Finished updating drag state", drag);
+  drag.currentSizes = newSizes;
   // Actually apply those new sizes to the css appropriate grid template sizes
   if (drag.dir === "columns") {
     container.style.gridTemplateColumns = newSizes.join(" ");
