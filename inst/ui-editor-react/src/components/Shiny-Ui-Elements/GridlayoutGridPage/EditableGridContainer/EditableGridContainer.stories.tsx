@@ -3,18 +3,21 @@ import React from "react";
 import type { Story } from "@ladle/react";
 
 import type { GridLayoutDef } from ".";
+import EditableGridContainer from ".";
 
 export const EditableGridContainerShowcase: Story<{
   layout: GridLayoutDef;
-}> = (layout) => {
+}> = ({ layout }) => {
   return (
     <div style={containerStyles}>
-      <div style={{ outline: "1px solid forestgreen", height: "100%" }}>
+      <EditableGridContainer {...layout}>
         <GridItem area="a" color="Tomato" />
         <GridItem area="b" color="LightSeaGreen" />
         <GridItem area="c" color="MediumOrchid" />
         <GridItem area="d" color="Peru" />
-      </div>
+      </EditableGridContainer>
+      {/* <div style={{ outline: "1px solid forestgreen", height: "100%" }}>
+      </div> */}
     </div>
   );
 };
@@ -29,6 +32,8 @@ function GridItem({ area, color }: { area: string; color: string }) {
         minWidth: "100px",
         gridArea: area,
         backgroundColor: color,
+        color: "white",
+        fontSize: "2rem",
       }}
     >
       {area}

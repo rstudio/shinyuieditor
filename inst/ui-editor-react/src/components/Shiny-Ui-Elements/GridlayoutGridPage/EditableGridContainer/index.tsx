@@ -46,15 +46,19 @@ function EditableGridContainer({
     containerRef,
   });
 
-  const classes = ["ResizableGrid"];
-  if (className) classes.push(className);
+  const containerClasses = [classes.ResizableGrid];
+  if (className) containerClasses.push(className);
 
   return (
-    <div className={classes.join(" ")} ref={containerRef} style={styles}>
+    <div
+      className={containerClasses.join(" ")}
+      ref={containerRef}
+      style={styles}
+    >
       {columnSizers.map((gap_index) => (
         <div
           key={"col" + gap_index}
-          className="ResizableGrid--col-sizer"
+          className={classes.columnSizer}
           onMouseDown={(e) =>
             startDrag({ e, dir: "columns", index: gap_index })
           }
@@ -67,7 +71,7 @@ function EditableGridContainer({
         <div
           key={"row" + gap_index}
           onMouseDown={(e) => startDrag({ e, dir: "rows", index: gap_index })}
-          className="ResizableGrid--row-sizer"
+          className={classes.rowSizer}
           style={{
             gridRow: gap_index,
           }}

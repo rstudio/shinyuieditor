@@ -22,8 +22,8 @@
   min-height: 0;
 }
 
-div.ResizableGrid--col-sizer,
-div.ResizableGrid--row-sizer {
+div.columnSizer,
+div.rowSizer {
   opacity: 0;
   position: relative;
   /*
@@ -34,7 +34,7 @@ div.ResizableGrid--row-sizer {
   transition: transform 1s 0.5s;
 }
 
-.ResizableGrid--col-sizer {
+.columnSizer {
   grid-row: 1/-1;
   width: var(--panel-gap);
   margin-left: var(--sizer-margin-offset);
@@ -42,7 +42,7 @@ div.ResizableGrid--row-sizer {
   cursor: ew-resize;
 }
 
-.ResizableGrid--row-sizer {
+.rowSizer {
   grid-column: 1/-1;
   height: var(--panel-gap);
   margin-top: var(--sizer-margin-offset);
@@ -50,16 +50,16 @@ div.ResizableGrid--row-sizer {
   cursor: ns-resize;
 }
 
-.ResizableGrid--col-sizer:hover,
-.ResizableGrid--row-sizer:hover {
+.columnSizer:hover,
+.rowSizer:hover {
   z-index: 9999;
   /* Make the transition to larger instant */
   transition: transform 0s;
 }
-.ResizableGrid--col-sizer:hover {
+.columnSizer:hover {
   transform: scaleX(var(--expansion-scale));
 }
-.ResizableGrid--row-sizer:hover {
+.rowSizer:hover {
   transform: scaleY(var(--expansion-scale));
 }
 
