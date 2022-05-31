@@ -14,10 +14,14 @@ const minPx = 40;
 // a tract smaller than `minFrRatio`*100% of its neighbor will be truncated
 const minFrRatio = 0.15;
 
-const pixelRoundLevel = 5;
+const roundTo = (precision: number) => (val: number) =>
+  Math.round(val / precision) * precision;
 
-const roundPixel = (pixel_count: number): number =>
-  Math.round(pixel_count / pixelRoundLevel) * pixelRoundLevel;
+const pixelRoundLevel = 5;
+const roundPixel = roundTo(pixelRoundLevel);
+
+const frRoundLevel = 0.05;
+const roundFr = roundTo(frRoundLevel);
 
 export function drag_both_relative(
   delta: number,
@@ -29,7 +33,7 @@ export function drag_both_relative(
     pixelToFrRatio: DragState["pixelToFrRatio"];
   } & Omit<DragBothRelative, "type">
 ): TractUpdateValues {
-  const frDelta = delta * pixelToFrRatio;
+  const frDelta = roundFr(delta * pixelToFrRatio);
 
   const beforeCount = beforeInfo.count + frDelta;
   const afterCount = afterInfo.count - frDelta;
