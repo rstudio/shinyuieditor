@@ -1,0 +1,51 @@
+.tractInfoDisplay {
+  /* background-color: var(--rstudio-blue); */
+
+  height: var(--grid-pad);
+  width: var(--grid-pad);
+  --offset: calc(-1 * var(--grid-pad));
+  z-index: 1;
+  display: grid;
+  place-content: center;
+}
+
+.tractInfoDisplay:hover {
+  /* outline: 1px solid black; */
+}
+
+.tractInfoDisplay .sizeWidget {
+  padding-inline: 5px;
+  padding-block: 3px;
+  border-radius: var(--corner-radius);
+  display: none;
+}
+.tractInfoDisplay:hover .sizeWidget {
+  display: block;
+  backdrop-filter: blur(5px);
+}
+
+.tractInfoDisplay[data-drag-dir="rows"] {
+  grid-column: 1;
+  grid-row: var(--tract-index);
+  align-self: center;
+  height: 100%;
+  margin-left: var(--offset);
+  /* transform: translateX(-100%); */
+}
+
+.tractInfoDisplay[data-drag-dir="rows"]:hover {
+  width: fit-content;
+  padding-inline: 5px;
+}
+.tractInfoDisplay[data-drag-dir="columns"] {
+  grid-row: 1;
+  grid-column: var(--tract-index);
+  justify-self: center;
+  width: 100%;
+  margin-top: var(--offset);
+}
+
+.tractInfoDisplay[data-drag-dir="columns"]:hover {
+  height: fit-content;
+  padding-block: 5px;
+}

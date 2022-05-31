@@ -4,6 +4,7 @@ import type { TemplatedGridProps } from "..";
 
 import { getHasRelativeUnits } from "./dragToResizeHelpers";
 import classes from "./resizableGrid.module.css";
+import { TractInfoDisplay } from "./TractInfoDisplay";
 import type { TractInfo } from "./useDragToResizeGrid";
 import { useDragToResizeGrid } from "./useDragToResizeGrid";
 import { buildRange, layoutDefToStyles } from "./utils";
@@ -24,16 +25,10 @@ function EditableGridContainer({
   const containerRef = React.useRef<HTMLDivElement>(null);
   const styles = layoutDefToStyles(layout);
 
-  // Build indices of the sizers needed. If there is only a single tract then no
-  // resizers are needed.
-  const hasRelativeRows = getHasRelativeUnits(rowSizes);
-
-  const columnSizers =
-    colSizes.length > 1 ? buildRange(2, colSizes.length) : [];
-  const rowSizers =
-    rowSizes.length > 1
-      ? buildRange(2, rowSizes.length + (hasRelativeRows ? 0 : 1))
-      : [];
+  const columnTractIndices = buildRange(1, colSizes.length);
+  const rowTractIndices = buildRange(1, rowSizes.length);
+  const [, ...columnSizers] = columnTractIndices;
+  const [, ...rowSizers] = rowTractIndices;
 
   const { startDrag, dragStatus } = useDragToResizeGrid({
     containerRef,
@@ -69,17 +64,33 @@ function EditableGridContainer({
       ))}
 
       {children}
+      {colSizes.map((size, column_i) => (
+        <TractInfoDisplay
+          key={"col" + column_i}
+          index={column_i}
+          dir="columns"
+          size={size}
+        />
+      ))}
+      {rowSizes.map((size, row_i) => (
+        <TractInfoDisplay
+          key={"row" + row_i}
+          index={row_i}
+          dir="rows"
+          size={size}
+        />
+      ))}
       {dragStatus.status === "dragging" ? (
         <>
-          <TractInfoDisplay {...dragStatus.tracts[0]} />
-          <TractInfoDisplay {...dragStatus.tracts[1]} />
+          <TractInfoField {...dragStatus.tracts[0]} />
+          <TractInfoField {...dragStatus.tracts[1]} />
         </>
       ) : null}
     </div>
   );
 }
 
-function TractInfoDisplay({ dir, index, size }: TractInfo) {
+function TractInfoField({ dir, index, size }: TractInfo) {
   return (
     <div
       className={classes.tractInfoDisplay}

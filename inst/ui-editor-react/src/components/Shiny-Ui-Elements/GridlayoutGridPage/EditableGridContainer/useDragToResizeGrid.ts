@@ -1,5 +1,7 @@
 import React from "react";
 
+import type { CSSMeasure } from "CSSMeasure";
+
 import type { TemplatedGridProps } from "..";
 
 import type { DragState } from "./dragToResizeHelpers";
@@ -10,7 +12,7 @@ type TractDir = "rows" | "columns";
 export type TractInfo = {
   dir: TractDir;
   index: number;
-  size: string;
+  size: CSSMeasure;
 };
 type DragStatus =
   | {
@@ -182,8 +184,12 @@ function dragStateToStatus(dragState: DragState): DragStatus {
   return {
     status: "dragging",
     tracts: [
-      { dir, index: beforeIndex, size: currentSizes[beforeIndex] },
-      { dir, index: afterIndex, size: currentSizes[afterIndex] },
+      {
+        dir,
+        index: beforeIndex,
+        size: currentSizes[beforeIndex] as CSSMeasure,
+      },
+      { dir, index: afterIndex, size: currentSizes[afterIndex] as CSSMeasure },
     ],
   };
 }
