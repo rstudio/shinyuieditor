@@ -2,6 +2,7 @@ import type {
   DragState,
   DragBothRelative,
   DragBothPixel,
+  DragPixelAfter,
   DragPixelBefore,
 } from "./dragToResizeHelpers";
 
@@ -20,7 +21,7 @@ const roundTo = (precision: number) => (val: number) =>
 const pixelRoundLevel = 5;
 const roundPixel = roundTo(pixelRoundLevel);
 
-const frRoundLevel = 0.05;
+const frRoundLevel = 0.01;
 const roundFr = roundTo(frRoundLevel);
 
 // Roundabout way to avoid ugly machine-epsilon floating point numbers like
@@ -81,5 +82,17 @@ export function drag_pixel_before(
   }
   return {
     beforeSize: roundPixel(beforeCount) + "px",
+  };
+}
+export function drag_pixel_after(
+  delta: number,
+  { afterInfo }: Omit<DragPixelAfter, "type">
+): TractUpdateValues {
+  const afterCount = afterInfo.count - delta;
+  if (afterCount < minPx) {
+    return {};
+  }
+  return {
+    afterSize: roundPixel(afterCount) + "px",
   };
 }

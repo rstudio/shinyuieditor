@@ -1,4 +1,5 @@
 import type { TractUpdateValues } from "./tractUpdatingFunctions";
+import { drag_pixel_after } from "./tractUpdatingFunctions";
 import {
   drag_pixel_before,
   drag_both_pixel,
@@ -19,7 +20,7 @@ export type DragPixelBefore = {
   type: "before-pixel";
   beforeInfo: PxInfo;
 };
-type DragPixelAfter = {
+export type DragPixelAfter = {
   type: "after-pixel";
   afterInfo: PxInfo;
 };
@@ -250,18 +251,15 @@ export function updateDragState({
     case "before-pixel":
       updatedSizes = drag_pixel_before(delta, drag);
       break;
-
+    case "after-pixel":
+      updatedSizes = drag_pixel_after(delta, drag);
+      break;
     case "both-pixel":
       updatedSizes = drag_both_pixel(delta, drag);
       break;
-
     case "both-relative":
       updatedSizes = drag_both_relative(delta, drag);
       break;
-
-    default:
-      console.log("Havent implemented dragging for " + drag.type);
-      return;
   }
 
   if (updatedSizes.beforeSize) {

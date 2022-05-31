@@ -52,12 +52,12 @@ const containerStyles: React.CSSProperties = {
 EditableGridContainerShowcase.args = {
   layout: {
     areas: [
-      ["a", "b"],
-      ["c", "d"],
-      ["e", "d"],
+      ["a", "b", "b"],
+      ["c", "d", "d"],
+      ["e", "d", "d"],
     ],
     rowSizes: ["100px", "2fr", "1fr"],
-    colSizes: ["200px", "1fr"],
+    colSizes: ["200px", "1fr", "100px"],
     gapSize: "15px",
   },
 };
