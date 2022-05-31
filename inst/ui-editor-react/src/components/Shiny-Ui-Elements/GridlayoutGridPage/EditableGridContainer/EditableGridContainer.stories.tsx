@@ -18,7 +18,8 @@ export const EditableGridContainerShowcase: Story<{
         <GridItem area="b" color="LightSeaGreen" />
         <GridItem area="c" color="MediumOrchid" />
         <GridItem area="d" color="Peru" />
-        <GridItem area="e" color="DarkKhaki " />
+        <GridItem area="e" color="DarkKhaki" />
+        <GridItem area="f" color="CornflowerBlue" />
       </EditableGridContainer>
     </div>
   );
@@ -52,9 +53,9 @@ const containerStyles: React.CSSProperties = {
 EditableGridContainerShowcase.args = {
   layout: {
     areas: [
-      ["a", "b", "b"],
-      ["c", "d", "d"],
-      ["e", "d", "d"],
+      ["a", "b", "f"],
+      ["c", "d", "f"],
+      ["e", "d", "f"],
     ],
     rowSizes: ["100px", "2fr", "1fr"],
     colSizes: ["200px", "1fr", "100px"],
