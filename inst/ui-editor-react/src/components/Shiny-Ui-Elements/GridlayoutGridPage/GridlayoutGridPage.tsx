@@ -86,6 +86,21 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
     setShowModal(nodeInfo);
   };
 
+  const updateLayout = React.useCallback(
+    (newLayout: TemplatedGridProps) => {
+      dispatch(
+        UPDATE_NODE({
+          path: [],
+          node: {
+            uiName: "gridlayout::grid_page",
+            uiArguments: newLayout,
+          },
+        })
+      );
+    },
+    [dispatch]
+  );
+
   const handleLayoutUpdate = React.useCallback(
     (action: GridLayoutAction) => {
       dispatch(
@@ -115,7 +130,6 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
   ));
 
   const stylesForGrid = {
-    // ...styles,
     "--gap": layoutDef.gapSize,
     "--row-gutter": "150px",
     "--col-gutter": "100px",
@@ -174,10 +188,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
         draggable={false}
         onDragStart={() => {}}
       >
-        <EditableGridContainer
-          {...layoutDef}
-          onNewLayout={(x) => console.log("new layout", x)}
-        >
+        <EditableGridContainer {...layoutDef} onNewLayout={updateLayout}>
           {enumerateGridDims({
             numRows,
             numCols,
