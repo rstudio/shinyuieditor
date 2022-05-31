@@ -54,7 +54,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
 
   const { areas } = layoutDef;
 
-  const { numRows, numCols, styles, sizes, uniqueAreas } =
+  const { numRows, numCols, sizes, uniqueAreas } =
     parseGridTemplateAreas(layoutDef);
 
   const gridCellLocations: CellLocRef = React.useRef({});

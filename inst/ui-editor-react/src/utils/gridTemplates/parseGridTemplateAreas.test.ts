@@ -3,29 +3,29 @@ import parseGridTemplateAreas, {
 } from "./parseGridTemplateAreas";
 
 describe("Build and validate tract size definitions", () => {
-  test("If a single value is provided for a size it is repeated for all tracts", () => {
-    expect(
-      parseGridTemplateAreas({
-        areas: [
-          ["a", "b", "c"],
-          ["d", "e", "f"],
-        ],
-        colSizes: "100px",
-      }).styles.gridTemplateColumns
-    ).toEqual("100px 100px 100px");
-  });
+  // test("If a single value is provided for a size it is repeated for all tracts", () => {
+  //   expect(
+  //     parseGridTemplateAreas({
+  //       areas: [
+  //         ["a", "b", "c"],
+  //         ["d", "e", "f"],
+  //       ],
+  //       colSizes: "100px",
+  //     }).styles.gridTemplateColumns
+  //   ).toEqual("100px 100px 100px");
+  // });
 
-  test("If a vector is passed it is used accordingly", () => {
-    expect(
-      parseGridTemplateAreas({
-        areas: [
-          ["a", "b", "c"],
-          ["d", "e", "f"],
-        ],
-        rowSizes: ["150px", "2rem"],
-      }).styles.gridTemplateRows
-    ).toEqual("150px 2rem");
-  });
+  // test("If a vector is passed it is used accordingly", () => {
+  //   expect(
+  //     parseGridTemplateAreas({
+  //       areas: [
+  //         ["a", "b", "c"],
+  //         ["d", "e", "f"],
+  //       ],
+  //       rowSizes: ["150px", "2rem"],
+  //     }).styles.gridTemplateRows
+  //   ).toEqual("150px 2rem");
+  // });
 
   test("Mismatches in dimension of areas and sizes are caught", () => {
     expect(() => buildTractSizes(3, ["150px", "2rem"], "row")).toThrowError();
