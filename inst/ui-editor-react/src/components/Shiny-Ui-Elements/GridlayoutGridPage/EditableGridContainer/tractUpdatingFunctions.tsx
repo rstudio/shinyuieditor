@@ -23,6 +23,10 @@ const roundPixel = roundTo(pixelRoundLevel);
 const frRoundLevel = 0.05;
 const roundFr = roundTo(frRoundLevel);
 
+// Roundabout way to avoid ugly machine-epsilon floating point numbers like
+// 1.4999999999991
+const cleanNumber = (num: number) => Number(num.toFixed(4));
+
 export function drag_both_relative(
   delta: number,
   {
@@ -47,8 +51,8 @@ export function drag_both_relative(
   }
 
   return {
-    beforeSize: beforeCount + "fr",
-    afterSize: afterCount + "fr",
+    beforeSize: cleanNumber(beforeCount) + "fr",
+    afterSize: cleanNumber(afterCount) + "fr",
   };
 }
 export function drag_both_pixel(
