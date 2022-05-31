@@ -1,6 +1,6 @@
 import React from "react";
 
-import type { GridLayoutDef } from ".";
+import type { TemplatedGridProps } from "utils/gridTemplates/types";
 
 import type { DragState } from "./dragToResizeHelpers";
 import { initDragState, updateDragState } from "./dragToResizeHelpers";
@@ -26,7 +26,7 @@ export function useDragToResizeGrid({
   onDragEnd,
 }: {
   containerRef: React.RefObject<HTMLDivElement>;
-  onDragEnd?: (layout: GridLayoutDef) => void;
+  onDragEnd?: (layout: TemplatedGridProps) => void;
 }) {
   const [dragStatus, setDragStatus] = React.useState<DragStatus>({
     status: "idle",

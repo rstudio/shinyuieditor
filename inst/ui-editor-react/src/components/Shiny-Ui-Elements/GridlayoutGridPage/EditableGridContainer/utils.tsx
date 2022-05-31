@@ -1,6 +1,5 @@
 import type { CSSMeasure } from "CSSMeasure";
-
-import type { GridLayoutDef } from ".";
+import type { TemplatedGridProps } from "utils/gridTemplates/types";
 
 export function buildRange(from: number, to: number): number[] {
   const numEls = Math.abs(to - from) + 1;
@@ -13,7 +12,7 @@ export function layoutDefToStyles({
   rowSizes,
   colSizes,
   gapSize,
-}: GridLayoutDef): React.CSSProperties {
+}: TemplatedGridProps): React.CSSProperties {
   return {
     gridTemplateAreas: areas.map((x) => `"${x.join(" ")}"`).join(" \n "),
     gridTemplateRows: rowSizes.join(" "),
@@ -24,20 +23,20 @@ export function layoutDefToStyles({
 
 function getTractSizesFromStyleDeclaration(
   templateProperty: string
-): GridLayoutDef["colSizes"] {
+): TemplatedGridProps["colSizes"] {
   return templateProperty.split(" ");
 }
 
 function getAreaMatrixFromStyleDeclaration(
   areaProperty: string
-): GridLayoutDef["areas"] {
+): TemplatedGridProps["areas"] {
   const rows_match = areaProperty.match(/"([\w\s]+)"/g);
   if (!rows_match) throw new Error("Can't parse area definition");
 
   return rows_match.map((r) => r.replaceAll(`"`, ``).split(" "));
 }
 
-export function getLayoutFromGridElement(el: HTMLElement): GridLayoutDef {
+export function getLayoutFromGridElement(el: HTMLElement): TemplatedGridProps {
   const rowSizes = getTractSizesFromStyleDeclaration(el.style.gridTemplateRows);
   const colSizes = getTractSizesFromStyleDeclaration(
     el.style.gridTemplateColumns
