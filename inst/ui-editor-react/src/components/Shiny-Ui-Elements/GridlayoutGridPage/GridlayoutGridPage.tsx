@@ -15,13 +15,12 @@ import { UPDATE_NODE, usePlaceNode } from "state/uiTree";
 import { enumerateGridDims, toStringLoc } from "utils/grid-helpers";
 import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
-import type {
-  GridItemExtent,
-  TemplatedGridProps,
-} from "utils/gridTemplates/types";
+import type { GridItemExtent } from "utils/gridTemplates/types";
 
 import type { GridAwareNodes } from "../GridLayoutPanelHelpers/EmptyPanelMessage/gridAwareNodes";
 import { gridAwareNodes } from "../GridLayoutPanelHelpers/EmptyPanelMessage/gridAwareNodes";
+
+import type { TemplatedGridProps } from ".";
 
 import EditableGridContainer from "./EditableGridContainer";
 import type { GridLayoutAction } from "./gridLayoutReducer";

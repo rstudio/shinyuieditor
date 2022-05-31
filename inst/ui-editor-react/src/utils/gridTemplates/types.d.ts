@@ -1,9 +1,9 @@
-export type TemplatedGridProps = {
-  areas: string[][];
-  rowSizes?: CSSMeasure[] | CSSMeasure;
-  colSizes?: CSSMeasure[] | CSSMeasure;
-  gapSize?: CSSMeasure;
-};
+// export type TemplatedGridProps = {
+//   areas: string[][];
+//   rowSizes?: CSSMeasure[] | CSSMeasure;
+//   colSizes?: CSSMeasure[] | CSSMeasure;
+//   gapSize?: CSSMeasure;
+// };
 
 /**
  * Positional info of item on grid along with validity

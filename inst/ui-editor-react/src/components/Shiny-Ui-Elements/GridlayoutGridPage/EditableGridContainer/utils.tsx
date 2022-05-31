@@ -1,5 +1,6 @@
 import type { CSSMeasure } from "CSSMeasure";
-import type { TemplatedGridProps } from "utils/gridTemplates/types";
+
+import type { TemplatedGridProps } from "..";
 
 export function buildRange(from: number, to: number): number[] {
   const numEls = Math.abs(to - from) + 1;
@@ -24,7 +25,7 @@ export function layoutDefToStyles({
 function getTractSizesFromStyleDeclaration(
   templateProperty: string
 ): TemplatedGridProps["colSizes"] {
-  return templateProperty.split(" ");
+  return templateProperty.split(" ") as CSSMeasure[];
 }
 
 function getAreaMatrixFromStyleDeclaration(

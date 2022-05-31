@@ -12,9 +12,10 @@ import { FaPlus, FaTrash } from "react-icons/fa";
 import { joinPretty } from "utils/array-helpers";
 import type { ParsedGridTemplate } from "utils/gridTemplates/parseGridTemplateAreas";
 import { conflictsToRemoveTract } from "utils/gridTemplates/removeTract";
-import type { TemplatedGridProps } from "utils/gridTemplates/types";
 
 import { PopoverButton } from "../../Inputs/PopoverButton";
+
+import type { TemplatedGridProps } from ".";
 
 import classes from "./TractControls.module.css";
 import { useSetLayout } from "./useSetLayout";

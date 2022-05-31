@@ -1,6 +1,6 @@
 import React from "react";
 
-import type { TemplatedGridProps } from "utils/gridTemplates/types";
+import type { TemplatedGridProps } from "..";
 
 import type { DragState } from "./dragToResizeHelpers";
 import { initDragState, updateDragState } from "./dragToResizeHelpers";

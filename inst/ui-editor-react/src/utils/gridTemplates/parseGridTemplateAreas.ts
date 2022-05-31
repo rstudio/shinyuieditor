@@ -1,10 +1,9 @@
+import type { TemplatedGridProps } from "components/Shiny-Ui-Elements/GridlayoutGridPage";
 import type { TractDirection } from "components/Shiny-Ui-Elements/GridlayoutGridPage/helpers";
 import type { CSSMeasure } from "CSSMeasure";
 
 import { fillArr } from "../array-helpers";
 import { matrixDimensions, uniqueMatrixElements } from "../matrix-helpers";
-
-import type { TemplatedGridProps } from "./types";
 
 type GridContainerStyles = Pick<
   React.CSSProperties,
@@ -24,8 +23,8 @@ export type ParsedGridTemplate = {
 
 export default function parseGridTemplateAreas({
   areas,
-  rowSizes = "1fr",
-  colSizes = "1fr",
+  rowSizes = ["1fr"],
+  colSizes = ["1fr"],
   gapSize = "1rem",
 }: TemplatedGridProps): ParsedGridTemplate {
   const sizes = getTractSizes({ areas, rowSizes, colSizes });
@@ -40,8 +39,8 @@ export default function parseGridTemplateAreas({
 
 export function getTractSizes({
   areas,
-  rowSizes = "1fr",
-  colSizes = "1fr",
+  rowSizes = ["1fr"],
+  colSizes = ["1fr"],
 }: Pick<TemplatedGridProps, "areas" | "rowSizes" | "colSizes">): Record<
   TractDirection,
   CSSMeasure[]

@@ -1,12 +1,17 @@
+import type { TemplatedGridProps } from "components/Shiny-Ui-Elements/GridlayoutGridPage";
+
 import swapItems from "./swapItems";
 
 describe("Swap items", () => {
-  const baseLayout = {
+  const baseLayout: TemplatedGridProps = {
     areas: [
       ["a", "a", "b"],
       ["c", "c", "c"],
       ["d", "e", "e"],
     ],
+    rowSizes: ["1fr", "1fr", "1fr"],
+    colSizes: ["1fr", "1fr", "1fr"],
+    gapSize: "10px",
   };
   test("Simple swap", () => {
     expect(

@@ -1,12 +1,10 @@
+import type { TemplatedGridProps } from "components/Shiny-Ui-Elements/GridlayoutGridPage";
 import type { GridCellBounds } from "components/Shiny-Ui-Elements/GridlayoutGridPage/GridCell";
 import { boundingBoxToExtent } from "components/Shiny-Ui-Elements/GridlayoutGridPage/helpers";
 import type { DragDirection } from "components/Shiny-Ui-Elements/GridlayoutGridPage/useResizeOnDrag";
 import { buildRange } from "utils/array-helpers";
 import { toStringLoc } from "utils/grid-helpers";
-import type {
-  ItemLocation,
-  TemplatedGridProps,
-} from "utils/gridTemplates/types";
+import type { ItemLocation } from "utils/gridTemplates/types";
 import type { SelectionRect } from "utils/overlap-helpers";
 
 import findAvailableTracts from "./findAvailableTracts";

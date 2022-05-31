@@ -1,4 +1,4 @@
-import type { TemplatedGridProps } from "utils/gridTemplates/types";
+import type { CSSMeasure } from "CSSMeasure";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 
@@ -8,6 +8,13 @@ import {
   removeDeletedGridAreaFromLayout,
   updateGridLayoutAreaOnItemAreaChange,
 } from "./watchAndReactToGridAreaUpdatesupdate";
+
+export type TemplatedGridProps = {
+  areas: string[][];
+  rowSizes: CSSMeasure[];
+  colSizes: CSSMeasure[];
+  gapSize: CSSMeasure;
+};
 
 export const gridlayoutGridPageInfo: UiComponentInfo<TemplatedGridProps> = {
   title: "Grid Page",

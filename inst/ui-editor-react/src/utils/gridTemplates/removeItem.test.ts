@@ -1,12 +1,18 @@
+import type { TemplatedGridProps } from "components/Shiny-Ui-Elements/GridlayoutGridPage";
+
 import { removeItems, removeItem } from "./removeItem";
 
 describe("Remove single item", () => {
-  const baseLayout = {
+  const baseLayout: TemplatedGridProps = {
     areas: [
       ["a", "b", "b"],
       ["a", "c", "d"],
       ["e", "e", "f"],
     ],
+
+    rowSizes: ["1fr", "1fr", "1fr"],
+    colSizes: ["1fr", "1fr", "1fr"],
+    gapSize: "10px",
   };
   test("Remove a", () => {
     expect(removeItem(baseLayout, "a").areas).toStrictEqual([
@@ -31,12 +37,15 @@ describe("Remove single item", () => {
 });
 
 describe("Remove multiple items", () => {
-  const baseLayout = {
+  const baseLayout: TemplatedGridProps = {
     areas: [
       ["a", "b", "b"],
       ["a", "c", "d"],
       ["e", "e", "f"],
     ],
+    rowSizes: ["1fr", "1fr", "1fr"],
+    colSizes: ["1fr", "1fr", "1fr"],
+    gapSize: "10px",
   };
 
   test("Remove a and b", () => {

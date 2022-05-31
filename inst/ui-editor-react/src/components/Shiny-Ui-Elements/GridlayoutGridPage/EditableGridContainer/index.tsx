@@ -1,12 +1,14 @@
 import * as React from "react";
 
-import type { TemplatedGridProps } from "utils/gridTemplates/types";
+import type { TemplatedGridProps } from "..";
 
 import { getHasRelativeUnits } from "./dragToResizeHelpers";
 import classes from "./resizableGrid.module.css";
 import type { TractInfo } from "./useDragToResizeGrid";
 import { useDragToResizeGrid } from "./useDragToResizeGrid";
 import { buildRange, layoutDefToStyles } from "./utils";
+
+// type GridLayoutDef = Required<TemplatedGridProps>;
 
 function EditableGridContainer({
   className,

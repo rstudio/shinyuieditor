@@ -1,7 +1,8 @@
 import React from "react";
 
 import type { Story } from "@ladle/react";
-import type { TemplatedGridProps } from "utils/gridTemplates/types";
+
+import type { TemplatedGridProps } from "..";
 
 import EditableGridContainer from ".";
 

@@ -1,3 +1,4 @@
+import type { TemplatedGridProps } from "components/Shiny-Ui-Elements/GridlayoutGridPage";
 import type { TractDirection } from "components/Shiny-Ui-Elements/GridlayoutGridPage/helpers";
 import type { CSSMeasure } from "CSSMeasure";
 import { addAtIndex, fillArr } from "utils/array-helpers";
@@ -6,7 +7,6 @@ import { insertRowOrCol } from "utils/matrix-helpers";
 import { areasToItemLocations, emptyCell } from "./itemLocations";
 import { itemBoundsInDir } from "./itemLocationToBounds";
 import { getTractSizes } from "./parseGridTemplateAreas";
-import type { TemplatedGridProps } from "./types";
 
 export type NewTract = {
   afterIndex: number;

@@ -1,3 +1,4 @@
+import type { TemplatedGridProps } from "components/Shiny-Ui-Elements/GridlayoutGridPage";
 import type { GridCellBounds } from "components/Shiny-Ui-Elements/GridlayoutGridPage/GridCell";
 import {
   centerOfBounds,
@@ -7,7 +8,7 @@ import {
 import { matrixDimensions } from "utils/matrix-helpers";
 
 import { emptyCell } from "./itemLocations";
-import type { GridItemExtent, ItemLocation, TemplatedGridProps } from "./types";
+import type { GridItemExtent, ItemLocation } from "./types";
 
 export default function moveCandidatesForItem(
   { rowSpan, colSpan, rowStart, colStart }: ItemLocation,

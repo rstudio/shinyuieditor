@@ -8,11 +8,9 @@ import {
 } from "react-icons/ai";
 import type { MovementType } from "utils/gridTemplates/availableMoves";
 import { availableMoves } from "utils/gridTemplates/availableMoves";
-import type {
-  GridItemExtent,
-  ItemLocation,
-  TemplatedGridProps,
-} from "utils/gridTemplates/types";
+import type { GridItemExtent, ItemLocation } from "utils/gridTemplates/types";
+
+import type { TemplatedGridProps } from ".";
 
 import classes from "./AreaOverlay.module.css";
 import type { CellLocRef } from "./GridCell";
