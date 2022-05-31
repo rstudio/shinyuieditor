@@ -133,6 +133,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
     "--gap": layoutDef.gapSize,
     "--row-gutter": "150px",
     "--col-gutter": "100px",
+    "--pad": "8px",
   } as React.CSSProperties;
 
   const addNewGridItem = React.useCallback(
