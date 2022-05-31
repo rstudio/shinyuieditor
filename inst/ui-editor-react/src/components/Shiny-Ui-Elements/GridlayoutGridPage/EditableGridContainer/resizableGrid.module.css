@@ -132,6 +132,24 @@ div#size-detection-cell {
   position: relative;
 }
 
+.resizeOverlay {
+  display: none;
+}
+
+.resizeOverlay[data-being-resized="true"] {
+  display: block;
+  position: absolute;
+  inset: 0;
+  background-color: grey;
+  opacity: 0.3;
+}
+
+.areaControls[data-being-resized="true"] {
+  outline: 4px solid red;
+  display: block;
+  position: absolute;
+}
+
 .upperLeftSizer,
 .lowerRightSizer {
   --size: 10px;

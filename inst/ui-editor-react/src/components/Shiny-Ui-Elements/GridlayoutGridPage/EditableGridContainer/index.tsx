@@ -42,7 +42,6 @@ function EditableGridContainer({
       : [];
 
   const areasInLayout = getAreasInLayout(layout);
-  console.log("areasInLayout", areasInLayout);
   const { startDrag, dragStatus } = useDragToResizeGrid({
     containerRef,
     onDragEnd: onNewLayout,
