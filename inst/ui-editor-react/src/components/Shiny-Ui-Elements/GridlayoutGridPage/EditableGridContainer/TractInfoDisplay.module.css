@@ -1,27 +1,20 @@
 .tractInfoDisplay {
-  /* background-color: var(--rstudio-blue); */
-
   height: var(--grid-pad);
   width: var(--grid-pad);
   --offset: calc(-1 * var(--grid-pad));
   z-index: 1;
   display: grid;
-  place-content: center;
+  opacity: 0;
+  transition-property: opacity, width, height;
+  transition-duration: 0.2s;
+  transition-delay: 1s;
+  transition-timing-function: ease-in-out;
+  overflow: hidden;
 }
 
 .tractInfoDisplay:hover {
-  /* outline: 1px solid black; */
-}
-
-.tractInfoDisplay .sizeWidget {
-  padding-inline: 5px;
-  padding-block: 3px;
-  border-radius: var(--corner-radius);
-  display: none;
-}
-.tractInfoDisplay:hover .sizeWidget {
-  display: block;
-  backdrop-filter: blur(5px);
+  opacity: 1;
+  transition: none;
 }
 
 .tractInfoDisplay[data-drag-dir="rows"] {
@@ -30,12 +23,12 @@
   align-self: center;
   height: 100%;
   margin-left: var(--offset);
-  /* transform: translateX(-100%); */
+  align-items: center;
+  padding-inline: 5px;
 }
 
 .tractInfoDisplay[data-drag-dir="rows"]:hover {
-  width: fit-content;
-  padding-inline: 5px;
+  width: 150px;
 }
 .tractInfoDisplay[data-drag-dir="columns"] {
   grid-row: 1;
@@ -43,9 +36,19 @@
   justify-self: center;
   width: 100%;
   margin-top: var(--offset);
+  justify-content: center;
+  padding-block: 5px;
 }
 
 .tractInfoDisplay[data-drag-dir="columns"]:hover {
-  height: fit-content;
-  padding-block: 5px;
+  height: 40px;
+}
+
+.tractInfoDisplay .sizeWidget {
+  padding-inline: 5px;
+  padding-block: 3px;
+  border-radius: var(--corner-radius);
+}
+.tractInfoDisplay:hover .sizeWidget {
+  backdrop-filter: blur(5px);
 }
