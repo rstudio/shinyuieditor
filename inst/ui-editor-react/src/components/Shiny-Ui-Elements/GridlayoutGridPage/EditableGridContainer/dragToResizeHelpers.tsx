@@ -222,6 +222,10 @@ const minPx = 40;
 // a tract smaller than `minFrRatio`*100% of its neighbor will be truncated
 const minFrRatio = 0.15;
 
+const pixelRoundLevel = 5;
+const roundPixel = (pixel_count: number): number =>
+  Math.round(pixel_count / pixelRoundLevel) * pixelRoundLevel;
+
 export function updateDragState({
   mousePosition,
   drag,
@@ -241,7 +245,7 @@ export function updateDragState({
       if (beforeCount < minPx) {
         return;
       }
-      newSizes[drag.beforeIndex] = beforeCount + "px";
+      newSizes[drag.beforeIndex] = roundPixel(beforeCount) + "px";
       break;
     }
 
@@ -281,7 +285,7 @@ export function updateDragState({
       return;
     }
   }
-  //   console.log("Finished updating drag state", drag);
+
   drag.currentSizes = newSizes;
   // Actually apply those new sizes to the css appropriate grid template sizes
   if (drag.dir === "columns") {
