@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import type { CSSMeasure } from "CSSMeasure";
+import type { TemplatedGridProps } from "utils/gridTemplates/types";
 
 import { AreaControls } from "./AreaControls";
 import { getHasRelativeUnits } from "./dragToResizeHelpers";
@@ -8,13 +8,6 @@ import classes from "./resizableGrid.module.css";
 import type { TractInfo } from "./useDragToResizeGrid";
 import { useDragToResizeGrid } from "./useDragToResizeGrid";
 import { buildRange, layoutDefToStyles } from "./utils";
-
-export type GridLayoutDef = {
-  areas: string[][];
-  rowSizes: string[];
-  colSizes: string[];
-  gapSize: CSSMeasure;
-};
 
 function EditableGridContainer({
   className,
@@ -24,8 +17,8 @@ function EditableGridContainer({
 }: {
   className?: string;
   children?: React.ReactNode;
-  onNewLayout: (layout: GridLayoutDef) => void;
-} & GridLayoutDef) {
+  onNewLayout: (layout: TemplatedGridProps) => void;
+} & TemplatedGridProps) {
   const { rowSizes, colSizes } = layout;
   const containerRef = React.useRef<HTMLDivElement>(null);
   const styles = layoutDefToStyles(layout);
@@ -88,7 +81,9 @@ function EditableGridContainer({
   );
 }
 
-function getAreasInLayout({ areas }: Pick<GridLayoutDef, "areas">): string[] {
+function getAreasInLayout({
+  areas,
+}: Pick<TemplatedGridProps, "areas">): string[] {
   const seenAreas = new Set<string>();
 
   const num_rows = areas.length;

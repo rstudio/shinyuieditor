@@ -1,12 +1,12 @@
 import React from "react";
 
 import type { Story } from "@ladle/react";
+import type { TemplatedGridProps } from "utils/gridTemplates/types";
 
-import type { GridLayoutDef } from ".";
 import EditableGridContainer from ".";
 
 export const EditableGridContainerShowcase: Story<{
-  layout: GridLayoutDef;
+  layout: TemplatedGridProps;
 }> = (opts) => {
   const [layout, setLayout] = React.useState(opts.layout);
 
