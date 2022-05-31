@@ -26,10 +26,10 @@ export function drag_both_relative(
     beforeInfo,
     afterInfo,
   }: {
-    pixelToFrRatio?: DragState["pixelToFrRatio"];
+    pixelToFrRatio: DragState["pixelToFrRatio"];
   } & Omit<DragBothRelative, "type">
 ): TractUpdateValues {
-  const frDelta = delta * (pixelToFrRatio ?? 1);
+  const frDelta = delta * pixelToFrRatio;
 
   const beforeCount = beforeInfo.count + frDelta;
   const afterCount = afterInfo.count - frDelta;

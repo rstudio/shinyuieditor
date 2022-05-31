@@ -12,7 +12,7 @@ export type DragState = {
   mouseStart: number;
   originalSizes: string[];
   currentSizes: string[];
-  pixelToFrRatio?: number;
+  pixelToFrRatio: number;
 } & DragInfo;
 
 export type DragPixelBefore = {
@@ -214,19 +214,19 @@ export function initDragState({
     beforeIndex,
     afterIndex,
     ...dragInfo,
+    pixelToFrRatio:
+      dragInfo.type === "both-relative"
+        ? getPxToFrRatioForRelativeTracts({
+            container,
+            index,
+            dir,
+            frCounts: {
+              before: dragInfo.beforeInfo.count,
+              after: dragInfo.afterInfo.count,
+            },
+          })
+        : 1,
   };
-
-  if (dragInfo.type === "both-relative") {
-    dragState.pixelToFrRatio = getPxToFrRatioForRelativeTracts({
-      container,
-      index,
-      dir,
-      frCounts: {
-        before: dragInfo.beforeInfo.count,
-        after: dragInfo.afterInfo.count,
-      },
-    });
-  }
 
   return dragState;
 }
