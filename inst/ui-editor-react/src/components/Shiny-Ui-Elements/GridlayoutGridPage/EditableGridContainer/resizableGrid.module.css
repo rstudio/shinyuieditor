@@ -106,7 +106,6 @@ div#size-detection-cell {
 
 .tractInfoDisplay {
   background-color: var(--rstudio-white);
-  /* outline: 1px solid var(--divider-color); */
   border-radius: var(--corner-radius);
   box-shadow: 1px 1px 5px var(--rstudio-grey);
   height: fit-content;
@@ -120,12 +119,42 @@ div#size-detection-cell {
 .tractInfoDisplay[data-drag-dir="rows"] {
   grid-column: 1;
   grid-row: var(--tract-index);
-  /* transform: translateX(-50%); */
   align-self: center;
 }
 .tractInfoDisplay[data-drag-dir="columns"] {
   grid-row: 1;
   grid-column: var(--tract-index);
-  /* transform: translateY(-50%); */
   justify-self: center;
+}
+
+.areaControls {
+  /* outline: 2px solid burlywood; */
+  position: relative;
+}
+
+.upperLeftSizer,
+.lowerRightSizer {
+  --size: 10px;
+  --offset: calc(var(--size) / -2);
+  position: absolute;
+  width: var(--size);
+  height: var(--size);
+  border-radius: var(--corner-radius);
+  outline: 1px solid var(--grey);
+}
+.upperLeftSizer:hover,
+.lowerRightSizer:hover {
+  transform: scale(1.5);
+  background-color: var(--rstudio-white);
+}
+
+.upperLeftSizer {
+  top: var(--offset);
+  left: var(--offset);
+  cursor: nw-resize;
+}
+.lowerRightSizer {
+  bottom: var(--offset);
+  right: var(--offset);
+  cursor: se-resize;
 }

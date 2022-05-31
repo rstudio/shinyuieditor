@@ -2,6 +2,7 @@ import * as React from "react";
 
 import type { CSSMeasure } from "CSSMeasure";
 
+import { AreaControls } from "./AreaControls";
 import { getHasRelativeUnits } from "./dragToResizeHelpers";
 import classes from "./resizableGrid.module.css";
 import type { TractInfo } from "./useDragToResizeGrid";
@@ -40,6 +41,8 @@ function EditableGridContainer({
       ? buildRange(2, rowSizes.length + (hasRelativeRows ? 0 : 1))
       : [];
 
+  const areasInLayout = getAreasInLayout(layout);
+  console.log("areasInLayout", areasInLayout);
   const { startDrag, dragStatus } = useDragToResizeGrid({
     containerRef,
     onDragEnd: onNewLayout,
@@ -72,6 +75,9 @@ function EditableGridContainer({
           style={{ gridRow: gap_index }}
         />
       ))}
+      {areasInLayout.map((area) => (
+        <AreaControls key={area} area={area} />
+      ))}
       {children}
       {dragStatus.status === "dragging" ? (
         <>
@@ -81,6 +87,21 @@ function EditableGridContainer({
       ) : null}
     </div>
   );
+}
+
+function getAreasInLayout({ areas }: Pick<GridLayoutDef, "areas">): string[] {
+  const seenAreas = new Set<string>();
+
+  const num_rows = areas.length;
+  const num_cols = areas[0].length;
+  for (let row_index = 0; row_index < num_rows; row_index++) {
+    const row = areas[row_index];
+    for (let col_index = 0; col_index < num_cols; col_index++) {
+      seenAreas.add(row[col_index]);
+    }
+  }
+
+  return [...seenAreas];
 }
 
 function TractInfoDisplay({ dir, index, size }: TractInfo) {
