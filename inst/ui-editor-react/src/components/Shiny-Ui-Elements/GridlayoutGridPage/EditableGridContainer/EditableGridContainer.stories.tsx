@@ -20,6 +20,7 @@ export const EditableGridContainerShowcase: Story<{
         <GridItem area="d" color="Peru" />
         <GridItem area="e" color="DarkKhaki" />
         <GridItem area="f" color="CornflowerBlue" />
+        <GridItem area="g" color="FireBrick" />
       </EditableGridContainer>
     </div>
   );
@@ -54,10 +55,11 @@ EditableGridContainerShowcase.args = {
   layout: {
     areas: [
       ["a", "b", "f"],
+      ["g", "g", "f"],
       ["c", "d", "f"],
       ["e", "d", "f"],
     ],
-    rowSizes: ["100px", "2fr", "1fr"],
+    rowSizes: ["100px", "100px", "2fr", "1fr"],
     colSizes: ["200px", "1fr", "100px"],
     gapSize: "15px",
   },

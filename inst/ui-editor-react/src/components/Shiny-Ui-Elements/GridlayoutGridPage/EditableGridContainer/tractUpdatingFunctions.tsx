@@ -60,8 +60,10 @@ export function drag_both_pixel(
   delta: number,
   { beforeInfo, afterInfo }: Omit<DragBothPixel, "type">
 ): TractUpdateValues {
-  const beforeCount = beforeInfo.count + delta;
-  const afterCount = afterInfo.count - delta;
+  const rounded_delta = roundPixel(delta);
+
+  const beforeCount = beforeInfo.count + rounded_delta;
+  const afterCount = afterInfo.count - rounded_delta;
 
   if (beforeCount < minPx || afterCount < minPx) {
     return {};
