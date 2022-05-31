@@ -262,6 +262,8 @@ export function updateDragState({
       break;
   }
 
+  if (updatedSizes === "no-change") return;
+
   if (updatedSizes.beforeSize) {
     newSizes[drag.beforeIndex] = updatedSizes.beforeSize;
   }
