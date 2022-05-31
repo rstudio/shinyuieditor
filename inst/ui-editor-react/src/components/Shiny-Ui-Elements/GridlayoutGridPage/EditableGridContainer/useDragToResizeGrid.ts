@@ -31,13 +31,7 @@ export function useDragToResizeGrid({
   const [dragStatus, setDragStatus] = React.useState<DragStatus>({
     status: "idle",
   });
-  // const [dragStatus, setDragStatus] = React.useState<DragStatus>({
-  //   status: "dragging",
-  //   tracts: [
-  //     { dir: "columns", size: "100px", index: 1 },
-  //     { dir: "columns", size: "200px", index: 2 },
-  //   ],
-  // });
+
   const dragStateRef = React.useRef<DragState | null>(null);
 
   const startDrag = React.useCallback(
@@ -188,8 +182,8 @@ function dragStateToStatus(dragState: DragState): DragStatus {
   return {
     status: "dragging",
     tracts: [
-      { dir, index: beforeIndex, size: currentSizes[0] },
-      { dir, index: afterIndex, size: currentSizes[1] },
+      { dir, index: beforeIndex, size: currentSizes[beforeIndex] },
+      { dir, index: afterIndex, size: currentSizes[afterIndex] },
     ],
   };
 }

@@ -1,3 +1,10 @@
+import type { TractUpdateValues } from "./tractUpdatingFunctions";
+import {
+  drag_pixel_before,
+  drag_both_pixel,
+  drag_both_relative,
+} from "./tractUpdatingFunctions";
+
 export type DragState = {
   dir: "rows" | "columns";
   beforeIndex: number;
@@ -8,22 +15,31 @@ export type DragState = {
   pixelToFrRatio?: number;
 } & DragInfo;
 
-type DragInfo =
-  | {
-      type: "before-pixel";
-      beforeInfo: PxInfo;
-    }
-  | { type: "both-pixel"; beforeInfo: PxInfo; afterInfo: PxInfo }
-  | {
-      type: "after-pixel";
+export type DragPixelBefore = {
+  type: "before-pixel";
+  beforeInfo: PxInfo;
+};
+type DragPixelAfter = {
+  type: "after-pixel";
+  afterInfo: PxInfo;
+};
+export type DragBothPixel = {
+  type: "both-pixel";
+  beforeInfo: PxInfo;
+  afterInfo: PxInfo;
+};
 
-      afterInfo: PxInfo;
-    }
-  | {
-      type: "both-relative";
-      beforeInfo: FrInfo;
-      afterInfo: FrInfo;
-    };
+export type DragBothRelative = {
+  type: "both-relative";
+  beforeInfo: FrInfo;
+  afterInfo: FrInfo;
+};
+
+type DragInfo =
+  | DragPixelBefore
+  | DragPixelAfter
+  | DragBothPixel
+  | DragBothRelative;
 
 function getDragInfo(
   beforeUnit: string,
@@ -215,17 +231,6 @@ export function initDragState({
   return dragState;
 }
 
-// How narrow should pixel tracts be allowed to get?
-const minPx = 40;
-
-// What is the smallest allowed ratio between two fr tracts? Any attempt to drag
-// a tract smaller than `minFrRatio`*100% of its neighbor will be truncated
-const minFrRatio = 0.15;
-
-const pixelRoundLevel = 5;
-const roundPixel = (pixel_count: number): number =>
-  Math.round(pixel_count / pixelRoundLevel) * pixelRoundLevel;
-
 export function updateDragState({
   mousePosition,
   drag,
@@ -239,51 +244,30 @@ export function updateDragState({
   const delta = mouseCurrent - drag.mouseStart;
   const newSizes = [...drag.originalSizes];
 
+  let updatedSizes: TractUpdateValues;
   switch (drag.type) {
-    case "before-pixel": {
-      const beforeCount = drag.beforeInfo.count + delta;
-      if (beforeCount < minPx) {
-        return;
-      }
-      newSizes[drag.beforeIndex] = roundPixel(beforeCount) + "px";
+    case "before-pixel":
+      updatedSizes = drag_pixel_before(delta, drag);
       break;
-    }
 
-    case "both-pixel": {
-      const beforeCount = drag.beforeInfo.count + delta;
-      const afterCount = drag.afterInfo.count - delta;
-
-      if (beforeCount < minPx || afterCount < minPx) {
-        return;
-      }
-      newSizes[drag.beforeIndex] = beforeCount + "px";
-      newSizes[drag.afterIndex] = afterCount + "px";
+    case "both-pixel":
+      updatedSizes = drag_both_pixel(delta, drag);
       break;
-    }
 
-    case "both-relative": {
-      const frDelta = delta * (drag.pixelToFrRatio ?? 1);
-
-      const beforeCount = drag.beforeInfo.count + frDelta;
-      const afterCount = drag.afterInfo.count - frDelta;
-
-      const sizeRatio =
-        frDelta < 0 ? beforeCount / afterCount : afterCount / beforeCount;
-
-      // Make sure that we maintain a minimum size of the smaller tract
-      if (sizeRatio < minFrRatio) {
-        return;
-      }
-
-      newSizes[drag.beforeIndex] = beforeCount + "fr";
-      newSizes[drag.afterIndex] = afterCount + "fr";
+    case "both-relative":
+      updatedSizes = drag_both_relative(delta, drag);
       break;
-    }
 
-    default: {
+    default:
       console.log("Havent implemented dragging for " + drag.type);
       return;
-    }
+  }
+
+  if (updatedSizes.beforeSize) {
+    newSizes[drag.beforeIndex] = updatedSizes.beforeSize;
+  }
+  if (updatedSizes.afterSize) {
+    newSizes[drag.afterIndex] = updatedSizes.afterSize;
   }
 
   drag.currentSizes = newSizes;
