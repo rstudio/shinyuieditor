@@ -17,7 +17,7 @@ export const EditableGridContainerShowcase: Story<{
         <GridItem area="a" color="Tomato" />
         <GridItem area="b" color="LightSeaGreen" />
         <GridItem area="c" color="MediumOrchid" />
-        <GridItem area="d" color="Peru" />
+        {/* <GridItem area="d" color="Peru" /> */}
         <GridItem area="e" color="DarkKhaki" />
         <GridItem area="f" color="CornflowerBlue" />
         <GridItem area="g" color="FireBrick" />
@@ -56,8 +56,8 @@ EditableGridContainerShowcase.args = {
     areas: [
       ["a", "b", "f"],
       ["g", "g", "f"],
-      ["c", "d", "f"],
-      ["e", "d", "f"],
+      ["c", ".", "f"],
+      ["e", ".", "f"],
     ],
     rowSizes: ["100px", "100px", "2fr", "1fr"],
     colSizes: ["200px", "1fr", "100px"],

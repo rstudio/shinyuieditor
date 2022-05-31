@@ -97,7 +97,10 @@ function getAreasInLayout({ areas }: Pick<GridLayoutDef, "areas">): string[] {
   for (let row_index = 0; row_index < num_rows; row_index++) {
     const row = areas[row_index];
     for (let col_index = 0; col_index < num_cols; col_index++) {
-      seenAreas.add(row[col_index]);
+      const area_name = row[col_index];
+      if (area_name !== ".") {
+        seenAreas.add(row[col_index]);
+      }
     }
   }
 
