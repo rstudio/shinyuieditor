@@ -25,6 +25,7 @@ export function TractInfoDisplay({
         } as React.CSSProperties
       }
     >
+      <div className={classes.hoverListener} />
       <div className={classes.sizeWidget}>
         <CSSUnitInputSimple
           value={size}

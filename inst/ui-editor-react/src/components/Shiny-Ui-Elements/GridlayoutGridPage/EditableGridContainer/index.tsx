@@ -1,8 +1,12 @@
 import * as React from "react";
 
+import Button from "components/Inputs/Button/Button";
+import { PopoverButton } from "components/Inputs/PopoverButton";
 import produce from "immer";
+import { FaPlus } from "react-icons/fa";
 
 import type { TemplatedGridProps } from "..";
+import { singular } from "../helpers";
 
 import classes from "./resizableGrid.module.css";
 import { TractInfoDisplay } from "./TractInfoDisplay";
@@ -29,10 +33,8 @@ function EditableGridContainer({
   const containerRef = React.useRef<HTMLDivElement>(null);
   const styles = layoutDefToStyles(layout);
 
-  const columnTractIndices = buildRange(1, colSizes.length);
-  const rowTractIndices = buildRange(1, rowSizes.length);
-  const [, ...columnSizers] = columnTractIndices;
-  const [, ...rowSizers] = rowTractIndices;
+  const columnSizers = buildRange(2, colSizes.length);
+  const rowSizers = buildRange(2, rowSizes.length);
 
   const { startDrag, onTractHover, dragStatus, onTractMouseOut } =
     useDragToResizeGrid({
@@ -75,6 +77,7 @@ function EditableGridContainer({
           style={{ gridRow: gap_index }}
         />
       ))}
+      {}
 
       {children}
       {colSizes.map((size, column_i) => {
@@ -132,6 +135,35 @@ function updateTractSize(
   return produce(layout, (updatedLayout) => {
     updatedLayout[dir === "rows" ? "rowSizes" : "colSizes"][index] = size;
   });
+}
+
+function AddTractButton({
+  dir,
+  index,
+}: // setLayout,
+{
+  dir: TractInfo["dir"];
+  index: number;
+  // setLayout: React.Dispatch<GridLayoutAction> | null;
+}) {
+  // const dirSingular = singular(dir);
+  const description = `Add ${dir}`;
+
+  return (
+    <PopoverButton
+      // className={
+      //   beforeOrAfter === "before"
+      //     ? classes.tractAddBeforeButton
+      //     : classes.tractAddAfterButton
+      // }
+      placement={dir === "rows" ? "right" : "bottom"}
+      aria-label={description}
+      popoverText={description}
+      onClick={() => console.log(description)}
+    >
+      <FaPlus />
+    </PopoverButton>
+  );
 }
 
 export default EditableGridContainer;
