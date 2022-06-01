@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import produce from "immer";
+
 import type { TemplatedGridProps } from "..";
 
 import { getHasRelativeUnits } from "./dragToResizeHelpers";
@@ -70,6 +72,15 @@ function EditableGridContainer({
           index={column_i}
           dir="columns"
           size={size}
+          onChange={(s) =>
+            onNewLayout(
+              updateTractSize(layout, {
+                dir: "columns",
+                index: column_i,
+                size: s,
+              })
+            )
+          }
         />
       ))}
       {rowSizes.map((size, row_i) => (
@@ -78,6 +89,15 @@ function EditableGridContainer({
           index={row_i}
           dir="rows"
           size={size}
+          onChange={(s) =>
+            onNewLayout(
+              updateTractSize(layout, {
+                dir: "rows",
+                index: row_i,
+                size: s,
+              })
+            )
+          }
         />
       ))}
       {dragStatus.status === "dragging" ? (
@@ -90,6 +110,14 @@ function EditableGridContainer({
   );
 }
 
+function updateTractSize(
+  layout: TemplatedGridProps,
+  { dir, index, size }: TractInfo
+): TemplatedGridProps {
+  return produce(layout, (updatedLayout) => {
+    updatedLayout[dir === "rows" ? "rowSizes" : "colSizes"][index] = size;
+  });
+}
 function TractInfoField({ dir, index, size }: TractInfo) {
   return (
     <div
