@@ -189,7 +189,7 @@ export function useDragToResizeGrid({
     const dragWatcherDiv = document.createElement("div");
     dragWatcherDiv.style.position = "fixed";
     dragWatcherDiv.style.inset = "0px";
-    dragWatcherDiv.style.opacity = "0";
+    dragWatcherDiv.style.zIndex = "3";
     // Keep the cursor consistant with the appropriate direction resizer to let
     // the user know they're in "drag mode"
     dragWatcherDiv.style.cursor =
