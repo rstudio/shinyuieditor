@@ -1,11 +1,12 @@
 import * as React from "react";
 
-import { CSSUnitInput } from "components/Inputs/CSSUnitInput";
-import type { CSSMeasure } from "CSSMeasure";
+import { CSSUnitInputSimple } from "components/Inputs/CSSUnitInput/CSSUnitInputSimple";
+import type { CSSMeasure, CSSUnits } from "CSSMeasure";
 
 import classes from "./TractInfoDisplay.module.css";
 import type { TractInfo } from "./useDragToResizeGrid";
 
+const ALLOWED_UNITS: CSSUnits[] = ["fr", "px"];
 export function TractInfoDisplay({
   dir,
   index,
@@ -25,8 +26,11 @@ export function TractInfoDisplay({
       }
     >
       <div className={classes.sizeWidget}>
-        {/* {size} */}
-        <CSSUnitInput value={size} onChange={onChange} />
+        <CSSUnitInputSimple
+          value={size}
+          units={ALLOWED_UNITS}
+          onChange={onChange}
+        />
       </div>
     </div>
   );

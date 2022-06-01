@@ -304,7 +304,7 @@ type PxInfo = {
 
 type UnitInfo = FrInfo | PxInfo;
 
-function getUnitInfo(unit: string): UnitInfo {
+export function getUnitInfo(unit: string): UnitInfo {
   if (isFrUnit(unit)) {
     return {
       type: "fr",
