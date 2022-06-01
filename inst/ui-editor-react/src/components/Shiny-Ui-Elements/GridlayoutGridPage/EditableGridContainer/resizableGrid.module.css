@@ -1,7 +1,7 @@
 .ResizableGrid {
   --grid-gap: 5px;
 
-  --grid-pad: var(--pad, 5px);
+  --grid-pad: var(--pad, 10px);
 
   /* How much does the handle expand to make it easier to grab? */
   --sizer-expansion-amnt: 1.3;

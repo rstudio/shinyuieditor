@@ -49,7 +49,7 @@ const containerStyles: React.CSSProperties = {
   outline: "4px solid grey",
   width: "900px",
   height: "700px",
-  padding: "20px",
+  padding: "0",
 };
 
 EditableGridContainerShowcase.args = {

@@ -8,9 +8,12 @@ import classes from "./resizableGrid.module.css";
 import { TractInfoDisplay } from "./TractInfoDisplay";
 import type { TractInfo } from "./useDragToResizeGrid";
 import { useDragToResizeGrid } from "./useDragToResizeGrid";
-import { buildRange, layoutDefToStyles } from "./utils";
-
-// type GridLayoutDef = Required<TemplatedGridProps>;
+import {
+  buildRange,
+  columnIsBeingResized,
+  layoutDefToStyles,
+  rowIsBeingResized,
+} from "./utils";
 
 function EditableGridContainer({
   className,
@@ -31,18 +34,11 @@ function EditableGridContainer({
   const [, ...columnSizers] = columnTractIndices;
   const [, ...rowSizers] = rowTractIndices;
 
-  const { startDrag, dragStatus } = useDragToResizeGrid({
-    containerRef,
-    onDragEnd: onNewLayout,
-  });
-
-  if (dragStatus.status === "dragging") {
-    for (let tract of dragStatus.tracts) {
-      const { dir, size, index } = tract;
-      const tractsToUpdate = dir === "rows" ? rowSizes : colSizes;
-      tractsToUpdate[index] = size;
-    }
-  }
+  const { startDrag, onTractHover, dragStatus, onTractMouseOut } =
+    useDragToResizeGrid({
+      containerRef,
+      onDragEnd: onNewLayout,
+    });
 
   const containerClasses = [classes.ResizableGrid];
   if (className) containerClasses.push(className);
@@ -57,6 +53,10 @@ function EditableGridContainer({
         <div
           key={"col" + gap_index}
           className={classes.columnSizer}
+          onMouseOver={(e) =>
+            onTractHover({ e, dir: "columns", index: gap_index })
+          }
+          onMouseOut={onTractMouseOut}
           onMouseDown={(e) =>
             startDrag({ e, dir: "columns", index: gap_index })
           }
@@ -67,52 +67,60 @@ function EditableGridContainer({
         <div
           key={"row" + gap_index}
           onMouseDown={(e) => startDrag({ e, dir: "rows", index: gap_index })}
+          onMouseOver={(e) =>
+            onTractHover({ e, dir: "rows", index: gap_index })
+          }
+          onMouseOut={onTractMouseOut}
           className={classes.rowSizer}
           style={{ gridRow: gap_index }}
         />
       ))}
 
       {children}
-      {/* {colSizes.map((size, column_i) => (
-        <TractInfoDisplay
-          key={"col" + column_i}
-          index={column_i}
-          dir="columns"
-          size={size}
-          onChange={(s) =>
-            onNewLayout(
-              updateTractSize(layout, {
-                dir: "columns",
-                index: column_i,
-                size: s,
-              })
-            )
-          }
-        />
-      ))}
-      {rowSizes.map((size, row_i) => (
-        <TractInfoDisplay
-          key={"row" + row_i}
-          index={row_i}
-          dir="rows"
-          size={size}
-          onChange={(s) =>
-            onNewLayout(
-              updateTractSize(layout, {
-                dir: "rows",
-                index: row_i,
-                size: s,
-              })
-            )
-          }
-        />
-      ))} */}
-      {dragStatus.status === "dragging" ? (
-        <>
-          <TractInfoField {...dragStatus.tracts[0]} />
-          <TractInfoField {...dragStatus.tracts[1]} />
-        </>
-      ) : null}
+      {colSizes.map((size, column_i) => {
+        const resized_size = columnIsBeingResized(dragStatus, column_i);
+
+        return (
+          <TractInfoDisplay
+            key={"col" + column_i}
+            index={column_i}
+            dir="columns"
+            size={resized_size === false ? size : resized_size.current_size}
+            show={resized_size !== false}
+            onChange={(s) =>
+              onNewLayout(
+                updateTractSize(layout, {
+                  dir: "columns",
+                  index: column_i,
+                  size: s,
+                })
+              )
+            }
+          />
+        );
+      })}
+      {rowSizes.map((size, row_i) => {
+        const resized_size = rowIsBeingResized(dragStatus, row_i);
+
+        return (
+          <TractInfoDisplay
+            key={"row" + row_i}
+            index={row_i}
+            dir="rows"
+            size={resized_size === false ? size : resized_size.current_size}
+            show={resized_size !== false}
+            onChange={(s) =>
+              onNewLayout(
+                updateTractSize(layout, {
+                  dir: "rows",
+                  index: row_i,
+                  size: s,
+                })
+              )
+            }
+          />
+        );
+      })}
     </div>
   );
 }

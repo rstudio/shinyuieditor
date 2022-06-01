@@ -14,14 +14,17 @@ export type TractInfo = {
   index: number;
   size: CSSMeasure;
 };
-type DragStatus =
+
+type ActiveDragStatus = {
+  status: "hovering" | "dragging";
+  dir: TractDir;
+  tracts: [TractInfo, TractInfo];
+};
+export type DragStatus =
   | {
       status: "idle";
     }
-  | {
-      status: "dragging";
-      tracts: [TractInfo, TractInfo];
-    };
+  | ActiveDragStatus;
 
 export function useDragToResizeGrid({
   containerRef,
@@ -36,7 +39,7 @@ export function useDragToResizeGrid({
 
   const dragStateRef = React.useRef<DragState | null>(null);
 
-  const startDrag = React.useCallback(
+  const onTractHover = React.useCallback(
     ({
       e,
       dir,
@@ -58,6 +61,54 @@ export function useDragToResizeGrid({
         return;
       }
 
+      setDragStatus(
+        dragStateToStatus(
+          initDragState({
+            mousePosition: e,
+            dir,
+            index,
+            container: containerRef.current,
+          }),
+          "hovering"
+        )
+      );
+    },
+    [containerRef]
+  );
+
+  const onTractMouseOut = React.useCallback(() => {
+    console.log("Stopped hovering");
+    // If we've transitioned from hovering to dragging, don't do anything.
+    if (dragStateRef.current) {
+      return;
+    }
+    setDragStatus({ status: "idle" });
+  }, []);
+
+  const startDrag = React.useCallback(
+    ({
+      e,
+      dir,
+      index,
+    }: {
+      e: React.MouseEvent;
+      dir: TractDir;
+      index: number;
+    }) => {
+      if (!containerRef.current) {
+        console.error(
+          "How are you dragging on an element without a container?"
+        );
+        return;
+      }
+
+      console.log("Started dragging");
+
+      // If we're already dragging, don't try to start another drag.
+      // if (dragStateRef.current) {
+      //   return;
+      // }
+
       // This prevents the mouse down from triggering un-desired things like text-selection etc.
       e.preventDefault();
 
@@ -68,7 +119,7 @@ export function useDragToResizeGrid({
         container: containerRef.current,
       });
 
-      setDragStatus(dragStateToStatus(dragStateRef.current));
+      setDragStatus(dragStateToStatus(dragStateRef.current, "dragging"));
       startListeningForMouseMove();
     },
     [containerRef]
@@ -97,7 +148,7 @@ export function useDragToResizeGrid({
         container,
       });
 
-      setDragStatus(dragStateToStatus(dragState));
+      setDragStatus(dragStateToStatus(dragState, "dragging"));
     },
     [containerRef, dragStateRef]
   );
@@ -175,14 +226,20 @@ export function useDragToResizeGrid({
   return {
     dragStatus,
     startDrag,
+    onTractHover,
+    onTractMouseOut,
   };
 }
 
-function dragStateToStatus(dragState: DragState): DragStatus {
+function dragStateToStatus(
+  dragState: DragState,
+  status: ActiveDragStatus["status"]
+): DragStatus {
   const { dir, afterIndex, beforeIndex, currentSizes } = dragState;
 
   return {
-    status: "dragging",
+    status,
+    dir,
     tracts: [
       {
         dir,

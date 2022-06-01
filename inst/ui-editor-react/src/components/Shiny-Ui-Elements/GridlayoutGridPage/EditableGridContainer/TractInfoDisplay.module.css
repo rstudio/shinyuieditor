@@ -1,15 +1,19 @@
 .tractInfoDisplay {
+  --transition-delay: 0.2s;
   height: var(--grid-pad);
   width: var(--grid-pad);
   --offset: calc(-1 * var(--grid-pad));
   z-index: 1;
   display: grid;
-  opacity: 0;
+  background-color: rgba(255, 228, 196, 0.442);
+  outline: 1px solid white;
   transition-property: opacity, width, height;
   transition-duration: 0.2s;
-  transition-delay: 0.5s;
+  transition-delay: var(--transition-delay);
   transition-timing-function: ease-in-out;
   overflow: hidden;
+  --rows-width: var(--grid-pad);
+  --cols-height: var(--grid-pad);
 }
 
 .tractInfoDisplay[data-drag-dir="rows"] {
@@ -17,9 +21,11 @@
   grid-row: var(--tract-index);
   align-self: center;
   height: 100%;
+  width: var(--rows-width);
   margin-left: var(--offset);
   align-items: center;
-  padding-inline: 5px;
+
+  /* padding-inline: 5px; */
 }
 
 .tractInfoDisplay[data-drag-dir="columns"] {
@@ -27,25 +33,25 @@
   grid-column: var(--tract-index);
   justify-self: center;
   width: 100%;
+  height: var(--cols-height);
   margin-top: var(--offset);
   justify-content: center;
-  padding-block: 5px;
+  /* padding-block: 5px; */
 }
 
 /* Focus within here makes sure that the tract control doesn't dissapear if the
 user is typing in the input field but mouses off */
 .tractInfoDisplay:hover,
+.tractInfoDisplay[data-visible="true"],
 .tractInfoDisplay:focus-within {
   opacity: 1;
   transition: none;
+  --rows-width: 122px;
+  --cols-height: 36px;
 }
-.tractInfoDisplay[data-drag-dir="rows"]:hover,
-.tractInfoDisplay[data-drag-dir="rows"]:focus-within {
-  width: 150px;
-}
-.tractInfoDisplay[data-drag-dir="columns"]:hover,
-.tractInfoDisplay[data-drag-dir="columns"]:focus-within {
-  height: 60px;
+
+.tractInfoDisplay[data-visible="true"] {
+  background-color: aquamarine;
 }
 
 .tractInfoDisplay .sizeWidget {
@@ -53,8 +59,16 @@ user is typing in the input field but mouses off */
   padding-block: 3px;
 }
 
-.tractInfoDisplay:hover .sizeWidget > div,
-.tractInfoDisplay:focus-within .sizeWidget > div {
-  filter: drop-shadow(2px 4px 8px hsl(0deg 0% 0% / 0.4));
+.tractInfoDisplay .sizeWidget > div {
+  opacity: 0;
   transition: filter 0.2s ease-in-out;
+  transition-property: opacity, filter;
+  transition-delay: var(--transition-delay);
+}
+.tractInfoDisplay:hover .sizeWidget > div,
+.tractInfoDisplay[data-visible="true"] .sizeWidget > div,
+.tractInfoDisplay:focus-within .sizeWidget > div {
+  opacity: 1;
+  filter: drop-shadow(2px 4px 8px hsl(0deg 0% 0% / 0.4));
+  transition: none;
 }

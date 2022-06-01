@@ -10,12 +10,14 @@ export function TractInfoDisplay({
   dir,
   index,
   size,
+  show,
   onChange,
-}: TractInfo & { onChange: (size: CSSMeasure) => void }) {
+}: TractInfo & { show: boolean; onChange: (size: CSSMeasure) => void }) {
   return (
     <div
       className={classes.tractInfoDisplay}
       data-drag-dir={dir}
+      data-visible={show}
       style={
         {
           "--tract-index": index + 1,
@@ -23,6 +25,7 @@ export function TractInfoDisplay({
       }
     >
       <div className={classes.sizeWidget}>
+        {/* {size} */}
         <CSSUnitInput value={size} onChange={onChange} />
       </div>
     </div>

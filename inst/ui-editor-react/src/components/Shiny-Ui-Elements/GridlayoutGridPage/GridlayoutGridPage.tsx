@@ -203,7 +203,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
             />
           ))}
 
-          <TractControls areas={areas} sizes={sizes} />
+          {/* <TractControls areas={areas} sizes={sizes} /> */}
           {uiChildren?.map((childNode, i) => (
             <UiNode
               key={nodeInfo.path.join(".") + i}
