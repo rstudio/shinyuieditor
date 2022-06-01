@@ -1,16 +1,16 @@
 .tractInfoDisplay {
-  --transition-delay: 0.2s;
+  --transition-delay: 0.1s;
+  --transition-speed: 0.1s;
+  --transition-ease: ease-in-out;
   height: var(--grid-pad);
   width: var(--grid-pad);
   --offset: calc(-1 * var(--grid-pad));
   z-index: 1;
   display: grid;
-  background-color: rgba(255, 228, 196, 0.442);
-  outline: 1px solid white;
   transition-property: opacity, width, height;
-  transition-duration: 0.2s;
+  transition-duration: var(--transition-speed);
   transition-delay: var(--transition-delay);
-  transition-timing-function: ease-in-out;
+  transition-timing-function: var(--transition-ease);
   overflow: hidden;
   --rows-width: var(--grid-pad);
   --cols-height: var(--grid-pad);
@@ -24,8 +24,6 @@
   width: var(--rows-width);
   margin-left: var(--offset);
   align-items: center;
-
-  /* padding-inline: 5px; */
 }
 
 .tractInfoDisplay[data-drag-dir="columns"] {
@@ -36,7 +34,6 @@
   height: var(--cols-height);
   margin-top: var(--offset);
   justify-content: center;
-  /* padding-block: 5px; */
 }
 
 /* Focus within here makes sure that the tract control doesn't dissapear if the
@@ -45,13 +42,8 @@ user is typing in the input field but mouses off */
 .tractInfoDisplay[data-visible="true"],
 .tractInfoDisplay:focus-within {
   opacity: 1;
-  transition: none;
   --rows-width: 122px;
   --cols-height: 36px;
-}
-
-.tractInfoDisplay[data-visible="true"] {
-  background-color: aquamarine;
 }
 
 .tractInfoDisplay .sizeWidget {
@@ -61,14 +53,14 @@ user is typing in the input field but mouses off */
 
 .tractInfoDisplay .sizeWidget > div {
   opacity: 0;
-  transition: filter 0.2s ease-in-out;
   transition-property: opacity, filter;
+  transition-duration: var(--transition-speed);
   transition-delay: var(--transition-delay);
+  transition-timing-function: var(--transition-ease);
 }
 .tractInfoDisplay:hover .sizeWidget > div,
 .tractInfoDisplay[data-visible="true"] .sizeWidget > div,
 .tractInfoDisplay:focus-within .sizeWidget > div {
   opacity: 1;
-  filter: drop-shadow(2px 4px 8px hsl(0deg 0% 0% / 0.4));
-  transition: none;
+  filter: drop-shadow(2px 2px 3px hsl(0deg 0% 0% / 0.4));
 }
