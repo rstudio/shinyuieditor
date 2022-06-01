@@ -134,20 +134,4 @@ function updateTractSize(
   });
 }
 
-function TractInfoField({ dir, index, size }: TractInfo) {
-  return (
-    <div
-      className={classes.tractInfoDisplay}
-      data-drag-dir={dir}
-      style={
-        {
-          "--tract-index": index + 1,
-        } as React.CSSProperties
-      }
-    >
-      {size}
-    </div>
-  );
-}
-
 export default EditableGridContainer;
