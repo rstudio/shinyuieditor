@@ -1,3 +1,6 @@
+import React from "react";
+
+import debounce from "just-debounce-it";
 import { deparseCSSMeasure } from "utils/css-helpers";
 
 import type { InputWidgetCommonProps } from "..";
@@ -36,6 +39,24 @@ export function CSSUnitInput({
     initialValue ?? "auto"
   );
 
+  console.log("Initial value", initialValue);
+
+  const debouncedOnChange = React.useMemo(
+    () =>
+      debounce((value: CSSMeasure) => {
+        console.log("Calling debounced onChange for css unit input");
+        onChange(value);
+      }, 500),
+    [onChange]
+  );
+
+  React.useEffect(() => {
+    const deparsedCSS = deparseCSSMeasure(cssValue);
+    if (initialValue === deparsedCSS) return;
+    console.log("Calling onchange for css unit input", initialValue);
+    debouncedOnChange(deparseCSSMeasure(cssValue));
+  }, [cssValue, debouncedOnChange, initialValue]);
+
   // For some reason our tract sizers will sometimes try and pass this undefined
   // so we need to guard against that at run time
   if (initialValue === undefined && !disabled) {
@@ -47,13 +68,13 @@ export function CSSUnitInput({
   return (
     <div
       className={classes.wrapper}
-      aria-label={"Css Unit Input"}
-      onBlur={(e) => {
-        const blurOutsideComponent = !e.currentTarget.contains(e.relatedTarget);
-        // Only trigger submit if the user has focused outside of the input.
-        // This means that going from the count to the unit input doesn't count
-        if (blurOutsideComponent) onChange(deparseCSSMeasure(cssValue));
-      }}
+      aria-label="Css Unit Input"
+      // onBlur={(e) => {
+      //   const blurOutsideComponent = !e.currentTarget.contains(e.relatedTarget);
+      //   // Only trigger submit if the user has focused outside of the input.
+      //   // This means that going from the count to the unit input doesn't count
+      //   if (blurOutsideComponent) onChange(deparseCSSMeasure(cssValue));
+      // }}
       onKeyDown={(e) => {
         if (e.key === "Enter") {
           // Submits on pressing of enter

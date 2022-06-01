@@ -7,14 +7,9 @@
   opacity: 0;
   transition-property: opacity, width, height;
   transition-duration: 0.2s;
-  transition-delay: 1s;
+  transition-delay: 0.5s;
   transition-timing-function: ease-in-out;
   overflow: hidden;
-}
-
-.tractInfoDisplay:hover {
-  opacity: 1;
-  transition: none;
 }
 
 .tractInfoDisplay[data-drag-dir="rows"] {
@@ -27,9 +22,6 @@
   padding-inline: 5px;
 }
 
-.tractInfoDisplay[data-drag-dir="rows"]:hover {
-  width: 150px;
-}
 .tractInfoDisplay[data-drag-dir="columns"] {
   grid-row: 1;
   grid-column: var(--tract-index);
@@ -40,15 +32,29 @@
   padding-block: 5px;
 }
 
-.tractInfoDisplay[data-drag-dir="columns"]:hover {
-  height: 40px;
+/* Focus within here makes sure that the tract control doesn't dissapear if the
+user is typing in the input field but mouses off */
+.tractInfoDisplay:hover,
+.tractInfoDisplay:focus-within {
+  opacity: 1;
+  transition: none;
+}
+.tractInfoDisplay[data-drag-dir="rows"]:hover,
+.tractInfoDisplay[data-drag-dir="rows"]:focus-within {
+  width: 150px;
+}
+.tractInfoDisplay[data-drag-dir="columns"]:hover,
+.tractInfoDisplay[data-drag-dir="columns"]:focus-within {
+  height: 60px;
 }
 
 .tractInfoDisplay .sizeWidget {
   padding-inline: 5px;
   padding-block: 3px;
-  border-radius: var(--corner-radius);
 }
-.tractInfoDisplay:hover .sizeWidget {
-  backdrop-filter: blur(5px);
+
+.tractInfoDisplay:hover .sizeWidget > div,
+.tractInfoDisplay:focus-within .sizeWidget > div {
+  filter: drop-shadow(2px 4px 8px hsl(0deg 0% 0% / 0.4));
+  transition: filter 0.2s ease-in-out;
 }

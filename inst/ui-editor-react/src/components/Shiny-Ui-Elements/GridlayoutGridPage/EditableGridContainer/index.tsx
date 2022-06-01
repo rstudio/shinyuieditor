@@ -4,7 +4,6 @@ import produce from "immer";
 
 import type { TemplatedGridProps } from "..";
 
-import { getHasRelativeUnits } from "./dragToResizeHelpers";
 import classes from "./resizableGrid.module.css";
 import { TractInfoDisplay } from "./TractInfoDisplay";
 import type { TractInfo } from "./useDragToResizeGrid";
@@ -37,6 +36,14 @@ function EditableGridContainer({
     onDragEnd: onNewLayout,
   });
 
+  if (dragStatus.status === "dragging") {
+    for (let tract of dragStatus.tracts) {
+      const { dir, size, index } = tract;
+      const tractsToUpdate = dir === "rows" ? rowSizes : colSizes;
+      tractsToUpdate[index] = size;
+    }
+  }
+
   const containerClasses = [classes.ResizableGrid];
   if (className) containerClasses.push(className);
 
@@ -66,7 +73,7 @@ function EditableGridContainer({
       ))}
 
       {children}
-      {colSizes.map((size, column_i) => (
+      {/* {colSizes.map((size, column_i) => (
         <TractInfoDisplay
           key={"col" + column_i}
           index={column_i}
@@ -99,7 +106,7 @@ function EditableGridContainer({
             )
           }
         />
-      ))}
+      ))} */}
       {dragStatus.status === "dragging" ? (
         <>
           <TractInfoField {...dragStatus.tracts[0]} />
@@ -118,6 +125,7 @@ function updateTractSize(
     updatedLayout[dir === "rows" ? "rowSizes" : "colSizes"][index] = size;
   });
 }
+
 function TractInfoField({ dir, index, size }: TractInfo) {
   return (
     <div
