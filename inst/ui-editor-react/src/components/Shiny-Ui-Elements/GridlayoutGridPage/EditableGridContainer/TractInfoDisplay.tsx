@@ -1,7 +1,9 @@
 import * as React from "react";
 
 import { CSSUnitInputSimple } from "components/Inputs/CSSUnitInput/CSSUnitInputSimple";
+import { PopoverButton } from "components/Inputs/PopoverButton";
 import type { CSSMeasure, CSSUnits } from "CSSMeasure";
+import { FaPlus } from "react-icons/fa";
 
 import classes from "./TractInfoDisplay.module.css";
 import type { TractInfo } from "./useDragToResizeGrid";
@@ -25,6 +27,11 @@ export function TractInfoDisplay({
         } as React.CSSProperties
       }
     >
+      <AddTractButton
+        placement="before"
+        dir={dir}
+        onClick={() => console.log("adding tract", dir)}
+      />
       <div className={classes.hoverListener} />
       <div className={classes.sizeWidget}>
         <CSSUnitInputSimple
@@ -33,6 +40,42 @@ export function TractInfoDisplay({
           onChange={onChange}
         />
       </div>
+      <AddTractButton
+        placement="after"
+        dir={dir}
+        onClick={() => console.log("adding tract", dir)}
+      />
     </div>
+  );
+}
+
+function AddTractButton({
+  placement,
+  dir,
+  onClick,
+}: {
+  placement: "before" | "after";
+  dir: TractInfo["dir"];
+  onClick: () => void;
+}) {
+  const className =
+    placement === "after"
+      ? classes.tractAddAfterButton
+      : classes.tractAddBeforeButton;
+
+  const popoverPlacement = dir === "rows" ? "right" : "bottom";
+
+  const label = dir === "rows" ? `Add row` : `Add column`;
+
+  return (
+    <PopoverButton
+      className={className}
+      placement={popoverPlacement}
+      aria-label={label}
+      popoverText={label}
+      onClick={onClick}
+    >
+      <FaPlus />
+    </PopoverButton>
   );
 }

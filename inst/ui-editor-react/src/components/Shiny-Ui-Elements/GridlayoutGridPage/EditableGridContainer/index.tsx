@@ -137,33 +137,4 @@ function updateTractSize(
   });
 }
 
-function AddTractButton({
-  dir,
-  index,
-}: // setLayout,
-{
-  dir: TractInfo["dir"];
-  index: number;
-  // setLayout: React.Dispatch<GridLayoutAction> | null;
-}) {
-  // const dirSingular = singular(dir);
-  const description = `Add ${dir}`;
-
-  return (
-    <PopoverButton
-      // className={
-      //   beforeOrAfter === "before"
-      //     ? classes.tractAddBeforeButton
-      //     : classes.tractAddAfterButton
-      // }
-      placement={dir === "rows" ? "right" : "bottom"}
-      aria-label={description}
-      popoverText={description}
-      onClick={() => console.log(description)}
-    >
-      <FaPlus />
-    </PopoverButton>
-  );
-}
-
 export default EditableGridContainer;
