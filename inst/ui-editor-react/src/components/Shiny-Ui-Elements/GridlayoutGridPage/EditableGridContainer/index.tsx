@@ -2,8 +2,11 @@ import * as React from "react";
 
 import Button from "components/Inputs/Button/Button";
 import { PopoverButton } from "components/Inputs/PopoverButton";
+import type { CSSMeasure } from "CSSMeasure";
 import produce from "immer";
 import { FaPlus } from "react-icons/fa";
+import type { NewTract } from "utils/gridTemplates/addTract";
+import addTract from "utils/gridTemplates/addTract";
 
 import type { TemplatedGridProps } from "..";
 import { singular } from "../helpers";
@@ -19,6 +22,7 @@ import {
   rowIsBeingResized,
 } from "./utils";
 
+const NEW_TRACT_SIZE: CSSMeasure = "1fr";
 function EditableGridContainer({
   className,
   children,
@@ -41,6 +45,12 @@ function EditableGridContainer({
       containerRef,
       onDragEnd: onNewLayout,
     });
+
+  const addNewTract = (tract: NewTract) => {
+    console.log("Add tract", tract);
+    const newLayout = addTract(layout, tract);
+    onNewLayout(newLayout);
+  };
 
   const containerClasses = [classes.ResizableGrid];
   if (className) containerClasses.push(className);
@@ -77,7 +87,6 @@ function EditableGridContainer({
           style={{ gridRow: gap_index }}
         />
       ))}
-      {}
 
       {children}
       {colSizes.map((size, column_i) => {
@@ -98,6 +107,9 @@ function EditableGridContainer({
                   size: s,
                 })
               )
+            }
+            onNewTract={(i) =>
+              addNewTract({ afterIndex: i, dir: "cols", size: NEW_TRACT_SIZE })
             }
           />
         );
@@ -120,6 +132,9 @@ function EditableGridContainer({
                   size: s,
                 })
               )
+            }
+            onNewTract={(i) =>
+              addNewTract({ afterIndex: i, dir: "rows", size: NEW_TRACT_SIZE })
             }
           />
         );

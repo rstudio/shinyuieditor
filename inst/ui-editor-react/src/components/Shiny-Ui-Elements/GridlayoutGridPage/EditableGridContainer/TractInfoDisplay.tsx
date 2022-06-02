@@ -15,7 +15,12 @@ export function TractInfoDisplay({
   size,
   show,
   onChange,
-}: TractInfo & { show: boolean; onChange: (size: CSSMeasure) => void }) {
+  onNewTract,
+}: TractInfo & {
+  show: boolean;
+  onChange: (size: CSSMeasure) => void;
+  onNewTract: (index: number) => void;
+}) {
   return (
     <div
       className={classes.tractInfoDisplay}
@@ -30,7 +35,7 @@ export function TractInfoDisplay({
       <AddTractButton
         placement="before"
         dir={dir}
-        onClick={() => console.log("adding tract", dir)}
+        onClick={() => onNewTract(index)}
       />
       <div className={classes.hoverListener} />
       <div className={classes.sizeWidget}>
@@ -43,7 +48,7 @@ export function TractInfoDisplay({
       <AddTractButton
         placement="after"
         dir={dir}
-        onClick={() => console.log("adding tract", dir)}
+        onClick={() => onNewTract(index + 1)}
       />
     </div>
   );
