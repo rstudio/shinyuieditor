@@ -77,7 +77,6 @@ export function useDragToResizeGrid({
   );
 
   const onTractMouseOut = React.useCallback(() => {
-    console.log("Stopped hovering");
     // If we've transitioned from hovering to dragging, don't do anything.
     if (dragStateRef.current) {
       return;
@@ -101,8 +100,6 @@ export function useDragToResizeGrid({
         );
         return;
       }
-
-      console.log("Started dragging");
 
       // If we're already dragging, don't try to start another drag.
       // if (dragStateRef.current) {

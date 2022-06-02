@@ -193,7 +193,6 @@ export function initDragState({
     // Update the sizes with these pixel values so auto-units. Otherwise, tracts
     // that may have a limited size will jump to that full size until the onDrag
     // callback sets the sizes
-    console.log("Changing all the units to pixel values:");
     container.style[templateSelector] = computedSizes.join(" ");
   }
 
