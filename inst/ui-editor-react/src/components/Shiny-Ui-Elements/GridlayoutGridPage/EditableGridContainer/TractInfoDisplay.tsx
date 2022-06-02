@@ -73,8 +73,18 @@ export function TractInfoDisplay({
         } as React.CSSProperties
       }
     >
-      <AddTractButton placement="before" dir={dir} onClick={onNewTractBefore} />
-      <div className={classes.hoverListener} />
+      <div className={classes.hoverListener}>
+        <AddTractButton
+          placement="before"
+          dir={dir}
+          onClick={onNewTractBefore}
+        />
+        <DeleteTractButton
+          onClick={onTractDelete}
+          deletionConflicts={deletionConflicts}
+        />
+        <AddTractButton placement="after" dir={dir} onClick={onNewTractAfter} />
+      </div>
       <div className={classes.sizeWidget}>
         <CSSUnitInputSimple
           value={displayed_size}
@@ -82,11 +92,6 @@ export function TractInfoDisplay({
           onChange={onNewSize}
         />
       </div>
-      <DeleteTractButton
-        onClick={onTractDelete}
-        deletionConflicts={deletionConflicts}
-      />
-      <AddTractButton placement="after" dir={dir} onClick={onNewTractAfter} />
     </div>
   );
 }

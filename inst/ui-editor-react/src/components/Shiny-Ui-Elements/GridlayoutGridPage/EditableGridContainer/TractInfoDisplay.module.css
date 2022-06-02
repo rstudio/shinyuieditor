@@ -15,7 +15,6 @@
   --rows-width: fit-content;
   --cols-height: fit-content;
   --scale: 0;
-  --hover-scale: 0;
   transition: background-color var(--transition-speed) var(--transition-ease)
     var(--transition-delay);
   isolation: isolate;
@@ -33,9 +32,7 @@
   align-items: center;
   gap: 4px;
   background-color: var(--rstudio-white);
-  /* backdrop-filter: blur(5px); */
   border: 3px solid var(--rstudio-blue, pink);
-  /* outline-offset: -3px; */
 }
 
 .sizeWidget button .sizeWidget > div {
@@ -43,15 +40,28 @@
 }
 
 .hoverListener {
+  --thickness: var(--hover-listener-thickness, var(--grid-pad));
   width: 100%;
   height: 100%;
   flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--hover-listener-color, transparent);
+  border-radius: var(--corner-radius);
 }
+
 .tractInfoDisplay[data-drag-dir="rows"] .hoverListener {
   height: calc(100% + var(--grid-gap));
+  width: var(--thickness);
+  margin-left: calc(-1 * var(--thickness) + var(--grid-pad));
+  flex-direction: column;
 }
 .tractInfoDisplay[data-drag-dir="columns"] .hoverListener {
   width: calc(100% + var(--grid-gap));
+  height: var(--thickness);
+  margin-top: calc(-1 * var(--thickness) + var(--grid-pad));
+  /* outline: 1px solid white; */
 }
 .tractInfoDisplay[data-drag-dir="rows"] {
   grid-column: 1;
@@ -97,56 +107,33 @@ user is typing in the input field but mouses off */
 .tractInfoDisplay:focus-within {
   --scale: 100%;
   --transition-delay: var(--transition-in-delay);
-  background-color: var(--rstudio-blue, pink);
+  background-color: var(--rstudio-blue);
 }
 
 .tractInfoDisplay:hover {
-  --hover-scale: 1;
+  --hover-listener-thickness: 23.5px;
+  --hover-listener-color: var(--rstudio-blue);
 }
 
-.tractAddBeforeButton,
-.tractAddAfterButton,
-.deleteButton {
+.tractInfoDisplay button {
   --size: 20px;
   --offset_amnt: 2px;
   --offset: calc(var(--offset_amnt) - var(--size));
   width: var(--size);
+  height: var(--size);
   aspect-ratio: 1/1;
   display: grid;
   place-content: center;
   border-radius: 50%;
   border: 1px solid var(--rstudio-blue);
   background-color: var(--rstudio-white);
-  transform: scale(var(--hover-scale));
-  transition: transform var(--transition-speed) var(--transition-ease)
-    var(--transition-delay);
-  position: absolute;
-  /* filter: var(--shadow); */
+  transition: none;
+  transform: scale(0);
   z-index: 1;
 }
 
-.tractInfoDisplay[data-drag-dir="columns"] .tractAddBeforeButton,
-.tractInfoDisplay[data-drag-dir="columns"] .tractAddAfterButton,
-.tractInfoDisplay[data-drag-dir="columns"] .deleteButton {
-  bottom: 0;
-}
-.tractInfoDisplay[data-drag-dir="columns"] .tractAddBeforeButton {
-  left: var(--offset);
-}
-.tractInfoDisplay[data-drag-dir="columns"] .tractAddAfterButton {
-  right: var(--offset);
-}
-
-.tractInfoDisplay[data-drag-dir="rows"] .tractAddBeforeButton,
-.tractInfoDisplay[data-drag-dir="rows"] .tractAddAfterButton,
-.tractInfoDisplay[data-drag-dir="rows"] .deleteButton {
-  right: 0;
-}
-.tractInfoDisplay[data-drag-dir="rows"] .tractAddBeforeButton {
-  top: var(--offset);
-}
-.tractInfoDisplay[data-drag-dir="rows"] .tractAddAfterButton {
-  bottom: var(--offset);
+.tractInfoDisplay:hover button {
+  transform: scale(1);
 }
 
 .deleteButton[data-enabled="true"] {
