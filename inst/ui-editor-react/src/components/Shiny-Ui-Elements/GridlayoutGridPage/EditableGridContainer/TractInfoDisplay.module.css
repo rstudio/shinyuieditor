@@ -38,31 +38,6 @@
   /* outline-offset: -3px; */
 }
 
-.deleteButton {
-  --size: 23.5px;
-  height: var(--size);
-  width: var(--size);
-  background-color: var(--rstudio-white);
-  display: grid;
-  place-content: center;
-  border-radius: var(--corner-radius);
-  /* Only show delete button in the hover mode */
-  /* transform: scale(var(--hover-scale)); */
-  /* transform: scale(0); */
-  display: none;
-}
-.tractInfoDisplay:hover .deleteButton {
-  display: block;
-}
-
-.deleteButton[data-enabled="true"] {
-  color: var(--red);
-}
-.deleteButton[data-enabled="false"] {
-  color: var(--disabled-color, green);
-  cursor: not-allowed;
-}
-
 .sizeWidget button .sizeWidget > div {
   filter: var(--shadow);
 }
@@ -130,7 +105,8 @@ user is typing in the input field but mouses off */
 }
 
 .tractAddBeforeButton,
-.tractAddAfterButton {
+.tractAddAfterButton,
+.deleteButton {
   --size: 20px;
   --offset_amnt: 2px;
   --offset: calc(var(--offset_amnt) - var(--size));
@@ -149,19 +125,34 @@ user is typing in the input field but mouses off */
   z-index: 1;
 }
 
+.tractInfoDisplay[data-drag-dir="columns"] .tractAddBeforeButton,
+.tractInfoDisplay[data-drag-dir="columns"] .tractAddAfterButton,
+.tractInfoDisplay[data-drag-dir="columns"] .deleteButton {
+  bottom: 0;
+}
 .tractInfoDisplay[data-drag-dir="columns"] .tractAddBeforeButton {
   left: var(--offset);
-  bottom: 0;
 }
 .tractInfoDisplay[data-drag-dir="columns"] .tractAddAfterButton {
   right: var(--offset);
-  bottom: 0;
+}
+
+.tractInfoDisplay[data-drag-dir="rows"] .tractAddBeforeButton,
+.tractInfoDisplay[data-drag-dir="rows"] .tractAddAfterButton,
+.tractInfoDisplay[data-drag-dir="rows"] .deleteButton {
+  right: 0;
 }
 .tractInfoDisplay[data-drag-dir="rows"] .tractAddBeforeButton {
   top: var(--offset);
-  right: 0;
 }
 .tractInfoDisplay[data-drag-dir="rows"] .tractAddAfterButton {
   bottom: var(--offset);
-  right: 0;
+}
+
+.deleteButton[data-enabled="true"] {
+  color: var(--red);
+}
+.deleteButton[data-enabled="false"] {
+  color: var(--disabled-color, green);
+  cursor: not-allowed;
 }

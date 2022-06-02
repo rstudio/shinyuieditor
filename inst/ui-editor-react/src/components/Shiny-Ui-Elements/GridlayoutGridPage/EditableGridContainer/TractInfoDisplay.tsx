@@ -81,11 +81,11 @@ export function TractInfoDisplay({
           units={ALLOWED_UNITS}
           onChange={onNewSize}
         />
-        <DeleteTractButton
-          onClick={onTractDelete}
-          deletionConflicts={deletionConflicts}
-        />
       </div>
+      <DeleteTractButton
+        onClick={onTractDelete}
+        deletionConflicts={deletionConflicts}
+      />
       <AddTractButton placement="after" dir={dir} onClick={onNewTractAfter} />
     </div>
   );
