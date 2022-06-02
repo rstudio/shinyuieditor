@@ -1,15 +1,11 @@
 import * as React from "react";
 
-import Button from "components/Inputs/Button/Button";
-import { PopoverButton } from "components/Inputs/PopoverButton";
 import type { CSSMeasure } from "CSSMeasure";
 import produce from "immer";
-import { FaPlus } from "react-icons/fa";
 import type { NewTract } from "utils/gridTemplates/addTract";
 import addTract from "utils/gridTemplates/addTract";
 
 import type { TemplatedGridProps } from "..";
-import { singular } from "../helpers";
 
 import classes from "./resizableGrid.module.css";
 import { TractInfoDisplay } from "./TractInfoDisplay";
@@ -47,9 +43,7 @@ function EditableGridContainer({
     });
 
   const addNewTract = (tract: NewTract) => {
-    console.log("Add tract", tract);
-    const newLayout = addTract(layout, tract);
-    onNewLayout(newLayout);
+    onNewLayout(addTract(layout, tract));
   };
 
   const containerClasses = [classes.ResizableGrid];
