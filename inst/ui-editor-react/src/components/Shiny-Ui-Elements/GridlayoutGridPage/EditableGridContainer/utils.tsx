@@ -30,10 +30,10 @@ function getTractSizesFromStyleDeclaration(
   return templateProperty.split(" ") as CSSMeasure[];
 }
 
-function getAreaMatrixFromStyleDeclaration(
+export function getAreaMatrixFromStyleDeclaration(
   areaProperty: string
 ): TemplatedGridProps["areas"] {
-  const rows_match = areaProperty.match(/"([\w\s]+)"/g);
+  const rows_match = areaProperty.match(/"([.\w\s]+)"/g);
   if (!rows_match) throw new Error("Can't parse area definition");
 
   return rows_match.map((r) => r.replaceAll(`"`, ``).split(" "));
