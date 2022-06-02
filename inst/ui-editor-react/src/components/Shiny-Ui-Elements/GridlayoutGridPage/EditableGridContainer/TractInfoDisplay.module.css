@@ -25,10 +25,32 @@
     var(--transition-delay);
   padding-inline: 5px;
   padding-block: 3px;
-  display: grid;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
-.sizeWidget > div {
+.deleteButton {
+  --size: 23.5px;
+  height: var(--size);
+  width: var(--size);
+  background-color: var(--rstudio-white);
+  display: grid;
+  place-content: center;
+  border-radius: var(--corner-radius);
+  /* Only show delete button in the hover mode */
+  transform: scale(var(--hover-scale));
+}
+
+.deleteButton[data-enabled="true"] {
+  color: var(--red);
+}
+.deleteButton[data-enabled="false"] {
+  color: var(--disabled-color, green);
+  cursor: not-allowed;
+}
+
+.sizeWidget button .sizeWidget > div {
   filter: var(--shadow);
 }
 
@@ -52,7 +74,6 @@
 .tractInfoDisplay[data-drag-dir="rows"] > .sizeWidget {
   height: 100%;
   width: fit-content;
-  align-content: center;
   transform: scaleX(var(--scale));
   transform-origin: left;
 }
@@ -69,6 +90,7 @@
 .tractInfoDisplay[data-drag-dir="columns"] > .sizeWidget {
   height: fit-content;
   width: 100%;
+  flex-direction: column;
   justify-content: center;
   transform: scaleY(var(--scale));
   transform-origin: top;

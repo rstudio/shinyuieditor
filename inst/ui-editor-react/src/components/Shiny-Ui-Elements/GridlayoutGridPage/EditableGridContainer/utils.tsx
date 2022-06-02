@@ -50,7 +50,7 @@ export function getLayoutFromGridElement(el: HTMLElement): TemplatedGridProps {
   return { rowSizes, colSizes, areas, gapSize };
 }
 
-function tractIsBeingResized(
+export function tractIsBeingResized(
   dragStatus: DragStatus,
   tract: Pick<TractInfo, "dir" | "index">
 ): false | { current_size: CSSMeasure } {

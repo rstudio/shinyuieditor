@@ -2,21 +2,22 @@ import * as React from "react";
 
 import type { CSSMeasure } from "CSSMeasure";
 import produce from "immer";
-import type { NewTract } from "utils/gridTemplates/addTract";
 import addTract from "utils/gridTemplates/addTract";
+import removeTract from "utils/gridTemplates/removeTract";
 
 import type { TemplatedGridProps } from "..";
 
 import classes from "./resizableGrid.module.css";
-import { TractInfoDisplay } from "./TractInfoDisplay";
+import { TractInfoDisplays } from "./TractInfoDisplay";
 import type { TractInfo } from "./useDragToResizeGrid";
 import { useDragToResizeGrid } from "./useDragToResizeGrid";
-import {
-  buildRange,
-  columnIsBeingResized,
-  layoutDefToStyles,
-  rowIsBeingResized,
-} from "./utils";
+import { buildRange, layoutDefToStyles } from "./utils";
+
+export type TractUpdateAction = { dir: TractInfo["dir"]; index: number } & (
+  | { type: "RESIZE"; size: CSSMeasure }
+  | { type: "ADD"; index: number }
+  | { type: "DELETE" }
+);
 
 const NEW_TRACT_SIZE: CSSMeasure = "1fr";
 function EditableGridContainer({
@@ -42,12 +43,41 @@ function EditableGridContainer({
       onDragEnd: onNewLayout,
     });
 
-  const addNewTract = (tract: NewTract) => {
-    onNewLayout(addTract(layout, tract));
-  };
-
   const containerClasses = [classes.ResizableGrid];
   if (className) containerClasses.push(className);
+
+  const handleUpdateAction = React.useCallback(
+    (update: TractUpdateAction) => {
+      // There's a mismatch of "columns" vs "cols" for dir type so this is a
+      // "temporary" bandaid for that
+      const dir = update.dir === "columns" ? "cols" : "rows";
+      switch (update.type) {
+        case "ADD":
+          return addTract(layout, {
+            afterIndex: update.index,
+            dir,
+            size: NEW_TRACT_SIZE,
+          });
+        case "RESIZE":
+          return updateTractSize(layout, {
+            dir: update.dir,
+            index: update.index,
+            size: update.size,
+          });
+        case "DELETE":
+          return removeTract(layout, {
+            dir,
+            index: update.index,
+          });
+      }
+    },
+    [layout]
+  );
+
+  const handleUpdate = React.useCallback(
+    (update: TractUpdateAction) => onNewLayout(handleUpdateAction(update)),
+    [handleUpdateAction, onNewLayout]
+  );
 
   return (
     <div
@@ -83,56 +113,20 @@ function EditableGridContainer({
       ))}
 
       {children}
-      {colSizes.map((size, column_i) => {
-        const resized_size = columnIsBeingResized(dragStatus, column_i);
-
-        return (
-          <TractInfoDisplay
-            key={"col" + column_i}
-            index={column_i}
-            dir="columns"
-            size={resized_size === false ? size : resized_size.current_size}
-            show={resized_size !== false}
-            onChange={(s) =>
-              onNewLayout(
-                updateTractSize(layout, {
-                  dir: "columns",
-                  index: column_i,
-                  size: s,
-                })
-              )
-            }
-            onNewTract={(i) =>
-              addNewTract({ afterIndex: i, dir: "cols", size: NEW_TRACT_SIZE })
-            }
-          />
-        );
-      })}
-      {rowSizes.map((size, row_i) => {
-        const resized_size = rowIsBeingResized(dragStatus, row_i);
-
-        return (
-          <TractInfoDisplay
-            key={"row" + row_i}
-            index={row_i}
-            dir="rows"
-            size={resized_size === false ? size : resized_size.current_size}
-            show={resized_size !== false}
-            onChange={(s) =>
-              onNewLayout(
-                updateTractSize(layout, {
-                  dir: "rows",
-                  index: row_i,
-                  size: s,
-                })
-              )
-            }
-            onNewTract={(i) =>
-              addNewTract({ afterIndex: i, dir: "rows", size: NEW_TRACT_SIZE })
-            }
-          />
-        );
-      })}
+      <TractInfoDisplays
+        dir="columns"
+        sizes={colSizes}
+        dragStatus={dragStatus}
+        areas={layout.areas}
+        onUpdate={handleUpdate}
+      />
+      <TractInfoDisplays
+        dir="rows"
+        sizes={rowSizes}
+        dragStatus={dragStatus}
+        areas={layout.areas}
+        onUpdate={handleUpdate}
+      />
     </div>
   );
 }

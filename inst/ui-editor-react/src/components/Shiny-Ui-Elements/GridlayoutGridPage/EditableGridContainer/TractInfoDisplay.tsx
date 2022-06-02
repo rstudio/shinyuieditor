@@ -1,26 +1,67 @@
 import * as React from "react";
 
+import { Trash } from "components/Icons";
+import Button from "components/Inputs/Button/Button";
 import { CSSUnitInputSimple } from "components/Inputs/CSSUnitInput/CSSUnitInputSimple";
 import { PopoverButton } from "components/Inputs/PopoverButton";
 import type { CSSMeasure, CSSUnits } from "CSSMeasure";
 import { FaPlus } from "react-icons/fa";
+import { conflictsToRemoveTract } from "utils/gridTemplates/removeTract";
+
+import type { TemplatedGridProps } from "..";
+
+import type { TractUpdateAction } from ".";
 
 import classes from "./TractInfoDisplay.module.css";
-import type { TractInfo } from "./useDragToResizeGrid";
+import type { DragStatus, TractInfo } from "./useDragToResizeGrid";
+import { tractIsBeingResized } from "./utils";
 
 const ALLOWED_UNITS: CSSUnits[] = ["fr", "px"];
 export function TractInfoDisplay({
   dir,
   index,
   size,
-  show,
-  onChange,
-  onNewTract,
+  dragStatus,
+  onUpdate,
+  deletionConflicts,
 }: TractInfo & {
-  show: boolean;
-  onChange: (size: CSSMeasure) => void;
-  onNewTract: (index: number) => void;
+  dragStatus: DragStatus;
+  onUpdate: (a: TractUpdateAction) => void;
+  deletionConflicts: string[];
 }) {
+  const resized_size = tractIsBeingResized(dragStatus, { dir, index });
+  const show = resized_size !== false;
+  const displayed_size =
+    resized_size === false ? size : resized_size.current_size;
+
+  const onNewSize = React.useCallback(
+    (s: CSSMeasure) => onUpdate({ type: "RESIZE", dir, index, size: s }),
+    [dir, index, onUpdate]
+  );
+
+  const onNewTract = React.useCallback(
+    (i: number) =>
+      onUpdate({
+        type: "ADD",
+        dir,
+        index: i,
+      }),
+    [dir, onUpdate]
+  );
+
+  const onNewTractBefore = React.useCallback(
+    () => onNewTract(index),
+    [onNewTract, index]
+  );
+  const onNewTractAfter = React.useCallback(
+    () => onNewTract(index + 1),
+    [onNewTract, index]
+  );
+  const onTractDelete = React.useCallback(
+    () => onUpdate({ type: "DELETE", dir, index: index + 1 }),
+    [dir, index, onUpdate]
+  );
+
   return (
     <div
       className={classes.tractInfoDisplay}
@@ -32,25 +73,46 @@ export function TractInfoDisplay({
         } as React.CSSProperties
       }
     >
-      <AddTractButton
-        placement="before"
-        dir={dir}
-        onClick={() => onNewTract(index)}
-      />
+      <AddTractButton placement="before" dir={dir} onClick={onNewTractBefore} />
       <div className={classes.hoverListener} />
       <div className={classes.sizeWidget}>
         <CSSUnitInputSimple
-          value={size}
+          value={displayed_size}
           units={ALLOWED_UNITS}
-          onChange={onChange}
+          onChange={onNewSize}
+        />
+        <DeleteTractButton
+          onClick={onTractDelete}
+          deletionConflicts={deletionConflicts}
         />
       </div>
-      <AddTractButton
-        placement="after"
-        dir={dir}
-        onClick={() => onNewTract(index + 1)}
-      />
+      <AddTractButton placement="after" dir={dir} onClick={onNewTractAfter} />
     </div>
+  );
+}
+
+function DeleteTractButton({
+  onClick,
+  deletionConflicts,
+}: {
+  onClick: () => void;
+  deletionConflicts: string[];
+}) {
+  const enabled = deletionConflicts.length === 0;
+  const message = !enabled
+    ? `Can't delete because the items ${deletionConflicts.join(
+        ","
+      )} are entirely contained in tract`
+    : "Delete tract";
+  return (
+    <PopoverButton
+      className={classes.deleteButton}
+      onClick={enabled ? onClick : undefined}
+      popoverText={message}
+      data-enabled={enabled}
+    >
+      <Trash />
+    </PopoverButton>
   );
 }
 
@@ -82,5 +144,44 @@ function AddTractButton({
     >
       <FaPlus />
     </PopoverButton>
+  );
+}
+
+export function TractInfoDisplays({
+  dir,
+  sizes,
+  dragStatus,
+  areas,
+  onUpdate,
+}: {
+  dir: TractInfo["dir"];
+  sizes: TemplatedGridProps["colSizes"] | TemplatedGridProps["rowSizes"];
+  dragStatus: DragStatus;
+  areas: TemplatedGridProps["areas"];
+  onUpdate: (a: TractUpdateAction) => void;
+}) {
+  const findDeleteConflicts = React.useCallback(
+    ({ dir, index }: Omit<TractInfo, "size">) =>
+      conflictsToRemoveTract(areas, {
+        dir: dir === "columns" ? "cols" : "rows",
+        index: index + 1,
+      }),
+    [areas]
+  );
+
+  return (
+    <>
+      {sizes.map((size, index) => (
+        <TractInfoDisplay
+          key={dir + index}
+          index={index}
+          dir={dir}
+          dragStatus={dragStatus}
+          size={size}
+          onUpdate={onUpdate}
+          deletionConflicts={findDeleteConflicts({ dir, index })}
+        />
+      ))}
+    </>
   );
 }
