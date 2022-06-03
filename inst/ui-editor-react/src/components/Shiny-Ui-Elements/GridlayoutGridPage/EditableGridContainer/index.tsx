@@ -9,7 +9,7 @@ import type { TemplatedGridProps } from "..";
 
 import classes from "./resizableGrid.module.css";
 import { TractInfoDisplays } from "./TractInfoDisplay";
-import type { TractInfo } from "./useDragToResizeGrid";
+import type { TractEventListners, TractInfo } from "./useDragToResizeGrid";
 import { useDragToResizeGrid } from "./useDragToResizeGrid";
 import { buildRange, layoutDefToStyles } from "./utils";
 
@@ -128,6 +128,27 @@ function EditableGridContainer({
         onUpdate={handleUpdate}
       />
     </div>
+  );
+}
+
+function TractSizer({
+  // dir,
+  gap_index,
+  event_listeners: { onTractHover, onTractMouseOut, startDrag },
+}: {
+  // dir: TractDir;
+  gap_index: number;
+  event_listeners: TractEventListners;
+}) {
+  return (
+    <div
+      key={"col" + gap_index}
+      className={classes.columnSizer}
+      onMouseOver={(e) => onTractHover({ e, dir: "columns", index: gap_index })}
+      onMouseOut={onTractMouseOut}
+      onMouseDown={(e) => startDrag({ e, dir: "columns", index: gap_index })}
+      style={{ gridColumn: gap_index }}
+    />
   );
 }
 

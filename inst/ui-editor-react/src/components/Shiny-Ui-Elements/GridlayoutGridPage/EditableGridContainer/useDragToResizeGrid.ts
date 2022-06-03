@@ -26,20 +26,32 @@ export type DragStatus =
     }
   | ActiveDragStatus;
 
+export type TractEventListener = (x: {
+  e: React.MouseEvent;
+  dir: TractDir;
+  index: number;
+}) => void;
+
+export type TractEventListners = {
+  onTractHover: TractEventListener;
+  startDrag: TractEventListener;
+  onTractMouseOut: () => void;
+};
+
 export function useDragToResizeGrid({
   containerRef,
   onDragEnd,
 }: {
   containerRef: React.RefObject<HTMLDivElement>;
   onDragEnd?: (layout: TemplatedGridProps) => void;
-}) {
+}): TractEventListners & { dragStatus: DragStatus } {
   const [dragStatus, setDragStatus] = React.useState<DragStatus>({
     status: "idle",
   });
 
   const dragStateRef = React.useRef<DragState | null>(null);
 
-  const onTractHover = React.useCallback(
+  const onTractHover: TractEventListener = React.useCallback(
     ({
       e,
       dir,
