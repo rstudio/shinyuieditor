@@ -71,7 +71,7 @@
   flex-direction: column;
   padding-block: var(--padding);
 }
-.tractInfoDisplay[data-drag-dir="columns"] .hoverListener {
+.tractInfoDisplay[data-drag-dir="cols"] .hoverListener {
   height: var(--thickness);
   margin-top: calc(-1 * var(--thickness) + var(--grid-pad));
   padding-inline: var(--padding);
@@ -95,7 +95,7 @@
   transform-origin: left;
 }
 
-.tractInfoDisplay[data-drag-dir="columns"] {
+.tractInfoDisplay[data-drag-dir="cols"] {
   grid-row: 1;
   grid-column: var(--tract-index);
   width: 100%;
@@ -104,7 +104,7 @@
   flex-direction: column;
 }
 
-.tractInfoDisplay[data-drag-dir="columns"] > .sizeWidget {
+.tractInfoDisplay[data-drag-dir="cols"] > .sizeWidget {
   height: fit-content;
   min-height: fit-content;
   width: 100%;

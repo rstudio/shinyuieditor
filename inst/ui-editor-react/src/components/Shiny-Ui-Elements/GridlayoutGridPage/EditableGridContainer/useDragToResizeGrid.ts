@@ -2,22 +2,21 @@ import React from "react";
 
 import type { CSSMeasure } from "CSSMeasure";
 
-import type { TemplatedGridProps } from "..";
+import type { TemplatedGridProps, TractDirection } from "..";
 
 import type { DragState } from "./dragToResizeHelpers";
 import { initDragState, updateDragState } from "./dragToResizeHelpers";
 import { getLayoutFromGridElement } from "./utils";
 
-type TractDir = "rows" | "columns";
 export type TractInfo = {
-  dir: TractDir;
+  dir: TractDirection;
   index: number;
   size: CSSMeasure;
 };
 
 type ActiveDragStatus = {
   status: "hovering" | "dragging";
-  dir: TractDir;
+  dir: TractDirection;
   tracts: [TractInfo, TractInfo];
 };
 export type DragStatus =
@@ -28,7 +27,7 @@ export type DragStatus =
 
 export type TractEventListener = (x: {
   e: React.MouseEvent;
-  dir: TractDir;
+  dir: TractDirection;
   index: number;
 }) => void;
 
@@ -58,7 +57,7 @@ export function useDragToResizeGrid({
       index,
     }: {
       e: React.MouseEvent;
-      dir: TractDir;
+      dir: TractDirection;
       index: number;
     }) => {
       if (!containerRef.current) {
@@ -103,7 +102,7 @@ export function useDragToResizeGrid({
       index,
     }: {
       e: React.MouseEvent;
-      dir: TractDir;
+      dir: TractDirection;
       index: number;
     }) => {
       if (!containerRef.current) {

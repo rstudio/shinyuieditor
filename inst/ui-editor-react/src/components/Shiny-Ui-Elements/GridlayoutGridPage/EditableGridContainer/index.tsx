@@ -48,27 +48,17 @@ function EditableGridContainer({
 
   const handleUpdateAction = React.useCallback(
     (update: TractUpdateAction) => {
-      // There's a mismatch of "columns" vs "cols" for dir type so this is a
-      // "temporary" bandaid for that
-      const dir = update.dir === "columns" ? "cols" : "rows";
       switch (update.type) {
         case "ADD":
           return addTract(layout, {
             afterIndex: update.index,
-            dir,
+            dir: update.dir,
             size: NEW_TRACT_SIZE,
           });
         case "RESIZE":
-          return updateTractSize(layout, {
-            dir: update.dir,
-            index: update.index,
-            size: update.size,
-          });
+          return updateTractSize(layout, update);
         case "DELETE":
-          return removeTract(layout, {
-            dir,
-            index: update.index,
-          });
+          return removeTract(layout, update);
       }
     },
     [layout]
@@ -90,12 +80,10 @@ function EditableGridContainer({
           key={"col" + gap_index}
           className={classes.columnSizer}
           onMouseOver={(e) =>
-            onTractHover({ e, dir: "columns", index: gap_index })
+            onTractHover({ e, dir: "cols", index: gap_index })
           }
           onMouseOut={onTractMouseOut}
-          onMouseDown={(e) =>
-            startDrag({ e, dir: "columns", index: gap_index })
-          }
+          onMouseDown={(e) => startDrag({ e, dir: "cols", index: gap_index })}
           style={{ gridColumn: gap_index }}
         />
       ))}
@@ -114,7 +102,7 @@ function EditableGridContainer({
 
       {children}
       <TractInfoDisplays
-        dir="columns"
+        dir="cols"
         sizes={colSizes}
         dragStatus={dragStatus}
         areas={layout.areas}
@@ -144,9 +132,9 @@ function TractSizer({
     <div
       key={"col" + gap_index}
       className={classes.columnSizer}
-      onMouseOver={(e) => onTractHover({ e, dir: "columns", index: gap_index })}
+      onMouseOver={(e) => onTractHover({ e, dir: "cols", index: gap_index })}
       onMouseOut={onTractMouseOut}
-      onMouseDown={(e) => startDrag({ e, dir: "columns", index: gap_index })}
+      onMouseDown={(e) => startDrag({ e, dir: "cols", index: gap_index })}
       style={{ gridColumn: gap_index }}
     />
   );

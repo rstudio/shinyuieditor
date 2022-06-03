@@ -2,9 +2,9 @@ import { toStringLoc } from "utils/grid-helpers";
 import type { GridItemExtent, ItemLocation } from "utils/gridTemplates/types";
 import type { ItemBoundingBox } from "utils/overlap-helpers";
 
-import type { GridCellBounds } from "./GridCell";
+import type { TractDirection } from ".";
 
-export type TractDirection = "rows" | "cols";
+import type { GridCellBounds } from "./GridCell";
 
 export const directions: TractDirection[] = ["rows", "cols"];
 export function singular(dir: TractDirection): "row" | "column" {

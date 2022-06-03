@@ -1,3 +1,5 @@
+import type { TractDirection } from "..";
+
 import type { TractUpdateValues } from "./tractUpdatingFunctions";
 import { drag_pixel_after } from "./tractUpdatingFunctions";
 import {
@@ -7,7 +9,7 @@ import {
 } from "./tractUpdatingFunctions";
 
 export type DragState = {
-  dir: "rows" | "columns";
+  dir: TractDirection;
   beforeIndex: number;
   afterIndex: number;
   mouseStart: number;
@@ -126,7 +128,7 @@ export function initDragState({
   container,
 }: {
   mousePosition: MousePosition;
-  dir: "rows" | "columns";
+  dir: DragState["dir"];
   index: number;
   container: HTMLDivElement;
 }): DragState {
@@ -272,7 +274,7 @@ export function updateDragState({
 
   drag.currentSizes = newSizes;
   // Actually apply those new sizes to the css appropriate grid template sizes
-  if (drag.dir === "columns") {
+  if (drag.dir === "cols") {
     container.style.gridTemplateColumns = newSizes.join(" ");
   } else {
     container.style.gridTemplateRows = newSizes.join(" ");

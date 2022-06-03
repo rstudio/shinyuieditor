@@ -16,6 +16,8 @@ export type TemplatedGridProps = {
   gapSize: CSSMeasure;
 };
 
+export type TractDirection = "rows" | "cols";
+
 export const gridlayoutGridPageInfo: UiComponentInfo<TemplatedGridProps> = {
   title: "Grid Page",
   UiComponent: GridlayoutGridPage,

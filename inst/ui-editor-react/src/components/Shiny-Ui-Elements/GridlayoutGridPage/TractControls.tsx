@@ -1,8 +1,8 @@
 import React from "react";
 
 import { CSSUnitInput } from "components/Inputs/CSSUnitInput";
+import type { TractDirection } from "components/Shiny-Ui-Elements/GridlayoutGridPage";
 import type { GridLayoutAction } from "components/Shiny-Ui-Elements/GridlayoutGridPage/gridLayoutReducer";
-import type { TractDirection } from "components/Shiny-Ui-Elements/GridlayoutGridPage/helpers";
 import {
   directions,
   singular,

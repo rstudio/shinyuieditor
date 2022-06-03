@@ -1,4 +1,4 @@
-import type { TractDirection } from "components/Shiny-Ui-Elements/GridlayoutGridPage/helpers";
+import type { TractDirection } from "components/Shiny-Ui-Elements/GridlayoutGridPage";
 
 import type { GridLocString, GridPos } from "../GridTypes";
 

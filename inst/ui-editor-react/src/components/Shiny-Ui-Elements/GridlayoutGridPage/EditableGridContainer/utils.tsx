@@ -75,7 +75,7 @@ export function rowIsBeingResized(dragStatus: DragStatus, row_i: number) {
 
 export function columnIsBeingResized(dragStatus: DragStatus, column_i: number) {
   return tractIsBeingResized(dragStatus, {
-    dir: "columns",
+    dir: "cols",
     index: column_i,
   });
 }

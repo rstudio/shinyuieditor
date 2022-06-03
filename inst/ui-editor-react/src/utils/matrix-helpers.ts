@@ -1,4 +1,4 @@
-import type { TractDirection } from "components/Shiny-Ui-Elements/GridlayoutGridPage/helpers";
+import type { TractDirection } from "components/Shiny-Ui-Elements/GridlayoutGridPage";
 import clone from "just-clone";
 
 import { addAtIndex, removeAtIndex } from "./array-helpers";

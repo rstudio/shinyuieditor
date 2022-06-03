@@ -168,7 +168,7 @@ export function TractInfoDisplays({
   const findDeleteConflicts = React.useCallback(
     ({ dir, index }: Omit<TractInfo, "size">) =>
       conflictsToRemoveTract(areas, {
-        dir: dir === "columns" ? "cols" : "rows",
+        dir,
         index: index + 1,
       }),
     [areas]
