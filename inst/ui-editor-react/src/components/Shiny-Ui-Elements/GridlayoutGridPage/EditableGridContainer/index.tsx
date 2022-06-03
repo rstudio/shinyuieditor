@@ -5,11 +5,12 @@ import produce from "immer";
 import addTract from "utils/gridTemplates/addTract";
 import removeTract from "utils/gridTemplates/removeTract";
 
-import type { TemplatedGridProps, TractDirection } from "..";
+import type { TemplatedGridProps } from "..";
 
 import classes from "./resizableGrid.module.css";
 import { TractInfoDisplays } from "./TractInfoDisplay";
-import type { TractEventListners, TractInfo } from "./useDragToResizeGrid";
+import { TractSizer } from "./TractSizer";
+import type { TractInfo } from "./useDragToResizeGrid";
 import { useDragToResizeGrid } from "./useDragToResizeGrid";
 import { buildRange, layoutDefToStyles } from "./utils";
 
@@ -106,27 +107,6 @@ function EditableGridContainer({
         onUpdate={handleUpdate}
       />
     </div>
-  );
-}
-
-function TractSizer({
-  dir,
-  index,
-  event_listeners: { onTractHover, onTractMouseOut, startDrag },
-}: {
-  dir: TractDirection;
-  index: number;
-  event_listeners: TractEventListners;
-}) {
-  return (
-    <div
-      key={dir + index}
-      className={dir === "rows" ? classes.rowSizer : classes.columnSizer}
-      onMouseOver={(e) => onTractHover({ e, dir, index })}
-      onMouseOut={onTractMouseOut}
-      onMouseDown={(e) => startDrag({ e, dir, index })}
-      style={{ [dir === "rows" ? "gridRow" : "gridColumn"]: index }}
-    />
   );
 }
 

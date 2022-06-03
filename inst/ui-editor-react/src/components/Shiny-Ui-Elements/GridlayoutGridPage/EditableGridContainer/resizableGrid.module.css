@@ -3,14 +3,6 @@
 
   --grid-pad: var(--pad, 10px);
 
-  /* How much does the handle expand to make it easier to grab? */
-  --sizer-expansion-amnt: 1.3;
-  --sizer-margin-offset: calc(-1 * var(--grid-gap));
-  --sizer-thickness: 2px;
-  --sizer-length: calc(100% + 2 * var(--grid-pad));
-  --sizer-main-axis-offset: calc(-1 * var(--grid-pad));
-  --sizer-off-axis-offset: calc(50% - var(--sizer-thickness) / 2);
-
   height: 100%;
   width: 100%;
   min-height: 80px;
@@ -29,70 +21,6 @@
     https://css-tricks.com/preventing-a-grid-blowout/ for more details */
   min-width: 0;
   min-height: 0;
-}
-
-div.columnSizer,
-div.rowSizer {
-  /* Make sure tract controls don't overlap the items */
-  z-index: -1;
-  background-color: transparent;
-  opacity: 1;
-  position: relative;
-  /*
-     Transformation back to default size is nice and slow to make it less
-     confusing when the mouse slips slighlty off the grab handle and then when
-     returning to the same place it is nowhere to be found.
-    */
-  transition: transform 1s 0.5s;
-}
-
-.columnSizer {
-  grid-row: 1/-1;
-  width: var(--grid-gap);
-  margin-left: var(--sizer-margin-offset);
-  height: var(--sizer-length);
-  cursor: ew-resize;
-}
-
-.rowSizer {
-  grid-column: 1/-1;
-  height: var(--grid-gap);
-  margin-top: var(--sizer-margin-offset);
-  width: var(--sizer-length);
-  cursor: ns-resize;
-}
-
-div.columnSizer::after,
-div.rowSizer::after {
-  content: "";
-  position: absolute;
-  background-color: var(--rstudio-blue);
-}
-
-div.columnSizer::after {
-  height: 100%;
-  width: var(--sizer-thickness);
-  left: var(--sizer-off-axis-offset);
-  top: var(--sizer-main-axis-offset);
-}
-
-div.rowSizer::after {
-  width: 100%;
-  height: var(--sizer-thickness);
-  top: var(--sizer-off-axis-offset);
-  left: var(--sizer-main-axis-offset);
-}
-
-.columnSizer:hover,
-.rowSizer:hover {
-  /* Make the transition to larger instant */
-  transition: transform 0s;
-}
-.columnSizer:hover {
-  transform: scaleX(var(--sizer-expansion-amnt));
-}
-.rowSizer:hover {
-  transform: scaleY(var(--sizer-expansion-amnt));
 }
 
 div#size-detection-cell {
