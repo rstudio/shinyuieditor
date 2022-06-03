@@ -1,11 +1,12 @@
 .tractInfoDisplay {
-  --transition-out-delay: 0.7s;
-  --transition-in-delay: 0.2s;
+  --transition-out-delay: 0.4s;
+  --transition-in-delay: 0.12s;
   --transition-delay: var(--transition-out-delay);
   --transition-speed: 0.1s;
   --transition-ease: ease-in-out;
 
-  --hover-listener-transition-in: none;
+  --hover-listener-transition-in: background-color 0 var(--transition-ease)
+    var(--transition-delay);
   --hover-listener-transition-out: transform var(--transition-speed)
     var(--transition-ease) var(--transition-delay);
   --hover-listener-transition: var(--hover-listener-transition-out);
@@ -59,7 +60,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--hover-listener-color, transparent);
+  background-color: var(--hover-listener-color, green);
   z-index: 2;
   transition: var(--hover-listener-transition);
   transition-property: background-color, transform;
@@ -124,11 +125,14 @@ user is typing in the input field but mouses off */
   --scale: 100%;
   --transition-delay: var(--transition-in-delay);
   --hover-listener-color: var(--accent-color);
-  --hover-listener-transition: var(--hover-listener-transition-in);
+  /* --hover-listener-transition: var(--hover-listener-transition-in); */
 }
 
 .tractInfoDisplay:hover {
   --hover-listener-thickness: 23.5px;
+  /* Make sure that the hovered display is always on top of any that may be
+  lingering around */
+  z-index: 3;
 }
 
 .tractInfoDisplay button {
@@ -151,6 +155,8 @@ user is typing in the input field but mouses off */
 
 .tractInfoDisplay:hover button {
   transform: scale(1);
+  transition: transform var(--transition-speed) var(--transition-ease)
+    var(--transition-delay);
 }
 
 .deleteButton[data-enabled="true"] {
