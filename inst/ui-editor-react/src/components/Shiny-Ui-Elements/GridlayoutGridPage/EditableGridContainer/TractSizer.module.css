@@ -1,5 +1,7 @@
 div.columnSizer,
 div.rowSizer {
+  --sizer-color: #c9e2f3;
+
   /* How much does the handle expand to make it easier to grab? */
   --sizer-expansion-amnt: 1.3;
   --sizer-margin-offset: calc(-1 * var(--grid-gap));
@@ -45,7 +47,7 @@ div.columnSizer::after,
 div.rowSizer::after {
   content: "";
   position: absolute;
-  background-color: var(--rstudio-blue);
+  background-color: var(--sizer-color);
 }
 
 div.columnSizer::after {
