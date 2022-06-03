@@ -16,7 +16,6 @@ export function TractSizer({
 }) {
   return (
     <div
-      key={dir + index}
       className={dir === "rows" ? classes.rowSizer : classes.columnSizer}
       onMouseOver={(e) => onTractHover({ e, dir, index })}
       onMouseOut={onTractMouseOut}

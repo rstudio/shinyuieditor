@@ -78,6 +78,7 @@ function EditableGridContainer({
     >
       {columnSizers.map((gap_index) => (
         <TractSizer
+          key={"cols" + gap_index}
           dir="cols"
           index={gap_index}
           event_listeners={{ onTractMouseOut, onTractHover, startDrag }}
@@ -85,6 +86,7 @@ function EditableGridContainer({
       ))}
       {rowSizers.map((gap_index) => (
         <TractSizer
+          key={"rows" + gap_index}
           dir="rows"
           index={gap_index}
           event_listeners={{ onTractMouseOut, onTractHover, startDrag }}
