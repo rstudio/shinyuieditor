@@ -85,7 +85,7 @@ export function TractInfoDisplay({
         />
         <AddTractButton placement="after" dir={dir} onClick={onNewTractAfter} />
       </div>
-      <div className={classes.sizeWidget}>
+      <div className={classes.sizeWidget} onClick={stopPropagation}>
         <CSSUnitInputSimple
           value={displayed_size}
           units={ALLOWED_UNITS}
@@ -189,4 +189,8 @@ export function TractInfoDisplays({
       ))}
     </>
   );
+}
+
+function stopPropagation(e: React.MouseEvent<HTMLElement, MouseEvent>) {
+  e.stopPropagation();
 }
