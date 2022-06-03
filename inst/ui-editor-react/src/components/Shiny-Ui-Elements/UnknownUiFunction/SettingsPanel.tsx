@@ -8,17 +8,12 @@ import type { SettingsUpdaterComponent } from "../uiNodeTypes";
 
 import type { UnknownUiFunctionProps } from ".";
 
+import { formatFunctionText } from "./formatFunctionText";
 import classes from "./styles.module.css";
 
 export const UnknownUiFunctionSettings: SettingsUpdaterComponent<
   UnknownUiFunctionProps
 > = ({ settings }) => {
-  // Split up functions with arguments to format somewhat nicely
-  const formattedText = settings.text
-    .replaceAll(/\(\s*\)/g, "()")
-    .replaceAll(/\((?!\))/g, "(\n  ")
-    .replaceAll(/(?<!\()\)/g, "\n)  ")
-    .replaceAll(/,/g, ",\n ");
   return (
     <div>
       <div className={inputClasses.container}>
@@ -29,7 +24,9 @@ export const UnknownUiFunctionSettings: SettingsUpdaterComponent<
       </div>
       <CategoryDivider category="Code" />
       <div className={inputClasses.container}>
-        <pre className={classes.codeHolder}>{formattedText}</pre>
+        <pre className={classes.codeHolder}>
+          {formatFunctionText(settings.text)}
+        </pre>
       </div>
     </div>
   );
