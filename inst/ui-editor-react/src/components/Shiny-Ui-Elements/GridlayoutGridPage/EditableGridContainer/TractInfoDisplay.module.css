@@ -7,6 +7,9 @@
 
   --shadow: drop-shadow(2px 2px 3px hsl(0deg 0% 0% / 0.4));
   --offset: calc(-1 * var(--grid-pad));
+
+  --accent-color: var(--header-grey);
+  --hover-listener-color: transparent;
   z-index: 1;
   display: flex;
   align-items: center;
@@ -15,15 +18,15 @@
   --rows-width: fit-content;
   --cols-height: fit-content;
   --scale: 0;
-  transition: background-color var(--transition-speed) var(--transition-ease)
-    var(--transition-delay);
+
   isolation: isolate;
 }
 
 .sizeWidget {
+  /* position: absolute; */
   /* How far we pull the size widget towards the edge to make it appear part of
   the whole with the hover listener */
-  --inset: -3px;
+  --inset: -2px;
   transition: transform var(--transition-speed) var(--transition-ease)
     var(--transition-delay);
   padding-inline: 5px;
@@ -32,7 +35,10 @@
   align-items: center;
   gap: 4px;
   background-color: var(--rstudio-white);
-  border: 3px solid var(--rstudio-blue, pink);
+  border: 3px solid var(--accent-color, pink);
+  /* outline-offset: -3px; */
+  outline: 1px solid white;
+  z-index: -1;
 }
 
 .sizeWidget button .sizeWidget > div {
@@ -40,7 +46,10 @@
 }
 
 .hoverListener {
+  /* position: absolute; */
+
   --thickness: var(--hover-listener-thickness, var(--grid-pad));
+  --padding: 2px;
   width: 100%;
   height: 100%;
   flex-shrink: 0;
@@ -48,20 +57,22 @@
   justify-content: space-between;
   align-items: center;
   background-color: var(--hover-listener-color, transparent);
-  border-radius: var(--corner-radius);
+  /* transition: background-color var(--transition-speed) var(--transition-ease)
+    var(--transition-delay); */
+  /* background-color: pink; */
+  z-index: 2;
 }
 
 .tractInfoDisplay[data-drag-dir="rows"] .hoverListener {
-  height: calc(100% + var(--grid-gap));
   width: var(--thickness);
   margin-left: calc(-1 * var(--thickness) + var(--grid-pad));
   flex-direction: column;
+  padding-block: var(--padding);
 }
 .tractInfoDisplay[data-drag-dir="columns"] .hoverListener {
-  width: calc(100% + var(--grid-gap));
   height: var(--thickness);
   margin-top: calc(-1 * var(--thickness) + var(--grid-pad));
-  /* outline: 1px solid white; */
+  padding-inline: var(--padding);
 }
 .tractInfoDisplay[data-drag-dir="rows"] {
   grid-column: 1;
@@ -106,15 +117,15 @@
 user is typing in the input field but mouses off */
 .tractInfoDisplay:hover,
 .tractInfoDisplay[data-visible="true"],
+/* .tractInfoDisplay[data-visible="false"], */
 .tractInfoDisplay:focus-within {
   --scale: 100%;
   --transition-delay: var(--transition-in-delay);
-  background-color: var(--rstudio-blue);
+  --hover-listener-color: var(--accent-color);
 }
 
 .tractInfoDisplay:hover {
   --hover-listener-thickness: 23.5px;
-  --hover-listener-color: var(--rstudio-blue);
 }
 
 .tractInfoDisplay button {
@@ -127,8 +138,10 @@ user is typing in the input field but mouses off */
   display: grid;
   place-content: center;
   border-radius: 50%;
-  border: 1px solid var(--rstudio-blue);
-  background-color: var(--rstudio-white);
+  border: 1px solid var(--accent-color);
+  /* background-color: var(--rstudio-white); */
+  background-color: transparent;
+  color: white;
   transition: none;
   transform: scale(0);
   z-index: 1;
