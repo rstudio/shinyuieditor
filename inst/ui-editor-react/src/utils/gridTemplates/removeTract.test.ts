@@ -15,13 +15,15 @@ describe("Remove empty tracts", () => {
         },
         { index: 2, dir: "cols" }
       )
-    ).toStrictEqual({
-      areas: [
-        ["a", "c"],
-        ["b", "c"],
-      ],
-      colSizes: ["1fr", "3fr"],
-    });
+    ).toStrictEqual(
+      expect.objectContaining({
+        areas: [
+          ["a", "c"],
+          ["b", "c"],
+        ],
+        colSizes: ["1fr", "3fr"],
+      })
+    );
   });
   test("Remove row without fully contained items", () => {
     expect(
@@ -38,13 +40,15 @@ describe("Remove empty tracts", () => {
         },
         { index: 3, dir: "rows" }
       )
-    ).toStrictEqual({
-      areas: [
-        ["a", "a"],
-        ["b", "b"],
-      ],
-      rowSizes: ["1fr", "2fr"],
-    });
+    ).toStrictEqual(
+      expect.objectContaining({
+        areas: [
+          ["a", "a"],
+          ["b", "b"],
+        ],
+        rowSizes: ["1fr", "2fr"],
+      })
+    );
   });
 });
 
