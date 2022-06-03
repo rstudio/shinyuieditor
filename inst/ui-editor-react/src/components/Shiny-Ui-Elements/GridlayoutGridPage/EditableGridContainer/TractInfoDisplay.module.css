@@ -5,6 +5,11 @@
   --transition-speed: 0.1s;
   --transition-ease: ease-in-out;
 
+  --hover-listener-transition-in: none;
+  --hover-listener-transition-out: transform var(--transition-speed)
+    var(--transition-ease) var(--transition-delay);
+  --hover-listener-transition: var(--hover-listener-transition-out);
+
   --shadow: drop-shadow(2px 2px 3px hsl(0deg 0% 0% / 0.4));
   --offset: calc(-1 * var(--grid-pad));
 
@@ -19,6 +24,7 @@
   --cols-height: fit-content;
   --scale: 0;
 
+  /* overflow: hidden; */
   isolation: isolate;
 }
 
@@ -36,7 +42,6 @@
   gap: 4px;
   background-color: var(--rstudio-white);
   border: 3px solid var(--accent-color, pink);
-  /* outline-offset: -3px; */
   outline: 1px solid white;
   z-index: -1;
 }
@@ -46,8 +51,6 @@
 }
 
 .hoverListener {
-  /* position: absolute; */
-
   --thickness: var(--hover-listener-thickness, var(--grid-pad));
   --padding: 2px;
   width: 100%;
@@ -57,10 +60,9 @@
   justify-content: space-between;
   align-items: center;
   background-color: var(--hover-listener-color, transparent);
-  /* transition: background-color var(--transition-speed) var(--transition-ease)
-    var(--transition-delay); */
-  /* background-color: pink; */
   z-index: 2;
+  transition: var(--hover-listener-transition);
+  transition-property: background-color, transform;
 }
 
 .tractInfoDisplay[data-drag-dir="rows"] .hoverListener {
@@ -122,6 +124,7 @@ user is typing in the input field but mouses off */
   --scale: 100%;
   --transition-delay: var(--transition-in-delay);
   --hover-listener-color: var(--accent-color);
+  --hover-listener-transition: var(--hover-listener-transition-in);
 }
 
 .tractInfoDisplay:hover {
@@ -139,7 +142,6 @@ user is typing in the input field but mouses off */
   place-content: center;
   border-radius: 50%;
   border: 1px solid var(--accent-color);
-  /* background-color: var(--rstudio-white); */
   background-color: transparent;
   color: white;
   transition: none;
