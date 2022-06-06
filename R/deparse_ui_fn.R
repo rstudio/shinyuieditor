@@ -1,6 +1,5 @@
 
 deparse_ui_fn <- function(ui_tree){
-  if(!is.list(ui_tree)) return(ui_tree)
 
   if(!rlang::is_named(ui_tree)) {
     return(lapply(ui_tree, FUN=deparse_ui_fn))
