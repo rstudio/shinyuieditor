@@ -123,7 +123,11 @@ unknown_code_wrap <- function(code_expr){
 }
 
 unknown_code_unwrap <- function(unknown_code_box){
-  str2lang(unknown_code_box$text)
+  str2lang(unknown_code_box$uiArguments$text)
+}
+
+is_unknown_code <- function(ui_node){
+  is.list(ui_node) && identical(ui_node$uiName, "unknownUiFunction")
 }
 
 
