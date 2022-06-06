@@ -27,7 +27,8 @@ gridlayout::grid_page(
       min = 12L,
       max = 100L,
       value = 30L,
-      animate = animationOptions(
+      width = "100%",
+      animate = shiny::animationOptions(
         interval = 1000,
         loop = FALSE,
         playButton = "play",
