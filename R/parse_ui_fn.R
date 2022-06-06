@@ -45,7 +45,7 @@ parse_ui_fn <- function(ui_node_expr, env = rlang::caller_env()) {
 
   if (!can_parse_ui_expr(ui_node_expr)) {
     return(
-      wrap_unknown_code(ui_node_expr)
+      unknown_code_wrap(ui_node_expr)
     )
   }
 
@@ -113,16 +113,19 @@ can_parse_ui_expr <- function(expr){
 
 # When we can't parse a bit of the UI we place it into an unknown box that will
 # be preserved in both parsing and un-parsing
-wrap_unknown_code <- function(code_expr){
-
-    list(
-      uiName = "unknownUiFunction",
-      uiArguments = list(
-        text = rlang::expr_text(code_expr)
-      )
+unknown_code_wrap <- function(code_expr){
+  list(
+    uiName = "unknownUiFunction",
+    uiArguments = list(
+      text = rlang::expr_text(code_expr)
     )
-
+  )
 }
+
+unknown_code_unwrap <- function(unknown_code_box){
+  str2lang(unknown_code_box$text)
+}
+
 
 parse_argument <- function(arg_expr){
   # First check if we should even try and parsing this node. If it's a constant
@@ -148,7 +151,7 @@ parse_argument <- function(arg_expr){
     return(list_val)
   }
 
-  wrap_unknown_code(arg_expr)
+  unknown_code_wrap(arg_expr)
 }
 
 

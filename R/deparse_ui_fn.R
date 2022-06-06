@@ -11,7 +11,7 @@ deparse_ui_fn <- function(ui_tree){
 
   if (ui_fn == "unknownUiFunction"){
     # Just mirror back whatever the unknown function call was
-    return(str2lang(ui_args$text))
+    return(unknown_code_unwrap(ui_args))
   }
 
   if(is.null(ui_fn) || is.null(ui_args)) {
