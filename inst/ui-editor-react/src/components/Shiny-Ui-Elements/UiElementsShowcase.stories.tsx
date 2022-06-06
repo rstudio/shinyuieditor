@@ -5,6 +5,7 @@ import type { OnChangeCallback } from "components/Inputs/SettingsUpdateContext";
 import { SettingsUpdateContext } from "components/Inputs/SettingsUpdateContext";
 import type {
   SettingsUpdaterComponent,
+  ShinyUiNodeInfo,
   UiContainerNodeComponent,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { shinyUiNodeInfo } from "components/Shiny-Ui-Elements/uiNodeTypes";
@@ -13,31 +14,36 @@ import "../../App.css";
 import classes from "./UiElementsShowcase.module.css";
 import type { ShinyUiNames } from "./uiNodeTypes";
 
-export const UiElementsShowcase: Story<{
-  nameOfElement: ShinyUiNames;
-}> = ({ nameOfElement }) => {
-  const componentRef = React.useRef<HTMLDivElement>(null);
+function UiNodeAndSettings<T extends ShinyUiNames>({
+  uiName,
+  uiArguments,
+}: {
+  uiName: T;
+  uiArguments: ShinyUiNodeInfo[T]["defaultSettings"];
+}) {
+  type NodeSettingsType = ShinyUiNodeInfo[T]["defaultSettings"];
 
-  const nodeInfo = shinyUiNodeInfo[nameOfElement];
-
-  const defaultSettings = nodeInfo.defaultSettings;
-
-  type NodeSettingsType = typeof defaultSettings;
-  const [uiSettings, setUiSettings] =
-    React.useState<NodeSettingsType>(defaultSettings);
-
-  React.useEffect(() => {
-    setUiSettings(defaultSettings);
-  }, [defaultSettings]);
+  const nodeInfo: ShinyUiNodeInfo[T] = shinyUiNodeInfo[uiName];
 
   const NodeComponent =
     nodeInfo.UiComponent as UiContainerNodeComponent<NodeSettingsType>;
 
   const SettingsInputs =
     nodeInfo.SettingsComponent as SettingsUpdaterComponent<NodeSettingsType>;
+
+  const [uiSettings, setUiSettings] =
+    React.useState<NodeSettingsType>(uiArguments);
+
+  const componentRef = React.useRef<HTMLDivElement>(null);
+
   const updateSettings: OnChangeCallback = ({ name, value }) => {
     setUiSettings({ ...uiSettings, [name]: value });
   };
+
+  React.useEffect(() => setUiSettings(uiArguments), [uiArguments, uiName]);
+
+  React.useEffect(() => console.log("UiSettings", uiSettings), [uiSettings]);
+
   return (
     <div className={classes.container}>
       <div>
@@ -48,9 +54,7 @@ export const UiElementsShowcase: Story<{
             uiChildren={[]}
             uiArguments={uiSettings}
             eventHandlers={{
-              onClick: () => {
-                console.log(`Clicked the ${nameOfElement} component`);
-              },
+              onClick: () => console.log(`Clicked the ${uiName} component`),
             }}
             nodeInfo={{ path: [0] }}
           />
@@ -63,6 +67,17 @@ export const UiElementsShowcase: Story<{
         </SettingsUpdateContext>
       </div>
     </div>
+  );
+}
+
+export const UiElementsShowcase: Story<{
+  nameOfElement: ShinyUiNames;
+}> = ({ nameOfElement }) => {
+  return (
+    <UiNodeAndSettings
+      uiName={nameOfElement}
+      uiArguments={shinyUiNodeInfo[nameOfElement].defaultSettings}
+    />
   );
 };
 
