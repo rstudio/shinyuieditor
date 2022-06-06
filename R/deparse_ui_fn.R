@@ -1,36 +1,41 @@
 
 deparse_ui_fn <- function(ui_tree){
-
-  if(!rlang::is_named(ui_tree)) {
-    return(lapply(ui_tree, FUN=deparse_ui_fn))
-  }
+  # Is the tree node just a primitive value? In that case we don't need to do
+  # any special parsing
+  if(!is.list(ui_tree)) return(ui_tree)
 
   # Just mirror back whatever the unknown function call was
   if (is_unknown_code(ui_tree)){
     return(unknown_code_unwrap(ui_tree))
   }
 
-  ui_fn <- ui_tree$uiName
-  ui_args <- ui_tree$uiArguments
+  # If we've made if this far we should be in a full-blown ui node
+  validate_ui_tree_node(ui_tree)
 
-  if(is.null(ui_fn) || is.null(ui_args)) {
-    stop("Improperly formatted ui tree found")
-  }
-
-  # We need to make sure we unpack any unknown code boxes
-  # to the arguments to their original code
-  for (i in 1:length(ui_args)){
-    if (is_unknown_code(ui_args[[i]])) {
-      ui_args[[i]] <- unknown_code_unwrap(ui_args[[i]])
-    }
-  }
-
-  ui_children <- lapply(ui_tree$uiChildren, deparse_ui_fn)
+  # We can then recurse through the arguments/children to build up the proper
+  # argument structure to be reconstructed with call2
+  all_ui_args <- lapply(
+    rlang::list2(
+      !!!ui_tree$uiArguments,
+      !!!ui_tree$uiChildren
+    ),
+    deparse_ui_fn
+  )
 
   # Now we can reconstruct the original function call with names attached
   rlang::call2(
-    parse(text=ui_fn)[[1]],
-    !!!ui_args,
-    !!!ui_children
+    parse(text=ui_tree$uiName)[[1]],
+    !!!all_ui_args
   )
+}
+
+
+validate_ui_tree_node <- function(node){
+
+  if(is.null(node$uiName)) {
+    stop("Improperly formatted ui tree found - missing uiName property")
+  }
+  if(is.null(node$uiArguments)) {
+    stop("Improperly formatted ui tree found - missing uiArguments property")
+  }
 }
