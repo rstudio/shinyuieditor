@@ -148,7 +148,7 @@ parse_argument <- function(arg_expr){
     return(list_val)
   }
 
-  stop("Only constant expressions or named lists are currently supported argument types.")
+  wrap_unknown_code(arg_expr)
 }
 
 
