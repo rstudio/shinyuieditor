@@ -15,7 +15,6 @@ deparse_ui_fn <- function(ui_tree){
   }
 
   if(is.null(ui_fn) || is.null(ui_args)) {
-    lobstr::tree(ui_tree)
     stop("Improperly formatted ui tree found")
   }
 
