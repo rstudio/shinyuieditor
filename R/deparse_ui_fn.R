@@ -18,28 +18,20 @@ deparse_ui_fn <- function(ui_tree){
     stop("Improperly formatted ui tree found")
   }
 
-  ui_children <- lapply(ui_tree$uiChildren, deparse_ui_fn)
-
-  # Mash together the ui node's arguments/settings and  children into a single
-  # list so we can pass it to call2 and reconstruct the proper function call
-  all_fn_args <- rlang::list2(!!!ui_args, !!!ui_children)
-
-  # Before we pass through we need to make sure we unpack any unknown code boxes
-  # to their original content
-  all_fn_args <- lapply(
-    all_fn_args,
-    function(x){
-      if(is_unknown_code(x)) {
-        unknown_code_unwrap(x)
-      } else {
-        x
-      }
+  # We need to make sure we unpack any unknown code boxes
+  # to the arguments to their original code
+  for (i in 1:length(ui_args)){
+    if (is_unknown_code(ui_args[[i]])) {
+      ui_args[[i]] <- unknown_code_unwrap(ui_args[[i]])
     }
-  )
+  }
+
+  ui_children <- lapply(ui_tree$uiChildren, deparse_ui_fn)
 
   # Now we can reconstruct the original function call with names attached
   rlang::call2(
     parse(text=ui_fn)[[1]],
-    !!!all_fn_args
+    !!!ui_args,
+    !!!ui_children
   )
 }
