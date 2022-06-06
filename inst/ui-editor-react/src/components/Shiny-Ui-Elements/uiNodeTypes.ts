@@ -125,6 +125,14 @@ type ShinyUiArguments = {
 };
 
 /**
+ * Utility type that aknowledges that the settings objects may contain unknown
+ * arguments that are probably valid settings in the base language but just
+ * haven't been coded up in the editor code
+ */
+export type ArgsWithPotentialUnknowns<T extends ShinyUiNames> =
+  ShinyUiNodeInfo[T]["defaultSettings"] & { [arg: string]: unknown };
+
+/**
  * Names of all the available Ui elements
  */
 export type ShinyUiNames = keyof ShinyUiArguments;

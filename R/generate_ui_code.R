@@ -1,7 +1,7 @@
 generate_ui_code <- function(ui_tree){
   ui_tree %>%
     simplify_tree() %>%
-    tree_to_exp() %>%
+    deparse_ui_fn() %>%
     rlang::expr_text() %>%
     str_replace_all(
       pattern="),",
