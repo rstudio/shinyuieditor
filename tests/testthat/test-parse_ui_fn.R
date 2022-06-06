@@ -124,8 +124,6 @@ test_that("Unknown arguments are preserved through the parsing and deparsing ste
     )
   )
 
-  # original_expression %>% parse_ui_fn() %>% lobstr::tree()
-
   # Expressions themselves are identical
   expect_equal(
     original_expression,
