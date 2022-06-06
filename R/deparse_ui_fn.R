@@ -20,9 +20,28 @@ deparse_ui_fn <- function(ui_tree){
 
   ui_children <- lapply(ui_tree$uiChildren, deparse_ui_fn)
 
+  # all_fn_args <- rlang::list2(
+  #   !!!ui_args,
+  #   !!!ui_children
+  # )
+
+  all_fn_args <- lapply(
+    rlang::list2(
+      !!!ui_args,
+      !!!ui_children
+    ),
+    function(x){
+      if(is.list(x) && identical(x$uiName, "unknownUiFunction")) {
+
+        unknown_code_unwrap( x$uiArguments)
+      } else {
+        x
+      }
+    }
+  )
+
   rlang::call2(
     parse(text=ui_fn)[[1]],
-    !!!ui_args,
-    !!!ui_children
+    !!!all_fn_args
   )
 }
