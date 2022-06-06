@@ -108,8 +108,6 @@ test_that("Unknown variables are preserved through the parsing and deparsing ste
 
 test_that("Unknown arguments are preserved through the parsing and deparsing steps", {
   original_expression <- rlang::expr(
-    gridlayout::grid_panel_stack(
-      area = "settings",
       shiny::sliderInput(
         inputId = "bins",
         label = "Number of Bins",
@@ -121,7 +119,7 @@ test_that("Unknown arguments are preserved through the parsing and deparsing ste
           loop = FALSE,
           playButton = "play",
           pauseButton = "pause"
-        )
+
       )
     )
   )
