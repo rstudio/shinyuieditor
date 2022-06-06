@@ -5,7 +5,7 @@ import type { CellLocRef } from "components/Shiny-Ui-Elements/GridlayoutGridPage
 import { GridCell } from "components/Shiny-Ui-Elements/GridlayoutGridPage/GridCell";
 import type {
   ShinyUiChildren,
-  shinyUiNodeInfo,
+  ShinyUiNodeInfo,
   UiContainerNodeComponent,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import UiNode from "components/UiNode";
@@ -27,7 +27,6 @@ import type { GridLayoutAction } from "./gridLayoutReducer";
 import { gridLayoutReducer } from "./gridLayoutReducer";
 import { NameNewPanelModal } from "./NameNewPanelModal";
 import classes from "./styles.module.css";
-import { TractControls } from "./TractControls";
 
 export type NewItemInfo = DraggedNodeInfo & {
   pos: GridItemExtent;
@@ -241,5 +240,4 @@ export function areasOfChildren(children: ShinyUiChildren) {
   return all_children_areas;
 }
 
-type GridAwareNodeArgs =
-  typeof shinyUiNodeInfo[GridAwareNodes]["defaultSettings"];
+type GridAwareNodeArgs = ShinyUiNodeInfo[GridAwareNodes]["defaultSettings"];

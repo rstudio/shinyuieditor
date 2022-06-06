@@ -112,6 +112,8 @@ export const shinyUiNodeInfo = {
   unknownUiFunction: unknownUiFunctionInfo,
 };
 
+export type ShinyUiNodeInfo = typeof shinyUiNodeInfo;
+
 /**
  * All possible props/arguments for the defined UI components
  *
@@ -119,7 +121,7 @@ export const shinyUiNodeInfo = {
  * of the types will automatically be built based on this type.
  */
 type ShinyUiArguments = {
-  [UiName in keyof typeof shinyUiNodeInfo]: typeof shinyUiNodeInfo[UiName]["defaultSettings"];
+  [UiName in keyof ShinyUiNodeInfo]: ShinyUiNodeInfo[UiName]["defaultSettings"];
 };
 
 /**

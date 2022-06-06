@@ -3,6 +3,7 @@ import * as React from "react";
 import type {
   ShinyUiNames,
   ShinyUiNode,
+  ShinyUiNodeInfo,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { shinyUiNodeInfo } from "components/Shiny-Ui-Elements/uiNodeTypes";
 
@@ -34,7 +35,7 @@ function sortByCategory(nameA: ShinyUiNames, nameB: ShinyUiNames): number {
 export default function ElementsPalette({
   availableUi = shinyUiNodeInfo,
 }: {
-  availableUi?: typeof shinyUiNodeInfo;
+  availableUi?: ShinyUiNodeInfo;
 }) {
   const ui_node_names = React.useMemo(
     () => (Object.keys(availableUi) as ShinyUiNames[]).sort(sortByCategory),
