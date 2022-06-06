@@ -4,6 +4,7 @@ import type { Story } from "@ladle/react";
 import type { OnChangeCallback } from "components/Inputs/SettingsUpdateContext";
 import { SettingsUpdateContext } from "components/Inputs/SettingsUpdateContext";
 import type {
+  ArgsWithPotentialUnknowns,
   SettingsUpdaterComponent,
   ShinyUiNodeInfo,
   UiContainerNodeComponent,
@@ -19,7 +20,7 @@ function UiNodeAndSettings<T extends ShinyUiNames>({
   uiArguments,
 }: {
   uiName: T;
-  uiArguments: ShinyUiNodeInfo[T]["defaultSettings"];
+  uiArguments: ArgsWithPotentialUnknowns<T>;
 }) {
   type NodeSettingsType = ShinyUiNodeInfo[T]["defaultSettings"];
 
@@ -73,10 +74,12 @@ function UiNodeAndSettings<T extends ShinyUiNames>({
 export const UiElementsShowcase: Story<{
   nameOfElement: ShinyUiNames;
 }> = ({ nameOfElement }) => {
+  type UiArgsType = ArgsWithPotentialUnknowns<typeof nameOfElement>;
+
   return (
     <UiNodeAndSettings
       uiName={nameOfElement}
-      uiArguments={shinyUiNodeInfo[nameOfElement].defaultSettings}
+      uiArguments={shinyUiNodeInfo[nameOfElement].defaultSettings as UiArgsType}
     />
   );
 };
@@ -91,4 +94,21 @@ UiElementsShowcase.argTypes = {
 
 UiElementsShowcase.args = {
   nameOfElement: "shiny::plotOutput",
+};
+
+export const UnknownArgs: Story = () => {
+  return (
+    <UiNodeAndSettings
+      uiName={"shiny::sliderInput"}
+      uiArguments={{
+        inputId: "mySlider",
+        label: "Slid your value!",
+        min: 0,
+        max: 12,
+        value: 5,
+        width: "90%",
+        animation: "test",
+      }}
+    />
+  );
 };
