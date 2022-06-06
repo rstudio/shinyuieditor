@@ -1,6 +1,6 @@
 library(shinyuieditor)
 launch_editor(
-  app_loc = here::here("scratch/webapp"),
+  app_loc = here::here("scratch/unknown-args"),
   port = 8888,
   launch_browser = FALSE
 )

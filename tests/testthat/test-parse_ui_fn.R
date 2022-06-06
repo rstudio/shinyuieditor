@@ -105,6 +105,34 @@ test_that("Unknown variables are preserved through the parsing and deparsing ste
   )
 })
 
+
+test_that("Unknown arguments are preserved through the parsing and deparsing steps", {
+  original_expression <- rlang::expr(
+    gridlayout::grid_panel_stack(
+      area = "settings",
+      shiny::sliderInput(
+        inputId = "bins",
+        label = "Number of Bins",
+        min = 12L,
+        max = 100L,
+        value = 30L,
+        animate = animationOptions(
+          interval = 1000,
+          loop = FALSE,
+          playButton = "play",
+          pauseButton = "pause"
+        )
+      )
+    )
+  )
+
+  # Expressions themselves are identical
+  expect_equal(
+    original_expression,
+    original_expression %>% parse_ui_fn() %>% tree_to_exp()
+  )
+})
+
 test_that("Handles list arguments", {
   parsed <- parse_ui_fn(
     rlang::expr(
