@@ -10,7 +10,7 @@ div.rowSizer {
   /* How far should the sizer bars spill out from the container? */
   --sizer-hang-over: 16px;
   --sizer-offset: calc(var(--grid-pad) + var(--sizer-hang-over));
-  --sizer-length: calc(100% + 2 * var(--sizer-offset));
+  --sizer-length: calc(100% + var(--sizer-offset) + var(--grid-pad));
   --sizer-main-axis-offset: calc(-1 * var(--sizer-offset));
   --sizer-off-axis-offset: calc(50% - var(--sizer-thickness) / 2);
 
