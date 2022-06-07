@@ -17,7 +17,7 @@
   --size-widget-bg-color: hsla(220, 27%, 94%, 0.9);
   --size-widget-end-padding: 14px;
   --add-button-diameter: 19px;
-  --add-button-color: #75828d;
+  --add-button-color: var(--icon-color);
   --delete-button-height: 20px;
 
   z-index: 1;
