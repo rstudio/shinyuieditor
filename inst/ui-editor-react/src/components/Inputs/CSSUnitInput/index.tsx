@@ -39,16 +39,9 @@ export function CSSUnitInput({
     initialValue ?? "auto"
   );
 
-  React.useEffect(() => {
-    console.log("New initial value", initialValue);
-  }, [initialValue]);
-
-  // console.log("Initial value", initialValue);
-
   const debouncedOnChange = React.useMemo(
     () =>
       debounce((value: CSSMeasure) => {
-        console.log("Calling debounced onChange for css unit input");
         onChange(value);
       }, 500),
     [onChange]
@@ -57,12 +50,8 @@ export function CSSUnitInput({
   React.useEffect(() => {
     const deparsedCSS = deparseCSSMeasure(cssValue);
     if (initialValue === deparsedCSS) return;
-    // console.log("Calling onchange for css unit input", initialValue);
     debouncedOnChange(deparseCSSMeasure(cssValue));
-    return () => {
-      console.log("Canceling debounced calls to onChange");
-      debouncedOnChange.cancel();
-    };
+    return () => debouncedOnChange.cancel();
   }, [cssValue, debouncedOnChange, initialValue]);
 
   // For some reason our tract sizers will sometimes try and pass this undefined
