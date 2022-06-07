@@ -1,5 +1,4 @@
 import type { ShinyUiNode } from "components/Shiny-Ui-Elements/uiNodeTypes";
-import { fillInPartialTemplate } from "utils/gridTemplates/utils";
 
 import { getNode } from "./getNode";
 import { placeNode } from "./placeNode";
@@ -111,70 +110,70 @@ test("Modify a node at first level", () => {
   expect(getNode(baseNode, [0])).not.toEqual(nodeToReplaceWith);
 });
 
-test("Update the settings of the root node", () => {
-  const grid_app = {
-    uiName: "gridlayout::grid_page",
-    uiArguments: {
-      areas: [["sidebar", "plot"]],
-      rowSizes: ["1fr"],
-      colSizes: ["250px", "1fr"],
-    },
-    uiChildren: [
-      {
-        uiName: "gridlayout::grid_panel",
-        uiArguments: {
-          area: "sidebar",
-          horizontalAlign: "right",
-          verticalAlign: "center",
-        },
-        uiChildren: [
-          {
-            uiName: "shiny::sliderInput",
-            uiArguments: {
-              inputId: "mySlider",
-              label: "slider",
-              min: 1,
-              max: 10,
-              value: 7,
-            },
-          },
-        ],
-      },
-      {
-        uiName: "gridlayout::grid_panel",
-        uiArguments: {
-          area: "plot",
-          horizontalAlign: "right",
-          verticalAlign: "center",
-        },
-        uiChildren: [
-          {
-            uiName: "shiny::plotOutput",
-            uiArguments: {
-              outputId: "myPlot",
-            },
-          },
-        ],
-      },
-    ],
-  };
+// test("Update the settings of the root node", () => {
+//   const grid_app = {
+//     uiName: "gridlayout::grid_page",
+//     uiArguments: {
+//       areas: [["sidebar", "plot"]],
+//       rowSizes: ["1fr"],
+//       colSizes: ["250px", "1fr"],
+//     },
+//     uiChildren: [
+//       {
+//         uiName: "gridlayout::grid_panel",
+//         uiArguments: {
+//           area: "sidebar",
+//           horizontalAlign: "right",
+//           verticalAlign: "center",
+//         },
+//         uiChildren: [
+//           {
+//             uiName: "shiny::sliderInput",
+//             uiArguments: {
+//               inputId: "mySlider",
+//               label: "slider",
+//               min: 1,
+//               max: 10,
+//               value: 7,
+//             },
+//           },
+//         ],
+//       },
+//       {
+//         uiName: "gridlayout::grid_panel",
+//         uiArguments: {
+//           area: "plot",
+//           horizontalAlign: "right",
+//           verticalAlign: "center",
+//         },
+//         uiChildren: [
+//           {
+//             uiName: "shiny::plotOutput",
+//             uiArguments: {
+//               outputId: "myPlot",
+//             },
+//           },
+//         ],
+//       },
+//     ],
+//   };
 
-  // const updated_app = updateNode(grid_app as ShinyUiNode, {
-  //   path: [],
-  //   node: {
-  //     uiName: "gridlayout::grid_page",
-  //     uiArguments: fillInPartialTemplate({
-  //       areas: [["new_sidebar_name", "plot"]],
-  //       rowSizes: ["1fr"],
-  //       colSizes: ["250px", "1fr"],
-  //     }),
-  //   },
-  // });
+//   const updated_app = updateNode(grid_app, {
+//     path: [],
+//     node: {
+//       uiName: "gridlayout::grid_page",
+//       uiArguments: fillInPartialTemplate({
+//         areas: [["new_sidebar_name", "plot"]],
+//         rowSizes: ["1fr"],
+//         colSizes: ["250px", "1fr"],
+//       }),
+//     },
+//   });
 
-  // expect((updated_app.uiArguments as any).areas[0][0]).toEqual(
-  //   "new_sidebar_name"
-  // );
-});
+//   // expect((updated_app.uiArguments as any).areas[0][0]).toEqual(
+//   //   "new_sidebar_name"
+//   // );
+// });
 
 test("Add a node", () => {
   expect(getNode(baseNode, [0]).uiChildren).toHaveLength(2);

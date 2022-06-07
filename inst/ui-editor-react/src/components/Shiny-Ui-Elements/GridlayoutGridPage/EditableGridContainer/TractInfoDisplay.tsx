@@ -1,7 +1,6 @@
 import * as React from "react";
 
 import { Trash } from "components/Icons";
-import Button from "components/Inputs/Button/Button";
 import { CSSUnitInputSimple } from "components/Inputs/CSSUnitInput/CSSUnitInputSimple";
 import { PopoverButton } from "components/Inputs/PopoverButton";
 import type { CSSMeasure, CSSUnits } from "CSSMeasure";

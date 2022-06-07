@@ -1,18 +1,11 @@
-import type { TemplatedGridProps } from "components/Shiny-Ui-Elements/GridlayoutGridPage";
-import type { TractDirection } from "components/Shiny-Ui-Elements/GridlayoutGridPage";
+import type {
+  TemplatedGridProps,
+  TractDirection,
+} from "components/Shiny-Ui-Elements/GridlayoutGridPage";
 import type { CSSMeasure } from "CSSMeasure";
 
 import { fillArr } from "../array-helpers";
 import { matrixDimensions, uniqueMatrixElements } from "../matrix-helpers";
-
-type GridContainerStyles = Pick<
-  React.CSSProperties,
-  | "gridTemplateAreas"
-  | "gridTemplateColumns"
-  | "gridTemplateRows"
-  | "gap"
-  | "padding"
->;
 
 export type ParsedGridTemplate = {
   numRows: number;
