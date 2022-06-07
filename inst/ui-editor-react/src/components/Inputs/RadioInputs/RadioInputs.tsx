@@ -45,7 +45,6 @@ export function RadioInputs<OptionType extends string>({
       >
         {values.map((option) => {
           const { icon, label = option } = options[option] ?? {};
-          console.log({ option, icon });
           return (
             <div className={classes.option} key={option}>
               <input
