@@ -11,11 +11,15 @@
     var(--transition-ease) var(--transition-delay);
   --hover-listener-transition: var(--hover-listener-transition-out);
 
-  --shadow: drop-shadow(2px 2px 3px hsl(0deg 0% 0% / 0.4));
   --offset: calc(-1 * var(--grid-pad));
 
-  --accent-color: var(--header-grey);
-  --hover-listener-color: transparent;
+  /* Design specs */
+  --size-widget-bg-color: hsla(220, 27%, 94%, 0.9);
+  --size-widget-end-padding: 14px;
+  --add-button-diameter: 19px;
+  --add-button-color: #75828d;
+  --delete-button-height: 20px;
+
   z-index: 1;
   display: flex;
   align-items: center;
@@ -41,14 +45,8 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  background-color: var(--rstudio-white);
-  border: 3px solid var(--accent-color, pink);
-  outline: 1px solid white;
+  background-color: var(--size-widget-bg-color);
   z-index: -1;
-}
-
-.sizeWidget button .sizeWidget > div {
-  filter: var(--shadow);
 }
 
 .hoverListener {
@@ -60,7 +58,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--hover-listener-color, green);
+  background-color: var(--hover-listener-color, transparent);
   z-index: 2;
   transition: var(--hover-listener-transition);
   transition-property: background-color, transform;
@@ -68,13 +66,11 @@
 
 .tractInfoDisplay[data-drag-dir="rows"] .hoverListener {
   width: var(--thickness);
-  margin-left: calc(-1 * var(--thickness) + var(--grid-pad));
   flex-direction: column;
   padding-block: var(--padding);
 }
 .tractInfoDisplay[data-drag-dir="cols"] .hoverListener {
   height: var(--thickness);
-  margin-top: calc(-1 * var(--thickness) + var(--grid-pad));
   padding-inline: var(--padding);
 }
 .tractInfoDisplay[data-drag-dir="rows"] {
@@ -92,8 +88,9 @@
   width: fit-content;
   min-width: fit-content;
   border-radius: 0 var(--corner-radius) var(--corner-radius) 0;
-  transform: translateX(var(--inset)) scaleX(var(--scale));
+  transform: scaleX(var(--scale));
   transform-origin: left;
+  padding-right: var(--size-widget-end-padding);
 }
 
 .tractInfoDisplay[data-drag-dir="cols"] {
@@ -112,8 +109,9 @@
   flex-direction: column;
   justify-content: center;
   border-radius: 0 0 var(--corner-radius) var(--corner-radius);
-  transform: translateY(var(--inset)) scaleY(var(--scale));
+  transform: scaleY(var(--scale));
   transform-origin: top;
+  padding-bottom: var(--size-widget-end-padding);
 }
 
 /* Focus within here makes sure that the tract control doesn't dissapear if the
@@ -124,30 +122,25 @@ user is typing in the input field but mouses off */
 .tractInfoDisplay:focus-within {
   --scale: 100%;
   --transition-delay: var(--transition-in-delay);
-  --hover-listener-color: var(--accent-color);
-  /* --hover-listener-transition: var(--hover-listener-transition-in); */
+  --hover-listener-color: var(--size-widget-bg-color);
 }
 
 .tractInfoDisplay:hover {
-  --hover-listener-thickness: 23.5px;
+  --hover-listener-thickness: 23px;
   /* Make sure that the hovered display is always on top of any that may be
   lingering around */
   z-index: 3;
 }
 
 .tractInfoDisplay button {
-  --size: 20px;
   --offset_amnt: 2px;
-  --offset: calc(var(--offset_amnt) - var(--size));
-  width: var(--size);
-  height: var(--size);
+  --offset: calc(var(--offset_amnt) - var(--add-button-diameter));
+  width: var(--add-button-diameter);
+  height: var(--add-button-diameter);
   aspect-ratio: 1/1;
   display: grid;
   place-content: center;
   border-radius: 50%;
-  border: 1px solid var(--accent-color);
-  background-color: transparent;
-  color: white;
   transition: none;
   transform: scale(0);
   z-index: 1;
@@ -159,10 +152,21 @@ user is typing in the input field but mouses off */
     var(--transition-delay);
 }
 
+.tractInfoDisplay button:not(.deleteButton) {
+  background-color: var(--add-button-color);
+  color: var(--rstudio-white);
+}
+
+.deleteButton {
+  background-color: transparent;
+  font-size: var(--delete-button-height);
+}
+
 .deleteButton[data-enabled="true"] {
   color: var(--red);
 }
+
 .deleteButton[data-enabled="false"] {
-  color: var(--disabled-color, green);
+  color: var(--disabled-color);
   cursor: not-allowed;
 }
