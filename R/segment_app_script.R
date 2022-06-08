@@ -1,9 +1,8 @@
 file_ui_definition_bounds <- function(file_lines){
 
-  ui_start_line <- grep(pattern = '^\\s*ui <-', file_lines)
+  ui_start_line <- grep(pattern = '^\\s*ui\\s*(<-|=)', file_lines)
 
   get_expression_bounds(file_lines, expr_start_line = ui_start_line)
-
 }
 
 file_library_call_bounds <- function(file_lines){
