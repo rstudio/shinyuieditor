@@ -1,8 +1,28 @@
-file_ui_definition_bounds <- function(file_lines){
+file_ui_definition_bounds <- function(file_lines) {
+  parsed <- parse(text=file_lines, keep.source = TRUE)
+  idx <- 0
+  for (i in seq_len(length(parsed))) {
+    node <- parsed[[i]]
+    if (inherits(node, "<-") && identical(node[[2]], as.name("ui"))) {
+      idx <- i
+      break
+    }
+  }
 
-  ui_start_line <- grep(pattern = '^\\s*ui\\s*(<-|=)', file_lines)
+  if (idx == 0) {
+    return(NULL)
+  }
 
-  get_expression_bounds(file_lines, expr_start_line = ui_start_line)
+  # Pluck out the expression for the ui for parsing into the IR
+  ui_expr <- parsed[[idx]][[3]]
+
+  ui_srcref <- attr(parsed, "srcref")[[idx]]
+
+  list(
+    start_line = ui_srcref[[1]],
+    end_line = ui_srcref[[3]],
+    expr = ui_expr
+  )
 }
 
 file_library_call_bounds <- function(file_lines){
