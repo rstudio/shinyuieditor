@@ -1,36 +1,9 @@
 file_ui_definition_bounds <- function(file_lines){
 
-  num_lines <- length(file_lines)
-
   ui_start_line <- grep(pattern = '^\\s*ui <-', file_lines)
 
-  # TODO: Check to make sure we only have a single start line
-  if (length(ui_start_line) > 1L){
-    stop(
-      "Found more than one ui defintion ",
-      "as defined by 'ui <-' in your file. ",
-      "Check to make sure your app script is properly formatted."
-    )
-  }
+  get_expression_bounds(file_lines, expr_start_line = ui_start_line)
 
-  parens_balance <- 0;
-  for(line_index in ui_start_line:num_lines) {
-
-    line <- file_lines[line_index]
-    num_open_parens <- sum(gregexpr(pattern="\\(", text = line)[[1]] != -1)
-    num_close_parens <- sum(gregexpr(pattern="\\)", text = line)[[1]] != -1)
-    parens_balance <- parens_balance + num_open_parens - num_close_parens
-
-    if (parens_balance == 0L){
-
-      return(
-        list(
-          start_line = ui_start_line,
-          end_line = line_index
-        )
-      )
-    }
-  }
 }
 
 file_library_call_bounds <- function(file_lines){
@@ -46,4 +19,33 @@ file_library_call_bounds <- function(file_lines){
       end_line = max(library_lines)
     )
   )
+}
+
+
+get_expression_bounds <- function( file_lines, expr_start_line ) {
+  start <- expr_start_line
+  lines <- c()
+  for(i in start:length(file_lines)) {
+
+    lines[i - start + 1] <- file_lines[i];
+
+    # Try and parse the current lines to see if we've reached valid end of the expression
+    exprs <- try( parse(text = lines), silent = TRUE )
+
+    if (!inherits(exprs, "try-error")) {
+      # No error means we were able to parse the current line set and have
+      # reached the end of the expression
+      return(
+        list(
+          start_line = start,
+          end_line = i,
+          lines = lines,
+          expr = exprs
+        )
+      )
+    }
+
+  }
+
+  stop("Failed to parse the expression provided...")
 }
