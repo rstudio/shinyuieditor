@@ -48,3 +48,17 @@ get_expression_bounds <- function( file_lines, expr_start_line ) {
 
   stop("Failed to parse the expression provided...")
 }
+
+
+replace_ui_definition <- function(file_lines, file_bounds, new_ui_text){
+
+  before_ui_def <- file_lines[1:file_bounds$start_line-1]
+  after_ui_def <- file_lines[(file_bounds$end_line + 1): length(file_lines)]
+  new_ui_def <- strsplit(new_ui_text, "\n")[[1]]
+
+  c(
+    before_ui_def,
+    new_ui_def,
+    after_ui_def
+  )
+}
