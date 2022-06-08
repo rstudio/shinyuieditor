@@ -48,6 +48,11 @@ test_that("Can properly locate ui definition", {
     start_app_bounds$end_line,
     17L
   )
+
+  expect_equal(
+    start_app_bounds$loaded_libraries,
+    c("shiny", "gridlayout")
+  )
 })
 
 

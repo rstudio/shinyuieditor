@@ -21,9 +21,12 @@ file_ui_definition_bounds <- function(file_lines) {
   list(
     start_line = ui_srcref[[1]],
     end_line = ui_srcref[[3]],
-    expr = ui_expr
+    expr = ui_expr,
+    loaded_libraries = get_loaded_libraries(file_lines)
   )
 }
+
+
 
 file_library_call_bounds <- function(file_lines){
   library_lines <- grep(pattern = '^library\\(', file_lines)
@@ -38,6 +41,18 @@ file_library_call_bounds <- function(file_lines){
       end_line = max(library_lines)
     )
   )
+}
+
+get_loaded_libraries <- function(file_lines){
+  lib_search <- regmatches(
+    x = file_lines,
+    m = gregexec(text = file_lines, pattern = "library\\((\\w+)\\)")
+  )
+  lib_search <- Filter(f = function(match){ length(match) > 0}, x = lib_search)
+
+
+  vapply(X = lib_search, FUN = function(match){ match[2,] }, FUN.VALUE = character(1L))
+
 }
 
 
