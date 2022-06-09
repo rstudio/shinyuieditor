@@ -53,12 +53,12 @@ launch_editor <- function(app_loc,
   }
 
   # Check and make sure that the app location provided actually has an app
-  app_status <- check_and_validate_app(app_loc)
-
-  if (!app_status$is_valid){
-    logger(app_status$message)
-    invisible(return())
-  }
+  # app_status <- check_and_validate_app(app_loc)
+  #
+  # if (!app_status$is_valid){
+  #   logger(app_status$message)
+  #   invisible(return())
+  # }
 
   # Logic for starting up Shiny app in background and returning the app URL.
   # Will only start up the app once
@@ -120,6 +120,8 @@ launch_editor <- function(app_loc,
     utils::browseURL(location_of_editor)
   }
 
+  app_info <- NULL
+
   # TODO: If in background mode, wrap the return with a callback that cleans
   # stuff up for us
   s <- startup_fn(
@@ -136,15 +138,22 @@ launch_editor <- function(app_loc,
           },
           "/app-please" = function(body) {
             writeLog("=> Parsing app blob and sending to client")
-            json_response(get_ui_from_file(app_loc))
+            app_info <<- get_file_ui_definition_info(readLines(get_app_ui_file(app_loc)))
+            json_response(app_info$ui_tree)
           }
         ),
         "POST" = list(
           "/UiDump" = function(body) {
-            updated_ui_string <- generate_ui_code(body)
-            save_ui_to_file(updated_ui_string, app_loc)
-            writeLog("<= Saved new ui state from client")
             text_response("App Dump received, thanks")
+
+            updated_file_lines <- replace_ui_definition(
+              file_info = app_info,
+              new_ui_tree = body
+            )
+
+            # updated_ui_string <- generate_ui_code(body)
+            save_ui_to_file(updated_file_lines, app_loc)
+            writeLog("<= Saved new ui state from client")
           },
           "/ValidateArgs" = function(body) {
             json_response(
@@ -280,17 +289,25 @@ log_background_app <- function(lines){
 
 
 get_app_ui_file <- function(app_loc) {
-  plain_ui_file <- fs::path(app_loc, "ui.R")
+  # We first try and look for a single app file
+  single_file_app_script <- fs::path(app_loc, "app.R")
 
-  if (!fs::file_exists(plain_ui_file)) {
-    stop(
-      "Only two-file apps are supported at this point.",
-      " Make sure that you're pointing to a folder with",
-      " a ui.R and a server.R file defining your Shiny app."
-    )
+  if (fs::file_exists(single_file_app_script)) {
+    return(single_file_app_script)
   }
 
-  plain_ui_file
+
+  plain_ui_file <- fs::path(app_loc, "ui.R")
+
+  if (fs::file_exists(plain_ui_file)) {
+    return(plain_ui_file)
+  }
+
+  stop(
+    "Can't find an app.R or ui.R file in the provided app_loc. ",
+    "Make sure your working directory is properly set"
+  )
+
 }
 
 

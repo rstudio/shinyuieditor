@@ -18,6 +18,7 @@ get_file_ui_definition_info <- function(file_lines) {
 
   ui_srcref <- attr(parsed, "srcref")[[idx]]
 
+  loaded_libraries <- get_loaded_libraries(file_lines)
   list(
     file_lines = file_lines,
     ui_bounds = list(
@@ -25,7 +26,8 @@ get_file_ui_definition_info <- function(file_lines) {
       end = ui_srcref[[3]]
     ),
     ui_expr = ui_expr,
-    loaded_libraries = get_loaded_libraries(file_lines)
+    ui_tree = ui_code_to_tree(ui_expr, loaded_libraries),
+    loaded_libraries = loaded_libraries
   )
 }
 
@@ -45,7 +47,12 @@ get_loaded_libraries <- function(file_lines){
 }
 
 
-replace_ui_definition <- function(file_info, new_ui_text, ui_libraries = c()){
+replace_ui_definition <- function(file_info, new_ui_tree){
+
+  new_ui <- ui_tree_to_code(new_ui_tree, remove_namespace = TRUE)
+  ui_libraries <- new_ui$namespaces_removed
+  new_ui_lines <- new_ui$text
+
 
   ui_start <- file_info$ui_bounds$start
   ui_end <- file_info$ui_bounds$end
@@ -63,12 +70,16 @@ replace_ui_definition <- function(file_info, new_ui_text, ui_libraries = c()){
   )
 
   # Our new ui text doesn't have the assignment on it so we need to add that
-  new_ui_def <- strsplit(paste("ui <-", new_ui_text), "\n")[[1]]
+  new_ui_lines[1] <- paste("ui <-", new_ui_lines[1])
 
   c(
     additional_library_lines,
     before_ui_def,
-    new_ui_def,
+    new_ui_lines,
     after_ui_def
   )
 }
+
+
+
+
