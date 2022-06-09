@@ -21,7 +21,7 @@ is_known_ui_fn <- function(x){
 
   if (is.symbol(x) || identical(x[[1]], as.symbol("::"))) stop("Passed expression is not a function call")
 
-  get_is_known_ui_fn(called_uiName(x))
+  get_is_known_ui_fn(name_of_called_fn(x))
 }
 
 

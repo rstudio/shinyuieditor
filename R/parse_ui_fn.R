@@ -56,7 +56,7 @@ parse_ui_fn <- function(ui_node_expr, env = rlang::caller_env()) {
     stop(
       paste0(
         "Problem with arguments supplied to ",
-        called_uiName(ui_node_expr),
+        name_of_called_fn(ui_node_expr),
         "().\nError msg: \"",
         e$message,
         "\""
@@ -72,7 +72,7 @@ parse_ui_fn <- function(ui_node_expr, env = rlang::caller_env()) {
   arg_names <- names(call_arguments)
 
   parsed <- list(
-    uiName = called_uiName(ui_node_expr),
+    uiName = name_of_called_fn(ui_node_expr),
     uiArguments = list()
   )
 
@@ -103,7 +103,7 @@ expr_is_constant <- function(expr){
 can_parse_ui_expr <- function(expr){
   tryCatch(
     {
-      get_is_known_ui_fn(called_uiName(expr))
+      get_is_known_ui_fn(name_of_called_fn(expr))
     },
     error = function(e) {
      FALSE
@@ -139,7 +139,7 @@ parse_argument <- function(arg_expr){
     return(arg_expr)
   }
 
-  func_name <- called_uiName(arg_expr)
+  func_name <- name_of_called_fn(arg_expr)
 
   # We know how to handle just a few types of function calls, so make sure that
   # we're working with one of those before proceeding
