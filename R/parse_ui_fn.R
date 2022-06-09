@@ -39,7 +39,7 @@
 #'     )
 #'   )
 #' )
-#' lobstr::tree(parse_ui_fn(app_expr))
+#' parse_ui_fn(app_expr)
 #'
 parse_ui_fn <- function(ui_node_expr, env = rlang::caller_env()) {
 

@@ -28,7 +28,6 @@ Imports:
 Suggests: 
     testthat (>= 3.0.0)
 Remotes:
-    rstudio/gridlayout,
-    r-lib/lobstr
+    rstudio/gridlayout
 Config/testthat/edition: 3
 URL: https://rstudio.github.io/shinyuieditor/

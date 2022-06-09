@@ -319,8 +319,8 @@ validate_ui_fn_call <- function(uiName, uiArguments, log_fn) {
     },
     error = function(e) {
       log_fn("~ Function call errored")
-      lobstr::tree(list(uiName, uiArguments))
-      lobstr::tree(e)
+      utils::str(list(uiName, uiArguments))
+      utils::str(e)
       list(
         type = "error",
         error_msg = as.character(e)
