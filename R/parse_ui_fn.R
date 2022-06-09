@@ -72,7 +72,7 @@ parse_ui_fn <- function(ui_node_expr, env = rlang::caller_env()) {
   arg_names <- names(call_arguments)
 
   parsed <- list(
-    uiName = name_of_called_fn(ui_node_expr),
+    uiName = namespace_ui_fn(name_of_called_fn(ui_node_expr)),
     uiArguments = list()
   )
 
