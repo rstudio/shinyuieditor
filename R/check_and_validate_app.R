@@ -8,13 +8,15 @@ check_and_validate_app <- function(app_loc){
   # tryCatch
   tryCatch({
     # Check and make sure that the app location provided actually has an app
-    has_existing_app <- get_app_exists(app_loc)
+    app_type <- get_app_type(app_loc)
 
-    if (has_existing_app){
+    if (app_type == "multi-file") {
       # Validate and optionally fill in server and ui
       check_server_file(app_loc)
       check_ui_file(app_loc)
-    } else {
+    }
+
+    if (app_type == "missing") {
       # If no ui.R or server.R is present in location, let the user choose from
       # some templates
       fill_in_app_template(app_loc)
@@ -114,7 +116,7 @@ check_server_file <- function(app_loc){
 
 check_ui_file <- function(app_loc){
   # Does the ui file exist?
-  has_ui_file <- get_has_ui_file(app_loc)
+  has_ui_file <- has_app_file(app_loc, "ui.R")
 
   if (!has_ui_file){
     ask_to_continue(
@@ -129,7 +131,7 @@ check_ui_file <- function(app_loc){
 
   # Make sure the ui is actually valid
   is_parsable_ui <- tryCatch({
-    source(get_app_ui_file(app_loc))
+    source(fs::path(app_loc, "ui.R"))
     TRUE
   }, error = function(e){
     cat(crayon::red("Failed to start app editor: app UI definition invalid: \n"))
@@ -149,20 +151,24 @@ check_ui_file <- function(app_loc){
   add_ui_template("empty", app_loc)
 }
 
-get_has_ui_file <- function(app_loc){
-  fs::file_exists(fs::path(app_loc, "ui.R"))
+
+
+has_app_file <- function(app_loc, file){
+  fs::file_exists(fs::path(app_loc, file))
 }
 
-get_has_server_file <- function(app_loc){
-  fs::file_exists(fs::path(app_loc, "server.R"))
-}
 
-get_app_exists <- function(app_loc){
-  has_ui_file <- get_has_ui_file(app_loc)
-  has_server_file <- get_has_server_file(app_loc)
+get_app_type <- function(app_loc){
+  if (has_app_file(app_loc, "app.R")) {
+    return( "single-file")
+  }
 
-  # An app exists if either the ui.R or server.R or both are present
-  has_ui_file | has_server_file
+  if (has_app_file(app_loc, "ui.R") || has_app_file(app_loc, "server.R")) {
+    return("multi-file")
+  }
+
+  return("missing")
+
 }
 
 end_early <- function(reason = "No app to run"){
