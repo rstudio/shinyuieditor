@@ -66,44 +66,4 @@ new_ui_text <- 'grid_page(
 )'
 
 
-test_that("Can replace existing ui definition", {
-
-  start_app_info <- get_file_ui_definition_info(start_app_lines)
-
-  expect_false(
-    grepl(
-      x = paste(start_app_lines, collapse = "\n"),
-      pattern = new_ui_text,
-      fixed = TRUE
-    )
-  )
-
-  new_app_lines <- replace_ui_definition(
-    start_app_info,
-    new_ui_text,
-    ui_libraries = c("shiny", "gt", "gridlayout")
-  )
-
-  expect_true(
-    grepl(
-      x = paste(new_app_lines, collapse = "\n"),
-      pattern = paste("ui <-", new_ui_text),
-      fixed = TRUE
-    )
-  )
-
-  # Previously unloaded library should be added to the head of the file
-  expect_true(
-    length(grep(x = new_app_lines, pattern = "library(gt)", fixed = TRUE)) == 1L
-  )
-
-  # Already present libraries should _not_ be added again
-  expect_true(
-    length(grep(x = new_app_lines, pattern = "library(shiny)", fixed = TRUE)) == 1L
-  )
-  expect_true(
-    length(grep(x = new_app_lines, pattern = "library(gridlayout)", fixed = TRUE)) == 1L
-  )
-})
-
 
