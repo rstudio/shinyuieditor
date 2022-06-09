@@ -49,7 +49,28 @@ ui_fn_names_namespaced <- c(
   "gridlayout::grid_panel_stack"
 )
 
-ui_fn_names_bare <- gsub(pattern = "\\w+::", replacement = "", x = ui_fn_names_namespaced, perl = TRUE)
+
+remove_fn_namespace <- function(fn_name){
+  gsub(pattern = "\\w+::", replacement = "", x = fn_name, perl = TRUE)
+}
+
+
+get_namespace_and_fn <- function(namespaced_fn) {
+
+  match_res <- regmatches(
+    x = namespaced_fn,
+    m = gregexec(text = namespaced_fn, pattern = "(\\w+)::(\\w+)")
+  )[[1]]
+
+  list(
+    namespace = match_res[2,],
+    fn = match_res[3,]
+  )
+}
+
+
+
+ui_fn_names_bare <- remove_fn_namespace( ui_fn_names_namespaced)
 
 
 # Make sure that the ui_name passed through has the proper namespace attached to
