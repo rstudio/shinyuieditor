@@ -69,7 +69,7 @@ test_that("Unknown functions are preserved through the parsing and deparsing ste
   # Expressions themselves are identical
   expect_equal(
     original_expression,
-    deparse_ui_fn(original_ui_tree)
+    deparse_ui_fn(original_ui_tree, remove_namespace = FALSE)$call
   )
 })
 
@@ -101,7 +101,7 @@ test_that("Unknown variables are preserved through the parsing and deparsing ste
   # Expressions themselves are identical
   expect_equal(
     original_expression,
-    deparse_ui_fn(original_ui_tree)
+    deparse_ui_fn(original_ui_tree, remove_namespace = FALSE)$call
   )
 })
 
@@ -127,7 +127,7 @@ test_that("Unknown arguments are preserved through the parsing and deparsing ste
   # Expressions themselves are identical
   expect_equal(
     original_expression,
-    original_expression %>% parse_ui_fn() %>% deparse_ui_fn()
+    deparse_ui_fn(parse_ui_fn(original_expression), remove_namespace = FALSE)$call
   )
 })
 
