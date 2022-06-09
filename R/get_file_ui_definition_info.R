@@ -57,9 +57,9 @@ get_loaded_libraries <- function(file_lines){
 }
 
 
-replace_ui_definition <- function(file_info, new_ui_tree){
+replace_ui_definition <- function(file_info, new_ui_tree, remove_namespace = TRUE){
 
-  new_ui <- ui_tree_to_code(new_ui_tree, remove_namespace = TRUE)
+  new_ui <- ui_tree_to_code(new_ui_tree, remove_namespace = remove_namespace)
   ui_libraries <- new_ui$namespaces_removed
   new_ui_lines <- new_ui$text
 

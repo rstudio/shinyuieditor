@@ -16,6 +16,10 @@
 #'   starter template will be used upon finishing will be saved to the path.
 #' @param shiny_background_port Port to launch the running app preview on. Again
 #'   only used for dev work.
+#' @param remove_namespace Should namespaces be stripped from the generated UI
+#'   code? Set to `FALSE` if you prefer the style of `shiny::sliderInput()` to
+#'   `sliderInput()`. If set to `TRUE`, then any libraries needed for the nodes
+#'   will be loaded at the top of your `app.R` or `ui.R`.
 #' @param app_preview Should a live version of the Shiny app being edited run
 #'   and auto-show updates made? You may want to disable this if the app has
 #'   long-running or processor intensive initialization steps.
@@ -30,6 +34,7 @@
 #'   there's no way to know when the user is done with the app preview. Use with
 #'   caution.
 #'
+#'
 #' @return A list containing the `$server`: The app server object (as returned
 #'   by `httpuv::startServer`) and the function `$stop()` for safely terminating
 #'   the server and preview shiny app.
@@ -39,12 +44,12 @@ launch_editor <- function(app_loc,
                           host = "127.0.0.1",
                           port = httpuv::randomPort(),
                           shiny_background_port = httpuv::randomPort(),
+                          remove_namespace = TRUE,
                           app_preview = TRUE,
                           show_logs = TRUE,
                           show_preview_app_logs = TRUE,
                           launch_browser = TRUE,
-                          run_in_background = FALSE) {
-
+                          run_in_background = FALSE ) {
 
   writeLog <- function(...) {
     if (show_logs) {
@@ -157,7 +162,8 @@ launch_editor <- function(app_loc,
 
             updated_file_lines <- replace_ui_definition(
               file_info = app_info,
-              new_ui_tree = body
+              new_ui_tree = body,
+              remove_namespace = remove_namespace
             )
 
             writeLines(

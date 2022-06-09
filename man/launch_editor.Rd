@@ -9,6 +9,7 @@ launch_editor(
   host = "127.0.0.1",
   port = httpuv::randomPort(),
   shiny_background_port = httpuv::randomPort(),
+  remove_namespace = TRUE,
   app_preview = TRUE,
   show_logs = TRUE,
   show_preview_app_logs = TRUE,
@@ -31,6 +32,11 @@ X, port numbers smaller than 1025 require root privileges.}
 
 \item{shiny_background_port}{Port to launch the running app preview on. Again
 only used for dev work.}
+
+\item{remove_namespace}{Should namespaces be stripped from the generated UI
+code? Set to \code{FALSE} if you prefer the style of \code{shiny::sliderInput()} to
+\code{sliderInput()}. If set to \code{TRUE}, then any libraries needed for the nodes
+will be loaded at the top of your \code{app.R} or \code{ui.R}.}
 
 \item{app_preview}{Should a live version of the Shiny app being edited run
 and auto-show updates made? You may want to disable this if the app has
