@@ -45,15 +45,30 @@ bare_stack_panel_code <- 'grid_panel_stack(
 
 test_that("Can generate code with namespaces attached", {
 
+  with_namespaces <- ui_tree_to_code(stack_panel, remove_namespace = FALSE)
+
   expect_equal(
-    paste(as.character(generate_ui_code(stack_panel, remove_namespace = FALSE)), collapse = "\n"),
+    paste(as.character(with_namespaces$text), collapse = "\n"),
     namespaced_stack_panel_code
+  )
+
+  # Since we left namespaces on function titles, none should have been removed
+  expect_equal(
+    with_namespaces$namespaces_removed,
+    c()
   )
 })
 test_that("Can generate code with namespaces removed", {
 
+  no_namespaces <- ui_tree_to_code(stack_panel, remove_namespace = TRUE)
+
   expect_equal(
-    paste(as.character(generate_ui_code(stack_panel, remove_namespace = TRUE)), collapse = "\n"),
+    paste(as.character(no_namespaces$text), collapse = "\n"),
     bare_stack_panel_code
+  )
+
+  expect_equal(
+    no_namespaces$namespaces_removed,
+    c("shiny", "gridlayout")
   )
 })
