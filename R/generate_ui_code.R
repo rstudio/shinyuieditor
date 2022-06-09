@@ -1,8 +1,3 @@
-generate_ui_code <- function(ui_tree, remove_namespace = FALSE){
-  ui_tree_to_code(ui_tree, remove_namespace)$text
-}
-
-
 ui_tree_to_code <- function(ui_tree, remove_namespace = TRUE){
 
   ui_expression <- ui_tree %>%

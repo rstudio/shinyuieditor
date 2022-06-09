@@ -151,7 +151,6 @@ launch_editor <- function(app_loc,
               new_ui_tree = body
             )
 
-            # updated_ui_string <- generate_ui_code(body)
             save_ui_to_file(updated_file_lines, app_loc)
             writeLog("<= Saved new ui state from client")
           },
