@@ -53,12 +53,11 @@ launch_editor <- function(app_loc,
   }
 
   # Check and make sure that the app location provided actually has an app
-  # app_status <- check_and_validate_app(app_loc)
-  #
-  # if (!app_status$is_valid){
-  #   logger(app_status$message)
-  #   invisible(return())
-  # }
+  app_status <- check_and_validate_app(app_loc)
+  if (!app_status$is_valid){
+    logger(app_status$message)
+    invisible(return())
+  }
 
   # Logic for starting up Shiny app in background and returning the app URL.
   # Will only start up the app once
