@@ -45,7 +45,7 @@ get_loaded_libraries <- function(file_lines){
 }
 
 
-replace_ui_definition <- function(file_info, new_ui_text){
+replace_ui_definition <- function(file_info, new_ui_text, ui_libraries = c()){
 
   ui_start <- file_info$ui_bounds$start
   ui_end <- file_info$ui_bounds$end
@@ -54,10 +54,19 @@ replace_ui_definition <- function(file_info, new_ui_text){
   before_ui_def <- file_lines[1:ui_start-1]
   after_ui_def <- file_lines[(ui_end + 1): length(file_lines)]
 
+  # Do we need to add any libraries to the app?
+  libraries_to_add <- ui_libraries[!ui_libraries %in% file_info$loaded_libraries]
+  additional_library_lines <- vapply(
+    X = libraries_to_add,
+    FUN = function(l) paste0("library(", l, ")"),
+    FUN.VALUE = character(1L)
+  )
+
   # Our new ui text doesn't have the assignment on it so we need to add that
   new_ui_def <- strsplit(paste("ui <-", new_ui_text), "\n")[[1]]
 
   c(
+    additional_library_lines,
     before_ui_def,
     new_ui_def,
     after_ui_def

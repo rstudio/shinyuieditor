@@ -78,7 +78,11 @@ test_that("Can replace existing ui definition", {
     )
   )
 
-  new_app_lines <- replace_ui_definition(start_app_info, new_ui_text)
+  new_app_lines <- replace_ui_definition(
+    start_app_info,
+    new_ui_text,
+    ui_libraries = c("shiny", "gt", "gridlayout")
+  )
 
   expect_true(
     grepl(
@@ -86,6 +90,19 @@ test_that("Can replace existing ui definition", {
       pattern = paste("ui <-", new_ui_text),
       fixed = TRUE
     )
+  )
+
+  # Previously unloaded library should be added to the head of the file
+  expect_true(
+    length(grep(x = new_app_lines, pattern = "library(gt)", fixed = TRUE)) == 1L
+  )
+
+  # Already present libraries should _not_ be added again
+  expect_true(
+    length(grep(x = new_app_lines, pattern = "library(shiny)", fixed = TRUE)) == 1L
+  )
+  expect_true(
+    length(grep(x = new_app_lines, pattern = "library(gridlayout)", fixed = TRUE)) == 1L
   )
 })
 
