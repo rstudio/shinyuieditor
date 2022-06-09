@@ -3,9 +3,9 @@ ui_code_to_tree <- function(ui_expr, packages = c()){
   # Setup an environment for parsing that has the proper libraries in it
   parsing_env <- create_env_with_packages(packages)
 
-  ui_expr %>%
-    parse_ui_fn(env = parsing_env) %>%
-    update_ui_nodes()
+  ui_tree <- parse_ui_fn(ui_expr, env = parsing_env)
+  
+  update_ui_nodes(ui_tree)
 }
 
 
