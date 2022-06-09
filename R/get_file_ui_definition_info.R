@@ -70,7 +70,14 @@ replace_ui_definition <- function(file_info, new_ui_tree){
   ui_end <- file_info$ui_bounds$end
 
   before_ui_def <- file_lines[1:ui_start-1]
-  after_ui_def <- file_lines[seq(from = ui_end, length.out = num_lines - ui_end)]
+
+  # use seq() instead of a simpler range because if the ui def ends at the final
+  # line of the file the range will still return a single value whereas we want
+  # an empty array in that case
+  after_ui_def <- file_lines[seq.int(
+    from = ui_end + 1L,
+    length.out = num_lines - ui_end
+  )]
 
   # Do we need to add any libraries to the app?
   libraries_to_add <- ui_libraries[!ui_libraries %in% file_info$loaded_libraries]
