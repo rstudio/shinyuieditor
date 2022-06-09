@@ -19,9 +19,12 @@ get_file_ui_definition_info <- function(file_lines) {
   ui_srcref <- attr(parsed, "srcref")[[idx]]
 
   list(
-    start_line = ui_srcref[[1]],
-    end_line = ui_srcref[[3]],
-    expr = ui_expr,
+    file_lines = file_lines,
+    ui_bounds = list(
+      start = ui_srcref[[1]],
+      end = ui_srcref[[3]]
+    ),
+    ui_expr = ui_expr,
     loaded_libraries = get_loaded_libraries(file_lines)
   )
 }
@@ -31,17 +34,28 @@ get_loaded_libraries <- function(file_lines){
     x = file_lines,
     m = gregexec(text = file_lines, pattern = "library\\((\\w+)\\)")
   )
-  lib_search <- Filter(f = function(match){ length(match) > 0}, x = lib_search)
 
-  vapply(X = lib_search, FUN = function(match){ match[2,] }, FUN.VALUE = character(1L))
+  lib_search <- Filter(function(match){ length(match) > 0}, lib_search)
+
+  vapply(
+    X = lib_search,
+    FUN = function(match){ match[2,] },
+    FUN.VALUE = character(1L)
+  )
 }
 
 
-replace_ui_definition <- function(file_lines, file_bounds, new_ui_text){
+replace_ui_definition <- function(file_info, new_ui_text){
 
-  before_ui_def <- file_lines[1:file_bounds$start_line-1]
-  after_ui_def <- file_lines[(file_bounds$end_line + 1): length(file_lines)]
-  new_ui_def <- strsplit(new_ui_text, "\n")[[1]]
+  ui_start <- file_info$ui_bounds$start
+  ui_end <- file_info$ui_bounds$end
+  file_lines <- file_info$file_lines
+
+  before_ui_def <- file_lines[1:ui_start-1]
+  after_ui_def <- file_lines[(ui_end + 1): length(file_lines)]
+
+  # Our new ui text doesn't have the assignment on it so we need to add that
+  new_ui_def <- strsplit(paste("ui <-", new_ui_text), "\n")[[1]]
 
   c(
     before_ui_def,

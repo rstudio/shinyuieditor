@@ -38,25 +38,21 @@ start_app_lines <- strsplit(start_app_code, "\n")[[1]]
 
 
 test_that("Can properly locate ui definition", {
-  start_app_bounds <- get_file_ui_definition_info(start_app_lines)
+  start_app_info <- get_file_ui_definition_info(start_app_lines)
 
   expect_equal(
-    start_app_bounds$start_line,
-    5L
-  )
-  expect_equal(
-    start_app_bounds$end_line,
-    17L
+    start_app_info$ui_bounds,
+    list(start = 5L, end = 17L)
   )
 
   expect_equal(
-    start_app_bounds$loaded_libraries,
+    start_app_info$loaded_libraries,
     c("shiny", "gridlayout")
   )
 })
 
 
-new_ui_text <- 'ui <- grid_page(
+new_ui_text <- 'grid_page(
   layout = c(
     "title",
     "histogram"
@@ -69,9 +65,10 @@ new_ui_text <- 'ui <- grid_page(
   grid_panel_plot(area = "histogram")
 )'
 
+
 test_that("Can replace existing ui definition", {
 
-  start_app_bounds <- get_file_ui_definition_info(start_app_lines)
+  start_app_info <- get_file_ui_definition_info(start_app_lines)
 
   expect_false(
     grepl(
@@ -81,11 +78,12 @@ test_that("Can replace existing ui definition", {
     )
   )
 
-  new_app_lines <- replace_ui_definition(start_app_lines, start_app_bounds, new_ui_text)
+  new_app_lines <- replace_ui_definition(start_app_info, new_ui_text)
+
   expect_true(
     grepl(
       x = paste(new_app_lines, collapse = "\n"),
-      pattern = new_ui_text,
+      pattern = paste("ui <-", new_ui_text),
       fixed = TRUE
     )
   )
