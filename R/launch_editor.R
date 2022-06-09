@@ -124,6 +124,7 @@ launch_editor <- function(app_loc,
     utils::browseURL(location_of_editor)
   }
 
+  ui_file <- get_app_ui_file(app_loc)
   app_info <- NULL
 
   # TODO: If in background mode, wrap the return with a callback that cleans
@@ -142,7 +143,12 @@ launch_editor <- function(app_loc,
           },
           "/app-please" = function(body) {
             writeLog("=> Parsing app blob and sending to client")
-            app_info <<- get_file_ui_definition_info(readLines(get_app_ui_file(app_loc)))
+
+            app_info <<- get_file_ui_definition_info(
+              file_lines = readLines(ui_file$path),
+              type = ui_file$type
+            )
+
             json_response(app_info$ui_tree)
           }
         ),
@@ -155,7 +161,11 @@ launch_editor <- function(app_loc,
               new_ui_tree = body
             )
 
-            save_ui_to_file(updated_file_lines, app_loc)
+            writeLines(
+              text = updated_file_lines,
+              con = ui_file$path
+            )
+
             writeLog("<= Saved new ui state from client")
           },
           "/ValidateArgs" = function(body) {
@@ -296,14 +306,18 @@ get_app_ui_file <- function(app_loc) {
   single_file_app_script <- fs::path(app_loc, "app.R")
 
   if (fs::file_exists(single_file_app_script)) {
-    return(single_file_app_script)
+    return(
+      list(path = single_file_app_script, type = "single-file")
+    )
   }
 
 
   plain_ui_file <- fs::path(app_loc, "ui.R")
 
   if (fs::file_exists(plain_ui_file)) {
-    return(plain_ui_file)
+    return(
+      list(path = plain_ui_file, type = "multi-file")
+    )
   }
 
   stop(
@@ -314,10 +328,10 @@ get_app_ui_file <- function(app_loc) {
 }
 
 
-save_ui_to_file <- function(ui_string, app_loc) {
+save_ui_to_file <- function(ui_string, ui_file_loc) {
   writeLines(
     text = ui_string,
-    con = get_app_ui_file(app_loc)
+    con = ui_file_loc
   )
 }
 
