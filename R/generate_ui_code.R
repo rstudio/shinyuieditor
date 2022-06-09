@@ -1,7 +1,15 @@
-generate_ui_code <- function(ui_tree){
-  ui_tree %>%
+generate_ui_code <- function(ui_tree, remove_namespace = FALSE){
+  ui_tree_to_code(ui_tree, remove_namespace)
+}
+
+
+ui_tree_to_code <- function(ui_tree, remove_namespace = TRUE){
+
+  ui_expression <- ui_tree %>%
     simplify_tree() %>%
-    deparse_ui_fn() %>%
+    deparse_ui_fn(remove_namespace = remove_namespace)
+
+  ui_expression$call %>%
     rlang::expr_text() %>%
     str_replace_all(
       pattern="),",
