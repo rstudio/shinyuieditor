@@ -26,11 +26,11 @@ is_known_ui_fn <- function(x){
 
 
 get_is_known_ui_fn <- function(name){
-  name %in% c(namespaced_ui_fns, known_ui_fns)
+  name %in% c(ui_fn_names_namespaced, ui_fn_names_bare)
 }
 
 # This list should be kept up to date with `shinyUiNodeInfo` in uiNodeTypes.ts
-namespaced_ui_fns <- c(
+ui_fn_names_namespaced <- c(
   "shiny::plotOutput",
   "shiny::sliderInput",
   "shiny::numericInput",
@@ -49,5 +49,18 @@ namespaced_ui_fns <- c(
   "gridlayout::grid_panel_stack"
 )
 
-known_ui_fns <- gsub(pattern = "\\w+::", replacement = "", x = namespaced_ui_fns, perl = TRUE)
+ui_fn_names_bare <- gsub(pattern = "\\w+::", replacement = "", x = ui_fn_names_namespaced, perl = TRUE)
 
+
+# Make sure that the ui_name passed through has the proper namespace attached to
+# it
+namespace_ui_fn <- function(ui_name){
+  if (ui_name %in% ui_fn_names_namespaced) return(ui_name)
+
+  index_of_name <- which(ui_fn_names_bare == ui_name)
+  if (identical(index_of_name, integer(0L))) {
+    stop("The ui function ", ui_name, " is not in the list of known functions.")
+  }
+
+  ui_fn_names_namespaced[index_of_name]
+}
