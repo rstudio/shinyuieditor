@@ -38,7 +38,7 @@ start_app_lines <- strsplit(start_app_code, "\n")[[1]]
 
 
 test_that("Can properly locate ui definition", {
-  start_app_bounds <- file_ui_definition_bounds(start_app_lines)
+  start_app_bounds <- get_file_ui_definition_info(start_app_lines)
 
   expect_equal(
     start_app_bounds$start_line,
@@ -71,7 +71,7 @@ new_ui_text <- 'ui <- grid_page(
 
 test_that("Can replace existing ui definition", {
 
-  start_app_bounds <- file_ui_definition_bounds(start_app_lines)
+  start_app_bounds <- get_file_ui_definition_info(start_app_lines)
 
   expect_false(
     grepl(

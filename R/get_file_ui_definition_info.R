@@ -1,4 +1,4 @@
-file_ui_definition_bounds <- function(file_lines) {
+get_file_ui_definition_info <- function(file_lines) {
   parsed <- parse(text=file_lines, keep.source = TRUE)
   idx <- 0
   for (i in seq_len(length(parsed))) {
@@ -26,23 +26,6 @@ file_ui_definition_bounds <- function(file_lines) {
   )
 }
 
-
-
-file_library_call_bounds <- function(file_lines){
-  library_lines <- grep(pattern = '^library\\(', file_lines)
-  largest_gap_between_calls <- max(library_lines[seq_along(library_lines) + 1] - library_lines, na.rm = TRUE)
-  if (largest_gap_between_calls > 1){
-    stop("Need to have all library calls in one block at the top of the file.")
-  }
-
-  return (
-    list(
-      start_line = min(library_lines),
-      end_line = max(library_lines)
-    )
-  )
-}
-
 get_loaded_libraries <- function(file_lines){
   lib_search <- regmatches(
     x = file_lines,
@@ -50,38 +33,7 @@ get_loaded_libraries <- function(file_lines){
   )
   lib_search <- Filter(f = function(match){ length(match) > 0}, x = lib_search)
 
-
   vapply(X = lib_search, FUN = function(match){ match[2,] }, FUN.VALUE = character(1L))
-
-}
-
-
-get_expression_bounds <- function( file_lines, expr_start_line ) {
-  start <- expr_start_line
-  lines <- c()
-  for(i in start:length(file_lines)) {
-
-    lines[i - start + 1] <- file_lines[i];
-
-    # Try and parse the current lines to see if we've reached valid end of the expression
-    exprs <- try( parse(text = lines), silent = TRUE )
-
-    if (!inherits(exprs, "try-error")) {
-      # No error means we were able to parse the current line set and have
-      # reached the end of the expression
-      return(
-        list(
-          start_line = start,
-          end_line = i,
-          lines = lines,
-          expr = exprs
-        )
-      )
-    }
-
-  }
-
-  stop("Failed to parse the expression provided...")
 }
 
 
