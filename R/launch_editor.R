@@ -79,7 +79,7 @@ launch_editor <- function(app_loc,
     stop("Failed to start up shiny app. Check logs for more info:")
   })
 
-  app_is_ready_check <- preview_app$on_ready(function(app_ready){
+  app_is_ready_check <- preview_app$on_ready(function(app_ready) {
 
     writeLog("~~~~App Ready~~~~~\n")
     failure_to_start_check()
@@ -114,7 +114,11 @@ launch_editor <- function(app_loc,
   )
   cat(crayon::bold(loaded_msg))
 
-  startup_fn <- if (run_in_background) httpuv::startServer else httpuv::runServer
+  startup_fn <- if (run_in_background) {
+    httpuv::startServer
+  } else {
+    httpuv::runServer
+  }
 
   if (launch_browser) {
     utils::browseURL(location_of_editor)
@@ -181,17 +185,17 @@ launch_editor <- function(app_loc,
           # TODO: This logic needs some work as it only successfully restarts
           # one time then complains of reused TCP addresses
 
-          if(message == "RESTART_PREVIEW"){
+          if (message == "RESTART_PREVIEW") {
             cat("Triggering Restart\n")
             preview_app$restart()
 
             Sys.sleep(1)
             writeLog("Restarted app, listening for ready and new crashes...\n")
             msg_when_ready(preview_app, ws)
-            listen_for_crash(preview_app, ws, 'restart')
+            listen_for_crash(preview_app, ws, "restart")
           }
 
-          if(message == "STOP_PREVIEW"){
+          if (message == "STOP_PREVIEW") {
             cat("Triggering STOP\n")
             preview_app$stop()
           }
@@ -226,9 +230,9 @@ logger <- function(...){
   cat(..., "\n", file = stderr())
 }
 
-msg_when_ready <- function(preview_app, ws){
+msg_when_ready <- function(preview_app, ws) {
 
-  listen_for_ready <- preview_app$on_ready(function(app_ready){
+  listen_for_ready <- preview_app$on_ready(function(app_ready) {
 
     ws$send(
       build_ws_message(
@@ -242,8 +246,8 @@ msg_when_ready <- function(preview_app, ws){
   })
 }
 
-msg_app_logs <- function(preview_app, ws){
-  preview_app$on_log(function(log_lines){
+msg_app_logs <- function(preview_app, ws) {
+  preview_app$on_log(function(log_lines) {
     ws$send(
       build_ws_message(
         "SHINY_LOGS",
@@ -254,9 +258,9 @@ msg_app_logs <- function(preview_app, ws){
 }
 
 
-listen_for_crash <- function(preview_app, ws, id = 1){
-  on_crash <- preview_app$on_crash(function(is_alive){
-    cat(crayon::bgCyan("Crash detected id=",id,"\n"))
+listen_for_crash <- function(preview_app, ws, id = 1) {
+  on_crash <- preview_app$on_crash(function(is_alive) {
+    cat(crayon::bgCyan("Crash detected id=", id, "\n"))
 
     ws$send(
       build_ws_message(
@@ -268,7 +272,7 @@ listen_for_crash <- function(preview_app, ws, id = 1){
   })
 }
 
-build_ws_message <- function(type, payload){
+build_ws_message <- function(type, payload) {
   jsonlite::toJSON(list(
     msg = type,
     payload = payload
@@ -276,7 +280,7 @@ build_ws_message <- function(type, payload){
 }
 
 
-log_background_app <- function(lines){
+log_background_app <- function(lines) {
   cat(
     paste0(
       crayon::bold$magenta("Logs from preview app:\n"),
