@@ -2,7 +2,7 @@
 # fill in any missing components if they exist. If missing components are
 # refused then the function returns that the app is not valid and message about
 # why. stop()'s are used from internal functions to pass these reasons.
-check_and_validate_app <- function(app_loc){
+check_and_validate_app <- function(app_loc) {
 
   # We bubble up the reason for a non-valid app via throwing errors, hence the
   # tryCatch
@@ -37,7 +37,7 @@ check_and_validate_app <- function(app_loc){
 # All available templates as found in inst/app-templates
 starter_templates <- c("geyser")
 
-fill_in_app_template <- function(app_loc){
+fill_in_app_template <- function(app_loc) {
   ask_to_continue(
     "No app was found at location ",
     app_loc, ".\n",
@@ -50,7 +50,7 @@ fill_in_app_template <- function(app_loc){
     answers = starter_templates
   )
 
-  if (identical(chosen_template, character(0L))){
+  if (identical(chosen_template, character(0L))) {
     end_early()
   }
 
@@ -63,7 +63,7 @@ fill_in_app_template <- function(app_loc){
 
 
 
-get_path_to_template <- function(template_name){
+get_path_to_template <- function(template_name) {
   if (!template_name %in% c(starter_templates, "empty")) {
     stop("Unknown template: ", template_name)
   }
@@ -98,12 +98,12 @@ add_ui_template <- function(template_name, app_loc){
 }
 
 
-check_server_file <- function(app_loc){
+check_server_file <- function(app_loc) {
   # Does the server.R file exist?
   app_server_path <- fs::path(app_loc, "server.R")
   has_server_file <- fs::file_exists(app_server_path)
 
-  if (!has_server_file){
+  if (!has_server_file) {
     ask_to_continue(
       "No server.R file was found in app directory. ",
       "Would you like an empty one created and added?",
@@ -114,11 +114,11 @@ check_server_file <- function(app_loc){
   }
 }
 
-check_ui_file <- function(app_loc){
+check_ui_file <- function(app_loc) {
   # Does the ui file exist?
   has_ui_file <- has_app_file(app_loc, "ui.R")
 
-  if (!has_ui_file){
+  if (!has_ui_file) {
     ask_to_continue(
       "No ui.R was found. ",
       "Would you like an empty one created and added?",
@@ -133,7 +133,7 @@ check_ui_file <- function(app_loc){
   is_parsable_ui <- tryCatch({
     source(fs::path(app_loc, "ui.R"))
     TRUE
-  }, error = function(e){
+  }, error = function(e) {
     cat(crayon::red("Failed to start app editor: app UI definition invalid: \n"))
     # stop(e)
     FALSE
@@ -171,18 +171,18 @@ get_app_type <- function(app_loc){
 
 }
 
-end_early <- function(reason = "No app to run"){
+end_early <- function(reason = "No app to run") {
   # print("Ending early")
   stop(reason, call. = FALSE)
 }
 
-ask_to_continue <- function(..., reason_if_no = "No app to run"){
+ask_to_continue <- function(..., reason_if_no = "No app to run") {
   res <- ask_question(
     ...,
-    answers = c('yes', "no")
+    answers = c("yes", "no")
   )
 
-  if (!identical(res, 'yes')) {
+  if (!identical(res, "yes")) {
     end_early(reason_if_no)
   }
 

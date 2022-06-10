@@ -25,11 +25,6 @@ text_response <- function(txt,...){
 }
 
 
-# Get message body from a POST request
-get_post_body <- function(req){
-  jsonlite::parse_json(rawToChar(req$rook.input$read()))
-}
-
 # Return a function that gets the req object and then deligates running to a
 # given method/path pair in a supplied handlers list
 build_run_handler <- function(handlers){
@@ -43,7 +38,7 @@ build_run_handler <- function(handlers){
         stop(paste0("No call endpoint defined for path '", path, "'."))
       }
 
-      handlerFn(get_post_body(req))
+      handlerFn(jsonlite::parse_json(rawToChar(req$rook.input$read())))
     },
     error = function(e) {
       print("Failed to handle request.")

@@ -1,4 +1,4 @@
-ui_tree_to_code <- function(ui_tree, remove_namespace = TRUE){
+ui_tree_to_code <- function(ui_tree, remove_namespace = TRUE) {
 
   ui_expression <- deparse_ui_fn(
     ui_tree = simplify_tree(ui_tree),
@@ -9,23 +9,23 @@ ui_tree_to_code <- function(ui_tree, remove_namespace = TRUE){
 
   ui_def_text <- str_replace_all(
     ui_def_text,
-    pattern="),",
-    replacement="),\n",
-    fixed=TRUE
+    pattern = "),",
+    replacement = "),\n",
+    fixed = TRUE
   )
 
   ui_def_text <- str_replace_all(
     ui_def_text,
-    pattern=", ",
-    replacement=",\n",
-    fixed=TRUE
+    pattern = ", ",
+    replacement = ",\n",
+    fixed = TRUE
   )
 
   ui_def_text <- str_replace_all(
     ui_def_text,
-    pattern="\\n",
-    replacement="\n",
-    fixed=TRUE
+    pattern = "\\n",
+    replacement = "\n",
+    fixed = TRUE
   )
 
   ui_def_text <- styler::style_text(ui_def_text, scope = "tokens")

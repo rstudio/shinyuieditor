@@ -65,7 +65,7 @@ create_output_subscribers <- function(
       {
         out <- subscribed_fn()
 
-        if(filter_fn(out)) {
+        if (filter_fn(out)) {
           callbacks$invoke(out)
         }
       },
@@ -80,13 +80,13 @@ create_output_subscribers <- function(
   # Kick off loop
   poll()
 
-  cancel_all <- function(){
-    if(!is.null(unsubscribe)) {
+  cancel_all <- function() {
+    if (!is.null(unsubscribe)) {
       unsubscribe()
     }
   }
 
-  update_subscribed <- function(new_fn){
+  update_subscribed <- function(new_fn) {
 
     # Cancel the current event loop for the subscribed function
     cancel_all()
