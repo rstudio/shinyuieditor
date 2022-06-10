@@ -1,12 +1,14 @@
-deparse_ui_fn <- function(ui_tree, remove_namespace = FALSE){
+deparse_ui_fn <- function(ui_tree, remove_namespace = FALSE) {
   namespaces_removed <- list()
-  deparse_ui_fn_internal <- function(ui_tree){
+  deparse_ui_fn_internal <- function(ui_tree) {
     # Is the tree node just a primitive value? In that case we don't need to do
     # any special parsing
-    if(!is.list(ui_tree)) return(ui_tree)
+    if (!is.list(ui_tree)) {
+      return(ui_tree)
+    }
 
     # Just mirror back whatever the unknown function call was
-    if (is_unknown_code(ui_tree)){
+    if (is_unknown_code(ui_tree)) {
       return(unknown_code_unwrap(ui_tree))
     }
 
@@ -33,7 +35,7 @@ deparse_ui_fn <- function(ui_tree, remove_namespace = FALSE){
 
     # Now we can reconstruct the original function call with names attached
     rlang::call2(
-      parse(text=ui_fn_name)[[1]],
+      parse(text = ui_fn_name)[[1]],
       !!!all_ui_args
     )
   }
@@ -47,7 +49,6 @@ deparse_ui_fn <- function(ui_tree, remove_namespace = FALSE){
 
 
 validate_ui_tree_node <- function(node) {
-
   if (is.null(node$uiName)) {
     stop("Improperly formatted ui tree found - missing uiName property")
   }

@@ -64,6 +64,3 @@ new_ui_text <- 'grid_page(
   ),
   grid_panel_plot(area = "histogram")
 )'
-
-
-

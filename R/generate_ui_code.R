@@ -1,5 +1,4 @@
 ui_tree_to_code <- function(ui_tree, remove_namespace = TRUE) {
-
   ui_expression <- deparse_ui_fn(
     ui_tree = simplify_tree(ui_tree),
     remove_namespace = remove_namespace

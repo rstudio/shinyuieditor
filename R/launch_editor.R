@@ -49,8 +49,7 @@ launch_editor <- function(app_loc,
                           show_logs = TRUE,
                           show_preview_app_logs = TRUE,
                           launch_browser = TRUE,
-                          run_in_background = FALSE ) {
-
+                          run_in_background = FALSE) {
   writeLog <- function(...) {
     if (show_logs) {
       logger(...)
@@ -59,7 +58,7 @@ launch_editor <- function(app_loc,
 
   # Check and make sure that the app location provided actually has an app
   app_status <- check_and_validate_app(app_loc)
-  if (!app_status$is_valid){
+  if (!app_status$is_valid) {
     logger(app_status$message)
     invisible(return())
   }
@@ -84,7 +83,6 @@ launch_editor <- function(app_loc,
   })
 
   app_is_ready_check <- preview_app$on_ready(function(app_ready) {
-
     writeLog("~~~~App Ready~~~~~\n")
     failure_to_start_check()
 
@@ -112,7 +110,7 @@ launch_editor <- function(app_loc,
 
   # This needs to go before we actually start the server in case we're running
   # in blocking mode, which would prevent anything after from ever being run
-  location_of_editor <-  paste0("http://localhost:", port, "/app")
+  location_of_editor <- paste0("http://localhost:", port, "/app")
   loaded_msg <- ascii_box(
     paste("Live editor running at", location_of_editor)
   )
@@ -219,7 +217,6 @@ launch_editor <- function(app_loc,
         ws$onClose(function() {
           cat("Server connection closed.\n")
         })
-
       },
       staticPaths = list(
         "/app" = httpuv::staticPath(
@@ -241,14 +238,12 @@ launch_editor <- function(app_loc,
   )
 }
 
-logger <- function(...){
+logger <- function(...) {
   cat(..., "\n", file = stderr())
 }
 
 msg_when_ready <- function(preview_app, ws) {
-
   listen_for_ready <- preview_app$on_ready(function(app_ready) {
-
     ws$send(
       build_ws_message(
         "SHINY_READY",

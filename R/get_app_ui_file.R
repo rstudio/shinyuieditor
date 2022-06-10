@@ -21,5 +21,4 @@ get_app_ui_file <- function(app_loc) {
     "Can't find an app.R or ui.R file in the provided app_loc. ",
     "Make sure your working directory is properly set"
   )
-
 }

@@ -6,32 +6,32 @@ check_and_validate_app <- function(app_loc) {
 
   # We bubble up the reason for a non-valid app via throwing errors, hence the
   # tryCatch
-  tryCatch({
-    # Check and make sure that the app location provided actually has an app
-    app_type <- get_app_type(app_loc)
+  tryCatch(
+    {
+      # Check and make sure that the app location provided actually has an app
+      app_type <- get_app_type(app_loc)
 
-    if (app_type == "multi-file") {
-      # Validate and optionally fill in server and ui
-      check_server_file(app_loc)
-      check_ui_file(app_loc)
+      if (app_type == "multi-file") {
+        # Validate and optionally fill in server and ui
+        check_server_file(app_loc)
+        check_ui_file(app_loc)
+      }
+
+      if (app_type == "missing") {
+        # If no ui.R or server.R is present in location, let the user choose from
+        # some templates
+        fill_in_app_template(app_loc)
+      }
+
+      list(is_valid = TRUE)
+    },
+    error = function(e) {
+      list(
+        is_valid = FALSE,
+        message = e$message
+      )
     }
-
-    if (app_type == "missing") {
-      # If no ui.R or server.R is present in location, let the user choose from
-      # some templates
-      fill_in_app_template(app_loc)
-    }
-
-    list(is_valid = TRUE)
-
-  }, error = function(e){
-
-    list(
-      is_valid = FALSE,
-      message = e$message
-    )
-
-  })
+  )
 }
 
 # All available templates as found in inst/app-templates
@@ -72,18 +72,18 @@ get_path_to_template <- function(template_name) {
 }
 
 
-add_server_template <- function(template_name, app_loc){
+add_server_template <- function(template_name, app_loc) {
   fs::file_copy(
     fs::path(get_path_to_template(template_name), "server.R"),
     fs::path(app_loc, "server.R")
   )
 }
 
-add_ui_template <- function(template_name, app_loc){
+add_ui_template <- function(template_name, app_loc) {
   app_ui_path <- fs::path(app_loc, "ui.R")
   has_ui_file <- fs::file_exists(app_ui_path)
 
-  if (has_ui_file){
+  if (has_ui_file) {
     cat("Moving existing ui.R to ui.backup.R\n")
     fs::file_move(
       app_ui_path,
@@ -130,16 +130,21 @@ check_ui_file <- function(app_loc) {
   }
 
   # Make sure the ui is actually valid
-  is_parsable_ui <- tryCatch({
-    source(fs::path(app_loc, "ui.R"))
-    TRUE
-  }, error = function(e) {
-    cat(crayon::red("Failed to start app editor: app UI definition invalid: \n"))
-    # stop(e)
-    FALSE
-  })
+  is_parsable_ui <- tryCatch(
+    {
+      source(fs::path(app_loc, "ui.R"))
+      TRUE
+    },
+    error = function(e) {
+      cat(crayon::red("Failed to start app editor: app UI definition invalid: \n"))
+      # stop(e)
+      FALSE
+    }
+  )
 
-  if (is_parsable_ui) { return() }
+  if (is_parsable_ui) {
+    return()
+  }
 
   ask_to_continue(
     "Current ui.R is not able to be parsed: sorry! ",
@@ -153,14 +158,14 @@ check_ui_file <- function(app_loc) {
 
 
 
-has_app_file <- function(app_loc, file){
+has_app_file <- function(app_loc, file) {
   fs::file_exists(fs::path(app_loc, file))
 }
 
 
-get_app_type <- function(app_loc){
+get_app_type <- function(app_loc) {
   if (has_app_file(app_loc, "app.R")) {
-    return( "single-file")
+    return("single-file")
   }
 
   if (has_app_file(app_loc, "ui.R") || has_app_file(app_loc, "server.R")) {
@@ -168,7 +173,6 @@ get_app_type <- function(app_loc){
   }
 
   return("missing")
-
 }
 
 end_early <- function(reason = "No app to run") {
@@ -185,5 +189,4 @@ ask_to_continue <- function(..., reason_if_no = "No app to run") {
   if (!identical(res, "yes")) {
     end_early(reason_if_no)
   }
-
 }

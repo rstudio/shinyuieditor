@@ -41,24 +41,27 @@ get_file_ui_definition_info <- function(file_lines, type = "single-file") {
 }
 
 
-get_loaded_libraries <- function(file_lines){
+get_loaded_libraries <- function(file_lines) {
   lib_search <- regmatches(
     x = file_lines,
     m = gregexec(text = file_lines, pattern = "library\\((\\w+)\\)")
   )
 
-  lib_search <- Filter(function(match){ length(match) > 0}, lib_search)
+  lib_search <- Filter(function(match) {
+    length(match) > 0
+  }, lib_search)
 
   vapply(
     X = lib_search,
-    FUN = function(match){ match[2,] },
+    FUN = function(match) {
+      match[2, ]
+    },
     FUN.VALUE = character(1L)
   )
 }
 
 
-replace_ui_definition <- function(file_info, new_ui_tree, remove_namespace = TRUE){
-
+replace_ui_definition <- function(file_info, new_ui_tree, remove_namespace = TRUE) {
   new_ui <- ui_tree_to_code(new_ui_tree, remove_namespace = remove_namespace)
   ui_libraries <- new_ui$namespaces_removed
   new_ui_lines <- new_ui$text
@@ -69,7 +72,7 @@ replace_ui_definition <- function(file_info, new_ui_tree, remove_namespace = TRU
   ui_start <- file_info$ui_bounds$start
   ui_end <- file_info$ui_bounds$end
 
-  before_ui_def <- file_lines[1:ui_start-1]
+  before_ui_def <- file_lines[1:ui_start - 1]
 
   # use seq() instead of a simpler range because if the ui def ends at the final
   # line of the file the range will still return a single value whereas we want

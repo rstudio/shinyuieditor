@@ -44,7 +44,6 @@ bare_stack_panel_code <- 'grid_panel_stack(
 
 
 test_that("Can generate code with namespaces attached", {
-
   with_namespaces <- ui_tree_to_code(stack_panel, remove_namespace = FALSE)
 
   expect_equal(
@@ -59,7 +58,6 @@ test_that("Can generate code with namespaces attached", {
   )
 })
 test_that("Can generate code with namespaces removed", {
-
   no_namespaces <- ui_tree_to_code(stack_panel, remove_namespace = TRUE)
 
   expect_equal(

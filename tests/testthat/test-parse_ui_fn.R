@@ -34,8 +34,7 @@ test_that("Real UI snapshot", {
 
 
 test_that("Unknown functions are preserved through the parsing and deparsing steps", {
-
-  custom_widget_fn <- function(inputId, width){
+  custom_widget_fn <- function(inputId, width) {
     shiny::h1("Custom Widget")
   }
 
@@ -108,18 +107,17 @@ test_that("Unknown variables are preserved through the parsing and deparsing ste
 
 test_that("Unknown arguments are preserved through the parsing and deparsing steps", {
   original_expression <- rlang::expr(
-      shiny::sliderInput(
-        inputId = "bins",
-        label = "Number of Bins",
-        min = 12L,
-        max = 100L,
-        value = 30L,
-        animate = animationOptions(
-          interval = 1000,
-          loop = FALSE,
-          playButton = "play",
-          pauseButton = "pause"
-
+    shiny::sliderInput(
+      inputId = "bins",
+      label = "Number of Bins",
+      min = 12L,
+      max = 100L,
+      value = 30L,
+      animate = animationOptions(
+        interval = 1000,
+        loop = FALSE,
+        playButton = "play",
+        pauseButton = "pause"
       )
     )
   )

@@ -10,11 +10,11 @@ unknown_code_wrap <- function(code_expr) {
   )
 }
 
-unknown_code_unwrap <- function(unknown_code_box){
+unknown_code_unwrap <- function(unknown_code_box) {
   # TODO: Replace with a more portable function
   str2lang(unknown_code_box$uiArguments$text)
 }
 
-is_unknown_code <- function(ui_node){
+is_unknown_code <- function(ui_node) {
   is.list(ui_node) && identical(ui_node$uiName, "unknownUiFunction")
 }

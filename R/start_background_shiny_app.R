@@ -1,8 +1,7 @@
 
 
 start_background_shiny_app <- function(app_loc, host, port, writeLog, show_preview_app_logs) {
-
-  start_app <- function(){
+  start_app <- function() {
     writeLog("Starting up background shiny app")
     p <- callr::r_bg(
       func = function(app_loc, host, port) {
@@ -31,7 +30,7 @@ start_background_shiny_app <- function(app_loc, host, port, writeLog, show_previ
 
   # Listens for the app to be ready for connections
   on_ready <- create_output_subscribers(
-    source_fn = function(){
+    source_fn = function() {
       server_exists(app_url)
     },
     filter_fn = function(is_ready) is_ready
@@ -39,14 +38,14 @@ start_background_shiny_app <- function(app_loc, host, port, writeLog, show_previ
 
   on_log <- create_output_subscribers(
     source_fn = p$read_error_lines,
-    filter_fn = function(lines){
+    filter_fn = function(lines) {
       length(lines) > 0
     }
   )
 
   on_crash <- create_output_subscribers(
     source_fn = p$is_alive,
-    filter_fn = function(alive){
+    filter_fn = function(alive) {
       !alive
     },
     delay = 1
@@ -56,19 +55,19 @@ start_background_shiny_app <- function(app_loc, host, port, writeLog, show_previ
     on_log$subscribe(log_background_app)
   }
 
-  stop_listeners <- function(){
+  stop_listeners <- function() {
     writeLog("Stopping listeners\n")
     on_log$cancel_all()
     on_crash$cancel_all()
     on_ready$cancel_all()
   }
 
-  cleanup <-  function(){
+  cleanup <- function() {
     stop_listeners()
     stop_app()
   }
 
-  stop_app <- function(){
+  stop_app <- function() {
     tryCatch(
       {
         writeLog("=> Shutting down running shiny app...")
@@ -83,8 +82,7 @@ start_background_shiny_app <- function(app_loc, host, port, writeLog, show_previ
     )
   }
 
-  restart <- function(){
-
+  restart <- function() {
     writeLog("Restarting app...\n\n")
     p <<- start_app()
     on_log <<- on_log$update_subscribed(p$read_error_lines)
@@ -109,10 +107,20 @@ server_exists <- function(url_id) {
   # Using a url object instead of the url as a string because readLines() with
   # url string will cause failed connections to stay open
   url_obj <- url(url_id)
-  on.exit({close(url_obj)}, add = TRUE)
+  on.exit(
+    {
+      close(url_obj)
+    },
+    add = TRUE
+  )
 
   ret <- !inherits(
-    try({suppressWarnings(readLines(url_obj, 1))}, silent = TRUE),
+    try(
+      {
+        suppressWarnings(readLines(url_obj, 1))
+      },
+      silent = TRUE
+    ),
     "try-error"
   )
   ret

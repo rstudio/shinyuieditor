@@ -42,13 +42,12 @@
 #' parse_ui_fn(app_expr)
 #'
 parse_ui_fn <- function(ui_node_expr, env = rlang::caller_env()) {
-
-  namespaced_fn_name <-  tryCatch(
+  namespaced_fn_name <- tryCatch(
     {
       namespace_ui_fn(name_of_called_fn(ui_node_expr))
     },
     error = function(e) {
-     "unknown"
+      "unknown"
     }
   )
 
@@ -57,20 +56,23 @@ parse_ui_fn <- function(ui_node_expr, env = rlang::caller_env()) {
   }
 
   # Fill in all the names of unnamed arguments
-  ui_node_expr <- tryCatch({
-    rlang::call_standardise(ui_node_expr, env = env)
-  }, error = function(e) {
-    stop(
-      paste0(
-        "Problem with arguments supplied to ",
-        namespaced_fn_name,
-        "().\nError msg: \"",
-        e$message,
-        "\""
-      ),
-      call. = FALSE
-    )
-  })
+  ui_node_expr <- tryCatch(
+    {
+      rlang::call_standardise(ui_node_expr, env = env)
+    },
+    error = function(e) {
+      stop(
+        paste0(
+          "Problem with arguments supplied to ",
+          namespaced_fn_name,
+          "().\nError msg: \"",
+          e$message,
+          "\""
+        ),
+        call. = FALSE
+      )
+    }
+  )
 
   # Since first element of the AST is the function call itself, it makes our
   # life easier going forward if we remove it before walking through arguments
@@ -94,7 +96,7 @@ parse_ui_fn <- function(ui_node_expr, env = rlang::caller_env()) {
 
     is_child_node <- arg_name == ""
     if (is_child_node) {
-      parsed$uiChildren <- append(parsed$uiChildren, list(parse_ui_fn(arg_val, env=env)))
+      parsed$uiChildren <- append(parsed$uiChildren, list(parse_ui_fn(arg_val, env = env)))
     } else {
       parsed$uiArguments[[arg_name]] <- parse_argument(arg_val)
     }
@@ -103,7 +105,7 @@ parse_ui_fn <- function(ui_node_expr, env = rlang::caller_env()) {
   parsed
 }
 
-parse_argument <- function(arg_expr){
+parse_argument <- function(arg_expr) {
   # First check if we should even try and parsing this node. If it's a constant
   # like a string just return that.
   if (!is.call(arg_expr)) {
@@ -115,7 +117,6 @@ parse_argument <- function(arg_expr){
   # We know how to handle just a few types of function calls, so make sure that
   # we're working with one of those before proceeding
   if (func_name == "list" | func_name == "c") {
-
     list_val <- eval(arg_expr)
 
     # If we have a named vector then the names will be swallowed in conversion
