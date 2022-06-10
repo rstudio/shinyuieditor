@@ -63,7 +63,6 @@ names(ui_fn_info) <- c(ui_fn_names_namespaced, ui_fn_names_bare)
 #' shinyuieditor:::namespace_ui_fn("grid_page")
 #'
 namespace_ui_fn <- function(ui_name) {
-
   info <- ui_fn_info[[ui_name]]
   if (is.null(info)) {
     stop("The ui function ", ui_name, " is not in the list of known functions.")

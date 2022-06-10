@@ -10,7 +10,6 @@
 #'   TRUE`)
 #'
 deparse_ui_fn <- function(ui_tree, remove_namespace = FALSE) {
-
   namespaces_removed <- list()
   deparse_ui_fn_internal <- function(ui_tree) {
     # Is the tree node just a primitive value? In that case we don't need to do
