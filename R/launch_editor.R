@@ -4,11 +4,6 @@
 #' and saving.
 #'
 #'
-#' ## Stopping server When running with `run_in_background = TRUE`, it's
-#' recommended you use the `$stop()` function in the returned list object
-#' instead of the build in `$stop()` function on the returned `$server` object
-#' as this will ensure the running Shiny app preview will also shutdown.
-#'
 #' @inheritParams httpuv::startServer
 #' @param app_loc Path to directory containing Shiny app to be visually edited.
 #'   Currently this only supports two-file app formats, and thus there needs to
@@ -28,11 +23,6 @@
 #'   printed? Useful for debugging an app that's not working properly.
 #' @param launch_browser Should the browser be automatically opened to the
 #'   editor?
-#' @param run_in_background Should the app run in a background process or block
-#'   the console? See `?httpuv::startServer()` vs `?httpuv::runServer()`. Note
-#'   that this potentially will result in orphaned Shiny processes because
-#'   there's no way to know when the user is done with the app preview. Use with
-#'   caution.
 #'
 #'
 #' @return A list containing the `$server`: The app server object (as returned
@@ -48,8 +38,7 @@ launch_editor <- function(app_loc,
                           app_preview = TRUE,
                           show_logs = TRUE,
                           show_preview_app_logs = TRUE,
-                          launch_browser = TRUE,
-                          run_in_background = FALSE) {
+                          launch_browser = TRUE) {
   writeLog <- function(...) {
     if (show_logs) {
       logger(...)
@@ -93,19 +82,10 @@ launch_editor <- function(app_loc,
 
   writeLog("=> ...Shiny app running in background")
 
-  # Cleanup on closing of the server... This should be be ignored when we're
-  # running in the background, however, otherwise it will kill the shiny server
-  # immediately (if it's started immediately).
-  cleanup_on_end <- function() {
+  # Cleanup on closing of the server...
+  on.exit({
     # Stop all the event listeners
     preview_app$cleanup()
-  }
-
-  on.exit({
-    if (run_in_background) {
-      return()
-    }
-    cleanup_on_end()
   })
 
   # This needs to go before we actually start the server in case we're running
@@ -116,12 +96,6 @@ launch_editor <- function(app_loc,
   )
   cat(crayon::bold(loaded_msg))
 
-  startup_fn <- if (run_in_background) {
-    httpuv::startServer
-  } else {
-    httpuv::runServer
-  }
-
   if (launch_browser) {
     utils::browseURL(location_of_editor)
   }
@@ -129,9 +103,8 @@ launch_editor <- function(app_loc,
   ui_file <- get_app_ui_file(app_loc)
   app_info <- NULL
 
-  # TODO: If in background mode, wrap the return with a callback that cleans
-  # stuff up for us
-  s <- startup_fn(
+
+  httpuv::runServer(
     host = host, port = port,
     app = list(
       call = build_run_handler(list(
@@ -225,16 +198,6 @@ launch_editor <- function(app_loc,
         )
       )
     )
-  )
-
-  # This point only gets reached when in background mode otherwise we'd block on
-  # the startup call above
-  list(
-    server = s,
-    stop = function() {
-      s$stop()
-      cleanup_on_end()
-    }
   )
 }
 
