@@ -29,6 +29,9 @@
 #'   that this potentially will result in orphaned Shiny processes because
 #'   there's no way to know when the user is done with the app preview. Use with
 #'   caution.
+#' @param stop_on_browser_close Should the editor server end when the browser window
+#'   is closed or is dormant for too long. Set this to false if you want to try
+#'   running the app in a different browser or refreshing the browser etc..
 #'
 #' @return A list containing the `$server`: The app server object (as returned
 #'   by `httpuv::startServer`) and the function `$stop()` for safely terminating
@@ -43,7 +46,8 @@ launch_editor <- function(app_loc,
                           show_logs = TRUE,
                           show_preview_app_logs = TRUE,
                           launch_browser = TRUE,
-                          run_in_background = FALSE) {
+                          run_in_background = FALSE,
+                          stop_on_browser_close = TRUE ) {
 
 
   writeLog <- function(...) {
@@ -191,8 +195,11 @@ launch_editor <- function(app_loc,
 
         ws$onClose(function() {
           cat("Server connection closed.\n")
-          # Trigger an interrupt to stop the server
-          rlang::interrupt()
+
+          if (stop_on_browser_close) {
+            # Trigger an interrupt to stop the server
+            rlang::interrupt()
+          }
         })
 
       },
