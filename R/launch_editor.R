@@ -191,6 +191,8 @@ launch_editor <- function(app_loc,
 
         ws$onClose(function() {
           cat("Server connection closed.\n")
+          # Trigger an interrupt to stop the server
+          rlang::interrupt()
         })
 
       },
