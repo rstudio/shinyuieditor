@@ -29,6 +29,9 @@
 #'   that this potentially will result in orphaned Shiny processes because
 #'   there's no way to know when the user is done with the app preview. Use with
 #'   caution.
+#' @param stop_on_browser_close Should the editor server end when the browser window
+#'   is closed or is dormant for too long. Set this to false if you want to try
+#'   running the app in a different browser or refreshing the browser etc..
 #'
 #' @return A list containing the `$server`: The app server object (as returned
 #'   by `httpuv::startServer`) and the function `$stop()` for safely terminating
@@ -43,7 +46,8 @@ launch_editor <- function(app_loc,
                           show_logs = TRUE,
                           show_preview_app_logs = TRUE,
                           launch_browser = TRUE,
-                          run_in_background = FALSE) {
+                          run_in_background = FALSE,
+                          stop_on_browser_close = TRUE ) {
 
 
   writeLog <- function(...) {
@@ -120,6 +124,20 @@ launch_editor <- function(app_loc,
     utils::browseURL(location_of_editor)
   }
 
+
+  # Empty function so variable can always be called even if the timeout hasn't
+  # been initialized
+  app_close_timeout <- function(){ }
+  start_app_close_timeout <- function() {
+    if (!stop_on_browser_close) return()
+    # Trigger an interrupt to stop the server if the browser
+    # unmounts and then doesn't re-connect within a timeframe
+    app_close_timeout <<- later::later(function() {
+      writeLog("Stopping ui editor server")
+      rlang::interrupt();
+    }, delay = 0.5)
+  }
+
   # TODO: If in background mode, wrap the return with a callback that cleans
   # stuff up for us
   s <- startup_fn(
@@ -136,7 +154,12 @@ launch_editor <- function(app_loc,
           },
           "/app-please" = function(body) {
             writeLog("=> Parsing app blob and sending to client")
+            # Cancel any app close timeouts that may have been caused by the
+            # user refreshing the page
+            app_close_timeout()
+
             json_response(get_ui_from_file(app_loc))
+
           }
         ),
         "POST" = list(
@@ -145,6 +168,10 @@ launch_editor <- function(app_loc,
             save_ui_to_file(updated_ui_string, app_loc)
             writeLog("<= Saved new ui state from client")
             text_response("App Dump received, thanks")
+          },
+          "/browser-close" =  function(body) {
+            start_app_close_timeout()
+            text_response("Starting server close timeout.")
           },
           "/ValidateArgs" = function(body) {
             json_response(
@@ -159,7 +186,7 @@ launch_editor <- function(app_loc,
       )),
       onWSOpen = function(ws) {
         # The ws object is a WebSocket object
-        cat("Server connection opened.\n")
+        writeLog("Preview app connection opened.\n")
 
         msg_when_ready(preview_app, ws)
         msg_app_logs(preview_app, ws)
@@ -168,29 +195,27 @@ launch_editor <- function(app_loc,
 
         ws$onMessage(function(binary, message) {
 
-          # cat("Server received message:", message, "\n")
-
           # TODO: This logic needs some work as it only successfully restarts
           # one time then complains of reused TCP addresses
 
           if(message == "RESTART_PREVIEW"){
-            cat("Triggering Restart\n")
+            writeLog("Restarting app preview process\n")
             preview_app$restart()
 
             Sys.sleep(1)
-            writeLog("Restarted app, listening for ready and new crashes...\n")
+            writeLog("Restarted app preview, listening for ready and new crashes...\n")
             msg_when_ready(preview_app, ws)
             listen_for_crash(preview_app, ws, 'restart')
           }
 
           if(message == "STOP_PREVIEW"){
-            cat("Triggering STOP\n")
+            writeLog("Stopping app preview process\n")
             preview_app$stop()
           }
         })
 
         ws$onClose(function() {
-          cat("Server connection closed.\n")
+          writeLog("Websocket connection with app preview lost.\n")
         })
 
       },
