@@ -105,6 +105,9 @@ parse_ui_fn <- function(ui_node_expr, env = rlang::caller_env()) {
   parsed
 }
 
+# Handle named arguments of a ui function. This is needed for handling special
+# cases like lists and arrays that are not primative but we need to handle for
+# things like radio inputs etc..
 parse_argument <- function(arg_expr) {
   # First check if we should even try and parsing this node. If it's a constant
   # like a string just return that.
