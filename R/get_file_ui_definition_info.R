@@ -1,3 +1,16 @@
+#' Get info about ui definition from file
+#'
+#' @param file_lines Character vector of the lines of the file that defines a
+#'   shiny app's ui (as from `readLines()`).
+#' @param type Is the app a single-file app? E.g. app is container entirely in
+#'   `app.R`? Or is it `multi-file`?
+#'
+#' @return List with both the `type` and `file_lines` mirrored from the
+#'   arguments of the same name. Along with this the `ui_bounds` containing the
+#'   start and end lines of the file section that defines the app's ui, the
+#'   `ui_tree` IR that defines that ui, and `loaded_libraries`: libraries loaded
+#'   via `library()` calls in the script.
+#'
 get_file_ui_definition_info <- function(file_lines, type = "single-file") {
   parsed <- parse(text = file_lines, keep.source = TRUE)
 
@@ -40,7 +53,8 @@ get_file_ui_definition_info <- function(file_lines, type = "single-file") {
   )
 }
 
-
+# Gather the name of all libraries loaded with calls to `library()` in a given
+# app
 get_loaded_libraries <- function(file_lines) {
   lib_search <- regmatches(
     x = file_lines,
