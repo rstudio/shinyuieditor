@@ -17,7 +17,7 @@ Function name in namespaced format
 Throws an error if the function is not in the list of known ui functions
 }
 \examples{
-namespace_ui_fn("gridlayout::grid_page")
-namespace_ui_fn("grid_page")
+shinyuieditor:::namespace_ui_fn("gridlayout::grid_page")
+shinyuieditor:::namespace_ui_fn("grid_page")
 
 }
