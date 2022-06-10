@@ -158,7 +158,7 @@ launch_editor <- function(app_loc,
           "/UiDump" = function(body) {
             text_response("App Dump received, thanks")
 
-            updated_file_lines <- replace_ui_definition(
+            updated_file_lines <- update_ui_definition(
               file_info = app_info,
               new_ui_tree = body,
               remove_namespace = remove_namespace

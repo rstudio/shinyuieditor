@@ -75,7 +75,18 @@ get_loaded_libraries <- function(file_lines) {
 }
 
 
-replace_ui_definition <- function(file_info, new_ui_tree, remove_namespace = TRUE) {
+#' Update the ui definition for a given ui-defining file
+#'
+#' @param file_info Info on the ui-defining file as obtained by
+#'   `shinyuieditor:::get_file_ui_definition_info`
+#' @param new_ui_tree The new UI IR tree defining the new ui for the file
+#' @param remove_namespace Should the new ui be generated with namespaces
+#'   stripped and `library()` calls added for any non-defined namespaces?
+#'
+#' @return A new character vector containing the lines of the ui-defining file
+#'   with the layout updated to match the `new_ui_tree`.
+#'
+update_ui_definition <- function(file_info, new_ui_tree, remove_namespace = TRUE) {
   new_ui <- ui_tree_to_code(new_ui_tree, remove_namespace = remove_namespace)
   ui_libraries <- new_ui$namespaces_removed
   new_ui_lines <- new_ui$text
