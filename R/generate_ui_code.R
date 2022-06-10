@@ -1,8 +1,6 @@
 #' Convert ui tree IR to code text
 #'
-#' @param ui_tree Valid ui tree intermediate representation of an apps ui
-#' @param remove_namespace Should the generated code have the namespaces removed
-#'   or should generated function calls take the form of `pkg::fn()`
+#' @inheritParams deparse_ui_fn
 #'
 #' @return A list with `text`: lines of the generated code, and
 #'   `namespaces_removed`: a character vector of all the namespaces that were
