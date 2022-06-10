@@ -18,7 +18,7 @@ ui_fn_names_namespaced <- c(
   "gridlayout::grid_panel_stack"
 )
 
-
+# Ui names without namespace attached
 ui_fn_names_bare <- gsub(
   pattern = "\\w+::",
   replacement = "",
@@ -26,6 +26,8 @@ ui_fn_names_bare <- gsub(
   perl = TRUE
 )
 
+# List of each functions namespace (`namespace`), un-namespaced name (`fn`) and
+# the full namespaced name (`full`)
 ui_fn_names_and_namespaces <- lapply(
   regmatches(
     x = ui_fn_names_namespaced,
@@ -40,10 +42,28 @@ ui_fn_names_and_namespaces <- lapply(
   }
 )
 
+# A list keyed by either the namespaced or un-namespaced name of a ui function
+# that gives the info defined in ui_fn_names_and_namespaces back. Used to
+# standardize code if namespaced or not
 ui_fn_info <- c(ui_fn_names_and_namespaces, ui_fn_names_and_namespaces)
 names(ui_fn_info) <- c(ui_fn_names_namespaced, ui_fn_names_bare)
 
+
+#' Namespace a ui function
+#'
+#' Throws an error if the function is not in the list of known ui functions
+#'
+#' @param ui_name Namespaced (`pkg::fn`) or un-namespaced (`fn`) function name
+#'   of known ui functions
+#'
+#' @return Function name in namespaced format
+#'
+#' @examples
+#' namespace_ui_fn("gridlayout::grid_page")
+#' namespace_ui_fn("grid_page")
+#'
 namespace_ui_fn <- function(ui_name) {
+
   info <- ui_fn_info[[ui_name]]
   if (is.null(info)) {
     stop("The ui function ", ui_name, " is not in the list of known functions.")
