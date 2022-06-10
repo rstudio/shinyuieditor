@@ -13,7 +13,8 @@ launch_editor(
   show_logs = TRUE,
   show_preview_app_logs = TRUE,
   launch_browser = TRUE,
-  run_in_background = FALSE
+  run_in_background = FALSE,
+  stop_on_browser_close = TRUE
 )
 }
 \arguments{
@@ -49,6 +50,10 @@ the console? See \code{?httpuv::startServer()} vs \code{?httpuv::runServer()}. N
 that this potentially will result in orphaned Shiny processes because
 there's no way to know when the user is done with the app preview. Use with
 caution.}
+
+\item{stop_on_browser_close}{Should the editor server end when the browser window
+is closed or is dormant for too long. Set this to false if you want to try
+running the app in a different browser or refreshing the browser etc..}
 }
 \value{
 A list containing the \verb{$server}: The app server object (as returned
