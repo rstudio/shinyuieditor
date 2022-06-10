@@ -1,4 +1,16 @@
+#' Deparse ui function tree to expression
+#'
+#' @param ui_tree Valid ui tree intermediate representation of an apps ui
+#' @param remove_namespace Should the generated code have the namespaces removed
+#'   or should generated function calls take the form of `pkg::fn()`
+#'
+#' @return A list with `call`: language expression of the generated code, and
+#'   `namespaces_removed`: a character vector of all the namespaces that were
+#'   stripped from the ui functions (only has elements if `remove_namespaces =
+#'   TRUE`)
+#'
 deparse_ui_fn <- function(ui_tree, remove_namespace = FALSE) {
+
   namespaces_removed <- list()
   deparse_ui_fn_internal <- function(ui_tree) {
     # Is the tree node just a primitive value? In that case we don't need to do
