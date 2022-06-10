@@ -1,3 +1,11 @@
+#' Get the file defining the ui for a shiny app directory
+#'
+#' @param app_loc Path to a shiny app
+#'
+#' @return Path to either the `app.R` file in directory in the case of
+#'   single-file apps, or `ui.R` in the case of multi-file apps. If both exist
+#'   then `app.R` will take precedence
+#'
 get_app_ui_file <- function(app_loc) {
   # We first try and look for a single app file
   single_file_app_script <- fs::path(app_loc, "app.R")
