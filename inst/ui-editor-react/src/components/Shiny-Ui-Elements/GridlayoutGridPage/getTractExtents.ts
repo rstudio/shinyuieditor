@@ -41,24 +41,3 @@ export function getTractExtents({
 
   return tract_extents;
 }
-
-export function getFullTractExtents({
-  gridContainerStyles,
-  gridContainerBoundingRect,
-}: {
-  gridContainerStyles: CSSStyleDeclaration;
-  gridContainerBoundingRect: DOMRect;
-}) {
-  return {
-    rows: getTractExtents({
-      dir: "rows",
-      gridContainerStyles,
-      gridContainerBoundingRect,
-    }),
-    cols: getTractExtents({
-      dir: "cols",
-      gridContainerStyles,
-      gridContainerBoundingRect,
-    }),
-  };
-}
