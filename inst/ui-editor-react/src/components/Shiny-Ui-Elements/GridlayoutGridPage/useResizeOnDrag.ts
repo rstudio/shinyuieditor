@@ -20,6 +20,9 @@ import {
   gridLocationToBounds,
   gridLocationToExtent,
 } from "./helpers";
+import type { TractExtents } from "./TractExtents";
+import { within } from "./TractExtents";
+import { getTractExtents } from "./TractExtents";
 
 type ItemBounds = ReturnType<typeof gridLocationToBounds>;
 
@@ -88,12 +91,14 @@ function setupDragToResize({
   itemBounds,
   dragDirection,
   cellBounds,
+  tractExtents,
   gridLocation,
   layoutAreas,
 }: {
   itemBounds: SelectionRect;
   dragDirection: DragHandle;
   cellBounds: GridCellBounds;
+  tractExtents: TractExtents;
   gridLocation: ItemLocation;
   layoutAreas: TemplatedGridProps["areas"];
 }): ResizeDragState {
@@ -105,6 +110,7 @@ function setupDragToResize({
     gridItemExtent: gridLocationToExtent(gridLocation),
     tractExtents: getExtentsForAvailableTracts({
       dragDirection,
+      tractExtents,
       gridLocation,
       layoutAreas,
       cellBounds,
@@ -113,7 +119,7 @@ function setupDragToResize({
 }
 
 function resizeOnDrag({
-  mousePos: { x, y },
+  mousePos,
   dragState,
 }: {
   mousePos: { x: number; y: number };
@@ -127,62 +133,56 @@ function resizeOnDrag({
     gridItemExtent,
   } = dragState;
 
-  const expansionLimit = tractExtents.maxExtent;
-  const furthestIndex =
-    tractExtents.extents[tractExtents.extents.length - 1].index;
+  // Find out which tract our drag is sitting in currently
+  const drag_position =
+    mousePos[dragHandle === "down" || dragHandle === "up" ? "y" : "x"];
 
-  // These are the directions where expanding will mean increasing
-  // the tract index
-  const growing = dragHandle === "right" || dragHandle === "down";
-  const firstTractAfterBounds = (newBounds: number) => {
-    for (let tract of tractExtents.extents) {
-      if (growing && newBounds <= tract.start) return tract.index - 1;
-      if (!growing && newBounds >= tract.start) return tract.index + 1;
-    }
-    return furthestIndex;
-  };
+  const containing_tract = tractExtents.find(({ start, end }) =>
+    within(drag_position, start, end)
+  );
+
+  if (containing_tract === undefined) {
+    console.log("Gone beyond extent of available drag. ending early");
+    return;
+  }
+
+  console.log("contained in", containing_tract?.index);
 
   // Number of pixels added to prevent inversion of drag box
   const buffer = 2;
 
   switch (dragHandle) {
     case "right":
-      dragBounds.right = clamp({
-        min: startingBounds.left + buffer,
-        val: x,
-        max: expansionLimit,
-      });
-      gridItemExtent.colEnd = firstTractAfterBounds(dragBounds.right);
+      gridItemExtent.colEnd = containing_tract.index;
       break;
-
     case "left":
-      dragBounds.left = clamp({
-        min: expansionLimit,
-        val: x,
-        max: startingBounds.right - buffer,
-      });
-      gridItemExtent.colStart = firstTractAfterBounds(dragBounds.left);
+      // dragBounds.left = clamp({
+      //   min: expansionLimit,
+      //   val: x,
+      //   max: startingBounds.right - buffer,
+      // });
+      gridItemExtent.colStart = containing_tract.index;
 
       break;
 
     case "down":
-      dragBounds.bottom = clamp({
-        min: startingBounds.top + buffer,
-        val: y,
-        max: expansionLimit,
-      });
+      // dragBounds.bottom = clamp({
+      //   min: startingBounds.top + buffer,
+      //   val: y,
+      //   max: expansionLimit,
+      // });
 
-      gridItemExtent.rowEnd = firstTractAfterBounds(dragBounds.bottom);
+      gridItemExtent.rowEnd = containing_tract.index;
       break;
 
     case "up":
-      dragBounds.top = clamp({
-        min: expansionLimit,
-        val: y,
-        max: startingBounds.bottom - buffer,
-      });
+      // dragBounds.top = clamp({
+      //   min: expansionLimit,
+      //   val: y,
+      //   max: startingBounds.bottom - buffer,
+      // });
 
-      gridItemExtent.rowStart = firstTractAfterBounds(dragBounds.top);
+      gridItemExtent.rowStart = containing_tract.index;
 
       break;
   }
@@ -255,15 +255,10 @@ export function useResizeOnDrag({
 
       const gridContainerStyles = getComputedStyle(overlayEl.parentElement);
       const gridContainerBoundingRect = gridElement.getBoundingClientRect();
-      const row_extents = getTractExtents({
-        dir: "rows",
-        gridContainerStyles,
-        gridContainerBoundingRect,
-      });
-
-      debugger;
 
       const itemBounds = gridLocationToBounds({ cellBounds, gridLocation });
+      const tractDir: TractDirection =
+        dragDirection === "down" || dragDirection === "up" ? "rows" : "cols";
 
       dragRef.current =
         dragDirection === "move"
@@ -277,11 +272,16 @@ export function useResizeOnDrag({
               dragDirection,
               itemBounds,
               cellBounds,
+              tractExtents: getTractExtents({
+                dir: tractDir,
+                gridContainerStyles,
+                gridContainerBoundingRect,
+              }),
               gridLocation,
               layoutAreas,
             });
 
-      // Add explicite positioning to grid item div and then turn on drag
+      // Add explicit positioning to grid item div and then turn on drag
       // mode to transfer placement duties to those positions
       placeItemOnGrid(overlayRef.current, dragRef.current.gridItemExtent);
       overlayEl.classList.add("dragging");
@@ -297,48 +297,7 @@ export function useResizeOnDrag({
   return startDrag;
 }
 
-type TractExtents = { index: number; start: number; end: number }[];
-function getTractExtents({
-  dir,
-  gridContainerStyles,
-  gridContainerBoundingRect,
-}: {
-  dir: TractDirection;
-  gridContainerStyles: CSSStyleDeclaration;
-  gridContainerBoundingRect: DOMRect;
-}): TractExtents {
-  const gap = pxValToNumber(gridContainerStyles.getPropertyValue("gap"));
-  const pad = pxValToNumber(gridContainerStyles.getPropertyValue("padding"));
-  const startOffset =
-    gridContainerBoundingRect[dir === "rows" ? "y" : "x"] + pad;
-  const sizes = getGridTractSizes(gridContainerStyles, "rows");
-
-  const tract_extents: TractExtents = [];
-  for (let i = 0; i < sizes.length; i++) {
-    const start_of_tract =
-      i === 0 ? startOffset : tract_extents[i - 1].end + gap;
-
-    tract_extents.push({
-      index: i,
-      start: start_of_tract,
-      end: sizes[i] + start_of_tract,
-    });
-  }
-
-  return tract_extents;
-}
-
-function getGridCellBounds(gridElement: HTMLElement | null) {
-  if (gridElement === null) return;
-  const elementStyles = getComputedStyle(gridElement);
-  const rows = getGridTractSizes(elementStyles, "rows");
-  const cols = getGridTractSizes(elementStyles, "cols");
-  const pad = pxValToNumber(elementStyles.getPropertyValue("padding"));
-
-  // debugger;
-}
-
-function getGridTractSizes(
+export function getGridTractSizes(
   containerStyles: CSSStyleDeclaration,
   dir: TractDirection
 ) {
@@ -351,7 +310,7 @@ function getGridTractSizes(
   return tractPxVals.map(pxValToNumber);
 }
 
-function pxValToNumber(pxVal: string): number {
+export function pxValToNumber(pxVal: string): number {
   return Number(pxVal.replaceAll("px", ""));
 }
 

@@ -1,6 +1,8 @@
 import type { TemplatedGridProps } from "components/Shiny-Ui-Elements/GridlayoutGridPage";
 import type { GridCellBounds } from "components/Shiny-Ui-Elements/GridlayoutGridPage/GridCell";
 import { boundingBoxToExtent } from "components/Shiny-Ui-Elements/GridlayoutGridPage/helpers";
+import type { TractExtents } from "components/Shiny-Ui-Elements/GridlayoutGridPage/TractExtents";
+import { within } from "components/Shiny-Ui-Elements/GridlayoutGridPage/TractExtents";
 import type { DragHandle } from "components/Shiny-Ui-Elements/GridlayoutGridPage/useResizeOnDrag";
 import { buildRange } from "utils/array-helpers";
 import { toStringLoc } from "utils/grid-helpers";
@@ -19,42 +21,48 @@ export function getExtentsForAvailableTracts({
   gridLocation,
   layoutAreas,
   cellBounds,
+  tractExtents,
 }: {
   dragDirection: DragHandle;
   gridLocation: ItemLocation;
   layoutAreas: TemplatedGridProps["areas"];
   cellBounds: GridCellBounds;
-}): {
-  maxExtent: number;
-  extents: TractExtent[];
-} {
+  tractExtents: TractExtents;
+}): TractExtents {
   const { shrinkExtent, growExtent } = findAvailableTracts({
     dragDirection,
     gridLocation,
     layoutAreas,
   });
 
+  // debugger;
+
   const searchingRows = dragDirection === "up" || dragDirection === "down";
 
   const getStartAndEndOfExtent = startAndEndOfExtentForDir[dragDirection];
 
-  const extents = buildRange(shrinkExtent, growExtent).map((index) => {
-    const boxPosition = searchingRows
-      ? { row: index, col: 1 }
-      : { col: index, row: 1 };
+  const extents = tractExtents.filter(({ index }) =>
+    within(index, shrinkExtent, growExtent)
+  );
 
-    return {
-      index,
-      ...getStartAndEndOfExtent(
-        boundingBoxToExtent(cellBounds[toStringLoc(boxPosition)])
-      ),
-    };
-  });
+  // extents.reverse();
 
-  return {
-    maxExtent: extents[extents.length - 1].end,
-    extents,
-  };
+  // const extents2 = buildRange(shrinkExtent, growExtent).map((index) => {
+  //   const boxPosition = searchingRows
+  //     ? { row: index, col: 1 }
+  //     : { col: index, row: 1 };
+
+  //   return {
+  //     index,
+  //     ...getStartAndEndOfExtent(
+  //       boundingBoxToExtent(cellBounds[toStringLoc(boxPosition)])
+  //     ),
+  //   };
+  // });
+
+  // debugger;
+
+  return extents;
 }
 
 // A map to get the appropriate function for finding the "start" and "end" of
