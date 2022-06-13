@@ -170,23 +170,6 @@ export function useResizeOnDrag({
   return startDrag;
 }
 
-export function getGridTractSizes(
-  containerStyles: CSSStyleDeclaration,
-  dir: TractDirection
-) {
-  const tractPxVals = containerStyles
-    .getPropertyValue(
-      dir === "rows" ? "grid-template-rows" : "grid-template-columns"
-    )
-    .split(" ");
-
-  return tractPxVals.map(pxValToNumber);
-}
-
-export function pxValToNumber(pxVal: string): number {
-  return Number(pxVal.replaceAll("px", ""));
-}
-
 function toggleTextSelection(type: "on" | "off") {
   // Turnoff text selection so dragging doesnt highlight a bunch of stuff
   const bodyClasses = document.querySelector("body")?.classList;

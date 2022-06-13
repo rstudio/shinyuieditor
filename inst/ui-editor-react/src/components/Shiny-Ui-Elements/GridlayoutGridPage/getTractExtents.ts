@@ -1,7 +1,5 @@
 import type { TractDirection } from ".";
 
-import { getGridTractSizes, pxValToNumber } from "./useResizeOnDrag";
-
 export type TractExtents = { index: number; start: number; end: number }[];
 export function getTractExtents({
   dir,
@@ -40,4 +38,20 @@ export function getTractExtents({
   }
 
   return tract_extents;
+}
+
+function getGridTractSizes(
+  containerStyles: CSSStyleDeclaration,
+  dir: TractDirection
+) {
+  const tractPxVals = containerStyles
+    .getPropertyValue(
+      dir === "rows" ? "grid-template-rows" : "grid-template-columns"
+    )
+    .split(" ");
+
+  return tractPxVals.map(pxValToNumber);
+}
+function pxValToNumber(pxVal: string): number {
+  return Number(pxVal.replaceAll("px", ""));
 }
