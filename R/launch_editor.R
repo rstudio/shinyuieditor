@@ -60,8 +60,8 @@ launch_editor <- function(app_loc,
   app_status <- check_and_validate_app(app_loc)
 
   if (!app_status$is_valid){
-    logger(app_status$message)
-    invisible(return())
+    logger("Stopping UI Editor. Reason:", app_status$message)
+    return(invisible())
   }
 
   # Logic for starting up Shiny app in background and returning the app URL.
