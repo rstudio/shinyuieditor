@@ -1,7 +1,7 @@
 import type { TemplatedGridProps } from "components/Shiny-Ui-Elements/GridlayoutGridPage";
 import type { GridCellBounds } from "components/Shiny-Ui-Elements/GridlayoutGridPage/GridCell";
 import { boundingBoxToExtent } from "components/Shiny-Ui-Elements/GridlayoutGridPage/helpers";
-import type { DragDirection } from "components/Shiny-Ui-Elements/GridlayoutGridPage/useResizeOnDrag";
+import type { DragHandle } from "components/Shiny-Ui-Elements/GridlayoutGridPage/useResizeOnDrag";
 import { buildRange } from "utils/array-helpers";
 import { toStringLoc } from "utils/grid-helpers";
 import type { ItemLocation } from "utils/gridTemplates/types";
@@ -20,7 +20,7 @@ export function getExtentsForAvailableTracts({
   layoutAreas,
   cellBounds,
 }: {
-  dragDirection: DragDirection;
+  dragDirection: DragHandle;
   gridLocation: ItemLocation;
   layoutAreas: TemplatedGridProps["areas"];
   cellBounds: GridCellBounds;
@@ -62,7 +62,7 @@ export function getExtentsForAvailableTracts({
 // We're doing this separately so the direction conditional doesn't need
 // to be evaluated every iteration of our extent finding loop
 const startAndEndOfExtentForDir: {
-  [key in DragDirection]: (extent: SelectionRect) => {
+  [key in DragHandle]: (extent: SelectionRect) => {
     start: number;
     end: number;
   };
