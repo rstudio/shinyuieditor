@@ -10,6 +10,7 @@ import { NumericInputSimple } from "../NumericInput/NumericInput";
 import type { OnChangeCallback } from "../SettingsUpdateContext";
 import { useOnChange } from "../SettingsUpdateContext";
 
+import { CSSUnitInfo } from "./CSSUnitInfo";
 import classes from "./CSSUnitInput.module.css";
 import { useCSSUnitState } from "./useCSSUnitState";
 
@@ -101,6 +102,7 @@ export function CSSUnitInput({
           </option>
         ))}
       </select>
+      <CSSUnitInfo units={units} />
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import React from "react";
 
+import { Info } from "components/Icons";
 import { deparseCSSMeasure, parseCSSMeasure } from "utils/css-helpers";
 
 import type { CSSMeasure } from "../../../CSSMeasure";
@@ -8,6 +9,7 @@ import { NumericInputSimple } from "../NumericInput/NumericInput";
 import type { CSSUnits } from "./index";
 import { defaultCounts } from "./index";
 
+import { CSSUnitInfo } from "./CSSUnitInfo";
 import classes from "./CSSUnitInput.module.css";
 
 export function CSSUnitInputSimple({
@@ -90,6 +92,7 @@ export function CSSUnitInputSimple({
           </option>
         ))}
       </select>
+      <CSSUnitInfo units={units} />
     </div>
   );
 }

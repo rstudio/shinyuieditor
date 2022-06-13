@@ -5,12 +5,21 @@ import { usePopper } from "react-popper";
 
 import classes from "./PopoverButton.module.css";
 
+type PopoverButtonProps = {
+  placement?: Placement;
+  popoverContent: string | JSX.Element;
+  showOn?: "hover" | "click";
+};
+
 export const PopoverButton: React.FC<
-  {
-    popoverText: string;
-    placement?: Placement;
-  } & React.HTMLAttributes<HTMLButtonElement>
-> = ({ children, placement = "right", popoverText, ...passthroughProps }) => {
+  PopoverButtonProps & React.HTMLAttributes<HTMLButtonElement>
+> = ({
+  children,
+  placement = "right",
+  showOn = "hover",
+  popoverContent,
+  ...passthroughProps
+}) => {
   const [referenceElement, setReferenceElement] =
     React.useState<HTMLButtonElement | null>(null);
 
@@ -33,21 +42,30 @@ export const PopoverButton: React.FC<
     }
   );
 
-  function showPopper() {
-    update?.();
-    popperElement?.setAttribute("data-show", "");
-  }
-  function hidePopper() {
-    popperElement?.removeAttribute("data-show");
-  }
+  const eventListeners = React.useMemo(() => {
+    function showPopper() {
+      update?.();
+      popperElement?.setAttribute("data-show", "");
+    }
+    function hidePopper() {
+      popperElement?.removeAttribute("data-show");
+    }
 
+    const showTrigger = showOn === "hover" ? "onMouseEnter" : "onClick";
+
+    return {
+      [showTrigger]: () => showPopper(),
+      onMouseLeave: () => hidePopper(),
+    };
+  }, [popperElement, showOn, update]);
+
+  const textContent = typeof popoverContent === "string";
   return (
     <>
       <button
         {...passthroughProps}
+        {...eventListeners}
         ref={setReferenceElement}
-        onMouseEnter={() => showPopper()}
-        onMouseLeave={() => hidePopper()}
       >
         {children}
       </button>
@@ -57,7 +75,11 @@ export const PopoverButton: React.FC<
         style={styles.popper}
         {...attributes.popper}
       >
-        {popoverText}
+        {textContent ? (
+          <div className={classes.textContent}>{popoverContent}</div>
+        ) : (
+          popoverContent
+        )}
         <div
           ref={setArrowElement}
           className={classes.popperArrow}

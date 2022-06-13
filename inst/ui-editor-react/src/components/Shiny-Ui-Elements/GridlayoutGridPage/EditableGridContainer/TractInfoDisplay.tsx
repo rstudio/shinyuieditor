@@ -112,7 +112,7 @@ function DeleteTractButton({
     <PopoverButton
       className={classes.deleteButton}
       onClick={enabled ? onClick : undefined}
-      popoverText={message}
+      popoverContent={message}
       data-enabled={enabled}
     >
       <Trash />
@@ -143,7 +143,7 @@ function AddTractButton({
       className={className}
       placement={popoverPlacement}
       aria-label={label}
-      popoverText={label}
+      popoverContent={label}
       onClick={onClick}
     >
       <FaPlus />

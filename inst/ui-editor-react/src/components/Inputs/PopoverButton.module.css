@@ -2,6 +2,9 @@
   pointer-events: none;
   opacity: 0;
   border-radius: var(--corner-radius);
+}
+
+.textContent {
   padding: 5px;
   background-color: var(--background-grey);
   font-style: italic;
