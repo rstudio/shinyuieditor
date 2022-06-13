@@ -11,7 +11,7 @@ import {
 import type { GridItemExtent, ItemLocation } from "utils/gridTemplates/types";
 import type { SelectionRect } from "utils/overlap-helpers";
 
-import type { TemplatedGridProps } from ".";
+import type { TemplatedGridProps, TractDirection } from ".";
 
 import type { GridCellBounds } from "./GridCell";
 import {
@@ -250,6 +250,18 @@ export function useResizeOnDrag({
     (dragDirection: DragHandle | "move") => {
       const overlayEl = overlayRef.current;
       if (!overlayEl) return;
+      const gridElement = overlayEl.parentElement;
+      if (!gridElement) return;
+
+      const gridContainerStyles = getComputedStyle(overlayEl.parentElement);
+      const gridContainerBoundingRect = gridElement.getBoundingClientRect();
+      const row_extents = getTractExtents({
+        dir: "rows",
+        gridContainerStyles,
+        gridContainerBoundingRect,
+      });
+
+      debugger;
 
       const itemBounds = gridLocationToBounds({ cellBounds, gridLocation });
 
@@ -283,6 +295,64 @@ export function useResizeOnDrag({
   );
 
   return startDrag;
+}
+
+type TractExtents = { index: number; start: number; end: number }[];
+function getTractExtents({
+  dir,
+  gridContainerStyles,
+  gridContainerBoundingRect,
+}: {
+  dir: TractDirection;
+  gridContainerStyles: CSSStyleDeclaration;
+  gridContainerBoundingRect: DOMRect;
+}): TractExtents {
+  const gap = pxValToNumber(gridContainerStyles.getPropertyValue("gap"));
+  const pad = pxValToNumber(gridContainerStyles.getPropertyValue("padding"));
+  const startOffset =
+    gridContainerBoundingRect[dir === "rows" ? "y" : "x"] + pad;
+  const sizes = getGridTractSizes(gridContainerStyles, "rows");
+
+  const tract_extents: TractExtents = [];
+  for (let i = 0; i < sizes.length; i++) {
+    const start_of_tract =
+      i === 0 ? startOffset : tract_extents[i - 1].end + gap;
+
+    tract_extents.push({
+      index: i,
+      start: start_of_tract,
+      end: sizes[i] + start_of_tract,
+    });
+  }
+
+  return tract_extents;
+}
+
+function getGridCellBounds(gridElement: HTMLElement | null) {
+  if (gridElement === null) return;
+  const elementStyles = getComputedStyle(gridElement);
+  const rows = getGridTractSizes(elementStyles, "rows");
+  const cols = getGridTractSizes(elementStyles, "cols");
+  const pad = pxValToNumber(elementStyles.getPropertyValue("padding"));
+
+  // debugger;
+}
+
+function getGridTractSizes(
+  containerStyles: CSSStyleDeclaration,
+  dir: TractDirection
+) {
+  const tractPxVals = containerStyles
+    .getPropertyValue(
+      dir === "rows" ? "grid-template-rows" : "grid-template-columns"
+    )
+    .split(" ");
+
+  return tractPxVals.map(pxValToNumber);
+}
+
+function pxValToNumber(pxVal: string): number {
+  return Number(pxVal.replaceAll("px", ""));
 }
 
 function toggleTextSelection(type: "on" | "off") {
