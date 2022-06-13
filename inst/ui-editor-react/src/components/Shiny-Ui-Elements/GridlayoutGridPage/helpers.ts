@@ -1,10 +1,6 @@
-import { toStringLoc } from "utils/grid-helpers";
 import type { GridItemExtent, ItemLocation } from "utils/gridTemplates/types";
-import type { ItemBoundingBox } from "utils/overlap-helpers";
 
 import type { TractDirection } from ".";
-
-import type { GridCellBounds } from "./GridCell";
 
 export const directions: TractDirection[] = ["rows", "cols"];
 export function singular(dir: TractDirection): "row" | "column" {
@@ -25,75 +21,26 @@ export function gridLocationToExtent({
   };
 }
 
-export function gridExtentToLocation({
-  rowStart,
-  rowEnd,
-  colStart,
-  colEnd,
-}: GridItemExtent): ItemLocation {
-  return {
-    rowStart,
-    rowSpan: rowEnd - rowStart + 1,
-    colStart,
-    colSpan: colEnd - colStart + 1,
-  };
-}
+export function sameLocation(
+  a?: ItemLocation | GridItemExtent,
+  b?: ItemLocation | GridItemExtent
+) {
+  if (typeof a === "undefined" && typeof b === "undefined") return true;
 
-export function gridLocationToBounds({
-  gridLocation: { rowStart, rowSpan, colStart, colSpan },
-  cellBounds,
-}: {
-  gridLocation: ItemLocation;
-  cellBounds: GridCellBounds;
-}) {
-  const topLeft = cellBounds[toStringLoc({ row: rowStart, col: colStart })];
-  const bottomRight =
-    cellBounds[
-      toStringLoc({ row: rowStart + rowSpan - 1, col: colStart + colSpan - 1 })
-    ];
+  // If any one of them is undefined now, then one is and the other isnt
+  if (typeof a === "undefined" || typeof b === "undefined") return false;
 
-  const left = topLeft.offsetLeft;
-  const top = topLeft.offsetTop;
-  const width = bottomRight.right - topLeft.left;
-  const height = bottomRight.bottom - topLeft.top;
-  return {
-    left,
-    top,
-    right: left + width,
-    bottom: top + height,
-  };
-}
+  if ("colSpan" in a) {
+    a = gridLocationToExtent(a);
+  }
+  if ("colSpan" in b) {
+    b = gridLocationToExtent(b);
+  }
 
-export function centerOfBounds({
-  top,
-  left,
-  right,
-  bottom,
-}: ReturnType<typeof gridLocationToBounds>) {
-  return { x: (left + right) / 2, y: (top + bottom) / 2 };
-}
-
-export function clamp({
-  min = -Infinity,
-  val,
-  max = Infinity,
-}: {
-  min?: number;
-  val: number;
-  max?: number;
-}) {
-  return Math.min(Math.max(min, val), max);
-}
-
-export function boundingBoxToExtent(box: ItemBoundingBox) {
-  const left = box.offsetLeft;
-  const top = box.offsetTop;
-  const width = box.right - left;
-  const height = box.bottom - top;
-  return {
-    left,
-    top,
-    right: left + width,
-    bottom: top + height,
-  };
+  return (
+    a.colStart === b.colStart &&
+    a.colEnd === b.colEnd &&
+    a.rowStart === b.rowStart &&
+    a.rowEnd === b.rowEnd
+  );
 }
