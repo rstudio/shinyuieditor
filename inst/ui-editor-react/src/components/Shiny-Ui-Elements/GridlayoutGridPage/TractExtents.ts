@@ -1,6 +1,6 @@
 import type { TractDirection } from ".";
 
-import { pxValToNumber, getGridTractSizes } from "./useResizeOnDrag";
+import { getGridTractSizes, pxValToNumber } from "./useResizeOnDrag";
 
 export type TractExtents = { index: number; start: number; end: number }[];
 export function getTractExtents({
@@ -42,9 +42,23 @@ export function getTractExtents({
   return tract_extents;
 }
 
-export function within(x: number, a: number, b: number) {
-  const low = a < b ? a : b;
-  const high = a < b ? b : a;
-
-  return x >= low && x <= high;
+export function getFullTractExtents({
+  gridContainerStyles,
+  gridContainerBoundingRect,
+}: {
+  gridContainerStyles: CSSStyleDeclaration;
+  gridContainerBoundingRect: DOMRect;
+}) {
+  return {
+    rows: getTractExtents({
+      dir: "rows",
+      gridContainerStyles,
+      gridContainerBoundingRect,
+    }),
+    cols: getTractExtents({
+      dir: "cols",
+      gridContainerStyles,
+      gridContainerBoundingRect,
+    }),
+  };
 }

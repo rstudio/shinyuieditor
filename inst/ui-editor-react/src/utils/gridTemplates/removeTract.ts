@@ -3,8 +3,8 @@ import type { TractDirection } from "components/Shiny-Ui-Elements/GridlayoutGrid
 import { joinPretty, removeAtIndex } from "utils/array-helpers";
 import { removeRowOrCol } from "utils/matrix-helpers";
 
+import { itemBoundsInDir } from "./itemBoundsInDir";
 import { areasToItemLocations } from "./itemLocations";
-import { itemBoundsInDir } from "./itemLocationToBounds";
 
 export default function removeTract(
   template: TemplatedGridProps,

@@ -1,7 +1,6 @@
 import React from "react";
 
 import { AreaOverlay } from "components/Shiny-Ui-Elements/GridlayoutGridPage/AreaOverlay";
-import type { CellLocRef } from "components/Shiny-Ui-Elements/GridlayoutGridPage/GridCell";
 import { GridCell } from "components/Shiny-Ui-Elements/GridlayoutGridPage/GridCell";
 import type {
   ShinyUiChildren,
@@ -54,7 +53,6 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
 
   const { numRows, numCols, uniqueAreas } = parseGridTemplateAreas(layoutDef);
 
-  const gridCellLocations: CellLocRef = React.useRef({});
   const itemGridLocations = React.useMemo(
     () => areasToItemLocations(areas),
     [areas]
@@ -118,7 +116,6 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
       key={area}
       area={area}
       areas={areas}
-      cellLocRef={gridCellLocations}
       gridLocation={itemGridLocations.get(area)}
       onNewPos={(pos) =>
         handleLayoutUpdate({ type: "MOVE_ITEM", name: area, pos })
@@ -195,9 +192,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
               key={toStringLoc({ row, col })}
               gridRow={row}
               gridColumn={col}
-              cellLocations={gridCellLocations}
               onDroppedNode={handleNodeDrop}
-              containerPath={nodeInfo.path}
             />
           ))}
 
