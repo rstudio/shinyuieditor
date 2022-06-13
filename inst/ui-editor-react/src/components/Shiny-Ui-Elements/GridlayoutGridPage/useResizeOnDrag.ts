@@ -7,20 +7,17 @@ import { within } from "../../../utils/within";
 
 import type { TemplatedGridProps, TractDirection } from ".";
 
+import type { TractExtents } from "./getTractExtents";
+import { getTractExtents } from "./getTractExtents";
 import { gridLocationToExtent, sameLocation } from "./helpers";
-import type { TractExtents } from "./TractExtents";
-import { getTractExtents } from "./TractExtents";
 
 export type DragHandle = "left" | "right" | "up" | "down";
 
 type ResizeDragState = {
-  type: "resize";
   dragHandle: DragHandle;
   gridItemExtent: GridItemExtent;
   tractExtents: TractExtents;
 };
-
-type DragInfo = ResizeDragState;
 
 function setupDragToResize({
   dragDirection,
@@ -40,7 +37,6 @@ function setupDragToResize({
   });
 
   return {
-    type: "resize",
     dragHandle: dragDirection,
     gridItemExtent: gridLocationToExtent(gridLocation),
     tractExtents: tractExtents.filter(({ index }) =>
@@ -98,7 +94,7 @@ export function useResizeOnDrag({
   onDragEnd: (pos: GridItemExtent) => void;
 }) {
   const initialGridExtent = gridLocationToExtent(gridLocation);
-  const dragRef = React.useRef<DragInfo | null>(null);
+  const dragRef = React.useRef<ResizeDragState | null>(null);
 
   const onDrag = React.useCallback(
     (mousePos: MouseEvent) => {

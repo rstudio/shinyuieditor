@@ -1,5 +1,5 @@
 import type { TemplatedGridProps } from "components/Shiny-Ui-Elements/GridlayoutGridPage";
-import type { TractExtents } from "components/Shiny-Ui-Elements/GridlayoutGridPage/TractExtents";
+import type { TractExtents } from "components/Shiny-Ui-Elements/GridlayoutGridPage/getTractExtents";
 import type { DragHandle } from "components/Shiny-Ui-Elements/GridlayoutGridPage/useResizeOnDrag";
 import type { ItemLocation } from "utils/gridTemplates/types";
 import { within } from "utils/within";
