@@ -4,9 +4,9 @@
 # For most R packages it is better to use https://github.com/r-lib/actions
 on:
   push:
-    branches: [main, rc-**]
+    branches: [main, rc-**, development]
   pull_request:
-    branches: [main]
+    branches: [main, development]
   schedule:
     - cron: "0 8 * * 1" # every monday
 
