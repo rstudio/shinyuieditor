@@ -19,32 +19,6 @@ type ResizeDragState = {
   tractExtents: TractExtents;
 };
 
-function setupDragToResize({
-  dragDirection,
-  tractExtents,
-  gridLocation,
-  layoutAreas,
-}: {
-  dragDirection: DragHandle;
-  tractExtents: TractExtents;
-  gridLocation: ItemLocation;
-  layoutAreas: TemplatedGridProps["areas"];
-}): ResizeDragState {
-  const { shrinkExtent, growExtent } = findAvailableTracts({
-    dragDirection,
-    gridLocation,
-    layoutAreas,
-  });
-
-  return {
-    dragHandle: dragDirection,
-    gridItemExtent: gridLocationToExtent(gridLocation),
-    tractExtents: tractExtents.filter(({ index }) =>
-      within(index, shrinkExtent, growExtent)
-    ),
-  };
-}
-
 function resizeOnDrag({
   mousePos,
   dragState,
@@ -143,16 +117,21 @@ export function useResizeOnDrag({
       const tractDir: TractDirection =
         dragDirection === "down" || dragDirection === "up" ? "rows" : "cols";
 
-      dragRef.current = setupDragToResize({
+      const { shrinkExtent, growExtent } = findAvailableTracts({
         dragDirection,
+        gridLocation,
+        layoutAreas,
+      });
+
+      dragRef.current = {
+        dragHandle: dragDirection,
+        gridItemExtent: gridLocationToExtent(gridLocation),
         tractExtents: getTractExtents({
           dir: tractDir,
           gridContainerStyles,
           gridContainerBoundingRect,
-        }),
-        gridLocation,
-        layoutAreas,
-      });
+        }).filter(({ index }) => within(index, shrinkExtent, growExtent)),
+      };
 
       // Add explicit positioning to grid item div and then turn on drag
       // mode to transfer placement duties to those positions
