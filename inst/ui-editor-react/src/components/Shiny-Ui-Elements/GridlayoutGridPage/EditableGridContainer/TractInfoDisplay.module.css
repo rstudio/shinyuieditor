@@ -132,7 +132,8 @@ user is typing in the input field but mouses off */
   z-index: 3;
 }
 
-.tractInfoDisplay button {
+.tractAddButton,
+.deleteButton {
   --offset_amnt: 2px;
   --offset: calc(var(--offset_amnt) - var(--add-button-diameter));
   width: var(--add-button-diameter);
@@ -146,13 +147,14 @@ user is typing in the input field but mouses off */
   z-index: 1;
 }
 
-.tractInfoDisplay:hover button {
+.tractInfoDisplay:hover .tractAddButton,
+.tractInfoDisplay:hover .deleteButton {
   transform: scale(1);
   transition: transform var(--transition-speed) var(--transition-ease)
     var(--transition-delay);
 }
 
-.tractInfoDisplay button:not(.deleteButton) {
+.tractAddButton {
   background-color: var(--add-button-color);
   color: var(--rstudio-white);
 }
