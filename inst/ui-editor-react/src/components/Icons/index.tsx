@@ -10,6 +10,7 @@ export { default as alignTextRight } from "assets/icons/alignTextRight.png";
 export { default as redo } from "assets/icons/redo.png";
 export { default as tour } from "assets/icons/tour.png";
 export { default as undo } from "assets/icons/undo.png";
+export { IoMdInformationCircleOutline as Info } from "react-icons/io";
 
 export * from "./generated";
 

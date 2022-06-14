@@ -73,16 +73,12 @@ export function TractInfoDisplay({
       }
     >
       <div className={classes.hoverListener}>
-        <AddTractButton
-          placement="before"
-          dir={dir}
-          onClick={onNewTractBefore}
-        />
+        <AddTractButton dir={dir} onClick={onNewTractBefore} />
         <DeleteTractButton
           onClick={onTractDelete}
           deletionConflicts={deletionConflicts}
         />
-        <AddTractButton placement="after" dir={dir} onClick={onNewTractAfter} />
+        <AddTractButton dir={dir} onClick={onNewTractAfter} />
       </div>
       <div className={classes.sizeWidget} onClick={stopPropagation}>
         <CSSUnitInputSimple
@@ -112,7 +108,7 @@ function DeleteTractButton({
     <PopoverButton
       className={classes.deleteButton}
       onClick={enabled ? onClick : undefined}
-      popoverText={message}
+      popoverContent={message}
       data-enabled={enabled}
     >
       <Trash />
@@ -121,29 +117,22 @@ function DeleteTractButton({
 }
 
 function AddTractButton({
-  placement,
   dir,
   onClick,
 }: {
-  placement: "before" | "after";
   dir: TractInfo["dir"];
   onClick: () => void;
 }) {
-  const className =
-    placement === "after"
-      ? classes.tractAddAfterButton
-      : classes.tractAddBeforeButton;
-
   const popoverPlacement = dir === "rows" ? "right" : "bottom";
 
   const label = dir === "rows" ? `Add row` : `Add column`;
 
   return (
     <PopoverButton
-      className={className}
+      className={classes.tractAddButton}
       placement={popoverPlacement}
       aria-label={label}
-      popoverText={label}
+      popoverContent={label}
       onClick={onClick}
     >
       <FaPlus />

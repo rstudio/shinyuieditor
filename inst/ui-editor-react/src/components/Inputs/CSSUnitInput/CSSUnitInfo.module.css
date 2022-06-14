@@ -1,0 +1,33 @@
+.infoIcon {
+  width: 24px;
+  color: var(--rstudio-blue);
+  background-color: transparent;
+  font-size: 19px;
+  display: grid;
+  place-content: center;
+}
+
+.container {
+  width: min(100%, max-content);
+  padding: 4px;
+}
+
+.header {
+  border-bottom: 1px solid var(--divider-color, pink);
+  margin-bottom: 3px;
+  padding-bottom: 3px;
+}
+
+.info {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 4px;
+}
+
+.unit {
+  text-align: end;
+  font-weight: bold;
+}
+.description {
+  font-style: italic;
+}
