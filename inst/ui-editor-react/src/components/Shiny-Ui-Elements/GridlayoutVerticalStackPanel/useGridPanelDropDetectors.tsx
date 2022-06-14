@@ -2,19 +2,12 @@ import React from "react";
 
 import type {
   NodePath,
-  ShinyUiNames,
   ShinyUiNode,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { getIsValidMove } from "components/UiNode/TreeManipulation/placeNode";
 import type { DraggedNodeInfo } from "DragAndDropHelpers/DragAndDropHelpers";
 import { useFilteredDrop } from "DragAndDropHelpers/useFilteredDrop";
 import { usePlaceNode } from "state/uiTree";
-
-const unacceptedNodes: ShinyUiNames[] = [
-  "gridlayout::grid_page",
-  "gridlayout::grid_panel_text",
-  "gridlayout::grid_panel_stack",
-];
 
 export function useGridPanelDropDetectors({
   watcherRef,
@@ -70,15 +63,16 @@ export function useGridPanelDropDetectors({
 // Special function that peels away grid_panels to see if their contents can be
 // dumped into the current grid_panel
 function getInfoOfDropped(node: ShinyUiNode): ShinyUiNode | null {
-  if (unacceptedNodes.includes(node.uiName)) {
-    return null;
-  }
-  const isGridPanel = node.uiName === "gridlayout::grid_panel";
-  const nodeToPlace = isGridPanel ? node.uiChildren?.[0] : node;
-
-  if (!nodeToPlace) {
+  // We can't place grid panels inside of other grid panels
+  if (node.uiName.includes("gridlayout::grid_panel_")) {
     return null;
   }
 
-  return nodeToPlace;
+  // Since plain grid panels have just a single element, we can just grab what's
+  // inside that element for placement
+  if (node.uiName === "gridlayout::grid_panel" && node.uiChildren?.[0]) {
+    return node.uiChildren[0];
+  }
+
+  return node;
 }
