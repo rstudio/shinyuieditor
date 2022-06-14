@@ -19,7 +19,6 @@ The things most useful for feedback at this stage are:
   - if not, were there errors in the browser's javascript console? (Keyboard shortcut Ctrl-Shift-J on Windows, or Cmd-Option-J on Mac.)
 - Do you have any ideas about how you could see yourself or others using the editor that are not currently supported?
 
-ℹ️ _The editor currently is only tested in Chrome, but Safari support is coming shortly._
 
 ## Quick Start
 
@@ -32,7 +31,7 @@ A few notes on the video:
 
 ### Pre-reqs
 
-- Two-file shiny app (or at least willingness to use the two-file format)
+- Shiny app with ui built using `gridlayout::gridpage()` (more layout functions coming soon.)
 
 ### Installing
 
