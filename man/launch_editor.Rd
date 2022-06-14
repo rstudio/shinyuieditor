@@ -9,6 +9,7 @@ launch_editor(
   host = "127.0.0.1",
   port = httpuv::randomPort(),
   shiny_background_port = httpuv::randomPort(),
+  remove_namespace = TRUE,
   app_preview = TRUE,
   show_logs = TRUE,
   show_preview_app_logs = TRUE,
@@ -33,6 +34,11 @@ X, port numbers smaller than 1025 require root privileges.}
 \item{shiny_background_port}{Port to launch the running app preview on. Again
 only used for dev work.}
 
+\item{remove_namespace}{Should namespaces be stripped from the generated UI
+code? Set to \code{FALSE} if you prefer the style of \code{shiny::sliderInput()} to
+\code{sliderInput()}. If set to \code{TRUE}, then any libraries needed for the nodes
+will be loaded at the top of your \code{app.R} or \code{ui.R}.}
+
 \item{app_preview}{Should a live version of the Shiny app being edited run
 and auto-show updates made? You may want to disable this if the app has
 long-running or processor intensive initialization steps.}
@@ -44,16 +50,6 @@ printed? Useful for debugging an app that's not working properly.}
 
 \item{launch_browser}{Should the browser be automatically opened to the
 editor?}
-
-\item{run_in_background}{Should the app run in a background process or block
-the console? See \code{?httpuv::startServer()} vs \code{?httpuv::runServer()}. Note
-that this potentially will result in orphaned Shiny processes because
-there's no way to know when the user is done with the app preview. Use with
-caution.}
-
-\item{stop_on_browser_close}{Should the editor server end when the browser window
-is closed or is dormant for too long. Set this to false if you want to try
-running the app in a different browser or refreshing the browser etc..}
 }
 \value{
 A list containing the \verb{$server}: The app server object (as returned
@@ -63,12 +59,4 @@ the server and preview shiny app.
 \description{
 Spins up an \code{httpuv} server that handles parsing and deparsing of the UI tree
 and saving.
-}
-\details{
-\subsection{Stopping server When running with \code{run_in_background = TRUE}, it's}{
-
-recommended you use the \verb{$stop()} function in the returned list object
-instead of the build in \verb{$stop()} function on the returned \verb{$server} object
-as this will ensure the running Shiny app preview will also shutdown.
-}
 }

@@ -39,31 +39,40 @@
 #'     )
 #'   )
 #' )
-#' lobstr::tree(parse_ui_fn(app_expr))
+#' parse_ui_fn(app_expr)
 #'
 parse_ui_fn <- function(ui_node_expr, env = rlang::caller_env()) {
+  namespaced_fn_name <- tryCatch(
+    {
+      namespace_ui_fn(name_of_called_fn(ui_node_expr))
+    },
+    error = function(e) {
+      "unknown"
+    }
+  )
 
-  if (!can_parse_ui_expr(ui_node_expr)) {
-    return(
-      unknown_code_wrap(ui_node_expr)
-    )
+  if (namespaced_fn_name == "unknown") {
+    return(unknown_code_wrap(ui_node_expr))
   }
 
   # Fill in all the names of unnamed arguments
-  ui_node_expr <- tryCatch({
-    rlang::call_standardise(ui_node_expr, env=env)
-  }, error = function(e){
-    stop(
-      paste0(
-        "Problem with arguments supplied to ",
-        called_uiName(ui_node_expr),
-        "().\nError msg: \"",
-        e$message,
-        "\""
-      ),
-      call. = FALSE
-    )
-  })
+  ui_node_expr <- tryCatch(
+    {
+      rlang::call_standardise(ui_node_expr, env = env)
+    },
+    error = function(e) {
+      stop(
+        paste0(
+          "Problem with arguments supplied to ",
+          namespaced_fn_name,
+          "().\nError msg: \"",
+          e$message,
+          "\""
+        ),
+        call. = FALSE
+      )
+    }
+  )
 
   # Since first element of the AST is the function call itself, it makes our
   # life easier going forward if we remove it before walking through arguments
@@ -72,7 +81,7 @@ parse_ui_fn <- function(ui_node_expr, env = rlang::caller_env()) {
   arg_names <- names(call_arguments)
 
   parsed <- list(
-    uiName = called_uiName(ui_node_expr),
+    uiName = namespaced_fn_name,
     uiArguments = list()
   )
 
@@ -86,8 +95,8 @@ parse_ui_fn <- function(ui_node_expr, env = rlang::caller_env()) {
     arg_val <- call_arguments[[i]]
 
     is_child_node <- arg_name == ""
-    if (is_child_node){
-      parsed$uiChildren <- append(parsed$uiChildren, list(parse_ui_fn(arg_val, env=env)))
+    if (is_child_node) {
+      parsed$uiChildren <- append(parsed$uiChildren, list(parse_ui_fn(arg_val, env = env)))
     } else {
       parsed$uiArguments[[arg_name]] <- parse_argument(arg_val)
     }
@@ -96,60 +105,26 @@ parse_ui_fn <- function(ui_node_expr, env = rlang::caller_env()) {
   parsed
 }
 
-expr_is_constant <- function(expr){
-  !is.call(expr)
-}
-
-can_parse_ui_expr <- function(expr){
-  tryCatch(
-    {
-      get_is_known_ui_fn(called_uiName(expr))
-    },
-    error = function(e) {
-     FALSE
-    }
-  )
-}
-
-# When we can't parse a bit of the UI we place it into an unknown box that will
-# be preserved in both parsing and un-parsing
-unknown_code_wrap <- function(code_expr){
-  list(
-    uiName = "unknownUiFunction",
-    uiArguments = list(
-      text = rlang::expr_text(code_expr)
-    )
-  )
-}
-
-unknown_code_unwrap <- function(unknown_code_box){
-  # TODO: Replace with a more portable function
-  str2lang(unknown_code_box$uiArguments$text)
-}
-
-is_unknown_code <- function(ui_node){
-  is.list(ui_node) && identical(ui_node$uiName, "unknownUiFunction")
-}
-
-
-parse_argument <- function(arg_expr){
+# Handle named arguments of a ui function. This is needed for handling special
+# cases like lists and arrays that are not primative but we need to handle for
+# things like radio inputs etc..
+parse_argument <- function(arg_expr) {
   # First check if we should even try and parsing this node. If it's a constant
   # like a string just return that.
-  if(expr_is_constant(arg_expr)) {
+  if (!is.call(arg_expr)) {
     return(arg_expr)
   }
 
-  func_name <- called_uiName(arg_expr)
+  func_name <- name_of_called_fn(arg_expr)
 
   # We know how to handle just a few types of function calls, so make sure that
   # we're working with one of those before proceeding
-  if (func_name == "list" | func_name == "c"){
-
+  if (func_name == "list" | func_name == "c") {
     list_val <- eval(arg_expr)
 
     # If we have a named vector then the names will be swallowed in conversion
     # to JSON unless we explicitly make it a list
-    if (!identical(names(list_val), NULL)){
+    if (!identical(names(list_val), NULL)) {
       list_val <- as.list(list_val)
     }
 
@@ -158,6 +133,3 @@ parse_argument <- function(arg_expr){
 
   unknown_code_wrap(arg_expr)
 }
-
-
-

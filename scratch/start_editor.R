@@ -5,7 +5,7 @@ launch_editor(
   launch_browser = FALSE
 )
 
-
+launch_editor(app_loc = here::here("scratch/single-file-app/"))
 launch_editor(app_loc = here::here("scratch/webapp"))
 launch_editor(app_loc = here::here("scratch/unknown-args"))
 launch_editor(app_loc = here::here("scratch/just_server"))

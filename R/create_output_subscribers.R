@@ -21,7 +21,7 @@
 #' )
 #'
 #' tic_tok <- clock$subscribe(
-#'   function(t){
+#'   function(t) {
 #'     cat(
 #'       if (as.integer(t) %% 2 == 0) "Tic" else "Tok",
 #'       "\n"
@@ -29,8 +29,8 @@
 #'   }
 #' )
 #' popcorn <- clock$subscribe(
-#'   function(t){
-#'     cat(paste("At the tone the time is", t, '\n'))
+#'   function(t) {
+#'     cat(paste("At the tone the time is", t, "\n"))
 #'   }
 #' )
 #'
@@ -40,12 +40,10 @@
 #' # stop listening entirely
 #' clock$cancel_all()
 #'
-create_output_subscribers <- function(
-    source_fn,
-    filter_fn = function(...) TRUE,
-    delay = 0.1,
-    callbacks = shiny:::Callbacks$new()
-){
+create_output_subscribers <- function(source_fn,
+                                      filter_fn = function(...) TRUE,
+                                      delay = 0.1,
+                                      callbacks = shiny:::Callbacks$new()) {
 
   # callbacks <- shiny:::Callbacks$new()
 
@@ -53,10 +51,12 @@ create_output_subscribers <- function(
 
   unsubscribe <- NULL
 
-  poll <- function(){
+  poll <- function() {
     had_error <- FALSE
     on.exit({
-      if (had_error) return();
+      if (had_error) {
+        return()
+      }
 
       unsubscribe <<- later::later(poll, delay = delay)
     })
@@ -65,7 +65,7 @@ create_output_subscribers <- function(
       {
         out <- subscribed_fn()
 
-        if(filter_fn(out)) {
+        if (filter_fn(out)) {
           callbacks$invoke(out)
         }
       },
@@ -80,13 +80,13 @@ create_output_subscribers <- function(
   # Kick off loop
   poll()
 
-  cancel_all <- function(){
-    if(!is.null(unsubscribe)) {
+  cancel_all <- function() {
+    if (!is.null(unsubscribe)) {
       unsubscribe()
     }
   }
 
-  update_subscribed <- function(new_fn){
+  update_subscribed <- function(new_fn) {
 
     # Cancel the current event loop for the subscribed function
     cancel_all()
