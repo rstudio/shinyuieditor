@@ -9,6 +9,7 @@ type PopoverButtonProps = {
   placement?: Placement;
   popoverContent: string | JSX.Element;
   showOn?: "hover" | "click";
+  bgColor?: string;
 };
 
 export const PopoverButton: React.FC<
@@ -18,6 +19,7 @@ export const PopoverButton: React.FC<
   placement = "right",
   showOn = "hover",
   popoverContent,
+  bgColor,
   ...passthroughProps
 }) => {
   const [referenceElement, setReferenceElement] =
@@ -37,10 +39,19 @@ export const PopoverButton: React.FC<
       placement,
       modifiers: [
         { name: "arrow", options: { element: arrowElement } },
-        { name: "offset", options: { offset: [0, 10] } },
+        { name: "offset", options: { offset: [0, 5] } },
       ],
+      strategy: "fixed",
     }
   );
+
+  // Add extra background color variable if it's requested
+  const popperStyles = React.useMemo(() => {
+    if (bgColor) {
+      return { ...styles.popper, "--popover-bg-color": bgColor };
+    }
+    return styles.popper;
+  }, [bgColor, styles.popper]);
 
   const eventListeners = React.useMemo(() => {
     function showPopper() {
@@ -72,7 +83,7 @@ export const PopoverButton: React.FC<
       <div
         ref={setPopperElement}
         className={classes.popover}
-        style={styles.popper}
+        style={popperStyles}
         {...attributes.popper}
       >
         {textContent ? (
