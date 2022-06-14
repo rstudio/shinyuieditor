@@ -12,7 +12,7 @@ export const CSSUnitInfo = ({ units }: { units: CSSUnits[] }) => {
     <PopoverButton
       className={classes.infoIcon}
       popoverContent={<UnitInfoText units={units} />}
-      showOn="click"
+      openDelayMs={500}
       placement="auto"
     >
       <Info />
