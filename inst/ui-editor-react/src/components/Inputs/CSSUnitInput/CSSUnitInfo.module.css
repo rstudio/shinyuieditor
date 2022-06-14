@@ -1,3 +1,12 @@
+.infoIcon {
+  width: 20px;
+  color: var(--rstudio-blue);
+  background-color: transparent;
+  font-size: 19px;
+  display: grid;
+  place-content: center;
+}
+
 .container {
   width: min(100%, max-content);
   padding: 4px;

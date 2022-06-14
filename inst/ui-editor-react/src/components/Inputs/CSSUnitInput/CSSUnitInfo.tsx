@@ -10,6 +10,7 @@ import classes from "./CSSUnitInfo.module.css";
 export const CSSUnitInfo = ({ units }: { units: CSSUnits[] }) => {
   return (
     <PopoverButton
+      className={classes.infoIcon}
       popoverContent={<UnitInfoText units={units} />}
       showOn="click"
       placement="auto"
