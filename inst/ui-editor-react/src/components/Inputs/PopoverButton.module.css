@@ -17,6 +17,10 @@
 .popover[data-show] {
   opacity: 1;
   z-index: 9999;
+  transition-delay: var(--popover-open-delay);
+  transition-property: opacity;
+  transition-duration: 10ms;
+  transition-timing-function: ease-in;
 }
 
 .popperArrow,

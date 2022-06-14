@@ -10,6 +10,7 @@ type PopoverButtonProps = {
   popoverContent: string | JSX.Element;
   showOn?: "hover" | "click";
   bgColor?: string;
+  openDelayMs?: number;
 };
 
 export const PopoverButton: React.FC<
@@ -20,6 +21,7 @@ export const PopoverButton: React.FC<
   showOn = "hover",
   popoverContent,
   bgColor,
+  openDelayMs = 0,
   ...passthroughProps
 }) => {
   const [referenceElement, setReferenceElement] =
@@ -47,11 +49,13 @@ export const PopoverButton: React.FC<
 
   // Add extra background color variable if it's requested
   const popperStyles = React.useMemo(() => {
-    if (bgColor) {
-      return { ...styles.popper, "--popover-bg-color": bgColor };
-    }
-    return styles.popper;
-  }, [bgColor, styles.popper]);
+    const extraStyles = {
+      "--popover-bg-color": bgColor,
+      "--popover-open-delay": `${openDelayMs}ms`,
+    } as React.CSSProperties;
+
+    return { ...styles.popper, ...extraStyles };
+  }, [bgColor, openDelayMs, styles.popper]);
 
   const eventListeners = React.useMemo(() => {
     function showPopper() {
