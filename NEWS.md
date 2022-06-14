@@ -3,6 +3,7 @@
 ### Major new features and improvements
 
 - Single-file apps are now supported (#41, #42)
+- Rehauled the interface for updating the layout for `gridlayout::grid_page()`. Tracts can now be resized by dragging the divisions and the resizing controls hide when not in use to allow for more efficient use of space.
 - Any code outside of the ui declaration is now preserved, along with `library()` calls (#38, #42)
 - By default, namespaces are omitted from generated code in favor of placing `library()` calls at the top of the file (#42)
 
