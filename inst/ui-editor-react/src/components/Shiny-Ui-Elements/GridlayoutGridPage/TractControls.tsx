@@ -143,7 +143,7 @@ function AddTractButton({
       }
       placement={dir === "rows" ? "right" : "bottom"}
       aria-label={description}
-      popoverText={description}
+      popoverContent={description}
       onClick={() =>
         setLayout?.({
           type: "ADD_TRACT",
@@ -198,7 +198,7 @@ function TractRemoveButton({
           ? undefined
           : () => setLayout?.({ type: "REMOVE_TRACT", dir, index })
       }
-      popoverText={popupText}
+      popoverContent={popupText}
     >
       <FaTrash />
     </PopoverButton>

@@ -13,18 +13,15 @@ import type { GridItemExtent, ItemLocation } from "utils/gridTemplates/types";
 import type { TemplatedGridProps } from ".";
 
 import classes from "./AreaOverlay.module.css";
-import type { CellLocRef } from "./GridCell";
 import { useResizeOnDrag } from "./useResizeOnDrag";
 
 export function AreaOverlay({
   area,
-  cellLocRef: { current: cellBounds },
   gridLocation,
   areas: layoutAreas,
   onNewPos,
 }: {
   area: string;
-  cellLocRef: CellLocRef;
   gridLocation?: ItemLocation;
   areas: TemplatedGridProps["areas"];
   onNewPos: (pos: GridItemExtent) => void;
@@ -36,7 +33,6 @@ export function AreaOverlay({
 
   const startDrag = useResizeOnDrag({
     overlayRef,
-    cellBounds,
     gridLocation,
     layoutAreas,
     onDragEnd: onNewPos,

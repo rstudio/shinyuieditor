@@ -28,10 +28,15 @@ export default function AppPreview() {
 
   const previewScale = usePreviewScale();
 
-  const reloadApp = React.useCallback(() => {
-    if (!iframeRef.current || !appLoc) return;
-    iframeRef.current.src = appLoc;
-  }, [appLoc]);
+  const reloadApp = React.useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      if (!iframeRef.current || !appLoc) return;
+      iframeRef.current.src = appLoc;
+
+      spinReloadButton(e.currentTarget);
+    },
+    [appLoc]
+  );
 
   if (appLoc === "no-preview") {
     return null;
@@ -157,4 +162,15 @@ export function useGetPageSize() {
   }, [updateWindowSize]);
 
   return pageSize;
+}
+
+// Add a class to spin button to demonstrate something is happening. On
+// animation finishing the class is removed so it can be retriggered
+function spinReloadButton(buttonEl: HTMLButtonElement) {
+  buttonEl.classList.add(classes.spin);
+  buttonEl.addEventListener(
+    "animationend",
+    () => buttonEl.classList.remove(classes.spin),
+    false
+  );
 }

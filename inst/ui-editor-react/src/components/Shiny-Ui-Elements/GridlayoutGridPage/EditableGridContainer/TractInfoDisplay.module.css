@@ -20,7 +20,6 @@
   --add-button-color: var(--icon-color);
   --delete-button-height: 20px;
 
-  z-index: 1;
   display: flex;
   align-items: center;
 
@@ -29,7 +28,7 @@
   --cols-height: fit-content;
   --scale: 0;
 
-  /* overflow: hidden; */
+  z-index: 1;
   isolation: isolate;
 }
 
@@ -46,7 +45,6 @@
   align-items: center;
   gap: 4px;
   background-color: var(--size-widget-bg-color);
-  z-index: -1;
 }
 
 .hoverListener {
@@ -59,7 +57,6 @@
   justify-content: space-between;
   align-items: center;
   background-color: var(--hover-listener-color, transparent);
-  z-index: 2;
   transition: var(--hover-listener-transition);
   transition-property: background-color, transform;
 }
@@ -132,7 +129,8 @@ user is typing in the input field but mouses off */
   z-index: 3;
 }
 
-.tractInfoDisplay button {
+.tractAddButton,
+.deleteButton {
   --offset_amnt: 2px;
   --offset: calc(var(--offset_amnt) - var(--add-button-diameter));
   width: var(--add-button-diameter);
@@ -143,16 +141,16 @@ user is typing in the input field but mouses off */
   border-radius: 50%;
   transition: none;
   transform: scale(0);
-  z-index: 1;
 }
 
-.tractInfoDisplay:hover button {
+.tractInfoDisplay:hover .tractAddButton,
+.tractInfoDisplay:hover .deleteButton {
   transform: scale(1);
   transition: transform var(--transition-speed) var(--transition-ease)
     var(--transition-delay);
 }
 
-.tractInfoDisplay button:not(.deleteButton) {
+.tractAddButton {
   background-color: var(--add-button-color);
   color: var(--rstudio-white);
 }

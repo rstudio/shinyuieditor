@@ -147,6 +147,31 @@ div.appViewerHolder {
   bottom: 0;
   color: currentColor;
   font-size: 1.5rem;
+  --normal-transform: scaleY(-1) var(--expand-scale, scale(1)) rotate(90deg);
+  transform: var(--normal-transform);
+}
+
+.reloadButton:hover {
+  --expand-scale: scale(1.1);
+}
+
+/* When this class is added to the reload button it will cause it to spin
+around, showing the user that their click actually did something */
+.spin {
+  animation-duration: 1s;
+  animation-name: spin;
+  --at-rest-transform: var(--normal-transform, scale(1));
+}
+
+@keyframes spin {
+  from {
+    transform: var(--at-rest-transform) rotate(0deg);
+  }
+
+  to {
+    transform: var(--at-rest-transform) rotate(-360deg);
+    animation-timing-function: ease-out;
+  }
 }
 
 .appViewerHolder .reloadButton {
@@ -156,27 +181,18 @@ div.appViewerHolder {
   display: none;
 }
 
-.reloadButton {
-  --normal-transform: scaleY(-1) rotate(90deg);
-  transform: var(--normal-transform);
-}
-
-.reloadButton:hover,
-.reloadButton:active,
-.expandButton:hover {
-  transform: var(--normal-transform, scale(1)) scale(1.1);
-}
-.expandButton:hover {
-  color: inherit;
-  opacity: 1;
-}
-
 .expandButton {
   width: 100%;
   height: 100%;
   font-size: 50px;
   opacity: 0;
   color: transparent;
+}
+
+.expandButton:hover {
+  color: inherit;
+  opacity: 1;
+  transform: scale(1.1);
 }
 
 .restartButton {

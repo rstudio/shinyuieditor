@@ -23,7 +23,9 @@
 #'   printed? Useful for debugging an app that's not working properly.
 #' @param launch_browser Should the browser be automatically opened to the
 #'   editor?
-#'
+#' @param stop_on_browser_close Should the editor server end when the browser window
+#'   is closed or is dormant for too long. Set this to false if you want to try
+#'   running the app in a different browser or refreshing the browser etc..
 #'
 #' @return A list containing the `$server`: The app server object (as returned
 #'   by `httpuv::startServer`) and the function `$stop()` for safely terminating
@@ -38,7 +40,9 @@ launch_editor <- function(app_loc,
                           app_preview = TRUE,
                           show_logs = TRUE,
                           show_preview_app_logs = TRUE,
-                          launch_browser = TRUE) {
+                          launch_browser = TRUE,
+                          stop_on_browser_close = TRUE ) {
+
   writeLog <- function(...) {
     if (show_logs) {
       logger(...)
@@ -48,8 +52,8 @@ launch_editor <- function(app_loc,
   # Check and make sure that the app location provided actually has an app
   app_status <- check_and_validate_app(app_loc)
   if (!app_status$is_valid) {
-    logger(app_status$message)
-    invisible(return())
+    logger("Stopping UI Editor. Reason:", app_status$message)
+    return(invisible())
   }
 
   # Logic for starting up Shiny app in background and returning the app URL.
@@ -100,10 +104,26 @@ launch_editor <- function(app_loc,
     utils::browseURL(location_of_editor)
   }
 
+
   ui_file <- get_app_ui_file(app_loc)
   app_info <- NULL
 
 
+  # Empty function so variable can always be called even if the timeout hasn't
+  # been initialized
+  app_close_timeout <- function(){ }
+  start_app_close_timeout <- function() {
+    if (!stop_on_browser_close) return()
+    # Trigger an interrupt to stop the server if the browser
+    # unmounts and then doesn't re-connect within a timeframe
+    app_close_timeout <<- later::later(function() {
+      writeLog("Stopping ui editor server")
+      rlang::interrupt();
+    }, delay = 0.5)
+  }
+
+  # TODO: If in background mode, wrap the return with a callback that cleans
+  # stuff up for us
   httpuv::runServer(
     host = host, port = port,
     app = list(
@@ -118,7 +138,11 @@ launch_editor <- function(app_loc,
           },
           "/app-please" = function(body) {
             writeLog("=> Parsing app blob and sending to client")
-
+            
+            # Cancel any app close timeouts that may have been caused by the
+            # user refreshing the page
+            app_close_timeout()
+            
             app_info <<- get_file_ui_definition_info(
               file_lines = readLines(ui_file$path),
               type = ui_file$type
@@ -144,6 +168,10 @@ launch_editor <- function(app_loc,
 
             writeLog("<= Saved new ui state from client")
           },
+          "/browser-close" =  function(body) {
+            start_app_close_timeout()
+            text_response("Starting server close timeout.")
+          },
           "/ValidateArgs" = function(body) {
             json_response(
               validate_ui_fn_call(
@@ -157,7 +185,7 @@ launch_editor <- function(app_loc,
       )),
       onWSOpen = function(ws) {
         # The ws object is a WebSocket object
-        cat("Server connection opened.\n")
+        writeLog("Preview app connection opened.\n")
 
         msg_when_ready(preview_app, ws)
         msg_app_logs(preview_app, ws)
@@ -166,29 +194,29 @@ launch_editor <- function(app_loc,
 
         ws$onMessage(function(binary, message) {
 
-          # cat("Server received message:", message, "\n")
-
           # TODO: This logic needs some work as it only successfully restarts
           # one time then complains of reused TCP addresses
 
-          if (message == "RESTART_PREVIEW") {
-            cat("Triggering Restart\n")
+
+          if(message == "RESTART_PREVIEW"){
+            writeLog("Restarting app preview process\n")
             preview_app$restart()
 
             Sys.sleep(1)
-            writeLog("Restarted app, listening for ready and new crashes...\n")
+            writeLog("Restarted app preview, listening for ready and new crashes...\n")
             msg_when_ready(preview_app, ws)
             listen_for_crash(preview_app, ws, "restart")
           }
 
-          if (message == "STOP_PREVIEW") {
-            cat("Triggering STOP\n")
+
+          if(message == "STOP_PREVIEW"){
+            writeLog("Stopping app preview process\n")
             preview_app$stop()
           }
         })
 
         ws$onClose(function() {
-          cat("Server connection closed.\n")
+          writeLog("Websocket connection with app preview lost.\n")
         })
       },
       staticPaths = list(

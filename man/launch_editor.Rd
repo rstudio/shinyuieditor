@@ -13,7 +13,9 @@ launch_editor(
   app_preview = TRUE,
   show_logs = TRUE,
   show_preview_app_logs = TRUE,
-  launch_browser = TRUE
+  launch_browser = TRUE,
+  run_in_background = FALSE,
+  stop_on_browser_close = TRUE
 )
 }
 \arguments{

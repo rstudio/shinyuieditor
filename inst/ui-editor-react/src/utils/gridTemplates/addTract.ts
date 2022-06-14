@@ -5,8 +5,8 @@ import produce from "immer";
 import { addAtIndex, fillArr } from "utils/array-helpers";
 import { insertRowOrCol } from "utils/matrix-helpers";
 
+import { itemBoundsInDir } from "./itemBoundsInDir";
 import { areasToItemLocations, emptyCell } from "./itemLocations";
-import { itemBoundsInDir } from "./itemLocationToBounds";
 import { getTractSizes } from "./parseGridTemplateAreas";
 
 export type NewTract = {
