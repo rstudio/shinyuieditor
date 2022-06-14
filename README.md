@@ -74,7 +74,7 @@ _In the future more starting templates will be offered, however, currently only 
 
 #### Existing app
 
-Assuming theres an existing `ui.R` and `server.R` in the folder `existing-app/` relative to your current working directly (`getwd()`), then you start the ui-editor on that app by running the following code and pasting the returned link into your web-browser.
+Assuming theres an existing app (either `app.R` or `ui.R` and `server.R`) in the folder `existing-app/` relative to your current working directly (`getwd()`), then you start the ui-editor on that app by running the following code and pasting the returned link into your web-browser.
 
 ```r
 shinyuieditor::launch_editor(app_loc = "existing-app/")
