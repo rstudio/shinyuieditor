@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import type { CSSMeasure } from "../../../CSSMeasure";
@@ -13,13 +13,16 @@ function UseCssUnitInput({ initialValue }: { initialValue: CSSMeasure }) {
   return <CSSUnitInput value={value} onChange={setValue} />;
 }
 
-test("Initializes properly", () => {
+test("Initializes properly", async () => {
   render(<CSSUnitInput value={"3rem"} onChange={(newVal) => {}} />);
-  expect(screen.getByLabelText("value-count")).toHaveValue(3);
-  expect(screen.getByLabelText("value-unit")).toHaveValue("rem");
+
+  await waitFor(() => {
+    expect(screen.getByLabelText("value-count")).toHaveValue(3);
+    expect(screen.getByLabelText("value-unit")).toHaveValue("rem");
+  });
 });
 
-test("Can show a subset of units", () => {
+test("Can show a subset of units", async () => {
   render(
     <CSSUnitInput
       value={"3rem"}
@@ -28,22 +31,31 @@ test("Can show a subset of units", () => {
     />
   );
 
-  expect(screen.queryByText(/rem/i)).toBeTruthy();
-  expect(screen.queryByText(/px/i)).toBeTruthy();
-  expect(screen.queryByText(/auto/i)).toBeFalsy();
-  expect(screen.queryByText(/fr/i)).toBeFalsy();
+  await waitFor(() => {
+    const selectInput = screen.getByLabelText(/value-unit/g);
+    expect(selectInput).toBeTruthy();
+
+    expect(within(selectInput).queryByText(/rem/i)).toBeTruthy();
+    expect(within(selectInput).queryByText(/px/i)).toBeTruthy();
+
+    expect(within(selectInput).queryByText(/auto/i)).toBeFalsy();
+    expect(within(selectInput).queryByText(/fr/i)).toBeFalsy();
+  });
 });
 
-test("Auto units will disable the count input", () => {
+test("Auto units will disable the count input", async () => {
   render(<UseCssUnitInput initialValue={"1px"} />);
 
   const countInput = screen.getByLabelText("value-count");
   const unitInput = screen.getByLabelText("value-unit");
 
-  expect(countInput).not.toBeDisabled();
-  expect(unitInput).toHaveValue("px");
-
-  userEvent.selectOptions(screen.getByLabelText("value-unit"), "auto");
-  expect(countInput).toBeDisabled();
-  expect(unitInput).toHaveValue("auto");
+  await waitFor(() => {
+    expect(countInput).not.toBeDisabled();
+    expect(unitInput).toHaveValue("px");
+  });
+  await waitFor(() => {
+    userEvent.selectOptions(screen.getByLabelText("value-unit"), "auto");
+    expect(countInput).toBeDisabled();
+    expect(unitInput).toHaveValue("auto");
+  });
 });

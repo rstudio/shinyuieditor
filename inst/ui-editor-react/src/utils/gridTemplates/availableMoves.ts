@@ -1,6 +1,7 @@
+import type { TemplatedGridProps } from "components/Shiny-Ui-Elements/GridlayoutGridPage";
 import { buildRange } from "utils/array-helpers";
 import { emptyCell } from "utils/gridTemplates/itemLocations";
-import type { ItemLocation, TemplatedGridProps } from "utils/gridTemplates/types";
+import type { ItemLocation } from "utils/gridTemplates/types";
 
 export function availableMoves({
   gridLocation: { rowStart, rowSpan, colStart, colSpan },

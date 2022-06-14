@@ -1,0 +1,33 @@
+.ResizableGrid {
+  --grid-gap: 5px;
+
+  --grid-pad: var(--pad, 10px);
+
+  height: 100%;
+  width: 100%;
+  min-height: 80px;
+  min-width: 400px;
+  display: grid;
+  padding: var(--grid-pad);
+  gap: var(--grid-gap);
+  position: relative;
+  /* Setup z-index stack so we can ensure our tract controls sit below the items  */
+  isolation: isolate;
+}
+
+.ResizableGrid > * {
+  /* By putting explicit min values on sizes of the items we stop them from
+    blowing out the grid by staying too big. See
+    https://css-tricks.com/preventing-a-grid-blowout/ for more details */
+  min-width: 0;
+  min-height: 0;
+}
+
+div#size-detection-cell {
+  width: 100%;
+  height: 100%;
+
+  /* One of these will get over-ridden by inline css */
+  grid-row: 1/-1;
+  grid-column: 1/-1;
+}

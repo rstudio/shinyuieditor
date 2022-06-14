@@ -4,11 +4,6 @@
 #' and saving.
 #'
 #'
-#' ## Stopping server When running with `run_in_background = TRUE`, it's
-#' recommended you use the `$stop()` function in the returned list object
-#' instead of the build in `$stop()` function on the returned `$server` object
-#' as this will ensure the running Shiny app preview will also shutdown.
-#'
 #' @inheritParams httpuv::startServer
 #' @param app_loc Path to directory containing Shiny app to be visually edited.
 #'   Currently this only supports two-file app formats, and thus there needs to
@@ -16,6 +11,10 @@
 #'   starter template will be used upon finishing will be saved to the path.
 #' @param shiny_background_port Port to launch the running app preview on. Again
 #'   only used for dev work.
+#' @param remove_namespace Should namespaces be stripped from the generated UI
+#'   code? Set to `FALSE` if you prefer the style of `shiny::sliderInput()` to
+#'   `sliderInput()`. If set to `TRUE`, then any libraries needed for the nodes
+#'   will be loaded at the top of your `app.R` or `ui.R`.
 #' @param app_preview Should a live version of the Shiny app being edited run
 #'   and auto-show updates made? You may want to disable this if the app has
 #'   long-running or processor intensive initialization steps.
@@ -24,11 +23,9 @@
 #'   printed? Useful for debugging an app that's not working properly.
 #' @param launch_browser Should the browser be automatically opened to the
 #'   editor?
-#' @param run_in_background Should the app run in a background process or block
-#'   the console? See `?httpuv::startServer()` vs `?httpuv::runServer()`. Note
-#'   that this potentially will result in orphaned Shiny processes because
-#'   there's no way to know when the user is done with the app preview. Use with
-#'   caution.
+#' @param stop_on_browser_close Should the editor server end when the browser window
+#'   is closed or is dormant for too long. Set this to false if you want to try
+#'   running the app in a different browser or refreshing the browser etc..
 #'
 #' @return A list containing the `$server`: The app server object (as returned
 #'   by `httpuv::startServer`) and the function `$stop()` for safely terminating
@@ -39,12 +36,12 @@ launch_editor <- function(app_loc,
                           host = "127.0.0.1",
                           port = httpuv::randomPort(),
                           shiny_background_port = httpuv::randomPort(),
+                          remove_namespace = TRUE,
                           app_preview = TRUE,
                           show_logs = TRUE,
                           show_preview_app_logs = TRUE,
                           launch_browser = TRUE,
-                          run_in_background = FALSE) {
-
+                          stop_on_browser_close = TRUE ) {
 
   writeLog <- function(...) {
     if (show_logs) {
@@ -54,10 +51,9 @@ launch_editor <- function(app_loc,
 
   # Check and make sure that the app location provided actually has an app
   app_status <- check_and_validate_app(app_loc)
-
-  if (!app_status$is_valid){
-    logger(app_status$message)
-    invisible(return())
+  if (!app_status$is_valid) {
+    logger("Stopping UI Editor. Reason:", app_status$message)
+    return(invisible())
   }
 
   # Logic for starting up Shiny app in background and returning the app URL.
@@ -79,8 +75,7 @@ launch_editor <- function(app_loc,
     stop("Failed to start up shiny app. Check logs for more info:")
   })
 
-  app_is_ready_check <- preview_app$on_ready(function(app_ready){
-
+  app_is_ready_check <- preview_app$on_ready(function(app_ready) {
     writeLog("~~~~App Ready~~~~~\n")
     failure_to_start_check()
 
@@ -91,38 +86,45 @@ launch_editor <- function(app_loc,
 
   writeLog("=> ...Shiny app running in background")
 
-  # Cleanup on closing of the server... This should be be ignored when we're
-  # running in the background, however, otherwise it will kill the shiny server
-  # immediately (if it's started immediately).
-  cleanup_on_end <- function() {
+  # Cleanup on closing of the server...
+  on.exit({
     # Stop all the event listeners
     preview_app$cleanup()
-  }
-
-  on.exit({
-    if (run_in_background) {
-      return()
-    }
-    cleanup_on_end()
   })
 
   # This needs to go before we actually start the server in case we're running
   # in blocking mode, which would prevent anything after from ever being run
-  location_of_editor <-  paste0("http://localhost:", port, "/app")
+  location_of_editor <- paste0("http://localhost:", port, "/app")
   loaded_msg <- ascii_box(
     paste("Live editor running at", location_of_editor)
   )
   cat(crayon::bold(loaded_msg))
 
-  startup_fn <- if (run_in_background) httpuv::startServer else httpuv::runServer
-
   if (launch_browser) {
     utils::browseURL(location_of_editor)
   }
 
+
+  ui_file <- get_app_ui_file(app_loc)
+  app_info <- NULL
+
+
+  # Empty function so variable can always be called even if the timeout hasn't
+  # been initialized
+  app_close_timeout <- function(){ }
+  start_app_close_timeout <- function() {
+    if (!stop_on_browser_close) return()
+    # Trigger an interrupt to stop the server if the browser
+    # unmounts and then doesn't re-connect within a timeframe
+    app_close_timeout <<- later::later(function() {
+      writeLog("Stopping ui editor server")
+      rlang::interrupt();
+    }, delay = 0.5)
+  }
+
   # TODO: If in background mode, wrap the return with a callback that cleans
   # stuff up for us
-  s <- startup_fn(
+  httpuv::runServer(
     host = host, port = port,
     app = list(
       call = build_run_handler(list(
@@ -136,15 +138,39 @@ launch_editor <- function(app_loc,
           },
           "/app-please" = function(body) {
             writeLog("=> Parsing app blob and sending to client")
-            json_response(get_ui_from_file(app_loc))
+            
+            # Cancel any app close timeouts that may have been caused by the
+            # user refreshing the page
+            app_close_timeout()
+            
+            app_info <<- get_file_ui_definition_info(
+              file_lines = readLines(ui_file$path),
+              type = ui_file$type
+            )
+
+            json_response(app_info$ui_tree)
           }
         ),
         "POST" = list(
           "/UiDump" = function(body) {
-            updated_ui_string <- generate_ui_code(body)
-            save_ui_to_file(updated_ui_string, app_loc)
-            writeLog("<= Saved new ui state from client")
             text_response("App Dump received, thanks")
+
+            updated_file_lines <- update_ui_definition(
+              file_info = app_info,
+              new_ui_tree = body,
+              remove_namespace = remove_namespace
+            )
+
+            writeLines(
+              text = updated_file_lines,
+              con = ui_file$path
+            )
+
+            writeLog("<= Saved new ui state from client")
+          },
+          "/browser-close" =  function(body) {
+            start_app_close_timeout()
+            text_response("Starting server close timeout.")
           },
           "/ValidateArgs" = function(body) {
             json_response(
@@ -159,7 +185,7 @@ launch_editor <- function(app_loc,
       )),
       onWSOpen = function(ws) {
         # The ws object is a WebSocket object
-        cat("Server connection opened.\n")
+        writeLog("Preview app connection opened.\n")
 
         msg_when_ready(preview_app, ws)
         msg_app_logs(preview_app, ws)
@@ -168,31 +194,30 @@ launch_editor <- function(app_loc,
 
         ws$onMessage(function(binary, message) {
 
-          # cat("Server received message:", message, "\n")
-
           # TODO: This logic needs some work as it only successfully restarts
           # one time then complains of reused TCP addresses
 
+
           if(message == "RESTART_PREVIEW"){
-            cat("Triggering Restart\n")
+            writeLog("Restarting app preview process\n")
             preview_app$restart()
 
             Sys.sleep(1)
-            writeLog("Restarted app, listening for ready and new crashes...\n")
+            writeLog("Restarted app preview, listening for ready and new crashes...\n")
             msg_when_ready(preview_app, ws)
-            listen_for_crash(preview_app, ws, 'restart')
+            listen_for_crash(preview_app, ws, "restart")
           }
 
+
           if(message == "STOP_PREVIEW"){
-            cat("Triggering STOP\n")
+            writeLog("Stopping app preview process\n")
             preview_app$stop()
           }
         })
 
         ws$onClose(function() {
-          cat("Server connection closed.\n")
+          writeLog("Websocket connection with app preview lost.\n")
         })
-
       },
       staticPaths = list(
         "/app" = httpuv::staticPath(
@@ -202,26 +227,14 @@ launch_editor <- function(app_loc,
       )
     )
   )
-
-  # This point only gets reached when in background mode otherwise we'd block on
-  # the startup call above
-  list(
-    server = s,
-    stop = function() {
-      s$stop()
-      cleanup_on_end()
-    }
-  )
 }
 
-logger <- function(...){
+logger <- function(...) {
   cat(..., "\n", file = stderr())
 }
 
-msg_when_ready <- function(preview_app, ws){
-
-  listen_for_ready <- preview_app$on_ready(function(app_ready){
-
+msg_when_ready <- function(preview_app, ws) {
+  listen_for_ready <- preview_app$on_ready(function(app_ready) {
     ws$send(
       build_ws_message(
         "SHINY_READY",
@@ -234,8 +247,8 @@ msg_when_ready <- function(preview_app, ws){
   })
 }
 
-msg_app_logs <- function(preview_app, ws){
-  preview_app$on_log(function(log_lines){
+msg_app_logs <- function(preview_app, ws) {
+  preview_app$on_log(function(log_lines) {
     ws$send(
       build_ws_message(
         "SHINY_LOGS",
@@ -246,9 +259,9 @@ msg_app_logs <- function(preview_app, ws){
 }
 
 
-listen_for_crash <- function(preview_app, ws, id = 1){
-  on_crash <- preview_app$on_crash(function(is_alive){
-    cat(crayon::bgCyan("Crash detected id=",id,"\n"))
+listen_for_crash <- function(preview_app, ws, id = 1) {
+  on_crash <- preview_app$on_crash(function(is_alive) {
+    cat(crayon::bgCyan("Crash detected id=", id, "\n"))
 
     ws$send(
       build_ws_message(
@@ -260,7 +273,7 @@ listen_for_crash <- function(preview_app, ws, id = 1){
   })
 }
 
-build_ws_message <- function(type, payload){
+build_ws_message <- function(type, payload) {
   jsonlite::toJSON(list(
     msg = type,
     payload = payload
@@ -268,44 +281,13 @@ build_ws_message <- function(type, payload){
 }
 
 
-log_background_app <- function(lines){
+log_background_app <- function(lines) {
   cat(
     paste0(
       crayon::bold$magenta("Logs from preview app:\n"),
       crayon::magenta(paste(lines, collapse = "\n")),
       "\n"
     )
-  )
-}
-
-
-get_app_ui_file <- function(app_loc) {
-  plain_ui_file <- fs::path(app_loc, "ui.R")
-
-  if (!fs::file_exists(plain_ui_file)) {
-    stop(
-      "Only two-file apps are supported at this point.",
-      " Make sure that you're pointing to a folder with",
-      " a ui.R and a server.R file defining your Shiny app."
-    )
-  }
-
-  plain_ui_file
-}
-
-
-
-get_ui_from_file <- function(app_loc) {
-  ui_defn_text <- paste(readLines(get_app_ui_file(app_loc)), collapse = "\n")
-  ui_expr <- rlang::parse_exprs(ui_defn_text)[[1]]
-  ui_code_to_tree(ui_expr)
-}
-
-
-save_ui_to_file <- function(ui_string, app_loc) {
-  writeLines(
-    text = ui_string,
-    con = get_app_ui_file(app_loc)
   )
 }
 
@@ -323,8 +305,8 @@ validate_ui_fn_call <- function(uiName, uiArguments, log_fn) {
     },
     error = function(e) {
       log_fn("~ Function call errored")
-      lobstr::tree(list(uiName, uiArguments))
-      lobstr::tree(e)
+      utils::str(list(uiName, uiArguments))
+      utils::str(e)
       list(
         type = "error",
         error_msg = as.character(e)

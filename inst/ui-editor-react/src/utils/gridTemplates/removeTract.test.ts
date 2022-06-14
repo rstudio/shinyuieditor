@@ -10,16 +10,20 @@ describe("Remove empty tracts", () => {
             ["b", "b", "c"],
           ],
           colSizes: ["1fr", "2fr", "3fr"],
+          rowSizes: ["1fr", "1fr"],
+          gapSize: "10px",
         },
         { index: 2, dir: "cols" }
       )
-    ).toStrictEqual({
-      areas: [
-        ["a", "c"],
-        ["b", "c"],
-      ],
-      colSizes: ["1fr", "3fr"],
-    });
+    ).toStrictEqual(
+      expect.objectContaining({
+        areas: [
+          ["a", "c"],
+          ["b", "c"],
+        ],
+        colSizes: ["1fr", "3fr"],
+      })
+    );
   });
   test("Remove row without fully contained items", () => {
     expect(
@@ -31,16 +35,20 @@ describe("Remove empty tracts", () => {
             ["b", "b"],
           ],
           rowSizes: ["1fr", "2fr", "3fr"],
+          colSizes: ["1fr", "1fr"],
+          gapSize: "10px",
         },
         { index: 3, dir: "rows" }
       )
-    ).toStrictEqual({
-      areas: [
-        ["a", "a"],
-        ["b", "b"],
-      ],
-      rowSizes: ["1fr", "2fr"],
-    });
+    ).toStrictEqual(
+      expect.objectContaining({
+        areas: [
+          ["a", "a"],
+          ["b", "b"],
+        ],
+        rowSizes: ["1fr", "2fr"],
+      })
+    );
   });
 });
 
@@ -53,7 +61,9 @@ describe("Leaves alone repeated tract sizes", () => {
             ["a", "a", "c"],
             ["b", "b", "c"],
           ],
-          colSizes: "1fr",
+          rowSizes: ["1fr", "1fr"],
+          colSizes: ["1fr", "1fr", "1fr"],
+          gapSize: "10px",
         },
         { index: 2, dir: "cols" }
       )
@@ -62,7 +72,9 @@ describe("Leaves alone repeated tract sizes", () => {
         ["a", "c"],
         ["b", "c"],
       ],
-      colSizes: "1fr",
+      rowSizes: ["1fr", "1fr"],
+      colSizes: ["1fr", "1fr"],
+      gapSize: "10px",
     });
   });
 });
@@ -76,7 +88,9 @@ describe("Wont remove a tract that will delete items unless explicitely told to"
             ["a", "a", "c"],
             ["b", "b", "c"],
           ],
-          colSizes: "1fr",
+          rowSizes: ["1fr", "1fr", "1fr"],
+          colSizes: ["1fr", "1fr", "1fr"],
+          gapSize: "10px",
         },
         { index: 3, dir: "cols" }
       )
@@ -93,7 +107,9 @@ describe("Wont remove a tract that will delete items unless explicitely told to"
             ["a", "a", "c"],
             ["b", "b", "c"],
           ],
-          colSizes: "1fr",
+          colSizes: ["1fr", "1fr", "1fr"],
+          rowSizes: ["1fr", "1fr"],
+          gapSize: "10px",
         },
         { index: 3, dir: "cols" },
         true

@@ -1,7 +1,8 @@
+import type { TemplatedGridProps } from "components/Shiny-Ui-Elements/GridlayoutGridPage";
 import { arrayRange } from "utils/array-helpers";
 import { matrixDimensions } from "utils/matrix-helpers";
 
-import type { ItemLocation, TemplatedGridProps } from "./types";
+import type { ItemLocation } from "./types";
 export const emptyCell = ".";
 
 export function areasToItemLocations(areas: TemplatedGridProps["areas"]) {

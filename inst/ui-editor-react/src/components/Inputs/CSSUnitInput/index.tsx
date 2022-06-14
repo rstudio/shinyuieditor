@@ -1,3 +1,6 @@
+import React from "react";
+
+import debounce from "just-debounce-it";
 import { deparseCSSMeasure } from "utils/css-helpers";
 
 import type { InputWidgetCommonProps } from "..";
@@ -7,6 +10,7 @@ import { NumericInputSimple } from "../NumericInput/NumericInput";
 import type { OnChangeCallback } from "../SettingsUpdateContext";
 import { useOnChange } from "../SettingsUpdateContext";
 
+import { CSSUnitInfo } from "./CSSUnitInfo";
 import classes from "./CSSUnitInput.module.css";
 import { useCSSUnitState } from "./useCSSUnitState";
 
@@ -36,6 +40,21 @@ export function CSSUnitInput({
     initialValue ?? "auto"
   );
 
+  const debouncedOnChange = React.useMemo(
+    () =>
+      debounce((value: CSSMeasure) => {
+        onChange(value);
+      }, 500),
+    [onChange]
+  );
+
+  React.useEffect(() => {
+    const deparsedCSS = deparseCSSMeasure(cssValue);
+    if (initialValue === deparsedCSS) return;
+    debouncedOnChange(deparseCSSMeasure(cssValue));
+    return () => debouncedOnChange.cancel();
+  }, [cssValue, debouncedOnChange, initialValue]);
+
   // For some reason our tract sizers will sometimes try and pass this undefined
   // so we need to guard against that at run time
   if (initialValue === undefined && !disabled) {
@@ -47,13 +66,13 @@ export function CSSUnitInput({
   return (
     <div
       className={classes.wrapper}
-      aria-label={"Css Unit Input"}
-      onBlur={(e) => {
-        const blurOutsideComponent = !e.currentTarget.contains(e.relatedTarget);
-        // Only trigger submit if the user has focused outside of the input.
-        // This means that going from the count to the unit input doesn't count
-        if (blurOutsideComponent) onChange(deparseCSSMeasure(cssValue));
-      }}
+      aria-label="Css Unit Input"
+      // onBlur={(e) => {
+      //   const blurOutsideComponent = !e.currentTarget.contains(e.relatedTarget);
+      //   // Only trigger submit if the user has focused outside of the input.
+      //   // This means that going from the count to the unit input doesn't count
+      //   if (blurOutsideComponent) onChange(deparseCSSMeasure(cssValue));
+      // }}
       onKeyDown={(e) => {
         if (e.key === "Enter") {
           // Submits on pressing of enter
@@ -83,6 +102,7 @@ export function CSSUnitInput({
           </option>
         ))}
       </select>
+      <CSSUnitInfo units={units} />
     </div>
   );
 }

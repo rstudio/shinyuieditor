@@ -1,8 +1,8 @@
+import type { TemplatedGridProps } from "components/Shiny-Ui-Elements/GridlayoutGridPage";
 import produce from "immer";
 import { matrixDimensions } from "utils/matrix-helpers";
 
 import { emptyCell } from "./itemLocations";
-import type { TemplatedGridProps } from "./types";
 
 function removeItemMutating({ areas }: TemplatedGridProps, itemName: string) {
   const { numRows, numCols } = matrixDimensions(areas);

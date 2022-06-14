@@ -47,10 +47,10 @@
 .editorHolder {
   grid-area: editor;
   background-color: var(--rstudio-white);
-  padding-top: 100px;
-  padding-left: 160px;
-  padding-right: 30px;
-  padding-bottom: 30px;
+  padding-top: 32px;
+  padding-left: 32px;
+  padding-right: 32px;
+  padding-bottom: 32px;
   height: 100%;
   width: 100%;
   position: relative;

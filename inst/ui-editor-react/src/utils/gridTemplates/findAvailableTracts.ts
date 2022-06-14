@@ -1,9 +1,7 @@
-import type { DragDirection } from "components/Shiny-Ui-Elements/GridlayoutGridPage/useResizeOnDrag";
+import type { TemplatedGridProps } from "components/Shiny-Ui-Elements/GridlayoutGridPage";
+import type { DragHandle } from "components/Shiny-Ui-Elements/GridlayoutGridPage/useResizeOnDrag";
 import { buildRange } from "utils/array-helpers";
-import type {
-  ItemLocation,
-  TemplatedGridProps,
-} from "utils/gridTemplates/types";
+import type { ItemLocation } from "utils/gridTemplates/types";
 
 import { gridLocationToExtent } from "../../components/Shiny-Ui-Elements/GridlayoutGridPage/helpers";
 
@@ -14,7 +12,7 @@ export default function findAvailableTracts({
   gridLocation,
   layoutAreas,
 }: {
-  dragDirection: DragDirection;
+  dragDirection: DragHandle;
   gridLocation: ItemLocation;
   layoutAreas: TemplatedGridProps["areas"];
 }): { shrinkExtent: number; growExtent: number } {

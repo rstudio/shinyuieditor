@@ -57,8 +57,7 @@ test_that("Standardizes layout arguments", {
     )
 
   expect_equal(
-      simplify_tree(ui_code_to_tree(array_layout_expr)),
-      simplify_tree(ui_code_to_tree(md_layout_expr))
+    simplify_tree(ui_code_to_tree(array_layout_expr)),
+    simplify_tree(ui_code_to_tree(md_layout_expr))
   )
-
 })

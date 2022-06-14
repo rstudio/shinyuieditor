@@ -1,6 +1,6 @@
 Package: shinyuieditor
 Title: Build and Modify your Shiny UI, visually
-Version: 0.0.0.9000
+Version: 0.0.1.0
 Authors@R: 
     person(given = "Nick",
            family = "Strayer",
@@ -18,17 +18,14 @@ Imports:
     httpuv,
     jsonlite,
     later,
-    lobstr (>= 1.1.1.9000),
     rlang,
     shiny,
     styler,
     utils,
     gridlayout (>= 0.1.0),
-    magrittr
 Suggests: 
     testthat (>= 3.0.0)
 Remotes:
-    rstudio/gridlayout,
-    r-lib/lobstr
+    rstudio/gridlayout
 Config/testthat/edition: 3
 URL: https://rstudio.github.io/shinyuieditor/

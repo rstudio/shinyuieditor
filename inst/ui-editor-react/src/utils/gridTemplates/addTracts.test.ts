@@ -1,14 +1,13 @@
 import addTract from "./addTract";
+import { fillInPartialTemplate } from "./utils";
 
 describe("Add empty tracts", () => {
-  const baseLayout = {
+  const baseLayout = fillInPartialTemplate({
     areas: [
       ["a", "b", "c"],
       ["d", "e", "f"],
     ],
-    colSizes: "1fr",
-    rowSizes: "1fr",
-  };
+  });
   test("Add a new row after first", () => {
     const sizeOfNewRow = "9px";
     const layoutWithNewRow = addTract(baseLayout, {
@@ -56,12 +55,12 @@ describe("Add tracts between items", () => {
   test("Split item on row", () => {
     expect(
       addTract(
-        {
+        fillInPartialTemplate({
           areas: [
             ["a", "b", "c"],
             ["a", "b", "d"],
           ],
-        },
+        }),
         {
           afterIndex: 1,
           size: sizeOfNewTract,
@@ -78,12 +77,12 @@ describe("Add tracts between items", () => {
   test("Split item on col", () => {
     expect(
       addTract(
-        {
+        fillInPartialTemplate({
           areas: [
             ["a", "b", "b"],
             ["a", "c", "d"],
           ],
-        },
+        }),
         {
           afterIndex: 2,
           size: sizeOfNewTract,
@@ -101,12 +100,12 @@ describe("Add at extremes", () => {
   test("Add new row at start of grid", () => {
     expect(
       addTract(
-        {
+        fillInPartialTemplate({
           areas: [
             ["a", "b", "c"],
             ["a", "b", "d"],
           ],
-        },
+        }),
         {
           afterIndex: 0,
           size: "1fr",
@@ -122,12 +121,12 @@ describe("Add at extremes", () => {
   test("Add new row at end of grid", () => {
     expect(
       addTract(
-        {
+        fillInPartialTemplate({
           areas: [
             ["a", "b", "c"],
             ["a", "b", "d"],
           ],
-        },
+        }),
         {
           afterIndex: 2,
           size: "1fr",
@@ -144,12 +143,12 @@ describe("Add at extremes", () => {
   test("Add new col at start of grid", () => {
     expect(
       addTract(
-        {
+        fillInPartialTemplate({
           areas: [
             ["a", "b", "b"],
             ["a", "c", "d"],
           ],
-        },
+        }),
         {
           afterIndex: 0,
           size: "1fr",
@@ -164,12 +163,12 @@ describe("Add at extremes", () => {
   test("Add new col at end of grid", () => {
     expect(
       addTract(
-        {
+        fillInPartialTemplate({
           areas: [
             ["a", "b", "b"],
             ["a", "c", "d"],
           ],
-        },
+        }),
         {
           afterIndex: 3,
           size: "1fr",
@@ -187,12 +186,12 @@ describe("Add tracts between items", () => {
   test("Split item on row", () => {
     expect(
       addTract(
-        {
+        fillInPartialTemplate({
           areas: [
             ["a", "b", "c"],
             ["a", "b", "d"],
           ],
-        },
+        }),
         {
           afterIndex: 1,
           size: sizeOfNewTract,
@@ -209,12 +208,12 @@ describe("Add tracts between items", () => {
   test("Split item on col", () => {
     expect(
       addTract(
-        {
+        fillInPartialTemplate({
           areas: [
             ["a", "b", "b"],
             ["a", "c", "d"],
           ],
-        },
+        }),
         {
           afterIndex: 2,
           size: sizeOfNewTract,
@@ -229,12 +228,12 @@ describe("Add tracts between items", () => {
 });
 
 describe("Invalid track indices", () => {
-  const baseLayout = {
+  const baseLayout = fillInPartialTemplate({
     areas: [
       ["a", "b", "c"],
       ["a", "b", "d"],
     ],
-  };
+  });
   test("Beyond end of rows", () => {
     expect(() =>
       addTract(baseLayout, {

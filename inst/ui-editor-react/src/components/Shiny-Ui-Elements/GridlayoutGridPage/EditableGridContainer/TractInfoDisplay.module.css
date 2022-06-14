@@ -1,0 +1,170 @@
+.tractInfoDisplay {
+  --transition-out-delay: 0.4s;
+  --transition-in-delay: 0.12s;
+  --transition-delay: var(--transition-out-delay);
+  --transition-speed: 0.1s;
+  --transition-ease: ease-in-out;
+
+  --hover-listener-transition-in: background-color 0 var(--transition-ease)
+    var(--transition-delay);
+  --hover-listener-transition-out: transform var(--transition-speed)
+    var(--transition-ease) var(--transition-delay);
+  --hover-listener-transition: var(--hover-listener-transition-out);
+
+  --offset: calc(-1 * var(--grid-pad));
+
+  /* Design specs */
+  --size-widget-bg-color: hsla(220, 27%, 94%, 0.9);
+  --size-widget-end-padding: 14px;
+  --add-button-diameter: 19px;
+  --add-button-color: var(--icon-color);
+  --delete-button-height: 20px;
+
+  display: flex;
+  align-items: center;
+
+  position: relative;
+  --rows-width: fit-content;
+  --cols-height: fit-content;
+  --scale: 0;
+
+  z-index: 1;
+  isolation: isolate;
+}
+
+.sizeWidget {
+  /* position: absolute; */
+  /* How far we pull the size widget towards the edge to make it appear part of
+  the whole with the hover listener */
+  --inset: -2px;
+  transition: transform var(--transition-speed) var(--transition-ease)
+    var(--transition-delay);
+  padding-inline: 5px;
+  padding-block: 3px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background-color: var(--size-widget-bg-color);
+}
+
+.hoverListener {
+  --thickness: var(--hover-listener-thickness, var(--grid-pad));
+  --padding: 2px;
+  width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--hover-listener-color, transparent);
+  transition: var(--hover-listener-transition);
+  transition-property: background-color, transform;
+}
+
+.tractInfoDisplay[data-drag-dir="rows"] .hoverListener {
+  width: var(--thickness);
+  flex-direction: column;
+  padding-block: var(--padding);
+}
+.tractInfoDisplay[data-drag-dir="cols"] .hoverListener {
+  height: var(--thickness);
+  padding-inline: var(--padding);
+}
+.tractInfoDisplay[data-drag-dir="rows"] {
+  grid-column: 1;
+  grid-row: var(--tract-index);
+  height: 100%;
+  width: var(--grid-pad);
+  position: relative;
+  margin-left: var(--offset);
+  flex-direction: row;
+}
+
+.tractInfoDisplay[data-drag-dir="rows"] > .sizeWidget {
+  height: 100%;
+  width: fit-content;
+  min-width: fit-content;
+  border-radius: 0 var(--corner-radius) var(--corner-radius) 0;
+  transform: scaleX(var(--scale));
+  transform-origin: left;
+  padding-right: var(--size-widget-end-padding);
+}
+
+.tractInfoDisplay[data-drag-dir="cols"] {
+  grid-row: 1;
+  grid-column: var(--tract-index);
+  width: 100%;
+  height: var(--grid-pad);
+  margin-top: var(--offset);
+  flex-direction: column;
+}
+
+.tractInfoDisplay[data-drag-dir="cols"] > .sizeWidget {
+  height: fit-content;
+  min-height: fit-content;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 0 0 var(--corner-radius) var(--corner-radius);
+  transform: scaleY(var(--scale));
+  transform-origin: top;
+  padding-bottom: var(--size-widget-end-padding);
+}
+
+/* Focus within here makes sure that the tract control doesn't dissapear if the
+user is typing in the input field but mouses off */
+.tractInfoDisplay:hover,
+.tractInfoDisplay[data-visible="true"],
+/* .tractInfoDisplay[data-visible="false"], */
+.tractInfoDisplay:focus-within {
+  --scale: 100%;
+  --transition-delay: var(--transition-in-delay);
+  --hover-listener-color: var(--size-widget-bg-color);
+}
+
+.tractInfoDisplay:hover {
+  --hover-listener-thickness: 23px;
+  /* Make sure that the hovered display is always on top of any that may be
+  lingering around */
+  z-index: 3;
+}
+
+.tractAddButton,
+.deleteButton {
+  --offset_amnt: 2px;
+  --offset: calc(var(--offset_amnt) - var(--add-button-diameter));
+  width: var(--add-button-diameter);
+  height: var(--add-button-diameter);
+  aspect-ratio: 1/1;
+  display: grid;
+  place-content: center;
+  border-radius: 50%;
+  transition: none;
+  transform: scale(0);
+}
+
+.tractInfoDisplay:hover .tractAddButton,
+.tractInfoDisplay:hover .deleteButton {
+  transform: scale(1);
+  transition: transform var(--transition-speed) var(--transition-ease)
+    var(--transition-delay);
+}
+
+.tractAddButton {
+  background-color: var(--add-button-color);
+  color: var(--rstudio-white);
+}
+
+.deleteButton {
+  background-color: transparent;
+  font-size: var(--delete-button-height);
+}
+
+.deleteButton[data-enabled="true"] {
+  color: var(--red);
+}
+
+.deleteButton[data-enabled="false"] {
+  color: var(--disabled-color);
+  cursor: not-allowed;
+}

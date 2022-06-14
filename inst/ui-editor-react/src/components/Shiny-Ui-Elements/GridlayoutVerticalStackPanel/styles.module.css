@@ -7,6 +7,7 @@
   background-color: var(--rstudio-white, white);
   outline: var(--outline);
   --card-padding: 6px;
+  isolation: isolate;
 }
 
 .container.withTitle {

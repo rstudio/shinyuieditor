@@ -49,6 +49,6 @@ app_expr <- rlang::expr(
     )
   )
 )
-lobstr::tree(parse_ui_fn(app_expr))
+parse_ui_fn(app_expr)
 
 }

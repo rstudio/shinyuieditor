@@ -1,13 +1,14 @@
 import addItem from "./addItem";
+import { fillInPartialTemplate } from "./utils";
 
 describe("Add items", () => {
-  const baseLayout = {
+  const baseLayout = fillInPartialTemplate({
     areas: [
       ["a", "b", "c"],
       ["a", ".", "."],
       ["d", "e", "f"],
     ],
-  };
+  });
   test("Make valid addition", () => {
     const layoutWithNewItem = addItem(baseLayout, {
       name: "new",
@@ -36,13 +37,13 @@ describe("Add items", () => {
 });
 
 describe("Move items", () => {
-  const baseLayout = {
+  const baseLayout = fillInPartialTemplate({
     areas: [
       [".", ".", ".", "."],
       [".", "a", "a", "."],
       [".", ".", ".", "."],
     ],
-  };
+  });
   test("Expand", () => {
     const layoutWithNewItem = addItem(baseLayout, {
       name: "a",

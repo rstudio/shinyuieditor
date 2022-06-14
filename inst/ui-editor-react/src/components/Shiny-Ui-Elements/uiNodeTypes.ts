@@ -112,6 +112,8 @@ export const shinyUiNodeInfo = {
   unknownUiFunction: unknownUiFunctionInfo,
 };
 
+export type ShinyUiNodeInfo = typeof shinyUiNodeInfo;
+
 /**
  * All possible props/arguments for the defined UI components
  *
@@ -119,8 +121,16 @@ export const shinyUiNodeInfo = {
  * of the types will automatically be built based on this type.
  */
 type ShinyUiArguments = {
-  [UiName in keyof typeof shinyUiNodeInfo]: typeof shinyUiNodeInfo[UiName]["defaultSettings"];
+  [UiName in keyof ShinyUiNodeInfo]: ShinyUiNodeInfo[UiName]["defaultSettings"];
 };
+
+/**
+ * Utility type that aknowledges that the settings objects may contain unknown
+ * arguments that are probably valid settings in the base language but just
+ * haven't been coded up in the editor code
+ */
+export type ArgsWithPotentialUnknowns<T extends ShinyUiNames> =
+  ShinyUiNodeInfo[T]["defaultSettings"] & { [arg: string]: unknown };
 
 /**
  * Names of all the available Ui elements

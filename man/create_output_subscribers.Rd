@@ -40,7 +40,7 @@ clock <- shinyuieditor:::create_output_subscribers(
 )
 
 tic_tok <- clock$subscribe(
-  function(t){
+  function(t) {
     cat(
       if (as.integer(t) \%\% 2 == 0) "Tic" else "Tok",
       "\n"
@@ -48,8 +48,8 @@ tic_tok <- clock$subscribe(
   }
 )
 popcorn <- clock$subscribe(
-  function(t){
-    cat(paste("At the tone the time is", t, '\n'))
+  function(t) {
+    cat(paste("At the tone the time is", t, "\n"))
   }
 )
 

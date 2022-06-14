@@ -17,6 +17,7 @@ import { AppTour } from "./AppTour";
 import { UndoRedoButtons } from "./components/UndoRedoButtons/UndoRedoButtons";
 import classes from "./EditorContainer.module.css";
 import { SettingsPanel } from "./SettingsPanel/SettingsPanel";
+import { useSendBrowserCloseMessage } from "./utils/useSendBrowserCloseMessage";
 
 export const PROPERTIES_PANEL_WIDTH_PX = 236;
 
@@ -53,12 +54,6 @@ function EditorContainerWithData({
             className={classes.shinyLogo}
             style={{ backgroundColor: "var(--rstudio-blue, pink)" }}
           />
-          {/* <img
-            className={classes.shinyLogo}
-            src={shinyLogo}
-            style={{ backgroundColor: "var(--rstudio-blue, pink)" }}
-            alt="Shiny Logo"
-          /> */}
           <h1 className={classes.title}>Shiny UI Editor</h1>
           <div className={classes.rightSide}>
             <AppTour />
@@ -112,6 +107,7 @@ function LostConnectionPopup() {
 
 export function EditorContainer() {
   const { isLoading, error, data } = useGetInitialStateQuery("test");
+  useSendBrowserCloseMessage();
 
   if (isLoading) {
     return <h3>Loading initial state from server</h3>;

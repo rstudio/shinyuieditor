@@ -1,3 +1,5 @@
+import React from "react";
+
 import type { UiNodeComponent } from "../uiNodeTypes";
 
 import type { ShinyRadioButtonsProps } from ".";
@@ -11,6 +13,19 @@ const ShinyRadioButtons: UiNodeComponent<ShinyRadioButtonsProps> = ({
   compRef,
 }) => {
   const choices = uiArguments.choices;
+  const keys = Object.keys(choices);
+  const values = Object.values(choices);
+
+  const [selection, setSelection] = React.useState<string>(values[0]);
+
+  React.useEffect(() => {
+    // If the user changes the value of the currently selected element, just
+    // reset selection to the first element
+    if (!values.includes(selection)) {
+      setSelection(values[0]);
+    }
+  }, [selection, values]);
+
   return (
     <div
       ref={compRef}
@@ -20,16 +35,17 @@ const ShinyRadioButtons: UiNodeComponent<ShinyRadioButtonsProps> = ({
     >
       <label>{uiArguments.label}</label>
       <div>
-        {Object.keys(choices).map((key, i) => (
-          <div className={classes.radio} key={key}>
+        {values.map((value, i) => (
+          <div className={classes.radio} key={value}>
             <label>
               <input
                 type="radio"
-                name={choices[key]}
-                value={choices[key]}
-                defaultChecked={i === 0}
+                name={uiArguments.inputId}
+                value={value}
+                onChange={(x) => setSelection(x.target.value)}
+                checked={value === selection}
               />
-              <span>{key}</span>
+              <span>{keys[i]}</span>
             </label>
           </div>
         ))}

@@ -5,15 +5,15 @@
 # [Ui code] -> update_ui_nodes()  -> [JS App] -> simplify_ui_nodes() -> [Ui code]
 
 # Recursively update the ui tree with values that update the arguments
-simplify_tree <- function(ui_node){
+simplify_tree <- function(ui_node) {
 
   # First run any updater functions for this node if they exist
-  for(updater_fn in tree_simplifiers) {
+  for (updater_fn in tree_simplifiers) {
     ui_node <- updater_fn(ui_node)
   }
 
   # Next walk through all the children and do the same
-  if (!is.null(ui_node$uiChildren)){
+  if (!is.null(ui_node$uiChildren)) {
     ui_node$uiChildren <- lapply(ui_node$uiChildren, FUN = simplify_tree)
   }
 
@@ -21,8 +21,7 @@ simplify_tree <- function(ui_node){
 }
 
 
-simplify_gridlayout_args <- function(node){
-
+simplify_gridlayout_args <- function(node) {
   if (node$uiName != "gridlayout::grid_page") {
     return(node)
   }
@@ -32,12 +31,12 @@ simplify_gridlayout_args <- function(node){
   areas <- node$uiArguments$areas
   rowSizes <- simplify2array(node$uiArguments$rowSizes)
   colSizes <- simplify2array(node$uiArguments$colSizes)
-  gapSize <-  simplify2array(node$uiArguments$gapSize)
+  gapSize <- simplify2array(node$uiArguments$gapSize)
 
 
   # Depending on the json parsing etc the areas, especially when a single row or
   # column can get mangled. This function brings it back to the proper dimensions
-  shape_areas <- function(x){
+  shape_areas <- function(x) {
     matrix(x, nrow = length(rowSizes), ncol = length(colSizes))
   }
 
