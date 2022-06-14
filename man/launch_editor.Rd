@@ -14,7 +14,6 @@ launch_editor(
   show_logs = TRUE,
   show_preview_app_logs = TRUE,
   launch_browser = TRUE,
-  run_in_background = FALSE,
   stop_on_browser_close = TRUE
 )
 }
@@ -50,6 +49,10 @@ printed? Useful for debugging an app that's not working properly.}
 
 \item{launch_browser}{Should the browser be automatically opened to the
 editor?}
+
+\item{stop_on_browser_close}{Should the editor server end when the browser window
+is closed or is dormant for too long. Set this to false if you want to try
+running the app in a different browser or refreshing the browser etc..}
 }
 \value{
 A list containing the \verb{$server}: The app server object (as returned
