@@ -18,7 +18,6 @@ Imports:
     httpuv,
     jsonlite,
     later,
-    lobstr (>= 1.1.1.9000),
     rlang,
     shiny,
     styler,
