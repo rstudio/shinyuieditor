@@ -16,6 +16,7 @@
 
 - Leaving early from the editor no longer returns `NULL` to the console (#36, #45)
 - Resizing grid panels to a smaller size now respects the grid tracts (#25, #46)
+- Fixed accidental allowance of `gridlayout::grid_panel_plot()` being dropped into a `gridlayout::grid_panel_stack()` which could cause an invalid ui function state (#35, #49).
 
 # shinyuieditor 0.0.0.9000
 
