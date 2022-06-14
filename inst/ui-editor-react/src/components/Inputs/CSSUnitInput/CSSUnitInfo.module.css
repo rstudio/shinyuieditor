@@ -1,7 +1,5 @@
 .container {
   width: min(100%, max-content);
-  backdrop-filter: blur(5px);
-  background-color: var(--rstudio-white);
   padding: 4px;
 }
 
