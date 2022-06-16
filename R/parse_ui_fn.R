@@ -41,7 +41,7 @@
 #' )
 #' parse_ui_fn(app_expr)
 #'
-parse_ui_fn <- function(ui_node_expr, env = rlang::caller_env()) {
+parse_ui_fn <- function(ui_node_expr) {
   namespaced_fn_name <- tryCatch(
     {
       namespace_ui_fn(name_of_called_fn(ui_node_expr))
@@ -58,7 +58,7 @@ parse_ui_fn <- function(ui_node_expr, env = rlang::caller_env()) {
   # Fill in all the names of unnamed arguments
   ui_node_expr <- tryCatch(
     {
-      rlang::call_standardise(ui_node_expr, env = env)
+      rlang::call_standardise(ui_node_expr)
     },
     error = function(e) {
       stop(
@@ -96,7 +96,7 @@ parse_ui_fn <- function(ui_node_expr, env = rlang::caller_env()) {
 
     is_child_node <- arg_name == ""
     if (is_child_node) {
-      parsed$uiChildren <- append(parsed$uiChildren, list(parse_ui_fn(arg_val, env = env)))
+      parsed$uiChildren <- append(parsed$uiChildren, list(parse_ui_fn(arg_val)))
     } else {
       parsed$uiArguments[[arg_name]] <- parse_argument(arg_val)
     }
