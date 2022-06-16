@@ -71,27 +71,15 @@
   cursor: ew-resize;
 }
 
-.dragger:global(.expand.up) {
-  bottom: 100%;
-}
-.dragger:global(.shrink.up) {
+.dragger:global(.up) {
   top: 0;
 }
-.dragger:global(.expand.down) {
-  top: 100%;
-}
-.dragger:global(.shrink.down) {
+.dragger:global(.down) {
   bottom: 0;
 }
-.dragger:global(.expand.right) {
-  left: 100%;
-}
-.dragger:global(.expand.left) {
-  right: 100%;
-}
-.dragger:global(.shrink.right) {
+.dragger:global(.right) {
   right: 0;
 }
-.dragger:global(.shrink.left) {
+.dragger:global(.left) {
   left: 0;
 }

@@ -1,12 +1,7 @@
 import React from "react";
 
-import {
-  AiFillCaretDown,
-  AiFillCaretLeft,
-  AiFillCaretRight,
-  AiFillCaretUp,
-} from "react-icons/ai";
-import type { MovementType } from "utils/gridTemplates/availableMoves";
+import { FaGripLines, FaGripLinesVertical } from "react-icons/fa";
+import type { ResizeDirection } from "utils/gridTemplates/availableMoves";
 import { availableMoves } from "utils/gridTemplates/availableMoves";
 import type { GridItemExtent, ItemLocation } from "utils/gridTemplates/types";
 
@@ -46,22 +41,19 @@ export function AreaOverlay({
   const movementHandles = React.useMemo(() => {
     let movementArrows: JSX.Element[] = [];
 
-    for (let key in movementOptions) {
-      const movementType = key as MovementType;
-      if (movementOptions[movementType]) {
-        movementArrows.push(
-          <div
-            key={movementType}
-            className={classes.dragger + " " + movementType}
-            onMouseDown={(e) => {
-              stopParentDrag(e);
-              startDrag(simplifySide(movementType));
-            }}
-          >
-            {movementToArrow[movementType]}
-          </div>
-        );
-      }
+    for (let resizeDir of movementOptions) {
+      movementArrows.push(
+        <div
+          key={resizeDir}
+          className={classes.dragger + " " + resizeDir}
+          onMouseDown={(e) => {
+            stopParentDrag(e);
+            startDrag(resizeDir);
+          }}
+        >
+          {resizeDirToArrow[resizeDir]}
+        </div>
+      );
     }
     return movementArrows;
   }, [movementOptions, startDrag]);
@@ -83,35 +75,9 @@ function stopParentDrag(e: React.MouseEvent<HTMLElement>) {
   e.stopPropagation();
 }
 
-function simplifySide(side: MovementType) {
-  switch (side) {
-    case "expand down":
-    case "shrink down":
-      return "down";
-    case "expand up":
-    case "shrink up":
-      return "up";
-    case "expand left":
-    case "shrink left":
-      return "left";
-    case "expand right":
-    case "shrink right":
-      return "right";
-  }
-}
-
-const RightArrow = AiFillCaretRight;
-const LeftArrow = AiFillCaretLeft;
-const UpArrow = AiFillCaretUp;
-const DownArrow = AiFillCaretDown;
-
-export const movementToArrow: Record<MovementType, JSX.Element> = {
-  "expand up": <UpArrow />,
-  "expand down": <DownArrow />,
-  "shrink down": <UpArrow />,
-  "shrink up": <DownArrow />,
-  "expand left": <LeftArrow />,
-  "expand right": <RightArrow />,
-  "shrink left": <RightArrow />,
-  "shrink right": <LeftArrow />,
+export const resizeDirToArrow: Record<ResizeDirection, JSX.Element> = {
+  up: <FaGripLines />,
+  down: <FaGripLines />,
+  left: <FaGripLinesVertical />,
+  right: <FaGripLinesVertical />,
 };
