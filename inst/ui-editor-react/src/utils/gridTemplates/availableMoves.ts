@@ -3,13 +3,14 @@ import { buildRange } from "utils/array-helpers";
 import { emptyCell } from "utils/gridTemplates/itemLocations";
 import type { ItemLocation } from "utils/gridTemplates/types";
 
+export type ResizeDirection = "up" | "down" | "left" | "right";
 export function availableMoves({
   gridLocation: { rowStart, rowSpan, colStart, colSpan },
   layoutAreas,
 }: {
   gridLocation: ItemLocation;
   layoutAreas: TemplatedGridProps["areas"];
-}) {
+}): ResizeDirection[] {
   const rowEnd = rowStart + rowSpan - 1;
   const colEnd = colStart + colSpan - 1;
   const rowIndices = buildRange(rowStart, rowEnd);
@@ -17,32 +18,49 @@ export function availableMoves({
   const canShrinkRows = rowSpan > 1;
   const canShrinkCols = colSpan > 1;
 
-  return {
-    "expand up": rowIsFree({
+  const resizeDirs: ResizeDirection[] = [];
+
+  if (
+    rowIsFree({
       colRange: colIndices,
       rowIndex: rowStart - 1,
       layoutAreas,
-    }),
-    "expand down": rowIsFree({
+    }) ||
+    canShrinkRows
+  )
+    resizeDirs.push("up");
+
+  if (
+    rowIsFree({
       colRange: colIndices,
       rowIndex: rowEnd + 1,
       layoutAreas,
-    }),
-    "expand left": colIsFree({
+    }) ||
+    canShrinkRows
+  )
+    resizeDirs.push("down");
+
+  if (
+    colIsFree({
       rowRange: rowIndices,
       colIndex: colStart - 1,
       layoutAreas,
-    }),
-    "expand right": colIsFree({
+    }) ||
+    canShrinkCols
+  )
+    resizeDirs.push("left");
+
+  if (
+    colIsFree({
       rowRange: rowIndices,
       colIndex: colEnd + 1,
       layoutAreas,
-    }),
-    "shrink up": canShrinkRows,
-    "shrink down": canShrinkRows,
-    "shrink left": canShrinkCols,
-    "shrink right": canShrinkCols,
-  };
+    }) ||
+    canShrinkCols
+  )
+    resizeDirs.push("right");
+
+  return resizeDirs;
 }
 
 function rowIsFree({
@@ -75,5 +93,3 @@ function colIsFree({
     (rowIndex) => layoutAreas[rowIndex - 1][colIndex - 1] === emptyCell
   );
 }
-
-export type MovementType = keyof ReturnType<typeof availableMoves>;
