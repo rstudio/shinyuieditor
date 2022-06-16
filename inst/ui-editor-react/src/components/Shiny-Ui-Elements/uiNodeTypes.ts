@@ -2,6 +2,7 @@ import type React from "react";
 
 import type { DeleteAction, UpdateAction } from "state/uiTree";
 
+import { gridlayoutGridCardInfo } from "./GridlayoutGridCard";
 import { gridlayoutGridPageInfo } from "./GridlayoutGridPage";
 import { gridLayoutGridPanelInfo } from "./GridlayoutGridPanel";
 import { GridlayoutGridPanelPlotInfo } from "./GridlayoutGridPanelPlot";
@@ -105,6 +106,7 @@ export const shinyUiNodeInfo = {
   "shiny::textOutput": shinyTextOutputInfo,
   "shiny::uiOutput": shinyUiOutputInfo,
   "gridlayout::grid_page": gridlayoutGridPageInfo,
+  "gridlayout::grid_card": gridlayoutGridCardInfo,
   "gridlayout::grid_panel": gridLayoutGridPanelInfo,
   "gridlayout::grid_panel_stack": gridlayoutVerticalStackPanelInfo,
   "gridlayout::grid_panel_text": gridlayoutTextPanelInfo,
