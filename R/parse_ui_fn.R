@@ -4,8 +4,6 @@
 #' of known UI functions and their arguments.
 #' @param ui_node_expr A language object representing the call of a known Shiny
 #'   UI function.
-#' @param env Environment in which to evaluate arguments. Necessary for filling
-#'   in the names of all arguments. Almost always left as the default.
 #'
 #' @return A nested list describing the UI of the app for use in the ui editor
 #' @export
