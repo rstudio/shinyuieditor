@@ -26,7 +26,7 @@ const GridlayoutGridCardPlot: UiNodeComponent<GridlayoutGridCardPlotProps> = ({
       aria-label={"gridlayout-gridCardPlot"}
       {...eventHandlers}
     >
-      <PlotPlaceholder outputId={outputId ?? area} compRef={compRef} />
+      <PlotPlaceholder outputId={outputId ?? area} />
       {children}
     </div>
   );
