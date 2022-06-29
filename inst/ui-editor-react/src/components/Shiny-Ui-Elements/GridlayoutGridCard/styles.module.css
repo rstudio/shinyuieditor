@@ -140,3 +140,26 @@ div.availableToSwap {
     box-shadow: var(--start-shadow);
   }
 }
+
+/* Small message that shows up when a card is empty to allow easy deletion */
+div.emptyGridCard {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: var(--vertical-spacing);
+  /* Needs to sit above the select-by-clicking watcher */
+  z-index: 2;
+  /* Don't let the panel swallow initial drag over event for drop watcher */
+  pointer-events: none;
+}
+div.emptyGridCard > button {
+  /* Re-enable pointer events so the button actually works */
+  pointer-events: initial;
+}
+
+.emptyMessage {
+  font-style: italic;
+  opacity: 0.5;
+}

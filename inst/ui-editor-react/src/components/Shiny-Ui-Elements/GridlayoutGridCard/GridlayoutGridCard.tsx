@@ -1,12 +1,11 @@
 import React from "react";
 
+import DeleteNodeButton from "components/DeleteNodeButton";
 import type {
   NodePath,
   UiContainerNodeComponent,
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import UiNode from "components/UiNode";
-
-import { EmptyGridCardMessage } from "../GridLayoutPanelHelpers/EmptyPanelMessage";
 
 import type { GridCardSettings } from "./index";
 
@@ -107,6 +106,15 @@ function dropWatcherPositionClass(i: number, numChildren: number) {
   }
 
   return classes.middleDropWatcher;
+}
+
+function EmptyGridCardMessage({ path }: { path: NodePath }) {
+  return (
+    <div className={classes.emptyGridCard}>
+      <span className={classes.emptyMessage}>Empty grid card</span>
+      <DeleteNodeButton path={path} justIcon={true} />
+    </div>
+  );
 }
 
 export default GridlayoutGridCard;
