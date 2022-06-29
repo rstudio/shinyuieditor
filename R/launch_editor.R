@@ -122,8 +122,6 @@ launch_editor <- function(app_loc,
     }, delay = 0.5)
   }
 
-  # TODO: If in background mode, wrap the return with a callback that cleans
-  # stuff up for us
   httpuv::runServer(
     host = host, port = port,
     app = list(
@@ -138,11 +136,11 @@ launch_editor <- function(app_loc,
           },
           "/app-please" = function(body) {
             writeLog("=> Parsing app blob and sending to client")
-            
+
             # Cancel any app close timeouts that may have been caused by the
             # user refreshing the page
             app_close_timeout()
-            
+
             app_info <<- get_file_ui_definition_info(
               file_lines = readLines(ui_file$path),
               type = ui_file$type
@@ -153,7 +151,6 @@ launch_editor <- function(app_loc,
         ),
         "POST" = list(
           "/UiDump" = function(body) {
-            text_response("App Dump received, thanks")
 
             updated_file_lines <- update_ui_definition(
               file_info = app_info,
@@ -167,6 +164,7 @@ launch_editor <- function(app_loc,
             )
 
             writeLog("<= Saved new ui state from client")
+            text_response("App Dump received, thanks")
           },
           "/browser-close" =  function(body) {
             start_app_close_timeout()
