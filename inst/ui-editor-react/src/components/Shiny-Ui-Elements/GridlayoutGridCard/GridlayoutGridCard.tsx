@@ -15,7 +15,7 @@ import { useGridCardDropDetectors } from "./useGridCardDropDetectors";
 import { useGridItemSwapping } from "./useGridItemSwapping";
 
 const GridlayoutGridCard: UiContainerNodeComponent<GridCardSettings> = ({
-  uiArguments: { area, item_alignment, item_gap, title },
+  uiArguments: { area, item_gap, title },
   uiChildren,
   nodeInfo: { path },
   children,
@@ -39,10 +39,7 @@ const GridlayoutGridCard: UiContainerNodeComponent<GridCardSettings> = ({
       onClick={eventHandlers.onClick}
     >
       {title ? <h2 className={classes.panelTitle}>{title}</h2> : null}
-      <div
-        className={classes.contentHolder}
-        data-alignment={item_alignment ?? "top"}
-      >
+      <div className={classes.contentHolder} data-alignment="top">
         <DropWatcherPanel
           index={0}
           parentPath={path}

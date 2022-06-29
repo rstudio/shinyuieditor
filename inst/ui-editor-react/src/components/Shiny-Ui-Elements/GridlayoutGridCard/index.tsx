@@ -10,18 +10,18 @@ export type AlignmentOptions = "top" | "center" | "bottom" | "spread";
 export type GridCardSettings = {
   area: string;
   title?: string;
-  item_alignment?: AlignmentOptions;
+  // item_alignment?: AlignmentOptions;
   item_gap?: CSSMeasure;
 };
 
 export const gridlayoutGridCardDefaultSettings: GridCardSettings = {
   area: "default-area",
-  item_alignment: "top",
+  // item_alignment: "top",
   item_gap: "12px",
 };
 
 export const gridlayoutGridCardInfo: UiComponentInfo<GridCardSettings> = {
-  title: "Stack Panel",
+  title: "Grid Card",
   UiComponent: GridlayoutGridCard,
   SettingsComponent: GridlayoutGridCardSettings,
   acceptsChildren: true,

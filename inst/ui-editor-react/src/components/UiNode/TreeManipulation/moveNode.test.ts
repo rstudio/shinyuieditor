@@ -166,7 +166,7 @@ describe("Move node around within its current container", () => {
   };
   const sliderPanel: ShinyUiNode = {
     uiName: "gridlayout::grid_card",
-    uiArguments: { area: "controls-holder", item_alignment: "center" },
+    uiArguments: { area: "controls-holder" },
     uiChildren: [
       buttonA, // [0]
       buttonB, // [1]

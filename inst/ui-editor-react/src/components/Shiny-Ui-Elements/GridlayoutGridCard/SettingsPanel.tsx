@@ -1,5 +1,3 @@
-import * as React from "react";
-
 import {
   alignBottom,
   alignCenter,
@@ -7,7 +5,6 @@ import {
   alignTop,
 } from "components/Icons";
 import { LabeledCSSUnitInput } from "components/Inputs/CSSUnitInput";
-import { RadioInputs } from "components/Inputs/RadioInputs/RadioInputs";
 import { TextInput } from "components/Inputs/TextInput/TextInput";
 import type { SettingsUpdaterComponent } from "components/Shiny-Ui-Elements/uiNodeTypes";
 
@@ -33,13 +30,7 @@ export const GridlayoutGridCardSettings: SettingsUpdaterComponent<
         optional={true}
         defaultValue={settings.area}
       />
-      <RadioInputs
-        name="item_alignment"
-        label="Item Alignment"
-        options={alignmentOptions}
-        currentSelection={settings.item_alignment ?? "top"}
-        optionsPerColumn={2}
-      />
+
       <LabeledCSSUnitInput
         name="item_gap"
         value={settings.item_gap ?? "15px"}

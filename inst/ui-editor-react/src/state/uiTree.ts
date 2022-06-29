@@ -59,7 +59,6 @@ export const backupUiTree: ShinyUiNode = {
       uiName: "gridlayout::grid_card",
       uiArguments: {
         area: "sidebar",
-        item_alignment: "top",
       },
       uiChildren: [
         {

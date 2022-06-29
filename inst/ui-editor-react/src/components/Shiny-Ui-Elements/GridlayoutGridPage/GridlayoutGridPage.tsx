@@ -145,10 +145,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
       } else {
         node = {
           uiName: "gridlayout::grid_card",
-          uiArguments: {
-            area: name,
-            item_alignment: "center",
-          },
+          uiArguments: { area: name },
           uiChildren: [node],
         };
       }
