@@ -46,23 +46,6 @@ export function sameLocation(
   );
 }
 
-export function enumerateGridDims({
-  numCols,
-  numRows,
-  startCol = 1,
-  startRow = 1,
-}: {
-  numCols: number;
-  numRows: number;
-  startCol?: number;
-  startRow?: number;
-}) {
-  return Array.from({ length: numCols * numRows }).map((_, i) => ({
-    row: Math.floor(i / numCols) + startCol,
-    col: (i % numCols) + startRow,
-  }));
-}
-
 export function toStringLoc({
   row,
   col,

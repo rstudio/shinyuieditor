@@ -11,6 +11,7 @@ import UiNode from "components/UiNode";
 import type { DraggedNodeInfo } from "DragAndDropHelpers/DragAndDropHelpers";
 import { useDispatch } from "react-redux";
 import { UPDATE_NODE, usePlaceNode } from "state/uiTree";
+import { findEmptyCells } from "utils/gridTemplates/findItemLocation";
 import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
 import type { GridItemExtent } from "utils/gridTemplates/types";
@@ -23,7 +24,7 @@ import type { TemplatedGridProps } from ".";
 import EditableGridContainer from "./EditableGridContainer";
 import type { GridLayoutAction } from "./gridLayoutReducer";
 import { gridLayoutReducer } from "./gridLayoutReducer";
-import { enumerateGridDims, toStringLoc } from "./helpers";
+import { toStringLoc } from "./helpers";
 import { NameNewPanelModal } from "./NameNewPanelModal";
 import classes from "./styles.module.css";
 
@@ -51,7 +52,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
 
   const { areas } = layoutDef;
 
-  const { numRows, numCols, uniqueAreas } = parseGridTemplateAreas(layoutDef);
+  const { uniqueAreas } = parseGridTemplateAreas(layoutDef);
 
   const itemGridLocations = React.useMemo(
     () => areasToItemLocations(areas),
@@ -181,10 +182,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
         onDragStart={() => {}}
       >
         <EditableGridContainer {...layoutDef} onNewLayout={updateLayout}>
-          {enumerateGridDims({
-            numRows,
-            numCols,
-          }).map(({ row, col }) => (
+          {findEmptyCells(areas).map(({ row, col }) => (
             <GridCell
               key={toStringLoc({ row, col })}
               gridRow={row}

@@ -1,10 +1,12 @@
 import type { TemplatedGridProps } from "components/Shiny-Ui-Elements/GridlayoutGridPage";
 import { matrixDimensions } from "utils/matrix-helpers";
 
+import { emptyCell } from "./itemLocations";
 import type { GridCellLocation } from "./types";
 
+type GridAreas = TemplatedGridProps["areas"];
 function findItemLocations(
-  areas: TemplatedGridProps["areas"],
+  areas: GridAreas,
   itemName: string
 ): GridCellLocation[] {
   const { numRows, numCols } = matrixDimensions(areas);
@@ -23,4 +25,8 @@ function findItemLocations(
   return locations;
 }
 
-export default findItemLocations;
+function findEmptyCells(areas: GridAreas) {
+  return findItemLocations(areas, emptyCell);
+}
+
+export { findItemLocations, findEmptyCells };
