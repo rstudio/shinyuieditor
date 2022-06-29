@@ -1,3 +1,5 @@
+import "bootstrap/dist/css/bootstrap.css";
+
 import "App.css";
 import * as React from "react";
 
