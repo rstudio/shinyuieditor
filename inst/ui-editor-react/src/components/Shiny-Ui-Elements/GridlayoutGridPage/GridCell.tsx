@@ -2,7 +2,6 @@ import React from "react";
 
 import { useFilteredDrop } from "DragAndDropHelpers/useFilteredDrop";
 
-import classes from "./GridCell.module.css";
 import type { NewItemInfo } from "./GridlayoutGridPage";
 
 export function GridCell({
@@ -33,7 +32,7 @@ export function GridCell({
 
   return (
     <div
-      className={`grid-cell ${classes.cell}`}
+      className="grid-cell"
       ref={cellRef}
       style={{ gridRow, gridColumn }}
     ></div>
