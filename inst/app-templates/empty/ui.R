@@ -12,7 +12,7 @@ gridlayout::grid_page(
     "1fr"
   ),
   gap_size = "15px",
-  gridlayout::grid_panel_text(
+  gridlayout::grid_card_text(
     area = "header",
     content = "My App",
     h_align = "start",

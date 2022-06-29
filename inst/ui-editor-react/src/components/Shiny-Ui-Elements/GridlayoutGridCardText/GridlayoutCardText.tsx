@@ -4,11 +4,11 @@ import type { UiNodeComponent } from "components/Shiny-Ui-Elements/uiNodeTypes";
 
 import { useGridItemSwapping } from "../GridlayoutGridCard/useGridItemSwapping";
 
-import type { GridlayoutTextPanelProps } from "./index";
+import type { GridlayoutGridCardTextProps } from "./index";
 
 import classes from "./styles.module.css";
 
-const GridlayoutTextPanel: UiNodeComponent<GridlayoutTextPanelProps> = ({
+const GridlayoutGridCardText: UiNodeComponent<GridlayoutGridCardTextProps> = ({
   uiArguments: { content: title, area, h_align },
   children,
   nodeInfo: { path },
@@ -30,4 +30,4 @@ const GridlayoutTextPanel: UiNodeComponent<GridlayoutTextPanelProps> = ({
     </div>
   );
 };
-export default GridlayoutTextPanel;
+export default GridlayoutGridCardText;

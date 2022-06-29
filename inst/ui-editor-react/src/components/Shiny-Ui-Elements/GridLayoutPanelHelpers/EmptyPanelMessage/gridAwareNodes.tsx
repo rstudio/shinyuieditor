@@ -5,14 +5,14 @@ import type { ShinyUiNames } from "components/Shiny-Ui-Elements/uiNodeTypes";
 export type GridAwareNodes = Extract<
   ShinyUiNames,
   | "gridlayout::grid_card"
-  | "gridlayout::grid_panel_text"
+  | "gridlayout::grid_card_text"
   | "gridlayout::grid_card"
   | "gridlayout::grid_card_plot"
 >;
 
 export const gridAwareNodes: ShinyUiNames[] = [
   "gridlayout::grid_card",
-  "gridlayout::grid_panel_text",
+  "gridlayout::grid_card_text",
   "gridlayout::grid_card",
   "gridlayout::grid_card_plot",
 ];

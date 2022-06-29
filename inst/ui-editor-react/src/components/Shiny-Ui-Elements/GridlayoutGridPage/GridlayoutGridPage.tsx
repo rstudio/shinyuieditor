@@ -63,10 +63,10 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
   const handleNodeDrop = (nodeInfo: NewItemInfo) => {
     const { node, currentPath, pos } = nodeInfo;
     const isNodeMove = currentPath !== undefined;
-    const isGridPanel = gridAwareNodes.includes(node.uiName);
+    const isGridCard = gridAwareNodes.includes(node.uiName);
     if (
       isNodeMove &&
-      isGridPanel &&
+      isGridCard &&
       "area" in node.uiArguments &&
       node.uiArguments.area
     ) {

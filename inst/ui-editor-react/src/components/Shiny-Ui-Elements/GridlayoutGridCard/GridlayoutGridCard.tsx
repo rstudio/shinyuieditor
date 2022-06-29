@@ -6,13 +6,13 @@ import type {
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import UiNode from "components/UiNode";
 
-import { EmptyGridPanelMessage } from "../GridLayoutPanelHelpers/EmptyPanelMessage";
+import { EmptyGridCardMessage } from "../GridLayoutPanelHelpers/EmptyPanelMessage";
 
 import type { GridCardSettings } from "./index";
 
 import classes from "./styles.module.css";
+import { useGridCardDropDetectors } from "./useGridCardDropDetectors";
 import { useGridItemSwapping } from "./useGridItemSwapping";
-import { useGridPanelDropDetectors } from "./useGridPanelDropDetectors";
 
 const GridlayoutGridCard: UiContainerNodeComponent<GridCardSettings> = ({
   uiArguments: { area, item_alignment, item_gap, title },
@@ -60,7 +60,7 @@ const GridlayoutGridCard: UiContainerNodeComponent<GridCardSettings> = ({
             </React.Fragment>
           ))
         ) : (
-          <EmptyGridPanelMessage path={path} />
+          <EmptyGridCardMessage path={path} />
         )}
       </div>
       {children}
@@ -78,7 +78,7 @@ function DropWatcherPanel({
   parentPath: NodePath;
 }) {
   const watcherRef = React.useRef<HTMLDivElement>(null);
-  useGridPanelDropDetectors({
+  useGridCardDropDetectors({
     watcherRef,
     positionInChildren: index,
     parentPath,

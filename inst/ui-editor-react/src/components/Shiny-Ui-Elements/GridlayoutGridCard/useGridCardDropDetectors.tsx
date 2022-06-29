@@ -9,7 +9,7 @@ import type { DraggedNodeInfo } from "DragAndDropHelpers/DragAndDropHelpers";
 import { useFilteredDrop } from "DragAndDropHelpers/useFilteredDrop";
 import { usePlaceNode } from "state/uiTree";
 
-export function useGridPanelDropDetectors({
+export function useGridCardDropDetectors({
   watcherRef,
   positionInChildren,
   parentPath,

@@ -31,7 +31,7 @@ gridlayout::grid_page(
       step = 1L
     )
   ),
-  gridlayout::grid_panel_text(
+  gridlayout::grid_card_text(
     area = "header",
     content = "Text from Chooser",
     h_align = "start",

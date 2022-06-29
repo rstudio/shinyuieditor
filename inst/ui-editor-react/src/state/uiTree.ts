@@ -22,7 +22,7 @@ export const initialUiTree: ShinyUiNode = {
   },
   uiChildren: [
     {
-      uiName: "gridlayout::grid_panel_text",
+      uiName: "gridlayout::grid_card_text",
       uiArguments: {
         area: "msg",
         content: "Loading App...",
@@ -47,7 +47,7 @@ export const backupUiTree: ShinyUiNode = {
   },
   uiChildren: [
     {
-      uiName: "gridlayout::grid_panel_text",
+      uiName: "gridlayout::grid_card_text",
       uiArguments: {
         area: "header",
         content: "My App",

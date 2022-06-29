@@ -36,7 +36,7 @@ gridlayout::grid_page(
       )
     )
   ),
-  gridlayout::grid_panel_text(
+  gridlayout::grid_card_text(
     area = "header",
     content = "Text from Chooser",
     h_align = "start",

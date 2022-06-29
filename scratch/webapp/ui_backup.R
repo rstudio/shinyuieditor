@@ -5,7 +5,7 @@ gridlayout::grid_page(
 | 100px | header  | header |
 | 1fr   | sidebar |  blue  |
 | 1fr   | sidebar |  plot  |",
-  gridlayout::grid_panel_text(
+  gridlayout::grid_card_text(
     area = "header",
     title = "My App"
   ),

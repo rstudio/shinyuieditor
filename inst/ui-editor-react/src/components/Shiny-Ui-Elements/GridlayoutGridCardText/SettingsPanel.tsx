@@ -11,7 +11,7 @@ import { TextInput } from "components/Inputs/TextInput/TextInput";
 
 import type { SettingsUpdaterComponent } from "../uiNodeTypes";
 
-import type { GridlayoutTextPanelProps } from ".";
+import type { GridlayoutGridCardTextProps } from ".";
 
 const horizontalAlignOptions = {
   start: { icon: alignTextLeft, label: "left" },
@@ -19,8 +19,8 @@ const horizontalAlignOptions = {
   end: { icon: alignTextRight, label: "right" },
 };
 
-export const GridlayoutTextPanelSettings: SettingsUpdaterComponent<
-  GridlayoutTextPanelProps
+export const GridlayoutGridCardTextSettings: SettingsUpdaterComponent<
+  GridlayoutGridCardTextProps
 > = ({ settings }) => {
   return (
     <>

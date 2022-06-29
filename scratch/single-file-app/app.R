@@ -40,7 +40,7 @@ ui <- grid_page(
       )
     )
   ),
-  grid_panel_text(
+  grid_card_text(
     area = "header",
     content = "Single File App",
     h_align = "start",
