@@ -11,7 +11,6 @@ import UiNode from "components/UiNode";
 import type { DraggedNodeInfo } from "DragAndDropHelpers/DragAndDropHelpers";
 import { useDispatch } from "react-redux";
 import { UPDATE_NODE, usePlaceNode } from "state/uiTree";
-import { enumerateGridDims, toStringLoc } from "utils/grid-helpers";
 import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
 import type { GridItemExtent } from "utils/gridTemplates/types";
@@ -24,6 +23,7 @@ import type { TemplatedGridProps } from ".";
 import EditableGridContainer from "./EditableGridContainer";
 import type { GridLayoutAction } from "./gridLayoutReducer";
 import { gridLayoutReducer } from "./gridLayoutReducer";
+import { enumerateGridDims, toStringLoc } from "./helpers";
 import { NameNewPanelModal } from "./NameNewPanelModal";
 import classes from "./styles.module.css";
 
