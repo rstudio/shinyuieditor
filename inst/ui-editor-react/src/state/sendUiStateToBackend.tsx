@@ -13,8 +13,11 @@ function sendToBackend(state: ShinyUiNode) {
       }
       return response.text();
     })
+    .then(function (response_text) {
+      console.log("Successfully sent ui state to backend", { response_text });
+    })
     .catch((e) => {
-      // console.warn("Failed to send error to backend", e);
+      console.warn("Failed to send error to backend", e);
     });
 }
 
