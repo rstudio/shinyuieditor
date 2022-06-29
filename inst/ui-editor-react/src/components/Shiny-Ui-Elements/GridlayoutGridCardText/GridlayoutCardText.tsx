@@ -9,7 +9,7 @@ import type { GridlayoutGridCardTextProps } from "./index";
 import classes from "./styles.module.css";
 
 const GridlayoutGridCardText: UiNodeComponent<GridlayoutGridCardTextProps> = ({
-  uiArguments: { content: title, area, h_align },
+  uiArguments: { content: title, area, alignment },
   children,
   nodeInfo: { path },
   eventHandlers,
@@ -21,7 +21,7 @@ const GridlayoutGridCardText: UiNodeComponent<GridlayoutGridCardTextProps> = ({
     <div
       ref={compRef}
       className={classes.textPanel + " gridlayout-textPanel"}
-      style={{ gridArea: area, justifyItems: h_align }}
+      style={{ gridArea: area, justifyItems: alignment }}
       aria-label={"gridlayout-textPanel"}
       {...eventHandlers}
     >

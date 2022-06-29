@@ -64,15 +64,24 @@ export function useGridCardDropDetectors({
 // dumped into the current grid_panel
 function getInfoOfDropped(node: ShinyUiNode): ShinyUiNode | null {
   // We can't place grid panels inside of other grid panels
-  if (node.uiName.includes("gridlayout::grid_panel_")) {
+
+  const node_type = node.uiName;
+
+  // If it's a grid card with a single child, then then drag just looks like
+  // moving that child
+  if (node_type === "gridlayout::grid_card" && node.uiChildren?.length === 1) {
+    return node.uiChildren[0];
+  }
+
+  if (node_type.includes("gridlayout::grid_card")) {
     return null;
   }
 
-  // Since plain grid panels have just a single element, we can just grab what's
-  // inside that element for placement
-  if (node.uiName === "gridlayout::grid_card" && node.uiChildren?.[0]) {
-    return node.uiChildren[0];
-  }
+  // // Since plain grid panels have just a single element, we can just grab what's
+  // // inside that element for placement
+  // if (node.uiName === "gridlayout::grid_card" && node.uiChildren?.[0]) {
+  //
+  // }
 
   return node;
 }

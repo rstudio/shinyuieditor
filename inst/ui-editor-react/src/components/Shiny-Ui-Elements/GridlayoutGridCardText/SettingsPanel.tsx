@@ -35,10 +35,10 @@ export const GridlayoutGridCardTextSettings: SettingsUpdaterComponent<
         value={settings.content}
       />
       <RadioInputs
-        name="h_align"
+        name="alignment"
         label="Text Alignment"
         options={horizontalAlignOptions}
-        currentSelection={settings.h_align}
+        currentSelection={settings.alignment}
         optionsPerColumn={3}
       />
       <BooleanInput

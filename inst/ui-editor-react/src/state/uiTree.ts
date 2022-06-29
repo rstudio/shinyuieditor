@@ -26,7 +26,7 @@ export const initialUiTree: ShinyUiNode = {
       uiArguments: {
         area: "msg",
         content: "Loading App...",
-        h_align: "center",
+        alignment: "center",
       },
     },
   ],
@@ -51,7 +51,7 @@ export const backupUiTree: ShinyUiNode = {
       uiArguments: {
         area: "header",
         content: "My App",
-        h_align: "start",
+        alignment: "start",
         is_title: true,
       },
     },

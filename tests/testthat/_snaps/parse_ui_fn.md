@@ -2,10 +2,10 @@
 
     Code
       parse_ui_fn(rlang::expr(gridlayout::grid_page(layout = "\n            | 1rem | 250px   | 1fr  |\n            |------|---------|------|\n            | 1fr  | sidebar | plot |",
-        gridlayout::grid_panel_stack(area = "sidebar", item_alignment = "center",
-          shiny::sliderInput(inputId = "bins", label = "Num Bins", min = 10L, max = 100L,
-            value = 40L)), gridlayout::grid_panel_stack(area = "plot",
-          item_alignment = "center", shiny::plotOutput(outputId = "distPlot", height = "100%")))))
+        gridlayout::grid_card(area = "sidebar", item_alignment = "center", shiny::sliderInput(
+          inputId = "bins", label = "Num Bins", min = 10L, max = 100L, value = 40L)),
+        gridlayout::grid_card(area = "plot", item_alignment = "center", shiny::plotOutput(
+          outputId = "distPlot", height = "100%")))))
     Output
       $uiName
       [1] "gridlayout::grid_page"
@@ -18,7 +18,7 @@
       $uiChildren
       $uiChildren[[1]]
       $uiChildren[[1]]$uiName
-      [1] "gridlayout::grid_panel_stack"
+      [1] "gridlayout::grid_card"
       
       $uiChildren[[1]]$uiArguments
       $uiChildren[[1]]$uiArguments$area
@@ -55,7 +55,7 @@
       
       $uiChildren[[2]]
       $uiChildren[[2]]$uiName
-      [1] "gridlayout::grid_panel_stack"
+      [1] "gridlayout::grid_card"
       
       $uiChildren[[2]]$uiArguments
       $uiChildren[[2]]$uiArguments$area

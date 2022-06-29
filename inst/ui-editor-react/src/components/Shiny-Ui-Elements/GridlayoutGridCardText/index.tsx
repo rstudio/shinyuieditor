@@ -7,7 +7,7 @@ import { GridlayoutGridCardTextSettings } from "./SettingsPanel";
 
 export interface GridlayoutGridCardTextProps {
   content: string;
-  h_align: "center" | "start" | "end";
+  alignment: "center" | "start" | "end";
   area: string;
   is_title?: boolean;
 }
@@ -21,7 +21,7 @@ export const gridlayoutTextPanelInfo: UiComponentInfo<GridlayoutGridCardTextProp
     defaultSettings: {
       area: "text_panel",
       content: "Text from Chooser",
-      h_align: "start",
+      alignment: "start",
     },
     iconSrc: textIcon,
     category: "gridlayout",
