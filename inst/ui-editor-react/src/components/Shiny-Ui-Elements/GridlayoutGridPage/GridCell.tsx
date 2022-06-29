@@ -34,7 +34,13 @@ export function GridCell({
     <div
       className="grid-cell"
       ref={cellRef}
-      style={{ gridRow, gridColumn }}
-    ></div>
+      style={{
+        gridRow,
+        gridColumn,
+        // By insetting a tiny bit we ensure that the cells won't peak out from
+        // behind any item placed over them
+        margin: "2px",
+      }}
+    />
   );
 }
