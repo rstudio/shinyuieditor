@@ -14,7 +14,7 @@ export interface GridlayoutGridCardTextProps {
 
 export const gridlayoutTextPanelInfo: UiComponentInfo<GridlayoutGridCardTextProps> =
   {
-    title: "Text Panel",
+    title: "Grid Text Card",
     UiComponent: GridlayoutGridCardText,
     SettingsComponent: GridlayoutGridCardTextSettings,
     acceptsChildren: false,

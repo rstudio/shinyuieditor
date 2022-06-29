@@ -7,6 +7,8 @@ import type {
 } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import UiNode from "components/UiNode";
 
+import { BsCard, BsCardHeader } from "../GridLayoutPanelHelpers/GridCards";
+
 import type { GridCardSettings } from "./index";
 
 import classes from "./styles.module.css";
@@ -26,10 +28,8 @@ const GridlayoutGridCard: UiContainerNodeComponent<GridCardSettings> = ({
   useGridItemSwapping({ containerRef: compRef, area, path });
 
   return (
-    <div
-      className={
-        classes.container + " card " + (title ? classes.withTitle : "")
-      }
+    <BsCard
+      className={classes.container + " " + (title ? classes.withTitle : "")}
       ref={compRef}
       style={
         {
@@ -40,7 +40,7 @@ const GridlayoutGridCard: UiContainerNodeComponent<GridCardSettings> = ({
       onClick={eventHandlers.onClick}
     >
       {title ? (
-        <div className={classes.panelTitle + " card-header"}>{title}</div>
+        <BsCardHeader className={classes.panelTitle}>{title}</BsCardHeader>
       ) : null}
       <div className={classes.contentHolder} data-alignment="top">
         <DropWatcherPanel
@@ -64,7 +64,7 @@ const GridlayoutGridCard: UiContainerNodeComponent<GridCardSettings> = ({
         )}
       </div>
       {children}
-    </div>
+    </BsCard>
   );
 };
 

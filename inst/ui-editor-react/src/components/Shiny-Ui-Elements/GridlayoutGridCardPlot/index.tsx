@@ -12,7 +12,7 @@ export interface GridlayoutGridCardPlotProps {
 
 export const GridlayoutGridCardPlotInfo: UiComponentInfo<GridlayoutGridCardPlotProps> =
   {
-    title: "Plot Panel",
+    title: "Grid Plot Card",
     UiComponent: GridlayoutGridCardPlot,
     SettingsComponent: GridlayoutGridCardPlotSettings,
     acceptsChildren: false,

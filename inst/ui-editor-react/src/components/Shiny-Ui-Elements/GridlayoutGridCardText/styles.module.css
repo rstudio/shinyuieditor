@@ -1,6 +1,6 @@
 .textPanel {
   background-color: var(--rstudio-white);
-  outline: var(--outline);
+  /* outline: var(--outline); */
   display: grid;
   align-items: center;
   width: 100%;

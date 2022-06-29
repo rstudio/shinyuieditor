@@ -3,6 +3,7 @@ import * as React from "react";
 import type { UiNodeComponent } from "components/Shiny-Ui-Elements/uiNodeTypes";
 
 import { useGridItemSwapping } from "../GridlayoutGridCard/useGridItemSwapping";
+import { BsCard } from "../GridLayoutPanelHelpers/GridCards";
 import { PlotPlaceholder } from "../ShinyPlotOutput/PlotPlaceholder";
 
 import type { GridlayoutGridCardPlotProps } from "./index";
@@ -19,7 +20,7 @@ const GridlayoutGridCardPlot: UiNodeComponent<GridlayoutGridCardPlotProps> = ({
   useGridItemSwapping({ containerRef: compRef, area, path });
 
   return (
-    <div
+    <BsCard
       ref={compRef}
       style={{ gridArea: area }}
       className={classes.gridCardPlot + " gridlayout-gridCardPlot"}
@@ -28,7 +29,7 @@ const GridlayoutGridCardPlot: UiNodeComponent<GridlayoutGridCardPlotProps> = ({
     >
       <PlotPlaceholder outputId={outputId ?? area} />
       {children}
-    </div>
+    </BsCard>
   );
 };
 export default GridlayoutGridCardPlot;

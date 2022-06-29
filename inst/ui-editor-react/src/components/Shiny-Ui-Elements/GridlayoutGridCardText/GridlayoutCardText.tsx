@@ -3,6 +3,7 @@ import * as React from "react";
 import type { UiNodeComponent } from "components/Shiny-Ui-Elements/uiNodeTypes";
 
 import { useGridItemSwapping } from "../GridlayoutGridCard/useGridItemSwapping";
+import { BsCard } from "../GridLayoutPanelHelpers/GridCards";
 
 import type { GridlayoutGridCardTextProps } from "./index";
 
@@ -18,7 +19,7 @@ const GridlayoutGridCardText: UiNodeComponent<GridlayoutGridCardTextProps> = ({
   useGridItemSwapping({ containerRef: compRef, area, path });
 
   return (
-    <div
+    <BsCard
       ref={compRef}
       className={classes.textPanel + " gridlayout-textPanel"}
       style={{ gridArea: area, justifyItems: alignment }}
@@ -27,7 +28,7 @@ const GridlayoutGridCardText: UiNodeComponent<GridlayoutGridCardTextProps> = ({
     >
       <h1>{title}</h1>
       {children}
-    </div>
+    </BsCard>
   );
 };
 export default GridlayoutGridCardText;
