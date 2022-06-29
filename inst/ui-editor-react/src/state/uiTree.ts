@@ -86,7 +86,7 @@ export const backupUiTree: ShinyUiNode = {
       ],
     },
     {
-      uiName: "gridlayout::grid_panel_plot",
+      uiName: "gridlayout::grid_card_plot",
       uiArguments: {
         area: "plot",
       },

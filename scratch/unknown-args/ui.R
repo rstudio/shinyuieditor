@@ -50,6 +50,6 @@ gridlayout::grid_page(
     scrollable = TRUE,
     gt::gt_output("stockTable")
   ),
-  gridlayout::grid_panel_plot(area = "bluePlot"),
-  gridlayout::grid_panel_plot(area = "distPlot")
+  gridlayout::grid_card_plot(area = "bluePlot"),
+  gridlayout::grid_card_plot(area = "distPlot")
 )

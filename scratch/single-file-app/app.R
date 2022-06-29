@@ -54,8 +54,8 @@ ui <- grid_page(
     scrollable = TRUE,
     gt::gt_output("stockTable")
   ),
-  grid_panel_plot(area = "bluePlot"),
-  grid_panel_plot(area = "distPlot")
+  grid_card_plot(area = "bluePlot"),
+  grid_card_plot(area = "distPlot")
 )
 
 

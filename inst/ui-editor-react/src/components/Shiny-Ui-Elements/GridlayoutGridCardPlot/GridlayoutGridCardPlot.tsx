@@ -5,13 +5,11 @@ import type { UiNodeComponent } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { useGridItemSwapping } from "../GridlayoutGridCard/useGridItemSwapping";
 import { PlotPlaceholder } from "../ShinyPlotOutput/PlotPlaceholder";
 
-import type { GridlayoutGridPanelPlotProps } from "./index";
+import type { GridlayoutGridCardPlotProps } from "./index";
 
 import classes from "./styles.module.css";
 
-const GridlayoutGridPanelPlot: UiNodeComponent<
-  GridlayoutGridPanelPlotProps
-> = ({
+const GridlayoutGridCardPlot: UiNodeComponent<GridlayoutGridCardPlotProps> = ({
   uiArguments: { outputId, area },
   children,
   nodeInfo: { path },
@@ -24,8 +22,8 @@ const GridlayoutGridPanelPlot: UiNodeComponent<
     <div
       ref={compRef}
       style={{ gridArea: area }}
-      className={classes.gridPanelPlot + " gridlayout-gridPanelPlot"}
-      aria-label={"gridlayout-gridPanelPlot"}
+      className={classes.gridCardPlot + " gridlayout-gridCardPlot"}
+      aria-label={"gridlayout-gridCardPlot"}
       {...eventHandlers}
     >
       <PlotPlaceholder outputId={outputId ?? area} compRef={compRef} />
@@ -33,4 +31,4 @@ const GridlayoutGridPanelPlot: UiNodeComponent<
     </div>
   );
 };
-export default GridlayoutGridPanelPlot;
+export default GridlayoutGridCardPlot;

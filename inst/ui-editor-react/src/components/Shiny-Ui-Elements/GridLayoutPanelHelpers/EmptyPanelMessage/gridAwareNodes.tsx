@@ -7,12 +7,12 @@ export type GridAwareNodes = Extract<
   | "gridlayout::grid_card"
   | "gridlayout::grid_panel_text"
   | "gridlayout::grid_card"
-  | "gridlayout::grid_panel_plot"
+  | "gridlayout::grid_card_plot"
 >;
 
 export const gridAwareNodes: ShinyUiNames[] = [
   "gridlayout::grid_card",
   "gridlayout::grid_panel_text",
   "gridlayout::grid_card",
-  "gridlayout::grid_panel_plot",
+  "gridlayout::grid_card_plot",
 ];

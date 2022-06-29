@@ -1,4 +1,4 @@
-.gridPanelPlot {
+.gridCardPlot {
   background-color: var(--rstudio-white);
   outline: var(--outline);
   width: 100%;
@@ -8,6 +8,6 @@
   position: relative;
 }
 
-.gridPanelPlot > h1 {
+.gridCardPlot > h1 {
   font-size: 2rem;
 }

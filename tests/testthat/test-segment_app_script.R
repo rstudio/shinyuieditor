@@ -13,7 +13,7 @@ ui <- grid_page(
     h_align = "start",
     is_title = FALSE
   ),
-  grid_panel_plot(area = "distPlot")
+  grid_card_plot(area = "distPlot")
 )
 
 
@@ -62,5 +62,5 @@ new_ui_text <- 'grid_page(
     content = "A new title",
     is_title = FALSE
   ),
-  grid_panel_plot(area = "histogram")
+  grid_card_plot(area = "histogram")
 )'

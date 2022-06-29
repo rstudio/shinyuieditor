@@ -4,10 +4,10 @@ import { TextInput } from "components/Inputs/TextInput/TextInput";
 
 import type { SettingsUpdaterComponent } from "../uiNodeTypes";
 
-import type { GridlayoutGridPanelPlotProps } from ".";
+import type { GridlayoutGridCardPlotProps } from ".";
 
-export const GridlayoutGridPanelPlotSettings: SettingsUpdaterComponent<
-  GridlayoutGridPanelPlotProps
+export const GridlayoutGridCardPlotSettings: SettingsUpdaterComponent<
+  GridlayoutGridCardPlotProps
 > = ({ settings: { area, outputId } }) => {
   return (
     <>

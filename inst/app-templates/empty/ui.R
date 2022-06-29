@@ -32,5 +32,5 @@ gridlayout::grid_page(
       width = "100%"
     )
   ),
-  gridlayout::grid_panel_plot(area = "distPlot")
+  gridlayout::grid_card_plot(area = "distPlot")
 )

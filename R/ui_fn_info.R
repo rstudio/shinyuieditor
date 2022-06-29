@@ -14,7 +14,7 @@ ui_fn_names_namespaced <- c(
   "gridlayout::grid_page",
   "gridlayout::grid_card",
   "gridlayout::grid_panel_text",
-  "gridlayout::grid_panel_plot",
+  "gridlayout::grid_card_plot",
   "gridlayout::grid_card"
 )
 
