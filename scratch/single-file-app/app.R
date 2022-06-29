@@ -20,7 +20,7 @@ ui <- grid_page(
   ),
   col_sizes = c("250px","1fr"),
   gap_size = "1rem",
-  grid_panel_stack(
+  grid_card(
     area = "sidebar",
     item_alignment = "top",
     item_gap = "12px",
@@ -46,7 +46,7 @@ ui <- grid_page(
     h_align = "start",
     is_title = FALSE
   ),
-  grid_panel_stack(
+  grid_card(
     area = "table",
     item_alignment = "center",
     item_gap = "12px",

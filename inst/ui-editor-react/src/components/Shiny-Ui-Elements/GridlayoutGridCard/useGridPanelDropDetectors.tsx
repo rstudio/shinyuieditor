@@ -70,7 +70,7 @@ function getInfoOfDropped(node: ShinyUiNode): ShinyUiNode | null {
 
   // Since plain grid panels have just a single element, we can just grab what's
   // inside that element for placement
-  if (node.uiName === "gridlayout::grid_panel" && node.uiChildren?.[0]) {
+  if (node.uiName === "gridlayout::grid_card" && node.uiChildren?.[0]) {
     return node.uiChildren[0];
   }
 

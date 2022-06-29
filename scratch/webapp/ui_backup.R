@@ -9,7 +9,7 @@ gridlayout::grid_page(
     area = "header",
     title = "My App"
   ),
-  gridlayout::grid_panel_stack(
+  gridlayout::grid_card(
     area = "sidebar",
     item_alignment = "center",
     item_gap = "12px",
@@ -23,7 +23,7 @@ gridlayout::grid_page(
       width = "100%"
     )
   ),
-  gridlayout::grid_panel_stack(
+  gridlayout::grid_card(
     area = "plot",
     item_alignment = "center",
     item_gap = "12px",
@@ -33,7 +33,7 @@ gridlayout::grid_page(
       height = "400px"
     )
   ),
-  gridlayout::grid_panel_stack(
+  gridlayout::grid_card(
     area = "blue",
     item_alignment = "center",
     item_gap = "12px",

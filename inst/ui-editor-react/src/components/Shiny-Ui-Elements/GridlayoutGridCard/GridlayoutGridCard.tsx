@@ -7,12 +7,12 @@ import type {
 import UiNode from "components/UiNode";
 
 import { EmptyGridPanelMessage } from "../GridLayoutPanelHelpers/EmptyPanelMessage";
-import { useGridItemSwapping } from "../GridlayoutVerticalStackPanel/useGridItemSwapping";
-import { useGridPanelDropDetectors } from "../GridlayoutVerticalStackPanel/useGridPanelDropDetectors";
 
 import type { GridCardSettings } from "./index";
 
 import classes from "./styles.module.css";
+import { useGridItemSwapping } from "./useGridItemSwapping";
+import { useGridPanelDropDetectors } from "./useGridPanelDropDetectors";
 
 const GridlayoutGridCard: UiContainerNodeComponent<GridCardSettings> = ({
   uiArguments: { area, item_alignment, item_gap, title },

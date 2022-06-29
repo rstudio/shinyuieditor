@@ -2,7 +2,7 @@ import * as React from "react";
 
 import type { UiNodeComponent } from "components/Shiny-Ui-Elements/uiNodeTypes";
 
-import { useGridItemSwapping } from "../GridlayoutVerticalStackPanel/useGridItemSwapping";
+import { useGridItemSwapping } from "../GridlayoutGridCard/useGridItemSwapping";
 import { PlotPlaceholder } from "../ShinyPlotOutput/PlotPlaceholder";
 
 import type { GridlayoutGridPanelPlotProps } from "./index";

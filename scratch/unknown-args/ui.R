@@ -16,7 +16,7 @@ gridlayout::grid_page(
     "1fr"
   ),
   gap_size = "1rem",
-  gridlayout::grid_panel_stack(
+  gridlayout::grid_card(
     area = "sidebar",
     item_alignment = "top",
     item_gap = "12px",
@@ -42,7 +42,7 @@ gridlayout::grid_page(
     h_align = "start",
     is_title = FALSE
   ),
-  gridlayout::grid_panel_stack(
+  gridlayout::grid_card(
     area = "table",
     item_alignment = "center",
     item_gap = "12px",

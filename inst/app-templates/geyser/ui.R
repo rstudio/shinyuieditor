@@ -20,7 +20,7 @@ gridlayout::grid_page(
     h_align = "start",
     is_title = TRUE
   ),
-  gridlayout::grid_panel_stack(
+  gridlayout::grid_card(
     area = "sidebar",
     item_alignment = "top",
     item_gap = "12px",

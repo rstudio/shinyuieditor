@@ -144,7 +144,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
         node.uiArguments = argsWithArea;
       } else {
         node = {
-          uiName: "gridlayout::grid_panel_stack",
+          uiName: "gridlayout::grid_card",
           uiArguments: {
             area: name,
             item_alignment: "center",

@@ -7,8 +7,8 @@ import type {
 import UiNode from "components/UiNode";
 import { useDropHandlers } from "DragAndDropHelpers/useDropHandlers";
 
+import { useGridItemSwapping } from "../GridlayoutGridCard/useGridItemSwapping";
 import { EmptyGridPanelMessage } from "../GridLayoutPanelHelpers/EmptyPanelMessage";
-import { useGridItemSwapping } from "../GridlayoutVerticalStackPanel/useGridItemSwapping";
 
 import type { GridPanelSettings, Alignments } from "./index";
 
@@ -16,8 +16,7 @@ import classes from "./styles.module.css";
 
 const rejectedNodes: ShinyUiNames[] = [
   "gridlayout::grid_page",
-  "gridlayout::grid_panel",
-  "gridlayout::grid_panel_stack",
+  "gridlayout::grid_card",
 ];
 const GridlayoutGridPanel: UiContainerNodeComponent<GridPanelSettings> = ({
   uiChildren,

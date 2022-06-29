@@ -1,4 +1,4 @@
-// import containerIcon from "assets/icons/shinyContainer.png";
+import containerIcon from "assets/icons/shinyContainer.png";
 import type { CSSMeasure } from "CSSMeasure";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
@@ -21,13 +21,13 @@ export const gridlayoutGridCardDefaultSettings: GridCardSettings = {
 };
 
 export const gridlayoutGridCardInfo: UiComponentInfo<GridCardSettings> = {
-  title: "Card",
+  title: "Stack Panel",
   UiComponent: GridlayoutGridCard,
   SettingsComponent: GridlayoutGridCardSettings,
   acceptsChildren: true,
   defaultSettings: gridlayoutGridCardDefaultSettings,
-  // iconSrc: containerIcon,
+  iconSrc: containerIcon,
   category: "gridlayout",
 };
 
-export default GridlayoutGridCard;
+export default gridlayoutGridCardInfo;
