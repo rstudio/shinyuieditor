@@ -4,7 +4,6 @@ import type { DeleteAction, UpdateAction } from "state/uiTree";
 
 import gridlayoutGridCardInfo from "./GridlayoutGridCard";
 import { gridlayoutGridPageInfo } from "./GridlayoutGridPage";
-import { gridLayoutGridPanelInfo } from "./GridlayoutGridPanel";
 import { GridlayoutGridPanelPlotInfo } from "./GridlayoutGridPanelPlot";
 import { gridlayoutTextPanelInfo } from "./GridlayoutTextPanel";
 import { shinyActionButtonInfo } from "./ShinyActionButton";
