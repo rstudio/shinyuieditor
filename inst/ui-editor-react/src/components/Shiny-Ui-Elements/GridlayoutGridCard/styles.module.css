@@ -5,7 +5,7 @@
   /* Stop blowout and enable properties like padding to be used as expected */
   min-width: 0;
   background-color: var(--rstudio-white, white);
-  outline: var(--outline);
+  /* outline: var(--outline); */
   --card-padding: 6px;
   isolation: isolate;
 }
@@ -21,9 +21,7 @@
 
 .panelTitle {
   grid-area: title;
-  font-size: 1.3rem;
-  border-bottom: 1px solid var(--light-grey);
-  padding: calc(var(--card-padding) / 2) var(--card-padding);
+  padding: var(--card-padding) calc(var(--card-padding) * 1.5);
 }
 
 .contentHolder {

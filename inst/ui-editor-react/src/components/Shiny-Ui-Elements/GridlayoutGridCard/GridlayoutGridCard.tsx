@@ -27,7 +27,9 @@ const GridlayoutGridCard: UiContainerNodeComponent<GridCardSettings> = ({
 
   return (
     <div
-      className={classes.container + " " + (title ? classes.withTitle : "")}
+      className={
+        classes.container + " card " + (title ? classes.withTitle : "")
+      }
       ref={compRef}
       style={
         {
@@ -37,7 +39,9 @@ const GridlayoutGridCard: UiContainerNodeComponent<GridCardSettings> = ({
       }
       onClick={eventHandlers.onClick}
     >
-      {title ? <h2 className={classes.panelTitle}>{title}</h2> : null}
+      {title ? (
+        <div className={classes.panelTitle + " card-header"}>{title}</div>
+      ) : null}
       <div className={classes.contentHolder} data-alignment="top">
         <DropWatcherPanel
           index={0}
