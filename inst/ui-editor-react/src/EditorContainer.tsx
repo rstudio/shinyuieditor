@@ -8,15 +8,15 @@ import { CurrentDraggedNodeProvider } from "DragAndDropHelpers/useCurrentDragged
 import ElementsPalette from "ElementsPalette";
 import PortalModal from "PortalModal";
 import { useDispatch, useSelector } from "react-redux";
-import { sendUiStateToBackend } from "state/sendUiStateToBackend";
 import type { RootState } from "state/store";
-import { backupUiTree, initialUiTree, INIT_STATE } from "state/uiTree";
+import { backupUiTree, INIT_STATE } from "state/uiTree";
 
 import { AppTour } from "./AppTour";
 import { UndoRedoButtons } from "./components/UndoRedoButtons/UndoRedoButtons";
 import classes from "./EditorContainer.module.css";
 import { SettingsPanel } from "./SettingsPanel/SettingsPanel";
 import { useGetUiFromBackend } from "./websocket_hooks/useGetUiFromBackend";
+import { useSendUiToBackend } from "./websocket_hooks/useSendUiToBackend";
 
 export const PROPERTIES_PANEL_WIDTH_PX = 236;
 
@@ -40,10 +40,7 @@ function EditorContainerWithData({
     dispatch(INIT_STATE({ initialState }));
   }, [dispatch, initialState]);
 
-  React.useEffect(() => {
-    if (tree === initialUiTree) return;
-    sendUiStateToBackend(tree);
-  }, [tree]);
+  useSendUiToBackend(tree);
 
   return (
     <CurrentDraggedNodeProvider>

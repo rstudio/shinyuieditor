@@ -136,22 +136,6 @@ launch_editor <- function(app_loc,
           }
         ),
         "POST" = list(
-          # "/UiDump" = function(body) {
-          #
-          #   updated_file_lines <- update_ui_definition(
-          #     file_info = app_info,
-          #     new_ui_tree = body,
-          #     remove_namespace = remove_namespace
-          #   )
-          #
-          #   writeLines(
-          #     text = updated_file_lines,
-          #     con = ui_file$path
-          #   )
-          #
-          #   writeLog("<= Saved new ui state from client")
-          #   text_response("App Dump received, thanks")
-          # },
           "/ValidateArgs" = function(body) {
             json_response(
               validate_ui_fn_call(
@@ -165,10 +149,14 @@ launch_editor <- function(app_loc,
       )),
       onWSOpen = function(ws) {
         # The ws object is a WebSocket object
-
         ws$onMessage(function(binary, raw_message) {
 
-          message <- jsonlite::fromJSON(rawToChar(raw_message))
+          # The messages all come over in binary blob format with a type and an
+          # optional payload field.
+          message <- jsonlite::fromJSON(
+            rawToChar(raw_message),
+            simplifyVector = FALSE
+          )
 
           if (message$type == "APP-PREVIEW-CONNECTED") {
             writeLog("Preview app connection opened.\n")
@@ -176,6 +164,7 @@ launch_editor <- function(app_loc,
             msg_app_logs(preview_app, ws)
             listen_for_crash(preview_app, ws)
           }
+
           if(message$type == "APP-PREVIEW-RESTART"){
             writeLog("Restarting app preview process\n")
             preview_app$restart()
@@ -185,6 +174,7 @@ launch_editor <- function(app_loc,
             msg_when_ready(preview_app, ws)
             listen_for_crash(preview_app, ws, "restart")
           }
+
           if(message$type == "APP-PREVIEW-STOP"){
             writeLog("Stopping app preview process\n")
             preview_app$stop()
@@ -203,17 +193,14 @@ launch_editor <- function(app_loc,
             )
 
             ws$send(
-              build_ws_message(
-                "INITIAL-DATA",
-                app_info$ui_tree
-              )
+              build_ws_message("INITIAL-DATA", app_info$ui_tree)
             )
           }
 
           if (message$type == "UI-DUMP") {
             updated_file_lines <- update_ui_definition(
               file_info = app_info,
-              new_ui_tree = body,
+              new_ui_tree = message$payload,
               remove_namespace = remove_namespace
             )
 
