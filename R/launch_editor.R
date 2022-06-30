@@ -148,7 +148,6 @@ launch_editor <- function(app_loc,
           )
 
           if (message$type == "APP-PREVIEW-CONNECTED") {
-            writeLog("Preview app connection opened.\n")
             msg_when_ready(preview_app, ws)
             msg_app_logs(preview_app, ws)
             listen_for_crash(preview_app, ws)
@@ -203,8 +202,9 @@ launch_editor <- function(app_loc,
         })
 
         ws$onClose(function() {
+          # When the websocket connection closes we start the timer to check if
+          # it's a reload or a proper-closing of the window
           start_app_close_timeout()
-          writeLog("Websocket connection with app preview lost.\n")
         })
       },
       staticPaths = list(

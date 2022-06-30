@@ -50,10 +50,6 @@ export function useConnectToWebsocket() {
         console.warn("Lost connection to httpuv.");
       };
 
-      ws.addEventListener("message", (e) => {
-        console.log("Event from websocket", e);
-      });
-
       return () => ws.close();
     } catch {
       console.warn(
@@ -102,8 +98,6 @@ export function useWebsocketConnection(
   );
 
   React.useEffect(() => {
-    console.log("Container ws", wsConnection);
-
     switch (wsConnection.status) {
       case "connected":
         callback_fns.onConnected?.((type, payload) =>

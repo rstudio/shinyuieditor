@@ -26,8 +26,6 @@ export function useGetUiFromBackend() {
 
     switch (msg.type) {
       case "INITIAL-DATA":
-        console.log("Initial data from websocket!", payload);
-
         setConnectionStatus({
           status: "connected",
           uiTree: payload as ShinyUiNode,
