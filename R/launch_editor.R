@@ -263,7 +263,7 @@ listen_for_crash <- function(preview_app, ws, id = 1) {
 
 build_ws_message <- function(type, payload) {
   jsonlite::toJSON(list(
-    msg = type,
+    type = type,
     payload = payload
   ), auto_unbox = TRUE)
 }

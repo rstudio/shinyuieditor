@@ -24,7 +24,7 @@ export function useGetUiFromBackend() {
     const { payload } = msg;
     if (typeof payload === "string") return;
 
-    switch (msg.msg) {
+    switch (msg.type) {
       case "INITIAL-DATA":
         console.log("Initial data from websocket!", payload);
 

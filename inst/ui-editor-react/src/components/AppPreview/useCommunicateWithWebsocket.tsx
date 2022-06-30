@@ -44,16 +44,16 @@ type CommunicationState = CommonState &
 
 type PreviewAppMessage =
   | {
-      msg: "SHINY_READY" | "SHINY_CRASH";
+      type: "SHINY_READY" | "SHINY_CRASH";
       payload: string;
     }
   | {
-      msg: "SHINY_LOGS";
+      type: "SHINY_LOGS";
       payload: string[];
     };
 
 function isPreviewAppMessage(x: WebsocketMessage): x is PreviewAppMessage {
-  return ["SHINY_READY", "SHINY_CRASH", "SHINY_LOGS"].includes(x.msg);
+  return ["SHINY_READY", "SHINY_CRASH", "SHINY_LOGS"].includes(x.type);
 }
 
 export function useCommunicateWithWebsocket(): CommunicationState {
@@ -66,7 +66,7 @@ export function useCommunicateWithWebsocket(): CommunicationState {
   const listenForAppStatus = React.useCallback((msg: WebsocketMessage) => {
     if (!isPreviewAppMessage(msg)) return;
 
-    switch (msg.msg) {
+    switch (msg.type) {
       case "SHINY_READY":
         setCrashed(false);
         setNoPreview(false);

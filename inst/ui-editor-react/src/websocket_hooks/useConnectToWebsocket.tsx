@@ -6,7 +6,7 @@ type WebsocketConnection =
   | { status: "failed-to-open" }
   | { status: "closed"; error_msg?: string };
 
-export type WebsocketMessage = { msg: string; payload?: string | object };
+export type WebsocketMessage = { type: string; payload?: string | object };
 
 export function useConnectToWebsocket() {
   const [connection, setConnection] = React.useState<WebsocketConnection>({
