@@ -6,8 +6,6 @@ type WebsocketConnection =
   | { status: "failed-to-open" }
   | { status: "closed"; error_msg?: string };
 
-type WebsocketStatus = WebsocketConnection["status"];
-
 export type WebsocketMessage = { msg: string; payload?: string | object };
 
 export function useConnectToWebsocket() {

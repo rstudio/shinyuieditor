@@ -11,16 +11,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { sendUiStateToBackend } from "state/sendUiStateToBackend";
 import type { RootState } from "state/store";
 import { backupUiTree, initialUiTree, INIT_STATE } from "state/uiTree";
-import type {
-  WebsocketCallbacks,
-  WebsocketMessage,
-} from "useConnectToWebsocket";
-import { useWebsocketConnection } from "useConnectToWebsocket";
 
 import { AppTour } from "./AppTour";
 import { UndoRedoButtons } from "./components/UndoRedoButtons/UndoRedoButtons";
 import classes from "./EditorContainer.module.css";
 import { SettingsPanel } from "./SettingsPanel/SettingsPanel";
+import { useGetUiFromBackend } from "./websocket_hooks/useGetUiFromBackend";
 
 export const PROPERTIES_PANEL_WIDTH_PX = 236;
 
@@ -108,54 +104,18 @@ function LostConnectionPopup() {
   );
 }
 
-type BackendConnection =
-  | { status: "loading" }
-  | { status: "no-backend" }
-  | { status: "connected"; uiTree: ShinyUiNode };
-
 export function EditorContainer() {
-  // const { isLoading, error, data } = useGetInitialStateQuery("test");
+  const { status, uiTree } = useGetUiFromBackend();
 
-  const [connectionStatus, setConnectionStatus] =
-    React.useState<BackendConnection>({ status: "loading" });
-
-  const websocketEventListeners: WebsocketCallbacks = React.useMemo(
-    () => ({
-      onConnected: (ws) => ws.send("INITIAL-LOAD-DATA"),
-      onFailedToOpen: () => setConnectionStatus({ status: "no-backend" }),
-    }),
-    []
-  );
-
-  const messageListeners = React.useCallback((msg: WebsocketMessage) => {
-    console.log("Websocket message", msg);
-    const { payload } = msg;
-    if (typeof payload === "string") return;
-
-    switch (msg.msg) {
-      case "INITIAL-DATA":
-        console.log("Initial data from websocket!", payload);
-
-        setConnectionStatus({
-          status: "connected",
-          uiTree: payload as ShinyUiNode,
-        });
-        break;
-    }
-  }, []);
-
-  useWebsocketConnection(websocketEventListeners, messageListeners);
-
-  if (connectionStatus.status === "loading") {
+  if (status === "loading") {
     return <h3>Loading initial state from server</h3>;
   }
 
-  if (connectionStatus.status === "no-backend") {
+  if (status === "no-backend") {
     console.warn(
       "Error retreiving app template from server. Running in static mode"
     );
-    return <EditorContainerWithData />;
   }
 
-  return <EditorContainerWithData initialState={connectionStatus.uiTree} />;
+  return <EditorContainerWithData initialState={uiTree} />;
 }

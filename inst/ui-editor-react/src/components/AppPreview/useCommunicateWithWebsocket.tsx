@@ -1,8 +1,8 @@
 import React from "react";
 
 import { useSetDisconnectedFromServer } from "state/connectedToServer";
-import type { WebsocketMessage } from "useConnectToWebsocket";
-import { useWebsocketConnection } from "useConnectToWebsocket";
+import type { WebsocketMessage } from "websocket_hooks/useConnectToWebsocket";
+import { useWebsocketConnection } from "websocket_hooks/useConnectToWebsocket";
 
 export type AppLogs = string[];
 
