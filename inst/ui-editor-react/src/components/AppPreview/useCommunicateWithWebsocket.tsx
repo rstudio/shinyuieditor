@@ -1,7 +1,10 @@
 import React from "react";
 
 import { useSetDisconnectedFromServer } from "state/connectedToServer";
-import type { WebsocketMessage } from "websocket_hooks/useConnectToWebsocket";
+import type {
+  WebsocketCallbacks,
+  WebsocketMessage,
+} from "websocket_hooks/useConnectToWebsocket";
 import { useWebsocketConnection } from "websocket_hooks/useConnectToWebsocket";
 
 export type AppLogs = string[];
@@ -78,12 +81,12 @@ export function useCommunicateWithWebsocket(): CommunicationState {
     }
   }, []);
 
-  const websocketStatusListeners = React.useMemo(
+  const websocketStatusListeners: WebsocketCallbacks = React.useMemo(
     () => ({
-      onConnected: (ws: WebSocket) => {
-        ws.send("APP-PREVIEW-CONNECTED");
-        setRestartApp(() => () => ws.send("APP-PREVIEW-RESTART"));
-        setStopApp(() => () => ws.send("APP-PREVIEW-STOP"));
+      onConnected: (sendMessage) => {
+        sendMessage("APP-PREVIEW-CONNECTED");
+        setRestartApp(() => () => sendMessage("APP-PREVIEW-RESTART"));
+        setStopApp(() => () => sendMessage("APP-PREVIEW-STOP"));
       },
       onClosed: set_disconnected,
       onFailedToOpen: () => setNoPreview(true),

@@ -81,7 +81,7 @@ export const WebsocketProvider: React.FC = ({ children }) => {
 };
 
 export type WebsocketCallbacks = {
-  onConnected?: (ws: WebSocket) => void;
+  onConnected?: (sendMessage: (type: string, payload?: object) => void) => void;
   onClosed?: () => void;
   onFailedToOpen?: () => void;
 };
@@ -106,7 +106,9 @@ export function useWebsocketConnection(
 
     switch (wsConnection.status) {
       case "connected":
-        callback_fns.onConnected?.(wsConnection.ws);
+        callback_fns.onConnected?.((type, payload) =>
+          wsConnection.ws.send(makeWebsocketMessage(type, payload))
+        );
         wsConnection.ws.addEventListener("message", listenForMessages);
 
         break;
@@ -119,4 +121,10 @@ export function useWebsocketConnection(
         break;
     }
   }, [callback_fns, listenForMessages, wsConnection]);
+}
+
+function makeWebsocketMessage(type: string, payload?: object) {
+  return new Blob([JSON.stringify({ type, payload }, null, 2)], {
+    type: "application/json",
+  });
 }

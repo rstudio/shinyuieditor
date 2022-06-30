@@ -13,7 +13,7 @@ export function useGetUiFromBackend() {
 
   const websocketEventListeners: WebsocketCallbacks = React.useMemo(
     () => ({
-      onConnected: (ws) => ws.send("INITIAL-LOAD-DATA"),
+      onConnected: (sendMessage) => sendMessage("INITIAL-LOAD-DATA"),
       onFailedToOpen: () =>
         setConnectionStatus({ status: "no-backend", uiTree: undefined }),
     }),
