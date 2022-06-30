@@ -42,6 +42,20 @@ type CrashState = {
 type CommunicationState = CommonState &
   (LoadingState | SuccessState | NoPreviewState | CrashState);
 
+type PreviewAppMessage =
+  | {
+      msg: "SHINY_READY" | "SHINY_CRASH";
+      payload: string;
+    }
+  | {
+      msg: "SHINY_LOGS";
+      payload: string[];
+    };
+
+function isPreviewAppMessage(x: WebsocketMessage): x is PreviewAppMessage {
+  return ["SHINY_READY", "SHINY_CRASH", "SHINY_LOGS"].includes(x.msg);
+}
+
 export function useCommunicateWithWebsocket(): CommunicationState {
   const set_disconnected = useSetDisconnectedFromServer();
   const [appLoc, setAppLoc] = React.useState<string | null>(null);
@@ -50,21 +64,19 @@ export function useCommunicateWithWebsocket(): CommunicationState {
   const [crashed, setCrashed] = React.useState<string | false>(false);
 
   const listenForAppStatus = React.useCallback((msg: WebsocketMessage) => {
-    const { payload = "" } = msg;
-
-    if (typeof payload !== "string") return;
+    if (!isPreviewAppMessage(msg)) return;
 
     switch (msg.msg) {
       case "SHINY_READY":
         setCrashed(false);
         setNoPreview(false);
-        setAppLoc(payload);
+        setAppLoc(msg.payload);
         break;
       case "SHINY_LOGS":
-        setAppLogs(ensureArray(payload));
+        setAppLogs(ensureArray(msg.payload));
         break;
       case "SHINY_CRASH":
-        setCrashed(payload);
+        setCrashed(msg.payload);
         break;
       default:
         console.warn("Unknown message from websocket. Ignoring", {
