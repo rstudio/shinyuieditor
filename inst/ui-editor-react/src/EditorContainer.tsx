@@ -12,6 +12,11 @@ import { useGetInitialStateQuery } from "state/getInitialState";
 import { sendUiStateToBackend } from "state/sendUiStateToBackend";
 import type { RootState } from "state/store";
 import { backupUiTree, initialUiTree, INIT_STATE } from "state/uiTree";
+import type {
+  WebsocketCallbacks,
+  WebsocketMessage,
+} from "useConnectToWebsocket";
+import { useWebsocketConnection } from "useConnectToWebsocket";
 
 import { AppTour } from "./AppTour";
 import { UndoRedoButtons } from "./components/UndoRedoButtons/UndoRedoButtons";
@@ -105,20 +110,56 @@ function LostConnectionPopup() {
   );
 }
 
+type BackendConnection =
+  | { status: "loading" }
+  | { status: "no-backend" }
+  | { status: "connected"; uiTree: ShinyUiNode };
+
 export function EditorContainer() {
-  const { isLoading, error, data } = useGetInitialStateQuery("test");
+  // const { isLoading, error, data } = useGetInitialStateQuery("test");
+
+  const [connectionStatus, setConnectionStatus] =
+    React.useState<BackendConnection>({ status: "loading" });
+
   useSendBrowserCloseMessage();
 
-  if (isLoading) {
+  const websocketEventListeners: WebsocketCallbacks = React.useMemo(
+    () => ({
+      onConnected: (ws) => ws.send("INITIAL-LOAD-DATA"),
+      onFailedToOpen: () => setConnectionStatus({ status: "no-backend" }),
+    }),
+    []
+  );
+
+  const messageListeners = React.useCallback((msg: WebsocketMessage) => {
+    console.log("Websocket message", msg);
+    const { payload } = msg;
+    if (typeof payload === "string") return;
+
+    switch (msg.msg) {
+      case "INITIAL-DATA":
+        console.log("Initial data from websocket!", payload);
+
+        setConnectionStatus({
+          status: "connected",
+          uiTree: payload as ShinyUiNode,
+        });
+        break;
+    }
+  }, []);
+
+  useWebsocketConnection(websocketEventListeners, messageListeners);
+
+  if (connectionStatus.status === "loading") {
     return <h3>Loading initial state from server</h3>;
   }
 
-  if (error || !data) {
+  if (connectionStatus.status === "no-backend") {
     console.warn(
-      "Error retreiving app template from server. Running in static mode",
-      error ?? "no error"
+      "Error retreiving app template from server. Running in static mode"
     );
+    return <EditorContainerWithData />;
   }
 
-  return <EditorContainerWithData initialState={data} />;
+  return <EditorContainerWithData initialState={connectionStatus.uiTree} />;
 }

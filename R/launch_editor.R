@@ -133,20 +133,6 @@ launch_editor <- function(app_loc,
               status = 308L,
               headers = list("Location" = "/app")
             )
-          },
-          "/app-please" = function(body) {
-            writeLog("=> Parsing app blob and sending to client")
-
-            # Cancel any app close timeouts that may have been caused by the
-            # user refreshing the page
-            app_close_timeout()
-
-            app_info <<- get_file_ui_definition_info(
-              file_lines = readLines(ui_file$path),
-              type = ui_file$type
-            )
-
-            json_response(app_info$ui_tree)
           }
         ),
         "POST" = list(
@@ -207,6 +193,26 @@ launch_editor <- function(app_loc,
           if(message == "APP-PREVIEW-STOP"){
             writeLog("Stopping app preview process\n")
             preview_app$stop()
+          }
+
+          if (message == "INITIAL-LOAD-DATA") {
+            writeLog("=> Parsing app blob and sending to client")
+
+            # Cancel any app close timeouts that may have been caused by the
+            # user refreshing the page
+            app_close_timeout()
+
+            app_info <<- get_file_ui_definition_info(
+              file_lines = readLines(ui_file$path),
+              type = ui_file$type
+            )
+
+            ws$send(
+              build_ws_message(
+                "INITIAL-DATA",
+                app_info$ui_tree
+              )
+            )
           }
 
 
