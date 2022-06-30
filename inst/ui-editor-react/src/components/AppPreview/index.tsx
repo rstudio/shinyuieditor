@@ -38,9 +38,6 @@ export default function AppPreview() {
     [appLoc]
   );
 
-  if (appLoc === "no-preview") {
-    return null;
-  }
   return (
     <>
       <h3 className={classes.title}>
@@ -80,7 +77,7 @@ export default function AppPreview() {
               <VscDebugRestart />
             </Button>
             <div className={classes.appContainer}>
-              {status === "error" ? (
+              {status === "no-preview" ? (
                 <FakeDashboard />
               ) : (
                 <iframe

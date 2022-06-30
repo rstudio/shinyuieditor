@@ -183,20 +183,19 @@ launch_editor <- function(app_loc,
       )),
       onWSOpen = function(ws) {
         # The ws object is a WebSocket object
-        writeLog("Preview app connection opened.\n")
-
-        msg_when_ready(preview_app, ws)
-        msg_app_logs(preview_app, ws)
-
-        listen_for_crash(preview_app, ws)
 
         ws$onMessage(function(binary, message) {
 
-          # TODO: This logic needs some work as it only successfully restarts
-          # one time then complains of reused TCP addresses
+          writeLog("Websocket message: ")
+          writeLog(message)
 
-
-          if(message == "RESTART_PREVIEW"){
+          if (message == "APP-PREVIEW-CONNECTED") {
+            writeLog("Preview app connection opened.\n")
+            msg_when_ready(preview_app, ws)
+            msg_app_logs(preview_app, ws)
+            listen_for_crash(preview_app, ws)
+          }
+          if(message == "APP-PREVIEW-RESTART"){
             writeLog("Restarting app preview process\n")
             preview_app$restart()
 
@@ -205,12 +204,12 @@ launch_editor <- function(app_loc,
             msg_when_ready(preview_app, ws)
             listen_for_crash(preview_app, ws, "restart")
           }
-
-
-          if(message == "STOP_PREVIEW"){
+          if(message == "APP-PREVIEW-STOP"){
             writeLog("Stopping app preview process\n")
             preview_app$stop()
           }
+
+
         })
 
         ws$onClose(function() {
