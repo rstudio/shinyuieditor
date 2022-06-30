@@ -1,12 +1,14 @@
 import React from "react";
 
 type WebsocketConnection =
-  | {
-      status: "connecting";
-    }
+  | { status: "connecting" }
   | { status: "connected"; ws: WebSocket }
   | { status: "failed-to-open" }
   | { status: "closed"; error_msg?: string };
+
+type WebsocketStatus = WebsocketConnection["status"];
+
+export type WebsocketMessage = { msg: string; payload?: string | object };
 
 export function useConnectToWebsocket() {
   const [connection, setConnection] = React.useState<WebsocketConnection>({
@@ -64,4 +66,59 @@ export function useConnectToWebsocket() {
   }, []);
 
   return connection;
+}
+
+export const WebsocketContext = React.createContext<WebsocketConnection>({
+  status: "connecting",
+});
+
+export const WebsocketProvider: React.FC = ({ children }) => {
+  const wsConnection = useConnectToWebsocket();
+
+  return (
+    <WebsocketContext.Provider value={wsConnection}>
+      {children}
+    </WebsocketContext.Provider>
+  );
+};
+
+export type WebsocketCallbacks = {
+  onConnected?: (ws: WebSocket) => void;
+  onClosed?: () => void;
+  onFailedToOpen?: () => void;
+};
+
+export function useWebsocketConnection(
+  callback_fns: WebsocketCallbacks,
+  msg_listener?: (msg: WebsocketMessage) => void
+) {
+  const wsConnection = React.useContext(WebsocketContext);
+
+  const listenForMessages = React.useCallback(
+    (event: MessageEvent<any>) => {
+      if (!msg_listener) return;
+      const msg_data = JSON.parse(event.data) as WebsocketMessage;
+      msg_listener(msg_data);
+    },
+    [msg_listener]
+  );
+
+  React.useEffect(() => {
+    console.log("Container ws", wsConnection);
+
+    switch (wsConnection.status) {
+      case "connected":
+        callback_fns.onConnected?.(wsConnection.ws);
+        wsConnection.ws.addEventListener("message", listenForMessages);
+
+        break;
+
+      case "closed":
+        callback_fns.onClosed?.();
+        break;
+      case "failed-to-open":
+        callback_fns.onFailedToOpen?.();
+        break;
+    }
+  }, [callback_fns, listenForMessages, wsConnection]);
 }

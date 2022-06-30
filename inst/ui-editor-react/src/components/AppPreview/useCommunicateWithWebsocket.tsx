@@ -1,7 +1,8 @@
 import React from "react";
 
 import { useSetDisconnectedFromServer } from "state/connectedToServer";
-import { useConnectToWebsocket } from "useConnectToWebsocket";
+import type { WebsocketMessage } from "useConnectToWebsocket";
+import { useWebsocketConnection } from "useConnectToWebsocket";
 
 export type AppLogs = string[];
 
@@ -53,7 +54,44 @@ export function useCommunicateWithWebsocket(): CommunicationState {
   const [noPreview, setNoPreview] = React.useState<boolean>(false);
   const [crashed, setCrashed] = React.useState<string | false>(false);
 
-  const wsConnection = useConnectToWebsocket();
+  const listenForAppStatus = React.useCallback((msg: WebsocketMessage) => {
+    const { payload = "" } = msg;
+
+    if (typeof payload !== "string") return;
+
+    switch (msg.msg) {
+      case "SHINY_READY":
+        setCrashed(false);
+        setNoPreview(false);
+        setAppLoc(payload);
+        break;
+      case "SHINY_LOGS":
+        setAppLogs(ensureArray(payload));
+        break;
+      case "SHINY_CRASH":
+        setCrashed(payload);
+        break;
+      default:
+        console.warn("Unknown message from websocket. Ignoring", {
+          msg,
+        });
+    }
+  }, []);
+
+  const websocketStatusListeners = React.useMemo(
+    () => ({
+      onConnected: (ws: WebSocket) => {
+        ws.send("APP-PREVIEW-CONNECTED");
+        setRestartApp(() => () => ws.send("APP-PREVIEW-RESTART"));
+        setStopApp(() => () => ws.send("APP-PREVIEW-STOP"));
+      },
+      onClosed: set_disconnected,
+      onFailedToOpen: () => setNoPreview(true),
+    }),
+    [set_disconnected]
+  );
+
+  useWebsocketConnection(websocketStatusListeners, listenForAppStatus);
 
   const [restartApp, setRestartApp] = React.useState<() => void>(
     () => () => console.log("No app running to reset")
@@ -65,47 +103,6 @@ export function useCommunicateWithWebsocket(): CommunicationState {
   const clearLogs = React.useCallback(() => {
     setAppLogs([]);
   }, []);
-
-  const listenForAppStatus = React.useCallback((event: MessageEvent<any>) => {
-    const msg_data = JSON.parse(event.data) as WS_MSG;
-
-    switch (msg_data.msg) {
-      case "SHINY_READY":
-        setCrashed(false);
-        setNoPreview(false);
-        setAppLoc(msg_data.payload);
-        break;
-      case "SHINY_LOGS":
-        setAppLogs(ensureArray(msg_data.payload));
-        break;
-      case "SHINY_CRASH":
-        setCrashed(msg_data.payload);
-        break;
-      default:
-        console.warn("Unknown message from websocket. Ignoring", {
-          msg_data,
-        });
-    }
-  }, []);
-
-  React.useEffect(() => {
-    console.log(wsConnection);
-    switch (wsConnection.status) {
-      case "connected": {
-        wsConnection.ws.send("APP-PREVIEW-CONNECTED");
-        setRestartApp(() => () => wsConnection.ws.send("APP-PREVIEW-RESTART"));
-        setStopApp(() => () => wsConnection.ws.send("APP-PREVIEW-STOP"));
-        wsConnection.ws.addEventListener("message", listenForAppStatus);
-        break;
-      }
-      case "closed":
-        set_disconnected();
-        break;
-      case "failed-to-open":
-        setNoPreview(true);
-        break;
-    }
-  }, [listenForAppStatus, set_disconnected, wsConnection]);
 
   const state: CommonState = {
     appLogs,
