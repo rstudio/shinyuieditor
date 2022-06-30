@@ -134,17 +134,6 @@ launch_editor <- function(app_loc,
               headers = list("Location" = "/app")
             )
           }
-        ),
-        "POST" = list(
-          "/ValidateArgs" = function(body) {
-            json_response(
-              validate_ui_fn_call(
-                body$uiName,
-                body$uiArguments,
-                log_fn = writeLog
-              )
-            )
-          }
         )
       )),
       onWSOpen = function(ws) {

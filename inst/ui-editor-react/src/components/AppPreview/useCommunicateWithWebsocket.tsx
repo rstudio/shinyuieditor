@@ -9,14 +9,6 @@ import { useWebsocketConnection } from "websocket_hooks/useConnectToWebsocket";
 
 export type AppLogs = string[];
 
-type WS_MSG =
-  | {
-      msg: "SHINY_READY";
-      payload: string;
-    }
-  | { msg: "SHINY_LOGS"; payload: string | string[] }
-  | { msg: "SHINY_CRASH"; payload: string };
-
 type CommonState = {
   appLogs: AppLogs;
   clearLogs: () => void;
