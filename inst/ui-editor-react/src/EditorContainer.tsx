@@ -8,7 +8,6 @@ import { CurrentDraggedNodeProvider } from "DragAndDropHelpers/useCurrentDragged
 import ElementsPalette from "ElementsPalette";
 import PortalModal from "PortalModal";
 import { useDispatch, useSelector } from "react-redux";
-import { useGetInitialStateQuery } from "state/getInitialState";
 import { sendUiStateToBackend } from "state/sendUiStateToBackend";
 import type { RootState } from "state/store";
 import { backupUiTree, initialUiTree, INIT_STATE } from "state/uiTree";
@@ -22,7 +21,6 @@ import { AppTour } from "./AppTour";
 import { UndoRedoButtons } from "./components/UndoRedoButtons/UndoRedoButtons";
 import classes from "./EditorContainer.module.css";
 import { SettingsPanel } from "./SettingsPanel/SettingsPanel";
-import { useSendBrowserCloseMessage } from "./utils/useSendBrowserCloseMessage";
 
 export const PROPERTIES_PANEL_WIDTH_PX = 236;
 
@@ -120,8 +118,6 @@ export function EditorContainer() {
 
   const [connectionStatus, setConnectionStatus] =
     React.useState<BackendConnection>({ status: "loading" });
-
-  useSendBrowserCloseMessage();
 
   const websocketEventListeners: WebsocketCallbacks = React.useMemo(
     () => ({

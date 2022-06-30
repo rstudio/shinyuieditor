@@ -152,10 +152,6 @@ launch_editor <- function(app_loc,
             writeLog("<= Saved new ui state from client")
             text_response("App Dump received, thanks")
           },
-          "/browser-close" =  function(body) {
-            start_app_close_timeout()
-            text_response("Starting server close timeout.")
-          },
           "/ValidateArgs" = function(body) {
             json_response(
               validate_ui_fn_call(
@@ -214,11 +210,10 @@ launch_editor <- function(app_loc,
               )
             )
           }
-
-
         })
 
         ws$onClose(function() {
+          start_app_close_timeout()
           writeLog("Websocket connection with app preview lost.\n")
         })
       },
