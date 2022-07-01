@@ -4,7 +4,6 @@ import type { ShinyUiNode } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import type { WebsocketMessage } from "websocket_hooks/useConnectToWebsocket";
 import {
   listenForWsMessages,
-  sendWsMessage,
   useWebsocketBackend,
 } from "websocket_hooks/useConnectToWebsocket";
 
@@ -21,7 +20,6 @@ export function useGetUiFromBackend() {
 
   React.useEffect(() => {
     if (status === "connected") {
-      sendWsMessage(ws, "INITIAL-LOAD-DATA");
       listenForWsMessages(ws, ({ type, payload }: WebsocketMessage) => {
         if (type !== "INITIAL-DATA") return;
 

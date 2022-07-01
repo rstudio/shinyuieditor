@@ -181,6 +181,12 @@ launch_editor <- function(app_loc,
           )
         }
 
+        # Cancel any app close timeouts that may have been caused by the
+        # user refreshing the page
+        app_close_timeout()
+        # Kick off client with dump of ui tree
+        send_ui_state_to_client()
+
 
 
         # The ws object is a WebSocket object
@@ -211,15 +217,6 @@ launch_editor <- function(app_loc,
             "APP-PREVIEW-STOP" = {
               writeLog("Stopping app preview process\n")
               preview_app$stop()
-            },
-            "INITIAL-LOAD-DATA" = {
-              writeLog("=> Parsing app blob and sending to client")
-
-              # Cancel any app close timeouts that may have been caused by the
-              # user refreshing the page
-              app_close_timeout()
-
-              send_ui_state_to_client()
             },
             "UI-DUMP" = {
               writeLines(
