@@ -52,7 +52,6 @@ launch_editor <- function(app_loc,
   app_status <- check_and_validate_app(app_loc)
   if (!app_status$is_valid) {
     stop("Stopping UI Editor. Reason:", app_status$message)
-    # return(invisible())
   }
 
   # Logic for starting up Shiny app in background and returning the app URL.
@@ -87,29 +86,25 @@ launch_editor <- function(app_loc,
 
   # Empty function so variable can always be called even if the timeout hasn't
   # been initialized
-  app_close_timeout <- function() { }
-  start_app_close_timeout <- function() {
-    if (!stop_on_browser_close) {
-      return()
+  app_close_watcher <- WatchForAppClose$new(
+    on_close = if (stop_on_browser_close) {
+      function() {
+        writeLog("Editor window closed, stopping server")
+        rlang::interrupt()
+      }
     }
-    # Trigger an interrupt to stop the server if the browser
-    # unmounts and then doesn't re-connect within a timeframe
-    app_close_timeout <<- later::later(function() {
-      writeLog("Stopping ui editor server")
-      rlang::interrupt()
-    }, delay = 0.5)
-  }
+  )
 
-
-  # Basic info about the file used to declare the UI we're editing
-  ui_file <- get_app_ui_file(app_loc)
-
+  # Basic info about the file used to declare the UI we're editing along with
+  # poll to detect when the ui-providing script has changed which is used to
+  # update the client-state as changes are made to script directly
+  ui_def <- UiFileDefinition$new(app_loc);
 
   # Cleanup on closing of the server...
   on.exit({
     # Stop all the event listeners
     preview_app$cleanup()
-    ui_file_was_updated$cancel_all()
+    ui_def$cleanup()
   })
 
 
@@ -122,39 +117,22 @@ launch_editor <- function(app_loc,
     app = list(
       onWSOpen = function(ws) {
 
-        # Setup poll to detect when the ui-providing script has changed which is used
-        # to update the client-state as changes are made to script directly
-        ui_file_watcher <- UiFileWatcher$new(
-          file_path = ui_file$path,
-          on_update = send_ui_state_to_client
-        );
-
-        # We share this variable around different scopes, so we need to initialize it
-        # here at a common parent scope
-        app_info <- NULL
+        # Start listening for the file on disk changing to update the client
+        # with a new tree when it happens
+        ui_def$on_file_change(send_ui_state_to_client)
 
         send_ui_state_to_client <- function() {
           writeLog("=> Parsing app blob and sending to client")
-
-          # We use a double-arrow assignment here so we update the app_info
-          # variable in the base-function scope and that can be used for
-          # writing later
-          app_info <<- get_file_ui_definition_info(
-            file_lines = readLines(ui_file$path),
-            type = ui_file$type
-          )
-
           ws$send(
-            build_ws_message("INITIAL-DATA", app_info$ui_tree)
+            build_ws_message("INITIAL-DATA", ui_def$ui_tree)
           )
         }
-
-        # Cancel any app close timeouts that may have been caused by the
-        # user refreshing the page
-        app_close_timeout()
         # Kick off client with dump of ui tree
         send_ui_state_to_client()
 
+        # Cancel any app close timeouts that may have been caused by the
+        # user refreshing the page
+        app_close_watcher$connection_opened()
 
         # The ws object is a WebSocket object
         ws$onMessage(function(binary, raw_message) {
@@ -186,19 +164,7 @@ launch_editor <- function(app_loc,
               preview_app$stop()
             },
             "UI-DUMP" = {
-              writeLines(
-                text = update_ui_definition(
-                  file_info = app_info,
-                  new_ui_tree = message$payload,
-                  remove_namespace = remove_namespace
-                ),
-                con = ui_file$path
-              )
-
-              # Update the last edit time so the change detection doesn't get
-              # triggered for known-changes
-              ui_file_watcher$update_last_edit()
-
+              ui_def$update_ui_file(message$payload, remove_namespace)
               writeLog("<= Saved new ui state from client")
             }
           )
@@ -207,7 +173,7 @@ launch_editor <- function(app_loc,
         ws$onClose(function() {
           # When the websocket connection closes we start the timer to check if
           # it's a reload or a proper-closing of the window
-          start_app_close_timeout()
+          app_close_watcher$connection_closed()
         })
       },
       staticPaths = list(
