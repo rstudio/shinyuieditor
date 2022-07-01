@@ -125,3 +125,53 @@ server_exists <- function(url_id) {
   )
   ret
 }
+
+
+log_background_app <- function(lines) {
+  cat(
+    paste0(
+      crayon::bold$magenta("Logs from preview app:\n"),
+      crayon::magenta(paste(lines, collapse = "\n")),
+      "\n"
+    )
+  )
+}
+
+msg_when_ready <- function(preview_app, ws) {
+  listen_for_ready <- preview_app$on_ready(function(app_ready) {
+    ws$send(
+      build_ws_message(
+        "SHINY_READY",
+        payload = preview_app$url
+      )
+    )
+
+    # Once we get the ready signal, turn off the subscription
+    listen_for_ready()
+  })
+}
+
+msg_app_logs <- function(preview_app, ws) {
+  preview_app$on_log(function(log_lines) {
+    ws$send(
+      build_ws_message(
+        "SHINY_LOGS",
+        payload = log_lines
+      )
+    )
+  })
+}
+
+listen_for_crash <- function(preview_app, ws, id = 1) {
+  on_crash <- preview_app$on_crash(function(is_alive) {
+    cat(crayon::bgCyan("Crash detected id=", id, "\n"))
+
+    ws$send(
+      build_ws_message(
+        "SHINY_CRASH",
+        payload = "uh-oh"
+      )
+    )
+    on_crash()
+  })
+}

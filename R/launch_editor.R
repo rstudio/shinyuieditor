@@ -44,15 +44,15 @@ launch_editor <- function(app_loc,
                           stop_on_browser_close = TRUE) {
   writeLog <- function(...) {
     if (show_logs) {
-      logger(...)
+      cat(..., "\n", file = stderr())
     }
   }
 
   # Check and make sure that the app location provided actually has an app
   app_status <- check_and_validate_app(app_loc)
   if (!app_status$is_valid) {
-    logger("Stopping UI Editor. Reason:", app_status$message)
-    return(invisible())
+    stop("Stopping UI Editor. Reason:", app_status$message)
+    # return(invisible())
   }
 
   # Logic for starting up Shiny app in background and returning the app URL.
@@ -85,13 +85,6 @@ launch_editor <- function(app_loc,
   writeLog("=> ...Shiny app running in background")
 
 
-  ui_file <- get_app_ui_file(app_loc)
-
-  # We share this variable around different scopes, so we need to initialize it
-  # here at a common parent scope
-  app_info <- NULL
-
-
   # Empty function so variable can always be called even if the timeout hasn't
   # been initialized
   app_close_timeout <- function() { }
@@ -106,6 +99,11 @@ launch_editor <- function(app_loc,
       rlang::interrupt()
     }, delay = 0.5)
   }
+
+
+  # Basic info about the file used to declare the UI we're editing
+  ui_file <- get_app_ui_file(app_loc)
+
 
   # Setup poll to detect when the ui-providing script has changed which is used
   # to update the client-state as changes are made to script directly
@@ -146,6 +144,10 @@ launch_editor <- function(app_loc,
             last_edited <<- last_edited_new
           }
         )
+
+        # We share this variable around different scopes, so we need to initialize it
+        # here at a common parent scope
+        app_info <- NULL
 
         send_ui_state_to_client <- function() {
           writeLog("=> Parsing app blob and sending to client")
@@ -234,49 +236,6 @@ launch_editor <- function(app_loc,
   )
 }
 
-logger <- function(...) {
-  cat(..., "\n", file = stderr())
-}
-
-msg_when_ready <- function(preview_app, ws) {
-  listen_for_ready <- preview_app$on_ready(function(app_ready) {
-    ws$send(
-      build_ws_message(
-        "SHINY_READY",
-        payload = preview_app$url
-      )
-    )
-
-    # Once we get the ready signal, turn off the subscription
-    listen_for_ready()
-  })
-}
-
-msg_app_logs <- function(preview_app, ws) {
-  preview_app$on_log(function(log_lines) {
-    ws$send(
-      build_ws_message(
-        "SHINY_LOGS",
-        payload = log_lines
-      )
-    )
-  })
-}
-
-
-listen_for_crash <- function(preview_app, ws, id = 1) {
-  on_crash <- preview_app$on_crash(function(is_alive) {
-    cat(crayon::bgCyan("Crash detected id=", id, "\n"))
-
-    ws$send(
-      build_ws_message(
-        "SHINY_CRASH",
-        payload = "uh-oh"
-      )
-    )
-    on_crash()
-  })
-}
 
 build_ws_message <- function(type, payload) {
   jsonlite::toJSON(list(
@@ -286,39 +245,6 @@ build_ws_message <- function(type, payload) {
 }
 
 
-log_background_app <- function(lines) {
-  cat(
-    paste0(
-      crayon::bold$magenta("Logs from preview app:\n"),
-      crayon::magenta(paste(lines, collapse = "\n")),
-      "\n"
-    )
-  )
-}
-
-
-validate_ui_fn_call <- function(uiName, uiArguments, log_fn) {
-  tryCatch(
-    {
-      log_fn("Validating ui call")
-      generated_html <- do_call_namespaced(what = uiName, args = uiArguments)
-
-      list(
-        type = "valid",
-        uiHTML = as.character(generated_html)
-      )
-    },
-    error = function(e) {
-      log_fn("~ Function call errored")
-      utils::str(list(uiName, uiArguments))
-      utils::str(e)
-      list(
-        type = "error",
-        error_msg = as.character(e)
-      )
-    }
-  )
-}
 
 announce_location_of_editor <- function(port, launch_browser) {
   location_of_editor <- paste0("http://localhost:", port)
