@@ -41,8 +41,7 @@ launch_editor <- function(app_loc,
                           show_logs = TRUE,
                           show_preview_app_logs = TRUE,
                           launch_browser = TRUE,
-                          stop_on_browser_close = TRUE ) {
-
+                          stop_on_browser_close = TRUE) {
   writeLog <- function(...) {
     if (show_logs) {
       logger(...)
@@ -111,14 +110,16 @@ launch_editor <- function(app_loc,
 
   # Empty function so variable can always be called even if the timeout hasn't
   # been initialized
-  app_close_timeout <- function(){ }
+  app_close_timeout <- function() { }
   start_app_close_timeout <- function() {
-    if (!stop_on_browser_close) return()
+    if (!stop_on_browser_close) {
+      return()
+    }
     # Trigger an interrupt to stop the server if the browser
     # unmounts and then doesn't re-connect within a timeframe
     app_close_timeout <<- later::later(function() {
       writeLog("Stopping ui editor server")
-      rlang::interrupt();
+      rlang::interrupt()
     }, delay = 0.5)
   }
 
@@ -147,58 +148,57 @@ launch_editor <- function(app_loc,
             simplifyVector = FALSE
           )
 
-          if (message$type == "APP-PREVIEW-CONNECTED") {
-            msg_when_ready(preview_app, ws)
-            msg_app_logs(preview_app, ws)
-            listen_for_crash(preview_app, ws)
-          }
+          switch(message$type,
+            "APP-PREVIEW-CONNECTED" = {
+              msg_when_ready(preview_app, ws)
+              msg_app_logs(preview_app, ws)
+              listen_for_crash(preview_app, ws)
+            },
+            "APP-PREVIEW-RESTART" = {
+              writeLog("Restarting app preview process\n")
+              preview_app$restart()
 
-          if(message$type == "APP-PREVIEW-RESTART"){
-            writeLog("Restarting app preview process\n")
-            preview_app$restart()
+              Sys.sleep(1)
+              writeLog("Restarted app preview, listening for ready and new crashes...\n")
+              msg_when_ready(preview_app, ws)
+              listen_for_crash(preview_app, ws, "restart")
+            },
+            "APP-PREVIEW-STOP" = {
+              writeLog("Stopping app preview process\n")
+              preview_app$stop()
+            },
+            "INITIAL-LOAD-DATA" = {
+              writeLog("=> Parsing app blob and sending to client")
 
-            Sys.sleep(1)
-            writeLog("Restarted app preview, listening for ready and new crashes...\n")
-            msg_when_ready(preview_app, ws)
-            listen_for_crash(preview_app, ws, "restart")
-          }
+              # Cancel any app close timeouts that may have been caused by the
+              # user refreshing the page
+              app_close_timeout()
 
-          if(message$type == "APP-PREVIEW-STOP"){
-            writeLog("Stopping app preview process\n")
-            preview_app$stop()
-          }
+              # We use a double-arrow assignment here so we update the app_info
+              # variable in the base-function scope and that can be used for
+              # writing later
+              app_info <<- get_file_ui_definition_info(
+                file_lines = readLines(ui_file$path),
+                type = ui_file$type
+              )
 
-          if (message$type == "INITIAL-LOAD-DATA") {
-            writeLog("=> Parsing app blob and sending to client")
+              ws$send(
+                build_ws_message("INITIAL-DATA", app_info$ui_tree)
+              )
+            },
+            "UI-DUMP" = {
+              writeLines(
+                text = update_ui_definition(
+                  file_info = app_info,
+                  new_ui_tree = message$payload,
+                  remove_namespace = remove_namespace
+                ),
+                con = ui_file$path
+              )
 
-            # Cancel any app close timeouts that may have been caused by the
-            # user refreshing the page
-            app_close_timeout()
-
-            app_info <<- get_file_ui_definition_info(
-              file_lines = readLines(ui_file$path),
-              type = ui_file$type
-            )
-
-            ws$send(
-              build_ws_message("INITIAL-DATA", app_info$ui_tree)
-            )
-          }
-
-          if (message$type == "UI-DUMP") {
-            updated_file_lines <- update_ui_definition(
-              file_info = app_info,
-              new_ui_tree = message$payload,
-              remove_namespace = remove_namespace
-            )
-
-            writeLines(
-              text = updated_file_lines,
-              con = ui_file$path
-            )
-
-            writeLog("<= Saved new ui state from client")
-          }
+              writeLog("<= Saved new ui state from client")
+            }
+          )
         })
 
         ws$onClose(function() {
