@@ -85,11 +85,6 @@ launch_editor <- function(app_loc,
 
   writeLog("=> ...Shiny app running in background")
 
-  # Cleanup on closing of the server...
-  on.exit({
-    # Stop all the event listeners
-    preview_app$cleanup()
-  })
 
   # This needs to go before we actually start the server in case we're running
   # in blocking mode, which would prevent anything after from ever being run
@@ -123,6 +118,26 @@ launch_editor <- function(app_loc,
     }, delay = 0.5)
   }
 
+
+  # Setup poll to detect when the ui-providing script has changed which is used
+  # to update the client-state as changes are made to script directly
+  get_last_edit_time <- function() {
+    fs::file_info(ui_file$path)$modification_time
+  }
+  ui_last_edit_time_poll <- create_output_subscribers(
+    source_fn = get_last_edit_time,
+    delay = 1
+  )
+
+
+  # Cleanup on closing of the server...
+  on.exit({
+    # Stop all the event listeners
+    preview_app$cleanup()
+    ui_last_edit_time_poll$cancel_all()
+  })
+
+
   httpuv::runServer(
     host = host, port = port,
     app = list(
@@ -138,6 +153,36 @@ launch_editor <- function(app_loc,
         )
       )),
       onWSOpen = function(ws) {
+
+        # Kick-off ui file-change detection poll
+        last_edited <- get_last_edit_time()
+        ui_last_edit_time_poll$subscribe(
+          function(last_edited_new){
+            if (as.numeric(last_edited_new - last_edited) == 0) return()
+
+            send_ui_state_to_client()
+            last_edited <<- last_edited_new
+          }
+        )
+
+        send_ui_state_to_client <- function() {
+          writeLog("=> Parsing app blob and sending to client")
+
+          # We use a double-arrow assignment here so we update the app_info
+          # variable in the base-function scope and that can be used for
+          # writing later
+          app_info <<- get_file_ui_definition_info(
+            file_lines = readLines(ui_file$path),
+            type = ui_file$type
+          )
+
+          ws$send(
+            build_ws_message("INITIAL-DATA", app_info$ui_tree)
+          )
+        }
+
+
+
         # The ws object is a WebSocket object
         ws$onMessage(function(binary, raw_message) {
 
@@ -174,17 +219,7 @@ launch_editor <- function(app_loc,
               # user refreshing the page
               app_close_timeout()
 
-              # We use a double-arrow assignment here so we update the app_info
-              # variable in the base-function scope and that can be used for
-              # writing later
-              app_info <<- get_file_ui_definition_info(
-                file_lines = readLines(ui_file$path),
-                type = ui_file$type
-              )
-
-              ws$send(
-                build_ws_message("INITIAL-DATA", app_info$ui_tree)
-              )
+              send_ui_state_to_client()
             },
             "UI-DUMP" = {
               writeLines(
@@ -195,6 +230,10 @@ launch_editor <- function(app_loc,
                 ),
                 con = ui_file$path
               )
+
+              # Update the last edit time so the change detection doesn't get
+              # triggered for known-changes
+              last_edited <<- get_last_edit_time()
 
               writeLog("<= Saved new ui state from client")
             }
