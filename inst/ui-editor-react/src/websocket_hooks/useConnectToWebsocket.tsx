@@ -76,49 +76,26 @@ export const WebsocketProvider: React.FC = ({ children }) => {
   );
 };
 
-export type WebsocketCallbacks = {
-  onConnected?: (sendMessage: (type: string, payload?: object) => void) => void;
-  onClosed?: () => void;
-  onFailedToOpen?: () => void;
-};
-
-export function useWebsocketConnection(
-  callback_fns: WebsocketCallbacks,
-  msg_listener?: (msg: WebsocketMessage) => void
-) {
-  const wsConnection = React.useContext(WebsocketContext);
-
-  const listenForMessages = React.useCallback(
-    (event: MessageEvent<any>) => {
-      if (!msg_listener) return;
-      const msg_data = JSON.parse(event.data) as WebsocketMessage;
-      msg_listener(msg_data);
-    },
-    [msg_listener]
-  );
-
-  React.useEffect(() => {
-    switch (wsConnection.status) {
-      case "connected":
-        callback_fns.onConnected?.((type, payload) =>
-          wsConnection.ws.send(makeWebsocketMessage(type, payload))
-        );
-        wsConnection.ws.addEventListener("message", listenForMessages);
-
-        break;
-
-      case "closed":
-        callback_fns.onClosed?.();
-        break;
-      case "failed-to-open":
-        callback_fns.onFailedToOpen?.();
-        break;
-    }
-  }, [callback_fns, listenForMessages, wsConnection]);
+export function useWebsocketBackend() {
+  return React.useContext(WebsocketContext);
 }
 
-function makeWebsocketMessage(type: string, payload?: object) {
-  return new Blob([JSON.stringify({ type, payload }, null, 2)], {
+export function sendWsMessage(ws: WebSocket, type: string, payload?: object) {
+  const msg_blob = new Blob([JSON.stringify({ type, payload }, null, 2)], {
     type: "application/json",
+  });
+  ws.send(msg_blob);
+}
+
+function parseWebsocketMessage(raw_msg: MessageEvent<any>) {
+  return JSON.parse(raw_msg.data) as WebsocketMessage;
+}
+
+export function listenForWsMessages(
+  ws: WebSocket,
+  callbacks: (msg: WebsocketMessage) => void
+) {
+  ws.addEventListener("message", (event: MessageEvent<any>) => {
+    callbacks(parseWebsocketMessage(event));
   });
 }

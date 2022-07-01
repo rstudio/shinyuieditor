@@ -3,30 +3,29 @@ import * as React from "react";
 import type { ShinyUiNode } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import debounce from "just-debounce-it";
 import { initialUiTree } from "state/uiTree";
-import type { WebsocketCallbacks } from "websocket_hooks/useConnectToWebsocket";
-import { useWebsocketConnection } from "websocket_hooks/useConnectToWebsocket";
+import {
+  sendWsMessage,
+  useWebsocketBackend,
+} from "websocket_hooks/useConnectToWebsocket";
 
 export function useSendUiToBackend(currentUiTree: ShinyUiNode) {
-  const sendWsMessage = React.useRef<(uiTree: ShinyUiNode) => void>((msg) =>
+  const wsStatus = useWebsocketBackend();
+
+  const sendWsMessageRef = React.useRef<(uiTree: ShinyUiNode) => void>((msg) =>
     console.warn("No websocket connection to send message to, sorry!")
   );
 
-  const websocketStatusListeners: WebsocketCallbacks = React.useMemo(
-    () => ({
-      onConnected: (sendMessage) => {
-        sendWsMessage.current = debounce(
-          (tree: ShinyUiNode) => sendMessage("UI-DUMP", tree),
-          500
-        );
-      },
-    }),
-    []
-  );
+  React.useEffect(() => {
+    if (wsStatus.status !== "connected") return;
 
-  useWebsocketConnection(websocketStatusListeners);
+    sendWsMessageRef.current = debounce(
+      (tree: ShinyUiNode) => sendWsMessage(wsStatus.ws, "UI-DUMP", tree),
+      500
+    );
+  }, [wsStatus]);
 
   React.useEffect(() => {
     if (currentUiTree === initialUiTree) return;
-    sendWsMessage.current(currentUiTree);
+    sendWsMessageRef.current(currentUiTree);
   }, [currentUiTree]);
 }
