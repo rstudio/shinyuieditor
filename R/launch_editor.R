@@ -105,21 +105,6 @@ launch_editor <- function(app_loc,
   ui_file <- get_app_ui_file(app_loc)
 
 
-  # Setup poll to detect when the ui-providing script has changed which is used
-  # to update the client-state as changes are made to script directly
-  get_last_edit_time <- function() {
-    fs::file_info(ui_file$path)$modification_time
-  }
-  last_edited <- get_last_edit_time()
-  ui_file_was_updated <- create_output_subscribers(
-    source_fn = get_last_edit_time,
-    filter_fn = function(last_edited_new) {
-      !identical(last_edited_new, last_edited)
-    },
-    delay = 1
-  )
-
-
   # Cleanup on closing of the server...
   on.exit({
     # Stop all the event listeners
@@ -137,13 +122,12 @@ launch_editor <- function(app_loc,
     app = list(
       onWSOpen = function(ws) {
 
-        # Kick-off ui file-change detection poll
-        ui_file_was_updated$subscribe(
-          function(last_edited_new) {
-            send_ui_state_to_client()
-            last_edited <<- last_edited_new
-          }
-        )
+        # Setup poll to detect when the ui-providing script has changed which is used
+        # to update the client-state as changes are made to script directly
+        ui_file_watcher <- UiFileWatcher$new(
+          file_path = ui_file$path,
+          on_update = send_ui_state_to_client
+        );
 
         # We share this variable around different scopes, so we need to initialize it
         # here at a common parent scope
@@ -213,7 +197,7 @@ launch_editor <- function(app_loc,
 
               # Update the last edit time so the change detection doesn't get
               # triggered for known-changes
-              last_edited <<- get_last_edit_time()
+              ui_file_watcher$update_last_edit()
 
               writeLog("<= Saved new ui state from client")
             }
