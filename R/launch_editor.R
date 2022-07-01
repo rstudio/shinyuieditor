@@ -98,7 +98,6 @@ launch_editor <- function(app_loc,
     utils::browseURL(location_of_editor)
   }
 
-
   ui_file <- get_app_ui_file(app_loc)
   app_info <- NULL
 
@@ -118,14 +117,17 @@ launch_editor <- function(app_loc,
     }, delay = 0.5)
   }
 
-
   # Setup poll to detect when the ui-providing script has changed which is used
   # to update the client-state as changes are made to script directly
   get_last_edit_time <- function() {
     fs::file_info(ui_file$path)$modification_time
   }
-  ui_last_edit_time_poll <- create_output_subscribers(
+  last_edited <- get_last_edit_time()
+  ui_file_was_updated <- create_output_subscribers(
     source_fn = get_last_edit_time,
+    filter_fn = function(last_edited_new) {
+      !identical(last_edited_new, last_edited)
+    },
     delay = 1
   )
 
@@ -134,7 +136,7 @@ launch_editor <- function(app_loc,
   on.exit({
     # Stop all the event listeners
     preview_app$cleanup()
-    ui_last_edit_time_poll$cancel_all()
+    ui_file_was_updated$cancel_all()
   })
 
 
@@ -155,11 +157,8 @@ launch_editor <- function(app_loc,
       onWSOpen = function(ws) {
 
         # Kick-off ui file-change detection poll
-        last_edited <- get_last_edit_time()
-        ui_last_edit_time_poll$subscribe(
-          function(last_edited_new){
-            if (as.numeric(last_edited_new - last_edited) == 0) return()
-
+        ui_file_was_updated$subscribe(
+          function(last_edited_new) {
             send_ui_state_to_client()
             last_edited <<- last_edited_new
           }
@@ -186,7 +185,6 @@ launch_editor <- function(app_loc,
         app_close_timeout()
         # Kick off client with dump of ui tree
         send_ui_state_to_client()
-
 
 
         # The ws object is a WebSocket object
