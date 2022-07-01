@@ -14,30 +14,27 @@ type BackendConnection =
   | { status: "connected"; uiTree: ShinyUiNode };
 
 export function useGetUiFromBackend() {
-  const wsStatus = useWebsocketBackend();
+  const { status, ws } = useWebsocketBackend();
 
   const [connectionStatus, setConnectionStatus] =
     React.useState<BackendConnection>({ status: "loading", uiTree: undefined });
 
   React.useEffect(() => {
-    if (wsStatus.status === "connected") {
-      sendWsMessage(wsStatus.ws, "INITIAL-LOAD-DATA");
-      listenForWsMessages(
-        wsStatus.ws,
-        ({ type, payload }: WebsocketMessage) => {
-          if (type !== "INITIAL-DATA") return;
+    if (status === "connected") {
+      sendWsMessage(ws, "INITIAL-LOAD-DATA");
+      listenForWsMessages(ws, ({ type, payload }: WebsocketMessage) => {
+        if (type !== "INITIAL-DATA") return;
 
-          setConnectionStatus({
-            status: "connected",
-            uiTree: payload as ShinyUiNode,
-          });
-        }
-      );
+        setConnectionStatus({
+          status: "connected",
+          uiTree: payload as ShinyUiNode,
+        });
+      });
     }
-    if (wsStatus.status === "failed-to-open") {
+    if (status === "failed-to-open") {
       setConnectionStatus({ status: "no-backend", uiTree: undefined });
     }
-  }, [wsStatus]);
+  }, [status, ws]);
 
   return connectionStatus;
 }

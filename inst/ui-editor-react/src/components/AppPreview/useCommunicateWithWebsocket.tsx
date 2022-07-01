@@ -64,10 +64,10 @@ export function useCommunicateWithWebsocket(): CommunicationState {
   const [noPreview, setNoPreview] = React.useState<boolean>(false);
   const [crashed, setCrashed] = React.useState<string | false>(false);
 
-  const wsStatus = useWebsocketBackend();
+  const { status, ws } = useWebsocketBackend();
   React.useEffect(() => {
-    if (wsStatus.status === "connected") {
-      const { ws } = wsStatus;
+    if (status === "connected") {
+      // const { ws } = wsStatus;
 
       sendWsMessage(ws, "APP-PREVIEW-CONNECTED");
       setRestartApp(() => () => sendWsMessage(ws, "APP-PREVIEW-RESTART"));
@@ -97,13 +97,13 @@ export function useCommunicateWithWebsocket(): CommunicationState {
       });
     }
 
-    if (wsStatus.status === "closed") {
+    if (status === "closed") {
       set_disconnected();
     }
-    if (wsStatus.status === "failed-to-open") {
+    if (status === "failed-to-open") {
       setNoPreview(true);
     }
-  }, [set_disconnected, wsStatus]);
+  }, [set_disconnected, status, ws]);
 
   const [restartApp, setRestartApp] = React.useState<() => void>(
     () => () => console.log("No app running to reset")
