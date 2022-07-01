@@ -82,23 +82,13 @@ launch_editor <- function(app_loc,
     app_is_ready_check()
   })
 
-
   writeLog("=> ...Shiny app running in background")
 
 
-  # This needs to go before we actually start the server in case we're running
-  # in blocking mode, which would prevent anything after from ever being run
-  location_of_editor <- paste0("http://localhost:", port, "/app")
-  loaded_msg <- ascii_box(
-    paste("Live editor running at", location_of_editor)
-  )
-  cat(crayon::bold(loaded_msg))
-
-  if (launch_browser) {
-    utils::browseURL(location_of_editor)
-  }
-
   ui_file <- get_app_ui_file(app_loc)
+
+  # We share this variable around different scopes, so we need to initialize it
+  # here at a common parent scope
   app_info <- NULL
 
 
@@ -140,20 +130,13 @@ launch_editor <- function(app_loc,
   })
 
 
+  # Let the user know that the ui editor is ready for them to use and optionally
+  # open the browser to it for them
+  announce_location_of_editor(port, launch_browser)
+
   httpuv::runServer(
     host = host, port = port,
     app = list(
-      call = build_run_handler(list(
-        "GET" = list(
-          "/" = function(body) {
-            # Redirect root paths to the app path
-            list(
-              status = 308L,
-              headers = list("Location" = "/app")
-            )
-          }
-        )
-      )),
       onWSOpen = function(ws) {
 
         # Kick-off ui file-change detection poll
@@ -242,7 +225,7 @@ launch_editor <- function(app_loc,
         })
       },
       staticPaths = list(
-        "/app" = httpuv::staticPath(
+        "/" = httpuv::staticPath(
           system.file("ui-editor-react/build", package = "shinyuieditor"),
           indexhtml = TRUE
         )
@@ -335,4 +318,15 @@ validate_ui_fn_call <- function(uiName, uiArguments, log_fn) {
       )
     }
   )
+}
+
+announce_location_of_editor <- function(port, launch_browser) {
+  location_of_editor <- paste0("http://localhost:", port)
+  cat(crayon::bold(ascii_box(
+    paste("Live editor running at", location_of_editor)
+  )))
+
+  if (launch_browser) {
+    utils::browseURL(location_of_editor)
+  }
 }

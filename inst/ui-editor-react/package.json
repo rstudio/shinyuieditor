@@ -1,7 +1,6 @@
 {
   "name": "shiny-ui-editor",
   "version": "0.1.0",
-  "homepage": "app",
   "private": true,
   "dependencies": {
     "@ladle/react": "^0.11.0",
