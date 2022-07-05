@@ -54,35 +54,13 @@ launch_editor <- function(app_loc,
     stop("Stopping UI Editor. Reason:", app_status$message)
   }
 
-  # Logic for starting up Shiny app in background and returning the app URL.
-  # Will only start up the app once
-
-  # Gets replaced with list containing callR R6 object and url of app after
-  # first call of get_running_app
-  # shiny_background_process <- NULL
-  writeLog("=> Starting Shiny preview app...")
-  preview_app <- start_background_shiny_app(
+  app_preview <- AppPreview$new(
     app_loc = app_loc,
     port = shiny_background_port,
     host = host,
-    writeLog = writeLog,
-    show_preview_app_logs = show_preview_app_logs
+    show_preview_app_logs = show_preview_app_logs,
+    logger = writeLog
   )
-
-  failure_to_start_check <- preview_app$on_crash(function(is_dead) {
-    stop("Failed to start up shiny app. Check logs for more info:")
-  })
-
-  app_is_ready_check <- preview_app$on_ready(function(app_ready) {
-    writeLog("~~~~App Ready~~~~~\n")
-    failure_to_start_check()
-
-    # Once we get the ready signal, turn off the subscription
-    app_is_ready_check()
-  })
-
-  writeLog("=> ...Shiny app running in background")
-
 
   # Empty function so variable can always be called even if the timeout hasn't
   # been initialized
@@ -103,7 +81,7 @@ launch_editor <- function(app_loc,
   # Cleanup on closing of the server...
   on.exit({
     # Stop all the event listeners
-    preview_app$cleanup()
+    app_preview$cleanup()
     ui_def$cleanup()
   })
 
@@ -146,22 +124,13 @@ launch_editor <- function(app_loc,
 
           switch(message$type,
             "APP-PREVIEW-CONNECTED" = {
-              msg_when_ready(preview_app, ws)
-              msg_app_logs(preview_app, ws)
-              listen_for_crash(preview_app, ws)
+              app_preview$connect_to_ws(ws)
             },
             "APP-PREVIEW-RESTART" = {
-              writeLog("Restarting app preview process\n")
-              preview_app$restart()
-
-              Sys.sleep(1)
-              writeLog("Restarted app preview, listening for ready and new crashes...\n")
-              msg_when_ready(preview_app, ws)
-              listen_for_crash(preview_app, ws, "restart")
+              app_preview$restart()
             },
             "APP-PREVIEW-STOP" = {
-              writeLog("Stopping app preview process\n")
-              preview_app$stop()
+              app_preview$stop()
             },
             "UI-DUMP" = {
               ui_def$update_ui_file(message$payload, remove_namespace)
