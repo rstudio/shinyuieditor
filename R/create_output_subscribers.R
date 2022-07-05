@@ -86,25 +86,9 @@ create_output_subscribers <- function(source_fn,
     }
   }
 
-  update_subscribed <- function(new_fn) {
-
-    # Cancel the current event loop for the subscribed function
-    cancel_all()
-
-    # Create a new output subscribers result that carries over all the same
-    # callback subscriptions with it
-    create_output_subscribers(
-      source_fn = new_fn,
-      filter_fn = filter_fn,
-      delay = delay,
-      callbacks = callbacks
-    )
-  }
-
   list(
     subscribe = callbacks$register,
     cancel_all = cancel_all,
-    update_subscribed = update_subscribed,
     callbacks = callbacks
   )
 }
