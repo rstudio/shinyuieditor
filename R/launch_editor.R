@@ -83,6 +83,7 @@ launch_editor <- function(app_loc,
     # Stop all the event listeners
     app_preview$cleanup()
     ui_def$cleanup()
+    app_close_watcher$cleanup()
   })
 
 

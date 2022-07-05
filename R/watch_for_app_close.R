@@ -24,6 +24,13 @@ WatchForAppClose <- R6::R6Class(
       # Trigger an interrupt to stop the server if the browser
       # unmounts and then doesn't re-connect within a timeframe
       self$timeout_fn <- later::later(self$on_close, delay = 0.5)
+    },
+
+    cleanup = function() {
+      # This removal of the `on_close` field is necessary because the httpuv
+      # onClose callback will get called after the on.exit() callback and thus
+      # will try and mess stuff up again.
+      self$on_close <- NULL
     }
   )
 )
