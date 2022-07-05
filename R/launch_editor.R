@@ -58,7 +58,7 @@ launch_editor <- function(app_loc,
     app_loc = app_loc,
     port = shiny_background_port,
     host = host,
-    show_preview_app_logs = show_preview_app_logs,
+    print_logs = show_preview_app_logs,
     logger = writeLog
   )
 
@@ -76,12 +76,12 @@ launch_editor <- function(app_loc,
   # Basic info about the file used to declare the UI we're editing along with
   # poll to detect when the ui-providing script has changed which is used to
   # update the client-state as changes are made to script directly
-  ui_def <- UiFileDefinition$new(app_loc);
+  ui_def <- UiFileDefinition$new(app_loc)
 
   # Cleanup on closing of the server...
   on.exit({
     # Stop all the event listeners
-    app_preview$cleanup()
+    app_preview$stop_app()
     ui_def$cleanup()
     app_close_watcher$cleanup()
   })
@@ -125,13 +125,38 @@ launch_editor <- function(app_loc,
 
           switch(message$type,
             "APP-PREVIEW-CONNECTED" = {
-              app_preview$connect_to_ws(ws)
+              app_preview$set_listeners(
+                on_ready = function() {
+                  ws$send(
+                    build_ws_message(
+                      "SHINY_READY",
+                      payload = app_preview$url
+                    )
+                  )
+                },
+                on_crash = function() {
+                  ws$send(
+                    build_ws_message(
+                      "SHINY_CRASH",
+                      payload = "uh-oh"
+                    )
+                  )
+                },
+                on_logs = function(log_lines) {
+                  ws$send(
+                    build_ws_message(
+                      "SHINY_LOGS",
+                      payload = log_lines
+                    )
+                  )
+                }
+              )
             },
             "APP-PREVIEW-RESTART" = {
               app_preview$restart()
             },
             "APP-PREVIEW-STOP" = {
-              app_preview$stop()
+              app_preview$stop_app()
             },
             "UI-DUMP" = {
               ui_def$update_ui_file(message$payload, remove_namespace)

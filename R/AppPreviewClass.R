@@ -2,140 +2,130 @@
 # shared with the shiny ui editor
 AppPreview <- R6::R6Class(
   "AppPreview",
-  public = list(
+  private = list(
     p = NULL,
-    app_loc = NULL,
-    host = NULL,
-    port = NULL,
-    url = NULL,
+    on_ready = NULL,
+    on_logs = NULL,
+    on_crash = NULL,
     on_ready_poll = NULL,
     on_log_poll = NULL,
-    on_crash_poll = NULL,
-    show_preview_app_logs = NULL,
+    app_loc = NULL,
+    print_logs = NULL,
     logger = NULL,
-    ws = NULL,
-    initialize = function(app_loc, port, host, show_preview_app_logs, logger = function() {}) {
-      logger("=> Starting Shiny preview app...")
-
-      self$logger <- logger
-      self$show_preview_app_logs <- show_preview_app_logs
-      self$app_loc <- app_loc
-      self$port <- port
-      self$host <- host
-      self$url <- get_app_url(host = host, port = port)
-
-      self$start_app()
-    },
-    app_is_ready = function() {
-      server_exists(self$url)
-    },
+    on_crash_poll = NULL,
     start_app = function() {
-      self$p <- callr::r_bg(
+      private$logger("=> Starting Shiny preview app...")
+      private$p <- callr::r_bg(
         func = function(app_loc, host, port) {
           # Turn on live-reload
           options(shiny.autoreload = TRUE)
           shiny::runApp(app_loc, port = port, host = host)
         },
-        args = list(self$app_loc, self$host, self$port),
+        args = list(private$app_loc, self$host, self$port),
         supervise = TRUE # Extra security for process being cleaned up properly
       )
 
-      self$subscribe_to_logs()
-
-      self$logger("Started Shiny preview app - App PID:", self$p$get_pid())
-    },
-    restart = function() {
-      self$logger("Restarting app preview process\n")
-      self$stop_listeners()
-
-      self$start_app()
-
-      # TODO: Send a message to the websocket that the app is restarting so
-      # there's not an awkard 1s pause where the user thinks the app is frozen
-      Sys.sleep(1)
-      self$logger("Restarted app preview, listening for ready and new crashes...\n")
-      self$start_listeners()
-    },
-    subscribe_to_logs = function() {
-      self$on_log_poll <- create_output_subscribers(
-        source_fn = self$p$read_error_lines,
+      # Subscribe to the logs. Unlike the ready and crash listeners, this one is
+      # always running in case it needs to print logs to the console
+      private$on_log_poll <- create_output_subscribers(
+        source_fn = private$p$read_error_lines,
         filter_fn = function(lines) {
           length(lines) > 0
         },
         callback = function(log_lines) {
-          if (self$show_preview_app_logs) {
+          if (private$print_logs) {
             log_background_app(log_lines)
           }
 
-          if (!is.null(self$ws)) {
-            self$ws$send(
-              build_ws_message(
-                "SHINY_LOGS",
-                payload = log_lines
-              )
-            )
+          if (!is.null(private$on_logs)) {
+            private$on_logs(log_lines)
           }
         }
       )
-    },
-    cleanup = function() {
-      self$logger("Stopping app preview process\n")
 
-      self$stop_listeners()
-
-      tryCatch(
-        {
-          self$logger("=> Shutting down running shiny app...")
-          # tools::SIGTERM = 15
-          self$p$signal(15L)
-        },
-        error = function(e) {
-          self$logger("Error shutting down background Shiny app:")
-          print(e)
-        }
-      )
-    },
-    connect_to_ws = function(ws) {
-      self$ws <- ws
-      self$start_listeners()
+      private$logger("Started Shiny preview app - App PID:", private$p$get_pid())
     },
     start_listeners = function() {
-      self$on_ready_poll <- subscribe_once(
-        source_fn = self$app_is_ready,
+      private$on_ready_poll <- subscribe_once(
+        source_fn = function() {
+          server_exists(self$url)
+        },
         filter_fn = function(is_ready) is_ready,
         callback = function() {
-          self$logger("~~~~App Ready~~~~~\n")
-          # failure_to_start_check()
-
-          self$ws$send(
-            build_ws_message(
-              "SHINY_READY",
-              payload = self$url
-            )
-          )
+          private$logger("~~~~App Ready~~~~~\n")
+          if (!is.null(private$on_ready)) {
+            private$on_ready()
+          }
         }
       )
 
-      self$on_crash_poll <- subscribe_once(
-        source_fn = self$p$is_alive,
+      private$on_crash_poll <- subscribe_once(
+        source_fn = private$p$is_alive,
         filter_fn = function(alive) !alive,
         delay = 1,
         callback = function() {
           cat(crayon::bgCyan("Crash detected \n"))
-
-          self$ws$send(
-            build_ws_message(
-              "SHINY_CRASH",
-              payload = "uh-oh"
-            )
-          )
+          if (!is.null(private$on_crash)) {
+            private$on_crash()
+          }
         }
       )
     },
     stop_listeners = function() {
-      self$on_log_poll$cancel_all()
-      self$on_crash_poll$cancel_all()
-      self$on_ready_poll$cancel_all()
+      private$on_log_poll$cancel_all()
+      private$on_crash_poll$cancel_all()
+      private$on_ready_poll$cancel_all()
+    }
+  ),
+  public = list(
+    host = NULL,
+    port = NULL,
+    url = NULL,
+    initialize = function(app_loc, port, host, print_logs, logger = function() {}) {
+      private$logger <- logger
+      private$print_logs <- print_logs
+      private$app_loc <- app_loc
+      self$port <- port
+      self$host <- host
+      self$url <- get_app_url(host = host, port = port)
+
+      private$start_app()
+    },
+    restart = function() {
+      private$logger("Restarting app preview process\n")
+      private$stop_listeners()
+
+      private$start_app()
+
+      # TODO: Send a message to the websocket that the app is restarting so
+      # there's not an awkard 1s pause where the user thinks the app is frozen
+      Sys.sleep(1)
+      private$logger("Restarted app preview, listening for ready and new crashes...\n")
+      private$start_listeners()
+    },
+    stop_app = function() {
+      private$logger("Stopping app preview process\n")
+
+      private$stop_listeners()
+
+      tryCatch(
+        {
+          private$logger("=> Shutting down running shiny app...")
+          # tools::SIGTERM = 15
+          private$p$signal(15L)
+        },
+        error = function(e) {
+          private$logger("Error shutting down background Shiny app:")
+          print(e)
+        }
+      )
+    },
+    set_listeners = function(on_ready, on_crash, on_logs) {
+      private$on_ready <- on_ready
+      private$on_crash <- on_crash
+      private$on_logs <- on_logs
+
+      private$start_listeners()
     }
   )
 )
