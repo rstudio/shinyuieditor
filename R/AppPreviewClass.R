@@ -32,8 +32,7 @@ AppPreview <- R6::R6Class(
     start_app = function() {
       self$p <- callr::r_bg(
         func = function(app_loc, host, port) {
-          # Turn on live-reload and dev mode
-          # shiny::devmode(TRUE)
+          # Turn on live-reload
           options(shiny.autoreload = TRUE)
           shiny::runApp(app_loc, port = port, host = host)
         },
@@ -45,7 +44,41 @@ AppPreview <- R6::R6Class(
 
       self$logger("Started Shiny preview app - App PID:", self$p$get_pid())
     },
-    stop_app = function() {
+    restart = function() {
+      self$logger("Restarting app preview process\n")
+      self$stop_listeners()
+
+      self$start_app()
+
+      # TODO: Send a message to the websocket that the app is restarting so
+      # there's not an awkard 1s pause where the user thinks the app is frozen
+      Sys.sleep(1)
+      self$logger("Restarted app preview, listening for ready and new crashes...\n")
+      self$start_listeners()
+    },
+    subscribe_to_logs = function() {
+      self$on_log_poll <- create_output_subscribers(
+        source_fn = self$p$read_error_lines,
+        filter_fn = function(lines) {
+          length(lines) > 0
+        },
+        callback = function(log_lines) {
+          if (self$show_preview_app_logs) {
+            log_background_app(log_lines)
+          }
+
+          if (!is.null(self$ws)) {
+            self$ws$send(
+              build_ws_message(
+                "SHINY_LOGS",
+                payload = log_lines
+              )
+            )
+          }
+        }
+      )
+    },
+    cleanup = function() {
       self$logger("Stopping app preview process\n")
 
       self$stop_listeners()
@@ -62,50 +95,10 @@ AppPreview <- R6::R6Class(
         }
       )
     },
-    restart = function() {
-      self$logger("Restarting app preview process\n")
-      self$stop_listeners()
-
-      self$start_app()
-
-      Sys.sleep(1)
-      self$logger("Restarted app preview, listening for ready and new crashes...\n")
-
-      self$start_listeners()
-    },
-
-    subscribe_to_logs = function() {
-      self$on_log_poll <- create_output_subscribers(
-        source_fn = self$p$read_error_lines,
-        filter_fn = function(lines) {
-          length(lines) > 0
-        }
-      )
-
-      self$on_log_poll$subscribe(function(log_lines) {
-        if (self$show_preview_app_logs) {
-          log_background_app(log_lines)
-        }
-
-        if (!is.null(self$ws)) {
-          self$ws$send(
-            build_ws_message(
-              "SHINY_LOGS",
-              payload = log_lines
-            )
-          )
-        }
-      })
-    },
-
-    cleanup = function() {
-      self$stop_app()
-    },
     connect_to_ws = function(ws) {
       self$ws <- ws
       self$start_listeners()
     },
-
     start_listeners = function() {
       self$on_ready_poll <- subscribe_once(
         source_fn = self$app_is_ready,
