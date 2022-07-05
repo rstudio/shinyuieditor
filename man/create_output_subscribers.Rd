@@ -8,7 +8,7 @@ create_output_subscribers(
   source_fn,
   filter_fn = function(...) TRUE,
   delay = 0.1,
-  callbacks = shiny:::Callbacks$new()
+  callback = NULL
 )
 }
 \arguments{
@@ -20,8 +20,9 @@ invoking all the subscribed functions on a given loop.}
 
 \item{delay}{How frequently to poll \code{source_fn}.}
 
-\item{callbacks}{\code{Shiny:::Callbacks} R6 class containing all subscriptions.
-Created automatically if not supplied.}
+\item{callback}{A callback to be run on each poll round with output of
+\code{source_fn}. Same as using \verb{$subscribe()} method without ability to cancel
+subscription for just this callback.}
 }
 \value{
 A list with two callbacks attached: \verb{$subscribe()} which will add a

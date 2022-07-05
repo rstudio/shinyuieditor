@@ -5,8 +5,9 @@
 #' @param filter_fn Optional function returning boolean that can be used to skip
 #'   invoking all the subscribed functions on a given loop.
 #' @param delay How frequently to poll `source_fn`.
-#' @param callbacks `Shiny:::Callbacks` R6 class containing all subscriptions.
-#'   Created automatically if not supplied.
+#' @param callback A callback to be run on each poll round with output of
+#'   `source_fn`. Same as using `$subscribe()` method without ability to cancel
+#'   subscription for just this callback.
 #'
 #' @return A list with two callbacks attached: `$subscribe()` which will add a
 #'   new callback to the subscription queue that takes as its input the output
@@ -43,9 +44,9 @@
 create_output_subscribers <- function(source_fn,
                                       filter_fn = function(...) TRUE,
                                       delay = 0.1,
-                                      callbacks = shiny:::Callbacks$new()) {
+                                      callback = NULL) {
 
-  # callbacks <- shiny:::Callbacks$new()
+  callbacks <- shiny:::Callbacks$new()
 
   subscribed_fn <- source_fn
 
@@ -80,6 +81,11 @@ create_output_subscribers <- function(source_fn,
   # Kick off loop
   poll()
 
+  # If we have a callback already supplied, add is to the callbacks object
+  if (!is.null(callback)) {
+    callbacks$register(callback)
+  }
+
   cancel_all <- function() {
     if (!is.null(unsubscribe)) {
       unsubscribe()
@@ -92,6 +98,7 @@ create_output_subscribers <- function(source_fn,
     callbacks = callbacks
   )
 }
+
 
 
 
