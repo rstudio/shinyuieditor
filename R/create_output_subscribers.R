@@ -108,3 +108,23 @@ create_output_subscribers <- function(source_fn,
     callbacks = callbacks
   )
 }
+
+
+
+subscribe_once <- function(source_fn, filter_fn, callback, delay = 0.1){
+  poll <- create_output_subscribers(
+    source_fn = source_fn,
+    filter_fn = filter_fn,
+    delay = delay
+  )
+
+  listener <- poll$subscribe(function(...){
+    callback()
+
+    # Once we get the ready signal, turn off the subscription
+    listener()
+  })
+
+  poll
+}
+
