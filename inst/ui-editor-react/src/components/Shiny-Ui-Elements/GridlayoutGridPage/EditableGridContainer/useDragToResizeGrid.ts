@@ -48,6 +48,15 @@ export function useDragToResizeGrid({
     status: "idle",
   });
 
+  // We use a ref here because onDragEnd often changes but we don't want to have
+  // to redo the entirety of our callbacks each time. If we don't use a
+  // reference we will get stale closures due to the memoization of the event
+  // handlers needed to properly remove the event listener on unmount
+  const callAfterDragRef = React.useRef(onDragEnd);
+  React.useEffect(() => {
+    callAfterDragRef.current = onDragEnd;
+  }, [onDragEnd]);
+
   const dragStateRef = React.useRef<DragState | null>(null);
 
   const onTractHover: TractEventListener = React.useCallback(
@@ -177,12 +186,13 @@ export function useDragToResizeGrid({
     stopListeningForMouseMove();
 
     // Get the final sizes after dragging
-    if (onDragEnd) {
-      onDragEnd(getLayoutFromGridElement(container));
+    const afterDrag = callAfterDragRef.current;
+    if (afterDrag) {
+      afterDrag(getLayoutFromGridElement(container));
     }
     setDragStatus({ status: "idle" });
     dragStateRef.current = null;
-  }, [containerRef, onDragEnd]);
+  }, [containerRef]);
 
   const dragWatcherDivRef = React.useRef<HTMLDivElement | null>(null);
 
