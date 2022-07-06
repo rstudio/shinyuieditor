@@ -44,7 +44,7 @@ UiFileDefinition <- R6::R6Class(
           time_delta <- as.numeric(self$last_edited - last_edited_new)
           time_delta != 0
         },
-        delay = 1
+        delay = 0.25
       )
     },
 
