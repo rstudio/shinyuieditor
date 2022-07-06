@@ -125,7 +125,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
   ));
 
   const stylesForGrid = {
-    "--gap": layoutDef.gapSize,
+    "--gap": layoutDef.gap_size,
     "--row-gutter": "150px",
     "--col-gutter": "100px",
     "--pad": "8px",

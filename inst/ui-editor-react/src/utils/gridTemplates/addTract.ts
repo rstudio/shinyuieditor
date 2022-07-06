@@ -57,7 +57,7 @@ export default function addTract(
       arr: addedTract,
     });
 
-    template[dir === "rows" ? "rowSizes" : "colSizes"] = addAtIndex(
+    template[dir === "rows" ? "row_sizes" : "col_sizes"] = addAtIndex(
       currentSizes[dir],
       afterIndex,
       size

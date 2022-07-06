@@ -12,21 +12,21 @@ export function buildRange(from: number, to: number): number[] {
 
 export function layoutDefToStyles({
   areas,
-  rowSizes,
-  colSizes,
-  gapSize,
+  row_sizes,
+  col_sizes,
+  gap_size,
 }: TemplatedGridProps): React.CSSProperties {
   return {
     gridTemplateAreas: areas.map((x) => `"${x.join(" ")}"`).join(" \n "),
-    gridTemplateRows: rowSizes.join(" "),
-    gridTemplateColumns: colSizes.join(" "),
-    "--grid-gap": gapSize,
+    gridTemplateRows: row_sizes.join(" "),
+    gridTemplateColumns: col_sizes.join(" "),
+    "--grid-gap": gap_size,
   } as React.CSSProperties;
 }
 
 function getTractSizesFromStyleDeclaration(
   templateProperty: string
-): TemplatedGridProps["colSizes"] {
+): TemplatedGridProps["col_sizes"] {
   return templateProperty.split(" ") as CSSMeasure[];
 }
 
@@ -40,14 +40,21 @@ export function getAreaMatrixFromStyleDeclaration(
 }
 
 export function getLayoutFromGridElement(el: HTMLElement): TemplatedGridProps {
-  const rowSizes = getTractSizesFromStyleDeclaration(el.style.gridTemplateRows);
-  const colSizes = getTractSizesFromStyleDeclaration(
+  const row_sizes = getTractSizesFromStyleDeclaration(
+    el.style.gridTemplateRows
+  );
+  const col_sizes = getTractSizesFromStyleDeclaration(
     el.style.gridTemplateColumns
   );
   const areas = getAreaMatrixFromStyleDeclaration(el.style.gridTemplateAreas);
-  const gapSize = el.style.getPropertyValue("--grid-gap") as CSSMeasure;
+  const gap_size = el.style.getPropertyValue("--grid-gap") as CSSMeasure;
 
-  return { rowSizes, colSizes, areas, gapSize };
+  return {
+    row_sizes: row_sizes,
+    col_sizes: col_sizes,
+    areas,
+    gap_size: gap_size,
+  };
 }
 
 export function tractIsBeingResized(

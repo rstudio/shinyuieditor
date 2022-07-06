@@ -9,9 +9,9 @@ describe("Swap items", () => {
       ["c", "c", "c"],
       ["d", "e", "e"],
     ],
-    rowSizes: ["1fr", "1fr", "1fr"],
-    colSizes: ["1fr", "1fr", "1fr"],
-    gapSize: "10px",
+    row_sizes: ["1fr", "1fr", "1fr"],
+    col_sizes: ["1fr", "1fr", "1fr"],
+    gap_size: "10px",
   };
   test("Simple swap", () => {
     expect(

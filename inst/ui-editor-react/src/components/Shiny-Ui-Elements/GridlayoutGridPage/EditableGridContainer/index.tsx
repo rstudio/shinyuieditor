@@ -31,12 +31,12 @@ function EditableGridContainer({
   children?: React.ReactNode;
   onNewLayout: (layout: TemplatedGridProps) => void;
 } & TemplatedGridProps) {
-  const { rowSizes, colSizes } = layout;
+  const { row_sizes, col_sizes } = layout;
   const containerRef = React.useRef<HTMLDivElement>(null);
   const styles = layoutDefToStyles(layout);
 
-  const columnSizers = buildRange(2, colSizes.length);
-  const rowSizers = buildRange(2, rowSizes.length);
+  const columnSizers = buildRange(2, col_sizes.length);
+  const rowSizers = buildRange(2, row_sizes.length);
 
   const { startDrag, onTractHover, dragStatus, onTractMouseOut } =
     useDragToResizeGrid({
@@ -96,14 +96,14 @@ function EditableGridContainer({
       {children}
       <TractInfoDisplays
         dir="cols"
-        sizes={colSizes}
+        sizes={col_sizes}
         dragStatus={dragStatus}
         areas={layout.areas}
         onUpdate={handleUpdate}
       />
       <TractInfoDisplays
         dir="rows"
-        sizes={rowSizes}
+        sizes={row_sizes}
         dragStatus={dragStatus}
         areas={layout.areas}
         onUpdate={handleUpdate}
@@ -117,7 +117,7 @@ function updateTractSize(
   { dir, index, size }: TractInfo
 ): TemplatedGridProps {
   return produce(layout, (updatedLayout) => {
-    updatedLayout[dir === "rows" ? "rowSizes" : "colSizes"][index] = size;
+    updatedLayout[dir === "rows" ? "row_sizes" : "col_sizes"][index] = size;
   });
 }
 

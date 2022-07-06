@@ -60,8 +60,8 @@ EditableGridContainerShowcase.args = {
       ["c", ".", "f"],
       ["e", ".", "f"],
     ],
-    rowSizes: ["100px", "100px", "2fr", "1fr"],
-    colSizes: ["200px", "1fr", "100px"],
-    gapSize: "15px",
+    row_sizes: ["100px", "100px", "2fr", "1fr"],
+    col_sizes: ["200px", "1fr", "100px"],
+    gap_size: "15px",
   },
 };

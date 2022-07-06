@@ -11,9 +11,9 @@ export const GridlayoutGridPageSettings: SettingsUpdaterComponent<
   return (
     <>
       <LabeledCSSUnitInput
-        name="gapSize"
+        name="gap_size"
         label="Gap between panels"
-        value={settings.gapSize}
+        value={settings.gap_size}
         units={["px", "rem"]}
       />
     </>

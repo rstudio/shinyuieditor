@@ -12,7 +12,7 @@ describe("Build and validate tract size definitions", () => {
             ["a", "b", "c"],
             ["d", "e", "f"],
           ],
-          rowSizes: ["150px", "2rem"],
+          row_sizes: ["150px", "2rem"],
         })
       ).sizes
     ).toEqual(expect.objectContaining({ rows: ["150px", "2rem"] }));
@@ -103,9 +103,9 @@ describe("Validate entire templated grid definition", () => {
             ["a", "b"],
             ["c", "d"],
           ],
-          rowSizes: ["200px", "300px"],
-          colSizes: ["4rem", "4rem"],
-          gapSize: "11px",
+          row_sizes: ["200px", "300px"],
+          col_sizes: ["4rem", "4rem"],
+          gap_size: "11px",
         })
       )
     ).toStrictEqual({
