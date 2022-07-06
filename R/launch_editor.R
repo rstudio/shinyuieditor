@@ -106,8 +106,10 @@ launch_editor <- function(app_loc,
             build_ws_message("INITIAL-DATA", ui_def$ui_tree)
           )
         }
-        # Kick off client with dump of ui tree
-        send_ui_state_to_client()
+
+        # Kick off client with dump of ui tree. Do a slight delay to allow the
+        # react app to spin up fully
+        later::later(send_ui_state_to_client, delay = 0.1)
 
         # Cancel any app close timeouts that may have been caused by the
         # user refreshing the page
