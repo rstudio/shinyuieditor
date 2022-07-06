@@ -47,8 +47,6 @@ export function useDragToResizeGrid({
   const [dragStatus, setDragStatus] = React.useState<DragStatus>({
     status: "idle",
   });
-  const dragWatcherDivRef = React.useRef<HTMLDivElement | null>(null);
-  const dragStateRef = React.useRef<DragState | null>(null);
 
   const onTractHover: TractEventListener = React.useCallback(
     ({
@@ -60,64 +58,32 @@ export function useDragToResizeGrid({
       dir: TractDirection;
       index: number;
     }) => {
-      const container = validateDragContainer(containerRef.current);
-
-      // If we're already dragging, don't try to start another drag.
-      if (dragStateRef.current) {
-        return;
-      }
-
-      setDragStatus(
-        dragStateToStatus(
+      setDragStatus((currentStatus) => {
+        if (currentStatus.status !== "idle") {
+          return currentStatus;
+        }
+        return dragStateToStatus(
           initDragState({
             mousePosition: e,
             dir,
             index,
-            container,
+            container: validateDragContainer(containerRef.current),
           }),
           "hovering"
-        )
-      );
+        );
+      });
     },
     [containerRef]
   );
 
   const onTractMouseOut = React.useCallback(() => {
-    // If we've transitioned from hovering to dragging, don't do anything.
-    if (dragStateRef.current) {
-      return;
-    }
-    setDragStatus({ status: "idle" });
+    setDragStatus((currentStatus) => {
+      if (currentStatus.status === "idle") {
+        return currentStatus;
+      }
+      return { status: "idle" };
+    });
   }, []);
-
-  const onMouseMove = React.useCallback(
-    (e: MouseEvent) => {
-      const dragState = validateDragState(dragStateRef.current);
-      updateDragState({
-        mousePosition: e,
-        drag: dragState,
-        container: validateDragContainer(containerRef.current),
-      });
-
-      setDragStatus(dragStateToStatus(dragState, "dragging"));
-    },
-    [containerRef, dragStateRef]
-  );
-
-  const finishDrag = React.useCallback(() => {
-    teardownDragWatcherDiv(dragWatcherDivRef.current);
-
-    // Get the final sizes after dragging
-    // TODO: Update the javascript arrays containing the sizes to remove
-    // reliance on node state for sizing
-    if (onDragEnd) {
-      onDragEnd(
-        getLayoutFromGridElement(validateDragContainer(containerRef.current))
-      );
-    }
-    setDragStatus({ status: "idle" });
-    dragStateRef.current = null;
-  }, [containerRef, onDragEnd]);
 
   const startDrag = React.useCallback(
     ({
@@ -134,29 +100,49 @@ export function useDragToResizeGrid({
       // This prevents the mouse down from triggering un-desired things like text-selection etc.
       e.preventDefault();
 
-      dragStateRef.current = initDragState({
+      const dragState = initDragState({
         mousePosition: e,
         dir,
         index,
         container,
       });
 
-      setDragStatus(dragStateToStatus(dragStateRef.current, "dragging"));
+      setDragStatus(dragStateToStatus(dragState, "dragging"));
 
-      const dragWatcherDiv = setupDragWatcherDiv(
-        container,
-        dragStateRef.current.dir
-      );
+      const dragWatcherDiv = setupDragWatcherDiv(container, dragState.dir);
 
-      dragWatcherDivRef.current = dragWatcherDiv;
-      dragWatcherDiv.addEventListener("mousemove", onMouseMove);
+      dragWatcherDiv.addEventListener("mousemove", (e: MouseEvent) => {
+        updateDragState({
+          mousePosition: e,
+          drag: dragState,
+          container: validateDragContainer(containerRef.current),
+        });
+
+        setDragStatus(dragStateToStatus(dragState, "dragging"));
+      });
+
+      const finishDrag = () => {
+        teardownDragWatcherDiv(dragWatcherDiv);
+
+        // Get the final sizes after dragging
+        // TODO: Update the javascript arrays containing the sizes to remove
+        // reliance on node state for sizing
+        if (onDragEnd) {
+          onDragEnd(
+            getLayoutFromGridElement(
+              validateDragContainer(containerRef.current)
+            )
+          );
+        }
+        setDragStatus({ status: "idle" });
+      };
 
       // Lifting mouse click up or dragging off the window will finish the
       // resize event
       dragWatcherDiv.addEventListener("mouseup", finishDrag);
       dragWatcherDiv.addEventListener("mouseleave", finishDrag);
     },
-    [containerRef, finishDrag, onMouseMove]
+    [containerRef, onDragEnd]
   );
 
   return {
@@ -225,11 +211,4 @@ function validateDragContainer(
     throw new Error("How are you dragging on an element without a container?");
   }
   return container;
-}
-
-function validateDragState(dragState: DragState | null): DragState {
-  if (!dragState) {
-    throw new Error("Mouse up detected without any current drag state.");
-  }
-  return dragState;
 }
