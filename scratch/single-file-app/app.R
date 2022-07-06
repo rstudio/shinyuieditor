@@ -9,8 +9,8 @@ ui <- grid_page(
   layout = c(
     "header header",
     "sidebar distPlot",
-    "sidebar table",
-    "sidebar bluePlot"
+    ". bluePlot",
+    "table bluePlot"
   ),
   row_sizes = c(
     "100px",
@@ -18,12 +18,15 @@ ui <- grid_page(
     "1fr",
     "1fr"
   ),
-  col_sizes = c("250px","1fr"),
+  col_sizes = c(
+    "250px",
+    "1fr"
+  ),
   gap_size = "1rem",
-  grid_panel_stack(
+  grid_card(
     area = "sidebar",
-    item_alignment = "top",
     item_gap = "12px",
+    item_alignment = "top",
     title = "Settings",
     sliderInput(
       inputId = "bins",
@@ -40,22 +43,22 @@ ui <- grid_page(
       )
     )
   ),
-  grid_panel_text(
+  grid_card_text(
     area = "header",
     content = "Single File App",
-    h_align = "start",
+    alignment = "start",
     is_title = FALSE
   ),
-  grid_panel_stack(
+  grid_card(
     area = "table",
-    item_alignment = "center",
     item_gap = "12px",
+    item_alignment = "center",
     title = "Table",
     scrollable = TRUE,
     gt::gt_output("stockTable")
   ),
-  grid_panel_plot(area = "bluePlot"),
-  grid_panel_plot(area = "distPlot")
+  grid_card_plot(area = "bluePlot"),
+  grid_card_plot(area = "distPlot")
 )
 
 

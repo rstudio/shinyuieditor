@@ -2,7 +2,6 @@ import React from "react";
 
 import { useFilteredDrop } from "DragAndDropHelpers/useFilteredDrop";
 
-import classes from "./GridCell.module.css";
 import type { NewItemInfo } from "./GridlayoutGridPage";
 
 export function GridCell({
@@ -33,9 +32,15 @@ export function GridCell({
 
   return (
     <div
-      className={`grid-cell ${classes.cell}`}
+      className="grid-cell"
       ref={cellRef}
-      style={{ gridRow, gridColumn }}
-    ></div>
+      style={{
+        gridRow,
+        gridColumn,
+        // By insetting a tiny bit we ensure that the cells won't peak out from
+        // behind any item placed over them
+        margin: "2px",
+      }}
+    />
   );
 }

@@ -12,10 +12,10 @@ ui_fn_names_namespaced <- c(
   "shiny::uiOutput",
   "shiny::textOutput",
   "gridlayout::grid_page",
-  "gridlayout::grid_panel",
-  "gridlayout::grid_panel_text",
-  "gridlayout::grid_panel_plot",
-  "gridlayout::grid_panel_stack"
+  "gridlayout::grid_card",
+  "gridlayout::grid_card_text",
+  "gridlayout::grid_card_plot",
+  "gridlayout::grid_card"
 )
 
 # Ui names without namespace attached

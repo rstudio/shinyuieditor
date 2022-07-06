@@ -16,7 +16,7 @@ gridlayout::grid_page(
     "1fr"
   ),
   gap_size = "1rem",
-  gridlayout::grid_panel_stack(
+  gridlayout::grid_card(
     area = "sidebar",
     item_alignment = "top",
     item_gap = "12px",
@@ -36,13 +36,13 @@ gridlayout::grid_page(
       )
     )
   ),
-  gridlayout::grid_panel_text(
+  gridlayout::grid_card_text(
     area = "header",
     content = "Text from Chooser",
     h_align = "start",
     is_title = FALSE
   ),
-  gridlayout::grid_panel_stack(
+  gridlayout::grid_card(
     area = "table",
     item_alignment = "center",
     item_gap = "12px",
@@ -50,6 +50,6 @@ gridlayout::grid_page(
     scrollable = TRUE,
     gt::gt_output("stockTable")
   ),
-  gridlayout::grid_panel_plot(area = "bluePlot"),
-  gridlayout::grid_panel_plot(area = "distPlot")
+  gridlayout::grid_card_plot(area = "bluePlot"),
+  gridlayout::grid_card_plot(area = "distPlot")
 )

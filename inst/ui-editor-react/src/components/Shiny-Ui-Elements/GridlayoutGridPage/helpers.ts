@@ -1,3 +1,4 @@
+import type { GridLocString } from "GridTypes";
 import type { GridItemExtent, ItemLocation } from "utils/gridTemplates/types";
 
 import type { TractDirection } from ".";
@@ -43,4 +44,14 @@ export function sameLocation(
     a.rowStart === b.rowStart &&
     a.rowEnd === b.rowEnd
   );
+}
+
+export function toStringLoc({
+  row,
+  col,
+}: {
+  row: number;
+  col: number;
+}): GridLocString {
+  return `row${row}-col${col}`;
 }

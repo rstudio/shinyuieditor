@@ -1,6 +1,6 @@
 import type { BoxOverlap, BoxSide, DragDir, GridPos } from "../GridTypes";
 
-import type { GridItemBoundingBox } from "./grid-helpers";
+export type GridItemBoundingBox = ItemBoundingBox & GridPos;
 
 export type SelectionRect = {
   left: number;

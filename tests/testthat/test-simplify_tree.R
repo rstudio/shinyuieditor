@@ -6,7 +6,7 @@ test_that("Standardizes layout arguments", {
         row_sizes = c("1fr"),
         col_sizes = c("250px", "1fr"),
         gap_size = "1rem",
-        gridlayout::grid_panel_stack(
+        gridlayout::grid_card(
           area = "sidebar",
           item_alignment = "center",
           shiny::sliderInput(
@@ -17,7 +17,7 @@ test_that("Standardizes layout arguments", {
             value = 40L
           )
         ),
-        gridlayout::grid_panel_stack(
+        gridlayout::grid_card(
           area = "plot",
           item_alignment = "center",
           shiny::plotOutput(
@@ -34,7 +34,7 @@ test_that("Standardizes layout arguments", {
           |1rem |250px   | 1fr  |
           |1fr  |sidebar | plot |
         ",
-        gridlayout::grid_panel_stack(
+        gridlayout::grid_card(
           area = "sidebar",
           item_alignment = "center",
           shiny::sliderInput(
@@ -45,7 +45,7 @@ test_that("Standardizes layout arguments", {
             value = 40L
           )
         ),
-        gridlayout::grid_panel_stack(
+        gridlayout::grid_card(
           area = "plot",
           item_alignment = "center",
           shiny::plotOutput(

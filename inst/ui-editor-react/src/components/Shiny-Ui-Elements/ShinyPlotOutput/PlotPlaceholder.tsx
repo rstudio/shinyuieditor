@@ -6,15 +6,12 @@ import { InputOutputTitle } from "../InputOutputTitle";
 
 import type { ShinyPlotOutputProps } from "./index";
 
-import { useContainerDimensions } from "./ShinyPlotOutput";
 import classes from "./styles.module.css";
 
-export function PlotPlaceholder({
-  outputId,
-  compRef,
-}: ShinyPlotOutputProps & { compRef: React.RefObject<HTMLDivElement> }) {
+export function PlotPlaceholder({ outputId }: ShinyPlotOutputProps) {
+  const plotHolderRef = React.useRef<HTMLDivElement>(null);
   // Start tiny so icon isn't the reason the container is big
-  const containerDimensions = useContainerDimensions(compRef);
+  const containerDimensions = useContainerDimensions(plotHolderRef);
 
   const smallestDim =
     containerDimensions === null
@@ -23,8 +20,8 @@ export function PlotPlaceholder({
 
   return (
     <div
+      ref={plotHolderRef}
       className={classes.plotPlaceholder}
-      // style={{ width: "100%", height: "100%" }}
       aria-label="shiny::plotOutput placeholder"
     >
       <InputOutputTitle
@@ -34,8 +31,31 @@ export function PlotPlaceholder({
       />
       <GoGraph
         // Account for padding of 30px + label height of 30px
-        size={`calc(${smallestDim}px - 60px)`}
+        size={`calc(${smallestDim}px - 80px)`}
       />
     </div>
   );
+}
+
+function useContainerDimensions(containerRef: React.RefObject<HTMLElement>) {
+  const [dimensions, setDimensions] = React.useState<{
+    width: number;
+    height: number;
+  } | null>(null);
+  React.useEffect(() => {
+    // Use conditionals here because in tests we dont have access to the
+    // ResizeObserver variable
+    if (typeof ResizeObserver === "undefined") return;
+    const ro = new ResizeObserver((entries) => {
+      if (!containerRef.current) return;
+
+      const { offsetHeight, offsetWidth } = containerRef.current;
+      setDimensions({ width: offsetWidth, height: offsetHeight });
+    });
+
+    if (containerRef.current) ro.observe(containerRef.current);
+    return () => ro.disconnect();
+  }, [containerRef]);
+
+  return dimensions;
 }

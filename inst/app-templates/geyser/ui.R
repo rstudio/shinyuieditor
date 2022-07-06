@@ -14,13 +14,13 @@ gridlayout::grid_page(
     "1fr"
   ),
   gap_size = "15px",
-  gridlayout::grid_panel_text(
+  gridlayout::grid_card_text(
     area = "header",
     content = "Geysers!",
     h_align = "start",
     is_title = TRUE
   ),
-  gridlayout::grid_panel_stack(
+  gridlayout::grid_card(
     area = "sidebar",
     item_alignment = "top",
     item_gap = "12px",
@@ -33,6 +33,6 @@ gridlayout::grid_page(
       width = "100%"
     )
   ),
-  gridlayout::grid_panel_plot(area = "distPlot"),
-  gridlayout::grid_panel_plot(area = "bluePlot")
+  gridlayout::grid_card_plot(area = "distPlot"),
+  gridlayout::grid_card_plot(area = "bluePlot")
 )

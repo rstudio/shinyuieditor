@@ -25,7 +25,7 @@ app_expr <- rlang::expr(
             | 1rem | 250px   | 1fr  |
             |------|---------|------|
             | 1fr  | sidebar | plot |",
-    gridlayout::grid_panel_stack(
+    gridlayout::grid_card(
       area = "sidebar",
       item_alignment = "center",
       shiny::sliderInput(
@@ -36,7 +36,7 @@ app_expr <- rlang::expr(
         value = 40L
       )
     ),
-    gridlayout::grid_panel_stack(
+    gridlayout::grid_card(
       area = "plot",
       item_alignment = "center",
       shiny::plotOutput(
