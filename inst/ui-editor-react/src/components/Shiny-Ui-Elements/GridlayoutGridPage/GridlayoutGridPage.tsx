@@ -50,10 +50,21 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
 
   const { onClick } = eventHandlers;
 
-  const { areas } = layoutDef;
-
   const { uniqueAreas } = parseGridTemplateAreas(layoutDef);
 
+  // Pull out the extra arguments so they can be re-assigned on node update
+  const { areas, ...extraArgs } = layoutDef;
+  const updateArguments = (newArguments: TemplatedGridProps) => {
+    dispatch(
+      UPDATE_NODE({
+        path: [],
+        node: {
+          uiName: "gridlayout::grid_page",
+          uiArguments: { ...extraArgs, ...newArguments },
+        },
+      })
+    );
+  };
   const itemGridLocations = React.useMemo(
     () => areasToItemLocations(areas),
     [areas]
@@ -65,6 +76,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
     const { node, currentPath, pos } = nodeInfo;
     const isNodeMove = currentPath !== undefined;
     const isGridCard = gridAwareNodes.includes(node.uiName);
+
     if (
       isNodeMove &&
       isGridCard &&
@@ -82,35 +94,9 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
     setShowModal(nodeInfo);
   };
 
-  const updateLayout = React.useCallback(
-    (newLayout: TemplatedGridProps) => {
-      dispatch(
-        UPDATE_NODE({
-          path: [],
-          node: {
-            uiName: "gridlayout::grid_page",
-            uiArguments: newLayout,
-          },
-        })
-      );
-    },
-    [dispatch]
-  );
-
-  const handleLayoutUpdate = React.useCallback(
-    (action: GridLayoutAction) => {
-      dispatch(
-        UPDATE_NODE({
-          path: [],
-          node: {
-            uiName: "gridlayout::grid_page",
-            uiArguments: gridLayoutReducer(layoutDef, action),
-          },
-        })
-      );
-    },
-    [dispatch, layoutDef]
-  );
+  const handleLayoutUpdate = (action: GridLayoutAction) => {
+    updateArguments(gridLayoutReducer(layoutDef, action));
+  };
 
   const areaOverlays = uniqueAreas.map((area) => (
     <AreaOverlay
@@ -131,44 +117,44 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
     "--pad": "8px",
   } as React.CSSProperties;
 
-  const addNewGridItem = React.useCallback(
-    (name: string, { node, currentPath, pos }: NewItemInfo) => {
-      // If we're using a grid-aware node already then we just need to put the
-      // new name into its settings. Otherwise automatically wrap the item in a
-      // grid container
+  const addNewGridItem = (
+    name: string,
+    { node, currentPath, pos }: NewItemInfo
+  ) => {
+    // If we're using a grid-aware node already then we just need to put the
+    // new name into its settings. Otherwise automatically wrap the item in a
+    // grid container
 
-      if (gridAwareNodes.includes(node.uiName)) {
-        const argsWithArea: GridAwareNodeArgs = {
-          ...node.uiArguments,
-          area: name,
-        };
-        node.uiArguments = argsWithArea;
-      } else {
-        node = {
-          uiName: "gridlayout::grid_card",
-          uiArguments: { area: name },
-          uiChildren: [node],
-        };
-      }
+    if (gridAwareNodes.includes(node.uiName)) {
+      const argsWithArea: GridAwareNodeArgs = {
+        ...node.uiArguments,
+        area: name,
+      };
+      node.uiArguments = argsWithArea;
+    } else {
+      node = {
+        uiName: "gridlayout::grid_card",
+        uiArguments: { area: name },
+        uiChildren: [node],
+      };
+    }
 
-      // Let the state know we have a new child node
-      place_node({
-        parentPath: [],
-        node: node,
-        currentPath,
-      });
+    // Let the state know we have a new child node
+    place_node({
+      parentPath: [],
+      node: node,
+      currentPath,
+    });
 
-      handleLayoutUpdate({
-        type: "ADD_ITEM",
-        name: name,
-        pos: pos,
-      });
+    handleLayoutUpdate({
+      type: "ADD_ITEM",
+      name: name,
+      pos: pos,
+    });
 
-      // Reset the modal/new item info state
-      setShowModal(null);
-    },
-    [handleLayoutUpdate, place_node]
-  );
+    // Reset the modal/new item info state
+    setShowModal(null);
+  };
 
   return (
     <LayoutDispatchContext.Provider value={handleLayoutUpdate}>
@@ -181,7 +167,7 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
         draggable={false}
         onDragStart={() => {}}
       >
-        <EditableGridContainer {...layoutDef} onNewLayout={updateLayout}>
+        <EditableGridContainer {...layoutDef} onNewLayout={updateArguments}>
           {findEmptyCells(areas).map(({ row, col }) => (
             <GridCell
               key={toStringLoc({ row, col })}
@@ -190,8 +176,6 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
               onDroppedNode={handleNodeDrop}
             />
           ))}
-
-          {/* <TractControls areas={areas} sizes={sizes} /> */}
           {uiChildren?.map((childNode, i) => (
             <UiNode
               key={nodeInfo.path.join(".") + i}
