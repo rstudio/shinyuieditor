@@ -31,7 +31,7 @@ export type TractEventListener = (x: {
   index: number;
 }) => void;
 
-export type TractEventListners = {
+export type TractEventListeners = {
   onTractHover: TractEventListener;
   startDrag: TractEventListener;
   onTractMouseOut: () => void;
@@ -43,7 +43,7 @@ export function useDragToResizeGrid({
 }: {
   containerRef: React.RefObject<HTMLDivElement>;
   onDragEnd?: (layout: TemplatedGridProps) => void;
-}): TractEventListners & { dragStatus: DragStatus } {
+}): TractEventListeners & { dragStatus: DragStatus } {
   const [dragStatus, setDragStatus] = React.useState<DragStatus>({
     status: "idle",
   });

@@ -3,7 +3,7 @@ import * as React from "react";
 import type { TractDirection } from "..";
 
 import classes from "./TractSizer.module.css";
-import type { TractEventListners } from "./useDragToResizeGrid";
+import type { TractEventListeners } from "./useDragToResizeGrid";
 
 export function TractSizer({
   dir,
@@ -12,7 +12,7 @@ export function TractSizer({
 }: {
   dir: TractDirection;
   index: number;
-  event_listeners: TractEventListners;
+  event_listeners: TractEventListeners;
 }) {
   return (
     <div
