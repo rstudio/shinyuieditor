@@ -47,16 +47,7 @@ export function useDragToResizeGrid({
   const [dragStatus, setDragStatus] = React.useState<DragStatus>({
     status: "idle",
   });
-
-  // We use a ref here because onDragEnd often changes but we don't want to have
-  // to redo the entirety of our callbacks each time. If we don't use a
-  // reference we will get stale closures due to the memoization of the event
-  // handlers needed to properly remove the event listener on unmount
-  const callAfterDragRef = React.useRef(onDragEnd);
-  React.useEffect(() => {
-    callAfterDragRef.current = onDragEnd;
-  }, [onDragEnd]);
-
+  const dragWatcherDivRef = React.useRef<HTMLDivElement | null>(null);
   const dragStateRef = React.useRef<DragState | null>(null);
 
   const onTractHover: TractEventListener = React.useCallback(
@@ -69,12 +60,7 @@ export function useDragToResizeGrid({
       dir: TractDirection;
       index: number;
     }) => {
-      if (!containerRef.current) {
-        console.error(
-          "How are you dragging on an element without a container?"
-        );
-        return;
-      }
+      const container = validateDragContainer(containerRef.current);
 
       // If we're already dragging, don't try to start another drag.
       if (dragStateRef.current) {
@@ -87,7 +73,7 @@ export function useDragToResizeGrid({
             mousePosition: e,
             dir,
             index,
-            container: containerRef.current,
+            container,
           }),
           "hovering"
         )
@@ -104,6 +90,35 @@ export function useDragToResizeGrid({
     setDragStatus({ status: "idle" });
   }, []);
 
+  const onMouseMove = React.useCallback(
+    (e: MouseEvent) => {
+      const dragState = validateDragState(dragStateRef.current);
+      updateDragState({
+        mousePosition: e,
+        drag: dragState,
+        container: validateDragContainer(containerRef.current),
+      });
+
+      setDragStatus(dragStateToStatus(dragState, "dragging"));
+    },
+    [containerRef, dragStateRef]
+  );
+
+  const finishDrag = React.useCallback(() => {
+    teardownDragWatcherDiv(dragWatcherDivRef.current);
+
+    // Get the final sizes after dragging
+    // TODO: Update the javascript arrays containing the sizes to remove
+    // reliance on node state for sizing
+    if (onDragEnd) {
+      onDragEnd(
+        getLayoutFromGridElement(validateDragContainer(containerRef.current))
+      );
+    }
+    setDragStatus({ status: "idle" });
+    dragStateRef.current = null;
+  }, [containerRef, onDragEnd]);
+
   const startDrag = React.useCallback(
     ({
       e,
@@ -114,17 +129,7 @@ export function useDragToResizeGrid({
       dir: TractDirection;
       index: number;
     }) => {
-      if (!containerRef.current) {
-        console.error(
-          "How are you dragging on an element without a container?"
-        );
-        return;
-      }
-
-      // If we're already dragging, don't try to start another drag.
-      // if (dragStateRef.current) {
-      //   return;
-      // }
+      const container = validateDragContainer(containerRef.current);
 
       // This prevents the mouse down from triggering un-desired things like text-selection etc.
       e.preventDefault();
@@ -133,113 +138,26 @@ export function useDragToResizeGrid({
         mousePosition: e,
         dir,
         index,
-        container: containerRef.current,
-      });
-
-      setDragStatus(dragStateToStatus(dragStateRef.current, "dragging"));
-      startListeningForMouseMove();
-    },
-    [containerRef]
-  );
-
-  const onMouseMove = React.useCallback(
-    (e: MouseEvent) => {
-      const container = containerRef.current;
-      if (!container) {
-        console.error(
-          "How are you dragging on an element without a container?"
-        );
-        return;
-      }
-
-      const dragState = dragStateRef.current;
-
-      if (!dragState) {
-        console.error("Mouse move detected without any current drag state.");
-        return;
-      }
-
-      updateDragState({
-        mousePosition: e,
-        drag: dragState,
         container,
       });
 
-      setDragStatus(dragStateToStatus(dragState, "dragging"));
+      setDragStatus(dragStateToStatus(dragStateRef.current, "dragging"));
+
+      const dragWatcherDiv = setupDragWatcherDiv(
+        container,
+        dragStateRef.current.dir
+      );
+
+      dragWatcherDivRef.current = dragWatcherDiv;
+      dragWatcherDiv.addEventListener("mousemove", onMouseMove);
+
+      // Lifting mouse click up or dragging off the window will finish the
+      // resize event
+      dragWatcherDiv.addEventListener("mouseup", finishDrag);
+      dragWatcherDiv.addEventListener("mouseleave", finishDrag);
     },
-    [containerRef, dragStateRef]
+    [containerRef, finishDrag, onMouseMove]
   );
-
-  const finishDrag = React.useCallback(() => {
-    if (!dragStateRef.current) {
-      console.error("Mouse up detected without any current drag state.");
-      return;
-    }
-    const container = containerRef.current;
-    if (!container) {
-      console.error("How are you dragging on an element without a container?");
-      return;
-    }
-
-    // TODO: Update the javascript arrays containing the sizes to remove
-    // reliance on node state for sizing
-    stopListeningForMouseMove();
-
-    // Get the final sizes after dragging
-    const afterDrag = callAfterDragRef.current;
-    if (afterDrag) {
-      afterDrag(getLayoutFromGridElement(container));
-    }
-    setDragStatus({ status: "idle" });
-    dragStateRef.current = null;
-  }, [containerRef]);
-
-  const dragWatcherDivRef = React.useRef<HTMLDivElement | null>(null);
-
-  const startListeningForMouseMove = React.useCallback(() => {
-    const container = containerRef.current;
-
-    if (!container) {
-      console.error("How are you dragging on an element without a container?");
-      return;
-    }
-    // Make a big div that covers the screen to listen for the rest of the mouse commands
-    const dragWatcherDiv = document.createElement("div");
-    dragWatcherDiv.style.position = "fixed";
-    dragWatcherDiv.style.inset = "0px";
-    dragWatcherDiv.style.zIndex = "3";
-    // Keep the cursor consistant with the appropriate direction resizer to let
-    // the user know they're in "drag mode"
-    dragWatcherDiv.style.cursor =
-      dragStateRef.current?.dir === "rows" ? "ns-resize" : "ew-resize";
-
-    dragWatcherDivRef.current = dragWatcherDiv;
-    container.appendChild(dragWatcherDiv);
-    dragWatcherDiv.addEventListener("mousemove", onMouseMove);
-
-    // Lifting mouse click up or dragging off the window will finish the resize
-    // event
-    dragWatcherDiv.addEventListener("mouseup", finishDrag);
-    dragWatcherDiv.addEventListener("mouseleave", finishDrag);
-  }, [onMouseMove]);
-
-  const stopListeningForMouseMove = React.useCallback(() => {
-    const container = containerRef.current;
-
-    if (!container) {
-      console.error("How are you dragging on an element without a container?");
-      return;
-    }
-    const dragWatcherDiv = dragWatcherDivRef.current;
-    if (!dragWatcherDiv) {
-      throw new Error("Can't find div used to watch for drag...");
-    }
-    dragWatcherDiv.removeEventListener("mousemove", onMouseMove);
-    dragWatcherDiv.removeEventListener("mouseup", finishDrag);
-    dragWatcherDiv.removeEventListener("mouseleave", finishDrag);
-    dragWatcherDiv.remove();
-    dragWatcherDivRef.current = null;
-  }, [onMouseMove]);
 
   return {
     dragStatus,
@@ -267,4 +185,51 @@ function dragStateToStatus(
       { dir, index: afterIndex, size: currentSizes[afterIndex] as CSSMeasure },
     ],
   };
+}
+
+function setupDragWatcherDiv(
+  container: HTMLDivElement,
+  dragDir: TractDirection
+) {
+  // Make a big div that covers the screen to listen for the rest of the mouse commands
+  const dragWatcherDiv = document.createElement("div");
+  dragWatcherDiv.style.position = "fixed";
+  dragWatcherDiv.style.inset = "0px";
+  dragWatcherDiv.style.zIndex = "3";
+  // Keep the cursor consistant with the appropriate direction resizer to let
+  // the user know they're in "drag mode"
+  dragWatcherDiv.style.cursor = dragDir === "rows" ? "ns-resize" : "ew-resize";
+
+  container.appendChild(dragWatcherDiv);
+
+  return dragWatcherDiv;
+}
+
+function teardownDragWatcherDiv(dragWatcherDiv: HTMLDivElement | null) {
+  if (!dragWatcherDiv) {
+    throw new Error("Can't find div used to watch for drag...");
+  }
+
+  // Remove event listeners before removing div. Probably not neccesary but
+  // better safe than sorry
+  dragWatcherDiv.onmousemove = null;
+  dragWatcherDiv.onmouseup = null;
+  dragWatcherDiv.onmouseleave = null;
+  dragWatcherDiv.remove();
+}
+
+function validateDragContainer(
+  container: HTMLDivElement | null
+): HTMLDivElement {
+  if (!container) {
+    throw new Error("How are you dragging on an element without a container?");
+  }
+  return container;
+}
+
+function validateDragState(dragState: DragState | null): DragState {
+  if (!dragState) {
+    throw new Error("Mouse up detected without any current drag state.");
+  }
+  return dragState;
 }
