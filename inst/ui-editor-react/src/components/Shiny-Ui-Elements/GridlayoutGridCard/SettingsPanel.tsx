@@ -1,21 +1,8 @@
-import {
-  alignBottom,
-  alignCenter,
-  alignSpread,
-  alignTop,
-} from "components/Icons";
 import { LabeledCSSUnitInput } from "components/Inputs/CSSUnitInput";
 import { TextInput } from "components/Inputs/TextInput/TextInput";
 import type { SettingsUpdaterComponent } from "components/Shiny-Ui-Elements/uiNodeTypes";
 
 import type { GridCardSettings } from ".";
-
-const alignmentOptions = {
-  top: { icon: alignTop, label: "top" },
-  center: { icon: alignCenter, label: "middle" },
-  bottom: { icon: alignBottom, label: "bottom" },
-  spread: { icon: alignSpread, label: "spread" },
-};
 
 export const GridlayoutGridCardSettings: SettingsUpdaterComponent<
   GridCardSettings
