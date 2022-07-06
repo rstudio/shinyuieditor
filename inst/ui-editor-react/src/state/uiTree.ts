@@ -16,9 +16,9 @@ export const initialUiTree: ShinyUiNode = {
   uiName: "gridlayout::grid_page",
   uiArguments: {
     areas: [["msg"]],
-    rowSizes: ["1fr"],
-    colSizes: ["1fr"],
-    gapSize: "1rem",
+    row_sizes: ["1fr"],
+    col_sizes: ["1fr"],
+    gap_size: "1rem",
   },
   uiChildren: [
     {
@@ -41,9 +41,9 @@ export const backupUiTree: ShinyUiNode = {
       ["sidebar", "plot"],
       ["sidebar", "plot"],
     ],
-    rowSizes: ["100px", "1fr", "1fr"],
-    colSizes: ["250px", "1fr"],
-    gapSize: "1rem",
+    row_sizes: ["100px", "1fr", "1fr"],
+    col_sizes: ["250px", "1fr"],
+    gap_size: "1rem",
   },
   uiChildren: [
     {

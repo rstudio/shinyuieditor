@@ -115,8 +115,8 @@ test("Modify a node at first level", () => {
 //     uiName: "gridlayout::grid_page",
 //     uiArguments: {
 //       areas: [["sidebar", "plot"]],
-//       rowSizes: ["1fr"],
-//       colSizes: ["250px", "1fr"],
+//       row_sizes: ["1fr"],
+//       col_sizes: ["250px", "1fr"],
 //     },
 //     uiChildren: [
 //       {
@@ -164,8 +164,8 @@ test("Modify a node at first level", () => {
 //       uiName: "gridlayout::grid_page",
 //       uiArguments: fillInPartialTemplate({
 //         areas: [["new_sidebar_name", "plot"]],
-//         rowSizes: ["1fr"],
-//         colSizes: ["250px", "1fr"],
+//         row_sizes: ["1fr"],
+//         col_sizes: ["250px", "1fr"],
 //       }),
 //     },
 //   });

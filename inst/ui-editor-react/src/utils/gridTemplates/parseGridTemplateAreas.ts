@@ -16,11 +16,15 @@ export type ParsedGridTemplate = {
 
 export default function parseGridTemplateAreas({
   areas,
-  rowSizes = ["1fr"],
-  colSizes = ["1fr"],
-  gapSize = "1rem",
+  row_sizes = ["1fr"],
+  col_sizes = ["1fr"],
+  gap_size = "1rem",
 }: TemplatedGridProps): ParsedGridTemplate {
-  const sizes = getTractSizes({ areas, rowSizes, colSizes });
+  const sizes = getTractSizes({
+    areas,
+    row_sizes: row_sizes,
+    col_sizes: col_sizes,
+  });
 
   return {
     numRows: sizes.rows.length,
@@ -32,17 +36,17 @@ export default function parseGridTemplateAreas({
 
 export function getTractSizes({
   areas,
-  rowSizes = ["1fr"],
-  colSizes = ["1fr"],
-}: Pick<TemplatedGridProps, "areas" | "rowSizes" | "colSizes">): Record<
+  row_sizes = ["1fr"],
+  col_sizes = ["1fr"],
+}: Pick<TemplatedGridProps, "areas" | "row_sizes" | "col_sizes">): Record<
   TractDirection,
   CSSMeasure[]
 > {
   const { numRows, numCols } = matrixDimensions(areas);
 
   return {
-    rows: buildTractSizes(numRows, rowSizes, "row"),
-    cols: buildTractSizes(numCols, colSizes, "column"),
+    rows: buildTractSizes(numRows, row_sizes, "row"),
+    cols: buildTractSizes(numCols, col_sizes, "column"),
   };
 }
 

@@ -77,7 +77,7 @@ export function gridLayoutReducer(
       );
 
     case "SET_GAP":
-      return { ...clone(layout), gapSize: action.size };
+      return { ...clone(layout), gap_size: action.size };
 
     default:
       console.error(action);

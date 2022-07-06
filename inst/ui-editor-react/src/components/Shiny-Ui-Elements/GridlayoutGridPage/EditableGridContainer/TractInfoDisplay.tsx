@@ -148,7 +148,7 @@ export function TractInfoDisplays({
   onUpdate,
 }: {
   dir: TractInfo["dir"];
-  sizes: TemplatedGridProps["colSizes"] | TemplatedGridProps["rowSizes"];
+  sizes: TemplatedGridProps["col_sizes"] | TemplatedGridProps["row_sizes"];
   dragStatus: DragStatus;
   areas: TemplatedGridProps["areas"];
   onUpdate: (a: TractUpdateAction) => void;

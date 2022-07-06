@@ -9,7 +9,7 @@ export default function resizeTract(
   size: CSSMeasure
 ): TemplatedGridProps {
   return produce(templateOriginal, (template) => {
-    const tractProp = dir === "rows" ? "rowSizes" : "colSizes";
+    const tractProp = dir === "rows" ? "row_sizes" : "col_sizes";
 
     // // If the sizes is a repeated or default value we need to make it an array
     // if (!Array.isArray(template[tractProp])) {

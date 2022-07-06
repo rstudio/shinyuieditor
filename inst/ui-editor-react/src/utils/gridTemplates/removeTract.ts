@@ -35,7 +35,7 @@ export default function removeTract(
 
   // If the sizes are a single repeated size than we just leave it, otherwise
   // we need to take out the corresponding size for this tract
-  const sizeForDirProp = dir === "rows" ? "rowSizes" : "colSizes";
+  const sizeForDirProp = dir === "rows" ? "row_sizes" : "col_sizes";
   if (isRepeatedSize(template[sizeForDirProp])) {
     updates[sizeForDirProp] = removeAtIndex(
       template[sizeForDirProp],
@@ -64,10 +64,10 @@ export function conflictsToRemoveTract(
  * Checks if row or column size definition is meant to just be repeated
  *
  * A "repeated" size is single length or non present.
- * E.g. colSizes = "1fr", ["1fr"], undefined
+ * E.g. col_sizes = "1fr", ["1fr"], undefined
  */
 function isRepeatedSize(
-  tractSizes: TemplatedGridProps["colSizes"] | TemplatedGridProps["rowSizes"]
+  tractSizes: TemplatedGridProps["col_sizes"] | TemplatedGridProps["row_sizes"]
 ): boolean {
   return Array.isArray(tractSizes) && tractSizes.length > 1;
 }
