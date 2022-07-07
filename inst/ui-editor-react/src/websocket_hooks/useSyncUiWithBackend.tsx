@@ -1,9 +1,13 @@
 import * as React from "react";
 
 import type { ShinyUiNode } from "components/Shiny-Ui-Elements/uiNodeTypes";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "state/store";
+import { initialUiTree, INIT_STATE } from "state/uiTree";
 import type { WebsocketMessage } from "websocket_hooks/useConnectToWebsocket";
 import {
   listenForWsMessages,
+  sendWsMessage,
   useWebsocketBackend,
 } from "websocket_hooks/useConnectToWebsocket";
 
@@ -12,20 +16,30 @@ type BackendConnection =
   | { status: "no-backend"; uiTree: ShinyUiNode }
   | { status: "connected"; uiTree: ShinyUiNode };
 
-export function useGetUiFromBackend() {
+export function useSyncUiWithBackend() {
+  const dispatch = useDispatch();
+
   const { status, ws } = useWebsocketBackend();
 
   const [connectionStatus, setConnectionStatus] =
     React.useState<BackendConnection>({ status: "loading", uiTree: undefined });
+
+  const lastRecievedRef = React.useRef<ShinyUiNode | null>(null);
+  const currentUiTree = useSelector((state: RootState) => state.uiTree);
 
   React.useEffect(() => {
     if (status === "connected") {
       listenForWsMessages(ws, ({ type, payload }: WebsocketMessage) => {
         if (type !== "INITIAL-DATA") return;
 
+        const initialState = payload as ShinyUiNode;
+
+        lastRecievedRef.current = initialState;
+        dispatch(INIT_STATE({ initialState }));
+
         setConnectionStatus({
           status: "connected",
-          uiTree: payload as ShinyUiNode,
+          uiTree: initialState,
         });
       });
     }
@@ -33,7 +47,20 @@ export function useGetUiFromBackend() {
       // Give the backup/static mode ui tree in the case of no backend connection
       setConnectionStatus({ status: "no-backend", uiTree: backupUiTree });
     }
-  }, [status, ws]);
+  }, [dispatch, status, ws]);
+
+  React.useEffect(() => {
+    if (
+      currentUiTree === initialUiTree ||
+      currentUiTree === lastRecievedRef.current
+    ) {
+      // Avoiding unnecesary message to backend when the state hasn't changed from the one sent to it
+      return;
+    }
+    if (status !== "connected") return;
+
+    sendWsMessage(ws, "UI-DUMP", currentUiTree);
+  }, [currentUiTree, status, ws]);
 
   return connectionStatus;
 }
