@@ -1,10 +1,10 @@
 import React from "react";
 
 import { useSetDisconnectedFromServer } from "state/connectedToServer";
+import { sendWsMessage } from "websocket_hooks/sendWsMessage";
 import type { WebsocketMessage } from "websocket_hooks/useConnectToWebsocket";
 import {
   listenForWsMessages,
-  sendWsMessage,
   useWebsocketBackend,
 } from "websocket_hooks/useConnectToWebsocket";
 
@@ -56,6 +56,10 @@ type PreviewAppMessage =
 function isPreviewAppMessage(x: WebsocketMessage): x is PreviewAppMessage {
   return ["SHINY_READY", "SHINY_CRASH", "SHINY_LOGS"].includes(x.type);
 }
+export type PREVIEW_APP_TYPES =
+  | { path: "APP-PREVIEW-CONNECTED" }
+  | { path: "APP-PREVIEW-RESTART" }
+  | { path: "APP-PREVIEW-STOP" };
 
 export function useCommunicateWithWebsocket(): CommunicationState {
   const set_disconnected = useSetDisconnectedFromServer();
@@ -69,9 +73,11 @@ export function useCommunicateWithWebsocket(): CommunicationState {
     if (status === "connected") {
       // const { ws } = wsStatus;
 
-      sendWsMessage(ws, "APP-PREVIEW-CONNECTED");
-      setRestartApp(() => () => sendWsMessage(ws, "APP-PREVIEW-RESTART"));
-      setStopApp(() => () => sendWsMessage(ws, "APP-PREVIEW-STOP"));
+      sendWsMessage(ws, { path: "APP-PREVIEW-CONNECTED" });
+      setRestartApp(
+        () => () => sendWsMessage(ws, { path: "APP-PREVIEW-RESTART" })
+      );
+      setStopApp(() => () => sendWsMessage(ws, { path: "APP-PREVIEW-STOP" }));
 
       listenForWsMessages(ws, (msg: WebsocketMessage) => {
         if (!isPreviewAppMessage(msg)) return;

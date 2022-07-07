@@ -4,10 +4,10 @@ import type { ShinyUiNode } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "state/store";
 import { initialUiTree, INIT_STATE } from "state/uiTree";
+import { sendWsMessage } from "websocket_hooks/sendWsMessage";
 import type { WebsocketMessage } from "websocket_hooks/useConnectToWebsocket";
 import {
   listenForWsMessages,
-  sendWsMessage,
   useWebsocketBackend,
 } from "websocket_hooks/useConnectToWebsocket";
 
@@ -26,6 +26,15 @@ function useCurrentUiTree() {
 
   return { tree, setTree };
 }
+
+export type STATE_UPDATE_TYPES =
+  | {
+      path: "READY-FOR-STATE";
+    }
+  | {
+      path: "STATE-UPDATE";
+      payload: ShinyUiNode;
+    };
 
 export function useSyncUiWithBackend() {
   const { tree, setTree } = useCurrentUiTree();
@@ -52,7 +61,7 @@ export function useSyncUiWithBackend() {
 
       // Let the backend know that the react app is ready for state to be
       // provided
-      sendWsMessage(ws, "READY-FOR-STATE");
+      sendWsMessage(ws, { path: "READY-FOR-STATE" });
     }
     if (status === "failed-to-open") {
       // Give the backup/static mode ui tree in the case of no backend connection
@@ -74,7 +83,7 @@ export function useSyncUiWithBackend() {
     }
     if (status !== "connected") return;
 
-    sendWsMessage(ws, "STATE-UPDATE", currentUiTree);
+    sendWsMessage(ws, { path: "STATE-UPDATE", payload: currentUiTree });
   }, [currentUiTree, status, ws]);
 
   return { status: connectionStatus, tree };

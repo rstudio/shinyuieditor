@@ -121,7 +121,7 @@ launch_editor <- function(app_loc,
             simplifyVector = FALSE
           )
 
-          switch(message$type,
+          switch(message$path,
             "APP-PREVIEW-CONNECTED" = {
               app_preview$set_listeners(
                 on_ready = function() {
@@ -150,15 +150,14 @@ launch_editor <- function(app_loc,
                 }
               )
             },
-            "READY-FOR-STATE" = {
-              writeLog("App sent ready-for-state message")
-              send_ui_state_to_client()
-            },
             "APP-PREVIEW-RESTART" = {
               app_preview$restart()
             },
             "APP-PREVIEW-STOP" = {
               app_preview$stop_app()
+            },
+            "READY-FOR-STATE" = {
+              send_ui_state_to_client()
             },
             "STATE-UPDATE" = {
               ui_def$update_ui_file(message$payload, remove_namespace)
