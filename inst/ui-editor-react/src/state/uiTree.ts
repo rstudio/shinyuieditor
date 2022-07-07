@@ -11,6 +11,7 @@ import { removeNodeMutating } from "components/UiNode/TreeManipulation/removeNod
 import type { UpdateNodeArguments } from "components/UiNode/TreeManipulation/updateNode";
 import { updateNodeMutating } from "components/UiNode/TreeManipulation/updateNode";
 import { useDispatch } from "react-redux";
+import { subtractElements } from "utils/array-helpers";
 
 export const initialUiTree: ShinyUiNode = {
   uiName: "gridlayout::grid_page",
@@ -60,7 +61,7 @@ export const uiTreeSlice = createSlice({
 
 /**
  *
- * @param uiTree Shiny Ui Tree
+ * @param uiNode Shiny Ui Tree
  * @returns The ui tree modified by adding default values of any ommitted
  * properties with default values.
  *
@@ -68,22 +69,26 @@ export const uiTreeSlice = createSlice({
  * mess with the user's code but will eliminate confusion when the settings
  * options controls don't actually match the presented values
  */
-function fillInDefaultValues(uiTree: ShinyUiNode): ShinyUiNode {
-  const { uiName, uiArguments, uiChildren } = uiTree;
+function fillInDefaultValues(uiNode: ShinyUiNode) {
+  const defaultSettingsForNode = shinyUiNodeInfo[uiNode.uiName].defaultSettings;
 
-  const defaultSettingsForNode = shinyUiNodeInfo[uiName].defaultSettings;
+  const argsInNode = Object.keys(uiNode.uiArguments);
+  const defaultNodeArgs = Object.keys(defaultSettingsForNode);
+  const missingArgs = subtractElements(defaultNodeArgs, argsInNode);
 
-  const newUiArguments = { ...defaultSettingsForNode, ...uiArguments };
+  // Only mess with the ui arguments if there's a discrepency in present
+  // arguments and required/default ones
+  if (missingArgs.length > 0) {
+    uiNode.uiArguments = { ...defaultSettingsForNode, ...uiNode.uiArguments };
+  }
 
-  const newUiChildren = uiChildren
-    ? uiChildren.map((childNode) => fillInDefaultValues(childNode))
-    : undefined;
+  // Recurse over all the children so entire tree is checked
+  if (uiNode.uiChildren) {
+    uiNode.uiChildren.forEach((childNode) => fillInDefaultValues(childNode));
+  }
 
-  return {
-    uiName,
-    uiArguments: newUiArguments,
-    uiChildren: newUiChildren,
-  } as ShinyUiNode;
+  // Return the ui node so the state knows it can update
+  return uiNode as ShinyUiNode;
 }
 
 // Action creators are generated for each case reducer function
