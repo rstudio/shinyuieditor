@@ -103,7 +103,7 @@ launch_editor <- function(app_loc,
         send_ui_state_to_client <- function() {
           writeLog("=> Parsing app blob and sending to client")
           ws$send(
-            build_ws_message("INITIAL-DATA", ui_def$ui_tree)
+            build_ws_message("INITIAL-DATA", ui_def$get_ui_tree())
           )
         }
 

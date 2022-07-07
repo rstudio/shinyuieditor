@@ -6,7 +6,6 @@ UiFileDefinition <- R6::R6Class(
     file_path = NULL,
     type = NULL,
     app_info = NULL,
-    ui_tree = NULL,
     last_edited = NULL,
     file_change_watcher = NULL,
 
@@ -15,7 +14,6 @@ UiFileDefinition <- R6::R6Class(
       self$file_path <- info$path
       self$type <- info$type
 
-      self$update_app_info()
       self$create_file_change_watcher()
     },
 
@@ -24,7 +22,11 @@ UiFileDefinition <- R6::R6Class(
         file_lines = readLines(self$file_path),
         type = self$type
       )
-      self$ui_tree <- self$app_info$ui_tree
+    },
+
+    get_ui_tree = function() {
+      self$update_app_info()
+      self$app_info$ui_tree
     },
 
     get_last_edit_time = function() {
@@ -74,6 +76,9 @@ UiFileDefinition <- R6::R6Class(
       # Make sure we record that this update was our own so the update watcher
       # doesn't trigger
       self$update_last_edit_time()
+
+      # Make sure our info about the file is up-to-date
+      self$update_app_info()
     }
   )
 )
