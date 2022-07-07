@@ -1,10 +1,10 @@
-import type { PREVIEW_APP_TYPES } from "components/AppPreview/useCommunicateWithWebsocket";
+import type { OutgoingPreviewAppMsg } from "components/AppPreview/useCommunicateWithWebsocket";
 
-import type { STATE_UPDATE_TYPES } from "./useSyncUiWithBackend";
+import type { OutgoingStateMsg } from "./useSyncUiWithBackend";
 
 export function sendWsMessage(
   ws: WebSocket,
-  msg: STATE_UPDATE_TYPES | PREVIEW_APP_TYPES
+  msg: OutgoingStateMsg | OutgoingPreviewAppMsg
 ) {
   const msg_blob = new Blob([JSON.stringify(msg)], {
     type: "application/json",

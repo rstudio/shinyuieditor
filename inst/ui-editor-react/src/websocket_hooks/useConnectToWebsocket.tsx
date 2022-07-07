@@ -6,7 +6,7 @@ type WebsocketConnection =
   | { status: "failed-to-open"; ws: null; msg: null }
   | { status: "closed"; ws: null; msg: string };
 
-export type WebsocketMessage = { type: string; payload?: string | object };
+export type WebsocketMessage = { path: string; payload?: string | object };
 
 type ConnectionAction =
   | {

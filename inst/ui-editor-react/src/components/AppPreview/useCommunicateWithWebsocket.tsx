@@ -43,23 +43,24 @@ type CrashState = {
 type CommunicationState = CommonState &
   (LoadingState | SuccessState | NoPreviewState | CrashState);
 
-type PreviewAppMessage =
-  | {
-      type: "SHINY_READY" | "SHINY_CRASH";
-      payload: string;
-    }
-  | {
-      type: "SHINY_LOGS";
-      payload: string[];
-    };
-
-function isPreviewAppMessage(x: WebsocketMessage): x is PreviewAppMessage {
-  return ["SHINY_READY", "SHINY_CRASH", "SHINY_LOGS"].includes(x.type);
-}
-export type PREVIEW_APP_TYPES =
+export type OutgoingPreviewAppMsg =
   | { path: "APP-PREVIEW-CONNECTED" }
   | { path: "APP-PREVIEW-RESTART" }
   | { path: "APP-PREVIEW-STOP" };
+
+type IncomingPreviewAppMsg =
+  | {
+      path: "SHINY_READY" | "SHINY_CRASH";
+      payload: string;
+    }
+  | {
+      path: "SHINY_LOGS";
+      payload: string[];
+    };
+
+function isPreviewAppMessage(x: WebsocketMessage): x is IncomingPreviewAppMsg {
+  return ["SHINY_READY", "SHINY_CRASH", "SHINY_LOGS"].includes(x.path);
+}
 
 export function useCommunicateWithWebsocket(): CommunicationState {
   const set_disconnected = useSetDisconnectedFromServer();
@@ -71,18 +72,16 @@ export function useCommunicateWithWebsocket(): CommunicationState {
   const { status, ws } = useWebsocketBackend();
   React.useEffect(() => {
     if (status === "connected") {
-      // const { ws } = wsStatus;
-
       sendWsMessage(ws, { path: "APP-PREVIEW-CONNECTED" });
       setRestartApp(
         () => () => sendWsMessage(ws, { path: "APP-PREVIEW-RESTART" })
       );
       setStopApp(() => () => sendWsMessage(ws, { path: "APP-PREVIEW-STOP" }));
 
-      listenForWsMessages(ws, (msg: WebsocketMessage) => {
+      listenForWsMessages(ws, (msg) => {
         if (!isPreviewAppMessage(msg)) return;
 
-        const { type, payload } = msg;
+        const { path: type, payload } = msg;
         switch (type) {
           case "SHINY_READY":
             setCrashed(false);

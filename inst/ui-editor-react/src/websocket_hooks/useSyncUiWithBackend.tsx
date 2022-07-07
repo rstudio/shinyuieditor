@@ -13,6 +13,24 @@ import {
 
 type BackendConnectionStatus = "loading" | "no-backend" | "connected";
 
+export type OutgoingStateMsg =
+  | {
+      path: "READY-FOR-STATE";
+    }
+  | {
+      path: "STATE-UPDATE";
+      payload: ShinyUiNode;
+    };
+
+type IncomingStateMsg = {
+  path: "INITIAL-DATA";
+  payload: ShinyUiNode;
+};
+
+function isIncomingStateMsg(x: WebsocketMessage): x is IncomingStateMsg {
+  return ["INITIAL-DATA"].includes(x.path);
+}
+
 function useCurrentUiTree() {
   const dispatch = useDispatch();
   const tree = useSelector((state: RootState) => state.uiTree);
@@ -26,16 +44,6 @@ function useCurrentUiTree() {
 
   return { tree, setTree };
 }
-
-export type STATE_UPDATE_TYPES =
-  | {
-      path: "READY-FOR-STATE";
-    }
-  | {
-      path: "STATE-UPDATE";
-      payload: ShinyUiNode;
-    };
-
 export function useSyncUiWithBackend() {
   const { tree, setTree } = useCurrentUiTree();
 
@@ -49,13 +57,11 @@ export function useSyncUiWithBackend() {
 
   React.useEffect(() => {
     if (status === "connected") {
-      listenForWsMessages(ws, ({ type, payload }: WebsocketMessage) => {
-        if (type !== "INITIAL-DATA") return;
+      listenForWsMessages(ws, (msg: WebsocketMessage) => {
+        if (!isIncomingStateMsg(msg)) return;
 
-        const initialState = payload as ShinyUiNode;
-
-        lastRecievedRef.current = initialState;
-        setTree(initialState);
+        lastRecievedRef.current = msg.payload;
+        setTree(msg.payload);
         setConnectionStatus("connected");
       });
 

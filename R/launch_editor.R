@@ -183,9 +183,9 @@ launch_editor <- function(app_loc,
 }
 
 
-build_ws_message <- function(type, payload) {
+build_ws_message <- function(path, payload) {
   jsonlite::toJSON(list(
-    type = type,
+    path = path,
     payload = payload
   ), auto_unbox = TRUE)
 }
