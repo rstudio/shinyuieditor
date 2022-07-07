@@ -9,7 +9,7 @@ import ElementsPalette from "ElementsPalette";
 import PortalModal from "PortalModal";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "state/store";
-import { backupUiTree, INIT_STATE } from "state/uiTree";
+import { INIT_STATE } from "state/uiTree";
 
 import { AppTour } from "./AppTour";
 import { UndoRedoButtons } from "./components/UndoRedoButtons/UndoRedoButtons";
@@ -25,18 +25,15 @@ const sizes_inline_styles = {
 } as React.CSSProperties;
 
 function EditorContainerWithData({
-  // We use a pre-build ui tree in the case of no initial state being provide,
-  // which indicates we're in a client-side-only mode
-  initialState = backupUiTree,
+  initialState,
 }: {
-  initialState?: ShinyUiNode;
+  initialState: ShinyUiNode;
 }) {
   const dispatch = useDispatch();
 
   const tree = useSelector((state: RootState) => state.uiTree);
 
   React.useEffect(() => {
-    if (!initialState) return;
     dispatch(INIT_STATE({ initialState }));
   }, [dispatch, initialState]);
 
