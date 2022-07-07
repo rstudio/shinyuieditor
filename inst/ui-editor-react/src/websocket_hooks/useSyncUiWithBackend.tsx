@@ -74,7 +74,7 @@ export function useSyncUiWithBackend() {
     }
     if (status !== "connected") return;
 
-    sendWsMessage(ws, "UI-DUMP", currentUiTree);
+    sendWsMessage(ws, "STATE-UPDATE", currentUiTree);
   }, [currentUiTree, status, ws]);
 
   return { status: connectionStatus, tree };

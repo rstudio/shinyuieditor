@@ -160,7 +160,7 @@ launch_editor <- function(app_loc,
             "APP-PREVIEW-STOP" = {
               app_preview$stop_app()
             },
-            "UI-DUMP" = {
+            "STATE-UPDATE" = {
               ui_def$update_ui_file(message$payload, remove_namespace)
               writeLog("<= Saved new ui state from client")
             }
