@@ -49,6 +49,10 @@ export function useSyncUiWithBackend() {
         setTree(initialState);
         setConnectionStatus("connected");
       });
+
+      // Let the backend know that the react app is ready for state to be
+      // provided
+      sendWsMessage(ws, "READY-FOR-STATE");
     }
     if (status === "failed-to-open") {
       // Give the backup/static mode ui tree in the case of no backend connection

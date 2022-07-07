@@ -107,10 +107,6 @@ launch_editor <- function(app_loc,
           )
         }
 
-        # Kick off client with dump of ui tree. Do a slight delay to allow the
-        # react app to spin up fully
-        later::later(send_ui_state_to_client, delay = 0.1)
-
         # Cancel any app close timeouts that may have been caused by the
         # user refreshing the page
         app_close_watcher$connection_opened()
@@ -153,6 +149,10 @@ launch_editor <- function(app_loc,
                   )
                 }
               )
+            },
+            "READY-FOR-STATE" = {
+              writeLog("App sent ready-for-state message")
+              send_ui_state_to_client()
             },
             "APP-PREVIEW-RESTART" = {
               app_preview$restart()
