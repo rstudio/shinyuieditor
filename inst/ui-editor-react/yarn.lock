@@ -12173,11 +12173,6 @@ just-debounce-it@^3.0.0:
   resolved "https://registry.yarnpkg.com/just-debounce-it/-/just-debounce-it-3.0.0.tgz#61e1667cb342aa669629a15799cf6b440b64ceb8"
   integrity sha512-oFlSmGcXnUUy4e1LihoZAFgLqxLJ0F2ZolE+N6kXROP52IylDma89gLPUBQS0CSttAf/uaNq/EqzfaGuUnyXBQ==
 
-just-diff@^4.1.2:
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/just-diff/-/just-diff-4.1.2.tgz#15a3df23553b550d6430d98632c4a4f12b280978"
-  integrity sha512-zfbu6etAdrfoqcuMJcCQBRi8IC4qUIy5knR6eFfqzOeP3S3ZOmnTYSta6RFbFinFazFpR9BoXX+SJwZkrXCvGA==
-
 just-omit@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/just-omit/-/just-omit-1.4.1.tgz#4808511c75223ed9c9051353a81a29cbe4226935"
