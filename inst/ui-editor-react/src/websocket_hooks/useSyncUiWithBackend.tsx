@@ -11,18 +11,29 @@ import {
   useWebsocketBackend,
 } from "websocket_hooks/useConnectToWebsocket";
 
-type BackendConnection =
-  | { status: "loading"; uiTree: undefined }
-  | { status: "no-backend"; uiTree: ShinyUiNode }
-  | { status: "connected"; uiTree: ShinyUiNode };
+type BackendConnectionStatus = "loading" | "no-backend" | "connected";
+
+function useCurrentUiTree() {
+  const dispatch = useDispatch();
+  const tree = useSelector((state: RootState) => state.uiTree);
+
+  const setTree = React.useCallback(
+    (newTree: ShinyUiNode) => {
+      dispatch(INIT_STATE({ initialState: newTree }));
+    },
+    [dispatch]
+  );
+
+  return { tree, setTree };
+}
 
 export function useSyncUiWithBackend() {
-  const dispatch = useDispatch();
+  const { tree, setTree } = useCurrentUiTree();
 
   const { status, ws } = useWebsocketBackend();
 
   const [connectionStatus, setConnectionStatus] =
-    React.useState<BackendConnection>({ status: "loading", uiTree: undefined });
+    React.useState<BackendConnectionStatus>("loading");
 
   const lastRecievedRef = React.useRef<ShinyUiNode | null>(null);
   const currentUiTree = useSelector((state: RootState) => state.uiTree);
@@ -35,19 +46,19 @@ export function useSyncUiWithBackend() {
         const initialState = payload as ShinyUiNode;
 
         lastRecievedRef.current = initialState;
-        dispatch(INIT_STATE({ initialState }));
-
-        setConnectionStatus({
-          status: "connected",
-          uiTree: initialState,
-        });
+        setTree(initialState);
+        setConnectionStatus("connected");
       });
     }
     if (status === "failed-to-open") {
       // Give the backup/static mode ui tree in the case of no backend connection
-      setConnectionStatus({ status: "no-backend", uiTree: backupUiTree });
+      setConnectionStatus("no-backend");
+      setTree(backupUiTree);
+      console.warn(
+        "Error retreiving app template from server. Running in static mode"
+      );
     }
-  }, [dispatch, status, ws]);
+  }, [setTree, status, ws]);
 
   React.useEffect(() => {
     if (
@@ -62,7 +73,7 @@ export function useSyncUiWithBackend() {
     sendWsMessage(ws, "UI-DUMP", currentUiTree);
   }, [currentUiTree, status, ws]);
 
-  return connectionStatus;
+  return { status: connectionStatus, tree };
 }
 
 // Ui Tree used if there's no backend connection

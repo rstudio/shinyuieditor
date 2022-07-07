@@ -21,8 +21,12 @@ const sizes_inline_styles = {
   "--properties-panel-width": `${PROPERTIES_PANEL_WIDTH_PX}px`,
 } as React.CSSProperties;
 
-function EditorContainerWithData() {
-  const tree = useSelector((state: RootState) => state.uiTree);
+export function EditorContainer() {
+  const { status, tree } = useSyncUiWithBackend();
+
+  if (status === "loading") {
+    return <LoadingMessage />;
+  }
 
   return (
     <CurrentDraggedNodeProvider>
@@ -63,20 +67,8 @@ function EditorContainerWithData() {
   );
 }
 
-export function EditorContainer() {
-  const { status } = useSyncUiWithBackend();
-
-  if (status === "loading") {
-    return <h3>Loading initial state from server</h3>;
-  }
-
-  if (status === "no-backend") {
-    console.warn(
-      "Error retreiving app template from server. Running in static mode"
-    );
-  }
-
-  return <EditorContainerWithData />;
+function LoadingMessage() {
+  return <h3>Loading initial state from server</h3>;
 }
 
 function LostConnectionPopup() {
