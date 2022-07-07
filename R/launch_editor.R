@@ -107,10 +107,6 @@ launch_editor <- function(app_loc,
           )
         }
 
-        # Kick off client with dump of ui tree. Do a slight delay to allow the
-        # react app to spin up fully
-        later::later(send_ui_state_to_client, delay = 0.1)
-
         # Cancel any app close timeouts that may have been caused by the
         # user refreshing the page
         app_close_watcher$connection_opened()
@@ -125,7 +121,7 @@ launch_editor <- function(app_loc,
             simplifyVector = FALSE
           )
 
-          switch(message$type,
+          switch(message$path,
             "APP-PREVIEW-CONNECTED" = {
               app_preview$set_listeners(
                 on_ready = function() {
@@ -160,7 +156,10 @@ launch_editor <- function(app_loc,
             "APP-PREVIEW-STOP" = {
               app_preview$stop_app()
             },
-            "UI-DUMP" = {
+            "READY-FOR-STATE" = {
+              send_ui_state_to_client()
+            },
+            "STATE-UPDATE" = {
               ui_def$update_ui_file(message$payload, remove_namespace)
               writeLog("<= Saved new ui state from client")
             }
@@ -184,9 +183,9 @@ launch_editor <- function(app_loc,
 }
 
 
-build_ws_message <- function(type, payload) {
+build_ws_message <- function(path, payload) {
   jsonlite::toJSON(list(
-    type = type,
+    path = path,
     payload = payload
   ), auto_unbox = TRUE)
 }

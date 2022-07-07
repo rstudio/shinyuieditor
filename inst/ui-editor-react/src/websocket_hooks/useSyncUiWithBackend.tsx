@@ -4,14 +4,32 @@ import type { ShinyUiNode } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "state/store";
 import { initialUiTree, INIT_STATE } from "state/uiTree";
+import { sendWsMessage } from "websocket_hooks/sendWsMessage";
 import type { WebsocketMessage } from "websocket_hooks/useConnectToWebsocket";
 import {
   listenForWsMessages,
-  sendWsMessage,
   useWebsocketBackend,
 } from "websocket_hooks/useConnectToWebsocket";
 
 type BackendConnectionStatus = "loading" | "no-backend" | "connected";
+
+export type OutgoingStateMsg =
+  | {
+      path: "READY-FOR-STATE";
+    }
+  | {
+      path: "STATE-UPDATE";
+      payload: ShinyUiNode;
+    };
+
+type IncomingStateMsg = {
+  path: "INITIAL-DATA";
+  payload: ShinyUiNode;
+};
+
+function isIncomingStateMsg(x: WebsocketMessage): x is IncomingStateMsg {
+  return ["INITIAL-DATA"].includes(x.path);
+}
 
 function useCurrentUiTree() {
   const dispatch = useDispatch();
@@ -26,7 +44,6 @@ function useCurrentUiTree() {
 
   return { tree, setTree };
 }
-
 export function useSyncUiWithBackend() {
   const { tree, setTree } = useCurrentUiTree();
 
@@ -40,15 +57,17 @@ export function useSyncUiWithBackend() {
 
   React.useEffect(() => {
     if (status === "connected") {
-      listenForWsMessages(ws, ({ type, payload }: WebsocketMessage) => {
-        if (type !== "INITIAL-DATA") return;
+      listenForWsMessages(ws, (msg: WebsocketMessage) => {
+        if (!isIncomingStateMsg(msg)) return;
 
-        const initialState = payload as ShinyUiNode;
-
-        lastRecievedRef.current = initialState;
-        setTree(initialState);
+        lastRecievedRef.current = msg.payload;
+        setTree(msg.payload);
         setConnectionStatus("connected");
       });
+
+      // Let the backend know that the react app is ready for state to be
+      // provided
+      sendWsMessage(ws, { path: "READY-FOR-STATE" });
     }
     if (status === "failed-to-open") {
       // Give the backup/static mode ui tree in the case of no backend connection
@@ -70,7 +89,7 @@ export function useSyncUiWithBackend() {
     }
     if (status !== "connected") return;
 
-    sendWsMessage(ws, "UI-DUMP", currentUiTree);
+    sendWsMessage(ws, { path: "STATE-UPDATE", payload: currentUiTree });
   }, [currentUiTree, status, ws]);
 
   return { status: connectionStatus, tree };

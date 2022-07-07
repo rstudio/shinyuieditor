@@ -6,7 +6,7 @@ type WebsocketConnection =
   | { status: "failed-to-open"; ws: null; msg: null }
   | { status: "closed"; ws: null; msg: string };
 
-export type WebsocketMessage = { type: string; payload?: string | object };
+export type WebsocketMessage = { path: string; payload?: string | object };
 
 type ConnectionAction =
   | {
@@ -109,13 +109,6 @@ export const WebsocketProvider: React.FC = ({ children }) => {
 
 export function useWebsocketBackend() {
   return React.useContext(WebsocketContext);
-}
-
-export function sendWsMessage(ws: WebSocket, type: string, payload?: object) {
-  const msg_blob = new Blob([JSON.stringify({ type, payload }, null, 2)], {
-    type: "application/json",
-  });
-  ws.send(msg_blob);
 }
 
 function parseWebsocketMessage(raw_msg: MessageEvent<any>) {
