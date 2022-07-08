@@ -2,7 +2,7 @@
   pointer-events: none;
   opacity: 0;
   border-radius: var(--corner-radius);
-  background-color: var(--popover-bg-color, var(--rstudio-white));
+  background-color: var(--rstudio-white);
   /* Use a backdrop filter to provide a tiny bit of lift off the background */
   filter: drop-shadow(1px 1px 4px hsl(0deg 0% 0% / 0.25));
 }
@@ -17,7 +17,6 @@
 .popover[data-show] {
   opacity: 1;
   z-index: 9999;
-  transition-delay: var(--popover-open-delay);
   transition-property: opacity;
   transition-duration: 10ms;
   transition-timing-function: ease-in;
