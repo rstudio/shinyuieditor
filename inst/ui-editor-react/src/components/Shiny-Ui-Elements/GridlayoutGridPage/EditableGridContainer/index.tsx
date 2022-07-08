@@ -9,7 +9,7 @@ import type { TemplatedGridProps } from "..";
 
 import classes from "./resizableGrid.module.css";
 import { TractInfoDisplays } from "./TractInfoDisplay";
-import { TractSizer } from "./TractSizer";
+import { TractSizerHandle } from "./TractSizer";
 import type { TractInfo } from "./useDragToResizeGrid";
 import { useDragToResizeGrid } from "./useDragToResizeGrid";
 import { buildRange, layoutDefToStyles } from "./utils";
@@ -76,7 +76,7 @@ function EditableGridContainer({
       style={styles}
     >
       {columnSizers.map((gap_index) => (
-        <TractSizer
+        <TractSizerHandle
           key={"cols" + gap_index}
           dir="cols"
           index={gap_index}
@@ -84,7 +84,7 @@ function EditableGridContainer({
         />
       ))}
       {rowSizers.map((gap_index) => (
-        <TractSizer
+        <TractSizerHandle
           key={"rows" + gap_index}
           dir="rows"
           index={gap_index}

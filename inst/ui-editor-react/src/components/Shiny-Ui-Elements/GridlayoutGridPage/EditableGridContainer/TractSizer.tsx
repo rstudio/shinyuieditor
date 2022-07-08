@@ -3,7 +3,7 @@ import type { TractDirection } from "..";
 import classes from "./TractSizer.module.css";
 import type { TractEventListener } from "./useDragToResizeGrid";
 
-export function TractSizer({
+export function TractSizerHandle({
   dir,
   index,
   onStartDrag,
