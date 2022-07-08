@@ -63,15 +63,16 @@ export function TractInfoDisplay({
         } as React.CSSProperties
       }
     >
-      <div className={classes.hoverListener}>
-        <AddTractButton dir={dir} onClick={onNewTractBefore} />
-        <DeleteTractButton
-          onClick={onTractDelete}
-          deletionConflicts={deletionConflicts}
-        />
-        <AddTractButton dir={dir} onClick={onNewTractAfter} />
-      </div>
+      <div className={classes.hoverListener} />
       <div className={classes.sizeWidget} onClick={stopPropagation}>
+        <div className={classes.buttons}>
+          <AddTractButton dir={dir} onClick={onNewTractBefore} />
+          <DeleteTractButton
+            onClick={onTractDelete}
+            deletionConflicts={deletionConflicts}
+          />
+          <AddTractButton dir={dir} onClick={onNewTractAfter} />
+        </div>
         <CSSUnitInputSimple
           value={size}
           units={ALLOWED_UNITS}
