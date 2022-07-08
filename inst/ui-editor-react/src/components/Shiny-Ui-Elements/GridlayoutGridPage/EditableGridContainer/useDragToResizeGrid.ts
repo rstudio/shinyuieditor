@@ -3,6 +3,7 @@ import React from "react";
 import type { CSSMeasure } from "CSSMeasure";
 
 import type { TemplatedGridProps, TractDirection } from "..";
+import { validateRef } from "../../../../utils/validateRef";
 
 import { initDragState, updateDragState } from "./dragToResizeHelpers";
 import { getLayoutFromGridElement } from "./utils";
@@ -51,7 +52,10 @@ export function useDragToResizeGrid({
       dir: TractDirection;
       index: number;
     }) => {
-      const container = validateDragContainer(containerRef.current);
+      const container = validateRef(
+        containerRef,
+        "How are you dragging on an element without a container?"
+      );
 
       // This prevents the mouse down from triggering un-desired things like text-selection etc.
       e.preventDefault();
@@ -81,7 +85,7 @@ export function useDragToResizeGrid({
           updateDragState({
             mousePosition: e,
             drag: dragState,
-            container: validateDragContainer(containerRef.current),
+            container,
           });
 
           beforeSizeDisplay.update(dragState.currentSizes[beforeIndex]);
@@ -95,11 +99,7 @@ export function useDragToResizeGrid({
           // TODO: Update the javascript arrays containing the sizes to remove
           // reliance on node state for sizing
           if (onDragEnd) {
-            onDragEnd(
-              getLayoutFromGridElement(
-                validateDragContainer(containerRef.current)
-              )
-            );
+            onDragEnd(getLayoutFromGridElement(container));
           }
         },
       });
@@ -192,13 +192,4 @@ function setupDragWatcherDiv(
 
     dragWatcherDiv.remove();
   }
-}
-
-function validateDragContainer(
-  container: HTMLDivElement | null
-): HTMLDivElement {
-  if (!container) {
-    throw new Error("How are you dragging on an element without a container?");
-  }
-  return container;
 }
