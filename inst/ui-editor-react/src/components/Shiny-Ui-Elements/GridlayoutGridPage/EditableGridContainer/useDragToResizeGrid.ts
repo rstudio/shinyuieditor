@@ -3,8 +3,8 @@ import React from "react";
 import type { CSSMeasure } from "CSSMeasure";
 
 import type { TemplatedGridProps, TractDirection } from "..";
+import { validateRef } from "../../../../utils/validateRef";
 
-import type { DragState } from "./dragToResizeHelpers";
 import { initDragState, updateDragState } from "./dragToResizeHelpers";
 import { getLayoutFromGridElement } from "./utils";
 
@@ -32,9 +32,7 @@ export type TractEventListener = (x: {
 }) => void;
 
 export type TractEventListeners = {
-  onTractHover: TractEventListener;
   startDrag: TractEventListener;
-  onTractMouseOut: () => void;
 };
 
 export function useDragToResizeGrid({
@@ -43,48 +41,7 @@ export function useDragToResizeGrid({
 }: {
   containerRef: React.RefObject<HTMLDivElement>;
   onDragEnd?: (layout: TemplatedGridProps) => void;
-}): TractEventListeners & { dragStatus: DragStatus } {
-  const [dragStatus, setDragStatus] = React.useState<DragStatus>({
-    status: "idle",
-  });
-
-  const onTractHover: TractEventListener = React.useCallback(
-    ({
-      e,
-      dir,
-      index,
-    }: {
-      e: React.MouseEvent;
-      dir: TractDirection;
-      index: number;
-    }) => {
-      setDragStatus((currentStatus) => {
-        if (currentStatus.status !== "idle") {
-          return currentStatus;
-        }
-        return dragStateToStatus(
-          initDragState({
-            mousePosition: e,
-            dir,
-            index,
-            container: validateDragContainer(containerRef.current),
-          }),
-          "hovering"
-        );
-      });
-    },
-    [containerRef]
-  );
-
-  const onTractMouseOut = React.useCallback(() => {
-    setDragStatus((currentStatus) => {
-      if (currentStatus.status === "idle") {
-        return currentStatus;
-      }
-      return { status: "idle" };
-    });
-  }, []);
-
+}): TractEventListener {
   const startDrag = React.useCallback(
     ({
       e,
@@ -95,7 +52,10 @@ export function useDragToResizeGrid({
       dir: TractDirection;
       index: number;
     }) => {
-      const container = validateDragContainer(containerRef.current);
+      const container = validateRef(
+        containerRef,
+        "How are you dragging on an element without a container?"
+      );
 
       // This prevents the mouse down from triggering un-desired things like text-selection etc.
       e.preventDefault();
@@ -107,108 +67,129 @@ export function useDragToResizeGrid({
         container,
       });
 
-      setDragStatus(dragStateToStatus(dragState, "dragging"));
+      const { beforeIndex, afterIndex } = dragState;
 
-      const dragWatcherDiv = setupDragWatcherDiv(container, dragState.dir);
-
-      dragWatcherDiv.addEventListener("mousemove", (e: MouseEvent) => {
-        updateDragState({
-          mousePosition: e,
-          drag: dragState,
-          container: validateDragContainer(containerRef.current),
-        });
-
-        setDragStatus(dragStateToStatus(dragState, "dragging"));
+      const beforeSizeDisplay = setupSizeFeedbackDisplay(container, {
+        dir,
+        index: beforeIndex,
+        size: dragState.currentSizes[beforeIndex] as CSSMeasure,
+      });
+      const afterSizeDisplay = setupSizeFeedbackDisplay(container, {
+        dir,
+        index: afterIndex,
+        size: dragState.currentSizes[afterIndex] as CSSMeasure,
       });
 
-      const finishDrag = () => {
-        teardownDragWatcherDiv(dragWatcherDiv);
+      setupDragWatcherDiv(container, dragState.dir, {
+        move: (e: MouseEvent) => {
+          updateDragState({
+            mousePosition: e,
+            drag: dragState,
+            container,
+          });
 
-        // Get the final sizes after dragging
-        // TODO: Update the javascript arrays containing the sizes to remove
-        // reliance on node state for sizing
-        if (onDragEnd) {
-          onDragEnd(
-            getLayoutFromGridElement(
-              validateDragContainer(containerRef.current)
-            )
-          );
-        }
-        setDragStatus({ status: "idle" });
-      };
+          beforeSizeDisplay.update(dragState.currentSizes[beforeIndex]);
+          afterSizeDisplay.update(dragState.currentSizes[afterIndex]);
+        },
+        end: () => {
+          beforeSizeDisplay.remove();
+          afterSizeDisplay.remove();
 
-      // Lifting mouse click up or dragging off the window will finish the
-      // resize event
-      dragWatcherDiv.addEventListener("mouseup", finishDrag);
-      dragWatcherDiv.addEventListener("mouseleave", finishDrag);
+          // Get the final sizes after dragging
+          // TODO: Update the javascript arrays containing the sizes to remove
+          // reliance on node state for sizing
+          if (onDragEnd) {
+            onDragEnd(getLayoutFromGridElement(container));
+          }
+        },
+      });
     },
     [containerRef, onDragEnd]
   );
 
-  return {
-    dragStatus,
-    startDrag,
-    onTractHover,
-    onTractMouseOut,
-  };
+  return startDrag;
 }
 
-function dragStateToStatus(
-  dragState: DragState,
-  status: ActiveDragStatus["status"]
-): DragStatus {
-  const { dir, afterIndex, beforeIndex, currentSizes } = dragState;
+function setupSizeFeedbackDisplay(
+  container: HTMLDivElement,
+  { dir, index, size }: TractInfo
+) {
+  const containingDiv = document.createElement("div");
+
+  const positionStyles =
+    dir === "rows"
+      ? {
+          gridRow: String(index + 1),
+          gridColumn: "1",
+          flexDirection: "row",
+        }
+      : {
+          gridColumn: String(index + 1),
+          gridRow: "1",
+          flexDirection: "column",
+        };
+  Object.assign(containingDiv.style, positionStyles, {
+    zIndex: "1",
+    display: "flex",
+    alignItems: "center",
+  });
+
+  const displayDiv = document.createElement("div");
+  Object.assign(displayDiv.style, {
+    padding: "3px 7px",
+    borderRadius: "var(--corner-radius)",
+    backgroundColor: "var(--light-grey, pink)",
+  });
+  displayDiv.innerHTML = size;
+
+  containingDiv.appendChild(displayDiv);
+  container.appendChild(containingDiv);
 
   return {
-    status,
-    dir,
-    tracts: [
-      {
-        dir,
-        index: beforeIndex,
-        size: currentSizes[beforeIndex] as CSSMeasure,
-      },
-      { dir, index: afterIndex, size: currentSizes[afterIndex] as CSSMeasure },
-    ],
+    remove: () => containingDiv.remove(),
+    update: (size: string) => {
+      displayDiv.innerHTML = size;
+    },
   };
 }
 
 function setupDragWatcherDiv(
   container: HTMLDivElement,
-  dragDir: TractDirection
+  dragDir: TractDirection,
+  listeners: {
+    move: (e: MouseEvent) => void;
+    end: () => void;
+  }
 ) {
   // Make a big div that covers the screen to listen for the rest of the mouse commands
   const dragWatcherDiv = document.createElement("div");
-  dragWatcherDiv.style.position = "fixed";
-  dragWatcherDiv.style.inset = "0px";
-  dragWatcherDiv.style.zIndex = "3";
-  // Keep the cursor consistant with the appropriate direction resizer to let
-  // the user know they're in "drag mode"
-  dragWatcherDiv.style.cursor = dragDir === "rows" ? "ns-resize" : "ew-resize";
+  Object.assign(dragWatcherDiv.style, {
+    position: "fixed",
+    inset: "0px",
+    zIndex: "3",
+    // Keep the cursor consistant with the appropriate direction resizer to let
+    // the user know they're in "drag mode"
+    cursor: dragDir === "rows" ? "ns-resize" : "ew-resize",
+  });
 
   container.appendChild(dragWatcherDiv);
 
-  return dragWatcherDiv;
-}
+  const endDrag = () => {
+    cleanup();
+    listeners.end();
+  };
 
-function teardownDragWatcherDiv(dragWatcherDiv: HTMLDivElement | null) {
-  if (!dragWatcherDiv) {
-    throw new Error("Can't find div used to watch for drag...");
+  dragWatcherDiv.addEventListener("mousemove", listeners.move);
+  dragWatcherDiv.addEventListener("mouseup", endDrag);
+  dragWatcherDiv.addEventListener("mouseleave", endDrag);
+
+  function cleanup() {
+    // Remove event listeners before removing div. Probably not neccesary but
+    // better safe than sorry
+    dragWatcherDiv.removeEventListener("mousemove", listeners.move);
+    dragWatcherDiv.removeEventListener("mouseup", endDrag);
+    dragWatcherDiv.removeEventListener("mouseleave", endDrag);
+
+    dragWatcherDiv.remove();
   }
-
-  // Remove event listeners before removing div. Probably not neccesary but
-  // better safe than sorry
-  dragWatcherDiv.onmousemove = null;
-  dragWatcherDiv.onmouseup = null;
-  dragWatcherDiv.onmouseleave = null;
-  dragWatcherDiv.remove();
-}
-
-function validateDragContainer(
-  container: HTMLDivElement | null
-): HTMLDivElement {
-  if (!container) {
-    throw new Error("How are you dragging on an element without a container?");
-  }
-  return container;
 }

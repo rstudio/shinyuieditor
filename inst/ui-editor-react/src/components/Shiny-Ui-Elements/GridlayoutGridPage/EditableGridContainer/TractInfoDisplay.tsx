@@ -12,27 +12,19 @@ import type { TemplatedGridProps } from "..";
 import type { TractUpdateAction } from ".";
 
 import classes from "./TractInfoDisplay.module.css";
-import type { DragStatus, TractInfo } from "./useDragToResizeGrid";
-import { tractIsBeingResized } from "./utils";
+import type { TractInfo } from "./useDragToResizeGrid";
 
 const ALLOWED_UNITS: CSSUnits[] = ["fr", "px"];
 export function TractInfoDisplay({
   dir,
   index,
   size,
-  dragStatus,
   onUpdate,
   deletionConflicts,
 }: TractInfo & {
-  dragStatus: DragStatus;
   onUpdate: (a: TractUpdateAction) => void;
   deletionConflicts: string[];
 }) {
-  const resized_size = tractIsBeingResized(dragStatus, { dir, index });
-  const show = resized_size !== false;
-  const displayed_size =
-    resized_size === false ? size : resized_size.current_size;
-
   const onNewSize = React.useCallback(
     (s: CSSMeasure) => onUpdate({ type: "RESIZE", dir, index, size: s }),
     [dir, index, onUpdate]
@@ -65,24 +57,24 @@ export function TractInfoDisplay({
     <div
       className={classes.tractInfoDisplay}
       data-drag-dir={dir}
-      data-visible={show}
       style={
         {
           "--tract-index": index + 1,
         } as React.CSSProperties
       }
     >
-      <div className={classes.hoverListener}>
-        <AddTractButton dir={dir} onClick={onNewTractBefore} />
-        <DeleteTractButton
-          onClick={onTractDelete}
-          deletionConflicts={deletionConflicts}
-        />
-        <AddTractButton dir={dir} onClick={onNewTractAfter} />
-      </div>
+      <div className={classes.hoverListener} />
       <div className={classes.sizeWidget} onClick={stopPropagation}>
+        <div className={classes.buttons}>
+          <AddTractButton dir={dir} onClick={onNewTractBefore} />
+          <DeleteTractButton
+            onClick={onTractDelete}
+            deletionConflicts={deletionConflicts}
+          />
+          <AddTractButton dir={dir} onClick={onNewTractAfter} />
+        </div>
         <CSSUnitInputSimple
-          value={displayed_size}
+          value={size}
           units={ALLOWED_UNITS}
           onChange={onNewSize}
         />
@@ -90,6 +82,11 @@ export function TractInfoDisplay({
     </div>
   );
 }
+
+// We slighly delay the opening of the buttons because if they under the mouse
+// on animation they can trigger the popover to show up in their mid-animation
+// position, causing some confusingly placed tooltips
+const BUTTON_POPOVER_DELAY = 200;
 
 function DeleteTractButton({
   onClick,
@@ -107,9 +104,10 @@ function DeleteTractButton({
   return (
     <PopoverButton
       className={classes.deleteButton}
-      onClick={enabled ? onClick : undefined}
+      onClick={removeFocusAfterClick(enabled ? onClick : undefined)}
       popoverContent={message}
       data-enabled={enabled}
+      openDelayMs={BUTTON_POPOVER_DELAY}
     >
       <Trash />
     </PopoverButton>
@@ -133,23 +131,34 @@ function AddTractButton({
       placement={popoverPlacement}
       aria-label={label}
       popoverContent={label}
-      onClick={onClick}
+      onClick={removeFocusAfterClick(onClick)}
+      openDelayMs={BUTTON_POPOVER_DELAY}
     >
       <FaPlus />
     </PopoverButton>
   );
 }
 
+function removeFocusAfterClick(onClick?: () => void) {
+  return function (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    // Clicking will cause current focus to enter the tract control and thus
+    // keep it open (we do this to keep the controls from collapsing when
+    // the user is adjusting the sizes manually, which relies on the use of
+    // the :focus-within psuedo class), by unfocusing the tract control
+    // knows it can (and should) collapse.
+    e.currentTarget.blur();
+    onClick?.();
+  };
+}
+
 export function TractInfoDisplays({
   dir,
   sizes,
-  dragStatus,
   areas,
   onUpdate,
 }: {
   dir: TractInfo["dir"];
   sizes: TemplatedGridProps["col_sizes"] | TemplatedGridProps["row_sizes"];
-  dragStatus: DragStatus;
   areas: TemplatedGridProps["areas"];
   onUpdate: (a: TractUpdateAction) => void;
 }) {
@@ -169,7 +178,6 @@ export function TractInfoDisplays({
           key={dir + index}
           index={index}
           dir={dir}
-          dragStatus={dragStatus}
           size={size}
           onUpdate={onUpdate}
           deletionConflicts={findDeleteConflicts({ dir, index })}
