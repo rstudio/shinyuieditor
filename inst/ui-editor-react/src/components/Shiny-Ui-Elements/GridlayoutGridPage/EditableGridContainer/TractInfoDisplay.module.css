@@ -87,14 +87,22 @@ user is typing in the input field but mouses off */
 
 .hoverListener {
   position: absolute;
-  width: 100%;
-  height: 100%;
+
+  /* Make it so the listener sticks over the edges and is a larger mouse-over target */
+  --thickness: calc(2 * var(--grid-pad));
+  --offset: calc(-1 * var(--grid-pad));
+
+  /* Also offset the sides, leaving a bit of room for the user to drag the
+  resize handle  */
+  inset: calc(4px - var(--grid-pad));
 }
 .tractInfoDisplay[data-drag-dir="rows"] .hoverListener {
-  width: var(--grid-pad);
+  width: var(--thickness);
+  left: var(--offset);
 }
 .tractInfoDisplay[data-drag-dir="cols"] .hoverListener {
-  height: var(--grid-pad);
+  height: var(--thickness);
+  top: var(--offset);
 }
 
 .buttons {
