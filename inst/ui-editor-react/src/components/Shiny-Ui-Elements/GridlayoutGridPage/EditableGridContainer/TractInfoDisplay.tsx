@@ -29,7 +29,7 @@ export function TractInfoDisplay({
   deletionConflicts: string[];
 }) {
   const resized_size = tractIsBeingResized(dragStatus, { dir, index });
-  const show = resized_size !== false;
+  const keep_visible = resized_size !== false;
   const displayed_size =
     resized_size === false ? size : resized_size.current_size;
 
@@ -65,7 +65,7 @@ export function TractInfoDisplay({
     <div
       className={classes.tractInfoDisplay}
       data-drag-dir={dir}
-      data-visible={show}
+      data-visible={keep_visible}
       style={
         {
           "--tract-index": index + 1,
