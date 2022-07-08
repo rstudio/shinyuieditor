@@ -1,11 +1,11 @@
 .tractInfoDisplay {
-  --transition-out-delay: 0.3s;
-  --transition-in-delay: 0.1s;
-  --transition-delay: var(--transition-out-delay);
+  --transition-delay: 0.1s;
   --transition-speed: 0.1s;
   --transition-ease: ease-in-out;
-  --expand-transition: transform var(--transition-speed) var(--transition-ease)
-    var(--transition-delay);
+
+  /* Start with no transition, this means returning to resting state after
+    hovering will be instant */
+  --expand-transition: none;
 
   /* This is used to scoot the container back into the margins of the grid */
   --offset: calc(-1 * var(--grid-pad));
@@ -38,7 +38,10 @@ user is typing in the input field but mouses off */
 .tractInfoDisplay:focus-within,
 .tractInfoDisplay:hover {
   --scale: 100%;
-  --transition-delay: var(--transition-in-delay);
+
+  /* Transitioning into the hover state gets an animation */
+  --expand-transition: transform var(--transition-speed) var(--transition-ease)
+    var(--transition-delay);
   /* Make sure that the hovered display is always on top */
   z-index: 3;
 }

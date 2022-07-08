@@ -91,7 +91,6 @@ function EditableGridContainer({
           onStartDrag={startDrag}
         />
       ))}
-
       {children}
       <TractInfoDisplays
         dir="cols"
