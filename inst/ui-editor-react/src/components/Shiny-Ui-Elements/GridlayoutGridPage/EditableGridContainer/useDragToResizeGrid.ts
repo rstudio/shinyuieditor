@@ -107,9 +107,21 @@ export function useDragToResizeGrid({
         container,
       });
 
+      const { beforeIndex, afterIndex } = dragState;
+
       setDragStatus(dragStateToStatus(dragState, "dragging"));
 
       const dragWatcherDiv = setupDragWatcherDiv(container, dragState.dir);
+      const beforeSizeDisplay = setupSizeFeedbackDisplay(container, {
+        dir,
+        index: beforeIndex,
+        size: dragState.currentSizes[beforeIndex] as CSSMeasure,
+      });
+      const afterSizeDisplay = setupSizeFeedbackDisplay(container, {
+        dir,
+        index: afterIndex,
+        size: dragState.currentSizes[afterIndex] as CSSMeasure,
+      });
 
       dragWatcherDiv.addEventListener("mousemove", (e: MouseEvent) => {
         updateDragState({
@@ -119,10 +131,14 @@ export function useDragToResizeGrid({
         });
 
         setDragStatus(dragStateToStatus(dragState, "dragging"));
+        beforeSizeDisplay.update(dragState.currentSizes[beforeIndex]);
+        afterSizeDisplay.update(dragState.currentSizes[afterIndex]);
       });
 
       const finishDrag = () => {
         teardownDragWatcherDiv(dragWatcherDiv);
+        beforeSizeDisplay.remove();
+        afterSizeDisplay.remove();
 
         // Get the final sizes after dragging
         // TODO: Update the javascript arrays containing the sizes to remove
@@ -170,6 +186,49 @@ function dragStateToStatus(
       },
       { dir, index: afterIndex, size: currentSizes[afterIndex] as CSSMeasure },
     ],
+  };
+}
+
+function setupSizeFeedbackDisplay(
+  container: HTMLDivElement,
+  { dir, index, size }: TractInfo
+) {
+  const containingDiv = document.createElement("div");
+
+  const positionStyles =
+    dir === "rows"
+      ? {
+          gridRow: String(index + 1),
+          gridColumn: "1",
+          flexDirection: "row",
+        }
+      : {
+          gridColumn: String(index + 1),
+          gridRow: "1",
+          flexDirection: "column",
+        };
+  Object.assign(containingDiv.style, positionStyles, {
+    zIndex: "1",
+    display: "flex",
+    alignItems: "center",
+  });
+
+  const displayDiv = document.createElement("div");
+  Object.assign(displayDiv.style, {
+    padding: "3px 7px",
+    borderRadius: "var(--corner-radius)",
+    backgroundColor: "var(--light-grey, pink)",
+  });
+  displayDiv.innerHTML = size;
+
+  containingDiv.appendChild(displayDiv);
+  container.appendChild(containingDiv);
+
+  return {
+    remove: () => containingDiv.remove(),
+    update: (size: string) => {
+      displayDiv.innerHTML = size;
+    },
   };
 }
 

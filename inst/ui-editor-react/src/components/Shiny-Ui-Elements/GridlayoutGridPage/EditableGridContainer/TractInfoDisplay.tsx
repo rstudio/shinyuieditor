@@ -12,27 +12,19 @@ import type { TemplatedGridProps } from "..";
 import type { TractUpdateAction } from ".";
 
 import classes from "./TractInfoDisplay.module.css";
-import type { DragStatus, TractInfo } from "./useDragToResizeGrid";
-import { tractIsBeingResized } from "./utils";
+import type { TractInfo } from "./useDragToResizeGrid";
 
 const ALLOWED_UNITS: CSSUnits[] = ["fr", "px"];
 export function TractInfoDisplay({
   dir,
   index,
   size,
-  dragStatus,
   onUpdate,
   deletionConflicts,
 }: TractInfo & {
-  dragStatus: DragStatus;
   onUpdate: (a: TractUpdateAction) => void;
   deletionConflicts: string[];
 }) {
-  const resized_size = tractIsBeingResized(dragStatus, { dir, index });
-  const keep_visible = resized_size !== false;
-  const displayed_size =
-    resized_size === false ? size : resized_size.current_size;
-
   const onNewSize = React.useCallback(
     (s: CSSMeasure) => onUpdate({ type: "RESIZE", dir, index, size: s }),
     [dir, index, onUpdate]
@@ -65,7 +57,6 @@ export function TractInfoDisplay({
     <div
       className={classes.tractInfoDisplay}
       data-drag-dir={dir}
-      data-visible={keep_visible}
       style={
         {
           "--tract-index": index + 1,
@@ -82,7 +73,7 @@ export function TractInfoDisplay({
       </div>
       <div className={classes.sizeWidget} onClick={stopPropagation}>
         <CSSUnitInputSimple
-          value={displayed_size}
+          value={size}
           units={ALLOWED_UNITS}
           onChange={onNewSize}
         />
@@ -155,13 +146,11 @@ function removeFocusAfterClick(onClick?: () => void) {
 export function TractInfoDisplays({
   dir,
   sizes,
-  dragStatus,
   areas,
   onUpdate,
 }: {
   dir: TractInfo["dir"];
   sizes: TemplatedGridProps["col_sizes"] | TemplatedGridProps["row_sizes"];
-  dragStatus: DragStatus;
   areas: TemplatedGridProps["areas"];
   onUpdate: (a: TractUpdateAction) => void;
 }) {
@@ -181,7 +170,6 @@ export function TractInfoDisplays({
           key={dir + index}
           index={index}
           dir={dir}
-          dragStatus={dragStatus}
           size={size}
           onUpdate={onUpdate}
           deletionConflicts={findDeleteConflicts({ dir, index })}

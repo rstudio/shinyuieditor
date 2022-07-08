@@ -10,7 +10,7 @@ import type { TemplatedGridProps } from "..";
 import classes from "./resizableGrid.module.css";
 import { TractInfoDisplays } from "./TractInfoDisplay";
 import { TractSizer } from "./TractSizer";
-import type { TractInfo } from "./useDragToResizeGrid";
+import type { DragStatus, TractInfo } from "./useDragToResizeGrid";
 import { useDragToResizeGrid } from "./useDragToResizeGrid";
 import { buildRange, layoutDefToStyles } from "./utils";
 
@@ -97,14 +97,12 @@ function EditableGridContainer({
       <TractInfoDisplays
         dir="cols"
         sizes={col_sizes}
-        dragStatus={dragStatus}
         areas={layout.areas}
         onUpdate={handleUpdate}
       />
       <TractInfoDisplays
         dir="rows"
         sizes={row_sizes}
-        dragStatus={dragStatus}
         areas={layout.areas}
         onUpdate={handleUpdate}
       />
