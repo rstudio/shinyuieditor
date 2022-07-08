@@ -83,6 +83,11 @@ export function TractInfoDisplay({
   );
 }
 
+// We slighly delay the opening of the buttons because if they under the mouse
+// on animation they can trigger the popover to show up in their mid-animation
+// position, causing some confusingly placed tooltips
+const BUTTON_POPOVER_DELAY = 200;
+
 function DeleteTractButton({
   onClick,
   deletionConflicts,
@@ -102,6 +107,7 @@ function DeleteTractButton({
       onClick={removeFocusAfterClick(enabled ? onClick : undefined)}
       popoverContent={message}
       data-enabled={enabled}
+      openDelayMs={BUTTON_POPOVER_DELAY}
     >
       <Trash />
     </PopoverButton>
@@ -126,6 +132,7 @@ function AddTractButton({
       aria-label={label}
       popoverContent={label}
       onClick={removeFocusAfterClick(onClick)}
+      openDelayMs={BUTTON_POPOVER_DELAY}
     >
       <FaPlus />
     </PopoverButton>
