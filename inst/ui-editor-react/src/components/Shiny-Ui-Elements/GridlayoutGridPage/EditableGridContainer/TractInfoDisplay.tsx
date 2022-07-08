@@ -107,7 +107,7 @@ function DeleteTractButton({
   return (
     <PopoverButton
       className={classes.deleteButton}
-      onClick={enabled ? onClick : undefined}
+      onClick={removeFocusAfterClick(enabled ? onClick : undefined)}
       popoverContent={message}
       data-enabled={enabled}
     >
@@ -133,11 +133,23 @@ function AddTractButton({
       placement={popoverPlacement}
       aria-label={label}
       popoverContent={label}
-      onClick={onClick}
+      onClick={removeFocusAfterClick(onClick)}
     >
       <FaPlus />
     </PopoverButton>
   );
+}
+
+function removeFocusAfterClick(onClick?: () => void) {
+  return function (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    // Clicking will cause current focus to enter the tract control and thus
+    // keep it open (we do this to keep the controls from collapsing when
+    // the user is adjusting the sizes manually, which relies on the use of
+    // the :focus-within psuedo class), by unfocusing the tract control
+    // knows it can (and should) collapse.
+    e.currentTarget.blur();
+    onClick?.();
+  };
 }
 
 export function TractInfoDisplays({
