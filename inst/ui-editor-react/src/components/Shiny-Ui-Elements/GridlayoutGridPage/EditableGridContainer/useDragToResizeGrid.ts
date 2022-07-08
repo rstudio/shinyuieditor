@@ -4,7 +4,6 @@ import type { CSSMeasure } from "CSSMeasure";
 
 import type { TemplatedGridProps, TractDirection } from "..";
 
-import type { DragState } from "./dragToResizeHelpers";
 import { initDragState, updateDragState } from "./dragToResizeHelpers";
 import { getLayoutFromGridElement } from "./utils";
 
@@ -32,9 +31,7 @@ export type TractEventListener = (x: {
 }) => void;
 
 export type TractEventListeners = {
-  onTractHover: TractEventListener;
   startDrag: TractEventListener;
-  onTractMouseOut: () => void;
 };
 
 export function useDragToResizeGrid({
@@ -43,48 +40,7 @@ export function useDragToResizeGrid({
 }: {
   containerRef: React.RefObject<HTMLDivElement>;
   onDragEnd?: (layout: TemplatedGridProps) => void;
-}): TractEventListeners & { dragStatus: DragStatus } {
-  const [dragStatus, setDragStatus] = React.useState<DragStatus>({
-    status: "idle",
-  });
-
-  const onTractHover: TractEventListener = React.useCallback(
-    ({
-      e,
-      dir,
-      index,
-    }: {
-      e: React.MouseEvent;
-      dir: TractDirection;
-      index: number;
-    }) => {
-      setDragStatus((currentStatus) => {
-        if (currentStatus.status !== "idle") {
-          return currentStatus;
-        }
-        return dragStateToStatus(
-          initDragState({
-            mousePosition: e,
-            dir,
-            index,
-            container: validateDragContainer(containerRef.current),
-          }),
-          "hovering"
-        );
-      });
-    },
-    [containerRef]
-  );
-
-  const onTractMouseOut = React.useCallback(() => {
-    setDragStatus((currentStatus) => {
-      if (currentStatus.status === "idle") {
-        return currentStatus;
-      }
-      return { status: "idle" };
-    });
-  }, []);
-
+}): TractEventListener {
   const startDrag = React.useCallback(
     ({
       e,
@@ -109,8 +65,6 @@ export function useDragToResizeGrid({
 
       const { beforeIndex, afterIndex } = dragState;
 
-      setDragStatus(dragStateToStatus(dragState, "dragging"));
-
       const dragWatcherDiv = setupDragWatcherDiv(container, dragState.dir);
       const beforeSizeDisplay = setupSizeFeedbackDisplay(container, {
         dir,
@@ -130,7 +84,6 @@ export function useDragToResizeGrid({
           container: validateDragContainer(containerRef.current),
         });
 
-        setDragStatus(dragStateToStatus(dragState, "dragging"));
         beforeSizeDisplay.update(dragState.currentSizes[beforeIndex]);
         afterSizeDisplay.update(dragState.currentSizes[afterIndex]);
       });
@@ -150,7 +103,6 @@ export function useDragToResizeGrid({
             )
           );
         }
-        setDragStatus({ status: "idle" });
       };
 
       // Lifting mouse click up or dragging off the window will finish the
@@ -161,32 +113,7 @@ export function useDragToResizeGrid({
     [containerRef, onDragEnd]
   );
 
-  return {
-    dragStatus,
-    startDrag,
-    onTractHover,
-    onTractMouseOut,
-  };
-}
-
-function dragStateToStatus(
-  dragState: DragState,
-  status: ActiveDragStatus["status"]
-): DragStatus {
-  const { dir, afterIndex, beforeIndex, currentSizes } = dragState;
-
-  return {
-    status,
-    dir,
-    tracts: [
-      {
-        dir,
-        index: beforeIndex,
-        size: currentSizes[beforeIndex] as CSSMeasure,
-      },
-      { dir, index: afterIndex, size: currentSizes[afterIndex] as CSSMeasure },
-    ],
-  };
+  return startDrag;
 }
 
 function setupSizeFeedbackDisplay(

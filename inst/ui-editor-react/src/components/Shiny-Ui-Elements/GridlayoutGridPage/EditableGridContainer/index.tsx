@@ -10,7 +10,7 @@ import type { TemplatedGridProps } from "..";
 import classes from "./resizableGrid.module.css";
 import { TractInfoDisplays } from "./TractInfoDisplay";
 import { TractSizer } from "./TractSizer";
-import type { DragStatus, TractInfo } from "./useDragToResizeGrid";
+import type { TractInfo } from "./useDragToResizeGrid";
 import { useDragToResizeGrid } from "./useDragToResizeGrid";
 import { buildRange, layoutDefToStyles } from "./utils";
 
@@ -38,11 +38,10 @@ function EditableGridContainer({
   const columnSizers = buildRange(2, col_sizes.length);
   const rowSizers = buildRange(2, row_sizes.length);
 
-  const { startDrag, onTractHover, dragStatus, onTractMouseOut } =
-    useDragToResizeGrid({
-      containerRef,
-      onDragEnd: onNewLayout,
-    });
+  const startDrag = useDragToResizeGrid({
+    containerRef,
+    onDragEnd: onNewLayout,
+  });
 
   const containerClasses = [classes.ResizableGrid];
   if (className) containerClasses.push(className);
@@ -81,7 +80,7 @@ function EditableGridContainer({
           key={"cols" + gap_index}
           dir="cols"
           index={gap_index}
-          event_listeners={{ onTractMouseOut, onTractHover, startDrag }}
+          onStartDrag={startDrag}
         />
       ))}
       {rowSizers.map((gap_index) => (
@@ -89,7 +88,7 @@ function EditableGridContainer({
           key={"rows" + gap_index}
           dir="rows"
           index={gap_index}
-          event_listeners={{ onTractMouseOut, onTractHover, startDrag }}
+          onStartDrag={startDrag}
         />
       ))}
 
