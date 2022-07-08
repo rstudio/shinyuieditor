@@ -113,10 +113,9 @@
 
 /* Focus within here makes sure that the tract control doesn't dissapear if the
 user is typing in the input field but mouses off */
+.tractInfoDisplay:focus-within,
 .tractInfoDisplay:hover,
-.tractInfoDisplay[data-visible="true"],
-/* .tractInfoDisplay[data-visible="false"], */
-.tractInfoDisplay:focus-within {
+.tractInfoDisplay[data-visible="true"] {
   --scale: 100%;
   --transition-delay: var(--transition-in-delay);
   --hover-listener-color: var(--size-widget-bg-color);
