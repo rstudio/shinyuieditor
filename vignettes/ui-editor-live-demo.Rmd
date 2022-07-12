@@ -1,0 +1,32 @@
+---
+title: "ui-editor-live-demo"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{ui-editor-live-demo}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(shinyuieditor)
+```
+
+<style>
+.app-container {
+  width: 100%;
+  height: 900px;
+}
+.row>main {
+  max-width: unset !important;
+}
+</style>
+<script defer="defer" src="demo-app/static/js/main.e1828e56.js"></script>
+<link href="demo-app/static/css/main.7d02156b.css" rel="stylesheet">
+<div id="root" class="app-container"></div>

@@ -11,3 +11,4 @@ R/webapp/ui.R
 
 .Rhistory
 docs
+inst/doc

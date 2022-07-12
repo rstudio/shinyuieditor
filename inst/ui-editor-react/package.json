@@ -38,6 +38,7 @@
     "build-no-maps": "GENERATE_SOURCEMAP=false react-scripts build",
     "build": "react-scripts build",
     "build-netlify": "PUBLIC_URL=/ react-scripts build",
+    "build-website-demo": "BUILD_PATH=../../vignettes/demo-app GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
