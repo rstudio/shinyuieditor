@@ -1,4 +1,25 @@
-url: https://rstudio.github.io/shinyuieditor/
 template:
   bootstrap: 5
+
+
+development:
+  mode: auto
+
+
+navbar:
+  title: ~
+  type: default
+  structure:
+    left:  [intro, demo, news]
+    right: [search, github]
+  components:
+    home: ~
+    demo:
+      text: Live Demo
+      href: articles/ui-editor-live-demo.html
+    github:
+      icon: fab fa-github fa-lg
+      href: https://github.com/rstudio/shinyuieditor
+
+url: https://rstudio.github.io/shinyuieditor/
 

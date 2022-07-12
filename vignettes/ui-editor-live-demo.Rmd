@@ -1,5 +1,5 @@
 ---
-title: "ui-editor-live-demo"
+title: "Live Demo"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{ui-editor-live-demo}
@@ -14,9 +14,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(shinyuieditor)
-```
 
 <style>
 .app-container {
