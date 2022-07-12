@@ -1,7 +1,7 @@
 .container {
   --header-height: 31px;
   --padding: var(--horizontal-spacing);
-  height: 100vh;
+  height: 100%;
   width: 100%;
   background-color: var(--background-grey, #edf2f7);
   display: grid;
