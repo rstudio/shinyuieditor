@@ -11,7 +11,7 @@ navbar:
   title: ~
   type: default
   structure:
-    left:  [intro, demo, news]
+    left:  [intro, demo, reference, news]
     right: [search, github]
   components:
     home: ~
