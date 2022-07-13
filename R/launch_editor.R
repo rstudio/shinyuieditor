@@ -1,37 +1,56 @@
-#' Launch ui editor server
+#' Launch shinyuieditor server
 #'
-#' Spins up an `httpuv` server that handles parsing and deparsing of the UI tree
-#' and saving.
+#' Spins up an instance of the `shinyuieditor` server for building new and
+#' editing existing Shiny UIs. The console will be blocked while running the
+#' editor.
 #'
 #'
 #' @inheritParams httpuv::startServer
-#' @param app_loc Path to directory containing Shiny app to be visually edited.
-#'   Currently this only supports two-file app formats, and thus there needs to
-#'   be a `ui.R` file in this directory. If file does not exist a default
-#'   starter template will be used upon finishing will be saved to the path.
-#' @param shiny_background_port Port to launch the running app preview on. Again
-#'   only used for dev work.
-#' @param remove_namespace Should namespaces be stripped from the generated UI
-#'   code? Set to `FALSE` if you prefer the style of `shiny::sliderInput()` to
-#'   `sliderInput()`. If set to `TRUE`, then any libraries needed for the nodes
-#'   will be loaded at the top of your `app.R` or `ui.R`.
+#' @param app_loc Path to directory containing Shiny app to be visually edited
+#'   (either containing an `app.R` or both a `ui.R` and `server.R`). If the
+#'   provided location doesn't exist, or doesn't contain an app, the user will
+#'   be prompted to choose a starter template which will then be written to the
+#'   location specified.
+#' @param shiny_background_port Port to launch the shiny app preview on.
+#'   Typically not necessary to set manually.
+#' @param remove_namespace Should namespaces (`library::` prefixes) be stripped
+#'   from the generated UI code? Set to `FALSE` if you prefer the style of
+#'   `shiny::sliderInput()` to `sliderInput()`. If set to `TRUE`, then any
+#'   libraries needed for the nodes will be loaded at the top of your `app.R` or
+#'   `ui.R`.
 #' @param app_preview Should a live version of the Shiny app being edited run
 #'   and auto-show updates made? You may want to disable this if the app has
 #'   long-running or processor intensive initialization steps.
-#' @param show_logs Print status messages to the console? For debugging.
+#' @param show_logs Print status messages to the console?
 #' @param show_preview_app_logs Should the logged output of the app preview be
-#'   printed? Useful for debugging an app that's not working properly.
+#'   printed? Useful for debugging an app that's not working properly. These
+#'   logs are already shown in the app-preview pane of the editor.
 #' @param launch_browser Should the browser be automatically opened to the
 #'   editor?
-#' @param stop_on_browser_close Should the editor server end when the browser window
-#'   is closed or is dormant for too long. Set this to false if you want to try
-#'   running the app in a different browser or refreshing the browser etc..
+#' @param stop_on_browser_close Should the editor server end when the browser
+#'   window is closed or is dormant for too long. Set this to false if you want
+#'   to try running the app in a different browser or refreshing the browser
+#'   etc..
 #'
-#' @return A list containing the `$server`: The app server object (as returned
-#'   by `httpuv::startServer`) and the function `$stop()` for safely terminating
-#'   the server and preview shiny app.
 #' @export
 #'
+#'
+#' @examples
+#' if (FALSE) {
+#'   # Start editor on a non-existing app directory to choose a starter template
+#'   launch_editor(app_loc = "empty_directory/")
+#'
+#'
+#'   # You can control where the app runs just like a normal Shiny app.
+#'   # This can be useful if you want to access it from a headless server
+#'   launch_editor(
+#'     app_loc = "my-app/",
+#'     host = "0.0.0.0",
+#'     port = 8888,
+#'     launch_browser = FALSE,
+#'     stop_on_browser_close = FALSE
+#'   )
+#' }
 launch_editor <- function(app_loc,
                           host = "127.0.0.1",
                           port = httpuv::randomPort(),
