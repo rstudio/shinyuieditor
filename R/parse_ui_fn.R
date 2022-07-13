@@ -8,6 +8,8 @@
 #' @return A nested list describing the UI of the app for use in the ui editor
 #' @export
 #'
+#' @keywords internal
+#'
 #' @examples
 #'
 #' app_expr <- rlang::expr(

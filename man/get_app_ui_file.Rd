@@ -17,3 +17,4 @@ then \code{app.R} will take precedence
 \description{
 Get the file defining the ui for a shiny app directory
 }
+\keyword{internal}

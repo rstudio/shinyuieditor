@@ -5,6 +5,8 @@
 #' @param type Is the app a single-file app? E.g. app is container entirely in
 #'   `app.R`? Or is it `multi-file`?
 #'
+#' @keywords internal
+#'
 #' @return List with both the `type` and `file_lines` mirrored from the
 #'   arguments of the same name. Along with this the `ui_bounds` containing the
 #'   start and end lines of the file section that defines the app's ui, the
@@ -82,6 +84,8 @@ get_loaded_libraries <- function(file_lines) {
 #' @param new_ui_tree The new UI IR tree defining the new ui for the file
 #' @param remove_namespace Should the new ui be generated with namespaces
 #'   stripped and `library()` calls added for any non-defined namespaces?
+#'
+#' @keywords internal
 #'
 #' @return A new character vector containing the lines of the ui-defining file
 #'   with the layout updated to match the `new_ui_tree`.

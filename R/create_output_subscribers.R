@@ -14,6 +14,8 @@
 #'   of `source_fn()`; and `$cleanup` which is used to stop listening to the
 #'   output of `source_fn()`.
 #'
+#' @keywords internal
+#'
 #' @examples
 #'
 #' clock <- shinyuieditor:::create_output_subscribers(

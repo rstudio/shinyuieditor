@@ -58,6 +58,8 @@ names(ui_fn_info) <- c(ui_fn_names_namespaced, ui_fn_names_bare)
 #'
 #' @return Function name in namespaced format
 #'
+#' @keywords internal
+#'
 #' @examples
 #' shinyuieditor:::namespace_ui_fn("gridlayout::grid_page")
 #' shinyuieditor:::namespace_ui_fn("grid_page")

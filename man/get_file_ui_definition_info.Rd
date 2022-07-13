@@ -23,3 +23,4 @@ via \code{library()} calls in the script.
 \description{
 Get info about ui definition from file
 }
+\keyword{internal}
