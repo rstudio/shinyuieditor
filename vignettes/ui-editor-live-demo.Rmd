@@ -4,7 +4,7 @@ output: rmarkdown::html_vignette
 resource_files:
   - demo-app/
 vignette: >
-  %\VignetteIndexEntry{ui-editor-live-demo}
+  %\VignetteIndexEntry{Live Demo}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,6 +14,11 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+
+
+# To setup the app for this run the command `yarn build-website-demo` from the
+# react app directory. This is needed to put the files in the right place and
+# with as little fluff as possible
 ```
 
 
@@ -35,6 +40,9 @@ iframe.app-container {
 }
 </style>
 
+
+The following is the `shinyuieditor` interface running in its entirety.  
+There is no R backend hooked up so the app preview is non-functional but you can use this to play around and see what's possible to build with the editor. 
 
 <iframe class="app-container" src="./demo-app/index.html"></iframe>
 
