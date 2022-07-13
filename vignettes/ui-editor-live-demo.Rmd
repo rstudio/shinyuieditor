@@ -1,6 +1,8 @@
 ---
 title: "Live Demo"
 output: rmarkdown::html_vignette
+resource_files:
+  - demo-app/
 vignette: >
   %\VignetteIndexEntry{ui-editor-live-demo}
   %\VignetteEngine{knitr::rmarkdown}
@@ -16,14 +18,21 @@ knitr::opts_chunk$set(
 
 
 <style>
-.app-container {
+
+iframe.app-container {
   width: 100%;
   height: 900px;
+  outline: 2px solid silver;
 }
+
 .row>main {
+  /* Let the preview be nice and wide on wide screens */
   max-width: unset !important;
 }
 </style>
-<script defer="defer" src="demo-app/static/js/main.e1828e56.js"></script>
-<link href="demo-app/static/css/main.7d02156b.css" rel="stylesheet">
-<div id="root" class="app-container"></div>
+
+
+<iframe class="app-container" src="./demo-app/index.html"></iframe>
+
+
+
