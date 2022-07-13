@@ -18,16 +18,20 @@ knitr::opts_chunk$set(
 
 
 <style>
-
 iframe.app-container {
   width: 100%;
   height: 900px;
-  outline: 2px solid silver;
+  border: unset;
+  box-shadow: 0px 0px 7px 1px var(--nav-bkg);
 }
 
 .row>main {
   /* Let the preview be nice and wide on wide screens */
   max-width: unset !important;
+}
+
+.col-md-9 {
+  width: 100% !important;
 }
 </style>
 

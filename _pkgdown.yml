@@ -1,10 +1,11 @@
 template:
-  bootstrap: 5
-
+  package: quillt
 
 development:
   mode: auto
 
+home:
+  strip_header: false
 
 navbar:
   title: ~
