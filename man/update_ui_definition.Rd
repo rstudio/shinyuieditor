@@ -22,4 +22,3 @@ with the layout updated to match the \code{new_ui_tree}.
 \description{
 Update the ui definition for a given ui-defining file
 }
-\keyword{internal}
