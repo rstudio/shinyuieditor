@@ -13,7 +13,8 @@
 #'
 deparse_ui_fn <- function(ui_tree, remove_namespace = FALSE) {
   namespaces_removed <- list()
-  deparse_ui_fn_internal <- function(ui_tree) {
+  deparse_ui_fn_internal <- function(ui_tree, is_arg = FALSE) {
+
     # Is the tree node just a primitive value? In that case we don't need to do
     # any special parsing
     if (!is.list(ui_tree)) {
@@ -25,18 +26,28 @@ deparse_ui_fn <- function(ui_tree, remove_namespace = FALSE) {
       return(unknown_code_unwrap(ui_tree))
     }
 
+    if (is_arg) {
+      # An argument that is not a primitive type must be a (potentially named)
+      # list
+      return(plain_list_to_expr(ui_tree))
+    }
+
     # If we've made if this far we should be in a full-blown ui node
     validate_ui_tree_node(ui_tree)
 
     # We can then recurse through the arguments/children to build up the proper
     # argument structure to be reconstructed with call2
-    all_ui_args <- lapply(
-      rlang::list2(
-        !!!ui_tree$uiArguments,
-        !!!ui_tree$uiChildren
-      ),
-      deparse_ui_fn_internal
+    all_args <- lapply(
+      ui_tree$uiArguments,
+      deparse_ui_fn_internal,
+      is_arg = TRUE
     )
+    all_children <- lapply(
+      ui_tree$uiChildren,
+      deparse_ui_fn_internal,
+      is_arg = FALSE
+    )
+
 
     ui_fn_name <- ui_tree$uiName
     if (remove_namespace) {
@@ -49,7 +60,8 @@ deparse_ui_fn <- function(ui_tree, remove_namespace = FALSE) {
     # Now we can reconstruct the original function call with names attached
     rlang::call2(
       parse(text = ui_fn_name)[[1]],
-      !!!all_ui_args
+      !!!all_args,
+      !!!all_children
     )
   }
 
@@ -59,6 +71,9 @@ deparse_ui_fn <- function(ui_tree, remove_namespace = FALSE) {
   )
 }
 
+plain_list_to_expr <- function(x) {
+  rlang::call2("list", !!!x)
+}
 
 
 validate_ui_tree_node <- function(node) {
