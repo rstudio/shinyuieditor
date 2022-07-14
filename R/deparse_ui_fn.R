@@ -9,6 +9,8 @@
 #'   stripped from the ui functions (only has elements if `remove_namespaces =
 #'   TRUE`)
 #'
+#' @keywords internal
+#'
 deparse_ui_fn <- function(ui_tree, remove_namespace = FALSE) {
   namespaces_removed <- list()
   deparse_ui_fn_internal <- function(ui_tree) {

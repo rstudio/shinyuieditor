@@ -1,37 +1,23 @@
 # Shiny UI Editor
 
-A GUI for laying out a Shiny application that generates clean and human-readable UI code.
-
-**Extended goal**
-The overarching goal of the Shiny Ui Editor is to be a way for people to build the broad-level UI for their Shiny app without writing code. The editor is indented for those who may not be comfortable with the HTML-style code of Shiny's UI functions or who simply don't want to fiddle with sizes to get things laid out correctly.
-
-We're trying hard to constrain the feature set so we have fewer but higher-quality features. Lots of the no-code UI builders expose so many options that, ultimately, they're more complex to use than just writing the code by hand. By generating code for the user, we're letting them flesh out those details by hand on top of a solid foundation instead of forcing them to do it in a (probably sub-optimal) visual paradigm.
-
-## Feedback
-
-Any thoughts or comments you have on the editor can come via email (nick.strayer@rstudio.com), the [github repo's issues.](https://github.com/rstudio/shinyuieditor/issues), or the RStudio slack channel `#shiny-ui-editor`.
-
-The things most useful for feedback at this stage are:
-
-- Are there interaction patterns you kept wanting to do that were either unavailable or not intuitive? E.g., Wanting to delete an element with the delete key or by throwing the element off the screen.
-- Did the app crash? If so
-  - Was the crash reflected in errors in the R console?
-  - if not, were there errors in the browser's javascript console? (Keyboard shortcut Ctrl-Shift-J on Windows, or Cmd-Option-J on Mac.)
-- Do you have any ideas about how you could see yourself or others using the editor that are not currently supported?
+A visual tool for building the UI portion of a Shiny application that generates clean and human-readable code.
 
 
-## Quick Start
+The goal of the Shiny Ui Editor is to allow people to build the broad-level UI for their Shiny app without writing code. The editor is indented for those who may not be comfortable with the HTML-style code of Shiny's UI functions or who simply don't want to fiddle with sizes to get things laid out correctly.
+
+
+## Getting Started
 
 [Video walkthrough of using ui editor to create and edit a new app](https://youtu.be/2Z0NfNLEJJQ).
 
 A few notes on the video:
 
 - It is public but unlisted, so please don't share the link.
-- The UI and features of the app are continuously evolving and the video will updated periodically but if you notice something is egregiously/ confusingly out of date, don't hestiate to reach out and I will update it ASAP.
+- The UI and features of the app are continuously evolving and the video will updated periodically but if you notice something is egregiously/ confusingly out of date, don't hesitate to reach out and I will update it ASAP.
 
 ### Pre-reqs
 
-- Shiny app with ui built using `gridlayout::gridpage()` (more layout functions coming soon.)
+- Shiny app with ui built using `gridlayout::gridpage()` (more layout functions coming soon.) See the [`gridlayout` package](https://github.com/rstudio/gridlayout) for more info.
 
 ### Installing
 
@@ -74,7 +60,7 @@ _In the future more starting templates will be offered, however, currently only 
 
 #### Existing app
 
-Assuming theres an existing app (either `app.R` or `ui.R` and `server.R`) in the folder `existing-app/` relative to your current working directly (`getwd()`), then you start the ui-editor on that app by running the following code and pasting the returned link into your web-browser.
+Assuming there's an existing app (either `app.R` or `ui.R` and `server.R`) in the folder `existing-app/` relative to your current working directly (`getwd()`), then you start the ui-editor on that app by running the following code and pasting the returned link into your web-browser.
 
 ```r
 shinyuieditor::launch_editor(app_loc = "existing-app/")
@@ -89,7 +75,21 @@ Once you're in the editor, any changes you make will automatically be written to
 
 ### Finishing
 
-When you're done, simply close the browswer window and stop the editor preview process in R. Since all changes are eagerly applied there's no need to save.
+When you're done, simply close the browser window (or press {control/command}-c in the console) to stop the editor preview process in R. Since all changes are eagerly applied there's no need to save.
+
+
+## Feedback
+
+Any thoughts or comments you have on the editor can come via email (nick.strayer@rstudio.com), the [github repo's issues.](https://github.com/rstudio/shinyuieditor/issues), or the RStudio slack channel `#shiny-ui-editor`.
+
+The things most useful for feedback at this stage are:
+
+- Are there interaction patterns you kept wanting to do that were either unavailable or not intuitive? E.g., Wanting to delete an element with the delete key or by throwing the element off the screen.
+- Did the app crash? If so
+  - Was the crash reflected in errors in the R console?
+  - if not, were there errors in the browser's javascript console? (Keyboard shortcut Ctrl-Shift-J on Windows, or Cmd-Option-J on Mac.)
+- Do you have any ideas about how you could see yourself or others using the editor that are not currently supported?
+
 
 ## Getting help
 
@@ -140,17 +140,10 @@ remove.packages(c('shinyuieditor', 'gridlayout'))
 pak::pkg_install("rstudio/shinyuieditor")
 ```
 
-# Stack
-
-- React
-- Create React App for project setup
-- Redux for state management
-
-# Development Design Dogma
-
-The following are a series of design practices that the code of this application strives to follow in the name of maintainable and efficient code. Don't hesitate to break these, just think strongly about _why_ when doing so.
 
 ## Overarching principle
+
+We're trying hard to constrain the feature set so we have fewer but higher-quality features. Lots of the no-code UI builders expose so many options that, ultimately, they're more complex to use than just writing the code by hand. By generating code for the user, we're letting them flesh out those details by hand on top of a solid foundation instead of forcing them to do it in a (probably sub-optimal) visual paradigm.
 
 > Complexity is anything related to the structure of a system that makes it hard to understand and modify that system
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_file_ui_definition_info.R
 \name{get_file_ui_definition_info}
 \alias{get_file_ui_definition_info}
-\title{Get info about ui definition from file}
+\title{Get app ui information from script}
 \usage{
 get_file_ui_definition_info(file_lines, type = "single-file")
 }
@@ -21,5 +21,22 @@ start and end lines of the file section that defines the app's ui, the
 via \code{library()} calls in the script.
 }
 \description{
-Get info about ui definition from file
+Get app ui information from script
+}
+\examples{
+
+# Note the use of the triple colon, this function is not exported
+# shinyuieditor:::get_file_ui_definition_info(...)
+
+# Can handle single-file app.R
+app_loc <- system.file(
+  "app-templates/geyser_single-file/app.R",
+  package = "shinyuieditor"
+ )
+shinyuieditor:::get_file_ui_definition_info(readLines(app_loc), type = "single-file")
+
+# Also handles multi-file apps
+app_loc <- system.file("app-templates/geyser/ui.R", package = "shinyuieditor")
+shinyuieditor:::get_file_ui_definition_info(readLines(app_loc), type = "multi-file")
+
 }

@@ -47,16 +47,15 @@ export function useConnectToWebsocket() {
   const haveConnectedToWebsocket = React.useRef(false);
 
   React.useEffect(() => {
-    if (!document.location.host) return;
-
-    // If we're using the dev proxy we should just go straight to websocket.
-    // Otherwise use the same location as the main app
-    const websocket_host =
-      process.env.NODE_ENV === "development"
-        ? "localhost:8888"
-        : window.location.host;
-
     try {
+      if (!document.location.host) throw new Error("Not on a served site!");
+
+      // If we're using the dev proxy we should just go straight to websocket.
+      // Otherwise use the same location as the main app
+      const websocket_host =
+        process.env.NODE_ENV === "development"
+          ? "localhost:8888"
+          : window.location.host;
       const ws = new WebSocket(`ws://${websocket_host}`);
 
       ws.onerror = (e) => {
@@ -83,9 +82,10 @@ export function useConnectToWebsocket() {
       };
 
       return () => ws.close();
-    } catch {
+    } catch (e) {
       console.warn(
-        "Failure to initialize websocket at all. Probably on netlify"
+        "Failure to initialize websocket at all. Probably on netlify",
+        e
       );
       setConnection({ type: "FAILED" });
     }
