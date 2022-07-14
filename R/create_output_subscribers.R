@@ -48,7 +48,7 @@ create_output_subscribers <- function(source_fn,
                                       delay = 0.1,
                                       callback = NULL) {
 
-  callbacks <- shiny:::Callbacks$new()
+  callbacks <- Callbacks$new()
 
   subscribed_fn <- source_fn
 
@@ -85,7 +85,7 @@ create_output_subscribers <- function(source_fn,
 
   # If we have a callback already supplied, add is to the callbacks object
   if (!is.null(callback)) {
-    callbacks$register(callback)
+    callbacks$add(callback)
   }
 
   cancel_all <- function() {
@@ -95,13 +95,11 @@ create_output_subscribers <- function(source_fn,
   }
 
   list(
-    subscribe = callbacks$register,
+    subscribe = callbacks$add,
     cancel_all = cancel_all,
     callbacks = callbacks
   )
 }
-
-
 
 
 subscribe_once <- function(source_fn, filter_fn, callback, delay = 0.1){
