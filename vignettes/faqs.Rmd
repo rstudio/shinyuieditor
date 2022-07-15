@@ -1,0 +1,99 @@
+---
+title: "Frequently Asked Questions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Frequently Asked Questions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+The following are a list of common questions one may have about the `shinyuieditor`. 
+
+## Can I use a different page type other than `gridlayout`?
+
+Currently only `gridlayout::grid_page` is supported as the root of your app. More options for app layout are planned. 
+
+
+## I have an existing app, can I use the `shinyuieditor` on it?
+
+Yes! If you point `launch_editor()` at your existing app, then it will be read into the ui editor. If the ui can't be parsed then the editor will ask you if you want to replace it with a `shinyuieditor`-friendly starter template which you will then need to update to match the inputs/outputs of your app's server code. (Note that this template replacement works only for two-file apps currently.) 
+
+## I _don't_ have an app, can I start one with the `shinyuieditor`?
+
+Yes! If you run `launch_editor()` with `app_loc` set to an non-existing or non-app-containing location it will ask you a few questions to setup a starter template app. This will then  be written to the `app_loc` and you can continue editing it as you please. This can be used as an alternative to the typical "new shiny app" geyser template. More templates will continually be added as the `shinyuieditor` matures. 
+
+
+## Is there a way to edit the server code for my app?
+
+There is no way to directly edit the server code for your app from within the editor window. However, if you edit the server code within your editor window and save, the app preview will automatically refresh the app with the new server code for you. This allows you to build your app by writing more traditional R code for your server and editing the ui with `shinyuieditor`'s visual interface.
+
+
+## I use a lot of <widget name> in my apps and it's not available in the elements palette, can I still use the editor?
+
+Currently there is a limited number of ui elements that can be directly edited with the editor. These were chosen to fit the broadest range of needed ui elements but you will likely run into a case where you need a non-supported ui element. In this case you can add the ui element in the ui code directly. Unknown ui elements will show up as grey boxes in the editor but can be moved around within the editor just as any other element - just without the ability to change settings. 
+
+## The ui editor can't find "a valid ui definition" but I have one, what's going on?
+
+The editor assumes that your app's ui code is assigned to the variable `ui`. 
+
+__Good__
+```{r, eval=FALSE}
+...
+ui <- grid_page(...)
+...
+shinyApp(ui, server)
+```
+
+__Bad__
+```{r, eval=FALSE}
+...
+# App ui variable is not named ui
+my_app_ui <- grid_page(...)
+...
+shinyApp(ui = my_app_ui, server)
+```
+
+__Also Bad__
+```{r, eval=FALSE}
+...
+# UI is directly passed to shinyApp function
+shinyApp(
+  ui = grid_page(...), 
+  server = ...
+)
+```
+
+
+## The editor keeps changing the formatting and erasing comments in my code, can I stop that?
+
+Unfortunately not. When the UI editor updates your code it rewrites the entire ui definition. Any code sitting outside of the ui definition in your app will be preserved exactly as it was, however. 
+
+
+
+## My app takes a long time to start up, can I turnoff the live app preview?
+
+In the `launch_editor()` function, the argument `app_preview` can be set to false to not run the app preview in the background. You won't however, be able to see the updates you make to your app reflected in real time. 
+
+
+## I don't see an argument I want to set for a ui element in its settings panel? How do I set it?
+
+Not every argument is exposed via the settings panel for the provided ui elements. If you need another argument you can write it into the ui code directly. Any argument not present in the settings panel for a given element will be passed through unchanged.
+
+## I maintain a package with a popular widget for Shiny, how can I add that widget to the `shinyuieditor`?
+
+There is no official workflow for this yet as each ui element needs to be added to the `shinyuieditor` manually. Placing an issue on the github issues page will help show the desire and potentially motivate your widgets addition. For the more brave, a PR could be submitted to add (although that will require a decent knowledge of the javascript framework the editor is written in, React, to accomplish).
+
+In the future a plugin system may be available that will allow a package to register their ui elements with the ui editor automatically but currently no such system exists. 
+
+
+## How does the `shinyuieditor` compare to <Other visual editor for shiny>
+
+`shinyuieditor` is focused on the editing of the ui of shiny apps while producing clean and easy to read code output. Other excellent visual editors for Shiny exist and are being developed such as [Dashboard-Builder](https://www.youtube.com/watch?v=oOKJLMAkEiw) [designer](https://ashbaldry.github.io/designer/) which may be more appropriate for your use-case. As with any tooling decision, take a look at the pros and cons of the various options before making your final decision! 
