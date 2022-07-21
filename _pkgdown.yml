@@ -8,19 +8,16 @@ navbar:
   title: ~
   type: default
   structure:
-    left:  [intro, demo, faqs, how-to, reference, news]
+    left:  [intro, quick-start, demo, articles, reference, news]
     right: [search, github]
   components:
     home: ~
     demo:
       text: Live Demo
       href: articles/ui-editor-live-demo.html
-    faqs:
-      text: FAQs
-      href: articles/faqs.html
-    how-to:
-      text: How-to
-      href: articles/how-to.html
+    quick-start:
+      text: Quick Start
+      href: articles/quick-start.html
     github:
       icon: fab fa-github fa-lg
       href: https://github.com/rstudio/shinyuieditor

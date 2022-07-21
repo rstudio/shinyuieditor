@@ -3,80 +3,21 @@
 A visual tool for building the UI portion of a Shiny application that generates clean and human-readable code.
 
 
-The goal of the Shiny Ui Editor is to allow people to build the broad-level UI for their Shiny app without writing code. The editor is indented for those who may not be comfortable with the HTML-style code of Shiny's UI functions or who simply don't want to fiddle with sizes to get things laid out correctly.
+The goal of the Shiny Ui Editor is to allow people to build the broad-level UI for their Shiny app without writing code. The editor is intended for those who may not be comfortable with the HTML-style code of Shiny's UI functions or who simply don't want to fiddle with sizes to get things laid out correctly.
 
 
-## Getting Started
-
-[Video walkthrough of using ui editor to create and edit a new app](https://youtu.be/2Z0NfNLEJJQ).
-
-A few notes on the video:
-
-- It is public but unlisted, so please don't share the link.
-- The UI and features of the app are continuously evolving and the video will updated periodically but if you notice something is egregiously/ confusingly out of date, don't hesitate to reach out and I will update it ASAP.
-
-### Pre-reqs
-
-- Shiny app with ui built using `gridlayout::gridpage()` (more layout functions coming soon.) See the [`gridlayout` package](https://github.com/rstudio/gridlayout) for more info.
-
-### Installing
+## Installing
 
 While in development the package is only available on github:
 
 ```r
-install.packages("pak")
-pak::pkg_install("rstudio/shinyuieditor")
+install.packages("remotes")
 
-# Alternatively, using the remotes package
+# Install using the remotes package
 remotes::install_github("rstudio/shinyuieditor")
 ```
 
 🚨 _Installation fail? See the [Trouble installing section.](#trouble-installing)_
-
-### Running
-
-#### New app
-
-If you set the argument `app_loc` to a location that does not yet exist, the launcher will ask a few and setup a simple template app for you to use with building.
-
-```r
-shinyuieditor::launch_editor(app_loc = "new-app/")
-
-#> No app was found at location /Users/me/new_app.
-#> Would you like to start a new app from a template?
-#> 1: yes
-#> 2: no
-#>
-#> Selection: 1
-#> Which starter template would you like to use? (Sorry, it's an easy choice currently.)
-#> 1: geyser
-#>
-#> Selection: 1
-#> => Starting Shiny preview app...
-#> ...
-```
-
-_In the future more starting templates will be offered, however, currently only a simple grid-layout recreation of the classic "Geyser" app is available._
-
-#### Existing app
-
-Assuming there's an existing app (either `app.R` or `ui.R` and `server.R`) in the folder `existing-app/` relative to your current working directly (`getwd()`), then you start the ui-editor on that app by running the following code and pasting the returned link into your web-browser.
-
-```r
-shinyuieditor::launch_editor(app_loc = "existing-app/")
-#> Live editor running at http://localhost:44509/app
-```
-
----
-
-### Using
-
-Once you're in the editor, any changes you make will automatically be written to your app's UI and the changes can be seen in real-time with the "App Preview" window.
-
-### Finishing
-
-When you're done, simply close the browser window (or press {control/command}-c in the console) to stop the editor preview process in R. Since all changes are eagerly applied there's no need to save.
-
 
 ## Feedback
 

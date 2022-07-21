@@ -62,13 +62,31 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
 <li>
+  <a href="articles/quick-start.html">Quick Start</a>
+</li>
+<li>
   <a href="articles/ui-editor-live-demo.html">Live Demo</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
 <li>
-  <a href="articles/faqs.html">FAQs</a>
-</li>
-<li>
-  <a href="articles/how-to.html">How-to</a>
+      <a href="articles/faqs.html">Frequently Asked Questions</a>
+    </li>
+    <li>
+      <a href="articles/how-to.html">How to</a>
+    </li>
+    <li>
+      <a href="articles/quick-start.html">Quick start</a>
+    </li>
+    <li>
+      <a href="articles/ui-editor-live-demo.html">Live Demo</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="reference/index.html">Reference</a>
@@ -98,79 +116,17 @@
 <div class="page-header"><h1 id="shiny-ui-editor">Shiny UI Editor<a class="anchor" aria-label="anchor" href="#shiny-ui-editor"></a>
 </h1></div>
 <p>A visual tool for building the UI portion of a Shiny application that generates clean and human-readable code.</p>
-<p>The goal of the Shiny Ui Editor is to allow people to build the broad-level UI for their Shiny app without writing code. The editor is indented for those who may not be comfortable with the HTML-style code of Shiny’s UI functions or who simply don’t want to fiddle with sizes to get things laid out correctly.</p>
+<p>The goal of the Shiny Ui Editor is to allow people to build the broad-level UI for their Shiny app without writing code. The editor is intended for those who may not be comfortable with the HTML-style code of Shiny’s UI functions or who simply don’t want to fiddle with sizes to get things laid out correctly.</p>
 <div class="section level2">
-<h2 id="getting-started">Getting Started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
+<h2 id="installing">Installing<a class="anchor" aria-label="anchor" href="#installing"></a>
 </h2>
-<p><a href="https://youtu.be/2Z0NfNLEJJQ" class="external-link">Video walkthrough of using ui editor to create and edit a new app</a>.</p>
-<p>A few notes on the video:</p>
-<ul>
-<li>It is public but unlisted, so please don’t share the link.</li>
-<li>The UI and features of the app are continuously evolving and the video will updated periodically but if you notice something is egregiously/ confusingly out of date, don’t hesitate to reach out and I will update it ASAP.</li>
-</ul>
-<div class="section level3">
-<h3 id="pre-reqs">Pre-reqs<a class="anchor" aria-label="anchor" href="#pre-reqs"></a>
-</h3>
-<ul>
-<li>Shiny app with ui built using <code>gridlayout::gridpage()</code> (more layout functions coming soon.) See the <a href="https://github.com/rstudio/gridlayout" class="external-link"><code>gridlayout</code> package</a> for more info.</li>
-</ul>
-</div>
-<div class="section level3">
-<h3 id="installing">Installing<a class="anchor" aria-label="anchor" href="#installing"></a>
-</h3>
 <p>While in development the package is only available on github:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"pak"</span><span class="op">)</span></span>
-<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="http://pak.r-lib.org/reference/pkg_install.html" class="external-link">pkg_install</a></span><span class="op">(</span><span class="st">"rstudio/shinyuieditor"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Alternatively, using the remotes package</span></span>
+<span><span class="co"># Install using the remotes package</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"rstudio/shinyuieditor"</span><span class="op">)</span></span></code></pre></div>
 <p>🚨 <em>Installation fail? See the <a href="#trouble-installing">Trouble installing section.</a></em></p>
-</div>
-<div class="section level3">
-<h3 id="running">Running<a class="anchor" aria-label="anchor" href="#running"></a>
-</h3>
-<div class="section level4">
-<h4 id="new-app">New app<a class="anchor" aria-label="anchor" href="#new-app"></a>
-</h4>
-<p>If you set the argument <code>app_loc</code> to a location that does not yet exist, the launcher will ask a few and setup a simple template app for you to use with building.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">shinyuieditor</span><span class="fu">::</span><span class="fu"><a href="reference/launch_editor.html">launch_editor</a></span><span class="op">(</span>app_loc <span class="op">=</span> <span class="st">"new-app/"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co">#&gt; No app was found at location /Users/me/new_app.</span></span>
-<span><span class="co">#&gt; Would you like to start a new app from a template?</span></span>
-<span><span class="co">#&gt; 1: yes</span></span>
-<span><span class="co">#&gt; 2: no</span></span>
-<span><span class="co">#&gt;</span></span>
-<span><span class="co">#&gt; Selection: 1</span></span>
-<span><span class="co">#&gt; Which starter template would you like to use? (Sorry, it's an easy choice currently.)</span></span>
-<span><span class="co">#&gt; 1: geyser</span></span>
-<span><span class="co">#&gt;</span></span>
-<span><span class="co">#&gt; Selection: 1</span></span>
-<span><span class="co">#&gt; =&gt; Starting Shiny preview app...</span></span>
-<span><span class="co">#&gt; ...</span></span></code></pre></div>
-<p><em>In the future more starting templates will be offered, however, currently only a simple grid-layout recreation of the classic “Geyser” app is available.</em></p>
-</div>
-<div class="section level4">
-<h4 id="existing-app">Existing app<a class="anchor" aria-label="anchor" href="#existing-app"></a>
-</h4>
-<p>Assuming there’s an existing app (either <code>app.R</code> or <code>ui.R</code> and <code>server.R</code>) in the folder <code>existing-app/</code> relative to your current working directly (<code><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd()</a></code>), then you start the ui-editor on that app by running the following code and pasting the returned link into your web-browser.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">shinyuieditor</span><span class="fu">::</span><span class="fu"><a href="reference/launch_editor.html">launch_editor</a></span><span class="op">(</span>app_loc <span class="op">=</span> <span class="st">"existing-app/"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Live editor running at http://localhost:44509/app</span></span></code></pre></div>
-<hr>
-</div>
-</div>
-<div class="section level3">
-<h3 id="using">Using<a class="anchor" aria-label="anchor" href="#using"></a>
-</h3>
-<p>Once you’re in the editor, any changes you make will automatically be written to your app’s UI and the changes can be seen in real-time with the “App Preview” window.</p>
-</div>
-<div class="section level3">
-<h3 id="finishing">Finishing<a class="anchor" aria-label="anchor" href="#finishing"></a>
-</h3>
-<p>When you’re done, simply close the browser window (or press {control/command}-c in the console) to stop the editor preview process in R. Since all changes are eagerly applied there’s no need to save.</p>
-</div>
 </div>
 <div class="section level2">
 <h2 id="feedback">Feedback<a class="anchor" aria-label="anchor" href="#feedback"></a>
@@ -210,7 +166,7 @@ Error: Failed to install 'shinyuieditor' from GitHub:
 <p>You may need to setup your github PAT to access as the repo is still private. However, if you’re reading this, you have access. To set this up run <code><a href="https://usethis.r-lib.org/reference/github-token.html" class="external-link">usethis::create_github_token()</a></code> in the terminal and follow the prompts.</p>
 <p><strong>Using remotes?</strong></p>
 <p><code><a href="https://usethis.r-lib.org/reference/github-token.html" class="external-link">usethis::create_github_token()</a></code> no longer puts your PAT in an environment variable, however that’s the method <code>remotes</code> uses for authentication. You can get around this by using the <code>withr</code> package to temporarily set the environment variable.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_envvar.html" class="external-link">with_envvar</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> GITHUB_PAT <span class="op">=</span> <span class="fu">gitcreds</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html" class="external-link">gitcreds_get</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">password</span> <span class="op">)</span>,</span>
 <span>  <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">'rstudio/shinyuieditor'</span><span class="op">)</span></span>
@@ -223,7 +179,7 @@ Error: Failed to install 'shinyuieditor' from GitHub:
 Error: subscript out of bounds
 Type .Last.error.trace to see where the error occurred</code></pre>
 <p>This occurs for some reason when trying to reinstall or update the package using <code>pak</code>. The easiest solution is to either use <code>remotes</code> (see above), or to uninstall both <code>shinyuieditor</code> and <code>gridlayout</code> and then reinstall.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/remove.packages.html" class="external-link">remove.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'shinyuieditor'</span>, <span class="st">'gridlayout'</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co"># now works</span></span>
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="http://pak.r-lib.org/reference/pkg_install.html" class="external-link">pkg_install</a></span><span class="op">(</span><span class="st">"rstudio/shinyuieditor"</span><span class="op">)</span></span></code></pre></div>
