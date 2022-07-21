@@ -5,6 +5,9 @@ import Button from "components/Inputs/Button/Button";
 import type { CallBackProps, Step, Styles } from "react-joyride";
 import Joyride, { ACTIONS, EVENTS } from "react-joyride";
 
+import { ElementsPanelAbout } from "./ElementsPanelAbout";
+import classes from "./styles.module.css";
+
 export const joyrideSteps: Step[] = [
   {
     target: ".app-view",
@@ -14,8 +17,7 @@ export const joyrideSteps: Step[] = [
   },
   {
     target: ".elements-panel",
-    content:
-      "Drag elements from the elements palette into the app pane on the right to add them to your app",
+    content: ElementsPanelAbout,
     placement: "right-start",
     disableBeacon: true,
   },
