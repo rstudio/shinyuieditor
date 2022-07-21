@@ -5,29 +5,31 @@ import Button from "components/Inputs/Button/Button";
 import type { CallBackProps, Step, Styles } from "react-joyride";
 import Joyride, { ACTIONS, EVENTS } from "react-joyride";
 
+import { AppPreviewAbout } from "./AppPreviewAbout";
+import { AppViewAbout } from "./AppViewAbout";
+import { ElementsPanelAbout } from "./ElementsPanelAbout";
+import { PropertiesPanelAbout } from "./PropertiesPanelAbout";
+
 export const joyrideSteps: Step[] = [
   {
     target: ".app-view",
-    content:
-      "The app view shows the current state of your UI. You can click on elements to select them or drag them around to reposition or resize them",
+    content: AppViewAbout,
     disableBeacon: true,
   },
   {
     target: ".elements-panel",
-    content:
-      "Drag elements from the elements palette into the app pane on the right to add them to your app",
+    content: ElementsPanelAbout,
     placement: "right-start",
     disableBeacon: true,
   },
   {
     target: ".properties-panel",
-    content:
-      "After selecting an element in your app, you can adjust the settings for that element in the properties pane",
+    content: PropertiesPanelAbout,
     placement: "left-start",
   },
   {
     target: ".app-preview",
-    content: "You can see how the changes impact your app with the app preview",
+    content: AppPreviewAbout,
     placement: "top-start",
   },
   {

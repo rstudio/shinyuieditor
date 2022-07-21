@@ -1,4 +1,4 @@
-div.canAcceptDrop {
+.canAcceptDrop {
   --outline-start-width: 2px;
   --outline-end-width: 5px;
   --start-shadow: inset 0px 0 0px var(--outline-start-width) var(--red);
