@@ -21,7 +21,7 @@ library(shinyuieditor)
 
 The following will show you how to get up and running with the ui editor from scratch. 
 
-If you prefer video format, here's an [in-depth walkthrough of using the ui editor to create and edit a new app](https://youtu.be/2Z0NfNLEJJQ).
+If you prefer video format, here's an [in-depth walkthrough of using the ui editor to create and edit a new app](https://www.youtube.com/watch?v=gYPnLiudtGU).
 
 
 ## Pre-reqs

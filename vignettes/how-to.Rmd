@@ -37,6 +37,7 @@ show_video <- function(name) {
 </style>
 This article lays out how to do some of the more common tasks you will do with the `shinyuieditor`. 
 
+For the same info in a long-form video, see the [`shinyuieditor` feature tour](https://youtu.be/Zac1qdaYNsY) video.
 
 ## Add a new ui element to your app
 
