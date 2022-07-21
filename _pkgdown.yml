@@ -8,7 +8,7 @@ navbar:
   title: ~
   type: default
   structure:
-    left:  [intro, demo, faqs, reference, news]
+    left:  [intro, demo, faqs, how-to, reference, news]
     right: [search, github]
   components:
     home: ~
@@ -18,6 +18,9 @@ navbar:
     faqs:
       text: FAQs
       href: articles/faqs.html
+    how-to:
+      text: How-to
+      href: articles/how-to.html
     github:
       icon: fab fa-github fa-lg
       href: https://github.com/rstudio/shinyuieditor
