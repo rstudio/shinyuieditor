@@ -12,3 +12,5 @@ R/webapp/ui.R
 .Rhistory
 
 inst/doc
+
+vignettes/how-to-videos-source/
