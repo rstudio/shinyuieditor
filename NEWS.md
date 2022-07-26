@@ -23,7 +23,6 @@
 - Firefox inputs don't have increment buttons (#60)
 - Arguments that a component knows about but are supplied a non-known argument type will simply get wiped away (#58)
 - Can fail installing on windows using `pak` (#53)
--
 
 # shinyuieditor 0.0.1.0
 
