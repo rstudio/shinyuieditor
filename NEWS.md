@@ -10,7 +10,8 @@
 ### Minor new features and improvements
 - Tract resizing is now much quicker and has less visual noise due to only showing small size-popups (`5e767eef9e62170f758d1aab87ba22464008cd7b`)
 - Website updated with a bunch of new articles
-- 
+- Added some explanatory text about the format of grid-names to the popup for naming newly added grid items (`ca625edb3c65c5a0da4ebebb5b9d04013c4e84e5`)
+- The app preview window now no-longer shoes up at all if there's no preview connection. (`ae5d8113bd687bd7f7c2d540347bf3289bb57f49`)
 
 ### Bug fixes
 
