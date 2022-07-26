@@ -4,7 +4,7 @@
 ### Major new features and improvements
 
 - Edits can now be made in either ui editor _or_ the in the code and the updates are now automatically synced (`fca63396948905055d6f42d05f87993bc3620c65`)
-- New single-file starter template 
+- New single-file starter templates (geyser and chick weights) 
 - The main container for placing items on grid is now `gridlayout::grid_card()` 
 
 ### Minor new features and improvements
@@ -18,7 +18,7 @@
 - Numeric inputs are now _usable_ in firefox (See "Known bugs" for more detail.)
 
 ### Known bugs
-- Firefox inputs don't have incrementing buttons (#60)
+- Firefox inputs don't have increment buttons (#60)
 
 
 # shinyuieditor 0.0.1.0
