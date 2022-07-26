@@ -1,13 +1,13 @@
 # shinyuieditor 0.1.0
 
-
 ### Major new features and improvements
 
 - Edits can now be made in either ui editor _or_ the in the code and the updates are now automatically synced (`fca63396948905055d6f42d05f87993bc3620c65`)
-- New single-file starter templates (geyser and chick weights) 
-- The main container for placing items on grid is now `gridlayout::grid_card()` 
+- New single-file starter templates (geyser and chick weights)
+- The main container for placing items on grid is now `gridlayout::grid_card()`
 
 ### Minor new features and improvements
+
 - Tract resizing is now much quicker and has less visual noise due to only showing small size-popups (`5e767eef9e62170f758d1aab87ba22464008cd7b`)
 - Website updated with a bunch of new articles
 - Added some explanatory text about the format of grid-names to the popup for naming newly added grid items (`ca625edb3c65c5a0da4ebebb5b9d04013c4e84e5`)
@@ -19,8 +19,11 @@
 - Numeric inputs are now _usable_ in firefox (See "Known bugs" for more detail.)
 
 ### Known bugs
-- Firefox inputs don't have increment buttons (#60)
 
+- Firefox inputs don't have increment buttons (#60)
+- Arguments that a component knows about but are supplied a non-known argument type will simply get wiped away (#58)
+- Can fail installing on windows using `pak` (#53)
+-
 
 # shinyuieditor 0.0.1.0
 
