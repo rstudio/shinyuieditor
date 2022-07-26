@@ -30,13 +30,13 @@ Get app ui information from script
 
 # Can handle single-file app.R
 app_loc <- system.file(
-  "app-templates/geyser_single-file/app.R",
+  "app-templates/geyser/app.R",
   package = "shinyuieditor"
  )
 shinyuieditor:::get_file_ui_definition_info(readLines(app_loc), type = "single-file")
 
 # Also handles multi-file apps
-app_loc <- system.file("app-templates/geyser/ui.R", package = "shinyuieditor")
+app_loc <- system.file("app-templates/geyser_multi-file/ui.R", package = "shinyuieditor")
 shinyuieditor:::get_file_ui_definition_info(readLines(app_loc), type = "multi-file")
 
 }
