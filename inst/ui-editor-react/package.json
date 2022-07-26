@@ -33,12 +33,12 @@
     "yarn": "^1.22.18"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "start-grid": "REACT_APP_VERSION=GRIDAPP react-scripts start",
-    "build-no-maps": "GENERATE_SOURCEMAP=false react-scripts build",
-    "build": "react-scripts build",
-    "build-netlify": "PUBLIC_URL=/ react-scripts build",
+    "start": "REACT_APP_SHOW_FAKE_PREVIEW=True react-scripts start",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build",
+    "build-w-maps": "react-scripts build",
+    "build-netlify": "REACT_APP_SHOW_FAKE_PREVIEW=True PUBLIC_URL=/ react-scripts build",
     "build-website-demo": "BUILD_PATH=../../vignettes/web-only/demo-app GENERATE_SOURCEMAP=false PUBLIC_URL=. react-scripts build",
+    "start-grid": "REACT_APP_VERSION=GRIDAPP react-scripts start",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
