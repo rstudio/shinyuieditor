@@ -1,0 +1,144 @@
+---
+title: "How to"
+output: rmarkdown::html_vignette
+resource_files:
+  - how-to-videos/
+vignette: >
+  %\VignetteIndexEntry{How to}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  echo = FALSE,
+  results = "asis"
+)
+
+show_video <- function(name) {
+  cat(
+    paste0(
+    '<video class="how-to-video" controls autoplay loop>',
+    '  <source src="how-to-videos/', name, '.webm" type="video/webm; codecs=vp9">',
+    '</video>'
+    )
+  )
+}
+
+```
+
+
+<style>
+.how-to-video {
+  width: 100%;
+}
+</style>
+This article lays out how to do some of the more common tasks you will do with the `shinyuieditor`. 
+
+For the same info in a long-form video, see the [`shinyuieditor` feature tour](https://youtu.be/Zac1qdaYNsY) video.
+
+## Add a new ui element to your app
+
+To add a new ui element to your app you drag the desired element in from the "Elements" panel. Places where the element can be placed will be highlighted (if no places are available, try adding a new row or column to the app to create space.) Once you have dragged your element over an available area, release it to add it to your app. 
+
+```{r}
+show_video("add-element")
+```
+
+
+## Move a ui element within your app 
+
+Click and drag the ui element you wish to move. Just like adding an element, the available positions to move the element will be highlighted. Drag the element to the desired new position and drop to move it. 
+
+
+```{r}
+show_video("move-an-element")
+```
+
+## Select a ui element {#select}
+
+Select the element by clicking inside it. Once the element is selected it will be given a blue outline and the "Properties" panel will update with details for the element. Alternatively, you can select the parent of the currently selected element by clicking the parent's name in the element-path visualization at the top of the "Properties" panel.
+
+
+```{r}
+show_video("select-an-element")
+```
+
+## Delete a ui element
+
+[Select the element](#select). Once the element is selected, click the "Delete Element" button at the bottom of the "Properties" panel. Some elements such as a `grid_card()` will also show delete buttons right on the element itself when no children are contained. 
+
+
+```{r}
+show_video("delete-an-element")
+```
+
+## Update the settings for a ui element
+
+[Select the element](#select). After element is selected, update the settings using the "Properties" panel. As inputs are updated the changes will automatically be saved and reflected in the app outline and live-preview window. 
+
+
+```{r}
+show_video("update-an-element")
+```
+
+## Show row/column size widget {#show-size-widget}
+
+Mouse-over the left end of a row or top of a column to reveal the sizing widget.
+
+
+```{r}
+show_video("show-size-widget")
+```
+
+## Add a row or column to the layout grid
+
+[Open the sizing widget of row or column](#show-size-widget) adjacent to where you wish to add a new row or column. On either end of the widget will be plus (`+`) buttons that when clicked will add a row or column on their respective sides of the existing row or column.
+
+
+```{r}
+show_video("add-tract")
+```
+
+## Delete a row or column in the layout grid
+
+[Open the sizing widget of the row or column](#show-size-widget) you wish to delete. Then click the red trash icon to delete that row from layout. If the trash icon is greyed-out the row or column can't be deleted due named areas on the grid residing entirely within it. Mousing over the greyed-out button will tell you which grid-areas these are so you can either delete them or move them to a new location. 
+
+
+```{r}
+show_video("delete-tract")
+```
+
+## Resize the rows and columns of the layout grid
+
+### By dragging
+
+Click on the delineating lines between rows or columns and start dragging. Once resizing is occurring size indicators will popup on the resize-effected rows or columns. Once desired size is reached, stop dragging to finalize the resize. 
+
+
+```{r}
+show_video("resize-with-drag")
+```
+
+### With row/column size widgets
+
+[Open the row/column to be resized's sizing widget](#show-size-widget) Use the css unit input controls in this widget to update the size of the row or column. 
+
+```{r}
+show_video("resize-with-widget")
+```
+
+
+## Undo/redo a change made to the app
+
+Use the undo button available in the upper-right corner of the app to restore your app's ui to the way it was before the last change made. If you wish to restore the change just undone, click the redo button to the right. 
+
+```{r}
+show_video("undo-redo")
+```
+
+## Stop the editor
+
+As long as the argument `stop_on_browser_close` is set at the default value of `TRUE`, then all you need to do to stop the editor is close the browser tab/window the editor is currently open in. Another way of ending is to interupt the editor server by pressing `Control/Command` + `c` in the R console used to launch the editor. If in RStudio the red stop icon will also accomplish this. 
