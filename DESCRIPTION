@@ -25,6 +25,7 @@ Imports:
     gridlayout (>= 0.1.0),
 Suggests: 
     rmarkdown,
+    ggplot2,
     knitr,
     testthat (>= 3.0.0)
 Remotes:
