@@ -6,7 +6,13 @@ input[type="number"].numericInput {
   --incrementer-pad: 5px;
   width: 62px;
   padding-right: 19px;
+  /* This removes the incrementing numbers for firefox. This is a temporary hack
+  to make it so numberic inputs are usable on firefox. Ultimately this will
+  involve adding back the increment buttons using custom buttons.  */
+  -moz-appearance: textfield;
 }
+
+/* TODO: Update this to work with firefox as well.  */
 input[type="number"].numericInput::-webkit-inner-spin-button,
 input[type="number"].numericInput::-webkit-outer-spin-button {
   -webkit-appearance: none;
