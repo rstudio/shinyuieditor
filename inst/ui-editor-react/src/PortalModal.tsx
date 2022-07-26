@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import panelClasses from "EditorContainer.module.css";
 import * as ReactDOM from "react-dom";
 
 import classes from "./PortalModal.module.css";
@@ -49,7 +50,13 @@ const PortalModal: React.FC<{
           // Dont let the clicking on the modal itself trigger canceling
           onClick={(e) => e.stopPropagation()}
         >
-          {title ? <div className={classes.title}>{title}</div> : null}
+          {title ? (
+            <div
+              className={classes.title + " " + panelClasses.panelTitleHeader}
+            >
+              {title}
+            </div>
+          ) : null}
           <div className={classes.body}>{children}</div>
         </div>
       </div>

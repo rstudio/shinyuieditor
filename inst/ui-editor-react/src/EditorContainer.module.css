@@ -68,7 +68,7 @@
   min-width: 0;
 }
 
-.titledPanel > h3 {
+.panelTitleHeader {
   text-align: center;
   line-height: var(--header-height);
   background-color: var(--header-grey, forestgreen);

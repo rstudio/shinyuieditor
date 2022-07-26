@@ -54,12 +54,16 @@ export function NameNewPanelModal({
 
   return (
     <PortalModal
-      title="Adding new grid area"
+      title="Name new grid area"
       onConfirm={() => onDone(newItemName)}
       onCancel={onCancel}
     >
       <form className={classes.portalForm} onSubmit={handleSubmit}>
         <div className={classes.portalFormInputs}>
+          <span className={classes.infoText}>
+            Name for grid area needs to be unique, start with a letter, and
+            contain only letters and numbers.
+          </span>
           <TextInput
             label="Name of new grid area"
             name="New-Item-Name"

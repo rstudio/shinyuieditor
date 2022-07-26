@@ -46,7 +46,7 @@ export function EditorContainer() {
         <div
           className={`${classes.elementsPanel} ${classes.titledPanel} elements-panel`}
         >
-          <h3>Elements</h3>
+          <h3 className={classes.panelTitleHeader}>Elements</h3>
           <ElementsPalette />
         </div>
         <div className={classes.editorHolder + " app-view"}>
@@ -54,7 +54,7 @@ export function EditorContainer() {
         </div>
         <div className={`${classes.propertiesPanel}`}>
           <div className={`${classes.titledPanel} properties-panel`}>
-            <h3>Properties</h3>
+            <h3 className={classes.panelTitleHeader}>Properties</h3>
             <SettingsPanel tree={tree} />
           </div>
           <div className={`${classes.titledPanel} app-preview`}>
