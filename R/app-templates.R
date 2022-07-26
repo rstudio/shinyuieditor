@@ -1,6 +1,6 @@
 # All available templates as found in inst/app-templates
-single_file_templates <- c("geyser single-file", "chick weights")
-multi_file_templates <- c("geyser")
+single_file_templates <- c("geyser", "chick weights")
+multi_file_templates <- c("geyser multi-file")
 
 starter_templates <- c(multi_file_templates, single_file_templates)
 
@@ -13,7 +13,7 @@ fill_in_app_template <- function(app_loc) {
 
   chosen_template <- ask_question(
     "Which starter template would you like to use? ",
-    "(Sorry, it's an easy choice currently.)",
+    "(Note: \"chick weights\" template uses ggplot2 for plotting)",
     answers = starter_templates
   )
 
