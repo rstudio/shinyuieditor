@@ -1,5 +1,6 @@
 import React from "react";
 
+import panelClasses from "EditorContainer.module.css";
 import debounce from "just-debounce-it";
 import { AiOutlineShrink } from "react-icons/ai";
 import { FaExpand } from "react-icons/fa";
@@ -40,7 +41,7 @@ export default function AppPreview() {
 
   return (
     <>
-      <h3 className={classes.title}>
+      <h3 className={classes.title + " " + panelClasses.panelTitleHeader}>
         <Button
           variant={["transparent", "icon"]}
           className={classes.reloadButton}

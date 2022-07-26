@@ -18,9 +18,7 @@
 }
 
 .title {
-  color: white;
-  background-color: var(--header-grey, green);
-  padding: 1rem;
+  padding: 8px;
 }
 
 .body {
@@ -48,5 +46,9 @@
 
 .validationMsg {
   color: var(--red);
+  font-style: italic;
+}
+
+.infoText {
   font-style: italic;
 }
