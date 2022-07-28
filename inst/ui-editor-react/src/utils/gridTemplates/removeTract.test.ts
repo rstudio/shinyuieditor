@@ -9,9 +9,9 @@ describe("Remove empty tracts", () => {
             ["a", "a", "c"],
             ["b", "b", "c"],
           ],
-          colSizes: ["1fr", "2fr", "3fr"],
-          rowSizes: ["1fr", "1fr"],
-          gapSize: "10px",
+          col_sizes: ["1fr", "2fr", "3fr"],
+          row_sizes: ["1fr", "1fr"],
+          gap_size: "10px",
         },
         { index: 2, dir: "cols" }
       )
@@ -21,7 +21,7 @@ describe("Remove empty tracts", () => {
           ["a", "c"],
           ["b", "c"],
         ],
-        colSizes: ["1fr", "3fr"],
+        col_sizes: ["1fr", "3fr"],
       })
     );
   });
@@ -34,9 +34,9 @@ describe("Remove empty tracts", () => {
             ["b", "b"],
             ["b", "b"],
           ],
-          rowSizes: ["1fr", "2fr", "3fr"],
-          colSizes: ["1fr", "1fr"],
-          gapSize: "10px",
+          row_sizes: ["1fr", "2fr", "3fr"],
+          col_sizes: ["1fr", "1fr"],
+          gap_size: "10px",
         },
         { index: 3, dir: "rows" }
       )
@@ -46,7 +46,7 @@ describe("Remove empty tracts", () => {
           ["a", "a"],
           ["b", "b"],
         ],
-        rowSizes: ["1fr", "2fr"],
+        row_sizes: ["1fr", "2fr"],
       })
     );
   });
@@ -61,9 +61,9 @@ describe("Leaves alone repeated tract sizes", () => {
             ["a", "a", "c"],
             ["b", "b", "c"],
           ],
-          rowSizes: ["1fr", "1fr"],
-          colSizes: ["1fr", "1fr", "1fr"],
-          gapSize: "10px",
+          row_sizes: ["1fr", "1fr"],
+          col_sizes: ["1fr", "1fr", "1fr"],
+          gap_size: "10px",
         },
         { index: 2, dir: "cols" }
       )
@@ -72,9 +72,9 @@ describe("Leaves alone repeated tract sizes", () => {
         ["a", "c"],
         ["b", "c"],
       ],
-      rowSizes: ["1fr", "1fr"],
-      colSizes: ["1fr", "1fr"],
-      gapSize: "10px",
+      row_sizes: ["1fr", "1fr"],
+      col_sizes: ["1fr", "1fr"],
+      gap_size: "10px",
     });
   });
 });
@@ -88,9 +88,9 @@ describe("Wont remove a tract that will delete items unless explicitely told to"
             ["a", "a", "c"],
             ["b", "b", "c"],
           ],
-          rowSizes: ["1fr", "1fr", "1fr"],
-          colSizes: ["1fr", "1fr", "1fr"],
-          gapSize: "10px",
+          row_sizes: ["1fr", "1fr", "1fr"],
+          col_sizes: ["1fr", "1fr", "1fr"],
+          gap_size: "10px",
         },
         { index: 3, dir: "cols" }
       )
@@ -107,9 +107,9 @@ describe("Wont remove a tract that will delete items unless explicitely told to"
             ["a", "a", "c"],
             ["b", "b", "c"],
           ],
-          colSizes: ["1fr", "1fr", "1fr"],
-          rowSizes: ["1fr", "1fr"],
-          gapSize: "10px",
+          col_sizes: ["1fr", "1fr", "1fr"],
+          row_sizes: ["1fr", "1fr"],
+          gap_size: "10px",
         },
         { index: 3, dir: "cols" },
         true

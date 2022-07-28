@@ -10,4 +10,7 @@ R/.Rhistory
 R/webapp/ui.R
 
 .Rhistory
-docs
+
+inst/doc
+
+vignettes/how-to-videos-source/

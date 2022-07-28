@@ -125,3 +125,14 @@ server_exists <- function(url_id) {
   )
   ret
 }
+
+
+log_background_app <- function(lines) {
+  cat(
+    paste0(
+      crayon::bold$magenta("Logs from preview app:\n"),
+      crayon::magenta(paste(lines, collapse = "\n")),
+      "\n"
+    )
+  )
+}

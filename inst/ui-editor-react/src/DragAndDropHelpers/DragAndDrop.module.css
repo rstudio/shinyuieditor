@@ -1,4 +1,4 @@
-div.canAcceptDrop {
+.canAcceptDrop {
   --outline-start-width: 2px;
   --outline-end-width: 5px;
   --start-shadow: inset 0px 0 0px var(--outline-start-width) var(--red);
@@ -31,4 +31,7 @@ troubles if in the future another element type can be dropped into, but that
 seems unlikely to happen. */
 div.canAcceptDrop.hoveringOver {
   background-color: var(--red);
+  /* Lift up whatever element is being hovered so anything placed over it
+  doesn't interfere with dropping */
+  z-index: 10;
 }

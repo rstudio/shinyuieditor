@@ -1,0 +1,14 @@
+.textPanel {
+  background-color: var(--rstudio-white);
+  /* outline: var(--outline); */
+  display: grid;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  position: relative;
+}
+
+.textPanel > h1 {
+  font-size: 2rem;
+}

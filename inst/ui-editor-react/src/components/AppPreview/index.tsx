@@ -1,5 +1,6 @@
 import React from "react";
 
+import panelClasses from "EditorContainer.module.css";
 import debounce from "just-debounce-it";
 import { AiOutlineShrink } from "react-icons/ai";
 import { FaExpand } from "react-icons/fa";
@@ -38,12 +39,20 @@ export default function AppPreview() {
     [appLoc]
   );
 
-  if (appLoc === "no-preview") {
+  // This is a custom environment variable that is set to "True" in the
+  // development testing so we can see a fake app preview window. If we're not
+  // in development mode we want to hide the preview window when there's no app
+  // preview present to not confuse users
+  if (
+    status === "no-preview" &&
+    process.env.REACT_APP_SHOW_FAKE_PREVIEW !== "True"
+  ) {
     return null;
   }
+
   return (
     <>
-      <h3 className={classes.title}>
+      <h3 className={classes.title + " " + panelClasses.panelTitleHeader}>
         <Button
           variant={["transparent", "icon"]}
           className={classes.reloadButton}
@@ -80,7 +89,7 @@ export default function AppPreview() {
               <VscDebugRestart />
             </Button>
             <div className={classes.appContainer}>
-              {status === "error" ? (
+              {status === "no-preview" ? (
                 <FakeDashboard />
               ) : (
                 <iframe

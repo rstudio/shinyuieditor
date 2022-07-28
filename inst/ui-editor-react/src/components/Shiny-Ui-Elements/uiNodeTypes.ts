@@ -2,11 +2,10 @@ import type React from "react";
 
 import type { DeleteAction, UpdateAction } from "state/uiTree";
 
+import gridlayoutGridCardInfo from "./GridlayoutGridCard";
+import { GridlayoutGridCardPlotInfo } from "./GridlayoutGridCardPlot";
+import { gridlayoutTextPanelInfo } from "./GridlayoutGridCardText";
 import { gridlayoutGridPageInfo } from "./GridlayoutGridPage";
-import { gridLayoutGridPanelInfo } from "./GridlayoutGridPanel";
-import { GridlayoutGridPanelPlotInfo } from "./GridlayoutGridPanelPlot";
-import { gridlayoutTextPanelInfo } from "./GridlayoutTextPanel";
-import { gridlayoutVerticalStackPanelInfo } from "./GridlayoutVerticalStackPanel";
 import { shinyActionButtonInfo } from "./ShinyActionButton";
 import { shinyCheckboxGroupInputInfo } from "./ShinyCheckboxGroupInput";
 import { shinyCheckboxInputInfo } from "./ShinyCheckboxInput";
@@ -105,10 +104,10 @@ export const shinyUiNodeInfo = {
   "shiny::textOutput": shinyTextOutputInfo,
   "shiny::uiOutput": shinyUiOutputInfo,
   "gridlayout::grid_page": gridlayoutGridPageInfo,
-  "gridlayout::grid_panel": gridLayoutGridPanelInfo,
-  "gridlayout::grid_panel_stack": gridlayoutVerticalStackPanelInfo,
-  "gridlayout::grid_panel_text": gridlayoutTextPanelInfo,
-  "gridlayout::grid_panel_plot": GridlayoutGridPanelPlotInfo,
+  "gridlayout::grid_card": gridlayoutGridCardInfo,
+  // "gridlayout::grid_card": gridLayoutGridCardInfo,
+  "gridlayout::grid_card_text": gridlayoutTextPanelInfo,
+  "gridlayout::grid_card_plot": GridlayoutGridCardPlotInfo,
   unknownUiFunction: unknownUiFunctionInfo,
 };
 

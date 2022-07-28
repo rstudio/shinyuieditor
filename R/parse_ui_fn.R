@@ -4,11 +4,11 @@
 #' of known UI functions and their arguments.
 #' @param ui_node_expr A language object representing the call of a known Shiny
 #'   UI function.
-#' @param env Environment in which to evaluate arguments. Necessary for filling
-#'   in the names of all arguments. Almost always left as the default.
 #'
 #' @return A nested list describing the UI of the app for use in the ui editor
 #' @export
+#'
+#' @keywords internal
 #'
 #' @examples
 #'
@@ -18,7 +18,7 @@
 #'             | 1rem | 250px   | 1fr  |
 #'             |------|---------|------|
 #'             | 1fr  | sidebar | plot |",
-#'     gridlayout::grid_panel_stack(
+#'     gridlayout::grid_card(
 #'       area = "sidebar",
 #'       item_alignment = "center",
 #'       shiny::sliderInput(
@@ -29,7 +29,7 @@
 #'         value = 40L
 #'       )
 #'     ),
-#'     gridlayout::grid_panel_stack(
+#'     gridlayout::grid_card(
 #'       area = "plot",
 #'       item_alignment = "center",
 #'       shiny::plotOutput(
@@ -41,7 +41,7 @@
 #' )
 #' parse_ui_fn(app_expr)
 #'
-parse_ui_fn <- function(ui_node_expr, env = rlang::caller_env()) {
+parse_ui_fn <- function(ui_node_expr) {
   namespaced_fn_name <- tryCatch(
     {
       namespace_ui_fn(name_of_called_fn(ui_node_expr))
@@ -58,7 +58,7 @@ parse_ui_fn <- function(ui_node_expr, env = rlang::caller_env()) {
   # Fill in all the names of unnamed arguments
   ui_node_expr <- tryCatch(
     {
-      rlang::call_standardise(ui_node_expr, env = env)
+      rlang::call_standardise(ui_node_expr)
     },
     error = function(e) {
       stop(
@@ -96,7 +96,7 @@ parse_ui_fn <- function(ui_node_expr, env = rlang::caller_env()) {
 
     is_child_node <- arg_name == ""
     if (is_child_node) {
-      parsed$uiChildren <- append(parsed$uiChildren, list(parse_ui_fn(arg_val, env = env)))
+      parsed$uiChildren <- append(parsed$uiChildren, list(parse_ui_fn(arg_val)))
     } else {
       parsed$uiArguments[[arg_name]] <- parse_argument(arg_val)
     }

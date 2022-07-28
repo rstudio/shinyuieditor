@@ -9,9 +9,12 @@
 #'   stripped from the ui functions (only has elements if `remove_namespaces =
 #'   TRUE`)
 #'
+#' @keywords internal
+#'
 deparse_ui_fn <- function(ui_tree, remove_namespace = FALSE) {
   namespaces_removed <- list()
   deparse_ui_fn_internal <- function(ui_tree) {
+
     # Is the tree node just a primitive value? In that case we don't need to do
     # any special parsing
     if (!is.list(ui_tree)) {
@@ -23,16 +26,23 @@ deparse_ui_fn <- function(ui_tree, remove_namespace = FALSE) {
       return(unknown_code_unwrap(ui_tree))
     }
 
+    # An argument that is not a primitive type must be a (potentially named)
+    # list. In the future this may need to be expanded to more things like plain
+    # arrays but right now lists are the only things that make it past
+    if (!is_ui_tree_node(ui_tree, throw_error = FALSE)) {
+      return(plain_list_to_expr(ui_tree))
+    }
+
     # If we've made if this far we should be in a full-blown ui node
-    validate_ui_tree_node(ui_tree)
 
     # We can then recurse through the arguments/children to build up the proper
     # argument structure to be reconstructed with call2
-    all_ui_args <- lapply(
-      rlang::list2(
-        !!!ui_tree$uiArguments,
-        !!!ui_tree$uiChildren
-      ),
+    deparsed_arguments <- lapply(
+      ui_tree$uiArguments,
+      deparse_ui_fn_internal
+    )
+    deparsed_children <- lapply(
+      ui_tree$uiChildren,
       deparse_ui_fn_internal
     )
 
@@ -47,7 +57,8 @@ deparse_ui_fn <- function(ui_tree, remove_namespace = FALSE) {
     # Now we can reconstruct the original function call with names attached
     rlang::call2(
       parse(text = ui_fn_name)[[1]],
-      !!!all_ui_args
+      !!!deparsed_arguments,
+      !!!deparsed_children
     )
   }
 
@@ -57,13 +68,24 @@ deparse_ui_fn <- function(ui_tree, remove_namespace = FALSE) {
   )
 }
 
+plain_list_to_expr <- function(x) {
+  rlang::call2("list", !!!x)
+}
 
 
-validate_ui_tree_node <- function(node) {
+is_ui_tree_node <- function(node, throw_error = FALSE) {
   if (is.null(node$uiName)) {
-    stop("Improperly formatted ui tree found - missing uiName property")
+    if (throw_error) {
+      stop("Improperly formatted ui tree found - missing uiName property")
+      return(FALSE)
+    }
   }
   if (is.null(node$uiArguments)) {
-    stop("Improperly formatted ui tree found - missing uiArguments property")
+    if (throw_error) {
+      stop("Improperly formatted ui tree found - missing uiArguments property")
+    }
+    return(FALSE)
   }
+
+  TRUE
 }

@@ -4,22 +4,23 @@ update_gridlayout <- function(gridlayout_node) {
     return(gridlayout_node)
   }
 
-  requireNamespace("gridlayout", quietly = TRUE)
-
   # Start by setting up the layout settings object
   layout_obj <- gridlayout::new_gridlayout(
     layout_def = gridlayout_node$uiArguments$layout,
-    row_sizes = gridlayout_node$uiArguments$row_sizes,
-    col_sizes = gridlayout_node$uiArguments$col_sizes,
-    gap_size = gridlayout_node$uiArguments$gap_size
+    row_sizes  = gridlayout_node$uiArguments$row_sizes,
+    col_sizes  = gridlayout_node$uiArguments$col_sizes,
+    gap_size   = gridlayout_node$uiArguments$gap_size
   )
 
-  gridlayout_node$uiArguments <- list(
-    rowSizes = layout_obj$layout$row_sizes,
-    colSizes = layout_obj$layout$col_sizes,
-    gapSize = layout_obj$layout$gap,
-    areas = gridlayout::to_matrix(layout_obj)
-  )
+  # Remove the old arguments
+  gridlayout_node$uiArguments$layout <- NULL
+  gridlayout_node$uiArguments$gap_size <- NULL
+
+  # Replace with new arguments
+  gridlayout_node$uiArguments$row_sizes <- layout_obj$layout$row_sizes
+  gridlayout_node$uiArguments$col_sizes <- layout_obj$layout$col_sizes
+  gridlayout_node$uiArguments$gap_size <- layout_obj$layout$gap
+  gridlayout_node$uiArguments$areas <- gridlayout::to_matrix(layout_obj)
 
   gridlayout_node
 }

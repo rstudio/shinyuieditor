@@ -14,3 +14,8 @@ export type GridItemExtent = {
   rowEnd: number;
   colEnd: number;
 };
+
+export type GridCellLocation = {
+  row: number;
+  col: number;
+};

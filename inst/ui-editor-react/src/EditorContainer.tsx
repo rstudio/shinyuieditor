@@ -2,22 +2,18 @@ import * as React from "react";
 
 import AppPreview from "components/AppPreview";
 import SvgShinyLogo from "components/Icons/ShinyLogo";
-import type { ShinyUiNode } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import UiNode from "components/UiNode";
 import { CurrentDraggedNodeProvider } from "DragAndDropHelpers/useCurrentDraggedNode";
 import ElementsPalette from "ElementsPalette";
 import PortalModal from "PortalModal";
-import { useDispatch, useSelector } from "react-redux";
-import { useGetInitialStateQuery } from "state/getInitialState";
-import { sendUiStateToBackend } from "state/sendUiStateToBackend";
+import { useSelector } from "react-redux";
 import type { RootState } from "state/store";
-import { backupUiTree, initialUiTree, INIT_STATE } from "state/uiTree";
 
 import { AppTour } from "./AppTour";
 import { UndoRedoButtons } from "./components/UndoRedoButtons/UndoRedoButtons";
 import classes from "./EditorContainer.module.css";
 import { SettingsPanel } from "./SettingsPanel/SettingsPanel";
-import { useSendBrowserCloseMessage } from "./utils/useSendBrowserCloseMessage";
+import { useSyncUiWithBackend } from "./websocket_hooks/useSyncUiWithBackend";
 
 export const PROPERTIES_PANEL_WIDTH_PX = 236;
 
@@ -25,26 +21,12 @@ const sizes_inline_styles = {
   "--properties-panel-width": `${PROPERTIES_PANEL_WIDTH_PX}px`,
 } as React.CSSProperties;
 
-function EditorContainerWithData({
-  // We use a pre-build ui tree in the case of no initial state being provide,
-  // which indicates we're in a client-side-only mode
-  initialState = backupUiTree,
-}: {
-  initialState?: ShinyUiNode;
-}) {
-  const dispatch = useDispatch();
+export function EditorContainer() {
+  const { status, tree } = useSyncUiWithBackend();
 
-  const tree = useSelector((state: RootState) => state.uiTree);
-
-  React.useEffect(() => {
-    if (!initialState) return;
-    dispatch(INIT_STATE({ initialState }));
-  }, [dispatch, initialState]);
-
-  React.useEffect(() => {
-    if (tree === initialUiTree) return;
-    sendUiStateToBackend(tree);
-  }, [tree]);
+  if (status === "loading") {
+    return <LoadingMessage />;
+  }
 
   return (
     <CurrentDraggedNodeProvider>
@@ -64,7 +46,7 @@ function EditorContainerWithData({
         <div
           className={`${classes.elementsPanel} ${classes.titledPanel} elements-panel`}
         >
-          <h3>Elements</h3>
+          <h3 className={classes.panelTitleHeader}>Elements</h3>
           <ElementsPalette />
         </div>
         <div className={classes.editorHolder + " app-view"}>
@@ -72,7 +54,7 @@ function EditorContainerWithData({
         </div>
         <div className={`${classes.propertiesPanel}`}>
           <div className={`${classes.titledPanel} properties-panel`}>
-            <h3>Properties</h3>
+            <h3 className={classes.panelTitleHeader}>Properties</h3>
             <SettingsPanel tree={tree} />
           </div>
           <div className={`${classes.titledPanel} app-preview`}>
@@ -83,6 +65,10 @@ function EditorContainerWithData({
       <LostConnectionPopup />
     </CurrentDraggedNodeProvider>
   );
+}
+
+function LoadingMessage() {
+  return <h3>Loading initial state from server</h3>;
 }
 
 function LostConnectionPopup() {
@@ -103,22 +89,4 @@ function LostConnectionPopup() {
       </p>
     </PortalModal>
   );
-}
-
-export function EditorContainer() {
-  const { isLoading, error, data } = useGetInitialStateQuery("test");
-  useSendBrowserCloseMessage();
-
-  if (isLoading) {
-    return <h3>Loading initial state from server</h3>;
-  }
-
-  if (error || !data) {
-    console.warn(
-      "Error retreiving app template from server. Running in static mode",
-      error ?? "no error"
-    );
-  }
-
-  return <EditorContainerWithData initialState={data} />;
 }

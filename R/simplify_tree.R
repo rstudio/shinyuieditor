@@ -26,18 +26,16 @@ simplify_gridlayout_args <- function(node) {
     return(node)
   }
 
-  requireNamespace("gridlayout", quietly = TRUE)
-
   areas <- node$uiArguments$areas
-  rowSizes <- simplify2array(node$uiArguments$rowSizes)
-  colSizes <- simplify2array(node$uiArguments$colSizes)
-  gapSize <- simplify2array(node$uiArguments$gapSize)
+  row_sizes <- simplify2array(node$uiArguments$row_sizes)
+  col_sizes <- simplify2array(node$uiArguments$col_sizes)
+  gap_size <- simplify2array(node$uiArguments$gap_size)
 
 
   # Depending on the json parsing etc the areas, especially when a single row or
   # column can get mangled. This function brings it back to the proper dimensions
   shape_areas <- function(x) {
-    matrix(x, nrow = length(rowSizes), ncol = length(colSizes))
+    matrix(x, nrow = length(row_sizes), ncol = length(col_sizes))
   }
 
 
@@ -59,15 +57,15 @@ simplify_gridlayout_args <- function(node) {
 
   # Replace the old verbose arguments with the single layout arg
   node$uiArguments$areas <- NULL
-  node$uiArguments$rowSizes <- NULL
-  node$uiArguments$colSizes <- NULL
-  node$uiArguments$gapSize <- NULL
+  node$uiArguments$row_sizes <- NULL
+  node$uiArguments$col_sizes <- NULL
+  node$uiArguments$gap_size <- NULL
 
   # Put layout on a new line so that the table lines up across lines
   node$uiArguments$layout <- array_layout
-  node$uiArguments$row_sizes <- rowSizes
-  node$uiArguments$col_sizes <- colSizes
-  node$uiArguments$gap_size <- gapSize
+  node$uiArguments$row_sizes <- row_sizes
+  node$uiArguments$col_sizes <- col_sizes
+  node$uiArguments$gap_size <- gap_size
 
 
   node

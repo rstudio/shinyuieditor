@@ -1,6 +1,6 @@
 
 stack_panel <- list(
-  uiName = "gridlayout::grid_panel_stack",
+  uiName = "gridlayout::grid_card",
   uiArguments = list(
     area = "plot",
     item_alignment = "center"
@@ -22,7 +22,7 @@ stack_panel <- list(
   )
 )
 
-namespaced_stack_panel_code <- 'gridlayout::grid_panel_stack(
+namespaced_stack_panel_code <- 'gridlayout::grid_card(
   area = "plot",
   item_alignment = "center",
   my_data_table_var,
@@ -32,7 +32,7 @@ namespaced_stack_panel_code <- 'gridlayout::grid_panel_stack(
   )
 )'
 
-bare_stack_panel_code <- 'grid_panel_stack(
+bare_stack_panel_code <- 'grid_card(
   area = "plot",
   item_alignment = "center",
   my_data_table_var,

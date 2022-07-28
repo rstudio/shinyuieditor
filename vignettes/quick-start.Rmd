@@ -1,0 +1,80 @@
+---
+title: "Quick start"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Quick start}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(shinyuieditor)
+```
+
+
+The following will show you how to get up and running with the ui editor from scratch. 
+
+If you prefer video format, here's an [in-depth walkthrough of using the ui editor to create and edit a new app](https://www.youtube.com/watch?v=gYPnLiudtGU).
+
+
+## Pre-reqs
+
+- `shinyuieditor` package installed. See the [installing section](../index.html#installing)
+- Shiny app with ui built using `gridlayout::gridpage()` (more layout functions coming soon.) See the [`gridlayout` package](https://github.com/rstudio/gridlayout) for more info.
+
+
+
+## Running
+
+### New app
+
+If you set the argument `app_loc` to a location that does not yet exist, the launcher will ask a few and setup a simple template app for you to use with building.
+
+```r
+shinyuieditor::launch_editor(app_loc = "new-app/")
+
+#> No app was found at location /Users/me/new_app.
+#> Would you like to start a new app from a template?
+#> 1: yes
+#> 2: no
+#>
+#> Selection: 1
+#> Which starter template would you like to use? (Sorry, it's an easy choice currently.)
+#> 1: geyser
+#>
+#> Selection: 1
+#> => Starting Shiny preview app...
+#> ...
+```
+
+_In the future more starting templates will be offered, however, currently only a simple grid-layout recreation of the classic "Geyser" app is available._
+
+### Existing app
+
+Assuming there's an existing app (either `app.R` or `ui.R` and `server.R`) in the folder `existing-app/` relative to your current working directly (`getwd()`), then you start the ui-editor on that app by running the following code and pasting the returned link into your web-browser.
+
+```r
+shinyuieditor::launch_editor(app_loc = "existing-app/")
+#> Live editor running at http://localhost:44509/app
+```
+
+---
+
+## Editing your app
+
+Once you're in the editor, any changes you make will automatically be written to your app's UI and the changes can be seen in real-time with the "App Preview" window.
+
+For more info on how to perform various tasks with the editor, see `vignette("how-to")`. 
+
+## Saving/Closing editor
+
+When you're done, simply close the browser window (or press {control/command}-c in the console) to stop the editor preview process in R. Since all changes are eagerly applied there's no need to save.
+
+

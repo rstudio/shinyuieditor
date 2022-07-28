@@ -11,84 +11,23 @@ import { removeNodeMutating } from "components/UiNode/TreeManipulation/removeNod
 import type { UpdateNodeArguments } from "components/UiNode/TreeManipulation/updateNode";
 import { updateNodeMutating } from "components/UiNode/TreeManipulation/updateNode";
 import { useDispatch } from "react-redux";
+import { subtractElements } from "utils/array-helpers";
 
 export const initialUiTree: ShinyUiNode = {
   uiName: "gridlayout::grid_page",
   uiArguments: {
     areas: [["msg"]],
-    rowSizes: ["1fr"],
-    colSizes: ["1fr"],
-    gapSize: "1rem",
+    row_sizes: ["1fr"],
+    col_sizes: ["1fr"],
+    gap_size: "1rem",
   },
   uiChildren: [
     {
-      uiName: "gridlayout::grid_panel_text",
+      uiName: "gridlayout::grid_card_text",
       uiArguments: {
         area: "msg",
         content: "Loading App...",
-        h_align: "center",
-      },
-    },
-  ],
-};
-
-// Ui Tree used if there's no backend connection
-export const backupUiTree: ShinyUiNode = {
-  uiName: "gridlayout::grid_page",
-  uiArguments: {
-    areas: [
-      ["header", "header"],
-      ["sidebar", "plot"],
-      ["sidebar", "plot"],
-    ],
-    rowSizes: ["100px", "1fr", "1fr"],
-    colSizes: ["250px", "1fr"],
-    gapSize: "1rem",
-  },
-  uiChildren: [
-    {
-      uiName: "gridlayout::grid_panel_text",
-      uiArguments: {
-        area: "header",
-        content: "My App",
-        h_align: "start",
-        is_title: true,
-      },
-    },
-    {
-      uiName: "gridlayout::grid_panel_stack",
-      uiArguments: {
-        area: "sidebar",
-        item_alignment: "top",
-      },
-      uiChildren: [
-        {
-          uiName: "shiny::sliderInput",
-          uiArguments: {
-            inputId: "mySlider",
-            label: "Slider",
-            min: 2,
-            max: 11,
-            value: 7,
-          },
-        },
-        {
-          uiName: "shiny::numericInput",
-          uiArguments: {
-            inputId: "myNumericInput",
-            label: "Numeric Input",
-            min: 2,
-            max: 11,
-            value: 7,
-            width: "100%",
-          },
-        },
-      ],
-    },
-    {
-      uiName: "gridlayout::grid_panel_plot",
-      uiArguments: {
-        area: "plot",
+        alignment: "center",
       },
     },
   ],
@@ -122,7 +61,7 @@ export const uiTreeSlice = createSlice({
 
 /**
  *
- * @param uiTree Shiny Ui Tree
+ * @param uiNode Shiny Ui Tree
  * @returns The ui tree modified by adding default values of any ommitted
  * properties with default values.
  *
@@ -130,22 +69,26 @@ export const uiTreeSlice = createSlice({
  * mess with the user's code but will eliminate confusion when the settings
  * options controls don't actually match the presented values
  */
-function fillInDefaultValues(uiTree: ShinyUiNode): ShinyUiNode {
-  const { uiName, uiArguments, uiChildren } = uiTree;
+function fillInDefaultValues(uiNode: ShinyUiNode) {
+  const defaultSettingsForNode = shinyUiNodeInfo[uiNode.uiName].defaultSettings;
 
-  const defaultSettingsForNode = shinyUiNodeInfo[uiName].defaultSettings;
+  const argsInNode = Object.keys(uiNode.uiArguments);
+  const defaultNodeArgs = Object.keys(defaultSettingsForNode);
+  const missingArgs = subtractElements(defaultNodeArgs, argsInNode);
 
-  const newUiArguments = { ...defaultSettingsForNode, ...uiArguments };
+  // Only mess with the ui arguments if there's a discrepency in present
+  // arguments and required/default ones
+  if (missingArgs.length > 0) {
+    uiNode.uiArguments = { ...defaultSettingsForNode, ...uiNode.uiArguments };
+  }
 
-  const newUiChildren = uiChildren
-    ? uiChildren.map((childNode) => fillInDefaultValues(childNode))
-    : undefined;
+  // Recurse over all the children so entire tree is checked
+  if (uiNode.uiChildren) {
+    uiNode.uiChildren.forEach((childNode) => fillInDefaultValues(childNode));
+  }
 
-  return {
-    uiName,
-    uiArguments: newUiArguments,
-    uiChildren: newUiChildren,
-  } as ShinyUiNode;
+  // Return the ui node so the state knows it can update
+  return uiNode as ShinyUiNode;
 }
 
 // Action creators are generated for each case reducer function

@@ -5,13 +5,16 @@
 #' @param filter_fn Optional function returning boolean that can be used to skip
 #'   invoking all the subscribed functions on a given loop.
 #' @param delay How frequently to poll `source_fn`.
-#' @param callbacks `Shiny:::Callbacks` R6 class containing all subscriptions.
-#'   Created automatically if not supplied.
+#' @param callback A callback to be run on each poll round with output of
+#'   `source_fn`. Same as using `$subscribe()` method without ability to cancel
+#'   subscription for just this callback.
 #'
 #' @return A list with two callbacks attached: `$subscribe()` which will add a
 #'   new callback to the subscription queue that takes as its input the output
 #'   of `source_fn()`; and `$cleanup` which is used to stop listening to the
 #'   output of `source_fn()`.
+#'
+#' @keywords internal
 #'
 #' @examples
 #'
@@ -43,9 +46,9 @@
 create_output_subscribers <- function(source_fn,
                                       filter_fn = function(...) TRUE,
                                       delay = 0.1,
-                                      callbacks = shiny:::Callbacks$new()) {
+                                      callback = NULL) {
 
-  # callbacks <- shiny:::Callbacks$new()
+  callbacks <- Callbacks$new()
 
   subscribed_fn <- source_fn
 
@@ -80,31 +83,39 @@ create_output_subscribers <- function(source_fn,
   # Kick off loop
   poll()
 
+  # If we have a callback already supplied, add is to the callbacks object
+  if (!is.null(callback)) {
+    callbacks$add(callback)
+  }
+
   cancel_all <- function() {
     if (!is.null(unsubscribe)) {
       unsubscribe()
     }
   }
 
-  update_subscribed <- function(new_fn) {
-
-    # Cancel the current event loop for the subscribed function
-    cancel_all()
-
-    # Create a new output subscribers result that carries over all the same
-    # callback subscriptions with it
-    create_output_subscribers(
-      source_fn = new_fn,
-      filter_fn = filter_fn,
-      delay = delay,
-      callbacks = callbacks
-    )
-  }
-
   list(
-    subscribe = callbacks$register,
+    subscribe = callbacks$add,
     cancel_all = cancel_all,
-    update_subscribed = update_subscribed,
     callbacks = callbacks
   )
 }
+
+
+subscribe_once <- function(source_fn, filter_fn, callback, delay = 0.1){
+  poll <- create_output_subscribers(
+    source_fn = source_fn,
+    filter_fn = filter_fn,
+    delay = delay
+  )
+
+  listener <- poll$subscribe(function(...){
+    callback()
+
+    # Once we get the ready signal, turn off the subscription
+    listener()
+  })
+
+  poll
+}
+

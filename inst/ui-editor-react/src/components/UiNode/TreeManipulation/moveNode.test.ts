@@ -9,21 +9,21 @@ import {
 
 // Two Panels, one with a slider and a plot and the other with just a plot
 const baseNode: ShinyUiNode = {
-  uiName: "gridlayout::grid_panel",
+  uiName: "gridlayout::grid_card",
   uiArguments: {
     area: "panel",
   },
   uiChildren: [
     {
       // path = [0]
-      uiName: "gridlayout::grid_panel",
+      uiName: "gridlayout::grid_card",
       uiArguments: {
         area: "left",
       },
       uiChildren: [
         // path = [0, 0]
         {
-          uiName: "gridlayout::grid_panel",
+          uiName: "gridlayout::grid_card",
           uiArguments: { area: "controls-holder" },
           uiChildren: [
             {
@@ -36,7 +36,7 @@ const baseNode: ShinyUiNode = {
             },
             {
               // path = [0, 0, 1]
-              uiName: "gridlayout::grid_panel_stack",
+              uiName: "gridlayout::grid_card",
               uiArguments: { area: "controls-sub" },
               uiChildren: [],
             },
@@ -53,7 +53,7 @@ const baseNode: ShinyUiNode = {
     },
     {
       // path = [1]
-      uiName: "gridlayout::grid_panel",
+      uiName: "gridlayout::grid_card",
       uiArguments: { area: "right" },
       uiChildren: [
         // path = [1, 0]
@@ -165,8 +165,8 @@ describe("Move node around within its current container", () => {
     },
   };
   const sliderPanel: ShinyUiNode = {
-    uiName: "gridlayout::grid_panel_stack",
-    uiArguments: { area: "controls-holder", item_alignment: "center" },
+    uiName: "gridlayout::grid_card",
+    uiArguments: { area: "controls-holder" },
     uiChildren: [
       buttonA, // [0]
       buttonB, // [1]

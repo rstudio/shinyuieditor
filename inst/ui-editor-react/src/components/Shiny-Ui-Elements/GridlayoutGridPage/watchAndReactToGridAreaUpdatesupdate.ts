@@ -1,6 +1,5 @@
 import { areasOfChildren } from "components/Shiny-Ui-Elements/GridlayoutGridPage/GridlayoutGridPage";
 import { gridLayoutReducer } from "components/Shiny-Ui-Elements/GridlayoutGridPage/gridLayoutReducer";
-import type { GridPanelSettings } from "components/Shiny-Ui-Elements/GridlayoutGridPanel";
 import type {
   NodePath,
   ShinyUiNode,
@@ -9,6 +8,8 @@ import { getNode } from "components/UiNode/TreeManipulation/getNode";
 import type { RemoveNodeArguments } from "components/UiNode/TreeManipulation/removeNode";
 import type { UpdateNodeArguments } from "components/UiNode/TreeManipulation/updateNode";
 import { emptyCell } from "utils/gridTemplates/itemLocations";
+
+import type { GridCardSettings } from "../GridlayoutGridCard";
 
 // This function watches for changes in a grid layout childs grid area and
 // updates the parent's layout names accordingly. Note that it mutates the tree
@@ -27,7 +28,7 @@ export function updateGridLayoutAreaOnItemAreaChange(
   const { gridPageNode } = gridPageAndItemNodes;
 
   const oldAreaName = areasOfChildren(gridPageNode.uiChildren)[path[0]];
-  const newAreaName = (node.uiArguments as GridPanelSettings).area ?? emptyCell;
+  const newAreaName = (node.uiArguments as GridCardSettings).area ?? emptyCell;
 
   if (oldAreaName === newAreaName) return;
 
@@ -51,7 +52,7 @@ export function removeDeletedGridAreaFromLayout(
 
   const { gridPageNode, gridItemNode } = gridPageAndItemNodes;
 
-  const deletedAreaName = (gridItemNode.uiArguments as GridPanelSettings).area;
+  const deletedAreaName = (gridItemNode.uiArguments as GridCardSettings).area;
 
   if (!deletedAreaName) {
     console.error("Deleted node appears to not have a grid area, ignoring");

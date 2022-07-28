@@ -6,6 +6,8 @@
 #'   single-file apps, or `ui.R` in the case of multi-file apps. If both exist
 #'   then `app.R` will take precedence
 #'
+#' @keywords internal
+#'
 get_app_ui_file <- function(app_loc) {
   # We first try and look for a single app file
   single_file_app_script <- fs::path(app_loc, "app.R")

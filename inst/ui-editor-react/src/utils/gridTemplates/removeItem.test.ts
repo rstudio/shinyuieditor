@@ -10,9 +10,9 @@ describe("Remove single item", () => {
       ["e", "e", "f"],
     ],
 
-    rowSizes: ["1fr", "1fr", "1fr"],
-    colSizes: ["1fr", "1fr", "1fr"],
-    gapSize: "10px",
+    row_sizes: ["1fr", "1fr", "1fr"],
+    col_sizes: ["1fr", "1fr", "1fr"],
+    gap_size: "10px",
   };
   test("Remove a", () => {
     expect(removeItem(baseLayout, "a").areas).toStrictEqual([
@@ -43,9 +43,9 @@ describe("Remove multiple items", () => {
       ["a", "c", "d"],
       ["e", "e", "f"],
     ],
-    rowSizes: ["1fr", "1fr", "1fr"],
-    colSizes: ["1fr", "1fr", "1fr"],
-    gapSize: "10px",
+    row_sizes: ["1fr", "1fr", "1fr"],
+    col_sizes: ["1fr", "1fr", "1fr"],
+    gap_size: "10px",
   };
 
   test("Remove a and b", () => {

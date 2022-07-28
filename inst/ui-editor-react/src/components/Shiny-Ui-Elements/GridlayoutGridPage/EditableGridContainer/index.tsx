@@ -9,7 +9,7 @@ import type { TemplatedGridProps } from "..";
 
 import classes from "./resizableGrid.module.css";
 import { TractInfoDisplays } from "./TractInfoDisplay";
-import { TractSizer } from "./TractSizer";
+import { TractSizerHandle } from "./TractSizer";
 import type { TractInfo } from "./useDragToResizeGrid";
 import { useDragToResizeGrid } from "./useDragToResizeGrid";
 import { buildRange, layoutDefToStyles } from "./utils";
@@ -31,18 +31,17 @@ function EditableGridContainer({
   children?: React.ReactNode;
   onNewLayout: (layout: TemplatedGridProps) => void;
 } & TemplatedGridProps) {
-  const { rowSizes, colSizes } = layout;
+  const { row_sizes, col_sizes } = layout;
   const containerRef = React.useRef<HTMLDivElement>(null);
   const styles = layoutDefToStyles(layout);
 
-  const columnSizers = buildRange(2, colSizes.length);
-  const rowSizers = buildRange(2, rowSizes.length);
+  const columnSizers = buildRange(2, col_sizes.length);
+  const rowSizers = buildRange(2, row_sizes.length);
 
-  const { startDrag, onTractHover, dragStatus, onTractMouseOut } =
-    useDragToResizeGrid({
-      containerRef,
-      onDragEnd: onNewLayout,
-    });
+  const startDrag = useDragToResizeGrid({
+    containerRef,
+    onDragEnd: onNewLayout,
+  });
 
   const containerClasses = [classes.ResizableGrid];
   if (className) containerClasses.push(className);
@@ -77,34 +76,31 @@ function EditableGridContainer({
       style={styles}
     >
       {columnSizers.map((gap_index) => (
-        <TractSizer
+        <TractSizerHandle
           key={"cols" + gap_index}
           dir="cols"
           index={gap_index}
-          event_listeners={{ onTractMouseOut, onTractHover, startDrag }}
+          onStartDrag={startDrag}
         />
       ))}
       {rowSizers.map((gap_index) => (
-        <TractSizer
+        <TractSizerHandle
           key={"rows" + gap_index}
           dir="rows"
           index={gap_index}
-          event_listeners={{ onTractMouseOut, onTractHover, startDrag }}
+          onStartDrag={startDrag}
         />
       ))}
-
       {children}
       <TractInfoDisplays
         dir="cols"
-        sizes={colSizes}
-        dragStatus={dragStatus}
+        sizes={col_sizes}
         areas={layout.areas}
         onUpdate={handleUpdate}
       />
       <TractInfoDisplays
         dir="rows"
-        sizes={rowSizes}
-        dragStatus={dragStatus}
+        sizes={row_sizes}
         areas={layout.areas}
         onUpdate={handleUpdate}
       />
@@ -117,7 +113,7 @@ function updateTractSize(
   { dir, index, size }: TractInfo
 ): TemplatedGridProps {
   return produce(layout, (updatedLayout) => {
-    updatedLayout[dir === "rows" ? "rowSizes" : "colSizes"][index] = size;
+    updatedLayout[dir === "rows" ? "row_sizes" : "col_sizes"][index] = size;
   });
 }
 

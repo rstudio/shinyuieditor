@@ -6,14 +6,14 @@ import { removeNode } from "./removeNode";
 import { updateNode } from "./updateNode";
 
 const baseNode: ShinyUiNode = {
-  uiName: "gridlayout::grid_panel",
+  uiName: "gridlayout::grid_card",
   uiArguments: {
     area: "panel",
   },
   uiChildren: [
     {
       // path = [0]
-      uiName: "gridlayout::grid_panel",
+      uiName: "gridlayout::grid_card",
       uiArguments: {
         area: "panel2",
       },
@@ -75,7 +75,7 @@ test("Modify a node", () => {
 
 test("Modify a node at first level", () => {
   const baseNode: ShinyUiNode = {
-    uiName: "gridlayout::grid_panel",
+    uiName: "gridlayout::grid_card",
     uiArguments: {
       area: "panel",
     },
@@ -115,12 +115,12 @@ test("Modify a node at first level", () => {
 //     uiName: "gridlayout::grid_page",
 //     uiArguments: {
 //       areas: [["sidebar", "plot"]],
-//       rowSizes: ["1fr"],
-//       colSizes: ["250px", "1fr"],
+//       row_sizes: ["1fr"],
+//       col_sizes: ["250px", "1fr"],
 //     },
 //     uiChildren: [
 //       {
-//         uiName: "gridlayout::grid_panel",
+//         uiName: "gridlayout::grid_card",
 //         uiArguments: {
 //           area: "sidebar",
 //           horizontalAlign: "right",
@@ -140,7 +140,7 @@ test("Modify a node at first level", () => {
 //         ],
 //       },
 //       {
-//         uiName: "gridlayout::grid_panel",
+//         uiName: "gridlayout::grid_card",
 //         uiArguments: {
 //           area: "plot",
 //           horizontalAlign: "right",
@@ -164,8 +164,8 @@ test("Modify a node at first level", () => {
 //       uiName: "gridlayout::grid_page",
 //       uiArguments: fillInPartialTemplate({
 //         areas: [["new_sidebar_name", "plot"]],
-//         rowSizes: ["1fr"],
-//         colSizes: ["250px", "1fr"],
+//         row_sizes: ["1fr"],
+//         col_sizes: ["250px", "1fr"],
 //       }),
 //     },
 //   });

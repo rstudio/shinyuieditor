@@ -7,13 +7,13 @@ ui <- grid_page(
     "header",
     "distPlot"
   ),
-  grid_panel_text(
+  grid_card_text(
     area = "header",
     content = "Single File App",
     h_align = "start",
     is_title = FALSE
   ),
-  grid_panel_plot(area = "distPlot")
+  grid_card_plot(area = "distPlot")
 )
 
 
@@ -57,10 +57,10 @@ new_ui_text <- 'grid_page(
     "title",
     "histogram"
   ),
-  grid_panel_text(
+  grid_card_text(
     area = "title",
     content = "A new title",
     is_title = FALSE
   ),
-  grid_panel_plot(area = "histogram")
+  grid_card_plot(area = "histogram")
 )'

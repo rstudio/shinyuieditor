@@ -22,7 +22,7 @@ describe("Add empty tracts", () => {
       ["d", "e", "f"],
     ]);
 
-    expect(layoutWithNewRow.rowSizes).toStrictEqual([
+    expect(layoutWithNewRow.row_sizes).toStrictEqual([
       "1fr",
       sizeOfNewRow,
       "1fr",
@@ -41,7 +41,7 @@ describe("Add empty tracts", () => {
       ["d", ".", "e", "f"],
     ]);
 
-    expect(layoutWithNewCol.colSizes).toStrictEqual([
+    expect(layoutWithNewCol.col_sizes).toStrictEqual([
       "1fr",
       sizeOfNewCol,
       "1fr",

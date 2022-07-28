@@ -49,20 +49,20 @@ export const PopoverButton: React.FC<
 
   // Add extra background color variable if it's requested
   const popperStyles = React.useMemo(() => {
-    const extraStyles = {
-      "--popover-bg-color": bgColor,
-      "--popover-open-delay": `${openDelayMs}ms`,
-    } as React.CSSProperties;
-
-    return { ...styles.popper, ...extraStyles };
-  }, [bgColor, openDelayMs, styles.popper]);
+    return { ...styles.popper, backgroundColor: bgColor };
+  }, [bgColor, styles.popper]);
 
   const eventListeners = React.useMemo(() => {
+    let delayedShowTimeout: NodeJS.Timeout;
     function showPopper() {
-      update?.();
-      popperElement?.setAttribute("data-show", "");
+      delayedShowTimeout = setTimeout(() => {
+        update?.();
+        popperElement?.setAttribute("data-show", "");
+      }, openDelayMs);
     }
     function hidePopper() {
+      // Make sure we cancel a timeout in case it has yet to display
+      clearTimeout(delayedShowTimeout);
       popperElement?.removeAttribute("data-show");
     }
 
@@ -72,7 +72,7 @@ export const PopoverButton: React.FC<
       [showTrigger]: () => showPopper(),
       onMouseLeave: () => hidePopper(),
     };
-  }, [popperElement, showOn, update]);
+  }, [openDelayMs, popperElement, showOn, update]);
 
   const textContent = typeof popoverContent === "string";
   return (

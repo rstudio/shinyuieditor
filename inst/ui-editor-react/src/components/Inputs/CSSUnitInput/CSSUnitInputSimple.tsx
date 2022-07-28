@@ -1,6 +1,5 @@
 import React from "react";
 
-import { Info } from "components/Icons";
 import { deparseCSSMeasure, parseCSSMeasure } from "utils/css-helpers";
 
 import type { CSSMeasure } from "../../../CSSMeasure";

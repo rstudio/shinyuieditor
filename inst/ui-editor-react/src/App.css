@@ -110,3 +110,17 @@ button {
   background: none;
   cursor: pointer;
 }
+
+/* Undo some of the default bootstrap styles */
+h1,
+h2,
+h3 {
+  font-weight: unset;
+  line-height: unset;
+}
+
+code {
+  color: unset;
+  font-family: unset;
+  font-size: unset;
+}

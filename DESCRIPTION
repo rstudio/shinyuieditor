@@ -1,6 +1,6 @@
 Package: shinyuieditor
 Title: Build and Modify your Shiny UI, visually
-Version: 0.0.1.0
+Version: 0.1.0
 Authors@R: 
     person(given = "Nick",
            family = "Strayer",
@@ -10,7 +10,7 @@ Description: Packages an app to build Shiny app ui's with a simple drag-and-drop
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 Imports: 
     callr,
     crayon,
@@ -24,8 +24,12 @@ Imports:
     utils,
     gridlayout (>= 0.1.0),
 Suggests: 
+    rmarkdown,
+    ggplot2,
+    knitr,
     testthat (>= 3.0.0)
 Remotes:
     rstudio/gridlayout
 Config/testthat/edition: 3
 URL: https://rstudio.github.io/shinyuieditor/
+VignetteBuilder: knitr

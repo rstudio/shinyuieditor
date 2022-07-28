@@ -12,10 +12,10 @@ ui_fn_names_namespaced <- c(
   "shiny::uiOutput",
   "shiny::textOutput",
   "gridlayout::grid_page",
-  "gridlayout::grid_panel",
-  "gridlayout::grid_panel_text",
-  "gridlayout::grid_panel_plot",
-  "gridlayout::grid_panel_stack"
+  "gridlayout::grid_card",
+  "gridlayout::grid_card_text",
+  "gridlayout::grid_card_plot",
+  "gridlayout::grid_card"
 )
 
 # Ui names without namespace attached
@@ -57,6 +57,8 @@ names(ui_fn_info) <- c(ui_fn_names_namespaced, ui_fn_names_bare)
 #'   of known ui functions
 #'
 #' @return Function name in namespaced format
+#'
+#' @keywords internal
 #'
 #' @examples
 #' shinyuieditor:::namespace_ui_fn("gridlayout::grid_page")

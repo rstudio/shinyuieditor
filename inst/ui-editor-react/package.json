@@ -1,7 +1,6 @@
 {
   "name": "shiny-ui-editor",
   "version": "0.1.0",
-  "homepage": "app",
   "private": true,
   "dependencies": {
     "@ladle/react": "^0.11.0",
@@ -14,11 +13,11 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "bootstrap": "^5.1.3",
     "framer-motion": "^4.0.0",
     "immer": "^9.0.12",
     "just-clone": "^5.0.0",
     "just-debounce-it": "^3.0.0",
-    "just-diff": "^4.1.2",
     "just-omit": "^1.4.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -34,11 +33,12 @@
     "yarn": "^1.22.18"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "REACT_APP_SHOW_FAKE_PREVIEW=True react-scripts start",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build",
+    "build-w-maps": "react-scripts build",
+    "build-netlify": "REACT_APP_SHOW_FAKE_PREVIEW=True PUBLIC_URL=/ react-scripts build",
+    "build-website-demo": "BUILD_PATH=../../vignettes/web-only/demo-app GENERATE_SOURCEMAP=false PUBLIC_URL=. react-scripts build",
     "start-grid": "REACT_APP_VERSION=GRIDAPP react-scripts start",
-    "build-no-maps": "GENERATE_SOURCEMAP=false react-scripts build",
-    "build": "react-scripts build",
-    "build-netlify": "PUBLIC_URL=/ react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",

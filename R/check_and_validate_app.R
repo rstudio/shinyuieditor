@@ -34,68 +34,7 @@ check_and_validate_app <- function(app_loc) {
   )
 }
 
-# All available templates as found in inst/app-templates
-starter_templates <- c("geyser")
 
-fill_in_app_template <- function(app_loc) {
-  ask_to_continue(
-    "No app was found at location ",
-    app_loc, ".\n",
-    "Would you like to start a new app from a template?"
-  )
-
-  chosen_template <- ask_question(
-    "Which starter template would you like to use? ",
-    "(Sorry, it's an easy choice currently.)",
-    answers = starter_templates
-  )
-
-  if (identical(chosen_template, character(0L))) {
-    end_early()
-  }
-
-  # Make sure the directory exists
-  fs::dir_create(app_loc)
-
-  add_server_template(chosen_template, app_loc)
-  add_ui_template(chosen_template, app_loc)
-}
-
-
-
-get_path_to_template <- function(template_name) {
-  if (!template_name %in% c(starter_templates, "empty")) {
-    stop("Unknown template: ", template_name)
-  }
-
-  system.file(paste0("app-templates/", template_name), package = "shinyuieditor")
-}
-
-
-add_server_template <- function(template_name, app_loc) {
-  fs::file_copy(
-    fs::path(get_path_to_template(template_name), "server.R"),
-    fs::path(app_loc, "server.R")
-  )
-}
-
-add_ui_template <- function(template_name, app_loc) {
-  app_ui_path <- fs::path(app_loc, "ui.R")
-  has_ui_file <- fs::file_exists(app_ui_path)
-
-  if (has_ui_file) {
-    cat("Moving existing ui.R to ui.backup.R\n")
-    fs::file_move(
-      app_ui_path,
-      fs::path(app_loc, "ui.backup.R")
-    )
-  }
-
-  fs::file_copy(
-    fs::path(get_path_to_template(template_name), "ui.R"),
-    app_ui_path
-  )
-}
 
 
 check_server_file <- function(app_loc) {
