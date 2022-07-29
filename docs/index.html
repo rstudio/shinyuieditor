@@ -153,7 +153,7 @@
 <div class="section level2">
 <h2 id="trouble-installing">Trouble installing<a class="anchor" aria-label="anchor" href="#trouble-installing"></a>
 </h2>
-<p>Because the package uses a private dependency (<code>gridlayout</code>) installation can sometimes fail in confusing ways.</p>
+<p>Because the package uses a remote dependency (<code>gridlayout</code>) installation can sometimes fail in confusing ways.</p>
 <div class="section level3">
 <h3 id="http-error-404-not-found">HTTP error 404, Not Found<a class="anchor" aria-label="anchor" href="#http-error-404-not-found"></a>
 </h3>
@@ -164,7 +164,7 @@ Error: Failed to install 'shinyuieditor' from GitHub:
 
   Did you spell the repo owner (`rstudio`) and repo name (`shinyuieditor`) correctly?
   - If spelling is correct, check that you have the required permissions to access the repo.</code></pre>
-<p>You may need to setup your github PAT to access as the repo is still private. However, if you’re reading this, you have access. To set this up run <code><a href="https://usethis.r-lib.org/reference/github-token.html" class="external-link">usethis::create_github_token()</a></code> in the terminal and follow the prompts.</p>
+<p>You may need to setup your github PAT to access. To set this up run <code><a href="https://usethis.r-lib.org/reference/github-token.html" class="external-link">usethis::create_github_token()</a></code> in the terminal and follow the prompts.</p>
 <p><strong>Using remotes?</strong></p>
 <p><code><a href="https://usethis.r-lib.org/reference/github-token.html" class="external-link">usethis::create_github_token()</a></code> no longer puts your PAT in an environment variable, however that’s the method <code>remotes</code> uses for authentication. You can get around this by using the <code>withr</code> package to temporarily set the environment variable.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">

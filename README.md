@@ -40,7 +40,7 @@ If the UI is confusing, there's a tour mode that walks you through the various c
 
 ## Trouble installing
 
-Because the package uses a private dependency (`gridlayout`) installation can sometimes fail in confusing ways.
+Because the package uses a remote dependency (`gridlayout`) installation can sometimes fail in confusing ways.
 
 ### HTTP error 404, Not Found
 
@@ -54,7 +54,7 @@ Error: Failed to install 'shinyuieditor' from GitHub:
   - If spelling is correct, check that you have the required permissions to access the repo.
 ```
 
-You may need to setup your github PAT to access as the repo is still private. However, if you're reading this, you have access. To set this up run `usethis::create_github_token()` in the terminal and follow the prompts.
+You may need to setup your github PAT to access. To set this up run `usethis::create_github_token()` in the terminal and follow the prompts.
 
 **Using remotes?**
 
