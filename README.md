@@ -21,7 +21,7 @@ remotes::install_github("rstudio/shinyuieditor")
 
 ## Feedback
 
-Any thoughts or comments you have on the editor can come via email (nick.strayer@rstudio.com), the [github repo's issues.](https://github.com/rstudio/shinyuieditor/issues), or the RStudio slack channel `#shiny-ui-editor`.
+Any thoughts or comments you have on the editor can come via email (nick.strayer@rstudio.com) or the [github repo's issues.](https://github.com/rstudio/shinyuieditor/issues).
 
 The things most useful for feedback at this stage are:
 
