@@ -21,7 +21,9 @@ remotes::install_github("rstudio/shinyuieditor")
 
 ## Feedback
 
-Any thoughts or comments you have on the editor can come via email (nick.strayer@rstudio.com) or the [github repo's issues.](https://github.com/rstudio/shinyuieditor/issues).
+Found a bug or want to suggest a feature? Use the github issues page: [github repo's issues.](https://github.com/rstudio/shinyuieditor/issues).
+
+More general comments can be sent via email (nick.strayer@rstudio.com) or for more public discourse, [twitter.](https://twitter.com/NicholasStrayer)
 
 The things most useful for feedback at this stage are:
 
@@ -34,7 +36,7 @@ The things most useful for feedback at this stage are:
 
 ## Getting help
 
-If the UI is confusing, there's a tour mode that walks you through the various components of the Ui Editor. Simple click the button titled "Tour App" to enter the tour mode.
+If the UI is confusing, there's a tour mode that walks you through the various components of the Ui Editor. Simple click the button titled "Tour App" to enter the tour mode. Also check out the FAQs section (`vignette('faqs')`) and the "How To" article (`vignette('how-to')`).
 
 ## Trouble installing
 

@@ -100,8 +100,9 @@
 <h4 id="minor-new-features-and-improvements-0-1-0">Minor new features and improvements<a class="anchor" aria-label="anchor" href="#minor-new-features-and-improvements-0-1-0"></a></h4>
 <ul><li>Tract resizing is now much quicker and has less visual noise due to only showing small size-popups (<code>5e767eef9e62170f758d1aab87ba22464008cd7b</code>)</li>
 <li>Website updated with a bunch of new articles</li>
-<li>
-</li></ul></div>
+<li>Added some explanatory text about the format of grid-names to the popup for naming newly added grid items (<code>ca625edb3c65c5a0da4ebebb5b9d04013c4e84e5</code>)</li>
+<li>The app preview window now no-longer shoes up at all if there’s no preview connection. (<code>ae5d8113bd687bd7f7c2d540347bf3289bb57f49</code>)</li>
+</ul></div>
 <div class="section level4">
 <h4 id="bug-fixes-0-1-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-1-0"></a></h4>
 <ul><li>Theme argument is now supported in <code><a href="https://rdrr.io/pkg/gridlayout/man/grid_page.html" class="external-link">gridlayout::grid_page()</a></code> (#51)</li>
@@ -110,6 +111,8 @@
 <div class="section level4">
 <h4 id="known-bugs-0-1-0">Known bugs<a class="anchor" aria-label="anchor" href="#known-bugs-0-1-0"></a></h4>
 <ul><li>Firefox inputs don’t have increment buttons (#60)</li>
+<li>Arguments that a component knows about but are supplied a non-known argument type will simply get wiped away (#58)</li>
+<li>Can fail installing on windows using <code>pak</code> (#53)</li>
 </ul></div>
 </div>
     <div class="section level2">
