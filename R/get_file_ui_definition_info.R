@@ -95,6 +95,11 @@ get_file_ui_definition_info <- function(file_lines, type = "single-file") {
 #' shinyuieditor:::get_loaded_libraries(file_lines)
 #'
 get_loaded_libraries <- function(file_lines) {
+
+  # TODO: Update this to use the AST rather than just regex. That way we don't
+  # try and load libraries that are not actually used like ones where the
+  # library command is commented out. Also will help eliminate all the edge
+  # cases using regex to parse code invariably stumbles on
   libr_regex <- "(?<=library\\()(\\w+)(?=\\))"
 
   regmatches(
