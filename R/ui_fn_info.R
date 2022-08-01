@@ -29,15 +29,13 @@ ui_fn_names_bare <- gsub(
 # List of each functions namespace (`namespace`), un-namespaced name (`fn`) and
 # the full namespaced name (`full`)
 ui_fn_names_and_namespaces <- lapply(
-  regmatches(
-    x = ui_fn_names_namespaced,
-    m = gregexec(text = ui_fn_names_namespaced, pattern = "(\\w+)::(\\w+)")
-  ),
-  FUN = function(match) {
+  ui_fn_names_namespaced,
+  FUN = function(full_name) {
+    split_name <- strsplit(full_name, split = "::")[[1]]
     list(
-      namespace = match[2, ],
-      fn = match[3, ],
-      full = match[1, ]
+      namespace = split_name[1],
+      fn = split_name[2],
+      full = full_name
     )
   }
 )
