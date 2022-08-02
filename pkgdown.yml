@@ -1,0 +1,13 @@
+pandoc: 2.7.3
+pkgdown: 2.0.6
+pkgdown_sha: ~
+articles:
+  faqs: faqs.html
+  quick-start: quick-start.html
+  how-to: web-only/how-to.html
+  ui-editor-live-demo: web-only/ui-editor-live-demo.html
+last_built: 2022-08-02T18:28Z
+urls:
+  reference: https://rstudio.github.io/shinyuieditor/reference
+  article: https://rstudio.github.io/shinyuieditor/articles
+
