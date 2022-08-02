@@ -30,6 +30,8 @@ Suggests:
     testthat (>= 3.0.0)
 Remotes:
     rstudio/gridlayout
+Config/Needs/website:
+    rstudio/quillt
 Config/testthat/edition: 3
 URL: https://rstudio.github.io/shinyuieditor/
 VignetteBuilder: knitr

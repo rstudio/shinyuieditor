@@ -1,6 +1,5 @@
 library(shiny)
 library(gridlayout)
-library(gt)
 
 # App template from the shinyuieditor
 ui <- grid_page(
