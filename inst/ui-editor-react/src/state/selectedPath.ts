@@ -14,10 +14,19 @@ export const selectedPathSlice = createSlice({
       action: PayloadAction<{ path: NodePath | null }>
     ) => action.payload.path,
     RESET_SELECTION: (selectedPath) => null,
+    // Step back selection to the parent node if it exists, otherwise just unset
+    // selection entirely
+    STEP_BACK_SELECTION: (selectedPath) => {
+      if (selectedPath === null || selectedPath.length === 0) return null;
+      selectedPath.pop();
+
+      return selectedPath;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { SET_SELECTION, RESET_SELECTION } = selectedPathSlice.actions;
+export const { SET_SELECTION, RESET_SELECTION, STEP_BACK_SELECTION } =
+  selectedPathSlice.actions;
 
 export default selectedPathSlice.reducer;
