@@ -113,7 +113,7 @@
   },
   "proxy": "http://localhost:8888",
   "devDependencies": {
-    "@4tw/cypress-drag-drop": "^2.1.0",
+    "@4tw/cypress-drag-drop": "^2.2.1",
     "@bahmutov/add-typescript-to-cypress": "^2.1.2",
     "@storybook/addon-actions": "^6.4.13",
     "@storybook/addon-essentials": "^6.4.13",
@@ -127,7 +127,7 @@
     "@types/cypress-image-snapshot": "^3.1.6",
     "@types/sortablejs": "^1.10.7",
     "@typescript-eslint/parser": "^5.13.0",
-    "cypress": "^9.6.1",
+    "cypress": "^10.4.0",
     "cypress-image-snapshot": "^4.0.1",
     "eslint-plugin-import": "^2.25.4",
     "prettier": "2.5.1",
