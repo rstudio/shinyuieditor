@@ -46,7 +46,8 @@
     "build-storybook": "build-storybook -s public",
     "lint": "eslint src --fix",
     "build-icons": "svgr --out-dir src/components/Icons/generated --icon --typescript -- src/assets/svg-icons",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "test-server": "REACT_APP_SHOW_FAKE_PREVIEW=True REACT_APP_TESTING_MODE=True react-scripts start"
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
