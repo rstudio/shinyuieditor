@@ -34,6 +34,7 @@ export function GridCell({
     <div
       className="grid-cell"
       ref={cellRef}
+      data-cell-pos={gridRow + "-" + gridColumn}
       style={{
         gridRow,
         gridColumn,
