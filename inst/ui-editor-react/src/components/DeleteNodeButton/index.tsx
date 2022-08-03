@@ -17,7 +17,7 @@ function DeleteNodeButton({
   return (
     <Button
       className={classes.deleteButton}
-      onClick={() => deletePanel()}
+      onClick={deletePanel}
       aria-label="Delete Node"
       title="Delete Element"
       variant={justIcon ? "icon" : "delete"}
