@@ -1,11 +1,9 @@
 import type { ShinyUiNode } from "components/Shiny-Ui-Elements/uiNodeTypes";
 
 import { getNode } from "./getNode";
-import {
-  placeNode,
-  nodesAreDirectAncestors,
-  nodesAreSiblings,
-} from "./placeNode";
+import { nodesAreDirectAncestors } from "./nodesAreDirectAncestors";
+import { nodesAreSiblings } from "./nodesAreSiblings";
+import { placeNode } from "./placeNode";
 
 // Two Panels, one with a slider and a plot and the other with just a plot
 const baseNode: ShinyUiNode = {
