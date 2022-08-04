@@ -8,9 +8,11 @@ import classes from "./styles.module.css";
 function DeleteNodeButton({
   path,
   justIcon = false,
+  label = "Delete Node",
 }: {
   path: NodePath;
   justIcon?: boolean;
+  label?: string;
 }) {
   const deleteNode = useDeleteNode(path);
 
@@ -23,8 +25,8 @@ function DeleteNodeButton({
         e.stopPropagation();
         deleteNode();
       }}
-      aria-label="Delete Node"
-      title="Delete Element"
+      aria-label={label}
+      title={label}
       variant={justIcon ? "icon" : "delete"}
       type="button"
     >
