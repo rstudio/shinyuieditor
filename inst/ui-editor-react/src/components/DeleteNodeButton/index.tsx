@@ -12,12 +12,17 @@ function DeleteNodeButton({
   path: NodePath;
   justIcon?: boolean;
 }) {
-  const deletePanel = useDeleteNode(path);
+  const deleteNode = useDeleteNode(path);
 
   return (
     <Button
       className={classes.deleteButton}
-      onClick={deletePanel}
+      onClick={(e) => {
+        // Stop propigation of click event in case we have other click listeners
+        // that try and do things like set selection
+        e.stopPropagation();
+        deleteNode();
+      }}
       aria-label="Delete Node"
       title="Delete Element"
       variant={justIcon ? "icon" : "delete"}
