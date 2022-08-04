@@ -13,6 +13,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v4
         with:
+          working-directory: inst/ui-editor-react
           install-command: yarn --frozen-lockfile --silent
           # build: yarn build-w-maps
           start: yarn start
