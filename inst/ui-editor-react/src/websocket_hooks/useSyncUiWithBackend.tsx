@@ -74,14 +74,14 @@ export function useSyncUiWithBackend() {
       // Give the backup/static mode ui tree in the case of no backend connection
       setConnectionStatus("no-backend");
 
-      if (process.env.REACT_APP_TESTING_MODE) {
+      // For the demo versions of the app we want there to be a predefined tree
+      // instead of an empty grid
+      if (process.env.REACT_APP_PREBUILT_TREE) {
+        setTree(backupUiTree);
+        console.log("Running in static mode");
+      } else {
         setTree(testingUiTree);
         console.log("Running in test mode");
-      } else {
-        setTree(backupUiTree);
-        console.warn(
-          "Error retreiving app template from server. Running in static mode"
-        );
       }
     }
   }, [setTree, status, ws]);
