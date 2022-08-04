@@ -7,6 +7,6 @@
   ],
   "compilerOptions": {
     "noEmit": false,
-    "types": ["cypress", "@4tw/cypress-drag-drop"]
+    "types": ["cypress", "@4tw/cypress-drag-drop", "@testing-library/cypress"]
   }
 }

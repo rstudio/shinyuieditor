@@ -8,18 +8,25 @@ import classes from "./styles.module.css";
 function DeleteNodeButton({
   path,
   justIcon = false,
+  label = "Delete Node",
 }: {
   path: NodePath;
   justIcon?: boolean;
+  label?: string;
 }) {
-  const deletePanel = useDeleteNode(path);
+  const deleteNode = useDeleteNode(path);
 
   return (
     <Button
       className={classes.deleteButton}
-      onClick={() => deletePanel()}
-      aria-label="Delete Node"
-      title="Delete Element"
+      onClick={(e) => {
+        // Stop propigation of click event in case we have other click listeners
+        // that try and do things like set selection
+        e.stopPropagation();
+        deleteNode();
+      }}
+      aria-label={label}
+      title={label}
       variant={justIcon ? "icon" : "delete"}
       type="button"
     >

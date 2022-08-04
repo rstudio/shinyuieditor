@@ -116,7 +116,11 @@ function EmptyGridCardMessage({ path }: { path: NodePath }) {
   return (
     <div className={classes.emptyGridCard}>
       <span className={classes.emptyMessage}>Empty grid card</span>
-      <DeleteNodeButton path={path} justIcon={true} />
+      <DeleteNodeButton
+        path={path}
+        justIcon={true}
+        label="Delete empty grid card"
+      />
     </div>
   );
 }

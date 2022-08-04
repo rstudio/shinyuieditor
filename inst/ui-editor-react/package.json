@@ -36,9 +36,8 @@
     "start": "REACT_APP_SHOW_FAKE_PREVIEW=True react-scripts start",
     "build": "GENERATE_SOURCEMAP=false react-scripts build",
     "build-w-maps": "react-scripts build",
-    "build-netlify": "REACT_APP_SHOW_FAKE_PREVIEW=True PUBLIC_URL=/ react-scripts build",
-    "build-website-demo": "BUILD_PATH=../../vignettes/web-only/demo-app GENERATE_SOURCEMAP=false PUBLIC_URL=. react-scripts build",
-    "start-grid": "REACT_APP_VERSION=GRIDAPP react-scripts start",
+    "build-netlify": "REACT_APP_SHOW_FAKE_PREVIEW=True REACT_APP_PREBUILT_TREE=True PUBLIC_URL=/ react-scripts build",
+    "build-website-demo": "REACT_APP_PREBUILT_TREE=True BUILD_PATH=../../vignettes/web-only/demo-app GENERATE_SOURCEMAP=false PUBLIC_URL=. react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
@@ -46,8 +45,7 @@
     "build-storybook": "build-storybook -s public",
     "lint": "eslint src --fix",
     "build-icons": "svgr --out-dir src/components/Icons/generated --icon --typescript -- src/assets/svg-icons",
-    "cypress:open": "cypress open",
-    "test-server": "REACT_APP_SHOW_FAKE_PREVIEW=True REACT_APP_TESTING_MODE=True react-scripts start"
+    "cypress:open": "cypress open"
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
@@ -124,6 +122,7 @@
     "@storybook/preset-create-react-app": "^4.0.0",
     "@storybook/react": "^6.4.13",
     "@svgr/cli": "^6.2.1",
+    "@testing-library/cypress": "^8.0.3",
     "@types/cypress-image-snapshot": "^3.1.6",
     "@types/sortablejs": "^1.10.7",
     "@typescript-eslint/parser": "^5.13.0",

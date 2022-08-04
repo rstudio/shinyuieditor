@@ -1,4 +1,3 @@
-// testing-the-tester.ts created with Cypress
 /// <reference types="cypress" />
 
 // Start writing your Cypress tests below!
@@ -8,18 +7,11 @@
 
 describe("App landing", () => {
   beforeEach(() => {
-    cy.intercept("GET", "/app-please", { fixture: "appPlease.json" }).as(
-      "app-please/ stub"
-    );
-    cy.intercept("POST", "/UiDump", "App Dump received, thanks").as(
-      "UiDump/ stub"
-    );
-  });
-
-  it("successfully loads", () => {
     cy.viewport("macbook-15");
     cy.visit("http://localhost:3000");
+  });
 
+  it("Can drag item onto grid, move it delete cards", () => {
     dragAndDrop(
       () => getElementsPanelElement(cy, "shiny::numericInput"),
       () => cy.get(`.grid-cell[data-cell-pos="1-1"]`)
@@ -72,7 +64,7 @@ describe("App landing", () => {
 
     // Add the numeric input back into the settings panel
     dragAndDrop(
-      () => cy.get(`.app-view`).find(`[aria-label="shiny::numericInput"]`),
+      () => selectAppViewPanel(cy).find(`[aria-label="shiny::numericInput"]`),
       () =>
         cy
           .contains(settingsPanelName)
@@ -81,11 +73,12 @@ describe("App landing", () => {
           .last()
     );
 
-    // Delete now-empty cell with delete element button in the properties panel
-    // cy.get(`.app-view`).contains(/empty/i).parent().click();
-    getAppViewElement(cy, "1").click(20, 20);
+    // Delete now-empty cell with delete button that shows up in empty cards
+    cy.findByLabelText(/delete empty grid card/i).click();
 
-    cy.contains(/delete element/i).click();
+    // Make sure the App Settings card is currently selected
+    selectPropertiesPanel(cy).findByLabelText(/panel title/i);
+    selectPropertiesPanel(cy).findByDisplayValue(settingsPanelName);
   });
 });
 
@@ -100,8 +93,12 @@ function dragAndDrop(get_item: Getter_Fn, get_target: Getter_Fn) {
     .wait(50);
 }
 
+function selectAppViewPanel(cy: Cypress.cy & CyEventEmitter) {
+  return cy.get(`.app-view`);
+}
+
 function getAppViewElement(cy: Cypress.cy & CyEventEmitter, path: string) {
-  return cy.get(`.app-view`).find(`[data-sue-path="${path}"]`);
+  return selectAppViewPanel(cy).find(`[data-sue-path="${path}"]`);
 }
 
 function makeElementsPanelSel(name: string) {
@@ -115,11 +112,15 @@ function getElementsPanelElement(
   return cy.get(makeElementsPanelSel(name));
 }
 
+function selectPropertiesPanel(cy: Cypress.cy & CyEventEmitter) {
+  return cy.get(".properties-panel");
+}
+
 function getPropertiesPanelSetting(
   cy: Cypress.cy & CyEventEmitter,
   label: string | RegExp
 ) {
-  return cy.get(".properties-panel").contains(label).find("input");
+  return selectPropertiesPanel(cy).contains(label).find("input");
 }
 
 export {};

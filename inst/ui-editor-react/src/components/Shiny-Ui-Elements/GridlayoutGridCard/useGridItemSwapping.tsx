@@ -1,7 +1,7 @@
 import React from "react";
 
 import type { NodePath } from "components/Shiny-Ui-Elements/uiNodeTypes";
-import { nodesAreSiblings } from "components/UiNode/TreeManipulation/placeNode";
+import { nodesAreSiblings } from "components/UiNode/TreeManipulation/nodesAreSiblings";
 import type { DraggedNodeInfo } from "DragAndDropHelpers/DragAndDropHelpers";
 import { useFilteredDrop } from "DragAndDropHelpers/useFilteredDrop";
 

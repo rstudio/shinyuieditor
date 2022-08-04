@@ -5,9 +5,10 @@ import type {
 import { shinyUiNodeInfo } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import produce from "immer";
 import { addAtIndex, moveElement } from "utils/array-helpers";
-import { sameArray } from "utils/equalityCheckers";
 
 import { getNode } from "./getNode";
+import { nodesAreDirectAncestors } from "./nodesAreDirectAncestors";
+import { nodesAreSiblings } from "./nodesAreSiblings";
 import { removeNodeMutating } from "./removeNode";
 
 /**
@@ -104,50 +105,6 @@ export function placeNodeMutating(
   }
 
   parentNode.uiChildren = addAtIndex(parentNode.uiChildren, nextIndex, node);
-}
-
-/**
- * Are nodes A and B direct ancestors of eachother (parent, grandparent, etc...)?
- * @param aPath Path to node A
- * @param bPath Path to node B
- */
-export function nodesAreDirectAncestors(
-  aPath: NodePath,
-  bPath: NodePath
-): boolean {
-  const aDepth = aPath.length;
-  const bDepth = bPath.length;
-
-  const compareDepth = Math.min(aDepth, bDepth);
-
-  // If the path up to the depth of b is the same, then we have a child
-  return sameArray(aPath.slice(0, compareDepth), bPath.slice(0, compareDepth));
-}
-
-/**
- * Are nodes A and B siblings of eachother?
- * @param aPath Path to node A
- * @param bPath Path to node B
- */
-export function nodesAreSiblings(aPath: NodePath, bPath: NodePath): boolean {
-  const aDepth = aPath.length;
-  const bDepth = bPath.length;
-
-  // Siblings have to be at the same depth in the tree
-  if (aDepth !== bDepth) return false;
-
-  const parentDepth = aDepth - 1;
-
-  // If the path up to the depth of b is the same, then we have a child
-  const haveSameParent = sameArray(
-    aPath.slice(0, parentDepth),
-    bPath.slice(0, parentDepth)
-  );
-
-  if (!haveSameParent) return false;
-
-  // A node is not its own sibling
-  return aPath.slice(-1)[0] !== bPath.slice(-1)[0];
 }
 
 export function getIsValidMove({
