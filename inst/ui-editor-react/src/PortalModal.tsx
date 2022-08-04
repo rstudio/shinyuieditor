@@ -30,9 +30,10 @@ const Portal: React.FC<IProps> = ({ children, el = "div" }: IProps) => {
 
 const PortalModal: React.FC<{
   title?: string;
+  label?: string;
   onConfirm: () => void;
   onCancel: () => void;
-}> = ({ children, title, onConfirm, onCancel }) => {
+}> = ({ children, title, label, onConfirm, onCancel }) => {
   return (
     <Portal>
       <div
@@ -49,6 +50,7 @@ const PortalModal: React.FC<{
           className={classes.portalModal}
           // Dont let the clicking on the modal itself trigger canceling
           onClick={(e) => e.stopPropagation()}
+          aria-label={label ?? "popup modal"}
         >
           {title ? (
             <div

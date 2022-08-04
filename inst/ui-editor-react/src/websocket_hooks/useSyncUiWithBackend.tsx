@@ -44,6 +44,7 @@ function useCurrentUiTree() {
 
   return { tree, setTree };
 }
+
 export function useSyncUiWithBackend() {
   const { tree, setTree } = useCurrentUiTree();
 
@@ -72,10 +73,16 @@ export function useSyncUiWithBackend() {
     if (status === "failed-to-open") {
       // Give the backup/static mode ui tree in the case of no backend connection
       setConnectionStatus("no-backend");
-      setTree(backupUiTree);
-      console.warn(
-        "Error retreiving app template from server. Running in static mode"
-      );
+
+      if (process.env.REACT_APP_TESTING_MODE) {
+        setTree(testingUiTree);
+        console.log("Running in test mode");
+      } else {
+        setTree(backupUiTree);
+        console.warn(
+          "Error retreiving app template from server. Running in static mode"
+        );
+      }
     }
   }, [setTree, status, ws]);
 
@@ -154,4 +161,19 @@ const backupUiTree: ShinyUiNode = {
       },
     },
   ],
+};
+
+// Super basic tree for when running cypress tests
+const testingUiTree: ShinyUiNode = {
+  uiName: "gridlayout::grid_page",
+  uiArguments: {
+    areas: [
+      [".", "."],
+      [".", "."],
+    ],
+    row_sizes: ["1fr", "1fr"],
+    col_sizes: ["1fr", "1fr"],
+    gap_size: "1rem",
+  },
+  uiChildren: [],
 };

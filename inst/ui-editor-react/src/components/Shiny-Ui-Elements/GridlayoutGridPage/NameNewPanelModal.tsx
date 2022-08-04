@@ -55,6 +55,7 @@ export function NameNewPanelModal({
   return (
     <PortalModal
       title="Name new grid area"
+      label="New grid area naming modal"
       onConfirm={() => onDone(newItemName)}
       onCancel={onCancel}
     >
