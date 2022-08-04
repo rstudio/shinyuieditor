@@ -13,5 +13,6 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v4
         with:
+          install-command: yarn --frozen-lockfile --silent
           # build: yarn build-w-maps
           start: yarn start
