@@ -124,6 +124,7 @@
     "@storybook/preset-create-react-app": "^4.0.0",
     "@storybook/react": "^6.4.13",
     "@svgr/cli": "^6.2.1",
+    "@testing-library/cypress": "^8.0.3",
     "@types/cypress-image-snapshot": "^3.1.6",
     "@types/sortablejs": "^1.10.7",
     "@typescript-eslint/parser": "^5.13.0",
