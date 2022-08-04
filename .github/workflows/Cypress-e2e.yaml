@@ -13,4 +13,5 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v4
         with:
-          start: npm test-server
+          # build: yarn build-w-maps
+          start: yarn start
