@@ -5,6 +5,9 @@ import { defineConfig } from "vitest/config";
 const setup = ({ mode }) => {
   return defineConfig({
     server: { port: 3000 },
+    build: {
+      outDir: "build",
+    },
     plugins: [react(), tsconfigPaths()],
     define: {
       "process.env.NODE_ENV": `"${mode}"`,
