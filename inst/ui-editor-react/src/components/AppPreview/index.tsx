@@ -1,6 +1,7 @@
 import React from "react";
 
 import panelClasses from "EditorContainer.module.css";
+import { SHOW_FAKE_PREVIEW } from "env_variables";
 import debounce from "just-debounce-it";
 import { AiOutlineShrink } from "react-icons/ai";
 import { FaExpand } from "react-icons/fa";
@@ -44,11 +45,7 @@ export default function AppPreview() {
   // in development mode we want to hide the preview window when there's no app
   // preview present to not confuse users
 
-  console.log("env variables", import.meta.env.VITE_SHOW_FAKE_PREVIEW);
-  if (
-    status === "no-preview" &&
-    import.meta.env.VITE_SHOW_FAKE_PREVIEW !== "True"
-  ) {
+  if (status === "no-preview" && !SHOW_FAKE_PREVIEW) {
     return null;
   }
 

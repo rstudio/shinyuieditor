@@ -1,5 +1,7 @@
 import React from "react";
 
+import { DEV_MODE } from "env_variables";
+
 type WebsocketConnection =
   | { status: "connecting"; ws: null; msg: null }
   | { status: "connected"; ws: WebSocket; msg: null }
@@ -52,10 +54,7 @@ export function useConnectToWebsocket() {
 
       // If we're using the dev proxy we should just go straight to websocket.
       // Otherwise use the same location as the main app
-      const websocket_host =
-        process.env.NODE_ENV === "development"
-          ? "localhost:8888"
-          : window.location.host;
+      const websocket_host = DEV_MODE ? "localhost:8888" : window.location.host;
       const ws = new WebSocket(`ws://${websocket_host}`);
 
       ws.onerror = (e) => {

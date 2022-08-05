@@ -34,14 +34,10 @@
   "scripts": {
     "start": "vite",
     "build": "vite build",
-    "build-w-maps": "react-scripts build",
-    "build-netlify": "VITE_SHOW_FAKE_PREVIEW=True VITE_PREBUILT_TREE=True PUBLIC_URL=/ react-scripts build",
-    "build-website-demo": "VITE_PREBUILT_TREE=True BUILD_PATH=../../vignettes/web-only/demo-app GENERATE_SOURCEMAP=false PUBLIC_URL=. react-scripts build",
+    "build-netlify": "VITE_SHOW_FAKE_PREVIEW=True VITE_PREBUILT_TREE=True PUBLIC_URL=/ yarn build",
+    "build-website-demo": "VITE_PREBUILT_TREE=True BUILD_PATH=../../vignettes/web-only/demo-app GENERATE_SOURCEMAP=false PUBLIC_URL=. yarn build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "storybook": "start-storybook -p 6006 -s public",
     "ladle": "ladle serve",
-    "build-storybook": "build-storybook -s public",
     "lint": "eslint src --fix",
     "build-icons": "svgr --out-dir src/components/Icons/generated --icon --typescript -- src/assets/svg-icons",
     "cypress:open": "cypress open"
