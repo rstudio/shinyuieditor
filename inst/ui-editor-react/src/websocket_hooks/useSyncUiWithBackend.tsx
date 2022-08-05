@@ -76,7 +76,8 @@ export function useSyncUiWithBackend() {
 
       // For the demo versions of the app we want there to be a predefined tree
       // instead of an empty grid
-      if (process.env.REACT_APP_PREBUILT_TREE) {
+      console.log("prebuilt tree", import.meta.env.VITE_PREBUILT_TREE);
+      if (import.meta.env.VITE_PREBUILT_TREE) {
         setTree(backupUiTree);
         console.log("Running in static mode");
       } else {

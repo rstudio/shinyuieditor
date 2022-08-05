@@ -25,7 +25,6 @@
     "react-joyride": "^2.4.0",
     "react-popper": "^2.2.5",
     "react-redux": "^7.2.6",
-    "react-scripts": "5.0.0",
     "react-sortablejs": "^6.1.1",
     "sortablejs": "^1.15.0",
     "typescript": "^4.6.0-beta",
@@ -33,11 +32,11 @@
     "yarn": "^1.22.18"
   },
   "scripts": {
-    "start": "REACT_APP_SHOW_FAKE_PREVIEW=True react-scripts start",
-    "build": "GENERATE_SOURCEMAP=false react-scripts build",
+    "start": "vite",
+    "build": "vite build",
     "build-w-maps": "react-scripts build",
-    "build-netlify": "REACT_APP_SHOW_FAKE_PREVIEW=True REACT_APP_PREBUILT_TREE=True PUBLIC_URL=/ react-scripts build",
-    "build-website-demo": "REACT_APP_PREBUILT_TREE=True BUILD_PATH=../../vignettes/web-only/demo-app GENERATE_SOURCEMAP=false PUBLIC_URL=. react-scripts build",
+    "build-netlify": "VITE_SHOW_FAKE_PREVIEW=True VITE_PREBUILT_TREE=True PUBLIC_URL=/ react-scripts build",
+    "build-website-demo": "VITE_PREBUILT_TREE=True BUILD_PATH=../../vignettes/web-only/demo-app GENERATE_SOURCEMAP=false PUBLIC_URL=. react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
@@ -126,10 +125,14 @@
     "@types/cypress-image-snapshot": "^3.1.6",
     "@types/sortablejs": "^1.10.7",
     "@typescript-eslint/parser": "^5.13.0",
+    "@vitejs/plugin-react": "^2.0.0",
     "cypress": "^10.4.0",
     "cypress-image-snapshot": "^4.0.1",
+    "eslint": "^8.21.0",
+    "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-import": "^2.25.4",
     "prettier": "2.5.1",
-    "webpack": "5"
+    "vite": "^3.0.4",
+    "vite-tsconfig-paths": "^3.5.0"
   }
 }

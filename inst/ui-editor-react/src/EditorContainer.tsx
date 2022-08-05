@@ -3,6 +3,7 @@ import * as React from "react";
 import AppPreview from "components/AppPreview";
 import SvgShinyLogo from "components/Icons/ShinyLogo";
 import UiNode from "components/UiNode";
+import { UndoRedoButtons } from "components/UndoRedoButtons/UndoRedoButtons";
 import { CurrentDraggedNodeProvider } from "DragAndDropHelpers/useCurrentDraggedNode";
 import ElementsPalette from "ElementsPalette";
 import PortalModal from "PortalModal";
@@ -10,7 +11,6 @@ import { useSelector } from "react-redux";
 import type { RootState } from "state/store";
 
 import { AppTour } from "./AppTour";
-import { UndoRedoButtons } from "./components/UndoRedoButtons/UndoRedoButtons";
 import classes from "./EditorContainer.module.css";
 import { SettingsPanel } from "./SettingsPanel/SettingsPanel";
 import { useSyncUiWithBackend } from "./websocket_hooks/useSyncUiWithBackend";

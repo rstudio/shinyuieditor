@@ -43,9 +43,11 @@ export default function AppPreview() {
   // development testing so we can see a fake app preview window. If we're not
   // in development mode we want to hide the preview window when there's no app
   // preview present to not confuse users
+
+  console.log("env variables", import.meta.env.VITE_SHOW_FAKE_PREVIEW);
   if (
     status === "no-preview" &&
-    process.env.REACT_APP_SHOW_FAKE_PREVIEW !== "True"
+    import.meta.env.VITE_SHOW_FAKE_PREVIEW !== "True"
   ) {
     return null;
   }
