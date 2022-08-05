@@ -139,7 +139,7 @@ describe("Move nodes within tree", () => {
   });
 });
 
-describe("Move node around within its current container", () => {
+test("Move node around within its current container", () => {
   const buttonA: ShinyUiNode = {
     uiName: "shiny::actionButton",
     uiArguments: {
