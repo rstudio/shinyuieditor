@@ -53,13 +53,13 @@
       <a href="../articles/faqs.html">Frequently Asked Questions</a>
     </li>
     <li>
+      <a href="../articles/how-to.html">How to</a>
+    </li>
+    <li>
       <a href="../articles/quick-start.html">Quick start</a>
     </li>
     <li>
-      <a href="../articles/web-only/how-to.html">How to</a>
-    </li>
-    <li>
-      <a href="../articles/web-only/ui-editor-live-demo.html">Live Demo</a>
+      <a href="../articles/ui-editor-live-demo.html">Live Demo</a>
     </li>
   </ul></li>
 <li>
@@ -137,81 +137,80 @@ via <code><a href="https://rdrr.io/r/base/library.html" class="external-link">li
 <span class="r-out co"><span class="r-pr">#&gt;</span> $file_lines</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "library(shiny)"                                                 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [2] "library(gridlayout)"                                            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "library(gt)"                                                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] ""                                                               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "# App template from the shinyuieditor"                          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "ui &lt;- grid_page("                                               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "  layout = c("                                                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] "    \"header header\","                                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "    \"sidebar distPlot\","                                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "    \"sidebar bluePlot\""                                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "  ),"                                                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [12] "  row_sizes = c("                                               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "    \"100px\","                                                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [14] "    \"1fr\","                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [15] "    \"1fr\""                                                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [16] "  ),"                                                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [17] "  col_sizes = c("                                               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [18] "    \"250px\","                                                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "    \"1fr\""                                                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [20] "  ),"                                                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [21] "  gap_size = \"1rem\","                                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [22] "  grid_card("                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [23] "    area = \"sidebar\","                                        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [24] "    item_gap = \"12px\","                                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "    item_alignment = \"top\","                                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [26] "    title = \"Settings\","                                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [27] "    sliderInput("                                               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [28] "      inputId = \"bins\","                                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [29] "      label = \"Number of Bins\","                              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [30] "      min = 12L,"                                               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "      max = 100L,"                                              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [32] "      value = 30L,"                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [33] "      width = \"100%\""                                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [34] "    )"                                                          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [35] "  ),"                                                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [36] "  grid_card_text("                                              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [37] "    area = \"header\","                                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [38] "    content = \"Geysers!\","                                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [39] "    alignment = \"start\","                                     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [40] "    is_title = FALSE"                                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [41] "  ),"                                                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [42] "  grid_card_plot(area = \"bluePlot\"),"                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [43] "  grid_card_plot(area = \"distPlot\")"                          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [44] ")"                                                              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [45] ""                                                               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [46] "# Define server logic required to draw a histogram"             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [47] "server &lt;- function(input, output) {"                            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [48] ""                                                               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [49] "  output$distPlot &lt;- renderPlot({"                              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [50] "    # generate bins based on input$bins from ui.R"              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [51] "    x    &lt;- faithful[, 2]"                                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [52] "    bins &lt;- seq(min(x), max(x), length.out = input$bins + 1)"   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [53] ""                                                               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [54] "    # draw the histogram with the specified number of bins"     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [55] "    hist(x, breaks = bins, col = 'darkgray', border = 'white')" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [56] "  })"                                                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [57] ""                                                               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [58] "  output$bluePlot &lt;- renderPlot({"                              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [59] "    # generate bins based on input$bins from ui.R"              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [60] "    x    &lt;- faithful[, 2]"                                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [61] "    bins &lt;- seq(min(x), max(x), length.out = input$bins + 1)"   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [62] ""                                                               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [63] "    # draw the histogram with the specified number of bins"     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [64] "    hist(x, breaks = bins, col = 'steelblue', border = 'white')"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [65] "  })"                                                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [66] ""                                                               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [67] "}"                                                              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [68] ""                                                               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [69] "shinyApp(ui, server)"                                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [70] ""                                                               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] ""                                                               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "# App template from the shinyuieditor"                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "ui &lt;- grid_page("                                               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "  layout = c("                                                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "    \"header header\","                                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] "    \"sidebar distPlot\","                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "    \"sidebar bluePlot\""                                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "  ),"                                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "  row_sizes = c("                                               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [12] "    \"100px\","                                                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "    \"1fr\","                                                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [14] "    \"1fr\""                                                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [15] "  ),"                                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [16] "  col_sizes = c("                                               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [17] "    \"250px\","                                                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [18] "    \"1fr\""                                                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "  ),"                                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [20] "  gap_size = \"1rem\","                                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [21] "  grid_card("                                                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [22] "    area = \"sidebar\","                                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [23] "    item_gap = \"12px\","                                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [24] "    item_alignment = \"top\","                                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "    title = \"Settings\","                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [26] "    sliderInput("                                               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [27] "      inputId = \"bins\","                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [28] "      label = \"Number of Bins\","                              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [29] "      min = 12L,"                                               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [30] "      max = 100L,"                                              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "      value = 30L,"                                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [32] "      width = \"100%\""                                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [33] "    )"                                                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [34] "  ),"                                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [35] "  grid_card_text("                                              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [36] "    area = \"header\","                                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [37] "    content = \"Geysers!\","                                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [38] "    alignment = \"start\","                                     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [39] "    is_title = FALSE"                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [40] "  ),"                                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [41] "  grid_card_plot(area = \"bluePlot\"),"                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [42] "  grid_card_plot(area = \"distPlot\")"                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [43] ")"                                                              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [44] ""                                                               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [45] "# Define server logic required to draw a histogram"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [46] "server &lt;- function(input, output) {"                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [47] ""                                                               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [48] "  output$distPlot &lt;- renderPlot({"                              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [49] "    # generate bins based on input$bins from ui.R"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [50] "    x    &lt;- faithful[, 2]"                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [51] "    bins &lt;- seq(min(x), max(x), length.out = input$bins + 1)"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [52] ""                                                               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [53] "    # draw the histogram with the specified number of bins"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [54] "    hist(x, breaks = bins, col = 'darkgray', border = 'white')" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [55] "  })"                                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [56] ""                                                               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [57] "  output$bluePlot &lt;- renderPlot({"                              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [58] "    # generate bins based on input$bins from ui.R"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [59] "    x    &lt;- faithful[, 2]"                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [60] "    bins &lt;- seq(min(x), max(x), length.out = input$bins + 1)"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [61] ""                                                               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [62] "    # draw the histogram with the specified number of bins"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [63] "    hist(x, breaks = bins, col = 'steelblue', border = 'white')"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [64] "  })"                                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [65] ""                                                               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [66] "}"                                                              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [67] ""                                                               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [68] "shinyApp(ui, server)"                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [69] ""                                                               </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $ui_bounds</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $ui_bounds$start</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $ui_bounds$end</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 44</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 43</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $ui_tree</span>
@@ -324,7 +323,7 @@ via <code><a href="https://rdrr.io/r/base/library.html" class="external-link">li
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $loaded_libraries</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "shiny"      "gridlayout" "gt"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "shiny"      "gridlayout"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Also handles multi-file apps</span></span></span>

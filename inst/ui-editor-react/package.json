@@ -30,7 +30,7 @@
     "start": "vite",
     "build": "vite build",
     "build-netlify": "VITE_SHOW_FAKE_PREVIEW=True VITE_PREBUILT_TREE=True PUBLIC_URL=/ yarn build",
-    "build-website-demo": "VITE_PREBUILT_TREE=True BUILD_PATH=../../vignettes/web-only/demo-app GENERATE_SOURCEMAP=false PUBLIC_URL=. yarn build",
+    "build-website-demo": "VITE_PREBUILT_TREE=True vite build --outDir ../../vignettes/demo-app --base=./",
     "test": "vitest",
     "ladle": "ladle serve",
     "lint": "eslint src --fix",
