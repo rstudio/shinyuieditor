@@ -8,7 +8,12 @@ import { useMakeDraggable } from "../DragAndDropHelpers/useMakeDraggable";
 import classes from "./styles.module.css";
 
 export function UiElementIcon({ uiName }: { uiName: ShinyUiNames }) {
-  const { iconSrc, title, defaultSettings } = shinyUiNodeInfo[uiName];
+  const {
+    iconSrc,
+    title,
+    defaultSettings,
+    infoPopup = title,
+  } = shinyUiNodeInfo[uiName];
   const node = {
     uiName,
     uiArguments: defaultSettings,
