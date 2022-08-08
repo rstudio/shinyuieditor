@@ -1,6 +1,6 @@
 /// <reference types="vite/client" />
 
-type ENV_BOOLEAN = "TRUE" | "FALSE";
+type ENV_BOOLEAN = "true" | "false";
 interface ImportMetaEnv {
   readonly VITE_APP_TITLE: string;
   readonly VITE_SHOW_FAKE_PREVIEW: ENV_BOOLEAN;

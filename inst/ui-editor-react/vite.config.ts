@@ -10,6 +10,7 @@ const setup = ({ mode }) => {
       outDir: "build",
       emptyOutDir: true,
       sourcemap: mode === "development",
+      target: "es2015",
     },
     plugins: [react(), tsconfigPaths()],
     define: {
