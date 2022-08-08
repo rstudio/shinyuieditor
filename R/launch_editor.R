@@ -59,7 +59,7 @@ launch_editor <- function(app_loc,
                           app_preview = TRUE,
                           show_logs = TRUE,
                           show_preview_app_logs = TRUE,
-                          launch_browser = TRUE,
+                          launch_browser = interactive(),
                           stop_on_browser_close = TRUE) {
   writeLog <- function(...) {
     if (show_logs) {
