@@ -7,3 +7,4 @@
 ^docs$
 ^pkgdown$
 ^\.github$
+^vignettes/ui-editor-live-demo\.Rmd$

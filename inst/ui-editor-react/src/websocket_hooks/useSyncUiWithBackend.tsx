@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import type { ShinyUiNode } from "components/Shiny-Ui-Elements/uiNodeTypes";
+import { PREBUILT_TREE } from "env_variables";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "state/store";
 import { initialUiTree, INIT_STATE } from "state/uiTree";
@@ -76,7 +77,7 @@ export function useSyncUiWithBackend() {
 
       // For the demo versions of the app we want there to be a predefined tree
       // instead of an empty grid
-      if (process.env.REACT_APP_PREBUILT_TREE) {
+      if (PREBUILT_TREE) {
         setTree(backupUiTree);
         console.log("Running in static mode");
       } else {
