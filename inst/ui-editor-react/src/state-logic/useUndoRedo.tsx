@@ -1,8 +1,8 @@
 import React from "react";
 
-import type { ShinyUiNode } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import StateHistory from "modules/StateHistory";
 import { useDispatch, useSelector } from "react-redux";
+import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
 import type { RootState } from "state/store";
 import { initialUiTree, SET_FULL_STATE } from "state/uiTree";
 

@@ -1,5 +1,5 @@
-import type { TemplatedGridProps } from "components/Shiny-Ui-Elements/GridlayoutGridPage";
 import produce from "immer";
+import type { TemplatedGridProps } from "Shiny-Ui-Elements/GridlayoutGridPage";
 import { matrixDimensions } from "utils/matrix-helpers";
 
 /**

@@ -1,13 +1,13 @@
 import React from "react";
 
+import { useNodeSelectionState } from "NodeSelectionState";
 import type {
   NodePath,
   ShinyUiNode,
   UiContainerNodeComponent,
   UiNodeComponent,
-} from "components/Shiny-Ui-Elements/uiNodeTypes";
-import { shinyUiNodeInfo } from "components/Shiny-Ui-Elements/uiNodeTypes";
-import { useNodeSelectionState } from "NodeSelectionState";
+} from "Shiny-Ui-Elements/uiNodeTypes";
+import { shinyUiNodeInfo } from "Shiny-Ui-Elements/uiNodeTypes";
 import { sameArray } from "utils/equalityCheckers";
 
 import { useMakeDraggable } from "../../DragAndDropHelpers/useMakeDraggable";

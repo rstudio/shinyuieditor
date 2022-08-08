@@ -3,8 +3,8 @@ import { SettingsUpdateContext } from "components/Inputs/SettingsUpdateContext";
 import type {
   SettingsUpdaterComponent,
   ShinyUiNode,
-} from "components/Shiny-Ui-Elements/uiNodeTypes";
-import { shinyUiNodeInfo } from "components/Shiny-Ui-Elements/uiNodeTypes";
+} from "Shiny-Ui-Elements/uiNodeTypes";
+import { shinyUiNodeInfo } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import PathBreadcrumb from "./PathBreadcrumb";
 // import PathBreadcrumb from "./PathBreadcrumbLinear";

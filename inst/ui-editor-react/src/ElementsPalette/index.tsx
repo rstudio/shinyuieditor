@@ -4,8 +4,8 @@ import type {
   ShinyUiNames,
   ShinyUiNode,
   ShinyUiNodeInfo,
-} from "components/Shiny-Ui-Elements/uiNodeTypes";
-import { shinyUiNodeInfo } from "components/Shiny-Ui-Elements/uiNodeTypes";
+} from "Shiny-Ui-Elements/uiNodeTypes";
+import { shinyUiNodeInfo } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import { useMakeDraggable } from "../DragAndDropHelpers/useMakeDraggable";
 

@@ -1,5 +1,5 @@
-import type { TemplatedGridProps } from "components/Shiny-Ui-Elements/GridlayoutGridPage";
 import clone from "just-clone";
+import type { TemplatedGridProps } from "Shiny-Ui-Elements/GridlayoutGridPage";
 
 import { emptyCell } from "./itemLocations";
 import type { GridItemExtent, ItemLocation } from "./types";

@@ -1,4 +1,4 @@
-import type { ShinyUiNode } from "components/Shiny-Ui-Elements/uiNodeTypes";
+import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import { getNode } from "./getNode";
 import { nodesAreDirectAncestors } from "./nodesAreDirectAncestors";

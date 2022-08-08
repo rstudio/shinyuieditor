@@ -1,11 +1,11 @@
 import * as React from "react";
 
 import type { OnChangeCallback } from "components/Inputs/SettingsUpdateContext";
-import type { ShinyUiNode } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { getNode } from "components/UiNode/TreeManipulation/getNode";
 import debounce from "just-debounce-it";
 import { useNodeSelectionState } from "NodeSelectionState";
 import { useDispatch } from "react-redux";
+import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
 import { UPDATE_NODE } from "state/uiTree";
 
 export function useUpdateSettings(tree: ShinyUiNode) {

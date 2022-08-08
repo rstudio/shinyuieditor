@@ -1,9 +1,9 @@
-import type { TemplatedGridProps } from "components/Shiny-Ui-Elements/GridlayoutGridPage";
-import type { DragHandle } from "components/Shiny-Ui-Elements/GridlayoutGridPage/useResizeOnDrag";
+import type { TemplatedGridProps } from "Shiny-Ui-Elements/GridlayoutGridPage";
+import type { DragHandle } from "Shiny-Ui-Elements/GridlayoutGridPage/useResizeOnDrag";
 import { buildRange } from "utils/array-helpers";
 import type { ItemLocation } from "utils/gridTemplates/types";
 
-import { gridLocationToExtent } from "../../components/Shiny-Ui-Elements/GridlayoutGridPage/helpers";
+import { gridLocationToExtent } from "../../Shiny-Ui-Elements/GridlayoutGridPage/helpers";
 
 import { emptyCell } from "./itemLocations";
 
