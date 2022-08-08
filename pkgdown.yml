@@ -3,10 +3,10 @@ pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
   faqs: faqs.html
+  how-to: how-to.html
   quick-start: quick-start.html
-  how-to: web-only/how-to.html
-  ui-editor-live-demo: web-only/ui-editor-live-demo.html
-last_built: 2022-08-04T20:59Z
+  ui-editor-live-demo: ui-editor-live-demo.html
+last_built: 2022-08-08T16:03Z
 urls:
   reference: https://rstudio.github.io/shinyuieditor/reference
   article: https://rstudio.github.io/shinyuieditor/articles
