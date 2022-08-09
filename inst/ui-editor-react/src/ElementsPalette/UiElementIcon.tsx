@@ -26,9 +26,12 @@ export function UiElementIcon({ uiName }: { uiName: ShinyUiNames }) {
   if (iconSrc === undefined) {
     return null;
   }
+
   return (
     <PopoverEl
       popoverContent={infoPopup}
+      contentIsMd={true}
+      openDelayMs={500}
       triggerEl={
         <div className={classes.OptionContainer}>
           <div ref={elRef} className={classes.OptionItem} data-ui-name={uiName}>

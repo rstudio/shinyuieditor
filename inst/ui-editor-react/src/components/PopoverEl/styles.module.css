@@ -5,6 +5,7 @@
   background-color: var(--rstudio-white);
   /* Use a backdrop filter to provide a tiny bit of lift off the background */
   filter: drop-shadow(1px 1px 4px hsl(0deg 0% 0% / 0.25));
+  padding: 5px;
 }
 
 .textContent {
@@ -54,4 +55,16 @@
 
 .popover[data-popper-placement^="right"] > .popperArrow {
   left: -4px;
+}
+
+.popoverMarkdown {
+  max-width: 300px;
+}
+
+.popoverMarkdown p:last-of-type {
+  margin-bottom: 0;
+}
+
+.popoverMarkdown code {
+  font-family: var(--mono-fonts);
 }

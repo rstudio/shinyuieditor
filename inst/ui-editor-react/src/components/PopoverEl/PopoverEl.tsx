@@ -1,6 +1,7 @@
 import React from "react";
 
 import type { Placement } from "@popperjs/core";
+import ReactMarkdown from "react-markdown";
 import { usePopper } from "react-popper";
 
 import classes from "./styles.module.css";
@@ -8,6 +9,7 @@ import classes from "./styles.module.css";
 export type PopoverProps = {
   placement?: Placement;
   popoverContent: string | JSX.Element;
+  contentIsMd?: boolean;
   showOn?: "hover" | "click";
   bgColor?: string;
   openDelayMs?: number;
@@ -21,6 +23,7 @@ export const PopoverEl = ({
   placement = "right",
   showOn = "hover",
   popoverContent,
+  contentIsMd = false,
   bgColor,
   openDelayMs = 0,
   triggerEl,
@@ -75,7 +78,16 @@ export const PopoverEl = ({
     };
   }, [openDelayMs, popperElement, showOn, update]);
 
-  const textContent = typeof popoverContent === "string";
+  const content =
+    typeof popoverContent !== "string" ? (
+      popoverContent
+    ) : contentIsMd ? (
+      <ReactMarkdown className={classes.popoverMarkdown}>
+        {popoverContent}
+      </ReactMarkdown>
+    ) : (
+      <div className={classes.textContent}>{popoverContent}</div>
+    );
 
   return (
     <>
@@ -89,11 +101,7 @@ export const PopoverEl = ({
         style={popperStyles}
         {...attributes.popper}
       >
-        {textContent ? (
-          <div className={classes.textContent}>{popoverContent}</div>
-        ) : (
-          popoverContent
-        )}
+        {content}
         <div
           ref={setArrowElement}
           className={classes.popperArrow}
