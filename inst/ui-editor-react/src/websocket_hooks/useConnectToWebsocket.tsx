@@ -70,7 +70,6 @@ export function useConnectToWebsocket() {
       // If we're using the dev proxy we should just go straight to websocket.
       // Otherwise use the same location as the main app
       const websocket_path = buildWebsocketPath();
-      console.log("Websocket path", websocket_path);
 
       const ws = new WebSocket(websocket_path);
 
