@@ -19,6 +19,8 @@ AppPreview <- R6::R6Class(
         func = function(app_loc, host, port) {
           # Turn on live-reload
           options(shiny.autoreload = TRUE)
+
+          # Start preview app in background
           shiny::runApp(app_loc, port = port, host = host)
         },
         args = list(private$app_loc, self$host, self$port),
@@ -87,6 +89,8 @@ AppPreview <- R6::R6Class(
       private$app_loc <- app_loc
       self$port <- port
       self$host <- host
+      # The location of the background app that is sent to the react app's
+      # iframe for viewing
       self$url <- get_app_url(host = host, port = port)
 
       private$start_app()

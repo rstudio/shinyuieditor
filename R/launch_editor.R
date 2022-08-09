@@ -110,6 +110,7 @@ launch_editor <- function(app_loc,
   # open the browser to it for them
   announce_location_of_editor(port, launch_browser)
 
+  # Main server startup - Runs in main process
   httpuv::runServer(
     host = host, port = port,
     app = list(
@@ -144,6 +145,8 @@ launch_editor <- function(app_loc,
             "APP-PREVIEW-CONNECTED" = {
               app_preview$set_listeners(
                 on_ready = function() {
+                  # Once the background preview app is up and running, we can
+                  # send over the URL to the react app
                   ws$send(
                     build_ws_message(
                       "SHINY_READY",
