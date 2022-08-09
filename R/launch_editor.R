@@ -151,7 +151,7 @@ launch_editor <- function(app_loc,
                   # send over the URL to the react app
 
                   app_url <- if (rlang::is_installed("rstudioapi")) {
-                    rstudioapi::translateLocalUrl(app_preview$url)
+                    rstudioapi::translateLocalUrl(app_preview$url, absolute = TRUE)
                   } else {
                     app_preview$url
                   }
