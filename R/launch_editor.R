@@ -150,7 +150,13 @@ launch_editor <- function(app_loc,
                   # Once the background preview app is up and running, we can
                   # send over the URL to the react app
 
-                  app_url <- if (rlang::is_installed("rstudioapi")) rstudioapi::translateLocalUrl(app_preview$url)else app_preview$url
+                  app_url <- if (rlang::is_installed("rstudioapi")) {
+                    rstudioapi::translateLocalUrl(app_preview$url)
+                  } else {
+                    app_preview$url
+                  }
+
+                  print(paste("Background app location", app_url ))
                   ws$send(
                     build_ws_message(
                       "SHINY_READY",
