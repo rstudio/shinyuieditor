@@ -20,6 +20,8 @@ export const shinyActionButtonInfo: UiComponentInfo<ShinyActionButtonProps> = {
   defaultSettings: { inputId: "myButton", label: "My Button" },
   iconSrc: buttonIcon,
   category: "Inputs",
+  infoPopup:
+    "Creates an action button whose value is initially zero, and increments by one each time it is pressed.",
 };
 
 export default ShinyActionButton;

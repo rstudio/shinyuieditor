@@ -28,4 +28,5 @@ export const shinyCheckboxInputInfo: UiComponentInfo<ShinyCheckboxInputProps> =
     defaultSettings: checkboxInputDefaultSettings,
     iconSrc: inputIcon,
     category: "Inputs",
+    infoPopup: "Create a checkbox that can be used to specify logical values.",
   };

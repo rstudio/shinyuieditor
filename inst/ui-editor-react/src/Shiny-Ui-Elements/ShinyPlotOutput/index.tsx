@@ -19,6 +19,7 @@ export const shinyPlotOutputInfo: UiComponentInfo<ShinyPlotOutputProps> = {
   defaultSettings: { outputId: "plot", width: "100%", height: "400px" },
   iconSrc: plotIcon,
   category: "Outputs",
+  infoPopup: "Render a `renderPlot()` within an application page.",
 };
 
 export default ShinyPlotOutput;

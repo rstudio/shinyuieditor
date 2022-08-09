@@ -32,4 +32,6 @@ export const shinyCheckboxGroupInputInfo: UiComponentInfo<ShinyCheckboxGroupInpu
     defaultSettings: checkboxGroupInputDefaultSettings,
     iconSrc: icon,
     category: "Inputs",
+    infoPopup:
+      "Create a group of checkboxes that can be used to toggle multiple choices independently. The server will receive the input as a character vector of the selected values.",
   };
