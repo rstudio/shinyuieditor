@@ -28,7 +28,7 @@
   },
   "scripts": {
     "start": "vite",
-    "build": "vite build",
+    "build": "vite build --base=./",
     "build-netlify": "VITE_SHOW_FAKE_PREVIEW=true VITE_PREBUILT_TREE=true PUBLIC_URL=/ yarn build",
     "build-website-demo": "VITE_PREBUILT_TREE=true VITE_SHOW_FAKE_PREVIEW=false vite build --outDir ../../vignettes/demo-app --base=./",
     "test": "vitest",
