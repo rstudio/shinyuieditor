@@ -167,7 +167,15 @@ get_app_url <- function(host, port) {
     host
   }
 
-  paste0("http://", path_to_app, ":", port)
+  local_path <- paste0("http://", path_to_app, ":", port)
+
+  # If we're on RStudio workbench we will need to translate the
+  # url from local terms to the proxied path
+  if (rlang::is_installed("rstudioapi")) {
+    rstudioapi::translateLocalUrl(local_path, absolute = TRUE)
+  } else {
+    local_path
+  }
 }
 
 log_background_app <- function(lines) {
