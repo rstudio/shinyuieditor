@@ -43,6 +43,21 @@ function reducer(
       throw new Error("Unknown action");
   }
 }
+
+function buildWebsocketPath() {
+  // If we're using the dev proxy we should just go straight to websocket.
+  // Otherwise use the same location as the main app
+  if (DEV_MODE) return "localhost:8888";
+
+  let protocol = "ws:";
+
+  if (window.location.protocol === "https:") protocol = "wss:";
+
+  let defaultPath = window.location.pathname;
+
+  return protocol + "//" + window.location.host + defaultPath;
+}
+
 export function useConnectToWebsocket() {
   const [connection, setConnection] = React.useReducer(reducer, initial_state);
 
@@ -54,8 +69,10 @@ export function useConnectToWebsocket() {
 
       // If we're using the dev proxy we should just go straight to websocket.
       // Otherwise use the same location as the main app
-      const websocket_host = DEV_MODE ? "localhost:8888" : window.location.host;
-      const ws = new WebSocket(`ws://${websocket_host}`);
+      const websocket_path = buildWebsocketPath();
+      console.log("Websocket path", websocket_path);
+
+      const ws = new WebSocket(websocket_path);
 
       ws.onerror = (e) => {
         console.error("Error with httpuv websocket connection", e);
