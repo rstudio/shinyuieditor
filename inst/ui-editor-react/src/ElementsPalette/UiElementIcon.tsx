@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import { PopoverEl } from "components/PopoverEl/PopoverEl";
 import type { ShinyUiNames, ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
 import { shinyUiNodeInfo } from "Shiny-Ui-Elements/uiNodeTypes";
 
@@ -26,9 +27,16 @@ export function UiElementIcon({ uiName }: { uiName: ShinyUiNames }) {
     return null;
   }
   return (
-    <div ref={elRef} className={classes.OptionItem} data-ui-name={uiName}>
-      <img src={iconSrc} alt={title} className={classes.OptionIcon} />
-      <label className={classes.OptionLabel}>{title}</label>
-    </div>
+    <PopoverEl
+      popoverContent={infoPopup}
+      triggerEl={
+        <div className={classes.OptionContainer}>
+          <div ref={elRef} className={classes.OptionItem} data-ui-name={uiName}>
+            <img src={iconSrc} alt={title} className={classes.OptionIcon} />
+            <label className={classes.OptionLabel}>{title}</label>
+          </div>
+        </div>
+      }
+    ></PopoverEl>
   );
 }
