@@ -175,17 +175,20 @@ get_app_url <- function(host, port) {
 # If we're on a hosted platform like RStudio workbench/server then we can't use
 # localhost based urls. This function makes sure the url is safe to use and if
 # not lets the user know how to fix the problem
-make_url_hosted_friendly <- function(local_url){
+make_url_hosted_friendly <- function(local_url) {
 
-  # If we're on RStudio workbench we will need to translate the
-  # url from local terms to the proxied path
-  if (rlang::is_installed("rstudioapi")) {
-    return(rstudioapi::translateLocalUrl(local_url, absolute = TRUE))
+  # If we're not in RStudio we don't need to (/can't) do anything
+  if (identical(Sys.getenv("RSTUDIO"), "")) {
+    return(local_url)
   }
 
-  # If we're on a server and can't translate the URL to a proxied one then we
-  # need to let the user know this so they can install the rstudioapi package
-  if (identical(Sys.getenv("RSTUDIO_PROGRAM_MODE"), "server")) {
+
+  has_rstudioapi <- rlang::is_installed("rstudioapi")
+  running_on_hosted_service <- identical(Sys.getenv("RSTUDIO_PROGRAM_MODE"), "server")
+
+  if (!has_rstudioapi && running_on_hosted_service) {
+    # If we're on a server and can't translate the URL to a proxied one then we
+    # need to let the user know so they can install the rstudioapi package
     stop(
       "In order to use shinyuieditor on a hosted version of RStudio you will ",
       "need to install the rstudioapi package.\n",
@@ -193,7 +196,13 @@ make_url_hosted_friendly <- function(local_url){
     )
   }
 
-  local_url
+  # If we can, run the URL through rstudioapi's url translator, otherwise just
+  # return the plain un-proxied url
+  if (has_rstudioapi) {
+    rstudioapi::translateLocalUrl(local_url, absolute = TRUE)
+  } else {
+    local_url
+  }
 }
 
 log_background_app <- function(lines) {
