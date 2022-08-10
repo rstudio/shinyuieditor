@@ -67,8 +67,6 @@ export function useConnectToWebsocket() {
     try {
       if (!document.location.host) throw new Error("Not on a served site!");
 
-      // If we're using the dev proxy we should just go straight to websocket.
-      // Otherwise use the same location as the main app
       const websocket_path = buildWebsocketPath();
 
       const ws = new WebSocket(websocket_path);
