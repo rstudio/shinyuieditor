@@ -75,6 +75,9 @@ export const PopoverEl = ({
     return {
       [showTrigger]: () => showPopper(),
       onMouseLeave: () => hidePopper(),
+      // Some popover items are interactable with and in this case we don't want
+      // the popover to stay up if the user has decided to interact with it
+      onPointerDown: () => hidePopper(),
     };
   }, [openDelayMs, popperElement, showOn, update]);
 
