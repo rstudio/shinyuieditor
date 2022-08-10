@@ -1,3 +1,15 @@
+# shinyuieditor (development version)
+
+### Major new features and improvements
+
+### Minor new features and improvements
+
+- Popups on hover over the elements panel now provide some context for the functionality of the element. (#74)
+
+### Bug fixes
+
+### Known bugs
+
 # shinyuieditor 0.1.0
 
 ### Major new features and improvements
