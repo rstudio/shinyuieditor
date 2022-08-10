@@ -33,6 +33,8 @@ export const shinySliderInputInfo: UiComponentInfo<ShinySliderInputProps> = {
   defaultSettings: sliderDefaultSettings,
   iconSrc: sliderIcon,
   category: "Inputs",
+  infoPopup:
+    "Constructs a slider widget to select a number from a range. _(Dates and date-times not currently supported.)_",
 };
 
 export default ShinySliderInput;

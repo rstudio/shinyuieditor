@@ -17,6 +17,11 @@ export const shinyUiOutputInfo: UiComponentInfo<ShinyUiOutputProps> = {
   defaultSettings: { outputId: "myUi" },
   iconSrc: uiIcon,
   category: "Outputs",
+  infoPopup: `
+  Render a reactive output variable as HTML within an application page. 
+  The text will be included within an HTML \`div\` tag, and is presumed to 
+  contain HTML content which should not be escaped.
+  `,
 };
 
 export default ShinyUiOutput;

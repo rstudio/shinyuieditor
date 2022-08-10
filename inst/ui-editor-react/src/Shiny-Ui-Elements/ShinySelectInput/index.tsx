@@ -29,4 +29,6 @@ export const shinySelectInputInfo: UiComponentInfo<ShinySelectInputProps> = {
   defaultSettings: selectInputDefaultSettings,
   iconSrc: selectBoxIcon,
   category: "Inputs",
+  infoPopup:
+    "Create a select list that can be used to choose a single or multiple items from a list of values.",
 };

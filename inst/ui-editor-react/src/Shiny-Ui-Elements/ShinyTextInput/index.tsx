@@ -28,4 +28,5 @@ export const shinyTextInputInfo: UiComponentInfo<ShinyTextInputProps> = {
   defaultSettings: textInputDefaultSettings,
   iconSrc: textInputIcon,
   category: "Inputs",
+  infoPopup: "Create an input control for entry of unstructured text values.",
 };
