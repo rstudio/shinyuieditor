@@ -31,6 +31,6 @@ export const shinyRadioButtonsInfo: UiComponentInfo<ShinyRadioButtonsProps> = {
   defaultSettings: radioButtonsDefaultSettings,
   iconSrc: radioButtonIcons,
   category: "Inputs",
-  infoPopup:
+  description:
     "Create a set of radio buttons used to select an item from a list.",
 };

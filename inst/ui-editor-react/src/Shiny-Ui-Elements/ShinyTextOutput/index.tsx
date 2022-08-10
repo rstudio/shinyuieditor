@@ -17,7 +17,7 @@ export const shinyTextOutputInfo: UiComponentInfo<ShinyTextOutputProps> = {
   defaultSettings: { outputId: "myText" },
   iconSrc: uiIcon,
   category: "Outputs",
-  infoPopup: `
+  description: `
   Render a reactive output variable as text within an application page. 
   Usually paired with \`renderText()\`.
   `,

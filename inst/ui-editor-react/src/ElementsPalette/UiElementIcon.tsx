@@ -13,7 +13,7 @@ export function UiElementIcon({ uiName }: { uiName: ShinyUiNames }) {
     iconSrc,
     title,
     defaultSettings,
-    infoPopup = title,
+    description: infoPopup = title,
   } = shinyUiNodeInfo[uiName];
   const node = {
     uiName,

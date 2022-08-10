@@ -28,7 +28,7 @@ export const gridlayoutGridCardInfo: UiComponentInfo<GridCardSettings> = {
   defaultSettings: gridlayoutGridCardDefaultSettings,
   iconSrc: containerIcon,
   category: "gridlayout",
-  infoPopup:
+  description:
     "The standard element for placing elements on the grid in a simple card container.",
 };
 

@@ -51,10 +51,9 @@ export type UiComponentInfo<NodeSettings extends object> = {
 
   /**
    * Description of the component that will show up on long hover over element
-   * in the elements pallete. Can either be text or a component if styling etc
-   * is needed.
+   * in the elements pallete. String is interpreted as markdown.
    */
-  infoPopup?: string;
+  description?: string;
 
   /**
    * Optional functions that will hook into the state update reducers and allow

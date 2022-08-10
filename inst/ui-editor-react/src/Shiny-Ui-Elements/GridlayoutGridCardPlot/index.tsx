@@ -19,7 +19,7 @@ export const GridlayoutGridCardPlotInfo: UiComponentInfo<GridlayoutGridCardPlotP
     defaultSettings: { area: "plot" },
     iconSrc: icon,
     category: "gridlayout",
-    infoPopup: `A wrapper for \`shiny::plotOutput()\` that uses \`gridlayout\`-friendly sizing defaults. 
+    description: `A wrapper for \`shiny::plotOutput()\` that uses \`gridlayout\`-friendly sizing defaults. 
     For when you want to have a grid area filled entirely with a single plot.`,
   };
 
