@@ -1,6 +1,6 @@
 import React from "react";
 
-import { DEV_MODE } from "env_variables";
+import { buildWebsocketPath } from "./buildWebsocketPath";
 
 type WebsocketConnection =
   | { status: "connecting"; ws: null; msg: null }
@@ -42,20 +42,6 @@ function reducer(
     default:
       throw new Error("Unknown action");
   }
-}
-
-function buildWebsocketPath() {
-  // If we're using the dev proxy we should just go straight to websocket.
-  // Otherwise use the same location as the main app
-  if (DEV_MODE) return "localhost:8888";
-
-  let protocol = "ws:";
-
-  if (window.location.protocol === "https:") protocol = "wss:";
-
-  let defaultPath = window.location.pathname;
-
-  return protocol + "//" + window.location.host + defaultPath;
 }
 
 export function useConnectToWebsocket() {
