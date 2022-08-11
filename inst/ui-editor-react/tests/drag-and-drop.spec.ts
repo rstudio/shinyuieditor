@@ -23,4 +23,8 @@ test("Drag and drop an item onto the grid and name area", async ({ page }) => {
     clickCount: 3,
   });
   await page.locator('[aria-label="input for label"]').fill("Action Button");
+
+  await expect(
+    page.locator("button", { hasText: "Action Button" })
+  ).toBeVisible();
 });
