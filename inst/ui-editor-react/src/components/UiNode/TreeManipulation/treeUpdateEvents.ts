@@ -1,9 +1,6 @@
 import React from "react";
 
-import type {
-  NodePath,
-  ShinyUiNode,
-} from "components/Shiny-Ui-Elements/uiNodeTypes";
+import type { NodePath, ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import type { PlaceNodeArguments } from "./placeNode";
 

@@ -15,11 +15,17 @@
 }
 /* Reduce vertical padding for first category list */
 
-.OptionItem {
+.OptionContainer {
   width: var(--icon-size);
   height: 75px;
-  border-radius: var(--corner-radius);
   position: relative;
+}
+
+.OptionItem {
+  height: 100%;
+  border-radius: var(--corner-radius);
+  position: absolute;
+  inset: 0;
   cursor: grab;
   text-align: center;
 }

@@ -4,7 +4,7 @@ import type {
   NodePath,
   ShinyUiNames,
   ShinyUiNode,
-} from "components/Shiny-Ui-Elements/uiNodeTypes";
+} from "Shiny-Ui-Elements/uiNodeTypes";
 import { usePlaceNode } from "state/uiTree";
 
 import { getIsValidMove } from "../components/UiNode/TreeManipulation/placeNode";

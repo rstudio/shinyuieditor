@@ -1,8 +1,8 @@
 import * as React from "react";
 
-import type { ShinyUiNode } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { PREBUILT_TREE } from "env_variables";
 import { useDispatch, useSelector } from "react-redux";
+import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
 import type { RootState } from "state/store";
 import { initialUiTree, INIT_STATE } from "state/uiTree";
 import { sendWsMessage } from "websocket_hooks/sendWsMessage";

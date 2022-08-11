@@ -1,4 +1,4 @@
-import type { TemplatedGridProps } from "components/Shiny-Ui-Elements/GridlayoutGridPage";
+import type { TemplatedGridProps } from "Shiny-Ui-Elements/GridlayoutGridPage";
 
 import { removeItems, removeItem } from "./removeItem";
 

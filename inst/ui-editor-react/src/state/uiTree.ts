@@ -2,8 +2,6 @@ import React from "react";
 
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import type { ShinyUiNode } from "components/Shiny-Ui-Elements/uiNodeTypes";
-import { shinyUiNodeInfo } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import type { PlaceNodeArguments } from "components/UiNode/TreeManipulation/placeNode";
 import { placeNodeMutating } from "components/UiNode/TreeManipulation/placeNode";
 import type { RemoveNodeArguments } from "components/UiNode/TreeManipulation/removeNode";
@@ -11,6 +9,8 @@ import { removeNodeMutating } from "components/UiNode/TreeManipulation/removeNod
 import type { UpdateNodeArguments } from "components/UiNode/TreeManipulation/updateNode";
 import { updateNodeMutating } from "components/UiNode/TreeManipulation/updateNode";
 import { useDispatch } from "react-redux";
+import { shinyUiNodeInfo } from "Shiny-Ui-Elements/uiNodeTypes";
+import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
 import { subtractElements } from "utils/array-helpers";
 
 export const initialUiTree: ShinyUiNode = {

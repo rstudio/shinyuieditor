@@ -4,6 +4,8 @@
 
 ### Minor new features and improvements
 
+- Popups on hover over the elements panel now provide some context for the functionality of the element. (#74)
+
 ### Bug fixes
 
 - Fixes bug where ui editor would not work on hosted services like RStudio Workbench (#73)

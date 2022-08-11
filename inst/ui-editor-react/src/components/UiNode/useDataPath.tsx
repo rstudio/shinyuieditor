@@ -1,6 +1,6 @@
 import React from "react";
 
-import type { NodePath } from "components/Shiny-Ui-Elements/uiNodeTypes";
+import type { NodePath } from "Shiny-Ui-Elements/uiNodeTypes";
 
 /**
  * Add a data attribute to each node's outer div so it can be easily selected

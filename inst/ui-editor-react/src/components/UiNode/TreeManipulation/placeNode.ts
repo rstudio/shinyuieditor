@@ -1,9 +1,6 @@
-import type {
-  ShinyUiNode,
-  NodePath,
-} from "components/Shiny-Ui-Elements/uiNodeTypes";
-import { shinyUiNodeInfo } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import produce from "immer";
+import type { ShinyUiNode, NodePath } from "Shiny-Ui-Elements/uiNodeTypes";
+import { shinyUiNodeInfo } from "Shiny-Ui-Elements/uiNodeTypes";
 import { addAtIndex, moveElement } from "utils/array-helpers";
 
 import { getNode } from "./getNode";

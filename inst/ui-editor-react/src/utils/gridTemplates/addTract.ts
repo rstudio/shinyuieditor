@@ -1,7 +1,7 @@
-import type { TemplatedGridProps } from "components/Shiny-Ui-Elements/GridlayoutGridPage";
-import type { TractDirection } from "components/Shiny-Ui-Elements/GridlayoutGridPage";
 import type { CSSMeasure } from "CSSMeasure";
 import produce from "immer";
+import type { TemplatedGridProps } from "Shiny-Ui-Elements/GridlayoutGridPage";
+import type { TractDirection } from "Shiny-Ui-Elements/GridlayoutGridPage";
 import { addAtIndex, fillArr } from "utils/array-helpers";
 import { insertRowOrCol } from "utils/matrix-helpers";
 

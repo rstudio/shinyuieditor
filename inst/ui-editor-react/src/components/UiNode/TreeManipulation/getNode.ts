@@ -1,7 +1,4 @@
-import type {
-  ShinyUiNode,
-  NodePath,
-} from "components/Shiny-Ui-Elements/uiNodeTypes";
+import type { ShinyUiNode, NodePath } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import { checkIfContainerNode } from "./checkIfContainerNode";
 

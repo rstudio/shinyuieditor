@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import type { NodePath } from "components/Shiny-Ui-Elements/uiNodeTypes";
 import { useDispatch } from "react-redux";
+import type { NodePath } from "Shiny-Ui-Elements/uiNodeTypes";
 import { DELETE_NODE } from "state/uiTree";
 
 export function useDeleteNode(pathToNode: NodePath | null) {
