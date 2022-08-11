@@ -73,6 +73,9 @@ launch_editor <- function(app_loc,
     stop("Stopping UI Editor. Reason:", app_status$message)
   }
 
+  # Make sure environment will allow features to work properly
+  check_for_url_issues()
+
   app_preview <- AppPreview$new(
     app_loc = app_loc,
     port = shiny_background_port,
