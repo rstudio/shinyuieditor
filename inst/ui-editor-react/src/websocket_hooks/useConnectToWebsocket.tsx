@@ -1,6 +1,6 @@
 import React from "react";
 
-import { DEV_MODE } from "env_variables";
+import { buildWebsocketPath } from "./buildWebsocketPath";
 
 type WebsocketConnection =
   | { status: "connecting"; ws: null; msg: null }
@@ -43,6 +43,7 @@ function reducer(
       throw new Error("Unknown action");
   }
 }
+
 export function useConnectToWebsocket() {
   const [connection, setConnection] = React.useReducer(reducer, initial_state);
 
@@ -52,10 +53,9 @@ export function useConnectToWebsocket() {
     try {
       if (!document.location.host) throw new Error("Not on a served site!");
 
-      // If we're using the dev proxy we should just go straight to websocket.
-      // Otherwise use the same location as the main app
-      const websocket_host = DEV_MODE ? "localhost:8888" : window.location.host;
-      const ws = new WebSocket(`ws://${websocket_host}`);
+      const websocket_path = buildWebsocketPath();
+
+      const ws = new WebSocket(websocket_path);
 
       ws.onerror = (e) => {
         console.error("Error with httpuv websocket connection", e);

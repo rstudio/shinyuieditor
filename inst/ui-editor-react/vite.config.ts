@@ -5,6 +5,7 @@ import { defineConfig } from "vitest/config";
 const setup = ({ mode }) => {
   console.log("Building with mode", mode);
   return defineConfig({
+    base: "./",
     server: { port: 3000 },
     build: {
       outDir: "build",

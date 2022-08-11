@@ -1,3 +1,15 @@
+# shinyuieditor (development)
+
+### Major new features and improvements
+
+### Minor new features and improvements
+
+### Bug fixes
+
+- Fixes bug where ui editor would not work on hosted services like RStudio Workbench (#73)
+
+### Known bugs
+
 # shinyuieditor 0.1.0
 
 ### Major new features and improvements

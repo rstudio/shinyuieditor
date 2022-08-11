@@ -19,6 +19,8 @@ AppPreview <- R6::R6Class(
         func = function(app_loc, host, port) {
           # Turn on live-reload
           options(shiny.autoreload = TRUE)
+
+          # Start preview app in background
           shiny::runApp(app_loc, port = port, host = host)
         },
         args = list(private$app_loc, self$host, self$port),
@@ -87,6 +89,8 @@ AppPreview <- R6::R6Class(
       private$app_loc <- app_loc
       self$port <- port
       self$host <- host
+      # The location of the background app that is sent to the react app's
+      # iframe for viewing
       self$url <- get_app_url(host = host, port = port)
 
       private$start_app()
@@ -163,7 +167,24 @@ get_app_url <- function(host, port) {
     host
   }
 
-  paste0("http://", path_to_app, ":", port)
+  local_url <- paste0("http://", path_to_app, ":", port)
+
+  make_url_hosted_friendly(local_url)
+}
+
+# If we're on a hosted platform like RStudio workbench/server then we can't use
+# localhost based urls and need to use rstudioapi's translateLocalUrl() function
+# to send the appropriate URLS over to the client
+make_url_hosted_friendly <- function(local_url) {
+
+  has_rstudioapi <- rlang::is_installed("rstudioapi")
+  # If we can, run the URL through rstudioapi's url translator, otherwise just
+  # return the plain un-proxied url
+  if (has_rstudioapi) {
+    rstudioapi::translateLocalUrl(local_url, absolute = TRUE)
+  } else {
+    local_url
+  }
 }
 
 log_background_app <- function(lines) {
