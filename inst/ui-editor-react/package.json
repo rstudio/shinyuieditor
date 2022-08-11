@@ -104,6 +104,7 @@
   "devDependencies": {
     "@4tw/cypress-drag-drop": "^2.2.1",
     "@bahmutov/add-typescript-to-cypress": "^2.1.2",
+    "@playwright/test": "^1.25.0",
     "@storybook/addon-actions": "^6.4.13",
     "@storybook/addon-essentials": "^6.4.13",
     "@storybook/addon-links": "^6.4.13",
