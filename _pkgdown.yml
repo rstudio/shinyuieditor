@@ -1,5 +1,7 @@
 template:
   package: quillt
+  params:
+    footer: <b>shinyuieditor</b> is an R package developed by <a href='https://rstudio.com'>RStudio</a>
 
 home:
   strip_header: false
