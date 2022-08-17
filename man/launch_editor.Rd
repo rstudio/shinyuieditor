@@ -13,7 +13,7 @@ launch_editor(
   app_preview = TRUE,
   show_logs = TRUE,
   show_preview_app_logs = TRUE,
-  launch_browser = TRUE,
+  launch_browser = interactive(),
   stop_on_browser_close = TRUE
 )
 }
