@@ -2,9 +2,11 @@
 
 A visual tool for building the UI portion of a Shiny application that generates clean and human-readable code.
 
-
 The goal of the Shiny Ui Editor is to allow people to build the broad-level UI for their Shiny app without writing code. The editor is intended for those who may not be comfortable with the HTML-style code of Shiny's UI functions or who simply don't want to fiddle with sizes to get things laid out correctly.
 
+## ⚠️ `shinyuieditor` is currently in Alpha.
+
+It may be unstable, and the API may change. We're excited to hear your feedback, but please don't use it for production applications just yet!
 
 ## Installing
 
@@ -32,7 +34,6 @@ The things most useful for feedback at this stage are:
   - Was the crash reflected in errors in the R console?
   - if not, were there errors in the browser's javascript console? (Keyboard shortcut Ctrl-Shift-J on Windows, or Cmd-Option-J on Mac.)
 - Do you have any ideas about how you could see yourself or others using the editor that are not currently supported?
-
 
 ## Getting help
 
@@ -82,7 +83,6 @@ remove.packages(c('shinyuieditor', 'gridlayout'))
 # now works
 pak::pkg_install("rstudio/shinyuieditor")
 ```
-
 
 ## Overarching principle
 
