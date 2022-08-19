@@ -2,7 +2,6 @@ import React from "react";
 
 import panelClasses from "EditorContainer.module.css";
 import { SHOW_FAKE_PREVIEW } from "env_variables";
-import debounce from "just-debounce-it";
 import { AiOutlineShrink } from "react-icons/ai";
 import { FaExpand } from "react-icons/fa";
 import { VscDebugRestart } from "react-icons/vsc";
@@ -140,36 +139,6 @@ function LoadingMessage() {
       <h2>Loading app preview...</h2>
     </div>
   );
-}
-
-export function useGetPageSize() {
-  const [pageSize, setPageSize] = React.useState<{
-    width: number;
-    height: number;
-  } | null>(null);
-
-  // Debounce the callback to window size updating so we're not slowing app down
-  // keeping up with resize
-  const updateWindowSize = React.useMemo(
-    () =>
-      debounce(() => {
-        const { innerWidth, innerHeight } = window;
-        setPageSize({
-          width: innerWidth,
-          height: innerHeight,
-        });
-      }, 500),
-    []
-  );
-
-  React.useEffect(() => {
-    updateWindowSize();
-    window.addEventListener("resize", updateWindowSize);
-
-    return () => window.removeEventListener("resize", updateWindowSize);
-  }, [updateWindowSize]);
-
-  return pageSize;
 }
 
 // Add a class to spin button to demonstrate something is happening. On
