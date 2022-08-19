@@ -1,4 +1,4 @@
-name: Playwright Tests
+name: Javascript Tests
 on:
   push:
     branches: [main, master]
@@ -28,3 +28,5 @@ jobs:
           name: playwright-report
           path: ./inst/ui-editor-react/playwright-report/
           retention-days: 30
+      - name: Run unit tests
+        run: yarn test run
