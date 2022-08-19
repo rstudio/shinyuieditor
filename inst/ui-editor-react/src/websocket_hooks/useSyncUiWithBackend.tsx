@@ -164,7 +164,7 @@ const backupUiTree: ShinyUiNode = {
   ],
 };
 
-// Super basic tree for when running cypress tests
+// Super basic tree for when running e2e tests
 const testingUiTree: ShinyUiNode = {
   uiName: "gridlayout::grid_page",
   uiArguments: {

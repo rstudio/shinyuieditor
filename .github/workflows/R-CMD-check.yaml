@@ -10,7 +10,7 @@ on:
   schedule:
     - cron: "0 8 * * 1" # every monday
 
-name: Package checks
+name: R Package checks
 
 jobs:
   website:
