@@ -9,17 +9,32 @@ import {
 } from "./index";
 
 export function usePreviewScale() {
-  const [previewScale, setPreviewScale] = React.useState<number>(
-    getPreviewScale(window.innerWidth)
+  const pageSize = useGetPageSize();
+  return getPreviewScale(pageSize.width);
+}
+
+function useGetPageSize() {
+  const [pageSize, setPageSize] = React.useState<{
+    width: number;
+    height: number;
+  }>(getPageSize());
+
+  // Debounce the callback to window size updating so we're not slowing app down
+  // keeping up with resize
+  const updateWindowSize = React.useMemo(
+    () =>
+      debounce(() => {
+        setPageSize(getPageSize());
+      }, 500),
+    []
   );
 
-  const pageSize = useGetPageSize();
   React.useEffect(() => {
-    if (!pageSize) return;
-    setPreviewScale(getPreviewScale(pageSize.width));
-  }, [pageSize]);
+    window.addEventListener("resize", updateWindowSize);
+    return () => window.removeEventListener("resize", updateWindowSize);
+  }, [updateWindowSize]);
 
-  return previewScale;
+  return pageSize;
 }
 
 function getPreviewScale(page_width_px: number) {
@@ -32,32 +47,10 @@ function getPreviewScale(page_width_px: number) {
   return width_of_preview_app / width_of_expanded_app;
 }
 
-export function useGetPageSize() {
-  const [pageSize, setPageSize] = React.useState<{
-    width: number;
-    height: number;
-  } | null>(null);
-
-  // Debounce the callback to window size updating so we're not slowing app down
-  // keeping up with resize
-  const updateWindowSize = React.useMemo(
-    () =>
-      debounce(() => {
-        const { innerWidth, innerHeight } = window;
-        setPageSize({
-          width: innerWidth,
-          height: innerHeight,
-        });
-      }, 500),
-    []
-  );
-
-  React.useEffect(() => {
-    updateWindowSize();
-    window.addEventListener("resize", updateWindowSize);
-
-    return () => window.removeEventListener("resize", updateWindowSize);
-  }, [updateWindowSize]);
-
-  return pageSize;
+function getPageSize() {
+  const { innerWidth, innerHeight } = window;
+  return {
+    width: innerWidth,
+    height: innerHeight,
+  };
 }
