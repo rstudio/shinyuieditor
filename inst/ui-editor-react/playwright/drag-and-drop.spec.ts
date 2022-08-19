@@ -6,7 +6,7 @@ test("Drag and drop an item onto the grid and name area", async ({ page }) => {
 
   // Drag and drop a numeric input onto the upper-left grid cell
   await page.dragAndDrop(
-    "._OptionItem_qmlez_24",
+    "text=/^Action Button$/",
     `.grid-cell[data-cell-pos="1-1"]`
   );
 
