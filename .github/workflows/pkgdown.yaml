@@ -25,13 +25,13 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: "16.x"
+
       - name: Install JS dependencies
-        with:
-          working-directory: ./inst/ui-editor-react
+        working-directory: ./inst/ui-editor-react
         run: yarn
+
       - name: Build demo app for site
-        with:
-          working-directory: ./inst/ui-editor-react
+        working-directory: ./inst/ui-editor-react
         run: yarn build-website-demo
 
       - uses: r-lib/actions/setup-pandoc@v2
