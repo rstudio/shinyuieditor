@@ -1,3 +1,5 @@
+url: https://rstudio.github.io/shinyuieditor/
+
 template:
   package: quillt
   params:
@@ -23,8 +25,6 @@ navbar:
     github:
       icon: fab fa-github fa-lg
       href: https://github.com/rstudio/shinyuieditor
-
-url: https://rstudio.github.io/shinyuieditor/
 
 reference:
   - title: Main launcher function
