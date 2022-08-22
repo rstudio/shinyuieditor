@@ -11,7 +11,7 @@ import type {
 } from "Shiny-Ui-Elements/uiNodeTypes";
 import { shinyUiNodeInfo } from "Shiny-Ui-Elements/uiNodeTypes";
 
-import "../../App.css";
+import "../App.css";
 import classes from "./UiElementsShowcase.module.css";
 import type { ShinyUiNames } from "./uiNodeTypes";
 
@@ -111,4 +111,9 @@ export const UnknownArgs: Story = () => {
       }}
     />
   );
+};
+
+export default {
+  title: "Ui Elements Showcase",
+  component: UiElementsShowcase,
 };

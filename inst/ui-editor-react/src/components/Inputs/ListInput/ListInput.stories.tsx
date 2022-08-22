@@ -4,7 +4,13 @@ import ListInputOriginal from ".";
 
 import type { NamedList } from "./NamedListInput";
 import NamedListInputOriginal from "./NamedListInput";
-export const ListInput = () => {
+
+export default {
+  title: "List Input",
+  component: NamedListInputOriginal,
+};
+
+export const Primary = () => {
   const [list, setList] = React.useState<string[] | undefined>(["a", "b", "c"]);
   return (
     <div style={{ display: "flex", gap: "20px", justifyContent: "center" }}>
