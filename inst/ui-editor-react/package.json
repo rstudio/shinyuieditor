@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@ladle/react": "^2.1.2",
     "@popperjs/core": "^2.11.2",
     "@reduxjs/toolkit": "^1.8.0",
     "@testing-library/jest-dom": "^5.16.5",
@@ -34,7 +33,6 @@
     "build-website-demo": "VITE_PREBUILT_TREE=true VITE_SHOW_FAKE_PREVIEW=false vite build --outDir ../../vignettes/demo-app",
     "test": "vitest",
     "playwright": "playwright test",
-    "ladle": "ladle serve",
     "storybook": "start-storybook -p 6006",
     "lint": "eslint src --fix",
     "build-icons": "svgr --out-dir src/components/Icons/generated --icon --typescript -- src/assets/svg-icons",
