@@ -6,7 +6,7 @@ import type { NamedList } from "./NamedListInput";
 import NamedListInputOriginal from "./NamedListInput";
 
 export default {
-  title: "List Input",
+  title: "inputs/List Input",
   component: NamedListInputOriginal,
 };
 
