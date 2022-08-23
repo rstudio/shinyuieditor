@@ -1,6 +1,7 @@
 import React from "react";
 
-import PlusButton from "./PlusButton";
+import PlusButton from "../../Inputs/PlusButton";
+
 import { Tab } from "./Tab";
 import classes from "./Tabset.module.css";
 import { useActiveTab } from "./useActiveTab";
