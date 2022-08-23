@@ -1,0 +1,49 @@
+.container {
+}
+
+.header {
+  --h: 40px;
+  background-color: var(--light-grey);
+  display: flex;
+  height: var(--h);
+}
+
+.pageTitle {
+  margin: 0;
+  padding-inline: 20px;
+  line-height: var(--h);
+  flex-shrink: 0;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.tabs {
+  display: flex;
+  flex-grow: 1;
+  align-items: flex-end;
+  gap: 5px;
+}
+
+.tab {
+  --roundness: 6px;
+  flex-basis: 80px;
+  height: calc(100% - 2px);
+  border-radius: var(--roundness) var(--roundness) 0 0;
+  background-color: var(--grey);
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+}
+
+.tab[data-active-tab="true"] {
+  background-color: white;
+}
+
+.tabContents > [data-active-tab="false"] {
+  display: none;
+}
+
+.addTabButton {
+  align-self: center;
+  color: var(--rstudio-blue);
+}
