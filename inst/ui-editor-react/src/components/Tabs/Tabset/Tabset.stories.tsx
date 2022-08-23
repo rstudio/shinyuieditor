@@ -25,16 +25,15 @@ export const Primary = () => {
     "tab 1",
     "tab 2",
   ]);
+
+  const addTab = () => {
+    setCurrentTabs((existingTabs) => [
+      ...existingTabs,
+      `tab ${existingTabs.length + 1}`,
+    ]);
+  };
   return (
-    <Tabset
-      pageTitle="My Tabset Page"
-      onNewTab={() => {
-        setCurrentTabs((existingTabs) => [
-          ...existingTabs,
-          `tab ${existingTabs.length + 1}`,
-        ]);
-      }}
-    >
+    <Tabset pageTitle="My Tabset Page" onNewTab={addTab}>
       {currentTabs.map((name) => (
         <TabPanel key={name} title={name}>
           Contents for {name}
