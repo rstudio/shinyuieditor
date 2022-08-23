@@ -53,7 +53,7 @@ jobs:
         run: cp -r vignettes/demo-app docs/articles/
 
       - name: Deploy to GitHub pages 🚀
-        # if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request'
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
           clean: false
