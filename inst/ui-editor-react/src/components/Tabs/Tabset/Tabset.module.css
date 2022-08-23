@@ -1,4 +1,8 @@
 .container {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .header {
@@ -6,6 +10,11 @@
   background-color: var(--light-grey);
   display: flex;
   height: var(--h);
+  flex-shrink: 0;
+}
+
+.tabContents {
+  flex-grow: 1;
 }
 
 .pageTitle {
@@ -27,7 +36,7 @@
 .tab {
   --roundness: 6px;
   flex-basis: 80px;
-  height: calc(100% - 2px);
+  height: calc(100% - 3px);
   border-radius: var(--roundness) var(--roundness) 0 0;
   background-color: var(--grey);
   display: grid;

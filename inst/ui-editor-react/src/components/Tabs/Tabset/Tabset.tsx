@@ -49,7 +49,7 @@ function getTabNamesFromChildren(children: React.ReactNode): string[] {
     if (!React.isValidElement(child)) {
       return null;
     }
-    const tabId = child.props["data-tab-id"];
+    const tabId = child.props.title;
 
     if (typeof tabId === "string") {
       tabIds.push(tabId);
@@ -64,12 +64,11 @@ function selectActiveTab(children: React.ReactNode, activeTab: string) {
     if (!React.isValidElement(child)) {
       return child;
     }
-    const tabId = child.props["data-tab-id"];
+
+    const tabId = child.props.title;
 
     if (typeof tabId === "string") {
-      return React.cloneElement(child, {
-        "data-active-tab": tabId === activeTab,
-      });
+      return <div data-active-tab={tabId === activeTab}>{child}</div>;
     }
 
     return child;
