@@ -1,14 +1,12 @@
 import React from "react";
 
-import type { Story } from "@ladle/react";
-
 import type { TemplatedGridProps } from "..";
 
 import EditableGridContainer from ".";
 
-export const EditableGridContainerShowcase: Story<{
+export const EditableGridContainerShowcase = (opts: {
   layout: TemplatedGridProps;
-}> = (opts) => {
+}) => {
   const [layout, setLayout] = React.useState(opts.layout);
 
   console.log("Layout from state:", layout);
@@ -52,16 +50,20 @@ const containerStyles: React.CSSProperties = {
   padding: "0",
 };
 
-EditableGridContainerShowcase.args = {
-  layout: {
-    areas: [
-      ["a", "b", "f"],
-      ["g", "g", "f"],
-      ["c", ".", "f"],
-      ["e", ".", "f"],
-    ],
-    row_sizes: ["100px", "100px", "2fr", "1fr"],
-    col_sizes: ["200px", "1fr", "100px"],
-    gap_size: "15px",
+export default {
+  title: "Editable Grid Container",
+  component: EditableGridContainerShowcase,
+  args: {
+    layout: {
+      areas: [
+        ["a", "b", "f"],
+        ["g", "g", "f"],
+        ["c", ".", "f"],
+        ["e", ".", "f"],
+      ],
+      row_sizes: ["100px", "100px", "2fr", "1fr"],
+      col_sizes: ["200px", "1fr", "100px"],
+      gap_size: "15px",
+    },
   },
 };

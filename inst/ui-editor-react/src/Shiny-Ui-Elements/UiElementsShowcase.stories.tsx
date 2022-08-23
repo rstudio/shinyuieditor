@@ -1,6 +1,6 @@
 import React from "react";
 
-import type { Story } from "@ladle/react";
+import type { ComponentStory, ComponentMeta } from "@storybook/react";
 import type { OnChangeCallback } from "components/Inputs/SettingsUpdateContext";
 import { SettingsUpdateContext } from "components/Inputs/SettingsUpdateContext";
 import type {
@@ -11,7 +11,7 @@ import type {
 } from "Shiny-Ui-Elements/uiNodeTypes";
 import { shinyUiNodeInfo } from "Shiny-Ui-Elements/uiNodeTypes";
 
-import "../../App.css";
+import "../App.css";
 import classes from "./UiElementsShowcase.module.css";
 import type { ShinyUiNames } from "./uiNodeTypes";
 
@@ -71,9 +71,14 @@ function UiNodeAndSettings<T extends ShinyUiNames>({
   );
 }
 
-export const UiElementsShowcase: Story<{
-  nameOfElement: ShinyUiNames;
-}> = ({ nameOfElement }) => {
+export default {
+  title: "Ui Elements Showcase",
+  component: UiNodeAndSettings,
+} as ComponentMeta<typeof UiNodeAndSettings>;
+
+export const UiElementsShowcase: ComponentStory<
+  ({ nameOfElement }: { nameOfElement: ShinyUiNames }) => JSX.Element
+> = ({ nameOfElement }) => {
   type UiArgsType = ArgsWithPotentialUnknowns<typeof nameOfElement>;
 
   return (
@@ -96,19 +101,19 @@ UiElementsShowcase.args = {
   nameOfElement: "shiny::plotOutput",
 };
 
-export const UnknownArgs: Story = () => {
-  return (
-    <UiNodeAndSettings
-      uiName={"shiny::sliderInput"}
-      uiArguments={{
-        inputId: "mySlider",
-        label: "Slid your value!",
-        min: 0,
-        max: 12,
-        value: 5,
-        width: "90%",
-        animation: "test",
-      }}
-    />
-  );
-};
+// export const UnknownArgs: Story = () => {
+//   return (
+//     <UiNodeAndSettings
+//       uiName={"shiny::sliderInput"}
+//       uiArguments={{
+//         inputId: "mySlider",
+//         label: "Slid your value!",
+//         min: 0,
+//         max: 12,
+//         value: 5,
+//         width: "90%",
+//         animation: "test",
+//       }}
+//     />
+//   );
+// };

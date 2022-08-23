@@ -4,7 +4,12 @@ import type { CSSMeasure } from "CSSMeasure";
 
 import { LabeledCSSUnitInput } from ".";
 
-export const AllCss = () => {
+// export default {
+//   title: "CSS Unit Input",
+//   component: LabeledCSSUnitInput,
+// };
+
+export const Primary = () => {
   const [value, setValue] = React.useState<CSSMeasure>("100px");
 
   return (
