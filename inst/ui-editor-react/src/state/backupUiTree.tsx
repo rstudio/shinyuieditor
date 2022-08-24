@@ -90,7 +90,20 @@ export const basicNavbarPage: ShinyUiNode = {
   uiArguments: {
     pageTitle: "My Navbar Page",
   },
-  uiChildren: [],
+  uiChildren: [
+    {
+      uiName: "shiny::tabPanel",
+      uiArguments: {
+        name: "First Tab",
+      },
+    },
+    {
+      uiName: "shiny::tabPanel",
+      uiArguments: {
+        name: "Second Tab",
+      },
+    },
+  ],
 };
 
 // To enable different app templates just uncomment the tree you want here
