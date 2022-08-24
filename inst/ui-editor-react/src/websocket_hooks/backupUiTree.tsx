@@ -1,4 +1,4 @@
-import { PREBUILT_TREE } from "env_variables";
+import { TESTING_MODE } from "env_variables";
 import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
 
 // Ui Tree used if there's no backend connection
@@ -77,4 +77,4 @@ const testingUiTree: ShinyUiNode = {
   uiChildren: [],
 };
 
-export const backupUiTree = PREBUILT_TREE ? basicGridPage : testingUiTree;
+export const backupUiTree = TESTING_MODE ? testingUiTree : basicGridPage;

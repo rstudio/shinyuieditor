@@ -1,6 +1,5 @@
 import * as React from "react";
 
-import { PREBUILT_TREE } from "env_variables";
 import { useDispatch, useSelector } from "react-redux";
 import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
 import type { RootState } from "state/store";

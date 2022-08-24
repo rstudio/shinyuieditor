@@ -29,8 +29,8 @@
   "scripts": {
     "start": "vite",
     "build": "vite build",
-    "build-netlify": "VITE_SHOW_FAKE_PREVIEW=true VITE_PREBUILT_TREE=true PUBLIC_URL=/ yarn build",
-    "build-website-demo": "VITE_PREBUILT_TREE=true VITE_SHOW_FAKE_PREVIEW=false vite build --outDir ../../vignettes/demo-app",
+    "build-netlify": "VITE_SHOW_FAKE_PREVIEW=true PUBLIC_URL=/ yarn build",
+    "build-website-demo": "VITE_SHOW_FAKE_PREVIEW=false vite build --outDir ../../vignettes/demo-app",
     "test": "vitest",
     "playwright": "playwright test",
     "storybook": "start-storybook -p 6006",

@@ -99,7 +99,7 @@ const config: PlaywrightTestConfig = {
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: "yarn start --port 3001",
+    command: "VITE_TESTING_MODE=true yarn start --port 3001",
     port: 3001,
   },
 };
