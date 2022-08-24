@@ -1,7 +1,16 @@
 import { test, expect } from "@playwright/test";
 
+import { testingUiTree } from "../src/state/backupUiTree";
+
 test("Drag and drop an item onto the grid and name area", async ({ page }) => {
   // Go to http://localhost:3000/
+  await page.route("/testing-tree", (route) =>
+    route.fulfill({
+      status: 200,
+      body: JSON.stringify(testingUiTree),
+    })
+  );
+
   await page.goto("/");
 
   // Drag and drop a numeric input onto the upper-left grid cell

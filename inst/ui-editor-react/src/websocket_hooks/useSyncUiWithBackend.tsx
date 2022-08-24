@@ -11,7 +11,7 @@ import {
   useWebsocketBackend,
 } from "websocket_hooks/useConnectToWebsocket";
 
-import { backupUiTree } from "../state/backupUiTree";
+import { getClientsideOnlyTree } from "./getClientsideOnlyTree";
 
 type BackendConnectionStatus = "loading" | "no-backend" | "connected";
 
@@ -75,9 +75,11 @@ export function useSyncUiWithBackend() {
       // Give the backup/static mode ui tree in the case of no backend connection
       setConnectionStatus("no-backend");
 
-      // For the demo versions of the app we want there to be a predefined tree
-      // instead of an empty page
-      setTree(backupUiTree);
+      getClientsideOnlyTree()
+        .then(setTree)
+        .catch((e) => {
+          throw new Error("Failed to get clientside tree with error", e);
+        });
     }
   }, [setTree, status, ws]);
 

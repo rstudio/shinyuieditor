@@ -1,9 +1,9 @@
-import { TESTING_MODE } from "env_variables";
 import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
 
 /**
  * Basic grid app with a sidebar containging a slider and plot
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const basicGridPage: ShinyUiNode = {
   uiName: "gridlayout::grid_page",
   uiArguments: {
@@ -65,25 +65,9 @@ export const basicGridPage: ShinyUiNode = {
 };
 
 /**
- * Basic navbar page with tabs
- */
-export const basicNavbarPage: ShinyUiNode = {
-  uiName: "shiny::navbarPage",
-  uiArguments: {
-    pageTitle: "My Navbar Page",
-  },
-  uiChildren: [],
-};
-
-// To enable different app templates just uncomment the tree you want here
-
-// const sampleAppTree = basicGridPage;
-const sampleAppTree = basicNavbarPage;
-
-/**
  * Super basic grid app tree for when running e2e tests
  */
-const testingUiTree: ShinyUiNode = {
+export const testingUiTree: ShinyUiNode = {
   uiName: "gridlayout::grid_page",
   uiArguments: {
     areas: [
@@ -97,4 +81,19 @@ const testingUiTree: ShinyUiNode = {
   uiChildren: [],
 };
 
-export const backupUiTree = TESTING_MODE ? testingUiTree : sampleAppTree;
+/**
+ * Basic navbar page with tabs
+ */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const basicNavbarPage: ShinyUiNode = {
+  uiName: "shiny::navbarPage",
+  uiArguments: {
+    pageTitle: "My Navbar Page",
+  },
+  uiChildren: [],
+};
+
+// To enable different app templates just uncomment the tree you want here
+
+// export const sampleAppTree = basicGridPage;
+export const sampleAppTree = basicNavbarPage;
