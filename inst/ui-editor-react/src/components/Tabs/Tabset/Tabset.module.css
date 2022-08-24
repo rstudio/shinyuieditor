@@ -3,6 +3,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  outline: 1px solid var(--light-grey);
 }
 
 .header {
