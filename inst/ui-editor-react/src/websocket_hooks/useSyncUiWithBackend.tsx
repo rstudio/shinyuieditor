@@ -97,18 +97,3 @@ export function useSyncUiWithBackend() {
 
   return { status: connectionStatus, tree };
 }
-
-// Super basic tree for when running e2e tests
-const testingUiTree: ShinyUiNode = {
-  uiName: "gridlayout::grid_page",
-  uiArguments: {
-    areas: [
-      [".", "."],
-      [".", "."],
-    ],
-    row_sizes: ["1fr", "1fr"],
-    col_sizes: ["1fr", "1fr"],
-    gap_size: "1rem",
-  },
-  uiChildren: [],
-};
