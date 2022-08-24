@@ -9,6 +9,7 @@ import { gridlayoutGridPageInfo } from "./GridlayoutGridPage";
 import { shinyActionButtonInfo } from "./ShinyActionButton";
 import { shinyCheckboxGroupInputInfo } from "./ShinyCheckboxGroupInput";
 import { shinyCheckboxInputInfo } from "./ShinyCheckboxInput";
+import shinyNavbarPageInfo from "./ShinyNavbarPage";
 import { shinyNumericInputInfo } from "./ShinyNumericInput";
 import { shinyPlotOutputInfo } from "./ShinyPlotOutput";
 import { shinyRadioButtonsInfo } from "./ShinyRadioButtons";
@@ -110,6 +111,7 @@ export const shinyUiNodeInfo = {
   "shiny::plotOutput": shinyPlotOutputInfo,
   "shiny::textOutput": shinyTextOutputInfo,
   "shiny::uiOutput": shinyUiOutputInfo,
+  "shiny::navbarPage": shinyNavbarPageInfo,
   "gridlayout::grid_page": gridlayoutGridPageInfo,
   "gridlayout::grid_card": gridlayoutGridCardInfo,
   // "gridlayout::grid_card": gridLayoutGridCardInfo,

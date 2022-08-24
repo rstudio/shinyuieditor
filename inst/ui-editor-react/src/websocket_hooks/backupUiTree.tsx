@@ -62,6 +62,18 @@ export const basicGridPage: ShinyUiNode = {
   ],
 };
 
+// Ui Tree used if there's no backend connection
+export const basicNavbarPage: ShinyUiNode = {
+  uiName: "shiny::navbarPage",
+  uiArguments: {
+    pageTitle: "My Navbar Page",
+  },
+  uiChildren: [],
+};
+
+// const sampleAppTree = basicGridPage;
+const sampleAppTree = basicNavbarPage;
+
 // Super basic tree for when running e2e tests
 const testingUiTree: ShinyUiNode = {
   uiName: "gridlayout::grid_page",
@@ -77,4 +89,4 @@ const testingUiTree: ShinyUiNode = {
   uiChildren: [],
 };
 
-export const backupUiTree = TESTING_MODE ? testingUiTree : basicGridPage;
+export const backupUiTree = TESTING_MODE ? testingUiTree : sampleAppTree;
