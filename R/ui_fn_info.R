@@ -31,13 +31,13 @@ ui_fn_names_bare <- gsub(
 ui_fn_names_and_namespaces <- lapply(
   regmatches(
     x = ui_fn_names_namespaced,
-    m = gregexec(text = ui_fn_names_namespaced, pattern = "(\\w+)::(\\w+)")
+    m = regexec(text = ui_fn_names_namespaced, pattern = "(\\w+)::(\\w+)")
   ),
   FUN = function(match) {
     list(
-      namespace = match[2, ],
-      fn = match[3, ],
-      full = match[1, ]
+      namespace = match[2],
+      fn        = match[3],
+      full      = match[1]
     )
   }
 )

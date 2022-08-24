@@ -76,7 +76,7 @@ get_file_ui_definition_info <- function(file_lines, type = "single-file") {
 get_loaded_libraries <- function(file_lines) {
   lib_search <- regmatches(
     x = file_lines,
-    m = gregexec(text = file_lines, pattern = "library\\((\\w+)\\)")
+    m = regexec(text = file_lines, pattern = "library\\((\\w+)\\)")
   )
 
   lib_search <- Filter(function(match) {
@@ -86,7 +86,7 @@ get_loaded_libraries <- function(file_lines) {
   vapply(
     X = lib_search,
     FUN = function(match) {
-      match[2, ]
+      match[2]
     },
     FUN.VALUE = character(1L)
   )
