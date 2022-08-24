@@ -69,7 +69,14 @@ function selectActiveTab(children: React.ReactNode, activeTab: string) {
     const tabId = child.props.title;
 
     if (typeof tabId === "string") {
-      return <div data-active-tab={tabId === activeTab}>{child}</div>;
+      return (
+        <div
+          className={classes.tabContents}
+          data-active-tab={tabId === activeTab}
+        >
+          {child}
+        </div>
+      );
     }
 
     return child;

@@ -16,6 +16,8 @@
 
 .tabContents {
   flex-grow: 1;
+  position: relative;
+  background-color: aliceblue;
 }
 
 .pageTitle {
@@ -49,7 +51,11 @@
   background-color: white;
 }
 
-.tabContents > [data-active-tab="false"] {
+.tabContents {
+  height: 100%;
+}
+
+.tabContents[data-active-tab="false"] {
   display: none;
 }
 
