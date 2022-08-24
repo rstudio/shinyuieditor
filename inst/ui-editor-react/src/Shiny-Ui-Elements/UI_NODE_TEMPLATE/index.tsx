@@ -5,16 +5,6 @@ import type { UiComponentInfo } from "../uiNodeTypes";
 import PkgNodeName from "./Component";
 import { PkgNodeNameSettings } from "./SettingsPanel";
 
-// Steps to converting to your node
-// - Copy the UI_NODE_TEMPLATE/ folder and name it PkgNodeName/
-// - Find-Replace (Make sure Match-Case is turned on)
-//   - "PkgNodeName"
-//   - "pkgNodeName"
-//   - "NodeName"
-//   - "nodeName"
-// - Update settings type/defaults
-// - Update info object with correct title, category, and description
-
 export type NodeNameSettings = {
   name: string;
 };
