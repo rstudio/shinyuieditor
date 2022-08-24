@@ -1,7 +1,9 @@
 import { TESTING_MODE } from "env_variables";
 import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
 
-// Ui Tree used if there's no backend connection
+/**
+ * Basic grid app with a sidebar containging a slider and plot
+ */
 export const basicGridPage: ShinyUiNode = {
   uiName: "gridlayout::grid_page",
   uiArguments: {
@@ -62,7 +64,9 @@ export const basicGridPage: ShinyUiNode = {
   ],
 };
 
-// Ui Tree used if there's no backend connection
+/**
+ * Basic navbar page with tabs
+ */
 export const basicNavbarPage: ShinyUiNode = {
   uiName: "shiny::navbarPage",
   uiArguments: {
@@ -76,7 +80,9 @@ export const basicNavbarPage: ShinyUiNode = {
 // const sampleAppTree = basicGridPage;
 const sampleAppTree = basicNavbarPage;
 
-// Super basic tree for when running e2e tests
+/**
+ * Super basic grid app tree for when running e2e tests
+ */
 const testingUiTree: ShinyUiNode = {
   uiName: "gridlayout::grid_page",
   uiArguments: {

@@ -68,8 +68,7 @@ export function useSyncUiWithBackend() {
         setConnectionStatus("connected");
       });
 
-      // Let the backend know that the react app is ready for state to be
-      // provided
+      // Let the backend know the react app is ready for state to be provided
       sendWsMessage(ws, { path: "READY-FOR-STATE" });
     }
     if (status === "failed-to-open") {
@@ -77,7 +76,7 @@ export function useSyncUiWithBackend() {
       setConnectionStatus("no-backend");
 
       // For the demo versions of the app we want there to be a predefined tree
-      // instead of an empty grid
+      // instead of an empty page
       setTree(backupUiTree);
     }
   }, [setTree, status, ws]);
@@ -87,7 +86,8 @@ export function useSyncUiWithBackend() {
       currentUiTree === initialUiTree ||
       currentUiTree === lastRecievedRef.current
     ) {
-      // Avoiding unnecesary message to backend when the state hasn't changed from the one sent to it
+      // Avoiding unnecesary message to backend when the state hasn't changed
+      // from the one sent to it
       return;
     }
     if (status !== "connected") return;
