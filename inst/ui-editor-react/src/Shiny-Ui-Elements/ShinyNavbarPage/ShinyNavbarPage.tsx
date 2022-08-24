@@ -17,7 +17,7 @@ function isTabPanelNode(node: ShinyUiNode): node is TabPanelNode {
 }
 
 const ShinyNavbarPage: UiContainerNodeComponent<NavbarPageSettings> = ({
-  uiArguments: { pageTitle },
+  uiArguments: { title: pageTitle },
   uiChildren,
   nodeInfo: { path },
   children,
@@ -28,14 +28,14 @@ const ShinyNavbarPage: UiContainerNodeComponent<NavbarPageSettings> = ({
 
   return (
     <Tabset
-      pageTitle={pageTitle}
+      title={pageTitle}
       onNewTab={() => console.log("New panel requested")}
     >
       <EmptyNavbarPageMessage hasChildren={hasChildren} />
       {uiChildren.map((node, i) => {
         const nodePath = [...path, i];
         const title = isTabPanelNode(node)
-          ? node.uiArguments.name
+          ? node.uiArguments.title
           : "unknown tab";
         return (
           <TabPanel key={nodePath.join("-")} title={title}>

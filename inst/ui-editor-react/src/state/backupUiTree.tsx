@@ -88,19 +88,19 @@ export const testingUiTree: ShinyUiNode = {
 export const basicNavbarPage: ShinyUiNode = {
   uiName: "shiny::navbarPage",
   uiArguments: {
-    pageTitle: "My Navbar Page",
+    title: "My Navbar Page",
   },
   uiChildren: [
     {
       uiName: "shiny::tabPanel",
       uiArguments: {
-        name: "First Tab",
+        title: "First Tab",
       },
     },
     {
       uiName: "shiny::tabPanel",
       uiArguments: {
-        name: "Second Tab",
+        title: "Second Tab",
       },
     },
   ],

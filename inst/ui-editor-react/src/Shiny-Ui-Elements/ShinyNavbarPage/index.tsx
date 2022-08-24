@@ -6,11 +6,11 @@ import { ShinyNavbarPageSettings } from "./SettingsPanel";
 import ShinyNavbarPage from "./ShinyNavbarPage";
 
 export type NavbarPageSettings = {
-  pageTitle: string;
+  title: string;
 };
 
 export const shinyNavbarPageDefaultSettings: NavbarPageSettings = {
-  pageTitle: "My Shiny App",
+  title: "My Shiny App",
 };
 
 export const shinyNavbarPageInfo: UiComponentInfo<NavbarPageSettings> = {

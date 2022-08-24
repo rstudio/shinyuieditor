@@ -16,11 +16,11 @@ import { ShinyTabPanelSettings } from "./SettingsPanel";
 // - Add to the uiNodeTypes.ts file directory
 
 export type TabPanelSettings = {
-  name: string;
+  title: string;
 };
 
 export const shinyTabPanelDefaultSettings: TabPanelSettings = {
-  name: "NODE NAME",
+  title: "NODE NAME",
 };
 
 export const shinyTabPanelInfo: UiComponentInfo<TabPanelSettings> = {

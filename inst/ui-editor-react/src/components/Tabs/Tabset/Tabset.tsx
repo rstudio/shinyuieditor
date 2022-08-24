@@ -6,8 +6,8 @@ import { Tab } from "./Tab";
 import classes from "./Tabset.module.css";
 import { useActiveTab } from "./useActiveTab";
 
-const Tabset: React.FC<{ pageTitle: string; onNewTab: () => void }> = ({
-  pageTitle,
+const Tabset: React.FC<{ title: string; onNewTab: () => void }> = ({
+  title,
   onNewTab,
   children,
 }) => {
@@ -17,7 +17,7 @@ const Tabset: React.FC<{ pageTitle: string; onNewTab: () => void }> = ({
   return (
     <div className={classes.container}>
       <div className={classes.header}>
-        <h1 className={classes.pageTitle}>{pageTitle}</h1>
+        <h1 className={classes.pageTitle}>{title}</h1>
         <div className={classes.tabs}>
           {tabNames.map((name) => (
             <Tab

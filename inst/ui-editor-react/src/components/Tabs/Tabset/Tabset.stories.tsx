@@ -33,7 +33,7 @@ export const Primary = () => {
     ]);
   };
   return (
-    <Tabset pageTitle="My Tabset Page" onNewTab={addTab}>
+    <Tabset title="My Tabset Page" onNewTab={addTab}>
       {currentTabs.map((name) => (
         <TabPanel key={name} title={name}>
           Contents for {name}

@@ -8,7 +8,7 @@ export const ShinyTabPanelSettings: SettingsUpdaterComponent<
 > = ({ settings }) => {
   return (
     <>
-      <TextInput name="name" label="Name of NODE" value={settings.name} />
+      <TextInput name="name" label="Name of NODE" value={settings.title} />
     </>
   );
 };

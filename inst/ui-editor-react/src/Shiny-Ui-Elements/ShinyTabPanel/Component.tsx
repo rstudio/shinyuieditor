@@ -13,7 +13,7 @@ const ShinyTabPanel: UiContainerNodeComponent<TabPanelSettings> = ({
   compRef,
 }) => {
   return (
-    <div className={classes.container}>tabPanel name: {uiArguments.name}</div>
+    <div className={classes.container}>tabPanel name: {uiArguments.title}</div>
   );
 };
 
