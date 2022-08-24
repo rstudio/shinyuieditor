@@ -12,7 +12,7 @@ import { getIsValidMove } from "../components/UiNode/TreeManipulation/placeNode"
 import type { DraggedNodeInfo } from "./DragAndDropHelpers";
 import { useFilteredDrop } from "./useFilteredDrop";
 
-type DropHandlerArguments = {
+export type DropHandlerArguments = {
   dropFilters?: DropFilters;
   parentPath: NodePath;
   positionInChildren?: number;
