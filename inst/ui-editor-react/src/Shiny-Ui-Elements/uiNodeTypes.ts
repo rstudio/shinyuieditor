@@ -151,9 +151,9 @@ export const shinyUiNames = Object.keys(shinyUiNodeInfo) as ShinyUiNames[];
 export type ShinyUiChildren = ShinyUiNode[];
 
 /**
- * Union of Ui element name and associated arguments for easy narrowing
+ * Map of all the ui nodes/elements keyed by the uiName
  */
-export type ShinyUiNode = {
+export type ShinyUiNodeByName = {
   [UiName in ShinyUiNames]: {
     uiName: UiName;
     uiArguments: ShinyUiArguments[UiName];
@@ -161,7 +161,12 @@ export type ShinyUiNode = {
     uiChildren?: ShinyUiChildren;
     uiHTML?: string;
   };
-}[ShinyUiNames];
+};
+
+/**
+ * Union of Ui element name and associated arguments for easy narrowing
+ */
+export type ShinyUiNode = ShinyUiNodeByName[ShinyUiNames];
 
 type AllowedBaseElements = HTMLDivElement;
 
