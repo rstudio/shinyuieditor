@@ -1,12 +1,20 @@
+import TabPanel from "components/Tabs/TabPanel/TabPanel";
 import Tabset from "components/Tabs/Tabset/Tabset";
+import UiNode from "components/UiNode";
 import type {
-  NodePath,
+  ShinyUiNode,
+  ShinyUiNodeByName,
   UiContainerNodeComponent,
 } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import type { NavbarPageSettings } from "./index";
 
 import classes from "./ShinyNavbarPage.module.css";
+
+type TabPanelNode = ShinyUiNodeByName["shiny::tabPanel"];
+function isTabPanelNode(node: ShinyUiNode): node is TabPanelNode {
+  return node.uiName === "shiny::tabPanel";
+}
 
 const ShinyNavbarPage: UiContainerNodeComponent<NavbarPageSettings> = ({
   uiArguments: { pageTitle },
@@ -16,20 +24,31 @@ const ShinyNavbarPage: UiContainerNodeComponent<NavbarPageSettings> = ({
   eventHandlers,
   compRef,
 }) => {
-  const has_children = uiChildren.length > 0;
+  const hasChildren = uiChildren.length > 0;
 
   return (
     <Tabset
       pageTitle={pageTitle}
       onNewTab={() => console.log("New panel requested")}
     >
-      {has_children ? null : <EmptyNavbarPageMessage path={path} />}
+      <EmptyNavbarPageMessage hasChildren={hasChildren} />
+      {uiChildren.map((node, i) => {
+        const nodePath = [...path, i];
+        const title = isTabPanelNode(node)
+          ? node.uiArguments.name
+          : "unknown tab";
+        return (
+          <TabPanel key={nodePath.join("-")} title={title}>
+            <UiNode path={nodePath} {...node} />
+          </TabPanel>
+        );
+      })}
     </Tabset>
   );
 };
 
-function EmptyNavbarPageMessage({ path }: { path: NodePath }) {
-  return (
+function EmptyNavbarPageMessage({ hasChildren }: { hasChildren: boolean }) {
+  return hasChildren ? null : (
     <div className={classes.noTabsMessage}>
       <span>Empty page. Drag elements or Tab Panel on to add content</span>
     </div>
