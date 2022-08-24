@@ -11,7 +11,7 @@ import {
   useWebsocketBackend,
 } from "websocket_hooks/useConnectToWebsocket";
 
-import { backupUiTree } from "./backupUiTree";
+import { backupUiTree } from "../state/backupUiTree";
 
 type BackendConnectionStatus = "loading" | "no-backend" | "connected";
 

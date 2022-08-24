@@ -71,6 +71,8 @@ export const basicNavbarPage: ShinyUiNode = {
   uiChildren: [],
 };
 
+// To enable different app templates just uncomment the tree you want here
+
 // const sampleAppTree = basicGridPage;
 const sampleAppTree = basicNavbarPage;
 
