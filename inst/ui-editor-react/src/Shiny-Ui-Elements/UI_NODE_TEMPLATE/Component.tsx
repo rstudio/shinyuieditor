@@ -12,7 +12,7 @@ const PkgNodeName: UiContainerNodeComponent<NodeNameSettings> = ({
   eventHandlers,
   compRef,
 }) => {
-  return <div className={classes.container}>NODE contents</div>;
+  return <div className={classes.container}>NODE NAME: {uiArguments.name}</div>;
 };
 
 export default PkgNodeName;

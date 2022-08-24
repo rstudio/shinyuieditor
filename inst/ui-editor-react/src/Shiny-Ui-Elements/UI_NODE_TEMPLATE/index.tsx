@@ -10,6 +10,7 @@ import { PkgNodeNameSettings } from "./SettingsPanel";
 // - Find-Replace (Make sure Match-Case is turned on)
 //   - "PkgNodeName"
 //   - "pkgNodeName"
+//   - "NodeName"
 //   - "nodeName"
 // - Update settings type/defaults
 // - Update info object with correct title, category, and description
