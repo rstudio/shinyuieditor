@@ -45,7 +45,6 @@ export function usePathInformation(
     if (!nodeElement) return;
 
     if (selectedPath && sameArray(selectedPath, path)) {
-      console.log("Setting selection", { selectedPath, path });
       nodeElement.classList.add(classes.selectedNode);
     } else {
       nodeElement.classList.remove(classes.selectedNode);
