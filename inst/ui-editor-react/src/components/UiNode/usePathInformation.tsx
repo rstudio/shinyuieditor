@@ -27,18 +27,6 @@ export function usePathInformation(
     [path, setNodeSelection]
   );
 
-  // A colored border surrounds the elements that are selected
-  React.useEffect(() => {
-    const nodeElement = ref.current;
-    if (!nodeElement) return;
-
-    if (sameArray(selectedPath ?? [], path)) {
-      nodeElement.classList.add(classes.selectedNode);
-    } else {
-      nodeElement.classList.remove(classes.selectedNode);
-    }
-  }, [path, ref, selectedPath]);
-
   React.useEffect(() => {
     const nodeElement = ref.current;
     if (!nodeElement) return;
@@ -50,6 +38,19 @@ export function usePathInformation(
       nodeElement.removeEventListener("click", handleClick);
     };
   }, [handleClick, path, ref]);
+
+  // A colored border surrounds the elements that are selected
+  React.useEffect(() => {
+    const nodeElement = ref.current;
+    if (!nodeElement) return;
+
+    if (selectedPath && sameArray(selectedPath, path)) {
+      console.log("Setting selection", { selectedPath, path });
+      nodeElement.classList.add(classes.selectedNode);
+    } else {
+      nodeElement.classList.remove(classes.selectedNode);
+    }
+  }, [path, ref, selectedPath]);
 }
 
 /**
