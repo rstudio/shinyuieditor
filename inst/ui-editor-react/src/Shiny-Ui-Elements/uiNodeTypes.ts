@@ -91,7 +91,7 @@ export type UiComponentInfo<NodeSettings extends object> = {
        * The component that is used to actually draw the main interface for ui
        * element
        */
-      UiComponent: UiContainerNodeComponent<NodeSettings>;
+      UiComponent: UiNodeComponent<NodeSettings>;
     }
 );
 
@@ -172,18 +172,14 @@ type NodeInfo = {
   path: NodePath;
 };
 
+/**
+ * Type of component defining the app view of a given ui node
+ */
 export type UiNodeComponent<NodeSettings extends object> = React.FC<{
   uiArguments: NodeSettings;
   nodeInfo: NodeInfo;
   compRef: React.RefObject<HTMLDivElement>;
-  uiChildren: ShinyUiChildren;
-}>;
-
-export type UiContainerNodeComponent<NodeSettings extends object> = React.FC<{
-  uiArguments: NodeSettings;
-  uiChildren: ShinyUiChildren;
-  nodeInfo: NodeInfo;
-  compRef: React.RefObject<HTMLDivElement>;
+  uiChildren?: ShinyUiChildren;
 }>;
 
 /**

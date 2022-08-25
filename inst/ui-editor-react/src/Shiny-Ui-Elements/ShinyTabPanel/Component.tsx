@@ -1,4 +1,4 @@
-import type { UiContainerNodeComponent } from "Shiny-Ui-Elements/uiNodeTypes";
+import type { UiNodeComponent } from "Shiny-Ui-Elements/uiNodeTypes";
 import DropDetector from "Shiny-Ui-Elements/utils/DropDetector";
 
 import { RenderUiChildren } from "../utils/RenderUiChildren";
@@ -7,7 +7,7 @@ import type { TabPanelSettings } from "./index";
 
 import classes from "./styles.module.css";
 
-const ShinyTabPanel: UiContainerNodeComponent<TabPanelSettings> = ({
+const ShinyTabPanel: UiNodeComponent<TabPanelSettings> = ({
   uiArguments,
   uiChildren,
   nodeInfo: { path },

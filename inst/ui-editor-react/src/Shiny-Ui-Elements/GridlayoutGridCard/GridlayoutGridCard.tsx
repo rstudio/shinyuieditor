@@ -2,10 +2,7 @@ import React from "react";
 
 import DeleteNodeButton from "components/DeleteNodeButton";
 import UiNode from "components/UiNode";
-import type {
-  NodePath,
-  UiContainerNodeComponent,
-} from "Shiny-Ui-Elements/uiNodeTypes";
+import type { NodePath, UiNodeComponent } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import { BsCard, BsCardHeader } from "../GridLayoutPanelHelpers/GridCards";
 
@@ -15,7 +12,7 @@ import classes from "./styles.module.css";
 import { useGridCardDropDetectors } from "./useGridCardDropDetectors";
 import { useGridItemSwapping } from "./useGridItemSwapping";
 
-const GridlayoutGridCard: UiContainerNodeComponent<GridCardSettings> = ({
+const GridlayoutGridCard: UiNodeComponent<GridCardSettings> = ({
   uiArguments: { area, item_gap, title },
   uiChildren,
   nodeInfo: { path },

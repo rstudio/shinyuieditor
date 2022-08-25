@@ -4,7 +4,7 @@ import UiNode from "components/UiNode";
 import type {
   ShinyUiNode,
   ShinyUiNodeByName,
-  UiContainerNodeComponent,
+  UiNodeComponent,
 } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import type { NavbarPageSettings } from "./index";
@@ -16,7 +16,7 @@ function isTabPanelNode(node: ShinyUiNode): node is TabPanelNode {
   return node.uiName === "shiny::tabPanel";
 }
 
-const ShinyNavbarPage: UiContainerNodeComponent<NavbarPageSettings> = ({
+const ShinyNavbarPage: UiNodeComponent<NavbarPageSettings> = ({
   uiArguments: { title: pageTitle },
   uiChildren,
   nodeInfo: { path },

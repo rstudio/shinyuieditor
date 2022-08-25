@@ -8,7 +8,7 @@ import { GridCell } from "Shiny-Ui-Elements/GridlayoutGridPage/GridCell";
 import type {
   ShinyUiChildren,
   ShinyUiNodeInfo,
-  UiContainerNodeComponent,
+  UiNodeComponent,
 } from "Shiny-Ui-Elements/uiNodeTypes";
 import { UPDATE_NODE, usePlaceNode } from "state/uiTree";
 import { findEmptyCells } from "utils/gridTemplates/findItemLocation";
@@ -35,9 +35,13 @@ export type NewItemInfo = DraggedNodeInfo & {
 export const LayoutDispatchContext =
   React.createContext<React.Dispatch<GridLayoutAction> | null>(null);
 
-export const GridlayoutGridPage: UiContainerNodeComponent<
-  TemplatedGridProps
-> = ({ uiArguments: layoutDef, uiChildren, children, nodeInfo, compRef }) => {
+export const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
+  uiArguments: layoutDef,
+  uiChildren,
+  children,
+  nodeInfo,
+  compRef,
+}) => {
   const dispatch = useDispatch();
   const place_node = usePlaceNode();
 

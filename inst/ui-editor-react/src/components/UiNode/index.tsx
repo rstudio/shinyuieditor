@@ -51,7 +51,7 @@ const UiNode = ({
   return (
     <Comp
       uiArguments={uiArguments}
-      uiChildren={uiChildren ?? []}
+      uiChildren={uiChildren}
       compRef={componentRef}
       nodeInfo={{ path }}
     >

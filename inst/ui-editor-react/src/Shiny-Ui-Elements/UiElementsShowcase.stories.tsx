@@ -7,7 +7,7 @@ import type {
   ArgsWithPotentialUnknowns,
   SettingsUpdaterComponent,
   ShinyUiNodeInfo,
-  UiContainerNodeComponent,
+  UiNodeComponent,
 } from "Shiny-Ui-Elements/uiNodeTypes";
 import { shinyUiNodeInfo } from "Shiny-Ui-Elements/uiNodeTypes";
 
@@ -27,7 +27,7 @@ function UiNodeAndSettings<T extends ShinyUiNames>({
   const nodeInfo: ShinyUiNodeInfo[T] = shinyUiNodeInfo[uiName];
 
   const NodeComponent =
-    nodeInfo.UiComponent as UiContainerNodeComponent<NodeSettingsType>;
+    nodeInfo.UiComponent as UiNodeComponent<NodeSettingsType>;
 
   const SettingsInputs =
     nodeInfo.SettingsComponent as SettingsUpdaterComponent<NodeSettingsType>;
