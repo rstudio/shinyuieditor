@@ -9,11 +9,12 @@ import { useActiveTab } from "./useActiveTab";
 type TabsetProps = {
   title: string;
   onNewTab: () => void;
+  onTabSelect: (tabIndex: number) => void;
   children?: React.ReactNode;
 };
 
 const Tabset = React.forwardRef<HTMLDivElement, TabsetProps>(
-  ({ title, onNewTab, children }, ref) => {
+  ({ title, onNewTab, children, onTabSelect }, ref) => {
     const tabNames = getTabNamesFromChildren(children);
     const { activeTab, setActiveTab } = useActiveTab(tabNames);
 
@@ -22,12 +23,15 @@ const Tabset = React.forwardRef<HTMLDivElement, TabsetProps>(
         <div className={classes.header}>
           <h1 className={classes.pageTitle}>{title}</h1>
           <div className={classes.tabs}>
-            {tabNames.map((name) => (
+            {tabNames.map((name, i) => (
               <Tab
                 key={name}
                 name={name}
                 isActive={name === activeTab}
-                onSelect={() => setActiveTab(name)}
+                onSelect={() => {
+                  setActiveTab(name);
+                  onTabSelect(i);
+                }}
               />
             ))}
             <PlusButton

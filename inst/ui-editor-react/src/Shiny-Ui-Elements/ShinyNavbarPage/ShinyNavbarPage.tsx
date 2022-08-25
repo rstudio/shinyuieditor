@@ -1,11 +1,13 @@
 import TabPanel from "components/Tabs/TabPanel/TabPanel";
 import Tabset from "components/Tabs/Tabset/Tabset";
 import UiNode from "components/UiNode";
+import { useSetSelectedPath } from "NodeSelectionState";
 import type {
   ShinyUiNode,
   ShinyUiNodeByName,
   UiNodeComponent,
 } from "Shiny-Ui-Elements/uiNodeTypes";
+import { makeChildPath, NodePath } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import type { NavbarPageSettings } from "./index";
 
@@ -22,17 +24,19 @@ const ShinyNavbarPage: UiNodeComponent<NavbarPageSettings> = ({
   nodeInfo: { path },
   compRef,
 }) => {
+  const setSelectedPath = useSetSelectedPath();
   const hasChildren = Boolean(uiChildren);
 
   return (
     <Tabset
       title={pageTitle}
       onNewTab={() => console.log("New panel requested")}
+      onTabSelect={(tabIndex) => setSelectedPath(makeChildPath(path, tabIndex))}
       ref={compRef}
     >
       {uiChildren ? (
         uiChildren.map((node, i) => {
-          const nodePath = [...path, i];
+          const nodePath = makeChildPath(path, i);
           const title = isTabPanelNode(node)
             ? node.uiArguments.title
             : "unknown tab";

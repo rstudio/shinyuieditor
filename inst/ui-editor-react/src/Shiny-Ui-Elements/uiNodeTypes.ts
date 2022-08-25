@@ -197,3 +197,7 @@ export type SettingsUpdaterComponent<T extends object> = (p: {
  * instance would be then [0,1]
  */
 export type NodePath = number[];
+
+export function makeChildPath(path: NodePath, childIndex: number): NodePath {
+  return [...path, childIndex];
+}
