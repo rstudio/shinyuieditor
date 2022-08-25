@@ -94,14 +94,49 @@ export const basicNavbarPage: ShinyUiNode = {
     {
       uiName: "shiny::tabPanel",
       uiArguments: {
-        title: "First Tab",
+        title: "Settings",
       },
+      uiChildren: [
+        {
+          uiName: "shiny::actionButton",
+          uiArguments: {
+            label: "Do something",
+            inputId: "btn",
+          },
+        },
+      ],
     },
     {
       uiName: "shiny::tabPanel",
       uiArguments: {
-        title: "Second Tab",
+        title: "Plot 1",
       },
+      uiChildren: [
+        {
+          uiName: "shiny::plotOutput",
+          uiArguments: {
+            outputId: "MyPlot",
+            width: "100%",
+            height: "100%",
+          },
+        },
+      ],
+    },
+    {
+      uiName: "shiny::tabPanel",
+      uiArguments: {
+        title: "Plot 2",
+      },
+      uiChildren: [
+        {
+          uiName: "shiny::plotOutput",
+          uiArguments: {
+            outputId: "MyOtherPlot",
+            width: "50%",
+            height: "50%",
+          },
+        },
+      ],
     },
   ],
 };
