@@ -14,7 +14,7 @@ const ShinyTabPanel: UiNodeComponent<TabPanelSettings> = ({
   compRef,
 }) => {
   return (
-    <div className={classes.container}>
+    <div ref={compRef} className={classes.container}>
       {!uiChildren ? (
         <DropDetector
           dropFilters={{

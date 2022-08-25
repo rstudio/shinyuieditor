@@ -6,40 +6,44 @@ import { Tab } from "./Tab";
 import classes from "./Tabset.module.css";
 import { useActiveTab } from "./useActiveTab";
 
-const Tabset: React.FC<{ title: string; onNewTab: () => void }> = ({
-  title,
-  onNewTab,
-  children,
-}) => {
-  const tabNames = getTabNamesFromChildren(children);
-  const { activeTab, setActiveTab } = useActiveTab(tabNames);
+type TabsetProps = {
+  title: string;
+  onNewTab: () => void;
+  children?: React.ReactNode;
+};
 
-  return (
-    <div className={classes.container}>
-      <div className={classes.header}>
-        <h1 className={classes.pageTitle}>{title}</h1>
-        <div className={classes.tabs}>
-          {tabNames.map((name) => (
-            <Tab
-              key={name}
-              name={name}
-              isActive={name === activeTab}
-              onSelect={() => setActiveTab(name)}
+const Tabset = React.forwardRef<HTMLDivElement, TabsetProps>(
+  ({ title, onNewTab, children }, ref) => {
+    const tabNames = getTabNamesFromChildren(children);
+    const { activeTab, setActiveTab } = useActiveTab(tabNames);
+
+    return (
+      <div ref={ref} className={classes.container}>
+        <div className={classes.header}>
+          <h1 className={classes.pageTitle}>{title}</h1>
+          <div className={classes.tabs}>
+            {tabNames.map((name) => (
+              <Tab
+                key={name}
+                name={name}
+                isActive={name === activeTab}
+                onSelect={() => setActiveTab(name)}
+              />
+            ))}
+            <PlusButton
+              className={classes.addTabButton}
+              label="Add new tab"
+              onClick={onNewTab}
             />
-          ))}
-          <PlusButton
-            className={classes.addTabButton}
-            label="Add new tab"
-            onClick={onNewTab}
-          />
+          </div>
+        </div>
+        <div className={classes.tabContents}>
+          {selectActiveTab(children, activeTab)}
         </div>
       </div>
-      <div className={classes.tabContents}>
-        {selectActiveTab(children, activeTab)}
-      </div>
-    </div>
-  );
-};
+    );
+  }
+);
 
 export default Tabset;
 

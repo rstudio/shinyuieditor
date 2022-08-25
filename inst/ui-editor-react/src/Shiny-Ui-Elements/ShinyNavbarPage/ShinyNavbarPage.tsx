@@ -28,6 +28,7 @@ const ShinyNavbarPage: UiNodeComponent<NavbarPageSettings> = ({
     <Tabset
       title={pageTitle}
       onNewTab={() => console.log("New panel requested")}
+      ref={compRef}
     >
       {uiChildren ? (
         uiChildren.map((node, i) => {
