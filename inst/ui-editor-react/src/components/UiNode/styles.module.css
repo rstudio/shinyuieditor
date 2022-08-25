@@ -16,7 +16,9 @@ div.selectedOverlay {
 .leaf {
   position: relative;
 }
-
+.selectedNode {
+  position: relative;
+}
 .selectedNode::before {
   content: "";
   position: absolute;
