@@ -176,6 +176,7 @@ export type UiNodeComponent<NodeSettings extends object> = React.FC<{
   uiArguments: NodeSettings;
   nodeInfo: NodeInfo;
   compRef: React.RefObject<HTMLDivElement>;
+  uiChildren: ShinyUiChildren;
 }>;
 
 export type UiContainerNodeComponent<NodeSettings extends object> = React.FC<{

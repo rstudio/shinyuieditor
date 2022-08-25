@@ -4,7 +4,6 @@ import { useNodeSelectionState } from "NodeSelectionState";
 import type {
   NodePath,
   ShinyUiNode,
-  UiContainerNodeComponent,
   UiNodeComponent,
 } from "Shiny-Ui-Elements/uiNodeTypes";
 import { shinyUiNodeInfo } from "Shiny-Ui-Elements/uiNodeTypes";
@@ -48,26 +47,14 @@ const UiNode = ({
   });
   usePathInformation(componentRef, path);
 
-  if (componentInfo.acceptsChildren === true) {
-    const Comp = componentInfo.UiComponent as UiContainerNodeComponent<
-      typeof uiArguments
-    >;
-
-    return (
-      <Comp
-        uiArguments={uiArguments}
-        uiChildren={uiChildren ?? []}
-        compRef={componentRef}
-        nodeInfo={{ path }}
-      >
-        {isSelected ? <div className={classes.selectedOverlay} /> : null}
-      </Comp>
-    );
-  }
   const Comp = componentInfo.UiComponent as UiNodeComponent<typeof uiArguments>;
-
   return (
-    <Comp uiArguments={uiArguments} compRef={componentRef} nodeInfo={{ path }}>
+    <Comp
+      uiArguments={uiArguments}
+      uiChildren={uiChildren ?? []}
+      compRef={componentRef}
+      nodeInfo={{ path }}
+    >
       {isSelected ? <div className={classes.selectedOverlay} /> : null}
     </Comp>
   );
