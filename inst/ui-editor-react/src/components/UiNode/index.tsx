@@ -35,7 +35,7 @@ const UiNode = ({
 }: UiNodeSettings & ShinyUiNode) => {
   const componentRef = React.useRef<HTMLDivElement>(null);
   const { uiName, uiArguments, uiChildren } = node;
-  const [selectedPath, setNodeSelection] = useNodeSelectionState();
+  const [selectedPath] = useNodeSelectionState();
   const isSelected = selectedPath ? sameArray(path, selectedPath) : false;
 
   const componentInfo = shinyUiNodeInfo[uiName];

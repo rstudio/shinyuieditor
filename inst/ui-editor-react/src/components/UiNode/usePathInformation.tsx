@@ -14,7 +14,7 @@ export function usePathInformation(
   ref: React.RefObject<HTMLDivElement>,
   path: NodePath
 ) {
-  const [selectedPath, setNodeSelection] = useNodeSelectionState();
+  const [, setNodeSelection] = useNodeSelectionState();
 
   const handleClick = React.useCallback(
     (e: MouseEvent) => {
