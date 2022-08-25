@@ -34,4 +34,4 @@ jobs:
         run: |
           yarn build
           # If this fails then the build is stale compared to source
-          git diff --quiet ./inst/ui-editor-react/build/
+          git diff --exit-code -- build/
