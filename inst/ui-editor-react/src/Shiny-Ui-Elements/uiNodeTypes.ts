@@ -175,12 +175,12 @@ type NodeInfo = {
 /**
  * Type of component defining the app view of a given ui node
  */
-export type UiNodeComponent<NodeSettings extends object> = React.FC<{
+export type UiNodeComponent<NodeSettings extends object> = (props: {
   uiArguments: NodeSettings;
   nodeInfo: NodeInfo;
   compRef: React.RefObject<HTMLDivElement>;
   uiChildren?: ShinyUiChildren;
-}>;
+}) => JSX.Element;
 
 /**
  * The settings updater component is simply takes the settings object and is

@@ -49,7 +49,7 @@ const UiNode = ({
       uiChildren={uiChildren}
       compRef={componentRef}
       nodeInfo={{ path }}
-    ></Comp>
+    />
   );
 };
 
