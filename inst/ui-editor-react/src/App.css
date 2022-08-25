@@ -42,6 +42,9 @@
   --font-color-disabled: hsl(214 9% 15% / 0.5);
 
   --selected-border-color: var(--rstudio-blue);
+  --selected-border-width: 3px;
+  --selected-outline: var(--selected-border-width) solid
+    var(--selected-border-color);
   --outline-color: var(--grey);
 
   --disabled-color: hsl(var(--rstudio-grey-hsl) / 0.5);
@@ -50,7 +53,6 @@
   --corner-radius: 8px;
   --vertical-spacing: 10px;
   --horizontal-spacing: 15px;
-  --selected-border-width: 3px;
   --animation-speed: 0.2s;
   --animation-curve: ease-in-out;
   --outline: 1px solid var(--outline-color);

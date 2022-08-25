@@ -17,7 +17,6 @@
 .tabContents {
   flex-grow: 1;
   position: relative;
-  background-color: aliceblue;
 }
 
 .pageTitle {
@@ -48,7 +47,9 @@
 }
 
 .tab[data-active-tab="true"] {
-  background-color: white;
+  background-color: var(--rstudio-white);
+  border: var(--selected-outline);
+  border-bottom-color: var(--rstudio-white);
 }
 
 .tabContents {
