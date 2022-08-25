@@ -36,7 +36,7 @@ export function EditorContainer() {
             className={classes.shinyLogo}
             style={{ backgroundColor: "var(--rstudio-blue, pink)" }}
           />
-          <h1 className={classes.title}>Shiny UI Editor2</h1>
+          <h1 className={classes.title}>Shiny UI Editor</h1>
           <div className={classes.rightSide}>
             <AppTour />
             <div className={classes.divider} />
