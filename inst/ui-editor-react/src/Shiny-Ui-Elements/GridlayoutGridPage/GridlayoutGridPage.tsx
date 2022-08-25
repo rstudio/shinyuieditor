@@ -37,18 +37,9 @@ export const LayoutDispatchContext =
 
 export const GridlayoutGridPage: UiContainerNodeComponent<
   TemplatedGridProps
-> = ({
-  uiArguments: layoutDef,
-  uiChildren,
-  children,
-  eventHandlers,
-  nodeInfo,
-  compRef,
-}) => {
+> = ({ uiArguments: layoutDef, uiChildren, children, nodeInfo, compRef }) => {
   const dispatch = useDispatch();
   const place_node = usePlaceNode();
-
-  const { onClick } = eventHandlers;
 
   const { uniqueAreas } = parseGridTemplateAreas(layoutDef);
 
@@ -162,7 +153,6 @@ export const GridlayoutGridPage: UiContainerNodeComponent<
         ref={compRef}
         style={stylesForGrid}
         className={classes.container}
-        onClick={onClick}
         // Disable dragging on the main app
         draggable={false}
         onDragStart={() => {}}

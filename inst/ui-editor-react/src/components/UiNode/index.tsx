@@ -13,7 +13,7 @@ import { sameArray } from "utils/equalityCheckers";
 import { useMakeDraggable } from "../../DragAndDropHelpers/useMakeDraggable";
 
 import classes from "./styles.module.css";
-import { useDataPath } from "./useDataPath";
+import { usePathInformation } from "./usePathInformation";
 
 type UiNodeSettings = {
   path?: NodePath;
@@ -41,17 +41,12 @@ const UiNode = ({
 
   const componentInfo = shinyUiNodeInfo[uiName];
 
-  const handleClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setNodeSelection(path);
-  };
-
   useMakeDraggable({
     ref: componentRef,
     nodeInfo: { node, currentPath: path },
     immovable: !canMove,
   });
-  useDataPath({ ref: componentRef, path });
+  usePathInformation(componentRef, path);
 
   if (componentInfo.acceptsChildren === true) {
     const Comp = componentInfo.UiComponent as UiContainerNodeComponent<
@@ -63,7 +58,6 @@ const UiNode = ({
         uiArguments={uiArguments}
         uiChildren={uiChildren ?? []}
         compRef={componentRef}
-        eventHandlers={{ onClick: handleClick }}
         nodeInfo={{ path }}
       >
         {isSelected ? <div className={classes.selectedOverlay} /> : null}
@@ -73,12 +67,7 @@ const UiNode = ({
   const Comp = componentInfo.UiComponent as UiNodeComponent<typeof uiArguments>;
 
   return (
-    <Comp
-      uiArguments={uiArguments}
-      compRef={componentRef}
-      eventHandlers={{ onClick: handleClick }}
-      nodeInfo={{ path }}
-    >
+    <Comp uiArguments={uiArguments} compRef={componentRef} nodeInfo={{ path }}>
       {isSelected ? <div className={classes.selectedOverlay} /> : null}
     </Comp>
   );

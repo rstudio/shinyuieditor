@@ -20,7 +20,6 @@ const GridlayoutGridCard: UiContainerNodeComponent<GridCardSettings> = ({
   uiChildren,
   nodeInfo: { path },
   children,
-  eventHandlers,
   compRef,
 }) => {
   const has_children = uiChildren.length > 0;
@@ -37,7 +36,6 @@ const GridlayoutGridCard: UiContainerNodeComponent<GridCardSettings> = ({
           "--item-gap": item_gap,
         } as React.CSSProperties
       }
-      onClick={eventHandlers.onClick}
     >
       {title ? (
         <BsCardHeader className={classes.panelTitle}>{title}</BsCardHeader>

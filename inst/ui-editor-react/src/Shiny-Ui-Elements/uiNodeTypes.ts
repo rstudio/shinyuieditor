@@ -168,13 +168,6 @@ export type ShinyUiNodeByName = {
  */
 export type ShinyUiNode = ShinyUiNodeByName[ShinyUiNames];
 
-type AllowedBaseElements = HTMLDivElement;
-
-type BaseElementProps = React.DetailedHTMLProps<
-  React.HTMLAttributes<AllowedBaseElements>,
-  AllowedBaseElements
->;
-
 type NodeInfo = {
   path: NodePath;
 };
@@ -182,7 +175,6 @@ type NodeInfo = {
 export type UiNodeComponent<NodeSettings extends object> = React.FC<{
   uiArguments: NodeSettings;
   nodeInfo: NodeInfo;
-  eventHandlers: Pick<BaseElementProps, "onClick">;
   compRef: React.RefObject<HTMLDivElement>;
 }>;
 
@@ -191,7 +183,6 @@ export type UiContainerNodeComponent<NodeSettings extends object> = React.FC<{
   uiChildren: ShinyUiChildren;
   nodeInfo: NodeInfo;
   compRef: React.RefObject<HTMLDivElement>;
-  eventHandlers: Pick<BaseElementProps, "onClick">;
 }>;
 
 /**
