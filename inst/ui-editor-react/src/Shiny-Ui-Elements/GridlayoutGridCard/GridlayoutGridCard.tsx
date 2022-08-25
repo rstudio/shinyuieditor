@@ -3,6 +3,7 @@ import React from "react";
 import DeleteNodeButton from "components/DeleteNodeButton";
 import UiNode from "components/UiNode";
 import type { NodePath, UiNodeComponent } from "Shiny-Ui-Elements/uiNodeTypes";
+import { makeChildPath } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import { BsCard, BsCardHeader } from "../GridLayoutPanelHelpers/GridCards";
 
@@ -45,7 +46,7 @@ const GridlayoutGridCard: UiNodeComponent<GridCardSettings> = ({
         {numChildren > 0 ? (
           uiChildren?.map((childNode, i) => (
             <React.Fragment key={path.join(".") + i}>
-              <UiNode path={[...path, i]} {...childNode} />
+              <UiNode path={makeChildPath(path, i)} {...childNode} />
               <DropWatcherPanel
                 index={i + 1}
                 numChildren={uiChildren.length}

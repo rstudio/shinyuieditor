@@ -7,7 +7,7 @@ import type {
   ShinyUiNodeByName,
   UiNodeComponent,
 } from "Shiny-Ui-Elements/uiNodeTypes";
-import { makeChildPath, NodePath } from "Shiny-Ui-Elements/uiNodeTypes";
+import { makeChildPath } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import type { NavbarPageSettings } from "./index";
 
