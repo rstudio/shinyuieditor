@@ -9,7 +9,7 @@ import { useActiveTab } from "./useActiveTab";
 type TabsetProps = {
   title: string;
   onNewTab: () => void;
-  onTabSelect: (tabIndex: number) => void;
+  onTabSelect?: (tabIndex: number) => void;
   children?: React.ReactNode;
 };
 
@@ -30,7 +30,7 @@ const Tabset = React.forwardRef<HTMLDivElement, TabsetProps>(
                 isActive={name === activeTab}
                 onSelect={() => {
                   setActiveTab(name);
-                  onTabSelect(i);
+                  onTabSelect?.(i);
                 }}
               />
             ))}
