@@ -50,7 +50,7 @@ export function EditorContainer() {
           <ElementsPalette />
         </div>
         <div className={classes.editorHolder + " app-view"}>
-          <UiNode {...tree} />
+          <UiNode {...tree} path={[]} />
         </div>
         <div className={`${classes.propertiesPanel}`}>
           <div className={`${classes.titledPanel} properties-panel`}>

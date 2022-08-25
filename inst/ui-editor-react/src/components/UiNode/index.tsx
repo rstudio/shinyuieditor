@@ -12,7 +12,7 @@ import { useMakeDraggable } from "../../DragAndDropHelpers/useMakeDraggable";
 import { usePathInformation } from "./usePathInformation";
 
 type UiNodeSettings = {
-  path?: NodePath;
+  path: NodePath;
   /**
    * Should this node be allowed to be dragged out of its parent node? This
    * would be set to false for a container that typically always stays wrapped
@@ -26,7 +26,7 @@ type UiNodeSettings = {
  * Recursively render the nodes in a UI Tree
  */
 const UiNode = ({
-  path = [],
+  path,
   canMove = true,
   ...node
 }: UiNodeSettings & ShinyUiNode) => {
