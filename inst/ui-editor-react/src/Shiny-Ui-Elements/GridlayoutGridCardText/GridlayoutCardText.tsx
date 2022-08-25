@@ -11,9 +11,7 @@ import classes from "./styles.module.css";
 
 const GridlayoutGridCardText: UiNodeComponent<GridlayoutGridCardTextProps> = ({
   uiArguments: { content: title, area, alignment },
-  children,
   nodeInfo: { path },
-  eventHandlers,
   compRef,
 }) => {
   useGridItemSwapping({ containerRef: compRef, area, path });
@@ -24,10 +22,8 @@ const GridlayoutGridCardText: UiNodeComponent<GridlayoutGridCardTextProps> = ({
       className={classes.textPanel + " gridlayout-textPanel"}
       style={{ gridArea: area, justifyItems: alignment }}
       aria-label={"gridlayout-textPanel"}
-      {...eventHandlers}
     >
       <h1>{title}</h1>
-      {children}
     </BsCard>
   );
 };

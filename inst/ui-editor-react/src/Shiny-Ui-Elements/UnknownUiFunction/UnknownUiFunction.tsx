@@ -9,8 +9,6 @@ import classes from "./styles.module.css";
 const num_preview_chars = 20;
 const UnknownUiFunction: UiNodeComponent<UnknownUiFunctionProps> = ({
   uiArguments,
-  children,
-  eventHandlers,
   compRef,
 }) => {
   const functionName =
@@ -20,13 +18,10 @@ const UnknownUiFunction: UiNodeComponent<UnknownUiFunctionProps> = ({
       className={classes.container}
       ref={compRef}
       aria-label="shiny::uiOutput placeholder"
-      {...eventHandlers}
     >
       <div>
         unknown ui output: <code>{functionName}</code>
       </div>
-
-      {children}
     </div>
   );
 };

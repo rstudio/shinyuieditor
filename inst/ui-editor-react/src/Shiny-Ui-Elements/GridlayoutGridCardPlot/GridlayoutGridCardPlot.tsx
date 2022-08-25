@@ -12,9 +12,7 @@ import classes from "./styles.module.css";
 
 const GridlayoutGridCardPlot: UiNodeComponent<GridlayoutGridCardPlotProps> = ({
   uiArguments: { outputId, area },
-  children,
   nodeInfo: { path },
-  eventHandlers,
   compRef,
 }) => {
   useGridItemSwapping({ containerRef: compRef, area, path });
@@ -25,10 +23,8 @@ const GridlayoutGridCardPlot: UiNodeComponent<GridlayoutGridCardPlotProps> = ({
       style={{ gridArea: area }}
       className={classes.gridCardPlot + " gridlayout-gridCardPlot"}
       aria-label={"gridlayout-gridCardPlot"}
-      {...eventHandlers}
     >
       <PlotPlaceholder outputId={outputId ?? area} />
-      {children}
     </BsCard>
   );
 };

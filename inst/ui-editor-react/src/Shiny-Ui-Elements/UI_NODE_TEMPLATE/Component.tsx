@@ -8,7 +8,6 @@ const PkgNodeName: UiNodeComponent<NodeNameSettings> = ({
   uiArguments,
   uiChildren,
   nodeInfo: { path },
-  children,
   compRef,
 }) => {
   return <div className={classes.container}>NODE NAME: {uiArguments.name}</div>;

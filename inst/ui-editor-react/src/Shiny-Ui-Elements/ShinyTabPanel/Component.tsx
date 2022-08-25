@@ -11,13 +11,11 @@ const ShinyTabPanel: UiNodeComponent<TabPanelSettings> = ({
   uiArguments,
   uiChildren,
   nodeInfo: { path },
-  children,
-  eventHandlers,
   compRef,
 }) => {
   return (
     <div className={classes.container}>
-      {uiChildren.length === 0 ? (
+      {!uiChildren ? (
         <DropDetector
           dropFilters={{
             rejectedNodes: [

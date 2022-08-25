@@ -38,7 +38,6 @@ export const LayoutDispatchContext =
 export const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
   uiArguments: layoutDef,
   uiChildren,
-  children,
   nodeInfo,
   compRef,
 }) => {
@@ -177,7 +176,6 @@ export const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
               {...childNode}
             />
           ))}
-          {children}
           {areaOverlays}
         </EditableGridContainer>
       </div>

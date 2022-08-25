@@ -7,9 +7,7 @@ import type { ShinyRadioButtonsProps } from ".";
 import classes from "./styles.module.css";
 
 const ShinyRadioButtons: UiNodeComponent<ShinyRadioButtonsProps> = ({
-  children,
   uiArguments,
-  eventHandlers,
   compRef,
 }) => {
   const choices = uiArguments.choices;
@@ -31,7 +29,6 @@ const ShinyRadioButtons: UiNodeComponent<ShinyRadioButtonsProps> = ({
       ref={compRef}
       className={classes.container}
       style={{ width: uiArguments.width }}
-      {...eventHandlers}
     >
       <label>{uiArguments.label}</label>
       <div>
@@ -50,7 +47,6 @@ const ShinyRadioButtons: UiNodeComponent<ShinyRadioButtonsProps> = ({
           </div>
         ))}
       </div>
-      {children}
     </div>
   );
 };

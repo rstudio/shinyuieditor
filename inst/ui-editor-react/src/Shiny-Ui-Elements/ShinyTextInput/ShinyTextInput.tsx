@@ -7,9 +7,7 @@ import type { ShinyTextInputProps } from ".";
 import classes from "./styles.module.css";
 
 const ShinyTextInput: UiNodeComponent<ShinyTextInputProps> = ({
-  children,
   uiArguments,
-  eventHandlers,
   compRef,
 }) => {
   const width = "200px";
@@ -28,7 +26,6 @@ const ShinyTextInput: UiNodeComponent<ShinyTextInputProps> = ({
       style={{ height, width }}
       aria-label={"shiny::textInput"}
       ref={compRef}
-      {...eventHandlers}
     >
       <label htmlFor={settings.inputId}>{settings.label}</label>
       <input
@@ -38,7 +35,6 @@ const ShinyTextInput: UiNodeComponent<ShinyTextInputProps> = ({
         onChange={(e) => setValue(e.target.value)}
         placeholder={settings.placeholder}
       />
-      {children}
     </div>
   );
 };

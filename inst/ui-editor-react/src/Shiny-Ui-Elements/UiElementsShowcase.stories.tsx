@@ -54,9 +54,6 @@ function UiNodeAndSettings<T extends ShinyUiNames>({
             compRef={componentRef}
             uiChildren={[]}
             uiArguments={uiSettings}
-            eventHandlers={{
-              onClick: () => console.log(`Clicked the ${uiName} component`),
-            }}
             nodeInfo={{ path: [0] }}
           />
         </div>

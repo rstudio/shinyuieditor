@@ -5,15 +5,13 @@ import type { ShinySelectInputProps } from ".";
 import classes from "./styles.module.css";
 
 const ShinySelectInput: UiNodeComponent<ShinySelectInputProps> = ({
-  children,
   uiArguments,
-  eventHandlers,
   compRef,
 }) => {
   const choices = uiArguments.choices;
   const id = uiArguments.inputId;
   return (
-    <div ref={compRef} className={classes.container} {...eventHandlers}>
+    <div ref={compRef} className={classes.container}>
       <label htmlFor={id}>{uiArguments.label}</label>
       <select id={id}>
         {Object.keys(choices).map((key, i) => (
@@ -22,7 +20,6 @@ const ShinySelectInput: UiNodeComponent<ShinySelectInputProps> = ({
           </option>
         ))}
       </select>
-      {children}
     </div>
   );
 };

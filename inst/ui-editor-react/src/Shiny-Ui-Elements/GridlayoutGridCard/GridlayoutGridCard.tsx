@@ -16,10 +16,9 @@ const GridlayoutGridCard: UiNodeComponent<GridCardSettings> = ({
   uiArguments: { area, item_gap, title },
   uiChildren,
   nodeInfo: { path },
-  children,
   compRef,
 }) => {
-  const has_children = uiChildren.length > 0;
+  const numChildren = uiChildren?.length ?? 0;
 
   useGridItemSwapping({ containerRef: compRef, area, path });
 
@@ -41,9 +40,9 @@ const GridlayoutGridCard: UiNodeComponent<GridCardSettings> = ({
         <DropWatcherPanel
           index={0}
           parentPath={path}
-          numChildren={uiChildren.length}
+          numChildren={numChildren}
         />
-        {has_children ? (
+        {numChildren > 0 ? (
           uiChildren?.map((childNode, i) => (
             <React.Fragment key={path.join(".") + i}>
               <UiNode path={[...path, i]} {...childNode} />
@@ -58,7 +57,6 @@ const GridlayoutGridCard: UiNodeComponent<GridCardSettings> = ({
           <EmptyGridCardMessage path={path} />
         )}
       </div>
-      {children}
     </BsCard>
   );
 };

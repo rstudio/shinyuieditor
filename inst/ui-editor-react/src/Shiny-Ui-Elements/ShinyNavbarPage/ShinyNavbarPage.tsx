@@ -20,29 +20,30 @@ const ShinyNavbarPage: UiNodeComponent<NavbarPageSettings> = ({
   uiArguments: { title: pageTitle },
   uiChildren,
   nodeInfo: { path },
-  children,
-  eventHandlers,
   compRef,
 }) => {
-  const hasChildren = uiChildren.length > 0;
+  const hasChildren = Boolean(uiChildren);
 
   return (
     <Tabset
       title={pageTitle}
       onNewTab={() => console.log("New panel requested")}
     >
-      <EmptyNavbarPageMessage hasChildren={hasChildren} />
-      {uiChildren.map((node, i) => {
-        const nodePath = [...path, i];
-        const title = isTabPanelNode(node)
-          ? node.uiArguments.title
-          : "unknown tab";
-        return (
-          <TabPanel key={nodePath.join("-")} title={title}>
-            <UiNode path={nodePath} {...node} />
-          </TabPanel>
-        );
-      })}
+      {uiChildren ? (
+        uiChildren.map((node, i) => {
+          const nodePath = [...path, i];
+          const title = isTabPanelNode(node)
+            ? node.uiArguments.title
+            : "unknown tab";
+          return (
+            <TabPanel key={nodePath.join("-")} title={title}>
+              <UiNode path={nodePath} {...node} />
+            </TabPanel>
+          );
+        })
+      ) : (
+        <EmptyNavbarPageMessage hasChildren={hasChildren} />
+      )}
     </Tabset>
   );
 };
