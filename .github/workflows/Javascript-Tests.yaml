@@ -30,3 +30,8 @@ jobs:
           retention-days: 30
       - name: Run unit tests
         run: yarn test run
+      - name: Check if build is current
+        run: |
+          yarn build
+          # If this fails then the build is stale compared to source
+          git diff --exit-code -- build/
