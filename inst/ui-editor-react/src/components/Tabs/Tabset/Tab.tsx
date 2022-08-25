@@ -12,7 +12,6 @@ export const Tab = ({
   onSelect: () => void;
 }) => {
   const handleSelect: React.MouseEventHandler<HTMLDivElement> = (e) => {
-    console.log("Clicked on a tab!");
     e.stopPropagation();
     onSelect();
   };

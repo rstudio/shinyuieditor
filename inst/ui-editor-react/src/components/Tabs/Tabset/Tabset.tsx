@@ -16,7 +16,7 @@ type TabsetProps = {
 const Tabset = React.forwardRef<HTMLDivElement, TabsetProps>(
   ({ title, onNewTab, children, onTabSelect }, ref) => {
     const tabNames = getTabNamesFromChildren(children);
-    const { activeTab, setActiveTab } = useActiveTab(tabNames);
+    const { activeTab, setActiveTab } = useActiveTab(tabNames.length);
 
     return (
       <div ref={ref} className={classes.container}>
@@ -27,9 +27,9 @@ const Tabset = React.forwardRef<HTMLDivElement, TabsetProps>(
               <Tab
                 key={name}
                 name={name}
-                isActive={name === activeTab}
+                isActive={i === activeTab}
                 onSelect={() => {
-                  setActiveTab(name);
+                  setActiveTab(i);
                   onTabSelect?.(i);
                 }}
               />
@@ -68,8 +68,8 @@ function getTabNamesFromChildren(children: React.ReactNode): string[] {
   return tabIds;
 }
 
-function selectActiveTab(children: React.ReactNode, activeTab: string) {
-  return React.Children.map(children, (child) => {
+function selectActiveTab(children: React.ReactNode, activeTab: number) {
+  return React.Children.map(children, (child, i) => {
     if (!React.isValidElement(child)) {
       return child;
     }
@@ -78,10 +78,7 @@ function selectActiveTab(children: React.ReactNode, activeTab: string) {
 
     if (typeof tabId === "string") {
       return (
-        <div
-          className={classes.tabContents}
-          data-active-tab={tabId === activeTab}
-        >
+        <div className={classes.tabContents} data-active-tab={i === activeTab}>
           {child}
         </div>
       );

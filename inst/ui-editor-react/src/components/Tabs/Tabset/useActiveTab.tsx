@@ -1,20 +1,21 @@
 import React from "react";
 
-export function useActiveTab(
-  tabNames: string[],
-  initalSelection: string = tabNames[0]
-) {
-  const [activeTab, setActiveTab] = React.useState<string>(initalSelection);
+export function useActiveTab(numTabs: number, initalSelection: number = 0) {
+  const [activeTab, setActiveTab] = React.useState<number>(initalSelection);
 
-  const setActiveTabVerified = (tabName: string) => {
-    if (!tabNames.includes(tabName)) {
+  React.useEffect(() => {
+    if (numTabs <= activeTab) {
+      // If we have a selected tab that is no longer present, delete it
+      setActiveTab(numTabs - 1);
+    }
+  }, [activeTab, numTabs]);
+  const setActiveTabVerified = (tabIndex: number) => {
+    if (numTabs <= tabIndex) {
       throw new Error(
-        `Can't select tab that doesn't exist (${tabName}). Available names include ${tabNames.join(
-          ","
-        )}.`
+        `Can't select tab that doesn't exist (${tabIndex}). Only ${numTabs} exist.`
       );
     }
-    setActiveTab(tabName);
+    setActiveTab(tabIndex);
   };
 
   return { activeTab, setActiveTab: setActiveTabVerified };
