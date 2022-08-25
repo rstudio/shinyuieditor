@@ -1,17 +1,14 @@
 import React from "react";
 
-import { useNodeSelectionState } from "NodeSelectionState";
 import type {
   NodePath,
   ShinyUiNode,
   UiNodeComponent,
 } from "Shiny-Ui-Elements/uiNodeTypes";
 import { shinyUiNodeInfo } from "Shiny-Ui-Elements/uiNodeTypes";
-import { sameArray } from "utils/equalityCheckers";
 
 import { useMakeDraggable } from "../../DragAndDropHelpers/useMakeDraggable";
 
-import classes from "./styles.module.css";
 import { usePathInformation } from "./usePathInformation";
 
 type UiNodeSettings = {
@@ -35,8 +32,6 @@ const UiNode = ({
 }: UiNodeSettings & ShinyUiNode) => {
   const componentRef = React.useRef<HTMLDivElement>(null);
   const { uiName, uiArguments, uiChildren } = node;
-  const [selectedPath] = useNodeSelectionState();
-  const isSelected = selectedPath ? sameArray(path, selectedPath) : false;
 
   const componentInfo = shinyUiNodeInfo[uiName];
 
@@ -54,9 +49,7 @@ const UiNode = ({
       uiChildren={uiChildren}
       compRef={componentRef}
       nodeInfo={{ path }}
-    >
-      {isSelected ? <div className={classes.selectedOverlay} /> : null}
-    </Comp>
+    ></Comp>
   );
 };
 

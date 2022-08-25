@@ -2,6 +2,9 @@ import React from "react";
 
 import { useNodeSelectionState } from "NodeSelectionState";
 import type { NodePath } from "Shiny-Ui-Elements/uiNodeTypes";
+import { sameArray } from "utils/equalityCheckers";
+
+import classes from "./styles.module.css";
 
 /**
  * Attach path information and click information to a given ui node ref. This
@@ -14,7 +17,7 @@ export function usePathInformation(
   ref: React.RefObject<HTMLDivElement>,
   path: NodePath
 ) {
-  const [, setNodeSelection] = useNodeSelectionState();
+  const [selectedPath, setNodeSelection] = useNodeSelectionState();
 
   const handleClick = React.useCallback(
     (e: MouseEvent) => {
@@ -23,6 +26,18 @@ export function usePathInformation(
     },
     [path, setNodeSelection]
   );
+
+  // A colored border surrounds the elements that are selected
+  React.useEffect(() => {
+    const nodeElement = ref.current;
+    if (!nodeElement) return;
+
+    if (sameArray(selectedPath ?? [], path)) {
+      nodeElement.classList.add(classes.selectedNode);
+    } else {
+      nodeElement.classList.remove(classes.selectedNode);
+    }
+  }, [path, ref, selectedPath]);
 
   React.useEffect(() => {
     const nodeElement = ref.current;

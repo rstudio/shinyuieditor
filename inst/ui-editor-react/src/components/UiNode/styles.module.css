@@ -16,3 +16,10 @@ div.selectedOverlay {
 .leaf {
   position: relative;
 }
+
+.selectedNode::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  outline: var(--selected-border-width) solid var(--selected-border-color, pink);
+}
