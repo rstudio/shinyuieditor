@@ -22,4 +22,5 @@ div.selectedOverlay {
   position: absolute;
   inset: 0;
   outline: var(--selected-border-width) solid var(--selected-border-color, pink);
+  pointer-events: none;
 }

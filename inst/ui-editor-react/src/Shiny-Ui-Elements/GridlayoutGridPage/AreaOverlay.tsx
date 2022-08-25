@@ -47,7 +47,7 @@ export function AreaOverlay({
           key={resizeDir}
           className={classes.dragger + " " + resizeDir}
           onMouseDown={(e) => {
-            stopParentDrag(e);
+            stopEventPropigation(e);
             startDrag(resizeDir);
           }}
         >
@@ -63,13 +63,22 @@ export function AreaOverlay({
   }, [area]);
 
   return (
-    <div ref={overlayRef} className={classes.marker + " grid-area-overlay"}>
+    <div
+      ref={overlayRef}
+      // We need to capture the click event here to prevent the drag from being
+      // intepreted as a click on the parent element. We need `onClickCapture`
+      // instead of `onClick` due to how react events start from the root so
+      // stopping propigation on the react event will not cause the click event
+      // from propigating to the parent
+      onClickCapture={stopEventPropigation}
+      className={classes.marker + " grid-area-overlay"}
+    >
       {movementHandles}
     </div>
   );
 }
 
-function stopParentDrag(e: React.MouseEvent<HTMLElement>) {
+function stopEventPropigation(e: React.MouseEvent<HTMLElement>) {
   // These prevent this mousedown from triggering things like drag on the parent
   e.preventDefault();
   e.stopPropagation();

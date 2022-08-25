@@ -20,6 +20,8 @@
 }
 
 .marker:global(.dragging) {
+  /* Enable pointer events when dragging so click events can be intercepted */
+  pointer-events: all;
   grid-row-start: var(--drag-grid-row-start);
   grid-row-end: var(--drag-grid-row-end);
   grid-column-start: var(--drag-grid-column-start);
