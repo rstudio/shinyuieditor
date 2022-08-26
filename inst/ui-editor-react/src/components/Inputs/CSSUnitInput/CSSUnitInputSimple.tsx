@@ -71,6 +71,7 @@ export function CSSUnitInputSimple({
   return (
     <div className={classes.wrapper} aria-label="Css Unit Input">
       <NumericInputSimple
+        name="value-count"
         ariaLabel="value-count"
         value={no_count ? undefined : count}
         disabled={no_count}

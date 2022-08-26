@@ -14,6 +14,7 @@ export function TextInputSimple({
   autoFocus,
   disabled = false,
   placeholder,
+  name,
 }: {
   value?: string;
   ariaLabel?: string;
@@ -21,6 +22,7 @@ export function TextInputSimple({
   placeholder?: string;
   autoFocus?: boolean;
   disabled?: boolean;
+  name: string;
 }) {
   const inputElement = React.useRef<HTMLInputElement>(null);
 
@@ -35,6 +37,7 @@ export function TextInputSimple({
 
   return (
     <input
+      name={name}
       ref={inputElement}
       className={classes.input}
       type="text"
@@ -84,6 +87,7 @@ export function TextInput({
       width_setting="full"
       mainInput={
         <TextInputSimple
+          name={name}
           ariaLabel={"input for " + name}
           value={value}
           placeholder={placeholder}

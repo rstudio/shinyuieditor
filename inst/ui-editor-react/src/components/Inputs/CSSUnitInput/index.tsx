@@ -81,6 +81,7 @@ export function CSSUnitInput({
       }}
     >
       <NumericInputSimple
+        name="value-count"
         ariaLabel="value-count"
         value={countIsDisabled ? undefined : cssValue.count}
         disabled={countIsDisabled}
