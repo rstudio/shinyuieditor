@@ -2,20 +2,20 @@ import type React from "react";
 
 import type { DeleteAction, UpdateAction } from "state/uiTree";
 
-import gridlayoutGridCardInfo from "./GridlayoutGridCard";
+import { gridlayoutGridCardInfo } from "./GridlayoutGridCard";
 import { GridlayoutGridCardPlotInfo } from "./GridlayoutGridCardPlot";
 import { gridlayoutTextPanelInfo } from "./GridlayoutGridCardText";
 import { gridlayoutGridPageInfo } from "./GridlayoutGridPage";
 import { shinyActionButtonInfo } from "./ShinyActionButton";
 import { shinyCheckboxGroupInputInfo } from "./ShinyCheckboxGroupInput";
 import { shinyCheckboxInputInfo } from "./ShinyCheckboxInput";
-import shinyNavbarPageInfo from "./ShinyNavbarPage";
+import { shinyNavbarPageInfo } from "./ShinyNavbarPage";
 import { shinyNumericInputInfo } from "./ShinyNumericInput";
 import { shinyPlotOutputInfo } from "./ShinyPlotOutput";
 import { shinyRadioButtonsInfo } from "./ShinyRadioButtons";
 import { shinySelectInputInfo } from "./ShinySelectInput";
 import { shinySliderInputInfo } from "./ShinySliderInput";
-import shinyTabPanelInfo from "./ShinyTabPanel";
+import { shinyTabPanelInfo } from "./ShinyTabPanel";
 import { shinyTextInputInfo } from "./ShinyTextInput";
 import { shinyTextOutputInfo } from "./ShinyTextOutput";
 import { shinyUiOutputInfo } from "./ShinyUiOutput";

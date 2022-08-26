@@ -23,5 +23,3 @@ export const shinyNavbarPageInfo: UiComponentInfo<NavbarPageSettings> = {
   category: "layouts",
   description: "Layout an app with tab-based navigation",
 };
-
-export default shinyNavbarPageInfo;
