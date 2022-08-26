@@ -24,6 +24,7 @@ export const Tab = ({
       // click event is propagated all the way to the root before react starts
       // handling it
       onClickCapture={handleSelect}
+      aria-label={isActive ? `Active tab ${name}` : `Select ${name} tab`}
     >
       {name}
     </div>
