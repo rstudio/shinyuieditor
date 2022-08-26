@@ -6,7 +6,6 @@ import classes from "./styles.module.css";
 
 const ShinyUiOutput: UiNodeComponent<ShinyUiOutputProps> = ({
   uiArguments,
-  compRef,
   wrapperProps,
 }) => {
   const { outputId = "shiny-ui-output" } = uiArguments;
@@ -14,7 +13,6 @@ const ShinyUiOutput: UiNodeComponent<ShinyUiOutputProps> = ({
   return (
     <div
       className={classes.container}
-      ref={compRef}
       aria-label="shiny::uiOutput placeholder"
       {...wrapperProps}
     >

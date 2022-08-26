@@ -4,11 +4,9 @@ import type { DraggedNodeInfo } from "./DragAndDropHelpers";
 import { DraggedNodeContext } from "./useCurrentDraggedNode";
 
 export function useMakeDraggable({
-  ref,
   nodeInfo,
   immovable = false,
 }: {
-  ref: React.RefObject<HTMLDivElement>;
   nodeInfo: DraggedNodeInfo;
   // A way of disabling drag behavior
   immovable?: boolean;
@@ -43,7 +41,7 @@ export function useMakeDraggable({
   }, [immovable, setDraggedNode]);
 
   const startDrag = React.useCallback(
-    (e: DragEvent) => {
+    (e: React.DragEvent<HTMLDivElement>) => {
       e.stopPropagation();
       setDraggedNode(nodeInfo);
       dragHappening.current = true;
@@ -53,28 +51,17 @@ export function useMakeDraggable({
     [endDrag, nodeInfo, setDraggedNode]
   );
 
-  React.useEffect(() => {
-    if (nodeInfo.currentPath?.length === 0 || immovable) {
-      // Don't let the root node be dragged. It can't go anywhere and causes
-      // super annoying visual shift
-      return;
-    }
+  if (nodeInfo.currentPath?.length === 0 || immovable) {
+    // Don't let the root node be dragged. It can't go anywhere and causes
+    // super annoying visual shift
+    return {};
+  }
 
-    const watcherEl = ref.current;
-    if (!watcherEl) return;
-
-    watcherEl.setAttribute("draggable", "true");
-    watcherEl.addEventListener("dragstart", startDrag);
-
-    // We still keep listening for the dragend event in case the user drops the
-    // item off the screen and thus the body can not detect the drop
-    watcherEl.addEventListener("dragend", endDrag);
-
-    return () => {
-      watcherEl.removeEventListener("dragstart", startDrag);
-      watcherEl.removeEventListener("dragend", endDrag);
-    };
-  }, [endDrag, immovable, nodeInfo.currentPath, startDrag, ref]);
+  return {
+    onDragStart: startDrag,
+    onDragEnd: endDrag,
+    draggable: true,
+  };
 }
 
 // This is just needed to let the drop event fire

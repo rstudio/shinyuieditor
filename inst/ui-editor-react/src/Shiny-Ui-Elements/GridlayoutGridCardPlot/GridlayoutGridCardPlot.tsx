@@ -13,9 +13,10 @@ import classes from "./styles.module.css";
 const GridlayoutGridCardPlot: UiNodeComponent<GridlayoutGridCardPlotProps> = ({
   uiArguments: { outputId, area },
   nodeInfo: { path },
-  compRef,
   wrapperProps,
 }) => {
+  const compRef = React.useRef<HTMLDivElement>(null);
+
   useGridItemSwapping({ containerRef: compRef, area, path });
 
   return (

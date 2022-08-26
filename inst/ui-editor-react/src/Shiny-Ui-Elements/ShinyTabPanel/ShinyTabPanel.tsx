@@ -11,13 +11,12 @@ const ShinyTabPanel: UiNodeComponent<TabPanelSettings> = ({
   uiArguments,
   uiChildren,
   nodeInfo: { path },
-  compRef,
   wrapperProps,
 }) => {
   const hasChildren = uiChildren && uiChildren.length > 0;
 
   return (
-    <div ref={compRef} className={classes.container} {...wrapperProps}>
+    <div className={classes.container} {...wrapperProps}>
       {hasChildren ? (
         <RenderUiChildren uiChildren={uiChildren} parentPath={path} />
       ) : (

@@ -35,8 +35,6 @@ function UiNodeAndSettings<T extends ShinyUiNames>({
   const [uiSettings, setUiSettings] =
     React.useState<NodeSettingsType>(uiArguments);
 
-  const componentRef = React.useRef<HTMLDivElement>(null);
-
   const updateSettings: OnChangeCallback = ({ name, value }) => {
     setUiSettings({ ...uiSettings, [name]: value });
   };
@@ -51,10 +49,16 @@ function UiNodeAndSettings<T extends ShinyUiNames>({
         <h1>Ui Component</h1>
         <div className={classes.uiHolder}>
           <NodeComponent
-            compRef={componentRef}
             uiChildren={[]}
             uiArguments={uiSettings}
             nodeInfo={{ path: [0] }}
+            wrapperProps={{
+              onClick: (e) => {
+                console.log("Clicked node", e);
+              },
+              "data-sue-path": "0",
+              "data-is-selected-node": false,
+            }}
           />
         </div>
       </div>

@@ -8,7 +8,6 @@ const PkgNodeName: UiNodeComponent<NodeNameSettings> = ({
   uiArguments,
   uiChildren,
   nodeInfo: { path },
-  compRef,
   wrapperProps,
 }) => {
   return (

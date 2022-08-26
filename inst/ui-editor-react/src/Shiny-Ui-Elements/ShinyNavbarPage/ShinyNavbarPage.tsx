@@ -22,7 +22,6 @@ const ShinyNavbarPage: UiNodeComponent<NavbarPageSettings> = ({
   uiArguments: { title: pageTitle },
   uiChildren,
   nodeInfo: { path },
-  compRef,
   wrapperProps,
 }) => {
   const setSelectedPath = useSetSelectedPath();
@@ -33,7 +32,6 @@ const ShinyNavbarPage: UiNodeComponent<NavbarPageSettings> = ({
       title={pageTitle}
       onNewTab={() => console.log("New panel requested")}
       onTabSelect={(tabIndex) => setSelectedPath(makeChildPath(path, tabIndex))}
-      ref={compRef}
       {...wrapperProps}
     >
       {uiChildren ? (

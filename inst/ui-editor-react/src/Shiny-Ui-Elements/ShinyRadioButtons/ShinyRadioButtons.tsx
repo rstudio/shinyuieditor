@@ -8,7 +8,6 @@ import classes from "./styles.module.css";
 
 const ShinyRadioButtons: UiNodeComponent<ShinyRadioButtonsProps> = ({
   uiArguments,
-  compRef,
   wrapperProps,
 }) => {
   const choices = uiArguments.choices;
@@ -27,7 +26,6 @@ const ShinyRadioButtons: UiNodeComponent<ShinyRadioButtonsProps> = ({
 
   return (
     <div
-      ref={compRef}
       className={classes.container}
       style={{ width: uiArguments.width }}
       {...wrapperProps}

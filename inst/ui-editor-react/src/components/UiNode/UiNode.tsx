@@ -9,7 +9,7 @@ import { shinyUiNodeInfo } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import { useMakeDraggable } from "../../DragAndDropHelpers/useMakeDraggable";
 
-import { usePathInformation, usePathInformation2 } from "./usePathInformation";
+import { usePathInformation } from "./usePathInformation";
 
 type UiNodeSettings = {
   path: NodePath;
@@ -30,27 +30,28 @@ const UiNode = ({
   canMove = true,
   ...node
 }: UiNodeSettings & ShinyUiNode) => {
-  const componentRef = React.useRef<HTMLDivElement>(null);
   const { uiName, uiArguments, uiChildren } = node;
 
   const componentInfo = shinyUiNodeInfo[uiName];
 
-  useMakeDraggable({
-    ref: componentRef,
+  const dragProps = useMakeDraggable({
     nodeInfo: { node, currentPath: path },
     immovable: !canMove,
   });
-  usePathInformation(componentRef, path);
-  const { onClick } = usePathInformation2(path);
+  const { onClick, isSelected } = usePathInformation(path);
 
   const Comp = componentInfo.UiComponent as UiNodeComponent<typeof uiArguments>;
 
   return (
     <Comp
-      wrapperProps={{ onClick, "data-sue-path": path.join("-") }}
+      wrapperProps={{
+        onClick,
+        "data-sue-path": path.join("-"),
+        "data-is-selected-node": isSelected,
+        ...dragProps,
+      }}
       uiArguments={uiArguments}
       uiChildren={uiChildren}
-      compRef={componentRef}
       nodeInfo={{ path }}
     />
   );

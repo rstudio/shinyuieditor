@@ -39,7 +39,6 @@ export const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
   uiArguments: layoutDef,
   uiChildren,
   nodeInfo,
-  compRef,
   wrapperProps,
 }) => {
   const dispatch = useDispatch();
@@ -154,7 +153,6 @@ export const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
   return (
     <LayoutDispatchContext.Provider value={handleLayoutUpdate}>
       <div
-        ref={compRef}
         style={stylesForGrid}
         className={classes.container}
         {...wrapperProps}

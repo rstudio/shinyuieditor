@@ -10,7 +10,6 @@ import classes from "./styles.module.css";
 
 const ShinySliderInput: UiNodeComponent<ShinySliderInputProps> = ({
   uiArguments,
-  compRef,
   wrapperProps,
 }) => {
   const settings = { ...uiArguments };
@@ -21,7 +20,6 @@ const ShinySliderInput: UiNodeComponent<ShinySliderInputProps> = ({
       className={classes.container + " shiny::sliderInput"}
       style={{ width }}
       aria-label={"shiny::sliderInput"}
-      ref={compRef}
       {...wrapperProps}
     >
       <div>{settings.label}</div>

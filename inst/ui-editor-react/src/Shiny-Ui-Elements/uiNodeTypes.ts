@@ -184,6 +184,7 @@ export type UiNodeWrapperSettings = {
   // canMove?: boolean;
   onClick: React.MouseEventHandler<HTMLDivElement>;
   "data-sue-path": string;
+  "data-is-selected-node": boolean;
   //   onDragStart: () => void;
   //   onDragEnd: () => void;
 };
@@ -194,7 +195,6 @@ export type UiNodeWrapperSettings = {
 export type UiNodeComponent<NodeSettings extends object> = (props: {
   uiArguments: NodeSettings;
   nodeInfo: NodeInfo;
-  compRef: React.RefObject<HTMLDivElement>;
   uiChildren?: ShinyUiChildren;
   wrapperProps: UiNodeWrapperSettings;
 }) => JSX.Element;

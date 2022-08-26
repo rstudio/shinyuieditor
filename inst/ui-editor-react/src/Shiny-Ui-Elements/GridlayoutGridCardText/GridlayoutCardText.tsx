@@ -12,9 +12,10 @@ import classes from "./styles.module.css";
 const GridlayoutGridCardText: UiNodeComponent<GridlayoutGridCardTextProps> = ({
   uiArguments: { content: title, area, alignment },
   nodeInfo: { path },
-  compRef,
   wrapperProps,
 }) => {
+  const compRef = React.useRef<HTMLDivElement>(null);
+
   useGridItemSwapping({ containerRef: compRef, area, path });
 
   return (

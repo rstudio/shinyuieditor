@@ -20,8 +20,7 @@ export function UiElementIcon({ uiName }: { uiName: ShinyUiNames }) {
     uiArguments: defaultSettings,
   } as ShinyUiNode;
 
-  const elRef = React.useRef<HTMLDivElement>(null);
-  useMakeDraggable({ ref: elRef, nodeInfo: { node } });
+  const dragProps = useMakeDraggable({ nodeInfo: { node } });
 
   if (iconSrc === undefined) {
     return null;
@@ -34,7 +33,11 @@ export function UiElementIcon({ uiName }: { uiName: ShinyUiNames }) {
       openDelayMs={500}
       triggerEl={
         <div className={classes.OptionContainer}>
-          <div ref={elRef} className={classes.OptionItem} data-ui-name={uiName}>
+          <div
+            className={classes.OptionItem}
+            data-ui-name={uiName}
+            {...dragProps}
+          >
             <img src={iconSrc} alt={title} className={classes.OptionIcon} />
             <label className={classes.OptionLabel}>{title}</label>
           </div>
