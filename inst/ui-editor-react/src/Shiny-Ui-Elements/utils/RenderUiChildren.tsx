@@ -1,6 +1,6 @@
 import UiNode from "components/UiNode/UiNode";
+import { makeChildPath, pathToString } from "Shiny-Ui-Elements/nodePathUtils";
 import type { NodePath, ShinyUiChildren } from "Shiny-Ui-Elements/uiNodeTypes";
-import { makeChildPath } from "Shiny-Ui-Elements/uiNodeTypes";
 
 /**
  * Render basic Ui children
@@ -19,7 +19,11 @@ export function RenderUiChildren({
       {uiChildren.map((childNode, i) => {
         const nodePath = makeChildPath(parentPath, i);
         return (
-          <UiNode key={nodePath.join("-")} path={nodePath} node={childNode} />
+          <UiNode
+            key={pathToString(nodePath)}
+            path={nodePath}
+            node={childNode}
+          />
         );
       })}
     </>

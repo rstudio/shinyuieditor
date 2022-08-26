@@ -1,7 +1,8 @@
+import { pathToString } from "Shiny-Ui-Elements/nodePathUtils";
 import type {
   NodePath,
   ShinyUiNode,
-  UiNodeWrapperSettings,
+  UiNodeWrapperProps,
 } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import { useMakeDraggable } from "../../DragAndDropHelpers/useMakeDraggable";
@@ -19,7 +20,7 @@ export function useMakeWrapperProps(
 
   return {
     onClick,
-    "data-sue-path": path.join("-"),
+    "data-sue-path": pathToString(path),
     "data-is-selected-node": isSelected,
     ...dragProps,
   };

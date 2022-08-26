@@ -2,8 +2,8 @@ import React from "react";
 
 import DeleteNodeButton from "components/DeleteNodeButton";
 import UiNode from "components/UiNode/UiNode";
+import { makeChildPath } from "Shiny-Ui-Elements/nodePathUtils";
 import type { NodePath, UiNodeComponent } from "Shiny-Ui-Elements/uiNodeTypes";
-import { makeChildPath } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import { BsCard, BsCardHeader } from "../GridLayoutPanelHelpers/GridCards";
 

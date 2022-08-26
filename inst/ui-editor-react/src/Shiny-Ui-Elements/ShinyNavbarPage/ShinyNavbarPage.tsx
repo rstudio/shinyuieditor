@@ -2,12 +2,12 @@ import TabPanel from "components/Tabs/TabPanel/TabPanel";
 import Tabset from "components/Tabs/Tabset/Tabset";
 import UiNode from "components/UiNode/UiNode";
 import { useSetSelectedPath } from "NodeSelectionState";
+import { makeChildPath, pathToString } from "Shiny-Ui-Elements/nodePathUtils";
 import type {
   ShinyUiNode,
   ShinyUiNodeByName,
   UiNodeComponent,
 } from "Shiny-Ui-Elements/uiNodeTypes";
-import { makeChildPath } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import type { NavbarPageSettings } from "./index";
 
@@ -41,7 +41,7 @@ const ShinyNavbarPage: UiNodeComponent<NavbarPageSettings> = ({
             ? node.uiArguments.title
             : "unknown tab";
           return (
-            <TabPanel key={nodePath.join("-")} title={title}>
+            <TabPanel key={pathToString(nodePath)} title={title}>
               <UiNode path={nodePath} node={node} />
             </TabPanel>
           );
