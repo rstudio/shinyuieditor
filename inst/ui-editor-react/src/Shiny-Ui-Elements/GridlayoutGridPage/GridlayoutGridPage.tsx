@@ -40,6 +40,7 @@ export const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
   uiChildren,
   nodeInfo,
   compRef,
+  wrapperProps,
 }) => {
   const dispatch = useDispatch();
   const place_node = usePlaceNode();
@@ -156,7 +157,8 @@ export const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
         ref={compRef}
         style={stylesForGrid}
         className={classes.container}
-        // Disable dragging on the main app
+        {...wrapperProps}
+        // Disable dragging on the main app. Note this is below the wrapperProps passthrough
         draggable={false}
         onDragStart={() => {}}
       >

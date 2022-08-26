@@ -10,6 +10,7 @@ import classes from "./styles.module.css";
 const ShinyPlotOutput: UiNodeComponent<ShinyPlotOutputProps> = ({
   uiArguments: { outputId, width = "300px", height = "200px" },
   compRef,
+  wrapperProps,
 }) => {
   return (
     <div
@@ -17,6 +18,7 @@ const ShinyPlotOutput: UiNodeComponent<ShinyPlotOutputProps> = ({
       ref={compRef}
       style={{ height, width }}
       aria-label="shiny::plotOutput element"
+      {...wrapperProps}
     >
       <PlotPlaceholder outputId={outputId} />
     </div>

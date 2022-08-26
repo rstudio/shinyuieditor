@@ -14,6 +14,7 @@ const GridlayoutGridCardPlot: UiNodeComponent<GridlayoutGridCardPlotProps> = ({
   uiArguments: { outputId, area },
   nodeInfo: { path },
   compRef,
+  wrapperProps,
 }) => {
   useGridItemSwapping({ containerRef: compRef, area, path });
 
@@ -23,6 +24,7 @@ const GridlayoutGridCardPlot: UiNodeComponent<GridlayoutGridCardPlotProps> = ({
       style={{ gridArea: area }}
       className={classes.gridCardPlot + " gridlayout-gridCardPlot"}
       aria-label={"gridlayout-gridCardPlot"}
+      {...wrapperProps}
     >
       <PlotPlaceholder outputId={outputId ?? area} />
     </BsCard>

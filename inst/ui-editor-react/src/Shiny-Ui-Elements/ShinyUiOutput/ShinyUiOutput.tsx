@@ -7,6 +7,7 @@ import classes from "./styles.module.css";
 const ShinyUiOutput: UiNodeComponent<ShinyUiOutputProps> = ({
   uiArguments,
   compRef,
+  wrapperProps,
 }) => {
   const { outputId = "shiny-ui-output" } = uiArguments;
 
@@ -15,6 +16,7 @@ const ShinyUiOutput: UiNodeComponent<ShinyUiOutputProps> = ({
       className={classes.container}
       ref={compRef}
       aria-label="shiny::uiOutput placeholder"
+      {...wrapperProps}
     >
       <div style={{ gridArea: "1/1", placeSelf: "center" }}>
         This is a a dynamic UI Output {outputId}!

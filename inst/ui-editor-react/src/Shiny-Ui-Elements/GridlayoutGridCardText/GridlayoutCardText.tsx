@@ -13,6 +13,7 @@ const GridlayoutGridCardText: UiNodeComponent<GridlayoutGridCardTextProps> = ({
   uiArguments: { content: title, area, alignment },
   nodeInfo: { path },
   compRef,
+  wrapperProps,
 }) => {
   useGridItemSwapping({ containerRef: compRef, area, path });
 
@@ -22,6 +23,7 @@ const GridlayoutGridCardText: UiNodeComponent<GridlayoutGridCardTextProps> = ({
       className={classes.textPanel + " gridlayout-textPanel"}
       style={{ gridArea: area, justifyItems: alignment }}
       aria-label={"gridlayout-textPanel"}
+      {...wrapperProps}
     >
       <h1>{title}</h1>
     </BsCard>

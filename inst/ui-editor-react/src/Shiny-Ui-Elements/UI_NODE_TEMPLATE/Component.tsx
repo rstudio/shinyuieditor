@@ -9,8 +9,13 @@ const PkgNodeName: UiNodeComponent<NodeNameSettings> = ({
   uiChildren,
   nodeInfo: { path },
   compRef,
+  wrapperProps,
 }) => {
-  return <div className={classes.container}>NODE NAME: {uiArguments.name}</div>;
+  return (
+    <div className={classes.container} {...wrapperProps}>
+      NODE NAME: {uiArguments.name}
+    </div>
+  );
 };
 
 export default PkgNodeName;

@@ -18,6 +18,7 @@ const GridlayoutGridCard: UiNodeComponent<GridCardSettings> = ({
   uiChildren,
   nodeInfo: { path },
   compRef,
+  wrapperProps,
 }) => {
   const numChildren = uiChildren?.length ?? 0;
 
@@ -33,6 +34,7 @@ const GridlayoutGridCard: UiNodeComponent<GridCardSettings> = ({
           "--item-gap": item_gap,
         } as React.CSSProperties
       }
+      {...wrapperProps}
     >
       {title ? (
         <BsCardHeader className={classes.panelTitle}>{title}</BsCardHeader>
