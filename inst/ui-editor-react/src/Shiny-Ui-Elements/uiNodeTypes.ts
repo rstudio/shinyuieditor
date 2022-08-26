@@ -172,6 +172,14 @@ type NodeInfo = {
   path: NodePath;
 };
 
+type DragPassthroughEvents =
+  | {
+      onDragStart: React.DragEventHandler<HTMLDivElement>;
+      onDragEnd: (e: React.DragEvent<HTMLDivElement> | DragEvent) => void;
+      draggable: boolean;
+    }
+  | {};
+
 export type UiNodeWrapperSettings = {
   // path: NodePath;
   /**
@@ -181,13 +189,10 @@ export type UiNodeWrapperSettings = {
    * child they want the container to move with it. E.g. a grid panel with a
    * single element in it
    */
-  // canMove?: boolean;
   onClick: React.MouseEventHandler<HTMLDivElement>;
   "data-sue-path": string;
   "data-is-selected-node": boolean;
-  //   onDragStart: () => void;
-  //   onDragEnd: () => void;
-};
+} & DragPassthroughEvents;
 
 /**
  * Type of component defining the app view of a given ui node

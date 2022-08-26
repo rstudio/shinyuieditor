@@ -32,16 +32,19 @@ export function useMakeDraggable({
   //    keep track of if we've already ended the event.
   // 3. The user starts a drag then drops the item somewhere outside the browser
   //    window. This will trigger the dragend event instantly.
-  const endDrag = React.useCallback(() => {
-    if (dragHappening.current === false || immovable) return;
-    setDraggedNode(null);
-    dragHappening.current = false;
-    document.body.removeEventListener("dragover", dummyDragOverListener);
-    document.body.removeEventListener("drop", endDrag);
-  }, [immovable, setDraggedNode]);
+  const endDrag = React.useCallback(
+    (e: React.DragEvent<HTMLDivElement> | DragEvent) => {
+      if (dragHappening.current === false || immovable) return;
+      setDraggedNode(null);
+      dragHappening.current = false;
+      document.body.removeEventListener("dragover", dummyDragOverListener);
+      document.body.removeEventListener("drop", endDrag);
+    },
+    [immovable, setDraggedNode]
+  );
 
-  const startDrag = React.useCallback(
-    (e: React.DragEvent<HTMLDivElement>) => {
+  const startDrag: React.DragEventHandler<HTMLDivElement> = React.useCallback(
+    (e) => {
       e.stopPropagation();
       setDraggedNode(nodeInfo);
       dragHappening.current = true;
