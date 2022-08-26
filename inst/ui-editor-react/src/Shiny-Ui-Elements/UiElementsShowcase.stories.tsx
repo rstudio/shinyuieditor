@@ -51,7 +51,7 @@ function UiNodeAndSettings<T extends ShinyUiNames>({
           <NodeComponent
             uiChildren={[]}
             uiArguments={uiSettings}
-            nodeInfo={{ path: [0] }}
+            path={[0]}
             wrapperProps={{
               onClick: (e) => {
                 console.log("Clicked node", e);

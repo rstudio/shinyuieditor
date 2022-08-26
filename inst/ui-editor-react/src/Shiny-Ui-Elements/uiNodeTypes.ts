@@ -168,10 +168,6 @@ export type ShinyUiNodeByName = {
  */
 export type ShinyUiNode = ShinyUiNodeByName[ShinyUiNames];
 
-type NodeInfo = {
-  path: NodePath;
-};
-
 type DragPassthroughEvents =
   | {
       onDragStart: React.DragEventHandler<HTMLDivElement>;
@@ -199,7 +195,7 @@ export type UiNodeWrapperSettings = {
  */
 export type UiNodeComponent<NodeSettings extends object> = (props: {
   uiArguments: NodeSettings;
-  nodeInfo: NodeInfo;
+  path: NodePath;
   uiChildren?: ShinyUiChildren;
   wrapperProps: UiNodeWrapperSettings;
 }) => JSX.Element;

@@ -10,7 +10,7 @@ import classes from "./ShinyTabPanel.module.css";
 const ShinyTabPanel: UiNodeComponent<TabPanelSettings> = ({
   uiArguments,
   uiChildren,
-  nodeInfo: { path },
+  path,
   wrapperProps,
 }) => {
   const hasChildren = uiChildren && uiChildren.length > 0;

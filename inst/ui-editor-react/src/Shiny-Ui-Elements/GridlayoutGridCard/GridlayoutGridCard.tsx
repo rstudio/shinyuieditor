@@ -16,7 +16,7 @@ import { useGridItemSwapping } from "./useGridItemSwapping";
 const GridlayoutGridCard: UiNodeComponent<GridCardSettings> = ({
   uiArguments: { area, item_gap, title },
   uiChildren,
-  nodeInfo: { path },
+  path,
   wrapperProps,
 }) => {
   const compRef = React.useRef<HTMLDivElement>(null);

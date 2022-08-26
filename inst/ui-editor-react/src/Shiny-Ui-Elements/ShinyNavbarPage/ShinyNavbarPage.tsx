@@ -21,7 +21,7 @@ function isTabPanelNode(node: ShinyUiNode): node is TabPanelNode {
 const ShinyNavbarPage: UiNodeComponent<NavbarPageSettings> = ({
   uiArguments: { title: pageTitle },
   uiChildren,
-  nodeInfo: { path },
+  path,
   wrapperProps,
 }) => {
   const setSelectedPath = useSetSelectedPath();

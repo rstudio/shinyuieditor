@@ -7,7 +7,7 @@ import classes from "./styles.module.css";
 const PkgNodeName: UiNodeComponent<NodeNameSettings> = ({
   uiArguments,
   uiChildren,
-  nodeInfo: { path },
+  path,
   wrapperProps,
 }) => {
   return (

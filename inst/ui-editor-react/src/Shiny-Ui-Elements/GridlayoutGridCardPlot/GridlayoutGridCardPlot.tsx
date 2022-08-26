@@ -12,7 +12,7 @@ import classes from "./styles.module.css";
 
 const GridlayoutGridCardPlot: UiNodeComponent<GridlayoutGridCardPlotProps> = ({
   uiArguments: { outputId, area },
-  nodeInfo: { path },
+  path,
   wrapperProps,
 }) => {
   const compRef = React.useRef<HTMLDivElement>(null);

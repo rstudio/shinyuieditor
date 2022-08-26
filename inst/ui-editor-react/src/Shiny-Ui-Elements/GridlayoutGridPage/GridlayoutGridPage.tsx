@@ -38,7 +38,7 @@ export const LayoutDispatchContext =
 export const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
   uiArguments: layoutDef,
   uiChildren,
-  nodeInfo,
+  path,
   wrapperProps,
 }) => {
   const dispatch = useDispatch();
@@ -171,8 +171,8 @@ export const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
           ))}
           {uiChildren?.map((childNode, i) => (
             <UiNode
-              key={nodeInfo.path.join(".") + i}
-              path={[...nodeInfo.path, i]}
+              key={path.join(".") + i}
+              path={[...path, i]}
               node={childNode}
             />
           ))}

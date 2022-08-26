@@ -11,7 +11,7 @@ import classes from "./styles.module.css";
 
 const GridlayoutGridCardText: UiNodeComponent<GridlayoutGridCardTextProps> = ({
   uiArguments: { content: title, area, alignment },
-  nodeInfo: { path },
+  path,
   wrapperProps,
 }) => {
   const compRef = React.useRef<HTMLDivElement>(null);
