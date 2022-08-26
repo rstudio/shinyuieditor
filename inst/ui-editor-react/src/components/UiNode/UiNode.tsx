@@ -9,7 +9,7 @@ import { shinyUiNodeInfo } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import { useMakeDraggable } from "../../DragAndDropHelpers/useMakeDraggable";
 
-import { usePathInformation } from "./usePathInformation";
+import { usePathInformation, usePathInformation2 } from "./usePathInformation";
 
 type UiNodeSettings = {
   path: NodePath;
@@ -41,10 +41,13 @@ const UiNode = ({
     immovable: !canMove,
   });
   usePathInformation(componentRef, path);
+  const { onClick } = usePathInformation2(path);
 
   const Comp = componentInfo.UiComponent as UiNodeComponent<typeof uiArguments>;
+
   return (
     <Comp
+      wrapperProps={{ onClick, "data-sue-path": path.join("-") }}
       uiArguments={uiArguments}
       uiChildren={uiChildren}
       compRef={componentRef}

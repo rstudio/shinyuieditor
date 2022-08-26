@@ -31,12 +31,12 @@ export function usePathInformation(
     const nodeElement = ref.current;
     if (!nodeElement) return;
 
-    nodeElement.addEventListener("click", handleClick);
+    // nodeElement.addEventListener("click", handleClick);
     attachDataPath(nodeElement, path);
 
-    return () => {
-      nodeElement.removeEventListener("click", handleClick);
-    };
+    // return () => {
+    //   nodeElement.removeEventListener("click", handleClick);
+    // };
   }, [handleClick, path, ref]);
 
   // A colored border surrounds the elements that are selected
@@ -58,4 +58,44 @@ export function usePathInformation(
  */
 function attachDataPath(nodeEl: HTMLElement, path: NodePath) {
   nodeEl.dataset.suePath = path.join("-");
+}
+
+export function usePathInformation2(path: NodePath) {
+  const [selectedPath, setNodeSelection] = useNodeSelectionState();
+
+  const handleClick: React.MouseEventHandler<HTMLDivElement> =
+    React.useCallback(
+      (e) => {
+        e.stopPropagation();
+        console.log("Click event from wrapping component!");
+        setNodeSelection(path);
+      },
+      [path, setNodeSelection]
+    );
+
+  // React.useEffect(() => {
+  //   const nodeElement = ref.current;
+  //   if (!nodeElement) return;
+
+  //   nodeElement.addEventListener("click", handleClick);
+  //   attachDataPath(nodeElement, path);
+
+  //   return () => {
+  //     nodeElement.removeEventListener("click", handleClick);
+  //   };
+  // }, [handleClick, path, ref]);
+
+  // // A colored border surrounds the elements that are selected
+  // React.useEffect(() => {
+  //   const nodeElement = ref.current;
+  //   if (!nodeElement) return;
+
+  //   if (selectedPath && sameArray(selectedPath, path)) {
+  //     nodeElement.classList.add(classes.selectedNode);
+  //   } else {
+  //     nodeElement.classList.remove(classes.selectedNode);
+  //   }
+  // }, [path, ref, selectedPath]);
+
+  return { onClick: handleClick };
 }

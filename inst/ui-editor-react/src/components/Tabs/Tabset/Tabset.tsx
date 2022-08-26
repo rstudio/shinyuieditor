@@ -6,20 +6,18 @@ import { Tab } from "./Tab";
 import classes from "./Tabset.module.css";
 import { useActiveTab } from "./useActiveTab";
 
-type TabsetProps = {
+export interface TabsetProps extends React.ComponentPropsWithoutRef<"div"> {
   title: string;
   onNewTab: () => void;
   onTabSelect?: (tabIndex: number) => void;
-  children?: React.ReactNode;
-};
-
+}
 const Tabset = React.forwardRef<HTMLDivElement, TabsetProps>(
-  ({ title, onNewTab, children, onTabSelect }, ref) => {
+  ({ title, onNewTab, children, onTabSelect, ...divProps }, ref) => {
     const tabNames = getTabNamesFromChildren(children);
     const { activeTab, setActiveTab } = useActiveTab(tabNames.length);
 
     return (
-      <div ref={ref} className={classes.container}>
+      <div ref={ref} className={classes.container} {...divProps}>
         <div className={classes.header}>
           <h1 className={classes.pageTitle}>{title}</h1>
           <div className={classes.tabs}>

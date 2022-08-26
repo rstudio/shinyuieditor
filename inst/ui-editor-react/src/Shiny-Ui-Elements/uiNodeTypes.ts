@@ -172,6 +172,22 @@ type NodeInfo = {
   path: NodePath;
 };
 
+export type UiNodeWrapperSettings = {
+  // path: NodePath;
+  /**
+   * Should this node be allowed to be dragged out of its parent node? This
+   * would be set to false for a container that typically always stays wrapped
+   * around a single child where almost every time the user wants to move the
+   * child they want the container to move with it. E.g. a grid panel with a
+   * single element in it
+   */
+  // canMove?: boolean;
+  onClick: React.MouseEventHandler<HTMLDivElement>;
+  "data-sue-path": string;
+  //   onDragStart: () => void;
+  //   onDragEnd: () => void;
+};
+
 /**
  * Type of component defining the app view of a given ui node
  */
@@ -180,6 +196,7 @@ export type UiNodeComponent<NodeSettings extends object> = (props: {
   nodeInfo: NodeInfo;
   compRef: React.RefObject<HTMLDivElement>;
   uiChildren?: ShinyUiChildren;
+  wrapperProps: UiNodeWrapperSettings;
 }) => JSX.Element;
 
 /**
