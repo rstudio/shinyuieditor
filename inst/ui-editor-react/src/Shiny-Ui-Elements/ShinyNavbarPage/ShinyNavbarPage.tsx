@@ -1,6 +1,6 @@
 import TabPanel from "components/Tabs/TabPanel/TabPanel";
 import Tabset from "components/Tabs/Tabset/Tabset";
-import UiNode from "components/UiNode";
+import UiNode from "components/UiNode/UiNode";
 import { useSetSelectedPath } from "NodeSelectionState";
 import type {
   ShinyUiNode,

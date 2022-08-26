@@ -1,6 +1,6 @@
 import React from "react";
 
-import UiNode from "components/UiNode";
+import UiNode from "components/UiNode/UiNode";
 import type { DraggedNodeInfo } from "DragAndDropHelpers/DragAndDropHelpers";
 import { useDispatch } from "react-redux";
 import { AreaOverlay } from "Shiny-Ui-Elements/GridlayoutGridPage/AreaOverlay";

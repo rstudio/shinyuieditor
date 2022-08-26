@@ -1,4 +1,4 @@
-import UiNode from "components/UiNode";
+import UiNode from "components/UiNode/UiNode";
 import type { NodePath, ShinyUiChildren } from "Shiny-Ui-Elements/uiNodeTypes";
 import { makeChildPath } from "Shiny-Ui-Elements/uiNodeTypes";
 

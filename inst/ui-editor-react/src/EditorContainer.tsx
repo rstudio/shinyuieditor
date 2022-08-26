@@ -2,7 +2,7 @@ import * as React from "react";
 
 import AppPreview from "components/AppPreview";
 import SvgShinyLogo from "components/Icons/ShinyLogo";
-import UiNode from "components/UiNode";
+import UiNode from "components/UiNode/UiNode";
 import { UndoRedoButtons } from "components/UndoRedoButtons/UndoRedoButtons";
 import { CurrentDraggedNodeProvider } from "DragAndDropHelpers/useCurrentDraggedNode";
 import ElementsPalette from "ElementsPalette";

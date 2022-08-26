@@ -1,7 +1,7 @@
 import React from "react";
 
 import DeleteNodeButton from "components/DeleteNodeButton";
-import UiNode from "components/UiNode";
+import UiNode from "components/UiNode/UiNode";
 import type { NodePath, UiNodeComponent } from "Shiny-Ui-Elements/uiNodeTypes";
 import { makeChildPath } from "Shiny-Ui-Elements/uiNodeTypes";
 
