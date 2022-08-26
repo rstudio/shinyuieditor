@@ -12,7 +12,7 @@ import { usePathInformation } from "./usePathInformation";
 export function useMakeWrapperProps(
   node: ShinyUiNode,
   path: NodePath
-): UiNodeWrapperSettings {
+): UiNodeWrapperProps {
   const dragProps = useMakeDraggable({
     nodeInfo: { node, currentPath: path },
   });
