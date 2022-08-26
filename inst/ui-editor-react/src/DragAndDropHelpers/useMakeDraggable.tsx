@@ -4,11 +4,9 @@ import type { DraggedNodeInfo } from "./DragAndDropHelpers";
 import { DraggedNodeContext } from "./useCurrentDraggedNode";
 
 export function useMakeDraggable({
-  ref,
   nodeInfo,
   immovable = false,
 }: {
-  ref: React.RefObject<HTMLDivElement>;
   nodeInfo: DraggedNodeInfo;
   // A way of disabling drag behavior
   immovable?: boolean;
@@ -34,16 +32,19 @@ export function useMakeDraggable({
   //    keep track of if we've already ended the event.
   // 3. The user starts a drag then drops the item somewhere outside the browser
   //    window. This will trigger the dragend event instantly.
-  const endDrag = React.useCallback(() => {
-    if (dragHappening.current === false || immovable) return;
-    setDraggedNode(null);
-    dragHappening.current = false;
-    document.body.removeEventListener("dragover", dummyDragOverListener);
-    document.body.removeEventListener("drop", endDrag);
-  }, [immovable, setDraggedNode]);
+  const endDrag = React.useCallback(
+    (e: React.DragEvent<HTMLDivElement> | DragEvent) => {
+      if (dragHappening.current === false || immovable) return;
+      setDraggedNode(null);
+      dragHappening.current = false;
+      document.body.removeEventListener("dragover", dummyDragOverListener);
+      document.body.removeEventListener("drop", endDrag);
+    },
+    [immovable, setDraggedNode]
+  );
 
-  const startDrag = React.useCallback(
-    (e: DragEvent) => {
+  const startDrag: React.DragEventHandler<HTMLDivElement> = React.useCallback(
+    (e) => {
       e.stopPropagation();
       setDraggedNode(nodeInfo);
       dragHappening.current = true;
@@ -53,28 +54,17 @@ export function useMakeDraggable({
     [endDrag, nodeInfo, setDraggedNode]
   );
 
-  React.useEffect(() => {
-    if (nodeInfo.currentPath?.length === 0 || immovable) {
-      // Don't let the root node be dragged. It can't go anywhere and causes
-      // super annoying visual shift
-      return;
-    }
+  if (nodeInfo.currentPath?.length === 0 || immovable) {
+    // Don't let the root node be dragged. It can't go anywhere and causes
+    // super annoying visual shift
+    return {};
+  }
 
-    const watcherEl = ref.current;
-    if (!watcherEl) return;
-
-    watcherEl.setAttribute("draggable", "true");
-    watcherEl.addEventListener("dragstart", startDrag);
-
-    // We still keep listening for the dragend event in case the user drops the
-    // item off the screen and thus the body can not detect the drop
-    watcherEl.addEventListener("dragend", endDrag);
-
-    return () => {
-      watcherEl.removeEventListener("dragstart", startDrag);
-      watcherEl.removeEventListener("dragend", endDrag);
-    };
-  }, [endDrag, immovable, nodeInfo.currentPath, startDrag, ref]);
+  return {
+    onDragStart: startDrag,
+    onDragEnd: endDrag,
+    draggable: true,
+  };
 }
 
 // This is just needed to let the drop event fire

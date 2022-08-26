@@ -19,11 +19,7 @@ export const Tab = ({
     <div
       className={classes.tab}
       data-active-tab={isActive}
-      // Note the use of onClickCapture here. This is needed to prevent the
-      // native click listener from hearing the click event because normally the
-      // click event is propagated all the way to the root before react starts
-      // handling it
-      onClickCapture={handleSelect}
+      onClick={handleSelect}
       aria-label={isActive ? `Active tab ${name}` : `Select ${name} tab`}
     >
       {name}

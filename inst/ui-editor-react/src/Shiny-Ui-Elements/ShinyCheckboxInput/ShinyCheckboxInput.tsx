@@ -8,7 +8,7 @@ import classes from "./styles.module.css";
 
 const ShinyCheckboxInput: UiNodeComponent<ShinyCheckboxInputProps> = ({
   uiArguments,
-  compRef,
+  wrapperProps,
 }) => {
   const width = uiArguments.width ?? "auto";
 
@@ -25,7 +25,7 @@ const ShinyCheckboxInput: UiNodeComponent<ShinyCheckboxInputProps> = ({
       className={classes.container + " shiny::checkbox"}
       style={{ width }}
       aria-label={"shiny::checkbox"}
-      ref={compRef}
+      {...wrapperProps}
     >
       <label htmlFor={settings.inputId}>
         <input

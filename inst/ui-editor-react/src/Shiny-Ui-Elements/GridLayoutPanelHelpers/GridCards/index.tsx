@@ -1,11 +1,8 @@
 import React from "react";
 
-type DivProps = React.DetailedHTMLProps<
-  React.HTMLAttributes<HTMLDivElement>,
-  HTMLDivElement
->;
+export interface BsCardProps extends React.ComponentPropsWithoutRef<"div"> {}
 
-const BsCard = React.forwardRef<HTMLDivElement, DivProps>(
+const BsCard = React.forwardRef<HTMLDivElement, BsCardProps>(
   ({ className = "", children, ...props }, ref) => {
     const combinedClasses = className + " card";
     return (
@@ -16,8 +13,8 @@ const BsCard = React.forwardRef<HTMLDivElement, DivProps>(
   }
 );
 
-const BsCardHeader = React.forwardRef<HTMLDivElement, DivProps>(
-  ({ className = "", ...props }: DivProps, ref) => {
+const BsCardHeader = React.forwardRef<HTMLDivElement, BsCardProps>(
+  ({ className = "", ...props }, ref) => {
     const combinedClasses = className + " card-header";
     return <div ref={ref} className={combinedClasses} {...props} />;
   }

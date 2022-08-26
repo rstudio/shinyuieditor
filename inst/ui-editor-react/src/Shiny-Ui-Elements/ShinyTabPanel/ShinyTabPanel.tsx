@@ -10,13 +10,13 @@ import classes from "./ShinyTabPanel.module.css";
 const ShinyTabPanel: UiNodeComponent<TabPanelSettings> = ({
   uiArguments,
   uiChildren,
-  nodeInfo: { path },
-  compRef,
+  path,
+  wrapperProps,
 }) => {
   const hasChildren = uiChildren && uiChildren.length > 0;
 
   return (
-    <div ref={compRef} className={classes.container}>
+    <div className={classes.container} {...wrapperProps}>
       {hasChildren ? (
         <RenderUiChildren uiChildren={uiChildren} parentPath={path} />
       ) : (

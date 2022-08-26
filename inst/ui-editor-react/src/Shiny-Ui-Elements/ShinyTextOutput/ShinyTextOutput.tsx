@@ -8,13 +8,13 @@ import classes from "./styles.module.css";
 
 const ShinyTextOutput: UiNodeComponent<ShinyTextOutputProps> = ({
   uiArguments,
-  compRef,
+  wrapperProps,
 }) => {
   return (
     <div
       className={classes.container}
-      ref={compRef}
       aria-label="shiny::textOutput placeholder"
+      {...wrapperProps}
     >
       Dynamic text from <code>output${uiArguments.outputId}</code>
     </div>

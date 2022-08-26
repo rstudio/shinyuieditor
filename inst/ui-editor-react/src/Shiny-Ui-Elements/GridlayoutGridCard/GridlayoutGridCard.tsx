@@ -2,8 +2,8 @@ import React from "react";
 
 import DeleteNodeButton from "components/DeleteNodeButton";
 import UiNode from "components/UiNode/UiNode";
+import { makeChildPath } from "Shiny-Ui-Elements/nodePathUtils";
 import type { NodePath, UiNodeComponent } from "Shiny-Ui-Elements/uiNodeTypes";
-import { makeChildPath } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import { BsCard, BsCardHeader } from "../GridLayoutPanelHelpers/GridCards";
 
@@ -16,9 +16,10 @@ import { useGridItemSwapping } from "./useGridItemSwapping";
 const GridlayoutGridCard: UiNodeComponent<GridCardSettings> = ({
   uiArguments: { area, item_gap, title },
   uiChildren,
-  nodeInfo: { path },
-  compRef,
+  path,
+  wrapperProps,
 }) => {
+  const compRef = React.useRef<HTMLDivElement>(null);
   const numChildren = uiChildren?.length ?? 0;
 
   useGridItemSwapping({ containerRef: compRef, area, path });
@@ -33,6 +34,7 @@ const GridlayoutGridCard: UiNodeComponent<GridCardSettings> = ({
           "--item-gap": item_gap,
         } as React.CSSProperties
       }
+      {...wrapperProps}
     >
       {title ? (
         <BsCardHeader className={classes.panelTitle}>{title}</BsCardHeader>
@@ -46,7 +48,7 @@ const GridlayoutGridCard: UiNodeComponent<GridCardSettings> = ({
         {numChildren > 0 ? (
           uiChildren?.map((childNode, i) => (
             <React.Fragment key={path.join(".") + i}>
-              <UiNode path={makeChildPath(path, i)} {...childNode} />
+              <UiNode path={makeChildPath(path, i)} node={childNode} />
               <DropWatcherPanel
                 index={i + 1}
                 numChildren={uiChildren.length}

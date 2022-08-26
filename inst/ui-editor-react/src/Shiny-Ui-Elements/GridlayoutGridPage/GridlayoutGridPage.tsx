@@ -38,8 +38,8 @@ export const LayoutDispatchContext =
 export const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
   uiArguments: layoutDef,
   uiChildren,
-  nodeInfo,
-  compRef,
+  path,
+  wrapperProps,
 }) => {
   const dispatch = useDispatch();
   const place_node = usePlaceNode();
@@ -153,10 +153,10 @@ export const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
   return (
     <LayoutDispatchContext.Provider value={handleLayoutUpdate}>
       <div
-        ref={compRef}
         style={stylesForGrid}
         className={classes.container}
-        // Disable dragging on the main app
+        {...wrapperProps}
+        // Disable dragging on the main app. Note this is below the wrapperProps passthrough
         draggable={false}
         onDragStart={() => {}}
       >
@@ -171,9 +171,9 @@ export const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
           ))}
           {uiChildren?.map((childNode, i) => (
             <UiNode
-              key={nodeInfo.path.join(".") + i}
-              path={[...nodeInfo.path, i]}
-              {...childNode}
+              key={path.join(".") + i}
+              path={[...path, i]}
+              node={childNode}
             />
           ))}
           {areaOverlays}

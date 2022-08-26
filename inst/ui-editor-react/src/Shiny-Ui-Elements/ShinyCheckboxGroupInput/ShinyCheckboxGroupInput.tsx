@@ -6,13 +6,13 @@ import classes from "./styles.module.css";
 
 const ShinyCheckboxGroupInput: UiNodeComponent<
   ShinyCheckboxGroupInputProps
-> = ({ uiArguments, compRef }) => {
+> = ({ uiArguments, wrapperProps }) => {
   const choices = uiArguments.choices;
   return (
     <div
-      ref={compRef}
       className={classes.container}
       style={{ width: uiArguments.width }}
+      {...wrapperProps}
     >
       <label>{uiArguments.label}</label>
       <div>

@@ -12,9 +12,11 @@ import classes from "./styles.module.css";
 
 const GridlayoutGridCardPlot: UiNodeComponent<GridlayoutGridCardPlotProps> = ({
   uiArguments: { outputId, area },
-  nodeInfo: { path },
-  compRef,
+  path,
+  wrapperProps,
 }) => {
+  const compRef = React.useRef<HTMLDivElement>(null);
+
   useGridItemSwapping({ containerRef: compRef, area, path });
 
   return (
@@ -23,6 +25,7 @@ const GridlayoutGridCardPlot: UiNodeComponent<GridlayoutGridCardPlotProps> = ({
       style={{ gridArea: area }}
       className={classes.gridCardPlot + " gridlayout-gridCardPlot"}
       aria-label={"gridlayout-gridCardPlot"}
+      {...wrapperProps}
     >
       <PlotPlaceholder outputId={outputId ?? area} />
     </BsCard>
