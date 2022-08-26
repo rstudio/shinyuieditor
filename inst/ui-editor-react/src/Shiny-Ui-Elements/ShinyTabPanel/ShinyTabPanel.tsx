@@ -5,7 +5,7 @@ import { RenderUiChildren } from "../utils/RenderUiChildren";
 
 import type { TabPanelSettings } from "./index";
 
-import classes from "./styles.module.css";
+import classes from "./ShinyTabPanel.module.css";
 
 const ShinyTabPanel: UiNodeComponent<TabPanelSettings> = ({
   uiArguments,
@@ -13,9 +13,13 @@ const ShinyTabPanel: UiNodeComponent<TabPanelSettings> = ({
   nodeInfo: { path },
   compRef,
 }) => {
+  const hasChildren = uiChildren && uiChildren.length > 0;
+
   return (
     <div ref={compRef} className={classes.container}>
-      {!uiChildren ? (
+      {hasChildren ? (
+        <RenderUiChildren uiChildren={uiChildren} parentPath={path} />
+      ) : (
         <DropDetector
           dropFilters={{
             rejectedNodes: [
@@ -30,8 +34,6 @@ const ShinyTabPanel: UiNodeComponent<TabPanelSettings> = ({
           parentPath={path}
           onDrop="add-node"
         />
-      ) : (
-        <RenderUiChildren uiChildren={uiChildren} parentPath={path} />
       )}
     </div>
   );

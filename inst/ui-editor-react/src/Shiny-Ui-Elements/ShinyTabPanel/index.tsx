@@ -2,8 +2,8 @@ import containerIcon from "assets/icons/shinyContainer.png";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 
-import ShinyTabPanel from "./Component";
 import { ShinyTabPanelSettings } from "./SettingsPanel";
+import ShinyTabPanel from "./ShinyTabPanel";
 
 // Steps to converting to your node
 // - Copy the UI_NODE_TEMPLATE/ folder and name it ShinyTabPanel/
