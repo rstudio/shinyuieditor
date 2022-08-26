@@ -48,7 +48,7 @@ const GridlayoutGridCard: UiNodeComponent<GridCardSettings> = ({
         {numChildren > 0 ? (
           uiChildren?.map((childNode, i) => (
             <React.Fragment key={path.join(".") + i}>
-              <UiNode path={makeChildPath(path, i)} {...childNode} />
+              <UiNode path={makeChildPath(path, i)} node={childNode} />
               <DropWatcherPanel
                 index={i + 1}
                 numChildren={uiChildren.length}

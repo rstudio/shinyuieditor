@@ -19,7 +19,7 @@ export function RenderUiChildren({
       {uiChildren.map((childNode, i) => {
         const nodePath = makeChildPath(parentPath, i);
         return (
-          <UiNode key={nodePath.join("-")} path={nodePath} {...childNode} />
+          <UiNode key={nodePath.join("-")} path={nodePath} node={childNode} />
         );
       })}
     </>

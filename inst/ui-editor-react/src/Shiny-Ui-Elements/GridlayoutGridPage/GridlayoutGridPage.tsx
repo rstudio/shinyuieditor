@@ -173,7 +173,7 @@ export const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
             <UiNode
               key={nodeInfo.path.join(".") + i}
               path={[...nodeInfo.path, i]}
-              {...childNode}
+              node={childNode}
             />
           ))}
           {areaOverlays}

@@ -42,7 +42,7 @@ const ShinyNavbarPage: UiNodeComponent<NavbarPageSettings> = ({
             : "unknown tab";
           return (
             <TabPanel key={nodePath.join("-")} title={title}>
-              <UiNode path={nodePath} {...node} />
+              <UiNode path={nodePath} node={node} />
             </TabPanel>
           );
         })

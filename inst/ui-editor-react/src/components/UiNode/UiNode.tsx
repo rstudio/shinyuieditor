@@ -9,11 +9,12 @@ import { useMakeWrapperProps } from "./useMakeWrapperProps";
 
 type UiNodeSettings = {
   path: NodePath;
+  node: ShinyUiNode;
 };
 /**
  * Recursively render the nodes in a UI Tree
  */
-const UiNode = ({ path, ...node }: UiNodeSettings & ShinyUiNode) => {
+const UiNode = ({ path, node }: UiNodeSettings) => {
   const { uiName, uiArguments, uiChildren } = node;
 
   const Comp = shinyUiNodeInfo[uiName].UiComponent as UiNodeComponent<
