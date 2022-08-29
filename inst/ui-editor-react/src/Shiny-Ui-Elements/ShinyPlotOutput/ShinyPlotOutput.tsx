@@ -15,7 +15,6 @@ const ShinyPlotOutput: UiNodeComponent<ShinyPlotOutputProps> = ({
     <div
       className={classes.container}
       style={{ height, width }}
-      aria-label="shiny::plotOutput element"
       {...wrapperProps}
     >
       <PlotPlaceholder outputId={outputId} />

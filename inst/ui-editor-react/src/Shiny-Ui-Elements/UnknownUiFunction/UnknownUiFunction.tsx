@@ -14,11 +14,7 @@ const UnknownUiFunction: UiNodeComponent<UnknownUiFunctionProps> = ({
   const functionName =
     uiArguments.text.slice(0, num_preview_chars).replaceAll(/\s$/g, "") + "...";
   return (
-    <div
-      className={classes.container}
-      aria-label="shiny::uiOutput placeholder"
-      {...wrapperProps}
-    >
+    <div className={classes.container} {...wrapperProps}>
       <div>
         unknown ui output: <code>{functionName}</code>
       </div>

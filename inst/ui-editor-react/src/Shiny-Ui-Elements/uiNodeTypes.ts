@@ -196,6 +196,7 @@ export type UiNodeWrapperProps = {
   onClick: React.MouseEventHandler<HTMLDivElement>;
   "data-sue-path": string;
   "data-is-selected-node": boolean;
+  "aria-label": string;
 } & DragPassthroughEvents;
 
 /**

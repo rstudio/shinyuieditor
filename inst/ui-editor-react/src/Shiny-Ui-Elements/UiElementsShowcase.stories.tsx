@@ -58,6 +58,7 @@ function UiNodeAndSettings<T extends ShinyUiNames>({
               },
               "data-sue-path": "0",
               "data-is-selected-node": false,
+              "aria-label": uiName,
             }}
           />
         </div>

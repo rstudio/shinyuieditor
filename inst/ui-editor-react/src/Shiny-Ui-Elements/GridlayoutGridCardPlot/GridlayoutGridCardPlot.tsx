@@ -24,7 +24,6 @@ const GridlayoutGridCardPlot: UiNodeComponent<GridlayoutGridCardPlotProps> = ({
       ref={compRef}
       style={{ gridArea: area }}
       className={classes.gridCardPlot + " gridlayout-gridCardPlot"}
-      aria-label={"gridlayout-gridCardPlot"}
       {...wrapperProps}
     >
       <PlotPlaceholder outputId={outputId ?? area} />

@@ -11,11 +11,7 @@ const ShinyTextOutput: UiNodeComponent<ShinyTextOutputProps> = ({
   wrapperProps,
 }) => {
   return (
-    <div
-      className={classes.container}
-      aria-label="shiny::textOutput placeholder"
-      {...wrapperProps}
-    >
+    <div className={classes.container} {...wrapperProps}>
       Dynamic text from <code>output${uiArguments.outputId}</code>
     </div>
   );

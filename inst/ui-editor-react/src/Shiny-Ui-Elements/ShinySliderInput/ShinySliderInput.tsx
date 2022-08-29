@@ -19,7 +19,6 @@ const ShinySliderInput: UiNodeComponent<ShinySliderInputProps> = ({
     <div
       className={classes.container + " shiny::sliderInput"}
       style={{ width }}
-      aria-label={"shiny::sliderInput"}
       {...wrapperProps}
     >
       <div>{settings.label}</div>

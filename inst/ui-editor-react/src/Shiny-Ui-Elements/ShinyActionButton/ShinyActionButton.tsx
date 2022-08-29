@@ -14,11 +14,7 @@ const ShinyActionButton: UiNodeComponent<ShinyActionButtonProps> = ({
   const { label = "My Action Button", width } = uiArguments;
 
   return (
-    <div
-      className={classes.container}
-      aria-label="shiny::actionButton placeholder"
-      {...wrapperProps}
-    >
+    <div className={classes.container} {...wrapperProps}>
       <Button style={width ? { width } : undefined}>{label}</Button>
     </div>
   );

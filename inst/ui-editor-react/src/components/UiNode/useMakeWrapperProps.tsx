@@ -22,6 +22,7 @@ export function useMakeWrapperProps(
     onClick,
     "data-sue-path": pathToString(path),
     "data-is-selected-node": isSelected,
+    "aria-label": node.uiName,
     ...dragProps,
   };
 }

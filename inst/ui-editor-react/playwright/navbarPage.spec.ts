@@ -17,9 +17,7 @@ test("Basic usage of navbar page", async ({ page }) => {
 
   // Now we select the element contained within that tab
   await page
-    .locator(
-      `[aria-label="tab panel Plot 1"] [aria-label="shiny::plotOutput element"]`
-    )
+    .locator(`[aria-label="tab panel Plot 1"] [aria-label="shiny::plotOutput"]`)
     .click();
 
   // Next we delete that element

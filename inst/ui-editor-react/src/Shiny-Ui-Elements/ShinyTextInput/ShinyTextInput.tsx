@@ -24,7 +24,6 @@ const ShinyTextInput: UiNodeComponent<ShinyTextInputProps> = ({
     <div
       className={classes.container + " shiny::textInput"}
       style={{ height, width }}
-      aria-label={"shiny::textInput"}
       {...wrapperProps}
     >
       <label htmlFor={settings.inputId}>{settings.label}</label>

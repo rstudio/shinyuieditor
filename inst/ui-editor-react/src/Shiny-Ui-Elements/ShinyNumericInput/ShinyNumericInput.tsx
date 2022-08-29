@@ -24,7 +24,6 @@ const ShinyNumericInput: UiNodeComponent<ShinyNumericInputProps> = ({
     <div
       className={classes.container + " shiny::numericInput"}
       style={{ width }}
-      aria-label={"shiny::numericInput"}
       {...wrapperProps}
     >
       <span>{settings.label}</span>

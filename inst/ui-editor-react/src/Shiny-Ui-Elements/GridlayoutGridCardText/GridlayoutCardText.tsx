@@ -23,7 +23,6 @@ const GridlayoutGridCardText: UiNodeComponent<GridlayoutGridCardTextProps> = ({
       ref={compRef}
       className={classes.textPanel + " gridlayout-textPanel"}
       style={{ gridArea: area, justifyItems: alignment }}
-      aria-label={"gridlayout-textPanel"}
       {...wrapperProps}
     >
       <h1>{title}</h1>

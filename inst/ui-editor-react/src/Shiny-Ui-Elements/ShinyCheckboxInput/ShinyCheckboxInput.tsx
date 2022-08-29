@@ -24,7 +24,6 @@ const ShinyCheckboxInput: UiNodeComponent<ShinyCheckboxInputProps> = ({
     <div
       className={classes.container + " shiny::checkbox"}
       style={{ width }}
-      aria-label={"shiny::checkbox"}
       {...wrapperProps}
     >
       <label htmlFor={settings.inputId}>

@@ -11,11 +11,7 @@ const ShinyUiOutput: UiNodeComponent<ShinyUiOutputProps> = ({
   const { outputId = "shiny-ui-output" } = uiArguments;
 
   return (
-    <div
-      className={classes.container}
-      aria-label="shiny::uiOutput placeholder"
-      {...wrapperProps}
-    >
+    <div className={classes.container} {...wrapperProps}>
       <div style={{ gridArea: "1/1", placeSelf: "center" }}>
         This is a a dynamic UI Output {outputId}!
       </div>
