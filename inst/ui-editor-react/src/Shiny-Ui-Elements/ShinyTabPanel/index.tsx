@@ -10,7 +10,7 @@ export type TabPanelSettings = {
 };
 
 export const shinyTabPanelDefaultSettings: TabPanelSettings = {
-  title: "NODE NAME",
+  title: "Tab Title",
 };
 
 export const shinyTabPanelInfo: UiComponentInfo<TabPanelSettings> = {
@@ -20,6 +20,7 @@ export const shinyTabPanelInfo: UiComponentInfo<TabPanelSettings> = {
   acceptsChildren: true,
   defaultSettings: shinyTabPanelDefaultSettings,
   iconSrc: containerIcon,
-  category: "NODE CATEGORY",
-  description: "DESCRIPTION OF NODE",
+  category: "Tabs",
+  description:
+    "Panel containing content for tab-based interfaces like navbar pages",
 };
