@@ -21,19 +21,16 @@ export default {
 } as ComponentMeta<typeof Tabset>;
 
 export const Primary = () => {
-  const [currentTabs, setCurrentTabs] = React.useState<string[]>([
-    "tab 1",
-    "tab 2",
-  ]);
+  const [currentTabs] = React.useState<string[]>(["tab 1", "tab 2"]);
 
-  const addTab = () => {
-    setCurrentTabs((existingTabs) => [
-      ...existingTabs,
-      `tab ${existingTabs.length + 1}`,
-    ]);
-  };
+  // const addTab = () => {
+  //   setCurrentTabs((existingTabs) => [
+  //     ...existingTabs,
+  //     `tab ${existingTabs.length + 1}`,
+  //   ]);
+  // };
   return (
-    <Tabset title="My Tabset Page" onNewTab={addTab}>
+    <Tabset title="My Tabset Page" path={[]}>
       {currentTabs.map((name) => (
         <TabPanel key={name} title={name}>
           Contents for {name}
