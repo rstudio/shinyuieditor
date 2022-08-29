@@ -44,4 +44,7 @@ test("Basic usage of navbar page", async ({ page }) => {
   await expect(page.locator(`[aria-label = "Active tab Plot 1"]`)).toHaveCount(
     0
   );
+
+  // Add a new tab with a select input by dragging it onto the new tab button
+  await page.dragAndDrop("text=/^Select Input$/", `[aria-label="Add new tab"]`);
 });

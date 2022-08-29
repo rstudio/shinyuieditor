@@ -10,11 +10,11 @@ export function useActiveTab(numTabs: number, initalSelection: number = 0) {
     }
   }, [activeTab, numTabs]);
   const setActiveTabVerified = (tabIndex: number) => {
-    if (numTabs <= tabIndex) {
-      throw new Error(
-        `Can't select tab that doesn't exist (${tabIndex}). Only ${numTabs} exist.`
-      );
-    }
+    // if (numTabs <= tabIndex) {
+    //   throw new Error(
+    //     `Can't select tab that doesn't exist (${tabIndex}). Only ${numTabs} exist.`
+    //   );
+    // }
     setActiveTab(tabIndex);
   };
 
