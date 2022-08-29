@@ -1,6 +1,10 @@
 import React from "react";
 
-import PlusButton from "components/Inputs/PlusButton";
+import { samePath } from "components/UiNode/TreeManipulation/samePath";
+import { useNodeSelectionState } from "NodeSelectionState";
+import { makeChildPath } from "Shiny-Ui-Elements/nodePathUtils";
+import { NewTabButtonWithDropDetection } from "Shiny-Ui-Elements/ShinyNavbarPage/NewTabButtonWithDropDetection";
+import type { NodePath } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import { Tab } from "./Tab";
 import classes from "./Tabset.module.css";
@@ -8,58 +12,54 @@ import { useActiveTab } from "./useActiveTab";
 
 export interface TabsetProps extends React.ComponentPropsWithoutRef<"div"> {
   title: string;
-  onNewTab: () => void;
-  onTabSelect?: (tabIndex: number) => void;
   addTabButton?: JSX.Element;
 }
 
-const Tabset = React.forwardRef<HTMLDivElement, TabsetProps>(
-  (
-    {
-      title,
-      onNewTab,
-      children,
-      onTabSelect,
-      addTabButton = (
-        <PlusButton
-          className={classes.addTabButton}
-          label="Add new tab"
-          onClick={onNewTab}
-        />
-      ),
-      ...divProps
-    },
-    ref
-  ) => {
-    const tabNames = getTabNamesFromChildren(children);
-    const { activeTab, setActiveTab } = useActiveTab(tabNames.length);
+function Tabset({
+  path,
+  title,
+  children,
+  className = "",
+  ...divProps
+}: TabsetProps & { path: NodePath }) {
+  const tabNames = getTabNamesFromChildren(children);
+  const [selectedPath, setSelectedPath] = useNodeSelectionState();
 
-    return (
-      <div ref={ref} className={classes.container} {...divProps}>
-        <div className={classes.header}>
-          <h1 className={classes.pageTitle}>{title}</h1>
-          <div className={classes.tabs}>
-            {tabNames.map((name, i) => (
-              <Tab
-                key={name}
-                name={name}
-                isActive={i === activeTab}
-                onSelect={() => {
-                  setActiveTab(i);
-                  onTabSelect?.(i);
-                }}
-              />
-            ))}
-            <div className={classes.addTabButtonContainer}>{addTabButton}</div>
+  const onTabSelect = (tabIndex: number) =>
+    setSelectedPath(makeChildPath(path, tabIndex));
+  const { activeTab, setActiveTab } = useActiveTab(tabNames.length);
+
+  return (
+    <div className={[className, classes.container].join(" ")} {...divProps}>
+      <div className={classes.header}>
+        <h1 className={classes.pageTitle}>{title}</h1>
+        <div className={classes.tabs}>
+          {tabNames.map((name, i) => (
+            <Tab
+              key={name}
+              name={name}
+              isActive={i === activeTab}
+              isSelected={samePath(makeChildPath(path, i), selectedPath)}
+              onSelect={() => {
+                setActiveTab(i);
+                onTabSelect?.(i);
+              }}
+            />
+          ))}
+          <div className={classes.addTabButtonContainer}>
+            <NewTabButtonWithDropDetection
+              path={path}
+              numSiblings={tabNames.length}
+            />
           </div>
         </div>
-        <div className={classes.tabContents}>
-          {selectActiveTab(children, activeTab)}
-        </div>
       </div>
-    );
-  }
-);
+      <div className={classes.tabContents}>
+        {selectActiveTab(children, activeTab)}
+      </div>
+    </div>
+  );
+}
 
 export default Tabset;
 

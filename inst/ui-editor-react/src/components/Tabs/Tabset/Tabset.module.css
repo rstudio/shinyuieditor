@@ -48,8 +48,10 @@
 
 .tab[data-active-tab="true"] {
   background-color: var(--rstudio-white);
-  border: var(--selected-outline);
   border-bottom-color: var(--rstudio-white);
+}
+.tab[data-selected-tab="true"] {
+  border: var(--selected-outline);
 }
 
 .tabContents {
