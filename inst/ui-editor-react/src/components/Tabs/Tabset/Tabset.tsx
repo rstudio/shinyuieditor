@@ -1,7 +1,6 @@
 import React from "react";
 
-import PlusButton from "../../Inputs/PlusButton";
-
+import { AddTabButton } from "./AddTabButton";
 import { Tab } from "./Tab";
 import classes from "./Tabset.module.css";
 import { useActiveTab } from "./useActiveTab";
@@ -10,9 +9,21 @@ export interface TabsetProps extends React.ComponentPropsWithoutRef<"div"> {
   title: string;
   onNewTab: () => void;
   onTabSelect?: (tabIndex: number) => void;
+  addTabButton?: JSX.Element;
 }
+
 const Tabset = React.forwardRef<HTMLDivElement, TabsetProps>(
-  ({ title, onNewTab, children, onTabSelect, ...divProps }, ref) => {
+  (
+    {
+      title,
+      onNewTab,
+      children,
+      onTabSelect,
+      addTabButton = <AddTabButton onNewTab={onNewTab} />,
+      ...divProps
+    },
+    ref
+  ) => {
     const tabNames = getTabNamesFromChildren(children);
     const { activeTab, setActiveTab } = useActiveTab(tabNames.length);
 
@@ -32,11 +43,7 @@ const Tabset = React.forwardRef<HTMLDivElement, TabsetProps>(
                 }}
               />
             ))}
-            <PlusButton
-              className={classes.addTabButton}
-              label="Add new tab"
-              onClick={onNewTab}
-            />
+            <div className={classes.addTabButtonContainer}>{addTabButton}</div>
           </div>
         </div>
         <div className={classes.tabContents}>

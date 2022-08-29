@@ -60,7 +60,13 @@
   display: none;
 }
 
-.addTabButton {
+.addTabButtonContainer {
   align-self: center;
+  align-self: stretch;
+  margin: 4px;
+  display: flex;
+}
+
+.addTabButton {
   color: var(--rstudio-blue);
 }

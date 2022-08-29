@@ -1,4 +1,5 @@
 import TabPanel from "components/Tabs/TabPanel/TabPanel";
+import { AddTabButton } from "components/Tabs/Tabset/AddTabButton";
 import Tabset from "components/Tabs/Tabset/Tabset";
 import UiNode from "components/UiNode/UiNode";
 import { useSetSelectedPath } from "NodeSelectionState";
@@ -8,6 +9,7 @@ import type {
   ShinyUiNodeByName,
   UiNodeComponent,
 } from "Shiny-Ui-Elements/uiNodeTypes";
+import DropDetector from "Shiny-Ui-Elements/utils/DropDetector";
 
 import type { NavbarPageSettings } from "./index";
 
@@ -18,6 +20,16 @@ function isTabPanelNode(node: ShinyUiNode): node is TabPanelNode {
   return node.uiName === "shiny::tabPanel";
 }
 
+function wrapNodeInTabPanel(node: ShinyUiNode): ShinyUiNode {
+  return {
+    uiName: "shiny::tabPanel",
+    uiArguments: {
+      title: "Tab",
+    },
+    uiChildren: [node],
+  };
+}
+
 const ShinyNavbarPage: UiNodeComponent<NavbarPageSettings> = ({
   uiArguments: { title: pageTitle },
   uiChildren,
@@ -25,13 +37,29 @@ const ShinyNavbarPage: UiNodeComponent<NavbarPageSettings> = ({
   wrapperProps,
 }) => {
   const setSelectedPath = useSetSelectedPath();
-  const hasChildren = Boolean(uiChildren);
+  const numChildren = uiChildren?.length ?? 0;
+  const hasChildren = numChildren > 0;
 
   return (
     <Tabset
       title={pageTitle}
       onNewTab={() => console.log("New panel requested")}
       onTabSelect={(tabIndex) => setSelectedPath(makeChildPath(path, tabIndex))}
+      addTabButton={
+        <DropDetector
+          className={classes.newTabDropDetector}
+          parentPath={path}
+          positionInChildren={numChildren}
+          onDrop="add-node"
+          processDropped={wrapNodeInTabPanel}
+        >
+          <AddTabButton
+            onNewTab={() => {
+              console.log("New tab please");
+            }}
+          />
+        </DropDetector>
+      }
       {...wrapperProps}
     >
       {uiChildren ? (
