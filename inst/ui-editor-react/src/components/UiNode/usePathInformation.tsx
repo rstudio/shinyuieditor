@@ -16,7 +16,6 @@ export function usePathInformation(path: NodePath) {
     React.useCallback(
       (e) => {
         e.stopPropagation();
-        console.log("Click event from wrapping component!");
         setNodeSelection(path);
       },
       [path, setNodeSelection]
