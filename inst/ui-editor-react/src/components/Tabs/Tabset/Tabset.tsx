@@ -1,6 +1,7 @@
 import React from "react";
 
-import { AddTabButton } from "./AddTabButton";
+import PlusButton from "components/Inputs/PlusButton";
+
 import { Tab } from "./Tab";
 import classes from "./Tabset.module.css";
 import { useActiveTab } from "./useActiveTab";
@@ -19,7 +20,13 @@ const Tabset = React.forwardRef<HTMLDivElement, TabsetProps>(
       onNewTab,
       children,
       onTabSelect,
-      addTabButton = <AddTabButton onNewTab={onNewTab} />,
+      addTabButton = (
+        <PlusButton
+          className={classes.addTabButton}
+          label="Add new tab"
+          onClick={onNewTab}
+        />
+      ),
       ...divProps
     },
     ref
