@@ -1,9 +1,9 @@
 import React from "react";
 
+import { NewTabButtonWithDropDetection } from "components/Tabs/Tabset/NewTabButtonWithDropDetection";
 import { samePath } from "components/UiNode/TreeManipulation/samePath";
 import { useNodeSelectionState } from "NodeSelectionState";
 import { makeChildPath } from "Shiny-Ui-Elements/nodePathUtils";
-import { NewTabButtonWithDropDetection } from "Shiny-Ui-Elements/ShinyNavbarPage/NewTabButtonWithDropDetection";
 import type { NodePath } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import { Tab } from "./Tab";

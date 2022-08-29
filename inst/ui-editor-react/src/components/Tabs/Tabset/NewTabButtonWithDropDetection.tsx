@@ -1,10 +1,13 @@
 import PlusButton from "components/Inputs/PlusButton";
+import {
+  newTabPanelNode,
+  wrapNodeInTabPanel,
+} from "Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage";
 import type { NodePath } from "Shiny-Ui-Elements/uiNodeTypes";
 import DropDetector from "Shiny-Ui-Elements/utils/DropDetector";
 import { usePlaceNode } from "state/uiTree";
 
-import { newTabPanelNode, wrapNodeInTabPanel } from "./ShinyNavbarPage";
-import classes from "./ShinyNavbarPage.module.css";
+import classes from "./Tabset.module.css";
 
 export function NewTabButtonWithDropDetection({
   path,

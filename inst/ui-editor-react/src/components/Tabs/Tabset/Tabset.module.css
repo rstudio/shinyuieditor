@@ -88,6 +88,11 @@ illusion of the selected panel and tab being one entity */
   display: flex;
 }
 
+.newTabDropDetector {
+  display: flex;
+  align-items: center;
+}
+
 .addTabButton {
   color: var(--rstudio-blue);
 }
