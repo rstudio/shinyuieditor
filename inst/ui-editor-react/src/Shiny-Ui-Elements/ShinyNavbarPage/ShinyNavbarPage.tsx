@@ -21,6 +21,9 @@ function isTabPanelNode(node: ShinyUiNode): node is TabPanelNode {
 }
 
 function wrapNodeInTabPanel(node: ShinyUiNode): ShinyUiNode {
+  // Already wrapped?
+  if (node.uiName === "shiny::tabPanel") return node;
+
   return {
     uiName: "shiny::tabPanel",
     uiArguments: {
