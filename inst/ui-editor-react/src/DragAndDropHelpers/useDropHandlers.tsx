@@ -17,6 +17,11 @@ export type DropHandlerArguments = {
   parentPath: NodePath;
   positionInChildren?: number;
   onDrop: "add-node" | ((droppedNode: DraggedNodeInfo) => void);
+  /**
+   * Function to run the dropped node through before sending to tree. Can be
+   * used to do things like add a wrapper etc...
+   */
+  processDropped?: (node: ShinyUiNode) => ShinyUiNode;
 };
 
 export function useDropHandlers(
@@ -26,6 +31,7 @@ export function useDropHandlers(
     positionInChildren = Infinity,
     parentPath,
     onDrop,
+    processDropped = (x) => x,
   }: DropHandlerArguments
 ) {
   const place_node = usePlaceNode();
@@ -47,8 +53,11 @@ export function useDropHandlers(
   const handleDrop: (dragInfo: DraggedNodeInfo) => void = React.useCallback(
     (dragInfo: DraggedNodeInfo) => {
       if (onDrop === "add-node") {
+        const { node, currentPath } = dragInfo;
+
         place_node({
-          ...dragInfo,
+          node: processDropped(node),
+          currentPath,
           parentPath,
           positionInChildren,
         });
@@ -56,7 +65,7 @@ export function useDropHandlers(
         onDrop(dragInfo);
       }
     },
-    [onDrop, parentPath, place_node, positionInChildren]
+    [onDrop, parentPath, place_node, positionInChildren, processDropped]
   );
 
   useFilteredDrop({
