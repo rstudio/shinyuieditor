@@ -50,6 +50,14 @@ const ShinyNavbarPage: UiNodeComponent<NavbarPageSettings> = ({
           className={classes.newTabDropDetector}
           parentPath={path}
           positionInChildren={numChildren}
+          dropFilters={{
+            rejectedNodes: [
+              "shiny::navbarPage",
+              "gridlayout::grid_card",
+              "gridlayout::grid_card_plot",
+              "gridlayout::grid_card_text",
+            ],
+          }}
           onDrop="add-node"
           processDropped={wrapNodeInTabPanel}
         >
