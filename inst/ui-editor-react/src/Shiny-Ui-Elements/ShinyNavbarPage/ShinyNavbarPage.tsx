@@ -1,18 +1,18 @@
 import TabPanel from "components/Tabs/TabPanel/TabPanel";
-import { AddTabButton } from "components/Tabs/Tabset/AddTabButton";
 import Tabset from "components/Tabs/Tabset/Tabset";
 import UiNode from "components/UiNode/UiNode";
 import { useSetSelectedPath } from "NodeSelectionState";
 import { makeChildPath, pathToString } from "Shiny-Ui-Elements/nodePathUtils";
+import { shinyTabPanelDefaultSettings } from "Shiny-Ui-Elements/ShinyTabPanel";
 import type {
   ShinyUiNode,
   ShinyUiNodeByName,
   UiNodeComponent,
 } from "Shiny-Ui-Elements/uiNodeTypes";
-import DropDetector from "Shiny-Ui-Elements/utils/DropDetector";
 
 import type { NavbarPageSettings } from "./index";
 
+import { NewTabButtonWithDropDetection } from "./NewTabButtonWithDropDetection";
 import classes from "./ShinyNavbarPage.module.css";
 
 type TabPanelNode = ShinyUiNodeByName["shiny::tabPanel"];
@@ -20,15 +20,18 @@ function isTabPanelNode(node: ShinyUiNode): node is TabPanelNode {
   return node.uiName === "shiny::tabPanel";
 }
 
-function wrapNodeInTabPanel(node: ShinyUiNode): ShinyUiNode {
+export const newTabPanelNode: ShinyUiNode = {
+  uiName: "shiny::tabPanel",
+  uiArguments: shinyTabPanelDefaultSettings,
+  uiChildren: [],
+};
+
+export function wrapNodeInTabPanel(node: ShinyUiNode): ShinyUiNode {
   // Already wrapped?
   if (node.uiName === "shiny::tabPanel") return node;
 
   return {
-    uiName: "shiny::tabPanel",
-    uiArguments: {
-      title: "Tab",
-    },
+    ...newTabPanelNode,
     uiChildren: [node],
   };
 }
@@ -49,27 +52,7 @@ const ShinyNavbarPage: UiNodeComponent<NavbarPageSettings> = ({
       onNewTab={() => console.log("New panel requested")}
       onTabSelect={(tabIndex) => setSelectedPath(makeChildPath(path, tabIndex))}
       addTabButton={
-        <DropDetector
-          className={classes.newTabDropDetector}
-          parentPath={path}
-          positionInChildren={numChildren}
-          dropFilters={{
-            rejectedNodes: [
-              "shiny::navbarPage",
-              "gridlayout::grid_card",
-              "gridlayout::grid_card_plot",
-              "gridlayout::grid_card_text",
-            ],
-          }}
-          onDrop="add-node"
-          processDropped={wrapNodeInTabPanel}
-        >
-          <AddTabButton
-            onNewTab={() => {
-              console.log("New tab please");
-            }}
-          />
-        </DropDetector>
+        <NewTabButtonWithDropDetection path={path} numSiblings={numChildren} />
       }
       {...wrapperProps}
     >
