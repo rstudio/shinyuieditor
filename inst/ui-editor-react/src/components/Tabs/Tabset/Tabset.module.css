@@ -4,6 +4,9 @@
   display: flex;
   flex-direction: column;
   outline: 1px solid var(--light-grey);
+  /* See the data-selected-tab="true" selector below for info on why we enter
+  isolation more here. */
+  isolation: isolate;
 }
 
 .header {
@@ -52,6 +55,22 @@
 }
 .tab[data-selected-tab="true"] {
   border: var(--selected-outline);
+  position: relative;
+  /* z-index here helps the selected tab sit above the rest so we can create the
+  illusion of a contiguous outline line by covering up the bottom border with a
+  psuedo element */
+  z-index: 2;
+}
+
+/* Add a small white element over the selection border to create a contiguous
+illusion of the selected panel and tab being one entity */
+.tab[data-selected-tab="true"]::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  background-color: var(--rstudio-white);
+  bottom: -4px;
 }
 
 .tabContents {
