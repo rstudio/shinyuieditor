@@ -1,4 +1,7 @@
-import type { UiNodeComponent } from "Shiny-Ui-Elements/uiNodeTypes";
+import type {
+  ShinyUiNames,
+  UiNodeComponent,
+} from "Shiny-Ui-Elements/uiNodeTypes";
 import DropDetector from "Shiny-Ui-Elements/utils/DropDetector";
 
 import { RenderUiChildren } from "../utils/RenderUiChildren";
@@ -6,6 +9,18 @@ import { RenderUiChildren } from "../utils/RenderUiChildren";
 import type { TabPanelSettings } from "./index";
 
 import classes from "./ShinyTabPanel.module.css";
+
+export const invalidTabPanelContents: ShinyUiNames[] = [
+  "shiny::navbarPage",
+  "shiny::tabPanel",
+  "gridlayout::grid_card",
+  "gridlayout::grid_card_plot",
+  "gridlayout::grid_card_text",
+];
+
+const dropFilters = {
+  rejectedNodes: invalidTabPanelContents,
+};
 
 const ShinyTabPanel: UiNodeComponent<TabPanelSettings> = ({
   uiArguments,
@@ -23,15 +38,7 @@ const ShinyTabPanel: UiNodeComponent<TabPanelSettings> = ({
         <DropDetector
           className={classes.emptyTabPanelDropDetector}
           dropArgs={{
-            dropFilters: {
-              rejectedNodes: [
-                "shiny::navbarPage",
-                "shiny::tabPanel",
-                "gridlayout::grid_card",
-                "gridlayout::grid_card_plot",
-                "gridlayout::grid_card_text",
-              ],
-            },
+            dropFilters,
             positionInChildren: 0,
             parentPath: path,
             onDrop: "add-node",
