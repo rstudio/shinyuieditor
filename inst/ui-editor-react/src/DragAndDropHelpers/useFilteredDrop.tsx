@@ -1,6 +1,6 @@
 import React from "react";
 
-import classes from "./DragAndDrop.module.css";
+import "./DragAndDrop.css";
 import type { DraggedNodeInfo } from "./DragAndDropHelpers";
 import { useCurrentDraggedNode } from "./useCurrentDraggedNode";
 
@@ -18,8 +18,8 @@ export function useFilteredDrop({
   getCanAcceptDrop = () => true,
   onDrop,
   onDragOver,
-  canAcceptDropClass = classes.canAcceptDrop,
-  hoveringOverClass = classes.hoveringOver,
+  canAcceptDropClass = "can-accept-drop",
+  hoveringOverClass = "hovering-over",
 }: DropHandlerArguments) {
   const [currentlyDragged, setCurrentlyDragged] = useCurrentDraggedNode();
 
@@ -133,6 +133,7 @@ function useDropHighlights({
   const addCanAcceptDropHighlight = React.useCallback(() => {
     if (!watcherRef.current) return;
     watcherRef.current.classList.add(canAcceptDropClass);
+    watcherRef.current.classList.add("can-accept-drop");
   }, [canAcceptDropClass, watcherRef]);
 
   const addHoveredOverHighlight = React.useCallback(() => {
@@ -152,6 +153,7 @@ function useDropHighlights({
 
     watcherRef.current.classList.remove(hoveringOverClass);
     watcherRef.current.classList.remove(canAcceptDropClass);
+    watcherRef.current.classList.remove("can-accept-drop");
   }, [canAcceptDropClass, hoveringOverClass, watcherRef]);
 
   return {
