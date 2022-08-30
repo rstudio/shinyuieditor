@@ -107,6 +107,7 @@ describe("Move nodes within tree", () => {
       node: plotANode,
       currentPath: [0, 1],
       parentPath: [1],
+      positionInChildren: 1,
     });
 
     expect(getNode(baseNode, [0, 1])).toEqual({
@@ -134,6 +135,7 @@ describe("Move nodes within tree", () => {
         currentPath: [0, 0],
         parentPath: [0, 0, 1],
         node: plotANode,
+        positionInChildren: 0,
       })
     ).toThrowError();
   });

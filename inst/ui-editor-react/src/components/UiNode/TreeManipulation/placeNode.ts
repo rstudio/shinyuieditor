@@ -17,12 +17,10 @@ export type PlaceNodeArguments = {
    */
   parentPath: NodePath;
   /**
-   * Where in the children should the node be placed? An integer can be used to
-   * specify the position exactly, or "last" can be provided if the node should
-   * just be added as the last child without needing to know the number of
-   * existing children.
+   * Where in the children should the node be placed? `0` would be the first
+   * child etc..
    */
-  positionInChildren?: number | "last";
+  positionInChildren: number;
   /**
    * Node to be added
    */
@@ -49,12 +47,7 @@ export function placeNode(
 
 export function placeNodeMutating(
   tree: ShinyUiNode,
-  {
-    parentPath,
-    node,
-    positionInChildren = "last",
-    currentPath,
-  }: PlaceNodeArguments
+  { parentPath, node, positionInChildren, currentPath }: PlaceNodeArguments
 ): void {
   const parentNode = getNode(tree, parentPath);
 
@@ -69,15 +62,10 @@ export function placeNodeMutating(
     parentNode.uiChildren = [];
   }
 
-  const nextIndex =
-    positionInChildren === "last"
-      ? parentNode.uiChildren.length
-      : positionInChildren;
-
   // If there's a current path for the node, then this is a move rather than a
   // pure add of a node
   if (currentPath !== undefined) {
-    const nextPath = [...parentPath, nextIndex];
+    const nextPath = [...parentPath, positionInChildren];
 
     if (nodesAreDirectAncestors(currentPath, nextPath)) {
       throw new Error("Invalid move request");
@@ -90,7 +78,7 @@ export function placeNodeMutating(
       parentNode.uiChildren = moveElement(
         parentNode.uiChildren,
         previousIndex,
-        nextIndex
+        positionInChildren
       );
 
       // We're done now so return early
@@ -101,7 +89,11 @@ export function placeNodeMutating(
     removeNodeMutating(tree, { path: currentPath });
   }
 
-  parentNode.uiChildren = addAtIndex(parentNode.uiChildren, nextIndex, node);
+  parentNode.uiChildren = addAtIndex(
+    parentNode.uiChildren,
+    positionInChildren,
+    node
+  );
 }
 
 export function getIsValidMove({

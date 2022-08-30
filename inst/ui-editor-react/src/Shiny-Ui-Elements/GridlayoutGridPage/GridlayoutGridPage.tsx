@@ -135,9 +135,11 @@ export const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
 
     // Let the state know we have a new child node
     place_node({
-      parentPath: [],
+      parentPath: path,
       node: node,
       currentPath,
+      // Place in the last position
+      positionInChildren: uiChildren?.length ?? 0,
     });
 
     handleLayoutUpdate({
