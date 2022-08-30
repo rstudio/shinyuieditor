@@ -5,6 +5,7 @@ import type { DraggedNodeInfo } from "DragAndDropHelpers/DragAndDropHelpers";
 import { useDispatch } from "react-redux";
 import { AreaOverlay } from "Shiny-Ui-Elements/GridlayoutGridPage/AreaOverlay";
 import { GridCell } from "Shiny-Ui-Elements/GridlayoutGridPage/GridCell";
+import { makeChildPath } from "Shiny-Ui-Elements/nodePathUtils";
 import type {
   ShinyUiChildren,
   ShinyUiNodeInfo,
@@ -135,11 +136,10 @@ export const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
 
     // Let the state know we have a new child node
     place_node({
-      parentPath: path,
+      // Place in the last position
+      path: makeChildPath(path, uiChildren?.length ?? 0),
       node: node,
       currentPath,
-      // Place in the last position
-      positionInChildren: uiChildren?.length ?? 0,
     });
 
     handleLayoutUpdate({

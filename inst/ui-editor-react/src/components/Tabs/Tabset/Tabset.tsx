@@ -41,8 +41,7 @@ function Tabset({
   const addNewTab = (node?: ShinyUiNode) => {
     place_node({
       node: node ? wrapNodeInTabPanel(node) : newTabPanelNode,
-      positionInChildren: numChildren,
-      parentPath: path,
+      path: makeChildPath(path, numChildren),
     });
 
     // Set selection to the newly created tab

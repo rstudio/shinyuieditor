@@ -4,6 +4,7 @@ import { shinyUiNodeInfo } from "Shiny-Ui-Elements/uiNodeTypes";
 import { addAtIndex, moveElement } from "utils/array-helpers";
 
 import { getNode } from "./getNode";
+import { getParentPath } from "./getParentPath";
 import { nodesAreDirectAncestors } from "./nodesAreDirectAncestors";
 import { nodesAreSiblings } from "./nodesAreSiblings";
 import { removeNodeMutating } from "./removeNode";
@@ -13,14 +14,9 @@ import { removeNodeMutating } from "./removeNode";
  */
 export type PlaceNodeArguments = {
   /**
-   * Path to the parent the node will be placed within
+   * New path to place the node at
    */
-  parentPath: NodePath;
-  /**
-   * Where in the children should the node be placed? `0` would be the first
-   * child etc..
-   */
-  positionInChildren: number;
+  path: NodePath;
   /**
    * Node to be added
    */
@@ -47,8 +43,10 @@ export function placeNode(
 
 export function placeNodeMutating(
   tree: ShinyUiNode,
-  { parentPath, node, positionInChildren, currentPath }: PlaceNodeArguments
+  { path, node, currentPath }: PlaceNodeArguments
 ): void {
+  const parentPath = getParentPath(path);
+  const positionInChildren = path[path.length - 1];
   const parentNode = getNode(tree, parentPath);
 
   if (!shinyUiNodeInfo[parentNode.uiName].acceptsChildren) {

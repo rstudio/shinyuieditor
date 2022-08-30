@@ -1,5 +1,6 @@
 import React from "react";
 
+import { makeChildPath } from "Shiny-Ui-Elements/nodePathUtils";
 import type {
   NodePath,
   ShinyUiNames,
@@ -52,14 +53,14 @@ export function useDropHandlers(
 
   const handleDrop: (dragInfo: DraggedNodeInfo) => void = React.useCallback(
     (dragInfo: DraggedNodeInfo) => {
+      console.log("Placing node after drop");
       if (onDrop === "add-node") {
         const { node, currentPath } = dragInfo;
 
         place_node({
           node: processDropped(node),
           currentPath,
-          parentPath,
-          positionInChildren,
+          path: makeChildPath(parentPath, positionInChildren),
         });
       } else {
         onDrop(dragInfo);

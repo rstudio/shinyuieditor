@@ -106,8 +106,7 @@ describe("Move nodes within tree", () => {
     const plotToRight = placeNode(baseNode, {
       node: plotANode,
       currentPath: [0, 1],
-      parentPath: [1],
-      positionInChildren: 1,
+      path: [1, 1],
     });
 
     expect(getNode(baseNode, [0, 1])).toEqual({
@@ -133,9 +132,8 @@ describe("Move nodes within tree", () => {
     expect(() =>
       placeNode(baseNode, {
         currentPath: [0, 0],
-        parentPath: [0, 0, 1],
+        path: [0, 0, 1, 0],
         node: plotANode,
-        positionInChildren: 0,
       })
     ).toThrowError();
   });
@@ -183,8 +181,7 @@ test("Move node around within its current container", () => {
   const updatedSliderPanel = placeNode(sliderPanel, {
     node: buttonB,
     currentPath: [1],
-    parentPath: [],
-    positionInChildren: 0,
+    path: [0],
   });
 
   expect(getNode(updatedSliderPanel, [0])).toEqual(buttonB);
