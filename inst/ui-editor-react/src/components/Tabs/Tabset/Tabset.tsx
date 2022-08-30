@@ -43,9 +43,6 @@ function Tabset({
       node: node ? wrapNodeInTabPanel(node) : newTabPanelNode,
       path: makeChildPath(path, numChildren),
     });
-
-    // Set selection to the newly created tab
-    setSelectedPath(makeChildPath(path, numChildren));
   };
 
   React.useEffect(() => {
