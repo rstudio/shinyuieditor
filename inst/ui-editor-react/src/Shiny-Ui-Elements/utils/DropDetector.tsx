@@ -24,7 +24,7 @@ function DropDetector({
   };
 
   return (
-    <div ref={detectorRef} style={detectorStyles}>
+    <div ref={detectorRef} style={detectorStyles} {...divProps}>
       {children}
     </div>
   );
