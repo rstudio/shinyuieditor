@@ -75,7 +75,7 @@ function Tabset({
         <div className={classes.tabs}>
           {tabNames.map((name, i) => (
             <Tab
-              key={name}
+              key={name + i}
               name={name}
               isActive={i === activeTab}
               isSelected={samePath(makeChildPath(path, i), selectedPath)}
