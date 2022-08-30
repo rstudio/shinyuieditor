@@ -68,7 +68,7 @@ function Tabset({
     <div className={[className, classes.container].join(" ")} {...divProps}>
       <div className={classes.header}>
         <h1 className={classes.pageTitle}>{title}</h1>
-        <div className={classes.tabs}>
+        <div className={classes.tabs} aria-label="tabs container">
           {tabNames.map((name, i) => (
             <Tab
               key={name + i}
