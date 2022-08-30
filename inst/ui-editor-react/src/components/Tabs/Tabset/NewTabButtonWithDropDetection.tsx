@@ -1,7 +1,7 @@
 import PlusButton from "components/Inputs/PlusButton";
 import type { NodePath, ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
-import DropDetector from "Shiny-Ui-Elements/utils/DropDetector";
 
+import { TabDropDetector } from "./TabDropDetector";
 import classes from "./Tabset.module.css";
 
 export function NewTabButtonWithDropDetection({
@@ -14,24 +14,7 @@ export function NewTabButtonWithDropDetection({
   onNewTab: (node?: ShinyUiNode) => void;
 }) {
   return (
-    <DropDetector
-      className={classes.newTabDropDetector}
-      dropArgs={{
-        parentPath: path,
-        positionInChildren: numSiblings,
-        dropFilters: {
-          rejectedNodes: [
-            "shiny::navbarPage",
-            "gridlayout::grid_card",
-            "gridlayout::grid_card_plot",
-            "gridlayout::grid_card_text",
-          ],
-        },
-        onDrop: ({ node, currentPath }) => {
-          onNewTab(node);
-        },
-      }}
-    >
+    <TabDropDetector parentPath={path} index={numSiblings} width="35px">
       <PlusButton
         className={classes.addTabButton}
         label="Add new tab"
@@ -40,6 +23,6 @@ export function NewTabButtonWithDropDetection({
           onNewTab();
         }}
       />
-    </DropDetector>
+    </TabDropDetector>
   );
 }

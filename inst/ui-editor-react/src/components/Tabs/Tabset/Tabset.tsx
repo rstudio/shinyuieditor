@@ -1,6 +1,6 @@
 import React from "react";
 
-import { NewTabButtonWithDropDetection } from "components/Tabs/Tabset/NewTabButtonWithDropDetection";
+import PlusButton from "components/Inputs/PlusButton";
 import { nodeDepth } from "components/UiNode/TreeManipulation/nodeDepth";
 import { nodesAreDirectAncestors } from "components/UiNode/TreeManipulation/nodesAreDirectAncestors";
 import { useSelectedPath } from "NodeSelectionState";
@@ -77,16 +77,19 @@ function Tabset({
               index={i}
             />
           ))}
-          {seqArray(numChildren + 1).map((i) => (
-            <TabDropDetector key={i} parentPath={path} index={i} />
+          {seqArray(numChildren).map((i) => (
+            <TabDropDetector key={i} parentPath={path} index={i} width="10px" />
           ))}
-          <div className={classes.addTabButtonContainer}>
-            <NewTabButtonWithDropDetection
-              path={path}
-              numSiblings={tabNames.length}
-              onNewTab={addNewTab}
+          <TabDropDetector parentPath={path} index={numChildren} width="35px">
+            <PlusButton
+              className={classes.addTabButton}
+              label="Add new tab"
+              onClick={(e) => {
+                e.stopPropagation();
+                addNewTab();
+              }}
             />
-          </div>
+          </TabDropDetector>
         </div>
       </div>
       <div className={classes.tabContents}>

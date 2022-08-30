@@ -76,9 +76,10 @@ test("Basic usage of navbar page", async ({ page }) => {
   // Deleting a tab panel will remove that tab from the tabset
 
   // Take note of how many tabs we start with...
-  const numTabs = await page
-    .locator(`[aria-label="tabs container"] > *`)
-    .count();
+  const tabsLocator = page.locator(
+    `[aria-label="tabs container"] > *:not([aria-label="tab drop detector"])`
+  );
+  const numTabs = await tabsLocator.count();
 
   // Now we select the dynamic ui tab and click delete element button to remove it
   await page.locator(`[aria-label="Select ${newTabName} tab"]`).click();
@@ -86,7 +87,5 @@ test("Basic usage of navbar page", async ({ page }) => {
   await page.locator("text=Delete Element").click();
 
   // The number of tabs should have decreased by one
-  await expect(page.locator(`[aria-label="tabs container"] > *`)).toHaveCount(
-    numTabs - 1
-  );
+  await expect(tabsLocator).toHaveCount(numTabs - 1);
 });
