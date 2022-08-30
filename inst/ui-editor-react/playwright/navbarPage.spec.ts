@@ -30,7 +30,7 @@ test("Basic usage of navbar page", async ({ page }) => {
   );
 
   // Rename tab
-  const newTabName = "Dynamic UI";
+  const newTabName = "Random Name";
 
   // Click the tab to set selection to tab panel itself
   await page.locator("text=Plot 1").click();
@@ -38,13 +38,55 @@ test("Basic usage of navbar page", async ({ page }) => {
   await page.locator(`[aria-label="input for title"]`).click({ clickCount: 3 });
   await page.locator(`[aria-label="input for title"]`).type(newTabName);
 
-  // Now there should be a tab with the new name and not a tab with the old name
-  await page.locator(`[aria-label = "Active tab ${newTabName}"]`);
+  // Now there should be a tab with the new name and not a tab with the old
+  // name. The text= selector doesn't reach into inputs so a single
+  // .toBeVisible() is enough here.
+  const newTabLocator = page.locator(`text="${newTabName}"`);
+  await expect(newTabLocator).toBeVisible();
 
-  await expect(page.locator(`[aria-label = "Active tab Plot 1"]`)).toHaveCount(
-    0
-  );
+  await expect(page.locator(`text=Plot 1`)).not.toBeVisible();
 
   // Add a new tab with a select input by dragging it onto the new tab button
   await page.dragAndDrop("text=/^Select Input$/", `[aria-label="Add new tab"]`);
+
+  // Make sure that the newly added tab is visible
+  await expect(
+    page.locator(`[aria-label = "shiny::selectInput"]`)
+  ).toBeVisible();
+
+  await expect(
+    page.locator(`[aria-label = "shiny::plotOutput"]`)
+  ).not.toBeVisible();
+
+  // Add a new empty tab panel by clicking the new tab button
+  await page.locator(`button[aria-label="Add new tab"]`).click();
+
+  const openTabSelector = `[data-active-tab="true"] [aria-label="shiny::tabPanel"]`;
+  const childrenOfOpenTabLocator = page
+    .locator(openTabSelector)
+    .locator(`[data-sue-path]`);
+
+  // The tab should be empty: Aka have no ui node children
+  await expect(childrenOfOpenTabLocator).toHaveCount(0);
+
+  // However if we drag and drop something into it, there will be children
+  await page.dragAndDrop("text=/^Checkbox Group$/", openTabSelector);
+  await expect(childrenOfOpenTabLocator).toHaveCount(1);
+
+  // Deleting a tab panel will remove that tab from the tabset
+
+  // Take note of how many tabs we start with...
+  const numTabs = await page
+    .locator(`[aria-label="tabs container"] > *`)
+    .count();
+
+  // Now we select the dynamic ui tab and click delete element button to remove it
+  await page.locator(`[aria-label="Select ${newTabName} tab"]`).click();
+
+  await page.locator("text=Delete Element").click();
+
+  // The number of tabs should have decreased by one
+  await expect(page.locator(`[aria-label="tabs container"] > *`)).toHaveCount(
+    numTabs - 1
+  );
 });
