@@ -4,7 +4,7 @@ import { NewTabButtonWithDropDetection } from "components/Tabs/Tabset/NewTabButt
 import { nodeDepth } from "components/UiNode/TreeManipulation/nodeDepth";
 import { nodesAreDirectAncestors } from "components/UiNode/TreeManipulation/nodesAreDirectAncestors";
 import { samePath } from "components/UiNode/TreeManipulation/samePath";
-import { useNodeSelectionState } from "NodeSelectionState";
+import { useNodeSelectionState, useSelectedPath } from "NodeSelectionState";
 import { makeChildPath } from "Shiny-Ui-Elements/nodePathUtils";
 import {
   newTabPanelNode,
@@ -31,10 +31,8 @@ function Tabset({
 }: TabsetProps & { path: NodePath }) {
   const tabNames = getTabNamesFromChildren(children);
   const numChildren = tabNames.length;
-  const [selectedPath, setSelectedPath] = useNodeSelectionState();
+  const selectedPath = useSelectedPath();
 
-  const onTabSelect = (tabIndex: number) =>
-    setSelectedPath(makeChildPath(path, tabIndex));
   const { activeTab, setActiveTab } = useActiveTab(tabNames.length);
   const place_node = usePlaceNode();
 
@@ -73,12 +71,9 @@ function Tabset({
             <Tab
               key={name + i}
               name={name}
+              parentPath={path}
               isActive={i === activeTab}
-              isSelected={samePath(makeChildPath(path, i), selectedPath)}
-              onSelect={() => {
-                setActiveTab(i);
-                onTabSelect?.(i);
-              }}
+              index={i}
             />
           ))}
           <div className={classes.addTabButtonContainer}>

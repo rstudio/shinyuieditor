@@ -1,22 +1,34 @@
 import React from "react";
 
+import { samePath } from "components/UiNode/TreeManipulation/samePath";
+import { useNodeSelectionState } from "NodeSelectionState";
+import { makeChildPath } from "Shiny-Ui-Elements/nodePathUtils";
+import type { NodePath } from "Shiny-Ui-Elements/uiNodeTypes";
+
 import classes from "./Tabset.module.css";
 
-export const Tab = ({
-  name,
-  isActive,
-  isSelected,
-  onSelect,
-}: {
+type TabProps = {
   name: string;
   isActive: boolean;
-  isSelected: boolean;
-  onSelect: () => void;
-}) => {
-  const handleSelect: React.MouseEventHandler<HTMLDivElement> = (e) => {
-    e.stopPropagation();
-    onSelect();
-  };
+  parentPath: NodePath;
+  index: number;
+};
+
+export const Tab = ({ name, isActive, index, parentPath }: TabProps) => {
+  const pathToTabPanel = makeChildPath(parentPath, index);
+  const [selectedPath, setSelectedPath] = useNodeSelectionState();
+
+  const handleSelect: React.MouseEventHandler<HTMLDivElement> =
+    React.useCallback(
+      (e) => {
+        e.stopPropagation();
+        setSelectedPath(pathToTabPanel);
+      },
+      [pathToTabPanel, setSelectedPath]
+    );
+
+  const isSelected = samePath(pathToTabPanel, selectedPath);
+
   return (
     <div
       className={classes.tab}
