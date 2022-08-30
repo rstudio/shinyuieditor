@@ -21,6 +21,7 @@ const ShinyTabPanel: UiNodeComponent<TabPanelSettings> = ({
         <RenderUiChildren uiChildren={uiChildren} parentPath={path} />
       ) : (
         <DropDetector
+          className={classes.emptyTabPanelDropDetector}
           dropArgs={{
             dropFilters: {
               rejectedNodes: [

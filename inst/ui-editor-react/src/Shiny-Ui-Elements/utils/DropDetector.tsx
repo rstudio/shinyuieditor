@@ -7,24 +7,13 @@ type DropDetectorProps = {
   dropArgs: DropHandlerArguments;
 } & React.ComponentPropsWithoutRef<"div">;
 
-function DropDetector({
-  children,
-  dropArgs,
-  style,
-  ...divProps
-}: DropDetectorProps) {
+function DropDetector({ children, dropArgs, ...divProps }: DropDetectorProps) {
   const detectorRef = React.useRef<HTMLDivElement>(null);
 
   useDropHandlers(detectorRef, dropArgs);
 
-  const detectorStyles: React.CSSProperties = {
-    width: "100%",
-    height: "100%",
-    ...style,
-  };
-
   return (
-    <div ref={detectorRef} style={detectorStyles} {...divProps}>
+    <div ref={detectorRef} {...divProps}>
       {children}
     </div>
   );

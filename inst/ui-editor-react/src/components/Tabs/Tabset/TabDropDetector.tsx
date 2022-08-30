@@ -4,6 +4,8 @@ import { wrapNodeInTabPanel } from "Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavba
 import type { NodePath } from "Shiny-Ui-Elements/uiNodeTypes";
 import DropDetector from "Shiny-Ui-Elements/utils/DropDetector";
 
+import classes from "./Tabset.module.css";
+
 export function TabDropDetector({
   index,
   parentPath,
@@ -17,6 +19,9 @@ export function TabDropDetector({
 }) {
   return (
     <DropDetector
+      className={
+        classes.tabDropDetector + " " + (children ? classes.hasButton : "")
+      }
       aria-label="tab drop detector"
       dropArgs={{
         parentPath,
@@ -25,9 +30,6 @@ export function TabDropDetector({
         processDropped: wrapNodeInTabPanel,
       }}
       style={{
-        width,
-        height: "100%",
-        position: "relative",
         order: index - 1,
       }}
     >
