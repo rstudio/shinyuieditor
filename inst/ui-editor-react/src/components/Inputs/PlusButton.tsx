@@ -14,7 +14,7 @@ export default function PlusButton({
 }: {
   className?: string;
   label: string;
-  onClick: () => void;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
 }) {
   return (
     <PopoverButton
@@ -22,7 +22,7 @@ export default function PlusButton({
       placement="bottom"
       aria-label={label}
       popoverContent={label}
-      onClick={() => onClick()}
+      onClick={onClick}
       openDelayMs={0}
     >
       <FaPlus style={ButtonStyle} />

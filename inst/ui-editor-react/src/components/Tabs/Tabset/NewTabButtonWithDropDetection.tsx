@@ -33,7 +33,10 @@ export function NewTabButtonWithDropDetection({
       <PlusButton
         className={classes.addTabButton}
         label="Add new tab"
-        onClick={onNewTab}
+        onClick={(e) => {
+          e.stopPropagation();
+          onNewTab();
+        }}
       />
     </DropDetector>
   );
