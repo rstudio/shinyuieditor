@@ -136,4 +136,5 @@ code {
   inset: 0;
   outline: var(--selected-outline);
   pointer-events: none;
+  border-radius: inherit;
 }
