@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import connectedToServerReducer from "./connectedToServer";
 import listenForDeleteMiddleware from "./listenForDeleteMiddleware";
+import listenForNodeAddMiddleware from "./listenForNodeAddMiddleware";
 import selectedPathReducer from "./selectedPath";
 import uiTreeReducer from "./uiTree";
 
@@ -12,7 +13,9 @@ export const store = configureStore({
     connectedToServer: connectedToServerReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(listenForDeleteMiddleware),
+    getDefaultMiddleware()
+      .concat(listenForDeleteMiddleware)
+      .concat(listenForNodeAddMiddleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
