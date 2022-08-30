@@ -1,4 +1,4 @@
-import containerIcon from "assets/icons/shinyContainer.png";
+import icon from "assets/icons/tabsetPanel.png";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 
@@ -19,7 +19,7 @@ export const shinyNavbarPageInfo: UiComponentInfo<NavbarPageSettings> = {
   SettingsComponent: ShinyNavbarPageSettings,
   acceptsChildren: true,
   defaultSettings: shinyNavbarPageDefaultSettings,
-  iconSrc: containerIcon,
+  iconSrc: icon,
   category: "layouts",
   description: "Layout an app with tab-based navigation",
 };
