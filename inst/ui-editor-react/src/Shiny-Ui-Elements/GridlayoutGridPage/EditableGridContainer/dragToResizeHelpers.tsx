@@ -158,6 +158,7 @@ export function initDragState({
   }
 
   if (tractHasAutoUnits && tractHasRelativeUnits) {
+    // eslint-disable-next-line no-console
     console.warn(
       "There's a mixture of auto and relative units in the grid. " +
         "This may cause funky behavior on resize. " +

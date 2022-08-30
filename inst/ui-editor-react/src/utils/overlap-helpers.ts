@@ -77,6 +77,7 @@ export function intervalsOverlap(
       amount: aEnd - bStart,
     };
   }
+  // eslint-disable-next-line no-console
   console.error("Unaccounted overlap");
   return { type: "none", amount: null };
 }

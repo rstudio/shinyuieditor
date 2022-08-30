@@ -33,6 +33,7 @@ export function CSSUnitInputSimple({
         return;
       }
       if (unit === "auto") {
+        // eslint-disable-next-line no-console
         console.error("How did you change the count of an auto unit?");
         return;
       }

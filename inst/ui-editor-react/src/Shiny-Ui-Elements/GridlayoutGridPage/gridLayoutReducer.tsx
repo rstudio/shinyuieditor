@@ -80,6 +80,7 @@ export function gridLayoutReducer(
       return { ...clone(layout), gap_size: action.size };
 
     default:
+      // eslint-disable-next-line no-console
       console.error(action);
       throw new Error("Have yet to implement layout action type");
   }

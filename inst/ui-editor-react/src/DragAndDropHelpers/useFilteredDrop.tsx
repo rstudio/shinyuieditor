@@ -65,6 +65,7 @@ export function useFilteredDrop({
 
       // Get the type of dropped element and act on it
       if (!currentlyDragged) {
+        // eslint-disable-next-line no-console
         console.error("No dragged node in context but a drop was detected...");
         return;
       }
@@ -72,6 +73,7 @@ export function useFilteredDrop({
       if (canAcceptDrop) {
         onDrop(currentlyDragged);
       } else {
+        // eslint-disable-next-line no-console
         console.error("Incompatable drag pairing");
       }
 

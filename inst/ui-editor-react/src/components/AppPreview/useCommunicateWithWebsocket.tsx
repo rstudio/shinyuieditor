@@ -95,6 +95,7 @@ export function useCommunicateWithWebsocket(): CommunicationState {
             setCrashed(payload);
             break;
           default:
+            // eslint-disable-next-line no-console
             console.warn("Unknown message from websocket. Ignoring", {
               msg,
             });
@@ -111,10 +112,12 @@ export function useCommunicateWithWebsocket(): CommunicationState {
   }, [set_disconnected, status, ws]);
 
   const [restartApp, setRestartApp] = React.useState<() => void>(
-    () => () => console.log("No app running to reset")
+    // eslint-disable-next-line no-console
+    () => () => console.warn("No app running to reset")
   );
   const [stopApp, setStopApp] = React.useState<() => void>(
-    () => () => console.log("No app running to stop")
+    // eslint-disable-next-line no-console
+    () => () => console.warn("No app running to stop")
   );
 
   const clearLogs = React.useCallback(() => {

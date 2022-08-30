@@ -36,6 +36,7 @@ export function useGridItemSwapping({
   const onDrop = React.useCallback(
     (dropInfo) => {
       if (!("area" in dropInfo.node.uiArguments)) {
+        // eslint-disable-next-line no-console
         console.error("Invalid grid area swap drop", { dropInfo });
         return;
       }

@@ -41,11 +41,6 @@ export function useGridCardDropDetectors({
         throw new Error("No node to place...");
       }
 
-      console.log(
-        "Place node at",
-        makeChildPath(parentPath, positionInChildren)
-      );
-
       place_node({
         node: nodeToPlace,
         currentPath,

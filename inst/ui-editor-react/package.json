@@ -45,18 +45,11 @@
     "overrides": [
       {
         "files": [
-          "**/*.stories.*"
-        ],
-        "rules": {
-          "import/no-anonymous-default-export": "off"
-        }
-      },
-      {
-        "files": [
           "**/*.tsx",
           "**/*.ts"
         ],
         "rules": {
+          "no-console": "warn",
           "@typescript-eslint/consistent-type-imports": "error",
           "import/order": [
             "error",
@@ -85,6 +78,15 @@
               }
             }
           ]
+        }
+      },
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off",
+          "no-console": "off"
         }
       }
     ]

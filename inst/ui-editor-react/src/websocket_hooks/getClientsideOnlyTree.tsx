@@ -27,6 +27,7 @@ export async function getClientsideOnlyTree() {
         resolve(r);
       })
       .catch((e) => {
+        // eslint-disable-next-line no-console
         console.error("/testing-tree error", e);
         resolve(testingUiTree);
       });

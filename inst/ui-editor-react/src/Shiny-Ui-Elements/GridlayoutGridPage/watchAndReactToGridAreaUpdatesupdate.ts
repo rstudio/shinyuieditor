@@ -52,6 +52,7 @@ export function removeDeletedGridAreaFromLayout(
   const deletedAreaName = (gridItemNode.uiArguments as GridCardSettings).area;
 
   if (!deletedAreaName) {
+    // eslint-disable-next-line no-console
     console.error("Deleted node appears to not have a grid area, ignoring");
     return;
   }

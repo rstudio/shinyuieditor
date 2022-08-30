@@ -79,10 +79,7 @@ function LostConnectionPopup() {
   if (connectedToServer) return null;
 
   return (
-    <PortalModal
-      onConfirm={() => console.log("User confirmed")}
-      onCancel={() => console.log("user canceled")}
-    >
+    <PortalModal onConfirm={() => {}} onCancel={() => {}}>
       <p style={{ color: "var(--red, pink)", textAlign: "center" }}>
         Lost connection to backend. Check console where editor was launched for
         details.

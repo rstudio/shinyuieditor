@@ -58,6 +58,7 @@ export function useConnectToWebsocket() {
       const ws = new WebSocket(websocket_path);
 
       ws.onerror = (e) => {
+        // eslint-disable-next-line no-console
         console.error("Error with httpuv websocket connection", e);
       };
 
@@ -77,11 +78,13 @@ export function useConnectToWebsocket() {
           setConnection({ type: "FAILED" });
         }
         // Let state know that we've lost connection so we can alert the user
+        // eslint-disable-next-line no-console
         console.warn("Lost connection to httpuv.");
       };
 
       return () => ws.close();
     } catch (e) {
+      // eslint-disable-next-line no-console
       console.warn(
         "Failure to initialize websocket at all. Probably on netlify",
         e

@@ -53,7 +53,6 @@ export function useDropHandlers(
 
   const handleDrop: (dragInfo: DraggedNodeInfo) => void = React.useCallback(
     (dragInfo: DraggedNodeInfo) => {
-      console.log("Placing node after drop");
       if (onDrop === "add-node") {
         const { node, currentPath } = dragInfo;
 
