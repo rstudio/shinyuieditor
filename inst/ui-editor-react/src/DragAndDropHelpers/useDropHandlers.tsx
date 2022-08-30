@@ -16,7 +16,7 @@ import { useFilteredDrop } from "./useFilteredDrop";
 export type DropHandlerArguments = {
   dropFilters?: DropFilters;
   parentPath: NodePath;
-  positionInChildren?: number;
+  positionInChildren: number;
   onDrop: "add-node" | ((droppedNode: DraggedNodeInfo) => void);
   /**
    * Function to run the dropped node through before sending to tree. Can be
@@ -29,7 +29,7 @@ export function useDropHandlers(
   watcherRef: React.RefObject<HTMLDivElement>,
   {
     dropFilters = { rejectedNodes: [] },
-    positionInChildren = Infinity,
+    positionInChildren,
     parentPath,
     onDrop,
     processDropped = (x) => x,
