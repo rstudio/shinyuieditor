@@ -16,18 +16,20 @@ export function NewTabButtonWithDropDetection({
   return (
     <DropDetector
       className={classes.newTabDropDetector}
-      parentPath={path}
-      positionInChildren={numSiblings}
-      dropFilters={{
-        rejectedNodes: [
-          "shiny::navbarPage",
-          "gridlayout::grid_card",
-          "gridlayout::grid_card_plot",
-          "gridlayout::grid_card_text",
-        ],
-      }}
-      onDrop={({ node, currentPath }) => {
-        onNewTab(node);
+      dropArgs={{
+        parentPath: path,
+        positionInChildren: numSiblings,
+        dropFilters: {
+          rejectedNodes: [
+            "shiny::navbarPage",
+            "gridlayout::grid_card",
+            "gridlayout::grid_card_plot",
+            "gridlayout::grid_card_text",
+          ],
+        },
+        onDrop: ({ node, currentPath }) => {
+          onNewTab(node);
+        },
       }}
     >
       <PlusButton

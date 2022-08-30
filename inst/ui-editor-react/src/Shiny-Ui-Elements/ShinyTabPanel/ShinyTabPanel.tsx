@@ -21,18 +21,20 @@ const ShinyTabPanel: UiNodeComponent<TabPanelSettings> = ({
         <RenderUiChildren uiChildren={uiChildren} parentPath={path} />
       ) : (
         <DropDetector
-          dropFilters={{
-            rejectedNodes: [
-              "shiny::navbarPage",
-              "shiny::tabPanel",
-              "gridlayout::grid_card",
-              "gridlayout::grid_card_plot",
-              "gridlayout::grid_card_text",
-            ],
+          dropArgs={{
+            dropFilters: {
+              rejectedNodes: [
+                "shiny::navbarPage",
+                "shiny::tabPanel",
+                "gridlayout::grid_card",
+                "gridlayout::grid_card_plot",
+                "gridlayout::grid_card_text",
+              ],
+            },
+            positionInChildren: 0,
+            parentPath: path,
+            onDrop: "add-node",
           }}
-          positionInChildren={0}
-          parentPath={path}
-          onDrop="add-node"
         />
       )}
     </div>

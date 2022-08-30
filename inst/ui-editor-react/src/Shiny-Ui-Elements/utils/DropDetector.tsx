@@ -3,24 +3,28 @@ import React from "react";
 import type { DropHandlerArguments } from "DragAndDropHelpers/useDropHandlers";
 import { useDropHandlers } from "DragAndDropHelpers/useDropHandlers";
 
+type DropDetectorProps = {
+  dropArgs: DropHandlerArguments;
+} & React.ComponentPropsWithoutRef<"div">;
+
 function DropDetector({
   children,
-  className,
-  ...opts
-}: DropHandlerArguments & {
-  className?: string;
-  children?: React.ReactElement;
-}) {
+  dropArgs,
+  style,
+  ...divProps
+}: DropDetectorProps) {
   const detectorRef = React.useRef<HTMLDivElement>(null);
 
-  useDropHandlers(detectorRef, opts);
+  useDropHandlers(detectorRef, dropArgs);
+
+  const detectorStyles: React.CSSProperties = {
+    width: "100%",
+    height: "100%",
+    ...style,
+  };
 
   return (
-    <div
-      ref={detectorRef}
-      className={className}
-      style={{ height: "100%", width: "100%" }}
-    >
+    <div ref={detectorRef} style={detectorStyles}>
       {children}
     </div>
   );
