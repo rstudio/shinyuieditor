@@ -31,11 +31,11 @@
   font-weight: bold;
 }
 
-.tabs {
+.tabHolder {
   display: flex;
   flex-grow: 1;
   align-items: flex-end;
-  gap: 5px;
+  /* gap: 5px; */
 }
 
 .tab {
@@ -90,6 +90,7 @@ illusion of the selected panel and tab being one entity */
   align-self: stretch;
   margin: 4px;
   display: flex;
+  order: 99;
 }
 
 .newTabDropDetector {

@@ -3,8 +3,7 @@ import React from "react";
 import { NewTabButtonWithDropDetection } from "components/Tabs/Tabset/NewTabButtonWithDropDetection";
 import { nodeDepth } from "components/UiNode/TreeManipulation/nodeDepth";
 import { nodesAreDirectAncestors } from "components/UiNode/TreeManipulation/nodesAreDirectAncestors";
-import { samePath } from "components/UiNode/TreeManipulation/samePath";
-import { useNodeSelectionState, useSelectedPath } from "NodeSelectionState";
+import { useSelectedPath } from "NodeSelectionState";
 import { makeChildPath } from "Shiny-Ui-Elements/nodePathUtils";
 import {
   newTabPanelNode,
@@ -12,8 +11,10 @@ import {
 } from "Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage";
 import type { NodePath, ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
 import { usePlaceNode } from "state/uiTree";
+import { seqArray } from "utils/array-helpers";
 
 import { Tab } from "./Tab";
+import { TabDropDetector } from "./TabDropDetector";
 import classes from "./Tabset.module.css";
 import { useActiveTab } from "./useActiveTab";
 
@@ -66,7 +67,7 @@ function Tabset({
     <div className={[className, classes.container].join(" ")} {...divProps}>
       <div className={classes.header}>
         <h1 className={classes.pageTitle}>{title}</h1>
-        <div className={classes.tabs} aria-label="tabs container">
+        <div className={classes.tabHolder} aria-label="tabs container">
           {tabNames.map((name, i) => (
             <Tab
               key={name + i}
@@ -75,6 +76,9 @@ function Tabset({
               isActive={i === activeTab}
               index={i}
             />
+          ))}
+          {seqArray(numChildren + 1).map((i) => (
+            <TabDropDetector key={i} parentPath={path} index={i} />
           ))}
           <div className={classes.addTabButtonContainer}>
             <NewTabButtonWithDropDetection

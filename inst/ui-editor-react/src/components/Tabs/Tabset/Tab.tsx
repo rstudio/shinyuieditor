@@ -33,6 +33,7 @@ export const Tab = ({ name, isActive, index, parentPath }: TabProps) => {
       data-active-tab={isActive}
       data-selected-tab={isSelected}
       {...wrapperProps}
+      style={{ order: index }}
       aria-label={isActive ? `Active tab ${name}` : `Select ${name} tab`}
     >
       {name}
