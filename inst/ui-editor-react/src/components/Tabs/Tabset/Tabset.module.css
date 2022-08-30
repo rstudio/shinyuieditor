@@ -61,6 +61,10 @@
   psuedo element */
   z-index: 2;
 }
+/* Don't double up on selected outline and border */
+.tab[data-selected-tab="true"]::before {
+  outline: none;
+}
 
 /* Add a small white element over the selection border to create a contiguous
 illusion of the selected panel and tab being one entity */
