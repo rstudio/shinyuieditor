@@ -99,17 +99,12 @@ illusion of the selected panel and tab being one entity */
 }
 
 .tabDropDetector {
-  --w: 10px;
-  width: var(--w);
+  width: var(--baseWidth);
   height: 100%;
   position: relative;
   transition: width 0.1s ease-in-out;
 }
 
-.tabDropDetector.hasButton {
-  --w: 25px;
-}
-
 .tabDropDetector:global(.can-accept-drop) {
-  width: calc(var(--w) * 2);
+  width: calc(var(--baseWidth) * 2);
 }

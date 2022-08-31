@@ -17,16 +17,16 @@ export function TabDropDetector({
   index,
   parentPath,
   children,
+  baseWidth,
 }: {
+  baseWidth: string;
   index: number;
   parentPath: NodePath;
   children?: React.ReactElement;
 }) {
   return (
     <DropDetector
-      className={
-        classes.tabDropDetector + " " + (children ? classes.hasButton : "")
-      }
+      className={classes.tabDropDetector}
       aria-label="tab drop detector"
       dropArgs={{
         parentPath,
@@ -35,9 +35,12 @@ export function TabDropDetector({
         processDropped: wrapNodeInTabPanel,
         dropFilters,
       }}
-      style={{
-        order: index - 1,
-      }}
+      style={
+        {
+          "--baseWidth": baseWidth,
+          order: index - 1,
+        } as React.CSSProperties
+      }
     >
       {children}
     </DropDetector>

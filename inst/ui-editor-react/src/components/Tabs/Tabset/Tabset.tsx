@@ -78,9 +78,18 @@ function Tabset({
             />
           ))}
           {seqArray(numChildren).map((i) => (
-            <TabDropDetector key={i} parentPath={path} index={i} />
+            <TabDropDetector
+              key={i}
+              parentPath={path}
+              index={i}
+              baseWidth="10px"
+            />
           ))}
-          <TabDropDetector parentPath={path} index={numChildren}>
+          <TabDropDetector
+            parentPath={path}
+            index={numChildren}
+            baseWidth="25px"
+          >
             <PlusButton
               className={classes.addTabButton}
               label="Add new tab"
