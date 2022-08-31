@@ -71,8 +71,28 @@ get_file_ui_definition_info <- function(file_lines, type = "single-file") {
   )
 }
 
-# Gather the name of all libraries loaded with calls to `library()` in a given
-# app
+#' Grab libraries loaded via library() calls
+#'
+#' Gather the name of all libraries loaded with calls to `library()` in a given
+#' app
+#'
+#' @param file_lines lines of an R scripto
+#'
+#' @return character vector of libraries loaded with library() call
+#'
+#' @keywords internal
+#'
+#' @examples
+#' file_lines <- c(
+#'   "library(gridlayout) ",
+#'   "# hi there I'm a comment",
+#'   "   library(testing)",
+#'   "#library(commentedOut)",
+#'   "ui <- grid_page()"
+#' )
+#'
+#' shinyuieditor:::get_loaded_libraries(file_lines)
+#'
 get_loaded_libraries <- function(file_lines) {
   lib_search <- regmatches(
     x = file_lines,
