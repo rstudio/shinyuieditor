@@ -94,21 +94,9 @@ get_file_ui_definition_info <- function(file_lines, type = "single-file") {
 #' shinyuieditor:::get_loaded_libraries(file_lines)
 #'
 get_loaded_libraries <- function(file_lines) {
-  lib_search <- regmatches(
+  regmatches(
     x = file_lines,
     m = regexec(text = file_lines, pattern = "(?<=library\\()(\\w+)(?=\\))", perl = TRUE)
-  )
-
-  lib_search <- Filter(function(match) {
-    length(match) > 0
-  }, lib_search)
-
-  vapply(
-    X = lib_search,
-    FUN = function(match) {
-      match[2]
-    },
-    FUN.VALUE = character(1L)
   )
 }
 
