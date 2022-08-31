@@ -86,9 +86,9 @@
 # Real navbarPage UI snapshot
 
     Code
-      parse_ui_fn(rlang::expr(shiny::navbarPage("App Title", theme = bslib::bs_theme(),
-      shiny::tabPanel("Settings", shiny::sliderInput(inputId = "bins", label = "Number of Bins",
-        min = 12L, max = 100L, value = 30L)), shiny::tabPanel("Blue Plot", shiny::plotOutput(
+      parse_ui_fn(rlang::expr(shiny::navbarPage("App Title", shiny::tabPanel(
+        "Settings", shiny::sliderInput(inputId = "bins", label = "Number of Bins",
+          min = 12L, max = 100L, value = 30L)), shiny::tabPanel("Blue Plot", shiny::plotOutput(
         "bluePlot")), shiny::tabPanel("Grey Plot", shiny::plotOutput("distPlot")))))
     Output
       $uiName
@@ -97,16 +97,6 @@
       $uiArguments
       $uiArguments$title
       [1] "App Title"
-      
-      $uiArguments$theme
-      $uiArguments$theme$uiName
-      [1] "unknownUiFunction"
-      
-      $uiArguments$theme$uiArguments
-      $uiArguments$theme$uiArguments$text
-      [1] "bslib::bs_theme()"
-      
-      
       
       
       $uiChildren

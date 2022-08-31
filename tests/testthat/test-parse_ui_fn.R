@@ -39,7 +39,6 @@ test_that("Real navbarPage UI snapshot", {
       rlang::expr(
         shiny::navbarPage(
           "App Title",
-          theme = bslib::bs_theme(),
           shiny::tabPanel(
             "Settings",
             shiny::sliderInput(
