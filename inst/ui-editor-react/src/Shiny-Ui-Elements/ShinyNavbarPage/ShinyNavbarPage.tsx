@@ -35,7 +35,7 @@ export function wrapNodeInTabPanel(node: ShinyUiNode): ShinyUiNode {
 }
 
 const ShinyNavbarPage: UiNodeComponent<NavbarPageSettings> = ({
-  uiArguments: { title: pageTitle },
+  uiArguments: { title },
   uiChildren,
   path,
   wrapperProps,
@@ -46,7 +46,7 @@ const ShinyNavbarPage: UiNodeComponent<NavbarPageSettings> = ({
   return (
     <Tabset
       path={path}
-      title={pageTitle}
+      title={title}
       className={classes.container}
       {...wrapperProps}
     >

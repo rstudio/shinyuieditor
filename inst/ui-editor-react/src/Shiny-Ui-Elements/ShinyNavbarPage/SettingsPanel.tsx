@@ -8,7 +8,7 @@ export const ShinyNavbarPageSettings: SettingsUpdaterComponent<
 > = ({ settings }) => {
   return (
     <>
-      <TextInput name="pageTitle" label="Page title" value={settings.title} />
+      <TextInput name="title" label="Page title" value={settings.title} />
     </>
   );
 };
