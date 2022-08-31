@@ -96,7 +96,7 @@ get_file_ui_definition_info <- function(file_lines, type = "single-file") {
 get_loaded_libraries <- function(file_lines) {
   regmatches(
     x = file_lines,
-    m = regexec(text = file_lines, pattern = "(?<=library\\()(\\w+)(?=\\))", perl = TRUE)
+    m = regexpr(text = file_lines, pattern = "(?<=library\\()(\\w+)(?=\\))", perl = TRUE)
   )
 }
 
