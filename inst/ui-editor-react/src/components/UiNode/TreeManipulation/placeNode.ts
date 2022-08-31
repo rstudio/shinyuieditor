@@ -1,31 +1,17 @@
 import produce from "immer";
 import type { ShinyUiNode, NodePath } from "Shiny-Ui-Elements/uiNodeTypes";
-import { shinyUiNodeInfo } from "Shiny-Ui-Elements/uiNodeTypes";
-import { addAtIndex, moveElement } from "utils/array-helpers";
 
-import { getNode } from "./getNode";
-import { getParentPath } from "./getParentPath";
+import type { AddNodeArguments } from "./addNodeMutating";
+import { addNodeMutating } from "./addNodeMutating";
+import type { MoveNodeArguments } from "./moveNodeMutating";
+import { moveNodeMutating } from "./moveNodeMutating";
 import { nodesAreDirectAncestors } from "./nodesAreDirectAncestors";
 import { nodesAreSiblings } from "./nodesAreSiblings";
-import { removeNodeMutating } from "./removeNode";
 
 /**
  * Arguments to add a new node to a Shiny Ui Node tree
  */
-export type PlaceNodeArguments = {
-  /**
-   * New path to place the node at
-   */
-  path: NodePath;
-  /**
-   * Node to be added
-   */
-  node: ShinyUiNode;
-  /**
-   * The full current path of the node, if it is being moved and added
-   */
-  currentPath?: NodePath;
-};
+export type PlaceNodeArguments = MoveNodeArguments | AddNodeArguments;
 
 /**
  * Immutably add/move a node in a container node of the UiTree
@@ -43,55 +29,21 @@ export function placeNode(
 
 export function placeNodeMutating(
   tree: ShinyUiNode,
-  { path, node, currentPath }: PlaceNodeArguments
+  args: PlaceNodeArguments
 ): void {
-  const parentPath = getParentPath(path);
-  const positionInChildren = path[path.length - 1];
-  const parentNode = getNode(tree, parentPath);
+  const { path } = args;
 
-  if (!shinyUiNodeInfo[parentNode.uiName].acceptsChildren) {
-    throw new Error(
-      "Can't add a child to a non-container node. Check the path"
-    );
+  if ("currentPath" in args && args.currentPath) {
+    moveNodeMutating(tree, { path, currentPath: args.currentPath });
+    return;
   }
 
-  // If this is the first child we may need to create the uiChildren array first
-  if (!Array.isArray(parentNode.uiChildren)) {
-    parentNode.uiChildren = [];
+  if ("node" in args && args.node) {
+    addNodeMutating(tree, { path, node: args.node });
+    return;
   }
 
-  // If there's a current path for the node, then this is a move rather than a
-  // pure add of a node
-  if (currentPath !== undefined) {
-    const nextPath = [...parentPath, positionInChildren];
-
-    if (nodesAreDirectAncestors(currentPath, nextPath)) {
-      throw new Error("Invalid move request");
-    }
-
-    // A special case of moving is reordering a node within the children.
-    if (nodesAreSiblings(currentPath, nextPath)) {
-      const previousIndex = currentPath[currentPath.length - 1];
-
-      parentNode.uiChildren = moveElement(
-        parentNode.uiChildren,
-        previousIndex,
-        positionInChildren
-      );
-
-      // We're done now so return early
-      return;
-    }
-
-    // If this is a move then we need to remove the node from the previous position
-    removeNodeMutating(tree, { path: currentPath });
-  }
-
-  parentNode.uiChildren = addAtIndex(
-    parentNode.uiChildren,
-    positionInChildren,
-    node
-  );
+  throw new Error("Either need a node or a current path for place action");
 }
 
 export function getIsValidMove({
