@@ -4,7 +4,6 @@ import { addAtIndex, moveElement } from "utils/array-helpers";
 
 import { getNode } from "./getNode";
 import { getParentPath } from "./getParentPath";
-import { nodesAreDirectAncestors } from "./nodesAreDirectAncestors";
 import { nodesAreSiblings } from "./nodesAreSiblings";
 import { removeNodeMutating } from "./removeNode";
 
@@ -51,10 +50,6 @@ export function moveNodeMutating(
   // If there's a current path for the node, then this is a move rather than a
   // pure add of a node
   const nextPath = [...parentPath, positionInChildren];
-
-  if (nodesAreDirectAncestors(currentPath, nextPath)) {
-    throw new Error("Invalid move request");
-  }
 
   // A special case of moving is reordering a node within the children.
   if (nodesAreSiblings(currentPath, nextPath)) {

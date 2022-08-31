@@ -2,7 +2,6 @@ import React from "react";
 
 import PlusButton from "components/Inputs/PlusButton";
 import { nodeDepth } from "components/UiNode/TreeManipulation/nodeDepth";
-import { nodesAreDirectAncestors } from "components/UiNode/TreeManipulation/nodesAreDirectAncestors";
 import { useSelectedPath } from "NodeSelectionState";
 import { makeChildPath } from "Shiny-Ui-Elements/nodePathUtils";
 import {
@@ -50,10 +49,6 @@ function Tabset({
     const pathOfActiveTab = makeChildPath(path, activeTab);
 
     if (!selectedPath) return;
-
-    if (nodesAreDirectAncestors(pathOfActiveTab, selectedPath)) {
-      return;
-    }
 
     const selectedNodeIsDeeperThanActiveTab =
       nodeDepth(selectedPath) >= nodeDepth(pathOfActiveTab);
