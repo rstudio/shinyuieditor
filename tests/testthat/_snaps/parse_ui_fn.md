@@ -1,4 +1,4 @@
-# Real UI snapshot
+# Real grid_page UI snapshot
 
     Code
       parse_ui_fn(rlang::expr(gridlayout::grid_page(layout = "\n            | 1rem | 250px   | 1fr  |\n            |------|---------|------|\n            | 1fr  | sidebar | plot |",
@@ -76,6 +76,113 @@
       
       $uiChildren[[2]]$uiChildren[[1]]$uiArguments$height
       [1] "100%"
+      
+      
+      
+      
+      
+      
+
+# Real navbarPage UI snapshot
+
+    Code
+      parse_ui_fn(rlang::expr(shiny::navbarPage("App Title", theme = bslib::bs_theme(),
+      shiny::tabPanel("Settings", shiny::sliderInput(inputId = "bins", label = "Number of Bins",
+        min = 12L, max = 100L, value = 30L)), shiny::tabPanel("Blue Plot", shiny::plotOutput(
+        "bluePlot")), shiny::tabPanel("Grey Plot", shiny::plotOutput("distPlot")))))
+    Output
+      $uiName
+      [1] "shiny::navbarPage"
+      
+      $uiArguments
+      $uiArguments$title
+      [1] "App Title"
+      
+      $uiArguments$theme
+      $uiArguments$theme$uiName
+      [1] "unknownUiFunction"
+      
+      $uiArguments$theme$uiArguments
+      $uiArguments$theme$uiArguments$text
+      [1] "bslib::bs_theme()"
+      
+      
+      
+      
+      $uiChildren
+      $uiChildren[[1]]
+      $uiChildren[[1]]$uiName
+      [1] "shiny::tabPanel"
+      
+      $uiChildren[[1]]$uiArguments
+      $uiChildren[[1]]$uiArguments$title
+      [1] "Settings"
+      
+      
+      $uiChildren[[1]]$uiChildren
+      $uiChildren[[1]]$uiChildren[[1]]
+      $uiChildren[[1]]$uiChildren[[1]]$uiName
+      [1] "shiny::sliderInput"
+      
+      $uiChildren[[1]]$uiChildren[[1]]$uiArguments
+      $uiChildren[[1]]$uiChildren[[1]]$uiArguments$inputId
+      [1] "bins"
+      
+      $uiChildren[[1]]$uiChildren[[1]]$uiArguments$label
+      [1] "Number of Bins"
+      
+      $uiChildren[[1]]$uiChildren[[1]]$uiArguments$min
+      [1] 12
+      
+      $uiChildren[[1]]$uiChildren[[1]]$uiArguments$max
+      [1] 100
+      
+      $uiChildren[[1]]$uiChildren[[1]]$uiArguments$value
+      [1] 30
+      
+      
+      
+      
+      
+      $uiChildren[[2]]
+      $uiChildren[[2]]$uiName
+      [1] "shiny::tabPanel"
+      
+      $uiChildren[[2]]$uiArguments
+      $uiChildren[[2]]$uiArguments$title
+      [1] "Blue Plot"
+      
+      
+      $uiChildren[[2]]$uiChildren
+      $uiChildren[[2]]$uiChildren[[1]]
+      $uiChildren[[2]]$uiChildren[[1]]$uiName
+      [1] "shiny::plotOutput"
+      
+      $uiChildren[[2]]$uiChildren[[1]]$uiArguments
+      $uiChildren[[2]]$uiChildren[[1]]$uiArguments$outputId
+      [1] "bluePlot"
+      
+      
+      
+      
+      
+      $uiChildren[[3]]
+      $uiChildren[[3]]$uiName
+      [1] "shiny::tabPanel"
+      
+      $uiChildren[[3]]$uiArguments
+      $uiChildren[[3]]$uiArguments$title
+      [1] "Grey Plot"
+      
+      
+      $uiChildren[[3]]$uiChildren
+      $uiChildren[[3]]$uiChildren[[1]]
+      $uiChildren[[3]]$uiChildren[[1]]$uiName
+      [1] "shiny::plotOutput"
+      
+      $uiChildren[[3]]$uiChildren[[1]]$uiArguments
+      $uiChildren[[3]]$uiChildren[[1]]$uiArguments$outputId
+      [1] "distPlot"
       
       
       
