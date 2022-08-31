@@ -17,16 +17,13 @@ const listenForNodeAddMiddleware = createListenerMiddleware();
 listenForNodeAddMiddleware.startListening({
   actionCreator: PLACE_NODE,
   effect: async (action, listenerApi) => {
-    let newNodePath = action.payload.path;
-
-    if (!isNodeMove(action.payload)) return;
-
-    const oldNodePath = action.payload.currentPath;
+    const args = action.payload;
+    let newNodePath = args.path;
 
     if (
-      oldNodePath &&
-      nodesAreSiblings(newNodePath, oldNodePath) &&
-      getChildIndex(newNodePath) > getChildIndex(oldNodePath)
+      isNodeMove(args) &&
+      nodesAreSiblings(newNodePath, args.currentPath) &&
+      getChildIndex(newNodePath) > getChildIndex(args.currentPath)
     ) {
       // If we've moved a node to a later position within the same parent then we
       // need to account for the shuffling of indices after this move
