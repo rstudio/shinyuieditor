@@ -41,10 +41,10 @@
   --font-color: hsl(214 9% 15%);
   --font-color-disabled: hsl(214 9% 15% / 0.5);
 
-  --selected-border-color: var(--rstudio-blue);
-  --selected-border-width: 3px;
-  --selected-outline: var(--selected-border-width) solid
-    var(--selected-border-color);
+  --selected-outline-color: var(--rstudio-blue);
+  --selected-outline-width: 3px;
+  --selected-outline: var(--selected-outline-width) solid
+    var(--selected-outline-color);
   --outline-color: var(--grey);
 
   --disabled-color: hsl(var(--rstudio-grey-hsl) / 0.5);
@@ -133,7 +133,7 @@ code {
 [data-is-selected-node="true"]::before {
   content: "";
   position: absolute;
-  inset: 0;
+  inset: var(--selected-outline-width);
   outline: var(--selected-outline);
   pointer-events: none;
   border-radius: inherit;

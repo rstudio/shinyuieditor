@@ -69,12 +69,13 @@
 /* Add a small white element over the selection border to create a contiguous
 illusion of the selected panel and tab being one entity */
 .tab[data-selected-tab="true"]::after {
+  --s: 6px;
   content: "";
   position: absolute;
   width: 100%;
-  height: 4px;
+  height: var(--s);
   background-color: var(--rstudio-white);
-  bottom: -4px;
+  bottom: calc(-1 * var(--s));
 }
 
 .tabContents {
