@@ -1,4 +1,7 @@
-import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
+import type {
+  ShinyUiNode,
+  ShinyUiNodeByName,
+} from "Shiny-Ui-Elements/uiNodeTypes";
 
 import { getNode } from "./getNode";
 import { nodesAreDirectAncestors } from "./nodesAreDirectAncestors";
@@ -187,4 +190,44 @@ test("Move node around within its current container", () => {
   expect(getNode(updatedSliderPanel, [0])).toEqual(buttonB);
   expect(getNode(updatedSliderPanel, [1])).toEqual(buttonA);
   expect(getNode(updatedSliderPanel, [2])).toEqual(buttonC);
+});
+
+describe("Node can displace its parent", () => {
+  type GridCard = ShinyUiNodeByName["gridlayout::grid_card"];
+  test("parent to child", () => {
+    const tree: ShinyUiNode = {
+      uiName: "gridlayout::grid_card",
+      uiArguments: { area: "root" },
+      uiChildren: [
+        {
+          uiName: "gridlayout::grid_card",
+          uiArguments: { area: "0" },
+        },
+        {
+          uiName: "gridlayout::grid_card",
+          uiArguments: { area: "1" },
+          uiChildren: [
+            {
+              uiName: "gridlayout::grid_card",
+              uiArguments: { area: "1-0" },
+            },
+            {
+              uiName: "gridlayout::grid_card",
+              uiArguments: { area: "1-1" },
+            },
+          ],
+        },
+      ],
+    };
+
+    expect((getNode(tree, [1]) as GridCard).uiArguments.area).toEqual("1");
+
+    // const updatedTree = placeNode(tree, {
+    //   node: buttonB,
+    //   currentPath: [1],
+    //   path: [0],
+    // });
+
+    // expect(getNode(updatedSliderPanel, [0])).toEqual(buttonB);
+  });
 });
