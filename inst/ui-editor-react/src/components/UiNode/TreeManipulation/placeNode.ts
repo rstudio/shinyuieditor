@@ -13,6 +13,11 @@ import { nodesAreSiblings } from "./nodesAreSiblings";
  */
 export type PlaceNodeArguments = MoveNodeArguments | AddNodeArguments;
 
+export function isNodeMove(
+  opts: PlaceNodeArguments
+): opts is MoveNodeArguments {
+  return "currentPath" in opts;
+}
 /**
  * Immutably add/move a node in a container node of the UiTree
  *
@@ -31,19 +36,14 @@ export function placeNodeMutating(
   tree: ShinyUiNode,
   args: PlaceNodeArguments
 ): void {
-  const { path } = args;
+  const { path, node } = args;
 
-  if ("currentPath" in args && args.currentPath) {
-    moveNodeMutating(tree, { path, currentPath: args.currentPath });
+  if (isNodeMove(args)) {
+    moveNodeMutating(tree, { path, currentPath: args.currentPath, node });
     return;
   }
 
-  if ("node" in args && args.node) {
-    addNodeMutating(tree, { path, node: args.node });
-    return;
-  }
-
-  throw new Error("Either need a node or a current path for place action");
+  addNodeMutating(tree, { path, node: args.node });
 }
 
 export function getIsValidMove({

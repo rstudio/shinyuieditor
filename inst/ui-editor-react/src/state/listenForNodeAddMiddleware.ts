@@ -1,6 +1,7 @@
 import { createListenerMiddleware } from "@reduxjs/toolkit";
 import { getChildIndex } from "components/UiNode/TreeManipulation/getParentPath";
 import { nodesAreSiblings } from "components/UiNode/TreeManipulation/nodesAreSiblings";
+import { isNodeMove } from "components/UiNode/TreeManipulation/placeNode";
 
 import { SET_SELECTION } from "./selectedPath";
 import { PLACE_NODE } from "./uiTree";
@@ -17,6 +18,9 @@ listenForNodeAddMiddleware.startListening({
   actionCreator: PLACE_NODE,
   effect: async (action, listenerApi) => {
     let newNodePath = action.payload.path;
+
+    if (!isNodeMove(action.payload)) return;
+
     const oldNodePath = action.payload.currentPath;
 
     if (

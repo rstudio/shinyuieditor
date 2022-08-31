@@ -20,11 +20,18 @@ export type MoveNodeArguments = {
    * The full current path of the node, if it is being moved and added
    */
   currentPath: NodePath;
+
+  /**
+   * Node being moved. This is needed even though we have the previous path in
+   * case we needed to process the node during manipulation such as placing the
+   * node inside a container etc..
+   */
+  node: ShinyUiNode;
 };
 
 export function moveNodeMutating(
   tree: ShinyUiNode,
-  { path, currentPath }: MoveNodeArguments
+  { path, currentPath, node }: MoveNodeArguments
 ) {
   const parentPath = getParentPath(path);
   const positionInChildren = path[path.length - 1];
@@ -63,14 +70,11 @@ export function moveNodeMutating(
     return;
   }
 
-  // Extract node from current position
-  const movedNode = getNode(tree, currentPath);
-
   removeNodeMutating(tree, { path: currentPath });
 
   parentNode.uiChildren = addAtIndex(
     parentNode.uiChildren,
     positionInChildren,
-    movedNode
+    node
   );
 }
