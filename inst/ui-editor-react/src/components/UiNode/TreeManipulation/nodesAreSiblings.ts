@@ -6,7 +6,6 @@ import { sameArray } from "utils/equalityCheckers";
  * @param aPath Path to node A
  * @param bPath Path to node B
  */
-
 export function nodesAreSiblings(aPath: NodePath, bPath: NodePath): boolean {
   const aDepth = aPath.length;
   const bDepth = bPath.length;
@@ -24,6 +23,5 @@ export function nodesAreSiblings(aPath: NodePath, bPath: NodePath): boolean {
 
   if (!haveSameParent) return false;
 
-  // A node is not its own sibling
-  return aPath.slice(-1)[0] !== bPath.slice(-1)[0];
+  return true;
 }
