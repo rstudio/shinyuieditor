@@ -2,28 +2,35 @@ library(shiny)
 library(gt)
 
 # Here's a comment about this app
-
-
 ui <- navbarPage(
-  "App Title",
+  title = "My cool app!",
   theme = bslib::bs_theme(),
   tabPanel(
-    "Settings",
+    title = "Big Slider",
     sliderInput(
       inputId = "bins",
       label = "Number of Bins",
       min = 12L,
       max = 100L,
-      value = 30L
+      value = 30L,
+      width = "60%"
     )
   ),
   tabPanel(
-    "Blue Plot",
-    plotOutput("bluePlot")
+    title = "Blue Plot",
+    plotOutput(
+      outputId = "bluePlot",
+      width = "100%",
+      height = "400px"
+    )
   ),
   tabPanel(
-    "Grey Plot",
-    plotOutput("distPlot")
+    title = "Grey Plot",
+    plotOutput(
+      outputId = "distPlot",
+      width = "50%",
+      height = "50%"
+    )
   )
 )
 
