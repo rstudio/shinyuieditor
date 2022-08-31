@@ -8,7 +8,7 @@ import type {
 } from "Shiny-Ui-Elements/uiNodeTypes";
 import { usePlaceNode } from "state/uiTree";
 
-import { getIsValidMove } from "../components/UiNode/TreeManipulation/placeNode";
+import { getIsValidMove } from "../components/UiNode/TreeManipulation/getIsValidMove";
 
 import type { DraggedNodeInfo } from "./DragAndDropHelpers";
 import { useFilteredDrop } from "./useFilteredDrop";

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { getIsValidMove } from "components/UiNode/TreeManipulation/placeNode";
+import { getIsValidMove } from "components/UiNode/TreeManipulation/getIsValidMove";
 import type { DraggedNodeInfo } from "DragAndDropHelpers/DragAndDropHelpers";
 import { useFilteredDrop } from "DragAndDropHelpers/useFilteredDrop";
 import { makeChildPath } from "Shiny-Ui-Elements/nodePathUtils";
