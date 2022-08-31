@@ -16,7 +16,7 @@ export type PlaceNodeArguments = MoveNodeArguments | AddNodeArguments;
 export function isNodeMove(
   opts: PlaceNodeArguments
 ): opts is MoveNodeArguments {
-  return "currentPath" in opts;
+  return "currentPath" in opts && opts.currentPath !== undefined;
 }
 /**
  * Immutably add/move a node in a container node of the UiTree
