@@ -16,12 +16,10 @@ const dropFilters = {
 export function TabDropDetector({
   index,
   parentPath,
-  width,
   children,
 }: {
   index: number;
   parentPath: NodePath;
-  width: string;
   children?: React.ReactElement;
 }) {
   return (
