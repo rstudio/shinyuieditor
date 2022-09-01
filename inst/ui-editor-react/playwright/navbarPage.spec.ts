@@ -1,6 +1,62 @@
 import { test, expect } from "@playwright/test";
 
-import { basicNavbarPage } from "../src/state/backupUiTree";
+import type { ShinyUiNode } from "../src/Shiny-Ui-Elements/uiNodeTypes";
+
+const basicNavbarPage: ShinyUiNode = {
+  uiName: "shiny::navbarPage",
+  uiArguments: {
+    title: "My Navbar Page",
+  },
+  uiChildren: [
+    {
+      uiName: "shiny::tabPanel",
+      uiArguments: {
+        title: "Settings",
+      },
+      uiChildren: [
+        {
+          uiName: "shiny::actionButton",
+          uiArguments: {
+            label: "Do something",
+            inputId: "btn",
+          },
+        },
+      ],
+    },
+    {
+      uiName: "shiny::tabPanel",
+      uiArguments: {
+        title: "Plot 1",
+      },
+      uiChildren: [
+        {
+          uiName: "shiny::plotOutput",
+          uiArguments: {
+            outputId: "MyPlot",
+            width: "100%",
+            height: "100%",
+          },
+        },
+      ],
+    },
+    {
+      uiName: "shiny::tabPanel",
+      uiArguments: {
+        title: "Plot 2",
+      },
+      uiChildren: [
+        {
+          uiName: "shiny::plotOutput",
+          uiArguments: {
+            outputId: "MyOtherPlot",
+            width: "50%",
+            height: "50%",
+          },
+        },
+      ],
+    },
+  ],
+};
 
 test("Basic usage of navbar page", async ({ page }) => {
   await page.route("/testing-tree", (route) =>
