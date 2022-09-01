@@ -28,12 +28,19 @@ const Portal: React.FC<IProps> = ({ children, el = "div" }: IProps) => {
   return ReactDOM.createPortal(children, container);
 };
 
-const PortalModal: React.FC<{
+function PortalModal({
+  children,
+  title,
+  label,
+  onConfirm,
+  onCancel,
+}: {
   title?: string;
   label?: string;
   onConfirm: () => void;
   onCancel: () => void;
-}> = ({ children, title, label, onConfirm, onCancel }) => {
+  children?: React.ReactNode;
+}) {
   return (
     <Portal>
       <div
@@ -64,6 +71,6 @@ const PortalModal: React.FC<{
       </div>
     </Portal>
   );
-};
+}
 
 export default PortalModal;

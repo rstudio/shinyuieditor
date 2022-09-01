@@ -99,7 +99,7 @@ export function useConnectToWebsocket() {
 export const WebsocketContext =
   React.createContext<WebsocketConnection>(initial_state);
 
-export const WebsocketProvider: React.FC = ({ children }) => {
+export function WebsocketProvider({ children }: { children: React.ReactNode }) {
   const wsConnection = useConnectToWebsocket();
 
   return (
@@ -107,7 +107,7 @@ export const WebsocketProvider: React.FC = ({ children }) => {
       {children}
     </WebsocketContext.Provider>
   );
-};
+}
 
 export function useWebsocketBackend() {
   return React.useContext(WebsocketContext);
