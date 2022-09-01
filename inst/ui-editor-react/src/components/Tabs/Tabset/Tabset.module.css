@@ -40,13 +40,18 @@
 
 .tab {
   --roundness: 6px;
-  flex-basis: 80px;
+  padding-inline: 6px;
+  padding-block: 2px;
+  /* Make multiline tab titles more vertically compressed */
+  line-height: 16px;
+  text-align: center;
   height: calc(100% - 3px);
   border-radius: var(--roundness) var(--roundness) 0 0;
   background-color: var(--grey);
   display: grid;
   place-content: center;
   cursor: pointer;
+  border: var(--selected-outline-width) solid transparent;
 }
 
 .tab[data-active-tab="true"] {
@@ -54,7 +59,7 @@
   border-bottom-color: var(--rstudio-white);
 }
 .tab[data-selected-tab="true"] {
-  border: var(--selected-outline);
+  border-color: var(--selected-outline-color);
   position: relative;
   /* z-index here helps the selected tab sit above the rest so we can create the
   illusion of a contiguous outline line by covering up the bottom border with a

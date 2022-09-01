@@ -45,6 +45,7 @@
   --selected-outline-width: 3px;
   --selected-outline: var(--selected-outline-width) solid
     var(--selected-outline-color);
+
   --outline-color: var(--grey);
 
   --disabled-color: hsl(var(--rstudio-grey-hsl) / 0.5);
