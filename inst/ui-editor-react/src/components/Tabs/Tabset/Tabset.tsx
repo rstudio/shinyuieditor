@@ -7,7 +7,7 @@ import { makeChildPath } from "Shiny-Ui-Elements/nodePathUtils";
 import {
   newTabPanelNode,
   wrapNodeInTabPanel,
-} from "Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage";
+} from "Shiny-Ui-Elements/ShinyTabPanel/tabPanelHelpers";
 import type { NodePath, ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
 import { usePlaceNode } from "state/uiTree";
 import { seqArray } from "utils/array-helpers";
@@ -18,7 +18,7 @@ import classes from "./Tabset.module.css";
 import { useActiveTab } from "./useActiveTab";
 
 export interface TabsetProps extends React.ComponentPropsWithoutRef<"div"> {
-  title: string;
+  title?: string;
   addTabButton?: JSX.Element;
 }
 

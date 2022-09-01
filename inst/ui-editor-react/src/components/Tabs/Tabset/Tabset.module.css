@@ -31,6 +31,10 @@
   font-weight: bold;
 }
 
+.pageTitle:empty {
+  display: none;
+}
+
 .tabHolder {
   display: flex;
   flex-grow: 1;

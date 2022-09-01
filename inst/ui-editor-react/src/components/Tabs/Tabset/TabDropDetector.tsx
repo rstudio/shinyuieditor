@@ -1,7 +1,7 @@
 import React from "react";
 
-import { wrapNodeInTabPanel } from "Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage";
 import { invalidTabPanelContents } from "Shiny-Ui-Elements/ShinyTabPanel/ShinyTabPanel";
+import { wrapNodeInTabPanel } from "Shiny-Ui-Elements/ShinyTabPanel/tabPanelHelpers";
 import type { NodePath } from "Shiny-Ui-Elements/uiNodeTypes";
 import DropDetector from "Shiny-Ui-Elements/utils/DropDetector";
 
