@@ -18,3 +18,5 @@ vignettes/how-to-videos-source/
 inst/ui-editor-react/playwright-report/
 
 docs
+
+inst/ui-editor-react/.yarn/cache
