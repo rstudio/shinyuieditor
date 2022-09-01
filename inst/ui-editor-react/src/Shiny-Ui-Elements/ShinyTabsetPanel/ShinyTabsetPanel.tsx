@@ -13,8 +13,9 @@ const ShinyTabsetPanel: UiNodeComponent<TabsetPanelSettings> = ({
 }) => {
   return (
     <div className={classes.container} {...wrapperProps}>
-      NODE NAME: {uiArguments.name}
-      Path: {pathToString(path)}
+      <p>NODE NAME: {uiArguments.name}</p>
+      <p>Path: {pathToString(path)}</p>
+      <p>There are {uiChildren?.length ?? 0} children</p>
     </div>
   );
 };
