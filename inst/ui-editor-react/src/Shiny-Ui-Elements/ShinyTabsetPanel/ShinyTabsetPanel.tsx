@@ -1,9 +1,11 @@
-import { pathToString } from "Shiny-Ui-Elements/nodePathUtils";
+import TabPanel from "components/Tabs/TabPanel/TabPanel";
+import Tabset from "components/Tabs/Tabset/Tabset";
+import UiNode from "components/UiNode/UiNode";
+import { makeChildPath, pathToString } from "Shiny-Ui-Elements/nodePathUtils";
+import { isTabPanelNode } from "Shiny-Ui-Elements/ShinyTabPanel/tabPanelHelpers";
 import type { UiNodeComponent } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import type { TabsetPanelSettings } from "./index";
-
-import classes from "./styles.module.css";
 
 const ShinyTabsetPanel: UiNodeComponent<TabsetPanelSettings> = ({
   uiArguments,
@@ -11,12 +13,30 @@ const ShinyTabsetPanel: UiNodeComponent<TabsetPanelSettings> = ({
   path,
   wrapperProps,
 }) => {
+  const numChildren = uiChildren?.length ?? 0;
+
   return (
-    <div className={classes.container} {...wrapperProps}>
-      <p>NODE NAME: {uiArguments.name}</p>
-      <p>Path: {pathToString(path)}</p>
-      <p>There are {uiChildren?.length ?? 0} children</p>
-    </div>
+    <Tabset path={path} {...wrapperProps}>
+      {numChildren > 0 ? (
+        uiChildren?.map((node, i) => {
+          const nodePath = makeChildPath(path, i);
+          const title = isTabPanelNode(node)
+            ? node.uiArguments.title
+            : "unknown tab";
+          return (
+            <TabPanel key={pathToString(nodePath)} title={title}>
+              <UiNode path={nodePath} node={node} />
+            </TabPanel>
+          );
+        })
+      ) : (
+        <div style={{ padding: "5px" }}>
+          <span>
+            Empty tabset. Drag elements or Tab Panel on to add content
+          </span>
+        </div>
+      )}
+    </Tabset>
   );
 };
 

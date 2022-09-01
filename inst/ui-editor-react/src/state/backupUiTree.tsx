@@ -98,11 +98,8 @@ export const basicNavbarPage: ShinyUiNode = {
       },
       uiChildren: [
         {
-          uiName: "shiny::actionButton",
-          uiArguments: {
-            label: "Do something",
-            inputId: "btn",
-          },
+          uiName: "shiny::tabsetPanel",
+          uiArguments: {},
         },
       ],
     },

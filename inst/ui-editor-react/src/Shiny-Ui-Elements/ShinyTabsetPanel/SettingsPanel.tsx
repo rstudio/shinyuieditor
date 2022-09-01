@@ -6,9 +6,5 @@ import type { TabsetPanelSettings } from ".";
 export const ShinyTabsetPanelSettings: SettingsUpdaterComponent<
   TabsetPanelSettings
 > = ({ settings }) => {
-  return (
-    <>
-      <TextInput name="name" label="Name of NODE" value={settings.name} />
-    </>
-  );
+  return <></>;
 };
