@@ -1,4 +1,4 @@
-import iconSrc from "assets/icons/shinyContainer.png";
+import icon from "assets/icons/shinyContainer.png";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 
@@ -19,7 +19,7 @@ export const pkgNodeNameInfo: UiComponentInfo<NodeNameSettings> = {
   SettingsComponent: PkgNodeNameSettings,
   acceptsChildren: true,
   defaultSettings: pkgNodeNameDefaultSettings,
-  iconSrc,
+  iconSrc: icon,
   category: "NODE CATEGORY",
   description: "DESCRIPTION OF NODE",
 };

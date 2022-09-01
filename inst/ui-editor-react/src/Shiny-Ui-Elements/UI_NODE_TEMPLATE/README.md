@@ -8,7 +8,6 @@
   - "PkgNodeName"
   - "pkgNodeName"
   - "NodeName"
-  - "nodeName"
 - Update ui node settings type (`NodeNameSettings`) and default values (`pkgNodeNameDefaultSettings`) in `index.tsx`
 - Update info object (`pkgNodeNameInfo`) with correct title, category, and description.
 - Add the info object to the directory of ui nodes in the `uiNodeTypes.ts` file.
