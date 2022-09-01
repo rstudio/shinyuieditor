@@ -16,6 +16,10 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: "16.x"
+      - uses: actions/cache@v2
+        with:
+          path: "inst/ui-editor-react/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('inst/ui-editor-react/yarn.lock') }}
       - name: Install dependencies
         run: yarn
       - name: Install Playwright Browsers

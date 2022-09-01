@@ -26,6 +26,11 @@ jobs:
         with:
           node-version: "16.x"
 
+      - uses: actions/cache@v2
+        with:
+          path: "inst/ui-editor-react/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('inst/ui-editor-react/yarn.lock') }}
+
       - name: Install JS dependencies
         working-directory: ./inst/ui-editor-react
         run: yarn
