@@ -1,4 +1,4 @@
-import icon from "assets/icons/tabsetPanel.png";
+// import icon from "assets/icons/tabsetPanel.png";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 
