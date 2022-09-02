@@ -106,3 +106,18 @@ test_that("Errors with invalid arguments", {
     fixed = TRUE
   )
 })
+
+test_that("Deals with empty argument sets", {
+
+  expect_equal(
+    parse_ui_fn(
+      rlang::expr(
+        shiny::tabsetPanel()
+      )
+    ),
+    list(uiName= "shiny::tabsetPanel", uiArguments = list())
+  )
+})
+
+
+

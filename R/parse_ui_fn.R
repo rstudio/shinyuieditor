@@ -90,6 +90,11 @@ parse_ui_fn <- function(ui_node_expr) {
     parsed$uiChildren <- c()
   }
 
+  # If we have function with no arguments we're done
+  if (num_args == 0L) {
+    return(parsed)
+  }
+
   for (i in 1:num_args) {
     arg_name <- names(call_arguments)[[i]]
     arg_val <- call_arguments[[i]]
