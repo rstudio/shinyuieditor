@@ -7,6 +7,7 @@ import ShinyNavbarPage from "./ShinyNavbarPage";
 
 export type NavbarPageSettings = {
   title: string;
+  id?: string;
 };
 
 export const shinyNavbarPageDefaultSettings: NavbarPageSettings = {
