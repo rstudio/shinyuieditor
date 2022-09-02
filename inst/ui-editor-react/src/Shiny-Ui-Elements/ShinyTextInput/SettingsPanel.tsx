@@ -13,13 +13,13 @@ export const ShinyTextInputSettings: SettingsUpdaterComponent<
 > = ({ settings }) => {
   return (
     <>
-      <TextInput name="inputId" label="Input ID" value={settings.inputId} />
-      <TextInput name="label" value={settings.label} />
+      <TextInput name="inputId" label="Input ID" allValues={settings} />
+      <TextInput name="label" allValues={settings} />
       <InputSection name="Values">
-        <TextInput name="value" value={settings.value} />
+        <TextInput name="value" allValues={settings} />
         <TextInput
           name="placeholder"
-          value={settings.placeholder}
+          allValues={settings}
           optional={true}
           defaultValue="placeholder text"
         />

@@ -7,7 +7,8 @@ export default {
   component: TextInput,
 };
 
-function InputDemo({ width }: { width: string }) {
+function InputDemo(settings: { width: string }) {
+  const { width } = settings;
   const [value, setValue] = React.useState<string>("hello");
 
   return (
@@ -16,8 +17,8 @@ function InputDemo({ width }: { width: string }) {
         Width: {width} - Current Value: "{value}"
       </div>
       <TextInput
-        name="test"
-        value={value}
+        name="width"
+        allValues={settings}
         onChange={({ name, value }) => {
           console.log(`Changed ${name} to ${value}`);
           if (!value) return;

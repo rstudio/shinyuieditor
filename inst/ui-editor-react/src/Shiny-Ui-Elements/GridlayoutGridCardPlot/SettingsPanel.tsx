@@ -8,16 +8,15 @@ import type { GridlayoutGridCardPlotProps } from ".";
 
 export const GridlayoutGridCardPlotSettings: SettingsUpdaterComponent<
   GridlayoutGridCardPlotProps
-> = ({ settings: { area, outputId } }) => {
+> = ({ settings }) => {
   return (
     <>
-      <TextInput name="area" label="Name of grid area" value={area} />
+      <TextInput name="area" label="Name of grid area" allValues={settings} />
       <TextInput
         label="Output ID"
         name="outputId"
-        value={outputId}
+        allValues={settings}
         optional={true}
-        defaultValue={area}
       />
     </>
   );

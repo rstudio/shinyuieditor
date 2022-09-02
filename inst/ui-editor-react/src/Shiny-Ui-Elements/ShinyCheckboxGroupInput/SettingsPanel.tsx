@@ -13,8 +13,8 @@ const ShinyCheckboxGroupInputSettings: SettingsUpdaterComponent<
 > = ({ settings }) => {
   return (
     <>
-      <TextInput name="inputId" label="Input ID" value={settings.inputId} />
-      <TextInput name="label" value={settings.label} />
+      <TextInput name="inputId" label="Input ID" allValues={settings} />
+      <TextInput name="label" allValues={settings} />
       <NamedListInput
         name="choices"
         value={settings.choices}

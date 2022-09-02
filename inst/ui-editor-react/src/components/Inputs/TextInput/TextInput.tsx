@@ -1,6 +1,6 @@
 import React from "react";
 
-import type { InputWidgetCommonProps, InputWidgetCommonPropsOld } from "..";
+import type { InputWidgetCommonProps } from "..";
 import { InputWrapper } from "../InputWrapper";
 import type { OnChangeCallback } from "../SettingsUpdateContext";
 import { useOnChange } from "../SettingsUpdateContext";
@@ -50,57 +50,7 @@ export function TextInputSimple({
   );
 }
 
-export function TextInput({
-  name,
-  label,
-  value,
-  placeholder,
-  onChange,
-  autoFocus = false,
-  optional = false,
-  defaultValue = "my-text",
-}: InputWidgetCommonPropsOld<string> & {
-  placeholder?: string;
-  autoFocus?: boolean;
-}) {
-  const onNewValue = useOnChange(onChange as OnChangeCallback);
-
-  const isDisabled = value === undefined;
-
-  const inputElement = React.useRef<HTMLInputElement>(null);
-  React.useEffect(() => {
-    if (inputElement.current && autoFocus) {
-      // We need a timeout so we're sure the element is rendered before setting
-      // focus. This is only neccesary for scenarios like rendering in a portal
-      // but since we do that... we need it
-      setTimeout(() => inputElement?.current?.focus(), 1);
-    }
-  }, [autoFocus]);
-
-  return (
-    <InputWrapper
-      name={name}
-      label={label}
-      optional={optional}
-      isDisabled={isDisabled}
-      defaultValue={defaultValue}
-      width_setting="full"
-      mainInput={
-        <TextInputSimple
-          name={name}
-          ariaLabel={"input for " + name}
-          value={value}
-          placeholder={placeholder}
-          onChange={(x) => onNewValue({ name, value: x })}
-          autoFocus={autoFocus}
-          disabled={isDisabled}
-        />
-      }
-    />
-  );
-}
-
-export function TextInputSafe<T extends object>({
+export function TextInput<T extends object>({
   name,
   label,
   allValues,

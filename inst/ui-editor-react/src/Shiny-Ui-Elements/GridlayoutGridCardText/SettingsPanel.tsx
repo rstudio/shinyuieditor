@@ -24,16 +24,8 @@ export const GridlayoutGridCardTextSettings: SettingsUpdaterComponent<
 > = ({ settings }) => {
   return (
     <>
-      <TextInput
-        name="area"
-        label="Name of grid area"
-        value={settings.area ?? "empty grid area"}
-      />
-      <TextInput
-        name="content"
-        label="Panel content"
-        value={settings.content}
-      />
+      <TextInput name="area" label="Name of grid area" allValues={settings} />
+      <TextInput name="content" label="Panel content" allValues={settings} />
       <RadioInputs
         name="alignment"
         label="Text Alignment"

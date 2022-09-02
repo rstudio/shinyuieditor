@@ -68,7 +68,7 @@ export function NameNewPanelModal({
           <TextInput
             label="Name of new grid area"
             name="New-Item-Name"
-            value={newItemName}
+            allValues={{ "New-Item-Name": newItemName }}
             placeholder="Name of grid area"
             onChange={handleNameUpdate}
             autoFocus={true}
