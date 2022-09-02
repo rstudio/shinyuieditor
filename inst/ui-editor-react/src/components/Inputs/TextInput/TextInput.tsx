@@ -1,6 +1,6 @@
 import React from "react";
 
-import type { InputWidgetCommonPropsOld } from "..";
+import type { InputWidgetCommonProps, InputWidgetCommonPropsOld } from "..";
 import { InputWrapper } from "../InputWrapper";
 import type { OnChangeCallback } from "../SettingsUpdateContext";
 import { useOnChange } from "../SettingsUpdateContext";
@@ -100,11 +100,6 @@ export function TextInputOld({
   );
 }
 
-// Extract out only the keys that map to properties of type T
-type KeysOfType<Obj extends object, T> = {
-  [K in keyof Obj]: Obj[K] extends T ? K : never;
-}[keyof Obj];
-
 export function TextInputSafe<T extends object>({
   name,
   label,
@@ -114,15 +109,7 @@ export function TextInputSafe<T extends object>({
   autoFocus = false,
   optional = false,
   defaultValue = "my-text",
-}: {
-  allValues: T;
-  name: KeysOfType<T, string>;
-  label?: string;
-  noLabel?: boolean;
-  optional?: boolean;
-  onChange?: (x: { name: string; value?: string }) => void;
-  defaultValue?: string;
-  disabled?: boolean;
+}: InputWidgetCommonProps<T, string> & {
   placeholder?: string;
   autoFocus?: boolean;
 }) {
@@ -164,22 +151,3 @@ export function TextInputSafe<T extends object>({
     />
   );
 }
-
-// function printStringField<T extends object>(
-//   obj: T,
-//   field: KeysOfType<T, string>
-// ) {
-//   const value = obj[field];
-//   console.log(value);
-// }
-
-// const settings = {
-//   name: "test",
-//   anotherString: "another",
-//   id: 3,
-// };
-// printStringField(settings, "name");
-// printStringField(settings, "anotherString");
-
-// // Should show error that id doesn't map to a string
-// printStringField(settings, "id");
