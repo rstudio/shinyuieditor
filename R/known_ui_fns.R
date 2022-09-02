@@ -20,6 +20,7 @@ ui_fn_names_namespaced <- c(
   "gridlayout::grid_card"
 )
 
+
 # Ui names without namespace attached
 ui_fn_names_bare <- gsub(
   pattern = "\\w+::",
@@ -47,8 +48,8 @@ ui_fn_names_and_namespaces <- lapply(
 # A list keyed by either the namespaced or un-namespaced name of a ui function
 # that gives the info defined in ui_fn_names_and_namespaces back. Used to
 # standardize code if namespaced or not
-ui_fn_info <- c(ui_fn_names_and_namespaces, ui_fn_names_and_namespaces)
-names(ui_fn_info) <- c(ui_fn_names_namespaced, ui_fn_names_bare)
+known_ui_fns <- c(ui_fn_names_and_namespaces, ui_fn_names_and_namespaces)
+names(known_ui_fns) <- c(ui_fn_names_namespaced, ui_fn_names_bare)
 
 
 #' Namespace a ui function
@@ -67,7 +68,7 @@ names(ui_fn_info) <- c(ui_fn_names_namespaced, ui_fn_names_bare)
 #' shinyuieditor:::namespace_ui_fn("grid_page")
 #'
 namespace_ui_fn <- function(ui_name) {
-  info <- ui_fn_info[[ui_name]]
+  info <- known_ui_fns[[ui_name]]
   if (is.null(info)) {
     stop("The ui function ", ui_name, " is not in the list of known functions.")
   }
