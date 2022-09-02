@@ -18,20 +18,14 @@ ui <- navbarPage(
     )
   ),
   tabPanel(
-    title = "Weights over time",
-    plotOutput(
-      outputId = "linePlots",
-      width = "100%",
-      height = "400px"
-    )
-  ),
-  tabPanel(
-    title = "Weight By Diet",
-    plotOutput(
-      outputId = "dists",
-      width = "100%",
-      height = "400px"
-    )
+    title = "Nested Tabs",
+    tabsetPanel(tabPanel(
+      title = "Tab Title",
+      actionButton(
+        inputId = "myButton",
+        label = "My Button"
+      )
+    ))
   )
 )
 

@@ -12,6 +12,7 @@ ui_fn_names_namespaced <- c(
   "shiny::uiOutput",
   "shiny::textOutput",
   "shiny::navbarPage",
+  "shiny::tabsetPanel",
   "shiny::tabPanel",
   "gridlayout::grid_page",
   "gridlayout::grid_card",
