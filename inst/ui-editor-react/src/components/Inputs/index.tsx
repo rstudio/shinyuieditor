@@ -30,5 +30,5 @@ export type InputWidgetCommonProps<Settings extends object, T> = {
 
 // Extract out only the keys that map to properties of type T
 type KeysOfType<Obj extends object, T> = {
-  [K in keyof Obj]: Obj[K] extends T ? K : never;
+  [K in keyof Obj]: Obj[K] extends T | undefined ? K : never;
 }[keyof Obj];
