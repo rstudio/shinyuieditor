@@ -2,7 +2,7 @@ import * as React from "react";
 
 import BooleanInput from "components/Inputs/BooleanInput";
 import { LabeledCSSUnitInput } from "components/Inputs/CSSUnitInput";
-import { TextInputOld } from "components/Inputs/TextInput/TextInput";
+import { TextInput } from "components/Inputs/TextInput/TextInput";
 
 import type { SettingsUpdaterComponent } from "../uiNodeTypes";
 
@@ -13,8 +13,8 @@ export const ShinyCheckboxInputSettings: SettingsUpdaterComponent<
 > = ({ settings }) => {
   return (
     <>
-      <TextInputOld name="inputId" label="Input ID" value={settings.inputId} />
-      <TextInputOld name="label" value={settings.label} />
+      <TextInput name="inputId" label="Input ID" value={settings.inputId} />
+      <TextInput name="label" value={settings.label} />
       <BooleanInput
         label="Starting value"
         name="value"

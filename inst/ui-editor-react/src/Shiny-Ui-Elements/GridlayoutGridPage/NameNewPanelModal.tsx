@@ -1,7 +1,7 @@
 import React from "react";
 
 import Button from "components/Inputs/Button/Button";
-import { TextInputOld } from "components/Inputs/TextInput/TextInput";
+import { TextInput } from "components/Inputs/TextInput/TextInput";
 import PortalModal from "PortalModal";
 import classes from "PortalModal.module.css";
 
@@ -65,7 +65,7 @@ export function NameNewPanelModal({
             Name for grid area needs to be unique, start with a letter, and
             contain only letters and numbers.
           </span>
-          <TextInputOld
+          <TextInput
             label="Name of new grid area"
             name="New-Item-Name"
             value={newItemName}

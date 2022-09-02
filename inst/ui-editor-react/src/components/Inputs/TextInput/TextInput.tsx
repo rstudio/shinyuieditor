@@ -50,7 +50,7 @@ export function TextInputSimple({
   );
 }
 
-export function TextInputOld({
+export function TextInput({
   name,
   label,
   value,

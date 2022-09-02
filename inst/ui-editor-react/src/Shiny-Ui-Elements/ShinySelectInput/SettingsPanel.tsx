@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import NamedListInput from "components/Inputs/ListInput/NamedListInput";
-import { TextInputOld } from "components/Inputs/TextInput/TextInput";
+import { TextInput } from "components/Inputs/TextInput/TextInput";
 
 import type { SettingsUpdaterComponent } from "../uiNodeTypes";
 
@@ -12,8 +12,8 @@ const ShinySelectInputSettings: SettingsUpdaterComponent<
 > = ({ settings }) => {
   return (
     <>
-      <TextInputOld name="inputId" label="Input ID" value={settings.inputId} />
-      <TextInputOld name="label" value={settings.label} />
+      <TextInput name="inputId" label="Input ID" value={settings.inputId} />
+      <TextInput name="label" value={settings.label} />
       <NamedListInput
         name="choices"
         value={settings.choices}

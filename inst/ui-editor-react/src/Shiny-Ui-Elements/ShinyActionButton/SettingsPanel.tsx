@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { TextInputOld } from "components/Inputs/TextInput/TextInput";
+import { TextInput } from "components/Inputs/TextInput/TextInput";
 
 import type { SettingsUpdaterComponent } from "../uiNodeTypes";
 
@@ -13,12 +13,12 @@ export const ShinyActionButtonSettings: SettingsUpdaterComponent<
 
   return (
     <>
-      <TextInputOld
+      <TextInput
         label="inputId"
         name="inputId"
         value={inputId ?? "defaultActionButton"}
       />
-      <TextInputOld
+      <TextInput
         label="input label"
         name="label"
         value={label ?? "default actionButton label"}

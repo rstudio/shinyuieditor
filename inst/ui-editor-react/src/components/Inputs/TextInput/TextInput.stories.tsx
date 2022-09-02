@@ -1,10 +1,10 @@
 import React from "react";
 
-import { TextInputOld } from "./TextInput";
+import { TextInput } from "./TextInput";
 
 export default {
   title: "inputs/Text Input",
-  component: TextInputOld,
+  component: TextInput,
 };
 
 function InputDemo({ width }: { width: string }) {
@@ -15,7 +15,7 @@ function InputDemo({ width }: { width: string }) {
       <div>
         Width: {width} - Current Value: "{value}"
       </div>
-      <TextInputOld
+      <TextInput
         name="test"
         value={value}
         onChange={({ name, value }) => {

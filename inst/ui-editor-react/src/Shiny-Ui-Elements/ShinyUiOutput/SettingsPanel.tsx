@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { TextInputOld } from "components/Inputs/TextInput/TextInput";
+import { TextInput } from "components/Inputs/TextInput/TextInput";
 
 import type { SettingsUpdaterComponent } from "../uiNodeTypes";
 
@@ -10,7 +10,7 @@ export const ShinyuiOutputSettings: SettingsUpdaterComponent<
   ShinyUiOutputProps
 > = ({ settings }) => {
   return (
-    <TextInputOld
+    <TextInput
       label="Output ID"
       name="outputId"
       value={settings.outputId ?? "defaultUiOutput"}
