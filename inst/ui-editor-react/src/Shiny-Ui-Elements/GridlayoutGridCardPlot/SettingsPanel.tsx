@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { TextInput } from "components/Inputs/TextInput/TextInput";
+import { TextInputOld } from "components/Inputs/TextInput/TextInput";
 
 import type { SettingsUpdaterComponent } from "../uiNodeTypes";
 
@@ -11,8 +11,8 @@ export const GridlayoutGridCardPlotSettings: SettingsUpdaterComponent<
 > = ({ settings: { area, outputId } }) => {
   return (
     <>
-      <TextInput name="area" label="Name of grid area" value={area} />
-      <TextInput
+      <TextInputOld name="area" label="Name of grid area" value={area} />
+      <TextInputOld
         label="Output ID"
         name="outputId"
         value={outputId}

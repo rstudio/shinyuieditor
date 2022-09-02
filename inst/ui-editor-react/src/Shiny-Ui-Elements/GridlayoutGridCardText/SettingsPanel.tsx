@@ -7,7 +7,7 @@ import {
 } from "components/Icons";
 import BooleanInput from "components/Inputs/BooleanInput";
 import { RadioInputs } from "components/Inputs/RadioInputs/RadioInputs";
-import { TextInput } from "components/Inputs/TextInput/TextInput";
+import { TextInputOld } from "components/Inputs/TextInput/TextInput";
 
 import type { SettingsUpdaterComponent } from "../uiNodeTypes";
 
@@ -24,12 +24,12 @@ export const GridlayoutGridCardTextSettings: SettingsUpdaterComponent<
 > = ({ settings }) => {
   return (
     <>
-      <TextInput
+      <TextInputOld
         name="area"
         label="Name of grid area"
         value={settings.area ?? "empty grid area"}
       />
-      <TextInput
+      <TextInputOld
         name="content"
         label="Panel content"
         value={settings.content}

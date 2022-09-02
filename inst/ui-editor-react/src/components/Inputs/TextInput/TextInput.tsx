@@ -1,6 +1,6 @@
 import React from "react";
 
-import type { InputWidgetCommonProps } from "..";
+import type { InputWidgetCommonPropsOld } from "..";
 import { InputWrapper } from "../InputWrapper";
 import type { OnChangeCallback } from "../SettingsUpdateContext";
 import { useOnChange } from "../SettingsUpdateContext";
@@ -50,7 +50,7 @@ export function TextInputSimple({
   );
 }
 
-export function TextInput({
+export function TextInputOld({
   name,
   label,
   value,
@@ -59,7 +59,7 @@ export function TextInput({
   autoFocus = false,
   optional = false,
   defaultValue = "my-text",
-}: InputWidgetCommonProps<string> & {
+}: InputWidgetCommonPropsOld<string> & {
   placeholder?: string;
   autoFocus?: boolean;
 }) {

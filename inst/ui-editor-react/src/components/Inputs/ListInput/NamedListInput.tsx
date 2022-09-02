@@ -7,7 +7,7 @@ import { MdDragHandle } from "react-icons/md";
 import { ReactSortable } from "react-sortablejs";
 import { sameObject } from "utils/equalityCheckers";
 
-import type { InputWidgetCommonProps } from "..";
+import type { InputWidgetCommonPropsOld } from "..";
 import Button from "../Button/Button";
 import type { OnChangeCallback } from "../SettingsUpdateContext";
 import { useOnChange } from "../SettingsUpdateContext";
@@ -29,7 +29,7 @@ export default function NamedListInput({
   onChange,
   optional = false,
   newItemValue = { key: "myKey", value: "myValue" },
-}: InputWidgetCommonProps<NamedList> & {
+}: InputWidgetCommonPropsOld<NamedList> & {
   newItemValue?: { key: string; value: string };
 }) {
   const [state, setState] = React.useState<ItemType[]>(

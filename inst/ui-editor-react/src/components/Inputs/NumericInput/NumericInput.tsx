@@ -1,6 +1,6 @@
 import React from "react";
 
-import type { InputWidgetCommonProps } from "..";
+import type { InputWidgetCommonPropsOld } from "..";
 import { InputWrapper } from "../InputWrapper";
 import type { OnChangeCallback } from "../SettingsUpdateContext";
 import { useOnChange } from "../SettingsUpdateContext";
@@ -80,7 +80,7 @@ export default function NumericInput({
   optional = false,
   defaultValue = 1,
   disabled = value === undefined,
-}: InputWidgetCommonProps<number> & {
+}: InputWidgetCommonPropsOld<number> & {
   min?: number;
   max?: number;
 }) {

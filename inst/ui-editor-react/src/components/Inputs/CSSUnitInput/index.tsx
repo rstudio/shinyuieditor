@@ -3,7 +3,7 @@ import React from "react";
 import debounce from "just-debounce-it";
 import { deparseCSSMeasure } from "utils/css-helpers";
 
-import type { InputWidgetCommonProps } from "..";
+import type { InputWidgetCommonPropsOld } from "..";
 import type { CSSMeasure } from "../../../CSSMeasure";
 import { InputWrapper } from "../InputWrapper";
 import { NumericInputSimple } from "../NumericInput/NumericInput";
@@ -116,7 +116,7 @@ export function LabeledCSSUnitInput({
   value,
   defaultValue = "10px",
   ...props
-}: Omit<InputWidgetCommonProps<CSSMeasure>, "disabled"> &
+}: Omit<InputWidgetCommonPropsOld<CSSMeasure>, "disabled"> &
   Omit<CSSUnitInputProps, "onChange" | "value">) {
   const onNewValue = useOnChange(onChange as OnChangeCallback);
   const isDisabled = value === undefined;

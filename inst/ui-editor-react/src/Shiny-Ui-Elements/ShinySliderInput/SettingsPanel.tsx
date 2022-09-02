@@ -4,7 +4,7 @@ import CategoryDivider from "components/CategoryDivider";
 import { LabeledCSSUnitInput } from "components/Inputs/CSSUnitInput";
 import { WrappedSection } from "components/Inputs/InputSections";
 import NumericInput from "components/Inputs/NumericInput/NumericInput";
-import { TextInput } from "components/Inputs/TextInput/TextInput";
+import { TextInputOld } from "components/Inputs/TextInput/TextInput";
 
 import type { SettingsUpdaterComponent } from "../uiNodeTypes";
 
@@ -17,8 +17,8 @@ export const ShinySliderInputSettings: SettingsUpdaterComponent<
 
   return (
     <>
-      <TextInput name="inputId" label="Input ID" value={settings.inputId} />
-      <TextInput name="label" value={settings.label} />
+      <TextInputOld name="inputId" label="Input ID" value={settings.inputId} />
+      <TextInputOld name="label" value={settings.label} />
 
       <WrappedSection name="Values">
         <NumericInput name="min" value={settings.min} />

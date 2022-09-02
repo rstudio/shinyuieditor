@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { LabeledCSSUnitInput } from "components/Inputs/CSSUnitInput";
 import { InputSection } from "components/Inputs/InputSections";
-import { TextInput } from "components/Inputs/TextInput/TextInput";
+import { TextInputOld } from "components/Inputs/TextInput/TextInput";
 
 import type { SettingsUpdaterComponent } from "../uiNodeTypes";
 
@@ -13,11 +13,11 @@ export const ShinyTextInputSettings: SettingsUpdaterComponent<
 > = ({ settings }) => {
   return (
     <>
-      <TextInput name="inputId" label="Input ID" value={settings.inputId} />
-      <TextInput name="label" value={settings.label} />
+      <TextInputOld name="inputId" label="Input ID" value={settings.inputId} />
+      <TextInputOld name="label" value={settings.label} />
       <InputSection name="Values">
-        <TextInput name="value" value={settings.value} />
-        <TextInput
+        <TextInputOld name="value" value={settings.value} />
+        <TextInputOld
           name="placeholder"
           value={settings.placeholder}
           optional={true}

@@ -6,7 +6,7 @@ import { MdDragHandle } from "react-icons/md";
 import { ReactSortable } from "react-sortablejs";
 import { sameArray } from "utils/equalityCheckers";
 
-import type { InputWidgetCommonProps } from "..";
+import type { InputWidgetCommonPropsOld } from "..";
 import Button from "../Button/Button";
 import { InputLabel } from "../InputSections";
 import type { OnChangeCallback } from "../SettingsUpdateContext";
@@ -25,7 +25,7 @@ export default function ListInput({
   onChange,
   optional = false,
   newItemValue = "item",
-}: InputWidgetCommonProps<string[]> & { newItemValue?: string }) {
+}: InputWidgetCommonPropsOld<string[]> & { newItemValue?: string }) {
   const [state, setState] = React.useState<ItemType[]>(
     value?.map((x, i) => ({ id: i, value: x })) ?? []
   );

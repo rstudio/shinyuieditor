@@ -2,7 +2,7 @@
  * Common props for input widgets to make sure they can properly speak to the
  * onChange callbacks etc..
  */
-export type InputWidgetCommonProps<T> = {
+export type InputWidgetCommonPropsOld<T> = {
   name: string;
   label?: string;
   noLabel?: boolean;

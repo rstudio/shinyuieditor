@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { LabeledCSSUnitInput } from "components/Inputs/CSSUnitInput";
-import { TextInput } from "components/Inputs/TextInput/TextInput";
+import { TextInputOld } from "components/Inputs/TextInput/TextInput";
 import type { CSSMeasure } from "CSSMeasure";
 
 import type { SettingsUpdaterComponent } from "../uiNodeTypes";
@@ -13,7 +13,7 @@ export const ShinyPlotOutputSettings: SettingsUpdaterComponent<
 > = ({ settings: { outputId, width = "100%", height = "400px" } }) => {
   return (
     <>
-      <TextInput
+      <TextInputOld
         label="Output ID"
         name="outputId"
         value={outputId ?? "defaultPlotOutput"}
