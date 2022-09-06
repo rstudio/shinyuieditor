@@ -24,12 +24,24 @@ export function OptionsDropdownSimple<Option extends string>({
   onChange,
   ...passthrough
 }: SelectProps & OptionsDropdownProps<Option>) {
+  // Reset the current selection if it gets out of sync with the options
+  React.useEffect(() => {
+    if (selected !== undefined && !options.includes(selected)) {
+      onChange(options[0]);
+    }
+  }, [onChange, options, selected]);
+
+  const handleChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
+    const selectedIndex = e.target.selectedIndex;
+    onChange(options[selectedIndex]);
+  };
+
   // Duplicate items won't be of much use so we should get rid of them
   const uniqueOptions = removeDuplicates(options);
   return (
     <select
       className="OptionsDropdown"
-      onChange={(e) => onChange(options[e.target.selectedIndex])}
+      onChange={handleChange}
       value={selected}
       {...passthrough}
     >
