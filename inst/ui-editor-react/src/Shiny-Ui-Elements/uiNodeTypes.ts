@@ -219,6 +219,7 @@ export type UiNodeComponent<NodeSettings extends object> = (props: {
  */
 export type SettingsUpdaterComponent<T extends object> = (p: {
   settings: T;
+  node: ShinyUiNode;
 }) => JSX.Element;
 
 /**

@@ -43,7 +43,7 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
       <form className={classes.settingsForm} onSubmit={stopDefaultSubmit}>
         <div className={classes.settingsInputs}>
           <SettingsUpdateContext onChange={updateArgumentsByName}>
-            <SettingsInputs settings={uiArguments} />
+            <SettingsInputs settings={uiArguments} node={currentNode} />
           </SettingsUpdateContext>
         </div>
       </form>
