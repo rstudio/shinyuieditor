@@ -1,5 +1,7 @@
 import React from "react";
 
+import { removeDuplicates } from "utils/array-helpers";
+
 import type { InputWidgetCommonProps } from "..";
 import { InputWrapper } from "../InputWrapper";
 import type { OnChangeCallback } from "../SettingsUpdateContext";
@@ -22,6 +24,8 @@ export function OptionsDropdownSimple<Option extends string>({
   onChange,
   ...passthrough
 }: SelectProps & OptionsDropdownProps<Option>) {
+  // Duplicate items won't be of much use so we should get rid of them
+  const uniqueOptions = removeDuplicates(options);
   return (
     <select
       className="OptionsDropdown"
@@ -29,7 +33,7 @@ export function OptionsDropdownSimple<Option extends string>({
       value={selected}
       {...passthrough}
     >
-      {options.map((opt) => (
+      {uniqueOptions.map((opt) => (
         <option key={opt} value={opt}>
           {opt}
         </option>

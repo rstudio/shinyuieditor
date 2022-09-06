@@ -116,3 +116,7 @@ export function joinPretty(
 
   return [...arr].splice(0, n - 1).join(sep) + finalSep + lastItem;
 }
+
+export function removeDuplicates(arr: string[]): string[] {
+  return [...new Set(arr)];
+}
