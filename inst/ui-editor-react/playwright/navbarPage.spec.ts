@@ -69,7 +69,7 @@ test("Basic usage of navbar page", async ({ page }) => {
   await page.goto("/");
 
   // First we switch to a different tab
-  await page.locator("text=Plot 1").click();
+  await page.locator(`[aria-label="shiny::navbarPage"] >> text=Plot 1`).click();
 
   // Now we select the element contained within that tab
   await page
