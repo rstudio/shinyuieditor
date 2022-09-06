@@ -1,3 +1,4 @@
+import BooleanInput from "components/Inputs/BooleanInput";
 import { OptionsDropdown } from "components/Inputs/OptionsDropdown/OptionsDropdown";
 import { TextInput } from "components/Inputs/TextInput/TextInput";
 import { getNamesOfChildTabPanels } from "Shiny-Ui-Elements/ShinyTabPanel/tabPanelHelpers";
@@ -12,6 +13,11 @@ export const ShinyNavbarPageSettings: SettingsUpdaterComponent<
   return (
     <>
       <TextInput name="title" label="Page title" allValues={settings} />
+      <BooleanInput
+        name="collapsible"
+        label="Collapse navigation on mobile"
+        value={settings.collapsible}
+      />
       <TextInput
         name="id"
         optional={true}
