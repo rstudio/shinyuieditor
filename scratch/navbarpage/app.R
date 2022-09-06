@@ -4,7 +4,9 @@ library(ggplot2)
 # Chick weights investigated over three panels
 ui <- navbarPage(
   title = "Geysers",
+  collapsible = TRUE,
   theme = bslib::bs_theme(),
+  selected = "Nested Tabs",
   tabPanel(
     title = "Settings",
     sliderInput(
