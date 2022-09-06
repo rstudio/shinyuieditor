@@ -1,6 +1,5 @@
 import { createListenerMiddleware } from "@reduxjs/toolkit";
-import { getChildIndex } from "components/UiNode/TreeManipulation/getParentPath";
-import { nodesAreSiblings } from "components/UiNode/TreeManipulation/nodesAreSiblings";
+import { getPathAfterMove } from "components/UiNode/TreeManipulation/getPathAfterMove";
 import { isNodeMove } from "components/UiNode/TreeManipulation/placeNode";
 
 import { SET_SELECTION } from "./selectedPath";
@@ -20,14 +19,13 @@ listenForNodeAddMiddleware.startListening({
     const args = action.payload;
     let newNodePath = args.path;
 
-    if (
-      isNodeMove(args) &&
-      nodesAreSiblings(newNodePath, args.currentPath) &&
-      getChildIndex(newNodePath) > getChildIndex(args.currentPath)
-    ) {
+    if (isNodeMove(args)) {
       // If we've moved a node to a later position within the same parent then we
       // need to account for the shuffling of indices after this move
-      newNodePath[newNodePath.length - 1]--;
+      newNodePath = getPathAfterMove({
+        fromPath: args.currentPath,
+        toPath: newNodePath,
+      });
     }
 
     listenerApi.dispatch(SET_SELECTION({ path: newNodePath }));
