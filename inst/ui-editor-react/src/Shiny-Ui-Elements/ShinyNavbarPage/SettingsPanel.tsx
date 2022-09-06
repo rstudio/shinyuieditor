@@ -9,8 +9,6 @@ import type { NavbarPageSettings } from ".";
 export const ShinyNavbarPageSettings: SettingsUpdaterComponent<
   NavbarPageSettings
 > = ({ settings, node }) => {
-  const currentPanelChildren = getNamesOfChildTabPanels(node);
-
   return (
     <>
       <TextInput name="title" label="Page title" allValues={settings} />
@@ -25,7 +23,7 @@ export const ShinyNavbarPageSettings: SettingsUpdaterComponent<
         allValues={settings}
         label="Initial selection"
         optional={true}
-        options={currentPanelChildren}
+        options={getNamesOfChildTabPanels(node)}
       />
     </>
   );

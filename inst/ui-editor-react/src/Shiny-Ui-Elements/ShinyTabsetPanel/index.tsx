@@ -5,7 +5,7 @@ import type { UiComponentInfo } from "../uiNodeTypes";
 import { ShinyTabsetPanelSettings } from "./SettingsPanel";
 import ShinyTabsetPanel from "./ShinyTabsetPanel";
 
-export type TabsetPanelSettings = { id?: string };
+export type TabsetPanelSettings = { id?: string; selected?: string };
 
 export const shinyTabsetPanelDefaultSettings: TabsetPanelSettings = {};
 
