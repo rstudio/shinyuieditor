@@ -60,16 +60,9 @@ export type UiComponentInfo<NodeSettings extends object> = {
   description?: string;
 
   /**
-   * Optional functions that will hook into the state update reducers and allow
-   * a component the ability to respond to state manipulation before the main
-   * tree update action has been preformed. These are dangerous and should only
-   * be used as a last resort. perform state mutations in response in addition
-   * to the plain updating of the node (which will occur last)
+   * Optional update subscribers
    */
-  stateUpdateSubscribers?: {
-    UPDATE_NODE?: UpdateAction;
-    DELETE_NODE?: DeleteAction;
-  };
+  stateUpdateSubscribers?: Partial<StateUpdateSubscribers>;
 } & (
   | {
       /**
@@ -96,6 +89,18 @@ export type UiComponentInfo<NodeSettings extends object> = {
       UiComponent: UiNodeComponent<NodeSettings>;
     }
 );
+
+/**
+ * Optional functions that will hook into the state update reducers and allow
+ * a component the ability to respond to state manipulation before the main
+ * tree update action has been preformed. These are dangerous and should only
+ * be used as a last resort. perform state mutations in response in addition
+ * to the plain updating of the node (which will occur last)
+ */
+export type StateUpdateSubscribers = {
+  UPDATE_NODE: UpdateAction;
+  DELETE_NODE: DeleteAction;
+};
 
 /**
  * This is the main object that contains the info about a given uiNode. Once the

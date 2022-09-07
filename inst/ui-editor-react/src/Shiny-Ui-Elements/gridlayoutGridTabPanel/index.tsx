@@ -1,4 +1,8 @@
 import icon from "assets/icons/tabPanel.png";
+import {
+  updateGridLayoutAreaOnItemAreaChange,
+  removeDeletedGridAreaFromLayout,
+} from "components/Grids/watchAndReactToGridAreaUpdatesupdate";
 import type { TemplatedGridProps } from "Shiny-Ui-Elements/GridlayoutGridPage";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
@@ -30,6 +34,10 @@ export const gridlayoutGridTabPanelInfo: UiComponentInfo<GridTabPanelSettings> =
     defaultSettings: gridlayoutGridTabPanelDefaultSettings,
     iconSrc: icon,
     category: "Tabs",
+    stateUpdateSubscribers: {
+      UPDATE_NODE: updateGridLayoutAreaOnItemAreaChange,
+      DELETE_NODE: removeDeletedGridAreaFromLayout,
+    },
     description: "A tab panel with a grid layout",
   };
 
