@@ -1,26 +1,37 @@
 .can-accept-drop {
-  --outline-start-width: 2px;
-  --outline-end-width: 5px;
-  --start-shadow: inset 0px 0 0px var(--outline-start-width) var(--red);
-  --end-shadow: inset 0px 0 0px var(--outline-end-width) var(--red);
-  box-shadow: var(--start-shadow);
+  --start-opacity: 0.1;
+  --end-opacity: 0.5;
 
+  position: relative;
+  background-color: var(--red);
+  opacity: 0.2;
   animation-duration: 3s;
   animation-name: pulse;
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
 }
 
+.can-accept-drop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  text-align: center;
+  display: grid;
+  place-content: center;
+  overflow: hidden;
+  color: var(--rstudio-white);
+}
+
 @keyframes pulse {
   from {
-    box-shadow: var(--start-shadow);
+    opacity: var(--start-opacity);
   }
 
   50% {
-    box-shadow: var(--end-shadow);
+    opacity: var(--end-opacity);
   }
   to {
-    box-shadow: var(--start-shadow);
+    opacity: var(--start-opacity);
   }
 }
 
@@ -30,8 +41,12 @@ prefixing is to give this style the greatest possible specificity. It will cause
 troubles if in the future another element type can be dropped into, but that
 seems unlikely to happen. */
 div.can-accept-drop.hovering-over {
-  background-color: var(--red);
+  --start-opacity: 1;
+  --end-opacity: 1;
   /* Lift up whatever element is being hovered so anything placed over it
   doesn't interfere with dropping */
   z-index: 10;
+}
+div.can-accept-drop.hovering-over::after {
+  content: "release to add";
 }
