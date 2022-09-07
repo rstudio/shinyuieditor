@@ -8,6 +8,9 @@ import { emptyCell } from "utils/gridTemplates/itemLocations";
 
 import type { GridCardSettings } from "../../Shiny-Ui-Elements/GridlayoutGridCard";
 
+import type { GridContainerNode } from "./isValidGridContainer";
+import { isValidGridContainer } from "./isValidGridContainer";
+
 // This function watches for changes in a grid layout childs grid area and
 // updates the parent's layout names accordingly. Note that it mutates the tree
 // object in place and so should only be used inside of an immer-ized function
@@ -63,27 +66,20 @@ export function removeDeletedGridAreaFromLayout(
   });
 }
 
-type GridPageNode = Required<
-  Omit<Extract<ShinyUiNode, { uiName: "gridlayout::grid_page" }>, "uiHTML">
->;
-
 function getGridPageAndItemNodes({
   tree,
   pathToGridItem,
 }: {
   tree: ShinyUiNode;
   pathToGridItem: NodePath;
-}): { gridPageNode: GridPageNode; gridItemNode: ShinyUiNode } | null {
+}): { gridPageNode: GridContainerNode; gridItemNode: ShinyUiNode } | null {
   // Node that's not a child of a grid element changed. This sould be
   // updated to be more general in the future
   if (pathToGridItem.length !== 1) return null;
 
   // Make sure that the parent of this node is in fact a grid page
   const gridPageNode = getNode(tree, pathToGridItem.slice(0, -1));
-  if (
-    gridPageNode.uiName !== "gridlayout::grid_page" ||
-    gridPageNode.uiChildren === undefined
-  ) {
+  if (!isValidGridContainer(gridPageNode)) {
     return null;
   }
 
@@ -97,7 +93,7 @@ function getGridPageAndItemNodes({
   // Not sure why typescript cant properly infer this type here but we check for
   // the uiChildren already so it's a safe inference
   return {
-    gridPageNode: gridPageNode as GridPageNode,
+    gridPageNode: gridPageNode as GridContainerNode,
     gridItemNode,
   };
 }
