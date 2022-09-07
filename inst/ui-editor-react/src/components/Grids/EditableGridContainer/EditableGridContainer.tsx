@@ -2,10 +2,9 @@ import * as React from "react";
 
 import type { CSSMeasure } from "CSSMeasure";
 import produce from "immer";
+import type { TemplatedGridProps } from "Shiny-Ui-Elements/GridlayoutGridPage";
 import addTract from "utils/gridTemplates/addTract";
 import removeTract from "utils/gridTemplates/removeTract";
-
-import type { TemplatedGridProps } from "../../../Shiny-Ui-Elements/GridlayoutGridPage";
 
 import classes from "./resizableGrid.module.css";
 import { TractInfoDisplays } from "./TractInfoDisplay";

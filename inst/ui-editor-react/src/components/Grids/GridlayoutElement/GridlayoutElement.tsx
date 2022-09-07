@@ -20,7 +20,7 @@ import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
 import type { GridItemExtent } from "utils/gridTemplates/types";
 
 import { useUpdateUiArguments } from "../../../state/useUpdateUiArguments";
-import EditableGridContainer from "../EditableGridContainer";
+import EditableGridContainer from "../EditableGridContainer/EditableGridContainer";
 import type { GridLayoutAction } from "../gridLayoutReducer";
 import { gridLayoutReducer } from "../gridLayoutReducer";
 import { toStringLoc } from "../helpers";
