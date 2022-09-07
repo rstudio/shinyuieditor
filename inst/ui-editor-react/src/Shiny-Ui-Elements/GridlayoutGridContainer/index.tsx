@@ -10,12 +10,9 @@ import type { UiComponentInfo } from "../uiNodeTypes";
 import GridlayoutGridContainer from "./GridlayoutGridContainer";
 import { GridlayoutGridContainerSettings } from "./SettingsPanel";
 
-export type GridContainerSettings = {
-  title: string;
-} & TemplatedGridProps;
+export type GridContainerSettings = TemplatedGridProps;
 
 export const gridlayoutGridContainerDefaultSettings: GridContainerSettings = {
-  title: "Grid Panel",
   areas: [
     [".", "."],
     [".", "."],
