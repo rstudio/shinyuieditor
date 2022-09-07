@@ -19,7 +19,7 @@ export function updateGridLayoutAreaOnItemAreaChange(
   tree: ShinyUiNode,
   { path, node }: UpdateNodeArguments
 ) {
-  const gridPageAndItemNodes = getGridPageAndItemNodes({
+  const gridPageAndItemNodes = getGridContainerAndItemNodes({
     tree,
     pathToGridItem: path,
   });
@@ -43,7 +43,7 @@ export function removeDeletedGridAreaFromLayout(
   tree: ShinyUiNode,
   { path }: RemoveNodeArguments
 ) {
-  const gridPageAndItemNodes = getGridPageAndItemNodes({
+  const gridPageAndItemNodes = getGridContainerAndItemNodes({
     tree,
     pathToGridItem: path,
   });
@@ -66,26 +66,26 @@ export function removeDeletedGridAreaFromLayout(
   });
 }
 
-function getGridPageAndItemNodes({
+function getGridContainerAndItemNodes({
   tree,
   pathToGridItem,
 }: {
   tree: ShinyUiNode;
   pathToGridItem: NodePath;
 }): { gridPageNode: GridContainerNode; gridItemNode: ShinyUiNode } | null {
-  // Node that's not a child of a grid element changed. This sould be
-  // updated to be more general in the future
-  if (pathToGridItem.length !== 1) return null;
+  // Don't bother if we're at the root node
+  if (pathToGridItem.length === 0) return null;
+  const parentNode = getNode(tree, pathToGridItem.slice(0, -1));
 
   // Make sure that the parent of this node is in fact a grid page
-  const gridPageNode = getNode(tree, pathToGridItem.slice(0, -1));
-  if (!isValidGridContainer(gridPageNode)) {
+  // const gridPageNode = getNode(tree, pathToGridItem.slice(0, -1));
+  if (!isValidGridContainer(parentNode)) {
     return null;
   }
 
   // Make sure the child node is in fact a grid item aware node
   const gridItemNode =
-    gridPageNode.uiChildren[pathToGridItem[pathToGridItem.length - 1]];
+    parentNode.uiChildren[pathToGridItem[pathToGridItem.length - 1]];
 
   // Only trigger on updates of grid area nodes
   if (!("area" in gridItemNode.uiArguments)) return null;
@@ -93,7 +93,7 @@ function getGridPageAndItemNodes({
   // Not sure why typescript cant properly infer this type here but we check for
   // the uiChildren already so it's a safe inference
   return {
-    gridPageNode: gridPageNode as GridContainerNode,
+    gridPageNode: parentNode,
     gridItemNode,
   };
 }
