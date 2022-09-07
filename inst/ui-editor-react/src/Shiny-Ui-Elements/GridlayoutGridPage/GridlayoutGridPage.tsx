@@ -2,12 +2,12 @@ import React from "react";
 
 import { AreaOverlay } from "components/Grids/AreaOverlay";
 import { GridCell } from "components/Grids/GridCell";
+import { LayoutDispatchContext } from "components/Grids/useSetLayout";
 import UiNode from "components/UiNode/UiNode";
 import type { DraggedNodeInfo } from "DragAndDropHelpers/DragAndDropHelpers";
 import { useDispatch } from "react-redux";
 import { makeChildPath } from "Shiny-Ui-Elements/nodePathUtils";
 import type {
-  ShinyUiChildren,
   ShinyUiNodeInfo,
   UiNodeComponent,
 } from "Shiny-Ui-Elements/uiNodeTypes";
@@ -32,9 +32,6 @@ import classes from "./styles.module.css";
 export type NewItemInfo = DraggedNodeInfo & {
   pos: GridItemExtent;
 };
-
-export const LayoutDispatchContext =
-  React.createContext<React.Dispatch<GridLayoutAction> | null>(null);
 
 export const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
   uiArguments: layoutDef,
@@ -192,19 +189,5 @@ export const GridlayoutGridPage: UiNodeComponent<TemplatedGridProps> = ({
     </LayoutDispatchContext.Provider>
   );
 };
-/** Get the grid areas present in the children nodes passed to the Grid_Page()
- * component. This assumes that they are stored in the "area" property on the
- * uiArguments */
-export function areasOfChildren(children: ShinyUiChildren) {
-  let all_children_areas: string[] = [];
-  children.forEach((child) => {
-    if ("area" in child.uiArguments && child.uiArguments.area !== undefined) {
-      const area = child.uiArguments.area;
-      all_children_areas.push(area);
-    }
-  });
-
-  return all_children_areas;
-}
 
 type GridAwareNodeArgs = ShinyUiNodeInfo[GridAwareNodes]["defaultSettings"];

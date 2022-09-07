@@ -1,6 +1,9 @@
 import React from "react";
 
-import { LayoutDispatchContext } from "../../Shiny-Ui-Elements/GridlayoutGridPage/GridlayoutGridPage";
+import type { GridLayoutAction } from "./gridLayoutReducer";
+
+export const LayoutDispatchContext =
+  React.createContext<React.Dispatch<GridLayoutAction> | null>(null);
 
 export function useSetLayout() {
   const setLayout = React.useContext(LayoutDispatchContext);

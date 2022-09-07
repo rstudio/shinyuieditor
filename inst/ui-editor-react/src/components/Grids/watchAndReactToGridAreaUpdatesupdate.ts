@@ -1,8 +1,8 @@
+import { areasOfChildren } from "components/Grids/areasOfChildren";
 import { gridLayoutReducer } from "components/Grids/gridLayoutReducer";
 import { getNode } from "components/UiNode/TreeManipulation/getNode";
 import type { RemoveNodeArguments } from "components/UiNode/TreeManipulation/removeNode";
 import type { UpdateNodeArguments } from "components/UiNode/TreeManipulation/updateNode";
-import { areasOfChildren } from "Shiny-Ui-Elements/GridlayoutGridPage/GridlayoutGridPage";
 import type { NodePath, ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
 import { emptyCell } from "utils/gridTemplates/itemLocations";
 
