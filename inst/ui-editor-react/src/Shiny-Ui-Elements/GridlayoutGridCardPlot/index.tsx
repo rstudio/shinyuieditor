@@ -10,7 +10,7 @@ export interface GridlayoutGridCardPlotProps {
   outputId?: string;
 }
 
-export const GridlayoutGridCardPlotInfo: UiComponentInfo<GridlayoutGridCardPlotProps> =
+export const gridlayoutGridCardPlotInfo: UiComponentInfo<GridlayoutGridCardPlotProps> =
   {
     title: "Grid Plot Card",
     UiComponent: GridlayoutGridCardPlot,

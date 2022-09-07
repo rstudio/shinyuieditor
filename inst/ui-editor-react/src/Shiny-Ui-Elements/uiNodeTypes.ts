@@ -3,9 +3,10 @@ import type React from "react";
 import type { DeleteAction, UpdateAction } from "state/uiTree";
 
 import { gridlayoutGridCardInfo } from "./GridlayoutGridCard";
-import { GridlayoutGridCardPlotInfo } from "./GridlayoutGridCardPlot";
+import { gridlayoutGridCardPlotInfo } from "./GridlayoutGridCardPlot";
 import { gridlayoutTextPanelInfo } from "./GridlayoutGridCardText";
 import { gridlayoutGridPageInfo } from "./GridlayoutGridPage";
+import gridlayoutGridTabPanelInfo from "./gridlayoutGridTabPanel";
 import { shinyActionButtonInfo } from "./ShinyActionButton";
 import { shinyCheckboxGroupInputInfo } from "./ShinyCheckboxGroupInput";
 import { shinyCheckboxInputInfo } from "./ShinyCheckboxInput";
@@ -119,7 +120,8 @@ export const shinyUiNodeInfo = {
   "gridlayout::grid_page": gridlayoutGridPageInfo,
   "gridlayout::grid_card": gridlayoutGridCardInfo,
   "gridlayout::grid_card_text": gridlayoutTextPanelInfo,
-  "gridlayout::grid_card_plot": GridlayoutGridCardPlotInfo,
+  "gridlayout::grid_card_plot": gridlayoutGridCardPlotInfo,
+  "gridlayout::grid_tab_panel": gridlayoutGridTabPanelInfo,
   unknownUiFunction: unknownUiFunctionInfo,
 };
 
