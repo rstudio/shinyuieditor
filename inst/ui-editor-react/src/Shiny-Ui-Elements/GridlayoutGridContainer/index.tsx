@@ -1,4 +1,4 @@
-import icon from "assets/icons/tabPanel.png";
+import icon from "assets/icons/gridcontainer.png";
 import {
   updateGridLayoutAreaOnItemAreaChange,
   removeDeletedGridAreaFromLayout,
@@ -24,7 +24,7 @@ export const gridlayoutGridContainerDefaultSettings: GridContainerSettings = {
 
 export const gridlayoutGridContainerInfo: UiComponentInfo<GridContainerSettings> =
   {
-    title: "Gridlayout Tab Panel",
+    title: "Grid Container",
     UiComponent: GridlayoutGridContainer,
     SettingsComponent: GridlayoutGridContainerSettings,
     acceptsChildren: true,
@@ -35,7 +35,7 @@ export const gridlayoutGridContainerInfo: UiComponentInfo<GridContainerSettings>
       UPDATE_NODE: updateGridLayoutAreaOnItemAreaChange,
       DELETE_NODE: removeDeletedGridAreaFromLayout,
     },
-    description: "A tab panel with a grid layout",
+    description: `A general container for arranging items using \`gridlayout\``,
   };
 
 export default gridlayoutGridContainerInfo;
