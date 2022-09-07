@@ -5,7 +5,6 @@ import { GridCell } from "components/Grids/GridCell";
 import { LayoutDispatchContext } from "components/Grids/useSetLayout";
 import UiNode from "components/UiNode/UiNode";
 import type { DraggedNodeInfo } from "DragAndDropHelpers/DragAndDropHelpers";
-import { useDispatch } from "react-redux";
 import type { TemplatedGridProps } from "Shiny-Ui-Elements/GridlayoutGridPage";
 import type { GridAwareNodes } from "Shiny-Ui-Elements/GridLayoutPanelHelpers/EmptyPanelMessage/gridAwareNodes";
 import { gridAwareNodes } from "Shiny-Ui-Elements/GridLayoutPanelHelpers/EmptyPanelMessage/gridAwareNodes";
@@ -14,12 +13,13 @@ import type {
   ShinyUiNodeInfo,
   UiNodeComponent,
 } from "Shiny-Ui-Elements/uiNodeTypes";
-import { UPDATE_NODE, usePlaceNode } from "state/uiTree";
+import { usePlaceNode } from "state/uiTree";
 import { findEmptyCells } from "utils/gridTemplates/findItemLocation";
 import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
 import type { GridItemExtent } from "utils/gridTemplates/types";
 
+import { useUpdateUiArguments } from "../../../state/useUpdateUiArguments";
 import EditableGridContainer from "../EditableGridContainer";
 import type { GridLayoutAction } from "../gridLayoutReducer";
 import { gridLayoutReducer } from "../gridLayoutReducer";
@@ -33,29 +33,19 @@ export type GridAwareNodeArgs =
 export type NewItemInfo = DraggedNodeInfo & {
   pos: GridItemExtent;
 };
+
 export const GridlayoutElement: UiNodeComponent<TemplatedGridProps> = ({
   uiArguments: layoutDef,
   uiChildren,
   path,
   wrapperProps,
 }) => {
-  const dispatch = useDispatch();
   const place_node = usePlaceNode();
 
   const { uniqueAreas } = parseGridTemplateAreas(layoutDef);
 
-  // Pull out the extra arguments so they can be re-assigned on node update
-  const { areas, ...extraArgs } = layoutDef;
-  const updateArguments = (newArguments: TemplatedGridProps) => {
-    dispatch(
-      UPDATE_NODE({
-        path: path,
-        node: {
-          uiArguments: { ...extraArgs, ...newArguments },
-        },
-      })
-    );
-  };
+  const { areas } = layoutDef;
+  const updateArguments = useUpdateUiArguments(path);
   const itemGridLocations = React.useMemo(
     () => areasToItemLocations(areas),
     [areas]
