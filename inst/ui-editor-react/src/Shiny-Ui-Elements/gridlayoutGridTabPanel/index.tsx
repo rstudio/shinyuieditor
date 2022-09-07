@@ -13,8 +13,8 @@ export type GridTabPanelSettings = {
 export const gridlayoutGridTabPanelDefaultSettings: GridTabPanelSettings = {
   title: "Grid Panel",
   areas: [
-    ["A", "B"],
-    ["C", "C"],
+    [".", "."],
+    [".", "."],
   ],
   row_sizes: ["1fr", "1fr"],
   col_sizes: ["1fr", "1fr"],
