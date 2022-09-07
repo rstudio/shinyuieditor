@@ -134,7 +134,7 @@ code {
 [data-is-selected-node="true"]::before {
   content: "";
   position: absolute;
-  inset: var(--selected-outline-width);
+  inset: 0;
   outline: var(--selected-outline);
   pointer-events: none;
   border-radius: inherit;
