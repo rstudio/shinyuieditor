@@ -5,7 +5,7 @@ import { TextInput } from "components/Inputs/TextInput/TextInput";
 import PortalModal from "PortalModal";
 import classes from "PortalModal.module.css";
 
-import type { NewItemInfo } from "./GridlayoutGridPage";
+import type { NewItemInfo } from "../../Shiny-Ui-Elements/GridlayoutGridPage/GridlayoutGridPage";
 
 export function NameNewPanelModal({
   onCancel,

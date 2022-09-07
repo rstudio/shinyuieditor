@@ -7,7 +7,7 @@ import type { CSSMeasure, CSSUnits } from "CSSMeasure";
 import { FaPlus } from "react-icons/fa";
 import { conflictsToRemoveTract } from "utils/gridTemplates/removeTract";
 
-import type { TemplatedGridProps } from "..";
+import type { TemplatedGridProps } from "../../../Shiny-Ui-Elements/GridlayoutGridPage";
 
 import type { TractUpdateAction } from ".";
 

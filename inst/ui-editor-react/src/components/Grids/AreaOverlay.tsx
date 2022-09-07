@@ -1,14 +1,14 @@
 import React from "react";
 
 import { FaGripLines, FaGripLinesVertical } from "react-icons/fa";
+import type { TemplatedGridProps } from "Shiny-Ui-Elements/GridlayoutGridPage";
 import type { ResizeDirection } from "utils/gridTemplates/availableMoves";
 import { availableMoves } from "utils/gridTemplates/availableMoves";
 import type { GridItemExtent, ItemLocation } from "utils/gridTemplates/types";
 
-import type { TemplatedGridProps } from ".";
+import { useResizeOnDrag } from "../../components/Grids/useResizeOnDrag";
 
 import classes from "./AreaOverlay.module.css";
-import { useResizeOnDrag } from "./useResizeOnDrag";
 
 export function AreaOverlay({
   area,

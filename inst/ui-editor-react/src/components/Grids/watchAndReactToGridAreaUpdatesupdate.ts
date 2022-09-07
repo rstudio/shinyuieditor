@@ -1,12 +1,12 @@
+import { gridLayoutReducer } from "components/Grids/gridLayoutReducer";
 import { getNode } from "components/UiNode/TreeManipulation/getNode";
 import type { RemoveNodeArguments } from "components/UiNode/TreeManipulation/removeNode";
 import type { UpdateNodeArguments } from "components/UiNode/TreeManipulation/updateNode";
 import { areasOfChildren } from "Shiny-Ui-Elements/GridlayoutGridPage/GridlayoutGridPage";
-import { gridLayoutReducer } from "Shiny-Ui-Elements/GridlayoutGridPage/gridLayoutReducer";
 import type { NodePath, ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
 import { emptyCell } from "utils/gridTemplates/itemLocations";
 
-import type { GridCardSettings } from "../GridlayoutGridCard";
+import type { GridCardSettings } from "../../Shiny-Ui-Elements/GridlayoutGridCard";
 
 // This function watches for changes in a grid layout childs grid area and
 // updates the parent's layout names accordingly. Note that it mutates the tree

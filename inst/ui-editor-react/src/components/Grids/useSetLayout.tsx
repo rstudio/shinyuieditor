@@ -1,6 +1,6 @@
 import React from "react";
 
-import { LayoutDispatchContext } from "./GridlayoutGridPage";
+import { LayoutDispatchContext } from "../../Shiny-Ui-Elements/GridlayoutGridPage/GridlayoutGridPage";
 
 export function useSetLayout() {
   const setLayout = React.useContext(LayoutDispatchContext);

@@ -5,7 +5,7 @@ import type { DraggedNodeInfo } from "DragAndDropHelpers/DragAndDropHelpers";
 import { useFilteredDrop } from "DragAndDropHelpers/useFilteredDrop";
 import type { NodePath } from "Shiny-Ui-Elements/uiNodeTypes";
 
-import { useSetLayout } from "../GridlayoutGridPage/useSetLayout";
+import { useSetLayout } from "../../components/Grids/useSetLayout";
 import { gridAwareNodes } from "../GridLayoutPanelHelpers/EmptyPanelMessage/gridAwareNodes";
 
 import classes from "./styles.module.css";

@@ -5,7 +5,7 @@ import produce from "immer";
 import addTract from "utils/gridTemplates/addTract";
 import removeTract from "utils/gridTemplates/removeTract";
 
-import type { TemplatedGridProps } from "..";
+import type { TemplatedGridProps } from "../../../Shiny-Ui-Elements/GridlayoutGridPage";
 
 import classes from "./resizableGrid.module.css";
 import { TractInfoDisplays } from "./TractInfoDisplay";

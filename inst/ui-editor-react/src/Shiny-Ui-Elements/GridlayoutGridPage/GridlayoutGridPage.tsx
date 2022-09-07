@@ -1,10 +1,10 @@
 import React from "react";
 
+import { AreaOverlay } from "components/Grids/AreaOverlay";
+import { GridCell } from "components/Grids/GridCell";
 import UiNode from "components/UiNode/UiNode";
 import type { DraggedNodeInfo } from "DragAndDropHelpers/DragAndDropHelpers";
 import { useDispatch } from "react-redux";
-import { AreaOverlay } from "Shiny-Ui-Elements/GridlayoutGridPage/AreaOverlay";
-import { GridCell } from "Shiny-Ui-Elements/GridlayoutGridPage/GridCell";
 import { makeChildPath } from "Shiny-Ui-Elements/nodePathUtils";
 import type {
   ShinyUiChildren,
@@ -17,16 +17,16 @@ import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
 import type { GridItemExtent } from "utils/gridTemplates/types";
 
+import EditableGridContainer from "../../components/Grids/EditableGridContainer";
+import type { GridLayoutAction } from "../../components/Grids/gridLayoutReducer";
+import { gridLayoutReducer } from "../../components/Grids/gridLayoutReducer";
+import { toStringLoc } from "../../components/Grids/helpers";
+import { NameNewPanelModal } from "../../components/Grids/NameNewPanelModal";
 import type { GridAwareNodes } from "../GridLayoutPanelHelpers/EmptyPanelMessage/gridAwareNodes";
 import { gridAwareNodes } from "../GridLayoutPanelHelpers/EmptyPanelMessage/gridAwareNodes";
 
 import type { TemplatedGridProps } from ".";
 
-import EditableGridContainer from "./EditableGridContainer";
-import type { GridLayoutAction } from "./gridLayoutReducer";
-import { gridLayoutReducer } from "./gridLayoutReducer";
-import { toStringLoc } from "./helpers";
-import { NameNewPanelModal } from "./NameNewPanelModal";
 import classes from "./styles.module.css";
 
 export type NewItemInfo = DraggedNodeInfo & {
