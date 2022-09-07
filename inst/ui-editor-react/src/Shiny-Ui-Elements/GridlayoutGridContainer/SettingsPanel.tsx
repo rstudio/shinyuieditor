@@ -2,10 +2,10 @@ import { LabeledCSSUnitInput } from "components/Inputs/CSSUnitInput";
 import { TextInput } from "components/Inputs/TextInput/TextInput";
 import type { SettingsUpdaterComponent } from "Shiny-Ui-Elements/uiNodeTypes";
 
-import type { GridTabPanelSettings } from ".";
+import type { GridContainerSettings } from ".";
 
-export const GridlayoutGridTabPanelSettings: SettingsUpdaterComponent<
-  GridTabPanelSettings
+export const GridlayoutGridContainerSettings: SettingsUpdaterComponent<
+  GridContainerSettings
 > = ({ settings }) => {
   return (
     <>

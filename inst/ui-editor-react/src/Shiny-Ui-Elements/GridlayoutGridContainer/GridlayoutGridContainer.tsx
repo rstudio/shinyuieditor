@@ -1,11 +1,11 @@
 import { GridlayoutElement } from "components/Grids/GridlayoutElement/GridlayoutElement";
 import type { UiNodeComponent } from "Shiny-Ui-Elements/uiNodeTypes";
 
-import type { GridTabPanelSettings } from "./index";
+import type { GridContainerSettings } from "./index";
 
 import "./styles.scss";
 
-const GridlayoutGridTabPanel: UiNodeComponent<GridTabPanelSettings> = ({
+const GridlayoutGridContainer: UiNodeComponent<GridContainerSettings> = ({
   uiArguments,
   uiChildren,
   path,
@@ -21,4 +21,4 @@ const GridlayoutGridTabPanel: UiNodeComponent<GridTabPanelSettings> = ({
   );
 };
 
-export default GridlayoutGridTabPanel;
+export default GridlayoutGridContainer;

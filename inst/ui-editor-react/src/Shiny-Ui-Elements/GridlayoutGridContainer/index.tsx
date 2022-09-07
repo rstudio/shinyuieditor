@@ -7,14 +7,14 @@ import type { TemplatedGridProps } from "Shiny-Ui-Elements/GridlayoutGridPage";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 
-import GridlayoutGridTabPanel from "./GridlayoutGridTabPanel";
-import { GridlayoutGridTabPanelSettings } from "./SettingsPanel";
+import GridlayoutGridContainer from "./GridlayoutGridContainer";
+import { GridlayoutGridContainerSettings } from "./SettingsPanel";
 
-export type GridTabPanelSettings = {
+export type GridContainerSettings = {
   title: string;
 } & TemplatedGridProps;
 
-export const gridlayoutGridTabPanelDefaultSettings: GridTabPanelSettings = {
+export const gridlayoutGridContainerDefaultSettings: GridContainerSettings = {
   title: "Grid Panel",
   areas: [
     [".", "."],
@@ -25,13 +25,13 @@ export const gridlayoutGridTabPanelDefaultSettings: GridTabPanelSettings = {
   gap_size: "1rem",
 };
 
-export const gridlayoutGridTabPanelInfo: UiComponentInfo<GridTabPanelSettings> =
+export const gridlayoutGridContainerInfo: UiComponentInfo<GridContainerSettings> =
   {
     title: "Gridlayout Tab Panel",
-    UiComponent: GridlayoutGridTabPanel,
-    SettingsComponent: GridlayoutGridTabPanelSettings,
+    UiComponent: GridlayoutGridContainer,
+    SettingsComponent: GridlayoutGridContainerSettings,
     acceptsChildren: true,
-    defaultSettings: gridlayoutGridTabPanelDefaultSettings,
+    defaultSettings: gridlayoutGridContainerDefaultSettings,
     iconSrc: icon,
     category: "Tabs",
     stateUpdateSubscribers: {
@@ -41,4 +41,4 @@ export const gridlayoutGridTabPanelInfo: UiComponentInfo<GridTabPanelSettings> =
     description: "A tab panel with a grid layout",
   };
 
-export default gridlayoutGridTabPanelInfo;
+export default gridlayoutGridContainerInfo;

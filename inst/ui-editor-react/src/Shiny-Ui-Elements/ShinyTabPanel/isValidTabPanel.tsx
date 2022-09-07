@@ -5,11 +5,9 @@ import type {
 
 // Not a fan of having to replicate the names across two instances here but
 // right now I can't figure out a more elegant way to do it
-const validTabPanels = ["shiny::tabPanel", "gridlayout::grid_tab_panel"];
+const validTabPanels = ["shiny::tabPanel"];
 
-type ValidTabPanels = ShinyUiNodeByName[
-  | "gridlayout::grid_tab_panel"
-  | "shiny::tabPanel"];
+type ValidTabPanels = ShinyUiNodeByName["shiny::tabPanel"];
 
 /**
  * Is a ui node a valid tab panel? Aka can it be used as a direct child of a

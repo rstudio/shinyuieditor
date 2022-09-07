@@ -5,12 +5,12 @@ import type {
 
 // Make it known that the ui children are required here
 export type GridContainerNode = Required<
-  ShinyUiNodeByName["gridlayout::grid_page" | "gridlayout::grid_tab_panel"]
+  ShinyUiNodeByName["gridlayout::grid_page" | "gridlayout::grid_container"]
 >;
 
 const validGridContainerNodeNames = [
   "gridlayout::grid_page",
-  "gridlayout::grid_tab_panel",
+  "gridlayout::grid_container",
 ];
 
 /**
