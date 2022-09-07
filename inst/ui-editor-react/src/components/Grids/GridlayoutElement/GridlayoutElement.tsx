@@ -51,7 +51,6 @@ export const GridlayoutElement: UiNodeComponent<TemplatedGridProps> = ({
       UPDATE_NODE({
         path: path,
         node: {
-          uiName: "gridlayout::grid_page",
           uiArguments: { ...extraArgs, ...newArguments },
         },
       })

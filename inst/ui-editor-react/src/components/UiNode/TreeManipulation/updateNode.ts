@@ -16,7 +16,7 @@ export type UpdateNodeArguments = {
    * New node values to be added. This node will be merged with the old node so
    * things like uiChildren wont get removed if you just change a setting
    */
-  node: ShinyUiNode;
+  node: Partial<ShinyUiNode>;
 };
 
 /**
