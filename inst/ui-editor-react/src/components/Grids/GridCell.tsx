@@ -2,7 +2,7 @@ import React from "react";
 
 import { useFilteredDrop } from "DragAndDropHelpers/useFilteredDrop";
 
-import type { NewItemInfo } from "../../Shiny-Ui-Elements/GridlayoutGridPage/GridlayoutGridPage";
+import type { NewItemInfo } from "./GridlayoutElement/GridlayoutElement";
 
 export function GridCell({
   gridRow,
