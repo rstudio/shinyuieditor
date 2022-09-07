@@ -17,6 +17,8 @@ export function GridCell({
 
   useFilteredDrop({
     watcherRef: cellRef,
+    getCanAcceptDrop: (nodeInfo) =>
+      nodeInfo.node.uiName !== "gridlayout::grid_container",
     onDrop: (nodeInfo) => {
       onDroppedNode({
         ...nodeInfo,
