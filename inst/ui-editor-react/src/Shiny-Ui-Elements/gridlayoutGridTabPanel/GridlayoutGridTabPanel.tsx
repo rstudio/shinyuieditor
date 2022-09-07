@@ -1,4 +1,4 @@
-import { pathToString } from "Shiny-Ui-Elements/nodePathUtils";
+import { GridlayoutElement } from "components/Grids/GridlayoutElement/GridlayoutElement";
 import type { UiNodeComponent } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import type { GridTabPanelSettings } from "./index";
@@ -12,11 +12,12 @@ const GridlayoutGridTabPanel: UiNodeComponent<GridTabPanelSettings> = ({
   wrapperProps,
 }) => {
   return (
-    <div className="gridlayoutGridTabPanel" {...wrapperProps}>
-      <p>NODE NAME: {uiArguments.name}</p>
-      <p>Path: {pathToString(path)}</p>
-      <p>There are {uiChildren?.length ?? 0} children</p>
-    </div>
+    <GridlayoutElement
+      uiArguments={uiArguments}
+      uiChildren={uiChildren}
+      path={path}
+      wrapperProps={wrapperProps}
+    />
   );
 };
 
