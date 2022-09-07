@@ -9,7 +9,7 @@ export const GridlayoutGridTabPanelSettings: SettingsUpdaterComponent<
 > = ({ settings }) => {
   return (
     <>
-      <TextInput name="name" label="Panel title" allValues={settings} />
+      <TextInput name="title" label="Panel title" allValues={settings} />
       <LabeledCSSUnitInput
         name="gap_size"
         label="Gap between panels"

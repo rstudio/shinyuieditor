@@ -7,11 +7,11 @@ import GridlayoutGridTabPanel from "./GridlayoutGridTabPanel";
 import { GridlayoutGridTabPanelSettings } from "./SettingsPanel";
 
 export type GridTabPanelSettings = {
-  name: string;
+  title: string;
 } & TemplatedGridProps;
 
 export const gridlayoutGridTabPanelDefaultSettings: GridTabPanelSettings = {
-  name: "Grid Panel",
+  title: "Grid Panel",
   areas: [
     ["A", "B"],
     ["C", "C"],
