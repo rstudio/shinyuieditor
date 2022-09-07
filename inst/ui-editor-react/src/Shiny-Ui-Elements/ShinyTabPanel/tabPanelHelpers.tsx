@@ -4,6 +4,8 @@ import type {
   ShinyUiNodeByName,
 } from "Shiny-Ui-Elements/uiNodeTypes";
 
+import { isValidTabPanel } from "./isValidTabPanel";
+
 type TabPanelNode = ShinyUiNodeByName["shiny::tabPanel"];
 export function isTabPanelNode(node: ShinyUiNode): node is TabPanelNode {
   return node.uiName === "shiny::tabPanel";
@@ -11,7 +13,7 @@ export function isTabPanelNode(node: ShinyUiNode): node is TabPanelNode {
 
 export function wrapNodeInTabPanel(node: ShinyUiNode): ShinyUiNode {
   // Already wrapped?
-  if (node.uiName === "shiny::tabPanel") return node;
+  if (isValidTabPanel(node)) return node;
 
   return {
     ...newTabPanelNode,
@@ -30,7 +32,7 @@ export function getNamesOfChildTabPanels(containerNode: ShinyUiNode): string[] {
   if (!childNodes) return [];
 
   return childNodes.map((child) => {
-    if (child.uiName !== "shiny::tabPanel") return "";
+    if (!isValidTabPanel(child)) return "";
 
     return child.uiArguments.title;
   });
