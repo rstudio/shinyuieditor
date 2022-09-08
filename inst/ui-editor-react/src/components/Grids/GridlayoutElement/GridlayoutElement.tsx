@@ -6,13 +6,8 @@ import { LayoutDispatchContext } from "components/Grids/useSetLayout";
 import UiNode from "components/UiNode/UiNode";
 import type { DraggedNodeInfo } from "DragAndDropHelpers/DragAndDropHelpers";
 import type { TemplatedGridProps } from "Shiny-Ui-Elements/GridlayoutGridPage";
-import type { GridAwareNodes } from "Shiny-Ui-Elements/GridLayoutPanelHelpers/EmptyPanelMessage/gridAwareNodes";
-import { gridAwareNodes } from "Shiny-Ui-Elements/GridLayoutPanelHelpers/EmptyPanelMessage/gridAwareNodes";
 import { makeChildPath } from "Shiny-Ui-Elements/nodePathUtils";
-import type {
-  ShinyUiNodeInfo,
-  UiNodeComponent,
-} from "Shiny-Ui-Elements/uiNodeTypes";
+import type { UiNodeComponent } from "Shiny-Ui-Elements/uiNodeTypes";
 import { usePlaceNode } from "state/uiTree";
 import { findEmptyCells } from "utils/gridTemplates/findItemLocation";
 import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
@@ -24,11 +19,12 @@ import EditableGridContainer from "../EditableGridContainer/EditableGridContaine
 import type { GridLayoutAction } from "../gridLayoutReducer";
 import { gridLayoutReducer } from "../gridLayoutReducer";
 import { toStringLoc } from "../helpers";
+import type { GridItemNode } from "../isValidGridItem";
+import { isValidGridItem } from "../isValidGridItem";
 import { NameNewPanelModal } from "../NameNewPanelModal";
 
 import classes from "./styles.module.css";
-export type GridAwareNodeArgs =
-  ShinyUiNodeInfo[GridAwareNodes]["defaultSettings"];
+export type GridAwareNodeArgs = GridItemNode["uiArguments"];
 
 export type NewItemInfo = DraggedNodeInfo & {
   pos: GridItemExtent;
@@ -56,7 +52,7 @@ export const GridlayoutElement: UiNodeComponent<TemplatedGridProps> = ({
   const handleNodeDrop = (nodeInfo: NewItemInfo) => {
     const { node, currentPath, pos } = nodeInfo;
     const isNodeMove = currentPath !== undefined;
-    const isGridCard = gridAwareNodes.includes(node.uiName);
+    const isGridCard = isValidGridItem(node);
 
     if (
       isNodeMove &&
@@ -105,7 +101,7 @@ export const GridlayoutElement: UiNodeComponent<TemplatedGridProps> = ({
     // If we're using a grid-aware node already then we just need to put the
     // new name into its settings. Otherwise automatically wrap the item in a
     // grid container
-    if (gridAwareNodes.includes(node.uiName)) {
+    if (isValidGridItem(node)) {
       const argsWithArea: GridAwareNodeArgs = {
         ...node.uiArguments,
         area: name,

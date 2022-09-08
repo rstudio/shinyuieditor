@@ -5,7 +5,10 @@ import UiNode from "components/UiNode/UiNode";
 import { makeChildPath } from "Shiny-Ui-Elements/nodePathUtils";
 import type { NodePath, UiNodeComponent } from "Shiny-Ui-Elements/uiNodeTypes";
 
-import { BsCard, BsCardHeader } from "../GridLayoutPanelHelpers/GridCards";
+import {
+  BsCard,
+  BsCardHeader,
+} from "../../components/Grids/GridLayoutPanelHelpers/GridCards";
 
 import type { GridCardSettings } from "./index";
 
