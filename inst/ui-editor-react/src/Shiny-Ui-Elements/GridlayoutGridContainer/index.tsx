@@ -1,4 +1,4 @@
-import icon from "assets/icons/gridContainer.png";
+import icon from "assets/icons/shinyGridContainer.png";
 import {
   updateGridLayoutAreaOnItemAreaChange,
   removeDeletedGridAreaFromLayout,
