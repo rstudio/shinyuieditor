@@ -6,6 +6,7 @@ const basicNavbarPage: ShinyUiNode = {
   uiName: "shiny::navbarPage",
   uiArguments: {
     title: "My Navbar Page",
+    collapsible: true,
   },
   uiChildren: [
     {
