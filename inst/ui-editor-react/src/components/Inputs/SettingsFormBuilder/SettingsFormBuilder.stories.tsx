@@ -9,11 +9,11 @@ export default {
 
 const defaultSettings = {
   name: "test",
-  value: 3,
+  myNumberArg: 3,
 };
 const settingsInfo = {
   name: { default: "name default", label: "This is my name" },
-  value: { default: 42, label: "This is a value" },
+  myNumberArg: { default: 42, label: "This is a value" },
 };
 
 export const AutoBuild = () => {
@@ -23,7 +23,10 @@ export const AutoBuild = () => {
     <SettingsFormBuilder
       settings={value}
       settingsInfo={settingsInfo}
-      onChange={setValue}
+      onSettingsChange={(key, value) => {
+        console.log(`Updating ${key} to ${value}`);
+        setValue((old) => ({ ...old, [key]: value }));
+      }}
     />
   );
 };
@@ -35,13 +38,16 @@ export const RenderProps = () => {
     <SettingsFormBuilder
       settings={value}
       settingsInfo={settingsInfo}
-      onChange={setValue}
+      onSettingsChange={(key, value) => {
+        console.log(key);
+        setValue((old) => ({ ...old, [key]: value }));
+      }}
       renderInputs={(Inputs) => {
         return (
           <>
             <section>
               <h2>Number inputs</h2>
-              {Inputs.value}
+              {Inputs.myNumberArg}
             </section>
             <section>
               <h2>Text Inputs</h2>
