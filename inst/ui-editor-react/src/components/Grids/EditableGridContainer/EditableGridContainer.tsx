@@ -34,8 +34,11 @@ function EditableGridContainer({
   const containerRef = React.useRef<HTMLDivElement>(null);
   const styles = layoutDefToStyles(layout);
 
-  const columnSizers = buildRange(2, col_sizes.length);
-  const rowSizers = buildRange(2, row_sizes.length);
+  // Build sizers with the special context of not needing any if we only have a
+  // single tract
+  const columnSizers =
+    col_sizes.length < 2 ? [] : buildRange(2, col_sizes.length);
+  const rowSizers = row_sizes.length < 2 ? [] : buildRange(2, row_sizes.length);
 
   const startDrag = useDragToResizeGrid({
     containerRef,
