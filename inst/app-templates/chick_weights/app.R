@@ -26,7 +26,7 @@ ui <- grid_page(
     item_gap = "12px",
     numericInput(
       inputId = "numChicks",
-      label = "Number of bins",
+      label = "Number of chicks",
       value = 10L,
       min = 1L,
       max = 25L,
