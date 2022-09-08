@@ -62,7 +62,9 @@ const basicNavbarPage: ShinyUiNode = {
   ],
 };
 
-test("Basic usage of navbar page", async ({ page }) => {
+test("Updating the area name of a grid item propigates through rest of app properly", async ({
+  page,
+}) => {
   await page.route("/testing-tree", (route) =>
     route.fulfill({
       status: 200,
