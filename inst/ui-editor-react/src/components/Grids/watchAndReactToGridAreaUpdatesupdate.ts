@@ -1,6 +1,7 @@
 import { areasOfChildren } from "components/Grids/areasOfChildren";
 import { gridLayoutReducer } from "components/Grids/gridLayoutReducer";
 import { getNode } from "components/UiNode/TreeManipulation/getNode";
+import { getChildIndex } from "components/UiNode/TreeManipulation/getParentPath";
 import type { RemoveNodeArguments } from "components/UiNode/TreeManipulation/removeNode";
 import type { UpdateNodeArguments } from "components/UiNode/TreeManipulation/updateNode";
 import type { NodePath, ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
@@ -27,7 +28,9 @@ export function updateGridLayoutAreaOnItemAreaChange(
   if (gridPageAndItemNodes === null) return;
   const { gridPageNode } = gridPageAndItemNodes;
 
-  const oldAreaName = areasOfChildren(gridPageNode.uiChildren)[path[0]];
+  const oldAreaName = areasOfChildren(gridPageNode.uiChildren)[
+    getChildIndex(path)
+  ];
   const newAreaName = (node.uiArguments as GridCardSettings).area ?? emptyCell;
 
   if (oldAreaName === newAreaName) return;
