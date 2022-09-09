@@ -29,8 +29,6 @@ author: "Nick Strayer"
 runs:
   using: "composite"
   steps:
-    - uses: actions/checkout@v2
-
     - name: Get yarn cache directory path
       id: yarn-cache-dir-path
       with:
