@@ -1,4 +1,4 @@
-import type { KnownArgTypes, ArgumentInfo } from "./SettingsFormBuilder";
+import type { KnownArgTypes, ArgumentInfo } from "./constructInputComponents";
 import { SettingsInput } from "./SettingsInput";
 
 export function LabeledSettingsInput<T extends KnownArgTypes>({

@@ -1,4 +1,4 @@
-import type { KnownArgTypes } from "./SettingsFormBuilder";
+import type { KnownArgTypes } from "./constructInputComponents";
 
 type NewValCallback<T> = (newVal: T) => void;
 type SettingsInputProps<T> = {
