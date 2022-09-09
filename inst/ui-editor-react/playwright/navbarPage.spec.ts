@@ -80,6 +80,8 @@ test("Basic usage of navbar page", async ({ page }) => {
   await page.locator("text=Delete Element").click();
 
   // Now we drag a new dynamic ui output into the now empty tab
+
+  // await page.locator(`[aria-label="tab panel Plot 1"]`)
   await page.dragAndDrop(
     "text=/^Dynamic UI Output$/",
     `[aria-label="tab panel Plot 1"]`
