@@ -17,7 +17,6 @@ jobs:
       - uses: ./.github/internals/setup-js
 
   unit-tests:
-    needs: setup
     timeout-minutes: 60
     runs-on: ubuntu-latest
     defaults:
@@ -30,7 +29,6 @@ jobs:
         run: yarn test run
 
   playwright-tests:
-    needs: setup
     timeout-minutes: 60
     runs-on: ubuntu-latest
     defaults:
@@ -55,7 +53,6 @@ jobs:
           retention-days: 30
 
   check-if-current-build:
-    needs: setup
     timeout-minutes: 60
     runs-on: ubuntu-latest
     defaults:
@@ -73,7 +70,6 @@ jobs:
           git diff --exit-code -- build/
 
   build-pkgdown-site:
-    needs: setup
     runs-on: ubuntu-latest
     # Only restrict concurrency for non-PR jobs
     concurrency:
