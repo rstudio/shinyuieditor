@@ -33,6 +33,7 @@ runs:
       id: yarn-cache-dir-path
       working-directory: ./inst/ui-editor-react
       run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+      shell: bash
 
     - uses: actions/cache@v3
       id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
@@ -49,3 +50,4 @@ runs:
     - name: Install dependencies
       working-directory: ./inst/ui-editor-react
       run: yarn --prefer-offline
+      shell: bash
