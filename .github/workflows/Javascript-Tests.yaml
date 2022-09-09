@@ -12,20 +12,8 @@ concurrency:
 jobs:
   setup:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./inst/ui-editor-react
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: "16.x"
-      - uses: actions/cache@v2
-        with:
-          path: "inst/ui-editor-react/node_modules"
-          key: ${{ runner.os }}-modules-${{ hashFiles('inst/ui-editor-react/yarn.lock') }}
-      - name: Install dependencies
-        run: yarn
+      - uses: ./.github/internals/setup-js
 
   unit-tests:
     needs: setup
@@ -35,16 +23,7 @@ jobs:
       run:
         working-directory: ./inst/ui-editor-react
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: "16.x"
-      - uses: actions/cache@v2
-        with:
-          path: "inst/ui-editor-react/node_modules"
-          key: ${{ runner.os }}-modules-${{ hashFiles('inst/ui-editor-react/yarn.lock') }}
-      - name: Install dependencies
-        run: yarn
+      - uses: ./.github/internals/setup-js
       - name: Run unit tests
         run: yarn test run
 
@@ -56,20 +35,14 @@ jobs:
       run:
         working-directory: ./inst/ui-editor-react
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: "16.x"
-      - uses: actions/cache@v2
-        with:
-          path: "inst/ui-editor-react/node_modules"
-          key: ${{ runner.os }}-modules-${{ hashFiles('inst/ui-editor-react/yarn.lock') }}
-      - name: Install dependencies
-        run: yarn
+      - uses: ./.github/internals/setup-js
+
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
+
       - name: Run Playwright tests
         run: npx playwright test
+
       - uses: actions/upload-artifact@v2
         if: always()
         with:
@@ -85,16 +58,8 @@ jobs:
       run:
         working-directory: ./inst/ui-editor-react
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: "16.x"
-      - uses: actions/cache@v2
-        with:
-          path: "inst/ui-editor-react/node_modules"
-          key: ${{ runner.os }}-modules-${{ hashFiles('inst/ui-editor-react/yarn.lock') }}
-      - name: Install dependencies
-        run: yarn
+      - uses: ./.github/internals/setup-js
+
       - name: Check if build is current
         run: |
           yarn build
@@ -110,20 +75,7 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v2
-
-      - uses: actions/setup-node@v2
-        with:
-          node-version: "16.x"
-
-      - uses: actions/cache@v2
-        with:
-          path: "inst/ui-editor-react/node_modules"
-          key: ${{ runner.os }}-modules-${{ hashFiles('inst/ui-editor-react/yarn.lock') }}
-
-      - name: Install JS dependencies
-        working-directory: ./inst/ui-editor-react
-        run: yarn
+      - uses: ./.github/internals/setup-js
 
       - name: Build demo app for site
         working-directory: ./inst/ui-editor-react
