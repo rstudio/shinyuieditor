@@ -31,8 +31,7 @@ runs:
   steps:
     - name: Get yarn cache directory path
       id: yarn-cache-dir-path
-      with:
-        working-directory: "./inst/ui-editor-react"
+      working-directory: ./inst/ui-editor-react
       run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
 
     - uses: actions/cache@v3
@@ -48,6 +47,5 @@ runs:
         node-version: "16.x"
 
     - name: Install dependencies
-      with:
-        working-directory: "./inst/ui-editor-react"
+      working-directory: ./inst/ui-editor-react
       run: yarn --prefer-offline
