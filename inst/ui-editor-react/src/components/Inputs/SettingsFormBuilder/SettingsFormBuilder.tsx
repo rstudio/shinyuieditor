@@ -1,51 +1,73 @@
 // Extract out only the keys that map to properties of type T
-import { SettingsInput } from "./SettingsInput";
+import { LabeledSettingsInput } from "./LabeledSettingsInput";
 import "./styles.scss";
 
 export type KnownArgTypes = string | number;
-type UiNodeSettingsObj = Record<string, KnownArgTypes>;
-type SettingsInfo<Obj extends UiNodeSettingsObj> = {
-  [K in keyof Obj]: { default: Obj[K]; label: string };
+
+export type ArgumentInfo = {
+  default: KnownArgTypes;
+  label: string;
+  optional?: boolean;
 };
 
-type InputComponentsMap<Settings extends UiNodeSettingsObj> = Record<
+type SettingsInfo = Record<string, ArgumentInfo>;
+
+// Helper types to extract list of names that are optional or not based on the
+// presence of the "optional" key in the settings object. Important to note that
+// this means putting anything (true _or_ false) in the optional field will make
+// it optional, which is maybe a bit confusing but will work out fine because
+// javascript will do runtime checks
+type OptionalSettingsKeys<Info extends SettingsInfo> = {
+  [K in keyof Info]-?: undefined extends Info[K]["optional"] ? never : K;
+}[keyof Info];
+
+type RequiredSettingsKeys<Info extends SettingsInfo> = {
+  [K in keyof Info]-?: undefined extends Info[K]["optional"] ? K : never;
+}[keyof Info];
+
+// Now build the settings object based on the info object making the "optional"
+// parameters just that
+type SettingsObj<Info extends SettingsInfo> = {
+  [K in OptionalSettingsKeys<Info>]?: Info[K]["default"];
+} & {
+  [K in RequiredSettingsKeys<Info>]: Info[K]["default"];
+};
+
+type InputComponentsMap<Settings extends SettingsInfo> = Record<
   keyof Settings,
   JSX.Element
 >;
 
-type SettingsFormBuilderProps<Settings extends UiNodeSettingsObj> = {
-  settings: Settings;
-  settingsInfo: SettingsInfo<Settings>;
+type SettingsFormBuilderProps<Info extends SettingsInfo> = {
+  settingsInfo: Info;
+  settings: SettingsObj<Info>;
   onSettingsChange: (name: string, value: KnownArgTypes) => void;
-  renderInputs?: (inputsComps: InputComponentsMap<Settings>) => JSX.Element;
+  renderInputs?: (inputsComps: InputComponentsMap<Info>) => JSX.Element;
 };
 
-export function SettingsFormBuilder<Settings extends UiNodeSettingsObj>({
+export function SettingsFormBuilder<Info extends SettingsInfo>({
   settings,
   settingsInfo,
   onSettingsChange,
   renderInputs,
-}: SettingsFormBuilderProps<Settings>) {
-  const NameInputComp = keysOf(settings).map((name: keyof Settings) => {
+}: SettingsFormBuilderProps<Info>) {
+  const InputsComponents: Record<string, JSX.Element> = {};
+
+  keysOf(settings).forEach((name) => {
     if (typeof name !== "string")
       throw new Error("How did that non-string key get in here?");
 
-    const value = settings[name];
-    return [
-      name,
-      <label className="SettingsInput" key={name}>
-        {settingsInfo[name].label}
-        <SettingsInput
-          value={value}
-          onChange={(updatedValue) => onSettingsChange(name, updatedValue)}
-        />
-      </label>,
-    ];
+    InputsComponents[name] = (
+      <LabeledSettingsInput
+        name={name}
+        value={settings[name] ?? "unset"}
+        info={settingsInfo[name]}
+        onChange={(updatedValue) => onSettingsChange(name, updatedValue)}
+      />
+    );
   });
 
-  const Inputs = Object.fromEntries(
-    NameInputComp
-  ) as InputComponentsMap<Settings>;
+  const Inputs = InputsComponents as InputComponentsMap<Info>;
 
   return (
     <form className="SettingsFormBuilder">

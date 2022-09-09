@@ -7,17 +7,16 @@ export default {
   component: SettingsFormBuilder,
 };
 
-const defaultSettings = {
-  name: "test",
-  myNumberArg: 3,
-};
 const settingsInfo = {
   name: { default: "name default", label: "This is my name" },
-  myNumberArg: { default: 42, label: "This is a value" },
+  myNumberArg: { default: 42, label: "This is a value", optional: true },
 };
 
 export const AutoBuild = () => {
-  const [value, setValue] = React.useState(defaultSettings);
+  const [value, setValue] = React.useState({
+    name: "test",
+    myNumberArg: 3,
+  });
 
   return (
     <SettingsFormBuilder
@@ -32,7 +31,10 @@ export const AutoBuild = () => {
 };
 
 export const RenderProps = () => {
-  const [value, setValue] = React.useState(defaultSettings);
+  const [value, setValue] = React.useState({
+    name: "test",
+    myNumberArg: 3,
+  });
 
   return (
     <SettingsFormBuilder
