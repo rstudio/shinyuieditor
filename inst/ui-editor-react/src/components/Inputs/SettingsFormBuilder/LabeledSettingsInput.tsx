@@ -1,25 +1,67 @@
-import type { KnownArgTypes, ArgumentInfo } from "./constructInputComponents";
+import type {
+  ArgumentInfo,
+  PossibleArgTypes,
+} from "./constructInputComponents";
 import { SettingsInput } from "./SettingsInput";
 
-export function LabeledSettingsInput<T extends KnownArgTypes>({
+export function LabeledSettingsInput({
   name,
   value,
-  info,
+  info: { label, optional, defaultValue },
   onChange,
 }: {
   name: string;
-  value: T;
+  value: PossibleArgTypes;
   info: ArgumentInfo;
-  onChange: (x: T) => void;
+  onChange: (x: PossibleArgTypes) => void;
 }) {
+  const argumentIsUnset = value === undefined;
+
+  // debugger;
+
   return (
     <label className="SettingsInput" key={name}>
-      {info.label} {info.optional ? " | Optional" : ""}
-      {value === undefined ? (
-        <span>Unset</span>
+      {optional ? (
+        <OptionalCheckbox
+          name={name}
+          isDisabled={argumentIsUnset}
+          onChange={(enabled) => {
+            onChange(enabled ? defaultValue : undefined);
+          }}
+        />
+      ) : null}
+      {label}
+      {argumentIsUnset ? (
+        <span>I am unset</span>
       ) : (
         <SettingsInput value={value} onChange={onChange} />
       )}
     </label>
+  );
+}
+
+export function OptionalCheckbox({
+  name,
+  isDisabled,
+  onChange,
+}: {
+  name: string;
+  isDisabled: boolean;
+  onChange: (enabled: boolean) => void;
+}) {
+  const effectDescription = `Click to ${
+    isDisabled ? "set" : "unset"
+  } ${name} property`;
+
+  return (
+    <input
+      aria-label={effectDescription}
+      type="checkbox"
+      checked={!isDisabled}
+      title={effectDescription}
+      onChange={(e) => {
+        onChange(e.target.checked);
+      }}
+    />
   );
 }

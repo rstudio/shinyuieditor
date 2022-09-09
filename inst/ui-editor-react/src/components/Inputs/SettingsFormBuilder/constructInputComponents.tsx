@@ -4,8 +4,12 @@ import "./styles.scss";
 
 export type KnownArgTypes = string | number;
 
+// Add undefined as some arguments are optional and when not provided return
+// undefined
+export type PossibleArgTypes = KnownArgTypes | undefined;
+
 export type ArgumentInfo = {
-  default: KnownArgTypes;
+  defaultValue: KnownArgTypes;
   label: string;
   optional?: boolean;
 };
@@ -28,9 +32,9 @@ type RequiredSettingsKeys<Info extends SettingsInfo> = {
 // Now build the settings object based on the info object making the "optional"
 // parameters just that
 type SettingsObj<Info extends SettingsInfo> = {
-  [K in OptionalSettingsKeys<Info>]?: Info[K]["default"];
+  [K in OptionalSettingsKeys<Info>]?: Info[K]["defaultValue"];
 } & {
-  [K in RequiredSettingsKeys<Info>]: Info[K]["default"];
+  [K in RequiredSettingsKeys<Info>]: Info[K]["defaultValue"];
 };
 
 export type InputComponentsMap<Settings extends SettingsInfo> = Record<
@@ -41,8 +45,9 @@ export type InputComponentsMap<Settings extends SettingsInfo> = Record<
 export type SettingsInputsBuilderProps<Info extends SettingsInfo> = {
   settingsInfo: Info;
   settings: SettingsObj<Info>;
-  onSettingsChange: (name: string, value: KnownArgTypes) => void;
+  onSettingsChange: (name: string, value: PossibleArgTypes) => void;
 };
+
 export function constructInputComponents<Info extends SettingsInfo>({
   settings,
   settingsInfo,
@@ -57,7 +62,7 @@ export function constructInputComponents<Info extends SettingsInfo>({
     InputsComponents[name] = (
       <LabeledSettingsInput
         name={name}
-        value={settings[name] ?? "unset"}
+        value={settings[name]}
         info={settingsInfo[name]}
         onChange={(updatedValue) => onSettingsChange(name, updatedValue)}
       />

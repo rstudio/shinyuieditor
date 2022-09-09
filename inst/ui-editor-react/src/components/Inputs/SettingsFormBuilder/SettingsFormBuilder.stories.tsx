@@ -8,8 +8,8 @@ export default {
 };
 
 const settingsInfo = {
-  name: { default: "name default", label: "This is my name" },
-  myNumberArg: { default: 42, label: "This is a value", optional: true },
+  name: { defaultValue: "name default", label: "This is my name" },
+  myNumberArg: { defaultValue: 42, label: "This is a value", optional: true },
 };
 
 export const AutoBuild = () => {
