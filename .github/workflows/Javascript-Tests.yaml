@@ -1,9 +1,9 @@
 name: Javascript Tests
 on:
   push:
-    branches: [main, master]
+    branches: [main, SettingsFormBuilder]
   pull_request:
-    branches: [main, master]
+    branches: [main]
 
 concurrency:
   group: ci-tests-${{ github.ref }}-1
