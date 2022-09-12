@@ -24,14 +24,14 @@
 
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">shinyuieditor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
       </span>
 
       <!--<div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">shinyuieditor</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of  <a href=""></a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
         </div>
       </div>-->
     </div>
@@ -87,6 +87,30 @@
       
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.2.0" id="shinyuieditor-020">shinyuieditor 0.2.0<a class="anchor" aria-label="anchor" href="#shinyuieditor-020"></a></h2>
+<div class="section level4">
+<h4 id="major-new-features-and-improvements-0-2-0">Major new features and improvements<a class="anchor" aria-label="anchor" href="#major-new-features-and-improvements-0-2-0"></a></h4>
+<ul><li>New option for base page layout: <code><a href="https://rdrr.io/pkg/shiny/man/navbarPage.html" class="external-link">shiny::navbarPage()</a></code> (#76)</li>
+<li>Support for <code><a href="https://rdrr.io/pkg/shiny/man/tabsetPanel.html" class="external-link">shiny::tabsetPanel()</a></code>, <code><a href="https://rdrr.io/pkg/shiny/man/tabPanel.html" class="external-link">shiny::tabPanel()</a></code>, and <code><a href="https://rdrr.io/pkg/gridlayout/man/grid_container.html" class="external-link">gridlayout::grid_container()</a></code>
+</li>
+</ul></div>
+<div class="section level4">
+<h4 id="minor-new-features-and-improvements-0-2-0">Minor new features and improvements<a class="anchor" aria-label="anchor" href="#minor-new-features-and-improvements-0-2-0"></a></h4>
+<ul><li>Updated styles for drop-targets. Now use pulsing background color instead of outlines to indicate possible drop targets.</li>
+<li>Improved accessability for settings panel inputs with properly scoped labels and aria descriptions</li>
+<li>Popups on hover over the elements panel now provide some context for the functionality of the element. (#74)</li>
+<li>Update to React v18 for improved performance</li>
+</ul></div>
+<div class="section level4">
+<h4 id="bug-fixes-0-2-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-2-0"></a></h4>
+<ul><li>Fixes bug where ui editor would not work on hosted services like RStudio Workbench. Thanks @mdancho84! (#73, #90)</li>
+<li>Nodes can now be dragged to to the child position to the left of any of their ancestor nodes.</li>
+<li>Selection now properly follows node after move.</li>
+<li>Generated layout tables for gridlayout are now column aligned.</li>
+</ul></div>
+<div class="section level4"><h4 id="known-bugs-0-2-0">Known bugs<a class="anchor" aria-label="anchor" href="#known-bugs-0-2-0"></a></h4></div>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.1.0" id="shinyuieditor-010">shinyuieditor 0.1.0<a class="anchor" aria-label="anchor" href="#shinyuieditor-010"></a></h2>
 <div class="section level4">
