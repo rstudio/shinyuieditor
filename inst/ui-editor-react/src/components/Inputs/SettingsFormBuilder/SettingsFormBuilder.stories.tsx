@@ -19,7 +19,7 @@ const settingsInfo: SettingsInfo = {
 
 export const AutoBuild = () => {
   const [value, setValue] = React.useState({
-    // name: "test",
+    name: "test",
     myNumberArg: 3,
   });
 

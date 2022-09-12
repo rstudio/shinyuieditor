@@ -45,34 +45,15 @@ export const OptionalNumberInput = () => {
   );
 };
 
-// export const RenderProps = () => {
-//   const [value, setValue] = React.useState({
-//     name: "test",
-//     myNumberArg: 3,
-//   });
+export const MissingNonOptionalInput = () => {
+  const [value, setValue] = React.useState<undefined | string>();
 
-//   return (
-//     <SettingsFormBuilder
-//       settings={value}
-//       settingsInfo={settingsInfo}
-//       onSettingsChange={(key, value) => {
-//         console.log(key);
-//         setValue((old) => ({ ...old, [key]: value }));
-//       }}
-//       renderInputs={(Inputs) => {
-//         return (
-//           <>
-//             <section>
-//               <h2>Number inputs</h2>
-//               {Inputs.myNumberArg}
-//             </section>
-//             <section>
-//               <h2>Text Inputs</h2>
-//               {Inputs.name}
-//             </section>
-//           </>
-//         );
-//       }}
-//     />
-//   );
-// };
+  return (
+    <SettingsInput
+      name="name"
+      value={value}
+      info={settingsInfo["name"]}
+      onChange={setValue as SettingsOnChangeCallback}
+    />
+  );
+};
