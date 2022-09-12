@@ -1,8 +1,8 @@
 import React from "react";
 
-import type { TemplatedGridProps } from "..";
+import type { TemplatedGridProps } from "../../../Shiny-Ui-Elements/GridlayoutGridPage";
 
-import EditableGridContainer from ".";
+import EditableGridContainer from "./EditableGridContainer";
 
 export const EditableGridContainerShowcase = (opts: {
   layout: TemplatedGridProps;

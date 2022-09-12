@@ -10,7 +10,7 @@ import resizeTract from "utils/gridTemplates/resizeTract";
 import swapItems from "utils/gridTemplates/swapItems";
 import type { GridItemExtent } from "utils/gridTemplates/types";
 
-import type { TemplatedGridProps } from ".";
+import type { TemplatedGridProps } from "../../Shiny-Ui-Elements/GridlayoutGridPage";
 
 export type GridLayoutAction =
   | { type: "ADD_ITEM"; name: string; pos: GridItemExtent }

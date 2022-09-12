@@ -1,7 +1,7 @@
 import type { GridLocString } from "GridTypes";
 import type { GridItemExtent, ItemLocation } from "utils/gridTemplates/types";
 
-import type { TractDirection } from ".";
+import type { TractDirection } from "../../Shiny-Ui-Elements/GridlayoutGridPage";
 
 export const directions: TractDirection[] = ["rows", "cols"];
 export function singular(dir: TractDirection): "row" | "column" {

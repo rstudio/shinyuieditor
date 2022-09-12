@@ -2,7 +2,10 @@ import React from "react";
 
 import type { CSSMeasure } from "CSSMeasure";
 
-import type { TemplatedGridProps, TractDirection } from "..";
+import type {
+  TemplatedGridProps,
+  TractDirection,
+} from "../../../Shiny-Ui-Elements/GridlayoutGridPage";
 import { validateRef } from "../../../utils/validateRef";
 
 import { initDragState, updateDragState } from "./dragToResizeHelpers";

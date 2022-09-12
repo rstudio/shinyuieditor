@@ -2,8 +2,8 @@ import * as React from "react";
 
 import type { UiNodeComponent } from "Shiny-Ui-Elements/uiNodeTypes";
 
+import { BsCard } from "../../components/Grids/GridLayoutPanelHelpers/GridCards";
 import { useGridItemSwapping } from "../GridlayoutGridCard/useGridItemSwapping";
-import { BsCard } from "../GridLayoutPanelHelpers/GridCards";
 
 import type { GridlayoutGridCardTextProps } from "./index";
 

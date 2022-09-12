@@ -3,13 +3,13 @@ library(ggplot2)
 
 # Chick weights investigated over three panels
 ui <- navbarPage(
-  title = "Geysers",
+  title = "Chick Weights",
   theme = bslib::bs_theme(),
   tabPanel(
     title = "Settings",
     sliderInput(
       inputId = "numChicks",
-      label = "Number of Bins",
+      label = "Number of chicks",
       min = 1L,
       max = 15L,
       value = 4L,
@@ -65,4 +65,3 @@ server <- function(input, output) {
 }
 
 shinyApp(ui, server)
-

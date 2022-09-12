@@ -3,8 +3,9 @@ import type React from "react";
 import type { DeleteAction, UpdateAction } from "state/uiTree";
 
 import { gridlayoutGridCardInfo } from "./GridlayoutGridCard";
-import { GridlayoutGridCardPlotInfo } from "./GridlayoutGridCardPlot";
+import { gridlayoutGridCardPlotInfo } from "./GridlayoutGridCardPlot";
 import { gridlayoutTextPanelInfo } from "./GridlayoutGridCardText";
+import gridlayoutGridTabPanelInfo from "./GridlayoutGridContainer";
 import { gridlayoutGridPageInfo } from "./GridlayoutGridPage";
 import { shinyActionButtonInfo } from "./ShinyActionButton";
 import { shinyCheckboxGroupInputInfo } from "./ShinyCheckboxGroupInput";
@@ -59,16 +60,9 @@ export type UiComponentInfo<NodeSettings extends object> = {
   description?: string;
 
   /**
-   * Optional functions that will hook into the state update reducers and allow
-   * a component the ability to respond to state manipulation before the main
-   * tree update action has been preformed. These are dangerous and should only
-   * be used as a last resort. perform state mutations in response in addition
-   * to the plain updating of the node (which will occur last)
+   * Optional update subscribers
    */
-  stateUpdateSubscribers?: {
-    UPDATE_NODE?: UpdateAction;
-    DELETE_NODE?: DeleteAction;
-  };
+  stateUpdateSubscribers?: Partial<StateUpdateSubscribers>;
 } & (
   | {
       /**
@@ -97,6 +91,18 @@ export type UiComponentInfo<NodeSettings extends object> = {
 );
 
 /**
+ * Optional functions that will hook into the state update reducers and allow
+ * a component the ability to respond to state manipulation before the main
+ * tree update action has been preformed. These are dangerous and should only
+ * be used as a last resort. perform state mutations in response in addition
+ * to the plain updating of the node (which will occur last)
+ */
+export type StateUpdateSubscribers = {
+  UPDATE_NODE: UpdateAction;
+  DELETE_NODE: DeleteAction;
+};
+
+/**
  * This is the main object that contains the info about a given uiNode. Once the
  * node info object is created and added here the ui-node will be usable within
  * the editor
@@ -119,7 +125,8 @@ export const shinyUiNodeInfo = {
   "gridlayout::grid_page": gridlayoutGridPageInfo,
   "gridlayout::grid_card": gridlayoutGridCardInfo,
   "gridlayout::grid_card_text": gridlayoutTextPanelInfo,
-  "gridlayout::grid_card_plot": GridlayoutGridCardPlotInfo,
+  "gridlayout::grid_card_plot": gridlayoutGridCardPlotInfo,
+  "gridlayout::grid_container": gridlayoutGridTabPanelInfo,
   unknownUiFunction: unknownUiFunctionInfo,
 };
 
@@ -219,6 +226,7 @@ export type UiNodeComponent<NodeSettings extends object> = (props: {
  */
 export type SettingsUpdaterComponent<T extends object> = (p: {
   settings: T;
+  node: ShinyUiNode;
 }) => JSX.Element;
 
 /**

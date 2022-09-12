@@ -6,6 +6,7 @@ import { SettingsUpdateContext } from "components/Inputs/SettingsUpdateContext";
 import type {
   ArgsWithPotentialUnknowns,
   SettingsUpdaterComponent,
+  ShinyUiNode,
   ShinyUiNodeInfo,
   UiNodeComponent,
 } from "Shiny-Ui-Elements/uiNodeTypes";
@@ -66,7 +67,15 @@ function UiNodeAndSettings<T extends ShinyUiNames>({
       <div>
         <h1>Settings Panel</h1>
         <SettingsUpdateContext onChange={updateSettings}>
-          <SettingsInputs settings={uiSettings} />
+          <SettingsInputs
+            settings={uiSettings}
+            node={
+              {
+                uiName: uiName,
+                uiArguments: uiSettings,
+              } as ShinyUiNode
+            }
+          />
         </SettingsUpdateContext>
       </div>
     </div>

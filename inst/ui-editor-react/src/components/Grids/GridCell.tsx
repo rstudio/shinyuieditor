@@ -2,7 +2,7 @@ import React from "react";
 
 import { useFilteredDrop } from "DragAndDropHelpers/useFilteredDrop";
 
-import type { NewItemInfo } from "./GridlayoutGridPage";
+import type { NewItemInfo } from "./GridlayoutElement/GridlayoutElement";
 
 export function GridCell({
   gridRow,
@@ -17,6 +17,8 @@ export function GridCell({
 
   useFilteredDrop({
     watcherRef: cellRef,
+    getCanAcceptDrop: (nodeInfo) =>
+      nodeInfo.node.uiName !== "gridlayout::grid_container",
     onDrop: (nodeInfo) => {
       onDroppedNode({
         ...nodeInfo,

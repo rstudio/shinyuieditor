@@ -27,21 +27,28 @@ export default function PathBreadcrumb({
   }
 
   return (
-    <div className={classes.container}>
-      {pathString.map((name, i) => (
-        <div
-          key={name + i}
-          className={classes.node}
-          onClick={
-            // Only run selection callback when selection will change current
-            // state. Otherwise it will just loose any changes to settings the
-            // user has made without changing anything meaningful
-            i === totalDepth ? undefined : () => onSelect(path.slice(0, i))
-          }
-        >
-          {removeNamespaceFromUiName(name)}
-        </div>
-      ))}
+    <div className={classes.container} aria-label="Path to selected node">
+      {pathString.map((name, i) => {
+        const isFinalNode = i === totalDepth;
+        const cleanNodeName = removeNamespaceFromUiName(name);
+        return (
+          <div
+            key={name + i}
+            className={classes.node}
+            aria-label={
+              isFinalNode ? "current selection" : "ancestor of selection"
+            }
+            onClick={
+              // Only run selection callback when selection will change current
+              // state. Otherwise it will just loose any changes to settings the
+              // user has made without changing anything meaningful
+              isFinalNode ? undefined : () => onSelect(path.slice(0, i))
+            }
+          >
+            {cleanNodeName}
+          </div>
+        );
+      })}
     </div>
   );
 }

@@ -27,7 +27,7 @@ If you prefer video format, here's an [in-depth walkthrough of using the ui edit
 ## Pre-reqs
 
 - `shinyuieditor` package installed. See the [installing section](../index.html#installing)
-- Shiny app with ui built using `gridlayout::gridpage()` (more layout functions coming soon.) See the [`gridlayout` package](https://github.com/rstudio/gridlayout) for more info.
+- Shiny app with ui built using [`gridlayout::gridpage()`](https://rstudio.github.io/gridlayout/) or `shiny::navbarPage()` (more layout functions coming soon.) 
 
 
 
@@ -48,13 +48,14 @@ shinyuieditor::launch_editor(app_loc = "new-app/")
 #> Selection: 1
 #> Which starter template would you like to use? (Sorry, it's an easy choice currently.)
 #> 1: geyser
+#> ...
 #>
 #> Selection: 1
 #> => Starting Shiny preview app...
 #> ...
 ```
 
-_In the future more starting templates will be offered, however, currently only a simple grid-layout recreation of the classic "Geyser" app is available._
+_There are just a few templates available currently but more are always being added._
 
 ### Existing app
 

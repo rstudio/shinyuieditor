@@ -2,7 +2,7 @@ import TabPanel from "components/Tabs/TabPanel/TabPanel";
 import Tabset from "components/Tabs/Tabset/Tabset";
 import UiNode from "components/UiNode/UiNode";
 import { makeChildPath, pathToString } from "Shiny-Ui-Elements/nodePathUtils";
-import { isTabPanelNode } from "Shiny-Ui-Elements/ShinyTabPanel/tabPanelHelpers";
+import { isValidTabPanel } from "Shiny-Ui-Elements/ShinyTabPanel/isValidTabPanel";
 import type { UiNodeComponent } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import type { TabsetPanelSettings } from "./index";
@@ -20,7 +20,7 @@ const ShinyTabsetPanel: UiNodeComponent<TabsetPanelSettings> = ({
       {numChildren > 0 ? (
         uiChildren?.map((node, i) => {
           const nodePath = makeChildPath(path, i);
-          const title = isTabPanelNode(node)
+          const title = isValidTabPanel(node)
             ? node.uiArguments.title
             : "unknown tab";
           return (

@@ -7,11 +7,14 @@ import ShinyNavbarPage from "./ShinyNavbarPage";
 
 export type NavbarPageSettings = {
   title: string;
+  collapsible: boolean;
   id?: string;
+  selected?: string;
 };
 
 export const shinyNavbarPageDefaultSettings: NavbarPageSettings = {
   title: "My Shiny App",
+  collapsible: false,
 };
 
 export const shinyNavbarPageInfo: UiComponentInfo<NavbarPageSettings> = {

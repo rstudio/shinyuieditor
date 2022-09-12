@@ -2,9 +2,8 @@ import TabPanel from "components/Tabs/TabPanel/TabPanel";
 import Tabset from "components/Tabs/Tabset/Tabset";
 import UiNode from "components/UiNode/UiNode";
 import { makeChildPath, pathToString } from "Shiny-Ui-Elements/nodePathUtils";
+import { isValidTabPanel } from "Shiny-Ui-Elements/ShinyTabPanel/isValidTabPanel";
 import type { UiNodeComponent } from "Shiny-Ui-Elements/uiNodeTypes";
-
-import { isTabPanelNode } from "../ShinyTabPanel/tabPanelHelpers";
 
 import type { NavbarPageSettings } from "./index";
 
@@ -29,7 +28,7 @@ const ShinyNavbarPage: UiNodeComponent<NavbarPageSettings> = ({
       {uiChildren ? (
         uiChildren.map((node, i) => {
           const nodePath = makeChildPath(path, i);
-          const title = isTabPanelNode(node)
+          const title = isValidTabPanel(node)
             ? node.uiArguments.title
             : "unknown tab";
           return (
