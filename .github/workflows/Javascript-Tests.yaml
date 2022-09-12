@@ -1,7 +1,7 @@
 name: Javascript Tests
 on:
   push:
-    branches: [main, SettingsFormBuilder]
+    branches: [main]
   pull_request:
     branches: [main]
 
