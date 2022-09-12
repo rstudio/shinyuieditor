@@ -1,9 +1,6 @@
 import Button from "components/Inputs/Button/Button";
 
-import type {
-  ArgumentInfo,
-  PossibleArgTypes,
-} from "../constructInputComponents";
+import type { ArgumentInfo, PossibleArgTypes } from "../ArgumentInfo";
 
 import "./SettingsInput.scss";
 

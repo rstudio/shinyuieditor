@@ -1,4 +1,4 @@
-import type { KnownArgTypes } from "../constructInputComponents";
+import type { KnownArgTypes } from "../ArgumentInfo";
 
 type NewValCallback<T> = (newVal: T) => void;
 type SettingsInputProps<T> = {
