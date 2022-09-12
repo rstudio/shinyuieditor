@@ -1,10 +1,10 @@
 import React from "react";
 
+import type { CSSMeasure } from "CSSMeasure";
 import debounce from "just-debounce-it";
 import { deparseCSSMeasure } from "utils/css-helpers";
 
 import type { InputWidgetCommonPropsOld } from "..";
-import type { CSSMeasure } from "../../../CSSMeasure";
 import { InputWrapper } from "../InputWrapper";
 import { NumericInputSimple } from "../NumericInput/NumericInput";
 import type { OnChangeCallback } from "../SettingsUpdateContext";
