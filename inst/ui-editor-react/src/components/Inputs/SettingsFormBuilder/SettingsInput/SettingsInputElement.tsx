@@ -1,4 +1,4 @@
-import type { KnownArgTypes } from "./constructInputComponents";
+import type { KnownArgTypes } from "../constructInputComponents";
 
 type NewValCallback<T> = (newVal: T) => void;
 type SettingsInputProps<T> = {
@@ -6,7 +6,7 @@ type SettingsInputProps<T> = {
   onChange: NewValCallback<T>;
 };
 
-export function SettingsInput<T extends KnownArgTypes>({
+export function SettingsInputElement<T extends KnownArgTypes>({
   value,
   onChange,
 }: SettingsInputProps<T>) {
@@ -33,6 +33,7 @@ export function SettingsInput<T extends KnownArgTypes>({
 
   throw new Error("Dont know how to handle this input type yet");
 }
+
 function StringInput({
   value,
   onChange,

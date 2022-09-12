@@ -1,5 +1,5 @@
 // Extract out only the keys that map to properties of type T
-import { LabeledSettingsInput } from "./LabeledSettingsInput";
+import { SettingsInput } from "./SettingsInput/SettingsInput";
 import "./styles.scss";
 
 export type KnownArgTypes = string | number;
@@ -11,7 +11,7 @@ export type PossibleArgTypes = KnownArgTypes | undefined;
 export type ArgumentInfo = {
   defaultValue: KnownArgTypes;
   label: string;
-  optional?: boolean;
+  requiredOrOptional?: "optional" | "required";
 };
 
 export type SettingsInfo = Record<string, ArgumentInfo>;
@@ -22,11 +22,15 @@ export type SettingsInfo = Record<string, ArgumentInfo>;
 // it optional, which is maybe a bit confusing but will work out fine because
 // javascript will do runtime checks
 type OptionalSettingsKeys<Info extends SettingsInfo> = {
-  [K in keyof Info]-?: undefined extends Info[K]["optional"] ? never : K;
+  [K in keyof Info]-?: "optional" extends Info[K]["requiredOrOptional"]
+    ? never
+    : K;
 }[keyof Info];
 
 type RequiredSettingsKeys<Info extends SettingsInfo> = {
-  [K in keyof Info]-?: undefined extends Info[K]["optional"] ? K : never;
+  [K in keyof Info]-?: "optional" extends Info[K]["requiredOrOptional"]
+    ? K
+    : never;
 }[keyof Info];
 
 // Now build the settings object based on the info object making the "optional"
@@ -60,7 +64,7 @@ export function constructInputComponents<Info extends SettingsInfo>({
       throw new Error("How did that non-string key get in here?");
 
     InputsComponents[name] = (
-      <LabeledSettingsInput
+      <SettingsInput
         name={name}
         value={settings[name]}
         info={settingsInfo[name]}

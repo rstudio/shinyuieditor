@@ -1,27 +1,29 @@
 import type {
   ArgumentInfo,
   PossibleArgTypes,
-} from "./constructInputComponents";
-import { SettingsInput } from "./SettingsInput";
+} from "../constructInputComponents";
 
-export function LabeledSettingsInput({
-  name,
-  value,
-  info: { label, optional, defaultValue },
-  onChange,
-}: {
+import { SettingsInputElement } from "./SettingsInputElement";
+
+export type SettingsOnChangeCallback = (x: PossibleArgTypes) => void;
+type SettingsInputProps = {
   name: string;
   value: PossibleArgTypes;
   info: ArgumentInfo;
-  onChange: (x: PossibleArgTypes) => void;
-}) {
+  onChange: SettingsOnChangeCallback;
+};
+
+export function SettingsInput({
+  name,
+  value,
+  info: { label, defaultValue, requiredOrOptional },
+  onChange,
+}: SettingsInputProps) {
   const argumentIsUnset = value === undefined;
 
-  // debugger;
-
   return (
-    <label className="SettingsInput" key={name}>
-      {optional ? (
+    <div>
+      {requiredOrOptional === "optional" ? (
         <OptionalCheckbox
           name={name}
           isDisabled={argumentIsUnset}
@@ -30,13 +32,16 @@ export function LabeledSettingsInput({
           }}
         />
       ) : null}
-      {label}
-      {argumentIsUnset ? (
-        <span>I am unset</span>
-      ) : (
-        <SettingsInput value={value} onChange={onChange} />
-      )}
-    </label>
+
+      <label className="SettingsInput" key={name}>
+        {label}
+        {argumentIsUnset ? (
+          <span>I am unset</span>
+        ) : (
+          <SettingsInputElement value={value} onChange={onChange} />
+        )}
+      </label>
+    </div>
   );
 }
 

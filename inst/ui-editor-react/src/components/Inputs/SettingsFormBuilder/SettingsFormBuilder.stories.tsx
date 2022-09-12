@@ -1,5 +1,6 @@
 import React from "react";
 
+import type { SettingsInfo } from "./constructInputComponents";
 import { SettingsFormBuilder } from "./SettingsFormBuilder";
 
 export default {
@@ -7,9 +8,13 @@ export default {
   component: SettingsFormBuilder,
 };
 
-const settingsInfo = {
+const settingsInfo: SettingsInfo = {
   name: { defaultValue: "name default", label: "This is my name" },
-  myNumberArg: { defaultValue: 42, label: "This is a value", optional: true },
+  myNumberArg: {
+    defaultValue: 42,
+    label: "This is a value",
+    requiredOrOptional: "optional",
+  },
 };
 
 export const AutoBuild = () => {
