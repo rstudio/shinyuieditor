@@ -4,6 +4,7 @@ import type {
   ArgumentInfo,
   PossibleArgTypes,
 } from "../constructInputComponents";
+
 import "./SettingsInput.scss";
 
 import { SettingsInputElement } from "./SettingsInputElement";
@@ -32,16 +33,13 @@ export function SettingsInput({
     <div className="SUE-SettingsInput">
       <div className="info">
         {argumentIsOptional ? (
-          <OptionalCheckbox
-            name={name}
-            isDisabled={argumentIsUnset}
-            onChange={(enabled) => {
-              if (enabled) {
-                setToDefault();
-              } else {
-                unsetArgument();
-              }
-            }}
+          <input
+            type="checkbox"
+            checked={!argumentIsUnset}
+            title={`Click to ${
+              argumentIsUnset ? "set" : "unset"
+            } ${name} property`}
+            onChange={argumentIsUnset ? setToDefault : unsetArgument}
           />
         ) : null}
 
@@ -65,31 +63,5 @@ export function SettingsInput({
         <SettingsInputElement id={name} value={value} onChange={onChange} />
       )}
     </div>
-  );
-}
-
-export function OptionalCheckbox({
-  name,
-  isDisabled,
-  onChange,
-}: {
-  name: string;
-  isDisabled: boolean;
-  onChange: (enabled: boolean) => void;
-}) {
-  const effectDescription = `Click to ${
-    isDisabled ? "set" : "unset"
-  } ${name} property`;
-
-  return (
-    <input
-      aria-label={effectDescription}
-      type="checkbox"
-      checked={!isDisabled}
-      title={effectDescription}
-      onChange={(e) => {
-        onChange(e.target.checked);
-      }}
-    />
   );
 }
