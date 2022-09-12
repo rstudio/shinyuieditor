@@ -1,6 +1,6 @@
 import React from "react";
 
-import type { SettingsInfo } from "./constructInputComponents";
+import type { SettingsInfo } from "./ArgumentInfo";
 import { SettingsFormBuilder } from "./SettingsFormBuilder";
 
 export default {
@@ -9,11 +9,16 @@ export default {
 };
 
 const settingsInfo: SettingsInfo = {
-  name: { defaultValue: "name default", label: "This is my name" },
+  name: {
+    defaultValue: "name default",
+    label: "This is my name",
+    type: "string",
+  },
   myNumberArg: {
     defaultValue: 42,
     label: "This is a value",
     requiredOrOptional: "optional",
+    type: "number",
   },
 };
 

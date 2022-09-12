@@ -1,23 +1,32 @@
 import Button from "components/Inputs/Button/Button";
 
-import type { ArgumentInfo, PossibleArgTypes } from "../ArgumentInfo";
+import type {
+  ArgumentInfo,
+  KnownArgTypes,
+  PossibleArgTypes,
+} from "../ArgumentInfo";
 
 import "./SettingsInput.scss";
 
+import type {
+  OnChangeCallback,
+  SettingsInputElementProps,
+} from "./SettingsInputElement";
 import { SettingsInputElement } from "./SettingsInputElement";
 
 export type SettingsOnChangeCallback = (x: PossibleArgTypes) => void;
+
 type SettingsInputProps = {
   name: string;
-  value: PossibleArgTypes;
+  value?: KnownArgTypes;
   info: ArgumentInfo;
-  onChange: SettingsOnChangeCallback;
+  onChange: OnChangeCallback;
 };
 
 export function SettingsInput({
   name,
   value,
-  info: { label, defaultValue, requiredOrOptional },
+  info: { type, label, defaultValue, requiredOrOptional },
   onChange,
 }: SettingsInputProps) {
   const argumentIsUnset = value === undefined;
@@ -25,6 +34,13 @@ export function SettingsInput({
 
   const setToDefault = () => onChange(defaultValue);
   const unsetArgument = () => onChange(undefined);
+
+  const inputArgs = {
+    id: name,
+    type,
+    value,
+    onChange,
+  } as SettingsInputElementProps;
 
   return (
     <div className="SUE-SettingsInput">
@@ -57,7 +73,7 @@ export function SettingsInput({
           </div>
         )
       ) : (
-        <SettingsInputElement id={name} value={value} onChange={onChange} />
+        <SettingsInputElement {...inputArgs} />
       )}
     </div>
   );

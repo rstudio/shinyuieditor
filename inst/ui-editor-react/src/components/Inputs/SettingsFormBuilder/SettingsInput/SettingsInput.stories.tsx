@@ -1,7 +1,5 @@
 import React from "react";
 
-import type { SettingsInfo } from "../constructInputComponents";
-
 import type { SettingsOnChangeCallback } from "./SettingsInput";
 import { SettingsInput } from "./SettingsInput";
 
@@ -10,10 +8,15 @@ export default {
   component: SettingsInput,
 };
 
-const settingsInfo: SettingsInfo = {
-  name: { defaultValue: "name default", label: "This is my name" },
+const settingsInfo = {
+  name: {
+    defaultValue: "name default",
+    type: "string",
+    label: "This is my name",
+  },
   myNumberArg: {
     defaultValue: 42,
+    type: "number",
     label: "This is a value",
     requiredOrOptional: "optional",
   },
@@ -26,7 +29,11 @@ export const RequiredStringInput = () => {
     <SettingsInput
       name="name"
       value={value}
-      info={settingsInfo["name"]}
+      info={{
+        defaultValue: "name default",
+        type: "string",
+        label: "This is my name",
+      }}
       onChange={setValue as SettingsOnChangeCallback}
     />
   );
@@ -39,7 +46,12 @@ export const OptionalNumberInput = () => {
     <SettingsInput
       name="myNumberArg"
       value={value}
-      info={settingsInfo["myNumberArg"]}
+      info={{
+        defaultValue: 42,
+        type: "number",
+        label: "This is a value",
+        requiredOrOptional: "optional",
+      }}
       onChange={setValue as SettingsOnChangeCallback}
     />
   );
@@ -52,7 +64,11 @@ export const MissingNonOptionalInput = () => {
     <SettingsInput
       name="name"
       value={value}
-      info={settingsInfo["name"]}
+      info={{
+        defaultValue: "name default",
+        type: "string",
+        label: "This is my name",
+      }}
       onChange={setValue as SettingsOnChangeCallback}
     />
   );

@@ -1,5 +1,5 @@
+import type { SettingsInfo } from "./ArgumentInfo";
 import type {
-  SettingsInfo,
   SettingsInputsBuilderProps,
   InputComponentsMap,
 } from "./constructInputComponents";

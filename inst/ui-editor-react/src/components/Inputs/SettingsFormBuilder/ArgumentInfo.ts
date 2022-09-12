@@ -1,10 +1,21 @@
-export type ArgumentInfo = {
-  defaultValue: KnownArgTypes;
-  label: string;
-  requiredOrOptional?: "optional" | "required";
+export type ArgTypesMap = {
+  string: string;
+  number: number;
 };
 
-export type KnownArgTypes = string | number;
+export type ArgTypes = keyof ArgTypesMap;
+
+export type ArgumentInfoByType = {
+  [T in ArgTypes]: {
+    type: T;
+    defaultValue: ArgTypesMap[T];
+    label: string;
+    requiredOrOptional?: "optional" | "required";
+  };
+};
+export type ArgumentInfo = ArgumentInfoByType[ArgTypes];
+
+export type KnownArgTypes = ArgumentInfo["defaultValue"];
 
 // Add undefined as some arguments are optional and when not provided return
 // undefined
