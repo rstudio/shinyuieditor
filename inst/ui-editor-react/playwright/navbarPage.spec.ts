@@ -83,11 +83,6 @@ test("Basic usage of navbar page", async ({ page }) => {
   await page.locator("text=Delete Element").click();
 
   // Now we drag a new dynamic ui output into the now empty tab
-  // await dragDrop(page,
-  //   "text=/^Dynamic UI Output$/",
-  //   `[aria-label="tab panel Plot 1"]`
-  // );
-
   await dragDrop(
     page,
     "text=/^Dynamic UI Output$/",
@@ -100,14 +95,13 @@ test("Basic usage of navbar page", async ({ page }) => {
   // Click the tab to set selection to tab panel itself
   await page.locator("text=Plot 1").click();
 
-  await page.locator(`[aria-label="input for title"]`).click({ clickCount: 3 });
-  await page.locator(`[aria-label="input for title"]`).type(newTabName);
+  const titleInput = page.locator(`[aria-label="input for title"]`);
+  await titleInput.fill(newTabName);
 
   // Now there should be a tab with the new name and not a tab with the old
   // name. The text= selector doesn't reach into inputs so a single
   // .toBeVisible() is enough here.
-  const newTabLocator = page.locator(`text="${newTabName}"`);
-  await expect(newTabLocator).toBeVisible();
+  await expect(page.locator(`text=${newTabName}`)).toBeVisible();
 
   await expect(page.locator(`text=Plot 1`)).not.toBeVisible();
 
