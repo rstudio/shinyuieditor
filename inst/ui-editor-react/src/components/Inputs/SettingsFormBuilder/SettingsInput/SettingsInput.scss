@@ -1,0 +1,16 @@
+.SUE-SettingsInput {
+  display: block;
+  margin-block: 8px;
+
+  .info {
+    display: flex;
+    gap: 5px;
+  }
+  input,
+  .unset-input {
+    display: block;
+  }
+  .malformed-argument-value-pair {
+    color: var(--red, orangered);
+  }
+}

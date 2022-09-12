@@ -59,14 +59,15 @@ export function constructInputComponents<Info extends SettingsInfo>({
 }: SettingsInputsBuilderProps<Info>) {
   const InputsComponents: Record<string, JSX.Element> = {};
 
-  keysOf(settings).forEach((name) => {
+  keysOf(settingsInfo).forEach((name) => {
     if (typeof name !== "string")
       throw new Error("How did that non-string key get in here?");
 
     InputsComponents[name] = (
       <SettingsInput
+        key={name}
         name={name}
-        value={settings[name]}
+        value={settings[name as keyof typeof settings]}
         info={settingsInfo[name]}
         onChange={(updatedValue) => onSettingsChange(name, updatedValue)}
       />

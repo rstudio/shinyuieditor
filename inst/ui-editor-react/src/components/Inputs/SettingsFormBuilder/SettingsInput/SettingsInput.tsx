@@ -1,7 +1,10 @@
+import Button from "components/Inputs/Button/Button";
+
 import type {
   ArgumentInfo,
   PossibleArgTypes,
 } from "../constructInputComponents";
+import "./SettingsInput.scss";
 
 import { SettingsInputElement } from "./SettingsInputElement";
 
@@ -20,27 +23,47 @@ export function SettingsInput({
   onChange,
 }: SettingsInputProps) {
   const argumentIsUnset = value === undefined;
+  const argumentIsOptional = requiredOrOptional === "optional";
+
+  const setToDefault = () => onChange(defaultValue);
+  const unsetArgument = () => onChange(undefined);
 
   return (
-    <div>
-      {requiredOrOptional === "optional" ? (
-        <OptionalCheckbox
-          name={name}
-          isDisabled={argumentIsUnset}
-          onChange={(enabled) => {
-            onChange(enabled ? defaultValue : undefined);
-          }}
-        />
-      ) : null}
+    <div className="SUE-SettingsInput">
+      <div className="info">
+        {argumentIsOptional ? (
+          <OptionalCheckbox
+            name={name}
+            isDisabled={argumentIsUnset}
+            onChange={(enabled) => {
+              if (enabled) {
+                setToDefault();
+              } else {
+                unsetArgument();
+              }
+            }}
+          />
+        ) : null}
 
-      <label className="SettingsInput" key={name}>
-        {label}
-        {argumentIsUnset ? (
-          <span>I am unset</span>
+        <label htmlFor={name}>{label}</label>
+      </div>
+      {argumentIsUnset ? (
+        argumentIsOptional ? (
+          <div className="unset-input">I am unset</div>
         ) : (
-          <SettingsInputElement value={value} onChange={onChange} />
-        )}
-      </label>
+          <div className="malformed-argument-value-pair">
+            Required argument "{name}" not provided.
+            <Button
+              style={{ padding: "0.25rem 0.5rem", marginInline: "0.25rem" }}
+              onClick={setToDefault}
+            >
+              Reset
+            </Button>
+          </div>
+        )
+      ) : (
+        <SettingsInputElement id={name} value={value} onChange={onChange} />
+      )}
     </div>
   );
 }

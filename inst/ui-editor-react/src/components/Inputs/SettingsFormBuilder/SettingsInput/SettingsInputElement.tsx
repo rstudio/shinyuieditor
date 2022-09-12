@@ -2,17 +2,20 @@ import type { KnownArgTypes } from "../constructInputComponents";
 
 type NewValCallback<T> = (newVal: T) => void;
 type SettingsInputProps<T> = {
+  id: string;
   value: T;
   onChange: NewValCallback<T>;
 };
 
 export function SettingsInputElement<T extends KnownArgTypes>({
+  id,
   value,
   onChange,
 }: SettingsInputProps<T>) {
   if (typeof value === "string") {
     return (
       <StringInput
+        id={id}
         value={value}
         onChange={(newValue) => (onChange as NewValCallback<string>)(newValue)}
       />
@@ -22,6 +25,7 @@ export function SettingsInputElement<T extends KnownArgTypes>({
   if (typeof value === "number") {
     return (
       <input
+        id={id}
         type="number"
         value={value}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,15 +38,10 @@ export function SettingsInputElement<T extends KnownArgTypes>({
   throw new Error("Dont know how to handle this input type yet");
 }
 
-function StringInput({
-  value,
-  onChange,
-}: {
-  value: string;
-  onChange: (x: string) => void;
-}) {
+function StringInput({ id, value, onChange }: SettingsInputProps<string>) {
   return (
     <input
+      id={id}
       type="text"
       value={value}
       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
