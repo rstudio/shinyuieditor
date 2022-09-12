@@ -1,5 +1,6 @@
 import React from "react";
 
+import { makeChildPath } from "Shiny-Ui-Elements/nodePathUtils";
 import type {
   NodePath,
   ShinyUiNames,
@@ -7,25 +8,31 @@ import type {
 } from "Shiny-Ui-Elements/uiNodeTypes";
 import { usePlaceNode } from "state/uiTree";
 
-import { getIsValidMove } from "../components/UiNode/TreeManipulation/placeNode";
+import { getIsValidMove } from "../components/UiNode/TreeManipulation/getIsValidMove";
 
 import type { DraggedNodeInfo } from "./DragAndDropHelpers";
 import { useFilteredDrop } from "./useFilteredDrop";
 
-type DropHandlerArguments = {
+export type DropHandlerArguments = {
   dropFilters?: DropFilters;
   parentPath: NodePath;
-  positionInChildren?: number;
+  positionInChildren: number;
   onDrop: "add-node" | ((droppedNode: DraggedNodeInfo) => void);
+  /**
+   * Function to run the dropped node through before sending to tree. Can be
+   * used to do things like add a wrapper etc...
+   */
+  processDropped?: (node: ShinyUiNode) => ShinyUiNode;
 };
 
 export function useDropHandlers(
   watcherRef: React.RefObject<HTMLDivElement>,
   {
     dropFilters = { rejectedNodes: [] },
-    positionInChildren = Infinity,
+    positionInChildren,
     parentPath,
     onDrop,
+    processDropped = (x) => x,
   }: DropHandlerArguments
 ) {
   const place_node = usePlaceNode();
@@ -47,16 +54,18 @@ export function useDropHandlers(
   const handleDrop: (dragInfo: DraggedNodeInfo) => void = React.useCallback(
     (dragInfo: DraggedNodeInfo) => {
       if (onDrop === "add-node") {
+        const { node, currentPath } = dragInfo;
+
         place_node({
-          ...dragInfo,
-          parentPath,
-          positionInChildren,
+          node: processDropped(node),
+          currentPath,
+          path: makeChildPath(parentPath, positionInChildren),
         });
       } else {
         onDrop(dragInfo);
       }
     },
-    [onDrop, parentPath, place_node, positionInChildren]
+    [onDrop, parentPath, place_node, positionInChildren, processDropped]
   );
 
   useFilteredDrop({

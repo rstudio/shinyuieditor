@@ -48,7 +48,7 @@ deparse_ui_fn <- function(ui_tree, remove_namespace = FALSE) {
 
     ui_fn_name <- ui_tree$uiName
     if (remove_namespace) {
-      namespace_and_fn <- ui_fn_info[[ui_fn_name]]
+      namespace_and_fn <- known_ui_fns[[ui_fn_name]]
 
       namespaces_removed[namespace_and_fn$namespace] <<- TRUE
       ui_fn_name <- namespace_and_fn$fn

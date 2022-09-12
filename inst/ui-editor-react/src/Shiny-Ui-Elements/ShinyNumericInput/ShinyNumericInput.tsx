@@ -7,10 +7,8 @@ import type { ShinyNumericInputProps } from ".";
 import classes from "./styles.module.css";
 
 const ShinyNumericInput: UiNodeComponent<ShinyNumericInputProps> = ({
-  children,
   uiArguments,
-  eventHandlers,
-  compRef,
+  wrapperProps,
 }) => {
   const settings = { ...uiArguments };
 
@@ -26,9 +24,7 @@ const ShinyNumericInput: UiNodeComponent<ShinyNumericInputProps> = ({
     <div
       className={classes.container + " shiny::numericInput"}
       style={{ width }}
-      aria-label={"shiny::numericInput"}
-      ref={compRef}
-      {...eventHandlers}
+      {...wrapperProps}
     >
       <span>{settings.label}</span>
       <input
@@ -39,7 +35,6 @@ const ShinyNumericInput: UiNodeComponent<ShinyNumericInputProps> = ({
         max={settings.max}
         step={settings.step}
       />
-      {children}
     </div>
   );
 };

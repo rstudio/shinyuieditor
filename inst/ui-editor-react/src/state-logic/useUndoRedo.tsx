@@ -39,12 +39,10 @@ export function useUndoRedo() {
     [dispatch]
   );
   const goBackward = React.useCallback(() => {
-    console.log("Navigating backwards");
     setState(stateHistory.current.goBackwards());
   }, [setState]);
 
   const goForward = React.useCallback(() => {
-    console.log("Navigating forwards");
     setState(stateHistory.current.goForwards());
   }, [setState]);
 

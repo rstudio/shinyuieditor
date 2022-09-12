@@ -1,12 +1,12 @@
 import React from "react";
 
+import { isValidGridItem } from "components/Grids/isValidGridItem";
 import { nodesAreSiblings } from "components/UiNode/TreeManipulation/nodesAreSiblings";
 import type { DraggedNodeInfo } from "DragAndDropHelpers/DragAndDropHelpers";
 import { useFilteredDrop } from "DragAndDropHelpers/useFilteredDrop";
 import type { NodePath } from "Shiny-Ui-Elements/uiNodeTypes";
 
-import { useSetLayout } from "../GridlayoutGridPage/useSetLayout";
-import { gridAwareNodes } from "../GridLayoutPanelHelpers/EmptyPanelMessage/gridAwareNodes";
+import { useSetLayout } from "../../components/Grids/useSetLayout";
 
 import classes from "./styles.module.css";
 
@@ -26,7 +26,7 @@ export function useGridItemSwapping({
       ({ node, currentPath }: DraggedNodeInfo) => {
         if (currentPath === undefined) return false;
 
-        if (!gridAwareNodes.includes(node.uiName)) return false;
+        if (!isValidGridItem(node)) return false;
 
         return nodesAreSiblings(currentPath, path);
       },
@@ -34,8 +34,9 @@ export function useGridItemSwapping({
     );
 
   const onDrop = React.useCallback(
-    (dropInfo) => {
+    (dropInfo: DraggedNodeInfo) => {
       if (!("area" in dropInfo.node.uiArguments)) {
+        // eslint-disable-next-line no-console
         console.error("Invalid grid area swap drop", { dropInfo });
         return;
       }

@@ -1,8 +1,9 @@
 import React from "react";
 
-import { getIsValidMove } from "components/UiNode/TreeManipulation/placeNode";
+import { getIsValidMove } from "components/UiNode/TreeManipulation/getIsValidMove";
 import type { DraggedNodeInfo } from "DragAndDropHelpers/DragAndDropHelpers";
 import { useFilteredDrop } from "DragAndDropHelpers/useFilteredDrop";
+import { makeChildPath } from "Shiny-Ui-Elements/nodePathUtils";
 import type { NodePath, ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
 import { usePlaceNode } from "state/uiTree";
 
@@ -43,8 +44,7 @@ export function useGridCardDropDetectors({
       place_node({
         node: nodeToPlace,
         currentPath,
-        parentPath,
-        positionInChildren,
+        path: makeChildPath(parentPath, positionInChildren),
       });
     },
     [positionInChildren, parentPath, place_node]

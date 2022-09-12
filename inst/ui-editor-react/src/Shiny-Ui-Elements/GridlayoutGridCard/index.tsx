@@ -31,5 +31,3 @@ export const gridlayoutGridCardInfo: UiComponentInfo<GridCardSettings> = {
   description:
     "The standard element for placing elements on the grid in a simple card container.",
 };
-
-export default gridlayoutGridCardInfo;

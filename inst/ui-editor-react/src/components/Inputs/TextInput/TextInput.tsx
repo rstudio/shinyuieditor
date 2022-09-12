@@ -14,6 +14,7 @@ export function TextInputSimple({
   autoFocus,
   disabled = false,
   placeholder,
+  name,
 }: {
   value?: string;
   ariaLabel?: string;
@@ -21,6 +22,7 @@ export function TextInputSimple({
   placeholder?: string;
   autoFocus?: boolean;
   disabled?: boolean;
+  name: string;
 }) {
   const inputElement = React.useRef<HTMLInputElement>(null);
 
@@ -35,6 +37,7 @@ export function TextInputSimple({
 
   return (
     <input
+      name={name}
       ref={inputElement}
       className={classes.input}
       type="text"
@@ -47,19 +50,21 @@ export function TextInputSimple({
   );
 }
 
-export function TextInput({
+export function TextInput<T extends object>({
   name,
   label,
-  value,
+  allValues,
   placeholder,
   onChange,
   autoFocus = false,
   optional = false,
   defaultValue = "my-text",
-}: InputWidgetCommonProps<string> & {
+}: InputWidgetCommonProps<T, string> & {
   placeholder?: string;
   autoFocus?: boolean;
 }) {
+  const value = allValues[name] as string;
+  const argName = name as string;
   const onNewValue = useOnChange(onChange as OnChangeCallback);
 
   const isDisabled = value === undefined;
@@ -76,7 +81,7 @@ export function TextInput({
 
   return (
     <InputWrapper
-      name={name}
+      name={argName}
       label={label}
       optional={optional}
       isDisabled={isDisabled}
@@ -84,10 +89,11 @@ export function TextInput({
       width_setting="full"
       mainInput={
         <TextInputSimple
-          ariaLabel={"input for " + name}
+          name={argName}
+          ariaLabel={"input for " + argName}
           value={value}
           placeholder={placeholder}
-          onChange={(x) => onNewValue({ name, value: x })}
+          onChange={(x) => onNewValue({ name: argName, value: x })}
           autoFocus={autoFocus}
           disabled={isDisabled}
         />

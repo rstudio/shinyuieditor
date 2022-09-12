@@ -23,3 +23,22 @@ export function useNodeSelectionState(): NodeSelectionState {
 
   return [selectedPath, setSelectedPath];
 }
+
+export function useSelectedPath() {
+  const selectedPath = useSelector((state: RootState) => state.selectedPath);
+
+  return selectedPath;
+}
+
+export function useSetSelectedPath() {
+  const dispatch = useDispatch();
+
+  const setSelectedPath = React.useCallback(
+    (path: NodePath | null) => {
+      dispatch(SET_SELECTION({ path }));
+    },
+    [dispatch]
+  );
+
+  return setSelectedPath;
+}

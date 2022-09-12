@@ -1,6 +1,5 @@
 import produce from "immer";
 import type { NodePath, ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
-import { shinyUiNodeInfo } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import { checkIfContainerNode } from "./checkIfContainerNode";
 import { getNode } from "./getNode";
@@ -30,13 +29,6 @@ export function removeNodeMutating(
   tree: ShinyUiNode,
   { path }: RemoveNodeArguments
 ): void {
-  for (let info of Object.values(shinyUiNodeInfo)) {
-    const nodeUpdateSubscriber = info?.stateUpdateSubscribers?.DELETE_NODE;
-    if (nodeUpdateSubscriber) {
-      nodeUpdateSubscriber(tree, { path });
-    }
-  }
-
   const { parentNode, indexToNode } = navigateToParent(tree, path);
 
   // Splice out this child

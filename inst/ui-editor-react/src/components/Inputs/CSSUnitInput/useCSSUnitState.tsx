@@ -23,6 +23,7 @@ export function useCSSUnitState(initialValue: CSSMeasure) {
         return;
       }
       if (cssValue.unit === "auto") {
+        // eslint-disable-next-line no-console
         console.error("How did you change the count of an auto unit?");
         return;
       }

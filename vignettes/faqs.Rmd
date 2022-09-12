@@ -17,9 +17,9 @@ knitr::opts_chunk$set(
 
 The following are a list of common questions one may have about the `shinyuieditor`. 
 
-## Can I use a different page type other than `gridlayout`?
+## Can I use a different page type other than `gridlayout::grid_page()` or `shiny::navbarPage()?
 
-Currently only `gridlayout::grid_page` is supported as the root of your app. More options for app layout are planned. 
+Currently only `gridlayout::grid_page` and `shiny::navbarPage()` are supported as the root of your app. More options for app layout are planned. 
 
 
 ## I have an existing app, can I use the `shinyuieditor` on it?

@@ -2,18 +2,22 @@ import type React from "react";
 
 import type { DeleteAction, UpdateAction } from "state/uiTree";
 
-import gridlayoutGridCardInfo from "./GridlayoutGridCard";
-import { GridlayoutGridCardPlotInfo } from "./GridlayoutGridCardPlot";
+import { gridlayoutGridCardInfo } from "./GridlayoutGridCard";
+import { gridlayoutGridCardPlotInfo } from "./GridlayoutGridCardPlot";
 import { gridlayoutTextPanelInfo } from "./GridlayoutGridCardText";
+import gridlayoutGridTabPanelInfo from "./GridlayoutGridContainer";
 import { gridlayoutGridPageInfo } from "./GridlayoutGridPage";
 import { shinyActionButtonInfo } from "./ShinyActionButton";
 import { shinyCheckboxGroupInputInfo } from "./ShinyCheckboxGroupInput";
 import { shinyCheckboxInputInfo } from "./ShinyCheckboxInput";
+import { shinyNavbarPageInfo } from "./ShinyNavbarPage";
 import { shinyNumericInputInfo } from "./ShinyNumericInput";
 import { shinyPlotOutputInfo } from "./ShinyPlotOutput";
 import { shinyRadioButtonsInfo } from "./ShinyRadioButtons";
 import { shinySelectInputInfo } from "./ShinySelectInput";
 import { shinySliderInputInfo } from "./ShinySliderInput";
+import { shinyTabPanelInfo } from "./ShinyTabPanel";
+import shinyTabsetPanelInfo from "./ShinyTabsetPanel";
 import { shinyTextInputInfo } from "./ShinyTextInput";
 import { shinyTextOutputInfo } from "./ShinyTextOutput";
 import { shinyUiOutputInfo } from "./ShinyUiOutput";
@@ -56,16 +60,9 @@ export type UiComponentInfo<NodeSettings extends object> = {
   description?: string;
 
   /**
-   * Optional functions that will hook into the state update reducers and allow
-   * a component the ability to respond to state manipulation before the main
-   * tree update action has been preformed. These are dangerous and should only
-   * be used as a last resort. perform state mutations in response in addition
-   * to the plain updating of the node (which will occur last)
+   * Optional update subscribers
    */
-  stateUpdateSubscribers?: {
-    UPDATE_NODE?: UpdateAction;
-    DELETE_NODE?: DeleteAction;
-  };
+  stateUpdateSubscribers?: Partial<StateUpdateSubscribers>;
 } & (
   | {
       /**
@@ -89,9 +86,21 @@ export type UiComponentInfo<NodeSettings extends object> = {
        * The component that is used to actually draw the main interface for ui
        * element
        */
-      UiComponent: UiContainerNodeComponent<NodeSettings>;
+      UiComponent: UiNodeComponent<NodeSettings>;
     }
 );
+
+/**
+ * Optional functions that will hook into the state update reducers and allow
+ * a component the ability to respond to state manipulation before the main
+ * tree update action has been preformed. These are dangerous and should only
+ * be used as a last resort. perform state mutations in response in addition
+ * to the plain updating of the node (which will occur last)
+ */
+export type StateUpdateSubscribers = {
+  UPDATE_NODE: UpdateAction;
+  DELETE_NODE: DeleteAction;
+};
 
 /**
  * This is the main object that contains the info about a given uiNode. Once the
@@ -110,11 +119,14 @@ export const shinyUiNodeInfo = {
   "shiny::plotOutput": shinyPlotOutputInfo,
   "shiny::textOutput": shinyTextOutputInfo,
   "shiny::uiOutput": shinyUiOutputInfo,
+  "shiny::navbarPage": shinyNavbarPageInfo,
+  "shiny::tabPanel": shinyTabPanelInfo,
+  "shiny::tabsetPanel": shinyTabsetPanelInfo,
   "gridlayout::grid_page": gridlayoutGridPageInfo,
   "gridlayout::grid_card": gridlayoutGridCardInfo,
-  // "gridlayout::grid_card": gridLayoutGridCardInfo,
   "gridlayout::grid_card_text": gridlayoutTextPanelInfo,
-  "gridlayout::grid_card_plot": GridlayoutGridCardPlotInfo,
+  "gridlayout::grid_card_plot": gridlayoutGridCardPlotInfo,
+  "gridlayout::grid_container": gridlayoutGridTabPanelInfo,
   unknownUiFunction: unknownUiFunctionInfo,
 };
 
@@ -147,9 +159,9 @@ export const shinyUiNames = Object.keys(shinyUiNodeInfo) as ShinyUiNames[];
 export type ShinyUiChildren = ShinyUiNode[];
 
 /**
- * Union of Ui element name and associated arguments for easy narrowing
+ * Map of all the ui nodes/elements keyed by the uiName
  */
-export type ShinyUiNode = {
+export type ShinyUiNodeByName = {
   [UiName in ShinyUiNames]: {
     uiName: UiName;
     uiArguments: ShinyUiArguments[UiName];
@@ -157,33 +169,54 @@ export type ShinyUiNode = {
     uiChildren?: ShinyUiChildren;
     uiHTML?: string;
   };
-}[ShinyUiNames];
-
-type AllowedBaseElements = HTMLDivElement;
-
-type BaseElementProps = React.DetailedHTMLProps<
-  React.HTMLAttributes<AllowedBaseElements>,
-  AllowedBaseElements
->;
-
-type NodeInfo = {
-  path: NodePath;
 };
 
-export type UiNodeComponent<NodeSettings extends object> = React.FC<{
-  uiArguments: NodeSettings;
-  nodeInfo: NodeInfo;
-  eventHandlers: Pick<BaseElementProps, "onClick">;
-  compRef: React.RefObject<HTMLDivElement>;
-}>;
+/**
+ * Union of Ui element name and associated arguments for easy narrowing
+ */
+export type ShinyUiNode = ShinyUiNodeByName[ShinyUiNames];
 
-export type UiContainerNodeComponent<NodeSettings extends object> = React.FC<{
+/**
+ * Optional props that will enable drag behavior on a given ui node. Non
+ * draggable nodes will simple get an empty object.
+ */
+type DragPassthroughEvents =
+  | {
+      onDragStart: React.DragEventHandler<HTMLDivElement>;
+      onDragEnd: (e: React.DragEvent<HTMLDivElement> | DragEvent) => void;
+      /**
+       * Should this node be allowed to be dragged out of its parent node? This
+       * would be set to false for a container that typically always stays wrapped
+       * around a single child where almost every time the user wants to move the
+       * child they want the container to move with it. E.g. a grid panel with a
+       * single element in it
+       */
+      draggable: boolean;
+    }
+  | {};
+
+/**
+ * Bundle of props that will get passed through to every ui node. These are to
+ * be destructured into the top level of the ui component and enable things like
+ * selection on click as well as attaching some data attributes to enable the ui
+ * element component to interact with the rest of the app properly.
+ */
+export type UiNodeWrapperProps = {
+  onClick: React.MouseEventHandler<HTMLDivElement>;
+  "data-sue-path": string;
+  "data-is-selected-node": boolean;
+  "aria-label": string;
+} & DragPassthroughEvents;
+
+/**
+ * Type of component defining the app view of a given ui node
+ */
+export type UiNodeComponent<NodeSettings extends object> = (props: {
   uiArguments: NodeSettings;
-  uiChildren: ShinyUiChildren;
-  nodeInfo: NodeInfo;
-  compRef: React.RefObject<HTMLDivElement>;
-  eventHandlers: Pick<BaseElementProps, "onClick">;
-}>;
+  path: NodePath;
+  uiChildren?: ShinyUiChildren;
+  wrapperProps: UiNodeWrapperProps;
+}) => JSX.Element;
 
 /**
  * The settings updater component is simply takes the settings object and is
@@ -193,6 +226,7 @@ export type UiContainerNodeComponent<NodeSettings extends object> = React.FC<{
  */
 export type SettingsUpdaterComponent<T extends object> = (p: {
   settings: T;
+  node: ShinyUiNode;
 }) => JSX.Element;
 
 /**

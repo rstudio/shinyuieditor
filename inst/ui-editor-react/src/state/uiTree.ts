@@ -2,16 +2,23 @@ import React from "react";
 
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
+import { getNode } from "components/UiNode/TreeManipulation/getNode";
 import type { PlaceNodeArguments } from "components/UiNode/TreeManipulation/placeNode";
 import { placeNodeMutating } from "components/UiNode/TreeManipulation/placeNode";
 import type { RemoveNodeArguments } from "components/UiNode/TreeManipulation/removeNode";
 import { removeNodeMutating } from "components/UiNode/TreeManipulation/removeNode";
 import type { UpdateNodeArguments } from "components/UiNode/TreeManipulation/updateNode";
 import { updateNodeMutating } from "components/UiNode/TreeManipulation/updateNode";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { shinyUiNodeInfo } from "Shiny-Ui-Elements/uiNodeTypes";
-import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
+import type { ShinyUiNode, NodePath } from "Shiny-Ui-Elements/uiNodeTypes";
+import {
+  deleteSubscriptions,
+  updateSubscriptions,
+} from "state/watcherSubscriptions";
 import { subtractElements } from "utils/array-helpers";
+
+import type { RootState } from "./store";
 
 export const initialUiTree: ShinyUiNode = {
   uiName: "gridlayout::grid_page",
@@ -48,12 +55,19 @@ export const uiTreeSlice = createSlice({
     INIT_STATE: (tree, action: PayloadAction<{ initialState: ShinyUiNode }>) =>
       fillInDefaultValues(action.payload.initialState),
     UPDATE_NODE: (tree, action: PayloadAction<UpdateNodeArguments>) => {
+      // Make sure the tree is valid here
+      for (const subscription of updateSubscriptions) {
+        subscription(tree, action.payload);
+      }
       updateNodeMutating(tree, action.payload);
     },
     PLACE_NODE: (tree, action: PayloadAction<PlaceNodeArguments>) => {
       placeNodeMutating(tree, action.payload);
     },
     DELETE_NODE: (tree, action: PayloadAction<RemoveNodeArguments>) => {
+      for (const subscription of deleteSubscriptions) {
+        subscription(tree, { path: action.payload.path });
+      }
       removeNodeMutating(tree, action.payload);
     },
   },
@@ -120,6 +134,14 @@ export function usePlaceNode() {
   );
 
   return place_node;
+}
+
+export function useGetNode(path: NodePath) {
+  const uiTree = useSelector((state: RootState) => state.uiTree);
+
+  const node = React.useMemo(() => getNode(uiTree, path), [path, uiTree]);
+
+  return node;
 }
 
 export default uiTreeSlice.reducer;

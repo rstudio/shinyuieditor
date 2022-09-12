@@ -1,0 +1,52 @@
+.can-accept-drop {
+  --start-opacity: 0.1;
+  --end-opacity: 0.5;
+
+  position: relative;
+  background-color: var(--red);
+  opacity: 0.2;
+  animation-duration: 3s;
+  animation-name: pulse;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.can-accept-drop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  text-align: center;
+  display: grid;
+  place-content: center;
+  overflow: hidden;
+  color: var(--rstudio-white);
+}
+
+@keyframes pulse {
+  from {
+    opacity: var(--start-opacity);
+  }
+
+  50% {
+    opacity: var(--end-opacity);
+  }
+  to {
+    opacity: var(--start-opacity);
+  }
+}
+
+/* This is currently overlapped by the selectedOverlay so selected items don't
+give visual feedback about their ability to be dropped onto. The use of div
+prefixing is to give this style the greatest possible specificity. It will cause
+troubles if in the future another element type can be dropped into, but that
+seems unlikely to happen. */
+div.can-accept-drop.hovering-over {
+  --start-opacity: 1;
+  --end-opacity: 1;
+  /* Lift up whatever element is being hovered so anything placed over it
+  doesn't interfere with dropping */
+  z-index: 10;
+}
+div.can-accept-drop.hovering-over::after {
+  content: "release to add";
+}

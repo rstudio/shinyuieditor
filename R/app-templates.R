@@ -1,8 +1,36 @@
 # All available templates as found in inst/app-templates
-single_file_templates <- c("geyser", "chick weights")
-multi_file_templates <- c("geyser multi-file")
+gather_starter_templates <- function(){
 
-starter_templates <- c(multi_file_templates, single_file_templates)
+  all_template_dirs <- vapply(
+    fs::dir_ls(fs::path_package("shinyuieditor", "app-templates/")),
+    fs::path_file,
+    FUN.VALUE = character(1L),
+    USE.NAMES = FALSE
+  )
+
+  all_template_dirs <- all_template_dirs[all_template_dirs != "empty"]
+
+  all_templates <- lapply(
+    all_template_dirs,
+    FUN = function(dir) {
+      list(
+        multi_file = grepl(
+          x = dir,
+          pattern = "multi-file",
+          fixed = TRUE
+        ),
+        dir = dir
+      )
+    }
+  )
+
+  names(all_templates) <- str_replace_all(
+    text = all_template_dirs,
+    pattern = "_", replacement = " ", fixed = TRUE
+  )
+
+  all_templates
+}
 
 fill_in_app_template <- function(app_loc) {
   ask_to_continue(
@@ -11,32 +39,36 @@ fill_in_app_template <- function(app_loc) {
     "Would you like to start a new app from a template?"
   )
 
+  templates <- gather_starter_templates()
   chosen_template <- ask_question(
     "Which starter template would you like to use? ",
     "(Note: \"chick weights\" template uses ggplot2 for plotting)",
-    answers = starter_templates
+    answers = names(templates)
   )
 
   if (identical(chosen_template, character(0L))) {
     end_early()
   }
 
-
   # Make sure the directory exists
   fs::dir_create(app_loc)
 
-  if (chosen_template %in% single_file_templates) {
-    add_single_file_template(chosen_template, app_loc)
+  chosen_is_multi_file <- templates[[chosen_template]]$multi_file
+  chosen_dir <- templates[[chosen_template]]$dir
+  if (chosen_is_multi_file) {
+    add_server_template(chosen_dir, app_loc)
+    add_ui_template(chosen_dir, app_loc)
   } else {
-    add_server_template(chosen_template, app_loc)
-    add_ui_template(chosen_template, app_loc)
+    add_single_file_template(chosen_dir, app_loc)
   }
 }
 
 
 
 get_path_to_template <- function(template_name) {
-  if (!template_name %in% c(starter_templates, "empty")) {
+  if (!fs::file_exists(
+    fs::path_package("shinyuieditor", "app-templates/", template_name)
+  )) {
     stop("Unknown template: ", template_name)
   }
 

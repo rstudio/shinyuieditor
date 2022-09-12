@@ -37,12 +37,16 @@ export function useOnChange(provided?: OnChangeCallback): OnChangeCallback {
   throw new Error("No onChange context or fallback provided.");
 }
 
-export const SettingsUpdateContext: React.FC<{
+export function SettingsUpdateContext({
+  children,
+  onChange,
+}: {
+  children?: React.ReactNode;
   onChange: OnChangeCallback;
-}> = ({ onChange, children }) => {
+}) {
   return (
     <OnChangeContext.Provider value={onChange}>
       {children}
     </OnChangeContext.Provider>
   );
-};
+}

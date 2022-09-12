@@ -9,7 +9,5 @@ import type { ShinyTextOutputProps } from ".";
 export const ShinyTextOutputSettings: SettingsUpdaterComponent<
   ShinyTextOutputProps
 > = ({ settings }) => {
-  return (
-    <TextInput label="Output ID" name="outputId" value={settings.outputId} />
-  );
+  return <TextInput label="Output ID" name="outputId" allValues={settings} />;
 };

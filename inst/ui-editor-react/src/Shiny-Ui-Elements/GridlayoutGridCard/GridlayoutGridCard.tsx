@@ -1,13 +1,14 @@
 import React from "react";
 
 import DeleteNodeButton from "components/DeleteNodeButton";
-import UiNode from "components/UiNode";
-import type {
-  NodePath,
-  UiContainerNodeComponent,
-} from "Shiny-Ui-Elements/uiNodeTypes";
+import UiNode from "components/UiNode/UiNode";
+import { makeChildPath } from "Shiny-Ui-Elements/nodePathUtils";
+import type { NodePath, UiNodeComponent } from "Shiny-Ui-Elements/uiNodeTypes";
 
-import { BsCard, BsCardHeader } from "../GridLayoutPanelHelpers/GridCards";
+import {
+  BsCard,
+  BsCardHeader,
+} from "../../components/Grids/GridLayoutPanelHelpers/GridCards";
 
 import type { GridCardSettings } from "./index";
 
@@ -15,15 +16,14 @@ import classes from "./styles.module.css";
 import { useGridCardDropDetectors } from "./useGridCardDropDetectors";
 import { useGridItemSwapping } from "./useGridItemSwapping";
 
-const GridlayoutGridCard: UiContainerNodeComponent<GridCardSettings> = ({
+const GridlayoutGridCard: UiNodeComponent<GridCardSettings> = ({
   uiArguments: { area, item_gap, title },
   uiChildren,
-  nodeInfo: { path },
-  children,
-  eventHandlers,
-  compRef,
+  path,
+  wrapperProps,
 }) => {
-  const has_children = uiChildren.length > 0;
+  const compRef = React.useRef<HTMLDivElement>(null);
+  const numChildren = uiChildren?.length ?? 0;
 
   useGridItemSwapping({ containerRef: compRef, area, path });
 
@@ -37,7 +37,7 @@ const GridlayoutGridCard: UiContainerNodeComponent<GridCardSettings> = ({
           "--item-gap": item_gap,
         } as React.CSSProperties
       }
-      onClick={eventHandlers.onClick}
+      {...wrapperProps}
     >
       {title ? (
         <BsCardHeader className={classes.panelTitle}>{title}</BsCardHeader>
@@ -46,12 +46,12 @@ const GridlayoutGridCard: UiContainerNodeComponent<GridCardSettings> = ({
         <DropWatcherPanel
           index={0}
           parentPath={path}
-          numChildren={uiChildren.length}
+          numChildren={numChildren}
         />
-        {has_children ? (
+        {numChildren > 0 ? (
           uiChildren?.map((childNode, i) => (
             <React.Fragment key={path.join(".") + i}>
-              <UiNode path={[...path, i]} {...childNode} />
+              <UiNode path={makeChildPath(path, i)} node={childNode} />
               <DropWatcherPanel
                 index={i + 1}
                 numChildren={uiChildren.length}
@@ -63,7 +63,6 @@ const GridlayoutGridCard: UiContainerNodeComponent<GridCardSettings> = ({
           <EmptyGridCardMessage path={path} />
         )}
       </div>
-      {children}
     </BsCard>
   );
 };

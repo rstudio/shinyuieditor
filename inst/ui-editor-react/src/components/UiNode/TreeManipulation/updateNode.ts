@@ -1,6 +1,5 @@
 import produce from "immer";
 import type { NodePath, ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
-import { shinyUiNodeInfo } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import { getNode } from "./getNode";
 
@@ -16,7 +15,7 @@ export type UpdateNodeArguments = {
    * New node values to be added. This node will be merged with the old node so
    * things like uiChildren wont get removed if you just change a setting
    */
-  node: ShinyUiNode;
+  node: Partial<ShinyUiNode>;
 };
 
 /**
@@ -35,13 +34,6 @@ export function updateNodeMutating(
   tree: ShinyUiNode,
   { path, node }: UpdateNodeArguments
 ): void {
-  // Make sure the tree is valid here
-  for (let info of Object.values(shinyUiNodeInfo)) {
-    const nodeUpdateSubscriber = info?.stateUpdateSubscribers?.UPDATE_NODE;
-    if (nodeUpdateSubscriber) {
-      nodeUpdateSubscriber(tree, { path, node });
-    }
-  }
   const existingNode = getNode(tree, path);
 
   Object.assign(existingNode, node);

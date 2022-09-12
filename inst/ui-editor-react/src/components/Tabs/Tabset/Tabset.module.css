@@ -1,0 +1,121 @@
+.container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  outline: 1px solid var(--light-grey);
+  /* See the data-selected-tab="true" selector below for info on why we enter
+  isolation more here. */
+  isolation: isolate;
+}
+
+.header {
+  --h: 40px;
+  background-color: var(--light-grey);
+  display: flex;
+  height: var(--h);
+  flex-shrink: 0;
+}
+
+.tabContents {
+  flex-grow: 1;
+  position: relative;
+}
+
+.pageTitle {
+  margin: 0;
+  padding-inline: 20px;
+  line-height: var(--h);
+  flex-shrink: 0;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.pageTitle:empty {
+  display: none;
+}
+
+.tabHolder {
+  display: flex;
+  flex-grow: 1;
+  align-items: flex-end;
+  /* gap: 5px; */
+}
+
+.tab {
+  --roundness: 6px;
+  padding-inline: 6px;
+  padding-block: 2px;
+  /* Make multiline tab titles more vertically compressed */
+  line-height: 16px;
+  text-align: center;
+  height: calc(100% - 5px);
+  border-radius: var(--roundness) var(--roundness) 0 0;
+  background-color: var(--grey);
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+  border: var(--selected-outline-width) solid transparent;
+}
+
+.tab[data-active-tab="true"] {
+  background-color: var(--rstudio-white);
+  border-bottom-color: var(--rstudio-white);
+}
+.tab[data-selected-tab="true"] {
+  border-color: var(--selected-outline-color);
+  position: relative;
+  /* z-index here helps the selected tab sit above the rest so we can create the
+  illusion of a contiguous outline line by covering up the bottom border with a
+  psuedo element */
+  z-index: 2;
+}
+/* Don't double up on selected outline and border */
+.tab[data-selected-tab="true"]::before {
+  outline: none;
+}
+
+/* Add a small white element over the selection border to create a contiguous
+illusion of the selected panel and tab being one entity */
+.tab[data-selected-tab="true"]::after {
+  --s: 6px;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: var(--s);
+  background-color: var(--rstudio-white);
+  bottom: calc(-1 * var(--s));
+}
+
+.tabContents {
+  height: 100%;
+}
+
+.tabContents[data-active-tab="false"] {
+  display: none;
+}
+
+.newTabDropDetector {
+  display: flex;
+  align-items: center;
+}
+
+.addTabButton {
+  display: grid;
+  place-content: center;
+  height: 100%;
+  width: 100%;
+  color: var(--rstudio-blue);
+}
+
+.tabDropDetector {
+  width: var(--baseWidth);
+  height: 100%;
+  position: relative;
+  transition: width 0.1s ease-in-out;
+}
+
+.tabDropDetector:global(.can-accept-drop) {
+  width: calc(var(--baseWidth) * 2);
+}

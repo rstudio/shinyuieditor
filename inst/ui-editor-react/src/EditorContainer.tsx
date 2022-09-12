@@ -2,7 +2,7 @@ import * as React from "react";
 
 import AppPreview from "components/AppPreview";
 import SvgShinyLogo from "components/Icons/ShinyLogo";
-import UiNode from "components/UiNode";
+import UiNode from "components/UiNode/UiNode";
 import { UndoRedoButtons } from "components/UndoRedoButtons/UndoRedoButtons";
 import { CurrentDraggedNodeProvider } from "DragAndDropHelpers/useCurrentDraggedNode";
 import ElementsPalette from "ElementsPalette";
@@ -50,7 +50,7 @@ export function EditorContainer() {
           <ElementsPalette />
         </div>
         <div className={classes.editorHolder + " app-view"}>
-          <UiNode {...tree} />
+          <UiNode node={tree} path={[]} />
         </div>
         <div className={`${classes.propertiesPanel}`}>
           <div className={`${classes.titledPanel} properties-panel`}>
@@ -79,10 +79,7 @@ function LostConnectionPopup() {
   if (connectedToServer) return null;
 
   return (
-    <PortalModal
-      onConfirm={() => console.log("User confirmed")}
-      onCancel={() => console.log("user canceled")}
-    >
+    <PortalModal onConfirm={() => {}} onCancel={() => {}}>
       <p style={{ color: "var(--red, pink)", textAlign: "center" }}>
         Lost connection to backend. Check console where editor was launched for
         details.

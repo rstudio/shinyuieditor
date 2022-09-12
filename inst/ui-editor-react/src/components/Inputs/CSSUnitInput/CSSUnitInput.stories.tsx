@@ -20,6 +20,7 @@ export const Primary = () => {
         value={value}
         units={["%", "auto", "fr", "rem", "px"]}
         onChange={({ name, value }) => {
+          // eslint-disable-next-line no-console
           console.log(`Changed ${name} to ${value}`);
           if (!value) return;
           setValue(value);

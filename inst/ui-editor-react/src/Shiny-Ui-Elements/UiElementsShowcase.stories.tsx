@@ -6,8 +6,9 @@ import { SettingsUpdateContext } from "components/Inputs/SettingsUpdateContext";
 import type {
   ArgsWithPotentialUnknowns,
   SettingsUpdaterComponent,
+  ShinyUiNode,
   ShinyUiNodeInfo,
-  UiContainerNodeComponent,
+  UiNodeComponent,
 } from "Shiny-Ui-Elements/uiNodeTypes";
 import { shinyUiNodeInfo } from "Shiny-Ui-Elements/uiNodeTypes";
 
@@ -27,15 +28,13 @@ function UiNodeAndSettings<T extends ShinyUiNames>({
   const nodeInfo: ShinyUiNodeInfo[T] = shinyUiNodeInfo[uiName];
 
   const NodeComponent =
-    nodeInfo.UiComponent as UiContainerNodeComponent<NodeSettingsType>;
+    nodeInfo.UiComponent as UiNodeComponent<NodeSettingsType>;
 
   const SettingsInputs =
     nodeInfo.SettingsComponent as SettingsUpdaterComponent<NodeSettingsType>;
 
   const [uiSettings, setUiSettings] =
     React.useState<NodeSettingsType>(uiArguments);
-
-  const componentRef = React.useRef<HTMLDivElement>(null);
 
   const updateSettings: OnChangeCallback = ({ name, value }) => {
     setUiSettings({ ...uiSettings, [name]: value });
@@ -51,20 +50,32 @@ function UiNodeAndSettings<T extends ShinyUiNames>({
         <h1>Ui Component</h1>
         <div className={classes.uiHolder}>
           <NodeComponent
-            compRef={componentRef}
             uiChildren={[]}
             uiArguments={uiSettings}
-            eventHandlers={{
-              onClick: () => console.log(`Clicked the ${uiName} component`),
+            path={[0]}
+            wrapperProps={{
+              onClick: (e) => {
+                console.log("Clicked node", e);
+              },
+              "data-sue-path": "0",
+              "data-is-selected-node": false,
+              "aria-label": uiName,
             }}
-            nodeInfo={{ path: [0] }}
           />
         </div>
       </div>
       <div>
         <h1>Settings Panel</h1>
         <SettingsUpdateContext onChange={updateSettings}>
-          <SettingsInputs settings={uiSettings} />
+          <SettingsInputs
+            settings={uiSettings}
+            node={
+              {
+                uiName: uiName,
+                uiArguments: uiSettings,
+              } as ShinyUiNode
+            }
+          />
         </SettingsUpdateContext>
       </div>
     </div>

@@ -187,7 +187,7 @@ test("Add a node", () => {
   };
 
   const withNewNode = placeNode(baseNode, {
-    parentPath: [0],
+    path: [0, 2],
     node: newUiNode,
   });
 

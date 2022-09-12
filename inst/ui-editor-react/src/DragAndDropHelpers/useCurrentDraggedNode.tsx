@@ -12,7 +12,11 @@ export const DraggedNodeContext = React.createContext<DraggedNodeState>([
   (x) => {},
 ]);
 
-export const CurrentDraggedNodeProvider: React.FC = ({ children }) => {
+export function CurrentDraggedNodeProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const draggedNodeState = React.useState<DraggedNodeInfo | null>(null);
 
   return (
@@ -20,7 +24,7 @@ export const CurrentDraggedNodeProvider: React.FC = ({ children }) => {
       {children}
     </DraggedNodeContext.Provider>
   );
-};
+}
 
 export function useCurrentDraggedNode() {
   return React.useContext(DraggedNodeContext);

@@ -1,31 +1,4 @@
 
-update_gridlayout <- function(gridlayout_node) {
-  if (gridlayout_node$uiName != "gridlayout::grid_page") {
-    return(gridlayout_node)
-  }
-
-  # Start by setting up the layout settings object
-  layout_obj <- gridlayout::new_gridlayout(
-    layout_def = gridlayout_node$uiArguments$layout,
-    row_sizes  = gridlayout_node$uiArguments$row_sizes,
-    col_sizes  = gridlayout_node$uiArguments$col_sizes,
-    gap_size   = gridlayout_node$uiArguments$gap_size
-  )
-
-  # Remove the old arguments
-  gridlayout_node$uiArguments$layout <- NULL
-  gridlayout_node$uiArguments$gap_size <- NULL
-
-  # Replace with new arguments
-  gridlayout_node$uiArguments$row_sizes <- layout_obj$layout$row_sizes
-  gridlayout_node$uiArguments$col_sizes <- layout_obj$layout$col_sizes
-  gridlayout_node$uiArguments$gap_size <- layout_obj$layout$gap
-  gridlayout_node$uiArguments$areas <- gridlayout::to_matrix(layout_obj)
-
-  gridlayout_node
-}
-
-
 
 # Any function that can modify a node go here, each get run on each node
 node_updaters <- list(

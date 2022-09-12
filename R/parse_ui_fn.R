@@ -74,28 +74,29 @@ parse_ui_fn <- function(ui_node_expr) {
     }
   )
 
-  # Since first element of the AST is the function call itself, it makes our
-  # life easier going forward if we remove it before walking through arguments
-  call_arguments <- utils::tail(as.list(ui_node_expr), -1)
-  num_args <- length(call_arguments)
-  arg_names <- names(call_arguments)
+  # Now we can move onto dealing with the arguments of the current ui node
+  call_args <- parse_call_args(ui_node_expr)
 
   parsed <- list(
     uiName = namespaced_fn_name,
     uiArguments = list()
   )
-
-  # A child node is detected when there is an argument without a name.
-  if (length(arg_names == "") > 0) {
+  # Only need the uiChildren property if children exist in the call
+  if (call_args$has_children) {
     parsed$uiChildren <- c()
   }
 
-  for (i in 1:num_args) {
-    arg_name <- names(call_arguments)[[i]]
-    arg_val <- call_arguments[[i]]
+  # If we have function with no arguments we're done
+  if (call_args$count == 0L) {
+    return(parsed)
+  }
 
-    is_child_node <- arg_name == ""
-    if (is_child_node) {
+  for (i in 1:call_args$count) {
+    arg_name <- call_args$names[[i]]
+    arg_val <- call_args$values[[i]]
+    is_child <- call_args$is_child[[i]]
+
+    if (is_child) {
       parsed$uiChildren <- append(parsed$uiChildren, list(parse_ui_fn(arg_val)))
     } else {
       parsed$uiArguments[[arg_name]] <- parse_argument(arg_val)
@@ -104,6 +105,39 @@ parse_ui_fn <- function(ui_node_expr) {
 
   parsed
 }
+
+
+# Extracts arguments from function call ast node and makes sure the names and
+# child status are properly reflected
+parse_call_args <- function(ui_node_expr) {
+  # Since first element of the AST is the function call itself, it makes our
+  # life easier going forward if we remove it before walking through arguments
+  call_arguments <- utils::tail(as.list(ui_node_expr), -1)
+
+  num_args <- length(call_arguments)
+
+  arg_names <- names(call_arguments)
+
+  if(is.null(arg_names) && num_args > 0) {
+    # If there's no argument names but there are arguments that means we have a
+    # node with just children nodes. Because we use the empty character as a way
+    # to distinguish a child node below we need to make the arg_names vector
+    # manually
+    arg_names <- rep_len("", num_args)
+  }
+
+  is_child <-  arg_names == ""
+
+  list(
+    count = num_args,
+    values = call_arguments,
+    names = arg_names,
+    is_child = is_child,
+    has_children = length(is_child) > 0
+  )
+}
+
+
 
 # Handle named arguments of a ui function. This is needed for handling special
 # cases like lists and arrays that are not primative but we need to handle for

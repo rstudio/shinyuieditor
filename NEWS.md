@@ -1,14 +1,23 @@
-# shinyuieditor (development)
+# shinyuieditor 0.2.0
 
 ### Major new features and improvements
 
+- New option for base page layout: `shiny::navbarPage()` (#76)
+- Support for `shiny::tabsetPanel()`, `shiny::tabPanel()`, and `gridlayout::grid_container()`
+
 ### Minor new features and improvements
 
+- Updated styles for drop-targets. Now use pulsing background color instead of outlines to indicate possible drop targets.
+- Improved accessability for settings panel inputs with properly scoped labels and aria descriptions
 - Popups on hover over the elements panel now provide some context for the functionality of the element. (#74)
+- Update to React v18 for improved performance
 
 ### Bug fixes
 
-- Fixes bug where ui editor would not work on hosted services like RStudio Workbench (#73)
+- Fixes bug where ui editor would not work on hosted services like RStudio Workbench. Thanks @mdancho84! (#73, #90)
+- Nodes can now be dragged to to the child position to the left of any of their ancestor nodes.
+- Selection now properly follows node after move.
+- Generated layout tables for gridlayout are now column aligned.
 
 ### Known bugs
 

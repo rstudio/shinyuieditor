@@ -2,7 +2,6 @@ import * as React from "react";
 
 import type { OnChangeCallback } from "components/Inputs/SettingsUpdateContext";
 import { getNode } from "components/UiNode/TreeManipulation/getNode";
-import debounce from "just-debounce-it";
 import { useNodeSelectionState } from "NodeSelectionState";
 import { useDispatch } from "react-redux";
 import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
@@ -24,19 +23,16 @@ export function useUpdateSettings(tree: ShinyUiNode) {
   // itself being updated
   const formHasBeenUpdated = React.useRef(false);
 
-  // The new settings updating to the backend is debounced so we don't spam the
-  // R backend and cause bad slowdowns.
-  const sendNewSettings = React.useMemo(
-    () =>
-      debounce((updated_node: ShinyUiNode) => {
-        if (!selectedPath) return;
-        // Don't send updates when the selected node has changed. See comments
-        // for formHasBeenUpdated for more info
-        if (!formHasBeenUpdated.current) return;
+  const sendNewSettings = React.useCallback(
+    (updated_node: ShinyUiNode) => {
+      if (!selectedPath) return;
+      // Don't send updates when the selected node has changed. See comments
+      // for formHasBeenUpdated for more info
+      if (!formHasBeenUpdated.current) return;
 
-        // Sync the state that's been updated from the form to the main tree
-        dispatch(UPDATE_NODE({ path: selectedPath, node: updated_node }));
-      }, 250),
+      // Sync the state that's been updated from the form to the main tree
+      dispatch(UPDATE_NODE({ path: selectedPath, node: updated_node }));
+    },
     [dispatch, selectedPath]
   );
 

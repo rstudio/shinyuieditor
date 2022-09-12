@@ -2,8 +2,8 @@ import * as React from "react";
 
 import type { UiNodeComponent } from "Shiny-Ui-Elements/uiNodeTypes";
 
+import { BsCard } from "../../components/Grids/GridLayoutPanelHelpers/GridCards";
 import { useGridItemSwapping } from "../GridlayoutGridCard/useGridItemSwapping";
-import { BsCard } from "../GridLayoutPanelHelpers/GridCards";
 import { PlotPlaceholder } from "../ShinyPlotOutput/PlotPlaceholder";
 
 import type { GridlayoutGridCardPlotProps } from "./index";
@@ -12,11 +12,11 @@ import classes from "./styles.module.css";
 
 const GridlayoutGridCardPlot: UiNodeComponent<GridlayoutGridCardPlotProps> = ({
   uiArguments: { outputId, area },
-  children,
-  nodeInfo: { path },
-  eventHandlers,
-  compRef,
+  path,
+  wrapperProps,
 }) => {
+  const compRef = React.useRef<HTMLDivElement>(null);
+
   useGridItemSwapping({ containerRef: compRef, area, path });
 
   return (
@@ -24,11 +24,9 @@ const GridlayoutGridCardPlot: UiNodeComponent<GridlayoutGridCardPlotProps> = ({
       ref={compRef}
       style={{ gridArea: area }}
       className={classes.gridCardPlot + " gridlayout-gridCardPlot"}
-      aria-label={"gridlayout-gridCardPlot"}
-      {...eventHandlers}
+      {...wrapperProps}
     >
       <PlotPlaceholder outputId={outputId ?? area} />
-      {children}
     </BsCard>
   );
 };

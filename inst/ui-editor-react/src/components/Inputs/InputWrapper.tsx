@@ -27,6 +27,7 @@ export function InputWrapper({
       className={inputClasses.container}
       data-disabled={isDisabled}
       data-width-setting={width_setting}
+      htmlFor={name}
     >
       <div className={inputClasses.label}>
         {optional ? (

@@ -1,6 +1,6 @@
 import React from "react";
 
-import classes from "./DragAndDrop.module.css";
+import "./DragAndDrop.css";
 import type { DraggedNodeInfo } from "./DragAndDropHelpers";
 import { useCurrentDraggedNode } from "./useCurrentDraggedNode";
 
@@ -18,8 +18,8 @@ export function useFilteredDrop({
   getCanAcceptDrop = () => true,
   onDrop,
   onDragOver,
-  canAcceptDropClass = classes.canAcceptDrop,
-  hoveringOverClass = classes.hoveringOver,
+  canAcceptDropClass = "can-accept-drop",
+  hoveringOverClass = "hovering-over",
 }: DropHandlerArguments) {
   const [currentlyDragged, setCurrentlyDragged] = useCurrentDraggedNode();
 
@@ -65,6 +65,7 @@ export function useFilteredDrop({
 
       // Get the type of dropped element and act on it
       if (!currentlyDragged) {
+        // eslint-disable-next-line no-console
         console.error("No dragged node in context but a drop was detected...");
         return;
       }
@@ -72,6 +73,7 @@ export function useFilteredDrop({
       if (canAcceptDrop) {
         onDrop(currentlyDragged);
       } else {
+        // eslint-disable-next-line no-console
         console.error("Incompatable drag pairing");
       }
 
@@ -131,6 +133,7 @@ function useDropHighlights({
   const addCanAcceptDropHighlight = React.useCallback(() => {
     if (!watcherRef.current) return;
     watcherRef.current.classList.add(canAcceptDropClass);
+    watcherRef.current.classList.add("can-accept-drop");
   }, [canAcceptDropClass, watcherRef]);
 
   const addHoveredOverHighlight = React.useCallback(() => {
@@ -150,6 +153,7 @@ function useDropHighlights({
 
     watcherRef.current.classList.remove(hoveringOverClass);
     watcherRef.current.classList.remove(canAcceptDropClass);
+    watcherRef.current.classList.remove("can-accept-drop");
   }, [canAcceptDropClass, hoveringOverClass, watcherRef]);
 
   return {

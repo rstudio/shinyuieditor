@@ -4,7 +4,7 @@ import type { PopoverProps } from "../PopoverEl/PopoverEl";
 import { PopoverEl } from "../PopoverEl/PopoverEl";
 
 export const PopoverButton: React.FC<
-  PopoverProps & React.HTMLAttributes<HTMLButtonElement>
+  Omit<PopoverProps, "triggerEl"> & React.HTMLAttributes<HTMLButtonElement>
 > = ({
   children,
   placement = "right",

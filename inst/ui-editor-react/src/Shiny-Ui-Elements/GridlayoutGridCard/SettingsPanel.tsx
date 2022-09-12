@@ -9,13 +9,12 @@ export const GridlayoutGridCardSettings: SettingsUpdaterComponent<
 > = ({ settings }) => {
   return (
     <>
-      <TextInput name="area" label="Name of grid area" value={settings.area} />
+      <TextInput name="area" label="Name of grid area" allValues={settings} />
       <TextInput
         name="title"
         label="Panel title"
-        value={settings.title}
+        allValues={settings}
         optional={true}
-        defaultValue={settings.area}
       />
 
       <LabeledCSSUnitInput

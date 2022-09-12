@@ -1,4 +1,4 @@
-import type { InputWidgetCommonProps } from "../";
+import type { InputWidgetCommonPropsOld } from "../";
 import inputClasses from "../Inputs.module.css";
 import type { OnChangeCallback } from "../SettingsUpdateContext";
 import { useOnChange } from "../SettingsUpdateContext";
@@ -12,7 +12,7 @@ export function BooleanInput({
   onChange,
   disabled,
   noLabel,
-}: InputWidgetCommonProps<boolean>) {
+}: InputWidgetCommonPropsOld<boolean>) {
   const onNewValue = useOnChange(onChange as OnChangeCallback);
 
   const labelValue = noLabel ? undefined : label ?? name;

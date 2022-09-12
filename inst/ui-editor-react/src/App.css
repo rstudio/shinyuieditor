@@ -41,7 +41,11 @@
   --font-color: hsl(214 9% 15%);
   --font-color-disabled: hsl(214 9% 15% / 0.5);
 
-  --selected-border-color: var(--rstudio-blue);
+  --selected-outline-color: var(--rstudio-blue);
+  --selected-outline-width: 3px;
+  --selected-outline: var(--selected-outline-width) solid
+    var(--selected-outline-color);
+
   --outline-color: var(--grey);
 
   --disabled-color: hsl(var(--rstudio-grey-hsl) / 0.5);
@@ -50,7 +54,6 @@
   --corner-radius: 8px;
   --vertical-spacing: 10px;
   --horizontal-spacing: 15px;
-  --selected-border-width: 3px;
   --animation-speed: 0.2s;
   --animation-curve: ease-in-out;
   --outline: 1px solid var(--outline-color);
@@ -123,4 +126,16 @@ code {
   color: unset;
   font-family: unset;
   font-size: unset;
+}
+
+[data-is-selected-node="true"] {
+  position: relative;
+}
+[data-is-selected-node="true"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  outline: var(--selected-outline);
+  pointer-events: none;
+  border-radius: inherit;
 }

@@ -1,13 +1,13 @@
 import type { CSSMeasure } from "CSSMeasure";
 
+import {
+  removeDeletedGridAreaFromLayout,
+  updateGridLayoutAreaOnItemAreaChange,
+} from "../../components/Grids/watchAndReactToGridAreaUpdatesupdate";
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import { GridlayoutGridPage } from "./GridlayoutGridPage";
 import { GridlayoutGridPageSettings } from "./SettingsPanel";
-import {
-  removeDeletedGridAreaFromLayout,
-  updateGridLayoutAreaOnItemAreaChange,
-} from "./watchAndReactToGridAreaUpdatesupdate";
 
 export type TemplatedGridProps = {
   areas: string[][];

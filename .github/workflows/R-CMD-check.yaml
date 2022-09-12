@@ -13,9 +13,6 @@ on:
 name: R Package checks
 
 jobs:
-  website:
-    uses: rstudio/shiny-workflows/.github/workflows/website.yaml@v1
-  # Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
 

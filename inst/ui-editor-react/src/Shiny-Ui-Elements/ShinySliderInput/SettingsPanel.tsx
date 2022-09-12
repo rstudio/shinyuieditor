@@ -17,8 +17,8 @@ export const ShinySliderInputSettings: SettingsUpdaterComponent<
 
   return (
     <>
-      <TextInput name="inputId" label="Input ID" value={settings.inputId} />
-      <TextInput name="label" value={settings.label} />
+      <TextInput name="inputId" label="Input ID" allValues={settings} />
+      <TextInput name="label" allValues={settings} />
 
       <WrappedSection name="Values">
         <NumericInput name="min" value={settings.min} />

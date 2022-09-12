@@ -1,8 +1,9 @@
-import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
+import type {
+  ShinyUiNode,
+  ShinyUiNodeByName,
+} from "Shiny-Ui-Elements/uiNodeTypes";
 
 import { getNode } from "./getNode";
-import { nodesAreDirectAncestors } from "./nodesAreDirectAncestors";
-import { nodesAreSiblings } from "./nodesAreSiblings";
 import { placeNode } from "./placeNode";
 
 // Two Panels, one with a slider and a plot and the other with just a plot
@@ -66,35 +67,6 @@ const baseNode: ShinyUiNode = {
   ],
 };
 
-describe("Move Validation", () => {
-  test("A is child of B", () => {
-    expect(nodesAreDirectAncestors([0, 1, 2, 3], [0, 1, 2])).toEqual(true);
-  });
-  test("B is child of A", () => {
-    expect(nodesAreDirectAncestors([2, 1, 3], [2, 1, 3, 4])).toEqual(true);
-  });
-  test("A and B are the same", () => {
-    expect(nodesAreDirectAncestors([2, 1], [2, 1])).toEqual(true);
-  });
-  test("Siblings are not direct", () => {
-    expect(nodesAreDirectAncestors([0, 1, 2, 3], [0, 1, 2, 4])).toEqual(false);
-    expect(nodesAreDirectAncestors([0, 1, 2, 3], [0, 1, 2, 4])).toEqual(false);
-  });
-});
-
-describe("Can detect when siblings", () => {
-  test("A is a sibling of B", () => {
-    expect(nodesAreSiblings([0, 1, 2], [0, 1, 3])).toEqual(true);
-  });
-  test("A is not a sibling of B", () => {
-    expect(nodesAreSiblings([0, 2, 2], [0, 1, 3])).toEqual(false);
-    expect(nodesAreSiblings([0, 1], [0, 1, 3])).toEqual(false);
-  });
-  test("A node is not its own sibling", () => {
-    expect(nodesAreSiblings([0, 1, 3], [0, 1, 3])).toEqual(false);
-  });
-});
-
 describe("Move nodes within tree", () => {
   const plotANode: ShinyUiNode = {
     uiName: "shiny::plotOutput",
@@ -106,7 +78,7 @@ describe("Move nodes within tree", () => {
     const plotToRight = placeNode(baseNode, {
       node: plotANode,
       currentPath: [0, 1],
-      parentPath: [1],
+      path: [1, 1],
     });
 
     expect(getNode(baseNode, [0, 1])).toEqual({
@@ -128,15 +100,15 @@ describe("Move nodes within tree", () => {
     });
   });
 
-  test("Can't move up current branch", () => {
-    expect(() =>
-      placeNode(baseNode, {
-        currentPath: [0, 0],
-        parentPath: [0, 0, 1],
-        node: plotANode,
-      })
-    ).toThrowError();
-  });
+  // test("Can't move up current branch", () => {
+  //   expect(() =>
+  //     placeNode(baseNode, {
+  //       currentPath: [0, 0],
+  //       path: [0, 0, 1, 0],
+  //       node: plotANode,
+  //     })
+  //   ).toThrowError();
+  // });
 });
 
 test("Move node around within its current container", () => {
@@ -181,11 +153,60 @@ test("Move node around within its current container", () => {
   const updatedSliderPanel = placeNode(sliderPanel, {
     node: buttonB,
     currentPath: [1],
-    parentPath: [],
-    positionInChildren: 0,
+    path: [0],
   });
 
   expect(getNode(updatedSliderPanel, [0])).toEqual(buttonB);
   expect(getNode(updatedSliderPanel, [1])).toEqual(buttonA);
   expect(getNode(updatedSliderPanel, [2])).toEqual(buttonC);
+});
+
+describe("Node can displace its parent", () => {
+  type GridCard = ShinyUiNodeByName["gridlayout::grid_card"];
+  test("parent to child", () => {
+    const leafNode: GridCard = {
+      uiName: "gridlayout::grid_card",
+      uiArguments: { area: "child" },
+    };
+
+    const tree: ShinyUiNode = {
+      uiName: "gridlayout::grid_card",
+      uiArguments: { area: "root" },
+      uiChildren: [
+        {
+          uiName: "gridlayout::grid_card",
+          uiArguments: { area: "leaf1" },
+        },
+        {
+          uiName: "gridlayout::grid_card",
+          uiArguments: { area: "parent" },
+          uiChildren: [
+            {
+              uiName: "gridlayout::grid_card",
+              uiArguments: { area: "leaf2" },
+            },
+            leafNode,
+          ],
+        },
+      ],
+    };
+
+    expect((getNode(tree, [1]) as GridCard).uiArguments.area).toEqual("parent");
+
+    const updatedTree = placeNode(tree, {
+      node: leafNode,
+      currentPath: [1, 1],
+      path: [1],
+    });
+
+    // Child now exists where parent used to...
+    expect((getNode(updatedTree, [1]) as GridCard).uiArguments.area).toEqual(
+      "child"
+    );
+
+    // Parent has been moved up one
+    expect((getNode(updatedTree, [2]) as GridCard).uiArguments.area).toEqual(
+      "parent"
+    );
+  });
 });

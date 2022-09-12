@@ -9,21 +9,13 @@ import classes from "./styles.module.css";
 
 const ShinyActionButton: UiNodeComponent<ShinyActionButtonProps> = ({
   uiArguments,
-  children,
-  eventHandlers,
-  compRef,
+  wrapperProps,
 }) => {
   const { label = "My Action Button", width } = uiArguments;
 
   return (
-    <div
-      className={classes.container}
-      ref={compRef}
-      aria-label="shiny::actionButton placeholder"
-      {...eventHandlers}
-    >
+    <div className={classes.container} {...wrapperProps}>
       <Button style={width ? { width } : undefined}>{label}</Button>
-      {children}
     </div>
   );
 };
