@@ -2,6 +2,8 @@ import { test, expect } from "@playwright/test";
 
 import type { ShinyUiNode } from "../src/Shiny-Ui-Elements/uiNodeTypes";
 
+import { dragDrop } from "./dragDrop";
+
 const basicNavbarPage: ShinyUiNode = {
   uiName: "shiny::navbarPage",
   uiArguments: {
@@ -81,7 +83,13 @@ test("Basic usage of navbar page", async ({ page }) => {
   await page.locator("text=Delete Element").click();
 
   // Now we drag a new dynamic ui output into the now empty tab
-  await page.dragAndDrop(
+  // await dragDrop(page,
+  //   "text=/^Dynamic UI Output$/",
+  //   `[aria-label="tab panel Plot 1"]`
+  // );
+
+  await dragDrop(
+    page,
     "text=/^Dynamic UI Output$/",
     `[aria-label="tab panel Plot 1"]`
   );
@@ -104,7 +112,7 @@ test("Basic usage of navbar page", async ({ page }) => {
   await expect(page.locator(`text=Plot 1`)).not.toBeVisible();
 
   // Add a new tab with a select input by dragging it onto the new tab button
-  await page.dragAndDrop("text=/^Select Input$/", `[aria-label="Add new tab"]`);
+  await dragDrop(page, "text=/^Select Input$/", `[aria-label="Add new tab"]`);
 
   // Make sure that the newly added tab is visible
   await expect(
@@ -127,7 +135,7 @@ test("Basic usage of navbar page", async ({ page }) => {
   await expect(childrenOfOpenTabLocator).toHaveCount(0);
 
   // However if we drag and drop something into it, there will be children
-  await page.dragAndDrop("text=/^Checkbox Group$/", openTabSelector);
+  await dragDrop(page, "text=/^Checkbox Group$/", openTabSelector);
   await expect(childrenOfOpenTabLocator).toHaveCount(1);
 
   // Deleting a tab panel will remove that tab from the tabset
