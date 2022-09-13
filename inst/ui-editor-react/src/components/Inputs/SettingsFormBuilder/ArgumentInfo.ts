@@ -1,20 +1,21 @@
 import type { CSSMeasure, CSSUnits } from "CSSMeasure";
 
-export type ArgTypeWOptions = {
-  defaultValue: any;
-  options: object;
-};
-
 export type ArgTypesMap = {
   string: {
     defaultValue: string;
+    options?: {};
   };
   number: {
     defaultValue: number;
+    options?: {
+      // Currently not used at all
+      min: number;
+      max: number;
+    };
   };
   cssMeasure: {
     defaultValue: CSSMeasure;
-    options: {
+    options?: {
       units: CSSUnits[];
     };
   };

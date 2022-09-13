@@ -3,7 +3,6 @@ import { CSSUnitInputSimple } from "components/Inputs/CSSUnitInput/CSSUnitInputS
 import type {
   ArgTypesMap,
   ArgTypesNames,
-  ArgTypeWOptions,
   KnownArgTypes,
 } from "../ArgumentInfo";
 
@@ -21,9 +20,7 @@ type SettingsInputElementPropsByType = {
     type: T;
     value: ArgTypesMap[T]["defaultValue"];
     onChange: OnChangeCallback;
-    options?: ArgTypesMap[T] extends ArgTypeWOptions
-      ? ArgTypesMap[T]["options"]
-      : never;
+    options: ArgTypesMap[T]["options"];
   };
 };
 

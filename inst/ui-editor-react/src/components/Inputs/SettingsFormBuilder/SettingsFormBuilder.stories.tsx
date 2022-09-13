@@ -24,9 +24,7 @@ const settingsInfo: SettingsInfo = {
     type: "cssMeasure",
     label: "I am a css measure",
     defaultValue: "1rem",
-    options: {
-      units: ["rem", "px", "%"],
-    },
+    requiredOrOptional: "optional",
   },
 };
 
