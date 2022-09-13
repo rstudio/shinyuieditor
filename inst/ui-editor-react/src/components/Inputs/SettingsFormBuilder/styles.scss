@@ -3,4 +3,7 @@
 
 .UnknownArgumentsList {
   font-family: var(--mono-fonts);
+  button {
+    color: var(--red, orangered);
+  }
 }

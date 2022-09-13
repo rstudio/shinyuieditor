@@ -39,8 +39,6 @@ export const AutoBuild = () => {
   });
 
   const handleSettingsChange = (key: string, action: SettingsUpdateAction) => {
-    console.log(`${action}ing ${key} to ${value}`);
-
     if (action.type === "UPDATE") {
       setValue((old) => ({ ...old, [key]: action.value }));
     }
@@ -71,7 +69,7 @@ export const RenderProps = () => {
   });
 
   const handleSettingsChange = (key: string, action: SettingsUpdateAction) => {
-    console.log(`${action}ing ${key} to ${value}`);
+    console.log(`Updating ${key}`, action);
 
     if (action.type === "UPDATE") {
       setValue((old) => ({ ...old, [key]: action.value }));

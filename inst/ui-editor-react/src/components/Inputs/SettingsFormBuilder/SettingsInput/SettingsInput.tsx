@@ -4,15 +4,11 @@ import type {
   ArgTypesMap,
   ArgTypesNames,
   KnownArgTypes,
-  PossibleArgTypes,
 } from "../ArgumentInfo";
 
 import "./SettingsInput.scss";
 
-import type {
-  OnChangeCallback,
-  SettingsInputElementProps,
-} from "./SettingsInputElement";
+import type { SettingsInputElementProps } from "./SettingsInputElement";
 import { SettingsInputElement } from "./SettingsInputElement";
 
 export type SettingsUpdateAction =

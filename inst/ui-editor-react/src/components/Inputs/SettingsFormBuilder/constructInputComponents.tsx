@@ -82,18 +82,19 @@ function UnknownArgumentItem({
   name: string;
   onRemove: () => void;
 }) {
+  const description = `Remove ${name} argument`;
+  const handleClick: React.MouseEventHandler = (e) => {
+    e.stopPropagation();
+    onRemove();
+  };
   return (
     <li aria-label="Unkown argument">
       <code>{name}</code>
       <Button
-        onClick={(e) => {
-          // Stop propigation of click event in case we have other click listeners
-          // that try and do things like set selection
-          e.stopPropagation();
-          onRemove();
-        }}
-        aria-label={`Remove ${name} argument`}
-        variant="delete"
+        onClick={handleClick}
+        aria-label={description}
+        title={description}
+        variant="icon"
         type="button"
       >
         <Trash />
