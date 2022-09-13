@@ -15,10 +15,12 @@ import { CSSUnitInfo } from "./CSSUnitInfo";
 import classes from "./CSSUnitInput.module.css";
 
 export function CSSUnitInputSimple({
+  id,
   value: initialValue,
   onChange,
   units = ["fr", "px", "rem", "auto"],
 }: {
+  id?: string;
   value: CSSMeasure;
   units: CSSUnits[];
   onChange: (value: CSSMeasure) => void;
@@ -73,7 +75,7 @@ export function CSSUnitInputSimple({
   const no_count = count === null;
 
   return (
-    <div className={classes.wrapper} aria-label="Css Unit Input">
+    <div className={classes.wrapper} aria-label="Css Unit Input" id={id}>
       <NumericInputSimple
         name="value-count"
         ariaLabel="value-count"
