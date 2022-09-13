@@ -10,7 +10,11 @@
   .unset-input {
     display: block;
   }
-  .malformed-argument-value-pair {
+  .missing-required-argument-message {
     color: var(--red, orangered);
+  }
+
+  .mismatched-argument-types {
+    color: var(--dark-grey, pink);
   }
 }

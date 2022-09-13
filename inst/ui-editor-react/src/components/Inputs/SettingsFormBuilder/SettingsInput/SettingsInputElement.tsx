@@ -18,7 +18,7 @@ type SettingsInputElementPropsByType = {
   [T in ArgTypesNames]: {
     id: string;
     type: T;
-    value: ArgTypesMap[T]["defaultValue"];
+    value?: ArgTypesMap[T]["defaultValue"];
     onChange: OnChangeCallback;
     options: ArgTypesMap[T]["options"];
   };
@@ -34,6 +34,9 @@ export function SettingsInputElement({
   onChange,
   options,
 }: SettingsInputElementProps) {
+  if (value === undefined) {
+    return <div>Unset</div>;
+  }
   if (type === "string") {
     return (
       <StringInput

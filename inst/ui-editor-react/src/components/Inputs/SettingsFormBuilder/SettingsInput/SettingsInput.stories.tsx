@@ -103,3 +103,31 @@ export const CSSInput = () => {
     />
   );
 };
+
+export const MismatchedType = () => {
+  const [value, setValue] = React.useState<number | undefined>(10);
+
+  const updateValue = (action: SettingsUpdateAction) => {
+    if (action.type === "UPDATE") {
+      // Gotta ignore because we're deliberately breaking the type system here
+      // @ts-ignore
+      setValue(action.value);
+    }
+    if (action.type === "REMOVE") {
+      setValue(undefined);
+    }
+  };
+
+  return (
+    // @ts-ignore
+    <SettingsInput
+      name="mismatchedType"
+      value={value}
+      type="string"
+      defaultValue="default string value"
+      label="Number in a string hole"
+      requiredOrOptional="required"
+      onChange={updateValue}
+    />
+  );
+};
