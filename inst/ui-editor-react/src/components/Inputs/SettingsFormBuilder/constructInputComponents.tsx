@@ -4,6 +4,7 @@ import type {
   SettingsInfo,
   SettingsObj,
 } from "./ArgumentInfo";
+import type { SettingsInputProps } from "./SettingsInput/SettingsInput";
 import { SettingsInput } from "./SettingsInput/SettingsInput";
 import "./styles.scss";
 
@@ -29,25 +30,14 @@ export function constructInputComponents<Info extends SettingsInfo>({
     if (typeof name !== "string")
       throw new Error("How did that non-string key get in here?");
 
-    const {
-      label = name,
-      type,
-      defaultValue,
-      requiredOrOptional = "required",
-    } = settingsInfo[name];
+    const inputProps = {
+      name,
+      value: settings[name as keyof typeof settings],
+      onChange: (updatedValue) => onSettingsChange(name, updatedValue),
+      ...settingsInfo[name],
+    } as SettingsInputProps;
 
-    InputsComponents[name] = (
-      <SettingsInput
-        key={name}
-        name={name}
-        value={settings[name as keyof typeof settings]}
-        label={label}
-        type={type}
-        defaultValue={defaultValue}
-        requiredOrOptional={requiredOrOptional}
-        onChange={(updatedValue) => onSettingsChange(name, updatedValue)}
-      />
-    );
+    InputsComponents[name] = <SettingsInput key={name} {...inputProps} />;
   });
 
   return InputsComponents as InputComponentsMap<Info>;

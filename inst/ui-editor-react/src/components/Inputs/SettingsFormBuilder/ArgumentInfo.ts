@@ -31,7 +31,9 @@ export type ArgumentInfo = {
   } & ArgTypesMap[TypeName];
 }[ArgTypesNames];
 
-export type KnownArgTypes = ArgumentInfo["defaultValue"];
+export type KnownArgTypes = {
+  [TypeName in ArgTypesNames]: ArgTypesMap[TypeName]["defaultValue"];
+}[ArgTypesNames];
 
 // Add undefined as some arguments are optional and when not provided return
 // undefined

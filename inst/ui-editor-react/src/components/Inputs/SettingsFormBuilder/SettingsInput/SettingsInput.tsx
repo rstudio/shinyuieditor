@@ -1,29 +1,41 @@
 import Button from "components/Inputs/Button/Button";
 
-import type { KnownArgTypes, PossibleArgTypes } from "../ArgumentInfo";
+import type {
+  ArgTypesMap,
+  ArgTypesNames,
+  PossibleArgTypes,
+} from "../ArgumentInfo";
 
 import "./SettingsInput.scss";
 
-import type { SettingsInputElementProps } from "./SettingsInputElement";
+import type {
+  OnChangeCallback,
+  SettingsInputElementProps,
+} from "./SettingsInputElement";
 import { SettingsInputElement } from "./SettingsInputElement";
 
 export type SettingsOnChangeCallback = (x: PossibleArgTypes) => void;
 
-type SettingsInputProps = Omit<SettingsInputElementProps, "id" | "value"> & {
-  name: string;
-  value?: KnownArgTypes;
-  defaultValue: KnownArgTypes;
-  label: string;
-  requiredOrOptional: "optional" | "required";
-};
+export type SettingsInputProps = {
+  [T in ArgTypesNames]: {
+    name: string;
+    type: T;
+    value?: ArgTypesMap[T]["defaultValue"];
+    defaultValue: ArgTypesMap[T]["defaultValue"];
+    onChange: OnChangeCallback;
+    options?: ArgTypesMap[T]["options"];
+    label?: string;
+    requiredOrOptional?: "optional" | "required";
+  };
+}[ArgTypesNames];
 
 export function SettingsInput({
   name,
   value,
   type,
-  label,
+  label = name,
   defaultValue,
-  requiredOrOptional,
+  requiredOrOptional = "required",
   onChange,
   options,
 }: SettingsInputProps) {
