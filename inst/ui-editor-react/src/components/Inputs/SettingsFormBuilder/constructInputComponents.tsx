@@ -1,4 +1,6 @@
 // Extract out only the keys that map to properties of type T
+import { inANotInB } from "utils/array-helpers";
+
 import type {
   PossibleArgTypes,
   SettingsInfo,
@@ -19,11 +21,16 @@ export type SettingsInputsBuilderProps<Info extends SettingsInfo> = {
   onSettingsChange: (name: string, value: PossibleArgTypes) => void;
 };
 
+export type InputComponentsOutput<Info extends SettingsInfo> = {
+  inputs: InputComponentsMap<Info>;
+  unknownArguments: JSX.Element | null;
+};
+
 export function constructInputComponents<Info extends SettingsInfo>({
   settings,
   settingsInfo,
   onSettingsChange,
-}: SettingsInputsBuilderProps<Info>) {
+}: SettingsInputsBuilderProps<Info>): InputComponentsOutput<Info> {
   const InputsComponents: Record<string, JSX.Element> = {};
 
   keysOf(settingsInfo).forEach((name) => {
@@ -40,7 +47,28 @@ export function constructInputComponents<Info extends SettingsInfo>({
     InputsComponents[name] = <SettingsInput key={name} {...inputProps} />;
   });
 
-  return InputsComponents as InputComponentsMap<Info>;
+  // Find unknown arguments and return those too
+  const unknownArguments = inANotInB(
+    Object.keys(settings),
+    Object.keys(settingsInfo)
+  );
+
+  return {
+    inputs: InputsComponents as InputComponentsMap<Info>,
+    unknownArguments:
+      unknownArguments.length > 0 ? (
+        <ul
+          className="UnknownArgumentsList"
+          aria-label="Unknown arguments list"
+        >
+          {unknownArguments.map((argName) => (
+            <li aria-label="Unkown argument">
+              <code>{argName}</code>
+            </li>
+          ))}
+        </ul>
+      ) : null,
+  };
 }
 
 function keysOf<T extends Object>(obj: T): Array<keyof T> {

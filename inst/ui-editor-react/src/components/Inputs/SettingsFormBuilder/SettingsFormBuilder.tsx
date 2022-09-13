@@ -1,7 +1,7 @@
 import type { SettingsInfo } from "./ArgumentInfo";
 import type {
+  InputComponentsOutput,
   SettingsInputsBuilderProps,
-  InputComponentsMap,
 } from "./constructInputComponents";
 import { constructInputComponents } from "./constructInputComponents";
 
@@ -9,13 +9,34 @@ export function SettingsFormBuilder<Info extends SettingsInfo>({
   renderInputs,
   ...inputArgs
 }: SettingsInputsBuilderProps<Info> & {
-  renderInputs?: (inputsComps: InputComponentsMap<Info>) => JSX.Element;
+  renderInputs?: (x: InputComponentsOutput<Info>) => JSX.Element;
 }) {
-  const Inputs = constructInputComponents(inputArgs);
+  const inputComps = constructInputComponents(inputArgs);
 
   return (
     <form className="SettingsFormBuilder">
-      {renderInputs ? renderInputs(Inputs) : Object.values(Inputs)}
+      {renderInputs ? (
+        renderInputs(inputComps)
+      ) : (
+        <AutobuildFormContents {...inputComps} />
+      )}
     </form>
+  );
+}
+
+function AutobuildFormContents<Info extends SettingsInfo>({
+  inputs,
+  unknownArguments,
+}: InputComponentsOutput<Info>) {
+  return (
+    <>
+      {Object.values(inputs)}
+      {unknownArguments ? (
+        <section>
+          <h3>Unknown arguments</h3>
+          {unknownArguments}
+        </section>
+      ) : null}
+    </>
   );
 }

@@ -47,6 +47,16 @@ export function subtractElements<T extends string | number>(
   return arr.filter((x) => !toRemove.includes(x));
 }
 
+/**
+ *
+ * @param A Array of elements
+ * @param B Array of elements
+ * @returns Subset of A that is not contained in B
+ */
+export function inANotInB<T extends string | number>(A: T[], B: T[]): T[] {
+  return A.filter((x) => !B.includes(x));
+}
+
 export function removeAtIndex<T>(arr: T[], index: number): T[] {
   return [...arr.slice(0, index), ...arr.slice(index + 1)];
 }

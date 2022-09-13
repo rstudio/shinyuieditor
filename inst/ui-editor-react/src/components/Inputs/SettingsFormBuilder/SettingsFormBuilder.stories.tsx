@@ -32,6 +32,7 @@ export const AutoBuild = () => {
   const [value, setValue] = React.useState({
     name: "test",
     myNumberArg: 3,
+    iAmUnknown: "unknown value",
   });
 
   React.useEffect(() => {
@@ -64,17 +65,23 @@ export const RenderProps = () => {
         console.log(key);
         setValue((old) => ({ ...old, [key]: value }));
       }}
-      renderInputs={(Inputs) => {
+      renderInputs={({ inputs, unknownArguments }) => {
         return (
           <>
             <section>
               <h2>Number inputs</h2>
-              {Inputs.myNumberArg}
+              {inputs.myNumberArg}
             </section>
             <section>
               <h2>Text Inputs</h2>
-              {Inputs.name}
+              {inputs.name}
             </section>
+            {unknownArguments ? (
+              <section>
+                <h3>Unknown arguments</h3>
+                {unknownArguments}
+              </section>
+            ) : null}
           </>
         );
       }}
