@@ -33,7 +33,7 @@
 
 .icon {
   --outline-width: 0px;
-  display: grid;
+  display: inline-grid;
   place-content: center;
   padding: 8px;
   aspect-ratio: 1;
