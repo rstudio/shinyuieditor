@@ -29,12 +29,22 @@ export function constructInputComponents<Info extends SettingsInfo>({
     if (typeof name !== "string")
       throw new Error("How did that non-string key get in here?");
 
+    const {
+      label = name,
+      type,
+      defaultValue,
+      requiredOrOptional = "required",
+    } = settingsInfo[name];
+
     InputsComponents[name] = (
       <SettingsInput
         key={name}
         name={name}
         value={settings[name as keyof typeof settings]}
-        info={settingsInfo[name]}
+        label={label}
+        type={type}
+        defaultValue={defaultValue}
+        requiredOrOptional={requiredOrOptional}
         onChange={(updatedValue) => onSettingsChange(name, updatedValue)}
       />
     );

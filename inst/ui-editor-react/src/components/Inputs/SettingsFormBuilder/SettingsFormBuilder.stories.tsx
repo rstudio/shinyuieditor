@@ -11,12 +11,12 @@ export default {
 const settingsInfo: SettingsInfo = {
   name: {
     defaultValue: "name default",
-    label: "This is my name",
+    label: "String argument",
     type: "string",
   },
   myNumberArg: {
     defaultValue: 42,
-    label: "This is a value",
+    label: "Optional number argument",
     requiredOrOptional: "optional",
     type: "number",
   },

@@ -1,4 +1,8 @@
-import type { ArgTypes, ArgTypesMap, KnownArgTypes } from "../ArgumentInfo";
+import type {
+  ArgTypesNames,
+  ArgTypesMap,
+  KnownArgTypes,
+} from "../ArgumentInfo";
 
 /**
  * Due to dynamics of types the on change callback is a very general purpose
@@ -9,7 +13,7 @@ import type { ArgTypes, ArgTypesMap, KnownArgTypes } from "../ArgumentInfo";
 export type OnChangeCallback = (newValue?: KnownArgTypes) => void;
 
 type SettingsInputElementPropsByType = {
-  [T in ArgTypes]: {
+  [T in ArgTypesNames]: {
     id: string;
     type: T;
     value: ArgTypesMap[T];
@@ -18,7 +22,7 @@ type SettingsInputElementPropsByType = {
 };
 
 export type SettingsInputElementProps =
-  SettingsInputElementPropsByType[ArgTypes];
+  SettingsInputElementPropsByType[ArgTypesNames];
 
 export function SettingsInputElement({
   type,

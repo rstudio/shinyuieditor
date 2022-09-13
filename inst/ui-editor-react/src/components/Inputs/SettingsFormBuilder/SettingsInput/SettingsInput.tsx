@@ -1,7 +1,7 @@
 import Button from "components/Inputs/Button/Button";
 
 import type {
-  ArgumentInfo,
+  ArgTypesNames,
   KnownArgTypes,
   PossibleArgTypes,
 } from "../ArgumentInfo";
@@ -19,14 +19,20 @@ export type SettingsOnChangeCallback = (x: PossibleArgTypes) => void;
 type SettingsInputProps = {
   name: string;
   value?: KnownArgTypes;
-  info: ArgumentInfo;
   onChange: OnChangeCallback;
+  type: ArgTypesNames;
+  defaultValue: KnownArgTypes;
+  label: string;
+  requiredOrOptional: "optional" | "required";
 };
 
 export function SettingsInput({
   name,
   value,
-  info: { type, label, defaultValue, requiredOrOptional },
+  type,
+  label,
+  defaultValue,
+  requiredOrOptional,
   onChange,
 }: SettingsInputProps) {
   const argumentIsUnset = value === undefined;

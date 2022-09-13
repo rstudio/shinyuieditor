@@ -3,17 +3,17 @@ export type ArgTypesMap = {
   number: number;
 };
 
-export type ArgTypes = keyof ArgTypesMap;
+export type ArgTypesNames = keyof ArgTypesMap;
 
 export type ArgumentInfoByType = {
-  [T in ArgTypes]: {
+  [T in ArgTypesNames]: {
     type: T;
     defaultValue: ArgTypesMap[T];
-    label: string;
+    label?: string;
     requiredOrOptional?: "optional" | "required";
   };
 };
-export type ArgumentInfo = ArgumentInfoByType[ArgTypes];
+export type ArgumentInfo = ArgumentInfoByType[ArgTypesNames];
 
 export type KnownArgTypes = ArgumentInfo["defaultValue"];
 

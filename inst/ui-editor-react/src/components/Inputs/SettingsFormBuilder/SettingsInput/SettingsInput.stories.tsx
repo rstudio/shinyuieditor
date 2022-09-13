@@ -8,20 +8,6 @@ export default {
   component: SettingsInput,
 };
 
-const settingsInfo = {
-  name: {
-    defaultValue: "name default",
-    type: "string",
-    label: "This is my name",
-  },
-  myNumberArg: {
-    defaultValue: 42,
-    type: "number",
-    label: "This is a value",
-    requiredOrOptional: "optional",
-  },
-};
-
 export const RequiredStringInput = () => {
   const [value, setValue] = React.useState("test");
 
@@ -29,11 +15,10 @@ export const RequiredStringInput = () => {
     <SettingsInput
       name="name"
       value={value}
-      info={{
-        defaultValue: "name default",
-        type: "string",
-        label: "This is my name",
-      }}
+      defaultValue="name default"
+      type="string"
+      label="This is my name"
+      requiredOrOptional="required"
       onChange={setValue as SettingsOnChangeCallback}
     />
   );
@@ -46,12 +31,10 @@ export const OptionalNumberInput = () => {
     <SettingsInput
       name="myNumberArg"
       value={value}
-      info={{
-        defaultValue: 42,
-        type: "number",
-        label: "This is a value",
-        requiredOrOptional: "optional",
-      }}
+      defaultValue={42}
+      type="number"
+      label="This is a value"
+      requiredOrOptional="optional"
       onChange={setValue as SettingsOnChangeCallback}
     />
   );
@@ -64,11 +47,10 @@ export const MissingNonOptionalInput = () => {
     <SettingsInput
       name="name"
       value={value}
-      info={{
-        defaultValue: "name default",
-        type: "string",
-        label: "This is my name",
-      }}
+      defaultValue={"name default"}
+      type="string"
+      label="This is my name"
+      requiredOrOptional="required"
       onChange={setValue as SettingsOnChangeCallback}
     />
   );
