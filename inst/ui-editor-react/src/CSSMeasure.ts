@@ -1,7 +1,7 @@
 export type CSSMeasure = `${number}${CSSUnits}` | "auto";
 export type CSSUnits = "fr" | "px" | "rem" | "%";
 
-const findMeasureRegex = /(^[\d|.])\s*(px|%|rem|fr)|(^auto$)/g;
+const findMeasureRegex = /(^[\d|.])\s*(px|%|rem|fr)|(^auto$)/;
 export function isCSSMeasure(x: string): x is CSSMeasure {
   return findMeasureRegex.test(x);
 }
