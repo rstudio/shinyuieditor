@@ -1,8 +1,8 @@
 import React from "react";
 
+import { deparseCSSMeasure } from "components/Inputs/CSSUnitInput/css-helpers";
 import type { CSSMeasure } from "CSSMeasure";
 import debounce from "just-debounce-it";
-import { deparseCSSMeasure } from "utils/css-helpers";
 
 import type { InputWidgetCommonPropsOld } from "..";
 import { InputWrapper } from "../InputWrapper";

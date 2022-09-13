@@ -1,6 +1,9 @@
 import React from "react";
 
-import { deparseCSSMeasure, parseCSSMeasure } from "utils/css-helpers";
+import {
+  deparseCSSMeasure,
+  parseCSSMeasure,
+} from "components/Inputs/CSSUnitInput/css-helpers";
 
 import type { CSSMeasure } from "../../../CSSMeasure";
 import { NumericInputSimple } from "../NumericInput/NumericInput";

@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import type { ParsedCSSMeasure } from "utils/css-helpers";
-import { parseCSSMeasure } from "utils/css-helpers";
+import type { ParsedCSSMeasure } from "components/Inputs/CSSUnitInput/css-helpers";
+import { parseCSSMeasure } from "components/Inputs/CSSUnitInput/css-helpers";
 
 import type { CSSMeasure } from "../../../CSSMeasure";
 
