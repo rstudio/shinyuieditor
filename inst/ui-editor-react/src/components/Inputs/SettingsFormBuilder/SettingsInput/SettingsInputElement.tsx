@@ -1,6 +1,9 @@
+import { CSSUnitInputSimple } from "components/Inputs/CSSUnitInput/CSSUnitInputSimple";
+
 import type {
-  ArgTypesNames,
   ArgTypesMap,
+  ArgTypesNames,
+  ArgTypeWOptions,
   KnownArgTypes,
 } from "../ArgumentInfo";
 
@@ -16,19 +19,23 @@ type SettingsInputElementPropsByType = {
   [T in ArgTypesNames]: {
     id: string;
     type: T;
-    value: ArgTypesMap[T];
+    value: ArgTypesMap[T]["defaultValue"];
     onChange: OnChangeCallback;
+    options?: ArgTypesMap[T] extends ArgTypeWOptions
+      ? ArgTypesMap[T]["options"]
+      : never;
   };
 };
 
 export type SettingsInputElementProps =
-  SettingsInputElementPropsByType[ArgTypesNames];
+  SettingsInputElementPropsByType[keyof ArgTypesMap];
 
 export function SettingsInputElement({
   type,
   id,
   value,
   onChange,
+  options,
 }: SettingsInputElementProps) {
   if (type === "string") {
     return (
@@ -53,6 +60,17 @@ export function SettingsInputElement({
     );
   }
 
+  if (type === "cssMeasure") {
+    return (
+      <CSSUnitInputSimple
+        id={id}
+        value={value}
+        onChange={onChange}
+        units={options?.units}
+      />
+    );
+  }
+
   throw new Error("Dont know how to handle this input type yet");
 }
 
@@ -60,7 +78,10 @@ function StringInput({
   id,
   value,
   onChange,
-}: Omit<SettingsInputElementPropsByType["string"], "type">) {
+}: Pick<
+  Required<SettingsInputElementPropsByType["string"]>,
+  "id" | "value" | "onChange"
+>) {
   return (
     <input
       id={id}

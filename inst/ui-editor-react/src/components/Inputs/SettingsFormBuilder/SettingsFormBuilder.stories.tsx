@@ -20,6 +20,14 @@ const settingsInfo: SettingsInfo = {
     requiredOrOptional: "optional",
     type: "number",
   },
+  myCSSArg: {
+    type: "cssMeasure",
+    label: "I am a css measure",
+    defaultValue: "1rem",
+    options: {
+      units: ["rem", "px", "%"],
+    },
+  },
 };
 
 export const AutoBuild = () => {

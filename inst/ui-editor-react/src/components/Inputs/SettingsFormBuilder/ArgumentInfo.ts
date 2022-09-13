@@ -1,19 +1,34 @@
+import type { CSSMeasure, CSSUnits } from "CSSMeasure";
+
+export type ArgTypeWOptions = {
+  defaultValue: any;
+  options: object;
+};
+
 export type ArgTypesMap = {
-  string: string;
-  number: number;
+  string: {
+    defaultValue: string;
+  };
+  number: {
+    defaultValue: number;
+  };
+  cssMeasure: {
+    defaultValue: CSSMeasure;
+    options: {
+      units: CSSUnits[];
+    };
+  };
 };
 
 export type ArgTypesNames = keyof ArgTypesMap;
 
-export type ArgumentInfoByType = {
-  [T in ArgTypesNames]: {
-    type: T;
-    defaultValue: ArgTypesMap[T];
+export type ArgumentInfo = {
+  [TypeName in ArgTypesNames]: {
+    type: TypeName;
     label?: string;
     requiredOrOptional?: "optional" | "required";
-  };
-};
-export type ArgumentInfo = ArgumentInfoByType[ArgTypesNames];
+  } & ArgTypesMap[TypeName];
+}[ArgTypesNames];
 
 export type KnownArgTypes = ArgumentInfo["defaultValue"];
 

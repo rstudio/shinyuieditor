@@ -22,7 +22,7 @@ export function CSSUnitInputSimple({
 }: {
   id?: string;
   value: CSSMeasure;
-  units: CSSUnits[];
+  units?: CSSUnits[];
   onChange: (value: CSSMeasure) => void;
 }) {
   const { count, unit } = parseCSSMeasure(initialValue);
