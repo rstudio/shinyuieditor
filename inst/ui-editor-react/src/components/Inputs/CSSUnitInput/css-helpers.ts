@@ -4,14 +4,12 @@ export type ParsedCSSMeasure =
   | { count: number; unit: CSSUnits }
   | { count: null; unit: "auto" };
 
+const unitRegex = /(px|%|rem|fr|auto)/g;
+const countRegex = /^[\d|.]*/g;
 export function parseCSSMeasure(measure: string): ParsedCSSMeasure {
-  // eslint-disable-next-line no-useless-escape
-  const unit = (measure.match(/(px|\%|rem|fr|auto)/g)?.[0] || "px") as
-    | CSSUnits
-    | "auto";
+  const unit = (measure.match(unitRegex)?.[0] || "px") as CSSUnits | "auto";
 
-  // eslint-disable-next-line no-useless-escape
-  const countMatch = measure.match(/^[\d|\.]*/g)?.[0];
+  const countMatch = measure.match(countRegex)?.[0];
   // If we didn't find a unit then just
   const count = !countMatch ? null : Number(countMatch);
 
