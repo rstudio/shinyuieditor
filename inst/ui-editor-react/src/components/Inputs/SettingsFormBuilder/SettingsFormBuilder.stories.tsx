@@ -1,7 +1,10 @@
 import React from "react";
 
+import omit from "just-omit";
+
 import type { SettingsInfo } from "./ArgumentInfo";
 import { SettingsFormBuilder } from "./SettingsFormBuilder";
+import type { SettingsUpdateAction } from "./SettingsInput/SettingsInput";
 
 export default {
   title: "SettingsFormBuilder",
@@ -35,6 +38,19 @@ export const AutoBuild = () => {
     iAmUnknown: "unknown value",
   });
 
+  const handleSettingsChange = (key: string, action: SettingsUpdateAction) => {
+    console.log(`${action}ing ${key} to ${value}`);
+
+    if (action.type === "UPDATE") {
+      setValue((old) => ({ ...old, [key]: action.value }));
+    }
+
+    if (action.type === "REMOVE") {
+      setValue((old) => {
+        return omit(old, [key]) as typeof old;
+      });
+    }
+  };
   React.useEffect(() => {
     console.log(value);
   }, [value]);
@@ -43,10 +59,7 @@ export const AutoBuild = () => {
     <SettingsFormBuilder
       settings={value}
       settingsInfo={settingsInfo}
-      onSettingsChange={(key, value) => {
-        console.log(`Updating ${key} to ${value}`);
-        setValue((old) => ({ ...old, [key]: value }));
-      }}
+      onSettingsChange={handleSettingsChange}
     />
   );
 };
@@ -57,14 +70,25 @@ export const RenderProps = () => {
     myNumberArg: 3,
   });
 
+  const handleSettingsChange = (key: string, action: SettingsUpdateAction) => {
+    console.log(`${action}ing ${key} to ${value}`);
+
+    if (action.type === "UPDATE") {
+      setValue((old) => ({ ...old, [key]: action.value }));
+    }
+
+    if (action.type === "REMOVE") {
+      setValue((old) => {
+        return omit(old, [key]) as typeof old;
+      });
+    }
+  };
+
   return (
     <SettingsFormBuilder
       settings={value}
       settingsInfo={settingsInfo}
-      onSettingsChange={(key, value) => {
-        console.log(key);
-        setValue((old) => ({ ...old, [key]: value }));
-      }}
+      onSettingsChange={handleSettingsChange}
       renderInputs={({ inputs, unknownArguments }) => {
         return (
           <>

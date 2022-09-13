@@ -3,6 +3,7 @@ import Button from "components/Inputs/Button/Button";
 import type {
   ArgTypesMap,
   ArgTypesNames,
+  KnownArgTypes,
   PossibleArgTypes,
 } from "../ArgumentInfo";
 
@@ -14,7 +15,14 @@ import type {
 } from "./SettingsInputElement";
 import { SettingsInputElement } from "./SettingsInputElement";
 
-export type SettingsOnChangeCallback = (x: PossibleArgTypes) => void;
+export type SettingsUpdateAction =
+  | {
+      type: "UPDATE";
+      value: KnownArgTypes;
+    }
+  | {
+      type: "REMOVE";
+    };
 
 export type SettingsInputProps = {
   [T in ArgTypesNames]: {
@@ -22,7 +30,7 @@ export type SettingsInputProps = {
     type: T;
     value?: ArgTypesMap[T]["defaultValue"];
     defaultValue: ArgTypesMap[T]["defaultValue"];
-    onChange: OnChangeCallback;
+    onChange: (x: SettingsUpdateAction) => void;
     options?: ArgTypesMap[T]["options"];
     label?: string;
     requiredOrOptional?: "optional" | "required";
@@ -42,14 +50,18 @@ export function SettingsInput({
   const argumentIsUnset = value === undefined;
   const argumentIsOptional = requiredOrOptional === "optional";
 
-  const setToDefault = () => onChange(defaultValue);
-  const unsetArgument = () => onChange(undefined);
+  const setToDefault = () =>
+    onChange({
+      type: "UPDATE",
+      value: defaultValue,
+    });
+  const unsetArgument = () => onChange({ type: "REMOVE" });
 
   const inputArgs = {
     id: name,
     type,
     value,
-    onChange,
+    onChange: (newVal) => onChange({ type: "UPDATE", value: newVal }),
     options,
   } as SettingsInputElementProps;
 

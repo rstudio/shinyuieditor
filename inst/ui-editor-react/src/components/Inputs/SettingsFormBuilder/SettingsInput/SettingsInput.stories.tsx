@@ -2,7 +2,7 @@ import React from "react";
 
 import type { CSSMeasure } from "CSSMeasure";
 
-import type { SettingsOnChangeCallback } from "./SettingsInput";
+import type { SettingsUpdateAction } from "./SettingsInput";
 import { SettingsInput } from "./SettingsInput";
 
 export default {
@@ -13,6 +13,15 @@ export default {
 export const RequiredStringInput = () => {
   const [value, setValue] = React.useState("test");
 
+  const updateValue = (action: SettingsUpdateAction) => {
+    if (action.type === "UPDATE") {
+      setValue(action.value as string);
+    }
+    // if (action.type === "REMOVE") {
+    //   setValue(undefined);
+    // }
+  };
+
   return (
     <SettingsInput
       name="name"
@@ -21,14 +30,22 @@ export const RequiredStringInput = () => {
       type="string"
       label="This is my name"
       requiredOrOptional="required"
-      onChange={setValue as SettingsOnChangeCallback}
+      onChange={updateValue}
     />
   );
 };
 
 export const OptionalNumberInput = () => {
-  const [value, setValue] = React.useState(10);
+  const [value, setValue] = React.useState<number | undefined>(10);
 
+  const updateValue = (action: SettingsUpdateAction) => {
+    if (action.type === "UPDATE") {
+      setValue(action.value as number);
+    }
+    if (action.type === "REMOVE") {
+      setValue(undefined);
+    }
+  };
   return (
     <SettingsInput
       name="myNumberArg"
@@ -37,14 +54,21 @@ export const OptionalNumberInput = () => {
       type="number"
       label="This is a value"
       requiredOrOptional="optional"
-      onChange={setValue as SettingsOnChangeCallback}
+      onChange={updateValue}
     />
   );
 };
 
 export const MissingNonOptionalInput = () => {
   const [value, setValue] = React.useState<undefined | string>();
-
+  const updateValue = (action: SettingsUpdateAction) => {
+    if (action.type === "UPDATE") {
+      setValue(action.value as string);
+    }
+    if (action.type === "REMOVE") {
+      setValue(undefined);
+    }
+  };
   return (
     <SettingsInput
       name="name"
@@ -53,13 +77,20 @@ export const MissingNonOptionalInput = () => {
       type="string"
       label="This is my name"
       requiredOrOptional="required"
-      onChange={setValue as SettingsOnChangeCallback}
+      onChange={updateValue}
     />
   );
 };
 export const CSSInput = () => {
-  const [value, setValue] = React.useState<CSSMeasure>("1rem");
-
+  const [value, setValue] = React.useState<CSSMeasure | undefined>("1rem");
+  const updateValue = (action: SettingsUpdateAction) => {
+    if (action.type === "UPDATE") {
+      setValue(action.value as CSSMeasure);
+    }
+    if (action.type === "REMOVE") {
+      setValue(undefined);
+    }
+  };
   return (
     <SettingsInput
       name="cssVal"
@@ -68,7 +99,7 @@ export const CSSInput = () => {
       defaultValue="4rem"
       label="CSS Value"
       requiredOrOptional="required"
-      onChange={setValue as SettingsOnChangeCallback}
+      onChange={updateValue}
     />
   );
 };
