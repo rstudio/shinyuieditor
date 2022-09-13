@@ -39,12 +39,10 @@ export function SettingsInput(opts: SettingsInputProps) {
   const {
     name,
     value,
-    type,
     label = name,
     defaultValue,
     requiredOrOptional = "required",
     onChange,
-    options,
   } = opts;
 
   const argumentIsUnset = value === undefined;
@@ -55,28 +53,10 @@ export function SettingsInput(opts: SettingsInputProps) {
       type: "UPDATE",
       value: defaultValue,
     });
+
+  const updateArgument = (newVal: KnownArgTypes) =>
+    onChange({ type: "UPDATE", value: newVal });
   const unsetArgument = () => onChange({ type: "REMOVE" });
-
-  let mainInputBody: JSX.Element;
-  if (argumentIsUnset && !argumentIsOptional) {
-    mainInputBody = (
-      <MissingRequiredArgumentMessage name={name} onReset={setToDefault} />
-    );
-  } else if (!valueIsType(value, type)) {
-    mainInputBody = (
-      <MismatchedTypeMessage name={name} onReset={setToDefault} />
-    );
-  } else {
-    const inputArgs = {
-      id: name,
-      type,
-      value,
-      onChange: (newVal) => onChange({ type: "UPDATE", value: newVal }),
-      options,
-    } as SettingsInputElementProps;
-
-    mainInputBody = <SettingsInputElement {...inputArgs} />;
-  }
 
   return (
     <div className="SUE-SettingsInput">
@@ -94,9 +74,58 @@ export function SettingsInput(opts: SettingsInputProps) {
 
         <label htmlFor={name}>{label}</label>
       </div>
-      {mainInputBody}
+      <MainInputBody
+        {...opts}
+        onReset={setToDefault}
+        onUpdate={updateArgument}
+      />
     </div>
   );
+}
+
+function MainInputBody(
+  opts: Pick<
+    SettingsInputProps,
+    "name" | "value" | "type" | "requiredOrOptional" | "options"
+  > & {
+    onUpdate: (newVal: KnownArgTypes) => void;
+    onReset: () => void;
+  }
+) {
+  const {
+    name,
+    value,
+    type,
+    requiredOrOptional = "required",
+    options,
+    onReset,
+    onUpdate,
+  } = opts;
+
+  const argumentIsUnset = value === undefined;
+  const argumentIsOptional = requiredOrOptional === "optional";
+
+  if (argumentIsUnset && argumentIsOptional) {
+    return <UnsetArgumentMessage />;
+  }
+
+  if (argumentIsUnset && !argumentIsOptional) {
+    return <MissingRequiredArgumentMessage name={name} onReset={onReset} />;
+  }
+
+  if (valueIsType(value, type)) {
+    const inputArgs = {
+      id: name,
+      type,
+      value,
+      onChange: onUpdate,
+      options,
+    } as SettingsInputElementProps;
+
+    return <SettingsInputElement {...inputArgs} />;
+  }
+
+  return <MismatchedTypeMessage name={name} onReset={onReset} />;
 }
 
 function MismatchedTypeMessage({
@@ -136,6 +165,10 @@ function MissingRequiredArgumentMessage({
       </Button>
     </div>
   );
+}
+
+function UnsetArgumentMessage() {
+  return <div>Unset</div>;
 }
 
 function valueIsType(value: PossibleArgTypes, type: ArgTypesNames): boolean {
