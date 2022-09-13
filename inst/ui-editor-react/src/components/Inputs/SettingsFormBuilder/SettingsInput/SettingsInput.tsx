@@ -168,7 +168,7 @@ function MissingRequiredArgumentMessage({
 }
 
 function UnsetArgumentMessage() {
-  return <div>Unset</div>;
+  return <div className="unset-argument">Unset</div>;
 }
 
 function valueIsType(value: PossibleArgTypes, type: ArgTypesNames): boolean {

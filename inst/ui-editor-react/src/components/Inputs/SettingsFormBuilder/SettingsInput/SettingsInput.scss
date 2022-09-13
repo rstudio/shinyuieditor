@@ -1,6 +1,8 @@
 .SUE-SettingsInput {
   display: block;
   margin-block: 8px;
+  width: fit-content;
+  max-width: 100%;
 
   .info {
     display: flex;
@@ -16,5 +18,11 @@
 
   .mismatched-argument-types {
     color: var(--dark-grey, pink);
+  }
+
+  .unset-argument {
+    color: var(--dark-grey, pink);
+    font-style: italic;
+    text-align: center;
   }
 }
