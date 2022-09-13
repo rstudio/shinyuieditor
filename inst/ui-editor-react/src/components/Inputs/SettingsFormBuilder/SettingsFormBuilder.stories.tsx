@@ -34,6 +34,10 @@ export const AutoBuild = () => {
     myNumberArg: 3,
   });
 
+  React.useEffect(() => {
+    console.log(value);
+  }, [value]);
+
   return (
     <SettingsFormBuilder
       settings={value}
