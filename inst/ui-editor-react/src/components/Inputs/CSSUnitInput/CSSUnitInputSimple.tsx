@@ -7,6 +7,7 @@ import {
 
 import type { CSSMeasure } from "../../../CSSMeasure";
 import { NumericInputSimple } from "../NumericInput/NumericInput";
+import type { InputComponentProps } from "../SettingsFormBuilder/ArgumentInfo";
 
 import type { CSSUnits } from "./index";
 import { defaultCounts } from "./index";
@@ -19,12 +20,12 @@ export function CSSUnitInputSimple({
   value: initialValue,
   onChange,
   units = ["fr", "px", "rem", "auto"],
-}: {
-  id?: string;
-  value: CSSMeasure;
-  units?: CSSUnits[];
-  onChange: (value: CSSMeasure) => void;
-}) {
+}: InputComponentProps<
+  CSSMeasure,
+  {
+    units?: CSSUnits[];
+  }
+>) {
   const { count, unit } = parseCSSMeasure(initialValue);
 
   const updateCount = React.useCallback(

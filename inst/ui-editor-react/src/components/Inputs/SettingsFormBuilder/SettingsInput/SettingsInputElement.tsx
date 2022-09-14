@@ -7,6 +7,8 @@ import type {
   KnownArgTypes,
 } from "../ArgumentInfo";
 
+import { StringInput } from "./StringInput";
+
 /**
  * Due to dynamics of types the on change callback is a very general purpose
  * function that can take any of our input types as arguments. Type narrowing is
@@ -75,26 +77,5 @@ export function SettingsInputElement({
 
   return (
     <div>I don't know how to render the input of type {type} yet! Sorry.</div>
-  );
-}
-
-function StringInput({
-  id,
-  value,
-  onChange,
-}: Pick<
-  Required<SettingsInputElementPropsByType["string"]>,
-  "id" | "value" | "onChange"
->) {
-  return (
-    <input
-      id={id}
-      type="text"
-      value={value}
-      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-        const newValue = e.target.value;
-        onChange(newValue);
-      }}
-    />
   );
 }

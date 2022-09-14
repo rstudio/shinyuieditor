@@ -70,8 +70,11 @@ export type SettingsObj<Info extends SettingsInfo> = {
   [K in RequiredSettingsKeys<Info>]: Info[K]["defaultValue"];
 };
 
-export type InputComponentProps<T extends KnownArgTypes> = {
+export type InputComponentProps<
+  T extends KnownArgTypes,
+  Opts extends object = {}
+> = {
   id?: string;
   value: T;
   onChange: (value: T) => void;
-};
+} & Opts;
