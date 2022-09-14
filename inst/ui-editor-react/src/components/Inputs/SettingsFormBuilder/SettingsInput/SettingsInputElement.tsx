@@ -10,6 +10,7 @@ import type {
   KnownArgTypes,
 } from "../ArgumentInfo";
 
+import { NumberInput } from "./NumberInput";
 import { StringInput } from "./StringInput";
 
 /**
@@ -41,26 +42,11 @@ export function SettingsInputElement({
   options,
 }: SettingsInputElementProps) {
   if (type === "string") {
-    return (
-      <StringInput
-        id={id}
-        value={value}
-        onChange={(newValue) => onChange(newValue)}
-      />
-    );
+    return <StringInput id={id} value={value} onChange={onChange} />;
   }
 
   if (type === "number") {
-    return (
-      <input
-        id={id}
-        type="number"
-        value={value}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-          onChange(Number(e.target.value));
-        }}
-      />
-    );
+    return <NumberInput id={id} value={value} onChange={onChange} />;
   }
 
   if (type === "cssMeasure") {

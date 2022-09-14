@@ -1,18 +1,17 @@
 import type { InputComponentProps } from "../ArgumentInfo";
 
-export function StringInput({
+export function NumberInput({
   id,
   value,
   onChange,
-}: InputComponentProps<string>) {
+}: InputComponentProps<number>) {
   return (
     <input
       id={id}
-      type="text"
+      type="number"
       value={value}
       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-        const newValue = e.target.value;
-        onChange(newValue);
+        onChange(Number(e.target.value));
       }}
     />
   );
