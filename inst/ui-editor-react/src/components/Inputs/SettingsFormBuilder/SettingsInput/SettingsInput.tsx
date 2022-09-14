@@ -1,17 +1,16 @@
 import Button from "components/Inputs/Button/Button";
-import { isCSSMeasure } from "CSSMeasure";
 
 import type {
   ArgTypesMap,
   ArgTypesNames,
   KnownArgTypes,
-  PossibleArgTypes,
 } from "../ArgumentInfo";
 
 import "./SettingsInput.scss";
 
 import type { SettingsInputElementProps } from "./SettingsInputElement";
 import { SettingsInputElement } from "./SettingsInputElement";
+import { valueIsType } from "./valueIsType";
 
 export type SettingsUpdateAction =
   | {
@@ -169,21 +168,4 @@ function MissingRequiredArgumentMessage({
 
 function UnsetArgumentMessage() {
   return <div className="unset-argument">Unset</div>;
-}
-
-function valueIsType(value: PossibleArgTypes, type: ArgTypesNames): boolean {
-  if (value === undefined) {
-    return true;
-  }
-  if (type === "number") {
-    return typeof value === "number";
-  }
-  if (type === "string") {
-    return typeof value === "string";
-  }
-  if (type === "cssMeasure") {
-    return isCSSMeasure(value as string);
-  }
-
-  throw new Error("Unimplemented argument type check", type);
 }

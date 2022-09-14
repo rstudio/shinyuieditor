@@ -1,3 +1,4 @@
+import { BooleanInputSimple } from "components/Inputs/BooleanInput/BooleanInputSimple";
 import { CSSUnitInputSimple } from "components/Inputs/CSSUnitInput/CSSUnitInputSimple";
 
 import type {
@@ -68,7 +69,13 @@ export function SettingsInputElement({
     );
   }
 
-  throw new Error("Dont know how to handle this input type yet");
+  if (type === "boolean") {
+    return <BooleanInputSimple id={id} value={value} onChange={onChange} />;
+  }
+
+  return (
+    <div>I don't know how to render the input of type {type} yet! Sorry.</div>
+  );
 }
 
 function StringInput({

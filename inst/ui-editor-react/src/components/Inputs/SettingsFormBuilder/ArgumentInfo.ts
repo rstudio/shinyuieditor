@@ -19,6 +19,10 @@ export type ArgTypesMap = {
       units: CSSUnits[];
     };
   };
+  boolean: {
+    defaultValue: boolean;
+    options?: {};
+  };
 };
 
 export type ArgTypesNames = keyof ArgTypesMap;
@@ -64,4 +68,10 @@ export type SettingsObj<Info extends SettingsInfo> = {
   [K in OptionalSettingsKeys<Info>]?: Info[K]["defaultValue"];
 } & {
   [K in RequiredSettingsKeys<Info>]: Info[K]["defaultValue"];
+};
+
+export type InputComponentProps<T extends KnownArgTypes> = {
+  id?: string;
+  value: T;
+  onChange: (value: T) => void;
 };

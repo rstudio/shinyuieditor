@@ -131,3 +131,30 @@ export const MismatchedType = () => {
     />
   );
 };
+export const BooleanInput = () => {
+  const [value, setValue] = React.useState<boolean>(true);
+
+  const updateValue = (action: SettingsUpdateAction) => {
+    if (action.type === "UPDATE") {
+      // Gotta ignore because we're deliberately breaking the type system here
+      // @ts-ignore
+      setValue(action.value);
+    }
+    // if (action.type === "REMOVE") {
+    //   setValue(undefined);
+    // }
+  };
+
+  return (
+    // @ts-ignore
+    <SettingsInput
+      name="myBooleanVar"
+      value={value}
+      type="boolean"
+      defaultValue={true}
+      label="Boolean input"
+      requiredOrOptional="required"
+      onChange={updateValue}
+    />
+  );
+};
