@@ -1,6 +1,8 @@
 import React from "react";
 
 import type { NamedList } from "components/Inputs/ListInput/NamedListInput";
+import type { DropdownOption } from "components/Inputs/OptionsDropdown/DropdownSelect";
+import { DEFAULT_DROPDOWN_CHOICE } from "components/Inputs/OptionsDropdown/DropdownSelect";
 import type { CSSMeasure } from "CSSMeasure";
 
 import type { SettingsUpdateAction } from "./SettingsInput";
@@ -183,6 +185,36 @@ export const ListInput = () => {
           key: "new",
           value: "value",
         },
+      }}
+    />
+  );
+};
+
+export const DropdownInput = () => {
+  const [value, setValue] = React.useState<DropdownOption | undefined>("a");
+
+  const updateValue = (action: SettingsUpdateAction) => {
+    if (action.type === "UPDATE") {
+      // Gotta ignore because we're deliberately breaking the type system here
+      // @ts-ignore
+      setValue(action.value);
+    }
+    if (action.type === "REMOVE") {
+      setValue(undefined);
+    }
+  };
+
+  return (
+    <SettingsInput
+      name="myDropdown"
+      value={value}
+      type="optionsDropdown"
+      defaultValue={DEFAULT_DROPDOWN_CHOICE}
+      label="Dropdown input"
+      requiredOrOptional="optional"
+      onChange={updateValue}
+      options={{
+        choices: ["b", "a", "c"],
       }}
     />
   );

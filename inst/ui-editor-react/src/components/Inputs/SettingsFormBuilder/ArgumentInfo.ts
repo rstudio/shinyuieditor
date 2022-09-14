@@ -1,6 +1,7 @@
 import type { CSSMeasure, CSSUnits } from "CSSMeasure";
 
 import type { NamedList } from "../ListInput/NamedListInput";
+import type { DropdownOption } from "../OptionsDropdown/DropdownSelect";
 
 export type ArgTypesMap = {
   string: {
@@ -29,6 +30,12 @@ export type ArgTypesMap = {
     defaultValue: NamedList;
     options?: {
       newItemValue?: { key: string; value: string };
+    };
+  };
+  optionsDropdown: {
+    defaultValue: DropdownOption;
+    options: {
+      choices: DropdownOption[];
     };
   };
 };

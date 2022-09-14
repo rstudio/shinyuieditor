@@ -18,6 +18,7 @@ type SelectProps = Pick<
   React.ComponentPropsWithoutRef<"select">,
   "aria-label" | "disabled"
 >;
+
 export function OptionsDropdownSimple<Option extends string>({
   options,
   selected,

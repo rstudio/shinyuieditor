@@ -1,6 +1,7 @@
 import { BooleanInputSimple } from "components/Inputs/BooleanInput/BooleanInputSimple";
 import { CSSUnitInputSimple } from "components/Inputs/CSSUnitInput/CSSUnitInputSimple";
 import { NamedListInputSimple } from "components/Inputs/ListInput/NamedListInputSimple";
+import { DropdownSelect } from "components/Inputs/OptionsDropdown/DropdownSelect";
 
 import type {
   ArgTypesMap,
@@ -83,6 +84,17 @@ export function SettingsInputElement({
         value={value}
         onChange={onChange}
         newItemValue={options?.newItemValue}
+      />
+    );
+  }
+
+  if (type === "optionsDropdown") {
+    return (
+      <DropdownSelect
+        id={id}
+        value={value}
+        onChange={onChange}
+        choices={options.choices}
       />
     );
   }

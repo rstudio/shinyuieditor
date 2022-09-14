@@ -31,5 +31,9 @@ export function valueIsType(
     return isNamedList(value);
   }
 
+  if (type === "optionsDropdown") {
+    return typeof value === "string";
+  }
+
   throw new Error("Unimplemented argument type check", type);
 }
