@@ -1,5 +1,6 @@
 import { BooleanInputSimple } from "components/Inputs/BooleanInput/BooleanInputSimple";
 import { CSSUnitInputSimple } from "components/Inputs/CSSUnitInput/CSSUnitInputSimple";
+import { NamedListInputSimple } from "components/Inputs/ListInput/NamedListInputSimple";
 
 import type {
   ArgTypesMap,
@@ -75,6 +76,16 @@ export function SettingsInputElement({
     return <BooleanInputSimple id={id} value={value} onChange={onChange} />;
   }
 
+  if (type === "list") {
+    return (
+      <NamedListInputSimple
+        id={id}
+        value={value}
+        onChange={onChange}
+        newItemValue={options?.newItemValue}
+      />
+    );
+  }
   return (
     <div>I don't know how to render the input of type {type} yet! Sorry.</div>
   );

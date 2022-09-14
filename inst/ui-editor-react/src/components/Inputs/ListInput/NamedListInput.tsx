@@ -14,13 +14,24 @@ import { useOnChange } from "../SettingsUpdateContext";
 
 import classes from "./styles.module.css";
 
-type ItemType = {
+export type ItemType = {
   id: number;
   key: string;
   value: string;
 };
 
 export type NamedList = Record<string, string>;
+
+export function isNamedList(x: any): x is NamedList {
+  if (typeof x !== "object") return false;
+
+  const hasNonStringEntries = Object.values(x).find(
+    (el) => typeof el !== "string"
+  );
+  if (hasNonStringEntries) return false;
+
+  return true;
+}
 
 export default function NamedListInput({
   name,
@@ -129,7 +140,7 @@ export default function NamedListInput({
   );
 }
 
-function simplifyToChoices(arrayVersion: ItemType[]): NamedList {
+export function simplifyToChoices(arrayVersion: ItemType[]): NamedList {
   const toReturn: NamedList = arrayVersion.reduce(
     (namedList, { key, value }) => {
       namedList[key] = value;

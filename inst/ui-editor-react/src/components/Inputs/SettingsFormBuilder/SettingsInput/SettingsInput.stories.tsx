@@ -1,5 +1,6 @@
 import React from "react";
 
+import type { NamedList } from "components/Inputs/ListInput/NamedListInput";
 import type { CSSMeasure } from "CSSMeasure";
 
 import type { SettingsUpdateAction } from "./SettingsInput";
@@ -140,13 +141,9 @@ export const BooleanInput = () => {
       // @ts-ignore
       setValue(action.value);
     }
-    // if (action.type === "REMOVE") {
-    //   setValue(undefined);
-    // }
   };
 
   return (
-    // @ts-ignore
     <SettingsInput
       name="myBooleanVar"
       value={value}
@@ -155,6 +152,38 @@ export const BooleanInput = () => {
       label="Boolean input"
       requiredOrOptional="required"
       onChange={updateValue}
+    />
+  );
+};
+export const ListInput = () => {
+  const [value, setValue] = React.useState<NamedList>({
+    a: "first",
+    b: "second",
+  });
+
+  const updateValue = (action: SettingsUpdateAction) => {
+    if (action.type === "UPDATE") {
+      // Gotta ignore because we're deliberately breaking the type system here
+      // @ts-ignore
+      setValue(action.value);
+    }
+  };
+
+  return (
+    <SettingsInput
+      name="myListVar"
+      value={value}
+      type="list"
+      defaultValue={{}}
+      label="List input"
+      requiredOrOptional="required"
+      onChange={updateValue}
+      options={{
+        newItemValue: {
+          key: "new",
+          value: "value",
+        },
+      }}
     />
   );
 };

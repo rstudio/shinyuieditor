@@ -1,5 +1,7 @@
+import { isNamedList } from "components/Inputs/ListInput/NamedListInput";
 import { isCSSMeasure } from "CSSMeasure";
-import { ArgTypesNames, PossibleArgTypes } from "../ArgumentInfo";
+
+import type { ArgTypesNames, PossibleArgTypes } from "../ArgumentInfo";
 
 export function valueIsType(
   value: PossibleArgTypes,
@@ -23,6 +25,10 @@ export function valueIsType(
 
   if (type === "boolean") {
     return typeof value === "boolean";
+  }
+
+  if (type === "list") {
+    return isNamedList(value);
   }
 
   throw new Error("Unimplemented argument type check", type);

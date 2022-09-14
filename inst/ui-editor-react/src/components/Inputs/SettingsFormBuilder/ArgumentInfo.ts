@@ -1,5 +1,7 @@
 import type { CSSMeasure, CSSUnits } from "CSSMeasure";
 
+import type { NamedList } from "../ListInput/NamedListInput";
+
 export type ArgTypesMap = {
   string: {
     defaultValue: string;
@@ -22,6 +24,12 @@ export type ArgTypesMap = {
   boolean: {
     defaultValue: boolean;
     options?: {};
+  };
+  list: {
+    defaultValue: NamedList;
+    options?: {
+      newItemValue?: { key: string; value: string };
+    };
   };
 };
 
@@ -70,10 +78,7 @@ export type SettingsObj<Info extends SettingsInfo> = {
   [K in RequiredSettingsKeys<Info>]: Info[K]["defaultValue"];
 };
 
-export type InputComponentProps<
-  T extends KnownArgTypes,
-  Opts extends object = {}
-> = {
+export type InputComponentProps<T, Opts extends object = {}> = {
   id?: string;
   value: T;
   onChange: (value: T) => void;
