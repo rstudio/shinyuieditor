@@ -69,6 +69,55 @@ export const AutoBuild = () => {
   );
 };
 
+export const DynamicOptions = () => {
+  const settingsInfo: SettingsInfo = {
+    dynamicDropdown: {
+      defaultValue: "name default",
+      label: "Options dropdown",
+      type: "optionsDropdown",
+      options: {
+        choices: ["a", "b", "c"],
+      },
+    },
+    myBooleanArg: {
+      type: "boolean",
+      label: "I am a boolean measure",
+      defaultValue: true,
+      requiredOrOptional: "optional",
+    },
+  };
+  const updatedOptionsList = ["first", "second", "third"];
+
+  const [value, setValue] = React.useState({
+    dynamicDropdown: "b",
+    myBooleanArg: false,
+  });
+
+  const handleSettingsChange = (key: string, action: SettingsUpdateAction) => {
+    if (action.type === "UPDATE") {
+      setValue((old) => ({ ...old, [key]: action.value }));
+    }
+
+    if (action.type === "REMOVE") {
+      setValue((old) => {
+        return omit(old, [key]) as typeof old;
+      });
+    }
+  };
+  React.useEffect(() => {
+    console.log(value);
+  }, [value]);
+
+  return (
+    <SettingsFormBuilder
+      settings={value}
+      settingsInfo={settingsInfo}
+      dynamicOptions={{ dynamicDropdown: { choices: updatedOptionsList } }}
+      onSettingsChange={handleSettingsChange}
+    />
+  );
+};
+
 export const RenderProps = () => {
   const [value, setValue] = React.useState({
     name: "test",

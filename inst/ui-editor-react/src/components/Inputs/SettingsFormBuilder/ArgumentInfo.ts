@@ -70,6 +70,10 @@ export type PossibleArgTypes = KnownArgTypes | undefined;
 
 export type SettingsInfo = Record<string, ArgumentInfo>;
 
+export type DynamicSettingsOptions<Info extends SettingsInfo> = {
+  [ArgName in keyof Info]: ArgTypesMap[Info[ArgName]["type"]]["options"];
+};
+
 // Helper types to extract list of names that are optional or not based on the
 // presence of the "optional" key in the settings object. Important to note that
 // this means putting anything (true _or_ false) in the optional field will make
