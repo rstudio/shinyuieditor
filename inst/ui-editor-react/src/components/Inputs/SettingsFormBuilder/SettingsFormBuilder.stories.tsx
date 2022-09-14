@@ -29,6 +29,12 @@ const settingsInfo: SettingsInfo = {
     defaultValue: "1rem",
     requiredOrOptional: "optional",
   },
+  myBooleanArg: {
+    type: "boolean",
+    label: "I am a boolean measure",
+    defaultValue: true,
+    requiredOrOptional: "optional",
+  },
 };
 
 export const AutoBuild = () => {
@@ -36,6 +42,7 @@ export const AutoBuild = () => {
     name: "test",
     myNumberArg: 3,
     iAmUnknown: "unknown value",
+    myBooleanArg: false,
   });
 
   const handleSettingsChange = (key: string, action: SettingsUpdateAction) => {
