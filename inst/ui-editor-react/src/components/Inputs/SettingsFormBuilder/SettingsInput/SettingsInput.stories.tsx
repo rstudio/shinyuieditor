@@ -1,8 +1,15 @@
 import React from "react";
 
+import {
+  alignTextCenter,
+  alignTextLeft,
+  alignTextRight,
+} from "components/Icons";
 import type { NamedList } from "components/Inputs/ListInput/NamedListInput";
 import type { DropdownOption } from "components/Inputs/OptionsDropdown/DropdownSelect";
 import { DEFAULT_DROPDOWN_CHOICE } from "components/Inputs/OptionsDropdown/DropdownSelect";
+import type { RadioInputChoice } from "components/Inputs/RadioInputs/RadioInputsSimple";
+import { DEFAULT_RADIO_CHOICE } from "components/Inputs/RadioInputs/RadioInputsSimple";
 import type { CSSMeasure } from "CSSMeasure";
 
 import type { SettingsUpdateAction } from "./SettingsInput";
@@ -215,6 +222,43 @@ export const DropdownInput = () => {
       onChange={updateValue}
       options={{
         choices: ["b", "a", "c"],
+      }}
+    />
+  );
+};
+
+const horizontalAlignOptions = {
+  start: { icon: alignTextLeft, label: "left" },
+  center: { icon: alignTextCenter, label: "center" },
+  end: { icon: alignTextRight, label: "right" },
+};
+export const RadioInput = () => {
+  const [value, setValue] = React.useState<RadioInputChoice | undefined>(
+    "center"
+  );
+
+  const updateValue = (action: SettingsUpdateAction) => {
+    if (action.type === "UPDATE") {
+      // Gotta ignore because we're deliberately breaking the type system here
+      // @ts-ignore
+      setValue(action.value);
+    }
+    if (action.type === "REMOVE") {
+      setValue(undefined);
+    }
+  };
+
+  return (
+    <SettingsInput
+      name="myRadio"
+      value={value}
+      type="radioInput"
+      defaultValue={DEFAULT_RADIO_CHOICE}
+      label="Radio inputs"
+      requiredOrOptional="optional"
+      onChange={updateValue}
+      options={{
+        choices: horizontalAlignOptions,
       }}
     />
   );

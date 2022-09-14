@@ -35,5 +35,9 @@ export function valueIsType(
     return typeof value === "string";
   }
 
+  if (type === "radioInput") {
+    return typeof value === "string";
+  }
+
   throw new Error("Unimplemented argument type check", type);
 }
