@@ -34,24 +34,36 @@ type SettingsInputElementPropsByType = {
 export type SettingsInputElementProps =
   SettingsInputElementPropsByType[keyof ArgTypesMap];
 
-export function SettingsInputElement({
-  type,
-  id,
-  value,
-  onChange,
-  options,
-}: SettingsInputElementProps) {
+const inputComps = {
+  string: StringInput,
+  number: NumberInput,
+  cssMeasure: CSSUnitInputSimple,
+  boolean: BooleanInputSimple,
+  list: NamedListInputSimple,
+  optionsDropdown: DropdownSelect,
+  radioInput: RadioInputsSimple,
+};
+
+export function SettingsInputElement(args: SettingsInputElementProps) {
+  const { type, id, value, onChange, options } = args;
+
+  if (!(type in inputComps)) {
+    return (
+      <div>I don't know how to render the input of type {type} yet! Sorry.</div>
+    );
+  }
+
   if (type === "string") {
-    return <StringInput id={id} value={value} onChange={onChange} />;
+    return <inputComps.string id={id} value={value} onChange={onChange} />;
   }
 
   if (type === "number") {
-    return <NumberInput id={id} value={value} onChange={onChange} />;
+    return <inputComps.number id={id} value={value} onChange={onChange} />;
   }
 
   if (type === "cssMeasure") {
     return (
-      <CSSUnitInputSimple
+      <inputComps.cssMeasure
         id={id}
         value={value}
         onChange={onChange}
@@ -61,12 +73,12 @@ export function SettingsInputElement({
   }
 
   if (type === "boolean") {
-    return <BooleanInputSimple id={id} value={value} onChange={onChange} />;
+    return <inputComps.boolean id={id} value={value} onChange={onChange} />;
   }
 
   if (type === "list") {
     return (
-      <NamedListInputSimple
+      <inputComps.list
         id={id}
         value={value}
         onChange={onChange}
@@ -77,7 +89,7 @@ export function SettingsInputElement({
 
   if (type === "optionsDropdown") {
     return (
-      <DropdownSelect
+      <inputComps.optionsDropdown
         id={id}
         value={value}
         onChange={onChange}
@@ -88,7 +100,7 @@ export function SettingsInputElement({
 
   if (type === "radioInput") {
     return (
-      <RadioInputsSimple
+      <inputComps.radioInput
         id={id}
         value={value}
         onChange={onChange}
