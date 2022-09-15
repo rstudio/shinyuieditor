@@ -65,9 +65,8 @@ export function SettingsInput(opts: SettingsInputProps) {
           <input
             type="checkbox"
             checked={!argumentIsUnset}
-            title={`Click to ${
-              argumentIsUnset ? "set" : "unset"
-            } ${name} property`}
+            title={`Use ${name} argument`}
+            aria-label={`Use ${name} argument`}
             onChange={argumentIsUnset ? setToDefault : unsetArgument}
           />
         ) : null}
