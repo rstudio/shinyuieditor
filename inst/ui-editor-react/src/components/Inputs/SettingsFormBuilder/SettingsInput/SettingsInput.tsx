@@ -106,7 +106,7 @@ function MainInputBody(
   const argumentIsOptional = requiredOrOptional === "optional";
 
   if (argumentIsUnset && argumentIsOptional) {
-    return <UnsetArgumentMessage />;
+    return <UnsetArgumentMessage labelledBy={makeLabelId(name)} />;
   }
 
   if (argumentIsUnset && !argumentIsOptional) {
@@ -167,6 +167,10 @@ function MissingRequiredArgumentMessage({
   );
 }
 
-function UnsetArgumentMessage() {
-  return <div className="unset-argument">Unset</div>;
+function UnsetArgumentMessage({ labelledBy }: { labelledBy: string }) {
+  return (
+    <div className="unset-argument" aria-labelledby={labelledBy}>
+      Unset
+    </div>
+  );
 }
