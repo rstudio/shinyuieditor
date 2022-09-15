@@ -17,7 +17,7 @@ export function CSSUnitInputSimple({
   id,
   value: initialValue,
   onChange,
-  units = ["fr", "px", "rem", "auto"],
+  units = ["fr", "px", "rem", "%", "auto"],
 }: InputComponentProps<
   CSSMeasure,
   {
@@ -71,6 +71,15 @@ export function CSSUnitInputSimple({
     },
     [count, onChange, unit]
   );
+
+  if (!units.includes(unit)) {
+    // If we have the case where a unit is not in the list of available we need
+    // to add it to the list of the selected unit will not display properly. We
+    // could also throw here but that feels potentially more confusing that just
+    // rolling with an unsupported unit
+    units.push(unit);
+  }
+
   const no_count = count === null;
 
   return (
