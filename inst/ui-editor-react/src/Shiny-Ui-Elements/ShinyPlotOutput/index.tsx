@@ -1,9 +1,25 @@
 import plotIcon from "assets/icons/shinyPlot.png";
+import type { SettingsInfo } from "components/Inputs/SettingsFormBuilder/ArgumentInfo";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import { ShinyPlotOutputSettings } from "./SettingsPanel";
 import ShinyPlotOutput from "./ShinyPlotOutput";
+
+export const ShinyPlotOutputSettingsInfo: SettingsInfo = {
+  outputId: {
+    type: "string",
+    defaultValue: "plot",
+  },
+  width: {
+    type: "cssMeasure",
+    defaultValue: "100%",
+  },
+  height: {
+    type: "cssMeasure",
+    defaultValue: "400px",
+  },
+};
 
 export type ShinyPlotOutputProps = {
   outputId: string;
@@ -14,6 +30,7 @@ export type ShinyPlotOutputProps = {
 export const shinyPlotOutputInfo: UiComponentInfo<ShinyPlotOutputProps> = {
   title: "Plot Output",
   UiComponent: ShinyPlotOutput,
+  settingsInfo: ShinyPlotOutputSettingsInfo,
   SettingsComponent: ShinyPlotOutputSettings,
   acceptsChildren: false,
   defaultSettings: { outputId: "plot", width: "100%", height: "400px" },
