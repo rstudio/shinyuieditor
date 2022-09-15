@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import type { InputComponentProps } from "../SettingsFormBuilder/ArgumentInfo";
+import { makeLabelId } from "../SettingsFormBuilder/ArgumentInfo";
 
 import classes from "./RadioInputs.module.css";
 
@@ -12,7 +13,7 @@ export type RadioInputOptions = Record<
 export const DEFAULT_RADIO_CHOICE = "__DEFAULT-RADIO-CHOICE__";
 
 export function RadioInputsSimple({
-  id = "SUE-RadioInputs",
+  id,
   choices,
   value: currentSelection,
   onChange,
@@ -45,7 +46,7 @@ export function RadioInputsSimple({
   return (
     <fieldset
       className={classes.radioContainer}
-      id={id}
+      aria-labelledby={makeLabelId(id)}
       style={columns_style_defn}
     >
       {values.map((option) => {

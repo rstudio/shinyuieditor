@@ -8,6 +8,7 @@ import { sameObject } from "utils/equalityCheckers";
 
 import Button from "../Button/Button";
 import type { InputComponentProps } from "../SettingsFormBuilder/ArgumentInfo";
+import { makeLabelId } from "../SettingsFormBuilder/ArgumentInfo";
 
 import type { ItemType, NamedList } from "./NamedListInput";
 import { simplifyToChoices } from "./NamedListInput";
@@ -33,7 +34,11 @@ export function NamedListInputSimple({
   });
 
   return (
-    <div className={classes.list} id={id} aria-label="Reorderable list input">
+    <div
+      className={classes.list}
+      aria-labelledby={makeLabelId(id)}
+      aria-label="Reorderable list input"
+    >
       <div
         className={classes.item + " " + classes.header}
         aria-label="Columns field labels"

@@ -3,6 +3,7 @@ import React from "react";
 import { removeDuplicates } from "utils/array-helpers";
 
 import type { InputComponentProps } from "../SettingsFormBuilder/ArgumentInfo";
+import { makeLabelId } from "../SettingsFormBuilder/ArgumentInfo";
 
 export type DropdownOption = string;
 
@@ -37,7 +38,7 @@ export function DropdownSelect({
   const uniqueOptions = removeDuplicates(choices);
   return (
     <select
-      id={id}
+      aria-labelledby={makeLabelId(id)}
       className="OptionsDropdown"
       onChange={handleChange}
       value={selected}

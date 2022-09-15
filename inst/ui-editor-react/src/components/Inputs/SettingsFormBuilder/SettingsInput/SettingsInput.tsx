@@ -5,6 +5,7 @@ import type {
   ArgTypesNames,
   KnownArgTypes,
 } from "../ArgumentInfo";
+import { makeLabelId } from "../ArgumentInfo";
 
 import "./SettingsInput.scss";
 
@@ -71,7 +72,7 @@ export function SettingsInput(opts: SettingsInputProps) {
           />
         ) : null}
 
-        <label htmlFor={name}>{label}</label>
+        <label id={makeLabelId(name)}>{label}</label>
       </div>
       <MainInputBody
         {...opts}

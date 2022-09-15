@@ -1,4 +1,5 @@
 import type { InputComponentProps } from "../ArgumentInfo";
+import { makeLabelId } from "../ArgumentInfo";
 
 export function StringInput({
   id,
@@ -7,6 +8,7 @@ export function StringInput({
 }: InputComponentProps<string>) {
   return (
     <input
+      aria-labelledby={makeLabelId(id)}
       id={id}
       type="text"
       value={value}

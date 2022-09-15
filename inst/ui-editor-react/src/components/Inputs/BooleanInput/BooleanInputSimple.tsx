@@ -1,9 +1,10 @@
 import type { InputComponentProps } from "../SettingsFormBuilder/ArgumentInfo";
+import { makeLabelId } from "../SettingsFormBuilder/ArgumentInfo";
 
 import classes from "./styles.module.css";
 
 export function BooleanInputSimple({
-  id = "SUE-boolean-input",
+  id,
   value,
   onChange,
 }: InputComponentProps<boolean>) {
@@ -15,6 +16,7 @@ export function BooleanInputSimple({
       <input
         className={classes.checkboxInput}
         id={checkboxId}
+        aria-labelledby={makeLabelId(id)}
         type="checkbox"
         checked={value}
         onChange={handleChange}

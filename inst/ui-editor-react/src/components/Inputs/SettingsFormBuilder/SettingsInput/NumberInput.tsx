@@ -1,4 +1,5 @@
 import type { InputComponentProps } from "../ArgumentInfo";
+import { makeLabelId } from "../ArgumentInfo";
 
 export function NumberInput({
   id,
@@ -8,6 +9,7 @@ export function NumberInput({
   return (
     <input
       id={id}
+      aria-labelledby={makeLabelId(id)}
       type="number"
       value={value}
       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {

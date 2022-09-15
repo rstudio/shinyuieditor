@@ -55,6 +55,11 @@ export type ArgTypesMap = {
 
 export type ArgTypesNames = keyof ArgTypesMap;
 
+// /**
+//  * We need to keep track of what input components are not literally a single "input" tag so we can do labels properly.
+//  */
+// export const nonStandardInputComponent: ArgTypesNames[] = ["cssMeasure", "list"];
+
 export type ArgumentInfo = {
   [TypeName in ArgTypesNames]: {
     type: TypeName;
@@ -103,7 +108,11 @@ export type SettingsObj<Info extends SettingsInfo> = {
 };
 
 export type InputComponentProps<T, Opts extends object = {}> = {
-  id?: string;
+  id: string;
   value: T;
   onChange: (value: T) => void;
 } & Opts;
+
+export function makeLabelId(id: string) {
+  return id + "-label";
+}

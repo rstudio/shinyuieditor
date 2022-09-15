@@ -2,6 +2,7 @@ import React from "react";
 
 import { NumericInputSimple } from "../NumericInput/NumericInput";
 import type { InputComponentProps } from "../SettingsFormBuilder/ArgumentInfo";
+import { makeLabelId } from "../SettingsFormBuilder/ArgumentInfo";
 
 import type { CSSUnits } from "./index";
 import { defaultCounts } from "./index";
@@ -73,7 +74,11 @@ export function CSSUnitInputSimple({
   const no_count = count === null;
 
   return (
-    <div className={classes.wrapper} aria-label="Css Unit Input" id={id}>
+    <div
+      className={classes.wrapper}
+      aria-label="Css Unit Input"
+      aria-labelledby={makeLabelId(id)}
+    >
       <NumericInputSimple
         name="value-count"
         ariaLabel="value-count"
