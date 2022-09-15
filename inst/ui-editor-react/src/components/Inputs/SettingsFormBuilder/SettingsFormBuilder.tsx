@@ -1,3 +1,5 @@
+import { inANotInB } from "utils/array-helpers";
+
 import type {
   DynamicSettingsOptions,
   SettingsInfo,
@@ -36,6 +38,12 @@ export function SettingsFormBuilder<Info extends SettingsInfo>({
 }: SettingsInputsBuilderProps<Info> & {
   renderInputs?: (x: InputComponentsOutput<Info>) => JSX.Element;
 }) {
+  // Find unknown arguments and return those too
+  const unknownArgumentsNames = inANotInB(
+    Object.keys(settings),
+    Object.keys(settingsInfo)
+  );
+
   const PrebuildInputComponents = {
     inputs: knownArgumentInputs({
       settings,
@@ -43,13 +51,13 @@ export function SettingsFormBuilder<Info extends SettingsInfo>({
       dynamicOptions,
       onSettingsChange,
     }),
-    unknownArguments: (
-      <UnknownArgumentItems
-        settings={settings}
-        settingsInfo={settingsInfo}
-        onSettingsChange={onSettingsChange}
-      />
-    ),
+    unknownArguments:
+      unknownArgumentsNames.length === 0 ? null : (
+        <UnknownArgumentItems
+          unknownArgumentsNames={unknownArgumentsNames}
+          onSettingsChange={onSettingsChange}
+        />
+      ),
   } as InputComponentsOutput<Info>;
 
   return (

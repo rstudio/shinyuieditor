@@ -1,5 +1,4 @@
 import { Trash } from "components/Icons";
-import { inANotInB } from "utils/array-helpers";
 
 import Button from "../Button/Button";
 
@@ -34,16 +33,13 @@ function UnknownArgumentItem({
   );
 }
 
-export function UnknownArgumentItems<Info extends SettingsInfo>({
-  settings,
-  settingsInfo,
+export function UnknownArgumentItems({
+  unknownArgumentsNames,
   onSettingsChange,
-}: SettingsInputsBuilderProps<Info>) {
+}: Pick<SettingsInputsBuilderProps<SettingsInfo>, "onSettingsChange"> & {
+  unknownArgumentsNames: Array<keyof SettingsInfo>;
+}) {
   // Find unknown arguments and return those too
-  const unknownArgumentsNames = inANotInB(
-    Object.keys(settings),
-    Object.keys(settingsInfo)
-  );
 
   if (unknownArgumentsNames.length === 0) return null;
 
