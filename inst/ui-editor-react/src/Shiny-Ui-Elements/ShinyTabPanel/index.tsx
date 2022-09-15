@@ -24,7 +24,7 @@ export const shinyTabPanelDefaultSettings: TabPanelSettings = {
 export const shinyTabPanelInfo: UiComponentInfo<TabPanelSettings> = {
   title: "Tab Panel",
   UiComponent: ShinyTabPanel,
-  settingsInfo: TabPanelSettingsInfo,
+  // settingsInfo: TabPanelSettingsInfo,
   SettingsComponent: ShinyTabPanelSettings,
   acceptsChildren: true,
   defaultSettings: shinyTabPanelDefaultSettings,

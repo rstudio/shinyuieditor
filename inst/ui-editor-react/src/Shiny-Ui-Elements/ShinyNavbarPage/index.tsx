@@ -41,9 +41,7 @@ export type NavbarPageSettings = {
   selected?: string;
 };
 
-export const shinyNavbarPageDefaultSettings: SettingsObj<
-  typeof NavbarPageSettingsInfo
-> = {
+export const shinyNavbarPageDefaultSettings: NavbarPageSettings = {
   title: "My Shiny App",
   collapsible: false,
 };
@@ -51,7 +49,7 @@ export const shinyNavbarPageDefaultSettings: SettingsObj<
 export const shinyNavbarPageInfo: UiComponentInfo<NavbarPageSettings> = {
   title: "Navbar Page",
   UiComponent: ShinyNavbarPage,
-  settingsInfo: NavbarPageSettingsInfo,
+  // settingsInfo: NavbarPageSettingsInfo,
   SettingsComponent: ShinyNavbarPageSettings,
   acceptsChildren: true,
   defaultSettings: shinyNavbarPageDefaultSettings,

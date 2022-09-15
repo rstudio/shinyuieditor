@@ -30,7 +30,7 @@ export type ShinyPlotOutputProps = {
 export const shinyPlotOutputInfo: UiComponentInfo<ShinyPlotOutputProps> = {
   title: "Plot Output",
   UiComponent: ShinyPlotOutput,
-  settingsInfo: ShinyPlotOutputSettingsInfo,
+  // settingsInfo: ShinyPlotOutputSettingsInfo,
   SettingsComponent: ShinyPlotOutputSettings,
   acceptsChildren: false,
   defaultSettings: { outputId: "plot", width: "100%", height: "400px" },

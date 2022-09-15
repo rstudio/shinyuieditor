@@ -35,32 +35,32 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
 
   let settingsForm: JSX.Element;
 
-  const settingsInfo = shinyUiNodeInfo[uiName].settingsInfo;
-  if (settingsInfo) {
-    settingsForm = (
-      <SettingsFormBuilder
-        settingsInfo={settingsInfo}
-        settings={uiArguments as SettingsObj<typeof settingsInfo>}
-        onSettingsChange={(name, action) => {
-          if (action.type === "UPDATE") {
-            updateArgumentsByName({ name, value: action.value });
-          } else {
-            updateArgumentsByName({ name, value: undefined });
-          }
-        }}
-      />
-    );
-  } else {
-    settingsForm = (
-      <form className={classes.settingsForm} onSubmit={stopDefaultSubmit}>
-        <div className={classes.settingsInputs}>
-          <SettingsUpdateContext onChange={updateArgumentsByName}>
-            <SettingsInputs settings={uiArguments} node={currentNode} />
-          </SettingsUpdateContext>
-        </div>
-      </form>
-    );
-  }
+  // const settingsInfo = shinyUiNodeInfo[uiName].settingsInfo;
+  // if (settingsInfo) {
+  //   settingsForm = (
+  //     <SettingsFormBuilder
+  //       settingsInfo={settingsInfo}
+  //       settings={uiArguments as SettingsObj<typeof settingsInfo>}
+  //       onSettingsChange={(name, action) => {
+  //         if (action.type === "UPDATE") {
+  //           updateArgumentsByName({ name, value: action.value });
+  //         } else {
+  //           updateArgumentsByName({ name, value: undefined });
+  //         }
+  //       }}
+  //     />
+  //   );
+  // } else {
+  settingsForm = (
+    <form className={classes.settingsForm} onSubmit={stopDefaultSubmit}>
+      <div className={classes.settingsInputs}>
+        <SettingsUpdateContext onChange={updateArgumentsByName}>
+          <SettingsInputs settings={uiArguments} node={currentNode} />
+        </SettingsUpdateContext>
+      </div>
+    </form>
+  );
+  // }
 
   return (
     <div className={classes.settingsPanel + " properties-panel"}>
