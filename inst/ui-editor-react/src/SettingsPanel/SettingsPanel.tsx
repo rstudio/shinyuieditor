@@ -1,4 +1,6 @@
 import DeleteNodeButton from "components/DeleteNodeButton";
+import type { SettingsObj } from "components/Inputs/SettingsFormBuilder/ArgumentInfo";
+import { SettingsFormBuilder } from "components/Inputs/SettingsFormBuilder/SettingsFormBuilder";
 import { SettingsUpdateContext } from "components/Inputs/SettingsUpdateContext";
 import type {
   SettingsUpdaterComponent,
@@ -31,6 +33,35 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
   const SettingsInputs = shinyUiNodeInfo[uiName]
     .SettingsComponent as SettingsUpdaterComponent<typeof uiArguments>;
 
+  let settingsForm: JSX.Element;
+
+  const settingsInfo = shinyUiNodeInfo[uiName].settingsInfo;
+  if (settingsInfo) {
+    settingsForm = (
+      <SettingsFormBuilder
+        settingsInfo={settingsInfo}
+        settings={uiArguments as SettingsObj<typeof settingsInfo>}
+        onSettingsChange={(name, action) => {
+          if (action.type === "UPDATE") {
+            updateArgumentsByName({ name, value: action.value });
+          } else {
+            updateArgumentsByName({ name, value: undefined });
+          }
+        }}
+      />
+    );
+  } else {
+    settingsForm = (
+      <form className={classes.settingsForm} onSubmit={stopDefaultSubmit}>
+        <div className={classes.settingsInputs}>
+          <SettingsUpdateContext onChange={updateArgumentsByName}>
+            <SettingsInputs settings={uiArguments} node={currentNode} />
+          </SettingsUpdateContext>
+        </div>
+      </form>
+    );
+  }
+
   return (
     <div className={classes.settingsPanel + " properties-panel"}>
       <div className={classes.currentElementAbout}>
@@ -40,13 +71,7 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
           onSelect={setNodeSelection}
         />
       </div>
-      <form className={classes.settingsForm} onSubmit={stopDefaultSubmit}>
-        <div className={classes.settingsInputs}>
-          <SettingsUpdateContext onChange={updateArgumentsByName}>
-            <SettingsInputs settings={uiArguments} node={currentNode} />
-          </SettingsUpdateContext>
-        </div>
-      </form>
+      {settingsForm}
       <div className={classes.buttonsHolder}>
         {!isRootNode ? <DeleteNodeButton path={selectedPath} /> : null}
       </div>

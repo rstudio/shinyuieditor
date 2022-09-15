@@ -1,5 +1,9 @@
 import type React from "react";
 
+import type {
+  SettingsInfo,
+  SettingsObj,
+} from "components/Inputs/SettingsFormBuilder/ArgumentInfo";
 import type { DeleteAction, UpdateAction } from "state/uiTree";
 
 import { gridlayoutGridCardInfo } from "./GridlayoutGridCard";
@@ -35,11 +39,13 @@ export type UiComponentInfo<NodeSettings extends object> = {
    * Component for rendering the settings/ arguments form
    */
   SettingsComponent: SettingsUpdaterComponent<NodeSettings>;
+
+  settingsInfo?: SettingsInfo;
   /**
    * The settings that a freshly initialized node will take. These will also be
    * used to fill in any missing arguments if they are provided.
    */
-  defaultSettings: NodeSettings;
+  defaultSettings: SettingsObj<SettingsInfo> | NodeSettings;
   /**
    * The source of the icon. This comes from the importing of a png. If this is
    * not provided then the node will not show up in the element palette.
