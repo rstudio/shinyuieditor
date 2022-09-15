@@ -1,17 +1,14 @@
 import React from "react";
 
-import {
-  deparseCSSMeasure,
-  parseCSSMeasure,
-} from "components/Inputs/CSSUnitInput/css-helpers";
-
-import type { CSSMeasure } from "../../../CSSMeasure";
 import { NumericInputSimple } from "../NumericInput/NumericInput";
 import type { InputComponentProps } from "../SettingsFormBuilder/ArgumentInfo";
 
 import type { CSSUnits } from "./index";
 import { defaultCounts } from "./index";
 
+import type { CSSMeasure } from "./CSSMeasure";
+import { deparseCSSMeasure } from "./CSSMeasure";
+import { parseCSSMeasure } from "./CSSMeasure";
 import { CSSUnitInfo } from "./CSSUnitInfo";
 import classes from "./CSSUnitInput.module.css";
 

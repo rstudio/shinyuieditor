@@ -1,4 +1,7 @@
-import type { CSSMeasure, CSSUnits } from "CSSMeasure";
+import type {
+  CSSMeasure,
+  CSSUnits,
+} from "components/Inputs/CSSUnitInput/CSSMeasure";
 
 import type { NamedList } from "../ListInput/NamedListInput";
 import type { DropdownOption } from "../OptionsDropdown/DropdownSelect";

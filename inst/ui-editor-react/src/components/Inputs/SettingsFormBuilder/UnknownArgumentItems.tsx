@@ -6,7 +6,7 @@ import Button from "../Button/Button";
 import type { SettingsInfo } from "./ArgumentInfo";
 import type { SettingsInputsBuilderProps } from "./SettingsFormBuilder";
 
-export function UnknownArgumentItem({
+function UnknownArgumentItem({
   name,
   onRemove,
 }: {

@@ -1,6 +1,6 @@
 import React from "react";
 
-import type { CSSMeasure } from "CSSMeasure";
+import type { CSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
 
 import type {
   TemplatedGridProps,

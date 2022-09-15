@@ -1,9 +1,12 @@
 import * as React from "react";
 
 import { Trash } from "components/Icons";
+import type {
+  CSSMeasure,
+  CSSUnits,
+} from "components/Inputs/CSSUnitInput/CSSMeasure";
 import { CSSUnitInputSimple } from "components/Inputs/CSSUnitInput/CSSUnitInputSimple";
 import { PopoverButton } from "components/Inputs/PopoverButton";
-import type { CSSMeasure, CSSUnits } from "CSSMeasure";
 import { FaPlus } from "react-icons/fa";
 import { conflictsToRemoveTract } from "utils/gridTemplates/removeTract";
 

@@ -3,9 +3,9 @@ import { useState } from "react";
 import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import type { CSSMeasure } from "../../../CSSMeasure";
-
 import { CSSUnitInput } from ".";
+
+import type { CSSMeasure } from "./CSSMeasure";
 
 function UseCssUnitInput({ initialValue }: { initialValue: CSSMeasure }) {
   const [value, setValue] = useState<CSSMeasure>(initialValue);

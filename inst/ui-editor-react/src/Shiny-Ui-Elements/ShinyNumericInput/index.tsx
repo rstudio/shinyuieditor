@@ -1,5 +1,5 @@
 import numericInputIcon from "assets/icons/shinyNumericinput.png";
-import type { CSSMeasure } from "CSSMeasure";
+import type { CSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 

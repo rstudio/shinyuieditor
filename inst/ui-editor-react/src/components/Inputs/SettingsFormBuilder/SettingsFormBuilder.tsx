@@ -8,7 +8,7 @@ import type {
   SettingsUpdateAction,
 } from "./SettingsInput/SettingsInput";
 import { SettingsInput } from "./SettingsInput/SettingsInput";
-import { UnknownArgumentItems } from "./UnknownArgumentItem";
+import { UnknownArgumentItems } from "./UnknownArgumentItems";
 
 export type InputComponentsMap<Settings extends SettingsInfo> = Record<
   keyof Settings,

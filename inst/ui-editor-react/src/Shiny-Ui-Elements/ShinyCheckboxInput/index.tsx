@@ -1,5 +1,5 @@
 import inputIcon from "assets/icons/shinycheckbox.png";
-import type { CSSMeasure } from "CSSMeasure";
+import type { CSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 

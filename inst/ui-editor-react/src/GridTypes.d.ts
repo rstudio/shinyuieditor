@@ -1,4 +1,4 @@
-import type { CSSMeasure } from "./CSSMeasure";
+import type { CSSMeasure } from "./components/Inputs/CSSUnitInput/CSSMeasure";
 
 // A single export is needed in this file to let typescript know the types go out
 export type GridPos = {

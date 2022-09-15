@@ -1,6 +1,6 @@
 import icon from "assets/icons/shinyCheckgroup.png";
+import type { CSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
 import type { NamedList } from "components/Inputs/ListInput/NamedListInput";
-import type { CSSMeasure } from "CSSMeasure";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 
