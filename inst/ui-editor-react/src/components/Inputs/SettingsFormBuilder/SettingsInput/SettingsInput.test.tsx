@@ -15,7 +15,7 @@ describe("Required inputs work", async () => {
         name="name"
         value={"test"}
         defaultValue="name default"
-        type="string"
+        inputType="string"
         label="String Input"
         onUpdate={onChange}
       />
@@ -33,7 +33,7 @@ describe("Required inputs work", async () => {
     const onChange = vi.fn();
     render(
       <SettingsInput
-        type="number"
+        inputType="number"
         name="name"
         value={42}
         defaultValue={10}
@@ -56,7 +56,7 @@ describe("Required inputs work", async () => {
     const onChange = vi.fn();
     render(
       <SettingsInput
-        type="cssMeasure"
+        inputType="cssMeasure"
         value={"4rem"}
         name="cssVal"
         defaultValue="4rem"
@@ -93,7 +93,7 @@ function StatefullOptionalText({
       name="myStringVal"
       value={value}
       defaultValue={defaultVal}
-      type="string"
+      inputType="string"
       label="Optional String Input"
       optional={true}
       onUpdate={updateValue}

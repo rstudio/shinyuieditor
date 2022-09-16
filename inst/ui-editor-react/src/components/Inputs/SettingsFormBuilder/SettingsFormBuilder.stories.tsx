@@ -19,22 +19,22 @@ const settingsInfo: SettingsInfo = {
   name: {
     defaultValue: "name default",
     label: "String argument",
-    type: "string",
+    inputType: "string",
   },
   myNumberArg: {
     defaultValue: 42,
     label: "Optional number argument",
     optional: true,
-    type: "number",
+    inputType: "number",
   },
   myCSSArg: {
-    type: "cssMeasure",
+    inputType: "cssMeasure",
     label: "I am a css measure",
     defaultValue: "1rem",
     optional: true,
   },
   myBooleanArg: {
-    type: "boolean",
+    inputType: "boolean",
     label: "I am a boolean measure",
     defaultValue: true,
     optional: true,
@@ -181,7 +181,7 @@ export const AutoBuild = () => {
 
 const tabsetArgumentInfo: DynamicSettingsInfo = {
   selected: {
-    type: "optionsDropdown",
+    inputType: "optionsDropdown",
     optional: true,
     label: "Selected tab on load",
     defaultValue: (node) => {
@@ -202,7 +202,7 @@ const tabsetArgumentInfo: DynamicSettingsInfo = {
     },
   },
   id: {
-    type: "string",
+    inputType: "string",
     label: "Id for tabset",
     defaultValue: "tabset-default-id",
     optional: true,

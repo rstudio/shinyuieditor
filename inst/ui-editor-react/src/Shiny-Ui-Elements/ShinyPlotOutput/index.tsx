@@ -8,15 +8,15 @@ import ShinyPlotOutput from "./ShinyPlotOutput";
 
 export const ShinyPlotOutputSettingsInfo: SettingsInfo = {
   outputId: {
-    type: "string",
+    inputType: "string",
     defaultValue: "plot",
   },
   width: {
-    type: "cssMeasure",
+    inputType: "cssMeasure",
     defaultValue: "100%",
   },
   height: {
-    type: "cssMeasure",
+    inputType: "cssMeasure",
     defaultValue: "400px",
   },
 };

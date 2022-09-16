@@ -13,42 +13,42 @@ import type {
 
 export type ArgumentTypeUnion =
   | {
-      type: "string";
+      inputType: "string";
       value: string;
     }
   | {
-      type: "number";
+      inputType: "number";
       value: number;
       // Currently not used at all
       min?: number;
       max?: number;
     }
   | {
-      type: "cssMeasure";
+      inputType: "cssMeasure";
       value: CSSMeasure;
       units?: CSSUnits[];
     }
-  | { type: "boolean"; value: boolean }
+  | { inputType: "boolean"; value: boolean }
   | {
-      type: "list";
+      inputType: "list";
       value: NamedList;
       newItemValue?: { key: string; value: string };
     }
   | {
-      type: "optionsDropdown";
+      inputType: "optionsDropdown";
       value: DropdownOption;
       choices: DropdownOption[];
     }
   | {
-      type: "radioInput";
+      inputType: "radioInput";
       value: RadioInputChoice;
       choices: RadioInputOptions;
     };
 
-export type ArgTypesNames = ArgumentTypeUnion["type"];
+export type ArgTypesNames = ArgumentTypeUnion["inputType"];
 export type KnownArgTypes = ArgumentTypeUnion["value"];
 
-export type ArgTypesMap = MapDiscriminatedUnion<ArgumentTypeUnion, "type">;
+export type ArgTypesMap = MapDiscriminatedUnion<ArgumentTypeUnion, "inputType">;
 
 export type ArgumentInfoByType = {
   [ArgType in ArgTypesNames]: {

@@ -37,7 +37,7 @@ export const RequiredStringInput = () => {
       name="name"
       value={value}
       defaultValue="name default"
-      type="string"
+      inputType="string"
       label="This is my name"
       onUpdate={updateValue}
     />
@@ -60,7 +60,7 @@ export const OptionalNumberInput = () => {
       name="myNumberArg"
       value={value}
       defaultValue={42}
-      type="number"
+      inputType="number"
       label="This is a value"
       optional={true}
       onUpdate={updateValue}
@@ -83,7 +83,7 @@ export const MissingNonOptionalInput = () => {
       name="name"
       value={value}
       defaultValue={"name default"}
-      type="string"
+      inputType="string"
       label="This is my name"
       onUpdate={updateValue}
     />
@@ -103,7 +103,7 @@ export const CSSInput = () => {
     <SettingsInput
       name="cssVal"
       value={value}
-      type="cssMeasure"
+      inputType="cssMeasure"
       defaultValue="4rem"
       label="CSS Value"
       onUpdate={updateValue}
@@ -130,7 +130,7 @@ export const MismatchedType = () => {
     <SettingsInput
       name="mismatchedType"
       value={value}
-      type="string"
+      inputType="string"
       defaultValue="default string value"
       label="Number in a string hole"
       onUpdate={updateValue}
@@ -152,7 +152,7 @@ export const BooleanInput = () => {
     <SettingsInput
       name="myBooleanVar"
       value={value}
-      type="boolean"
+      inputType="boolean"
       defaultValue={true}
       label="Boolean input"
       onUpdate={updateValue}
@@ -177,7 +177,7 @@ export const ListInput = () => {
     <SettingsInput
       name="myListVar"
       value={value}
-      type="list"
+      inputType="list"
       defaultValue={{}}
       label="List input"
       onUpdate={updateValue}
@@ -207,7 +207,7 @@ export const DropdownInput = () => {
     <SettingsInput
       name="myDropdown"
       value={value}
-      type="optionsDropdown"
+      inputType="optionsDropdown"
       defaultValue={DEFAULT_DROPDOWN_CHOICE}
       label="Dropdown input"
       optional={true}
@@ -242,7 +242,7 @@ export const RadioInput = () => {
     <SettingsInput
       name="myRadio"
       value={value}
-      type="radioInput"
+      inputType="radioInput"
       defaultValue={DEFAULT_RADIO_CHOICE}
       label="Radio inputs"
       optional={true}

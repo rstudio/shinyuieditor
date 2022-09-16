@@ -8,7 +8,7 @@ import ShinyTabPanel from "./ShinyTabPanel";
 
 export const TabPanelSettingsInfo: SettingsInfo = {
   title: {
-    type: "string",
+    inputType: "string",
     defaultValue: "My Shiny App",
   },
 };

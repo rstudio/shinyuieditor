@@ -38,39 +38,40 @@ const inputComps = {
 };
 
 export function SettingsInputElement(args: SettingsInputElementProps) {
-  if (!(args.type in inputComps)) {
+  if (!(args.inputType in inputComps)) {
     return (
       <div>
-        I don't know how to render the input of type {args.type} yet! Sorry.
+        I don't know how to render the input of type {args.inputType} yet!
+        Sorry.
       </div>
     );
   }
 
-  if (args.type === "string") {
+  if (args.inputType === "string") {
     return <inputComps.string {...args} />;
   }
 
-  if (args.type === "number") {
+  if (args.inputType === "number") {
     return <inputComps.number {...args} />;
   }
 
-  if (args.type === "cssMeasure") {
+  if (args.inputType === "cssMeasure") {
     return <inputComps.cssMeasure {...args} />;
   }
 
-  if (args.type === "boolean") {
+  if (args.inputType === "boolean") {
     return <inputComps.boolean {...args} />;
   }
 
-  if (args.type === "list") {
+  if (args.inputType === "list") {
     return <inputComps.list {...args} />;
   }
 
-  if (args.type === "optionsDropdown") {
+  if (args.inputType === "optionsDropdown") {
     return <inputComps.optionsDropdown {...args} />;
   }
 
-  if (args.type === "radioInput") {
+  if (args.inputType === "radioInput") {
     return <inputComps.radioInput {...args} />;
   }
 

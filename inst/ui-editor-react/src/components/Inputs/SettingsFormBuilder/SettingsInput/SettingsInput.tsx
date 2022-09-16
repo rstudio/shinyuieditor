@@ -61,7 +61,7 @@ export function SettingsInput({ onUpdate, ...opts }: SettingsInputProps) {
       );
     }
   } else {
-    if (!valueIsType(opts.value, opts.type)) {
+    if (!valueIsType(opts.value, opts.inputType)) {
       mainInputBody = (
         <MismatchedTypeMessage name={opts.name} onReset={setToDefault} />
       );

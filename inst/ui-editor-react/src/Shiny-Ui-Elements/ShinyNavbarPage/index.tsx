@@ -10,23 +10,23 @@ import ShinyNavbarPage from "./ShinyNavbarPage";
 
 export const NavbarPageSettingsInfo: DynamicSettingsInfo = {
   title: {
-    type: "string",
+    inputType: "string",
     label: "Page title",
     defaultValue: "navbar-page",
   },
   id: {
-    type: "string",
+    inputType: "string",
     label: "Id for tabset",
     defaultValue: "tabset-default-id",
     optional: true,
   },
   collapsible: {
     label: "Allow menu to collapse?",
-    type: "boolean",
+    inputType: "boolean",
     defaultValue: false,
   },
   selected: {
-    type: "optionsDropdown",
+    inputType: "optionsDropdown",
     optional: true,
     label: "Selected tab on load",
     defaultValue: ({ uiChildren }) => {
