@@ -3,6 +3,7 @@ import type {
   CSSUnits,
 } from "components/Inputs/CSSUnitInput/CSSMeasure";
 
+import type { MapDiscriminatedUnion } from "../../../TypescriptUtils";
 import type { NamedList } from "../ListInput/NamedListInput";
 import type { DropdownOption } from "../OptionsDropdown/DropdownSelect";
 import type {
@@ -10,67 +11,49 @@ import type {
   RadioInputOptions,
 } from "../RadioInputs/RadioInputsSimple";
 
-export type ArgTypesMap = {
-  string: {
-    defaultValue: string;
-    options?: {};
-  };
-  number: {
-    defaultValue: number;
-    options?: {
+export type ArgumentTypeUnion =
+  | {
+      type: "string";
+      value: string;
+    }
+  | {
+      type: "number";
+      value: number;
       // Currently not used at all
-      min: number;
-      max: number;
-    };
-  };
-  cssMeasure: {
-    defaultValue: CSSMeasure;
-    options?: {
-      units: CSSUnits[];
-    };
-  };
-  boolean: {
-    defaultValue: boolean;
-    options?: {};
-  };
-  list: {
-    defaultValue: NamedList;
-    options?: {
+      min?: number;
+      max?: number;
+    }
+  | {
+      type: "cssMeasure";
+      value: CSSMeasure;
+      units?: CSSUnits[];
+    }
+  | { type: "boolean"; value: boolean }
+  | {
+      type: "list";
+      value: NamedList;
       newItemValue?: { key: string; value: string };
-    };
-  };
-  optionsDropdown: {
-    defaultValue: DropdownOption;
-    options: {
+    }
+  | {
+      type: "optionsDropdown";
+      value: DropdownOption;
       choices: DropdownOption[];
-    };
-  };
-  radioInput: {
-    defaultValue: RadioInputChoice;
-    options: {
+    }
+  | {
+      type: "radioInput";
+      value: RadioInputChoice;
       choices: RadioInputOptions;
     };
-  };
+
+// Add common non-type-specific props to type union
+export type ArgumentInfo = ArgumentTypeUnion & {
+  label?: string;
+  optional?: true;
 };
 
-export type ArgTypesNames = keyof ArgTypesMap;
-
-// /**
-//  * We need to keep track of what input components are not literally a single "input" tag so we can do labels properly.
-//  */
-// export const nonStandardInputComponent: ArgTypesNames[] = ["cssMeasure", "list"];
-
-export type ArgumentInfo = {
-  [TypeName in ArgTypesNames]: {
-    type: TypeName;
-    label?: string;
-    requiredOrOptional?: "optional" | "required";
-  } & ArgTypesMap[TypeName];
-}[ArgTypesNames];
-
-export type KnownArgTypes = {
-  [TypeName in ArgTypesNames]: ArgTypesMap[TypeName]["defaultValue"];
-}[ArgTypesNames];
+export type ArgTypesMap = MapDiscriminatedUnion<ArgumentInfo, "type">;
+export type ArgTypesNames = ArgumentInfo["type"];
+export type KnownArgTypes = ArgumentInfo["value"];
 
 // Add undefined as some arguments are optional and when not provided return
 // undefined
@@ -78,33 +61,25 @@ export type PossibleArgTypes = KnownArgTypes | undefined;
 
 export type SettingsInfo = Record<string, ArgumentInfo>;
 
-export type DynamicSettingsOptions<Info extends SettingsInfo> = {
-  [ArgName in keyof Info]: ArgTypesMap[Info[ArgName]["type"]]["options"];
-};
-
 // Helper types to extract list of names that are optional or not based on the
 // presence of the "optional" key in the settings object. Important to note that
 // this means putting anything (true _or_ false) in the optional field will make
 // it optional, which is maybe a bit confusing but will work out fine because
 // javascript will do runtime checks
 type OptionalSettingsKeys<Info extends SettingsInfo> = {
-  [K in keyof Info]-?: "optional" extends Info[K]["requiredOrOptional"]
-    ? never
-    : K;
+  [K in keyof Info]-?: true extends Info[K]["optional"] ? never : K;
 }[keyof Info];
 
 type RequiredSettingsKeys<Info extends SettingsInfo> = {
-  [K in keyof Info]-?: "optional" extends Info[K]["requiredOrOptional"]
-    ? K
-    : never;
+  [K in keyof Info]-?: true extends Info[K]["optional"] ? K : never;
 }[keyof Info];
 
 // Now build the settings object based on the info object making the "optional"
 // parameters just that
 export type SettingsObj<Info extends SettingsInfo> = {
-  [K in OptionalSettingsKeys<Info>]?: Info[K]["defaultValue"];
+  [K in OptionalSettingsKeys<Info>]?: Info[K]["value"];
 } & {
-  [K in RequiredSettingsKeys<Info>]: Info[K]["defaultValue"];
+  [K in RequiredSettingsKeys<Info>]: Info[K]["value"];
 };
 
 export type InputComponentProps<T, Opts extends object = {}> = {

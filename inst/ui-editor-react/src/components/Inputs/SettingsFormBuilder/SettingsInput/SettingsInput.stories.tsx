@@ -39,8 +39,7 @@ export const RequiredStringInput = () => {
       defaultValue="name default"
       type="string"
       label="This is my name"
-      requiredOrOptional="required"
-      onChange={updateValue}
+      onUpdate={updateValue}
     />
   );
 };
@@ -63,8 +62,8 @@ export const OptionalNumberInput = () => {
       defaultValue={42}
       type="number"
       label="This is a value"
-      requiredOrOptional="optional"
-      onChange={updateValue}
+      optional={true}
+      onUpdate={updateValue}
     />
   );
 };
@@ -86,8 +85,7 @@ export const MissingNonOptionalInput = () => {
       defaultValue={"name default"}
       type="string"
       label="This is my name"
-      requiredOrOptional="required"
-      onChange={updateValue}
+      onUpdate={updateValue}
     />
   );
 };
@@ -108,8 +106,7 @@ export const CSSInput = () => {
       type="cssMeasure"
       defaultValue="4rem"
       label="CSS Value"
-      requiredOrOptional="required"
-      onChange={updateValue}
+      onUpdate={updateValue}
     />
   );
 };
@@ -136,8 +133,7 @@ export const MismatchedType = () => {
       type="string"
       defaultValue="default string value"
       label="Number in a string hole"
-      requiredOrOptional="required"
-      onChange={updateValue}
+      onUpdate={updateValue}
     />
   );
 };
@@ -159,8 +155,7 @@ export const BooleanInput = () => {
       type="boolean"
       defaultValue={true}
       label="Boolean input"
-      requiredOrOptional="required"
-      onChange={updateValue}
+      onUpdate={updateValue}
     />
   );
 };
@@ -185,13 +180,10 @@ export const ListInput = () => {
       type="list"
       defaultValue={{}}
       label="List input"
-      requiredOrOptional="required"
-      onChange={updateValue}
-      options={{
-        newItemValue: {
-          key: "new",
-          value: "value",
-        },
+      onUpdate={updateValue}
+      newItemValue={{
+        key: "new",
+        value: "value",
       }}
     />
   );
@@ -218,11 +210,9 @@ export const DropdownInput = () => {
       type="optionsDropdown"
       defaultValue={DEFAULT_DROPDOWN_CHOICE}
       label="Dropdown input"
-      requiredOrOptional="optional"
-      onChange={updateValue}
-      options={{
-        choices: ["b", "a", "c"],
-      }}
+      optional={true}
+      onUpdate={updateValue}
+      choices={["b", "a", "c"]}
     />
   );
 };
@@ -255,11 +245,9 @@ export const RadioInput = () => {
       type="radioInput"
       defaultValue={DEFAULT_RADIO_CHOICE}
       label="Radio inputs"
-      requiredOrOptional="optional"
-      onChange={updateValue}
-      options={{
-        choices: horizontalAlignOptions,
-      }}
+      optional={true}
+      onUpdate={updateValue}
+      choices={horizontalAlignOptions}
     />
   );
 };

@@ -7,6 +7,7 @@ import { RadioInputsSimple } from "components/Inputs/RadioInputs/RadioInputsSimp
 import type {
   ArgTypesMap,
   ArgTypesNames,
+  ArgumentTypeUnion,
   KnownArgTypes,
 } from "../ArgumentInfo";
 
@@ -21,18 +22,10 @@ import { StringInput } from "./StringInput";
  */
 export type OnChangeCallback = (newValue: KnownArgTypes) => void;
 
-type SettingsInputElementPropsByType = {
-  [T in ArgTypesNames]: {
-    id: string;
-    type: T;
-    value: ArgTypesMap[T]["defaultValue"];
-    onChange: OnChangeCallback;
-    options: ArgTypesMap[T]["options"];
-  };
+export type SettingsInputElementProps = ArgumentTypeUnion & {
+  id: string;
+  onChange: OnChangeCallback;
 };
-
-export type SettingsInputElementProps =
-  SettingsInputElementPropsByType[keyof ArgTypesMap];
 
 const inputComps = {
   string: StringInput,
@@ -45,70 +38,47 @@ const inputComps = {
 };
 
 export function SettingsInputElement(args: SettingsInputElementProps) {
-  const { type, id, value, onChange, options } = args;
-
-  if (!(type in inputComps)) {
+  if (!(args.type in inputComps)) {
     return (
-      <div>I don't know how to render the input of type {type} yet! Sorry.</div>
+      <div>
+        I don't know how to render the input of type {args.type} yet! Sorry.
+      </div>
     );
   }
 
-  if (type === "string") {
-    return <inputComps.string id={id} value={value} onChange={onChange} />;
+  if (args.type === "string") {
+    return <inputComps.string {...args} />;
   }
 
-  if (type === "number") {
-    return <inputComps.number id={id} value={value} onChange={onChange} />;
+  if (args.type === "number") {
+    return <inputComps.number {...args} />;
   }
 
-  if (type === "cssMeasure") {
-    return (
-      <inputComps.cssMeasure
-        id={id}
-        value={value}
-        onChange={onChange}
-        units={options?.units}
-      />
-    );
+  if (args.type === "cssMeasure") {
+    return <inputComps.cssMeasure {...args} />;
   }
 
-  if (type === "boolean") {
-    return <inputComps.boolean id={id} value={value} onChange={onChange} />;
+  if (args.type === "boolean") {
+    return <inputComps.boolean {...args} />;
   }
 
-  if (type === "list") {
-    return (
-      <inputComps.list
-        id={id}
-        value={value}
-        onChange={onChange}
-        newItemValue={options?.newItemValue}
-      />
-    );
+  if (args.type === "list") {
+    return <inputComps.list {...args} />;
   }
 
-  if (type === "optionsDropdown") {
-    return (
-      <inputComps.optionsDropdown
-        id={id}
-        value={value}
-        onChange={onChange}
-        choices={options.choices}
-      />
-    );
+  if (args.type === "optionsDropdown") {
+    return <inputComps.optionsDropdown {...args} />;
   }
 
-  if (type === "radioInput") {
-    return (
-      <inputComps.radioInput
-        id={id}
-        value={value}
-        onChange={onChange}
-        choices={options.choices}
-      />
-    );
+  if (args.type === "radioInput") {
+    return <inputComps.radioInput {...args} />;
   }
+
+  // eslint-disable-next-line no-console
+  console.warn(args);
   return (
-    <div>I don't know how to render the input of type {type} yet! Sorry.</div>
+    <div>
+      Not exactly sure how you got here. Invalid settings input arguments
+    </div>
   );
 }

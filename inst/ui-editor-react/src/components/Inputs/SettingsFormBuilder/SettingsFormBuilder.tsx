@@ -1,10 +1,11 @@
+import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
 import { inANotInB } from "utils/array-helpers";
 
-import type {
-  DynamicSettingsOptions,
-  SettingsInfo,
-  SettingsObj,
-} from "./ArgumentInfo";
+import type { SettingsInfo, SettingsObj } from "./ArgumentInfo";
+import {
+  getValueFromProperty,
+  getValuesFromProperties,
+} from "./infoValueGetters";
 import type {
   SettingsInputProps,
   SettingsUpdateAction,
@@ -18,9 +19,9 @@ export type InputComponentsMap<Settings extends SettingsInfo> = Record<
 >;
 
 export type SettingsInputsBuilderProps<Info extends SettingsInfo> = {
-  settings: SettingsObj<Info>;
+  node: ShinyUiNode;
   settingsInfo: Info;
-  dynamicOptions?: DynamicSettingsOptions<Info>;
+  // settings: SettingsObj<Info>;
   onSettingsChange: (name: string, action: SettingsUpdateAction) => void;
 };
 
@@ -31,24 +32,22 @@ type InputComponentsOutput<Info extends SettingsInfo> = {
 
 export function SettingsFormBuilder<Info extends SettingsInfo>({
   renderInputs,
-  settings,
+  node,
   settingsInfo,
-  dynamicOptions,
   onSettingsChange,
 }: SettingsInputsBuilderProps<Info> & {
   renderInputs?: (x: InputComponentsOutput<Info>) => JSX.Element;
 }) {
   // Find unknown arguments and return those too
   const unknownArgumentsNames = inANotInB(
-    Object.keys(settings),
+    Object.keys(node.uiArguments),
     Object.keys(settingsInfo)
   );
 
   const PrebuildInputComponents = {
     inputs: knownArgumentInputs({
-      settings,
+      node,
       settingsInfo,
-      dynamicOptions,
       onSettingsChange,
     }),
     unknownArguments:
@@ -72,26 +71,35 @@ export function SettingsFormBuilder<Info extends SettingsInfo>({
 }
 
 function knownArgumentInputs<Info extends SettingsInfo>({
-  settings,
+  node,
   settingsInfo,
-  dynamicOptions,
   onSettingsChange,
 }: SettingsInputsBuilderProps<Info>) {
   const InputsComponents: Record<string, JSX.Element> = {};
+  const settings = node.uiArguments as SettingsObj<Info>;
 
   keysOf(settingsInfo).forEach((name) => {
     if (typeof name !== "string")
       throw new Error("How did that non-string key get in here?");
 
-    const { options, ...otherArgs } = settingsInfo[name];
+    // const {
+    //   label,
+    //   defaultValue,
+    //   requiredOrOptional
+    // } = settingsInfo[name];
+
+    // const options = "options" in settingsInfo[name] ? settingsInfo[name].options: {};
+
+    const { options, defaultValue, ...otherArgs } = settingsInfo[name];
 
     // If we have dynamic objects, overwrite the non-dynamic matches before
     // passing to settings input
-    const inputOptions = { ...options, ...dynamicOptions?.[name] };
+    const inputOptions = getValuesFromProperties(options ?? {}, node);
 
     const inputProps = {
       name,
       value: settings[name as keyof typeof settings],
+      defaultValue: getValueFromProperty(defaultValue, node),
       onChange: (updatedAction) => onSettingsChange(name, updatedAction),
       ...otherArgs,
       options: inputOptions,

@@ -2,14 +2,13 @@ import Button from "components/Inputs/Button/Button";
 
 import type {
   ArgTypesMap,
-  ArgTypesNames,
+  ArgumentTypeUnion,
   KnownArgTypes,
 } from "../ArgumentInfo";
 import { makeLabelId } from "../ArgumentInfo";
 
 import "./SettingsInput.scss";
 
-import type { SettingsInputElementProps } from "./SettingsInputElement";
 import { SettingsInputElement } from "./SettingsInputElement";
 import { valueIsType } from "./valueIsType";
 
@@ -22,41 +21,59 @@ export type SettingsUpdateAction =
       type: "REMOVE";
     };
 
-export type SettingsInputProps = {
-  [T in ArgTypesNames]: {
+type SettingsInputProps = {
+  [ArgType in keyof ArgTypesMap]: {
     name: string;
-    type: T;
-    value?: ArgTypesMap[T]["defaultValue"];
-    defaultValue: ArgTypesMap[T]["defaultValue"];
-    onChange: (x: SettingsUpdateAction) => void;
-    options?: ArgTypesMap[T]["options"];
-    label?: string;
-    requiredOrOptional?: "optional" | "required";
-  };
-}[ArgTypesNames];
+    value?: ArgTypesMap[ArgType]["value"];
+    defaultValue: ArgTypesMap[ArgType]["value"];
+    onUpdate: (x: SettingsUpdateAction) => void;
+  } & Omit<ArgTypesMap[ArgType], "value">;
+}[keyof ArgTypesMap];
 
-export function SettingsInput(opts: SettingsInputProps) {
-  const {
-    name,
-    value,
-    label = name,
-    defaultValue,
-    requiredOrOptional = "required",
-    onChange,
-  } = opts;
-
-  const argumentIsUnset = value === undefined;
-  const argumentIsOptional = requiredOrOptional === "optional";
+export function SettingsInput({ onUpdate, ...opts }: SettingsInputProps) {
+  const argumentIsUnset = opts.value === undefined;
+  const argumentIsOptional = opts.optional;
+  const labelId = makeLabelId(opts.name);
 
   const setToDefault = () =>
-    onChange({
+    onUpdate({
       type: "UPDATE",
-      value: defaultValue,
+      value: opts.defaultValue,
     });
 
   const updateArgument = (newVal: KnownArgTypes) =>
-    onChange({ type: "UPDATE", value: newVal });
-  const unsetArgument = () => onChange({ type: "REMOVE" });
+    onUpdate({ type: "UPDATE", value: newVal });
+
+  const unsetArgument = () => onUpdate({ type: "REMOVE" });
+
+  let mainInputBody: JSX.Element;
+
+  if (opts.value === undefined) {
+    if (opts.optional) {
+      mainInputBody = <UnsetArgumentMessage labelledBy={labelId} />;
+    } else {
+      mainInputBody = (
+        <MissingRequiredArgumentMessage
+          name={opts.name}
+          onReset={setToDefault}
+        />
+      );
+    }
+  } else {
+    if (!valueIsType(opts.value, opts.type)) {
+      mainInputBody = (
+        <MismatchedTypeMessage name={opts.name} onReset={setToDefault} />
+      );
+    } else {
+      mainInputBody = (
+        <SettingsInputElement
+          id={opts.name}
+          onChange={updateArgument}
+          {...(opts as ArgumentTypeUnion)}
+        />
+      );
+    }
+  }
 
   return (
     <div className="SUE-SettingsInput">
@@ -65,66 +82,17 @@ export function SettingsInput(opts: SettingsInputProps) {
           <input
             type="checkbox"
             checked={!argumentIsUnset}
-            title={`Use ${name} argument`}
-            aria-label={`Use ${name} argument`}
+            title={`Use ${opts.name} argument`}
+            aria-label={`Use ${opts.name} argument`}
             onChange={argumentIsUnset ? setToDefault : unsetArgument}
           />
         ) : null}
 
-        <label id={makeLabelId(name)}>{label}</label>
+        <label id={makeLabelId(opts.name)}>{opts.label ?? opts.name}</label>
       </div>
-      <MainInputBody
-        {...opts}
-        onReset={setToDefault}
-        onUpdate={updateArgument}
-      />
+      {mainInputBody}
     </div>
   );
-}
-
-function MainInputBody(
-  opts: Pick<
-    SettingsInputProps,
-    "name" | "value" | "type" | "requiredOrOptional" | "options"
-  > & {
-    onUpdate: (newVal: KnownArgTypes) => void;
-    onReset: () => void;
-  }
-) {
-  const {
-    name,
-    value,
-    type,
-    requiredOrOptional = "required",
-    options,
-    onReset,
-    onUpdate,
-  } = opts;
-
-  const argumentIsUnset = value === undefined;
-  const argumentIsOptional = requiredOrOptional === "optional";
-
-  if (argumentIsUnset && argumentIsOptional) {
-    return <UnsetArgumentMessage labelledBy={makeLabelId(name)} />;
-  }
-
-  if (argumentIsUnset && !argumentIsOptional) {
-    return <MissingRequiredArgumentMessage name={name} onReset={onReset} />;
-  }
-
-  if (valueIsType(value, type)) {
-    const inputArgs = {
-      id: name,
-      type,
-      value,
-      onChange: onUpdate,
-      options,
-    } as SettingsInputElementProps;
-
-    return <SettingsInputElement {...inputArgs} />;
-  }
-
-  return <MismatchedTypeMessage name={name} onReset={onReset} />;
 }
 
 function MismatchedTypeMessage({

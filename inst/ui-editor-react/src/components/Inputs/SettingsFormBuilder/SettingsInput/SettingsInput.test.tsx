@@ -1,10 +1,8 @@
-import { useState } from "react";
 import React from "react";
 
-import { render, screen, waitFor, within } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { vi } from "vitest";
-// import jest from "jest";
 
 import type { SettingsUpdateAction } from "./SettingsInput";
 import { SettingsInput } from "./SettingsInput";
@@ -19,7 +17,7 @@ describe("Required inputs work", async () => {
         defaultValue="name default"
         type="string"
         label="String Input"
-        onChange={onChange}
+        onUpdate={onChange}
       />
     );
 
@@ -40,7 +38,7 @@ describe("Required inputs work", async () => {
         value={42}
         defaultValue={10}
         label="Number Input"
-        onChange={onChange}
+        onUpdate={onChange}
       />
     );
 
@@ -63,8 +61,7 @@ describe("Required inputs work", async () => {
         name="cssVal"
         defaultValue="4rem"
         label="My CSS Input"
-        requiredOrOptional="required"
-        onChange={onChange}
+        onUpdate={onChange}
       />
     );
 
@@ -98,8 +95,8 @@ function StatefullOptionalText({
       defaultValue={defaultVal}
       type="string"
       label="Optional String Input"
-      requiredOrOptional="optional"
-      onChange={updateValue}
+      optional={true}
+      onUpdate={updateValue}
     />
   );
 }
