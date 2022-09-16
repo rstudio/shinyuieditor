@@ -8,8 +8,8 @@ import type {
 import { SettingsInput } from "./SettingsInput/SettingsInput";
 import { UnknownArgumentItems } from "./UnknownArgumentItems";
 
-export type InputComponentsMap<Settings extends SettingsInfo> = Record<
-  keyof Settings,
+export type InputComponentsMap<ArgNames extends string> = Record<
+  ArgNames,
   JSX.Element
 >;
 
@@ -17,10 +17,11 @@ export type SettingsInputsBuilderProps<Info extends SettingsInfo> = {
   settings: SettingsObjFromInfo<Info>;
   settingsInfo: Info;
   onSettingsChange: (name: string, action: SettingsUpdateAction) => void;
+  renderInputs?: (x: InputComponentsOutput<Info>) => JSX.Element;
 };
 
-type InputComponentsOutput<Info extends SettingsInfo> = {
-  inputs: InputComponentsMap<Info>;
+export type InputComponentsOutput<Info extends Record<string, any>> = {
+  inputs: Record<keyof Info, JSX.Element>;
   unknownArguments: JSX.Element | null;
 };
 
@@ -29,9 +30,7 @@ export function SettingsFormBuilder<Info extends SettingsInfo>({
   settings,
   settingsInfo,
   onSettingsChange,
-}: SettingsInputsBuilderProps<Info> & {
-  renderInputs?: (x: InputComponentsOutput<Info>) => JSX.Element;
-}) {
+}: SettingsInputsBuilderProps<Info>) {
   // Find unknown arguments and return those too
   const unknownArgumentsNames = inANotInB(
     Object.keys(settings),

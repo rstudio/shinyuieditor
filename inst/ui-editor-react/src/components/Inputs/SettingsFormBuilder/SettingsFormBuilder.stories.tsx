@@ -4,7 +4,9 @@ import omit from "just-omit";
 import { getTabPanelTitle } from "Shiny-Ui-Elements/ShinyTabsetPanel/getTabPanelTitle";
 import type { ShinyUiNodeByName } from "Shiny-Ui-Elements/uiNodeTypes";
 
-import type { ArgumentInfo, SettingsInfo } from "./ArgumentInfo";
+import type { SettingsInfo } from "./ArgumentInfo";
+import type { DynamicSettingsInfo } from "./NodeSettingsFormBuilder";
+import { NodeSettingsFormBuilder } from "./NodeSettingsFormBuilder";
 import { SettingsFormBuilder } from "./SettingsFormBuilder";
 import type { SettingsUpdateAction } from "./SettingsInput/SettingsInput";
 
@@ -189,66 +191,65 @@ const tabsetNode: ShinyUiNodeByName["shiny::tabsetPanel"] = {
   ],
 };
 
-// const tabsetArgumentInfo: SettingsInfo = {
-//   selected: {
-//     type: "optionsDropdown",
-//     requiredOrOptional: "optional",
-//     label: "Selected tab on load",
-//     defaultValue: (node) => {
-//       const firstChild = node.uiChildren?.[0];
+const tabsetArgumentInfo: DynamicSettingsInfo = {
+  selected: {
+    type: "optionsDropdown",
+    optional: true,
+    label: "Selected tab on load",
+    defaultValue: (node) => {
+      const firstChild = node.uiChildren?.[0];
 
-//       if (!firstChild) return "failed";
+      if (!firstChild) return "failed";
 
-//       return getTabPanelTitle(firstChild) ?? "failed";
-//     },
-//     options: {
-//       choices: (node) => {
-//         const titles = node.uiChildren?.map(
-//           (child) => getTabPanelTitle(child) ?? "failed"
-//         );
+      return getTabPanelTitle(firstChild) ?? "failed";
+    },
 
-//         if (!titles) return ["failed to find child tab titles"];
-//         return titles;
-//       },
-//     },
-//   },
-//   id: {
-//     type: "string",
-//     label: "Id for tabset",
-//     defaultValue: "tabset-default-id",
-//     requiredOrOptional: "optional",
-//   },
-// };
+    choices: (node) => {
+      const titles = node.uiChildren?.map(
+        (child) => getTabPanelTitle(child) ?? "failed"
+      );
 
-// export const TabsetSettings = () => {
-//   const [value, setValue] = React.useState({
-//     name: "test",
-//     myNumberArg: 3,
-//   });
+      if (!titles) return ["failed to find child tab titles"];
+      return titles;
+    },
+  },
+  id: {
+    type: "string",
+    label: "Id for tabset",
+    defaultValue: "tabset-default-id",
+    optional: true,
+  },
+};
 
-//   const handleSettingsChange = (key: string, action: SettingsUpdateAction) => {
-//     console.log(`Updating ${key}`, action);
+export const TabsetSettings = () => {
+  const [value, setValue] = React.useState({
+    name: "test",
+    myNumberArg: 3,
+  });
 
-//     if (action.type === "UPDATE") {
-//       setValue((old) => ({ ...old, [key]: action.value }));
-//     }
+  const handleSettingsChange = (key: string, action: SettingsUpdateAction) => {
+    console.log(`Updating ${key}`, action);
 
-//     if (action.type === "REMOVE") {
-//       setValue((old) => {
-//         return omit(old, [key]) as typeof old;
-//       });
-//     }
-//   };
+    if (action.type === "UPDATE") {
+      setValue((old) => ({ ...old, [key]: action.value }));
+    }
 
-//   const node = {
-//     uiArguments: value,
-//   };
+    if (action.type === "REMOVE") {
+      setValue((old) => {
+        return omit(old, [key]) as typeof old;
+      });
+    }
+  };
 
-//   return (
-//     <SettingsFormBuilder
-//       node={tabsetNode}
-//       settingsInfo={tabsetArgumentInfo}
-//       onSettingsChange={handleSettingsChange}
-//     />
-//   );
-// };
+  const node = {
+    uiArguments: value,
+  };
+
+  return (
+    <NodeSettingsFormBuilder
+      node={tabsetNode}
+      settingsInfo={tabsetArgumentInfo}
+      onSettingsChange={handleSettingsChange}
+    />
+  );
+};

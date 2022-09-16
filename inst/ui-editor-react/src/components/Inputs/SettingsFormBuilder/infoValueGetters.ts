@@ -15,8 +15,13 @@ function isNodeToValueFn<T>(x: ValOrNodeToTypeFn<T>): x is NodeToValueFn<T> {
  * Object is filled with either values or callbacks to get those values from a
  * ui node
  */
-export type ArgumentsOrCallbacks<Obj extends object> = {
-  [Key in keyof Obj]: ValOrNodeToTypeFn<Obj[Key]>;
+export type ArgumentsOrCallbacks<
+  Obj extends Record<string, any>,
+  NonDynamicKeys extends keyof any = never
+> = {
+  [Key in keyof Obj]: Key extends NonDynamicKeys
+    ? Obj[Key]
+    : ValOrNodeToTypeFn<Obj[Key]>;
 };
 
 /**
@@ -47,7 +52,7 @@ export function getValueFromProperty<T>(
  * @returns The object with callbacks resolved to static values and static
  * values left unchanged
  */
-export function getValuesFromProperties<Obj extends object>(
+export function getValuesFromProperties<Obj extends Record<string, any>>(
   obj: ArgumentsOrCallbacks<Obj>,
   node: ShinyUiNode
 ): Obj {
