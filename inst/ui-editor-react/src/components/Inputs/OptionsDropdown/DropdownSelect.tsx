@@ -17,7 +17,6 @@ export function DropdownSelect({
   choices,
   onChange,
   value: selected,
-  ...passthrough
 }: InputComponentProps<DropdownOption, { choices: DropdownOption[] }>) {
   // Reset the current selection if it gets out of sync with the options
   React.useEffect(() => {
@@ -42,7 +41,6 @@ export function DropdownSelect({
       className="OptionsDropdown"
       onChange={handleChange}
       value={selected}
-      {...passthrough}
     >
       {uniqueOptions.map((opt) => (
         <option key={opt} value={opt}>
