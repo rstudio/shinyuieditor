@@ -60,10 +60,6 @@ export type ArgumentInfoByType = {
 
 export type ArgumentInfo = ArgumentInfoByType[ArgTypesNames];
 
-// Add undefined as some arguments are optional and when not provided return
-// undefined
-export type PossibleArgTypes = KnownArgTypes | undefined;
-
 /**
  * Key-value map of the information needed to render an input component for each
  * argument in a settings object

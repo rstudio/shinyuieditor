@@ -8,11 +8,6 @@ import type {
 import { SettingsInput } from "./SettingsInput/SettingsInput";
 import { UnknownArgumentItems } from "./UnknownArgumentItems";
 
-export type InputComponentsMap<ArgNames extends string> = Record<
-  ArgNames,
-  JSX.Element
->;
-
 export type SettingsInputsBuilderProps<Info extends SettingsInfo> = {
   settings: SettingsObjFromInfo<Info>;
   settingsInfo: Info;

@@ -14,11 +14,8 @@ import type { SettingsUpdateAction } from "./SettingsInput/SettingsInput";
 type NonDynamicProps = "type" | "optional";
 type DynamicArgumentInfo = ArgumentsOrCallbacks<ArgumentInfo, NonDynamicProps>;
 
-type MakeDynamicArgumentInfo<ArgInfo extends ArgumentInfo> =
-  ArgumentsOrCallbacks<ArgInfo, NonDynamicProps>;
-
 type ToDynamicSettingsInfo<Info extends SettingsInfo> = {
-  [ArgName in keyof Info]: MakeDynamicArgumentInfo<Info[ArgName]>;
+  [ArgName in keyof Info]: ArgumentsOrCallbacks<Info[ArgName], NonDynamicProps>;
 };
 
 export type DynamicSettingsInfo = Record<string, DynamicArgumentInfo>;
@@ -54,8 +51,6 @@ function convertDynamicSettingsInfo<Info extends SettingsInfo>(
 
   return convertedInfo as Info;
 }
-
-// type NodeSettingsFormBuilderProps<Info extends SettingsInfo> = ;
 
 export function NodeSettingsFormBuilder<Info extends SettingsInfo>({
   node,
