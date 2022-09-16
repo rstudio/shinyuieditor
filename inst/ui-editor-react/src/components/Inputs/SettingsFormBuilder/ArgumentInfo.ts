@@ -52,7 +52,6 @@ export type ArgTypesMap = MapDiscriminatedUnion<ArgumentTypeUnion, "type">;
 
 export type ArgumentInfoByType = {
   [ArgType in ArgTypesNames]: {
-    // name: string;
     label?: string;
     defaultValue: ArgTypesMap[ArgType]["value"];
     optional?: true;
@@ -65,6 +64,10 @@ export type ArgumentInfo = ArgumentInfoByType[ArgTypesNames];
 // undefined
 export type PossibleArgTypes = KnownArgTypes | undefined;
 
+/**
+ * Key-value map of the information needed to render an input component for each
+ * argument in a settings object
+ */
 export type SettingsInfo = Record<string, ArgumentInfo>;
 
 // Helper types to extract list of names that are optional or not based on the
