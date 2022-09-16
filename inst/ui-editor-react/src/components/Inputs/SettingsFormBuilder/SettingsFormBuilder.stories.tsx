@@ -2,7 +2,7 @@ import React from "react";
 
 import omit from "just-omit";
 import { getTabPanelTitle } from "Shiny-Ui-Elements/ShinyTabsetPanel/getTabPanelTitle";
-import type { ShinyUiNodeByName } from "Shiny-Ui-Elements/uiNodeTypes";
+import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import type { SettingsInfo } from "./ArgumentInfo";
 import type { DynamicSettingsInfo } from "./NodeSettingsFormBuilder";
@@ -179,18 +179,6 @@ export const AutoBuild = () => {
 //   );
 // };
 
-const tabsetNode: ShinyUiNodeByName["shiny::tabsetPanel"] = {
-  uiName: "shiny::tabsetPanel",
-  uiArguments: {
-    selected: "First Tab",
-    id: "myTabset",
-  },
-  uiChildren: [
-    { uiName: "shiny::tabPanel", uiArguments: { title: "First Tab" } },
-    { uiName: "shiny::tabPanel", uiArguments: { title: "Tab B" } },
-  ],
-};
-
 const tabsetArgumentInfo: DynamicSettingsInfo = {
   selected: {
     type: "optionsDropdown",
@@ -242,12 +230,17 @@ export const TabsetSettings = () => {
   };
 
   const node = {
+    uiName: "shiny::tabsetPanel",
     uiArguments: value,
+    uiChildren: [
+      { uiName: "shiny::tabPanel", uiArguments: { title: "First Tab" } },
+      { uiName: "shiny::tabPanel", uiArguments: { title: "Tab B" } },
+    ],
   };
 
   return (
     <NodeSettingsFormBuilder
-      node={tabsetNode}
+      node={node as ShinyUiNode}
       settingsInfo={tabsetArgumentInfo}
       onSettingsChange={handleSettingsChange}
     />

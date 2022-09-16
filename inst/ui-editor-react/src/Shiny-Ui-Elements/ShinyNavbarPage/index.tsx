@@ -1,35 +1,45 @@
 // import icon from "assets/icons/tabsetPanel.png";
 
-import type {
-  SettingsInfo,
-  SettingsObjFromInfo,
-} from "components/Inputs/SettingsFormBuilder/ArgumentInfo";
+import type { DynamicSettingsInfo } from "components/Inputs/SettingsFormBuilder/NodeSettingsFormBuilder";
+import { getTabPanelTitle } from "Shiny-Ui-Elements/ShinyTabsetPanel/getTabPanelTitle";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import { ShinyNavbarPageSettings } from "./SettingsPanel";
 import ShinyNavbarPage from "./ShinyNavbarPage";
 
-export const NavbarPageSettingsInfo: SettingsInfo = {
+export const NavbarPageSettingsInfo: DynamicSettingsInfo = {
   title: {
     type: "string",
-    defaultValue: "My Shiny App",
-  },
-  collapsible: {
-    type: "boolean",
-    defaultValue: false,
+    label: "Page title",
+    defaultValue: "navbar-page",
   },
   id: {
     type: "string",
-    defaultValue: "navbar",
-    requiredOrOptional: "optional",
+    label: "Id for tabset",
+    defaultValue: "tabset-default-id",
+    optional: true,
+  },
+  collapsible: {
+    label: "Allow menu to collapse?",
+    type: "boolean",
+    defaultValue: false,
   },
   selected: {
     type: "optionsDropdown",
-    defaultValue: "tab 1",
-    requiredOrOptional: "optional",
-    options: {
-      choices: ["tab 1"],
+    optional: true,
+    label: "Selected tab on load",
+    defaultValue: ({ uiChildren }) => {
+      const firstChild = uiChildren?.[0];
+      if (!firstChild) return "failed";
+      return getTabPanelTitle(firstChild) ?? "failed";
+    },
+    choices: ({ uiChildren }) => {
+      const titles = uiChildren?.map(
+        (child) => getTabPanelTitle(child) ?? "failed"
+      );
+      if (!titles) return ["failed to find child tab titles"];
+      return titles;
     },
   },
 };
@@ -49,7 +59,7 @@ export const shinyNavbarPageDefaultSettings: NavbarPageSettings = {
 export const shinyNavbarPageInfo: UiComponentInfo<NavbarPageSettings> = {
   title: "Navbar Page",
   UiComponent: ShinyNavbarPage,
-  // settingsInfo: NavbarPageSettingsInfo,
+  settingsInfo: NavbarPageSettingsInfo,
   SettingsComponent: ShinyNavbarPageSettings,
   acceptsChildren: true,
   defaultSettings: shinyNavbarPageDefaultSettings,

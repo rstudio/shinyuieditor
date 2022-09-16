@@ -1,9 +1,6 @@
 import type React from "react";
 
-import type {
-  SettingsInfo,
-  SettingsObjFromInfo,
-} from "components/Inputs/SettingsFormBuilder/ArgumentInfo";
+import type { DynamicSettingsInfo } from "components/Inputs/SettingsFormBuilder/NodeSettingsFormBuilder";
 import type { DeleteAction, UpdateAction } from "state/uiTree";
 
 import { gridlayoutGridCardInfo } from "./GridlayoutGridCard";
@@ -40,7 +37,7 @@ export type UiComponentInfo<NodeSettings extends object> = {
    */
   SettingsComponent: SettingsUpdaterComponent<NodeSettings>;
 
-  // settingsInfo?: SettingsInfo;
+  settingsInfo?: DynamicSettingsInfo;
   /**
    * The settings that a freshly initialized node will take. These will also be
    * used to fill in any missing arguments if they are provided.

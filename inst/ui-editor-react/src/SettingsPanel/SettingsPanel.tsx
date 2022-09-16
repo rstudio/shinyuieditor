@@ -1,6 +1,5 @@
 import DeleteNodeButton from "components/DeleteNodeButton";
-import type { SettingsObjFromInfo } from "components/Inputs/SettingsFormBuilder/ArgumentInfo";
-import { SettingsFormBuilder } from "components/Inputs/SettingsFormBuilder/SettingsFormBuilder";
+import { NodeSettingsFormBuilder } from "components/Inputs/SettingsFormBuilder/NodeSettingsFormBuilder";
 import { SettingsUpdateContext } from "components/Inputs/SettingsUpdateContext";
 import type {
   SettingsUpdaterComponent,
@@ -35,32 +34,32 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
 
   let settingsForm: JSX.Element;
 
-  // const settingsInfo = shinyUiNodeInfo[uiName].settingsInfo;
-  // if (settingsInfo) {
-  //   settingsForm = (
-  //     <SettingsFormBuilder
-  //       settingsInfo={settingsInfo}
-  //       settings={uiArguments as SettingsObj<typeof settingsInfo>}
-  //       onSettingsChange={(name, action) => {
-  //         if (action.type === "UPDATE") {
-  //           updateArgumentsByName({ name, value: action.value });
-  //         } else {
-  //           updateArgumentsByName({ name, value: undefined });
-  //         }
-  //       }}
-  //     />
-  //   );
-  // } else {
-  settingsForm = (
-    <form className={classes.settingsForm} onSubmit={stopDefaultSubmit}>
-      <div className={classes.settingsInputs}>
-        <SettingsUpdateContext onChange={updateArgumentsByName}>
-          <SettingsInputs settings={uiArguments} node={currentNode} />
-        </SettingsUpdateContext>
-      </div>
-    </form>
-  );
-  // }
+  const settingsInfo = shinyUiNodeInfo[uiName].settingsInfo;
+  if (settingsInfo) {
+    settingsForm = (
+      <NodeSettingsFormBuilder
+        settingsInfo={settingsInfo}
+        node={currentNode}
+        onSettingsChange={(name, action) => {
+          if (action.type === "UPDATE") {
+            updateArgumentsByName({ name, value: action.value });
+          } else {
+            updateArgumentsByName({ name, value: undefined });
+          }
+        }}
+      />
+    );
+  } else {
+    settingsForm = (
+      <form className={classes.settingsForm} onSubmit={stopDefaultSubmit}>
+        <div className={classes.settingsInputs}>
+          <SettingsUpdateContext onChange={updateArgumentsByName}>
+            <SettingsInputs settings={uiArguments} node={currentNode} />
+          </SettingsUpdateContext>
+        </div>
+      </form>
+    );
+  }
 
   return (
     <div className={classes.settingsPanel + " properties-panel"}>
