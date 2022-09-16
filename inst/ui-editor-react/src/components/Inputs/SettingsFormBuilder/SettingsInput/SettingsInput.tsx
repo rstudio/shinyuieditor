@@ -2,6 +2,8 @@ import Button from "components/Inputs/Button/Button";
 
 import type {
   ArgTypesMap,
+  ArgTypesNames,
+  ArgumentInfoByType,
   ArgumentTypeUnion,
   KnownArgTypes,
 } from "../ArgumentInfo";
@@ -21,14 +23,13 @@ export type SettingsUpdateAction =
       type: "REMOVE";
     };
 
-type SettingsInputProps = {
-  [ArgType in keyof ArgTypesMap]: {
+export type SettingsInputProps = {
+  [ArgType in ArgTypesNames]: ArgumentInfoByType[ArgType] & {
     name: string;
     value?: ArgTypesMap[ArgType]["value"];
-    defaultValue: ArgTypesMap[ArgType]["value"];
     onUpdate: (x: SettingsUpdateAction) => void;
-  } & Omit<ArgTypesMap[ArgType], "value">;
-}[keyof ArgTypesMap];
+  };
+}[ArgTypesNames];
 
 export function SettingsInput({ onUpdate, ...opts }: SettingsInputProps) {
   const argumentIsUnset = opts.value === undefined;

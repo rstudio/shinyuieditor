@@ -13,66 +13,63 @@ export default {
   component: SettingsFormBuilder,
 };
 
-// const settingsInfo: SettingsInfo = {
-//   name: {
-//     defaultValue: "name default",
-//     label: "String argument",
-//     type: "string",
-//   },
-//   myNumberArg: {
-//     defaultValue: 42,
-//     label: "Optional number argument",
-//     requiredOrOptional: "optional",
-//     type: "number",
-//   },
-//   myCSSArg: {
-//     type: "cssMeasure",
-//     label: "I am a css measure",
-//     defaultValue: "1rem",
-//     requiredOrOptional: "optional",
-//   },
-//   myBooleanArg: {
-//     type: "boolean",
-//     label: "I am a boolean measure",
-//     defaultValue: true,
-//     requiredOrOptional: "optional",
-//   },
-// };
+const settingsInfo: SettingsInfo = {
+  name: {
+    defaultValue: "name default",
+    label: "String argument",
+    type: "string",
+  },
+  myNumberArg: {
+    defaultValue: 42,
+    label: "Optional number argument",
+    optional: true,
+    type: "number",
+  },
+  myCSSArg: {
+    type: "cssMeasure",
+    label: "I am a css measure",
+    defaultValue: "1rem",
+    optional: true,
+  },
+  myBooleanArg: {
+    type: "boolean",
+    label: "I am a boolean measure",
+    defaultValue: true,
+    optional: true,
+  },
+};
 
-// export const AutoBuild = () => {
-//   const [value, setValue] = React.useState({
-//     name: "test",
-//     myNumberArg: 3,
-//     iAmUnknown: "unknown value",
-//     myBooleanArg: false,
-//   });
+export const AutoBuild = () => {
+  const [value, setValue] = React.useState({
+    name: "test",
+    myNumberArg: 3,
+    iAmUnknown: "unknown value",
+    myBooleanArg: false,
+  });
 
-//   const handleSettingsChange = (key: string, action: SettingsUpdateAction) => {
-//     if (action.type === "UPDATE") {
-//       setValue((old) => ({ ...old, [key]: action.value }));
-//     }
+  const handleSettingsChange = (key: string, action: SettingsUpdateAction) => {
+    if (action.type === "UPDATE") {
+      setValue((old) => ({ ...old, [key]: action.value }));
+    }
 
-//     if (action.type === "REMOVE") {
-//       setValue((old) => {
-//         return omit(old, [key]) as typeof old;
-//       });
-//     }
-//   };
-//   React.useEffect(() => {
-//     console.log(value);
-//   }, [value]);
+    if (action.type === "REMOVE") {
+      setValue((old) => {
+        return omit(old, [key]) as typeof old;
+      });
+    }
+  };
+  React.useEffect(() => {
+    console.log(value);
+  }, [value]);
 
-//   const node = {
-//     uiArguments: value,
-//   };
-//   return (
-//     <SettingsFormBuilder
-//       node={node}
-//       settingsInfo={settingsInfo}
-//       onSettingsChange={handleSettingsChange}
-//     />
-//   );
-// };
+  return (
+    <SettingsFormBuilder
+      settings={value}
+      settingsInfo={settingsInfo}
+      onSettingsChange={handleSettingsChange}
+    />
+  );
+};
 
 // export const DynamicOptions = () => {
 //   const settingsInfo: SettingsInfo = {
@@ -192,66 +189,66 @@ const tabsetNode: ShinyUiNodeByName["shiny::tabsetPanel"] = {
   ],
 };
 
-const tabsetArgumentInfo: SettingsInfo = {
-  selected: {
-    type: "optionsDropdown",
-    requiredOrOptional: "optional",
-    label: "Selected tab on load",
-    defaultValue: (node) => {
-      const firstChild = node.uiChildren?.[0];
+// const tabsetArgumentInfo: SettingsInfo = {
+//   selected: {
+//     type: "optionsDropdown",
+//     requiredOrOptional: "optional",
+//     label: "Selected tab on load",
+//     defaultValue: (node) => {
+//       const firstChild = node.uiChildren?.[0];
 
-      if (!firstChild) return "failed";
+//       if (!firstChild) return "failed";
 
-      return getTabPanelTitle(firstChild) ?? "failed";
-    },
-    options: {
-      choices: (node) => {
-        const titles = node.uiChildren?.map(
-          (child) => getTabPanelTitle(child) ?? "failed"
-        );
+//       return getTabPanelTitle(firstChild) ?? "failed";
+//     },
+//     options: {
+//       choices: (node) => {
+//         const titles = node.uiChildren?.map(
+//           (child) => getTabPanelTitle(child) ?? "failed"
+//         );
 
-        if (!titles) return ["failed to find child tab titles"];
-        return titles;
-      },
-    },
-  },
-  id: {
-    type: "string",
-    label: "Id for tabset",
-    defaultValue: "tabset-default-id",
-    requiredOrOptional: "optional",
-  },
-};
+//         if (!titles) return ["failed to find child tab titles"];
+//         return titles;
+//       },
+//     },
+//   },
+//   id: {
+//     type: "string",
+//     label: "Id for tabset",
+//     defaultValue: "tabset-default-id",
+//     requiredOrOptional: "optional",
+//   },
+// };
 
-export const TabsetSettings = () => {
-  const [value, setValue] = React.useState({
-    name: "test",
-    myNumberArg: 3,
-  });
+// export const TabsetSettings = () => {
+//   const [value, setValue] = React.useState({
+//     name: "test",
+//     myNumberArg: 3,
+//   });
 
-  const handleSettingsChange = (key: string, action: SettingsUpdateAction) => {
-    console.log(`Updating ${key}`, action);
+//   const handleSettingsChange = (key: string, action: SettingsUpdateAction) => {
+//     console.log(`Updating ${key}`, action);
 
-    if (action.type === "UPDATE") {
-      setValue((old) => ({ ...old, [key]: action.value }));
-    }
+//     if (action.type === "UPDATE") {
+//       setValue((old) => ({ ...old, [key]: action.value }));
+//     }
 
-    if (action.type === "REMOVE") {
-      setValue((old) => {
-        return omit(old, [key]) as typeof old;
-      });
-    }
-  };
+//     if (action.type === "REMOVE") {
+//       setValue((old) => {
+//         return omit(old, [key]) as typeof old;
+//       });
+//     }
+//   };
 
-  const node = {
-    uiArguments: value,
-  };
+//   const node = {
+//     uiArguments: value,
+//   };
 
-  return (
-    <SettingsFormBuilder
-      node={tabsetNode}
-      settingsInfo={tabsetArgumentInfo}
-      onSettingsChange={handleSettingsChange}
-    />
-  );
-};
+//   return (
+//     <SettingsFormBuilder
+//       node={tabsetNode}
+//       settingsInfo={tabsetArgumentInfo}
+//       onSettingsChange={handleSettingsChange}
+//     />
+//   );
+// };

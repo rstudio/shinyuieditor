@@ -2,7 +2,7 @@
 
 import type {
   SettingsInfo,
-  SettingsObj,
+  SettingsObjFromInfo,
 } from "components/Inputs/SettingsFormBuilder/ArgumentInfo";
 
 import type { UiComponentInfo } from "../uiNodeTypes";

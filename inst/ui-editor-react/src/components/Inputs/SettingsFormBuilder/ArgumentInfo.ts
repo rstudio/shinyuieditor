@@ -45,15 +45,21 @@ export type ArgumentTypeUnion =
       choices: RadioInputOptions;
     };
 
-// Add common non-type-specific props to type union
-export type ArgumentInfo = ArgumentTypeUnion & {
-  label?: string;
-  optional?: true;
+export type ArgTypesNames = ArgumentTypeUnion["type"];
+export type KnownArgTypes = ArgumentTypeUnion["value"];
+
+export type ArgTypesMap = MapDiscriminatedUnion<ArgumentTypeUnion, "type">;
+
+export type ArgumentInfoByType = {
+  [ArgType in ArgTypesNames]: {
+    // name: string;
+    label?: string;
+    defaultValue: ArgTypesMap[ArgType]["value"];
+    optional?: true;
+  } & Omit<ArgTypesMap[ArgType], "value">;
 };
 
-export type ArgTypesMap = MapDiscriminatedUnion<ArgumentInfo, "type">;
-export type ArgTypesNames = ArgumentInfo["type"];
-export type KnownArgTypes = ArgumentInfo["value"];
+export type ArgumentInfo = ArgumentInfoByType[ArgTypesNames];
 
 // Add undefined as some arguments are optional and when not provided return
 // undefined
@@ -76,10 +82,10 @@ type RequiredSettingsKeys<Info extends SettingsInfo> = {
 
 // Now build the settings object based on the info object making the "optional"
 // parameters just that
-export type SettingsObj<Info extends SettingsInfo> = {
-  [K in OptionalSettingsKeys<Info>]?: Info[K]["value"];
+export type SettingsObjFromInfo<Info extends SettingsInfo> = {
+  [K in OptionalSettingsKeys<Info>]?: Info[K]["defaultValue"];
 } & {
-  [K in RequiredSettingsKeys<Info>]: Info[K]["value"];
+  [K in RequiredSettingsKeys<Info>]: Info[K]["defaultValue"];
 };
 
 export type InputComponentProps<T, Opts extends object = {}> = {

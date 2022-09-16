@@ -2,7 +2,7 @@ import type React from "react";
 
 import type {
   SettingsInfo,
-  SettingsObj,
+  SettingsObjFromInfo,
 } from "components/Inputs/SettingsFormBuilder/ArgumentInfo";
 import type { DeleteAction, UpdateAction } from "state/uiTree";
 

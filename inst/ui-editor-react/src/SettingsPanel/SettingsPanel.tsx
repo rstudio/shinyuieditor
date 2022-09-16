@@ -1,5 +1,5 @@
 import DeleteNodeButton from "components/DeleteNodeButton";
-import type { SettingsObj } from "components/Inputs/SettingsFormBuilder/ArgumentInfo";
+import type { SettingsObjFromInfo } from "components/Inputs/SettingsFormBuilder/ArgumentInfo";
 import { SettingsFormBuilder } from "components/Inputs/SettingsFormBuilder/SettingsFormBuilder";
 import { SettingsUpdateContext } from "components/Inputs/SettingsUpdateContext";
 import type {
