@@ -2,14 +2,12 @@ import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import type {
   DynamicFieldInfoByType,
+  DynamicFormInfo,
   InputFieldTypeNames,
   NodeToValueFn,
   StaticFieldInfo,
   StaticFieldInfoByType,
 } from "./inputFieldTypes";
-
-type DynamicFieldInfo = DynamicFieldInfoByType[InputFieldTypeNames];
-type DynamicFormInfo = Record<string, DynamicFieldInfo>;
 
 type ToStaticFormInfo<DynSettings extends DynamicFormInfo> = {
   [ArgName in keyof DynSettings]: StaticFieldInfoByType[DynSettings[ArgName]["inputType"]];

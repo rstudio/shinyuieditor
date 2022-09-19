@@ -1,6 +1,6 @@
 import type React from "react";
 
-import type { DynamicFormInfo } from "components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
+import type { DynamicFormInfo } from "components/Inputs/SettingsFormBuilder/inputFieldTypes";
 import type { DeleteAction, UpdateAction } from "state/uiTree";
 
 import { gridlayoutGridCardInfo } from "./GridlayoutGridCard";

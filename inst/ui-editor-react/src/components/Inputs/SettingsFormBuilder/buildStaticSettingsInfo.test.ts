@@ -1,14 +1,14 @@
 import { getFirstTabName, getTabNames } from "components/Tabs/Tabset/utils";
 import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
 
-import type {
-  DynamicFieldInfo,
-  DynamicFormInfo,
-  StaticFieldInfo,
-  StaticFormInfo,
-} from "./buildStaticSettingsInfo";
 import { buildStaticFormInfo } from "./buildStaticSettingsInfo";
 import { buildStaticFieldInfo } from "./buildStaticSettingsInfo";
+import type {
+  DynamicFieldInfo,
+  StaticFieldInfo,
+  DynamicFormInfo,
+  FormInfo,
+} from "./inputFieldTypes";
 
 const navbarWithThreeTabs: ShinyUiNode = {
   uiName: "shiny::navbarPage",
@@ -87,7 +87,7 @@ describe("Can convert full dynamic settings info object into a static one", () =
       },
     };
 
-    const expectedOutput: StaticFormInfo = {
+    const expectedOutput: FormInfo = {
       title: {
         inputType: "string",
         defaultValue: `tabset with 3 tabs`,

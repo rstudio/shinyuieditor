@@ -1,7 +1,12 @@
 import type { StringKeys } from "TypescriptUtils";
 import { inANotInB } from "utils/array-helpers";
 
-import type { FormInfo, FormValuesFromInfo } from "./inputFieldTypes";
+import type {
+  FormInfo,
+  FormValuesFromInfo,
+  InputFieldTypeNames,
+  StaticFieldInfoByType,
+} from "./inputFieldTypes";
 import type {
   SettingsInputProps,
   SettingsUpdateAction,
@@ -25,13 +30,40 @@ export type InputComponentsOutput<Info extends Record<string, any>> = {
   unknownArguments: JSX.Element | null;
 };
 
+type FieldInfoSansOmited = StaticFieldInfoByType[InputFieldTypeNames];
+type NonOmittedFormInfo = Record<string, FieldInfoSansOmited>;
+function removeOmittedFields<Info extends FormInfo>(
+  settingsInfo: Info
+): {
+  omitted: (keyof Info)[];
+  nonOmittedFormInfo: NonOmittedFormInfo;
+} {
+  let omitted: (keyof Info)[] = [];
+
+  let infoSansOmitted: Record<string, any> = {};
+
+  for (let prop in settingsInfo) {
+    if (settingsInfo[prop].inputType === "omitted") {
+      omitted.push(prop);
+    } else {
+      infoSansOmitted[prop] = settingsInfo[prop];
+    }
+  }
+
+  return {
+    omitted,
+    nonOmittedFormInfo: infoSansOmitted as NonOmittedFormInfo,
+  };
+}
+
 export function FormBuilder<Info extends FormInfo>({
   renderInputs,
   settings,
   settingsInfo,
-  omitted = [],
   onSettingsChange,
 }: FormBuilderProps<Info>) {
+  const { omitted, nonOmittedFormInfo } = removeOmittedFields(settingsInfo);
+
   // Find unknown arguments and return those too
   const unknownArgumentsNames = inANotInB(
     Object.keys(settings),
@@ -41,7 +73,7 @@ export function FormBuilder<Info extends FormInfo>({
   const PrebuildInputComponents = {
     inputs: knownArgumentInputs({
       settings,
-      settingsInfo,
+      settingsInfo: nonOmittedFormInfo,
       onSettingsChange,
     }),
     unknownArguments:
@@ -64,7 +96,7 @@ export function FormBuilder<Info extends FormInfo>({
   );
 }
 
-function knownArgumentInputs<Info extends FormInfo>({
+function knownArgumentInputs<Info extends NonOmittedFormInfo>({
   settings,
   settingsInfo,
   onSettingsChange,
@@ -83,7 +115,6 @@ function knownArgumentInputs<Info extends FormInfo>({
       ...infoForArg,
       value: currentValue,
       onUpdate: (updatedAction) => onSettingsChange(name, updatedAction),
-      ...infoForArg,
     } as SettingsInputProps;
 
     InputsComponents[name] = <SettingsInput key={name} {...inputProps} />;

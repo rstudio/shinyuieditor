@@ -1,6 +1,6 @@
 // import icon from "assets/icons/tabsetPanel.png";
 
-import type { DynamicSettingsInfo } from "components/Inputs/SettingsFormBuilder/NodeSettingsFormBuilder";
+import type { DynamicFormInfo } from "components/Inputs/SettingsFormBuilder/inputFieldTypes";
 import { getTabPanelTitle } from "components/Tabs/Tabset/utils";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
@@ -8,7 +8,7 @@ import type { UiComponentInfo } from "../uiNodeTypes";
 import { ShinyNavbarPageSettings } from "./SettingsPanel";
 import ShinyNavbarPage from "./ShinyNavbarPage";
 
-export const NavbarPageSettingsInfo: DynamicSettingsInfo = {
+export const NavbarPageSettingsInfo: DynamicFormInfo = {
   title: {
     inputType: "string",
     label: "Page title",

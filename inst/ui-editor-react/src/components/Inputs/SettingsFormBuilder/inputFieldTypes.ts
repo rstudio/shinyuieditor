@@ -64,6 +64,8 @@ type ArgumentsOrCallbacks<Obj extends Record<string, any>> = {
   [Key in keyof Obj]: Obj[Key] | NodeToValueFn<Obj[Key]>;
 };
 
+type OmittedField = { inputType: "omitted" };
+
 export type DynamicFieldInfoByType = {
   [ArgType in InputFieldTypeNames]: {
     inputType: ArgType;
@@ -74,7 +76,9 @@ export type DynamicFieldInfoByType = {
       defaultValue: InputFieldTypesMap[ArgType]["value"];
     } & Omit<InputFieldTypesMap[ArgType], "inputType" | "value">
   >;
-};
+} & { omitted: OmittedField };
+export type DynamicFieldInfo = DynamicFieldInfoByType[InputFieldTypeNames];
+export type DynamicFormInfo = Record<string, DynamicFieldInfo>;
 
 export type StaticFieldInfoByType = {
   [ArgType in InputFieldTypeNames]: {
@@ -84,8 +88,10 @@ export type StaticFieldInfoByType = {
   } & {
     defaultValue: InputFieldTypesMap[ArgType]["value"];
   } & Omit<InputFieldTypesMap[ArgType], "inputType" | "value">;
-};
-export type StaticFieldInfo = StaticFieldInfoByType[InputFieldTypeNames];
+} & { omitted: OmittedField };
+
+export type StaticFieldInfo =
+  StaticFieldInfoByType[keyof StaticFieldInfoByType];
 
 /**
  * Key-value map of the information needed to render an input component for each
@@ -93,25 +99,39 @@ export type StaticFieldInfo = StaticFieldInfoByType[InputFieldTypeNames];
  */
 export type FormInfo = Record<string, StaticFieldInfo>;
 
+type OptionalField =
+  | {
+      inputType: "omitted";
+    }
+  | {
+      optional: true;
+    };
+
 // Helper types to extract list of names that are optional or not based on the
 // presence of the "optional" key in the settings object. Important to note that
 // this means putting anything (true _or_ false) in the optional field will make
 // it optional, which is maybe a bit confusing but will work out fine because
 // javascript will do runtime checks
 type OptionalSettingsKeys<Info extends FormInfo> = {
-  [K in keyof Info]-?: true extends Info[K]["optional"] ? never : K;
+  [K in keyof Info]-?: Info[K] extends OptionalField ? K : never;
 }[keyof Info];
 
 type RequiredSettingsKeys<Info extends FormInfo> = {
-  [K in keyof Info]-?: true extends Info[K]["optional"] ? K : never;
+  [K in keyof Info]-?: Info[K] extends OptionalField ? never : K;
 }[keyof Info];
+
+type typeFromInfo<Info extends StaticFieldInfo> = Info extends {
+  defaultValue: any;
+}
+  ? Info["defaultValue"]
+  : unknown;
 
 // Now build the settings object based on the info object making the "optional"
 // parameters just that
 export type FormValuesFromInfo<Info extends FormInfo> = {
-  [K in OptionalSettingsKeys<Info>]?: Info[K]["defaultValue"];
+  [K in OptionalSettingsKeys<Info>]?: typeFromInfo<Info[K]>;
 } & {
-  [K in RequiredSettingsKeys<Info>]: Info[K]["defaultValue"];
+  [K in RequiredSettingsKeys<Info>]: typeFromInfo<Info[K]>;
 };
 
 export type InputComponentProps<T, Opts extends object = {}> = {
