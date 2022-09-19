@@ -2,11 +2,9 @@ import React from "react";
 
 import { getTabPanelTitle } from "components/Tabs/Tabset/utils";
 import omit from "just-omit";
-import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import type { SettingsInfo } from "./ArgumentInfo";
-import type { DynamicSettingsInfo } from "./NodeSettingsFormBuilder";
-import { NodeSettingsFormBuilder } from "./NodeSettingsFormBuilder";
+import type { DynamicSettingsInfo } from "./buildStaticSettingsInfo";
 import { SettingsFormBuilder } from "./SettingsFormBuilder";
 import type { SettingsUpdateAction } from "./SettingsInput/SettingsInput";
 
@@ -207,42 +205,4 @@ const tabsetArgumentInfo: DynamicSettingsInfo = {
     defaultValue: "tabset-default-id",
     optional: true,
   },
-};
-
-export const TabsetSettings = () => {
-  const [value, setValue] = React.useState({
-    name: "test",
-    myNumberArg: 3,
-  });
-
-  const handleSettingsChange = (key: string, action: SettingsUpdateAction) => {
-    console.log(`Updating ${key}`, action);
-
-    if (action.type === "UPDATE") {
-      setValue((old) => ({ ...old, [key]: action.value }));
-    }
-
-    if (action.type === "REMOVE") {
-      setValue((old) => {
-        return omit(old, [key]) as typeof old;
-      });
-    }
-  };
-
-  const node = {
-    uiName: "shiny::tabsetPanel",
-    uiArguments: value,
-    uiChildren: [
-      { uiName: "shiny::tabPanel", uiArguments: { title: "First Tab" } },
-      { uiName: "shiny::tabPanel", uiArguments: { title: "Tab B" } },
-    ],
-  };
-
-  return (
-    <NodeSettingsFormBuilder
-      node={node as ShinyUiNode}
-      settingsInfo={tabsetArgumentInfo}
-      onSettingsChange={handleSettingsChange}
-    />
-  );
 };
