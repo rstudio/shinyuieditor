@@ -27,6 +27,7 @@ export type DynamicArgumentInfoByType = {
   >;
 };
 export type DynamicArgumentInfo = DynamicArgumentInfoByType[ArgTypesNames];
+export type DynamicSettingsInfo = Record<string, DynamicArgumentInfo>;
 
 type StaticArgumentInfoByType = {
   [ArgType in ArgTypesNames]: {
@@ -38,6 +39,11 @@ type StaticArgumentInfoByType = {
   } & Omit<ArgTypesMap[ArgType], "inputType" | "value">;
 };
 export type StaticArgumentInfo = StaticArgumentInfoByType[ArgTypesNames];
+export type StaticSettingsInfo = Record<string, StaticArgumentInfo>;
+
+type ToStaticSettingsInfo<DynSettings extends DynamicSettingsInfo> = {
+  [ArgName in keyof DynSettings]: StaticArgumentInfoByType[DynSettings[ArgName]["inputType"]];
+};
 
 function isNodeToValueFn<T>(x: T | NodeToValueFn<T>): x is NodeToValueFn<T> {
   return typeof x === "function";
@@ -53,39 +59,48 @@ function getValueFromProperty<T>(
   return x;
 }
 
-export function buildStaticSettingsInfo<ArgType extends ArgTypesNames>(
-  dynamicSettingsInfo: DynamicArgumentInfoByType[ArgType],
+/**
+ * Convert a single argument from dynamic form to static form
+ * @param dynamicArgumentInfo Argument info about an argument
+ * @param node ShinyUiNode that represents the argument being converted belongs
+ * to the settings/uiArguments of
+ * @returns A static version of the argument info where the callback versions of
+ * info have been evaluated to their output types
+ */
+export function buildStaticArgumentInfo<ArgType extends ArgTypesNames>(
+  dynamicArgumentInfo: DynamicArgumentInfoByType[ArgType],
   node: ShinyUiNode
 ): StaticArgumentInfoByType[ArgType] {
-  let staticInfo: Record<string, any> = {};
+  let staticArgumentInfo: Record<string, any> = {};
 
-  for (let prop in dynamicSettingsInfo) {
-    const dynamicVal = dynamicSettingsInfo[prop];
-    staticInfo[prop] = getValueFromProperty(dynamicVal, node);
+  for (let prop in dynamicArgumentInfo) {
+    const dynamicVal = dynamicArgumentInfo[prop];
+    staticArgumentInfo[prop] = getValueFromProperty(dynamicVal, node);
   }
 
-  return staticInfo as StaticArgumentInfoByType[ArgType];
+  return staticArgumentInfo as StaticArgumentInfoByType[ArgType];
 }
 
-// type DynamicArgumentInfo = ArgumentsOrCallbacks<ArgumentInfo, NonDynamicProps>;
+/**
+ * Convert a whole settings info object from dynamic callback form to static
+ * form
+ * @param dynamicSettingsInfo A full settings info object for all settings in a
+ * ui nodes uiArguments object
+ * @param node ShinyUiNode for which the dynamicSettingsInfo represents the
+ * settings/uiArguments for
+ * @returns A static version of the settings info for all arugments where
+ * functions have been evaluated to their constant values
+ */
+export function buildStaticSettingsInfo<DynInfo extends DynamicSettingsInfo>(
+  dynamicSettingsInfo: DynInfo,
+  node: ShinyUiNode
+): ToStaticSettingsInfo<DynInfo> {
+  let staticSettingsInfo: Record<string, StaticArgumentInfo> = {};
 
-// // type ToDynamicSettingsInfo<Info extends SettingsInfo> = {
-// //   [ArgName in keyof Info]: ArgumentsOrCallbacks<Info[ArgName], NonDynamicProps>;
-// type StaticArgumentInfo = StaticArgumentInfoByType[ArgTypesNames];
-// // };
+  for (let argName in dynamicSettingsInfo) {
+    const dynamicVal = dynamicSettingsInfo[argName];
+    staticSettingsInfo[argName] = buildStaticArgumentInfo(dynamicVal, node);
+  }
 
-// export type DynamicSettingsInfo = Record<string, DynamicArgumentInfo>;
-
-// const test: DynamicArgumentInfo = {
-//     inputType: "optionsDropdown",
-//     label: "My List",
-//     defaultValue: (node) => "first value",
-//     choices: ["a", "b", "c"],
-//   };
-
-//   const test2: StaticArgumentInfo = {
-//     inputType: "optionsDropdown",
-//     label: "My List",
-//     choices: ["a", "b", "c"],
-//     defaultValue: "first value",
-//   };
+  return staticSettingsInfo as ToStaticSettingsInfo<DynInfo>;
+}
