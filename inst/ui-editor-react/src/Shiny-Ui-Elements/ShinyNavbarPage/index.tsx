@@ -1,7 +1,7 @@
 // import icon from "assets/icons/tabsetPanel.png";
 
 import type { DynamicFormInfo } from "components/Inputs/SettingsFormBuilder/inputFieldTypes";
-import { getTabPanelTitle } from "components/Tabs/Tabset/utils";
+import { getFirstTabName, getTabNames } from "components/Tabs/Tabset/utils";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 
@@ -29,18 +29,8 @@ export const NavbarPageSettingsInfo: DynamicFormInfo = {
     inputType: "optionsDropdown",
     optional: true,
     label: "Selected tab on load",
-    defaultValue: ({ uiChildren }) => {
-      const firstChild = uiChildren?.[0];
-      if (!firstChild) return "failed";
-      return getTabPanelTitle(firstChild) ?? "failed";
-    },
-    choices: ({ uiChildren }) => {
-      const titles = uiChildren?.map(
-        (child) => getTabPanelTitle(child) ?? "failed"
-      );
-      if (!titles) return ["failed to find child tab titles"];
-      return titles;
-    },
+    defaultValue: getFirstTabName,
+    choices: getTabNames,
   },
 };
 
