@@ -1,7 +1,7 @@
 import React from "react";
 
+import { getTabPanelTitle } from "components/Tabs/Tabset/utils";
 import omit from "just-omit";
-import { getTabPanelTitle } from "Shiny-Ui-Elements/ShinyTabsetPanel/getTabPanelTitle";
 import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import type { SettingsInfo } from "./ArgumentInfo";

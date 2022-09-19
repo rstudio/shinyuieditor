@@ -1,12 +1,11 @@
 import TabPanel from "components/Tabs/TabPanel/TabPanel";
 import Tabset from "components/Tabs/Tabset/Tabset";
+import { getTabPanelTitle } from "components/Tabs/Tabset/utils";
 import UiNode from "components/UiNode/UiNode";
 import { makeChildPath, pathToString } from "Shiny-Ui-Elements/nodePathUtils";
 import type { UiNodeComponent } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import type { TabsetPanelSettings } from "./index";
-
-import { getTabPanelTitle } from "./getTabPanelTitle";
 
 const ShinyTabsetPanel: UiNodeComponent<TabsetPanelSettings> = ({
   uiArguments,

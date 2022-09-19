@@ -1,7 +1,7 @@
 // import icon from "assets/icons/tabsetPanel.png";
 
 import type { DynamicSettingsInfo } from "components/Inputs/SettingsFormBuilder/NodeSettingsFormBuilder";
-import { getTabPanelTitle } from "Shiny-Ui-Elements/ShinyTabsetPanel/getTabPanelTitle";
+import { getTabPanelTitle } from "components/Tabs/Tabset/utils";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 
