@@ -2,7 +2,7 @@ import { Trash } from "components/Icons";
 
 import Button from "../Button/Button";
 
-import type { SettingsInputsBuilderProps } from "./FormBuilder";
+import type { FormBuilderProps } from "./FormBuilder";
 import type { FormInfo } from "./inputFieldTypes";
 
 function UnknownFieldItem({
@@ -36,7 +36,7 @@ function UnknownFieldItem({
 export function UnknownFormFields({
   unknownArgumentsNames,
   onSettingsChange,
-}: Pick<SettingsInputsBuilderProps<FormInfo>, "onSettingsChange"> & {
+}: Pick<FormBuilderProps<FormInfo>, "onSettingsChange"> & {
   unknownArgumentsNames: Array<keyof FormInfo>;
 }) {
   // Find unknown arguments and return those too

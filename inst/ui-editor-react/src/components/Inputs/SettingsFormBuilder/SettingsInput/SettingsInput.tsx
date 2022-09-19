@@ -1,11 +1,11 @@
 import Button from "components/Inputs/Button/Button";
 
 import type {
-  InputFieldTypesMap,
-  InputFieldTypeNames,
-  InputFieldInfoByType,
   FieldTypeUnion,
+  InputFieldTypeNames,
+  InputFieldTypesMap,
   KnownInputFieldTypes,
+  StaticFieldInfoByType,
 } from "../inputFieldTypes";
 import { makeLabelId } from "../inputFieldTypes";
 
@@ -24,7 +24,7 @@ export type SettingsUpdateAction =
     };
 
 export type SettingsInputProps = {
-  [ArgType in InputFieldTypeNames]: InputFieldInfoByType[ArgType] & {
+  [ArgType in InputFieldTypeNames]: StaticFieldInfoByType[ArgType] & {
     name: string;
     value?: InputFieldTypesMap[ArgType]["value"];
     onUpdate: (x: SettingsUpdateAction) => void;

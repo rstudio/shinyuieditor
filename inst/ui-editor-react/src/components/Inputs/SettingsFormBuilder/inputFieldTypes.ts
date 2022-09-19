@@ -2,6 +2,7 @@ import type {
   CSSMeasure,
   CSSUnits,
 } from "components/Inputs/CSSUnitInput/CSSMeasure";
+import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import type { MapDiscriminatedUnion } from "../../../TypescriptUtils";
 import type { NamedList } from "../ListInput/NamedListInput";
@@ -53,21 +54,44 @@ export type InputFieldTypesMap = MapDiscriminatedUnion<
   "inputType"
 >;
 
-export type InputFieldInfoByType = {
-  [ArgType in InputFieldTypeNames]: {
-    label?: string;
-    defaultValue: InputFieldTypesMap[ArgType]["value"];
-    optional?: true;
-  } & Omit<InputFieldTypesMap[ArgType], "value">;
+export type NodeToValueFn<T> = (node: ShinyUiNode) => T;
+
+/**
+ * Object is filled with either values or callbacks to get those values from a
+ * ui node
+ */
+type ArgumentsOrCallbacks<Obj extends Record<string, any>> = {
+  [Key in keyof Obj]: Obj[Key] | NodeToValueFn<Obj[Key]>;
 };
 
-export type InputFieldInfo = InputFieldInfoByType[InputFieldTypeNames];
+export type DynamicFieldInfoByType = {
+  [ArgType in InputFieldTypeNames]: {
+    inputType: ArgType;
+    label?: string;
+    optional?: true;
+  } & ArgumentsOrCallbacks<
+    {
+      defaultValue: InputFieldTypesMap[ArgType]["value"];
+    } & Omit<InputFieldTypesMap[ArgType], "inputType" | "value">
+  >;
+};
+
+export type StaticFieldInfoByType = {
+  [ArgType in InputFieldTypeNames]: {
+    inputType: ArgType;
+    label?: string;
+    optional?: true;
+  } & {
+    defaultValue: InputFieldTypesMap[ArgType]["value"];
+  } & Omit<InputFieldTypesMap[ArgType], "inputType" | "value">;
+};
+export type StaticFieldInfo = StaticFieldInfoByType[InputFieldTypeNames];
 
 /**
  * Key-value map of the information needed to render an input component for each
  * argument in a settings object
  */
-export type FormInfo = Record<string, InputFieldInfo>;
+export type FormInfo = Record<string, StaticFieldInfo>;
 
 // Helper types to extract list of names that are optional or not based on the
 // presence of the "optional" key in the settings object. Important to note that

@@ -9,9 +9,13 @@ import type {
 import { SettingsInput } from "./SettingsInput/SettingsInput";
 import { UnknownFormFields } from "./UnknownFormFields";
 
-export type SettingsInputsBuilderProps<Info extends FormInfo> = {
+export type FormBuilderProps<Info extends FormInfo> = {
   settings: FormValuesFromInfo<Info>;
   settingsInfo: Info;
+  /**
+   * Props/values of the settings object that we don't want to show in the form
+   */
+  omitted?: string[];
   onSettingsChange: (name: string, action: SettingsUpdateAction) => void;
   renderInputs?: (x: InputComponentsOutput<Info>) => JSX.Element;
 };
@@ -25,13 +29,14 @@ export function FormBuilder<Info extends FormInfo>({
   renderInputs,
   settings,
   settingsInfo,
+  omitted = [],
   onSettingsChange,
-}: SettingsInputsBuilderProps<Info>) {
+}: FormBuilderProps<Info>) {
   // Find unknown arguments and return those too
   const unknownArgumentsNames = inANotInB(
     Object.keys(settings),
     Object.keys(settingsInfo)
-  );
+  ).filter((name) => !omitted.includes(name));
 
   const PrebuildInputComponents = {
     inputs: knownArgumentInputs({
@@ -63,7 +68,7 @@ function knownArgumentInputs<Info extends FormInfo>({
   settings,
   settingsInfo,
   onSettingsChange,
-}: SettingsInputsBuilderProps<Info>) {
+}: FormBuilderProps<Info>) {
   const InputsComponents: Record<string, JSX.Element> = {};
 
   keysOf(settingsInfo).forEach((name) => {

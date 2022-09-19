@@ -1,45 +1,15 @@
 import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import type {
-  InputFieldTypesMap,
+  DynamicFieldInfoByType,
   InputFieldTypeNames,
+  NodeToValueFn,
+  StaticFieldInfo,
+  StaticFieldInfoByType,
 } from "./inputFieldTypes";
 
-type NodeToValueFn<T> = (node: ShinyUiNode) => T;
-
-/**
- * Object is filled with either values or callbacks to get those values from a
- * ui node
- */
-export type ArgumentsOrCallbacks<Obj extends Record<string, any>> = {
-  [Key in keyof Obj]: Obj[Key] | NodeToValueFn<Obj[Key]>;
-};
-
-type DynamicFieldInfoByType = {
-  [ArgType in InputFieldTypeNames]: {
-    inputType: ArgType;
-    label?: string;
-    optional?: true;
-  } & ArgumentsOrCallbacks<
-    {
-      defaultValue: InputFieldTypesMap[ArgType]["value"];
-    } & Omit<InputFieldTypesMap[ArgType], "inputType" | "value">
-  >;
-};
-export type DynamicFieldInfo = DynamicFieldInfoByType[InputFieldTypeNames];
-export type DynamicFormInfo = Record<string, DynamicFieldInfo>;
-
-type StaticFieldInfoByType = {
-  [ArgType in InputFieldTypeNames]: {
-    inputType: ArgType;
-    label?: string;
-    optional?: true;
-  } & {
-    defaultValue: InputFieldTypesMap[ArgType]["value"];
-  } & Omit<InputFieldTypesMap[ArgType], "inputType" | "value">;
-};
-export type StaticFieldInfo = StaticFieldInfoByType[InputFieldTypeNames];
-export type StaticFormInfo = Record<string, StaticFieldInfo>;
+type DynamicFieldInfo = DynamicFieldInfoByType[InputFieldTypeNames];
+type DynamicFormInfo = Record<string, DynamicFieldInfo>;
 
 type ToStaticFormInfo<DynSettings extends DynamicFormInfo> = {
   [ArgName in keyof DynSettings]: StaticFieldInfoByType[DynSettings[ArgName]["inputType"]];
