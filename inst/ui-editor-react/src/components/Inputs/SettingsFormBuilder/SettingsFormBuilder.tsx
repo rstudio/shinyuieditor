@@ -1,3 +1,4 @@
+import type { StringKeys } from "TypescriptUtils";
 import { inANotInB } from "utils/array-helpers";
 
 import type { SettingsInfo, SettingsObjFromInfo } from "./ArgumentInfo";
@@ -16,7 +17,7 @@ export type SettingsInputsBuilderProps<Info extends SettingsInfo> = {
 };
 
 export type InputComponentsOutput<Info extends Record<string, any>> = {
-  inputs: Record<keyof Info, JSX.Element>;
+  inputs: Record<StringKeys<Info>, JSX.Element>;
   unknownArguments: JSX.Element | null;
 };
 

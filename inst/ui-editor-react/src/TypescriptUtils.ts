@@ -8,3 +8,8 @@ export type MapDiscriminatedUnion<
 > = {
   [V in T[K]]: DiscriminateUnion<T, K, V>;
 };
+
+export type StringKeys<T extends Record<string, any>> = Extract<
+  keyof T,
+  string
+>;
