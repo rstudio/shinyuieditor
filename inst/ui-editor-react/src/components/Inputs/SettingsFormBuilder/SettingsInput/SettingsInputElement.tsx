@@ -4,12 +4,7 @@ import { NamedListInputSimple } from "components/Inputs/ListInput/NamedListInput
 import { DropdownSelect } from "components/Inputs/OptionsDropdown/DropdownSelect";
 import { RadioInputsSimple } from "components/Inputs/RadioInputs/RadioInputsSimple";
 
-import type {
-  InputFieldTypesMap,
-  InputFieldTypeNames,
-  FieldTypeUnion,
-  KnownInputFieldTypes,
-} from "../inputFieldTypes";
+import type { FieldTypeUnion, KnownInputFieldTypes } from "../inputFieldTypes";
 
 import { NumberInput } from "./NumberInput";
 import { StringInput } from "./StringInput";
