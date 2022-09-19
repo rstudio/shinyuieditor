@@ -1,16 +1,16 @@
 import type { StringKeys } from "TypescriptUtils";
 import { inANotInB } from "utils/array-helpers";
 
-import type { SettingsInfo, SettingsObjFromInfo } from "./ArgumentInfo";
+import type { FormInfo, FormValuesFromInfo } from "./inputFieldTypes";
 import type {
   SettingsInputProps,
   SettingsUpdateAction,
 } from "./SettingsInput/SettingsInput";
 import { SettingsInput } from "./SettingsInput/SettingsInput";
-import { UnknownArgumentItems } from "./UnknownArgumentItems";
+import { UnknownFormFields } from "./UnknownFormFields";
 
-export type SettingsInputsBuilderProps<Info extends SettingsInfo> = {
-  settings: SettingsObjFromInfo<Info>;
+export type SettingsInputsBuilderProps<Info extends FormInfo> = {
+  settings: FormValuesFromInfo<Info>;
   settingsInfo: Info;
   onSettingsChange: (name: string, action: SettingsUpdateAction) => void;
   renderInputs?: (x: InputComponentsOutput<Info>) => JSX.Element;
@@ -21,7 +21,7 @@ export type InputComponentsOutput<Info extends Record<string, any>> = {
   unknownArguments: JSX.Element | null;
 };
 
-export function SettingsFormBuilder<Info extends SettingsInfo>({
+export function FormBuilder<Info extends FormInfo>({
   renderInputs,
   settings,
   settingsInfo,
@@ -41,7 +41,7 @@ export function SettingsFormBuilder<Info extends SettingsInfo>({
     }),
     unknownArguments:
       unknownArgumentsNames.length === 0 ? null : (
-        <UnknownArgumentItems
+        <UnknownFormFields
           unknownArgumentsNames={unknownArgumentsNames}
           onSettingsChange={onSettingsChange}
         />
@@ -49,7 +49,7 @@ export function SettingsFormBuilder<Info extends SettingsInfo>({
   } as InputComponentsOutput<Info>;
 
   return (
-    <form className="SettingsFormBuilder">
+    <form className="FormBuilder">
       {renderInputs ? (
         renderInputs(PrebuildInputComponents)
       ) : (
@@ -59,7 +59,7 @@ export function SettingsFormBuilder<Info extends SettingsInfo>({
   );
 }
 
-function knownArgumentInputs<Info extends SettingsInfo>({
+function knownArgumentInputs<Info extends FormInfo>({
   settings,
   settingsInfo,
   onSettingsChange,
@@ -87,7 +87,7 @@ function knownArgumentInputs<Info extends SettingsInfo>({
   return InputsComponents;
 }
 
-function AutobuildFormContents<Info extends SettingsInfo>({
+function AutobuildFormContents<Info extends FormInfo>({
   inputs,
   unknownArguments,
 }: InputComponentsOutput<Info>) {

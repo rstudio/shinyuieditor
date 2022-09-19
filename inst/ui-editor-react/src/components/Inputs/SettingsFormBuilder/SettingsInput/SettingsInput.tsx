@@ -1,13 +1,13 @@
 import Button from "components/Inputs/Button/Button";
 
 import type {
-  ArgTypesMap,
-  ArgTypesNames,
-  ArgumentInfoByType,
-  ArgumentTypeUnion,
-  KnownArgTypes,
-} from "../ArgumentInfo";
-import { makeLabelId } from "../ArgumentInfo";
+  InputFieldTypesMap,
+  InputFieldTypeNames,
+  InputFieldInfoByType,
+  FieldTypeUnion,
+  KnownInputFieldTypes,
+} from "../inputFieldTypes";
+import { makeLabelId } from "../inputFieldTypes";
 
 import "./SettingsInput.scss";
 
@@ -17,19 +17,19 @@ import { valueIsType } from "./valueIsType";
 export type SettingsUpdateAction =
   | {
       type: "UPDATE";
-      value: KnownArgTypes;
+      value: KnownInputFieldTypes;
     }
   | {
       type: "REMOVE";
     };
 
 export type SettingsInputProps = {
-  [ArgType in ArgTypesNames]: ArgumentInfoByType[ArgType] & {
+  [ArgType in InputFieldTypeNames]: InputFieldInfoByType[ArgType] & {
     name: string;
-    value?: ArgTypesMap[ArgType]["value"];
+    value?: InputFieldTypesMap[ArgType]["value"];
     onUpdate: (x: SettingsUpdateAction) => void;
   };
-}[ArgTypesNames];
+}[InputFieldTypeNames];
 
 export function SettingsInput({ onUpdate, ...opts }: SettingsInputProps) {
   const argumentIsUnset = opts.value === undefined;
@@ -42,7 +42,7 @@ export function SettingsInput({ onUpdate, ...opts }: SettingsInputProps) {
       value: opts.defaultValue,
     });
 
-  const updateArgument = (newVal: KnownArgTypes) =>
+  const updateArgument = (newVal: KnownInputFieldTypes) =>
     onUpdate({ type: "UPDATE", value: newVal });
 
   const unsetArgument = () => onUpdate({ type: "REMOVE" });
@@ -70,7 +70,7 @@ export function SettingsInput({ onUpdate, ...opts }: SettingsInputProps) {
         <SettingsInputElement
           id={opts.name}
           onChange={updateArgument}
-          {...(opts as ArgumentTypeUnion)}
+          {...(opts as FieldTypeUnion)}
         />
       );
     }

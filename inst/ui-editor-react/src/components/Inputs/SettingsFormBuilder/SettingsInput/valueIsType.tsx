@@ -1,11 +1,14 @@
 import { isCSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
 import { isNamedList } from "components/Inputs/ListInput/NamedListInput";
 
-import type { ArgTypesNames, KnownArgTypes } from "../ArgumentInfo";
+import type {
+  InputFieldTypeNames,
+  KnownInputFieldTypes,
+} from "../inputFieldTypes";
 
 export function valueIsType(
-  value: KnownArgTypes | undefined,
-  type: ArgTypesNames
+  value: KnownInputFieldTypes | undefined,
+  type: InputFieldTypeNames
 ): boolean {
   if (value === undefined) {
     return true;

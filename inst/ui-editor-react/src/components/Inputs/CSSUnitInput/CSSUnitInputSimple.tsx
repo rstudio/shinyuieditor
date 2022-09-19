@@ -1,8 +1,8 @@
 import React from "react";
 
 import { NumericInputSimple } from "../NumericInput/NumericInput";
-import type { InputComponentProps } from "../SettingsFormBuilder/ArgumentInfo";
-import { makeLabelId } from "../SettingsFormBuilder/ArgumentInfo";
+import type { InputComponentProps } from "../SettingsFormBuilder/inputFieldTypes";
+import { makeLabelId } from "../SettingsFormBuilder/inputFieldTypes";
 
 import type { CSSUnits } from "./index";
 import { defaultCounts } from "./index";

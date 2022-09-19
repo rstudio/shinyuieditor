@@ -2,13 +2,13 @@ import { getFirstTabName, getTabNames } from "components/Tabs/Tabset/utils";
 import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import type {
-  DynamicArgumentInfo,
-  DynamicSettingsInfo,
-  StaticArgumentInfo,
-  StaticSettingsInfo,
+  DynamicFieldInfo,
+  DynamicFormInfo,
+  StaticFieldInfo,
+  StaticFormInfo,
 } from "./buildStaticSettingsInfo";
-import { buildStaticSettingsInfo } from "./buildStaticSettingsInfo";
-import { buildStaticArgumentInfo } from "./buildStaticSettingsInfo";
+import { buildStaticFormInfo } from "./buildStaticSettingsInfo";
+import { buildStaticFieldInfo } from "./buildStaticSettingsInfo";
 
 const navbarWithThreeTabs: ShinyUiNode = {
   uiName: "shiny::navbarPage",
@@ -33,14 +33,14 @@ const navbarWithThreeTabs: ShinyUiNode = {
 };
 describe("Can convert dynamic argument info object into a static one", () => {
   test("All dynamic values", () => {
-    const selectedTabArgument: DynamicArgumentInfo = {
+    const selectedTabArgument: DynamicFieldInfo = {
       inputType: "optionsDropdown",
       label: "My List",
       defaultValue: getFirstTabName,
       choices: getTabNames,
     };
 
-    const expectedOutput: StaticArgumentInfo = {
+    const expectedOutput: StaticFieldInfo = {
       inputType: "optionsDropdown",
       label: "My List",
       defaultValue: "first tab",
@@ -48,32 +48,32 @@ describe("Can convert dynamic argument info object into a static one", () => {
     };
 
     expect(
-      buildStaticArgumentInfo(selectedTabArgument, navbarWithThreeTabs)
+      buildStaticFieldInfo(selectedTabArgument, navbarWithThreeTabs)
     ).toEqual(expectedOutput);
   });
 
   test("Mix of dynamic and static values", () => {
-    const selectedTabArgument: DynamicArgumentInfo = {
+    const selectedTabArgument: DynamicFieldInfo = {
       inputType: "optionsDropdown",
       label: "My List",
       defaultValue: "second tab",
       choices: getTabNames,
     };
-    const expectedOutput: StaticArgumentInfo = {
+    const expectedOutput: StaticFieldInfo = {
       inputType: "optionsDropdown",
       label: "My List",
       defaultValue: "second tab",
       choices: ["first tab", "second tab", "third tab"],
     };
     expect(
-      buildStaticArgumentInfo(selectedTabArgument, navbarWithThreeTabs)
+      buildStaticFieldInfo(selectedTabArgument, navbarWithThreeTabs)
     ).toEqual(expectedOutput);
   });
 });
 
 describe("Can convert full dynamic settings info object into a static one", () => {
   test("All dynamic values", () => {
-    const navbarPageDynamicInfo: DynamicSettingsInfo = {
+    const navbarPageDynamicInfo: DynamicFormInfo = {
       title: {
         inputType: "string",
         defaultValue: (node) =>
@@ -87,7 +87,7 @@ describe("Can convert full dynamic settings info object into a static one", () =
       },
     };
 
-    const expectedOutput: StaticSettingsInfo = {
+    const expectedOutput: StaticFormInfo = {
       title: {
         inputType: "string",
         defaultValue: `tabset with 3 tabs`,
@@ -101,7 +101,7 @@ describe("Can convert full dynamic settings info object into a static one", () =
     };
 
     expect(
-      buildStaticSettingsInfo(navbarPageDynamicInfo, navbarWithThreeTabs)
+      buildStaticFormInfo(navbarPageDynamicInfo, navbarWithThreeTabs)
     ).toEqual(expectedOutput);
   });
 });

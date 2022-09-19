@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import type { InputComponentProps } from "../SettingsFormBuilder/ArgumentInfo";
-import { makeLabelId } from "../SettingsFormBuilder/ArgumentInfo";
+import type { InputComponentProps } from "../SettingsFormBuilder/inputFieldTypes";
+import { makeLabelId } from "../SettingsFormBuilder/inputFieldTypes";
 
 import classes from "./RadioInputs.module.css";
 

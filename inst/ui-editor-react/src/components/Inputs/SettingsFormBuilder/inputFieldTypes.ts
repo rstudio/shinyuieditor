@@ -11,7 +11,7 @@ import type {
   RadioInputOptions,
 } from "../RadioInputs/RadioInputsSimple";
 
-export type ArgumentTypeUnion =
+export type FieldTypeUnion =
   | {
       inputType: "string";
       value: string;
@@ -45,43 +45,46 @@ export type ArgumentTypeUnion =
       choices: RadioInputOptions;
     };
 
-export type ArgTypesNames = ArgumentTypeUnion["inputType"];
-export type KnownArgTypes = ArgumentTypeUnion["value"];
+export type InputFieldTypeNames = FieldTypeUnion["inputType"];
+export type KnownInputFieldTypes = FieldTypeUnion["value"];
 
-export type ArgTypesMap = MapDiscriminatedUnion<ArgumentTypeUnion, "inputType">;
+export type InputFieldTypesMap = MapDiscriminatedUnion<
+  FieldTypeUnion,
+  "inputType"
+>;
 
-export type ArgumentInfoByType = {
-  [ArgType in ArgTypesNames]: {
+export type InputFieldInfoByType = {
+  [ArgType in InputFieldTypeNames]: {
     label?: string;
-    defaultValue: ArgTypesMap[ArgType]["value"];
+    defaultValue: InputFieldTypesMap[ArgType]["value"];
     optional?: true;
-  } & Omit<ArgTypesMap[ArgType], "value">;
+  } & Omit<InputFieldTypesMap[ArgType], "value">;
 };
 
-export type ArgumentInfo = ArgumentInfoByType[ArgTypesNames];
+export type InputFieldInfo = InputFieldInfoByType[InputFieldTypeNames];
 
 /**
  * Key-value map of the information needed to render an input component for each
  * argument in a settings object
  */
-export type SettingsInfo = Record<string, ArgumentInfo>;
+export type FormInfo = Record<string, InputFieldInfo>;
 
 // Helper types to extract list of names that are optional or not based on the
 // presence of the "optional" key in the settings object. Important to note that
 // this means putting anything (true _or_ false) in the optional field will make
 // it optional, which is maybe a bit confusing but will work out fine because
 // javascript will do runtime checks
-type OptionalSettingsKeys<Info extends SettingsInfo> = {
+type OptionalSettingsKeys<Info extends FormInfo> = {
   [K in keyof Info]-?: true extends Info[K]["optional"] ? never : K;
 }[keyof Info];
 
-type RequiredSettingsKeys<Info extends SettingsInfo> = {
+type RequiredSettingsKeys<Info extends FormInfo> = {
   [K in keyof Info]-?: true extends Info[K]["optional"] ? K : never;
 }[keyof Info];
 
 // Now build the settings object based on the info object making the "optional"
 // parameters just that
-export type SettingsObjFromInfo<Info extends SettingsInfo> = {
+export type FormValuesFromInfo<Info extends FormInfo> = {
   [K in OptionalSettingsKeys<Info>]?: Info[K]["defaultValue"];
 } & {
   [K in RequiredSettingsKeys<Info>]: Info[K]["defaultValue"];

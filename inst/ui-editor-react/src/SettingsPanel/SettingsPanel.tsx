@@ -1,7 +1,7 @@
 import DeleteNodeButton from "components/DeleteNodeButton";
-import type { SettingsObjFromInfo } from "components/Inputs/SettingsFormBuilder/ArgumentInfo";
-import { buildStaticSettingsInfo } from "components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
-import { SettingsFormBuilder } from "components/Inputs/SettingsFormBuilder/SettingsFormBuilder";
+import { buildStaticFormInfo } from "components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
+import { FormBuilder } from "components/Inputs/SettingsFormBuilder/FormBuilder";
+import type { FormValuesFromInfo } from "components/Inputs/SettingsFormBuilder/inputFieldTypes";
 import { SettingsUpdateContext } from "components/Inputs/SettingsUpdateContext";
 import type {
   SettingsUpdaterComponent,
@@ -38,13 +38,10 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
 
   const settingsInfo = shinyUiNodeInfo[uiName].settingsInfo;
   if (settingsInfo) {
-    const staticSettingsInfo = buildStaticSettingsInfo(
-      settingsInfo,
-      currentNode
-    );
+    const staticSettingsInfo = buildStaticFormInfo(settingsInfo, currentNode);
     settingsForm = (
-      <SettingsFormBuilder
-        settings={uiArguments as SettingsObjFromInfo<typeof staticSettingsInfo>}
+      <FormBuilder
+        settings={uiArguments as FormValuesFromInfo<typeof staticSettingsInfo>}
         settingsInfo={staticSettingsInfo}
         onSettingsChange={(name, action) => {
           if (action.type === "UPDATE") {

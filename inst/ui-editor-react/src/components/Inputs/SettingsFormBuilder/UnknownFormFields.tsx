@@ -2,10 +2,10 @@ import { Trash } from "components/Icons";
 
 import Button from "../Button/Button";
 
-import type { SettingsInfo } from "./ArgumentInfo";
-import type { SettingsInputsBuilderProps } from "./SettingsFormBuilder";
+import type { SettingsInputsBuilderProps } from "./FormBuilder";
+import type { FormInfo } from "./inputFieldTypes";
 
-function UnknownArgumentItem({
+function UnknownFieldItem({
   name,
   onRemove,
 }: {
@@ -18,7 +18,7 @@ function UnknownArgumentItem({
     onRemove();
   };
   return (
-    <li aria-label="Unkown argument">
+    <li aria-label="Unknown argument">
       <code>{name}</code>
       <Button
         onClick={handleClick}
@@ -33,20 +33,20 @@ function UnknownArgumentItem({
   );
 }
 
-export function UnknownArgumentItems({
+export function UnknownFormFields({
   unknownArgumentsNames,
   onSettingsChange,
-}: Pick<SettingsInputsBuilderProps<SettingsInfo>, "onSettingsChange"> & {
-  unknownArgumentsNames: Array<keyof SettingsInfo>;
+}: Pick<SettingsInputsBuilderProps<FormInfo>, "onSettingsChange"> & {
+  unknownArgumentsNames: Array<keyof FormInfo>;
 }) {
   // Find unknown arguments and return those too
 
   if (unknownArgumentsNames.length === 0) return null;
 
   return (
-    <ul className="UnknownArgumentsList" aria-label="Unknown arguments list">
+    <ul className="UnknownFormFields" aria-label="Unknown arguments list">
       {unknownArgumentsNames.map((argName) => (
-        <UnknownArgumentItem
+        <UnknownFieldItem
           key={argName}
           name={argName}
           onRemove={() => onSettingsChange(argName, { type: "REMOVE" })}

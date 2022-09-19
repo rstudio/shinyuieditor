@@ -7,8 +7,8 @@ import { ReactSortable } from "react-sortablejs";
 import { sameObject } from "utils/equalityCheckers";
 
 import Button from "../Button/Button";
-import type { InputComponentProps } from "../SettingsFormBuilder/ArgumentInfo";
-import { makeLabelId } from "../SettingsFormBuilder/ArgumentInfo";
+import type { InputComponentProps } from "../SettingsFormBuilder/inputFieldTypes";
+import { makeLabelId } from "../SettingsFormBuilder/inputFieldTypes";
 
 import type { ItemType, NamedList } from "./NamedListInput";
 import { simplifyToChoices } from "./NamedListInput";

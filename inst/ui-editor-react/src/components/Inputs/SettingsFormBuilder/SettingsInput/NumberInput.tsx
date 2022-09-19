@@ -1,5 +1,5 @@
-import type { InputComponentProps } from "../ArgumentInfo";
-import { makeLabelId } from "../ArgumentInfo";
+import type { InputComponentProps } from "../inputFieldTypes";
+import { makeLabelId } from "../inputFieldTypes";
 
 export function NumberInput({
   id,

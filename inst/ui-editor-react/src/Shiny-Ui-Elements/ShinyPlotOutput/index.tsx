@@ -1,12 +1,12 @@
 import plotIcon from "assets/icons/shinyPlot.png";
-import type { SettingsInfo } from "components/Inputs/SettingsFormBuilder/ArgumentInfo";
+import type { FormInfo } from "components/Inputs/SettingsFormBuilder/inputFieldTypes";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import { ShinyPlotOutputSettings } from "./SettingsPanel";
 import ShinyPlotOutput from "./ShinyPlotOutput";
 
-export const ShinyPlotOutputSettingsInfo: SettingsInfo = {
+export const ShinyPlotOutputSettingsInfo: FormInfo = {
   outputId: {
     inputType: "string",
     defaultValue: "plot",

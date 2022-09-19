@@ -3,17 +3,17 @@ import React from "react";
 import { getTabPanelTitle } from "components/Tabs/Tabset/utils";
 import omit from "just-omit";
 
-import type { SettingsInfo } from "./ArgumentInfo";
-import type { DynamicSettingsInfo } from "./buildStaticSettingsInfo";
-import { SettingsFormBuilder } from "./SettingsFormBuilder";
+import type { DynamicFormInfo } from "./buildStaticSettingsInfo";
+import { FormBuilder } from "./FormBuilder";
+import type { FormInfo } from "./inputFieldTypes";
 import type { SettingsUpdateAction } from "./SettingsInput/SettingsInput";
 
 export default {
   title: "SettingsFormBuilder",
-  component: SettingsFormBuilder,
+  component: FormBuilder,
 };
 
-const settingsInfo: SettingsInfo = {
+const settingsInfo: FormInfo = {
   name: {
     defaultValue: "name default",
     label: "String argument",
@@ -63,7 +63,7 @@ export const AutoBuild = () => {
   }, [value]);
 
   return (
-    <SettingsFormBuilder
+    <FormBuilder
       settings={value}
       settingsInfo={settingsInfo}
       onSettingsChange={handleSettingsChange}
@@ -177,7 +177,7 @@ export const AutoBuild = () => {
 //   );
 // };
 
-const tabsetArgumentInfo: DynamicSettingsInfo = {
+const tabsetArgumentInfo: DynamicFormInfo = {
   selected: {
     inputType: "optionsDropdown",
     optional: true,

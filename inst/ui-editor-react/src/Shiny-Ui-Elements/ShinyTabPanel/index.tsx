@@ -1,12 +1,12 @@
 import icon from "assets/icons/tabPanel.png";
-import type { SettingsInfo } from "components/Inputs/SettingsFormBuilder/ArgumentInfo";
+import type { FormInfo } from "components/Inputs/SettingsFormBuilder/inputFieldTypes";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import { ShinyTabPanelSettings } from "./SettingsPanel";
 import ShinyTabPanel from "./ShinyTabPanel";
 
-export const TabPanelSettingsInfo: SettingsInfo = {
+export const TabPanelSettingsInfo: FormInfo = {
   title: {
     inputType: "string",
     defaultValue: "My Shiny App",
