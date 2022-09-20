@@ -1,9 +1,9 @@
 import Button from "components/Inputs/Button/Button";
 
 import type {
-  FieldTypeUnion,
-  InputFieldTypeNames,
-  InputFieldTypesMap,
+  FieldEntryUnion,
+  InputFieldEntryNames,
+  InputFieldEntryMap,
   KnownInputFieldTypes,
   StaticFieldInfoByType,
 } from "../inputFieldTypes";
@@ -24,12 +24,12 @@ export type SettingsUpdateAction =
     };
 
 export type SettingsInputProps = {
-  [ArgType in InputFieldTypeNames]: StaticFieldInfoByType[ArgType] & {
+  [ArgType in InputFieldEntryNames]: StaticFieldInfoByType[ArgType] & {
     name: string;
-    value?: InputFieldTypesMap[ArgType]["value"];
+    value?: InputFieldEntryMap[ArgType]["value"];
     onUpdate: (x: SettingsUpdateAction) => void;
   };
-}[InputFieldTypeNames];
+}[InputFieldEntryNames];
 
 export function SettingsInput({ onUpdate, ...opts }: SettingsInputProps) {
   const argumentIsUnset = opts.value === undefined;
@@ -70,7 +70,7 @@ export function SettingsInput({ onUpdate, ...opts }: SettingsInputProps) {
         <SettingsInputElement
           id={opts.name}
           onChange={updateArgument}
-          {...(opts as FieldTypeUnion)}
+          {...(opts as FieldEntryUnion)}
         />
       );
     }

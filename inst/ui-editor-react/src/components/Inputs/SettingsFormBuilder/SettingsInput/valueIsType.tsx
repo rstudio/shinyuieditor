@@ -2,13 +2,13 @@ import { isCSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
 import { isNamedList } from "components/Inputs/ListInput/NamedListInput";
 
 import type {
-  InputFieldTypeNames,
+  InputFieldEntryNames,
   KnownInputFieldTypes,
 } from "../inputFieldTypes";
 
 export function valueIsType(
   value: KnownInputFieldTypes | undefined,
-  type: InputFieldTypeNames
+  type: InputFieldEntryNames
 ): boolean {
   if (value === undefined) {
     return true;
@@ -34,11 +34,11 @@ export function valueIsType(
     return isNamedList(value);
   }
 
-  if (type === "optionsDropdown") {
+  if (type === "dropdown") {
     return typeof value === "string";
   }
 
-  if (type === "radioInput") {
+  if (type === "radio") {
     return typeof value === "string";
   }
 

@@ -1,5 +1,5 @@
-export type CSSMeasure = `${number}${CSSUnits}` | "auto";
-export type CSSUnits = "fr" | "px" | "rem" | "%";
+export type CSSMeasure = `${number}${CSSUnit}` | "auto";
+export type CSSUnit = "fr" | "px" | "rem" | "%";
 
 const findMeasureRegex = /(^[\d|.]+)\s*(px|%|rem|fr)|(^auto$)/;
 export function isCSSMeasure(x: string): x is CSSMeasure {
@@ -7,14 +7,14 @@ export function isCSSMeasure(x: string): x is CSSMeasure {
 }
 
 export type ParsedCSSMeasure =
-  | { count: number; unit: CSSUnits }
+  | { count: number; unit: CSSUnit }
   | { count: null; unit: "auto" };
 
 const unitRegex = /(px|%|rem|fr|auto)/g;
 const countRegex = /^[\d|.]*/g;
 
 export function parseCSSMeasure(measure: string): ParsedCSSMeasure {
-  const unit = (measure.match(unitRegex)?.[0] || "px") as CSSUnits | "auto";
+  const unit = (measure.match(unitRegex)?.[0] || "px") as CSSUnit | "auto";
 
   const countMatch = measure.match(countRegex)?.[0];
   // If we didn't find a unit then just

@@ -5,9 +5,9 @@ import { makeLabelId } from "../SettingsFormBuilder/inputFieldTypes";
 
 import classes from "./RadioInputs.module.css";
 
-export type RadioInputChoice = string;
-export type RadioInputOptions = Record<
-  RadioInputChoice,
+export type RadioOption = string;
+export type RadioOptions = Record<
+  RadioOption,
   { icon: JSX.Element | string; label?: string }
 >;
 export const DEFAULT_RADIO_CHOICE = "__DEFAULT-RADIO-CHOICE__";
@@ -19,13 +19,13 @@ export function RadioInputsSimple({
   onChange,
   optionsPerColumn,
 }: InputComponentProps<
-  RadioInputChoice,
+  RadioOption,
   {
-    choices: RadioInputOptions;
+    choices: RadioOptions;
     optionsPerColumn?: number;
   }
 >) {
-  const values = Object.keys(choices) as RadioInputChoice[];
+  const values = Object.keys(choices) as RadioOption[];
 
   // If we've been given the reset signal default to the first option
   React.useEffect(() => {

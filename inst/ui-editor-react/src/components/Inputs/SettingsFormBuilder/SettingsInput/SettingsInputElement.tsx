@@ -4,7 +4,7 @@ import { NamedListInputSimple } from "components/Inputs/ListInput/NamedListInput
 import { DropdownSelect } from "components/Inputs/OptionsDropdown/DropdownSelect";
 import { RadioInputsSimple } from "components/Inputs/RadioInputs/RadioInputsSimple";
 
-import type { FieldTypeUnion, KnownInputFieldTypes } from "../inputFieldTypes";
+import type { FieldEntryUnion, KnownInputFieldTypes } from "../inputFieldTypes";
 
 import { NumberInput } from "./NumberInput";
 import { StringInput } from "./StringInput";
@@ -17,7 +17,7 @@ import { StringInput } from "./StringInput";
  */
 export type OnChangeCallback = (newValue: KnownInputFieldTypes) => void;
 
-export type SettingsInputElementProps = FieldTypeUnion & {
+export type SettingsInputElementProps = FieldEntryUnion & {
   id: string;
   onChange: OnChangeCallback;
 };
@@ -62,11 +62,11 @@ export function SettingsInputElement(args: SettingsInputElementProps) {
     return <inputComps.list {...args} />;
   }
 
-  if (args.inputType === "optionsDropdown") {
+  if (args.inputType === "dropdown") {
     return <inputComps.optionsDropdown {...args} />;
   }
 
-  if (args.inputType === "radioInput") {
+  if (args.inputType === "radio") {
     return <inputComps.radioInput {...args} />;
   }
 

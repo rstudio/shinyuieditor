@@ -34,14 +34,14 @@ const navbarWithThreeTabs: ShinyUiNode = {
 describe("Can convert dynamic argument info object into a static one", () => {
   test("All dynamic values", () => {
     const selectedTabArgument: DynamicFieldInfo = {
-      inputType: "optionsDropdown",
+      inputType: "dropdown",
       label: "My List",
       defaultValue: getFirstTabName,
       choices: getTabNames,
     };
 
     const expectedOutput: StaticFieldInfo = {
-      inputType: "optionsDropdown",
+      inputType: "dropdown",
       label: "My List",
       defaultValue: "first tab",
       choices: ["first tab", "second tab", "third tab"],
@@ -54,13 +54,13 @@ describe("Can convert dynamic argument info object into a static one", () => {
 
   test("Mix of dynamic and static values", () => {
     const selectedTabArgument: DynamicFieldInfo = {
-      inputType: "optionsDropdown",
+      inputType: "dropdown",
       label: "My List",
       defaultValue: "second tab",
       choices: getTabNames,
     };
     const expectedOutput: StaticFieldInfo = {
-      inputType: "optionsDropdown",
+      inputType: "dropdown",
       label: "My List",
       defaultValue: "second tab",
       choices: ["first tab", "second tab", "third tab"],
@@ -80,7 +80,7 @@ describe("Can convert full dynamic settings info object into a static one", () =
           `tabset with ${node.uiChildren?.length ?? -1} tabs`,
       },
       selected: {
-        inputType: "optionsDropdown",
+        inputType: "dropdown",
         label: "My List",
         defaultValue: getFirstTabName,
         choices: getTabNames,
@@ -93,7 +93,7 @@ describe("Can convert full dynamic settings info object into a static one", () =
         defaultValue: `tabset with 3 tabs`,
       },
       selected: {
-        inputType: "optionsDropdown",
+        inputType: "dropdown",
         label: "My List",
         defaultValue: "first tab",
         choices: ["first tab", "second tab", "third tab"],

@@ -9,7 +9,7 @@ import type { CSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
 import type { NamedList } from "components/Inputs/ListInput/NamedListInput";
 import type { DropdownOption } from "components/Inputs/OptionsDropdown/DropdownSelect";
 import { DEFAULT_DROPDOWN_CHOICE } from "components/Inputs/OptionsDropdown/DropdownSelect";
-import type { RadioInputChoice } from "components/Inputs/RadioInputs/RadioInputsSimple";
+import type { RadioOption } from "components/Inputs/RadioInputs/RadioInputsSimple";
 import { DEFAULT_RADIO_CHOICE } from "components/Inputs/RadioInputs/RadioInputsSimple";
 
 import type { SettingsUpdateAction } from "./SettingsInput";
@@ -207,7 +207,7 @@ export const DropdownInput = () => {
     <SettingsInput
       name="myDropdown"
       value={value}
-      inputType="optionsDropdown"
+      inputType="dropdown"
       defaultValue={DEFAULT_DROPDOWN_CHOICE}
       label="Dropdown input"
       optional={true}
@@ -223,9 +223,7 @@ const horizontalAlignOptions = {
   end: { icon: alignTextRight, label: "right" },
 };
 export const RadioInput = () => {
-  const [value, setValue] = React.useState<RadioInputChoice | undefined>(
-    "center"
-  );
+  const [value, setValue] = React.useState<RadioOption | undefined>("center");
 
   const updateValue = (action: SettingsUpdateAction) => {
     if (action.type === "UPDATE") {
@@ -242,7 +240,7 @@ export const RadioInput = () => {
     <SettingsInput
       name="myRadio"
       value={value}
-      inputType="radioInput"
+      inputType="radio"
       defaultValue={DEFAULT_RADIO_CHOICE}
       label="Radio inputs"
       optional={true}

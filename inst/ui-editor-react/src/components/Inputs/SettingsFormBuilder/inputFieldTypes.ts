@@ -1,6 +1,6 @@
 import type {
   CSSMeasure,
-  CSSUnits,
+  CSSUnit,
 } from "components/Inputs/CSSUnitInput/CSSMeasure";
 import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
 
@@ -8,11 +8,11 @@ import type { MapDiscriminatedUnion } from "../../../TypescriptUtils";
 import type { NamedList } from "../ListInput/NamedListInput";
 import type { DropdownOption } from "../OptionsDropdown/DropdownSelect";
 import type {
-  RadioInputChoice,
-  RadioInputOptions,
+  RadioOption,
+  RadioOptions,
 } from "../RadioInputs/RadioInputsSimple";
 
-export type FieldTypeUnion =
+export type FieldEntryUnion =
   | {
       inputType: "string";
       value: string;
@@ -27,7 +27,7 @@ export type FieldTypeUnion =
   | {
       inputType: "cssMeasure";
       value: CSSMeasure;
-      units?: CSSUnits[];
+      units?: CSSUnit[];
     }
   | { inputType: "boolean"; value: boolean }
   | {
@@ -36,21 +36,21 @@ export type FieldTypeUnion =
       newItemValue?: { key: string; value: string };
     }
   | {
-      inputType: "optionsDropdown";
+      inputType: "dropdown";
       value: DropdownOption;
       choices: DropdownOption[];
     }
   | {
-      inputType: "radioInput";
-      value: RadioInputChoice;
-      choices: RadioInputOptions;
+      inputType: "radio";
+      value: RadioOption;
+      choices: RadioOptions;
     };
 
-export type InputFieldTypeNames = FieldTypeUnion["inputType"];
-export type KnownInputFieldTypes = FieldTypeUnion["value"];
+export type InputFieldEntryNames = FieldEntryUnion["inputType"];
+export type KnownInputFieldTypes = FieldEntryUnion["value"];
 
-export type InputFieldTypesMap = MapDiscriminatedUnion<
-  FieldTypeUnion,
+export type InputFieldEntryMap = MapDiscriminatedUnion<
+  FieldEntryUnion,
   "inputType"
 >;
 
@@ -67,17 +67,17 @@ type ArgumentsOrCallbacks<Obj extends Record<string, any>> = {
 type OmittedField = { inputType: "omitted" };
 
 export type StaticFieldInfoByType = {
-  [ArgType in InputFieldTypeNames]: {
-    defaultValue: InputFieldTypesMap[ArgType]["value"];
+  [ArgType in InputFieldEntryNames]: {
+    defaultValue: InputFieldEntryMap[ArgType]["value"];
     label?: string;
     optional?: true;
-  } & Omit<InputFieldTypesMap[ArgType], "value">;
+  } & Omit<InputFieldEntryMap[ArgType], "value">;
 } & { omitted: OmittedField };
 
-type NonDynamicProps = "inputType" | "label" | "optional";
+type NonDynamicProps = "inputType" | "optional";
 
 export type DynamicFieldInfoByType = {
-  [ArgType in InputFieldTypeNames]: Pick<
+  [ArgType in InputFieldEntryNames]: Pick<
     StaticFieldInfoByType[ArgType],
     NonDynamicProps
   > &

@@ -26,7 +26,7 @@ export const NavbarPageSettingsInfo: UiNodeSettingsInfo = {
     optional: true,
   },
   selected: {
-    inputType: "optionsDropdown",
+    inputType: "dropdown",
     optional: true,
     label: "Selected tab on load",
     defaultValue: getFirstTabName,

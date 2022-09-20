@@ -3,7 +3,7 @@ import * as React from "react";
 import { Trash } from "components/Icons";
 import type {
   CSSMeasure,
-  CSSUnits,
+  CSSUnit,
 } from "components/Inputs/CSSUnitInput/CSSMeasure";
 import { CSSUnitInputSimple } from "components/Inputs/CSSUnitInput/CSSUnitInputSimple";
 import { PopoverButton } from "components/Inputs/PopoverButton";
@@ -16,7 +16,7 @@ import type { TractUpdateAction } from "./EditableGridContainer";
 import classes from "./TractInfoDisplay.module.css";
 import type { TractInfo } from "./useDragToResizeGrid";
 
-const ALLOWED_UNITS: CSSUnits[] = ["fr", "px"];
+const ALLOWED_UNITS: CSSUnit[] = ["fr", "px"];
 export function TractInfoDisplay({
   dir,
   index,

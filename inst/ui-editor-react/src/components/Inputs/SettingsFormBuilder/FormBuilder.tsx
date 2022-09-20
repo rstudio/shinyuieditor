@@ -4,7 +4,7 @@ import { inANotInB } from "utils/array-helpers";
 import type {
   FormInfo,
   FormValuesFromInfo,
-  InputFieldTypeNames,
+  InputFieldEntryNames,
   StaticFieldInfoByType,
 } from "./inputFieldTypes";
 import type {
@@ -30,7 +30,7 @@ export type InputComponentsOutput<Info extends Record<string, any>> = {
   unknownArguments: JSX.Element | null;
 };
 
-type FieldInfoSansOmited = StaticFieldInfoByType[InputFieldTypeNames];
+type FieldInfoSansOmited = StaticFieldInfoByType[InputFieldEntryNames];
 type NonOmittedFormInfo = Record<string, FieldInfoSansOmited>;
 function removeOmittedFields<Info extends FormInfo>(
   settingsInfo: Info
