@@ -3,7 +3,6 @@ import icon from "assets/icons/shinyContainer.png";
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import PkgNodeName from "./Component";
-import { PkgNodeNameSettings } from "./SettingsPanel";
 
 export type NodeNameSettings = {
   name: string;
@@ -16,7 +15,13 @@ export const pkgNodeNameDefaultSettings: NodeNameSettings = {
 export const pkgNodeNameInfo: UiComponentInfo<NodeNameSettings> = {
   title: "NODE NAME",
   UiComponent: PkgNodeName,
-  SettingsComponent: PkgNodeNameSettings,
+  settingsInfo: {
+    name: {
+      label: "Name of node",
+      inputType: "string",
+      defaultValue: "default name",
+    },
+  },
   acceptsChildren: true,
   defaultSettings: pkgNodeNameDefaultSettings,
   iconSrc: icon,

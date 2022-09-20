@@ -1,6 +1,5 @@
 import type { UiComponentInfo } from "../uiNodeTypes";
 
-import { UnknownUiFunctionSettings } from "./SettingsPanel";
 import UnknownUiFunction from "./UnknownUiFunction";
 
 export type UnknownUiFunctionProps = {
@@ -10,7 +9,11 @@ export type UnknownUiFunctionProps = {
 export const unknownUiFunctionInfo: UiComponentInfo<UnknownUiFunctionProps> = {
   title: "Unknown UI Function",
   UiComponent: UnknownUiFunction,
-  SettingsComponent: UnknownUiFunctionSettings,
+  settingsInfo: {
+    text: {
+      inputType: "omitted",
+    },
+  },
   acceptsChildren: false,
   defaultSettings: { text: "unknownUiFunction()" },
 };

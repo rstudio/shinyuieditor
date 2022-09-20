@@ -5,7 +5,6 @@ import { getFirstTabName, getTabNames } from "components/Tabs/Tabset/utils";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 
-import { ShinyNavbarPageSettings } from "./SettingsPanel";
 import ShinyNavbarPage from "./ShinyNavbarPage";
 
 export const NavbarPageSettingsInfo: UiNodeSettingsInfo = {
@@ -50,7 +49,6 @@ export const shinyNavbarPageInfo: UiComponentInfo<NavbarPageSettings> = {
   title: "Navbar Page",
   UiComponent: ShinyNavbarPage,
   settingsInfo: NavbarPageSettingsInfo,
-  SettingsComponent: ShinyNavbarPageSettings,
   acceptsChildren: true,
   defaultSettings: shinyNavbarPageDefaultSettings,
   // iconSrc: icon,

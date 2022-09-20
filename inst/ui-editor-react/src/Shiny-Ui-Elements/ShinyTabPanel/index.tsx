@@ -3,7 +3,6 @@ import type { UiNodeSettingsInfo } from "components/Inputs/SettingsFormBuilder/i
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 
-import { ShinyTabPanelSettings } from "./SettingsPanel";
 import ShinyTabPanel from "./ShinyTabPanel";
 
 export const TabPanelSettingsInfo: UiNodeSettingsInfo = {
@@ -26,7 +25,6 @@ export const shinyTabPanelInfo: UiComponentInfo<TabPanelSettings> = {
   title: "Tab Panel",
   UiComponent: ShinyTabPanel,
   settingsInfo: TabPanelSettingsInfo,
-  SettingsComponent: ShinyTabPanelSettings,
   acceptsChildren: true,
   defaultSettings: shinyTabPanelDefaultSettings,
   iconSrc: icon,

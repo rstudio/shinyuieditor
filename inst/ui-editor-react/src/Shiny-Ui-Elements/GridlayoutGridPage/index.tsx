@@ -8,7 +8,6 @@ import type { UiNodeSettingsInfo } from "components/Inputs/SettingsFormBuilder/i
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import { GridlayoutGridPage } from "./GridlayoutGridPage";
-import { GridlayoutGridPageSettings } from "./SettingsPanel";
 
 export type TemplatedGridProps = {
   areas: string[][];
@@ -34,7 +33,6 @@ export type TractDirection = "rows" | "cols";
 export const gridlayoutGridPageInfo: UiComponentInfo<TemplatedGridProps> = {
   title: "Grid Page",
   UiComponent: GridlayoutGridPage,
-  SettingsComponent: GridlayoutGridPageSettings,
   acceptsChildren: true,
   settingsInfo: GridPageSettingsInfo,
   defaultSettings: {

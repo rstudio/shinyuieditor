@@ -1,11 +1,13 @@
 import React from "react";
 
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
+import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import { buildStaticFormInfo } from "components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
+import { FormBuilder } from "components/Inputs/SettingsFormBuilder/FormBuilder";
+import type { FormValuesFromInfo } from "components/Inputs/SettingsFormBuilder/inputFieldTypes";
 import type { OnChangeCallback } from "components/Inputs/SettingsUpdateContext";
 import { SettingsUpdateContext } from "components/Inputs/SettingsUpdateContext";
 import type {
   ArgsWithPotentialUnknowns,
-  SettingsUpdaterComponent,
   ShinyUiNode,
   ShinyUiNodeInfo,
   UiNodeComponent,
@@ -30,8 +32,17 @@ function UiNodeAndSettings<T extends ShinyUiNames>({
   const NodeComponent =
     nodeInfo.UiComponent as UiNodeComponent<NodeSettingsType>;
 
-  const SettingsInputs =
-    nodeInfo.SettingsComponent as SettingsUpdaterComponent<NodeSettingsType>;
+  const currentNode = {
+    uiName,
+    uiArguments,
+    uiChildren: [],
+  } as ShinyUiNode;
+
+  // If performance issues happen this can be memoized
+  const staticSettingsInfo = buildStaticFormInfo(
+    shinyUiNodeInfo[uiName].settingsInfo,
+    currentNode
+  );
 
   const [uiSettings, setUiSettings] =
     React.useState<NodeSettingsType>(uiArguments);
@@ -67,14 +78,18 @@ function UiNodeAndSettings<T extends ShinyUiNames>({
       <div>
         <h1>Settings Panel</h1>
         <SettingsUpdateContext onChange={updateSettings}>
-          <SettingsInputs
-            settings={uiSettings}
-            node={
-              {
-                uiName: uiName,
-                uiArguments: uiSettings,
-              } as ShinyUiNode
+          <FormBuilder
+            settings={
+              uiArguments as FormValuesFromInfo<typeof staticSettingsInfo>
             }
+            settingsInfo={staticSettingsInfo}
+            onSettingsChange={(name, action) => {
+              if (action.type === "UPDATE") {
+                updateSettings({ name, value: action.value });
+              } else {
+                updateSettings({ name, value: undefined });
+              }
+            }}
           />
         </SettingsUpdateContext>
       </div>

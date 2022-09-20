@@ -3,7 +3,6 @@ import type { UiNodeSettingsInfo } from "components/Inputs/SettingsFormBuilder/i
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 
-import { ShinyPlotOutputSettings } from "./SettingsPanel";
 import ShinyPlotOutput from "./ShinyPlotOutput";
 
 export const ShinyPlotOutputSettingsInfo: UiNodeSettingsInfo = {
@@ -34,7 +33,6 @@ export const shinyPlotOutputInfo: UiComponentInfo<ShinyPlotOutputProps> = {
   title: "Plot Output",
   UiComponent: ShinyPlotOutput,
   settingsInfo: ShinyPlotOutputSettingsInfo,
-  SettingsComponent: ShinyPlotOutputSettings,
   acceptsChildren: false,
   defaultSettings: { outputId: "plot", width: "100%", height: "400px" },
   iconSrc: plotIcon,

@@ -1,9 +1,13 @@
 import numericInputIcon from "assets/icons/shinyNumericinput.png";
 import type { CSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
+import {
+  makeInputIdInfo,
+  makeLabelInputInfo,
+  optionalWidthInfo,
+} from "Shiny-Ui-Elements/commonSettingsTemplates";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 
-import { ShinyNumericInputSettings } from "./SettingsPanel";
 import ShinyNumericInput from "./ShinyNumericInput";
 
 export type ShinyNumericInputProps = {
@@ -25,7 +29,35 @@ export const numericInputDefaultSettings: ShinyNumericInputProps = {
 export const shinyNumericInputInfo: UiComponentInfo<ShinyNumericInputProps> = {
   title: "Numeric Input",
   UiComponent: ShinyNumericInput,
-  SettingsComponent: ShinyNumericInputSettings,
+  settingsInfo: {
+    inputId: makeInputIdInfo("myNumericInput"),
+    label: makeLabelInputInfo("Numeric Input"),
+    min: {
+      label: "Min",
+      inputType: "number",
+      defaultValue: 0,
+      optional: true,
+    },
+    max: {
+      label: "Max",
+      inputType: "number",
+      defaultValue: 10,
+      optional: true,
+    },
+    value: {
+      label: "Start value",
+      inputType: "number",
+      defaultValue: 5,
+      optional: true,
+    },
+    step: {
+      inputType: "number",
+      label: "Step size",
+      defaultValue: 1,
+      optional: true,
+    },
+    width: optionalWidthInfo,
+  },
   acceptsChildren: false,
   defaultSettings: numericInputDefaultSettings,
   iconSrc: numericInputIcon,

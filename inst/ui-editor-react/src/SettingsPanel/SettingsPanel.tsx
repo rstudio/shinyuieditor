@@ -2,11 +2,7 @@ import DeleteNodeButton from "components/DeleteNodeButton";
 import { buildStaticFormInfo } from "components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
 import { FormBuilder } from "components/Inputs/SettingsFormBuilder/FormBuilder";
 import type { FormValuesFromInfo } from "components/Inputs/SettingsFormBuilder/inputFieldTypes";
-import { SettingsUpdateContext } from "components/Inputs/SettingsUpdateContext";
-import type {
-  SettingsUpdaterComponent,
-  ShinyUiNode,
-} from "Shiny-Ui-Elements/uiNodeTypes";
+import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
 import { shinyUiNodeInfo } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import PathBreadcrumb from "./PathBreadcrumb";
@@ -31,15 +27,21 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
 
   const { uiName, uiArguments } = currentNode;
 
-  const SettingsInputs = shinyUiNodeInfo[uiName]
-    .SettingsComponent as SettingsUpdaterComponent<typeof uiArguments>;
+  // If performance issues happen this can be memoized
+  const staticSettingsInfo = buildStaticFormInfo(
+    shinyUiNodeInfo[uiName].settingsInfo,
+    currentNode
+  );
 
-  let settingsForm: JSX.Element;
-
-  const settingsInfo = shinyUiNodeInfo[uiName].settingsInfo;
-  if (settingsInfo) {
-    const staticSettingsInfo = buildStaticFormInfo(settingsInfo, currentNode);
-    settingsForm = (
+  return (
+    <div className={classes.settingsPanel + " properties-panel"}>
+      <div className={classes.currentElementAbout}>
+        <PathBreadcrumb
+          tree={tree}
+          path={selectedPath}
+          onSelect={setNodeSelection}
+        />
+      </div>
       <FormBuilder
         settings={uiArguments as FormValuesFromInfo<typeof staticSettingsInfo>}
         settingsInfo={staticSettingsInfo}
@@ -51,36 +53,9 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
           }
         }}
       />
-    );
-  } else {
-    settingsForm = (
-      <form className={classes.settingsForm} onSubmit={stopDefaultSubmit}>
-        <div className={classes.settingsInputs}>
-          <SettingsUpdateContext onChange={updateArgumentsByName}>
-            <SettingsInputs settings={uiArguments} node={currentNode} />
-          </SettingsUpdateContext>
-        </div>
-      </form>
-    );
-  }
-
-  return (
-    <div className={classes.settingsPanel + " properties-panel"}>
-      <div className={classes.currentElementAbout}>
-        <PathBreadcrumb
-          tree={tree}
-          path={selectedPath}
-          onSelect={setNodeSelection}
-        />
-      </div>
-      {settingsForm}
       <div className={classes.buttonsHolder}>
         {!isRootNode ? <DeleteNodeButton path={selectedPath} /> : null}
       </div>
     </div>
   );
-}
-
-function stopDefaultSubmit(e: React.FormEvent<HTMLFormElement>) {
-  e.preventDefault();
 }

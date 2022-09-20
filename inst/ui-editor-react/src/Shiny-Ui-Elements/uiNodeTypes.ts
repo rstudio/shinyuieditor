@@ -35,9 +35,9 @@ export type UiComponentInfo<NodeSettings extends object> = {
   /**
    * Component for rendering the settings/ arguments form
    */
-  SettingsComponent: SettingsUpdaterComponent<NodeSettings>;
+  // // SettingsComponent: SettingsUpdaterComponent<NodeSettings>;
 
-  settingsInfo?: UiNodeSettingsInfo;
+  settingsInfo: UiNodeSettingsInfo;
   /**
    * The settings that a freshly initialized node will take. These will also be
    * used to fill in any missing arguments if they are provided.

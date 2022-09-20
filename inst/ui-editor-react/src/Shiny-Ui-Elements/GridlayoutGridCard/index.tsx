@@ -5,7 +5,6 @@ import type { UiNodeSettingsInfo } from "components/Inputs/SettingsFormBuilder/i
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import GridlayoutGridCard from "./GridlayoutGridCard";
-import { GridlayoutGridCardSettings } from "./SettingsPanel";
 
 export type AlignmentOptions = "top" | "center" | "bottom" | "spread";
 export type GridCardSettings = {
@@ -45,7 +44,6 @@ export const gridlayoutGridCardInfo: UiComponentInfo<GridCardSettings> = {
   title: "Grid Card",
   UiComponent: GridlayoutGridCard,
   settingsInfo: GridCardSettingsInfo,
-  SettingsComponent: GridlayoutGridCardSettings,
   acceptsChildren: true,
   defaultSettings: gridlayoutGridCardDefaultSettings,
   iconSrc: containerIcon,

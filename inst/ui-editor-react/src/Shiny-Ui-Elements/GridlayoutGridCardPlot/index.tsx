@@ -3,7 +3,6 @@ import icon from "assets/icons/shinyPlot.png";
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import GridlayoutGridCardPlot from "./GridlayoutGridCardPlot";
-import { GridlayoutGridCardPlotSettings } from "./SettingsPanel";
 
 export interface GridlayoutGridCardPlotProps {
   area: string;
@@ -14,7 +13,20 @@ export const gridlayoutGridCardPlotInfo: UiComponentInfo<GridlayoutGridCardPlotP
   {
     title: "Grid Plot Card",
     UiComponent: GridlayoutGridCardPlot,
-    SettingsComponent: GridlayoutGridCardPlotSettings,
+    settingsInfo: {
+      area: {
+        label: "Name of grid area",
+        inputType: "string",
+        defaultValue: "default-area",
+      },
+      outputId: {
+        label: "Output ID",
+        inputType: "string",
+        defaultValue: ({ uiArguments }) =>
+          "area" in uiArguments ? uiArguments.area : "MyPlot",
+        optional: true,
+      },
+    },
     acceptsChildren: false,
     defaultSettings: { area: "plot" },
     iconSrc: icon,
