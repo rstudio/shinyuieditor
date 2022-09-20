@@ -9,7 +9,7 @@ import ShinyPlotOutput from "./ShinyPlotOutput";
 export const ShinyPlotOutputSettingsInfo: UiNodeSettingsInfo = {
   outputId: {
     inputType: "string",
-    label: "output id for plot",
+    label: "Output ID for plot",
     defaultValue: "plot",
   },
   width: {
