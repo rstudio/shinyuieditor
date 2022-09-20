@@ -7,8 +7,6 @@ import ShinyTabsetPanel from "./ShinyTabsetPanel";
 
 export type TabsetPanelSettings = { id?: string; selected?: string };
 
-export const shinyTabsetPanelDefaultSettings: TabsetPanelSettings = {};
-
 export const shinyTabsetPanelInfo: UiComponentInfo<TabsetPanelSettings> = {
   title: "Tabset Panel",
   UiComponent: ShinyTabsetPanel,
@@ -23,8 +21,8 @@ export const shinyTabsetPanelInfo: UiComponentInfo<TabsetPanelSettings> = {
       inputType: "dropdown",
       optional: true,
       label: "Selected tab on load",
-      defaultValue: getFirstTabName,
-      choices: getTabNames,
+      defaultValue: (node) => (node ? getFirstTabName(node) : "First Tab"),
+      choices: (node) => (node ? getTabNames(node) : ["First Tab"]),
     },
   },
   acceptsChildren: true,

@@ -111,15 +111,8 @@ export default {
 export const UiElementsShowcase: ComponentStory<
   ({ nameOfElement }: { nameOfElement: ShinyUiNames }) => JSX.Element
 > = ({ nameOfElement }) => {
-  const standinNode = {
-    uiName: nameOfElement,
-    uiArguments: {},
-    uiChildren: [],
-  } as ShinyUiNode;
-
   const defaultSettings = getDefaultSettings(
-    shinyUiNodeInfo[nameOfElement].settingsInfo,
-    standinNode
+    shinyUiNodeInfo[nameOfElement].settingsInfo
   );
   return (
     <UiNodeAndSettings uiName={nameOfElement} uiArguments={defaultSettings} />

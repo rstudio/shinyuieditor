@@ -36,8 +36,8 @@ describe("Can convert dynamic argument info object into a static one", () => {
     const selectedTabArgument: DynamicFieldInfo = {
       inputType: "dropdown",
       label: "My List",
-      defaultValue: getFirstTabName,
-      choices: getTabNames,
+      defaultValue: (node) => (node ? getFirstTabName(node) : "First Tab"),
+      choices: (node) => (node ? getTabNames(node) : ["First Tab"]),
     };
 
     const expectedOutput: StaticFieldInfo = {
@@ -57,7 +57,7 @@ describe("Can convert dynamic argument info object into a static one", () => {
       inputType: "dropdown",
       label: "My List",
       defaultValue: "second tab",
-      choices: getTabNames,
+      choices: (node) => (node ? getTabNames(node) : ["First Tab"]),
     };
     const expectedOutput: StaticFieldInfo = {
       inputType: "dropdown",
@@ -77,13 +77,13 @@ describe("Can convert full dynamic settings info object into a static one", () =
       title: {
         inputType: "string",
         defaultValue: (node) =>
-          `tabset with ${node.uiChildren?.length ?? -1} tabs`,
+          `tabset with ${node?.uiChildren?.length ?? -1} tabs`,
       },
       selected: {
         inputType: "dropdown",
         label: "My List",
-        defaultValue: getFirstTabName,
-        choices: getTabNames,
+        defaultValue: (node) => (node ? getFirstTabName(node) : "First Tab"),
+        choices: (node) => (node ? getTabNames(node) : ["First Tab"]),
       },
     };
 

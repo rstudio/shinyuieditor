@@ -16,14 +16,10 @@ export function UiElementIcon({ uiName }: { uiName: ShinyUiNames }) {
     settingsInfo,
     description: infoPopup = title,
   } = shinyUiNodeInfo[uiName];
-  const standinNode = {
-    uiName,
-    uiArguments: {},
-    uiChildren: [],
-  } as ShinyUiNode;
+
   const node = {
     uiName,
-    uiArguments: getDefaultSettings(settingsInfo, standinNode),
+    uiArguments: getDefaultSettings(settingsInfo),
   } as ShinyUiNode;
 
   const dragProps = useMakeDraggable({ nodeInfo: { node } });

@@ -13,11 +13,6 @@ export type NavbarPageSettings = {
   selected?: string;
 };
 
-const shinyNavbarPageDefaultSettings: NavbarPageSettings = {
-  title: "My Shiny App",
-  collapsible: false,
-};
-
 export const shinyNavbarPageInfo: UiComponentInfo<NavbarPageSettings> = {
   title: "Navbar Page",
   UiComponent: ShinyNavbarPage,
@@ -42,8 +37,8 @@ export const shinyNavbarPageInfo: UiComponentInfo<NavbarPageSettings> = {
       inputType: "dropdown",
       optional: true,
       label: "Selected tab on load",
-      defaultValue: getFirstTabName,
-      choices: getTabNames,
+      defaultValue: (node) => (node ? getFirstTabName(node) : "First Tab"),
+      choices: (node) => (node ? getTabNames(node) : ["First Tab"]),
     },
   },
   acceptsChildren: true,

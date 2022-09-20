@@ -54,7 +54,7 @@ export type InputFieldEntryMap = MapDiscriminatedUnion<
   "inputType"
 >;
 
-export type NodeToValueFn<T> = (node: ShinyUiNode) => T;
+export type NodeToValueFn<T> = (node?: ShinyUiNode) => T;
 
 export type DynamicValueType<T> = T | NodeToValueFn<T>;
 /**

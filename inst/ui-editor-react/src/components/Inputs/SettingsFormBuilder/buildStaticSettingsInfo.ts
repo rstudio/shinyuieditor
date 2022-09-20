@@ -19,7 +19,7 @@ function isNodeToValueFn<T>(x: T | NodeToValueFn<T>): x is NodeToValueFn<T> {
 
 function getValueFromProperty<T>(
   x: T | NodeToValueFn<T>,
-  node: ShinyUiNode
+  node?: ShinyUiNode
 ): T {
   if (isNodeToValueFn(x)) {
     return x(node);
@@ -39,7 +39,7 @@ export function buildStaticFieldInfo<
   ArgType extends keyof DynamicFieldInfoByType
 >(
   dynamicFieldInfo: DynamicFieldInfoByType[ArgType],
-  node: ShinyUiNode
+  node?: ShinyUiNode
 ): StaticFieldInfoByType[ArgType] {
   let staticArgumentInfo: Record<string, any> = {};
 
@@ -94,7 +94,7 @@ export type DefaultSettingsFromInfo<DynInfo extends UiNodeSettingsInfo> = {
  */
 export function getDefaultSettings<DynInfo extends UiNodeSettingsInfo>(
   dynamicFormInfo: DynInfo,
-  node: ShinyUiNode
+  node?: ShinyUiNode
 ): DefaultSettingsFromInfo<DynInfo> {
   let defaultArgs: Record<string, any> = {};
 
