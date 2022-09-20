@@ -113,6 +113,7 @@ function knownArgumentInputs<Info extends NonOmittedFormInfo>({
 
     const inputProps = {
       ...infoForArg,
+      name,
       value: currentValue,
       onUpdate: (updatedAction) => onSettingsChange(name, updatedAction),
     } as SettingsInputProps;
