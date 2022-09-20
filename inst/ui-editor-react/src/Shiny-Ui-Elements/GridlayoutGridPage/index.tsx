@@ -3,7 +3,6 @@ import {
   updateGridLayoutAreaOnItemAreaChange,
 } from "components/Grids/watchAndReactToGridAreaUpdatesupdate";
 import type { CSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
-import type { UiNodeSettingsInfo } from "components/Inputs/SettingsFormBuilder/inputFieldTypes";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 
@@ -16,25 +15,23 @@ export type TemplatedGridProps = {
   gap_size: CSSMeasure;
 };
 
-export const GridPageSettingsInfo: UiNodeSettingsInfo = {
-  gap_size: {
-    label: "Width",
-    inputType: "cssMeasure",
-    defaultValue: "10px",
-    units: ["px", "rem"],
-  },
-  areas: { inputType: "omitted" },
-  row_sizes: { inputType: "omitted" },
-  col_sizes: { inputType: "omitted" },
-};
-
 export type TractDirection = "rows" | "cols";
 
 export const gridlayoutGridPageInfo: UiComponentInfo<TemplatedGridProps> = {
   title: "Grid Page",
   UiComponent: GridlayoutGridPage,
   acceptsChildren: true,
-  settingsInfo: GridPageSettingsInfo,
+  settingsInfo: {
+    gap_size: {
+      label: "Width",
+      inputType: "cssMeasure",
+      defaultValue: "10px",
+      units: ["px", "rem"],
+    },
+    areas: { inputType: "omitted" },
+    row_sizes: { inputType: "omitted" },
+    col_sizes: { inputType: "omitted" },
+  },
   defaultSettings: {
     areas: [
       ["header", "header"],

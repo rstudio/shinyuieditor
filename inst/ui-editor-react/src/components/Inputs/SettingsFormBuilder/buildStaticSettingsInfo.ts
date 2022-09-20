@@ -2,6 +2,7 @@ import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import type {
   DynamicFieldInfoByType,
+  FormInfo,
   NodeToValueFn,
   StaticFieldInfo,
   StaticFieldInfoByType,
@@ -63,7 +64,7 @@ export function buildStaticFieldInfo<
 export function buildStaticFormInfo<DynInfo extends UiNodeSettingsInfo>(
   dynamicFormInfo: DynInfo,
   node: ShinyUiNode
-): ToStaticFormInfo<DynInfo> {
+): FormInfo {
   let staticSettingsInfo: Record<string, StaticFieldInfo> = {};
 
   for (let argName in dynamicFormInfo) {
@@ -71,5 +72,5 @@ export function buildStaticFormInfo<DynInfo extends UiNodeSettingsInfo>(
     staticSettingsInfo[argName] = buildStaticFieldInfo(dynamicVal, node);
   }
 
-  return staticSettingsInfo as ToStaticFormInfo<DynInfo>;
+  return staticSettingsInfo as FormInfo;
 }
