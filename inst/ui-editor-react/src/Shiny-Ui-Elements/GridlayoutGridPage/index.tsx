@@ -1,4 +1,5 @@
 import type { CSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
+import type { UiNodeSettingsInfo } from "components/Inputs/SettingsFormBuilder/inputFieldTypes";
 
 import {
   removeDeletedGridAreaFromLayout,
@@ -16,6 +17,18 @@ export type TemplatedGridProps = {
   gap_size: CSSMeasure;
 };
 
+export const GridPageSettingsInfo: UiNodeSettingsInfo = {
+  gap_size: {
+    label: "Width",
+    inputType: "cssMeasure",
+    defaultValue: "10px",
+    units: ["px", "rem"],
+  },
+  areas: { inputType: "omitted" },
+  row_sizes: { inputType: "omitted" },
+  col_sizes: { inputType: "omitted" },
+};
+
 export type TractDirection = "rows" | "cols";
 
 export const gridlayoutGridPageInfo: UiComponentInfo<TemplatedGridProps> = {
@@ -23,6 +36,7 @@ export const gridlayoutGridPageInfo: UiComponentInfo<TemplatedGridProps> = {
   UiComponent: GridlayoutGridPage,
   SettingsComponent: GridlayoutGridPageSettings,
   acceptsChildren: true,
+  settingsInfo: GridPageSettingsInfo,
   defaultSettings: {
     areas: [
       ["header", "header"],
