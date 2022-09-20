@@ -1,6 +1,7 @@
 import React from "react";
 
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { DefaultSettingsFromInfo } from "components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
 import {
   buildStaticFormInfo,
   getDefaultSettings,
@@ -28,7 +29,9 @@ function UiNodeAndSettings<T extends ShinyUiNames>({
   uiName: T;
   uiArguments: ArgsWithPotentialUnknowns<T>;
 }) {
-  type NodeSettingsType = ShinyUiNodeInfo[T]["defaultSettings"];
+  type NodeSettingsType = DefaultSettingsFromInfo<
+    ShinyUiNodeInfo[T]["settingsInfo"]
+  >;
 
   const nodeInfo: ShinyUiNodeInfo[T] = shinyUiNodeInfo[uiName];
 

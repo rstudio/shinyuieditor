@@ -1,5 +1,6 @@
 import type React from "react";
 
+import type { DefaultSettingsFromInfo } from "components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
 import type { DynamicFieldInfo } from "components/Inputs/SettingsFormBuilder/inputFieldTypes";
 import type { DeleteAction, UpdateAction } from "state/uiTree";
 
@@ -44,7 +45,7 @@ export type UiComponentInfo<NodeSettings extends object> = {
    * The settings that a freshly initialized node will take. These will also be
    * used to fill in any missing arguments if they are provided.
    */
-  defaultSettings: NodeSettings;
+  defaultSettings?: NodeSettings;
 
   /**
    * The source of the icon. This comes from the importing of a png. If this is
@@ -138,6 +139,9 @@ export const shinyUiNodeInfo = {
 
 export type ShinyUiNodeInfo = typeof shinyUiNodeInfo;
 
+type NodeDefaultSettings<UiName extends keyof ShinyUiNodeInfo> =
+  DefaultSettingsFromInfo<ShinyUiNodeInfo[UiName]["settingsInfo"]>;
+
 /**
  * All possible props/arguments for the defined UI components
  *
@@ -145,7 +149,7 @@ export type ShinyUiNodeInfo = typeof shinyUiNodeInfo;
  * of the types will automatically be built based on this type.
  */
 type ShinyUiArguments = {
-  [UiName in keyof ShinyUiNodeInfo]: ShinyUiNodeInfo[UiName]["defaultSettings"];
+  [UiName in keyof ShinyUiNodeInfo]: NodeDefaultSettings<UiName>;
 };
 
 /**
@@ -154,7 +158,7 @@ type ShinyUiArguments = {
  * haven't been coded up in the editor code
  */
 export type ArgsWithPotentialUnknowns<T extends ShinyUiNames> =
-  ShinyUiNodeInfo[T]["defaultSettings"] & { [arg: string]: unknown };
+  NodeDefaultSettings<T> & { [arg: string]: unknown };
 
 /**
  * Names of all the available Ui elements

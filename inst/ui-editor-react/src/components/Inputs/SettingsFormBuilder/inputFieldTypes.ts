@@ -66,7 +66,7 @@ type ArgumentsOrCallbacks<Obj extends Record<string, any>> = {
 };
 
 type OmittedFieldStatic = { inputType: "omitted"; defaultValue: any };
-type OmittedFieldDynamic = {
+export type OmittedFieldDynamic = {
   inputType: "omitted";
   defaultValue: DynamicValueType<any>;
 };

@@ -9,7 +9,7 @@ import type {
   UiNodeSettingsInfo,
 } from "./inputFieldTypes";
 
-type ToStaticFormInfo<DynSettings extends UiNodeSettingsInfo> = {
+export type ToStaticFormInfo<DynSettings extends UiNodeSettingsInfo> = {
   [ArgName in keyof DynSettings]: StaticFieldInfoByType[DynSettings[ArgName]["inputType"]];
 };
 
@@ -75,12 +75,11 @@ export function buildStaticFormInfo<DynInfo extends UiNodeSettingsInfo>(
   return staticSettingsInfo as FormInfo;
 }
 
-type GetValueFromDynamicProp<T> = T extends NodeToValueFn<infer R> ? R : T;
-
-type DefaultSettingsFromInfo<DynInfo extends UiNodeSettingsInfo> = {
-  [ArgName in keyof DynInfo]: DynInfo[ArgName] extends { defaultValue: any }
-    ? GetValueFromDynamicProp<DynInfo[ArgName]["defaultValue"]>
-    : never;
+export type DefaultSettingsFromInfo<DynInfo extends UiNodeSettingsInfo> = {
+  [ArgName in keyof DynInfo]: DynInfo[ArgName] extends { optional: true }
+    ? never
+    : DynInfo[ArgName]["defaultValue"];
+  // : GetValueFromDynamicProp<DynInfo[ArgName]["defaultValue"]>;
 };
 
 /**
