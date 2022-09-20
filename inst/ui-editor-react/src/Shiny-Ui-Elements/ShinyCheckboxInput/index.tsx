@@ -17,12 +17,6 @@ export type ShinyCheckboxInputProps = {
   width?: CSSMeasure;
 };
 
-export const checkboxInputDefaultSettings: ShinyCheckboxInputProps = {
-  inputId: "myCheckboxInput",
-  label: "Checkbox Input",
-  value: false,
-};
-
 export const shinyCheckboxInputInfo: UiComponentInfo<ShinyCheckboxInputProps> =
   {
     title: "Checkbox Input",

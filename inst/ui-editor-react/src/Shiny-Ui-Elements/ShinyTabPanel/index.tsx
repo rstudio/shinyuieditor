@@ -8,10 +8,6 @@ export type TabPanelSettings = {
   title: string;
 };
 
-export const shinyTabPanelDefaultSettings: TabPanelSettings = {
-  title: "Tab Title",
-};
-
 export const shinyTabPanelInfo: UiComponentInfo<TabPanelSettings> = {
   title: "Tab Panel",
   UiComponent: ShinyTabPanel,

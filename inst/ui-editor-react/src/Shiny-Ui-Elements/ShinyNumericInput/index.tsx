@@ -20,12 +20,6 @@ export type ShinyNumericInputProps = {
   width?: CSSMeasure;
 };
 
-export const numericInputDefaultSettings: ShinyNumericInputProps = {
-  inputId: "myNumericInput",
-  label: "Numeric Input",
-  value: 10,
-};
-
 export const shinyNumericInputInfo: UiComponentInfo<ShinyNumericInputProps> = {
   title: "Numeric Input",
   UiComponent: ShinyNumericInput,

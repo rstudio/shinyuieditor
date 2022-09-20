@@ -17,15 +17,6 @@ export type ShinyCheckboxGroupInputProps = {
   width?: CSSMeasure;
 };
 
-export const checkboxGroupInputDefaultSettings: ShinyCheckboxGroupInputProps = {
-  inputId: "myCheckboxGroup",
-  label: "Checkbox Group",
-  choices: {
-    "choice a": "a",
-    "choice b": "b",
-  },
-};
-
 export const shinyCheckboxGroupInputInfo: UiComponentInfo<ShinyCheckboxGroupInputProps> =
   {
     title: "Checkbox Group",

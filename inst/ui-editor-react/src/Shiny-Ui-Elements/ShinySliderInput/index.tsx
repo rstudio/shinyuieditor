@@ -19,15 +19,6 @@ export type ShinySliderInputProps = {
   width?: CSSMeasure;
 };
 
-export const sliderDefaultSettings: ShinySliderInputProps = {
-  inputId: "mySlider",
-  label: "Slider Input",
-  min: 0,
-  max: 10,
-  value: 5,
-  width: "100%",
-};
-
 export const shinySliderInputInfo: UiComponentInfo<ShinySliderInputProps> = {
   title: "Slider Input",
   UiComponent: ShinySliderInput,

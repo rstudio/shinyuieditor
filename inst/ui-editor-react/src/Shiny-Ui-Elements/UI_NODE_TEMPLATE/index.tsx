@@ -8,10 +8,6 @@ export type NodeNameSettings = {
   name: string;
 };
 
-export const pkgNodeNameDefaultSettings: NodeNameSettings = {
-  name: "NODE NAME",
-};
-
 export const pkgNodeNameInfo: UiComponentInfo<NodeNameSettings> = {
   title: "NODE NAME",
   UiComponent: PkgNodeName,
@@ -19,7 +15,7 @@ export const pkgNodeNameInfo: UiComponentInfo<NodeNameSettings> = {
     name: {
       label: "Name of node",
       inputType: "string",
-      defaultValue: "default name",
+      defaultValue: "NODE NAME",
     },
   },
   acceptsChildren: true,

@@ -17,15 +17,6 @@ export type ShinyRadioButtonsProps = {
   width?: CSSMeasure;
 };
 
-export const radioButtonsDefaultSettings: ShinyRadioButtonsProps = {
-  inputId: "myRadioButtons",
-  label: "Radio Buttons",
-  choices: {
-    "choice a": "a",
-    "choice b": "b",
-  },
-};
-
 export const shinyRadioButtonsInfo: UiComponentInfo<ShinyRadioButtonsProps> = {
   title: "Radio Buttons",
   UiComponent: ShinyRadioButtons,

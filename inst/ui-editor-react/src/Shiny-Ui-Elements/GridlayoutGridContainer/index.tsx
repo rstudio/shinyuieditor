@@ -11,16 +11,6 @@ import GridlayoutGridContainer from "./GridlayoutGridContainer";
 
 export type GridContainerSettings = TemplatedGridProps;
 
-export const gridlayoutGridContainerDefaultSettings: GridContainerSettings = {
-  areas: [
-    [".", "."],
-    [".", "."],
-  ],
-  row_sizes: ["1fr", "1fr"],
-  col_sizes: ["1fr", "1fr"],
-  gap_size: "1rem",
-};
-
 export const gridlayoutGridContainerInfo: UiComponentInfo<GridContainerSettings> =
   {
     title: "Grid Container",

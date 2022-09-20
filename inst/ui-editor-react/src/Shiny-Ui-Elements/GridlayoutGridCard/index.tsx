@@ -13,12 +13,6 @@ export type GridCardSettings = {
   item_gap?: CSSMeasure;
 };
 
-export const gridlayoutGridCardDefaultSettings: GridCardSettings = {
-  area: "default-area",
-  // item_alignment: "top",
-  item_gap: "12px",
-};
-
 export const gridlayoutGridCardInfo: UiComponentInfo<GridCardSettings> = {
   title: "Grid Card",
   UiComponent: GridlayoutGridCard,

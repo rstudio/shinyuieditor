@@ -18,12 +18,6 @@ export type ShinyTextInputProps = {
   width?: CSSMeasure;
 };
 
-export const textInputDefaultSettings: ShinyTextInputProps = {
-  inputId: "myTextInput",
-  label: "Text Input",
-  value: "",
-};
-
 export const shinyTextInputInfo: UiComponentInfo<ShinyTextInputProps> = {
   title: "Text Input",
   UiComponent: ShinyTextInput,

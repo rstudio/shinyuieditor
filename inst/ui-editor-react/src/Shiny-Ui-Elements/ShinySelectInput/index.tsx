@@ -15,15 +15,6 @@ export type ShinySelectInputProps = {
   choices: NamedList;
 };
 
-export const selectInputDefaultSettings: ShinySelectInputProps = {
-  inputId: "mySelectInput",
-  label: "Select Input",
-  choices: {
-    "choice a": "a",
-    "choice b": "b",
-  },
-};
-
 export const shinySelectInputInfo: UiComponentInfo<ShinySelectInputProps> = {
   title: "Select Input",
   UiComponent: ShinySelectInput,
