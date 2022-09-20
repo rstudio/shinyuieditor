@@ -8,6 +8,7 @@ import ShinyTabPanel from "./ShinyTabPanel";
 
 export const TabPanelSettingsInfo: FormInfo = {
   title: {
+    label: "Title of panel",
     inputType: "string",
     defaultValue: "My Shiny App",
   },
