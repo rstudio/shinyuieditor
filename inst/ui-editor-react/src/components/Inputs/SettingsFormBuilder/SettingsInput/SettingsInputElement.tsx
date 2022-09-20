@@ -3,8 +3,13 @@ import { CSSUnitInputSimple } from "components/Inputs/CSSUnitInput/CSSUnitInputS
 import { NamedListInputSimple } from "components/Inputs/ListInput/NamedListInputSimple";
 import { DropdownSelect } from "components/Inputs/OptionsDropdown/DropdownSelect";
 import { RadioInputsSimple } from "components/Inputs/RadioInputs/RadioInputsSimple";
+import type { Component } from "TypescriptUtils";
 
-import type { FieldEntryUnion, KnownInputFieldTypes } from "../inputFieldTypes";
+import type {
+  FieldEntryUnion,
+  InputFieldEntryNames,
+  KnownInputFieldTypes,
+} from "../inputFieldTypes";
 
 import { NumberInput } from "./NumberInput";
 import { StringInput } from "./StringInput";
@@ -22,14 +27,14 @@ export type SettingsInputElementProps = FieldEntryUnion & {
   onChange: OnChangeCallback;
 };
 
-const inputComps = {
+const inputComps: Record<InputFieldEntryNames, Component> = {
   string: StringInput,
   number: NumberInput,
   cssMeasure: CSSUnitInputSimple,
   boolean: BooleanInputSimple,
   list: NamedListInputSimple,
-  optionsDropdown: DropdownSelect,
-  radioInput: RadioInputsSimple,
+  dropdown: DropdownSelect,
+  radio: RadioInputsSimple,
 };
 
 export function SettingsInputElement(args: SettingsInputElementProps) {
@@ -63,11 +68,11 @@ export function SettingsInputElement(args: SettingsInputElementProps) {
   }
 
   if (args.inputType === "dropdown") {
-    return <inputComps.optionsDropdown {...args} />;
+    return <inputComps.dropdown {...args} />;
   }
 
   if (args.inputType === "radio") {
-    return <inputComps.radioInput {...args} />;
+    return <inputComps.radio {...args} />;
   }
 
   // eslint-disable-next-line no-console
