@@ -66,29 +66,26 @@ type ArgumentsOrCallbacks<Obj extends Record<string, any>> = {
 
 type OmittedField = { inputType: "omitted" };
 
-export type DynamicFieldInfoByType = {
-  [ArgType in InputFieldTypeNames]: {
-    inputType: ArgType;
-    label?: string;
-    optional?: true;
-  } & ArgumentsOrCallbacks<
-    {
-      defaultValue: InputFieldTypesMap[ArgType]["value"];
-    } & Omit<InputFieldTypesMap[ArgType], "inputType" | "value">
-  >;
-} & { omitted: OmittedField };
-export type DynamicFieldInfo = DynamicFieldInfoByType[InputFieldTypeNames];
-export type DynamicFormInfo = Record<string, DynamicFieldInfo>;
-
 export type StaticFieldInfoByType = {
   [ArgType in InputFieldTypeNames]: {
-    inputType: ArgType;
+    defaultValue: InputFieldTypesMap[ArgType]["value"];
     label?: string;
     optional?: true;
-  } & {
-    defaultValue: InputFieldTypesMap[ArgType]["value"];
-  } & Omit<InputFieldTypesMap[ArgType], "inputType" | "value">;
+  } & Omit<InputFieldTypesMap[ArgType], "value">;
 } & { omitted: OmittedField };
+
+type NonDynamicProps = "inputType" | "label" | "optional";
+
+export type DynamicFieldInfoByType = {
+  [ArgType in InputFieldTypeNames]: Pick<
+    StaticFieldInfoByType[ArgType],
+    NonDynamicProps
+  > &
+    ArgumentsOrCallbacks<Omit<StaticFieldInfoByType[ArgType], NonDynamicProps>>;
+};
+
+export type DynamicFieldInfo = DynamicFieldInfoByType[InputFieldTypeNames];
+export type DynamicFormInfo = Record<string, DynamicFieldInfo>;
 
 export type StaticFieldInfo =
   StaticFieldInfoByType[keyof StaticFieldInfoByType];
