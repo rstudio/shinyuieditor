@@ -4,6 +4,7 @@ import { removeDuplicates } from "utils/array-helpers";
 
 import type { InputComponentProps } from "../SettingsFormBuilder/inputFieldTypes";
 import { makeLabelId } from "../SettingsFormBuilder/inputFieldTypes";
+import "./styles.scss";
 
 export type DropdownOption = string;
 
@@ -23,7 +24,7 @@ export function DropdownSelect({
     if (selected === DEFAULT_DROPDOWN_CHOICE) {
       onChange(choices[0]);
     }
-    if (selected !== undefined && !choices.includes(selected)) {
+    if (choices.length > 0 && !choices.includes(selected)) {
       onChange(choices[0]);
     }
   }, [onChange, choices, selected]);
@@ -35,6 +36,16 @@ export function DropdownSelect({
 
   // Duplicate items won't be of much use so we should get rid of them
   const uniqueOptions = removeDuplicates(choices);
+
+  if (uniqueOptions.length === 0) {
+    return (
+      <select
+        aria-labelledby={makeLabelId(id)}
+        className="OptionsDropdown"
+        placeholder="No available options"
+      ></select>
+    );
+  }
   return (
     <select
       aria-labelledby={makeLabelId(id)}
