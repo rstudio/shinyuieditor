@@ -3,10 +3,14 @@ type DiscriminateUnion<T, K extends keyof T, V extends T[K]> = Extract<
   Record<K, V>
 >;
 export type MapDiscriminatedUnion<
-  T extends Record<K, string>,
-  K extends keyof T
+  UnionType extends Record<KeyToMapFrom, string>,
+  KeyToMapFrom extends keyof UnionType
 > = {
-  [V in T[K]]: DiscriminateUnion<T, K, V>;
+  [MapKeyValue in UnionType[KeyToMapFrom]]: DiscriminateUnion<
+    UnionType,
+    KeyToMapFrom,
+    MapKeyValue
+  >;
 };
 
 export type StringKeys<T extends Record<string, any>> = Extract<
