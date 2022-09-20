@@ -137,8 +137,11 @@ function MissingRequiredArgumentMessage({
 
 function UnsetArgumentMessage({ labelledBy }: { labelledBy: string }) {
   return (
-    <div className="unset-argument" aria-labelledby={labelledBy}>
-      Unset
-    </div>
+    <input
+      className="unset-argument"
+      aria-labelledby={labelledBy}
+      placeholder="default value"
+      disabled
+    />
   );
 }

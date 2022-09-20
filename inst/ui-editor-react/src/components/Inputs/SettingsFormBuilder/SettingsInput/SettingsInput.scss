@@ -1,8 +1,9 @@
 .SUE-SettingsInput {
   display: block;
   margin-block: 8px;
-  width: fit-content;
+  width: 100%;
   max-width: 100%;
+  padding: 2px;
 
   .info {
     display: flex;
@@ -23,6 +24,9 @@
   .unset-argument {
     color: var(--dark-grey, pink);
     font-style: italic;
-    text-align: center;
+  }
+
+  input:not([type="checkbox"]) {
+    width: 100%;
   }
 }
