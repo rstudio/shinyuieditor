@@ -14,16 +14,16 @@ export const NavbarPageSettingsInfo: DynamicFormInfo = {
     label: "Page title",
     defaultValue: "navbar-page",
   },
+  collapsible: {
+    label: "Collapse navigation on mobile",
+    inputType: "boolean",
+    defaultValue: false,
+  },
   id: {
     inputType: "string",
     label: "Id for tabset",
     defaultValue: "tabset-default-id",
     optional: true,
-  },
-  collapsible: {
-    label: "Allow menu to collapse?",
-    inputType: "boolean",
-    defaultValue: false,
   },
   selected: {
     inputType: "optionsDropdown",

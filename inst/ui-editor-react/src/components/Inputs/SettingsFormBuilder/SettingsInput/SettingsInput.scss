@@ -1,14 +1,21 @@
 .SUE-SettingsInput {
   display: block;
-  margin-block: 8px;
+  margin-block-start: 12px;
+  margin-block-end: 14px;
   width: 100%;
   max-width: 100%;
-  padding: 2px;
+  padding-inline: 2px;
 
   .info {
     display: flex;
     gap: 5px;
+    margin-bottom: 4px;
   }
+
+  [data-unset="true"] {
+    color: var(--disabled-color);
+  }
+
   input,
   .unset-input {
     display: block;
@@ -23,7 +30,9 @@
 
   .unset-argument {
     color: var(--dark-grey, pink);
-    font-style: italic;
+    text-align: center;
+    background-color: var(--rstudio-white);
+    opacity: 0.7;
   }
 
   input:not([type="checkbox"]) {

@@ -78,7 +78,7 @@ export function SettingsInput({ onUpdate, ...opts }: SettingsInputProps) {
 
   return (
     <div className="SUE-SettingsInput">
-      <div className="info">
+      <div className="info" data-unset={argumentIsUnset}>
         {argumentIsOptional ? (
           <input
             type="checkbox"
@@ -89,7 +89,7 @@ export function SettingsInput({ onUpdate, ...opts }: SettingsInputProps) {
           />
         ) : null}
 
-        <label id={makeLabelId(opts.name)}>{opts.label ?? opts.name}</label>
+        <label id={makeLabelId(opts.name)}>{opts.label ?? opts.name}:</label>
       </div>
       {mainInputBody}
     </div>
@@ -140,7 +140,7 @@ function UnsetArgumentMessage({ labelledBy }: { labelledBy: string }) {
     <input
       className="unset-argument"
       aria-labelledby={labelledBy}
-      placeholder="default value"
+      placeholder="Default"
       disabled
     />
   );
