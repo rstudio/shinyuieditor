@@ -47,7 +47,6 @@ export const shinyNavbarPageInfo: UiComponentInfo<NavbarPageSettings> = {
     },
   },
   acceptsChildren: true,
-  defaultSettings: shinyNavbarPageDefaultSettings,
   // iconSrc: icon,
   category: "layouts",
   description: "Layout an app with tab-based navigation",

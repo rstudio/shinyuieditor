@@ -38,7 +38,6 @@ export const shinyCheckboxInputInfo: UiComponentInfo<ShinyCheckboxInputProps> =
       width: requiredWidthInfo,
     },
     acceptsChildren: false,
-    defaultSettings: checkboxInputDefaultSettings,
     iconSrc: inputIcon,
     category: "Inputs",
     description:

@@ -59,7 +59,6 @@ export const shinyNumericInputInfo: UiComponentInfo<ShinyNumericInputProps> = {
     width: optionalWidthInfo,
   },
   acceptsChildren: false,
-  defaultSettings: numericInputDefaultSettings,
   iconSrc: numericInputIcon,
   category: "Inputs",
   description: "An input control for entry of numeric values",

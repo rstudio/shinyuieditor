@@ -42,7 +42,6 @@ export const shinyRadioButtonsInfo: UiComponentInfo<ShinyRadioButtonsProps> = {
     },
   },
   acceptsChildren: false,
-  defaultSettings: radioButtonsDefaultSettings,
   iconSrc: radioButtonIcons,
   category: "Inputs",
   description:

@@ -16,7 +16,6 @@ export const unknownUiFunctionInfo: UiComponentInfo<UnknownUiFunctionProps> = {
     },
   },
   acceptsChildren: false,
-  defaultSettings: { text: "unknownUiFunction()" },
 };
 
 export default UnknownUiFunction;

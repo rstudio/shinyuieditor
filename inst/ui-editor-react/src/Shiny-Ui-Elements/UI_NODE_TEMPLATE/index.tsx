@@ -23,7 +23,6 @@ export const pkgNodeNameInfo: UiComponentInfo<NodeNameSettings> = {
     },
   },
   acceptsChildren: true,
-  defaultSettings: pkgNodeNameDefaultSettings,
   iconSrc: icon,
   category: "NODE CATEGORY",
   description: "DESCRIPTION OF NODE",

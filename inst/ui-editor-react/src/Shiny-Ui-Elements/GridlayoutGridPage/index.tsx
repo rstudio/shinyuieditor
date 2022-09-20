@@ -38,15 +38,6 @@ export const gridlayoutGridPageInfo: UiComponentInfo<TemplatedGridProps> = {
     row_sizes: { inputType: "omitted", defaultValue: ["1fr", "1fr"] },
     col_sizes: { inputType: "omitted", defaultValue: ["1fr", "1fr"] },
   },
-  defaultSettings: {
-    areas: [
-      ["header", "header"],
-      ["sidebar", "main"],
-    ],
-    row_sizes: ["100px", "1fr"],
-    col_sizes: ["250px", "1fr"],
-    gap_size: "1rem",
-  },
   stateUpdateSubscribers: {
     UPDATE_NODE: updateGridLayoutAreaOnItemAreaChange,
     DELETE_NODE: removeDeletedGridAreaFromLayout,

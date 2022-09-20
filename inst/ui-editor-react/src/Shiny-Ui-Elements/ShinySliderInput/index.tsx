@@ -62,7 +62,6 @@ export const shinySliderInputInfo: UiComponentInfo<ShinySliderInputProps> = {
     width: optionalWidthInfo,
   },
   acceptsChildren: false,
-  defaultSettings: sliderDefaultSettings,
   iconSrc: sliderIcon,
   category: "Inputs",
   description:

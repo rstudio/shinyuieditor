@@ -16,7 +16,6 @@ export const shinyTextOutputInfo: UiComponentInfo<ShinyTextOutputProps> = {
     outputId: outputIdInfo,
   },
   acceptsChildren: false,
-  defaultSettings: { outputId: "myText" },
   iconSrc: uiIcon,
   category: "Outputs",
   description: `

@@ -25,7 +25,6 @@ export const shinyActionButtonInfo: UiComponentInfo<ShinyActionButtonProps> = {
     width: requiredWidthInfo,
   },
   acceptsChildren: false,
-  defaultSettings: { inputId: "myButton", label: "My Button" },
   iconSrc: buttonIcon,
   category: "Inputs",
   description:

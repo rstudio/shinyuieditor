@@ -43,7 +43,6 @@ export const gridlayoutGridContainerInfo: UiComponentInfo<GridContainerSettings>
       col_sizes: { inputType: "omitted", defaultValue: ["1fr", "1fr"] },
     },
     acceptsChildren: true,
-    defaultSettings: gridlayoutGridContainerDefaultSettings,
     iconSrc: icon,
     category: "Tabs",
     stateUpdateSubscribers: {

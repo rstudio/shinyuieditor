@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import { getDefaultSettings } from "components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
 import { PopoverEl } from "components/PopoverEl/PopoverEl";
 import type { ShinyUiNames, ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
 import { shinyUiNodeInfo } from "Shiny-Ui-Elements/uiNodeTypes";
@@ -12,12 +13,17 @@ export function UiElementIcon({ uiName }: { uiName: ShinyUiNames }) {
   const {
     iconSrc,
     title,
-    defaultSettings,
+    settingsInfo,
     description: infoPopup = title,
   } = shinyUiNodeInfo[uiName];
+  const standinNode = {
+    uiName,
+    uiArguments: {},
+    uiChildren: [],
+  } as ShinyUiNode;
   const node = {
     uiName,
-    uiArguments: defaultSettings,
+    uiArguments: getDefaultSettings(settingsInfo, standinNode),
   } as ShinyUiNode;
 
   const dragProps = useMakeDraggable({ nodeInfo: { node } });

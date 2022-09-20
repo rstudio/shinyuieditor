@@ -42,7 +42,6 @@ export const gridlayoutGridCardInfo: UiComponentInfo<GridCardSettings> = {
     },
   },
   acceptsChildren: true,
-  defaultSettings: gridlayoutGridCardDefaultSettings,
   iconSrc: containerIcon,
   category: "gridlayout",
   description:

@@ -23,7 +23,6 @@ export const shinyTabPanelInfo: UiComponentInfo<TabPanelSettings> = {
     },
   },
   acceptsChildren: true,
-  defaultSettings: shinyTabPanelDefaultSettings,
   iconSrc: icon,
   category: "Tabs",
   description:

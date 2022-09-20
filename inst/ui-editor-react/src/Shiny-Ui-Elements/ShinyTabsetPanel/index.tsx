@@ -28,7 +28,6 @@ export const shinyTabsetPanelInfo: UiComponentInfo<TabsetPanelSettings> = {
     },
   },
   acceptsChildren: true,
-  defaultSettings: shinyTabsetPanelDefaultSettings,
   iconSrc: icon,
   category: "Tabs",
   description: "A container filled with tabs",

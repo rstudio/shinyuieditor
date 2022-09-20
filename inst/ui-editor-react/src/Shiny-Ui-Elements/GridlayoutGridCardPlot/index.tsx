@@ -28,7 +28,6 @@ export const gridlayoutGridCardPlotInfo: UiComponentInfo<GridlayoutGridCardPlotP
       },
     },
     acceptsChildren: false,
-    defaultSettings: { area: "plot" },
     iconSrc: icon,
     category: "gridlayout",
     description: `A wrapper for \`shiny::plotOutput()\` that uses \`gridlayout\`-friendly sizing defaults. 

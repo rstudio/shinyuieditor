@@ -43,7 +43,6 @@ export const shinyCheckboxGroupInputInfo: UiComponentInfo<ShinyCheckboxGroupInpu
       },
     },
     acceptsChildren: false,
-    defaultSettings: checkboxGroupInputDefaultSettings,
     iconSrc: icon,
     category: "Inputs",
     description:

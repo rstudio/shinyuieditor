@@ -40,7 +40,6 @@ export const shinySelectInputInfo: UiComponentInfo<ShinySelectInputProps> = {
     },
   },
   acceptsChildren: false,
-  defaultSettings: selectInputDefaultSettings,
   iconSrc: selectBoxIcon,
   category: "Inputs",
   description:

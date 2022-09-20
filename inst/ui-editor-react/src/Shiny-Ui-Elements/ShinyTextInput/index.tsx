@@ -44,7 +44,6 @@ export const shinyTextInputInfo: UiComponentInfo<ShinyTextInputProps> = {
     width: optionalWidthInfo,
   },
   acceptsChildren: false,
-  defaultSettings: textInputDefaultSettings,
   iconSrc: textInputIcon,
   category: "Inputs",
   description: "Create an input control for entry of unstructured text values.",

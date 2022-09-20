@@ -49,11 +49,6 @@ export const gridlayoutTextPanelInfo: UiComponentInfo<GridlayoutGridCardTextProp
       },
     },
     acceptsChildren: false,
-    defaultSettings: {
-      area: "text_panel",
-      content: "Text from Chooser",
-      alignment: "start",
-    },
     iconSrc: textIcon,
     category: "gridlayout",
     description:
