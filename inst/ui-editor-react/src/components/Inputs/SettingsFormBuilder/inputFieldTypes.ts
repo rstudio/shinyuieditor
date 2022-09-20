@@ -56,12 +56,13 @@ export type InputFieldEntryMap = MapDiscriminatedUnion<
 
 export type NodeToValueFn<T> = (node: ShinyUiNode) => T;
 
+export type DynamicValueType<T> = T | NodeToValueFn<T>;
 /**
  * Object is filled with either values or callbacks to get those values from a
  * ui node
  */
 type ArgumentsOrCallbacks<Obj extends Record<string, any>> = {
-  [Key in keyof Obj]: Obj[Key] | NodeToValueFn<Obj[Key]>;
+  [Key in keyof Obj]: DynamicValueType<Obj[Key]>;
 };
 
 type OmittedField = { inputType: "omitted" };

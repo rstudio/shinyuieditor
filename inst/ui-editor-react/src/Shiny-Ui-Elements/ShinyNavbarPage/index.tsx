@@ -13,7 +13,7 @@ export type NavbarPageSettings = {
   selected?: string;
 };
 
-export const shinyNavbarPageDefaultSettings: NavbarPageSettings = {
+const shinyNavbarPageDefaultSettings: NavbarPageSettings = {
   title: "My Shiny App",
   collapsible: false,
 };

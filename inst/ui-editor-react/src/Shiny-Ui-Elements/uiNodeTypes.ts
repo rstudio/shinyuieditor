@@ -23,9 +23,7 @@ import { shinyTextInputInfo } from "./ShinyTextInput";
 import { shinyTextOutputInfo } from "./ShinyTextOutput";
 import { shinyUiOutputInfo } from "./ShinyUiOutput";
 import { unknownUiFunctionInfo } from "./UnknownUiFunction";
-// type InfoFromSettings<Settings extends Record<string, KnownInputFieldTypes>> = {
-//   [ArgName in keyof Settings]: DynamicFieldInfo;
-// };
+
 /**
  * Defines everything needed to add a new Shiny UI component to the app
  */
@@ -34,20 +32,20 @@ export type UiComponentInfo<NodeSettings extends object> = {
    * The name of the component in plain language. E.g. Plot Output
    */
   title: string;
-  /**
-   * Component for rendering the settings/ arguments form
-   */
-  // // SettingsComponent: SettingsUpdaterComponent<NodeSettings>;
 
+  /**
+   * Info declaring what arguments to render in settings panel and how
+   */
   settingsInfo: {
     [ArgName in keyof NodeSettings]: DynamicFieldInfo;
   };
+
   /**
    * The settings that a freshly initialized node will take. These will also be
    * used to fill in any missing arguments if they are provided.
    */
   defaultSettings: NodeSettings;
-  // defaultSettings:
+
   /**
    * The source of the icon. This comes from the importing of a png. If this is
    * not provided then the node will not show up in the element palette.
