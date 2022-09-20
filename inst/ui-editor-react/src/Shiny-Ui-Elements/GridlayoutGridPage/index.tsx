@@ -1,10 +1,10 @@
-import type { CSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
-import type { UiNodeSettingsInfo } from "components/Inputs/SettingsFormBuilder/inputFieldTypes";
-
 import {
   removeDeletedGridAreaFromLayout,
   updateGridLayoutAreaOnItemAreaChange,
-} from "../../components/Grids/watchAndReactToGridAreaUpdatesupdate";
+} from "components/Grids/watchAndReactToGridAreaUpdatesupdate";
+import type { CSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
+import type { UiNodeSettingsInfo } from "components/Inputs/SettingsFormBuilder/inputFieldTypes";
+
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import { GridlayoutGridPage } from "./GridlayoutGridPage";

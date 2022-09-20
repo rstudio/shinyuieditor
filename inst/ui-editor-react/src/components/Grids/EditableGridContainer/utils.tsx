@@ -1,6 +1,5 @@
 import type { CSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
-
-import type { TemplatedGridProps } from "../../../Shiny-Ui-Elements/GridlayoutGridPage";
+import type { TemplatedGridProps } from "Shiny-Ui-Elements/GridlayoutGridPage";
 
 import type { DragStatus, TractInfo } from "./useDragToResizeGrid";
 

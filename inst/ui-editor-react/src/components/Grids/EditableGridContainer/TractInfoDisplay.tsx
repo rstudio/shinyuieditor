@@ -8,9 +8,8 @@ import type {
 import { CSSUnitInputSimple } from "components/Inputs/CSSUnitInput/CSSUnitInputSimple";
 import { PopoverButton } from "components/Inputs/PopoverButton";
 import { FaPlus } from "react-icons/fa";
+import type { TemplatedGridProps } from "Shiny-Ui-Elements/GridlayoutGridPage";
 import { conflictsToRemoveTract } from "utils/gridTemplates/removeTract";
-
-import type { TemplatedGridProps } from "../../../Shiny-Ui-Elements/GridlayoutGridPage";
 
 import type { TractUpdateAction } from "./EditableGridContainer";
 import classes from "./TractInfoDisplay.module.css";

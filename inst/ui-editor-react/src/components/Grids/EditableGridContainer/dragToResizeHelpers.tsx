@@ -1,4 +1,4 @@
-import type { TractDirection } from "../../../Shiny-Ui-Elements/GridlayoutGridPage";
+import type { TractDirection } from "Shiny-Ui-Elements/GridlayoutGridPage";
 
 import type { TractUpdateValues } from "./tractUpdatingFunctions";
 import { drag_pixel_after } from "./tractUpdatingFunctions";

@@ -1,6 +1,6 @@
 import React from "react";
 
-import type { TemplatedGridProps } from "../../../Shiny-Ui-Elements/GridlayoutGridPage";
+import type { TemplatedGridProps } from "Shiny-Ui-Elements/GridlayoutGridPage";
 
 import EditableGridContainer from "./EditableGridContainer";
 
