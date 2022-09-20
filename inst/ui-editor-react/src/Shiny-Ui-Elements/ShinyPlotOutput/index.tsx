@@ -1,12 +1,12 @@
 import plotIcon from "assets/icons/shinyPlot.png";
-import type { DynamicFormInfo } from "components/Inputs/SettingsFormBuilder/inputFieldTypes";
+import type { UiNodeSettingsInfo } from "components/Inputs/SettingsFormBuilder/inputFieldTypes";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import { ShinyPlotOutputSettings } from "./SettingsPanel";
 import ShinyPlotOutput from "./ShinyPlotOutput";
 
-export const ShinyPlotOutputSettingsInfo: DynamicFormInfo = {
+export const ShinyPlotOutputSettingsInfo: UiNodeSettingsInfo = {
   outputId: {
     inputType: "string",
     label: "output id for plot",

@@ -1,12 +1,12 @@
 import icon from "assets/icons/tabPanel.png";
-import type { FormInfo } from "components/Inputs/SettingsFormBuilder/inputFieldTypes";
+import type { UiNodeSettingsInfo } from "components/Inputs/SettingsFormBuilder/inputFieldTypes";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import { ShinyTabPanelSettings } from "./SettingsPanel";
 import ShinyTabPanel from "./ShinyTabPanel";
 
-export const TabPanelSettingsInfo: FormInfo = {
+export const TabPanelSettingsInfo: UiNodeSettingsInfo = {
   title: {
     label: "Title of panel",
     inputType: "string",
@@ -25,7 +25,7 @@ export const shinyTabPanelDefaultSettings: TabPanelSettings = {
 export const shinyTabPanelInfo: UiComponentInfo<TabPanelSettings> = {
   title: "Tab Panel",
   UiComponent: ShinyTabPanel,
-  // settingsInfo: TabPanelSettingsInfo,
+  settingsInfo: TabPanelSettingsInfo,
   SettingsComponent: ShinyTabPanelSettings,
   acceptsChildren: true,
   defaultSettings: shinyTabPanelDefaultSettings,

@@ -6,7 +6,7 @@ import { buildStaticFieldInfo } from "./buildStaticSettingsInfo";
 import type {
   DynamicFieldInfo,
   StaticFieldInfo,
-  DynamicFormInfo,
+  UiNodeSettingsInfo,
   FormInfo,
 } from "./inputFieldTypes";
 
@@ -73,7 +73,7 @@ describe("Can convert dynamic argument info object into a static one", () => {
 
 describe("Can convert full dynamic settings info object into a static one", () => {
   test("All dynamic values", () => {
-    const navbarPageDynamicInfo: DynamicFormInfo = {
+    const navbarPageDynamicInfo: UiNodeSettingsInfo = {
       title: {
         inputType: "string",
         defaultValue: (node) =>

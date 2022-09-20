@@ -2,14 +2,14 @@ import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import type {
   DynamicFieldInfoByType,
-  DynamicFormInfo,
+  UiNodeSettingsInfo,
   InputFieldTypeNames,
   NodeToValueFn,
   StaticFieldInfo,
   StaticFieldInfoByType,
 } from "./inputFieldTypes";
 
-type ToStaticFormInfo<DynSettings extends DynamicFormInfo> = {
+type ToStaticFormInfo<DynSettings extends UiNodeSettingsInfo> = {
   [ArgName in keyof DynSettings]: StaticFieldInfoByType[DynSettings[ArgName]["inputType"]];
 };
 
@@ -59,7 +59,7 @@ export function buildStaticFieldInfo<ArgType extends InputFieldTypeNames>(
  * @returns A static version of the settings info for all arugments where
  * functions have been evaluated to their constant values
  */
-export function buildStaticFormInfo<DynInfo extends DynamicFormInfo>(
+export function buildStaticFormInfo<DynInfo extends UiNodeSettingsInfo>(
   dynamicFormInfo: DynInfo,
   node: ShinyUiNode
 ): ToStaticFormInfo<DynInfo> {

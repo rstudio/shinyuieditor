@@ -85,7 +85,7 @@ export type DynamicFieldInfoByType = {
 };
 
 export type DynamicFieldInfo = DynamicFieldInfoByType[InputFieldTypeNames];
-export type DynamicFormInfo = Record<string, DynamicFieldInfo>;
+export type UiNodeSettingsInfo = Record<string, DynamicFieldInfo>;
 
 export type StaticFieldInfo =
   StaticFieldInfoByType[keyof StaticFieldInfoByType];
