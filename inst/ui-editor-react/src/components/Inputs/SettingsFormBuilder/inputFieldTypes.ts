@@ -82,9 +82,10 @@ export type DynamicFieldInfoByType = {
     NonDynamicProps
   > &
     ArgumentsOrCallbacks<Omit<StaticFieldInfoByType[ArgType], NonDynamicProps>>;
-};
+} & { omitted: OmittedField };
 
-export type DynamicFieldInfo = DynamicFieldInfoByType[InputFieldTypeNames];
+export type DynamicFieldInfo =
+  DynamicFieldInfoByType[keyof DynamicFieldInfoByType];
 export type UiNodeSettingsInfo = Record<string, DynamicFieldInfo>;
 
 export type StaticFieldInfo =
