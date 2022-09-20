@@ -28,8 +28,9 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
   const { uiName, uiArguments } = currentNode;
 
   // If performance issues happen this can be memoized
+  const nodeInfo = shinyUiNodeInfo[uiName];
   const staticSettingsInfo = buildStaticFormInfo(
-    shinyUiNodeInfo[uiName].settingsInfo,
+    nodeInfo.settingsInfo,
     currentNode
   );
 
@@ -45,6 +46,7 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
       <FormBuilder
         settings={uiArguments as FormValuesFromInfo<typeof staticSettingsInfo>}
         settingsInfo={staticSettingsInfo}
+        renderInputs={nodeInfo.settingsFormRender}
         onSettingsChange={(name, action) => {
           if (action.type === "UPDATE") {
             updateArgumentsByName({ name, value: action.value });

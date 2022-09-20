@@ -1,6 +1,7 @@
 import type React from "react";
 
 import type { DefaultSettingsFromInfo } from "components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
+import type { InputComponentsOutput } from "components/Inputs/SettingsFormBuilder/FormBuilder";
 import type { DynamicFieldInfo } from "components/Inputs/SettingsFormBuilder/inputFieldTypes";
 import type { DeleteAction, UpdateAction } from "state/uiTree";
 
@@ -40,6 +41,8 @@ export type UiComponentInfo<NodeSettings extends object> = {
   settingsInfo: {
     [ArgName in keyof NodeSettings]: DynamicFieldInfo;
   };
+
+  settingsFormRender?: (x: InputComponentsOutput<NodeSettings>) => JSX.Element;
 
   /**
    * The source of the icon. This comes from the importing of a png. If this is
