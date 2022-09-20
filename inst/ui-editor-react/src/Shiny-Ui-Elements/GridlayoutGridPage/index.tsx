@@ -28,9 +28,15 @@ export const gridlayoutGridPageInfo: UiComponentInfo<TemplatedGridProps> = {
       defaultValue: "10px",
       units: ["px", "rem"],
     },
-    areas: { inputType: "omitted" },
-    row_sizes: { inputType: "omitted" },
-    col_sizes: { inputType: "omitted" },
+    areas: {
+      inputType: "omitted",
+      defaultValue: [
+        [".", "."],
+        [".", "."],
+      ],
+    },
+    row_sizes: { inputType: "omitted", defaultValue: ["1fr", "1fr"] },
+    col_sizes: { inputType: "omitted", defaultValue: ["1fr", "1fr"] },
   },
   defaultSettings: {
     areas: [

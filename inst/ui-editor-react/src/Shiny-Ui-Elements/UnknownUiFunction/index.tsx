@@ -12,6 +12,7 @@ export const unknownUiFunctionInfo: UiComponentInfo<UnknownUiFunctionProps> = {
   settingsInfo: {
     text: {
       inputType: "omitted",
+      defaultValue: "Unknown Ui Function",
     },
   },
   acceptsChildren: false,

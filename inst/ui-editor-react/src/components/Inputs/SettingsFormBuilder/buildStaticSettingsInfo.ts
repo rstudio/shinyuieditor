@@ -74,3 +74,45 @@ export function buildStaticFormInfo<DynInfo extends UiNodeSettingsInfo>(
 
   return staticSettingsInfo as FormInfo;
 }
+
+type GetValueFromDynamicProp<T> = T extends NodeToValueFn<infer R> ? R : T;
+
+type DefaultSettingsFromInfo<DynInfo extends UiNodeSettingsInfo> = {
+  [ArgName in keyof DynInfo]: DynInfo[ArgName] extends { defaultValue: any }
+    ? GetValueFromDynamicProp<DynInfo[ArgName]["defaultValue"]>
+    : never;
+};
+
+/**
+ * Convert a whole settings info object from dynamic callback form to static
+ * form
+ * @param dynamicFormInfo A full settings info object for all settings in a
+ * ui nodes uiArguments object
+ * @param node ShinyUiNode for which the dynamicSettingsInfo represents the
+ * settings/uiArguments for
+ * @returns A static version of the settings info for all arugments where
+ * functions have been evaluated to their constant values
+ */
+export function getDefaultSettings<DynInfo extends UiNodeSettingsInfo>(
+  dynamicFormInfo: DynInfo,
+  node: ShinyUiNode
+): DefaultSettingsFromInfo<DynInfo> {
+  let defaultArgs: Record<string, any> = {};
+
+  for (let argName in dynamicFormInfo) {
+    const argInfo = dynamicFormInfo[argName];
+
+    if ("optional" in argInfo) {
+      continue;
+    }
+
+    if ("defaultValue" in argInfo) {
+      defaultArgs[argName] = buildStaticFieldInfo(
+        dynamicFormInfo[argName],
+        node
+      ).defaultValue;
+    }
+  }
+
+  return defaultArgs as DefaultSettingsFromInfo<DynInfo>;
+}

@@ -1,7 +1,10 @@
 import React from "react";
 
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
-import { buildStaticFormInfo } from "components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
+import {
+  buildStaticFormInfo,
+  getDefaultSettings,
+} from "components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
 import { FormBuilder } from "components/Inputs/SettingsFormBuilder/FormBuilder";
 import type { FormValuesFromInfo } from "components/Inputs/SettingsFormBuilder/inputFieldTypes";
 import type { OnChangeCallback } from "components/Inputs/SettingsUpdateContext";
@@ -105,13 +108,18 @@ export default {
 export const UiElementsShowcase: ComponentStory<
   ({ nameOfElement }: { nameOfElement: ShinyUiNames }) => JSX.Element
 > = ({ nameOfElement }) => {
-  type UiArgsType = ArgsWithPotentialUnknowns<typeof nameOfElement>;
+  const standinNode = {
+    uiName: nameOfElement,
+    uiArguments: {},
+    uiChildren: [],
+  } as ShinyUiNode;
 
+  const defaultSettings = getDefaultSettings(
+    shinyUiNodeInfo[nameOfElement].settingsInfo,
+    standinNode
+  );
   return (
-    <UiNodeAndSettings
-      uiName={nameOfElement}
-      uiArguments={shinyUiNodeInfo[nameOfElement].defaultSettings as UiArgsType}
-    />
+    <UiNodeAndSettings uiName={nameOfElement} uiArguments={defaultSettings} />
   );
 };
 

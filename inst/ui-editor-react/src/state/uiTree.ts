@@ -2,6 +2,7 @@ import React from "react";
 
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
+import { getDefaultSettings } from "components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
 import { getNode } from "components/UiNode/TreeManipulation/getNode";
 import type { PlaceNodeArguments } from "components/UiNode/TreeManipulation/placeNode";
 import { placeNodeMutating } from "components/UiNode/TreeManipulation/placeNode";
@@ -84,7 +85,10 @@ export const uiTreeSlice = createSlice({
  * options controls don't actually match the presented values
  */
 function fillInDefaultValues(uiNode: ShinyUiNode) {
-  const defaultSettingsForNode = shinyUiNodeInfo[uiNode.uiName].defaultSettings;
+  const defaultSettingsForNode = getDefaultSettings(
+    shinyUiNodeInfo[uiNode.uiName].settingsInfo,
+    uiNode
+  );
 
   const argsInNode = Object.keys(uiNode.uiArguments);
   const defaultNodeArgs = Object.keys(defaultSettingsForNode);

@@ -65,7 +65,11 @@ type ArgumentsOrCallbacks<Obj extends Record<string, any>> = {
   [Key in keyof Obj]: DynamicValueType<Obj[Key]>;
 };
 
-type OmittedField = { inputType: "omitted" };
+type OmittedFieldStatic = { inputType: "omitted"; defaultValue: any };
+type OmittedFieldDynamic = {
+  inputType: "omitted";
+  defaultValue: DynamicValueType<any>;
+};
 
 export type StaticFieldInfoByType = {
   [ArgType in InputFieldEntryNames]: {
@@ -73,7 +77,7 @@ export type StaticFieldInfoByType = {
     label?: string;
     optional?: true;
   } & Omit<InputFieldEntryMap[ArgType], "value">;
-} & { omitted: OmittedField };
+} & { omitted: OmittedFieldStatic };
 
 type NonDynamicProps = "inputType" | "optional";
 
@@ -83,7 +87,7 @@ export type DynamicFieldInfoByType = {
     NonDynamicProps
   > &
     ArgumentsOrCallbacks<Omit<StaticFieldInfoByType[ArgType], NonDynamicProps>>;
-} & { omitted: OmittedField };
+} & { omitted: OmittedFieldDynamic };
 
 export type DynamicFieldInfo =
   DynamicFieldInfoByType[keyof DynamicFieldInfoByType];
