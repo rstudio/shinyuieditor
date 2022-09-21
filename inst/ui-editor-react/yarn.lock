@@ -14863,6 +14863,7 @@ __metadata:
     react-sortablejs: ^6.1.4
     sass: ^1.54.8
     sortablejs: ^1.15.0
+    ts-pattern: ^4.0.5
     typescript: ^4.8.2
     vite: ^3.0.4
     vite-tsconfig-paths: ^3.5.0
@@ -15889,6 +15890,13 @@ __metadata:
   version: 2.2.0
   resolution: "ts-dedent@npm:2.2.0"
   checksum: 93ed8f7878b6d5ed3c08d99b740010eede6bccfe64bce61c5a4da06a2c17d6ddbb80a8c49c2d15251de7594a4f93ffa21dd10e7be75ef66a4dc9951b4a94e2af
+  languageName: node
+  linkType: hard
+
+"ts-pattern@npm:^4.0.5":
+  version: 4.0.5
+  resolution: "ts-pattern@npm:4.0.5"
+  checksum: b1ecf36afb567ee6adbaee6e885e51775b1a390ed528589ae3bcb1e376412ed0774b54495ffca7be2a324e75268f894d34379b84388930485cf1359b30d5bc8b
   languageName: node
   linkType: hard
 

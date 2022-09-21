@@ -3,13 +3,9 @@ import { CSSUnitInputSimple } from "components/Inputs/CSSUnitInput/CSSUnitInputS
 import { NamedListInputSimple } from "components/Inputs/ListInput/NamedListInputSimple";
 import { DropdownSelect } from "components/Inputs/OptionsDropdown/DropdownSelect";
 import { RadioInputsSimple } from "components/Inputs/RadioInputs/RadioInputsSimple";
-import type { Component } from "TypescriptUtils";
+import { match } from "ts-pattern";
 
-import type {
-  FieldEntryUnion,
-  InputFieldEntryNames,
-  KnownInputFieldTypes,
-} from "../inputFieldTypes";
+import type { FieldEntryUnion, KnownInputFieldTypes } from "../inputFieldTypes";
 
 import { NumberInput } from "./NumberInput";
 import { StringInput } from "./StringInput";
@@ -27,59 +23,18 @@ export type SettingsInputElementProps = FieldEntryUnion & {
   onChange: OnChangeCallback;
 };
 
-const inputComps: Record<InputFieldEntryNames, Component> = {
-  string: StringInput,
-  number: NumberInput,
-  cssMeasure: CSSUnitInputSimple,
-  boolean: BooleanInputSimple,
-  list: NamedListInputSimple,
-  dropdown: DropdownSelect,
-  radio: RadioInputsSimple,
-};
-
 export function SettingsInputElement(args: SettingsInputElementProps) {
-  if (!(args.inputType in inputComps)) {
-    return (
+  return match(args)
+    .with({ inputType: "string" }, (x) => <StringInput {...x} />)
+    .with({ inputType: "number" }, (x) => <NumberInput {...x} />)
+    .with({ inputType: "cssMeasure" }, (x) => <CSSUnitInputSimple {...x} />)
+    .with({ inputType: "boolean" }, (x) => <BooleanInputSimple {...x} />)
+    .with({ inputType: "list" }, (x) => <NamedListInputSimple {...x} />)
+    .with({ inputType: "dropdown" }, (x) => <DropdownSelect {...x} />)
+    .with({ inputType: "radio" }, (x) => <RadioInputsSimple {...x} />)
+    .otherwise(({ inputType }) => (
       <div>
-        I don't know how to render the input of type {args.inputType} yet!
-        Sorry.
+        I don't know how to render the input of type {inputType} yet! Sorry.
       </div>
-    );
-  }
-
-  if (args.inputType === "string") {
-    return <inputComps.string {...args} />;
-  }
-
-  if (args.inputType === "number") {
-    return <inputComps.number {...args} />;
-  }
-
-  if (args.inputType === "cssMeasure") {
-    return <inputComps.cssMeasure {...args} />;
-  }
-
-  if (args.inputType === "boolean") {
-    return <inputComps.boolean {...args} />;
-  }
-
-  if (args.inputType === "list") {
-    return <inputComps.list {...args} />;
-  }
-
-  if (args.inputType === "dropdown") {
-    return <inputComps.dropdown {...args} />;
-  }
-
-  if (args.inputType === "radio") {
-    return <inputComps.radio {...args} />;
-  }
-
-  // eslint-disable-next-line no-console
-  console.warn(args);
-  return (
-    <div>
-      Not exactly sure how you got here. Invalid settings input arguments
-    </div>
-  );
+    ));
 }
