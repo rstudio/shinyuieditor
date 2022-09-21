@@ -1,7 +1,7 @@
 import type React from "react";
 
 import type { DefaultSettingsFromInfo } from "components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
-import type { InputComponentsOutput } from "components/Inputs/SettingsFormBuilder/FormBuilder";
+import type { InputCustomRenderFn } from "components/Inputs/SettingsFormBuilder/FormBuilder";
 import type { DynamicFieldInfo } from "components/Inputs/SettingsFormBuilder/inputFieldTypes";
 import type { DeleteAction, UpdateAction } from "state/uiTree";
 
@@ -29,7 +29,7 @@ import { unknownUiFunctionInfo } from "./UnknownUiFunction";
 /**
  * Defines everything needed to add a new Shiny UI component to the app
  */
-export type UiComponentInfo<NodeSettings extends object> = {
+export type UiComponentInfo<NodeSettings extends Record<string, any>> = {
   /**
    * The name of the component in plain language. E.g. Plot Output
    */
@@ -42,7 +42,7 @@ export type UiComponentInfo<NodeSettings extends object> = {
     [ArgName in keyof NodeSettings]: DynamicFieldInfo;
   };
 
-  settingsFormRender?: (x: InputComponentsOutput<NodeSettings>) => JSX.Element;
+  settingsFormRender?: InputCustomRenderFn<NodeSettings>;
 
   /**
    * The source of the icon. This comes from the importing of a png. If this is

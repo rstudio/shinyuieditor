@@ -14,6 +14,11 @@ import type {
 import { SettingsInput } from "./SettingsInput/SettingsInput";
 import { UnknownFormFields } from "./UnknownFormFields";
 
+export type InputCustomRenderFn<Settings extends Record<string, unknown>> = (
+  x: InputComponentsOutput<Settings>,
+  settings: Settings
+) => JSX.Element;
+
 export type FormBuilderProps<Info extends FormInfo> = {
   settings: FormValuesFromInfo<Info>;
   settingsInfo: Info;
@@ -22,7 +27,7 @@ export type FormBuilderProps<Info extends FormInfo> = {
    */
   omitted?: string[];
   onSettingsChange: (name: string, action: SettingsUpdateAction) => void;
-  renderInputs?: (x: InputComponentsOutput<Info>) => JSX.Element;
+  renderInputs?: InputCustomRenderFn<FormValuesFromInfo<Info>>;
 };
 
 export type InputComponentsOutput<Info extends Record<string, any>> = {
@@ -88,7 +93,7 @@ export function FormBuilder<Info extends FormInfo>({
   return (
     <form className="FormBuilder">
       {renderInputs ? (
-        renderInputs(PrebuildInputComponents)
+        renderInputs(PrebuildInputComponents, settings)
       ) : (
         <AutobuildFormContents {...PrebuildInputComponents} />
       )}
