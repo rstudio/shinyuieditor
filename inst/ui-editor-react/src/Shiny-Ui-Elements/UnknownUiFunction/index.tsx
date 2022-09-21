@@ -20,17 +20,17 @@ export const unknownUiFunctionInfo: UiComponentInfo<UnknownUiFunctionProps> = {
       defaultValue: "Unknown Ui Function",
     },
   },
-  settingsFormRender: ({ inputs }, settings) => {
+  settingsFormRender: (_, settings) => {
     return (
       <>
-        <div>
+        <div className="SUE-SettingsInput">
           <span className={classes.infoMsg}>
             <AiOutlineQuestionCircle />
             Unknown function call. Can't modify with visual editor.
           </span>
         </div>
         <CategoryDivider category="Code" />
-        <div>
+        <div className="SUE-SettingsInput">
           <pre className={classes.codeHolder}>
             {formatFunctionText(settings.text)}
           </pre>

@@ -53,6 +53,12 @@ export const basicGridPage: ShinyUiNode = {
             width: "100%",
           },
         },
+        {
+          uiName: "unknownUiFunction",
+          uiArguments: {
+            text: `myCoolCustomRFunction(arg1, arg2)`,
+          },
+        },
       ],
     },
     {
