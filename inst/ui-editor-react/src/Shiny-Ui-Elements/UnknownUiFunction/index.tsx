@@ -1,5 +1,4 @@
 import CategoryDivider from "components/CategoryDivider";
-import inputClasses from "components/Inputs/Inputs.module.css";
 import { AiOutlineQuestionCircle } from "react-icons/ai";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
@@ -24,14 +23,14 @@ export const unknownUiFunctionInfo: UiComponentInfo<UnknownUiFunctionProps> = {
   settingsFormRender: ({ inputs }, settings) => {
     return (
       <>
-        <div className={inputClasses.container}>
+        <div>
           <span className={classes.infoMsg}>
             <AiOutlineQuestionCircle />
             Unknown function call. Can't modify with visual editor.
           </span>
         </div>
         <CategoryDivider category="Code" />
-        <div className={inputClasses.container}>
+        <div>
           <pre className={classes.codeHolder}>
             {formatFunctionText(settings.text)}
           </pre>

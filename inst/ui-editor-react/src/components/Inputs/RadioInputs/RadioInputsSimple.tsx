@@ -12,7 +12,7 @@ export type RadioOptions = Record<
 >;
 export const DEFAULT_RADIO_CHOICE = "__DEFAULT-RADIO-CHOICE__";
 
-export function RadioInputsSimple({
+export function RadioInputs({
   id,
   choices,
   value: currentSelection,

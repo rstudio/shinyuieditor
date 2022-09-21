@@ -5,7 +5,7 @@ import type {
   CSSMeasure,
   CSSUnit,
 } from "components/Inputs/CSSUnitInput/CSSMeasure";
-import { CSSUnitInputSimple } from "components/Inputs/CSSUnitInput/CSSUnitInputSimple";
+import { CSSUnitInput } from "components/Inputs/CSSUnitInput/CSSUnitInput";
 import { PopoverButton } from "components/Inputs/PopoverButton";
 import { FaPlus } from "react-icons/fa";
 import type { TemplatedGridProps } from "Shiny-Ui-Elements/GridlayoutGridPage";
@@ -74,7 +74,7 @@ export function TractInfoDisplay({
           />
           <AddTractButton dir={dir} onClick={onNewTractAfter} />
         </div>
-        <CSSUnitInputSimple
+        <CSSUnitInput
           id={"Tract-Size-" + dir + index}
           value={size}
           units={ALLOWED_UNITS}

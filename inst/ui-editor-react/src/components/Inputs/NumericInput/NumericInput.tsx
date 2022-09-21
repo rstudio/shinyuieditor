@@ -1,13 +1,8 @@
 import React from "react";
 
-import type { InputWidgetCommonPropsOld } from "..";
-import { InputWrapper } from "../InputWrapper";
-import type { OnChangeCallback } from "../SettingsUpdateContext";
-import { useOnChange } from "../SettingsUpdateContext";
-
 import classes from "./NumericInput.module.css";
 
-export function NumericInputSimple({
+export function NumericInput({
   value,
   ariaLabel,
   onChange,
@@ -66,45 +61,6 @@ export function NumericInputSimple({
           incrementCount(e.key === "ArrowUp" ? 1 : -1, e.shiftKey);
         }
       }}
-    />
-  );
-}
-
-export default function NumericInput({
-  name,
-  label,
-  value,
-  min = 0,
-  max,
-  onChange,
-  optional = false,
-  defaultValue = 1,
-  disabled = value === undefined,
-}: InputWidgetCommonPropsOld<number> & {
-  min?: number;
-  max?: number;
-}) {
-  const onNewValue = useOnChange(onChange as OnChangeCallback);
-
-  return (
-    <InputWrapper
-      name={name}
-      label={label}
-      optional={optional}
-      isDisabled={disabled}
-      defaultValue={defaultValue}
-      width_setting="fit"
-      mainInput={
-        <NumericInputSimple
-          name={name}
-          ariaLabel={label ?? name}
-          disabled={disabled}
-          value={value}
-          onChange={(newValue) => onNewValue({ name, value: newValue })}
-          min={min}
-          max={max}
-        />
-      }
     />
   );
 }

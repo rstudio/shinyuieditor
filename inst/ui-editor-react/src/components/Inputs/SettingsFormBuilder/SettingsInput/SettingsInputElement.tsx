@@ -1,8 +1,8 @@
-import { BooleanInputSimple } from "components/Inputs/BooleanInput/BooleanInputSimple";
-import { CSSUnitInputSimple } from "components/Inputs/CSSUnitInput/CSSUnitInputSimple";
-import { NamedListInputSimple } from "components/Inputs/ListInput/NamedListInputSimple";
+import { BooleanInput } from "components/Inputs/BooleanInput/BooleanInputSimple";
+import { CSSUnitInput } from "components/Inputs/CSSUnitInput/CSSUnitInput";
+import { NamedListInput } from "components/Inputs/ListInput/NamedListInput";
 import { DropdownSelect } from "components/Inputs/OptionsDropdown/DropdownSelect";
-import { RadioInputsSimple } from "components/Inputs/RadioInputs/RadioInputsSimple";
+import { RadioInputs } from "components/Inputs/RadioInputs/RadioInputsSimple";
 import { match } from "ts-pattern";
 
 import type { FieldEntryUnion, KnownInputFieldTypes } from "../inputFieldTypes";
@@ -27,11 +27,11 @@ export function SettingsInputElement(args: SettingsInputElementProps) {
   return match(args)
     .with({ inputType: "string" }, (x) => <StringInput {...x} />)
     .with({ inputType: "number" }, (x) => <NumberInput {...x} />)
-    .with({ inputType: "cssMeasure" }, (x) => <CSSUnitInputSimple {...x} />)
-    .with({ inputType: "boolean" }, (x) => <BooleanInputSimple {...x} />)
-    .with({ inputType: "list" }, (x) => <NamedListInputSimple {...x} />)
+    .with({ inputType: "cssMeasure" }, (x) => <CSSUnitInput {...x} />)
+    .with({ inputType: "boolean" }, (x) => <BooleanInput {...x} />)
+    .with({ inputType: "list" }, (x) => <NamedListInput {...x} />)
     .with({ inputType: "dropdown" }, (x) => <DropdownSelect {...x} />)
-    .with({ inputType: "radio" }, (x) => <RadioInputsSimple {...x} />)
+    .with({ inputType: "radio" }, (x) => <RadioInputs {...x} />)
     .otherwise(({ inputType }) => (
       <div>
         I don't know how to render the input of type {inputType} yet! Sorry.

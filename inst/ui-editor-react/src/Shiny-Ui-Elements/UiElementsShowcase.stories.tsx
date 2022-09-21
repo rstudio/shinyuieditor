@@ -8,8 +8,7 @@ import {
 } from "components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
 import { FormBuilder } from "components/Inputs/SettingsFormBuilder/FormBuilder";
 import type { FormValuesFromInfo } from "components/Inputs/SettingsFormBuilder/inputFieldTypes";
-import type { OnChangeCallback } from "components/Inputs/SettingsUpdateContext";
-import { SettingsUpdateContext } from "components/Inputs/SettingsUpdateContext";
+import type { SettingsUpdateAction } from "components/Inputs/SettingsFormBuilder/SettingsInput/SettingsInput";
 import type {
   ArgsWithPotentialUnknowns,
   ShinyUiNode,
@@ -53,8 +52,15 @@ function UiNodeAndSettings<T extends ShinyUiNames>({
   const [uiSettings, setUiSettings] =
     React.useState<NodeSettingsType>(uiArguments);
 
-  const updateSettings: OnChangeCallback = ({ name, value }) => {
-    setUiSettings({ ...uiSettings, [name]: value });
+  const updateSettings: (name: string, action: SettingsUpdateAction) => void = (
+    name,
+    action
+  ) => {
+    if (action.type === "UPDATE") {
+      setUiSettings({ ...uiSettings, [name]: action.value });
+    } else {
+      setUiSettings({ ...uiSettings, [name]: undefined });
+    }
   };
 
   React.useEffect(() => setUiSettings(uiArguments), [uiArguments, uiName]);
@@ -83,21 +89,13 @@ function UiNodeAndSettings<T extends ShinyUiNames>({
       </div>
       <div>
         <h1>Settings Panel</h1>
-        <SettingsUpdateContext onChange={updateSettings}>
-          <FormBuilder
-            settings={
-              uiArguments as FormValuesFromInfo<typeof staticSettingsInfo>
-            }
-            settingsInfo={staticSettingsInfo}
-            onSettingsChange={(name, action) => {
-              if (action.type === "UPDATE") {
-                updateSettings({ name, value: action.value });
-              } else {
-                updateSettings({ name, value: undefined });
-              }
-            }}
-          />
-        </SettingsUpdateContext>
+        <FormBuilder
+          settings={
+            uiArguments as FormValuesFromInfo<typeof staticSettingsInfo>
+          }
+          settingsInfo={staticSettingsInfo}
+          onSettingsChange={updateSettings}
+        />
       </div>
     </div>
   );

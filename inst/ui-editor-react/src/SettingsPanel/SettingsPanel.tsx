@@ -54,9 +54,9 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
         }
         onSettingsChange={(name, action) => {
           if (action.type === "UPDATE") {
-            updateArgumentsByName({ name, value: action.value });
+            updateArgumentsByName(name, action.value);
           } else {
-            updateArgumentsByName({ name, value: undefined });
+            updateArgumentsByName(name);
           }
         }}
       />

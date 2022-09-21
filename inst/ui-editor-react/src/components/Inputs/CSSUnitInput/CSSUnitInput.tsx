@@ -1,11 +1,8 @@
 import React from "react";
 
-import { NumericInputSimple } from "../NumericInput/NumericInput";
+import { NumericInput } from "../NumericInput/NumericInput";
 import type { InputComponentProps } from "../SettingsFormBuilder/inputFieldTypes";
 import { makeLabelId } from "../SettingsFormBuilder/inputFieldTypes";
-
-import type { CSSUnits } from "./index";
-import { defaultCounts } from "./index";
 
 import type { CSSMeasure } from "./CSSMeasure";
 import { deparseCSSMeasure } from "./CSSMeasure";
@@ -13,7 +10,16 @@ import { parseCSSMeasure } from "./CSSMeasure";
 import { CSSUnitInfo } from "./CSSUnitInfo";
 import classes from "./CSSUnitInput.module.css";
 
-export function CSSUnitInputSimple({
+export type CSSUnits = "fr" | "px" | "rem" | "auto" | "%";
+
+export const defaultCounts = {
+  fr: 1,
+  px: 10,
+  rem: 1,
+  "%": 100,
+};
+
+export function CSSUnitInput({
   id,
   value: initialValue,
   onChange,
@@ -88,7 +94,7 @@ export function CSSUnitInputSimple({
       aria-label="Css Unit Input"
       aria-labelledby={makeLabelId(id)}
     >
-      <NumericInputSimple
+      <NumericInput
         name="value-count"
         ariaLabel="value-count"
         value={no_count ? undefined : count}

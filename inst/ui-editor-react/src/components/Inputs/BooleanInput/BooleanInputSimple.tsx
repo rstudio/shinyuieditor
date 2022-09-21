@@ -3,7 +3,7 @@ import { makeLabelId } from "../SettingsFormBuilder/inputFieldTypes";
 
 import classes from "./styles.module.css";
 
-export function BooleanInputSimple({
+export function BooleanInput({
   id,
   value,
   onChange,

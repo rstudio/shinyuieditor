@@ -1,10 +1,9 @@
 import * as React from "react";
 
-import type { CSSUnits } from "./index";
-import { defaultCounts } from "./index";
-
 import type { CSSMeasure, ParsedCSSMeasure } from "./CSSMeasure";
 import { parseCSSMeasure } from "./CSSMeasure";
+import type { CSSUnits } from "./CSSUnitInput";
+import { defaultCounts } from "./CSSUnitInput";
 
 export function useCSSUnitState(initialValue: CSSMeasure) {
   const [cssValue, setCssValue] = React.useState<ParsedCSSMeasure>(

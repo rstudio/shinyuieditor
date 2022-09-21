@@ -1,6 +1,6 @@
 import React from "react";
 
-import NumericInput from "./NumericInput";
+import { NumericInput } from "./NumericInput";
 
 export default {
   title: "inputs/Numeric Input",
@@ -16,8 +16,7 @@ export const Primary = () => {
       <NumericInput
         name="test"
         value={value}
-        onChange={({ name, value }) => {
-          console.log(`Changed ${name} to ${value}`);
+        onChange={(value) => {
           if (!value) return;
           setValue(value);
         }}

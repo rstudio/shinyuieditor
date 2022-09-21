@@ -3,28 +3,19 @@ import { useState } from "react";
 import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { CSSUnitInput } from ".";
-
 import type { CSSMeasure } from "./CSSMeasure";
+import { CSSUnitInput } from "./CSSUnitInput";
 
 function UseCssUnitInput({ initialValue }: { initialValue: CSSMeasure }) {
   const [value, setValue] = useState<CSSMeasure>(initialValue);
 
-  return <CSSUnitInput value={value} onChange={setValue} />;
+  return <CSSUnitInput id={"usedCSSUnit"} value={value} onChange={setValue} />;
 }
-
-test("Initializes properly", async () => {
-  render(<CSSUnitInput value={"3rem"} onChange={(newVal) => {}} />);
-
-  await waitFor(() => {
-    expect(screen.getByLabelText("value-count")).toHaveValue(3);
-    expect(screen.getByLabelText("value-unit")).toHaveValue("rem");
-  });
-});
 
 test("Can show a subset of units", async () => {
   render(
     <CSSUnitInput
+      id={"my-unit"}
       value={"3rem"}
       units={["rem", "px"]}
       onChange={(newVal) => {}}
