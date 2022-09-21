@@ -38,4 +38,10 @@
   input:not([type="checkbox"]) {
     width: 100%;
   }
+
+  // Add a colon after label without making confusing label text for
+  // accesibility reasons
+  label:after {
+    content: ":";
+  }
 }

@@ -111,18 +111,15 @@ describe("Inputs can be optional", async () => {
 
     expect(screen.getByLabelText(`Use myStringVal argument`)).toBeChecked();
 
+    const labelText = "Optional String Input";
     // Starts with initial value
-    expect(screen.getByLabelText("Optional String Input")).toHaveValue(
-      initialVal
-    );
+    expect(screen.getByLabelText(labelText)).toHaveValue(initialVal);
 
     // Click to disable argument
     userEvent.click(screen.getByLabelText(`Use myStringVal argument`));
     await waitFor(() => {
       // Now the input should be unset
-      expect(screen.getByLabelText("Optional String Input")).toHaveTextContent(
-        /unset/i
-      );
+      expect(screen.getByLabelText(labelText)).toBeDisabled();
     });
 
     // Click to re-enable
@@ -130,9 +127,7 @@ describe("Inputs can be optional", async () => {
 
     // Now the value should be the default value
     await waitFor(() => {
-      expect(screen.getByLabelText("Optional String Input")).toHaveValue(
-        defaultVal
-      );
+      expect(screen.getByLabelText(labelText)).toHaveValue(defaultVal);
     });
   });
 });

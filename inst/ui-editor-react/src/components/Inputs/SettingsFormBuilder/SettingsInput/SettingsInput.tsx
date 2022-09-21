@@ -88,8 +88,7 @@ export function SettingsInput({ onUpdate, ...opts }: SettingsInputProps) {
             onChange={argumentIsUnset ? setToDefault : unsetArgument}
           />
         ) : null}
-
-        <label id={makeLabelId(opts.name)}>{opts.label ?? opts.name}:</label>
+        <label id={makeLabelId(opts.name)}>{opts.label ?? opts.name}</label>
       </div>
       {mainInputBody}
     </div>
