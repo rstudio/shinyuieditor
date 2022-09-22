@@ -9,12 +9,20 @@ import { CSSUnitInput } from "./CSSUnitInput";
 function UseCssUnitInput({ initialValue }: { initialValue: CSSMeasure }) {
   const [value, setValue] = useState<CSSMeasure>(initialValue);
 
-  return <CSSUnitInput id={"usedCSSUnit"} value={value} onChange={setValue} />;
+  return (
+    <CSSUnitInput
+      label="My CSS Input"
+      id={"usedCSSUnit"}
+      value={value}
+      onChange={setValue}
+    />
+  );
 }
 
 test("Can show a subset of units", async () => {
   render(
     <CSSUnitInput
+      label="My CSS Input"
       id={"my-unit"}
       value={"3rem"}
       units={["rem", "px"]}

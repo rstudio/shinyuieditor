@@ -14,6 +14,7 @@ export const DEFAULT_RADIO_CHOICE = "__DEFAULT-RADIO-CHOICE__";
 
 export function RadioInputs({
   id,
+  label,
   choices,
   value: currentSelection,
   onChange,
@@ -47,6 +48,7 @@ export function RadioInputs({
     <fieldset
       className={classes.radioContainer}
       aria-labelledby={makeLabelId(id)}
+      aria-label={label}
       style={columns_style_defn}
     >
       {values.map((option) => {

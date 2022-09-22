@@ -35,6 +35,7 @@ type NewItemValue = { key: string; value: string };
 
 export function NamedListInput({
   id,
+  label,
   value,
   onChange,
   newItemValue = { key: "myKey", value: "myValue" },
@@ -54,7 +55,7 @@ export function NamedListInput({
     <div
       className={classes.list}
       aria-labelledby={makeLabelId(id)}
-      aria-label="Reorderable list input"
+      aria-label={label}
     >
       <div
         className={classes.item + " " + classes.header}

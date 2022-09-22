@@ -3,11 +3,13 @@ import { makeLabelId } from "../inputFieldTypes";
 
 export function StringInput({
   id,
+  label,
   value,
   onChange,
 }: InputComponentProps<string>) {
   return (
     <input
+      aria-label={label}
       aria-labelledby={makeLabelId(id)}
       id={id}
       type="text"

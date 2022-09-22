@@ -5,6 +5,7 @@ import classes from "./styles.module.css";
 
 export function BooleanInput({
   id,
+  label,
   value,
   onChange,
 }: InputComponentProps<boolean>) {
@@ -17,6 +18,7 @@ export function BooleanInput({
         className={classes.checkboxInput}
         id={checkboxId}
         aria-labelledby={makeLabelId(id)}
+        aria-label={label}
         type="checkbox"
         checked={value}
         onChange={handleChange}

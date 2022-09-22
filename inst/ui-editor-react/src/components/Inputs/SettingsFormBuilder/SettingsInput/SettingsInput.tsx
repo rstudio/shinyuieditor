@@ -35,6 +35,7 @@ export function SettingsInput({ onUpdate, ...opts }: SettingsInputProps) {
   const argumentIsUnset = opts.value === undefined;
   const argumentIsOptional = opts.optional;
   const labelId = makeLabelId(opts.name);
+  const label = opts.label ?? opts.name;
 
   const setToDefault = () =>
     onUpdate({
@@ -68,6 +69,7 @@ export function SettingsInput({ onUpdate, ...opts }: SettingsInputProps) {
     } else {
       mainInputBody = (
         <SettingsInputElement
+          label={label}
           id={opts.name}
           onChange={updateArgument}
           {...(opts as FieldEntryUnion)}
@@ -88,7 +90,7 @@ export function SettingsInput({ onUpdate, ...opts }: SettingsInputProps) {
             onChange={argumentIsUnset ? setToDefault : unsetArgument}
           />
         ) : null}
-        <label id={makeLabelId(opts.name)}>{opts.label ?? opts.name}</label>
+        <label id={labelId}>{label}</label>
       </div>
       {mainInputBody}
     </div>

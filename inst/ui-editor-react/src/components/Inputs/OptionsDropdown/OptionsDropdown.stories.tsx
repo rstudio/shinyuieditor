@@ -15,6 +15,7 @@ function InputDemo<Option extends string>({ options }: { options: Option[] }) {
   return (
     <DropdownSelect
       id="MyDropdown"
+      label="Dropdown select"
       choices={options}
       value={chosen}
       onChange={setChosen}

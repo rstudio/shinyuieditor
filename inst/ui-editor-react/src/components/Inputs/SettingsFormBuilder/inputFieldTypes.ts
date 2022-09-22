@@ -139,6 +139,7 @@ export type FormValuesFromInfo<Info extends FormInfo> = {
 
 export type InputComponentProps<T, Opts extends object = {}> = {
   id: string;
+  label: string;
   value: T;
   onChange: (value: T) => void;
 } & Opts;

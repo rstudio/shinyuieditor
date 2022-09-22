@@ -66,7 +66,6 @@ describe("Required inputs work", async () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByLabelText("Css Unit Input")).toBeInTheDocument();
       expect(screen.getByLabelText("My CSS Input")).toBeInTheDocument();
     });
   });

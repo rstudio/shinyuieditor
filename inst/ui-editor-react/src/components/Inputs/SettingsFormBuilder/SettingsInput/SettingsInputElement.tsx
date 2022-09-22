@@ -18,8 +18,9 @@ import { StringInput } from "./StringInput";
  */
 export type OnChangeCallback = (newValue: KnownInputFieldTypes) => void;
 
-export type SettingsInputElementProps = FieldEntryUnion & {
+type SettingsInputElementProps = FieldEntryUnion & {
   id: string;
+  label: string;
   onChange: OnChangeCallback;
 };
 

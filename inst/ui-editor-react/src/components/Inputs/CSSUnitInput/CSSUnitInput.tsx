@@ -21,6 +21,7 @@ export const defaultCounts = {
 
 export function CSSUnitInput({
   id,
+  label,
   value: initialValue,
   onChange,
   units = ["fr", "px", "rem", "%", "auto"],
@@ -91,7 +92,7 @@ export function CSSUnitInput({
   return (
     <div
       className={classes.wrapper}
-      aria-label="Css Unit Input"
+      aria-label={label}
       aria-labelledby={makeLabelId(id)}
     >
       <NumericInput

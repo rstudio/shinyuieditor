@@ -15,6 +15,7 @@ export const DEFAULT_DROPDOWN_CHOICE = "__DEFAULT-DROPDOWN-CHOICE__";
 
 export function DropdownSelect({
   id,
+  label,
   choices,
   onChange,
   value: selected,
@@ -41,6 +42,7 @@ export function DropdownSelect({
     return (
       <select
         aria-labelledby={makeLabelId(id)}
+        aria-label={label}
         className="OptionsDropdown"
         placeholder="No available options"
       ></select>
