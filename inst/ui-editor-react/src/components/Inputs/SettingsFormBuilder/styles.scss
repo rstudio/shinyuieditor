@@ -1,6 +1,12 @@
 .FormBuilder {
 }
 
+input {
+  padding: var(--input-vertical-padding) var(--input-horizontal-padding);
+  border: 1px solid var(--light-grey);
+  border-radius: var(--corner-radius);
+}
+
 .unknown-arguments-list {
   .unknown-form-fields {
     font-family: var(--mono-fonts);
