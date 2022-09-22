@@ -6,7 +6,7 @@ import type {
   CSSUnit,
 } from "components/Inputs/CSSUnitInput/CSSMeasure";
 import { CSSUnitInput } from "components/Inputs/CSSUnitInput/CSSUnitInput";
-import { PopoverButton } from "components/Inputs/PopoverButton";
+import { TooltipButton } from "components/PopoverEl/Tooltip";
 import { FaPlus } from "react-icons/fa";
 import type { TemplatedGridProps } from "Shiny-Ui-Elements/GridlayoutGridPage";
 import { conflictsToRemoveTract } from "utils/gridTemplates/removeTract";
@@ -69,6 +69,7 @@ export function TractInfoDisplay({
         <div className={classes.buttons}>
           <AddTractButton dir={dir} onClick={onNewTractBefore} />
           <DeleteTractButton
+            dir={dir}
             onClick={onTractDelete}
             deletionConflicts={deletionConflicts}
           />
@@ -86,18 +87,17 @@ export function TractInfoDisplay({
   );
 }
 
-// We slighly delay the opening of the buttons because if they under the mouse
-// on animation they can trigger the popover to show up in their mid-animation
-// position, causing some confusingly placed tooltips
-const BUTTON_POPOVER_DELAY = 200;
-
 function DeleteTractButton({
+  dir,
   onClick,
   deletionConflicts,
 }: {
+  dir: TractInfo["dir"];
   onClick: () => void;
   deletionConflicts: string[];
 }) {
+  const popoverPlacement = dir === "rows" ? "right" : "down";
+
   const enabled = deletionConflicts.length === 0;
   const message = !enabled
     ? `Can't delete because the items ${deletionConflicts.join(
@@ -105,15 +105,16 @@ function DeleteTractButton({
       )} are entirely contained in tract`
     : "Delete tract";
   return (
-    <PopoverButton
+    <TooltipButton
       className={classes.deleteButton}
       onClick={removeFocusAfterClick(enabled ? onClick : undefined)}
-      popoverContent={message}
       data-enabled={enabled}
-      openDelayMs={BUTTON_POPOVER_DELAY}
+      text={message}
+      size="medium"
+      position={popoverPlacement}
     >
       <Trash />
-    </PopoverButton>
+    </TooltipButton>
   );
 }
 
@@ -124,21 +125,19 @@ function AddTractButton({
   dir: TractInfo["dir"];
   onClick: () => void;
 }) {
-  const popoverPlacement = dir === "rows" ? "right" : "bottom";
+  const popoverPlacement = dir === "rows" ? "right" : "down";
 
   const label = dir === "rows" ? `Add row` : `Add column`;
 
   return (
-    <PopoverButton
+    <TooltipButton
       className={classes.tractAddButton}
-      placement={popoverPlacement}
-      aria-label={label}
-      popoverContent={label}
       onClick={removeFocusAfterClick(onClick)}
-      openDelayMs={BUTTON_POPOVER_DELAY}
+      position={popoverPlacement}
+      text={label}
     >
       <FaPlus />
-    </PopoverButton>
+    </TooltipButton>
   );
 }
 
