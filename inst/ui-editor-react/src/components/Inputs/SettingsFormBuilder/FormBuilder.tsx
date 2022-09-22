@@ -2,6 +2,7 @@ import React from "react";
 
 import CategoryDivider from "components/CategoryDivider";
 import { Trash } from "components/Icons";
+import { Tooltip } from "components/PopoverEl/Tooltip";
 import type { StringKeys } from "TypescriptUtils";
 import { inANotInB } from "utils/array-helpers";
 
@@ -144,7 +145,15 @@ function AutobuildFormContents<Settings extends SettingsObj>({
       {Object.values(inputs)}
       {unknownArguments.length > 0 ? (
         <section className="unknown-arguments-list">
-          <CategoryDivider category="Unknown arguments" />
+          <CategoryDivider>
+            <Tooltip
+              text="Arguments present in UI code but not known about or editable by the shinyuieditor"
+              position="down"
+            >
+              Unknown arguments
+            </Tooltip>
+          </CategoryDivider>
+
           <ul
             className="unknown-form-fields"
             aria-label="Unknown arguments list"

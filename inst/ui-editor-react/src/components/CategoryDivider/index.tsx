@@ -1,11 +1,7 @@
 import classes from "./styles.module.css";
 
-function CategoryDivider({ category }: { category?: string }) {
-  return (
-    <div className={classes.categoryDivider}>
-      <span>{category ? `${category}:` : null}</span>
-    </div>
-  );
+function CategoryDivider({ children }: { children: React.ReactNode }) {
+  return <div className={classes.categoryDivider}>{children}</div>;
 }
 
 export default CategoryDivider;

@@ -29,7 +29,9 @@ export const unknownUiFunctionInfo: UiComponentInfo<UnknownUiFunctionProps> = {
             Unknown function call. Can't modify with visual editor.
           </span>
         </div>
-        <CategoryDivider category="Code" />
+        <CategoryDivider>
+          <span>Code</span>
+        </CategoryDivider>
         <div className="SUE-SettingsInput">
           <pre className={classes.codeHolder}>
             {formatFunctionText(settings.text)}
