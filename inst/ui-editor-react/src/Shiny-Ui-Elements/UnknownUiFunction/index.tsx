@@ -4,7 +4,7 @@ import { AiOutlineQuestionCircle } from "react-icons/ai";
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import { formatFunctionText } from "./formatFunctionText";
-import classes from "./styles.module.css";
+import "./styles.scss";
 import UnknownUiFunction from "./UnknownUiFunction";
 
 export type UnknownUiFunctionProps = {
@@ -22,9 +22,9 @@ export const unknownUiFunctionInfo: UiComponentInfo<UnknownUiFunctionProps> = {
   },
   settingsFormRender: ({ settings }) => {
     return (
-      <>
+      <div className="unknown-ui-function-settings">
         <div className="SUE-SettingsInput">
-          <span className={classes.infoMsg}>
+          <span className="info-msg">
             <AiOutlineQuestionCircle />
             Unknown function call. Can't modify with visual editor.
           </span>
@@ -33,11 +33,9 @@ export const unknownUiFunctionInfo: UiComponentInfo<UnknownUiFunctionProps> = {
           <span>Code</span>
         </CategoryDivider>
         <div className="SUE-SettingsInput">
-          <pre className={classes.codeHolder}>
-            {formatFunctionText(settings.text)}
-          </pre>
+          <pre className="code-holder">{formatFunctionText(settings.text)}</pre>
         </div>
-      </>
+      </div>
     );
   },
   acceptsChildren: false,

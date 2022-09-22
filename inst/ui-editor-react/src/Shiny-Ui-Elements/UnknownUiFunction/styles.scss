@@ -1,0 +1,30 @@
+.unknown-ui-function-display {
+  --gap: 10px;
+  width: calc(100% - var(--gap));
+  margin: auto;
+  height: min(calc(100% - var(--gap)), 75px);
+  padding: 4px;
+  background-color: var(--light-grey);
+  border-radius: var(--corner-radius);
+  position: relative;
+  display: grid;
+  place-content: center;
+}
+
+.unknown-ui-function-settings {
+  .info-msg {
+    svg {
+      color: var(--rstudio-blue);
+      margin-right: 4px;
+      margin-bottom: -2px;
+    }
+  }
+
+  .code-holder {
+    overflow: auto;
+    font-family: var(--mono-fonts);
+    border: 1px solid var(--rstudio-grey);
+    background-color: var(--rstudio-white);
+    padding: 5px;
+  }
+}
