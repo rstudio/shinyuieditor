@@ -1,9 +1,11 @@
 .FormBuilder {
 }
 
-.UnknownFormFields {
-  font-family: var(--mono-fonts);
-  button {
-    color: var(--red, orangered);
+.unknown-arguments-list {
+  .unknown-form-fields {
+    font-family: var(--mono-fonts);
+    button {
+      color: var(--red, orangered);
+    }
   }
 }

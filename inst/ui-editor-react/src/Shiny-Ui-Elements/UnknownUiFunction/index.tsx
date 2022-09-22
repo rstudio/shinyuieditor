@@ -20,7 +20,7 @@ export const unknownUiFunctionInfo: UiComponentInfo<UnknownUiFunctionProps> = {
       defaultValue: "Unknown Ui Function",
     },
   },
-  settingsFormRender: (_, settings) => {
+  settingsFormRender: ({ settings }) => {
     return (
       <>
         <div className="SUE-SettingsInput">

@@ -1,104 +1,112 @@
+import React from "react";
+
+import CategoryDivider from "components/CategoryDivider";
+import { Trash } from "components/Icons";
 import type { StringKeys } from "TypescriptUtils";
 import { inANotInB } from "utils/array-helpers";
 
+import Button from "../Button/Button";
+
 import type {
   FormInfo,
-  FormValuesFromInfo,
   InputFieldEntryNames,
   StaticFieldInfoByType,
 } from "./inputFieldTypes";
+import { removeOmittedFields } from "./removeOmittedFields";
 import type {
   SettingsInputProps,
   SettingsUpdateAction,
 } from "./SettingsInput/SettingsInput";
 import { SettingsInput } from "./SettingsInput/SettingsInput";
-import { UnknownFormFields } from "./UnknownFormFields";
 
-export type InputCustomRenderFn<Settings extends Record<string, unknown>> = (
-  x: InputComponentsOutput<Settings>,
-  settings: Settings
+import "./styles.scss";
+
+type SettingsObj = Record<string, unknown>;
+
+/**
+ * Info object with all the arguments marked as omitted removed. Aka only the
+ * ones we want to render inputs for.
+ */
+export type NonOmittedFormInfo = Record<
+  string,
+  StaticFieldInfoByType[InputFieldEntryNames]
+>;
+
+type UnknownArgumentsInfo<Settings extends SettingsObj> = {
+  name: StringKeys<Settings>;
+  component: React.ReactNode;
+};
+
+type FormFieldComponents<Info extends SettingsObj> = {
+  inputs: Record<StringKeys<Info>, JSX.Element>;
+  unknownArguments: UnknownArgumentsInfo<Info>[];
+  settings: Info;
+};
+
+export type CustomFormRenderFn<Settings extends SettingsObj> = (
+  x: FormFieldComponents<Settings>
 ) => JSX.Element;
 
-export type FormBuilderProps<Info extends FormInfo> = {
-  settings: FormValuesFromInfo<Info>;
+type SettingsChangeFn = (name: string, action: SettingsUpdateAction) => void;
+
+type FormBuilderProps<Info extends FormInfo> = {
+  settings: SettingsObj;
   settingsInfo: Info;
-  /**
-   * Props/values of the settings object that we don't want to show in the form
-   */
-  omitted?: string[];
-  onSettingsChange: (name: string, action: SettingsUpdateAction) => void;
-  renderInputs?: InputCustomRenderFn<FormValuesFromInfo<Info>>;
+  onSettingsChange: SettingsChangeFn;
+  renderInputs?: CustomFormRenderFn<SettingsObj>;
 };
-
-export type InputComponentsOutput<Info extends Record<string, any>> = {
-  inputs: Record<StringKeys<Info>, JSX.Element>;
-  unknownArguments: JSX.Element | null;
-};
-
-type FieldInfoSansOmited = StaticFieldInfoByType[InputFieldEntryNames];
-type NonOmittedFormInfo = Record<string, FieldInfoSansOmited>;
-function removeOmittedFields<Info extends FormInfo>(
-  settingsInfo: Info
-): {
-  omitted: (keyof Info)[];
-  nonOmittedFormInfo: NonOmittedFormInfo;
-} {
-  let omitted: (keyof Info)[] = [];
-
-  let infoSansOmitted: Record<string, any> = {};
-
-  for (let prop in settingsInfo) {
-    if (settingsInfo[prop].inputType === "omitted") {
-      omitted.push(prop);
-    } else {
-      infoSansOmitted[prop] = settingsInfo[prop];
-    }
-  }
-
-  return {
-    omitted,
-    nonOmittedFormInfo: infoSansOmitted as NonOmittedFormInfo,
-  };
-}
 
 export function FormBuilder<Info extends FormInfo>({
-  renderInputs,
   settings,
   settingsInfo,
   onSettingsChange,
+  renderInputs = AutobuildFormContents,
 }: FormBuilderProps<Info>) {
-  const { omitted, nonOmittedFormInfo } = removeOmittedFields(settingsInfo);
-
-  // Find unknown arguments and return those too
-  const unknownArgumentsNames = inANotInB(
-    Object.keys(settings),
-    Object.keys(settingsInfo)
-  ).filter((name) => !omitted.includes(name));
-
-  const PrebuildInputComponents = {
+  const { nonOmittedFormInfo } = removeOmittedFields(settingsInfo);
+  const PrebuiltInputComponents = {
     inputs: knownArgumentInputs({
       settings,
       settingsInfo: nonOmittedFormInfo,
       onSettingsChange,
     }),
-    unknownArguments:
-      unknownArgumentsNames.length === 0 ? null : (
-        <UnknownFormFields
-          unknownArgumentsNames={unknownArgumentsNames}
-          onSettingsChange={onSettingsChange}
-        />
-      ),
-  } as InputComponentsOutput<Info>;
+    unknownArguments: unknownArgumentsList({
+      settings,
+      unknownArgs: inANotInB(Object.keys(settings), Object.keys(settingsInfo)),
+      onSettingsChange,
+    }),
+    settings,
+  };
 
   return (
-    <form className="FormBuilder">
-      {renderInputs ? (
-        renderInputs(PrebuildInputComponents, settings)
-      ) : (
-        <AutobuildFormContents {...PrebuildInputComponents} />
-      )}
-    </form>
+    <form className="FormBuilder">{renderInputs(PrebuiltInputComponents)}</form>
   );
+}
+
+function unknownArgumentsList<Settings extends SettingsObj>({
+  settings,
+  unknownArgs,
+  onSettingsChange,
+}: {
+  settings: Settings;
+  unknownArgs: StringKeys<Settings>[];
+  onSettingsChange: SettingsChangeFn;
+}): UnknownArgumentsInfo<Settings>[] {
+  return unknownArgs.map((argName) => ({
+    name: argName,
+    component: (
+      <span aria-label="Unknown argument">
+        <code>argName</code>
+        <Button
+          onClick={() => onSettingsChange(argName, { type: "REMOVE" })}
+          aria-label={`Remove ${argName} argument`}
+          variant="icon"
+          type="button"
+        >
+          <Trash />
+        </Button>
+      </span>
+    ),
+  }));
 }
 
 function knownArgumentInputs<Info extends NonOmittedFormInfo>({
@@ -108,10 +116,7 @@ function knownArgumentInputs<Info extends NonOmittedFormInfo>({
 }: FormBuilderProps<Info>) {
   const InputsComponents: Record<string, JSX.Element> = {};
 
-  keysOf(settingsInfo).forEach((name) => {
-    if (typeof name !== "string")
-      throw new Error("How did that non-string key get in here?");
-
+  Object.keys(settingsInfo).forEach((name) => {
     const infoForArg = settingsInfo[name];
 
     const currentValue = settings[name as keyof typeof settings];
@@ -129,23 +134,27 @@ function knownArgumentInputs<Info extends NonOmittedFormInfo>({
   return InputsComponents;
 }
 
-function AutobuildFormContents<Info extends FormInfo>({
+function AutobuildFormContents<Settings extends SettingsObj>({
   inputs,
   unknownArguments,
-}: InputComponentsOutput<Info>) {
+  settings,
+}: FormFieldComponents<Settings>) {
   return (
     <>
       {Object.values(inputs)}
-      {unknownArguments ? (
-        <section>
-          <h3>Unknown arguments</h3>
-          {unknownArguments}
+      {unknownArguments.length > 0 ? (
+        <section className="unknown-arguments-list">
+          <CategoryDivider category="Unknown arguments" />
+          <ul
+            className="unknown-form-fields"
+            aria-label="Unknown arguments list"
+          >
+            {unknownArguments.map(({ name, component }) => (
+              <li key={name}>{component}</li>
+            ))}
+          </ul>
         </section>
       ) : null}
     </>
   );
-}
-
-function keysOf<T extends Object>(obj: T): Array<keyof T> {
-  return Array.from(Object.keys(obj)) as any;
 }

@@ -1,7 +1,7 @@
 import type React from "react";
 
 import type { DefaultSettingsFromInfo } from "components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
-import type { InputCustomRenderFn } from "components/Inputs/SettingsFormBuilder/FormBuilder";
+import type { CustomFormRenderFn } from "components/Inputs/SettingsFormBuilder/FormBuilder";
 import type { DynamicFieldInfo } from "components/Inputs/SettingsFormBuilder/inputFieldTypes";
 import type { DeleteAction, UpdateAction } from "state/uiTree";
 
@@ -42,7 +42,7 @@ export type UiComponentInfo<NodeSettings extends Record<string, any>> = {
     [ArgName in keyof NodeSettings]: DynamicFieldInfo;
   };
 
-  settingsFormRender?: InputCustomRenderFn<NodeSettings>;
+  settingsFormRender?: CustomFormRenderFn<NodeSettings>;
 
   /**
    * The source of the icon. This comes from the importing of a png. If this is
