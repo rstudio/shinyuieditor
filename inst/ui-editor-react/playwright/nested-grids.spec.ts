@@ -93,8 +93,7 @@ test("Updating the area name of a grid item propigates through rest of app prope
   ).not.toHaveCSS("grid-area", /updated/i);
 
   // Update grid area name
-  await page.locator(`[aria-label="input for area"]`).click({ clickCount: 3 });
-  await page.locator(`[aria-label="input for area"]`).type("updated");
+  await page.locator(`[aria-label="Name of grid area"]`).fill("updated");
 
   await expect(page.locator(`[aria-label="gridlayout::grid_card"]`)).toHaveCSS(
     "grid-area",
