@@ -25,14 +25,14 @@ export function NumberInput({
         <button
           className="up-button"
           aria-label="Increment number up"
-          onClick={() => onChange(value + 1)}
+          onClick={incrementUp(value, onChange)}
         >
           <UpSpinnerButton />
         </button>
         <button
           className="down-button"
           aria-label="Increment number down"
-          onClick={() => onChange(value - 1)}
+          onClick={incrementDown(value, onChange)}
         >
           <DownSpinnerButton />
         </button>
@@ -40,3 +40,14 @@ export function NumberInput({
     </div>
   );
 }
+
+function makeNumberIncrementer(delta: number) {
+  return (value: number, onChange: (value: number) => void) =>
+    (clickEvent: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      clickEvent.preventDefault();
+      onChange(value + delta);
+    };
+}
+
+const incrementUp = makeNumberIncrementer(1);
+const incrementDown = makeNumberIncrementer(-1);
