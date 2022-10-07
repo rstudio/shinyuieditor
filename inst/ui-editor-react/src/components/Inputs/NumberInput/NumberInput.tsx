@@ -21,20 +21,22 @@ export function NumberInput({
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
       />
-      <button
-        className="up-button"
-        aria-label="Increment number up"
-        onClick={() => onChange(value + 1)}
-      >
-        <UpSpinnerButton />
-      </button>
-      <button
-        className="down-button"
-        aria-label="Increment number down"
-        onClick={() => onChange(value - 1)}
-      >
-        <DownSpinnerButton />
-      </button>
+      <div className="incrementer-buttons">
+        <button
+          className="up-button"
+          aria-label="Increment number up"
+          onClick={() => onChange(value + 1)}
+        >
+          <UpSpinnerButton />
+        </button>
+        <button
+          className="down-button"
+          aria-label="Increment number down"
+          onClick={() => onChange(value - 1)}
+        >
+          <DownSpinnerButton />
+        </button>
+      </div>
     </div>
   );
 }

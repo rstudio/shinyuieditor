@@ -1,44 +1,59 @@
 .NumberInput {
-  display: inline-grid;
   border: 1px solid var(--light-grey);
   border-radius: var(--corner-radius);
+  background-color: var(--rstudio-white);
 
   height: 22px;
+  width: 100%;
 
-  grid-template-areas:
-    "main up  "
-    "main down";
-
-  grid-template-columns: 1fr auto;
-  grid-template-rows: 50% 50%;
+  display: inline-flex;
 
   input {
     border: none;
+    width: 100%;
     -moz-appearance: textfield;
+    flex: 1;
   }
 
   input::-webkit-inner-spin-button,
   input::-webkit-outer-spin-button {
     -webkit-appearance: none;
   }
-  .input-field {
-    grid-area: main;
-  }
 
-  .up-button,
-  .down-button {
-    --shift-to-center: 1px;
-    padding-block: 0;
-    padding-inline: 8px 5px;
-    font-size: 10px;
-  }
-  .up-button {
-    grid-area: up;
-    translate: 0px var(--shift-to-center);
-  }
+  .incrementer-buttons {
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    display: inline-grid;
+    grid-template-areas:
+      "up  "
+      "down";
 
-  .down-button {
-    translate: 0px calc(-1 * var(--shift-to-center));
-    grid-area: down;
+    grid-template-rows: 50% 50%;
+
+    .up-button,
+    .down-button {
+      position: relative;
+      --shift-to-center: 1px;
+      width: 20px;
+      font-size: 10px;
+
+      svg {
+        display: block;
+        position: absolute;
+        inset-inline-end: 6px;
+        inset-block: 0px;
+      }
+    }
+    .up-button {
+      grid-area: up;
+      translate: 0px var(--shift-to-center);
+    }
+
+    .down-button {
+      translate: 0px calc(-1 * var(--shift-to-center));
+      grid-area: down;
+    }
   }
 }
