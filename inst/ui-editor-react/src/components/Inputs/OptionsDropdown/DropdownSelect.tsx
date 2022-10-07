@@ -43,7 +43,7 @@ export function DropdownSelect({
       <select
         aria-labelledby={makeLabelId(id)}
         aria-label={label}
-        className="OptionsDropdown"
+        className="OptionsDropdown SUE-Input"
         placeholder="No available options"
       ></select>
     );
@@ -51,7 +51,7 @@ export function DropdownSelect({
   return (
     <select
       aria-labelledby={makeLabelId(id)}
-      className="OptionsDropdown"
+      className="OptionsDropdown SUE-Input"
       onChange={handleChange}
       value={selected}
     >

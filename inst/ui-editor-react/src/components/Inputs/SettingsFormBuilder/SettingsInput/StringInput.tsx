@@ -9,6 +9,7 @@ export function StringInput({
 }: InputComponentProps<string>) {
   return (
     <input
+      className="SUE-Input"
       aria-label={label}
       aria-labelledby={makeLabelId(id)}
       id={id}

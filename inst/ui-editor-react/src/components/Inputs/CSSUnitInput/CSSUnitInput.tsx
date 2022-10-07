@@ -91,7 +91,7 @@ export function CSSUnitInput({
 
   return (
     <div
-      className={classes.wrapper}
+      className={`SUE-Input ${classes.wrapper}`}
       aria-label={label}
       aria-labelledby={makeLabelId(id)}
     >

@@ -15,7 +15,7 @@ export function BooleanInput({
   return (
     <>
       <input
-        className={classes.checkboxInput}
+        className={`SUE-Input ${classes.checkboxInput}`}
         id={checkboxId}
         aria-labelledby={makeLabelId(id)}
         aria-label={label}
