@@ -32,8 +32,18 @@ type NumberInputSimpleProps = Omit<
 export function NumberInputSimple({
   value,
   onChange,
+  min,
+  max,
+  step,
   ...passthroughProps
 }: NumberInputSimpleProps) {
+  const { incrementUp, incrementDown } = useIncrementerButtons({
+    min,
+    max,
+    step,
+    value,
+    onChange,
+  });
   return (
     <div className="NumberInput SUE-Input">
       <input
@@ -47,14 +57,14 @@ export function NumberInputSimple({
         <button
           className="up-button"
           aria-label="Increment number up"
-          onClick={incrementUp(value, onChange)}
+          onClick={incrementUp}
         >
           <UpSpinnerButton />
         </button>
         <button
           className="down-button"
           aria-label="Increment number down"
-          onClick={incrementDown(value, onChange)}
+          onClick={incrementDown}
         >
           <DownSpinnerButton />
         </button>
@@ -63,13 +73,37 @@ export function NumberInputSimple({
   );
 }
 
-function makeNumberIncrementer(delta: number) {
-  return (value: number, onChange: (value: number) => void) =>
-    (clickEvent: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      clickEvent.preventDefault();
-      onChange(value + delta);
-    };
-}
+function useIncrementerButtons({
+  min = -Infinity,
+  max = Infinity,
+  step = 1,
+  value,
+  onChange,
+}: {
+  step: string | number | undefined;
+  min: string | number | undefined;
+  max: string | number | undefined;
+  value: number;
+  onChange: (value: number) => void;
+}) {
+  function incrementValue(dir: "up" | "down") {
+    return (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      e.preventDefault();
 
-const incrementUp = makeNumberIncrementer(1);
-const incrementDown = makeNumberIncrementer(-1);
+      if (typeof step !== "number") return;
+
+      const newValue = value + (dir === "up" ? 1 : -1) * step;
+
+      if (typeof min === "number" && min > newValue) return;
+
+      if (typeof max === "number" && max < newValue) return;
+
+      onChange(newValue);
+    };
+  }
+
+  return {
+    incrementUp: incrementValue("up"),
+    incrementDown: incrementValue("down"),
+  };
+}
