@@ -25,7 +25,7 @@ type NumberInputSimpleProps = Omit<
   React.ComponentPropsWithoutRef<"input">,
   "value" | "onChange"
 > & {
-  value: number;
+  value?: number | null;
   onChange: (x: number) => void;
 };
 
@@ -35,6 +35,7 @@ export function NumberInputSimple({
   min,
   max,
   step,
+  disabled,
   ...passthroughProps
 }: NumberInputSimpleProps) {
   const { incrementUp, incrementDown } = useIncrementerButtons({
@@ -45,12 +46,13 @@ export function NumberInputSimple({
     onChange,
   });
   return (
-    <div className="NumberInput SUE-Input">
+    <div className="NumberInput SUE-Input" aria-disabled={disabled}>
       <input
         {...passthroughProps}
         className="input-field"
         type="number"
-        value={value}
+        value={value ?? undefined}
+        disabled={disabled}
         onChange={(e) => onChange(Number(e.target.value))}
       />
       <div className="incrementer-buttons">
@@ -83,13 +85,14 @@ function useIncrementerButtons({
   step: string | number | undefined;
   min: string | number | undefined;
   max: string | number | undefined;
-  value: number;
+  value?: number | null;
   onChange: (value: number) => void;
 }) {
   function incrementValue(dir: "up" | "down") {
     return (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       e.preventDefault();
 
+      if (typeof value !== "number") return;
       if (typeof step !== "number") return;
 
       const newValue = value + (dir === "up" ? 1 : -1) * step;

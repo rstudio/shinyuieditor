@@ -61,3 +61,14 @@
     }
   }
 }
+
+.NumberInput[aria-disabled="true"] {
+  cursor: not-allowed;
+
+  .incrementer-buttons {
+    display: none;
+  }
+  input[type="number"] {
+    opacity: 0;
+  }
+}

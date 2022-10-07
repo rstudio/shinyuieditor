@@ -94,17 +94,14 @@ export function CSSUnitInput({
       aria-label={label}
       aria-labelledby={makeLabelId(id)}
     >
-      {no_count ? (
-        <input disabled={true} />
-      ) : (
-        <NumberInputSimple
-          name="value-count"
-          aria-label="value-count"
-          value={count}
-          onChange={updateCount}
-          min={0}
-        />
-      )}
+      <NumberInputSimple
+        name="value-count"
+        aria-label="value-count"
+        value={count}
+        disabled={no_count}
+        onChange={updateCount}
+        min={0}
+      />
 
       <select
         className={classes.unitSelector}
