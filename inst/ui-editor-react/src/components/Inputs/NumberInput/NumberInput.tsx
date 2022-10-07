@@ -11,12 +11,34 @@ export function NumberInput({
   onChange,
 }: InputComponentProps<number>) {
   return (
+    <NumberInputSimple
+      id={id}
+      aria-label={label}
+      aria-labelledby={makeLabelId(id)}
+      value={value}
+      onChange={onChange}
+    />
+  );
+}
+
+type NumberInputSimpleProps = Omit<
+  React.ComponentPropsWithoutRef<"input">,
+  "value" | "onChange"
+> & {
+  value: number;
+  onChange: (x: number) => void;
+};
+
+export function NumberInputSimple({
+  value,
+  onChange,
+  ...passthroughProps
+}: NumberInputSimpleProps) {
+  return (
     <div className="NumberInput SUE-Input">
       <input
+        {...passthroughProps}
         className="input-field"
-        id={id}
-        aria-label={label}
-        aria-labelledby={makeLabelId(id)}
         type="number"
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
