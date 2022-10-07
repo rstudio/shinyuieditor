@@ -58,6 +58,7 @@
   --animation-curve: ease-in-out;
   --outline: 1px solid var(--outline-color);
 
+  --input-height: 23px;
   --input-vertical-padding: 1px;
   --input-horizontal-padding: 5px;
 
@@ -92,6 +93,10 @@ input {
   color: var(--font-color);
   margin: 0;
   font-size: 13px;
+}
+
+input {
+  height: var(--input-height);
 }
 
 h1,
