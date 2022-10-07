@@ -25,7 +25,7 @@ type NumberInputSimpleProps = Omit<
   React.ComponentPropsWithoutRef<"input">,
   "value" | "onChange"
 > & {
-  value?: number | null;
+  value: number | null;
   onChange: (x: number) => void;
 };
 
@@ -51,7 +51,7 @@ export function NumberInputSimple({
         {...passthroughProps}
         className="input-field"
         type="number"
-        value={value ?? undefined}
+        value={value ?? 0}
         disabled={disabled}
         onChange={(e) => onChange(Number(e.target.value))}
       />
@@ -85,7 +85,7 @@ function useIncrementerButtons({
   step: string | number | undefined;
   min: string | number | undefined;
   max: string | number | undefined;
-  value?: number | null;
+  value: number | null;
   onChange: (value: number) => void;
 }) {
   function incrementValue(dir: "up" | "down") {

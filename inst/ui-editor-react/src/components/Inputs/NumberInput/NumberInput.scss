@@ -63,12 +63,13 @@
 }
 
 .NumberInput[aria-disabled="true"] {
-  cursor: not-allowed;
+  cursor: default;
 
   .incrementer-buttons {
     display: none;
   }
   input[type="number"] {
-    opacity: 0;
+    color: transparent;
+    cursor: inherit;
   }
 }
