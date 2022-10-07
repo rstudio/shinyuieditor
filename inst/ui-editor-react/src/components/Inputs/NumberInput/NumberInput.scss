@@ -1,0 +1,38 @@
+.NumberInput {
+  //   outline: 2px solid rgb(231, 185, 192);
+  display: inline-grid;
+  border: 1px solid var(--light-grey);
+  border-radius: var(--corner-radius);
+
+  height: 20px;
+
+  grid-template-areas:
+    "main up  "
+    "main down";
+
+  grid-template-columns: 1fr auto;
+  grid-template-rows: 50% 50%;
+
+  * {
+    // outline: 2px solid pink;
+  }
+
+  input {
+    border: none;
+  }
+  .input-field {
+    grid-area: main;
+  }
+
+  .up-button,
+  .down-button {
+    width: 20px;
+  }
+  .up-button {
+    grid-area: up;
+  }
+
+  .down-button {
+    grid-area: down;
+  }
+}
