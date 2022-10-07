@@ -8,6 +8,8 @@ export { default as AlignSpread } from "./AlignSpread";
 export { default as AlignTop } from "./AlignTop";
 export { default as AlignVCenter } from "./AlignVCenter";
 export { default as AlignVSpread } from "./AlignVSpread";
+export { default as DownSpinnerButton } from "./DownSpinnerButton";
 export { default as Redo } from "./Redo";
 export { default as Trash } from "./Trash";
 export { default as Undo } from "./Undo";
+export { default as UpSpinnerButton } from "./UpSpinnerButton";
