@@ -1,12 +1,11 @@
 import React from "react";
 
-import { NumericInput } from "../NumericInput/NumericInput";
+import { NumberInputSimple } from "../NumberInput/NumberInput";
 import type { InputComponentProps } from "../SettingsFormBuilder/inputFieldTypes";
 import { makeLabelId } from "../SettingsFormBuilder/inputFieldTypes";
 
 import type { CSSMeasure } from "./CSSMeasure";
-import { deparseCSSMeasure } from "./CSSMeasure";
-import { parseCSSMeasure } from "./CSSMeasure";
+import { deparseCSSMeasure, parseCSSMeasure } from "./CSSMeasure";
 import { CSSUnitInfo } from "./CSSUnitInfo";
 import classes from "./CSSUnitInput.module.css";
 
@@ -95,14 +94,17 @@ export function CSSUnitInput({
       aria-label={label}
       aria-labelledby={makeLabelId(id)}
     >
-      <NumericInput
-        name="value-count"
-        ariaLabel="value-count"
-        value={no_count ? undefined : count}
-        disabled={no_count}
-        onChange={updateCount}
-        min={0}
-      />
+      {no_count ? (
+        <input disabled={true} />
+      ) : (
+        <NumberInputSimple
+          name="value-count"
+          aria-label="value-count"
+          value={count}
+          onChange={updateCount}
+          min={0}
+        />
+      )}
 
       <select
         className={classes.unitSelector}

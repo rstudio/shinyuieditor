@@ -8,10 +8,11 @@
 }
 
 .unitSelector {
+  height: 22px;
   --dropdown-width: 13px;
   text-align: center;
-  padding: 3px;
-  padding-right: var(--dropdown-width);
+  padding-block: 0px;
+  padding-inline: 2px var(--dropdown-width);
 
   border: 1px solid var(--light-grey);
   border-radius: var(--corner-radius);
