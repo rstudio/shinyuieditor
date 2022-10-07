@@ -1,3 +1,5 @@
+import { DownSpinnerButton, UpSpinnerButton } from "components/Icons";
+
 import type { InputComponentProps } from "../SettingsFormBuilder/inputFieldTypes";
 import { makeLabelId } from "../SettingsFormBuilder/inputFieldTypes";
 import "./NumberInput.scss";
@@ -21,8 +23,12 @@ export function NumberInput({
           onChange(Number(e.target.value));
         }}
       />
-      <button className="up-button"></button>
-      <button className="down-button"></button>
+      <button className="up-button" aria-label="Increment number up">
+        <UpSpinnerButton />
+      </button>
+      <button className="down-button" aria-label="Increment number down">
+        <DownSpinnerButton />
+      </button>
     </div>
   );
 }
