@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import { NumberInputSimple } from "components/Inputs/NumberInput/NumberInput";
 import type { UiNodeComponent } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import type { ShinyNumericInputProps } from ".";
@@ -27,10 +28,10 @@ const ShinyNumericInput: UiNodeComponent<ShinyNumericInputProps> = ({
       {...wrapperProps}
     >
       <span>{settings.label}</span>
-      <input
+      <NumberInputSimple
         type="number"
         value={value}
-        onChange={(e) => setValue(Number(e.target.value))}
+        onChange={setValue}
         min={settings.min}
         max={settings.max}
         step={settings.step}
