@@ -1,16 +1,12 @@
 .NumberInput {
   --increment-btn-w: 20px;
-  border: 1px solid var(--light-grey);
-  border-radius: var(--corner-radius);
-  background-color: var(--rstudio-white);
 
-  height: 22px;
+  height: var(--input-height);
   width: 100%;
 
   position: relative;
 
   input {
-    border: none;
     width: 100%;
     -moz-appearance: textfield;
     padding-inline-end: var(--increment-btn-w);
@@ -25,10 +21,7 @@
     position: absolute;
     inset-block: 0;
     inset-inline-end: 0;
-    * {
-      margin: 0;
-      padding: 0;
-    }
+
     display: inline-grid;
     grid-template-areas:
       "up  "
@@ -39,7 +32,7 @@
     .up-button,
     .down-button {
       position: relative;
-      --shift-to-center: 1px;
+      --shift-to-center: 2px;
       width: var(--increment-btn-w);
       font-size: 10px;
 
