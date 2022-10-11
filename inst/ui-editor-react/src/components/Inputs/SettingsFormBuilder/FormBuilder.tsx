@@ -40,7 +40,6 @@ type UnknownArgumentsInfo<Settings extends SettingsObj> = {
 
 type FormFieldComponents<Info extends SettingsObj> = {
   inputs: Record<StringKeys<Info>, JSX.Element>;
-  unknownArguments: UnknownArgumentsInfo<Info>[];
   settings: Info;
 };
 
@@ -61,25 +60,29 @@ export function FormBuilder<Info extends FormInfo>({
   settings,
   settingsInfo,
   onSettingsChange,
-  renderInputs = AutobuildFormContents,
+  renderInputs = ({ inputs }) => <>{Object.values(inputs)}</>,
 }: FormBuilderProps<Info>) {
   const { nonOmittedFormInfo } = removeOmittedFields(settingsInfo);
+  const unknownArguments = unknownArgumentsList({
+    settings,
+    unknownArgs: inANotInB(Object.keys(settings), Object.keys(settingsInfo)),
+    onSettingsChange,
+  });
+
   const PrebuiltInputComponents = {
     inputs: knownArgumentInputs({
       settings,
       settingsInfo: nonOmittedFormInfo,
       onSettingsChange,
     }),
-    unknownArguments: unknownArgumentsList({
-      settings,
-      unknownArgs: inANotInB(Object.keys(settings), Object.keys(settingsInfo)),
-      onSettingsChange,
-    }),
     settings,
   };
 
   return (
-    <form className="FormBuilder">{renderInputs(PrebuiltInputComponents)}</form>
+    <form className="FormBuilder">
+      {renderInputs(PrebuiltInputComponents)}
+      <UnknownArgumentsRender unknownArguments={unknownArguments} />
+    </form>
   );
 }
 
@@ -135,35 +138,29 @@ function knownArgumentInputs<Info extends NonOmittedFormInfo>({
   return InputsComponents;
 }
 
-function AutobuildFormContents<Settings extends SettingsObj>({
-  inputs,
+function UnknownArgumentsRender<Settings extends SettingsObj>({
   unknownArguments,
-  settings,
-}: FormFieldComponents<Settings>) {
-  return (
-    <>
-      {Object.values(inputs)}
-      {unknownArguments.length > 0 ? (
-        <section className="unknown-arguments-list">
-          <CategoryDivider>
-            <Tooltip
-              text="Arguments present in UI code but not known about or editable by the shinyuieditor"
-              position="down"
-            >
-              Unknown arguments
-            </Tooltip>
-          </CategoryDivider>
+}: {
+  unknownArguments: UnknownArgumentsInfo<Settings>[];
+}) {
+  if (unknownArguments.length === 0) return null;
 
-          <ul
-            className="unknown-form-fields"
-            aria-label="Unknown arguments list"
-          >
-            {unknownArguments.map(({ name, component }) => (
-              <li key={name}>{component}</li>
-            ))}
-          </ul>
-        </section>
-      ) : null}
-    </>
+  return (
+    <section className="unknown-arguments-list">
+      <CategoryDivider>
+        <Tooltip
+          text="Arguments present in UI code but not known about or editable by the shinyuieditor"
+          position="down"
+        >
+          Unknown arguments
+        </Tooltip>
+      </CategoryDivider>
+
+      <ul className="unknown-form-fields" aria-label="Unknown arguments list">
+        {unknownArguments.map(({ name, component }) => (
+          <li key={name}>{component}</li>
+        ))}
+      </ul>
+    </section>
   );
 }
