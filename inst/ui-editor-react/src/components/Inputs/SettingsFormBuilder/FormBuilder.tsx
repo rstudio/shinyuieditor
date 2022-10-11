@@ -1,12 +1,6 @@
 import React from "react";
 
-import CategoryDivider from "components/CategoryDivider";
-import { Trash } from "components/Icons";
-import { Tooltip } from "components/PopoverEl/Tooltip";
 import type { StringKeys } from "TypescriptUtils";
-import { inANotInB } from "utils/array-helpers";
-
-import Button from "../Button/Button";
 
 import type {
   FormInfo,
@@ -19,10 +13,10 @@ import type {
   SettingsUpdateAction,
 } from "./SettingsInput/SettingsInput";
 import { SettingsInput } from "./SettingsInput/SettingsInput";
-
 import "./styles.scss";
+import { UnknownArgumentsRender } from "./UnknownArgumentsRender";
 
-type SettingsObj = Record<string, unknown>;
+export type SettingsObj = Record<string, unknown>;
 
 /**
  * Info object with all the arguments marked as omitted removed. Aka only the
@@ -33,7 +27,7 @@ export type NonOmittedFormInfo = Record<
   StaticFieldInfoByType[InputFieldEntryNames]
 >;
 
-type UnknownArgumentsInfo<Settings extends SettingsObj> = {
+export type UnknownArgumentsInfo<Settings extends SettingsObj> = {
   name: StringKeys<Settings>;
   component: React.ReactNode;
 };
@@ -47,27 +41,28 @@ export type CustomFormRenderFn<Settings extends SettingsObj> = (
   x: FormFieldComponents<Settings>
 ) => JSX.Element;
 
-type SettingsChangeFn = (name: string, action: SettingsUpdateAction) => void;
+export type SettingsChangeFn = (
+  name: string,
+  action: SettingsUpdateAction
+) => void;
 
-type FormBuilderProps<Info extends FormInfo> = {
+export type FormBuilderProps<Info extends FormInfo> = {
   settings: SettingsObj;
   settingsInfo: Info;
   onSettingsChange: SettingsChangeFn;
   renderInputs?: CustomFormRenderFn<SettingsObj>;
 };
 
-export function FormBuilder<Info extends FormInfo>({
-  settings,
-  settingsInfo,
-  onSettingsChange,
-  renderInputs = ({ inputs }) => <>{Object.values(inputs)}</>,
-}: FormBuilderProps<Info>) {
-  const { nonOmittedFormInfo } = removeOmittedFields(settingsInfo);
-  const unknownArguments = unknownArgumentsList({
+export function FormBuilder<Info extends FormInfo>(
+  args: FormBuilderProps<Info>
+) {
+  const {
     settings,
-    unknownArgs: inANotInB(Object.keys(settings), Object.keys(settingsInfo)),
+    settingsInfo,
     onSettingsChange,
-  });
+    renderInputs = ({ inputs }) => <>{Object.values(inputs)}</>,
+  } = args;
+  const { nonOmittedFormInfo } = removeOmittedFields(settingsInfo);
 
   const PrebuiltInputComponents = {
     inputs: knownArgumentInputs({
@@ -81,36 +76,9 @@ export function FormBuilder<Info extends FormInfo>({
   return (
     <form className="FormBuilder">
       {renderInputs(PrebuiltInputComponents)}
-      <UnknownArgumentsRender unknownArguments={unknownArguments} />
+      <UnknownArgumentsRender {...args} />
     </form>
   );
-}
-
-function unknownArgumentsList<Settings extends SettingsObj>({
-  settings,
-  unknownArgs,
-  onSettingsChange,
-}: {
-  settings: Settings;
-  unknownArgs: StringKeys<Settings>[];
-  onSettingsChange: SettingsChangeFn;
-}): UnknownArgumentsInfo<Settings>[] {
-  return unknownArgs.map((argName) => ({
-    name: argName,
-    component: (
-      <span aria-label="Unknown argument">
-        <code>argName</code>
-        <Button
-          onClick={() => onSettingsChange(argName, { type: "REMOVE" })}
-          aria-label={`Remove ${argName} argument`}
-          variant="icon"
-          type="button"
-        >
-          <Trash />
-        </Button>
-      </span>
-    ),
-  }));
 }
 
 function knownArgumentInputs<Info extends NonOmittedFormInfo>({
@@ -136,31 +104,4 @@ function knownArgumentInputs<Info extends NonOmittedFormInfo>({
   });
 
   return InputsComponents;
-}
-
-function UnknownArgumentsRender<Settings extends SettingsObj>({
-  unknownArguments,
-}: {
-  unknownArguments: UnknownArgumentsInfo<Settings>[];
-}) {
-  if (unknownArguments.length === 0) return null;
-
-  return (
-    <section className="unknown-arguments-list">
-      <CategoryDivider>
-        <Tooltip
-          text="Arguments present in UI code but not known about or editable by the shinyuieditor"
-          position="down"
-        >
-          Unknown arguments
-        </Tooltip>
-      </CategoryDivider>
-
-      <ul className="unknown-form-fields" aria-label="Unknown arguments list">
-        {unknownArguments.map(({ name, component }) => (
-          <li key={name}>{component}</li>
-        ))}
-      </ul>
-    </section>
-  );
 }

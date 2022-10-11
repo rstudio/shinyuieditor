@@ -22,9 +22,22 @@ input {
 
 .unknown-arguments-list {
   .unknown-form-fields {
+    padding-inline: 3px 0;
+    padding-block: 5px 0;
     font-family: var(--mono-fonts);
     button {
       color: var(--red, orangered);
+    }
+
+    .unknown-argument {
+      margin-block: 2px;
+      display: flex;
+      align-items: center;
+      width: 100%;
+
+      button {
+        background: transparent;
+      }
     }
   }
 }
@@ -32,26 +45,27 @@ input {
 .LabeledInputCategory {
   // Give a little bit more breathing room at the bottom
   margin-block-end: 18px;
-  .divider-line {
-    display: block;
-    position: relative;
-    isolation: isolate;
-    display: flex;
-  }
+}
 
-  .divider-line > * {
-    background-color: var(--light-grey);
-  }
+.divider-line {
+  display: block;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+}
 
-  .divider-line::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background-color: var(--divider-color);
-    z-index: -1;
-    opacity: 0.5;
-  }
+.divider-line > * {
+  background-color: var(--light-grey);
+}
+
+.divider-line::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: var(--divider-color);
+  z-index: -1;
+  opacity: 0.5;
 }
