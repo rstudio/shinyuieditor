@@ -43,14 +43,14 @@
 
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">shinyuieditor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
       </span>
 
       <!--<div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">shinyuieditor</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of  <a href=""></a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
         </div>
       </div>-->
     </div>
@@ -184,7 +184,10 @@
 <div class="section level2">
 <h2 id="i-dont-see-an-argument-i-want-to-set-for-a-ui-element-in-its-settings-panel-how-do-i-set-it">I don’t see an argument I want to set for a ui element in its settings panel? How do I set it?<a class="anchor" aria-label="anchor" href="#i-dont-see-an-argument-i-want-to-set-for-a-ui-element-in-its-settings-panel-how-do-i-set-it"></a>
 </h2>
-<p>Not every argument is exposed via the settings panel for the provided ui elements. If you need another argument you can write it into the ui code directly. Any argument not present in the settings panel for a given element will be passed through unchanged.</p>
+<p>Not every argument is exposed via the settings panel for the provided ui elements. If you need another argument you can write it into the ui code directly. Any argument not present in the settings panel for a given element will be displayed in a section titled “Unknown arguments” beneath the controlled arguments so you can keep track of what arguments are present and delete them if need be.</p>
+<div class="figure">
+<img src="unknown-arguments-display.png" alt=""><p class="caption">Example unknown arguments section for a slider input containing an “animate” argument.</p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="i-maintain-a-package-with-a-popular-widget-for-shiny-how-can-i-add-that-widget-to-the-shinyuieditor">I maintain a package with a popular widget for Shiny, how can I add that widget to the <code>shinyuieditor</code>?<a class="anchor" aria-label="anchor" href="#i-maintain-a-package-with-a-popular-widget-for-shiny-how-can-i-add-that-widget-to-the-shinyuieditor"></a>
