@@ -139,7 +139,7 @@ function MissingRequiredArgumentMessage({
 function UnsetArgumentMessage({ labelledBy }: { labelledBy: string }) {
   return (
     <input
-      className="unset-argument"
+      className="unset-argument SUE-Input"
       aria-labelledby={labelledBy}
       placeholder="Default"
       disabled

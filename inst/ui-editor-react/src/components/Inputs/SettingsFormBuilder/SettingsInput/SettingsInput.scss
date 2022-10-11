@@ -1,7 +1,6 @@
 .SUE-SettingsInput {
   display: block;
-  margin-block-start: 12px;
-  margin-block-end: 14px;
+  margin-block: var(--vertical-spacing-top) var(--vertical-spacing-bottom);
   width: 100%;
   max-width: 100%;
   padding-inline: 2px;
@@ -10,6 +9,11 @@
     display: flex;
     gap: 5px;
     margin-bottom: 4px;
+    height: 20px;
+
+    input[type="checkbox"] {
+      translate: 0px -1px;
+    }
   }
 
   [data-unset="true"] {

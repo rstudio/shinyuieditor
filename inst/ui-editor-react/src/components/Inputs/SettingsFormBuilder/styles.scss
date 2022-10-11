@@ -1,4 +1,18 @@
 .FormBuilder {
+  --vertical-spacing-top: 12px;
+  --vertical-spacing-bottom: 14px;
+
+  .grouped-inputs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    row-gap: var(--vertical-spacing-bottom);
+    padding-block: var(--vertical-spacing-top) var(--vertical-spacing-bottom);
+    * {
+      margin-block: 0;
+    }
+    // outline: 1px solid pink;
+  }
 }
 
 input {
