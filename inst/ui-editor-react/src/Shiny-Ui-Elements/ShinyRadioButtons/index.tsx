@@ -1,10 +1,13 @@
 import radioButtonIcons from "assets/icons/shinyRadiobuttons.png";
+import type { CSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
 import type { NamedList } from "components/Inputs/ListInput/NamedListInput";
-import type { CSSMeasure } from "CSSMeasure";
+import {
+  makeInputIdInfo,
+  makeLabelInputInfo,
+} from "Shiny-Ui-Elements/commonSettingsTemplates";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 
-import ShinyRadioButtonsSettings from "./SettingsPanel";
 import ShinyRadioButtons from "./ShinyRadioButtons";
 
 export type ShinyRadioButtonsProps = {
@@ -14,21 +17,22 @@ export type ShinyRadioButtonsProps = {
   width?: CSSMeasure;
 };
 
-export const radioButtonsDefaultSettings: ShinyRadioButtonsProps = {
-  inputId: "myRadioButtons",
-  label: "Radio Buttons",
-  choices: {
-    "choice a": "a",
-    "choice b": "b",
-  },
-};
-
 export const shinyRadioButtonsInfo: UiComponentInfo<ShinyRadioButtonsProps> = {
   title: "Radio Buttons",
   UiComponent: ShinyRadioButtons,
-  SettingsComponent: ShinyRadioButtonsSettings,
+  settingsInfo: {
+    inputId: makeInputIdInfo("myRadioButtons"),
+    label: makeLabelInputInfo("Radio Buttons"),
+    choices: {
+      label: "Choices",
+      inputType: "list",
+      defaultValue: {
+        "choice a": "a",
+        "choice b": "b",
+      },
+    },
+  },
   acceptsChildren: false,
-  defaultSettings: radioButtonsDefaultSettings,
   iconSrc: radioButtonIcons,
   category: "Inputs",
   description:

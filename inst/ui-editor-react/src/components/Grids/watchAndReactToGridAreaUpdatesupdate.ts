@@ -4,10 +4,9 @@ import { getNode } from "components/UiNode/TreeManipulation/getNode";
 import { getChildIndex } from "components/UiNode/TreeManipulation/getParentPath";
 import type { RemoveNodeArguments } from "components/UiNode/TreeManipulation/removeNode";
 import type { UpdateNodeArguments } from "components/UiNode/TreeManipulation/updateNode";
+import type { GridCardSettings } from "Shiny-Ui-Elements/GridlayoutGridCard";
 import type { NodePath, ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
 import { emptyCell } from "utils/gridTemplates/itemLocations";
-
-import type { GridCardSettings } from "../../Shiny-Ui-Elements/GridlayoutGridCard";
 
 import type { GridContainerNode } from "./isValidGridContainer";
 import { isValidGridContainer } from "./isValidGridContainer";

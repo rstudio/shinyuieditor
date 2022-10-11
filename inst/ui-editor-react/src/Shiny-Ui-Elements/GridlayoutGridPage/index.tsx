@@ -1,13 +1,12 @@
-import type { CSSMeasure } from "CSSMeasure";
-
 import {
   removeDeletedGridAreaFromLayout,
   updateGridLayoutAreaOnItemAreaChange,
-} from "../../components/Grids/watchAndReactToGridAreaUpdatesupdate";
+} from "components/Grids/watchAndReactToGridAreaUpdatesupdate";
+import type { CSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
+
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import { GridlayoutGridPage } from "./GridlayoutGridPage";
-import { GridlayoutGridPageSettings } from "./SettingsPanel";
 
 export type TemplatedGridProps = {
   areas: string[][];
@@ -21,16 +20,23 @@ export type TractDirection = "rows" | "cols";
 export const gridlayoutGridPageInfo: UiComponentInfo<TemplatedGridProps> = {
   title: "Grid Page",
   UiComponent: GridlayoutGridPage,
-  SettingsComponent: GridlayoutGridPageSettings,
   acceptsChildren: true,
-  defaultSettings: {
-    areas: [
-      ["header", "header"],
-      ["sidebar", "main"],
-    ],
-    row_sizes: ["100px", "1fr"],
-    col_sizes: ["250px", "1fr"],
-    gap_size: "1rem",
+  settingsInfo: {
+    gap_size: {
+      label: "Width",
+      inputType: "cssMeasure",
+      defaultValue: "10px",
+      units: ["px", "rem"],
+    },
+    areas: {
+      inputType: "omitted",
+      defaultValue: [
+        [".", "."],
+        [".", "."],
+      ],
+    },
+    row_sizes: { inputType: "omitted", defaultValue: ["1fr", "1fr"] },
+    col_sizes: { inputType: "omitted", defaultValue: ["1fr", "1fr"] },
   },
   stateUpdateSubscribers: {
     UPDATE_NODE: updateGridLayoutAreaOnItemAreaChange,

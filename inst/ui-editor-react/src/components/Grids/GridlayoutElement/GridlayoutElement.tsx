@@ -9,12 +9,12 @@ import type { TemplatedGridProps } from "Shiny-Ui-Elements/GridlayoutGridPage";
 import { makeChildPath } from "Shiny-Ui-Elements/nodePathUtils";
 import type { UiNodeComponent } from "Shiny-Ui-Elements/uiNodeTypes";
 import { usePlaceNode } from "state/uiTree";
+import { useUpdateUiArguments } from "state/useUpdateUiArguments";
 import { findEmptyCells } from "utils/gridTemplates/findItemLocation";
 import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
 import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
 import type { GridItemExtent } from "utils/gridTemplates/types";
 
-import { useUpdateUiArguments } from "../../../state/useUpdateUiArguments";
 import EditableGridContainer from "../EditableGridContainer/EditableGridContainer";
 import type { GridLayoutAction } from "../gridLayoutReducer";
 import { gridLayoutReducer } from "../gridLayoutReducer";

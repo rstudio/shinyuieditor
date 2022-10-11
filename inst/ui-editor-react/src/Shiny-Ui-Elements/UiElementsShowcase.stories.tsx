@@ -1,11 +1,16 @@
 import React from "react";
 
-import type { ComponentStory, ComponentMeta } from "@storybook/react";
-import type { OnChangeCallback } from "components/Inputs/SettingsUpdateContext";
-import { SettingsUpdateContext } from "components/Inputs/SettingsUpdateContext";
+import type { ComponentMeta, ComponentStory } from "@storybook/react";
+import type { DefaultSettingsFromInfo } from "components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
+import {
+  buildStaticFormInfo,
+  getDefaultSettings,
+} from "components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
+import { FormBuilder } from "components/Inputs/SettingsFormBuilder/FormBuilder";
+import type { FormValuesFromInfo } from "components/Inputs/SettingsFormBuilder/inputFieldTypes";
+import type { SettingsUpdateAction } from "components/Inputs/SettingsFormBuilder/SettingsInput/SettingsInput";
 import type {
   ArgsWithPotentialUnknowns,
-  SettingsUpdaterComponent,
   ShinyUiNode,
   ShinyUiNodeInfo,
   UiNodeComponent,
@@ -23,21 +28,39 @@ function UiNodeAndSettings<T extends ShinyUiNames>({
   uiName: T;
   uiArguments: ArgsWithPotentialUnknowns<T>;
 }) {
-  type NodeSettingsType = ShinyUiNodeInfo[T]["defaultSettings"];
+  type NodeSettingsType = DefaultSettingsFromInfo<
+    ShinyUiNodeInfo[T]["settingsInfo"]
+  >;
 
   const nodeInfo: ShinyUiNodeInfo[T] = shinyUiNodeInfo[uiName];
 
   const NodeComponent =
     nodeInfo.UiComponent as UiNodeComponent<NodeSettingsType>;
 
-  const SettingsInputs =
-    nodeInfo.SettingsComponent as SettingsUpdaterComponent<NodeSettingsType>;
+  const currentNode = {
+    uiName,
+    uiArguments,
+    uiChildren: [],
+  } as ShinyUiNode;
+
+  // If performance issues happen this can be memoized
+  const staticSettingsInfo = buildStaticFormInfo(
+    shinyUiNodeInfo[uiName].settingsInfo,
+    currentNode
+  );
 
   const [uiSettings, setUiSettings] =
     React.useState<NodeSettingsType>(uiArguments);
 
-  const updateSettings: OnChangeCallback = ({ name, value }) => {
-    setUiSettings({ ...uiSettings, [name]: value });
+  const updateSettings: (name: string, action: SettingsUpdateAction) => void = (
+    name,
+    action
+  ) => {
+    if (action.type === "UPDATE") {
+      setUiSettings({ ...uiSettings, [name]: action.value });
+    } else {
+      setUiSettings({ ...uiSettings, [name]: undefined });
+    }
   };
 
   React.useEffect(() => setUiSettings(uiArguments), [uiArguments, uiName]);
@@ -66,17 +89,13 @@ function UiNodeAndSettings<T extends ShinyUiNames>({
       </div>
       <div>
         <h1>Settings Panel</h1>
-        <SettingsUpdateContext onChange={updateSettings}>
-          <SettingsInputs
-            settings={uiSettings}
-            node={
-              {
-                uiName: uiName,
-                uiArguments: uiSettings,
-              } as ShinyUiNode
-            }
-          />
-        </SettingsUpdateContext>
+        <FormBuilder
+          settings={
+            uiArguments as FormValuesFromInfo<typeof staticSettingsInfo>
+          }
+          settingsInfo={staticSettingsInfo}
+          onSettingsChange={updateSettings}
+        />
       </div>
     </div>
   );
@@ -90,13 +109,11 @@ export default {
 export const UiElementsShowcase: ComponentStory<
   ({ nameOfElement }: { nameOfElement: ShinyUiNames }) => JSX.Element
 > = ({ nameOfElement }) => {
-  type UiArgsType = ArgsWithPotentialUnknowns<typeof nameOfElement>;
-
+  const defaultSettings = getDefaultSettings(
+    shinyUiNodeInfo[nameOfElement].settingsInfo
+  );
   return (
-    <UiNodeAndSettings
-      uiName={nameOfElement}
-      uiArguments={shinyUiNodeInfo[nameOfElement].defaultSettings as UiArgsType}
-    />
+    <UiNodeAndSettings uiName={nameOfElement} uiArguments={defaultSettings} />
   );
 };
 

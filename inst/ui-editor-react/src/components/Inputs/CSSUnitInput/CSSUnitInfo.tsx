@@ -3,9 +3,8 @@ import React from "react";
 import { Info } from "components/Icons";
 import { PopoverButton } from "components/Inputs/PopoverButton";
 
-import type { CSSUnits } from "./index";
-
 import classes from "./CSSUnitInfo.module.css";
+import type { CSSUnits } from "./CSSUnitInput";
 
 export const CSSUnitInfo = ({ units }: { units: CSSUnits[] }) => {
   return (

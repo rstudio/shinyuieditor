@@ -1,10 +1,10 @@
 import React from "react";
 
-import { OptionsDropdownSimple } from "./OptionsDropdown";
+import { DropdownSelect } from "./DropdownSelect";
 
 export default {
   title: "inputs/Options Dropdown",
-  component: OptionsDropdownSimple,
+  component: DropdownSelect,
 };
 
 function InputDemo<Option extends string>({ options }: { options: Option[] }) {
@@ -13,9 +13,11 @@ function InputDemo<Option extends string>({ options }: { options: Option[] }) {
   console.log("Chosen value", chosen);
 
   return (
-    <OptionsDropdownSimple
-      options={options}
-      selected={chosen}
+    <DropdownSelect
+      id="MyDropdown"
+      label="Dropdown select"
+      choices={options}
+      value={chosen}
       onChange={setChosen}
     />
   );

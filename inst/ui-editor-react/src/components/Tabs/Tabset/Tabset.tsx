@@ -1,8 +1,9 @@
 import React from "react";
 
-import PlusButton from "components/Inputs/PlusButton";
+import { PopoverButton } from "components/Inputs/PopoverButton";
 import { nodeDepth } from "components/UiNode/TreeManipulation/nodeDepth";
 import { useSelectedPath } from "NodeSelectionState";
+import { FaPlus } from "react-icons/fa";
 import { makeChildPath } from "Shiny-Ui-Elements/nodePathUtils";
 import {
   newTabPanelNode,
@@ -140,4 +141,31 @@ function selectActiveTab(children: React.ReactNode, activeTab: number) {
 
     return child;
   });
+}
+
+const ButtonStyle: React.CSSProperties = {
+  display: "block",
+};
+
+function PlusButton({
+  label,
+  onClick,
+  className,
+}: {
+  className?: string;
+  label: string;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+}) {
+  return (
+    <PopoverButton
+      className={className}
+      placement="bottom"
+      aria-label={label}
+      popoverContent={label}
+      onClick={onClick}
+      openDelayMs={0}
+    >
+      <FaPlus style={ButtonStyle} />
+    </PopoverButton>
+  );
 }

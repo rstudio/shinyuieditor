@@ -1,9 +1,13 @@
 import textIcon from "assets/icons/shinyText.png";
+import {
+  alignTextCenter,
+  alignTextLeft,
+  alignTextRight,
+} from "components/Icons";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import GridlayoutGridCardText from "./GridlayoutCardText";
-import { GridlayoutGridCardTextSettings } from "./SettingsPanel";
 
 export interface GridlayoutGridCardTextProps {
   content: string;
@@ -16,13 +20,35 @@ export const gridlayoutTextPanelInfo: UiComponentInfo<GridlayoutGridCardTextProp
   {
     title: "Grid Text Card",
     UiComponent: GridlayoutGridCardText,
-    SettingsComponent: GridlayoutGridCardTextSettings,
-    acceptsChildren: false,
-    defaultSettings: {
-      area: "text_panel",
-      content: "Text from Chooser",
-      alignment: "start",
+    settingsInfo: {
+      content: {
+        label: "Panel text",
+        inputType: "string",
+        defaultValue: "Text for card",
+      },
+      alignment: {
+        label: "Text alignment",
+        inputType: "radio",
+        defaultValue: "start",
+        choices: {
+          start: { icon: alignTextLeft, label: "left" },
+          center: { icon: alignTextCenter, label: "center" },
+          end: { icon: alignTextRight, label: "right" },
+        },
+      },
+      area: {
+        label: "Name of grid area",
+        inputType: "string",
+        defaultValue: "default-area",
+      },
+      is_title: {
+        label: "Use text as website title",
+        inputType: "boolean",
+        defaultValue: false,
+        optional: true,
+      },
     },
+    acceptsChildren: false,
     iconSrc: textIcon,
     category: "gridlayout",
     description:

@@ -1,29 +1,26 @@
 .wrapper {
   position: relative;
   display: flex;
-  max-width: 125px;
+  max-width: 135px;
   padding-block: 2px;
   gap: 2px;
-  --incrementerSize: 10px;
 }
 
 .unitSelector {
   --dropdown-width: 13px;
+  height: 22px;
+  width: 48px;
   text-align: center;
-  padding: 3px;
-  padding-right: var(--dropdown-width);
+  padding-block: 0px;
+  padding-inline: 2px var(--dropdown-width);
 
   border: 1px solid var(--light-grey);
   border-radius: var(--corner-radius);
   position: relative;
   appearance: none;
+  background-color: var(--rstudio-white);
   background-image: url(data:image/svg+xml,%3Csvg%20width%3D%2218%22%20height%3D%2210%22%20viewBox%3D%220%200%2018%2010%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M8.87703%209.38397L15.929%202.59828H1.82511L8.87703%209.38397Z%22%20fill%3D%22%2375A8DB%22%2F%3E%3C%2Fsvg%3E%0A);
   background-size: var(--dropdown-width);
   background-repeat: no-repeat;
   background-position: right;
-}
-
-.wrapper > input[type="number"] {
-  max-width: 90px;
-  min-width: 40px;
 }

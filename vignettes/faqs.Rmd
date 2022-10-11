@@ -85,7 +85,10 @@ In the `launch_editor()` function, the argument `app_preview` can be set to fals
 
 ## I don't see an argument I want to set for a ui element in its settings panel? How do I set it?
 
-Not every argument is exposed via the settings panel for the provided ui elements. If you need another argument you can write it into the ui code directly. Any argument not present in the settings panel for a given element will be passed through unchanged.
+Not every argument is exposed via the settings panel for the provided ui elements. If you need another argument you can write it into the ui code directly. Any argument not present in the settings panel for a given element will be displayed in a section titled "Unknown arguments" beneath the controlled arguments so you can keep track of what arguments are present and delete them if need be.
+
+![Example unknown arguments section for a slider input containing an "animate" argument.](unknown-arguments-display.png)
+
 
 ## I maintain a package with a popular widget for Shiny, how can I add that widget to the `shinyuieditor`?
 

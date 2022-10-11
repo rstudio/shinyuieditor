@@ -2,7 +2,7 @@
   --vertical-gap: var(--vertical-spacing);
   display: flex;
   flex-direction: column;
-  padding-inline: var(--horizontal-spacing);
+  padding-inline: calc(var(--horizontal-spacing) - 2px);
   padding-block: var(--vertical-gap);
   height: 100%;
 }

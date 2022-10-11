@@ -1,5 +1,8 @@
 import type React from "react";
 
+import type { DefaultSettingsFromInfo } from "components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
+import type { CustomFormRenderFn } from "components/Inputs/SettingsFormBuilder/FormBuilder";
+import type { DynamicFieldInfo } from "components/Inputs/SettingsFormBuilder/inputFieldTypes";
 import type { DeleteAction, UpdateAction } from "state/uiTree";
 
 import { gridlayoutGridCardInfo } from "./GridlayoutGridCard";
@@ -26,20 +29,21 @@ import { unknownUiFunctionInfo } from "./UnknownUiFunction";
 /**
  * Defines everything needed to add a new Shiny UI component to the app
  */
-export type UiComponentInfo<NodeSettings extends object> = {
+export type UiComponentInfo<NodeSettings extends Record<string, any>> = {
   /**
    * The name of the component in plain language. E.g. Plot Output
    */
   title: string;
+
   /**
-   * Component for rendering the settings/ arguments form
+   * Info declaring what arguments to render in settings panel and how
    */
-  SettingsComponent: SettingsUpdaterComponent<NodeSettings>;
-  /**
-   * The settings that a freshly initialized node will take. These will also be
-   * used to fill in any missing arguments if they are provided.
-   */
-  defaultSettings: NodeSettings;
+  settingsInfo: {
+    [ArgName in keyof NodeSettings]: DynamicFieldInfo;
+  };
+
+  settingsFormRender?: CustomFormRenderFn<NodeSettings>;
+
   /**
    * The source of the icon. This comes from the importing of a png. If this is
    * not provided then the node will not show up in the element palette.
@@ -132,6 +136,9 @@ export const shinyUiNodeInfo = {
 
 export type ShinyUiNodeInfo = typeof shinyUiNodeInfo;
 
+type NodeDefaultSettings<UiName extends keyof ShinyUiNodeInfo> =
+  DefaultSettingsFromInfo<ShinyUiNodeInfo[UiName]["settingsInfo"]>;
+
 /**
  * All possible props/arguments for the defined UI components
  *
@@ -139,7 +146,7 @@ export type ShinyUiNodeInfo = typeof shinyUiNodeInfo;
  * of the types will automatically be built based on this type.
  */
 type ShinyUiArguments = {
-  [UiName in keyof ShinyUiNodeInfo]: ShinyUiNodeInfo[UiName]["defaultSettings"];
+  [UiName in keyof ShinyUiNodeInfo]: NodeDefaultSettings<UiName>;
 };
 
 /**
@@ -148,7 +155,7 @@ type ShinyUiArguments = {
  * haven't been coded up in the editor code
  */
 export type ArgsWithPotentialUnknowns<T extends ShinyUiNames> =
-  ShinyUiNodeInfo[T]["defaultSettings"] & { [arg: string]: unknown };
+  NodeDefaultSettings<T> & { [arg: string]: unknown };
 
 /**
  * Names of all the available Ui elements

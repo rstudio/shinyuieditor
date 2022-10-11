@@ -1,7 +1,8 @@
 import React from "react";
 
 import Button from "components/Inputs/Button/Button";
-import { TextInput } from "components/Inputs/TextInput/TextInput";
+import type { SettingsUpdateAction } from "components/Inputs/SettingsFormBuilder/SettingsInput/SettingsInput";
+import { SettingsInput } from "components/Inputs/SettingsFormBuilder/SettingsInput/SettingsInput";
 import PortalModal from "PortalModal";
 import classes from "PortalModal.module.css";
 
@@ -42,15 +43,16 @@ export function NameNewPanelModal({
     [existingAreaNames, newItemName, onDone]
   );
 
-  const handleNameUpdate = React.useCallback(
-    ({ value: newName }: { value?: string }) => {
-      // Reset the warning message (if it exists) when the user types so stale
-      // warnings dont linger.
-      setWarningMsg(null);
-      setNewItemName(newName ?? defaultName);
-    },
-    [defaultName]
-  );
+  const handleNameUpdate = React.useCallback((action: SettingsUpdateAction) => {
+    if (action.type === "REMOVE") {
+      return;
+    }
+
+    // Reset the warning message (if it exists) when the user types so stale
+    // warnings dont linger.
+    setWarningMsg(null);
+    setNewItemName(action.value as string);
+  }, []);
 
   return (
     <PortalModal
@@ -65,13 +67,13 @@ export function NameNewPanelModal({
             Name for grid area needs to be unique, start with a letter, and
             contain only letters and numbers.
           </span>
-          <TextInput
+          <SettingsInput
             label="Name of new grid area"
             name="New-Item-Name"
-            allValues={{ "New-Item-Name": newItemName }}
-            placeholder="Name of grid area"
-            onChange={handleNameUpdate}
-            autoFocus={true}
+            inputType="string"
+            onUpdate={handleNameUpdate}
+            value={newItemName}
+            defaultValue={defaultName}
           />
           {warningMsg ? (
             <div className={classes.validationMsg}>{warningMsg}</div>

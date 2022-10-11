@@ -1,10 +1,13 @@
 import icon from "assets/icons/shinyCheckgroup.png";
+import type { CSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
 import type { NamedList } from "components/Inputs/ListInput/NamedListInput";
-import type { CSSMeasure } from "CSSMeasure";
+import {
+  makeInputIdInfo,
+  makeLabelInputInfo,
+} from "Shiny-Ui-Elements/commonSettingsTemplates";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 
-import ShinyCheckboxGroupInputSettings from "./SettingsPanel";
 import ShinyCheckboxGroupInput from "./ShinyCheckboxGroupInput";
 
 export type ShinyCheckboxGroupInputProps = {
@@ -14,22 +17,23 @@ export type ShinyCheckboxGroupInputProps = {
   width?: CSSMeasure;
 };
 
-export const checkboxGroupInputDefaultSettings: ShinyCheckboxGroupInputProps = {
-  inputId: "myCheckboxGroup",
-  label: "Checkbox Group",
-  choices: {
-    "choice a": "a",
-    "choice b": "b",
-  },
-};
-
 export const shinyCheckboxGroupInputInfo: UiComponentInfo<ShinyCheckboxGroupInputProps> =
   {
     title: "Checkbox Group",
     UiComponent: ShinyCheckboxGroupInput,
-    SettingsComponent: ShinyCheckboxGroupInputSettings,
+    settingsInfo: {
+      inputId: makeInputIdInfo("myCheckboxGroup"),
+      label: makeLabelInputInfo("Checkbox Group"),
+      choices: {
+        label: "Choices",
+        inputType: "list",
+        defaultValue: {
+          "choice a": "a",
+          "choice b": "b",
+        },
+      },
+    },
     acceptsChildren: false,
-    defaultSettings: checkboxGroupInputDefaultSettings,
     iconSrc: icon,
     category: "Inputs",
     description:

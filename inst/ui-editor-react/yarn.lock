@@ -5481,6 +5481,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"balloon-css@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "balloon-css@npm:1.2.0"
+  checksum: 2f9bf379240afb3ffd45e80d974e96536444151f74ead9aa5968445fc414ee3460b2204c2ec8d0c1ef4e26446fce5606621fabc8741c2553ec7852042f7d31fb
+  languageName: node
+  linkType: hard
+
 "base64-js@npm:^1.0.2":
   version: 1.5.1
   resolution: "base64-js@npm:1.5.1"
@@ -14843,6 +14850,7 @@ __metadata:
     "@typescript-eslint/parser": ^5.36.1
     "@vitejs/plugin-react": ^2.0.0
     babel-loader: ^8.2.5
+    balloon-css: ^1.2.0
     bootstrap: ^5.2.0
     eslint: ^8.23.0
     eslint-config-react-app: ^7.0.1
@@ -14863,6 +14871,7 @@ __metadata:
     react-sortablejs: ^6.1.4
     sass: ^1.54.8
     sortablejs: ^1.15.0
+    ts-pattern: ^4.0.5
     typescript: ^4.8.2
     vite: ^3.0.4
     vite-tsconfig-paths: ^3.5.0
@@ -15889,6 +15898,13 @@ __metadata:
   version: 2.2.0
   resolution: "ts-dedent@npm:2.2.0"
   checksum: 93ed8f7878b6d5ed3c08d99b740010eede6bccfe64bce61c5a4da06a2c17d6ddbb80a8c49c2d15251de7594a4f93ffa21dd10e7be75ef66a4dc9951b4a94e2af
+  languageName: node
+  linkType: hard
+
+"ts-pattern@npm:^4.0.5":
+  version: 4.0.5
+  resolution: "ts-pattern@npm:4.0.5"
+  checksum: b1ecf36afb567ee6adbaee6e885e51775b1a390ed528589ae3bcb1e376412ed0774b54495ffca7be2a324e75268f894d34379b84388930485cf1359b30d5bc8b
   languageName: node
   linkType: hard
 

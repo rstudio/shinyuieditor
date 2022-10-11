@@ -1,9 +1,13 @@
 import textInputIcon from "assets/icons/shinyTextinput.png";
-import type { CSSMeasure } from "CSSMeasure";
+import type { CSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
+import {
+  makeInputIdInfo,
+  makeLabelInputInfo,
+  optionalWidthInfo,
+} from "Shiny-Ui-Elements/commonSettingsTemplates";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 
-import { ShinyTextInputSettings } from "./SettingsPanel";
 import ShinyTextInput from "./ShinyTextInput";
 
 export type ShinyTextInputProps = {
@@ -14,18 +18,26 @@ export type ShinyTextInputProps = {
   width?: CSSMeasure;
 };
 
-export const textInputDefaultSettings: ShinyTextInputProps = {
-  inputId: "myTextInput",
-  label: "Text Input",
-  value: "",
-};
-
 export const shinyTextInputInfo: UiComponentInfo<ShinyTextInputProps> = {
   title: "Text Input",
   UiComponent: ShinyTextInput,
-  SettingsComponent: ShinyTextInputSettings,
+  settingsInfo: {
+    inputId: makeInputIdInfo("myTextInput"),
+    label: makeLabelInputInfo("Text Input"),
+    value: {
+      inputType: "string",
+      label: "Starting text",
+      defaultValue: "",
+    },
+    placeholder: {
+      inputType: "string",
+      label: "Empty input placeholder",
+      defaultValue: "placeholder text",
+      optional: true,
+    },
+    width: optionalWidthInfo,
+  },
   acceptsChildren: false,
-  defaultSettings: textInputDefaultSettings,
   iconSrc: textInputIcon,
   category: "Inputs",
   description: "Create an input control for entry of unstructured text values.",

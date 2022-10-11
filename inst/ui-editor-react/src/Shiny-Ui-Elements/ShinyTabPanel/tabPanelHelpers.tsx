@@ -1,5 +1,7 @@
-import { shinyTabPanelDefaultSettings } from "Shiny-Ui-Elements/ShinyTabPanel";
+import { getDefaultSettings } from "components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
 import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
+
+import { shinyTabPanelInfo } from ".";
 
 import { isValidTabPanel } from "./isValidTabPanel";
 
@@ -15,7 +17,7 @@ export function wrapNodeInTabPanel(node: ShinyUiNode): ShinyUiNode {
 
 export const newTabPanelNode: ShinyUiNode = {
   uiName: "shiny::tabPanel",
-  uiArguments: shinyTabPanelDefaultSettings,
+  uiArguments: getDefaultSettings(shinyTabPanelInfo.settingsInfo),
   uiChildren: [],
 };
 

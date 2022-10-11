@@ -53,6 +53,12 @@ export const basicGridPage: ShinyUiNode = {
             width: "100%",
           },
         },
+        {
+          uiName: "unknownUiFunction",
+          uiArguments: {
+            text: `myCoolCustomRFunction(arg1, arg2)`,
+          },
+        },
       ],
     },
     {
@@ -139,7 +145,34 @@ export const basicNavbarPage: ShinyUiNode = {
   ],
 };
 
+export const minimalPage: ShinyUiNode = {
+  uiName: "shiny::navbarPage",
+  uiArguments: {
+    title: "My Navbar Page",
+    collapsible: false,
+  },
+  uiChildren: [
+    {
+      uiName: "shiny::tabPanel",
+      uiArguments: {
+        title: "Plot 1",
+      },
+      uiChildren: [
+        {
+          uiName: "shiny::plotOutput",
+          uiArguments: {
+            outputId: "MyPlot",
+            width: "100%",
+            height: "100%",
+          },
+        },
+      ],
+    },
+  ],
+};
+
 // To enable different app templates just uncomment the tree you want here
 
-// export const sampleAppTree = basicGridPage;
-export const sampleAppTree = basicNavbarPage;
+export const sampleAppTree = basicGridPage;
+// export const sampleAppTree = basicNavbarPage;
+// export const sampleAppTree = minimalPage;

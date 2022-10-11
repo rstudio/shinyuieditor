@@ -143,7 +143,9 @@ div.appViewerHolder {
 }
 
 .reloadButton {
+  height: var(--header-height);
   top: 0;
+  left: 0;
   bottom: 0;
   color: currentColor;
   font-size: 1.5rem;

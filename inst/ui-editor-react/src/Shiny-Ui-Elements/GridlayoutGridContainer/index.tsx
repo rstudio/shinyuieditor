@@ -1,34 +1,38 @@
 import icon from "assets/icons/shinyGridContainer.png";
 import {
-  updateGridLayoutAreaOnItemAreaChange,
   removeDeletedGridAreaFromLayout,
+  updateGridLayoutAreaOnItemAreaChange,
 } from "components/Grids/watchAndReactToGridAreaUpdatesupdate";
 import type { TemplatedGridProps } from "Shiny-Ui-Elements/GridlayoutGridPage";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import GridlayoutGridContainer from "./GridlayoutGridContainer";
-import { GridlayoutGridContainerSettings } from "./SettingsPanel";
 
 export type GridContainerSettings = TemplatedGridProps;
-
-export const gridlayoutGridContainerDefaultSettings: GridContainerSettings = {
-  areas: [
-    [".", "."],
-    [".", "."],
-  ],
-  row_sizes: ["1fr", "1fr"],
-  col_sizes: ["1fr", "1fr"],
-  gap_size: "1rem",
-};
 
 export const gridlayoutGridContainerInfo: UiComponentInfo<GridContainerSettings> =
   {
     title: "Grid Container",
     UiComponent: GridlayoutGridContainer,
-    SettingsComponent: GridlayoutGridContainerSettings,
+    settingsInfo: {
+      gap_size: {
+        label: "Width",
+        inputType: "cssMeasure",
+        defaultValue: "10px",
+        units: ["px", "rem"],
+      },
+      areas: {
+        inputType: "omitted",
+        defaultValue: [
+          [".", "."],
+          [".", "."],
+        ],
+      },
+      row_sizes: { inputType: "omitted", defaultValue: ["1fr", "1fr"] },
+      col_sizes: { inputType: "omitted", defaultValue: ["1fr", "1fr"] },
+    },
     acceptsChildren: true,
-    defaultSettings: gridlayoutGridContainerDefaultSettings,
     iconSrc: icon,
     category: "Tabs",
     stateUpdateSubscribers: {

@@ -1,9 +1,9 @@
 import DeleteNodeButton from "components/DeleteNodeButton";
-import { SettingsUpdateContext } from "components/Inputs/SettingsUpdateContext";
-import type {
-  SettingsUpdaterComponent,
-  ShinyUiNode,
-} from "Shiny-Ui-Elements/uiNodeTypes";
+import { buildStaticFormInfo } from "components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
+import type { CustomFormRenderFn } from "components/Inputs/SettingsFormBuilder/FormBuilder";
+import { FormBuilder } from "components/Inputs/SettingsFormBuilder/FormBuilder";
+import type { FormValuesFromInfo } from "components/Inputs/SettingsFormBuilder/inputFieldTypes";
+import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
 import { shinyUiNodeInfo } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import PathBreadcrumb from "./PathBreadcrumb";
@@ -28,8 +28,12 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
 
   const { uiName, uiArguments } = currentNode;
 
-  const SettingsInputs = shinyUiNodeInfo[uiName]
-    .SettingsComponent as SettingsUpdaterComponent<typeof uiArguments>;
+  // If performance issues happen this can be memoized
+  const nodeInfo = shinyUiNodeInfo[uiName];
+  const staticSettingsInfo = buildStaticFormInfo(
+    nodeInfo.settingsInfo,
+    currentNode
+  );
 
   return (
     <div className={classes.settingsPanel + " properties-panel"}>
@@ -40,20 +44,23 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
           onSelect={setNodeSelection}
         />
       </div>
-      <form className={classes.settingsForm} onSubmit={stopDefaultSubmit}>
-        <div className={classes.settingsInputs}>
-          <SettingsUpdateContext onChange={updateArgumentsByName}>
-            <SettingsInputs settings={uiArguments} node={currentNode} />
-          </SettingsUpdateContext>
-        </div>
-      </form>
+      <FormBuilder
+        settings={uiArguments as FormValuesFromInfo<typeof staticSettingsInfo>}
+        settingsInfo={staticSettingsInfo}
+        renderInputs={
+          nodeInfo.settingsFormRender as CustomFormRenderFn<typeof uiArguments>
+        }
+        onSettingsChange={(name, action) => {
+          if (action.type === "UPDATE") {
+            updateArgumentsByName(name, action.value);
+          } else {
+            updateArgumentsByName(name);
+          }
+        }}
+      />
       <div className={classes.buttonsHolder}>
         {!isRootNode ? <DeleteNodeButton path={selectedPath} /> : null}
       </div>
     </div>
   );
-}
-
-function stopDefaultSubmit(e: React.FormEvent<HTMLFormElement>) {
-  e.preventDefault();
 }

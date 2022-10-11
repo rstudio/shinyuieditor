@@ -19,18 +19,14 @@ test("Drag and drop an item onto the grid and name area", async ({ page }) => {
   );
 
   // Fill in the area naming popup
-  await page.locator('[placeholder="Name of grid area"]').click();
-  // Fill [placeholder="Name of grid area"]
-  await page.locator('[placeholder="Name of grid area"]').fill("settings");
+
+  await page.locator('[aria-label="Name of new grid area"]').fill("settings");
   // Click text=Done
   await page.locator("text=Done").click();
 
   // Select the action button and change its label to "Action Button"
   await page.locator("text=My Button").click();
-  await page.locator('[aria-label="input for label"]').click({
-    clickCount: 3,
-  });
-  await page.locator('[aria-label="input for label"]').fill("Action Button");
+  await page.locator('[aria-label="Label text"]').fill("Action Button");
 
   await expect(
     page.locator("button", { hasText: "Action Button" })

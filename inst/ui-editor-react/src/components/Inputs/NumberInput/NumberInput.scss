@@ -1,0 +1,68 @@
+.NumberInput {
+  --increment-btn-w: 20px;
+
+  height: var(--input-height);
+  width: 100%;
+
+  position: relative;
+
+  input {
+    width: 100%;
+    -moz-appearance: textfield;
+    padding-inline-end: var(--increment-btn-w);
+  }
+
+  input::-webkit-inner-spin-button,
+  input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+  }
+
+  .incrementer-buttons {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-end: 0;
+
+    display: inline-grid;
+    grid-template-areas:
+      "up  "
+      "down";
+
+    grid-template-rows: 50% 50%;
+
+    .up-button,
+    .down-button {
+      position: relative;
+      --shift-to-center: 2px;
+      width: var(--increment-btn-w);
+      font-size: 10px;
+
+      svg {
+        display: block;
+        position: absolute;
+        inset-inline-end: 6px;
+        inset-block: 0px;
+      }
+    }
+    .up-button {
+      grid-area: up;
+      translate: 0px var(--shift-to-center);
+    }
+
+    .down-button {
+      translate: 0px calc(-1 * var(--shift-to-center));
+      grid-area: down;
+    }
+  }
+}
+
+.NumberInput[aria-disabled="true"] {
+  cursor: default;
+
+  .incrementer-buttons {
+    display: none;
+  }
+  input[type="number"] {
+    color: transparent;
+    cursor: inherit;
+  }
+}

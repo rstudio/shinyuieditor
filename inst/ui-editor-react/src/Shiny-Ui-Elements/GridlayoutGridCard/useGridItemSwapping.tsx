@@ -1,12 +1,11 @@
 import React from "react";
 
 import { isValidGridItem } from "components/Grids/isValidGridItem";
+import { useSetLayout } from "components/Grids/useSetLayout";
 import { nodesAreSiblings } from "components/UiNode/TreeManipulation/nodesAreSiblings";
 import type { DraggedNodeInfo } from "DragAndDropHelpers/DragAndDropHelpers";
 import { useFilteredDrop } from "DragAndDropHelpers/useFilteredDrop";
 import type { NodePath } from "Shiny-Ui-Elements/uiNodeTypes";
-
-import { useSetLayout } from "../../components/Grids/useSetLayout";
 
 import classes from "./styles.module.css";
 

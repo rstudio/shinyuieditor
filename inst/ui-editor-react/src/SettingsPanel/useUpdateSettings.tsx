@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import type { OnChangeCallback } from "components/Inputs/SettingsUpdateContext";
+import type { KnownInputFieldTypes } from "components/Inputs/SettingsFormBuilder/inputFieldTypes";
 import { getNode } from "components/UiNode/TreeManipulation/getNode";
 import { useNodeSelectionState } from "NodeSelectionState";
 import { useDispatch } from "react-redux";
@@ -57,7 +57,10 @@ export function useUpdateSettings(tree: ShinyUiNode) {
     sendNewSettings(currentNode);
   }, [currentNode, sendNewSettings]);
 
-  const updateArgumentsByName: OnChangeCallback = ({ name, value }) => {
+  const updateArgumentsByName = (
+    name: string,
+    value?: KnownInputFieldTypes
+  ) => {
     setCurrentNode(
       (node) =>
         ({

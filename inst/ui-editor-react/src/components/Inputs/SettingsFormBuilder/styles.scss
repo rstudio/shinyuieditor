@@ -1,0 +1,71 @@
+.FormBuilder {
+  --vertical-spacing-top: 12px;
+  --vertical-spacing-bottom: 14px;
+
+  .grouped-inputs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    row-gap: var(--vertical-spacing-bottom);
+    padding-block: var(--vertical-spacing-top) var(--vertical-spacing-bottom);
+    * {
+      margin-block: 0;
+    }
+  }
+}
+
+input {
+  padding: var(--input-vertical-padding) var(--input-horizontal-padding);
+  border: 1px solid var(--light-grey);
+  border-radius: var(--corner-radius);
+}
+
+.unknown-arguments-list {
+  .unknown-form-fields {
+    padding-inline: 3px 0;
+    padding-block: 5px 0;
+    font-family: var(--mono-fonts);
+    button {
+      color: var(--red, orangered);
+    }
+
+    .unknown-argument {
+      margin-block: 2px;
+      display: flex;
+      align-items: center;
+      width: 100%;
+
+      button {
+        background: transparent;
+      }
+    }
+  }
+}
+
+.LabeledInputCategory {
+  // Give a little bit more breathing room at the bottom
+  margin-block-end: 18px;
+}
+
+.divider-line {
+  display: block;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+}
+
+.divider-line > * {
+  background-color: var(--light-grey);
+}
+
+.divider-line::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: var(--divider-color);
+  z-index: -1;
+  opacity: 0.5;
+}

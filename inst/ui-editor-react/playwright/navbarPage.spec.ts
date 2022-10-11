@@ -95,7 +95,7 @@ test("Basic usage of navbar page", async ({ page }) => {
   // Click the tab to set selection to tab panel itself
   await page.locator("text=Plot 1").click();
 
-  const titleInput = page.locator(`[aria-label="input for title"]`);
+  const titleInput = page.locator(`[aria-label="Title of panel"]`);
   await titleInput.fill(newTabName);
 
   // Now there should be a tab with the new name and not a tab with the old

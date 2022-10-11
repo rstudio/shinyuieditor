@@ -1,8 +1,8 @@
 import * as React from "react";
 
+import { BsCard } from "components/Grids/GridLayoutPanelHelpers/GridCards";
 import type { UiNodeComponent } from "Shiny-Ui-Elements/uiNodeTypes";
 
-import { BsCard } from "../../components/Grids/GridLayoutPanelHelpers/GridCards";
 import { useGridItemSwapping } from "../GridlayoutGridCard/useGridItemSwapping";
 import { PlotPlaceholder } from "../ShinyPlotOutput/PlotPlaceholder";
 

@@ -9,3 +9,7 @@ inst/doc
 docs
 
 **/how-to-videos-source/
+
+# These always appear when I accidentally run yarn commands in the wrong directory
+yarn.lock
+node_modules/

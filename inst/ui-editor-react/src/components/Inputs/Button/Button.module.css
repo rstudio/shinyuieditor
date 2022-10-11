@@ -12,7 +12,7 @@
 
   border-radius: var(--corner-radius);
   align-self: center;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 4px;
@@ -33,7 +33,7 @@
 
 .icon {
   --outline-width: 0px;
-  display: grid;
+  display: inline-grid;
   place-content: center;
   padding: 8px;
   aspect-ratio: 1;
@@ -42,9 +42,4 @@
 .transparent {
   --outline-color: transparent;
   --background-color: transparent;
-}
-
-.icon > svg {
-  /* This helps the inline displayed icons to be centered in their container */
-  margin-bottom: -2px;
 }

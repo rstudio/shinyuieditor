@@ -1,9 +1,13 @@
 import sliderIcon from "assets/icons/shinySlider.png";
-import type { CSSMeasure } from "CSSMeasure";
+import type { CSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
+import {
+  inputIdInfo,
+  optionalWidthInfo,
+} from "Shiny-Ui-Elements/commonSettingsTemplates";
 
+import { LabeledInputCategory } from "../../components/Inputs/SettingsFormBuilder/LabeledInputCategory";
 import type { UiComponentInfo } from "../uiNodeTypes";
 
-import { ShinySliderInputSettings } from "./SettingsPanel";
 import ShinySliderInput from "./ShinySliderInput";
 
 export type ShinySliderInputProps = {
@@ -16,21 +20,55 @@ export type ShinySliderInputProps = {
   width?: CSSMeasure;
 };
 
-export const sliderDefaultSettings: ShinySliderInputProps = {
-  inputId: "mySlider",
-  label: "Slider Input",
-  min: 0,
-  max: 10,
-  value: 5,
-  width: "100%",
-};
-
 export const shinySliderInputInfo: UiComponentInfo<ShinySliderInputProps> = {
   title: "Slider Input",
   UiComponent: ShinySliderInput,
-  SettingsComponent: ShinySliderInputSettings,
+  settingsInfo: {
+    inputId: inputIdInfo,
+    label: {
+      label: "Label text",
+      inputType: "string",
+      defaultValue: "Slider Input",
+    },
+    min: {
+      label: "Min",
+      inputType: "number",
+      defaultValue: 0,
+    },
+    max: {
+      label: "Max",
+      inputType: "number",
+      defaultValue: 10,
+    },
+    value: {
+      label: "Start",
+      inputType: "number",
+      defaultValue: 5,
+    },
+    step: {
+      inputType: "number",
+      label: "Step size",
+      defaultValue: 1,
+      optional: true,
+    },
+    width: optionalWidthInfo,
+  },
+  settingsFormRender: ({ inputs }) => {
+    return (
+      <>
+        {inputs.inputId}
+        {inputs.label}
+        <LabeledInputCategory label="Values">
+          {inputs.min}
+          {inputs.max}
+          {inputs.value}
+          {inputs.step}
+        </LabeledInputCategory>
+        {inputs.width}
+      </>
+    );
+  },
   acceptsChildren: false,
-  defaultSettings: sliderDefaultSettings,
   iconSrc: sliderIcon,
   category: "Inputs",
   description:

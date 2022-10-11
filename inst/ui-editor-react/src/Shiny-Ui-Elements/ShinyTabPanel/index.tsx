@@ -2,23 +2,23 @@ import icon from "assets/icons/tabPanel.png";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 
-import { ShinyTabPanelSettings } from "./SettingsPanel";
 import ShinyTabPanel from "./ShinyTabPanel";
 
 export type TabPanelSettings = {
   title: string;
 };
 
-export const shinyTabPanelDefaultSettings: TabPanelSettings = {
-  title: "Tab Title",
-};
-
 export const shinyTabPanelInfo: UiComponentInfo<TabPanelSettings> = {
   title: "Tab Panel",
   UiComponent: ShinyTabPanel,
-  SettingsComponent: ShinyTabPanelSettings,
+  settingsInfo: {
+    title: {
+      label: "Title of panel",
+      inputType: "string",
+      defaultValue: "My Shiny App",
+    },
+  },
   acceptsChildren: true,
-  defaultSettings: shinyTabPanelDefaultSettings,
   iconSrc: icon,
   category: "Tabs",
   description:

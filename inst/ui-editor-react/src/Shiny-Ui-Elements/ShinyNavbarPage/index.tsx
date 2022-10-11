@@ -1,8 +1,9 @@
 // import icon from "assets/icons/tabsetPanel.png";
 
+import { getFirstTabName, getTabNames } from "components/Tabs/Tabset/utils";
+
 import type { UiComponentInfo } from "../uiNodeTypes";
 
-import { ShinyNavbarPageSettings } from "./SettingsPanel";
 import ShinyNavbarPage from "./ShinyNavbarPage";
 
 export type NavbarPageSettings = {
@@ -12,17 +13,35 @@ export type NavbarPageSettings = {
   selected?: string;
 };
 
-export const shinyNavbarPageDefaultSettings: NavbarPageSettings = {
-  title: "My Shiny App",
-  collapsible: false,
-};
-
 export const shinyNavbarPageInfo: UiComponentInfo<NavbarPageSettings> = {
   title: "Navbar Page",
   UiComponent: ShinyNavbarPage,
-  SettingsComponent: ShinyNavbarPageSettings,
+  settingsInfo: {
+    title: {
+      inputType: "string",
+      label: "Page title",
+      defaultValue: "navbar-page",
+    },
+    collapsible: {
+      label: "Collapse navigation on mobile",
+      inputType: "boolean",
+      defaultValue: false,
+    },
+    id: {
+      inputType: "string",
+      label: "Id for tabset",
+      defaultValue: "tabset-default-id",
+      optional: true,
+    },
+    selected: {
+      inputType: "dropdown",
+      optional: true,
+      label: "Selected tab on load",
+      defaultValue: (node) => (node ? getFirstTabName(node) : "First Tab"),
+      choices: (node) => (node ? getTabNames(node) : ["First Tab"]),
+    },
+  },
   acceptsChildren: true,
-  defaultSettings: shinyNavbarPageDefaultSettings,
   // iconSrc: icon,
   category: "layouts",
   description: "Layout an app with tab-based navigation",

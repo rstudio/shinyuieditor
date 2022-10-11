@@ -29,7 +29,7 @@ label.checkboxLabel {
   margin-inline: 4px;
 }
 
-.checkboxLabel:after {
+label.checkboxLabel:after {
   content: attr(data-value);
   color: var(--dark-grey);
   text-align: center;
