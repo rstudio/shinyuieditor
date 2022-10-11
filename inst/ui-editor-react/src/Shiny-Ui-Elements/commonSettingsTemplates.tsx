@@ -71,9 +71,11 @@ export const inputIdInfo: DynamicFieldInfoByType["string"] = {
   defaultValue: "inputId",
 };
 
-function makeWidthInfo(
-  optional: boolean
-): DynamicFieldInfoByType["cssMeasure"] {
+function makeWidthInfo({
+  optional,
+}: {
+  optional: boolean;
+}): DynamicFieldInfoByType["cssMeasure"] {
   return {
     inputType: "cssMeasure",
     label: "Width",
@@ -84,7 +86,7 @@ function makeWidthInfo(
 }
 
 export const requiredWidthInfo: DynamicFieldInfoByType["cssMeasure"] =
-  makeWidthInfo(true);
+  makeWidthInfo({ optional: false });
 
 export const optionalWidthInfo: DynamicFieldInfoByType["cssMeasure"] =
-  makeWidthInfo(false);
+  makeWidthInfo({ optional: true });
