@@ -5,6 +5,7 @@ import {
   optionalWidthInfo,
 } from "Shiny-Ui-Elements/commonSettingsTemplates";
 
+import { LabeledInputCategory } from "../../components/Inputs/SettingsFormBuilder/LabeledInputCategory";
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import ShinySliderInput from "./ShinySliderInput";
@@ -40,7 +41,7 @@ export const shinySliderInputInfo: UiComponentInfo<ShinySliderInputProps> = {
       defaultValue: 10,
     },
     value: {
-      label: "Start value",
+      label: "Start",
       inputType: "number",
       defaultValue: 5,
     },
@@ -51,6 +52,22 @@ export const shinySliderInputInfo: UiComponentInfo<ShinySliderInputProps> = {
       optional: true,
     },
     width: optionalWidthInfo,
+  },
+  settingsFormRender: ({ inputs }) => {
+    return (
+      <>
+        {inputs.inputId}
+        {inputs.label}
+        <LabeledInputCategory label="Values">
+          {inputs.min}
+          {inputs.max}
+          {inputs.value}
+          {inputs.step}
+        </LabeledInputCategory>
+
+        {inputs.width}
+      </>
+    );
   },
   acceptsChildren: false,
   iconSrc: sliderIcon,
