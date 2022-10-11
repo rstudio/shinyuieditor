@@ -31,8 +31,9 @@ export const gridlayoutGridCardInfo: UiComponentInfo<GridCardSettings> = {
     item_gap: {
       inputType: "cssMeasure",
       label: "Gap size between contents",
-      defaultValue: "15px",
+      defaultValue: "10px",
       units: ["px", "rem"],
+      optional: true,
     },
   },
   acceptsChildren: true,
