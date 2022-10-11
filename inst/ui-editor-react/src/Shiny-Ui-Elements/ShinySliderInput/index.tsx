@@ -64,7 +64,6 @@ export const shinySliderInputInfo: UiComponentInfo<ShinySliderInputProps> = {
           {inputs.value}
           {inputs.step}
         </LabeledInputCategory>
-
         {inputs.width}
       </>
     );

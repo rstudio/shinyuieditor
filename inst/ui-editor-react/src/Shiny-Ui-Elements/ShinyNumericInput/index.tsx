@@ -1,5 +1,6 @@
 import numericInputIcon from "assets/icons/shinyNumericinput.png";
 import type { CSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
+import { LabeledInputCategory } from "components/Inputs/SettingsFormBuilder/LabeledInputCategory";
 import {
   makeInputIdInfo,
   makeLabelInputInfo,
@@ -51,6 +52,21 @@ export const shinyNumericInputInfo: UiComponentInfo<ShinyNumericInputProps> = {
       optional: true,
     },
     width: optionalWidthInfo,
+  },
+  settingsFormRender: ({ inputs }) => {
+    return (
+      <>
+        {inputs.inputId}
+        {inputs.label}
+        <LabeledInputCategory label="Values">
+          {inputs.min}
+          {inputs.max}
+          {inputs.value}
+          {inputs.step}
+        </LabeledInputCategory>
+        {inputs.width}
+      </>
+    );
   },
   acceptsChildren: false,
   iconSrc: numericInputIcon,
