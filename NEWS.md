@@ -1,3 +1,21 @@
+# shinyuieditor 0.3.0
+
+### Major new features and improvements
+
+- Arguments passed to a known ui function that are not known about are now shown and able to be deleted in the properties pane instead of silently being passed through.
+- Arguments that are of incorrect or unknown types for a ui function are now displayed as such with the opportunity to revert to a valid value.
+
+### Minor new features and improvements
+
+- (Developer) Adding a new ui node now only requires meta-data and a component for the "App View" as the properties panel is automatically constructed
+  - Overriding for custom properties panel layouts etc is possible using the `settingsFormRender` property for the ui node definition.
+
+### Bug fixes
+
+- Numeric inputs now have incrementer buttons in firefox (#60)
+
+### Known bugs
+
 # shinyuieditor 0.2.0
 
 ### Major new features and improvements
