@@ -19,7 +19,8 @@ ui_fn_names_namespaced <- c(
   "gridlayout::grid_card",
   "gridlayout::grid_card_text",
   "gridlayout::grid_card_plot",
-  "gridlayout::grid_card"
+  "gridlayout::grid_card",
+  "DT::DTOutput"
 )
 
 

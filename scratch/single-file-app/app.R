@@ -1,16 +1,15 @@
 library(shiny)
 library(gridlayout)
-library(gt)
+library(DT)
 
 # Here's a comment about this app
 
-
 ui <- grid_page(
   layout = c(
-    "header header",
+    "header  header  ",
     "sidebar distPlot",
-    ". bluePlot",
-    "table bluePlot"
+    "table   bluePlot",
+    "table   bluePlot"
   ),
   row_sizes = c(
     "100px",
@@ -19,28 +18,28 @@ ui <- grid_page(
     "1fr"
   ),
   col_sizes = c(
-    "250px",
+    "505px",
     "1fr"
   ),
   gap_size = "1rem",
   grid_card(
     area = "sidebar",
-    item_gap = "12px",
     item_alignment = "top",
     title = "Settings",
+    item_gap = "12px",
     sliderInput(
       inputId = "bins",
       label = "Number of Bins",
       min = 12L,
       max = 100L,
       value = 30L,
-      width = "100%",
       animate = animationOptions(
         interval = 1000,
         loop = FALSE,
         playButton = "play",
         pauseButton = "pause"
-      )
+      ),
+      width = "100%"
     )
   ),
   grid_card_text(
@@ -51,11 +50,14 @@ ui <- grid_page(
   ),
   grid_card(
     area = "table",
-    item_gap = "12px",
     item_alignment = "center",
     title = "Table",
     scrollable = TRUE,
-    gt::gt_output("stockTable")
+    item_gap = "12px",
+    DTOutput(
+      outputId = "myTable",
+      width = "100%"
+    )
   ),
   grid_card_plot(area = "bluePlot"),
   grid_card_plot(area = "distPlot")
@@ -63,7 +65,6 @@ ui <- grid_page(
 
 
 other_ui <- "hello there"
-table_data <- head(sp500, 10)
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
@@ -87,34 +88,10 @@ server <- function(input, output) {
   })
 
 
-  output$stockTable <- render_gt(
+  output$myTable <- renderDT(
     {
-      # Define the start and end dates for the data range
-      start_date <- "2010-06-07"
-      end_date <- "2010-06-14"
-
-      # Create a gt table based on preprocessed
-      # `sp500` table data
-      gt(table_data) %>%
-        tab_header(
-          title = "S&P 500",
-          subtitle = glue::glue("{start_date} to {end_date}")
-        ) %>%
-        fmt_date(
-          columns = date,
-          date_style = 3
-        ) %>%
-        fmt_currency(
-          columns = c(open, high, low, close),
-          currency = "USD"
-        ) %>%
-        fmt_number(
-          columns = volume,
-          suffixing = TRUE
-        )
-    },
-    width = "100%",
-    height  = "100%"
+      head(faithful, 10)
+    }
   )
 }
 
