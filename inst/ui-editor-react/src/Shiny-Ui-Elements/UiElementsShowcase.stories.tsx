@@ -57,13 +57,11 @@ function UiNodeAndSettings<T extends ShinyUiNames>({
     action
   ) => {
     if (action.type === "UPDATE") {
-      setUiSettings({ ...uiSettings, [name]: action.value });
+      setUiSettings((old) => ({ ...old, [name]: action.value }));
     } else {
-      setUiSettings({ ...uiSettings, [name]: undefined });
+      setUiSettings((old) => ({ ...old, [name]: undefined }));
     }
   };
-
-  React.useEffect(() => setUiSettings(uiArguments), [uiArguments, uiName]);
 
   React.useEffect(() => console.log("UiSettings", uiSettings), [uiSettings]);
 
@@ -90,9 +88,7 @@ function UiNodeAndSettings<T extends ShinyUiNames>({
       <div>
         <h1>Settings Panel</h1>
         <FormBuilder
-          settings={
-            uiArguments as FormValuesFromInfo<typeof staticSettingsInfo>
-          }
+          settings={uiSettings as FormValuesFromInfo<typeof staticSettingsInfo>}
           settingsInfo={staticSettingsInfo}
           onSettingsChange={updateSettings}
         />
@@ -117,11 +113,10 @@ export const UiElementsShowcase: ComponentStory<
   );
 };
 
-const uiNodeNames = Object.keys(shinyUiNodeInfo);
 UiElementsShowcase.argTypes = {
   nameOfElement: {
     control: { type: "select" },
-    options: uiNodeNames,
+    options: Object.keys(shinyUiNodeInfo),
   },
 };
 
