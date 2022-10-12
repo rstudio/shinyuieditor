@@ -5,6 +5,7 @@ import type { CustomFormRenderFn } from "components/Inputs/SettingsFormBuilder/F
 import type { DynamicFieldInfo } from "components/Inputs/SettingsFormBuilder/inputFieldTypes";
 import type { DeleteAction, UpdateAction } from "state/uiTree";
 
+import dtDTOutputInfo from "./DtDtOutput";
 import { gridlayoutGridCardInfo } from "./GridlayoutGridCard";
 import { gridlayoutGridCardPlotInfo } from "./GridlayoutGridCardPlot";
 import { gridlayoutTextPanelInfo } from "./GridlayoutGridCardText";
@@ -131,6 +132,7 @@ export const shinyUiNodeInfo = {
   "gridlayout::grid_card_text": gridlayoutTextPanelInfo,
   "gridlayout::grid_card_plot": gridlayoutGridCardPlotInfo,
   "gridlayout::grid_container": gridlayoutGridTabPanelInfo,
+  "DT::DTOutput": dtDTOutputInfo,
   unknownUiFunction: unknownUiFunctionInfo,
 };
 

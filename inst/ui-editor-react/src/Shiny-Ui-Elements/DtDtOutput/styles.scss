@@ -1,0 +1,55 @@
+.dtDTOutput {
+  position: relative;
+  height: 100%;
+  width: 100%;
+
+  padding: 14px;
+  .faux-table {
+    $odd-cell-color: hsl(218, 33%, 97%);
+    $even-cell-color: darken($odd-cell-color, 10%);
+
+    border-radius: var(--corner-radius);
+    outline: 1px solid var(--rstudio-grey);
+    overflow: hidden;
+    height: var(--table-h, 100%);
+    width: var(--table-w, 100%);
+    position: relative;
+
+    .faux-header {
+      background-color: $even-cell-color;
+      padding: 5px;
+    }
+
+    .faux-table-body {
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+
+      .faux-row {
+        flex-basis: 18px;
+        flex-grow: 1;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: row;
+        --spacing: 2px;
+        gap: var(--spacing);
+        margin-block-start: var(--spacing);
+
+        .faux-cell {
+          flex: 1;
+          background-color: var(--cell-color, pink);
+          outline: 1px solid white;
+          color: transparent;
+        }
+      }
+
+      .faux-row:nth-child(even) {
+        --cell-color: #{$even-cell-color};
+      }
+      .faux-row:nth-child(odd) {
+        --cell-color: #{$odd-cell-color};
+      }
+    }
+  }
+}
