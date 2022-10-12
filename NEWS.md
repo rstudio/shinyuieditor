@@ -1,3 +1,9 @@
+# shinyuieditor 0.3.1
+
+### Minor new features and improvements
+
+- Addition of ui node for adding DT tables to app with `DT::DTOutput()`.
+
 # shinyuieditor 0.3.0
 
 ### Major new features and improvements
