@@ -6,18 +6,20 @@ function getUniqueSubscriptions<T extends keyof StateUpdateSubscribers>(
 ): Set<StateUpdateSubscribers[T]> {
   const uniqueUpdateSubscribers = new Set<StateUpdateSubscribers[T]>();
 
-  // Sometimes in a test environment we may not have loaded the node info module
-  // so we need to exit early or get an error
-  if (!shinyUiNodeInfo) return uniqueUpdateSubscribers;
-  for (const info of Object.values(shinyUiNodeInfo)) {
-    const nodeUpdateSubscriber = info?.stateUpdateSubscribers?.[type];
+  try {
+    // Sometimes in a test/storybook environments we may not have loaded the
+    // node info module so we need to watch out for this.
+    for (const info of Object.values(shinyUiNodeInfo)) {
+      const nodeUpdateSubscriber = info?.stateUpdateSubscribers?.[type];
 
-    if (nodeUpdateSubscriber) {
-      uniqueUpdateSubscribers.add(nodeUpdateSubscriber);
+      if (nodeUpdateSubscriber) {
+        uniqueUpdateSubscribers.add(nodeUpdateSubscriber);
+      }
     }
+    return uniqueUpdateSubscribers;
+  } catch {
+    return uniqueUpdateSubscribers;
   }
-
-  return uniqueUpdateSubscribers;
 }
 
 // Gather subscriptions into a non-duplicated set
