@@ -11,6 +11,7 @@ import { gridlayoutGridCardPlotInfo } from "./GridlayoutGridCardPlot";
 import { gridlayoutTextPanelInfo } from "./GridlayoutGridCardText";
 import gridlayoutGridTabPanelInfo from "./GridlayoutGridContainer";
 import { gridlayoutGridPageInfo } from "./GridlayoutGridPage";
+import plotlyPlotlyOutputInfo from "./PlotlyPlotlyOutput";
 import { shinyActionButtonInfo } from "./ShinyActionButton";
 import { shinyCheckboxGroupInputInfo } from "./ShinyCheckboxGroupInput";
 import { shinyCheckboxInputInfo } from "./ShinyCheckboxInput";
@@ -133,6 +134,7 @@ export const shinyUiNodeInfo = {
   "gridlayout::grid_card_plot": gridlayoutGridCardPlotInfo,
   "gridlayout::grid_container": gridlayoutGridTabPanelInfo,
   "DT::DTOutput": dtDTOutputInfo,
+  "plotly::plotlyOutput": plotlyPlotlyOutputInfo,
   unknownUiFunction: unknownUiFunctionInfo,
 };
 

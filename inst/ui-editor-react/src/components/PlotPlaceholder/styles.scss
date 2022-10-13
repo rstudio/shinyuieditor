@@ -1,0 +1,97 @@
+.PlotPlaceholder {
+  container-type: size;
+  height: 100%;
+
+  .plot {
+    padding: 5px;
+
+    --x-axis-padding: 4px;
+    --y-axis-padding: 7px;
+
+    --axis-color: var(--grey);
+    --axis-border: 2px solid var(--axis-color);
+    --x-axis-border: var(--axis-border);
+    --y-axis-border: var(--axis-border);
+
+    --main-color: var(--rstudio-blue);
+    --hover-color: hsl(
+      var(--rstudio-blue-h) var(--rstudio-blue-s)
+        calc(var(--rstudio-blue-l) * 0.8)
+    );
+    --bar-spacing: 5px;
+    --bar-roundness: 5px;
+
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .title {
+      padding-block: 5px;
+      padding-inline: 10px;
+      display: grid;
+      align-items: center;
+    }
+
+    .title:empty {
+      display: none;
+    }
+
+    .plot-body {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+      gap: var(--bar-spacing);
+      align-items: flex-end;
+
+      padding-inline-start: var(--y-axis-padding);
+      padding-block-end: var(--x-axis-padding);
+      border-left: var(--y-axis-border);
+      border-bottom: var(--x-axis-border);
+    }
+
+    .bar {
+      flex: 1;
+      background-color: var(--main-color);
+      height: var(--value, "50%");
+      border-radius: var(--bar-roundness);
+    }
+
+    // Show 7 bars
+    .bar:nth-child(n + 8) {
+      display: none;
+    }
+    .bar:hover {
+      background-color: var(--hover-color);
+    }
+  }
+}
+
+// Narrow
+@container (max-width: 180px) {
+  .PlotPlaceholder {
+    // Show 5 bars
+    .plot .bar:nth-child(n + 6) {
+      display: none;
+    }
+  }
+}
+
+// Wide
+@container (min-width: 350px) {
+  .PlotPlaceholder {
+    // Show all the bars
+    .plot .bar:nth-child(n) {
+      display: block;
+    }
+  }
+}
+
+// short
+@container (max-height: 175px) {
+  .PlotPlaceholder {
+    .plot .plot-body {
+      --y-axis-border: none;
+      --y-axis-padding: 0;
+    }
+  }
+}

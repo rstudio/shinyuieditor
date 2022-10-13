@@ -1,3 +1,4 @@
+library(plotly)
 library(shiny)
 library(gridlayout)
 library(DT)
@@ -7,7 +8,7 @@ library(DT)
 ui <- grid_page(
   layout = c(
     "header  header  ",
-    "sidebar distPlot",
+    "sidebar area4   ",
     "table   bluePlot",
     "table   bluePlot"
   ),
@@ -60,7 +61,14 @@ ui <- grid_page(
     )
   ),
   grid_card_plot(area = "bluePlot"),
-  grid_card_plot(area = "distPlot")
+  grid_card(
+    area = "area4",
+    plotlyOutput(
+      outputId = "distPlot",
+      width = "100%",
+      height = "100%"
+    )
+  )
 )
 
 
@@ -69,13 +77,12 @@ other_ui <- "hello there"
 # Define server logic required to draw a histogram
 server <- function(input, output) {
 
-  output$distPlot <- renderPlot({
+  output$distPlot <- renderPlotly({
     # generate bins based on input$bins from ui.R
-    x    <- faithful[, 2]
-    bins <- seq(min(x), max(x), length.out = input$bins + 1)
+    plot_ly(x = ~faithful[, 2], type = "histogram")
 
-    # draw the histogram with the specified number of bins
-    hist(x, breaks = bins, col = 'darkgray', border = 'white')
+    # # draw the histogram with the specified number of bins
+    # hist(x, breaks = bins, col = 'darkgray', border = 'white')
   })
 
   output$bluePlot <- renderPlot({
