@@ -74,12 +74,16 @@ export function FormBuilder<Info extends FormInfo>(
   };
 
   return (
-    <form className="FormBuilder">
+    <form className="FormBuilder" onSubmit={disableDefaultSubmit}>
       {renderInputs(PrebuiltInputComponents)}
       <UnknownArgumentsRender {...args} />
     </form>
   );
 }
+
+const disableDefaultSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+  e.preventDefault();
+};
 
 function knownArgumentInputs<Info extends NonOmittedFormInfo>({
   settings,
