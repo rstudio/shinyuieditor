@@ -2,7 +2,8 @@
 
 ### Minor new features and improvements
 
-- Addition of ui node for adding DT tables to app with `DT::DTOutput()`.
+- Addition of ui node for adding `DT` tables to app with `DT::DTOutput()`.
+- Addition of ui node for `plotly` plots with `plotly::plotlyOutput()`.
 
 # shinyuieditor 0.3.0
 
