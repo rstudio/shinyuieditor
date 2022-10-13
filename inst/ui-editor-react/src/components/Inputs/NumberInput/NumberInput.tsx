@@ -60,6 +60,7 @@ export function NumberInputSimple({
           className="up-button"
           aria-label="Increment number up"
           onClick={incrementUp}
+          type="button"
         >
           <UpSpinnerButton />
         </button>
@@ -67,6 +68,7 @@ export function NumberInputSimple({
           className="down-button"
           aria-label="Increment number down"
           onClick={incrementDown}
+          type="button"
         >
           <DownSpinnerButton />
         </button>
