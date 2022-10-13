@@ -1,12 +1,9 @@
 import React from "react";
 
-import { InputOutputTitle } from "Shiny-Ui-Elements/InputOutputTitle";
 import { seqArray } from "utils/array-helpers";
 import "./styles.scss";
 
-const NUM_BARS = 10;
-const NUM_X_TICKS = NUM_BARS;
-const NUM_Y_TICKS = 5;
+const NUM_BARS = 11;
 
 const bar_values = normalize(seqArray(NUM_BARS).map(Math.random)).map(
   (x) => `${Math.round(x * 100)}%`
@@ -21,18 +18,9 @@ export function PlotPlaceholder({
     <div className="PlotPlaceholder">
       <div className="plot">
         <div className="title">{title}</div>
-        <div className="x-axis">
-          {seqArray(NUM_X_TICKS).map((i) => (
-            <div className="axis-tick" key={i}></div>
-          ))}
-        </div>
-        <div className="y-axis">
-          {seqArray(NUM_Y_TICKS).map((i) => (
-            <div className="axis-tick" key={i}></div>
-          ))}
-        </div>
+
         <div className="plot-body">
-          {bar_values.map((val) => (
+          {bar_values.map((val, i) => (
             <div
               className="bar"
               key={val}

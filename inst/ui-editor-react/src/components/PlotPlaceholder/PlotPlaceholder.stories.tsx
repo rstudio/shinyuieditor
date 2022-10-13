@@ -17,7 +17,6 @@ export const SizedPlaceholder = ({
       style={{
         width: `${widthPx}px`,
         height: `${heightPx}px`,
-        outline: "1px solid black",
       }}
     >
       <PlotPlaceholder title="myPlot" />
@@ -26,7 +25,7 @@ export const SizedPlaceholder = ({
 };
 
 export const SizedArray = () => {
-  const widths = [150, 300, 500];
+  const widths = [150, 310, 500];
   const heights = [100, 500];
 
   let plots: React.ReactNode[] = [];
@@ -39,7 +38,6 @@ export const SizedArray = () => {
           style={{
             width: `${w}px`,
             height: `${h}px`,
-            outline: "1px solid black",
           }}
         >
           <PlotPlaceholder title={`w:${w}px, h:${h}px`} />
