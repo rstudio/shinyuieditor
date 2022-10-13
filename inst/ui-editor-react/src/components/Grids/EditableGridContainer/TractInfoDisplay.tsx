@@ -75,13 +75,15 @@ export function TractInfoDisplay({
           />
           <AddTractButton dir={dir} onClick={onNewTractAfter} />
         </div>
-        <CSSUnitInput
-          label={`Sizing for ${dir} ${index}`}
-          id={"Tract-Size-" + dir + index}
-          value={size}
-          units={ALLOWED_UNITS}
-          onChange={onNewSize}
-        />
+        <div className={classes.cssSizeInput}>
+          <CSSUnitInput
+            label={`Sizing for ${dir} ${index}`}
+            id={"Tract-Size-" + dir + index}
+            value={size}
+            units={ALLOWED_UNITS}
+            onChange={onNewSize}
+          />
+        </div>
       </div>
     </div>
   );
