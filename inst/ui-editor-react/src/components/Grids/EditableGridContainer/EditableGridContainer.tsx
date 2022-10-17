@@ -2,7 +2,10 @@ import * as React from "react";
 
 import type { CSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
 import produce from "immer";
-import type { TemplatedGridProps } from "Shiny-Ui-Elements/GridlayoutGridPage";
+import type {
+  TemplatedGridProps,
+  TractDirection,
+} from "Shiny-Ui-Elements/GridlayoutGridPage";
 import addTract from "utils/gridTemplates/addTract";
 import removeTract from "utils/gridTemplates/removeTract";
 
@@ -11,7 +14,7 @@ import { TractInfoDisplays } from "./TractInfoDisplay";
 import { TractSizerHandle } from "./TractSizer";
 import type { TractInfo } from "./useDragToResizeGrid";
 import { useDragToResizeGrid } from "./useDragToResizeGrid";
-import { buildRange, layoutDefToStyles } from "./utils";
+import { buildRange, getTractSizesInPx, layoutDefToStyles } from "./utils";
 
 export type TractUpdateAction = { dir: TractInfo["dir"]; index: number } & (
   | { type: "RESIZE"; size: CSSMeasure }
@@ -71,6 +74,11 @@ function EditableGridContainer({
     [handleUpdateAction, onNewLayout]
   );
 
+  const getActualSizeByTract = React.useCallback((dir: TractDirection) => {
+    const container = containerRef.current;
+    if (!container) return [];
+    return getTractSizesInPx({ container, dir });
+  }, []);
   return (
     <div
       className={containerClasses.join(" ")}
@@ -97,12 +105,14 @@ function EditableGridContainer({
       <TractInfoDisplays
         dir="cols"
         sizes={col_sizes}
+        getActualSizes={() => getActualSizeByTract("cols")}
         areas={layout.areas}
         onUpdate={handleUpdate}
       />
       <TractInfoDisplays
         dir="rows"
         sizes={row_sizes}
+        getActualSizes={() => getActualSizeByTract("rows")}
         areas={layout.areas}
         onUpdate={handleUpdate}
       />

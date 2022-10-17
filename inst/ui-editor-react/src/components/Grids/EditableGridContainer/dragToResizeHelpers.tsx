@@ -153,7 +153,6 @@ export function initDragState({
       )
       .split(" ")
       .slice(0, originalSizes.length);
-
     container.style[templateSelector] = originalSizes.join(" ");
   }
 

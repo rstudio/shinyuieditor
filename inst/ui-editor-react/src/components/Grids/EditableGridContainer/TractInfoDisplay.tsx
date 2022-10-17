@@ -1,58 +1,38 @@
 import * as React from "react";
 
 import { Trash } from "components/Icons";
-import type {
-  CSSMeasure,
-  CSSUnit,
-} from "components/Inputs/CSSUnitInput/CSSMeasure";
-import { CSSUnitInput } from "components/Inputs/CSSUnitInput/CSSUnitInput";
+import { parseCSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
+import { CSSUnitChooser } from "components/Inputs/CSSUnitInput/CSSUnitChooser";
+import { NumberInputSimple } from "components/Inputs/NumberInput/NumberInput";
 import { TooltipButton } from "components/PopoverEl/Tooltip";
 import { FaPlus } from "react-icons/fa";
 import type { TemplatedGridProps } from "Shiny-Ui-Elements/GridlayoutGridPage";
 import { conflictsToRemoveTract } from "utils/gridTemplates/removeTract";
 
+import { getUnitInfo } from "./dragToResizeHelpers";
 import type { TractUpdateAction } from "./EditableGridContainer";
 import classes from "./TractInfoDisplay.module.css";
 import type { TractInfo } from "./useDragToResizeGrid";
 
-const ALLOWED_UNITS: CSSUnit[] = ["fr", "px"];
+type TractUnit = "fr" | "px";
+const ALLOWED_UNITS: TractUnit[] = ["fr", "px"];
 export function TractInfoDisplay({
   dir,
   index,
   size,
-  onUpdate,
   deletionConflicts,
+  addTract,
+  deleteTract,
+  changeUnit,
+  changeCount,
 }: TractInfo & {
-  onUpdate: (a: TractUpdateAction) => void;
+  addTract: (where: "before" | "after") => void;
+  deleteTract: () => void;
+  changeUnit: (u: TractUnit) => void;
+  changeCount: (c: number) => void;
   deletionConflicts: string[];
 }) {
-  const onNewSize = React.useCallback(
-    (s: CSSMeasure) => onUpdate({ type: "RESIZE", dir, index, size: s }),
-    [dir, index, onUpdate]
-  );
-
-  const onNewTract = React.useCallback(
-    (i: number) =>
-      onUpdate({
-        type: "ADD",
-        dir,
-        index: i,
-      }),
-    [dir, onUpdate]
-  );
-
-  const onNewTractBefore = React.useCallback(
-    () => onNewTract(index),
-    [onNewTract, index]
-  );
-  const onNewTractAfter = React.useCallback(
-    () => onNewTract(index + 1),
-    [onNewTract, index]
-  );
-  const onTractDelete = React.useCallback(
-    () => onUpdate({ type: "DELETE", dir, index: index + 1 }),
-    [dir, index, onUpdate]
-  );
+  const { unit, count } = parseCSSMeasure(size);
 
   return (
     <div
@@ -67,21 +47,26 @@ export function TractInfoDisplay({
       <div className={classes.hoverListener} />
       <div className={classes.sizeWidget} onClick={stopPropagation}>
         <div className={classes.buttons}>
-          <AddTractButton dir={dir} onClick={onNewTractBefore} />
+          <AddTractButton dir={dir} onClick={() => addTract("before")} />
           <DeleteTractButton
             dir={dir}
-            onClick={onTractDelete}
+            onClick={deleteTract}
             deletionConflicts={deletionConflicts}
           />
-          <AddTractButton dir={dir} onClick={onNewTractAfter} />
+          <AddTractButton dir={dir} onClick={() => addTract("after")} />
         </div>
         <div className={classes.cssSizeInput}>
-          <CSSUnitInput
-            label={`Sizing for ${dir} ${index}`}
-            id={"Tract-Size-" + dir + index}
-            value={size}
-            units={ALLOWED_UNITS}
-            onChange={onNewSize}
+          <NumberInputSimple
+            name="value-count"
+            aria-label="value-count"
+            value={count}
+            onChange={changeCount}
+            min={0}
+          />
+          <CSSUnitChooser
+            unit={unit as TractUnit}
+            availableUnits={ALLOWED_UNITS}
+            onChange={(u) => changeUnit(u)}
           />
         </div>
       </div>
@@ -155,17 +140,42 @@ function removeFocusAfterClick(onClick?: () => void) {
   };
 }
 
+function getFrUnitSizeInPx(
+  actualSizes: number[],
+  sizes: TractInfoDisplaysProps["sizes"]
+): number | "NO_FR_UNITS" {
+  let totalFrSizes: number = 0;
+  let totalPxSizes: number = 0;
+
+  for (let i = 0; i < sizes.length; i++) {
+    const { type, count } = getUnitInfo(sizes[i]);
+
+    if (type === "fr") {
+      totalFrSizes += count;
+      totalPxSizes += actualSizes[i];
+    }
+  }
+
+  if (totalFrSizes === 0) return "NO_FR_UNITS";
+
+  return totalFrSizes / totalPxSizes;
+}
+
+type TractInfoDisplaysProps = {
+  dir: TractInfo["dir"];
+  sizes: TemplatedGridProps["col_sizes"] | TemplatedGridProps["row_sizes"];
+  getActualSizes: () => number[];
+  areas: TemplatedGridProps["areas"];
+  onUpdate: (a: TractUpdateAction) => void;
+};
+
 export function TractInfoDisplays({
   dir,
   sizes,
+  getActualSizes,
   areas,
   onUpdate,
-}: {
-  dir: TractInfo["dir"];
-  sizes: TemplatedGridProps["col_sizes"] | TemplatedGridProps["row_sizes"];
-  areas: TemplatedGridProps["areas"];
-  onUpdate: (a: TractUpdateAction) => void;
-}) {
+}: TractInfoDisplaysProps) {
   const findDeleteConflicts = React.useCallback(
     ({ dir, index }: Omit<TractInfo, "size">) =>
       conflictsToRemoveTract(areas, {
@@ -175,6 +185,45 @@ export function TractInfoDisplays({
     [areas]
   );
 
+  const changeCount = (index: number) => (count: number) => {
+    const { unit: currentUnit } = parseCSSMeasure(sizes[index]);
+
+    onUpdate({
+      type: "RESIZE",
+      index,
+      dir,
+      size: `${count}${currentUnit as TractUnit}`,
+    });
+  };
+
+  const changeUnit = (index: number) => (unit: TractUnit) => {
+    const actualSizes = getActualSizes();
+    const { count: currentUnitCount } = parseCSSMeasure(sizes[index]);
+
+    let newCount: number = 1;
+
+    if (unit === "px") {
+      newCount = actualSizes[index];
+    }
+
+    const frRatio = getFrUnitSizeInPx(actualSizes, sizes);
+    if (unit === "fr" && frRatio !== "NO_FR_UNITS") {
+      newCount = currentUnitCount ? currentUnitCount * frRatio : 1;
+    }
+
+    onUpdate({ type: "RESIZE", index, dir, size: `${newCount}${unit}` });
+  };
+
+  const addTract = (i: number) => (where: "before" | "after") =>
+    onUpdate({
+      type: "ADD",
+      dir,
+      index: where === "before" ? i : i + 1,
+    });
+
+  const deleteTract = (i: number) => () => {
+    onUpdate({ type: "DELETE", dir, index: i + 1 });
+  };
   return (
     <>
       {sizes.map((size, index) => (
@@ -182,8 +231,11 @@ export function TractInfoDisplays({
           key={dir + index}
           index={index}
           dir={dir}
+          addTract={addTract(index)}
+          deleteTract={deleteTract(index)}
+          changeUnit={changeUnit(index)}
+          changeCount={changeCount(index)}
           size={size}
-          onUpdate={onUpdate}
           deletionConflicts={findDeleteConflicts({ dir, index })}
         />
       ))}

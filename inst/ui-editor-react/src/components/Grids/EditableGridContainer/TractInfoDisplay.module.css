@@ -76,8 +76,10 @@ user is typing in the input field but mouses off */
   transform-origin: left;
   padding-right: var(--size-widget-spacing);
 }
+
 .cssSizeInput {
   width: 120px;
+  display: flex;
 }
 
 .tractInfoDisplay[data-drag-dir="cols"] > .sizeWidget {

@@ -1,5 +1,8 @@
 import type { CSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
-import type { TemplatedGridProps } from "Shiny-Ui-Elements/GridlayoutGridPage";
+import type {
+  TemplatedGridProps,
+  TractDirection,
+} from "Shiny-Ui-Elements/GridlayoutGridPage";
 
 import type { DragStatus, TractInfo } from "./useDragToResizeGrid";
 
@@ -84,4 +87,19 @@ export function columnIsBeingResized(dragStatus: DragStatus, column_i: number) {
     dir: "cols",
     index: column_i,
   });
+}
+
+export function getTractSizesInPx({
+  container,
+  dir,
+}: {
+  container: HTMLDivElement;
+  dir: TractDirection;
+}): number[] {
+  return getComputedStyle(container)
+    .getPropertyValue(
+      dir === "rows" ? "grid-template-rows" : "grid-template-columns"
+    )
+    .split(" ")
+    .map((s) => Number(s.replaceAll("px", "")));
 }
