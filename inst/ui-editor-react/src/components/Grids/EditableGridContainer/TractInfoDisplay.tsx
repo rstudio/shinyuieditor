@@ -12,7 +12,9 @@ import { conflictsToRemoveTract } from "utils/gridTemplates/removeTract";
 import { getUnitInfo } from "./dragToResizeHelpers";
 import type { TractUpdateAction } from "./EditableGridContainer";
 import classes from "./TractInfoDisplay.module.css";
+import { roundFr, roundPixel } from "./tractUpdatingFunctions";
 import type { TractInfo } from "./useDragToResizeGrid";
+import { cleanNumber } from "./utils";
 
 type TractUnit = "fr" | "px";
 const ALLOWED_UNITS: TractUnit[] = ["fr", "px"];
@@ -203,12 +205,14 @@ export function TractInfoDisplays({
     let newCount: number = 1;
 
     if (unit === "px") {
-      newCount = actualSizes[index];
+      newCount = roundPixel(actualSizes[index]);
     }
 
     const frRatio = getFrUnitSizeInPx(actualSizes, sizes);
     if (unit === "fr" && frRatio !== "NO_FR_UNITS") {
-      newCount = currentUnitCount ? currentUnitCount * frRatio : 1;
+      newCount = cleanNumber(
+        roundFr(currentUnitCount ? currentUnitCount * frRatio : 1)
+      );
     }
 
     onUpdate({ type: "RESIZE", index, dir, size: `${newCount}${unit}` });
