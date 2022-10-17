@@ -8,6 +8,7 @@ import type {
 import { validateRef } from "utils/validateRef";
 
 import { initDragState, updateDragState } from "./dragToResizeHelpers";
+import { hideOrShowTractInfo } from "./TractInfoDisplay";
 import { getLayoutFromGridElement } from "./utils";
 
 export type TractInfo = {
@@ -146,9 +147,14 @@ function setupSizeFeedbackDisplay(
 
   containingDiv.appendChild(displayDiv);
   container.appendChild(containingDiv);
+  // Make sure the size feedback isnt obscured by a stuck open info panel
+  hideOrShowTractInfo(container, "hide");
 
   return {
-    remove: () => containingDiv.remove(),
+    remove: () => {
+      containingDiv.remove();
+      hideOrShowTractInfo(container, "show");
+    },
     update: (size: string) => {
       displayDiv.innerHTML = size;
     },

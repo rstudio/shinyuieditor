@@ -246,3 +246,20 @@ export function TractInfoDisplays({
 function stopPropagation(e: React.MouseEvent<HTMLElement, MouseEvent>) {
   e.stopPropagation();
 }
+
+/**
+ * Remotely hide or show the tract info sizers. This is used when dragging to
+ * make sure we don't cover up the smaller size widgets with a (stale) info
+ * widget.
+ * @param container Main grid container that the tract info panels will be in
+ * @param showOrHide Should the panels be hidden or re-shown?
+ */
+export function hideOrShowTractInfo(
+  container: HTMLElement,
+  showOrHide: "show" | "hide"
+) {
+  container.querySelectorAll(`.${classes.tractInfoDisplay}`).forEach((el) => {
+    (el as HTMLElement).style.display =
+      showOrHide === "hide" ? "none" : "block";
+  });
+}
