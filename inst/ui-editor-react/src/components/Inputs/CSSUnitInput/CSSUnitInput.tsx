@@ -6,7 +6,7 @@ import { makeLabelId } from "../SettingsFormBuilder/inputFieldTypes";
 
 import type { CSSMeasure } from "./CSSMeasure";
 import { deparseCSSMeasure, parseCSSMeasure } from "./CSSMeasure";
-import { CSSUnitInfo } from "./CSSUnitInfo";
+import { CSSUnitChooser } from "./CSSUnitChooser";
 import classes from "./CSSUnitInput.module.css";
 
 export type CSSUnits = "fr" | "px" | "rem" | "auto" | "%";
@@ -103,20 +103,11 @@ export function CSSUnitInput({
         min={0}
       />
 
-      <select
-        className={classes.unitSelector}
-        aria-label="value-unit"
-        name="value-unit"
-        value={unit}
-        onChange={(e) => updateUnit(e.target.value as CSSUnits)}
-      >
-        {units.map((unit) => (
-          <option key={unit} value={unit}>
-            {unit}
-          </option>
-        ))}
-      </select>
-      <CSSUnitInfo units={units} />
+      <CSSUnitChooser
+        unit={unit}
+        availableUnits={units}
+        onChange={updateUnit}
+      />
     </div>
   );
 }
