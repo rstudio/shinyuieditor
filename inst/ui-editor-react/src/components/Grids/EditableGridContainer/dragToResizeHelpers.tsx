@@ -7,6 +7,7 @@ import {
   drag_both_pixel,
   drag_both_relative,
 } from "./tractUpdatingFunctions";
+import { getTractSizesInPx } from "./utils";
 
 export type DragState = {
   dir: TractDirection;
@@ -106,17 +107,9 @@ function getPxToFrRatioForRelativeTracts({
   dir: DragState["dir"];
   frCounts: { before: number; after: number };
 }) {
-  // getComputedStyle() will convert all grid tracts to pixel values so we can
-  // get the width or height of the tracts we need to resize in pixels and then
-  // compute the amount of fr units we need to shift per pixel of drag
-  const computedSizes = getComputedStyle(container)
-    .getPropertyValue(
-      dir === "rows" ? "grid-template-rows" : "grid-template-columns"
-    )
-    .split(" ");
-
-  const beforePx = getUnitInfo(computedSizes[index - 2]).count;
-  const afterPx = getUnitInfo(computedSizes[index - 1]).count;
+  const actualSizes = getTractSizesInPx({ container, dir });
+  const beforePx = actualSizes[index - 2];
+  const afterPx = actualSizes[index - 1];
 
   return (frCounts.before + frCounts.after) / (afterPx + beforePx);
 }
@@ -153,7 +146,6 @@ export function initDragState({
       )
       .split(" ")
       .slice(0, originalSizes.length);
-
     container.style[templateSelector] = originalSizes.join(" ");
   }
 

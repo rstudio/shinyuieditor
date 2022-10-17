@@ -1,10 +1,11 @@
 import type {
-  DragState,
-  DragBothRelative,
   DragBothPixel,
+  DragBothRelative,
   DragPixelAfter,
   DragPixelBefore,
+  DragState,
 } from "./dragToResizeHelpers";
+import { cleanNumber } from "./utils";
 
 export type TractUpdateValues =
   | { beforeSize?: string; afterSize?: string }
@@ -20,15 +21,11 @@ const minFrRatio = 0.15;
 const roundTo = (precision: number) => (val: number) =>
   Math.round(val / precision) * precision;
 
-const pixelRoundLevel = 5;
-const roundPixel = roundTo(pixelRoundLevel);
+const PX_ROUND_PRECISION = 5;
+export const roundPixel = roundTo(PX_ROUND_PRECISION);
 
-const frRoundLevel = 0.01;
-const roundFr = roundTo(frRoundLevel);
-
-// Roundabout way to avoid ugly machine-epsilon floating point numbers like
-// 1.4999999999991
-const cleanNumber = (num: number) => Number(num.toFixed(4));
+const FR_ROUND_PRECISION = 0.01;
+export const roundFr = roundTo(FR_ROUND_PRECISION);
 
 export function drag_both_relative(
   delta: number,

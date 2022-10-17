@@ -1,3 +1,13 @@
+# shinyuieditor development
+
+### Minor new features and improvements
+
+- Switching from absolute to relative units in the grid tracts now results in the tract remaining (almost) the same size instead of jumping to a much bigger or much smaller size due to differences in magnitude of units. (#110)
+
+### Bug fixes
+
+- Dragging to resize a grid tract with focus still inside of a popup tract info widget now hides the widget so the drag-to-resize info popup is not obscured. (#110)
+
 # shinyuieditor 0.3.1
 
 ### Minor new features and improvements
