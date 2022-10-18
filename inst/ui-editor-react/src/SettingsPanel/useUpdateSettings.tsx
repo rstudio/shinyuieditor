@@ -2,6 +2,7 @@ import * as React from "react";
 
 import type { KnownInputFieldTypes } from "components/Inputs/SettingsFormBuilder/inputFieldTypes";
 import { getNode } from "components/UiNode/TreeManipulation/getNode";
+import omit from "just-omit";
 import { useNodeSelectionState } from "NodeSelectionState";
 import { useDispatch } from "react-redux";
 import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
@@ -71,9 +72,21 @@ export function useUpdateSettings(tree: ShinyUiNode) {
     formHasBeenUpdated.current = true;
   };
 
+  const deleteArgumentByName = (name: string) => {
+    setCurrentNode(
+      (node) =>
+        ({
+          ...node,
+          uiArguments: omit(node?.uiArguments ?? {}, name),
+        } as typeof currentNode)
+    );
+    formHasBeenUpdated.current = true;
+  };
+
   return {
     currentNode,
     updateArgumentsByName,
+    deleteArgumentByName,
     selectedPath,
     setNodeSelection,
   };
