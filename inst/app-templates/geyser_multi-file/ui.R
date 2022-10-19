@@ -1,6 +1,8 @@
-gridlayout::grid_page(
+library(gridlayout)
+library(shiny)
+grid_page(
   layout = c(
-    "header header",
+    "header  header  ",
     "sidebar bluePlot",
     "sidebar distPlot"
   ),
@@ -14,17 +16,17 @@ gridlayout::grid_page(
     "1fr"
   ),
   gap_size = "15px",
-  gridlayout::grid_card_text(
-    area = "header",
+  grid_card_text(
     content = "Geysers!",
+    alignment = "start",
+    area = "header",
     h_align = "start",
     is_title = TRUE
   ),
-  gridlayout::grid_card(
+  grid_card(
     area = "sidebar",
-    item_alignment = "top",
     item_gap = "12px",
-    shiny::sliderInput(
+    sliderInput(
       inputId = "bins",
       label = "Number of Bins",
       min = 5L,
@@ -33,6 +35,6 @@ gridlayout::grid_page(
       width = "100%"
     )
   ),
-  gridlayout::grid_card_plot(area = "distPlot"),
-  gridlayout::grid_card_plot(area = "bluePlot")
+  grid_card_plot(area = "distPlot"),
+  grid_card_plot(area = "bluePlot")
 )
