@@ -5,8 +5,8 @@ library(ggplot2)
 # App template from the shinyuieditor
 ui <- grid_page(
   layout = c(
-    "header header",
-    "sidebar dists",
+    "header    header   ",
+    "sidebar   dists    ",
     "linePlots linePlots"
   ),
   row_sizes = c(
@@ -21,7 +21,6 @@ ui <- grid_page(
   gap_size = "1rem",
   grid_card(
     area = "sidebar",
-    item_alignment = "top",
     title = "Settings",
     item_gap = "12px",
     numericInput(

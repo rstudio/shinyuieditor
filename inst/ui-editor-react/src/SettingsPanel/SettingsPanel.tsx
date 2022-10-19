@@ -12,8 +12,13 @@ import classes from "./SettingsPanel.module.css";
 import { useUpdateSettings } from "./useUpdateSettings";
 
 export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
-  const { currentNode, updateArgumentsByName, selectedPath, setNodeSelection } =
-    useUpdateSettings(tree);
+  const {
+    currentNode,
+    updateArgumentsByName,
+    deleteArgumentByName,
+    selectedPath,
+    setNodeSelection,
+  } = useUpdateSettings(tree);
 
   if (selectedPath === null) {
     return <div>Select an element to edit properties</div>;
@@ -51,10 +56,14 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
           nodeInfo.settingsFormRender as CustomFormRenderFn<typeof uiArguments>
         }
         onSettingsChange={(name, action) => {
-          if (action.type === "UPDATE") {
-            updateArgumentsByName(name, action.value);
-          } else {
-            updateArgumentsByName(name);
+          switch (action.type) {
+            case "UPDATE":
+              updateArgumentsByName(name, action.value);
+              return;
+
+            case "REMOVE":
+              deleteArgumentByName(name);
+              return;
           }
         }}
       />

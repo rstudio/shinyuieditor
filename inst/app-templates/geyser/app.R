@@ -4,7 +4,7 @@ library(gridlayout)
 # App template from the shinyuieditor
 ui <- grid_page(
   layout = c(
-    "header header",
+    "header  header  ",
     "sidebar distPlot",
     "sidebar bluePlot"
   ),
@@ -20,9 +20,8 @@ ui <- grid_page(
   gap_size = "1rem",
   grid_card(
     area = "sidebar",
-    item_gap = "12px",
-    item_alignment = "top",
     title = "Settings",
+    item_gap = "12px",
     sliderInput(
       inputId = "bins",
       label = "Number of Bins",
