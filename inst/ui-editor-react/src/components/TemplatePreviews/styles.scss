@@ -1,0 +1,47 @@
+.AppTemplatePreview {
+  overflow: hidden;
+
+  .template-container {
+    pointer-events: none;
+    width: var(--full-w, 100px);
+    height: var(--full-h, 100px);
+    scale: var(--shrink-ratio, 0.5);
+    transform-origin: top left;
+  }
+}
+
+.AppTemplateCard {
+  --outline-color: #caced3;
+  --footer-color: #e9edf3;
+  --padding: 5px;
+
+  cursor: pointer;
+  outline: 1px solid var(--outline-color);
+  width: fit-content;
+  border-radius: var(--corner-radius);
+
+  > * {
+    padding: var(--padding);
+  }
+
+  footer {
+    background-color: var(--footer-color);
+    height: calc(40px - 2 * var(--padding));
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 0 0 var(--corner-radius) var(--corner-radius);
+
+    .layout-icon {
+      display: block;
+      width: 42px;
+      translate: 6px 2px;
+    }
+
+    .layout-icon[data-type="navbarPage"] {
+      width: 42px;
+      translate: 6px 1px;
+    }
+  }
+}
