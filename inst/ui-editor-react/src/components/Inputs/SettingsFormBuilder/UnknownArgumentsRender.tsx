@@ -27,6 +27,7 @@ export function UnknownArgumentsRender<Info extends FormInfo>({
           <Tooltip
             text="Arguments present in UI code but not known about or editable by the shinyuieditor"
             position="left"
+            size="fit"
           >
             Unknown arguments
           </Tooltip>
