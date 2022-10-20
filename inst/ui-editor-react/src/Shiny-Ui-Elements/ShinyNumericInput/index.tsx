@@ -43,7 +43,6 @@ export const shinyNumericInputInfo: UiComponentInfo<ShinyNumericInputProps> = {
       label: "Start value",
       inputType: "number",
       defaultValue: 5,
-      optional: true,
     },
     step: {
       inputType: "number",
