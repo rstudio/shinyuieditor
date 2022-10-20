@@ -1,0 +1,143 @@
+.EditorSkeleton {
+  --header-height: 31px;
+  --padding: var(--horizontal-spacing);
+  height: 100%;
+  width: 100%;
+  background-color: var(--background-grey, #edf2f7);
+
+  display: grid;
+  /* This is provided by inline styles in Editor Container so value can be stored in JS */
+  /* grid-template-columns: auto 1fr var(--properties-panel-width); */
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: var(--header-height) 1fr auto;
+  grid-template-areas:
+    "header   header header    "
+    "elements editor properties"
+    "elements editor preview";
+
+  > div {
+    outline: 1px solid var(--header-grey);
+    min-width: 0;
+    min-height: 0;
+    /* Each sub-section gets its own stacking context so it won't leak over others */
+    isolation: isolate;
+  }
+
+  .elements-panel {
+    grid-area: elements;
+    overflow: auto;
+
+    /* Set z-index highest of the three main panels so popovers don't get covered
+    by the main app view */
+    z-index: 2;
+  }
+
+  .properties-panel {
+    grid-area: properties;
+    max-width: var(--properties-panel-width);
+    width: var(--properties-panel-width);
+  }
+
+  .app-preview {
+    grid-area: preview;
+  }
+
+  .properties-panel,
+  .app-preview {
+    max-width: var(--properties-panel-width);
+    width: var(--properties-panel-width);
+    z-index: 3;
+  }
+  .properties-panel:empty,
+  .app-preview:empty {
+    display: none;
+  }
+
+  .app-view {
+    grid-area: editor;
+    background-color: var(--rstudio-white);
+    padding-top: 32px;
+    padding-left: 32px;
+    padding-right: 32px;
+    padding-bottom: 32px;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+  }
+
+  .panel {
+    display: grid;
+    grid-template-rows: var(--header-height) 1fr;
+    background-color: var(--background-grey);
+    /* Make sure z-indices dont leak out of panels and overlap things like modals
+    */
+    isolation: isolate;
+
+    > * {
+      min-width: 0;
+    }
+
+    .panel-title {
+      text-align: center;
+      line-height: var(--header-height);
+      background-color: var(--header-grey, forestgreen);
+      font-size: 1.05rem;
+      font-weight: lighter;
+      color: var(--rstudio-white);
+    }
+  }
+
+  header {
+    grid-area: header;
+    gap: var(--padding);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    button {
+      padding: 0;
+    }
+    .right {
+      margin-left: auto;
+      width: var(--properties-panel-width);
+      display: inherit;
+      align-items: center;
+      gap: 14px;
+
+      // Move the tour button over a tiny bit so it lines up better with edge of
+      // properties pane
+      > :first-child {
+        margin-left: -6px;
+      }
+
+      .react-joyride {
+        display: none;
+      }
+
+      .undo-redo-buttons {
+        transform: translate(-1px, -1px);
+      }
+    }
+
+    .shiny-logo {
+      display: inline-block;
+      height: 100%;
+      border-radius: 0 15px 15px 0;
+      padding-block: 3px;
+      padding-inline: 5px;
+      background-color: var(--rstudio-blue);
+    }
+
+    .app-title {
+      font-size: 1.15rem;
+      color: var(--rstudio-blue);
+    }
+
+    .divider {
+      height: 20px;
+      background-color: var(--divider-color);
+      width: 2px;
+    }
+  }
+}

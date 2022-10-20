@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import { PanelHeader } from "EditorSkeleton/EditorSkeleton";
 import type {
   ShinyUiNames,
   ShinyUiNodeInfo,
@@ -41,10 +42,13 @@ export default function ElementsPalette({
   );
 
   return (
-    <div className={classes.elementsPalette}>
-      {ui_node_names.map((uiName) => (
-        <UiElementIcon key={uiName} uiName={uiName} />
-      ))}
-    </div>
+    <>
+      <PanelHeader>Elements</PanelHeader>
+      <div className={classes.elementsPalette}>
+        {ui_node_names.map((uiName) => (
+          <UiElementIcon key={uiName} uiName={uiName} />
+        ))}
+      </div>
+    </>
   );
 }
