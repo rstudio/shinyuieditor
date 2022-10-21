@@ -4,9 +4,15 @@ import SvgShinyLogo from "components/Icons/ShinyLogo";
 import { UndoRedoButtons } from "components/UndoRedoButtons/UndoRedoButtons";
 
 import { AppTour } from "../AppTour";
-import { LostConnectionPopup, sizes_inline_styles } from "../EditorContainer";
 
 import "./styles.scss";
+import { LostConnectionPopup } from "./LostConnectionPopup";
+
+export const PROPERTIES_PANEL_WIDTH_PX = 236;
+
+const sizes_inline_styles = {
+  "--properties-panel-width": `${PROPERTIES_PANEL_WIDTH_PX}px`,
+} as React.CSSProperties;
 
 export function EditorSkeleton({
   main,

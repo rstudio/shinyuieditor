@@ -1,6 +1,6 @@
 import React from "react";
 
-import { PROPERTIES_PANEL_WIDTH_PX } from "EditorContainer";
+import { PROPERTIES_PANEL_WIDTH_PX } from "EditorSkeleton/EditorSkeleton";
 import debounce from "just-debounce-it";
 
 import {
