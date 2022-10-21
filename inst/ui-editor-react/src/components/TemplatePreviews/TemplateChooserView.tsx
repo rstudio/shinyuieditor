@@ -3,8 +3,9 @@ import { EditorSkeleton, PanelHeader } from "EditorSkeleton/EditorSkeleton";
 import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import { useFilteredTemplates } from "./filterTemplates";
-import { TemplateFiltersForm } from "./TemplateFiltersForm";
+import { OutputTypeForm, useOutputTypeChooser } from "./OutputTypeForm";
 import "./styles.scss";
+import { TemplateFiltersForm } from "./TemplateFiltersForm";
 import { TemplatePreviewGrid } from "./TemplatePreviewGrid";
 
 export function TemplateChooserView({
@@ -14,6 +15,9 @@ export function TemplateChooserView({
 }) {
   const { filterState, setFilterState, shownTemplates } =
     useFilteredTemplates();
+
+  const { selectedOutput, setSelectedOutput } = useOutputTypeChooser();
+
   return (
     <EditorSkeleton
       main={
@@ -36,35 +40,15 @@ export function TemplateChooserView({
               setFilterState={setFilterState}
             />
 
-            <OutputTypeField />
+            <OutputTypeForm
+              selectedOutput={selectedOutput}
+              setSelectedOutput={setSelectedOutput}
+            />
 
             <Button>Next</Button>
           </div>
         </>
       }
     />
-  );
-}
-
-type OutputType = "single-file" | "multi-file";
-const outputTypes: OutputType[] = ["single-file", "multi-file"];
-const selectedOutput: OutputType = "single-file";
-function OutputTypeField() {
-  return (
-    <form className="OutputTypeField">
-      <legend>Generate app in:</legend>
-      {outputTypes.map((outputType) => (
-        <div key={outputType}>
-          <input
-            type="radio"
-            id={`${outputType}-choice`}
-            name={`${outputType} name`}
-            value={`${outputType} value`}
-            checked={outputType === selectedOutput}
-          />
-          <label htmlFor={`${outputType}-choice`}>{outputType}</label>
-        </div>
-      ))}
-    </form>
   );
 }
