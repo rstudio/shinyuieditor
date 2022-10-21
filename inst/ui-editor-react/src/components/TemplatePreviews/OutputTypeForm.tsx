@@ -1,19 +1,12 @@
 import React from "react";
 
-type OutputType = "single-file" | "multi-file";
+export type OutputType = "single-file" | "multi-file";
 const outputTypes: OutputType[] = ["single-file", "multi-file"];
 
 const outputTypeLabel: Record<OutputType, string> = {
   "single-file": "Single file mode",
   "multi-file": "Multi file mode",
 };
-
-export function useOutputTypeChooser() {
-  const [selectedOutput, setSelectedOutput] =
-    React.useState<OutputType>("single-file");
-
-  return { selectedOutput, setSelectedOutput };
-}
 
 export function OutputTypeForm({
   selectedOutput,

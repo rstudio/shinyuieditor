@@ -1,6 +1,7 @@
 import React from "react";
 
 import { app_templates } from "./app_templates";
+import type { OutputType } from "./OutputTypeForm";
 import type { LayoutType, TemplateInfo } from "./TemplatePreviewCard";
 import { getLayoutType } from "./TemplatePreviewCard";
 
@@ -9,6 +10,7 @@ export const allLayoutTypes: LayoutType[] = ["grid", "navbarPage"];
 export type TemplateFilterState = {
   layoutTypes: LayoutType[];
 };
+export type TemplateSelection = TemplateInfo & { outputType: OutputType };
 
 export function filteredTemplates(
   filters: TemplateFilterState
@@ -22,7 +24,7 @@ export function filteredTemplates(
 }
 
 export function useFilteredTemplates(
-  onChoose: (template: TemplateInfo) => void
+  onChoose: (selection: TemplateSelection) => void
 ) {
   const [filterState, setFilterState] = React.useState<TemplateFilterState>({
     layoutTypes: allLayoutTypes,
@@ -31,6 +33,9 @@ export function useFilteredTemplates(
   const [selectedTemplate, setSelectedTemplate] = React.useState<string | null>(
     null
   );
+
+  const [selectedOutput, setSelectedOutput] =
+    React.useState<OutputType>("single-file");
 
   const setTemplateSelection = (title: string) => {
     setSelectedTemplate((currentSelection) =>
@@ -60,7 +65,7 @@ export function useFilteredTemplates(
 
     if (!chosenTemplate) return;
 
-    onChoose(chosenTemplate);
+    onChoose({ ...chosenTemplate, outputType: selectedOutput });
   };
 
   return {
@@ -69,6 +74,8 @@ export function useFilteredTemplates(
     shownTemplates,
     selectedTemplate,
     setSelectedTemplate: setTemplateSelection,
+    selectedOutput,
+    setSelectedOutput,
     finishSelection,
   };
 }
