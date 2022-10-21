@@ -33,10 +33,12 @@ export function TemplatePreviewCard({
   info: { title, templateTree },
   onSelect,
   width_px,
+  selected,
 }: {
   info: TemplateInfo;
   onSelect: () => void;
   width_px: number;
+  selected: boolean;
 }) {
   const layoutType = getLayoutType(templateTree);
   const layoutIcon = layoutIcons[layoutType];
@@ -48,6 +50,7 @@ export function TemplatePreviewCard({
       className="AppTemplateCard"
       onClick={onSelect}
       style={inlineVariableStyles}
+      data-selected={selected}
     >
       <div className="preview-container">
         <AppTemplatePreview

@@ -18,7 +18,6 @@ export const app_templates: TemplateInfo[] = [
     templateTree: minimalPage,
     description: "I am a basic navbarPage app",
   },
-
   {
     title: "Navbar App",
     templateTree: basicNavbarPage,

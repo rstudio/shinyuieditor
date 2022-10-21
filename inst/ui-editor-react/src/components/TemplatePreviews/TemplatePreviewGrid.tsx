@@ -1,5 +1,3 @@
-import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
-
 import { app_templates } from "./app_templates";
 import type { TemplateInfo } from "./TemplatePreviewCard";
 import { TemplatePreviewCard } from "./TemplatePreviewCard";
@@ -9,12 +7,15 @@ const PREVIEW_WIDTH_PX = 294;
 const inlineVariableStyles = {
   "--card-w": `${PREVIEW_WIDTH_PX}px`,
 } as React.CSSProperties;
+
 export function TemplatePreviewGrid({
-  setTemplate,
+  selectedTemplate,
+  setSelectedTemplate,
   templates = app_templates,
 }: {
   templates?: TemplateInfo[];
-  setTemplate: (tree: ShinyUiNode) => void;
+  selectedTemplate: string | null;
+  setSelectedTemplate: (t: string) => void;
 }) {
   if (templates.length === 0) {
     return (
@@ -29,7 +30,10 @@ export function TemplatePreviewGrid({
         <TemplatePreviewCard
           key={template.title}
           info={template}
-          onSelect={() => setTemplate(template.templateTree)}
+          selected={template.title === selectedTemplate}
+          onSelect={() => {
+            setSelectedTemplate(template.title);
+          }}
           width_px={PREVIEW_WIDTH_PX}
         />
       ))}

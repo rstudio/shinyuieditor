@@ -29,5 +29,11 @@ export function EditorContainer() {
     );
   }
 
-  return <TemplateChooserView setTemplate={setTree} />;
+  return (
+    <TemplateChooserView
+      onChoose={(template) => {
+        setTree(template.templateTree);
+      }}
+    />
+  );
 }

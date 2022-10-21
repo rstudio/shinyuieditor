@@ -26,6 +26,7 @@ export const CardView = () => {
     <ReduxProvider>
       <TemplatePreviewCard
         info={app_templates[0]}
+        selected={false}
         onSelect={() => console.log("Selected template")}
         width_px={300}
       />
@@ -37,7 +38,8 @@ export const CardGrid = () => {
   return (
     <ReduxProvider>
       <TemplatePreviewGrid
-        setTemplate={(tree) => console.log("Chose template", tree)}
+        selectedTemplate={null}
+        setSelectedTemplate={(title) => console.log("Chose template", title)}
       />
     </ReduxProvider>
   );
@@ -46,7 +48,7 @@ export const FullView = () => {
   return (
     <ReduxProvider>
       <TemplateChooserView
-        setTemplate={(tree) => console.log("Chose template", tree)}
+        onChoose={(template) => console.log("Chose template", template)}
       />
     </ReduxProvider>
   );

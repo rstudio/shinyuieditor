@@ -21,12 +21,54 @@ export function filteredTemplates(
   });
 }
 
-export function useFilteredTemplates() {
+export function useFilteredTemplates(
+  onChoose: (template: TemplateInfo) => void
+) {
   const [filterState, setFilterState] = React.useState<TemplateFilterState>({
     layoutTypes: allLayoutTypes,
   });
 
-  const shownTemplates = filteredTemplates(filterState);
+  const [selectedTemplate, setSelectedTemplate] = React.useState<string | null>(
+    null
+  );
 
-  return { filterState, setFilterState, shownTemplates };
+  const setTemplateSelection = (title: string) => {
+    setSelectedTemplate((currentSelection) =>
+      currentSelection === title ? null : title
+    );
+  };
+
+  const shownTemplates = React.useMemo(
+    () => filteredTemplates(filterState),
+    [filterState]
+  );
+
+  // If the selected template was filtered out of the options, reset selection
+  React.useEffect(() => {
+    if (
+      selectedTemplate &&
+      !shownTemplates.map((t) => t.title).includes(selectedTemplate)
+    ) {
+      setSelectedTemplate(null);
+    }
+  }, [selectedTemplate, shownTemplates]);
+
+  const finishSelection = () => {
+    const chosenTemplate = shownTemplates.find(
+      ({ title }) => title === selectedTemplate
+    );
+
+    if (!chosenTemplate) return;
+
+    onChoose(chosenTemplate);
+  };
+
+  return {
+    filterState,
+    setFilterState,
+    shownTemplates,
+    selectedTemplate,
+    setSelectedTemplate: setTemplateSelection,
+    finishSelection,
+  };
 }

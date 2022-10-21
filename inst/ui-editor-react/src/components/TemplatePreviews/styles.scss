@@ -12,11 +12,12 @@
 
 .AppTemplateCard {
   --outline-color: #caced3;
+  --outline-thickness: 1px;
   --footer-color: #e9edf3;
   --padding: var(--card-pad, 5px);
 
   cursor: pointer;
-  outline: 1px solid var(--outline-color);
+  outline: var(--outline-thickness) solid var(--outline-color);
   width: fit-content;
   border-radius: var(--corner-radius);
 
@@ -44,6 +45,11 @@
       translate: 6px 1px;
     }
   }
+}
+
+.AppTemplateCard[data-selected="true"] {
+  --outline-thickness: 4px;
+  --outline-color: var(--rstudio-blue);
 }
 
 .TemplatePreviewGrid {
@@ -75,6 +81,11 @@
     width: calc(100% - 2 * var(--inset));
     background-color: var(--rstudio-blue);
     color: var(--rstudio-white);
+  }
+
+  button:disabled {
+    background-color: var(--grey);
+    border-color: var(--grey);
   }
 
   legend {
