@@ -68,19 +68,19 @@
 
   legend {
     font-size: var(--font-size, 1rem);
+    margin: 0;
   }
 }
 
-.LayoutFiltersField {
+.TemplateFiltersForm {
   .layout-options {
-    // outline: 1px solid red;
     display: flex;
     justify-content: space-around;
-
-    .option {
-      display: flex;
-      align-items: center;
-      gap: 3px;
-    }
   }
+}
+
+.labeled-form-option {
+  display: flex;
+  align-items: center;
+  gap: 3px;
 }

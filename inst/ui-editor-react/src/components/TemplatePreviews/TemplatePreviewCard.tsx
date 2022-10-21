@@ -13,6 +13,10 @@ export type TemplateInfo = {
 
 export type LayoutType = "grid" | "navbarPage";
 
+export function getLayoutType(layoutTree: ShinyUiNode): LayoutType {
+  return layoutTree.uiName === "gridlayout::grid_page" ? "grid" : "navbarPage";
+}
+
 const layoutIcons: Record<LayoutType, string> = {
   grid: gridIcon,
   navbarPage: navbarIcon,
@@ -25,8 +29,7 @@ export function TemplatePreviewCard({
   info: TemplateInfo;
   onSelect: () => void;
 }) {
-  const layoutType: LayoutType =
-    templateTree.uiName === "gridlayout::grid_page" ? "grid" : "navbarPage";
+  const layoutType = getLayoutType(templateTree);
   const layoutIcon = layoutIcons[layoutType];
 
   return (

@@ -2,8 +2,9 @@ import Button from "components/Inputs/Button/Button";
 import { EditorSkeleton, PanelHeader } from "EditorSkeleton/EditorSkeleton";
 import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
 
+import { useFilteredTemplates } from "./filterTemplates";
+import { TemplateFiltersForm } from "./TemplateFiltersForm";
 import "./styles.scss";
-import type { LayoutType } from "./TemplatePreviewCard";
 import { TemplatePreviewGrid } from "./TemplatePreviewGrid";
 
 export function TemplateChooserView({
@@ -11,67 +12,37 @@ export function TemplateChooserView({
 }: {
   setTemplate: (tree: ShinyUiNode) => void;
 }) {
+  const { filterState, setFilterState, shownTemplates } =
+    useFilteredTemplates();
   return (
     <EditorSkeleton
-      main={<TemplatePreviewGrid setTemplate={setTemplate} />}
-      left={<Sidebar />}
+      main={
+        <TemplatePreviewGrid
+          templates={shownTemplates}
+          setTemplate={setTemplate}
+        />
+      }
+      left={
+        <>
+          <PanelHeader>Choose App Template</PanelHeader>
+          <div className="TemplateChooserSidebar">
+            <section className="instructions">
+              Hover over a template to see a description and what elements are
+              used. Select the desired template and click next to edit.
+            </section>
+
+            <TemplateFiltersForm
+              filterState={filterState}
+              setFilterState={setFilterState}
+            />
+
+            <OutputTypeField />
+
+            <Button>Next</Button>
+          </div>
+        </>
+      }
     />
-  );
-}
-
-function Sidebar() {
-  return (
-    <>
-      <PanelHeader>Choose App Template</PanelHeader>
-      <form
-        className="TemplateChooserSidebar"
-        onSubmit={(e) => {
-          e.preventDefault();
-        }}
-      >
-        <section className="instructions">
-          Hover over a template to see a description and what elements are used.
-          Select the desired template and click next to edit.
-        </section>
-
-        <LayoutFilters />
-
-        <OutputTypeField />
-
-        <Button>Next</Button>
-      </form>
-    </>
-  );
-}
-
-const layoutTypes: LayoutType[] = ["grid", "navbarPage"];
-
-const layoutLabels: Record<LayoutType, string> = {
-  grid: "Grid",
-  navbarPage: "Tabs",
-};
-function LayoutFilters() {
-  return (
-    <fieldset className="LayoutFiltersField">
-      <legend>Show templates based on selected layouts:</legend>
-      <div className="layout-options">
-        {layoutTypes.map((layoutType) => {
-          const displayName = layoutLabels[layoutType];
-          return (
-            <div className="option">
-              <input
-                type="checkbox"
-                id={`${layoutType}-choice`}
-                name={displayName}
-                value={layoutType}
-                checked
-              />
-              <label htmlFor={`${layoutType}-choice`}>{displayName}</label>
-            </div>
-          );
-        })}
-      </div>
-    </fieldset>
   );
 }
 
@@ -80,10 +51,10 @@ const outputTypes: OutputType[] = ["single-file", "multi-file"];
 const selectedOutput: OutputType = "single-file";
 function OutputTypeField() {
   return (
-    <fieldset className="OutputTypeField">
+    <form className="OutputTypeField">
       <legend>Generate app in:</legend>
       {outputTypes.map((outputType) => (
-        <div>
+        <div key={outputType}>
           <input
             type="radio"
             id={`${outputType}-choice`}
@@ -94,6 +65,6 @@ function OutputTypeField() {
           <label htmlFor={`${outputType}-choice`}>{outputType}</label>
         </div>
       ))}
-    </fieldset>
+    </form>
   );
 }
