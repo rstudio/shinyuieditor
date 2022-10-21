@@ -1,6 +1,5 @@
-import * as React from "react";
-
 import AppPreview from "components/AppPreview";
+import { TemplatePreviewGrid } from "components/TemplatePreviews/TemplatePreviewGrid";
 import UiNode from "components/UiNode/UiNode";
 import { CurrentDraggedNodeProvider } from "DragAndDropHelpers/useCurrentDraggedNode";
 import ElementsPalette from "ElementsPalette";
@@ -11,7 +10,7 @@ import { SettingsPanel } from "./SettingsPanel/SettingsPanel";
 import { useSyncUiWithBackend } from "./websocket_hooks/useSyncUiWithBackend";
 
 export function EditorContainer() {
-  const { status, tree } = useSyncUiWithBackend();
+  const { status, tree, setTree } = useSyncUiWithBackend();
 
   if (status === "loading") {
     return <h3>Loading initial state from server</h3>;
@@ -30,5 +29,12 @@ export function EditorContainer() {
     );
   }
 
-  return <div> Template chooser!</div>;
+  return (
+    <CurrentDraggedNodeProvider>
+      <EditorSkeleton
+        main={<TemplatePreviewGrid setTemplate={setTree} />}
+        left={<ElementsPalette />}
+      />
+    </CurrentDraggedNodeProvider>
+  );
 }

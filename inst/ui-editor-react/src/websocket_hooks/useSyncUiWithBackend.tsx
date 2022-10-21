@@ -104,5 +104,5 @@ export function useSyncUiWithBackend() {
     sendWsMessage(ws, { path: "STATE-UPDATE", payload: currentUiTree });
   }, [currentUiTree, status, ws]);
 
-  return { status: connectionStatus, tree };
+  return { status: connectionStatus, tree, setTree };
 }
