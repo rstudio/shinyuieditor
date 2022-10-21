@@ -1,7 +1,11 @@
 import * as React from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
+import { isShinyUiNode } from "Shiny-Ui-Elements/isShinyUiNode";
+import type {
+  ShinyUiNode,
+  ShinyUiRootNode,
+} from "Shiny-Ui-Elements/uiNodeTypes";
 import type { RootState } from "state/store";
 import { initialUiTree, INIT_STATE } from "state/uiTree";
 import { sendWsMessage } from "websocket_hooks/sendWsMessage";
@@ -26,7 +30,7 @@ export type OutgoingStateMsg =
 
 type IncomingStateMsg = {
   path: "INITIAL-DATA";
-  payload: ShinyUiNode;
+  payload: ShinyUiRootNode;
 };
 
 function isIncomingStateMsg(x: WebsocketMessage): x is IncomingStateMsg {
@@ -38,7 +42,7 @@ function useCurrentUiTree() {
   const tree = useSelector((state: RootState) => state.uiTree);
 
   const setTree = React.useCallback(
-    (newTree: ShinyUiNode) => {
+    (newTree: ShinyUiRootNode) => {
       dispatch(INIT_STATE({ initialState: newTree }));
     },
     [dispatch]
@@ -55,7 +59,7 @@ export function useSyncUiWithBackend() {
   const [connectionStatus, setConnectionStatus] =
     React.useState<BackendConnectionStatus>("loading");
 
-  const lastRecievedRef = React.useRef<ShinyUiNode | null>(null);
+  const lastRecievedRef = React.useRef<ShinyUiRootNode | null>(null);
   const currentUiTree = useSelector((state: RootState) => state.uiTree);
 
   React.useEffect(() => {
@@ -93,6 +97,9 @@ export function useSyncUiWithBackend() {
       return;
     }
     if (status !== "connected") return;
+
+    // No purpose in sending over info about the fact we're in the template chooser
+    if (!isShinyUiNode(currentUiTree)) return;
 
     sendWsMessage(ws, { path: "STATE-UPDATE", payload: currentUiTree });
   }, [currentUiTree, status, ws]);

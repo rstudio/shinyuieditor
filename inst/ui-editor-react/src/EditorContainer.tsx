@@ -4,6 +4,7 @@ import AppPreview from "components/AppPreview";
 import UiNode from "components/UiNode/UiNode";
 import { CurrentDraggedNodeProvider } from "DragAndDropHelpers/useCurrentDraggedNode";
 import ElementsPalette from "ElementsPalette";
+import { isShinyUiNode } from "Shiny-Ui-Elements/isShinyUiNode";
 
 import { EditorSkeleton } from "./EditorSkeleton/EditorSkeleton";
 import { SettingsPanel } from "./SettingsPanel/SettingsPanel";
@@ -16,14 +17,18 @@ export function EditorContainer() {
     return <h3>Loading initial state from server</h3>;
   }
 
-  return (
-    <CurrentDraggedNodeProvider>
-      <EditorSkeleton
-        main={<UiNode node={tree} path={[]} />}
-        left={<ElementsPalette />}
-        properties={<SettingsPanel tree={tree} />}
-        preview={<AppPreview />}
-      />
-    </CurrentDraggedNodeProvider>
-  );
+  if (isShinyUiNode(tree)) {
+    return (
+      <CurrentDraggedNodeProvider>
+        <EditorSkeleton
+          main={<UiNode node={tree} path={[]} />}
+          left={<ElementsPalette />}
+          properties={<SettingsPanel tree={tree} />}
+          preview={<AppPreview />}
+        />
+      </CurrentDraggedNodeProvider>
+    );
+  }
+
+  return <div> Template chooser!</div>;
 }

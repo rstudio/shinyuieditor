@@ -2,11 +2,11 @@ import React from "react";
 
 import StateHistory from "modules/StateHistory";
 import { useDispatch, useSelector } from "react-redux";
-import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
+import type { ShinyUiRootNode } from "Shiny-Ui-Elements/uiNodeTypes";
 import type { RootState } from "state/store";
 import { initialUiTree, SET_FULL_STATE } from "state/uiTree";
 
-type HistoryEntry = ShinyUiNode;
+type HistoryEntry = ShinyUiRootNode;
 
 export function useUndoRedo() {
   const tree = useSelector((state: RootState) => state.uiTree);
