@@ -2,6 +2,7 @@ import ReduxProvider from "state/ReduxProvider";
 
 import { app_templates } from "./app_templates";
 import { AppTemplatePreview } from "./AppTemplatePreview";
+import { TemplateChooserView } from "./TemplateChooserView";
 import { TemplatePreviewCard } from "./TemplatePreviewCard";
 import { TemplatePreviewGrid } from "./TemplatePreviewGrid";
 
@@ -35,6 +36,15 @@ export const CardGrid = () => {
   return (
     <ReduxProvider>
       <TemplatePreviewGrid
+        setTemplate={(tree) => console.log("Chose template", tree)}
+      />
+    </ReduxProvider>
+  );
+};
+export const FullView = () => {
+  return (
+    <ReduxProvider>
+      <TemplateChooserView
         setTemplate={(tree) => console.log("Chose template", tree)}
       />
     </ReduxProvider>

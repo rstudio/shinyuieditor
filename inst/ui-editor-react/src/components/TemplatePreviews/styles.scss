@@ -48,5 +48,39 @@
 
 .TemplatePreviewGrid {
   display: grid;
+  gap: 12px;
   grid-template-columns: repeat(auto-fit, 300px);
+}
+
+.TemplateChooserSidebar {
+  width: 218px;
+  padding-block: 18px;
+  padding-inline: 15px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+
+  button {
+    margin-top: auto;
+    width: 100%;
+  }
+
+  legend {
+    font-size: var(--font-size, 1rem);
+  }
+}
+
+.LayoutFiltersField {
+  .layout-options {
+    // outline: 1px solid red;
+    display: flex;
+    justify-content: space-around;
+
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+  }
 }

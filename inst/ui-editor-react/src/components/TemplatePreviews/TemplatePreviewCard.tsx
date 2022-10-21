@@ -11,7 +11,7 @@ export type TemplateInfo = {
   description: string;
 };
 
-type LayoutType = "grid" | "navbarPage";
+export type LayoutType = "grid" | "navbarPage";
 
 const layoutIcons: Record<LayoutType, string> = {
   grid: gridIcon,

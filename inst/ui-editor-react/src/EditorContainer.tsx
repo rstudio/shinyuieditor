@@ -1,5 +1,5 @@
 import AppPreview from "components/AppPreview";
-import { TemplatePreviewGrid } from "components/TemplatePreviews/TemplatePreviewGrid";
+import { TemplateChooserView } from "components/TemplatePreviews/TemplateChooserView";
 import UiNode from "components/UiNode/UiNode";
 import { CurrentDraggedNodeProvider } from "DragAndDropHelpers/useCurrentDraggedNode";
 import ElementsPalette from "ElementsPalette";
@@ -29,12 +29,5 @@ export function EditorContainer() {
     );
   }
 
-  return (
-    <CurrentDraggedNodeProvider>
-      <EditorSkeleton
-        main={<TemplatePreviewGrid setTemplate={setTree} />}
-        left={<ElementsPalette />}
-      />
-    </CurrentDraggedNodeProvider>
-  );
+  return <TemplateChooserView setTemplate={setTree} />;
 }
