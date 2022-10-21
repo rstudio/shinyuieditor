@@ -11,6 +11,13 @@ export function TemplatePreviewGrid({
   templates?: TemplateInfo[];
   setTemplate: (tree: ShinyUiNode) => void;
 }) {
+  if (templates.length === 0) {
+    return (
+      <div className="TemplatePreviewGrid empty-results">
+        No app templates fit current filters. Try broadening your search.
+      </div>
+    );
+  }
   return (
     <div className="TemplatePreviewGrid">
       {templates.map((template) => (

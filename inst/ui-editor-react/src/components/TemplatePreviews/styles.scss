@@ -52,6 +52,13 @@
   grid-template-columns: repeat(auto-fit, 300px);
 }
 
+.TemplatePreviewGrid.empty-results {
+  place-content: center;
+  color: var(--red);
+  grid-template-columns: unset;
+  font-size: 1.1rem;
+}
+
 .TemplateChooserSidebar {
   width: 218px;
   padding-block: 18px;
