@@ -1,3 +1,5 @@
+import React from "react";
+
 import gridIcon from "assets/icons/shinyGridContainer.png";
 import navbarIcon from "assets/icons/tabsetPanel.png";
 import { Tooltip } from "components/PopoverEl/Tooltip";
@@ -22,20 +24,36 @@ const layoutIcons: Record<LayoutType, string> = {
   navbarPage: navbarIcon,
 };
 
+const PADDING_PX = 5;
+
+const inlineVariableStyles = {
+  "--card-pad": `${PADDING_PX}px`,
+} as React.CSSProperties;
 export function TemplatePreviewCard({
   info: { title, templateTree },
   onSelect,
+  width_px,
 }: {
   info: TemplateInfo;
   onSelect: () => void;
+  width_px: number;
 }) {
   const layoutType = getLayoutType(templateTree);
   const layoutIcon = layoutIcons[layoutType];
 
+  const preview_view_w_px = width_px - 2 * PADDING_PX;
+
   return (
-    <article className="AppTemplateCard" onClick={onSelect}>
+    <article
+      className="AppTemplateCard"
+      onClick={onSelect}
+      style={inlineVariableStyles}
+    >
       <div className="preview-container">
-        <AppTemplatePreview templateTree={templateTree} width_px={225} />
+        <AppTemplatePreview
+          templateTree={templateTree}
+          width_px={preview_view_w_px}
+        />
       </div>
       <footer>
         <span>{title}</span>

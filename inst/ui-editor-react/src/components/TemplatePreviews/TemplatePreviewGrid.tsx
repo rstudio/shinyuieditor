@@ -4,6 +4,11 @@ import { app_templates } from "./app_templates";
 import type { TemplateInfo } from "./TemplatePreviewCard";
 import { TemplatePreviewCard } from "./TemplatePreviewCard";
 
+const PREVIEW_WIDTH_PX = 294;
+
+const inlineVariableStyles = {
+  "--card-w": `${PREVIEW_WIDTH_PX}px`,
+} as React.CSSProperties;
 export function TemplatePreviewGrid({
   setTemplate,
   templates = app_templates,
@@ -19,12 +24,13 @@ export function TemplatePreviewGrid({
     );
   }
   return (
-    <div className="TemplatePreviewGrid">
+    <div className="TemplatePreviewGrid" style={inlineVariableStyles}>
       {templates.map((template) => (
         <TemplatePreviewCard
           key={template.title}
           info={template}
           onSelect={() => setTemplate(template.templateTree)}
+          width_px={PREVIEW_WIDTH_PX}
         />
       ))}
     </div>

@@ -13,7 +13,7 @@
 .AppTemplateCard {
   --outline-color: #caced3;
   --footer-color: #e9edf3;
-  --padding: 5px;
+  --padding: var(--card-pad, 5px);
 
   cursor: pointer;
   outline: 1px solid var(--outline-color);
@@ -48,11 +48,12 @@
 
 .TemplatePreviewGrid {
   display: grid;
-  gap: 12px;
-  grid-template-columns: repeat(auto-fit, 300px);
+  gap: 53px 44px;
+  grid-template-columns: repeat(auto-fit, var(--card-w));
 }
 
 .TemplatePreviewGrid.empty-results {
+  height: 100%;
   place-content: center;
   color: var(--red);
   grid-template-columns: unset;
@@ -69,8 +70,11 @@
   gap: 32px;
 
   button {
+    --inset: 5px;
     margin-top: auto;
-    width: 100%;
+    width: calc(100% - 2 * var(--inset));
+    background-color: var(--rstudio-blue);
+    color: var(--rstudio-white);
   }
 
   legend {

@@ -27,6 +27,7 @@ export const CardView = () => {
       <TemplatePreviewCard
         info={app_templates[0]}
         onSelect={() => console.log("Selected template")}
+        width_px={300}
       />
     </ReduxProvider>
   );
