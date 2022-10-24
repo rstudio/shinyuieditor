@@ -25,6 +25,7 @@ export function TemplateChooserView({
   } = useFilteredTemplates(onChoose);
 
   const canProceed = selectedTemplate !== null;
+  const buttonMsg = canProceed ? "Next" : "Select a template";
 
   return (
     <EditorSkeleton
@@ -59,12 +60,12 @@ export function TemplateChooserView({
               onClick={finishSelection}
               aria-label={
                 canProceed
-                  ? "Choose selected template"
+                  ? "Start editor with selected template"
                   : "Need to select a template to proceed"
               }
               data-balloon-pos="right"
             >
-              Next
+              {buttonMsg}
             </Button>
           </div>
         </>
