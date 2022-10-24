@@ -179,8 +179,9 @@ make_url_hosted_friendly <- function(local_url) {
 
   has_rstudioapi <- rlang::is_installed("rstudioapi")
   # If we can, run the URL through rstudioapi's url translator, otherwise just
-  # return the plain un-proxied url
-  if (has_rstudioapi) {
+  # return the plain un-proxied url We also need to check to make sure that
+  # we're running inside of RStudio before using the rstudio api package
+  if (has_rstudioapi && !get_running_outside_rstudio()) {
     rstudioapi::translateLocalUrl(local_url, absolute = TRUE)
   } else {
     local_url
