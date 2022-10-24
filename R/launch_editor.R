@@ -193,6 +193,7 @@ launch_editor <- function(app_loc,
             },
             "TEMPLATE-SELECTION" = {
               writeLog("Received request to load an app template")
+              write_app_template(message$payload, app_loc)
             }
           )
         })
