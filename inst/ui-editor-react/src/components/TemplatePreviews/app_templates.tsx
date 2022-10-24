@@ -10,22 +10,22 @@ import type { TemplateInfo } from "./TemplatePreviewCard";
 export const app_templates: TemplateInfo[] = [
   {
     title: "Basic Grid App",
-    templateTree: basicGridPage,
+    uiTree: basicGridPage,
     description: "I am a basic grid app",
   },
   {
     title: "Basic Tabs App",
-    templateTree: minimalPage,
+    uiTree: minimalPage,
     description: "I am a basic navbarPage app",
   },
   {
     title: "Navbar App",
-    templateTree: basicNavbarPage,
+    uiTree: basicNavbarPage,
     description: "I am a basic navbarPage app",
   },
   {
     title: "Minimal App",
-    templateTree: testingUiTree,
+    uiTree: testingUiTree,
     description: "Almost nothing here",
   },
 ];

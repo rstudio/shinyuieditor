@@ -9,11 +9,11 @@ const FULL_WIDTH_PX = 1260;
 const FULL_HEIGHT_PX = 800;
 
 export function AppTemplatePreview({
-  templateTree,
+  uiTree,
   width_px,
 }: {
   width_px: number;
-  templateTree: ShinyUiNode;
+  uiTree: ShinyUiNode;
 }) {
   const height_px = FULL_HEIGHT_PX * (width_px / FULL_WIDTH_PX);
   const shrink_ratio = width_px / FULL_WIDTH_PX;
@@ -31,7 +31,7 @@ export function AppTemplatePreview({
       }
     >
       <div className="template-container">
-        <UiNode path={[]} node={templateTree} />
+        <UiNode path={[]} node={uiTree} />
       </div>
     </div>
   );

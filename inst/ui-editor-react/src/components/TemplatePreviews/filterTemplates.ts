@@ -11,13 +11,15 @@ export const allLayoutTypes: LayoutType[] = ["grid", "navbarPage"];
 export type TemplateFilterState = {
   layoutTypes: LayoutType[];
 };
-export type TemplateSelection = TemplateInfo & { outputType: OutputType };
+export type TemplateSelection = Omit<TemplateInfo, "title" | "description"> & {
+  outputType: OutputType;
+};
 
 export function filteredTemplates(
   filters: TemplateFilterState
 ): TemplateInfo[] {
-  return app_templates.filter(({ title, templateTree, description }) => {
-    const layoutType = getLayoutType(templateTree);
+  return app_templates.filter(({ uiTree }) => {
+    const layoutType = getLayoutType(uiTree);
     if (!filters.layoutTypes.includes(layoutType)) return false;
 
     return true;

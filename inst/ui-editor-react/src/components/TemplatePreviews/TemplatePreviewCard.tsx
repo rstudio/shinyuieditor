@@ -9,8 +9,8 @@ import { AppTemplatePreview } from "./AppTemplatePreview";
 
 export type TemplateInfo = {
   title: string;
-  templateTree: ShinyUiNode;
   description: string;
+  uiTree: ShinyUiNode;
 };
 
 export type LayoutType = "grid" | "navbarPage";
@@ -30,7 +30,7 @@ const inlineVariableStyles = {
 } as React.CSSProperties;
 
 export function TemplatePreviewCard({
-  info: { title, templateTree, description },
+  info: { title, uiTree, description },
   onSelect,
   width_px,
   selected,
@@ -40,7 +40,7 @@ export function TemplatePreviewCard({
   width_px: number;
   selected: boolean;
 }) {
-  const layoutType = getLayoutType(templateTree);
+  const layoutType = getLayoutType(uiTree);
   const layoutIcon = layoutIcons[layoutType];
 
   const preview_view_w_px = width_px - 2 * PADDING_PX;
@@ -59,10 +59,7 @@ export function TemplatePreviewCard({
           data-selected={selected}
         >
           <div className="preview-container">
-            <AppTemplatePreview
-              templateTree={templateTree}
-              width_px={preview_view_w_px}
-            />
+            <AppTemplatePreview uiTree={uiTree} width_px={preview_view_w_px} />
           </div>
           <footer>
             <span>{title}</span>

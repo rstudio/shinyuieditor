@@ -13,10 +13,7 @@ export default {
 export const SoloPreview = () => {
   return (
     <ReduxProvider>
-      <AppTemplatePreview
-        width_px={350}
-        templateTree={app_templates[0].templateTree}
-      />
+      <AppTemplatePreview width_px={350} uiTree={app_templates[0].uiTree} />
     </ReduxProvider>
   );
 };

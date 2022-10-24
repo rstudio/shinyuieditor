@@ -14,7 +14,7 @@ export function useRequestTemplate() {
     (template: TemplateSelection) => {
       if (!ws) {
         // Running without connection to websocket, setting template directly
-        setTree(template.templateTree);
+        setTree(template.uiTree);
         return;
       }
       // Sending a request for a template to backend
