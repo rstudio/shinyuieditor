@@ -1,3 +1,5 @@
+import React from "react";
+
 import AppPreview from "components/AppPreview";
 import { TemplateChooserView } from "components/TemplatePreviews/TemplateChooserView";
 import UiNode from "components/UiNode/UiNode";
@@ -14,7 +16,6 @@ import { SettingsPanel } from "../SettingsPanel/SettingsPanel";
 import { useSyncUiWithBackend } from "../websocket_hooks/useSyncUiWithBackend";
 
 import { AppHeader } from "./AppHeader";
-
 import "./styles.scss";
 
 const sizes_inline_styles = {
@@ -22,7 +23,7 @@ const sizes_inline_styles = {
 } as React.CSSProperties;
 
 export function EditorContainer() {
-  const { status, tree, setTree } = useSyncUiWithBackend();
+  const { status, tree } = useSyncUiWithBackend();
 
   if (status === "loading") {
     return <h3>Loading initial state from server</h3>;
@@ -41,11 +42,7 @@ export function EditorContainer() {
           />
         </CurrentDraggedNodeProvider>
       ) : (
-        <TemplateChooserView
-          onChoose={(template) => {
-            setTree(template.templateTree);
-          }}
-        />
+        <TemplateChooserView />
       )}
       <LostConnectionPopup />
     </div>

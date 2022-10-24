@@ -1,18 +1,13 @@
 import Button from "components/Inputs/Button/Button";
 import { EditorSkeleton, PanelHeader } from "EditorSkeleton/EditorSkeleton";
 
-import type { TemplateSelection } from "./filterTemplates";
 import { useFilteredTemplates } from "./filterTemplates";
 import { OutputTypeForm } from "./OutputTypeForm";
 import "./styles.scss";
 import { TemplateFiltersForm } from "./TemplateFiltersForm";
 import { TemplatePreviewGrid } from "./TemplatePreviewGrid";
 
-export function TemplateChooserView({
-  onChoose,
-}: {
-  onChoose: (selection: TemplateSelection) => void;
-}) {
+export function TemplateChooserView() {
   const {
     filterState,
     setFilterState,
@@ -22,7 +17,7 @@ export function TemplateChooserView({
     finishSelection,
     selectedOutput,
     setSelectedOutput,
-  } = useFilteredTemplates(onChoose);
+  } = useFilteredTemplates();
 
   const canProceed = selectedTemplate !== null;
   const buttonMsg = canProceed ? "Next" : "Select a template";

@@ -1,19 +1,22 @@
 import * as React from "react";
 
-import { useDispatch, useSelector } from "react-redux";
+import type { TemplateSelection } from "components/TemplatePreviews/filterTemplates";
+import { useSelector } from "react-redux";
 import { isShinyUiNode } from "Shiny-Ui-Elements/isShinyUiNode";
 import type {
   ShinyUiNode,
   ShinyUiRootNode,
 } from "Shiny-Ui-Elements/uiNodeTypes";
 import type { RootState } from "state/store";
-import { initialUiTree, INIT_STATE } from "state/uiTree";
+import { initialUiTree } from "state/uiTree";
 import { sendWsMessage } from "websocket_hooks/sendWsMessage";
 import type { WebsocketMessage } from "websocket_hooks/useConnectToWebsocket";
 import {
   listenForWsMessages,
   useWebsocketBackend,
 } from "websocket_hooks/useConnectToWebsocket";
+
+import { useSetTree } from "../state/useSetTree";
 
 import { getClientsideOnlyTree } from "./getClientsideOnlyTree";
 
@@ -26,6 +29,10 @@ export type OutgoingStateMsg =
   | {
       path: "STATE-UPDATE";
       payload: ShinyUiNode;
+    }
+  | {
+      path: "TEMPLATE-SELECTION";
+      payload: TemplateSelection;
     };
 
 type IncomingStateMsg = {
@@ -37,22 +44,9 @@ function isIncomingStateMsg(x: WebsocketMessage): x is IncomingStateMsg {
   return ["INITIAL-DATA"].includes(x.path);
 }
 
-function useCurrentUiTree() {
-  const dispatch = useDispatch();
-  const tree = useSelector((state: RootState) => state.uiTree);
-
-  const setTree = React.useCallback(
-    (newTree: ShinyUiRootNode) => {
-      dispatch(INIT_STATE({ initialState: newTree }));
-    },
-    [dispatch]
-  );
-
-  return { tree, setTree };
-}
-
 export function useSyncUiWithBackend() {
-  const { tree, setTree } = useCurrentUiTree();
+  const tree = useSelector((state: RootState) => state.uiTree);
+  const setTree = useSetTree();
 
   const { status, ws } = useWebsocketBackend();
 

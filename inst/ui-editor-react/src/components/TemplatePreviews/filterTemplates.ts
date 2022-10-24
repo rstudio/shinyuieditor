@@ -4,6 +4,7 @@ import { app_templates } from "./app_templates";
 import type { OutputType } from "./OutputTypeForm";
 import type { LayoutType, TemplateInfo } from "./TemplatePreviewCard";
 import { getLayoutType } from "./TemplatePreviewCard";
+import { useRequestTemplate } from "./useRequestTemplate";
 
 export const allLayoutTypes: LayoutType[] = ["grid", "navbarPage"];
 
@@ -23,9 +24,9 @@ export function filteredTemplates(
   });
 }
 
-export function useFilteredTemplates(
-  onChoose: (selection: TemplateSelection) => void
-) {
+export function useFilteredTemplates() {
+  const requestTemplate = useRequestTemplate();
+
   const [filterState, setFilterState] = React.useState<TemplateFilterState>({
     layoutTypes: allLayoutTypes,
   });
@@ -64,8 +65,7 @@ export function useFilteredTemplates(
     );
 
     if (!chosenTemplate) return;
-
-    onChoose({ ...chosenTemplate, outputType: selectedOutput });
+    requestTemplate({ ...chosenTemplate, outputType: selectedOutput });
   };
 
   return {

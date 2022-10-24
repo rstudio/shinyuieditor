@@ -146,6 +146,7 @@ launch_editor <- function(app_loc,
 
 
 
+
           switch(message$path,
             "APP-PREVIEW-CONNECTED" = {
               app_preview$set_listeners(
@@ -189,6 +190,9 @@ launch_editor <- function(app_loc,
             "STATE-UPDATE" = {
               ui_def$update_ui_file(message$payload, remove_namespace)
               writeLog("<= Saved new ui state from client")
+            },
+            "TEMPLATE-SELECTION" = {
+              writeLog("Received request to load an app template")
             }
           )
         })

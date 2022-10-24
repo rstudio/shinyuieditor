@@ -47,9 +47,7 @@ export const CardGrid = () => {
 export const FullView = () => {
   return (
     <ReduxProvider>
-      <TemplateChooserView
-        onChoose={(template) => console.log("Chose template", template)}
-      />
+      <TemplateChooserView />
     </ReduxProvider>
   );
 };
