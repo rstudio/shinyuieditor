@@ -23,7 +23,7 @@ export function PlotPlaceholder({
           {bar_values.map((val, i) => (
             <div
               className="bar"
-              key={val}
+              key={`${i}-${val}`}
               style={{ "--value": val } as React.CSSProperties}
             ></div>
           ))}
