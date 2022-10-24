@@ -45,7 +45,7 @@ export const PopoverEl = ({
       placement,
       modifiers: [
         { name: "arrow", options: { element: arrowElement } },
-        { name: "offset", options: { offset: [0, 5] } },
+        { name: "offset", options: { offset: [0, 10] } },
       ],
       strategy: "fixed",
     }
