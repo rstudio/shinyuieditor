@@ -53,6 +53,7 @@ export function TemplatePreviewCard({
       triggerEl={
         <article
           className="AppTemplateCard"
+          aria-label="App template preview card"
           onClick={onSelect}
           style={inlineVariableStyles}
           data-selected={selected}

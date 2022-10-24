@@ -22,7 +22,7 @@ export function TemplateFiltersForm({
         e.preventDefault();
       }}
     >
-      <fieldset>
+      <fieldset aria-label="App layout type filters">
         <legend>Show templates based on selected layouts:</legend>
         <div className="layout-options">
           {allLayoutTypes.map((layout) => {
