@@ -1,28 +1,29 @@
 .EditorSkeleton {
   --header-height: 31px;
   --padding: var(--horizontal-spacing);
-  height: 100%;
   width: 100%;
-  background-color: var(--background-grey, #edf2f7);
 
   // Define positions and z-indices of all the components
   // ====================================================
   display: grid;
   grid-template-columns: auto 1fr auto;
-  grid-template-rows: var(--header-height) 1fr auto;
+  grid-template-rows: 1fr auto;
   grid-template-areas:
-    "header   header header    "
     "elements editor properties"
     "elements editor preview";
-
-  header {
-    grid-area: header;
-    z-index: 1;
-  }
 
   .app-view {
     grid-area: editor;
     z-index: 2;
+
+    background-color: var(--rstudio-white);
+    padding-top: 32px;
+    padding-left: 32px;
+    padding-right: 32px;
+    padding-bottom: 32px;
+    height: 100%;
+    width: 100%;
+    position: relative;
   }
 
   .elements-panel {
@@ -41,17 +42,6 @@
   }
 
   // ====================================================
-
-  .app-view {
-    background-color: var(--rstudio-white);
-    padding-top: 32px;
-    padding-left: 32px;
-    padding-right: 32px;
-    padding-bottom: 32px;
-    height: 100%;
-    width: 100%;
-    position: relative;
-  }
 
   /* Width of right-side is provided by inline styles so value can be stored in
   JS and used to calculate the shrinking for the preview window automatically */
@@ -92,58 +82,6 @@
       font-size: 1.05rem;
       font-weight: lighter;
       color: var(--rstudio-white);
-    }
-  }
-
-  header {
-    gap: var(--padding);
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-
-    button {
-      padding: 0;
-    }
-    .right {
-      margin-left: auto;
-      width: var(--properties-panel-width);
-      display: inherit;
-      align-items: center;
-      gap: 14px;
-
-      // Move the tour button over a tiny bit so it lines up better with edge of
-      // properties pane
-      > :first-child {
-        margin-left: -6px;
-      }
-
-      .react-joyride {
-        display: none;
-      }
-
-      .undo-redo-buttons {
-        transform: translate(-1px, -1px);
-      }
-    }
-
-    .shiny-logo {
-      display: inline-block;
-      height: 100%;
-      border-radius: 0 15px 15px 0;
-      padding-block: 3px;
-      padding-inline: 5px;
-      background-color: var(--rstudio-blue);
-    }
-
-    .app-title {
-      font-size: 1.15rem;
-      color: var(--rstudio-blue);
-    }
-
-    .divider {
-      height: 20px;
-      background-color: var(--divider-color);
-      width: 2px;
     }
   }
 }
