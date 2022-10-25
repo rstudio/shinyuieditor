@@ -46,3 +46,30 @@ create_library_calls <- function(libraries) {
     FUN.VALUE = character(1L)
   )
 }
+
+# Convert a app file type from abstract name to R specific file name
+file_type_to_name <- list(
+  "app" = "app2.r",
+  "ui" = "ui.r",
+  "server" = "server.r"
+)
+
+
+#' Write app script to a file
+#'
+#' @param app_lines Character vector containing the code for the given script.
+#'   Will be concatinated with new lines
+#' @param app_loc Location of folder where script will be written to
+#' @param file_type Type of file being written. Can either be "app" for writing
+#'   an "app.R", or "ui"/"server" for writing the two scripts of a multi-file
+#'   app.
+#'
+#' @return NULL
+#' @keywords internal
+write_app_file <- function(app_lines, app_loc, file_type) {
+
+  writeLines(
+    text = app_lines,
+    con = fs::path(app_loc, file_type_to_name[file_type])
+  )
+}

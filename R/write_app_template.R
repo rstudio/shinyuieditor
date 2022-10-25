@@ -5,6 +5,41 @@
 #' or multi-file app in provided location.
 #'
 #'
+#' @inheritParams deparse_ui_fn
+#' @inheritParams launch_editor
+#' @inheritParams generate_app_template_files
+#'
+#' @return NULL
+#'
+#' @keywords internal
+#'
+write_app_template <- function(app_template, app_loc, remove_namespace = TRUE) {
+
+  app_files <- generate_app_template_files(
+    app_template = app_template,
+    remove_namespace = remove_namespace
+  )
+
+  if (!is.null(app_files$app_file)) {
+    print("Generating a single-file app")
+    print(app_files$app_file)
+    # Check to make sure that app.r file doesn't already exist
+    write_app_file(
+      app_lines = app_files$app_file,
+      app_loc = app_loc,
+      file_type = "app"
+    )
+
+  }
+
+
+}
+
+#' Generate code for app files from a template
+#'
+#' @param app_template Template object. See details for format.
+#' @param remove_namespace
+#'
 #' @details Template object
 #' The app template has the following information attached to it
 #'  uiTree: ui AST node;
@@ -25,16 +60,13 @@
 #'     serverFunctionBody?: string;
 #'   };
 #'
-#'
-#' @inheritParams deparse_ui_fn
-#' @param app_template Template object. See details for format.
-#' @param loc Location to place app template
-#'
-#' @return NULL
+#' @return A list with either a single "app_file" field on it when a single-file
+#'   app has been requested, or both a "ui_file" and "server_file" on it for
+#'   both scripts of a multi-file app
 #'
 #' @keywords internal
 #'
-write_app_template <- function(app_template, loc, remove_namespace = TRUE) {
+generate_app_template_files <- function(app_template, remove_namespace = TRUE) {
 
   uiTree <- app_template$uiTree
   outputType <- app_template$outputType
@@ -52,7 +84,9 @@ write_app_template <- function(app_template, loc, remove_namespace = TRUE) {
   server_def <- paste0(
     "function(input, output) {",
     serverFunctionBody,
-    "}", sep="\n")
+    "}", sep = "\n")
+
+  output_files <- list()
 
   # Single-file mode will build with
   if (outputType == "single-file") {
@@ -67,21 +101,21 @@ write_app_template <- function(app_template, loc, remove_namespace = TRUE) {
 
     server_def_text <- paste0("server <- ", server_def)
 
-    app_dot_r <- paste(
+    app_file <- paste(
       library_calls,
       uiExtra,
       ui_def_text,
       serverExtra,
       server_def_text,
-      sep="\n"
+      sep = "\n"
     )
 
-
-    cat("Created the following app template!\n")
-    print(styler::style_text(app_dot_r, scope = "tokens"))
-
-    return()
+    output_files$app_file <- styler::style_text(app_file, scope = "tokens")
   }
 
-  stop("Haven't implemented support for multi-file app generation yet")
+  if (outputType == "multi-file") {
+    stop("Haven't implemented support for multi-file app generation yet")
+  }
+
+  output_files
 }
