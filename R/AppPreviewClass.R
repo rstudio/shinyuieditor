@@ -66,9 +66,13 @@ AppPreview <- R6::R6Class(
       # iframe for viewing
       self$url <- get_app_url(host = host, port = port)
 
-      # private$start_app()
     },
     start_app = function() {
+
+      if (private$is_running) {
+        # App is already running. No need to start up again
+        return()
+      }
       private$logger("=> Starting Shiny preview app...")
       private$p <- callr::r_bg(
         func = function(app_loc, host, port) {

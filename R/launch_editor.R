@@ -84,7 +84,6 @@ launch_editor <- function(app_loc,
     logger = writeLog
   )
 
-  
   # Empty function so variable can always be called even if the timeout hasn't
   # been initialized
   app_close_watcher <- WatchForAppClose$new(
@@ -101,11 +100,14 @@ launch_editor <- function(app_loc,
   # update the client-state as changes are made to script directly
   # ui_def <- UiFileDefinition$new(app_loc)
 
+  file_change_watcher <- FileChangeWatcher$new()
+
   # Cleanup on closing of the server...
   on.exit({
     # Stop all the event listeners
     # app_preview$stop_app()
-    # ui_def$cleanup()
+
+    file_change_watcher$cleanup()
     app_close_watcher$cleanup()
   })
 
@@ -120,7 +122,13 @@ launch_editor <- function(app_loc,
     app = list(
       onWSOpen = function(ws) {
 
-       
+
+        startup_app_preview <- function() {
+          if (app_preview) {
+            writeLog("Starting app preview")
+            app_preview_obj$start_app()
+          }
+        }  
 
         parse_app_and_send_to_client <- function() {
           ui_tree <- get_app_ui_tree(app_loc)
@@ -130,28 +138,17 @@ launch_editor <- function(app_loc,
             build_ws_message("INITIAL-DATA", ui_tree)
           )
 
-          if (app_preview) {
-            writeLog("Starting app preview")
-            app_preview_obj$start_app()
-          }
+          file_change_watcher$update_last_edit_time()
         }
+
+        file_change_watcher$set_on_update_fn(parse_app_and_send_to_client)
 
         request_template_chooser <- function() {
           writeLog("Requesting template chooser!")
+          ws$send(
+            build_ws_message("INITIAL-DATA", "TEMPLATE_CHOOSER")
+          )
         }
-
-
-
-        # # Start listening for the file on disk changing to update the client
-        # # with a new tree when it happens
-        # ui_def$on_file_change(send_ui_state_to_client)
-
-        # send_ui_state_to_client <- function() {
-        #   writeLog("=> Parsing app blob and sending to client")
-        #   ws$send(
-        #     build_ws_message("INITIAL-DATA", ui_def$get_ui_tree())
-        #   )
-        # }
 
         # Cancel any app close timeouts that may have been caused by the
         # user refreshing the page
@@ -210,21 +207,25 @@ launch_editor <- function(app_loc,
               if (app_type == "missing") {
                 request_template_chooser()
               } else {
+                writeLog("Sending existing app to client")
                 parse_app_and_send_to_client()
+                file_change_watcher$start_watching(get_path_to_ui(app_loc))
+                startup_app_preview()
               }
             },
             "STATE-UPDATE" = {
-              # browser()
               update_app_ui(
                 app_loc = app_loc,
                 new_ui_tree = message$payload,
                 remove_namespace = remove_namespace
               )
+              file_change_watcher$update_last_edit_time()
               writeLog("<= Saved new ui state from client")
             },
             "TEMPLATE-SELECTION" = {
               writeLog("Received request to load an app template")
               write_app_template(message$payload, app_loc)
+              startup_app_preview()
             }
           )
         })

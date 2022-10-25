@@ -84,6 +84,61 @@ UiFileDefinition <- R6::R6Class(
 )
 
 
+FileChangeWatcher <- R6::R6Class(
+  "UiFileDefinition",
+  public = list(
+    file_path = NULL,
+    last_edited = NULL,
+    file_change_watcher = NULL,
+    on_update_fn = NULL,
+
+    initialize = function() {
+    },
+
+    set_on_update_fn = function(on_update) {
+      self$on_update_fn <- on_update
+    },
+
+    start_watching = function(path_to_watch) {
+      self$file_path <- path_to_watch
+      self$update_last_edit_time()
+
+      self$file_change_watcher <- create_output_subscribers(
+        source_fn = self$get_last_edit_time,
+        filter_fn = function(last_edited_new) {
+          time_delta <- as.numeric(self$last_edited - last_edited_new)
+          time_delta != 0
+        },
+        delay = 0.25
+      )
+
+      self$file_change_watcher$subscribe(
+        function(last_edited_new) {
+          self$on_update_fn()
+        }
+      )
+    },
+
+    get_last_edit_time = function() {
+      fs::file_info(self$file_path)$modification_time
+    },
+
+    update_last_edit_time = function() {
+      self$last_edited <- self$get_last_edit_time()
+    },
+
+    cleanup = function() {
+      self$file_change_watcher$cancel_all()
+    }
+  )
+)
+
+
+get_path_to_ui <- function(app_loc) {
+  file_info <- get_app_ui_file(app_loc)
+  file_info$path
+}
+
 get_app_ui_tree <- function(app_loc) {
   file_info <- get_app_ui_file(app_loc)
   file_path <- file_info$path
