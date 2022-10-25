@@ -4,7 +4,7 @@
 # problem
 check_for_url_issues <- function() {
 
-  running_outside_rstudio <- identical(Sys.getenv("RSTUDIO"), "")
+  running_outside_rstudio <- get_running_outside_rstudio()
 
   # If we're not in RStudio we don't need to (/can't) do anything
   if (running_outside_rstudio) {
@@ -40,4 +40,8 @@ check_for_url_issues <- function() {
     "need to install the rstudioapi package.\n",
     "Run install.packages(\"rstudioapi\") to install it."
   )
+}
+
+get_running_outside_rstudio <- function() {
+  identical(Sys.getenv("RSTUDIO"), "")
 }
