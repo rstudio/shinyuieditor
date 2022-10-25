@@ -13,8 +13,9 @@ export const app_templates: TemplateInfo[] = [
     uiTree: basicGridPage,
     description: "I am a basic grid app",
     otherCode: {
+      serverLibraries: ["shiny", "gt"],
       serverFunctionBody: `
-      print("Hi from the server of basic grid app")
+print("Hi from the server of basic grid app")
       `,
     },
   },
@@ -24,7 +25,7 @@ export const app_templates: TemplateInfo[] = [
     description: "I am a basic navbarPage app",
     otherCode: {
       serverFunctionBody: `
-      print("Hi from the server of Basic Tabs App")
+print("Hi from the server of Basic Tabs App")
       `,
     },
   },
@@ -34,7 +35,7 @@ export const app_templates: TemplateInfo[] = [
     description: "I am a basic navbarPage app",
     otherCode: {
       serverFunctionBody: `
-      print("Hi from the server of Navbar App")
+print("Hi from the server of Navbar App")
       `,
     },
   },
@@ -44,7 +45,7 @@ export const app_templates: TemplateInfo[] = [
     description: "Almost nothing here",
     otherCode: {
       serverFunctionBody: `
-      print("Hi from the server of Minimal App")
+print("Hi from the server of Minimal App")
       `,
     },
   },

@@ -26,9 +26,15 @@ export type TemplateInfo = {
   uiTree: ShinyUiNode;
   otherCode: {
     /**
-     * Extra code that will be coppied unchanged above the ui definition
+     * Extra code that will be copied unchanged above the ui definition
      */
     uiExtra?: string;
+
+    /**
+     * List of libraries that need to be loaded in server code
+     */
+    serverLibraries?: string[];
+
     /**
      * Extra code that will be copied unchanged above server funtion definition
      */
