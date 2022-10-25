@@ -36,3 +36,13 @@ ask_question <- function(..., answers) {
   cat(cat(paste0(..., collapse = "")))
   answers[utils::menu(answers)]
 }
+
+
+# Generate a series of lines loading an array of libraries
+create_library_calls <- function(libraries) {
+  vapply(
+    X = libraries,
+    FUN = function(l) paste0("library(", l, ")"),
+    FUN.VALUE = character(1L)
+  )
+}
