@@ -6,8 +6,12 @@ import {
 } from "state/backupUiTree";
 
 import type { TemplateInfo } from "./TemplatePreviewCard";
+import { gridGeyserTemplate } from "./templates/gridGeyser";
+import { navbarGeyser } from "./templates/navbarGeyser";
 
 export const app_templates: TemplateInfo[] = [
+  gridGeyserTemplate,
+  navbarGeyser,
   {
     title: "Basic Grid App",
     uiTree: basicGridPage,
