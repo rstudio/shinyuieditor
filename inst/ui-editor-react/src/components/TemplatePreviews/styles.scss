@@ -18,6 +18,7 @@
 
   cursor: pointer;
   outline: var(--outline-thickness) solid var(--outline-color);
+  width: --moz-fit-content;
   width: fit-content;
   border-radius: var(--corner-radius);
 
@@ -56,6 +57,7 @@
   display: grid;
   gap: 53px 44px;
   grid-template-columns: repeat(auto-fit, var(--card-w));
+  justify-content: center;
 }
 
 .TemplatePreviewGrid.empty-results {
