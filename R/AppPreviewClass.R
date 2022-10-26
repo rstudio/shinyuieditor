@@ -12,6 +12,7 @@ AppPreview <- R6::R6Class(
     on_log_poll = NULL,
     app_loc = NULL,
     print_logs = NULL,
+    previous_logs = NULL,
     logger = NULL,
     on_crash_poll = NULL,
     start_listeners = function() {
@@ -94,6 +95,12 @@ AppPreview <- R6::R6Class(
           length(lines) > 0
         },
         callback = function(log_lines) {
+
+          if (identical(private$previous_logs, log_lines)) {
+            # Ommiting logs as they have not changed. Needed when errors occur
+            # as they just look like an endless stream of the same error
+            return()
+          }
           if (private$print_logs) {
             log_background_app(log_lines)
           }
@@ -101,6 +108,8 @@ AppPreview <- R6::R6Class(
           if (!is.null(private$on_logs)) {
             private$on_logs(log_lines)
           }
+
+          private$previous_logs <- log_lines
         }
       )
 
@@ -125,7 +134,7 @@ AppPreview <- R6::R6Class(
       if (!private$is_running) return()
 
       private$logger("Stopping app preview process\n")
-      
+
       private$stop_listeners()
 
       tryCatch(
