@@ -49,7 +49,7 @@ create_library_calls <- function(libraries) {
 
 # Convert a app file type from abstract name to R specific file name
 file_type_to_name <- list(
-  "app" = "app2.r",
+  "app" = "app.r",
   "ui" = "ui.r",
   "server" = "server.r"
 )
@@ -68,8 +68,11 @@ file_type_to_name <- list(
 #' @keywords internal
 write_app_file <- function(app_lines, app_loc, file_type) {
 
+  # Ensure the path to the app is valid
+  app_file_path <- fs::file_create(fs::dir_create(app_loc), file_type_to_name[file_type])
+
   writeLines(
     text = app_lines,
-    con = fs::path(app_loc, file_type_to_name[file_type])
+    con = app_file_path
   )
 }
