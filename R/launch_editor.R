@@ -107,6 +107,22 @@ launch_editor <- function(app_loc,
 
   # Full path to the ui of the app. Null if we're still in template chooser mode
   path_to_ui <- NULL
+  # Are we in a single file or multi file app setup?
+  app_type <- NULL
+   
+  # Function to validate an app and set info state variables
+  validate_existing_app <- function() {
+    # Check and make sure that the app location provided actually
+    # has a valid app
+    app_status <- check_and_validate_app(app_loc)
+    if (!app_status$is_valid) {
+      stop("Stopping UI Editor. Reason:", app_status$message)
+    }
+
+    file_info <- get_app_ui_file(app_loc)
+    path_to_ui <<- file_info$path
+    app_type <<- file_info$type
+  }
 
   # Main server startup - Runs in main process
   httpuv::runServer(
@@ -184,20 +200,18 @@ launch_editor <- function(app_loc,
                 request_template_chooser()
               } else {
                 writeLog("Sending existing app to client")
-                path_to_ui <<- get_path_to_ui(app_loc)
+                
                 # Check and make sure that the app location provided actually
                 # has a valid app
-                app_status <- check_and_validate_app(app_loc)
-                if (!app_status$is_valid) {
-                  stop("Stopping UI Editor. Reason:", app_status$message)
-                }
+                validate_existing_app()
                 parse_app_and_send_to_client()
                 startup_app_preview()
               }
             },
             "STATE-UPDATE" = {
               update_app_ui(
-                app_loc = app_loc,
+                file_path = path_to_ui,
+                app_type = app_type,
                 new_ui_tree = message$payload,
                 remove_namespace = remove_namespace
               )
@@ -207,8 +221,9 @@ launch_editor <- function(app_loc,
             "TEMPLATE-SELECTION" = {
               writeLog("Received request to load an app template")
               write_app_template(message$payload, app_loc)
-              startup_app_preview()
+              validate_existing_app()
               parse_app_and_send_to_client()
+              startup_app_preview()
             }
           )
         })
