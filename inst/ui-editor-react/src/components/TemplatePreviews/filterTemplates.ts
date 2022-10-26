@@ -1,8 +1,10 @@
 import React from "react";
 
-import { app_templates } from "./app_templates";
+import type { TemplateInfo } from "assets/app-templates/app_templates";
+import { app_templates } from "assets/app-templates/app_templates";
+
 import type { OutputType } from "./OutputTypeForm";
-import type { LayoutType, TemplateInfo } from "./TemplatePreviewCard";
+import type { LayoutType } from "./TemplatePreviewCard";
 import { getLayoutType } from "./TemplatePreviewCard";
 import { useRequestTemplate } from "./useRequestTemplate";
 

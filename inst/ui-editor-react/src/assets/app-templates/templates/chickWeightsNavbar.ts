@@ -1,6 +1,6 @@
 import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
 
-import type { TemplateInfo } from "../TemplatePreviewCard";
+import type { TemplateInfo } from "../app_templates";
 
 const navbarTree = {
   uiName: "shiny::navbarPage",
@@ -69,9 +69,10 @@ const navbarTree = {
   ],
 };
 
-export const navbarGeyser: TemplateInfo = {
-  title: "Navbar Geyser",
-  description: "The classic geyser app in a navbar page",
+export const chickWeightsNavbar: TemplateInfo = {
+  title: "Chick Weights navbar",
+  description:
+    "Plots investigating the ChickWeights built-in dataset in a `navbarPage()` view",
   uiTree: navbarTree as ShinyUiNode,
   otherCode: {
     serverFunctionBody: ` 

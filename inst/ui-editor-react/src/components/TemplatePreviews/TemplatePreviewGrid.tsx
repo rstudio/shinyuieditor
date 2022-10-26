@@ -1,5 +1,6 @@
-import { app_templates } from "./app_templates";
-import type { TemplateInfo } from "./TemplatePreviewCard";
+import type { TemplateInfo } from "assets/app-templates/app_templates";
+import { app_templates } from "assets/app-templates/app_templates";
+
 import { TemplatePreviewCard } from "./TemplatePreviewCard";
 
 const PREVIEW_WIDTH_PX = 294;

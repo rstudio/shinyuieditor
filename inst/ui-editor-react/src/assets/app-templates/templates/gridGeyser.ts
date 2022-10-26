@@ -1,6 +1,6 @@
 import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
 
-import type { TemplateInfo } from "../TemplatePreviewCard";
+import type { TemplateInfo } from "../app_templates";
 
 const appTree = {
   uiName: "gridlayout::grid_page",
