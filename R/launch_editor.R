@@ -161,7 +161,6 @@ launch_editor <- function(app_loc,
         }
 
         request_template_chooser <- function() {
-          writeLog("Requesting template chooser!")
           ws_message(ws, "INITIAL-DATA", "TEMPLATE_CHOOSER")
           server_mode <<- "template-chooser"
         }
@@ -209,9 +208,7 @@ launch_editor <- function(app_loc,
             "READY-FOR-STATE" = {
               if (get_app_type(app_loc) == "missing") {
                 request_template_chooser()
-              } else {
-                writeLog("Sending existing app to client")
-                
+              } else {                
                 # Check and make sure that the app location provided actually
                 # has a valid app
                 validate_existing_app()
@@ -230,11 +227,10 @@ launch_editor <- function(app_loc,
               writeLog("<= Saved new ui state from client")
             },
              "TEMPLATE-SELECTOR-REQUEST" = {
-              writeLog("User has navigated back into the template selector mode")
               server_mode <<- "template-chooser"
              },
             "TEMPLATE-SELECTION" = {
-              writeLog("Received request to load an app template")
+              writeLog("<= Loading app template")
               write_app_template(message$payload, app_loc)
               validate_existing_app()
               parse_app_and_send_to_client()
