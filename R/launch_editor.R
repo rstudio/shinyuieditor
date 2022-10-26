@@ -1,5 +1,5 @@
 #' Launch shinyuieditor server
-#' 
+#'
 #' Spins up an instance of the `shinyuieditor` server for building new and
 #' editing existing Shiny UIs. The console will be blocked while running the
 #' editor.
@@ -34,7 +34,7 @@
 #'
 #' @export
 #'
-#' 
+#'
 #' @examples
 #' if (FALSE) {
 #'   # Start editor on a non-existing app directory to choose a starter template
@@ -61,7 +61,7 @@ launch_editor <- function(app_loc,
                           show_preview_app_logs = TRUE,
                           launch_browser = interactive(),
                           stop_on_browser_close = TRUE) {
-  writeLog <- function(...) { 
+  writeLog <- function(...) {
     if (show_logs) {
       cat(..., "\n", file = stderr())
     }
@@ -116,6 +116,12 @@ launch_editor <- function(app_loc,
   # open the browser to it for them
   announce_location_of_editor(port, launch_browser)
 
+  # Full path to the ui of the app. Null if we're still in template chooser mode
+  path_to_ui <- NULL
+
+
+
+
   # Main server startup - Runs in main process
   httpuv::runServer(
     host = host, port = port,
@@ -128,7 +134,7 @@ launch_editor <- function(app_loc,
             writeLog("Starting app preview")
             app_preview_obj$start_app()
           }
-        }  
+        }
 
         parse_app_and_send_to_client <- function() {
           ui_tree <- get_app_ui_tree(app_loc)
@@ -138,10 +144,11 @@ launch_editor <- function(app_loc,
             build_ws_message("INITIAL-DATA", ui_tree)
           )
 
-          file_change_watcher$update_last_edit_time()
+          file_change_watcher$start_watching(
+            path_to_watch = path_to_ui, 
+            on_update = parse_app_and_send_to_client
+          )
         }
-
-        file_change_watcher$set_on_update_fn(parse_app_and_send_to_client)
 
         request_template_chooser <- function() {
           writeLog("Requesting template chooser!")
@@ -203,13 +210,12 @@ launch_editor <- function(app_loc,
             },
             "READY-FOR-STATE" = {
               app_type <- get_app_type(app_loc)
-              
               if (app_type == "missing") {
                 request_template_chooser()
               } else {
                 writeLog("Sending existing app to client")
+                path_to_ui <<- get_path_to_ui(app_loc)
                 parse_app_and_send_to_client()
-                file_change_watcher$start_watching(get_path_to_ui(app_loc))
                 startup_app_preview()
               }
             },
@@ -226,6 +232,7 @@ launch_editor <- function(app_loc,
               writeLog("Received request to load an app template")
               write_app_template(message$payload, app_loc)
               startup_app_preview()
+              parse_app_and_send_to_client()
             }
           )
         })

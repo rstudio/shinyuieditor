@@ -95,13 +95,13 @@ FileChangeWatcher <- R6::R6Class(
     initialize = function() {
     },
 
-    set_on_update_fn = function(on_update) {
-      self$on_update_fn <- on_update
-    },
 
-    start_watching = function(path_to_watch) {
+    start_watching = function(path_to_watch, on_update) {
       self$file_path <- path_to_watch
       self$update_last_edit_time()
+
+      # Make sure we cleanup any old watchers if they exist
+      self$cleanup()
 
       self$file_change_watcher <- create_output_subscribers(
         source_fn = self$get_last_edit_time,
@@ -114,12 +114,15 @@ FileChangeWatcher <- R6::R6Class(
 
       self$file_change_watcher$subscribe(
         function(last_edited_new) {
-          self$on_update_fn()
+          on_update()
         }
       )
     },
 
     get_last_edit_time = function() {
+
+      if (is.null(self$file_path)) return(NULL)
+
       fs::file_info(self$file_path)$modification_time
     },
 
@@ -128,7 +131,9 @@ FileChangeWatcher <- R6::R6Class(
     },
 
     cleanup = function() {
-      self$file_change_watcher$cancel_all()
+      if (!is.null(self$file_change_watcher)) {
+        self$file_change_watcher$cancel_all()
+      }
     }
   )
 )

@@ -21,18 +21,12 @@ write_app_template <- function(app_template, app_loc, remove_namespace = TRUE) {
   )
 
   if (!is.null(app_files$app_file)) {
-    print("Generating a single-file app")
-    print(app_files$app_file)
-    # Check to make sure that app.r file doesn't already exist
     write_app_file(
       app_lines = app_files$app_file,
       app_loc = app_loc,
       file_type = "app"
     )
-
   }
-
-
 }
 
 #' Generate code for app files from a template
@@ -107,6 +101,7 @@ generate_app_template_files <- function(app_template, remove_namespace = TRUE) {
       ui_def_text,
       serverExtra,
       server_def_text,
+      "shinyApp(ui, server)",
       sep = "\n"
     )
 
