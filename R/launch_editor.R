@@ -95,7 +95,7 @@ launch_editor <- function(app_loc,
   # Cleanup on closing of the server...
   on.exit({
     # Stop all the event listeners
-    app_preview$stop_app()
+    app_preview_obj$stop_app()
     file_change_watcher$cleanup()
     app_close_watcher$cleanup()
   })
