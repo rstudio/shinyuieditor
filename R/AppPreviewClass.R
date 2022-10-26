@@ -120,8 +120,12 @@ AppPreview <- R6::R6Class(
       private$start_listeners()
     },
     stop_app = function() {
-      private$logger("Stopping app preview process\n")
 
+      # If the app was never started, then we don't need to stop it 
+      if (!private$is_running) return()
+
+      private$logger("Stopping app preview process\n")
+      
       private$stop_listeners()
 
       tryCatch(

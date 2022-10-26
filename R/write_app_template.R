@@ -29,6 +29,28 @@ write_app_template <- function(app_template, app_loc, remove_namespace = TRUE) {
   }
 }
 
+remove_app_template <- function(app_loc, app_type) {
+
+  # If the app type is "none" this means we never added anything so there's
+  # nothing to remove 
+  if (identical(app_type, "none")) return()
+
+  if (identical(app_type, "single-file")) {
+    remove_app_file(app_loc = app_loc, file_type = "app")
+  }
+  if (identical(app_type,  "multi-file")) {
+    remove_app_file(app_loc = app_loc, file_type = "ui")
+    remove_app_file(app_loc = app_loc, file_type = "server")
+  }
+
+  app_loc_now_empty <- identical(length(fs::dir_ls(app_loc)), 0L)
+  app_loc_is_cwd <- identical(app_loc, ".") || identical(getwd(), app_loc)
+
+  if (app_loc_now_empty && !app_loc_is_cwd) {
+    fs::dir_delete(app_loc)
+  }
+}
+
 #' Generate code for app files from a template
 #'
 #' @param app_template Template object. See details for format.

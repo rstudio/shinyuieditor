@@ -31,6 +31,9 @@ export type OutgoingStateMsg =
       payload: ShinyUiNode;
     }
   | {
+      path: "TEMPLATE-SELECTOR-REQUEST";
+    }
+  | {
       path: "TEMPLATE-SELECTION";
       payload: TemplateSelection;
     };
@@ -92,10 +95,14 @@ export function useSyncUiWithBackend() {
     }
     if (status !== "connected") return;
 
-    // No purpose in sending over info about the fact we're in the template chooser
-    if (!isShinyUiNode(currentUiTree)) return;
-
-    sendWsMessage(ws, { path: "STATE-UPDATE", payload: currentUiTree });
+    if (currentUiTree === "TEMPLATE_CHOOSER") {
+      // The user has gone backward to the template selector, so let the backend
+      // know it should clear the existing app
+      sendWsMessage(ws, { path: "TEMPLATE-SELECTOR-REQUEST" });
+    }
+    if (isShinyUiNode(currentUiTree)) {
+      sendWsMessage(ws, { path: "STATE-UPDATE", payload: currentUiTree });
+    }
   }, [currentUiTree, status, ws]);
 
   return { status: connectionStatus, tree, setTree };

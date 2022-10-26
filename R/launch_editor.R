@@ -40,7 +40,6 @@
 #'   # Start editor on a non-existing app directory to choose a starter template
 #'   launch_editor(app_loc = "empty_directory/")
 #'
-#'
 #'   # You can control where the app runs just like a normal Shiny app.
 #'   # This can be useful if you want to access it from a headless server
 #'   launch_editor(
@@ -78,27 +77,9 @@ launch_editor <- function(app_loc,
     logger = writeLog
   )
 
-  # Empty function so variable can always be called even if the timeout hasn't
-  # been initialized
-  app_close_watcher <- WatchForAppClose(
-    on_close = if (stop_on_browser_close) {
-      function() {
-        writeLog("Editor window closed, stopping server")
-        rlang::interrupt()
-      }
-    }
-  )
 
   # Setup object that will watch for changes to the app script
   file_change_watcher <- FileChangeWatcher()
-
-  # Cleanup on closing of the server...
-  on.exit({
-    # Stop all the event listeners
-    app_preview_obj$stop_app()
-    file_change_watcher$cleanup()
-    app_close_watcher$cleanup()
-  })
 
 
   # Let the user know that the ui editor is ready for them to use and optionally
@@ -107,8 +88,13 @@ launch_editor <- function(app_loc,
 
   # Full path to the ui of the app. Null if we're still in template chooser mode
   path_to_ui <- NULL
-  # Are we in a single file or multi file app setup?
-  app_type <- NULL
+  # Are we in a single file or multi file app setup? Options are "none" |
+  # "single-file" | "multi-file"
+  app_type <- "none"
+
+  # Basic mode of server. Can either be "initializing" | "template-chooser" |
+  # "editing-app" 
+  server_mode <- "initializing"
    
   # Function to validate an app and set info state variables
   validate_existing_app <- function() {
@@ -124,6 +110,30 @@ launch_editor <- function(app_loc,
     app_type <<- file_info$type
   }
 
+ 
+  # Cleanup on closing of the server...
+  on.exit({
+    # Stop all the event listeners
+    app_preview_obj$stop_app()
+    file_change_watcher$cleanup()
+    app_close_watcher$cleanup() 
+
+    if (server_mode == "template-chooser") {
+      remove_app_template(app_loc = app_loc, app_type = app_type)
+    }
+  })
+
+
+  # Empty function so variable can always be called even if the timeout hasn't
+  # been initialized
+  app_close_watcher <- WatchForAppClose(
+    on_close = if (stop_on_browser_close) {
+      function() {
+        writeLog("Editor window closed, stopping server")
+        rlang::interrupt()
+      }
+    }
+  )
   # Main server startup - Runs in main process
   httpuv::runServer(
     host = host, port = port,
@@ -147,11 +157,13 @@ launch_editor <- function(app_loc,
             path_to_watch = path_to_ui, 
             on_update = parse_app_and_send_to_client
           )
+          server_mode <<- "editing-app"
         }
 
         request_template_chooser <- function() {
           writeLog("Requesting template chooser!")
           ws_message(ws, "INITIAL-DATA", "TEMPLATE_CHOOSER")
+          server_mode <<- "template-chooser"
         }
 
         # Cancel any app close timeouts that may have been caused by the
@@ -195,8 +207,7 @@ launch_editor <- function(app_loc,
               app_preview_obj$stop_app()
             },
             "READY-FOR-STATE" = {
-              app_type <- get_app_type(app_loc)
-              if (app_type == "missing") {
+              if (get_app_type(app_loc) == "missing") {
                 request_template_chooser()
               } else {
                 writeLog("Sending existing app to client")
@@ -218,6 +229,10 @@ launch_editor <- function(app_loc,
               file_change_watcher$update_last_edit_time()
               writeLog("<= Saved new ui state from client")
             },
+             "TEMPLATE-SELECTOR-REQUEST" = {
+              writeLog("User has navigated back into the template selector mode")
+              server_mode <<- "template-chooser"
+             },
             "TEMPLATE-SELECTION" = {
               writeLog("Received request to load an app template")
               write_app_template(message$payload, app_loc)

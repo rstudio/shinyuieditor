@@ -76,3 +76,9 @@ write_app_file <- function(app_lines, app_loc, file_type) {
     con = app_file_path
   )
 }
+
+
+remove_app_file <- function(app_loc, file_type) {
+  app_file_path <- fs::path(app_loc, file_type_to_name[file_type])
+  fs::file_delete(app_file_path)
+}
