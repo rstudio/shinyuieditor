@@ -67,12 +67,6 @@ launch_editor <- function(app_loc,
     }
   }
 
-  # Check and make sure that the app location provided actually has an app
-  # app_status <- check_and_validate_app(app_loc)
-  # if (!app_status$is_valid) {
-  #   stop("Stopping UI Editor. Reason:", app_status$message)
-  # }
-
   # Make sure environment will allow features to work properly
   check_for_url_issues()
 
@@ -95,18 +89,13 @@ launch_editor <- function(app_loc,
     }
   )
 
-  # Basic info about the file used to declare the UI we're editing along with
-  # poll to detect when the ui-providing script has changed which is used to
-  # update the client-state as changes are made to script directly
-  # ui_def <- UiFileDefinition$new(app_loc)
-
+  # Setup object that will watch for changes to the app script
   file_change_watcher <- FileChangeWatcher$new()
 
   # Cleanup on closing of the server...
   on.exit({
     # Stop all the event listeners
-    # app_preview$stop_app()
-
+    app_preview$stop_app()
     file_change_watcher$cleanup()
     app_close_watcher$cleanup()
   })
@@ -119,15 +108,11 @@ launch_editor <- function(app_loc,
   # Full path to the ui of the app. Null if we're still in template chooser mode
   path_to_ui <- NULL
 
-
-
-
   # Main server startup - Runs in main process
   httpuv::runServer(
     host = host, port = port,
     app = list(
       onWSOpen = function(ws) {
-
 
         startup_app_preview <- function() {
           if (app_preview) {
@@ -140,9 +125,7 @@ launch_editor <- function(app_loc,
           ui_tree <- get_app_ui_tree(app_loc)
           writeLog("=> Parsing app blob and sending to client")
 
-          ws$send(
-            build_ws_message("INITIAL-DATA", ui_tree)
-          )
+          ws_message(ws, "INITIAL-DATA", ui_tree)
 
           file_change_watcher$start_watching(
             path_to_watch = path_to_ui, 
@@ -152,9 +135,7 @@ launch_editor <- function(app_loc,
 
         request_template_chooser <- function() {
           writeLog("Requesting template chooser!")
-          ws$send(
-            build_ws_message("INITIAL-DATA", "TEMPLATE_CHOOSER")
-          )
+          ws_message(ws, "INITIAL-DATA", "TEMPLATE_CHOOSER")
         }
 
         # Cancel any app close timeouts that may have been caused by the
@@ -177,28 +158,17 @@ launch_editor <- function(app_loc,
                 on_ready = function() {
                   # Once the background preview app is up and running, we can
                   # send over the URL to the react app
-                  ws$send(
-                    build_ws_message(
-                      "SHINY_READY",
-                      payload = app_preview_obj$url
-                    )
+                  ws_message(
+                    ws,
+                    "SHINY_READY",
+                    payload = app_preview_obj$url
                   )
                 },
                 on_crash = function() {
-                  ws$send(
-                    build_ws_message(
-                      "SHINY_CRASH",
-                      payload = "uh-oh"
-                    )
-                  )
+                  ws_message(ws, "SHINY_CRASH", payload = "uh-oh")
                 },
                 on_logs = function(log_lines) {
-                  ws$send(
-                    build_ws_message(
-                      "SHINY_LOGS",
-                      payload = log_lines
-                    )
-                  )
+                  ws_message(ws, "SHINY_LOGS", payload = log_lines)
                 }
               )
             },
@@ -215,6 +185,12 @@ launch_editor <- function(app_loc,
               } else {
                 writeLog("Sending existing app to client")
                 path_to_ui <<- get_path_to_ui(app_loc)
+                # Check and make sure that the app location provided actually
+                # has a valid app
+                app_status <- check_and_validate_app(app_loc)
+                if (!app_status$is_valid) {
+                  stop("Stopping UI Editor. Reason:", app_status$message)
+                }
                 parse_app_and_send_to_client()
                 startup_app_preview()
               }
@@ -252,15 +228,6 @@ launch_editor <- function(app_loc,
     )
   )
 }
-
-
-build_ws_message <- function(path, payload) {
-  jsonlite::toJSON(list(
-    path = path,
-    payload = payload
-  ), auto_unbox = TRUE)
-}
-
 
 
 announce_location_of_editor <- function(port, launch_browser) {
