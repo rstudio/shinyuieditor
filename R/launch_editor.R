@@ -80,7 +80,7 @@ launch_editor <- function(app_loc,
 
   # Empty function so variable can always be called even if the timeout hasn't
   # been initialized
-  app_close_watcher <- WatchForAppClose$new(
+  app_close_watcher <- WatchForAppClose(
     on_close = if (stop_on_browser_close) {
       function() {
         writeLog("Editor window closed, stopping server")
