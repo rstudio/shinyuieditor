@@ -90,7 +90,7 @@ launch_editor <- function(app_loc,
   )
 
   # Setup object that will watch for changes to the app script
-  file_change_watcher <- FileChangeWatcher$new()
+  file_change_watcher <- FileChangeWatcher()
 
   # Cleanup on closing of the server...
   on.exit({

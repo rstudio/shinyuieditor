@@ -84,61 +84,6 @@ UiFileDefinition <- R6::R6Class(
 )
 
 
-FileChangeWatcher <- R6::R6Class(
-  "UiFileDefinition",
-  public = list(
-    file_path = NULL,
-    last_edited = NULL,
-    file_change_watcher = NULL,
-    on_update_fn = NULL,
-
-    initialize = function() {
-    },
-
-
-    start_watching = function(path_to_watch, on_update) {
-      self$file_path <- path_to_watch
-      self$update_last_edit_time()
-
-      # Make sure we cleanup any old watchers if they exist
-      self$cleanup()
-
-      self$file_change_watcher <- create_output_subscribers(
-        source_fn = self$get_last_edit_time,
-        filter_fn = function(last_edited_new) {
-          time_delta <- as.numeric(self$last_edited - last_edited_new)
-          time_delta != 0
-        },
-        delay = 0.25
-      )
-
-      self$file_change_watcher$subscribe(
-        function(last_edited_new) {
-          on_update()
-        }
-      )
-    },
-
-    get_last_edit_time = function() {
-
-      if (is.null(self$file_path)) return(NULL)
-
-      fs::file_info(self$file_path)$modification_time
-    },
-
-    update_last_edit_time = function() {
-      self$last_edited <- self$get_last_edit_time()
-    },
-
-    cleanup = function() {
-      if (!is.null(self$file_change_watcher)) {
-        self$file_change_watcher$cancel_all()
-      }
-    }
-  )
-)
-
-
 get_path_to_ui <- function(app_loc) {
   file_info <- get_app_ui_file(app_loc)
   file_info$path
