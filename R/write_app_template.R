@@ -27,6 +27,22 @@ write_app_template <- function(app_template, app_loc, remove_namespace = TRUE) {
       file_type = "app"
     )
   }
+
+  if (!is.null(app_files$ui_file)) {
+    write_app_file(
+      app_lines = app_files$ui_file,
+      app_loc = app_loc,
+      file_type = "ui"
+    )
+  }
+  
+  if (!is.null(app_files$server_file)) {
+    write_app_file(
+      app_lines = app_files$server_file,
+      app_loc = app_loc,
+      file_type = "server"
+    )
+  }
 }
 
 remove_app_template <- function(app_loc, app_type) {
@@ -97,6 +113,8 @@ generate_app_template_files <- function(app_template, remove_namespace = TRUE) {
 
   ui_dfn_code <- ui_tree_to_code(uiTree, remove_namespace)
 
+  ui_libraries <- if (remove_namespace) ui_dfn_code$namespaces_removed else NULL
+
   server_def <- paste0(
     "function(input, output) {",
     serverFunctionBody,
@@ -107,11 +125,9 @@ generate_app_template_files <- function(app_template, remove_namespace = TRUE) {
   # Single-file mode will build with
   if (outputType == "single-file") {
 
-    uiLibraries <- if (remove_namespace) ui_dfn_code$namespaces_removed else NULL
+    all_libraries <- unique(c(ui_libraries, serverLibraries))
 
-    allLibraries <- unique(c(uiLibraries, serverLibraries))
-
-    library_calls <- paste(create_library_calls(allLibraries), collapse = "\n")
+    library_calls <- collapsed_library_calls(all_libraries)
 
     ui_def_text <- paste0("ui <- ", paste(ui_dfn_code$text, collapse = "\n"))
 
@@ -127,12 +143,38 @@ generate_app_template_files <- function(app_template, remove_namespace = TRUE) {
       sep = "\n"
     )
 
-    output_files$app_file <- styler::style_text(app_file, scope = "tokens")
+    output_files$app_file <- format_code(app_file)
   }
 
   if (outputType == "multi-file") {
-    stop("Haven't implemented support for multi-file app generation yet")
+
+    ui_def_text <- paste(ui_dfn_code$text, collapse = "\n")
+    
+    output_files$ui_file <- format_code(
+      paste(
+        collapsed_library_calls(ui_libraries),
+        uiExtra,
+        ui_def_text,
+        sep = "\n"
+      )
+    )
+
+    output_files$server_file <- format_code(
+      paste(
+        collapsed_library_calls(serverLibraries),
+        serverExtra,
+        server_def
+      )
+    )
   }
 
   output_files
+}
+
+
+format_code <- function(txt) {
+  styler::style_text(txt, scope = "tokens")
+}
+collapsed_library_calls <- function(libraries) {
+  paste(create_library_calls(libraries), collapse = "\n")
 }
