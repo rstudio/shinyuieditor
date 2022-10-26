@@ -82,3 +82,30 @@ remove_app_file <- function(app_loc, file_type) {
   app_file_path <- fs::path(app_loc, file_type_to_name[file_type])
   fs::file_delete(app_file_path)
 }
+
+has_app_file <- function(app_loc, file) {
+  fs::file_exists(fs::path(app_loc, file))
+}
+
+get_app_type <- function(app_loc) {
+  if (has_app_file(app_loc, "app.R")) {
+    return("single-file")
+  }
+
+  if (has_app_file(app_loc, "ui.R") || has_app_file(app_loc, "server.R")) {
+    return("multi-file")
+  }
+
+  return("missing")
+}
+
+
+# Send a message over a the websocket to the client
+ws_message <- function(ws, path, payload) {
+  ws$send(
+    jsonlite::toJSON(
+      list(path = path, payload = payload), 
+      auto_unbox = TRUE
+    )
+  )
+}

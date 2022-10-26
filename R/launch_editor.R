@@ -96,15 +96,8 @@ launch_editor <- function(app_loc,
   # "editing-app" 
   server_mode <- "initializing"
    
-  # Function to validate an app and set info state variables
-  validate_existing_app <- function() {
-    # Check and make sure that the app location provided actually
-    # has a valid app
-    app_status <- check_and_validate_app(app_loc)
-    if (!app_status$is_valid) {
-      stop("Stopping UI Editor. Reason:", app_status$message)
-    }
-
+  # Set the state variables given the app location
+  gather_app_info <- function() {
     file_info <- get_app_ui_file(app_loc)
     path_to_ui <<- file_info$path
     app_type <<- file_info$type
@@ -211,7 +204,7 @@ launch_editor <- function(app_loc,
               } else {                
                 # Check and make sure that the app location provided actually
                 # has a valid app
-                validate_existing_app()
+                gather_app_info()
                 parse_app_and_send_to_client()
                 startup_app_preview()
               }
@@ -232,7 +225,7 @@ launch_editor <- function(app_loc,
             "TEMPLATE-SELECTION" = {
               writeLog("<= Loading app template")
               write_app_template(message$payload, app_loc)
-              validate_existing_app()
+              gather_app_info()
               parse_app_and_send_to_client()
               startup_app_preview()
             }
