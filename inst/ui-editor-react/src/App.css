@@ -134,6 +134,11 @@ code {
   font-size: unset;
 }
 
+/* Make dialog elements blur background */
+dialog::backdrop {
+  backdrop-filter: blur(2px);
+}
+
 [data-is-selected-node="true"] {
   position: relative;
 }
