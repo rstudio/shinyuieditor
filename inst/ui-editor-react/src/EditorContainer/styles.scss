@@ -62,4 +62,28 @@
   .EditorSkeleton {
     height: calc(100% - var(--header-height));
   }
+
+  .message-mode {
+    background-color: white;
+    border-radius: var(--corner-radius);
+    border: var(--outline);
+    width: min(95%, 600px);
+    padding: 25px;
+    margin-inline: auto;
+
+    > h2 {
+      font-size: 24px;
+      margin-block-end: 18px;
+    }
+
+    > p {
+      margin: 0;
+      padding: 0;
+    }
+
+    .error-msg {
+      color: var(--red);
+      font-family: var(--mono-fonts);
+    }
+  }
 }

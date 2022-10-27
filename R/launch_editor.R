@@ -143,8 +143,13 @@ launch_editor <- function(app_loc,
 
       file_info <<- get_app_ui_file(app_loc)
       ui_tree <- get_app_ui_tree(app_loc)
-      if (!has_valid_root_node(ui_tree)) {
-        stop("Invalid app ui. App needs to start with ")
+      if (!ui_tree$uiName %in% valid_root_nodes) {
+        err_msg <- paste(
+          "Invalid app ui. App needs to start with one of", 
+          paste(valid_root_nodes, collapse = ", ")
+        )
+        send_msg("PARSING-ERROR", payload = err_msg)
+        stop(err_msg)
       }
       update_ui_tree_on_client(ui_tree)
 
@@ -288,11 +293,6 @@ launch_editor <- function(app_loc,
 }
 
 
-has_valid_root_node <- function(ui_tree) {
-  print("!!!!!!! Checking root node")
-  print(ui_tree$uiName)
-  ui_tree$uiName %in% valid_root_nodes
-}
 
 
 announce_location_of_editor <- function(port, launch_browser) {

@@ -16,6 +16,7 @@ import { SettingsPanel } from "../SettingsPanel/SettingsPanel";
 import { useSyncUiWithBackend } from "../websocket_hooks/useSyncUiWithBackend";
 
 import { AppHeader } from "./AppHeader";
+import { DialogPopover } from "./DialogPopover";
 import "./styles.scss";
 
 const sizes_inline_styles = {
@@ -23,27 +24,42 @@ const sizes_inline_styles = {
 } as React.CSSProperties;
 
 export function EditorContainer() {
-  const { status, tree } = useSyncUiWithBackend();
+  const { status, tree, errorMsg } = useSyncUiWithBackend();
 
-  if (status === "loading") {
-    return <h3>Loading initial state from server</h3>;
+  let pageBody: React.ReactNode;
+
+  if (errorMsg) {
+    pageBody = (
+      <DialogPopover className="message-mode">
+        <h2>Error from server</h2>
+        <p className="error-msg">{errorMsg}</p>
+      </DialogPopover>
+    );
+  } else if (status === "loading") {
+    pageBody = (
+      <DialogPopover className="message-mode">
+        <h2>Loading initial state from server</h2>
+      </DialogPopover>
+    );
+  } else if (isShinyUiNode(tree)) {
+    pageBody = (
+      <CurrentDraggedNodeProvider>
+        <EditorSkeleton
+          main={<UiNode node={tree} path={[]} />}
+          left={<ElementsPalette />}
+          properties={<SettingsPanel tree={tree} />}
+          preview={<AppPreview />}
+        />
+      </CurrentDraggedNodeProvider>
+    );
+  } else {
+    pageBody = <TemplateChooserView />;
   }
 
   return (
     <div className="EditorContainer" style={sizes_inline_styles}>
       <AppHeader />
-      {isShinyUiNode(tree) ? (
-        <CurrentDraggedNodeProvider>
-          <EditorSkeleton
-            main={<UiNode node={tree} path={[]} />}
-            left={<ElementsPalette />}
-            properties={<SettingsPanel tree={tree} />}
-            preview={<AppPreview />}
-          />
-        </CurrentDraggedNodeProvider>
-      ) : (
-        <TemplateChooserView />
-      )}
+      {pageBody}
       <LostConnectionPopup />
     </div>
   );

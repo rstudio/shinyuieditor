@@ -43,8 +43,15 @@ type IncomingStateMsg = {
   payload: ShinyUiRootNode;
 };
 
-function isIncomingStateMsg(x: WebsocketMessage): x is IncomingStateMsg {
-  return ["INITIAL-DATA"].includes(x.path);
+type IncomingErrorMsg = {
+  path: "PARSING-ERROR";
+  payload: string;
+};
+
+type IncomingMsg = IncomingStateMsg | IncomingErrorMsg;
+
+function isIncomingStateMsg(x: WebsocketMessage): x is IncomingMsg {
+  return ["INITIAL-DATA", "PARSING-ERROR"].includes(x.path);
 }
 
 export function useSyncUiWithBackend() {
@@ -52,6 +59,8 @@ export function useSyncUiWithBackend() {
   const setTree = useSetTree();
 
   const { status, ws } = useWebsocketBackend();
+
+  const [errorMsg, setErrorMsg] = React.useState<null | string>(null);
 
   const [connectionStatus, setConnectionStatus] =
     React.useState<BackendConnectionStatus>("loading");
@@ -64,9 +73,14 @@ export function useSyncUiWithBackend() {
       listenForWsMessages(ws, (msg: WebsocketMessage) => {
         if (!isIncomingStateMsg(msg)) return;
 
-        lastRecievedRef.current = msg.payload;
-        setTree(msg.payload);
-        setConnectionStatus("connected");
+        if (msg.path === "INITIAL-DATA") {
+          lastRecievedRef.current = msg.payload;
+          setTree(msg.payload);
+          setConnectionStatus("connected");
+        }
+        if (msg.path === "PARSING-ERROR") {
+          setErrorMsg(msg.payload);
+        }
       });
 
       // Let the backend know the react app is ready for state to be provided
@@ -105,5 +119,5 @@ export function useSyncUiWithBackend() {
     }
   }, [currentUiTree, status, ws]);
 
-  return { status: connectionStatus, tree, setTree };
+  return { status: connectionStatus, tree, setTree, errorMsg };
 }
