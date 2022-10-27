@@ -12,12 +12,14 @@ get_app_ui_tree <- function(app_loc) {
   app_info$ui_tree
 }
 
-update_app_ui <- function(file_path, app_type, new_ui_tree, remove_namespace) {
+update_app_ui <- function(file_info, new_ui_tree, remove_namespace) {
 
+  file_path <- file_info$path
+  
   updated_script <- update_ui_definition(
     file_info = get_file_ui_definition_info(
       file_lines = readLines(file_path),
-      type = app_type
+      type = file_info$type
     ),
     new_ui_tree = new_ui_tree,
     remove_namespace = remove_namespace

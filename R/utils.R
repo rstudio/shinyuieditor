@@ -100,12 +100,19 @@ get_app_type <- function(app_loc) {
 }
 
 
-# Send a message over a the websocket to the client
-ws_message <- function(ws, path, payload) {
-  ws$send(
-    jsonlite::toJSON(
-      list(path = path, payload = payload), 
-      auto_unbox = TRUE
-    )
+# Format outgoing message into JSON to be read by client
+format_outgoing_msg <- function(path, payload) {
+  jsonlite::toJSON(
+    list(path = path, payload = payload), 
+    auto_unbox = TRUE
+  )
+}
+
+# Parse the raw incoming messages into a list. Message should have path and
+# payload attributes attached
+parse_incoming_msg <- function(raw_msg) {
+  jsonlite::fromJSON(
+    rawToChar(raw_msg),
+    simplifyVector = FALSE
   )
 }
