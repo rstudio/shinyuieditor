@@ -126,25 +126,36 @@ launch_editor <- function(app_loc,
   # ----------------------------------------------------------------------------
   setup_msg_handlers <- function(send_msg) {
     
-    # Parse the app's ui script and sends it to the client
-    send_ui_tree_to_client <- function() {
-      writeLog("=> Parsing app blob and sending to client")
-      send_msg("INITIAL-DATA", get_app_ui_tree(app_loc))
-    }
 
     request_template_chooser <- function() {
       send_msg("INITIAL-DATA", "TEMPLATE_CHOOSER")
       server_mode <<- "template-chooser"
     }
 
+
+    update_ui_tree_on_client <- function(ui_tree) {
+      # writeLog("=> Parsing app blob and sending to client")
+      send_msg("INITIAL-DATA", ui_tree)
+    }
+
     load_new_app <- function() {
+      writeLog("=> Loading app ui and sending to ui editor")
+
       file_info <<- get_app_ui_file(app_loc)
-      send_ui_tree_to_client()
+      ui_tree <- get_app_ui_tree(app_loc)
+      if (!has_valid_root_node(ui_tree)) {
+        stop("Invalid app ui. App needs to start with ")
+      }
+      update_ui_tree_on_client(ui_tree)
+
       startup_app_preview()
 
       file_change_watcher$start_watching(
         path_to_watch = file_info$path, 
-        on_update = send_ui_tree_to_client
+        on_update = function() {
+          writeLog("=> Sending user updated ui to editor")
+          update_ui_tree_on_client(get_app_ui_tree(app_loc))
+        }
       )
 
       server_mode <<- "editing-app"
@@ -274,6 +285,13 @@ launch_editor <- function(app_loc,
       )
     )
   )
+}
+
+
+has_valid_root_node <- function(ui_tree) {
+  print("!!!!!!! Checking root node")
+  print(ui_tree$uiName)
+  ui_tree$uiName %in% valid_root_nodes
 }
 
 
