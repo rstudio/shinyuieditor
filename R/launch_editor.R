@@ -60,7 +60,6 @@ launch_editor <- function(app_loc,
                           show_preview_app_logs = TRUE,
                           launch_browser = interactive(),
                           stop_on_browser_close = TRUE) {
-  
   writeLog <- function(...) {
     if (show_logs) {
       cat(..., "\n", file = stderr())
@@ -79,7 +78,7 @@ launch_editor <- function(app_loc,
   # single-file or ui.r for multi-file) and the type of the app (i.e
   # "single-file" or "multi-file")
   file_info <- NULL
-  
+
   # Basic mode of server. Can either be "initializing" | "template-chooser" |
   # "editing-app". This is used to know what to do on close
   server_mode <- "initializing"
@@ -111,7 +110,7 @@ launch_editor <- function(app_loc,
     print_logs = show_preview_app_logs,
     logger = writeLog
   )
-  
+
   startup_app_preview <- function() {
     if (app_preview) {
       writeLog("Starting app preview")
@@ -125,16 +124,12 @@ launch_editor <- function(app_loc,
   # with a send_msg callback
   # ----------------------------------------------------------------------------
   setup_msg_handlers <- function(send_msg) {
-    
-
     request_template_chooser <- function() {
       send_msg("INITIAL-DATA", "TEMPLATE_CHOOSER")
       server_mode <<- "template-chooser"
     }
 
-
     update_ui_tree_on_client <- function(ui_tree) {
-      # writeLog("=> Parsing app blob and sending to client")
       send_msg("INITIAL-DATA", ui_tree)
     }
 
@@ -145,7 +140,7 @@ launch_editor <- function(app_loc,
       ui_tree <- get_app_ui_tree(app_loc)
       if (!ui_tree$uiName %in% valid_root_nodes) {
         err_msg <- paste(
-          "Invalid app ui. App needs to start with one of", 
+          "Invalid app ui. App needs to start with one of",
           paste(valid_root_nodes, collapse = ", ")
         )
         send_msg("PARSING-ERROR", payload = err_msg)
@@ -156,7 +151,7 @@ launch_editor <- function(app_loc,
       startup_app_preview()
 
       file_change_watcher$start_watching(
-        path_to_watch = file_info$path, 
+        path_to_watch = file_info$path,
         on_update = function() {
           writeLog("=> Sending user updated ui to editor")
           update_ui_tree_on_client(get_app_ui_tree(app_loc))
@@ -166,11 +161,13 @@ launch_editor <- function(app_loc,
       server_mode <<- "editing-app"
     }
 
+
     load_app_template <- function(template_info) {
       writeLog("<= Loading app template")
       write_app_template(template_info, app_loc)
       load_new_app()
     }
+
 
     write_new_ui <- function(new_ui_tree) {
       update_app_ui(
@@ -181,6 +178,7 @@ launch_editor <- function(app_loc,
       file_change_watcher$update_last_edit_time()
       writeLog("<= Saved new ui state from client")
     }
+
 
     # Return a callback that takes in a message and reacts to it
     function(msg) {
@@ -200,33 +198,27 @@ launch_editor <- function(app_loc,
             }
           )
         },
-
         "APP-PREVIEW-RESTART" = {
           app_preview_obj$restart()
         },
-
         "APP-PREVIEW-STOP" = {
           app_preview_obj$stop_app()
         },
-
         "READY-FOR-STATE" = {
           # Route to the proper starting screen based on if there's an existing
           # app or not
           if (get_app_type(app_loc) == "missing") {
             request_template_chooser()
-          } else {    
+          } else {
             load_new_app()
           }
         },
-
         "STATE-UPDATE" = {
           write_new_ui(msg$payload)
         },
-
         "TEMPLATE-SELECTOR-REQUEST" = {
           server_mode <<- "template-chooser"
         },
-
         "TEMPLATE-SELECTION" = {
           load_app_template(msg$payload)
         }
@@ -239,7 +231,7 @@ launch_editor <- function(app_loc,
     # Stop all the event listeners
     app_preview_obj$stop_app()
     file_change_watcher$cleanup()
-    app_close_watcher$cleanup() 
+    app_close_watcher$cleanup()
 
     if (server_mode == "template-chooser") {
       remove_app_template(app_loc = app_loc, app_type = file_info$type)
