@@ -12,6 +12,7 @@ const setup = ({ mode }) => {
       emptyOutDir: true,
       sourcemap: mode === "development",
       target: "es2015",
+      chunkSizeWarningLimit: 1000,
     },
     plugins: [react(), tsconfigPaths()],
     define: {
