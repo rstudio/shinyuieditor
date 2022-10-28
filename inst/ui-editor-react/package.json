@@ -69,7 +69,8 @@
     "lint": "eslint src --fix",
     "type-check": "tsc --noEmit",
     "build-icons": "svgr --out-dir src/components/Icons/generated --icon --typescript -- src/assets/svg-icons",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "playwright-backend": "playwright test backend-server --project=chromium"
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",

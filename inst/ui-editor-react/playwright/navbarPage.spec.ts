@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 import type { ShinyUiNode } from "../src/Shiny-Ui-Elements/uiNodeTypes";
 
-import { dragDrop } from "./dragDrop";
+import { dragDrop } from "./utils/dragDrop";
 
 const basicNavbarPage: ShinyUiNode = {
   uiName: "shiny::navbarPage",
