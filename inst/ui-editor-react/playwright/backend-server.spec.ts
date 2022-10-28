@@ -65,6 +65,48 @@ test("Template chooser can change between templates mid-session", async ({
   expect(containsAppFile(multiFileModeFiles, "app")).toBe(false);
 });
 
+test("Ending on template chooser will clear any template files written", async ({
+  page,
+}, info) => {
+  const backendServer = await setupBackendServer({
+    app_dir_root: info.outputDir,
+  });
+
+  await page.goto(backendServer.app_url);
+
+  // Select first available template
+  await page
+    .getByRole("article", { name: "App template preview card" })
+    .first()
+    .click();
+
+  await page
+    .getByRole("button", { name: "Start editor with selected template" })
+    .click();
+
+  // Wait for the edit view to be available be looking for the elements panel
+  await expect(page.getByRole("heading", { name: "Elements" })).toBeVisible();
+
+  const inEditModeFiles = await backendServer.get_app_folder_contents();
+
+  expect(Object.keys(inEditModeFiles).length).toBeGreaterThan(0);
+
+  // Press back button
+  await page.getByRole("button", { name: "Undo last change" }).click();
+
+  // Make sure we're back in the template view
+  await expect(page.locator(`text=Choose App Template`)).toBeVisible();
+
+  // Close browser
+  await page.close();
+
+  // Wait for the server to be shut down
+  await backendServer.serverClosed;
+
+  // Now the app folder should be empty
+  const afterCloseFiles = await backendServer.get_app_folder_contents();
+  expect(Object.keys(afterCloseFiles).length).toEqual(0);
+});
 // test("Geyser template app manipulation", async ({ page }, info) => {
 //   const backendServer = await setupBackendServer({
 //     template_to_use: "../app-templates/geyser_multi-file/",

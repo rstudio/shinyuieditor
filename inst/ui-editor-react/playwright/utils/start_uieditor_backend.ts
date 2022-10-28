@@ -9,8 +9,8 @@ const STARTUP_TIMEOUT_MS = 5000;
 const findPort = /:(?<port>\d{2,})\s/;
 
 type BackendServerInfo = {
-  controller: AbortController;
   port: string;
+  serverClosed: Promise<true>;
 };
 export async function startBackendServer(test_app_dir: string, port?: number) {
   return new Promise<BackendServerInfo>(async (resolve) => {
@@ -34,6 +34,14 @@ export async function startBackendServer(test_app_dir: string, port?: number) {
         logs += d.toString();
       });
 
+      // Create a promise that resolvse when the server process is closed.
+      // Useful for awaiting the server being shutdown before doing some action
+      const serverClosed = new Promise<true>((closedResolved) => {
+        serverProcess.on("close", () => {
+          closedResolved(true);
+        });
+      });
+
       // Start a timeout to call off the test if we fail to detect the server
       // startup message. This could happen if the log format is changed etc.
       const startTimeout = setTimeout(() => {
@@ -46,7 +54,7 @@ export async function startBackendServer(test_app_dir: string, port?: number) {
 
         if (portSearchRes) {
           console.log("Backend started on port", portSearchRes);
-          resolve({ controller, port: portSearchRes });
+          resolve({ port: portSearchRes, serverClosed });
           clearTimeout(startTimeout);
         }
       });
@@ -88,9 +96,15 @@ export async function setupBackendServer({
   const serverInfo = await startBackendServer(test_app_dir, port);
 
   async function get_app_folder_contents() {
-    const directory_contents = await fs.readdir(test_app_dir);
-
     const file_contents: AppDirContents = {};
+    let directory_contents: string[];
+    try {
+      directory_contents = await fs.readdir(test_app_dir);
+    } catch {
+      // If we can't open the dir it probably got erased, so contents are none
+      return file_contents;
+    }
+
     for (let file_name of directory_contents) {
       file_contents[file_name] = /\.r/i.test(file_name)
         ? await fs.readFile(path.join(test_app_dir, file_name), {
@@ -103,6 +117,7 @@ export async function setupBackendServer({
   }
 
   return {
+    ...serverInfo,
     get_app_folder_contents,
     app_url: `localhost:${serverInfo.port}`,
   };
