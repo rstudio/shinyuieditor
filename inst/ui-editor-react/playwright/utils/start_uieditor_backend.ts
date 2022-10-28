@@ -4,25 +4,50 @@ import { spawn } from "child_process";
 import fs from "fs/promises";
 import path from "path";
 
-export async function startBackendServer(test_app_dir: string, port: number) {
-  return new Promise<AbortController>(async (resolve) => {
+const STARTUP_TIMEOUT_MS = 5000;
+
+const findPort = /:(?<port>\d{2,})\s/;
+
+type BackendServerInfo = {
+  controller: AbortController;
+  port: string;
+};
+export async function startBackendServer(test_app_dir: string, port?: number) {
+  return new Promise<BackendServerInfo>(async (resolve) => {
     try {
       const startingCommands = `
         devtools::load_all('../../.')
         launch_editor(
           app_loc = '${test_app_dir}',
-          port = ${port},
+          ${port ? `port = ${port},` : ""}
           launch_browser = FALSE,
           stop_on_browser_close = TRUE
         )`;
+
       const controller = new AbortController();
       const { signal } = controller;
       const serverProcess = spawn("R", ["-e", startingCommands], { signal });
 
+      // Keep the stderr logs in case they need to be printed for debugging timeout errors
+      let logs = "";
+      serverProcess.stderr.on("data", (d) => {
+        logs += d.toString();
+      });
+
+      // Start a timeout to call off the test if we fail to detect the server
+      // startup message. This could happen if the log format is changed etc.
+      const startTimeout = setTimeout(() => {
+        throw new Error("Starting backend server failed.\n Logs:\n" + logs);
+      }, STARTUP_TIMEOUT_MS);
+
       serverProcess.stdout.on("data", (d) => {
-        if (isServerStartupMsg(d.toString())) {
-          console.log("Backend started");
-          resolve(controller);
+        // Search line for startup message of app url
+        const portSearchRes = findPort.exec(d.toString())?.groups?.port;
+
+        if (portSearchRes) {
+          console.log("Backend started on port", portSearchRes);
+          resolve({ controller, port: portSearchRes });
+          clearTimeout(startTimeout);
         }
       });
     } catch (err) {
@@ -32,10 +57,6 @@ export async function startBackendServer(test_app_dir: string, port: number) {
   });
 }
 
-function isServerStartupMsg(output: string) {
-  return output.includes("Live editor running");
-}
-
 export async function setupBackendServer({
   template_to_use,
   app_dir_root,
@@ -43,7 +64,7 @@ export async function setupBackendServer({
 }: {
   template_to_use?: string;
   app_dir_root: string;
-  port: number;
+  port?: number;
 }) {
   // Generate folder for app
   const test_app_dir = path.join(app_dir_root, "app");
@@ -56,7 +77,7 @@ export async function setupBackendServer({
   }
 
   // Start backend server on template dir
-  await startBackendServer(test_app_dir, port);
+  const serverInfo = await startBackendServer(test_app_dir, port);
 
   async function get_app_file_text() {
     // Get end file contents for testing purposes
@@ -65,5 +86,5 @@ export async function setupBackendServer({
     });
   }
 
-  return { get_app_file_text };
+  return { get_app_file_text, app_url: `localhost:${serverInfo.port}` };
 }
