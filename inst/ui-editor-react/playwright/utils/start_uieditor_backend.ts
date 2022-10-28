@@ -57,6 +57,7 @@ export async function startBackendServer(test_app_dir: string, port?: number) {
   });
 }
 
+type AppDirContents = Record<string, string>;
 export async function setupBackendServer({
   template_to_use,
   app_dir_root,
@@ -89,7 +90,7 @@ export async function setupBackendServer({
   async function get_app_folder_contents() {
     const directory_contents = await fs.readdir(test_app_dir);
 
-    const file_contents: Record<string, string> = {};
+    const file_contents: AppDirContents = {};
     for (let file_name of directory_contents) {
       file_contents[file_name] = /\.r/i.test(file_name)
         ? await fs.readFile(path.join(test_app_dir, file_name), {
@@ -105,4 +106,19 @@ export async function setupBackendServer({
     get_app_folder_contents,
     app_url: `localhost:${serverInfo.port}`,
   };
+}
+
+const finderRegexMap = {
+  ui: /ui\.r/i,
+  server: /server\.r/i,
+  app: /app\.r/i,
+};
+
+export function containsAppFile(
+  contents: AppDirContents,
+  fileType: "ui" | "server" | "app"
+) {
+  const fileNames = Object.keys(contents);
+
+  return fileNames.some((fileName) => finderRegexMap[fileType].test(fileName));
 }
