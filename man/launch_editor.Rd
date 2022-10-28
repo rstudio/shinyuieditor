@@ -68,7 +68,6 @@ if (FALSE) {
   # Start editor on a non-existing app directory to choose a starter template
   launch_editor(app_loc = "empty_directory/")
 
-
   # You can control where the app runs just like a normal Shiny app.
   # This can be useful if you want to access it from a headless server
   launch_editor(

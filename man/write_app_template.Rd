@@ -4,12 +4,16 @@
 \alias{write_app_template}
 \title{Setup app from template}
 \usage{
-write_app_template(app_template, loc, remove_namespace = TRUE)
+write_app_template(app_template, app_loc, remove_namespace = TRUE)
 }
 \arguments{
 \item{app_template}{Template object. See details for format.}
 
-\item{loc}{Location to place app template}
+\item{app_loc}{Path to directory containing Shiny app to be visually edited
+(either containing an \code{app.R} or both a \code{ui.R} and \code{server.R}). If the
+provided location doesn't exist, or doesn't contain an app, the user will
+be prompted to choose a starter template which will then be written to the
+location specified.}
 
 \item{remove_namespace}{Should the generated code have the namespaces removed
 or should generated function calls take the form of \code{pkg::fn()}}
@@ -17,28 +21,5 @@ or should generated function calls take the form of \code{pkg::fn()}}
 \description{
 Takes a template object as provided by the front-end and generates a single
 or multi-file app in provided location.
-}
-\details{
-Template object
-The app template has the following information attached to it
-uiTree: ui AST node;
-outputType: "single-file" | "multi-file"
-otherCode: {
-# Extra code that will be coppied unchanged above the ui definition
-uiExtra?: string;
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{# List of libraries that need to be loaded in server code
-serverLibraries?: string[];
-
-# Extra code that will be copied unchanged above server
-# function definition
-serverExtra?: string;
-
-# Body of server function. This will be wrapped in the code
-# `function(input, output)\{....\}`
-serverFunctionBody?: string;
-}\if{html}{\out{</div>}}
-
-};
 }
 \keyword{internal}
