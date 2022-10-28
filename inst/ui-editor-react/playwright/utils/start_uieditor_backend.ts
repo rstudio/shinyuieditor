@@ -41,7 +41,7 @@ export async function setupBackendServer({
   app_dir_root,
   port,
 }: {
-  template_to_use: string;
+  template_to_use?: string;
   app_dir_root: string;
   port: number;
 }) {
@@ -50,8 +50,10 @@ export async function setupBackendServer({
   // await fs.mkdir(app_dir_root);
   await fs.mkdir(test_app_dir, { recursive: true });
 
-  // Move app template into test dir
-  await fs.copyFile(`${template_to_use}`, `${test_app_dir}/app.r`);
+  // If a template was requested, move it into the test dir
+  if (template_to_use) {
+    await fs.copyFile(`${template_to_use}`, `${test_app_dir}/app.r`);
+  }
 
   // Start backend server on template dir
   await startBackendServer(test_app_dir, port);

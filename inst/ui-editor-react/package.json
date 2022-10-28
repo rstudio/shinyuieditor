@@ -64,13 +64,13 @@
     "build-netlify": "VITE_SHOW_FAKE_PREVIEW=true PUBLIC_URL=/ yarn build",
     "build-website-demo": "VITE_SHOW_FAKE_PREVIEW=false vite build --outDir ../../vignettes/demo-app",
     "test": "vitest",
-    "playwright": "playwright test",
+    "playwright": "playwright test --project=chromium",
     "storybook": "start-storybook -p 6006",
     "lint": "eslint src --fix",
     "type-check": "tsc --noEmit",
     "build-icons": "svgr --out-dir src/components/Icons/generated --icon --typescript -- src/assets/svg-icons",
     "build-storybook": "build-storybook",
-    "playwright-backend": "playwright test backend-server --project=chromium"
+    "playwright-backend": "playwright test backend --project=chromium --workers=1"
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
