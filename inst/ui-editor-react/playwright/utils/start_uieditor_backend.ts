@@ -68,23 +68,41 @@ export async function setupBackendServer({
 }) {
   // Generate folder for app
   const test_app_dir = path.join(app_dir_root, "app");
-  // await fs.mkdir(app_dir_root);
   await fs.mkdir(test_app_dir, { recursive: true });
 
   // If a template was requested, move it into the test dir
   if (template_to_use) {
-    await fs.copyFile(`${template_to_use}`, `${test_app_dir}/app.r`);
+    // Move every file from the template folder to the test dir
+    const template_files = await fs.readdir(template_to_use);
+
+    for (let template_file of template_files) {
+      await fs.cp(
+        `${template_to_use}/${template_file}`,
+        `${test_app_dir}/${template_file}`
+      );
+    }
   }
 
   // Start backend server on template dir
   const serverInfo = await startBackendServer(test_app_dir, port);
 
-  async function get_app_file_text() {
-    // Get end file contents for testing purposes
-    return await fs.readFile(path.join(test_app_dir, "app.r"), {
-      encoding: "utf-8",
-    });
+  async function get_app_folder_contents() {
+    const directory_contents = await fs.readdir(test_app_dir);
+
+    const file_contents: Record<string, string> = {};
+    for (let file_name of directory_contents) {
+      file_contents[file_name] = /\.r/i.test(file_name)
+        ? await fs.readFile(path.join(test_app_dir, file_name), {
+            encoding: "utf-8",
+          })
+        : "non-script-file";
+    }
+
+    return file_contents;
   }
 
-  return { get_app_file_text, app_url: `localhost:${serverInfo.port}` };
+  return {
+    get_app_folder_contents,
+    app_url: `localhost:${serverInfo.port}`,
+  };
 }
