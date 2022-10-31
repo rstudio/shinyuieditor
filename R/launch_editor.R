@@ -8,9 +8,9 @@
 #' @inheritParams httpuv::startServer
 #' @param app_loc Path to directory containing Shiny app to be visually edited
 #'   (either containing an `app.R` or both a `ui.R` and `server.R`). If the
-#'   provided location doesn't exist, or doesn't contain an app, the user will
-#'   be prompted to choose a starter template which will then be written to the
-#'   location specified.
+#'   provided location doesn't exist, or doesn't contain an app, the app will
+#'   start in an interface to select from a series of starter templates which
+#'   will then be written to the location specified.
 #' @param shiny_background_port Port to launch the shiny app preview on.
 #'   Typically not necessary to set manually.
 #' @param remove_namespace Should namespaces (`library::` prefixes) be stripped
@@ -175,7 +175,7 @@ launch_editor <- function(app_loc,
         # folder with existing files in it, in which case we may inadvertently
         # delete them
         remove_app_template(
-          app_loc = app_loc, 
+          app_loc = app_loc,
           app_type = previous_template_type
         )
       }
