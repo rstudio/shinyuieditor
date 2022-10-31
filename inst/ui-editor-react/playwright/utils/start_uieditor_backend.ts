@@ -12,7 +12,15 @@ type BackendServerInfo = {
   port: string;
   serverClosed: Promise<true>;
 };
-export async function startBackendServer(test_app_dir: string, port?: number) {
+export async function startBackendServer({
+  test_app_dir,
+  port,
+  printLogs,
+}: {
+  test_app_dir: string;
+  port?: number;
+  printLogs: boolean;
+}) {
   let logs = "";
 
   return new Promise<BackendServerInfo>(async (resolve) => {
@@ -32,7 +40,12 @@ export async function startBackendServer(test_app_dir: string, port?: number) {
 
       // Keep the stderr logs in case they need to be printed for debugging timeout errors
       serverProcess.stderr.on("data", (d) => {
-        logs += d.toString();
+        const logMsg = d.toString();
+        logs += logMsg;
+        if (printLogs) {
+          // eslint-disable-next-line no-console
+          console.log("R-Backend-Log: " + logMsg);
+        }
       });
 
       // Create a promise that resolvse when the server process is closed.
@@ -69,10 +82,12 @@ export async function setupBackendServer({
   template_to_use,
   app_dir_root,
   port,
+  printLogs,
 }: {
   template_to_use?: string;
   app_dir_root: string;
   port?: number;
+  printLogs: boolean;
 }) {
   // Generate folder for app
   const test_app_dir = path.join(app_dir_root, "app");
@@ -92,7 +107,11 @@ export async function setupBackendServer({
   }
 
   // Start backend server on template dir
-  const serverInfo = await startBackendServer(test_app_dir, port);
+  const serverInfo = await startBackendServer({
+    test_app_dir,
+    port,
+    printLogs,
+  });
 
   async function get_app_folder_contents() {
     const file_contents: AppDirContents = {};

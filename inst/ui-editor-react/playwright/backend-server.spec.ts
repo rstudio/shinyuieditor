@@ -10,8 +10,10 @@ test("Template chooser can change between templates mid-session", async ({
   browserName,
 }, info) => {
   test.skip(browserName !== "chromium", "Backend tests only need one browser");
+
   const backendServer = await setupBackendServer({
     app_dir_root: info.outputDir,
+    printLogs: info.retry > 0,
   });
 
   await page.goto(backendServer.app_url);
@@ -72,6 +74,7 @@ test("Ending on template chooser will clear any template files written", async (
 }, info) => {
   const backendServer = await setupBackendServer({
     app_dir_root: info.outputDir,
+    printLogs: info.retry > 0,
   });
 
   await page.goto(backendServer.app_url);
