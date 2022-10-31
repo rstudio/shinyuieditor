@@ -13,6 +13,8 @@ type BackendServerInfo = {
   serverClosed: Promise<true>;
 };
 export async function startBackendServer(test_app_dir: string, port?: number) {
+  let logs = "";
+
   return new Promise<BackendServerInfo>(async (resolve) => {
     try {
       const startingCommands = `
@@ -29,7 +31,6 @@ export async function startBackendServer(test_app_dir: string, port?: number) {
       const serverProcess = spawn("R", ["-e", startingCommands], { signal });
 
       // Keep the stderr logs in case they need to be printed for debugging timeout errors
-      let logs = "";
       serverProcess.stderr.on("data", (d) => {
         logs += d.toString();
       });
@@ -53,14 +54,12 @@ export async function startBackendServer(test_app_dir: string, port?: number) {
         const portSearchRes = findPort.exec(d.toString())?.groups?.port;
 
         if (portSearchRes) {
-          console.log("Backend started on port", portSearchRes);
           resolve({ port: portSearchRes, serverClosed });
           clearTimeout(startTimeout);
         }
       });
     } catch (err) {
-      console.error("Failed to start backend server");
-      throw new Error(err as string);
+      throw new Error((err as string) + "\n Logs:\n" + logs);
     }
   });
 }
