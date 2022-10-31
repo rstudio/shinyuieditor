@@ -47,67 +47,6 @@ create_library_calls <- function(libraries) {
   )
 }
 
-# Convert a app file type from abstract name to R specific file name
-file_type_to_name <- list(
-  "app" = "app.r",
-  "ui" = "ui.r",
-  "server" = "server.r"
-)
-
-path_to_file <- function(app_loc, type) {
-  fs::path(app_loc, file_type_to_name[type])
-}
-
-
-#' Write app script to a file
-#'
-#' @param app_lines Character vector containing the code for the given script.
-#'   Will be concatinated with new lines
-#' @param app_loc Location of folder where script will be written to
-#' @param file_type Type of file being written. Can either be "app" for writing
-#'   an "app.R", or "ui"/"server" for writing the two scripts of a multi-file
-#'   app.
-#'
-#' @return NULL
-#' @keywords internal
-write_app_file <- function(app_lines, app_loc, file_type) {
-
-  # Ensure the path to the app is valid
-  app_file_path <- fs::file_create(
-    fs::dir_create(app_loc), 
-    file_type_to_name[file_type]
-  )
-
-  writeLines(
-    text = app_lines,
-    con = app_file_path
-  )
-}
-
-
-remove_app_file <- function(app_loc, file_type) {
-  fs::file_delete(path_to_file(app_loc, file_type))
-}
-
-has_app_file <- function(app_loc, file_type) {
-  fs::file_exists(path_to_file(app_loc, file_type))
-}
-
-get_app_type <- function(app_loc) {
-  if (has_app_file(app_loc, "app")) {
-    return("single-file")
-  }
-
-  if (
-    has_app_file(app_loc, "ui") || 
-    has_app_file(app_loc, "server")
-  ) {
-    return("multi-file")
-  }
-
-  return("missing")
-}
-
 
 # Format outgoing message into JSON to be read by client
 format_outgoing_msg <- function(path, payload) {

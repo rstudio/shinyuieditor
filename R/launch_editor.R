@@ -136,7 +136,8 @@ launch_editor <- function(app_loc,
     load_new_app <- function() {
       writeLog("=> Loading app ui and sending to ui editor")
 
-      file_info <<- get_app_ui_file(app_loc)
+      file_info <<- get_app_ui_file(app_loc, error_on_missing = TRUE)
+
       ui_tree <- get_app_ui_tree(app_loc)
       if (!ui_tree$uiName %in% valid_root_nodes) {
         err_msg <- paste(
@@ -221,7 +222,7 @@ launch_editor <- function(app_loc,
         "READY-FOR-STATE" = {
           # Route to the proper starting screen based on if there's an existing
           # app or not
-          if (get_app_type(app_loc) == "missing") {
+          if (get_app_ui_file(app_loc)$type == "missing") {
             request_template_chooser()
           } else {
             load_new_app()

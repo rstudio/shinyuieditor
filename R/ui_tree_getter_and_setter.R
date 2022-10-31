@@ -1,6 +1,6 @@
 
 get_app_ui_tree <- function(app_loc) {
-  file_info <- get_app_ui_file(app_loc)
+  file_info <- get_app_ui_file(app_loc, error_on_missing = TRUE)
   file_path <- file_info$path
   type <- file_info$type
 
