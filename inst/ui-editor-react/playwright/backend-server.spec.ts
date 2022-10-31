@@ -7,7 +7,9 @@ import {
 
 test("Template chooser can change between templates mid-session", async ({
   page,
+  browserName,
 }, info) => {
+  test.skip(browserName !== "chromium", "Backend tests only need one browser");
   const backendServer = await setupBackendServer({
     app_dir_root: info.outputDir,
   });
