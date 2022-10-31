@@ -2,7 +2,12 @@ import { test, expect } from "@playwright/test";
 
 import { testingUiTree } from "../src/state/backupUiTree";
 
-test("Landing page visual regression", async ({ page }) => {
+test("Landing page visual regression", async ({ page }, testinfo) => {
+  test.skip(
+    testinfo.snapshotSuffix.includes("linux"),
+    "Avoid screenshot testing on CI"
+  );
+
   await page.route("/testing-tree", (route) =>
     route.fulfill({
       status: 200,
