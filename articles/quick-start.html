@@ -121,8 +121,10 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/shinyuieditor/">shinyuieditor</a></span><span class="op">)</span></span></code></pre></div>
-<p>The following will show you how to get up and running with the ui editor from scratch.</p>
-<p>If you prefer video format, here’s an <a href="https://www.youtube.com/watch?v=gYPnLiudtGU" class="external-link">in-depth walkthrough of using the ui editor to create and edit a new app</a>.</p>
+<p>The following will show you how to get up and running with the ui
+editor from scratch.</p>
+<p>If you prefer video format, here’s an <a href="https://www.youtube.com/watch?v=gYPnLiudtGU" class="external-link">in-depth walkthrough
+of using the ui editor to create and edit a new app</a>.</p>
 <div class="section level2">
 <h2 id="pre-reqs">Pre-reqs<a class="anchor" aria-label="anchor" href="#pre-reqs"></a>
 </h2>
@@ -130,7 +132,9 @@
 <li>
 <code>shinyuieditor</code> package installed. See the <a href="../index.html#installing">installing section</a>
 </li>
-<li>Shiny app with ui built using <a href="https://rstudio.github.io/gridlayout/" class="external-link"><code>gridlayout::gridpage()</code></a> or <code><a href="https://rdrr.io/pkg/shiny/man/navbarPage.html" class="external-link">shiny::navbarPage()</a></code> (more layout functions coming soon.)</li>
+<li>Shiny app with ui built using <a href="https://rstudio.github.io/gridlayout/" class="external-link"><code>gridlayout::gridpage()</code></a>
+or <code><a href="https://rdrr.io/pkg/shiny/man/navbarPage.html" class="external-link">shiny::navbarPage()</a></code> (more layout functions coming
+soon.)</li>
 </ul>
 </div>
 <div class="section level2">
@@ -139,7 +143,9 @@
 <div class="section level3">
 <h3 id="new-app">New app<a class="anchor" aria-label="anchor" href="#new-app"></a>
 </h3>
-<p>If you set the argument <code>app_loc</code> to a location that does not yet exist, the launcher will ask a few and setup a simple template app for you to use with building.</p>
+<p>If you set the argument <code>app_loc</code> to a location that does
+not yet exist, the launcher will ask a few and setup a simple template
+app for you to use with building.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">shinyuieditor</span><span class="fu">::</span><span class="fu"><a href="../reference/launch_editor.html">launch_editor</a></span><span class="op">(</span>app_loc <span class="op">=</span> <span class="st">"new-app/"</span><span class="op">)</span></span>
 <span></span>
@@ -156,12 +162,18 @@
 <span><span class="co">#&gt; Selection: 1</span></span>
 <span><span class="co">#&gt; =&gt; Starting Shiny preview app...</span></span>
 <span><span class="co">#&gt; ...</span></span></code></pre></div>
-<p><em>There are just a few templates available currently but more are always being added.</em></p>
+<p><em>There are just a few templates available currently but more are
+always being added.</em></p>
 </div>
 <div class="section level3">
 <h3 id="existing-app">Existing app<a class="anchor" aria-label="anchor" href="#existing-app"></a>
 </h3>
-<p>Assuming there’s an existing app (either <code>app.R</code> or <code>ui.R</code> and <code>server.R</code>) in the folder <code>existing-app/</code> relative to your current working directly (<code><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd()</a></code>), then you start the ui-editor on that app by running the following code and pasting the returned link into your web-browser.</p>
+<p>Assuming there’s an existing app (either <code>app.R</code> or
+<code>ui.R</code> and <code>server.R</code>) in the folder
+<code>existing-app/</code> relative to your current working directly
+(<code><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd()</a></code>), then you start the ui-editor on that app by
+running the following code and pasting the returned link into your
+web-browser.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">shinyuieditor</span><span class="fu">::</span><span class="fu"><a href="../reference/launch_editor.html">launch_editor</a></span><span class="op">(</span>app_loc <span class="op">=</span> <span class="st">"existing-app/"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Live editor running at http://localhost:44509/app</span></span></code></pre></div>
@@ -171,13 +183,18 @@
 <div class="section level2">
 <h2 id="editing-your-app">Editing your app<a class="anchor" aria-label="anchor" href="#editing-your-app"></a>
 </h2>
-<p>Once you’re in the editor, any changes you make will automatically be written to your app’s UI and the changes can be seen in real-time with the “App Preview” window.</p>
-<p>For more info on how to perform various tasks with the editor, see <code><a href="../articles/how-to.html">vignette("how-to")</a></code>.</p>
+<p>Once you’re in the editor, any changes you make will automatically be
+written to your app’s UI and the changes can be seen in real-time with
+the “App Preview” window.</p>
+<p>For more info on how to perform various tasks with the editor, see
+<code><a href="../articles/how-to.html">vignette("how-to")</a></code>.</p>
 </div>
 <div class="section level2">
 <h2 id="savingclosing-editor">Saving/Closing editor<a class="anchor" aria-label="anchor" href="#savingclosing-editor"></a>
 </h2>
-<p>When you’re done, simply close the browser window (or press {control/command}-c in the console) to stop the editor preview process in R. Since all changes are eagerly applied there’s no need to save.</p>
+<p>When you’re done, simply close the browser window (or press
+{control/command}-c in the console) to stop the editor preview process
+in R. Since all changes are eagerly applied there’s no need to save.</p>
 </div>
   </div>
 
