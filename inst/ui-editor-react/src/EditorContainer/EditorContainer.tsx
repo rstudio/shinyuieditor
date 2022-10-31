@@ -35,7 +35,7 @@ export function EditorContainer() {
         <p className="error-msg">{errorMsg}</p>
       </DialogPopover>
     );
-  } else if (status === "loading") {
+  } else if (status === "loading" || tree === "LOADING_STATE") {
     pageBody = (
       <DialogPopover className="message-mode">
         <h2>Loading initial state from server</h2>

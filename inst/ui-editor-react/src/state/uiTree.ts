@@ -22,32 +22,12 @@ import {
 } from "state/watcherSubscriptions";
 import { subtractElements } from "utils/array-helpers";
 
-export const initialUiTree: ShinyUiRootNode = {
-  uiName: "gridlayout::grid_page",
-  uiArguments: {
-    areas: [["msg"]],
-    row_sizes: ["1fr"],
-    col_sizes: ["1fr"],
-    gap_size: "1rem",
-  },
-  uiChildren: [
-    {
-      uiName: "gridlayout::grid_card_text",
-      uiArguments: {
-        area: "msg",
-        content: "Loading App...",
-        alignment: "center",
-      },
-    },
-  ],
-};
-
 // Note: The reducer callbacks use immer so the mutations we make to the object
 // are safe and we just make the needed mutations to the tree object and don't
 // return anything
 export const uiTreeSlice = createSlice({
   name: "uiTree",
-  initialState: initialUiTree as ShinyUiRootNode,
+  initialState: "LOADING_STATE" as ShinyUiRootNode,
   reducers: {
     // This is used to teleport to a given state wholesale. E.g. undo-redo
     SET_FULL_STATE: (tree, action: PayloadAction<{ state: ShinyUiRootNode }>) =>

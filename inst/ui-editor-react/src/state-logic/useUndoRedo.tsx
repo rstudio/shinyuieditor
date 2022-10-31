@@ -4,7 +4,7 @@ import StateHistory from "modules/StateHistory";
 import { useDispatch, useSelector } from "react-redux";
 import type { ShinyUiRootNode } from "Shiny-Ui-Elements/uiNodeTypes";
 import type { RootState } from "state/store";
-import { initialUiTree, SET_FULL_STATE } from "state/uiTree";
+import { SET_FULL_STATE } from "state/uiTree";
 
 type HistoryEntry = ShinyUiRootNode;
 
@@ -20,7 +20,7 @@ export function useUndoRedo() {
 
   React.useEffect(() => {
     // Ignore the initialization state
-    if (!tree || tree === initialUiTree) return;
+    if (!tree || tree === "LOADING_STATE") return;
 
     const history = stateHistory.current;
 

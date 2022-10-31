@@ -8,7 +8,6 @@ import type {
   ShinyUiRootNode,
 } from "Shiny-Ui-Elements/uiNodeTypes";
 import type { RootState } from "state/store";
-import { initialUiTree } from "state/uiTree";
 import { sendWsMessage } from "websocket_hooks/sendWsMessage";
 import type { WebsocketMessage } from "websocket_hooks/useConnectToWebsocket";
 import {
@@ -100,7 +99,7 @@ export function useSyncUiWithBackend() {
 
   React.useEffect(() => {
     if (
-      currentUiTree === initialUiTree ||
+      currentUiTree === "LOADING_STATE" ||
       currentUiTree === lastRecievedRef.current
     ) {
       // Avoiding unnecesary message to backend when the state hasn't changed
