@@ -12,5 +12,8 @@ test("Landing page visual regression", async ({ page }) => {
 
   await page.goto("/");
 
+  // Make sure we get past the loading splash page
+  await page.getByRole("heading", { name: "Elements" }).isVisible();
+
   await expect(page).toHaveScreenshot();
 });
