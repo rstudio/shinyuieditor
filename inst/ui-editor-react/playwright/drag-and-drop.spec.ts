@@ -32,16 +32,3 @@ test("Drag and drop an item onto the grid and name area", async ({ page }) => {
     page.locator("button", { hasText: "Action Button" })
   ).toBeVisible();
 });
-
-test("Landing page visual regression", async ({ page }) => {
-  await page.route("/testing-tree", (route) =>
-    route.fulfill({
-      status: 200,
-      body: JSON.stringify(testingUiTree),
-    })
-  );
-
-  await page.goto("/");
-
-  await expect(page).toHaveScreenshot();
-});
