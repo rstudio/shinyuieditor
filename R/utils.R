@@ -54,6 +54,10 @@ file_type_to_name <- list(
   "server" = "server.r"
 )
 
+path_to_file <- function(app_loc, type) {
+  fs::path(app_loc, file_type_to_name[type])
+}
+
 
 #' Write app script to a file
 #'
@@ -69,7 +73,10 @@ file_type_to_name <- list(
 write_app_file <- function(app_lines, app_loc, file_type) {
 
   # Ensure the path to the app is valid
-  app_file_path <- fs::file_create(fs::dir_create(app_loc), file_type_to_name[file_type])
+  app_file_path <- fs::file_create(
+    fs::dir_create(app_loc), 
+    file_type_to_name[file_type]
+  )
 
   writeLines(
     text = app_lines,
@@ -79,20 +86,22 @@ write_app_file <- function(app_lines, app_loc, file_type) {
 
 
 remove_app_file <- function(app_loc, file_type) {
-  app_file_path <- fs::path(app_loc, file_type_to_name[file_type])
-  fs::file_delete(app_file_path)
+  fs::file_delete(path_to_file(app_loc, file_type))
 }
 
-has_app_file <- function(app_loc, file) {
-  fs::file_exists(fs::path(app_loc, file))
+has_app_file <- function(app_loc, file_type) {
+  fs::file_exists(path_to_file(app_loc, file_type))
 }
 
 get_app_type <- function(app_loc) {
-  if (has_app_file(app_loc, "app.R")) {
+  if (has_app_file(app_loc, "app")) {
     return("single-file")
   }
 
-  if (has_app_file(app_loc, "ui.R") || has_app_file(app_loc, "server.R")) {
+  if (
+    has_app_file(app_loc, "ui") || 
+    has_app_file(app_loc, "server")
+  ) {
     return("multi-file")
   }
 
