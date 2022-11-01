@@ -1,13 +1,15 @@
 import React from "react";
 
+import { TESTING_MODE } from "env_variables";
 import { seqArray } from "utils/array-helpers";
 import "./styles.scss";
 
 const NUM_BARS = 11;
 
-const bar_values = normalize(seqArray(NUM_BARS).map(Math.random)).map(
-  (x) => `${Math.round(x * 100)}%`
-);
+// Don't let their be stochastic bar values when doing visual testing
+const bar_values = normalize(
+  seqArray(NUM_BARS).map((i) => (TESTING_MODE ? i + 1 : Math.random()))
+).map((x) => `${Math.round(x * 100)}%`);
 
 export function PlotPlaceholder({
   title = <span>My Plot</span>,
