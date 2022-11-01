@@ -2,13 +2,10 @@ import { test, expect } from "@playwright/test";
 
 import { testingUiTree } from "../src/state/backupUiTree";
 
+import { mockBackendState } from "./utils/mockBackend";
+
 test("Landing page visual regression", async ({ page }, testinfo) => {
-  await page.route("/testing-tree", (route) =>
-    route.fulfill({
-      status: 200,
-      body: JSON.stringify(testingUiTree),
-    })
-  );
+  await mockBackendState(page, testingUiTree);
 
   await page.goto("/");
 

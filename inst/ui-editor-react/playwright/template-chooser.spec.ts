@@ -1,19 +1,12 @@
 import type { Locator } from "@playwright/test";
 import { expect, test } from "@playwright/test";
 
-import type { ShinyUiRootNode } from "../src/Shiny-Ui-Elements/uiNodeTypes";
-
-const templateCooserState: ShinyUiRootNode = "TEMPLATE_CHOOSER";
+import { mockBackendState } from "./utils/mockBackend";
 
 test("Updating the area name of a grid item propigates through rest of app properly", async ({
   page,
 }) => {
-  await page.route("/testing-tree", (route) =>
-    route.fulfill({
-      status: 200,
-      body: JSON.stringify(templateCooserState),
-    })
-  );
+  await mockBackendState(page, "TEMPLATE_CHOOSER");
 
   await page.goto("/");
 

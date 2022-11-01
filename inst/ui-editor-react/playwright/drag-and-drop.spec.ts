@@ -2,13 +2,10 @@ import { test, expect } from "@playwright/test";
 
 import { testingUiTree } from "../src/state/backupUiTree";
 
+import { mockBackendState } from "./utils/mockBackend";
+
 test("Drag and drop an item onto the grid and name area", async ({ page }) => {
-  await page.route("/testing-tree", (route) =>
-    route.fulfill({
-      status: 200,
-      body: JSON.stringify(testingUiTree),
-    })
-  );
+  await mockBackendState(page, testingUiTree);
 
   await page.goto("/");
 

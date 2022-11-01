@@ -3,6 +3,7 @@ import { test, expect } from "@playwright/test";
 import type { ShinyUiNode } from "../src/Shiny-Ui-Elements/uiNodeTypes";
 
 import { dragDrop } from "./utils/dragDrop";
+import { mockBackendState } from "./utils/mockBackend";
 
 const basicNavbarPage: ShinyUiNode = {
   uiName: "shiny::navbarPage",
@@ -62,12 +63,7 @@ const basicNavbarPage: ShinyUiNode = {
 };
 
 test("Basic usage of navbar page", async ({ page }) => {
-  await page.route("/testing-tree", (route) =>
-    route.fulfill({
-      status: 200,
-      body: JSON.stringify(basicNavbarPage),
-    })
-  );
+  await mockBackendState(page, basicNavbarPage);
 
   await page.goto("/");
 
