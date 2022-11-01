@@ -73,7 +73,8 @@
     "build-icons": "svgr --out-dir src/components/Icons/generated --icon --typescript -- src/assets/svg-icons",
     "build-storybook": "build-storybook",
     "playwright-backend": "playwright test backend --project=chromium --workers=1",
-    "playwright-visual": "playwright test visual --workers=1"
+    "playwright-visual": "playwright test visual --workers=1",
+    "generate-doc-screenshots": "npx ts-node-esm playwright/utils/generate_docs_screenshots.mts"
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",

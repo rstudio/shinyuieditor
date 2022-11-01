@@ -30,6 +30,7 @@ Yes! If you point `launch_editor()` at your existing app, then it will be read i
 
 Yes! If you run `launch_editor()` with `app_loc` set to an non-existing or non-app-containing location the ui editor will start in template-chooser mode where you can select from a number of app templates to create your initial app.
 
+![Screenshot of template chooser interface](screenshots/template-chooser.png)
 
 ## Is there a way to edit the server code for my app?
 
