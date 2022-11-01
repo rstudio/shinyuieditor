@@ -10,8 +10,8 @@ const navbarTree = {
     gap_size: "1rem",
     areas: [
       ["header", "header"],
-      ["sidebar", "dists"],
-      ["linePlots", "linePlots"],
+      ["sidebar", "linePlots"],
+      ["dists", "dists"],
     ],
   },
   uiChildren: [
@@ -24,15 +24,26 @@ const navbarTree = {
       },
       uiChildren: [
         {
-          uiName: "shiny::numericInput",
+          uiName: "shiny::sliderInput",
           uiArguments: {
             inputId: "numChicks",
-            label: "Number of chicks",
-            value: 10,
+            label: "Number of Chicks",
             min: 1,
-            max: 25,
-            step: 1,
+            max: 15,
+            value: 5,
             width: "100%",
+            step: 1,
+          },
+        },
+        {
+          uiName: "shiny::radioButtons",
+          uiArguments: {
+            inputId: "distFacet",
+            label: "Facet Distribution By",
+            choices: {
+              "Diet Type": "Diet",
+              "Measure Time": "Time",
+            },
           },
         },
       ],
@@ -66,10 +77,11 @@ export const chickWeightsGridTemplate: TemplateInfo = {
   description: "Plots investigating the ChickWeights built-in dataset",
   uiTree: navbarTree as ShinyUiNode,
   otherCode: {
+    serverLibraries: ["ggplot2"],
     serverFunctionBody: ` 
     output$linePlots <- renderPlot({
       obs_to_include <- as.integer(ChickWeight$Chick) <= input$numChicks
-      chicks <- ChickWeight[obs_to_include,]
+      chicks <- ChickWeight[obs_to_include, ]
   
       ggplot(
         chicks,
@@ -88,7 +100,7 @@ export const chickWeightsGridTemplate: TemplateInfo = {
         ChickWeight,
         aes(x = weight)
       ) +
-        facet_wrap(~Diet) +
+        facet_wrap(input$distFacet) +
         geom_density(fill = "#fa551b", color = "#ee6331") +
         ggtitle("Distribution of weights by diet")
     })`,
