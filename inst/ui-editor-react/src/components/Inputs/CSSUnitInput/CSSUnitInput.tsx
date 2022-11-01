@@ -23,7 +23,7 @@ export function CSSUnitInput({
   label,
   value: initialValue,
   onChange,
-  units = ["fr", "px", "rem", "%", "auto"],
+  units = ["px", "rem", "%"],
 }: InputComponentProps<
   CSSMeasure,
   {
