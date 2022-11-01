@@ -166,19 +166,23 @@ launch_editor <- function(app_loc,
     previous_template_type <- NULL
     load_app_template <- function(template_info) {
       writeLog("<= Loading app template")
-      write_app_template(template_info, app_loc)
 
-      if (!is.null(previous_template_type)) {
-        # If we've written a template previously, we should clean up its files
-        # in case the user switched from single-file to multi-file etc.. We
-        # can't just always do this in case the user is running the server on a
-        # folder with existing files in it, in which case we may inadvertently
+      if (
+        !is.null(previous_template_type) && 
+        !identical(template_info$outputType, previous_template_type)
+      ) {
+        # If we've written a template previously of another output type, we
+        # should clean up its files. We can't just always do this in case the
+        # user is running the server on a folder with existing files in it, in
+        # which case we may inadvertently
         # delete them
         remove_app_template(
           app_loc = app_loc,
           app_type = previous_template_type
         )
       }
+
+      write_app_template(template_info, app_loc)
       load_new_app()
       previous_template_type <<- template_info$outputType
     }
