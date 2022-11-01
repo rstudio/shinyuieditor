@@ -142,6 +142,6 @@ export const chickWeightsNavbar: TemplateInfo = {
         geom_density(fill = "#fa551b", color = "#ee6331") +
         ggtitle("Distribution of weights by diet")
     })
-  }`,
+  `,
   },
 };

@@ -137,6 +137,7 @@ AppPreview <- R6::R6Class(
 
       private$stop_listeners()
 
+      private$is_running <- FALSE
       tryCatch(
         {
           private$logger("=> Shutting down running shiny app...")
