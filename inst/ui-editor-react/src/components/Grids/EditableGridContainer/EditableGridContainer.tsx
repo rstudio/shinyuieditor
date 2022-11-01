@@ -6,6 +6,7 @@ import type {
   TemplatedGridProps,
   TractDirection,
 } from "Shiny-Ui-Elements/GridlayoutGridPage";
+import { ensureArray } from "utils/array-helpers";
 import addTract from "utils/gridTemplates/addTract";
 import removeTract from "utils/gridTemplates/removeTract";
 
@@ -22,6 +23,22 @@ export type TractUpdateAction = { dir: TractInfo["dir"]; index: number } & (
   | { type: "DELETE" }
 );
 
+// Sometimes a single-length array is sent over without array wrapping. This
+// updates and makes sure arrray-ness is kept
+function cleanupLayoutArgs({
+  areas,
+  col_sizes,
+  row_sizes,
+  gap_size,
+}: TemplatedGridProps) {
+  return {
+    areas,
+    gap_size,
+    col_sizes: ensureArray(col_sizes),
+    row_sizes: ensureArray(row_sizes),
+  };
+}
+
 const NEW_TRACT_SIZE: CSSMeasure = "1fr";
 function EditableGridContainer({
   className,
@@ -33,7 +50,8 @@ function EditableGridContainer({
   children?: React.ReactNode;
   onNewLayout: (layout: TemplatedGridProps) => void;
 } & TemplatedGridProps) {
-  const { row_sizes, col_sizes } = layout;
+  layout = cleanupLayoutArgs(layout);
+  let { row_sizes, col_sizes } = layout;
   const containerRef = React.useRef<HTMLDivElement>(null);
   const styles = layoutDefToStyles(layout);
 
