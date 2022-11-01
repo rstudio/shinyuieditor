@@ -6,13 +6,13 @@ const appTree = {
   uiName: "gridlayout::grid_page",
   uiArguments: {
     row_sizes: ["100px", "1fr", "1fr", "1fr"],
-    col_sizes: ["505px", "1fr"],
+    col_sizes: ["250px", "0.59fr", "1.41fr"],
     gap_size: "1rem",
     areas: [
-      ["header", "header"],
-      ["sidebar", "area4"],
-      ["table", "bluePlot"],
-      ["table", "bluePlot"],
+      ["header", "header", "header"],
+      ["sidebar", "bluePlot", "bluePlot"],
+      ["table", "table", "plotly"],
+      ["table", "table", "plotly"],
     ],
   },
   uiChildren: [
@@ -33,12 +33,17 @@ const appTree = {
             min: 12,
             max: 100,
             value: 30,
-            animate: {
-              uiName: "unknownUiFunction",
-              uiArguments: {
-                text: 'animationOptions(interval = 1000, loop = FALSE, playButton = "play", \n    pauseButton = "pause")',
-              },
-            },
+            width: "100%",
+          },
+        },
+        {
+          uiName: "shiny::numericInput",
+          uiArguments: {
+            inputId: "numRows",
+            label: "Number of table rows",
+            value: 10,
+            min: 1,
+            step: 1,
             width: "100%",
           },
         },
@@ -48,7 +53,7 @@ const appTree = {
       uiName: "gridlayout::grid_card_text",
       uiArguments: {
         area: "header",
-        content: "Single File App",
+        content: "Geysers!",
         alignment: "start",
         is_title: false,
       },
@@ -81,7 +86,8 @@ const appTree = {
     {
       uiName: "gridlayout::grid_card",
       uiArguments: {
-        area: "area4",
+        area: "plotly",
+        title: "Interactive Plot",
       },
       uiChildren: [
         {
@@ -102,29 +108,25 @@ export const gridGeyserTemplate: TemplateInfo = {
   description: "The classic geyser app in a gridlayout grid page",
   uiTree: appTree as ShinyUiNode,
   otherCode: {
+    serverLibraries: ["plotly"],
     serverFunctionBody: ` 
     output$distPlot <- renderPlotly({
       # generate bins based on input$bins from ui.R
-      plot_ly(x = ~faithful[, 2], type = "histogram")
-  
-      # # draw the histogram with the specified number of bins
-      # hist(x, breaks = bins, col = 'darkgray', border = 'white')
+      plot_ly(x = ~ faithful[, 2], type = "histogram")
     })
   
     output$bluePlot <- renderPlot({
       # generate bins based on input$bins from ui.R
-      x    <- faithful[, 2]
+      x <- faithful[, 2]
       bins <- seq(min(x), max(x), length.out = input$bins + 1)
   
       # draw the histogram with the specified number of bins
-      hist(x, breaks = bins, col = 'steelblue', border = 'white')
+      hist(x, breaks = bins, col = "steelblue", border = "white")
     })
   
   
-    output$myTable <- renderDT(
-      {
-        head(faithful, 10)
-      }
-    )`,
+    output$myTable <- renderDT({
+      head(faithful, input$numRows)
+    })`,
   },
 };
