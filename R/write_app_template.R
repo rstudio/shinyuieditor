@@ -163,7 +163,8 @@ generate_app_template_files <- function(app_template, remove_namespace = TRUE) {
       paste(
         collapsed_library_calls(serverLibraries),
         serverExtra,
-        server_def
+        server_def,
+        sep = "\n"
       )
     )
   }
