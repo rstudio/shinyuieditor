@@ -49,6 +49,9 @@ jobs:
       # Update the snapshots
       - name: Update snapshots
         run: npx playwright test visual --update-snapshots --reporter=list
+      # Run build to fix the environment variables
+      - name: Rebuild main bundle
+        run: yarn build
       # Commit the changes
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
