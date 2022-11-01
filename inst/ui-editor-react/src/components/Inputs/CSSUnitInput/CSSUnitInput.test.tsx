@@ -15,6 +15,7 @@ function UseCssUnitInput({ initialValue }: { initialValue: CSSMeasure }) {
       id={"usedCSSUnit"}
       value={value}
       onChange={setValue}
+      units={["px", "auto", "rem", "%"]}
     />
   );
 }
