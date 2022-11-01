@@ -130,3 +130,9 @@ export function joinPretty(
 export function removeDuplicates(arr: string[]): string[] {
   return [...new Set(arr)];
 }
+
+export function ensureArray<T>(x: T[] | T): T[] {
+  if (Array.isArray(x)) return x;
+
+  return [x];
+}
