@@ -1,0 +1,52 @@
+name: Update Visual Snapshots
+
+on:
+  # Run any time any issue/PR has a new comment
+  issue_comment:
+    types: [created]
+
+jobs:
+  slash_command:
+    name: slash command
+    # This job will only run if the comment was on a pull requests and matches the slash command
+    if: ${{ github.event.issue.pull_request && github.event.comment.body == '/update-snapshots'}}
+    # Common with standard build
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout with personal TOKEN
+      # and hop on the PR branch
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GH_ACTION_TOKEN }}
+      - name: Get Branch
+        id: getbranch
+        run: |
+          branch=$(\
+            curl \
+              -H 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+              https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.issue.number }} \
+            | jq -r '.head.ref')
+          echo "::set-output name=branch::$branch"
+      - name: Fetch Branch
+        run: git fetch
+      - name: Checkout Branch
+        run: git checkout ${{ steps.getbranch.outputs.branch }}
+      # Continue with standard build
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+      - name: Install JS dependencies
+        working-directory: ./inst/ui-editor-react
+        run: yarn install --immutable
+        shell: bash
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      # Update the snapshots
+      - name: Update snapshots
+        run: npx playwright test visual --update-snapshots --reporter=list
+      # Commit the changes
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Update Snapshots
