@@ -5,8 +5,8 @@ import type { TemplateInfo } from "../app_templates";
 const navbarTree = {
   uiName: "shiny::navbarPage",
   uiArguments: {
-    title: "Geysers",
-    selected: "Nested Tabs",
+    title: "Chick Weights",
+    selected: "Settings",
     collapsible: true,
     theme: {
       uiName: "unknownUiFunction",
@@ -31,7 +31,7 @@ const navbarTree = {
             max: 15,
             value: 4,
             step: 1,
-            width: "400px",
+            width: "100%",
           },
         },
       ],
@@ -39,30 +39,32 @@ const navbarTree = {
     {
       uiName: "shiny::tabPanel",
       uiArguments: {
-        title: "Nested Tabs",
+        title: "Line Plot",
       },
       uiChildren: [
         {
-          uiName: "shiny::tabsetPanel",
-          uiArguments: {},
-          uiChildren: [
-            {
-              uiName: "shiny::tabPanel",
-              uiArguments: {
-                title: "Tab Title",
-              },
-              uiChildren: [
-                {
-                  uiName: "shiny::actionButton",
-                  uiArguments: {
-                    inputId: "myButton",
-                    label: "My Button",
-                    width: "100%",
-                  },
-                },
-              ],
-            },
-          ],
+          uiName: "shiny::plotOutput",
+          uiArguments: {
+            outputId: "linePlots",
+            width: "100%",
+            height: "500px",
+          },
+        },
+      ],
+    },
+    {
+      uiName: "shiny::tabPanel",
+      uiArguments: {
+        title: "Dist Plot",
+      },
+      uiChildren: [
+        {
+          uiName: "shiny::plotOutput",
+          uiArguments: {
+            outputId: "dists",
+            width: "100%",
+            height: "500px",
+          },
         },
       ],
     },
@@ -75,6 +77,7 @@ export const chickWeightsNavbar: TemplateInfo = {
     "Plots investigating the ChickWeights built-in dataset in a `navbarPage()` view",
   uiTree: navbarTree as ShinyUiNode,
   otherCode: {
+    serverLibraries: ["ggplot2"],
     serverFunctionBody: ` 
     output$linePlots <- renderPlot({
         obs_to_include <- as.integer(ChickWeight$Chick) <= input$numChicks
