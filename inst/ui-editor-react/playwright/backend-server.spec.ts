@@ -37,6 +37,14 @@ test("Template chooser can change between templates mid-session", async ({
   // Wait for the edit view to be available be looking for the elements panel
   await expect(page.getByRole("heading", { name: "Elements" })).toBeVisible();
 
+  // Reach into the app preview frame and grab the contents to be compared to the next app preview
+  const previewAppBody = page
+    .frameLocator(`[title="Application Preview"]`)
+    .locator("body");
+  await expect(previewAppBody).toBeVisible();
+
+  const firstPreviewAppContents = await previewAppBody.innerHTML();
+
   const singleFileModeFiles = await backendServer.get_app_folder_contents();
 
   expect(containsAppFile(singleFileModeFiles, "app")).toBe(true);
@@ -50,10 +58,10 @@ test("Template chooser can change between templates mid-session", async ({
   // Switch to multi-file output mode
   await page.getByLabel("Multi file mode").check();
 
-  // Select first template again and go into editor
+  // Select last template and go into editor
   await page
     .getByRole("article", { name: "App template preview card" })
-    .first()
+    .last()
     .click();
 
   await page
@@ -61,6 +69,15 @@ test("Template chooser can change between templates mid-session", async ({
     .click();
 
   await expect(page.getByRole("heading", { name: "Elements" })).toBeVisible();
+
+  // Once again check the app preview contents and make sure...
+
+  // 1) Preview is visible (app preview didn't crash) and ...
+  await expect(previewAppBody).toBeVisible();
+
+  // 2) The contents are different from the previous view (the actual app previewed changed)
+  const secondPreviewAppContents = await previewAppBody.innerHTML();
+  expect(firstPreviewAppContents).not.toBe(secondPreviewAppContents);
 
   const multiFileModeFiles = await backendServer.get_app_folder_contents();
   // Contains both ui and server files and doesn't contain an app.r file
@@ -112,19 +129,3 @@ test("Ending on template chooser will clear any template files written", async (
   const afterCloseFiles = await backendServer.get_app_folder_contents();
   expect(Object.keys(afterCloseFiles).length).toEqual(0);
 });
-// test("Geyser template app manipulation", async ({ page }, info) => {
-//   const backendServer = await setupBackendServer({
-//     template_to_use: "../app-templates/geyser_multi-file/",
-//     app_dir_root: info.outputDir,
-//   });
-
-//   await page.goto(backendServer.app_url);
-
-//   //   The default state is no selection thus the proceed button shouldn't be allowed
-//   await expect(page.locator(`text=Geysers`)).toBeVisible();
-
-//   // const file_contents = await backendServer.get_app_folder_contents();
-//   // console.log("Contents of app dir", file_contents);
-
-//   // console.log("End of app file", endingFileContents);
-// });
