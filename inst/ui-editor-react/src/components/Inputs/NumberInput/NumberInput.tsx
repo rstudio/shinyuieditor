@@ -1,3 +1,5 @@
+import React from "react";
+
 import { DownSpinnerButton, UpSpinnerButton } from "components/Icons";
 
 import type { InputComponentProps } from "../SettingsFormBuilder/inputFieldTypes";
@@ -38,22 +40,29 @@ export function NumberInputSimple({
   disabled,
   ...passthroughProps
 }: NumberInputSimpleProps) {
-  const { incrementUp, incrementDown } = useIncrementerButtons({
-    min,
-    max,
-    step,
-    value,
-    onChange,
-  });
+  const { displayedVal, handleChange, handleBlur, incrementUp, incrementDown } =
+    useNumberInput({
+      min,
+      max,
+      step,
+      value,
+      onChange,
+    });
+
   return (
-    <div className="NumberInput SUE-Input" aria-disabled={disabled}>
+    <div
+      className="NumberInput SUE-Input"
+      aria-disabled={disabled}
+      onBlur={handleBlur}
+    >
       <input
         {...passthroughProps}
         className="input-field"
         type="number"
-        value={value ?? 0}
+        placeholder={"0"}
+        value={displayedVal}
         disabled={disabled}
-        onChange={(e) => onChange(Number(e.target.value))}
+        onChange={handleChange}
       />
       <div className="incrementer-buttons">
         <button
@@ -77,7 +86,10 @@ export function NumberInputSimple({
   );
 }
 
-function useIncrementerButtons({
+// Right now this is a bit overzealous with rerendering, rendering 2 times for
+// every state change. Not sure how to fix it and seems like a small performance
+// penalty now.
+function useNumberInput({
   min = -Infinity,
   max = Infinity,
   step = 1,
@@ -90,25 +102,74 @@ function useIncrementerButtons({
   value: number | null;
   onChange: (value: number) => void;
 }) {
-  function incrementValue(dir: "up" | "down") {
-    return (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      e.preventDefault();
+  const incrementValue = React.useCallback(
+    (dir: "up" | "down") => {
+      return (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault();
 
-      if (typeof value !== "number") return;
-      if (typeof step !== "number") return;
+        if (typeof value !== "number") return;
+        if (typeof step !== "number") return;
 
-      const newValue = value + (dir === "up" ? 1 : -1) * step;
+        const newValue = value + (dir === "up" ? 1 : -1) * step;
 
-      if (typeof min === "number" && min > newValue) return;
+        if (typeof min === "number" && min > newValue) return;
 
-      if (typeof max === "number" && max < newValue) return;
+        if (typeof max === "number" && max < newValue) return;
 
-      onChange(newValue);
-    };
-  }
+        onChange(newValue);
+      };
+    },
+    [max, min, onChange, step, value]
+  );
+
+  const incrementUp = React.useMemo(
+    () => incrementValue("up"),
+    [incrementValue]
+  );
+
+  const incrementDown = React.useMemo(
+    () => incrementValue("down"),
+    [incrementValue]
+  );
+
+  // Create an internal state to let us manipulate the value easier to do things
+  // like show the placeholder 0 intead of a true zero when the user deletes all
+  // the elements
+  const [realVal, setRealVal] = React.useState<number | null | string>(value);
+
+  // Sync the passed in value with our internal state
+  React.useEffect(() => setRealVal(value), [value]);
+
+  // Sync the internal state with the external one
+  React.useEffect(() => {
+    const updatedValue = Number(realVal);
+
+    if (updatedValue === value) return;
+
+    onChange(updatedValue);
+  }, [realVal, onChange, value]);
+
+  // When a change happens in the input, update our internal state
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> =
+    React.useCallback((e) => {
+      setRealVal(e.target.value);
+    }, []);
+
+  // When the user blurs, we can clean up any leading zeros they may have added
+  const handleBlur = React.useCallback(() => {
+    setRealVal((currentVal) => Number(currentVal).toString());
+  }, []);
+
+  // If the user has backspaced to 0, then we want the placeholder to show the
+  // zero so they can start typing a new number without un-avoidable 0s
+  // prefixing it.
+  const displayedVal = realVal === 0 || realVal === null ? "" : realVal;
 
   return {
-    incrementUp: incrementValue("up"),
-    incrementDown: incrementValue("down"),
+    incrementUp,
+    incrementDown,
+    handleChange,
+    displayedVal,
+    handleBlur,
   };
 }
