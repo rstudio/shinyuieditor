@@ -1,12 +1,13 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-echo "Running type-check"
+echo "Running type-check..."
 cd inst/ui-editor-react 
 yarn type-check
 
-echo "Building assets"
+echo "Building assets..."
 yarn build
 
 git add build/
 
+echo "All good! 👍"
