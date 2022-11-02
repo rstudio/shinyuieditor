@@ -74,10 +74,54 @@ test("Updating the area name of a grid item propigates through rest of app prope
   await page.locator(`[aria-label="App template preview card"]`).last().click();
 
   await page.locator(`button`).locator("text=next").click();
+});
 
-  // TODO: When backend updates have been made, make sure that the single/multifile status is respected in request call.
+test("Non-main state data is reset when navigating between templates", async ({
+  page,
+}) => {
+  await mockBackendState(page, "TEMPLATE_CHOOSER");
 
-  // Make sure app has changed
+  await page.goto("/");
+
+  // Select first available template
+  await page
+    .getByRole("article", { name: "App template preview card" })
+    .first()
+    .click();
+
+  await page
+    .getByRole("button", { name: "Start editor with selected template" })
+    .click();
+
+  await expect(page.getByRole("heading", { name: "Elements" })).toBeVisible();
+
+  // Select a node
+  await page.locator(`[data-is-selected-node]`).last().click();
+
+  // Make sure selection is represented
+  expect(
+    await page.locator(`[aria-label="Path to selected node"] > *`).count()
+  ).toBeGreaterThan(1);
+
+  // Now backup to the main template chooser view
+  await page.getByRole("button", { name: "Undo last change" }).click();
+
+  // Select different template
+  await page
+    .getByRole("article", { name: "App template preview card" })
+    .last()
+    .click();
+
+  await page
+    .getByRole("button", { name: "Start editor with selected template" })
+    .click();
+
+  await expect(page.getByRole("heading", { name: "Elements" })).toBeVisible();
+
+  // Now only a single item should be selected
+  expect(
+    await page.locator(`[aria-label="Path to selected node"] > *`).count()
+  ).toBe(1);
 });
 
 async function clickAllSelected(selection: Locator) {
