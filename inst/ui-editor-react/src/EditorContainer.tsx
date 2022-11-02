@@ -34,7 +34,7 @@ export function EditorContainer() {
         <div className={classes.header}>
           <SvgShinyLogo
             className={classes.shinyLogo}
-            style={{ backgroundColor: "var(--rstudio-blue, pink)" }}
+            style={{ backgroundColor: "var(--rstudio-blue)" }}
           />
           <h1 className={classes.title}>Shiny UI Editor</h1>
           <div className={classes.rightSide}>
