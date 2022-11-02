@@ -50,6 +50,7 @@
     "eslint": "^8.23.0",
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-import": "^2.26.0",
+    "husky": "^8.0.1",
     "jsdom": "^20.0.0",
     "playwright": "^1.27.1",
     "prettier": "2.7.1",
@@ -74,7 +75,8 @@
     "build-storybook": "build-storybook",
     "playwright-backend": "playwright test backend --project=chromium --workers=1",
     "playwright-visual": "playwright test visual --workers=1",
-    "generate-doc-screenshots": "npx ts-node-esm playwright/utils/generate_docs_screenshots.mts"
+    "generate-doc-screenshots": "npx ts-node-esm playwright/utils/generate_docs_screenshots.mts",
+    "setup-husky": "cd ../../ && husky install inst/ui-editor-react/.husky"
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
