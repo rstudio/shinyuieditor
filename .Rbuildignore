@@ -8,3 +8,6 @@
 ^pkgdown$
 ^\.github$
 ^vignettes/ui-editor-live-demo\.Rmd$
+^\.hintrc$
+^\.lintr$
+^\.vscode$

@@ -187,6 +187,14 @@ export type ShinyUiNodeByName = {
  */
 export type ShinyUiNode = ShinyUiNodeByName[ShinyUiNames];
 
+export type TemplateChooserNode = "TEMPLATE_CHOOSER";
+export type LoadingState = "LOADING_STATE";
+export type ShinyUiRootNode = ShinyUiNode | TemplateChooserNode | LoadingState;
+
+// export function isShinyUiNode(node: ShinyUiRootNode): node is ShinyUiNode {
+//   return node !== "TEMPLATE_CHOOSER";
+// }
+
 /**
  * Optional props that will enable drag behavior on a given ui node. Non
  * draggable nodes will simple get an empty object.

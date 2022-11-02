@@ -1,0 +1,120 @@
+.AppTemplatePreview {
+  overflow: hidden;
+  isolation: isolate;
+
+  .template-container {
+    position: relative;
+    width: var(--full-w, 100px);
+    height: var(--full-h, 100px);
+    transform: scale(var(--shrink-ratio, 0.5));
+    transform-origin: top left;
+  }
+
+  // This covers the template container and prevents any mouse events leaking
+  // into the template
+  .template-container::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: all;
+  }
+}
+
+.AppTemplateCard {
+  --outline-color: #caced3;
+  --outline-thickness: 1px;
+  --footer-color: #e9edf3;
+  --padding: var(--card-pad, 5px);
+
+  cursor: pointer;
+  outline: var(--outline-thickness) solid var(--outline-color);
+  width: --moz-fit-content;
+  width: fit-content;
+  border-radius: var(--corner-radius);
+
+  > * {
+    padding: var(--padding);
+  }
+
+  footer {
+    background-color: var(--footer-color);
+    height: calc(40px - 2 * var(--padding));
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 0 0 var(--corner-radius) var(--corner-radius);
+
+    .layout-icon {
+      display: block;
+      width: 42px;
+      translate: 6px 2px;
+    }
+
+    .layout-icon[data-type="navbarPage"] {
+      width: 42px;
+      translate: 6px 1px;
+    }
+  }
+}
+
+.AppTemplateCard[data-selected="true"] {
+  --outline-thickness: 4px;
+  --outline-color: var(--rstudio-blue);
+}
+
+.TemplatePreviewGrid {
+  display: grid;
+  gap: 53px 44px;
+  grid-template-columns: repeat(auto-fit, var(--card-w));
+  justify-content: center;
+}
+
+.TemplatePreviewGrid.empty-results {
+  height: 100%;
+  place-content: center;
+  color: var(--red);
+  grid-template-columns: unset;
+  font-size: 1.1rem;
+}
+
+.TemplateChooserSidebar {
+  width: 218px;
+  padding-block: 18px;
+  padding-inline: 15px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+
+  button {
+    --inset: 5px;
+    margin-top: auto;
+    width: calc(100% - 2 * var(--inset));
+    background-color: var(--rstudio-blue);
+    color: var(--rstudio-white);
+  }
+
+  button:disabled {
+    background-color: var(--grey);
+    border-color: var(--grey);
+  }
+
+  legend {
+    font-size: var(--font-size, 1rem);
+    margin: 0;
+  }
+}
+
+.TemplateFiltersForm {
+  .layout-options {
+    display: flex;
+    justify-content: space-around;
+  }
+}
+
+.labeled-form-option {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}

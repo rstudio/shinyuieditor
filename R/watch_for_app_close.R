@@ -1,36 +1,36 @@
-WatchForAppClose <- R6::R6Class(
-  "WatchForAppClose",
-  public = list(
-    on_close = NULL,
-    timeout_fn =  NULL,
+WatchForAppClose <- function(on_close) {
 
-    initialize = function(on_close) {
-      self$on_close <- on_close
-    },
+  timeout_fn <- NULL
 
-    connection_opened = function() {
-      if (is.null(self$timeout_fn)) return()
+  connection_opened <- function() {
+    if (is.null(timeout_fn)) return()
 
-      # Cancel any app close timeouts that may have been caused by the
-      # user refreshing the page
-      self$timeout_fn()
-    },
+    # Cancel any app close timeouts that may have been caused by the
+    # user refreshing the page
+    timeout_fn()
+  }
 
-    connection_closed = function() {
-      if (is.null(self$on_close)) {
-        return()
-      }
-
-      # Trigger an interrupt to stop the server if the browser
-      # unmounts and then doesn't re-connect within a timeframe
-      self$timeout_fn <- later::later(self$on_close, delay = 0.5)
-    },
-
-    cleanup = function() {
-      # This removal of the `on_close` field is necessary because the httpuv
-      # onClose callback will get called after the on.exit() callback and thus
-      # will try and mess stuff up again.
-      self$on_close <- NULL
+  connection_closed <- function() {
+    if (is.null(on_close)) {
+      # If on_close is null that means the cleanup function has run
+      return()
     }
+
+    # Trigger an interrupt to stop the server if the browser
+    # unmounts and then doesn't re-connect within a timeframe
+    timeout_fn <<- later::later(on_close, delay = 0.5)
+  }
+
+  cleanup <- function() {
+    # This removal of the `on_close` field is necessary because the httpuv
+    # onClose callback will get called after the on.exit() callback and thus
+    # will try and mess stuff up again.
+    on_close <<- NULL
+  }
+
+  list(
+    "cleanup" = cleanup,
+    "connection_opened" = connection_opened,
+    "connection_closed" = connection_closed
   )
-)
+}

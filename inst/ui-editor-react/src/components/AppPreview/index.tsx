@@ -1,6 +1,6 @@
 import React from "react";
 
-import panelClasses from "EditorContainer.module.css";
+import { PanelHeader } from "EditorSkeleton/EditorSkeleton";
 import { SHOW_FAKE_PREVIEW } from "env_variables";
 import { AiOutlineShrink } from "react-icons/ai";
 import { FaExpand } from "react-icons/fa";
@@ -50,7 +50,7 @@ export default function AppPreview() {
 
   return (
     <>
-      <h3 className={classes.title + " " + panelClasses.panelTitleHeader}>
+      <PanelHeader className={classes.title}>
         <Button
           variant={["transparent", "icon"]}
           className={classes.reloadButton}
@@ -60,7 +60,8 @@ export default function AppPreview() {
           <VscDebugRestart />
         </Button>
         App Preview
-      </h3>
+      </PanelHeader>
+
       <div
         className={classes.appViewerHolder}
         data-expanded={isFullScreen}

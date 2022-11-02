@@ -1,15 +1,21 @@
 import * as React from "react";
 
-import { useDispatch, useSelector } from "react-redux";
-import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
+import type { TemplateSelection } from "components/TemplatePreviews/filterTemplates";
+import { useSelector } from "react-redux";
+import { isShinyUiNode } from "Shiny-Ui-Elements/isShinyUiNode";
+import type {
+  ShinyUiNode,
+  ShinyUiRootNode,
+} from "Shiny-Ui-Elements/uiNodeTypes";
 import type { RootState } from "state/store";
-import { initialUiTree, INIT_STATE } from "state/uiTree";
 import { sendWsMessage } from "websocket_hooks/sendWsMessage";
 import type { WebsocketMessage } from "websocket_hooks/useConnectToWebsocket";
 import {
   listenForWsMessages,
   useWebsocketBackend,
 } from "websocket_hooks/useConnectToWebsocket";
+
+import { useSetTree } from "../state/useSetTree";
 
 import { getClientsideOnlyTree } from "./getClientsideOnlyTree";
 
@@ -22,40 +28,43 @@ export type OutgoingStateMsg =
   | {
       path: "STATE-UPDATE";
       payload: ShinyUiNode;
+    }
+  | {
+      path: "TEMPLATE-SELECTOR-REQUEST";
+    }
+  | {
+      path: "TEMPLATE-SELECTION";
+      payload: TemplateSelection;
     };
 
 type IncomingStateMsg = {
   path: "INITIAL-DATA";
-  payload: ShinyUiNode;
+  payload: ShinyUiRootNode;
 };
 
-function isIncomingStateMsg(x: WebsocketMessage): x is IncomingStateMsg {
-  return ["INITIAL-DATA"].includes(x.path);
-}
+type IncomingErrorMsg = {
+  path: "PARSING-ERROR";
+  payload: string;
+};
 
-function useCurrentUiTree() {
-  const dispatch = useDispatch();
-  const tree = useSelector((state: RootState) => state.uiTree);
+type IncomingMsg = IncomingStateMsg | IncomingErrorMsg;
 
-  const setTree = React.useCallback(
-    (newTree: ShinyUiNode) => {
-      dispatch(INIT_STATE({ initialState: newTree }));
-    },
-    [dispatch]
-  );
-
-  return { tree, setTree };
+function isIncomingStateMsg(x: WebsocketMessage): x is IncomingMsg {
+  return ["INITIAL-DATA", "PARSING-ERROR"].includes(x.path);
 }
 
 export function useSyncUiWithBackend() {
-  const { tree, setTree } = useCurrentUiTree();
+  const tree = useSelector((state: RootState) => state.uiTree);
+  const setTree = useSetTree();
 
   const { status, ws } = useWebsocketBackend();
+
+  const [errorMsg, setErrorMsg] = React.useState<null | string>(null);
 
   const [connectionStatus, setConnectionStatus] =
     React.useState<BackendConnectionStatus>("loading");
 
-  const lastRecievedRef = React.useRef<ShinyUiNode | null>(null);
+  const lastRecievedRef = React.useRef<ShinyUiRootNode | null>(null);
   const currentUiTree = useSelector((state: RootState) => state.uiTree);
 
   React.useEffect(() => {
@@ -63,9 +72,14 @@ export function useSyncUiWithBackend() {
       listenForWsMessages(ws, (msg: WebsocketMessage) => {
         if (!isIncomingStateMsg(msg)) return;
 
-        lastRecievedRef.current = msg.payload;
-        setTree(msg.payload);
-        setConnectionStatus("connected");
+        if (msg.path === "INITIAL-DATA") {
+          lastRecievedRef.current = msg.payload;
+          setTree(msg.payload);
+          setConnectionStatus("connected");
+        }
+        if (msg.path === "PARSING-ERROR") {
+          setErrorMsg(msg.payload);
+        }
       });
 
       // Let the backend know the react app is ready for state to be provided
@@ -85,7 +99,7 @@ export function useSyncUiWithBackend() {
 
   React.useEffect(() => {
     if (
-      currentUiTree === initialUiTree ||
+      currentUiTree === "LOADING_STATE" ||
       currentUiTree === lastRecievedRef.current
     ) {
       // Avoiding unnecesary message to backend when the state hasn't changed
@@ -94,8 +108,15 @@ export function useSyncUiWithBackend() {
     }
     if (status !== "connected") return;
 
-    sendWsMessage(ws, { path: "STATE-UPDATE", payload: currentUiTree });
+    if (currentUiTree === "TEMPLATE_CHOOSER") {
+      // The user has gone backward to the template selector, so let the backend
+      // know it should clear the existing app
+      sendWsMessage(ws, { path: "TEMPLATE-SELECTOR-REQUEST" });
+    }
+    if (isShinyUiNode(currentUiTree)) {
+      sendWsMessage(ws, { path: "STATE-UPDATE", payload: currentUiTree });
+    }
   }, [currentUiTree, status, ws]);
 
-  return { status: connectionStatus, tree };
+  return { status: connectionStatus, tree, setTree, errorMsg };
 }

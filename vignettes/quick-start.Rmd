@@ -35,24 +35,10 @@ If you prefer video format, here's an [in-depth walkthrough of using the ui edit
 
 ### New app
 
-If you set the argument `app_loc` to a location that does not yet exist, the launcher will ask a few and setup a simple template app for you to use with building.
+If you set the argument `app_loc` to a location that does not yet exist, the will start in a template-chooser interface. Here you can select a complete app template which will then be written to your `app_loc` and then be edited as an existing app would be. 
 
 ```r
 shinyuieditor::launch_editor(app_loc = "new-app/")
-
-#> No app was found at location /Users/me/new_app.
-#> Would you like to start a new app from a template?
-#> 1: yes
-#> 2: no
-#>
-#> Selection: 1
-#> Which starter template would you like to use? (Sorry, it's an easy choice currently.)
-#> 1: geyser
-#> ...
-#>
-#> Selection: 1
-#> => Starting Shiny preview app...
-#> ...
 ```
 
 _There are just a few templates available currently but more are always being added._

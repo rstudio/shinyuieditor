@@ -27,7 +27,6 @@ app_expr <- rlang::expr(
             | 1fr  | sidebar | plot |",
     gridlayout::grid_card(
       area = "sidebar",
-      item_alignment = "center",
       shiny::sliderInput(
         inputId = "bins",
         label = "Num Bins",
@@ -38,7 +37,6 @@ app_expr <- rlang::expr(
     ),
     gridlayout::grid_card(
       area = "plot",
-      item_alignment = "center",
       shiny::plotOutput(
         outputId = "distPlot",
         height = "100\%"

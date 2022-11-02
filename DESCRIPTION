@@ -28,7 +28,9 @@ Suggests:
     ggplot2,
     knitr,
     testthat (>= 3.0.0),
-    rstudioapi
+    rstudioapi,
+    DT,
+    plotly
 Remotes:
     rstudio/gridlayout
 Config/Needs/website:

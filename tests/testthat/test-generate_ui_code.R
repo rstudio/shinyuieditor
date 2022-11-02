@@ -2,8 +2,7 @@
 stack_panel <- list(
   uiName = "gridlayout::grid_card",
   uiArguments = list(
-    area = "plot",
-    item_alignment = "center"
+    area = "plot"
   ),
   uiChildren = list(
     list(
@@ -24,7 +23,6 @@ stack_panel <- list(
 
 namespaced_stack_panel_code <- 'gridlayout::grid_card(
   area = "plot",
-  item_alignment = "center",
   my_data_table_var,
   shiny::plotOutput(
     outputId = "distPlot",
@@ -34,7 +32,6 @@ namespaced_stack_panel_code <- 'gridlayout::grid_card(
 
 bare_stack_panel_code <- 'grid_card(
   area = "plot",
-  item_alignment = "center",
   my_data_table_var,
   plotOutput(
     outputId = "distPlot",

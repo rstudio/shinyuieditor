@@ -9,7 +9,6 @@ test_that("Real grid_page UI snapshot", {
             | 1fr  | sidebar | plot |",
           gridlayout::grid_card(
             area = "sidebar",
-            item_alignment = "center",
             shiny::sliderInput(
               inputId = "bins",
               label = "Num Bins",
@@ -20,7 +19,6 @@ test_that("Real grid_page UI snapshot", {
           ),
           gridlayout::grid_card(
             area = "plot",
-            item_alignment = "center",
             shiny::plotOutput(
               outputId = "distPlot",
               height = "100%"
@@ -92,7 +90,6 @@ test_that("Errors with invalid arguments", {
   original_expression <- rlang::expr(
     gridlayout::grid_card(
       area = "plot",
-      item_alignment = "center",
       shiny::plotOutput(
         outputId = "distPlot",
         height2 = "100%"

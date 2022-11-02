@@ -36,3 +36,31 @@ ask_question <- function(..., answers) {
   cat(cat(paste0(..., collapse = "")))
   answers[utils::menu(answers)]
 }
+
+
+# Generate a series of lines loading an array of libraries
+create_library_calls <- function(libraries) {
+  vapply(
+    X = libraries,
+    FUN = function(l) paste0("library(", l, ")"),
+    FUN.VALUE = character(1L)
+  )
+}
+
+
+# Format outgoing message into JSON to be read by client
+format_outgoing_msg <- function(path, payload) {
+  jsonlite::toJSON(
+    list(path = path, payload = payload), 
+    auto_unbox = TRUE
+  )
+}
+
+# Parse the raw incoming messages into a list. Message should have path and
+# payload attributes attached
+parse_incoming_msg <- function(raw_msg) {
+  jsonlite::fromJSON(
+    rawToChar(raw_msg),
+    simplifyVector = FALSE
+  )
+}

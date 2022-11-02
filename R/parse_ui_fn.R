@@ -20,7 +20,6 @@
 #'             | 1fr  | sidebar | plot |",
 #'     gridlayout::grid_card(
 #'       area = "sidebar",
-#'       item_alignment = "center",
 #'       shiny::sliderInput(
 #'         inputId = "bins",
 #'         label = "Num Bins",
@@ -31,7 +30,6 @@
 #'     ),
 #'     gridlayout::grid_card(
 #'       area = "plot",
-#'       item_alignment = "center",
 #'       shiny::plotOutput(
 #'         outputId = "distPlot",
 #'         height = "100%"

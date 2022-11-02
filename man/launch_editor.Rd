@@ -20,9 +20,9 @@ launch_editor(
 \arguments{
 \item{app_loc}{Path to directory containing Shiny app to be visually edited
 (either containing an \code{app.R} or both a \code{ui.R} and \code{server.R}). If the
-provided location doesn't exist, or doesn't contain an app, the user will
-be prompted to choose a starter template which will then be written to the
-location specified.}
+provided location doesn't exist, or doesn't contain an app, the app will
+start in an interface to select from a series of starter templates which
+will then be written to the location specified.}
 
 \item{host}{A string that is a valid IPv4 address that is owned by this
 server, or \code{"0.0.0.0"} to listen on all IP addresses.}
@@ -67,7 +67,6 @@ editor.
 if (FALSE) {
   # Start editor on a non-existing app directory to choose a starter template
   launch_editor(app_loc = "empty_directory/")
-
 
   # You can control where the app runs just like a normal Shiny app.
   # This can be useful if you want to access it from a headless server

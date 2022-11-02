@@ -28,8 +28,9 @@ Yes! If you point `launch_editor()` at your existing app, then it will be read i
 
 ## I _don't_ have an app, can I start one with the `shinyuieditor`?
 
-Yes! If you run `launch_editor()` with `app_loc` set to an non-existing or non-app-containing location it will ask you a few questions to setup a starter template app. This will then  be written to the `app_loc` and you can continue editing it as you please. This can be used as an alternative to the typical "new shiny app" geyser template. More templates will continually be added as the `shinyuieditor` matures. 
+Yes! If you run `launch_editor()` with `app_loc` set to an non-existing or non-app-containing location the ui editor will start in template-chooser mode where you can select from a number of app templates to create your initial app.
 
+![Screenshot of template chooser interface](screenshots/template-chooser.png)
 
 ## Is there a way to edit the server code for my app?
 
@@ -75,7 +76,6 @@ shinyApp(
 ## The editor keeps changing the formatting and erasing comments in my code, can I stop that?
 
 Unfortunately not. When the UI editor updates your code it rewrites the entire ui definition. Any code sitting outside of the ui definition in your app will be preserved exactly as it was, however. 
-
 
 
 ## My app takes a long time to start up, can I turnoff the live app preview?

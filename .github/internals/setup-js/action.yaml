@@ -47,7 +47,7 @@ runs:
       with:
         node-version: "16.x"
 
-    - name: Install dependencies
+    - name: Install JS dependencies
       working-directory: ./inst/ui-editor-react
       run: yarn install --immutable
       shell: bash
