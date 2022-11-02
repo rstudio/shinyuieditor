@@ -4,9 +4,9 @@
 # For most R packages it is better to use https://github.com/r-lib/actions
 on:
   push:
-    branches: [main, rc-**]
+    branches: [main, rc-**, dev]
   pull_request:
-    branches: [main]
+    branches: [main, dev]
   schedule:
     - cron: "0 13 * * 1" # every monday
 
@@ -55,7 +55,7 @@ jobs:
         run: cp -r vignettes/demo-app docs/articles/
 
       - name: Deploy to GitHub pages 🚀
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && github.ref_name == 'main'
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
           clean: false
