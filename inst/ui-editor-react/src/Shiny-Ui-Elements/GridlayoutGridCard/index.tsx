@@ -9,7 +9,6 @@ export type AlignmentOptions = "top" | "center" | "bottom" | "spread";
 export type GridCardSettings = {
   area: string;
   title?: string;
-  // item_alignment?: AlignmentOptions;
   item_gap?: CSSMeasure;
 };
 

@@ -20,7 +20,6 @@ const appTree = {
       uiName: "gridlayout::grid_card",
       uiArguments: {
         area: "sidebar",
-        item_alignment: "top",
         title: "Settings",
         item_gap: "12px",
       },
@@ -62,7 +61,6 @@ const appTree = {
       uiName: "gridlayout::grid_card",
       uiArguments: {
         area: "table",
-        item_alignment: "center",
         title: "Table",
         scrollable: true,
         item_gap: "12px",
