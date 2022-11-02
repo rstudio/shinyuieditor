@@ -1,12 +1,22 @@
 .AppTemplatePreview {
   overflow: hidden;
+  isolation: isolate;
 
   .template-container {
-    pointer-events: none;
+    position: relative;
     width: var(--full-w, 100px);
     height: var(--full-h, 100px);
-    scale: var(--shrink-ratio, 0.5);
+    transform: scale(var(--shrink-ratio, 0.5));
     transform-origin: top left;
+  }
+
+  // This covers the template container and prevents any mouse events leaking
+  // into the template
+  .template-container::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: all;
   }
 }
 
