@@ -34,7 +34,7 @@ type NumberInputSimpleProps = Omit<
 export function NumberInputSimple({
   value,
   onChange,
-  min,
+  min = 0,
   max,
   step,
   disabled,
@@ -61,6 +61,9 @@ export function NumberInputSimple({
         type="number"
         placeholder={"0"}
         value={displayedVal}
+        min={min}
+        max={max}
+        step={step}
         disabled={disabled}
         onChange={handleChange}
       />
