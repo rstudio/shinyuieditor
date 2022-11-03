@@ -4,7 +4,8 @@ import Button from "components/Inputs/Button/Button";
 import type { SettingsUpdateAction } from "components/Inputs/SettingsFormBuilder/SettingsInput/SettingsInput";
 import { SettingsInput } from "components/Inputs/SettingsFormBuilder/SettingsInput/SettingsInput";
 import PortalModal from "PortalModal";
-import classes from "PortalModal.module.css";
+
+import classes from "../../PortalModal.module.css";
 
 import type { NewItemInfo } from "./GridlayoutElement/GridlayoutElement";
 
