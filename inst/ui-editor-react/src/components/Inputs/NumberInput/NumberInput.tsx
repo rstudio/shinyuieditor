@@ -155,7 +155,11 @@ function useNumberInput({
   // When a change happens in the input, update our internal state
   const handleChange: React.ChangeEventHandler<HTMLInputElement> =
     React.useCallback((e) => {
-      setRealVal(e.target.value);
+      const newVal = e.target.value;
+
+      setRealVal((oldVal) =>
+        Number(oldVal) === Number(newVal) ? oldVal : newVal
+      );
     }, []);
 
   // When the user blurs, we can clean up any leading zeros they may have added
