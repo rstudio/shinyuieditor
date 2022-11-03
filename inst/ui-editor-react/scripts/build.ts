@@ -8,20 +8,55 @@ import cssModulesPlugin from "esbuild-css-modules-plugin";
 import { sassPlugin } from "esbuild-sass-plugin";
 import glob from "glob";
 
+const findPortArg = /--port=(?<port>\d{2,})/;
+
 let serve = false;
 let prod = false;
-if (process.argv.some((x) => x === "--serve")) {
+let port = 3012;
+let buildDir = "build/";
+let openBrowser = true;
+
+const envVariablesDefine = {
+  DEV_MODE_ESBUILD: "true",
+  TESTING_MODE_ESBUILD: "false",
+  SHOW_FAKE_PREVIEW_ESBUILD: "true",
+};
+
+const hasBooleanArg = (prop: `--${string}`) =>
+  process.argv.some((x) => x === prop);
+
+if (hasBooleanArg("--serve")) {
   serve = true;
 }
-if (process.argv.some((x) => x === "--prod")) {
+if (hasBooleanArg("--prod")) {
   prod = true;
+  envVariablesDefine.DEV_MODE_ESBUILD = "false";
+}
+if (hasBooleanArg("--test")) {
+  envVariablesDefine.DEV_MODE_ESBUILD = "false";
+  envVariablesDefine.TESTING_MODE_ESBUILD = "true";
+  openBrowser = false;
+}
+if (hasBooleanArg("--hide-fake-preview")) {
+  envVariablesDefine.SHOW_FAKE_PREVIEW_ESBUILD = "false";
+}
+if (hasBooleanArg("--website-demo")) {
+  envVariablesDefine.SHOW_FAKE_PREVIEW_ESBUILD = "false";
+  buildDir = "../../vignettes/demo-app";
 }
 
-const buildDir = "esbuild/";
+const portSearchRes = process.argv.find(
+  (arg) => findPortArg.exec(arg)?.groups?.port
+);
+if (portSearchRes) {
+  const requestedPort = Number(findPortArg.exec(portSearchRes)?.groups?.port);
+  if (!requestedPort)
+    throw new Error("Invalid port request:\n" + portSearchRes);
+  port = requestedPort;
+}
+
 const assetsDir = `${buildDir}build/`;
-const port = 3012;
 const behind_the_scenes_port = 3042;
-const openBrowser = true;
 const clients: http.ServerResponse[] = [];
 
 esbuild.build({
@@ -33,11 +68,7 @@ esbuild.build({
   loader: { ".png": "dataurl" },
   outfile: `${assetsDir}bundle.js`,
   metafile: true,
-  define: {
-    DEV_MODE_ESBUILD: `true`,
-    TESTING_MODE_ESBUILD: "false",
-    SHOW_FAKE_PREVIEW_ESBUILD: "false",
-  },
+  define: envVariablesDefine,
   watch: serve
     ? {
         onRebuild: (
