@@ -143,24 +143,19 @@ function useNumberInput({
   // Sync the passed in value with our internal state
   React.useEffect(() => setRealVal(value), [value]);
 
-  // Sync the internal state with the external one
-  React.useEffect(() => {
-    const updatedValue = Number(realVal);
-
-    if (updatedValue === value) return;
-
-    onChange(updatedValue);
-  }, [realVal, onChange, value]);
-
   // When a change happens in the input, update our internal state
   const handleChange: React.ChangeEventHandler<HTMLInputElement> =
-    React.useCallback((e) => {
-      const newVal = e.target.value;
+    React.useCallback(
+      (e) => {
+        const newVal = e.target.value;
 
-      setRealVal((oldVal) =>
-        Number(oldVal) === Number(newVal) ? oldVal : newVal
-      );
-    }, []);
+        setRealVal((oldVal) =>
+          Number(oldVal) === Number(newVal) ? oldVal : newVal
+        );
+        onChange(Number(newVal));
+      },
+      [onChange]
+    );
 
   // When the user blurs, we can clean up any leading zeros they may have added
   const handleBlur = React.useCallback(() => {

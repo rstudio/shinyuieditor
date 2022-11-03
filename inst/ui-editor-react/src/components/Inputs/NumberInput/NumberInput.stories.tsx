@@ -19,6 +19,7 @@ function InputDemo({ start = 10, width }: { start?: number; width: number }) {
         position: "relative",
       }}
     >
+      <button onClick={() => setValue(10)}>set to 10</button>
       <NumberInput
         id="MyNumber"
         label="Number Input"
