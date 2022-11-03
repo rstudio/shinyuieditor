@@ -14,6 +14,7 @@
 - Dragging to resize a grid tract with focus still inside of a popup tract info widget now hides the widget so the drag-to-resize info popup is not obscured. (#110)
 - Starting the editor on an app with a single column or row gridlayout element no longer crashes the app.
 - On case-sensitive file-path operating systems like linux, the editor will now be able to see apps weather using the lowercase `.r` or uppercase `.R` extensions. (`ff46cdd`)
+- Typing in numeric inputs no longer forces you to prefix numbers with 0 if you delete back to nothing to type a new number. (#118)
 
 # shinyuieditor 0.3.1
 
