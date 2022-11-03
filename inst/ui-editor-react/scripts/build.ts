@@ -42,7 +42,8 @@ if (hasBooleanArg("--hide-fake-preview")) {
 }
 if (hasBooleanArg("--website-demo")) {
   envVariablesDefine.SHOW_FAKE_PREVIEW_ESBUILD = "false";
-  buildDir = "../../vignettes/demo-app";
+  prod = true;
+  buildDir = "../../vignettes/demo-app/";
 }
 
 const portSearchRes = process.argv.find(
