@@ -101,7 +101,11 @@ export function getDefaultSettings<DynInfo extends UiNodeSettingsInfo>(
   for (let argName in dynamicFormInfo) {
     const argInfo = dynamicFormInfo[argName];
 
-    if ("optional" in argInfo) {
+    const isOptional = "optional" in argInfo;
+    const forceDefault =
+      "useDefaultIfOptional" in argInfo && argInfo.useDefaultIfOptional;
+
+    if (isOptional && !forceDefault) {
       continue;
     }
 
