@@ -8,7 +8,10 @@ import type {
   ShinyUiRootNode,
 } from "Shiny-Ui-Elements/uiNodeTypes";
 import type { RootState } from "state/store";
-import { sendWsMessage } from "websocket_hooks/sendWsMessage";
+import {
+  sendWsMessage,
+  sendWsMessageDebounced,
+} from "websocket_hooks/sendWsMessage";
 import type { WebsocketMessage } from "websocket_hooks/useConnectToWebsocket";
 import {
   listenForWsMessages,
@@ -114,7 +117,10 @@ export function useSyncUiWithBackend() {
       sendWsMessage(ws, { path: "TEMPLATE-SELECTOR-REQUEST" });
     }
     if (isShinyUiNode(currentUiTree)) {
-      sendWsMessage(ws, { path: "STATE-UPDATE", payload: currentUiTree });
+      sendWsMessageDebounced(ws, {
+        path: "STATE-UPDATE",
+        payload: currentUiTree,
+      });
     }
   }, [currentUiTree, status, ws]);
 
