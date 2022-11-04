@@ -7,6 +7,7 @@ export function AppHeader() {
     <header>
       <SvgShinyLogo className="shiny-logo" />
       <h1 className="app-title">Shiny UI Editor</h1>
+
       <div className="right">
         <AppTour />
         <div className="divider" />

@@ -60,3 +60,20 @@ jobs:
           name: playwright-report
           path: ./inst/ui-editor-react/playwright-report/
           retention-days: 30
+
+  check-if-current-build:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./inst/ui-editor-react
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: ./.github/internals/setup-js
+
+      - name: Check if build is current
+        run: |
+          yarn build
+          # If this fails then the build is stale compared to source
+          git diff --exit-code -- build/
