@@ -17,8 +17,3 @@ export type StringKeys<T extends Record<string, any>> = Extract<
   keyof T,
   string
 >;
-
-/**
- * A React component
- */
-export type Component = (...args: any[]) => JSX.Element;

@@ -9,10 +9,6 @@ import type {
   UiNodeSettingsInfo,
 } from "./inputFieldTypes";
 
-export type ToStaticFormInfo<DynSettings extends UiNodeSettingsInfo> = {
-  [ArgName in keyof DynSettings]: StaticFieldInfoByType[DynSettings[ArgName]["inputType"]];
-};
-
 function isNodeToValueFn<T>(x: T | NodeToValueFn<T>): x is NodeToValueFn<T> {
   return typeof x === "function";
 }

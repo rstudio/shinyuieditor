@@ -11,7 +11,7 @@ import classes from "./CSSUnitInput.module.css";
 
 export type CSSUnits = "fr" | "px" | "rem" | "auto" | "%";
 
-export const defaultCounts = {
+const defaultCounts = {
   fr: 1,
   px: 10,
   rem: 1,

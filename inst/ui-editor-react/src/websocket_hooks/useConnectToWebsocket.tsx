@@ -44,7 +44,7 @@ function reducer(
   }
 }
 
-export function useConnectToWebsocket() {
+function useConnectToWebsocket() {
   const [connection, setConnection] = React.useReducer(reducer, initial_state);
 
   const haveConnectedToWebsocket = React.useRef(false);
@@ -96,7 +96,7 @@ export function useConnectToWebsocket() {
   return connection;
 }
 
-export const WebsocketContext =
+const WebsocketContext =
   React.createContext<WebsocketConnection>(initial_state);
 
 export function WebsocketProvider({ children }: { children: React.ReactNode }) {

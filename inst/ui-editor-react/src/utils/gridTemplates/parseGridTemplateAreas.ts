@@ -7,7 +7,7 @@ import type {
 import { fillArr } from "../array-helpers";
 import { matrixDimensions, uniqueMatrixElements } from "../matrix-helpers";
 
-export type ParsedGridTemplate = {
+type ParsedGridTemplate = {
   numRows: number;
   numCols: number;
   uniqueAreas: string[];

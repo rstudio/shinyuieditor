@@ -11,7 +11,7 @@ import { AppViewAbout } from "./AppViewAbout";
 import { ElementsPanelAbout } from "./ElementsPanelAbout";
 import { PropertiesPanelAbout } from "./PropertiesPanelAbout";
 
-export const joyrideSteps: Step[] = [
+const joyrideSteps: Step[] = [
   {
     target: ".app-view",
     content: AppViewAbout,

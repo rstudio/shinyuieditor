@@ -17,9 +17,7 @@ export type TemplateSelection = Omit<TemplateInfo, "title" | "description"> & {
   outputType: OutputType;
 };
 
-export function filteredTemplates(
-  filters: TemplateFilterState
-): TemplateInfo[] {
+function filteredTemplates(filters: TemplateFilterState): TemplateInfo[] {
   return app_templates.filter(({ uiTree }) => {
     const layoutType = getLayoutType(uiTree);
     if (!filters.layoutTypes.includes(layoutType)) return false;

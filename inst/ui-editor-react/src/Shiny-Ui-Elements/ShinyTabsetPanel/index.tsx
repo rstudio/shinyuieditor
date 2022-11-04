@@ -30,5 +30,3 @@ export const shinyTabsetPanelInfo: UiComponentInfo<TabsetPanelSettings> = {
   category: "Tabs",
   description: "A container filled with tabs",
 };
-
-export default shinyTabsetPanelInfo;

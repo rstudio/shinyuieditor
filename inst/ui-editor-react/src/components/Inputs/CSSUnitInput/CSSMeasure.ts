@@ -6,7 +6,7 @@ export function isCSSMeasure(x: string): x is CSSMeasure {
   return findMeasureRegex.test(x);
 }
 
-export type ParsedCSSMeasure =
+type ParsedCSSMeasure =
   | { count: number; unit: CSSUnit }
   | { count: null; unit: "auto" };
 

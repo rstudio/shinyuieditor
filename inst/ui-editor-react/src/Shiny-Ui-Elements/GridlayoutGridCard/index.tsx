@@ -5,7 +5,6 @@ import type { UiComponentInfo } from "../uiNodeTypes";
 
 import GridlayoutGridCard from "./GridlayoutGridCard";
 
-export type AlignmentOptions = "top" | "center" | "bottom" | "spread";
 export type GridCardSettings = {
   area: string;
   title?: string;

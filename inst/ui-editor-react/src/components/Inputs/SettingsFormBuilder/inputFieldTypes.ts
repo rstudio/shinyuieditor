@@ -56,7 +56,7 @@ export type InputFieldEntryMap = MapDiscriminatedUnion<
 
 export type NodeToValueFn<T> = (node?: ShinyUiNode) => T;
 
-export type DynamicValueType<T> = T | NodeToValueFn<T>;
+type DynamicValueType<T> = T | NodeToValueFn<T>;
 /**
  * Object is filled with either values or callbacks to get those values from a
  * ui node
@@ -66,7 +66,7 @@ type ArgumentsOrCallbacks<Obj extends Record<string, any>> = {
 };
 
 type OmittedFieldStatic = { inputType: "omitted"; defaultValue: any };
-export type OmittedFieldDynamic = {
+type OmittedFieldDynamic = {
   inputType: "omitted";
   defaultValue: DynamicValueType<any>;
 };

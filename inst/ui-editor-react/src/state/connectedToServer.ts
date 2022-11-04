@@ -12,6 +12,9 @@ export const connectedToServerSlice = createSlice({
   },
 });
 
+// Action creators are generated for each case reducer function
+const { DISCONNECTED_FROM_SERVER } = connectedToServerSlice.actions;
+
 export const useSetDisconnectedFromServer = () => {
   const dispatch = useDispatch();
 
@@ -20,8 +23,5 @@ export const useSetDisconnectedFromServer = () => {
   }, [dispatch]);
   return set_disconected;
 };
-
-// Action creators are generated for each case reducer function
-export const { DISCONNECTED_FROM_SERVER } = connectedToServerSlice.actions;
 
 export default connectedToServerSlice.reducer;

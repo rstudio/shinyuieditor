@@ -323,7 +323,7 @@ function getMousePosition(e: MousePosition, dir: DragState["dir"]) {
   return dir === "rows" ? e.clientY : e.clientX;
 }
 
-export function getHasRelativeUnits(tractSizes: string[]) {
+function getHasRelativeUnits(tractSizes: string[]) {
   return tractSizes.some((size) => isFrUnit(size));
 }
 function getHasAutoUnits(tractSizes: string[]) {

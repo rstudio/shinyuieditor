@@ -67,7 +67,7 @@ export function UnknownArgumentsRender<Info extends FormInfo>({
 
 type UnknownUiFunction = ShinyUiNodeByName["unknownUiFunction"];
 
-export function isUnknownUiFunction(x: unknown): x is UnknownUiFunction {
+function isUnknownUiFunction(x: unknown): x is UnknownUiFunction {
   if (!isShinyUiNode(x)) return false;
   return x.uiName === "unknownUiFunction";
 }
