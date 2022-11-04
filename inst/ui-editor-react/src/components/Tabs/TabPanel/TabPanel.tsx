@@ -1,6 +1,6 @@
 import classes from "./TabPanel.module.css";
 
-export interface TabPanelProps extends React.ComponentPropsWithoutRef<"div"> {
+interface TabPanelProps extends React.ComponentPropsWithoutRef<"div"> {
   title: string;
 }
 

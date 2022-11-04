@@ -41,5 +41,3 @@ export const gridlayoutGridContainerInfo: UiComponentInfo<GridContainerSettings>
     },
     description: `A general container for arranging items using \`gridlayout\``,
   };
-
-export default gridlayoutGridContainerInfo;

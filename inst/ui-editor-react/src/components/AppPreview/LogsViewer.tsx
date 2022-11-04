@@ -58,7 +58,7 @@ export function LogsViewer({
   );
 }
 
-export function useExpandableLogs(appLogs: AppLogs) {
+function useExpandableLogs(appLogs: AppLogs) {
   const [logsExpanded, setLogsExpanded] = React.useState(false);
   const [unseenLogs, setUnseenLogs] = React.useState(false);
   const [logsLastExpanded, setLogsLastExpanded] = React.useState<Date | null>(

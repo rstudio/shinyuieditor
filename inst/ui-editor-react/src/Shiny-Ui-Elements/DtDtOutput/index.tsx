@@ -40,5 +40,3 @@ export const dtDTOutputInfo: UiComponentInfo<DTOutputSettings> = {
   category: "Outputs",
   description: `\`DataTable\` table output`,
 };
-
-export default dtDTOutputInfo;

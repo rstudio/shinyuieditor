@@ -80,7 +80,7 @@ function stopEventPropigation(e: React.MouseEvent<HTMLElement>) {
   e.stopPropagation();
 }
 
-export const resizeDirToArrow: Record<ResizeDirection, JSX.Element> = {
+const resizeDirToArrow: Record<ResizeDirection, JSX.Element> = {
   up: <FaGripLines />,
   down: <FaGripLines />,
   left: <FaGripLinesVertical />,

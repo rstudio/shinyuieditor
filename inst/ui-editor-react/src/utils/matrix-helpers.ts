@@ -3,9 +3,9 @@ import type { TractDirection } from "Shiny-Ui-Elements/GridlayoutGridPage";
 
 import { addAtIndex, removeAtIndex } from "./array-helpers";
 
-export type Matrix<T> = T[][];
+type Matrix<T> = T[][];
 
-export type RowOrCol = { index: number; dir: TractDirection };
+type RowOrCol = { index: number; dir: TractDirection };
 type RowOrColAndValue<T> = RowOrCol & { arr: T[] };
 
 export function matrixDimensions<ElementType>(mat: Matrix<ElementType>) {

@@ -17,26 +17,11 @@ export type TractInfo = {
   size: CSSMeasure;
 };
 
-type ActiveDragStatus = {
-  status: "hovering" | "dragging";
-  dir: TractDirection;
-  tracts: [TractInfo, TractInfo];
-};
-export type DragStatus =
-  | {
-      status: "idle";
-    }
-  | ActiveDragStatus;
-
 export type TractEventListener = (x: {
   e: React.MouseEvent;
   dir: TractDirection;
   index: number;
 }) => void;
-
-export type TractEventListeners = {
-  startDrag: TractEventListener;
-};
 
 export function useDragToResizeGrid({
   containerRef,

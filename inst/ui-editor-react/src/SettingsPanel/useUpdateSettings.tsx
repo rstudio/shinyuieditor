@@ -73,13 +73,17 @@ export function useUpdateSettings(tree: ShinyUiNode) {
   };
 
   const deleteArgumentByName = (name: string) => {
-    setCurrentNode(
-      (node) =>
-        ({
-          ...node,
-          uiArguments: omit(node?.uiArguments ?? {}, name),
-        } as typeof currentNode)
-    );
+    setCurrentNode((node) => {
+      if (node === null) return node;
+
+      return {
+        ...node,
+        uiArguments: omit(
+          node.uiArguments ?? {},
+          name as keyof typeof node.uiArguments
+        ),
+      } as typeof currentNode;
+    });
     formHasBeenUpdated.current = true;
   };
 

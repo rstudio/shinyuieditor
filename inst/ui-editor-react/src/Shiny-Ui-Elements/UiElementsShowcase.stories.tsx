@@ -68,7 +68,7 @@ function UiNodeAndSettings<T extends ShinyUiNames>({
         const newSettings =
           action.type === "UPDATE"
             ? { ...prevSettings, [name]: action.value }
-            : omit(prevSettings, name);
+            : omit(prevSettings, name as keyof typeof prevSettings);
 
         const newNode = {
           ...node,

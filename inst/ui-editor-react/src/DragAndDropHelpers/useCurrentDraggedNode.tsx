@@ -2,7 +2,7 @@ import React from "react";
 
 import type { DraggedNodeInfo } from "./DragAndDropHelpers";
 
-export type DraggedNodeState = [
+type DraggedNodeState = [
   DraggedNodeInfo | null,
   (path: DraggedNodeInfo | null) => void
 ];
