@@ -4,7 +4,6 @@ import { LabeledInputCategory } from "components/Inputs/SettingsFormBuilder/Labe
 import {
   makeInputIdInfo,
   makeLabelInputInfo,
-  optionalWidthInfo,
 } from "Shiny-Ui-Elements/commonSettingsTemplates";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
@@ -50,7 +49,13 @@ export const shinyNumericInputInfo: UiComponentInfo<ShinyNumericInputProps> = {
       defaultValue: 1,
       optional: true,
     },
-    width: optionalWidthInfo,
+    width: {
+      inputType: "cssMeasure",
+      label: "Width",
+      defaultValue: "100%",
+      units: ["%", "px", "rem"],
+      optional: true,
+    },
   },
   settingsFormRender: ({ inputs }) => {
     return (

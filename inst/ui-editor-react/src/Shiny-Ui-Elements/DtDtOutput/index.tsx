@@ -1,9 +1,5 @@
 import icon from "assets/icons/shinyTable.png";
 import type { CSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
-import {
-  makeOutputIdInfo,
-  optionalWidthInfo,
-} from "Shiny-Ui-Elements/commonSettingsTemplates";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 
@@ -19,8 +15,19 @@ export const dtDTOutputInfo: UiComponentInfo<DTOutputSettings> = {
   title: "DT Table",
   UiComponent: DtDTOutput,
   settingsInfo: {
-    outputId: makeOutputIdInfo("myTable"),
-    width: optionalWidthInfo,
+    outputId: {
+      inputType: "string",
+      label: "Output ID",
+      defaultValue: "myTable",
+    },
+    width: {
+      inputType: "cssMeasure",
+      label: "Width",
+      defaultValue: "100%",
+      units: ["%", "px", "rem"],
+      optional: true,
+      useDefaultIfOptional: true,
+    },
     height: {
       label: "Height",
       inputType: "cssMeasure",

@@ -8,6 +8,7 @@
 
 - Switching from absolute to relative units in the grid tracts now results in the tract remaining (almost) the same size instead of jumping to a much bigger or much smaller size due to differences in magnitude of units. (#110)
 - Improved quality/polish of included template apps.
+- Radio inputs, sliders, DT tables, and ui outputs now default to a 100% width instead of an unset one.
 
 ### Bug fixes
 

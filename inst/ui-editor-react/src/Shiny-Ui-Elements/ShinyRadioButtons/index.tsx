@@ -4,7 +4,6 @@ import type { NamedList } from "components/Inputs/ListInput/NamedListInput";
 import {
   makeInputIdInfo,
   makeLabelInputInfo,
-  optionalWidthInfo,
 } from "Shiny-Ui-Elements/commonSettingsTemplates";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
@@ -32,7 +31,14 @@ export const shinyRadioButtonsInfo: UiComponentInfo<ShinyRadioButtonsProps> = {
         "choice b": "b",
       },
     },
-    width: optionalWidthInfo,
+    width: {
+      inputType: "cssMeasure",
+      label: "Width",
+      defaultValue: "100%",
+      units: ["%", "px", "rem"],
+      optional: true,
+      useDefaultIfOptional: true,
+    },
   },
   acceptsChildren: false,
   iconSrc: radioButtonIcons,

@@ -1,9 +1,5 @@
 import sliderIcon from "assets/icons/shinySlider.png";
 import type { CSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
-import {
-  inputIdInfo,
-  optionalWidthInfo,
-} from "Shiny-Ui-Elements/commonSettingsTemplates";
 
 import { LabeledInputCategory } from "../../components/Inputs/SettingsFormBuilder/LabeledInputCategory";
 import type { UiComponentInfo } from "../uiNodeTypes";
@@ -24,7 +20,11 @@ export const shinySliderInputInfo: UiComponentInfo<ShinySliderInputProps> = {
   title: "Slider Input",
   UiComponent: ShinySliderInput,
   settingsInfo: {
-    inputId: inputIdInfo,
+    inputId: {
+      label: "Input ID",
+      inputType: "string",
+      defaultValue: "inputId",
+    },
     label: {
       label: "Label text",
       inputType: "string",
@@ -51,7 +51,14 @@ export const shinySliderInputInfo: UiComponentInfo<ShinySliderInputProps> = {
       defaultValue: 1,
       optional: true,
     },
-    width: optionalWidthInfo,
+    width: {
+      inputType: "cssMeasure",
+      label: "Width",
+      defaultValue: "100%",
+      units: ["%", "px", "rem"],
+      optional: true,
+      useDefaultIfOptional: true,
+    },
   },
   settingsFormRender: ({ inputs }) => {
     return (

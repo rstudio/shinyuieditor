@@ -3,7 +3,6 @@ import type { CSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
 import {
   makeInputIdInfo,
   makeLabelInputInfo,
-  requiredWidthInfo,
 } from "Shiny-Ui-Elements/commonSettingsTemplates";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
@@ -22,7 +21,12 @@ export const shinyActionButtonInfo: UiComponentInfo<ShinyActionButtonProps> = {
   settingsInfo: {
     inputId: makeInputIdInfo("myButton"),
     label: makeLabelInputInfo("My Button"),
-    width: requiredWidthInfo,
+    width: {
+      inputType: "cssMeasure",
+      label: "Width",
+      defaultValue: "100%",
+      units: ["%", "px", "rem"],
+    },
   },
   acceptsChildren: false,
   iconSrc: buttonIcon,
