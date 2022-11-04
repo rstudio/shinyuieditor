@@ -41,6 +41,7 @@ export function DropdownSelect({
   if (uniqueOptions.length === 0) {
     return (
       <select
+        title={`${label} selector`}
         aria-labelledby={makeLabelId(id)}
         aria-label={label}
         className="OptionsDropdown SUE-Input"
@@ -50,6 +51,7 @@ export function DropdownSelect({
   }
   return (
     <select
+      title={`${label} selector`}
       aria-labelledby={makeLabelId(id)}
       className="OptionsDropdown SUE-Input"
       onChange={handleChange}
