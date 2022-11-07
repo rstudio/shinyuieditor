@@ -60,6 +60,7 @@ function useConnectToWebsocket() {
       ws.onerror = (e) => {
         // eslint-disable-next-line no-console
         console.error("Error with httpuv websocket connection", e);
+        setConnection({ type: "FAILED" });
       };
 
       ws.onopen = (event) => {

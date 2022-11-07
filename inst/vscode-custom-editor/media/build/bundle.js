@@ -30417,8 +30417,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   // src/assets/icons/undo.png
   var undo_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAoCAYAAAC4h3lxAAAACXBIWXMAAAsTAAALEwEAmpwYAAABDElEQVRYhe2ZsQ7CMAxEr4gvZmBDXMXGwC+XgVQqERDbCbEr5ZaoalXdq+0kTqdlWbBnHbwN1GoAeGsAeGv3AMdfN8+3h+ZdVwDcXE8GP7hfTqrnW0UgN99NLQDczAP1AFvzM4xpU6MagNw8vz75R1kBQpgHCrPQF0nNW3eJqjTURiDMl1+liYDUvLWQTRGTRiDcl18lAQhrHigDhDYPlAGYxpDmAXkNhG2cSwBzGolXOoWTJIVCQ0hSiAgMIa0BIiiEZiVmGvOpNVfXgtfuhYhgkbDsRpnGUiS6NDfWfoAIEomajowIAFHbExPvEN1X7BanEsTnGuiiVudChBPENH5wOGsAeGsAeGv3AE8yEDlUwXXxqQAAAABJRU5ErkJggg==";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-2vYNWMoyel38/ui-editor-react/src/components/Icons/styles.module.css.js
-  var digest = "23ffd8b3010f516ba16612c4ccd2d97069bb649ecbebf99a03ff6852d3afe084";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-G5m89AHeT11q/ui-editor-react/src/components/Icons/styles.module.css.js
+  var digest = "7bafcf0a5e50f904240dfd780663db51f997490336c2c40d8d34c02474111023";
   var css = `img._icon_1467k_1 {
   height: 30px;
   /* outline: 2px solid green; */
@@ -30681,8 +30681,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   // src/components/Icons/index.tsx
   var Icons_default = PngIcon;
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-8ii5bk3hCiuP/ui-editor-react/src/components/Inputs/Button/Button.module.css.js
-  var digest2 = "ae1e6493307b2bda2bad73334f4b4377af29a23649669d6ad004989fa014b41a";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-zlmjL9yX1OP9/ui-editor-react/src/components/Inputs/Button/Button.module.css.js
+  var digest2 = "da593492af1d75fda5151cd93110164f7f991260b483d0578086da0cb5a9bee9";
   var css2 = `._button_1y00r_1 {
   --background-color: var(--rstudio-white);
   --text-color: var(--font-color);
@@ -30754,8 +30754,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   };
   var Button_default = Button;
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-tuUH20FahZWP/ui-editor-react/src/components/DeleteNodeButton/styles.module.css.js
-  var digest3 = "141b2e8f2504ceef6c7fa85f20548a1faf7443e9a3fcdeee0732ec8036e24c63";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-nrU3LgK7YWOA/ui-editor-react/src/components/DeleteNodeButton/styles.module.css.js
+  var digest3 = "ef836dc3480480a424d20a9fa80d9f1bfd4b7c61478721642e88fdfd419b8269";
   var css3 = `._deleteButton_1en02_1 {
   color: var(--red);
   display: flex;
@@ -30969,8 +30969,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   };
   var UiNode_default = UiNode;
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-McyHIgQCIRbN/ui-editor-react/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
-  var digest4 = "c8d99fb850375129a72eef9a97d7638807214b2a986cbf75f7b1131bcb60acb3";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-GIlz9Z3POk3R/ui-editor-react/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
+  var digest4 = "604a9f2c666e5a61086b33d6e545dfb42cccffdb30249b424ec3b49ff4a8eeed";
   var css4 = `._container_1a2os_1 {
   position: relative;
   height: 100%;
@@ -31389,8 +31389,8 @@ div._emptyGridCard_1a2os_144 > button {
     return setLayout;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-LEFBaXM0BTY5/ui-editor-react/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
-  var digest5 = "b248f7474d7fe263e0532b19520b64aba134d2b920b1b22dd087a6b2adca8884";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-6TtFGSXnE3qw/ui-editor-react/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
+  var digest5 = "aaa732609d0d10b119c4052239ec0e577d56be3a0ad8310125d06afc8a05453a";
   var css5 = `._container_1a2os_1 {
   position: relative;
   height: 100%;
@@ -31749,8 +31749,8 @@ div._emptyGridCard_1a2os_144 > button {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 16 16" }, "child": [{ "tag": "path", "attr": { "fillRule": "evenodd", "d": "M16 14v1H0V0h1v14h15zM5 13H3V8h2v5zm4 0H7V3h2v10zm4 0h-2V6h2v7z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-NdjECBzPowt4/ui-editor-react/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
-  var digest6 = "0809ab0aae4ab719f4366680474a88e91016199ec96d6e61455c135a8c355292";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-ptXD8VcgNsA6/ui-editor-react/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
+  var digest6 = "7513b8c8d47968507db203c7d3af51725d3b21ac09e7f8727badd247b80a9112";
   var css6 = `._container_1rlbk_1 {
   max-height: 100%;
 }
@@ -31831,8 +31831,8 @@ div._emptyGridCard_1a2os_144 > button {
     return dimensions;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-ziY3mlJhib0D/ui-editor-react/src/Shiny-Ui-Elements/GridlayoutGridCardPlot/styles.module.css.js
-  var digest7 = "b96aa720b855937cc5b17bd838d5e95f106834af6bdcd2040bd37497c1ad4998";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-lcAJx70VCKDh/ui-editor-react/src/Shiny-Ui-Elements/GridlayoutGridCardPlot/styles.module.css.js
+  var digest7 = "8714db19361665bee311838feeb2f58449a4dcfa02d44aed5e5c85119470a527";
   var css7 = `._gridCardPlot_1a94v_1 {
   background-color: var(--rstudio-white);
   width: 100%;
@@ -31914,8 +31914,8 @@ div._emptyGridCard_1a2os_144 > button {
   // src/Shiny-Ui-Elements/GridlayoutGridCardText/GridlayoutCardText.tsx
   var React19 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-YRG8og0Fh05Z/ui-editor-react/src/Shiny-Ui-Elements/GridlayoutGridCardText/styles.module.css.js
-  var digest8 = "d93bd8c6f9c639c87f8fd802d0dcd408411e9eb48c603d209fccda875414ea03";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-HXOcX2CEijeQ/ui-editor-react/src/Shiny-Ui-Elements/GridlayoutGridCardText/styles.module.css.js
+  var digest8 = "88269d48c47127712163eea43f9953c3ebfac0a5b27cc24f3b9e2e593d7618e5";
   var css8 = `._textPanel_525i2_1 {
   background-color: var(--rstudio-white);
   /* outline: var(--outline); */
@@ -32840,8 +32840,8 @@ div._emptyGridCard_1a2os_144 > button {
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-yZlwYJHIkYhu/ui-editor-react/src/components/Grids/AreaOverlay.module.css.js
-  var digest9 = "5e30b2ce3742c65ea71a9eeef2459c54dad5f7f40c93079f4a181652b97cbba9";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-3cGH1RBYMoEF/ui-editor-react/src/components/Grids/AreaOverlay.module.css.js
+  var digest9 = "44cb494676db3460d31512e6ffc44e7bbbcf4ef3a9388e7bd317f285ee79200e";
   var css9 = `._marker_mumaw_1 {
   font-weight: lighter;
   font-style: italic;
@@ -33078,8 +33078,8 @@ div._emptyGridCard_1a2os_144 > button {
   // src/components/Grids/EditableGridContainer/EditableGridContainer.tsx
   var React33 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-TwaHx5RizLGb/ui-editor-react/src/components/Grids/EditableGridContainer/resizableGrid.module.css.js
-  var digest10 = "33ee3eeb1d64178d68fb6b34236c9b8cb8535b14f79ffccf23c5cf90312f806d";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-QAPQQdXoCRve/ui-editor-react/src/components/Grids/EditableGridContainer/resizableGrid.module.css.js
+  var digest10 = "61d2bb1fb90b3702b91e0fc62e278d1c8ca5ba91f28293357dfbfbc2029a26c5";
   var css10 = `._ResizableGrid_i4cq9_1 {
   --grid-gap: 5px;
 
@@ -43362,8 +43362,8 @@ div#_size-detection-cell_i4cq9_1 {
     };
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-9LNtD0VXWvE3/ui-editor-react/src/components/PopoverEl/styles.module.css.js
-  var digest11 = "da8dfc9df74834ec5eec95052f8266b5a65269a6cce13b8888ec5924c735596b";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-6BztuQaBuV3a/ui-editor-react/src/components/PopoverEl/styles.module.css.js
+  var digest11 = "4ab3f467ecb638ce6f4dbea82320f963b72f5e7f98b8be7b9fd8f289a2a3e0bd";
   var css11 = `._popover_m2pq3_1 {
   pointer-events: none;
   opacity: 0;
@@ -43553,8 +43553,8 @@ div#_size-detection-cell_i4cq9_1 {
     });
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-rmmTdOQc0Dgs/ui-editor-react/src/components/Inputs/CSSUnitInput/CSSUnitInfo.module.css.js
-  var digest12 = "2b894770e849a906006931177559677ad123ac36bd29600f4fb6b801f55ede76";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-fx6T6dD3j3A7/ui-editor-react/src/components/Inputs/CSSUnitInput/CSSUnitInfo.module.css.js
+  var digest12 = "ecab30f48a88a82acce929f230118a24f2b4feb778ee04069c432bbd80e4d006";
   var css12 = `._infoIcon_15ri6_1 {
   width: 24px;
   color: var(--rstudio-blue);
@@ -43649,8 +43649,8 @@ div#_size-detection-cell_i4cq9_1 {
     rem: "Pixel size of app font. Typically 16 pixels."
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-LrRUbifzMHLn/ui-editor-react/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
-  var digest13 = "989d2601d005eb51775d280112a9f0fd10273fd7eeda9841ecbd1dde709a5e69";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-dafug4ema2OR/ui-editor-react/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
+  var digest13 = "2761449b8cccd1b1bf0d303473099ed98b62e678890252160730e940ee12172d";
   var css13 = `._wrapper_3jy8f_1 {
   position: relative;
   display: flex;
@@ -44179,8 +44179,8 @@ div#_size-detection-cell_i4cq9_1 {
     return tractSizes.some((size) => size === "auto");
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-40k4B2QmUtVZ/ui-editor-react/src/components/Grids/EditableGridContainer/TractInfoDisplay.module.css.js
-  var digest14 = "73e2a415a54012005eeed00c4903236b7c23d3578e6d0c1942466180a42b0d49";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-w5nqFOe956T5/ui-editor-react/src/components/Grids/EditableGridContainer/TractInfoDisplay.module.css.js
+  var digest14 = "2945a0d7c50a8c75c56a6b2316b2360888149f94274e6850d76a64a057d1a7da";
   var css14 = `._tractInfoDisplay_cvtwo_1 {
   --transition-delay: 0.1s;
   --transition-speed: 0.1s;
@@ -44541,8 +44541,8 @@ user is typing in the input field but mouses off */
     });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-0mg7W6j30eMc/ui-editor-react/src/components/Grids/EditableGridContainer/TractSizer.module.css.js
-  var digest15 = "7f57cf936cea456199560106b6f257b1e080a25cc55f29210adc863d62e381f2";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-7cwx33Svcb37/ui-editor-react/src/components/Grids/EditableGridContainer/TractSizer.module.css.js
+  var digest15 = "5d638ead4796aac48a5ad3409f9b07325345b13ca527d3bff739165e68765d8e";
   var css15 = `div._columnSizer_9b32k_1,
 div._rowSizer_9b32k_2 {
   --sizer-color: #c9e2f3;
@@ -44880,8 +44880,8 @@ div._rowSizer_9b32k_2::after {
   // src/components/Grids/NameNewPanelModal.tsx
   var import_react33 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-fygpzqkH99dl/ui-editor-react/src/components/Inputs/BooleanInput/styles.module.css.js
-  var digest16 = "c22dcb413a5f2e2501bbd68ea30870c98304840b3df15106f00396955482bf9f";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-1vYInztXXgJ4/ui-editor-react/src/components/Inputs/BooleanInput/styles.module.css.js
+  var digest16 = "ef9723f9107dc5645500d2ac88064b07ccb2b1c05bea6cfc3309ef8017b17d02";
   var css16 = `._checkboxInput_7ym3w_1 {
   height: 0;
   width: 0;
@@ -44989,8 +44989,8 @@ label._checkboxLabel_7ym3w_10:after {
   // src/components/Inputs/CSSUnitInput/CSSUnitInput.tsx
   var import_react30 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-ChUkc5EODYTn/ui-editor-react/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
-  var digest17 = "a2722a5a762b3923a403a5451610b1bb39df9d13e9ccfb1a253b34d4eb3c7ba8";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-q2W9aUKqXvDD/ui-editor-react/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
+  var digest17 = "eddb01edce52a148211efdbf03ae3f7e566c1d7c9d20560d8537424a3b4e9c8b";
   var css17 = `._wrapper_3jy8f_1 {
   position: relative;
   display: flex;
@@ -45123,8 +45123,8 @@ label._checkboxLabel_7ym3w_10:after {
   // src/components/Inputs/ListInput/NamedListInput.tsx
   var import_react_sortablejs = __toESM(require_dist());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-2Xhzj8AqsLSW/ui-editor-react/src/components/Inputs/ListInput/styles.module.css.js
-  var digest18 = "a5d7849e5e6ee5d45f8d1aa2171af790c3eeab8ea0a5775d6528dca6ae4e4508";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-zSZNlDApY4f7/ui-editor-react/src/components/Inputs/ListInput/styles.module.css.js
+  var digest18 = "4a5a411f3425b50077ec00f582602091179f4ff64449442b611b85114556d5c9";
   var css18 = `._container_xt7ji_1 {
   --gap-size: 4px;
   margin-top: 21px;
@@ -45412,8 +45412,8 @@ label._checkboxLabel_7ym3w_10:after {
   // src/components/Inputs/RadioInputs/RadioInputsSimple.tsx
   var React37 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-WBVOkv1732ob/ui-editor-react/src/components/Inputs/RadioInputs/RadioInputs.module.css.js
-  var digest19 = "e7fb59dd1f681d9d1503c33be27fd32a5de3495c5135932f2d0a0e88ee3a2b2c";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-Q4CF5DcUOvio/ui-editor-react/src/components/Inputs/RadioInputs/RadioInputs.module.css.js
+  var digest19 = "794e6391f86a57ae9148d994cef041f1a73de28abf3318bff0b97b4aa8d6ef8c";
   var css19 = `._radioContainer_1regb_1 {
   display: grid;
   gap: 5px;
@@ -45913,8 +45913,8 @@ the label */
   // src/PortalModal.tsx
   var ReactDOM2 = __toESM(require_react_dom());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-ljQv0Za1sv5Z/ui-editor-react/src/PortalModal.module.css.js
-  var digest20 = "dbb9ba809088e73eafb9397271754b004560588ec5c80bf6a3dd9bbddea48e8e";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-9G3Ykid8wAys/ui-editor-react/src/PortalModal.module.css.js
+  var digest20 = "d77f667625322506128499a9799b7527e2871a5f57dac7fe42004b3794c94843";
   var css20 = `._portalHolder_18ua3_1 {
   background-color: rgba(255, 255, 255, 0.735);
   position: absolute;
@@ -46032,8 +46032,8 @@ the label */
   }
   var PortalModal_default = PortalModal;
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-2meE1PGkpgGU/ui-editor-react/src/PortalModal.module.css.js
-  var digest21 = "347d4d225310279321e373aa3a0862d24b95dc05b221e5d570324f19f028c27b";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-g0dC56ITmOyB/ui-editor-react/src/PortalModal.module.css.js
+  var digest21 = "162f46569aaf2aa05a2a8c0fe9faf8b161ce54fdc0bfa680ad48c76dc6bbbefe";
   var css21 = `._portalHolder_18ua3_1 {
   background-color: rgba(255, 255, 255, 0.735);
   position: absolute;
@@ -46212,8 +46212,8 @@ the label */
     return null;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-ho2FI5aT94rB/ui-editor-react/src/components/Grids/GridlayoutElement/styles.module.css.js
-  var digest22 = "a40c5e050bf5ec6e0ddd38cc1a472048d849f58e644d4350b7c45b090d2b0a8e";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-dQNGLgAJ5cd0/ui-editor-react/src/components/Grids/GridlayoutElement/styles.module.css.js
+  var digest22 = "8978fe1bc7ec735e1a01111c91ec71dba008f97d255452f36f50d43b0995adce";
   var css22 = `._container_1hvsg_1 {
   display: grid;
   /* background-color: var(--bg-color); */
@@ -46429,9 +46429,14 @@ the label */
 
   // src/env_variables.ts
   var import_meta = {};
-  var DEV_MODE = true;
+  var DEV_MODE = false;
   try {
-    DEV_MODE = import_meta.env.DEV ?? false ?? true;
+    if (import_meta.env.DEV) {
+      DEV_MODE = true;
+    }
+    if (false) {
+      DEV_MODE = true;
+    }
   } catch {
   }
   var SHOW_FAKE_PREVIEW = false;
@@ -46444,6 +46449,12 @@ the label */
     TESTING_MODE = import_meta.env.VITE_TESTING_MODE === "true";
   } catch {
   }
+  console.log({
+    DEV_MODE_ESBUILD: false,
+    DEV_MODE,
+    SHOW_FAKE_PREVIEW,
+    TESTING_MODE
+  });
 
   // src/components/PlotPlaceholder/PlotPlaceholder.tsx
   var import_jsx_runtime53 = __toESM(require_jsx_runtime());
@@ -46567,8 +46578,8 @@ the label */
     return makeStringInputInfo("Label text", defaultValue);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-GZGUeFpOFDnS/ui-editor-react/src/Shiny-Ui-Elements/ShinyActionButton/styles.module.css.js
-  var digest23 = "35e5e52db0bbc892e9af8c4367425f2ef99d7359875f35edbc70794ca5b1b0e8";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-FFN9rjwC9Cko/ui-editor-react/src/Shiny-Ui-Elements/ShinyActionButton/styles.module.css.js
+  var digest23 = "f273bb76cdcc4e0c87844e44ce3df9d09cb162bf0b5e6a63fe6dd06f2fbd07a5";
   var css23 = `._container_tyghz_1 {
   display: grid;
   grid-template-rows: 1fr;
@@ -46632,8 +46643,8 @@ the label */
   // src/assets/icons/shinyCheckgroup.png
   var shinyCheckgroup_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAFS0lEQVR4nO3cz2vTdxzH8Vfb9VeIa7ta1FW2FqQ6pqLbEERhm0OGFzcPY0dhl+LFo4cd9gfsuIs77LDbkAljDqEiCoKszMMEcbqFsjm2OaW6ptClP2zNDvkms2n6I99vXqTp5/mAQJKmn3wPT76fJCTvpnw+L6DWmut9ANiYCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFoQFC8KCBWHBgrBgQViwICxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFs/V+wDq5cy5seX+1BNd4piILkt8+uGOmEs2pmDDKrNL0ilJ70h6NeFaP0m6IumspJ8TrtWw2AqlYUl3JJ1W8qgUrXE6WnO4Bus1pNDPWCclff7sHZ1tzepsa4m12PTcgqbnnhZvNkVrz0r6Mv4hNqaQw+pTYbuSJA1s7tB7r/Wpv6c90aJ/Tczq2x/Hde/RTPGus5IuShpPtHCDCXkrPCWpU5K297Rr+O3+xFFJUn+01vYXSmt1RM8VlJDDOly8cmxvr1qam2q2cEtzk47t6a34XKEIeSs8VLwy0NeZaKHRTFaX7xQ+ZRh+60Vt6W4vX/NQxX/cwEIOK1W80toS/2x18ea4rmUmlW5vKUVVYc1UxX/ewELeChMbzWR1LTMpSTp5aGspKhBWbJO5J/rm5iNJ0on9m/Vywu10oyGsmL76/oEk6cBAWgeHuut7MOsQYcUwmsnq18ezSre36Ojid3+IEFaVJnNPSu8Aj+/rVVeqtc5HtD4RVpWu/5LV1OyCdm9Lad/A8/U+nHWLsKrwMDtbehf47l62wJUQVhUu3XosSXpzqIuPFlZBWBWMZrI6c25M5394ULrv9/Fp3f47J0k6vLO7TkfWOAirzMyTp6XPp27cmyrFdfvPKUmFsxUv2FdHWGU6Wpv10eGtpds37k0t+oT9jUFesK8FYVWwqz+tE/s3l24Xz2C7t6V4bbVGhLWMg0PdOjCQXnTf3pfSyzwa5UIO65/ildzcQsUHHN3Tq3R74WvKWza1VvW51TNfUZaW+eXORhby12auSzouSXfv5/T6wKYlD+hKteqT9wdjLX7n/r/lzxWUkM9Y3xWvjNx6rGxuvmYLZ3PzGok+84pcqNniDSLkM9YXkj6WNDg5Pa/PLv+hI6/0aMeWlNpifvFvbiGvsYc5Xb07oamZ0vb6W/RcQQk5LKnwI4cRSZqaWdCF6N2f4TmCE/JWKEmXVPj1c8awdiZa+5Jh7XUv9DOWJF2VtFPSB5KOqPCLmrjfUc+p8EL9iqTzNTm6BkVY//s6uqAGQt8KYUJYsCAsWBAWLHjxvpRlol9oCKuAiX41xlbIRD+L0M9YTPQzCTksJvoZhbwVMtHPKOSwmOhnFPJWyEQ/o5DDYqKfUchbYWJM9FseYcXERL+VEVZMTPRbGWHFwES/1RFWlZjotzaEVSUm+q0NYVWBiX5rR1hVYKLf2hFWBUz0S46wyjDRrzYIqwwT/WqDsCpgol9yhLUMJvolE3JYTPQzCvlrM0z0Mwr5jMVEP6OQz1hM9DMKOSyJiX42IW+FEhP9bEI/Y0lM9LNoyufz9T4GbEChb4UwISxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFoQFC8KCBWHBgrBgQViwICxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLP4DpWmTqmVmpDwAAAAASUVORK5CYII=";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-pbnBO32tp5jL/ui-editor-react/src/Shiny-Ui-Elements/ShinyCheckboxGroupInput/styles.module.css.js
-  var digest24 = "c9321fa0b9890e5591792da30e64b0190f50130268ee7b5d1cf0240f9feed0b6";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-tfMMNOgiHh9b/ui-editor-react/src/Shiny-Ui-Elements/ShinyCheckboxGroupInput/styles.module.css.js
+  var digest24 = "6be947df8704f397e4e247eda5fc3b7198efe98bdeda6ac3ee0b00d873601285";
   var css24 = `._container_162lp_1 {
   position: relative;
   padding: 4px;
@@ -46731,8 +46742,8 @@ the label */
   // src/Shiny-Ui-Elements/ShinyCheckboxInput/ShinyCheckboxInput.tsx
   var React41 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-dzfsHqfm3P5Z/ui-editor-react/src/Shiny-Ui-Elements/ShinyCheckboxInput/styles.module.css.js
-  var digest25 = "beb9cfaa11dcaa9cedabd5846c9eeb78c7fdf0598dededc4ba853ae5cb24ff0a";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-5cYWaPLiE7HR/ui-editor-react/src/Shiny-Ui-Elements/ShinyCheckboxInput/styles.module.css.js
+  var digest25 = "022b31fe600568f98fdb7c012543521cb576c551dce83cb4a6f7862883a38346";
   var css25 = `._container_1x0tz_1 {
   position: relative;
   padding: 4px;
@@ -46848,8 +46859,8 @@ the label */
     return getTabPanelTitle(firstChild) ?? "First Tab";
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-CcGyh2nn3ilo/ui-editor-react/src/components/Tabs/TabPanel/TabPanel.module.css.js
-  var digest26 = "2d896c786087d9b1965541a3cd767dd904a15b7ff77f2d967e764ca5e9ad245c";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-3jVJWQxquQaj/ui-editor-react/src/components/Tabs/TabPanel/TabPanel.module.css.js
+  var digest26 = "be0ea86333ffc852f384497d3f76c5caca38e49b888495ceca143f669d7b028c";
   var css26 = `._container_10z2l_1 {
   height: 100%;
 }
@@ -46977,8 +46988,8 @@ the label */
     });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-iVHgj4JSrazF/ui-editor-react/src/Shiny-Ui-Elements/ShinyTabPanel/ShinyTabPanel.module.css.js
-  var digest27 = "3357befc3792b86eeeec0c2c9ae69793b00b7c544cbfcbaabf23fe3895c412da";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-blF5P2rvs1Gc/ui-editor-react/src/Shiny-Ui-Elements/ShinyTabPanel/ShinyTabPanel.module.css.js
+  var digest27 = "8c3b02e572d06d3b8e806dc5bebb56f64557339c7072efadb0fadc0140c137ba";
   var css27 = `._container_fe3r8_1 {
   position: relative;
   height: 100%;
@@ -47089,8 +47100,8 @@ the label */
     return "uiName" != null && x2 != null && typeof x2 === "object" && "uiName" in x2;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-DeGPpqZKwZop/ui-editor-react/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest28 = "e840f3d8165160eda4bd534604add7862d7dfd93f2ad74c0153ff655eeb3c782";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-2mQbBrcZSQaL/ui-editor-react/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest28 = "6186c2c48088e94939c0634bced2e7d3a673b441d871bfa049d9fb0ed1002d4f";
   var css28 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -47260,8 +47271,8 @@ illusion of the selected panel and tab being one entity */
     });
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-kkQJSxvWjr8M/ui-editor-react/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest29 = "c662651934299b6d818667703ba140417b9047c204991ff1e8df16b19adb1003";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-wAR5jKUluc8x/ui-editor-react/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest29 = "d67bc2a232ab3aeb4f2ae911fce336127232591590f4677ff10f702cba92290a";
   var css29 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -47428,8 +47439,8 @@ illusion of the selected panel and tab being one entity */
     });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-GsyfUam5le9Y/ui-editor-react/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest30 = "adb849bb5eee175a6515ba11bb794c35cde22641bff0980c71b9b296a7d89415";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-Dq3FKhG1m5pb/ui-editor-react/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest30 = "80d3ebceb65987c9358475757700f44a928650aeeb8f99a3193ecb3f09ad13c6";
   var css30 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -47710,8 +47721,8 @@ illusion of the selected panel and tab being one entity */
     });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-HhfQ7WKB1PE6/ui-editor-react/src/Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage.module.css.js
-  var digest31 = "3ea2ad7c985f4badc81d8631c3ad10f41071afcef0b8f5d44ad9982f4100dc89";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-hAqOfcBU2tJZ/ui-editor-react/src/Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage.module.css.js
+  var digest31 = "63ec1aaf3076438287d7273c7512ac4d51ebbb8ec5a4a4b8806ece4469e6059c";
   var css31 = `._noTabsMessage_130qz_1 {
   padding: 5px;
 }
@@ -47835,8 +47846,8 @@ illusion of the selected panel and tab being one entity */
   // src/Shiny-Ui-Elements/ShinyNumericInput/ShinyNumericInput.tsx
   var React47 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-ceDTf47mwMuz/ui-editor-react/src/Shiny-Ui-Elements/ShinyNumericInput/styles.module.css.js
-  var digest32 = "1f9b8eac607d08fe71ed98acf9e0685274d52d49bb3ea60c6e74cf1828ad9b21";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-6P2xVYzjchhZ/ui-editor-react/src/Shiny-Ui-Elements/ShinyNumericInput/styles.module.css.js
+  var digest32 = "475036a17f0ac12d20fc6fe6f69e31b583fbdd9f4312e449d4526c769bf4a9c1";
   var css32 = `._container_yicbr_1 {
   position: relative;
   padding: 4px;
@@ -47955,8 +47966,8 @@ illusion of the selected panel and tab being one entity */
     description: "An input control for entry of numeric values"
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-YLwW1pnZspMJ/ui-editor-react/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
-  var digest33 = "4235e5f744a7234dbe73c8726a38c62d01caa6cf20992ae574df50f19f1e9316";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-lHpmlNN75JFE/ui-editor-react/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
+  var digest33 = "3113415ae474eff1cc058e6ed2195330d1eb36c2fccbd6e412417663d1e99ddd";
   var css33 = `._container_1rlbk_1 {
   max-height: 100%;
 }
@@ -48047,8 +48058,8 @@ illusion of the selected panel and tab being one entity */
   // src/Shiny-Ui-Elements/ShinyRadioButtons/ShinyRadioButtons.tsx
   var import_react40 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-yjV0e7rXS3Hl/ui-editor-react/src/Shiny-Ui-Elements/ShinyRadioButtons/styles.module.css.js
-  var digest34 = "007a744dc3ca4c1fe096004088fb9c3d6ffee2dd111045b99d93cfc00398aabc";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-a9CAoZPSEftG/ui-editor-react/src/Shiny-Ui-Elements/ShinyRadioButtons/styles.module.css.js
+  var digest34 = "e82119138840c590e1f2e88fd9940b585ff3e19892e03098c38051c19f51e4e4";
   var css34 = `._container_sgn7c_1 {
   position: relative;
   padding: 4px;
@@ -48155,8 +48166,8 @@ illusion of the selected panel and tab being one entity */
   // src/assets/icons/shinySelectbox.png
   var shinySelectbox_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAHmUlEQVR4nO3b329T5x3H8Xec2Akm4GRZlB+sbbZ6rVboRKACwgattKFVqtQIaVo0Wk1bM6kX6+WUP2CXuVy3CyTIpGotCprGoJo0KVtFA1rY1CZoM5mUWSu0wXYWQmxIHPwj9i5MEpskrTPyzTmGz0viwvbx0ZPD2+d5fGxX5fN5RDabx+kByKNJYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSZqnB7Akr7B8IN37QN+CBwBdgP1Wz0ml5sDrgGXgDPAaPGD/T1BJ8a0zDVhwcrB6BsMnwJ6nR2N69UDB+//+zlwur8n+FNY80W65VwVFkDfYPg88Gq1p4quYIC9T9bTGvDhq9GsXSydzRFLpLn66Rwj4QSLuXxv32C4ub8n2O302ACq8vm802MAll9lp4DewLYafnK0jfaGWodHVRki8RS/GY6SWMgCDAC9Tk+FbjoNdAK91Z4qRbVB7Q21vHG0jRpPFcAbFI6lo9wU1gmAQ0/vVFT/h7aGWg4+vXPp5gknxwLuCusIQOdTOzZth7/4wyf0DYa5l8lt2j7drOjYHXFyHOCusPYB7GrU2QpgJJxgJJzY0HPaV46d41Ohm94VegGqC+uEx9r4zXnOj04DENhWw3O7tpf1vJqVY+ezGVn53HTGEiCWSPPelSlyecjl4b0rU8QSaaeHtWFuOmOV7YPQDJfDd5hLLS7fd6CjniPPNtKyxsI/MZ/h7D9mCEWTAOxp8/O9bzat2vZeJsdfQjN8OLEyBX3efjdbIpnl9HCEdHZlTZjO5jg9HOGt73yFgL9y/rsq7oz1znCEP12bLYkK4O/X5zh5MbLmQv3kxchyVAChaJKTFyMkkpnl+xLJDL8e+qwkquL9Fm9rIbOYZ+BShEQyu+qxpeAyi+645liOynkJADemFwhFk7Ts8PL64daSs8g7w4V4xj65Q9czDSXP2+7z8OreJvZ27OReJsfZkRihaJKhf87w/YOtAJz/aJqpuxn2tPnpfqGZgN8LwB/HpvlwIlGy7WbL5eHdkRjR+PpTXiyR5t2RGD/6VhuVsAytqLCeat627oerX2/1E4omWUgvrnqsOMI6r4fuF5oJvX+D8egCUDhbhaJJ6mur+UFXK3XelRP5K53NvNLZbPDXrDg/Os34zfkv3G5pUX98v+14NkNFhbVkZCLOX8MJpu6WNz0FtntLb/u9tOzwMnU3w1Q8xex8YT8dX6otiWqrHN/fXBGxbETFhbU05T2s7b7VAflrK27J6VoVFdbV63fWXWONTMQ5N3ar7H3NpwuL/DqfB+7PQsnU43GFfitUVFi35wpT1uFg4KHe/k/FU0zdzVBfW728SAe4fjvFvUxuy6fDcx9Pl32VvSsYqIhps6LO/dt81QD8O5YsuazwQWiGofHZdZ93diS2fLkgkcxw7qP/AvDtYOFD24Dfy4GOeuZSiyXbQuFdYd9gmN/9Lbbpf8+S7n3NZV1df27Xdrr3uT8qqLAzVudXdzI0PksomiT0+/+U/bxQNEno/Rsl932tqZbDzzYu3z72fBM3ZlJrbltfW82x55sebvCfw1MFJw618Ks/T657lb014OPEoZaKuNQAFXbGqvN6ePOldva0+Uvuf3l3I8c7v7zu817e3Vhy+0BHPT9+cVfJlBfwe/nZsSd48ZnAqm3ffKm9ZMq04Kvx0Hu0fc2r6wF/Db1H2yvqW7Ru+gZpHpz/EYDTYok0bw99tnyV3VtdxVvffYK2hvI+V176vnt/T9DRc5ubXgIZgMWcO0J3SmvAx2tdrXiqClPka12tZUdV9BnjnNkAy+SmNdYocPDmbIonm+qcHoujihfp5X5lBihen13b/FFtjJvOWJcArn7q+IvNFbqCAbqCgS/esEjRsbu06QPaIDeFdQbgSjhBNJ5yeiwVJxpPc2XlWtgZJ8cC7gprFBjI5vIMDEeJKK6yReMpBoYjZAvr0wEe+FW0E9wUFv09wV7gQmIhy9tDk1wYu8Xk7VTJF9+kIJ3NMXk7xYWxW/xyaHLpN4UX7h9Dx7lp8Q5Af0+wu28wfGoxl++9PBHn8kTc6SFViuWf2LuBm65jPXjXfuB1Cj9l+gbgf3CDx1wS+BeFhfpvgY+LH3T6eqBrwpJHi6vWWPLoUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYmJ/wEXIDDKviZ6oQAAAABJRU5ErkJggg==";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-yMkyGjbaN1sZ/ui-editor-react/src/Shiny-Ui-Elements/ShinySelectInput/styles.module.css.js
-  var digest35 = "729b53a458ba2b68244469bf61a71bd9d100b856209e6688934d78dfeec0c37f";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-Gz4BMSAuLlxj/ui-editor-react/src/Shiny-Ui-Elements/ShinySelectInput/styles.module.css.js
+  var digest35 = "d655185e19ea91aca8bb7d54aa0622a7de7798fd9806296ea333d4ec0a6a5f8a";
   var css35 = `._container_1e5dd_1 {
   position: relative;
   padding: 4px;
@@ -48245,8 +48256,8 @@ illusion of the selected panel and tab being one entity */
   // src/Shiny-Ui-Elements/ShinySliderInput/ShinySliderInput.tsx
   var React49 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-n2WCdlS9yKxS/ui-editor-react/src/Shiny-Ui-Elements/ShinySliderInput/styles.module.css.js
-  var digest36 = "98cad159b90ac2f6b6bba2bafbf06d003795d28abde4633644142d15a35ec336";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-yO5xQfoR6DAK/ui-editor-react/src/Shiny-Ui-Elements/ShinySliderInput/styles.module.css.js
+  var digest36 = "d7856a92da250d94d578cb9a0298d2e463d961dc26e92d5e39e00edd07266914";
   var css36 = `._container_1f2js_1 {
   padding: 6px;
 
@@ -48505,8 +48516,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // src/Shiny-Ui-Elements/ShinyTextInput/ShinyTextInput.tsx
   var React50 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-M2Vg2ywqvK3M/ui-editor-react/src/Shiny-Ui-Elements/ShinyTextInput/styles.module.css.js
-  var digest37 = "9da158b7d740e2cd53c7ad93eed2b8b97c4720dc1faa52d93887983536893cb7";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-AcAcvU0f1O05/ui-editor-react/src/Shiny-Ui-Elements/ShinyTextInput/styles.module.css.js
+  var digest37 = "36387e59fa1e8879252e44c8f47ff7e959eb99960b1c2524003f85c39b4a8bc9";
   var css37 = `._container_yicbr_1 {
   position: relative;
   padding: 4px;
@@ -48598,8 +48609,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // src/assets/icons/shinyTextOutput.png
   var shinyTextOutput_default = "data:image/png;base64,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";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-VlMciiiZh3NU/ui-editor-react/src/Shiny-Ui-Elements/ShinyTextOutput/styles.module.css.js
-  var digest38 = "9d59fb3b7bf8ce01770b48623d20611f9d0716265f88e19f4dba63b63bd09747";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-Xb8dvwQJsl8k/ui-editor-react/src/Shiny-Ui-Elements/ShinyTextOutput/styles.module.css.js
+  var digest38 = "d824917e2312e6730bf7415ba84fa8e91df9bce6a2f5da46d9e5539fb0ae3df3";
   var css38 = `._container_1i6yi_1 {
   padding: 1rem;
   max-height: 100%;
@@ -48665,8 +48676,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // src/assets/icons/shinyImage.png
   var shinyImage_default = "data:image/png;base64,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";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-6cBMj74nVVis/ui-editor-react/src/Shiny-Ui-Elements/ShinyUiOutput/styles.module.css.js
-  var digest39 = "67d9ee99142d2a647fda819da312b69f6cc75753b7774b84a2aabd37b551aab9";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-CQeTgck1I0Qe/ui-editor-react/src/Shiny-Ui-Elements/ShinyUiOutput/styles.module.css.js
+  var digest39 = "a99c462b0a28696c6723b381ef287b31dbf5f63d036e00d76b8860eb1c9cc2b4";
   var css39 = `._container_1xnzo_1 {
   display: grid;
   grid-template-rows: 1fr;
@@ -48735,8 +48746,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   `
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-0GVZo3gPFBsv/ui-editor-react/src/components/CategoryDivider/styles.module.css.js
-  var digest40 = "638070a0871b77fd2c93f651eb9d1eb94c5745071a148074a4bdc62b8477df17";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-9eV7hBCDyiIg/ui-editor-react/src/components/CategoryDivider/styles.module.css.js
+  var digest40 = "30a58c75c1c0204f983da454542c67548ab6c1bb44e957ea5a1e2c716c8d66d2";
   var css40 = `._categoryDivider_bdwku_1 {
   display: block;
   position: relative;
@@ -49259,8 +49270,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 16 16", "fill": "currentColor" }, "child": [{ "tag": "path", "attr": { "fillRule": "evenodd", "clipRule": "evenodd", "d": "M12.75 8a4.5 4.5 0 0 1-8.61 1.834l-1.391.565A6.001 6.001 0 0 0 14.25 8 6 6 0 0 0 3.5 4.334V2.5H2v4l.75.75h3.5v-1.5H4.352A4.5 4.5 0 0 1 12.75 8z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-n0W44BcN31Tc/ui-editor-react/src/components/AppPreview/AppPreview.module.css.js
-  var digest41 = "8dfe6b0f84b4556d364c4a56f95c0fa136f865d2d39265421fd384f6530d3f5b";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-pLdwtxBQBrEY/ui-editor-react/src/components/AppPreview/AppPreview.module.css.js
+  var digest41 = "45b084bf6b53ca09afb2903e00274173a999cd0aa862b62838c7a59317039564";
   var css41 = `div._appViewerHolder_1txsb_1 {
   /* This is over-ridden by an inline style but we just have it here in case */
   --app-scale-amnt: 0.24;
@@ -49515,8 +49526,8 @@ h2._error_1txsb_238 {
   })();
   var AppPreview_module_css_default = { "appViewerHolder": "_appViewerHolder_1txsb_1", "title": "_title_1txsb_55", "appContainer": "_appContainer_1txsb_89", "previewFrame": "_previewFrame_1txsb_109", "expandButton": "_expandButton_1txsb_134", "reloadButton": "_reloadButton_1txsb_135", "spin": "_spin_1txsb_162", "restartButton": "_restartButton_1txsb_200", "loadingMessage": "_loadingMessage_1txsb_227", "error": "_error_1txsb_238" };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-Jj56UHmfSoLg/ui-editor-react/src/components/AppPreview/AppPreview.module.css.js
-  var digest42 = "4546713209145eafc100396c9ae2de2fa420433eaf9986dc80612fd2e6c92893";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-LltxP1SWC7Ge/ui-editor-react/src/components/AppPreview/AppPreview.module.css.js
+  var digest42 = "1b7dbeae55f5e087d49acf05e7a520afbdd8b384577652509f3a05ac9db948e1";
   var css42 = `div._appViewerHolder_1txsb_1 {
   /* This is over-ridden by an inline style but we just have it here in case */
   --app-scale-amnt: 0.24;
@@ -49771,8 +49782,8 @@ h2._error_1txsb_238 {
   })();
   var AppPreview_module_css_default2 = { "appViewerHolder": "_appViewerHolder_1txsb_1", "title": "_title_1txsb_55", "appContainer": "_appContainer_1txsb_89", "previewFrame": "_previewFrame_1txsb_109", "expandButton": "_expandButton_1txsb_134", "reloadButton": "_reloadButton_1txsb_135", "spin": "_spin_1txsb_162", "restartButton": "_restartButton_1txsb_200", "loadingMessage": "_loadingMessage_1txsb_227", "error": "_error_1txsb_238" };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-lwBlixn6XprX/ui-editor-react/src/components/AppPreview/FakeDashboard.module.css.js
-  var digest43 = "e2bce2b997c5cdecfbf213c63672ea5e0ba2f1fbdcc1c746259d55b429150874";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-y2PKWfvpzZMV/ui-editor-react/src/components/AppPreview/FakeDashboard.module.css.js
+  var digest43 = "06b2d462fee3f4968a6962fd2d860fec385f967ece732ba1f78cb12ea374c257";
   var css43 = `._fakeApp_t3dh1_1 {
   display: grid;
   place-content: center;
@@ -49877,8 +49888,8 @@ h2._error_1txsb_238 {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "fill": "none", "stroke": "#000", "strokeWidth": "2", "d": "M12,22 C17.5228475,22 22,17.5228475 22,12 C22,6.4771525 17.5228475,2 12,2 C6.4771525,2 2,6.4771525 2,12 C2,17.5228475 6.4771525,22 12,22 Z M5,5 L19,19" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-M09974P1Stgm/ui-editor-react/src/components/AppPreview/LogsViewer.module.css.js
-  var digest44 = "f628236778e030501e5d8305b62be34de62a51cb2f2b3cbaa42ed75e6fce5e6b";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-4D8ljDWIf3ZC/ui-editor-react/src/components/AppPreview/LogsViewer.module.css.js
+  var digest44 = "f5e4aa54f5a14721a514df207a3212ba648da632ab60a36ce80b954f457c6c4e";
   var css44 = `/* Logs section */
 ._logs_xjp5l_2 {
   --tab-height: var(--logs-button-h, 20px);
@@ -51193,8 +51204,8 @@ p._logLine_xjp5l_75 {
   // src/ElementsPalette/index.tsx
   var React60 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-y2OjJe8iquF2/ui-editor-react/src/ElementsPalette/styles.module.css.js
-  var digest45 = "49b769d248b59aaba4997409396109535a79f01ea1330b924cb70fa33b88fb41";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-ES6BOdFwFxAe/ui-editor-react/src/ElementsPalette/styles.module.css.js
+  var digest45 = "4f0346612bcb671fe779d01d99660b5480ae2a4d2c453186d4ec031e74d4bd05";
   var css45 = `._elementsPalette_qmlez_1 {
   --icon-size: 75px;
   --padding: 8px;
@@ -51265,8 +51276,8 @@ p._logLine_xjp5l_75 {
   })();
   var styles_module_css_default24 = { "elementsPalette": "_elementsPalette_qmlez_1", "OptionContainer": "_OptionContainer_qmlez_18", "optionContainer": "_OptionContainer_qmlez_18", "OptionItem": "_OptionItem_qmlez_24", "optionItem": "_OptionItem_qmlez_24", "OptionIcon": "_OptionIcon_qmlez_33", "optionIcon": "_OptionIcon_qmlez_33", "OptionLabel": "_OptionLabel_qmlez_41", "optionLabel": "_OptionLabel_qmlez_41" };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-0Lka9NtKhywU/ui-editor-react/src/ElementsPalette/styles.module.css.js
-  var digest46 = "a60450262ec5a2a1cf39075f212c02e34e6feed30d9021d18fc085c4ac379d38";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-w66QxJEivUok/ui-editor-react/src/ElementsPalette/styles.module.css.js
+  var digest46 = "e9f199fc3a777a69059b09b9575218c9f0a46ade7a1e5e30538b648691cf4bc3";
   var css46 = `._elementsPalette_qmlez_1 {
   --icon-size: 75px;
   --padding: 8px;
@@ -51567,8 +51578,8 @@ p._logLine_xjp5l_75 {
     return InputsComponents;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-2XKbe4ywDJ0V/ui-editor-react/src/SettingsPanel/PathBreadcrumb.module.css.js
-  var digest47 = "ff275119203ff8d2b23ddf57ad6445b0f8bb46b213bec8e4052f2c106399ab1f";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-ibwpnsdwqSMr/ui-editor-react/src/SettingsPanel/PathBreadcrumb.module.css.js
+  var digest47 = "92dfb375a3c4a6d7139df962cdcbf5cc3c1544cfdb1a2b8efb5882510470e1d5";
   var css47 = `._container_1fh41_1 {
   --flex-gap: 8px;
   padding: var(--vertical-spacing);
@@ -51696,8 +51707,8 @@ p._logLine_xjp5l_75 {
     return uiName.replace(/[a-z]+::/, "");
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-3xvJYpOL57wH/ui-editor-react/src/SettingsPanel/SettingsPanel.module.css.js
-  var digest48 = "2cdd3a02ba06ccf080e4fa9c44a13c100b2b2fcf8e629d1ec7c60774f0ceb366";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-MRLv9hJd3u2t/ui-editor-react/src/SettingsPanel/SettingsPanel.module.css.js
+  var digest48 = "02cbba128549c6c4cea0d323a5efaef1ec6f909480fcc9e5f148d4b465625e95";
   var css48 = `._settingsPanel_a44hx_1 {
   --vertical-gap: var(--vertical-spacing);
   display: flex;
@@ -57272,8 +57283,8 @@ form._settingsForm_a44hx_17 {
     return newEntry === oldEntry;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-36763-VYAyfgBgibjN/ui-editor-react/src/components/UndoRedoButtons/UndoRedoButtons.module.css.js
-  var digest49 = "8539e68f16da87f9cc143a1f45b6f83b875ac59f484dbd798f2cff6c2625f1ea";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-38661-OtaiMUlJttpC/ui-editor-react/src/components/UndoRedoButtons/UndoRedoButtons.module.css.js
+  var digest49 = "4e41f2af36b0973f0b107413f1424fd50b0eca0680a3ea1ed6649cad6b906bf6";
   var css49 = `._container_1d7pe_1 {
   display: flex;
   position: relative;

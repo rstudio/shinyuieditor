@@ -8,10 +8,14 @@ declare var TESTING_MODE_ESBUILD: boolean;
 /**
  * Are we in development mode?
  */
-export let DEV_MODE = true;
-
+export let DEV_MODE = false;
 try {
-  DEV_MODE = import.meta.env.DEV ?? DEV_MODE_ESBUILD ?? true;
+  if (import.meta.env.DEV) {
+    DEV_MODE = true;
+  }
+  if (DEV_MODE_ESBUILD) {
+    DEV_MODE = true;
+  }
 } catch {}
 
 /**
