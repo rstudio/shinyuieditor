@@ -58,6 +58,7 @@ export class CatScratchEditorProvider
     };
     webviewPanel.webview.html = this.getHtmlForWebview(webviewPanel.webview);
 
+    console.log("The extension has opened!");
     function updateWebview() {
       webviewPanel.webview.postMessage({
         type: "update",
@@ -108,7 +109,12 @@ export class CatScratchEditorProvider
   private getHtmlForWebview(webview: vscode.Webview): string {
     // Local path to script and css for the webview
     const scriptUri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this.context.extensionUri, "media", "catScratch.js")
+      vscode.Uri.joinPath(
+        this.context.extensionUri,
+        "media",
+        "assets",
+        "index.js"
+      )
     );
 
     const styleResetUri = webview.asWebviewUri(
@@ -120,7 +126,12 @@ export class CatScratchEditorProvider
     );
 
     const styleMainUri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this.context.extensionUri, "media", "catScratch.css")
+      vscode.Uri.joinPath(
+        this.context.extensionUri,
+        "media",
+        "assets",
+        "index.css"
+      )
     );
 
     // Use a nonce to whitelist which scripts can be run
@@ -131,7 +142,13 @@ export class CatScratchEditorProvider
 			<html lang="en">
 			<head>
 				<meta charset="UTF-8">
-
+				<script>
+				// This is needed for various older packages that require the global
+				// object to be defined because it typically was with older bundlers like
+				// webpack
+				var global = window;
+				console.log("Hi there from inside the extension!");
+			  </script>
 				<!--
 				Use a content security policy to only allow loading images from https or from our extension directory,
 				and only allow scripts that have a specific nonce.
@@ -143,17 +160,14 @@ export class CatScratchEditorProvider
 				<link href="${styleResetUri}" rel="stylesheet" />
 				<link href="${styleVSCodeUri}" rel="stylesheet" />
 				<link href="${styleMainUri}" rel="stylesheet" />
+				<script nonce="${nonce}" src="${scriptUri}"></script>
 
-				<title>Cat Scratch</title>
+				<title>Shiny UI Editor</title>
 			</head>
 			<body>
-				<div class="notes">
-					<div class="add-button">
-						<button>Scratch!</button>
-					</div>
-				</div>
-				
-				<script nonce="${nonce}" src="${scriptUri}"></script>
+			<h1> Hi there from the extension </h1>
+				<noscript>You need to enable JavaScript to run this app.</noscript>
+				<div id="root" style="height: 100vh; display: relative"></div>
 			</body>
 			</html>`;
   }
