@@ -43,9 +43,13 @@
   "devDependencies": {
     "@types/node": "^16.11.7",
     "@types/vscode": "^1.65.0",
+    "@types/winreg": "^1.2.31",
     "@typescript-eslint/eslint-plugin": "^5.42.0",
     "@typescript-eslint/parser": "^5.42.0",
     "eslint": "^8.26.0",
     "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "winreg": "^1.2.4"
   }
 }

@@ -1,4 +1,5 @@
 import * as vscode from "vscode";
+import { getRpath } from "./setupRConnection";
 import { getNonce } from "./util";
 
 /**
@@ -25,8 +26,16 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
 
   private static readonly viewType = "shinyUiEditor.appFile";
 
-  constructor(private readonly context: vscode.ExtensionContext) {}
+  constructor(private readonly context: vscode.ExtensionContext) {
+    console.log("Constructor for extension has run!");
+    this.getR();
+  }
 
+  private async getR() {
+    const rPath = await getRpath();
+
+    console.log("R is here", rPath);
+  }
   /**
    * Called when our custom editor is opened.
    *
@@ -43,7 +52,6 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
     };
     webviewPanel.webview.html = this.getHtmlForWebview(webviewPanel.webview);
 
-    console.log("The extension has opened!");
     function updateWebview() {
       webviewPanel.webview.postMessage({
         type: "update",
