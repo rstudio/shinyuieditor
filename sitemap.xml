@@ -43,6 +43,9 @@
     <loc>https://rstudio.github.io/shinyuieditor/reference/deparse_ui_fn.html</loc>
   </url>
   <url>
+    <loc>https://rstudio.github.io/shinyuieditor/reference/generate_app_template_files.html</loc>
+  </url>
+  <url>
     <loc>https://rstudio.github.io/shinyuieditor/reference/get_app_ui_file.html</loc>
   </url>
   <url>
@@ -71,5 +74,11 @@
   </url>
   <url>
     <loc>https://rstudio.github.io/shinyuieditor/reference/update_ui_definition.html</loc>
+  </url>
+  <url>
+    <loc>https://rstudio.github.io/shinyuieditor/reference/write_app_file.html</loc>
+  </url>
+  <url>
+    <loc>https://rstudio.github.io/shinyuieditor/reference/write_app_template.html</loc>
   </url>
 </urlset>

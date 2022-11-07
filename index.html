@@ -131,7 +131,7 @@
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Install using the remotes package</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"rstudio/shinyuieditor"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"rstudio/shinyuieditor"</span><span class="op">)</span></span></code></pre></div>
 <p>🚨 <em>Installation fail? See the <a href="#trouble-installing">Trouble installing section.</a></em></p>
 </div>
 <div class="section level2">
@@ -170,13 +170,13 @@ Error: Failed to install 'shinyuieditor' from GitHub:
 
   Did you spell the repo owner (`rstudio`) and repo name (`shinyuieditor`) correctly?
   - If spelling is correct, check that you have the required permissions to access the repo.</code></pre>
-<p>You may need to setup your github PAT to access. To set this up run <code>usethis::create_github_token()</code> in the terminal and follow the prompts.</p>
+<p>You may need to setup your github PAT to access. To set this up run <code><a href="https://usethis.r-lib.org/reference/github-token.html" class="external-link">usethis::create_github_token()</a></code> in the terminal and follow the prompts.</p>
 <p><strong>Using remotes?</strong></p>
-<p><code>usethis::create_github_token()</code> no longer puts your PAT in an environment variable, however that’s the method <code>remotes</code> uses for authentication. You can get around this by using the <code>withr</code> package to temporarily set the environment variable.</p>
+<p><code><a href="https://usethis.r-lib.org/reference/github-token.html" class="external-link">usethis::create_github_token()</a></code> no longer puts your PAT in an environment variable, however that’s the method <code>remotes</code> uses for authentication. You can get around this by using the <code>withr</code> package to temporarily set the environment variable.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_envvar.html" class="external-link">with_envvar</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> GITHUB_PAT <span class="op">=</span> <span class="fu">gitcreds</span><span class="fu">::</span><span class="fu">gitcreds_get</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">password</span> <span class="op">)</span>,</span>
-<span>  <span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">'rstudio/shinyuieditor'</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span> GITHUB_PAT <span class="op">=</span> <span class="fu">gitcreds</span><span class="fu">::</span><span class="fu"><a href="https://gitcreds.r-lib.org/reference/gitcreds_get.html" class="external-link">gitcreds_get</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">password</span> <span class="op">)</span>,</span>
+<span>  <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">'rstudio/shinyuieditor'</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">

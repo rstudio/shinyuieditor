@@ -116,9 +116,9 @@ editor.</p>
     <dl><dt>app_loc</dt>
 <dd><p>Path to directory containing Shiny app to be visually edited
 (either containing an <code>app.R</code> or both a <code>ui.R</code> and <code>server.R</code>). If the
-provided location doesn't exist, or doesn't contain an app, the user will
-be prompted to choose a starter template which will then be written to the
-location specified.</p></dd>
+provided location doesn't exist, or doesn't contain an app, the app will
+start in an interface to select from a series of starter templates which
+will then be written to the location specified.</p></dd>
 
 
 <dt>host</dt>
@@ -179,7 +179,6 @@ etc..</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="co"># Start editor on a non-existing app directory to choose a starter template</span></span></span>
 <span class="r-in"><span>  <span class="fu">launch_editor</span><span class="op">(</span>app_loc <span class="op">=</span> <span class="st">"empty_directory/"</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>  <span class="co"># You can control where the app runs just like a normal Shiny app.</span></span></span>
 <span class="r-in"><span>  <span class="co"># This can be useful if you want to access it from a headless server</span></span></span>

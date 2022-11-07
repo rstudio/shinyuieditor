@@ -144,24 +144,11 @@ soon.)</li>
 <h3 id="new-app">New app<a class="anchor" aria-label="anchor" href="#new-app"></a>
 </h3>
 <p>If you set the argument <code>app_loc</code> to a location that does
-not yet exist, the launcher will ask a few and setup a simple template
-app for you to use with building.</p>
+not yet exist, the will start in a template-chooser interface. Here you
+can select a complete app template which will then be written to your
+<code>app_loc</code> and then be edited as an existing app would be.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">shinyuieditor</span><span class="fu">::</span><span class="fu"><a href="../reference/launch_editor.html">launch_editor</a></span><span class="op">(</span>app_loc <span class="op">=</span> <span class="st">"new-app/"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co">#&gt; No app was found at location /Users/me/new_app.</span></span>
-<span><span class="co">#&gt; Would you like to start a new app from a template?</span></span>
-<span><span class="co">#&gt; 1: yes</span></span>
-<span><span class="co">#&gt; 2: no</span></span>
-<span><span class="co">#&gt;</span></span>
-<span><span class="co">#&gt; Selection: 1</span></span>
-<span><span class="co">#&gt; Which starter template would you like to use? (Sorry, it's an easy choice currently.)</span></span>
-<span><span class="co">#&gt; 1: geyser</span></span>
-<span><span class="co">#&gt; ...</span></span>
-<span><span class="co">#&gt;</span></span>
-<span><span class="co">#&gt; Selection: 1</span></span>
-<span><span class="co">#&gt; =&gt; Starting Shiny preview app...</span></span>
-<span><span class="co">#&gt; ...</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">shinyuieditor</span><span class="fu">::</span><span class="fu"><a href="../reference/launch_editor.html">launch_editor</a></span><span class="op">(</span>app_loc <span class="op">=</span> <span class="st">"new-app/"</span><span class="op">)</span></span></code></pre></div>
 <p><em>There are just a few templates available currently but more are
 always being added.</em></p>
 </div>
