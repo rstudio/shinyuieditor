@@ -13,32 +13,17 @@ import { getNonce } from "./util";
  * - Loading scripts and styles in a custom editor.
  * - Synchronizing changes between a text document and a custom editor.
  */
-export class CatScratchEditorProvider
-  implements vscode.CustomTextEditorProvider
-{
+export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
   public static register(context: vscode.ExtensionContext): vscode.Disposable {
-    const provider = new CatScratchEditorProvider(context);
+    const provider = new ShinyUiEditorProvider(context);
     const providerRegistration = vscode.window.registerCustomEditorProvider(
-      CatScratchEditorProvider.viewType,
+      ShinyUiEditorProvider.viewType,
       provider
     );
     return providerRegistration;
   }
 
-  private static readonly viewType = "catCustoms.catScratch";
-
-  private static readonly scratchCharacters = [
-    "😸",
-    "😹",
-    "😺",
-    "😻",
-    "😼",
-    "😽",
-    "😾",
-    "🙀",
-    "😿",
-    "🐱",
-  ];
+  private static readonly viewType = "shinyUiEditor.appFile";
 
   constructor(private readonly context: vscode.ExtensionContext) {}
 
@@ -89,15 +74,7 @@ export class CatScratchEditorProvider
 
     // Receive message from the webview.
     webviewPanel.webview.onDidReceiveMessage((e) => {
-      switch (e.type) {
-        case "add":
-          this.addNewScratch(document);
-          return;
-
-        case "delete":
-          this.deleteScratch(document, e.id);
-          return;
-      }
+      console.log("Message from webview", e);
     });
 
     updateWebview();
@@ -115,14 +92,6 @@ export class CatScratchEditorProvider
         "build",
         "bundle.js"
       )
-    );
-
-    const styleResetUri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this.context.extensionUri, "media", "reset.css")
-    );
-
-    const styleVSCodeUri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this.context.extensionUri, "media", "vscode.css")
     );
 
     const styleMainUri = webview.asWebviewUri(
@@ -167,43 +136,6 @@ export class CatScratchEditorProvider
 				<script nonce="${nonce}" src="${scriptUri}"></script>
 			</body>
 			</html>`;
-  }
-
-  /**
-   * Add a new scratch to the current document.
-   */
-  private addNewScratch(document: vscode.TextDocument) {
-    const json = this.getDocumentAsJson(document);
-    const character =
-      CatScratchEditorProvider.scratchCharacters[
-        Math.floor(
-          Math.random() * CatScratchEditorProvider.scratchCharacters.length
-        )
-      ];
-    json.scratches = [
-      ...(Array.isArray(json.scratches) ? json.scratches : []),
-      {
-        id: getNonce(),
-        text: character,
-        created: Date.now(),
-      },
-    ];
-
-    return this.updateTextDocument(document, json);
-  }
-
-  /**
-   * Delete an existing scratch from a document.
-   */
-  private deleteScratch(document: vscode.TextDocument, id: string) {
-    const json = this.getDocumentAsJson(document);
-    if (!Array.isArray(json.scratches)) {
-      return;
-    }
-
-    json.scratches = json.scratches.filter((note: any) => note.id !== id);
-
-    return this.updateTextDocument(document, json);
   }
 
   /**

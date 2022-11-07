@@ -1,14 +1,14 @@
 {
-  "name": "cat-customs",
-  "displayName": "Cat Customs",
-  "description": "Custom Editor API Samples",
+  "name": "shinyuieditor",
+  "displayName": "ShinyUiEditor",
+  "description": "Visual editor for Shiny app UIs",
   "version": "0.0.1",
   "publisher": "vscode-samples",
   "private": true,
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Microsoft/vscode-extension-samples"
+    "url": "https://github.com/rstudio/shinyuieditor/"
   },
   "engines": {
     "vscode": "^1.65.0"
@@ -17,17 +17,17 @@
     "Other"
   ],
   "activationEvents": [
-    "onCustomEditor:catCustoms.catScratch"
+    "onCustomEditor:shinyUiEditor.appFile"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "customEditors": [
       {
-        "viewType": "catCustoms.catScratch",
-        "displayName": "Cat Scratch",
+        "viewType": "shinyUiEditor.appFile",
+        "displayName": "ShinyUiEditor",
         "selector": [
           {
-            "filenamePattern": "*.cscratch"
+            "filenamePattern": "*app.R"
           }
         ]
       }
