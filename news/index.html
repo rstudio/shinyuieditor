@@ -24,14 +24,14 @@
 
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">shinyuieditor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.2</span>
       </span>
 
       <!--<div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">shinyuieditor</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of  <a href=""></a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.1</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.2</span>
         </div>
       </div>-->
     </div>
@@ -87,6 +87,27 @@
       
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.3.2" id="shinyuieditor-032">shinyuieditor 0.3.2<a class="anchor" aria-label="anchor" href="#shinyuieditor-032"></a></h2>
+<div class="section level4">
+<h4 id="major-new-features-and-improvements-0-3-2">Major new features and improvements<a class="anchor" aria-label="anchor" href="#major-new-features-and-improvements-0-3-2"></a></h4>
+<ul><li>When starting the ui editor on an empty app path a visual interface is provided for choosing between templates. These templates can be navigated into and back using undo/redo buttons to allow for “shopping around” for the best template. (#114, #115)</li>
+</ul></div>
+<div class="section level4">
+<h4 id="minor-new-features-and-improvements-0-3-2">Minor new features and improvements<a class="anchor" aria-label="anchor" href="#minor-new-features-and-improvements-0-3-2"></a></h4>
+<ul><li>Switching from absolute to relative units in the grid tracts now results in the tract remaining (almost) the same size instead of jumping to a much bigger or much smaller size due to differences in magnitude of units. (#110)</li>
+<li>Improved quality/polish of included template apps.</li>
+<li>Radio inputs, sliders, DT tables, and ui outputs now default to a 100% width instead of an unset one.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="bug-fixes-0-3-2">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-3-2"></a></h4>
+<ul><li>Dragging to resize a grid tract with focus still inside of a popup tract info widget now hides the widget so the drag-to-resize info popup is not obscured. (#110)</li>
+<li>Starting the editor on an app with a single column or row gridlayout element no longer crashes the app.</li>
+<li>On case-sensitive file-path operating systems like linux, the editor will now be able to see apps weather using the lowercase <code>.r</code> or uppercase <code>.R</code> extensions. (<code>ff46cdd</code>)</li>
+<li>Typing in numeric inputs no longer forces you to prefix numbers with 0 if you delete back to nothing to type a new number. (#118)</li>
+<li>Content in really small grid cards no longer overflows.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.3.1" id="shinyuieditor-031">shinyuieditor 0.3.1<a class="anchor" aria-label="anchor" href="#shinyuieditor-031"></a></h2>
 <div class="section level4">
