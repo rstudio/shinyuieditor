@@ -112,8 +112,8 @@ export class CatScratchEditorProvider
       vscode.Uri.joinPath(
         this.context.extensionUri,
         "media",
-        "assets",
-        "index.js"
+        "build",
+        "bundle.js"
       )
     );
 
@@ -129,8 +129,8 @@ export class CatScratchEditorProvider
       vscode.Uri.joinPath(
         this.context.extensionUri,
         "media",
-        "assets",
-        "index.css"
+        "build",
+        "bundle.css"
       )
     );
 
@@ -147,27 +147,25 @@ export class CatScratchEditorProvider
 				// object to be defined because it typically was with older bundlers like
 				// webpack
 				var global = window;
-				console.log("Hi there from inside the extension!");
 			  </script>
 				<!--
 				Use a content security policy to only allow loading images from https or from our extension directory,
 				and only allow scripts that have a specific nonce.
 				-->
-				<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src ${webview.cspSource}; style-src ${webview.cspSource}; script-src 'nonce-${nonce}';">
+				<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src ${webview.cspSource} data:; style-src ${webview.cspSource} 'unsafe-inline'; script-src 'nonce-${nonce}';">
 
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 				<link href="${styleResetUri}" rel="stylesheet" />
 				<link href="${styleVSCodeUri}" rel="stylesheet" />
 				<link href="${styleMainUri}" rel="stylesheet" />
-				<script nonce="${nonce}" src="${scriptUri}"></script>
-
+				
 				<title>Shiny UI Editor</title>
 			</head>
 			<body>
-			<h1> Hi there from the extension </h1>
 				<noscript>You need to enable JavaScript to run this app.</noscript>
 				<div id="root" style="height: 100vh; display: relative"></div>
+				<script nonce="${nonce}" src="${scriptUri}"></script>
 			</body>
 			</html>`;
   }

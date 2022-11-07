@@ -11,9 +11,10 @@ import glob from "glob";
 const findPortArg = /--port=(?<port>\d{2,})/;
 
 let serve = false;
+let watch = false;
 let prod = false;
 let port = 3012;
-let buildDir = "esbuild/";
+let buildDir = "../vscode-custom-editor/media/";
 let openBrowser = true;
 
 const envVariablesDefine = {
@@ -27,6 +28,9 @@ const hasBooleanArg = (prop: `--${string}`) =>
 
 if (hasBooleanArg("--serve")) {
   serve = true;
+}
+if (hasBooleanArg("--watch")) {
+  watch = true;
 }
 if (hasBooleanArg("--prod")) {
   prod = true;
@@ -63,14 +67,14 @@ const clients: http.ServerResponse[] = [];
 esbuild.build({
   entryPoints: ["index.tsx"],
   bundle: true,
-  minify: true,
-  sourcemap: !prod,
+  minify: false,
+  sourcemap: true,
   target: "es2020",
   loader: { ".png": "dataurl" },
   outfile: `${assetsDir}bundle.js`,
   metafile: true,
   define: envVariablesDefine,
-  watch: serve
+  watch: watch
     ? {
         onRebuild: (
           error: esbuild.BuildFailure | null,

@@ -66,7 +66,7 @@
     "start": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "esbuild-build": "tsx scripts/build.ts --prod",
+    "esbuild-build": "tsx scripts/build.ts --prod --watch",
     "esbuild-serve": "tsx scripts/build.ts --serve",
     "testing-serve": "vite build; vite preview",
     "build-netlify": "VITE_SHOW_FAKE_PREVIEW=true PUBLIC_URL=/ yarn build",
