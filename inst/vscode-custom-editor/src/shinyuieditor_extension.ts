@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
+import { ActiveRSession, connectToRProcess } from "./connectToRProcess";
 import { getRpath } from "./setupRConnection";
 import { getNonce } from "./util";
-
 /**
  * Provider for cat scratch editors.
  *
@@ -24,6 +24,8 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
     return providerRegistration;
   }
 
+  private RProcess: ActiveRSession | null = null;
+
   private static readonly viewType = "shinyUiEditor.appFile";
 
   constructor(private readonly context: vscode.ExtensionContext) {
@@ -33,8 +35,20 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
 
   private async getR() {
     const rPath = await getRpath();
-
     console.log("R is here", rPath);
+    if (rPath === undefined) {
+      throw new Error("Can't get R path");
+    }
+    const RProc = await connectToRProcess({ pathToR: rPath });
+
+    if (RProc === null) {
+      console.error("R process failed to start :(");
+      return;
+    }
+    console.log("R Process is here and ready to go!");
+
+    RProc.sendMsg(`3+4`);
+    this.RProcess = RProc;
   }
   /**
    * Called when our custom editor is opened.

@@ -25,6 +25,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ShinyUiEditorProvider = void 0;
 const vscode = __importStar(require("vscode"));
+const connectToRProcess_1 = require("./connectToRProcess");
 const setupRConnection_1 = require("./setupRConnection");
 const util_1 = require("./util");
 /**
@@ -42,6 +43,7 @@ const util_1 = require("./util");
 class ShinyUiEditorProvider {
     constructor(context) {
         this.context = context;
+        this.RProcess = null;
         console.log("Constructor for extension has run!");
         this.getR();
     }
@@ -53,6 +55,17 @@ class ShinyUiEditorProvider {
     async getR() {
         const rPath = await (0, setupRConnection_1.getRpath)();
         console.log("R is here", rPath);
+        if (rPath === undefined) {
+            throw new Error("Can't get R path");
+        }
+        const RProc = await (0, connectToRProcess_1.connectToRProcess)({ pathToR: rPath });
+        if (RProc === null) {
+            console.error("R process failed to start :(");
+            return;
+        }
+        console.log("R Process is here and ready to go!");
+        RProc.sendMsg(`3+4`);
+        this.RProcess = RProc;
     }
     /**
      * Called when our custom editor is opened.
