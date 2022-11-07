@@ -5,7 +5,7 @@ import { emptyCell } from "./itemLocations";
 import type { GridCellLocation } from "./types";
 
 type GridAreas = TemplatedGridProps["areas"];
-function findItemLocations(
+export function findItemLocations(
   areas: GridAreas,
   itemName: string
 ): GridCellLocation[] {
@@ -25,8 +25,6 @@ function findItemLocations(
   return locations;
 }
 
-function findEmptyCells(areas: GridAreas) {
+export function findEmptyCells(areas: GridAreas) {
   return findItemLocations(areas, emptyCell);
 }
-
-export { findItemLocations, findEmptyCells };

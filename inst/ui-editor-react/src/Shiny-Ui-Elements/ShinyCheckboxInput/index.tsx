@@ -3,7 +3,6 @@ import type { CSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
 import {
   makeInputIdInfo,
   makeLabelInputInfo,
-  requiredWidthInfo,
 } from "Shiny-Ui-Elements/commonSettingsTemplates";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
@@ -29,7 +28,12 @@ export const shinyCheckboxInputInfo: UiComponentInfo<ShinyCheckboxInputProps> =
         label: "Starting value",
         defaultValue: false,
       },
-      width: requiredWidthInfo,
+      width: {
+        inputType: "cssMeasure",
+        label: "Width",
+        defaultValue: "100%",
+        units: ["%", "px", "rem"],
+      },
     },
     acceptsChildren: false,
     iconSrc: inputIcon,

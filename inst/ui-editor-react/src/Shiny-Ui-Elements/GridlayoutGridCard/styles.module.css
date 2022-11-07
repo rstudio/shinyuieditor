@@ -38,6 +38,7 @@
   flex-direction: column;
   align-items: center;
   padding: var(--card-padding);
+  overflow: auto;
 }
 
 .contentHolder[data-alignment="top"] {

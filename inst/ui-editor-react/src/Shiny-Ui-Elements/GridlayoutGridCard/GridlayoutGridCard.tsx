@@ -88,6 +88,7 @@ function DropWatcherPanel({
     <div
       ref={watcherRef}
       className={classes.dropWatcher + " " + position_class}
+      role="region"
       aria-label="drop watcher"
     />
   );

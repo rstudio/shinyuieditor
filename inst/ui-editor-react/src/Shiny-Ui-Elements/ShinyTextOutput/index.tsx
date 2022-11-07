@@ -1,5 +1,4 @@
 import uiIcon from "assets/icons/shinyTextOutput.png";
-import { outputIdInfo } from "Shiny-Ui-Elements/commonSettingsTemplates";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 
@@ -13,7 +12,11 @@ export const shinyTextOutputInfo: UiComponentInfo<ShinyTextOutputProps> = {
   title: "Text Output",
   UiComponent: ShinyTextOutput,
   settingsInfo: {
-    outputId: outputIdInfo,
+    outputId: {
+      label: "Output ID",
+      inputType: "string",
+      defaultValue: "textOutput",
+    },
   },
   acceptsChildren: false,
   iconSrc: uiIcon,

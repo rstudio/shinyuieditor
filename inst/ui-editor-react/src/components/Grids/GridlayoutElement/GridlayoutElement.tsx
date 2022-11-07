@@ -24,7 +24,6 @@ import { isValidGridItem } from "../isValidGridItem";
 import { NameNewPanelModal } from "../NameNewPanelModal";
 
 import classes from "./styles.module.css";
-export type GridAwareNodeArgs = GridItemNode["uiArguments"];
 
 export type NewItemInfo = DraggedNodeInfo & {
   pos: GridItemExtent;
@@ -102,7 +101,7 @@ export const GridlayoutElement: UiNodeComponent<TemplatedGridProps> = ({
     // new name into its settings. Otherwise automatically wrap the item in a
     // grid container
     if (isValidGridItem(node)) {
-      const argsWithArea: GridAwareNodeArgs = {
+      const argsWithArea: GridItemNode["uiArguments"] = {
         ...node.uiArguments,
         area: name,
       };

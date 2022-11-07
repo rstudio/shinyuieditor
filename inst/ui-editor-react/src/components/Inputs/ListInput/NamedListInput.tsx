@@ -75,6 +75,7 @@ export function NamedListInput({
               <MdDragHandle />
             </div>
             <input
+              title="Key Field"
               className={classes.keyField}
               type="text"
               value={item.key}
@@ -86,6 +87,7 @@ export function NamedListInput({
             />
             <span className={classes.separator}>:</span>
             <input
+              title="Value Field"
               className={classes.valueField}
               type="text"
               value={item.value}

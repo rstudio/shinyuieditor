@@ -1,4 +1,5 @@
 import type { OutgoingPreviewAppMsg } from "components/AppPreview/useCommunicateWithWebsocket";
+import debounce from "just-debounce-it";
 
 import type { OutgoingStateMsg } from "./useSyncUiWithBackend";
 
@@ -11,3 +12,5 @@ export function sendWsMessage(
   });
   ws.send(msg_blob);
 }
+
+export const sendWsMessageDebounced = debounce(sendWsMessage, 500, true);

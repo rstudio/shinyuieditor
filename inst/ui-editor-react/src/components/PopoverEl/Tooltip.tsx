@@ -18,7 +18,7 @@ type TooltipSizes = "fit" | "large" | "medium" | "small";
 export function Tooltip({
   text,
   position = "down",
-  size = "fit",
+  size,
   children,
 }: {
   text: string;

@@ -4,13 +4,14 @@ import PngIcon from "components/Icons";
 import Button from "components/Inputs/Button/Button";
 import type { CallBackProps, Step, Styles } from "react-joyride";
 import Joyride, { ACTIONS, EVENTS } from "react-joyride";
+import { useInTemplateChooserMode } from "state/useInTemplateChooserMode";
 
 import { AppPreviewAbout } from "./AppPreviewAbout";
 import { AppViewAbout } from "./AppViewAbout";
 import { ElementsPanelAbout } from "./ElementsPanelAbout";
 import { PropertiesPanelAbout } from "./PropertiesPanelAbout";
 
-export const joyrideSteps: Step[] = [
+const joyrideSteps: Step[] = [
   {
     target: ".app-view",
     content: AppViewAbout,
@@ -44,6 +45,7 @@ export function AppTour() {
   const [stepIndex, setStepIndex] = React.useState(0);
   const [run, setRun] = React.useState(false);
 
+  const inTemplateChooserMode = useInTemplateChooserMode();
   const handleJoyrideCallback: (data: CallBackProps) => void =
     React.useCallback((data) => {
       const { action, index, status, type } = data;
@@ -80,6 +82,10 @@ export function AppTour() {
         onClick={startTour}
         title="Take a guided tour of app"
         variant="transparent"
+        style={
+          inTemplateChooserMode ? { opacity: 0, pointerEvents: "none" } : {}
+        }
+        aria-hidden={inTemplateChooserMode}
       >
         <PngIcon id="tour" size="24px" />
         Tour App

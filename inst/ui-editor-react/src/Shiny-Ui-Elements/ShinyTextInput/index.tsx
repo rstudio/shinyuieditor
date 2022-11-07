@@ -3,7 +3,6 @@ import type { CSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
 import {
   makeInputIdInfo,
   makeLabelInputInfo,
-  optionalWidthInfo,
 } from "Shiny-Ui-Elements/commonSettingsTemplates";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
@@ -35,7 +34,13 @@ export const shinyTextInputInfo: UiComponentInfo<ShinyTextInputProps> = {
       defaultValue: "placeholder text",
       optional: true,
     },
-    width: optionalWidthInfo,
+    width: {
+      inputType: "cssMeasure",
+      label: "Width",
+      defaultValue: "100%",
+      units: ["%", "px", "rem"],
+      optional: true,
+    },
   },
   acceptsChildren: false,
   iconSrc: textInputIcon,

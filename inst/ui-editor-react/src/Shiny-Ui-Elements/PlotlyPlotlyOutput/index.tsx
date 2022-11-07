@@ -35,5 +35,3 @@ export const plotlyPlotlyOutputInfo: UiComponentInfo<PlotlyOutputSettings> = {
   category: "Plotting",
   description: "Output for interactive `plotly` plots.",
 };
-
-export default plotlyPlotlyOutputInfo;

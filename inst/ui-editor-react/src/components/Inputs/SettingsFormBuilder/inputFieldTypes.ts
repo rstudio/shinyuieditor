@@ -56,7 +56,7 @@ export type InputFieldEntryMap = MapDiscriminatedUnion<
 
 export type NodeToValueFn<T> = (node?: ShinyUiNode) => T;
 
-export type DynamicValueType<T> = T | NodeToValueFn<T>;
+type DynamicValueType<T> = T | NodeToValueFn<T>;
 /**
  * Object is filled with either values or callbacks to get those values from a
  * ui node
@@ -66,17 +66,29 @@ type ArgumentsOrCallbacks<Obj extends Record<string, any>> = {
 };
 
 type OmittedFieldStatic = { inputType: "omitted"; defaultValue: any };
-export type OmittedFieldDynamic = {
+type OmittedFieldDynamic = {
   inputType: "omitted";
   defaultValue: DynamicValueType<any>;
 };
 
+/**
+ * Fields available in static field info
+ */
+type StaticFieldInfoGeneric<ArgType extends InputFieldEntryNames> = {
+  /** Can this argument be ommited from the full settings object? */
+  optional?: true;
+  /** If starting out from disabled or being dragged in from palette what should
+   * the default value be? */
+  defaultValue: InputFieldEntryMap[ArgType]["value"];
+  /** Should the default value be given to a new instance of a settings object
+   * if that field is optional?  */
+  useDefaultIfOptional?: boolean;
+  /** What should the label be above the input for this field? */
+  label?: string;
+} & Omit<InputFieldEntryMap[ArgType], "value">;
+
 export type StaticFieldInfoByType = {
-  [ArgType in InputFieldEntryNames]: {
-    defaultValue: InputFieldEntryMap[ArgType]["value"];
-    label?: string;
-    optional?: true;
-  } & Omit<InputFieldEntryMap[ArgType], "value">;
+  [ArgType in InputFieldEntryNames]: StaticFieldInfoGeneric<ArgType>;
 } & { omitted: OmittedFieldStatic };
 
 type NonDynamicProps = "inputType" | "optional";

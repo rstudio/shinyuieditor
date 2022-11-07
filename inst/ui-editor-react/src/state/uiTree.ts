@@ -3,59 +3,47 @@ import React from "react";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import { getDefaultSettings } from "components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
-import { getNode } from "components/UiNode/TreeManipulation/getNode";
 import type { PlaceNodeArguments } from "components/UiNode/TreeManipulation/placeNode";
 import { placeNodeMutating } from "components/UiNode/TreeManipulation/placeNode";
 import type { RemoveNodeArguments } from "components/UiNode/TreeManipulation/removeNode";
 import { removeNodeMutating } from "components/UiNode/TreeManipulation/removeNode";
 import type { UpdateNodeArguments } from "components/UiNode/TreeManipulation/updateNode";
 import { updateNodeMutating } from "components/UiNode/TreeManipulation/updateNode";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { isShinyUiNode } from "Shiny-Ui-Elements/isShinyUiNode";
+import type {
+  ShinyUiNode,
+  ShinyUiRootNode,
+} from "Shiny-Ui-Elements/uiNodeTypes";
 import { shinyUiNodeInfo } from "Shiny-Ui-Elements/uiNodeTypes";
-import type { ShinyUiNode, NodePath } from "Shiny-Ui-Elements/uiNodeTypes";
 import {
   deleteSubscriptions,
   updateSubscriptions,
 } from "state/watcherSubscriptions";
 import { subtractElements } from "utils/array-helpers";
 
-import type { RootState } from "./store";
-
-export const initialUiTree: ShinyUiNode = {
-  uiName: "gridlayout::grid_page",
-  uiArguments: {
-    areas: [["msg"]],
-    row_sizes: ["1fr"],
-    col_sizes: ["1fr"],
-    gap_size: "1rem",
-  },
-  uiChildren: [
-    {
-      uiName: "gridlayout::grid_card_text",
-      uiArguments: {
-        area: "msg",
-        content: "Loading App...",
-        alignment: "center",
-      },
-    },
-  ],
-};
-
 // Note: The reducer callbacks use immer so the mutations we make to the object
 // are safe and we just make the needed mutations to the tree object and don't
 // return anything
 export const uiTreeSlice = createSlice({
   name: "uiTree",
-  initialState: initialUiTree as ShinyUiNode,
+  initialState: "LOADING_STATE" as ShinyUiRootNode,
   reducers: {
     // This is used to teleport to a given state wholesale. E.g. undo-redo
-    SET_FULL_STATE: (tree, action: PayloadAction<{ state: ShinyUiNode }>) =>
+    SET_FULL_STATE: (tree, action: PayloadAction<{ state: ShinyUiRootNode }>) =>
       action.payload.state,
     // This will initialize a state while also making sure the arguments match
     // what we expect in the app
-    INIT_STATE: (tree, action: PayloadAction<{ initialState: ShinyUiNode }>) =>
-      fillInDefaultValues(action.payload.initialState),
+    INIT_STATE: (
+      tree,
+      action: PayloadAction<{ initialState: ShinyUiRootNode }>
+    ) => {
+      return fillInDefaultValues(action.payload.initialState);
+    },
     UPDATE_NODE: (tree, action: PayloadAction<UpdateNodeArguments>) => {
+      if (!isShinyUiNode(tree)) {
+        throw new Error("Tried to update a node when in template chooser mode");
+      }
       // Make sure the tree is valid here
       for (const subscription of updateSubscriptions) {
         subscription(tree, action.payload);
@@ -63,9 +51,15 @@ export const uiTreeSlice = createSlice({
       updateNodeMutating(tree, action.payload);
     },
     PLACE_NODE: (tree, action: PayloadAction<PlaceNodeArguments>) => {
+      if (!isShinyUiNode(tree)) {
+        throw new Error("Tried to move a node when in template chooser mode");
+      }
       placeNodeMutating(tree, action.payload);
     },
     DELETE_NODE: (tree, action: PayloadAction<RemoveNodeArguments>) => {
+      if (!isShinyUiNode(tree)) {
+        throw new Error("Tried to delete a node when in template chooser mode");
+      }
       for (const subscription of deleteSubscriptions) {
         subscription(tree, { path: action.payload.path });
       }
@@ -84,7 +78,9 @@ export const uiTreeSlice = createSlice({
  * mess with the user's code but will eliminate confusion when the settings
  * options controls don't actually match the presented values
  */
-function fillInDefaultValues(uiNode: ShinyUiNode) {
+function fillInDefaultValues(uiNode: ShinyUiRootNode) {
+  if (!isShinyUiNode(uiNode)) return uiNode;
+
   const defaultSettingsForNode = getDefaultSettings(
     shinyUiNodeInfo[uiNode.uiName].settingsInfo,
     uiNode
@@ -138,14 +134,6 @@ export function usePlaceNode() {
   );
 
   return place_node;
-}
-
-export function useGetNode(path: NodePath) {
-  const uiTree = useSelector((state: RootState) => state.uiTree);
-
-  const node = React.useMemo(() => getNode(uiTree, path), [path, uiTree]);
-
-  return node;
 }
 
 export default uiTreeSlice.reducer;

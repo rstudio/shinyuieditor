@@ -9,10 +9,6 @@ import type {
   UiNodeSettingsInfo,
 } from "./inputFieldTypes";
 
-export type ToStaticFormInfo<DynSettings extends UiNodeSettingsInfo> = {
-  [ArgName in keyof DynSettings]: StaticFieldInfoByType[DynSettings[ArgName]["inputType"]];
-};
-
 function isNodeToValueFn<T>(x: T | NodeToValueFn<T>): x is NodeToValueFn<T> {
   return typeof x === "function";
 }
@@ -101,7 +97,11 @@ export function getDefaultSettings<DynInfo extends UiNodeSettingsInfo>(
   for (let argName in dynamicFormInfo) {
     const argInfo = dynamicFormInfo[argName];
 
-    if ("optional" in argInfo) {
+    const isOptional = "optional" in argInfo;
+    const forceDefault =
+      "useDefaultIfOptional" in argInfo && argInfo.useDefaultIfOptional;
+
+    if (isOptional && !forceDefault) {
       continue;
     }
 

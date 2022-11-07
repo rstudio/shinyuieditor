@@ -1,12 +1,22 @@
 # shinyuieditor development
 
+### Major new features and improvements
+
+- When starting the ui editor on an empty app path a visual interface is provided for choosing between templates. These templates can be navigated into and back using undo/redo buttons to allow for "shopping around" for the best template. (#114, #115)
+
 ### Minor new features and improvements
 
 - Switching from absolute to relative units in the grid tracts now results in the tract remaining (almost) the same size instead of jumping to a much bigger or much smaller size due to differences in magnitude of units. (#110)
+- Improved quality/polish of included template apps.
+- Radio inputs, sliders, DT tables, and ui outputs now default to a 100% width instead of an unset one.
 
 ### Bug fixes
 
 - Dragging to resize a grid tract with focus still inside of a popup tract info widget now hides the widget so the drag-to-resize info popup is not obscured. (#110)
+- Starting the editor on an app with a single column or row gridlayout element no longer crashes the app.
+- On case-sensitive file-path operating systems like linux, the editor will now be able to see apps weather using the lowercase `.r` or uppercase `.R` extensions. (`ff46cdd`)
+- Typing in numeric inputs no longer forces you to prefix numbers with 0 if you delete back to nothing to type a new number. (#118)
+- Content in really small grid cards no longer overflows.
 
 # shinyuieditor 0.3.1
 

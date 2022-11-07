@@ -8,9 +8,9 @@
 #' @inheritParams httpuv::startServer
 #' @param app_loc Path to directory containing Shiny app to be visually edited
 #'   (either containing an `app.R` or both a `ui.R` and `server.R`). If the
-#'   provided location doesn't exist, or doesn't contain an app, the user will
-#'   be prompted to choose a starter template which will then be written to the
-#'   location specified.
+#'   provided location doesn't exist, or doesn't contain an app, the app will
+#'   start in an interface to select from a series of starter templates which
+#'   will then be written to the location specified.
 #' @param shiny_background_port Port to launch the shiny app preview on.
 #'   Typically not necessary to set manually.
 #' @param remove_namespace Should namespaces (`library::` prefixes) be stripped
@@ -40,7 +40,6 @@
 #'   # Start editor on a non-existing app directory to choose a starter template
 #'   launch_editor(app_loc = "empty_directory/")
 #'
-#'
 #'   # You can control where the app runs just like a normal Shiny app.
 #'   # This can be useful if you want to access it from a headless server
 #'   launch_editor(
@@ -67,26 +66,34 @@ launch_editor <- function(app_loc,
     }
   }
 
-  # Check and make sure that the app location provided actually has an app
-  app_status <- check_and_validate_app(app_loc)
-  if (!app_status$is_valid) {
-    stop("Stopping UI Editor. Reason:", app_status$message)
-  }
-
   # Make sure environment will allow features to work properly
   check_for_url_issues()
 
-  app_preview <- AppPreview$new(
-    app_loc = app_loc,
-    port = shiny_background_port,
-    host = host,
-    print_logs = show_preview_app_logs,
-    logger = writeLog
-  )
+
+  # ----------------------------------------------------------------------------
+  # State variables to keep track of app location etc..
+  # ----------------------------------------------------------------------------
+
+  # file info is a list that has both the path to the app's ui (app.r for
+  # single-file or ui.r for multi-file) and the type of the app (i.e
+  # "single-file" or "multi-file")
+  file_info <- NULL
+
+  # Basic mode of server. Can either be "initializing" | "template-chooser" |
+  # "editing-app". This is used to know what to do on close
+  server_mode <- "initializing"
+
+
+  # ----------------------------------------------------------------------------
+  # Initialize classes for controling app preview and polling for updates
+  # ----------------------------------------------------------------------------
+
+  # Object that will watch for changes to the app script
+  file_change_watcher <- FileChangeWatcher()
 
   # Empty function so variable can always be called even if the timeout hasn't
   # been initialized
-  app_close_watcher <- WatchForAppClose$new(
+  app_close_watcher <- WatchForAppClose(
     on_close = if (stop_on_browser_close) {
       function() {
         writeLog("Editor window closed, stopping server")
@@ -95,19 +102,163 @@ launch_editor <- function(app_loc,
     }
   )
 
-  # Basic info about the file used to declare the UI we're editing along with
-  # poll to detect when the ui-providing script has changed which is used to
-  # update the client-state as changes are made to script directly
-  ui_def <- UiFileDefinition$new(app_loc)
+  # Initialize app preview object for controlling background app preview
+  app_preview_obj <- AppPreview$new(
+    app_loc = app_loc,
+    port = shiny_background_port,
+    host = host,
+    print_logs = show_preview_app_logs,
+    logger = writeLog
+  )
+
+  startup_app_preview <- function() {
+    if (app_preview) {
+      writeLog("Starting app preview")
+      app_preview_obj$start_app()
+    }
+  }
+
+  # ----------------------------------------------------------------------------
+  # Main logic for responding to messages from the client. Messages have a path
+  # used for routing and an optional payload. A method of responding is provided
+  # with a send_msg callback
+  # ----------------------------------------------------------------------------
+  setup_msg_handlers <- function(send_msg) {
+    request_template_chooser <- function() {
+      send_msg("INITIAL-DATA", "TEMPLATE_CHOOSER")
+      server_mode <<- "template-chooser"
+    }
+
+    update_ui_tree_on_client <- function(ui_tree) {
+      send_msg("INITIAL-DATA", ui_tree)
+    }
+
+    load_new_app <- function() {
+      writeLog("=> Loading app ui and sending to ui editor")
+
+      file_info <<- get_app_ui_file(app_loc, error_on_missing = TRUE)
+
+      ui_tree <- get_app_ui_tree(app_loc)
+      if (!ui_tree$uiName %in% valid_root_nodes) {
+        err_msg <- paste(
+          "Invalid app ui. App needs to start with one of",
+          paste(valid_root_nodes, collapse = ", ")
+        )
+        send_msg("PARSING-ERROR", payload = err_msg)
+        stop(err_msg)
+      }
+      update_ui_tree_on_client(ui_tree)
+
+      startup_app_preview()
+
+      file_change_watcher$start_watching(
+        path_to_watch = file_info$path,
+        on_update = function() {
+          writeLog("=> Sending user updated ui to editor")
+          update_ui_tree_on_client(get_app_ui_tree(app_loc))
+        }
+      )
+
+      server_mode <<- "editing-app"
+    }
+
+    # State variable to keep track of written templates.
+    previous_template_type <- NULL
+    load_app_template <- function(template_info) {
+      writeLog("<= Loading app template")
+
+      # If we've written a template previously of another output type, we need
+      # to do a few housekeeping things...
+      switched_template_output_types <- !is.null(previous_template_type) && 
+        !identical(template_info$outputType, previous_template_type)
+
+      if (switched_template_output_types) {
+        # Stopping the app preview will avoid it getting confused when all of a
+        # sudden the file it's watching dissapears
+        app_preview_obj$stop_app()
+        
+        # Finally we need to remove the old template files themselves, again to
+        # not confused the app preview not leave around unused files
+        remove_app_template(
+          app_loc = app_loc,
+          app_type = previous_template_type
+        )
+      }
+
+      write_app_template(template_info, app_loc)
+      load_new_app()
+      previous_template_type <<- template_info$outputType
+    }
+
+
+    write_new_ui <- function(new_ui_tree) {
+      update_app_ui(
+        file_info = file_info,
+        new_ui_tree = new_ui_tree,
+        remove_namespace = remove_namespace
+      )
+      file_change_watcher$update_last_edit_time()
+      writeLog("<= Saved new ui state from client")
+    }
+
+
+    # Return a callback that takes in a message and reacts to it
+    function(msg) {
+      switch(msg$path,
+        "APP-PREVIEW-CONNECTED" = {
+          app_preview_obj$set_listeners(
+            on_ready = function() {
+              # Once the background preview app is up and running, we can
+              # send over the URL to the react app
+              send_msg("SHINY_READY", payload = app_preview_obj$url)
+            },
+            on_crash = function() {
+              send_msg("SHINY_CRASH", payload = "uh-oh")
+            },
+            on_logs = function(log_lines) {
+              send_msg("SHINY_LOGS", payload = log_lines)
+            }
+          )
+        },
+        "APP-PREVIEW-RESTART" = {
+          app_preview_obj$restart()
+        },
+        "APP-PREVIEW-STOP" = {
+          app_preview_obj$stop_app()
+        },
+        "READY-FOR-STATE" = {
+          # Route to the proper starting screen based on if there's an existing
+          # app or not
+          if (get_app_ui_file(app_loc)$type == "missing") {
+            request_template_chooser()
+          } else {
+            load_new_app()
+          }
+        },
+        "STATE-UPDATE" = {
+          write_new_ui(msg$payload)
+        },
+        "TEMPLATE-SELECTOR-REQUEST" = {
+          server_mode <<- "template-chooser"
+        },
+        "TEMPLATE-SELECTION" = {
+          load_app_template(msg$payload)
+        }
+      )
+    }
+  }
 
   # Cleanup on closing of the server...
   on.exit({
     # Stop all the event listeners
-    app_preview$stop_app()
-    ui_def$cleanup()
+    app_preview_obj$stop_app()
+    file_change_watcher$cleanup()
     app_close_watcher$cleanup()
-  })
 
+    if (server_mode == "template-chooser") {
+      remove_app_template(app_loc = app_loc, app_type = file_info$type)
+    }
+  })
 
   # Let the user know that the ui editor is ready for them to use and optionally
   # open the browser to it for them
@@ -119,78 +270,24 @@ launch_editor <- function(app_loc,
     app = list(
       onWSOpen = function(ws) {
 
-        # Start listening for the file on disk changing to update the client
-        # with a new tree when it happens
-        ui_def$on_file_change(send_ui_state_to_client)
-
-        send_ui_state_to_client <- function() {
-          writeLog("=> Parsing app blob and sending to client")
-          ws$send(
-            build_ws_message("INITIAL-DATA", ui_def$get_ui_tree())
-          )
-        }
-
         # Cancel any app close timeouts that may have been caused by the
         # user refreshing the page
         app_close_watcher$connection_opened()
 
+        # Setup function to respond to client
+        send_msg <- function(path, payload) {
+          ws$send(format_outgoing_msg(path, payload))
+        }
+
+        handle_incoming_msg <- setup_msg_handlers(send_msg)
+
         # The ws object is a WebSocket object
-        ws$onMessage(function(binary, raw_message) {
+        ws$onMessage(function(binary, raw_msg) {
 
           # The messages all come over in binary blob format with a type and an
-          # optional payload field.
-          message <- jsonlite::fromJSON(
-            rawToChar(raw_message),
-            simplifyVector = FALSE
-          )
-
-
-
-          switch(message$path,
-            "APP-PREVIEW-CONNECTED" = {
-              app_preview$set_listeners(
-                on_ready = function() {
-                  # Once the background preview app is up and running, we can
-                  # send over the URL to the react app
-                  ws$send(
-                    build_ws_message(
-                      "SHINY_READY",
-                      payload = app_preview$url
-                    )
-                  )
-                },
-                on_crash = function() {
-                  ws$send(
-                    build_ws_message(
-                      "SHINY_CRASH",
-                      payload = "uh-oh"
-                    )
-                  )
-                },
-                on_logs = function(log_lines) {
-                  ws$send(
-                    build_ws_message(
-                      "SHINY_LOGS",
-                      payload = log_lines
-                    )
-                  )
-                }
-              )
-            },
-            "APP-PREVIEW-RESTART" = {
-              app_preview$restart()
-            },
-            "APP-PREVIEW-STOP" = {
-              app_preview$stop_app()
-            },
-            "READY-FOR-STATE" = {
-              send_ui_state_to_client()
-            },
-            "STATE-UPDATE" = {
-              ui_def$update_ui_file(message$payload, remove_namespace)
-              writeLog("<= Saved new ui state from client")
-            }
-          )
+          # optional payload field and need to be converted before being passed
+          # to the handler callback
+          handle_incoming_msg(parse_incoming_msg(raw_msg))
         })
 
         ws$onClose(function() {
@@ -209,13 +306,6 @@ launch_editor <- function(app_loc,
   )
 }
 
-
-build_ws_message <- function(path, payload) {
-  jsonlite::toJSON(list(
-    path = path,
-    payload = payload
-  ), auto_unbox = TRUE)
-}
 
 
 

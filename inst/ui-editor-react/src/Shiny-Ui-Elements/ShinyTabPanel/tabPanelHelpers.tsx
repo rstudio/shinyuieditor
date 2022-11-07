@@ -20,14 +20,3 @@ export const newTabPanelNode: ShinyUiNode = {
   uiArguments: getDefaultSettings(shinyTabPanelInfo.settingsInfo),
   uiChildren: [],
 };
-
-export function getNamesOfChildTabPanels(containerNode: ShinyUiNode): string[] {
-  const childNodes = containerNode.uiChildren;
-  if (!childNodes) return [];
-
-  return childNodes.map((child) => {
-    if (!isValidTabPanel(child)) return "";
-
-    return child.uiArguments.title;
-  });
-}

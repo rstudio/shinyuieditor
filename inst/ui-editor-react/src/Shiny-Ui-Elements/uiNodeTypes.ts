@@ -5,13 +5,13 @@ import type { CustomFormRenderFn } from "components/Inputs/SettingsFormBuilder/F
 import type { DynamicFieldInfo } from "components/Inputs/SettingsFormBuilder/inputFieldTypes";
 import type { DeleteAction, UpdateAction } from "state/uiTree";
 
-import dtDTOutputInfo from "./DtDtOutput";
+import { dtDTOutputInfo } from "./DtDtOutput";
 import { gridlayoutGridCardInfo } from "./GridlayoutGridCard";
 import { gridlayoutGridCardPlotInfo } from "./GridlayoutGridCardPlot";
 import { gridlayoutTextPanelInfo } from "./GridlayoutGridCardText";
-import gridlayoutGridTabPanelInfo from "./GridlayoutGridContainer";
+import { gridlayoutGridContainerInfo } from "./GridlayoutGridContainer";
 import { gridlayoutGridPageInfo } from "./GridlayoutGridPage";
-import plotlyPlotlyOutputInfo from "./PlotlyPlotlyOutput";
+import { plotlyPlotlyOutputInfo } from "./PlotlyPlotlyOutput";
 import { shinyActionButtonInfo } from "./ShinyActionButton";
 import { shinyCheckboxGroupInputInfo } from "./ShinyCheckboxGroupInput";
 import { shinyCheckboxInputInfo } from "./ShinyCheckboxInput";
@@ -22,7 +22,7 @@ import { shinyRadioButtonsInfo } from "./ShinyRadioButtons";
 import { shinySelectInputInfo } from "./ShinySelectInput";
 import { shinySliderInputInfo } from "./ShinySliderInput";
 import { shinyTabPanelInfo } from "./ShinyTabPanel";
-import shinyTabsetPanelInfo from "./ShinyTabsetPanel";
+import { shinyTabsetPanelInfo } from "./ShinyTabsetPanel";
 import { shinyTextInputInfo } from "./ShinyTextInput";
 import { shinyTextOutputInfo } from "./ShinyTextOutput";
 import { shinyUiOutputInfo } from "./ShinyUiOutput";
@@ -132,7 +132,7 @@ export const shinyUiNodeInfo = {
   "gridlayout::grid_card": gridlayoutGridCardInfo,
   "gridlayout::grid_card_text": gridlayoutTextPanelInfo,
   "gridlayout::grid_card_plot": gridlayoutGridCardPlotInfo,
-  "gridlayout::grid_container": gridlayoutGridTabPanelInfo,
+  "gridlayout::grid_container": gridlayoutGridContainerInfo,
   "DT::DTOutput": dtDTOutputInfo,
   "plotly::plotlyOutput": plotlyPlotlyOutputInfo,
   unknownUiFunction: unknownUiFunctionInfo,
@@ -165,7 +165,6 @@ export type ArgsWithPotentialUnknowns<T extends ShinyUiNames> =
  * Names of all the available Ui elements
  */
 export type ShinyUiNames = keyof ShinyUiArguments;
-export const shinyUiNames = Object.keys(shinyUiNodeInfo) as ShinyUiNames[];
 
 export type ShinyUiChildren = ShinyUiNode[];
 
@@ -186,6 +185,14 @@ export type ShinyUiNodeByName = {
  * Union of Ui element name and associated arguments for easy narrowing
  */
 export type ShinyUiNode = ShinyUiNodeByName[ShinyUiNames];
+
+export type TemplateChooserNode = "TEMPLATE_CHOOSER";
+type LoadingState = "LOADING_STATE";
+export type ShinyUiRootNode = ShinyUiNode | TemplateChooserNode | LoadingState;
+
+// export function isShinyUiNode(node: ShinyUiRootNode): node is ShinyUiNode {
+//   return node !== "TEMPLATE_CHOOSER";
+// }
 
 /**
  * Optional props that will enable drag behavior on a given ui node. Non
@@ -227,17 +234,6 @@ export type UiNodeComponent<NodeSettings extends object> = (props: {
   path: NodePath;
   uiChildren?: ShinyUiChildren;
   wrapperProps: UiNodeWrapperProps;
-}) => JSX.Element;
-
-/**
- * The settings updater component is simply takes the settings object and is
- * populated with the custom input widgets. There is a context that provides the
- * callback needed for changing the states. The main requirement is that the
- * `name` of the input matches the name of the property in the settings object.
- */
-export type SettingsUpdaterComponent<T extends object> = (p: {
-  settings: T;
-  node: ShinyUiNode;
 }) => JSX.Element;
 
 /**

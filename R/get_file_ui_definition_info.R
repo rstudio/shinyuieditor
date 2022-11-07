@@ -136,11 +136,7 @@ update_ui_definition <- function(file_info, new_ui_tree, remove_namespace = TRUE
 
   # Do we need to add any libraries to the app?
   libraries_to_add <- ui_libraries[!ui_libraries %in% file_info$loaded_libraries]
-  additional_library_lines <- vapply(
-    X = libraries_to_add,
-    FUN = function(l) paste0("library(", l, ")"),
-    FUN.VALUE = character(1L)
-  )
+  additional_library_lines <- create_library_calls(libraries_to_add)
 
   # Our new ui text doesn't have the assignment on it so we need to add that
   if (file_info$type == "single-file") {

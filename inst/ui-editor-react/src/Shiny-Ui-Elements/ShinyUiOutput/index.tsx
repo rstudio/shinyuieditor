@@ -1,6 +1,5 @@
 import uiIcon from "assets/icons/shinyImage.png";
 
-import { outputIdInfo } from "../commonSettingsTemplates";
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import ShinyUiOutput from "./ShinyUiOutput";
@@ -13,7 +12,11 @@ export const shinyUiOutputInfo: UiComponentInfo<ShinyUiOutputProps> = {
   title: "Dynamic UI Output",
   UiComponent: ShinyUiOutput,
   settingsInfo: {
-    outputId: outputIdInfo,
+    outputId: {
+      label: "Output ID",
+      inputType: "string",
+      defaultValue: "dynamicUiOutput",
+    },
   },
   acceptsChildren: false,
   iconSrc: uiIcon,

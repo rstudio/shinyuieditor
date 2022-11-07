@@ -24,6 +24,9 @@ ui_fn_names_namespaced <- c(
   "plotly::plotlyOutput"
 )
 
+# These nodes define layouts we have support for in the editor. Used to validate
+# tree structure
+valid_root_nodes <-  c("shiny::navbarPage", "gridlayout::grid_page")
 
 # Ui names without namespace attached
 ui_fn_names_bare <- gsub(

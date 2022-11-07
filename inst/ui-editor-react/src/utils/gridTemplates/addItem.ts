@@ -39,4 +39,3 @@ export default function addItem(
 
   return { ...template, areas: areasCopy };
 }
-export type NewItemInfo = Parameters<typeof addItem>[1];

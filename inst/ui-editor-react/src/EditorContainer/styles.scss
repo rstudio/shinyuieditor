@@ -1,0 +1,89 @@
+.EditorContainer {
+  --header-height: 31px;
+  --padding: var(--horizontal-spacing);
+  background-color: var(--background-grey, #edf2f7);
+
+  height: 100%;
+  width: 100%;
+
+  header {
+    height: var(--header-height);
+    gap: var(--padding);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    button {
+      padding: 0;
+    }
+    .right {
+      margin-left: auto;
+      width: var(--properties-panel-width);
+      display: inherit;
+      align-items: center;
+      gap: 14px;
+
+      // Move the tour button over a tiny bit so it lines up better with edge of
+      // properties pane
+      > :first-child {
+        margin-left: -6px;
+      }
+
+      .react-joyride {
+        display: none;
+      }
+
+      .undo-redo-buttons {
+        transform: translate(-1px, -1px);
+      }
+    }
+
+    .shiny-logo {
+      display: inline-block;
+      height: 100%;
+      border-radius: 0 15px 15px 0;
+      padding-block: 3px;
+      padding-inline: 5px;
+      background-color: var(--rstudio-blue);
+    }
+
+    .app-title {
+      font-size: 1.15rem;
+      color: var(--rstudio-blue);
+    }
+
+    .divider {
+      height: 20px;
+      background-color: var(--divider-color);
+      width: 2px;
+    }
+  }
+
+  .EditorSkeleton {
+    height: calc(100% - var(--header-height));
+  }
+
+  .message-mode {
+    background-color: white;
+    border-radius: var(--corner-radius);
+    border: var(--outline);
+    width: min(95%, 600px);
+    padding: 25px;
+    margin-inline: auto;
+
+    > h2 {
+      font-size: 24px;
+      margin-block-end: 18px;
+    }
+
+    > p {
+      margin: 0;
+      padding: 0;
+    }
+
+    .error-msg {
+      color: var(--red);
+      font-family: var(--mono-fonts);
+    }
+  }
+}

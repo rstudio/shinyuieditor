@@ -52,7 +52,7 @@ export const AutoBuild = () => {
 
     if (action.type === "REMOVE") {
       setValue((old) => {
-        return omit(old, [key]) as typeof old;
+        return omit(old, key as keyof typeof old) as typeof old;
       });
     }
   };

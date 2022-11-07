@@ -2,11 +2,11 @@ import React from "react";
 
 import StateHistory from "modules/StateHistory";
 import { useDispatch, useSelector } from "react-redux";
-import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
+import type { ShinyUiRootNode } from "Shiny-Ui-Elements/uiNodeTypes";
 import type { RootState } from "state/store";
-import { initialUiTree, SET_FULL_STATE } from "state/uiTree";
+import { SET_FULL_STATE } from "state/uiTree";
 
-type HistoryEntry = ShinyUiNode;
+type HistoryEntry = ShinyUiRootNode;
 
 export function useUndoRedo() {
   const tree = useSelector((state: RootState) => state.uiTree);
@@ -20,7 +20,7 @@ export function useUndoRedo() {
 
   React.useEffect(() => {
     // Ignore the initialization state
-    if (!tree || tree === initialUiTree) return;
+    if (!tree || tree === "LOADING_STATE") return;
 
     const history = stateHistory.current;
 

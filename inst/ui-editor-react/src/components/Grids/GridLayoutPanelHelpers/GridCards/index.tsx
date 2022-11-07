@@ -1,6 +1,6 @@
 import React from "react";
 
-export interface BsCardProps extends React.ComponentPropsWithoutRef<"div"> {}
+interface BsCardProps extends React.ComponentPropsWithoutRef<"div"> {}
 
 const BsCard = React.forwardRef<HTMLDivElement, BsCardProps>(
   ({ className = "", children, ...props }, ref) => {

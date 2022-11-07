@@ -40,6 +40,7 @@
 
   --font-color: hsl(214 9% 15%);
   --font-color-disabled: hsl(214 9% 15% / 0.5);
+  --font-size: 13px;
 
   --selected-outline-color: var(--rstudio-blue);
   --selected-outline-width: 3px;
@@ -92,7 +93,7 @@ input {
   line-height: 1.5;
   color: var(--font-color);
   margin: 0;
-  font-size: 13px;
+  font-size: var(--font-size);
 }
 
 input {
@@ -131,6 +132,11 @@ code {
   color: unset;
   font-family: unset;
   font-size: unset;
+}
+
+/* Make dialog elements blur background */
+dialog::backdrop {
+  backdrop-filter: blur(2px);
 }
 
 [data-is-selected-node="true"] {

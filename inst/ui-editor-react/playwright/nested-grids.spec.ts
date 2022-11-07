@@ -1,6 +1,8 @@
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
 import type { ShinyUiNode } from "../src/Shiny-Ui-Elements/uiNodeTypes";
+
+import { mockBackendState } from "./utils/mockBackend";
 
 const basicNavbarPage: ShinyUiNode = {
   uiName: "shiny::navbarPage",
@@ -65,12 +67,7 @@ const basicNavbarPage: ShinyUiNode = {
 test("Updating the area name of a grid item propigates through rest of app properly", async ({
   page,
 }) => {
-  await page.route("/testing-tree", (route) =>
-    route.fulfill({
-      status: 200,
-      body: JSON.stringify(basicNavbarPage),
-    })
-  );
+  await mockBackendState(page, basicNavbarPage);
 
   await page.goto("/");
 

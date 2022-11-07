@@ -18,7 +18,7 @@ import { cleanNumber } from "./utils";
 
 type TractUnit = "fr" | "px";
 const ALLOWED_UNITS: TractUnit[] = ["fr", "px"];
-export function TractInfoDisplay({
+function TractInfoDisplay({
   dir,
   index,
   size,

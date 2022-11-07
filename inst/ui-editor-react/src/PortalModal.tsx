@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import panelClasses from "EditorContainer.module.css";
+import { PanelHeader } from "EditorSkeleton/EditorSkeleton";
 import * as ReactDOM from "react-dom";
 
 import classes from "./PortalModal.module.css";
@@ -60,11 +60,7 @@ function PortalModal({
           aria-label={label ?? "popup modal"}
         >
           {title ? (
-            <div
-              className={classes.title + " " + panelClasses.panelTitleHeader}
-            >
-              {title}
-            </div>
+            <PanelHeader className={classes.title}>{title}</PanelHeader>
           ) : null}
           <div className={classes.body}>{children}</div>
         </div>

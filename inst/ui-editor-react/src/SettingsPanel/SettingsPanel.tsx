@@ -3,6 +3,7 @@ import { buildStaticFormInfo } from "components/Inputs/SettingsFormBuilder/build
 import type { CustomFormRenderFn } from "components/Inputs/SettingsFormBuilder/FormBuilder";
 import { FormBuilder } from "components/Inputs/SettingsFormBuilder/FormBuilder";
 import type { FormValuesFromInfo } from "components/Inputs/SettingsFormBuilder/inputFieldTypes";
+import { PanelHeader } from "EditorSkeleton/EditorSkeleton";
 import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
 import { shinyUiNodeInfo } from "Shiny-Ui-Elements/uiNodeTypes";
 
@@ -41,35 +42,42 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
   );
 
   return (
-    <div className={classes.settingsPanel + " properties-panel"}>
-      <div className={classes.currentElementAbout}>
-        <PathBreadcrumb
-          tree={tree}
-          path={selectedPath}
-          onSelect={setNodeSelection}
-        />
-      </div>
-      <FormBuilder
-        settings={uiArguments as FormValuesFromInfo<typeof staticSettingsInfo>}
-        settingsInfo={staticSettingsInfo}
-        renderInputs={
-          nodeInfo.settingsFormRender as CustomFormRenderFn<typeof uiArguments>
-        }
-        onSettingsChange={(name, action) => {
-          switch (action.type) {
-            case "UPDATE":
-              updateArgumentsByName(name, action.value);
-              return;
-
-            case "REMOVE":
-              deleteArgumentByName(name);
-              return;
+    <>
+      <PanelHeader>Properties</PanelHeader>
+      <div className={classes.settingsPanel}>
+        <div className={classes.currentElementAbout}>
+          <PathBreadcrumb
+            tree={tree}
+            path={selectedPath}
+            onSelect={setNodeSelection}
+          />
+        </div>
+        <FormBuilder
+          settings={
+            uiArguments as FormValuesFromInfo<typeof staticSettingsInfo>
           }
-        }}
-      />
-      <div className={classes.buttonsHolder}>
-        {!isRootNode ? <DeleteNodeButton path={selectedPath} /> : null}
+          settingsInfo={staticSettingsInfo}
+          renderInputs={
+            nodeInfo.settingsFormRender as CustomFormRenderFn<
+              typeof uiArguments
+            >
+          }
+          onSettingsChange={(name, action) => {
+            switch (action.type) {
+              case "UPDATE":
+                updateArgumentsByName(name, action.value);
+                return;
+
+              case "REMOVE":
+                deleteArgumentByName(name);
+                return;
+            }
+          }}
+        />
+        <div className={classes.buttonsHolder}>
+          {!isRootNode ? <DeleteNodeButton path={selectedPath} /> : null}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

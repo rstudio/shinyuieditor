@@ -1,4 +1,7 @@
-import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
+import type {
+  ShinyUiNode,
+  TemplateChooserNode,
+} from "Shiny-Ui-Elements/uiNodeTypes";
 
 /**
  * Basic grid app with a sidebar containging a slider and plot
@@ -173,6 +176,9 @@ export const minimalPage: ShinyUiNode = {
 
 // To enable different app templates just uncomment the tree you want here
 
-export const sampleAppTree = basicGridPage;
+export const templateChooserMode: TemplateChooserNode = "TEMPLATE_CHOOSER";
+
+// export const sampleAppTree = basicGridPage;
+export const sampleAppTree = templateChooserMode;
 // export const sampleAppTree = basicNavbarPage;
 // export const sampleAppTree = minimalPage;

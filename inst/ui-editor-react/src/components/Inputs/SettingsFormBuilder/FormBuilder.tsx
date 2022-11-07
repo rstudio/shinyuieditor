@@ -16,7 +16,7 @@ import { SettingsInput } from "./SettingsInput/SettingsInput";
 import "./styles.scss";
 import { UnknownArgumentsRender } from "./UnknownArgumentsRender";
 
-export type SettingsObj = Record<string, unknown>;
+type SettingsObj = Record<string, unknown>;
 
 /**
  * Info object with all the arguments marked as omitted removed. Aka only the
@@ -27,11 +27,6 @@ export type NonOmittedFormInfo = Record<
   StaticFieldInfoByType[InputFieldEntryNames]
 >;
 
-export type UnknownArgumentsInfo<Settings extends SettingsObj> = {
-  name: StringKeys<Settings>;
-  component: React.ReactNode;
-};
-
 type FormFieldComponents<Info extends SettingsObj> = {
   inputs: Record<StringKeys<Info>, JSX.Element>;
   settings: Info;
@@ -41,15 +36,10 @@ export type CustomFormRenderFn<Settings extends SettingsObj> = (
   x: FormFieldComponents<Settings>
 ) => JSX.Element;
 
-export type SettingsChangeFn = (
-  name: string,
-  action: SettingsUpdateAction
-) => void;
-
 export type FormBuilderProps<Info extends FormInfo> = {
   settings: SettingsObj;
   settingsInfo: Info;
-  onSettingsChange: SettingsChangeFn;
+  onSettingsChange: (name: string, action: SettingsUpdateAction) => void;
   renderInputs?: CustomFormRenderFn<SettingsObj>;
 };
 

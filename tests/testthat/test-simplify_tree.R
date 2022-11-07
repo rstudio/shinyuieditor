@@ -8,7 +8,6 @@ test_that("Standardizes layout arguments", {
         gap_size = "1rem",
         gridlayout::grid_card(
           area = "sidebar",
-          item_alignment = "center",
           shiny::sliderInput(
             inputId = "bins",
             label = "Num Bins",
@@ -19,7 +18,6 @@ test_that("Standardizes layout arguments", {
         ),
         gridlayout::grid_card(
           area = "plot",
-          item_alignment = "center",
           shiny::plotOutput(
             outputId = "distPlot",
             height = "100%"
@@ -36,7 +34,6 @@ test_that("Standardizes layout arguments", {
         ",
         gridlayout::grid_card(
           area = "sidebar",
-          item_alignment = "center",
           shiny::sliderInput(
             inputId = "bins",
             label = "Num Bins",
@@ -47,7 +44,6 @@ test_that("Standardizes layout arguments", {
         ),
         gridlayout::grid_card(
           area = "plot",
-          item_alignment = "center",
           shiny::plotOutput(
             outputId = "distPlot",
             height = "100%"

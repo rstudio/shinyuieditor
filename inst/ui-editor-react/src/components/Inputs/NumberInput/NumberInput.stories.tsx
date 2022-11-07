@@ -19,6 +19,7 @@ function InputDemo({ start = 10, width }: { start?: number; width: number }) {
         position: "relative",
       }}
     >
+      <button onClick={() => setValue(10)}>set to 10</button>
       <NumberInput
         id="MyNumber"
         label="Number Input"
@@ -29,7 +30,9 @@ function InputDemo({ start = 10, width }: { start?: number; width: number }) {
   );
 }
 
-export const Primary = () => (
+export const Single = () => <InputDemo width={100} />;
+
+export const Multiple = () => (
   <div
     style={{
       outline: "2px solid steelblue",

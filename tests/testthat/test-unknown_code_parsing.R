@@ -8,7 +8,6 @@ test_that("Unknown functions are preserved through the parsing and deparsing ste
   original_expression <- rlang::expr(
     gridlayout::grid_card(
       area = "plot",
-      item_alignment = "center",
       custom_widget_fn(
         "myWidget",
         width = "90%"
@@ -43,7 +42,6 @@ test_that("Unknown variables are preserved through the parsing and deparsing ste
   original_expression <- rlang::expr(
     gridlayout::grid_card(
       area = "plot",
-      item_alignment = "center",
       my_data_table_var,
       shiny::plotOutput(
         outputId = "distPlot",

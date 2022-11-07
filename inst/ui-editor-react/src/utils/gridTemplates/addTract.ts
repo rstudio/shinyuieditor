@@ -9,7 +9,7 @@ import { itemBoundsInDir } from "./itemBoundsInDir";
 import { areasToItemLocations, emptyCell } from "./itemLocations";
 import { getTractSizes } from "./parseGridTemplateAreas";
 
-export type NewTract = {
+type NewTract = {
   afterIndex: number;
   size: CSSMeasure;
   dir: TractDirection;

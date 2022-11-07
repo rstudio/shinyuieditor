@@ -18,7 +18,7 @@ import { TabDropDetector } from "./TabDropDetector";
 import classes from "./Tabset.module.css";
 import { useActiveTab } from "./useActiveTab";
 
-export interface TabsetProps extends React.ComponentPropsWithoutRef<"div"> {
+interface TabsetProps extends React.ComponentPropsWithoutRef<"div"> {
   title?: string;
   addTabButton?: JSX.Element;
 }

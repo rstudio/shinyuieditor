@@ -1,5 +1,5 @@
 import { TESTING_MODE } from "env_variables";
-import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
+import type { ShinyUiRootNode } from "Shiny-Ui-Elements/uiNodeTypes";
 
 import { sampleAppTree, testingUiTree } from "../state/backupUiTree";
 
@@ -9,7 +9,7 @@ import { sampleAppTree, testingUiTree } from "../state/backupUiTree";
  * @returns Promise containing a ui tree to use as initial state for app
  */
 export async function getClientsideOnlyTree() {
-  return new Promise<ShinyUiNode>((resolve) => {
+  return new Promise<ShinyUiRootNode>((resolve) => {
     if (!TESTING_MODE) {
       // If we're just running in clientside only mode, immediately resolve the
       // promise with a simple grid page
