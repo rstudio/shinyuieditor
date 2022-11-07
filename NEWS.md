@@ -1,4 +1,4 @@
-# shinyuieditor development
+# shinyuieditor 0.3.2
 
 ### Major new features and improvements
 
