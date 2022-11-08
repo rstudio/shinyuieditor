@@ -1,7 +1,11 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.connectToRProcess = void 0;
 const child_process_1 = require("child_process");
+const node_process_1 = __importDefault(require("node:process"));
 const STARTUP_TIMEOUT_MS = 5000;
 const STARTUP_COMMAND = `library(shinyuieditor)`;
 const rCallargs = ["--silent", "--slave", "--no-save", "--no-restore"];
@@ -12,6 +16,14 @@ function connectToRProcess({ pathToR, }) {
         const controller = new AbortController();
         const { signal } = controller;
         const spawnedProcess = (0, child_process_1.spawn)(pathToR, rCallargs, { signal });
+        spawnedProcess.pid;
+        const killProcess = () => {
+            // Process never started
+            if (!spawnedProcess.pid)
+                return;
+            console.log("Killing backend R process", spawnedProcess.pid);
+            node_process_1.default.kill(spawnedProcess.pid);
+        };
         const runCmd = (cmd, timeout_ms) => runRCommand(cmd, spawnedProcess, timeout_ms);
         function gatherLogs(type, logMsg) {
             logs += `${type}: ${logMsg}`;
@@ -23,6 +35,7 @@ function connectToRProcess({ pathToR, }) {
             resolve({
                 proc: spawnedProcess,
                 runCmd,
+                stop: killProcess,
             });
         });
         spawnedProcess.on("error", (d) => {

@@ -104,6 +104,7 @@ class ShinyUiEditorProvider {
         // Make sure we get rid of the listener when our editor is closed.
         webviewPanel.onDidDispose(() => {
             changeDocumentSubscription.dispose();
+            this.RProcess?.stop();
         });
         // Receive message from the webview.
         webviewPanel.webview.onDidReceiveMessage((e) => {

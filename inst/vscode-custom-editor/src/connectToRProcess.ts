@@ -1,4 +1,5 @@
 import { ChildProcessWithoutNullStreams, spawn } from "child_process";
+import process from "node:process";
 
 const STARTUP_TIMEOUT_MS = 5000;
 
@@ -7,6 +8,7 @@ const STARTUP_COMMAND = `library(shinyuieditor)`;
 export type ActiveRSession = {
   proc: ChildProcessWithoutNullStreams;
   runCmd: (cmd: string, timeout_ms?: number) => Promise<string[]>;
+  stop: () => void;
 };
 
 const rCallargs = ["--silent", "--slave", "--no-save", "--no-restore"];
@@ -23,7 +25,15 @@ export function connectToRProcess({
     const controller = new AbortController();
     const { signal } = controller;
     const spawnedProcess = spawn(pathToR, rCallargs, { signal });
+    spawnedProcess.pid;
 
+    const killProcess = () => {
+      // Process never started
+      if (!spawnedProcess.pid) return;
+
+      console.log("Killing backend R process", spawnedProcess.pid);
+      process.kill(spawnedProcess.pid);
+    };
     const runCmd = (cmd: string, timeout_ms?: number) =>
       runRCommand(cmd, spawnedProcess, timeout_ms);
 
@@ -38,6 +48,7 @@ export function connectToRProcess({
       resolve({
         proc: spawnedProcess,
         runCmd,
+        stop: killProcess,
       });
     });
 
