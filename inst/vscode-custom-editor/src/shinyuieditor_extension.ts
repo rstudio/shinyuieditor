@@ -49,11 +49,13 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
       namespaces_removed =ui_expression$namespaces_removed
     )`;
 
+    console.log("Calling code formatter");
     const formattedCode = await this.formatRCode(uglyCode);
 
-    // const quickMaths = await RProc.runCmd("4+9");
     console.log("Formatted code", formattedCode);
+    console.log("quick mafs", await RProc.runCmd("4+9"));
 
+    console.log("Sequence", await RProc.runCmd("seq(1,20)"));
     // console.log("Quick Mafs", quickMaths);
   }
 
@@ -172,7 +174,7 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
       throw new Error("No R Process available for running command");
 
     const formattedLines = await this.RProcess.runCmd(
-      `as.character(styler::style_text("${unformattedCode}", scope = "tokens"))`
+      `styler::style_text("${unformattedCode}", scope = "tokens")`
     );
 
     return formattedLines.reduce((pasted, l) => pasted + "\n" + l, "");

@@ -3,12 +3,13 @@ import { ChildProcessWithoutNullStreams, spawn } from "child_process";
 const STARTUP_TIMEOUT_MS = 5000;
 
 const STARTUP_COMMAND = `library(shinyuieditor)`;
-const findReadyToGo = />/;
 
 export type ActiveRSession = {
   proc: ChildProcessWithoutNullStreams;
   runCmd: (cmd: string, timeout_ms?: number) => Promise<string[]>;
 };
+
+const rCallargs = ["--silent", "--slave", "--no-save", "--no-restore"];
 
 export function connectToRProcess({
   pathToR,
@@ -16,12 +17,12 @@ export function connectToRProcess({
   pathToR: string;
 }): Promise<ActiveRSession | null> {
   let logs = "";
-  let running = false;
+  const running = false;
 
   return new Promise<ActiveRSession | null>((resolve) => {
     const controller = new AbortController();
     const { signal } = controller;
-    const spawnedProcess = spawn(pathToR, ["--no-save"], { signal });
+    const spawnedProcess = spawn(pathToR, rCallargs, { signal });
 
     const runCmd = (cmd: string, timeout_ms?: number) =>
       runRCommand(cmd, spawnedProcess, timeout_ms);
@@ -29,19 +30,23 @@ export function connectToRProcess({
     function gatherLogs(type: "error" | "out", logMsg: string) {
       logs += `${type}: ${logMsg}`;
     }
-    spawnedProcess.stdout.on("data", (d) => {
-      const logMsg = d.toString();
-      gatherLogs("out", logMsg);
 
-      if (!running && findReadyToGo.test(logMsg)) {
-        resolve({
-          proc: spawnedProcess,
-          runCmd,
-        });
-        clearTimeout(startTimeout);
-        sendMsgToProc(STARTUP_COMMAND, spawnedProcess);
-        running = true;
-      }
+    spawnedProcess.on("spawn", () => {
+      console.log("R Process is active!");
+      clearTimeout(startTimeout);
+      sendMsgToProc(STARTUP_COMMAND, spawnedProcess);
+      resolve({
+        proc: spawnedProcess,
+        runCmd,
+      });
+    });
+
+    spawnedProcess.on("error", (d) => {
+      console.log("Spun up R had error", d);
+    });
+
+    spawnedProcess.stdout.on("data", (d) => {
+      gatherLogs("out", d.toString());
     });
 
     spawnedProcess.stderr.on("data", (d) => {
@@ -65,8 +70,9 @@ function sendMsgToProc(msg: string, proc: ChildProcessWithoutNullStreams) {
   proc.stdin.write(`${msg}\n`);
 }
 
-const output_line_regex = /^\[\d+\]/;
-const empty_prompt_regex = /^>\s$/;
+const START_SIGNAL = "SUE_START_SIGNAL";
+const END_SIGNAL = "SUE_END_SIGNAL";
+
 async function runRCommand(
   cmd: string,
   rProc: ChildProcessWithoutNullStreams,
@@ -74,42 +80,53 @@ async function runRCommand(
 ): Promise<string[]> {
   let logs = "";
 
-  const firstLineOfCommand = cmd.split("\n")[0];
-  let seenOutput = false;
+  let seenNonEmptyOutput = false;
+  let seenStartSignal = false;
   const lines: string[] = [];
   return new Promise<string[]>((resolve) => {
-    rProc.stdout.on("data", (d) => {
-      const output = d.toString();
-      const outputLines = output.split("\n") as string[];
+    function listenForOutput(d: any) {
+      const outputLines = d.toString().split("\n") as string[];
 
-      // lines.push(...outputLines);
+      for (const l of outputLines) {
+        logs += l + "\n";
 
-      logs += output + "\n";
+        if (l.includes(START_SIGNAL)) {
+          seenStartSignal = true;
+          continue;
+        }
 
-      if (outputLines.some((l) => l.includes(firstLineOfCommand))) {
-        seenOutput = true;
+        if (!seenStartSignal) {
+          continue;
+        }
+
+        if (!seenNonEmptyOutput && l.length === 0) {
+          continue;
+        }
+
+        if (l.includes(END_SIGNAL)) {
+          clearTimeout(startTimeout);
+          resolve(lines);
+          rProc.stdout.off("data", listenForOutput);
+          break;
+        }
+
+        // If we're not seeing the start signal or the end signal then we're
+        // looking at the command
+        seenNonEmptyOutput = true;
+        lines.push(l);
       }
+    }
+    rProc.stdout.on("data", listenForOutput);
 
-      if (seenOutput) {
-        // Ignore the lines with +'s in them because those are just
-        // continuations of the command echo and look for output in the form of
-        // square boxes around indices
-        const justReturnLines = outputLines.filter((l) =>
-          output_line_regex.test(l)
-        );
-        lines.push(...justReturnLines);
-      }
-
-      if (outputLines.some((l) => empty_prompt_regex.test(l))) {
-        clearTimeout(startTimeout);
-        resolve(lines);
-      }
-    });
     const startTimeout = setTimeout(() => {
       throw new Error(
         `Timeout, no response from run command within ${timeout_ms}ms: ${cmd}\n Logs:\n ${logs}`
       );
     }, timeout_ms);
-    sendMsgToProc(cmd, rProc);
+
+    sendMsgToProc(
+      `print('${START_SIGNAL}');${cmd};print('${END_SIGNAL}')`,
+      rProc
+    );
   });
 }

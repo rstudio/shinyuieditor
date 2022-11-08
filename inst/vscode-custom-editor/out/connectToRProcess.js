@@ -4,30 +4,32 @@ exports.connectToRProcess = void 0;
 const child_process_1 = require("child_process");
 const STARTUP_TIMEOUT_MS = 5000;
 const STARTUP_COMMAND = `library(shinyuieditor)`;
-const findReadyToGo = />/;
+const rCallargs = ["--silent", "--slave", "--no-save", "--no-restore"];
 function connectToRProcess({ pathToR, }) {
     let logs = "";
-    let running = false;
+    const running = false;
     return new Promise((resolve) => {
         const controller = new AbortController();
         const { signal } = controller;
-        const spawnedProcess = (0, child_process_1.spawn)(pathToR, ["--no-save"], { signal });
+        const spawnedProcess = (0, child_process_1.spawn)(pathToR, rCallargs, { signal });
         const runCmd = (cmd, timeout_ms) => runRCommand(cmd, spawnedProcess, timeout_ms);
         function gatherLogs(type, logMsg) {
             logs += `${type}: ${logMsg}`;
         }
+        spawnedProcess.on("spawn", () => {
+            console.log("R Process is active!");
+            clearTimeout(startTimeout);
+            sendMsgToProc(STARTUP_COMMAND, spawnedProcess);
+            resolve({
+                proc: spawnedProcess,
+                runCmd,
+            });
+        });
+        spawnedProcess.on("error", (d) => {
+            console.log("Spun up R had error", d);
+        });
         spawnedProcess.stdout.on("data", (d) => {
-            const logMsg = d.toString();
-            gatherLogs("out", logMsg);
-            if (!running && findReadyToGo.test(logMsg)) {
-                resolve({
-                    proc: spawnedProcess,
-                    runCmd,
-                });
-                clearTimeout(startTimeout);
-                sendMsgToProc(STARTUP_COMMAND, spawnedProcess);
-                running = true;
-            }
+            gatherLogs("out", d.toString());
         });
         spawnedProcess.stderr.on("data", (d) => {
             gatherLogs("error", d.toString());
@@ -47,38 +49,45 @@ exports.connectToRProcess = connectToRProcess;
 function sendMsgToProc(msg, proc) {
     proc.stdin.write(`${msg}\n`);
 }
-const output_line_regex = /^\[\d+\]/;
-const empty_prompt_regex = /^>\s$/;
+const START_SIGNAL = "SUE_START_SIGNAL";
+const END_SIGNAL = "SUE_END_SIGNAL";
 async function runRCommand(cmd, rProc, timeout_ms = 5000) {
     let logs = "";
-    const firstLineOfCommand = cmd.split("\n")[0];
-    let seenOutput = false;
+    let seenNonEmptyOutput = false;
+    let seenStartSignal = false;
     const lines = [];
     return new Promise((resolve) => {
-        rProc.stdout.on("data", (d) => {
-            const output = d.toString();
-            const outputLines = output.split("\n");
-            // lines.push(...outputLines);
-            logs += output + "\n";
-            if (outputLines.some((l) => l.includes(firstLineOfCommand))) {
-                seenOutput = true;
+        function listenForOutput(d) {
+            const outputLines = d.toString().split("\n");
+            for (const l of outputLines) {
+                logs += l + "\n";
+                if (l.includes(START_SIGNAL)) {
+                    seenStartSignal = true;
+                    continue;
+                }
+                if (!seenStartSignal) {
+                    continue;
+                }
+                if (!seenNonEmptyOutput && l.length === 0) {
+                    continue;
+                }
+                if (l.includes(END_SIGNAL)) {
+                    clearTimeout(startTimeout);
+                    resolve(lines);
+                    rProc.stdout.off("data", listenForOutput);
+                    break;
+                }
+                // If we're not seeing the start signal or the end signal then we're
+                // looking at the command
+                seenNonEmptyOutput = true;
+                lines.push(l);
             }
-            if (seenOutput) {
-                // Ignore the lines with +'s in them because those are just
-                // continuations of the command echo and look for output in the form of
-                // square boxes around indices
-                const justReturnLines = outputLines.filter((l) => output_line_regex.test(l));
-                lines.push(...justReturnLines);
-            }
-            if (outputLines.some((l) => empty_prompt_regex.test(l))) {
-                clearTimeout(startTimeout);
-                resolve(lines);
-            }
-        });
+        }
+        rProc.stdout.on("data", listenForOutput);
         const startTimeout = setTimeout(() => {
             throw new Error(`Timeout, no response from run command within ${timeout_ms}ms: ${cmd}\n Logs:\n ${logs}`);
         }, timeout_ms);
-        sendMsgToProc(cmd, rProc);
+        sendMsgToProc(`print('${START_SIGNAL}');${cmd};print('${END_SIGNAL}')`, rProc);
     });
 }
 //# sourceMappingURL=connectToRProcess.js.map
