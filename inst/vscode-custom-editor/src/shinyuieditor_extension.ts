@@ -29,13 +29,11 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
   private static readonly viewType = "shinyUiEditor.appFile";
 
   constructor(private readonly context: vscode.ExtensionContext) {
-    console.log("Constructor for extension has run!");
     this.getR();
   }
 
   private async getR() {
     const rPath = await getRpath();
-    console.log("R is here", rPath);
     if (rPath === undefined) {
       throw new Error("Can't get R path");
     }
@@ -45,9 +43,10 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
       console.error("R process failed to start :(");
       return;
     }
-    console.log("R Process is here and ready to go!");
 
-    RProc.sendMsg(`3+4`);
+    const quickMaths = await RProc.runCmd("4+9");
+
+    console.log("Quick Mafs", quickMaths);
     this.RProcess = RProc;
   }
   /**

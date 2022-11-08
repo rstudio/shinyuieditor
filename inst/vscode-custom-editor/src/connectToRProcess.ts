@@ -7,7 +7,7 @@ const findReadyToGo = />/;
 
 export type ActiveRSession = {
   proc: ChildProcessWithoutNullStreams;
-  sendMsg: (msg: string) => void;
+  runCmd: (cmd: string, timeout_ms?: number) => Promise<string>;
 };
 
 export function connectToRProcess({
@@ -21,15 +21,12 @@ export function connectToRProcess({
   return new Promise<ActiveRSession | null>((resolve) => {
     const controller = new AbortController();
     const { signal } = controller;
-    const spawnedProcess = spawn("R", ["--no-save"], {
-      signal,
-    });
+    const spawnedProcess = spawn(pathToR, ["--no-save"], { signal });
 
-    function sendMsg(msg: string) {
-      spawnedProcess.stdin.write(`${msg}\n`);
-    }
+    const runCmd = (cmd: string, timeout_ms?: number) =>
+      runRCommand(cmd, spawnedProcess, timeout_ms);
+
     function gatherLogs(type: "error" | "out", logMsg: string) {
-      console.log(`${type} log:`, logMsg);
       logs += `${type}: ${logMsg}`;
     }
     spawnedProcess.stdout.on("data", (d) => {
@@ -39,17 +36,16 @@ export function connectToRProcess({
       if (!running && findReadyToGo.test(logMsg)) {
         resolve({
           proc: spawnedProcess,
-          sendMsg,
+          runCmd,
         });
         clearTimeout(startTimeout);
-        sendMsg(STARTUP_COMMAND);
+        sendMsgToProc(STARTUP_COMMAND, spawnedProcess);
         running = true;
       }
     });
 
     spawnedProcess.stderr.on("data", (d) => {
-      const logMsg = d.toString();
-      gatherLogs("error", logMsg);
+      gatherLogs("error", d.toString());
     });
 
     spawnedProcess.on("close", () => {
@@ -62,5 +58,34 @@ export function connectToRProcess({
       console.error("Starting backend server failed.\n Logs:\n" + logs);
       resolve(null);
     }, STARTUP_TIMEOUT_MS);
+  });
+}
+
+function sendMsgToProc(msg: string, proc: ChildProcessWithoutNullStreams) {
+  proc.stdin.write(`${msg}\n`);
+}
+
+async function runRCommand(
+  cmd: string,
+  rProc: ChildProcessWithoutNullStreams,
+  timeout_ms = 5000
+): Promise<string> {
+  let logs = "";
+  return new Promise<string>((resolve) => {
+    rProc.stdout.on("data", (d) => {
+      const output = d.toString();
+
+      logs += output + "\n";
+      if (!output.includes(cmd)) return;
+
+      clearTimeout(startTimeout);
+      resolve(output);
+    });
+    const startTimeout = setTimeout(() => {
+      throw new Error(
+        `Timeout, no response from run command within ${timeout_ms}ms: ${cmd}\n Logs:\n ${logs}`
+      );
+    }, timeout_ms);
+    sendMsgToProc(cmd, rProc);
   });
 }

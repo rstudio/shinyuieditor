@@ -44,7 +44,6 @@ class ShinyUiEditorProvider {
     constructor(context) {
         this.context = context;
         this.RProcess = null;
-        console.log("Constructor for extension has run!");
         this.getR();
     }
     static register(context) {
@@ -54,7 +53,6 @@ class ShinyUiEditorProvider {
     }
     async getR() {
         const rPath = await (0, setupRConnection_1.getRpath)();
-        console.log("R is here", rPath);
         if (rPath === undefined) {
             throw new Error("Can't get R path");
         }
@@ -63,8 +61,8 @@ class ShinyUiEditorProvider {
             console.error("R process failed to start :(");
             return;
         }
-        console.log("R Process is here and ready to go!");
-        RProc.sendMsg(`3+4`);
+        const quickMaths = await RProc.runCmd("4+9");
+        console.log("Quick Mafs", quickMaths);
         this.RProcess = RProc;
     }
     /**
