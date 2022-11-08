@@ -7,7 +7,7 @@ const findReadyToGo = />/;
 
 export type ActiveRSession = {
   proc: ChildProcessWithoutNullStreams;
-  runCmd: (cmd: string, timeout_ms?: number) => Promise<string>;
+  runCmd: (cmd: string, timeout_ms?: number) => Promise<string[]>;
 };
 
 export function connectToRProcess({
@@ -65,21 +65,45 @@ function sendMsgToProc(msg: string, proc: ChildProcessWithoutNullStreams) {
   proc.stdin.write(`${msg}\n`);
 }
 
+const output_line_regex = /^\[\d+\]/;
+const empty_prompt_regex = /^>\s$/;
 async function runRCommand(
   cmd: string,
   rProc: ChildProcessWithoutNullStreams,
   timeout_ms = 5000
-): Promise<string> {
+): Promise<string[]> {
   let logs = "";
-  return new Promise<string>((resolve) => {
+
+  const firstLineOfCommand = cmd.split("\n")[0];
+  let seenOutput = false;
+  const lines: string[] = [];
+  return new Promise<string[]>((resolve) => {
     rProc.stdout.on("data", (d) => {
       const output = d.toString();
+      const outputLines = output.split("\n") as string[];
+
+      // lines.push(...outputLines);
 
       logs += output + "\n";
-      if (!output.includes(cmd)) return;
 
-      clearTimeout(startTimeout);
-      resolve(output);
+      if (outputLines.some((l) => l.includes(firstLineOfCommand))) {
+        seenOutput = true;
+      }
+
+      if (seenOutput) {
+        // Ignore the lines with +'s in them because those are just
+        // continuations of the command echo and look for output in the form of
+        // square boxes around indices
+        const justReturnLines = outputLines.filter((l) =>
+          output_line_regex.test(l)
+        );
+        lines.push(...justReturnLines);
+      }
+
+      if (outputLines.some((l) => empty_prompt_regex.test(l))) {
+        clearTimeout(startTimeout);
+        resolve(lines);
+      }
     });
     const startTimeout = setTimeout(() => {
       throw new Error(

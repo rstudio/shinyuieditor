@@ -47,16 +47,33 @@ exports.connectToRProcess = connectToRProcess;
 function sendMsgToProc(msg, proc) {
     proc.stdin.write(`${msg}\n`);
 }
+const output_line_regex = /^\[\d+\]/;
+const empty_prompt_regex = /^>\s$/;
 async function runRCommand(cmd, rProc, timeout_ms = 5000) {
     let logs = "";
+    const firstLineOfCommand = cmd.split("\n")[0];
+    let seenOutput = false;
+    const lines = [];
     return new Promise((resolve) => {
         rProc.stdout.on("data", (d) => {
             const output = d.toString();
+            const outputLines = output.split("\n");
+            // lines.push(...outputLines);
             logs += output + "\n";
-            if (!output.includes(cmd))
-                return;
-            clearTimeout(startTimeout);
-            resolve(output);
+            if (outputLines.some((l) => l.includes(firstLineOfCommand))) {
+                seenOutput = true;
+            }
+            if (seenOutput) {
+                // Ignore the lines with +'s in them because those are just
+                // continuations of the command echo and look for output in the form of
+                // square boxes around indices
+                const justReturnLines = outputLines.filter((l) => output_line_regex.test(l));
+                lines.push(...justReturnLines);
+            }
+            if (outputLines.some((l) => empty_prompt_regex.test(l))) {
+                clearTimeout(startTimeout);
+                resolve(lines);
+            }
         });
         const startTimeout = setTimeout(() => {
             throw new Error(`Timeout, no response from run command within ${timeout_ms}ms: ${cmd}\n Logs:\n ${logs}`);

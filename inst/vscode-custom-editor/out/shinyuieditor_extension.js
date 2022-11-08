@@ -57,13 +57,18 @@ class ShinyUiEditorProvider {
             throw new Error("Can't get R path");
         }
         const RProc = await (0, connectToRProcess_1.connectToRProcess)({ pathToR: rPath });
+        this.RProcess = RProc;
         if (RProc === null) {
             console.error("R process failed to start :(");
             return;
         }
-        const quickMaths = await RProc.runCmd("4+9");
-        console.log("Quick Mafs", quickMaths);
-        this.RProcess = RProc;
+        const uglyCode = `  list(text=ui_def_text,
+      namespaces_removed =ui_expression$namespaces_removed
+    )`;
+        const formattedCode = await this.formatRCode(uglyCode);
+        // const quickMaths = await RProc.runCmd("4+9");
+        console.log("Formatted code", formattedCode);
+        // console.log("Quick Mafs", quickMaths);
     }
     /**
      * Called when our custom editor is opened.
@@ -143,6 +148,12 @@ class ShinyUiEditorProvider {
 				<script nonce="${nonce}" src="${scriptUri}"></script>
 			</body>
 			</html>`;
+    }
+    async formatRCode(unformattedCode) {
+        if (!this.RProcess)
+            throw new Error("No R Process available for running command");
+        const formattedLines = await this.RProcess.runCmd(`as.character(styler::style_text("${unformattedCode}", scope = "tokens"))`);
+        return formattedLines.reduce((pasted, l) => pasted + "\n" + l, "");
     }
     /**
      * Try to get a current document as json text.
