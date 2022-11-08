@@ -141,3 +141,7 @@ async function runRCommand(
     );
   });
 }
+
+export function escapeDoubleQuotes(cmd: string): string {
+  return cmd.replace(/"/g, `\\"`);
+}

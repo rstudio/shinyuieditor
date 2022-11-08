@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.connectToRProcess = void 0;
+exports.escapeDoubleQuotes = exports.connectToRProcess = void 0;
 const child_process_1 = require("child_process");
 const node_process_1 = __importDefault(require("node:process"));
 const STARTUP_TIMEOUT_MS = 5000;
@@ -103,4 +103,8 @@ async function runRCommand(cmd, rProc, timeout_ms = 5000) {
         sendMsgToProc(`print('${START_SIGNAL}');${cmd};print('${END_SIGNAL}')`, rProc);
     });
 }
+function escapeDoubleQuotes(cmd) {
+    return cmd.replace(/"/g, `\\"`);
+}
+exports.escapeDoubleQuotes = escapeDoubleQuotes;
 //# sourceMappingURL=connectToRProcess.js.map

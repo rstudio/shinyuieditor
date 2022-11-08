@@ -62,14 +62,14 @@ class ShinyUiEditorProvider {
             console.error("R process failed to start :(");
             return;
         }
-        const uglyCode = `  list(text=ui_def_text,
-      namespaces_removed =ui_expression$namespaces_removed
-    )`;
-        console.log("Calling code formatter");
-        const formattedCode = await this.formatRCode(uglyCode);
-        console.log("Formatted code", formattedCode);
-        console.log("quick mafs", await RProc.runCmd("4+9"));
-        console.log("Sequence", await RProc.runCmd("seq(1,20)"));
+        // const uglyCode = `  list(text=ui_def_text,
+        //   namespaces_removed =ui_expression$namespaces_removed
+        // )`;
+        // console.log("Calling code formatter");
+        // const formattedCode = await this.formatRCode(uglyCode);
+        // console.log("Formatted code", formattedCode);
+        // console.log("quick mafs", await RProc.runCmd("4+9"));
+        // console.log("Sequence", await RProc.runCmd("seq(1,20)"));
         // console.log("Quick Mafs", quickMaths);
     }
     /**
@@ -78,11 +78,13 @@ class ShinyUiEditorProvider {
      *
      */
     async resolveCustomTextEditor(document, webviewPanel, _token) {
+        console.log("Editor window is opened!");
         // Setup initial content for the webview
         webviewPanel.webview.options = {
             enableScripts: true,
         };
         webviewPanel.webview.html = this.getHtmlForWebview(webviewPanel.webview);
+        this.getAppFile(document);
         function updateWebview() {
             webviewPanel.webview.postMessage({
                 type: "update",
@@ -99,6 +101,7 @@ class ShinyUiEditorProvider {
         const changeDocumentSubscription = vscode.workspace.onDidChangeTextDocument((e) => {
             if (e.document.uri.toString() === document.uri.toString()) {
                 updateWebview();
+                console.log("New text file in view!");
             }
         });
         // Make sure we get rid of the listener when our editor is closed.
@@ -157,6 +160,24 @@ class ShinyUiEditorProvider {
             throw new Error("No R Process available for running command");
         const formattedLines = await this.RProcess.runCmd(`styler::style_text("${unformattedCode}", scope = "tokens")`);
         return formattedLines.reduce((pasted, l) => pasted + "\n" + l, "");
+    }
+    async getAppFile(document) {
+        if (!this.RProcess)
+            return;
+        const text = (0, connectToRProcess_1.escapeDoubleQuotes)(document.getText());
+        const formatCommand = `
+app_lines <- strsplit("${text}", "\\n")[[1]]
+jsonlite::toJSON(
+  shinyuieditor:::get_file_ui_definition_info(app_lines, "single-file"),
+  auto_unbox = TRUE
+)`;
+        const formatedOutput = await this.RProcess.runCmd(formatCommand);
+        try {
+            console.log("Parsed app info", JSON.parse(formatedOutput.reduce((all, l) => all + "\n" + l, "")));
+        }
+        catch {
+            throw new Error("Could not get document as json. Content is not valid json");
+        }
     }
     /**
      * Try to get a current document as json text.
