@@ -11,7 +11,8 @@ type MessageSubscriptionQueue = Partial<{
   >;
 }>;
 
-export function makeMessageDispatcher() {
+export function makeMessageDispatcher(log_msgs: boolean = false) {
+  const logger = (msg: string) => (log_msgs ? null : console.log(msg));
   let subscriptions: MessageSubscriptionQueue = {};
 
   function subscribe(subscription: BackendMessageSubscriber) {
@@ -25,14 +26,10 @@ export function makeMessageDispatcher() {
 
     // Question mark is not really needed but typescript can't narrow here for some reason
     subscriptions[subscription.on]?.push(subscriberFn);
-
-    console.log(
-      `Received subscription request, current subscriptions`,
-      subscriptions
-    );
   }
 
   function dispatch({ path, payload }: MessageFromBackendUnion) {
+    logger(`Message from backend: path:${path}`);
     subscriptions[path]?.forEach((callback) =>
       (callback as OnBackendMsgCallback<typeof path>)(payload)
     );
@@ -41,4 +38,4 @@ export function makeMessageDispatcher() {
   return { subscribe, dispatch };
 }
 
-export type MessageDispather = ReturnType<typeof makeMessageDispatcher>;
+export type MessageDispatcher = ReturnType<typeof makeMessageDispatcher>;

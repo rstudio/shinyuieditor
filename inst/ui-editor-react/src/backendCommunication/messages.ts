@@ -18,7 +18,7 @@ type MessageToBackend = {
  * Union form of the backend messages with path and payload pairings for
  * callbacks
  */
-type MessageToBackendUnion = MessageUnion<MessageToBackend>;
+export type MessageToBackendUnion = MessageUnion<MessageToBackend>;
 
 export type BackendMessageSender = (msg: MessageToBackendUnion) => void;
 

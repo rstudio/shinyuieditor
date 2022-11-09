@@ -1,4 +1,3 @@
-import { makeMessageDispatcher } from "backendCommunication/messageDispatcher";
 import type { BackendMessagePassers } from "backendCommunication/useBackendMessageCallbacks";
 import { createRoot } from "react-dom/client";
 
@@ -6,14 +5,30 @@ import { App } from "./App";
 
 export function runSUE({
   container,
-  backendDispatch,
+  backendDispatch: { sendMsg, backendMsgs },
+  showMessages,
 }: {
   container: HTMLElement | null;
   backendDispatch: BackendMessagePassers;
+  showMessages: boolean;
 }) {
-  const backendMessageDispatch = makeMessageDispatcher();
+  const dispatch: BackendMessagePassers = showMessages
+    ? {
+        sendMsg: (msg) => {
+          console.log("sendMsg()", msg);
+          sendMsg(msg);
+        },
+        backendMsgs: {
+          subscribe: (x) => {
+            console.log("backendMsgs.subscribe()", x);
+            backendMsgs.subscribe(x);
+          },
+        },
+      }
+    : {
+        sendMsg,
+        backendMsgs,
+      };
   const root = createRoot(container!); // createRoot(container!) if you use TypeScript
-  root.render(<App {...backendDispatch} />);
-
-  return backendMessageDispatch.dispatch;
+  root.render(<App {...dispatch} />);
 }

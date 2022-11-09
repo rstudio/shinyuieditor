@@ -5,20 +5,22 @@ import type { BackendMessage } from "websocket_hooks/useConnectToWebsocket";
 import { listenForWsMessages } from "websocket_hooks/useConnectToWebsocket";
 import type { OutgoingStateMsg } from "websocket_hooks/useSyncUiWithBackend";
 
-import type { MessageDispather } from "./messageDispatcher";
+import type { MessageDispatcher } from "./messageDispatcher";
 import type { MessageFromBackendUnion } from "./messages";
 import type { BackendMessagePassers } from "./useBackendMessageCallbacks";
 
 export function setupWebsocketBackend({
   onClose,
   messageDispatch,
+  showMessages,
 }: {
   onClose: () => void;
-  messageDispatch: MessageDispather;
+  messageDispatch: MessageDispatcher;
+  showMessages: boolean;
 }) {
   let connectedToWebsocket = false;
 
-  return new Promise<BackendMessagePassers>((resolve) => {
+  return new Promise<BackendMessagePassers | "NO-WS-CONNECTION">((resolve) => {
     try {
       if (!document.location.host) throw new Error("Not on a served site!");
 
@@ -27,17 +29,22 @@ export function setupWebsocketBackend({
       const ws = new WebSocket(websocket_path);
 
       const messagePassingMethods: BackendMessagePassers = {
-        sendMsg: (msg) =>
-          sendWsMessage(ws, msg as OutgoingStateMsg | OutgoingPreviewAppMsg),
+        sendMsg: (msg) => {
+          sendWsMessage(ws, msg as OutgoingStateMsg | OutgoingPreviewAppMsg);
+        },
         backendMsgs: { subscribe: messageDispatch.subscribe },
       };
 
       ws.onerror = (e) => {
-        throw new Error("Error starting websocket connection" + e);
+        resolve("NO-WS-CONNECTION");
       };
 
       ws.onopen = (event) => {
         listenForWsMessages(ws, (msg: BackendMessage) => {
+          if (showMessages) {
+            // eslint-disable-next-line no-console
+            console.log("WS backend msg:", msg);
+          }
           messageDispatch.dispatch(msg as MessageFromBackendUnion);
         });
         resolve(messagePassingMethods);
@@ -48,15 +55,11 @@ export function setupWebsocketBackend({
         if (connectedToWebsocket) {
           onClose();
         } else {
-          throw new Error(
-            "Websocket connection closed before succesfully opening"
-          );
+          resolve("NO-WS-CONNECTION");
         }
       };
     } catch (e) {
-      throw new Error(
-        "Failure to initialize websocket at all. Probably on netlify" + e
-      );
+      resolve("NO-WS-CONNECTION");
     }
   });
 }

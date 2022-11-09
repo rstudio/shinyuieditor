@@ -125,12 +125,12 @@ launch_editor <- function(app_loc,
   # ----------------------------------------------------------------------------
   setup_msg_handlers <- function(send_msg) {
     request_template_chooser <- function() {
-      send_msg("INITIAL-DATA", "TEMPLATE_CHOOSER")
+      send_msg("UPDATED-TREE", "TEMPLATE_CHOOSER")
       server_mode <<- "template-chooser"
     }
 
     update_ui_tree_on_client <- function(ui_tree) {
-      send_msg("INITIAL-DATA", ui_tree)
+      send_msg("UPDATED-TREE", ui_tree)
     }
 
     load_new_app <- function() {
@@ -204,6 +204,7 @@ launch_editor <- function(app_loc,
 
     # Return a callback that takes in a message and reacts to it
     function(msg) {
+      writeLog("Message from backend", msg$path)
       switch(msg$path,
         "APP-PREVIEW-CONNECTED" = {
           app_preview_obj$set_listeners(
@@ -235,7 +236,7 @@ launch_editor <- function(app_loc,
             load_new_app()
           }
         },
-        "STATE-UPDATE" = {
+        "UPDATED-TREE" = {
           write_new_ui(msg$payload)
         },
         "TEMPLATE-SELECTOR-REQUEST" = {
