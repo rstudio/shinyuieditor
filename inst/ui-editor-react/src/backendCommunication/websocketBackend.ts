@@ -1,13 +1,12 @@
+import type { OutgoingStateMsg } from "backendCommunication/useSyncUiWithBackend";
 import type { OutgoingPreviewAppMsg } from "components/AppPreview/useCommunicateWithBackend";
-import { buildWebsocketPathFromDomain } from "websocket_hooks/buildWebsocketPath";
-import { sendWsMessage } from "websocket_hooks/sendWsMessage";
-import type { BackendMessage } from "websocket_hooks/useConnectToWebsocket";
-import { listenForWsMessages } from "websocket_hooks/useConnectToWebsocket";
-import type { OutgoingStateMsg } from "websocket_hooks/useSyncUiWithBackend";
+import { DEV_MODE } from "env_variables";
 
 import type { MessageDispatcher } from "./messageDispatcher";
 import type { MessageFromBackendUnion } from "./messages";
 import type { BackendMessagePassers } from "./useBackendMessageCallbacks";
+
+type BackendMessage = { path: string; payload?: string | object };
 
 export function setupWebsocketBackend({
   onClose,
@@ -24,7 +23,7 @@ export function setupWebsocketBackend({
     try {
       if (!document.location.host) throw new Error("Not on a served site!");
 
-      const websocket_path = buildWebsocketPathFromDomain("localhost:8888");
+      const websocket_path = buildWebsocketPath();
 
       const ws = new WebSocket(websocket_path);
 
@@ -65,4 +64,51 @@ export function setupWebsocketBackend({
       resolve("NO-WS-CONNECTION");
     }
   });
+}
+
+function buildWebsocketPath() {
+  // If we're in dev mode the app itself will be hosted on the dev server which
+  // is not where the websocket communication happens. In this situation we rely
+  // on the backend of the ui editor to be running on port `8888` of localhost.
+
+  return buildWebsocketPathFromDomain(
+    DEV_MODE
+      ? "localhost:8888"
+      : window.location.host + window.location.pathname
+  );
+}
+
+function buildWebsocketPathFromDomain(domain: string) {
+  // If we're in dev mode the app itself will be hosted on the dev server which
+  // is not where the websocket communication happens. In this situation we rely
+  // on the backend of the ui editor to be running on port `8888` of localhost.
+
+  // The type of the websocket protocol will change depending on if we're on a
+  // http (typically localhost) or https (something like workbench)
+  const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+
+  return protocol + "//" + domain;
+}
+
+function sendWsMessage(
+  ws: WebSocket,
+  msg: OutgoingStateMsg | OutgoingPreviewAppMsg
+) {
+  const msg_blob = new Blob([JSON.stringify(msg)], {
+    type: "application/json",
+  });
+  ws.send(msg_blob);
+}
+
+function listenForWsMessages(
+  ws: WebSocket,
+  callbacks: (msg: BackendMessage) => void
+) {
+  ws.addEventListener("message", (event: MessageEvent<any>) => {
+    callbacks(parseWebsocketMessage(event));
+  });
+}
+
+function parseWebsocketMessage(raw_msg: MessageEvent<any>) {
+  return JSON.parse(raw_msg.data) as BackendMessage;
 }

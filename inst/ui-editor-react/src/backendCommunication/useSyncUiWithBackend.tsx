@@ -4,7 +4,6 @@ import { useBackendCallbacks } from "backendCommunication/useBackendMessageCallb
 import type { TemplateSelection } from "components/TemplatePreviews/filterTemplates";
 import debounce from "just-debounce-it";
 import { useSelector } from "react-redux";
-import { isShinyUiNode } from "Shiny-Ui-Elements/isShinyUiNode";
 import type {
   ShinyUiNode,
   ShinyUiRootNode,
@@ -75,13 +74,19 @@ export function useSyncUiWithBackend() {
       // from the one sent to it
       return;
     }
-    if (isShinyUiNode(currentUiTree)) {
-      debouncedSendMsg({
-        path: "UPDATED-TREE",
-        payload: currentUiTree,
-      });
+
+    if (currentUiTree === "TEMPLATE_CHOOSER") {
+      // The user has gone backward to the template selector, so let the backend
+      // know it should clear the existing app
+      sendMsg({ path: "TEMPLATE-SELECTOR-REQUEST" });
+      return;
     }
-  }, [currentUiTree, debouncedSendMsg]);
+
+    debouncedSendMsg({
+      path: "UPDATED-TREE",
+      payload: currentUiTree,
+    });
+  }, [currentUiTree, debouncedSendMsg, sendMsg]);
 
   return { tree, setTree, errorMsg };
 }

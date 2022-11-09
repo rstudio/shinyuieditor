@@ -1,7 +1,6 @@
 import React from "react";
 
 import { PanelHeader } from "EditorSkeleton/EditorSkeleton";
-import { SHOW_FAKE_PREVIEW } from "env_variables";
 import { AiOutlineShrink } from "react-icons/ai";
 import { FaExpand } from "react-icons/fa";
 import { VscDebugRestart } from "react-icons/vsc";
@@ -24,15 +23,15 @@ export default function AppPreview() {
     setIsFullScreen((currentlyFullScreen) => !currentlyFullScreen);
   }, []);
 
-  const { status, appLoc, appLogs, clearLogs, restartApp } =
+  const { appLoc, errors, appLogs, clearLogs, restartApp } =
     useCommunicateWithBackend();
 
   const previewScale = usePreviewScale();
 
   const reloadApp = React.useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
-      if (!iframeRef.current || !appLoc) return;
-      iframeRef.current.src = appLoc;
+      if (!iframeRef.current || typeof appLoc === "string") return;
+      iframeRef.current.src = appLoc.url;
 
       spinReloadButton(e.currentTarget);
     },
@@ -43,8 +42,7 @@ export default function AppPreview() {
   // development testing so we can see a fake app preview window. If we're not
   // in development mode we want to hide the preview window when there's no app
   // preview present to not confuse users
-
-  if (status === "no-preview" && !SHOW_FAKE_PREVIEW) {
+  if (appLoc === "HIDDEN") {
     return null;
   }
 
@@ -73,9 +71,7 @@ export default function AppPreview() {
           } as React.CSSProperties
         }
       >
-        {status === "loading" ? (
-          <LoadingMessage />
-        ) : status === "crashed" ? (
+        {errors !== null ? (
           <RestartPrompt onClick={restartApp} />
         ) : (
           <>
@@ -88,12 +84,14 @@ export default function AppPreview() {
               <VscDebugRestart />
             </Button>
             <div className={classes.appContainer}>
-              {status === "no-preview" ? (
+              {appLoc === "FAKE-PREVIEW" ? (
                 <FakeDashboard />
+              ) : appLoc === "LOADING" ? (
+                <LoadingMessage />
               ) : (
                 <iframe
                   className={classes.previewFrame}
-                  src={appLoc}
+                  src={appLoc.url}
                   title="Application Preview"
                   ref={iframeRef}
                 />

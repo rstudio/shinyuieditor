@@ -1,3 +1,6 @@
+import { SHOW_FAKE_PREVIEW } from "env_variables";
+
+import { getClientsideOnlyTree } from "./getClientsideOnlyTree";
 import type { MessageDispatcher } from "./messageDispatcher";
 import type { MessageFromBackendUnion } from "./messages";
 import type { BackendMessagePassers } from "./useBackendMessageCallbacks";
@@ -23,9 +26,11 @@ export function setupStaticBackend({
 
       switch (msg.path) {
         case "READY-FOR-STATE": {
-          dispatchMessageToClient({
-            path: "UPDATED-TREE",
-            payload: "TEMPLATE_CHOOSER",
+          getClientsideOnlyTree().then((ui_tree) => {
+            dispatchMessageToClient({
+              path: "UPDATED-TREE",
+              payload: ui_tree,
+            });
           });
           return;
         }
@@ -34,6 +39,15 @@ export function setupStaticBackend({
             path: "UPDATED-TREE",
             payload: msg.payload.uiTree,
           });
+          return;
+        }
+        case "APP-PREVIEW-CONNECTED": {
+          if (!SHOW_FAKE_PREVIEW) return;
+          dispatchMessageToClient({
+            path: "APP-PREVIEW-READY",
+            payload: "FAKE-PREVIEW",
+          });
+          return;
         }
       }
     },

@@ -13,7 +13,7 @@ import {
   PROPERTIES_PANEL_WIDTH_PX,
 } from "../EditorSkeleton/EditorSkeleton";
 import { SettingsPanel } from "../SettingsPanel/SettingsPanel";
-import { useSyncUiWithBackend } from "../websocket_hooks/useSyncUiWithBackend";
+import { useSyncUiWithBackend } from "../backendCommunication/useSyncUiWithBackend";
 
 import { AppHeader } from "./AppHeader";
 import { DialogPopover } from "./DialogPopover";
