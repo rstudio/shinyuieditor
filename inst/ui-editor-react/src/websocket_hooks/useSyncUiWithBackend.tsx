@@ -58,16 +58,19 @@ function isIncomingStateMsg(x: BackendMessage): x is IncomingMsg {
 }
 
 export function useSyncUiWithBackend() {
-  const backendCallbacks = useBackendCallbacks();
+  const { sendMsg, backendMsgs } = useBackendCallbacks();
 
   const tree = useSelector((state: RootState) => state.uiTree);
   const setTree = useSetTree();
-  backendCallbacks.sendMsg({ path: "READY-FOR-STATE" });
 
-  backendCallbacks.backendMsgs.subscribe({
-    on: "APP-PREVIEW-READY",
-    callback: (x) => console.log("App Preview is ready!", x),
-  });
+  React.useEffect(() => {
+    sendMsg({ path: "READY-FOR-STATE" });
+
+    backendMsgs.subscribe({
+      on: "APP-PREVIEW-READY",
+      callback: (x) => console.log("App Preview is ready!", x),
+    });
+  }, [backendMsgs, sendMsg]);
 
   const { status, ws } = useWebsocketBackend();
 
@@ -126,12 +129,25 @@ export function useSyncUiWithBackend() {
       sendWsMessage(ws, { path: "TEMPLATE-SELECTOR-REQUEST" });
     }
     if (isShinyUiNode(currentUiTree)) {
+      sendMsg({
+        path: "UPDATED-TREE",
+        payload: currentUiTree,
+      });
       sendWsMessageDebounced(ws, {
         path: "STATE-UPDATE",
         payload: currentUiTree,
       });
     }
-  }, [currentUiTree, status, ws]);
+  }, [currentUiTree, sendMsg, status, ws]);
+
+  React.useEffect(() => {
+    if (isShinyUiNode(currentUiTree)) {
+      sendMsg({
+        path: "UPDATED-TREE",
+        payload: currentUiTree,
+      });
+    }
+  }, [currentUiTree, sendMsg]);
 
   return { status: connectionStatus, tree, setTree, errorMsg };
 }

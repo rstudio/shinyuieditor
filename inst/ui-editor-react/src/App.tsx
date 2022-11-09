@@ -1,38 +1,22 @@
 import "bootstrap/dist/css/bootstrap.css";
 
 import "./App.css";
-import * as React from "react";
 
-import { makeMessageDispatcher } from "backendCommunication/messageDispatcher";
+import type { BackendMessagePassers } from "backendCommunication/useBackendMessageCallbacks";
 import { BackendCallbacksProvider } from "backendCommunication/useBackendMessageCallbacks";
 import ReduxProvider from "state/ReduxProvider";
 import { WebsocketProvider } from "websocket_hooks/useConnectToWebsocket";
 
 import { EditorContainer } from "./EditorContainer/EditorContainer";
 
-export const App = () => {
-  const backendMessageDispatch = makeMessageDispatcher();
-
-  setTimeout(() => {
-    backendMessageDispatch.dispatch({
-      path: "APP-PREVIEW-READY",
-      payload: "Address of app preview!",
-    });
-  }, 2000);
+export function App(msgPassers: BackendMessagePassers) {
   return (
     <ReduxProvider>
-      <BackendCallbacksProvider
-        sendMsg={(x) =>
-          console.log("App version, Sending message to backend", x)
-        }
-        backendMsgs={{
-          subscribe: backendMessageDispatch.subscribe,
-        }}
-      >
+      <BackendCallbacksProvider {...msgPassers}>
         <WebsocketProvider>
           <EditorContainer />
         </WebsocketProvider>
       </BackendCallbacksProvider>
     </ReduxProvider>
   );
-};
+}

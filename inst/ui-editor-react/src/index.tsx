@@ -1,7 +1,15 @@
-import { createRoot } from "react-dom/client";
-
-import { App } from "./App";
+import { runSUE } from "./runSUE";
 
 const container = document.getElementById("root");
-const root = createRoot(container!); // createRoot(container!) if you use TypeScript
-root.render(<App />);
+
+const dispatchMessage = runSUE({
+  container,
+  onMsg: (x) => console.log("Message to backend:", x),
+});
+
+setTimeout(() => {
+  dispatchMessage({
+    path: "APP-PREVIEW-READY",
+    payload: "Address of app preview!",
+  });
+}, 2000);

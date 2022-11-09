@@ -1,6 +1,5 @@
 import React from "react";
 
-import { useBackendCallbacks } from "backendCommunication/useBackendMessageCallbacks";
 import AppPreview from "components/AppPreview";
 import { TemplateChooserView } from "components/TemplatePreviews/TemplateChooserView";
 import UiNode from "components/UiNode/UiNode";

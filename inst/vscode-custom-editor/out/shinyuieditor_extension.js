@@ -62,11 +62,11 @@ class ShinyUiEditorProvider {
             console.error("R process failed to start :(");
             return;
         }
-        // const uglyCode = `  list(text=ui_def_text,
-        //   namespaces_removed =ui_expression$namespaces_removed
-        // )`;
+        const uglyCode = `  list(text=ui_def_text,
+      namespaces_removed =ui_expression$namespaces_removed
+    )`;
         // console.log("Calling code formatter");
-        // const formattedCode = await this.formatRCode(uglyCode);
+        const formattedCode = await this.formatRCode(uglyCode);
         // console.log("Formatted code", formattedCode);
         // console.log("quick mafs", await RProc.runCmd("4+9"));
         // console.log("Sequence", await RProc.runCmd("seq(1,20)"));

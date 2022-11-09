@@ -2,7 +2,7 @@ import React from "react";
 
 import type { BackendMessageReceiver, BackendMessageSender } from "./messages";
 
-type BackendMessagePassers = {
+export type BackendMessagePassers = {
   sendMsg: BackendMessageSender;
   backendMsgs: BackendMessageReceiver;
 };
