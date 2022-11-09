@@ -210,13 +210,13 @@ launch_editor <- function(app_loc,
             on_ready = function() {
               # Once the background preview app is up and running, we can
               # send over the URL to the react app
-              send_msg("SHINY_READY", payload = app_preview_obj$url)
+              send_msg("APP-PREVIEW-READY", payload = app_preview_obj$url)
             },
             on_crash = function() {
-              send_msg("SHINY_CRASH", payload = "uh-oh")
+              send_msg("APP-PREVIEW-CRASH", payload = "uh-oh")
             },
             on_logs = function(log_lines) {
-              send_msg("SHINY_LOGS", payload = log_lines)
+              send_msg("APP-PREVIEW-LOGS", payload = log_lines)
             }
           )
         },

@@ -50,16 +50,20 @@ export type OutgoingPreviewAppMsg =
 
 type IncomingPreviewAppMsg =
   | {
-      path: "SHINY_READY" | "SHINY_CRASH";
+      path: "APP-PREVIEW-READY" | "APP-PREVIEW-CRASH";
       payload: string;
     }
   | {
-      path: "SHINY_LOGS";
+      path: "APP-PREVIEW-LOGS";
       payload: string[];
     };
 
 function isPreviewAppMessage(x: WebsocketMessage): x is IncomingPreviewAppMsg {
-  return ["SHINY_READY", "SHINY_CRASH", "SHINY_LOGS"].includes(x.path);
+  return [
+    "APP-PREVIEW-READY",
+    "APP-PREVIEW-CRASH",
+    "APP-PREVIEW-LOGS",
+  ].includes(x.path);
 }
 
 export function useCommunicateWithWebsocket(): CommunicationState {
@@ -83,15 +87,15 @@ export function useCommunicateWithWebsocket(): CommunicationState {
 
         const { path: type, payload } = msg;
         switch (type) {
-          case "SHINY_READY":
+          case "APP-PREVIEW-READY":
             setCrashed(false);
             setNoPreview(false);
             setAppLoc(payload);
             break;
-          case "SHINY_LOGS":
+          case "APP-PREVIEW-LOGS":
             setAppLogs(ensureArray(payload));
             break;
-          case "SHINY_CRASH":
+          case "APP-PREVIEW-CRASH":
             setCrashed(payload);
             break;
           default:
