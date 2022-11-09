@@ -2,13 +2,13 @@ import React from "react";
 
 import { buildWebsocketPath } from "./buildWebsocketPath";
 
+export type BackendMessage = { path: string; payload?: string | object };
+
 type WebsocketConnection =
   | { status: "connecting"; ws: null; msg: null }
   | { status: "connected"; ws: WebSocket; msg: null }
   | { status: "failed-to-open"; ws: null; msg: null }
   | { status: "closed"; ws: null; msg: string };
-
-export type WebsocketMessage = { path: string; payload?: string | object };
 
 type ConnectionAction =
   | {
@@ -115,12 +115,12 @@ export function useWebsocketBackend() {
 }
 
 function parseWebsocketMessage(raw_msg: MessageEvent<any>) {
-  return JSON.parse(raw_msg.data) as WebsocketMessage;
+  return JSON.parse(raw_msg.data) as BackendMessage;
 }
 
 export function listenForWsMessages(
   ws: WebSocket,
-  callbacks: (msg: WebsocketMessage) => void
+  callbacks: (msg: BackendMessage) => void
 ) {
   ws.addEventListener("message", (event: MessageEvent<any>) => {
     callbacks(parseWebsocketMessage(event));

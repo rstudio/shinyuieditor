@@ -2,7 +2,7 @@ import React from "react";
 
 import { useSetDisconnectedFromServer } from "state/connectedToServer";
 import { sendWsMessage } from "websocket_hooks/sendWsMessage";
-import type { WebsocketMessage } from "websocket_hooks/useConnectToWebsocket";
+import type { BackendMessage } from "websocket_hooks/useConnectToWebsocket";
 import {
   listenForWsMessages,
   useWebsocketBackend,
@@ -58,7 +58,7 @@ type IncomingPreviewAppMsg =
       payload: string[];
     };
 
-function isPreviewAppMessage(x: WebsocketMessage): x is IncomingPreviewAppMsg {
+function isPreviewAppMessage(x: BackendMessage): x is IncomingPreviewAppMsg {
   return [
     "APP-PREVIEW-READY",
     "APP-PREVIEW-CRASH",

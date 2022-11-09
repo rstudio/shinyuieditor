@@ -12,7 +12,7 @@ import {
   sendWsMessage,
   sendWsMessageDebounced,
 } from "websocket_hooks/sendWsMessage";
-import type { WebsocketMessage } from "websocket_hooks/useConnectToWebsocket";
+import type { BackendMessage } from "websocket_hooks/useConnectToWebsocket";
 import {
   listenForWsMessages,
   useWebsocketBackend,
@@ -52,7 +52,7 @@ type IncomingErrorMsg = {
 
 type IncomingMsg = IncomingStateMsg | IncomingErrorMsg;
 
-function isIncomingStateMsg(x: WebsocketMessage): x is IncomingMsg {
+function isIncomingStateMsg(x: BackendMessage): x is IncomingMsg {
   return ["INITIAL-DATA", "PARSING-ERROR"].includes(x.path);
 }
 
@@ -72,7 +72,7 @@ export function useSyncUiWithBackend() {
 
   React.useEffect(() => {
     if (status === "connected") {
-      listenForWsMessages(ws, (msg: WebsocketMessage) => {
+      listenForWsMessages(ws, (msg: BackendMessage) => {
         if (!isIncomingStateMsg(msg)) return;
 
         if (msg.path === "INITIAL-DATA") {
