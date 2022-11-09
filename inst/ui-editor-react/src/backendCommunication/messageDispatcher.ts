@@ -40,3 +40,5 @@ export function makeMessageDispatcher() {
 
   return { subscribe, dispatch };
 }
+
+export type MessageDispather = ReturnType<typeof makeMessageDispatcher>;

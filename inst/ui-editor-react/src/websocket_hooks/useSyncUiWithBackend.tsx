@@ -42,7 +42,7 @@ export type OutgoingStateMsg =
     };
 
 type IncomingStateMsg = {
-  path: "INITIAL-DATA";
+  path: "UPDATED-TREE";
   payload: ShinyUiRootNode;
 };
 
@@ -54,7 +54,7 @@ type IncomingErrorMsg = {
 type IncomingMsg = IncomingStateMsg | IncomingErrorMsg;
 
 function isIncomingStateMsg(x: BackendMessage): x is IncomingMsg {
-  return ["INITIAL-DATA", "PARSING-ERROR"].includes(x.path);
+  return ["UPDATED-TREE", "PARSING-ERROR"].includes(x.path);
 }
 
 export function useSyncUiWithBackend() {
@@ -63,82 +63,82 @@ export function useSyncUiWithBackend() {
   const tree = useSelector((state: RootState) => state.uiTree);
   const setTree = useSetTree();
 
-  React.useEffect(() => {
-    sendMsg({ path: "READY-FOR-STATE" });
-
-    backendMsgs.subscribe({
-      on: "APP-PREVIEW-READY",
-      callback: (x) => console.log("App Preview is ready!", x),
-    });
-  }, [backendMsgs, sendMsg]);
-
-  const { status, ws } = useWebsocketBackend();
-
-  const [errorMsg, setErrorMsg] = React.useState<null | string>(null);
-
-  const [connectionStatus, setConnectionStatus] =
-    React.useState<BackendConnectionStatus>("loading");
-
   const lastRecievedRef = React.useRef<ShinyUiRootNode | null>(null);
   const currentUiTree = useSelector((state: RootState) => state.uiTree);
 
   React.useEffect(() => {
-    if (status === "connected") {
-      listenForWsMessages(ws, (msg: BackendMessage) => {
-        if (!isIncomingStateMsg(msg)) return;
+    sendMsg({ path: "READY-FOR-STATE" });
 
-        if (msg.path === "INITIAL-DATA") {
-          lastRecievedRef.current = msg.payload;
-          setTree(msg.payload);
-          setConnectionStatus("connected");
-        }
-        if (msg.path === "PARSING-ERROR") {
-          setErrorMsg(msg.payload);
-        }
-      });
+    backendMsgs.subscribe({
+      on: "UPDATED-TREE",
+      callback: (ui_tree) => {
+        setTree(ui_tree);
+        lastRecievedRef.current = ui_tree;
+      },
+    });
 
-      // Let the backend know the react app is ready for state to be provided
-      sendWsMessage(ws, { path: "READY-FOR-STATE" });
-    }
-    if (status === "failed-to-open") {
-      // Give the backup/static mode ui tree in the case of no backend connection
-      setConnectionStatus("no-backend");
+    backendMsgs.subscribe({
+      on: "PARSING-ERROR",
+      callback: setErrorMsg,
+    });
+  }, [backendMsgs, sendMsg, setTree]);
 
-      getClientsideOnlyTree()
-        .then(setTree)
-        .catch((e) => {
-          throw new Error("Failed to get clientside tree with error", e);
-        });
-    }
-  }, [setTree, status, ws]);
+  const [errorMsg, setErrorMsg] = React.useState<null | string>(null);
 
-  React.useEffect(() => {
-    if (
-      currentUiTree === "LOADING_STATE" ||
-      currentUiTree === lastRecievedRef.current
-    ) {
-      // Avoiding unnecesary message to backend when the state hasn't changed
-      // from the one sent to it
-      return;
-    }
-    if (status !== "connected") return;
+  // React.useEffect(() => {
+  //   if (status === "connected") {
+  //     listenForWsMessages(ws, (msg: BackendMessage) => {
+  //       if (!isIncomingStateMsg(msg)) return;
 
-    if (currentUiTree === "TEMPLATE_CHOOSER") {
-      // The user has gone backward to the template selector, so let the backend
-      // know it should clear the existing app
-      sendWsMessage(ws, { path: "TEMPLATE-SELECTOR-REQUEST" });
-    }
-    if (isShinyUiNode(currentUiTree)) {
-      sendMsg({
-        path: "UPDATED-TREE",
-        payload: currentUiTree,
-      });
-      sendWsMessageDebounced(ws, {
-        path: "STATE-UPDATE",
-        payload: currentUiTree,
-      });
-    }
-  }, [currentUiTree, sendMsg, status, ws]);
+  //       if (msg.path === "UPDATED-TREE") {
+  //         lastRecievedRef.current = msg.payload;
+  //         setTree(msg.payload);
+  //         setConnectionStatus("connected");
+  //       }
+  //       if (msg.path === "PARSING-ERROR") {
+  //         setErrorMsg(msg.payload);
+  //       }
+  //     });
+
+  //     // Let the backend know the react app is ready for state to be provided
+  //     sendWsMessage(ws, { path: "READY-FOR-STATE" });
+  //   }
+
+  //   if (status === "failed-to-open") {
+  //     // Give the backup/static mode ui tree in the case of no backend connection
+  //     setConnectionStatus("no-backend");
+
+  //     getClientsideOnlyTree()
+  //       .then(setTree)
+  //       .catch((e) => {
+  //         throw new Error("Failed to get clientside tree with error", e);
+  //       });
+  //   }
+  // }, [setTree, status, ws]);
+
+  // React.useEffect(() => {
+  //   if (
+  //     currentUiTree === "LOADING_STATE" ||
+  //     currentUiTree === lastRecievedRef.current
+  //   ) {
+  //     // Avoiding unnecesary message to backend when the state hasn't changed
+  //     // from the one sent to it
+  //     return;
+  //   }
+  //   if (status !== "connected") return;
+
+  //   if (currentUiTree === "TEMPLATE_CHOOSER") {
+  //     // The user has gone backward to the template selector, so let the backend
+  //     // know it should clear the existing app
+  //     sendWsMessage(ws, { path: "TEMPLATE-SELECTOR-REQUEST" });
+  //   }
+  //   if (isShinyUiNode(currentUiTree)) {
+  //     sendWsMessageDebounced(ws, {
+  //       path: "STATE-UPDATE",
+  //       payload: currentUiTree,
+  //     });
+  //   }
+  // }, [currentUiTree, sendMsg, status, ws]);
 
   React.useEffect(() => {
     if (isShinyUiNode(currentUiTree)) {
@@ -149,5 +149,5 @@ export function useSyncUiWithBackend() {
     }
   }, [currentUiTree, sendMsg]);
 
-  return { status: connectionStatus, tree, setTree, errorMsg };
+  return { tree, setTree, errorMsg };
 }

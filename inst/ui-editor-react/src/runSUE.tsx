@@ -1,26 +1,19 @@
 import { makeMessageDispatcher } from "backendCommunication/messageDispatcher";
-import type { BackendMessageSender } from "backendCommunication/messages";
+import type { BackendMessagePassers } from "backendCommunication/useBackendMessageCallbacks";
 import { createRoot } from "react-dom/client";
 
 import { App } from "./App";
 
 export function runSUE({
   container,
-  onMsg,
+  backendDispatch,
 }: {
   container: HTMLElement | null;
-  onMsg: BackendMessageSender;
+  backendDispatch: BackendMessagePassers;
 }) {
   const backendMessageDispatch = makeMessageDispatcher();
   const root = createRoot(container!); // createRoot(container!) if you use TypeScript
-  root.render(
-    <App
-      sendMsg={onMsg}
-      backendMsgs={{
-        subscribe: backendMessageDispatch.subscribe,
-      }}
-    />
-  );
+  root.render(<App {...backendDispatch} />);
 
   return backendMessageDispatch.dispatch;
 }

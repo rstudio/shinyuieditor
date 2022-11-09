@@ -27,6 +27,7 @@ export type BackendMessageSender = (msg: MessageToBackendUnion) => void;
  */
 export type MessageFromBackend = {
   "UPDATED-TREE": ShinyUiRootNode;
+  "PARSING-ERROR": string;
   "APP-PREVIEW-READY": string;
   "APP-PREVIEW-CRASH": string;
   "APP-PREVIEW-LOGS": string[];

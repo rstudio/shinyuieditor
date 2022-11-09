@@ -25,7 +25,7 @@ const sizes_inline_styles = {
 } as React.CSSProperties;
 
 export function EditorContainer() {
-  const { status, tree, errorMsg } = useSyncUiWithBackend();
+  const { tree, errorMsg } = useSyncUiWithBackend();
 
   let pageBody: React.ReactNode;
 
@@ -36,7 +36,7 @@ export function EditorContainer() {
         <p className="error-msg">{errorMsg}</p>
       </DialogPopover>
     );
-  } else if (status === "loading" || tree === "LOADING_STATE") {
+  } else if (tree === "LOADING_STATE") {
     pageBody = (
       <DialogPopover className="message-mode">
         <h2>Loading initial state from server</h2>

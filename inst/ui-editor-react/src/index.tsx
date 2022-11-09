@@ -1,15 +1,15 @@
+import { makeMessageDispatcher } from "backendCommunication/messageDispatcher";
+import { setupWebsocketBackend } from "backendCommunication/websocketBackend";
+
 import { runSUE } from "./runSUE";
 
 const container = document.getElementById("root");
 
-const dispatchMessage = runSUE({
-  container,
-  onMsg: (x) => console.log("Message to backend:", x),
-});
-
-setTimeout(() => {
-  dispatchMessage({
-    path: "APP-PREVIEW-READY",
-    payload: "Address of app preview!",
+(async () => {
+  const backendDispatch = await setupWebsocketBackend({
+    messageDispatch: makeMessageDispatcher(),
+    onClose: () => console.log("Websocket closed!!"),
   });
-}, 2000);
+
+  runSUE({ container, backendDispatch });
+})();
