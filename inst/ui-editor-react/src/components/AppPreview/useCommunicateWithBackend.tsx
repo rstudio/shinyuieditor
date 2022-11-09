@@ -66,7 +66,7 @@ function isPreviewAppMessage(x: BackendMessage): x is IncomingPreviewAppMsg {
   ].includes(x.path);
 }
 
-export function useCommunicateWithWebsocket(): CommunicationState {
+export function useCommunicateWithBackend(): CommunicationState {
   const set_disconnected = useSetDisconnectedFromServer();
   const [appLoc, setAppLoc] = React.useState<string | null>(null);
   const [appLogs, setAppLogs] = React.useState<AppLogs>([]);

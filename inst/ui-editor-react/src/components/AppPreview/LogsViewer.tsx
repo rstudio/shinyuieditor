@@ -6,7 +6,7 @@ import { GrClear } from "react-icons/gr";
 import Button from "../Inputs/Button/Button";
 
 import classes from "./LogsViewer.module.css";
-import type { AppLogs } from "./useCommunicateWithWebsocket";
+import type { AppLogs } from "./useCommunicateWithBackend";
 
 export function LogsViewer({
   appLogs,

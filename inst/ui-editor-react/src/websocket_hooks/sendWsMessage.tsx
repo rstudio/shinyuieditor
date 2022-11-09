@@ -1,4 +1,4 @@
-import type { OutgoingPreviewAppMsg } from "components/AppPreview/useCommunicateWithWebsocket";
+import type { OutgoingPreviewAppMsg } from "components/AppPreview/useCommunicateWithBackend";
 import debounce from "just-debounce-it";
 
 import type { OutgoingStateMsg } from "./useSyncUiWithBackend";

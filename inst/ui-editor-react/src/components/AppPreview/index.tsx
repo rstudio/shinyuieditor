@@ -11,7 +11,7 @@ import Button from "../Inputs/Button/Button";
 import classes from "./AppPreview.module.css";
 import FakeDashboard from "./FakeDashboard";
 import { LogsViewer } from "./LogsViewer";
-import { useCommunicateWithWebsocket } from "./useCommunicateWithWebsocket";
+import { useCommunicateWithBackend } from "./useCommunicateWithBackend";
 import { usePreviewScale } from "./usePreviewScale";
 
 export const PREVIEW_INSET_HORIZONTAL_PX = 16;
@@ -25,7 +25,7 @@ export default function AppPreview() {
   }, []);
 
   const { status, appLoc, appLogs, clearLogs, restartApp } =
-    useCommunicateWithWebsocket();
+    useCommunicateWithBackend();
 
   const previewScale = usePreviewScale();
 

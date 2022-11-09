@@ -1,5 +1,6 @@
 import React from "react";
 
+import { useBackendCallbacks } from "backendCommunication/useBackendMessageCallbacks";
 import AppPreview from "components/AppPreview";
 import { TemplateChooserView } from "components/TemplatePreviews/TemplateChooserView";
 import UiNode from "components/UiNode/UiNode";
@@ -17,6 +18,7 @@ import { useSyncUiWithBackend } from "../websocket_hooks/useSyncUiWithBackend";
 
 import { AppHeader } from "./AppHeader";
 import { DialogPopover } from "./DialogPopover";
+
 import "./styles.scss";
 
 const sizes_inline_styles = {
@@ -24,7 +26,14 @@ const sizes_inline_styles = {
 } as React.CSSProperties;
 
 export function EditorContainer() {
+  const backendCallbacks = useBackendCallbacks();
   const { status, tree, errorMsg } = useSyncUiWithBackend();
+
+  backendCallbacks.sendMsg({ path: "READY-FOR-STATE" });
+  backendCallbacks.backendMsgs.subscribe({
+    on: "UPDATED-TREE",
+    callback: (x) => console.log("New tree!", x),
+  });
 
   let pageBody: React.ReactNode;
 
