@@ -28,6 +28,8 @@ const hasBooleanArg = (prop: `--${string}`) =>
 
 if (hasBooleanArg("--serve")) {
   serve = true;
+  watch = true;
+  buildDir = "./esbuild/";
 }
 if (hasBooleanArg("--watch")) {
   watch = true;

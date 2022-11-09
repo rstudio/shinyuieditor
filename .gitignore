@@ -13,3 +13,4 @@ docs
 # These always appear when I accidentally run yarn commands in the wrong directory
 yarn.lock
 node_modules/
+inst/ui-editor-react/esbuild/build/
