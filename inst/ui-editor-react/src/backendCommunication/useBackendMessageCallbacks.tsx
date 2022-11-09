@@ -21,15 +21,18 @@ const BackendCallbacksContext =
 
 export function BackendCallbacksProvider({
   children,
+  sendMsg,
+  backendMsgs,
 }: {
   children: React.ReactNode;
-}) {
+} & BackendMessagePassers) {
   return (
-    <BackendCallbacksContext.Provider value={dummyMessagePassers}>
+    <BackendCallbacksContext.Provider value={{ sendMsg, backendMsgs }}>
       {children}
     </BackendCallbacksContext.Provider>
   );
 }
+
 export function useBackendCallbacks() {
   return React.useContext(BackendCallbacksContext);
 }

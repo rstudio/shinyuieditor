@@ -26,14 +26,7 @@ const sizes_inline_styles = {
 } as React.CSSProperties;
 
 export function EditorContainer() {
-  const backendCallbacks = useBackendCallbacks();
   const { status, tree, errorMsg } = useSyncUiWithBackend();
-
-  backendCallbacks.sendMsg({ path: "READY-FOR-STATE" });
-  backendCallbacks.backendMsgs.subscribe({
-    on: "UPDATED-TREE",
-    callback: (x) => console.log("New tree!", x),
-  });
 
   let pageBody: React.ReactNode;
 

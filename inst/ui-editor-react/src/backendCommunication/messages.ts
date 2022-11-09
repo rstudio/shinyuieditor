@@ -25,7 +25,7 @@ export type BackendMessageSender = (msg: MessageToBackendUnion) => void;
 /**
  * All the paths and their payloads that can be received from the backend
  */
-type MessageFromBackend = {
+export type MessageFromBackend = {
   "UPDATED-TREE": ShinyUiRootNode;
   "APP-PREVIEW-READY": string;
   "APP-PREVIEW-CRASH": string;
@@ -35,16 +35,19 @@ type MessageFromBackend = {
 /**
  * Union form of the message that can be received from backend
  */
-type MessageFromBackendUnion = MessageUnion<MessageFromBackend>;
+export type MessageFromBackendUnion = MessageUnion<MessageFromBackend>;
 
+export type OnBackendMsgCallback<Path extends keyof MessageFromBackend> = (
+  payload: MessageFromBackend[Path]
+) => void;
 /**
  * A function used to subscribe to a given message path and run a callback upon
  * receiving message form backend
  */
-type BackendMessageSubscriber = {
+export type BackendMessageSubscriber = {
   [T in keyof MessageFromBackend]: {
     on: T;
-    callback: (payload: MessageFromBackend[T]) => void;
+    callback: OnBackendMsgCallback<T>;
   };
 }[keyof MessageFromBackend];
 

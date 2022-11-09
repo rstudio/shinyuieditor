@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import { useBackendCallbacks } from "backendCommunication/useBackendMessageCallbacks";
 import type { TemplateSelection } from "components/TemplatePreviews/filterTemplates";
 import { useSelector } from "react-redux";
 import { isShinyUiNode } from "Shiny-Ui-Elements/isShinyUiNode";
@@ -57,8 +58,16 @@ function isIncomingStateMsg(x: BackendMessage): x is IncomingMsg {
 }
 
 export function useSyncUiWithBackend() {
+  const backendCallbacks = useBackendCallbacks();
+
   const tree = useSelector((state: RootState) => state.uiTree);
   const setTree = useSetTree();
+  backendCallbacks.sendMsg({ path: "READY-FOR-STATE" });
+
+  backendCallbacks.backendMsgs.subscribe({
+    on: "APP-PREVIEW-READY",
+    callback: (x) => console.log("App Preview is ready!", x),
+  });
 
   const { status, ws } = useWebsocketBackend();
 
