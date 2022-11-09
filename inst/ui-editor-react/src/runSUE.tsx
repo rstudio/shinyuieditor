@@ -14,10 +14,7 @@ export function runSUE({
 }) {
   const dispatch: BackendMessagePassers = showMessages
     ? {
-        sendMsg: (msg) => {
-          console.log("sendMsg()", msg);
-          sendMsg(msg);
-        },
+        sendMsg,
         backendMsgs: {
           subscribe: (x) => {
             console.log("backendMsgs.subscribe()", x);

@@ -30,6 +30,9 @@ export function setupWebsocketBackend({
 
       const messagePassingMethods: BackendMessagePassers = {
         sendMsg: (msg) => {
+          if (showMessages) {
+            console.log("WS sendMsg()", msg);
+          }
           sendWsMessage(ws, msg as OutgoingStateMsg | OutgoingPreviewAppMsg);
         },
         backendMsgs: { subscribe: messageDispatch.subscribe },

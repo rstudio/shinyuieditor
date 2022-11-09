@@ -9,21 +9,32 @@ export function setupStaticBackend({
   messageDispatch: MessageDispatcher;
   showMessages: boolean;
 }) {
+  // eslint-disable-next-line no-console
+  const logger = showMessages ? console.log : (...args: any[]) => {};
+
   const dispatchMessageToClient = (msg: MessageFromBackendUnion) => {
-    if (showMessages) {
-      // eslint-disable-next-line no-console
-      console.log("Static backend msg:", msg);
-    }
+    logger("Static backend msg:", msg);
     messageDispatch.dispatch(msg);
   };
 
   const messagePassingMethods: BackendMessagePassers = {
     sendMsg: (msg) => {
-      if (msg.path === "READY-FOR-STATE") {
-        dispatchMessageToClient({
-          path: "UPDATED-TREE",
-          payload: "TEMPLATE_CHOOSER",
-        });
+      logger("Static sendMsg()", msg);
+
+      switch (msg.path) {
+        case "READY-FOR-STATE": {
+          dispatchMessageToClient({
+            path: "UPDATED-TREE",
+            payload: "TEMPLATE_CHOOSER",
+          });
+          return;
+        }
+        case "TEMPLATE-SELECTION": {
+          dispatchMessageToClient({
+            path: "UPDATED-TREE",
+            payload: msg.payload.uiTree,
+          });
+        }
       }
     },
     backendMsgs: { subscribe: messageDispatch.subscribe },
