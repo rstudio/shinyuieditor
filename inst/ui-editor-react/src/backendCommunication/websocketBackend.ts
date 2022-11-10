@@ -34,7 +34,7 @@ export function setupWebsocketBackend({
           }
           sendWsMessage(ws, msg as OutgoingStateMsg | OutgoingPreviewAppMsg);
         },
-        backendMsgs: { subscribe: messageDispatch.subscribe },
+        incomingMsgs: { subscribe: messageDispatch.subscribe },
       };
 
       ws.onerror = (e) => {

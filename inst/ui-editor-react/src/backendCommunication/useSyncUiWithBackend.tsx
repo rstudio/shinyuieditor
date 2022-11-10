@@ -29,7 +29,7 @@ export type OutgoingStateMsg =
     };
 
 export function useSyncUiWithBackend() {
-  const { sendMsg, backendMsgs } = useBackendCallbacks();
+  const { sendMsg, incomingMsgs: backendMsgs } = useBackendCallbacks();
 
   const tree = useSelector((state: RootState) => state.uiTree);
   const setTree = useSetTree();

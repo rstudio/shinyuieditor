@@ -51,7 +51,7 @@ export function setupStaticBackend({
         }
       }
     },
-    backendMsgs: { subscribe: messageDispatch.subscribe },
+    incomingMsgs: { subscribe: messageDispatch.subscribe },
   };
   return messagePassingMethods;
 }

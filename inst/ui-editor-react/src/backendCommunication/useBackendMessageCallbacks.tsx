@@ -2,14 +2,23 @@ import React from "react";
 
 import type { BackendMessageReceiver, BackendMessageSender } from "./messages";
 
+/**
+ * Communication layer for client and backend
+ */
 export type BackendMessagePassers = {
+  /**
+   * Function to pass a message to the backend
+   */
   sendMsg: BackendMessageSender;
-  backendMsgs: BackendMessageReceiver;
+  /**
+   * Object to subscribe to incoming messages from backend
+   */
+  incomingMsgs: BackendMessageReceiver;
 };
 
 const dummyMessagePassers: BackendMessagePassers = {
   sendMsg: (x) => console.log("Sending message to backend", x),
-  backendMsgs: {
+  incomingMsgs: {
     subscribe: ({ on, callback }) => {
       console.log(`Request for subscription to ${on}:`, callback);
     },
@@ -22,12 +31,12 @@ const BackendCallbacksContext =
 export function BackendCallbacksProvider({
   children,
   sendMsg,
-  backendMsgs,
+  incomingMsgs,
 }: {
   children: React.ReactNode;
 } & BackendMessagePassers) {
   return (
-    <BackendCallbacksContext.Provider value={{ sendMsg, backendMsgs }}>
+    <BackendCallbacksContext.Provider value={{ sendMsg, incomingMsgs }}>
       {children}
     </BackendCallbacksContext.Provider>
   );

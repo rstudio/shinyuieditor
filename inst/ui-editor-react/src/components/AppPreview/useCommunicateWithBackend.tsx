@@ -25,13 +25,13 @@ export type OutgoingPreviewAppMsg =
   | { path: "APP-PREVIEW-STOP" };
 
 export function useCommunicateWithBackend(): CommunicationState {
-  const { sendMsg, backendMsgs } = useBackendCallbacks();
+  const { sendMsg, incomingMsgs } = useBackendCallbacks();
   const [appLoc, setAppLoc] = React.useState<AppPreviewStatus>("HIDDEN");
   const [appLogs, setAppLogs] = React.useState<AppLogs>([]);
   const [errors, setErrors] = React.useState<string | null>(null);
 
   React.useEffect(() => {
-    backendMsgs.subscribe({
+    incomingMsgs.subscribe({
       on: "APP-PREVIEW-READY",
       callback: (previewLoc) => {
         setErrors(null);
@@ -39,13 +39,13 @@ export function useCommunicateWithBackend(): CommunicationState {
       },
     });
 
-    backendMsgs.subscribe({
+    incomingMsgs.subscribe({
       on: "APP-PREVIEW-LOGS",
       callback: (logs) => {
         setAppLogs(ensureArray(logs));
       },
     });
-    backendMsgs.subscribe({
+    incomingMsgs.subscribe({
       on: "APP-PREVIEW-CRASH",
       callback: (crash_msg) => {
         setErrors(crash_msg);
@@ -55,7 +55,7 @@ export function useCommunicateWithBackend(): CommunicationState {
     sendMsg({ path: "APP-PREVIEW-CONNECTED" });
     setRestartApp(() => () => sendMsg({ path: "APP-PREVIEW-RESTART" }));
     setStopApp(() => () => sendMsg({ path: "APP-PREVIEW-STOP" }));
-  }, [backendMsgs, sendMsg]);
+  }, [incomingMsgs, sendMsg]);
 
   const [restartApp, setRestartApp] = React.useState<() => void>(
     // eslint-disable-next-line no-console

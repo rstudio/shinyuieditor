@@ -5,7 +5,7 @@ import { App } from "./App";
 
 export function runSUE({
   container,
-  backendDispatch: { sendMsg, backendMsgs },
+  backendDispatch: { sendMsg, incomingMsgs },
   showMessages,
 }: {
   container: HTMLElement | null;
@@ -15,16 +15,16 @@ export function runSUE({
   const dispatch: BackendMessagePassers = showMessages
     ? {
         sendMsg,
-        backendMsgs: {
+        incomingMsgs: {
           subscribe: (x) => {
             console.log("backendMsgs.subscribe()", x);
-            backendMsgs.subscribe(x);
+            incomingMsgs.subscribe(x);
           },
         },
       }
     : {
         sendMsg,
-        backendMsgs,
+        incomingMsgs: incomingMsgs,
       };
   const root = createRoot(container!); // createRoot(container!) if you use TypeScript
   root.render(<App {...dispatch} />);
