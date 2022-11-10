@@ -1,5 +1,5 @@
 {
-  "name": "shiny-ui-editor",
+  "name": "shinyuieditor-client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

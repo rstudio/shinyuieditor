@@ -8,12 +8,12 @@ import { LostConnectionPopup } from "EditorSkeleton/LostConnectionPopup";
 import ElementsPalette from "ElementsPalette";
 import { isShinyUiNode } from "Shiny-Ui-Elements/isShinyUiNode";
 
+import { useSyncUiWithBackend } from "../backendCommunication/useSyncUiWithBackend";
 import {
   EditorSkeleton,
   PROPERTIES_PANEL_WIDTH_PX,
 } from "../EditorSkeleton/EditorSkeleton";
 import { SettingsPanel } from "../SettingsPanel/SettingsPanel";
-import { useSyncUiWithBackend } from "../backendCommunication/useSyncUiWithBackend";
 
 import { AppHeader } from "./AppHeader";
 import { DialogPopover } from "./DialogPopover";
