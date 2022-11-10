@@ -16,6 +16,7 @@ let prod = false;
 let port = 3012;
 let buildDir = "../vscode-custom-editor/media/";
 let openBrowser = true;
+let entryFile = "index.tsx";
 
 const envVariablesDefine = {
   DEV_MODE_ESBUILD: "true",
@@ -25,6 +26,12 @@ const envVariablesDefine = {
 
 const hasBooleanArg = (prop: `--${string}`) =>
   process.argv.some((x) => x === prop);
+
+if (hasBooleanArg("--vscode")) {
+  entryFile = "index_for_vscode.tsx";
+  buildDir = "../vscode-custom-editor/media/";
+  watch = true;
+}
 
 if (hasBooleanArg("--serve")) {
   serve = true;
@@ -67,7 +74,7 @@ const behind_the_scenes_port = 3042;
 const clients: http.ServerResponse[] = [];
 
 esbuild.build({
-  entryPoints: ["index.tsx"],
+  entryPoints: [entryFile],
   bundle: true,
   minify: false,
   sourcemap: true,

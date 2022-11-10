@@ -66,6 +66,7 @@
     "start": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "vscode-build": "tsx scripts/build.ts --vscode",
     "esbuild-build": "tsx scripts/build.ts --prod --watch",
     "esbuild-serve": "tsx scripts/build.ts --serve",
     "testing-serve": "vite build; vite preview",
