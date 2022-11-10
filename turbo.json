@@ -2,9 +2,15 @@
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
     "build": {
-      "dependsOn": ["^build"],
-      "outputs": ["build/**"]
+      "outputs": ["build/**"],
+      "inputs": ["src/**/*.tsx", "src/**/*.ts"]
     },
-    "type-check": {}
+    "type-check": {
+      "outputs": [],
+      "inputs": ["src/**/*.tsx", "src/**/*.ts"]
+    },
+    "test": {
+      "outputs": []
+    }
   }
 }

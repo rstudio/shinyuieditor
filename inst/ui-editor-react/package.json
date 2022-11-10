@@ -1,5 +1,5 @@
 {
-  "name": "shinyuieditor-client",
+  "name": "editor",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -72,7 +72,7 @@
     "testing-serve": "vite build; vite preview",
     "build-netlify": "VITE_SHOW_FAKE_PREVIEW=true PUBLIC_URL=/ yarn build",
     "build-website-demo": "VITE_SHOW_FAKE_PREVIEW=false vite build --outDir ../../vignettes/demo-app",
-    "test": "vitest",
+    "test": "vitest run",
     "playwright": "playwright test --project=chromium",
     "storybook": "start-storybook -p 6006",
     "lint": "eslint src --fix",
@@ -149,6 +149,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:8888",
-  "packageManager": "yarn@3.2.3"
+  "proxy": "http://localhost:8888"
 }

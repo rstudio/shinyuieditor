@@ -1,6 +1,5 @@
 {
-  "name": "shinyuieditor-vscode-extension",
-  "description": "VSCode extension for running shinyuieditor",
+  "name": "vscode-extension",
   "version": "0.0.1",
   "private": true,
   "license": "MIT",
@@ -33,10 +32,11 @@
     "commands": []
   },
   "scripts": {
-    "vscode:prepublish": "yarn compile",
-    "compile": "tsc -p ./",
+    "vscode:prepublish": "yarn build",
+    "build": "tsc -p ./",
     "lint": "eslint \"src/**/*.ts\"",
-    "watch": "tsc -w -p ./"
+    "watch": "tsc -w -p ./",
+    "type-check": "tsc -p ./ --noEmit"
   },
   "devDependencies": {
     "@types/node": "^16.11.7",
@@ -49,7 +49,6 @@
   },
   "dependencies": {
     "winreg": "^1.2.4",
-    "shinyuieditor-client": "0.1.0"
-  },
-  "packageManager": "yarn@3.2.3"
+    "editor": ""
+  }
 }

@@ -28,6 +28,7 @@ const vscode = __importStar(require("vscode"));
 const connectToRProcess_1 = require("./connectToRProcess");
 const setupRConnection_1 = require("./setupRConnection");
 const util_1 = require("./util");
+// import { runSUE } from "../../ui-editor-react/src/runSUE";
 /**
  * Provider for cat scratch editors.
  *

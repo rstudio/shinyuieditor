@@ -6,6 +6,9 @@ import {
 } from "./connectToRProcess";
 import { getRpath } from "./setupRConnection";
 import { getNonce } from "./util";
+
+// import { runSUE } from "../../ui-editor-react/src/runSUE";
+
 /**
  * Provider for cat scratch editors.
  *

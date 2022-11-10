@@ -2,5 +2,13 @@
   "private": true,
   "workspaces": [
     "inst/*"
-  ]
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "type-check": "turbo run type-check"
+  },
+  "devDependencies": {
+    "turbo": "^1.6.3"
+  }
 }

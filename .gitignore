@@ -14,3 +14,6 @@ docs
 yarn.lock
 node_modules/
 inst/ui-editor-react/esbuild/build/
+
+
+inst/*/.turbo/
