@@ -1,9 +1,23 @@
-import type {
-  BackendMessageSubscriber,
-  MessageFromBackend,
-  MessageFromBackendUnion,
-  OnBackendMsgCallback,
-} from "./messages";
+import type { MessageFromBackend, MessageFromBackendUnion } from "./messages";
+
+/**
+ * A function used to subscribe to a given message path and run a callback upon
+ * receiving message form backend
+ */
+type BackendMessageSubscriber = {
+  [T in keyof MessageFromBackend]: {
+    on: T;
+    callback: OnBackendMsgCallback<T>;
+  };
+}[keyof MessageFromBackend];
+
+export type BackendMessageReceiver = {
+  subscribe: (x: BackendMessageSubscriber) => void;
+};
+
+type OnBackendMsgCallback<Path extends keyof MessageFromBackend> = (
+  payload: MessageFromBackend[Path]
+) => void;
 
 type MessageSubscriptionQueue = Partial<{
   [T in keyof MessageFromBackend]: Array<
