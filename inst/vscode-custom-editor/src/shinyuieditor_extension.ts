@@ -37,7 +37,7 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
 
   constructor(private readonly context: vscode.ExtensionContext) {
     this.getR();
-    console.log("~~~~~~~The constructor has fired!");
+    console.log("The extension constructor has fired!");
   }
 
   private async getR() {

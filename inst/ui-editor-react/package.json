@@ -52,7 +52,6 @@
     "eslint": "^8.23.0",
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-import": "^2.26.0",
-    "husky": "^8.0.1",
     "jsdom": "^20.0.0",
     "playwright": "^1.27.1",
     "prettier": "2.7.1",

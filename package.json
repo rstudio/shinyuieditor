@@ -9,6 +9,7 @@
     "type-check": "turbo run type-check"
   },
   "devDependencies": {
+    "husky": "^8.0.2",
     "turbo": "^1.6.3"
   }
 }

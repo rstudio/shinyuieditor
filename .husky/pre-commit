@@ -2,12 +2,11 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 echo "Running type-check..."
-cd inst/ui-editor-react 
 yarn type-check
 
 echo "Building assets..."
 yarn build
 
-git add build/
-
+git add inst/*/build/ 
+git add inst/*/out/ 
 echo "All good! 👍"
