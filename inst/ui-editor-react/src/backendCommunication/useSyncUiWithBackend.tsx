@@ -1,32 +1,12 @@
 import * as React from "react";
 
 import { useBackendCallbacks } from "backendCommunication/useBackendMessageCallbacks";
-import type { TemplateSelection } from "components/TemplatePreviews/filterTemplates";
 import debounce from "just-debounce-it";
 import { useSelector } from "react-redux";
-import type {
-  ShinyUiNode,
-  ShinyUiRootNode,
-} from "Shiny-Ui-Elements/uiNodeTypes";
+import type { ShinyUiRootNode } from "Shiny-Ui-Elements/uiNodeTypes";
 import type { RootState } from "state/store";
 
 import { useSetTree } from "../state/useSetTree";
-
-export type OutgoingStateMsg =
-  | {
-      path: "READY-FOR-STATE";
-    }
-  | {
-      path: "UPDATED-TREE";
-      payload: ShinyUiNode;
-    }
-  | {
-      path: "TEMPLATE-SELECTOR-REQUEST";
-    }
-  | {
-      path: "TEMPLATE-SELECTION";
-      payload: TemplateSelection;
-    };
 
 export function useSyncUiWithBackend() {
   const { sendMsg, incomingMsgs: backendMsgs } = useBackendCallbacks();

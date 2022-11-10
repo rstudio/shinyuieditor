@@ -1,14 +1,13 @@
 import React from "react";
 
+import type { MessageFromBackend } from "backendCommunication/messages";
 import { useBackendCallbacks } from "backendCommunication/useBackendMessageCallbacks";
 
 export type AppLogs = string[];
 
 export type AppPreviewStatus =
-  | "FAKE-PREVIEW"
-  | "LOADING"
-  | "HIDDEN"
-  | { url: string };
+  | MessageFromBackend["APP-PREVIEW-READY"]
+  | "HIDDEN";
 
 type CommunicationState = {
   appLogs: AppLogs;
@@ -18,11 +17,6 @@ type CommunicationState = {
   appLoc: AppPreviewStatus;
   errors: string | null;
 };
-
-export type OutgoingPreviewAppMsg =
-  | { path: "APP-PREVIEW-CONNECTED" }
-  | { path: "APP-PREVIEW-RESTART" }
-  | { path: "APP-PREVIEW-STOP" };
 
 export function useCommunicateWithBackend(): CommunicationState {
   const { sendMsg, incomingMsgs } = useBackendCallbacks();
@@ -39,6 +33,7 @@ export function useCommunicateWithBackend(): CommunicationState {
     incomingMsgs.subscribe("APP-PREVIEW-LOGS", (logs) => {
       setAppLogs(ensureArray(logs));
     });
+
     incomingMsgs.subscribe("APP-PREVIEW-CRASH", (crash_msg) => {
       setErrors(crash_msg);
     });

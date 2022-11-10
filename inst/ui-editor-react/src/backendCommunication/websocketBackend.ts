@@ -1,9 +1,10 @@
-import type { OutgoingStateMsg } from "backendCommunication/useSyncUiWithBackend";
-import type { OutgoingPreviewAppMsg } from "components/AppPreview/useCommunicateWithBackend";
 import { DEV_MODE } from "env_variables";
 
 import type { MessageDispatcher } from "./messageDispatcher";
-import type { MessageFromBackendUnion } from "./messages";
+import type {
+  MessageFromBackendUnion,
+  MessageToBackendUnion,
+} from "./messages";
 import type { BackendMessagePassers } from "./useBackendMessageCallbacks";
 
 type BackendMessage = { path: string; payload?: string | object };
@@ -32,7 +33,7 @@ export function setupWebsocketBackend({
           if (showMessages) {
             console.log("WS sendMsg()", msg);
           }
-          sendWsMessage(ws, msg as OutgoingStateMsg | OutgoingPreviewAppMsg);
+          sendWsMessage(ws, msg as MessageToBackendUnion);
         },
         incomingMsgs: { subscribe: messageDispatch.subscribe },
       };
@@ -90,10 +91,7 @@ function buildWebsocketPathFromDomain(domain: string) {
   return protocol + "//" + domain;
 }
 
-function sendWsMessage(
-  ws: WebSocket,
-  msg: OutgoingStateMsg | OutgoingPreviewAppMsg
-) {
+function sendWsMessage(ws: WebSocket, msg: MessageToBackendUnion) {
   const msg_blob = new Blob([JSON.stringify(msg)], {
     type: "application/json",
   });

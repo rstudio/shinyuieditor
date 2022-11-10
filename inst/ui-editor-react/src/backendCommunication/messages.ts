@@ -4,14 +4,15 @@ import type { ShinyUiRootNode } from "Shiny-Ui-Elements/uiNodeTypes";
 /**
  * Messages keyed by path that can be sent to the backend
  */
+
 type MessageToBackend = {
   "READY-FOR-STATE": null;
   "UPDATED-TREE": ShinyUiRootNode;
+  "TEMPLATE-SELECTOR-REQUEST": null;
+  "TEMPLATE-SELECTION": TemplateSelection;
   "APP-PREVIEW-CONNECTED": null;
   "APP-PREVIEW-RESTART": null;
   "APP-PREVIEW-STOP": null;
-  "TEMPLATE-SELECTOR-REQUEST": null;
-  "TEMPLATE-SELECTION": TemplateSelection;
 };
 
 /**
