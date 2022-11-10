@@ -16,9 +16,10 @@ export function runSUE({
     ? {
         sendMsg,
         incomingMsgs: {
-          subscribe: (x) => {
-            console.log("backendMsgs.subscribe()", x);
-            incomingMsgs.subscribe(x);
+          subscribe: (on, callback) => {
+            // eslint-disable-next-line no-console
+            console.log(`backendMsgs.subscribe("${on}", ...)`);
+            incomingMsgs.subscribe(on, callback);
           },
         },
       }

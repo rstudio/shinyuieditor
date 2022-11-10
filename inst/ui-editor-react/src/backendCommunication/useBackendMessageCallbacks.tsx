@@ -1,6 +1,6 @@
 import React from "react";
 
-import type { BackendMessageReceiver } from "./messageDispatcher";
+import type { MessageDispatcher } from "./messageDispatcher";
 import type { MessageToBackendUnion } from "./messages";
 
 /**
@@ -14,13 +14,13 @@ export type BackendMessagePassers = {
   /**
    * Object to subscribe to incoming messages from backend
    */
-  incomingMsgs: BackendMessageReceiver;
+  incomingMsgs: Pick<MessageDispatcher, "subscribe">;
 };
 
 const dummyMessagePassers: BackendMessagePassers = {
   sendMsg: (x) => console.log("Sending message to backend", x),
   incomingMsgs: {
-    subscribe: ({ on, callback }) => {
+    subscribe: (on, callback) => {
       console.log(`Request for subscription to ${on}:`, callback);
     },
   },

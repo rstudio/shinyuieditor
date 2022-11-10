@@ -31,25 +31,16 @@ export function useCommunicateWithBackend(): CommunicationState {
   const [errors, setErrors] = React.useState<string | null>(null);
 
   React.useEffect(() => {
-    incomingMsgs.subscribe({
-      on: "APP-PREVIEW-READY",
-      callback: (previewLoc) => {
-        setErrors(null);
-        setAppLoc(previewLoc);
-      },
+    incomingMsgs.subscribe("APP-PREVIEW-READY", (previewLoc) => {
+      setErrors(null);
+      setAppLoc(previewLoc);
     });
 
-    incomingMsgs.subscribe({
-      on: "APP-PREVIEW-LOGS",
-      callback: (logs) => {
-        setAppLogs(ensureArray(logs));
-      },
+    incomingMsgs.subscribe("APP-PREVIEW-LOGS", (logs) => {
+      setAppLogs(ensureArray(logs));
     });
-    incomingMsgs.subscribe({
-      on: "APP-PREVIEW-CRASH",
-      callback: (crash_msg) => {
-        setErrors(crash_msg);
-      },
+    incomingMsgs.subscribe("APP-PREVIEW-CRASH", (crash_msg) => {
+      setErrors(crash_msg);
     });
 
     sendMsg({ path: "APP-PREVIEW-CONNECTED" });

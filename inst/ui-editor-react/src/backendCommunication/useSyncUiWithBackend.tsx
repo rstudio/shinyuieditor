@@ -40,18 +40,12 @@ export function useSyncUiWithBackend() {
 
   // Subscribe to messages from the backend
   React.useEffect(() => {
-    backendMsgs.subscribe({
-      on: "UPDATED-TREE",
-      callback: (ui_tree) => {
-        setTree(ui_tree);
-        lastRecievedRef.current = ui_tree;
-      },
+    backendMsgs.subscribe("UPDATED-TREE", (ui_tree) => {
+      setTree(ui_tree);
+      lastRecievedRef.current = ui_tree;
     });
 
-    backendMsgs.subscribe({
-      on: "PARSING-ERROR",
-      callback: setErrorMsg,
-    });
+    backendMsgs.subscribe("PARSING-ERROR", setErrorMsg);
 
     // Make sure to do this after subscriptions otherwise the response may be
     // received before subscribers are setup to receive

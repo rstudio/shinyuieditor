@@ -1,46 +1,33 @@
 import type { MessageFromBackend, MessageFromBackendUnion } from "./messages";
 
+type BackendMsgPath = keyof MessageFromBackend;
+
 /**
  * A function used to subscribe to a given message path and run a callback upon
  * receiving message form backend
  */
-type BackendMessageSubscriber = {
-  [T in keyof MessageFromBackend]: {
-    on: T;
-    callback: OnBackendMsgCallback<T>;
-  };
-}[keyof MessageFromBackend];
-
-export type BackendMessageReceiver = {
-  subscribe: (x: BackendMessageSubscriber) => void;
-};
-
-type OnBackendMsgCallback<Path extends keyof MessageFromBackend> = (
+type OnBackendMsgCallback<Path extends BackendMsgPath> = (
   payload: MessageFromBackend[Path]
 ) => void;
 
-type MessageSubscriptionQueue = Partial<{
-  [T in keyof MessageFromBackend]: Array<
-    (payload: MessageFromBackend[T]) => void
-  >;
-}>;
-
 export function makeMessageDispatcher(log_msgs: boolean = false) {
+  // eslint-disable-next-line no-console
   const logger = (msg: string) => (log_msgs ? null : console.log(msg));
-  let subscriptions: MessageSubscriptionQueue = {};
+  let subscriptions: {
+    [T in BackendMsgPath]?: Array<OnBackendMsgCallback<T>>;
+  } = {};
 
-  function subscribe(subscription: BackendMessageSubscriber) {
-    const subscriberFn = subscription.callback as OnBackendMsgCallback<
-      typeof subscription.on
-    >;
-
-    if (subscriptions[subscription.on] === undefined) {
-      subscriptions[subscription.on] = [];
+  const subscribe = <Path extends BackendMsgPath>(
+    on: Path,
+    subscriberFn: OnBackendMsgCallback<Path>
+  ) => {
+    if (subscriptions[on] === undefined) {
+      subscriptions[on] = [];
     }
 
     // Question mark is not really needed but typescript can't narrow here for some reason
-    subscriptions[subscription.on]?.push(subscriberFn);
-  }
+    subscriptions[on]?.push(subscriberFn);
+  };
 
   function dispatch({ path, payload }: MessageFromBackendUnion) {
     logger(`Message from backend: path:${path}`);
