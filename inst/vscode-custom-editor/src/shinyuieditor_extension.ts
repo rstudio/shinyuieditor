@@ -34,6 +34,7 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
 
   constructor(private readonly context: vscode.ExtensionContext) {
     this.getR();
+    console.log("~~~~~~~The constructor has fired!");
   }
 
   private async getR() {
@@ -53,7 +54,7 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
       namespaces_removed =ui_expression$namespaces_removed
     )`;
 
-    // console.log("Calling code formatter");
+    console.log("Calling code formatter");
     const formattedCode = await this.formatRCode(uglyCode);
 
     // console.log("Formatted code", formattedCode);
@@ -202,16 +203,16 @@ jsonlite::toJSON(
 )`;
     const formatedOutput = await this.RProcess.runCmd(formatCommand);
 
-    try {
-      console.log(
-        "Parsed app info",
-        JSON.parse(formatedOutput.reduce((all, l) => all + "\n" + l, ""))
-      );
-    } catch {
-      throw new Error(
-        "Could not get document as json. Content is not valid json"
-      );
-    }
+    // try {
+    //   console.log(
+    //     "Parsed app info",
+    //     JSON.parse(formatedOutput.reduce((all, l) => all + "\n" + l, ""))
+    //   );
+    // } catch {
+    //   throw new Error(
+    //     "Could not get document as json. Content is not valid json"
+    //   );
+    // }
   }
 
   /**

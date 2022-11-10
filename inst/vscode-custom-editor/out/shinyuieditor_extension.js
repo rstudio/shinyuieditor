@@ -45,6 +45,7 @@ class ShinyUiEditorProvider {
         this.context = context;
         this.RProcess = null;
         this.getR();
+        console.log("~~~~~~~The constructor has fired!");
     }
     static register(context) {
         const provider = new ShinyUiEditorProvider(context);
@@ -65,7 +66,7 @@ class ShinyUiEditorProvider {
         const uglyCode = `  list(text=ui_def_text,
       namespaces_removed =ui_expression$namespaces_removed
     )`;
-        // console.log("Calling code formatter");
+        console.log("Calling code formatter");
         const formattedCode = await this.formatRCode(uglyCode);
         // console.log("Formatted code", formattedCode);
         // console.log("quick mafs", await RProc.runCmd("4+9"));
@@ -172,12 +173,16 @@ jsonlite::toJSON(
   auto_unbox = TRUE
 )`;
         const formatedOutput = await this.RProcess.runCmd(formatCommand);
-        try {
-            console.log("Parsed app info", JSON.parse(formatedOutput.reduce((all, l) => all + "\n" + l, "")));
-        }
-        catch {
-            throw new Error("Could not get document as json. Content is not valid json");
-        }
+        // try {
+        //   console.log(
+        //     "Parsed app info",
+        //     JSON.parse(formatedOutput.reduce((all, l) => all + "\n" + l, ""))
+        //   );
+        // } catch {
+        //   throw new Error(
+        //     "Could not get document as json. Content is not valid json"
+        //   );
+        // }
     }
     /**
      * Try to get a current document as json text.
