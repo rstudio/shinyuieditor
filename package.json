@@ -6,7 +6,8 @@
   "scripts": {
     "build": "turbo run build",
     "test": "turbo run test",
-    "type-check": "turbo run type-check"
+    "type-check": "turbo run type-check",
+    "watch": "turbo run watch"
   },
   "devDependencies": {
     "husky": "^8.0.2",
