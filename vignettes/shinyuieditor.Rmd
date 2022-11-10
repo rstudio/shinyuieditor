@@ -1,8 +1,8 @@
 ---
-title: "Quick start"
+title: "Getting started with shinyuieditor"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Quick start}
+  %\VignetteIndexEntry{Getting started with shinyuieditor}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

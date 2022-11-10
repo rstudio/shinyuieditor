@@ -44,7 +44,7 @@ iframe.app-container {
 The following is the `shinyuieditor` interface running in its entirety.  
 There is no R backend hooked up so the app preview is non-functional but you can use this to play around and see what's possible to build with the editor. 
 
-<iframe class="app-container" src="./demo-app/index.html"></iframe>
+<iframe class="app-container" src="../../live-demo/"></iframe>
 
 
 

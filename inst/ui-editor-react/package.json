@@ -64,7 +64,7 @@
     "preview": "vite preview",
     "testing-serve": "vite build; vite preview",
     "build-netlify": "VITE_SHOW_FAKE_PREVIEW=true PUBLIC_URL=/ yarn build",
-    "build-website-demo": "VITE_SHOW_FAKE_PREVIEW=false vite build --outDir ../../vignettes/demo-app",
+    "build-website-demo": "VITE_SHOW_FAKE_PREVIEW=false vite build --outDir ../../pkgdown/assets/live-demo",
     "test": "vitest",
     "playwright": "playwright test --project=chromium",
     "storybook": "start-storybook -p 6006",

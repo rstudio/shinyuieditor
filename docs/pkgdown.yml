@@ -4,9 +4,9 @@ pkgdown_sha: ~
 articles:
   faqs: faqs.html
   how-to: how-to.html
-  quick-start: quick-start.html
+  shinyuieditor: shinyuieditor.html
   ui-editor-live-demo: ui-editor-live-demo.html
-last_built: 2022-08-19T19:18Z
+last_built: 2022-11-10T21:40Z
 urls:
   reference: https://rstudio.github.io/shinyuieditor/reference
   article: https://rstudio.github.io/shinyuieditor/articles

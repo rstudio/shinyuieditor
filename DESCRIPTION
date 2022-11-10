@@ -2,10 +2,13 @@ Package: shinyuieditor
 Title: Build and Modify your Shiny UI, visually
 Version: 0.3.2
 Authors@R: 
-    person(given = "Nick",
-           family = "Strayer",
-           role = c("aut", "cre"),
-           email = "nick.strayer@rstudio.com")
+  c(
+      person(family = "Posit", role = c("cph", "fnd")),
+      person(given = "Nick",
+             family = "Strayer",
+             role = c("aut", "cre"),
+             email = "nick.strayer@rstudio.com")
+  )
 Description: Packages an app to build Shiny app ui's with a simple drag-and-drop style interface.
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -33,8 +36,7 @@ Suggests:
     plotly
 Remotes:
     rstudio/gridlayout
-Config/Needs/website:
-    rstudio/quillt
+Config/Needs/website: tidyverse/tidytemplate
 Config/testthat/edition: 3
 URL: https://rstudio.github.io/shinyuieditor/
 VignetteBuilder: knitr

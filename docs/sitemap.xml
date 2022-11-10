@@ -10,9 +10,6 @@
     <loc>https://rstudio.github.io/shinyuieditor/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://rstudio.github.io/shinyuieditor/articles/demo-app/index.html</loc>
-  </url>
-  <url>
     <loc>https://rstudio.github.io/shinyuieditor/articles/faqs.html</loc>
   </url>
   <url>
@@ -22,7 +19,7 @@
     <loc>https://rstudio.github.io/shinyuieditor/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://rstudio.github.io/shinyuieditor/articles/quick-start.html</loc>
+    <loc>https://rstudio.github.io/shinyuieditor/articles/shinyuieditor.html</loc>
   </url>
   <url>
     <loc>https://rstudio.github.io/shinyuieditor/articles/ui-editor-live-demo.html</loc>
@@ -31,7 +28,13 @@
     <loc>https://rstudio.github.io/shinyuieditor/authors.html</loc>
   </url>
   <url>
+    <loc>https://rstudio.github.io/shinyuieditor/demo-app/index.html</loc>
+  </url>
+  <url>
     <loc>https://rstudio.github.io/shinyuieditor/index.html</loc>
+  </url>
+  <url>
+    <loc>https://rstudio.github.io/shinyuieditor/live-demo/index.html</loc>
   </url>
   <url>
     <loc>https://rstudio.github.io/shinyuieditor/news/index.html</loc>
@@ -43,10 +46,16 @@
     <loc>https://rstudio.github.io/shinyuieditor/reference/deparse_ui_fn.html</loc>
   </url>
   <url>
+    <loc>https://rstudio.github.io/shinyuieditor/reference/generate_app_template_files.html</loc>
+  </url>
+  <url>
     <loc>https://rstudio.github.io/shinyuieditor/reference/get_app_ui_file.html</loc>
   </url>
   <url>
     <loc>https://rstudio.github.io/shinyuieditor/reference/get_file_ui_definition_info.html</loc>
+  </url>
+  <url>
+    <loc>https://rstudio.github.io/shinyuieditor/reference/get_loaded_libraries.html</loc>
   </url>
   <url>
     <loc>https://rstudio.github.io/shinyuieditor/reference/index.html</loc>
@@ -68,5 +77,11 @@
   </url>
   <url>
     <loc>https://rstudio.github.io/shinyuieditor/reference/update_ui_definition.html</loc>
+  </url>
+  <url>
+    <loc>https://rstudio.github.io/shinyuieditor/reference/write_app_file.html</loc>
+  </url>
+  <url>
+    <loc>https://rstudio.github.io/shinyuieditor/reference/write_app_template.html</loc>
   </url>
 </urlset>

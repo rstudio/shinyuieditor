@@ -1,27 +1,25 @@
 url: https://rstudio.github.io/shinyuieditor/
 
 template:
-  package: quillt
-  params:
-    footer: <b>shinyuieditor</b> is an R package developed by <a href='https://rstudio.com'>RStudio</a>
+  package: tidytemplate
+  bootstrap: 5
 
-home:
-  strip_header: false
+  bslib:
+    base_font: {google: "Work Sans"}
+    primary: "#75acdb"
+    body-font-size: "18px"
+    body-color: "#444444"
+    navbar-background: "#d2e4f3"
 
 navbar:
-  title: ~
-  type: default
   structure:
-    left:  [intro, quick-start, demo, articles, reference, news]
-    right: [search, github]
+    left:  [intro, demo, reference, articles, news]
+    right: [github]
   components:
     home: ~
     demo:
       text: Live Demo
       href: articles/ui-editor-live-demo.html
-    quick-start:
-      text: Quick Start
-      href: articles/quick-start.html
     github:
       icon: fab fa-github fa-lg
       href: https://github.com/rstudio/shinyuieditor
