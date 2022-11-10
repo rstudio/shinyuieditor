@@ -46,7 +46,7 @@ class ShinyUiEditorProvider {
         this.context = context;
         this.RProcess = null;
         this.getR();
-        console.log("The extension constructor has fired!");
+        console.log("extension constructor()");
     }
     static register(context) {
         const provider = new ShinyUiEditorProvider(context);
