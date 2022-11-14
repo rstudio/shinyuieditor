@@ -81,7 +81,7 @@
     "playwright-backend": "playwright test backend --project=chromium --workers=1",
     "playwright-visual": "playwright test visual --workers=1",
     "generate-doc-screenshots": "npx ts-node-esm playwright/utils/generate_docs_screenshots.mts",
-    "setup-husky": "cd ../../ && husky install inst/ui-editor-react/.husky",
+    "setup-husky": "cd ../../ && husky install inst/editor/.husky",
     "deps-check": "knip"
   },
   "eslintConfig": {

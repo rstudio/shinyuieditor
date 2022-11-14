@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./inst/ui-editor-react
+        working-directory: ./inst/editor
     steps:
       - uses: actions/checkout@v2
       - uses: ./.github/internals/setup-js
@@ -33,7 +33,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./inst/ui-editor-react
+        working-directory: ./inst/editor
     steps:
       - uses: actions/checkout@v2
 
@@ -58,7 +58,7 @@ jobs:
         if: always()
         with:
           name: playwright-report
-          path: ./inst/ui-editor-react/playwright-report/
+          path: ./inst/editor/playwright-report/
           retention-days: 30
 
   check-if-current-build:
@@ -66,7 +66,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./inst/ui-editor-react
+        working-directory: ./inst/editor
     steps:
       - uses: actions/checkout@v2
 
