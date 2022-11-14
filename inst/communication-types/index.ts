@@ -1,8 +1,10 @@
-type ShinyUiNodeGeneric = {
-  uiName: string;
-  uiArguments: Record<string, unknown>;
-  uiChildren?: ShinyUiNodeGeneric[];
-};
+import type { ShinyUiNode } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
+
+// type ShinyUiNodeGeneric = {
+//   uiName: string;
+//   uiArguments: Record<string, unknown>;
+//   uiChildren?: ShinyUiNodeGeneric[];
+// };
 
 /**
  * Defines basic information needed to build an app template for the template viewer
@@ -20,7 +22,7 @@ export type TemplateInfo = {
    * Main tree definining the template. Used for generating preview and also the
    * main ui definition of the template
    */
-  uiTree: ShinyUiNodeGeneric;
+  uiTree: ShinyUiNode;
   otherCode: {
     /**
      * Extra code that will be copied unchanged above the ui definition
@@ -55,7 +57,7 @@ export type ParsedAppInfo = {
   loaded_libraries: string[];
   type: OutputType;
   ui_bounds: { start: number; end: number };
-  ui_tree: ShinyUiNodeGeneric;
+  ui_tree: ShinyUiNode;
 };
 
 /**
@@ -63,7 +65,7 @@ export type ParsedAppInfo = {
  */
 type MessageToBackendByPath = {
   "READY-FOR-STATE": null;
-  "UPDATED-TREE": ShinyUiNodeGeneric;
+  "UPDATED-TREE": ShinyUiNode;
   "TEMPLATE-SELECTOR-REQUEST": null;
   "TEMPLATE-SELECTION": TemplateSelection;
   "APP-PREVIEW-CONNECTED": null;
@@ -75,7 +77,7 @@ type MessageToBackendByPath = {
  * All the paths and their payloads that can be received from the backend
  */
 export type MessageFromBackendByPath = {
-  "UPDATED-TREE": ShinyUiNodeGeneric;
+  "UPDATED-TREE": ShinyUiNode;
   "PARSING-ERROR": string;
   "APP-PREVIEW-READY": "FAKE-PREVIEW" | "LOADING" | { url: string };
   "APP-PREVIEW-CRASH": string;

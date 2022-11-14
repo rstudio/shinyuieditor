@@ -4,11 +4,15 @@
     "target": "es2020",
     "lib": ["es2020"],
     "outDir": "out",
+    "allowSyntheticDefaultImports": true,
     "sourceMap": true,
+    "forceConsistentCasingInFileNames": true,
     "strict": true,
     "rootDir": "src",
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "moduleResolution": "node",
+    "isolatedModules": true,
     "jsx": "react-jsx"
   },
   "exclude": ["node_modules", ".vscode-test"]
