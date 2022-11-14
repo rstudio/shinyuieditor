@@ -7,7 +7,7 @@ import {
 import { getRpath } from "./setupRConnection";
 import { getNonce } from "./util";
 
-// import { runSUE } from "../../ui-editor-react/src/runSUE";
+import { MessageFromBackend, ParsedAppInfo } from "communication-types";
 
 /**
  * Provider for cat scratch editors.
@@ -22,6 +22,8 @@ import { getNonce } from "./util";
  * - Synchronizing changes between a text document and a custom editor.
  */
 export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
+  private sendMessage: ((msg: MessageFromBackend) => Thenable<boolean>) | null =
+    null;
   public static register(context: vscode.ExtensionContext): vscode.Disposable {
     const provider = new ShinyUiEditorProvider(context);
     const providerRegistration = vscode.window.registerCustomEditorProvider(
@@ -53,12 +55,12 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
       return;
     }
 
-    const uglyCode = `  list(text=ui_def_text,
-      namespaces_removed =ui_expression$namespaces_removed
-    )`;
+    // const uglyCode = `  list(text=ui_def_text,
+    //   namespaces_removed =ui_expression$namespaces_removed
+    // )`;
 
-    console.log("Calling code formatter");
-    const formattedCode = await this.formatRCode(uglyCode);
+    // console.log("Calling code formatter");
+    // const formattedCode = await this.formatRCode(uglyCode);
 
     // console.log("Formatted code", formattedCode);
     // console.log("quick mafs", await RProc.runCmd("4+9"));
@@ -120,6 +122,9 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
     webviewPanel.webview.onDidReceiveMessage((e) => {
       console.log("Message from webview", e);
     });
+
+    this.sendMessage = (msg: MessageFromBackend) =>
+      webviewPanel.webview.postMessage(msg);
 
     updateWebview();
   }
@@ -198,24 +203,28 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
 
     const text = escapeDoubleQuotes(document.getText());
 
-    const formatCommand = `
+    const parseCommand = `
 app_lines <- strsplit("${text}", "\\n")[[1]]
 jsonlite::toJSON(
   shinyuieditor:::get_file_ui_definition_info(app_lines, "single-file"),
   auto_unbox = TRUE
 )`;
-    const formatedOutput = await this.RProcess.runCmd(formatCommand);
+    const parsedCommandOutput = await this.RProcess.runCmd(parseCommand);
 
-    // try {
-    //   console.log(
-    //     "Parsed app info",
-    //     JSON.parse(formatedOutput.reduce((all, l) => all + "\n" + l, ""))
-    //   );
-    // } catch {
-    //   throw new Error(
-    //     "Could not get document as json. Content is not valid json"
-    //   );
-    // }
+    try {
+      const parsedAppInfo = JSON.parse(
+        parsedCommandOutput.reduce((all, l) => all + "\n" + l, "")
+      ) as ParsedAppInfo;
+
+      this.sendMessage?.({
+        path: "UPDATED-TREE",
+        payload: parsedAppInfo.ui_tree,
+      });
+    } catch {
+      throw new Error(
+        "Could not get document as json. Content is not valid json"
+      );
+    }
   }
 
   /**

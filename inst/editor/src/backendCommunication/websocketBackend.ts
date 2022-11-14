@@ -1,10 +1,7 @@
+import type { MessageFromBackend, MessageToBackend } from "communication-types";
 import { DEV_MODE } from "env_variables";
 
 import type { MessageDispatcher } from "./messageDispatcher";
-import type {
-  MessageFromBackendUnion,
-  MessageToBackendUnion,
-} from "./messages";
 import type { BackendMessagePassers } from "./useBackendMessageCallbacks";
 
 type BackendMessage = { path: string; payload?: string | object };
@@ -33,7 +30,7 @@ export function setupWebsocketBackend({
           if (showMessages) {
             console.log("WS sendMsg()", msg);
           }
-          sendWsMessage(ws, msg as MessageToBackendUnion);
+          sendWsMessage(ws, msg as MessageToBackend);
         },
         incomingMsgs: { subscribe: messageDispatch.subscribe },
       };
@@ -48,7 +45,7 @@ export function setupWebsocketBackend({
             // eslint-disable-next-line no-console
             console.log("WS backend msg:", msg);
           }
-          messageDispatch.dispatch(msg as MessageFromBackendUnion);
+          messageDispatch.dispatch(msg as MessageFromBackend);
         });
         resolve(messagePassingMethods);
         connectedToWebsocket = true;
@@ -91,7 +88,7 @@ function buildWebsocketPathFromDomain(domain: string) {
   return protocol + "//" + domain;
 }
 
-function sendWsMessage(ws: WebSocket, msg: MessageToBackendUnion) {
+function sendWsMessage(ws: WebSocket, msg: MessageToBackend) {
   const msg_blob = new Blob([JSON.stringify(msg)], {
     type: "application/json",
   });

@@ -21,8 +21,8 @@ export function useSyncUiWithBackend() {
   // Subscribe to messages from the backend
   React.useEffect(() => {
     backendMsgs.subscribe("UPDATED-TREE", (ui_tree) => {
-      setTree(ui_tree);
-      lastRecievedRef.current = ui_tree;
+      setTree(ui_tree as ShinyUiRootNode);
+      lastRecievedRef.current = ui_tree as ShinyUiRootNode;
     });
 
     backendMsgs.subscribe("PARSING-ERROR", setErrorMsg);

@@ -1,0 +1,8 @@
+{
+  "name": "communication-types",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "editor": "0.1.0"
+  }
+}

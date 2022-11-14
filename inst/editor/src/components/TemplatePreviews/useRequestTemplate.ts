@@ -1,8 +1,7 @@
 import React from "react";
 
 import { useBackendCallbacks } from "backendCommunication/useBackendMessageCallbacks";
-
-import type { TemplateSelection } from "./filterTemplates";
+import type { TemplateSelection } from "communication-types";
 
 export function useRequestTemplate() {
   const { sendMsg } = useBackendCallbacks();
@@ -12,7 +11,7 @@ export function useRequestTemplate() {
       // Sending a request for a template to backend
       sendMsg({
         path: "TEMPLATE-SELECTION",
-        payload: template,
+        payload: template as TemplateSelection,
       });
     },
     [sendMsg]

@@ -21,6 +21,7 @@
     "customEditors": [
       {
         "viewType": "shinyUiEditor.appFile",
+        "priority": "option",
         "displayName": "ShinyUiEditor",
         "selector": [
           {
@@ -49,6 +50,7 @@
   },
   "dependencies": {
     "winreg": "^1.2.4",
-    "editor": ""
+    "editor": "",
+    "communication-types": ""
   }
 }

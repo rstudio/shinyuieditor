@@ -1,8 +1,8 @@
+import type { MessageFromBackend } from "communication-types";
 import { SHOW_FAKE_PREVIEW } from "env_variables";
 
 import { getClientsideOnlyTree } from "./getClientsideOnlyTree";
 import type { MessageDispatcher } from "./messageDispatcher";
-import type { MessageFromBackendUnion } from "./messages";
 import type { BackendMessagePassers } from "./useBackendMessageCallbacks";
 
 export function setupStaticBackend({
@@ -15,7 +15,7 @@ export function setupStaticBackend({
   // eslint-disable-next-line no-console
   const logger = showMessages ? console.log : (...args: any[]) => {};
 
-  const dispatchMessageToClient = (msg: MessageFromBackendUnion) => {
+  const dispatchMessageToClient = (msg: MessageFromBackend) => {
     logger("Static backend msg:", msg);
     messageDispatch.dispatch(msg);
   };
@@ -30,7 +30,7 @@ export function setupStaticBackend({
             dispatchMessageToClient({
               path: "UPDATED-TREE",
               payload: ui_tree,
-            });
+            } as MessageFromBackend);
           });
           return;
         }

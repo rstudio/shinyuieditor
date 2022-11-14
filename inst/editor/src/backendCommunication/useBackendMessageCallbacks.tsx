@@ -1,8 +1,8 @@
 import React from "react";
 
-import type { MessageDispatcher } from "./messageDispatcher";
-import type { MessageToBackendUnion } from "./messages";
+import type { MessageToBackend } from "communication-types";
 
+import type { MessageDispatcher } from "./messageDispatcher";
 /**
  * Communication layer for client and backend
  */
@@ -10,7 +10,7 @@ export type BackendMessagePassers = {
   /**
    * Function to pass a message to the backend
    */
-  sendMsg: (msg: MessageToBackendUnion) => void;
+  sendMsg: (msg: MessageToBackend) => void;
   /**
    * Object to subscribe to incoming messages from backend
    */

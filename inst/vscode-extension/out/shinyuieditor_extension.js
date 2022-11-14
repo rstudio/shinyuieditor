@@ -28,7 +28,6 @@ const vscode = __importStar(require("vscode"));
 const connectToRProcess_1 = require("./connectToRProcess");
 const setupRConnection_1 = require("./setupRConnection");
 const util_1 = require("./util");
-// import { runSUE } from "../../ui-editor-react/src/runSUE";
 /**
  * Provider for cat scratch editors.
  *
@@ -44,6 +43,7 @@ const util_1 = require("./util");
 class ShinyUiEditorProvider {
     constructor(context) {
         this.context = context;
+        this.sendMessage = null;
         this.RProcess = null;
         this.getR();
         console.log("extension constructor()");
@@ -64,11 +64,11 @@ class ShinyUiEditorProvider {
             console.error("R process failed to start :(");
             return;
         }
-        const uglyCode = `  list(text=ui_def_text,
-      namespaces_removed =ui_expression$namespaces_removed
-    )`;
-        console.log("Calling code formatter");
-        const formattedCode = await this.formatRCode(uglyCode);
+        // const uglyCode = `  list(text=ui_def_text,
+        //   namespaces_removed =ui_expression$namespaces_removed
+        // )`;
+        // console.log("Calling code formatter");
+        // const formattedCode = await this.formatRCode(uglyCode);
         // console.log("Formatted code", formattedCode);
         // console.log("quick mafs", await RProc.runCmd("4+9"));
         // console.log("Sequence", await RProc.runCmd("seq(1,20)"));
@@ -115,6 +115,7 @@ class ShinyUiEditorProvider {
         webviewPanel.webview.onDidReceiveMessage((e) => {
             console.log("Message from webview", e);
         });
+        this.sendMessage = (msg) => webviewPanel.webview.postMessage(msg);
         updateWebview();
     }
     /**
@@ -167,23 +168,23 @@ class ShinyUiEditorProvider {
         if (!this.RProcess)
             return;
         const text = (0, connectToRProcess_1.escapeDoubleQuotes)(document.getText());
-        const formatCommand = `
+        const parseCommand = `
 app_lines <- strsplit("${text}", "\\n")[[1]]
 jsonlite::toJSON(
   shinyuieditor:::get_file_ui_definition_info(app_lines, "single-file"),
   auto_unbox = TRUE
 )`;
-        const formatedOutput = await this.RProcess.runCmd(formatCommand);
-        // try {
-        //   console.log(
-        //     "Parsed app info",
-        //     JSON.parse(formatedOutput.reduce((all, l) => all + "\n" + l, ""))
-        //   );
-        // } catch {
-        //   throw new Error(
-        //     "Could not get document as json. Content is not valid json"
-        //   );
-        // }
+        const parsedCommandOutput = await this.RProcess.runCmd(parseCommand);
+        try {
+            const parsedAppInfo = JSON.parse(parsedCommandOutput.reduce((all, l) => all + "\n" + l, ""));
+            this.sendMessage?.({
+                path: "UPDATED-TREE",
+                payload: parsedAppInfo.ui_tree,
+            });
+        }
+        catch {
+            throw new Error("Could not get document as json. Content is not valid json");
+        }
     }
     /**
      * Try to get a current document as json text.

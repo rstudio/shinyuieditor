@@ -1,13 +1,16 @@
-import type { MessageFromBackend, MessageFromBackendUnion } from "./messages";
+import type {
+  MessageFromBackendByPath,
+  MessageFromBackend,
+} from "communication-types";
 
-type BackendMsgPath = keyof MessageFromBackend;
+type BackendMsgPath = keyof MessageFromBackendByPath;
 
 /**
  * A function used to subscribe to a given message path and run a callback upon
  * receiving message form backend
  */
 type OnBackendMsgCallback<Path extends BackendMsgPath> = (
-  payload: MessageFromBackend[Path]
+  payload: MessageFromBackendByPath[Path]
 ) => void;
 
 export function makeMessageDispatcher(log_msgs: boolean = false) {
@@ -29,7 +32,7 @@ export function makeMessageDispatcher(log_msgs: boolean = false) {
     subscriptions[on]?.push(subscriberFn);
   };
 
-  function dispatch({ path, payload }: MessageFromBackendUnion) {
+  function dispatch({ path, payload }: MessageFromBackend) {
     logger(`Message from backend: path:${path}`);
     subscriptions[path]?.forEach((callback) =>
       (callback as OnBackendMsgCallback<typeof path>)(payload)
