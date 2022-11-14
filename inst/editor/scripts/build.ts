@@ -14,7 +14,7 @@ let serve = false;
 let watch = false;
 let prod = false;
 let port = 3012;
-let buildDir = "../vscode-custom-editor/media/";
+let buildDir = "../vscode-extension/media/";
 let openBrowser = true;
 let entryFile = "index.tsx";
 
@@ -29,7 +29,7 @@ const hasBooleanArg = (prop: `--${string}`) =>
 
 if (hasBooleanArg("--vscode")) {
   entryFile = "index_for_vscode.tsx";
-  buildDir = "../vscode-custom-editor/media/";
+  buildDir = "../vscode-extension/media/";
   watch = true;
 }
 

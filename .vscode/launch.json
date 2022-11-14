@@ -10,9 +10,9 @@
       "request": "launch",
       "runtimeExecutable": "${execPath}",
       "args": [
-        "--extensionDevelopmentPath=${workspaceRoot}/inst/vscode-custom-editor"
+        "--extensionDevelopmentPath=${workspaceRoot}/inst/vscode-extension"
       ],
-      "outFiles": ["${workspaceFolder}/inst/vscode-custom-editor/out/**/*.js"],
+      "outFiles": ["${workspaceFolder}/inst/vscode-extension/out/**/*.js"],
       "preLaunchTask": "watch-extension-src"
     },
     {
