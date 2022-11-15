@@ -34,6 +34,7 @@
   },
   "scripts": {
     "vscode:prepublish": "yarn build",
+    "esbuild": "esbuild src/extension.ts --bundle --platform=node --outfile=out2/extension.js",
     "build": "tsc -p ./",
     "lint": "eslint \"src/**/*.ts\"",
     "watch": "tsc -w -p ./",
@@ -45,12 +46,12 @@
     "@types/winreg": "^1.2.31",
     "@typescript-eslint/eslint-plugin": "^5.42.0",
     "@typescript-eslint/parser": "^5.42.0",
+    "esbuild": "^0.15.13",
     "eslint": "^8.26.0",
     "typescript": "^4.8.4"
   },
   "dependencies": {
-    "winreg": "^1.2.4",
-    "editor": "",
-    "communication-types": ""
+    "communication-types": "",
+    "winreg": "^1.2.4"
   }
 }

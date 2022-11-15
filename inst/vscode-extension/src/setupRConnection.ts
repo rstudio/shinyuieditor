@@ -1,7 +1,8 @@
-import path from "path";
 import { existsSync } from "fs";
-import winreg = require("winreg");
+import path from "path";
+
 import * as vscode from "vscode";
+import winreg = require("winreg");
 
 export function config(): vscode.WorkspaceConfiguration {
   return vscode.workspace.getConfiguration("r");

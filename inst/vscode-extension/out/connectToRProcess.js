@@ -16,7 +16,7 @@ function connectToRProcess({ pathToR, }) {
         const controller = new AbortController();
         const { signal } = controller;
         const spawnedProcess = (0, child_process_1.spawn)(pathToR, rCallargs, { signal });
-        spawnedProcess.pid;
+        // spawnedProcess.pid;
         const killProcess = () => {
             // Process never started
             if (!spawnedProcess.pid)

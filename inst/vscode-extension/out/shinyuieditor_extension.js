@@ -39,14 +39,15 @@ const util_1 = require("./util");
  * - Setting up the initial webview for a custom editor.
  * - Loading scripts and styles in a custom editor.
  * - Synchronizing changes between a text document and a custom editor.
- */
+
+*/
 class ShinyUiEditorProvider {
     constructor(context) {
         this.context = context;
         this.sendMessage = null;
         this.RProcess = null;
         this.getR();
-        console.log("extension constructor()");
+        console.log("extension constructor()!");
     }
     static register(context) {
         const provider = new ShinyUiEditorProvider(context);

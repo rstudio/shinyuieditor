@@ -1,4 +1,5 @@
-import * as vscode from "vscode";
+import type * as vscode from "vscode";
+
 import { ShinyUiEditorProvider } from "./shinyuieditor_extension";
 
 export function activate(context: vscode.ExtensionContext) {

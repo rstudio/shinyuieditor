@@ -1,10 +1,10 @@
-import type { ShinyUiNode } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
+// import type { ShinyUiNode } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
 
-// type ShinyUiNodeGeneric = {
-//   uiName: string;
-//   uiArguments: Record<string, unknown>;
-//   uiChildren?: ShinyUiNodeGeneric[];
-// };
+type ShinyUiNode = {
+  uiName: string;
+  uiArguments: Record<string, unknown>;
+  uiChildren?: ShinyUiNode[];
+};
 
 /**
  * Defines basic information needed to build an app template for the template viewer

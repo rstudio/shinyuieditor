@@ -1,4 +1,5 @@
-import { ChildProcessWithoutNullStreams, spawn } from "child_process";
+import type { ChildProcessWithoutNullStreams } from "child_process";
+import { spawn } from "child_process";
 import process from "node:process";
 
 const STARTUP_TIMEOUT_MS = 5000;
@@ -25,7 +26,7 @@ export function connectToRProcess({
     const controller = new AbortController();
     const { signal } = controller;
     const spawnedProcess = spawn(pathToR, rCallargs, { signal });
-    spawnedProcess.pid;
+    // spawnedProcess.pid;
 
     const killProcess = () => {
       // Process never started

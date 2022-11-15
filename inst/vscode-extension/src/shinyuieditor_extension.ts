@@ -1,13 +1,10 @@
+import type { MessageFromBackend } from "communication-types";
 import * as vscode from "vscode";
-import {
-  ActiveRSession,
-  connectToRProcess,
-  escapeDoubleQuotes,
-} from "./connectToRProcess";
+
+import type { ActiveRSession } from "./connectToRProcess";
+import { connectToRProcess, escapeDoubleQuotes } from "./connectToRProcess";
 import { getRpath } from "./setupRConnection";
 import { getNonce } from "./util";
-
-import { MessageFromBackend, ParsedAppInfo } from "communication-types";
 
 /**
  * Provider for cat scratch editors.
@@ -20,7 +17,8 @@ import { MessageFromBackend, ParsedAppInfo } from "communication-types";
  * - Setting up the initial webview for a custom editor.
  * - Loading scripts and styles in a custom editor.
  * - Synchronizing changes between a text document and a custom editor.
- */
+
+*/
 export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
   private sendMessage: ((msg: MessageFromBackend) => Thenable<boolean>) | null =
     null;
@@ -39,7 +37,7 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
 
   constructor(private readonly context: vscode.ExtensionContext) {
     this.getR();
-    console.log("extension constructor()");
+    console.log("extension constructor()!");
   }
 
   private async getR() {
@@ -214,7 +212,7 @@ jsonlite::toJSON(
     try {
       const parsedAppInfo = JSON.parse(
         parsedCommandOutput.reduce((all, l) => all + "\n" + l, "")
-      ) as ParsedAppInfo;
+      );
 
       this.sendMessage?.({
         path: "UPDATED-TREE",
