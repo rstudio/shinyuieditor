@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import type { MessageFromBackend } from "communication-types";
-// import { isMessageFromClient } from "communication-types";
+import { isMessageFromClient } from "communication-types";
 import * as vscode from "vscode";
 
 import type { ActiveRSession } from "./connectToRProcess";
@@ -120,12 +120,11 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
 
     // Receive message from the webview.
     webviewPanel.webview.onDidReceiveMessage((e) => {
-      console.log("Actually updating");
-      console.log("Message from client!", e);
-      // if (isMessageFromClient(e)) {
-      // } else {
-      //   console.log("Unknown message from webview", e);
-      // }
+      if (isMessageFromClient(e)) {
+        console.log("Message from client!", e);
+      } else {
+        console.log("Unknown message from webview", e);
+      }
     });
 
     this.sendMessage = (msg: MessageFromBackend) =>

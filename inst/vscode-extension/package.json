@@ -33,9 +33,9 @@
   },
   "scripts": {
     "vscode:prepublish": "yarn build",
-    "build": "tsc -p ./",
+    "watch": "yarn build --watch",
+    "build": "esbuild src/extension.ts --bundle --platform=node --target=node10.4 --external:vscode --outfile=out/extension.js",
     "lint": "eslint \"src/**/*.ts\"",
-    "watch": "tsc -w -p ./",
     "type-check": "tsc -p ./ --noEmit"
   },
   "devDependencies": {
