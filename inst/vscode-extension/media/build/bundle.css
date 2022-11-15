@@ -10929,56 +10929,6 @@ button[aria-label][data-balloon-pos] {
   width: 100%;
 }
 
-/* src/components/Inputs/SettingsFormBuilder/SettingsInput/SettingsInput.scss */
-.SUE-SettingsInput {
-  display: block;
-  margin-block: var(--vertical-spacing-top) var(--vertical-spacing-bottom);
-  width: 100%;
-  max-width: 100%;
-  padding-inline: 2px;
-}
-.SUE-SettingsInput .info {
-  display: flex;
-  gap: 5px;
-  margin-bottom: 4px;
-  height: 20px;
-}
-.SUE-SettingsInput .info input[type=checkbox] {
-  translate: 0px -1px;
-}
-.SUE-SettingsInput [data-unset=true] {
-  color: var(--disabled-color);
-}
-.SUE-SettingsInput input,
-.SUE-SettingsInput .unset-input {
-  display: block;
-}
-.SUE-SettingsInput .missing-required-argument-message {
-  color: var(--red, orangered);
-}
-.SUE-SettingsInput .mismatched-argument-types {
-  color: var(--dark-grey, pink);
-}
-.SUE-SettingsInput .unset-argument {
-  color: var(--dark-grey, pink);
-  text-align: center;
-  background-color: var(--rstudio-white);
-  opacity: 0.7;
-}
-.SUE-SettingsInput .SUE-Input {
-  width: 100%;
-}
-.SUE-SettingsInput label:after {
-  content: ":";
-}
-
-/* src/components/Inputs/OptionsDropdown/styles.scss */
-.OptionsDropdown {
-  border-radius: var(--corner-radius);
-  padding: 2px 5px;
-  width: 100%;
-}
-
 /* src/EditorSkeleton/styles.scss */
 .EditorSkeleton {
   --header-height: 31px;
@@ -11044,6 +10994,56 @@ button[aria-label][data-balloon-pos] {
   font-size: 1.05rem;
   font-weight: lighter;
   color: var(--rstudio-white);
+}
+
+/* src/components/Inputs/SettingsFormBuilder/SettingsInput/SettingsInput.scss */
+.SUE-SettingsInput {
+  display: block;
+  margin-block: var(--vertical-spacing-top) var(--vertical-spacing-bottom);
+  width: 100%;
+  max-width: 100%;
+  padding-inline: 2px;
+}
+.SUE-SettingsInput .info {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 4px;
+  height: 20px;
+}
+.SUE-SettingsInput .info input[type=checkbox] {
+  translate: 0px -1px;
+}
+.SUE-SettingsInput [data-unset=true] {
+  color: var(--disabled-color);
+}
+.SUE-SettingsInput input,
+.SUE-SettingsInput .unset-input {
+  display: block;
+}
+.SUE-SettingsInput .missing-required-argument-message {
+  color: var(--red, orangered);
+}
+.SUE-SettingsInput .mismatched-argument-types {
+  color: var(--dark-grey, pink);
+}
+.SUE-SettingsInput .unset-argument {
+  color: var(--dark-grey, pink);
+  text-align: center;
+  background-color: var(--rstudio-white);
+  opacity: 0.7;
+}
+.SUE-SettingsInput .SUE-Input {
+  width: 100%;
+}
+.SUE-SettingsInput label:after {
+  content: ":";
+}
+
+/* src/components/Inputs/OptionsDropdown/styles.scss */
+.OptionsDropdown {
+  border-radius: var(--corner-radius);
+  padding: 2px 5px;
+  width: 100%;
 }
 
 /* src/Shiny-Ui-Elements/GridlayoutGridContainer/styles.scss */

@@ -1,4 +1,4 @@
-import icon from "../../assets/icons/ShinyNumericInput.png";
+import icon from "../../assets/icons/shinyNumericinput.png";
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
 import { LabeledInputCategory } from "../../components/Inputs/SettingsFormBuilder/LabeledInputCategory";
 import {

@@ -11,11 +11,22 @@ const showMessages = true;
   try {
     const messageDispatch = makeMessageDispatcher(true);
 
-    const websocketDispatch = await setupWebsocketBackend({
+    let websocketDispatch = await setupWebsocketBackend({
       messageDispatch,
       onClose: () => console.log("Websocket closed!!"),
       showMessages,
     });
+
+    if (websocketDispatch === "NO-WS-CONNECTION") {
+      // If we're developing locally we use the 8888 port for our websocket, so
+      // try that one before giving up and going to static
+      await setupWebsocketBackend({
+        messageDispatch,
+        onClose: () => console.log("Websocket closed!!"),
+        showMessages,
+        pathToWebsocket: "localhost:8888",
+      });
+    }
 
     const backendDispatch: BackendMessagePassers =
       websocketDispatch === "NO-WS-CONNECTION"

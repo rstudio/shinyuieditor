@@ -10,55 +10,31 @@ import glob from "glob";
 
 const findPortArg = /--port=(?<port>\d{2,})/;
 
-let serve = false;
-let watch = false;
-let prod = false;
-let port = 3012;
-let buildDir = "../vscode-extension/media/";
-let openBrowser = true;
-let entryFile = "index.tsx";
+type PossibleArgs =
+  | "serve"
+  | "playwright"
+  | "watch"
+  | "vscode"
+  | "test"
+  | "prod"
+  | "website-demo";
 
-const envVariablesDefine = {
-  DEV_MODE_ESBUILD: "true",
-  TESTING_MODE_ESBUILD: "false",
-  SHOW_FAKE_PREVIEW_ESBUILD: "true",
-};
-
-const hasBooleanArg = (prop: `--${string}`) =>
+const hasBooleanArg = (prop: `--${PossibleArgs}`) =>
   process.argv.some((x) => x === prop);
 
-if (hasBooleanArg("--vscode")) {
-  entryFile = "index_for_vscode.tsx";
-  buildDir = "../vscode-extension/media/";
-  watch = true;
-}
+const buildDir = hasBooleanArg("--vscode")
+  ? "../vscode-extension/media/"
+  : hasBooleanArg("--website-demo")
+  ? "../../vignettes/demo-app/"
+  : "build/";
+const assetsDir = `${buildDir}build/`;
 
-if (hasBooleanArg("--serve")) {
-  serve = true;
-  watch = true;
-  buildDir = "./esbuild/";
-}
-if (hasBooleanArg("--watch")) {
-  watch = true;
-}
-if (hasBooleanArg("--prod")) {
-  prod = true;
-  envVariablesDefine.DEV_MODE_ESBUILD = "false";
-}
-if (hasBooleanArg("--test")) {
-  envVariablesDefine.DEV_MODE_ESBUILD = "false";
-  envVariablesDefine.TESTING_MODE_ESBUILD = "true";
-  openBrowser = false;
-}
-if (hasBooleanArg("--hide-fake-preview")) {
-  envVariablesDefine.SHOW_FAKE_PREVIEW_ESBUILD = "false";
-}
-if (hasBooleanArg("--website-demo")) {
-  envVariablesDefine.SHOW_FAKE_PREVIEW_ESBUILD = "false";
-  prod = true;
-  buildDir = "../../vignettes/demo-app/";
-}
+const openBrowser = !hasBooleanArg("--test");
+const entryFile = hasBooleanArg("--vscode")
+  ? "src/index_for_vscode.tsx"
+  : "src/index.tsx";
 
+let port = hasBooleanArg("--playwright") ? 3001 : 3032;
 const portSearchRes = process.argv.find(
   (arg) => findPortArg.exec(arg)?.groups?.port
 );
@@ -69,7 +45,6 @@ if (portSearchRes) {
   port = requestedPort;
 }
 
-const assetsDir = `${buildDir}build/`;
 const behind_the_scenes_port = 3042;
 const clients: http.ServerResponse[] = [];
 
@@ -82,8 +57,10 @@ esbuild.build({
   loader: { ".png": "dataurl" },
   outfile: `${assetsDir}bundle.js`,
   metafile: true,
-  define: envVariablesDefine,
-  watch: watch
+  define: {
+    TESTING_MODE_ESBUILD: hasBooleanArg("--test") ? "true" : "false",
+  },
+  watch: hasBooleanArg("--watch")
     ? {
         onRebuild: (
           error: esbuild.BuildFailure | null,
@@ -108,7 +85,7 @@ esbuild.build({
   ],
 });
 
-if (serve) {
+if (hasBooleanArg("--serve")) {
   esbuild.serve({ servedir: buildDir, port }, {}).then(() => {
     http
       .createServer((req, res) => {

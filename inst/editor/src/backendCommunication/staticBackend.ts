@@ -1,6 +1,6 @@
 import type { MessageFromBackend } from "communication-types";
 
-import { SHOW_FAKE_PREVIEW } from "../env_variables";
+import { TESTING_MODE } from "../env_variables";
 
 import { getClientsideOnlyTree } from "./getClientsideOnlyTree";
 import type { MessageDispatcher } from "./messageDispatcher";
@@ -43,7 +43,7 @@ export function setupStaticBackend({
           return;
         }
         case "APP-PREVIEW-CONNECTED": {
-          if (!SHOW_FAKE_PREVIEW) return;
+          if (!TESTING_MODE) return;
           dispatchMessageToClient({
             path: "APP-PREVIEW-READY",
             payload: "FAKE-PREVIEW",

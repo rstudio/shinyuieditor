@@ -1,4 +1,4 @@
-import icon from "../../assets/icons/shinyTextInput.png";
+import icon from "../../assets/icons/shinyTextinput.png";
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
 import {
   makeInputIdInfo,

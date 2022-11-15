@@ -8,7 +8,7 @@
       "script": "watch",
       "problemMatcher": ["$tsc-watch"],
       "presentation": {
-        "reveal": "never"
+        "reveal": "always"
       }
     }
   ]

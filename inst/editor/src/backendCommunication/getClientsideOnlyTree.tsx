@@ -1,6 +1,5 @@
-import { TESTING_MODE } from "../env_variables";
 import type { ShinyUiRootNode } from "../Shiny-Ui-Elements/uiNodeTypes";
-import { sampleAppTree, testingUiTree } from "../state/backupUiTree";
+import { sampleAppTree } from "../state/backupUiTree";
 
 /**
  * Get a ui tree to populate app state with either from prebuilt trees or from a
@@ -9,12 +8,6 @@ import { sampleAppTree, testingUiTree } from "../state/backupUiTree";
  */
 export async function getClientsideOnlyTree() {
   return new Promise<ShinyUiRootNode>((resolve) => {
-    if (!TESTING_MODE) {
-      // If we're just running in clientside only mode, immediately resolve the
-      // promise with a simple grid page
-      resolve(sampleAppTree);
-      return;
-    }
     // If we're in testing mode we first attempt to get the tree from a testing
     // url if that fails due to the test not mocking the tree then just give the
     // default testing tree
@@ -28,7 +21,7 @@ export async function getClientsideOnlyTree() {
       .catch((e) => {
         // eslint-disable-next-line no-console
         console.error("/testing-tree error", e);
-        resolve(testingUiTree);
+        resolve(sampleAppTree);
       });
   });
 }

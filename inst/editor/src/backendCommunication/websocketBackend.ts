@@ -1,7 +1,5 @@
 import type { MessageFromBackend, MessageToBackend } from "communication-types";
 
-import { DEV_MODE } from "../env_variables";
-
 import type { MessageDispatcher } from "./messageDispatcher";
 import type { BackendMessagePassers } from "./useBackendMessageCallbacks";
 
@@ -11,10 +9,12 @@ export function setupWebsocketBackend({
   onClose,
   messageDispatch,
   showMessages,
+  pathToWebsocket = window.location.host + window.location.pathname,
 }: {
   onClose: () => void;
   messageDispatch: MessageDispatcher;
   showMessages: boolean;
+  pathToWebsocket?: string;
 }) {
   let connectedToWebsocket = false;
 
@@ -22,9 +22,7 @@ export function setupWebsocketBackend({
     try {
       if (!document.location.host) throw new Error("Not on a served site!");
 
-      const websocket_path = buildWebsocketPath();
-
-      const ws = new WebSocket(websocket_path);
+      const ws = new WebSocket(buildWebsocketPathFromDomain(pathToWebsocket));
 
       const messagePassingMethods: BackendMessagePassers = {
         sendMsg: (msg) => {
@@ -63,18 +61,6 @@ export function setupWebsocketBackend({
       resolve("NO-WS-CONNECTION");
     }
   });
-}
-
-function buildWebsocketPath() {
-  // If we're in dev mode the app itself will be hosted on the dev server which
-  // is not where the websocket communication happens. In this situation we rely
-  // on the backend of the ui editor to be running on port `8888` of localhost.
-
-  return buildWebsocketPathFromDomain(
-    DEV_MODE
-      ? "localhost:8888"
-      : window.location.host + window.location.pathname
-  );
 }
 
 function buildWebsocketPathFromDomain(domain: string) {
