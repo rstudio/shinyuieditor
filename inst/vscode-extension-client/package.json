@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
+    "@types/vscode": "^1.65.0",
     "editor": "*",
     "tsconfig": "*",
     "tsx": "^3.12.1",
@@ -11,5 +12,8 @@
   "scripts": {
     "watch": "tsx scripts/build.ts --watch",
     "build": "tsx scripts/build.ts"
+  },
+  "devDependencies": {
+    "@types/vscode-webview": "^1.57.0"
   }
 }

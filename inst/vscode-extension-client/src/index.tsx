@@ -26,6 +26,8 @@ function setupVSCodeBackend({
   messageDispatch: MessageDispatcher;
   showMessages: boolean;
 }) {
+  const vscode = acquireVsCodeApi();
+
   // eslint-disable-next-line no-console
   const logger = showMessages ? console.log : (...args: any[]) => {};
 
@@ -49,6 +51,7 @@ function setupVSCodeBackend({
   const messagePassingMethods: BackendMessagePassers = {
     sendMsg: (msg) => {
       logger("VSCode sendMsg()", msg);
+      vscode.postMessage(msg);
 
       // switch (msg.path) {
       //   case "READY-FOR-STATE": {
