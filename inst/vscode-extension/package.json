@@ -21,7 +21,6 @@
     "customEditors": [
       {
         "viewType": "shinyUiEditor.appFile",
-        "priority": "option",
         "displayName": "ShinyUiEditor",
         "selector": [
           {
