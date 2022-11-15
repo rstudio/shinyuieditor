@@ -1,4 +1,4 @@
-import StateHistory from "modules/StateHistory";
+import StateHistory from "./StateHistory";
 
 test("Behaves as expected with nothing in it", () => {
   const hist = new StateHistory<string>({ comparisonFn: (a, b) => a === b });

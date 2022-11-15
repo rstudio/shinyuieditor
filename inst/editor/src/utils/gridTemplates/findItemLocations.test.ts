@@ -1,4 +1,4 @@
-import type { TemplatedGridProps } from "Shiny-Ui-Elements/GridlayoutGridPage";
+import type { TemplatedGridProps } from "../../Shiny-Ui-Elements/GridlayoutGridPage";
 
 import { findItemLocations, findEmptyCells } from "./findItemLocation";
 

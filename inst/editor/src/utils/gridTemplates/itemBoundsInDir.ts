@@ -1,4 +1,4 @@
-import type { TractDirection } from "Shiny-Ui-Elements/GridlayoutGridPage";
+import type { TractDirection } from "../../Shiny-Ui-Elements/GridlayoutGridPage";
 
 import type { ItemLocation } from "./types";
 

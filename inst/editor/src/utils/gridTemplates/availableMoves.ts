@@ -1,7 +1,8 @@
-import type { TemplatedGridProps } from "Shiny-Ui-Elements/GridlayoutGridPage";
-import { buildRange } from "utils/array-helpers";
-import { emptyCell } from "utils/gridTemplates/itemLocations";
-import type { ItemLocation } from "utils/gridTemplates/types";
+import type { TemplatedGridProps } from "../../Shiny-Ui-Elements/GridlayoutGridPage";
+import { buildRange } from "../array-helpers";
+
+import { emptyCell } from "./itemLocations";
+import type { ItemLocation } from "./types";
 
 export type ResizeDirection = "up" | "down" | "left" | "right";
 export function availableMoves({

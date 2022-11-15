@@ -1,10 +1,9 @@
-import selectBoxIcon from "assets/icons/shinySelectbox.png";
-import type { NamedList } from "components/Inputs/ListInput/NamedListInput";
+import selectBoxIcon from "../../assets/icons/shinySelectbox.png";
+import type { NamedList } from "../../components/Inputs/ListInput/NamedListInput";
 import {
   makeInputIdInfo,
   makeLabelInputInfo,
-} from "Shiny-Ui-Elements/commonSettingsTemplates";
-
+} from "../commonSettingsTemplates";
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import ShinySelectInput from "./ShinySelectInput";

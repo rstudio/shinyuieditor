@@ -7,4 +7,3 @@ function activate(context) {
     context.subscriptions.push(shinyuieditor_extension_1.ShinyUiEditorProvider.register(context));
 }
 exports.activate = activate;
-//# sourceMappingURL=extension.js.map

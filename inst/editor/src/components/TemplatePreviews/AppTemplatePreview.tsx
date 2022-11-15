@@ -1,7 +1,8 @@
 import React from "react";
 
-import UiNode from "components/UiNode/UiNode";
-import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
+import type { ShinyUiNode } from "../../main";
+import UiNode from "../UiNode/UiNode";
+
 import "./styles.scss";
 
 // This is the size that we render the preview at before shrinking it down

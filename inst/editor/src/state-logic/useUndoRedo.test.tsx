@@ -2,8 +2,8 @@
 
 // import { screen } from "@testing-library/react";
 // import userEvent from "@testing-library/user-event";
-// import HistoryNav from "components/HistoryNav";
-// import { TractAddButtons } from "components/TractAddButtons";
+// import HistoryNav from "../../components/HistoryNav";
+// import { TractAddButtons } from "../../components/TractAddButtons";
 // import { rowsState } from "state-logic/gridLayout/atoms";
 // import { GridItemDef, GridLayoutTemplate } from "../GridTypes";
 // import { AppWLayout, RecoilObserver, renderWithRecoil } from "../test-helpers";

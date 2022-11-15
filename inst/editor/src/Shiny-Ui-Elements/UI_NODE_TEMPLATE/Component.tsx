@@ -1,5 +1,5 @@
-import { pathToString } from "Shiny-Ui-Elements/nodePathUtils";
-import type { UiNodeComponent } from "Shiny-Ui-Elements/uiNodeTypes";
+import { pathToString } from "../nodePathUtils";
+import type { UiNodeComponent } from "../uiNodeTypes";
 
 import type { NodeNameSettings } from "./index";
 

@@ -1,9 +1,9 @@
+import type { ShinyUiNode } from "../../main";
 import type {
   NodePath,
-  ShinyUiNode,
   UiNodeComponent,
-} from "Shiny-Ui-Elements/uiNodeTypes";
-import { shinyUiNodeInfo } from "Shiny-Ui-Elements/uiNodeTypes";
+} from "../../Shiny-Ui-Elements/uiNodeTypes";
+import { shinyUiNodeInfo } from "../../Shiny-Ui-Elements/uiNodeTypes";
 
 import { useMakeWrapperProps } from "./useMakeWrapperProps";
 

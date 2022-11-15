@@ -1,19 +1,18 @@
 import React from "react";
 
-import AppPreview from "components/AppPreview";
-import { TemplateChooserView } from "components/TemplatePreviews/TemplateChooserView";
-import UiNode from "components/UiNode/UiNode";
-import { CurrentDraggedNodeProvider } from "DragAndDropHelpers/useCurrentDraggedNode";
-import { LostConnectionPopup } from "EditorSkeleton/LostConnectionPopup";
-import ElementsPalette from "ElementsPalette";
-import { isShinyUiNode } from "Shiny-Ui-Elements/isShinyUiNode";
-
 import { useSyncUiWithBackend } from "../backendCommunication/useSyncUiWithBackend";
+import AppPreview from "../components/AppPreview";
+import { TemplateChooserView } from "../components/TemplatePreviews/TemplateChooserView";
+import UiNode from "../components/UiNode/UiNode";
+import { CurrentDraggedNodeProvider } from "../DragAndDropHelpers/useCurrentDraggedNode";
 import {
   EditorSkeleton,
   PROPERTIES_PANEL_WIDTH_PX,
 } from "../EditorSkeleton/EditorSkeleton";
+import { LostConnectionPopup } from "../EditorSkeleton/LostConnectionPopup";
+import ElementsPalette from "../ElementsPalette";
 import { SettingsPanel } from "../SettingsPanel/SettingsPanel";
+import { isShinyUiNode } from "../Shiny-Ui-Elements/isShinyUiNode";
 
 import { AppHeader } from "./AppHeader";
 import { DialogPopover } from "./DialogPopover";

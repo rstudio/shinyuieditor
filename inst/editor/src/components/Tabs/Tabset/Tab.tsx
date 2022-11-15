@@ -1,14 +1,18 @@
 import React from "react";
 
-import { getNode } from "components/UiNode/TreeManipulation/getNode";
-import { samePath } from "components/UiNode/TreeManipulation/samePath";
-import { useMakeWrapperProps } from "components/UiNode/useMakeWrapperProps";
-import { useNodeSelectionState } from "NodeSelectionState";
 import { useSelector } from "react-redux";
-import { isShinyUiNode } from "Shiny-Ui-Elements/isShinyUiNode";
-import { makeChildPath } from "Shiny-Ui-Elements/nodePathUtils";
-import type { NodePath, ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
-import type { RootState } from "state/store";
+
+import { useNodeSelectionState } from "../../../NodeSelectionState";
+import { isShinyUiNode } from "../../../Shiny-Ui-Elements/isShinyUiNode";
+import { makeChildPath } from "../../../Shiny-Ui-Elements/nodePathUtils";
+import type {
+  NodePath,
+  ShinyUiNode,
+} from "../../../Shiny-Ui-Elements/uiNodeTypes";
+import type { RootState } from "../../../state/store";
+import { getNode } from "../../UiNode/TreeManipulation/getNode";
+import { samePath } from "../../UiNode/TreeManipulation/samePath";
+import { useMakeWrapperProps } from "../../UiNode/useMakeWrapperProps";
 
 import classes from "./Tabset.module.css";
 

@@ -1,12 +1,13 @@
 import * as React from "react";
 
-import { useBackendCallbacks } from "backendCommunication/useBackendMessageCallbacks";
 import debounce from "just-debounce-it";
 import { useSelector } from "react-redux";
-import type { ShinyUiRootNode } from "Shiny-Ui-Elements/uiNodeTypes";
-import type { RootState } from "state/store";
 
+import type { ShinyUiRootNode } from "../Shiny-Ui-Elements/uiNodeTypes";
+import type { RootState } from "../state/store";
 import { useSetTree } from "../state/useSetTree";
+
+import { useBackendCallbacks } from "./useBackendMessageCallbacks";
 
 export function useSyncUiWithBackend() {
   const { sendMsg, incomingMsgs: backendMsgs } = useBackendCallbacks();

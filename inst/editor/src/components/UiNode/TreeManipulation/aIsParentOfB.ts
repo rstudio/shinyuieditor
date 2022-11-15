@@ -1,4 +1,4 @@
-import type { NodePath } from "Shiny-Ui-Elements/uiNodeTypes";
+import type { NodePath } from "../../../Shiny-Ui-Elements/uiNodeTypes";
 
 import { nodeDepth } from "./nodeDepth";
 import { pathsSameAtDepth } from "./pathsSameAtDepth";

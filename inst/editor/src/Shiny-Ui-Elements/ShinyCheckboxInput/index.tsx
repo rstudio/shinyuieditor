@@ -1,10 +1,9 @@
-import inputIcon from "assets/icons/shinycheckbox.png";
-import type { CSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
+import icon from "../../assets/icons/shinycheckbox.png";
+import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
 import {
   makeInputIdInfo,
   makeLabelInputInfo,
-} from "Shiny-Ui-Elements/commonSettingsTemplates";
-
+} from "../commonSettingsTemplates";
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import ShinyCheckboxInput from "./ShinyCheckboxInput";
@@ -36,7 +35,7 @@ export const shinyCheckboxInputInfo: UiComponentInfo<ShinyCheckboxInputProps> =
       },
     },
     acceptsChildren: false,
-    iconSrc: inputIcon,
+    iconSrc: icon,
     category: "Inputs",
     description:
       "Create a checkbox that can be used to specify logical values.",

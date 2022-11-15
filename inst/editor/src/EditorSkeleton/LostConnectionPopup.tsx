@@ -1,8 +1,9 @@
 import * as React from "react";
 
-import PortalModal from "PortalModal";
 import { useSelector } from "react-redux";
-import type { RootState } from "state/store";
+
+import PortalModal from "../PortalModal";
+import type { RootState } from "../state/store";
 
 export function LostConnectionPopup() {
   const connectedToServer = useSelector(

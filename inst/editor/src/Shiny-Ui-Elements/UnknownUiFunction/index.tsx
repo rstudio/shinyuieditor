@@ -1,6 +1,6 @@
-import CategoryDivider from "components/CategoryDivider";
 import { AiOutlineQuestionCircle } from "react-icons/ai";
 
+import CategoryDivider from "../../components/CategoryDivider";
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import { formatFunctionText } from "./formatFunctionText";

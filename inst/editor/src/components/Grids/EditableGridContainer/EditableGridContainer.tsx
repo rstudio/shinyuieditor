@@ -1,14 +1,15 @@
 import * as React from "react";
 
-import type { CSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
 import produce from "immer";
+
 import type {
   TemplatedGridProps,
   TractDirection,
-} from "Shiny-Ui-Elements/GridlayoutGridPage";
-import { ensureArray } from "utils/array-helpers";
-import addTract from "utils/gridTemplates/addTract";
-import removeTract from "utils/gridTemplates/removeTract";
+} from "../../../Shiny-Ui-Elements/GridlayoutGridPage";
+import { ensureArray } from "../../../utils/array-helpers";
+import addTract from "../../../utils/gridTemplates/addTract";
+import removeTract from "../../../utils/gridTemplates/removeTract";
+import type { CSSMeasure } from "../../Inputs/CSSUnitInput/CSSMeasure";
 
 import classes from "./resizableGrid.module.css";
 import { TractInfoDisplays } from "./TractInfoDisplay";

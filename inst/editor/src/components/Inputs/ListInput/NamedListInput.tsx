@@ -1,11 +1,11 @@
 import React from "react";
 
-import { Trash } from "components/Icons";
 import { FaPlus } from "react-icons/fa";
 import { MdDragHandle } from "react-icons/md";
 import { ReactSortable } from "react-sortablejs";
-import { sameObject } from "utils/equalityCheckers";
 
+import { sameObject } from "../../../utils/equalityCheckers";
+import { Trash } from "../../Icons";
 import Button from "../Button/Button";
 import type { InputComponentProps } from "../SettingsFormBuilder/inputFieldTypes";
 import { makeLabelId } from "../SettingsFormBuilder/inputFieldTypes";

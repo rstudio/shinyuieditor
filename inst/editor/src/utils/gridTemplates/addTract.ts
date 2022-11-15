@@ -1,9 +1,12 @@
-import type { CSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
 import produce from "immer";
-import type { TemplatedGridProps } from "Shiny-Ui-Elements/GridlayoutGridPage";
-import type { TractDirection } from "Shiny-Ui-Elements/GridlayoutGridPage";
-import { addAtIndex, fillArr } from "utils/array-helpers";
-import { insertRowOrCol } from "utils/matrix-helpers";
+
+import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
+import type {
+  TractDirection,
+  TemplatedGridProps,
+} from "../../Shiny-Ui-Elements/GridlayoutGridPage";
+import { fillArr, addAtIndex } from "../array-helpers";
+import { insertRowOrCol } from "../matrix-helpers";
 
 import { itemBoundsInDir } from "./itemBoundsInDir";
 import { areasToItemLocations, emptyCell } from "./itemLocations";

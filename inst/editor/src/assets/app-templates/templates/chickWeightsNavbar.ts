@@ -1,5 +1,4 @@
-import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
-
+import type { ShinyUiNode } from "../../../main";
 import type { TemplateInfo } from "../app_templates";
 
 const navbarTree = {

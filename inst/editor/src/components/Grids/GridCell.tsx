@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useFilteredDrop } from "DragAndDropHelpers/useFilteredDrop";
+import { useFilteredDrop } from "../../DragAndDropHelpers/useFilteredDrop";
 
 import type { NewItemInfo } from "./GridlayoutElement/GridlayoutElement";
 

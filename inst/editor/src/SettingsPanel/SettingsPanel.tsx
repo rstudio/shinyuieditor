@@ -1,11 +1,11 @@
-import DeleteNodeButton from "components/DeleteNodeButton";
-import { buildStaticFormInfo } from "components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
-import type { CustomFormRenderFn } from "components/Inputs/SettingsFormBuilder/FormBuilder";
-import { FormBuilder } from "components/Inputs/SettingsFormBuilder/FormBuilder";
-import type { FormValuesFromInfo } from "components/Inputs/SettingsFormBuilder/inputFieldTypes";
-import { PanelHeader } from "EditorSkeleton/EditorSkeleton";
-import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
-import { shinyUiNodeInfo } from "Shiny-Ui-Elements/uiNodeTypes";
+import DeleteNodeButton from "../components/DeleteNodeButton";
+import { buildStaticFormInfo } from "../components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
+import type { CustomFormRenderFn } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
+import { FormBuilder } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
+import type { FormValuesFromInfo } from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";
+import { PanelHeader } from "../EditorSkeleton/EditorSkeleton";
+import type { ShinyUiNode } from "../main";
+import { shinyUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
 
 import PathBreadcrumb from "./PathBreadcrumb";
 // import PathBreadcrumb from "./PathBreadcrumbLinear";

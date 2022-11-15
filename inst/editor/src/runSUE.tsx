@@ -1,7 +1,7 @@
-import type { BackendMessagePassers } from "backendCommunication/useBackendMessageCallbacks";
 import { createRoot } from "react-dom/client";
 
 import { App } from "./App";
+import type { BackendMessagePassers } from "./backendCommunication/useBackendMessageCallbacks";
 
 export function runSUE({
   container,

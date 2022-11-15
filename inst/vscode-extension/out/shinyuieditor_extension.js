@@ -22,6 +22,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ShinyUiEditorProvider = void 0;
 const vscode = __importStar(require("vscode"));
@@ -54,70 +63,75 @@ class ShinyUiEditorProvider {
         const providerRegistration = vscode.window.registerCustomEditorProvider(ShinyUiEditorProvider.viewType, provider);
         return providerRegistration;
     }
-    async getR() {
-        const rPath = await (0, setupRConnection_1.getRpath)();
-        if (rPath === undefined) {
-            throw new Error("Can't get R path");
-        }
-        const RProc = await (0, connectToRProcess_1.connectToRProcess)({ pathToR: rPath });
-        this.RProcess = RProc;
-        if (RProc === null) {
-            console.error("R process failed to start :(");
-            return;
-        }
-        // const uglyCode = `  list(text=ui_def_text,
-        //   namespaces_removed =ui_expression$namespaces_removed
-        // )`;
-        // console.log("Calling code formatter");
-        // const formattedCode = await this.formatRCode(uglyCode);
-        // console.log("Formatted code", formattedCode);
-        // console.log("quick mafs", await RProc.runCmd("4+9"));
-        // console.log("Sequence", await RProc.runCmd("seq(1,20)"));
-        // console.log("Quick Mafs", quickMaths);
+    getR() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const rPath = yield (0, setupRConnection_1.getRpath)();
+            if (rPath === undefined) {
+                throw new Error("Can't get R path");
+            }
+            const RProc = yield (0, connectToRProcess_1.connectToRProcess)({ pathToR: rPath });
+            this.RProcess = RProc;
+            if (RProc === null) {
+                console.error("R process failed to start :(");
+                return;
+            }
+            // const uglyCode = `  list(text=ui_def_text,
+            //   namespaces_removed =ui_expression$namespaces_removed
+            // )`;
+            // console.log("Calling code formatter");
+            // const formattedCode = await this.formatRCode(uglyCode);
+            // console.log("Formatted code", formattedCode);
+            // console.log("quick mafs", await RProc.runCmd("4+9"));
+            // console.log("Sequence", await RProc.runCmd("seq(1,20)"));
+            // console.log("Quick Mafs", quickMaths);
+        });
     }
     /**
      * Called when our custom editor is opened.
      *
      *
      */
-    async resolveCustomTextEditor(document, webviewPanel, _token) {
-        console.log("Editor window is opened!");
-        // Setup initial content for the webview
-        webviewPanel.webview.options = {
-            enableScripts: true,
-        };
-        webviewPanel.webview.html = this.getHtmlForWebview(webviewPanel.webview);
-        this.getAppFile(document);
-        function updateWebview() {
-            webviewPanel.webview.postMessage({
-                type: "update",
-                text: document.getText(),
-            });
-        }
-        // Hook up event handlers so that we can synchronize the webview with the text document.
-        //
-        // The text document acts as our model, so we have to sync change in the document to our
-        // editor and sync changes in the editor back to the document.
-        //
-        // Remember that a single text document can also be shared between multiple custom
-        // editors (this happens for example when you split a custom editor)
-        const changeDocumentSubscription = vscode.workspace.onDidChangeTextDocument((e) => {
-            if (e.document.uri.toString() === document.uri.toString()) {
-                updateWebview();
-                console.log("New text file in view!");
+    resolveCustomTextEditor(document, webviewPanel, _token) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log("Editor window is opened!");
+            // Setup initial content for the webview
+            webviewPanel.webview.options = {
+                enableScripts: true,
+            };
+            webviewPanel.webview.html = this.getHtmlForWebview(webviewPanel.webview);
+            this.getAppFile(document);
+            function updateWebview() {
+                webviewPanel.webview.postMessage({
+                    type: "update",
+                    text: document.getText(),
+                });
             }
+            // Hook up event handlers so that we can synchronize the webview with the text document.
+            //
+            // The text document acts as our model, so we have to sync change in the document to our
+            // editor and sync changes in the editor back to the document.
+            //
+            // Remember that a single text document can also be shared between multiple custom
+            // editors (this happens for example when you split a custom editor)
+            const changeDocumentSubscription = vscode.workspace.onDidChangeTextDocument((e) => {
+                if (e.document.uri.toString() === document.uri.toString()) {
+                    updateWebview();
+                    console.log("New text file in view!");
+                }
+            });
+            // Make sure we get rid of the listener when our editor is closed.
+            webviewPanel.onDidDispose(() => {
+                var _a;
+                changeDocumentSubscription.dispose();
+                (_a = this.RProcess) === null || _a === void 0 ? void 0 : _a.stop();
+            });
+            // Receive message from the webview.
+            webviewPanel.webview.onDidReceiveMessage((e) => {
+                console.log("Message from webview", e);
+            });
+            this.sendMessage = (msg) => webviewPanel.webview.postMessage(msg);
+            updateWebview();
         });
-        // Make sure we get rid of the listener when our editor is closed.
-        webviewPanel.onDidDispose(() => {
-            changeDocumentSubscription.dispose();
-            this.RProcess?.stop();
-        });
-        // Receive message from the webview.
-        webviewPanel.webview.onDidReceiveMessage((e) => {
-            console.log("Message from webview", e);
-        });
-        this.sendMessage = (msg) => webviewPanel.webview.postMessage(msg);
-        updateWebview();
     }
     /**
      * Get the static html used for the editor webviews.
@@ -159,33 +173,38 @@ class ShinyUiEditorProvider {
 			</body>
 			</html>`;
     }
-    async formatRCode(unformattedCode) {
-        if (!this.RProcess)
-            throw new Error("No R Process available for running command");
-        const formattedLines = await this.RProcess.runCmd(`styler::style_text("${unformattedCode}", scope = "tokens")`);
-        return formattedLines.reduce((pasted, l) => pasted + "\n" + l, "");
+    formatRCode(unformattedCode) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (!this.RProcess)
+                throw new Error("No R Process available for running command");
+            const formattedLines = yield this.RProcess.runCmd(`styler::style_text("${unformattedCode}", scope = "tokens")`);
+            return formattedLines.reduce((pasted, l) => pasted + "\n" + l, "");
+        });
     }
-    async getAppFile(document) {
-        if (!this.RProcess)
-            return;
-        const text = (0, connectToRProcess_1.escapeDoubleQuotes)(document.getText());
-        const parseCommand = `
+    getAppFile(document) {
+        var _a;
+        return __awaiter(this, void 0, void 0, function* () {
+            if (!this.RProcess)
+                return;
+            const text = (0, connectToRProcess_1.escapeDoubleQuotes)(document.getText());
+            const parseCommand = `
 app_lines <- strsplit("${text}", "\\n")[[1]]
 jsonlite::toJSON(
   shinyuieditor:::get_file_ui_definition_info(app_lines, "single-file"),
   auto_unbox = TRUE
 )`;
-        const parsedCommandOutput = await this.RProcess.runCmd(parseCommand);
-        try {
-            const parsedAppInfo = JSON.parse(parsedCommandOutput.reduce((all, l) => all + "\n" + l, ""));
-            this.sendMessage?.({
-                path: "UPDATED-TREE",
-                payload: parsedAppInfo.ui_tree,
-            });
-        }
-        catch {
-            throw new Error("Could not get document as json. Content is not valid json");
-        }
+            const parsedCommandOutput = yield this.RProcess.runCmd(parseCommand);
+            try {
+                const parsedAppInfo = JSON.parse(parsedCommandOutput.reduce((all, l) => all + "\n" + l, ""));
+                (_a = this.sendMessage) === null || _a === void 0 ? void 0 : _a.call(this, {
+                    path: "UPDATED-TREE",
+                    payload: parsedAppInfo.ui_tree,
+                });
+            }
+            catch (_b) {
+                throw new Error("Could not get document as json. Content is not valid json");
+            }
+        });
     }
     /**
      * Try to get a current document as json text.
@@ -198,7 +217,7 @@ jsonlite::toJSON(
         try {
             return JSON.parse(text);
         }
-        catch {
+        catch (_a) {
             throw new Error("Could not get document as json. Content is not valid json");
         }
     }
@@ -215,4 +234,3 @@ jsonlite::toJSON(
 }
 exports.ShinyUiEditorProvider = ShinyUiEditorProvider;
 ShinyUiEditorProvider.viewType = "shinyUiEditor.appFile";
-//# sourceMappingURL=shinyuieditor_extension.js.map

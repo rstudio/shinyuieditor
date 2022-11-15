@@ -1,9 +1,7 @@
-import type {
-  ShinyUiNode,
-  ShinyUiNodeByName,
-} from "Shiny-Ui-Elements/uiNodeTypes";
-
 // Not a fan of having to replicate the names across two instances here but
+
+import type { ShinyUiNodeByName, ShinyUiNode } from "../uiNodeTypes";
+
 // right now I can't figure out a more elegant way to do it
 const validTabPanels = ["shiny::tabPanel"];
 

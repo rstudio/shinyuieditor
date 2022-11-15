@@ -1,9 +1,5 @@
-import type {
-  ShinyUiNames,
-  UiNodeComponent,
-} from "Shiny-Ui-Elements/uiNodeTypes";
-import DropDetector from "Shiny-Ui-Elements/utils/DropDetector";
-
+import type { ShinyUiNames, UiNodeComponent } from "../uiNodeTypes";
+import DropDetector from "../utils/DropDetector";
 import { RenderUiChildren } from "../utils/RenderUiChildren";
 
 import type { TabPanelSettings } from "./index";

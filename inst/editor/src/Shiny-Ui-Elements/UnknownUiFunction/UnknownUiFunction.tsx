@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import type { UiNodeComponent } from "Shiny-Ui-Elements/uiNodeTypes";
+import type { UiNodeComponent } from "../uiNodeTypes";
 
 import type { UnknownUiFunctionProps } from "./index";
 

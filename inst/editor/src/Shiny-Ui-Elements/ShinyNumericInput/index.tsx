@@ -1,11 +1,10 @@
-import numericInputIcon from "assets/icons/shinyNumericinput.png";
-import type { CSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
-import { LabeledInputCategory } from "components/Inputs/SettingsFormBuilder/LabeledInputCategory";
+import icon from "../../assets/icons/ShinyNumericInput.png";
+import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
+import { LabeledInputCategory } from "../../components/Inputs/SettingsFormBuilder/LabeledInputCategory";
 import {
   makeInputIdInfo,
   makeLabelInputInfo,
-} from "Shiny-Ui-Elements/commonSettingsTemplates";
-
+} from "../commonSettingsTemplates";
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import ShinyNumericInput from "./ShinyNumericInput";
@@ -73,7 +72,7 @@ export const shinyNumericInputInfo: UiComponentInfo<ShinyNumericInputProps> = {
     );
   },
   acceptsChildren: false,
-  iconSrc: numericInputIcon,
+  iconSrc: icon,
   category: "Inputs",
   description: "An input control for entry of numeric values",
 };

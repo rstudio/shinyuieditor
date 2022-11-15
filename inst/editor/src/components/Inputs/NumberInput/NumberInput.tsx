@@ -1,7 +1,6 @@
 import React from "react";
 
-import { DownSpinnerButton, UpSpinnerButton } from "components/Icons";
-
+import { DownSpinnerButton, UpSpinnerButton } from "../../Icons";
 import type { InputComponentProps } from "../SettingsFormBuilder/inputFieldTypes";
 import { makeLabelId } from "../SettingsFormBuilder/inputFieldTypes";
 import "./NumberInput.scss";

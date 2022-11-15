@@ -1,16 +1,12 @@
 import React from "react";
 
-import {
-  alignTextCenter,
-  alignTextLeft,
-  alignTextRight,
-} from "components/Icons";
-import type { CSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
-import type { NamedList } from "components/Inputs/ListInput/NamedListInput";
-import type { DropdownOption } from "components/Inputs/OptionsDropdown/DropdownSelect";
-import { DEFAULT_DROPDOWN_CHOICE } from "components/Inputs/OptionsDropdown/DropdownSelect";
-import type { RadioOption } from "components/Inputs/RadioInputs/RadioInputsSimple";
-import { DEFAULT_RADIO_CHOICE } from "components/Inputs/RadioInputs/RadioInputsSimple";
+import { alignTextLeft, alignTextCenter, alignTextRight } from "../../../Icons";
+import type { CSSMeasure } from "../../CSSUnitInput/CSSMeasure";
+import type { NamedList } from "../../ListInput/NamedListInput";
+import type { DropdownOption } from "../../OptionsDropdown/DropdownSelect";
+import { DEFAULT_DROPDOWN_CHOICE } from "../../OptionsDropdown/DropdownSelect";
+import type { RadioOption } from "../../RadioInputs/RadioInputsSimple";
+import { DEFAULT_RADIO_CHOICE } from "../../RadioInputs/RadioInputsSimple";
 
 import type { SettingsUpdateAction } from "./SettingsInput";
 import { SettingsInput } from "./SettingsInput";

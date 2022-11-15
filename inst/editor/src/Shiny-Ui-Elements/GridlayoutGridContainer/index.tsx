@@ -1,10 +1,9 @@
-import icon from "assets/icons/shinyGridContainer.png";
+import icon from "../../assets/icons/shinyGridContainer.png";
 import {
-  removeDeletedGridAreaFromLayout,
   updateGridLayoutAreaOnItemAreaChange,
-} from "components/Grids/watchAndReactToGridAreaUpdatesupdate";
-import type { TemplatedGridProps } from "Shiny-Ui-Elements/GridlayoutGridPage";
-
+  removeDeletedGridAreaFromLayout,
+} from "../../components/Grids/watchAndReactToGridAreaUpdatesupdate";
+import type { TemplatedGridProps } from "../GridlayoutGridPage";
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import GridlayoutGridContainer from "./GridlayoutGridContainer";

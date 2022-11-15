@@ -1,5 +1,5 @@
-import type { TemplateInfo } from "assets/app-templates/app_templates";
-import { app_templates } from "assets/app-templates/app_templates";
+import type { TemplateInfo } from "../../assets/app-templates/app_templates";
+import { app_templates } from "../../assets/app-templates/app_templates";
 
 import { TemplatePreviewCard } from "./TemplatePreviewCard";
 

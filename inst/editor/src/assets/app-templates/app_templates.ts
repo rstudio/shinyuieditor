@@ -1,4 +1,4 @@
-import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
+import type { ShinyUiNode } from "../../main";
 
 import { chickWeightsGridTemplate } from "./templates/chickWeightsGrid";
 import { chickWeightsNavbar } from "./templates/chickWeightsNavbar";

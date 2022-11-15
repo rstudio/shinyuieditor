@@ -1,5 +1,5 @@
-import type { TemplatedGridProps } from "Shiny-Ui-Elements/GridlayoutGridPage";
-import { fillArr } from "utils/array-helpers";
+import type { TemplatedGridProps } from "../../Shiny-Ui-Elements/GridlayoutGridPage";
+import { fillArr } from "../array-helpers";
 
 export function fillInPartialTemplate({
   areas,

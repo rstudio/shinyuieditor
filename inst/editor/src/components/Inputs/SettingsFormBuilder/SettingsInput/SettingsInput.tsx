@@ -1,5 +1,4 @@
-import Button from "components/Inputs/Button/Button";
-
+import Button from "../../Button/Button";
 import type {
   FieldEntryUnion,
   InputFieldEntryNames,

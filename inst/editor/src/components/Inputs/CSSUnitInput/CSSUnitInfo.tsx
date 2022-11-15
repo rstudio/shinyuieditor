@@ -1,7 +1,7 @@
 import React from "react";
 
-import { Info } from "components/Icons";
-import { PopoverButton } from "components/Inputs/PopoverButton";
+import { Info } from "../../Icons";
+import { PopoverButton } from "../PopoverButton";
 
 import classes from "./CSSUnitInfo.module.css";
 import type { CSSUnits } from "./CSSUnitInput";

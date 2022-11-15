@@ -1,29 +1,30 @@
 import React from "react";
 
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
-import type { DefaultSettingsFromInfo } from "components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
+import omit from "just-omit";
+
+import "../App.css";
+import type { DefaultSettingsFromInfo } from "../components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
 import {
   buildStaticFormInfo,
   getDefaultSettings,
-} from "components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
-import { FormBuilder } from "components/Inputs/SettingsFormBuilder/FormBuilder";
+} from "../components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
+import { FormBuilder } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
 import type {
   FormInfo,
   FormValuesFromInfo,
-} from "components/Inputs/SettingsFormBuilder/inputFieldTypes";
-import type { SettingsUpdateAction } from "components/Inputs/SettingsFormBuilder/SettingsInput/SettingsInput";
-import omit from "just-omit";
+} from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";
+import type { SettingsUpdateAction } from "../components/Inputs/SettingsFormBuilder/SettingsInput/SettingsInput";
+
+import classes from "./UiElementsShowcase.module.css";
 import type {
   ArgsWithPotentialUnknowns,
+  ShinyUiNames,
   ShinyUiNode,
   ShinyUiNodeInfo,
   UiNodeComponent,
-} from "Shiny-Ui-Elements/uiNodeTypes";
-import { shinyUiNodeInfo } from "Shiny-Ui-Elements/uiNodeTypes";
-
-import "../App.css";
-import classes from "./UiElementsShowcase.module.css";
-import type { ShinyUiNames } from "./uiNodeTypes";
+} from "./uiNodeTypes";
+import { shinyUiNodeInfo } from "./uiNodeTypes";
 
 function UiNodeAndSettings<T extends ShinyUiNames>({
   uiName,

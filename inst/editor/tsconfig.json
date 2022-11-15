@@ -1,8 +1,5 @@
 {
   "extends": "tsconfig/base.json",
-  "compilerOptions": {
-    "baseUrl": "src/"
-  },
-  "include": ["src"],
-  "exclude": ["node_modules"]
+  "include": ["src", "src/globals.d.ts"],
+  "exclude": ["node_modules", "**/.module.css"]
 }

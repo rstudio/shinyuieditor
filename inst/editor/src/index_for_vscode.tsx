@@ -1,10 +1,9 @@
-import type { MessageDispatcher } from "backendCommunication/messageDispatcher";
-import { makeMessageDispatcher } from "backendCommunication/messageDispatcher";
-// import type { MessageFromBackend } from "backendCommunication/messages";
-import type { BackendMessagePassers } from "backendCommunication/useBackendMessageCallbacks";
 import type { MessageFromBackend } from "communication-types";
 import { isMessageFromBackend } from "communication-types";
 
+import type { MessageDispatcher } from "./backendCommunication/messageDispatcher";
+import { makeMessageDispatcher } from "./backendCommunication/messageDispatcher";
+import type { BackendMessagePassers } from "./backendCommunication/useBackendMessageCallbacks";
 import { runSUE } from "./runSUE";
 
 const container = document.getElementById("root");

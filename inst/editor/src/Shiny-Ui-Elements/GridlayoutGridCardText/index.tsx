@@ -1,10 +1,9 @@
-import textIcon from "assets/icons/shinyText.png";
+import textIcon from "../../assets/icons/shinyText.png";
 import {
-  alignTextCenter,
   alignTextLeft,
+  alignTextCenter,
   alignTextRight,
-} from "components/Icons";
-
+} from "../../components/Icons";
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import GridlayoutGridCardText from "./GridlayoutCardText";

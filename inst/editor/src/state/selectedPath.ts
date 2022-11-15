@@ -1,6 +1,7 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import type { NodePath } from "Shiny-Ui-Elements/uiNodeTypes";
+
+import type { NodePath } from "../Shiny-Ui-Elements/uiNodeTypes";
 
 // Note: Currently we're using Immer already so it's double immering this stuff
 // which is not efficient.

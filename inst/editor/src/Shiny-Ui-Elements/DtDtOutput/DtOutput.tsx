@@ -1,8 +1,8 @@
 import React from "react";
 
-import { InputOutputTitle } from "Shiny-Ui-Elements/InputOutputTitle";
-import type { UiNodeComponent } from "Shiny-Ui-Elements/uiNodeTypes";
-import { seqArray } from "utils/array-helpers";
+import { seqArray } from "../../utils/array-helpers";
+import { InputOutputTitle } from "../InputOutputTitle";
+import type { UiNodeComponent } from "../uiNodeTypes";
 
 import type { DTOutputSettings } from "./index";
 

@@ -1,7 +1,7 @@
 import React from "react";
 
-import type { TemplateInfo } from "assets/app-templates/app_templates";
-import { app_templates } from "assets/app-templates/app_templates";
+import type { TemplateInfo } from "../../assets/app-templates/app_templates";
+import { app_templates } from "../../assets/app-templates/app_templates";
 
 import type { OutputType } from "./OutputTypeForm";
 import type { LayoutType } from "./TemplatePreviewCard";

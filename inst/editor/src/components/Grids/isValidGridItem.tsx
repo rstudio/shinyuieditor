@@ -1,8 +1,8 @@
+import type { ShinyUiNode } from "../../main";
 import type {
-  ShinyUiNames,
-  ShinyUiNode,
   ShinyUiNodeByName,
-} from "Shiny-Ui-Elements/uiNodeTypes";
+  ShinyUiNames,
+} from "../../Shiny-Ui-Elements/uiNodeTypes";
 
 export type GridItemNode = ShinyUiNodeByName[
   | "gridlayout::grid_card"

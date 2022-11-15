@@ -1,8 +1,8 @@
-import type { ShinyUiChildren } from "Shiny-Ui-Elements/uiNodeTypes";
-
 /** Get the grid areas present in the children nodes passed to the Grid_Page()
  * component. This assumes that they are stored in the "area" property on the
  * uiArguments */
+
+import type { ShinyUiChildren } from "../../Shiny-Ui-Elements/uiNodeTypes";
 
 export function areasOfChildren(children: ShinyUiChildren) {
   let all_children_areas: string[] = [];

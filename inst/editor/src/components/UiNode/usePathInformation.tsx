@@ -1,8 +1,8 @@
 import React from "react";
 
-import { useNodeSelectionState } from "NodeSelectionState";
-import type { NodePath } from "Shiny-Ui-Elements/uiNodeTypes";
-import { sameArray } from "utils/equalityCheckers";
+import { useNodeSelectionState } from "../../NodeSelectionState";
+import type { NodePath } from "../../Shiny-Ui-Elements/uiNodeTypes";
+import { sameArray } from "../../utils/equalityCheckers";
 
 /**
  * Builds info related to the path such as a click handler to set selection and

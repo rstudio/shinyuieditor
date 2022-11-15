@@ -2,7 +2,7 @@ import type { ButtonHTMLAttributes } from "react";
 import React from "react";
 
 import "balloon-css";
-import Button from "components/Inputs/Button/Button";
+import Button from "../Inputs/Button/Button";
 
 type TooltipPositions =
   | "left"

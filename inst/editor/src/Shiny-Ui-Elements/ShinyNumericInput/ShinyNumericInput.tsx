@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import { NumberInputSimple } from "components/Inputs/NumberInput/NumberInput";
-import type { UiNodeComponent } from "Shiny-Ui-Elements/uiNodeTypes";
+import { NumberInputSimple } from "../../components/Inputs/NumberInput/NumberInput";
+import type { UiNodeComponent } from "../uiNodeTypes";
 
 import type { ShinyNumericInputProps } from ".";
 

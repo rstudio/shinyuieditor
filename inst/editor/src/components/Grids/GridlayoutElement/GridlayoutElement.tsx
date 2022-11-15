@@ -1,27 +1,26 @@
 import React from "react";
 
-import { AreaOverlay } from "components/Grids/AreaOverlay";
-import { GridCell } from "components/Grids/GridCell";
-import { LayoutDispatchContext } from "components/Grids/useSetLayout";
-import UiNode from "components/UiNode/UiNode";
-import type { DraggedNodeInfo } from "DragAndDropHelpers/DragAndDropHelpers";
-import type { TemplatedGridProps } from "Shiny-Ui-Elements/GridlayoutGridPage";
-import { makeChildPath } from "Shiny-Ui-Elements/nodePathUtils";
-import type { UiNodeComponent } from "Shiny-Ui-Elements/uiNodeTypes";
-import { usePlaceNode } from "state/uiTree";
-import { useUpdateUiArguments } from "state/useUpdateUiArguments";
-import { findEmptyCells } from "utils/gridTemplates/findItemLocation";
-import { areasToItemLocations } from "utils/gridTemplates/itemLocations";
-import parseGridTemplateAreas from "utils/gridTemplates/parseGridTemplateAreas";
-import type { GridItemExtent } from "utils/gridTemplates/types";
-
+import type { DraggedNodeInfo } from "../../../DragAndDropHelpers/DragAndDropHelpers";
+import type { TemplatedGridProps } from "../../../Shiny-Ui-Elements/GridlayoutGridPage";
+import { makeChildPath } from "../../../Shiny-Ui-Elements/nodePathUtils";
+import type { UiNodeComponent } from "../../../Shiny-Ui-Elements/uiNodeTypes";
+import { usePlaceNode } from "../../../state/uiTree";
+import { useUpdateUiArguments } from "../../../state/useUpdateUiArguments";
+import { findEmptyCells } from "../../../utils/gridTemplates/findItemLocation";
+import { areasToItemLocations } from "../../../utils/gridTemplates/itemLocations";
+import parseGridTemplateAreas from "../../../utils/gridTemplates/parseGridTemplateAreas";
+import type { GridItemExtent } from "../../../utils/gridTemplates/types";
+import UiNode from "../../UiNode/UiNode";
+import { AreaOverlay } from "../AreaOverlay";
 import EditableGridContainer from "../EditableGridContainer/EditableGridContainer";
+import { GridCell } from "../GridCell";
 import type { GridLayoutAction } from "../gridLayoutReducer";
 import { gridLayoutReducer } from "../gridLayoutReducer";
 import { toStringLoc } from "../helpers";
 import type { GridItemNode } from "../isValidGridItem";
 import { isValidGridItem } from "../isValidGridItem";
 import { NameNewPanelModal } from "../NameNewPanelModal";
+import { LayoutDispatchContext } from "../useSetLayout";
 
 import classes from "./styles.module.css";
 

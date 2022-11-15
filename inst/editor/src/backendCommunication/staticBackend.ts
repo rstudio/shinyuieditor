@@ -1,5 +1,6 @@
 import type { MessageFromBackend } from "communication-types";
-import { SHOW_FAKE_PREVIEW } from "env_variables";
+
+import { SHOW_FAKE_PREVIEW } from "../env_variables";
 
 import { getClientsideOnlyTree } from "./getClientsideOnlyTree";
 import type { MessageDispatcher } from "./messageDispatcher";

@@ -1,8 +1,10 @@
 import * as React from "react";
 
 import { useDispatch } from "react-redux";
-import type { ShinyUiRootNode } from "Shiny-Ui-Elements/uiNodeTypes";
-import { INIT_STATE } from "state/uiTree";
+
+import type { ShinyUiRootNode } from "../Shiny-Ui-Elements/uiNodeTypes";
+
+import { INIT_STATE } from "./uiTree";
 
 export function useSetTree() {
   const dispatch = useDispatch();

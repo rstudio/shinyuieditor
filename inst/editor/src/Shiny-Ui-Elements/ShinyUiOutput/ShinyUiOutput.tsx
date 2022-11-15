@@ -1,4 +1,4 @@
-import type { UiNodeComponent } from "Shiny-Ui-Elements/uiNodeTypes";
+import type { UiNodeComponent } from "../uiNodeTypes";
 
 import type { ShinyUiOutputProps } from "./index";
 

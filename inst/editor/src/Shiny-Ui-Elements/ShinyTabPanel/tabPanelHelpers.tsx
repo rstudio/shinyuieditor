@@ -1,5 +1,5 @@
-import { getDefaultSettings } from "components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
-import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
+import { getDefaultSettings } from "../../components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
+import type { ShinyUiNode } from "../uiNodeTypes";
 
 import { shinyTabPanelInfo } from ".";
 

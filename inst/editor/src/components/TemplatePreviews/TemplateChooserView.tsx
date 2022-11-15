@@ -1,5 +1,8 @@
-import Button from "components/Inputs/Button/Button";
-import { EditorSkeleton, PanelHeader } from "EditorSkeleton/EditorSkeleton";
+import {
+  EditorSkeleton,
+  PanelHeader,
+} from "../../EditorSkeleton/EditorSkeleton";
+import Button from "../Inputs/Button/Button";
 
 import { useFilteredTemplates } from "./filterTemplates";
 import { OutputTypeForm } from "./OutputTypeForm";

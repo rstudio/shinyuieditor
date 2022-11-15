@@ -1,12 +1,13 @@
 import * as React from "react";
 
-import type { KnownInputFieldTypes } from "components/Inputs/SettingsFormBuilder/inputFieldTypes";
-import { getNode } from "components/UiNode/TreeManipulation/getNode";
 import omit from "just-omit";
-import { useNodeSelectionState } from "NodeSelectionState";
 import { useDispatch } from "react-redux";
-import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
-import { UPDATE_NODE } from "state/uiTree";
+
+import type { KnownInputFieldTypes } from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";
+import { getNode } from "../components/UiNode/TreeManipulation/getNode";
+import type { ShinyUiNode } from "../main";
+import { useNodeSelectionState } from "../NodeSelectionState";
+import { UPDATE_NODE } from "../state/uiTree";
 
 export function useUpdateSettings(tree: ShinyUiNode) {
   const dispatch = useDispatch();

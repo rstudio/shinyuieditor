@@ -1,9 +1,9 @@
-import TabPanel from "components/Tabs/TabPanel/TabPanel";
-import Tabset from "components/Tabs/Tabset/Tabset";
-import UiNode from "components/UiNode/UiNode";
-import { makeChildPath, pathToString } from "Shiny-Ui-Elements/nodePathUtils";
-import { isValidTabPanel } from "Shiny-Ui-Elements/ShinyTabPanel/isValidTabPanel";
-import type { UiNodeComponent } from "Shiny-Ui-Elements/uiNodeTypes";
+import TabPanel from "../../components/Tabs/TabPanel/TabPanel";
+import Tabset from "../../components/Tabs/Tabset/Tabset";
+import UiNode from "../../components/UiNode/UiNode";
+import { makeChildPath, pathToString } from "../nodePathUtils";
+import { isValidTabPanel } from "../ShinyTabPanel/isValidTabPanel";
+import type { UiNodeComponent } from "../uiNodeTypes";
 
 import type { NavbarPageSettings } from "./index";
 

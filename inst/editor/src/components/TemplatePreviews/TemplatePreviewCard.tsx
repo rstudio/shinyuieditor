@@ -1,10 +1,10 @@
 import React from "react";
 
-import type { TemplateInfo } from "assets/app-templates/app_templates";
-import gridIcon from "assets/icons/shinyGridContainer.png";
-import navbarIcon from "assets/icons/tabsetPanel.png";
-import { PopoverEl } from "components/PopoverEl/PopoverEl";
-import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
+import type { TemplateInfo } from "../../assets/app-templates/app_templates";
+import gridIcon from "../../assets/icons/shinyGridContainer.png";
+import navbarIcon from "../../assets/icons/tabsetPanel.png";
+import type { ShinyUiNode } from "../../main";
+import { PopoverEl } from "../PopoverEl/PopoverEl";
 
 import { AppTemplatePreview } from "./AppTemplatePreview";
 

@@ -1,10 +1,10 @@
-import { useMakeDraggable } from "DragAndDropHelpers/useMakeDraggable";
-import { pathToString } from "Shiny-Ui-Elements/nodePathUtils";
+import { useMakeDraggable } from "../../DragAndDropHelpers/useMakeDraggable";
+import type { ShinyUiNode } from "../../main";
+import { pathToString } from "../../Shiny-Ui-Elements/nodePathUtils";
 import type {
   NodePath,
-  ShinyUiNode,
   UiNodeWrapperProps,
-} from "Shiny-Ui-Elements/uiNodeTypes";
+} from "../../Shiny-Ui-Elements/uiNodeTypes";
 
 import { usePathInformation } from "./usePathInformation";
 

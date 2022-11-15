@@ -1,14 +1,10 @@
 import React from "react";
 
-import { makeChildPath } from "Shiny-Ui-Elements/nodePathUtils";
-import type {
-  NodePath,
-  ShinyUiNames,
-  ShinyUiNode,
-} from "Shiny-Ui-Elements/uiNodeTypes";
-import { usePlaceNode } from "state/uiTree";
-
 import { getIsValidMove } from "../components/UiNode/TreeManipulation/getIsValidMove";
+import type { ShinyUiNode } from "../main";
+import { makeChildPath } from "../Shiny-Ui-Elements/nodePathUtils";
+import type { NodePath, ShinyUiNames } from "../Shiny-Ui-Elements/uiNodeTypes";
+import { usePlaceNode } from "../state/uiTree";
 
 import type { DraggedNodeInfo } from "./DragAndDropHelpers";
 import { useFilteredDrop } from "./useFilteredDrop";

@@ -1,10 +1,6 @@
-import type {
-  CSSMeasure,
-  CSSUnit,
-} from "components/Inputs/CSSUnitInput/CSSMeasure";
-import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
-import type { MapDiscriminatedUnion } from "TypescriptUtils";
-
+import type { ShinyUiNode } from "../../../main";
+import type { MapDiscriminatedUnion } from "../../../TypescriptUtils";
+import type { CSSMeasure, CSSUnit } from "../CSSUnitInput/CSSMeasure";
 import type { NamedList } from "../ListInput/NamedListInput";
 import type { DropdownOption } from "../OptionsDropdown/DropdownSelect";
 import type {

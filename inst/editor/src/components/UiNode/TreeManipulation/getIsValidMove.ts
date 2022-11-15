@@ -1,4 +1,4 @@
-import type { NodePath } from "Shiny-Ui-Elements/uiNodeTypes";
+import type { NodePath } from "../../../Shiny-Ui-Elements/uiNodeTypes";
 
 import { aIsParentOfB } from "./aIsParentOfB";
 import { nodesAreSiblings } from "./nodesAreSiblings";

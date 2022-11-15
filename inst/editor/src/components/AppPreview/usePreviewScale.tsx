@@ -1,7 +1,8 @@
 import React from "react";
 
-import { PROPERTIES_PANEL_WIDTH_PX } from "EditorSkeleton/EditorSkeleton";
 import debounce from "just-debounce-it";
+
+import { PROPERTIES_PANEL_WIDTH_PX } from "../../EditorSkeleton/EditorSkeleton";
 
 import {
   PREVIEW_INSET_HORIZONTAL_PX,

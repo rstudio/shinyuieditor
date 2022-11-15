@@ -1,6 +1,6 @@
-import { PlotPlaceholder } from "components/PlotPlaceholder/PlotPlaceholder";
-import { InputOutputTitle } from "Shiny-Ui-Elements/InputOutputTitle";
-import type { UiNodeComponent } from "Shiny-Ui-Elements/uiNodeTypes";
+import { PlotPlaceholder } from "../../components/PlotPlaceholder/PlotPlaceholder";
+import { InputOutputTitle } from "../InputOutputTitle";
+import type { UiNodeComponent } from "../uiNodeTypes";
 
 import type { PlotlyOutputSettings } from "./index";
 

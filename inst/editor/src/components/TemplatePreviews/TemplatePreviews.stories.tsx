@@ -1,5 +1,5 @@
-import { app_templates } from "assets/app-templates/app_templates";
-import ReduxProvider from "state/ReduxProvider";
+import { app_templates } from "../../assets/app-templates/app_templates";
+import ReduxProvider from "../../state/ReduxProvider";
 
 import { AppTemplatePreview } from "./AppTemplatePreview";
 import { TemplateChooserView } from "./TemplateChooserView";

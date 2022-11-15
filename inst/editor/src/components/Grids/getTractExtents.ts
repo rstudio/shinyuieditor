@@ -1,4 +1,4 @@
-import type { TractDirection } from "Shiny-Ui-Elements/GridlayoutGridPage";
+import type { TractDirection } from "../../Shiny-Ui-Elements/GridlayoutGridPage";
 
 export type TractExtents = { index: number; start: number; end: number }[];
 export function getTractExtents({

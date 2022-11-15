@@ -1,17 +1,19 @@
 import React from "react";
 
-import { PopoverButton } from "components/Inputs/PopoverButton";
-import { nodeDepth } from "components/UiNode/TreeManipulation/nodeDepth";
-import { useSelectedPath } from "NodeSelectionState";
 import { FaPlus } from "react-icons/fa";
-import { makeChildPath } from "Shiny-Ui-Elements/nodePathUtils";
+
+import type { ShinyUiNode } from "../../../main";
+import { useSelectedPath } from "../../../NodeSelectionState";
+import { makeChildPath } from "../../../Shiny-Ui-Elements/nodePathUtils";
 import {
-  newTabPanelNode,
   wrapNodeInTabPanel,
-} from "Shiny-Ui-Elements/ShinyTabPanel/tabPanelHelpers";
-import type { NodePath, ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
-import { usePlaceNode } from "state/uiTree";
-import { seqArray } from "utils/array-helpers";
+  newTabPanelNode,
+} from "../../../Shiny-Ui-Elements/ShinyTabPanel/tabPanelHelpers";
+import type { NodePath } from "../../../Shiny-Ui-Elements/uiNodeTypes";
+import { usePlaceNode } from "../../../state/uiTree";
+import { seqArray } from "../../../utils/array-helpers";
+import { PopoverButton } from "../../Inputs/PopoverButton";
+import { nodeDepth } from "../../UiNode/TreeManipulation/nodeDepth";
 
 import { Tab } from "./Tab";
 import { TabDropDetector } from "./TabDropDetector";

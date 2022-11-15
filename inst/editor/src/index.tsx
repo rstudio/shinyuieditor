@@ -1,8 +1,7 @@
-import { makeMessageDispatcher } from "backendCommunication/messageDispatcher";
-import { setupStaticBackend } from "backendCommunication/staticBackend";
-import type { BackendMessagePassers } from "backendCommunication/useBackendMessageCallbacks";
-import { setupWebsocketBackend } from "backendCommunication/websocketBackend";
-
+import { makeMessageDispatcher } from "./backendCommunication/messageDispatcher";
+import { setupStaticBackend } from "./backendCommunication/staticBackend";
+import type { BackendMessagePassers } from "./backendCommunication/useBackendMessageCallbacks";
+import { setupWebsocketBackend } from "./backendCommunication/websocketBackend";
 import { runSUE } from "./runSUE";
 
 const container = document.getElementById("root");

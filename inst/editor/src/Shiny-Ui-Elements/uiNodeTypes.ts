@@ -1,9 +1,9 @@
 import type React from "react";
 
-import type { DefaultSettingsFromInfo } from "components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
-import type { CustomFormRenderFn } from "components/Inputs/SettingsFormBuilder/FormBuilder";
-import type { DynamicFieldInfo } from "components/Inputs/SettingsFormBuilder/inputFieldTypes";
-import type { DeleteAction, UpdateAction } from "state/uiTree";
+import type { DefaultSettingsFromInfo } from "../components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
+import type { CustomFormRenderFn } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
+import type { DynamicFieldInfo } from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";
+import type { UpdateAction, DeleteAction } from "../state/uiTree";
 
 import { dtDTOutputInfo } from "./DtDtOutput";
 import { gridlayoutGridCardInfo } from "./GridlayoutGridCard";

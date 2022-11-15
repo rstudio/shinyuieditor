@@ -36,4 +36,3 @@ class Disposable {
     }
 }
 exports.Disposable = Disposable;
-//# sourceMappingURL=dispose.js.map

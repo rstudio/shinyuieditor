@@ -1,6 +1,6 @@
-import type { TemplatedGridProps } from "Shiny-Ui-Elements/GridlayoutGridPage";
-import { arrayRange } from "utils/array-helpers";
-import { matrixDimensions } from "utils/matrix-helpers";
+import type { TemplatedGridProps } from "../../Shiny-Ui-Elements/GridlayoutGridPage";
+import { arrayRange } from "../array-helpers";
+import { matrixDimensions } from "../matrix-helpers";
 
 import type { ItemLocation } from "./types";
 export const emptyCell = ".";

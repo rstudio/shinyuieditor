@@ -1,7 +1,7 @@
 import React from "react";
 
-import type { DropHandlerArguments } from "DragAndDropHelpers/useDropHandlers";
-import { useDropHandlers } from "DragAndDropHelpers/useDropHandlers";
+import type { DropHandlerArguments } from "../../DragAndDropHelpers/useDropHandlers";
+import { useDropHandlers } from "../../DragAndDropHelpers/useDropHandlers";
 
 type DropDetectorProps = {
   dropArgs: DropHandlerArguments;

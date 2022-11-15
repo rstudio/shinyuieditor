@@ -1,10 +1,11 @@
 import React from "react";
 
-import StateHistory from "modules/StateHistory";
-import { useDispatch, useSelector } from "react-redux";
-import type { ShinyUiRootNode } from "Shiny-Ui-Elements/uiNodeTypes";
-import type { RootState } from "state/store";
-import { SET_FULL_STATE } from "state/uiTree";
+import { useSelector, useDispatch } from "react-redux";
+
+import StateHistory from "../modules/StateHistory";
+import type { ShinyUiRootNode } from "../Shiny-Ui-Elements/uiNodeTypes";
+import type { RootState } from "../state/store";
+import { SET_FULL_STATE } from "../state/uiTree";
 
 type HistoryEntry = ShinyUiRootNode;
 

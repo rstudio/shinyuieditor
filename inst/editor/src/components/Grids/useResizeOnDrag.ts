@@ -3,10 +3,13 @@ import React from "react";
 import type {
   TemplatedGridProps,
   TractDirection,
-} from "Shiny-Ui-Elements/GridlayoutGridPage";
-import findAvailableTracts from "utils/gridTemplates/findAvailableTracts";
-import type { GridItemExtent, ItemLocation } from "utils/gridTemplates/types";
-import { within } from "utils/within";
+} from "../../Shiny-Ui-Elements/GridlayoutGridPage";
+import findAvailableTracts from "../../utils/gridTemplates/findAvailableTracts";
+import type {
+  GridItemExtent,
+  ItemLocation,
+} from "../../utils/gridTemplates/types";
+import { within } from "../../utils/within";
 
 import type { TractExtents } from "./getTractExtents";
 import { getTractExtents } from "./getTractExtents";

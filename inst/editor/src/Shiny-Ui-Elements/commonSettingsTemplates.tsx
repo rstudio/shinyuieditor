@@ -1,4 +1,4 @@
-import type { DynamicFieldInfoByType } from "components/Inputs/SettingsFormBuilder/inputFieldTypes";
+import type { DynamicFieldInfoByType } from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";
 
 function makeStringInputInfo(
   label: string,

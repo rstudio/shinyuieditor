@@ -1,11 +1,10 @@
-import type {
-  ShinyUiNode,
-  TemplateChooserNode,
-} from "Shiny-Ui-Elements/uiNodeTypes";
-
 /**
  * Basic grid app with a sidebar containging a slider and plot
  */
+
+import type { ShinyUiNode } from "../main";
+import type { TemplateChooserNode } from "../Shiny-Ui-Elements/uiNodeTypes";
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const basicGridPage: ShinyUiNode = {
   uiName: "gridlayout::grid_page",

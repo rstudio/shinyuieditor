@@ -1,6 +1,7 @@
-import type { NodePath, ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
-import { shinyUiNodeInfo } from "Shiny-Ui-Elements/uiNodeTypes";
-import { addAtIndex, moveElement } from "utils/array-helpers";
+import type { ShinyUiNode } from "../../../main";
+import type { NodePath } from "../../../Shiny-Ui-Elements/uiNodeTypes";
+import { shinyUiNodeInfo } from "../../../Shiny-Ui-Elements/uiNodeTypes";
+import { moveElement, addAtIndex } from "../../../utils/array-helpers";
 
 import { getNode } from "./getNode";
 import { getParentPath } from "./getParentPath";

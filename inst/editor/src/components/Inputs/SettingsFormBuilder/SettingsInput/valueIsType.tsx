@@ -1,6 +1,5 @@
-import { isCSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
-import { isNamedList } from "components/Inputs/ListInput/NamedListInput";
-
+import { isCSSMeasure } from "../../CSSUnitInput/CSSMeasure";
+import { isNamedList } from "../../ListInput/NamedListInput";
 import type {
   InputFieldEntryNames,
   KnownInputFieldTypes,

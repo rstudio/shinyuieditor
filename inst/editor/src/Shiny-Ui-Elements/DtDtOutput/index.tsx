@@ -1,6 +1,5 @@
-import icon from "assets/icons/shinyTable.png";
-import type { CSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
-
+import icon from "../../assets/icons/shinyTable.png";
+import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import DtDTOutput from "./DtOutput";

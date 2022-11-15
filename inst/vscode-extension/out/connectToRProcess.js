@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -64,47 +73,48 @@ function sendMsgToProc(msg, proc) {
 }
 const START_SIGNAL = "SUE_START_SIGNAL";
 const END_SIGNAL = "SUE_END_SIGNAL";
-async function runRCommand(cmd, rProc, timeout_ms = 5000) {
-    let logs = "";
-    let seenNonEmptyOutput = false;
-    let seenStartSignal = false;
-    const lines = [];
-    return new Promise((resolve) => {
-        function listenForOutput(d) {
-            const outputLines = d.toString().split("\n");
-            for (const l of outputLines) {
-                logs += l + "\n";
-                if (l.includes(START_SIGNAL)) {
-                    seenStartSignal = true;
-                    continue;
+function runRCommand(cmd, rProc, timeout_ms = 5000) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let logs = "";
+        let seenNonEmptyOutput = false;
+        let seenStartSignal = false;
+        const lines = [];
+        return new Promise((resolve) => {
+            function listenForOutput(d) {
+                const outputLines = d.toString().split("\n");
+                for (const l of outputLines) {
+                    logs += l + "\n";
+                    if (l.includes(START_SIGNAL)) {
+                        seenStartSignal = true;
+                        continue;
+                    }
+                    if (!seenStartSignal) {
+                        continue;
+                    }
+                    if (!seenNonEmptyOutput && l.length === 0) {
+                        continue;
+                    }
+                    if (l.includes(END_SIGNAL)) {
+                        clearTimeout(startTimeout);
+                        resolve(lines);
+                        rProc.stdout.off("data", listenForOutput);
+                        break;
+                    }
+                    // If we're not seeing the start signal or the end signal then we're
+                    // looking at the command
+                    seenNonEmptyOutput = true;
+                    lines.push(l);
                 }
-                if (!seenStartSignal) {
-                    continue;
-                }
-                if (!seenNonEmptyOutput && l.length === 0) {
-                    continue;
-                }
-                if (l.includes(END_SIGNAL)) {
-                    clearTimeout(startTimeout);
-                    resolve(lines);
-                    rProc.stdout.off("data", listenForOutput);
-                    break;
-                }
-                // If we're not seeing the start signal or the end signal then we're
-                // looking at the command
-                seenNonEmptyOutput = true;
-                lines.push(l);
             }
-        }
-        rProc.stdout.on("data", listenForOutput);
-        const startTimeout = setTimeout(() => {
-            throw new Error(`Timeout, no response from run command within ${timeout_ms}ms: ${cmd}\n Logs:\n ${logs}`);
-        }, timeout_ms);
-        sendMsgToProc(`print('${START_SIGNAL}');${cmd};print('${END_SIGNAL}')`, rProc);
+            rProc.stdout.on("data", listenForOutput);
+            const startTimeout = setTimeout(() => {
+                throw new Error(`Timeout, no response from run command within ${timeout_ms}ms: ${cmd}\n Logs:\n ${logs}`);
+            }, timeout_ms);
+            sendMsgToProc(`print('${START_SIGNAL}');${cmd};print('${END_SIGNAL}')`, rProc);
+        });
     });
 }
 function escapeDoubleQuotes(cmd) {
     return cmd.replace(/"/g, `\\"`);
 }
 exports.escapeDoubleQuotes = escapeDoubleQuotes;
-//# sourceMappingURL=connectToRProcess.js.map

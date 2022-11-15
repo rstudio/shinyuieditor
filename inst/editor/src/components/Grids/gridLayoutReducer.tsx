@@ -1,15 +1,18 @@
-import type { CSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
 import clone from "just-clone";
-import type { TractDirection } from "Shiny-Ui-Elements/GridlayoutGridPage";
-import type { TemplatedGridProps } from "Shiny-Ui-Elements/GridlayoutGridPage";
-import addItem from "utils/gridTemplates/addItem";
-import addTract from "utils/gridTemplates/addTract";
-import { removeItems, removeItem } from "utils/gridTemplates/removeItem";
-import removeTract from "utils/gridTemplates/removeTract";
-import { renameItem } from "utils/gridTemplates/renameItem";
-import resizeTract from "utils/gridTemplates/resizeTract";
-import swapItems from "utils/gridTemplates/swapItems";
-import type { GridItemExtent } from "utils/gridTemplates/types";
+
+import type {
+  TractDirection,
+  TemplatedGridProps,
+} from "../../Shiny-Ui-Elements/GridlayoutGridPage";
+import addItem from "../../utils/gridTemplates/addItem";
+import addTract from "../../utils/gridTemplates/addTract";
+import { removeItem, removeItems } from "../../utils/gridTemplates/removeItem";
+import removeTract from "../../utils/gridTemplates/removeTract";
+import { renameItem } from "../../utils/gridTemplates/renameItem";
+import resizeTract from "../../utils/gridTemplates/resizeTract";
+import swapItems from "../../utils/gridTemplates/swapItems";
+import type { GridItemExtent } from "../../utils/gridTemplates/types";
+import type { CSSMeasure } from "../Inputs/CSSUnitInput/CSSMeasure";
 
 export type GridLayoutAction =
   | { type: "ADD_ITEM"; name: string; pos: GridItemExtent }

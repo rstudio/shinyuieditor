@@ -1,11 +1,11 @@
 import * as React from "react";
 
-import { getDefaultSettings } from "components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
-import { PopoverEl } from "components/PopoverEl/PopoverEl";
-import type { ShinyUiNames, ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
-import { shinyUiNodeInfo } from "Shiny-Ui-Elements/uiNodeTypes";
-
+import { getDefaultSettings } from "../components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
+import { PopoverEl } from "../components/PopoverEl/PopoverEl";
 import { useMakeDraggable } from "../DragAndDropHelpers/useMakeDraggable";
+import type { ShinyUiNode } from "../main";
+import type { ShinyUiNames } from "../Shiny-Ui-Elements/uiNodeTypes";
+import { shinyUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
 
 import classes from "./styles.module.css";
 

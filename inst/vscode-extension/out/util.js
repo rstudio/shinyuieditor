@@ -10,4 +10,3 @@ function getNonce() {
     return text;
 }
 exports.getNonce = getNonce;
-//# sourceMappingURL=util.js.map

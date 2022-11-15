@@ -1,7 +1,6 @@
 import React from "react";
 
-import { removeDuplicates } from "utils/array-helpers";
-
+import { removeDuplicates } from "../../../utils/array-helpers";
 import type { InputComponentProps } from "../SettingsFormBuilder/inputFieldTypes";
 import { makeLabelId } from "../SettingsFormBuilder/inputFieldTypes";
 import "./styles.scss";

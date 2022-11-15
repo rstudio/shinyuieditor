@@ -1,9 +1,8 @@
-import type { CSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
+import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
 import type {
   TemplatedGridProps,
   TractDirection,
-} from "Shiny-Ui-Elements/GridlayoutGridPage";
-
+} from "../../Shiny-Ui-Elements/GridlayoutGridPage";
 import { fillArr } from "../array-helpers";
 import { matrixDimensions, uniqueMatrixElements } from "../matrix-helpers";
 

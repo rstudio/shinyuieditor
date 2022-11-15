@@ -1,4 +1,4 @@
-import uiIcon from "assets/icons/shinyImage.png";
+import uiIcon from "../../assets/icons/shinyImage.png";
 
 import type { UiComponentInfo } from "../uiNodeTypes";
 

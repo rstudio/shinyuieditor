@@ -1,7 +1,5 @@
-import type {
-  ShinyUiNode,
-  ShinyUiNodeByName,
-} from "Shiny-Ui-Elements/uiNodeTypes";
+import type { ShinyUiNode } from "../../main";
+import type { ShinyUiNodeByName } from "../../Shiny-Ui-Elements/uiNodeTypes";
 
 // Make it known that the ui children are required here
 export type GridContainerNode = Required<

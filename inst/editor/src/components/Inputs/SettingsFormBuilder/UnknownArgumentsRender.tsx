@@ -1,9 +1,8 @@
-import { Trash } from "components/Icons";
-import { Tooltip, TooltipButton } from "components/PopoverEl/Tooltip";
-import type { ShinyUiNodeByName } from "Shiny-Ui-Elements/uiNodeTypes";
-import { inANotInB } from "utils/array-helpers";
-
 import { isShinyUiNode } from "../../../Shiny-Ui-Elements/isShinyUiNode";
+import type { ShinyUiNodeByName } from "../../../Shiny-Ui-Elements/uiNodeTypes";
+import { inANotInB } from "../../../utils/array-helpers";
+import { Trash } from "../../Icons";
+import { Tooltip, TooltipButton } from "../../PopoverEl/Tooltip";
 
 import type { FormBuilderProps } from "./FormBuilder";
 import type { FormInfo } from "./inputFieldTypes";

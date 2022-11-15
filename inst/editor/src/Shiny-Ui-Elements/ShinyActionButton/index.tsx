@@ -1,10 +1,9 @@
-import buttonIcon from "assets/icons/shinyButton.png";
-import type { CSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
+import buttonIcon from "../../assets/icons/shinyButton.png";
+import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
 import {
   makeInputIdInfo,
   makeLabelInputInfo,
-} from "Shiny-Ui-Elements/commonSettingsTemplates";
-
+} from "../commonSettingsTemplates";
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import ShinyActionButton from "./ShinyActionButton";

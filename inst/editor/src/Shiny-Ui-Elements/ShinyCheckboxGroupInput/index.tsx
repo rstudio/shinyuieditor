@@ -1,11 +1,10 @@
-import icon from "assets/icons/shinyCheckgroup.png";
-import type { CSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
-import type { NamedList } from "components/Inputs/ListInput/NamedListInput";
+import icon from "../../assets/icons/shinyCheckgroup.png";
+import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
+import type { NamedList } from "../../components/Inputs/ListInput/NamedListInput";
 import {
   makeInputIdInfo,
   makeLabelInputInfo,
-} from "Shiny-Ui-Elements/commonSettingsTemplates";
-
+} from "../commonSettingsTemplates";
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import ShinyCheckboxGroupInput from "./ShinyCheckboxGroupInput";

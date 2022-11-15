@@ -1,5 +1,6 @@
 import type { MessageFromBackend, MessageToBackend } from "communication-types";
-import { DEV_MODE } from "env_variables";
+
+import { DEV_MODE } from "../env_variables";
 
 import type { MessageDispatcher } from "./messageDispatcher";
 import type { BackendMessagePassers } from "./useBackendMessageCallbacks";

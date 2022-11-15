@@ -1,6 +1,7 @@
 import produce from "immer";
-import type { TemplatedGridProps } from "Shiny-Ui-Elements/GridlayoutGridPage";
-import { matrixDimensions } from "utils/matrix-helpers";
+
+import type { TemplatedGridProps } from "../../Shiny-Ui-Elements/GridlayoutGridPage";
+import { matrixDimensions } from "../matrix-helpers";
 
 import { emptyCell } from "./itemLocations";
 

@@ -1,5 +1,5 @@
-import { getFirstTabName, getTabNames } from "components/Tabs/Tabset/utils";
-import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
+import type { ShinyUiNode } from "../../../Shiny-Ui-Elements/uiNodeTypes";
+import { getFirstTabName, getTabNames } from "../../Tabs/Tabset/utils";
 
 import { buildStaticFormInfo } from "./buildStaticSettingsInfo";
 import { buildStaticFieldInfo } from "./buildStaticSettingsInfo";

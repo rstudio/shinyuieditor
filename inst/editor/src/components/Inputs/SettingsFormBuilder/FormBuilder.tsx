@@ -1,6 +1,6 @@
 import React from "react";
 
-import type { StringKeys } from "TypescriptUtils";
+import type { StringKeys } from "../../../TypescriptUtils";
 
 import type {
   FormInfo,

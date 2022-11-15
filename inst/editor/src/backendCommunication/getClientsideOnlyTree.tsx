@@ -1,6 +1,5 @@
-import { TESTING_MODE } from "env_variables";
-import type { ShinyUiRootNode } from "Shiny-Ui-Elements/uiNodeTypes";
-
+import { TESTING_MODE } from "../env_variables";
+import type { ShinyUiRootNode } from "../Shiny-Ui-Elements/uiNodeTypes";
 import { sampleAppTree, testingUiTree } from "../state/backupUiTree";
 
 /**

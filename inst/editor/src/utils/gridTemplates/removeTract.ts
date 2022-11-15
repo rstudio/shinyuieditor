@@ -1,7 +1,9 @@
-import type { TemplatedGridProps } from "Shiny-Ui-Elements/GridlayoutGridPage";
-import type { TractDirection } from "Shiny-Ui-Elements/GridlayoutGridPage";
-import { joinPretty, removeAtIndex } from "utils/array-helpers";
-import { removeRowOrCol } from "utils/matrix-helpers";
+import type {
+  TemplatedGridProps,
+  TractDirection,
+} from "../../Shiny-Ui-Elements/GridlayoutGridPage";
+import { joinPretty, removeAtIndex } from "../array-helpers";
+import { removeRowOrCol } from "../matrix-helpers";
 
 import { itemBoundsInDir } from "./itemBoundsInDir";
 import { areasToItemLocations } from "./itemLocations";
@@ -83,8 +85,9 @@ function itemsContainedInTract(
 ): string[] {
   let inTract: string[] = [];
   items.forEach((item, itemName) => {
-    const { itemStart, itemEnd } = itemBoundsInDir(item, dir);
-
+    const bounds = itemBoundsInDir(item, dir);
+    if (!bounds) return;
+    const { itemStart, itemEnd } = bounds;
     if (itemStart === index && itemStart === itemEnd) {
       inTract.push(itemName);
     }

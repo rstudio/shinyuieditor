@@ -1,13 +1,14 @@
 import * as React from "react";
 
-import { Trash } from "components/Icons";
-import { parseCSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
-import { CSSUnitChooser } from "components/Inputs/CSSUnitInput/CSSUnitChooser";
-import { NumberInputSimple } from "components/Inputs/NumberInput/NumberInput";
-import { TooltipButton } from "components/PopoverEl/Tooltip";
 import { FaPlus } from "react-icons/fa";
-import type { TemplatedGridProps } from "Shiny-Ui-Elements/GridlayoutGridPage";
-import { conflictsToRemoveTract } from "utils/gridTemplates/removeTract";
+
+import type { TemplatedGridProps } from "../../../Shiny-Ui-Elements/GridlayoutGridPage";
+import { conflictsToRemoveTract } from "../../../utils/gridTemplates/removeTract";
+import { Trash } from "../../Icons";
+import { parseCSSMeasure } from "../../Inputs/CSSUnitInput/CSSMeasure";
+import { CSSUnitChooser } from "../../Inputs/CSSUnitInput/CSSUnitChooser";
+import { NumberInputSimple } from "../../Inputs/NumberInput/NumberInput";
+import { TooltipButton } from "../../PopoverEl/Tooltip";
 
 import { getUnitInfo } from "./dragToResizeHelpers";
 import type { TractUpdateAction } from "./EditableGridContainer";

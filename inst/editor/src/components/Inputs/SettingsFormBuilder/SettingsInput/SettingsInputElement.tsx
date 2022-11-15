@@ -1,11 +1,11 @@
-import { BooleanInput } from "components/Inputs/BooleanInput/BooleanInputSimple";
-import { CSSUnitInput } from "components/Inputs/CSSUnitInput/CSSUnitInput";
-import { NamedListInput } from "components/Inputs/ListInput/NamedListInput";
-import { NumberInput } from "components/Inputs/NumberInput/NumberInput";
-import { DropdownSelect } from "components/Inputs/OptionsDropdown/DropdownSelect";
-import { RadioInputs } from "components/Inputs/RadioInputs/RadioInputsSimple";
 import { match } from "ts-pattern";
 
+import { BooleanInput } from "../../BooleanInput/BooleanInputSimple";
+import { CSSUnitInput } from "../../CSSUnitInput/CSSUnitInput";
+import { NamedListInput } from "../../ListInput/NamedListInput";
+import { NumberInput } from "../../NumberInput/NumberInput";
+import { DropdownSelect } from "../../OptionsDropdown/DropdownSelect";
+import { RadioInputs } from "../../RadioInputs/RadioInputsSimple";
 import type { FieldEntryUnion, KnownInputFieldTypes } from "../inputFieldTypes";
 
 import { StringInput } from "./StringInput";

@@ -1,10 +1,11 @@
 import * as React from "react";
 
-import PngIcon from "components/Icons";
-import Button from "components/Inputs/Button/Button";
 import type { CallBackProps, Step, Styles } from "react-joyride";
 import Joyride, { ACTIONS, EVENTS } from "react-joyride";
-import { useInTemplateChooserMode } from "state/useInTemplateChooserMode";
+
+import PngIcon from "../components/Icons";
+import Button from "../components/Inputs/Button/Button";
+import { useInTemplateChooserMode } from "../state/useInTemplateChooserMode";
 
 import { AppPreviewAbout } from "./AppPreviewAbout";
 import { AppViewAbout } from "./AppViewAbout";

@@ -1,8 +1,8 @@
-import type { CSSMeasure } from "components/Inputs/CSSUnitInput/CSSMeasure";
 import type {
   TemplatedGridProps,
   TractDirection,
-} from "Shiny-Ui-Elements/GridlayoutGridPage";
+} from "../../../Shiny-Ui-Elements/GridlayoutGridPage";
+import type { CSSMeasure } from "../../Inputs/CSSUnitInput/CSSMeasure";
 
 export function buildRange(from: number, to: number): number[] {
   const numEls = Math.abs(to - from) + 1;

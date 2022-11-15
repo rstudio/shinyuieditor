@@ -1,13 +1,14 @@
-import { areasOfChildren } from "components/Grids/areasOfChildren";
-import { gridLayoutReducer } from "components/Grids/gridLayoutReducer";
-import { getNode } from "components/UiNode/TreeManipulation/getNode";
-import { getChildIndex } from "components/UiNode/TreeManipulation/getParentPath";
-import type { RemoveNodeArguments } from "components/UiNode/TreeManipulation/removeNode";
-import type { UpdateNodeArguments } from "components/UiNode/TreeManipulation/updateNode";
-import type { GridCardSettings } from "Shiny-Ui-Elements/GridlayoutGridCard";
-import type { NodePath, ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
-import { emptyCell } from "utils/gridTemplates/itemLocations";
+import type { ShinyUiNode } from "../../main";
+import type { GridCardSettings } from "../../Shiny-Ui-Elements/GridlayoutGridCard";
+import type { NodePath } from "../../Shiny-Ui-Elements/uiNodeTypes";
+import { emptyCell } from "../../utils/gridTemplates/itemLocations";
+import { getNode } from "../UiNode/TreeManipulation/getNode";
+import { getChildIndex } from "../UiNode/TreeManipulation/getParentPath";
+import type { RemoveNodeArguments } from "../UiNode/TreeManipulation/removeNode";
+import type { UpdateNodeArguments } from "../UiNode/TreeManipulation/updateNode";
 
+import { areasOfChildren } from "./areasOfChildren";
+import { gridLayoutReducer } from "./gridLayoutReducer";
 import type { GridContainerNode } from "./isValidGridContainer";
 import { isValidGridContainer } from "./isValidGridContainer";
 

@@ -1,6 +1,6 @@
-import { AppTour } from "AppTour";
-import SvgShinyLogo from "components/Icons/ShinyLogo";
-import { UndoRedoButtons } from "components/UndoRedoButtons/UndoRedoButtons";
+import { AppTour } from "../AppTour";
+import SvgShinyLogo from "../components/Icons/ShinyLogo";
+import { UndoRedoButtons } from "../components/UndoRedoButtons/UndoRedoButtons";
 
 export function AppHeader() {
   return (

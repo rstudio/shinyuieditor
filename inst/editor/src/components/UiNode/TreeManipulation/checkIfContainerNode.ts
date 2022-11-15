@@ -1,4 +1,4 @@
-import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
+import type { ShinyUiNode } from "../../../main";
 
 /**
  * Like Required but you can choose what subset of properties are required

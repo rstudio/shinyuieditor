@@ -1,11 +1,11 @@
-// import type { ShinyUiNode } from "editor";
 // import { runSUE } from "@editor/main";
+import type { ShinyUiNode } from "editor";
 
-type ShinyUiNode = {
-  uiName: string;
-  uiArguments: Record<string, unknown>;
-  uiChildren?: ShinyUiNode[];
-};
+// type ShinyUiNode = {
+//   uiName: string;
+//   uiArguments: Record<string, unknown>;
+//   uiChildren?: ShinyUiNode[];
+// };
 
 /**
  * Defines basic information needed to build an app template for the template viewer

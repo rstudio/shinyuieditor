@@ -1,5 +1,5 @@
-import type { StateUpdateSubscribers } from "Shiny-Ui-Elements/uiNodeTypes";
-import { shinyUiNodeInfo } from "Shiny-Ui-Elements/uiNodeTypes";
+import type { StateUpdateSubscribers } from "../Shiny-Ui-Elements/uiNodeTypes";
+import { shinyUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
 
 function getUniqueSubscriptions<T extends keyof StateUpdateSubscribers>(
   type: T

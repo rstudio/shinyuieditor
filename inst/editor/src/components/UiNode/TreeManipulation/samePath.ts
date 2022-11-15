@@ -1,11 +1,11 @@
-import type { NodePath } from "Shiny-Ui-Elements/uiNodeTypes";
-import { sameArray } from "utils/equalityCheckers";
-
 /**
  * Are two node paths the same?
  * @param aPath Path to node A
  * @param bPath Path to node B
  */
+
+import type { NodePath } from "../../../Shiny-Ui-Elements/uiNodeTypes";
+import { sameArray } from "../../../utils/equalityCheckers";
 
 export function samePath(
   aPath: NodePath | undefined | null,

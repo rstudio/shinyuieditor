@@ -2,7 +2,8 @@
   "extends": "tsconfig/base.json",
   "compilerOptions": {
     "module": "commonjs",
-    "rootDir": "src"
+    "rootDir": "src",
+    "outDir": "out"
   },
   "include": ["src/"],
   "exclude": ["node_modules", ".vscode-test"]

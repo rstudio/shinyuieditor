@@ -1,11 +1,11 @@
 import * as React from "react";
 
-import { PanelHeader } from "EditorSkeleton/EditorSkeleton";
+import { PanelHeader } from "../EditorSkeleton/EditorSkeleton";
 import type {
   ShinyUiNames,
   ShinyUiNodeInfo,
-} from "Shiny-Ui-Elements/uiNodeTypes";
-import { shinyUiNodeInfo } from "Shiny-Ui-Elements/uiNodeTypes";
+} from "../Shiny-Ui-Elements/uiNodeTypes";
+import { shinyUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
 
 import classes from "./styles.module.css";
 import { UiElementIcon } from "./UiElementIcon";

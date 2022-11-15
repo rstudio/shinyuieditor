@@ -1,4 +1,4 @@
-import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
+import type { ShinyUiNode } from "../main";
 
 export function isShinyUiNode(x: unknown): x is ShinyUiNode {
   return (

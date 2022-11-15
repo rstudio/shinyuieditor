@@ -1,13 +1,13 @@
 import React from "react";
 
-import DeleteNodeButton from "components/DeleteNodeButton";
+import DeleteNodeButton from "../../components/DeleteNodeButton";
 import {
   BsCard,
   BsCardHeader,
-} from "components/Grids/GridLayoutPanelHelpers/GridCards";
-import UiNode from "components/UiNode/UiNode";
-import { makeChildPath } from "Shiny-Ui-Elements/nodePathUtils";
-import type { NodePath, UiNodeComponent } from "Shiny-Ui-Elements/uiNodeTypes";
+} from "../../components/Grids/GridLayoutPanelHelpers/GridCards";
+import UiNode from "../../components/UiNode/UiNode";
+import { makeChildPath } from "../nodePathUtils";
+import type { UiNodeComponent, NodePath } from "../uiNodeTypes";
 
 import type { GridCardSettings } from "./index";
 

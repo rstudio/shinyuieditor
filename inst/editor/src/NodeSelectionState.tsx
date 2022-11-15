@@ -1,9 +1,10 @@
 import * as React from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import type { NodePath } from "Shiny-Ui-Elements/uiNodeTypes";
-import { SET_SELECTION } from "state/selectedPath";
-import type { RootState } from "state/store";
+
+import type { NodePath } from "./Shiny-Ui-Elements/uiNodeTypes";
+import { SET_SELECTION } from "./state/selectedPath";
+import type { RootState } from "./state/store";
 
 type NodeSelectionState = [NodePath | null, (path: NodePath | null) => void];
 

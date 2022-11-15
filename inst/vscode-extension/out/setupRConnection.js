@@ -22,6 +22,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -53,25 +62,27 @@ function getRfromEnvPath(platform) {
     }
     return "";
 }
-async function getRpathFromSystem() {
-    let rpath = "";
-    const platform = process.platform;
-    rpath || (rpath = getRfromEnvPath(platform));
-    if (!rpath && platform === "win32") {
-        // Find path from registry
-        try {
-            const key = new winreg({
-                hive: winreg.HKLM,
-                key: "\\Software\\R-Core\\R",
-            });
-            const item = await new Promise((c, e) => key.get("InstallPath", (err, result) => err === null ? c(result) : e(err)));
-            rpath = path_1.default.join(item.value, "bin", "R.exe");
+function getRpathFromSystem() {
+    return __awaiter(this, void 0, void 0, function* () {
+        let rpath = "";
+        const platform = process.platform;
+        rpath || (rpath = getRfromEnvPath(platform));
+        if (!rpath && platform === "win32") {
+            // Find path from registry
+            try {
+                const key = new winreg({
+                    hive: winreg.HKLM,
+                    key: "\\Software\\R-Core\\R",
+                });
+                const item = yield new Promise((c, e) => key.get("InstallPath", (err, result) => err === null ? c(result) : e(err)));
+                rpath = path_1.default.join(item.value, "bin", "R.exe");
+            }
+            catch (e) {
+                rpath = "";
+            }
         }
-        catch (e) {
-            rpath = "";
-        }
-    }
-    return rpath;
+        return rpath;
+    });
 }
 exports.getRpathFromSystem = getRpathFromSystem;
 function getRPathConfigEntry(term = false) {
@@ -84,36 +95,37 @@ function getRPathConfigEntry(term = false) {
     return `${trunc}.${platform}`;
 }
 exports.getRPathConfigEntry = getRPathConfigEntry;
-async function getRpath(quote = false, overwriteConfig) {
-    let rpath = "";
-    // try the config entry specified in the function arg:
-    if (overwriteConfig) {
-        rpath = config().get(overwriteConfig);
-    }
-    // try the os-specific config entry for the rpath:
-    const configEntry = getRPathConfigEntry();
-    rpath || (rpath = config().get(configEntry));
-    // read from path/registry:
-    rpath || (rpath = await getRpathFromSystem());
-    // represent all invalid paths (undefined, '', null) as undefined:
-    rpath || (rpath = undefined);
-    if (!rpath) {
-        // inform user about missing R path:
-        void vscode.window.showErrorMessage(`Cannot find R to use for help, package installation etc. Change setting r.${configEntry} to R path.`);
-    }
-    else if (quote && /^[^'"].* .*[^'"]$/.exec(rpath)) {
-        // if requested and rpath contains spaces, add quotes:
-        rpath = `"${rpath}"`;
-    }
-    else if (!quote) {
-        rpath = rpath.replace(/^"(.*)"$/, "$1");
-        rpath = rpath.replace(/^'(.*)'$/, "$1");
-    }
-    else if (process.platform === "win32" && /^'.* .*'$/.exec(rpath)) {
-        // replace single quotes with double quotes on windows
-        rpath = rpath.replace(/^'(.*)'$/, '"$1"');
-    }
-    return rpath;
+function getRpath(quote = false, overwriteConfig) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let rpath = "";
+        // try the config entry specified in the function arg:
+        if (overwriteConfig) {
+            rpath = config().get(overwriteConfig);
+        }
+        // try the os-specific config entry for the rpath:
+        const configEntry = getRPathConfigEntry();
+        rpath || (rpath = config().get(configEntry));
+        // read from path/registry:
+        rpath || (rpath = yield getRpathFromSystem());
+        // represent all invalid paths (undefined, '', null) as undefined:
+        rpath || (rpath = undefined);
+        if (!rpath) {
+            // inform user about missing R path:
+            void vscode.window.showErrorMessage(`Cannot find R to use for help, package installation etc. Change setting r.${configEntry} to R path.`);
+        }
+        else if (quote && /^[^'"].* .*[^'"]$/.exec(rpath)) {
+            // if requested and rpath contains spaces, add quotes:
+            rpath = `"${rpath}"`;
+        }
+        else if (!quote) {
+            rpath = rpath.replace(/^"(.*)"$/, "$1");
+            rpath = rpath.replace(/^'(.*)'$/, "$1");
+        }
+        else if (process.platform === "win32" && /^'.* .*'$/.exec(rpath)) {
+            // replace single quotes with double quotes on windows
+            rpath = rpath.replace(/^'(.*)'$/, '"$1"');
+        }
+        return rpath;
+    });
 }
 exports.getRpath = getRpath;
-//# sourceMappingURL=setupRConnection.js.map

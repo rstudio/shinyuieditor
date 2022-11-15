@@ -2,25 +2,25 @@ import React from "react";
 
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import { getDefaultSettings } from "components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
-import type { PlaceNodeArguments } from "components/UiNode/TreeManipulation/placeNode";
-import { placeNodeMutating } from "components/UiNode/TreeManipulation/placeNode";
-import type { RemoveNodeArguments } from "components/UiNode/TreeManipulation/removeNode";
-import { removeNodeMutating } from "components/UiNode/TreeManipulation/removeNode";
-import type { UpdateNodeArguments } from "components/UiNode/TreeManipulation/updateNode";
-import { updateNodeMutating } from "components/UiNode/TreeManipulation/updateNode";
 import { useDispatch } from "react-redux";
-import { isShinyUiNode } from "Shiny-Ui-Elements/isShinyUiNode";
-import type {
-  ShinyUiNode,
-  ShinyUiRootNode,
-} from "Shiny-Ui-Elements/uiNodeTypes";
-import { shinyUiNodeInfo } from "Shiny-Ui-Elements/uiNodeTypes";
+
+import { getDefaultSettings } from "../components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
+import type { PlaceNodeArguments } from "../components/UiNode/TreeManipulation/placeNode";
+import { placeNodeMutating } from "../components/UiNode/TreeManipulation/placeNode";
+import type { RemoveNodeArguments } from "../components/UiNode/TreeManipulation/removeNode";
+import { removeNodeMutating } from "../components/UiNode/TreeManipulation/removeNode";
+import type { UpdateNodeArguments } from "../components/UiNode/TreeManipulation/updateNode";
+import { updateNodeMutating } from "../components/UiNode/TreeManipulation/updateNode";
+import type { ShinyUiNode } from "../main";
+import { isShinyUiNode } from "../Shiny-Ui-Elements/isShinyUiNode";
+import type { ShinyUiRootNode } from "../Shiny-Ui-Elements/uiNodeTypes";
+import { shinyUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
+import { subtractElements } from "../utils/array-helpers";
+
 import {
-  deleteSubscriptions,
   updateSubscriptions,
-} from "state/watcherSubscriptions";
-import { subtractElements } from "utils/array-helpers";
+  deleteSubscriptions,
+} from "./watcherSubscriptions";
 
 // Note: The reducer callbacks use immer so the mutations we make to the object
 // are safe and we just make the needed mutations to the tree object and don't

@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import "DragAndDropHelpers/DragAndDrop.css";
+import "../DragAndDropHelpers/DragAndDrop.css";
 
 export const ElementsPanelAbout = (
   <div>

@@ -1,10 +1,10 @@
 import React from "react";
 
-import { PanelHeader } from "EditorSkeleton/EditorSkeleton";
 import { AiOutlineShrink } from "react-icons/ai";
 import { FaExpand } from "react-icons/fa";
 import { VscDebugRestart } from "react-icons/vsc";
 
+import { PanelHeader } from "../../EditorSkeleton/EditorSkeleton";
 import Button from "../Inputs/Button/Button";
 
 import classes from "./AppPreview.module.css";

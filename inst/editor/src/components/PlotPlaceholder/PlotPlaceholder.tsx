@@ -1,7 +1,8 @@
 import React from "react";
 
-import { TESTING_MODE } from "env_variables";
-import { seqArray } from "utils/array-helpers";
+import { TESTING_MODE } from "../../env_variables";
+import { seqArray } from "../../utils/array-helpers";
+
 import "./styles.scss";
 
 const NUM_BARS = 11;

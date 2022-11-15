@@ -1,9 +1,11 @@
 import React from "react";
 
 import { useDispatch } from "react-redux";
-import type { TemplatedGridProps } from "Shiny-Ui-Elements/GridlayoutGridPage";
-import type { NodePath } from "Shiny-Ui-Elements/uiNodeTypes";
-import { UPDATE_NODE } from "state/uiTree";
+
+import type { TemplatedGridProps } from "../Shiny-Ui-Elements/GridlayoutGridPage";
+import type { NodePath } from "../Shiny-Ui-Elements/uiNodeTypes";
+
+import { UPDATE_NODE } from "./uiTree";
 
 export function useUpdateUiArguments(path: NodePath) {
   const dispatch = useDispatch();

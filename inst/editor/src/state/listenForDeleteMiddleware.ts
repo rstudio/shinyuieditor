@@ -1,6 +1,7 @@
 import { createListenerMiddleware } from "@reduxjs/toolkit";
-import { nodesShareCommonParent } from "components/UiNode/TreeManipulation/nodesShareCommonParent";
-import { sameArray } from "utils/equalityCheckers";
+
+import { nodesShareCommonParent } from "../components/UiNode/TreeManipulation/nodesShareCommonParent";
+import { sameArray } from "../utils/equalityCheckers";
 
 import { SET_SELECTION, STEP_BACK_SELECTION } from "./selectedPath";
 import type { RootState } from "./store";

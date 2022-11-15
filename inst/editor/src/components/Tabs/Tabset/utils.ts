@@ -1,5 +1,5 @@
-import { isValidTabPanel } from "Shiny-Ui-Elements/ShinyTabPanel/isValidTabPanel";
-import type { ShinyUiNode } from "Shiny-Ui-Elements/uiNodeTypes";
+import type { ShinyUiNode } from "../../../main";
+import { isValidTabPanel } from "../../../Shiny-Ui-Elements/ShinyTabPanel/isValidTabPanel";
 
 export function getTabPanelTitle(node: ShinyUiNode): string | null {
   if (isValidTabPanel(node)) {

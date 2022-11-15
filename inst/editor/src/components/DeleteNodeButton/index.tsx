@@ -1,9 +1,9 @@
-import { useDeleteNode } from "components/DeleteNodeButton/useDeleteNode";
-import { Trash } from "components/Icons";
-import Button from "components/Inputs/Button/Button";
-import type { NodePath } from "Shiny-Ui-Elements/uiNodeTypes";
+import type { NodePath } from "../../Shiny-Ui-Elements/uiNodeTypes";
+import { Trash } from "../Icons";
+import Button from "../Inputs/Button/Button";
 
 import classes from "./styles.module.css";
+import { useDeleteNode } from "./useDeleteNode";
 
 function DeleteNodeButton({
   path,

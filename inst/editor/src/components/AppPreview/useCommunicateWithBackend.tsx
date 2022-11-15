@@ -1,7 +1,8 @@
 import React from "react";
 
-import { useBackendCallbacks } from "backendCommunication/useBackendMessageCallbacks";
 import type { MessageFromBackendByPath } from "communication-types";
+
+import { useBackendCallbacks } from "../../backendCommunication/useBackendMessageCallbacks";
 
 export type AppLogs = string[];
 

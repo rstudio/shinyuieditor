@@ -1,6 +1,8 @@
-import icon from "assets/icons/tabsetPanel.png";
-import { getFirstTabName, getTabNames } from "components/Tabs/Tabset/utils";
-
+import icon from "../../assets/icons/tabsetPanel.png";
+import {
+  getFirstTabName,
+  getTabNames,
+} from "../../components/Tabs/Tabset/utils";
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import ShinyTabsetPanel from "./ShinyTabsetPanel";
