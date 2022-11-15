@@ -1,4 +1,5 @@
-// import type { ShinyUiNode } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
+// import type { ShinyUiNode } from "editor";
+// import { runSUE } from "@editor/main";
 
 type ShinyUiNode = {
   uiName: string;

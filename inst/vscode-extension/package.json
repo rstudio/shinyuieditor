@@ -51,7 +51,8 @@
     "typescript": "^4.8.4"
   },
   "dependencies": {
-    "communication-types": "",
+    "communication-types": "*",
+    "tsconfig": "*",
     "winreg": "^1.2.4"
   }
 }

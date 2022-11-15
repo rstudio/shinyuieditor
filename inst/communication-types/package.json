@@ -1,8 +1,14 @@
 {
   "name": "communication-types",
+  "main": "./index.ts",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "editor": "0.1.0"
+    "editor": "*",
+    "tsconfig": "*",
+    "typescript": "latest"
+  },
+  "scripts": {
+    "type-check": "tsc -p ./ --noEmit"
   }
 }
