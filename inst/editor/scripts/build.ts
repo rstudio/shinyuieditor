@@ -14,7 +14,6 @@ type PossibleArgs =
   | "serve"
   | "playwright"
   | "watch"
-  | "vscode"
   | "test"
   | "prod"
   | "website-demo";
@@ -22,17 +21,13 @@ type PossibleArgs =
 const hasBooleanArg = (prop: `--${PossibleArgs}`) =>
   process.argv.some((x) => x === prop);
 
-const buildDir = hasBooleanArg("--vscode")
-  ? "../vscode-extension/media/"
-  : hasBooleanArg("--website-demo")
+const buildDir = hasBooleanArg("--website-demo")
   ? "../../vignettes/demo-app/"
   : "build/";
 const assetsDir = `${buildDir}build/`;
 
 const openBrowser = !hasBooleanArg("--test");
-const entryFile = hasBooleanArg("--vscode")
-  ? "src/index_for_vscode.tsx"
-  : "src/index.tsx";
+const entryFile = "src/index.tsx";
 
 let port = hasBooleanArg("--playwright") ? 3001 : 3032;
 const portSearchRes = process.argv.find(

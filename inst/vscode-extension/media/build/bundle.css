@@ -10427,7 +10427,7 @@ fieldset:disabled .btn {
   }
 }
 
-/* src/App.css */
+/* ../editor/src/App.css */
 :root {
   --bg-color: #edf2f7;
   --rstudio-blue-h: 209;
@@ -10556,7 +10556,7 @@ dialog::backdrop {
   border-radius: inherit;
 }
 
-/* src/Shiny-Ui-Elements/DtDtOutput/styles.scss */
+/* ../editor/src/Shiny-Ui-Elements/DtDtOutput/styles.scss */
 .dtDTOutput {
   position: relative;
   height: 100%;
@@ -10604,7 +10604,7 @@ dialog::backdrop {
   --cell-color: hsl(218deg, 33%, 97%);
 }
 
-/* src/DragAndDropHelpers/DragAndDrop.css */
+/* ../editor/src/DragAndDropHelpers/DragAndDrop.css */
 .can-accept-drop {
   --start-opacity: 0.1;
   --end-opacity: 0.5;
@@ -10646,7 +10646,7 @@ div.can-accept-drop.hovering-over::after {
   content: "release to add";
 }
 
-/* src/components/Inputs/NumberInput/NumberInput.scss */
+/* ../editor/src/components/Inputs/NumberInput/NumberInput.scss */
 .NumberInput {
   --increment-btn-w: 20px;
   height: var(--input-height);
@@ -10929,7 +10929,7 @@ button[aria-label][data-balloon-pos] {
   width: 100%;
 }
 
-/* src/EditorSkeleton/styles.scss */
+/* ../editor/src/EditorSkeleton/styles.scss */
 .EditorSkeleton {
   --header-height: 31px;
   --padding: var(--horizontal-spacing);
@@ -10996,7 +10996,7 @@ button[aria-label][data-balloon-pos] {
   color: var(--rstudio-white);
 }
 
-/* src/components/Inputs/SettingsFormBuilder/SettingsInput/SettingsInput.scss */
+/* ../editor/src/components/Inputs/SettingsFormBuilder/SettingsInput/SettingsInput.scss */
 .SUE-SettingsInput {
   display: block;
   margin-block: var(--vertical-spacing-top) var(--vertical-spacing-bottom);
@@ -11039,21 +11039,21 @@ button[aria-label][data-balloon-pos] {
   content: ":";
 }
 
-/* src/components/Inputs/OptionsDropdown/styles.scss */
+/* ../editor/src/components/Inputs/OptionsDropdown/styles.scss */
 .OptionsDropdown {
   border-radius: var(--corner-radius);
   padding: 2px 5px;
   width: 100%;
 }
 
-/* src/Shiny-Ui-Elements/GridlayoutGridContainer/styles.scss */
+/* ../editor/src/Shiny-Ui-Elements/GridlayoutGridContainer/styles.scss */
 .container {
   position: relative;
   height: 100%;
   width: 100%;
 }
 
-/* src/components/PlotPlaceholder/styles.scss */
+/* ../editor/src/components/PlotPlaceholder/styles.scss */
 .PlotPlaceholder {
   container-type: size;
   height: 100%;
@@ -11123,7 +11123,7 @@ button[aria-label][data-balloon-pos] {
   }
 }
 
-/* src/Shiny-Ui-Elements/PlotlyPlotlyOutput/styles.scss */
+/* ../editor/src/Shiny-Ui-Elements/PlotlyPlotlyOutput/styles.scss */
 .plotlyPlotlyOutput {
   position: relative;
   height: 100%;
@@ -11138,7 +11138,7 @@ button[aria-label][data-balloon-pos] {
   color: var(--rstudio-blue);
 }
 
-/* src/Shiny-Ui-Elements/UnknownUiFunction/styles.scss */
+/* ../editor/src/Shiny-Ui-Elements/UnknownUiFunction/styles.scss */
 .unknown-ui-function-display {
   --gap: 10px;
   width: calc(100% - var(--gap));
@@ -11164,7 +11164,7 @@ button[aria-label][data-balloon-pos] {
   padding: 5px;
 }
 
-/* src/components/TemplatePreviews/styles.scss */
+/* ../editor/src/components/TemplatePreviews/styles.scss */
 .AppTemplatePreview {
   overflow: hidden;
   isolation: isolate;
@@ -11263,7 +11263,7 @@ button[aria-label][data-balloon-pos] {
   gap: 3px;
 }
 
-/* src/components/Inputs/SettingsFormBuilder/styles.scss */
+/* ../editor/src/components/Inputs/SettingsFormBuilder/styles.scss */
 .FormBuilder {
   --vertical-spacing-top: 12px;
   --vertical-spacing-bottom: 14px;
@@ -11323,7 +11323,7 @@ input {
   opacity: 0.5;
 }
 
-/* src/EditorContainer/styles.scss */
+/* ../editor/src/EditorContainer/styles.scss */
 .EditorContainer {
   --header-height: 31px;
   --padding: var(--horizontal-spacing);

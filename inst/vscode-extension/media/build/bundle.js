@@ -27336,7 +27336,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     return "path" in x2;
   }
 
-  // src/backendCommunication/messageDispatcher.ts
+  // ../editor/src/backendCommunication/messageDispatcher.ts
   function makeMessageDispatcher(log_msgs = false) {
     const logger = (msg) => log_msgs ? null : console.log(msg);
     let subscriptions = {};
@@ -27355,10 +27355,10 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     return { subscribe, dispatch };
   }
 
-  // src/runSUE.tsx
+  // ../editor/src/runSUE.tsx
   var import_client = __toESM(require_client());
 
-  // src/backendCommunication/useBackendMessageCallbacks.tsx
+  // ../editor/src/backendCommunication/useBackendMessageCallbacks.tsx
   var import_react = __toESM(require_react());
   var import_jsx_runtime = __toESM(require_jsx_runtime());
   var dummyMessagePassers = {
@@ -27384,7 +27384,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     return import_react.default.useContext(BackendCallbacksContext);
   }
 
-  // src/backendCommunication/useSyncUiWithBackend.tsx
+  // ../editor/src/backendCommunication/useSyncUiWithBackend.tsx
   var React53 = __toESM(require_react());
 
   // ../../node_modules/just-debounce-it/index.mjs
@@ -27697,10 +27697,10 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   initializeConnect(import_shim.useSyncExternalStore);
   setBatch(import_react_dom.unstable_batchedUpdates);
 
-  // src/state/useSetTree.tsx
+  // ../editor/src/state/useSetTree.tsx
   var React52 = __toESM(require_react());
 
-  // src/state/uiTree.ts
+  // ../editor/src/state/uiTree.ts
   var import_react41 = __toESM(require_react());
 
   // ../../node_modules/immer/dist/immer.esm.mjs
@@ -30038,7 +30038,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   };
   N();
 
-  // src/components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo.ts
+  // ../editor/src/components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo.ts
   function isNodeToValueFn(x2) {
     return typeof x2 === "function";
   }
@@ -30083,10 +30083,10 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     return defaultArgs;
   }
 
-  // src/assets/icons/shinyTable.png
+  // ../editor/src/assets/icons/shinyTable.png
   var shinyTable_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAEAElEQVR4nO3dvW4cVRyG8ceIj4KUcAfbIKIAFlIqXwEIylUiKmwp0KO5iK3S8SEnNAhrSxBwA25CEQckojTTcgchUkyxFDMLloVWLN53Z/6r59eMHU9W51jPnpXmyDN7i8UCadNeGHoA2k2GpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqUIw1KEYSnCsBRhWIowLEUYliIMSxGGpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqUIw1KEYSnCsBRhWIowLEUYliIMSxGGpYgXhx7Aupp5e/mf9oFbwAHwJnBt22PasKfAY+AUOAHOLv5wNp0MMaa1VV+xjoGHwGfATepHBd0cbtLN6SFwXCWmi8qtWBd8B3wAnANf0L27f5tNJ0//y3/uV77lk9b3AuP7+7XXCaOZt9eA63Sr8CfAYTNvXwc+3PgIg6qGdUwX1e/A+7Pp5Jdhh7M5/RvjAfCgmbdfAz/QzfUecDjk2NZR8aPwHbpf8Dk7FtVl/dzeA54DH9PNvYSKYd3uj1/uclRLs+nkV+Cr/tvbq84dk4phHfTHbwcdxXYt53qw8qwRqRjWfn88W3nWbnnUH/0oDHoJYDadnA89kG2ZTSfP+y9fHnQga6gYlgowLEUYliKqXiD9tz3D0ao01k0pGxb/bJmM7bW2+dqj5UehIiqvWJvYON7KJvSGX68EVyxFGJYiDEsRhqUIw1KEYSnCsBRhWIqofIHULZ0Rc8VSROUVyy2dEXPFUoRhKcKwFGFYijAsRRiWIgxLEYaliMoXSN3SGTFXLEVUXrHc0hmxsmFd9Yav2/zr5E3cnLbaX1P7UagIw1KEYSmiYlh/AjTztszd7a6qv/c7dE+tKKFiWMt7j+6vPGu3XO+PjwcdxRoqhnXaH28NOortWs71dOVZI1IxrJP+eKeZt28NOpItaObtDeBO/+3JqnPHpGJYZ8B94BXgx2bevj3scHL6N85PdHO9T6FbkFe9QHoIvEb3jJmfm3n7OfAN8GQ2nfwx6MiuqJm3rwJvAB8Bn9Ldgvt7Cj1HB2BvsSi1U3D5CvQxxX7h/8O92XRytJx3lUfMVfwovOgIeBe4S/dsv2eDjmYzntHN5S7d3I6qbedAwRVLNVRfsTRShqUIw1KEYSnCsBRhWIowLEUYliIMSxGGpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqUIw1KEYSnCsBRhWIowLEUYliIMSxGGpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYi/gL6TZmwrBJftQAAAABJRU5ErkJggg==";
 
-  // src/utils/array-helpers.ts
+  // ../editor/src/utils/array-helpers.ts
   var seqArray = (length, opts) => {
     return Array.from({ length }, (_2, i2) => i2);
   };
@@ -30160,7 +30160,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     return [x2];
   }
 
-  // src/Shiny-Ui-Elements/InputOutputTitle.tsx
+  // ../editor/src/Shiny-Ui-Elements/InputOutputTitle.tsx
   var import_jsx_runtime2 = __toESM(require_jsx_runtime());
   var InputOutputTitle = ({
     type,
@@ -30184,7 +30184,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     });
   };
 
-  // src/Shiny-Ui-Elements/DtDtOutput/DtOutput.tsx
+  // ../editor/src/Shiny-Ui-Elements/DtDtOutput/DtOutput.tsx
   var import_jsx_runtime3 = __toESM(require_jsx_runtime());
   var NUM_COLS = 4;
   var NUM_ROWS = 25;
@@ -30230,7 +30230,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   };
   var DtOutput_default = DtDTOutput;
 
-  // src/Shiny-Ui-Elements/DtDtOutput/index.tsx
+  // ../editor/src/Shiny-Ui-Elements/DtDtOutput/index.tsx
   var dtDTOutputInfo = {
     title: "DT Table",
     UiComponent: DtOutput_default,
@@ -30261,41 +30261,41 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     description: `\`DataTable\` table output`
   };
 
-  // src/assets/icons/shinyContainer.png
+  // ../editor/src/assets/icons/shinyContainer.png
   var shinyContainer_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAEO0lEQVR4nO3dsYqcVRiH8WeNrkXMDRgLixRWRjSiXoMWG0iUXIGNsii4wRsQTApD0EIvQBCJ2RD0GqIoRjthC4vsHaRxRcbi7MDk28kMgv+c92SfH2zxfbPFmZcnZ06+LWZjNpsh/d+e6L0APZ4MSxGGpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqUIw1KEYSnCsBRhWIowLEUYliIMSxGGpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqWIJ3svYJ2db/aW3d4Etg5/3gCePby3Mfm96RcFjfj6feAe8CtwE7gFHEx+jyvvnJne6qp8WEucB64AtSaZ8wzwwuHPJWAPuAx813NR64z0UXgC+JQ20OMS1TJngBu0WZzovJaHGmnH+gTY6b2IQuazuNx1FQ8xyo51gaNRHQDXaWesUxw9n3B4b/FnxNdP0d7jdY6erXZosylnhLA2gc8m9/aB14Bt4A7tgPu4uk97j9u097w/ef0abUaljBDWReC5hesD4C3gbpfV9HUXeBP4a+HeaeDtLqtZYYSwtibXX3I8o5r7Dfhqcm+rwzpWGiGsVyfXX3dZRS3TGZzrsooVRvhf4fOT63LniQ7usPywX8YIO9bUkafOqmfEsDQAw1LECGesdX+oPa5Kz8UdSxGGpQjDUsQIZ6xSZ4dCSs/FHUsRhqUIw1LECGes0s9rOio9F3csRRiWIgxLESOcsUqdHQopPRd3LEUYliIMSxEjnLFKP6/pqPRc3LEUYViKMCxFjHDGKnV2KKT0XNyxFGFYijAsRYxwxir9vKaj0nNxx1KEYSnCsBQxwhmr1NmhkNJzccdShGEpwrAUMcIZq/Tzmo5Kz8UdSxGGpQjDUsQIZ6xSZ4dCSs/FHUsRhqWIEcPyK08GMEJYf9Ce2cx/Xu67nBJe58GZ/Nl1NUuMENbvk+tLXVZRy3QGP3dZxQojhLU7uX4XONthHVW8SJvBot0O61hphLC+Be4tXD8NfA+81GU1fZ0FfqDNYG6fNqNSRgjrAPhwcu808CPt+5DPAScf8ZoepZO093gN+In23hd9wINf5VvCCA9Iof2LvAp8tHBvk/YF3NsL96YPDdf9oXa016euUnC3gjF2rLmPgc97L6KQL2gzKWmksP4B3gcuAHud19LTHnAReI82k5JG+ShcdAO4TRvueeAV2rnjqZ6LCvqbdkD/BbhJ++gr//XFG7PZuo9x6b8b6aNQAzEsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqUIw1KEYSnCsBRhWIowLEUYliIMSxGGpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqUIw1KEYSnCsBRhWIowLEUYliL+BXaHdHGUC5uqAAAAAElFTkSuQmCC";
 
-  // src/Shiny-Ui-Elements/GridlayoutGridCard/GridlayoutGridCard.tsx
+  // ../editor/src/Shiny-Ui-Elements/GridlayoutGridCard/GridlayoutGridCard.tsx
   var import_react19 = __toESM(require_react());
 
-  // src/assets/icons/alignItem.png
+  // ../editor/src/assets/icons/alignItem.png
   var alignItem_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAYAAADFw8lbAAAACXBIWXMAABYlAAAWJQFJUiTwAAABq0lEQVRYhe2YsU7DMBCGvyDUDToxsuUREN27gUACBpZuvAMFXgBBH4KtCwMggWDrDuIRujIxAVuXMMRIbuU09vlKiMgnRYniO/uv4zv7mmRZRh1YDjHuX4+Lmsp+beJ6OThMvcde8rasmEaoNo1QbSRCL8mj3L7KmLUfhA4qEXoKDAV+PwyBk1AnidAMOAJGAt+R8Q3eZaRrdAIcAC8BPq/GZyIZMCaYPoAdoHC7shgD28ZHRGzUvwNb5h5jU4pGehoDu8Cno+3LtPnM+ly08ugzsM/0+psAe6YtGs2Eb0d0TGZwEnTM82AIrFvPamgLBbhYQJ/12esTVyky5yT/a8ye/os+/V8opKbKl9p8+qIZdRZjVeJco0Vor92mCvXkGOhrd6qd8HvkpQrAG4q7k+aMdoEr8kBMzHNXq3MtoRvADdCy3rXMu02NATSEpsAj0Ha0tYEHYxNFrNA14MncY2xKiRG6AtzjN1upsV2VDiYV2gLugE6ATwe4ZXodeyMRGhPRdmYIQiL0nDxfSumZPoKQJPwzc9mI/nEO4V/v9QuhEapNbYQGnfCr5BtYaFWUrHRSSwAAAABJRU5ErkJggg==";
 
-  // src/assets/icons/alignItemBottom.png
+  // ../editor/src/assets/icons/alignItemBottom.png
   var alignItemBottom_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAYAAADFw8lbAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAiElEQVRYhe3YwQmAIBhA4YxGaaZGaYhGaaZ2sauCB8MX9cP7bnaIxx9imHLOUwTz1wG9DKWFCV1aD/fzKpdPdlsaqikc21qtw0zUUJqhNENphtLChDaP0BcMH8NhJmoozVCaoTRDaYbSDKUZSuv5HyWuaYbfEX6if7iGrr5CmIkm7/BhhtIMpd2GuAxXhhY/aAAAAABJRU5ErkJggg==";
 
-  // src/assets/icons/alignItemTop.png
+  // ../editor/src/assets/icons/alignItemTop.png
   var alignItemTop_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAYAAADFw8lbAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAhUlEQVRYhe3ZwQmAMBAAwZxYijVZikVYijXZS/zmoRDJQjjY+ZlHWE6RiFFrLRksswN6GUozlLa+LR7XPf1VcO5btNe5J1pKiY/1adJPtPXnef26E8N7pJmooTRDaYbSDKUZSjOUZiit5zxKGP5iSDNRQ2mG0gylGUpLExr+bIAZSksT+gD98QxXbjF/TQAAAABJRU5ErkJggg==";
 
-  // src/assets/icons/alignTextCenter.png
+  // ../editor/src/assets/icons/alignTextCenter.png
   var alignTextCenter_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAYAAADFw8lbAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAgklEQVRYhe3Y0QmAIBRA0Wc0SjM1SkM0SjO1i00gGl2MB/f+2sfhQSqWWmtkaPkbMJpQOqF0aaBr74PjuqftX+e+ldZamokKpRNKJ5ROKF0aaPcIjYjmsTazNBMVSieUbuSvb/XlQv16J0kzUaF0QumE0gmlSwMtPo3DCaUTSpcG+gDcmgtUpwOm6gAAAABJRU5ErkJggg==";
 
-  // src/assets/icons/alignTextLeft.png
+  // ../editor/src/assets/icons/alignTextLeft.png
   var alignTextLeft_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAYAAADFw8lbAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAjElEQVRYhe3ZwQmAMBBEUVcsxZosxSIsxZrsJZ4UIQYUh5WB/456+awhCRillM5B/3fAU4SqDa0X87odizeSWk7LNFbPbCZqE9r89Dcy97FqudlMlFA1QtUIVSNUzSb0zRGafou6spkooWqEqmVenD/tGjYTJVSNUDVC1QhVswnl4qwW/GwQI1TNJnQHKA8MWeSBgoAAAAAASUVORK5CYII=";
 
-  // src/assets/icons/alignTextRight.png
+  // ../editor/src/assets/icons/alignTextRight.png
   var alignTextRight_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAYAAADFw8lbAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAkklEQVRYhe3ZwQmAMAyF4UQcxZkcxSEcxZncJV70UmlVfEYevO/ay0+KNKBHhDHo/g64S6Fofe1gWtbMjkOYmc3j4OUBzURpQqtXb/s1JDlddYlmogpFUyiaQtEUikYT2npCL5+1TDQTVSiaQtFaX/0Tb5dsLc7pFIqmUDSFoikUDfWEfr5k00zU9bMBTKFoNKEbp/QMWe71dFoAAAAASUVORK5CYII=";
 
-  // src/assets/icons/redo.png
+  // ../editor/src/assets/icons/redo.png
   var redo_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAoCAYAAAC4h3lxAAAACXBIWXMAAAsTAAALEwEAmpwYAAABA0lEQVRYhe2ZwQ6CMBBEH8Yv9uDNsMabB38ZLxBRkdDtxlmSzqUktDAvs2yb0A3DwJ51UBuoVQNQqwGotXuAY8nk8+3hfc+8Vxtw3brwfjmt3lckYEAf9TBVCRlBEP8G6HiVjxEAoSqhMAhlCYVAFHUh3rtJrWwc+9n15u40Sb0PGJVJlCYwqXOuW5KNoysJdQKTDGcSWQDACZEJABwQ2QDgG2JVGQGgoF1nBCjqRtkAPs3bz5mjMgEUm4c8AC7z4N+JvWeipR3cbR70CVSZh/IEvGegpcSqzYMugRDzoAEIMw/+j9ireSlVmwddCYWYBw1AmHmArv3gEKsBqNUA1No9wBNu3jnWLc/KGQAAAABJRU5ErkJggg==";
 
-  // src/assets/icons/tour.png
+  // ../editor/src/assets/icons/tour.png
   var tour_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAoCAYAAAC4h3lxAAAACXBIWXMAAAsTAAALEwEAmpwYAAADT0lEQVRYhe2ZP2gUURDGf1ELSy/YpUrELt1BLHIpxAtCOO0SBP80woWAiGyxuWZB2eayxYIiSAJpTBPuQARtJNedacTrgk3IWYlWuVR2EouZl907Lwnue8cRyMDj7e3OMvO9mTfzvb2Rw8NDzrJcGLYDtnIOYNhy5gFcyvqiH8anqZSAMjADdIAmUAF+HvdCFHj/7UdmAKdICfiQ+n0FGAfmgJvAjitDg0ihaRLnK8AocA2oA1eBdZfGBhGBeZ1XosBb0esOsOCH8VdgConQRxfGBhGBgs71Ps/MvRlXxgYB4EDnXJ9nEzrvuTI2CABNnat+GB+B8MM4j1SlP8BnV8Zc74ExIK/XeWDPD+M6Eg2zN14D31wZdAlgDHiHbNIOsAK0kbSpqs5L4JlDm84ATCLlcQpoAbNR4HXMQz+M20ANiYqzCgRu9kB65f9xHiAKvDoSlQLSI0oO7AJuIrAOXAcaUeDNnqDXRspoFQHxXe83gQawkcW4bQSmgdvq3AKAH8a5dPVJizY209zGdTwC3gIPszhgC8A0pHoUeB11fIuk3gPgh/EEkkJEgVdBqIUZi6pWzOKALQCz0ibn8zo6fXSLfhgXAaLAa5uBpA9k7M62e8CsdFvnvqmTur/lh3GDboBm5ZtkEFsAvRHo/W3ENLdd+qfKJrCUxQFbAE3gFpIeLZJuW6SbzBmnQ+AX3ZFqcsIh5zSx3QMmf5eBfRJHq8dUojlkk9dSI7PzYA9gm6Q5HZCQtBawmtKrIGl1D3hqabNLXHTibeAuUhILQCcKPNMTlkGqDkm5fAJcdmAXcEunH+jc0nkRKKdKZx1JuetIyjkRVwBKCNMEWANQPpSjO5VMF76Poyi4ADAJvNfriq40fhiXEQATek0UeA0cR8EWgGGiF4E1c4jXtEmvfNpZp1GwBfCGhIkuwhHvqenz50hlOi4KZUv7VgBGgTvoJxMQJorU+RzSXV+ge4LuKJh71l8nbAAc0YbUAaaG8KNPwGO9t0FPFFyKDZXYQxwr6AcrEM6zizj/O6W7hvSIVT+M50m4USYClxZbLrREchYG+II4/6NHz5y2AhK6sQm8srRvDWAHuEGyoq0TdDcQgjejevuWtgEYOf+PbMhyDmDY8hfkuOfRCqd6WwAAAABJRU5ErkJggg==";
 
-  // src/assets/icons/undo.png
+  // ../editor/src/assets/icons/undo.png
   var undo_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAoCAYAAAC4h3lxAAAACXBIWXMAAAsTAAALEwEAmpwYAAABDElEQVRYhe2ZsQ7CMAxEr4gvZmBDXMXGwC+XgVQqERDbCbEr5ZaoalXdq+0kTqdlWbBnHbwN1GoAeGsAeGv3AMdfN8+3h+ZdVwDcXE8GP7hfTqrnW0UgN99NLQDczAP1AFvzM4xpU6MagNw8vz75R1kBQpgHCrPQF0nNW3eJqjTURiDMl1+liYDUvLWQTRGTRiDcl18lAQhrHigDhDYPlAGYxpDmAXkNhG2cSwBzGolXOoWTJIVCQ0hSiAgMIa0BIiiEZiVmGvOpNVfXgtfuhYhgkbDsRpnGUiS6NDfWfoAIEomajowIAFHbExPvEN1X7BanEsTnGuiiVudChBPENH5wOGsAeGsAeGv3AE8yEDlUwXXxqQAAAABJRU5ErkJggg==";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-LP7jwjaQGmXN/editor/src/components/Icons/styles.module.css.js
-  var digest = "57eecfef1561301e3f4598417da7bfcf09f7152256e33d5622ec08c11dfe0c7c";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-nBSOlC28BOXu/editor/src/components/Icons/styles.module.css.js
+  var digest = "b77587152215299e223414b83fe7f3fe46bf0848a969f45c159b41f33020b9f0";
   var css = `img._icon_1467k_1 {
   height: 30px;
   /* outline: 2px solid green; */
@@ -30315,7 +30315,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   })();
   var styles_module_css_default = { "icon": "_icon_1467k_1" };
 
-  // src/components/Icons/PngIcon.tsx
+  // ../editor/src/components/Icons/PngIcon.tsx
   var import_jsx_runtime4 = __toESM(require_jsx_runtime());
   var icons = {
     undo: undo_default,
@@ -30428,37 +30428,37 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 512 512" }, "child": [{ "tag": "path", "attr": { "d": "M256 90c44.3 0 86 17.3 117.4 48.6C404.7 170 422 211.7 422 256s-17.3 86-48.6 117.4C342 404.7 300.3 422 256 422s-86-17.3-117.4-48.6C107.3 342 90 300.3 90 256s17.3-86 48.6-117.4C170 107.3 211.7 90 256 90m0-42C141.1 48 48 141.1 48 256s93.1 208 208 208 208-93.1 208-208S370.9 48 256 48z" } }, { "tag": "path", "attr": { "d": "M277 360h-42V235h42v125zm0-166h-42v-42h42v42z" } }] })(props);
   }
 
-  // src/components/Icons/generated/AlignBottom.tsx
+  // ../editor/src/components/Icons/generated/AlignBottom.tsx
   var import_jsx_runtime5 = __toESM(require_jsx_runtime());
 
-  // src/components/Icons/generated/AlignCenter.tsx
+  // ../editor/src/components/Icons/generated/AlignCenter.tsx
   var import_jsx_runtime6 = __toESM(require_jsx_runtime());
 
-  // src/components/Icons/generated/AlignHCenter.tsx
+  // ../editor/src/components/Icons/generated/AlignHCenter.tsx
   var import_jsx_runtime7 = __toESM(require_jsx_runtime());
 
-  // src/components/Icons/generated/AlignHSpread.tsx
+  // ../editor/src/components/Icons/generated/AlignHSpread.tsx
   var import_jsx_runtime8 = __toESM(require_jsx_runtime());
 
-  // src/components/Icons/generated/AlignLeft.tsx
+  // ../editor/src/components/Icons/generated/AlignLeft.tsx
   var import_jsx_runtime9 = __toESM(require_jsx_runtime());
 
-  // src/components/Icons/generated/AlignRight.tsx
+  // ../editor/src/components/Icons/generated/AlignRight.tsx
   var import_jsx_runtime10 = __toESM(require_jsx_runtime());
 
-  // src/components/Icons/generated/AlignSpread.tsx
+  // ../editor/src/components/Icons/generated/AlignSpread.tsx
   var import_jsx_runtime11 = __toESM(require_jsx_runtime());
 
-  // src/components/Icons/generated/AlignTop.tsx
+  // ../editor/src/components/Icons/generated/AlignTop.tsx
   var import_jsx_runtime12 = __toESM(require_jsx_runtime());
 
-  // src/components/Icons/generated/AlignVCenter.tsx
+  // ../editor/src/components/Icons/generated/AlignVCenter.tsx
   var import_jsx_runtime13 = __toESM(require_jsx_runtime());
 
-  // src/components/Icons/generated/AlignVSpread.tsx
+  // ../editor/src/components/Icons/generated/AlignVSpread.tsx
   var import_jsx_runtime14 = __toESM(require_jsx_runtime());
 
-  // src/components/Icons/generated/DownSpinnerButton.tsx
+  // ../editor/src/components/Icons/generated/DownSpinnerButton.tsx
   var import_jsx_runtime15 = __toESM(require_jsx_runtime());
   var SvgDownSpinnerButton = (props) => /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("svg", {
     width: "1em",
@@ -30474,7 +30474,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   });
   var DownSpinnerButton_default = SvgDownSpinnerButton;
 
-  // src/components/Icons/generated/Redo.tsx
+  // ../editor/src/components/Icons/generated/Redo.tsx
   var import_jsx_runtime16 = __toESM(require_jsx_runtime());
   var SvgRedo = (props) => /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("svg", {
     xmlns: "http://www.w3.org/2000/svg",
@@ -30491,7 +30491,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   });
   var Redo_default = SvgRedo;
 
-  // src/components/Icons/generated/Trash.tsx
+  // ../editor/src/components/Icons/generated/Trash.tsx
   var import_jsx_runtime17 = __toESM(require_jsx_runtime());
   var SvgTrash = (props) => /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("svg", {
     xmlns: "http://www.w3.org/2000/svg",
@@ -30522,7 +30522,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   });
   var Trash_default = SvgTrash;
 
-  // src/components/Icons/generated/Undo.tsx
+  // ../editor/src/components/Icons/generated/Undo.tsx
   var import_jsx_runtime18 = __toESM(require_jsx_runtime());
   var SvgUndo = (props) => /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("svg", {
     xmlns: "http://www.w3.org/2000/svg",
@@ -30539,7 +30539,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   });
   var Undo_default = SvgUndo;
 
-  // src/components/Icons/generated/UpSpinnerButton.tsx
+  // ../editor/src/components/Icons/generated/UpSpinnerButton.tsx
   var import_jsx_runtime19 = __toESM(require_jsx_runtime());
   var SvgUpSpinnerButton = (props) => /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("svg", {
     width: "1em",
@@ -30555,11 +30555,11 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   });
   var UpSpinnerButton_default = SvgUpSpinnerButton;
 
-  // src/components/Icons/index.tsx
+  // ../editor/src/components/Icons/index.tsx
   var Icons_default = PngIcon;
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-eLsfX7F6SoK8/editor/src/components/Inputs/Button/Button.module.css.js
-  var digest2 = "38cd78a5ec879b12a5638b2cec2e0087da7420d1ff34f3c4caa9056964d756d3";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-BLzO5GsMjfez/editor/src/components/Inputs/Button/Button.module.css.js
+  var digest2 = "1880f6865a94c94fa364945b66218feeb62963ac8210096c1f5998ce0681db28";
   var css2 = `._button_1y00r_1 {
   --background-color: var(--rstudio-white);
   --text-color: var(--font-color);
@@ -30619,7 +30619,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   })();
   var Button_module_css_default = { "button": "_button_1y00r_1", "regular": "_regular_1y00r_26", "delete": "_delete_1y00r_30", "icon": "_icon_1y00r_34", "transparent": "_transparent_1y00r_42" };
 
-  // src/components/Inputs/Button/Button.tsx
+  // ../editor/src/components/Inputs/Button/Button.tsx
   var import_jsx_runtime20 = __toESM(require_jsx_runtime());
   var Button = ({ children, variant = "regular", className, ...passthroughProps }) => {
     const variant_classes = variant ? Array.isArray(variant) ? variant.map((v2) => Button_module_css_default[v2]).join(" ") : Button_module_css_default[variant] : "";
@@ -30631,8 +30631,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   };
   var Button_default = Button;
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-cLABA5fiLiZc/editor/src/components/DeleteNodeButton/styles.module.css.js
-  var digest3 = "cfcfd2ddba57fd0be5a056619e4d2e9c49f26976a75421dd399bd3e5c8291e28";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-DNZE4HMClTFY/editor/src/components/DeleteNodeButton/styles.module.css.js
+  var digest3 = "58d42c30ff404027c14a43b32487ec70be992896d95de6a5591b2b0fe97e2f42";
   var css3 = `._deleteButton_1en02_1 {
   color: var(--red);
   display: flex;
@@ -30657,7 +30657,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   })();
   var styles_module_css_default2 = { "deleteButton": "_deleteButton_1en02_1" };
 
-  // src/components/DeleteNodeButton/useDeleteNode.tsx
+  // ../editor/src/components/DeleteNodeButton/useDeleteNode.tsx
   var React6 = __toESM(require_react());
   function useDeleteNode(pathToNode) {
     const dispatch = useDispatch();
@@ -30669,7 +30669,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     return deleteNode;
   }
 
-  // src/components/DeleteNodeButton/index.tsx
+  // ../editor/src/components/DeleteNodeButton/index.tsx
   var import_jsx_runtime21 = __toESM(require_jsx_runtime());
   function DeleteNodeButton({
     path: path3,
@@ -30695,7 +30695,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   }
   var DeleteNodeButton_default = DeleteNodeButton;
 
-  // src/components/Grids/GridLayoutPanelHelpers/GridCards/index.tsx
+  // ../editor/src/components/Grids/GridLayoutPanelHelpers/GridCards/index.tsx
   var import_react11 = __toESM(require_react());
   var import_jsx_runtime22 = __toESM(require_jsx_runtime());
   var BsCard = import_react11.default.forwardRef(
@@ -30720,10 +30720,10 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     }
   );
 
-  // src/DragAndDropHelpers/useMakeDraggable.tsx
+  // ../editor/src/DragAndDropHelpers/useMakeDraggable.tsx
   var import_react13 = __toESM(require_react());
 
-  // src/DragAndDropHelpers/useCurrentDraggedNode.tsx
+  // ../editor/src/DragAndDropHelpers/useCurrentDraggedNode.tsx
   var import_react12 = __toESM(require_react());
   var import_jsx_runtime23 = __toESM(require_jsx_runtime());
   var DraggedNodeContext = import_react12.default.createContext([
@@ -30744,7 +30744,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     return import_react12.default.useContext(DraggedNodeContext);
   }
 
-  // src/DragAndDropHelpers/useMakeDraggable.tsx
+  // ../editor/src/DragAndDropHelpers/useMakeDraggable.tsx
   function useMakeDraggable({
     nodeInfo,
     immovable = false
@@ -30785,7 +30785,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     e2.preventDefault();
   }
 
-  // src/Shiny-Ui-Elements/nodePathUtils.ts
+  // ../editor/src/Shiny-Ui-Elements/nodePathUtils.ts
   function makeChildPath(path3, childIndex) {
     return [...path3, childIndex];
   }
@@ -30793,13 +30793,13 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     return path3.join("-");
   }
 
-  // src/components/UiNode/usePathInformation.tsx
+  // ../editor/src/components/UiNode/usePathInformation.tsx
   var import_react14 = __toESM(require_react());
 
-  // src/NodeSelectionState.tsx
+  // ../editor/src/NodeSelectionState.tsx
   var React10 = __toESM(require_react());
 
-  // src/state/selectedPath.ts
+  // ../editor/src/state/selectedPath.ts
   var selectedPathSlice = createSlice({
     name: "selectedPath",
     initialState: [],
@@ -30816,7 +30816,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   var { SET_SELECTION, STEP_BACK_SELECTION } = selectedPathSlice.actions;
   var selectedPath_default = selectedPathSlice.reducer;
 
-  // src/NodeSelectionState.tsx
+  // ../editor/src/NodeSelectionState.tsx
   function useNodeSelectionState() {
     const dispatch = useDispatch();
     const selectedPath = useSelector((state) => state.selectedPath);
@@ -30833,7 +30833,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     return selectedPath;
   }
 
-  // src/utils/equalityCheckers.ts
+  // ../editor/src/utils/equalityCheckers.ts
   function sameArray(a2, b3) {
     if (a2 === b3)
       return true;
@@ -30859,7 +30859,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     return true;
   }
 
-  // src/components/UiNode/usePathInformation.tsx
+  // ../editor/src/components/UiNode/usePathInformation.tsx
   function usePathInformation(path3) {
     const [selectedPath, setNodeSelection] = useNodeSelectionState();
     const handleClick = import_react14.default.useCallback(
@@ -30873,7 +30873,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     return { onClick: handleClick, isSelected };
   }
 
-  // src/components/UiNode/useMakeWrapperProps.tsx
+  // ../editor/src/components/UiNode/useMakeWrapperProps.tsx
   function useMakeWrapperProps(node, path3) {
     const dragProps = useMakeDraggable({
       nodeInfo: { node, currentPath: path3 }
@@ -30888,7 +30888,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     };
   }
 
-  // src/components/UiNode/UiNode.tsx
+  // ../editor/src/components/UiNode/UiNode.tsx
   var import_jsx_runtime24 = __toESM(require_jsx_runtime());
   var UiNode = ({ path: path3, node }) => {
     const { uiName, uiArguments, uiChildren } = node;
@@ -30903,8 +30903,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   };
   var UiNode_default = UiNode;
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-RYjd2hH5pjEU/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
-  var digest4 = "7e6bbbb22144f9542297f641c2040300c22e0404141192b91d0438fb8dd5392a";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-tuhk92BXidAA/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
+  var digest4 = "cbdf71bf5aea71e7614105f49b5331f78a29bb6e9b38bc35b59a47d7754d8f82";
   var css4 = `._container_1a2os_1 {
   position: relative;
   height: 100%;
@@ -31080,22 +31080,22 @@ div._emptyGridCard_1a2os_144 > button {
   })();
   var styles_module_css_default3 = { "container": "_container_1a2os_1", "withTitle": "_withTitle_1a2os_13", "panelTitle": "_panelTitle_1a2os_22", "contentHolder": "_contentHolder_1a2os_27", "dropWatcher": "_dropWatcher_1a2os_68", "lastDropWatcher": "_lastDropWatcher_1a2os_76", "firstDropWatcher": "_firstDropWatcher_1a2os_79", "middleDropWatcher": "_middleDropWatcher_1a2os_90", "onlyDropWatcher": "_onlyDropWatcher_1a2os_94", "hoveringOverSwap": "_hoveringOverSwap_1a2os_99", "availableToSwap": "_availableToSwap_1a2os_100", "pulse": "_pulse_1a2os_1", "emptyGridCard": "_emptyGridCard_1a2os_144", "emptyMessage": "_emptyMessage_1a2os_161" };
 
-  // src/Shiny-Ui-Elements/GridlayoutGridCard/useGridCardDropDetectors.tsx
+  // ../editor/src/Shiny-Ui-Elements/GridlayoutGridCard/useGridCardDropDetectors.tsx
   var import_react16 = __toESM(require_react());
 
-  // src/components/UiNode/TreeManipulation/nodeDepth.ts
+  // ../editor/src/components/UiNode/TreeManipulation/nodeDepth.ts
   function nodeDepth(path3) {
     return path3.length;
   }
 
-  // src/components/UiNode/TreeManipulation/pathsSameAtDepth.ts
+  // ../editor/src/components/UiNode/TreeManipulation/pathsSameAtDepth.ts
   function pathsSameAtDepth(aPath, bPath, depth) {
     if (depth === 0)
       return true;
     return sameArray(aPath.slice(0, depth), bPath.slice(0, depth));
   }
 
-  // src/components/UiNode/TreeManipulation/aIsParentOfB.ts
+  // ../editor/src/components/UiNode/TreeManipulation/aIsParentOfB.ts
   function aIsParentOfB(aPath, bPath) {
     const aDepth = nodeDepth(aPath);
     const bDepth = nodeDepth(bPath);
@@ -31104,7 +31104,7 @@ div._emptyGridCard_1a2os_144 > button {
     return pathsSameAtDepth(aPath, bPath, aDepth);
   }
 
-  // src/components/UiNode/TreeManipulation/nodesAreSiblings.ts
+  // ../editor/src/components/UiNode/TreeManipulation/nodesAreSiblings.ts
   function nodesAreSiblings(aPath, bPath) {
     const aDepth = aPath.length;
     const bDepth = bPath.length;
@@ -31120,7 +31120,7 @@ div._emptyGridCard_1a2os_144 > button {
     return true;
   }
 
-  // src/components/UiNode/TreeManipulation/getIsValidMove.ts
+  // ../editor/src/components/UiNode/TreeManipulation/getIsValidMove.ts
   function getIsValidMove({
     fromPath,
     toPath
@@ -31140,7 +31140,7 @@ div._emptyGridCard_1a2os_144 > button {
     return true;
   }
 
-  // src/DragAndDropHelpers/useFilteredDrop.tsx
+  // ../editor/src/DragAndDropHelpers/useFilteredDrop.tsx
   var import_react15 = __toESM(require_react());
   function useFilteredDrop({
     watcherRef,
@@ -31261,7 +31261,7 @@ div._emptyGridCard_1a2os_144 > button {
     };
   }
 
-  // src/Shiny-Ui-Elements/GridlayoutGridCard/useGridCardDropDetectors.tsx
+  // ../editor/src/Shiny-Ui-Elements/GridlayoutGridCard/useGridCardDropDetectors.tsx
   function useGridCardDropDetectors({
     watcherRef,
     positionInChildren,
@@ -31309,10 +31309,10 @@ div._emptyGridCard_1a2os_144 > button {
     return node;
   }
 
-  // src/Shiny-Ui-Elements/GridlayoutGridCard/useGridItemSwapping.tsx
+  // ../editor/src/Shiny-Ui-Elements/GridlayoutGridCard/useGridItemSwapping.tsx
   var import_react18 = __toESM(require_react());
 
-  // src/components/Grids/isValidGridItem.tsx
+  // ../editor/src/components/Grids/isValidGridItem.tsx
   var gridItemNodes = [
     "gridlayout::grid_card_text",
     "gridlayout::grid_card",
@@ -31322,7 +31322,7 @@ div._emptyGridCard_1a2os_144 > button {
     return gridItemNodes.includes(node.uiName);
   }
 
-  // src/components/Grids/useSetLayout.tsx
+  // ../editor/src/components/Grids/useSetLayout.tsx
   var import_react17 = __toESM(require_react());
   var LayoutDispatchContext = import_react17.default.createContext(null);
   function useSetLayout() {
@@ -31330,8 +31330,8 @@ div._emptyGridCard_1a2os_144 > button {
     return setLayout;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-rxRDQQOahdJ1/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
-  var digest5 = "45adb2751b61177294fbba9d8b1840ea2d0099e535899765a74cb767321ac74d";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-DbinFGtYFc4m/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
+  var digest5 = "3cfabe61f9882b5e8cdeae8ce005416dd878a55236740559efaed43e3fb7fc53";
   var css5 = `._container_1a2os_1 {
   position: relative;
   height: 100%;
@@ -31507,7 +31507,7 @@ div._emptyGridCard_1a2os_144 > button {
   })();
   var styles_module_css_default4 = { "container": "_container_1a2os_1", "withTitle": "_withTitle_1a2os_13", "panelTitle": "_panelTitle_1a2os_22", "contentHolder": "_contentHolder_1a2os_27", "dropWatcher": "_dropWatcher_1a2os_68", "lastDropWatcher": "_lastDropWatcher_1a2os_76", "firstDropWatcher": "_firstDropWatcher_1a2os_79", "middleDropWatcher": "_middleDropWatcher_1a2os_90", "onlyDropWatcher": "_onlyDropWatcher_1a2os_94", "hoveringOverSwap": "_hoveringOverSwap_1a2os_99", "availableToSwap": "_availableToSwap_1a2os_100", "pulse": "_pulse_1a2os_1", "emptyGridCard": "_emptyGridCard_1a2os_144", "emptyMessage": "_emptyMessage_1a2os_161" };
 
-  // src/Shiny-Ui-Elements/GridlayoutGridCard/useGridItemSwapping.tsx
+  // ../editor/src/Shiny-Ui-Elements/GridlayoutGridCard/useGridItemSwapping.tsx
   function useGridItemSwapping({
     containerRef,
     path: path3,
@@ -31544,7 +31544,7 @@ div._emptyGridCard_1a2os_144 > button {
     });
   }
 
-  // src/Shiny-Ui-Elements/GridlayoutGridCard/GridlayoutGridCard.tsx
+  // ../editor/src/Shiny-Ui-Elements/GridlayoutGridCard/GridlayoutGridCard.tsx
   var import_jsx_runtime25 = __toESM(require_jsx_runtime());
   var GridlayoutGridCard = ({
     uiArguments: { area, item_gap, title },
@@ -31646,7 +31646,7 @@ div._emptyGridCard_1a2os_144 > button {
   }
   var GridlayoutGridCard_default = GridlayoutGridCard;
 
-  // src/Shiny-Ui-Elements/GridlayoutGridCard/index.tsx
+  // ../editor/src/Shiny-Ui-Elements/GridlayoutGridCard/index.tsx
   var gridlayoutGridCardInfo = {
     title: "Grid Card",
     UiComponent: GridlayoutGridCard_default,
@@ -31676,13 +31676,13 @@ div._emptyGridCard_1a2os_144 > button {
     description: "The standard element for placing elements on the grid in a simple card container."
   };
 
-  // src/assets/icons/shinyPlot.png
+  // ../editor/src/assets/icons/shinyPlot.png
   var shinyPlot_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAACYElEQVR4nO3cMYoUQQBA0RqRPYBn8E5GhqYbLiZeYDNzs428k1dwU8M2UGFZFmYUf/d013vRTEFDBZ+qomj6tCzLgP/t1dYT4JiERUJYJIRFQlgkhEVCWCSERUJYJIRFQlgkhEVCWCSERUJYJIRFQlgkhEVCWCSERUJYJIRFQlgkhEVCWCSERUJYJIRFQlgkhEVCWCSERUJYJIRFQlgkhEVCWCSERUJYJIRFQlgkhEVCWCSERUJYJIRFQlgkhEVCWCSERUJYJIRFQlgkhEXi9dYT+Fd3X78tz4ZOm0xkJffv3m49hb9ixSIhrPNuxhifxxjfxxiPv3/fbDqjHdjtVrii+zHG7ZP/t2OMH2OMj9tMZx+sWOe9f2Hsw+qz2BlhnffmwjGeEBYJYZEQFglhkRAWCWF1pr5YdUHamfpi1YrVmfpiVVidqS9WZwpr6jPP2mY6Y0195lnbTCvW1Geetc0U1tRnnrXNFBYrEhYJYZEQFglhkRAWCWGREBYJYZEQFglhkRAWiZnCerxwbOvnDmGmsB5eGPtyhc8dwkwv+t2NXx9n+/Ne1sMY49MVPncIp2V5/mG8ffBFv+s201bIioRF4khnrH3u6Zfb1VZvxSIhLBLCIrHb6waumxWLhLBICIuEsEgIi4SwSAiLhLBICIuEsEgIi4SwSAiLhLBICIuEsEgIi4SwSAiLhLBICIuEsEgIi4SwSAiLhLBICIuEsEgIi4SwSAiLhLBICIuEsEgIi4SwSAiLhLBICIuEsEgIi4SwSAiLhLBICIuEsEgIi4SwSAiLhLBICIuEsEgIi8RPaOk2ptnQzzIAAAAASUVORK5CYII=";
 
-  // src/Shiny-Ui-Elements/GridlayoutGridCardPlot/GridlayoutGridCardPlot.tsx
+  // ../editor/src/Shiny-Ui-Elements/GridlayoutGridCardPlot/GridlayoutGridCardPlot.tsx
   var React18 = __toESM(require_react());
 
-  // src/Shiny-Ui-Elements/ShinyPlotOutput/PlotPlaceholder.tsx
+  // ../editor/src/Shiny-Ui-Elements/ShinyPlotOutput/PlotPlaceholder.tsx
   var React17 = __toESM(require_react());
 
   // ../../node_modules/react-icons/go/index.esm.js
@@ -31690,8 +31690,8 @@ div._emptyGridCard_1a2os_144 > button {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 16 16" }, "child": [{ "tag": "path", "attr": { "fillRule": "evenodd", "d": "M16 14v1H0V0h1v14h15zM5 13H3V8h2v5zm4 0H7V3h2v10zm4 0h-2V6h2v7z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-zZMCyLJ5iW7z/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
-  var digest6 = "bdee7a684c8984c544585c87fa39b7768278f487da0cfe0a05ef85b27ebf4d8d";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-SItXkn57UeDN/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
+  var digest6 = "6752cd76b5c6d470f8849b2888472448a99f9d775f6cf8250e84119ef02b6b6e";
   var css6 = `._container_1rlbk_1 {
   max-height: 100%;
 }
@@ -31732,7 +31732,7 @@ div._emptyGridCard_1a2os_144 > button {
   })();
   var styles_module_css_default5 = { "container": "_container_1rlbk_1", "plotPlaceholder": "_plotPlaceholder_1rlbk_5", "label": "_label_1rlbk_19" };
 
-  // src/Shiny-Ui-Elements/ShinyPlotOutput/PlotPlaceholder.tsx
+  // ../editor/src/Shiny-Ui-Elements/ShinyPlotOutput/PlotPlaceholder.tsx
   var import_jsx_runtime26 = __toESM(require_jsx_runtime());
   function PlotPlaceholder({ outputId }) {
     const plotHolderRef = React17.useRef(null);
@@ -31772,8 +31772,8 @@ div._emptyGridCard_1a2os_144 > button {
     return dimensions;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-OwfPvEDEVEL6/editor/src/Shiny-Ui-Elements/GridlayoutGridCardPlot/styles.module.css.js
-  var digest7 = "f07cacb9ddf1e26026292ae30fa40abbd63a8a52e1ba4971817985107e636c92";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-32M9GXzUl0fb/editor/src/Shiny-Ui-Elements/GridlayoutGridCardPlot/styles.module.css.js
+  var digest7 = "64185d189faf6f465e6c6f5423990f17abf3f15ba22b7102f3bcca2bf71baafc";
   var css7 = `._gridCardPlot_1a94v_1 {
   background-color: var(--rstudio-white);
   width: 100%;
@@ -31800,7 +31800,7 @@ div._emptyGridCard_1a2os_144 > button {
   })();
   var styles_module_css_default6 = { "gridCardPlot": "_gridCardPlot_1a94v_1" };
 
-  // src/Shiny-Ui-Elements/GridlayoutGridCardPlot/GridlayoutGridCardPlot.tsx
+  // ../editor/src/Shiny-Ui-Elements/GridlayoutGridCardPlot/GridlayoutGridCardPlot.tsx
   var import_jsx_runtime27 = __toESM(require_jsx_runtime());
   var GridlayoutGridCardPlot = ({
     uiArguments: { outputId, area },
@@ -31821,7 +31821,7 @@ div._emptyGridCard_1a2os_144 > button {
   };
   var GridlayoutGridCardPlot_default = GridlayoutGridCardPlot;
 
-  // src/Shiny-Ui-Elements/GridlayoutGridCardPlot/index.tsx
+  // ../editor/src/Shiny-Ui-Elements/GridlayoutGridCardPlot/index.tsx
   var gridlayoutGridCardPlotInfo = {
     title: "Grid Plot Card",
     UiComponent: GridlayoutGridCardPlot_default,
@@ -31849,14 +31849,14 @@ div._emptyGridCard_1a2os_144 > button {
     For when you want to have a grid area filled entirely with a single plot.`
   };
 
-  // src/assets/icons/shinyText.png
+  // ../editor/src/assets/icons/shinyText.png
   var shinyText_default = "data:image/png;base64,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";
 
-  // src/Shiny-Ui-Elements/GridlayoutGridCardText/GridlayoutCardText.tsx
+  // ../editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/GridlayoutCardText.tsx
   var React19 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-1f4T9eZSnMyi/editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/styles.module.css.js
-  var digest8 = "fd4ec53cca0864458c4049d5aa0564ee8ff521894e40ef47131efe14daab913c";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-jUbfddKJUNxY/editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/styles.module.css.js
+  var digest8 = "bc383d379140f9c20adf81019cf6262395706b03ada6cfba272b395c73b688a6";
   var css8 = `._textPanel_525i2_1 {
   background-color: var(--rstudio-white);
   /* outline: var(--outline); */
@@ -31885,7 +31885,7 @@ div._emptyGridCard_1a2os_144 > button {
   })();
   var styles_module_css_default7 = { "textPanel": "_textPanel_525i2_1" };
 
-  // src/Shiny-Ui-Elements/GridlayoutGridCardText/GridlayoutCardText.tsx
+  // ../editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/GridlayoutCardText.tsx
   var import_jsx_runtime28 = __toESM(require_jsx_runtime());
   var GridlayoutGridCardText = ({
     uiArguments: { content: title, area, alignment },
@@ -31906,7 +31906,7 @@ div._emptyGridCard_1a2os_144 > button {
   };
   var GridlayoutCardText_default = GridlayoutGridCardText;
 
-  // src/Shiny-Ui-Elements/GridlayoutGridCardText/index.tsx
+  // ../editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/index.tsx
   var gridlayoutTextPanelInfo = {
     title: "Grid Text Card",
     UiComponent: GridlayoutCardText_default,
@@ -31944,7 +31944,7 @@ div._emptyGridCard_1a2os_144 > button {
     description: "A grid card that contains just text that is vertically centered within the panel. Useful for app titles or displaying text-based statistics."
   };
 
-  // src/assets/icons/shinyGridContainer.png
+  // ../editor/src/assets/icons/shinyGridContainer.png
   var shinyGridContainer_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAEVklEQVR4nO3cwYpcRRiG4XeMjouYGzAuXGThyohG1GvQxQQSJVfgRhkUnOANCCYLh6ALvQBBQkxE9BqiKEZ3wixcZO4gm4xIu6geaE+PDMp8VZU67wNncc5ppqqrP7r++Q/0xmKxQDppj7WegMZksBRhsBRhsBRhsBRhsBRhsBRhsBRhsBRhsBRhsBRhsBRhsBRhsBRhsBRhsBRhsBRhsBRhsBRhsBRhsBRhsBRhsBRhsBRhsBRhsBRhsBRhsBRhsBTxeK2Bdr7aO+ryJrC1PF4Dnl5e25i8bvqTON5fv/8AuA/8AtwGvgEOJq/j2lvnppciqgXrCBeBa0Cddzq+p4DnlscVYA+4CnzdYjIttsJTwMeUN2yocs4Btyhrfar24C2+sT4CdhqMO1eHa3215qC1v7EusR6qA+AGpcY6w3r9wPLa6uH99ftnKGt4g/Xaaoey9tXUDNYm8Mnk2j7wCrAN3KUUoPp/HlDWcJuypvuT+7uUz6CKmsG6DDyzcn4AvAHcqziHubgHvA48XLl2Fniz1gRqBmtrcv45hirpV+CLybWtWoPXDNbLk/MvT/BvLyaHiukaX6g1cM3/Cp+dnFfb72fsLkcX+3EtH+msdYU1Dp8VKqLlI52T1OTrXv+uZrCOe5CqjCbr7laoCIOliFFqLLfZztQMlh92G7PrY2lgBksRo9RYbrOdsY81PvtYGofBUsQoNZbbbGfsY43PPpbGYbAUMUqN5TbbGftY47OPpXEYLEWMUmO5zXbGPtb47GNpHAZLEaPUWG6znbGPNT77WBqHwVLEKDVWD7+z3sv9LkoM+1jjs4+lcRgsRYxSYx33dT/3+9XZxxqffSyNw2ApYpQaq6dttqe5NGMfa3z2sTQOg6WIUWqsnrbZnubSjH2s8dnH0jgMliJGqbF62mZ7mksz9rHGZx9L4zBYihilxuppm+1pLs3YxxqffSyNw2ApYpQaq6dttqe5NGMfa3z2sTQOg6WIlsHabDi2wmoG63dKYXt4vHiCf3tjcrTU01xe5Z9r/ketgWsG67fJ+ZWKY8/VdI1/qjVwzWDdmZy/DZyvOP7cPE9Z41V3ag1eM1g3gfsr508C3wEvVJzDXJwHvqes8aF9ymdQRc1gHQDvT66dBX4AdoELwOmK8xnNacoa7gI/UtZ21XvAw1qTqd15vwlcBz5YubYJbC+PQz3/Yt6jcH/qOhW/raBNu+FD4NMG487VZ5Q1r6pFsP4C3gUuAXsNxp+LPeAy8A5lzatq+RD6FvAt5c1fBF6i1AVPNJzTo+xPSoH+M3CbsvUdtJrMxmJx3PYs/Xc+K1SEwVKEwVKEwVKEwVKEwVKEwVKEwVKEwVKEwVKEwVKEwVKEwVKEwVKEwVKEwVKEwVKEwVKEwVKEwVKEwVKEwVKEwVKEwVKEwVKEwVKEwVKEwVKEwVKEwVKEwVKEwVKEwVKEwVKEwVKEwVKEwVKEwVKEwVKEwVKEwVLE32A0lLomuWLgAAAAAElFTkSuQmCC";
 
   // ../../node_modules/just-clone/index.mjs
@@ -31986,7 +31986,7 @@ div._emptyGridCard_1a2os_144 > button {
     }
   }
 
-  // src/utils/matrix-helpers.ts
+  // ../editor/src/utils/matrix-helpers.ts
   function matrixDimensions(mat) {
     const numRows = mat.length;
     const numCols = mat[0].length;
@@ -32028,7 +32028,7 @@ div._emptyGridCard_1a2os_144 > button {
     }
   }
 
-  // src/utils/gridTemplates/itemLocations.ts
+  // ../editor/src/utils/gridTemplates/itemLocations.ts
   var emptyCell = ".";
   function areasToItemLocations(areas) {
     const itemList = /* @__PURE__ */ new Map();
@@ -32065,12 +32065,12 @@ div._emptyGridCard_1a2os_144 > button {
     return itemToCells;
   }
 
-  // src/components/UiNode/TreeManipulation/checkIfContainerNode.ts
+  // ../editor/src/components/UiNode/TreeManipulation/checkIfContainerNode.ts
   function checkIfContainerNode(node) {
     return node.uiChildren !== void 0;
   }
 
-  // src/components/UiNode/TreeManipulation/getNode.ts
+  // ../editor/src/components/UiNode/TreeManipulation/getNode.ts
   function getNode(tree, path3) {
     let currNode = tree;
     let currPath;
@@ -32083,7 +32083,7 @@ div._emptyGridCard_1a2os_144 > button {
     return currNode;
   }
 
-  // src/components/UiNode/TreeManipulation/getParentPath.ts
+  // ../editor/src/components/UiNode/TreeManipulation/getParentPath.ts
   function getParentPath(path3) {
     return path3.slice(0, path3.length - 1);
   }
@@ -32091,7 +32091,7 @@ div._emptyGridCard_1a2os_144 > button {
     return path3[path3.length - 1];
   }
 
-  // src/components/Grids/areasOfChildren.tsx
+  // ../editor/src/components/Grids/areasOfChildren.tsx
   function areasOfChildren(children) {
     let all_children_areas = [];
     children.forEach((child) => {
@@ -32103,7 +32103,7 @@ div._emptyGridCard_1a2os_144 > button {
     return all_children_areas;
   }
 
-  // src/utils/gridTemplates/addItem.ts
+  // ../editor/src/utils/gridTemplates/addItem.ts
   function addItem(template, { name, ...item }) {
     const { rowStart, colStart } = item;
     const rowEnd = "rowEnd" in item ? item.rowEnd : rowStart + item.rowSpan - 1;
@@ -32130,7 +32130,7 @@ div._emptyGridCard_1a2os_144 > button {
     return { ...template, areas: areasCopy };
   }
 
-  // src/utils/gridTemplates/itemBoundsInDir.ts
+  // ../editor/src/utils/gridTemplates/itemBoundsInDir.ts
   function itemBoundsInDir(item, dir) {
     switch (dir) {
       case "rows":
@@ -32146,7 +32146,7 @@ div._emptyGridCard_1a2os_144 > button {
     }
   }
 
-  // src/utils/gridTemplates/parseGridTemplateAreas.ts
+  // ../editor/src/utils/gridTemplates/parseGridTemplateAreas.ts
   function parseGridTemplateAreas({
     areas,
     row_sizes = ["1fr"],
@@ -32187,7 +32187,7 @@ div._emptyGridCard_1a2os_144 > button {
     return tractSizes;
   }
 
-  // src/utils/gridTemplates/addTract.ts
+  // ../editor/src/utils/gridTemplates/addTract.ts
   function addTract(originalTemplate, { afterIndex, size, dir }) {
     return immer_esm_default(originalTemplate, (template) => {
       const offDir = dir === "rows" ? "cols" : "rows";
@@ -32223,7 +32223,7 @@ div._emptyGridCard_1a2os_144 > button {
     });
   }
 
-  // src/utils/gridTemplates/removeItem.ts
+  // ../editor/src/utils/gridTemplates/removeItem.ts
   function removeItemMutating({ areas }, itemName) {
     const { numRows, numCols } = matrixDimensions(areas);
     for (let i2 = 0; i2 < numRows; i2++) {
@@ -32246,7 +32246,7 @@ div._emptyGridCard_1a2os_144 > button {
     return removeItems(originalTemplate, itemName);
   }
 
-  // src/utils/gridTemplates/removeTract.ts
+  // ../editor/src/utils/gridTemplates/removeTract.ts
   function removeTract(template, tract, force = false) {
     const { dir, index: index2 } = tract;
     const indexOfTract = tract.index - 1;
@@ -32296,7 +32296,7 @@ div._emptyGridCard_1a2os_144 > button {
     return inTract;
   }
 
-  // src/utils/gridTemplates/renameItem.ts
+  // ../editor/src/utils/gridTemplates/renameItem.ts
   function renameItem(originalTemplate, oldName, newName) {
     return immer_esm_default(originalTemplate, ({ areas }) => {
       const { numRows, numCols } = matrixDimensions(areas);
@@ -32310,7 +32310,7 @@ div._emptyGridCard_1a2os_144 > button {
     });
   }
 
-  // src/utils/gridTemplates/resizeTract.ts
+  // ../editor/src/utils/gridTemplates/resizeTract.ts
   function resizeTract(templateOriginal, { index: index2, dir }, size) {
     return immer_esm_default(templateOriginal, (template) => {
       const tractProp = dir === "rows" ? "row_sizes" : "col_sizes";
@@ -32318,7 +32318,7 @@ div._emptyGridCard_1a2os_144 > button {
     });
   }
 
-  // src/utils/gridTemplates/swapItems.ts
+  // ../editor/src/utils/gridTemplates/swapItems.ts
   function swapItems(originalTemplate, { item_a, item_b }) {
     if (item_a === item_b)
       return originalTemplate;
@@ -32353,7 +32353,7 @@ div._emptyGridCard_1a2os_144 > button {
     return { n_rows, n_cols };
   }
 
-  // src/components/Grids/gridLayoutReducer.tsx
+  // ../editor/src/components/Grids/gridLayoutReducer.tsx
   function gridLayoutReducer(layout, action) {
     switch (action.type) {
       case "ADD_ITEM":
@@ -32385,7 +32385,7 @@ div._emptyGridCard_1a2os_144 > button {
     }
   }
 
-  // src/components/Grids/isValidGridContainer.ts
+  // ../editor/src/components/Grids/isValidGridContainer.ts
   var validGridContainerNodeNames = [
     "gridlayout::grid_page",
     "gridlayout::grid_container"
@@ -32394,7 +32394,7 @@ div._emptyGridCard_1a2os_144 > button {
     return validGridContainerNodeNames.includes(node.uiName);
   }
 
-  // src/components/Grids/watchAndReactToGridAreaUpdatesupdate.ts
+  // ../editor/src/components/Grids/watchAndReactToGridAreaUpdatesupdate.ts
   function updateGridLayoutAreaOnItemAreaChange(tree, { path: path3, node }) {
     const gridPageAndItemNodes = getGridContainerAndItemNodes({
       tree,
@@ -32450,10 +32450,10 @@ div._emptyGridCard_1a2os_144 > button {
     };
   }
 
-  // src/components/Grids/GridlayoutElement/GridlayoutElement.tsx
+  // ../editor/src/components/Grids/GridlayoutElement/GridlayoutElement.tsx
   var import_react34 = __toESM(require_react());
 
-  // src/state/useUpdateUiArguments.tsx
+  // ../editor/src/state/useUpdateUiArguments.tsx
   var import_react20 = __toESM(require_react());
   function useUpdateUiArguments(path3) {
     const dispatch = useDispatch();
@@ -32473,7 +32473,7 @@ div._emptyGridCard_1a2os_144 > button {
     return updateArguments;
   }
 
-  // src/utils/gridTemplates/findItemLocation.ts
+  // ../editor/src/utils/gridTemplates/findItemLocation.ts
   function findItemLocations(areas, itemName) {
     const { numRows, numCols } = matrixDimensions(areas);
     const locations = [];
@@ -32491,7 +32491,7 @@ div._emptyGridCard_1a2os_144 > button {
     return findItemLocations(areas, emptyCell);
   }
 
-  // src/components/Grids/AreaOverlay.tsx
+  // ../editor/src/components/Grids/AreaOverlay.tsx
   var import_react22 = __toESM(require_react());
 
   // ../../node_modules/react-icons/fa/index.esm.js
@@ -32508,7 +32508,7 @@ div._emptyGridCard_1a2os_144 > button {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 448 512" }, "child": [{ "tag": "path", "attr": { "d": "M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" } }] })(props);
   }
 
-  // src/utils/gridTemplates/availableMoves.ts
+  // ../editor/src/utils/gridTemplates/availableMoves.ts
   function availableMoves({
     gridLocation: { rowStart, rowSpan, colStart, colSpan },
     layoutAreas
@@ -32569,8 +32569,8 @@ div._emptyGridCard_1a2os_144 > button {
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-z8fMee933DAR/editor/src/components/Grids/AreaOverlay.module.css.js
-  var digest9 = "59eda37825e26f896178c503dbb4e3c90d553501c5aad6d6fb9550e5eb049749";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-R8RoWyCtd1NF/editor/src/components/Grids/AreaOverlay.module.css.js
+  var digest9 = "9d5b15029b969a18cfb51ff3bd15582ea15d83bfe18d53a46d11270cc438a073";
   var css9 = `._marker_mumaw_1 {
   font-weight: lighter;
   font-style: italic;
@@ -32672,10 +32672,10 @@ div._emptyGridCard_1a2os_144 > button {
   })();
   var AreaOverlay_module_css_default = { "marker": "_marker_mumaw_1", "dragger": "_dragger_mumaw_32", "move": "_move_mumaw_52" };
 
-  // src/components/Grids/useResizeOnDrag.ts
+  // ../editor/src/components/Grids/useResizeOnDrag.ts
   var import_react21 = __toESM(require_react());
 
-  // src/components/Grids/helpers.ts
+  // ../editor/src/components/Grids/helpers.ts
   function gridLocationToExtent({
     rowStart,
     rowSpan,
@@ -32709,7 +32709,7 @@ div._emptyGridCard_1a2os_144 > button {
     return `row${row}-col${col}`;
   }
 
-  // src/utils/gridTemplates/findAvailableTracts.ts
+  // ../editor/src/utils/gridTemplates/findAvailableTracts.ts
   function findAvailableTracts({
     dragDirection,
     gridLocation,
@@ -32773,14 +32773,14 @@ div._emptyGridCard_1a2os_144 > button {
     return { shrinkExtent: availableRangeStart, growExtent: expandSearchEnd };
   }
 
-  // src/utils/within.ts
+  // ../editor/src/utils/within.ts
   function within(x2, a2, b3) {
     const low = a2 < b3 ? a2 : b3;
     const high = a2 < b3 ? b3 : a2;
     return x2 >= low && x2 <= high;
   }
 
-  // src/components/Grids/getTractExtents.ts
+  // ../editor/src/components/Grids/getTractExtents.ts
   function getTractExtents({
     dir,
     gridContainerStyles,
@@ -32816,7 +32816,7 @@ div._emptyGridCard_1a2os_144 > button {
     return Number(pxVal.replaceAll("px", ""));
   }
 
-  // src/components/Grids/useResizeOnDrag.ts
+  // ../editor/src/components/Grids/useResizeOnDrag.ts
   function resizeOnDrag({
     mousePos,
     dragState
@@ -32925,7 +32925,7 @@ div._emptyGridCard_1a2os_144 > button {
     el.style.setProperty("--drag-grid-column-end", String(colEnd + 1));
   }
 
-  // src/components/Grids/AreaOverlay.tsx
+  // ../editor/src/components/Grids/AreaOverlay.tsx
   var import_jsx_runtime29 = __toESM(require_jsx_runtime());
   function AreaOverlay({
     area,
@@ -32983,11 +32983,11 @@ div._emptyGridCard_1a2os_144 > button {
     right: /* @__PURE__ */ (0, import_jsx_runtime29.jsx)(FaGripLinesVertical, {})
   };
 
-  // src/components/Grids/EditableGridContainer/EditableGridContainer.tsx
+  // ../editor/src/components/Grids/EditableGridContainer/EditableGridContainer.tsx
   var React32 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-3YJPeECs117K/editor/src/components/Grids/EditableGridContainer/resizableGrid.module.css.js
-  var digest10 = "94a1926edac46f1c0b6e2b512b97899440f302c9101aee7eb9ffa0eeb2390407";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-7IPBBW054zc1/editor/src/components/Grids/EditableGridContainer/resizableGrid.module.css.js
+  var digest10 = "6db9ca99a571acf236ea7bdbcbdc1f1522363b3dd84fa468e11128300b9e4390";
   var css10 = `._ResizableGrid_i4cq9_1 {
   --grid-gap: 5px;
 
@@ -33035,10 +33035,10 @@ div#_size-detection-cell_i4cq9_1 {
   })();
   var resizableGrid_module_css_default = { "ResizableGrid": "_ResizableGrid_i4cq9_1", "resizableGrid": "_ResizableGrid_i4cq9_1", "size-detection-cell": "_size-detection-cell_i4cq9_1", "sizeDetectionCell": "_size-detection-cell_i4cq9_1" };
 
-  // src/components/Grids/EditableGridContainer/TractInfoDisplay.tsx
+  // ../editor/src/components/Grids/EditableGridContainer/TractInfoDisplay.tsx
   var React30 = __toESM(require_react());
 
-  // src/components/Inputs/CSSUnitInput/CSSMeasure.ts
+  // ../editor/src/components/Inputs/CSSUnitInput/CSSMeasure.ts
   var findMeasureRegex = /(^[\d|.]+)\s*(px|%|rem|fr)|(^auto$)/;
   function isCSSMeasure(x2) {
     return findMeasureRegex.test(x2);
@@ -33069,10 +33069,10 @@ div#_size-detection-cell_i4cq9_1 {
     return `${parsed.count}${parsed.unit}`;
   }
 
-  // src/components/Inputs/CSSUnitInput/CSSUnitInfo.tsx
+  // ../editor/src/components/Inputs/CSSUnitInput/CSSUnitInfo.tsx
   var import_react26 = __toESM(require_react());
 
-  // src/components/PopoverEl/PopoverEl.tsx
+  // ../editor/src/components/PopoverEl/PopoverEl.tsx
   var import_react25 = __toESM(require_react());
 
   // ../../node_modules/react-markdown/lib/uri-transformer.js
@@ -43270,8 +43270,8 @@ div#_size-detection-cell_i4cq9_1 {
     };
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-LaIzzpaqEs6o/editor/src/components/PopoverEl/styles.module.css.js
-  var digest11 = "b3b4987b1331517d152918eaf733e7c9a3a50fd9f827ec02e430d744edf857eb";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-SsCpihlngFvs/editor/src/components/PopoverEl/styles.module.css.js
+  var digest11 = "26ee3fd73fbb0ab69e06077af1b27e5ad82dc98b048758b395073b1397b33f25";
   var css11 = `._popover_m2pq3_1 {
   pointer-events: none;
   opacity: 0;
@@ -43356,7 +43356,7 @@ div#_size-detection-cell_i4cq9_1 {
   })();
   var styles_module_css_default8 = { "popover": "_popover_m2pq3_1", "textContent": "_textContent_m2pq3_11", "popperArrow": "_popperArrow_m2pq3_26", "popoverMarkdown": "_popoverMarkdown_m2pq3_60" };
 
-  // src/components/PopoverEl/PopoverEl.tsx
+  // ../editor/src/components/PopoverEl/PopoverEl.tsx
   var import_jsx_runtime30 = __toESM(require_jsx_runtime());
   var PopoverEl = ({
     placement = "right",
@@ -43437,7 +43437,7 @@ div#_size-detection-cell_i4cq9_1 {
     });
   };
 
-  // src/components/Inputs/PopoverButton.tsx
+  // ../editor/src/components/Inputs/PopoverButton.tsx
   var import_jsx_runtime31 = __toESM(require_jsx_runtime());
   var PopoverButton = ({
     children,
@@ -43461,8 +43461,8 @@ div#_size-detection-cell_i4cq9_1 {
     });
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-1vicWxtiei5q/editor/src/components/Inputs/CSSUnitInput/CSSUnitInfo.module.css.js
-  var digest12 = "cdd7beb5a42e86d61c2ca39877c32b9fcdb863aadf966cf8f63fa94ef5882a47";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-203qNk6oc3o8/editor/src/components/Inputs/CSSUnitInput/CSSUnitInfo.module.css.js
+  var digest12 = "258e5c8bf49ea2c19b25e90c62f5ac213cd3faa70d2724d90f61276a1f5c00fe";
   var css12 = `._infoIcon_15ri6_1 {
   width: 24px;
   color: var(--rstudio-blue);
@@ -43510,7 +43510,7 @@ div#_size-detection-cell_i4cq9_1 {
   })();
   var CSSUnitInfo_module_css_default = { "infoIcon": "_infoIcon_15ri6_1", "container": "_container_15ri6_10", "header": "_header_15ri6_15", "info": "_info_15ri6_1", "unit": "_unit_15ri6_27", "description": "_description_15ri6_31" };
 
-  // src/components/Inputs/CSSUnitInput/CSSUnitInfo.tsx
+  // ../editor/src/components/Inputs/CSSUnitInput/CSSUnitInfo.tsx
   var import_jsx_runtime32 = __toESM(require_jsx_runtime());
   var CSSUnitInfo = ({ units }) => {
     return /* @__PURE__ */ (0, import_jsx_runtime32.jsx)(PopoverButton, {
@@ -43557,8 +43557,8 @@ div#_size-detection-cell_i4cq9_1 {
     rem: "Pixel size of app font. Typically 16 pixels."
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-eKUJTPNALDf2/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
-  var digest13 = "aa5dcd664e7730e6bc606cb4c563582878404a4153ade4ed5f1254eb361a8d80";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-hsNzTcf3SUfy/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
+  var digest13 = "0c588220ff041f0540fcec0b3280d1b9fbae7aa46644308838b60b84bb463155";
   var css13 = `._wrapper_3jy8f_1 {
   position: relative;
   display: flex;
@@ -43599,7 +43599,7 @@ div#_size-detection-cell_i4cq9_1 {
   })();
   var CSSUnitInput_module_css_default = { "wrapper": "_wrapper_3jy8f_1", "unitSelector": "_unitSelector_3jy8f_9" };
 
-  // src/components/Inputs/CSSUnitInput/CSSUnitChooser.tsx
+  // ../editor/src/components/Inputs/CSSUnitInput/CSSUnitChooser.tsx
   var import_jsx_runtime33 = __toESM(require_jsx_runtime());
   function CSSUnitChooser({
     unit,
@@ -43626,15 +43626,15 @@ div#_size-detection-cell_i4cq9_1 {
     });
   }
 
-  // src/components/Inputs/NumberInput/NumberInput.tsx
+  // ../editor/src/components/Inputs/NumberInput/NumberInput.tsx
   var import_react27 = __toESM(require_react());
 
-  // src/components/Inputs/SettingsFormBuilder/inputFieldTypes.ts
+  // ../editor/src/components/Inputs/SettingsFormBuilder/inputFieldTypes.ts
   function makeLabelId(id) {
     return id + "-label";
   }
 
-  // src/components/Inputs/NumberInput/NumberInput.tsx
+  // ../editor/src/components/Inputs/NumberInput/NumberInput.tsx
   var import_jsx_runtime34 = __toESM(require_jsx_runtime());
   function NumberInput({
     id,
@@ -43763,7 +43763,7 @@ div#_size-detection-cell_i4cq9_1 {
     };
   }
 
-  // src/components/PopoverEl/Tooltip.tsx
+  // ../editor/src/components/PopoverEl/Tooltip.tsx
   var import_jsx_runtime35 = __toESM(require_jsx_runtime());
   function Tooltip({
     text: text4,
@@ -43795,7 +43795,7 @@ div#_size-detection-cell_i4cq9_1 {
     });
   }
 
-  // src/components/Grids/EditableGridContainer/utils.tsx
+  // ../editor/src/components/Grids/EditableGridContainer/utils.tsx
   function buildRange2(from, to) {
     const numEls = Math.abs(to - from) + 1;
     const step = from < to ? 1 : -1;
@@ -43849,7 +43849,7 @@ div#_size-detection-cell_i4cq9_1 {
   }
   var cleanNumber = (num) => Number(num.toFixed(4));
 
-  // src/components/Grids/EditableGridContainer/tractUpdatingFunctions.tsx
+  // ../editor/src/components/Grids/EditableGridContainer/tractUpdatingFunctions.tsx
   var minPx = 40;
   var minFrRatio = 0.15;
   var roundTo = (precision) => (val) => Math.round(val / precision) * precision;
@@ -43901,7 +43901,7 @@ div#_size-detection-cell_i4cq9_1 {
     };
   }
 
-  // src/components/Grids/EditableGridContainer/dragToResizeHelpers.tsx
+  // ../editor/src/components/Grids/EditableGridContainer/dragToResizeHelpers.tsx
   function getDragInfo(beforeUnit, afterUnit) {
     const beforeInfo = getUnitInfo(beforeUnit);
     const afterInfo = afterUnit === null ? "missing" : getUnitInfo(afterUnit);
@@ -44087,8 +44087,8 @@ div#_size-detection-cell_i4cq9_1 {
     return tractSizes.some((size) => size === "auto");
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-QVHExtuR6fHt/editor/src/components/Grids/EditableGridContainer/TractInfoDisplay.module.css.js
-  var digest14 = "9fd44bf9892e012789c6c95e1101f06c64dd1ddadd00b67022f431e52ad73c71";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-kr35MPAFb5D9/editor/src/components/Grids/EditableGridContainer/TractInfoDisplay.module.css.js
+  var digest14 = "39dc25b09a15a6c98f3bc90a84046d35c8343a256ecfd55cc603ed5a02920ddc";
   var css14 = `._tractInfoDisplay_cvtwo_1 {
   --transition-delay: 0.1s;
   --transition-speed: 0.1s;
@@ -44259,7 +44259,7 @@ user is typing in the input field but mouses off */
   })();
   var TractInfoDisplay_module_css_default = { "tractInfoDisplay": "_tractInfoDisplay_cvtwo_1", "sizeWidget": "_sizeWidget_cvtwo_61", "cssSizeInput": "_cssSizeInput_cvtwo_80", "hoverListener": "_hoverListener_cvtwo_94", "buttons": "_buttons_cvtwo_114", "tractAddButton": "_tractAddButton_cvtwo_127", "deleteButton": "_deleteButton_cvtwo_128" };
 
-  // src/components/Grids/EditableGridContainer/TractInfoDisplay.tsx
+  // ../editor/src/components/Grids/EditableGridContainer/TractInfoDisplay.tsx
   var import_jsx_runtime36 = __toESM(require_jsx_runtime());
   var ALLOWED_UNITS = ["fr", "px"];
   function TractInfoDisplay({
@@ -44449,8 +44449,8 @@ user is typing in the input field but mouses off */
     });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-pg3mAOO3Qc22/editor/src/components/Grids/EditableGridContainer/TractSizer.module.css.js
-  var digest15 = "80f6b872e769c508163e0f8ea7e178a71101e0e1749963f8fb94b1dfe89efbe3";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-sEVuXcPKuhDf/editor/src/components/Grids/EditableGridContainer/TractSizer.module.css.js
+  var digest15 = "f7928f1256c4b8ffdf14de72f4fb025ef93e2d7e34fba1c182e5f829d73f05eb";
   var css15 = `div._columnSizer_9b32k_1,
 div._rowSizer_9b32k_2 {
   --sizer-color: #c9e2f3;
@@ -44542,7 +44542,7 @@ div._rowSizer_9b32k_2::after {
   })();
   var TractSizer_module_css_default = { "columnSizer": "_columnSizer_9b32k_1", "rowSizer": "_rowSizer_9b32k_2" };
 
-  // src/components/Grids/EditableGridContainer/TractSizer.tsx
+  // ../editor/src/components/Grids/EditableGridContainer/TractSizer.tsx
   var import_jsx_runtime37 = __toESM(require_jsx_runtime());
   function TractSizerHandle({
     dir,
@@ -44556,10 +44556,10 @@ div._rowSizer_9b32k_2::after {
     });
   }
 
-  // src/components/Grids/EditableGridContainer/useDragToResizeGrid.ts
+  // ../editor/src/components/Grids/EditableGridContainer/useDragToResizeGrid.ts
   var import_react28 = __toESM(require_react());
 
-  // src/utils/validateRef.ts
+  // ../editor/src/utils/validateRef.ts
   function validateRef(x2, error_msg = "Ref is not yet initialized") {
     if (x2.current === null) {
       throw new Error(error_msg);
@@ -44567,7 +44567,7 @@ div._rowSizer_9b32k_2::after {
     return x2.current;
   }
 
-  // src/components/Grids/EditableGridContainer/useDragToResizeGrid.ts
+  // ../editor/src/components/Grids/EditableGridContainer/useDragToResizeGrid.ts
   function useDragToResizeGrid({
     containerRef,
     onDragEnd
@@ -44683,7 +44683,7 @@ div._rowSizer_9b32k_2::after {
     }
   }
 
-  // src/components/Grids/EditableGridContainer/EditableGridContainer.tsx
+  // ../editor/src/components/Grids/EditableGridContainer/EditableGridContainer.tsx
   var import_jsx_runtime38 = __toESM(require_jsx_runtime());
   function cleanupLayoutArgs({
     areas,
@@ -44785,7 +44785,7 @@ div._rowSizer_9b32k_2::after {
   }
   var EditableGridContainer_default = EditableGridContainer;
 
-  // src/components/Grids/GridCell.tsx
+  // ../editor/src/components/Grids/GridCell.tsx
   var import_react29 = __toESM(require_react());
   var import_jsx_runtime39 = __toESM(require_jsx_runtime());
   function GridCell({
@@ -44821,14 +44821,14 @@ div._rowSizer_9b32k_2::after {
     });
   }
 
-  // src/components/Grids/NameNewPanelModal.tsx
+  // ../editor/src/components/Grids/NameNewPanelModal.tsx
   var import_react33 = __toESM(require_react());
 
-  // src/PortalModal.tsx
+  // ../editor/src/PortalModal.tsx
   var React34 = __toESM(require_react());
   var ReactDOM2 = __toESM(require_react_dom());
 
-  // src/EditorSkeleton/EditorSkeleton.tsx
+  // ../editor/src/EditorSkeleton/EditorSkeleton.tsx
   var import_jsx_runtime40 = __toESM(require_jsx_runtime());
   var PROPERTIES_PANEL_WIDTH_PX = 236;
   function EditorSkeleton({
@@ -44871,8 +44871,8 @@ div._rowSizer_9b32k_2::after {
     });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-sEVKnDBz16vW/editor/src/PortalModal.module.css.js
-  var digest16 = "fed19a05d232b806232b847bf8245a77ae2b1e04a09d4555f3d2a3f681c672d3";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-uPB4tp61uQk6/editor/src/PortalModal.module.css.js
+  var digest16 = "13f6af5e59e8ebc33477302381f7da21ea3317b2b22eeff877dda6aa750b7a6e";
   var css16 = `._portalHolder_18ua3_1 {
   background-color: rgba(255, 255, 255, 0.735);
   position: absolute;
@@ -44942,7 +44942,7 @@ div._rowSizer_9b32k_2::after {
   })();
   var PortalModal_module_css_default = { "portalHolder": "_portalHolder_18ua3_1", "portalModal": "_portalModal_18ua3_11", "title": "_title_18ua3_21", "body": "_body_18ua3_25", "portalForm": "_portalForm_18ua3_30", "portalFormInputs": "_portalFormInputs_18ua3_35", "portalFormFooter": "_portalFormFooter_18ua3_42", "validationMsg": "_validationMsg_18ua3_48", "infoText": "_infoText_18ua3_53" };
 
-  // src/PortalModal.tsx
+  // ../editor/src/PortalModal.tsx
   var import_jsx_runtime41 = __toESM(require_jsx_runtime());
   var Portal = ({ children, el = "div" }) => {
     const [container2] = React34.useState(document.createElement(el));
@@ -44990,8 +44990,8 @@ div._rowSizer_9b32k_2::after {
   }
   var PortalModal_default = PortalModal;
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-xnCDK9Hhe8OF/editor/src/PortalModal.module.css.js
-  var digest17 = "9f4fa1ea2d0c06173b2b814f8c5f3ffa3887562e22b9d04908da5fad93a02dfe";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-ucgGA3GJEF50/editor/src/PortalModal.module.css.js
+  var digest17 = "7b330d02e5e2fb022e0155a8ce85a016fe6974dd1768512057be0724ec4bde0f";
   var css17 = `._portalHolder_18ua3_1 {
   background-color: rgba(255, 255, 255, 0.735);
   position: absolute;
@@ -45167,8 +45167,8 @@ div._rowSizer_9b32k_2::after {
     }
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-idCi5jSb70kX/editor/src/components/Inputs/BooleanInput/styles.module.css.js
-  var digest18 = "8d5858f3f6072012a8d568bcf741b3665e28fda568065acbcc3ac082a79468ae";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-qtr2BUQSbEHM/editor/src/components/Inputs/BooleanInput/styles.module.css.js
+  var digest18 = "8b7912187ce65a4d46210a95c6ad78249761b4348a74a5fea25ab5852ffe0aa9";
   var css18 = `._checkboxInput_7ym3w_1 {
   height: 0;
   width: 0;
@@ -45242,7 +45242,7 @@ label._checkboxLabel_7ym3w_10:after {
   })();
   var styles_module_css_default9 = { "checkboxInput": "_checkboxInput_7ym3w_1", "checkboxLabel": "_checkboxLabel_7ym3w_10" };
 
-  // src/components/Inputs/BooleanInput/BooleanInputSimple.tsx
+  // ../editor/src/components/Inputs/BooleanInput/BooleanInputSimple.tsx
   var import_jsx_runtime42 = __toESM(require_jsx_runtime());
   function BooleanInput({
     id,
@@ -45273,11 +45273,11 @@ label._checkboxLabel_7ym3w_10:after {
     });
   }
 
-  // src/components/Inputs/CSSUnitInput/CSSUnitInput.tsx
+  // ../editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.tsx
   var import_react30 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-JJZTHjBiGa3G/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
-  var digest19 = "59180de13f7490dbd02b05014fc136e2fa95c014270786f9e6b8881d129c288b";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-24kHHV3BmPvz/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
+  var digest19 = "82d7131f95c2aad3eb016334fcc19a90322a9cf23773e5ae4507fb87bd6a0fad";
   var css19 = `._wrapper_3jy8f_1 {
   position: relative;
   display: flex;
@@ -45318,7 +45318,7 @@ label._checkboxLabel_7ym3w_10:after {
   })();
   var CSSUnitInput_module_css_default2 = { "wrapper": "_wrapper_3jy8f_1", "unitSelector": "_unitSelector_3jy8f_9" };
 
-  // src/components/Inputs/CSSUnitInput/CSSUnitInput.tsx
+  // ../editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.tsx
   var import_jsx_runtime43 = __toESM(require_jsx_runtime());
   var defaultCounts = {
     fr: 1,
@@ -45399,7 +45399,7 @@ label._checkboxLabel_7ym3w_10:after {
     });
   }
 
-  // src/components/Inputs/ListInput/NamedListInput.tsx
+  // ../editor/src/components/Inputs/ListInput/NamedListInput.tsx
   var import_react31 = __toESM(require_react());
 
   // ../../node_modules/react-icons/md/index.esm.js
@@ -45407,11 +45407,11 @@ label._checkboxLabel_7ym3w_10:after {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "fill": "none", "d": "M0 0h24v24H0z" } }, { "tag": "path", "attr": { "d": "M20 9H4v2h16V9zM4 15h16v-2H4v2z" } }] })(props);
   }
 
-  // src/components/Inputs/ListInput/NamedListInput.tsx
+  // ../editor/src/components/Inputs/ListInput/NamedListInput.tsx
   var import_react_sortablejs = __toESM(require_dist());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-1MvCxfsg8iza/editor/src/components/Inputs/ListInput/styles.module.css.js
-  var digest20 = "5dcebe89bc7e5b6b8bca52f1fd6f4c0155cfaae2bf88f16253e37b4853254505";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-CkCmFF5lNTZQ/editor/src/components/Inputs/ListInput/styles.module.css.js
+  var digest20 = "937e3b41541dc2db9bba9060234c0761e8c6394b87b839a602bcebbfd2e89c3a";
   var css20 = `._container_xt7ji_1 {
   --gap-size: 4px;
   margin-top: 21px;
@@ -45504,7 +45504,7 @@ label._checkboxLabel_7ym3w_10:after {
   })();
   var styles_module_css_default10 = { "container": "_container_xt7ji_1", "list": "_list_xt7ji_6", "item": "_item_xt7ji_15", "keyField": "_keyField_xt7ji_29", "valueField": "_valueField_xt7ji_34", "header": "_header_xt7ji_39", "dragHandle": "_dragHandle_xt7ji_45", "deleteButton": "_deleteButton_xt7ji_55", "addItemButton": "_addItemButton_xt7ji_65", "separator": "_separator_xt7ji_72" };
 
-  // src/components/Inputs/ListInput/NamedListInput.tsx
+  // ../editor/src/components/Inputs/ListInput/NamedListInput.tsx
   var import_jsx_runtime44 = __toESM(require_jsx_runtime());
   function isNamedList(x2) {
     if (typeof x2 !== "object")
@@ -45650,7 +45650,7 @@ label._checkboxLabel_7ym3w_10:after {
     return toReturn;
   }
 
-  // src/components/Inputs/OptionsDropdown/DropdownSelect.tsx
+  // ../editor/src/components/Inputs/OptionsDropdown/DropdownSelect.tsx
   var import_react32 = __toESM(require_react());
   var import_jsx_runtime45 = __toESM(require_jsx_runtime());
   var DEFAULT_DROPDOWN_CHOICE = "__DEFAULT-DROPDOWN-CHOICE__";
@@ -45696,11 +45696,11 @@ label._checkboxLabel_7ym3w_10:after {
     });
   }
 
-  // src/components/Inputs/RadioInputs/RadioInputsSimple.tsx
+  // ../editor/src/components/Inputs/RadioInputs/RadioInputsSimple.tsx
   var React38 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-WnCYbhhfxKJE/editor/src/components/Inputs/RadioInputs/RadioInputs.module.css.js
-  var digest21 = "167994d5f32d32f14db7655ad2e2a890caf2caf97598ac5196b92139e3debede";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-1J1a34e8KDLt/editor/src/components/Inputs/RadioInputs/RadioInputs.module.css.js
+  var digest21 = "d0ddde1a61a2b3e75579f52ac85045cc4dc286af2065f7c66dca60e80c475ff8";
   var css21 = `._radioContainer_1regb_1 {
   display: grid;
   gap: 5px;
@@ -45800,7 +45800,7 @@ the label */
   })();
   var RadioInputs_module_css_default = { "radioContainer": "_radioContainer_1regb_1", "option": "_option_1regb_15", "radioInput": "_radioInput_1regb_22", "radioLabel": "_radioLabel_1regb_26", "icon": "_icon_1regb_41" };
 
-  // src/components/Inputs/RadioInputs/RadioInputsSimple.tsx
+  // ../editor/src/components/Inputs/RadioInputs/RadioInputsSimple.tsx
   var import_jsx_runtime46 = __toESM(require_jsx_runtime());
   var DEFAULT_RADIO_CHOICE = "__DEFAULT-RADIO-CHOICE__";
   function RadioInputs({
@@ -45859,7 +45859,7 @@ the label */
     });
   }
 
-  // src/components/Inputs/SettingsFormBuilder/SettingsInput/StringInput.tsx
+  // ../editor/src/components/Inputs/SettingsFormBuilder/SettingsInput/StringInput.tsx
   var import_jsx_runtime47 = __toESM(require_jsx_runtime());
   function StringInput({
     id,
@@ -45881,7 +45881,7 @@ the label */
     });
   }
 
-  // src/components/Inputs/SettingsFormBuilder/SettingsInput/SettingsInputElement.tsx
+  // ../editor/src/components/Inputs/SettingsFormBuilder/SettingsInput/SettingsInputElement.tsx
   var import_jsx_runtime48 = __toESM(require_jsx_runtime());
   function SettingsInputElement(args) {
     return K(args).with({ inputType: "string" }, (x2) => /* @__PURE__ */ (0, import_jsx_runtime48.jsx)(StringInput, {
@@ -45907,7 +45907,7 @@ the label */
     }));
   }
 
-  // src/components/Inputs/SettingsFormBuilder/SettingsInput/valueIsType.tsx
+  // ../editor/src/components/Inputs/SettingsFormBuilder/SettingsInput/valueIsType.tsx
   function valueIsType(value, type) {
     if (value === void 0) {
       return true;
@@ -45936,7 +45936,7 @@ the label */
     throw new Error("Unimplemented argument type check", type);
   }
 
-  // src/components/Inputs/SettingsFormBuilder/SettingsInput/SettingsInput.tsx
+  // ../editor/src/components/Inputs/SettingsFormBuilder/SettingsInput/SettingsInput.tsx
   var import_jsx_runtime49 = __toESM(require_jsx_runtime());
   function SettingsInput({ onUpdate: onUpdate2, ...opts }) {
     const argumentIsUnset = opts.value === void 0;
@@ -46045,7 +46045,7 @@ the label */
     });
   }
 
-  // src/components/Grids/NameNewPanelModal.tsx
+  // ../editor/src/components/Grids/NameNewPanelModal.tsx
   var import_jsx_runtime50 = __toESM(require_jsx_runtime());
   function NameNewPanelModal({
     onCancel,
@@ -46154,8 +46154,8 @@ the label */
     return null;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-j0pMjqRIj0qV/editor/src/components/Grids/GridlayoutElement/styles.module.css.js
-  var digest22 = "adf770b045ad1fff266b928842a38242490952b0bfc0457b84cf62c915ee05e2";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-6MHLKHkSzEL4/editor/src/components/Grids/GridlayoutElement/styles.module.css.js
+  var digest22 = "c1fe5c61a6e69b3f0f53b823ce534f940b0c001ca6540dc601309750a30cc9c4";
   var css22 = `._container_1hvsg_1 {
   display: grid;
   /* background-color: var(--bg-color); */
@@ -46178,7 +46178,7 @@ the label */
   })();
   var styles_module_css_default11 = { "container": "_container_1hvsg_1" };
 
-  // src/components/Grids/GridlayoutElement/GridlayoutElement.tsx
+  // ../editor/src/components/Grids/GridlayoutElement/GridlayoutElement.tsx
   var import_jsx_runtime51 = __toESM(require_jsx_runtime());
   var GridlayoutElement = ({
     uiArguments: layoutDef,
@@ -46284,7 +46284,7 @@ the label */
     });
   };
 
-  // src/Shiny-Ui-Elements/GridlayoutGridContainer/GridlayoutGridContainer.tsx
+  // ../editor/src/Shiny-Ui-Elements/GridlayoutGridContainer/GridlayoutGridContainer.tsx
   var import_jsx_runtime52 = __toESM(require_jsx_runtime());
   var GridlayoutGridContainer = ({
     uiArguments,
@@ -46301,7 +46301,7 @@ the label */
   };
   var GridlayoutGridContainer_default = GridlayoutGridContainer;
 
-  // src/Shiny-Ui-Elements/GridlayoutGridContainer/index.tsx
+  // ../editor/src/Shiny-Ui-Elements/GridlayoutGridContainer/index.tsx
   var gridlayoutGridContainerInfo = {
     title: "Grid Container",
     UiComponent: GridlayoutGridContainer_default,
@@ -46332,7 +46332,7 @@ the label */
     description: `A general container for arranging items using \`gridlayout\``
   };
 
-  // src/Shiny-Ui-Elements/GridlayoutGridPage/GridlayoutGridPage.tsx
+  // ../editor/src/Shiny-Ui-Elements/GridlayoutGridPage/GridlayoutGridPage.tsx
   var import_jsx_runtime53 = __toESM(require_jsx_runtime());
   var GridlayoutGridPage = (args) => {
     return /* @__PURE__ */ (0, import_jsx_runtime53.jsx)(GridlayoutElement, {
@@ -46340,7 +46340,7 @@ the label */
     });
   };
 
-  // src/Shiny-Ui-Elements/GridlayoutGridPage/index.tsx
+  // ../editor/src/Shiny-Ui-Elements/GridlayoutGridPage/index.tsx
   var gridlayoutGridPageInfo = {
     title: "Grid Page",
     UiComponent: GridlayoutGridPage,
@@ -46369,14 +46369,14 @@ the label */
     category: "gridlayout"
   };
 
-  // src/env_variables.ts
+  // ../editor/src/env_variables.ts
   var TESTING_MODE = false;
   try {
     TESTING_MODE = false;
   } catch {
   }
 
-  // src/components/PlotPlaceholder/PlotPlaceholder.tsx
+  // ../editor/src/components/PlotPlaceholder/PlotPlaceholder.tsx
   var import_jsx_runtime54 = __toESM(require_jsx_runtime());
   var NUM_BARS = 11;
   var bar_values = normalize4(
@@ -46424,7 +46424,7 @@ the label */
     return normalized;
   }
 
-  // src/Shiny-Ui-Elements/PlotlyPlotlyOutput/PlotlyPlotlyOutput.tsx
+  // ../editor/src/Shiny-Ui-Elements/PlotlyPlotlyOutput/PlotlyPlotlyOutput.tsx
   var import_jsx_runtime55 = __toESM(require_jsx_runtime());
   var PlotlyPlotlyOutput = ({
     uiArguments: { outputId, width = "100%", height = "400px" },
@@ -46453,7 +46453,7 @@ the label */
   };
   var PlotlyPlotlyOutput_default = PlotlyPlotlyOutput;
 
-  // src/Shiny-Ui-Elements/PlotlyPlotlyOutput/index.tsx
+  // ../editor/src/Shiny-Ui-Elements/PlotlyPlotlyOutput/index.tsx
   var plotlyPlotlyOutputInfo = {
     title: "Plotly Plot",
     UiComponent: PlotlyPlotlyOutput_default,
@@ -46480,10 +46480,10 @@ the label */
     description: "Output for interactive `plotly` plots."
   };
 
-  // src/assets/icons/shinyButton.png
+  // ../editor/src/assets/icons/shinyButton.png
   var shinyButton_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAADKUlEQVR4nO3cMY5VVQDG8Q8QaFyACiWFvVqwiyERjHuQAoohbsAEKLTARRiCYtgGxsR6So0LgAYIeRR3bmKGZ0Hi5zl3+P2S17xM8eXkP/e9meKc2e12gf/a2dEDOJ2ERYWwqBAWFcKiQlhUCIsKYVEhLCqERYWwqBAWFcKiQlhUCIsKYVEhLCqERYWwqBAWFcKiQlhUCIsKYVEhLCqERYWwqBAWFcKiQlhUCIsKYVEhLCqERYWwqBAWFcKiQlhUCIsKYVEhLCqERYWwqBAWFcKiQlhUCIsKYVEhLCqERYWwqBAWFcKiQlhUfDB6wD8d/nS07+0LSQ6OX1eTfHL83vvmeZI/k/ye5JckvyZ5efKH7n115X+etd9UYe1xLcm9JHOc1lgfJvn0+PV1kqMkd5L8PHLUv5n1o/BckrtZDk1U+11J8ijLOZ0bvOUtsz6xvktyOHrERqzndGfoihNmfGJ9GVG9q8Ms5zaN2cK6kOT70SM26odM9EfNbGFdT3J59IiNupTkxugRq9nCOhg9YOMORg9YzRbWF6MHbNznowesZgvro9EDNu7j0QNWs4V1cfSAjfPlndNNWFQIiwphUSEsKoRFhbCoEBYVwqJCWFQIiwphUSEsKoRFhbCoEBYVwqJCWFQIi4rZwno2esDGvXX7zCizhfX36AEbN835zRbWH6MHbNzT0QNWs4X1ePSAjXs8esBqtrAeZrm1jnf3V5bzm8JsYb1Mcnv0iI26leTF6BGr2cJKlt+6+6NHbMz9TPS0SuYMK0m+TfJg9IiN+DHLeU1l1rBeJ7mZ5Za6vVcpk6Ms94l9k+W8pjLrHaSrR0meZDnAa0k+y3LB2PmRowZ5leUL+m9ZruN+mIn+IXrSmd1uN3oDp9CsH4VsnLCoEBYVwqJCWFQIiwphUSEsKoRFhbCoEBYVwqJCWFQIiwphUSEsKoRFhbCoEBYVwqJCWFQIiwphUSEsKoRFhbCoEBYVwqJCWFQIiwphUSEsKoRFhbCoEBYVwqJCWFQIiwphUSEsKoRFhbCoEBYVwqJCWFQIiwphUSEsKoRFhbCoEBYVwqJCWFQIi4o3LCE7MROKhbQAAAAASUVORK5CYII=";
 
-  // src/Shiny-Ui-Elements/commonSettingsTemplates.tsx
+  // ../editor/src/Shiny-Ui-Elements/commonSettingsTemplates.tsx
   function makeStringInputInfo(label, defaultValue) {
     return {
       label,
@@ -46498,8 +46498,8 @@ the label */
     return makeStringInputInfo("Label text", defaultValue);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-sGvgMel7ToXF/editor/src/Shiny-Ui-Elements/ShinyActionButton/styles.module.css.js
-  var digest23 = "ab4892f44f5227f272e4d6477b2c5e7f29255ac07996666822b3d6b8aafc2bd9";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-OZxZOZMknAhC/editor/src/Shiny-Ui-Elements/ShinyActionButton/styles.module.css.js
+  var digest23 = "1031ea61e3911a1e55be67da97b3c1e882075f243725d319c56d3c2b1f3268d4";
   var css23 = `._container_tyghz_1 {
   display: grid;
   grid-template-rows: 1fr;
@@ -46522,7 +46522,7 @@ the label */
   })();
   var styles_module_css_default12 = { "container": "_container_tyghz_1" };
 
-  // src/Shiny-Ui-Elements/ShinyActionButton/ShinyActionButton.tsx
+  // ../editor/src/Shiny-Ui-Elements/ShinyActionButton/ShinyActionButton.tsx
   var import_jsx_runtime56 = __toESM(require_jsx_runtime());
   var ShinyActionButton = ({
     uiArguments,
@@ -46540,7 +46540,7 @@ the label */
   };
   var ShinyActionButton_default = ShinyActionButton;
 
-  // src/Shiny-Ui-Elements/ShinyActionButton/index.tsx
+  // ../editor/src/Shiny-Ui-Elements/ShinyActionButton/index.tsx
   var shinyActionButtonInfo = {
     title: "Action Button",
     UiComponent: ShinyActionButton_default,
@@ -46560,11 +46560,11 @@ the label */
     description: "Creates an action button whose value is initially zero, and increments by one each time it is pressed."
   };
 
-  // src/assets/icons/shinyCheckgroup.png
+  // ../editor/src/assets/icons/shinyCheckgroup.png
   var shinyCheckgroup_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAFS0lEQVR4nO3cz2vTdxzH8Vfb9VeIa7ta1FW2FqQ6pqLbEERhm0OGFzcPY0dhl+LFo4cd9gfsuIs77LDbkAljDqEiCoKszMMEcbqFsjm2OaW6ptClP2zNDvkms2n6I99vXqTp5/mAQJKmn3wPT76fJCTvpnw+L6DWmut9ANiYCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFoQFC8KCBWHBgrBgQViwICxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFs/V+wDq5cy5seX+1BNd4piILkt8+uGOmEs2pmDDKrNL0ilJ70h6NeFaP0m6IumspJ8TrtWw2AqlYUl3JJ1W8qgUrXE6WnO4Bus1pNDPWCclff7sHZ1tzepsa4m12PTcgqbnnhZvNkVrz0r6Mv4hNqaQw+pTYbuSJA1s7tB7r/Wpv6c90aJ/Tczq2x/Hde/RTPGus5IuShpPtHCDCXkrPCWpU5K297Rr+O3+xFFJUn+01vYXSmt1RM8VlJDDOly8cmxvr1qam2q2cEtzk47t6a34XKEIeSs8VLwy0NeZaKHRTFaX7xQ+ZRh+60Vt6W4vX/NQxX/cwEIOK1W80toS/2x18ea4rmUmlW5vKUVVYc1UxX/ewELeChMbzWR1LTMpSTp5aGspKhBWbJO5J/rm5iNJ0on9m/Vywu10oyGsmL76/oEk6cBAWgeHuut7MOsQYcUwmsnq18ezSre36Ojid3+IEFaVJnNPSu8Aj+/rVVeqtc5HtD4RVpWu/5LV1OyCdm9Lad/A8/U+nHWLsKrwMDtbehf47l62wJUQVhUu3XosSXpzqIuPFlZBWBWMZrI6c25M5394ULrv9/Fp3f47J0k6vLO7TkfWOAirzMyTp6XPp27cmyrFdfvPKUmFsxUv2FdHWGU6Wpv10eGtpds37k0t+oT9jUFesK8FYVWwqz+tE/s3l24Xz2C7t6V4bbVGhLWMg0PdOjCQXnTf3pfSyzwa5UIO65/ildzcQsUHHN3Tq3R74WvKWza1VvW51TNfUZaW+eXORhby12auSzouSXfv5/T6wKYlD+hKteqT9wdjLX7n/r/lzxWUkM9Y3xWvjNx6rGxuvmYLZ3PzGok+84pcqNniDSLkM9YXkj6WNDg5Pa/PLv+hI6/0aMeWlNpifvFvbiGvsYc5Xb07oamZ0vb6W/RcQQk5LKnwI4cRSZqaWdCF6N2f4TmCE/JWKEmXVPj1c8awdiZa+5Jh7XUv9DOWJF2VtFPSB5KOqPCLmrjfUc+p8EL9iqTzNTm6BkVY//s6uqAGQt8KYUJYsCAsWBAWLHjxvpRlol9oCKuAiX41xlbIRD+L0M9YTPQzCTksJvoZhbwVMtHPKOSwmOhnFPJWyEQ/o5DDYqKfUchbYWJM9FseYcXERL+VEVZMTPRbGWHFwES/1RFWlZjotzaEVSUm+q0NYVWBiX5rR1hVYKLf2hFWBUz0S46wyjDRrzYIqwwT/WqDsCpgol9yhLUMJvolE3JYTPQzCvlrM0z0Mwr5jMVEP6OQz1hM9DMKOSyJiX42IW+FEhP9bEI/Y0lM9LNoyufz9T4GbEChb4UwISxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFoQFC8KCBWHBgrBgQViwICxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLP4DpWmTqmVmpDwAAAAASUVORK5CYII=";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-h3ZS60NVUCIo/editor/src/Shiny-Ui-Elements/ShinyCheckboxGroupInput/styles.module.css.js
-  var digest24 = "9864f7385f5a07b64ac17f9ddef10b006c24cacaf524cdb3d6288c29ff0457d5";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-wtKLAeuQfitx/editor/src/Shiny-Ui-Elements/ShinyCheckboxGroupInput/styles.module.css.js
+  var digest24 = "d9f9a770edf5e77e3d98d8a14c4e47f7ea371d19ed4397fb650d989d436fbd5f";
   var css24 = `._container_162lp_1 {
   position: relative;
   padding: 4px;
@@ -46598,7 +46598,7 @@ the label */
   })();
   var styles_module_css_default13 = { "container": "_container_162lp_1", "checkbox": "_checkbox_162lp_14" };
 
-  // src/Shiny-Ui-Elements/ShinyCheckboxGroupInput/ShinyCheckboxGroupInput.tsx
+  // ../editor/src/Shiny-Ui-Elements/ShinyCheckboxGroupInput/ShinyCheckboxGroupInput.tsx
   var import_jsx_runtime57 = __toESM(require_jsx_runtime());
   var ShinyCheckboxGroupInput = ({ uiArguments, wrapperProps }) => {
     const choices = uiArguments.choices;
@@ -46634,7 +46634,7 @@ the label */
   };
   var ShinyCheckboxGroupInput_default = ShinyCheckboxGroupInput;
 
-  // src/Shiny-Ui-Elements/ShinyCheckboxGroupInput/index.tsx
+  // ../editor/src/Shiny-Ui-Elements/ShinyCheckboxGroupInput/index.tsx
   var shinyCheckboxGroupInputInfo = {
     title: "Checkbox Group",
     UiComponent: ShinyCheckboxGroupInput_default,
@@ -46656,14 +46656,14 @@ the label */
     description: "Create a group of checkboxes that can be used to toggle multiple choices independently. The server will receive the input as a character vector of the selected values."
   };
 
-  // src/assets/icons/shinycheckbox.png
+  // ../editor/src/assets/icons/shinycheckbox.png
   var shinycheckbox_default = "data:image/png;base64,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";
 
-  // src/Shiny-Ui-Elements/ShinyCheckboxInput/ShinyCheckboxInput.tsx
+  // ../editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/ShinyCheckboxInput.tsx
   var React41 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-kHS5VnjvEc4d/editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/styles.module.css.js
-  var digest25 = "bc1e3ccf59eecf6ccd7a658f7378335cd3b438b7aa0005b9c2623409c2928ab7";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-AaFFJTFgSLX5/editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/styles.module.css.js
+  var digest25 = "520d00dc4e448a4e72785dac694328a45fb210a66c10e41acffa6f958646ac38";
   var css25 = `._container_1x0tz_1 {
   position: relative;
   padding: 4px;
@@ -46690,7 +46690,7 @@ the label */
   })();
   var styles_module_css_default14 = { "container": "_container_1x0tz_1", "label": "_label_1x0tz_10" };
 
-  // src/Shiny-Ui-Elements/ShinyCheckboxInput/ShinyCheckboxInput.tsx
+  // ../editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/ShinyCheckboxInput.tsx
   var import_jsx_runtime58 = __toESM(require_jsx_runtime());
   var ShinyCheckboxInput = ({
     uiArguments,
@@ -46725,7 +46725,7 @@ the label */
   };
   var ShinyCheckboxInput_default = ShinyCheckboxInput;
 
-  // src/Shiny-Ui-Elements/ShinyCheckboxInput/index.tsx
+  // ../editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/index.tsx
   var shinyCheckboxInputInfo = {
     title: "Checkbox Input",
     UiComponent: ShinyCheckboxInput_default,
@@ -46750,13 +46750,13 @@ the label */
     description: "Create a checkbox that can be used to specify logical values."
   };
 
-  // src/Shiny-Ui-Elements/ShinyTabPanel/isValidTabPanel.tsx
+  // ../editor/src/Shiny-Ui-Elements/ShinyTabPanel/isValidTabPanel.tsx
   var validTabPanels = ["shiny::tabPanel"];
   function isValidTabPanel(node) {
     return validTabPanels.includes(node.uiName);
   }
 
-  // src/components/Tabs/Tabset/utils.ts
+  // ../editor/src/components/Tabs/Tabset/utils.ts
   function getTabPanelTitle(node) {
     if (isValidTabPanel(node)) {
       return node.uiArguments.title;
@@ -46779,8 +46779,8 @@ the label */
     return getTabPanelTitle(firstChild) ?? "First Tab";
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-OZMCVj90oDUQ/editor/src/components/Tabs/TabPanel/TabPanel.module.css.js
-  var digest26 = "32b7ea137a0b793083dc990a2b93b64c70fc299770341454d5e0a344c4167070";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-UgRHk45BDbzD/editor/src/components/Tabs/TabPanel/TabPanel.module.css.js
+  var digest26 = "777e30610df62b8d6d1e211a7391349aac4fc2a1acb36278ff5f0cced11a39b3";
   var css26 = `._container_10z2l_1 {
   height: 100%;
 }
@@ -46798,7 +46798,7 @@ the label */
   })();
   var TabPanel_module_css_default = { "container": "_container_10z2l_1" };
 
-  // src/components/Tabs/TabPanel/TabPanel.tsx
+  // ../editor/src/components/Tabs/TabPanel/TabPanel.tsx
   var import_jsx_runtime59 = __toESM(require_jsx_runtime());
   function TabPanel({ title, children, ...divProps }) {
     return /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("div", {
@@ -46811,16 +46811,16 @@ the label */
   }
   var TabPanel_default = TabPanel;
 
-  // src/components/Tabs/Tabset/Tabset.tsx
+  // ../editor/src/components/Tabs/Tabset/Tabset.tsx
   var import_react39 = __toESM(require_react());
 
-  // src/assets/icons/tabPanel.png
+  // ../editor/src/assets/icons/tabPanel.png
   var tabPanel_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAADSklEQVR4nO3cv0vUYQDH8c/pmWfpmV1G0uAPjAqiyYqWoK1oDKq5PdqE9qaG/ozAKWjpL4jWoKayrcWtIgqiuAYd9LQo8u3zfO39ghvux/C54y3PV9Br9fv9SLttqPQA7U+GJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlRLv0gF9ZXlkdfGg6yf0k15PMJhnd6007+JrkXZInSR4l+bD5yYe3FgtMqkO1YQ1YSvIsydHSQwaMJTm7cbuT5FqSV0UXVaIJR2EvydPUF9WgE1nfOVl6SA2aENa9JDOlR/yhuSR3S4+oQROOwhs7PTjb6+TS4mTmp8cy0RlOe7iFD/n+o5+PX7/n7dqXPH/zMWufvu30sttJHuBjKteEsLZdAV85M5Vr53p7PqQ93EpvfCS98ckszXfz+MVaXr//PPiy//eKfZMmHIUHNt+ZO9rJ1QJRDWoPtXLzwrF0x7b9bNbw22pxTQhri/ML3fCH3p/pjAzl4kK39IwqNS6s2V6n9IQtTh4/WHpClRoX1pHxkdITtpieqGtPLRoXVnuoloNw3ehI4z7CPeGn8o9qC70WhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCVHFP6zu8M0y+0Lp91Xy226qCCtJv/SAXVbL+yn2B/kehUIYlhCGJUQt11i/uxaYunzqcPf0zKGFjfuf9mLQ39i4SP6xvLL6svCUarT6/VquM7WfeBQKYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQvwEAzs9K42yqRkAAAAASUVORK5CYII=";
 
-  // src/Shiny-Ui-Elements/utils/DropDetector.tsx
+  // ../editor/src/Shiny-Ui-Elements/utils/DropDetector.tsx
   var import_react36 = __toESM(require_react());
 
-  // src/DragAndDropHelpers/useDropHandlers.tsx
+  // ../editor/src/DragAndDropHelpers/useDropHandlers.tsx
   var import_react35 = __toESM(require_react());
   function useDropHandlers(watcherRef, {
     dropFilters: dropFilters3 = { rejectedNodes: [] },
@@ -46878,7 +46878,7 @@ the label */
     );
   }
 
-  // src/Shiny-Ui-Elements/utils/DropDetector.tsx
+  // ../editor/src/Shiny-Ui-Elements/utils/DropDetector.tsx
   var import_jsx_runtime60 = __toESM(require_jsx_runtime());
   function DropDetector({ children, dropArgs, ...divProps }) {
     const detectorRef = import_react36.default.useRef(null);
@@ -46891,7 +46891,7 @@ the label */
   }
   var DropDetector_default = DropDetector;
 
-  // src/Shiny-Ui-Elements/utils/RenderUiChildren.tsx
+  // ../editor/src/Shiny-Ui-Elements/utils/RenderUiChildren.tsx
   var import_jsx_runtime61 = __toESM(require_jsx_runtime());
   function RenderUiChildren({
     uiChildren,
@@ -46908,8 +46908,8 @@ the label */
     });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-7T6mF3cENvC1/editor/src/Shiny-Ui-Elements/ShinyTabPanel/ShinyTabPanel.module.css.js
-  var digest27 = "849e7104fd8f2dfbd26aae6dc24fe7cb58279b3d96c3c4d2d7c2e15b07b4ec05";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-YS5rh3SRQWSH/editor/src/Shiny-Ui-Elements/ShinyTabPanel/ShinyTabPanel.module.css.js
+  var digest27 = "f851f0308b7ccf2312c1e0ca9e8e8421a40198d08a56f735d116a3e60d9a1c67";
   var css27 = `._container_fe3r8_1 {
   position: relative;
   height: 100%;
@@ -46935,7 +46935,7 @@ the label */
   })();
   var ShinyTabPanel_module_css_default = { "container": "_container_fe3r8_1", "emptyTabPanelDropDetector": "_emptyTabPanelDropDetector_fe3r8_8" };
 
-  // src/Shiny-Ui-Elements/ShinyTabPanel/ShinyTabPanel.tsx
+  // ../editor/src/Shiny-Ui-Elements/ShinyTabPanel/ShinyTabPanel.tsx
   var import_jsx_runtime62 = __toESM(require_jsx_runtime());
   var invalidTabPanelContents = [
     "shiny::navbarPage",
@@ -46973,7 +46973,7 @@ the label */
   };
   var ShinyTabPanel_default = ShinyTabPanel;
 
-  // src/Shiny-Ui-Elements/ShinyTabPanel/index.tsx
+  // ../editor/src/Shiny-Ui-Elements/ShinyTabPanel/index.tsx
   var shinyTabPanelInfo = {
     title: "Tab Panel",
     UiComponent: ShinyTabPanel_default,
@@ -46990,7 +46990,7 @@ the label */
     description: "Panel containing content for tab-based interfaces like navbar pages"
   };
 
-  // src/Shiny-Ui-Elements/ShinyTabPanel/tabPanelHelpers.tsx
+  // ../editor/src/Shiny-Ui-Elements/ShinyTabPanel/tabPanelHelpers.tsx
   function wrapNodeInTabPanel(node) {
     if (isValidTabPanel(node))
       return node;
@@ -47005,23 +47005,23 @@ the label */
     uiChildren: []
   };
 
-  // src/components/Tabs/Tabset/Tab.tsx
+  // ../editor/src/components/Tabs/Tabset/Tab.tsx
   var import_react37 = __toESM(require_react());
 
-  // src/Shiny-Ui-Elements/isShinyUiNode.tsx
+  // ../editor/src/Shiny-Ui-Elements/isShinyUiNode.tsx
   function isShinyUiNode(x2) {
     return "uiName" != null && x2 != null && typeof x2 === "object" && "uiName" in x2;
   }
 
-  // src/components/UiNode/TreeManipulation/samePath.ts
+  // ../editor/src/components/UiNode/TreeManipulation/samePath.ts
   function samePath(aPath, bPath) {
     if (!aPath || !bPath)
       return false;
     return sameArray(aPath, bPath);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-CVGbHRPIj82D/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest28 = "c221b6d5ea100f1d1c82a1b53e8c5bc6b726a45d1ebf483d6504c730aa762369";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-X5MaE7xKjmxI/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest28 = "2c4b948dffda365d07c23fd36b376b16b8756d6292fb962337c508121de7a2b3";
   var css28 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -47157,7 +47157,7 @@ illusion of the selected panel and tab being one entity */
   })();
   var Tabset_module_css_default = { "container": "_container_qbb7e_1", "header": "_header_qbb7e_13", "tabContents": "_tabContents_qbb7e_21", "pageTitle": "_pageTitle_qbb7e_26", "tabHolder": "_tabHolder_qbb7e_39", "tab": "_tab_qbb7e_21", "newTabDropDetector": "_newTabDropDetector_qbb7e_99", "addTabButton": "_addTabButton_qbb7e_104", "tabDropDetector": "_tabDropDetector_qbb7e_112" };
 
-  // src/components/Tabs/Tabset/Tab.tsx
+  // ../editor/src/components/Tabs/Tabset/Tab.tsx
   var import_jsx_runtime63 = __toESM(require_jsx_runtime());
   var dummyNode = {
     uiName: "unknownUiFunction",
@@ -47191,8 +47191,8 @@ illusion of the selected panel and tab being one entity */
     });
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-pM0zqlqLdRvU/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest29 = "a32c42d08d21f501050accfb5b845cabe60b0f3eb281ad92091fd7ce919b1873";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-4a2uoAM1RmCF/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest29 = "83c458f84ff85011907edb77edfc8bd228b2ba9809505a593017ee49bffe199a";
   var css29 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -47328,7 +47328,7 @@ illusion of the selected panel and tab being one entity */
   })();
   var Tabset_module_css_default2 = { "container": "_container_qbb7e_1", "header": "_header_qbb7e_13", "tabContents": "_tabContents_qbb7e_21", "pageTitle": "_pageTitle_qbb7e_26", "tabHolder": "_tabHolder_qbb7e_39", "tab": "_tab_qbb7e_21", "newTabDropDetector": "_newTabDropDetector_qbb7e_99", "addTabButton": "_addTabButton_qbb7e_104", "tabDropDetector": "_tabDropDetector_qbb7e_112" };
 
-  // src/components/Tabs/Tabset/TabDropDetector.tsx
+  // ../editor/src/components/Tabs/Tabset/TabDropDetector.tsx
   var import_jsx_runtime64 = __toESM(require_jsx_runtime());
   var dropFilters2 = {
     rejectedNodes: invalidTabPanelContents.filter(
@@ -47359,8 +47359,8 @@ illusion of the selected panel and tab being one entity */
     });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-W9cKO6dOJgU3/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest30 = "403562bc914b0715289ac279a3a72670f6d4a667ab9710b96beeeb7ba7796aa5";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-wnCQ8VnKYzc2/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest30 = "bc180f7fae03784493419bfe107b2d617022cede8ccd1f98f302137e7e093c54";
   var css30 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -47496,7 +47496,7 @@ illusion of the selected panel and tab being one entity */
   })();
   var Tabset_module_css_default3 = { "container": "_container_qbb7e_1", "header": "_header_qbb7e_13", "tabContents": "_tabContents_qbb7e_21", "pageTitle": "_pageTitle_qbb7e_26", "tabHolder": "_tabHolder_qbb7e_39", "tab": "_tab_qbb7e_21", "newTabDropDetector": "_newTabDropDetector_qbb7e_99", "addTabButton": "_addTabButton_qbb7e_104", "tabDropDetector": "_tabDropDetector_qbb7e_112" };
 
-  // src/components/Tabs/Tabset/useActiveTab.tsx
+  // ../editor/src/components/Tabs/Tabset/useActiveTab.tsx
   var import_react38 = __toESM(require_react());
   function useActiveTab(numTabs, initalSelection = 0) {
     const [activeTab, setActiveTab] = import_react38.default.useState(initalSelection);
@@ -47511,7 +47511,7 @@ illusion of the selected panel and tab being one entity */
     return { activeTab, setActiveTab: setActiveTabVerified };
   }
 
-  // src/components/Tabs/Tabset/Tabset.tsx
+  // ../editor/src/components/Tabs/Tabset/Tabset.tsx
   var import_jsx_runtime65 = __toESM(require_jsx_runtime());
   function Tabset({
     path: path3,
@@ -47641,8 +47641,8 @@ illusion of the selected panel and tab being one entity */
     });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-uImgpYsGcxaL/editor/src/Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage.module.css.js
-  var digest31 = "14865adf7a1bbe7f6ee5b11173af1dd46fbffc0daef324916ac80cd8642721b1";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-yBHOiRzawZBd/editor/src/Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage.module.css.js
+  var digest31 = "0a04dfd06f1d734496730b8ab544d5ca23130a6809ac65e5b7d8fb921642724d";
   var css31 = `._noTabsMessage_130qz_1 {
   padding: 5px;
 }
@@ -47660,7 +47660,7 @@ illusion of the selected panel and tab being one entity */
   })();
   var ShinyNavbarPage_module_css_default = { "noTabsMessage": "_noTabsMessage_130qz_1" };
 
-  // src/Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage.tsx
+  // ../editor/src/Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage.tsx
   var import_jsx_runtime66 = __toESM(require_jsx_runtime());
   var ShinyNavbarPage = ({
     uiArguments: { title },
@@ -47700,7 +47700,7 @@ illusion of the selected panel and tab being one entity */
   }
   var ShinyNavbarPage_default = ShinyNavbarPage;
 
-  // src/Shiny-Ui-Elements/ShinyNavbarPage/index.tsx
+  // ../editor/src/Shiny-Ui-Elements/ShinyNavbarPage/index.tsx
   var shinyNavbarPageInfo = {
     title: "Navbar Page",
     UiComponent: ShinyNavbarPage_default,
@@ -47734,10 +47734,10 @@ illusion of the selected panel and tab being one entity */
     description: "Layout an app with tab-based navigation"
   };
 
-  // src/assets/icons/shinyNumericinput.png
+  // ../editor/src/assets/icons/shinyNumericinput.png
   var shinyNumericinput_default = "data:image/png;base64,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";
 
-  // src/components/Inputs/SettingsFormBuilder/LabeledInputCategory.tsx
+  // ../editor/src/components/Inputs/SettingsFormBuilder/LabeledInputCategory.tsx
   var import_jsx_runtime67 = __toESM(require_jsx_runtime());
   function LabeledInputCategory({
     label,
@@ -47763,11 +47763,11 @@ illusion of the selected panel and tab being one entity */
     });
   }
 
-  // src/Shiny-Ui-Elements/ShinyNumericInput/ShinyNumericInput.tsx
+  // ../editor/src/Shiny-Ui-Elements/ShinyNumericInput/ShinyNumericInput.tsx
   var React47 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-EY4g2K1dFOTD/editor/src/Shiny-Ui-Elements/ShinyNumericInput/styles.module.css.js
-  var digest32 = "73aa8701f56a7e1e4fd2766c6c7371ddccb8cde30ebc55eb420f55ad65cde2ae";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-Ji0QMpub8eCo/editor/src/Shiny-Ui-Elements/ShinyNumericInput/styles.module.css.js
+  var digest32 = "e159610ec9c4699812f6f5b328d0822ebaba3dd466170539126afd776659c758";
   var css32 = `._container_yicbr_1 {
   position: relative;
   padding: 4px;
@@ -47790,7 +47790,7 @@ illusion of the selected panel and tab being one entity */
   })();
   var styles_module_css_default15 = { "container": "_container_yicbr_1" };
 
-  // src/Shiny-Ui-Elements/ShinyNumericInput/ShinyNumericInput.tsx
+  // ../editor/src/Shiny-Ui-Elements/ShinyNumericInput/ShinyNumericInput.tsx
   var import_jsx_runtime68 = __toESM(require_jsx_runtime());
   var ShinyNumericInput = ({
     uiArguments,
@@ -47823,7 +47823,7 @@ illusion of the selected panel and tab being one entity */
   };
   var ShinyNumericInput_default = ShinyNumericInput;
 
-  // src/Shiny-Ui-Elements/ShinyNumericInput/index.tsx
+  // ../editor/src/Shiny-Ui-Elements/ShinyNumericInput/index.tsx
   var import_jsx_runtime69 = __toESM(require_jsx_runtime());
   var shinyNumericInputInfo = {
     title: "Numeric Input",
@@ -47886,8 +47886,8 @@ illusion of the selected panel and tab being one entity */
     description: "An input control for entry of numeric values"
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-iDbrcaGGF0CO/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
-  var digest33 = "2c1b05d77c7a99178c77c853862b4cce376b2749c22e3998f346f1aa7d98e876";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-iIh4qY508bCH/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
+  var digest33 = "3a0b88b6c522de4cb23844b1d67b3ac33979c0aa8f7f1919013f6ec9cb6e5c53";
   var css33 = `._container_1rlbk_1 {
   max-height: 100%;
 }
@@ -47928,7 +47928,7 @@ illusion of the selected panel and tab being one entity */
   })();
   var styles_module_css_default16 = { "container": "_container_1rlbk_1", "plotPlaceholder": "_plotPlaceholder_1rlbk_5", "label": "_label_1rlbk_19" };
 
-  // src/Shiny-Ui-Elements/ShinyPlotOutput/ShinyPlotOutput.tsx
+  // ../editor/src/Shiny-Ui-Elements/ShinyPlotOutput/ShinyPlotOutput.tsx
   var import_jsx_runtime70 = __toESM(require_jsx_runtime());
   var ShinyPlotOutput = ({
     uiArguments: { outputId, width = "300px", height = "200px" },
@@ -47945,7 +47945,7 @@ illusion of the selected panel and tab being one entity */
   };
   var ShinyPlotOutput_default = ShinyPlotOutput;
 
-  // src/Shiny-Ui-Elements/ShinyPlotOutput/index.tsx
+  // ../editor/src/Shiny-Ui-Elements/ShinyPlotOutput/index.tsx
   var shinyPlotOutputInfo = {
     title: "Plot Output",
     UiComponent: ShinyPlotOutput_default,
@@ -47972,14 +47972,14 @@ illusion of the selected panel and tab being one entity */
     description: "Render a `renderPlot()` within an application page."
   };
 
-  // src/assets/icons/shinyRadiobuttons.png
+  // ../editor/src/assets/icons/shinyRadiobuttons.png
   var shinyRadiobuttons_default = "data:image/png;base64,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";
 
-  // src/Shiny-Ui-Elements/ShinyRadioButtons/ShinyRadioButtons.tsx
+  // ../editor/src/Shiny-Ui-Elements/ShinyRadioButtons/ShinyRadioButtons.tsx
   var import_react40 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-cR70r82oIyMs/editor/src/Shiny-Ui-Elements/ShinyRadioButtons/styles.module.css.js
-  var digest34 = "9ef65acbf22afb4d727c703c08e3bf8c9dd53412cd7b68a6895d872e00d74682";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-NbOGThQP0dWO/editor/src/Shiny-Ui-Elements/ShinyRadioButtons/styles.module.css.js
+  var digest34 = "2e7758900c78330b7cd9698bc21be62408102cca4588cfa7070ba9efb7490dd1";
   var css34 = `._container_sgn7c_1 {
   position: relative;
   padding: 4px;
@@ -48006,7 +48006,7 @@ illusion of the selected panel and tab being one entity */
   })();
   var styles_module_css_default17 = { "container": "_container_sgn7c_1" };
 
-  // src/Shiny-Ui-Elements/ShinyRadioButtons/ShinyRadioButtons.tsx
+  // ../editor/src/Shiny-Ui-Elements/ShinyRadioButtons/ShinyRadioButtons.tsx
   var import_jsx_runtime71 = __toESM(require_jsx_runtime());
   var ShinyRadioButtons = ({
     uiArguments,
@@ -48053,7 +48053,7 @@ illusion of the selected panel and tab being one entity */
   };
   var ShinyRadioButtons_default = ShinyRadioButtons;
 
-  // src/Shiny-Ui-Elements/ShinyRadioButtons/index.tsx
+  // ../editor/src/Shiny-Ui-Elements/ShinyRadioButtons/index.tsx
   var shinyRadioButtonsInfo = {
     title: "Radio Buttons",
     UiComponent: ShinyRadioButtons_default,
@@ -48083,11 +48083,11 @@ illusion of the selected panel and tab being one entity */
     description: "Create a set of radio buttons used to select an item from a list."
   };
 
-  // src/assets/icons/shinySelectbox.png
+  // ../editor/src/assets/icons/shinySelectbox.png
   var shinySelectbox_default = "data:image/png;base64,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";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-B718KjQszBst/editor/src/Shiny-Ui-Elements/ShinySelectInput/styles.module.css.js
-  var digest35 = "8b91747ff1775480a3fae35735145a2f7b69e6fc42284be9a1c756eefc4c1208";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-xRcV632whUpQ/editor/src/Shiny-Ui-Elements/ShinySelectInput/styles.module.css.js
+  var digest35 = "7609db7d9488e12049ffc7108cd36eaac570799af312742c19d418e9692de4a4";
   var css35 = `._container_1e5dd_1 {
   position: relative;
   padding: 4px;
@@ -48120,7 +48120,7 @@ illusion of the selected panel and tab being one entity */
   })();
   var styles_module_css_default18 = { "container": "_container_1e5dd_1" };
 
-  // src/Shiny-Ui-Elements/ShinySelectInput/ShinySelectInput.tsx
+  // ../editor/src/Shiny-Ui-Elements/ShinySelectInput/ShinySelectInput.tsx
   var import_jsx_runtime72 = __toESM(require_jsx_runtime());
   var ShinySelectInput = ({
     uiArguments,
@@ -48148,7 +48148,7 @@ illusion of the selected panel and tab being one entity */
   };
   var ShinySelectInput_default = ShinySelectInput;
 
-  // src/Shiny-Ui-Elements/ShinySelectInput/index.tsx
+  // ../editor/src/Shiny-Ui-Elements/ShinySelectInput/index.tsx
   var shinySelectInputInfo = {
     title: "Select Input",
     UiComponent: ShinySelectInput_default,
@@ -48170,14 +48170,14 @@ illusion of the selected panel and tab being one entity */
     description: "Create a select list that can be used to choose a single or multiple items from a list of values."
   };
 
-  // src/assets/icons/shinySlider.png
+  // ../editor/src/assets/icons/shinySlider.png
   var shinySlider_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAEEklEQVR4nO3bT4iUdRzH8behaBI7ZiB1WLokemkvUVk3Ye2ShwjKS6cu1amTIXTpFKUEBR30FnSyQATrUAreDOwf5CEhL1vBhkGsGrK20nT4PQdZpnXn8fnM7PM87xd4cn/f+c3Dm2dmnnlm03A4RGrafdPegLrJsBRhWIowLEUYliIMSxGGpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqUIw1KEYSnCsBRhWIowLEUYliIMSxGGpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqUIw1KEYSnCsBRhWIowLEUYliIMSxGGpQjDUoRhKcKwFGFYijAsRRiWIgxLEZunvYGkt05eudufbAX2Ay8AzwCPAgPgGrAAfAOcBs4Dt+427Oihx2rvtWs6HdYaNgOvAu8Aj4z4/wEwV/17DbgKvA98DPwzmS22Wx9fCvcA3wMnGB3VKLuAD4Bvgb2hfXVK38J6ErhAORPVMVetf7qxHXVUn8LaC5wFdt7jnAeBr/DMtaa+hLUFOEl579SEAfBZNVcj9CWsN6n/8vd/Hq/maoQ+hLUNOByafbiar1U2DYfDae9hHLuB94B5YGY9Cy799jefXvgjtqFXnn2YudkHYvMr14FzwBHgl/SDNaFNZ6w9wEXgRdYZFcDPizdjGwK4HJ5fmaE874uU47DhtSmsd4Ed4y76/a/l5ncywfmr7KAchw2vTWHN11m0dPN20/uY6PwRnpv0A9bRprBqWV75t9Xz26pNYZ2rs2jbluxTTM8f4etJP2AdbQrrbWBp3EWD7dnv2Qf3T/R7/CXKcdjw2hTWZWAfcAq4sd5Fszuzl5lmH5rIZawblOe9j3IcNry2XccaS3U/1kuUr19SXgY+B+/HulObzlh1naHcT5XwZzVfq/QhrGXgWGj2sWq+VulDWAAfAT81PPMS8GHDMzujL2GtAIco97I34RrlvdVKQ/M6py9hQfk0Nc+9v9+6ChygJZ/OpqVPYQF8R7k9+Yea638EnqLc+6419C0sgF8p96y/ASyuc80i8DolqoXQvjqlrz//ug0cBz4BDgLPA09Qflc4Q7n/aYHya54vgS/w099YOn2BVNPTx5dCTYBhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqUIw1KEYSnCsBRhWIowLEUYliIMSxGGpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqUIw1KEYSnCsBRhWIowLEUYliIMSxGGpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxF/Aek7Hy8USK+/wAAAABJRU5ErkJggg==";
 
-  // src/Shiny-Ui-Elements/ShinySliderInput/ShinySliderInput.tsx
+  // ../editor/src/Shiny-Ui-Elements/ShinySliderInput/ShinySliderInput.tsx
   var React49 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-RD7Z9kvK9U20/editor/src/Shiny-Ui-Elements/ShinySliderInput/styles.module.css.js
-  var digest36 = "589c69bf733e562d3e34ee65945ca285d40248ea700352cbc150dd4d7225bbe9";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-lAhk5SYCNedF/editor/src/Shiny-Ui-Elements/ShinySliderInput/styles.module.css.js
+  var digest36 = "c01fb629f658f59fe73609df32240af995e7679c65d0ec1e3c49a0f9b58b5fd7";
   var css36 = `._container_1f2js_1 {
   padding: 6px;
 
@@ -48249,7 +48249,7 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   })();
   var styles_module_css_default19 = { "container": "_container_1f2js_1", "sliderWrapper": "_sliderWrapper_1f2js_11", "sliderInput": "_sliderInput_1f2js_16" };
 
-  // src/Shiny-Ui-Elements/ShinySliderInput/ShinySliderInput.tsx
+  // ../editor/src/Shiny-Ui-Elements/ShinySliderInput/ShinySliderInput.tsx
   var import_jsx_runtime73 = __toESM(require_jsx_runtime());
   var ShinySliderInput = ({
     uiArguments,
@@ -48300,7 +48300,7 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   };
   var ShinySliderInput_default = ShinySliderInput;
 
-  // src/Shiny-Ui-Elements/ShinySliderInput/index.tsx
+  // ../editor/src/Shiny-Ui-Elements/ShinySliderInput/index.tsx
   var import_jsx_runtime74 = __toESM(require_jsx_runtime());
   var shinySliderInputInfo = {
     title: "Slider Input",
@@ -48370,10 +48370,10 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     description: "Constructs a slider widget to select a number from a range. _(Dates and date-times not currently supported.)_"
   };
 
-  // src/assets/icons/tabsetPanel.png
+  // ../editor/src/assets/icons/tabsetPanel.png
   var tabsetPanel_default = "data:image/png;base64,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";
 
-  // src/Shiny-Ui-Elements/ShinyTabsetPanel/ShinyTabsetPanel.tsx
+  // ../editor/src/Shiny-Ui-Elements/ShinyTabsetPanel/ShinyTabsetPanel.tsx
   var import_jsx_runtime75 = __toESM(require_jsx_runtime());
   var ShinyTabsetPanel = ({
     uiArguments,
@@ -48405,7 +48405,7 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   };
   var ShinyTabsetPanel_default = ShinyTabsetPanel;
 
-  // src/Shiny-Ui-Elements/ShinyTabsetPanel/index.tsx
+  // ../editor/src/Shiny-Ui-Elements/ShinyTabsetPanel/index.tsx
   var shinyTabsetPanelInfo = {
     title: "Tabset Panel",
     UiComponent: ShinyTabsetPanel_default,
@@ -48430,14 +48430,14 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     description: "A container filled with tabs"
   };
 
-  // src/assets/icons/shinyTextinput.png
+  // ../editor/src/assets/icons/shinyTextinput.png
   var shinyTextinput_default = "data:image/png;base64,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";
 
-  // src/Shiny-Ui-Elements/ShinyTextInput/ShinyTextInput.tsx
+  // ../editor/src/Shiny-Ui-Elements/ShinyTextInput/ShinyTextInput.tsx
   var React50 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-kUINwad7W7Zl/editor/src/Shiny-Ui-Elements/ShinyTextInput/styles.module.css.js
-  var digest37 = "793921c39a0e15e2478cdf5e58780653a65b145188a824b1a83e268c3a1afe34";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-RccXp7zxa3Ak/editor/src/Shiny-Ui-Elements/ShinyTextInput/styles.module.css.js
+  var digest37 = "9d586fd9f788751510a3798f10fa14af4b6aee4c7f0d937a1ad001234c7a9aa0";
   var css37 = `._container_yicbr_1 {
   position: relative;
   padding: 4px;
@@ -48460,7 +48460,7 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   })();
   var styles_module_css_default20 = { "container": "_container_yicbr_1" };
 
-  // src/Shiny-Ui-Elements/ShinyTextInput/ShinyTextInput.tsx
+  // ../editor/src/Shiny-Ui-Elements/ShinyTextInput/ShinyTextInput.tsx
   var import_jsx_runtime76 = __toESM(require_jsx_runtime());
   var ShinyTextInput = ({
     uiArguments,
@@ -48494,7 +48494,7 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   };
   var ShinyTextInput_default = ShinyTextInput;
 
-  // src/Shiny-Ui-Elements/ShinyTextInput/index.tsx
+  // ../editor/src/Shiny-Ui-Elements/ShinyTextInput/index.tsx
   var shinyTextInputInfo = {
     title: "Text Input",
     UiComponent: ShinyTextInput_default,
@@ -48526,11 +48526,11 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     description: "Create an input control for entry of unstructured text values."
   };
 
-  // src/assets/icons/shinyTextOutput.png
+  // ../editor/src/assets/icons/shinyTextOutput.png
   var shinyTextOutput_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAGh0lEQVR4nO3bv2skZQDG8W/8haBNIhbaqHu72Jv0olyw1CbZRfTsktJqk4CNgkVuF+wviIKNm2xz14kJ+AecsROUDWkE7W4LrQ4lFvNOMjOZ/ZXdJ/tGnw8cuezOvTNcvsw78+5k4ezsDLNZe2LeB2D/TQ7LJByWSTgsk3BYJuGwTMJhmYTDMgmHZRIOyyQclkk4LJNwWCbhsEzCYZmEwzIJh2USDsskHJZJOCyTcFgm4bBMwmGZhMMyCYdlEg7LJByWSTgsk3BYJuGwTMJhmYTDMgmHZRIOyyQclkk4LJNwWCbhsEzCYZmEwzIJh2USDsskHJZJOCyTcFgm4bBMwmGZhMMyCYdlEg7LJByWSTgsk3BYJuGwTMJhmYTDMgmHZRIOyyQclkk4LJNwWCbx1LwPIGthYWGm4zU7vXvARvj2qN2orc50BwVnZ2cjt9naP1EeQqlWvXrt+4wqLCv1CvBR+PuXwO9zPJaxOay4vQw8BF4M338MrAI/ze2IxuRrrLi9x0VUAEvAEfDGXI5mAg4rbn+XvLbIDYjLYcXtW+CXktejj8thxe1P4G3g15L3oo4r6ov3Zqd3G1gGtkn+I7NOgT2SZYTjCcfdJlmGqGRe3gO67UbtaIIxloG19LWwlLAHHLfq1b1JjmmIP4C3gB+A1wvvpXHdJrIL+oVx1l6uS7qO1ez0FoEDkv+wcey1G7XN4ovFdSxgJ4xbKW6b0W03auuD3gyxH3A59KJjYLNVr+ain2Id6yXK4wLoMySueaxjxToVHjJ+VAAbzU5vd8Q2lTDusKgA1pqd3kHZG81ObyOMMSoqSM5mh1v7J6P2N670zHUjpsXowspMMakjYL3dqC1k/wCbJGeF1HY40w1S4SKIu8CtzFjrJFNrai1ElD2uCnCvMGZxnFvhtdRiyb+Zxo2JK7qwyFyzED6GaTdq3eJG7UZtj2SxMGvUWe4UWGk3ajvtRu08pDD+Cvm4tgv/thjIanGcVr162qpXd0hCPT+mrf2TZWbnRsQVY1jZH8LQC+B2o9Ynf9YaNu30SWIovdAPY+1kx2p2estwfrbKRrsz7CK/Va92w/5Sk0zr44g+rujuCsOUMon+6E0AOM6eXQbsu9vs9PpcTJm3ScJdK2w68o6vVa8ujXlcVxX13WJ0YRU1O701kjNRhYs7vEFmcaF8zMUZJh0ve+12HM5u03ie5APld4FnpxxrkEXge+BN4GfRPgaKNqxwET/qTk8he1ZbLHyF/NR7VZ8C9RmMM8oLwBfAO9ewr5zowgrXMwfkr7XmJQ1qVksGqZUZjzfMa9e4r3PRhUVy95WNKl1hPy27O2x2epOueU3itPB1Vh6STFHX4cE17ScnqrDCqnY2krvtRm1n0PYi2aj7ha/F96/qM5KV9HXg6RmMN8gD4BPh+APFttyQO1Ndd1RhgTU77aXXU7mwRizEjuMv4APgGWBhij93gH8G7OMBSbiPpzzWK4nqjEX+hzru9DPtDzlrrTBeulbVJX8jsUF+hf2Srf2TR5mxdlr16tDtr+BD4GvgyZL35hoVxHfGmujMED7TG3dquh3uNAeNVSEfTzddVgjrX9kF0d0wbZfa2j8ZFOisRB0VxBdW9gewCByWfGa33Oz0tpud3iMuL1yOstvs9A6LgYV9/Eg+huI0XHx64rDZ6e2GIAHY2j+pbO2f7JLc1aaOik84TCn6qCDCx2bCWWjSYFK5x2cKj81MYjN8FpkTApzkQ+U+sNKqV8+n9Sl//esO8BUTRuXHZhKbjD917E2w7bjXbOtlUUHug+9xVt6PgdVsVFO6UlTzEl1Y7UatH36xdJ3kormoSzJNLZU93DfEafgccofLMaYfQC+VrZUVju+o3agthe3Ltt0jecBvZYZT4LCo7hNZVBDZVPh/cIWp8H3gGwZHVWdEVJ4Kreg5kjPglaOaF4cVt1dJ4iq6T8RRgcOKXQ/4rfDafSKPChxW7B6TPPLyHckzVZ9zA6ICX7ybiM9YJuGwTMJhmYTDMgmHZRIOyyQclkk4LJNwWCbhsEzCYZmEwzIJh2USDsskHJZJOCyTcFgm4bBMwmGZhMMyCYdlEg7LJByWSTgsk3BYJuGwTMJhmYTDMgmHZRIOyyQclkk4LJNwWCbhsEzCYZmEwzIJh2USDsskHJZJOCyTcFgm4bBMwmGZhMMyCYdlEg7LJByWSTgsk3BYJuGwTMJhmYTDMgmHZRIOyyQclkk4LJP4F7bdmR9UysBAAAAAAElFTkSuQmCC";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-lnOJojPEvlbV/editor/src/Shiny-Ui-Elements/ShinyTextOutput/styles.module.css.js
-  var digest38 = "fe27cb2760a4432d7698e9449d979a4e1f6bb4606669d604c394fef621c5d0ea";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-mEYG0qr6SPa6/editor/src/Shiny-Ui-Elements/ShinyTextOutput/styles.module.css.js
+  var digest38 = "34d3c7a72b61ecb08c3cadb7439eb585de95b22ec3a9c22c4599e151de04cd41";
   var css38 = `._container_1i6yi_1 {
   padding: 1rem;
   max-height: 100%;
@@ -48551,7 +48551,7 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   })();
   var styles_module_css_default21 = { "container": "_container_1i6yi_1" };
 
-  // src/Shiny-Ui-Elements/ShinyTextOutput/ShinyTextOutput.tsx
+  // ../editor/src/Shiny-Ui-Elements/ShinyTextOutput/ShinyTextOutput.tsx
   var import_jsx_runtime77 = __toESM(require_jsx_runtime());
   var ShinyTextOutput = ({
     uiArguments,
@@ -48573,7 +48573,7 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   };
   var ShinyTextOutput_default = ShinyTextOutput;
 
-  // src/Shiny-Ui-Elements/ShinyTextOutput/index.tsx
+  // ../editor/src/Shiny-Ui-Elements/ShinyTextOutput/index.tsx
   var shinyTextOutputInfo = {
     title: "Text Output",
     UiComponent: ShinyTextOutput_default,
@@ -48593,11 +48593,11 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   `
   };
 
-  // src/assets/icons/shinyImage.png
+  // ../editor/src/assets/icons/shinyImage.png
   var shinyImage_default = "data:image/png;base64,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";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-RjVv4dsNOk3K/editor/src/Shiny-Ui-Elements/ShinyUiOutput/styles.module.css.js
-  var digest39 = "89574de33ae5faef4fed4dd9c47ef87b00b6efab75c75573095e4c3a06b74a4f";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-yVl6TkSmnzo4/editor/src/Shiny-Ui-Elements/ShinyUiOutput/styles.module.css.js
+  var digest39 = "4863f61b48f44b7e6cef8c37465749709913e8407c686cdd5b1d6283775b0a09";
   var css39 = `._container_1xnzo_1 {
   display: grid;
   grid-template-rows: 1fr;
@@ -48623,7 +48623,7 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   })();
   var styles_module_css_default22 = { "container": "_container_1xnzo_1" };
 
-  // src/Shiny-Ui-Elements/ShinyUiOutput/ShinyUiOutput.tsx
+  // ../editor/src/Shiny-Ui-Elements/ShinyUiOutput/ShinyUiOutput.tsx
   var import_jsx_runtime78 = __toESM(require_jsx_runtime());
   var ShinyUiOutput = ({
     uiArguments,
@@ -48645,7 +48645,7 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   };
   var ShinyUiOutput_default = ShinyUiOutput;
 
-  // src/Shiny-Ui-Elements/ShinyUiOutput/index.tsx
+  // ../editor/src/Shiny-Ui-Elements/ShinyUiOutput/index.tsx
   var shinyUiOutputInfo = {
     title: "Dynamic UI Output",
     UiComponent: ShinyUiOutput_default,
@@ -48674,8 +48674,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 1024 1024" }, "child": [{ "tag": "path", "attr": { "d": "M881.7 187.4l-45.1-45.1a8.03 8.03 0 0 0-11.3 0L667.8 299.9l-54.7-54.7a7.94 7.94 0 0 0-13.5 4.7L576.1 439c-.6 5.2 3.7 9.5 8.9 8.9l189.2-23.5c6.6-.8 9.3-8.8 4.7-13.5l-54.7-54.7 157.6-157.6c3-3 3-8.1-.1-11.2zM439 576.1l-189.2 23.5c-6.6.8-9.3 8.9-4.7 13.5l54.7 54.7-157.5 157.5a8.03 8.03 0 0 0 0 11.3l45.1 45.1c3.1 3.1 8.2 3.1 11.3 0l157.6-157.6 54.7 54.7a7.94 7.94 0 0 0 13.5-4.7L447.9 585a7.9 7.9 0 0 0-8.9-8.9z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-3PuyOa2AziLZ/editor/src/components/CategoryDivider/styles.module.css.js
-  var digest40 = "0264caa0bb3b63885b93bba71f42b19ea7a7c0013ea536fdfbb53724c054b971";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-ZPYgr3yDpKMl/editor/src/components/CategoryDivider/styles.module.css.js
+  var digest40 = "f6782f52fdd3acc57bf2e805096992c7b384ea3d1111b12e02fe6b0ac3eaa175";
   var css40 = `._categoryDivider_bdwku_1 {
   display: block;
   position: relative;
@@ -48715,7 +48715,7 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   })();
   var styles_module_css_default23 = { "categoryDivider": "_categoryDivider_bdwku_1" };
 
-  // src/components/CategoryDivider/index.tsx
+  // ../editor/src/components/CategoryDivider/index.tsx
   var import_jsx_runtime79 = __toESM(require_jsx_runtime());
   function CategoryDivider({ children }) {
     return /* @__PURE__ */ (0, import_jsx_runtime79.jsx)("div", {
@@ -48725,12 +48725,12 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   }
   var CategoryDivider_default = CategoryDivider;
 
-  // src/Shiny-Ui-Elements/UnknownUiFunction/formatFunctionText.ts
+  // ../editor/src/Shiny-Ui-Elements/UnknownUiFunction/formatFunctionText.ts
   function formatFunctionText(text4) {
     return text4.replaceAll(/\(/g, "(\n  ").replaceAll(/\)/g, "\n)").replaceAll(/\(\s+\)/g, "()").replaceAll(/,/g, ",\n ").replaceAll(/(\s+)$/g, "");
   }
 
-  // src/Shiny-Ui-Elements/UnknownUiFunction/UnknownUiFunction.tsx
+  // ../editor/src/Shiny-Ui-Elements/UnknownUiFunction/UnknownUiFunction.tsx
   var import_jsx_runtime80 = __toESM(require_jsx_runtime());
   var num_preview_chars = 20;
   var UnknownUiFunction = ({
@@ -48753,7 +48753,7 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   };
   var UnknownUiFunction_default = UnknownUiFunction;
 
-  // src/Shiny-Ui-Elements/UnknownUiFunction/index.tsx
+  // ../editor/src/Shiny-Ui-Elements/UnknownUiFunction/index.tsx
   var import_jsx_runtime81 = __toESM(require_jsx_runtime());
   var unknownUiFunctionInfo = {
     title: "Unknown UI Function",
@@ -48796,7 +48796,7 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     acceptsChildren: false
   };
 
-  // src/Shiny-Ui-Elements/uiNodeTypes.ts
+  // ../editor/src/Shiny-Ui-Elements/uiNodeTypes.ts
   var shinyUiNodeInfo = {
     "shiny::actionButton": shinyActionButtonInfo,
     "shiny::numericInput": shinyNumericInputInfo,
@@ -48822,7 +48822,7 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     unknownUiFunction: unknownUiFunctionInfo
   };
 
-  // src/components/UiNode/TreeManipulation/addNodeMutating.ts
+  // ../editor/src/components/UiNode/TreeManipulation/addNodeMutating.ts
   function addNodeMutating(tree, { path: path3, node }) {
     const parentPath = getParentPath(path3);
     const positionInChildren = path3[path3.length - 1];
@@ -48842,7 +48842,7 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     );
   }
 
-  // src/components/UiNode/TreeManipulation/removeNode.ts
+  // ../editor/src/components/UiNode/TreeManipulation/removeNode.ts
   function removeNodeMutating(tree, { path: path3 }) {
     const { parentNode, indexToNode } = navigateToParent(tree, path3);
     if (!checkIfContainerNode(parentNode)) {
@@ -48862,7 +48862,7 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     return { parentNode, indexToNode };
   }
 
-  // src/components/UiNode/TreeManipulation/moveNodeMutating.ts
+  // ../editor/src/components/UiNode/TreeManipulation/moveNodeMutating.ts
   function moveNodeMutating(tree, { path: path3, currentPath, node }) {
     const parentPath = getParentPath(path3);
     const positionInChildren = path3[path3.length - 1];
@@ -48893,7 +48893,7 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     );
   }
 
-  // src/components/UiNode/TreeManipulation/placeNode.ts
+  // ../editor/src/components/UiNode/TreeManipulation/placeNode.ts
   function isNodeMove(opts) {
     return "currentPath" in opts && opts.currentPath !== void 0;
   }
@@ -48906,13 +48906,13 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     addNodeMutating(tree, { path: path3, node: args.node });
   }
 
-  // src/components/UiNode/TreeManipulation/updateNode.ts
+  // ../editor/src/components/UiNode/TreeManipulation/updateNode.ts
   function updateNodeMutating(tree, { path: path3, node }) {
     const existingNode = getNode(tree, path3);
     Object.assign(existingNode, node);
   }
 
-  // src/state/watcherSubscriptions.ts
+  // ../editor/src/state/watcherSubscriptions.ts
   function getUniqueSubscriptions(type) {
     const uniqueUpdateSubscribers = /* @__PURE__ */ new Set();
     try {
@@ -48930,7 +48930,7 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   var deleteSubscriptions = getUniqueSubscriptions("DELETE_NODE");
   var updateSubscriptions = getUniqueSubscriptions("UPDATE_NODE");
 
-  // src/state/uiTree.ts
+  // ../editor/src/state/uiTree.ts
   var uiTreeSlice = createSlice({
     name: "uiTree",
     initialState: "LOADING_STATE",
@@ -49002,7 +49002,7 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   }
   var uiTree_default = uiTreeSlice.reducer;
 
-  // src/state/useSetTree.tsx
+  // ../editor/src/state/useSetTree.tsx
   function useSetTree() {
     const dispatch = useDispatch();
     const setTree = React52.useCallback(
@@ -49014,7 +49014,7 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     return setTree;
   }
 
-  // src/backendCommunication/useSyncUiWithBackend.tsx
+  // ../editor/src/backendCommunication/useSyncUiWithBackend.tsx
   function useSyncUiWithBackend() {
     const { sendMsg, incomingMsgs: backendMsgs } = useBackendCallbacks();
     const tree = useSelector((state) => state.uiTree);
@@ -49050,7 +49050,7 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     return { tree, setTree, errorMsg };
   }
 
-  // src/components/AppPreview/index.tsx
+  // ../editor/src/components/AppPreview/index.tsx
   var import_react45 = __toESM(require_react());
 
   // ../../node_modules/react-icons/vsc/index.esm.js
@@ -49058,8 +49058,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 16 16", "fill": "currentColor" }, "child": [{ "tag": "path", "attr": { "fillRule": "evenodd", "clipRule": "evenodd", "d": "M12.75 8a4.5 4.5 0 0 1-8.61 1.834l-1.391.565A6.001 6.001 0 0 0 14.25 8 6 6 0 0 0 3.5 4.334V2.5H2v4l.75.75h3.5v-1.5H4.352A4.5 4.5 0 0 1 12.75 8z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-wOiaOl0l0W4C/editor/src/components/AppPreview/AppPreview.module.css.js
-  var digest41 = "ed82b4588bdc9f8523e2c5bee98bba37a20e12305aef8efc3902b6a26fdd3891";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-ZWzJYd5c70jU/editor/src/components/AppPreview/AppPreview.module.css.js
+  var digest41 = "d9de4d012d6dcd351d70a1c353f9d36e559c69f90f99e52b956a43ff6d4d60f4";
   var css41 = `div._appViewerHolder_1txsb_1 {
   /* This is over-ridden by an inline style but we just have it here in case */
   --app-scale-amnt: 0.24;
@@ -49314,8 +49314,8 @@ h2._error_1txsb_238 {
   })();
   var AppPreview_module_css_default = { "appViewerHolder": "_appViewerHolder_1txsb_1", "title": "_title_1txsb_55", "appContainer": "_appContainer_1txsb_89", "previewFrame": "_previewFrame_1txsb_109", "expandButton": "_expandButton_1txsb_134", "reloadButton": "_reloadButton_1txsb_135", "spin": "_spin_1txsb_162", "restartButton": "_restartButton_1txsb_200", "loadingMessage": "_loadingMessage_1txsb_227", "error": "_error_1txsb_238" };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-XJlFUdeEiOot/editor/src/components/AppPreview/AppPreview.module.css.js
-  var digest42 = "7bc8c32e568211ba7371c31596eb35064686f5b7a9e95f31d21c7a3c8f245c2d";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-3mWB5LNXGtAY/editor/src/components/AppPreview/AppPreview.module.css.js
+  var digest42 = "b0942e41117a89e1e998e4c54eaaffb6c777f8a757e56f550c4d2ee1abfb9035";
   var css42 = `div._appViewerHolder_1txsb_1 {
   /* This is over-ridden by an inline style but we just have it here in case */
   --app-scale-amnt: 0.24;
@@ -49570,8 +49570,8 @@ h2._error_1txsb_238 {
   })();
   var AppPreview_module_css_default2 = { "appViewerHolder": "_appViewerHolder_1txsb_1", "title": "_title_1txsb_55", "appContainer": "_appContainer_1txsb_89", "previewFrame": "_previewFrame_1txsb_109", "expandButton": "_expandButton_1txsb_134", "reloadButton": "_reloadButton_1txsb_135", "spin": "_spin_1txsb_162", "restartButton": "_restartButton_1txsb_200", "loadingMessage": "_loadingMessage_1txsb_227", "error": "_error_1txsb_238" };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-buYh1J5SWl5n/editor/src/components/AppPreview/FakeDashboard.module.css.js
-  var digest43 = "5d3ee7633841cca22bf6aaf2775ec7167d0bfd005460a205a84e68ebf1a8557f";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-638oWS7SjotB/editor/src/components/AppPreview/FakeDashboard.module.css.js
+  var digest43 = "5d2505d98724caa2cfb3f21132b60d038899bace596c6edbdf0a08880061a10a";
   var css43 = `._fakeApp_t3dh1_1 {
   display: grid;
   place-content: center;
@@ -49628,7 +49628,7 @@ h2._error_1txsb_238 {
   })();
   var FakeDashboard_module_css_default = { "fakeApp": "_fakeApp_t3dh1_1", "fakeDashboard": "_fakeDashboard_t3dh1_7", "header": "_header_t3dh1_22", "sidebar": "_sidebar_t3dh1_31", "top": "_top_t3dh1_35", "bottom": "_bottom_t3dh1_39" };
 
-  // src/components/AppPreview/FakeDashboard.tsx
+  // ../editor/src/components/AppPreview/FakeDashboard.tsx
   var import_jsx_runtime82 = __toESM(require_jsx_runtime());
   var FakeDashboard = () => {
     return /* @__PURE__ */ (0, import_jsx_runtime82.jsx)("div", {
@@ -49657,7 +49657,7 @@ h2._error_1txsb_238 {
   };
   var FakeDashboard_default = FakeDashboard;
 
-  // src/components/AppPreview/LogsViewer.tsx
+  // ../editor/src/components/AppPreview/LogsViewer.tsx
   var import_react42 = __toESM(require_react());
 
   // ../../node_modules/react-icons/bs/index.esm.js
@@ -49676,8 +49676,8 @@ h2._error_1txsb_238 {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "fill": "none", "stroke": "#000", "strokeWidth": "2", "d": "M12,22 C17.5228475,22 22,17.5228475 22,12 C22,6.4771525 17.5228475,2 12,2 C6.4771525,2 2,6.4771525 2,12 C2,17.5228475 6.4771525,22 12,22 Z M5,5 L19,19" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-ox1QbpdQ4wU0/editor/src/components/AppPreview/LogsViewer.module.css.js
-  var digest44 = "5c96192994b2f950f2756134198ed4c23e8384c8b4ea69b2504d4d9f725e63cc";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-41yUhM673wfd/editor/src/components/AppPreview/LogsViewer.module.css.js
+  var digest44 = "985569a8f7481e99bb33d32f45e11ab345654c2d17d073d16bda2afa0b455ff6";
   var css44 = `/* Logs section */
 ._logs_xjp5l_2 {
   --tab-height: var(--logs-button-h, 20px);
@@ -49827,7 +49827,7 @@ p._logLine_xjp5l_75 {
   })();
   var LogsViewer_module_css_default = { "logs": "_logs_xjp5l_2", "logsContents": "_logsContents_xjp5l_25", "expandTab": "_expandTab_xjp5l_29", "clearLogsButton": "_clearLogsButton_xjp5l_69", "logLine": "_logLine_xjp5l_75", "noLogsMsg": "_noLogsMsg_xjp5l_81", "expandedLogs": "_expandedLogs_xjp5l_93", "expandLogsButton": "_expandLogsButton_xjp5l_101", "unseenLogsNotification": "_unseenLogsNotification_xjp5l_108", "slidein": "_slidein_xjp5l_1" };
 
-  // src/components/AppPreview/LogsViewer.tsx
+  // ../editor/src/components/AppPreview/LogsViewer.tsx
   var import_jsx_runtime83 = __toESM(require_jsx_runtime());
   function LogsViewer({
     appLogs,
@@ -49908,7 +49908,7 @@ p._logLine_xjp5l_75 {
     return { logsExpanded, toggleLogExpansion, unseenLogs };
   }
 
-  // src/components/AppPreview/useCommunicateWithBackend.tsx
+  // ../editor/src/components/AppPreview/useCommunicateWithBackend.tsx
   var import_react43 = __toESM(require_react());
   function useCommunicateWithBackend() {
     const { sendMsg, incomingMsgs } = useBackendCallbacks();
@@ -49954,7 +49954,7 @@ p._logLine_xjp5l_75 {
     return [x2];
   }
 
-  // src/components/AppPreview/usePreviewScale.tsx
+  // ../editor/src/components/AppPreview/usePreviewScale.tsx
   var import_react44 = __toESM(require_react());
   function usePreviewScale() {
     const pageSize = useGetPageSize();
@@ -49987,7 +49987,7 @@ p._logLine_xjp5l_75 {
     };
   }
 
-  // src/components/AppPreview/index.tsx
+  // ../editor/src/components/AppPreview/index.tsx
   var import_jsx_runtime84 = __toESM(require_jsx_runtime());
   var PREVIEW_INSET_HORIZONTAL_PX = 16;
   var EXPANDED_INSET_HORIZONTAL_PX = 55;
@@ -50113,10 +50113,10 @@ p._logLine_xjp5l_75 {
     );
   }
 
-  // src/components/TemplatePreviews/filterTemplates.ts
+  // ../editor/src/components/TemplatePreviews/filterTemplates.ts
   var import_react47 = __toESM(require_react());
 
-  // src/assets/app-templates/templates/chickWeightsGrid.ts
+  // ../editor/src/assets/app-templates/templates/chickWeightsGrid.ts
   var navbarTree = {
     uiName: "gridlayout::grid_page",
     uiArguments: {
@@ -50221,7 +50221,7 @@ p._logLine_xjp5l_75 {
     }
   };
 
-  // src/assets/app-templates/templates/chickWeightsNavbar.ts
+  // ../editor/src/assets/app-templates/templates/chickWeightsNavbar.ts
   var navbarTree2 = {
     uiName: "shiny::navbarPage",
     uiArguments: {
@@ -50364,7 +50364,7 @@ p._logLine_xjp5l_75 {
     }
   };
 
-  // src/assets/app-templates/templates/gridGeyser.ts
+  // ../editor/src/assets/app-templates/templates/gridGeyser.ts
   var appTree = {
     uiName: "gridlayout::grid_page",
     uiArguments: {
@@ -50491,14 +50491,14 @@ p._logLine_xjp5l_75 {
     }
   };
 
-  // src/assets/app-templates/app_templates.ts
+  // ../editor/src/assets/app-templates/app_templates.ts
   var app_templates = [
     gridGeyserTemplate,
     chickWeightsNavbar,
     chickWeightsGridTemplate
   ];
 
-  // src/components/TemplatePreviews/AppTemplatePreview.tsx
+  // ../editor/src/components/TemplatePreviews/AppTemplatePreview.tsx
   var import_jsx_runtime85 = __toESM(require_jsx_runtime());
   var FULL_WIDTH_PX = 1260;
   var FULL_HEIGHT_PX = 800;
@@ -50527,7 +50527,7 @@ p._logLine_xjp5l_75 {
     });
   }
 
-  // src/components/TemplatePreviews/TemplatePreviewCard.tsx
+  // ../editor/src/components/TemplatePreviews/TemplatePreviewCard.tsx
   var import_jsx_runtime86 = __toESM(require_jsx_runtime());
   function getLayoutType(layoutTree) {
     return layoutTree.uiName === "gridlayout::grid_page" ? "grid" : "navbarPage";
@@ -50585,7 +50585,7 @@ p._logLine_xjp5l_75 {
     });
   }
 
-  // src/components/TemplatePreviews/useRequestTemplate.ts
+  // ../editor/src/components/TemplatePreviews/useRequestTemplate.ts
   var import_react46 = __toESM(require_react());
   function useRequestTemplate() {
     const { sendMsg } = useBackendCallbacks();
@@ -50601,7 +50601,7 @@ p._logLine_xjp5l_75 {
     return requestTemplate;
   }
 
-  // src/components/TemplatePreviews/filterTemplates.ts
+  // ../editor/src/components/TemplatePreviews/filterTemplates.ts
   var allLayoutTypes = ["grid", "navbarPage"];
   function filteredTemplates(filters) {
     return app_templates.filter(({ uiTree }) => {
@@ -50654,7 +50654,7 @@ p._logLine_xjp5l_75 {
     };
   }
 
-  // src/components/TemplatePreviews/OutputTypeForm.tsx
+  // ../editor/src/components/TemplatePreviews/OutputTypeForm.tsx
   var import_jsx_runtime87 = __toESM(require_jsx_runtime());
   var outputTypes = ["single-file", "multi-file"];
   var outputTypeLabel = {
@@ -50695,7 +50695,7 @@ p._logLine_xjp5l_75 {
     });
   }
 
-  // src/components/TemplatePreviews/TemplateFiltersForm.tsx
+  // ../editor/src/components/TemplatePreviews/TemplateFiltersForm.tsx
   var import_jsx_runtime88 = __toESM(require_jsx_runtime());
   var layoutLabels = {
     grid: "Grid",
@@ -50751,7 +50751,7 @@ p._logLine_xjp5l_75 {
     });
   }
 
-  // src/components/TemplatePreviews/TemplatePreviewGrid.tsx
+  // ../editor/src/components/TemplatePreviews/TemplatePreviewGrid.tsx
   var import_jsx_runtime89 = __toESM(require_jsx_runtime());
   var PREVIEW_WIDTH_PX = 294;
   var inlineVariableStyles2 = {
@@ -50782,7 +50782,7 @@ p._logLine_xjp5l_75 {
     });
   }
 
-  // src/components/TemplatePreviews/TemplateChooserView.tsx
+  // ../editor/src/components/TemplatePreviews/TemplateChooserView.tsx
   var import_jsx_runtime90 = __toESM(require_jsx_runtime());
   function TemplateChooserView() {
     const {
@@ -50837,7 +50837,7 @@ p._logLine_xjp5l_75 {
     });
   }
 
-  // src/EditorSkeleton/LostConnectionPopup.tsx
+  // ../editor/src/EditorSkeleton/LostConnectionPopup.tsx
   var import_jsx_runtime91 = __toESM(require_jsx_runtime());
   function LostConnectionPopup() {
     const connectedToServer = useSelector(
@@ -50857,11 +50857,11 @@ p._logLine_xjp5l_75 {
     });
   }
 
-  // src/ElementsPalette/index.tsx
+  // ../editor/src/ElementsPalette/index.tsx
   var React60 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-riQnrNQ2UwEF/editor/src/ElementsPalette/styles.module.css.js
-  var digest45 = "0e0313b7e3701f378c9f89d2605dbf109cd9f3088670425b4aed4ab2fa3e5eaf";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-E5xB96mQemLI/editor/src/ElementsPalette/styles.module.css.js
+  var digest45 = "3993db3082666f1d333d60ec15540ff6a7ba2880c8d15e2197d816a899b292c4";
   var css45 = `._elementsPalette_qmlez_1 {
   --icon-size: 75px;
   --padding: 8px;
@@ -50932,8 +50932,8 @@ p._logLine_xjp5l_75 {
   })();
   var styles_module_css_default24 = { "elementsPalette": "_elementsPalette_qmlez_1", "OptionContainer": "_OptionContainer_qmlez_18", "optionContainer": "_OptionContainer_qmlez_18", "OptionItem": "_OptionItem_qmlez_24", "optionItem": "_OptionItem_qmlez_24", "OptionIcon": "_OptionIcon_qmlez_33", "optionIcon": "_OptionIcon_qmlez_33", "OptionLabel": "_OptionLabel_qmlez_41", "optionLabel": "_OptionLabel_qmlez_41" };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-jvlsBoejOjA5/editor/src/ElementsPalette/styles.module.css.js
-  var digest46 = "7d31617d49a0d177652b8b8b00becc376b381809c4e155796a98443c78263133";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-K7mu0iUxz4ip/editor/src/ElementsPalette/styles.module.css.js
+  var digest46 = "2b54417370a2ff562288fdb737de69715b54d1e4f402544dabd7e20d0a022e70";
   var css46 = `._elementsPalette_qmlez_1 {
   --icon-size: 75px;
   --padding: 8px;
@@ -51004,7 +51004,7 @@ p._logLine_xjp5l_75 {
   })();
   var styles_module_css_default25 = { "elementsPalette": "_elementsPalette_qmlez_1", "OptionContainer": "_OptionContainer_qmlez_18", "optionContainer": "_OptionContainer_qmlez_18", "OptionItem": "_OptionItem_qmlez_24", "optionItem": "_OptionItem_qmlez_24", "OptionIcon": "_OptionIcon_qmlez_33", "optionIcon": "_OptionIcon_qmlez_33", "OptionLabel": "_OptionLabel_qmlez_41", "optionLabel": "_OptionLabel_qmlez_41" };
 
-  // src/ElementsPalette/UiElementIcon.tsx
+  // ../editor/src/ElementsPalette/UiElementIcon.tsx
   var import_jsx_runtime92 = __toESM(require_jsx_runtime());
   function UiElementIcon({ uiName }) {
     const {
@@ -51047,7 +51047,7 @@ p._logLine_xjp5l_75 {
     });
   }
 
-  // src/ElementsPalette/index.tsx
+  // ../editor/src/ElementsPalette/index.tsx
   var import_jsx_runtime93 = __toESM(require_jsx_runtime());
   var categoryOrder = [
     "Inputs",
@@ -51090,7 +51090,7 @@ p._logLine_xjp5l_75 {
     });
   }
 
-  // src/components/Inputs/SettingsFormBuilder/removeOmittedFields.tsx
+  // ../editor/src/components/Inputs/SettingsFormBuilder/removeOmittedFields.tsx
   function removeOmittedFields(settingsInfo) {
     let omitted = [];
     let infoSansOmitted = {};
@@ -51107,7 +51107,7 @@ p._logLine_xjp5l_75 {
     };
   }
 
-  // src/components/Inputs/SettingsFormBuilder/UnknownArgumentsRender.tsx
+  // ../editor/src/components/Inputs/SettingsFormBuilder/UnknownArgumentsRender.tsx
   var import_jsx_runtime94 = __toESM(require_jsx_runtime());
   function UnknownArgumentsRender({
     settings,
@@ -51178,7 +51178,7 @@ p._logLine_xjp5l_75 {
     return "Value: " + argumentValue;
   }
 
-  // src/components/Inputs/SettingsFormBuilder/FormBuilder.tsx
+  // ../editor/src/components/Inputs/SettingsFormBuilder/FormBuilder.tsx
   var import_jsx_runtime95 = __toESM(require_jsx_runtime());
   function FormBuilder(args) {
     const {
@@ -51234,8 +51234,8 @@ p._logLine_xjp5l_75 {
     return InputsComponents;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-WHhoBOLt33R1/editor/src/SettingsPanel/PathBreadcrumb.module.css.js
-  var digest47 = "ef3c0d7e5c84f1cf3be4f1f602ef1bc4a68ada04404298b3e3e0c03ab97b48ca";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-ytAJXEIReVLA/editor/src/SettingsPanel/PathBreadcrumb.module.css.js
+  var digest47 = "20dde1a80cd791fdff7f5165f699ac52f4509091949433925764a240da37369d";
   var css47 = `._container_1fh41_1 {
   --flex-gap: 8px;
   padding: var(--vertical-spacing);
@@ -51328,7 +51328,7 @@ p._logLine_xjp5l_75 {
   })();
   var PathBreadcrumb_module_css_default = { "container": "_container_1fh41_1", "node": "_node_1fh41_12" };
 
-  // src/SettingsPanel/PathBreadcrumb.tsx
+  // ../editor/src/SettingsPanel/PathBreadcrumb.tsx
   var import_jsx_runtime96 = __toESM(require_jsx_runtime());
   function PathBreadcrumb({
     tree,
@@ -51363,8 +51363,8 @@ p._logLine_xjp5l_75 {
     return uiName.replace(/[a-z]+::/, "");
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-y5LhfhsEDqOB/editor/src/SettingsPanel/SettingsPanel.module.css.js
-  var digest48 = "fec35b207bc2d49ead550c0fc100642329c4a0dcaf15cc7df660c2b17ad62d22";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-EtVCMZoAkUQG/editor/src/SettingsPanel/SettingsPanel.module.css.js
+  var digest48 = "2c243edf2255e1f734dfff3312a143d72aedee118fd70da2a30522707fbb6aa3";
   var css48 = `._settingsPanel_a44hx_1 {
   --vertical-gap: var(--vertical-spacing);
   display: flex;
@@ -51428,7 +51428,7 @@ form._settingsForm_a44hx_17 {
   })();
   var SettingsPanel_module_css_default = { "settingsPanel": "_settingsPanel_a44hx_1", "currentElementAbout": "_currentElementAbout_a44hx_10", "settingsForm": "_settingsForm_a44hx_17", "settingsInputs": "_settingsInputs_a44hx_24", "buttonsHolder": "_buttonsHolder_a44hx_28", "validationErrorMsg": "_validationErrorMsg_a44hx_45" };
 
-  // src/SettingsPanel/useUpdateSettings.tsx
+  // ../editor/src/SettingsPanel/useUpdateSettings.tsx
   var React61 = __toESM(require_react());
 
   // ../../node_modules/just-omit/index.mjs
@@ -51448,7 +51448,7 @@ form._settingsForm_a44hx_17 {
     return result;
   }
 
-  // src/SettingsPanel/useUpdateSettings.tsx
+  // ../editor/src/SettingsPanel/useUpdateSettings.tsx
   function useUpdateSettings(tree) {
     const dispatch = useDispatch();
     const [selectedPath, setNodeSelection] = useNodeSelectionState();
@@ -51514,7 +51514,7 @@ form._settingsForm_a44hx_17 {
     };
   }
 
-  // src/SettingsPanel/SettingsPanel.tsx
+  // ../editor/src/SettingsPanel/SettingsPanel.tsx
   var import_jsx_runtime97 = __toESM(require_jsx_runtime());
   function SettingsPanel({ tree }) {
     const {
@@ -51587,7 +51587,7 @@ form._settingsForm_a44hx_17 {
     });
   }
 
-  // src/AppTour/index.tsx
+  // ../editor/src/AppTour/index.tsx
   var React64 = __toESM(require_react());
 
   // ../../node_modules/react-joyride/es/index.js
@@ -56529,13 +56529,13 @@ form._settingsForm_a44hx_17 {
     steps: []
   });
 
-  // src/state/useInTemplateChooserMode.ts
+  // ../editor/src/state/useInTemplateChooserMode.ts
   function useInTemplateChooserMode() {
     const tree = useSelector((state) => state.uiTree);
     return tree === "TEMPLATE_CHOOSER";
   }
 
-  // src/AppTour/AppPreviewAbout.tsx
+  // ../editor/src/AppTour/AppPreviewAbout.tsx
   var import_jsx_runtime98 = __toESM(require_jsx_runtime());
   var AppPreviewAbout = /* @__PURE__ */ (0, import_jsx_runtime98.jsxs)("div", {
     children: [
@@ -56551,7 +56551,7 @@ form._settingsForm_a44hx_17 {
     ]
   });
 
-  // src/AppTour/AppViewAbout.tsx
+  // ../editor/src/AppTour/AppViewAbout.tsx
   var import_jsx_runtime99 = __toESM(require_jsx_runtime());
   var AppViewAbout = /* @__PURE__ */ (0, import_jsx_runtime99.jsxs)("div", {
     children: [
@@ -56576,7 +56576,7 @@ form._settingsForm_a44hx_17 {
     ]
   });
 
-  // src/AppTour/ElementsPanelAbout.tsx
+  // ../editor/src/AppTour/ElementsPanelAbout.tsx
   var import_jsx_runtime100 = __toESM(require_jsx_runtime());
   var ElementsPanelAbout = /* @__PURE__ */ (0, import_jsx_runtime100.jsxs)("div", {
     children: [
@@ -56592,7 +56592,7 @@ form._settingsForm_a44hx_17 {
     ]
   });
 
-  // src/AppTour/PropertiesPanelAbout.tsx
+  // ../editor/src/AppTour/PropertiesPanelAbout.tsx
   var import_jsx_runtime101 = __toESM(require_jsx_runtime());
   var PropertiesPanelAbout = /* @__PURE__ */ (0, import_jsx_runtime101.jsxs)("div", {
     children: [
@@ -56605,7 +56605,7 @@ form._settingsForm_a44hx_17 {
     ]
   });
 
-  // src/AppTour/index.tsx
+  // ../editor/src/AppTour/index.tsx
   var import_jsx_runtime102 = __toESM(require_jsx_runtime());
   var joyrideSteps = [
     {
@@ -56720,7 +56720,7 @@ form._settingsForm_a44hx_17 {
     }
   };
 
-  // src/components/Icons/ShinyLogo.tsx
+  // ../editor/src/components/Icons/ShinyLogo.tsx
   var import_jsx_runtime103 = __toESM(require_jsx_runtime());
   var SvgShinyLogo = (props) => /* @__PURE__ */ (0, import_jsx_runtime103.jsx)("svg", {
     viewBox: "0 0 168 114",
@@ -56736,10 +56736,10 @@ form._settingsForm_a44hx_17 {
   });
   var ShinyLogo_default = SvgShinyLogo;
 
-  // src/state-logic/useUndoRedo.tsx
+  // ../editor/src/state-logic/useUndoRedo.tsx
   var import_react50 = __toESM(require_react());
 
-  // src/modules/StateHistory.ts
+  // ../editor/src/modules/StateHistory.ts
   var StateHistory = class {
     constructor({
       comparisonFn
@@ -56805,7 +56805,7 @@ form._settingsForm_a44hx_17 {
     }
   };
 
-  // src/state-logic/useUndoRedo.tsx
+  // ../editor/src/state-logic/useUndoRedo.tsx
   function useUndoRedo() {
     const tree = useSelector((state) => state.uiTree);
     const dispatch = useDispatch();
@@ -56847,8 +56847,8 @@ form._settingsForm_a44hx_17 {
     return newEntry === oldEntry;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-4187-c7ozGJEgHvkz/editor/src/components/UndoRedoButtons/UndoRedoButtons.module.css.js
-  var digest49 = "77c5864b33b47b1087bc12f8d29a9133ce6e689384e56bac9d67d2bca816aa0c";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8548-Vhkh3MGiX3c6/editor/src/components/UndoRedoButtons/UndoRedoButtons.module.css.js
+  var digest49 = "13acd63ef61783e4cc602163a8d4b2e38b036c0c182c9698f7ceb1c1ea82c51a";
   var css49 = `._container_1d7pe_1 {
   display: flex;
   position: relative;
@@ -56883,7 +56883,7 @@ form._settingsForm_a44hx_17 {
   })();
   var UndoRedoButtons_module_css_default = { "container": "_container_1d7pe_1" };
 
-  // src/components/UndoRedoButtons/UndoRedoButtons.tsx
+  // ../editor/src/components/UndoRedoButtons/UndoRedoButtons.tsx
   var import_jsx_runtime104 = __toESM(require_jsx_runtime());
   function UndoRedoButtons() {
     const { goBackward, goForward, canGoBackward, canGoForward } = useUndoRedo();
@@ -56914,7 +56914,7 @@ form._settingsForm_a44hx_17 {
     });
   }
 
-  // src/EditorContainer/AppHeader.tsx
+  // ../editor/src/EditorContainer/AppHeader.tsx
   var import_jsx_runtime105 = __toESM(require_jsx_runtime());
   function AppHeader() {
     return /* @__PURE__ */ (0, import_jsx_runtime105.jsxs)("header", {
@@ -56940,7 +56940,7 @@ form._settingsForm_a44hx_17 {
     });
   }
 
-  // src/EditorContainer/DialogPopover.tsx
+  // ../editor/src/EditorContainer/DialogPopover.tsx
   var import_jsx_runtime106 = __toESM(require_jsx_runtime());
   function DialogPopover({
     children,
@@ -56961,7 +56961,7 @@ form._settingsForm_a44hx_17 {
     }
   }
 
-  // src/EditorContainer/EditorContainer.tsx
+  // ../editor/src/EditorContainer/EditorContainer.tsx
   var import_jsx_runtime107 = __toESM(require_jsx_runtime());
   var sizes_inline_styles = {
     "--properties-panel-width": `${PROPERTIES_PANEL_WIDTH_PX}px`
@@ -57017,7 +57017,7 @@ form._settingsForm_a44hx_17 {
     });
   }
 
-  // src/state/connectedToServer.ts
+  // ../editor/src/state/connectedToServer.ts
   var import_react51 = __toESM(require_react());
   var connectedToServerSlice = createSlice({
     name: "connectedToServer",
@@ -57029,7 +57029,7 @@ form._settingsForm_a44hx_17 {
   var { DISCONNECTED_FROM_SERVER } = connectedToServerSlice.actions;
   var connectedToServer_default = connectedToServerSlice.reducer;
 
-  // src/components/UiNode/TreeManipulation/nodesShareCommonParent.ts
+  // ../editor/src/components/UiNode/TreeManipulation/nodesShareCommonParent.ts
   function nodesShareCommonParent(aPath, bPath) {
     const compareDepth = Math.min(aPath.length, bPath.length) - 1;
     if (compareDepth <= 0)
@@ -57037,7 +57037,7 @@ form._settingsForm_a44hx_17 {
     return pathsSameAtDepth(aPath, bPath, compareDepth);
   }
 
-  // src/state/listenForDeleteMiddleware.ts
+  // ../editor/src/state/listenForDeleteMiddleware.ts
   var listenForDeleteMiddleware = createListenerMiddleware();
   listenForDeleteMiddleware.startListening({
     actionCreator: DELETE_NODE,
@@ -57064,7 +57064,7 @@ form._settingsForm_a44hx_17 {
   });
   var listenForDeleteMiddleware_default = listenForDeleteMiddleware.middleware;
 
-  // src/components/UiNode/TreeManipulation/getPathAfterMove.ts
+  // ../editor/src/components/UiNode/TreeManipulation/getPathAfterMove.ts
   function getPathAfterMove({ fromPath, toPath }) {
     const fromDepth = nodeDepth(fromPath);
     const toDepth = nodeDepth(toPath);
@@ -57079,7 +57079,7 @@ form._settingsForm_a44hx_17 {
     return updatedPath;
   }
 
-  // src/state/listenForNodeAddMiddleware.ts
+  // ../editor/src/state/listenForNodeAddMiddleware.ts
   var listenForNodeAddMiddleware = createListenerMiddleware();
   listenForNodeAddMiddleware.startListening({
     actionCreator: PLACE_NODE,
@@ -57097,7 +57097,7 @@ form._settingsForm_a44hx_17 {
   });
   var listenForNodeAddMiddleware_default = listenForNodeAddMiddleware.middleware;
 
-  // src/state/middleware/resetSelectionInTemplateChooser.ts
+  // ../editor/src/state/middleware/resetSelectionInTemplateChooser.ts
   var listenForTemplateChooserMode = createListenerMiddleware();
   listenForTemplateChooserMode.startListening({
     actionCreator: SET_FULL_STATE,
@@ -57110,7 +57110,7 @@ form._settingsForm_a44hx_17 {
   });
   var resetSelectionInTemplateChooser = listenForTemplateChooserMode.middleware;
 
-  // src/state/store.ts
+  // ../editor/src/state/store.ts
   var store = configureStore({
     reducer: {
       uiTree: uiTree_default,
@@ -57120,7 +57120,7 @@ form._settingsForm_a44hx_17 {
     middleware: (getDefaultMiddleware2) => getDefaultMiddleware2().concat(listenForDeleteMiddleware_default).concat(listenForNodeAddMiddleware_default).concat(resetSelectionInTemplateChooser)
   });
 
-  // src/state/ReduxProvider.tsx
+  // ../editor/src/state/ReduxProvider.tsx
   var import_jsx_runtime108 = __toESM(require_jsx_runtime());
   function ReduxProvider({ children }) {
     return /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(Provider_default, {
@@ -57130,7 +57130,7 @@ form._settingsForm_a44hx_17 {
   }
   var ReduxProvider_default = ReduxProvider;
 
-  // src/App.tsx
+  // ../editor/src/App.tsx
   var import_jsx_runtime109 = __toESM(require_jsx_runtime());
   function App(msgPassers) {
     return /* @__PURE__ */ (0, import_jsx_runtime109.jsx)(ReduxProvider_default, {
@@ -57141,7 +57141,7 @@ form._settingsForm_a44hx_17 {
     });
   }
 
-  // src/runSUE.tsx
+  // ../editor/src/runSUE.tsx
   var import_jsx_runtime110 = __toESM(require_jsx_runtime());
   function runSUE({
     container: container2,
@@ -57166,7 +57166,7 @@ form._settingsForm_a44hx_17 {
     }));
   }
 
-  // src/index_for_vscode.tsx
+  // src/index.tsx
   var container = document.getElementById("root");
   var showMessages = true;
   (async () => {
