@@ -33,6 +33,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ShinyUiEditorProvider = void 0;
+// import { isMessageFromClient } from "communication-types";
 const vscode = __importStar(require("vscode"));
 const connectToRProcess_1 = require("./connectToRProcess");
 const setupRConnection_1 = require("./setupRConnection");
@@ -127,7 +128,12 @@ class ShinyUiEditorProvider {
             });
             // Receive message from the webview.
             webviewPanel.webview.onDidReceiveMessage((e) => {
-                console.log("Message from webview", e);
+                console.log("Actually updating");
+                console.log("Message from client!", e);
+                // if (isMessageFromClient(e)) {
+                // } else {
+                //   console.log("Unknown message from webview", e);
+                // }
             });
             this.sendMessage = (msg) => webviewPanel.webview.postMessage(msg);
             updateWebview();

@@ -102,6 +102,10 @@ export function isMessageFromBackend(x: unknown): x is MessageFromBackend {
   if (!isRecord(x)) return false;
   return "path" in x;
 }
+export function isMessageFromClient(x: unknown): x is MessageToBackend {
+  if (!isRecord(x)) return false;
+  return "path" in x;
+}
 
 // =============================================================================
 // Helper generics to turn our simple message object type into unions that have

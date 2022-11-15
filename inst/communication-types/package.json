@@ -1,6 +1,6 @@
 {
   "name": "communication-types",
-  "main": "./index.ts",
+  "main": "./src/index.ts",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
