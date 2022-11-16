@@ -22,6 +22,7 @@
       {
         "viewType": "shinyUiEditor.appFile",
         "displayName": "ShinyUiEditor",
+        "priority": "option",
         "selector": [
           {
             "filenamePattern": "*app.R"
@@ -33,8 +34,8 @@
   },
   "scripts": {
     "vscode:prepublish": "yarn build",
-    "watch": "yarn build --watch",
-    "build": "esbuild src/extension.ts --bundle --platform=node --target=node10.4 --external:vscode --outfile=out/extension.js",
+    "watch": "tsx scripts/build.ts --watch",
+    "build": "tsx scripts/build.ts",
     "lint": "eslint \"src/**/*.ts\"",
     "type-check": "tsc -p ./ --noEmit"
   },
@@ -46,6 +47,7 @@
     "@typescript-eslint/parser": "^5.42.0",
     "esbuild": "^0.15.13",
     "eslint": "^8.26.0",
+    "tsx": "^3.12.1",
     "typescript": "latest"
   },
   "dependencies": {

@@ -543,63 +543,11 @@ function isMessageFromClient(x) {
 // src/shinyuieditor_extension.ts
 var vscode2 = __toESM(require("vscode"));
 
-// src/connectToRProcess.ts
+// src/R-Utils/getRProcess.ts
 var import_child_process = require("child_process");
 var import_node_process = __toESM(require("process"));
-var STARTUP_TIMEOUT_MS = 5e3;
-var STARTUP_COMMAND = `library(shinyuieditor)`;
-var rCallargs = ["--silent", "--slave", "--no-save", "--no-restore"];
-function connectToRProcess({
-  pathToR
-}) {
-  let logs = "";
-  const running = false;
-  return new Promise((resolve) => {
-    const controller = new AbortController();
-    const { signal } = controller;
-    const spawnedProcess = (0, import_child_process.spawn)(pathToR, rCallargs, { signal });
-    const killProcess = () => {
-      if (!spawnedProcess.pid)
-        return;
-      console.log("Killing backend R process", spawnedProcess.pid);
-      import_node_process.default.kill(spawnedProcess.pid);
-    };
-    const runCmd = (cmd, timeout_ms) => runRCommand(cmd, spawnedProcess, timeout_ms);
-    function gatherLogs(type, logMsg) {
-      logs += `${type}: ${logMsg}`;
-    }
-    spawnedProcess.on("spawn", () => {
-      console.log("R Process is active!");
-      clearTimeout(startTimeout);
-      sendMsgToProc(STARTUP_COMMAND, spawnedProcess);
-      resolve({
-        proc: spawnedProcess,
-        runCmd,
-        stop: killProcess
-      });
-    });
-    spawnedProcess.on("error", (d) => {
-      console.log("Spun up R had error", d);
-    });
-    spawnedProcess.stdout.on("data", (d) => {
-      gatherLogs("out", d.toString());
-    });
-    spawnedProcess.stderr.on("data", (d) => {
-      gatherLogs("error", d.toString());
-    });
-    spawnedProcess.on("close", () => {
-      console.log("Spun up R process has shut down");
-    });
-    const startTimeout = setTimeout(() => {
-      console.error("Starting backend server failed.\n Logs:\n" + logs);
-      resolve(null);
-    }, STARTUP_TIMEOUT_MS);
-  });
-}
-function sendMsgToProc(msg, proc) {
-  proc.stdin.write(`${msg}
-`);
-}
+
+// src/R-Utils/runRCommand.ts
 var START_SIGNAL = "SUE_START_SIGNAL";
 var END_SIGNAL = "SUE_END_SIGNAL";
 async function runRCommand(cmd, rProc, timeout_ms = 5e3) {
@@ -646,11 +594,8 @@ async function runRCommand(cmd, rProc, timeout_ms = 5e3) {
     );
   });
 }
-function escapeDoubleQuotes(cmd) {
-  return cmd.replace(/"/g, `\\"`);
-}
 
-// src/setupRConnection.ts
+// src/R-Utils/setupRConnection.ts
 var import_fs = require("fs");
 var import_path = __toESM(require("path"));
 var vscode = __toESM(require("vscode"));
@@ -726,6 +671,104 @@ async function getRpath(quote = false, overwriteConfig) {
   return rpath;
 }
 
+// src/R-Utils/getRProcess.ts
+var STARTUP_TIMEOUT_MS = 5e3;
+var STARTUP_COMMAND = `library(shinyuieditor)`;
+var rCallargs = ["--silent", "--slave", "--no-save", "--no-restore"];
+function connectToRProcess({
+  pathToR
+}) {
+  let logs = "";
+  return new Promise((resolve) => {
+    const controller = new AbortController();
+    const { signal } = controller;
+    const spawnedProcess = (0, import_child_process.spawn)(pathToR, rCallargs, { signal });
+    const killProcess = () => {
+      if (!spawnedProcess.pid)
+        return;
+      console.log("Killing backend R process", spawnedProcess.pid);
+      import_node_process.default.kill(spawnedProcess.pid);
+    };
+    const runCmd = (cmd, timeout_ms) => runRCommand(cmd, spawnedProcess, timeout_ms);
+    function gatherLogs(type, logMsg) {
+      logs += `${type}: ${logMsg}`;
+    }
+    spawnedProcess.on("spawn", () => {
+      console.log("R Process is active!");
+      clearTimeout(startTimeout);
+      sendMsgToProc(STARTUP_COMMAND, spawnedProcess);
+      resolve({
+        proc: spawnedProcess,
+        runCmd,
+        stop: killProcess
+      });
+    });
+    spawnedProcess.on("error", (d) => {
+      console.log("Spun up R had error", d);
+    });
+    spawnedProcess.stdout.on("data", (d) => {
+      gatherLogs("out", d.toString());
+    });
+    spawnedProcess.stderr.on("data", (d) => {
+      gatherLogs("error", d.toString());
+    });
+    spawnedProcess.on("close", () => {
+      console.log("Spun up R process has shut down");
+    });
+    const startTimeout = setTimeout(() => {
+      console.error("Starting backend server failed.\n Logs:\n" + logs);
+      resolve(null);
+    }, STARTUP_TIMEOUT_MS);
+  });
+}
+async function getRProcess() {
+  const rPath = await getRpath();
+  if (rPath === void 0) {
+    throw new Error("Can't get R path");
+  }
+  const RProc = await connectToRProcess({ pathToR: rPath });
+  if (RProc === null) {
+    throw new Error("R process failed to start :(");
+  }
+  return RProc;
+}
+function sendMsgToProc(msg, proc) {
+  proc.stdin.write(`${msg}
+`);
+}
+
+// src/R-Utils/parseAppFile.ts
+async function getAppFile(fileText, RProcess) {
+  const parseCommand = buildParseCommand(fileText);
+  const parsedCommandOutput = await RProcess.runCmd(parseCommand);
+  try {
+    const parsedAppInfo = JSON.parse(
+      parsedCommandOutput.reduce((all, l) => all + "\n" + l, "")
+    );
+    return parsedAppInfo;
+  } catch {
+    throw new Error(
+      "Could not get document as json. Content is not valid json"
+    );
+  }
+}
+function buildParseCommand(appText) {
+  const escapedAppText = escapeDoubleQuotes(appText);
+  return collapseText(
+    `app_lines <- strsplit("${escapedAppText}", "\\n")[[1]]`,
+    `jsonlite::toJSON(`,
+    `  shinyuieditor:::get_file_ui_definition_info(app_lines, "single-file"),`,
+    `  auto_unbox = TRUE`,
+    `)`
+  );
+}
+function collapseText(...textLines) {
+  return textLines.reduce((all, l) => all + "\n" + l, "");
+}
+function escapeDoubleQuotes(cmd) {
+  return cmd.replace(/"/g, `\\"`);
+}
+
 // src/util.ts
 function getNonce() {
   let text = "";
@@ -740,9 +783,11 @@ function getNonce() {
 var _ShinyUiEditorProvider = class {
   constructor(context) {
     this.context = context;
-    this.sendMessage = null;
     this.RProcess = null;
-    this.getR();
+    this.sendMessage = null;
+    getRProcess().then((rProc) => {
+      this.RProcess = rProc;
+    });
     console.log("extension constructor()!");
   }
   static register(context) {
@@ -753,53 +798,47 @@ var _ShinyUiEditorProvider = class {
     );
     return providerRegistration;
   }
-  async getR() {
-    const rPath = await getRpath();
-    if (rPath === void 0) {
-      throw new Error("Can't get R path");
-    }
-    const RProc = await connectToRProcess({ pathToR: rPath });
-    this.RProcess = RProc;
-    if (RProc === null) {
-      console.error("R process failed to start :(");
-      return;
-    }
-  }
   async resolveCustomTextEditor(document, webviewPanel, _token) {
-    console.log("Editor window is opened!");
-    webviewPanel.webview.options = {
-      enableScripts: true
-    };
+    console.log("Editor window is opened!", document.fileName);
+    webviewPanel.webview.options = { enableScripts: true };
     webviewPanel.webview.html = this.getHtmlForWebview(webviewPanel.webview);
-    this.getAppFile(document);
-    function updateWebview() {
-      webviewPanel.webview.postMessage({
-        type: "update",
-        text: document.getText()
-      });
-    }
     const changeDocumentSubscription = vscode2.workspace.onDidChangeTextDocument(
       (e) => {
         if (e.document.uri.toString() === document.uri.toString()) {
-          updateWebview();
           console.log("New text file in view!");
         }
       }
     );
     webviewPanel.onDidDispose(() => {
-      var _a;
       changeDocumentSubscription.dispose();
-      (_a = this.RProcess) == null ? void 0 : _a.stop();
+      console.log("Editor window closed");
     });
     webviewPanel.webview.onDidReceiveMessage((e) => {
       if (isMessageFromClient(e)) {
         console.log("Message from client!", e);
+        switch (e.path) {
+          case "READY-FOR-STATE": {
+            if (!this.RProcess) {
+              return;
+            }
+            getAppFile(document.getText(), this.RProcess).then((parsedApp) => {
+              var _a;
+              (_a = this.sendMessage) == null ? void 0 : _a.call(this, {
+                path: "UPDATED-TREE",
+                payload: parsedApp.ui_tree
+              });
+            });
+            return;
+          }
+          default: {
+            console.warn("Unhandled message from client", e);
+          }
+        }
       } else {
         console.log("Unknown message from webview", e);
       }
     });
     this.sendMessage = (msg) => webviewPanel.webview.postMessage(msg);
-    updateWebview();
   }
   getHtmlForWebview(webview) {
     const scriptUri = webview.asWebviewUri(
@@ -850,53 +889,6 @@ var _ShinyUiEditorProvider = class {
 			</body>
 			</html>`;
   }
-  async formatRCode(unformattedCode) {
-    if (!this.RProcess)
-      throw new Error("No R Process available for running command");
-    const formattedLines = await this.RProcess.runCmd(
-      `styler::style_text("${unformattedCode}", scope = "tokens")`
-    );
-    return formattedLines.reduce((pasted, l) => pasted + "\n" + l, "");
-  }
-  async getAppFile(document) {
-    var _a;
-    if (!this.RProcess)
-      return;
-    const text = escapeDoubleQuotes(document.getText());
-    const parseCommand = `
-app_lines <- strsplit("${text}", "\\n")[[1]]
-jsonlite::toJSON(
-  shinyuieditor:::get_file_ui_definition_info(app_lines, "single-file"),
-  auto_unbox = TRUE
-)`;
-    const parsedCommandOutput = await this.RProcess.runCmd(parseCommand);
-    try {
-      const parsedAppInfo = JSON.parse(
-        parsedCommandOutput.reduce((all, l) => all + "\n" + l, "")
-      );
-      (_a = this.sendMessage) == null ? void 0 : _a.call(this, {
-        path: "UPDATED-TREE",
-        payload: parsedAppInfo.ui_tree
-      });
-    } catch {
-      throw new Error(
-        "Could not get document as json. Content is not valid json"
-      );
-    }
-  }
-  getDocumentAsJson(document) {
-    const text = document.getText();
-    if (text.trim().length === 0) {
-      return {};
-    }
-    try {
-      return JSON.parse(text);
-    } catch {
-      throw new Error(
-        "Could not get document as json. Content is not valid json"
-      );
-    }
-  }
   updateTextDocument(document, json) {
     const edit = new vscode2.WorkspaceEdit();
     edit.replace(
@@ -918,3 +910,4 @@ function activate(context) {
 0 && (module.exports = {
   activate
 });
+//# sourceMappingURL=extension.js.map
