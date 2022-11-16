@@ -26,6 +26,7 @@ function setupVSCodeBackend({
   messageDispatch: MessageDispatcher;
   showMessages: boolean;
 }) {
+  console.log("CLient app is updating!");
   const vscode = acquireVsCodeApi();
 
   // eslint-disable-next-line no-console
@@ -40,6 +41,7 @@ function setupVSCodeBackend({
   window.addEventListener("message", (event) => {
     const message = event.data; // The json data that the extension sent
 
+    console.log("Msg from client", message);
     if (isMessageFromBackend(message)) {
       dispatchMessageToClient(message);
     } else {

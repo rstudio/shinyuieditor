@@ -8,7 +8,7 @@ const hasBooleanArg = (prop: `--${PossibleArgs}`) =>
   process.argv.some((x) => x === prop);
 
 esbuild.build({
-  entryPoints: ["src/index.tsx"],
+  entryPoints: ["src/index.ts"],
   bundle: true,
   minify: false,
   sourcemap: true,
