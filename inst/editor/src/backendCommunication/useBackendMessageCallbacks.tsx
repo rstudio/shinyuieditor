@@ -14,7 +14,7 @@ export type BackendMessagePassers = {
   /**
    * Object to subscribe to incoming messages from backend
    */
-  incomingMsgs: Pick<MessageDispatcher, "subscribe">;
+  incomingMsgs: Omit<MessageDispatcher, "dispatch">;
 };
 
 const dummyMessagePassers: BackendMessagePassers = {
@@ -22,6 +22,10 @@ const dummyMessagePassers: BackendMessagePassers = {
   incomingMsgs: {
     subscribe: (on, callback) => {
       console.log(`Request for subscription to ${on}:`, callback);
+      return {
+        unsubscribe: () =>
+          console.log(`Request for removing subscription to ${on}:`, callback),
+      };
     },
   },
 };

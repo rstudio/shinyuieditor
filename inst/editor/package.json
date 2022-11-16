@@ -74,6 +74,7 @@
     "build-netlify": "VITE_SHOW_FAKE_PREVIEW=true PUBLIC_URL=/ yarn build",
     "build-website-demo": "tsx scripts/build.ts --website-demo",
     "test": "vitest run",
+    "test-watch": "vitest",
     "playwright": "playwright test --project=chromium",
     "storybook": "start-storybook -p 6006",
     "lint": "eslint src --fix",

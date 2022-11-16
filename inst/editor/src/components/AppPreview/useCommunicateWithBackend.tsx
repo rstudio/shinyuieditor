@@ -26,22 +26,35 @@ export function useCommunicateWithBackend(): CommunicationState {
   const [errors, setErrors] = React.useState<string | null>(null);
 
   React.useEffect(() => {
-    incomingMsgs.subscribe("APP-PREVIEW-READY", (previewLoc) => {
-      setErrors(null);
-      setAppLoc(previewLoc);
-    });
-
-    incomingMsgs.subscribe("APP-PREVIEW-LOGS", (logs) => {
-      setAppLogs(ensureArray(logs));
-    });
-
-    incomingMsgs.subscribe("APP-PREVIEW-CRASH", (crash_msg) => {
-      setErrors(crash_msg);
-    });
+    const previewReadySubscription = incomingMsgs.subscribe(
+      "APP-PREVIEW-READY",
+      (previewLoc) => {
+        setErrors(null);
+        setAppLoc(previewLoc);
+      }
+    );
+    const previewLogsSubscription = incomingMsgs.subscribe(
+      "APP-PREVIEW-LOGS",
+      (logs) => {
+        setAppLogs(ensureArray(logs));
+      }
+    );
+    const previewCrashSubscription = incomingMsgs.subscribe(
+      "APP-PREVIEW-CRASH",
+      (crash_msg) => {
+        setErrors(crash_msg);
+      }
+    );
 
     sendMsg({ path: "APP-PREVIEW-CONNECTED" });
     setRestartApp(() => () => sendMsg({ path: "APP-PREVIEW-RESTART" }));
     setStopApp(() => () => sendMsg({ path: "APP-PREVIEW-STOP" }));
+
+    return () => {
+      previewReadySubscription.unsubscribe();
+      previewLogsSubscription.unsubscribe();
+      previewCrashSubscription.unsubscribe();
+    };
   }, [incomingMsgs, sendMsg]);
 
   const [restartApp, setRestartApp] = React.useState<() => void>(

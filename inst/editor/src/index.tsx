@@ -9,7 +9,7 @@ const container = document.getElementById("root");
 const showMessages = true;
 (async () => {
   try {
-    const messageDispatch = makeMessageDispatcher(true);
+    const messageDispatch = makeMessageDispatcher();
 
     let websocketDispatch = await setupWebsocketBackend({
       messageDispatch,

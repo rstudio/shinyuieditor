@@ -31,7 +31,7 @@ export function setupWebsocketBackend({
           }
           sendWsMessage(ws, msg as MessageToBackend);
         },
-        incomingMsgs: { subscribe: messageDispatch.subscribe },
+        incomingMsgs: messageDispatch,
       };
 
       ws.onerror = (e) => {

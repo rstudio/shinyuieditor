@@ -19,13 +19,13 @@ export function runSUE({
           subscribe: (on, callback) => {
             // eslint-disable-next-line no-console
             console.log(`backendMsgs.subscribe("${on}", ...)`);
-            incomingMsgs.subscribe(on, callback);
+            return incomingMsgs.subscribe(on, callback);
           },
         },
       }
     : {
         sendMsg,
-        incomingMsgs: incomingMsgs,
+        incomingMsgs,
       };
   const root = createRoot(container!); // createRoot(container!) if you use TypeScript
   root.render(<App {...dispatch} />);

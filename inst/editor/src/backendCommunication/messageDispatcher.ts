@@ -13,33 +13,39 @@ type OnBackendMsgCallback<Path extends BackendMsgPath> = (
   payload: MessageFromBackendByPath[Path]
 ) => void;
 
-export function makeMessageDispatcher(log_msgs: boolean = false) {
-  // eslint-disable-next-line no-console
-  const logger = (msg: string) => (log_msgs ? null : console.log(msg));
-  let subscriptions: {
+export function makeMessageDispatcher() {
+  const subscriptions: {
     [T in BackendMsgPath]?: Array<OnBackendMsgCallback<T>>;
   } = {};
 
-  const subscribe = <Path extends BackendMsgPath>(
-    on: Path,
-    subscriberFn: OnBackendMsgCallback<Path>
-  ) => {
-    if (subscriptions[on] === undefined) {
-      subscriptions[on] = [];
-    }
+  return {
+    subscribe: <Path extends BackendMsgPath>(
+      on: Path,
+      subscriberFn: OnBackendMsgCallback<Path>
+    ) => {
+      const subscriptionsForPath = subscriptions[on];
 
-    // Question mark is not really needed but typescript can't narrow here for some reason
-    subscriptions[on]?.push(subscriberFn);
+      subscriptions[on] = [
+        ...(subscriptionsForPath ?? []),
+        subscriberFn,
+      ] as typeof subscriptionsForPath;
+
+      return {
+        unsubscribe: () => {
+          const subscriptionsForPath = subscriptions[on];
+
+          subscriptions[on] = (subscriptionsForPath ?? []).filter(
+            (fn) => fn !== subscriberFn
+          ) as typeof subscriptionsForPath;
+        },
+      };
+    },
+    dispatch: ({ path, payload }: MessageFromBackend) => {
+      subscriptions[path]?.forEach((callback) =>
+        (callback as OnBackendMsgCallback<typeof path>)(payload)
+      );
+    },
   };
-
-  function dispatch({ path, payload }: MessageFromBackend) {
-    logger(`Message from backend: path:${path}`);
-    subscriptions[path]?.forEach((callback) =>
-      (callback as OnBackendMsgCallback<typeof path>)(payload)
-    );
-  }
-
-  return { subscribe, dispatch };
 }
 
 export type MessageDispatcher = ReturnType<typeof makeMessageDispatcher>;

@@ -52,7 +52,7 @@ export function setupStaticBackend({
         }
       }
     },
-    incomingMsgs: { subscribe: messageDispatch.subscribe },
+    incomingMsgs: messageDispatch,
   };
   return messagePassingMethods;
 }

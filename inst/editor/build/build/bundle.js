@@ -27327,22 +27327,30 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   });
 
   // src/backendCommunication/messageDispatcher.ts
-  function makeMessageDispatcher(log_msgs = false) {
-    const logger = (msg) => log_msgs ? null : console.log(msg);
-    let subscriptions = {};
-    const subscribe = (on3, subscriberFn) => {
-      if (subscriptions[on3] === void 0) {
-        subscriptions[on3] = [];
+  function makeMessageDispatcher() {
+    const subscriptions = {};
+    return {
+      subscribe: (on3, subscriberFn) => {
+        const subscriptionsForPath = subscriptions[on3];
+        subscriptions[on3] = [
+          ...subscriptionsForPath ?? [],
+          subscriberFn
+        ];
+        return {
+          unsubscribe: () => {
+            const subscriptionsForPath2 = subscriptions[on3];
+            subscriptions[on3] = (subscriptionsForPath2 ?? []).filter(
+              (fn3) => fn3 !== subscriberFn
+            );
+          }
+        };
+      },
+      dispatch: ({ path: path3, payload }) => {
+        subscriptions[path3]?.forEach(
+          (callback) => callback(payload)
+        );
       }
-      subscriptions[on3]?.push(subscriberFn);
     };
-    function dispatch({ path: path3, payload }) {
-      logger(`Message from backend: path:${path3}`);
-      subscriptions[path3]?.forEach(
-        (callback) => callback(payload)
-      );
-    }
-    return { subscribe, dispatch };
   }
 
   // src/env_variables.ts
@@ -27412,7 +27420,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
           }
         }
       },
-      incomingMsgs: { subscribe: messageDispatch.subscribe }
+      incomingMsgs: messageDispatch
     };
     return messagePassingMethods;
   }
@@ -27437,7 +27445,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
             }
             sendWsMessage(ws, msg);
           },
-          incomingMsgs: { subscribe: messageDispatch.subscribe }
+          incomingMsgs: messageDispatch
         };
         ws.onerror = (e2) => {
           resolve("NO-WS-CONNECTION");
@@ -27494,6 +27502,9 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     incomingMsgs: {
       subscribe: (on3, callback) => {
         console.log(`Request for subscription to ${on3}:`, callback);
+        return {
+          unsubscribe: () => console.log(`Request for removing subscription to ${on3}:`, callback)
+        };
       }
     }
   };
@@ -30422,8 +30433,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   // src/assets/icons/undo.png
   var undo_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAoCAYAAAC4h3lxAAAACXBIWXMAAAsTAAALEwEAmpwYAAABDElEQVRYhe2ZsQ7CMAxEr4gvZmBDXMXGwC+XgVQqERDbCbEr5ZaoalXdq+0kTqdlWbBnHbwN1GoAeGsAeGv3AMdfN8+3h+ZdVwDcXE8GP7hfTqrnW0UgN99NLQDczAP1AFvzM4xpU6MagNw8vz75R1kBQpgHCrPQF0nNW3eJqjTURiDMl1+liYDUvLWQTRGTRiDcl18lAQhrHigDhDYPlAGYxpDmAXkNhG2cSwBzGolXOoWTJIVCQ0hSiAgMIa0BIiiEZiVmGvOpNVfXgtfuhYhgkbDsRpnGUiS6NDfWfoAIEomajowIAFHbExPvEN1X7BanEsTnGuiiVudChBPENH5wOGsAeGsAeGv3AE8yEDlUwXXxqQAAAABJRU5ErkJggg==";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-758vwRphbZyN/editor/src/components/Icons/styles.module.css.js
-  var digest = "328a84fdc2da186ca59bf00929f6a726f4958f63508de5fc4ba61040b0fb5862";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-yHsk63I4lOIE/editor/src/components/Icons/styles.module.css.js
+  var digest = "46010f466055a235c7311a6328624fe391198e7866c50fba3a6e2b688d820c61";
   var css = `img._icon_1467k_1 {
   height: 30px;
   /* outline: 2px solid green; */
@@ -30686,8 +30697,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   // src/components/Icons/index.tsx
   var Icons_default = PngIcon;
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-Ur5YovZX8UQo/editor/src/components/Inputs/Button/Button.module.css.js
-  var digest2 = "a74608cd983745be91fbc85053b41633dcd00dbc5e6704c21cdd89096bd4f9ce";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-UevAliOLuGLk/editor/src/components/Inputs/Button/Button.module.css.js
+  var digest2 = "198d0742920f0932b6e0b50c6d37b78951944334a2b27f33fea9ea46348537d2";
   var css2 = `._button_1y00r_1 {
   --background-color: var(--rstudio-white);
   --text-color: var(--font-color);
@@ -30759,8 +30770,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   };
   var Button_default = Button;
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-QNE2O0Q8dw7k/editor/src/components/DeleteNodeButton/styles.module.css.js
-  var digest3 = "dded87312e402b1d07714d3236e2fcf59a8cd398a3013718bebc72494306cd7b";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-eSj4R4TX4eBs/editor/src/components/DeleteNodeButton/styles.module.css.js
+  var digest3 = "6c2868cc28e25740c8a9c8e3a1f6c2a6e5c60cb60866f08cf10cf2c41be1a4d1";
   var css3 = `._deleteButton_1en02_1 {
   color: var(--red);
   display: flex;
@@ -31031,8 +31042,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   };
   var UiNode_default = UiNode;
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-3JgonEpjJctm/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
-  var digest4 = "674f4521ce8d762b3f296765857a884abbb9d848a8630797e18abfb76d1b0b9f";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-wD6HDotDwqNb/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
+  var digest4 = "5f34a6137f036843c99632b36ded91ee8bd2ecb9fa253ad21e003eed4ea8b2d9";
   var css4 = `._container_1a2os_1 {
   position: relative;
   height: 100%;
@@ -31458,8 +31469,8 @@ div._emptyGridCard_1a2os_144 > button {
     return setLayout;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-FmmViHuIcrSb/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
-  var digest5 = "e1ad10ae61e75fec0cf8611c97238c9ea266be623548e803691ca215569f60cc";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-WPw6LqcQ7bIJ/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
+  var digest5 = "6c620b0c56851b24f6b0cef243869bd0e12a26a923986870c993ca6f94fbec2b";
   var css5 = `._container_1a2os_1 {
   position: relative;
   height: 100%;
@@ -31818,8 +31829,8 @@ div._emptyGridCard_1a2os_144 > button {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 16 16" }, "child": [{ "tag": "path", "attr": { "fillRule": "evenodd", "d": "M16 14v1H0V0h1v14h15zM5 13H3V8h2v5zm4 0H7V3h2v10zm4 0h-2V6h2v7z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-2yrEZTi4cUep/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
-  var digest6 = "90592ed4d0682650a24d709ece00669d237d2f5b4ad4642b3b223e84ba196948";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-67FNvlIvwSPx/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
+  var digest6 = "503551ac0dbf190abe491cc20d4a41ea0d80949f2c030968eb92015860ab23a8";
   var css6 = `._container_1rlbk_1 {
   max-height: 100%;
 }
@@ -31900,8 +31911,8 @@ div._emptyGridCard_1a2os_144 > button {
     return dimensions;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-yobvPItU6ga7/editor/src/Shiny-Ui-Elements/GridlayoutGridCardPlot/styles.module.css.js
-  var digest7 = "1612c68a5d39d3f70f36a1af5a784dcbfb2dfe3a743a7fa65794676125f9addc";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-FSGJA0VgvAgD/editor/src/Shiny-Ui-Elements/GridlayoutGridCardPlot/styles.module.css.js
+  var digest7 = "16689e7c1e75de01bb93a898521c1bca92aa1c0cb7349d2ee1ef51e7ff566803";
   var css7 = `._gridCardPlot_1a94v_1 {
   background-color: var(--rstudio-white);
   width: 100%;
@@ -31983,8 +31994,8 @@ div._emptyGridCard_1a2os_144 > button {
   // src/Shiny-Ui-Elements/GridlayoutGridCardText/GridlayoutCardText.tsx
   var React19 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-w1VFrBJsKIWg/editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/styles.module.css.js
-  var digest8 = "cfe3d583a1ad39d4d2ecd185cc20aa774ed056fe025a05846f86fa504039d271";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-mexGKM99nPRz/editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/styles.module.css.js
+  var digest8 = "03d565c931a69f328ca61eaf7544d5155f73478cdda19b82e99babeba55ff000";
   var css8 = `._textPanel_525i2_1 {
   background-color: var(--rstudio-white);
   /* outline: var(--outline); */
@@ -32697,8 +32708,8 @@ div._emptyGridCard_1a2os_144 > button {
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-9lUVWzoqRg9S/editor/src/components/Grids/AreaOverlay.module.css.js
-  var digest9 = "ccef6a393ef7bade12b8b92ebeefc98fa1443afbfe74e5f94800bfbc7c0ca7db";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-XGC08X5pS2A9/editor/src/components/Grids/AreaOverlay.module.css.js
+  var digest9 = "11e5bb1d37be2fd75f38a293cab180fd722d2ee98d46088700d0689fb075cb00";
   var css9 = `._marker_mumaw_1 {
   font-weight: lighter;
   font-style: italic;
@@ -33114,8 +33125,8 @@ div._emptyGridCard_1a2os_144 > button {
   // src/components/Grids/EditableGridContainer/EditableGridContainer.tsx
   var React32 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-jN3vWMD2UbPA/editor/src/components/Grids/EditableGridContainer/resizableGrid.module.css.js
-  var digest10 = "56438709a4944f7739d6300c1c1c86641fde70afcedac1f34baa276eead6845f";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-6pBqksIVASob/editor/src/components/Grids/EditableGridContainer/resizableGrid.module.css.js
+  var digest10 = "5cf5ec9d6f6e2be9280d8d9e89c1351cd97a7a8e935909cad7c3cbb66681a904";
   var css10 = `._ResizableGrid_i4cq9_1 {
   --grid-gap: 5px;
 
@@ -43398,8 +43409,8 @@ div#_size-detection-cell_i4cq9_1 {
     };
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-bRxHXaEbbK2y/editor/src/components/PopoverEl/styles.module.css.js
-  var digest11 = "f6cae34b64bce80513f5f26ba176b31a6e4fa58adf6952676a2fb06368a20015";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-nsuguraLNe0y/editor/src/components/PopoverEl/styles.module.css.js
+  var digest11 = "1f7562ae84f7299d5e8eb209db5689fd9a17067dc1b3c4bd40d7456ad655a895";
   var css11 = `._popover_m2pq3_1 {
   pointer-events: none;
   opacity: 0;
@@ -43589,8 +43600,8 @@ div#_size-detection-cell_i4cq9_1 {
     });
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-tMM0VNaOzZH7/editor/src/components/Inputs/CSSUnitInput/CSSUnitInfo.module.css.js
-  var digest12 = "ad4c00ef48dcb429e38d4095bfe01b6989ee1d5202a0a0efb60f1b15db908bf5";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-eTlXlPiJgNNE/editor/src/components/Inputs/CSSUnitInput/CSSUnitInfo.module.css.js
+  var digest12 = "4d2566a3ef4d5359e8643f081501dafb089205220bbc115c1d1e72fd1b294e87";
   var css12 = `._infoIcon_15ri6_1 {
   width: 24px;
   color: var(--rstudio-blue);
@@ -43685,8 +43696,8 @@ div#_size-detection-cell_i4cq9_1 {
     rem: "Pixel size of app font. Typically 16 pixels."
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-bC8pxYIP2bx6/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
-  var digest13 = "130270a3a4cfd311c6afe136fb93e0384bcd1509cbe5700e0259be0a2c36868e";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-FdBmP36wPZc4/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
+  var digest13 = "b13fb8b6ac952ec049b765aab6f2b7a33bef300cc40cb50c98cb597919e93712";
   var css13 = `._wrapper_3jy8f_1 {
   position: relative;
   display: flex;
@@ -44215,8 +44226,8 @@ div#_size-detection-cell_i4cq9_1 {
     return tractSizes.some((size) => size === "auto");
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-DhlHZmCBIxkt/editor/src/components/Grids/EditableGridContainer/TractInfoDisplay.module.css.js
-  var digest14 = "cc97d8fc6bf7ccea91a39ef6ecbf0d35c287dedf5550dc8746cd6e511ba54e2a";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-87y3hW5QrEpK/editor/src/components/Grids/EditableGridContainer/TractInfoDisplay.module.css.js
+  var digest14 = "05d59520b3f14db6867448feed0d432169c2964ae45a0f897d69bbdebda2bb13";
   var css14 = `._tractInfoDisplay_cvtwo_1 {
   --transition-delay: 0.1s;
   --transition-speed: 0.1s;
@@ -44577,8 +44588,8 @@ user is typing in the input field but mouses off */
     });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-AvY6fM15BS4d/editor/src/components/Grids/EditableGridContainer/TractSizer.module.css.js
-  var digest15 = "eeda014cdabf85c1b3a489173fc36049e94626ed003a6e09b21ecac0715f7a6b";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-je0JxTXj8eX6/editor/src/components/Grids/EditableGridContainer/TractSizer.module.css.js
+  var digest15 = "3aa1b548c14ea03e07d2539a019ca1e73b1428df70f429fc2b941e5874677fe3";
   var css15 = `div._columnSizer_9b32k_1,
 div._rowSizer_9b32k_2 {
   --sizer-color: #c9e2f3;
@@ -44999,7 +45010,7 @@ div._rowSizer_9b32k_2::after {
     });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-114TKHRqqdxG/editor/src/PortalModal.module.css.js
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-2oB4d1SaUqIe/editor/src/PortalModal.module.css.js
   var digest16 = "13f6af5e59e8ebc33477302381f7da21ea3317b2b22eeff877dda6aa750b7a6e";
   var css16 = `._portalHolder_18ua3_1 {
   background-color: rgba(255, 255, 255, 0.735);
@@ -45118,8 +45129,8 @@ div._rowSizer_9b32k_2::after {
   }
   var PortalModal_default = PortalModal;
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-j6J4L4oxQ1eq/editor/src/PortalModal.module.css.js
-  var digest17 = "adf20cd074dc99d6f58495fe77774c1086d09038d754f58e2f9e191c233241c4";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-klrHIq48nwAH/editor/src/PortalModal.module.css.js
+  var digest17 = "60ab58904b8ba7d346a4925d83cffff7b0611b8e098e99debb188055e0c29846";
   var css17 = `._portalHolder_18ua3_1 {
   background-color: rgba(255, 255, 255, 0.735);
   position: absolute;
@@ -45295,8 +45306,8 @@ div._rowSizer_9b32k_2::after {
     }
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-hkuUlQndzxgv/editor/src/components/Inputs/BooleanInput/styles.module.css.js
-  var digest18 = "e8059a803b84d3b8e2f0b76fb0236aecae984317c508947fa6a5cb3a52a5a4a4";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-ssjAh5gE6l4g/editor/src/components/Inputs/BooleanInput/styles.module.css.js
+  var digest18 = "8b96a2b40b4c86aee096072f9e7496c688f45372f7d6d1e13087f7b41bcc12e8";
   var css18 = `._checkboxInput_7ym3w_1 {
   height: 0;
   width: 0;
@@ -45404,8 +45415,8 @@ label._checkboxLabel_7ym3w_10:after {
   // src/components/Inputs/CSSUnitInput/CSSUnitInput.tsx
   var import_react30 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-ZdriEIYIk3Iz/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
-  var digest19 = "6583758b307816c7c5567f610c381187adc71003d1dc9dc7544fce1440d38c2b";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-STdfx9GMKiDC/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
+  var digest19 = "7243f9f162f3b81371ace894afc2d22de0ccb565c8896bcb6875327589e7ceb3";
   var css19 = `._wrapper_3jy8f_1 {
   position: relative;
   display: flex;
@@ -45538,8 +45549,8 @@ label._checkboxLabel_7ym3w_10:after {
   // src/components/Inputs/ListInput/NamedListInput.tsx
   var import_react_sortablejs = __toESM(require_dist());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-8vaLQbmUd7Cm/editor/src/components/Inputs/ListInput/styles.module.css.js
-  var digest20 = "132e975fe8941318fd71cc90b056aeb2e46bff338293eb88e626da2a7ecd6d1f";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-BozCx4uDfFmE/editor/src/components/Inputs/ListInput/styles.module.css.js
+  var digest20 = "eeca98e5658118a3b2fce4c1c3e714ded7d53d944ed4a92fb7f7b478de431671";
   var css20 = `._container_xt7ji_1 {
   --gap-size: 4px;
   margin-top: 21px;
@@ -45827,8 +45838,8 @@ label._checkboxLabel_7ym3w_10:after {
   // src/components/Inputs/RadioInputs/RadioInputsSimple.tsx
   var React38 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-caJ30NJ72P53/editor/src/components/Inputs/RadioInputs/RadioInputs.module.css.js
-  var digest21 = "4a7f05ddb3855782bdd279683efdd80d7aa33a5733c7ffa0a8ec54920e7b6c93";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-biZoDB6HdptP/editor/src/components/Inputs/RadioInputs/RadioInputs.module.css.js
+  var digest21 = "1cc8d7af202e6d9c487e2d3a74eff5d1324089fa7933394f5c468aab7149addb";
   var css21 = `._radioContainer_1regb_1 {
   display: grid;
   gap: 5px;
@@ -46282,8 +46293,8 @@ the label */
     return null;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-uXq5VADSvgPz/editor/src/components/Grids/GridlayoutElement/styles.module.css.js
-  var digest22 = "6e2d909372f8b8f154266a12349cc985472f512645f9df9afd50e99a86049ffa";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-qgO69W3kXf6k/editor/src/components/Grids/GridlayoutElement/styles.module.css.js
+  var digest22 = "08916ccc980b9935ba2691f8c8a715e03b0bba0474b8bafbbcbca49c7edc64db";
   var css22 = `._container_1hvsg_1 {
   display: grid;
   /* background-color: var(--bg-color); */
@@ -46619,8 +46630,8 @@ the label */
     return makeStringInputInfo("Label text", defaultValue);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-1WUE4ZUZqmDX/editor/src/Shiny-Ui-Elements/ShinyActionButton/styles.module.css.js
-  var digest23 = "6eaff25fcaff5470e47e15d4f35f0a141be899922dfbcc28762ebb935efd3a65";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-0b6x6BTgUHpl/editor/src/Shiny-Ui-Elements/ShinyActionButton/styles.module.css.js
+  var digest23 = "c3440080edef856892e3df3a11662f19d004092e497e4d74990f47d657bdf512";
   var css23 = `._container_tyghz_1 {
   display: grid;
   grid-template-rows: 1fr;
@@ -46684,8 +46695,8 @@ the label */
   // src/assets/icons/shinyCheckgroup.png
   var shinyCheckgroup_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAFS0lEQVR4nO3cz2vTdxzH8Vfb9VeIa7ta1FW2FqQ6pqLbEERhm0OGFzcPY0dhl+LFo4cd9gfsuIs77LDbkAljDqEiCoKszMMEcbqFsjm2OaW6ptClP2zNDvkms2n6I99vXqTp5/mAQJKmn3wPT76fJCTvpnw+L6DWmut9ANiYCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFoQFC8KCBWHBgrBgQViwICxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFs/V+wDq5cy5seX+1BNd4piILkt8+uGOmEs2pmDDKrNL0ilJ70h6NeFaP0m6IumspJ8TrtWw2AqlYUl3JJ1W8qgUrXE6WnO4Bus1pNDPWCclff7sHZ1tzepsa4m12PTcgqbnnhZvNkVrz0r6Mv4hNqaQw+pTYbuSJA1s7tB7r/Wpv6c90aJ/Tczq2x/Hde/RTPGus5IuShpPtHCDCXkrPCWpU5K297Rr+O3+xFFJUn+01vYXSmt1RM8VlJDDOly8cmxvr1qam2q2cEtzk47t6a34XKEIeSs8VLwy0NeZaKHRTFaX7xQ+ZRh+60Vt6W4vX/NQxX/cwEIOK1W80toS/2x18ea4rmUmlW5vKUVVYc1UxX/ewELeChMbzWR1LTMpSTp5aGspKhBWbJO5J/rm5iNJ0on9m/Vywu10oyGsmL76/oEk6cBAWgeHuut7MOsQYcUwmsnq18ezSre36Ojid3+IEFaVJnNPSu8Aj+/rVVeqtc5HtD4RVpWu/5LV1OyCdm9Lad/A8/U+nHWLsKrwMDtbehf47l62wJUQVhUu3XosSXpzqIuPFlZBWBWMZrI6c25M5394ULrv9/Fp3f47J0k6vLO7TkfWOAirzMyTp6XPp27cmyrFdfvPKUmFsxUv2FdHWGU6Wpv10eGtpds37k0t+oT9jUFesK8FYVWwqz+tE/s3l24Xz2C7t6V4bbVGhLWMg0PdOjCQXnTf3pfSyzwa5UIO65/ildzcQsUHHN3Tq3R74WvKWza1VvW51TNfUZaW+eXORhby12auSzouSXfv5/T6wKYlD+hKteqT9wdjLX7n/r/lzxWUkM9Y3xWvjNx6rGxuvmYLZ3PzGok+84pcqNniDSLkM9YXkj6WNDg5Pa/PLv+hI6/0aMeWlNpifvFvbiGvsYc5Xb07oamZ0vb6W/RcQQk5LKnwI4cRSZqaWdCF6N2f4TmCE/JWKEmXVPj1c8awdiZa+5Jh7XUv9DOWJF2VtFPSB5KOqPCLmrjfUc+p8EL9iqTzNTm6BkVY//s6uqAGQt8KYUJYsCAsWBAWLHjxvpRlol9oCKuAiX41xlbIRD+L0M9YTPQzCTksJvoZhbwVMtHPKOSwmOhnFPJWyEQ/o5DDYqKfUchbYWJM9FseYcXERL+VEVZMTPRbGWHFwES/1RFWlZjotzaEVSUm+q0NYVWBiX5rR1hVYKLf2hFWBUz0S46wyjDRrzYIqwwT/WqDsCpgol9yhLUMJvolE3JYTPQzCvlrM0z0Mwr5jMVEP6OQz1hM9DMKOSyJiX42IW+FEhP9bEI/Y0lM9LNoyufz9T4GbEChb4UwISxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFoQFC8KCBWHBgrBgQViwICxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLP4DpWmTqmVmpDwAAAAASUVORK5CYII=";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-G0mGO5LT1pqg/editor/src/Shiny-Ui-Elements/ShinyCheckboxGroupInput/styles.module.css.js
-  var digest24 = "03665a1eeb19ea67dfc8885f541fb070b697f061b598463f6adfbb9414d2be60";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-kLISA4PSWZYc/editor/src/Shiny-Ui-Elements/ShinyCheckboxGroupInput/styles.module.css.js
+  var digest24 = "c13d78baffc27c1497654c840af578ab8a44a475aaab5d20ea4e658670dd9bde";
   var css24 = `._container_162lp_1 {
   position: relative;
   padding: 4px;
@@ -46783,8 +46794,8 @@ the label */
   // src/Shiny-Ui-Elements/ShinyCheckboxInput/ShinyCheckboxInput.tsx
   var React41 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-GAxGbyYUnyPC/editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/styles.module.css.js
-  var digest25 = "d0695f7876948f6872842a69cc4364652b0773cc524716c0b148d57725b448cf";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-1kSnroRL9u2G/editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/styles.module.css.js
+  var digest25 = "ed806198c434ac26ce72fc03749bf3cb3d62471fca1c7b6613391a562922f0cc";
   var css25 = `._container_1x0tz_1 {
   position: relative;
   padding: 4px;
@@ -46900,8 +46911,8 @@ the label */
     return getTabPanelTitle(firstChild) ?? "First Tab";
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-4u1kgxsL1Wr3/editor/src/components/Tabs/TabPanel/TabPanel.module.css.js
-  var digest26 = "1498dc750854f6ceda709a20681ef9d3cb02165fe125706bb97e78e59ce409c2";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-T37VP37qbmrG/editor/src/components/Tabs/TabPanel/TabPanel.module.css.js
+  var digest26 = "2d3896562b8b2d02516e60dbec041e0845da2fb9c708661d118133b1e6bf7570";
   var css26 = `._container_10z2l_1 {
   height: 100%;
 }
@@ -47029,8 +47040,8 @@ the label */
     });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-7xChzVlMTJAz/editor/src/Shiny-Ui-Elements/ShinyTabPanel/ShinyTabPanel.module.css.js
-  var digest27 = "a5e14c99f8b0a3122106c97f15a6c6288597329087b37e3a6028d25f6cfa9dd3";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-J4vgUXUVPEPv/editor/src/Shiny-Ui-Elements/ShinyTabPanel/ShinyTabPanel.module.css.js
+  var digest27 = "1164de18fbc8fda1b59b2ed36459e50d74949a795eb43239cf39ed1124dd8546";
   var css27 = `._container_fe3r8_1 {
   position: relative;
   height: 100%;
@@ -47141,8 +47152,8 @@ the label */
     return sameArray(aPath, bPath);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-86dyDUjZsyfO/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest28 = "3b17160495597ff5005546eb1f7e0cc5636d5d663e1db934a368fd6fcd57af21";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-ww5zwrqsXtMQ/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest28 = "57592bfe81811c4d18ae763eae70b6f30d21388b6de718f4ac7633ecfbabbb93";
   var css28 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -47312,8 +47323,8 @@ illusion of the selected panel and tab being one entity */
     });
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-lz4mNsWHM6vZ/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest29 = "0089986fc9d0305f144ee0d5ec717f1b9c399a101e79b1243bb8e15e40c45086";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-kVmUsLXLFtsd/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest29 = "5add85fd184b9999702b133b0496171ae51d9182a8e2d4cd890b8ad499d1d58a";
   var css29 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -47480,8 +47491,8 @@ illusion of the selected panel and tab being one entity */
     });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-WfyRu26rO9yA/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest30 = "87de759236ade2c47f6f06877b436897054c3cee1735c84dc828a156e2a3de78";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-oi4tWvTzU1VT/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest30 = "e1da7bd9c8f9f7fb0ae529c11277ef36e865d162649aa120324ab1122f4653ad";
   var css30 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -47762,8 +47773,8 @@ illusion of the selected panel and tab being one entity */
     });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-9TgRqkMy6Afj/editor/src/Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage.module.css.js
-  var digest31 = "dc3a79f16ea904fbfde11e054341c86f4970a54a772b28143290570091a8bf57";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-FmXHmAJip2Uh/editor/src/Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage.module.css.js
+  var digest31 = "99a862e4c1659402db72d436ad24864503c60677d1e99adf327ff83a351857e7";
   var css31 = `._noTabsMessage_130qz_1 {
   padding: 5px;
 }
@@ -47887,8 +47898,8 @@ illusion of the selected panel and tab being one entity */
   // src/Shiny-Ui-Elements/ShinyNumericInput/ShinyNumericInput.tsx
   var React47 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-4PTM3NDlYF9p/editor/src/Shiny-Ui-Elements/ShinyNumericInput/styles.module.css.js
-  var digest32 = "51c50aa350f5280af155be4700b2993b919ee205820b660f0a98cb54b47a4607";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-3yicEnuKkDGc/editor/src/Shiny-Ui-Elements/ShinyNumericInput/styles.module.css.js
+  var digest32 = "0d4ee616375bb18fc2b9366847fb3a3814293c8d590e1a84a2c0b119ad5a75c9";
   var css32 = `._container_yicbr_1 {
   position: relative;
   padding: 4px;
@@ -48007,8 +48018,8 @@ illusion of the selected panel and tab being one entity */
     description: "An input control for entry of numeric values"
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-4pTonGfJb74y/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
-  var digest33 = "3a372ccab0ed20325328860e87d1c2ab461031d8a187e90083f332713cca11d1";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-sx8XjVZt5inV/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
+  var digest33 = "f592877f06e10455111076c0adde8d9a064d2b18401a4f011de09ea96c3faf9d";
   var css33 = `._container_1rlbk_1 {
   max-height: 100%;
 }
@@ -48099,8 +48110,8 @@ illusion of the selected panel and tab being one entity */
   // src/Shiny-Ui-Elements/ShinyRadioButtons/ShinyRadioButtons.tsx
   var import_react40 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-ZmMzX4wEg3du/editor/src/Shiny-Ui-Elements/ShinyRadioButtons/styles.module.css.js
-  var digest34 = "3347035998f6725abf21e8c579ae285dd2d2e7a56b33c9a74ec71feec410be62";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-Ei3hy7SGFfTO/editor/src/Shiny-Ui-Elements/ShinyRadioButtons/styles.module.css.js
+  var digest34 = "6515d2807f9b8248bff000d8d25ab5420fd02dd9eb39360820236e8c3621a1d4";
   var css34 = `._container_sgn7c_1 {
   position: relative;
   padding: 4px;
@@ -48207,8 +48218,8 @@ illusion of the selected panel and tab being one entity */
   // src/assets/icons/shinySelectbox.png
   var shinySelectbox_default = "data:image/png;base64,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";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-3BvA4fQSZAmj/editor/src/Shiny-Ui-Elements/ShinySelectInput/styles.module.css.js
-  var digest35 = "584c73046b85bd12e5f6ed99fa6cdc2ffaef5aa64b8872cc6303b116ac17e466";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-nBECGHluAbOR/editor/src/Shiny-Ui-Elements/ShinySelectInput/styles.module.css.js
+  var digest35 = "6c9d447b18743546171e61bec017274803154b6b28ae85ff7c293082e80f349d";
   var css35 = `._container_1e5dd_1 {
   position: relative;
   padding: 4px;
@@ -48297,8 +48308,8 @@ illusion of the selected panel and tab being one entity */
   // src/Shiny-Ui-Elements/ShinySliderInput/ShinySliderInput.tsx
   var React49 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-8CEpIhjMnyKJ/editor/src/Shiny-Ui-Elements/ShinySliderInput/styles.module.css.js
-  var digest36 = "9e29b0257f6d6953278cdec78a68d7a37041b227d2d5f268cf7d42c30a9ea862";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-lmIK2eYzn7Bz/editor/src/Shiny-Ui-Elements/ShinySliderInput/styles.module.css.js
+  var digest36 = "ea81beae98334f7882b421ce8e9a07747d4715d7f91d654378ab029c9186149e";
   var css36 = `._container_1f2js_1 {
   padding: 6px;
 
@@ -48557,8 +48568,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // src/Shiny-Ui-Elements/ShinyTextInput/ShinyTextInput.tsx
   var React50 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-ZFFzDmd1jToL/editor/src/Shiny-Ui-Elements/ShinyTextInput/styles.module.css.js
-  var digest37 = "382a35ea41a468213e2c29696b77f86e582fad4585ba0a5244e990f6e6a9b9d1";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-NvU464hVoti1/editor/src/Shiny-Ui-Elements/ShinyTextInput/styles.module.css.js
+  var digest37 = "580ed471dd9773a331e965e80bd8ae4897164492c98eb9ba9293edb74951cb5b";
   var css37 = `._container_yicbr_1 {
   position: relative;
   padding: 4px;
@@ -48650,8 +48661,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // src/assets/icons/shinyTextOutput.png
   var shinyTextOutput_default = "data:image/png;base64,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";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-AzXzBdVrkfPM/editor/src/Shiny-Ui-Elements/ShinyTextOutput/styles.module.css.js
-  var digest38 = "418d699705f69bb1bf210ee9a5508e0bb279ee75445c78801545b2b9e50ad910";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-pYG9uziDZ0pJ/editor/src/Shiny-Ui-Elements/ShinyTextOutput/styles.module.css.js
+  var digest38 = "090a2ed48be50c6fee808cbf43e37b32b12763914d5bbd3d103b4b4c00bf196f";
   var css38 = `._container_1i6yi_1 {
   padding: 1rem;
   max-height: 100%;
@@ -48717,8 +48728,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // src/assets/icons/shinyImage.png
   var shinyImage_default = "data:image/png;base64,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";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-pCt1dZiPumM1/editor/src/Shiny-Ui-Elements/ShinyUiOutput/styles.module.css.js
-  var digest39 = "c54e1cb7b93291d6a9cd7b5856d0b4c9419537daa5aa50fca21e030f16b66f09";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-t6cvmCJYxo9e/editor/src/Shiny-Ui-Elements/ShinyUiOutput/styles.module.css.js
+  var digest39 = "a8a30a0496734a707205a0b6c46d5b14e44bd33432a380c88a2278c0ada18ded";
   var css39 = `._container_1xnzo_1 {
   display: grid;
   grid-template-rows: 1fr;
@@ -48795,8 +48806,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 1024 1024" }, "child": [{ "tag": "path", "attr": { "d": "M881.7 187.4l-45.1-45.1a8.03 8.03 0 0 0-11.3 0L667.8 299.9l-54.7-54.7a7.94 7.94 0 0 0-13.5 4.7L576.1 439c-.6 5.2 3.7 9.5 8.9 8.9l189.2-23.5c6.6-.8 9.3-8.8 4.7-13.5l-54.7-54.7 157.6-157.6c3-3 3-8.1-.1-11.2zM439 576.1l-189.2 23.5c-6.6.8-9.3 8.9-4.7 13.5l54.7 54.7-157.5 157.5a8.03 8.03 0 0 0 0 11.3l45.1 45.1c3.1 3.1 8.2 3.1 11.3 0l157.6-157.6 54.7 54.7a7.94 7.94 0 0 0 13.5-4.7L447.9 585a7.9 7.9 0 0 0-8.9-8.9z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-4UJQFJokxOru/editor/src/components/CategoryDivider/styles.module.css.js
-  var digest40 = "1afdddfbf822dcec16e1ef3c2ef35bdb7d8360317978c950991e30369b32dcfb";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-5ahk4odvtTuw/editor/src/components/CategoryDivider/styles.module.css.js
+  var digest40 = "ceaf75827da8cc83fb23bc49c76cc1924d0227c178e003b5cdfeedeada4f1be0";
   var css40 = `._categoryDivider_bdwku_1 {
   display: block;
   position: relative;
@@ -49144,12 +49155,22 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     const [errorMsg, setErrorMsg] = React53.useState(null);
     const lastRecievedRef = React53.useRef(null);
     React53.useEffect(() => {
-      backendMsgs.subscribe("UPDATED-TREE", (ui_tree) => {
-        setTree(ui_tree);
-        lastRecievedRef.current = ui_tree;
-      });
-      backendMsgs.subscribe("PARSING-ERROR", setErrorMsg);
+      const updatedTreeSubscription = backendMsgs.subscribe(
+        "UPDATED-TREE",
+        (ui_tree) => {
+          setTree(ui_tree);
+          lastRecievedRef.current = ui_tree;
+        }
+      );
+      const parsingErrorSubscription = backendMsgs.subscribe(
+        "PARSING-ERROR",
+        setErrorMsg
+      );
       sendMsg({ path: "READY-FOR-STATE" });
+      return () => {
+        updatedTreeSubscription.unsubscribe();
+        parsingErrorSubscription.unsubscribe();
+      };
     }, [backendMsgs, sendMsg, setTree]);
     const debouncedSendMsg = React53.useMemo(
       () => functionDebounce(sendMsg, 500, true),
@@ -49179,8 +49200,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 16 16", "fill": "currentColor" }, "child": [{ "tag": "path", "attr": { "fillRule": "evenodd", "clipRule": "evenodd", "d": "M12.75 8a4.5 4.5 0 0 1-8.61 1.834l-1.391.565A6.001 6.001 0 0 0 14.25 8 6 6 0 0 0 3.5 4.334V2.5H2v4l.75.75h3.5v-1.5H4.352A4.5 4.5 0 0 1 12.75 8z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-Kj2ESvN4L2hl/editor/src/components/AppPreview/AppPreview.module.css.js
-  var digest41 = "a4fb02c89d04a5a4da68f8eb4c5f5c5a24f054f687261edd53407cd69c0d4208";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-LhUTdH9PgnVb/editor/src/components/AppPreview/AppPreview.module.css.js
+  var digest41 = "29e066d22bdae5c36f9d3127519c626f84d6ee109085ac71d5a2781ff189206d";
   var css41 = `div._appViewerHolder_1txsb_1 {
   /* This is over-ridden by an inline style but we just have it here in case */
   --app-scale-amnt: 0.24;
@@ -49435,8 +49456,8 @@ h2._error_1txsb_238 {
   })();
   var AppPreview_module_css_default = { "appViewerHolder": "_appViewerHolder_1txsb_1", "title": "_title_1txsb_55", "appContainer": "_appContainer_1txsb_89", "previewFrame": "_previewFrame_1txsb_109", "expandButton": "_expandButton_1txsb_134", "reloadButton": "_reloadButton_1txsb_135", "spin": "_spin_1txsb_162", "restartButton": "_restartButton_1txsb_200", "loadingMessage": "_loadingMessage_1txsb_227", "error": "_error_1txsb_238" };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-MOQd7bz5C6ND/editor/src/components/AppPreview/AppPreview.module.css.js
-  var digest42 = "336c2fd7d2eb2ee972b08dfdc81efc5f2cf89b85c46dd2ccfc45400a55cba314";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-ZezfqTjZi9c9/editor/src/components/AppPreview/AppPreview.module.css.js
+  var digest42 = "bf0ccd13746a5715efc99c613bc4d7464fcdb3ad762ab62abe2f491c967e2270";
   var css42 = `div._appViewerHolder_1txsb_1 {
   /* This is over-ridden by an inline style but we just have it here in case */
   --app-scale-amnt: 0.24;
@@ -49691,8 +49712,8 @@ h2._error_1txsb_238 {
   })();
   var AppPreview_module_css_default2 = { "appViewerHolder": "_appViewerHolder_1txsb_1", "title": "_title_1txsb_55", "appContainer": "_appContainer_1txsb_89", "previewFrame": "_previewFrame_1txsb_109", "expandButton": "_expandButton_1txsb_134", "reloadButton": "_reloadButton_1txsb_135", "spin": "_spin_1txsb_162", "restartButton": "_restartButton_1txsb_200", "loadingMessage": "_loadingMessage_1txsb_227", "error": "_error_1txsb_238" };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-IigE46LDUwJU/editor/src/components/AppPreview/FakeDashboard.module.css.js
-  var digest43 = "a141da5b94d6823bd9d3b9565fcbc7197b45df8aca16c988e7dd26ca2ec9507d";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-DfUThM6D9ExO/editor/src/components/AppPreview/FakeDashboard.module.css.js
+  var digest43 = "364ca9b0cd396d75f77866b00962a9e74bdef7cdc3cf400995ea86c6e604e7e4";
   var css43 = `._fakeApp_t3dh1_1 {
   display: grid;
   place-content: center;
@@ -49797,8 +49818,8 @@ h2._error_1txsb_238 {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "fill": "none", "stroke": "#000", "strokeWidth": "2", "d": "M12,22 C17.5228475,22 22,17.5228475 22,12 C22,6.4771525 17.5228475,2 12,2 C6.4771525,2 2,6.4771525 2,12 C2,17.5228475 6.4771525,22 12,22 Z M5,5 L19,19" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-zhueIVG8H1QS/editor/src/components/AppPreview/LogsViewer.module.css.js
-  var digest44 = "0fcca74e3f3549306f9664c085bb1743bf63d9928c09eb61b48c6003100762b0";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-r9mE3vePlKbR/editor/src/components/AppPreview/LogsViewer.module.css.js
+  var digest44 = "7e05eaaca310e79abcfad20b52f40dfe8c8f492598199d821803280b3166d7a9";
   var css44 = `/* Logs section */
 ._logs_xjp5l_2 {
   --tab-height: var(--logs-button-h, 20px);
@@ -50037,19 +50058,33 @@ p._logLine_xjp5l_75 {
     const [appLogs, setAppLogs] = import_react43.default.useState([]);
     const [errors, setErrors] = import_react43.default.useState(null);
     import_react43.default.useEffect(() => {
-      incomingMsgs.subscribe("APP-PREVIEW-READY", (previewLoc) => {
-        setErrors(null);
-        setAppLoc(previewLoc);
-      });
-      incomingMsgs.subscribe("APP-PREVIEW-LOGS", (logs) => {
-        setAppLogs(ensureArray2(logs));
-      });
-      incomingMsgs.subscribe("APP-PREVIEW-CRASH", (crash_msg) => {
-        setErrors(crash_msg);
-      });
+      const previewReadySubscription = incomingMsgs.subscribe(
+        "APP-PREVIEW-READY",
+        (previewLoc) => {
+          setErrors(null);
+          setAppLoc(previewLoc);
+        }
+      );
+      const previewLogsSubscription = incomingMsgs.subscribe(
+        "APP-PREVIEW-LOGS",
+        (logs) => {
+          setAppLogs(ensureArray2(logs));
+        }
+      );
+      const previewCrashSubscription = incomingMsgs.subscribe(
+        "APP-PREVIEW-CRASH",
+        (crash_msg) => {
+          setErrors(crash_msg);
+        }
+      );
       sendMsg({ path: "APP-PREVIEW-CONNECTED" });
       setRestartApp(() => () => sendMsg({ path: "APP-PREVIEW-RESTART" }));
       setStopApp(() => () => sendMsg({ path: "APP-PREVIEW-STOP" }));
+      return () => {
+        previewReadySubscription.unsubscribe();
+        previewLogsSubscription.unsubscribe();
+        previewCrashSubscription.unsubscribe();
+      };
     }, [incomingMsgs, sendMsg]);
     const [restartApp, setRestartApp] = import_react43.default.useState(
       () => () => console.warn("No app running to reset")
@@ -50981,8 +51016,8 @@ p._logLine_xjp5l_75 {
   // src/ElementsPalette/index.tsx
   var React60 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-Q0A1zjKkYJYA/editor/src/ElementsPalette/styles.module.css.js
-  var digest45 = "fcfe9186ccd679a4a62912a4edb1b1b361290029f06f1a3091064a33699369b6";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-uLusjGEpkNmU/editor/src/ElementsPalette/styles.module.css.js
+  var digest45 = "3993db3082666f1d333d60ec15540ff6a7ba2880c8d15e2197d816a899b292c4";
   var css45 = `._elementsPalette_qmlez_1 {
   --icon-size: 75px;
   --padding: 8px;
@@ -51053,8 +51088,8 @@ p._logLine_xjp5l_75 {
   })();
   var styles_module_css_default24 = { "elementsPalette": "_elementsPalette_qmlez_1", "OptionContainer": "_OptionContainer_qmlez_18", "optionContainer": "_OptionContainer_qmlez_18", "OptionItem": "_OptionItem_qmlez_24", "optionItem": "_OptionItem_qmlez_24", "OptionIcon": "_OptionIcon_qmlez_33", "optionIcon": "_OptionIcon_qmlez_33", "OptionLabel": "_OptionLabel_qmlez_41", "optionLabel": "_OptionLabel_qmlez_41" };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-VWdxj7akV9Gc/editor/src/ElementsPalette/styles.module.css.js
-  var digest46 = "4b39ee1a57fe1708087f608179e01757ea1d3331d45ff26a79878371e68422eb";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-8mF3B3Cqwk08/editor/src/ElementsPalette/styles.module.css.js
+  var digest46 = "545105c29c6b38996cce1126dc1e1470da94174ddf1084ee7c959960d53b11eb";
   var css46 = `._elementsPalette_qmlez_1 {
   --icon-size: 75px;
   --padding: 8px;
@@ -51355,8 +51390,8 @@ p._logLine_xjp5l_75 {
     return InputsComponents;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-LlVF2amj89PN/editor/src/SettingsPanel/PathBreadcrumb.module.css.js
-  var digest47 = "df884000b9007ca1a85c11636bf240a4d5df4c82c92938539c508c8016246966";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-DUd3O4OFg6o5/editor/src/SettingsPanel/PathBreadcrumb.module.css.js
+  var digest47 = "800c1a4a8efd8f1b90aaf9d1c9ef88bcf9c9c2b233311f3a710933eeac817f1e";
   var css47 = `._container_1fh41_1 {
   --flex-gap: 8px;
   padding: var(--vertical-spacing);
@@ -51484,8 +51519,8 @@ p._logLine_xjp5l_75 {
     return uiName.replace(/[a-z]+::/, "");
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-QVrWUSQLhv57/editor/src/SettingsPanel/SettingsPanel.module.css.js
-  var digest48 = "176314e58f79f0604fda855318144df78c1416b3ccdd379559219688cf4b5e98";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-UxPQ9aiplBD3/editor/src/SettingsPanel/SettingsPanel.module.css.js
+  var digest48 = "2c243edf2255e1f734dfff3312a143d72aedee118fd70da2a30522707fbb6aa3";
   var css48 = `._settingsPanel_a44hx_1 {
   --vertical-gap: var(--vertical-spacing);
   display: flex;
@@ -56968,8 +57003,8 @@ form._settingsForm_a44hx_17 {
     return newEntry === oldEntry;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-8205-xs8r3gLf0NLb/editor/src/components/UndoRedoButtons/UndoRedoButtons.module.css.js
-  var digest49 = "0594dbce952bdbd609f14051f66f48d9008bf07a6242b7607e08737c99006272";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-56832-iQNWhyhRUXoA/editor/src/components/UndoRedoButtons/UndoRedoButtons.module.css.js
+  var digest49 = "d80d02f43c79f75c3cfbfc1be8641497e8f22367879bb7a59e35389b956c210b";
   var css49 = `._container_1d7pe_1 {
   display: flex;
   position: relative;
@@ -57274,7 +57309,7 @@ form._settingsForm_a44hx_17 {
       incomingMsgs: {
         subscribe: (on3, callback) => {
           console.log(`backendMsgs.subscribe("${on3}", ...)`);
-          incomingMsgs.subscribe(on3, callback);
+          return incomingMsgs.subscribe(on3, callback);
         }
       }
     } : {
@@ -57292,7 +57327,7 @@ form._settingsForm_a44hx_17 {
   var showMessages = true;
   (async () => {
     try {
-      const messageDispatch = makeMessageDispatcher(true);
+      const messageDispatch = makeMessageDispatcher();
       let websocketDispatch = await setupWebsocketBackend({
         messageDispatch,
         onClose: () => console.log("Websocket closed!!"),

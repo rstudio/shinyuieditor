@@ -21,16 +21,27 @@ export function useSyncUiWithBackend() {
 
   // Subscribe to messages from the backend
   React.useEffect(() => {
-    backendMsgs.subscribe("UPDATED-TREE", (ui_tree) => {
-      setTree(ui_tree as ShinyUiRootNode);
-      lastRecievedRef.current = ui_tree as ShinyUiRootNode;
-    });
+    const updatedTreeSubscription = backendMsgs.subscribe(
+      "UPDATED-TREE",
+      (ui_tree: ShinyUiRootNode) => {
+        setTree(ui_tree as ShinyUiRootNode);
+        lastRecievedRef.current = ui_tree as ShinyUiRootNode;
+      }
+    );
 
-    backendMsgs.subscribe("PARSING-ERROR", setErrorMsg);
+    const parsingErrorSubscription = backendMsgs.subscribe(
+      "PARSING-ERROR",
+      setErrorMsg
+    );
 
     // Make sure to do this after subscriptions otherwise the response may be
     // received before subscribers are setup to receive
     sendMsg({ path: "READY-FOR-STATE" });
+
+    return () => {
+      updatedTreeSubscription.unsubscribe();
+      parsingErrorSubscription.unsubscribe();
+    };
   }, [backendMsgs, sendMsg, setTree]);
 
   const debouncedSendMsg = React.useMemo(
