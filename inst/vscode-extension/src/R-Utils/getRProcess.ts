@@ -2,6 +2,9 @@ import type { ChildProcessWithoutNullStreams } from "child_process";
 import { spawn } from "child_process";
 import process from "node:process";
 
+import { runRCommand } from "./runRCommand";
+import { getRpath } from "./setupRConnection";
+
 const STARTUP_TIMEOUT_MS = 5000;
 
 const STARTUP_COMMAND = `library(shinyuieditor)`;
@@ -14,13 +17,12 @@ export type ActiveRSession = {
 
 const rCallargs = ["--silent", "--slave", "--no-save", "--no-restore"];
 
-export function connectToRProcess({
+function connectToRProcess({
   pathToR,
 }: {
   pathToR: string;
 }): Promise<ActiveRSession | null> {
   let logs = "";
-  const running = false;
 
   return new Promise<ActiveRSession | null>((resolve) => {
     const controller = new AbortController();
@@ -78,71 +80,23 @@ export function connectToRProcess({
   });
 }
 
-function sendMsgToProc(msg: string, proc: ChildProcessWithoutNullStreams) {
+export async function getRProcess(): Promise<ActiveRSession> {
+  const rPath = await getRpath();
+  if (rPath === undefined) {
+    throw new Error("Can't get R path");
+  }
+  const RProc = await connectToRProcess({ pathToR: rPath });
+
+  if (RProc === null) {
+    throw new Error("R process failed to start :(");
+  }
+
+  return RProc;
+}
+
+export function sendMsgToProc(
+  msg: string,
+  proc: ChildProcessWithoutNullStreams
+) {
   proc.stdin.write(`${msg}\n`);
-}
-
-const START_SIGNAL = "SUE_START_SIGNAL";
-const END_SIGNAL = "SUE_END_SIGNAL";
-
-async function runRCommand(
-  cmd: string,
-  rProc: ChildProcessWithoutNullStreams,
-  timeout_ms = 5000
-): Promise<string[]> {
-  let logs = "";
-
-  let seenNonEmptyOutput = false;
-  let seenStartSignal = false;
-  const lines: string[] = [];
-  return new Promise<string[]>((resolve) => {
-    function listenForOutput(d: any) {
-      const outputLines = d.toString().split("\n") as string[];
-
-      for (const l of outputLines) {
-        logs += l + "\n";
-
-        if (l.includes(START_SIGNAL)) {
-          seenStartSignal = true;
-          continue;
-        }
-
-        if (!seenStartSignal) {
-          continue;
-        }
-
-        if (!seenNonEmptyOutput && l.length === 0) {
-          continue;
-        }
-
-        if (l.includes(END_SIGNAL)) {
-          clearTimeout(startTimeout);
-          resolve(lines);
-          rProc.stdout.off("data", listenForOutput);
-          break;
-        }
-
-        // If we're not seeing the start signal or the end signal then we're
-        // looking at the command
-        seenNonEmptyOutput = true;
-        lines.push(l);
-      }
-    }
-    rProc.stdout.on("data", listenForOutput);
-
-    const startTimeout = setTimeout(() => {
-      throw new Error(
-        `Timeout, no response from run command within ${timeout_ms}ms: ${cmd}\n Logs:\n ${logs}`
-      );
-    }, timeout_ms);
-
-    sendMsgToProc(
-      `print('${START_SIGNAL}');${cmd};print('${END_SIGNAL}')`,
-      rProc
-    );
-  });
-}
-
-export function escapeDoubleQuotes(cmd: string): string {
-  return cmd.replace(/"/g, `\\"`);
 }

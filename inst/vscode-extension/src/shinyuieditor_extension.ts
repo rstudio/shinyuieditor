@@ -3,9 +3,9 @@ import type { MessageFromBackend } from "communication-types";
 import { isMessageFromClient } from "communication-types";
 import * as vscode from "vscode";
 
-import type { ActiveRSession } from "./connectToRProcess";
-import { connectToRProcess, escapeDoubleQuotes } from "./connectToRProcess";
-import { getRpath } from "./setupRConnection";
+import type { ActiveRSession } from "./R-Utils/getRProcess";
+import { getRProcess } from "./R-Utils/getRProcess";
+import { getAppFile } from "./R-Utils/parseAppFile";
 import { getNonce } from "./util";
 
 /**
@@ -22,8 +22,12 @@ import { getNonce } from "./util";
 
 */
 export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
+  private RProcess: ActiveRSession | null = null;
+  private static readonly viewType = "shinyUiEditor.appFile";
+
   private sendMessage: ((msg: MessageFromBackend) => Thenable<boolean>) | null =
     null;
+
   public static register(context: vscode.ExtensionContext): vscode.Disposable {
     const provider = new ShinyUiEditorProvider(context);
     const providerRegistration = vscode.window.registerCustomEditorProvider(
@@ -33,40 +37,11 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
     return providerRegistration;
   }
 
-  private RProcess: ActiveRSession | null = null;
-
-  private static readonly viewType = "shinyUiEditor.appFile";
-
   constructor(private readonly context: vscode.ExtensionContext) {
-    this.getR();
+    getRProcess().then((rProc) => {
+      this.RProcess = rProc;
+    });
     console.log("extension constructor()!");
-  }
-
-  private async getR() {
-    const rPath = await getRpath();
-    if (rPath === undefined) {
-      throw new Error("Can't get R path");
-    }
-    const RProc = await connectToRProcess({ pathToR: rPath });
-    this.RProcess = RProc;
-
-    if (RProc === null) {
-      console.error("R process failed to start :(");
-      return;
-    }
-
-    // const uglyCode = `  list(text=ui_def_text,
-    //   namespaces_removed =ui_expression$namespaces_removed
-    // )`;
-
-    // console.log("Calling code formatter");
-    // const formattedCode = await this.formatRCode(uglyCode);
-
-    // console.log("Formatted code", formattedCode);
-    // console.log("quick mafs", await RProc.runCmd("4+9"));
-
-    // console.log("Sequence", await RProc.runCmd("seq(1,20)"));
-    // console.log("Quick Mafs", quickMaths);
   }
 
   /**
@@ -79,21 +54,11 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
     webviewPanel: vscode.WebviewPanel,
     _token: vscode.CancellationToken
   ): Promise<void> {
-    console.log("Editor window is opened!");
+    console.log("Editor window is opened!", document.fileName);
+
     // Setup initial content for the webview
-    webviewPanel.webview.options = {
-      enableScripts: true,
-    };
+    webviewPanel.webview.options = { enableScripts: true };
     webviewPanel.webview.html = this.getHtmlForWebview(webviewPanel.webview);
-
-    this.getAppFile(document);
-
-    function updateWebview() {
-      webviewPanel.webview.postMessage({
-        type: "update",
-        text: document.getText(),
-      });
-    }
 
     // Hook up event handlers so that we can synchronize the webview with the text document.
     //
@@ -102,26 +67,44 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
     //
     // Remember that a single text document can also be shared between multiple custom
     // editors (this happens for example when you split a custom editor)
-
     const changeDocumentSubscription = vscode.workspace.onDidChangeTextDocument(
       (e) => {
         if (e.document.uri.toString() === document.uri.toString()) {
-          updateWebview();
+          // updateWebview();
           console.log("New text file in view!");
         }
       }
     );
 
-    // Make sure we get rid of the listener when our editor is closed.
+    // Make sure we get rid of the listener when our editor window is closed.
     webviewPanel.onDidDispose(() => {
       changeDocumentSubscription.dispose();
-      this.RProcess?.stop();
+      console.log("Editor window closed");
+      // this.RProcess?.stop();
     });
 
     // Receive message from the webview.
     webviewPanel.webview.onDidReceiveMessage((e) => {
       if (isMessageFromClient(e)) {
         console.log("Message from client!", e);
+        switch (e.path) {
+          case "READY-FOR-STATE": {
+            if (!this.RProcess) {
+              return;
+            }
+            getAppFile(document.getText(), this.RProcess).then((parsedApp) => {
+              this.sendMessage?.({
+                path: "UPDATED-TREE",
+                payload: parsedApp.ui_tree,
+              });
+            });
+
+            return;
+          }
+          default: {
+            console.warn("Unhandled message from client", e);
+          }
+        }
       } else {
         console.log("Unknown message from webview", e);
       }
@@ -129,8 +112,6 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
 
     this.sendMessage = (msg: MessageFromBackend) =>
       webviewPanel.webview.postMessage(msg);
-
-    updateWebview();
   }
 
   /**
@@ -189,64 +170,6 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
 				<script nonce="${nonce}" src="${scriptUri}"></script>
 			</body>
 			</html>`;
-  }
-
-  private async formatRCode(unformattedCode: string) {
-    if (!this.RProcess)
-      throw new Error("No R Process available for running command");
-
-    const formattedLines = await this.RProcess.runCmd(
-      `styler::style_text("${unformattedCode}", scope = "tokens")`
-    );
-
-    return formattedLines.reduce((pasted, l) => pasted + "\n" + l, "");
-  }
-
-  private async getAppFile(document: vscode.TextDocument) {
-    if (!this.RProcess) return;
-
-    const text = escapeDoubleQuotes(document.getText());
-
-    const parseCommand = `
-app_lines <- strsplit("${text}", "\\n")[[1]]
-jsonlite::toJSON(
-  shinyuieditor:::get_file_ui_definition_info(app_lines, "single-file"),
-  auto_unbox = TRUE
-)`;
-    const parsedCommandOutput = await this.RProcess.runCmd(parseCommand);
-
-    try {
-      const parsedAppInfo = JSON.parse(
-        parsedCommandOutput.reduce((all, l) => all + "\n" + l, "")
-      );
-
-      this.sendMessage?.({
-        path: "UPDATED-TREE",
-        payload: parsedAppInfo.ui_tree,
-      });
-    } catch {
-      throw new Error(
-        "Could not get document as json. Content is not valid json"
-      );
-    }
-  }
-
-  /**
-   * Try to get a current document as json text.
-   */
-  private getDocumentAsJson(document: vscode.TextDocument): any {
-    const text = document.getText();
-    if (text.trim().length === 0) {
-      return {};
-    }
-
-    try {
-      return JSON.parse(text);
-    } catch {
-      throw new Error(
-        "Could not get document as json. Content is not valid json"
-      );
-    }
   }
 
   /**
