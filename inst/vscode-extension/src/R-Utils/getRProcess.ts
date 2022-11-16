@@ -2,6 +2,7 @@ import type { ChildProcessWithoutNullStreams } from "child_process";
 import { spawn } from "child_process";
 import process from "node:process";
 
+import type { CommandExecOptions } from "./runRCommand";
 import { runRCommand } from "./runRCommand";
 import { getRpath } from "./setupRConnection";
 
@@ -11,7 +12,7 @@ const STARTUP_COMMAND = `library(shinyuieditor)`;
 
 export type ActiveRSession = {
   proc: ChildProcessWithoutNullStreams;
-  runCmd: (cmd: string, timeout_ms?: number) => Promise<string[]>;
+  runCmd: (cmd: string, opts?: CommandExecOptions) => Promise<string[]>;
   stop: () => void;
 };
 
@@ -37,8 +38,8 @@ function connectToRProcess({
       console.log("Killing backend R process", spawnedProcess.pid);
       process.kill(spawnedProcess.pid);
     };
-    const runCmd = (cmd: string, timeout_ms?: number) =>
-      runRCommand(cmd, spawnedProcess, timeout_ms);
+    const runCmd = (cmd: string, opts?: CommandExecOptions) =>
+      runRCommand(spawnedProcess, cmd, opts);
 
     function gatherLogs(type: "error" | "out", logMsg: string) {
       logs += `${type}: ${logMsg}`;
@@ -68,7 +69,7 @@ function connectToRProcess({
     });
 
     spawnedProcess.on("close", () => {
-      console.log("Spun up R process has shut down");
+      console.log("Spun up R process has shut down. Logs:", logs);
     });
 
     // Start a timeout to call off the test if we fail to detect the server

@@ -1,6 +1,23 @@
+import type { OutputType } from "communication-types";
+import type { ShinyUiNode } from "editor";
+
+import { escapeDoubleQuotes, collapseText } from "../string-utils";
+
 import type { ActiveRSession } from "./getRProcess";
 
-export async function getAppFile(fileText: string, RProcess: ActiveRSession) {
+type UiBounds = { start: number; end: number };
+export type ParsedApp = {
+  file_lines: string[];
+  loaded_libraries: string[];
+  type: OutputType;
+  ui_bounds: UiBounds;
+  ui_tree: ShinyUiNode;
+};
+
+export async function getAppFile(
+  fileText: string,
+  RProcess: ActiveRSession
+): Promise<ParsedApp> {
   const parseCommand = buildParseCommand(fileText);
 
   const parsedCommandOutput = await RProcess.runCmd(parseCommand);
@@ -27,12 +44,4 @@ function buildParseCommand(appText: string) {
     `  auto_unbox = TRUE`,
     `)`
   );
-}
-
-function collapseText(...textLines: string[]): string {
-  return textLines.reduce((all, l) => all + "\n" + l, "");
-}
-
-function escapeDoubleQuotes(cmd: string): string {
-  return cmd.replace(/"/g, `\\"`);
 }

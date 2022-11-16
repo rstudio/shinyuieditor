@@ -543,6 +543,38 @@ function isMessageFromClient(x) {
 // src/shinyuieditor_extension.ts
 var vscode2 = __toESM(require("vscode"));
 
+// src/string-utils.ts
+function collapseText(...textLines) {
+  return textLines.reduce((all, l, i) => (i === 0 ? "" : all + "\n") + l, "");
+}
+function escapeDoubleQuotes(cmd) {
+  return cmd.replace(/"/g, `\\"`);
+}
+
+// src/R-Utils/generateUpdatedUiCode.ts
+async function generateUpdatedUiCode(uiTree, RProc) {
+  const rCommand = buildGeneratingCommand(uiTree);
+  try {
+    const generatedUiCode = await RProc.runCmd(rCommand, { verbose: false });
+    return JSON.parse(collapseText(...generatedUiCode));
+  } catch (e) {
+    throw new Error("Failed to generate new ui code from tree");
+  }
+}
+function buildGeneratingCommand(uiTree, removeNamespace = true) {
+  const jsonifiedTree = escapeDoubleQuotes(JSON.stringify(uiTree, null, 2));
+  const removeNamespaceArg = removeNamespace ? "TRUE" : "FALSE";
+  return collapseText(
+    `ui_tree <- jsonlite::fromJSON(`,
+    `  txt = "${jsonifiedTree}",`,
+    `  simplifyVector = FALSE`,
+    `)`,
+    `new_ui_code <- shinyuieditor:::ui_tree_to_code(ui_tree, remove_namespace = ${removeNamespaceArg})`,
+    `new_ui_code$text <- as.character(new_ui_code$text)`,
+    `jsonlite::toJSON(new_ui_code, auto_unbox = TRUE)`
+  );
+}
+
 // src/R-Utils/getRProcess.ts
 var import_child_process = require("child_process");
 var import_node_process = __toESM(require("process"));
@@ -550,7 +582,15 @@ var import_node_process = __toESM(require("process"));
 // src/R-Utils/runRCommand.ts
 var START_SIGNAL = "SUE_START_SIGNAL";
 var END_SIGNAL = "SUE_END_SIGNAL";
-async function runRCommand(cmd, rProc, timeout_ms = 5e3) {
+function makeLogger(verbose, prefix) {
+  return (msg) => {
+    if (verbose) {
+      console.log(prefix + msg);
+    }
+  };
+}
+async function runRCommand(rProc, cmd, { timeout_ms = 500, verbose = false } = {}) {
+  const logger = makeLogger(verbose, "runRCommand: ");
   let logs = "";
   let seenNonEmptyOutput = false;
   let seenStartSignal = false;
@@ -560,6 +600,7 @@ async function runRCommand(cmd, rProc, timeout_ms = 5e3) {
       const outputLines = d.toString().split("\n");
       for (const l of outputLines) {
         logs += l + "\n";
+        logger(l);
         if (l.includes(START_SIGNAL)) {
           seenStartSignal = true;
           continue;
@@ -573,6 +614,7 @@ async function runRCommand(cmd, rProc, timeout_ms = 5e3) {
         if (l.includes(END_SIGNAL)) {
           clearTimeout(startTimeout);
           resolve(lines);
+          logger("Output finished");
           rProc.stdout.off("data", listenForOutput);
           break;
         }
@@ -689,7 +731,7 @@ function connectToRProcess({
       console.log("Killing backend R process", spawnedProcess.pid);
       import_node_process.default.kill(spawnedProcess.pid);
     };
-    const runCmd = (cmd, timeout_ms) => runRCommand(cmd, spawnedProcess, timeout_ms);
+    const runCmd = (cmd, opts) => runRCommand(spawnedProcess, cmd, opts);
     function gatherLogs(type, logMsg) {
       logs += `${type}: ${logMsg}`;
     }
@@ -713,7 +755,7 @@ function connectToRProcess({
       gatherLogs("error", d.toString());
     });
     spawnedProcess.on("close", () => {
-      console.log("Spun up R process has shut down");
+      console.log("Spun up R process has shut down. Logs:", logs);
     });
     const startTimeout = setTimeout(() => {
       console.error("Starting backend server failed.\n Logs:\n" + logs);
@@ -762,12 +804,6 @@ function buildParseCommand(appText) {
     `)`
   );
 }
-function collapseText(...textLines) {
-  return textLines.reduce((all, l) => all + "\n" + l, "");
-}
-function escapeDoubleQuotes(cmd) {
-  return cmd.replace(/"/g, `\\"`);
-}
 
 // src/util.ts
 function getNonce() {
@@ -784,6 +820,7 @@ var _ShinyUiEditorProvider = class {
   constructor(context) {
     this.context = context;
     this.RProcess = null;
+    this.uiBounds = null;
     this.sendMessage = null;
     getRProcess().then((rProc) => {
       this.RProcess = rProc;
@@ -823,10 +860,24 @@ var _ShinyUiEditorProvider = class {
             }
             getAppFile(document.getText(), this.RProcess).then((parsedApp) => {
               var _a;
+              this.uiBounds = parsedApp.ui_bounds;
               (_a = this.sendMessage) == null ? void 0 : _a.call(this, {
                 path: "UPDATED-TREE",
                 payload: parsedApp.ui_tree
               });
+            });
+            return;
+          }
+          case "UPDATED-TREE": {
+            const uiTree = e.payload;
+            if (!this.RProcess) {
+              return;
+            }
+            generateUpdatedUiCode(uiTree, this.RProcess).then((uiCode) => {
+              console.log("New ui text", uiCode);
+              if (!this.uiBounds)
+                throw new Error("Ui Bounds are missing, something went wrong");
+              this.updateAppUI(document, this.uiBounds, uiCode);
             });
             return;
           }
@@ -889,14 +940,21 @@ var _ShinyUiEditorProvider = class {
 			</body>
 			</html>`;
   }
-  updateTextDocument(document, json) {
+  updateAppUI(document, { start, end }, uiCode) {
+    const uiRange = new vscode2.Range(start - 1, 0, end, 0);
     const edit = new vscode2.WorkspaceEdit();
-    edit.replace(
-      document.uri,
-      new vscode2.Range(0, 0, document.lineCount, 0),
-      JSON.stringify(json, null, 2)
-    );
-    return vscode2.workspace.applyEdit(edit);
+    const newUiText = `ui <- ${collapseText(...uiCode.text)}
+`;
+    edit.replace(document.uri, uiRange, newUiText);
+    vscode2.workspace.applyEdit(edit);
+    const oldUiNumLines = end - start + 1;
+    const newUiNumLines = uiCode.text.length;
+    const uiNumLinesDiff = newUiNumLines - oldUiNumLines;
+    const newBounds = {
+      start,
+      end: end - uiNumLinesDiff
+    };
+    return newBounds;
   }
 };
 var ShinyUiEditorProvider = _ShinyUiEditorProvider;

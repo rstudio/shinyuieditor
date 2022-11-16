@@ -3,9 +3,13 @@ import type { MessageFromBackend } from "communication-types";
 import { isMessageFromClient } from "communication-types";
 import * as vscode from "vscode";
 
+import type { UpdatedUiCode } from "./R-Utils/generateUpdatedUiCode";
+import { generateUpdatedUiCode } from "./R-Utils/generateUpdatedUiCode";
 import type { ActiveRSession } from "./R-Utils/getRProcess";
 import { getRProcess } from "./R-Utils/getRProcess";
+import type { ParsedApp } from "./R-Utils/parseAppFile";
 import { getAppFile } from "./R-Utils/parseAppFile";
+import { collapseText } from "./string-utils";
 import { getNonce } from "./util";
 
 /**
@@ -23,6 +27,8 @@ import { getNonce } from "./util";
 */
 export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
   private RProcess: ActiveRSession | null = null;
+  private uiBounds: ParsedApp["ui_bounds"] | null = null;
+
   private static readonly viewType = "shinyUiEditor.appFile";
 
   private sendMessage: ((msg: MessageFromBackend) => Thenable<boolean>) | null =
@@ -80,7 +86,6 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
     webviewPanel.onDidDispose(() => {
       changeDocumentSubscription.dispose();
       console.log("Editor window closed");
-      // this.RProcess?.stop();
     });
 
     // Receive message from the webview.
@@ -93,12 +98,27 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
               return;
             }
             getAppFile(document.getText(), this.RProcess).then((parsedApp) => {
+              this.uiBounds = parsedApp.ui_bounds;
               this.sendMessage?.({
                 path: "UPDATED-TREE",
                 payload: parsedApp.ui_tree,
               });
             });
 
+            return;
+          }
+          case "UPDATED-TREE": {
+            const uiTree = e.payload;
+            if (!this.RProcess) {
+              return;
+            }
+            generateUpdatedUiCode(uiTree, this.RProcess).then((uiCode) => {
+              console.log("New ui text", uiCode);
+              if (!this.uiBounds)
+                throw new Error("Ui Bounds are missing, something went wrong");
+
+              this.updateAppUI(document, this.uiBounds, uiCode);
+            });
             return;
           }
           default: {
@@ -173,19 +193,30 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
   }
 
   /**
-   * Write out the json to a given document.
+   * Write out new app ui into text document json to a given document.
    */
-  private updateTextDocument(document: vscode.TextDocument, json: any) {
+  private updateAppUI(
+    document: vscode.TextDocument,
+    { start, end }: ParsedApp["ui_bounds"],
+    uiCode: UpdatedUiCode
+  ): ParsedApp["ui_bounds"] {
+    const uiRange = new vscode.Range(start - 1, 0, end, 0);
     const edit = new vscode.WorkspaceEdit();
 
-    // Just replace the entire document every time for this example extension.
-    // A more complete extension should compute minimal edits instead.
-    edit.replace(
-      document.uri,
-      new vscode.Range(0, 0, document.lineCount, 0),
-      JSON.stringify(json, null, 2)
-    );
+    // Replace chunk of app ui
+    const newUiText = `ui <- ${collapseText(...uiCode.text)}\n`;
 
-    return vscode.workspace.applyEdit(edit);
+    edit.replace(document.uri, uiRange, newUiText);
+    vscode.workspace.applyEdit(edit);
+
+    // Fix up ui bounds so next change will not mess up app
+    const oldUiNumLines = end - start + 1;
+    const newUiNumLines = uiCode.text.length;
+    const uiNumLinesDiff = newUiNumLines - oldUiNumLines;
+    const newBounds: ParsedApp["ui_bounds"] = {
+      start,
+      end: end - uiNumLinesDiff,
+    };
+    return newBounds;
   }
 }

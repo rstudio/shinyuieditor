@@ -5,11 +5,25 @@ import { sendMsgToProc } from "./getRProcess";
 const START_SIGNAL = "SUE_START_SIGNAL";
 const END_SIGNAL = "SUE_END_SIGNAL";
 
+export type CommandExecOptions = {
+  timeout_ms?: number;
+  verbose?: boolean;
+};
+
+function makeLogger(verbose: boolean, prefix: string) {
+  return (msg: string) => {
+    if (verbose) {
+      // eslint-disable-next-line no-console
+      console.log(prefix + msg);
+    }
+  };
+}
 export async function runRCommand(
-  cmd: string,
   rProc: ChildProcessWithoutNullStreams,
-  timeout_ms = 5000
+  cmd: string,
+  { timeout_ms = 500, verbose = false }: CommandExecOptions = {}
 ): Promise<string[]> {
+  const logger = makeLogger(verbose, "runRCommand: ");
   let logs = "";
 
   let seenNonEmptyOutput = false;
@@ -21,6 +35,7 @@ export async function runRCommand(
 
       for (const l of outputLines) {
         logs += l + "\n";
+        logger(l);
 
         if (l.includes(START_SIGNAL)) {
           seenStartSignal = true;
@@ -38,6 +53,7 @@ export async function runRCommand(
         if (l.includes(END_SIGNAL)) {
           clearTimeout(startTimeout);
           resolve(lines);
+          logger("Output finished");
           rProc.stdout.off("data", listenForOutput);
           break;
         }
