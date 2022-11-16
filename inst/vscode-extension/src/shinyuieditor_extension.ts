@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import type { MessageFromBackend } from "communication-types";
 import { isMessageFromClient } from "communication-types";
+import debounce from "just-debounce-it";
 import * as vscode from "vscode";
 
 import type { UpdatedUiCode } from "./R-Utils/generateUpdatedUiCode";
@@ -13,18 +14,9 @@ import { collapseText } from "./string-utils";
 import { getNonce } from "./util";
 
 /**
- * Provider for cat scratch editors.
+ * Provider for custom editor.
  *
- * Cat scratch editors are used for `.cscratch` files, which are just json files.
- * To get started, run this extension and open an empty `.cscratch` file in VS Code.
- *
- * This provider demonstrates:
- *
- * - Setting up the initial webview for a custom editor.
- * - Loading scripts and styles in a custom editor.
- * - Synchronizing changes between a text document and a custom editor.
-
-*/
+ */
 export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
   private RProcess: ActiveRSession | null = null;
   private uiBounds: ParsedApp["ui_bounds"] | null = null;
@@ -38,46 +30,82 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
     const provider = new ShinyUiEditorProvider(context);
     const providerRegistration = vscode.window.registerCustomEditorProvider(
       ShinyUiEditorProvider.viewType,
-      provider
+      provider,
+      {
+        webviewOptions: {
+          // Make it so the app stays alive if it's not the main tab, avoids
+          // unneccesary refreshes. May be worth removing this in favor of cold
+          // startups everytime tab is focused if memory usage etc becomes an
+          // issue
+          retainContextWhenHidden: true,
+        },
+      }
     );
     return providerRegistration;
   }
 
   constructor(private readonly context: vscode.ExtensionContext) {
+    // Spin up background R process for things like formatting code etc.
     getRProcess().then((rProc) => {
       this.RProcess = rProc;
     });
-    console.log("extension constructor()!");
   }
 
   /**
-   * Called when our custom editor is opened.
+   * Called when an instance of the custom editor is opened.
    *
-   *
+   * The `document` arg will correspond to the associated app.R or ui.R file for this editor view.
+   * By keeping logic in here we will ensure we don't get mixed up when we have multiple editor windows open.
    */
   public async resolveCustomTextEditor(
     document: vscode.TextDocument,
     webviewPanel: vscode.WebviewPanel,
     _token: vscode.CancellationToken
   ): Promise<void> {
-    console.log("Editor window is opened!", document.fileName);
-
     // Setup initial content for the webview
     webviewPanel.webview.options = { enableScripts: true };
     webviewPanel.webview.html = this.getHtmlForWebview(webviewPanel.webview);
 
+    const syncFileToClientState = () => {
+      if (!this.RProcess) {
+        throw new Error(
+          "Failed to sync file state to client, no R process available"
+        );
+      }
+      getAppFile(document.getText(), this.RProcess).then((parsedApp) => {
+        this.uiBounds = parsedApp.ui_bounds;
+        this.sendMessage?.({
+          path: "UPDATED-TREE",
+          payload: parsedApp.ui_tree,
+        });
+      });
+    };
+
+    const syncFileToClientStateDebounced = debounce(syncFileToClientState, 500);
+
+    // Helper to check to make sure that a change event such as save or typing
+    // is effecting the document we care about
+    const isThisDocument = (doc: vscode.TextDocument): boolean => {
+      return doc.uri.toString() === document.uri.toString();
+    };
     // Hook up event handlers so that we can synchronize the webview with the text document.
     //
     // The text document acts as our model, so we have to sync change in the document to our
     // editor and sync changes in the editor back to the document.
     //
-    // Remember that a single text document can also be shared between multiple custom
-    // editors (this happens for example when you split a custom editor)
     const changeDocumentSubscription = vscode.workspace.onDidChangeTextDocument(
       (e) => {
-        if (e.document.uri.toString() === document.uri.toString()) {
-          // updateWebview();
-          console.log("New text file in view!");
+        if (isThisDocument(e.document)) {
+          syncFileToClientStateDebounced();
+        }
+      }
+    );
+
+    const saveDocumentSubscription = vscode.workspace.onDidSaveTextDocument(
+      (savedDocument) => {
+        if (isThisDocument(savedDocument)) {
+          // Make sure to immediately fire any changes to sync on save so there's not a lag.
+          syncFileToClientStateDebounced.flush();
         }
       }
     );
@@ -85,48 +113,38 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
     // Make sure we get rid of the listener when our editor window is closed.
     webviewPanel.onDidDispose(() => {
       changeDocumentSubscription.dispose();
-      console.log("Editor window closed");
+      saveDocumentSubscription.dispose();
+      console.log("Editor window closed", document.fileName);
     });
 
     // Receive message from the webview.
-    webviewPanel.webview.onDidReceiveMessage((e) => {
-      if (isMessageFromClient(e)) {
-        console.log("Message from client!", e);
-        switch (e.path) {
-          case "READY-FOR-STATE": {
-            if (!this.RProcess) {
-              return;
-            }
-            getAppFile(document.getText(), this.RProcess).then((parsedApp) => {
-              this.uiBounds = parsedApp.ui_bounds;
-              this.sendMessage?.({
-                path: "UPDATED-TREE",
-                payload: parsedApp.ui_tree,
-              });
-            });
-
+    webviewPanel.webview.onDidReceiveMessage(async (msg) => {
+      if (isMessageFromClient(msg)) {
+        switch (msg.path) {
+          case "READY-FOR-STATE":
+            syncFileToClientState();
             return;
-          }
+
           case "UPDATED-TREE": {
-            const uiTree = e.payload;
-            if (!this.RProcess) {
-              return;
+            if (!this.RProcess || !this.uiBounds) {
+              throw new Error(
+                "No available R Process or ui bounds, can't update UI tree"
+              );
             }
-            generateUpdatedUiCode(uiTree, this.RProcess).then((uiCode) => {
-              console.log("New ui text", uiCode);
-              if (!this.uiBounds)
-                throw new Error("Ui Bounds are missing, something went wrong");
 
-              this.updateAppUI(document, this.uiBounds, uiCode);
-            });
+            const uiCode = await generateUpdatedUiCode(
+              msg.payload,
+              this.RProcess
+            );
+
+            this.updateAppUI(document, this.uiBounds, uiCode);
             return;
           }
-          default: {
-            console.warn("Unhandled message from client", e);
-          }
+          default:
+            console.warn("Unhandled message from client", msg);
         }
       } else {
-        console.log("Unknown message from webview", e);
+        console.log("Unknown message from webview", msg);
       }
     });
 

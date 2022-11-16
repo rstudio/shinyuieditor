@@ -540,6 +540,53 @@ function isMessageFromClient(x) {
   return "path" in x;
 }
 
+// ../../node_modules/just-debounce-it/index.mjs
+var functionDebounce = debounce;
+function debounce(fn, wait, callFirst) {
+  var timeout = null;
+  var debouncedFn = null;
+  var clear = function() {
+    if (timeout) {
+      clearTimeout(timeout);
+      debouncedFn = null;
+      timeout = null;
+    }
+  };
+  var flush = function() {
+    var call = debouncedFn;
+    clear();
+    if (call) {
+      call();
+    }
+  };
+  var debounceWrapper = function() {
+    if (!wait) {
+      return fn.apply(this, arguments);
+    }
+    var context = this;
+    var args = arguments;
+    var callNow = callFirst && !timeout;
+    clear();
+    debouncedFn = function() {
+      fn.apply(context, args);
+    };
+    timeout = setTimeout(function() {
+      timeout = null;
+      if (!callNow) {
+        var call = debouncedFn;
+        debouncedFn = null;
+        return call();
+      }
+    }, wait);
+    if (callNow) {
+      return debouncedFn();
+    }
+  };
+  debounceWrapper.cancel = clear;
+  debounceWrapper.flush = flush;
+  return debounceWrapper;
+}
+
 // src/shinyuieditor_extension.ts
 var vscode2 = __toESM(require("vscode"));
 
@@ -825,68 +872,85 @@ var _ShinyUiEditorProvider = class {
     getRProcess().then((rProc) => {
       this.RProcess = rProc;
     });
-    console.log("extension constructor()!");
   }
   static register(context) {
     const provider = new _ShinyUiEditorProvider(context);
     const providerRegistration = vscode2.window.registerCustomEditorProvider(
       _ShinyUiEditorProvider.viewType,
-      provider
+      provider,
+      {
+        webviewOptions: {
+          retainContextWhenHidden: true
+        }
+      }
     );
     return providerRegistration;
   }
   async resolveCustomTextEditor(document, webviewPanel, _token) {
-    console.log("Editor window is opened!", document.fileName);
     webviewPanel.webview.options = { enableScripts: true };
     webviewPanel.webview.html = this.getHtmlForWebview(webviewPanel.webview);
+    const syncFileToClientState = () => {
+      if (!this.RProcess) {
+        throw new Error(
+          "Failed to sync file state to client, no R process available"
+        );
+      }
+      getAppFile(document.getText(), this.RProcess).then((parsedApp) => {
+        var _a;
+        this.uiBounds = parsedApp.ui_bounds;
+        (_a = this.sendMessage) == null ? void 0 : _a.call(this, {
+          path: "UPDATED-TREE",
+          payload: parsedApp.ui_tree
+        });
+      });
+    };
+    const syncFileToClientStateDebounced = functionDebounce(syncFileToClientState, 500);
+    const isThisDocument = (doc) => {
+      return doc.uri.toString() === document.uri.toString();
+    };
     const changeDocumentSubscription = vscode2.workspace.onDidChangeTextDocument(
       (e) => {
-        if (e.document.uri.toString() === document.uri.toString()) {
-          console.log("New text file in view!");
+        if (isThisDocument(e.document)) {
+          syncFileToClientStateDebounced();
+        }
+      }
+    );
+    const saveDocumentSubscription = vscode2.workspace.onDidSaveTextDocument(
+      (savedDocument) => {
+        if (isThisDocument(savedDocument)) {
+          syncFileToClientStateDebounced.flush();
         }
       }
     );
     webviewPanel.onDidDispose(() => {
       changeDocumentSubscription.dispose();
-      console.log("Editor window closed");
+      saveDocumentSubscription.dispose();
+      console.log("Editor window closed", document.fileName);
     });
-    webviewPanel.webview.onDidReceiveMessage((e) => {
-      if (isMessageFromClient(e)) {
-        console.log("Message from client!", e);
-        switch (e.path) {
-          case "READY-FOR-STATE": {
-            if (!this.RProcess) {
-              return;
-            }
-            getAppFile(document.getText(), this.RProcess).then((parsedApp) => {
-              var _a;
-              this.uiBounds = parsedApp.ui_bounds;
-              (_a = this.sendMessage) == null ? void 0 : _a.call(this, {
-                path: "UPDATED-TREE",
-                payload: parsedApp.ui_tree
-              });
-            });
+    webviewPanel.webview.onDidReceiveMessage(async (msg) => {
+      if (isMessageFromClient(msg)) {
+        switch (msg.path) {
+          case "READY-FOR-STATE":
+            syncFileToClientState();
             return;
-          }
           case "UPDATED-TREE": {
-            const uiTree = e.payload;
-            if (!this.RProcess) {
-              return;
+            if (!this.RProcess || !this.uiBounds) {
+              throw new Error(
+                "No available R Process or ui bounds, can't update UI tree"
+              );
             }
-            generateUpdatedUiCode(uiTree, this.RProcess).then((uiCode) => {
-              console.log("New ui text", uiCode);
-              if (!this.uiBounds)
-                throw new Error("Ui Bounds are missing, something went wrong");
-              this.updateAppUI(document, this.uiBounds, uiCode);
-            });
+            const uiCode = await generateUpdatedUiCode(
+              msg.payload,
+              this.RProcess
+            );
+            this.updateAppUI(document, this.uiBounds, uiCode);
             return;
           }
-          default: {
-            console.warn("Unhandled message from client", e);
-          }
+          default:
+            console.warn("Unhandled message from client", msg);
         }
       } else {
-        console.log("Unknown message from webview", e);
+        console.log("Unknown message from webview", msg);
       }
     });
     this.sendMessage = (msg) => webviewPanel.webview.postMessage(msg);
