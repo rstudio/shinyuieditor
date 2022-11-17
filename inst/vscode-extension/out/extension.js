@@ -954,19 +954,27 @@ var _ShinyUiEditorProvider = class {
       enableScripts: true
     };
     webviewPanel.webview.html = this.getHtmlForWebview(webviewPanel.webview);
-    const syncFileToClientState = () => {
+    let latestAppWrite = null;
+    const syncFileToClientState = async () => {
+      var _a;
       if (!this.RProcess) {
         throw new Error(
           "Failed to sync file state to client, no R process available"
         );
       }
-      getAppFile(document.getText(), this.RProcess).then((parsedApp) => {
-        var _a;
-        this.uiBounds = parsedApp.ui_bounds;
-        (_a = this.sendMessage) == null ? void 0 : _a.call(this, {
-          path: "UPDATED-TREE",
-          payload: parsedApp.ui_tree
-        });
+      const appFileText = document.getText();
+      const updateWeMade = latestAppWrite !== null && appFileText.includes(latestAppWrite);
+      if (updateWeMade) {
+        return;
+      }
+      const { ui_bounds, ui_tree } = await getAppFile(
+        appFileText,
+        this.RProcess
+      );
+      this.uiBounds = ui_bounds;
+      (_a = this.sendMessage) == null ? void 0 : _a.call(this, {
+        path: "UPDATED-TREE",
+        payload: ui_tree
       });
     };
     const syncFileToClientStateDebounced = functionDebounce(syncFileToClientState, 500);
@@ -1014,7 +1022,12 @@ var _ShinyUiEditorProvider = class {
               msg.payload,
               this.RProcess
             );
-            this.updateAppUI(document, this.uiBounds, uiCode);
+            const { uiText } = await this.updateAppUI(
+              document,
+              this.uiBounds,
+              uiCode
+            );
+            latestAppWrite = uiText;
             return;
           }
           case "APP-PREVIEW-REQUEST": {
@@ -1094,13 +1107,14 @@ var _ShinyUiEditorProvider = class {
 			</body>
 			</html>`;
   }
-  updateAppUI(document, { start, end }, uiCode) {
+  async updateAppUI(document, { start, end }, uiCode) {
     const uiRange = new vscode3.Range(start - 1, 0, end, 0);
     const edit = new vscode3.WorkspaceEdit();
     const newUiText = `ui <- ${collapseText(...uiCode.text)}
 `;
     edit.replace(document.uri, uiRange, newUiText);
-    vscode3.workspace.applyEdit(edit);
+    await vscode3.workspace.applyEdit(edit);
+    document.save();
     const oldUiNumLines = end - start + 1;
     const newUiNumLines = uiCode.text.length;
     const uiNumLinesDiff = newUiNumLines - oldUiNumLines;
@@ -1108,7 +1122,7 @@ var _ShinyUiEditorProvider = class {
       start,
       end: end - uiNumLinesDiff
     };
-    return newBounds;
+    return { newBounds, uiText: newUiText };
   }
 };
 var ShinyUiEditorProvider = _ShinyUiEditorProvider;

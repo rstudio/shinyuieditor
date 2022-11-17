@@ -69,19 +69,34 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
       enableScripts: true,
     };
     webviewPanel.webview.html = this.getHtmlForWebview(webviewPanel.webview);
+    let latestAppWrite: string | null = null;
 
-    const syncFileToClientState = () => {
+    const syncFileToClientState = async () => {
       if (!this.RProcess) {
         throw new Error(
           "Failed to sync file state to client, no R process available"
         );
       }
-      getAppFile(document.getText(), this.RProcess).then((parsedApp) => {
-        this.uiBounds = parsedApp.ui_bounds;
-        this.sendMessage?.({
-          path: "UPDATED-TREE",
-          payload: parsedApp.ui_tree,
-        });
+
+      const appFileText = document.getText();
+
+      // Check to make sure we're not just picking up a change that we made
+      const updateWeMade =
+        latestAppWrite !== null && appFileText.includes(latestAppWrite);
+      if (updateWeMade) {
+        // Skip unneccesary app file parsing
+        return;
+      }
+
+      const { ui_bounds, ui_tree } = await getAppFile(
+        appFileText,
+        this.RProcess
+      );
+
+      this.uiBounds = ui_bounds;
+      this.sendMessage?.({
+        path: "UPDATED-TREE",
+        payload: ui_tree,
       });
     };
 
@@ -92,6 +107,7 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
     const isThisDocument = (doc: vscode.TextDocument): boolean => {
       return doc.uri.toString() === document.uri.toString();
     };
+
     // Hook up event handlers so that we can synchronize the webview with the text document.
     //
     // The text document acts as our model, so we have to sync change in the document to our
@@ -148,7 +164,12 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
               this.RProcess
             );
 
-            this.updateAppUI(document, this.uiBounds, uiCode);
+            const { uiText } = await this.updateAppUI(
+              document,
+              this.uiBounds,
+              uiCode
+            );
+            latestAppWrite = uiText;
             return;
           }
           case "APP-PREVIEW-REQUEST": {
@@ -245,11 +266,11 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
   /**
    * Write out new app ui into text document json to a given document.
    */
-  private updateAppUI(
+  private async updateAppUI(
     document: vscode.TextDocument,
     { start, end }: ParsedApp["ui_bounds"],
     uiCode: UpdatedUiCode
-  ): ParsedApp["ui_bounds"] {
+  ) {
     const uiRange = new vscode.Range(start - 1, 0, end, 0);
     const edit = new vscode.WorkspaceEdit();
 
@@ -257,7 +278,10 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
     const newUiText = `ui <- ${collapseText(...uiCode.text)}\n`;
 
     edit.replace(document.uri, uiRange, newUiText);
-    vscode.workspace.applyEdit(edit);
+    await vscode.workspace.applyEdit(edit);
+
+    // Save so app preview will update
+    document.save();
 
     // Fix up ui bounds so next change will not mess up app
     const oldUiNumLines = end - start + 1;
@@ -267,6 +291,7 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
       start,
       end: end - uiNumLinesDiff,
     };
-    return newBounds;
+
+    return { newBounds, uiText: newUiText };
   }
 }
