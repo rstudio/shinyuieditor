@@ -72,10 +72,10 @@ function setupVSCodeBackend({
       //     });
       //     return;
       //   }
-      //   case "APP-PREVIEW-CONNECTED": {
+      //   case "APP-PREVIEW-REQUEST": {
       //     if (!SHOW_FAKE_PREVIEW) return;
       //     dispatchMessageToClient({
-      //       path: "APP-PREVIEW-READY",
+      //       path: "APP-PREVIEW-STATUS",
       //       payload: "FAKE-PREVIEW",
       //     });
       //     return;

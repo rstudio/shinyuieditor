@@ -206,14 +206,14 @@ launch_editor <- function(app_loc,
     function(msg) {
       writeLog("Message from backend", msg$path)
       switch(msg$path,
-        "APP-PREVIEW-CONNECTED" = {
-          send_msg("APP-PREVIEW-READY", payload = "LOADING")
+        "APP-PREVIEW-REQUEST" = {
+          send_msg("APP-PREVIEW-STATUS", payload = "LOADING")
           app_preview_obj$set_listeners(
             on_ready = function() {
               # Once the background preview app is up and running, we can
               # send over the URL to the react app
               send_msg(
-                "APP-PREVIEW-READY", 
+                "APP-PREVIEW-STATUS", 
                 payload = list(url = app_preview_obj$url)
               )
             },

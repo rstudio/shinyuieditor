@@ -7,7 +7,7 @@ import { useBackendCallbacks } from "../../backendCommunication/useBackendMessag
 export type AppLogs = string[];
 
 export type AppPreviewStatus =
-  | MessageFromBackendByPath["APP-PREVIEW-READY"]
+  | MessageFromBackendByPath["APP-PREVIEW-STATUS"]
   | "HIDDEN";
 
 type CommunicationState = {
@@ -27,7 +27,7 @@ export function useCommunicateWithBackend(): CommunicationState {
 
   React.useEffect(() => {
     const previewReadySubscription = incomingMsgs.subscribe(
-      "APP-PREVIEW-READY",
+      "APP-PREVIEW-STATUS",
       (previewLoc) => {
         setErrors(null);
         setAppLoc(previewLoc);
@@ -46,7 +46,7 @@ export function useCommunicateWithBackend(): CommunicationState {
       }
     );
 
-    sendMsg({ path: "APP-PREVIEW-CONNECTED" });
+    sendMsg({ path: "APP-PREVIEW-REQUEST" });
     setRestartApp(() => () => sendMsg({ path: "APP-PREVIEW-RESTART" }));
     setStopApp(() => () => sendMsg({ path: "APP-PREVIEW-STOP" }));
 

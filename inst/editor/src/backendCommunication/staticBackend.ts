@@ -30,9 +30,9 @@ export function setupStaticBackend({
           messageDispatch.dispatch("UPDATED-TREE", msg.payload.uiTree);
           return;
         }
-        case "APP-PREVIEW-CONNECTED": {
+        case "APP-PREVIEW-REQUEST": {
           if (!TESTING_MODE) return;
-          messageDispatch.dispatch("APP-PREVIEW-READY", "FAKE-PREVIEW");
+          messageDispatch.dispatch("APP-PREVIEW-STATUS", "FAKE-PREVIEW");
           return;
         }
       }

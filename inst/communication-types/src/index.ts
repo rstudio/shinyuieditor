@@ -69,7 +69,7 @@ type MessageToBackendByPath = {
   "UPDATED-TREE": ShinyUiNode;
   "TEMPLATE-SELECTOR-REQUEST": null;
   "TEMPLATE-SELECTION": TemplateSelection;
-  "APP-PREVIEW-CONNECTED": null;
+  "APP-PREVIEW-REQUEST": null;
   "APP-PREVIEW-RESTART": null;
   "APP-PREVIEW-STOP": null;
 };
@@ -80,7 +80,7 @@ type MessageToBackendByPath = {
 export type MessageFromBackendByPath = {
   "UPDATED-TREE": ShinyUiNode;
   "PARSING-ERROR": string;
-  "APP-PREVIEW-READY": "FAKE-PREVIEW" | "LOADING" | { url: string };
+  "APP-PREVIEW-STATUS": "FAKE-PREVIEW" | "LOADING" | { url: string };
   "APP-PREVIEW-CRASH": string;
   "APP-PREVIEW-LOGS": string[];
 };
