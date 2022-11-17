@@ -44,7 +44,8 @@ export function setupWebsocketBackend({
             // eslint-disable-next-line no-console
             console.log("WS backend msg:", msg);
           }
-          messageDispatch.dispatch(msg as MessageFromBackend);
+          const { path, payload } = msg as MessageFromBackend;
+          messageDispatch.dispatch(path, payload);
         });
         resolve(messagePassingMethods);
         connectedToWebsocket = true;

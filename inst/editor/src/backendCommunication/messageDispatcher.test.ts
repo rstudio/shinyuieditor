@@ -1,61 +1,53 @@
 import { vi } from "vitest";
 
-import { makeMessageDispatcher } from "./messageDispatcher";
+import { makeMessageDispatcherGeneric } from "./messageDispatcher";
+
+type Payloads = {
+  strings: string;
+  numbers: number;
+};
 
 describe("Can subscribe and unsubscribe from messages", () => {
-  const dispatch = makeMessageDispatcher();
+  const dispatch = makeMessageDispatcherGeneric<Payloads>();
 
-  const appPreviewLogsSubscriber = vi.fn();
-  const parsingErrorSubscriber = vi.fn();
+  const stringsSubscriber = vi.fn();
+  const numbersSubscriber = vi.fn();
 
-  const previewLogsSubscription = dispatch.subscribe(
-    "APP-PREVIEW-LOGS",
-    appPreviewLogsSubscriber
-  );
-  const parsingErrorSubscription = dispatch.subscribe(
-    "PARSING-ERROR",
-    parsingErrorSubscriber
-  );
+  const stringsSubscription = dispatch.subscribe("strings", stringsSubscriber);
+  const numbersSubscription = dispatch.subscribe("numbers", numbersSubscriber);
 
   test("Subscribers are called when dispatch is sent to them", () => {
-    dispatch.dispatch({ path: "APP-PREVIEW-LOGS", payload: ["A", "B"] });
-    expect(appPreviewLogsSubscriber).toHaveBeenCalledWith(["A", "B"]);
+    dispatch.dispatch("strings", "A");
+    expect(stringsSubscriber).toHaveBeenCalledWith("A");
 
-    dispatch.dispatch({
-      path: "PARSING-ERROR",
-      payload: "Err Msg A",
-    });
-    expect(parsingErrorSubscriber).toHaveBeenCalledWith("Err Msg A");
-    expect(parsingErrorSubscriber).toHaveBeenCalledTimes(1);
+    dispatch.dispatch("numbers", 1);
+    expect(numbersSubscriber).toHaveBeenCalledWith(1);
+    expect(numbersSubscriber).toHaveBeenCalledTimes(1);
 
-    dispatch.dispatch({
-      path: "PARSING-ERROR",
-      payload: "Err Msg B",
-    });
+    dispatch.dispatch("numbers", 2);
 
-    expect(parsingErrorSubscriber).toHaveBeenCalledWith("Err Msg B");
-    expect(parsingErrorSubscriber).toHaveBeenCalledTimes(2);
-    expect(appPreviewLogsSubscriber).toHaveBeenCalledTimes(1);
+    expect(numbersSubscriber).toHaveBeenCalledWith(2);
+    expect(numbersSubscriber).toHaveBeenCalledTimes(2);
+    expect(stringsSubscriber).toHaveBeenCalledTimes(1);
   });
 
   test("Subscribers can be unsubscribed", () => {
-    previewLogsSubscription.unsubscribe();
-    dispatch.dispatch({ path: "APP-PREVIEW-LOGS", payload: ["C", "D"] });
-    expect(appPreviewLogsSubscriber).toHaveBeenCalledTimes(1);
+    stringsSubscription.unsubscribe();
+    dispatch.dispatch("strings", "C");
+    expect(stringsSubscriber).toHaveBeenCalledTimes(1);
 
-    dispatch.dispatch({
-      path: "PARSING-ERROR",
-      payload: "Err Msg C",
-    });
+    dispatch.dispatch("numbers", 3);
 
-    expect(parsingErrorSubscriber).toHaveBeenCalledWith("Err Msg C");
-    expect(parsingErrorSubscriber).toHaveBeenCalledTimes(3);
+    expect(numbersSubscriber).toHaveBeenCalledWith(3);
+    expect(numbersSubscriber).toHaveBeenCalledTimes(3);
 
-    parsingErrorSubscription.unsubscribe();
-    dispatch.dispatch({
-      path: "PARSING-ERROR",
-      payload: "Err Msg D",
-    });
-    expect(parsingErrorSubscriber).not.toHaveBeenCalledWith("Err Msg D");
+    numbersSubscription.unsubscribe();
+    dispatch.dispatch("numbers", 4);
+    expect(numbersSubscriber).not.toHaveBeenCalledWith(4);
+  });
+
+  test("Unsubscribing something that already was doesn't cause issues", () => {
+    expect(() => stringsSubscription.unsubscribe()).not.toThrow();
+    expect(() => numbersSubscription.unsubscribe()).not.toThrow();
   });
 });

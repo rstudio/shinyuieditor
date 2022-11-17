@@ -1,51 +1,36 @@
-import type {
-  MessageFromBackendByPath,
-  MessageFromBackend,
-} from "communication-types";
+import type { MessageFromBackendByPath } from "communication-types";
 
-type BackendMsgPath = keyof MessageFromBackendByPath;
-
-/**
- * A function used to subscribe to a given message path and run a callback upon
- * receiving message form backend
- */
-type OnBackendMsgCallback<Path extends BackendMsgPath> = (
-  payload: MessageFromBackendByPath[Path]
-) => void;
-
-export function makeMessageDispatcher() {
+export function makeMessageDispatcherGeneric<
+  Payload extends Record<string, unknown>
+>() {
   const subscriptions: {
-    [T in BackendMsgPath]?: Array<OnBackendMsgCallback<T>>;
+    [Path in keyof Payload]?: Array<(x: Payload[Path]) => void>;
   } = {};
 
   return {
-    subscribe: <Path extends BackendMsgPath>(
+    subscribe: <Path extends keyof Payload>(
       on: Path,
-      subscriberFn: OnBackendMsgCallback<Path>
+      subscriberFn: (x: Payload[Path]) => void
     ) => {
-      const subscriptionsForPath = subscriptions[on];
-
-      subscriptions[on] = [
-        ...(subscriptionsForPath ?? []),
-        subscriberFn,
-      ] as typeof subscriptionsForPath;
+      subscriptions[on] = [...(subscriptions[on] ?? []), subscriberFn];
 
       return {
         unsubscribe: () => {
-          const subscriptionsForPath = subscriptions[on];
-
-          subscriptions[on] = (subscriptionsForPath ?? []).filter(
+          subscriptions[on] = (subscriptions[on] ?? []).filter(
             (fn) => fn !== subscriberFn
-          ) as typeof subscriptionsForPath;
+          );
         },
       };
     },
-    dispatch: ({ path, payload }: MessageFromBackend) => {
-      subscriptions[path]?.forEach((callback) =>
-        (callback as OnBackendMsgCallback<typeof path>)(payload)
-      );
+    dispatch: <Path extends keyof Payload>(
+      path: Path,
+      payload: Payload[Path]
+    ) => {
+      subscriptions[path]?.forEach((callback) => callback(payload));
     },
   };
 }
+export const makeMessageDispatcher =
+  makeMessageDispatcherGeneric<MessageFromBackendByPath>;
 
 export type MessageDispatcher = ReturnType<typeof makeMessageDispatcher>;
