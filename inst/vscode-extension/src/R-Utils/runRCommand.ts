@@ -1,6 +1,6 @@
 import type { ChildProcessWithoutNullStreams } from "child_process";
 
-import { sendMsgToProc } from "./getRProcess";
+import { sendMsgToProc } from "./startBackgroundRProcess";
 
 const START_SIGNAL = "SUE_START_SIGNAL";
 const END_SIGNAL = "SUE_END_SIGNAL";

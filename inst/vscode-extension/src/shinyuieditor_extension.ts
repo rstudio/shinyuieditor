@@ -6,10 +6,10 @@ import * as vscode from "vscode";
 
 import type { UpdatedUiCode } from "./R-Utils/generateUpdatedUiCode";
 import { generateUpdatedUiCode } from "./R-Utils/generateUpdatedUiCode";
-import type { ActiveRSession } from "./R-Utils/getRProcess";
-import { getRProcess } from "./R-Utils/getRProcess";
 import type { ParsedApp } from "./R-Utils/parseAppFile";
 import { getAppFile } from "./R-Utils/parseAppFile";
+import { startBackgroundRProcess } from "./R-Utils/startBackgroundRProcess";
+import type { ActiveRSession } from "./R-Utils/startBackgroundRProcess";
 import { collapseText } from "./string-utils";
 import { getNonce } from "./util";
 
@@ -46,7 +46,7 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
 
   constructor(private readonly context: vscode.ExtensionContext) {
     // Spin up background R process for things like formatting code etc.
-    getRProcess().then((rProc) => {
+    startBackgroundRProcess().then((rProc) => {
       this.RProcess = rProc;
     });
   }

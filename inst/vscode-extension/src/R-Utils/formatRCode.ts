@@ -1,4 +1,4 @@
-import type { ActiveRSession } from "./getRProcess";
+import type { ActiveRSession } from "./startBackgroundRProcess";
 
 export async function formatRCode(
   RProcess: ActiveRSession,

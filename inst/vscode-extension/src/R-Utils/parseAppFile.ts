@@ -3,7 +3,7 @@ import type { ShinyUiNode } from "editor";
 
 import { escapeDoubleQuotes, collapseText } from "../string-utils";
 
-import type { ActiveRSession } from "./getRProcess";
+import type { ActiveRSession } from "./startBackgroundRProcess";
 
 type UiBounds = { start: number; end: number };
 export type ParsedApp = {

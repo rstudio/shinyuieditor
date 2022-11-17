@@ -2,7 +2,7 @@ import type { ShinyUiNode } from "editor";
 
 import { collapseText, escapeDoubleQuotes } from "../string-utils";
 
-import type { ActiveRSession } from "./getRProcess";
+import type { ActiveRSession } from "./startBackgroundRProcess";
 
 export type UpdatedUiCode = {
   text: string[];

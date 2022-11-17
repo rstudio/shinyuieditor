@@ -8,7 +8,7 @@ const container = document.getElementById("root");
 const showMessages = true;
 (async () => {
   try {
-    const messageDispatch = makeMessageDispatcher(true);
+    const messageDispatch = makeMessageDispatcher();
 
     const backendDispatch = setupVSCodeBackend({
       messageDispatch,
@@ -34,7 +34,8 @@ function setupVSCodeBackend({
 
   const dispatchMessageToClient = (msg: MessageFromBackend) => {
     logger("VSCode backend msg:", msg);
-    messageDispatch.dispatch(msg);
+    const { path, payload } = msg;
+    messageDispatch.dispatch(path, payload);
   };
 
   // Handle messages sent from the extension to the webview

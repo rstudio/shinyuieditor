@@ -622,9 +622,31 @@ function buildGeneratingCommand(uiTree, removeNamespace = true) {
   );
 }
 
-// src/R-Utils/getRProcess.ts
-var import_child_process = require("child_process");
-var import_node_process = __toESM(require("process"));
+// src/R-Utils/parseAppFile.ts
+async function getAppFile(fileText, RProcess) {
+  const parseCommand = buildParseCommand(fileText);
+  const parsedCommandOutput = await RProcess.runCmd(parseCommand);
+  try {
+    const parsedAppInfo = JSON.parse(
+      parsedCommandOutput.reduce((all, l) => all + "\n" + l, "")
+    );
+    return parsedAppInfo;
+  } catch {
+    throw new Error(
+      "Could not get document as json. Content is not valid json"
+    );
+  }
+}
+function buildParseCommand(appText) {
+  const escapedAppText = escapeDoubleQuotes(appText);
+  return collapseText(
+    `app_lines <- strsplit("${escapedAppText}", "\\n")[[1]]`,
+    `jsonlite::toJSON(`,
+    `  shinyuieditor:::get_file_ui_definition_info(app_lines, "single-file"),`,
+    `  auto_unbox = TRUE`,
+    `)`
+  );
+}
 
 // src/R-Utils/runRCommand.ts
 var START_SIGNAL = "SUE_START_SIGNAL";
@@ -683,6 +705,9 @@ async function runRCommand(rProc, cmd, { timeout_ms = 500, verbose = false } = {
     );
   });
 }
+
+// src/R-Utils/startRProcess.ts
+var import_child_process = require("child_process");
 
 // src/R-Utils/setupRConnection.ts
 var import_fs = require("fs");
@@ -760,96 +785,81 @@ async function getRpath(quote = false, overwriteConfig) {
   return rpath;
 }
 
-// src/R-Utils/getRProcess.ts
-var STARTUP_TIMEOUT_MS = 5e3;
-var STARTUP_COMMAND = `library(shinyuieditor)`;
-var rCallargs = ["--silent", "--slave", "--no-save", "--no-restore"];
-function connectToRProcess({
-  pathToR
-}) {
+// src/R-Utils/startRProcess.ts
+async function startRProcess(commands, opts = {}) {
+  const pathToR = await getRpath();
+  if (pathToR === void 0) {
+    throw new Error("Can't get R path");
+  }
   let logs = "";
   return new Promise((resolve) => {
+    var _a;
     const controller = new AbortController();
     const { signal } = controller;
-    const spawnedProcess = (0, import_child_process.spawn)(pathToR, rCallargs, { signal });
-    const killProcess = () => {
+    const eventLog = (msg) => opts.verbose ? console.log(`[RProc ${spawnedProcess.pid}] - ${msg}`) : null;
+    const spawnedProcess = (0, import_child_process.spawn)(pathToR, commands, { signal });
+    const stop = () => {
       if (!spawnedProcess.pid)
         return;
-      console.log("Killing backend R process", spawnedProcess.pid);
-      import_node_process.default.kill(spawnedProcess.pid);
+      eventLog(`Killing R process`);
+      process.kill(spawnedProcess.pid);
     };
-    const runCmd = (cmd, opts) => runRCommand(spawnedProcess, cmd, opts);
     function gatherLogs(type, logMsg) {
       logs += `${type}: ${logMsg}`;
     }
     spawnedProcess.on("spawn", () => {
-      console.log("R Process is active!");
+      eventLog(`spawned`);
       clearTimeout(startTimeout);
-      sendMsgToProc(STARTUP_COMMAND, spawnedProcess);
-      resolve({
-        proc: spawnedProcess,
-        runCmd,
-        stop: killProcess
-      });
+      resolve({ proc: spawnedProcess, stop });
     });
     spawnedProcess.on("error", (d) => {
-      console.log("Spun up R had error", d);
-    });
-    spawnedProcess.stdout.on("data", (d) => {
-      gatherLogs("out", d.toString());
-    });
-    spawnedProcess.stderr.on("data", (d) => {
-      gatherLogs("error", d.toString());
+      var _a2;
+      eventLog(`Error: ${d.toString()}`);
+      clearTimeout(startTimeout);
+      (_a2 = opts.onError) == null ? void 0 : _a2.call(opts, d);
     });
     spawnedProcess.on("close", () => {
-      console.log("Spun up R process has shut down. Logs:", logs);
+      var _a2;
+      eventLog(`Closed`);
+      clearTimeout(startTimeout);
+      (_a2 = opts.onClose) == null ? void 0 : _a2.call(opts);
+    });
+    spawnedProcess.stdout.on("data", (d) => {
+      var _a2;
+      const msg = d.toString();
+      eventLog(`stdout: ${msg}`);
+      gatherLogs("out", msg);
+      (_a2 = opts.onStdout) == null ? void 0 : _a2.call(opts, msg);
+    });
+    spawnedProcess.stderr.on("data", (d) => {
+      var _a2;
+      const msg = d.toString();
+      eventLog(`stderr: ${msg}`);
+      gatherLogs("error", msg);
+      (_a2 = opts.onStderr) == null ? void 0 : _a2.call(opts, msg);
     });
     const startTimeout = setTimeout(() => {
-      console.error("Starting backend server failed.\n Logs:\n" + logs);
-      resolve(null);
-    }, STARTUP_TIMEOUT_MS);
+      throw new Error("Starting backend server failed.\n Logs:\n" + logs);
+    }, (_a = opts.timeout_ms) != null ? _a : 5e3);
   });
 }
-async function getRProcess() {
-  const rPath = await getRpath();
-  if (rPath === void 0) {
-    throw new Error("Can't get R path");
-  }
-  const RProc = await connectToRProcess({ pathToR: rPath });
-  if (RProc === null) {
-    throw new Error("R process failed to start :(");
-  }
-  return RProc;
+
+// src/R-Utils/startBackgroundRProcess.ts
+async function startBackgroundRProcess() {
+  const rProc = await startRProcess(
+    ["--silent", "--slave", "--no-save", "--no-restore"],
+    { timeout_ms: 5e3 }
+  );
+  console.log("R Process is active! Loading shinyuieditor library.");
+  sendMsgToProc(`library(shinyuieditor)`, rProc.proc);
+  return {
+    ...rProc,
+    runCmd: (cmd, opts) => runRCommand(rProc.proc, cmd, opts)
+  };
 }
 function sendMsgToProc(msg, proc) {
   proc.stdin.write(`${msg}
 `);
-}
-
-// src/R-Utils/parseAppFile.ts
-async function getAppFile(fileText, RProcess) {
-  const parseCommand = buildParseCommand(fileText);
-  const parsedCommandOutput = await RProcess.runCmd(parseCommand);
-  try {
-    const parsedAppInfo = JSON.parse(
-      parsedCommandOutput.reduce((all, l) => all + "\n" + l, "")
-    );
-    return parsedAppInfo;
-  } catch {
-    throw new Error(
-      "Could not get document as json. Content is not valid json"
-    );
-  }
-}
-function buildParseCommand(appText) {
-  const escapedAppText = escapeDoubleQuotes(appText);
-  return collapseText(
-    `app_lines <- strsplit("${escapedAppText}", "\\n")[[1]]`,
-    `jsonlite::toJSON(`,
-    `  shinyuieditor:::get_file_ui_definition_info(app_lines, "single-file"),`,
-    `  auto_unbox = TRUE`,
-    `)`
-  );
 }
 
 // src/util.ts
@@ -869,7 +879,7 @@ var _ShinyUiEditorProvider = class {
     this.RProcess = null;
     this.uiBounds = null;
     this.sendMessage = null;
-    getRProcess().then((rProc) => {
+    startBackgroundRProcess().then((rProc) => {
       this.RProcess = rProc;
     });
   }
