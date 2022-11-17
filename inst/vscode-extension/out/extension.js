@@ -588,7 +588,7 @@ function debounce(fn, wait, callFirst) {
 }
 
 // src/shinyuieditor_extension.ts
-var vscode2 = __toESM(require("vscode"));
+var vscode3 = __toESM(require("vscode"));
 
 // src/string-utils.ts
 function collapseText(...textLines) {
@@ -870,24 +870,49 @@ function sendMsgToProc(msg, proc) {
 
 // src/R-Utils/startPreviewApp.ts
 var import_path2 = __toESM(require("path"));
+var vscode2 = __toESM(require("vscode"));
+
+// src/R-Utils/getFreePort.ts
+var import_net = __toESM(require("net"));
+async function getFreePort() {
+  return new Promise((res) => {
+    const srv = import_net.default.createServer();
+    srv.listen(0, () => {
+      var _a;
+      const serverAddress = (_a = srv.address) == null ? void 0 : _a.call(srv);
+      if (typeof serverAddress === "string" || serverAddress === null) {
+        throw new Error("Failed to find a free port...");
+      }
+      srv.close((err) => res(serverAddress.port));
+    });
+  });
+}
+
+// src/R-Utils/startPreviewApp.ts
 async function startPreviewApp(pathToApp) {
-  const port = 8999;
   const host = "0.0.0.0";
-  console.log("Starting background app run for", pathToApp);
+  const port = await getFreePort();
   const appDir = import_path2.default.parse(pathToApp).dir;
+  const previewAppUri = await vscode2.env.asExternalUri(
+    vscode2.Uri.parse(`http://localhost:${port}`)
+  );
+  const readyToGoRegex = new RegExp(`listening on .+${port}`, "i");
   const appStartupCommand = collapseText(
     `options(shiny.autoreload = TRUE)`,
     `shiny::runApp(appDir = "${appDir}", port = ${port}, host = "${host}")`
   );
-  const previewProcess = await startRProcess(
-    ["--no-save", "--no-restore", "--silent", "-e", appStartupCommand],
-    {
-      onClose: () => {
-        console.log("Preview App Process closed");
-      },
-      verbose: true
-    }
-  );
+  return new Promise(async (resolve) => {
+    const previewProcess = await startRProcess(
+      ["--no-save", "--no-restore", "--silent", "-e", appStartupCommand],
+      {
+        onStderr: (msg) => {
+          if (readyToGoRegex.test(msg)) {
+            resolve({ ...previewProcess, url: previewAppUri.toString() });
+          }
+        }
+      }
+    );
+  });
 }
 
 // src/util.ts
@@ -913,7 +938,7 @@ var _ShinyUiEditorProvider = class {
   }
   static register(context) {
     const provider = new _ShinyUiEditorProvider(context);
-    const providerRegistration = vscode2.window.registerCustomEditorProvider(
+    const providerRegistration = vscode3.window.registerCustomEditorProvider(
       _ShinyUiEditorProvider.viewType,
       provider,
       {
@@ -925,7 +950,9 @@ var _ShinyUiEditorProvider = class {
     return providerRegistration;
   }
   async resolveCustomTextEditor(document, webviewPanel, _token) {
-    webviewPanel.webview.options = { enableScripts: true };
+    webviewPanel.webview.options = {
+      enableScripts: true
+    };
     webviewPanel.webview.html = this.getHtmlForWebview(webviewPanel.webview);
     const syncFileToClientState = () => {
       if (!this.RProcess) {
@@ -946,14 +973,14 @@ var _ShinyUiEditorProvider = class {
     const isThisDocument = (doc) => {
       return doc.uri.toString() === document.uri.toString();
     };
-    const changeDocumentSubscription = vscode2.workspace.onDidChangeTextDocument(
+    const changeDocumentSubscription = vscode3.workspace.onDidChangeTextDocument(
       (e) => {
         if (isThisDocument(e.document)) {
           syncFileToClientStateDebounced();
         }
       }
     );
-    const saveDocumentSubscription = vscode2.workspace.onDidSaveTextDocument(
+    const saveDocumentSubscription = vscode3.workspace.onDidSaveTextDocument(
       (savedDocument) => {
         if (isThisDocument(savedDocument)) {
           syncFileToClientStateDebounced.flush();
@@ -965,7 +992,13 @@ var _ShinyUiEditorProvider = class {
       saveDocumentSubscription.dispose();
       console.log("Editor window closed", document.fileName);
     });
+    let previewAppInfo = null;
     webviewPanel.webview.onDidReceiveMessage(async (msg) => {
+      if (!this.sendMessage) {
+        throw new Error(
+          "Can't send message back to client, sendMessage not available."
+        );
+      }
       if (isMessageFromClient(msg)) {
         switch (msg.path) {
           case "READY-FOR-STATE":
@@ -985,7 +1018,19 @@ var _ShinyUiEditorProvider = class {
             return;
           }
           case "APP-PREVIEW-REQUEST": {
-            await startPreviewApp(document.fileName);
+            this.sendMessage({
+              path: "APP-PREVIEW-STATUS",
+              payload: "LOADING"
+            });
+            previewAppInfo = await startPreviewApp(document.fileName);
+            this.sendMessage({
+              path: "APP-PREVIEW-STATUS",
+              payload: { url: previewAppInfo.url }
+            });
+            return;
+          }
+          case "APP-PREVIEW-STOP": {
+            previewAppInfo == null ? void 0 : previewAppInfo.stop();
             return;
           }
           default:
@@ -999,7 +1044,7 @@ var _ShinyUiEditorProvider = class {
   }
   getHtmlForWebview(webview) {
     const scriptUri = webview.asWebviewUri(
-      vscode2.Uri.joinPath(
+      vscode3.Uri.joinPath(
         this.context.extensionUri,
         "media",
         "build",
@@ -1007,7 +1052,7 @@ var _ShinyUiEditorProvider = class {
       )
     );
     const styleMainUri = webview.asWebviewUri(
-      vscode2.Uri.joinPath(
+      vscode3.Uri.joinPath(
         this.context.extensionUri,
         "media",
         "build",
@@ -1015,6 +1060,7 @@ var _ShinyUiEditorProvider = class {
       )
     );
     const nonce = getNonce();
+    const cspSource = webview.cspSource;
     return `
 			<!DOCTYPE html>
 			<html lang="en">
@@ -1030,7 +1076,9 @@ var _ShinyUiEditorProvider = class {
 				Use a content security policy to only allow loading images from https or from our extension directory,
 				and only allow scripts that have a specific nonce.
 				-->
-				<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src ${webview.cspSource} data:; style-src ${webview.cspSource} 'unsafe-inline'; script-src 'nonce-${nonce}';">
+				<meta 
+          http-equiv="Content-Security-Policy" 
+          content="default-src 'none'; frame-src http://localhost:*/ ${cspSource} https:; img-src ${cspSource} data:; style-src ${webview.cspSource} 'unsafe-inline'; script-src 'nonce-${nonce}';">
 
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -1047,12 +1095,12 @@ var _ShinyUiEditorProvider = class {
 			</html>`;
   }
   updateAppUI(document, { start, end }, uiCode) {
-    const uiRange = new vscode2.Range(start - 1, 0, end, 0);
-    const edit = new vscode2.WorkspaceEdit();
+    const uiRange = new vscode3.Range(start - 1, 0, end, 0);
+    const edit = new vscode3.WorkspaceEdit();
     const newUiText = `ui <- ${collapseText(...uiCode.text)}
 `;
     edit.replace(document.uri, uiRange, newUiText);
-    vscode2.workspace.applyEdit(edit);
+    vscode3.workspace.applyEdit(edit);
     const oldUiNumLines = end - start + 1;
     const newUiNumLines = uiCode.text.length;
     const uiNumLinesDiff = newUiNumLines - oldUiNumLines;

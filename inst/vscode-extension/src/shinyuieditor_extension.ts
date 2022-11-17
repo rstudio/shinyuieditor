@@ -8,8 +8,9 @@ import type { UpdatedUiCode } from "./R-Utils/generateUpdatedUiCode";
 import { generateUpdatedUiCode } from "./R-Utils/generateUpdatedUiCode";
 import type { ParsedApp } from "./R-Utils/parseAppFile";
 import { getAppFile } from "./R-Utils/parseAppFile";
-import { startBackgroundRProcess } from "./R-Utils/startBackgroundRProcess";
 import type { ActiveRSession } from "./R-Utils/startBackgroundRProcess";
+import { startBackgroundRProcess } from "./R-Utils/startBackgroundRProcess";
+import type { PreviewAppInfo } from "./R-Utils/startPreviewApp";
 import { startPreviewApp } from "./R-Utils/startPreviewApp";
 import { collapseText } from "./string-utils";
 import { getNonce } from "./util";
@@ -64,7 +65,9 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
     _token: vscode.CancellationToken
   ): Promise<void> {
     // Setup initial content for the webview
-    webviewPanel.webview.options = { enableScripts: true };
+    webviewPanel.webview.options = {
+      enableScripts: true,
+    };
     webviewPanel.webview.html = this.getHtmlForWebview(webviewPanel.webview);
 
     const syncFileToClientState = () => {
@@ -118,8 +121,15 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
       console.log("Editor window closed", document.fileName);
     });
 
+    let previewAppInfo: PreviewAppInfo | null = null;
+
     // Receive message from the webview.
     webviewPanel.webview.onDidReceiveMessage(async (msg) => {
+      if (!this.sendMessage) {
+        throw new Error(
+          "Can't send message back to client, sendMessage not available."
+        );
+      }
       if (isMessageFromClient(msg)) {
         switch (msg.path) {
           case "READY-FOR-STATE":
@@ -142,7 +152,21 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
             return;
           }
           case "APP-PREVIEW-REQUEST": {
-            await startPreviewApp(document.fileName);
+            this.sendMessage({
+              path: "APP-PREVIEW-STATUS",
+              payload: "LOADING",
+            });
+
+            previewAppInfo = await startPreviewApp(document.fileName);
+
+            this.sendMessage({
+              path: "APP-PREVIEW-STATUS",
+              payload: { url: previewAppInfo.url },
+            });
+            return;
+          }
+          case "APP-PREVIEW-STOP": {
+            previewAppInfo?.stop();
             return;
           }
           default:
@@ -183,6 +207,7 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
     // Use a nonce to whitelist which scripts can be run
     const nonce = getNonce();
 
+    const cspSource = webview.cspSource;
     return /* html */ `
 			<!DOCTYPE html>
 			<html lang="en">
@@ -198,7 +223,9 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
 				Use a content security policy to only allow loading images from https or from our extension directory,
 				and only allow scripts that have a specific nonce.
 				-->
-				<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src ${webview.cspSource} data:; style-src ${webview.cspSource} 'unsafe-inline'; script-src 'nonce-${nonce}';">
+				<meta 
+          http-equiv="Content-Security-Policy" 
+          content="default-src 'none'; frame-src http://localhost:*/ ${cspSource} https:; img-src ${cspSource} data:; style-src ${webview.cspSource} 'unsafe-inline'; script-src 'nonce-${nonce}';">
 
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
 

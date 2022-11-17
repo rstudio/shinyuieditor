@@ -8,7 +8,7 @@ export type RProcess = {
   stop: () => void;
 };
 
-type RunRCommandOptions = Partial<{
+export type RunRCommandOptions = Partial<{
   onClose: () => void;
   onError: (e: Error) => void;
   onStdout: (out: string) => void;
