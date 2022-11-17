@@ -30,7 +30,7 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 var require_registry = __commonJS({
   "../../node_modules/winreg/lib/registry.js"(exports, module2) {
     var util = require("util");
-    var path2 = require("path");
+    var path3 = require("path");
     var spawn2 = require("child_process").spawn;
     var log = function() {
     };
@@ -99,7 +99,7 @@ var require_registry = __commonJS({
     }
     function getRegExePath() {
       if (process.platform === "win32") {
-        return path2.join(process.env.windir, "system32", "reg.exe");
+        return path3.join(process.env.windir, "system32", "reg.exe");
       } else {
         return "REG";
       }
@@ -796,7 +796,11 @@ async function startRProcess(commands, opts = {}) {
     var _a;
     const controller = new AbortController();
     const { signal } = controller;
-    const eventLog = (msg) => opts.verbose ? console.log(`[RProc ${spawnedProcess.pid}] - ${msg}`) : null;
+    const eventLog = (msg) => opts.verbose ? console.log(
+      `%c[RProc ${spawnedProcess.pid}] %c${msg.replaceAll(/\n$/g, "").replaceAll(/\n/g, "\n\u2219\u2219\u2219 ")}`,
+      "color: orangered;",
+      "color: grey; opacity: 0.5"
+    ) : null;
     const spawnedProcess = (0, import_child_process.spawn)(pathToR, commands, { signal });
     const stop = () => {
       if (!spawnedProcess.pid)
@@ -814,7 +818,8 @@ async function startRProcess(commands, opts = {}) {
     });
     spawnedProcess.on("error", (d) => {
       var _a2;
-      eventLog(`Error: ${d.toString()}`);
+      eventLog(`Error: 
+${d.toString()}`);
       clearTimeout(startTimeout);
       (_a2 = opts.onError) == null ? void 0 : _a2.call(opts, d);
     });
@@ -827,7 +832,8 @@ async function startRProcess(commands, opts = {}) {
     spawnedProcess.stdout.on("data", (d) => {
       var _a2;
       const msg = d.toString();
-      eventLog(`stdout: ${msg}`);
+      eventLog(`stdout: 
+${msg}`);
       gatherLogs("out", msg);
       (_a2 = opts.onStdout) == null ? void 0 : _a2.call(opts, msg);
     });
@@ -860,6 +866,28 @@ async function startBackgroundRProcess() {
 function sendMsgToProc(msg, proc) {
   proc.stdin.write(`${msg}
 `);
+}
+
+// src/R-Utils/startPreviewApp.ts
+var import_path2 = __toESM(require("path"));
+async function startPreviewApp(pathToApp) {
+  const port = 8999;
+  const host = "0.0.0.0";
+  console.log("Starting background app run for", pathToApp);
+  const appDir = import_path2.default.parse(pathToApp).dir;
+  const appStartupCommand = collapseText(
+    `options(shiny.autoreload = TRUE)`,
+    `shiny::runApp(appDir = "${appDir}", port = ${port}, host = "${host}")`
+  );
+  const previewProcess = await startRProcess(
+    ["--no-save", "--no-restore", "--silent", "-e", appStartupCommand],
+    {
+      onClose: () => {
+        console.log("Preview App Process closed");
+      },
+      verbose: true
+    }
+  );
 }
 
 // src/util.ts
@@ -954,6 +982,10 @@ var _ShinyUiEditorProvider = class {
               this.RProcess
             );
             this.updateAppUI(document, this.uiBounds, uiCode);
+            return;
+          }
+          case "APP-PREVIEW-REQUEST": {
+            await startPreviewApp(document.fileName);
             return;
           }
           default:

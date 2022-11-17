@@ -9,10 +9,10 @@ export type RProcess = {
 };
 
 type RunRCommandOptions = Partial<{
-  onClose: () => {};
-  onError: (e: Error) => {};
-  onStdout: (out: string) => {};
-  onStderr: (out: string) => {};
+  onClose: () => void;
+  onError: (e: Error) => void;
+  onStdout: (out: string) => void;
+  onStderr: (out: string) => void;
   timeout_ms: number;
   verbose: boolean;
 }>;
@@ -34,7 +34,13 @@ export async function startRProcess(
     const eventLog = (msg: string) =>
       opts.verbose
         ? // eslint-disable-next-line no-console
-          console.log(`[RProc ${spawnedProcess.pid}] - ${msg}`)
+          console.log(
+            `%c[RProc ${spawnedProcess.pid}] %c${msg
+              .replaceAll(/\n$/g, "")
+              .replaceAll(/\n/g, "\n\u2219\u2219\u2219 ")}`,
+            "color: orangered;",
+            "color: grey; opacity: 0.5"
+          )
         : null;
 
     const spawnedProcess = spawn(pathToR, commands, { signal });
@@ -59,7 +65,7 @@ export async function startRProcess(
     });
 
     spawnedProcess.on("error", (d) => {
-      eventLog(`Error: ${d.toString()}`);
+      eventLog(`Error: \n${d.toString()}`);
       clearTimeout(startTimeout);
       opts.onError?.(d);
     });
@@ -72,7 +78,7 @@ export async function startRProcess(
 
     spawnedProcess.stdout.on("data", (d) => {
       const msg = d.toString();
-      eventLog(`stdout: ${msg}`);
+      eventLog(`stdout: \n${msg}`);
       gatherLogs("out", msg);
       opts.onStdout?.(msg);
     });

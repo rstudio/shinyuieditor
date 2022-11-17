@@ -10,6 +10,7 @@ import type { ParsedApp } from "./R-Utils/parseAppFile";
 import { getAppFile } from "./R-Utils/parseAppFile";
 import { startBackgroundRProcess } from "./R-Utils/startBackgroundRProcess";
 import type { ActiveRSession } from "./R-Utils/startBackgroundRProcess";
+import { startPreviewApp } from "./R-Utils/startPreviewApp";
 import { collapseText } from "./string-utils";
 import { getNonce } from "./util";
 
@@ -138,6 +139,10 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
             );
 
             this.updateAppUI(document, this.uiBounds, uiCode);
+            return;
+          }
+          case "APP-PREVIEW-REQUEST": {
+            await startPreviewApp(document.fileName);
             return;
           }
           default:
