@@ -4,21 +4,23 @@ export function makeMessageDispatcherGeneric<
   Payload extends Record<string, unknown>
 >() {
   const subscriptions: {
-    [Path in keyof Payload]?: Array<(x: Payload[Path]) => void>;
+    [Path in keyof Payload]?: Set<(payload: Payload[Path]) => void>;
   } = {};
 
   return {
     subscribe: <Path extends keyof Payload>(
       on: Path,
-      subscriberFn: (x: Payload[Path]) => void
+      subscriberFn: (payload: Payload[Path]) => void
     ) => {
-      subscriptions[on] = [...(subscriptions[on] ?? []), subscriberFn];
+      if (subscriptions[on] === undefined) {
+        subscriptions[on] = new Set();
+      }
+
+      subscriptions[on]!.add(subscriberFn);
 
       return {
         unsubscribe: () => {
-          subscriptions[on] = (subscriptions[on] ?? []).filter(
-            (fn) => fn !== subscriberFn
-          );
+          subscriptions[on]!.delete(subscriberFn);
         },
       };
     },
@@ -30,6 +32,7 @@ export function makeMessageDispatcherGeneric<
     },
   };
 }
+
 export const makeMessageDispatcher =
   makeMessageDispatcherGeneric<MessageFromBackendByPath>;
 
