@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { FaPlus } from "react-icons/fa";
 
-import type { TemplatedGridProps } from "../../../Shiny-Ui-Elements/GridlayoutGridPage";
+import type { TemplatedGridProps } from "../../../components/Grids/EditableGridContainer/TemplatedGridProps";
 import { conflictsToRemoveTract } from "../../../utils/gridTemplates/removeTract";
 import { Trash } from "../../Icons";
 import { parseCSSMeasure } from "../../Inputs/CSSUnitInput/CSSMeasure";

@@ -1,6 +1,6 @@
 import produce from "immer";
 
-import type { TemplatedGridProps } from "../../Shiny-Ui-Elements/GridlayoutGridPage";
+import type { TemplatedGridProps } from "../../components/Grids/EditableGridContainer/TemplatedGridProps";
 
 function swapItems(
   originalTemplate: TemplatedGridProps,

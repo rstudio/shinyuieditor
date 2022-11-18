@@ -2,7 +2,7 @@ import React from "react";
 
 import { FaGripLines, FaGripLinesVertical } from "react-icons/fa";
 
-import type { TemplatedGridProps } from "../../Shiny-Ui-Elements/GridlayoutGridPage";
+import type { TemplatedGridProps } from "../../components/Grids/EditableGridContainer/TemplatedGridProps";
 import type { ResizeDirection } from "../../utils/gridTemplates/availableMoves";
 import { availableMoves } from "../../utils/gridTemplates/availableMoves";
 import type {

@@ -1,5 +1,4 @@
 import sliderIcon from "../../assets/icons/shinySlider.png";
-
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
 import { LabeledInputCategory } from "../../components/Inputs/SettingsFormBuilder/LabeledInputCategory";
 import type { UiComponentInfo } from "../uiNodeTypes";

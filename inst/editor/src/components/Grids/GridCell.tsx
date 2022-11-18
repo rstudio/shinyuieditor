@@ -1,8 +1,7 @@
 import React from "react";
 
 import { useFilteredDrop } from "../../DragAndDropHelpers/useFilteredDrop";
-
-import type { NewItemInfo } from "./GridlayoutElement/GridlayoutElement";
+import type { NewItemInfo } from "../GridlayoutElement/GridlayoutElement";
 
 export function GridCell({
   gridRow,

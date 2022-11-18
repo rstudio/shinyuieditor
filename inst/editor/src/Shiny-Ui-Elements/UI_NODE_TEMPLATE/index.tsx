@@ -1,5 +1,4 @@
 import icon from "../../assets/icons/shinyContainer.png";
-
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import PkgNodeName from "./Component";

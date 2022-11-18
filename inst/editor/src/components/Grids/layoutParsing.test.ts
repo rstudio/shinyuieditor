@@ -1,4 +1,7 @@
-import { makeColumnAlignedTable, parseGridLayoutArgs } from "./layoutParsing";
+import {
+  makeColumnAlignedTable,
+  parseGridLayoutArgs,
+} from "../GridlayoutElement/layoutParsing";
 
 describe("Can parse meaningful info out of a layout argument", () => {
   const simpleLayout = parseGridLayoutArgs({
@@ -9,7 +12,7 @@ describe("Can parse meaningful info out of a layout argument", () => {
   });
 
   test("Can get unique areas", () => {
-    expect(simpleLayout.uniqueAreas).toEqual(new Set(["A", "B", "C", "D"]));
+    expect(simpleLayout.uniqueAreas).toEqual(["A", "B", "C", "D"]);
   });
 
   test("Let's tract sizes through when provided", () => {
@@ -40,17 +43,20 @@ describe("Can parse meaningful info out of a layout argument", () => {
     expect(() => {
       parseGridLayoutArgs({
         layout: ["A B", "C   D E"],
+        row_sizes: ["1fr", "2fr"],
+        col_sizes: ["1fr", "2fr"],
+        gap_size: "10px",
       });
     }).toThrowError();
   });
 
-  test("Generates tract sizes for us if not provided", () => {
-    const noSizesLayout = parseGridLayoutArgs({
-      layout: ["A B", "C  D", "E F"],
-    });
-    expect(noSizesLayout.col_sizes).toStrictEqual(["1fr", "1fr"]);
-    expect(noSizesLayout.row_sizes).toStrictEqual(["1fr", "1fr", "1fr"]);
-  });
+  //   test("Generates tract sizes for us if not provided", () => {
+  //     const noSizesLayout = parseGridLayoutArgs({
+  //       layout: ["A B", "C  D", "E F"],
+  //     });
+  //     expect(noSizesLayout.col_sizes).toStrictEqual(["1fr", "1fr"]);
+  //     expect(noSizesLayout.row_sizes).toStrictEqual(["1fr", "1fr", "1fr"]);
+  //   });
 });
 
 describe("Can convert matrix style layout to column aligned array version", () => {

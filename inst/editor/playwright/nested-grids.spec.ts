@@ -36,7 +36,7 @@ const basicNavbarPage: ShinyUiNode = {
         {
           uiName: "gridlayout::grid_container",
           uiArguments: {
-            areas: [["button", "button"]],
+            layout: ["button button"],
             row_sizes: ["1fr"],
             col_sizes: ["1fr", "1fr"],
             gap_size: "1rem",

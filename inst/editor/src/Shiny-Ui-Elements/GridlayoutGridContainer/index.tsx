@@ -1,14 +1,14 @@
 import icon from "../../assets/icons/shinyGridContainer.png";
+import type { GridLayoutArgs } from "../../components/GridlayoutElement/GridLayoutArgs";
 import {
-  updateGridLayoutAreaOnItemAreaChange,
   removeDeletedGridAreaFromLayout,
+  updateGridLayoutAreaOnItemAreaChange,
 } from "../../components/Grids/watchAndReactToGridAreaUpdatesupdate";
-import type { TemplatedGridProps } from "../GridlayoutGridPage";
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import GridlayoutGridContainer from "./GridlayoutGridContainer";
 
-export type GridContainerSettings = TemplatedGridProps;
+export type GridContainerSettings = GridLayoutArgs;
 
 export const gridlayoutGridContainerInfo: UiComponentInfo<GridContainerSettings> =
   {
@@ -21,12 +21,9 @@ export const gridlayoutGridContainerInfo: UiComponentInfo<GridContainerSettings>
         defaultValue: "10px",
         units: ["px", "rem"],
       },
-      areas: {
+      layout: {
         inputType: "omitted",
-        defaultValue: [
-          [".", "."],
-          [".", "."],
-        ],
+        defaultValue: [". .", ". ."],
       },
       row_sizes: { inputType: "omitted", defaultValue: ["1fr", "1fr"] },
       col_sizes: { inputType: "omitted", defaultValue: ["1fr", "1fr"] },

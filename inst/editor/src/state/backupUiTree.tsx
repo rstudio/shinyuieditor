@@ -9,11 +9,7 @@ import type { TemplateChooserNode } from "../Shiny-Ui-Elements/uiNodeTypes";
 export const basicGridPage: ShinyUiNode = {
   uiName: "gridlayout::grid_page",
   uiArguments: {
-    areas: [
-      ["header", "header"],
-      ["sidebar", "plot"],
-      ["sidebar", "plot"],
-    ],
+    layout: ["header header", "sidebar plot", "sidebar plot"],
     row_sizes: ["100px", "1fr", "1fr"],
     col_sizes: ["250px", "1fr"],
     gap_size: "1rem",
@@ -78,10 +74,7 @@ export const basicGridPage: ShinyUiNode = {
 export const testingUiTree: ShinyUiNode = {
   uiName: "gridlayout::grid_page",
   uiArguments: {
-    areas: [
-      [".", "."],
-      [".", "."],
-    ],
+    layout: [". .", ". ."],
     row_sizes: ["1fr", "1fr"],
     col_sizes: ["1fr", "1fr"],
     gap_size: "1rem",

@@ -1,4 +1,4 @@
-import { GridlayoutElement } from "../../components/Grids/GridlayoutElement/GridlayoutElement";
+import { GridlayoutElement } from "../../components/GridlayoutElement/GridlayoutElement";
 import type { UiNodeComponent } from "../uiNodeTypes";
 
 import type { GridContainerSettings } from "./index";

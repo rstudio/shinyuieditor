@@ -2,13 +2,14 @@ import type { ShinyUiNode } from "../../main";
 import type { GridCardSettings } from "../../Shiny-Ui-Elements/GridlayoutGridCard";
 import type { NodePath } from "../../Shiny-Ui-Elements/uiNodeTypes";
 import { emptyCell } from "../../utils/gridTemplates/itemLocations";
+import { gridLayoutReducer } from "../GridlayoutElement/gridLayoutReducer";
+import { convertTemplatedLayoutToGridlayoutArgs } from "../GridlayoutElement/layoutParsing";
 import { getNode } from "../UiNode/TreeManipulation/getNode";
 import { getChildIndex } from "../UiNode/TreeManipulation/getParentPath";
 import type { RemoveNodeArguments } from "../UiNode/TreeManipulation/removeNode";
 import type { UpdateNodeArguments } from "../UiNode/TreeManipulation/updateNode";
 
 import { areasOfChildren } from "./areasOfChildren";
-import { gridLayoutReducer } from "./gridLayoutReducer";
 import type { GridContainerNode } from "./isValidGridContainer";
 import { isValidGridContainer } from "./isValidGridContainer";
 
@@ -35,11 +36,13 @@ export function updateGridLayoutAreaOnItemAreaChange(
 
   if (oldAreaName === newAreaName) return;
 
-  gridPageNode.uiArguments = gridLayoutReducer(gridPageNode.uiArguments, {
-    type: "RENAME_ITEM",
-    oldName: oldAreaName,
-    newName: newAreaName,
-  });
+  gridPageNode.uiArguments = convertTemplatedLayoutToGridlayoutArgs(
+    gridLayoutReducer(gridPageNode.uiArguments, {
+      type: "RENAME_ITEM",
+      oldName: oldAreaName,
+      newName: newAreaName,
+    })
+  );
 }
 
 export function removeDeletedGridAreaFromLayout(
@@ -63,10 +66,12 @@ export function removeDeletedGridAreaFromLayout(
     return;
   }
 
-  gridPageNode.uiArguments = gridLayoutReducer(gridPageNode.uiArguments, {
-    type: "REMOVE_ITEM",
-    name: deletedAreaName,
-  });
+  gridPageNode.uiArguments = convertTemplatedLayoutToGridlayoutArgs(
+    gridLayoutReducer(gridPageNode.uiArguments, {
+      type: "REMOVE_ITEM",
+      name: deletedAreaName,
+    })
+  );
 }
 
 function getGridContainerAndItemNodes({

@@ -1,4 +1,4 @@
-import type { TemplatedGridProps } from "../../Shiny-Ui-Elements/GridlayoutGridPage";
+import type { TemplatedGridProps } from "../../components/Grids/EditableGridContainer/TemplatedGridProps";
 import { arrayRange } from "../array-helpers";
 import { matrixDimensions } from "../matrix-helpers";
 

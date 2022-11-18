@@ -3,6 +3,7 @@
   "workspaces": [
     "inst/*"
   ],
+  "packageManager": "yarn@3.3.0",
   "scripts": {
     "build": "turbo run build",
     "test": "turbo run test",

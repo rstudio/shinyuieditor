@@ -1,8 +1,6 @@
+import type { TemplatedGridProps } from "../../components/Grids/EditableGridContainer/TemplatedGridProps";
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
-import type {
-  TemplatedGridProps,
-  TractDirection,
-} from "../../Shiny-Ui-Elements/GridlayoutGridPage";
+import type { TractDirection } from "../../Shiny-Ui-Elements/GridlayoutGridPage";
 import { fillArr } from "../array-helpers";
 import { matrixDimensions, uniqueMatrixElements } from "../matrix-helpers";
 

@@ -5,7 +5,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "tsconfig": "*",
     "@popperjs/core": "^2.11.2",
     "@reduxjs/toolkit": "^1.8.0",
     "@testing-library/jest-dom": "^5.16.5",
@@ -26,6 +25,7 @@
     "react-sortablejs": "^6.1.4",
     "sortablejs": "^1.15.0",
     "ts-pattern": "^4.0.5",
+    "tsconfig": "*",
     "typescript": "latest",
     "yarn": "^1.22.19"
   },

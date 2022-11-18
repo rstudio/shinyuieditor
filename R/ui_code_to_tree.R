@@ -36,6 +36,5 @@ ui_code_to_tree <- function(ui_expr, packages = c()) {
     library(pkg, character.only = TRUE)
   }
 
-  ui_tree <- parse_ui_fn(ui_expr)
-  update_ui_nodes(ui_tree)
+ parse_ui_fn(ui_expr)
 }

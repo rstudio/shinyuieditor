@@ -1,5 +1,4 @@
 import uiIcon from "../../assets/icons/shinyTextOutput.png";
-
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import ShinyTextOutput from "./ShinyTextOutput";

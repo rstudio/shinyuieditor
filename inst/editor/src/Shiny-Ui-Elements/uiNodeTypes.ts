@@ -174,7 +174,8 @@ export type ShinyUiChildren = ShinyUiNode[];
 export type ShinyUiNodeByName = {
   [UiName in ShinyUiNames]: {
     uiName: UiName;
-    uiArguments: ShinyUiArguments[UiName];
+    /** Unknown record allows for extra args not accounted for in the editor */
+    uiArguments: ShinyUiArguments[UiName] & Record<string, unknown>;
     /** Any children of this node */
     uiChildren?: ShinyUiChildren;
     uiHTML?: string;

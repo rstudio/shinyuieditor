@@ -1,6 +1,6 @@
 import React from "react";
 
-import type { GridLayoutAction } from "./gridLayoutReducer";
+import type { GridLayoutAction } from "../GridlayoutElement/gridLayoutReducer";
 
 export const LayoutDispatchContext =
   React.createContext<React.Dispatch<GridLayoutAction> | null>(null);

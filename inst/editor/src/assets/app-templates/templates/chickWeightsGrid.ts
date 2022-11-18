@@ -1,17 +1,13 @@
 import type { ShinyUiNode } from "../../../Shiny-Ui-Elements/uiNodeTypes";
 import type { TemplateInfo } from "../app_templates";
 
-const navbarTree = {
+const navbarTree: ShinyUiNode = {
   uiName: "gridlayout::grid_page",
   uiArguments: {
     row_sizes: ["70px", "1fr", "1fr"],
     col_sizes: ["250px", "1fr"],
     gap_size: "1rem",
-    areas: [
-      ["header", "header"],
-      ["sidebar", "linePlots"],
-      ["dists", "dists"],
-    ],
+    layout: ["header header", "sidebar linePlots", "dists dists"],
   },
   uiChildren: [
     {

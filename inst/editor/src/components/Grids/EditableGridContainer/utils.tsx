@@ -1,7 +1,5 @@
-import type {
-  TemplatedGridProps,
-  TractDirection,
-} from "../../../Shiny-Ui-Elements/GridlayoutGridPage";
+import type { TemplatedGridProps } from "../../../components/Grids/EditableGridContainer/TemplatedGridProps";
+import type { TractDirection } from "../../../Shiny-Ui-Elements/GridlayoutGridPage";
 import type { CSSMeasure } from "../../Inputs/CSSUnitInput/CSSMeasure";
 
 export function buildRange(from: number, to: number): number[] {

@@ -2,10 +2,8 @@ import * as React from "react";
 
 import produce from "immer";
 
-import type {
-  TemplatedGridProps,
-  TractDirection,
-} from "../../../Shiny-Ui-Elements/GridlayoutGridPage";
+import type { TemplatedGridProps } from "../../../components/Grids/EditableGridContainer/TemplatedGridProps";
+import type { TractDirection } from "../../../Shiny-Ui-Elements/GridlayoutGridPage";
 import { ensureArray } from "../../../utils/array-helpers";
 import addTract from "../../../utils/gridTemplates/addTract";
 import removeTract from "../../../utils/gridTemplates/removeTract";

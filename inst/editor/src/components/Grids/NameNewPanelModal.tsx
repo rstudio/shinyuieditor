@@ -2,11 +2,11 @@ import React from "react";
 
 import PortalModal from "../../PortalModal";
 import classes from "../../PortalModal.module.css";
+import type { NewItemInfo } from "../GridlayoutElement/GridlayoutElement";
 import Button from "../Inputs/Button/Button";
 import type { SettingsUpdateAction } from "../Inputs/SettingsFormBuilder/SettingsInput/SettingsInput";
 import { SettingsInput } from "../Inputs/SettingsFormBuilder/SettingsInput/SettingsInput";
 
-import type { NewItemInfo } from "./GridlayoutElement/GridlayoutElement";
 
 export function NameNewPanelModal({
   onCancel,

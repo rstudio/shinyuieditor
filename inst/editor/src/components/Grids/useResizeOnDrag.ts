@@ -1,9 +1,7 @@
 import React from "react";
 
-import type {
-  TemplatedGridProps,
-  TractDirection,
-} from "../../Shiny-Ui-Elements/GridlayoutGridPage";
+import type { TemplatedGridProps } from "../../components/Grids/EditableGridContainer/TemplatedGridProps";
+import type { TractDirection } from "../../Shiny-Ui-Elements/GridlayoutGridPage";
 import findAvailableTracts from "../../utils/gridTemplates/findAvailableTracts";
 import type {
   GridItemExtent,

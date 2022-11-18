@@ -1,7 +1,7 @@
 import type { ShinyUiNode } from "../../../main";
 import type { TemplateInfo } from "../app_templates";
 
-const navbarTree = {
+const navbarTree: ShinyUiNode = {
   uiName: "shiny::navbarPage",
   uiArguments: {
     title: "Chick Weights",
@@ -24,10 +24,10 @@ const navbarTree = {
         {
           uiName: "gridlayout::grid_container",
           uiArguments: {
-            row_sizes: "1fr",
+            row_sizes: ["1fr"],
             col_sizes: ["250px", "1fr"],
             gap_size: "10px",
-            areas: [["num_chicks", "linePlots"]],
+            layout: ["num_chicks linePlots"],
           },
           uiChildren: [
             {
@@ -70,9 +70,9 @@ const navbarTree = {
           uiName: "gridlayout::grid_container",
           uiArguments: {
             row_sizes: ["165px", "1fr"],
-            col_sizes: "1fr",
+            col_sizes: ["1fr"],
             gap_size: "10px",
-            areas: [["facetOption"], ["dists"]],
+            layout: ["facetOption", "dists"],
           },
           uiChildren: [
             {

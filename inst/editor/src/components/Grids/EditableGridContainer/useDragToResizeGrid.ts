@@ -1,9 +1,7 @@
 import React from "react";
 
-import type {
-  TractDirection,
-  TemplatedGridProps,
-} from "../../../Shiny-Ui-Elements/GridlayoutGridPage";
+import type { TemplatedGridProps } from "../../../components/Grids/EditableGridContainer/TemplatedGridProps";
+import type { TractDirection } from "../../../Shiny-Ui-Elements/GridlayoutGridPage";
 import { validateRef } from "../../../utils/validateRef";
 import type { CSSMeasure } from "../../Inputs/CSSUnitInput/CSSMeasure";
 

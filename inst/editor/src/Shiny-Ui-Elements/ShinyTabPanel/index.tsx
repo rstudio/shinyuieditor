@@ -1,5 +1,4 @@
 import icon from "../../assets/icons/tabPanel.png";
-
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import ShinyTabPanel from "./ShinyTabPanel";

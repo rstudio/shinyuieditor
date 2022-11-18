@@ -1,5 +1,4 @@
 import containerIcon from "../../assets/icons/shinyContainer.png";
-
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
 import type { UiComponentInfo } from "../uiNodeTypes";
 
