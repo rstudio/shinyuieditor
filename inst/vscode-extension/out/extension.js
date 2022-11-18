@@ -802,48 +802,58 @@ async function startRProcess(commands, opts = {}) {
       "color: grey; opacity: 0.5"
     ) : null;
     const spawnedProcess = (0, import_child_process.spawn)(pathToR, commands, { signal });
-    const stop = () => {
-      if (!spawnedProcess.pid)
-        return;
-      eventLog(`Killing R process`);
-      process.kill(spawnedProcess.pid);
-    };
     function gatherLogs(type, logMsg) {
       logs += `${type}: ${logMsg}`;
     }
-    spawnedProcess.on("spawn", () => {
+    const onSpawn = () => {
       eventLog(`spawned`);
       clearTimeout(startTimeout);
       resolve({ proc: spawnedProcess, stop });
-    });
-    spawnedProcess.on("error", (d) => {
+    };
+    const onError = (d) => {
       var _a2;
       eventLog(`Error: 
 ${d.toString()}`);
       clearTimeout(startTimeout);
       (_a2 = opts.onError) == null ? void 0 : _a2.call(opts, d);
-    });
-    spawnedProcess.on("close", () => {
+    };
+    const onClose = () => {
       var _a2;
       eventLog(`Closed`);
       clearTimeout(startTimeout);
       (_a2 = opts.onClose) == null ? void 0 : _a2.call(opts);
-    });
-    spawnedProcess.stdout.on("data", (d) => {
+    };
+    const onStdout = (d) => {
       var _a2;
       const msg = d.toString();
       eventLog(`stdout: 
 ${msg}`);
       gatherLogs("out", msg);
       (_a2 = opts.onStdout) == null ? void 0 : _a2.call(opts, msg);
-    });
-    spawnedProcess.stderr.on("data", (d) => {
+    };
+    const onStderr = (d) => {
       var _a2;
       const msg = d.toString();
       eventLog(`stderr: ${msg}`);
       gatherLogs("error", msg);
       (_a2 = opts.onStderr) == null ? void 0 : _a2.call(opts, msg);
-    });
+    };
+    spawnedProcess.on("spawn", onSpawn);
+    spawnedProcess.on("error", onError);
+    spawnedProcess.on("close", onClose);
+    spawnedProcess.stdout.on("data", onStdout);
+    spawnedProcess.stderr.on("data", onStderr);
+    const stop = () => {
+      if (!spawnedProcess.pid)
+        return true;
+      eventLog(`Killing R process`);
+      spawnedProcess.off("spawn", onSpawn);
+      spawnedProcess.off("error", onError);
+      spawnedProcess.off("close", onClose);
+      spawnedProcess.stdout.off("data", onStdout);
+      spawnedProcess.stderr.off("data", onStderr);
+      return process.kill(spawnedProcess.pid);
+    };
     const startTimeout = setTimeout(() => {
       throw new Error("Starting backend server failed.\n Logs:\n" + logs);
     }, (_a = opts.timeout_ms) != null ? _a : 5e3);
@@ -889,30 +899,61 @@ async function getFreePort() {
 }
 
 // src/R-Utils/startPreviewApp.ts
-async function startPreviewApp(pathToApp) {
+function startPreviewApp({
+  pathToApp,
+  onCrash,
+  onInitiation,
+  onReady,
+  onFailToStart
+}) {
   const host = "0.0.0.0";
-  const port = await getFreePort();
   const appDir = import_path2.default.parse(pathToApp).dir;
-  const previewAppUri = await vscode2.env.asExternalUri(
-    vscode2.Uri.parse(`http://localhost:${port}`)
-  );
-  const readyToGoRegex = new RegExp(`listening on .+${port}`, "i");
-  const appStartupCommand = collapseText(
-    `options(shiny.autoreload = TRUE)`,
-    `shiny::runApp(appDir = "${appDir}", port = ${port}, host = "${host}")`
-  );
-  return new Promise(async (resolve) => {
-    const previewProcess = await startRProcess(
-      ["--no-save", "--no-restore", "--silent", "-e", appStartupCommand],
-      {
-        onStderr: (msg) => {
-          if (readyToGoRegex.test(msg)) {
-            resolve({ ...previewProcess, url: previewAppUri.toString() });
-          }
+  let appProcess = null;
+  async function startApp() {
+    onInitiation();
+    if (appProcess == null ? void 0 : appProcess.proc.connected) {
+      appProcess.stop();
+    }
+    try {
+      const port = await getFreePort();
+      const previewAppUri = await vscode2.env.asExternalUri(
+        vscode2.Uri.parse(`http://localhost:${port}`)
+      );
+      const readyToGoRegex = new RegExp(`listening on .+${port}`, "i");
+      const appStartupCommand = collapseText(
+        `options(shiny.autoreload = TRUE)`,
+        `shiny::runApp(appDir = "${appDir}", port = ${port}, host = "${host}")`
+      );
+      appProcess = await startRProcess(
+        ["--no-save", "--no-restore", "--silent", "-e", appStartupCommand],
+        {
+          onStderr(msg) {
+            if (readyToGoRegex.test(msg)) {
+              onReady(previewAppUri.toString());
+            }
+          },
+          onClose: onCrash,
+          onError: onCrash,
+          verbose: true
         }
-      }
-    );
-  });
+      );
+      return true;
+    } catch {
+      onFailToStart();
+      return false;
+    }
+  }
+  function stopApp() {
+    if (appProcess === null) {
+      console.warn("No app to stop running...");
+      return true;
+    }
+    return appProcess.stop();
+  }
+  return {
+    start: startApp,
+    stop: stopApp
+  };
 }
 
 // src/util.ts
@@ -1000,7 +1041,34 @@ var _ShinyUiEditorProvider = class {
       saveDocumentSubscription.dispose();
       console.log("Editor window closed", document.fileName);
     });
-    let previewAppInfo = null;
+    const previewAppInfo = startPreviewApp({
+      pathToApp: document.fileName,
+      onInitiation: () => {
+        var _a;
+        (_a = this.sendMessage) == null ? void 0 : _a.call(this, {
+          path: "APP-PREVIEW-STATUS",
+          payload: "LOADING"
+        });
+      },
+      onReady: (url) => {
+        var _a;
+        (_a = this.sendMessage) == null ? void 0 : _a.call(this, {
+          path: "APP-PREVIEW-STATUS",
+          payload: { url }
+        });
+      },
+      onFailToStart: () => {
+        console.log("Preview app failed to start up");
+      },
+      onCrash: () => {
+        var _a;
+        console.log("!!App crashed!");
+        (_a = this.sendMessage) == null ? void 0 : _a.call(this, {
+          path: "APP-PREVIEW-CRASH",
+          payload: "Crashed"
+        });
+      }
+    });
     webviewPanel.webview.onDidReceiveMessage(async (msg) => {
       if (!this.sendMessage) {
         throw new Error(
@@ -1031,19 +1099,15 @@ var _ShinyUiEditorProvider = class {
             return;
           }
           case "APP-PREVIEW-REQUEST": {
-            this.sendMessage({
-              path: "APP-PREVIEW-STATUS",
-              payload: "LOADING"
-            });
-            previewAppInfo = await startPreviewApp(document.fileName);
-            this.sendMessage({
-              path: "APP-PREVIEW-STATUS",
-              payload: { url: previewAppInfo.url }
-            });
+            previewAppInfo.start();
             return;
           }
           case "APP-PREVIEW-STOP": {
-            previewAppInfo == null ? void 0 : previewAppInfo.stop();
+            previewAppInfo.stop();
+            return;
+          }
+          case "APP-PREVIEW-RESTART": {
+            previewAppInfo.start();
             return;
           }
           default:

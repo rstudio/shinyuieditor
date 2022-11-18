@@ -5,7 +5,7 @@ import { getRpath } from "./setupRConnection";
 
 export type RProcess = {
   proc: ChildProcessWithoutNullStreams;
-  stop: () => void;
+  stop: () => boolean;
 };
 
 export type RunRCommandOptions = Partial<{
@@ -45,51 +45,63 @@ export async function startRProcess(
 
     const spawnedProcess = spawn(pathToR, commands, { signal });
 
-    const stop = () => {
-      // Process never started
-      if (!spawnedProcess.pid) return;
-
-      eventLog(`Killing R process`);
-
-      process.kill(spawnedProcess.pid);
-    };
-
     function gatherLogs(type: "error" | "out", logMsg: string) {
       logs += `${type}: ${logMsg}`;
     }
 
-    spawnedProcess.on("spawn", () => {
+    const onSpawn = () => {
       eventLog(`spawned`);
       clearTimeout(startTimeout);
       resolve({ proc: spawnedProcess, stop });
-    });
+    };
 
-    spawnedProcess.on("error", (d) => {
+    const onError = (d: Error) => {
       eventLog(`Error: \n${d.toString()}`);
       clearTimeout(startTimeout);
       opts.onError?.(d);
-    });
+    };
 
-    spawnedProcess.on("close", () => {
+    const onClose = () => {
       eventLog(`Closed`);
       clearTimeout(startTimeout);
       opts.onClose?.();
-    });
+    };
 
-    spawnedProcess.stdout.on("data", (d) => {
+    const onStdout = (d: any) => {
       const msg = d.toString();
       eventLog(`stdout: \n${msg}`);
       gatherLogs("out", msg);
       opts.onStdout?.(msg);
-    });
+    };
 
-    spawnedProcess.stderr.on("data", (d) => {
+    const onStderr = (d: any) => {
       const msg = d.toString();
       eventLog(`stderr: ${msg}`);
       gatherLogs("error", msg);
       opts.onStderr?.(msg);
-    });
+    };
 
+    spawnedProcess.on("spawn", onSpawn);
+    spawnedProcess.on("error", onError);
+    spawnedProcess.on("close", onClose);
+    spawnedProcess.stdout.on("data", onStdout);
+    spawnedProcess.stderr.on("data", onStderr);
+
+    const stop = () => {
+      // Process never started
+      if (!spawnedProcess.pid) return true;
+
+      eventLog(`Killing R process`);
+
+      // Unlisten event listeners
+      spawnedProcess.off("spawn", onSpawn);
+      spawnedProcess.off("error", onError);
+      spawnedProcess.off("close", onClose);
+      spawnedProcess.stdout.off("data", onStdout);
+      spawnedProcess.stderr.off("data", onStderr);
+
+      return process.kill(spawnedProcess.pid);
+    };
     // Start a timeout to call off the test if we fail to detect the server
     // startup message. This could happen if the log format is changed etc.
     const startTimeout = setTimeout(() => {

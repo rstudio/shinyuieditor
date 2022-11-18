@@ -137,7 +137,31 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
       console.log("Editor window closed", document.fileName);
     });
 
-    let previewAppInfo: PreviewAppInfo | null = null;
+    const previewAppInfo = startPreviewApp({
+      pathToApp: document.fileName,
+      onInitiation: () => {
+        this.sendMessage?.({
+          path: "APP-PREVIEW-STATUS",
+          payload: "LOADING",
+        });
+      },
+      onReady: (url) => {
+        this.sendMessage?.({
+          path: "APP-PREVIEW-STATUS",
+          payload: { url },
+        });
+      },
+      onFailToStart: () => {
+        console.log("Preview app failed to start up");
+      },
+      onCrash: () => {
+        console.log("!!App crashed!");
+        this.sendMessage?.({
+          path: "APP-PREVIEW-CRASH",
+          payload: "Crashed",
+        });
+      },
+    });
 
     // Receive message from the webview.
     webviewPanel.webview.onDidReceiveMessage(async (msg) => {
@@ -173,21 +197,16 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
             return;
           }
           case "APP-PREVIEW-REQUEST": {
-            this.sendMessage({
-              path: "APP-PREVIEW-STATUS",
-              payload: "LOADING",
-            });
-
-            previewAppInfo = await startPreviewApp(document.fileName);
-
-            this.sendMessage({
-              path: "APP-PREVIEW-STATUS",
-              payload: { url: previewAppInfo.url },
-            });
+            previewAppInfo.start();
             return;
           }
           case "APP-PREVIEW-STOP": {
-            previewAppInfo?.stop();
+            previewAppInfo.stop();
+            return;
+          }
+          case "APP-PREVIEW-RESTART": {
+            // Make sure things are stopped truly
+            previewAppInfo.start();
             return;
           }
           default:
