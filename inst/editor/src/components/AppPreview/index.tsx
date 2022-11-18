@@ -6,6 +6,7 @@ import { VscDebugRestart } from "react-icons/vsc";
 
 import { PanelHeader } from "../../EditorSkeleton/EditorSkeleton";
 import Button from "../Inputs/Button/Button";
+import { TooltipButton } from "../PopoverEl/Tooltip";
 
 import classes from "./AppPreview.module.css";
 import FakeDashboard from "./FakeDashboard";
@@ -30,12 +31,15 @@ export default function AppPreview() {
 
   const reloadApp = React.useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
-      if (!iframeRef.current || typeof appLoc === "string") return;
-      iframeRef.current.src = appLoc.url;
-
       spinReloadButton(e.currentTarget);
+      if (!iframeRef.current || typeof appLoc === "string") return;
+      if (e.metaKey) {
+        restartApp();
+      } else {
+        iframeRef.current.src = appLoc.url;
+      }
     },
-    [appLoc]
+    [appLoc, restartApp]
   );
 
   // This is a custom environment variable that is set to "True" in the
@@ -46,17 +50,23 @@ export default function AppPreview() {
     return null;
   }
 
+  const ReloadButton = ({ isExpandedMode }: { isExpandedMode: boolean }) => (
+    <div className={classes.reloadButtonContainer}>
+      <TooltipButton
+        text={`Reload app session (hold ${getMetaKeyOnClient()} to restart app server also)`}
+        className={classes.reloadButton}
+        onClick={reloadApp}
+        position={isExpandedMode ? "right" : "up-right"}
+      >
+        <VscDebugRestart />
+      </TooltipButton>
+    </div>
+  );
+
   return (
     <>
       <PanelHeader className={classes.title}>
-        <Button
-          variant={["transparent", "icon"]}
-          className={classes.reloadButton}
-          title="Reload app session"
-          onClick={reloadApp}
-        >
-          <VscDebugRestart />
-        </Button>
+        <ReloadButton isExpandedMode={false} />
         App Preview
       </PanelHeader>
 
@@ -75,14 +85,7 @@ export default function AppPreview() {
           <RestartPrompt onClick={restartApp} />
         ) : (
           <>
-            <Button
-              variant={["transparent", "icon"]}
-              className={classes.reloadButton}
-              title="Reload app session"
-              onClick={reloadApp}
-            >
-              <VscDebugRestart />
-            </Button>
+            <ReloadButton isExpandedMode={true} />
             <div className={classes.appContainer}>
               {appLoc === "FAKE-PREVIEW" ? (
                 <FakeDashboard />
@@ -143,10 +146,17 @@ function LoadingMessage() {
 // Add a class to spin button to demonstrate something is happening. On
 // animation finishing the class is removed so it can be retriggered
 function spinReloadButton(buttonEl: HTMLButtonElement) {
-  buttonEl.classList.add(classes.spin);
+  const reloadIcon = buttonEl.querySelector("svg");
+  reloadIcon?.classList.add(classes.spin);
   buttonEl.addEventListener(
     "animationend",
-    () => buttonEl.classList.remove(classes.spin),
+    () => reloadIcon?.classList.remove(classes.spin),
     false
   );
+}
+
+function getMetaKeyOnClient(): "\u2318" | "Alt" {
+  const isMac = /mac/i.test(window.navigator.platform);
+
+  return isMac ? "\u2318" : "Alt";
 }

@@ -132,7 +132,7 @@ div.appViewerHolder {
 /* ====== Buttons ========================================== */
 
 .expandButton,
-.reloadButton {
+.reloadButtonContainer {
   position: absolute;
   background-color: transparent;
   outline: none;
@@ -142,19 +142,31 @@ div.appViewerHolder {
   transition-timing-function: ease-in;
 }
 
-.reloadButton {
+.reloadButtonContainer {
   height: var(--header-height);
+  width: var(--header-height);
   top: 0;
   left: 0;
   bottom: 0;
-  color: currentColor;
-  font-size: 1.5rem;
-  --normal-transform: scaleY(-1) var(--expand-scale, scale(1)) rotate(90deg);
-  transform: var(--normal-transform);
+  /* outline: 1px solid pink; */
+  /* --normal-transform: scaleY(-1) var(--expand-scale, scale(1)) rotate(90deg);
+  transform: var(--normal-transform); */
 }
 
-.reloadButton:hover {
-  --expand-scale: scale(1.1);
+.reloadButton {
+  color: currentColor;
+  font-size: 1.5rem;
+  height: 100%;
+  width: 100%;
+  aspect-ratio: 1;
+  background-color: transparent;
+}
+
+.reloadButton > svg {
+  scale: -1 1;
+}
+.reloadButton:hover > svg {
+  scale: -1.1 1.1;
 }
 
 /* When this class is added to the reload button it will cause it to spin
@@ -162,21 +174,20 @@ around, showing the user that their click actually did something */
 .spin {
   animation-duration: 1s;
   animation-name: spin;
-  --at-rest-transform: var(--normal-transform, scale(1));
 }
 
 @keyframes spin {
   from {
-    transform: var(--at-rest-transform) rotate(0deg);
+    rotate: 0deg;
   }
 
   to {
-    transform: var(--at-rest-transform) rotate(-360deg);
+    rotate: 360deg;
     animation-timing-function: ease-out;
   }
 }
 
-.appViewerHolder .reloadButton {
+.appViewerHolder .reloadButtonContainer {
   /* Hide reload button in the main panel until we're in full screen mode. We
   have two reload buttons because the reload button in the header isn't
   available in that zoom level */
@@ -203,7 +214,7 @@ around, showing the user that their click actually did something */
 }
 
 .appViewerHolder[data-expanded="true"] .expandButton,
-.appViewerHolder[data-expanded="true"] .reloadButton {
+.appViewerHolder[data-expanded="true"] .reloadButtonContainer {
   width: var(--expanded-inset-left);
   height: var(--expanded-inset-top);
   font-size: 2.5rem;
