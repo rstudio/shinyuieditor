@@ -10,7 +10,6 @@ import type { ParsedApp } from "./R-Utils/parseAppFile";
 import { getAppFile } from "./R-Utils/parseAppFile";
 import type { ActiveRSession } from "./R-Utils/startBackgroundRProcess";
 import { startBackgroundRProcess } from "./R-Utils/startBackgroundRProcess";
-import type { PreviewAppInfo } from "./R-Utils/startPreviewApp";
 import { startPreviewApp } from "./R-Utils/startPreviewApp";
 import { collapseText } from "./string-utils";
 import { getNonce } from "./util";
@@ -152,13 +151,21 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
         });
       },
       onFailToStart: () => {
-        console.log("Preview app failed to start up");
+        this.sendMessage?.({
+          path: "APP-PREVIEW-CRASH",
+          payload: "Failed to start",
+        });
       },
       onCrash: () => {
-        console.log("!!App crashed!");
         this.sendMessage?.({
           path: "APP-PREVIEW-CRASH",
           payload: "Crashed",
+        });
+      },
+      onLogs: (logs) => {
+        this.sendMessage?.({
+          path: "APP-PREVIEW-LOGS",
+          payload: logs,
         });
       },
     });
@@ -205,7 +212,6 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
             return;
           }
           case "APP-PREVIEW-RESTART": {
-            // Make sure things are stopped truly
             previewAppInfo.start();
             return;
           }

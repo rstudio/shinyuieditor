@@ -30300,8 +30300,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   // ../editor/src/assets/icons/undo.png
   var undo_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAoCAYAAAC4h3lxAAAACXBIWXMAAAsTAAALEwEAmpwYAAABDElEQVRYhe2ZsQ7CMAxEr4gvZmBDXMXGwC+XgVQqERDbCbEr5ZaoalXdq+0kTqdlWbBnHbwN1GoAeGsAeGv3AMdfN8+3h+ZdVwDcXE8GP7hfTqrnW0UgN99NLQDczAP1AFvzM4xpU6MagNw8vz75R1kBQpgHCrPQF0nNW3eJqjTURiDMl1+liYDUvLWQTRGTRiDcl18lAQhrHigDhDYPlAGYxpDmAXkNhG2cSwBzGolXOoWTJIVCQ0hSiAgMIa0BIiiEZiVmGvOpNVfXgtfuhYhgkbDsRpnGUiS6NDfWfoAIEomajowIAFHbExPvEN1X7BanEsTnGuiiVudChBPENH5wOGsAeGsAeGv3AE8yEDlUwXXxqQAAAABJRU5ErkJggg==";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-b9KCDT7yT6Zp/editor/src/components/Icons/styles.module.css.js
-  var digest = "ebf47db99d3e588020c39d04aeb4986a577bbef32b351e4f9a57d0a2c7521362";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-3SmlLOjjYCK3/editor/src/components/Icons/styles.module.css.js
+  var digest = "1c2b2f44380b83a354b78bcdddc04294e4afbff1d5615c31aa71b0613f8dab17";
   var css = `img._icon_1467k_1 {
   height: 30px;
   /* outline: 2px solid green; */
@@ -30564,8 +30564,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   // ../editor/src/components/Icons/index.tsx
   var Icons_default = PngIcon;
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-nllZKJfMSM4a/editor/src/components/Inputs/Button/Button.module.css.js
-  var digest2 = "80ff6c89529a965933eaac5fce347aac9afdf596120f74a623761355a5e3da08";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-4ilrl1o50sP4/editor/src/components/Inputs/Button/Button.module.css.js
+  var digest2 = "a84c333a930841708e3165e925aee383d834748e74aa2a818bf1c46dc0bb313b";
   var css2 = `._button_1y00r_1 {
   --background-color: var(--rstudio-white);
   --text-color: var(--font-color);
@@ -30637,8 +30637,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   };
   var Button_default = Button;
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-bMkkKF9i0o3H/editor/src/components/DeleteNodeButton/styles.module.css.js
-  var digest3 = "51153a20a7db56541daaacfc50e5bfd4ea53eebb1a2b3f60e41befd0d9e6c114";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-x0n9rwrtWoLo/editor/src/components/DeleteNodeButton/styles.module.css.js
+  var digest3 = "47f81752f9e8e06cb2d066e4a72d6876788f59d5d7bf70e984b37c5fb2186529";
   var css3 = `._deleteButton_1en02_1 {
   color: var(--red);
   display: flex;
@@ -30909,8 +30909,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   };
   var UiNode_default = UiNode;
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-ZtBXIZOqtj28/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
-  var digest4 = "c19ac3dff4863662daf901afe1360bee75da3fc64ccd01e384a75ca680902d45";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-h1oBqwGvw5LE/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
+  var digest4 = "c5baafa8752aa6f5481cfa5dee0769982cb786da2b3cd3296560fa047af6d470";
   var css4 = `._container_1a2os_1 {
   position: relative;
   height: 100%;
@@ -31336,8 +31336,8 @@ div._emptyGridCard_1a2os_144 > button {
     return setLayout;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-hP3450OZRMLv/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
-  var digest5 = "cf7069bed95c90a679ef618317f799099f15d7436798a5ef483d0716dcf4c330";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-TYkSxZiCj5W1/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
+  var digest5 = "291c3a0237583a5b2977e2c404ca32daaf1def5861c635217a89dd585191226c";
   var css5 = `._container_1a2os_1 {
   position: relative;
   height: 100%;
@@ -31696,8 +31696,8 @@ div._emptyGridCard_1a2os_144 > button {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 16 16" }, "child": [{ "tag": "path", "attr": { "fillRule": "evenodd", "d": "M16 14v1H0V0h1v14h15zM5 13H3V8h2v5zm4 0H7V3h2v10zm4 0h-2V6h2v7z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-cF8oSaGXgfgx/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
-  var digest6 = "ce47c32deeab0445595a8374b0df6418438079fdd349f180dd0c8899c8d901aa";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-C8S15ccDUC3e/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
+  var digest6 = "d0bbdcd3efe03f416a44eb1b88e747348be8c597d617506043a17a1d6879e79f";
   var css6 = `._container_1rlbk_1 {
   max-height: 100%;
 }
@@ -31778,8 +31778,8 @@ div._emptyGridCard_1a2os_144 > button {
     return dimensions;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-R3TqGLbnlMzB/editor/src/Shiny-Ui-Elements/GridlayoutGridCardPlot/styles.module.css.js
-  var digest7 = "e25f042e5ca5e32d26834a587588c6fe6af2c11596e6376aaea51b26ee64fe98";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-7gBonjwMj4aP/editor/src/Shiny-Ui-Elements/GridlayoutGridCardPlot/styles.module.css.js
+  var digest7 = "d42b177264df7f2811a0af369791bdf3a434d07936a5e3e35b519badd7d4db82";
   var css7 = `._gridCardPlot_1a94v_1 {
   background-color: var(--rstudio-white);
   width: 100%;
@@ -31861,8 +31861,8 @@ div._emptyGridCard_1a2os_144 > button {
   // ../editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/GridlayoutCardText.tsx
   var React19 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-pvBtsfhl6kwe/editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/styles.module.css.js
-  var digest8 = "8737711389f5c07110f16f6282f9f347dca35a6ba495cdaa4f09b5e6e416571f";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-ezzzp0aIfj1M/editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/styles.module.css.js
+  var digest8 = "362e0d2c96353faf1e148b446f3fa011e03714002e813ee08a8dcbc680780bd3";
   var css8 = `._textPanel_525i2_1 {
   background-color: var(--rstudio-white);
   /* outline: var(--outline); */
@@ -32575,8 +32575,8 @@ div._emptyGridCard_1a2os_144 > button {
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-zgOjY24exbou/editor/src/components/Grids/AreaOverlay.module.css.js
-  var digest9 = "11d6bebed086f2fa5e6c290a63d9795f950ab7f51171ba8236bf2a72c19e55d2";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-eVV0P5vRh4As/editor/src/components/Grids/AreaOverlay.module.css.js
+  var digest9 = "789c7efb3fb6e11c3c923932d22ded22d2e040b62cd13bce26f378e4815cdc07";
   var css9 = `._marker_mumaw_1 {
   font-weight: lighter;
   font-style: italic;
@@ -32992,8 +32992,8 @@ div._emptyGridCard_1a2os_144 > button {
   // ../editor/src/components/Grids/EditableGridContainer/EditableGridContainer.tsx
   var React32 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-HZqm4WVAoEcJ/editor/src/components/Grids/EditableGridContainer/resizableGrid.module.css.js
-  var digest10 = "bc1fbbb67aeaee92cfca551925a6c3f868ff3834eaff0c61e068ef36062a74d8";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-GlFdeamDtXP8/editor/src/components/Grids/EditableGridContainer/resizableGrid.module.css.js
+  var digest10 = "75927b8a2ac19d3941cfbdac10271d0b02bd22d0684002ecfa0fdf0adf2b11b5";
   var css10 = `._ResizableGrid_i4cq9_1 {
   --grid-gap: 5px;
 
@@ -43276,8 +43276,8 @@ div#_size-detection-cell_i4cq9_1 {
     };
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-VsYn6hVZQ27j/editor/src/components/PopoverEl/styles.module.css.js
-  var digest11 = "ce3b183e68dec8e25e2e838ad6bbd6fb4916affcae3e9520ed00b66b82067162";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-uUmpWh614UZo/editor/src/components/PopoverEl/styles.module.css.js
+  var digest11 = "689659623af44c32489a704f10fa6cc3a33d5132af6dda0388014ca7c7c6ec7c";
   var css11 = `._popover_m2pq3_1 {
   pointer-events: none;
   opacity: 0;
@@ -43467,8 +43467,8 @@ div#_size-detection-cell_i4cq9_1 {
     });
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-wc9zbxx6QFqV/editor/src/components/Inputs/CSSUnitInput/CSSUnitInfo.module.css.js
-  var digest12 = "dc4ebcbfbb6da5ee505d1a2df4e82d3880ecb309d5233b63f7705bb24fd44f5b";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-0eQWzFnXm25I/editor/src/components/Inputs/CSSUnitInput/CSSUnitInfo.module.css.js
+  var digest12 = "c75c8d164205268147e55154443bd42826d82a0d3f7dd03d3cbd9f3874d1e897";
   var css12 = `._infoIcon_15ri6_1 {
   width: 24px;
   color: var(--rstudio-blue);
@@ -43563,8 +43563,8 @@ div#_size-detection-cell_i4cq9_1 {
     rem: "Pixel size of app font. Typically 16 pixels."
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-HKNd6CsuZMGi/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
-  var digest13 = "edb7fa32e9e860067b3ef5511a3c1d3918520f3199fac40267fd4f693a18b46f";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-4G37YafSj3Jg/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
+  var digest13 = "7ec1a326e4d980d5a15f24d55fcd7c84e5dbd6465c297ef9a52a687454c03339";
   var css13 = `._wrapper_3jy8f_1 {
   position: relative;
   display: flex;
@@ -44093,8 +44093,8 @@ div#_size-detection-cell_i4cq9_1 {
     return tractSizes.some((size) => size === "auto");
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-598JXQyeVr4z/editor/src/components/Grids/EditableGridContainer/TractInfoDisplay.module.css.js
-  var digest14 = "14127dcccbb2c9f3e6e1e99632c278dc1d5daceacc06aef3ea175791f594c09b";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-uIeP0ZOAxbbD/editor/src/components/Grids/EditableGridContainer/TractInfoDisplay.module.css.js
+  var digest14 = "e6d214bc0bf6275bc59771f2209c4786a4e9b2fc0ec320fa43c1b1ef14af1d84";
   var css14 = `._tractInfoDisplay_cvtwo_1 {
   --transition-delay: 0.1s;
   --transition-speed: 0.1s;
@@ -44455,8 +44455,8 @@ user is typing in the input field but mouses off */
     });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-gQEN0apOxlGs/editor/src/components/Grids/EditableGridContainer/TractSizer.module.css.js
-  var digest15 = "109d2f05c419892c4184926f1b575db104745a8c435af8b7572db08a046ccda2";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-cITiO2YAj4kc/editor/src/components/Grids/EditableGridContainer/TractSizer.module.css.js
+  var digest15 = "4095e9c4a4ece2578c85c1985e41630b40a6744c2181515914ada5d7b50687bf";
   var css15 = `div._columnSizer_9b32k_1,
 div._rowSizer_9b32k_2 {
   --sizer-color: #c9e2f3;
@@ -44877,7 +44877,7 @@ div._rowSizer_9b32k_2::after {
     });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-SM886eltn0k4/editor/src/PortalModal.module.css.js
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-1cHZ8wlLPoS4/editor/src/PortalModal.module.css.js
   var digest16 = "13f6af5e59e8ebc33477302381f7da21ea3317b2b22eeff877dda6aa750b7a6e";
   var css16 = `._portalHolder_18ua3_1 {
   background-color: rgba(255, 255, 255, 0.735);
@@ -44996,8 +44996,8 @@ div._rowSizer_9b32k_2::after {
   }
   var PortalModal_default = PortalModal;
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-LoB3M7IyU2jL/editor/src/PortalModal.module.css.js
-  var digest17 = "06d1942d92793c71b800fee4baeb5bcffe8f0803656a268a2c16b0d3315deeb3";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-2sC7I4g9UEBU/editor/src/PortalModal.module.css.js
+  var digest17 = "9bf463dad1d961c8731d0e1a8aade3fae46a5df5173b37d17144a771b124452c";
   var css17 = `._portalHolder_18ua3_1 {
   background-color: rgba(255, 255, 255, 0.735);
   position: absolute;
@@ -45173,8 +45173,8 @@ div._rowSizer_9b32k_2::after {
     }
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-GXDA1QjJSSUK/editor/src/components/Inputs/BooleanInput/styles.module.css.js
-  var digest18 = "8cb2777a598e5f244819427233c3ae2b1fbe9374fbad6ed63bd0ff236258366b";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-nM7ioeosFL21/editor/src/components/Inputs/BooleanInput/styles.module.css.js
+  var digest18 = "9ce1389d0b0d3fc7dd85977fa501ed3712d125776933f982fe74fd335a636693";
   var css18 = `._checkboxInput_7ym3w_1 {
   height: 0;
   width: 0;
@@ -45282,8 +45282,8 @@ label._checkboxLabel_7ym3w_10:after {
   // ../editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.tsx
   var import_react30 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-662eT4EUR3v1/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
-  var digest19 = "fc55fbc79ea49e05006b2e31d377498f241cde7f62101ecbd49af8ec06e43449";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-5sQGaRCQbp5X/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
+  var digest19 = "1f485a08fa4684d2def2654a1497387c72febaa13802b7b6c603a618ab909d61";
   var css19 = `._wrapper_3jy8f_1 {
   position: relative;
   display: flex;
@@ -45416,8 +45416,8 @@ label._checkboxLabel_7ym3w_10:after {
   // ../editor/src/components/Inputs/ListInput/NamedListInput.tsx
   var import_react_sortablejs = __toESM(require_dist());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-xlfx2IvfOsvi/editor/src/components/Inputs/ListInput/styles.module.css.js
-  var digest20 = "2029547ab55edc3acea14bd8947da144ca33a556d21f3f1eea525aa8673a29c9";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-m2rY3N14SA0p/editor/src/components/Inputs/ListInput/styles.module.css.js
+  var digest20 = "ee8215243be70b1a4fe8d32d8cfe5eb335c48e977327e281be65a1a632f25c92";
   var css20 = `._container_xt7ji_1 {
   --gap-size: 4px;
   margin-top: 21px;
@@ -45705,8 +45705,8 @@ label._checkboxLabel_7ym3w_10:after {
   // ../editor/src/components/Inputs/RadioInputs/RadioInputsSimple.tsx
   var React38 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-vSu8gebC3Gy8/editor/src/components/Inputs/RadioInputs/RadioInputs.module.css.js
-  var digest21 = "5c2863867ca3e22a5fc331e4bcc06c4542d5e4a29829e54f7e0fe8f2de585548";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-u1Z3sus6wZlL/editor/src/components/Inputs/RadioInputs/RadioInputs.module.css.js
+  var digest21 = "260d0fc5eaa3ac2bdf31f4ebfa31c7b0621466edc30903c91dc9b43701758215";
   var css21 = `._radioContainer_1regb_1 {
   display: grid;
   gap: 5px;
@@ -46160,8 +46160,8 @@ the label */
     return null;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-OTQTxkQwzJby/editor/src/components/Grids/GridlayoutElement/styles.module.css.js
-  var digest22 = "f31b1133099069bcf5c789b2baacf6a5382f67a337c49a055471d7840695a052";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-x4P6TRfIJkUO/editor/src/components/Grids/GridlayoutElement/styles.module.css.js
+  var digest22 = "5c182754ad946f8c8bd3c59936f26d4923727c5a2ad65d173e97186c591c1375";
   var css22 = `._container_1hvsg_1 {
   display: grid;
   /* background-color: var(--bg-color); */
@@ -46504,8 +46504,8 @@ the label */
     return makeStringInputInfo("Label text", defaultValue);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-Ac0RcuWFnfnx/editor/src/Shiny-Ui-Elements/ShinyActionButton/styles.module.css.js
-  var digest23 = "81fc1b503a38013efd64e75bd60311a9c0017bb2b7db0ee0e305ee36ed68527c";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-xWgdlsH1BX15/editor/src/Shiny-Ui-Elements/ShinyActionButton/styles.module.css.js
+  var digest23 = "2a5776d12f2c99492b353db59db3da92ed6e6856a0d43d04e72911fd59649239";
   var css23 = `._container_tyghz_1 {
   display: grid;
   grid-template-rows: 1fr;
@@ -46569,8 +46569,8 @@ the label */
   // ../editor/src/assets/icons/shinyCheckgroup.png
   var shinyCheckgroup_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAFS0lEQVR4nO3cz2vTdxzH8Vfb9VeIa7ta1FW2FqQ6pqLbEERhm0OGFzcPY0dhl+LFo4cd9gfsuIs77LDbkAljDqEiCoKszMMEcbqFsjm2OaW6ptClP2zNDvkms2n6I99vXqTp5/mAQJKmn3wPT76fJCTvpnw+L6DWmut9ANiYCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFoQFC8KCBWHBgrBgQViwICxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFs/V+wDq5cy5seX+1BNd4piILkt8+uGOmEs2pmDDKrNL0ilJ70h6NeFaP0m6IumspJ8TrtWw2AqlYUl3JJ1W8qgUrXE6WnO4Bus1pNDPWCclff7sHZ1tzepsa4m12PTcgqbnnhZvNkVrz0r6Mv4hNqaQw+pTYbuSJA1s7tB7r/Wpv6c90aJ/Tczq2x/Hde/RTPGus5IuShpPtHCDCXkrPCWpU5K297Rr+O3+xFFJUn+01vYXSmt1RM8VlJDDOly8cmxvr1qam2q2cEtzk47t6a34XKEIeSs8VLwy0NeZaKHRTFaX7xQ+ZRh+60Vt6W4vX/NQxX/cwEIOK1W80toS/2x18ea4rmUmlW5vKUVVYc1UxX/ewELeChMbzWR1LTMpSTp5aGspKhBWbJO5J/rm5iNJ0on9m/Vywu10oyGsmL76/oEk6cBAWgeHuut7MOsQYcUwmsnq18ezSre36Ojid3+IEFaVJnNPSu8Aj+/rVVeqtc5HtD4RVpWu/5LV1OyCdm9Lad/A8/U+nHWLsKrwMDtbehf47l62wJUQVhUu3XosSXpzqIuPFlZBWBWMZrI6c25M5394ULrv9/Fp3f47J0k6vLO7TkfWOAirzMyTp6XPp27cmyrFdfvPKUmFsxUv2FdHWGU6Wpv10eGtpds37k0t+oT9jUFesK8FYVWwqz+tE/s3l24Xz2C7t6V4bbVGhLWMg0PdOjCQXnTf3pfSyzwa5UIO65/ildzcQsUHHN3Tq3R74WvKWza1VvW51TNfUZaW+eXORhby12auSzouSXfv5/T6wKYlD+hKteqT9wdjLX7n/r/lzxWUkM9Y3xWvjNx6rGxuvmYLZ3PzGok+84pcqNniDSLkM9YXkj6WNDg5Pa/PLv+hI6/0aMeWlNpifvFvbiGvsYc5Xb07oamZ0vb6W/RcQQk5LKnwI4cRSZqaWdCF6N2f4TmCE/JWKEmXVPj1c8awdiZa+5Jh7XUv9DOWJF2VtFPSB5KOqPCLmrjfUc+p8EL9iqTzNTm6BkVY//s6uqAGQt8KYUJYsCAsWBAWLHjxvpRlol9oCKuAiX41xlbIRD+L0M9YTPQzCTksJvoZhbwVMtHPKOSwmOhnFPJWyEQ/o5DDYqKfUchbYWJM9FseYcXERL+VEVZMTPRbGWHFwES/1RFWlZjotzaEVSUm+q0NYVWBiX5rR1hVYKLf2hFWBUz0S46wyjDRrzYIqwwT/WqDsCpgol9yhLUMJvolE3JYTPQzCvlrM0z0Mwr5jMVEP6OQz1hM9DMKOSyJiX42IW+FEhP9bEI/Y0lM9LNoyufz9T4GbEChb4UwISxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFoQFC8KCBWHBgrBgQViwICxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLP4DpWmTqmVmpDwAAAAASUVORK5CYII=";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-2myUcZt2gHZa/editor/src/Shiny-Ui-Elements/ShinyCheckboxGroupInput/styles.module.css.js
-  var digest24 = "645d7616ad310590fbe306c90ab4b2d77b875be0b6c45b692748e33a11ced159";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-lSC2wbjbnpO5/editor/src/Shiny-Ui-Elements/ShinyCheckboxGroupInput/styles.module.css.js
+  var digest24 = "7a12b97c51fcba271f9a12f074b65fc0d89cc6553e016210dd1c1a143515df00";
   var css24 = `._container_162lp_1 {
   position: relative;
   padding: 4px;
@@ -46668,8 +46668,8 @@ the label */
   // ../editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/ShinyCheckboxInput.tsx
   var React41 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-iZPC6g9nl3EO/editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/styles.module.css.js
-  var digest25 = "3e54cb555bad6c8dc237df3bd214af1c6788b5a5d5aaf31d5601109626ab4c63";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-eykDR3iL1cAb/editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/styles.module.css.js
+  var digest25 = "d2afd3d4bfbeac41c052031bee14d29a4194e6b37e03697ac23112fbe7899c09";
   var css25 = `._container_1x0tz_1 {
   position: relative;
   padding: 4px;
@@ -46785,8 +46785,8 @@ the label */
     return getTabPanelTitle(firstChild) ?? "First Tab";
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-NatsfhwHFWtP/editor/src/components/Tabs/TabPanel/TabPanel.module.css.js
-  var digest26 = "47793ff871dc144855b0d2d170333d7f67cd3bbb28dfeae16b1c611b30b862b8";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-Lnk3d91B8gjO/editor/src/components/Tabs/TabPanel/TabPanel.module.css.js
+  var digest26 = "2e006eddaf99dded3358eab5c4bc141c30fd4098f2f0f3f3ff9d533d91d972b1";
   var css26 = `._container_10z2l_1 {
   height: 100%;
 }
@@ -46914,8 +46914,8 @@ the label */
     });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-V11WPMnguB12/editor/src/Shiny-Ui-Elements/ShinyTabPanel/ShinyTabPanel.module.css.js
-  var digest27 = "3f2e8154b2fbda9fde35bf0952dac04053deeb8705920c21c197a9473b14746d";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-2Lxoc4gbwF2h/editor/src/Shiny-Ui-Elements/ShinyTabPanel/ShinyTabPanel.module.css.js
+  var digest27 = "07da8c9b6efc5e9935a75e0c39d96e8c360846ab8b734a61dfc22f5e826c7de6";
   var css27 = `._container_fe3r8_1 {
   position: relative;
   height: 100%;
@@ -47026,8 +47026,8 @@ the label */
     return sameArray(aPath, bPath);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-CAOUxMcOMYI6/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest28 = "b0c945ce22e65deb7179c3b556c200ecddb6ade1dd1a9d1534edbb6eab3b35b9";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-J4hAOLcVaVAO/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest28 = "01dae054b09d0f5839c2f7eb0e9ee76d0c30aba9f58f9e3b69db7d3a14ba509e";
   var css28 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -47197,8 +47197,8 @@ illusion of the selected panel and tab being one entity */
     });
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-LEauzObHg1g5/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest29 = "b45f4ce7b697e319972084694285d1f685ce6bf3ff0e3b17f1f5564bb4d981d8";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-a7KxkqhbVaNH/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest29 = "2e1bef29b2842b6fe9af1d0432070cc176959bc748e14504ccca5cfea75c4a65";
   var css29 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -47365,8 +47365,8 @@ illusion of the selected panel and tab being one entity */
     });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-aCImKSRE2xzd/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest30 = "d6da38d45e491cc203bfcf451acab035d035897d87628e5b89ace3ee60b3fad3";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-xA0YvZNqpYby/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest30 = "d43415a013972d230dc746c49c2ff2ba8f2eca015ac598b901e8b37b242c8b92";
   var css30 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -47647,8 +47647,8 @@ illusion of the selected panel and tab being one entity */
     });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-zLUPeHQbXloi/editor/src/Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage.module.css.js
-  var digest31 = "20a9bcc964aed84c872e1640a8c3da1201f9ee3d7d704c421eb64421f84c6af0";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-j7wchQlV5Nu7/editor/src/Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage.module.css.js
+  var digest31 = "71dde7db3f7f356382f61bf45b9f3d919e74b4a2a4b15a68247dee07d7f1585a";
   var css31 = `._noTabsMessage_130qz_1 {
   padding: 5px;
 }
@@ -47772,8 +47772,8 @@ illusion of the selected panel and tab being one entity */
   // ../editor/src/Shiny-Ui-Elements/ShinyNumericInput/ShinyNumericInput.tsx
   var React47 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-pUq31lqaOr62/editor/src/Shiny-Ui-Elements/ShinyNumericInput/styles.module.css.js
-  var digest32 = "d72a9cb563c977f252b26daf72b5000cb90e199ee5c9651e20bb171606074d2c";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-pq4iLKqwXzLx/editor/src/Shiny-Ui-Elements/ShinyNumericInput/styles.module.css.js
+  var digest32 = "782cd0a87bd17855bbfbbc1a50b4e3e78da644c7d4e2d22360962854dc2f62c6";
   var css32 = `._container_yicbr_1 {
   position: relative;
   padding: 4px;
@@ -47892,8 +47892,8 @@ illusion of the selected panel and tab being one entity */
     description: "An input control for entry of numeric values"
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-ajIvbLPMtiej/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
-  var digest33 = "02ff88f029e8f7e74d0d2dc76e4b30e375fc003544333ff51e6f6cfea8ab5f52";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-IdNk0htfb8xX/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
+  var digest33 = "9594f1374472ba71cdbf7ebc51d1bce6d2d670a7d08590b1112b64dd07afeb9e";
   var css33 = `._container_1rlbk_1 {
   max-height: 100%;
 }
@@ -47984,8 +47984,8 @@ illusion of the selected panel and tab being one entity */
   // ../editor/src/Shiny-Ui-Elements/ShinyRadioButtons/ShinyRadioButtons.tsx
   var import_react40 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-sZ6XdQPx2sPo/editor/src/Shiny-Ui-Elements/ShinyRadioButtons/styles.module.css.js
-  var digest34 = "e122518dd0e33ada9ca3acb418b2e7e15f834e6381d0e3ed85c8cdf2dcb43dfd";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-JaG57v3qRwYg/editor/src/Shiny-Ui-Elements/ShinyRadioButtons/styles.module.css.js
+  var digest34 = "01db69590db7b471da72ca71ca765778099efb22baec070f96163aeb1ae0ebfd";
   var css34 = `._container_sgn7c_1 {
   position: relative;
   padding: 4px;
@@ -48092,8 +48092,8 @@ illusion of the selected panel and tab being one entity */
   // ../editor/src/assets/icons/shinySelectbox.png
   var shinySelectbox_default = "data:image/png;base64,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";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-lorHqjFCfcuV/editor/src/Shiny-Ui-Elements/ShinySelectInput/styles.module.css.js
-  var digest35 = "364330fc1cc523f3d66c005be788150110fbcc6c5f99bb36bfcb0535799a2a3f";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-Qo5aMSQDCYrb/editor/src/Shiny-Ui-Elements/ShinySelectInput/styles.module.css.js
+  var digest35 = "2d86dc91cafaa4c6f022a63fdde28d913271120ced9f61f308631aa91c3b03d4";
   var css35 = `._container_1e5dd_1 {
   position: relative;
   padding: 4px;
@@ -48182,8 +48182,8 @@ illusion of the selected panel and tab being one entity */
   // ../editor/src/Shiny-Ui-Elements/ShinySliderInput/ShinySliderInput.tsx
   var React49 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-o5eXEWPaPuGU/editor/src/Shiny-Ui-Elements/ShinySliderInput/styles.module.css.js
-  var digest36 = "b0adf9d099c2c2af1a4c9a4f988ee0fb01513cf49423699be916caf1643dfb6e";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-QvO1mNkWxxGD/editor/src/Shiny-Ui-Elements/ShinySliderInput/styles.module.css.js
+  var digest36 = "7ed6754ba8d0a86336a40cfc36b183d6c333b68c118bb89a78cacec5b4425619";
   var css36 = `._container_1f2js_1 {
   padding: 6px;
 
@@ -48442,8 +48442,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // ../editor/src/Shiny-Ui-Elements/ShinyTextInput/ShinyTextInput.tsx
   var React50 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-8N2Ckv2o8lpf/editor/src/Shiny-Ui-Elements/ShinyTextInput/styles.module.css.js
-  var digest37 = "1cfdf8819596fd937c7c09f48c35dc36ac2a31044c4a07b771c814e68a3b15cc";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-QoWD7OsB3JRx/editor/src/Shiny-Ui-Elements/ShinyTextInput/styles.module.css.js
+  var digest37 = "cebaa1438519675eda18f49e4ddf27af6b8b7b930a6f0b0cd2e97da072549aa6";
   var css37 = `._container_yicbr_1 {
   position: relative;
   padding: 4px;
@@ -48535,8 +48535,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // ../editor/src/assets/icons/shinyTextOutput.png
   var shinyTextOutput_default = "data:image/png;base64,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";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-rEVV1HkJVBZG/editor/src/Shiny-Ui-Elements/ShinyTextOutput/styles.module.css.js
-  var digest38 = "375d6f794d1508bc2d8db1c6af8c46b24044d9f6271e2f268eb1b4e82c05f2e1";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-nCi5TkG5uJNU/editor/src/Shiny-Ui-Elements/ShinyTextOutput/styles.module.css.js
+  var digest38 = "3f50398679399b4dfcc1e64598c958f6af50d5a20400a93c918835fef8ced680";
   var css38 = `._container_1i6yi_1 {
   padding: 1rem;
   max-height: 100%;
@@ -48602,8 +48602,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // ../editor/src/assets/icons/shinyImage.png
   var shinyImage_default = "data:image/png;base64,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";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-o2QQhfOLwMxG/editor/src/Shiny-Ui-Elements/ShinyUiOutput/styles.module.css.js
-  var digest39 = "2f1b1d78d73ea927f363f1ca3c0a29b982876f0e1ccc9208ce8fcf082326c8ba";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-X7W9PXO0xD8r/editor/src/Shiny-Ui-Elements/ShinyUiOutput/styles.module.css.js
+  var digest39 = "3f9c95b66481ebfbb7d71b583f9669eec000e47ed86787ac5de7590ddf5fcc22";
   var css39 = `._container_1xnzo_1 {
   display: grid;
   grid-template-rows: 1fr;
@@ -48680,8 +48680,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 1024 1024" }, "child": [{ "tag": "path", "attr": { "d": "M881.7 187.4l-45.1-45.1a8.03 8.03 0 0 0-11.3 0L667.8 299.9l-54.7-54.7a7.94 7.94 0 0 0-13.5 4.7L576.1 439c-.6 5.2 3.7 9.5 8.9 8.9l189.2-23.5c6.6-.8 9.3-8.8 4.7-13.5l-54.7-54.7 157.6-157.6c3-3 3-8.1-.1-11.2zM439 576.1l-189.2 23.5c-6.6.8-9.3 8.9-4.7 13.5l54.7 54.7-157.5 157.5a8.03 8.03 0 0 0 0 11.3l45.1 45.1c3.1 3.1 8.2 3.1 11.3 0l157.6-157.6 54.7 54.7a7.94 7.94 0 0 0 13.5-4.7L447.9 585a7.9 7.9 0 0 0-8.9-8.9z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-kcet2ViEZpRF/editor/src/components/CategoryDivider/styles.module.css.js
-  var digest40 = "70260746e4e5413791541af0e97dc7165f762494e501d8e85f11324dd7394b5e";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-CC84NWE2HAyr/editor/src/components/CategoryDivider/styles.module.css.js
+  var digest40 = "3cf54570fbb616836c967a323dd334bf5cbf56873c26cc2666fb259218892779";
   var css40 = `._categoryDivider_bdwku_1 {
   display: block;
   position: relative;
@@ -49074,9 +49074,9 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 16 16", "fill": "currentColor" }, "child": [{ "tag": "path", "attr": { "fillRule": "evenodd", "clipRule": "evenodd", "d": "M12.75 8a4.5 4.5 0 0 1-8.61 1.834l-1.391.565A6.001 6.001 0 0 0 14.25 8 6 6 0 0 0 3.5 4.334V2.5H2v4l.75.75h3.5v-1.5H4.352A4.5 4.5 0 0 1 12.75 8z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-yNbeHVhSH8E4/editor/src/components/AppPreview/AppPreview.module.css.js
-  var digest41 = "3615b68029833c3d5dd8f3c56c866e397445124a3abc47c12c0e2828ba814d0d";
-  var css41 = `div._appViewerHolder_1txsb_1 {
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-6WAhQIUmmQdZ/editor/src/components/AppPreview/AppPreview.module.css.js
+  var digest41 = "e574f92c37430532904119e170868ddaf7502fb08b8ec08abf0b2328e003b202";
+  var css41 = `div._appViewerHolder_zkojo_1 {
   /* This is over-ridden by an inline style but we just have it here in case */
   --app-scale-amnt: 0.24;
 
@@ -49130,13 +49130,13 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   overflow: hidden;
 }
 
-._title_1txsb_55 {
+._title_zkojo_55 {
   /* z-index: 0; */
   /* display: flex; */
   position: relative;
 }
 
-._appViewerHolder_1txsb_1[data-expanded="true"] {
+._appViewerHolder_zkojo_1[data-expanded="true"] {
   --expand-btn-size: 1.5rem;
 
   --logs-font-size: 0.9rem;
@@ -49164,12 +49164,12 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   transition-property: backdrop-filter background-color;
 }
 
-._appContainer_1txsb_89 {
+._appContainer_zkojo_89 {
   display: grid;
   place-content: center;
 }
 
-._appViewerHolder_1txsb_1[data-expanded="false"] > ._appContainer_1txsb_89 {
+._appViewerHolder_zkojo_1[data-expanded="false"] > ._appContainer_zkojo_89 {
   position: absolute;
   top: var(--preview-inset-top);
   right: var(--preview-inset-horizontal);
@@ -49177,14 +49177,14 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   height: var(--app-preview-h);
 }
 
-._appViewerHolder_1txsb_1[data-expanded="true"] > ._appContainer_1txsb_89 {
+._appViewerHolder_zkojo_1[data-expanded="true"] > ._appContainer_zkojo_89 {
   position: absolute;
   inset-inline: var(--expanded-inset-horizontal);
   top: var(--expanded-inset-top);
   height: var(--app-expanded-h);
 }
 
-._previewFrame_1txsb_109 {
+._previewFrame_zkojo_109 {
   background-color: var(--rstudio-white);
   width: var(--app-expanded-w);
   height: var(--app-expanded-h);
@@ -49195,22 +49195,22 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   border-radius: 2px;
 }
 
-._appViewerHolder_1txsb_1[data-expanded="true"] ._previewFrame_1txsb_109 {
+._appViewerHolder_zkojo_1[data-expanded="true"] ._previewFrame_zkojo_109 {
   transform: scale(1);
   transition: transform var(--animation-speed-timing);
   border: none;
   box-shadow: var(--shadow-elevation-medium);
 }
 
-._appViewerHolder_1txsb_1[data-expanded="false"] ._previewFrame_1txsb_109 {
+._appViewerHolder_zkojo_1[data-expanded="false"] ._previewFrame_zkojo_109 {
   /* Don't reverse the growing animation, just snap back to smaller */
   transition: none;
 }
 
 /* ====== Buttons ========================================== */
 
-._expandButton_1txsb_134,
-._reloadButton_1txsb_135 {
+._expandButton_zkojo_134,
+._reloadButtonContainer_zkojo_135 {
   position: absolute;
   background-color: transparent;
   outline: none;
@@ -49220,48 +49220,59 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   transition-timing-function: ease-in;
 }
 
-._reloadButton_1txsb_135 {
+._reloadButtonContainer_zkojo_135 {
   height: var(--header-height);
+  width: var(--header-height);
   top: 0;
   left: 0;
   bottom: 0;
-  color: currentColor;
-  font-size: 1.5rem;
-  --normal-transform: scaleY(-1) var(--expand-scale, scale(1)) rotate(90deg);
-  transform: var(--normal-transform);
+  /* outline: 1px solid pink; */
+  /* --normal-transform: scaleY(-1) var(--expand-scale, scale(1)) rotate(90deg);
+  transform: var(--normal-transform); */
 }
 
-._reloadButton_1txsb_135:hover {
-  --expand-scale: scale(1.1);
+._reloadButton_zkojo_135 {
+  color: currentColor;
+  font-size: 1.5rem;
+  height: 100%;
+  width: 100%;
+  aspect-ratio: 1;
+  background-color: transparent;
+}
+
+._reloadButton_zkojo_135 > svg {
+  scale: -1 1;
+}
+._reloadButton_zkojo_135:hover > svg {
+  scale: -1.1 1.1;
 }
 
 /* When this class is added to the reload button it will cause it to spin
 around, showing the user that their click actually did something */
-._spin_1txsb_162 {
+._spin_zkojo_174 {
   animation-duration: 1s;
-  animation-name: _spin_1txsb_162;
-  --at-rest-transform: var(--normal-transform, scale(1));
+  animation-name: _spin_zkojo_174;
 }
 
-@keyframes _spin_1txsb_162 {
+@keyframes _spin_zkojo_174 {
   from {
-    transform: var(--at-rest-transform) rotate(0deg);
+    rotate: 0deg;
   }
 
   to {
-    transform: var(--at-rest-transform) rotate(-360deg);
+    rotate: 360deg;
     animation-timing-function: ease-out;
   }
 }
 
-._appViewerHolder_1txsb_1 ._reloadButton_1txsb_135 {
+._appViewerHolder_zkojo_1 ._reloadButtonContainer_zkojo_135 {
   /* Hide reload button in the main panel until we're in full screen mode. We
   have two reload buttons because the reload button in the header isn't
   available in that zoom level */
   display: none;
 }
 
-._expandButton_1txsb_134 {
+._expandButton_zkojo_134 {
   width: 100%;
   height: 100%;
   font-size: 50px;
@@ -49269,19 +49280,19 @@ around, showing the user that their click actually did something */
   color: transparent;
 }
 
-._expandButton_1txsb_134:hover {
+._expandButton_zkojo_134:hover {
   color: inherit;
   opacity: 1;
   transform: scale(1.1);
 }
 
-._restartButton_1txsb_200 {
+._restartButton_zkojo_211 {
   width: fit-content;
   margin-inline: auto;
 }
 
-._appViewerHolder_1txsb_1[data-expanded="true"] ._expandButton_1txsb_134,
-._appViewerHolder_1txsb_1[data-expanded="true"] ._reloadButton_1txsb_135 {
+._appViewerHolder_zkojo_1[data-expanded="true"] ._expandButton_zkojo_134,
+._appViewerHolder_zkojo_1[data-expanded="true"] ._reloadButtonContainer_zkojo_135 {
   width: var(--expanded-inset-left);
   height: var(--expanded-inset-top);
   font-size: 2.5rem;
@@ -49291,29 +49302,29 @@ around, showing the user that their click actually did something */
   display: block;
 }
 
-._appViewerHolder_1txsb_1[data-expanded="true"] ._expandButton_1txsb_134 {
+._appViewerHolder_zkojo_1[data-expanded="true"] ._expandButton_zkojo_134 {
   color: inherit;
   right: 0;
 }
 
-._appViewerHolder_1txsb_1 > h2 {
+._appViewerHolder_zkojo_1 > h2 {
   color: var(--rstudio-grey);
   text-align: center;
   font-style: italic;
 }
 
-._loadingMessage_1txsb_227 {
+._loadingMessage_zkojo_238 {
   display: grid;
   place-content: center;
   width: 100%;
   height: 100%;
   padding: 1rem;
 }
-._loadingMessage_1txsb_227 > h2 {
+._loadingMessage_zkojo_238 > h2 {
   text-align: center;
 }
 
-h2._error_1txsb_238 {
+h2._error_zkojo_249 {
   color: var(--red);
 }
 `;
@@ -49328,11 +49339,11 @@ h2._error_1txsb_238 {
       document.head.appendChild(el);
     }
   })();
-  var AppPreview_module_css_default = { "appViewerHolder": "_appViewerHolder_1txsb_1", "title": "_title_1txsb_55", "appContainer": "_appContainer_1txsb_89", "previewFrame": "_previewFrame_1txsb_109", "expandButton": "_expandButton_1txsb_134", "reloadButton": "_reloadButton_1txsb_135", "spin": "_spin_1txsb_162", "restartButton": "_restartButton_1txsb_200", "loadingMessage": "_loadingMessage_1txsb_227", "error": "_error_1txsb_238" };
+  var AppPreview_module_css_default = { "appViewerHolder": "_appViewerHolder_zkojo_1", "title": "_title_zkojo_55", "appContainer": "_appContainer_zkojo_89", "previewFrame": "_previewFrame_zkojo_109", "expandButton": "_expandButton_zkojo_134", "reloadButtonContainer": "_reloadButtonContainer_zkojo_135", "reloadButton": "_reloadButton_zkojo_135", "spin": "_spin_zkojo_174", "restartButton": "_restartButton_zkojo_211", "loadingMessage": "_loadingMessage_zkojo_238", "error": "_error_zkojo_249" };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-z3kZUGOqGZKb/editor/src/components/AppPreview/AppPreview.module.css.js
-  var digest42 = "454bbd3be19ff1d43c9d0adb6f796f15d65779bb58e44e9837ed600e3a3d83af";
-  var css42 = `div._appViewerHolder_1txsb_1 {
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-QXf4K9rle6Zw/editor/src/components/AppPreview/AppPreview.module.css.js
+  var digest42 = "4f6720178d35e8203d6806c164314298c042f76876dde2527e6ab85780ff4614";
+  var css42 = `div._appViewerHolder_zkojo_1 {
   /* This is over-ridden by an inline style but we just have it here in case */
   --app-scale-amnt: 0.24;
 
@@ -49386,13 +49397,13 @@ h2._error_1txsb_238 {
   overflow: hidden;
 }
 
-._title_1txsb_55 {
+._title_zkojo_55 {
   /* z-index: 0; */
   /* display: flex; */
   position: relative;
 }
 
-._appViewerHolder_1txsb_1[data-expanded="true"] {
+._appViewerHolder_zkojo_1[data-expanded="true"] {
   --expand-btn-size: 1.5rem;
 
   --logs-font-size: 0.9rem;
@@ -49420,12 +49431,12 @@ h2._error_1txsb_238 {
   transition-property: backdrop-filter background-color;
 }
 
-._appContainer_1txsb_89 {
+._appContainer_zkojo_89 {
   display: grid;
   place-content: center;
 }
 
-._appViewerHolder_1txsb_1[data-expanded="false"] > ._appContainer_1txsb_89 {
+._appViewerHolder_zkojo_1[data-expanded="false"] > ._appContainer_zkojo_89 {
   position: absolute;
   top: var(--preview-inset-top);
   right: var(--preview-inset-horizontal);
@@ -49433,14 +49444,14 @@ h2._error_1txsb_238 {
   height: var(--app-preview-h);
 }
 
-._appViewerHolder_1txsb_1[data-expanded="true"] > ._appContainer_1txsb_89 {
+._appViewerHolder_zkojo_1[data-expanded="true"] > ._appContainer_zkojo_89 {
   position: absolute;
   inset-inline: var(--expanded-inset-horizontal);
   top: var(--expanded-inset-top);
   height: var(--app-expanded-h);
 }
 
-._previewFrame_1txsb_109 {
+._previewFrame_zkojo_109 {
   background-color: var(--rstudio-white);
   width: var(--app-expanded-w);
   height: var(--app-expanded-h);
@@ -49451,22 +49462,22 @@ h2._error_1txsb_238 {
   border-radius: 2px;
 }
 
-._appViewerHolder_1txsb_1[data-expanded="true"] ._previewFrame_1txsb_109 {
+._appViewerHolder_zkojo_1[data-expanded="true"] ._previewFrame_zkojo_109 {
   transform: scale(1);
   transition: transform var(--animation-speed-timing);
   border: none;
   box-shadow: var(--shadow-elevation-medium);
 }
 
-._appViewerHolder_1txsb_1[data-expanded="false"] ._previewFrame_1txsb_109 {
+._appViewerHolder_zkojo_1[data-expanded="false"] ._previewFrame_zkojo_109 {
   /* Don't reverse the growing animation, just snap back to smaller */
   transition: none;
 }
 
 /* ====== Buttons ========================================== */
 
-._expandButton_1txsb_134,
-._reloadButton_1txsb_135 {
+._expandButton_zkojo_134,
+._reloadButtonContainer_zkojo_135 {
   position: absolute;
   background-color: transparent;
   outline: none;
@@ -49476,48 +49487,59 @@ h2._error_1txsb_238 {
   transition-timing-function: ease-in;
 }
 
-._reloadButton_1txsb_135 {
+._reloadButtonContainer_zkojo_135 {
   height: var(--header-height);
+  width: var(--header-height);
   top: 0;
   left: 0;
   bottom: 0;
-  color: currentColor;
-  font-size: 1.5rem;
-  --normal-transform: scaleY(-1) var(--expand-scale, scale(1)) rotate(90deg);
-  transform: var(--normal-transform);
+  /* outline: 1px solid pink; */
+  /* --normal-transform: scaleY(-1) var(--expand-scale, scale(1)) rotate(90deg);
+  transform: var(--normal-transform); */
 }
 
-._reloadButton_1txsb_135:hover {
-  --expand-scale: scale(1.1);
+._reloadButton_zkojo_135 {
+  color: currentColor;
+  font-size: 1.5rem;
+  height: 100%;
+  width: 100%;
+  aspect-ratio: 1;
+  background-color: transparent;
+}
+
+._reloadButton_zkojo_135 > svg {
+  scale: -1 1;
+}
+._reloadButton_zkojo_135:hover > svg {
+  scale: -1.1 1.1;
 }
 
 /* When this class is added to the reload button it will cause it to spin
 around, showing the user that their click actually did something */
-._spin_1txsb_162 {
+._spin_zkojo_174 {
   animation-duration: 1s;
-  animation-name: _spin_1txsb_162;
-  --at-rest-transform: var(--normal-transform, scale(1));
+  animation-name: _spin_zkojo_174;
 }
 
-@keyframes _spin_1txsb_162 {
+@keyframes _spin_zkojo_174 {
   from {
-    transform: var(--at-rest-transform) rotate(0deg);
+    rotate: 0deg;
   }
 
   to {
-    transform: var(--at-rest-transform) rotate(-360deg);
+    rotate: 360deg;
     animation-timing-function: ease-out;
   }
 }
 
-._appViewerHolder_1txsb_1 ._reloadButton_1txsb_135 {
+._appViewerHolder_zkojo_1 ._reloadButtonContainer_zkojo_135 {
   /* Hide reload button in the main panel until we're in full screen mode. We
   have two reload buttons because the reload button in the header isn't
   available in that zoom level */
   display: none;
 }
 
-._expandButton_1txsb_134 {
+._expandButton_zkojo_134 {
   width: 100%;
   height: 100%;
   font-size: 50px;
@@ -49525,19 +49547,19 @@ around, showing the user that their click actually did something */
   color: transparent;
 }
 
-._expandButton_1txsb_134:hover {
+._expandButton_zkojo_134:hover {
   color: inherit;
   opacity: 1;
   transform: scale(1.1);
 }
 
-._restartButton_1txsb_200 {
+._restartButton_zkojo_211 {
   width: fit-content;
   margin-inline: auto;
 }
 
-._appViewerHolder_1txsb_1[data-expanded="true"] ._expandButton_1txsb_134,
-._appViewerHolder_1txsb_1[data-expanded="true"] ._reloadButton_1txsb_135 {
+._appViewerHolder_zkojo_1[data-expanded="true"] ._expandButton_zkojo_134,
+._appViewerHolder_zkojo_1[data-expanded="true"] ._reloadButtonContainer_zkojo_135 {
   width: var(--expanded-inset-left);
   height: var(--expanded-inset-top);
   font-size: 2.5rem;
@@ -49547,29 +49569,29 @@ around, showing the user that their click actually did something */
   display: block;
 }
 
-._appViewerHolder_1txsb_1[data-expanded="true"] ._expandButton_1txsb_134 {
+._appViewerHolder_zkojo_1[data-expanded="true"] ._expandButton_zkojo_134 {
   color: inherit;
   right: 0;
 }
 
-._appViewerHolder_1txsb_1 > h2 {
+._appViewerHolder_zkojo_1 > h2 {
   color: var(--rstudio-grey);
   text-align: center;
   font-style: italic;
 }
 
-._loadingMessage_1txsb_227 {
+._loadingMessage_zkojo_238 {
   display: grid;
   place-content: center;
   width: 100%;
   height: 100%;
   padding: 1rem;
 }
-._loadingMessage_1txsb_227 > h2 {
+._loadingMessage_zkojo_238 > h2 {
   text-align: center;
 }
 
-h2._error_1txsb_238 {
+h2._error_zkojo_249 {
   color: var(--red);
 }
 `;
@@ -49584,10 +49606,10 @@ h2._error_1txsb_238 {
       document.head.appendChild(el);
     }
   })();
-  var AppPreview_module_css_default2 = { "appViewerHolder": "_appViewerHolder_1txsb_1", "title": "_title_1txsb_55", "appContainer": "_appContainer_1txsb_89", "previewFrame": "_previewFrame_1txsb_109", "expandButton": "_expandButton_1txsb_134", "reloadButton": "_reloadButton_1txsb_135", "spin": "_spin_1txsb_162", "restartButton": "_restartButton_1txsb_200", "loadingMessage": "_loadingMessage_1txsb_227", "error": "_error_1txsb_238" };
+  var AppPreview_module_css_default2 = { "appViewerHolder": "_appViewerHolder_zkojo_1", "title": "_title_zkojo_55", "appContainer": "_appContainer_zkojo_89", "previewFrame": "_previewFrame_zkojo_109", "expandButton": "_expandButton_zkojo_134", "reloadButtonContainer": "_reloadButtonContainer_zkojo_135", "reloadButton": "_reloadButton_zkojo_135", "spin": "_spin_zkojo_174", "restartButton": "_restartButton_zkojo_211", "loadingMessage": "_loadingMessage_zkojo_238", "error": "_error_zkojo_249" };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-m9kYDjUqYfdV/editor/src/components/AppPreview/FakeDashboard.module.css.js
-  var digest43 = "85d43ca39e5f5300e20c0a1717cc03ddd314e5f145292edb21fdd9d0a0c2d8df";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-WuncZnZDBG4y/editor/src/components/AppPreview/FakeDashboard.module.css.js
+  var digest43 = "e6e2253ab57817e5158c4bbb7c847b0fa20eb919fc3969f39c7a63417bd67ffe";
   var css43 = `._fakeApp_t3dh1_1 {
   display: grid;
   place-content: center;
@@ -49692,8 +49714,8 @@ h2._error_1txsb_238 {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "fill": "none", "stroke": "#000", "strokeWidth": "2", "d": "M12,22 C17.5228475,22 22,17.5228475 22,12 C22,6.4771525 17.5228475,2 12,2 C6.4771525,2 2,6.4771525 2,12 C2,17.5228475 6.4771525,22 12,22 Z M5,5 L19,19" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-qqrIeSGIwAV9/editor/src/components/AppPreview/LogsViewer.module.css.js
-  var digest44 = "4e36c2804470fa7ac04c1916bf215ab051f2c75d9b9123957c601163d7acc008";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-ej5r2aO8XMpT/editor/src/components/AppPreview/LogsViewer.module.css.js
+  var digest44 = "21c370d688fba2e2f16cf1acef21580330a418b529f233fa21c57ca2778c4119";
   var css44 = `/* Logs section */
 ._logs_xjp5l_2 {
   --tab-height: var(--logs-button-h, 20px);
@@ -50031,31 +50053,37 @@ p._logLine_xjp5l_75 {
     const previewScale = usePreviewScale();
     const reloadApp = import_react45.default.useCallback(
       (e2) => {
+        spinReloadButton(e2.currentTarget);
         if (!iframeRef.current || typeof appLoc === "string")
           return;
-        console.log("HI!");
         if (e2.metaKey) {
           restartApp();
         } else {
           iframeRef.current.src = appLoc.url;
         }
-        spinReloadButton(e2.currentTarget);
       },
       [appLoc, restartApp]
     );
     if (appLoc === "HIDDEN") {
       return null;
     }
+    const ReloadButton = ({ isExpandedMode }) => /* @__PURE__ */ (0, import_jsx_runtime84.jsx)("div", {
+      className: AppPreview_module_css_default.reloadButtonContainer,
+      children: /* @__PURE__ */ (0, import_jsx_runtime84.jsx)(TooltipButton, {
+        text: `Reload app session (hold ${getMetaKeyOnClient()} to restart app server also)`,
+        className: AppPreview_module_css_default.reloadButton,
+        onClick: reloadApp,
+        position: isExpandedMode ? "right" : "up-right",
+        children: /* @__PURE__ */ (0, import_jsx_runtime84.jsx)(VscDebugRestart, {})
+      })
+    });
     return /* @__PURE__ */ (0, import_jsx_runtime84.jsxs)(import_jsx_runtime84.Fragment, {
       children: [
         /* @__PURE__ */ (0, import_jsx_runtime84.jsxs)(PanelHeader, {
           className: AppPreview_module_css_default.title,
           children: [
-            /* @__PURE__ */ (0, import_jsx_runtime84.jsx)(TooltipButton, {
-              text: `Reload app session (hold commmand to restart app server also)`,
-              className: AppPreview_module_css_default.reloadButton,
-              onClick: reloadApp,
-              children: /* @__PURE__ */ (0, import_jsx_runtime84.jsx)(VscDebugRestart, {})
+            /* @__PURE__ */ (0, import_jsx_runtime84.jsx)(ReloadButton, {
+              isExpandedMode: false
             }),
             "App Preview"
           ]
@@ -50072,12 +50100,8 @@ p._logLine_xjp5l_75 {
             onClick: restartApp
           }) : /* @__PURE__ */ (0, import_jsx_runtime84.jsxs)(import_jsx_runtime84.Fragment, {
             children: [
-              /* @__PURE__ */ (0, import_jsx_runtime84.jsx)(Button_default, {
-                variant: ["transparent", "icon"],
-                className: AppPreview_module_css_default.reloadButton,
-                title: `Reload app session (hold commmand to restart app server also)`,
-                onClick: reloadApp,
-                children: /* @__PURE__ */ (0, import_jsx_runtime84.jsx)(VscDebugRestart, {})
+              /* @__PURE__ */ (0, import_jsx_runtime84.jsx)(ReloadButton, {
+                isExpandedMode: true
               }),
               /* @__PURE__ */ (0, import_jsx_runtime84.jsxs)("div", {
                 className: AppPreview_module_css_default.appContainer,
@@ -50139,12 +50163,17 @@ p._logLine_xjp5l_75 {
     });
   }
   function spinReloadButton(buttonEl) {
-    buttonEl.classList.add(AppPreview_module_css_default.spin);
+    const reloadIcon = buttonEl.querySelector("svg");
+    reloadIcon?.classList.add(AppPreview_module_css_default.spin);
     buttonEl.addEventListener(
       "animationend",
-      () => buttonEl.classList.remove(AppPreview_module_css_default.spin),
+      () => reloadIcon?.classList.remove(AppPreview_module_css_default.spin),
       false
     );
+  }
+  function getMetaKeyOnClient() {
+    const isMac = /mac/i.test(window.navigator.platform);
+    return isMac ? "\u2318" : "Alt";
   }
 
   // ../editor/src/components/TemplatePreviews/filterTemplates.ts
@@ -50894,8 +50923,8 @@ p._logLine_xjp5l_75 {
   // ../editor/src/ElementsPalette/index.tsx
   var React60 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-dU8XByMUvKZK/editor/src/ElementsPalette/styles.module.css.js
-  var digest45 = "fcfe9186ccd679a4a62912a4edb1b1b361290029f06f1a3091064a33699369b6";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-DvUDc1XM7VsE/editor/src/ElementsPalette/styles.module.css.js
+  var digest45 = "3993db3082666f1d333d60ec15540ff6a7ba2880c8d15e2197d816a899b292c4";
   var css45 = `._elementsPalette_qmlez_1 {
   --icon-size: 75px;
   --padding: 8px;
@@ -50966,8 +50995,8 @@ p._logLine_xjp5l_75 {
   })();
   var styles_module_css_default24 = { "elementsPalette": "_elementsPalette_qmlez_1", "OptionContainer": "_OptionContainer_qmlez_18", "optionContainer": "_OptionContainer_qmlez_18", "OptionItem": "_OptionItem_qmlez_24", "optionItem": "_OptionItem_qmlez_24", "OptionIcon": "_OptionIcon_qmlez_33", "optionIcon": "_OptionIcon_qmlez_33", "OptionLabel": "_OptionLabel_qmlez_41", "optionLabel": "_OptionLabel_qmlez_41" };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-J6uQcJ7rva6u/editor/src/ElementsPalette/styles.module.css.js
-  var digest46 = "fc2307857d1aa763fe9f60c4f3b12d61d81fc17d0594225fda81ebd4ffac7525";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-nA94XLOACL6R/editor/src/ElementsPalette/styles.module.css.js
+  var digest46 = "e8b55a59325bdaf27b037872fb760e7372c5c716f695e0eaad0b6cab720b02e1";
   var css46 = `._elementsPalette_qmlez_1 {
   --icon-size: 75px;
   --padding: 8px;
@@ -51268,8 +51297,8 @@ p._logLine_xjp5l_75 {
     return InputsComponents;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-xHu4IqoB1iXt/editor/src/SettingsPanel/PathBreadcrumb.module.css.js
-  var digest47 = "0286ee493a3b93c6e417af1088a92200ca398b197e57c1da990619f3bdc64e7a";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-wsLMNfDWvCqM/editor/src/SettingsPanel/PathBreadcrumb.module.css.js
+  var digest47 = "bfbc934a54c12120bf246d2e4d65263c61ac13a43b30bb3962fd85377188db45";
   var css47 = `._container_1fh41_1 {
   --flex-gap: 8px;
   padding: var(--vertical-spacing);
@@ -51397,8 +51426,8 @@ p._logLine_xjp5l_75 {
     return uiName.replace(/[a-z]+::/, "");
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-U4BUNRMAqMjo/editor/src/SettingsPanel/SettingsPanel.module.css.js
-  var digest48 = "176314e58f79f0604fda855318144df78c1416b3ccdd379559219688cf4b5e98";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-PqrNuisz6MbY/editor/src/SettingsPanel/SettingsPanel.module.css.js
+  var digest48 = "2c243edf2255e1f734dfff3312a143d72aedee118fd70da2a30522707fbb6aa3";
   var css48 = `._settingsPanel_a44hx_1 {
   --vertical-gap: var(--vertical-spacing);
   display: flex;
@@ -56881,8 +56910,8 @@ form._settingsForm_a44hx_17 {
     return newEntry === oldEntry;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-7106-KQdd3H9cvlTb/editor/src/components/UndoRedoButtons/UndoRedoButtons.module.css.js
-  var digest49 = "dac6e7d78dae8261fb7f6c1ac62bd72bd7897c42b63d2f7e17008c91b02f884d";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-11174-H66ZzYVDBbCo/editor/src/components/UndoRedoButtons/UndoRedoButtons.module.css.js
+  var digest49 = "d80d02f43c79f75c3cfbfc1be8641497e8f22367879bb7a59e35389b956c210b";
   var css49 = `._container_1d7pe_1 {
   display: flex;
   position: relative;

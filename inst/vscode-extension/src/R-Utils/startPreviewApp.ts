@@ -19,12 +19,14 @@ export function startPreviewApp({
   onInitiation,
   onReady,
   onFailToStart,
+  onLogs,
 }: {
   pathToApp: string;
   onInitiation: () => void;
   onReady: (url: string) => void;
   onFailToStart: () => void;
   onCrash: () => void;
+  onLogs: (logs: string[]) => void;
 }): PreviewAppInfo {
   const host = "0.0.0.0";
   const appDir = path.parse(pathToApp).dir;
@@ -63,10 +65,10 @@ export function startPreviewApp({
             if (readyToGoRegex.test(msg)) {
               onReady(previewAppUri.toString());
             }
+            onLogs(msg.split("\n"));
           },
           onClose: onCrash,
           onError: onCrash,
-          verbose: true,
         }
       );
 
@@ -79,6 +81,7 @@ export function startPreviewApp({
 
   function stopApp() {
     if (appProcess === null) {
+      // eslint-disable-next-line no-console
       console.warn("No app to stop running...");
       return true;
     }

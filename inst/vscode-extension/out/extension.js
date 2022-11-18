@@ -904,7 +904,8 @@ function startPreviewApp({
   onCrash,
   onInitiation,
   onReady,
-  onFailToStart
+  onFailToStart,
+  onLogs
 }) {
   const host = "0.0.0.0";
   const appDir = import_path2.default.parse(pathToApp).dir;
@@ -931,10 +932,10 @@ function startPreviewApp({
             if (readyToGoRegex.test(msg)) {
               onReady(previewAppUri.toString());
             }
+            onLogs(msg.split("\n"));
           },
           onClose: onCrash,
-          onError: onCrash,
-          verbose: true
+          onError: onCrash
         }
       );
       return true;
@@ -1058,14 +1059,24 @@ var _ShinyUiEditorProvider = class {
         });
       },
       onFailToStart: () => {
-        console.log("Preview app failed to start up");
+        var _a;
+        (_a = this.sendMessage) == null ? void 0 : _a.call(this, {
+          path: "APP-PREVIEW-CRASH",
+          payload: "Failed to start"
+        });
       },
       onCrash: () => {
         var _a;
-        console.log("!!App crashed!");
         (_a = this.sendMessage) == null ? void 0 : _a.call(this, {
           path: "APP-PREVIEW-CRASH",
           payload: "Crashed"
+        });
+      },
+      onLogs: (logs) => {
+        var _a;
+        (_a = this.sendMessage) == null ? void 0 : _a.call(this, {
+          path: "APP-PREVIEW-LOGS",
+          payload: logs
         });
       }
     });
