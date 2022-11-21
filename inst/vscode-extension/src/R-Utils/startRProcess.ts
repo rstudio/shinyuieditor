@@ -89,9 +89,11 @@ export async function startRProcess(
 
     const stop = () => {
       // Process never started
-      if (!spawnedProcess.pid) return true;
+      if (!spawnedProcess.pid) {
+        return true;
+      }
 
-      eventLog(`Killing R process`);
+      eventLog(`Killing R process ${spawnedProcess.pid}`);
 
       // Unlisten event listeners
       spawnedProcess.off("spawn", onSpawn);

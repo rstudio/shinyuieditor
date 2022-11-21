@@ -844,9 +844,10 @@ ${msg}`);
     spawnedProcess.stdout.on("data", onStdout);
     spawnedProcess.stderr.on("data", onStderr);
     const stop = () => {
-      if (!spawnedProcess.pid)
+      if (!spawnedProcess.pid) {
         return true;
-      eventLog(`Killing R process`);
+      }
+      eventLog(`Killing R process ${spawnedProcess.pid}`);
       spawnedProcess.off("spawn", onSpawn);
       spawnedProcess.off("error", onError);
       spawnedProcess.off("close", onClose);
@@ -912,9 +913,7 @@ function startPreviewApp({
   let appProcess = null;
   async function startApp() {
     onInitiation();
-    if (appProcess == null ? void 0 : appProcess.proc.connected) {
-      appProcess.stop();
-    }
+    stopApp();
     try {
       const port = await getFreePort();
       const previewAppUri = await vscode2.env.asExternalUri(
@@ -946,7 +945,6 @@ function startPreviewApp({
   }
   function stopApp() {
     if (appProcess === null) {
-      console.warn("No app to stop running...");
       return true;
     }
     return appProcess.stop();

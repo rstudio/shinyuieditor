@@ -36,12 +36,10 @@ export function startPreviewApp({
   async function startApp() {
     onInitiation();
 
-    if (appProcess?.proc.connected) {
-      // If there is an existing app process and it can still have messages
-      // communicated with it, we need to kill it Restarting existing app
-      // process.
-      appProcess.stop();
-    }
+    // If there is an existing app process and it can still have messages
+    // communicated with it, we need to kill it Restarting existing app
+    // process.
+    stopApp();
 
     try {
       const port = await getFreePort();
@@ -81,8 +79,7 @@ export function startPreviewApp({
 
   function stopApp() {
     if (appProcess === null) {
-      // eslint-disable-next-line no-console
-      console.warn("No app to stop running...");
+      // No app to stop running...
       return true;
     }
 
