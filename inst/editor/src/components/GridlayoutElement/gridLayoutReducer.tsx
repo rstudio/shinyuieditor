@@ -13,7 +13,10 @@ import type { TemplatedGridProps } from "../Grids/EditableGridContainer/Template
 import type { CSSMeasure } from "../Inputs/CSSUnitInput/CSSMeasure";
 
 import type { GridLayoutArgs } from "./GridLayoutArgs";
-import { convertLayoutTableToMatrix } from "./layoutParsing";
+import {
+  convertGridlayoutArgsToTemplatedLayout,
+  convertTemplatedLayoutToGridlayoutArgs,
+} from "./layoutParsing";
 
 export type GridLayoutAction =
   | { type: "ADD_ITEM"; name: string; pos: GridItemExtent }
@@ -45,13 +48,21 @@ export type GridLayoutAction =
     };
 
 export function gridLayoutReducer(
-  layout: TemplatedGridProps | GridLayoutArgs,
+  layout: GridLayoutArgs,
+  action: GridLayoutAction
+): GridLayoutArgs {
+  const layoutToUpdate = convertGridlayoutArgsToTemplatedLayout(layout);
+
+  return convertTemplatedLayoutToGridlayoutArgs(
+    gridLayoutTemplateReducer(layoutToUpdate, action)
+  );
+}
+
+function gridLayoutTemplateReducer(
+  layout: TemplatedGridProps,
   action: GridLayoutAction
 ): TemplatedGridProps {
-  const layoutToUpdate: TemplatedGridProps =
-    "layout" in layout
-      ? { ...layout, areas: convertLayoutTableToMatrix(layout.layout) }
-      : layout;
+  const layoutToUpdate = layout;
 
   switch (action.type) {
     case "ADD_ITEM":

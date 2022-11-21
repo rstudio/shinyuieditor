@@ -36,13 +36,11 @@ export function updateGridLayoutAreaOnItemAreaChange(
 
   if (oldAreaName === newAreaName) return;
 
-  gridPageNode.uiArguments = convertTemplatedLayoutToGridlayoutArgs(
-    gridLayoutReducer(gridPageNode.uiArguments, {
-      type: "RENAME_ITEM",
-      oldName: oldAreaName,
-      newName: newAreaName,
-    })
-  );
+  gridPageNode.uiArguments = gridLayoutReducer(gridPageNode.uiArguments, {
+    type: "RENAME_ITEM",
+    oldName: oldAreaName,
+    newName: newAreaName,
+  });
 }
 
 export function removeDeletedGridAreaFromLayout(
@@ -66,12 +64,10 @@ export function removeDeletedGridAreaFromLayout(
     return;
   }
 
-  gridPageNode.uiArguments = convertTemplatedLayoutToGridlayoutArgs(
-    gridLayoutReducer(gridPageNode.uiArguments, {
-      type: "REMOVE_ITEM",
-      name: deletedAreaName,
-    })
-  );
+  gridPageNode.uiArguments = gridLayoutReducer(gridPageNode.uiArguments, {
+    type: "REMOVE_ITEM",
+    name: deletedAreaName,
+  });
 }
 
 function getGridContainerAndItemNodes({

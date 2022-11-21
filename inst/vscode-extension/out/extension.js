@@ -632,6 +632,10 @@ async function getAppFile(fileText, RProcess) {
     );
     return parsedAppInfo;
   } catch {
+    console.error(
+      "Could not get document as json. Content is not valid json",
+      parsedCommandOutput
+    );
     throw new Error(
       "Could not get document as json. Content is not valid json"
     );
@@ -1013,6 +1017,7 @@ var _ShinyUiEditorProvider = class {
         appFileText,
         this.RProcess
       );
+      console.log("Initial app ui bounds", ui_bounds);
       this.uiBounds = ui_bounds;
       (_a = this.sendMessage) == null ? void 0 : _a.call(this, {
         path: "UPDATED-TREE",
@@ -1195,7 +1200,7 @@ var _ShinyUiEditorProvider = class {
     const uiNumLinesDiff = newUiNumLines - oldUiNumLines;
     this.uiBounds = {
       start,
-      end: end - uiNumLinesDiff
+      end: end + uiNumLinesDiff
     };
     return { uiText: newUiText };
   }

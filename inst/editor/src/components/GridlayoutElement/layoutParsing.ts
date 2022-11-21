@@ -81,6 +81,16 @@ export function convertTemplatedLayoutToGridlayoutArgs({
   };
 }
 
+export function convertGridlayoutArgsToTemplatedLayout({
+  layout,
+  ...sizes
+}: GridLayoutArgs): TemplatedGridProps {
+  return {
+    areas: convertLayoutTableToMatrix(layout),
+    ...sizes,
+  };
+}
+
 export function makeColumnAlignedTable(mat: string[][]): string[] {
   const { numCols } = matrixDimensions(mat);
 

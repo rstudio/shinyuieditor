@@ -9,6 +9,7 @@ import { areasToItemLocations } from "../../utils/gridTemplates/itemLocations";
 import type { GridItemExtent } from "../../utils/gridTemplates/types";
 import { AreaOverlay } from "../Grids/AreaOverlay";
 import EditableGridContainer from "../Grids/EditableGridContainer/EditableGridContainer";
+import type { TemplatedGridProps } from "../Grids/EditableGridContainer/TemplatedGridProps";
 import { GridCell } from "../Grids/GridCell";
 import { toStringLoc } from "../Grids/helpers";
 import type { GridItemNode } from "../Grids/isValidGridItem";
@@ -21,7 +22,10 @@ import UiNode from "../UiNode/UiNode";
 import type { GridLayoutArgs } from "./GridLayoutArgs";
 import { gridLayoutReducer } from "./gridLayoutReducer";
 import type { GridLayoutAction } from "./gridLayoutReducer";
-import { parseGridLayoutArgs } from "./layoutParsing";
+import {
+  convertTemplatedLayoutToGridlayoutArgs,
+  parseGridLayoutArgs,
+} from "./layoutParsing";
 import classes from "./styles.module.css";
 
 export type NewItemInfo = DraggedNodeInfo & {
@@ -70,8 +74,17 @@ export const GridlayoutElement: UiNodeComponent<GridLayoutArgs> = ({
   };
 
   const handleLayoutUpdate = (action: GridLayoutAction) => {
-    updateArguments(gridLayoutReducer(layout, action));
+    updateArguments(gridLayoutReducer(layoutDef, action));
   };
+
+  const handleNewLayoutTemplate = React.useCallback(
+    (newLayoutTemplate: TemplatedGridProps) => {
+      updateArguments(
+        convertTemplatedLayoutToGridlayoutArgs(newLayoutTemplate)
+      );
+    },
+    [updateArguments]
+  );
 
   const areaOverlays = uniqueAreas.map((area) => (
     <AreaOverlay
@@ -141,7 +154,10 @@ export const GridlayoutElement: UiNodeComponent<GridLayoutArgs> = ({
         draggable={false}
         onDragStart={() => {}}
       >
-        <EditableGridContainer {...layout} onNewLayout={updateArguments}>
+        <EditableGridContainer
+          {...layout}
+          onNewLayout={handleNewLayoutTemplate}
+        >
           {findEmptyCells(areas).map(({ row, col }) => (
             <GridCell
               key={toStringLoc({ row, col })}

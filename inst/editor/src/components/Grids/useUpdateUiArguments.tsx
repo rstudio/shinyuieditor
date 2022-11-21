@@ -2,21 +2,20 @@ import React from "react";
 
 import { useDispatch } from "react-redux";
 
-import type { TemplatedGridProps } from "../../components/Grids/EditableGridContainer/TemplatedGridProps";
 import type { NodePath } from "../../Shiny-Ui-Elements/uiNodeTypes";
 import { UPDATE_NODE } from "../../state/uiTree";
-import { convertTemplatedLayoutToGridlayoutArgs } from "../GridlayoutElement/layoutParsing";
+import type { GridLayoutArgs } from "../GridlayoutElement/GridLayoutArgs";
 
 export function useUpdateUiArguments(path: NodePath) {
   const dispatch = useDispatch();
 
   const updateArguments = React.useCallback(
-    (newArguments: TemplatedGridProps) => {
+    (newArguments: GridLayoutArgs) => {
       dispatch(
         UPDATE_NODE({
           path: path,
           node: {
-            uiArguments: convertTemplatedLayoutToGridlayoutArgs(newArguments),
+            uiArguments: newArguments,
           },
         })
       );
