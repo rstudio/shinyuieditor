@@ -53,6 +53,9 @@ export function buildCommand({
           target: "es2020",
         }),
     define: {
+      "process.env.NODE_ENV": productionBuild
+        ? `"production"`
+        : `"development"`,
       TESTING_MODE_ESBUILD: testing ? "true" : "false",
     },
     outfile: outFile,
