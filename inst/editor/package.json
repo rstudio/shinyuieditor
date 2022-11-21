@@ -10,6 +10,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "balloon-css": "^1.2.0",
     "bootstrap": "^5.2.0",
+    "build-utils": "*",
     "esbuild": "^0.15.13",
     "immer": "^9.0.12",
     "just-clone": "^6.1.1",
@@ -65,11 +66,9 @@
     "vitest": "^0.22.1"
   },
   "scripts": {
+    "prod": "tsx scripts/build.ts --prod",
     "start": "tsx scripts/build.ts --serve --watch",
     "build": "tsx scripts/build.ts --prod",
-    "esbuild": "tsx scripts/build.ts --vscode",
-    "esbuild-build": "tsx scripts/build.ts --prod --watch",
-    "esbuild-serve": "tsx scripts/build.ts --serve",
     "testing-serve": "tsx scripts/build.ts --serve --test --playwright",
     "build-netlify": "VITE_SHOW_FAKE_PREVIEW=true PUBLIC_URL=/ yarn build",
     "build-website-demo": "tsx scripts/build.ts --website-demo",
@@ -85,7 +84,6 @@
     "playwright-backend": "playwright test backend --project=chromium --workers=1",
     "playwright-visual": "playwright test visual --workers=1",
     "generate-doc-screenshots": "npx ts-node-esm playwright/utils/generate_docs_screenshots.mts",
-    "setup-husky": "cd ../../ && husky install inst/editor/.husky",
     "deps-check": "knip"
   },
   "browserslist": {

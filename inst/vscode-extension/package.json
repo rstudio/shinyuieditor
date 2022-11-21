@@ -33,6 +33,7 @@
     "commands": []
   },
   "scripts": {
+    "prod": "tsx scripts/build.ts",
     "vscode:prepublish": "yarn build",
     "watch": "tsx scripts/build.ts --watch",
     "build": "tsx scripts/build.ts",
@@ -45,6 +46,7 @@
     "@types/winreg": "^1.2.31",
     "@typescript-eslint/eslint-plugin": "^5.42.0",
     "@typescript-eslint/parser": "^5.42.0",
+    "build-utils": "*",
     "esbuild": "^0.15.13",
     "eslint": "^8.26.0",
     "tsx": "^3.12.1",

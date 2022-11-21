@@ -5,6 +5,7 @@
   ],
   "packageManager": "yarn@3.3.0",
   "scripts": {
+    "prod": "turbo run prod",
     "build": "turbo run build",
     "test": "turbo run test",
     "type-check": "turbo run type-check",

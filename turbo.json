@@ -1,6 +1,9 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
+    "prod": {
+      "inputs": ["src/**/*.tsx", "src/**/*.ts"]
+    },
     "build": {
       "outputs": ["build/**"],
       "inputs": ["src/**/*.tsx", "src/**/*.ts"]
