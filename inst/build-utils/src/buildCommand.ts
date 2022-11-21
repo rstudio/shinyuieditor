@@ -2,6 +2,7 @@ import type http from "http";
 
 import esbuild from "esbuild";
 import cssModulesPlugin from "esbuild-css-modules-plugin";
+import { compress } from "esbuild-plugin-compress";
 import { sassPlugin } from "esbuild-sass-plugin";
 
 import { hasBooleanArg, serveCommand } from "./index";
@@ -58,7 +59,9 @@ export function buildCommand({
     loader: { ".png": "dataurl" },
     metafile: true,
     watch: buildWatcherArg(watching, backend),
+    write: !productionBuild,
     plugins: [
+      ...(productionBuild ? [compress()] : []),
       //   cleanup({ safelist: ["index.html"] }),
       sassPlugin(),
       cssModulesPlugin({

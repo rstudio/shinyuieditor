@@ -9,5 +9,8 @@
     "esbuild-css-modules-plugin": "^2.6.2",
     "esbuild-sass-plugin": "^2.4.0",
     "typescript": "latest"
+  },
+  "devDependencies": {
+    "esbuild-plugin-compress": "^1.0.1"
   }
 }
