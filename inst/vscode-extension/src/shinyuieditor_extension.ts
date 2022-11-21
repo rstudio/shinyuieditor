@@ -315,7 +315,7 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
     const uiNumLinesDiff = newUiNumLines - oldUiNumLines;
     this.uiBounds = {
       start,
-      end: end - uiNumLinesDiff,
+      end: end + uiNumLinesDiff,
     };
 
     return { uiText: newUiText };
