@@ -25,7 +25,6 @@ export async function getAppFile(
     const parsedAppInfo = JSON.parse(
       parsedCommandOutput.reduce((all, l) => all + "\n" + l, "")
     );
-
     return parsedAppInfo;
   } catch {
     throw new Error(

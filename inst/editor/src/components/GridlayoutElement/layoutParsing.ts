@@ -40,11 +40,15 @@ export function parseGridLayoutArgs({
   if (!col_sizes) {
     col_sizes = fillArr("1fr", numCols);
   } else if (col_sizes.length !== numCols) {
+    console.log("Bad columns");
+    debugger;
     throw new Error("Column sizes vector doesn't match layout definition.");
   }
   if (!row_sizes) {
     row_sizes = fillArr("1fr", numRows);
   } else if (row_sizes.length !== numRows) {
+    console.log("Bad rows");
+    debugger;
     throw new Error("Row sizes vector doesn't match layout definition.");
   }
 

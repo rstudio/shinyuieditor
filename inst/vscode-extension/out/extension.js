@@ -658,7 +658,7 @@ function makeLogger(verbose, prefix) {
     }
   };
 }
-async function runRCommand(rProc, cmd, { timeout_ms = 500, verbose = false } = {}) {
+async function runRCommand(rProc, cmd, { timeout_ms = 1e3, verbose = true } = {}) {
   const logger = makeLogger(verbose, "runRCommand: ");
   let logs = "";
   let seenNonEmptyOutput = false;
@@ -1097,15 +1097,7 @@ var _ShinyUiEditorProvider = class {
                 "No available R Process or ui bounds, can't update UI tree"
               );
             }
-            const uiCode = await generateUpdatedUiCode(
-              msg.payload,
-              this.RProcess
-            );
-            const { uiText } = await this.updateAppUI(
-              document,
-              this.uiBounds,
-              uiCode
-            );
+            const { uiText } = await this.updateAppUI(document, msg.payload);
             latestAppWrite = uiText;
             return;
           }
@@ -1182,7 +1174,15 @@ var _ShinyUiEditorProvider = class {
 			</body>
 			</html>`;
   }
-  async updateAppUI(document, { start, end }, uiCode) {
+  async updateAppUI(document, uiTree) {
+    if (!this.RProcess) {
+      throw new Error("Can't access R to build new ui code");
+    }
+    if (!this.uiBounds) {
+      throw new Error("Attempting to update an app that has yet to be parsed.");
+    }
+    const { start, end } = this.uiBounds;
+    const uiCode = await generateUpdatedUiCode(uiTree, this.RProcess);
     const uiRange = new vscode3.Range(start - 1, 0, end, 0);
     const edit = new vscode3.WorkspaceEdit();
     const newUiText = `ui <- ${collapseText(...uiCode.text)}
@@ -1193,11 +1193,11 @@ var _ShinyUiEditorProvider = class {
     const oldUiNumLines = end - start + 1;
     const newUiNumLines = uiCode.text.length;
     const uiNumLinesDiff = newUiNumLines - oldUiNumLines;
-    const newBounds = {
+    this.uiBounds = {
       start,
       end: end - uiNumLinesDiff
     };
-    return { newBounds, uiText: newUiText };
+    return { uiText: newUiText };
   }
 };
 var ShinyUiEditorProvider = _ShinyUiEditorProvider;
