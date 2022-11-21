@@ -14,6 +14,8 @@ import { startPreviewApp } from "./R-Utils/startPreviewApp";
 import { collapseText } from "./string-utils";
 import { getNonce } from "./util";
 
+const { showErrorMessage } = vscode.window;
+
 /**
  * Provider for custom editor.
  *
@@ -77,6 +79,7 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
         );
       }
 
+      console.log("Generating app state");
       const appFileText = document.getText();
 
       // Check to make sure we're not just picking up a change that we made
@@ -87,16 +90,18 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
         return;
       }
 
-      const { ui_bounds, ui_tree } = await getAppFile(
-        appFileText,
-        this.RProcess
-      );
+      const appFileInfo = await getAppFile(appFileText, this.RProcess);
+      if (appFileInfo === "EMPTY") {
+        this.sendMessage?.({ path: "TEMPLATE-CHOOSER", payload: "please?" });
+      } else {
+        const { ui_bounds, ui_tree } = appFileInfo;
 
-      this.uiBounds = ui_bounds;
-      this.sendMessage?.({
-        path: "UPDATED-TREE",
-        payload: ui_tree,
-      });
+        this.uiBounds = ui_bounds;
+        this.sendMessage?.({
+          path: "UPDATED-TREE",
+          payload: ui_tree,
+        });
+      }
     };
 
     const syncFileToClientStateDebounced = debounce(syncFileToClientState, 500);
@@ -182,6 +187,11 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
           case "READY-FOR-STATE":
             syncFileToClientState();
             return;
+
+          case "TEMPLATE-SELECTION": {
+            showErrorMessage("Have not yet implemented template filling out");
+            return;
+          }
 
           case "UPDATED-TREE": {
             if (!this.RProcess || !this.uiBounds) {

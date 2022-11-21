@@ -83,6 +83,7 @@ export type MessageFromBackendByPath = {
   "APP-PREVIEW-STATUS": "FAKE-PREVIEW" | "LOADING" | { url: string };
   "APP-PREVIEW-CRASH": string;
   "APP-PREVIEW-LOGS": string[];
+  "TEMPLATE-CHOOSER": string;
 };
 
 /**

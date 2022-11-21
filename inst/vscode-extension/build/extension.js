@@ -630,6 +630,9 @@ async function getAppFile(fileText, RProcess) {
     const parsedAppInfo = JSON.parse(
       parsedCommandOutput.reduce((all, l) => all + "\n" + l, "")
     );
+    if (Object.keys(parsedAppInfo).length === 0) {
+      return "EMPTY";
+    }
     return parsedAppInfo;
   } catch {
     throw new Error(
@@ -966,6 +969,7 @@ function getNonce() {
 }
 
 // src/shinyuieditor_extension.ts
+var { showErrorMessage } = vscode3.window;
 var _ShinyUiEditorProvider = class {
   constructor(context) {
     this.context = context;
@@ -996,26 +1000,29 @@ var _ShinyUiEditorProvider = class {
     webviewPanel.webview.html = this.getHtmlForWebview(webviewPanel.webview);
     let latestAppWrite = null;
     const syncFileToClientState = async () => {
-      var _a;
+      var _a, _b;
       if (!this.RProcess) {
         throw new Error(
           "Failed to sync file state to client, no R process available"
         );
       }
+      console.log("Generating app state");
       const appFileText = document.getText();
       const updateWeMade = latestAppWrite !== null && appFileText.includes(latestAppWrite);
       if (updateWeMade) {
         return;
       }
-      const { ui_bounds, ui_tree } = await getAppFile(
-        appFileText,
-        this.RProcess
-      );
-      this.uiBounds = ui_bounds;
-      (_a = this.sendMessage) == null ? void 0 : _a.call(this, {
-        path: "UPDATED-TREE",
-        payload: ui_tree
-      });
+      const appFileInfo = await getAppFile(appFileText, this.RProcess);
+      if (appFileInfo === "EMPTY") {
+        (_a = this.sendMessage) == null ? void 0 : _a.call(this, { path: "TEMPLATE-CHOOSER", payload: "please?" });
+      } else {
+        const { ui_bounds, ui_tree } = appFileInfo;
+        this.uiBounds = ui_bounds;
+        (_b = this.sendMessage) == null ? void 0 : _b.call(this, {
+          path: "UPDATED-TREE",
+          payload: ui_tree
+        });
+      }
     };
     const syncFileToClientStateDebounced = functionDebounce(syncFileToClientState, 500);
     const isThisDocument = (doc) => {
@@ -1089,6 +1096,10 @@ var _ShinyUiEditorProvider = class {
           case "READY-FOR-STATE":
             syncFileToClientState();
             return;
+          case "TEMPLATE-SELECTION": {
+            showErrorMessage("Have not yet implemented template filling out");
+            return;
+          }
           case "UPDATED-TREE": {
             if (!this.RProcess || !this.uiBounds) {
               throw new Error(

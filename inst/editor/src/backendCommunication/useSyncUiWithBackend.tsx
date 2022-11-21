@@ -29,6 +29,14 @@ export function useSyncUiWithBackend() {
       }
     );
 
+    const templateChooserSubscription = backendMsgs.subscribe(
+      "TEMPLATE-CHOOSER",
+      () => {
+        setTree("TEMPLATE_CHOOSER");
+        lastRecievedRef.current = "TEMPLATE_CHOOSER";
+      }
+    );
+
     const parsingErrorSubscription = backendMsgs.subscribe(
       "PARSING-ERROR",
       setErrorMsg
@@ -40,6 +48,7 @@ export function useSyncUiWithBackend() {
 
     return () => {
       updatedTreeSubscription.unsubscribe();
+      templateChooserSubscription.unsubscribe();
       parsingErrorSubscription.unsubscribe();
     };
   }, [backendMsgs, sendMsg, setTree]);
