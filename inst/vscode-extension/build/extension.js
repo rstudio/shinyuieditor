@@ -658,7 +658,7 @@ function makeLogger(verbose, prefix) {
     }
   };
 }
-async function runRCommand(rProc, cmd, { timeout_ms = 1e3, verbose = true } = {}) {
+async function runRCommand(rProc, cmd, { timeout_ms = 1e3, verbose = false } = {}) {
   const logger = makeLogger(verbose, "runRCommand: ");
   let logs = "";
   let seenNonEmptyOutput = false;

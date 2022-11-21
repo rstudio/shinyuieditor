@@ -21,7 +21,7 @@ function makeLogger(verbose: boolean, prefix: string) {
 export async function runRCommand(
   rProc: ChildProcessWithoutNullStreams,
   cmd: string,
-  { timeout_ms = 1000, verbose = true }: CommandExecOptions = {}
+  { timeout_ms = 1000, verbose = false }: CommandExecOptions = {}
 ): Promise<string[]> {
   const logger = makeLogger(verbose, "runRCommand: ");
   let logs = "";
