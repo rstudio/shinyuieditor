@@ -16,7 +16,7 @@
   "activationEvents": [
     "onCustomEditor:shinyUiEditor.appFile"
   ],
-  "main": "./out/extension.js",
+  "main": "./build/extension.js",
   "contributes": {
     "customEditors": [
       {
@@ -47,7 +47,6 @@
     "@typescript-eslint/eslint-plugin": "^5.42.0",
     "@typescript-eslint/parser": "^5.42.0",
     "build-utils": "*",
-    "esbuild": "^0.15.13",
     "eslint": "^8.26.0",
     "tsx": "^3.12.1",
     "typescript": "latest"
