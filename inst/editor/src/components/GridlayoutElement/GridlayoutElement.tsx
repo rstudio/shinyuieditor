@@ -44,7 +44,6 @@ export const GridlayoutElement: UiNodeComponent<GridLayoutArgs> = ({
     () => areasToItemLocations(areas),
     [areas]
   );
-  console.log({ itemGridLocations });
 
   const [showModal, setShowModal] = React.useState<NewItemInfo | null>(null);
 

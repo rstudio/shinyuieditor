@@ -17,14 +17,16 @@ export type BackendMessagePassers = {
   incomingMsgs: Omit<MessageDispatcher, "dispatch">;
 };
 
+// eslint-disable-next-line no-console
+const logger = console.log;
 const dummyMessagePassers: BackendMessagePassers = {
-  sendMsg: (x) => console.log("Sending message to backend", x),
+  sendMsg: (x) => logger("Sending message to backend", x),
   incomingMsgs: {
     subscribe: (on, callback) => {
-      console.log(`Request for subscription to ${on}:`, callback);
+      logger(`Request for subscription to ${on}:`, callback);
       return {
         unsubscribe: () =>
-          console.log(`Request for removing subscription to ${on}:`, callback),
+          logger(`Request for removing subscription to ${on}:`, callback),
       };
     },
   },

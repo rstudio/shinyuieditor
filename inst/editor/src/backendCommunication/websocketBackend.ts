@@ -8,12 +8,10 @@ type BackendMessage = { path: string; payload?: string | object };
 export function setupWebsocketBackend({
   onClose,
   messageDispatch,
-  showMessages,
   pathToWebsocket = window.location.host + window.location.pathname,
 }: {
   onClose: () => void;
   messageDispatch: MessageDispatcher;
-  showMessages: boolean;
   pathToWebsocket?: string;
 }) {
   let connectedToWebsocket = false;
@@ -26,9 +24,6 @@ export function setupWebsocketBackend({
 
       const messagePassingMethods: BackendMessagePassers = {
         sendMsg: (msg) => {
-          if (showMessages) {
-            console.log("WS sendMsg()", msg);
-          }
           sendWsMessage(ws, msg as MessageToBackend);
         },
         incomingMsgs: messageDispatch,
@@ -40,10 +35,6 @@ export function setupWebsocketBackend({
 
       ws.onopen = (event) => {
         listenForWsMessages(ws, (msg: BackendMessage) => {
-          if (showMessages) {
-            // eslint-disable-next-line no-console
-            console.log("WS backend msg:", msg);
-          }
           const { path, payload } = msg as MessageFromBackend;
           messageDispatch.dispatch(path, payload);
         });

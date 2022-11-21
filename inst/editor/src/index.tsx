@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { makeMessageDispatcher } from "./backendCommunication/messageDispatcher";
 import { setupStaticBackend } from "./backendCommunication/staticBackend";
 import type { BackendMessagePassers } from "./backendCommunication/useBackendMessageCallbacks";
@@ -14,7 +15,6 @@ const showMessages = true;
     let websocketDispatch = await setupWebsocketBackend({
       messageDispatch,
       onClose: () => console.log("Websocket closed!!"),
-      showMessages,
     });
 
     if (websocketDispatch === "NO-WS-CONNECTION") {
@@ -23,7 +23,6 @@ const showMessages = true;
       await setupWebsocketBackend({
         messageDispatch,
         onClose: () => console.log("Websocket closed!!"),
-        showMessages,
         pathToWebsocket: "localhost:8888",
       });
     }
