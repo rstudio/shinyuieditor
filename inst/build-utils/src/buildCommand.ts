@@ -74,7 +74,7 @@ export function buildCommand({
     write: !productionBuild,
     plugins: [
       ...(productionBuild ? [compress()] : []),
-      cleanup({ outDir, safelist: ["index.html"] }),
+      // cleanup({ outDir, safelist: ["index.html"] }),
       sassPlugin(),
       cssModulesPlugin({
         localsConvention: "camelCase",
