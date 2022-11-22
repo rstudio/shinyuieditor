@@ -23,7 +23,8 @@ if (portSearchRes) {
 buildCommand({
   label: "editor",
   entryFile,
-  outFile: `${buildDir}build/bundle.js`,
+  outFile: `bundle.js`,
+  outDir: `${buildDir}build/`,
   backend: false,
   serveOpts: hasBooleanArg("--serve")
     ? {

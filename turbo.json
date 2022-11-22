@@ -1,11 +1,10 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
-    "prod": {
+    "dev": {
       "inputs": ["src/**/*.tsx", "src/**/*.ts"]
     },
-    "build": {
-      "outputs": ["build/**"],
+    "prod": {
       "inputs": ["src/**/*.tsx", "src/**/*.ts"]
     },
     "type-check": {

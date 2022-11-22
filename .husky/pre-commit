@@ -5,8 +5,8 @@ echo "Running type-check..."
 yarn type-check
 
 echo "Building assets..."
-yarn build
+yarn prod
 
 git add inst/*/build/ 
-git add inst/*/out/ 
+
 echo "All good! 👍"

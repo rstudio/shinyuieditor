@@ -10,9 +10,9 @@
     "typescript": "latest"
   },
   "scripts": {
+    "dev": "tsx scripts/build.ts",
     "watch": "tsx scripts/build.ts --watch",
-    "prod": "tsx scripts/build.ts --prod",
-    "build": "tsx scripts/build.ts"
+    "prod": "tsx scripts/build.ts --prod"
   },
   "devDependencies": {
     "@types/vscode-webview": "^1.57.0",

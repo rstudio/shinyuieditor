@@ -69,6 +69,7 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
     webviewPanel.webview.options = {
       enableScripts: true,
     };
+
     webviewPanel.webview.html = this.getHtmlForWebview(webviewPanel.webview);
     let latestAppWrite: string | null = null;
 

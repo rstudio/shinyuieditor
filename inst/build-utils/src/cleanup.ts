@@ -1,14 +1,15 @@
 import fs from "fs";
 import path from "path";
-import esbuild from "esbuild";
+
+import type esbuild from "esbuild";
 import glob from "glob";
 
-function cleanup({
-  assetsDir,
+export function cleanup({
+  outDir,
   pattern = "*",
   safelist = [],
 }: {
-  assetsDir: string;
+  outDir: string;
   pattern?: string;
   safelist: string[];
 }): esbuild.Plugin {
@@ -29,7 +30,7 @@ function cleanup({
           safelistSet.add(path)
         );
 
-        await glob(path.join(assetsDir, pattern), (err, files) => {
+        await glob(path.join(outDir, pattern), (err, files) => {
           files.forEach((path) => {
             if (!safelistSet.has(path))
               fs.unlink(path, (err) => {

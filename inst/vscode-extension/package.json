@@ -33,10 +33,10 @@
     "commands": []
   },
   "scripts": {
-    "prod": "tsx scripts/build.ts",
-    "vscode:prepublish": "yarn build",
+    "dev": "tsx scripts/build.ts",
     "watch": "tsx scripts/build.ts --watch",
-    "build": "tsx scripts/build.ts",
+    "prod": "tsx scripts/build.ts --prod",
+    "vscode:prepublish": "yarn build",
     "lint": "eslint \"src/**/*.ts\"",
     "type-check": "tsc -p ./ --noEmit"
   },

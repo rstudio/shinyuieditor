@@ -63,9 +63,9 @@
     "vitest": "^0.22.1"
   },
   "scripts": {
+    "dev": "tsx scripts/build.ts",
     "prod": "tsx scripts/build.ts --prod",
     "start": "tsx scripts/build.ts --serve --watch",
-    "build": "tsx scripts/build.ts --prod",
     "testing-serve": "tsx scripts/build.ts --serve --test --playwright",
     "build-netlify": "VITE_SHOW_FAKE_PREVIEW=true PUBLIC_URL=/ yarn build",
     "build-website-demo": "tsx scripts/build.ts --website-demo",

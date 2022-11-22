@@ -13,7 +13,7 @@
         "--extensionDevelopmentPath=${workspaceRoot}/inst/vscode-extension"
       ],
       "outFiles": ["${workspaceFolder}/out/**/*.js"],
-      "preLaunchTask": "npm: build"
+      "preLaunchTask": "npm: dev"
     },
     {
       "type": "R-Debugger",

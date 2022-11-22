@@ -3,6 +3,7 @@ import { buildCommand } from "build-utils";
 buildCommand({
   label: "VSCode extension backend",
   entryFile: "src/extension.ts",
-  outFile: `build/extension.js`,
+  outDir: "build/",
+  outFile: `extension.js`,
   backend: true,
 });
