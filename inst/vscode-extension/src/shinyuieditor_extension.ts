@@ -5,6 +5,7 @@ import type { ShinyUiNode } from "editor";
 import debounce from "just-debounce-it";
 import * as vscode from "vscode";
 
+import { generateAppTemplate } from "./R-Utils/generateAppTemplate";
 import { generateUpdatedUiCode } from "./R-Utils/generateUpdatedUiCode";
 import type { ParsedApp } from "./R-Utils/parseAppFile";
 import { getAppFile } from "./R-Utils/parseAppFile";
@@ -183,6 +184,11 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
           "Can't send message back to client, sendMessage not available."
         );
       }
+      if (!this.RProcess) {
+        throw new Error(
+          "No available R Process available, somethings gone wrong."
+        );
+      }
       if (isMessageFromClient(msg)) {
         switch (msg.path) {
           case "READY-FOR-STATE":
@@ -190,7 +196,12 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
             return;
 
           case "TEMPLATE-SELECTION": {
-            showErrorMessage("Have not yet implemented template filling out");
+            const appFile = await generateAppTemplate(
+              this.RProcess,
+              msg.payload
+            );
+
+            await this.addUiTextToFile(appFile, document, "insert");
             return;
           }
 
@@ -290,6 +301,30 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
 			</html>`;
   }
 
+  private async addUiTextToFile(
+    text: string,
+    document: vscode.TextDocument,
+    type: "insert" | "replace"
+  ) {
+    const uri = document.uri;
+    const edit = new vscode.WorkspaceEdit();
+
+    if (type === "replace") {
+      const { start, end } = this.uiBounds || { start: 0, end: 0 };
+      const uiRange = new vscode.Range(start - 1, 0, end, 0);
+      edit.replace(uri, uiRange, text);
+    }
+
+    if (type === "insert") {
+      edit.insert(document.uri, new vscode.Position(0, 0), text);
+    }
+
+    await vscode.workspace.applyEdit(edit);
+
+    // Save so app preview will update
+    document.save();
+  }
+
   /**
    * Write out new app ui into text document json to a given document.
    */
@@ -307,18 +342,8 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
     const { start, end } = this.uiBounds;
 
     const uiCode = await generateUpdatedUiCode(uiTree, this.RProcess);
-
-    const uiRange = new vscode.Range(start - 1, 0, end, 0);
-    const edit = new vscode.WorkspaceEdit();
-
-    // Replace chunk of app ui
     const newUiText = `ui <- ${collapseText(...uiCode.text)}\n`;
-
-    edit.replace(document.uri, uiRange, newUiText);
-    await vscode.workspace.applyEdit(edit);
-
-    // Save so app preview will update
-    document.save();
+    await this.addUiTextToFile(newUiText, document, "replace");
 
     // Fix up ui bounds so next change will not mess up app
     const oldUiNumLines = end - start + 1;

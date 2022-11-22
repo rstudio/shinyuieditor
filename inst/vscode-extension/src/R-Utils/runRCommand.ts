@@ -31,8 +31,10 @@ export async function runRCommand(
   const lines: string[] = [];
   return new Promise<string[]>((resolve) => {
     function listenForOutput(d: any) {
-      const outputLines = d.toString().split("\n") as string[];
+      const outputString = d.toString();
+      const outputLines = outputString.split("\n") as string[];
 
+      logger("~~~Output chunk~~~");
       for (const l of outputLines) {
         logs += l + "\n";
         logger(l);
