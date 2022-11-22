@@ -67,6 +67,9 @@ export async function runRCommand(
       }
     }
     rProc.stdout.on("data", listenForOutput);
+    rProc.stderr.on("data", (d) => {
+      logger("stderr: " + d.toString());
+    });
 
     const startTimeout = setTimeout(() => {
       throw new Error(

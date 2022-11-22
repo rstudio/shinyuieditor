@@ -11,7 +11,7 @@ ui <- grid_page(
     "table   table    plotly  "
   ),
   row_sizes = c(
-    "120px",
+    "100px",
     "1fr",
     "1fr",
     "1fr"

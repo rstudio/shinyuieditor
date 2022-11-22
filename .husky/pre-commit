@@ -8,5 +8,6 @@ echo "Building assets..."
 yarn prod
 
 git add inst/*/build/ 
+git add inst/*/media/build/ 
 
 echo "All good! 👍"

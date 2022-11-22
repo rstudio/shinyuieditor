@@ -26,7 +26,6 @@ function setupVSCodeBackend({
   messageDispatch: MessageDispatcher;
   showMessages: boolean;
 }) {
-  console.log("CLient app is updating!");
   const vscode = acquireVsCodeApi();
 
   // eslint-disable-next-line no-console

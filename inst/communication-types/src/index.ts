@@ -79,7 +79,7 @@ type MessageToBackendByPath = {
  */
 export type MessageFromBackendByPath = {
   "UPDATED-TREE": ShinyUiNode;
-  "PARSING-ERROR": string;
+  "BACKEND-ERROR": string;
   "APP-PREVIEW-STATUS": "FAKE-PREVIEW" | "LOADING" | { url: string };
   "APP-PREVIEW-CRASH": string;
   "APP-PREVIEW-LOGS": string[];

@@ -38,7 +38,7 @@ export function useSyncUiWithBackend() {
     );
 
     const parsingErrorSubscription = backendMsgs.subscribe(
-      "PARSING-ERROR",
+      "BACKEND-ERROR",
       setErrorMsg
     );
 

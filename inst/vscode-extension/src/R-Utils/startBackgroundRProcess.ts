@@ -16,9 +16,6 @@ export async function startBackgroundRProcess(): Promise<ActiveRSession | null> 
     { timeout_ms: 5000 }
   );
 
-  console.log("R Process is active! Loading shinyuieditor library.");
-  sendMsgToProc(`library(shinyuieditor)`, rProc.proc);
-
   return {
     ...rProc,
     runCmd: (cmd: string, opts?: CommandExecOptions) =>

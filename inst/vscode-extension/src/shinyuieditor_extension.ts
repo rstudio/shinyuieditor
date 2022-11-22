@@ -5,6 +5,7 @@ import type { ShinyUiNode } from "editor";
 import debounce from "just-debounce-it";
 import * as vscode from "vscode";
 
+import { checkIfPkgAvailable } from "./R-Utils/checkIfPkgAvailable";
 import { generateAppTemplate } from "./R-Utils/generateAppTemplate";
 import { generateUpdatedUiCode } from "./R-Utils/generateUpdatedUiCode";
 import type { ParsedApp } from "./R-Utils/parseAppFile";
@@ -24,6 +25,7 @@ const { showErrorMessage } = vscode.window;
 export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
   private RProcess: ActiveRSession | null = null;
   private uiBounds: ParsedApp["ui_bounds"] | null = null;
+  private hasInitialized: boolean = false;
 
   private static readonly viewType = "shinyUiEditor.appFile";
 
@@ -90,6 +92,26 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
       if (updateWeMade) {
         // Skip unneccesary app file parsing
         return;
+      }
+
+      // If it's our first time connecting to the viewer, load our libraries and
+      // let the user know if this failed and they need to fix it.
+      if (!this.hasInitialized) {
+        const pkgsLoaded = await checkIfPkgAvailable(
+          this.RProcess,
+          "shinyuieditor"
+        );
+
+        if (pkgsLoaded.status === "error") {
+          this.sendMessage?.({
+            path: "BACKEND-ERROR",
+            payload: pkgsLoaded.msg,
+          });
+          showErrorMessage(pkgsLoaded.msg);
+          throw new Error(pkgsLoaded.msg);
+        }
+
+        this.hasInitialized = true;
       }
 
       const appFileInfo = await getAppFile(appFileText, this.RProcess);

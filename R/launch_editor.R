@@ -144,7 +144,7 @@ launch_editor <- function(app_loc,
           "Invalid app ui. App needs to start with one of",
           paste(valid_root_nodes, collapse = ", ")
         )
-        send_msg("PARSING-ERROR", payload = err_msg)
+        send_msg("BACKEND-ERROR", payload = err_msg)
         stop(err_msg)
       }
       update_ui_tree_on_client(ui_tree)

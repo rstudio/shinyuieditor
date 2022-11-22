@@ -31,7 +31,7 @@ export function EditorContainer() {
   if (errorMsg) {
     pageBody = (
       <DialogPopover className="message-mode">
-        <h2>Error from server</h2>
+        <h2>Error</h2>
         <p className="error-msg">{errorMsg}</p>
       </DialogPopover>
     );
