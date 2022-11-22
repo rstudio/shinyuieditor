@@ -15,6 +15,9 @@ export function TractSizerHandle({
   return (
     <div
       className={dir === "rows" ? classes.rowSizer : classes.columnSizer}
+      title={`resize ${dir === "rows" ? "rows" : "columns"} ${
+        index - 1
+      } and ${index}`}
       onMouseDown={(e) => onStartDrag({ e, dir, index })}
       style={{ [dir === "rows" ? "gridRow" : "gridColumn"]: index }}
     />

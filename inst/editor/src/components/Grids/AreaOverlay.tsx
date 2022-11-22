@@ -49,6 +49,7 @@ export function AreaOverlay({
         <div
           key={resizeDir}
           className={classes.dragger + " " + resizeDir}
+          title={`resize ${area} ${resizeDir}`}
           onMouseDown={(e) => {
             stopEventPropigation(e);
             startDrag(resizeDir);
@@ -59,7 +60,7 @@ export function AreaOverlay({
       );
     }
     return movementArrows;
-  }, [movementOptions, startDrag]);
+  }, [area, movementOptions, startDrag]);
 
   React.useEffect(() => {
     overlayRef.current?.style.setProperty("--grid-area", area);
