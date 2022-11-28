@@ -19,6 +19,7 @@ import { LayoutDispatchContext } from "../Grids/useSetLayout";
 import { useUpdateUiArguments } from "../Grids/useUpdateUiArguments";
 import UiNode from "../UiNode/UiNode";
 
+import { ensureProperBoxedGridLayoutArgs } from "./ensureProperBoxedGridLayoutArts";
 import type { GridLayoutArgs } from "./GridLayoutArgs";
 import { gridLayoutReducer } from "./gridLayoutReducer";
 import type { GridLayoutAction } from "./gridLayoutReducer";
@@ -33,16 +34,15 @@ export type NewItemInfo = DraggedNodeInfo & {
 };
 
 export const GridlayoutElement: UiNodeComponent<GridLayoutArgs> = ({
-  uiArguments: layoutDef,
+  uiArguments,
   uiChildren,
   path,
   wrapperProps,
 }) => {
+  const layoutDef = ensureProperBoxedGridLayoutArgs(uiArguments);
   const place_node = usePlaceNode();
-
   const { uniqueAreas, ...layout } = parseGridLayoutArgs(layoutDef);
   const { areas } = layout;
-  // const { areas } = layoutDef;
   const updateArguments = useUpdateUiArguments(path);
   const itemGridLocations = React.useMemo(
     () => areasToItemLocations(areas),

@@ -3,14 +3,16 @@ import { emptyCell } from "../../utils/gridTemplates/itemLocations";
 import { matrixDimensions } from "../../utils/matrix-helpers";
 import type { TemplatedGridProps } from "../Grids/EditableGridContainer/TemplatedGridProps";
 
-import type { GridLayoutArgs } from "./GridLayoutArgs";
+import type { GridLayoutArgsProperlyBoxed } from "./ensureProperBoxedGridLayoutArts";
 
 export function parseGridLayoutArgs({
   layout,
   row_sizes,
   col_sizes,
   gap_size,
-}: GridLayoutArgs): TemplatedGridProps & { uniqueAreas: string[] } {
+}: GridLayoutArgsProperlyBoxed): TemplatedGridProps & {
+  uniqueAreas: string[];
+} {
   let numCols: number = -1;
   const numRows = layout.length;
   const uniqueAreas = new Set<string>();
@@ -30,7 +32,6 @@ export function parseGridLayoutArgs({
       numCols = numColsInRow;
     }
     if (numCols !== numColsInRow) {
-      debugger;
       throw new Error(
         "Invalid layout definition. Not consistant number of columns in every row"
       );
@@ -40,15 +41,11 @@ export function parseGridLayoutArgs({
   if (!col_sizes) {
     col_sizes = fillArr("1fr", numCols);
   } else if (col_sizes.length !== numCols) {
-    console.log("Bad columns");
-    debugger;
     throw new Error("Column sizes vector doesn't match layout definition.");
   }
   if (!row_sizes) {
     row_sizes = fillArr("1fr", numRows);
   } else if (row_sizes.length !== numRows) {
-    console.log("Bad rows");
-    debugger;
     throw new Error("Row sizes vector doesn't match layout definition.");
   }
 
@@ -74,7 +71,7 @@ export function convertLayoutTableToMatrix(layoutTable: string[]): string[][] {
 export function convertTemplatedLayoutToGridlayoutArgs({
   areas,
   ...sizes
-}: TemplatedGridProps): GridLayoutArgs {
+}: TemplatedGridProps): GridLayoutArgsProperlyBoxed {
   return {
     layout: makeColumnAlignedTable(areas),
     ...sizes,
@@ -84,7 +81,7 @@ export function convertTemplatedLayoutToGridlayoutArgs({
 export function convertGridlayoutArgsToTemplatedLayout({
   layout,
   ...sizes
-}: GridLayoutArgs): TemplatedGridProps {
+}: GridLayoutArgsProperlyBoxed): TemplatedGridProps {
   return {
     areas: convertLayoutTableToMatrix(layout),
     ...sizes,
