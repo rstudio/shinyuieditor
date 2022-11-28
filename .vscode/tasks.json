@@ -2,10 +2,10 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "dev build",
       "type": "npm",
-      "script": "watch",
+      "script": "dev",
       "problemMatcher": "$tsc-watch",
-      "isBackground": true,
       "presentation": {
         "reveal": "never"
       },
