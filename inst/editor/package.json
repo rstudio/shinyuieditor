@@ -72,6 +72,7 @@
     "test": "vitest run",
     "test-watch": "vitest",
     "playwright": "playwright test --project=chromium",
+    "update-visual-snapshots": "npx playwright test visual --update-snapshots --reporter=list",
     "storybook": "start-storybook -p 6006",
     "lint": "eslint src --fix",
     "type-check": "tsc --noEmit",

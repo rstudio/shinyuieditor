@@ -17,6 +17,7 @@
     "playwright": {
       "outputs": []
     },
+    "update-visual-snapshots": {},
     "watch": {}
   }
 }
