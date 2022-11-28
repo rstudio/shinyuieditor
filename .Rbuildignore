@@ -1,6 +1,5 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^inst\/ui\-editor\-react\/(?!build).+$
 ^scratch$
 ^LICENSE\.md$
 ^_pkgdown\.yml$
@@ -11,3 +10,15 @@
 ^\.hintrc$
 ^\.lintr$
 ^\.vscode$
+^\.eslintrc.json$
+^\.husky$
+^package\.json$
+^turbo\.json$
+^yarn\.lock$
+^inst\/editor\/(?!build).+$
+^inst\/build-utils$
+^inst\/communication-types$
+^inst\/communication-types$
+^inst\/vscode-extension$
+^inst\/vscode-extension-client$
+^node_modules$
