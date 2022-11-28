@@ -250,6 +250,11 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
             previewAppInfo.start();
             return;
           }
+          case "ENTERED-TEMPLATE-SELECTOR": {
+            previewAppInfo.stop();
+            this.clearAppFile(document);
+            return;
+          }
           default:
             console.warn("Unhandled message from client", msg);
         }
@@ -347,6 +352,24 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
     document.save();
   }
 
+  /**
+   * Wipe app file clear
+   */
+  private async clearAppFile(document: vscode.TextDocument) {
+    const uri = document.uri;
+    const edit = new vscode.WorkspaceEdit();
+
+    const uiRange = document.validateRange(
+      new vscode.Range(0, 0, Infinity, Infinity)
+    );
+
+    edit.replace(uri, uiRange, "");
+
+    await vscode.workspace.applyEdit(edit);
+
+    // Save so app preview will update
+    document.save();
+  }
   /**
    * Write out new app ui into text document json to a given document.
    */
