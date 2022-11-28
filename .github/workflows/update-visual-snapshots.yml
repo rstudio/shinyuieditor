@@ -42,7 +42,7 @@ jobs:
           node-version: "16.x"
       - name: Install JS dependencies
         working-directory: ./inst/editor
-        run: yarn install --immutable
+        run: yarn install
         shell: bash
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps

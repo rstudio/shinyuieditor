@@ -19,21 +19,15 @@ jobs:
   unit-tests:
     timeout-minutes: 60
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./inst/editor
     steps:
       - uses: actions/checkout@v2
       - uses: ./.github/internals/setup-js
       - name: Run unit tests
-        run: yarn test run
+        run: yarn test
 
   playwright-tests:
     timeout-minutes: 60
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./inst/editor
     steps:
       - uses: actions/checkout@v2
 
@@ -52,7 +46,7 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run Playwright tests
-        run: npx playwright test
+        run: yarn playwright
 
       - uses: actions/upload-artifact@v2
         if: always()
@@ -60,20 +54,3 @@ jobs:
           name: playwright-report
           path: ./inst/editor/playwright-report/
           retention-days: 30
-
-  check-if-current-build:
-    timeout-minutes: 60
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./inst/editor
-    steps:
-      - uses: actions/checkout@v2
-
-      - uses: ./.github/internals/setup-js
-
-      - name: Check if build is current
-        run: |
-          yarn build
-          # If this fails then the build is stale compared to source
-          git diff --exit-code -- build/
