@@ -10,7 +10,7 @@
     "playwright": "turbo run playwright",
     "update-visual-snapshots": "turbo run update-visual-snapshots",
     "type-check": "turbo run type-check",
-    "watch": "turbo run watch"
+    "watch": "turbo run watch --parallel --continue"
   },
   "devDependencies": {
     "husky": "^8.0.2",
