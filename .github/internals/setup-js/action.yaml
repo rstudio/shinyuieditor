@@ -4,7 +4,7 @@ author: "Nick Strayer"
 # inputs:
 #   working-directory:
 #     description: 'Using the working-directory keyword, you can specify the working directory of where "pkg_deps" command searches for dependencies in the "DESCRIPTION" file.'
-#     default: "./inst/ui-editor-react"
+#     default: "./inst/editor"
 #   cache:
 #     description: 'A boolean value indicating whether packages should be cached from one to the other'
 #     required: true
@@ -31,7 +31,7 @@ runs:
   steps:
     - name: Get yarn cache directory path
       id: yarn-cache-dir-path
-      working-directory: ./inst/ui-editor-react
+      working-directory: ./inst/editor
       run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
       shell: bash
 
@@ -39,7 +39,7 @@ runs:
       id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
       with:
         path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-        key: ${{ runner.os }}-yarn-${{ hashFiles('inst/ui-editor-react/yarn.lock')  }}
+        key: ${{ runner.os }}-yarn-${{ hashFiles('inst/editor/yarn.lock')  }}
         restore-keys: |
           ${{ runner.os }}-yarn-
 
@@ -48,6 +48,6 @@ runs:
         node-version: "16.x"
 
     - name: Install JS dependencies
-      working-directory: ./inst/ui-editor-react
+      working-directory: ./inst/editor
       run: yarn install --immutable
       shell: bash

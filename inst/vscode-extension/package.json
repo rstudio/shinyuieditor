@@ -1,0 +1,60 @@
+{
+  "name": "vscode-extension",
+  "version": "0.0.1",
+  "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rstudio/shinyuieditor/"
+  },
+  "engines": {
+    "vscode": "^1.65.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCustomEditor:shinyUiEditor.appFile"
+  ],
+  "main": "./build/extension.js",
+  "contributes": {
+    "customEditors": [
+      {
+        "viewType": "shinyUiEditor.appFile",
+        "displayName": "ShinyUiEditor",
+        "priority": "option",
+        "selector": [
+          {
+            "filenamePattern": "*app.R"
+          }
+        ]
+      }
+    ],
+    "commands": []
+  },
+  "scripts": {
+    "dev": "tsx scripts/build.ts",
+    "watch": "tsx scripts/build.ts --watch",
+    "prod": "tsx scripts/build.ts --prod",
+    "vscode:prepublish": "yarn build",
+    "lint": "eslint \"src/**/*.ts\"",
+    "type-check": "tsc -p ./ --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.7",
+    "@types/vscode": "^1.65.0",
+    "@types/winreg": "^1.2.31",
+    "@typescript-eslint/eslint-plugin": "^5.42.0",
+    "@typescript-eslint/parser": "^5.42.0",
+    "build-utils": "*",
+    "eslint": "^8.26.0",
+    "tsx": "^3.12.1",
+    "typescript": "latest"
+  },
+  "dependencies": {
+    "communication-types": "*",
+    "just-debounce-it": "^3.1.1",
+    "tsconfig": "*",
+    "winreg": "^1.2.4"
+  }
+}

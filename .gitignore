@@ -12,4 +12,11 @@ docs
 
 # These always appear when I accidentally run yarn commands in the wrong directory
 yarn.lock
+.yarn/
+.yarnrc.yml
 node_modules/
+
+*.js.map
+*.css.map
+
+inst/*/.turbo/

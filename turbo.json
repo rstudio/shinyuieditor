@@ -1,0 +1,23 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "dev": {
+      "inputs": ["src/**/*.tsx", "src/**/*.ts"]
+    },
+    "prod": {
+      "inputs": ["src/**/*.tsx", "src/**/*.ts"]
+    },
+    "type-check": {
+      "outputs": [],
+      "inputs": ["src/**/*.tsx", "src/**/*.ts"]
+    },
+    "test": {
+      "outputs": []
+    },
+    "playwright": {
+      "outputs": []
+    },
+    "update-visual-snapshots": {},
+    "watch": {}
+  }
+}

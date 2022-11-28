@@ -125,12 +125,12 @@ launch_editor <- function(app_loc,
   # ----------------------------------------------------------------------------
   setup_msg_handlers <- function(send_msg) {
     request_template_chooser <- function() {
-      send_msg("INITIAL-DATA", "TEMPLATE_CHOOSER")
+      send_msg("UPDATED-TREE", "TEMPLATE_CHOOSER")
       server_mode <<- "template-chooser"
     }
 
     update_ui_tree_on_client <- function(ui_tree) {
-      send_msg("INITIAL-DATA", ui_tree)
+      send_msg("UPDATED-TREE", ui_tree)
     }
 
     load_new_app <- function() {
@@ -144,7 +144,7 @@ launch_editor <- function(app_loc,
           "Invalid app ui. App needs to start with one of",
           paste(valid_root_nodes, collapse = ", ")
         )
-        send_msg("PARSING-ERROR", payload = err_msg)
+        send_msg("BACKEND-ERROR", payload = err_msg)
         stop(err_msg)
       }
       update_ui_tree_on_client(ui_tree)
@@ -204,19 +204,24 @@ launch_editor <- function(app_loc,
 
     # Return a callback that takes in a message and reacts to it
     function(msg) {
+      writeLog("Message from backend", msg$path)
       switch(msg$path,
-        "APP-PREVIEW-CONNECTED" = {
+        "APP-PREVIEW-REQUEST" = {
+          send_msg("APP-PREVIEW-STATUS", payload = "LOADING")
           app_preview_obj$set_listeners(
             on_ready = function() {
               # Once the background preview app is up and running, we can
               # send over the URL to the react app
-              send_msg("SHINY_READY", payload = app_preview_obj$url)
+              send_msg(
+                "APP-PREVIEW-STATUS", 
+                payload = list(url = app_preview_obj$url)
+              )
             },
             on_crash = function() {
-              send_msg("SHINY_CRASH", payload = "uh-oh")
+              send_msg("APP-PREVIEW-CRASH", payload = "uh-oh")
             },
             on_logs = function(log_lines) {
-              send_msg("SHINY_LOGS", payload = log_lines)
+              send_msg("APP-PREVIEW-LOGS", payload = log_lines)
             }
           )
         },
@@ -235,7 +240,7 @@ launch_editor <- function(app_loc,
             load_new_app()
           }
         },
-        "STATE-UPDATE" = {
+        "UPDATED-TREE" = {
           write_new_ui(msg$payload)
         },
         "TEMPLATE-SELECTOR-REQUEST" = {
@@ -298,7 +303,7 @@ launch_editor <- function(app_loc,
       },
       staticPaths = list(
         "/" = httpuv::staticPath(
-          system.file("ui-editor-react/build", package = "shinyuieditor"),
+          system.file("editor/build", package = "shinyuieditor"),
           indexhtml = TRUE
         )
       )

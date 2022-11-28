@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "Running type-check..."
+yarn type-check
+
+echo "Building assets..."
+yarn prod
+
+git add inst/*/build/ 
+git add inst/*/media/build/ 
+
+echo "All good! 👍"
