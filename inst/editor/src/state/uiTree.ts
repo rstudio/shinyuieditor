@@ -2,10 +2,10 @@ import React from "react";
 
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import type { MessageFromBackendByPath } from "communication-types";
 import { useDispatch } from "react-redux";
 
 import { getDefaultSettings } from "../components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
+import type { TemplateChooserOptions } from "../components/TemplatePreviews/TemplateChooserView";
 import type { PlaceNodeArguments } from "../components/UiNode/TreeManipulation/placeNode";
 import { placeNodeMutating } from "../components/UiNode/TreeManipulation/placeNode";
 import type { RemoveNodeArguments } from "../components/UiNode/TreeManipulation/removeNode";
@@ -18,8 +18,8 @@ import { shinyUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
 import { subtractElements } from "../utils/array-helpers";
 
 import {
-  updateSubscriptions,
   deleteSubscriptions,
+  updateSubscriptions,
 } from "./watcherSubscriptions";
 
 export type MainStateOption =
@@ -29,9 +29,7 @@ export type MainStateOption =
     }
   | {
       mode: "TEMPLATE_CHOOSER";
-      options: {
-        outputChoices: MessageFromBackendByPath["TEMPLATE_CHOOSER"];
-      };
+      options: TemplateChooserOptions;
     }
   | {
       mode: "LOADING";
@@ -56,11 +54,7 @@ export const mainStateSlice = createSlice({
     },
     SHOW_TEMPLATE_CHOOSER: (
       state,
-      {
-        payload,
-      }: PayloadAction<{
-        outputChoices: MessageFromBackendByPath["TEMPLATE_CHOOSER"];
-      }>
+      { payload }: PayloadAction<TemplateChooserOptions>
     ) => {
       return { mode: "TEMPLATE_CHOOSER", options: payload };
       // console.log("Template chooser mode", mode);

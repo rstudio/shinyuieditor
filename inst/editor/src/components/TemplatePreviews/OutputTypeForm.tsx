@@ -1,11 +1,12 @@
 import React from "react";
 
-export type OutputType = "single-file" | "multi-file";
-const outputTypes: OutputType[] = ["single-file", "multi-file"];
+import type { OutputType } from "communication-types";
+
+const outputTypes: OutputType[] = ["SINGLE-FILE", "MULTI-FILE"];
 
 const outputTypeLabel: Record<OutputType, string> = {
-  "single-file": "Single file mode",
-  "multi-file": "Multi file mode",
+  "SINGLE-FILE": "Single file mode",
+  "MULTI-FILE": "Multi file mode",
 };
 
 export function OutputTypeForm({

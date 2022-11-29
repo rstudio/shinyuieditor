@@ -25,24 +25,24 @@ get_app_ui_file <- function(app_loc, error_on_missing = FALSE) {
 
   if (fs::file_exists(fs::path(app_loc, "app.r"))) {
     return(
-      list(path = fs::path(app_loc, "app.r"), type = "single-file")
+      list(path = fs::path(app_loc, "app.r"), type = "SINGLE-FILE")
     )
   }
   if (fs::file_exists(fs::path(app_loc, "app.R"))) {
     return(
-      list(path = fs::path(app_loc, "app.R"), type = "single-file")
+      list(path = fs::path(app_loc, "app.R"), type = "SINGLE-FILE")
     )
   }
   
 
   if (fs::file_exists(fs::path(app_loc, "ui.r"))) {
     return(
-      list(path = fs::path(app_loc, "ui.r"), type = "multi-file")
+      list(path = fs::path(app_loc, "ui.r"), type = "MULTI-FILE")
     )
   }
   if (fs::file_exists(fs::path(app_loc, "ui.R"))) {
     return(
-      list(path = fs::path(app_loc, "ui.R"), type = "multi-file")
+      list(path = fs::path(app_loc, "ui.R"), type = "MULTI-FILE")
     )
   }
 

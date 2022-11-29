@@ -51,12 +51,13 @@ remove_app_template <- function(app_loc, app_type) {
   # nothing to remove 
   if (identical(app_type, "none")) return()
 
-  if (identical(app_type, "single-file")) {
+  if (identical(app_type, "SINGLE-FILE")) {
     remove_app_file(app_loc = app_loc, file_type = "app")
-  }
-  if (identical(app_type,  "multi-file")) {
+  } else if (identical(app_type,  "MULTI-FILE")) {
     remove_app_file(app_loc = app_loc, file_type = "ui")
     remove_app_file(app_loc = app_loc, file_type = "server")
+  } else {
+    stop(paste("Improper specification of template app output: ", app_type))
   }
 
   app_loc_now_empty <- identical(length(fs::dir_ls(app_loc)), 0L)
@@ -75,7 +76,7 @@ remove_app_template <- function(app_loc, app_type) {
 #' @details Template object
 #' The app template has the following information attached to it
 #'  uiTree: ui AST node;
-#'  outputType: "single-file" | "multi-file"
+#'  outputType: "SINGLE-FILE" | "MULTI-FILE"
 #'  otherCode: {
 #'     # Extra code that will be coppied unchanged above the ui definition
 #'     uiExtra?: string;
@@ -123,7 +124,7 @@ generate_app_template_files <- function(app_template, remove_namespace = TRUE) {
   output_files <- list()
 
   # Single-file mode will build with
-  if (outputType == "single-file") {
+  if (outputType == "SINGLE-FILE") {
 
     all_libraries <- unique(c(ui_libraries, serverLibraries))
 
@@ -144,9 +145,7 @@ generate_app_template_files <- function(app_template, remove_namespace = TRUE) {
     )
 
     output_files$app_file <- format_code(app_file)
-  }
-
-  if (outputType == "multi-file") {
+  } else if (outputType == "MULTI-FILE") {
 
     ui_def_text <- paste(ui_dfn_code$text, collapse = "\n")
     
@@ -167,6 +166,8 @@ generate_app_template_files <- function(app_template, remove_namespace = TRUE) {
         sep = "\n"
       )
     )
+  } else {
+     stop(paste("Improper specification of template app output: ", outputType))
   }
 
   output_files

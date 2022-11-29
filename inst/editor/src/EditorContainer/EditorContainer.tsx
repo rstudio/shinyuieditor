@@ -27,7 +27,6 @@ export function EditorContainer() {
 
   let pageBody: React.ReactNode;
 
-  console.log("Editor container state", state);
   if (errorMsg) {
     pageBody = (
       <DialogPopover className="message-mode">
@@ -53,7 +52,7 @@ export function EditorContainer() {
       </CurrentDraggedNodeProvider>
     );
   } else {
-    pageBody = <TemplateChooserView />;
+    pageBody = <TemplateChooserView {...state.options} />;
   }
 
   return (

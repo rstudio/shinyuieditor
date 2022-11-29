@@ -21,7 +21,7 @@ export function setupStaticBackend({
         case "READY-FOR-STATE": {
           getClientsideOnlyTree().then((ui_tree) => {
             if (ui_tree === "TEMPLATE_CHOOSER") {
-              messageDispatch.dispatch("TEMPLATE_CHOOSER", "SINGLE-FILE");
+              messageDispatch.dispatch("TEMPLATE_CHOOSER", "USER-CHOICE");
             } else {
               messageDispatch.dispatch("UPDATED-TREE", ui_tree);
             }
