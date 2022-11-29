@@ -18,15 +18,15 @@
 #' # Note the use of the triple colon, this function is not exported
 #' # shinyuieditor:::get_file_ui_definition_info(...)
 #'
-#' # Can handle SINGLE-FILE app.R
+#' # Can handle single-file app.R
 #' app_loc <- system.file(
 #'   "app-templates/geyser/app.R",
 #'   package = "shinyuieditor"
 #'  )
 #' shinyuieditor:::get_file_ui_definition_info(readLines(app_loc), type = "SINGLE-FILE")
 #'
-#' # Also handles MULTI-FILE apps
-#' app_loc <- system.file("app-templates/geyser_MULTI-FILE/ui.R", package = "shinyuieditor")
+#' # Also handles multi-file apps
+#' app_loc <- system.file("app-templates/geyser_multi-file/ui.R", package = "shinyuieditor")
 #' shinyuieditor:::get_file_ui_definition_info(readLines(app_loc), type = "MULTI-FILE")
 #'
 get_file_ui_definition_info <- function(file_lines, type = "SINGLE-FILE") {
