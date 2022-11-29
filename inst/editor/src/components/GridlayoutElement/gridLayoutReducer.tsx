@@ -12,7 +12,7 @@ import type { GridItemExtent } from "../../utils/gridTemplates/types";
 import type { TemplatedGridProps } from "../Grids/EditableGridContainer/TemplatedGridProps";
 import type { CSSMeasure } from "../Inputs/CSSUnitInput/CSSMeasure";
 
-import type { GridLayoutArgs } from "./GridLayoutArgs";
+import type { GridLayoutArgsProperlyBoxed } from "./ensureProperBoxedGridLayoutArts";
 import {
   convertGridlayoutArgsToTemplatedLayout,
   convertTemplatedLayoutToGridlayoutArgs,
@@ -48,9 +48,9 @@ export type GridLayoutAction =
     };
 
 export function gridLayoutReducer(
-  layout: GridLayoutArgs,
+  layout: GridLayoutArgsProperlyBoxed,
   action: GridLayoutAction
-): GridLayoutArgs {
+): GridLayoutArgsProperlyBoxed {
   const layoutToUpdate = convertGridlayoutArgsToTemplatedLayout(layout);
 
   return convertTemplatedLayoutToGridlayoutArgs(

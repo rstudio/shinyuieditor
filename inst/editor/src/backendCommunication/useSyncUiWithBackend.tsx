@@ -73,7 +73,7 @@ export function useSyncUiWithBackend() {
     if (currentUiTree === "TEMPLATE_CHOOSER") {
       // The user has gone backward to the template selector, so let the backend
       // know it should clear the existing app
-      sendMsg({ path: "TEMPLATE-SELECTOR-REQUEST" });
+      sendMsg({ path: "ENTERED-TEMPLATE-SELECTOR" });
       return;
     }
 

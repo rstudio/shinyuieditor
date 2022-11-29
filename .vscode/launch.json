@@ -12,8 +12,8 @@
       "args": [
         "--extensionDevelopmentPath=${workspaceRoot}/inst/vscode-extension"
       ],
-      "outFiles": ["${workspaceFolder}/out/**/*.js"],
-      "preLaunchTask": "npm: dev"
+      "outFiles": ["${workspaceRoot}/inst/**/build/*.js"],
+      "preLaunchTask": "dev build"
     },
     {
       "type": "R-Debugger",

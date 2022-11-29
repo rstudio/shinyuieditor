@@ -243,7 +243,7 @@ launch_editor <- function(app_loc,
         "UPDATED-TREE" = {
           write_new_ui(msg$payload)
         },
-        "TEMPLATE-SELECTOR-REQUEST" = {
+        "ENTERED-TEMPLATE-SELECTOR" = {
           server_mode <<- "template-chooser"
         },
         "TEMPLATE-SELECTION" = {

@@ -88,8 +88,8 @@ export async function startRProcess(
     spawnedProcess.stderr.on("data", onStderr);
 
     const stop = () => {
-      // Process never started
-      if (!spawnedProcess.pid) {
+      // Process is not active
+      if (!spawnedProcess.pid || !spawnedProcess.connected) {
         return true;
       }
 
