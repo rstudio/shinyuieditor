@@ -1,5 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^shinyuieditor-hex\.png$
 ^scratch$
 ^LICENSE\.md$
 ^_pkgdown\.yml$
