@@ -12,7 +12,6 @@ import {
 import { LostConnectionPopup } from "../EditorSkeleton/LostConnectionPopup";
 import ElementsPalette from "../ElementsPalette";
 import { SettingsPanel } from "../SettingsPanel/SettingsPanel";
-import { isShinyUiNode } from "../Shiny-Ui-Elements/isShinyUiNode";
 
 import { AppHeader } from "./AppHeader";
 import { DialogPopover } from "./DialogPopover";
@@ -24,7 +23,7 @@ const sizes_inline_styles = {
 } as React.CSSProperties;
 
 export function EditorContainer() {
-  const { tree, errorMsg } = useSyncUiWithBackend();
+  const { state, errorMsg } = useSyncUiWithBackend();
 
   let pageBody: React.ReactNode;
 
@@ -35,25 +34,25 @@ export function EditorContainer() {
         <p className="error-msg">{errorMsg}</p>
       </DialogPopover>
     );
-  } else if (tree === "LOADING_STATE") {
+  } else if (state.mode === "LOADING") {
     pageBody = (
       <DialogPopover className="message-mode">
         <h2>Loading initial state from server</h2>
       </DialogPopover>
     );
-  } else if (isShinyUiNode(tree)) {
+  } else if (state.mode === "MAIN") {
     pageBody = (
       <CurrentDraggedNodeProvider>
         <EditorSkeleton
-          main={<UiNode node={tree} path={[]} />}
+          main={<UiNode node={state.uiTree} path={[]} />}
           left={<ElementsPalette />}
-          properties={<SettingsPanel tree={tree} />}
+          properties={<SettingsPanel tree={state.uiTree} />}
           preview={<AppPreview />}
         />
       </CurrentDraggedNodeProvider>
     );
   } else {
-    pageBody = <TemplateChooserView />;
+    pageBody = <TemplateChooserView {...state.options} />;
   }
 
   return (

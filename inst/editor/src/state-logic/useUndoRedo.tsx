@@ -1,16 +1,16 @@
 import React from "react";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import StateHistory from "../modules/StateHistory";
-import type { ShinyUiRootNode } from "../Shiny-Ui-Elements/uiNodeTypes";
 import type { RootState } from "../state/store";
+import type { MainStateOption } from "../state/uiTree";
 import { SET_FULL_STATE } from "../state/uiTree";
-
-type HistoryEntry = ShinyUiRootNode;
+type HistoryEntry = MainStateOption;
 
 export function useUndoRedo() {
-  const tree = useSelector((state: RootState) => state.uiTree);
+  const state = useSelector((state: RootState) => state.uiTree);
+
   const dispatch = useDispatch();
 
   const [canGoForward, setCanGoForward] = React.useState(false);
@@ -21,21 +21,21 @@ export function useUndoRedo() {
 
   React.useEffect(() => {
     // Ignore the initialization state
-    if (!tree || tree === "LOADING_STATE") return;
+    if (!state || state.mode === "LOADING") return;
 
     const history = stateHistory.current;
 
     // Send latest layout to the history
-    history.addEntry(tree);
+    history.addEntry(state);
 
     // Make sure back and forward buttons are properly enabled or disabled
     setCanGoBackward(history.canGoBackwards());
     setCanGoForward(history.canGoForwards());
-  }, [tree]);
+  }, [state]);
 
   const setState = React.useCallback(
-    (updatedTree: HistoryEntry) => {
-      dispatch(SET_FULL_STATE({ state: updatedTree }));
+    (updatedState: HistoryEntry) => {
+      dispatch(SET_FULL_STATE({ state: updatedState }));
     },
     [dispatch]
   );
@@ -57,5 +57,23 @@ export function useUndoRedo() {
 
 function sameHistoryEntry(newEntry: HistoryEntry, oldEntry?: HistoryEntry) {
   if (typeof oldEntry === "undefined") return false;
-  return newEntry === oldEntry;
+
+  if (oldEntry.mode === "LOADING" && newEntry.mode === "LOADING") {
+    return true;
+  }
+
+  if (
+    oldEntry.mode === "TEMPLATE_CHOOSER" &&
+    newEntry.mode === "TEMPLATE_CHOOSER"
+  ) {
+    return (
+      JSON.stringify(oldEntry.options) === JSON.stringify(newEntry.options)
+    );
+  }
+
+  if (newEntry.mode === "MAIN" && oldEntry.mode === "MAIN") {
+    return oldEntry.uiTree === newEntry.uiTree;
+  }
+
+  return false;
 }

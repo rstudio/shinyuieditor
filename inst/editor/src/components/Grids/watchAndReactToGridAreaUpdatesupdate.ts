@@ -3,7 +3,6 @@ import type { GridCardSettings } from "../../Shiny-Ui-Elements/GridlayoutGridCar
 import type { NodePath } from "../../Shiny-Ui-Elements/uiNodeTypes";
 import { emptyCell } from "../../utils/gridTemplates/itemLocations";
 import { gridLayoutReducer } from "../GridlayoutElement/gridLayoutReducer";
-import { convertTemplatedLayoutToGridlayoutArgs } from "../GridlayoutElement/layoutParsing";
 import { getNode } from "../UiNode/TreeManipulation/getNode";
 import { getChildIndex } from "../UiNode/TreeManipulation/getParentPath";
 import type { RemoveNodeArguments } from "../UiNode/TreeManipulation/removeNode";

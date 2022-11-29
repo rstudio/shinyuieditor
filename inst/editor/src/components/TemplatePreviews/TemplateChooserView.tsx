@@ -1,3 +1,5 @@
+import type { MessageFromBackendByPath } from "communication-types";
+
 import {
   EditorSkeleton,
   PanelHeader,
@@ -10,7 +12,10 @@ import "./styles.scss";
 import { TemplateFiltersForm } from "./TemplateFiltersForm";
 import { TemplatePreviewGrid } from "./TemplatePreviewGrid";
 
-export function TemplateChooserView() {
+export type TemplateChooserOptions = {
+  outputChoices: MessageFromBackendByPath["TEMPLATE_CHOOSER"];
+};
+export function TemplateChooserView(opts: TemplateChooserOptions) {
   const {
     filterState,
     setFilterState,
@@ -20,7 +25,7 @@ export function TemplateChooserView() {
     finishSelection,
     selectedOutput,
     setSelectedOutput,
-  } = useFilteredTemplates();
+  } = useFilteredTemplates(opts);
 
   const canProceed = selectedTemplate !== null;
   const buttonMsg = canProceed ? "Next" : "Select a template";
@@ -48,10 +53,12 @@ export function TemplateChooserView() {
               setFilterState={setFilterState}
             />
 
-            <OutputTypeForm
-              selectedOutput={selectedOutput}
-              setSelectedOutput={setSelectedOutput}
-            />
+            {opts.outputChoices === "USER-CHOICE" ? (
+              <OutputTypeForm
+                selectedOutput={selectedOutput}
+                setSelectedOutput={setSelectedOutput}
+              />
+            ) : null}
 
             <Button
               disabled={!canProceed}

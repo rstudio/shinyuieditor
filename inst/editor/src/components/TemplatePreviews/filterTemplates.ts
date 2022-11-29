@@ -1,9 +1,11 @@
 import React from "react";
 
+import type { OutputType } from "communication-types";
+
 import type { TemplateInfo } from "../../assets/app-templates/app_templates";
 import { app_templates } from "../../assets/app-templates/app_templates";
 
-import type { OutputType } from "./OutputTypeForm";
+import type { TemplateChooserOptions } from "./TemplateChooserView";
 import type { LayoutType } from "./TemplatePreviewCard";
 import { getLayoutType } from "./TemplatePreviewCard";
 import { useRequestTemplate } from "./useRequestTemplate";
@@ -26,7 +28,9 @@ function filteredTemplates(filters: TemplateFilterState): TemplateInfo[] {
   });
 }
 
-export function useFilteredTemplates() {
+export function useFilteredTemplates({
+  outputChoices,
+}: TemplateChooserOptions) {
   const requestTemplate = useRequestTemplate();
 
   const [filterState, setFilterState] = React.useState<TemplateFilterState>({
@@ -37,8 +41,9 @@ export function useFilteredTemplates() {
     null
   );
 
-  const [selectedOutput, setSelectedOutput] =
-    React.useState<OutputType>("single-file");
+  const [selectedOutput, setSelectedOutput] = React.useState<OutputType>(
+    outputChoices === "USER-CHOICE" ? "SINGLE-FILE" : outputChoices
+  );
 
   const setTemplateSelection = (title: string) => {
     setSelectedTemplate((currentSelection) =>

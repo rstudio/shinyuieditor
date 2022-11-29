@@ -9,6 +9,7 @@
 ^\.github$
 ^vignettes/ui-editor-live-demo\.Rmd$
 ^\.hintrc$
+^\.yarnrc\.yml$
 ^\.lintr$
 ^\.vscode$
 ^\.eslintrc.json$

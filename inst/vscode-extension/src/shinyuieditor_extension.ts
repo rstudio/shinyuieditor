@@ -116,7 +116,10 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
 
       const appFileInfo = await getAppFile(appFileText, this.RProcess);
       if (appFileInfo === "EMPTY") {
-        this.sendMessage?.({ path: "TEMPLATE-CHOOSER", payload: "please?" });
+        this.sendMessage?.({
+          path: "TEMPLATE_CHOOSER",
+          payload: "SINGLE-FILE",
+        });
       } else {
         const { ui_bounds, ui_tree } = appFileInfo;
 

@@ -1034,7 +1034,7 @@
             var dispatcher = resolveDispatcher();
             return dispatcher.useLayoutEffect(create2, deps);
           }
-          function useCallback8(callback, deps) {
+          function useCallback7(callback, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useCallback(callback, deps);
           }
@@ -1798,7 +1798,7 @@
           exports.memo = memo;
           exports.startTransition = startTransition;
           exports.unstable_act = act;
-          exports.useCallback = useCallback8;
+          exports.useCallback = useCallback7;
           exports.useContext = useContext5;
           exports.useDebugValue = useDebugValue2;
           exports.useDeferredValue = useDeferredValue;
@@ -2306,9 +2306,9 @@
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
           }
-          var React67 = require_react();
+          var React66 = require_react();
           var Scheduler = require_scheduler();
-          var ReactSharedInternals = React67.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React66.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           var suppressWarning = false;
           function setSuppressWarning(newSuppressWarning) {
             {
@@ -3829,7 +3829,7 @@
             {
               if (props.value == null) {
                 if (typeof props.children === "object" && props.children !== null) {
-                  React67.Children.forEach(props.children, function(child) {
+                  React66.Children.forEach(props.children, function(child) {
                     if (child == null) {
                       return;
                     }
@@ -11990,7 +11990,7 @@
             }
           }
           var fakeInternalInstance = {};
-          var emptyRefsObject = new React67.Component().refs;
+          var emptyRefsObject = new React66.Component().refs;
           var didWarnAboutStateAssignmentForComponent;
           var didWarnAboutUninitializedState;
           var didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate;
@@ -22913,7 +22913,7 @@
       if (true) {
         (function() {
           "use strict";
-          var React67 = require_react();
+          var React66 = require_react();
           var REACT_ELEMENT_TYPE = Symbol.for("react.element");
           var REACT_PORTAL_TYPE = Symbol.for("react.portal");
           var REACT_FRAGMENT_TYPE = Symbol.for("react.fragment");
@@ -22939,7 +22939,7 @@
             }
             return null;
           }
-          var ReactSharedInternals = React67.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React66.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           function error(format2) {
             {
               {
@@ -23797,8 +23797,8 @@
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
           }
-          var React67 = require_react();
-          var ReactSharedInternals = React67.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var React66 = require_react();
+          var ReactSharedInternals = React66.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           function error(format2) {
             {
               {
@@ -23828,13 +23828,13 @@
             return x2 === y2 && (x2 !== 0 || 1 / x2 === 1 / y2) || x2 !== x2 && y2 !== y2;
           }
           var objectIs = typeof Object.is === "function" ? Object.is : is3;
-          var useState11 = React67.useState, useEffect11 = React67.useEffect, useLayoutEffect3 = React67.useLayoutEffect, useDebugValue2 = React67.useDebugValue;
+          var useState11 = React66.useState, useEffect11 = React66.useEffect, useLayoutEffect3 = React66.useLayoutEffect, useDebugValue2 = React66.useDebugValue;
           var didWarnOld18Alpha = false;
           var didWarnUncachedGetSnapshot = false;
           function useSyncExternalStore3(subscribe, getSnapshot, getServerSnapshot) {
             {
               if (!didWarnOld18Alpha) {
-                if (React67.startTransition !== void 0) {
+                if (React66.startTransition !== void 0) {
                   didWarnOld18Alpha = true;
                   error("You are using an outdated, pre-release alpha of React 18 that does not support useSyncExternalStore. The use-sync-external-store shim will not work correctly. Upgrade to a newer pre-release.");
                 }
@@ -23899,7 +23899,7 @@
           var canUseDOM4 = !!(typeof window !== "undefined" && typeof window.document !== "undefined" && typeof window.document.createElement !== "undefined");
           var isServerEnvironment = !canUseDOM4;
           var shim = isServerEnvironment ? useSyncExternalStore$1 : useSyncExternalStore3;
-          var useSyncExternalStore$2 = React67.useSyncExternalStore !== void 0 ? React67.useSyncExternalStore : shim;
+          var useSyncExternalStore$2 = React66.useSyncExternalStore !== void 0 ? React66.useSyncExternalStore : shim;
           exports.useSyncExternalStore = useSyncExternalStore$2;
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(new Error());
@@ -23931,14 +23931,14 @@
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
           }
-          var React67 = require_react();
+          var React66 = require_react();
           var shim = require_shim();
           function is3(x2, y2) {
             return x2 === y2 && (x2 !== 0 || 1 / x2 === 1 / y2) || x2 !== x2 && y2 !== y2;
           }
           var objectIs = typeof Object.is === "function" ? Object.is : is3;
           var useSyncExternalStore3 = shim.useSyncExternalStore;
-          var useRef9 = React67.useRef, useEffect11 = React67.useEffect, useMemo7 = React67.useMemo, useDebugValue2 = React67.useDebugValue;
+          var useRef9 = React66.useRef, useEffect11 = React66.useEffect, useMemo7 = React66.useMemo, useDebugValue2 = React66.useDebugValue;
           function useSyncExternalStoreWithSelector3(subscribe, getSnapshot, getServerSnapshot, selector, isEqual3) {
             var instRef = useRef9(null);
             var inst;
@@ -27389,7 +27389,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   }
 
   // ../editor/src/backendCommunication/useSyncUiWithBackend.tsx
-  var React53 = __toESM(require_react());
+  var React52 = __toESM(require_react());
 
   // ../../node_modules/just-debounce-it/index.mjs
   var functionDebounce = debounce;
@@ -27700,9 +27700,6 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   initializeUseSelector(import_with_selector.useSyncExternalStoreWithSelector);
   initializeConnect(import_shim.useSyncExternalStore);
   setBatch(import_react_dom.unstable_batchedUpdates);
-
-  // ../editor/src/state/useSetTree.tsx
-  var React52 = __toESM(require_react());
 
   // ../editor/src/state/uiTree.ts
   var import_react41 = __toESM(require_react());
@@ -30146,9 +30143,6 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   function fillArr(val, length) {
     return [...new Array(length)].fill(val);
   }
-  function subtractElements(arr, toRemove) {
-    return arr.filter((x2) => !toRemove.includes(x2));
-  }
   function inANotInB(A3, B2) {
     return A3.filter((x2) => !B2.includes(x2));
   }
@@ -30305,8 +30299,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   // ../editor/src/assets/icons/undo.png
   var undo_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAoCAYAAAC4h3lxAAAACXBIWXMAAAsTAAALEwEAmpwYAAABDElEQVRYhe2ZsQ7CMAxEr4gvZmBDXMXGwC+XgVQqERDbCbEr5ZaoalXdq+0kTqdlWbBnHbwN1GoAeGsAeGv3AMdfN8+3h+ZdVwDcXE8GP7hfTqrnW0UgN99NLQDczAP1AFvzM4xpU6MagNw8vz75R1kBQpgHCrPQF0nNW3eJqjTURiDMl1+liYDUvLWQTRGTRiDcl18lAQhrHigDhDYPlAGYxpDmAXkNhG2cSwBzGolXOoWTJIVCQ0hSiAgMIa0BIiiEZiVmGvOpNVfXgtfuhYhgkbDsRpnGUiS6NDfWfoAIEomajowIAFHbExPvEN1X7BanEsTnGuiiVudChBPENH5wOGsAeGsAeGv3AE8yEDlUwXXxqQAAAABJRU5ErkJggg==";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-nETOGrcPN2aV/editor/src/components/Icons/styles.module.css.js
-  var digest = "63e27b18f32c603bcf3120b0b4b1c2407d4a0a32b7858c67ed2a62be21187ae0";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-fHYb44P1jyym/editor/src/components/Icons/styles.module.css.js
+  var digest = "add6764be73b6df4236b96cb3b6ba0ab261cea462d3bd351a4a0d217e1a9d054";
   var css = `img._icon_1467k_1 {
   height: 30px;
   /* outline: 2px solid green; */
@@ -30596,8 +30590,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   // ../editor/src/components/Icons/index.tsx
   var Icons_default = PngIcon;
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-yelbEmKh1k0t/editor/src/components/Inputs/Button/Button.module.css.js
-  var digest2 = "ef7194ab17cbf49129972fc83bbbaabe2d1431e5a87c5890d79a17d0150872b9";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-qewhw9aPsDqx/editor/src/components/Inputs/Button/Button.module.css.js
+  var digest2 = "711da0ab1e0350d5965c9436e5bb6555f1f93fc55065c9f0c40ff882971fa2ae";
   var css2 = `._button_1y00r_1 {
   --background-color: var(--rstudio-white);
   --text-color: var(--font-color);
@@ -30672,8 +30666,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   };
   var Button_default = Button;
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-TmKkgiF3nZFa/editor/src/components/DeleteNodeButton/styles.module.css.js
-  var digest3 = "7570364fd96f123fc3128d468ff4e17bdb4609fb454f2bbdfc798337ebf11249";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-Tmx4ilCjQkNg/editor/src/components/DeleteNodeButton/styles.module.css.js
+  var digest3 = "7b26aee6e6f855d88a929eee87fb1bb4b3cc904e60b69cf7030592eebfeeffd3";
   var css3 = `._deleteButton_1en02_1 {
   color: var(--red);
   display: flex;
@@ -30938,8 +30932,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   };
   var UiNode_default = UiNode;
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-gukvt1ukxVXG/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
-  var digest4 = "683b9d50044d8586dae38ed424a680aca5ee8c6397307a69f4c60e4a0d60c8d9";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-GsKfaQhPDy2D/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
+  var digest4 = "5ab2879f2186b65acd5947f1fcf6ad2a7edbc03bf5ee9dfb61536f7add28ceaf";
   var css4 = `._container_1a2os_1 {
   position: relative;
   height: 100%;
@@ -31365,8 +31359,8 @@ div._emptyGridCard_1a2os_144 > button {
     return setLayout;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-W2zevhm7Y36B/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
-  var digest5 = "bb84b56a1fdb8031abd9b9eefdb470460382e7a8c897462116f40314c9bf0e45";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-pTRjm58eY6ir/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
+  var digest5 = "69121a3f4fdf1eac3f3125b85dfaf1d1997123630c4c2ffb9b6412c12ff52c6c";
   var css5 = `._container_1a2os_1 {
   position: relative;
   height: 100%;
@@ -31720,8 +31714,8 @@ div._emptyGridCard_1a2os_144 > button {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 16 16" }, "child": [{ "tag": "path", "attr": { "fillRule": "evenodd", "d": "M16 14v1H0V0h1v14h15zM5 13H3V8h2v5zm4 0H7V3h2v10zm4 0h-2V6h2v7z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-VIWgESRbamn4/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
-  var digest6 = "552a4a8396149de0613cec06d808de7af3bbf85730e18e5d46a56dbd7e356e80";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-vBy2GHyP5ZFx/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
+  var digest6 = "2b96f15e7167b8fecc219e3257b0521e6b968d0ef913555560249376c8684827";
   var css6 = `._container_1rlbk_1 {
   max-height: 100%;
 }
@@ -31811,8 +31805,8 @@ div._emptyGridCard_1a2os_144 > button {
     return dimensions;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-kFxM68BGI9Hz/editor/src/Shiny-Ui-Elements/GridlayoutGridCardPlot/styles.module.css.js
-  var digest7 = "d80a0bdba1962c960a565a797d4d979ceabc743ef6653b596f811ad6e1d27e37";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-jdbGB7vMsmkO/editor/src/Shiny-Ui-Elements/GridlayoutGridCardPlot/styles.module.css.js
+  var digest7 = "98567048899575cd391605ccdb4056df459c3cbb293f3e637fa58aa3e9dcd23c";
   var css7 = `._gridCardPlot_1a94v_1 {
   background-color: var(--rstudio-white);
   width: 100%;
@@ -31895,8 +31889,8 @@ div._emptyGridCard_1a2os_144 > button {
   // ../editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/GridlayoutCardText.tsx
   var React19 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-PTuNOGeR7DQp/editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/styles.module.css.js
-  var digest8 = "2361e4af6c844ede3e58af80556b081a3cf0d7b35139c8063811ec5af17d1d93";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-vAw7yyWN5PxU/editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/styles.module.css.js
+  var digest8 = "76baebc1eb1ef963fbfa26917ec9d5e99be901b95399127faa2c82d430875aa7";
   var css8 = `._textPanel_525i2_1 {
   background-color: var(--rstudio-white);
   /* outline: var(--outline); */
@@ -32660,8 +32654,8 @@ div._emptyGridCard_1a2os_144 > button {
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-W1ZLdMobp4JF/editor/src/components/Grids/AreaOverlay.module.css.js
-  var digest9 = "9dac7c41c7b3e8b7c722d212d0885f3a208529735f801c85dea61de0a699063c";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-fQb1L4HSbWnl/editor/src/components/Grids/AreaOverlay.module.css.js
+  var digest9 = "be11ac9f85b3d644bec7ee41f7dc7875a820bad2bb2e0b9b92da7eba5f66dce8";
   var css9 = `._marker_mumaw_1 {
   font-weight: lighter;
   font-style: italic;
@@ -33085,8 +33079,8 @@ div._emptyGridCard_1a2os_144 > button {
   // ../editor/src/components/Grids/EditableGridContainer/EditableGridContainer.tsx
   var React31 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-0NB1zuMp5Yg4/editor/src/components/Grids/EditableGridContainer/resizableGrid.module.css.js
-  var digest10 = "20ea8b0f658e2ac8d4a8b02973c2eb0c866fa55c0b8678b941fe7d5847a0ff5d";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-GWVioMXjFhuI/editor/src/components/Grids/EditableGridContainer/resizableGrid.module.css.js
+  var digest10 = "5918fb2d85eb671a5ed1a038d2e61e98f66457f20c27cbedaa5acb9d05d872be";
   var css10 = `._ResizableGrid_i4cq9_1 {
   --grid-gap: 5px;
 
@@ -43375,8 +43369,8 @@ div#_size-detection-cell_i4cq9_1 {
     };
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-j3JDLPNsb0SG/editor/src/components/PopoverEl/styles.module.css.js
-  var digest11 = "dca370c086cd4b26273b1088976db913fa6ed74deecf60180b09fa3a6ac4ae99";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-3BeNF4sbB5gD/editor/src/components/PopoverEl/styles.module.css.js
+  var digest11 = "3fb88ea6a548b2d5016839c32091d61c6100d88569230e64b040b3e299ccd7b0";
   var css11 = `._popover_m2pq3_1 {
   pointer-events: none;
   opacity: 0;
@@ -43564,8 +43558,8 @@ div#_size-detection-cell_i4cq9_1 {
     );
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-bCGZQy40nFhH/editor/src/components/Inputs/CSSUnitInput/CSSUnitInfo.module.css.js
-  var digest12 = "3c3158447d36e3fcde98dda896612f036405f5fd96785b2f1a5d7327ebd3551b";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-FKCJWFsGHRB7/editor/src/components/Inputs/CSSUnitInput/CSSUnitInfo.module.css.js
+  var digest12 = "dea1a6a296d985d57be4a8047a3de24329ee873c0246f5bf4609c830883e867c";
   var css12 = `._infoIcon_15ri6_1 {
   width: 24px;
   color: var(--rstudio-blue);
@@ -43644,8 +43638,8 @@ div#_size-detection-cell_i4cq9_1 {
     rem: "Pixel size of app font. Typically 16 pixels."
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-pH2ik9vCrbY1/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
-  var digest13 = "43d6127dda0308c89a12710d91f0004a5538021fc99ba4fd85483c7eb64081bc";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-DwITwZgrvAUb/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
+  var digest13 = "97a68470264a8dd95e4474d4db3c13d7cb43443fc68e3e3d8f77d7517d083fac";
   var css13 = `._wrapper_3jy8f_1 {
   position: relative;
   display: flex;
@@ -44188,8 +44182,8 @@ div#_size-detection-cell_i4cq9_1 {
     return tractSizes.some((size) => size === "auto");
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-2wj4ODvrCbDV/editor/src/components/Grids/EditableGridContainer/TractInfoDisplay.module.css.js
-  var digest14 = "8486fe3660381b45b5e6b2a798f5f146666d292662e257392c33224801648ee9";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-zQZ0iIc60Vs7/editor/src/components/Grids/EditableGridContainer/TractInfoDisplay.module.css.js
+  var digest14 = "bd0895cec369921a5719a7826cf4150525c59f887b1c7f93fbebd21a98acf4f3";
   var css14 = `._tractInfoDisplay_cvtwo_1 {
   --transition-delay: 0.1s;
   --transition-speed: 0.1s;
@@ -44552,8 +44546,8 @@ user is typing in the input field but mouses off */
     });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-74Hf86dg8gxx/editor/src/components/Grids/EditableGridContainer/TractSizer.module.css.js
-  var digest15 = "2b1fb4cd1935f891de1706d57c4c020c01aedcba4f2bb2cf3bff33b6b99af4d9";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-GT2vZYJc99Ky/editor/src/components/Grids/EditableGridContainer/TractSizer.module.css.js
+  var digest15 = "ce7c2efa915adaaf19966ef15e113c02c1c5f9d1b0e40c40cef9985de2db6811";
   var css15 = `div._columnSizer_9b32k_1,
 div._rowSizer_9b32k_2 {
   --sizer-color: #c9e2f3;
@@ -44978,7 +44972,7 @@ div._rowSizer_9b32k_2::after {
     return /* @__PURE__ */ (0, import_jsx_runtime40.jsx)("h3", { className: className + " panel-title", children });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-zcsN3f3kP32K/editor/src/PortalModal.module.css.js
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-mpbOEJrw6y5z/editor/src/PortalModal.module.css.js
   var digest16 = "13f6af5e59e8ebc33477302381f7da21ea3317b2b22eeff877dda6aa750b7a6e";
   var css16 = `._portalHolder_18ua3_1 {
   background-color: rgba(255, 255, 255, 0.735);
@@ -45095,8 +45089,8 @@ div._rowSizer_9b32k_2::after {
   }
   var PortalModal_default = PortalModal;
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-dGupEEui5UOG/editor/src/PortalModal.module.css.js
-  var digest17 = "3432f86c2181098f30cb22218cbe22d9fd5535d46d048c8e7ed7b1a9f2f96158";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-br1o6a3tFMcG/editor/src/PortalModal.module.css.js
+  var digest17 = "6d280b545615c444380968919b627e4b6d7a263e394d828eab87ac48317929e2";
   var css17 = `._portalHolder_18ua3_1 {
   background-color: rgba(255, 255, 255, 0.735);
   position: absolute;
@@ -45272,8 +45266,8 @@ div._rowSizer_9b32k_2::after {
     }
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-3u9sn5sg39Y3/editor/src/components/Inputs/BooleanInput/styles.module.css.js
-  var digest18 = "9609c7a256495b0365fbc085ac9420e4b73df8c95f117874f9d06492573d2627";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-np3Bke39FLYN/editor/src/components/Inputs/BooleanInput/styles.module.css.js
+  var digest18 = "f13a7a15869f2af10314e64c4434fbd46c477c48d7c6f3928b9f38d191b88717";
   var css18 = `._checkboxInput_7ym3w_1 {
   height: 0;
   width: 0;
@@ -45385,8 +45379,8 @@ label._checkboxLabel_7ym3w_10:after {
   // ../editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.tsx
   var import_react29 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-75cYwUtlHfEI/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
-  var digest19 = "512bf06e251f564e6e495cf5bec675ec696db457bfe1b117f12005de472c745c";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-af6y5LuzeR0X/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
+  var digest19 = "f555e960a06d4cfdf08902617ae1dbd4c1ebe90e3f2e8743c2d347bb6be2b43a";
   var css19 = `._wrapper_3jy8f_1 {
   position: relative;
   display: flex;
@@ -45528,8 +45522,8 @@ label._checkboxLabel_7ym3w_10:after {
   // ../editor/src/components/Inputs/ListInput/NamedListInput.tsx
   var import_react_sortablejs = __toESM(require_dist());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-I6o4tqNkxerw/editor/src/components/Inputs/ListInput/styles.module.css.js
-  var digest20 = "e8a862b38de925307cc7db7fc852253cc150ac90c257872779775f7961594327";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-419z9hwgD147/editor/src/components/Inputs/ListInput/styles.module.css.js
+  var digest20 = "74d4825adb995d15cc91cbfe45e835a15cb5efd268c5dbb219667464e38573ee";
   var css20 = `._container_xt7ji_1 {
   --gap-size: 4px;
   margin-top: 21px;
@@ -45825,8 +45819,8 @@ label._checkboxLabel_7ym3w_10:after {
   // ../editor/src/components/Inputs/RadioInputs/RadioInputsSimple.tsx
   var React37 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-N8yboBSeM4kw/editor/src/components/Inputs/RadioInputs/RadioInputs.module.css.js
-  var digest21 = "84aa9a24f6286572b3e42737b65f4efe4e7d0d033aea1829ccf50882b6ab1d1d";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-zWpQtmli6KYI/editor/src/components/Inputs/RadioInputs/RadioInputs.module.css.js
+  var digest21 = "86a2e01e07d01367e4d0bccff9787b3a20810b4495a43ff7b13aee8e8566d409";
   var css21 = `._radioContainer_1regb_1 {
   display: grid;
   gap: 5px;
@@ -46287,8 +46281,8 @@ the label */
     };
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-4vocMGQun0ym/editor/src/components/GridlayoutElement/styles.module.css.js
-  var digest22 = "719dc9f653510b83dd2ffdc7325de5ed498cb5982dda6e74c9b58cd818be8e71";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-kukUKNZZKLHA/editor/src/components/GridlayoutElement/styles.module.css.js
+  var digest22 = "cfc42a4b4dda38c5d162144b64c0ebfe68db04aa7d11024b40a93fbecb6ac0df";
   var css22 = `._container_1hvsg_1 {
   display: grid;
   /* background-color: var(--bg-color); */
@@ -46640,8 +46634,8 @@ the label */
     return makeStringInputInfo("Label text", defaultValue);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-i4B0eSqGYytT/editor/src/Shiny-Ui-Elements/ShinyActionButton/styles.module.css.js
-  var digest23 = "475fb10fbc08bd8b892e4803efdb1ac92c42df8ae9a72a0c2512b24204fc02c5";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-WGHoNLjAiVW0/editor/src/Shiny-Ui-Elements/ShinyActionButton/styles.module.css.js
+  var digest23 = "66bf5743cb3ab632b5b91c4df85c75f86a6c9622818215649ec8f7499dae9852";
   var css23 = `._container_tyghz_1 {
   display: grid;
   grid-template-rows: 1fr;
@@ -46698,8 +46692,8 @@ the label */
   // ../editor/src/assets/icons/shinyCheckgroup.png
   var shinyCheckgroup_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAFS0lEQVR4nO3cz2vTdxzH8Vfb9VeIa7ta1FW2FqQ6pqLbEERhm0OGFzcPY0dhl+LFo4cd9gfsuIs77LDbkAljDqEiCoKszMMEcbqFsjm2OaW6ptClP2zNDvkms2n6I99vXqTp5/mAQJKmn3wPT76fJCTvpnw+L6DWmut9ANiYCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFoQFC8KCBWHBgrBgQViwICxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFs/V+wDq5cy5seX+1BNd4piILkt8+uGOmEs2pmDDKrNL0ilJ70h6NeFaP0m6IumspJ8TrtWw2AqlYUl3JJ1W8qgUrXE6WnO4Bus1pNDPWCclff7sHZ1tzepsa4m12PTcgqbnnhZvNkVrz0r6Mv4hNqaQw+pTYbuSJA1s7tB7r/Wpv6c90aJ/Tczq2x/Hde/RTPGus5IuShpPtHCDCXkrPCWpU5K297Rr+O3+xFFJUn+01vYXSmt1RM8VlJDDOly8cmxvr1qam2q2cEtzk47t6a34XKEIeSs8VLwy0NeZaKHRTFaX7xQ+ZRh+60Vt6W4vX/NQxX/cwEIOK1W80toS/2x18ea4rmUmlW5vKUVVYc1UxX/ewELeChMbzWR1LTMpSTp5aGspKhBWbJO5J/rm5iNJ0on9m/Vywu10oyGsmL76/oEk6cBAWgeHuut7MOsQYcUwmsnq18ezSre36Ojid3+IEFaVJnNPSu8Aj+/rVVeqtc5HtD4RVpWu/5LV1OyCdm9Lad/A8/U+nHWLsKrwMDtbehf47l62wJUQVhUu3XosSXpzqIuPFlZBWBWMZrI6c25M5394ULrv9/Fp3f47J0k6vLO7TkfWOAirzMyTp6XPp27cmyrFdfvPKUmFsxUv2FdHWGU6Wpv10eGtpds37k0t+oT9jUFesK8FYVWwqz+tE/s3l24Xz2C7t6V4bbVGhLWMg0PdOjCQXnTf3pfSyzwa5UIO65/ildzcQsUHHN3Tq3R74WvKWza1VvW51TNfUZaW+eXORhby12auSzouSXfv5/T6wKYlD+hKteqT9wdjLX7n/r/lzxWUkM9Y3xWvjNx6rGxuvmYLZ3PzGok+84pcqNniDSLkM9YXkj6WNDg5Pa/PLv+hI6/0aMeWlNpifvFvbiGvsYc5Xb07oamZ0vb6W/RcQQk5LKnwI4cRSZqaWdCF6N2f4TmCE/JWKEmXVPj1c8awdiZa+5Jh7XUv9DOWJF2VtFPSB5KOqPCLmrjfUc+p8EL9iqTzNTm6BkVY//s6uqAGQt8KYUJYsCAsWBAWLHjxvpRlol9oCKuAiX41xlbIRD+L0M9YTPQzCTksJvoZhbwVMtHPKOSwmOhnFPJWyEQ/o5DDYqKfUchbYWJM9FseYcXERL+VEVZMTPRbGWHFwES/1RFWlZjotzaEVSUm+q0NYVWBiX5rR1hVYKLf2hFWBUz0S46wyjDRrzYIqwwT/WqDsCpgol9yhLUMJvolE3JYTPQzCvlrM0z0Mwr5jMVEP6OQz1hM9DMKOSyJiX42IW+FEhP9bEI/Y0lM9LNoyufz9T4GbEChb4UwISxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFoQFC8KCBWHBgrBgQViwICxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLP4DpWmTqmVmpDwAAAAASUVORK5CYII=";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-E3nX8pQR5FES/editor/src/Shiny-Ui-Elements/ShinyCheckboxGroupInput/styles.module.css.js
-  var digest24 = "cabecd6e8dc59e8d8813646abdd624a598568f59873238087abe315217900545";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-3sNegHD62Agl/editor/src/Shiny-Ui-Elements/ShinyCheckboxGroupInput/styles.module.css.js
+  var digest24 = "a163f45caf537ef2a7d7851abb5a84a92f8ec0b8e5d6ee31185b8dff3558179a";
   var css24 = `._container_162lp_1 {
   position: relative;
   padding: 4px;
@@ -46791,8 +46785,8 @@ the label */
   // ../editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/ShinyCheckboxInput.tsx
   var React41 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-7Vxths88gRJX/editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/styles.module.css.js
-  var digest25 = "89b42ed08697e27ede8ac91f6c7db0e00bd6f9b80c7652c565420979ae82b348";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-w0GI72Ny2VYM/editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/styles.module.css.js
+  var digest25 = "1967fdb159f3ee8100b65c6e94640fd412813ad9cca1be585d162fa55f6e6d17";
   var css25 = `._container_1x0tz_1 {
   position: relative;
   padding: 4px;
@@ -46908,8 +46902,8 @@ the label */
     return getTabPanelTitle(firstChild) ?? "First Tab";
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-jP0YlrHGDt1O/editor/src/components/Tabs/TabPanel/TabPanel.module.css.js
-  var digest26 = "9ad5e01226dcbe68657ea189039321dc0106dba6e3048966dc4ac0066d01359d";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-rUftmVpDp625/editor/src/components/Tabs/TabPanel/TabPanel.module.css.js
+  var digest26 = "dfc96d4ff1d642b5aad984dbc948c3fd5476920ac30ac2bba2990fd30970cbe1";
   var css26 = `._container_10z2l_1 {
   height: 100%;
 }
@@ -47038,8 +47032,8 @@ the label */
     }) });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-CY4sfvspH572/editor/src/Shiny-Ui-Elements/ShinyTabPanel/ShinyTabPanel.module.css.js
-  var digest27 = "38510c573fbb093f2d697d99a892fe2524f6de5624a881b31db9e812625428f4";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-LRpRnUqq01Ho/editor/src/Shiny-Ui-Elements/ShinyTabPanel/ShinyTabPanel.module.css.js
+  var digest27 = "96c0bda592a999aa759867b0ab0e2d6ca4c9b8ab6cc2312362662901e2bc9cab";
   var css27 = `._container_fe3r8_1 {
   position: relative;
   height: 100%;
@@ -47146,8 +47140,8 @@ the label */
     return sameArray(aPath, bPath);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-kyfru3MaZ3fT/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest28 = "c0f01cde339ea3090b18cc60410679000fb53baa8cbcb703ca47e43df3051cd5";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-AdEnZN1mffWS/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest28 = "4f879770bf9cf22d3a56b0eb85d79d52dbf68cb5ebb8aeca84c19d981ed105f0";
   var css28 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -47320,8 +47314,8 @@ illusion of the selected panel and tab being one entity */
     );
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-UehvRxqrvcfx/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest29 = "ebc32fff797db5223d4bfa5d3e5829397f76f771ff789a0ec2cab4276a832742";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-XB2g4EAWNXtU/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest29 = "9390fa658ff93835b6facfa53542a20ce76cd7db94d580a0383e64c3ad8bdfd5";
   var css29 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -47491,8 +47485,8 @@ illusion of the selected panel and tab being one entity */
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-94JNtoTv7v7t/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest30 = "6a0aad878d5cd38b8acf82be008a0422dedd00b3d0eb9e6f9a63a2c9739c1a4e";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-MvscY5fcNtpL/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest30 = "2966b588bf64a27941a1a75a4fa1db815a203e999725c52fc3f51bed80cd56e3";
   var css30 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -47767,8 +47761,8 @@ illusion of the selected panel and tab being one entity */
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-j9GsMKzbKk1G/editor/src/Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage.module.css.js
-  var digest31 = "702e8e5cc4c9b3216b50b45cfdd28352ab2fff6dbd8eacbe7e8ff206209ef955";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-IRERpYsmBD3V/editor/src/Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage.module.css.js
+  var digest31 = "97cb65de923a932f049b16a0e513fabeb77e1adbda1867de6afec117d2cd98d4";
   var css31 = `._noTabsMessage_130qz_1 {
   padding: 5px;
 }
@@ -47869,8 +47863,8 @@ illusion of the selected panel and tab being one entity */
   // ../editor/src/Shiny-Ui-Elements/ShinyNumericInput/ShinyNumericInput.tsx
   var React47 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-JTrFhp0RCrCM/editor/src/Shiny-Ui-Elements/ShinyNumericInput/styles.module.css.js
-  var digest32 = "8fd62b4d4136e041ee3f85ae6ada86da3b58cba73342e3d3718910b77a604db5";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-V1EdlQueHQrE/editor/src/Shiny-Ui-Elements/ShinyNumericInput/styles.module.css.js
+  var digest32 = "fc6e0a1fb36c903dd4face401fb9a33b62ff2db93755b41df4bbc95112321d76";
   var css32 = `._container_yicbr_1 {
   position: relative;
   padding: 4px;
@@ -47988,8 +47982,8 @@ illusion of the selected panel and tab being one entity */
     description: "An input control for entry of numeric values"
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-XY4yHiFynQhG/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
-  var digest33 = "3f6cd119c767d01e588c836b8b3a435c396fecc9771c604b10252a04e9ae0c86";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-13DurR4pAnUw/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
+  var digest33 = "2bf12c4cf1ae080d72731a157cd30fdd11b1c58fbb461a2b46039be867effa9a";
   var css33 = `._container_1rlbk_1 {
   max-height: 100%;
 }
@@ -48081,8 +48075,8 @@ illusion of the selected panel and tab being one entity */
   // ../editor/src/Shiny-Ui-Elements/ShinyRadioButtons/ShinyRadioButtons.tsx
   var import_react40 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-HelBOHBuMx4M/editor/src/Shiny-Ui-Elements/ShinyRadioButtons/styles.module.css.js
-  var digest34 = "0743c61a197fee38f215c258871ef327c23b411f717f44a482d1d081fa02f923";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-Cfo0QVe872VB/editor/src/Shiny-Ui-Elements/ShinyRadioButtons/styles.module.css.js
+  var digest34 = "9a6b761312ba053e5c6f503565a4ce1e88d4767780caee7cac65f946f288f84e";
   var css34 = `._container_sgn7c_1 {
   position: relative;
   padding: 4px;
@@ -48184,8 +48178,8 @@ illusion of the selected panel and tab being one entity */
   // ../editor/src/assets/icons/shinySelectbox.png
   var shinySelectbox_default = "data:image/png;base64,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";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-H3aYvRn6t5X0/editor/src/Shiny-Ui-Elements/ShinySelectInput/styles.module.css.js
-  var digest35 = "19a8b0c46b709f13c91cbc8aca4b7c76e22552a5c3236557a9a4abb1eb3c94ca";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-KfHHP4M2nAaH/editor/src/Shiny-Ui-Elements/ShinySelectInput/styles.module.css.js
+  var digest35 = "7a3d238650ffea38b725addc18de01a4fc2fdc22a27576192f92c9f277d4e898";
   var css35 = `._container_1e5dd_1 {
   position: relative;
   padding: 4px;
@@ -48261,8 +48255,8 @@ illusion of the selected panel and tab being one entity */
   // ../editor/src/Shiny-Ui-Elements/ShinySliderInput/ShinySliderInput.tsx
   var React49 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-7q4cOAAo03XD/editor/src/Shiny-Ui-Elements/ShinySliderInput/styles.module.css.js
-  var digest36 = "85a9036fd11390fb1725f3e16be2ea97bae3eab0f4650e22b8720448d1f89944";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-oaHbPkZW3mhf/editor/src/Shiny-Ui-Elements/ShinySliderInput/styles.module.css.js
+  var digest36 = "2de13514662fd9e51fa11ba233415636f934b1e69441f8852dbb5785d26a4d63";
   var css36 = `._container_1f2js_1 {
   padding: 6px;
 
@@ -48497,8 +48491,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // ../editor/src/Shiny-Ui-Elements/ShinyTextInput/ShinyTextInput.tsx
   var React50 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-e0NGzxwqBzdA/editor/src/Shiny-Ui-Elements/ShinyTextInput/styles.module.css.js
-  var digest37 = "7eab3e5c44b2e352e8b5dfcdadaddf41c704dca1db32156f665b1a1c91d5de86";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-eq5LbfxhRlKG/editor/src/Shiny-Ui-Elements/ShinyTextInput/styles.module.css.js
+  var digest37 = "9fc07f04a89b06a56c52102e6e7db7e881f2aee0ddbc297dba4ba7d8c1688d88";
   var css37 = `._container_yicbr_1 {
   position: relative;
   padding: 4px;
@@ -48593,8 +48587,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // ../editor/src/assets/icons/shinyTextOutput.png
   var shinyTextOutput_default = "data:image/png;base64,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";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-MGjgY5HTA2dT/editor/src/Shiny-Ui-Elements/ShinyTextOutput/styles.module.css.js
-  var digest38 = "b413b85b4f1640a9533e7effa79c73ffaa3ab69f626ee4e86b221260f8ffff60";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-f8Bj5GwNP7aC/editor/src/Shiny-Ui-Elements/ShinyTextOutput/styles.module.css.js
+  var digest38 = "59d88f7ae1545b3af5d7a02d12476f53838fc6dc7c9eb138dee513c2cb92109a";
   var css38 = `._container_1i6yi_1 {
   padding: 1rem;
   max-height: 100%;
@@ -48654,8 +48648,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // ../editor/src/assets/icons/shinyImage.png
   var shinyImage_default = "data:image/png;base64,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";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-z2Ss12xYyJLr/editor/src/Shiny-Ui-Elements/ShinyUiOutput/styles.module.css.js
-  var digest39 = "2533df71f0e997944fb35acfdbbe0283b33cc53d42cfa2189081f2b64bd3e6d5";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-0fAytbqexBYS/editor/src/Shiny-Ui-Elements/ShinyUiOutput/styles.module.css.js
+  var digest39 = "728a54dd43c8db94b7339b477bf984502a48b6e09b334656e0a62756bf995311";
   var css39 = `._container_1xnzo_1 {
   display: grid;
   grid-template-rows: 1fr;
@@ -48725,8 +48719,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 1024 1024" }, "child": [{ "tag": "path", "attr": { "d": "M881.7 187.4l-45.1-45.1a8.03 8.03 0 0 0-11.3 0L667.8 299.9l-54.7-54.7a7.94 7.94 0 0 0-13.5 4.7L576.1 439c-.6 5.2 3.7 9.5 8.9 8.9l189.2-23.5c6.6-.8 9.3-8.8 4.7-13.5l-54.7-54.7 157.6-157.6c3-3 3-8.1-.1-11.2zM439 576.1l-189.2 23.5c-6.6.8-9.3 8.9-4.7 13.5l54.7 54.7-157.5 157.5a8.03 8.03 0 0 0 0 11.3l45.1 45.1c3.1 3.1 8.2 3.1 11.3 0l157.6-157.6 54.7 54.7a7.94 7.94 0 0 0 13.5-4.7L447.9 585a7.9 7.9 0 0 0-8.9-8.9z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-3wwZYViGZ7w9/editor/src/components/CategoryDivider/styles.module.css.js
-  var digest40 = "80c5497c5e7aec3259508929f102a3d0688b1b8339882ea0c5dd6c4ab09e054c";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-kx27gNjuotxJ/editor/src/components/CategoryDivider/styles.module.css.js
+  var digest40 = "d79115af7da9831bd632f7ef0cc9472a8fe9d9831532dd97766aafc266870fa8";
   var css40 = `._categoryDivider_bdwku_1 {
   display: block;
   position: relative;
@@ -48952,65 +48946,57 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   var updateSubscriptions = getUniqueSubscriptions("UPDATE_NODE");
 
   // ../editor/src/state/uiTree.ts
-  var uiTreeSlice = createSlice({
-    name: "uiTree",
-    initialState: "LOADING_STATE",
+  var mainStateSlice = createSlice({
+    name: "state",
+    initialState: {
+      mode: "LOADING"
+    },
     reducers: {
       SET_FULL_STATE: (tree, action) => action.payload.state,
-      INIT_STATE: (tree, action) => {
-        return fillInDefaultValues(action.payload.initialState);
+      SET_UI_TREE: (tree, action) => {
+        return { mode: "MAIN", uiTree: action.payload.uiTree };
       },
-      UPDATE_NODE: (tree, action) => {
-        if (!isShinyUiNode(tree)) {
+      SHOW_TEMPLATE_CHOOSER: (state, { payload }) => {
+        return { mode: "TEMPLATE_CHOOSER", options: payload };
+      },
+      SET_LOADING: (state) => {
+        return { mode: "LOADING" };
+      },
+      UPDATE_NODE: (state, action) => {
+        if (state.mode !== "MAIN") {
           throw new Error("Tried to update a node when in template chooser mode");
         }
         for (const subscription of updateSubscriptions) {
-          subscription(tree, action.payload);
+          subscription(state.uiTree, action.payload);
         }
-        updateNodeMutating(tree, action.payload);
+        updateNodeMutating(state.uiTree, action.payload);
       },
-      PLACE_NODE: (tree, action) => {
-        if (!isShinyUiNode(tree)) {
+      PLACE_NODE: (state, action) => {
+        if (state.mode !== "MAIN") {
           throw new Error("Tried to move a node when in template chooser mode");
         }
-        placeNodeMutating(tree, action.payload);
+        placeNodeMutating(state.uiTree, action.payload);
       },
-      DELETE_NODE: (tree, action) => {
-        if (!isShinyUiNode(tree)) {
+      DELETE_NODE: (state, action) => {
+        if (state.mode !== "MAIN") {
           throw new Error("Tried to delete a node when in template chooser mode");
         }
         for (const subscription of deleteSubscriptions) {
-          subscription(tree, { path: action.payload.path });
+          subscription(state.uiTree, { path: action.payload.path });
         }
-        removeNodeMutating(tree, action.payload);
+        removeNodeMutating(state.uiTree, action.payload);
       }
     }
   });
-  function fillInDefaultValues(uiNode) {
-    if (!isShinyUiNode(uiNode))
-      return uiNode;
-    const defaultSettingsForNode = getDefaultSettings(
-      shinyUiNodeInfo[uiNode.uiName].settingsInfo,
-      uiNode
-    );
-    const argsInNode = Object.keys(uiNode.uiArguments);
-    const defaultNodeArgs = Object.keys(defaultSettingsForNode);
-    const missingArgs = subtractElements(defaultNodeArgs, argsInNode);
-    if (missingArgs.length > 0) {
-      uiNode.uiArguments = { ...defaultSettingsForNode, ...uiNode.uiArguments };
-    }
-    if (uiNode.uiChildren) {
-      uiNode.uiChildren.forEach((childNode) => fillInDefaultValues(childNode));
-    }
-    return uiNode;
-  }
   var {
     UPDATE_NODE,
     PLACE_NODE,
     DELETE_NODE,
-    INIT_STATE,
-    SET_FULL_STATE
-  } = uiTreeSlice.actions;
+    SET_UI_TREE,
+    SET_FULL_STATE,
+    SHOW_TEMPLATE_CHOOSER,
+    SET_LOADING
+  } = mainStateSlice.actions;
   function usePlaceNode() {
     const dispatch = useDispatch();
     const place_node = import_react41.default.useCallback(
@@ -49021,41 +49007,32 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     );
     return place_node;
   }
-  var uiTree_default = uiTreeSlice.reducer;
-
-  // ../editor/src/state/useSetTree.tsx
-  function useSetTree() {
-    const dispatch = useDispatch();
-    const setTree = React52.useCallback(
-      (newTree) => {
-        dispatch(INIT_STATE({ initialState: newTree }));
-      },
-      [dispatch]
-    );
-    return setTree;
-  }
+  var uiTree_default = mainStateSlice.reducer;
 
   // ../editor/src/backendCommunication/useSyncUiWithBackend.tsx
   function useSyncUiWithBackend() {
     const { sendMsg, incomingMsgs: backendMsgs } = useBackendCallbacks();
-    const tree = useSelector((state) => state.uiTree);
-    const setTree = useSetTree();
-    const currentUiTree = useSelector((state) => state.uiTree);
-    const [errorMsg, setErrorMsg] = React53.useState(null);
-    const lastRecievedRef = React53.useRef(null);
-    React53.useEffect(() => {
+    const state = useSelector((state2) => state2.uiTree);
+    const dispatch = useDispatch();
+    const currentState = useSelector((state2) => state2.uiTree);
+    const [errorMsg, setErrorMsg] = React52.useState(null);
+    const lastRecievedRef = React52.useRef(null);
+    React52.useEffect(() => {
       const updatedTreeSubscription = backendMsgs.subscribe(
         "UPDATED-TREE",
-        (ui_tree) => {
-          setTree(ui_tree);
-          lastRecievedRef.current = ui_tree;
+        (uiTree) => {
+          dispatch(SET_UI_TREE({ uiTree }));
+          lastRecievedRef.current = { mode: "MAIN", uiTree };
         }
       );
       const templateChooserSubscription = backendMsgs.subscribe(
-        "TEMPLATE-CHOOSER",
-        () => {
-          setTree("TEMPLATE_CHOOSER");
-          lastRecievedRef.current = "TEMPLATE_CHOOSER";
+        "TEMPLATE_CHOOSER",
+        (outputChoices) => {
+          dispatch(SHOW_TEMPLATE_CHOOSER({ outputChoices }));
+          lastRecievedRef.current = {
+            mode: "TEMPLATE_CHOOSER",
+            options: { outputChoices }
+          };
         }
       );
       const parsingErrorSubscription = backendMsgs.subscribe(
@@ -49068,25 +49045,25 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
         templateChooserSubscription.unsubscribe();
         parsingErrorSubscription.unsubscribe();
       };
-    }, [backendMsgs, sendMsg, setTree]);
-    const debouncedSendMsg = React53.useMemo(
+    }, [backendMsgs, dispatch, sendMsg]);
+    const debouncedSendMsg = React52.useMemo(
       () => functionDebounce(sendMsg, 500, true),
       [sendMsg]
     );
-    React53.useEffect(() => {
-      if (currentUiTree === "LOADING_STATE" || currentUiTree === lastRecievedRef.current) {
+    React52.useEffect(() => {
+      if (currentState.mode === "LOADING" || currentState === lastRecievedRef.current) {
         return;
       }
-      if (currentUiTree === "TEMPLATE_CHOOSER") {
+      if (currentState.mode === "TEMPLATE_CHOOSER") {
         sendMsg({ path: "ENTERED-TEMPLATE-SELECTOR" });
         return;
       }
       debouncedSendMsg({
         path: "UPDATED-TREE",
-        payload: currentUiTree
+        payload: currentState.uiTree
       });
-    }, [currentUiTree, debouncedSendMsg, sendMsg]);
-    return { tree, setTree, errorMsg };
+    }, [currentState, debouncedSendMsg, sendMsg]);
+    return { state, errorMsg };
   }
 
   // ../editor/src/components/AppPreview/index.tsx
@@ -49097,8 +49074,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 16 16", "fill": "currentColor" }, "child": [{ "tag": "path", "attr": { "fillRule": "evenodd", "clipRule": "evenodd", "d": "M12.75 8a4.5 4.5 0 0 1-8.61 1.834l-1.391.565A6.001 6.001 0 0 0 14.25 8 6 6 0 0 0 3.5 4.334V2.5H2v4l.75.75h3.5v-1.5H4.352A4.5 4.5 0 0 1 12.75 8z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-VD6VkWGKtv0N/editor/src/components/AppPreview/AppPreview.module.css.js
-  var digest41 = "8af80c2ec6fff9ef801c53d3700bc2f47a4732833ab2944438164cf02f45eb74";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-NoBMLosp7599/editor/src/components/AppPreview/AppPreview.module.css.js
+  var digest41 = "fd88418cdf29962ec897a6d6d5b8569f7a345a6d1d46b917779667e249f173b7";
   var css41 = `div._appViewerHolder_zkojo_1 {
   /* This is over-ridden by an inline style but we just have it here in case */
   --app-scale-amnt: 0.24;
@@ -49364,8 +49341,8 @@ h2._error_zkojo_249 {
   })();
   var AppPreview_module_css_default = { "appViewerHolder": "_appViewerHolder_zkojo_1", "title": "_title_zkojo_55", "appContainer": "_appContainer_zkojo_89", "previewFrame": "_previewFrame_zkojo_109", "expandButton": "_expandButton_zkojo_134", "reloadButtonContainer": "_reloadButtonContainer_zkojo_135", "reloadButton": "_reloadButton_zkojo_135", "spin": "_spin_zkojo_174", "restartButton": "_restartButton_zkojo_211", "loadingMessage": "_loadingMessage_zkojo_238", "error": "_error_zkojo_249" };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-1DMeQoaHjAzV/editor/src/components/AppPreview/AppPreview.module.css.js
-  var digest42 = "5e7c0030f51486db67d0d8112e1406f05259c6fe264ec840e922f016278aa37a";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-ozDsTsMOALLr/editor/src/components/AppPreview/AppPreview.module.css.js
+  var digest42 = "185d2b037435903e623dde6d49bde0596acd07cce606bae7e0d408d987e29337";
   var css42 = `div._appViewerHolder_zkojo_1 {
   /* This is over-ridden by an inline style but we just have it here in case */
   --app-scale-amnt: 0.24;
@@ -49631,8 +49608,8 @@ h2._error_zkojo_249 {
   })();
   var AppPreview_module_css_default2 = { "appViewerHolder": "_appViewerHolder_zkojo_1", "title": "_title_zkojo_55", "appContainer": "_appContainer_zkojo_89", "previewFrame": "_previewFrame_zkojo_109", "expandButton": "_expandButton_zkojo_134", "reloadButtonContainer": "_reloadButtonContainer_zkojo_135", "reloadButton": "_reloadButton_zkojo_135", "spin": "_spin_zkojo_174", "restartButton": "_restartButton_zkojo_211", "loadingMessage": "_loadingMessage_zkojo_238", "error": "_error_zkojo_249" };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-tegA6NBgEd60/editor/src/components/AppPreview/FakeDashboard.module.css.js
-  var digest43 = "4a2e48ad784c4a96939e3359fb42d5238563d06ceaff04904125d5d31b04c063";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-Z4buVHiCbRNi/editor/src/components/AppPreview/FakeDashboard.module.css.js
+  var digest43 = "48d05c8cb8a9d862badfc823b8a54a9336f9330a6e6a9a7c08a55402a5243f71";
   var css43 = `._fakeApp_t3dh1_1 {
   display: grid;
   place-content: center;
@@ -49726,8 +49703,8 @@ h2._error_zkojo_249 {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "fill": "none", "stroke": "#000", "strokeWidth": "2", "d": "M12,22 C17.5228475,22 22,17.5228475 22,12 C22,6.4771525 17.5228475,2 12,2 C6.4771525,2 2,6.4771525 2,12 C2,17.5228475 6.4771525,22 12,22 Z M5,5 L19,19" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-lsE4HRLEkxWJ/editor/src/components/AppPreview/LogsViewer.module.css.js
-  var digest44 = "74e087e2fc6091860c100079042e6ded380c23fab31be59e0fd088e36a4ecb2d";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-y1m5xduLdnJ3/editor/src/components/AppPreview/LogsViewer.module.css.js
+  var digest44 = "16e1dc22acda5cd8aa5ed710eb6d0f5783e97e24845dec8a0945422131f5de19";
   var css44 = `/* Logs section */
 ._logs_xjp5l_2 {
   --tab-height: var(--logs-button-h, 20px);
@@ -50656,7 +50633,9 @@ p._logLine_xjp5l_75 {
       return true;
     });
   }
-  function useFilteredTemplates() {
+  function useFilteredTemplates({
+    outputChoices
+  }) {
     const requestTemplate = useRequestTemplate();
     const [filterState, setFilterState] = import_react47.default.useState({
       layoutTypes: allLayoutTypes
@@ -50664,7 +50643,9 @@ p._logLine_xjp5l_75 {
     const [selectedTemplate, setSelectedTemplate] = import_react47.default.useState(
       null
     );
-    const [selectedOutput, setSelectedOutput] = import_react47.default.useState("single-file");
+    const [selectedOutput, setSelectedOutput] = import_react47.default.useState(
+      outputChoices === "USER-CHOICE" ? "SINGLE-FILE" : outputChoices
+    );
     const setTemplateSelection = (title) => {
       setSelectedTemplate(
         (currentSelection) => currentSelection === title ? null : title
@@ -50701,10 +50682,10 @@ p._logLine_xjp5l_75 {
 
   // ../editor/src/components/TemplatePreviews/OutputTypeForm.tsx
   var import_jsx_runtime87 = __toESM(require_jsx_runtime());
-  var outputTypes = ["single-file", "multi-file"];
+  var outputTypes = ["SINGLE-FILE", "MULTI-FILE"];
   var outputTypeLabel = {
-    "single-file": "Single file mode",
-    "multi-file": "Multi file mode"
+    "SINGLE-FILE": "Single file mode",
+    "MULTI-FILE": "Multi file mode"
   };
   function OutputTypeForm({
     selectedOutput,
@@ -50810,7 +50791,7 @@ p._logLine_xjp5l_75 {
 
   // ../editor/src/components/TemplatePreviews/TemplateChooserView.tsx
   var import_jsx_runtime90 = __toESM(require_jsx_runtime());
-  function TemplateChooserView() {
+  function TemplateChooserView(opts) {
     const {
       filterState,
       setFilterState,
@@ -50820,7 +50801,7 @@ p._logLine_xjp5l_75 {
       finishSelection,
       selectedOutput,
       setSelectedOutput
-    } = useFilteredTemplates();
+    } = useFilteredTemplates(opts);
     const canProceed = selectedTemplate !== null;
     const buttonMsg = canProceed ? "Next" : "Select a template";
     return /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(
@@ -50845,13 +50826,13 @@ p._logLine_xjp5l_75 {
                 setFilterState
               }
             ),
-            /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(
+            opts.outputChoices === "USER-CHOICE" ? /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(
               OutputTypeForm,
               {
                 selectedOutput,
                 setSelectedOutput
               }
-            ),
+            ) : null,
             /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(
               Button_default,
               {
@@ -50882,10 +50863,10 @@ p._logLine_xjp5l_75 {
   }
 
   // ../editor/src/ElementsPalette/index.tsx
-  var React60 = __toESM(require_react());
+  var React59 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-3BMN27UUi6hu/editor/src/ElementsPalette/styles.module.css.js
-  var digest45 = "fcfe9186ccd679a4a62912a4edb1b1b361290029f06f1a3091064a33699369b6";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-3zHZTxv8lSVx/editor/src/ElementsPalette/styles.module.css.js
+  var digest45 = "3993db3082666f1d333d60ec15540ff6a7ba2880c8d15e2197d816a899b292c4";
   var css45 = `._elementsPalette_qmlez_1 {
   --icon-size: 75px;
   --padding: 8px;
@@ -50956,8 +50937,8 @@ p._logLine_xjp5l_75 {
   })();
   var styles_module_css_default24 = { "elementsPalette": "_elementsPalette_qmlez_1", "OptionContainer": "_OptionContainer_qmlez_18", "optionContainer": "_OptionContainer_qmlez_18", "OptionItem": "_OptionItem_qmlez_24", "optionItem": "_OptionItem_qmlez_24", "OptionIcon": "_OptionIcon_qmlez_33", "optionIcon": "_OptionIcon_qmlez_33", "OptionLabel": "_OptionLabel_qmlez_41", "optionLabel": "_OptionLabel_qmlez_41" };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-8rYy4aWsIRYe/editor/src/ElementsPalette/styles.module.css.js
-  var digest46 = "042eed217b354b1d4b325eae2d74ee0724e42b4ef0974eae1d7a94d4c823a4de";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-4S2W4HlweVVS/editor/src/ElementsPalette/styles.module.css.js
+  var digest46 = "451cfde76f7586766572b06e1aecc014c90766ff4a43295927697719a1130ce8";
   var css46 = `._elementsPalette_qmlez_1 {
   --icon-size: 75px;
   --padding: 8px;
@@ -51091,7 +51072,7 @@ p._logLine_xjp5l_75 {
   function ElementsPalette({
     availableUi = shinyUiNodeInfo
   }) {
-    const ui_node_names = React60.useMemo(
+    const ui_node_names = React59.useMemo(
       () => Object.keys(availableUi).sort(sortByCategory),
       [availableUi]
     );
@@ -51236,8 +51217,8 @@ p._logLine_xjp5l_75 {
     return InputsComponents;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-8J8cYVNn1zGw/editor/src/SettingsPanel/PathBreadcrumb.module.css.js
-  var digest47 = "d3e6451a43a4045807676cfa88af5471c45943f7d9534060cd16dd38edd4c415";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-UIHtQTaghr1n/editor/src/SettingsPanel/PathBreadcrumb.module.css.js
+  var digest47 = "5c6cc3161d7cbb32f340eb531f8c83a39538a28684192a2f745cd4ec1e962aba";
   var css47 = `._container_1fh41_1 {
   --flex-gap: 8px;
   padding: var(--vertical-spacing);
@@ -51365,8 +51346,8 @@ p._logLine_xjp5l_75 {
     return uiName.replace(/[a-z]+::/, "");
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-U9fi3Msa7er7/editor/src/SettingsPanel/SettingsPanel.module.css.js
-  var digest48 = "176314e58f79f0604fda855318144df78c1416b3ccdd379559219688cf4b5e98";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-AUiKc1qtvTqB/editor/src/SettingsPanel/SettingsPanel.module.css.js
+  var digest48 = "2c243edf2255e1f734dfff3312a143d72aedee118fd70da2a30522707fbb6aa3";
   var css48 = `._settingsPanel_a44hx_1 {
   --vertical-gap: var(--vertical-spacing);
   display: flex;
@@ -51431,7 +51412,7 @@ form._settingsForm_a44hx_17 {
   var SettingsPanel_module_css_default = { "settingsPanel": "_settingsPanel_a44hx_1", "currentElementAbout": "_currentElementAbout_a44hx_10", "settingsForm": "_settingsForm_a44hx_17", "settingsInputs": "_settingsInputs_a44hx_24", "buttonsHolder": "_buttonsHolder_a44hx_28", "validationErrorMsg": "_validationErrorMsg_a44hx_45" };
 
   // ../editor/src/SettingsPanel/useUpdateSettings.tsx
-  var React61 = __toESM(require_react());
+  var React60 = __toESM(require_react());
 
   // ../../node_modules/just-omit/index.mjs
   var objectOmit = omit;
@@ -51454,11 +51435,11 @@ form._settingsForm_a44hx_17 {
   function useUpdateSettings(tree) {
     const dispatch = useDispatch();
     const [selectedPath, setNodeSelection] = useNodeSelectionState();
-    const [currentNode, setCurrentNode] = React61.useState(
+    const [currentNode, setCurrentNode] = React60.useState(
       selectedPath !== null ? getNode(tree, selectedPath) : null
     );
-    const formHasBeenUpdated = React61.useRef(false);
-    const sendNewSettings = React61.useCallback(
+    const formHasBeenUpdated = React60.useRef(false);
+    const sendNewSettings = React60.useCallback(
       (updated_node) => {
         if (!selectedPath)
           return;
@@ -51468,7 +51449,7 @@ form._settingsForm_a44hx_17 {
       },
       [dispatch, selectedPath]
     );
-    React61.useEffect(() => {
+    React60.useEffect(() => {
       formHasBeenUpdated.current = false;
       if (selectedPath === null) {
         setCurrentNode(null);
@@ -51479,7 +51460,7 @@ form._settingsForm_a44hx_17 {
         return;
       setCurrentNode(getNode(tree, selectedPath));
     }, [tree, selectedPath]);
-    React61.useEffect(() => {
+    React60.useEffect(() => {
       if (!currentNode)
         return;
       sendNewSettings(currentNode);
@@ -51577,7 +51558,7 @@ form._settingsForm_a44hx_17 {
   }
 
   // ../editor/src/AppTour/index.tsx
-  var React64 = __toESM(require_react());
+  var React63 = __toESM(require_react());
 
   // ../../node_modules/react-joyride/es/index.js
   var import_react49 = __toESM(require_react());
@@ -56520,8 +56501,8 @@ form._settingsForm_a44hx_17 {
 
   // ../editor/src/state/useInTemplateChooserMode.ts
   function useInTemplateChooserMode() {
-    const tree = useSelector((state) => state.uiTree);
-    return tree === "TEMPLATE_CHOOSER";
+    const state = useSelector((state2) => state2.uiTree);
+    return state.mode === "TEMPLATE_CHOOSER";
   }
 
   // ../editor/src/AppTour/AppPreviewAbout.tsx
@@ -56590,10 +56571,10 @@ form._settingsForm_a44hx_17 {
     }
   ];
   function AppTour() {
-    const [stepIndex, setStepIndex] = React64.useState(0);
-    const [run, setRun] = React64.useState(false);
+    const [stepIndex, setStepIndex] = React63.useState(0);
+    const [run, setRun] = React63.useState(false);
     const inTemplateChooserMode = useInTemplateChooserMode();
-    const handleJoyrideCallback = React64.useCallback((data) => {
+    const handleJoyrideCallback = React63.useCallback((data) => {
       const { action, index: index2, status, type } = data;
       console.log({ action, index: index2, status, type });
       if (type === EVENTS.STEP_AFTER || type === EVENTS.TARGET_NOT_FOUND) {
@@ -56615,7 +56596,7 @@ form._settingsForm_a44hx_17 {
         }
       }
     }, []);
-    const startTour = React64.useCallback(() => {
+    const startTour = React63.useCallback(() => {
       setRun(true);
     }, []);
     return /* @__PURE__ */ (0, import_jsx_runtime102.jsxs)(import_jsx_runtime102.Fragment, { children: [
@@ -56731,6 +56712,7 @@ form._settingsForm_a44hx_17 {
       if (this.stepsBack > 0)
         this.startNewHistoryBranch();
       this.stack = [...this.stack, entry];
+      console.log("Added entry to history", this.stack);
     }
     canGoBackwards() {
       if (this.stack.length === 1)
@@ -56768,7 +56750,7 @@ form._settingsForm_a44hx_17 {
 
   // ../editor/src/state-logic/useUndoRedo.tsx
   function useUndoRedo() {
-    const tree = useSelector((state) => state.uiTree);
+    const state = useSelector((state2) => state2.uiTree);
     const dispatch = useDispatch();
     const [canGoForward, setCanGoForward] = import_react50.default.useState(false);
     const [canGoBackward, setCanGoBackward] = import_react50.default.useState(false);
@@ -56776,16 +56758,16 @@ form._settingsForm_a44hx_17 {
       new StateHistory({ comparisonFn: sameHistoryEntry })
     );
     import_react50.default.useEffect(() => {
-      if (!tree || tree === "LOADING_STATE")
+      if (!state || state.mode === "LOADING")
         return;
       const history = stateHistory.current;
-      history.addEntry(tree);
+      history.addEntry(state);
       setCanGoBackward(history.canGoBackwards());
       setCanGoForward(history.canGoForwards());
-    }, [tree]);
+    }, [state]);
     const setState = import_react50.default.useCallback(
-      (updatedTree) => {
-        dispatch(SET_FULL_STATE({ state: updatedTree }));
+      (updatedState) => {
+        dispatch(SET_FULL_STATE({ state: updatedState }));
       },
       [dispatch]
     );
@@ -56802,14 +56784,28 @@ form._settingsForm_a44hx_17 {
       canGoForward
     };
   }
-  function sameHistoryEntry(newEntry, oldEntry) {
+  function sameHistoryEntryOriginal(newEntry, oldEntry) {
     if (typeof oldEntry === "undefined")
       return false;
-    return newEntry === oldEntry;
+    if (oldEntry.mode === "LOADING" && newEntry.mode === "LOADING") {
+      return true;
+    }
+    if (oldEntry.mode === "TEMPLATE_CHOOSER" && newEntry.mode === "TEMPLATE_CHOOSER") {
+      return JSON.stringify(oldEntry.options) === JSON.stringify(newEntry.options);
+    }
+    if (newEntry.mode === "MAIN" && oldEntry.mode === "MAIN") {
+      return oldEntry.uiTree === newEntry.uiTree;
+    }
+    return false;
+  }
+  function sameHistoryEntry(newEntry, oldEntry) {
+    const isSame = sameHistoryEntryOriginal(newEntry, oldEntry);
+    console.log({ oldEntry, newEntry, isSame });
+    return isSame;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-26916-4MLzTsvTEmqM/editor/src/components/UndoRedoButtons/UndoRedoButtons.module.css.js
-  var digest49 = "0e0ce1fbb59f7be281dfb43619e5a53915900176a53d6343455709df377d3ddb";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-41141-yh2LBYv5uSq3/editor/src/components/UndoRedoButtons/UndoRedoButtons.module.css.js
+  var digest49 = "d80d02f43c79f75c3cfbfc1be8641497e8f22367879bb7a59e35389b956c210b";
   var css49 = `._container_1d7pe_1 {
   display: flex;
   position: relative;
@@ -56911,27 +56907,27 @@ form._settingsForm_a44hx_17 {
     "--properties-panel-width": `${PROPERTIES_PANEL_WIDTH_PX}px`
   };
   function EditorContainer() {
-    const { tree, errorMsg } = useSyncUiWithBackend();
+    const { state, errorMsg } = useSyncUiWithBackend();
     let pageBody;
     if (errorMsg) {
       pageBody = /* @__PURE__ */ (0, import_jsx_runtime107.jsxs)(DialogPopover, { className: "message-mode", children: [
         /* @__PURE__ */ (0, import_jsx_runtime107.jsx)("h2", { children: "Error" }),
         /* @__PURE__ */ (0, import_jsx_runtime107.jsx)("p", { className: "error-msg", children: errorMsg })
       ] });
-    } else if (tree === "LOADING_STATE") {
+    } else if (state.mode === "LOADING") {
       pageBody = /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(DialogPopover, { className: "message-mode", children: /* @__PURE__ */ (0, import_jsx_runtime107.jsx)("h2", { children: "Loading initial state from server" }) });
-    } else if (isShinyUiNode(tree)) {
+    } else if (state.mode === "MAIN") {
       pageBody = /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(CurrentDraggedNodeProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(
         EditorSkeleton,
         {
-          main: /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(UiNode_default, { node: tree, path: [] }),
+          main: /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(UiNode_default, { node: state.uiTree, path: [] }),
           left: /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(ElementsPalette, {}),
-          properties: /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(SettingsPanel, { tree }),
+          properties: /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(SettingsPanel, { tree: state.uiTree }),
           preview: /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(AppPreview, {})
         }
       ) });
     } else {
-      pageBody = /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(TemplateChooserView, {});
+      pageBody = /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(TemplateChooserView, { ...state.options });
     }
     return /* @__PURE__ */ (0, import_jsx_runtime107.jsxs)("div", { className: "EditorContainer", style: sizes_inline_styles, children: [
       /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(AppHeader, {}),
@@ -57025,9 +57021,6 @@ form._settingsForm_a44hx_17 {
   listenForTemplateChooserMode.startListening({
     actionCreator: SET_FULL_STATE,
     effect: async (action, listenerApi) => {
-      const state = action.payload.state;
-      if (state !== "TEMPLATE_CHOOSER")
-        return;
       listenerApi.dispatch(SET_SELECTION({ path: [] }));
     }
   });

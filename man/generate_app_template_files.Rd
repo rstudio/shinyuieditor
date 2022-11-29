@@ -23,7 +23,7 @@ Generate code for app files from a template
 Template object
 The app template has the following information attached to it
 uiTree: ui AST node;
-outputType: "single-file" | "multi-file"
+outputType: "SINGLE-FILE" | "MULTI-FILE"
 otherCode: {
 # Extra code that will be coppied unchanged above the ui definition
 uiExtra?: string;

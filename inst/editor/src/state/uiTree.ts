@@ -5,6 +5,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 
 import { getDefaultSettings } from "../components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
+import type { TemplateChooserOptions } from "../components/TemplatePreviews/TemplateChooserView";
 import type { PlaceNodeArguments } from "../components/UiNode/TreeManipulation/placeNode";
 import { placeNodeMutating } from "../components/UiNode/TreeManipulation/placeNode";
 import type { RemoveNodeArguments } from "../components/UiNode/TreeManipulation/removeNode";
@@ -13,57 +14,80 @@ import type { UpdateNodeArguments } from "../components/UiNode/TreeManipulation/
 import { updateNodeMutating } from "../components/UiNode/TreeManipulation/updateNode";
 import type { ShinyUiNode } from "../main";
 import { isShinyUiNode } from "../Shiny-Ui-Elements/isShinyUiNode";
-import type { ShinyUiRootNode } from "../Shiny-Ui-Elements/uiNodeTypes";
 import { shinyUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
 import { subtractElements } from "../utils/array-helpers";
 
 import {
-  updateSubscriptions,
   deleteSubscriptions,
+  updateSubscriptions,
 } from "./watcherSubscriptions";
+
+export type MainStateOption =
+  | {
+      mode: "MAIN";
+      uiTree: ShinyUiNode;
+    }
+  | {
+      mode: "TEMPLATE_CHOOSER";
+      options: TemplateChooserOptions;
+    }
+  | {
+      mode: "LOADING";
+    };
 
 // Note: The reducer callbacks use immer so the mutations we make to the object
 // are safe and we just make the needed mutations to the tree object and don't
 // return anything
-export const uiTreeSlice = createSlice({
-  name: "uiTree",
-  initialState: "LOADING_STATE" as ShinyUiRootNode,
+export const mainStateSlice = createSlice({
+  name: "state",
+  initialState: {
+    mode: "LOADING",
+  } as MainStateOption,
   reducers: {
     // This is used to teleport to a given state wholesale. E.g. undo-redo
-    SET_FULL_STATE: (tree, action: PayloadAction<{ state: ShinyUiRootNode }>) =>
+    SET_FULL_STATE: (tree, action: PayloadAction<{ state: MainStateOption }>) =>
       action.payload.state,
     // This will initialize a state while also making sure the arguments match
     // what we expect in the app
-    INIT_STATE: (
-      tree,
-      action: PayloadAction<{ initialState: ShinyUiRootNode }>
-    ) => {
-      return fillInDefaultValues(action.payload.initialState);
+    SET_UI_TREE: (tree, action: PayloadAction<{ uiTree: ShinyUiNode }>) => {
+      return { mode: "MAIN", uiTree: action.payload.uiTree };
     },
-    UPDATE_NODE: (tree, action: PayloadAction<UpdateNodeArguments>) => {
-      if (!isShinyUiNode(tree)) {
+    SHOW_TEMPLATE_CHOOSER: (
+      state,
+      { payload }: PayloadAction<TemplateChooserOptions>
+    ) => {
+      return { mode: "TEMPLATE_CHOOSER", options: payload };
+      // console.log("Template chooser mode", mode);
+      // return "TEMPLATE_CHOOSER";
+    },
+    SET_LOADING: (state) => {
+      return { mode: "LOADING" };
+    },
+    UPDATE_NODE: (state, action: PayloadAction<UpdateNodeArguments>) => {
+      if (state.mode !== "MAIN") {
         throw new Error("Tried to update a node when in template chooser mode");
       }
+
       // Make sure the tree is valid here
       for (const subscription of updateSubscriptions) {
-        subscription(tree, action.payload);
+        subscription(state.uiTree, action.payload);
       }
-      updateNodeMutating(tree, action.payload);
+      updateNodeMutating(state.uiTree, action.payload);
     },
-    PLACE_NODE: (tree, action: PayloadAction<PlaceNodeArguments>) => {
-      if (!isShinyUiNode(tree)) {
+    PLACE_NODE: (state, action: PayloadAction<PlaceNodeArguments>) => {
+      if (state.mode !== "MAIN") {
         throw new Error("Tried to move a node when in template chooser mode");
       }
-      placeNodeMutating(tree, action.payload);
+      placeNodeMutating(state.uiTree, action.payload);
     },
-    DELETE_NODE: (tree, action: PayloadAction<RemoveNodeArguments>) => {
-      if (!isShinyUiNode(tree)) {
+    DELETE_NODE: (state, action: PayloadAction<RemoveNodeArguments>) => {
+      if (state.mode !== "MAIN") {
         throw new Error("Tried to delete a node when in template chooser mode");
       }
       for (const subscription of deleteSubscriptions) {
-        subscription(tree, { path: action.payload.path });
+        subscription(state.uiTree, { path: action.payload.path });
       }
-      removeNodeMutating(tree, action.payload);
+      removeNodeMutating(state.uiTree, action.payload);
     },
   },
 });
@@ -78,7 +102,7 @@ export const uiTreeSlice = createSlice({
  * mess with the user's code but will eliminate confusion when the settings
  * options controls don't actually match the presented values
  */
-function fillInDefaultValues(uiNode: ShinyUiRootNode) {
+function fillInDefaultValues(uiNode: ShinyUiNode) {
   if (!isShinyUiNode(uiNode)) return uiNode;
 
   const defaultSettingsForNode = getDefaultSettings(
@@ -110,9 +134,11 @@ export const {
   UPDATE_NODE,
   PLACE_NODE,
   DELETE_NODE,
-  INIT_STATE,
+  SET_UI_TREE,
   SET_FULL_STATE,
-} = uiTreeSlice.actions;
+  SHOW_TEMPLATE_CHOOSER,
+  SET_LOADING,
+} = mainStateSlice.actions;
 
 export type UpdateAction = (
   tree: ShinyUiNode,
@@ -136,4 +162,4 @@ export function usePlaceNode() {
   return place_node;
 }
 
-export default uiTreeSlice.reducer;
+export default mainStateSlice.reducer;

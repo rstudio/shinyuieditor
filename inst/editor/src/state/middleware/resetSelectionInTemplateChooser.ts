@@ -11,10 +11,6 @@ const listenForTemplateChooserMode = createListenerMiddleware();
 listenForTemplateChooserMode.startListening({
   actionCreator: SET_FULL_STATE,
   effect: async (action, listenerApi) => {
-    const state = action.payload.state;
-
-    if (state !== "TEMPLATE_CHOOSER") return;
-
     listenerApi.dispatch(SET_SELECTION({ path: [] }));
   },
 });

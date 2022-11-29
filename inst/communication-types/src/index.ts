@@ -47,7 +47,7 @@ export type TemplateInfo = {
     serverFunctionBody?: string;
   };
 };
-export type OutputType = "single-file" | "multi-file";
+export type OutputType = "SINGLE-FILE" | "MULTI-FILE";
 
 export type TemplateSelection = Omit<TemplateInfo, "title" | "description"> & {
   outputType: OutputType;
@@ -83,7 +83,7 @@ export type MessageFromBackendByPath = {
   "APP-PREVIEW-STATUS": "FAKE-PREVIEW" | "LOADING" | { url: string };
   "APP-PREVIEW-CRASH": string;
   "APP-PREVIEW-LOGS": string[];
-  "TEMPLATE-CHOOSER": string;
+  TEMPLATE_CHOOSER: OutputType | "USER-CHOICE";
 };
 
 /**
