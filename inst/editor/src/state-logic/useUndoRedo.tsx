@@ -9,7 +9,7 @@ import { SET_FULL_STATE } from "../state/uiTree";
 type HistoryEntry = MainStateOption;
 
 export function useUndoRedo() {
-  const tree = useSelector((state: RootState) => state.uiTree);
+  const state = useSelector((state: RootState) => state.uiTree);
 
   const dispatch = useDispatch();
 
@@ -21,23 +21,21 @@ export function useUndoRedo() {
 
   React.useEffect(() => {
     // Ignore the initialization state
-    if (!tree || tree === "LOADING_STATE") return;
+    if (!state || state.mode === "LOADING") return;
 
     const history = stateHistory.current;
 
     // Send latest layout to the history
-    history.addEntry(tree);
+    history.addEntry(state);
 
     // Make sure back and forward buttons are properly enabled or disabled
     setCanGoBackward(history.canGoBackwards());
     setCanGoForward(history.canGoForwards());
-  }, [tree]);
+  }, [state]);
 
   const setState = React.useCallback(
-    (updatedTree: HistoryEntry) => {
-      if (updatedTree === "TEMPLATE_CHOOSER") {
-      }
-      dispatch(SET_FULL_STATE({ state: updatedTree }));
+    (updatedState: HistoryEntry) => {
+      dispatch(SET_FULL_STATE({ state: updatedState }));
     },
     [dispatch]
   );
@@ -59,5 +57,23 @@ export function useUndoRedo() {
 
 function sameHistoryEntry(newEntry: HistoryEntry, oldEntry?: HistoryEntry) {
   if (typeof oldEntry === "undefined") return false;
-  return newEntry === oldEntry;
+
+  if (oldEntry.mode === "LOADING" && newEntry.mode === "LOADING") {
+    return true;
+  }
+
+  if (
+    oldEntry.mode === "TEMPLATE_CHOOSER" &&
+    newEntry.mode === "TEMPLATE_CHOOSER"
+  ) {
+    return (
+      JSON.stringify(oldEntry.options) === JSON.stringify(newEntry.options)
+    );
+  }
+
+  if (newEntry.mode === "MAIN" && oldEntry.mode === "MAIN") {
+    return oldEntry.uiTree === newEntry.uiTree;
+  }
+
+  return false;
 }

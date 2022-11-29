@@ -125,7 +125,7 @@ launch_editor <- function(app_loc,
   # ----------------------------------------------------------------------------
   setup_msg_handlers <- function(send_msg) {
     request_template_chooser <- function() {
-      send_msg("UPDATED-TREE", "TEMPLATE_CHOOSER")
+      send_msg("TEMPLATE_CHOOSER", "USER-CHOICE")
       server_mode <<- "template-chooser"
     }
 
