@@ -36,6 +36,27 @@
     ],
     "commands": []
   },
+  "configuration": {
+    "type": "object",
+    "title": "R",
+    "properties": {
+      "r.rpath.windows": {
+        "type": "string",
+        "default": "",
+        "description": "Path to an R executable to launch R background processes for R Shiny applications/ code formatting (Windows)."
+      },
+      "r.rpath.mac": {
+        "type": "string",
+        "default": "testing/the/path",
+        "description": "Path to an R executable to launch R background processes for R Shiny applications/ code formatting (macOS)."
+      },
+      "r.rpath.linux": {
+        "type": "string",
+        "default": "",
+        "description": "Path to an R executable to launch R background processes for R Shiny applications/ code formatting (Linux)."
+      }
+    }
+  },
   "scripts": {
     "dev": "tsx scripts/build.ts",
     "watch": "tsx scripts/build.ts --watch",

@@ -1,7 +1,7 @@
 import type { ChildProcessWithoutNullStreams } from "child_process";
 import { spawn } from "child_process";
 
-import { getRpath } from "./setupRConnection";
+import { getPathToR } from "./getPathToR";
 
 export type RProcess = {
   proc: ChildProcessWithoutNullStreams;
@@ -21,7 +21,7 @@ export async function startRProcess(
   commands: string[],
   opts: RunRCommandOptions = {}
 ) {
-  const pathToR = await getRpath();
+  const pathToR = await getPathToR();
   if (pathToR === undefined) {
     throw new Error("Can't get R path");
   }
