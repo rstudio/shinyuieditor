@@ -3,7 +3,7 @@
   "displayName": "ShinyUiEditor",
   "description": "Visual editor interface for constructing R Shiny app UIs",
   "version": "0.0.1",
-  "publisher": "rstudio",
+  "publisher": "posit",
   "icon": "shinyuieditor-hex.png",
   "private": true,
   "license": "MIT",
