@@ -1,5 +1,4 @@
 import { TESTING_MODE } from "../env_variables";
-import type { ShinyUiNode } from "../main";
 
 import { getClientsideOnlyTree } from "./getClientsideOnlyTree";
 import type { MessageDispatcher } from "./messageDispatcher";
@@ -18,11 +17,14 @@ export function setupStaticBackend({
   const messagePassingMethods: BackendMessagePassers = {
     sendMsg: (msg) => {
       logger("Static sendMsg()", msg);
-
       switch (msg.path) {
         case "READY-FOR-STATE": {
           getClientsideOnlyTree().then((ui_tree) => {
-            messageDispatch.dispatch("UPDATED-TREE", ui_tree as ShinyUiNode);
+            if (ui_tree === "TEMPLATE_CHOOSER") {
+              messageDispatch.dispatch("TEMPLATE_CHOOSER", "SINGLE-FILE");
+            } else {
+              messageDispatch.dispatch("UPDATED-TREE", ui_tree);
+            }
           });
           return;
         }

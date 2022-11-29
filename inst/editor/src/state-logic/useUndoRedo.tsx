@@ -1,16 +1,16 @@
 import React from "react";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import StateHistory from "../modules/StateHistory";
-import type { ShinyUiRootNode } from "../Shiny-Ui-Elements/uiNodeTypes";
 import type { RootState } from "../state/store";
+import type { MainStateOption } from "../state/uiTree";
 import { SET_FULL_STATE } from "../state/uiTree";
-
-type HistoryEntry = ShinyUiRootNode;
+type HistoryEntry = MainStateOption;
 
 export function useUndoRedo() {
   const tree = useSelector((state: RootState) => state.uiTree);
+
   const dispatch = useDispatch();
 
   const [canGoForward, setCanGoForward] = React.useState(false);
@@ -35,6 +35,8 @@ export function useUndoRedo() {
 
   const setState = React.useCallback(
     (updatedTree: HistoryEntry) => {
+      if (updatedTree === "TEMPLATE_CHOOSER") {
+      }
       dispatch(SET_FULL_STATE({ state: updatedTree }));
     },
     [dispatch]

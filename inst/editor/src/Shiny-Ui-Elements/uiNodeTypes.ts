@@ -188,10 +188,8 @@ export type ShinyUiNodeByName = {
 export type ShinyUiNode = ShinyUiNodeByName[ShinyUiNames];
 
 export type TemplateChooserNode = "TEMPLATE_CHOOSER";
-type LoadingState = "LOADING_STATE";
-export type ShinyUiRootNode = ShinyUiNode | TemplateChooserNode | LoadingState;
 
-// export function isShinyUiNode(node: ShinyUiRootNode): node is ShinyUiNode {
+// export function isShinyUiNode(node: ShinyUiNode): node is ShinyUiNode {
 //   return node !== "TEMPLATE_CHOOSER";
 // }
 
