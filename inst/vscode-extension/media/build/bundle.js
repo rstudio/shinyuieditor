@@ -2306,9 +2306,9 @@
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
           }
-          var React66 = require_react();
+          var React67 = require_react();
           var Scheduler = require_scheduler();
-          var ReactSharedInternals = React66.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React67.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           var suppressWarning = false;
           function setSuppressWarning(newSuppressWarning) {
             {
@@ -3829,7 +3829,7 @@
             {
               if (props.value == null) {
                 if (typeof props.children === "object" && props.children !== null) {
-                  React66.Children.forEach(props.children, function(child) {
+                  React67.Children.forEach(props.children, function(child) {
                     if (child == null) {
                       return;
                     }
@@ -11990,7 +11990,7 @@
             }
           }
           var fakeInternalInstance = {};
-          var emptyRefsObject = new React66.Component().refs;
+          var emptyRefsObject = new React67.Component().refs;
           var didWarnAboutStateAssignmentForComponent;
           var didWarnAboutUninitializedState;
           var didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate;
@@ -22913,7 +22913,7 @@
       if (true) {
         (function() {
           "use strict";
-          var React66 = require_react();
+          var React67 = require_react();
           var REACT_ELEMENT_TYPE = Symbol.for("react.element");
           var REACT_PORTAL_TYPE = Symbol.for("react.portal");
           var REACT_FRAGMENT_TYPE = Symbol.for("react.fragment");
@@ -22939,7 +22939,7 @@
             }
             return null;
           }
-          var ReactSharedInternals = React66.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React67.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           function error(format2) {
             {
               {
@@ -23765,10 +23765,10 @@
               return jsxWithValidation(type, props, key, false);
             }
           }
-          var jsx108 = jsxWithValidationDynamic;
+          var jsx109 = jsxWithValidationDynamic;
           var jsxs60 = jsxWithValidationStatic;
           exports.Fragment = REACT_FRAGMENT_TYPE;
-          exports.jsx = jsx108;
+          exports.jsx = jsx109;
           exports.jsxs = jsxs60;
         })();
       }
@@ -23797,8 +23797,8 @@
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
           }
-          var React66 = require_react();
-          var ReactSharedInternals = React66.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var React67 = require_react();
+          var ReactSharedInternals = React67.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           function error(format2) {
             {
               {
@@ -23828,13 +23828,13 @@
             return x2 === y2 && (x2 !== 0 || 1 / x2 === 1 / y2) || x2 !== x2 && y2 !== y2;
           }
           var objectIs = typeof Object.is === "function" ? Object.is : is3;
-          var useState11 = React66.useState, useEffect11 = React66.useEffect, useLayoutEffect3 = React66.useLayoutEffect, useDebugValue2 = React66.useDebugValue;
+          var useState11 = React67.useState, useEffect11 = React67.useEffect, useLayoutEffect3 = React67.useLayoutEffect, useDebugValue2 = React67.useDebugValue;
           var didWarnOld18Alpha = false;
           var didWarnUncachedGetSnapshot = false;
           function useSyncExternalStore3(subscribe, getSnapshot, getServerSnapshot) {
             {
               if (!didWarnOld18Alpha) {
-                if (React66.startTransition !== void 0) {
+                if (React67.startTransition !== void 0) {
                   didWarnOld18Alpha = true;
                   error("You are using an outdated, pre-release alpha of React 18 that does not support useSyncExternalStore. The use-sync-external-store shim will not work correctly. Upgrade to a newer pre-release.");
                 }
@@ -23899,7 +23899,7 @@
           var canUseDOM4 = !!(typeof window !== "undefined" && typeof window.document !== "undefined" && typeof window.document.createElement !== "undefined");
           var isServerEnvironment = !canUseDOM4;
           var shim = isServerEnvironment ? useSyncExternalStore$1 : useSyncExternalStore3;
-          var useSyncExternalStore$2 = React66.useSyncExternalStore !== void 0 ? React66.useSyncExternalStore : shim;
+          var useSyncExternalStore$2 = React67.useSyncExternalStore !== void 0 ? React67.useSyncExternalStore : shim;
           exports.useSyncExternalStore = useSyncExternalStore$2;
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(new Error());
@@ -23931,14 +23931,14 @@
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
           }
-          var React66 = require_react();
+          var React67 = require_react();
           var shim = require_shim();
           function is3(x2, y2) {
             return x2 === y2 && (x2 !== 0 || 1 / x2 === 1 / y2) || x2 !== x2 && y2 !== y2;
           }
           var objectIs = typeof Object.is === "function" ? Object.is : is3;
           var useSyncExternalStore3 = shim.useSyncExternalStore;
-          var useRef9 = React66.useRef, useEffect11 = React66.useEffect, useMemo7 = React66.useMemo, useDebugValue2 = React66.useDebugValue;
+          var useRef9 = React67.useRef, useEffect11 = React67.useEffect, useMemo7 = React67.useMemo, useDebugValue2 = React67.useDebugValue;
           function useSyncExternalStoreWithSelector3(subscribe, getSnapshot, getServerSnapshot, selector, isEqual3) {
             var instRef = useRef9(null);
             var inst;
@@ -30299,8 +30299,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   // ../editor/src/assets/icons/undo.png
   var undo_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAoCAYAAAC4h3lxAAAACXBIWXMAAAsTAAALEwEAmpwYAAABDElEQVRYhe2ZsQ7CMAxEr4gvZmBDXMXGwC+XgVQqERDbCbEr5ZaoalXdq+0kTqdlWbBnHbwN1GoAeGsAeGv3AMdfN8+3h+ZdVwDcXE8GP7hfTqrnW0UgN99NLQDczAP1AFvzM4xpU6MagNw8vz75R1kBQpgHCrPQF0nNW3eJqjTURiDMl1+liYDUvLWQTRGTRiDcl18lAQhrHigDhDYPlAGYxpDmAXkNhG2cSwBzGolXOoWTJIVCQ0hSiAgMIa0BIiiEZiVmGvOpNVfXgtfuhYhgkbDsRpnGUiS6NDfWfoAIEomajowIAFHbExPvEN1X7BanEsTnGuiiVudChBPENH5wOGsAeGsAeGv3AE8yEDlUwXXxqQAAAABJRU5ErkJggg==";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-728lajvsiLKX/editor/src/components/Icons/styles.module.css.js
-  var digest = "0c79c063a1ae9dddbef5c384a3649b4f2e9d413a97d297716dc7b84520eb52d0";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-l88i4QcwuKvt/editor/src/components/Icons/styles.module.css.js
+  var digest = "3a65dd34f2e952989d0b88307563aa35ad202619e10f66761a2458c30da1286d";
   var css = `img._icon_1467k_1 {
   height: 30px;
   /* outline: 2px solid green; */
@@ -30590,8 +30590,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   // ../editor/src/components/Icons/index.tsx
   var Icons_default = PngIcon;
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-3AkLfmxlyVxN/editor/src/components/Inputs/Button/Button.module.css.js
-  var digest2 = "37b178d2178513428c4ef47568f7f9b6d23142b850de0c7b9329adc13e465930";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-HdyCS4NO3IxL/editor/src/components/Inputs/Button/Button.module.css.js
+  var digest2 = "8d0b084c64c03f720b97ba45dd876ff2ef114a5de7ffe47cc41418f25b9f8329";
   var css2 = `._button_1y00r_1 {
   --background-color: var(--rstudio-white);
   --text-color: var(--font-color);
@@ -30666,8 +30666,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   };
   var Button_default = Button;
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-7q8xAIx4sRCO/editor/src/components/DeleteNodeButton/styles.module.css.js
-  var digest3 = "d80441ed4a70586711ca0eaf41a36be9c165f762313044ef0232a3ac7add4b12";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-HGhqrFcJRqGa/editor/src/components/DeleteNodeButton/styles.module.css.js
+  var digest3 = "581319e1247a2ac1db69d39e168787411c50eb463ca89cf81320b6bf074170a1";
   var css3 = `._deleteButton_1en02_1 {
   color: var(--red);
   display: flex;
@@ -30932,8 +30932,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   };
   var UiNode_default = UiNode;
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-kcr9L5ptTPsA/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
-  var digest4 = "289ae49a9d5e1b3c99cf8bf7336a8f368ec86d543ea20afd78923b36553ce911";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-x8I6esU45uIY/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
+  var digest4 = "a8923387332fa1edd703b00acf2f6e2f2b65198e97f763e19fc073a46e2e6b8b";
   var css4 = `._container_1a2os_1 {
   position: relative;
   height: 100%;
@@ -31359,8 +31359,8 @@ div._emptyGridCard_1a2os_144 > button {
     return setLayout;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-4t64X75OiJz6/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
-  var digest5 = "d1a29d3f2d1f379990c908f383a211b347d6620d6c7eecb9f64c8b292b00bca4";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-QevDhRloIaak/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
+  var digest5 = "79974463ecc982a22e033e5045b3566023df0a45657d8415f37a8ac4590931aa";
   var css5 = `._container_1a2os_1 {
   position: relative;
   height: 100%;
@@ -31714,8 +31714,8 @@ div._emptyGridCard_1a2os_144 > button {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 16 16" }, "child": [{ "tag": "path", "attr": { "fillRule": "evenodd", "d": "M16 14v1H0V0h1v14h15zM5 13H3V8h2v5zm4 0H7V3h2v10zm4 0h-2V6h2v7z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-K7UjigWNWs8R/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
-  var digest6 = "a7a4ede27eb1996c9f6012ace5acf7e390fab808d3460d16c4b4f03ae2a73f4c";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-B20WgExu5biS/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
+  var digest6 = "70da7da98535848fbb3daeeedb5e56eebf05e12dc9b0a5efb96c99d9e519d6b0";
   var css6 = `._container_1rlbk_1 {
   max-height: 100%;
 }
@@ -31805,8 +31805,8 @@ div._emptyGridCard_1a2os_144 > button {
     return dimensions;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-Cf6B7Wjha8gV/editor/src/Shiny-Ui-Elements/GridlayoutGridCardPlot/styles.module.css.js
-  var digest7 = "0a6203cf2c715cd9d10570bb7e63a6b1ec8578e6ed3183a3f6576529da0563a9";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-Qs0SMW5EG1ZQ/editor/src/Shiny-Ui-Elements/GridlayoutGridCardPlot/styles.module.css.js
+  var digest7 = "688c62c581491d9a96aa8cc6ea7c5aca60ce0a93296cd4bec84b7270bcdccf6e";
   var css7 = `._gridCardPlot_1a94v_1 {
   background-color: var(--rstudio-white);
   width: 100%;
@@ -31889,8 +31889,8 @@ div._emptyGridCard_1a2os_144 > button {
   // ../editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/GridlayoutCardText.tsx
   var React19 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-ZKmDPw9o9A6L/editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/styles.module.css.js
-  var digest8 = "c447e61f3b7fe9d47d8e02526e28b49b4ada62f1f978abd30794f9b914fc4efa";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-5PD5EEUGVqWz/editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/styles.module.css.js
+  var digest8 = "ed8b66be58af9dd64236818df02c75ea22df4184fade32116ea24b89163c885b";
   var css8 = `._textPanel_525i2_1 {
   background-color: var(--rstudio-white);
   /* outline: var(--outline); */
@@ -32580,6 +32580,9 @@ div._emptyGridCard_1a2os_144 > button {
   var import_react21 = __toESM(require_react());
 
   // ../../node_modules/react-icons/fa/index.esm.js
+  function FaCode(props) {
+    return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 640 512" }, "child": [{ "tag": "path", "attr": { "d": "M278.9 511.5l-61-17.7c-6.4-1.8-10-8.5-8.2-14.9L346.2 8.7c1.8-6.4 8.5-10 14.9-8.2l61 17.7c6.4 1.8 10 8.5 8.2 14.9L293.8 503.3c-1.9 6.4-8.5 10.1-14.9 8.2zm-114-112.2l43.5-46.4c4.6-4.9 4.3-12.7-.8-17.2L117 256l90.6-79.7c5.1-4.5 5.5-12.3.8-17.2l-43.5-46.4c-4.5-4.8-12.1-5.1-17-.5L3.8 247.2c-5.1 4.7-5.1 12.8 0 17.5l144.1 135.1c4.9 4.6 12.5 4.4 17-.5zm327.2.6l144.1-135.1c5.1-4.7 5.1-12.8 0-17.5L492.1 112.1c-4.8-4.5-12.4-4.3-17 .5L431.6 159c-4.6 4.9-4.3 12.7.8 17.2L523 256l-90.6 79.7c-5.1 4.5-5.5 12.3-.8 17.2l43.5 46.4c4.5 4.9 12.1 5.1 17 .6z" } }] })(props);
+  }
   function FaExpand(props) {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 448 512" }, "child": [{ "tag": "path", "attr": { "d": "M0 180V56c0-13.3 10.7-24 24-24h124c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H64v84c0 6.6-5.4 12-12 12H12c-6.6 0-12-5.4-12-12zM288 44v40c0 6.6 5.4 12 12 12h84v84c0 6.6 5.4 12 12 12h40c6.6 0 12-5.4 12-12V56c0-13.3-10.7-24-24-24H300c-6.6 0-12 5.4-12 12zm148 276h-40c-6.6 0-12 5.4-12 12v84h-84c-6.6 0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h124c13.3 0 24-10.7 24-24V332c0-6.6-5.4-12-12-12zM160 468v-40c0-6.6-5.4-12-12-12H64v-84c0-6.6-5.4-12-12-12H12c-6.6 0-12 5.4-12 12v124c0 13.3 10.7 24 24 24h124c6.6 0 12-5.4 12-12z" } }] })(props);
   }
@@ -32654,8 +32657,8 @@ div._emptyGridCard_1a2os_144 > button {
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-TQEPQ4iEkm8S/editor/src/components/Grids/AreaOverlay.module.css.js
-  var digest9 = "25488ea6eb3bd4fda11869a3751304f0da8cee7dbbd2f4c4503ce373d5db2bac";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-r9y4j4LKPi4j/editor/src/components/Grids/AreaOverlay.module.css.js
+  var digest9 = "a8474d552e77c8060e3e33134f6f32be1ea9feb9f14719de113c7c97e8ff05fd";
   var css9 = `._marker_mumaw_1 {
   font-weight: lighter;
   font-style: italic;
@@ -33079,8 +33082,8 @@ div._emptyGridCard_1a2os_144 > button {
   // ../editor/src/components/Grids/EditableGridContainer/EditableGridContainer.tsx
   var React31 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-0YNPwGlh3nxw/editor/src/components/Grids/EditableGridContainer/resizableGrid.module.css.js
-  var digest10 = "c0a30e3b739bcd68d9c3480cc4d5b3e0610ed866530401a31df4cbfcd7ec998c";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-0qoAdC6c7onY/editor/src/components/Grids/EditableGridContainer/resizableGrid.module.css.js
+  var digest10 = "63992dc2b6665a48df1b0a23775720f2e33f9310b0f035f66db6483a3eca797e";
   var css10 = `._ResizableGrid_i4cq9_1 {
   --grid-gap: 5px;
 
@@ -43369,8 +43372,8 @@ div#_size-detection-cell_i4cq9_1 {
     };
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-yEVirbyVzLtP/editor/src/components/PopoverEl/styles.module.css.js
-  var digest11 = "c3c76c5d2b2946386f8e68af692ce0c1f180ffdeccb8a8dac6dce60a9f7ce22a";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-yUvtSF13FSEj/editor/src/components/PopoverEl/styles.module.css.js
+  var digest11 = "c373847fd5d0389e9ee31ee53ed171d04e85f00e2059abb118bd015063395f78";
   var css11 = `._popover_m2pq3_1 {
   pointer-events: none;
   opacity: 0;
@@ -43558,8 +43561,8 @@ div#_size-detection-cell_i4cq9_1 {
     );
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-jeEfttldqjqU/editor/src/components/Inputs/CSSUnitInput/CSSUnitInfo.module.css.js
-  var digest12 = "c18e82d7269185de0731a73942d5e2fd7acf6e4cc87f1c8fc8b6288e219cf0c6";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-khhQMqTzoLOt/editor/src/components/Inputs/CSSUnitInput/CSSUnitInfo.module.css.js
+  var digest12 = "0f464effc42c63de4f90c06df2c456510c7f6a85b867a1f59cb306df7f8b5fa3";
   var css12 = `._infoIcon_15ri6_1 {
   width: 24px;
   color: var(--rstudio-blue);
@@ -43638,8 +43641,8 @@ div#_size-detection-cell_i4cq9_1 {
     rem: "Pixel size of app font. Typically 16 pixels."
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-IU1oV6d0k7vL/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
-  var digest13 = "7f22e4b437955bdc18e31f70f925e5336c0b8fbcba7c49ff0a450c9abde7d54c";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-NwhVU0hd9rBj/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
+  var digest13 = "71087a3c9ee6912e3b9426a7e47858c70172089f490aa994f2ce910a9db25d2b";
   var css13 = `._wrapper_3jy8f_1 {
   position: relative;
   display: flex;
@@ -44182,8 +44185,8 @@ div#_size-detection-cell_i4cq9_1 {
     return tractSizes.some((size) => size === "auto");
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-NvA5gaKFxZEM/editor/src/components/Grids/EditableGridContainer/TractInfoDisplay.module.css.js
-  var digest14 = "3acb23a9eb81cbcd84487fa1205f0211fa535a4f70e40f7857b4071bf3de206d";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-SvfZ7Al1AIk4/editor/src/components/Grids/EditableGridContainer/TractInfoDisplay.module.css.js
+  var digest14 = "c2e10c0c31574576d025ea996b2797d170abb34f127c18ac89b6fc2bacc9f5f4";
   var css14 = `._tractInfoDisplay_cvtwo_1 {
   --transition-delay: 0.1s;
   --transition-speed: 0.1s;
@@ -44546,8 +44549,8 @@ user is typing in the input field but mouses off */
     });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-nEUPf0SSorEv/editor/src/components/Grids/EditableGridContainer/TractSizer.module.css.js
-  var digest15 = "ffff1b703fe5f254e9082ae83d3878586d7d1e43f430830f0feeae7f9ae510ad";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-wCwfmPhHE9Y6/editor/src/components/Grids/EditableGridContainer/TractSizer.module.css.js
+  var digest15 = "e493fffba8928dfab6b28835d0b6c1bce0e26f573ae27e08f156f4efbd7309b3";
   var css15 = `div._columnSizer_9b32k_1,
 div._rowSizer_9b32k_2 {
   --sizer-color: #c9e2f3;
@@ -44972,7 +44975,7 @@ div._rowSizer_9b32k_2::after {
     return /* @__PURE__ */ (0, import_jsx_runtime40.jsx)("h3", { className: className + " panel-title", children });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-sDRtLXDEW9Zf/editor/src/PortalModal.module.css.js
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-dd12UVu4neBo/editor/src/PortalModal.module.css.js
   var digest16 = "13f6af5e59e8ebc33477302381f7da21ea3317b2b22eeff877dda6aa750b7a6e";
   var css16 = `._portalHolder_18ua3_1 {
   background-color: rgba(255, 255, 255, 0.735);
@@ -45089,8 +45092,8 @@ div._rowSizer_9b32k_2::after {
   }
   var PortalModal_default = PortalModal;
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-JlG0JyZnm5sC/editor/src/PortalModal.module.css.js
-  var digest17 = "e34179cb40906925b16f06e74d0fe068469672be686a8ff320897dd2655cf4ea";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-3EZwb5vmWy8d/editor/src/PortalModal.module.css.js
+  var digest17 = "dfe78b6485335b6fb390fb39f792fdb9e14e018cdd010d76a953aafdd9dd406b";
   var css17 = `._portalHolder_18ua3_1 {
   background-color: rgba(255, 255, 255, 0.735);
   position: absolute;
@@ -45266,8 +45269,8 @@ div._rowSizer_9b32k_2::after {
     }
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-99tU915XIK8z/editor/src/components/Inputs/BooleanInput/styles.module.css.js
-  var digest18 = "0a86bc7a4ba5dd720cc8e1050c6a4cce731a957ac9b641a8d7d8521dae7ebee4";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-2wyxHmErZlQM/editor/src/components/Inputs/BooleanInput/styles.module.css.js
+  var digest18 = "aeebc35f4ba046666d5800d9280acc216c0d4b708018efaccde092696b88e947";
   var css18 = `._checkboxInput_7ym3w_1 {
   height: 0;
   width: 0;
@@ -45379,8 +45382,8 @@ label._checkboxLabel_7ym3w_10:after {
   // ../editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.tsx
   var import_react29 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-C1DPIQ3qT66f/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
-  var digest19 = "cfed01854f3fd25de4c2573f46e8a65376d15ad6979b6acf7c4b28351bc243a9";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-rAwOp3bfX1Mw/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
+  var digest19 = "13b4a62673de7ee9d32a80c6aefc516d1cce16ff82a1720888574c8cc06150a8";
   var css19 = `._wrapper_3jy8f_1 {
   position: relative;
   display: flex;
@@ -45522,8 +45525,8 @@ label._checkboxLabel_7ym3w_10:after {
   // ../editor/src/components/Inputs/ListInput/NamedListInput.tsx
   var import_react_sortablejs = __toESM(require_dist());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-VUo1soGotImx/editor/src/components/Inputs/ListInput/styles.module.css.js
-  var digest20 = "fd97fbb49b29462e48e33a03bd0132c3c906642b90d84b5ecc5cd3e81931619b";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-UVzVF49if3Is/editor/src/components/Inputs/ListInput/styles.module.css.js
+  var digest20 = "46de23c6f96c6d4af6d72a1ab2e024c748ebda897676f1a19c42ec9e7b3dfbbf";
   var css20 = `._container_xt7ji_1 {
   --gap-size: 4px;
   margin-top: 21px;
@@ -45819,8 +45822,8 @@ label._checkboxLabel_7ym3w_10:after {
   // ../editor/src/components/Inputs/RadioInputs/RadioInputsSimple.tsx
   var React37 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-7m7vi3tHSSze/editor/src/components/Inputs/RadioInputs/RadioInputs.module.css.js
-  var digest21 = "e89428b147e198a782f786d0b6c33bedb70dd6676f68d120bcb0e8f19aa2090c";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-S9LHM5SUCHO2/editor/src/components/Inputs/RadioInputs/RadioInputs.module.css.js
+  var digest21 = "457382faa9a18fa8022c5c4991d8cdda3673116f0e4c539cb18ce92de39dd9e6";
   var css21 = `._radioContainer_1regb_1 {
   display: grid;
   gap: 5px;
@@ -46281,8 +46284,8 @@ the label */
     };
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-zzHp4lW0CU45/editor/src/components/GridlayoutElement/styles.module.css.js
-  var digest22 = "4f75583d114657a33ae47c46f1b70f0ac03f15096c1745d48b828e02ba6251a6";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-w0MSNyNl39vX/editor/src/components/GridlayoutElement/styles.module.css.js
+  var digest22 = "3526a27f6f20d9f5fc5210c65b38c2adf9e8cadee534b050dec359180e74675c";
   var css22 = `._container_1hvsg_1 {
   display: grid;
   /* background-color: var(--bg-color); */
@@ -46634,8 +46637,8 @@ the label */
     return makeStringInputInfo("Label text", defaultValue);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-DWAU013zHiuT/editor/src/Shiny-Ui-Elements/ShinyActionButton/styles.module.css.js
-  var digest23 = "a425ab5115524890cc40147715db9495a52ad0eaaea8285dc84f42b6e2bf31bd";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-dvvVLpi110yx/editor/src/Shiny-Ui-Elements/ShinyActionButton/styles.module.css.js
+  var digest23 = "52c629bcf39914cce934e55f5d27ba2c8615cdb0f9f027818ed0f058a298cebc";
   var css23 = `._container_tyghz_1 {
   display: grid;
   grid-template-rows: 1fr;
@@ -46692,8 +46695,8 @@ the label */
   // ../editor/src/assets/icons/shinyCheckgroup.png
   var shinyCheckgroup_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAFS0lEQVR4nO3cz2vTdxzH8Vfb9VeIa7ta1FW2FqQ6pqLbEERhm0OGFzcPY0dhl+LFo4cd9gfsuIs77LDbkAljDqEiCoKszMMEcbqFsjm2OaW6ptClP2zNDvkms2n6I99vXqTp5/mAQJKmn3wPT76fJCTvpnw+L6DWmut9ANiYCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFoQFC8KCBWHBgrBgQViwICxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFs/V+wDq5cy5seX+1BNd4piILkt8+uGOmEs2pmDDKrNL0ilJ70h6NeFaP0m6IumspJ8TrtWw2AqlYUl3JJ1W8qgUrXE6WnO4Bus1pNDPWCclff7sHZ1tzepsa4m12PTcgqbnnhZvNkVrz0r6Mv4hNqaQw+pTYbuSJA1s7tB7r/Wpv6c90aJ/Tczq2x/Hde/RTPGus5IuShpPtHCDCXkrPCWpU5K297Rr+O3+xFFJUn+01vYXSmt1RM8VlJDDOly8cmxvr1qam2q2cEtzk47t6a34XKEIeSs8VLwy0NeZaKHRTFaX7xQ+ZRh+60Vt6W4vX/NQxX/cwEIOK1W80toS/2x18ea4rmUmlW5vKUVVYc1UxX/ewELeChMbzWR1LTMpSTp5aGspKhBWbJO5J/rm5iNJ0on9m/Vywu10oyGsmL76/oEk6cBAWgeHuut7MOsQYcUwmsnq18ezSre36Ojid3+IEFaVJnNPSu8Aj+/rVVeqtc5HtD4RVpWu/5LV1OyCdm9Lad/A8/U+nHWLsKrwMDtbehf47l62wJUQVhUu3XosSXpzqIuPFlZBWBWMZrI6c25M5394ULrv9/Fp3f47J0k6vLO7TkfWOAirzMyTp6XPp27cmyrFdfvPKUmFsxUv2FdHWGU6Wpv10eGtpds37k0t+oT9jUFesK8FYVWwqz+tE/s3l24Xz2C7t6V4bbVGhLWMg0PdOjCQXnTf3pfSyzwa5UIO65/ildzcQsUHHN3Tq3R74WvKWza1VvW51TNfUZaW+eXORhby12auSzouSXfv5/T6wKYlD+hKteqT9wdjLX7n/r/lzxWUkM9Y3xWvjNx6rGxuvmYLZ3PzGok+84pcqNniDSLkM9YXkj6WNDg5Pa/PLv+hI6/0aMeWlNpifvFvbiGvsYc5Xb07oamZ0vb6W/RcQQk5LKnwI4cRSZqaWdCF6N2f4TmCE/JWKEmXVPj1c8awdiZa+5Jh7XUv9DOWJF2VtFPSB5KOqPCLmrjfUc+p8EL9iqTzNTm6BkVY//s6uqAGQt8KYUJYsCAsWBAWLHjxvpRlol9oCKuAiX41xlbIRD+L0M9YTPQzCTksJvoZhbwVMtHPKOSwmOhnFPJWyEQ/o5DDYqKfUchbYWJM9FseYcXERL+VEVZMTPRbGWHFwES/1RFWlZjotzaEVSUm+q0NYVWBiX5rR1hVYKLf2hFWBUz0S46wyjDRrzYIqwwT/WqDsCpgol9yhLUMJvolE3JYTPQzCvlrM0z0Mwr5jMVEP6OQz1hM9DMKOSyJiX42IW+FEhP9bEI/Y0lM9LNoyufz9T4GbEChb4UwISxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFoQFC8KCBWHBgrBgQViwICxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLP4DpWmTqmVmpDwAAAAASUVORK5CYII=";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-1Oi4VvixDd80/editor/src/Shiny-Ui-Elements/ShinyCheckboxGroupInput/styles.module.css.js
-  var digest24 = "6c41aa6290dc833e7adea7e72a4c6027a7478334f5f8a2ff10199e532a383e66";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-ZekbD9SS2lay/editor/src/Shiny-Ui-Elements/ShinyCheckboxGroupInput/styles.module.css.js
+  var digest24 = "e00dc21180ac600b780f8fed10086b320d82719a34524e03668d1d67471deceb";
   var css24 = `._container_162lp_1 {
   position: relative;
   padding: 4px;
@@ -46785,8 +46788,8 @@ the label */
   // ../editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/ShinyCheckboxInput.tsx
   var React41 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-9oHuKWfmMUU4/editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/styles.module.css.js
-  var digest25 = "cf7288c6c3e205fc0698215910ff1c20f12c8e5aae11fb88eb1c7177868af4ca";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-UN43RPz6E7wu/editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/styles.module.css.js
+  var digest25 = "9c9a5cc41748c377bc9ffac43302bca1fe92d01ff7c6f123355fb09dbc1d68ae";
   var css25 = `._container_1x0tz_1 {
   position: relative;
   padding: 4px;
@@ -46902,8 +46905,8 @@ the label */
     return getTabPanelTitle(firstChild) ?? "First Tab";
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-aDJJTN5TVCoz/editor/src/components/Tabs/TabPanel/TabPanel.module.css.js
-  var digest26 = "509c718af3080d8bb6a72fce92b6368e72933824692811ba44846ec5c95ab1e2";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-CwupX6ZJbJqR/editor/src/components/Tabs/TabPanel/TabPanel.module.css.js
+  var digest26 = "2051214ddcee5ae0005eea1f13c5efe6876545b573149e80d8b54381ac330018";
   var css26 = `._container_10z2l_1 {
   height: 100%;
 }
@@ -47032,8 +47035,8 @@ the label */
     }) });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-JfisRIXs4DOc/editor/src/Shiny-Ui-Elements/ShinyTabPanel/ShinyTabPanel.module.css.js
-  var digest27 = "cea48a0608110affed4635e2d899375d4b81be5680fa869e0855f7d38196e129";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-6aBj6J71ghfz/editor/src/Shiny-Ui-Elements/ShinyTabPanel/ShinyTabPanel.module.css.js
+  var digest27 = "8728d9b6b066e6e0002564d896a983dec37c7c898c6c37679748f31aaca8784c";
   var css27 = `._container_fe3r8_1 {
   position: relative;
   height: 100%;
@@ -47140,8 +47143,8 @@ the label */
     return sameArray(aPath, bPath);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-MUOH9b7NoWHR/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest28 = "a51faeed4e02028cc52623187fafc288fc64a53c2db3b3a934b46a5ceb1cc474";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-ITZhRjKIkQWZ/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest28 = "64b4e372ab05388aef714c37f80ac7b95e823d5c831e3944bcb363b4ae680628";
   var css28 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -47314,8 +47317,8 @@ illusion of the selected panel and tab being one entity */
     );
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-R501gjZ0V52Q/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest29 = "d28e1d0aeb5d49856056b1fb928cfd691e4f091e6e9ad8788083fa654562d784";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-tS54pkkb6ssM/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest29 = "5ecf72c6c5ac9287a34137d1e93066bb671c7e2ffc23bf04e44d85f471598425";
   var css29 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -47485,8 +47488,8 @@ illusion of the selected panel and tab being one entity */
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-QOjtsswgVJpd/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest30 = "678def95051f4cc47b979b7cf63aaefd4c468532fa7372829ba0335fac06a3f9";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-Xax0HLeW24FG/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest30 = "f8c762294d16567dea792f58c103ddaf6ff6db3ddba68a3a1c3d698dc586f068";
   var css30 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -47761,8 +47764,8 @@ illusion of the selected panel and tab being one entity */
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-nXccYNe0pszJ/editor/src/Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage.module.css.js
-  var digest31 = "72cc29d0a9103091bdd3c4c4cdeb15dbf4c62f99cad98ed0ae60db36e4966f86";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-CBLYt8pc9kj4/editor/src/Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage.module.css.js
+  var digest31 = "696ab570446f4c0514502d4f4a2d9a543c8fdc78e96999d6043d1ef931b3cb80";
   var css31 = `._noTabsMessage_130qz_1 {
   padding: 5px;
 }
@@ -47863,8 +47866,8 @@ illusion of the selected panel and tab being one entity */
   // ../editor/src/Shiny-Ui-Elements/ShinyNumericInput/ShinyNumericInput.tsx
   var React47 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-jGZiTI82UM21/editor/src/Shiny-Ui-Elements/ShinyNumericInput/styles.module.css.js
-  var digest32 = "6a7365390466add468871977940d3521ed7e92da02a7ecde5a0547f4e2ca1879";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-J193zBr9HVpy/editor/src/Shiny-Ui-Elements/ShinyNumericInput/styles.module.css.js
+  var digest32 = "1508eb34356c077e16b7563ff096577f5cea04f0bc8fc7b63f2b146c840e81ee";
   var css32 = `._container_yicbr_1 {
   position: relative;
   padding: 4px;
@@ -47982,8 +47985,8 @@ illusion of the selected panel and tab being one entity */
     description: "An input control for entry of numeric values"
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-SN2aHBIV1lfZ/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
-  var digest33 = "1be7e6e94e51f0b1c78000d08d68fca7dc8d8cce9089635b4978a33a37ad7968";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-QK7BQmYFTnRS/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
+  var digest33 = "4f122fd72190f77ea6b7e07be94798861c03638321db1c0a0a39df6faf162280";
   var css33 = `._container_1rlbk_1 {
   max-height: 100%;
 }
@@ -48075,8 +48078,8 @@ illusion of the selected panel and tab being one entity */
   // ../editor/src/Shiny-Ui-Elements/ShinyRadioButtons/ShinyRadioButtons.tsx
   var import_react40 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-a0ZOTkES9zme/editor/src/Shiny-Ui-Elements/ShinyRadioButtons/styles.module.css.js
-  var digest34 = "307c13f686278b26c09a7829624ac267167b9b79f67848acc17387575a7036e5";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-LwrSYuEphnJD/editor/src/Shiny-Ui-Elements/ShinyRadioButtons/styles.module.css.js
+  var digest34 = "f050b23da97a186964bebb4edd7424d74c9b5fc44f733a895367ac9f8bcf6de1";
   var css34 = `._container_sgn7c_1 {
   position: relative;
   padding: 4px;
@@ -48178,8 +48181,8 @@ illusion of the selected panel and tab being one entity */
   // ../editor/src/assets/icons/shinySelectbox.png
   var shinySelectbox_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAHmUlEQVR4nO3b329T5x3H8Xec2Akm4GRZlB+sbbZ6rVboRKACwgattKFVqtQIaVo0Wk1bM6kX6+WUP2CXuVy3CyTIpGotCprGoJo0KVtFA1rY1CZoM5mUWSu0wXYWQmxIHPwj9i5MEpskrTPyzTmGz0viwvbx0ZPD2+d5fGxX5fN5RDabx+kByKNJYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSZqnB7Akr7B8IN37QN+CBwBdgP1Wz0ml5sDrgGXgDPAaPGD/T1BJ8a0zDVhwcrB6BsMnwJ6nR2N69UDB+//+zlwur8n+FNY80W65VwVFkDfYPg88Gq1p4quYIC9T9bTGvDhq9GsXSydzRFLpLn66Rwj4QSLuXxv32C4ub8n2O302ACq8vm802MAll9lp4DewLYafnK0jfaGWodHVRki8RS/GY6SWMgCDAC9Tk+FbjoNdAK91Z4qRbVB7Q21vHG0jRpPFcAbFI6lo9wU1gmAQ0/vVFT/h7aGWg4+vXPp5gknxwLuCusIQOdTOzZth7/4wyf0DYa5l8lt2j7drOjYHXFyHOCusPYB7GrU2QpgJJxgJJzY0HPaV46d41Ohm94VegGqC+uEx9r4zXnOj04DENhWw3O7tpf1vJqVY+ezGVn53HTGEiCWSPPelSlyecjl4b0rU8QSaaeHtWFuOmOV7YPQDJfDd5hLLS7fd6CjniPPNtKyxsI/MZ/h7D9mCEWTAOxp8/O9bzat2vZeJsdfQjN8OLEyBX3efjdbIpnl9HCEdHZlTZjO5jg9HOGt73yFgL9y/rsq7oz1znCEP12bLYkK4O/X5zh5MbLmQv3kxchyVAChaJKTFyMkkpnl+xLJDL8e+qwkquL9Fm9rIbOYZ+BShEQyu+qxpeAyi+645liOynkJADemFwhFk7Ts8PL64daSs8g7w4V4xj65Q9czDSXP2+7z8OreJvZ27OReJsfZkRihaJKhf87w/YOtAJz/aJqpuxn2tPnpfqGZgN8LwB/HpvlwIlGy7WbL5eHdkRjR+PpTXiyR5t2RGD/6VhuVsAytqLCeat627oerX2/1E4omWUgvrnqsOMI6r4fuF5oJvX+D8egCUDhbhaJJ6mur+UFXK3XelRP5K53NvNLZbPDXrDg/Os34zfkv3G5pUX98v+14NkNFhbVkZCLOX8MJpu6WNz0FtntLb/u9tOzwMnU3w1Q8xex8YT8dX6otiWqrHN/fXBGxbETFhbU05T2s7b7VAflrK27J6VoVFdbV63fWXWONTMQ5N3ar7H3NpwuL/DqfB+7PQsnU43GFfitUVFi35wpT1uFg4KHe/k/FU0zdzVBfW728SAe4fjvFvUxuy6fDcx9Pl32VvSsYqIhps6LO/dt81QD8O5YsuazwQWiGofHZdZ93diS2fLkgkcxw7qP/AvDtYOFD24Dfy4GOeuZSiyXbQuFdYd9gmN/9Lbbpf8+S7n3NZV1df27Xdrr3uT8qqLAzVudXdzI0PksomiT0+/+U/bxQNEno/Rsl932tqZbDzzYu3z72fBM3ZlJrbltfW82x55sebvCfw1MFJw618Ks/T657lb014OPEoZaKuNQAFXbGqvN6ePOldva0+Uvuf3l3I8c7v7zu817e3Vhy+0BHPT9+cVfJlBfwe/nZsSd48ZnAqm3ffKm9ZMq04Kvx0Hu0fc2r6wF/Db1H2yvqW7Ru+gZpHpz/EYDTYok0bw99tnyV3VtdxVvffYK2hvI+V176vnt/T9DRc5ubXgIZgMWcO0J3SmvAx2tdrXiqClPka12tZUdV9BnjnNkAy+SmNdYocPDmbIonm+qcHoujihfp5X5lBihen13b/FFtjJvOWJcArn7q+IvNFbqCAbqCgS/esEjRsbu06QPaIDeFdQbgSjhBNJ5yeiwVJxpPc2XlWtgZJ8cC7gprFBjI5vIMDEeJKK6yReMpBoYjZAvr0wEe+FW0E9wUFv09wV7gQmIhy9tDk1wYu8Xk7VTJF9+kIJ3NMXk7xYWxW/xyaHLpN4UX7h9Dx7lp8Q5Af0+wu28wfGoxl++9PBHn8kTc6SFViuWf2LuBm65jPXjXfuB1Cj9l+gbgf3CDx1wS+BeFhfpvgY+LH3T6eqBrwpJHi6vWWPLoUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYmJ/wEXIDDKviZ6oQAAAABJRU5ErkJggg==";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-KZu8WYLCZjLW/editor/src/Shiny-Ui-Elements/ShinySelectInput/styles.module.css.js
-  var digest35 = "ef2b1ff279600bac39a661855fd3b6f1b497b2cdc81f7a7a57bf337804c9d288";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-ZBWdcAwW0Bbs/editor/src/Shiny-Ui-Elements/ShinySelectInput/styles.module.css.js
+  var digest35 = "382544baaaaf133453bbfdff0734171ca37489e8a8520bb6eefe4e424f2a4435";
   var css35 = `._container_1e5dd_1 {
   position: relative;
   padding: 4px;
@@ -48255,8 +48258,8 @@ illusion of the selected panel and tab being one entity */
   // ../editor/src/Shiny-Ui-Elements/ShinySliderInput/ShinySliderInput.tsx
   var React49 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-2M2RYYdpsbH5/editor/src/Shiny-Ui-Elements/ShinySliderInput/styles.module.css.js
-  var digest36 = "ba5a2879a6bce13ff6cdfb7de49263d492d1d38c6dd8f0796bd59c0b6fa3c598";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-lLF0jwbpNK8w/editor/src/Shiny-Ui-Elements/ShinySliderInput/styles.module.css.js
+  var digest36 = "003ec35468d77033937b4d5a86ce5590dc8b88407a371b18a3a0604277905a55";
   var css36 = `._container_1f2js_1 {
   padding: 6px;
 
@@ -48491,8 +48494,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // ../editor/src/Shiny-Ui-Elements/ShinyTextInput/ShinyTextInput.tsx
   var React50 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-BSnJ3So2saS9/editor/src/Shiny-Ui-Elements/ShinyTextInput/styles.module.css.js
-  var digest37 = "1773a62a4de98cca8ea09b530b6324927b947dce41c6ada917962894ead06381";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-e2butIRlHqMs/editor/src/Shiny-Ui-Elements/ShinyTextInput/styles.module.css.js
+  var digest37 = "b2e202867f96c2155658172e7f1588cf6db532bb24fa03e1ac6ec2f9f3897df0";
   var css37 = `._container_yicbr_1 {
   position: relative;
   padding: 4px;
@@ -48587,8 +48590,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // ../editor/src/assets/icons/shinyTextOutput.png
   var shinyTextOutput_default = "data:image/png;base64,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";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-SUkS6cT3woEg/editor/src/Shiny-Ui-Elements/ShinyTextOutput/styles.module.css.js
-  var digest38 = "8bde49bfe1f73550b00b1558d50cb2608e2d2699dbe2298f991da32fca4917db";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-c9Nfirdx42V6/editor/src/Shiny-Ui-Elements/ShinyTextOutput/styles.module.css.js
+  var digest38 = "707287f88c769b51357369b393edc4fec1b2098034094f14a60f6f57f6089719";
   var css38 = `._container_1i6yi_1 {
   padding: 1rem;
   max-height: 100%;
@@ -48648,8 +48651,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // ../editor/src/assets/icons/shinyImage.png
   var shinyImage_default = "data:image/png;base64,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";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-WMrOi3cjoC6X/editor/src/Shiny-Ui-Elements/ShinyUiOutput/styles.module.css.js
-  var digest39 = "704e4ecee1ed4dc190e245006a9790d063bc21897e8d0536f35cb772c63bf96d";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-hxDpcBnUx4M2/editor/src/Shiny-Ui-Elements/ShinyUiOutput/styles.module.css.js
+  var digest39 = "1ed7600ebcc2e254b1c2ac593f196ed826af1fde86e1879acf6e1a23e821f554";
   var css39 = `._container_1xnzo_1 {
   display: grid;
   grid-template-rows: 1fr;
@@ -48719,8 +48722,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 1024 1024" }, "child": [{ "tag": "path", "attr": { "d": "M881.7 187.4l-45.1-45.1a8.03 8.03 0 0 0-11.3 0L667.8 299.9l-54.7-54.7a7.94 7.94 0 0 0-13.5 4.7L576.1 439c-.6 5.2 3.7 9.5 8.9 8.9l189.2-23.5c6.6-.8 9.3-8.8 4.7-13.5l-54.7-54.7 157.6-157.6c3-3 3-8.1-.1-11.2zM439 576.1l-189.2 23.5c-6.6.8-9.3 8.9-4.7 13.5l54.7 54.7-157.5 157.5a8.03 8.03 0 0 0 0 11.3l45.1 45.1c3.1 3.1 8.2 3.1 11.3 0l157.6-157.6 54.7 54.7a7.94 7.94 0 0 0 13.5-4.7L447.9 585a7.9 7.9 0 0 0-8.9-8.9z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-7nqOKDOJ9WTJ/editor/src/components/CategoryDivider/styles.module.css.js
-  var digest40 = "6753afddcd5af611ebb3f62c4d67e1c153d4bce17e7f79ba5a1d70e7e94b1461";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-04k6Da2k3kAE/editor/src/components/CategoryDivider/styles.module.css.js
+  var digest40 = "47cf369e1ea4e03b61bdee63cd167d85c5ff395467677bb8ab329dfc6006d73c";
   var css40 = `._categoryDivider_bdwku_1 {
   display: block;
   position: relative;
@@ -49074,8 +49077,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 16 16", "fill": "currentColor" }, "child": [{ "tag": "path", "attr": { "fillRule": "evenodd", "clipRule": "evenodd", "d": "M12.75 8a4.5 4.5 0 0 1-8.61 1.834l-1.391.565A6.001 6.001 0 0 0 14.25 8 6 6 0 0 0 3.5 4.334V2.5H2v4l.75.75h3.5v-1.5H4.352A4.5 4.5 0 0 1 12.75 8z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-oWVevl1ti2fA/editor/src/components/AppPreview/AppPreview.module.css.js
-  var digest41 = "2f7660611f8cee80d17a104f10db6a564f387933b7d6f59757b07af21cb1c4a1";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-iAVBLdFCiqbQ/editor/src/components/AppPreview/AppPreview.module.css.js
+  var digest41 = "16243dff00c0ae4a6608a636f1a6f6897fb5740dc3fb46f3dd6d088983e52555";
   var css41 = `div._appViewerHolder_zkojo_1 {
   /* This is over-ridden by an inline style but we just have it here in case */
   --app-scale-amnt: 0.24;
@@ -49341,8 +49344,8 @@ h2._error_zkojo_249 {
   })();
   var AppPreview_module_css_default = { "appViewerHolder": "_appViewerHolder_zkojo_1", "title": "_title_zkojo_55", "appContainer": "_appContainer_zkojo_89", "previewFrame": "_previewFrame_zkojo_109", "expandButton": "_expandButton_zkojo_134", "reloadButtonContainer": "_reloadButtonContainer_zkojo_135", "reloadButton": "_reloadButton_zkojo_135", "spin": "_spin_zkojo_174", "restartButton": "_restartButton_zkojo_211", "loadingMessage": "_loadingMessage_zkojo_238", "error": "_error_zkojo_249" };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-i3gXwemdNalJ/editor/src/components/AppPreview/AppPreview.module.css.js
-  var digest42 = "4b0383ce227d21121cd22c58158d3aaf90eb5ffd3fa060ee35abea7d66f33a92";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-VdIyuQA0TG2J/editor/src/components/AppPreview/AppPreview.module.css.js
+  var digest42 = "9f8e638f4f61919a4dfc4d1dffc26db37620673074a9d7aef929c121d071e1c7";
   var css42 = `div._appViewerHolder_zkojo_1 {
   /* This is over-ridden by an inline style but we just have it here in case */
   --app-scale-amnt: 0.24;
@@ -49608,8 +49611,8 @@ h2._error_zkojo_249 {
   })();
   var AppPreview_module_css_default2 = { "appViewerHolder": "_appViewerHolder_zkojo_1", "title": "_title_zkojo_55", "appContainer": "_appContainer_zkojo_89", "previewFrame": "_previewFrame_zkojo_109", "expandButton": "_expandButton_zkojo_134", "reloadButtonContainer": "_reloadButtonContainer_zkojo_135", "reloadButton": "_reloadButton_zkojo_135", "spin": "_spin_zkojo_174", "restartButton": "_restartButton_zkojo_211", "loadingMessage": "_loadingMessage_zkojo_238", "error": "_error_zkojo_249" };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-scS06QOTg71G/editor/src/components/AppPreview/FakeDashboard.module.css.js
-  var digest43 = "f9b6a8be7b5f51349e1014a3de5843da223a775322c79c883b6fd9bea0302568";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-G8BSep2bPwzp/editor/src/components/AppPreview/FakeDashboard.module.css.js
+  var digest43 = "06ac0c13572e9787b56765831fe96446fb642d2c7a08440525aaabfdbad2f061";
   var css43 = `._fakeApp_t3dh1_1 {
   display: grid;
   place-content: center;
@@ -49703,8 +49706,8 @@ h2._error_zkojo_249 {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "fill": "none", "stroke": "#000", "strokeWidth": "2", "d": "M12,22 C17.5228475,22 22,17.5228475 22,12 C22,6.4771525 17.5228475,2 12,2 C6.4771525,2 2,6.4771525 2,12 C2,17.5228475 6.4771525,22 12,22 Z M5,5 L19,19" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-LEn4IaaZZd43/editor/src/components/AppPreview/LogsViewer.module.css.js
-  var digest44 = "29fc9195f476fb47a811616866ab33a2d26fa403f53c1b35ab29953c77ccbab0";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-m6Cxwecn2kGh/editor/src/components/AppPreview/LogsViewer.module.css.js
+  var digest44 = "385b744ef51fc3f54c525b00cbabe00236705980d617502d851661278027679d";
   var css44 = `/* Logs section */
 ._logs_xjp5l_2 {
   --tab-height: var(--logs-button-h, 20px);
@@ -50865,7 +50868,7 @@ p._logLine_xjp5l_75 {
   // ../editor/src/ElementsPalette/index.tsx
   var React59 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-LPttTA6tnYVd/editor/src/ElementsPalette/styles.module.css.js
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-r4l2k1Y2VUI0/editor/src/ElementsPalette/styles.module.css.js
   var digest45 = "fcfe9186ccd679a4a62912a4edb1b1b361290029f06f1a3091064a33699369b6";
   var css45 = `._elementsPalette_qmlez_1 {
   --icon-size: 75px;
@@ -50937,8 +50940,8 @@ p._logLine_xjp5l_75 {
   })();
   var styles_module_css_default24 = { "elementsPalette": "_elementsPalette_qmlez_1", "OptionContainer": "_OptionContainer_qmlez_18", "optionContainer": "_OptionContainer_qmlez_18", "OptionItem": "_OptionItem_qmlez_24", "optionItem": "_OptionItem_qmlez_24", "OptionIcon": "_OptionIcon_qmlez_33", "optionIcon": "_OptionIcon_qmlez_33", "OptionLabel": "_OptionLabel_qmlez_41", "optionLabel": "_OptionLabel_qmlez_41" };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-41SAuckXCU62/editor/src/ElementsPalette/styles.module.css.js
-  var digest46 = "c568652c7a41d4cbd1cb1fa7015e7936125b76ba950d7d3403d00c5d916f738f";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-rzITt0qFMAg5/editor/src/ElementsPalette/styles.module.css.js
+  var digest46 = "7a3722dc2bd30542aae4c3c42e66de4f2e54ff5d12ca27b7704b27830003ec86";
   var css46 = `._elementsPalette_qmlez_1 {
   --icon-size: 75px;
   --padding: 8px;
@@ -51217,8 +51220,8 @@ p._logLine_xjp5l_75 {
     return InputsComponents;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-fX0XOj6zSw7A/editor/src/SettingsPanel/PathBreadcrumb.module.css.js
-  var digest47 = "5bac7de5a05207b4691a2440e818400c7ed930d93e3ee42dbf806574e56accfc";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-7k3w2AUUmrWr/editor/src/SettingsPanel/PathBreadcrumb.module.css.js
+  var digest47 = "b3562214bd6b7fc39d716609ce93c5d0130aeb4b744a0e6c7b97933358ea9415";
   var css47 = `._container_1fh41_1 {
   --flex-gap: 8px;
   padding: var(--vertical-spacing);
@@ -51346,7 +51349,7 @@ p._logLine_xjp5l_75 {
     return uiName.replace(/[a-z]+::/, "");
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-3rumkyvSdCFn/editor/src/SettingsPanel/SettingsPanel.module.css.js
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-odTC56rp61wI/editor/src/SettingsPanel/SettingsPanel.module.css.js
   var digest48 = "176314e58f79f0604fda855318144df78c1416b3ccdd379559219688cf4b5e98";
   var css48 = `._settingsPanel_a44hx_1 {
   --vertical-gap: var(--vertical-spacing);
@@ -51557,11 +51560,43 @@ form._settingsForm_a44hx_17 {
     ] });
   }
 
+  // ../editor/src/state/runtimeInfo.ts
+  var import_react48 = __toESM(require_react());
+  var runtimeInfoSlice = createSlice({
+    name: "runtimeInfo",
+    initialState: "HTTPUV",
+    reducers: {
+      SET_RUNTIME: (_prev, action) => action.payload
+    }
+  });
+  var { SET_RUNTIME } = runtimeInfoSlice.actions;
+  var useRuntimeType = () => {
+    const runtimeInfo = useSelector((state) => state.runtimeInfo);
+    return runtimeInfo;
+  };
+  var useListenForRuntimeType = () => {
+    const { incomingMsgs } = useBackendCallbacks();
+    const dispatch = useDispatch();
+    import_react48.default.useEffect(() => {
+      const listenForRuntimeTypeMsg = incomingMsgs.subscribe(
+        "RUNTIME-TYPE",
+        (type) => {
+          console.log("Setting runtime type", type);
+          dispatch(SET_RUNTIME(type));
+        }
+      );
+      return () => {
+        listenForRuntimeTypeMsg.unsubscribe();
+      };
+    }, [dispatch, incomingMsgs]);
+  };
+  var runtimeInfo_default = runtimeInfoSlice.reducer;
+
   // ../editor/src/AppTour/index.tsx
-  var React63 = __toESM(require_react());
+  var React64 = __toESM(require_react());
 
   // ../../node_modules/react-joyride/es/index.js
-  var import_react49 = __toESM(require_react());
+  var import_react50 = __toESM(require_react());
 
   // ../../node_modules/@gilbarbara/deep-equal/esm/helpers.js
   function isOfType(type) {
@@ -52374,7 +52409,7 @@ form._settingsForm_a44hx_17 {
   var import_deepmerge2 = __toESM(require_cjs());
 
   // ../../node_modules/react-floater/es/index.js
-  var import_react48 = __toESM(require_react());
+  var import_react49 = __toESM(require_react());
   var import_prop_types2 = __toESM(require_prop_types());
   var import_react_proptype_conditional_require = __toESM(require_isRequiredIf());
 
@@ -53864,7 +53899,7 @@ form._settingsForm_a44hx_17 {
       if (isReact16) {
         return /* @__PURE__ */ import_react_dom2.default.createPortal(children, this.node);
       }
-      var portal = import_react_dom2.default.unstable_renderSubtreeIntoContainer(this, children.length > 1 ? /* @__PURE__ */ import_react48.default.createElement("div", null, children) : children[0], this.node);
+      var portal = import_react_dom2.default.unstable_renderSubtreeIntoContainer(this, children.length > 1 ? /* @__PURE__ */ import_react49.default.createElement("div", null, children) : children[0], this.node);
       setRef(portal);
       return null;
     } }, { key: "renderReact16", value: function renderReact16() {
@@ -53883,7 +53918,7 @@ form._settingsForm_a44hx_17 {
       return this.renderReact16();
     } }]);
     return ReactFloaterPortal2;
-  }(import_react48.default.Component);
+  }(import_react49.default.Component);
   _defineProperty2(ReactFloaterPortal, "propTypes", { children: import_prop_types2.default.oneOfType([import_prop_types2.default.element, import_prop_types2.default.array]), hasChildren: import_prop_types2.default.bool, id: import_prop_types2.default.oneOfType([import_prop_types2.default.string, import_prop_types2.default.number]), placement: import_prop_types2.default.string, setRef: import_prop_types2.default.func.isRequired, target: import_prop_types2.default.oneOfType([import_prop_types2.default.object, import_prop_types2.default.string]), zIndex: import_prop_types2.default.number });
   var FloaterArrow = /* @__PURE__ */ function(_React$Component) {
     _inherits(FloaterArrow2, _React$Component);
@@ -53947,31 +53982,31 @@ form._settingsForm_a44hx_17 {
         arrowStyles.marginTop = margin;
         arrowStyles.marginBottom = margin;
       }
-      return /* @__PURE__ */ import_react48.default.createElement("div", { className: "__floater__arrow", style: this.parentStyle }, /* @__PURE__ */ import_react48.default.createElement("span", { ref: setArrowRef, style: arrowStyles }, /* @__PURE__ */ import_react48.default.createElement("svg", { width: x2, height: y2, version: "1.1", xmlns: "http://www.w3.org/2000/svg" }, /* @__PURE__ */ import_react48.default.createElement("polygon", { points, fill: color3 }))));
+      return /* @__PURE__ */ import_react49.default.createElement("div", { className: "__floater__arrow", style: this.parentStyle }, /* @__PURE__ */ import_react49.default.createElement("span", { ref: setArrowRef, style: arrowStyles }, /* @__PURE__ */ import_react49.default.createElement("svg", { width: x2, height: y2, version: "1.1", xmlns: "http://www.w3.org/2000/svg" }, /* @__PURE__ */ import_react49.default.createElement("polygon", { points, fill: color3 }))));
     } }]);
     return FloaterArrow2;
-  }(import_react48.default.Component);
+  }(import_react49.default.Component);
   _defineProperty2(FloaterArrow, "propTypes", { placement: import_prop_types2.default.string.isRequired, setArrowRef: import_prop_types2.default.func.isRequired, styles: import_prop_types2.default.object.isRequired });
   var _excluded$1 = ["color", "height", "width"];
   var FloaterCloseBtn = function FloaterCloseBtn2(_ref) {
     var handleClick = _ref.handleClick, styles = _ref.styles;
     var color3 = styles.color, height = styles.height, width = styles.width, style2 = _objectWithoutProperties(styles, _excluded$1);
-    return /* @__PURE__ */ import_react48.default.createElement("button", { "aria-label": "close", onClick: handleClick, style: style2, type: "button" }, /* @__PURE__ */ import_react48.default.createElement("svg", { width: "".concat(width, "px"), height: "".concat(height, "px"), viewBox: "0 0 18 18", version: "1.1", xmlns: "http://www.w3.org/2000/svg", preserveAspectRatio: "xMidYMid" }, /* @__PURE__ */ import_react48.default.createElement("g", null, /* @__PURE__ */ import_react48.default.createElement("path", { d: "M8.13911129,9.00268191 L0.171521827,17.0258467 C-0.0498027049,17.248715 -0.0498027049,17.6098394 0.171521827,17.8327545 C0.28204354,17.9443526 0.427188206,17.9998706 0.572051765,17.9998706 C0.71714958,17.9998706 0.862013139,17.9443526 0.972581703,17.8327545 L9.0000937,9.74924618 L17.0276057,17.8327545 C17.1384085,17.9443526 17.2832721,17.9998706 17.4281356,17.9998706 C17.5729992,17.9998706 17.718097,17.9443526 17.8286656,17.8327545 C18.0499901,17.6098862 18.0499901,17.2487618 17.8286656,17.0258467 L9.86135722,9.00268191 L17.8340066,0.973848225 C18.0553311,0.750979934 18.0553311,0.389855532 17.8340066,0.16694039 C17.6126821,-0.0556467968 17.254037,-0.0556467968 17.0329467,0.16694039 L9.00042166,8.25611765 L0.967006424,0.167268345 C0.745681892,-0.0553188426 0.387317931,-0.0553188426 0.165993399,0.167268345 C-0.0553311331,0.390136635 -0.0553311331,0.751261038 0.165993399,0.974176179 L8.13920499,9.00268191 L8.13911129,9.00268191 Z", fill: color3 }))));
+    return /* @__PURE__ */ import_react49.default.createElement("button", { "aria-label": "close", onClick: handleClick, style: style2, type: "button" }, /* @__PURE__ */ import_react49.default.createElement("svg", { width: "".concat(width, "px"), height: "".concat(height, "px"), viewBox: "0 0 18 18", version: "1.1", xmlns: "http://www.w3.org/2000/svg", preserveAspectRatio: "xMidYMid" }, /* @__PURE__ */ import_react49.default.createElement("g", null, /* @__PURE__ */ import_react49.default.createElement("path", { d: "M8.13911129,9.00268191 L0.171521827,17.0258467 C-0.0498027049,17.248715 -0.0498027049,17.6098394 0.171521827,17.8327545 C0.28204354,17.9443526 0.427188206,17.9998706 0.572051765,17.9998706 C0.71714958,17.9998706 0.862013139,17.9443526 0.972581703,17.8327545 L9.0000937,9.74924618 L17.0276057,17.8327545 C17.1384085,17.9443526 17.2832721,17.9998706 17.4281356,17.9998706 C17.5729992,17.9998706 17.718097,17.9443526 17.8286656,17.8327545 C18.0499901,17.6098862 18.0499901,17.2487618 17.8286656,17.0258467 L9.86135722,9.00268191 L17.8340066,0.973848225 C18.0553311,0.750979934 18.0553311,0.389855532 17.8340066,0.16694039 C17.6126821,-0.0556467968 17.254037,-0.0556467968 17.0329467,0.16694039 L9.00042166,8.25611765 L0.967006424,0.167268345 C0.745681892,-0.0553188426 0.387317931,-0.0553188426 0.165993399,0.167268345 C-0.0553311331,0.390136635 -0.0553311331,0.751261038 0.165993399,0.974176179 L8.13920499,9.00268191 L8.13911129,9.00268191 Z", fill: color3 }))));
   };
   FloaterCloseBtn.propTypes = { handleClick: import_prop_types2.default.func.isRequired, styles: import_prop_types2.default.object.isRequired };
   var FloaterContainer = function FloaterContainer2(_ref) {
     var content3 = _ref.content, footer2 = _ref.footer, handleClick = _ref.handleClick, open = _ref.open, positionWrapper = _ref.positionWrapper, showCloseButton = _ref.showCloseButton, title = _ref.title, styles = _ref.styles;
-    var output = { content: /* @__PURE__ */ import_react48.default.isValidElement(content3) ? content3 : /* @__PURE__ */ import_react48.default.createElement("div", { className: "__floater__content", style: styles.content }, content3) };
+    var output = { content: /* @__PURE__ */ import_react49.default.isValidElement(content3) ? content3 : /* @__PURE__ */ import_react49.default.createElement("div", { className: "__floater__content", style: styles.content }, content3) };
     if (title) {
-      output.title = /* @__PURE__ */ import_react48.default.isValidElement(title) ? title : /* @__PURE__ */ import_react48.default.createElement("div", { className: "__floater__title", style: styles.title }, title);
+      output.title = /* @__PURE__ */ import_react49.default.isValidElement(title) ? title : /* @__PURE__ */ import_react49.default.createElement("div", { className: "__floater__title", style: styles.title }, title);
     }
     if (footer2) {
-      output.footer = /* @__PURE__ */ import_react48.default.isValidElement(footer2) ? footer2 : /* @__PURE__ */ import_react48.default.createElement("div", { className: "__floater__footer", style: styles.footer }, footer2);
+      output.footer = /* @__PURE__ */ import_react49.default.isValidElement(footer2) ? footer2 : /* @__PURE__ */ import_react49.default.createElement("div", { className: "__floater__footer", style: styles.footer }, footer2);
     }
     if ((showCloseButton || positionWrapper) && !esm_default["boolean"](open)) {
-      output.close = /* @__PURE__ */ import_react48.default.createElement(FloaterCloseBtn, { styles: styles.close, handleClick });
+      output.close = /* @__PURE__ */ import_react49.default.createElement(FloaterCloseBtn, { styles: styles.close, handleClick });
     }
-    return /* @__PURE__ */ import_react48.default.createElement("div", { className: "__floater__container", style: styles.container }, output.close, output.title, output.content, output.footer);
+    return /* @__PURE__ */ import_react49.default.createElement("div", { className: "__floater__container", style: styles.container }, output.close, output.title, output.content, output.footer);
   };
   FloaterContainer.propTypes = { content: import_prop_types2.default.node.isRequired, footer: import_prop_types2.default.node, handleClick: import_prop_types2.default.func.isRequired, open: import_prop_types2.default.bool, positionWrapper: import_prop_types2.default.bool.isRequired, showCloseButton: import_prop_types2.default.bool.isRequired, styles: import_prop_types2.default.object.isRequired, title: import_prop_types2.default.node };
   var Floater = /* @__PURE__ */ function(_React$Component) {
@@ -54017,24 +54052,24 @@ form._settingsForm_a44hx_17 {
       var output = {};
       var classes = ["__floater"];
       if (component) {
-        if (/* @__PURE__ */ import_react48.default.isValidElement(component)) {
-          output.content = /* @__PURE__ */ import_react48.default.cloneElement(component, { closeFn });
+        if (/* @__PURE__ */ import_react49.default.isValidElement(component)) {
+          output.content = /* @__PURE__ */ import_react49.default.cloneElement(component, { closeFn });
         } else {
           output.content = component({ closeFn });
         }
       } else {
-        output.content = /* @__PURE__ */ import_react48.default.createElement(FloaterContainer, this.props);
+        output.content = /* @__PURE__ */ import_react49.default.createElement(FloaterContainer, this.props);
       }
       if (status === STATUS.OPEN) {
         classes.push("__floater__open");
       }
       if (!hideArrow) {
-        output.arrow = /* @__PURE__ */ import_react48.default.createElement(FloaterArrow, this.props);
+        output.arrow = /* @__PURE__ */ import_react49.default.createElement(FloaterArrow, this.props);
       }
-      return /* @__PURE__ */ import_react48.default.createElement("div", { ref: setFloaterRef, className: classes.join(" "), style: this.style }, /* @__PURE__ */ import_react48.default.createElement("div", { className: "__floater__body" }, output.content, output.arrow));
+      return /* @__PURE__ */ import_react49.default.createElement("div", { ref: setFloaterRef, className: classes.join(" "), style: this.style }, /* @__PURE__ */ import_react49.default.createElement("div", { className: "__floater__body" }, output.content, output.arrow));
     } }]);
     return Floater2;
-  }(import_react48.default.Component);
+  }(import_react49.default.Component);
   _defineProperty2(Floater, "propTypes", { component: import_prop_types2.default.oneOfType([import_prop_types2.default.func, import_prop_types2.default.element]), content: import_prop_types2.default.node, disableAnimation: import_prop_types2.default.bool.isRequired, footer: import_prop_types2.default.node, handleClick: import_prop_types2.default.func.isRequired, hideArrow: import_prop_types2.default.bool.isRequired, open: import_prop_types2.default.bool, placement: import_prop_types2.default.string.isRequired, positionWrapper: import_prop_types2.default.bool.isRequired, setArrowRef: import_prop_types2.default.func.isRequired, setFloaterRef: import_prop_types2.default.func.isRequired, showCloseButton: import_prop_types2.default.bool, status: import_prop_types2.default.string.isRequired, styles: import_prop_types2.default.object.isRequired, title: import_prop_types2.default.node });
   var ReactFloaterWrapper = /* @__PURE__ */ function(_React$Component) {
     _inherits(ReactFloaterWrapper2, _React$Component);
@@ -54047,12 +54082,12 @@ form._settingsForm_a44hx_17 {
       var _this$props = this.props, children = _this$props.children, handleClick = _this$props.handleClick, handleMouseEnter = _this$props.handleMouseEnter, handleMouseLeave = _this$props.handleMouseLeave, setChildRef = _this$props.setChildRef, setWrapperRef = _this$props.setWrapperRef, style2 = _this$props.style, styles = _this$props.styles;
       var element2;
       if (children) {
-        if (import_react48.default.Children.count(children) === 1) {
-          if (!/* @__PURE__ */ import_react48.default.isValidElement(children)) {
-            element2 = /* @__PURE__ */ import_react48.default.createElement("span", null, children);
+        if (import_react49.default.Children.count(children) === 1) {
+          if (!/* @__PURE__ */ import_react49.default.isValidElement(children)) {
+            element2 = /* @__PURE__ */ import_react49.default.createElement("span", null, children);
           } else {
             var refProp = esm_default["function"](children.type) ? "innerRef" : "ref";
-            element2 = /* @__PURE__ */ import_react48.default.cloneElement(import_react48.default.Children.only(children), _defineProperty2({}, refProp, setChildRef));
+            element2 = /* @__PURE__ */ import_react49.default.cloneElement(import_react49.default.Children.only(children), _defineProperty2({}, refProp, setChildRef));
           }
         } else {
           element2 = children;
@@ -54061,10 +54096,10 @@ form._settingsForm_a44hx_17 {
       if (!element2) {
         return null;
       }
-      return /* @__PURE__ */ import_react48.default.createElement("span", { ref: setWrapperRef, style: _objectSpread22(_objectSpread22({}, styles), style2), onClick: handleClick, onMouseEnter: handleMouseEnter, onMouseLeave: handleMouseLeave }, element2);
+      return /* @__PURE__ */ import_react49.default.createElement("span", { ref: setWrapperRef, style: _objectSpread22(_objectSpread22({}, styles), style2), onClick: handleClick, onMouseEnter: handleMouseEnter, onMouseLeave: handleMouseLeave }, element2);
     } }]);
     return ReactFloaterWrapper2;
-  }(import_react48.default.Component);
+  }(import_react49.default.Component);
   _defineProperty2(ReactFloaterWrapper, "propTypes", { children: import_prop_types2.default.node, handleClick: import_prop_types2.default.func.isRequired, handleMouseEnter: import_prop_types2.default.func.isRequired, handleMouseLeave: import_prop_types2.default.func.isRequired, setChildRef: import_prop_types2.default.func.isRequired, setWrapperRef: import_prop_types2.default.func.isRequired, style: import_prop_types2.default.object, styles: import_prop_types2.default.object.isRequired });
   var defaultOptions = { zIndex: 100 };
   function getStyles(styles) {
@@ -54337,17 +54372,17 @@ form._settingsForm_a44hx_17 {
     } }, { key: "render", value: function render() {
       var _this$state4 = this.state, currentPlacement = _this$state4.currentPlacement, positionWrapper = _this$state4.positionWrapper, status = _this$state4.status;
       var _this$props9 = this.props, children = _this$props9.children, component = _this$props9.component, content3 = _this$props9.content, disableAnimation = _this$props9.disableAnimation, footer2 = _this$props9.footer, hideArrow = _this$props9.hideArrow, id = _this$props9.id, open = _this$props9.open, showCloseButton = _this$props9.showCloseButton, style2 = _this$props9.style, target = _this$props9.target, title = _this$props9.title;
-      var wrapper = /* @__PURE__ */ import_react48.default.createElement(ReactFloaterWrapper, { handleClick: this.handleClick, handleMouseEnter: this.handleMouseEnter, handleMouseLeave: this.handleMouseLeave, setChildRef: this.setChildRef, setWrapperRef: this.setWrapperRef, style: style2, styles: this.styles.wrapper }, children);
+      var wrapper = /* @__PURE__ */ import_react49.default.createElement(ReactFloaterWrapper, { handleClick: this.handleClick, handleMouseEnter: this.handleMouseEnter, handleMouseLeave: this.handleMouseLeave, setChildRef: this.setChildRef, setWrapperRef: this.setWrapperRef, style: style2, styles: this.styles.wrapper }, children);
       var output = {};
       if (positionWrapper) {
         output.wrapperInPortal = wrapper;
       } else {
         output.wrapperAsChildren = wrapper;
       }
-      return /* @__PURE__ */ import_react48.default.createElement("span", null, /* @__PURE__ */ import_react48.default.createElement(ReactFloaterPortal, { hasChildren: !!children, id, placement: currentPlacement, setRef: this.setFloaterRef, target, zIndex: this.styles.options.zIndex }, /* @__PURE__ */ import_react48.default.createElement(Floater, { component, content: content3, disableAnimation, footer: footer2, handleClick: this.handleClick, hideArrow: hideArrow || currentPlacement === "center", open, placement: currentPlacement, positionWrapper, setArrowRef: this.setArrowRef, setFloaterRef: this.setFloaterRef, showCloseButton, status, styles: this.styles, title }), output.wrapperInPortal), output.wrapperAsChildren);
+      return /* @__PURE__ */ import_react49.default.createElement("span", null, /* @__PURE__ */ import_react49.default.createElement(ReactFloaterPortal, { hasChildren: !!children, id, placement: currentPlacement, setRef: this.setFloaterRef, target, zIndex: this.styles.options.zIndex }, /* @__PURE__ */ import_react49.default.createElement(Floater, { component, content: content3, disableAnimation, footer: footer2, handleClick: this.handleClick, hideArrow: hideArrow || currentPlacement === "center", open, placement: currentPlacement, positionWrapper, setArrowRef: this.setArrowRef, setFloaterRef: this.setFloaterRef, showCloseButton, status, styles: this.styles, title }), output.wrapperInPortal), output.wrapperAsChildren);
     } }]);
     return ReactFloater2;
-  }(import_react48.default.Component);
+  }(import_react49.default.Component);
   _defineProperty2(ReactFloater, "propTypes", { autoOpen: import_prop_types2.default.bool, callback: import_prop_types2.default.func, children: import_prop_types2.default.node, component: (0, import_react_proptype_conditional_require.default)(import_prop_types2.default.oneOfType([import_prop_types2.default.func, import_prop_types2.default.element]), function(props) {
     return !props.content;
   }), content: (0, import_react_proptype_conditional_require.default)(import_prop_types2.default.node, function(props) {
@@ -54646,7 +54681,7 @@ form._settingsForm_a44hx_17 {
   }
   function isEqual2(left2, right2) {
     var type;
-    var hasReactElement = /* @__PURE__ */ (0, import_react49.isValidElement)(left2) || /* @__PURE__ */ (0, import_react49.isValidElement)(right2);
+    var hasReactElement = /* @__PURE__ */ (0, import_react50.isValidElement)(left2) || /* @__PURE__ */ (0, import_react50.isValidElement)(right2);
     var hasUndefined = src_default.undefined(left2) || src_default.undefined(right2);
     if (getObjectType3(left2) !== getObjectType3(right2) || hasReactElement || hasUndefined) {
       return false;
@@ -55091,13 +55126,13 @@ form._settingsForm_a44hx_17 {
   createChainableTypeChecker(function(props, propName, componentName, location, propFullName) {
     var propValue = props[propName];
     var Component = propValue;
-    if (!/* @__PURE__ */ import_react49.default.isValidElement(propValue) && (0, import_react_is3.isValidElementType)(propValue)) {
+    if (!/* @__PURE__ */ import_react50.default.isValidElement(propValue) && (0, import_react_is3.isValidElementType)(propValue)) {
       var ownProps = {
         ref: function ref() {
         },
         step: {}
       };
-      Component = /* @__PURE__ */ import_react49.default.createElement(Component, ownProps);
+      Component = /* @__PURE__ */ import_react50.default.createElement(Component, ownProps);
     }
     if (src_default.string(propValue) || src_default.number(propValue) || !(0, import_react_is3.isValidElementType)(propValue) || !([import_react_is3.Element, import_react_is3.ForwardRef].indexOf((0, import_react_is3.typeOf)(Component)) !== -1)) {
       return new Error("Invalid ".concat(location, " `").concat(propFullName, "` supplied to `").concat(componentName, "`. Expected a React class or forwardRef."));
@@ -55517,16 +55552,16 @@ form._settingsForm_a44hx_17 {
         var component;
         if (beaconComponent) {
           var BeaconComponent = beaconComponent;
-          component = /* @__PURE__ */ import_react49.default.createElement(BeaconComponent, props);
+          component = /* @__PURE__ */ import_react50.default.createElement(BeaconComponent, props);
         } else {
-          component = /* @__PURE__ */ import_react49.default.createElement("button", _extends3({
+          component = /* @__PURE__ */ import_react50.default.createElement("button", _extends3({
             key: "JoyrideBeacon",
             className: "react-joyride__beacon",
             style: styles.beacon,
             type: "button"
-          }, props), /* @__PURE__ */ import_react49.default.createElement("span", {
+          }, props), /* @__PURE__ */ import_react50.default.createElement("span", {
             style: styles.beaconInner
-          }), /* @__PURE__ */ import_react49.default.createElement("span", {
+          }), /* @__PURE__ */ import_react50.default.createElement("span", {
             style: styles.beaconOuter
           }));
         }
@@ -55534,10 +55569,10 @@ form._settingsForm_a44hx_17 {
       }
     }]);
     return JoyrideBeacon2;
-  }(import_react49.default.Component);
+  }(import_react50.default.Component);
   function JoyrideSpotlight(_ref) {
     var styles = _ref.styles;
-    return /* @__PURE__ */ import_react49.default.createElement("div", {
+    return /* @__PURE__ */ import_react50.default.createElement("div", {
       key: "JoyrideSpotlight",
       className: "react-joyride__spotlight",
       style: styles
@@ -55701,19 +55736,19 @@ form._settingsForm_a44hx_17 {
           height: getDocumentHeight(),
           pointerEvents: mouseOverSpotlight ? "none" : "auto"
         }, baseStyles);
-        var spotlight2 = placement !== "center" && showSpotlight && /* @__PURE__ */ import_react49.default.createElement(JoyrideSpotlight, {
+        var spotlight2 = placement !== "center" && showSpotlight && /* @__PURE__ */ import_react50.default.createElement(JoyrideSpotlight, {
           styles: this.spotlightStyles
         });
         if (getBrowser() === "safari") {
           stylesOverlay.mixBlendMode;
           stylesOverlay.zIndex;
           var safarOverlay = _objectWithoutProperties2(stylesOverlay, _excluded$2);
-          spotlight2 = /* @__PURE__ */ import_react49.default.createElement("div", {
+          spotlight2 = /* @__PURE__ */ import_react50.default.createElement("div", {
             style: _objectSpread23({}, safarOverlay)
           }, spotlight2);
           delete stylesOverlay.backgroundColor;
         }
-        return /* @__PURE__ */ import_react49.default.createElement("div", {
+        return /* @__PURE__ */ import_react50.default.createElement("div", {
           className: "react-joyride__overlay",
           style: stylesOverlay,
           onClick: onClickOverlay
@@ -55721,23 +55756,23 @@ form._settingsForm_a44hx_17 {
       }
     }]);
     return JoyrideOverlay2;
-  }(import_react49.default.Component);
+  }(import_react50.default.Component);
   var _excluded$12 = ["styles"];
   var _excluded2 = ["color", "height", "width"];
   function JoyrideTooltipCloseBtn(_ref) {
     var styles = _ref.styles, props = _objectWithoutProperties2(_ref, _excluded$12);
     var color3 = styles.color, height = styles.height, width = styles.width, style2 = _objectWithoutProperties2(styles, _excluded2);
-    return /* @__PURE__ */ import_react49.default.createElement("button", _extends3({
+    return /* @__PURE__ */ import_react50.default.createElement("button", _extends3({
       style: style2,
       type: "button"
-    }, props), /* @__PURE__ */ import_react49.default.createElement("svg", {
+    }, props), /* @__PURE__ */ import_react50.default.createElement("svg", {
       width: typeof width === "number" ? "".concat(width, "px") : width,
       height: typeof height === "number" ? "".concat(height, "px") : height,
       viewBox: "0 0 18 18",
       version: "1.1",
       xmlns: "http://www.w3.org/2000/svg",
       preserveAspectRatio: "xMidYMid"
-    }, /* @__PURE__ */ import_react49.default.createElement("g", null, /* @__PURE__ */ import_react49.default.createElement("path", {
+    }, /* @__PURE__ */ import_react50.default.createElement("g", null, /* @__PURE__ */ import_react50.default.createElement("path", {
       d: "M8.13911129,9.00268191 L0.171521827,17.0258467 C-0.0498027049,17.248715 -0.0498027049,17.6098394 0.171521827,17.8327545 C0.28204354,17.9443526 0.427188206,17.9998706 0.572051765,17.9998706 C0.71714958,17.9998706 0.862013139,17.9443526 0.972581703,17.8327545 L9.0000937,9.74924618 L17.0276057,17.8327545 C17.1384085,17.9443526 17.2832721,17.9998706 17.4281356,17.9998706 C17.5729992,17.9998706 17.718097,17.9443526 17.8286656,17.8327545 C18.0499901,17.6098862 18.0499901,17.2487618 17.8286656,17.0258467 L9.86135722,9.00268191 L17.8340066,0.973848225 C18.0553311,0.750979934 18.0553311,0.389855532 17.8340066,0.16694039 C17.6126821,-0.0556467968 17.254037,-0.0556467968 17.0329467,0.16694039 L9.00042166,8.25611765 L0.967006424,0.167268345 C0.745681892,-0.0553188426 0.387317931,-0.0553188426 0.165993399,0.167268345 C-0.0553311331,0.390136635 -0.0553311331,0.751261038 0.165993399,0.974176179 L8.13920499,9.00268191 L8.13911129,9.00268191 Z",
       fill: color3
     }))));
@@ -55761,48 +55796,48 @@ form._settingsForm_a44hx_17 {
         if (continuous) {
           output.primary = isLastStep ? last : next;
           if (showProgress) {
-            output.primary = /* @__PURE__ */ import_react49.default.createElement("span", null, output.primary, " (", index2 + 1, "/", size, ")");
+            output.primary = /* @__PURE__ */ import_react50.default.createElement("span", null, output.primary, " (", index2 + 1, "/", size, ")");
           }
         }
         if (showSkipButton && !isLastStep) {
-          output.skip = /* @__PURE__ */ import_react49.default.createElement("button", _extends3({
+          output.skip = /* @__PURE__ */ import_react50.default.createElement("button", _extends3({
             style: styles.buttonSkip,
             type: "button",
             "aria-live": "off"
           }, skipProps), skip);
         }
         if (!hideBackButton && index2 > 0) {
-          output.back = /* @__PURE__ */ import_react49.default.createElement("button", _extends3({
+          output.back = /* @__PURE__ */ import_react50.default.createElement("button", _extends3({
             style: styles.buttonBack,
             type: "button"
           }, backProps), back);
         }
-        output.close = !hideCloseButton && /* @__PURE__ */ import_react49.default.createElement(JoyrideTooltipCloseBtn, _extends3({
+        output.close = !hideCloseButton && /* @__PURE__ */ import_react50.default.createElement(JoyrideTooltipCloseBtn, _extends3({
           styles: styles.buttonClose
         }, closeProps));
-        return /* @__PURE__ */ import_react49.default.createElement("div", _extends3({
+        return /* @__PURE__ */ import_react50.default.createElement("div", _extends3({
           key: "JoyrideTooltip",
           className: "react-joyride__tooltip",
           style: styles.tooltip
-        }, tooltipProps), /* @__PURE__ */ import_react49.default.createElement("div", {
+        }, tooltipProps), /* @__PURE__ */ import_react50.default.createElement("div", {
           style: styles.tooltipContainer
-        }, title && /* @__PURE__ */ import_react49.default.createElement("h4", {
+        }, title && /* @__PURE__ */ import_react50.default.createElement("h4", {
           style: styles.tooltipTitle,
           "aria-label": title
-        }, title), /* @__PURE__ */ import_react49.default.createElement("div", {
+        }, title), /* @__PURE__ */ import_react50.default.createElement("div", {
           style: styles.tooltipContent
-        }, content3)), !hideFooter && /* @__PURE__ */ import_react49.default.createElement("div", {
+        }, content3)), !hideFooter && /* @__PURE__ */ import_react50.default.createElement("div", {
           style: styles.tooltipFooter
-        }, /* @__PURE__ */ import_react49.default.createElement("div", {
+        }, /* @__PURE__ */ import_react50.default.createElement("div", {
           style: styles.tooltipFooterSpacer
-        }, output.skip), output.back, /* @__PURE__ */ import_react49.default.createElement("button", _extends3({
+        }, output.skip), output.back, /* @__PURE__ */ import_react50.default.createElement("button", _extends3({
           style: styles.buttonNext,
           type: "button"
         }, primaryProps), output.primary)), output.close);
       }
     }]);
     return JoyrideTooltipContainer2;
-  }(import_react49.default.Component);
+  }(import_react50.default.Component);
   var _excluded3 = ["beaconComponent", "tooltipComponent"];
   var JoyrideTooltip = /* @__PURE__ */ function(_React$Component) {
     _inherits2(JoyrideTooltip2, _React$Component);
@@ -55903,9 +55938,9 @@ form._settingsForm_a44hx_17 {
             step: cleanStep
           });
           var TooltipComponent = tooltipComponent;
-          component = /* @__PURE__ */ import_react49.default.createElement(TooltipComponent, renderProps);
+          component = /* @__PURE__ */ import_react50.default.createElement(TooltipComponent, renderProps);
         } else {
-          component = /* @__PURE__ */ import_react49.default.createElement(JoyrideTooltipContainer, _extends3({}, this.getElementsProps(), {
+          component = /* @__PURE__ */ import_react50.default.createElement(JoyrideTooltipContainer, _extends3({}, this.getElementsProps(), {
             continuous,
             index: index2,
             isLastStep,
@@ -55917,7 +55952,7 @@ form._settingsForm_a44hx_17 {
       }
     }]);
     return JoyrideTooltip2;
-  }(import_react49.default.Component);
+  }(import_react50.default.Component);
   var JoyridePortal = /* @__PURE__ */ function(_React$Component) {
     _inherits2(JoyridePortal2, _React$Component);
     var _super = _createSuper2(JoyridePortal2);
@@ -56001,7 +56036,7 @@ form._settingsForm_a44hx_17 {
       }
     }]);
     return JoyridePortal2;
-  }(import_react49.default.Component);
+  }(import_react50.default.Component);
   var JoyrideStep = /* @__PURE__ */ function(_React$Component) {
     _inherits2(JoyrideStep2, _React$Component);
     var _super = _createSuper2(JoyrideStep2);
@@ -56174,17 +56209,17 @@ form._settingsForm_a44hx_17 {
         if (!validateStep(step) || !src_default.domElement(target)) {
           return null;
         }
-        return /* @__PURE__ */ import_react49.default.createElement("div", {
+        return /* @__PURE__ */ import_react50.default.createElement("div", {
           key: "JoyrideStep-".concat(index2),
           className: "react-joyride__step"
-        }, /* @__PURE__ */ import_react49.default.createElement(JoyridePortal, {
+        }, /* @__PURE__ */ import_react50.default.createElement(JoyridePortal, {
           id: "react-joyride-portal"
-        }, /* @__PURE__ */ import_react49.default.createElement(JoyrideOverlay, _extends3({}, step, {
+        }, /* @__PURE__ */ import_react50.default.createElement(JoyrideOverlay, _extends3({}, step, {
           debug,
           lifecycle,
           onClickOverlay: this.handleClickOverlay
-        }))), /* @__PURE__ */ import_react49.default.createElement(ReactFloater, _extends3({
-          component: /* @__PURE__ */ import_react49.default.createElement(JoyrideTooltip, {
+        }))), /* @__PURE__ */ import_react50.default.createElement(ReactFloater, _extends3({
+          component: /* @__PURE__ */ import_react50.default.createElement(JoyrideTooltip, {
             continuous,
             helpers,
             index: index2,
@@ -56200,7 +56235,7 @@ form._settingsForm_a44hx_17 {
           open: this.open,
           placement: step.placement,
           target: step.target
-        }, step.floaterProps), /* @__PURE__ */ import_react49.default.createElement(JoyrideBeacon, {
+        }, step.floaterProps), /* @__PURE__ */ import_react50.default.createElement(JoyrideBeacon, {
           beaconComponent: step.beaconComponent,
           locale: step.locale,
           nonce,
@@ -56211,7 +56246,7 @@ form._settingsForm_a44hx_17 {
       }
     }]);
     return JoyrideStep2;
-  }(import_react49.default.Component);
+  }(import_react50.default.Component);
   var Joyride = /* @__PURE__ */ function(_React$Component) {
     _inherits2(Joyride2, _React$Component);
     var _super = _createSuper2(Joyride2);
@@ -56458,7 +56493,7 @@ form._settingsForm_a44hx_17 {
         var step = getMergedStep(steps[index2], this.props);
         var output;
         if (status === STATUS2.RUNNING && step) {
-          output = /* @__PURE__ */ import_react49.default.createElement(JoyrideStep, _extends3({}, this.state, {
+          output = /* @__PURE__ */ import_react50.default.createElement(JoyrideStep, _extends3({}, this.state, {
             callback: this.callback,
             continuous,
             debug,
@@ -56470,13 +56505,13 @@ form._settingsForm_a44hx_17 {
             update: this.store.update
           }));
         }
-        return /* @__PURE__ */ import_react49.default.createElement("div", {
+        return /* @__PURE__ */ import_react50.default.createElement("div", {
           className: "react-joyride"
         }, output);
       }
     }]);
     return Joyride2;
-  }(import_react49.default.Component);
+  }(import_react50.default.Component);
   _defineProperty3(Joyride, "defaultProps", {
     continuous: false,
     debug: false,
@@ -56571,10 +56606,10 @@ form._settingsForm_a44hx_17 {
     }
   ];
   function AppTour() {
-    const [stepIndex, setStepIndex] = React63.useState(0);
-    const [run, setRun] = React63.useState(false);
+    const [stepIndex, setStepIndex] = React64.useState(0);
+    const [run, setRun] = React64.useState(false);
     const inTemplateChooserMode = useInTemplateChooserMode();
-    const handleJoyrideCallback = React63.useCallback((data) => {
+    const handleJoyrideCallback = React64.useCallback((data) => {
       const { action, index: index2, status, type } = data;
       console.log({ action, index: index2, status, type });
       if (type === EVENTS.STEP_AFTER || type === EVENTS.TARGET_NOT_FOUND) {
@@ -56596,7 +56631,7 @@ form._settingsForm_a44hx_17 {
         }
       }
     }, []);
-    const startTour = React63.useCallback(() => {
+    const startTour = React64.useCallback(() => {
       setRun(true);
     }, []);
     return /* @__PURE__ */ (0, import_jsx_runtime102.jsxs)(import_jsx_runtime102.Fragment, { children: [
@@ -56679,7 +56714,7 @@ form._settingsForm_a44hx_17 {
   var ShinyLogo_default = SvgShinyLogo;
 
   // ../editor/src/state-logic/useUndoRedo.tsx
-  var import_react50 = __toESM(require_react());
+  var import_react51 = __toESM(require_react());
 
   // ../editor/src/modules/StateHistory.ts
   var StateHistory = class {
@@ -56751,12 +56786,12 @@ form._settingsForm_a44hx_17 {
   function useUndoRedo() {
     const state = useSelector((state2) => state2.uiTree);
     const dispatch = useDispatch();
-    const [canGoForward, setCanGoForward] = import_react50.default.useState(false);
-    const [canGoBackward, setCanGoBackward] = import_react50.default.useState(false);
-    const stateHistory = import_react50.default.useRef(
+    const [canGoForward, setCanGoForward] = import_react51.default.useState(false);
+    const [canGoBackward, setCanGoBackward] = import_react51.default.useState(false);
+    const stateHistory = import_react51.default.useRef(
       new StateHistory({ comparisonFn: sameHistoryEntry })
     );
-    import_react50.default.useEffect(() => {
+    import_react51.default.useEffect(() => {
       if (!state || state.mode === "LOADING")
         return;
       const history = stateHistory.current;
@@ -56764,16 +56799,16 @@ form._settingsForm_a44hx_17 {
       setCanGoBackward(history.canGoBackwards());
       setCanGoForward(history.canGoForwards());
     }, [state]);
-    const setState = import_react50.default.useCallback(
+    const setState = import_react51.default.useCallback(
       (updatedState) => {
         dispatch(SET_FULL_STATE({ state: updatedState }));
       },
       [dispatch]
     );
-    const goBackward = import_react50.default.useCallback(() => {
+    const goBackward = import_react51.default.useCallback(() => {
       setState(stateHistory.current.goBackwards());
     }, [setState]);
-    const goForward = import_react50.default.useCallback(() => {
+    const goForward = import_react51.default.useCallback(() => {
       setState(stateHistory.current.goForwards());
     }, [setState]);
     return {
@@ -56798,8 +56833,8 @@ form._settingsForm_a44hx_17 {
     return false;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-64028-tGWipJ3VO84k/editor/src/components/UndoRedoButtons/UndoRedoButtons.module.css.js
-  var digest49 = "116ee52dd47b0e4ee1a66af677ad0cff89cb715e1e84eba39f39b65a5a7049e3";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-71579-qkWISA8gnUc2/editor/src/components/UndoRedoButtons/UndoRedoButtons.module.css.js
+  var digest49 = "1714f1e2d19f56cd27858cb551e1e09359ac72448c9ff99a1ced4e9b54214d65";
   var css49 = `._container_1d7pe_1 {
   display: flex;
   position: relative;
@@ -56864,27 +56899,49 @@ form._settingsForm_a44hx_17 {
     ] });
   }
 
-  // ../editor/src/EditorContainer/AppHeader.tsx
+  // ../editor/src/EditorContainer/OpenSideBySideWindowButton.tsx
   var import_jsx_runtime105 = __toESM(require_jsx_runtime());
+  function OpenSideBySideWindowButton() {
+    const { sendMsg } = useBackendCallbacks();
+    return /* @__PURE__ */ (0, import_jsx_runtime105.jsx)(
+      TooltipButton,
+      {
+        text: "Open app code next to editor",
+        onClick: () => {
+          sendMsg({
+            path: "OPEN-COMPANION-EDITOR",
+            payload: "BESIDE"
+          });
+        },
+        className: "OpenSideBySideWindowButton",
+        children: /* @__PURE__ */ (0, import_jsx_runtime105.jsx)(FaCode, {})
+      }
+    );
+  }
+
+  // ../editor/src/EditorContainer/AppHeader.tsx
+  var import_jsx_runtime106 = __toESM(require_jsx_runtime());
   function AppHeader() {
-    return /* @__PURE__ */ (0, import_jsx_runtime105.jsxs)("header", { children: [
-      /* @__PURE__ */ (0, import_jsx_runtime105.jsx)(ShinyLogo_default, { className: "shiny-logo" }),
-      /* @__PURE__ */ (0, import_jsx_runtime105.jsx)("h1", { className: "app-title", children: "Shiny UI Editor" }),
-      /* @__PURE__ */ (0, import_jsx_runtime105.jsxs)("div", { className: "right", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime105.jsx)(AppTour, {}),
-        /* @__PURE__ */ (0, import_jsx_runtime105.jsx)("div", { className: "divider" }),
-        /* @__PURE__ */ (0, import_jsx_runtime105.jsx)(UndoRedoButtons, {})
+    const runtimeType = useRuntimeType();
+    return /* @__PURE__ */ (0, import_jsx_runtime106.jsxs)("header", { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime106.jsx)(ShinyLogo_default, { className: "shiny-logo" }),
+      /* @__PURE__ */ (0, import_jsx_runtime106.jsx)("h1", { className: "app-title", children: "Shiny UI Editor" }),
+      /* @__PURE__ */ (0, import_jsx_runtime106.jsxs)("div", { className: "right", children: [
+        runtimeType === "VSCODE" ? /* @__PURE__ */ (0, import_jsx_runtime106.jsx)(OpenSideBySideWindowButton, {}) : null,
+        /* @__PURE__ */ (0, import_jsx_runtime106.jsx)(AppTour, {}),
+        /* @__PURE__ */ (0, import_jsx_runtime106.jsx)("div", { className: "divider" }),
+        /* @__PURE__ */ (0, import_jsx_runtime106.jsx)(UndoRedoButtons, {})
       ] })
     ] });
   }
 
   // ../editor/src/EditorContainer/DialogPopover.tsx
-  var import_jsx_runtime106 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime107 = __toESM(require_jsx_runtime());
   function DialogPopover({
     children,
     ...passthrough
   }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime106.jsx)("dialog", { ...passthrough, ref: openDialog, children });
+    return /* @__PURE__ */ (0, import_jsx_runtime107.jsx)("dialog", { ...passthrough, ref: openDialog, children });
   }
   function openDialog(el) {
     if (el === null)
@@ -56896,44 +56953,45 @@ form._settingsForm_a44hx_17 {
   }
 
   // ../editor/src/EditorContainer/EditorContainer.tsx
-  var import_jsx_runtime107 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime108 = __toESM(require_jsx_runtime());
   var sizes_inline_styles = {
     "--properties-panel-width": `${PROPERTIES_PANEL_WIDTH_PX}px`
   };
   function EditorContainer() {
     const { state, errorMsg } = useSyncUiWithBackend();
+    useListenForRuntimeType();
     let pageBody;
     if (errorMsg) {
-      pageBody = /* @__PURE__ */ (0, import_jsx_runtime107.jsxs)(DialogPopover, { className: "message-mode", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime107.jsx)("h2", { children: "Error" }),
-        /* @__PURE__ */ (0, import_jsx_runtime107.jsx)("p", { className: "error-msg", children: errorMsg })
+      pageBody = /* @__PURE__ */ (0, import_jsx_runtime108.jsxs)(DialogPopover, { className: "message-mode", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime108.jsx)("h2", { children: "Error" }),
+        /* @__PURE__ */ (0, import_jsx_runtime108.jsx)("p", { className: "error-msg", children: errorMsg })
       ] });
     } else if (state.mode === "LOADING") {
-      pageBody = /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(DialogPopover, { className: "message-mode", children: /* @__PURE__ */ (0, import_jsx_runtime107.jsx)("h2", { children: "Loading initial state from server" }) });
+      pageBody = /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(DialogPopover, { className: "message-mode", children: /* @__PURE__ */ (0, import_jsx_runtime108.jsx)("h2", { children: "Loading initial state from server" }) });
     } else if (state.mode === "MAIN") {
-      pageBody = /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(CurrentDraggedNodeProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(
+      pageBody = /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(CurrentDraggedNodeProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(
         EditorSkeleton,
         {
-          main: /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(UiNode_default, { node: state.uiTree, path: [] }),
-          left: /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(ElementsPalette, {}),
-          properties: /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(SettingsPanel, { tree: state.uiTree }),
-          preview: /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(AppPreview, {})
+          main: /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(UiNode_default, { node: state.uiTree, path: [] }),
+          left: /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(ElementsPalette, {}),
+          properties: /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(SettingsPanel, { tree: state.uiTree }),
+          preview: /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(AppPreview, {})
         }
       ) });
     } else {
-      pageBody = /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(TemplateChooserView, { ...state.options });
+      pageBody = /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(TemplateChooserView, { ...state.options });
     }
-    return /* @__PURE__ */ (0, import_jsx_runtime107.jsxs)("div", { className: "EditorContainer", style: sizes_inline_styles, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(AppHeader, {}),
+    return /* @__PURE__ */ (0, import_jsx_runtime108.jsxs)("div", { className: "EditorContainer", style: sizes_inline_styles, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(AppHeader, {}),
       pageBody,
-      /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(LostConnectionPopup, {})
+      /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(LostConnectionPopup, {})
     ] });
   }
 
   // ../editor/src/state/connectedToServer.ts
-  var import_react51 = __toESM(require_react());
+  var import_react52 = __toESM(require_react());
   var connectedToServerSlice = createSlice({
-    name: "connectedToServer",
+    name: "runtimeInfo",
     initialState: true,
     reducers: {
       DISCONNECTED_FROM_SERVER: (_prev, action) => false
@@ -57025,26 +57083,27 @@ form._settingsForm_a44hx_17 {
     reducer: {
       uiTree: uiTree_default,
       selectedPath: selectedPath_default,
+      runtimeInfo: runtimeInfo_default,
       connectedToServer: connectedToServer_default
     },
     middleware: (getDefaultMiddleware2) => getDefaultMiddleware2().concat(listenForDeleteMiddleware_default).concat(listenForNodeAddMiddleware_default).concat(resetSelectionInTemplateChooser)
   });
 
   // ../editor/src/state/ReduxProvider.tsx
-  var import_jsx_runtime108 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime109 = __toESM(require_jsx_runtime());
   function ReduxProvider({ children }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(Provider_default, { store, children });
+    return /* @__PURE__ */ (0, import_jsx_runtime109.jsx)(Provider_default, { store, children });
   }
   var ReduxProvider_default = ReduxProvider;
 
   // ../editor/src/App.tsx
-  var import_jsx_runtime109 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime110 = __toESM(require_jsx_runtime());
   function App(msgPassers) {
-    return /* @__PURE__ */ (0, import_jsx_runtime109.jsx)(ReduxProvider_default, { children: /* @__PURE__ */ (0, import_jsx_runtime109.jsx)(BackendCallbacksProvider, { ...msgPassers, children: /* @__PURE__ */ (0, import_jsx_runtime109.jsx)(EditorContainer, {}) }) });
+    return /* @__PURE__ */ (0, import_jsx_runtime110.jsx)(ReduxProvider_default, { children: /* @__PURE__ */ (0, import_jsx_runtime110.jsx)(BackendCallbacksProvider, { ...msgPassers, children: /* @__PURE__ */ (0, import_jsx_runtime110.jsx)(EditorContainer, {}) }) });
   }
 
   // ../editor/src/runSUE.tsx
-  var import_jsx_runtime110 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime111 = __toESM(require_jsx_runtime());
   function runSUE({
     container: container2,
     backendDispatch: { sendMsg, incomingMsgs },
@@ -57063,7 +57122,7 @@ form._settingsForm_a44hx_17 {
       incomingMsgs
     };
     const root2 = (0, import_client.createRoot)(container2);
-    root2.render(/* @__PURE__ */ (0, import_jsx_runtime110.jsx)(App, { ...dispatch }));
+    root2.render(/* @__PURE__ */ (0, import_jsx_runtime111.jsx)(App, { ...dispatch }));
   }
 
   // src/index.ts

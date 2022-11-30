@@ -11374,6 +11374,11 @@ input {
   background-color: var(--divider-color);
   width: 2px;
 }
+.EditorContainer header .OpenSideBySideWindowButton {
+  background-color: transparent;
+  font-size: 18px;
+  color: var(--icon-color);
+}
 .EditorContainer .EditorSkeleton {
   height: calc(100% - var(--header-height));
 }

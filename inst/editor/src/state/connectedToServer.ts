@@ -5,7 +5,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 
 export const connectedToServerSlice = createSlice({
-  name: "connectedToServer",
+  name: "runtimeInfo",
   initialState: true as boolean,
   reducers: {
     DISCONNECTED_FROM_SERVER: (_prev, action: PayloadAction) => false,

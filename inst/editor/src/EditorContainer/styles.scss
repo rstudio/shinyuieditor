@@ -57,6 +57,12 @@
       background-color: var(--divider-color);
       width: 2px;
     }
+
+    .OpenSideBySideWindowButton {
+      background-color: transparent;
+      font-size: 18px;
+      color: var(--icon-color);
+    }
   }
 
   .EditorSkeleton {

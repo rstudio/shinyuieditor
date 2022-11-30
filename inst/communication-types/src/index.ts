@@ -72,12 +72,24 @@ type MessageToBackendByPath = {
   "APP-PREVIEW-REQUEST": null;
   "APP-PREVIEW-RESTART": null;
   "APP-PREVIEW-STOP": null;
+  "OPEN-COMPANION-EDITOR": CompanionEditorPosition;
 };
+
+/**
+ * Positions the user can request the companion editor to be placed in
+ */
+export type CompanionEditorPosition = "BESIDE";
+
+/**
+ * The different backend runtimes that can be supporting the ui editor client
+ */
+export type RuntimeType = "VSCODE" | "HTTPUV";
 
 /**
  * All the paths and their payloads that can be received from the backend
  */
 export type MessageFromBackendByPath = {
+  "RUNTIME-TYPE": RuntimeType;
   "UPDATED-TREE": ShinyUiNode;
   "BACKEND-ERROR": string;
   "APP-PREVIEW-STATUS": "FAKE-PREVIEW" | "LOADING" | { url: string };

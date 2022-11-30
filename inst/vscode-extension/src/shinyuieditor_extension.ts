@@ -84,10 +84,13 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
       enableScripts: true,
     };
 
-    const codeCompanion = await this.openCodeCompanion(document);
-
     webviewPanel.webview.html = this.getHtmlForWebview(webviewPanel.webview);
     let latestAppWrite: string | null = null;
+
+    /**
+     * Plain text editor with apps code side-by-side with custom editor
+     */
+    let codeCompanionEditor: vscode.TextEditor | null = null;
 
     const syncFileToClientState = async () => {
       if (!this.RProcess) {
@@ -122,6 +125,12 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
           showErrorMessage(pkgsLoaded.msg);
           throw new Error(pkgsLoaded.msg);
         }
+
+        // Let client know we're in vscode mode
+        this.sendMessage?.({
+          path: "RUNTIME-TYPE",
+          payload: "VSCODE",
+        });
 
         this.hasInitialized = true;
       }
@@ -268,6 +277,18 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
           case "ENTERED-TEMPLATE-SELECTOR": {
             previewAppInfo.stop();
             this.clearAppFile(document);
+            return;
+          }
+          case "OPEN-COMPANION-EDITOR": {
+            if (
+              codeCompanionEditor &&
+              vscode.window.visibleTextEditors.includes(codeCompanionEditor)
+            ) {
+              // Avoid opening secondary companion editor
+              return;
+            }
+            codeCompanionEditor = await this.openCodeCompanion(document);
+
             return;
           }
           default:
