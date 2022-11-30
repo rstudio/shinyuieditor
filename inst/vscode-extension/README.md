@@ -1,25 +1,9 @@
-# Cat Customs - Custom Editor API Samples
+# ShinyUiEditor VSCode extension
 
-![Paw draw editor ](documentation/example.png)
+![VSCode editor ](documentation/extension-running.png)
 
-Demonstrates VS Code's [custom editor API](https://code.visualstudio.com/api/extension-guides/custom-editors) using two custom editors:
+This folder contains the workspace for the VSCode extension version of the ui editor. The webview front-end code is contained in `../inst/vscode-extension-client`.
 
-- Cat Scratch — Uses the finalized custom text editor api to provide a custom editor for `.cscratch` files (which are just json files)
-- Paw Draw - Uses the binary custom editor api to provide a custom editor for `.pawdraw` files (which are just png files with a different file extension).
+The root level VSCode launch task `Run Extension` will bundle both the backend and client on startup using the `yarn dev` command for both.
 
-## VS Code API
-
-### `vscode` module
-
-- [`window.registerCustomEditorProvider`](https://code.visualstudio.com/api/references/vscode-api#window.registerCustomEditorProvider)
-- [`CustomTextEditor`](https://code.visualstudio.com/api/references/vscode-api#CustomTextEditor)
-- [`CustomEditor`](https://code.visualstudio.com/api/references/vscode-api#CustomEditor)
-
-## Running the example
-
-- Open this example in VS Code 1.46+
-- `npm install`
-- `npm run watch` or `npm run compile`
-- `F5` to start debugging
-
-Open the example files from the `exampleFiles` directory.
+To get side by side view you will need to open the same file twice and select one to open in `shinyuieditor` and one in `Text editor` (right click on the file tab and select "Reopen editor with" option).

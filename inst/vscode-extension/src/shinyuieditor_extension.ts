@@ -89,10 +89,9 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
       // Check to make sure we're not just picking up a change that we made
       const updateWeMade =
         latestAppWrite !== null && appFileText.includes(latestAppWrite);
-      if (updateWeMade) {
-        // Skip unneccesary app file parsing
-        return;
-      }
+
+      // Skip unneccesary app file parsing
+      if (updateWeMade) return;
 
       // If it's our first time connecting to the viewer, load our libraries and
       // let the user know if this failed and they need to fix it.
