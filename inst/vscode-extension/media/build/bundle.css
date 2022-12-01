@@ -11343,19 +11343,25 @@ input {
 }
 .EditorContainer header .right {
   margin-left: auto;
-  width: var(--properties-panel-width);
-  display: inherit;
+  display: flex;
   align-items: center;
-  gap: 14px;
-}
-.EditorContainer header .right > :first-child {
-  margin-left: -6px;
+  justify-content: end;
 }
 .EditorContainer header .right .react-joyride {
   display: none;
 }
 .EditorContainer header .right .undo-redo-buttons {
   transform: translate(-1px, -1px);
+}
+.EditorContainer header .right .spacer {
+  height: 20px;
+}
+.EditorContainer header .right .spacer.last {
+  width: 58px;
+}
+.EditorContainer header .right .divider {
+  margin-inline-end: 12px;
+  margin-inline-start: 14px;
 }
 .EditorContainer header .shiny-logo {
   display: inline-block;
@@ -11378,6 +11384,7 @@ input {
   background-color: transparent;
   font-size: 18px;
   color: var(--icon-color);
+  margin-inline: 7px;
 }
 .EditorContainer .EditorSkeleton {
   height: calc(100% - var(--header-height));

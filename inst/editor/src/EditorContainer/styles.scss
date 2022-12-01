@@ -18,16 +18,9 @@
     }
     .right {
       margin-left: auto;
-      width: var(--properties-panel-width);
-      display: inherit;
+      display: flex;
       align-items: center;
-      gap: 14px;
-
-      // Move the tour button over a tiny bit so it lines up better with edge of
-      // properties pane
-      > :first-child {
-        margin-left: -6px;
-      }
+      justify-content: end;
 
       .react-joyride {
         display: none;
@@ -35,6 +28,18 @@
 
       .undo-redo-buttons {
         transform: translate(-1px, -1px);
+      }
+
+      .spacer {
+        height: 20px;
+
+        &.last {
+          width: 58px;
+        }
+      }
+      .divider {
+        margin-inline-end: 12px;
+        margin-inline-start: 14px;
       }
     }
 
@@ -62,6 +67,7 @@
       background-color: transparent;
       font-size: 18px;
       color: var(--icon-color);
+      margin-inline: 7px;
     }
   }
 

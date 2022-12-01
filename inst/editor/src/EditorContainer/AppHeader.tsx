@@ -1,23 +1,27 @@
 import { AppTour } from "../AppTour";
 import SvgShinyLogo from "../components/Icons/ShinyLogo";
 import { UndoRedoButtons } from "../components/UndoRedoButtons/UndoRedoButtons";
-import { useRuntimeType } from "../state/runtimeInfo";
+import { useInTemplateChooserMode } from "../state/useInTemplateChooserMode";
 
 import { OpenSideBySideWindowButton } from "./OpenSideBySideWindowButton";
 
 export function AppHeader() {
-  const runtimeType = useRuntimeType();
+  const inTemplateChooserMode = useInTemplateChooserMode();
 
   return (
     <header>
       <SvgShinyLogo className="shiny-logo" />
       <h1 className="app-title">Shiny UI Editor</h1>
-
       <div className="right">
-        {runtimeType === "VSCODE" ? <OpenSideBySideWindowButton /> : null}
-        <AppTour />
+        {!inTemplateChooserMode ? (
+          <>
+            <OpenSideBySideWindowButton />
+            <AppTour />
+          </>
+        ) : null}
         <div className="divider" />
         <UndoRedoButtons />
+        <div className="spacer last" />
       </div>
     </header>
   );
