@@ -5,15 +5,15 @@ library(plotly)
 
 ui <- grid_page(
   layout = c(
-    "header  header   header  ",
-    "sidebar bluePlot bluePlot",
+    "sidebar sidebar  sidebar ",
+    "header  bluePlot bluePlot",
     "table   table    plotly  ",
     "table   table    plotly  "
   ),
   row_sizes = c(
-    "170px",
-    "1fr",
-    "1fr",
+    "40px",
+    "1.26fr",
+    "0.74fr",
     "1fr"
   ),
   col_sizes = c(

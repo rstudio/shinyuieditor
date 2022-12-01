@@ -1,5 +1,3 @@
-import path from "path";
-
 import * as vscode from "vscode";
 
 import { getFreePort } from "../getFreePort";
@@ -29,7 +27,6 @@ export function startPreviewApp({
   onLogs: (logs: string[]) => void;
 }): PreviewAppInfo {
   const host = "0.0.0.0";
-  const appDir = path.parse(pathToApp).dir;
 
   let appProcess: RProcess | null = null;
 
@@ -53,7 +50,7 @@ export function startPreviewApp({
 
       const appStartupCommand = collapseText(
         `options(shiny.autoreload = TRUE)`,
-        `shiny::runApp(appDir = "${appDir}", port = ${port}, host = "${host}")`
+        `shiny::runApp(appDir = "${pathToApp}", port = ${port}, host = "${host}")`
       );
 
       appProcess = await startRProcess(

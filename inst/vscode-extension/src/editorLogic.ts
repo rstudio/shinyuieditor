@@ -25,7 +25,6 @@ export function editorLogic({
   document: vscode.TextDocument;
   sendMessage: (msg: MessageFromBackend) => Thenable<boolean>;
 }) {
-  console.log("Starting up main editor logic function!");
   let hasInitialized: boolean = false;
 
   let latestAppWrite: string | null = null;

@@ -11,7 +11,7 @@ ui <- grid_page(
     "table   table    plotly  "
   ),
   row_sizes = c(
-    "155px",
+    "220px",
     "1fr",
     "1fr",
     "1fr"
@@ -45,7 +45,7 @@ ui <- grid_page(
   ),
   grid_card_text(
     area = "header",
-    content = "Geysers!",
+    content = "Other App",
     alignment = "start",
     is_title = FALSE
   ),
