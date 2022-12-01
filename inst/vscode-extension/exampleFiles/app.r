@@ -11,13 +11,13 @@ ui <- grid_page(
     "table   table    plotly  "
   ),
   row_sizes = c(
-    "100px",
+    "170px",
     "1fr",
     "1fr",
     "1fr"
   ),
   col_sizes = c(
-    "250px",
+    "370px",
     "0.59fr",
     "1.41fr"
   ),
