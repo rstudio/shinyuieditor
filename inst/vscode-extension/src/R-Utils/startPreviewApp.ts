@@ -2,9 +2,9 @@ import path from "path";
 
 import * as vscode from "vscode";
 
+import { getFreePort } from "../getFreePort";
 import { collapseText } from "../string-utils";
 
-import { getFreePort } from "./getFreePort";
 import type { RProcess } from "./startRProcess";
 import { startRProcess } from "./startRProcess";
 
