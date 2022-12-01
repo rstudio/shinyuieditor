@@ -29,6 +29,7 @@ export async function runRCommand(
   let seenNonEmptyOutput = false;
   let seenStartSignal = false;
   const lines: string[] = [];
+
   return new Promise<string[]>((resolve) => {
     function listenForOutput(d: any) {
       const outputString = d.toString();
@@ -56,7 +57,7 @@ export async function runRCommand(
           clearTimeout(startTimeout);
           resolve(lines);
           logger("Output finished");
-          rProc.stdout.off("data", listenForOutput);
+          cleanup();
           break;
         }
 
@@ -66,12 +67,21 @@ export async function runRCommand(
         lines.push(l);
       }
     }
-    rProc.stdout.on("data", listenForOutput);
-    rProc.stderr.on("data", (d) => {
+
+    function listenForStderrOutput(d: any) {
       logger("stderr: " + d.toString());
-    });
+    }
+
+    function cleanup() {
+      rProc.stdout.off("data", listenForOutput);
+      rProc.stderr.off("data", listenForStderrOutput);
+    }
+
+    rProc.stdout.on("data", listenForOutput);
+    rProc.stderr.on("data", listenForStderrOutput);
 
     const startTimeout = setTimeout(() => {
+      cleanup();
       throw new Error(
         `Timeout, no response from run command within ${timeout_ms}ms: ${cmd}\n Logs:\n ${logs}`
       );

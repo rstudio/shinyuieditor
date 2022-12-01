@@ -31,55 +31,7 @@ export async function startRProcess(
     const controller = new AbortController();
     const { signal } = controller;
 
-    const eventLog = (msg: string) =>
-      opts.verbose
-        ? // eslint-disable-next-line no-console
-          console.log(
-            `%c[RProc ${spawnedProcess.pid}] %c${msg
-              .replaceAll(/\n$/g, "")
-              .replaceAll(/\n/g, "\n\u2219\u2219\u2219 ")}`,
-            "color: orangered;",
-            "color: grey; opacity: 0.5"
-          )
-        : null;
-
     const spawnedProcess = spawn(pathToR, commands, { signal });
-
-    function gatherLogs(type: "error" | "out", logMsg: string) {
-      logs += `${type}: ${logMsg}`;
-    }
-
-    const onSpawn = () => {
-      eventLog(`spawned`);
-      clearTimeout(startTimeout);
-      resolve({ proc: spawnedProcess, stop });
-    };
-
-    const onError = (d: Error) => {
-      eventLog(`Error: \n${d.toString()}`);
-      clearTimeout(startTimeout);
-      opts.onError?.(d);
-    };
-
-    const onClose = () => {
-      eventLog(`Closed`);
-      clearTimeout(startTimeout);
-      opts.onClose?.();
-    };
-
-    const onStdout = (d: any) => {
-      const msg = d.toString();
-      eventLog(`stdout: \n${msg}`);
-      gatherLogs("out", msg);
-      opts.onStdout?.(msg);
-    };
-
-    const onStderr = (d: any) => {
-      const msg = d.toString();
-      eventLog(`stderr: ${msg}`);
-      gatherLogs("error", msg);
-      opts.onStderr?.(msg);
-    };
 
     spawnedProcess.on("spawn", onSpawn);
     spawnedProcess.on("error", onError);
@@ -87,7 +39,67 @@ export async function startRProcess(
     spawnedProcess.stdout.on("data", onStdout);
     spawnedProcess.stderr.on("data", onStderr);
 
-    const stop = () => {
+    function gatherLogs(type: "error" | "out", logMsg: string) {
+      logs += `${type}: ${logMsg}`;
+    }
+
+    function eventLog(msg: string) {
+      if (!opts.verbose) return;
+
+      // eslint-disable-next-line no-console
+      console.log(
+        `%c[RProc ${spawnedProcess.pid}] %c${msg
+          .replaceAll(/\n$/g, "")
+          .replaceAll(/\n/g, "\n\u2219\u2219\u2219 ")}`,
+        "color: orangered;",
+        "color: grey; opacity: 0.5"
+      );
+    }
+
+    function onSpawn() {
+      eventLog(`spawned`);
+      clearTimeout(startTimeout);
+      resolve({ proc: spawnedProcess, stop });
+    }
+
+    function onError(d: Error) {
+      eventLog(`Error: \n${d.toString()}`);
+      clearTimeout(startTimeout);
+      opts.onError?.(d);
+    }
+
+    function onClose() {
+      eventLog(`Closed`);
+      clearTimeout(startTimeout);
+      opts.onClose?.();
+    }
+
+    function onStdout(d: any) {
+      const msg = d.toString();
+      eventLog(`stdout: \n${msg}`);
+      gatherLogs("out", msg);
+      opts.onStdout?.(msg);
+    }
+
+    function onStderr(d: any) {
+      const msg = d.toString();
+      eventLog(`stderr: ${msg}`);
+      gatherLogs("error", msg);
+      opts.onStderr?.(msg);
+    }
+
+    function cleanupListeners() {
+      // Unlisten event listeners
+      spawnedProcess.off("spawn", onSpawn);
+      spawnedProcess.off("error", onError);
+      spawnedProcess.off("close", onClose);
+      spawnedProcess.stdout.off("data", onStdout);
+      spawnedProcess.stderr.off("data", onStderr);
+    }
+
+    function stop() {
+      cleanupListeners();
+
       // Process is not active
       if (!spawnedProcess.pid || !spawnedProcess.connected) {
         return true;
@@ -95,18 +107,13 @@ export async function startRProcess(
 
       eventLog(`Killing R process ${spawnedProcess.pid}`);
 
-      // Unlisten event listeners
-      spawnedProcess.off("spawn", onSpawn);
-      spawnedProcess.off("error", onError);
-      spawnedProcess.off("close", onClose);
-      spawnedProcess.stdout.off("data", onStdout);
-      spawnedProcess.stderr.off("data", onStderr);
-
       return process.kill(spawnedProcess.pid);
-    };
+    }
+
     // Start a timeout to call off the test if we fail to detect the server
     // startup message. This could happen if the log format is changed etc.
     const startTimeout = setTimeout(() => {
+      stop();
       throw new Error("Starting backend server failed.\n Logs:\n" + logs);
     }, opts.timeout_ms ?? 5000);
   });
