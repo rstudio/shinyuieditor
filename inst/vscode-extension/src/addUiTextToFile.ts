@@ -1,5 +1,6 @@
 import * as vscode from "vscode";
 
+import { uiBoundsToSelection } from "./extension-api-utils/uiBoundsToSelection";
 import type { ParsedApp } from "./R-Utils/parseAppFile";
 
 export async function addUiTextToFile({
@@ -17,7 +18,7 @@ export async function addUiTextToFile({
   const edit = new vscode.WorkspaceEdit();
 
   if (type === "replace") {
-    const uiRange = new vscode.Range(uiBounds.start - 1, 0, uiBounds.end, 0);
+    const uiRange = uiBoundsToSelection(uiBounds);
     edit.replace(uri, uiRange, text);
   }
 

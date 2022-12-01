@@ -5,7 +5,8 @@ import * as vscode from "vscode";
 
 import { addUiTextToFile } from "./addUiTextToFile";
 import { clearAppFile } from "./clearAppFile";
-import { openCodeCompanion } from "./openCodeCompanion";
+import { openCodeCompanionEditor } from "./extension-api-utils/openCodeCompanionEditor";
+import { selectLinesInEditor } from "./extension-api-utils/selectLinesInEditor";
 import { checkIfPkgAvailable } from "./R-Utils/checkIfPkgAvailable";
 import { generateAppTemplate } from "./R-Utils/generateAppTemplate";
 import type { ParsedApp } from "./R-Utils/parseAppFile";
@@ -34,7 +35,7 @@ export function editorLogic({
   /**
    * Plain text editor with apps code side-by-side with custom editor
    */
-  let codeCompanionEditor: vscode.TextEditor | null = null;
+  let codeCompanionEditor: vscode.TextEditor | undefined = undefined;
 
   const syncFileToClientState = async () => {
     const appFileText = document.getText();
@@ -179,14 +180,14 @@ export function editorLogic({
           return;
         }
         case "OPEN-COMPANION-EDITOR": {
-          if (
-            codeCompanionEditor &&
-            vscode.window.visibleTextEditors.includes(codeCompanionEditor)
-          ) {
-            // Avoid opening secondary companion editor
-            return;
+          codeCompanionEditor = await openCodeCompanionEditor({
+            appFile: document,
+            existingEditor: codeCompanionEditor,
+          });
+
+          if (uiBounds) {
+            selectLinesInEditor(uiBounds, codeCompanionEditor);
           }
-          codeCompanionEditor = await openCodeCompanion(document);
 
           return;
         }
