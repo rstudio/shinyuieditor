@@ -58,6 +58,17 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
   }
 
   /**
+   * Open up a new plain text editor view of the given app next to the visual editor
+   * @param appFile document that contains the app file as given by the `this.resolveCustomTextEditor` args
+   * @returns Handle to the text file opened
+   */
+  private async openCodeCompanion(appFile: vscode.TextDocument) {
+    return await vscode.window.showTextDocument(appFile.uri, {
+      viewColumn: vscode.ViewColumn.Beside,
+    });
+  }
+
+  /**
    * Called when an instance of the custom editor is opened.
    *
    * The `document` arg will correspond to the associated app.R or ui.R file for this editor view.
@@ -75,6 +86,11 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
 
     webviewPanel.webview.html = this.getHtmlForWebview(webviewPanel.webview);
     let latestAppWrite: string | null = null;
+
+    /**
+     * Plain text editor with apps code side-by-side with custom editor
+     */
+    let codeCompanionEditor: vscode.TextEditor | null = null;
 
     const syncFileToClientState = async () => {
       if (!this.RProcess) {
@@ -217,6 +233,11 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
         switch (msg.path) {
           case "READY-FOR-STATE":
             syncFileToClientState();
+            // Let client know we're in vscode mode
+            this.sendMessage?.({
+              path: "RUNTIME-TYPE",
+              payload: "VSCODE",
+            });
             return;
 
           case "TEMPLATE-SELECTION": {
@@ -255,6 +276,18 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
           case "ENTERED-TEMPLATE-SELECTOR": {
             previewAppInfo.stop();
             this.clearAppFile(document);
+            return;
+          }
+          case "OPEN-COMPANION-EDITOR": {
+            if (
+              codeCompanionEditor &&
+              vscode.window.visibleTextEditors.includes(codeCompanionEditor)
+            ) {
+              // Avoid opening secondary companion editor
+              return;
+            }
+            codeCompanionEditor = await this.openCodeCompanion(document);
+
             return;
           }
           default:
