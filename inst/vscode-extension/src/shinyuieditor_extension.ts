@@ -126,12 +126,6 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
           throw new Error(pkgsLoaded.msg);
         }
 
-        // Let client know we're in vscode mode
-        this.sendMessage?.({
-          path: "RUNTIME-TYPE",
-          payload: "VSCODE",
-        });
-
         this.hasInitialized = true;
       }
 
@@ -239,6 +233,11 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
         switch (msg.path) {
           case "READY-FOR-STATE":
             syncFileToClientState();
+            // Let client know we're in vscode mode
+            this.sendMessage?.({
+              path: "RUNTIME-TYPE",
+              payload: "VSCODE",
+            });
             return;
 
           case "TEMPLATE-SELECTION": {
