@@ -11,17 +11,20 @@ export function OpenSideBySideWindowButton() {
   if (mode !== "VSCODE") return null;
 
   return (
-    <TooltipButton
-      text="Open app code next to editor"
-      onClick={() => {
-        sendMsg({
-          path: "OPEN-COMPANION-EDITOR",
-          payload: "BESIDE",
-        });
-      }}
-      className="OpenSideBySideWindowButton"
-    >
-      <FaCode />
-    </TooltipButton>
+    <>
+      <TooltipButton
+        text="Open app code next to editor"
+        onClick={() => {
+          sendMsg({
+            path: "OPEN-COMPANION-EDITOR",
+            payload: "BESIDE",
+          });
+        }}
+        className="OpenSideBySideWindowButton"
+      >
+        <FaCode />
+      </TooltipButton>
+      <div className="divider" />
+    </>
   );
 }

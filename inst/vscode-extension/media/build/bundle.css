@@ -11386,6 +11386,10 @@ input {
   color: var(--icon-color);
   margin-inline: 7px;
 }
+.EditorContainer header .OpenSideBySideWindowButton + .divider {
+  margin-inline-end: 3px;
+  margin-inline-start: 6px;
+}
 .EditorContainer .EditorSkeleton {
   height: calc(100% - var(--header-height));
 }

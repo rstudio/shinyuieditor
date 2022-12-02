@@ -68,6 +68,12 @@
       font-size: 18px;
       color: var(--icon-color);
       margin-inline: 7px;
+
+      // Divider next to it needs some slightly different margins from other divider
+      & + .divider {
+        margin-inline-end: 3px;
+        margin-inline-start: 6px;
+      }
     }
   }
 
