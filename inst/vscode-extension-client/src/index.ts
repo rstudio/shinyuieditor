@@ -1,7 +1,4 @@
-import type {
-  BackendConnection,
-  MessageFromBackend,
-} from "communication-types";
+import type { BackendConnection, MessageToClient } from "communication-types";
 import { isMessageFromBackend } from "communication-types";
 import type { MessageDispatcher } from "communication-types/src/messageDispatcher";
 import { makeMessageDispatcher } from "communication-types/src/messageDispatcher";
@@ -35,7 +32,7 @@ function setupVSCodeBackend({
   // eslint-disable-next-line no-console
   const logger = showMessages ? console.log : (...args: any[]) => {};
 
-  const dispatchMessageToClient = (msg: MessageFromBackend) => {
+  const dispatchMessageToClient = (msg: MessageToClient) => {
     logger("VSCode backend msg:", msg);
     const { path, payload } = msg;
     messageDispatch.dispatch(path, payload);

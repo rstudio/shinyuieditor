@@ -61,9 +61,10 @@
     "dev": "tsx scripts/build.ts",
     "watch": "tsx scripts/build.ts --watch",
     "prod": "tsx scripts/build.ts --prod",
-    "vscode:prepublish": "yarn build",
+    "vscode:prepublish": "yarn prod",
     "lint": "eslint \"src/**/*.ts\"",
-    "type-check": "tsc -p ./ --noEmit"
+    "type-check": "tsc -p ./ --noEmit",
+    "build-extension": "vsce package"
   },
   "devDependencies": {
     "@types/node": "^16.11.7",
@@ -71,10 +72,11 @@
     "@types/winreg": "^1.2.31",
     "@typescript-eslint/eslint-plugin": "^5.42.0",
     "@typescript-eslint/parser": "^5.42.0",
+    "@vscode/vsce": "latest",
     "build-utils": "*",
     "eslint": "^8.26.0",
     "tsx": "^3.12.1",
-    "typescript": "latest"
+    "typescript": "^4.9.3"
   },
   "dependencies": {
     "communication-types": "*",

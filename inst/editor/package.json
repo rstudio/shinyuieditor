@@ -26,7 +26,7 @@
     "sortablejs": "^1.15.0",
     "ts-pattern": "^4.0.5",
     "tsconfig": "*",
-    "typescript": "latest",
+    "typescript": "^4.9.3",
     "yarn": "^1.22.19"
   },
   "devDependencies": {
