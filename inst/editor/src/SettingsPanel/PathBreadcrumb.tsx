@@ -1,7 +1,6 @@
-import { getNode } from "../components/UiNode/TreeManipulation/getNode";
 import type { ShinyUiNode } from "../main";
 import type { NodePath } from "../Shiny-Ui-Elements/uiNodeTypes";
-import { shinyUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
+import { getNamedPath } from "../state/getNamedPath";
 
 import classes from "./PathBreadcrumb.module.css";
 
@@ -14,18 +13,8 @@ export default function PathBreadcrumb({
   path: NodePath;
   onSelect: (selectedPath: NodePath) => void;
 }) {
+  const pathString = getNamedPath(path, tree);
   const totalDepth = path.length;
-  let pathString: string[] = [];
-  for (let depth = 0; depth <= totalDepth; depth++) {
-    const nodeAtDepth = getNode(tree, path.slice(0, depth));
-    if (nodeAtDepth === undefined) {
-      // If the selection is not valid (node probably just got moved) then don't
-      // render breadcrumb
-      return null;
-    }
-
-    pathString.push(shinyUiNodeInfo[nodeAtDepth.uiName].title);
-  }
 
   return (
     <div className={classes.container} aria-label="Path to selected node">

@@ -69,6 +69,7 @@ export type ParsedAppInfo = {
 type MessageToBackendByPath = {
   "READY-FOR-STATE": null;
   "UPDATED-TREE": ShinyUiNode;
+  "NODE-SELECTION": string[];
   "ENTERED-TEMPLATE-SELECTOR": null;
   "TEMPLATE-SELECTION": TemplateSelection;
   "APP-PREVIEW-REQUEST": null;

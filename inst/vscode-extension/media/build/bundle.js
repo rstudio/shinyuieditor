@@ -27377,17 +27377,17 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     },
     mode: "HTTPUV"
   };
-  var BackendCallbacksContext = import_react.default.createContext(dummyMessagePassers);
-  function BackendCallbacksProvider({
+  var BackendConnectionContext = import_react.default.createContext(dummyMessagePassers);
+  function BackendConnectionProvider({
     children,
     sendMsg,
     incomingMsgs,
     mode
   }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BackendCallbacksContext.Provider, { value: { sendMsg, incomingMsgs, mode }, children });
+    return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BackendConnectionContext.Provider, { value: { sendMsg, incomingMsgs, mode }, children });
   }
-  function useBackendCallbacks() {
-    return import_react.default.useContext(BackendCallbacksContext);
+  function useBackendConnection() {
+    return import_react.default.useContext(BackendConnectionContext);
   }
 
   // ../editor/src/backendCommunication/useSyncUiWithBackend.tsx
@@ -27703,8 +27703,606 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   initializeConnect(import_shim.useSyncExternalStore);
   setBatch(import_react_dom.unstable_batchedUpdates);
 
+  // ../editor/src/components/UiNode/TreeManipulation/checkIfContainerNode.ts
+  function checkIfContainerNode(node) {
+    return node.uiChildren !== void 0;
+  }
+
+  // ../editor/src/components/UiNode/TreeManipulation/getNode.ts
+  function getNode(tree, path3) {
+    let currNode = tree;
+    let currPath;
+    for (currPath of path3) {
+      if (!checkIfContainerNode(currNode)) {
+        throw new Error("Somehow trying to enter a leaf node");
+      }
+      currNode = currNode.uiChildren[currPath];
+    }
+    return currNode;
+  }
+
+  // ../editor/src/assets/icons/shinyTable.png
+  var shinyTable_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAEAElEQVR4nO3dvW4cVRyG8ceIj4KUcAfbIKIAFlIqXwEIylUiKmwp0KO5iK3S8SEnNAhrSxBwA25CEQckojTTcgchUkyxFDMLloVWLN53Z/6r59eMHU9W51jPnpXmyDN7i8UCadNeGHoA2k2GpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqUIw1KEYSnCsBRhWIowLEUYliIMSxGGpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqUIw1KEYSnCsBRhWIowLEUYliIMSxGGpYgXhx7Aupp5e/mf9oFbwAHwJnBt22PasKfAY+AUOAHOLv5wNp0MMaa1VV+xjoGHwGfATepHBd0cbtLN6SFwXCWmi8qtWBd8B3wAnANf0L27f5tNJ0//y3/uV77lk9b3AuP7+7XXCaOZt9eA63Sr8CfAYTNvXwc+3PgIg6qGdUwX1e/A+7Pp5Jdhh7M5/RvjAfCgmbdfAz/QzfUecDjk2NZR8aPwHbpf8Dk7FtVl/dzeA54DH9PNvYSKYd3uj1/uclRLs+nkV+Cr/tvbq84dk4phHfTHbwcdxXYt53qw8qwRqRjWfn88W3nWbnnUH/0oDHoJYDadnA89kG2ZTSfP+y9fHnQga6gYlgowLEUYliKqXiD9tz3D0ao01k0pGxb/bJmM7bW2+dqj5UehIiqvWJvYON7KJvSGX68EVyxFGJYiDEsRhqUIw1KEYSnCsBRhWIqofIHULZ0Rc8VSROUVyy2dEXPFUoRhKcKwFGFYijAsRRiWIgxLEYaliMoXSN3SGTFXLEVUXrHc0hmxsmFd9Yav2/zr5E3cnLbaX1P7UagIw1KEYSmiYlh/AjTztszd7a6qv/c7dE+tKKFiWMt7j+6vPGu3XO+PjwcdxRoqhnXaH28NOortWs71dOVZI1IxrJP+eKeZt28NOpItaObtDeBO/+3JqnPHpGJYZ8B94BXgx2bevj3scHL6N85PdHO9T6FbkFe9QHoIvEb3jJmfm3n7OfAN8GQ2nfwx6MiuqJm3rwJvAB8Bn9Ldgvt7Cj1HB2BvsSi1U3D5CvQxxX7h/8O92XRytJx3lUfMVfwovOgIeBe4S/dsv2eDjmYzntHN5S7d3I6qbedAwRVLNVRfsTRShqUIw1KEYSnCsBRhWIowLEUYliIMSxGGpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqUIw1KEYSnCsBRhWIowLEUYliIMSxGGpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYi/gL6TZmwrBJftQAAAABJRU5ErkJggg==";
+
+  // ../editor/src/utils/array-helpers.ts
+  var seqArray = (length, opts) => {
+    return Array.from({ length }, (_2, i2) => i2);
+  };
+  var buildRange = (from, to) => {
+    const numEls = Math.abs(to - from) + 1;
+    const step = from < to ? 1 : -1;
+    return Array.from({ length: numEls }, (_2, i2) => from + i2 * step);
+  };
+  function arrayRange(arr) {
+    let minVal = Infinity;
+    let maxVal = -Infinity;
+    for (let el of arr) {
+      if (el < minVal)
+        minVal = el;
+      if (el > maxVal)
+        maxVal = el;
+    }
+    const span = maxVal - minVal;
+    const numEls = Array.isArray(arr) ? arr.length : arr.size;
+    return { minVal, maxVal, span, isSequence: span === numEls - 1 };
+  }
+  function fillArr(val, length) {
+    return [...new Array(length)].fill(val);
+  }
+  function inANotInB(A3, B2) {
+    return A3.filter((x2) => !B2.includes(x2));
+  }
+  function removeAtIndex(arr, index2) {
+    return [...arr.slice(0, index2), ...arr.slice(index2 + 1)];
+  }
+  function addAtIndex(arr, index2, val) {
+    if (index2 < 0) {
+      throw new Error("Can't add item at a negative index");
+    }
+    const newArr = [...arr];
+    if (index2 > newArr.length - 1) {
+      newArr.length = index2;
+    }
+    newArr.splice(index2, 0, val);
+    return newArr;
+  }
+  function moveElement(arr, fromIndex, toIndex) {
+    if (toIndex < 0) {
+      throw new Error("Can't add item at a negative index");
+    }
+    if (fromIndex < 0 || fromIndex > arr.length) {
+      throw new Error("Requested to move an element that is not in array");
+    }
+    let newArr = [...arr];
+    const movedElement = newArr[fromIndex];
+    newArr[fromIndex] = void 0;
+    newArr = addAtIndex(newArr, toIndex, movedElement);
+    return newArr.filter((el) => typeof el !== "undefined");
+  }
+  function joinPretty(arr, sep = ", ", finalSep = " and ") {
+    const n3 = arr.length;
+    if (n3 === 1)
+      return arr[0];
+    const lastItem = arr[n3 - 1];
+    return [...arr].splice(0, n3 - 1).join(sep) + finalSep + lastItem;
+  }
+  function removeDuplicates(arr) {
+    return [...new Set(arr)];
+  }
+  function ensureArray(x2) {
+    if (Array.isArray(x2))
+      return x2;
+    return [x2];
+  }
+
+  // ../editor/src/Shiny-Ui-Elements/InputOutputTitle.tsx
+  var import_jsx_runtime2 = __toESM(require_jsx_runtime());
+  var InputOutputTitle = ({
+    type,
+    name,
+    className
+  }) => {
+    return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("code", { className, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { style: { opacity: 0.55 }, children: [
+        type,
+        "$"
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { children: name })
+    ] });
+  };
+
+  // ../editor/src/Shiny-Ui-Elements/DtDtOutput/DtOutput.tsx
+  var import_jsx_runtime3 = __toESM(require_jsx_runtime());
+  var NUM_COLS = 4;
+  var NUM_ROWS = 25;
+  var table_cells = seqArray(NUM_ROWS).map((i2) => /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "faux-row", children: seqArray(NUM_COLS).map((i3) => /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "faux-cell", children: "i" }, i3)) }, i2));
+  var DtDTOutput = ({
+    uiArguments,
+    path: path3,
+    wrapperProps
+  }) => {
+    return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "dtDTOutput", ...wrapperProps, children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
+      "div",
+      {
+        className: "faux-table",
+        style: {
+          "--table-w": uiArguments.width,
+          "--table-h": uiArguments.height
+        },
+        children: [
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "faux-header", children: [
+            "Table: ",
+            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(InputOutputTitle, { type: "output", name: uiArguments.outputId })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "faux-table-body", children: table_cells })
+        ]
+      }
+    ) });
+  };
+  var DtOutput_default = DtDTOutput;
+
+  // ../editor/src/Shiny-Ui-Elements/DtDtOutput/index.tsx
+  var dtDTOutputInfo = {
+    title: "DT Table",
+    UiComponent: DtOutput_default,
+    settingsInfo: {
+      outputId: {
+        inputType: "string",
+        label: "Output ID",
+        defaultValue: "myTable"
+      },
+      width: {
+        inputType: "cssMeasure",
+        label: "Width",
+        defaultValue: "100%",
+        units: ["%", "px", "rem"],
+        optional: true,
+        useDefaultIfOptional: true
+      },
+      height: {
+        label: "Height",
+        inputType: "cssMeasure",
+        defaultValue: "auto",
+        optional: true
+      }
+    },
+    acceptsChildren: true,
+    iconSrc: shinyTable_default,
+    category: "Outputs",
+    description: `\`DataTable\` table output`
+  };
+
+  // ../editor/src/assets/icons/shinyContainer.png
+  var shinyContainer_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAEO0lEQVR4nO3dsYqcVRiH8WeNrkXMDRgLixRWRjSiXoMWG0iUXIGNsii4wRsQTApD0EIvQBCJ2RD0GqIoRjthC4vsHaRxRcbi7MDk28kMgv+c92SfH2zxfbPFmZcnZ06+LWZjNpsh/d+e6L0APZ4MSxGGpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqUIw1KEYSnCsBRhWIowLEUYliIMSxGGpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqWIJ3svYJ2db/aW3d4Etg5/3gCePby3Mfm96RcFjfj6feAe8CtwE7gFHEx+jyvvnJne6qp8WEucB64AtSaZ8wzwwuHPJWAPuAx813NR64z0UXgC+JQ20OMS1TJngBu0WZzovJaHGmnH+gTY6b2IQuazuNx1FQ8xyo51gaNRHQDXaWesUxw9n3B4b/FnxNdP0d7jdY6erXZosylnhLA2gc8m9/aB14Bt4A7tgPu4uk97j9u097w/ef0abUaljBDWReC5hesD4C3gbpfV9HUXeBP4a+HeaeDtLqtZYYSwtibXX3I8o5r7Dfhqcm+rwzpWGiGsVyfXX3dZRS3TGZzrsooVRvhf4fOT63LniQ7usPywX8YIO9bUkafOqmfEsDQAw1LECGesdX+oPa5Kz8UdSxGGpQjDUsQIZ6xSZ4dCSs/FHUsRhqUIw1LECGes0s9rOio9F3csRRiWIgxLESOcsUqdHQopPRd3LEUYliIMSxEjnLFKP6/pqPRc3LEUYViKMCxFjHDGKnV2KKT0XNyxFGFYijAsRYxwxir9vKaj0nNxx1KEYSnCsBQxwhmr1NmhkNJzccdShGEpwrAUMcIZq/Tzmo5Kz8UdSxGGpQjDUsQIZ6xSZ4dCSs/FHUsRhqWIEcPyK08GMEJYf9Ce2cx/Xu67nBJe58GZ/Nl1NUuMENbvk+tLXVZRy3QGP3dZxQojhLU7uX4XONthHVW8SJvBot0O61hphLC+Be4tXD8NfA+81GU1fZ0FfqDNYG6fNqNSRgjrAPhwcu808CPt+5DPAScf8ZoepZO093gN+In23hd9wINf5VvCCA9Iof2LvAp8tHBvk/YF3NsL96YPDdf9oXa016euUnC3gjF2rLmPgc97L6KQL2gzKWmksP4B3gcuAHud19LTHnAReI82k5JG+ShcdAO4TRvueeAV2rnjqZ6LCvqbdkD/BbhJ++gr//XFG7PZuo9x6b8b6aNQAzEsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqUIw1KEYSnCsBRhWIowLEUYliIMSxGGpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqUIw1KEYSnCsBRhWIowLEUYliL+BXaHdHGUC5uqAAAAAElFTkSuQmCC";
+
+  // ../editor/src/Shiny-Ui-Elements/GridlayoutGridCard/GridlayoutGridCard.tsx
+  var import_react20 = __toESM(require_react());
+
+  // ../editor/src/assets/icons/alignItem.png
+  var alignItem_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAYAAADFw8lbAAAACXBIWXMAABYlAAAWJQFJUiTwAAABq0lEQVRYhe2YsU7DMBCGvyDUDToxsuUREN27gUACBpZuvAMFXgBBH4KtCwMggWDrDuIRujIxAVuXMMRIbuU09vlKiMgnRYniO/uv4zv7mmRZRh1YDjHuX4+Lmsp+beJ6OThMvcde8rasmEaoNo1QbSRCL8mj3L7KmLUfhA4qEXoKDAV+PwyBk1AnidAMOAJGAt+R8Q3eZaRrdAIcAC8BPq/GZyIZMCaYPoAdoHC7shgD28ZHRGzUvwNb5h5jU4pGehoDu8Cno+3LtPnM+ly08ugzsM/0+psAe6YtGs2Eb0d0TGZwEnTM82AIrFvPamgLBbhYQJ/12esTVyky5yT/a8ye/os+/V8opKbKl9p8+qIZdRZjVeJco0Vor92mCvXkGOhrd6qd8HvkpQrAG4q7k+aMdoEr8kBMzHNXq3MtoRvADdCy3rXMu02NATSEpsAj0Ha0tYEHYxNFrNA14MncY2xKiRG6AtzjN1upsV2VDiYV2gLugE6ATwe4ZXodeyMRGhPRdmYIQiL0nDxfSumZPoKQJPwzc9mI/nEO4V/v9QuhEapNbYQGnfCr5BtYaFWUrHRSSwAAAABJRU5ErkJggg==";
+
+  // ../editor/src/assets/icons/alignItemBottom.png
+  var alignItemBottom_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAYAAADFw8lbAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAiElEQVRYhe3YwQmAIBhA4YxGaaZGaYhGaaZ2sauCB8MX9cP7bnaIxx9imHLOUwTz1wG9DKWFCV1aD/fzKpdPdlsaqikc21qtw0zUUJqhNENphtLChDaP0BcMH8NhJmoozVCaoTRDaYbSDKUZSuv5HyWuaYbfEX6if7iGrr5CmIkm7/BhhtIMpd2GuAxXhhY/aAAAAABJRU5ErkJggg==";
+
+  // ../editor/src/assets/icons/alignItemTop.png
+  var alignItemTop_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAYAAADFw8lbAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAhUlEQVRYhe3ZwQmAMBAAwZxYijVZikVYijXZS/zmoRDJQjjY+ZlHWE6RiFFrLRksswN6GUozlLa+LR7XPf1VcO5btNe5J1pKiY/1adJPtPXnef26E8N7pJmooTRDaYbSDKUZSjOUZiit5zxKGP5iSDNRQ2mG0gylGUpLExr+bIAZSksT+gD98QxXbjF/TQAAAABJRU5ErkJggg==";
+
+  // ../editor/src/assets/icons/alignTextCenter.png
+  var alignTextCenter_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAYAAADFw8lbAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAgklEQVRYhe3Y0QmAIBRA0Wc0SjM1SkM0SjO1i00gGl2MB/f+2sfhQSqWWmtkaPkbMJpQOqF0aaBr74PjuqftX+e+ldZamokKpRNKJ5ROKF0aaPcIjYjmsTazNBMVSieUbuSvb/XlQv16J0kzUaF0QumE0gmlSwMtPo3DCaUTSpcG+gDcmgtUpwOm6gAAAABJRU5ErkJggg==";
+
+  // ../editor/src/assets/icons/alignTextLeft.png
+  var alignTextLeft_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAYAAADFw8lbAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAjElEQVRYhe3ZwQmAMBBEUVcsxZosxSIsxZrsJZ4UIQYUh5WB/456+awhCRillM5B/3fAU4SqDa0X87odizeSWk7LNFbPbCZqE9r89Dcy97FqudlMlFA1QtUIVSNUzSb0zRGafou6spkooWqEqmVenD/tGjYTJVSNUDVC1QhVswnl4qwW/GwQI1TNJnQHKA8MWeSBgoAAAAAASUVORK5CYII=";
+
+  // ../editor/src/assets/icons/alignTextRight.png
+  var alignTextRight_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAYAAADFw8lbAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAkklEQVRYhe3ZwQmAMAyF4UQcxZkcxSEcxZncJV70UmlVfEYevO/ay0+KNKBHhDHo/g64S6Fofe1gWtbMjkOYmc3j4OUBzURpQqtXb/s1JDlddYlmogpFUyiaQtEUikYT2npCL5+1TDQTVSiaQtFaX/0Tb5dsLc7pFIqmUDSFoikUDfWEfr5k00zU9bMBTKFoNKEbp/QMWe71dFoAAAAASUVORK5CYII=";
+
+  // ../editor/src/assets/icons/redo.png
+  var redo_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAoCAYAAAC4h3lxAAAACXBIWXMAAAsTAAALEwEAmpwYAAABA0lEQVRYhe2ZwQ6CMBBEH8Yv9uDNsMabB38ZLxBRkdDtxlmSzqUktDAvs2yb0A3DwJ51UBuoVQNQqwGotXuAY8nk8+3hfc+8Vxtw3brwfjmt3lckYEAf9TBVCRlBEP8G6HiVjxEAoSqhMAhlCYVAFHUh3rtJrWwc+9n15u40Sb0PGJVJlCYwqXOuW5KNoysJdQKTDGcSWQDACZEJABwQ2QDgG2JVGQGgoF1nBCjqRtkAPs3bz5mjMgEUm4c8AC7z4N+JvWeipR3cbR70CVSZh/IEvGegpcSqzYMugRDzoAEIMw/+j9ireSlVmwddCYWYBw1AmHmArv3gEKsBqNUA1No9wBNu3jnWLc/KGQAAAABJRU5ErkJggg==";
+
+  // ../editor/src/assets/icons/tour.png
+  var tour_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAoCAYAAAC4h3lxAAAACXBIWXMAAAsTAAALEwEAmpwYAAADT0lEQVRYhe2ZP2gUURDGf1ELSy/YpUrELt1BLHIpxAtCOO0SBP80woWAiGyxuWZB2eayxYIiSAJpTBPuQARtJNedacTrgk3IWYlWuVR2EouZl907Lwnue8cRyMDj7e3OMvO9mTfzvb2Rw8NDzrJcGLYDtnIOYNhy5gFcyvqiH8anqZSAMjADdIAmUAF+HvdCFHj/7UdmAKdICfiQ+n0FGAfmgJvAjitDg0ihaRLnK8AocA2oA1eBdZfGBhGBeZ1XosBb0esOsOCH8VdgConQRxfGBhGBgs71Ps/MvRlXxgYB4EDnXJ9nEzrvuTI2CABNnat+GB+B8MM4j1SlP8BnV8Zc74ExIK/XeWDPD+M6Eg2zN14D31wZdAlgDHiHbNIOsAK0kbSpqs5L4JlDm84ATCLlcQpoAbNR4HXMQz+M20ANiYqzCgRu9kB65f9xHiAKvDoSlQLSI0oO7AJuIrAOXAcaUeDNnqDXRspoFQHxXe83gQawkcW4bQSmgdvq3AKAH8a5dPVJizY209zGdTwC3gIPszhgC8A0pHoUeB11fIuk3gPgh/EEkkJEgVdBqIUZi6pWzOKALQCz0ibn8zo6fXSLfhgXAaLAa5uBpA9k7M62e8CsdFvnvqmTur/lh3GDboBm5ZtkEFsAvRHo/W3ENLdd+qfKJrCUxQFbAE3gFpIeLZJuW6SbzBmnQ+AX3ZFqcsIh5zSx3QMmf5eBfRJHq8dUojlkk9dSI7PzYA9gm6Q5HZCQtBawmtKrIGl1D3hqabNLXHTibeAuUhILQCcKPNMTlkGqDkm5fAJcdmAXcEunH+jc0nkRKKdKZx1JuetIyjkRVwBKCNMEWANQPpSjO5VMF76Poyi4ADAJvNfriq40fhiXEQATek0UeA0cR8EWgGGiF4E1c4jXtEmvfNpZp1GwBfCGhIkuwhHvqenz50hlOi4KZUv7VgBGgTvoJxMQJorU+RzSXV+ge4LuKJh71l8nbAAc0YbUAaaG8KNPwGO9t0FPFFyKDZXYQxwr6AcrEM6zizj/O6W7hvSIVT+M50m4USYClxZbLrREchYG+II4/6NHz5y2AhK6sQm8srRvDWAHuEGyoq0TdDcQgjejevuWtgEYOf+PbMhyDmDY8hfkuOfRCqd6WwAAAABJRU5ErkJggg==";
+
+  // ../editor/src/assets/icons/undo.png
+  var undo_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAoCAYAAAC4h3lxAAAACXBIWXMAAAsTAAALEwEAmpwYAAABDElEQVRYhe2ZsQ7CMAxEr4gvZmBDXMXGwC+XgVQqERDbCbEr5ZaoalXdq+0kTqdlWbBnHbwN1GoAeGsAeGv3AMdfN8+3h+ZdVwDcXE8GP7hfTqrnW0UgN99NLQDczAP1AFvzM4xpU6MagNw8vz75R1kBQpgHCrPQF0nNW3eJqjTURiDMl1+liYDUvLWQTRGTRiDcl18lAQhrHigDhDYPlAGYxpDmAXkNhG2cSwBzGolXOoWTJIVCQ0hSiAgMIa0BIiiEZiVmGvOpNVfXgtfuhYhgkbDsRpnGUiS6NDfWfoAIEomajowIAFHbExPvEN1X7BanEsTnGuiiVudChBPENH5wOGsAeGsAeGv3AE8yEDlUwXXxqQAAAABJRU5ErkJggg==";
+
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-CDpZsUUmywIl/editor/src/components/Icons/styles.module.css.js
+  var digest = "ff5c34dc01030d88735fb6e0dc5ebc13fdd4fe22379aedbc5c6fd562f5304844";
+  var css = `img._icon_1467k_1 {
+  height: 30px;
+  /* outline: 2px solid green; */
+  display: block;
+}
+`;
+  (function() {
+    if (typeof document === "undefined") {
+      return;
+    }
+    if (!document.getElementById(digest)) {
+      var el = document.createElement("style");
+      el.id = digest;
+      el.textContent = css;
+      document.head.appendChild(el);
+    }
+  })();
+  var styles_module_css_default = { "icon": "_icon_1467k_1" };
+
+  // ../editor/src/components/Icons/PngIcon.tsx
+  var import_jsx_runtime4 = __toESM(require_jsx_runtime());
+  var icons = {
+    undo: undo_default,
+    redo: redo_default,
+    tour: tour_default,
+    alignTop: alignItemTop_default,
+    alignBottom: alignItemBottom_default,
+    alignCenter: alignItem_default,
+    alignSpread: alignTextCenter_default,
+    alignTextCenter: alignTextCenter_default,
+    alignTextLeft: alignTextLeft_default,
+    alignTextRight: alignTextRight_default
+  };
+  function PngIcon({
+    id,
+    alt = id,
+    size
+  }) {
+    return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+      "img",
+      {
+        src: icons[id],
+        alt,
+        className: styles_module_css_default.icon,
+        style: size ? { height: size } : {}
+      }
+    );
+  }
+
+  // ../../node_modules/react-icons/lib/esm/iconBase.js
+  var import_react10 = __toESM(require_react());
+
+  // ../../node_modules/react-icons/lib/esm/iconContext.js
+  var import_react9 = __toESM(require_react());
+  var DefaultContext = {
+    color: void 0,
+    size: void 0,
+    className: void 0,
+    style: void 0,
+    attr: void 0
+  };
+  var IconContext = import_react9.default.createContext && import_react9.default.createContext(DefaultContext);
+
+  // ../../node_modules/react-icons/lib/esm/iconBase.js
+  var __assign = function() {
+    __assign = Object.assign || function(t3) {
+      for (var s2, i2 = 1, n3 = arguments.length; i2 < n3; i2++) {
+        s2 = arguments[i2];
+        for (var p3 in s2)
+          if (Object.prototype.hasOwnProperty.call(s2, p3))
+            t3[p3] = s2[p3];
+      }
+      return t3;
+    };
+    return __assign.apply(this, arguments);
+  };
+  var __rest = function(s2, e2) {
+    var t3 = {};
+    for (var p3 in s2)
+      if (Object.prototype.hasOwnProperty.call(s2, p3) && e2.indexOf(p3) < 0)
+        t3[p3] = s2[p3];
+    if (s2 != null && typeof Object.getOwnPropertySymbols === "function")
+      for (var i2 = 0, p3 = Object.getOwnPropertySymbols(s2); i2 < p3.length; i2++) {
+        if (e2.indexOf(p3[i2]) < 0 && Object.prototype.propertyIsEnumerable.call(s2, p3[i2]))
+          t3[p3[i2]] = s2[p3[i2]];
+      }
+    return t3;
+  };
+  function Tree2Element(tree) {
+    return tree && tree.map(function(node, i2) {
+      return import_react10.default.createElement(node.tag, __assign({
+        key: i2
+      }, node.attr), Tree2Element(node.child));
+    });
+  }
+  function GenIcon(data) {
+    return function(props) {
+      return import_react10.default.createElement(IconBase, __assign({
+        attr: __assign({}, data.attr)
+      }, props), Tree2Element(data.child));
+    };
+  }
+  function IconBase(props) {
+    var elem = function(conf) {
+      var attr = props.attr, size = props.size, title = props.title, svgProps = __rest(props, ["attr", "size", "title"]);
+      var computedSize = size || conf.size || "1em";
+      var className;
+      if (conf.className)
+        className = conf.className;
+      if (props.className)
+        className = (className ? className + " " : "") + props.className;
+      return import_react10.default.createElement("svg", __assign({
+        stroke: "currentColor",
+        fill: "currentColor",
+        strokeWidth: "0"
+      }, conf.attr, attr, svgProps, {
+        className,
+        style: __assign(__assign({
+          color: props.color || conf.color
+        }, conf.style), props.style),
+        height: computedSize,
+        width: computedSize,
+        xmlns: "http://www.w3.org/2000/svg"
+      }), title && import_react10.default.createElement("title", null, title), props.children);
+    };
+    return IconContext !== void 0 ? import_react10.default.createElement(IconContext.Consumer, null, function(conf) {
+      return elem(conf);
+    }) : elem(DefaultContext);
+  }
+
+  // ../../node_modules/react-icons/io/index.esm.js
+  function IoMdInformationCircleOutline(props) {
+    return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 512 512" }, "child": [{ "tag": "path", "attr": { "d": "M256 90c44.3 0 86 17.3 117.4 48.6C404.7 170 422 211.7 422 256s-17.3 86-48.6 117.4C342 404.7 300.3 422 256 422s-86-17.3-117.4-48.6C107.3 342 90 300.3 90 256s17.3-86 48.6-117.4C170 107.3 211.7 90 256 90m0-42C141.1 48 48 141.1 48 256s93.1 208 208 208 208-93.1 208-208S370.9 48 256 48z" } }, { "tag": "path", "attr": { "d": "M277 360h-42V235h42v125zm0-166h-42v-42h42v42z" } }] })(props);
+  }
+
+  // ../editor/src/components/Icons/generated/AlignBottom.tsx
+  var import_jsx_runtime5 = __toESM(require_jsx_runtime());
+
+  // ../editor/src/components/Icons/generated/AlignCenter.tsx
+  var import_jsx_runtime6 = __toESM(require_jsx_runtime());
+
+  // ../editor/src/components/Icons/generated/AlignHCenter.tsx
+  var import_jsx_runtime7 = __toESM(require_jsx_runtime());
+
+  // ../editor/src/components/Icons/generated/AlignHSpread.tsx
+  var import_jsx_runtime8 = __toESM(require_jsx_runtime());
+
+  // ../editor/src/components/Icons/generated/AlignLeft.tsx
+  var import_jsx_runtime9 = __toESM(require_jsx_runtime());
+
+  // ../editor/src/components/Icons/generated/AlignRight.tsx
+  var import_jsx_runtime10 = __toESM(require_jsx_runtime());
+
+  // ../editor/src/components/Icons/generated/AlignSpread.tsx
+  var import_jsx_runtime11 = __toESM(require_jsx_runtime());
+
+  // ../editor/src/components/Icons/generated/AlignTop.tsx
+  var import_jsx_runtime12 = __toESM(require_jsx_runtime());
+
+  // ../editor/src/components/Icons/generated/AlignVCenter.tsx
+  var import_jsx_runtime13 = __toESM(require_jsx_runtime());
+
+  // ../editor/src/components/Icons/generated/AlignVSpread.tsx
+  var import_jsx_runtime14 = __toESM(require_jsx_runtime());
+
+  // ../editor/src/components/Icons/generated/DownSpinnerButton.tsx
+  var import_jsx_runtime15 = __toESM(require_jsx_runtime());
+  var SvgDownSpinnerButton = (props) => /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
+    "svg",
+    {
+      width: "1em",
+      height: "1em",
+      viewBox: "0 0 15 8",
+      fill: "none",
+      xmlns: "http://www.w3.org/2000/svg",
+      ...props,
+      children: /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("path", { d: "M7.38 7.477 14.432.691H.328L7.38 7.477Z", fill: "#75A8DB" })
+    }
+  );
+  var DownSpinnerButton_default = SvgDownSpinnerButton;
+
+  // ../editor/src/components/Icons/generated/Redo.tsx
+  var import_jsx_runtime16 = __toESM(require_jsx_runtime());
+  var SvgRedo = (props) => /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
+    "svg",
+    {
+      xmlns: "http://www.w3.org/2000/svg",
+      fill: "none",
+      viewBox: "0 0 49 40",
+      width: "1em",
+      height: "1em",
+      ...props,
+      children: /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
+        "path",
+        {
+          stroke: "currentColor",
+          strokeWidth: 2,
+          d: "M27.42 8.115h2.074l10.592 11.414v1.052L28.705 32.04H27.4v-5.954H13.328l.105-11.975 13.988-.058V8.115Z"
+        }
+      )
+    }
+  );
+  var Redo_default = SvgRedo;
+
+  // ../editor/src/components/Icons/generated/Trash.tsx
+  var import_jsx_runtime17 = __toESM(require_jsx_runtime());
+  var SvgTrash = (props) => /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)(
+    "svg",
+    {
+      xmlns: "http://www.w3.org/2000/svg",
+      fill: "none",
+      viewBox: "0 0 16 20",
+      width: "1em",
+      height: "1em",
+      ...props,
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
+          "path",
+          {
+            stroke: "currentColor",
+            strokeLinejoin: "round",
+            strokeWidth: 1.5,
+            d: "M0 4h16"
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
+          "path",
+          {
+            stroke: "currentColor",
+            strokeLinejoin: "round",
+            d: "M5.5 6.5 6 16m2-9.5V16m2.5-9.5L10 16"
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
+          "path",
+          {
+            stroke: "currentColor",
+            strokeLinejoin: "round",
+            strokeWidth: 1.5,
+            d: "M5.5 4.5v-2l1.5-1h2l1.5 1v2m-8 0 .5 12 1.5 2h7l1.5-2 .5-12"
+          }
+        )
+      ]
+    }
+  );
+  var Trash_default = SvgTrash;
+
+  // ../editor/src/components/Icons/generated/Undo.tsx
+  var import_jsx_runtime18 = __toESM(require_jsx_runtime());
+  var SvgUndo = (props) => /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
+    "svg",
+    {
+      xmlns: "http://www.w3.org/2000/svg",
+      fill: "none",
+      viewBox: "0 0 44 40",
+      width: "1em",
+      height: "1em",
+      ...props,
+      children: /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
+        "path",
+        {
+          stroke: "currentColor",
+          strokeWidth: 2,
+          d: "M17.08 8.115h-2.074L4.414 19.529v1.052L15.795 32.04H17.1v-5.954h14.072l-.105-11.975-13.988-.058V8.115Z"
+        }
+      )
+    }
+  );
+  var Undo_default = SvgUndo;
+
+  // ../editor/src/components/Icons/generated/UpSpinnerButton.tsx
+  var import_jsx_runtime19 = __toESM(require_jsx_runtime());
+  var SvgUpSpinnerButton = (props) => /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+    "svg",
+    {
+      width: "1em",
+      height: "1em",
+      viewBox: "0 0 15 8",
+      fill: "none",
+      xmlns: "http://www.w3.org/2000/svg",
+      ...props,
+      children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("path", { d: "m7.38.477 7.052 6.786H.328L7.38.477Z", fill: "#75A8DB" })
+    }
+  );
+  var UpSpinnerButton_default = SvgUpSpinnerButton;
+
+  // ../editor/src/components/Icons/index.tsx
+  var Icons_default = PngIcon;
+
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-yGB7fPM4DNn5/editor/src/components/Inputs/Button/Button.module.css.js
+  var digest2 = "7ffebcf52eb50c4713f6b3d49c162d6cbda3d22e5ea44f3abedebca1e9dd7024";
+  var css2 = `._button_1y00r_1 {
+  --background-color: var(--rstudio-white);
+  --text-color: var(--font-color);
+  --outline-color: transparent;
+  --outline-width: 1px;
+
+  padding: 0.5rem 1rem;
+
+  border: var(--outline-width) solid var(--outline-color);
+  background-color: var(--background-color);
+  color: var(--text-color);
+
+  border-radius: var(--corner-radius);
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+._button_1y00r_1:disabled {
+  --text-color: var(--font-color-disabled);
+  cursor: not-allowed;
+}
+
+._regular_1y00r_26 {
+  --outline-color: var(--rstudio-blue);
+}
+
+._delete_1y00r_30 {
+  --outline-color: var(--red);
+}
+
+._icon_1y00r_34 {
+  --outline-width: 0px;
+  display: inline-grid;
+  place-content: center;
+  padding: 8px;
+  aspect-ratio: 1;
+}
+
+._transparent_1y00r_42 {
+  --outline-color: transparent;
+  --background-color: transparent;
+}
+`;
+  (function() {
+    if (typeof document === "undefined") {
+      return;
+    }
+    if (!document.getElementById(digest2)) {
+      var el = document.createElement("style");
+      el.id = digest2;
+      el.textContent = css2;
+      document.head.appendChild(el);
+    }
+  })();
+  var Button_module_css_default = { "button": "_button_1y00r_1", "regular": "_regular_1y00r_26", "delete": "_delete_1y00r_30", "icon": "_icon_1y00r_34", "transparent": "_transparent_1y00r_42" };
+
+  // ../editor/src/components/Inputs/Button/Button.tsx
+  var import_jsx_runtime20 = __toESM(require_jsx_runtime());
+  var Button = ({ children, variant = "regular", className, ...passthroughProps }) => {
+    const variant_classes = variant ? Array.isArray(variant) ? variant.map((v2) => Button_module_css_default[v2]).join(" ") : Button_module_css_default[variant] : "";
+    return /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
+      "button",
+      {
+        className: Button_module_css_default.button + " " + variant_classes + (className ? " " + className : ""),
+        ...passthroughProps,
+        children
+      }
+    );
+  };
+  var Button_default = Button;
+
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-63YSxtj6ASrd/editor/src/components/DeleteNodeButton/styles.module.css.js
+  var digest3 = "739d3e63f3ae136771196bfec8b53a0ac2f8f9e0594adbb13f84e39d67997024";
+  var css3 = `._deleteButton_1en02_1 {
+  color: var(--red);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+._deleteButton_1en02_1 > svg {
+  font-size: 1.5rem;
+}
+`;
+  (function() {
+    if (typeof document === "undefined") {
+      return;
+    }
+    if (!document.getElementById(digest3)) {
+      var el = document.createElement("style");
+      el.id = digest3;
+      el.textContent = css3;
+      document.head.appendChild(el);
+    }
+  })();
+  var styles_module_css_default2 = { "deleteButton": "_deleteButton_1en02_1" };
+
+  // ../editor/src/components/DeleteNodeButton/useDeleteNode.tsx
+  var React7 = __toESM(require_react());
+
   // ../editor/src/state/uiTree.ts
-  var import_react41 = __toESM(require_react());
+  var import_react11 = __toESM(require_react());
 
   // ../../node_modules/immer/dist/immer.esm.mjs
   function n(n3) {
@@ -30117,588 +30715,240 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     return defaultArgs;
   }
 
-  // ../editor/src/assets/icons/shinyTable.png
-  var shinyTable_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAEAElEQVR4nO3dvW4cVRyG8ceIj4KUcAfbIKIAFlIqXwEIylUiKmwp0KO5iK3S8SEnNAhrSxBwA25CEQckojTTcgchUkyxFDMLloVWLN53Z/6r59eMHU9W51jPnpXmyDN7i8UCadNeGHoA2k2GpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqUIw1KEYSnCsBRhWIowLEUYliIMSxGGpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqUIw1KEYSnCsBRhWIowLEUYliIMSxGGpYgXhx7Aupp5e/mf9oFbwAHwJnBt22PasKfAY+AUOAHOLv5wNp0MMaa1VV+xjoGHwGfATepHBd0cbtLN6SFwXCWmi8qtWBd8B3wAnANf0L27f5tNJ0//y3/uV77lk9b3AuP7+7XXCaOZt9eA63Sr8CfAYTNvXwc+3PgIg6qGdUwX1e/A+7Pp5Jdhh7M5/RvjAfCgmbdfAz/QzfUecDjk2NZR8aPwHbpf8Dk7FtVl/dzeA54DH9PNvYSKYd3uj1/uclRLs+nkV+Cr/tvbq84dk4phHfTHbwcdxXYt53qw8qwRqRjWfn88W3nWbnnUH/0oDHoJYDadnA89kG2ZTSfP+y9fHnQga6gYlgowLEUYliKqXiD9tz3D0ao01k0pGxb/bJmM7bW2+dqj5UehIiqvWJvYON7KJvSGX68EVyxFGJYiDEsRhqUIw1KEYSnCsBRhWIqofIHULZ0Rc8VSROUVyy2dEXPFUoRhKcKwFGFYijAsRRiWIgxLEYaliMoXSN3SGTFXLEVUXrHc0hmxsmFd9Yav2/zr5E3cnLbaX1P7UagIw1KEYSmiYlh/AjTztszd7a6qv/c7dE+tKKFiWMt7j+6vPGu3XO+PjwcdxRoqhnXaH28NOortWs71dOVZI1IxrJP+eKeZt28NOpItaObtDeBO/+3JqnPHpGJYZ8B94BXgx2bevj3scHL6N85PdHO9T6FbkFe9QHoIvEb3jJmfm3n7OfAN8GQ2nfwx6MiuqJm3rwJvAB8Bn9Ldgvt7Cj1HB2BvsSi1U3D5CvQxxX7h/8O92XRytJx3lUfMVfwovOgIeBe4S/dsv2eDjmYzntHN5S7d3I6qbedAwRVLNVRfsTRShqUIw1KEYSnCsBRhWIowLEUYliIMSxGGpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqUIw1KEYSnCsBRhWIowLEUYliIMSxGGpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYi/gL6TZmwrBJftQAAAABJRU5ErkJggg==";
-
-  // ../editor/src/utils/array-helpers.ts
-  var seqArray = (length, opts) => {
-    return Array.from({ length }, (_2, i2) => i2);
-  };
-  var buildRange = (from, to) => {
-    const numEls = Math.abs(to - from) + 1;
-    const step = from < to ? 1 : -1;
-    return Array.from({ length: numEls }, (_2, i2) => from + i2 * step);
-  };
-  function arrayRange(arr) {
-    let minVal = Infinity;
-    let maxVal = -Infinity;
-    for (let el of arr) {
-      if (el < minVal)
-        minVal = el;
-      if (el > maxVal)
-        maxVal = el;
-    }
-    const span = maxVal - minVal;
-    const numEls = Array.isArray(arr) ? arr.length : arr.size;
-    return { minVal, maxVal, span, isSequence: span === numEls - 1 };
+  // ../editor/src/components/UiNode/TreeManipulation/getParentPath.ts
+  function getParentPath(path3) {
+    return path3.slice(0, path3.length - 1);
   }
-  function fillArr(val, length) {
-    return [...new Array(length)].fill(val);
-  }
-  function inANotInB(A3, B2) {
-    return A3.filter((x2) => !B2.includes(x2));
-  }
-  function removeAtIndex(arr, index2) {
-    return [...arr.slice(0, index2), ...arr.slice(index2 + 1)];
-  }
-  function addAtIndex(arr, index2, val) {
-    if (index2 < 0) {
-      throw new Error("Can't add item at a negative index");
-    }
-    const newArr = [...arr];
-    if (index2 > newArr.length - 1) {
-      newArr.length = index2;
-    }
-    newArr.splice(index2, 0, val);
-    return newArr;
-  }
-  function moveElement(arr, fromIndex, toIndex) {
-    if (toIndex < 0) {
-      throw new Error("Can't add item at a negative index");
-    }
-    if (fromIndex < 0 || fromIndex > arr.length) {
-      throw new Error("Requested to move an element that is not in array");
-    }
-    let newArr = [...arr];
-    const movedElement = newArr[fromIndex];
-    newArr[fromIndex] = void 0;
-    newArr = addAtIndex(newArr, toIndex, movedElement);
-    return newArr.filter((el) => typeof el !== "undefined");
-  }
-  function joinPretty(arr, sep = ", ", finalSep = " and ") {
-    const n3 = arr.length;
-    if (n3 === 1)
-      return arr[0];
-    const lastItem = arr[n3 - 1];
-    return [...arr].splice(0, n3 - 1).join(sep) + finalSep + lastItem;
-  }
-  function removeDuplicates(arr) {
-    return [...new Set(arr)];
-  }
-  function ensureArray(x2) {
-    if (Array.isArray(x2))
-      return x2;
-    return [x2];
+  function getChildIndex(path3) {
+    return path3[path3.length - 1];
   }
 
-  // ../editor/src/Shiny-Ui-Elements/InputOutputTitle.tsx
-  var import_jsx_runtime2 = __toESM(require_jsx_runtime());
-  var InputOutputTitle = ({
-    type,
-    name,
-    className
-  }) => {
-    return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("code", { className, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { style: { opacity: 0.55 }, children: [
-        type,
-        "$"
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { children: name })
-    ] });
-  };
+  // ../editor/src/components/UiNode/TreeManipulation/addNodeMutating.ts
+  function addNodeMutating(tree, { path: path3, node }) {
+    const parentPath = getParentPath(path3);
+    const positionInChildren = path3[path3.length - 1];
+    const parentNode = getNode(tree, parentPath);
+    if (!shinyUiNodeInfo[parentNode.uiName].acceptsChildren) {
+      throw new Error(
+        "Can't add a child to a non-container node. Check the path"
+      );
+    }
+    if (!Array.isArray(parentNode.uiChildren)) {
+      parentNode.uiChildren = [];
+    }
+    parentNode.uiChildren = addAtIndex(
+      parentNode.uiChildren,
+      positionInChildren,
+      node
+    );
+  }
 
-  // ../editor/src/Shiny-Ui-Elements/DtDtOutput/DtOutput.tsx
-  var import_jsx_runtime3 = __toESM(require_jsx_runtime());
-  var NUM_COLS = 4;
-  var NUM_ROWS = 25;
-  var table_cells = seqArray(NUM_ROWS).map((i2) => /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "faux-row", children: seqArray(NUM_COLS).map((i3) => /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "faux-cell", children: "i" }, i3)) }, i2));
-  var DtDTOutput = ({
-    uiArguments,
-    path: path3,
-    wrapperProps
-  }) => {
-    return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "dtDTOutput", ...wrapperProps, children: /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
-      "div",
-      {
-        className: "faux-table",
-        style: {
-          "--table-w": uiArguments.width,
-          "--table-h": uiArguments.height
-        },
-        children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: "faux-header", children: [
-            "Table: ",
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(InputOutputTitle, { type: "output", name: uiArguments.outputId })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: "faux-table-body", children: table_cells })
-        ]
+  // ../editor/src/utils/equalityCheckers.ts
+  function sameArray(a2, b3) {
+    if (a2 === b3)
+      return true;
+    if (a2.length !== b3.length)
+      return false;
+    for (let i2 = 0; i2 < a2.length; i2++) {
+      if (a2[i2] !== b3[i2])
+        return false;
+    }
+    return true;
+  }
+  function sameObject(a2, b3, ignoredKeys = []) {
+    if (a2 === b3)
+      return true;
+    const aKeys = Object.keys(a2).filter((key) => !ignoredKeys.includes(key));
+    const bKeys = Object.keys(b3).filter((key) => !ignoredKeys.includes(key));
+    if (!sameArray(aKeys, bKeys))
+      return false;
+    for (let key of aKeys) {
+      if (a2[key] !== b3[key])
+        return false;
+    }
+    return true;
+  }
+
+  // ../editor/src/components/UiNode/TreeManipulation/nodesAreSiblings.ts
+  function nodesAreSiblings(aPath, bPath) {
+    const aDepth = aPath.length;
+    const bDepth = bPath.length;
+    if (aDepth !== bDepth)
+      return false;
+    const parentDepth = aDepth - 1;
+    const haveSameParent = sameArray(
+      aPath.slice(0, parentDepth),
+      bPath.slice(0, parentDepth)
+    );
+    if (!haveSameParent)
+      return false;
+    return true;
+  }
+
+  // ../editor/src/components/UiNode/TreeManipulation/removeNode.ts
+  function removeNodeMutating(tree, { path: path3 }) {
+    const { parentNode, indexToNode } = navigateToParent(tree, path3);
+    if (!checkIfContainerNode(parentNode)) {
+      throw new Error("Somehow trying to enter a leaf node");
+    }
+    parentNode.uiChildren.splice(indexToNode, 1);
+  }
+  function navigateToParent(tree, path3) {
+    const pathCopy = [...path3];
+    const indexToNode = pathCopy.pop();
+    if (typeof indexToNode === "undefined")
+      throw new Error("Path to node must have at least one element");
+    const parentNode = pathCopy.length === 0 ? tree : getNode(tree, pathCopy);
+    if (!checkIfContainerNode(parentNode)) {
+      throw new Error("Somehow trying to enter a leaf node");
+    }
+    return { parentNode, indexToNode };
+  }
+
+  // ../editor/src/components/UiNode/TreeManipulation/moveNodeMutating.ts
+  function moveNodeMutating(tree, { path: path3, currentPath, node }) {
+    const parentPath = getParentPath(path3);
+    const positionInChildren = path3[path3.length - 1];
+    const parentNode = getNode(tree, parentPath);
+    if (!shinyUiNodeInfo[parentNode.uiName].acceptsChildren) {
+      throw new Error(
+        "Can't add a child to a non-container node. Check the path"
+      );
+    }
+    if (!Array.isArray(parentNode.uiChildren)) {
+      parentNode.uiChildren = [];
+    }
+    const nextPath = [...parentPath, positionInChildren];
+    if (nodesAreSiblings(currentPath, nextPath)) {
+      const previousIndex = currentPath[currentPath.length - 1];
+      parentNode.uiChildren = moveElement(
+        parentNode.uiChildren,
+        previousIndex,
+        positionInChildren
+      );
+      return;
+    }
+    removeNodeMutating(tree, { path: currentPath });
+    parentNode.uiChildren = addAtIndex(
+      parentNode.uiChildren,
+      positionInChildren,
+      node
+    );
+  }
+
+  // ../editor/src/components/UiNode/TreeManipulation/placeNode.ts
+  function isNodeMove(opts) {
+    return "currentPath" in opts && opts.currentPath !== void 0;
+  }
+  function placeNodeMutating(tree, args) {
+    const { path: path3, node } = args;
+    if (isNodeMove(args)) {
+      moveNodeMutating(tree, { path: path3, currentPath: args.currentPath, node });
+      return;
+    }
+    addNodeMutating(tree, { path: path3, node: args.node });
+  }
+
+  // ../editor/src/components/UiNode/TreeManipulation/updateNode.ts
+  function updateNodeMutating(tree, { path: path3, node }) {
+    const existingNode = getNode(tree, path3);
+    Object.assign(existingNode, node);
+  }
+
+  // ../editor/src/Shiny-Ui-Elements/isShinyUiNode.tsx
+  function isShinyUiNode(x2) {
+    return "uiName" != null && x2 != null && typeof x2 === "object" && "uiName" in x2;
+  }
+
+  // ../editor/src/state/watcherSubscriptions.ts
+  function getUniqueSubscriptions(type) {
+    const uniqueUpdateSubscribers = /* @__PURE__ */ new Set();
+    try {
+      for (const info of Object.values(shinyUiNodeInfo)) {
+        const nodeUpdateSubscriber = info?.stateUpdateSubscribers?.[type];
+        if (nodeUpdateSubscriber) {
+          uniqueUpdateSubscribers.add(nodeUpdateSubscriber);
+        }
       }
-    ) });
-  };
-  var DtOutput_default = DtDTOutput;
+      return uniqueUpdateSubscribers;
+    } catch {
+      return uniqueUpdateSubscribers;
+    }
+  }
+  var deleteSubscriptions = getUniqueSubscriptions("DELETE_NODE");
+  var updateSubscriptions = getUniqueSubscriptions("UPDATE_NODE");
 
-  // ../editor/src/Shiny-Ui-Elements/DtDtOutput/index.tsx
-  var dtDTOutputInfo = {
-    title: "DT Table",
-    UiComponent: DtOutput_default,
-    settingsInfo: {
-      outputId: {
-        inputType: "string",
-        label: "Output ID",
-        defaultValue: "myTable"
-      },
-      width: {
-        inputType: "cssMeasure",
-        label: "Width",
-        defaultValue: "100%",
-        units: ["%", "px", "rem"],
-        optional: true,
-        useDefaultIfOptional: true
-      },
-      height: {
-        label: "Height",
-        inputType: "cssMeasure",
-        defaultValue: "auto",
-        optional: true
-      }
+  // ../editor/src/state/uiTree.ts
+  var mainStateSlice = createSlice({
+    name: "state",
+    initialState: {
+      mode: "LOADING"
     },
-    acceptsChildren: true,
-    iconSrc: shinyTable_default,
-    category: "Outputs",
-    description: `\`DataTable\` table output`
-  };
-
-  // ../editor/src/assets/icons/shinyContainer.png
-  var shinyContainer_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAEO0lEQVR4nO3dsYqcVRiH8WeNrkXMDRgLixRWRjSiXoMWG0iUXIGNsii4wRsQTApD0EIvQBCJ2RD0GqIoRjthC4vsHaRxRcbi7MDk28kMgv+c92SfH2zxfbPFmZcnZ06+LWZjNpsh/d+e6L0APZ4MSxGGpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqUIw1KEYSnCsBRhWIowLEUYliIMSxGGpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqWIJ3svYJ2db/aW3d4Etg5/3gCePby3Mfm96RcFjfj6feAe8CtwE7gFHEx+jyvvnJne6qp8WEucB64AtSaZ8wzwwuHPJWAPuAx813NR64z0UXgC+JQ20OMS1TJngBu0WZzovJaHGmnH+gTY6b2IQuazuNx1FQ8xyo51gaNRHQDXaWesUxw9n3B4b/FnxNdP0d7jdY6erXZosylnhLA2gc8m9/aB14Bt4A7tgPu4uk97j9u097w/ef0abUaljBDWReC5hesD4C3gbpfV9HUXeBP4a+HeaeDtLqtZYYSwtibXX3I8o5r7Dfhqcm+rwzpWGiGsVyfXX3dZRS3TGZzrsooVRvhf4fOT63LniQ7usPywX8YIO9bUkafOqmfEsDQAw1LECGesdX+oPa5Kz8UdSxGGpQjDUsQIZ6xSZ4dCSs/FHUsRhqUIw1LECGes0s9rOio9F3csRRiWIgxLESOcsUqdHQopPRd3LEUYliIMSxEjnLFKP6/pqPRc3LEUYViKMCxFjHDGKnV2KKT0XNyxFGFYijAsRYxwxir9vKaj0nNxx1KEYSnCsBQxwhmr1NmhkNJzccdShGEpwrAUMcIZq/Tzmo5Kz8UdSxGGpQjDUsQIZ6xSZ4dCSs/FHUsRhqWIEcPyK08GMEJYf9Ce2cx/Xu67nBJe58GZ/Nl1NUuMENbvk+tLXVZRy3QGP3dZxQojhLU7uX4XONthHVW8SJvBot0O61hphLC+Be4tXD8NfA+81GU1fZ0FfqDNYG6fNqNSRgjrAPhwcu808CPt+5DPAScf8ZoepZO093gN+In23hd9wINf5VvCCA9Iof2LvAp8tHBvk/YF3NsL96YPDdf9oXa016euUnC3gjF2rLmPgc97L6KQL2gzKWmksP4B3gcuAHud19LTHnAReI82k5JG+ShcdAO4TRvueeAV2rnjqZ6LCvqbdkD/BbhJ++gr//XFG7PZuo9x6b8b6aNQAzEsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqUIw1KEYSnCsBRhWIowLEUYliIMSxGGpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqUIw1KEYSnCsBRhWIowLEUYliL+BXaHdHGUC5uqAAAAAElFTkSuQmCC";
-
-  // ../editor/src/Shiny-Ui-Elements/GridlayoutGridCard/GridlayoutGridCard.tsx
-  var import_react19 = __toESM(require_react());
-
-  // ../editor/src/assets/icons/alignItem.png
-  var alignItem_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAYAAADFw8lbAAAACXBIWXMAABYlAAAWJQFJUiTwAAABq0lEQVRYhe2YsU7DMBCGvyDUDToxsuUREN27gUACBpZuvAMFXgBBH4KtCwMggWDrDuIRujIxAVuXMMRIbuU09vlKiMgnRYniO/uv4zv7mmRZRh1YDjHuX4+Lmsp+beJ6OThMvcde8rasmEaoNo1QbSRCL8mj3L7KmLUfhA4qEXoKDAV+PwyBk1AnidAMOAJGAt+R8Q3eZaRrdAIcAC8BPq/GZyIZMCaYPoAdoHC7shgD28ZHRGzUvwNb5h5jU4pGehoDu8Cno+3LtPnM+ly08ugzsM/0+psAe6YtGs2Eb0d0TGZwEnTM82AIrFvPamgLBbhYQJ/12esTVyky5yT/a8ye/os+/V8opKbKl9p8+qIZdRZjVeJco0Vor92mCvXkGOhrd6qd8HvkpQrAG4q7k+aMdoEr8kBMzHNXq3MtoRvADdCy3rXMu02NATSEpsAj0Ha0tYEHYxNFrNA14MncY2xKiRG6AtzjN1upsV2VDiYV2gLugE6ATwe4ZXodeyMRGhPRdmYIQiL0nDxfSumZPoKQJPwzc9mI/nEO4V/v9QuhEapNbYQGnfCr5BtYaFWUrHRSSwAAAABJRU5ErkJggg==";
-
-  // ../editor/src/assets/icons/alignItemBottom.png
-  var alignItemBottom_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAYAAADFw8lbAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAiElEQVRYhe3YwQmAIBhA4YxGaaZGaYhGaaZ2sauCB8MX9cP7bnaIxx9imHLOUwTz1wG9DKWFCV1aD/fzKpdPdlsaqikc21qtw0zUUJqhNENphtLChDaP0BcMH8NhJmoozVCaoTRDaYbSDKUZSuv5HyWuaYbfEX6if7iGrr5CmIkm7/BhhtIMpd2GuAxXhhY/aAAAAABJRU5ErkJggg==";
-
-  // ../editor/src/assets/icons/alignItemTop.png
-  var alignItemTop_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAYAAADFw8lbAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAhUlEQVRYhe3ZwQmAMBAAwZxYijVZikVYijXZS/zmoRDJQjjY+ZlHWE6RiFFrLRksswN6GUozlLa+LR7XPf1VcO5btNe5J1pKiY/1adJPtPXnef26E8N7pJmooTRDaYbSDKUZSjOUZiit5zxKGP5iSDNRQ2mG0gylGUpLExr+bIAZSksT+gD98QxXbjF/TQAAAABJRU5ErkJggg==";
-
-  // ../editor/src/assets/icons/alignTextCenter.png
-  var alignTextCenter_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAYAAADFw8lbAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAgklEQVRYhe3Y0QmAIBRA0Wc0SjM1SkM0SjO1i00gGl2MB/f+2sfhQSqWWmtkaPkbMJpQOqF0aaBr74PjuqftX+e+ldZamokKpRNKJ5ROKF0aaPcIjYjmsTazNBMVSieUbuSvb/XlQv16J0kzUaF0QumE0gmlSwMtPo3DCaUTSpcG+gDcmgtUpwOm6gAAAABJRU5ErkJggg==";
-
-  // ../editor/src/assets/icons/alignTextLeft.png
-  var alignTextLeft_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAYAAADFw8lbAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAjElEQVRYhe3ZwQmAMBBEUVcsxZosxSIsxZrsJZ4UIQYUh5WB/456+awhCRillM5B/3fAU4SqDa0X87odizeSWk7LNFbPbCZqE9r89Dcy97FqudlMlFA1QtUIVSNUzSb0zRGafou6spkooWqEqmVenD/tGjYTJVSNUDVC1QhVswnl4qwW/GwQI1TNJnQHKA8MWeSBgoAAAAAASUVORK5CYII=";
-
-  // ../editor/src/assets/icons/alignTextRight.png
-  var alignTextRight_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAYAAADFw8lbAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAkklEQVRYhe3ZwQmAMAyF4UQcxZkcxSEcxZncJV70UmlVfEYevO/ay0+KNKBHhDHo/g64S6Fofe1gWtbMjkOYmc3j4OUBzURpQqtXb/s1JDlddYlmogpFUyiaQtEUikYT2npCL5+1TDQTVSiaQtFaX/0Tb5dsLc7pFIqmUDSFoikUDfWEfr5k00zU9bMBTKFoNKEbp/QMWe71dFoAAAAASUVORK5CYII=";
-
-  // ../editor/src/assets/icons/redo.png
-  var redo_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAoCAYAAAC4h3lxAAAACXBIWXMAAAsTAAALEwEAmpwYAAABA0lEQVRYhe2ZwQ6CMBBEH8Yv9uDNsMabB38ZLxBRkdDtxlmSzqUktDAvs2yb0A3DwJ51UBuoVQNQqwGotXuAY8nk8+3hfc+8Vxtw3brwfjmt3lckYEAf9TBVCRlBEP8G6HiVjxEAoSqhMAhlCYVAFHUh3rtJrWwc+9n15u40Sb0PGJVJlCYwqXOuW5KNoysJdQKTDGcSWQDACZEJABwQ2QDgG2JVGQGgoF1nBCjqRtkAPs3bz5mjMgEUm4c8AC7z4N+JvWeipR3cbR70CVSZh/IEvGegpcSqzYMugRDzoAEIMw/+j9ireSlVmwddCYWYBw1AmHmArv3gEKsBqNUA1No9wBNu3jnWLc/KGQAAAABJRU5ErkJggg==";
-
-  // ../editor/src/assets/icons/tour.png
-  var tour_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAoCAYAAAC4h3lxAAAACXBIWXMAAAsTAAALEwEAmpwYAAADT0lEQVRYhe2ZP2gUURDGf1ELSy/YpUrELt1BLHIpxAtCOO0SBP80woWAiGyxuWZB2eayxYIiSAJpTBPuQARtJNedacTrgk3IWYlWuVR2EouZl907Lwnue8cRyMDj7e3OMvO9mTfzvb2Rw8NDzrJcGLYDtnIOYNhy5gFcyvqiH8anqZSAMjADdIAmUAF+HvdCFHj/7UdmAKdICfiQ+n0FGAfmgJvAjitDg0ihaRLnK8AocA2oA1eBdZfGBhGBeZ1XosBb0esOsOCH8VdgConQRxfGBhGBgs71Ps/MvRlXxgYB4EDnXJ9nEzrvuTI2CABNnat+GB+B8MM4j1SlP8BnV8Zc74ExIK/XeWDPD+M6Eg2zN14D31wZdAlgDHiHbNIOsAK0kbSpqs5L4JlDm84ATCLlcQpoAbNR4HXMQz+M20ANiYqzCgRu9kB65f9xHiAKvDoSlQLSI0oO7AJuIrAOXAcaUeDNnqDXRspoFQHxXe83gQawkcW4bQSmgdvq3AKAH8a5dPVJizY209zGdTwC3gIPszhgC8A0pHoUeB11fIuk3gPgh/EEkkJEgVdBqIUZi6pWzOKALQCz0ibn8zo6fXSLfhgXAaLAa5uBpA9k7M62e8CsdFvnvqmTur/lh3GDboBm5ZtkEFsAvRHo/W3ENLdd+qfKJrCUxQFbAE3gFpIeLZJuW6SbzBmnQ+AX3ZFqcsIh5zSx3QMmf5eBfRJHq8dUojlkk9dSI7PzYA9gm6Q5HZCQtBawmtKrIGl1D3hqabNLXHTibeAuUhILQCcKPNMTlkGqDkm5fAJcdmAXcEunH+jc0nkRKKdKZx1JuetIyjkRVwBKCNMEWANQPpSjO5VMF76Poyi4ADAJvNfriq40fhiXEQATek0UeA0cR8EWgGGiF4E1c4jXtEmvfNpZp1GwBfCGhIkuwhHvqenz50hlOi4KZUv7VgBGgTvoJxMQJorU+RzSXV+ge4LuKJh71l8nbAAc0YbUAaaG8KNPwGO9t0FPFFyKDZXYQxwr6AcrEM6zizj/O6W7hvSIVT+M50m4USYClxZbLrREchYG+II4/6NHz5y2AhK6sQm8srRvDWAHuEGyoq0TdDcQgjejevuWtgEYOf+PbMhyDmDY8hfkuOfRCqd6WwAAAABJRU5ErkJggg==";
-
-  // ../editor/src/assets/icons/undo.png
-  var undo_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAoCAYAAAC4h3lxAAAACXBIWXMAAAsTAAALEwEAmpwYAAABDElEQVRYhe2ZsQ7CMAxEr4gvZmBDXMXGwC+XgVQqERDbCbEr5ZaoalXdq+0kTqdlWbBnHbwN1GoAeGsAeGv3AMdfN8+3h+ZdVwDcXE8GP7hfTqrnW0UgN99NLQDczAP1AFvzM4xpU6MagNw8vz75R1kBQpgHCrPQF0nNW3eJqjTURiDMl1+liYDUvLWQTRGTRiDcl18lAQhrHigDhDYPlAGYxpDmAXkNhG2cSwBzGolXOoWTJIVCQ0hSiAgMIa0BIiiEZiVmGvOpNVfXgtfuhYhgkbDsRpnGUiS6NDfWfoAIEomajowIAFHbExPvEN1X7BanEsTnGuiiVudChBPENH5wOGsAeGsAeGv3AE8yEDlUwXXxqQAAAABJRU5ErkJggg==";
-
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-42QI9DWtgOSC/editor/src/components/Icons/styles.module.css.js
-  var digest = "f8cc7e953936f66ab1f64dddd06c0d9b3cee9ad08aa9be59a2f39f3fd12ca19d";
-  var css = `img._icon_1467k_1 {
-  height: 30px;
-  /* outline: 2px solid green; */
-  display: block;
-}
-`;
-  (function() {
-    if (typeof document === "undefined") {
-      return;
-    }
-    if (!document.getElementById(digest)) {
-      var el = document.createElement("style");
-      el.id = digest;
-      el.textContent = css;
-      document.head.appendChild(el);
-    }
-  })();
-  var styles_module_css_default = { "icon": "_icon_1467k_1" };
-
-  // ../editor/src/components/Icons/PngIcon.tsx
-  var import_jsx_runtime4 = __toESM(require_jsx_runtime());
-  var icons = {
-    undo: undo_default,
-    redo: redo_default,
-    tour: tour_default,
-    alignTop: alignItemTop_default,
-    alignBottom: alignItemBottom_default,
-    alignCenter: alignItem_default,
-    alignSpread: alignTextCenter_default,
-    alignTextCenter: alignTextCenter_default,
-    alignTextLeft: alignTextLeft_default,
-    alignTextRight: alignTextRight_default
-  };
-  function PngIcon({
-    id,
-    alt = id,
-    size
-  }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
-      "img",
-      {
-        src: icons[id],
-        alt,
-        className: styles_module_css_default.icon,
-        style: size ? { height: size } : {}
-      }
-    );
-  }
-
-  // ../../node_modules/react-icons/lib/esm/iconBase.js
-  var import_react10 = __toESM(require_react());
-
-  // ../../node_modules/react-icons/lib/esm/iconContext.js
-  var import_react9 = __toESM(require_react());
-  var DefaultContext = {
-    color: void 0,
-    size: void 0,
-    className: void 0,
-    style: void 0,
-    attr: void 0
-  };
-  var IconContext = import_react9.default.createContext && import_react9.default.createContext(DefaultContext);
-
-  // ../../node_modules/react-icons/lib/esm/iconBase.js
-  var __assign = function() {
-    __assign = Object.assign || function(t3) {
-      for (var s2, i2 = 1, n3 = arguments.length; i2 < n3; i2++) {
-        s2 = arguments[i2];
-        for (var p3 in s2)
-          if (Object.prototype.hasOwnProperty.call(s2, p3))
-            t3[p3] = s2[p3];
-      }
-      return t3;
-    };
-    return __assign.apply(this, arguments);
-  };
-  var __rest = function(s2, e2) {
-    var t3 = {};
-    for (var p3 in s2)
-      if (Object.prototype.hasOwnProperty.call(s2, p3) && e2.indexOf(p3) < 0)
-        t3[p3] = s2[p3];
-    if (s2 != null && typeof Object.getOwnPropertySymbols === "function")
-      for (var i2 = 0, p3 = Object.getOwnPropertySymbols(s2); i2 < p3.length; i2++) {
-        if (e2.indexOf(p3[i2]) < 0 && Object.prototype.propertyIsEnumerable.call(s2, p3[i2]))
-          t3[p3[i2]] = s2[p3[i2]];
-      }
-    return t3;
-  };
-  function Tree2Element(tree) {
-    return tree && tree.map(function(node, i2) {
-      return import_react10.default.createElement(node.tag, __assign({
-        key: i2
-      }, node.attr), Tree2Element(node.child));
-    });
-  }
-  function GenIcon(data) {
-    return function(props) {
-      return import_react10.default.createElement(IconBase, __assign({
-        attr: __assign({}, data.attr)
-      }, props), Tree2Element(data.child));
-    };
-  }
-  function IconBase(props) {
-    var elem = function(conf) {
-      var attr = props.attr, size = props.size, title = props.title, svgProps = __rest(props, ["attr", "size", "title"]);
-      var computedSize = size || conf.size || "1em";
-      var className;
-      if (conf.className)
-        className = conf.className;
-      if (props.className)
-        className = (className ? className + " " : "") + props.className;
-      return import_react10.default.createElement("svg", __assign({
-        stroke: "currentColor",
-        fill: "currentColor",
-        strokeWidth: "0"
-      }, conf.attr, attr, svgProps, {
-        className,
-        style: __assign(__assign({
-          color: props.color || conf.color
-        }, conf.style), props.style),
-        height: computedSize,
-        width: computedSize,
-        xmlns: "http://www.w3.org/2000/svg"
-      }), title && import_react10.default.createElement("title", null, title), props.children);
-    };
-    return IconContext !== void 0 ? import_react10.default.createElement(IconContext.Consumer, null, function(conf) {
-      return elem(conf);
-    }) : elem(DefaultContext);
-  }
-
-  // ../../node_modules/react-icons/io/index.esm.js
-  function IoMdInformationCircleOutline(props) {
-    return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 512 512" }, "child": [{ "tag": "path", "attr": { "d": "M256 90c44.3 0 86 17.3 117.4 48.6C404.7 170 422 211.7 422 256s-17.3 86-48.6 117.4C342 404.7 300.3 422 256 422s-86-17.3-117.4-48.6C107.3 342 90 300.3 90 256s17.3-86 48.6-117.4C170 107.3 211.7 90 256 90m0-42C141.1 48 48 141.1 48 256s93.1 208 208 208 208-93.1 208-208S370.9 48 256 48z" } }, { "tag": "path", "attr": { "d": "M277 360h-42V235h42v125zm0-166h-42v-42h42v42z" } }] })(props);
-  }
-
-  // ../editor/src/components/Icons/generated/AlignBottom.tsx
-  var import_jsx_runtime5 = __toESM(require_jsx_runtime());
-
-  // ../editor/src/components/Icons/generated/AlignCenter.tsx
-  var import_jsx_runtime6 = __toESM(require_jsx_runtime());
-
-  // ../editor/src/components/Icons/generated/AlignHCenter.tsx
-  var import_jsx_runtime7 = __toESM(require_jsx_runtime());
-
-  // ../editor/src/components/Icons/generated/AlignHSpread.tsx
-  var import_jsx_runtime8 = __toESM(require_jsx_runtime());
-
-  // ../editor/src/components/Icons/generated/AlignLeft.tsx
-  var import_jsx_runtime9 = __toESM(require_jsx_runtime());
-
-  // ../editor/src/components/Icons/generated/AlignRight.tsx
-  var import_jsx_runtime10 = __toESM(require_jsx_runtime());
-
-  // ../editor/src/components/Icons/generated/AlignSpread.tsx
-  var import_jsx_runtime11 = __toESM(require_jsx_runtime());
-
-  // ../editor/src/components/Icons/generated/AlignTop.tsx
-  var import_jsx_runtime12 = __toESM(require_jsx_runtime());
-
-  // ../editor/src/components/Icons/generated/AlignVCenter.tsx
-  var import_jsx_runtime13 = __toESM(require_jsx_runtime());
-
-  // ../editor/src/components/Icons/generated/AlignVSpread.tsx
-  var import_jsx_runtime14 = __toESM(require_jsx_runtime());
-
-  // ../editor/src/components/Icons/generated/DownSpinnerButton.tsx
-  var import_jsx_runtime15 = __toESM(require_jsx_runtime());
-  var SvgDownSpinnerButton = (props) => /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
-    "svg",
-    {
-      width: "1em",
-      height: "1em",
-      viewBox: "0 0 15 8",
-      fill: "none",
-      xmlns: "http://www.w3.org/2000/svg",
-      ...props,
-      children: /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("path", { d: "M7.38 7.477 14.432.691H.328L7.38 7.477Z", fill: "#75A8DB" })
-    }
-  );
-  var DownSpinnerButton_default = SvgDownSpinnerButton;
-
-  // ../editor/src/components/Icons/generated/Redo.tsx
-  var import_jsx_runtime16 = __toESM(require_jsx_runtime());
-  var SvgRedo = (props) => /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
-    "svg",
-    {
-      xmlns: "http://www.w3.org/2000/svg",
-      fill: "none",
-      viewBox: "0 0 49 40",
-      width: "1em",
-      height: "1em",
-      ...props,
-      children: /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
-        "path",
-        {
-          stroke: "currentColor",
-          strokeWidth: 2,
-          d: "M27.42 8.115h2.074l10.592 11.414v1.052L28.705 32.04H27.4v-5.954H13.328l.105-11.975 13.988-.058V8.115Z"
+    reducers: {
+      SET_FULL_STATE: (tree, action) => action.payload.state,
+      SET_UI_TREE: (tree, action) => {
+        return { mode: "MAIN", uiTree: action.payload.uiTree };
+      },
+      SHOW_TEMPLATE_CHOOSER: (state, { payload }) => {
+        return { mode: "TEMPLATE_CHOOSER", options: payload };
+      },
+      SET_LOADING: (state) => {
+        return { mode: "LOADING" };
+      },
+      UPDATE_NODE: (state, action) => {
+        if (state.mode !== "MAIN") {
+          throw new Error("Tried to update a node when in template chooser mode");
         }
-      )
-    }
-  );
-  var Redo_default = SvgRedo;
-
-  // ../editor/src/components/Icons/generated/Trash.tsx
-  var import_jsx_runtime17 = __toESM(require_jsx_runtime());
-  var SvgTrash = (props) => /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)(
-    "svg",
-    {
-      xmlns: "http://www.w3.org/2000/svg",
-      fill: "none",
-      viewBox: "0 0 16 20",
-      width: "1em",
-      height: "1em",
-      ...props,
-      children: [
-        /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
-          "path",
-          {
-            stroke: "currentColor",
-            strokeLinejoin: "round",
-            strokeWidth: 1.5,
-            d: "M0 4h16"
-          }
-        ),
-        /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
-          "path",
-          {
-            stroke: "currentColor",
-            strokeLinejoin: "round",
-            d: "M5.5 6.5 6 16m2-9.5V16m2.5-9.5L10 16"
-          }
-        ),
-        /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
-          "path",
-          {
-            stroke: "currentColor",
-            strokeLinejoin: "round",
-            strokeWidth: 1.5,
-            d: "M5.5 4.5v-2l1.5-1h2l1.5 1v2m-8 0 .5 12 1.5 2h7l1.5-2 .5-12"
-          }
-        )
-      ]
-    }
-  );
-  var Trash_default = SvgTrash;
-
-  // ../editor/src/components/Icons/generated/Undo.tsx
-  var import_jsx_runtime18 = __toESM(require_jsx_runtime());
-  var SvgUndo = (props) => /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
-    "svg",
-    {
-      xmlns: "http://www.w3.org/2000/svg",
-      fill: "none",
-      viewBox: "0 0 44 40",
-      width: "1em",
-      height: "1em",
-      ...props,
-      children: /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
-        "path",
-        {
-          stroke: "currentColor",
-          strokeWidth: 2,
-          d: "M17.08 8.115h-2.074L4.414 19.529v1.052L15.795 32.04H17.1v-5.954h14.072l-.105-11.975-13.988-.058V8.115Z"
+        for (const subscription of updateSubscriptions) {
+          subscription(state.uiTree, action.payload);
         }
-      )
-    }
-  );
-  var Undo_default = SvgUndo;
-
-  // ../editor/src/components/Icons/generated/UpSpinnerButton.tsx
-  var import_jsx_runtime19 = __toESM(require_jsx_runtime());
-  var SvgUpSpinnerButton = (props) => /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
-    "svg",
-    {
-      width: "1em",
-      height: "1em",
-      viewBox: "0 0 15 8",
-      fill: "none",
-      xmlns: "http://www.w3.org/2000/svg",
-      ...props,
-      children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("path", { d: "m7.38.477 7.052 6.786H.328L7.38.477Z", fill: "#75A8DB" })
-    }
-  );
-  var UpSpinnerButton_default = SvgUpSpinnerButton;
-
-  // ../editor/src/components/Icons/index.tsx
-  var Icons_default = PngIcon;
-
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-X5Udc0hyGmJO/editor/src/components/Inputs/Button/Button.module.css.js
-  var digest2 = "54350c3629af8a8fa1debbfc2c355a1d102b27246f6a9518c588e0d611e9a356";
-  var css2 = `._button_1y00r_1 {
-  --background-color: var(--rstudio-white);
-  --text-color: var(--font-color);
-  --outline-color: transparent;
-  --outline-width: 1px;
-
-  padding: 0.5rem 1rem;
-
-  border: var(--outline-width) solid var(--outline-color);
-  background-color: var(--background-color);
-  color: var(--text-color);
-
-  border-radius: var(--corner-radius);
-  align-self: center;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-}
-
-._button_1y00r_1:disabled {
-  --text-color: var(--font-color-disabled);
-  cursor: not-allowed;
-}
-
-._regular_1y00r_26 {
-  --outline-color: var(--rstudio-blue);
-}
-
-._delete_1y00r_30 {
-  --outline-color: var(--red);
-}
-
-._icon_1y00r_34 {
-  --outline-width: 0px;
-  display: inline-grid;
-  place-content: center;
-  padding: 8px;
-  aspect-ratio: 1;
-}
-
-._transparent_1y00r_42 {
-  --outline-color: transparent;
-  --background-color: transparent;
-}
-`;
-  (function() {
-    if (typeof document === "undefined") {
-      return;
-    }
-    if (!document.getElementById(digest2)) {
-      var el = document.createElement("style");
-      el.id = digest2;
-      el.textContent = css2;
-      document.head.appendChild(el);
-    }
-  })();
-  var Button_module_css_default = { "button": "_button_1y00r_1", "regular": "_regular_1y00r_26", "delete": "_delete_1y00r_30", "icon": "_icon_1y00r_34", "transparent": "_transparent_1y00r_42" };
-
-  // ../editor/src/components/Inputs/Button/Button.tsx
-  var import_jsx_runtime20 = __toESM(require_jsx_runtime());
-  var Button = ({ children, variant = "regular", className, ...passthroughProps }) => {
-    const variant_classes = variant ? Array.isArray(variant) ? variant.map((v2) => Button_module_css_default[v2]).join(" ") : Button_module_css_default[variant] : "";
-    return /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
-      "button",
-      {
-        className: Button_module_css_default.button + " " + variant_classes + (className ? " " + className : ""),
-        ...passthroughProps,
-        children
+        updateNodeMutating(state.uiTree, action.payload);
+      },
+      PLACE_NODE: (state, action) => {
+        if (state.mode !== "MAIN") {
+          throw new Error("Tried to move a node when in template chooser mode");
+        }
+        placeNodeMutating(state.uiTree, action.payload);
+      },
+      DELETE_NODE: (state, action) => {
+        if (state.mode !== "MAIN") {
+          throw new Error("Tried to delete a node when in template chooser mode");
+        }
+        for (const subscription of deleteSubscriptions) {
+          subscription(state.uiTree, { path: action.payload.path });
+        }
+        removeNodeMutating(state.uiTree, action.payload);
       }
+    }
+  });
+  var {
+    UPDATE_NODE,
+    PLACE_NODE,
+    DELETE_NODE,
+    SET_UI_TREE,
+    SET_FULL_STATE,
+    SHOW_TEMPLATE_CHOOSER,
+    SET_LOADING
+  } = mainStateSlice.actions;
+  function usePlaceNode() {
+    const dispatch = useDispatch();
+    const place_node = import_react11.default.useCallback(
+      (opts) => {
+        dispatch(PLACE_NODE(opts));
+      },
+      [dispatch]
     );
-  };
-  var Button_default = Button;
-
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-Xr7vFt8kObKk/editor/src/components/DeleteNodeButton/styles.module.css.js
-  var digest3 = "4d514eadc47330143c16e001e85c5a1c01febf01267247d44fdc0a190b14a92f";
-  var css3 = `._deleteButton_1en02_1 {
-  color: var(--red);
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-._deleteButton_1en02_1 > svg {
-  font-size: 1.5rem;
-}
-`;
-  (function() {
-    if (typeof document === "undefined") {
-      return;
-    }
-    if (!document.getElementById(digest3)) {
-      var el = document.createElement("style");
-      el.id = digest3;
-      el.textContent = css3;
-      document.head.appendChild(el);
-    }
-  })();
-  var styles_module_css_default2 = { "deleteButton": "_deleteButton_1en02_1" };
+    return place_node;
+  }
+  function useCurrentUiTree() {
+    return useSelector((state) => state.uiTree);
+  }
+  var uiTree_default = mainStateSlice.reducer;
 
   // ../editor/src/components/DeleteNodeButton/useDeleteNode.tsx
-  var React6 = __toESM(require_react());
   function useDeleteNode(pathToNode) {
     const dispatch = useDispatch();
-    const deleteNode = React6.useCallback(() => {
+    const deleteNode = React7.useCallback(() => {
       if (pathToNode === null)
         return;
       dispatch(DELETE_NODE({ path: pathToNode }));
@@ -30736,15 +30986,15 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   var DeleteNodeButton_default = DeleteNodeButton;
 
   // ../editor/src/components/Grids/GridLayoutPanelHelpers/GridCards/index.tsx
-  var import_react11 = __toESM(require_react());
+  var import_react12 = __toESM(require_react());
   var import_jsx_runtime22 = __toESM(require_jsx_runtime());
-  var BsCard = import_react11.default.forwardRef(
+  var BsCard = import_react12.default.forwardRef(
     ({ className = "", children, ...props }, ref) => {
       const combinedClasses = className + " card";
       return /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("div", { ref, className: combinedClasses, ...props, children });
     }
   );
-  var BsCardHeader = import_react11.default.forwardRef(
+  var BsCardHeader = import_react12.default.forwardRef(
     ({ className = "", ...props }, ref) => {
       const combinedClasses = className + " card-header";
       return /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("div", { ref, className: combinedClasses, ...props });
@@ -30752,12 +31002,12 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   );
 
   // ../editor/src/DragAndDropHelpers/useMakeDraggable.tsx
-  var import_react13 = __toESM(require_react());
+  var import_react14 = __toESM(require_react());
 
   // ../editor/src/DragAndDropHelpers/useCurrentDraggedNode.tsx
-  var import_react12 = __toESM(require_react());
+  var import_react13 = __toESM(require_react());
   var import_jsx_runtime23 = __toESM(require_jsx_runtime());
-  var DraggedNodeContext = import_react12.default.createContext([
+  var DraggedNodeContext = import_react13.default.createContext([
     null,
     (x2) => {
     }
@@ -30765,11 +31015,11 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   function CurrentDraggedNodeProvider({
     children
   }) {
-    const draggedNodeState = import_react12.default.useState(null);
+    const draggedNodeState = import_react13.default.useState(null);
     return /* @__PURE__ */ (0, import_jsx_runtime23.jsx)(DraggedNodeContext.Provider, { value: draggedNodeState, children });
   }
   function useCurrentDraggedNode() {
-    return import_react12.default.useContext(DraggedNodeContext);
+    return import_react13.default.useContext(DraggedNodeContext);
   }
 
   // ../editor/src/DragAndDropHelpers/useMakeDraggable.tsx
@@ -30777,9 +31027,9 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     nodeInfo,
     immovable = false
   }) {
-    const dragHappening = import_react13.default.useRef(false);
-    const [, setDraggedNode] = import_react13.default.useContext(DraggedNodeContext);
-    const endDrag = import_react13.default.useCallback(
+    const dragHappening = import_react14.default.useRef(false);
+    const [, setDraggedNode] = import_react14.default.useContext(DraggedNodeContext);
+    const endDrag = import_react14.default.useCallback(
       (e2) => {
         if (dragHappening.current === false || immovable)
           return;
@@ -30790,7 +31040,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
       },
       [immovable, setDraggedNode]
     );
-    const startDrag = import_react13.default.useCallback(
+    const startDrag = import_react14.default.useCallback(
       (e2) => {
         e2.stopPropagation();
         setDraggedNode(nodeInfo);
@@ -30822,10 +31072,10 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   }
 
   // ../editor/src/components/UiNode/usePathInformation.tsx
-  var import_react14 = __toESM(require_react());
+  var import_react15 = __toESM(require_react());
 
   // ../editor/src/NodeSelectionState.tsx
-  var React10 = __toESM(require_react());
+  var React11 = __toESM(require_react());
 
   // ../editor/src/state/selectedPath.ts
   var selectedPathSlice = createSlice({
@@ -30842,13 +31092,16 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     }
   });
   var { SET_SELECTION, STEP_BACK_SELECTION } = selectedPathSlice.actions;
+  function useCurrentSelection() {
+    return useSelector((state) => state.selectedPath);
+  }
   var selectedPath_default = selectedPathSlice.reducer;
 
   // ../editor/src/NodeSelectionState.tsx
   function useNodeSelectionState() {
     const dispatch = useDispatch();
     const selectedPath = useSelector((state) => state.selectedPath);
-    const setSelectedPath = React10.useCallback(
+    const setSelectedPath = React11.useCallback(
       (path3) => {
         dispatch(SET_SELECTION({ path: path3 }));
       },
@@ -30861,36 +31114,10 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     return selectedPath;
   }
 
-  // ../editor/src/utils/equalityCheckers.ts
-  function sameArray(a2, b3) {
-    if (a2 === b3)
-      return true;
-    if (a2.length !== b3.length)
-      return false;
-    for (let i2 = 0; i2 < a2.length; i2++) {
-      if (a2[i2] !== b3[i2])
-        return false;
-    }
-    return true;
-  }
-  function sameObject(a2, b3, ignoredKeys = []) {
-    if (a2 === b3)
-      return true;
-    const aKeys = Object.keys(a2).filter((key) => !ignoredKeys.includes(key));
-    const bKeys = Object.keys(b3).filter((key) => !ignoredKeys.includes(key));
-    if (!sameArray(aKeys, bKeys))
-      return false;
-    for (let key of aKeys) {
-      if (a2[key] !== b3[key])
-        return false;
-    }
-    return true;
-  }
-
   // ../editor/src/components/UiNode/usePathInformation.tsx
   function usePathInformation(path3) {
     const [selectedPath, setNodeSelection] = useNodeSelectionState();
-    const handleClick = import_react14.default.useCallback(
+    const handleClick = import_react15.default.useCallback(
       (e2) => {
         e2.stopPropagation();
         setNodeSelection(path3);
@@ -30934,8 +31161,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   };
   var UiNode_default = UiNode;
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-LWCHlDoDazcp/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
-  var digest4 = "71d8e010f3ed4ec0048d7ae50b0ff5be47c90e049d126b51e18222ef93102ffd";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-5n6l44LMKuBX/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
+  var digest4 = "3461209a32a70368b673c62d069f9683f4e0475c6b790c6853485ba1da0df380";
   var css4 = `._container_1a2os_1 {
   position: relative;
   height: 100%;
@@ -31112,7 +31339,7 @@ div._emptyGridCard_1a2os_144 > button {
   var styles_module_css_default3 = { "container": "_container_1a2os_1", "withTitle": "_withTitle_1a2os_13", "panelTitle": "_panelTitle_1a2os_22", "contentHolder": "_contentHolder_1a2os_27", "dropWatcher": "_dropWatcher_1a2os_68", "lastDropWatcher": "_lastDropWatcher_1a2os_76", "firstDropWatcher": "_firstDropWatcher_1a2os_79", "middleDropWatcher": "_middleDropWatcher_1a2os_90", "onlyDropWatcher": "_onlyDropWatcher_1a2os_94", "hoveringOverSwap": "_hoveringOverSwap_1a2os_99", "availableToSwap": "_availableToSwap_1a2os_100", "pulse": "_pulse_1a2os_1", "emptyGridCard": "_emptyGridCard_1a2os_144", "emptyMessage": "_emptyMessage_1a2os_161" };
 
   // ../editor/src/Shiny-Ui-Elements/GridlayoutGridCard/useGridCardDropDetectors.tsx
-  var import_react16 = __toESM(require_react());
+  var import_react17 = __toESM(require_react());
 
   // ../editor/src/components/UiNode/TreeManipulation/nodeDepth.ts
   function nodeDepth(path3) {
@@ -31133,22 +31360,6 @@ div._emptyGridCard_1a2os_144 > button {
     if (aDepth >= bDepth)
       return false;
     return pathsSameAtDepth(aPath, bPath, aDepth);
-  }
-
-  // ../editor/src/components/UiNode/TreeManipulation/nodesAreSiblings.ts
-  function nodesAreSiblings(aPath, bPath) {
-    const aDepth = aPath.length;
-    const bDepth = bPath.length;
-    if (aDepth !== bDepth)
-      return false;
-    const parentDepth = aDepth - 1;
-    const haveSameParent = sameArray(
-      aPath.slice(0, parentDepth),
-      bPath.slice(0, parentDepth)
-    );
-    if (!haveSameParent)
-      return false;
-    return true;
   }
 
   // ../editor/src/components/UiNode/TreeManipulation/getIsValidMove.ts
@@ -31172,7 +31383,7 @@ div._emptyGridCard_1a2os_144 > button {
   }
 
   // ../editor/src/DragAndDropHelpers/useFilteredDrop.tsx
-  var import_react15 = __toESM(require_react());
+  var import_react16 = __toESM(require_react());
   function useFilteredDrop({
     watcherRef,
     getCanAcceptDrop = () => true,
@@ -31189,7 +31400,7 @@ div._emptyGridCard_1a2os_144 > button {
       removeAllHighlights
     } = useDropHighlights({ watcherRef, canAcceptDropClass, hoveringOverClass });
     const canAcceptDrop = currentlyDragged ? getCanAcceptDrop(currentlyDragged) : false;
-    const handleDragOver = import_react15.default.useCallback(
+    const handleDragOver = import_react16.default.useCallback(
       (e2) => {
         e2.preventDefault();
         e2.stopPropagation();
@@ -31198,14 +31409,14 @@ div._emptyGridCard_1a2os_144 > button {
       },
       [addHoveredOverHighlight, onDragOver]
     );
-    const handleDragLeave = import_react15.default.useCallback(
+    const handleDragLeave = import_react16.default.useCallback(
       (e2) => {
         e2.preventDefault();
         removeHoveredOverHighlight();
       },
       [removeHoveredOverHighlight]
     );
-    const handleDrop = import_react15.default.useCallback(
+    const handleDrop = import_react16.default.useCallback(
       (e2) => {
         e2.stopPropagation();
         removeHoveredOverHighlight();
@@ -31228,7 +31439,7 @@ div._emptyGridCard_1a2os_144 > button {
         setCurrentlyDragged
       ]
     );
-    import_react15.default.useEffect(() => {
+    import_react16.default.useEffect(() => {
       const watcherEl = watcherRef.current;
       if (!watcherEl)
         return;
@@ -31261,23 +31472,23 @@ div._emptyGridCard_1a2os_144 > button {
     canAcceptDropClass,
     hoveringOverClass
   }) {
-    const addCanAcceptDropHighlight = import_react15.default.useCallback(() => {
+    const addCanAcceptDropHighlight = import_react16.default.useCallback(() => {
       if (!watcherRef.current)
         return;
       watcherRef.current.classList.add(canAcceptDropClass);
       watcherRef.current.classList.add("can-accept-drop");
     }, [canAcceptDropClass, watcherRef]);
-    const addHoveredOverHighlight = import_react15.default.useCallback(() => {
+    const addHoveredOverHighlight = import_react16.default.useCallback(() => {
       if (!watcherRef.current)
         return;
       watcherRef.current.classList.add(hoveringOverClass);
     }, [hoveringOverClass, watcherRef]);
-    const removeHoveredOverHighlight = import_react15.default.useCallback(() => {
+    const removeHoveredOverHighlight = import_react16.default.useCallback(() => {
       if (!watcherRef.current)
         return;
       watcherRef.current.classList.remove(hoveringOverClass);
     }, [hoveringOverClass, watcherRef]);
-    const removeAllHighlights = import_react15.default.useCallback(() => {
+    const removeAllHighlights = import_react16.default.useCallback(() => {
       if (!watcherRef.current)
         return;
       watcherRef.current.classList.remove(hoveringOverClass);
@@ -31299,7 +31510,7 @@ div._emptyGridCard_1a2os_144 > button {
     parentPath
   }) {
     const place_node = usePlaceNode();
-    const getCanAcceptDrop = import_react16.default.useCallback(
+    const getCanAcceptDrop = import_react17.default.useCallback(
       ({ node, currentPath }) => {
         const hasNodeToAccept = getInfoOfDropped(node) !== null;
         return hasNodeToAccept && getIsValidMove({
@@ -31309,7 +31520,7 @@ div._emptyGridCard_1a2os_144 > button {
       },
       [positionInChildren, parentPath]
     );
-    const onDrop = import_react16.default.useCallback(
+    const onDrop = import_react17.default.useCallback(
       ({ node, currentPath }) => {
         const nodeToPlace = getInfoOfDropped(node);
         if (!nodeToPlace) {
@@ -31341,7 +31552,7 @@ div._emptyGridCard_1a2os_144 > button {
   }
 
   // ../editor/src/Shiny-Ui-Elements/GridlayoutGridCard/useGridItemSwapping.tsx
-  var import_react18 = __toESM(require_react());
+  var import_react19 = __toESM(require_react());
 
   // ../editor/src/components/Grids/isValidGridItem.tsx
   var gridItemNodes = [
@@ -31354,15 +31565,15 @@ div._emptyGridCard_1a2os_144 > button {
   }
 
   // ../editor/src/components/Grids/useSetLayout.tsx
-  var import_react17 = __toESM(require_react());
-  var LayoutDispatchContext = import_react17.default.createContext(null);
+  var import_react18 = __toESM(require_react());
+  var LayoutDispatchContext = import_react18.default.createContext(null);
   function useSetLayout() {
-    const setLayout = import_react17.default.useContext(LayoutDispatchContext);
+    const setLayout = import_react18.default.useContext(LayoutDispatchContext);
     return setLayout;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-voEHVKm66svK/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
-  var digest5 = "44f5d406530ec3b334810e984e8a83670746c66fbd305088f73dcdf40493094f";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-77RAOcdD0H4j/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
+  var digest5 = "15eeb1c5359d324f785d7cd32b6e2375ab658c7556465e8514d576fe23c50691";
   var css5 = `._container_1a2os_1 {
   position: relative;
   height: 100%;
@@ -31545,7 +31756,7 @@ div._emptyGridCard_1a2os_144 > button {
     area
   }) {
     const setLayout = useSetLayout();
-    const getIsValidSwap = import_react18.default.useCallback(
+    const getIsValidSwap = import_react19.default.useCallback(
       ({ node, currentPath }) => {
         if (currentPath === void 0)
           return false;
@@ -31555,7 +31766,7 @@ div._emptyGridCard_1a2os_144 > button {
       },
       [path3]
     );
-    const onDrop = import_react18.default.useCallback(
+    const onDrop = import_react19.default.useCallback(
       (dropInfo) => {
         if (!("area" in dropInfo.node.uiArguments)) {
           console.error("Invalid grid area swap drop", { dropInfo });
@@ -31583,7 +31794,7 @@ div._emptyGridCard_1a2os_144 > button {
     path: path3,
     wrapperProps
   }) => {
-    const compRef = import_react19.default.useRef(null);
+    const compRef = import_react20.default.useRef(null);
     const numChildren = uiChildren?.length ?? 0;
     useGridItemSwapping({ containerRef: compRef, area, path: path3 });
     return /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)(
@@ -31607,7 +31818,7 @@ div._emptyGridCard_1a2os_144 > button {
                 numChildren
               }
             ),
-            numChildren > 0 ? uiChildren?.map((childNode, i2) => /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)(import_react19.default.Fragment, { children: [
+            numChildren > 0 ? uiChildren?.map((childNode, i2) => /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)(import_react20.default.Fragment, { children: [
               /* @__PURE__ */ (0, import_jsx_runtime25.jsx)(UiNode_default, { path: makeChildPath(path3, i2), node: childNode }),
               /* @__PURE__ */ (0, import_jsx_runtime25.jsx)(
                 DropWatcherPanel,
@@ -31628,7 +31839,7 @@ div._emptyGridCard_1a2os_144 > button {
     numChildren,
     parentPath
   }) {
-    const watcherRef = import_react19.default.useRef(null);
+    const watcherRef = import_react20.default.useRef(null);
     useGridCardDropDetectors({
       watcherRef,
       positionInChildren: index2,
@@ -31706,18 +31917,18 @@ div._emptyGridCard_1a2os_144 > button {
   var shinyPlot_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAACYElEQVR4nO3cMYoUQQBA0RqRPYBn8E5GhqYbLiZeYDNzs428k1dwU8M2UGFZFmYUf/d013vRTEFDBZ+qomj6tCzLgP/t1dYT4JiERUJYJIRFQlgkhEVCWCSERUJYJIRFQlgkhEVCWCSERUJYJIRFQlgkhEVCWCSERUJYJIRFQlgkhEVCWCSERUJYJIRFQlgkhEVCWCSERUJYJIRFQlgkhEVCWCSERUJYJIRFQlgkhEVCWCSERUJYJIRFQlgkhEVCWCSERUJYJIRFQlgkhEXi9dYT+Fd3X78tz4ZOm0xkJffv3m49hb9ixSIhrPNuxhifxxjfxxiPv3/fbDqjHdjtVrii+zHG7ZP/t2OMH2OMj9tMZx+sWOe9f2Hsw+qz2BlhnffmwjGeEBYJYZEQFglhkRAWCWF1pr5YdUHamfpi1YrVmfpiVVidqS9WZwpr6jPP2mY6Y0195lnbTCvW1Geetc0U1tRnnrXNFBYrEhYJYZEQFglhkRAWCWGREBYJYZEQFglhkRAWiZnCerxwbOvnDmGmsB5eGPtyhc8dwkwv+t2NXx9n+/Ne1sMY49MVPncIp2V5/mG8ffBFv+s201bIioRF4khnrH3u6Zfb1VZvxSIhLBLCIrHb6waumxWLhLBICIuEsEgIi4SwSAiLhLBICIuEsEgIi4SwSAiLhLBICIuEsEgIi4SwSAiLhLBICIuEsEgIi4SwSAiLhLBICIuEsEgIi4SwSAiLhLBICIuEsEgIi4SwSAiLhLBICIuEsEgIi4SwSAiLhLBICIuEsEgIi4SwSAiLhLBICIuEsEgIi8RPaOk2ptnQzzIAAAAASUVORK5CYII=";
 
   // ../editor/src/Shiny-Ui-Elements/GridlayoutGridCardPlot/GridlayoutGridCardPlot.tsx
-  var React18 = __toESM(require_react());
+  var React19 = __toESM(require_react());
 
   // ../editor/src/Shiny-Ui-Elements/ShinyPlotOutput/PlotPlaceholder.tsx
-  var React17 = __toESM(require_react());
+  var React18 = __toESM(require_react());
 
   // ../../node_modules/react-icons/go/index.esm.js
   function GoGraph(props) {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 16 16" }, "child": [{ "tag": "path", "attr": { "fillRule": "evenodd", "d": "M16 14v1H0V0h1v14h15zM5 13H3V8h2v5zm4 0H7V3h2v10zm4 0h-2V6h2v7z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-DF8g3Xnq7Ko1/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
-  var digest6 = "5887e08bcf255d4d80355626fcee6405d5183587eaeea1476b276e45cb8e458e";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-pwvR2qu8bh8q/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
+  var digest6 = "97ef740683baa88a76bc5fb52dd4286a4450108fe3b9225129c5b4af62b6f8ed";
   var css6 = `._container_1rlbk_1 {
   max-height: 100%;
 }
@@ -31761,7 +31972,7 @@ div._emptyGridCard_1a2os_144 > button {
   // ../editor/src/Shiny-Ui-Elements/ShinyPlotOutput/PlotPlaceholder.tsx
   var import_jsx_runtime26 = __toESM(require_jsx_runtime());
   function PlotPlaceholder({ outputId }) {
-    const plotHolderRef = React17.useRef(null);
+    const plotHolderRef = React18.useRef(null);
     const containerDimensions = useContainerDimensions(plotHolderRef);
     const smallestDim = containerDimensions === null ? 100 : Math.min(containerDimensions.width, containerDimensions.height);
     return /* @__PURE__ */ (0, import_jsx_runtime26.jsxs)(
@@ -31790,8 +32001,8 @@ div._emptyGridCard_1a2os_144 > button {
     );
   }
   function useContainerDimensions(containerRef) {
-    const [dimensions, setDimensions] = React17.useState(null);
-    React17.useEffect(() => {
+    const [dimensions, setDimensions] = React18.useState(null);
+    React18.useEffect(() => {
       if (typeof ResizeObserver === "undefined")
         return;
       const ro = new ResizeObserver((entries) => {
@@ -31807,8 +32018,8 @@ div._emptyGridCard_1a2os_144 > button {
     return dimensions;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-F282gD4WvReH/editor/src/Shiny-Ui-Elements/GridlayoutGridCardPlot/styles.module.css.js
-  var digest7 = "3d0693e0ab1717a8d0c1f5c92732369077d73b59257b94a7e7f9bcd873e21d20";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-Nc4ITzNEDl4H/editor/src/Shiny-Ui-Elements/GridlayoutGridCardPlot/styles.module.css.js
+  var digest7 = "f94473a7e9b3883654459eb0e4af5d25987e822a9438e4a175b50324cd5a429c";
   var css7 = `._gridCardPlot_1a94v_1 {
   background-color: var(--rstudio-white);
   width: 100%;
@@ -31842,7 +32053,7 @@ div._emptyGridCard_1a2os_144 > button {
     path: path3,
     wrapperProps
   }) => {
-    const compRef = React18.useRef(null);
+    const compRef = React19.useRef(null);
     useGridItemSwapping({ containerRef: compRef, area, path: path3 });
     return /* @__PURE__ */ (0, import_jsx_runtime27.jsx)(
       BsCard,
@@ -31889,10 +32100,10 @@ div._emptyGridCard_1a2os_144 > button {
   var shinyText_default = "data:image/png;base64,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";
 
   // ../editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/GridlayoutCardText.tsx
-  var React19 = __toESM(require_react());
+  var React20 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-tWbSYYlwUpFb/editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/styles.module.css.js
-  var digest8 = "a19e6d89c00a417444d33535e964f6e7a68c62681395bad29ab2c41757b4724a";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-V3hpuw7r63k4/editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/styles.module.css.js
+  var digest8 = "fe6977326814e16b1a9e3521ee7be935c9e99132dce37e150d8078e47af0a19b";
   var css8 = `._textPanel_525i2_1 {
   background-color: var(--rstudio-white);
   /* outline: var(--outline); */
@@ -31928,7 +32139,7 @@ div._emptyGridCard_1a2os_144 > button {
     path: path3,
     wrapperProps
   }) => {
-    const compRef = React19.useRef(null);
+    const compRef = React20.useRef(null);
     useGridItemSwapping({ containerRef: compRef, area, path: path3 });
     return /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(
       BsCard,
@@ -32454,32 +32665,6 @@ div._emptyGridCard_1a2os_144 > button {
     }
   }
 
-  // ../editor/src/components/UiNode/TreeManipulation/checkIfContainerNode.ts
-  function checkIfContainerNode(node) {
-    return node.uiChildren !== void 0;
-  }
-
-  // ../editor/src/components/UiNode/TreeManipulation/getNode.ts
-  function getNode(tree, path3) {
-    let currNode = tree;
-    let currPath;
-    for (currPath of path3) {
-      if (!checkIfContainerNode(currNode)) {
-        throw new Error("Somehow trying to enter a leaf node");
-      }
-      currNode = currNode.uiChildren[currPath];
-    }
-    return currNode;
-  }
-
-  // ../editor/src/components/UiNode/TreeManipulation/getParentPath.ts
-  function getParentPath(path3) {
-    return path3.slice(0, path3.length - 1);
-  }
-  function getChildIndex(path3) {
-    return path3[path3.length - 1];
-  }
-
   // ../editor/src/components/Grids/areasOfChildren.tsx
   function areasOfChildren(children) {
     let all_children_areas = [];
@@ -32558,7 +32743,7 @@ div._emptyGridCard_1a2os_144 > button {
   }
 
   // ../editor/src/components/GridlayoutElement/GridlayoutElement.tsx
-  var import_react34 = __toESM(require_react());
+  var import_react35 = __toESM(require_react());
 
   // ../editor/src/utils/gridTemplates/findItemLocation.ts
   function findItemLocations(areas, itemName) {
@@ -32579,7 +32764,7 @@ div._emptyGridCard_1a2os_144 > button {
   }
 
   // ../editor/src/components/Grids/AreaOverlay.tsx
-  var import_react21 = __toESM(require_react());
+  var import_react22 = __toESM(require_react());
 
   // ../../node_modules/react-icons/fa/index.esm.js
   function FaCode(props) {
@@ -32659,8 +32844,8 @@ div._emptyGridCard_1a2os_144 > button {
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-jTXrao3vG1Fz/editor/src/components/Grids/AreaOverlay.module.css.js
-  var digest9 = "ceda2f501b2cb64bd115681ba2f6c11db24c5faa8758617ddfb16c4cb4078936";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-i7xuW1NGAffG/editor/src/components/Grids/AreaOverlay.module.css.js
+  var digest9 = "ff9f6c38c1cb65fcf1175692a41eab212f1e4af2899534cad1e403ea2977c17f";
   var css9 = `._marker_mumaw_1 {
   font-weight: lighter;
   font-style: italic;
@@ -32763,7 +32948,7 @@ div._emptyGridCard_1a2os_144 > button {
   var AreaOverlay_module_css_default = { "marker": "_marker_mumaw_1", "dragger": "_dragger_mumaw_32", "move": "_move_mumaw_52" };
 
   // ../editor/src/components/Grids/useResizeOnDrag.ts
-  var import_react20 = __toESM(require_react());
+  var import_react21 = __toESM(require_react());
 
   // ../editor/src/components/Grids/helpers.ts
   function gridLocationToExtent({
@@ -32936,8 +33121,8 @@ div._emptyGridCard_1a2os_144 > button {
     onDragEnd
   }) {
     const initialGridExtent = gridLocationToExtent(gridLocation);
-    const dragRef = import_react20.default.useRef(null);
-    const onDrag = import_react20.default.useCallback(
+    const dragRef = import_react21.default.useRef(null);
+    const onDrag = import_react21.default.useCallback(
       (mousePos) => {
         const overlayEl = overlayRef.current;
         const dragState = dragRef.current;
@@ -32952,7 +33137,7 @@ div._emptyGridCard_1a2os_144 > button {
       },
       [overlayRef]
     );
-    const endDrag = import_react20.default.useCallback(() => {
+    const endDrag = import_react21.default.useCallback(() => {
       const overlayEl = overlayRef.current;
       const dragState = dragRef.current;
       if (!overlayEl || !dragState)
@@ -32965,7 +33150,7 @@ div._emptyGridCard_1a2os_144 > button {
       document.removeEventListener("mousemove", onDrag);
       toggleTextSelection("on");
     }, [initialGridExtent, onDrag, onDragEnd, overlayRef]);
-    const startDrag = import_react20.default.useCallback(
+    const startDrag = import_react21.default.useCallback(
       (dragDirection) => {
         const overlayEl = overlayRef.current;
         if (!overlayEl)
@@ -33025,18 +33210,18 @@ div._emptyGridCard_1a2os_144 > button {
   }) {
     if (typeof gridLocation === "undefined")
       throw new Error(`Item in ${area} is not in the location map`);
-    const overlayRef = import_react21.default.useRef(null);
+    const overlayRef = import_react22.default.useRef(null);
     const startDrag = useResizeOnDrag({
       overlayRef,
       gridLocation,
       layoutAreas,
       onDragEnd: onNewPos
     });
-    const movementOptions = import_react21.default.useMemo(
+    const movementOptions = import_react22.default.useMemo(
       () => availableMoves({ gridLocation, layoutAreas }),
       [gridLocation, layoutAreas]
     );
-    const movementHandles = import_react21.default.useMemo(() => {
+    const movementHandles = import_react22.default.useMemo(() => {
       let movementArrows = [];
       for (let resizeDir of movementOptions) {
         movementArrows.push(
@@ -33057,7 +33242,7 @@ div._emptyGridCard_1a2os_144 > button {
       }
       return movementArrows;
     }, [area, movementOptions, startDrag]);
-    import_react21.default.useEffect(() => {
+    import_react22.default.useEffect(() => {
       overlayRef.current?.style.setProperty("--grid-area", area);
     }, [area]);
     return /* @__PURE__ */ (0, import_jsx_runtime29.jsx)(
@@ -33082,10 +33267,10 @@ div._emptyGridCard_1a2os_144 > button {
   };
 
   // ../editor/src/components/Grids/EditableGridContainer/EditableGridContainer.tsx
-  var React31 = __toESM(require_react());
+  var React32 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-XPpYIGnuhimL/editor/src/components/Grids/EditableGridContainer/resizableGrid.module.css.js
-  var digest10 = "1751cde33412a9b2785b28c715525b1c83d70f18384ab827c8eaf9b98ec2f466";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-d5VdS7km2FKX/editor/src/components/Grids/EditableGridContainer/resizableGrid.module.css.js
+  var digest10 = "0bf6c805a22048b5e8cd955563f0e9294f3679340117a2252b3a6dc333dde76e";
   var css10 = `._ResizableGrid_i4cq9_1 {
   --grid-gap: 5px;
 
@@ -33134,7 +33319,7 @@ div#_size-detection-cell_i4cq9_1 {
   var resizableGrid_module_css_default = { "ResizableGrid": "_ResizableGrid_i4cq9_1", "resizableGrid": "_ResizableGrid_i4cq9_1", "size-detection-cell": "_size-detection-cell_i4cq9_1", "sizeDetectionCell": "_size-detection-cell_i4cq9_1" };
 
   // ../editor/src/components/Grids/EditableGridContainer/TractInfoDisplay.tsx
-  var React29 = __toESM(require_react());
+  var React30 = __toESM(require_react());
 
   // ../editor/src/components/Inputs/CSSUnitInput/CSSMeasure.ts
   var findMeasureRegex = /(^[\d|.]+)\s*(px|%|rem|fr)|(^auto$)/;
@@ -33168,10 +33353,10 @@ div#_size-detection-cell_i4cq9_1 {
   }
 
   // ../editor/src/components/Inputs/CSSUnitInput/CSSUnitInfo.tsx
-  var import_react25 = __toESM(require_react());
+  var import_react26 = __toESM(require_react());
 
   // ../editor/src/components/PopoverEl/PopoverEl.tsx
-  var import_react24 = __toESM(require_react());
+  var import_react25 = __toESM(require_react());
 
   // ../../node_modules/react-markdown/lib/uri-transformer.js
   var protocols = ["http", "https", "mailto", "tel"];
@@ -33204,7 +33389,7 @@ div#_size-detection-cell_i4cq9_1 {
   }
 
   // ../../node_modules/react-markdown/lib/react-markdown.js
-  var import_react23 = __toESM(require_react(), 1);
+  var import_react24 = __toESM(require_react(), 1);
 
   // ../../node_modules/react-markdown/node_modules/vfile/lib/index.js
   var import_is_buffer = __toESM(require_is_buffer(), 1);
@@ -41359,7 +41544,7 @@ div#_size-detection-cell_i4cq9_1 {
   }
 
   // ../../node_modules/react-markdown/lib/ast-to-react.js
-  var import_react22 = __toESM(require_react(), 1);
+  var import_react23 = __toESM(require_react(), 1);
   var import_react_is2 = __toESM(require_react_is3(), 1);
 
   // ../../node_modules/hast-util-whitespace/index.js
@@ -41435,7 +41620,7 @@ div#_size-detection-cell_i4cq9_1 {
       end: { line: null, column: null, offset: null }
     };
     const component = options.components && own7.call(options.components, name) ? options.components[name] : name;
-    const basic = typeof component === "string" || component === import_react22.default.Fragment;
+    const basic = typeof component === "string" || component === import_react23.default.Fragment;
     if (!import_react_is2.default.isValidElementType(component)) {
       throw new TypeError(
         `Component for name \`${name}\` not defined or is not renderable`
@@ -41511,7 +41696,7 @@ div#_size-detection-cell_i4cq9_1 {
     if (!basic) {
       properties.node = node;
     }
-    return children.length > 0 ? import_react22.default.createElement(component, properties, children) : import_react22.default.createElement(component, properties);
+    return children.length > 0 ? import_react23.default.createElement(component, properties, children) : import_react23.default.createElement(component, properties);
   }
   function getInputElement(node) {
     let index2 = -1;
@@ -41632,13 +41817,13 @@ div#_size-detection-cell_i4cq9_1 {
     if (hastNode.type !== "root") {
       throw new TypeError("Expected a `root` node");
     }
-    let result = import_react23.default.createElement(
-      import_react23.default.Fragment,
+    let result = import_react24.default.createElement(
+      import_react24.default.Fragment,
       {},
       childrenToReact({ options, schema: html3, listDepth: 0 }, hastNode)
     );
     if (options.className) {
-      result = import_react23.default.createElement("div", { className: options.className }, result);
+      result = import_react24.default.createElement("div", { className: options.className }, result);
     }
     return result;
   }
@@ -41695,7 +41880,7 @@ div#_size-detection-cell_i4cq9_1 {
   };
 
   // ../../node_modules/react-popper/lib/esm/utils.js
-  var React24 = __toESM(require_react());
+  var React25 = __toESM(require_react());
   var fromEntries = function fromEntries2(entries) {
     return entries.reduce(function(acc, _ref) {
       var key = _ref[0], value = _ref[1];
@@ -41703,10 +41888,10 @@ div#_size-detection-cell_i4cq9_1 {
       return acc;
     }, {});
   };
-  var useIsomorphicLayoutEffect2 = typeof window !== "undefined" && window.document && window.document.createElement ? React24.useLayoutEffect : React24.useEffect;
+  var useIsomorphicLayoutEffect2 = typeof window !== "undefined" && window.document && window.document.createElement ? React25.useLayoutEffect : React25.useEffect;
 
   // ../../node_modules/react-popper/lib/esm/usePopper.js
-  var React25 = __toESM(require_react());
+  var React26 = __toESM(require_react());
   var ReactDOM = __toESM(require_react_dom());
 
   // ../../node_modules/@popperjs/core/lib/enums.js
@@ -43288,14 +43473,14 @@ div#_size-detection-cell_i4cq9_1 {
     if (options === void 0) {
       options = {};
     }
-    var prevOptions = React25.useRef(null);
+    var prevOptions = React26.useRef(null);
     var optionsWithDefaults = {
       onFirstUpdate: options.onFirstUpdate,
       placement: options.placement || "bottom",
       strategy: options.strategy || "absolute",
       modifiers: options.modifiers || EMPTY_MODIFIERS
     };
-    var _React$useState = React25.useState({
+    var _React$useState = React26.useState({
       styles: {
         popper: {
           position: optionsWithDefaults.strategy,
@@ -43308,7 +43493,7 @@ div#_size-detection-cell_i4cq9_1 {
       },
       attributes: {}
     }), state = _React$useState[0], setState = _React$useState[1];
-    var updateStateModifier = React25.useMemo(function() {
+    var updateStateModifier = React26.useMemo(function() {
       return {
         name: "updateState",
         enabled: true,
@@ -43330,7 +43515,7 @@ div#_size-detection-cell_i4cq9_1 {
         requires: ["computeStyles"]
       };
     }, []);
-    var popperOptions = React25.useMemo(function() {
+    var popperOptions = React26.useMemo(function() {
       var newOptions = {
         onFirstUpdate: optionsWithDefaults.onFirstUpdate,
         placement: optionsWithDefaults.placement,
@@ -43347,7 +43532,7 @@ div#_size-detection-cell_i4cq9_1 {
         return newOptions;
       }
     }, [optionsWithDefaults.onFirstUpdate, optionsWithDefaults.placement, optionsWithDefaults.strategy, optionsWithDefaults.modifiers, updateStateModifier]);
-    var popperInstanceRef = React25.useRef();
+    var popperInstanceRef = React26.useRef();
     useIsomorphicLayoutEffect2(function() {
       if (popperInstanceRef.current) {
         popperInstanceRef.current.setOptions(popperOptions);
@@ -43374,8 +43559,8 @@ div#_size-detection-cell_i4cq9_1 {
     };
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-qw9mdvONMBXK/editor/src/components/PopoverEl/styles.module.css.js
-  var digest11 = "8b99b4ab07c6a1a47ef7a4a18f9573dafb95277cfc1c03f1ad585ca5fe80142b";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-nEwN4tvyAb8D/editor/src/components/PopoverEl/styles.module.css.js
+  var digest11 = "374e6bf5cdd8d03b6c9c55dd9cb110e4c591b6c714b61c814dead3891ca93240";
   var css11 = `._popover_m2pq3_1 {
   pointer-events: none;
   opacity: 0;
@@ -43471,9 +43656,9 @@ div#_size-detection-cell_i4cq9_1 {
     openDelayMs = 0,
     triggerEl
   }) => {
-    const [referenceElement, setReferenceElement] = import_react24.default.useState(null);
-    const [popperElement, setPopperElement] = import_react24.default.useState(null);
-    const [arrowElement, setArrowElement] = import_react24.default.useState(
+    const [referenceElement, setReferenceElement] = import_react25.default.useState(null);
+    const [popperElement, setPopperElement] = import_react25.default.useState(null);
+    const [arrowElement, setArrowElement] = import_react25.default.useState(
       null
     );
     const { styles, attributes, update: update2 } = usePopper(
@@ -43488,10 +43673,10 @@ div#_size-detection-cell_i4cq9_1 {
         strategy: "fixed"
       }
     );
-    const popperStyles = import_react24.default.useMemo(() => {
+    const popperStyles = import_react25.default.useMemo(() => {
       return { ...styles.popper, backgroundColor: bgColor };
     }, [bgColor, styles.popper]);
-    const eventListeners = import_react24.default.useMemo(() => {
+    const eventListeners = import_react25.default.useMemo(() => {
       let delayedShowTimeout;
       function showPopper() {
         delayedShowTimeout = setTimeout(() => {
@@ -43512,7 +43697,7 @@ div#_size-detection-cell_i4cq9_1 {
     }, [openDelayMs, popperElement, showOn, update2]);
     const content3 = typeof popoverContent !== "string" ? popoverContent : contentIsMd ? /* @__PURE__ */ (0, import_jsx_runtime30.jsx)(ReactMarkdown, { className: styles_module_css_default8.popoverMarkdown, children: popoverContent }) : /* @__PURE__ */ (0, import_jsx_runtime30.jsx)("div", { className: styles_module_css_default8.textContent, children: popoverContent });
     return /* @__PURE__ */ (0, import_jsx_runtime30.jsxs)(import_jsx_runtime30.Fragment, { children: [
-      import_react24.default.cloneElement(triggerEl, {
+      import_react25.default.cloneElement(triggerEl, {
         ...eventListeners,
         ref: setReferenceElement
       }),
@@ -43563,8 +43748,8 @@ div#_size-detection-cell_i4cq9_1 {
     );
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-T7TTPbPdKg7a/editor/src/components/Inputs/CSSUnitInput/CSSUnitInfo.module.css.js
-  var digest12 = "fd3f24a5af6c12fd874e458247b79fa4a208807ee5d87766efaafded5b307ab8";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-bSVhTeZQHwqu/editor/src/components/Inputs/CSSUnitInput/CSSUnitInfo.module.css.js
+  var digest12 = "18abdf91b65225c7e606b7bd6dad7e0b9d2531cc7e938291e7dc340c8958664b";
   var css12 = `._infoIcon_15ri6_1 {
   width: 24px;
   color: var(--rstudio-blue);
@@ -43629,7 +43814,7 @@ div#_size-detection-cell_i4cq9_1 {
   function UnitInfoText({ units }) {
     return /* @__PURE__ */ (0, import_jsx_runtime32.jsxs)("div", { className: CSSUnitInfo_module_css_default.container, children: [
       /* @__PURE__ */ (0, import_jsx_runtime32.jsx)("div", { className: CSSUnitInfo_module_css_default.header, children: "CSS size options" }),
-      /* @__PURE__ */ (0, import_jsx_runtime32.jsx)("div", { className: CSSUnitInfo_module_css_default.info, children: units.map((unit) => /* @__PURE__ */ (0, import_jsx_runtime32.jsxs)(import_react25.default.Fragment, { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime32.jsx)("div", { className: CSSUnitInfo_module_css_default.info, children: units.map((unit) => /* @__PURE__ */ (0, import_jsx_runtime32.jsxs)(import_react26.default.Fragment, { children: [
         /* @__PURE__ */ (0, import_jsx_runtime32.jsx)("div", { className: CSSUnitInfo_module_css_default.unit, children: unit }),
         /* @__PURE__ */ (0, import_jsx_runtime32.jsx)("div", { className: CSSUnitInfo_module_css_default.description, children: unitDescriptions[unit] })
       ] }, unit)) })
@@ -43643,8 +43828,8 @@ div#_size-detection-cell_i4cq9_1 {
     rem: "Pixel size of app font. Typically 16 pixels."
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-C2LqCdr59cRP/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
-  var digest13 = "6e83d5e84e5b0a52d76b76c41f828f09468bcb230fd47bb613109b6707047651";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-ihDoWH7IQJrY/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
+  var digest13 = "eb5a4f0fd987b5339e9b2412f96551ae010c3ded243740cc19b489d74b64459a";
   var css13 = `._wrapper_3jy8f_1 {
   position: relative;
   display: flex;
@@ -43709,7 +43894,7 @@ div#_size-detection-cell_i4cq9_1 {
   }
 
   // ../editor/src/components/Inputs/NumberInput/NumberInput.tsx
-  var import_react26 = __toESM(require_react());
+  var import_react27 = __toESM(require_react());
 
   // ../editor/src/components/Inputs/SettingsFormBuilder/inputFieldTypes.ts
   function makeLabelId(id) {
@@ -43806,7 +43991,7 @@ div#_size-detection-cell_i4cq9_1 {
     value,
     onChange
   }) {
-    const incrementValue = import_react26.default.useCallback(
+    const incrementValue = import_react27.default.useCallback(
       (dir) => {
         return (e2) => {
           e2.preventDefault();
@@ -43824,17 +44009,17 @@ div#_size-detection-cell_i4cq9_1 {
       },
       [max2, min2, onChange, step, value]
     );
-    const incrementUp = import_react26.default.useMemo(
+    const incrementUp = import_react27.default.useMemo(
       () => incrementValue("up"),
       [incrementValue]
     );
-    const incrementDown = import_react26.default.useMemo(
+    const incrementDown = import_react27.default.useMemo(
       () => incrementValue("down"),
       [incrementValue]
     );
-    const [realVal, setRealVal] = import_react26.default.useState(value);
-    import_react26.default.useEffect(() => setRealVal(value), [value]);
-    const handleChange = import_react26.default.useCallback(
+    const [realVal, setRealVal] = import_react27.default.useState(value);
+    import_react27.default.useEffect(() => setRealVal(value), [value]);
+    const handleChange = import_react27.default.useCallback(
       (e2) => {
         const newVal = e2.target.value;
         setRealVal(
@@ -43844,7 +44029,7 @@ div#_size-detection-cell_i4cq9_1 {
       },
       [onChange]
     );
-    const handleBlur = import_react26.default.useCallback(() => {
+    const handleBlur = import_react27.default.useCallback(() => {
       setRealVal((currentVal) => Number(currentVal).toString());
     }, []);
     const displayedVal = realVal === 0 || realVal === null ? "" : realVal;
@@ -44187,8 +44372,8 @@ div#_size-detection-cell_i4cq9_1 {
     return tractSizes.some((size) => size === "auto");
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-X6o1k8UOEZcH/editor/src/components/Grids/EditableGridContainer/TractInfoDisplay.module.css.js
-  var digest14 = "819ef790ed25bf3af724510d23acc157aa4d682afea0a09942eb0b94e10a9a19";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-zETtBs6Tzqon/editor/src/components/Grids/EditableGridContainer/TractInfoDisplay.module.css.js
+  var digest14 = "cad49890135158fc9db519462b5e5275439fae8f04e015bf7bcd2eb3e541ec9c";
   var css14 = `._tractInfoDisplay_cvtwo_1 {
   --transition-delay: 0.1s;
   --transition-speed: 0.1s;
@@ -44488,7 +44673,7 @@ user is typing in the input field but mouses off */
     areas,
     onUpdate: onUpdate2
   }) {
-    const findDeleteConflicts = React29.useCallback(
+    const findDeleteConflicts = React30.useCallback(
       ({ dir: dir2, index: index2 }) => conflictsToRemoveTract(areas, {
         dir: dir2,
         index: index2 + 1
@@ -44551,8 +44736,8 @@ user is typing in the input field but mouses off */
     });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-G58erXQU4mGH/editor/src/components/Grids/EditableGridContainer/TractSizer.module.css.js
-  var digest15 = "3b800a0060beca1522ce25e99ebcd4abbe36d0e316819c47fe896574e6677cf8";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-YzjS0ILmXKtp/editor/src/components/Grids/EditableGridContainer/TractSizer.module.css.js
+  var digest15 = "dff32347fab6e28fb1f8d501ad22bfa84a08e47359d262467292cb9aab0c945f";
   var css15 = `div._columnSizer_9b32k_1,
 div._rowSizer_9b32k_2 {
   --sizer-color: #c9e2f3;
@@ -44663,7 +44848,7 @@ div._rowSizer_9b32k_2::after {
   }
 
   // ../editor/src/components/Grids/EditableGridContainer/useDragToResizeGrid.ts
-  var import_react27 = __toESM(require_react());
+  var import_react28 = __toESM(require_react());
 
   // ../editor/src/utils/validateRef.ts
   function validateRef(x2, error_msg = "Ref is not yet initialized") {
@@ -44678,7 +44863,7 @@ div._rowSizer_9b32k_2::after {
     containerRef,
     onDragEnd
   }) {
-    const startDrag = import_react27.default.useCallback(
+    const startDrag = import_react28.default.useCallback(
       ({
         e: e2,
         dir,
@@ -44813,7 +44998,7 @@ div._rowSizer_9b32k_2::after {
   }) {
     layout = cleanupLayoutArgs(layout);
     let { row_sizes, col_sizes } = layout;
-    const containerRef = React31.useRef(null);
+    const containerRef = React32.useRef(null);
     const styles = layoutDefToStyles(layout);
     const columnSizers = col_sizes.length < 2 ? [] : buildRange2(2, col_sizes.length);
     const rowSizers = row_sizes.length < 2 ? [] : buildRange2(2, row_sizes.length);
@@ -44824,7 +45009,7 @@ div._rowSizer_9b32k_2::after {
     const containerClasses = [resizableGrid_module_css_default.ResizableGrid];
     if (className)
       containerClasses.push(className);
-    const handleUpdateAction = React31.useCallback(
+    const handleUpdateAction = React32.useCallback(
       (update2) => {
         switch (update2.type) {
           case "ADD":
@@ -44841,11 +45026,11 @@ div._rowSizer_9b32k_2::after {
       },
       [layout]
     );
-    const handleUpdate = React31.useCallback(
+    const handleUpdate = React32.useCallback(
       (update2) => onNewLayout(handleUpdateAction(update2)),
       [handleUpdateAction, onNewLayout]
     );
-    const getActualSizeByTract = React31.useCallback((dir) => {
+    const getActualSizeByTract = React32.useCallback((dir) => {
       const container2 = containerRef.current;
       if (!container2)
         return [];
@@ -44909,14 +45094,14 @@ div._rowSizer_9b32k_2::after {
   var EditableGridContainer_default = EditableGridContainer;
 
   // ../editor/src/components/Grids/GridCell.tsx
-  var import_react28 = __toESM(require_react());
+  var import_react29 = __toESM(require_react());
   var import_jsx_runtime39 = __toESM(require_jsx_runtime());
   function GridCell({
     gridRow,
     gridColumn,
     onDroppedNode
   }) {
-    const cellRef = import_react28.default.useRef(null);
+    const cellRef = import_react29.default.useRef(null);
     useFilteredDrop({
       watcherRef: cellRef,
       getCanAcceptDrop: (nodeInfo) => nodeInfo.node.uiName !== "gridlayout::grid_container",
@@ -44948,10 +45133,10 @@ div._rowSizer_9b32k_2::after {
   }
 
   // ../editor/src/components/Grids/NameNewPanelModal.tsx
-  var import_react32 = __toESM(require_react());
+  var import_react33 = __toESM(require_react());
 
   // ../editor/src/PortalModal.tsx
-  var React33 = __toESM(require_react());
+  var React34 = __toESM(require_react());
   var ReactDOM2 = __toESM(require_react_dom());
 
   // ../editor/src/EditorSkeleton/EditorSkeleton.tsx
@@ -44977,7 +45162,7 @@ div._rowSizer_9b32k_2::after {
     return /* @__PURE__ */ (0, import_jsx_runtime40.jsx)("h3", { className: className + " panel-title", children });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-HYAN28iex6TR/editor/src/PortalModal.module.css.js
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-gB9Z1mZimWRE/editor/src/PortalModal.module.css.js
   var digest16 = "13f6af5e59e8ebc33477302381f7da21ea3317b2b22eeff877dda6aa750b7a6e";
   var css16 = `._portalHolder_18ua3_1 {
   background-color: rgba(255, 255, 255, 0.735);
@@ -45051,8 +45236,8 @@ div._rowSizer_9b32k_2::after {
   // ../editor/src/PortalModal.tsx
   var import_jsx_runtime41 = __toESM(require_jsx_runtime());
   var Portal = ({ children, el = "div" }) => {
-    const [container2] = React33.useState(document.createElement(el));
-    React33.useEffect(() => {
+    const [container2] = React34.useState(document.createElement(el));
+    React34.useEffect(() => {
       document.body.appendChild(container2);
       return () => {
         document.body.removeChild(container2);
@@ -45094,8 +45279,8 @@ div._rowSizer_9b32k_2::after {
   }
   var PortalModal_default = PortalModal;
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-U8PpcDEZoDFL/editor/src/PortalModal.module.css.js
-  var digest17 = "ab7b19fc603e8399e477b1df0bdca2f3b1f7c00324ca7f48226ff58d9ea94dff";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-sT4vZfDYUH8y/editor/src/PortalModal.module.css.js
+  var digest17 = "592692133d2156dfcd63fbb99d98f6a7b7df2c97cafe5ed0b9cdbaf07dad7859";
   var css17 = `._portalHolder_18ua3_1 {
   background-color: rgba(255, 255, 255, 0.735);
   position: absolute;
@@ -45271,8 +45456,8 @@ div._rowSizer_9b32k_2::after {
     }
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-X0jPCNrMhbD7/editor/src/components/Inputs/BooleanInput/styles.module.css.js
-  var digest18 = "4a435a481ab08dc4bed3763eede5f1a26543e1eab62c0075edc03b1fd05a42ad";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-jywf9J5QVI4S/editor/src/components/Inputs/BooleanInput/styles.module.css.js
+  var digest18 = "c98203f9b8aba662cab3f1193b823c9036dceed3f5484c04684a19709a58c912";
   var css18 = `._checkboxInput_7ym3w_1 {
   height: 0;
   width: 0;
@@ -45382,10 +45567,10 @@ label._checkboxLabel_7ym3w_10:after {
   }
 
   // ../editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.tsx
-  var import_react29 = __toESM(require_react());
+  var import_react30 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-ESNHHl7OUMql/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
-  var digest19 = "1938b2d20dd1aac00732e74b6fd6eda9678a7ff922dc0ccfdfcdae5bf5bbb07b";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-gOKeSxJSA1Cf/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
+  var digest19 = "3362cc3907ee22c48efae7aec1e92f4a47e41ff83d76601ecdb651113990e19f";
   var css19 = `._wrapper_3jy8f_1 {
   position: relative;
   display: flex;
@@ -45442,7 +45627,7 @@ label._checkboxLabel_7ym3w_10:after {
     units = ["px", "rem", "%"]
   }) {
     const { count, unit } = parseCSSMeasure(initialValue);
-    const updateCount = import_react29.default.useCallback(
+    const updateCount = import_react30.default.useCallback(
       (newCount) => {
         if (newCount === void 0) {
           if (unit !== "auto") {
@@ -45459,7 +45644,7 @@ label._checkboxLabel_7ym3w_10:after {
       },
       [onChange, unit]
     );
-    const updateUnit = import_react29.default.useCallback(
+    const updateUnit = import_react30.default.useCallback(
       (newUnit) => {
         if (newUnit === "auto") {
           onChange(
@@ -45517,7 +45702,7 @@ label._checkboxLabel_7ym3w_10:after {
   }
 
   // ../editor/src/components/Inputs/ListInput/NamedListInput.tsx
-  var import_react30 = __toESM(require_react());
+  var import_react31 = __toESM(require_react());
 
   // ../../node_modules/react-icons/md/index.esm.js
   function MdDragHandle(props) {
@@ -45527,8 +45712,8 @@ label._checkboxLabel_7ym3w_10:after {
   // ../editor/src/components/Inputs/ListInput/NamedListInput.tsx
   var import_react_sortablejs = __toESM(require_dist());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-aWbt253Bvzpb/editor/src/components/Inputs/ListInput/styles.module.css.js
-  var digest20 = "dd4a38c43f7e7ee5a9a89eb94ba0dda52923eacdc7a0c35610fbea98309b8e28";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-EMb1kP91wSEw/editor/src/components/Inputs/ListInput/styles.module.css.js
+  var digest20 = "edb41cab9ad12c127d09cf57ad6b2927cc94317d48e29031b2a869dbc16026a3";
   var css20 = `._container_xt7ji_1 {
   --gap-size: 4px;
   margin-top: 21px;
@@ -45733,20 +45918,20 @@ label._checkboxLabel_7ym3w_10:after {
     onChange,
     newItemValue
   }) {
-    const [state, setState] = import_react30.default.useState(
+    const [state, setState] = import_react31.default.useState(
       value !== void 0 ? Object.keys(value).map((key, i2) => ({ id: i2, key, value: value[key] })) : []
     );
-    import_react30.default.useEffect(() => {
+    import_react31.default.useEffect(() => {
       const newList = simplifyToChoices(state);
       if (sameObject(newList, value ?? {})) {
         return;
       }
       onChange(newList);
     }, [onChange, state, value]);
-    const deleteItem = import_react30.default.useCallback((itemId) => {
+    const deleteItem = import_react31.default.useCallback((itemId) => {
       setState((list3) => list3.filter(({ id }) => id !== itemId));
     }, []);
-    const addItem2 = import_react30.default.useCallback(() => {
+    const addItem2 = import_react31.default.useCallback(() => {
       setState(
         (list3) => [...list3, { id: -1, ...newItemValue }].map((item, i2) => ({
           ...item,
@@ -45773,7 +45958,7 @@ label._checkboxLabel_7ym3w_10:after {
   }
 
   // ../editor/src/components/Inputs/OptionsDropdown/DropdownSelect.tsx
-  var import_react31 = __toESM(require_react());
+  var import_react32 = __toESM(require_react());
   var import_jsx_runtime45 = __toESM(require_jsx_runtime());
   var DEFAULT_DROPDOWN_CHOICE = "__DEFAULT-DROPDOWN-CHOICE__";
   function DropdownSelect({
@@ -45783,7 +45968,7 @@ label._checkboxLabel_7ym3w_10:after {
     onChange,
     value: selected
   }) {
-    import_react31.default.useEffect(() => {
+    import_react32.default.useEffect(() => {
       if (selected === DEFAULT_DROPDOWN_CHOICE) {
         onChange(choices[0]);
       }
@@ -45822,10 +46007,10 @@ label._checkboxLabel_7ym3w_10:after {
   }
 
   // ../editor/src/components/Inputs/RadioInputs/RadioInputsSimple.tsx
-  var React37 = __toESM(require_react());
+  var React38 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-JBFVCs2pIuhL/editor/src/components/Inputs/RadioInputs/RadioInputs.module.css.js
-  var digest21 = "a94e15fd86586ee4b23900d2bc290dab8d037f3fbe36435a3f309453ec09f994";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-8LVj1M5NytAj/editor/src/components/Inputs/RadioInputs/RadioInputs.module.css.js
+  var digest21 = "aaf2ad4c8a87d3d592c17b67118c11aa594615b1ed47ba89748bf94697e34c91";
   var css21 = `._radioContainer_1regb_1 {
   display: grid;
   gap: 5px;
@@ -45937,12 +46122,12 @@ the label */
     optionsPerColumn
   }) {
     const values = Object.keys(choices);
-    React37.useEffect(() => {
+    React38.useEffect(() => {
       if (currentSelection === DEFAULT_RADIO_CHOICE) {
         onChange(values[0]);
       }
     }, [values, currentSelection, onChange]);
-    const columns_style_defn = React37.useMemo(
+    const columns_style_defn = React38.useMemo(
       () => ({
         gridTemplateColumns: optionsPerColumn ? `repeat(${optionsPerColumn}, 1fr)` : void 0
       }),
@@ -46164,9 +46349,9 @@ the label */
     existingAreaNames
   }) {
     const defaultName = `area${existingAreaNames.length}`;
-    const [newItemName, setNewItemName] = import_react32.default.useState(defaultName);
-    const [warningMsg, setWarningMsg] = import_react32.default.useState(null);
-    const handleSubmit = import_react32.default.useCallback(
+    const [newItemName, setNewItemName] = import_react33.default.useState(defaultName);
+    const [warningMsg, setWarningMsg] = import_react33.default.useState(null);
+    const handleSubmit = import_react33.default.useCallback(
       (e2) => {
         if (e2) {
           e2.preventDefault();
@@ -46183,7 +46368,7 @@ the label */
       },
       [existingAreaNames, newItemName, onDone]
     );
-    const handleNameUpdate = import_react32.default.useCallback((action) => {
+    const handleNameUpdate = import_react33.default.useCallback((action) => {
       if (action.type === "REMOVE") {
         return;
       }
@@ -46249,10 +46434,10 @@ the label */
   }
 
   // ../editor/src/components/Grids/useUpdateUiArguments.tsx
-  var import_react33 = __toESM(require_react());
+  var import_react34 = __toESM(require_react());
   function useUpdateUiArguments(path3) {
     const dispatch = useDispatch();
-    const updateArguments = import_react33.default.useCallback(
+    const updateArguments = import_react34.default.useCallback(
       (newArguments) => {
         dispatch(
           UPDATE_NODE({
@@ -46286,8 +46471,8 @@ the label */
     };
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-P9rBINsBnt37/editor/src/components/GridlayoutElement/styles.module.css.js
-  var digest22 = "8fbcb4ac40039546333f0fdba62d886a16ba90cda64ef5909307c455acf08dbb";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-N334cTn9K9C3/editor/src/components/GridlayoutElement/styles.module.css.js
+  var digest22 = "f17b30d56507608697f20bef4fa4fc452d72eab6ce61c17a733f0362dea22c43";
   var css22 = `._container_1hvsg_1 {
   display: grid;
   /* background-color: var(--bg-color); */
@@ -46323,11 +46508,11 @@ the label */
     const { uniqueAreas, ...layout } = parseGridLayoutArgs(layoutDef);
     const { areas } = layout;
     const updateArguments = useUpdateUiArguments(path3);
-    const itemGridLocations = import_react34.default.useMemo(
+    const itemGridLocations = import_react35.default.useMemo(
       () => areasToItemLocations(areas),
       [areas]
     );
-    const [showModal, setShowModal] = import_react34.default.useState(null);
+    const [showModal, setShowModal] = import_react35.default.useState(null);
     const handleNodeDrop = (nodeInfo) => {
       const { node, currentPath, pos } = nodeInfo;
       const isNodeMove2 = currentPath !== void 0;
@@ -46342,7 +46527,7 @@ the label */
     const handleLayoutUpdate = (action) => {
       updateArguments(gridLayoutReducer(layoutDef, action));
     };
-    const handleNewLayoutTemplate = import_react34.default.useCallback(
+    const handleNewLayoutTemplate = import_react35.default.useCallback(
       (newLayoutTemplate) => {
         updateArguments(
           convertTemplatedLayoutToGridlayoutArgs(newLayoutTemplate)
@@ -46639,8 +46824,8 @@ the label */
     return makeStringInputInfo("Label text", defaultValue);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-YlT3x9DCFaau/editor/src/Shiny-Ui-Elements/ShinyActionButton/styles.module.css.js
-  var digest23 = "b223b33884bd4db25ebf9ecfa2aae88439e38c94f7911abcff4ffd53bd1247f3";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-B3WHdbZAgBxw/editor/src/Shiny-Ui-Elements/ShinyActionButton/styles.module.css.js
+  var digest23 = "ee79936fa267f5f9242176c953bba02f621c2c83900daf9ed09eb21922252c01";
   var css23 = `._container_tyghz_1 {
   display: grid;
   grid-template-rows: 1fr;
@@ -46697,8 +46882,8 @@ the label */
   // ../editor/src/assets/icons/shinyCheckgroup.png
   var shinyCheckgroup_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAFS0lEQVR4nO3cz2vTdxzH8Vfb9VeIa7ta1FW2FqQ6pqLbEERhm0OGFzcPY0dhl+LFo4cd9gfsuIs77LDbkAljDqEiCoKszMMEcbqFsjm2OaW6ptClP2zNDvkms2n6I99vXqTp5/mAQJKmn3wPT76fJCTvpnw+L6DWmut9ANiYCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFoQFC8KCBWHBgrBgQViwICxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFs/V+wDq5cy5seX+1BNd4piILkt8+uGOmEs2pmDDKrNL0ilJ70h6NeFaP0m6IumspJ8TrtWw2AqlYUl3JJ1W8qgUrXE6WnO4Bus1pNDPWCclff7sHZ1tzepsa4m12PTcgqbnnhZvNkVrz0r6Mv4hNqaQw+pTYbuSJA1s7tB7r/Wpv6c90aJ/Tczq2x/Hde/RTPGus5IuShpPtHCDCXkrPCWpU5K297Rr+O3+xFFJUn+01vYXSmt1RM8VlJDDOly8cmxvr1qam2q2cEtzk47t6a34XKEIeSs8VLwy0NeZaKHRTFaX7xQ+ZRh+60Vt6W4vX/NQxX/cwEIOK1W80toS/2x18ea4rmUmlW5vKUVVYc1UxX/ewELeChMbzWR1LTMpSTp5aGspKhBWbJO5J/rm5iNJ0on9m/Vywu10oyGsmL76/oEk6cBAWgeHuut7MOsQYcUwmsnq18ezSre36Ojid3+IEFaVJnNPSu8Aj+/rVVeqtc5HtD4RVpWu/5LV1OyCdm9Lad/A8/U+nHWLsKrwMDtbehf47l62wJUQVhUu3XosSXpzqIuPFlZBWBWMZrI6c25M5394ULrv9/Fp3f47J0k6vLO7TkfWOAirzMyTp6XPp27cmyrFdfvPKUmFsxUv2FdHWGU6Wpv10eGtpds37k0t+oT9jUFesK8FYVWwqz+tE/s3l24Xz2C7t6V4bbVGhLWMg0PdOjCQXnTf3pfSyzwa5UIO65/ildzcQsUHHN3Tq3R74WvKWza1VvW51TNfUZaW+eXORhby12auSzouSXfv5/T6wKYlD+hKteqT9wdjLX7n/r/lzxWUkM9Y3xWvjNx6rGxuvmYLZ3PzGok+84pcqNniDSLkM9YXkj6WNDg5Pa/PLv+hI6/0aMeWlNpifvFvbiGvsYc5Xb07oamZ0vb6W/RcQQk5LKnwI4cRSZqaWdCF6N2f4TmCE/JWKEmXVPj1c8awdiZa+5Jh7XUv9DOWJF2VtFPSB5KOqPCLmrjfUc+p8EL9iqTzNTm6BkVY//s6uqAGQt8KYUJYsCAsWBAWLHjxvpRlol9oCKuAiX41xlbIRD+L0M9YTPQzCTksJvoZhbwVMtHPKOSwmOhnFPJWyEQ/o5DDYqKfUchbYWJM9FseYcXERL+VEVZMTPRbGWHFwES/1RFWlZjotzaEVSUm+q0NYVWBiX5rR1hVYKLf2hFWBUz0S46wyjDRrzYIqwwT/WqDsCpgol9yhLUMJvolE3JYTPQzCvlrM0z0Mwr5jMVEP6OQz1hM9DMKOSyJiX42IW+FEhP9bEI/Y0lM9LNoyufz9T4GbEChb4UwISxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFoQFC8KCBWHBgrBgQViwICxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLP4DpWmTqmVmpDwAAAAASUVORK5CYII=";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-lsGgUNOeFVqu/editor/src/Shiny-Ui-Elements/ShinyCheckboxGroupInput/styles.module.css.js
-  var digest24 = "d699372bf88ab9948a19da0f8a2849e53fd0a74345a4c9c613ef6caf74b5553f";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-C0RDjL2nxz42/editor/src/Shiny-Ui-Elements/ShinyCheckboxGroupInput/styles.module.css.js
+  var digest24 = "4d0815970cfe124746c35e4e6ec40bb6019d94083b268425526fdc4da9f9b51a";
   var css24 = `._container_162lp_1 {
   position: relative;
   padding: 4px;
@@ -46788,10 +46973,10 @@ the label */
   var shinycheckbox_default = "data:image/png;base64,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";
 
   // ../editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/ShinyCheckboxInput.tsx
-  var React41 = __toESM(require_react());
+  var React42 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-E94clgAONgad/editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/styles.module.css.js
-  var digest25 = "9624b000fd65430923c8d6ecf0b92de0fec20bdfa645f26bec4d1d18d63358ce";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-3ABTSUP4QctY/editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/styles.module.css.js
+  var digest25 = "7bc91520cd87dcdc8e5b9e8a18b582db2a1ee77e2df8217023266db877ae5729";
   var css25 = `._container_1x0tz_1 {
   position: relative;
   padding: 4px;
@@ -46826,8 +47011,8 @@ the label */
   }) => {
     const width = uiArguments.width ?? "auto";
     const settings = { ...uiArguments };
-    const [value, setValue] = React41.useState(settings.value);
-    React41.useEffect(() => {
+    const [value, setValue] = React42.useState(settings.value);
+    React42.useEffect(() => {
       setValue(settings.value);
     }, [settings.value]);
     return /* @__PURE__ */ (0, import_jsx_runtime58.jsx)(
@@ -46907,8 +47092,8 @@ the label */
     return getTabPanelTitle(firstChild) ?? "First Tab";
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-uT0gk61uxgas/editor/src/components/Tabs/TabPanel/TabPanel.module.css.js
-  var digest26 = "3bd01682b899a5541f2a005874d2b53fd2a28be263fa5ca80d6e53d519679f2a";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-111ht88y414o/editor/src/components/Tabs/TabPanel/TabPanel.module.css.js
+  var digest26 = "d5da6a3d81ee170fdf2f93bac1c61eb5db649de7720dec489c2fb42d7f4b325e";
   var css26 = `._container_10z2l_1 {
   height: 100%;
 }
@@ -46943,16 +47128,16 @@ the label */
   var TabPanel_default = TabPanel;
 
   // ../editor/src/components/Tabs/Tabset/Tabset.tsx
-  var import_react39 = __toESM(require_react());
+  var import_react40 = __toESM(require_react());
 
   // ../editor/src/assets/icons/tabPanel.png
   var tabPanel_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAADSklEQVR4nO3cv0vUYQDH8c/pmWfpmV1G0uAPjAqiyYqWoK1oDKq5PdqE9qaG/ozAKWjpL4jWoKayrcWtIgqiuAYd9LQo8u3zfO39ghvux/C54y3PV9Br9fv9SLttqPQA7U+GJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlRLv0gF9ZXlkdfGg6yf0k15PMJhnd6007+JrkXZInSR4l+bD5yYe3FgtMqkO1YQ1YSvIsydHSQwaMJTm7cbuT5FqSV0UXVaIJR2EvydPUF9WgE1nfOVl6SA2aENa9JDOlR/yhuSR3S4+oQROOwhs7PTjb6+TS4mTmp8cy0RlOe7iFD/n+o5+PX7/n7dqXPH/zMWufvu30sttJHuBjKteEsLZdAV85M5Vr53p7PqQ93EpvfCS98ckszXfz+MVaXr//PPiy//eKfZMmHIUHNt+ZO9rJ1QJRDWoPtXLzwrF0x7b9bNbw22pxTQhri/ML3fCH3p/pjAzl4kK39IwqNS6s2V6n9IQtTh4/WHpClRoX1pHxkdITtpieqGtPLRoXVnuoloNw3ehI4z7CPeGn8o9qC70WhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCVHFP6zu8M0y+0Lp91Xy226qCCtJv/SAXVbL+yn2B/kehUIYlhCGJUQt11i/uxaYunzqcPf0zKGFjfuf9mLQ39i4SP6xvLL6svCUarT6/VquM7WfeBQKYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQvwEAzs9K42yqRkAAAAASUVORK5CYII=";
 
   // ../editor/src/Shiny-Ui-Elements/utils/DropDetector.tsx
-  var import_react36 = __toESM(require_react());
+  var import_react37 = __toESM(require_react());
 
   // ../editor/src/DragAndDropHelpers/useDropHandlers.tsx
-  var import_react35 = __toESM(require_react());
+  var import_react36 = __toESM(require_react());
   function useDropHandlers(watcherRef, {
     dropFilters: dropFilters3 = { rejectedNodes: [] },
     positionInChildren,
@@ -46961,7 +47146,7 @@ the label */
     processDropped = (x2) => x2
   }) {
     const place_node = usePlaceNode();
-    const getCanAcceptDrop = import_react35.default.useCallback(
+    const getCanAcceptDrop = import_react36.default.useCallback(
       ({ node, currentPath }) => {
         return getAcceptsDraggedNode(dropFilters3, node) && getIsValidMove({
           fromPath: currentPath,
@@ -46970,7 +47155,7 @@ the label */
       },
       [dropFilters3, parentPath, positionInChildren]
     );
-    const handleDrop = import_react35.default.useCallback(
+    const handleDrop = import_react36.default.useCallback(
       (dragInfo) => {
         if (onDrop === "add-node") {
           const { node, currentPath } = dragInfo;
@@ -47012,7 +47197,7 @@ the label */
   // ../editor/src/Shiny-Ui-Elements/utils/DropDetector.tsx
   var import_jsx_runtime60 = __toESM(require_jsx_runtime());
   function DropDetector({ children, dropArgs, ...divProps }) {
-    const detectorRef = import_react36.default.useRef(null);
+    const detectorRef = import_react37.default.useRef(null);
     useDropHandlers(detectorRef, dropArgs);
     return /* @__PURE__ */ (0, import_jsx_runtime60.jsx)("div", { ref: detectorRef, ...divProps, children });
   }
@@ -47037,8 +47222,8 @@ the label */
     }) });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-YUJmYfdTsUSQ/editor/src/Shiny-Ui-Elements/ShinyTabPanel/ShinyTabPanel.module.css.js
-  var digest27 = "a07127f7175d1d48c5983e0e794a54a5a2d058c46f0b9db6bf77bd0f6a3e5b47";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-KFUsGygWyYe9/editor/src/Shiny-Ui-Elements/ShinyTabPanel/ShinyTabPanel.module.css.js
+  var digest27 = "1a4007aa79d2fa47de5ddb9da4e70b7ad8e26d7998ac3b89ba9991ba34c9efb9";
   var css27 = `._container_fe3r8_1 {
   position: relative;
   height: 100%;
@@ -47131,12 +47316,7 @@ the label */
   };
 
   // ../editor/src/components/Tabs/Tabset/Tab.tsx
-  var import_react37 = __toESM(require_react());
-
-  // ../editor/src/Shiny-Ui-Elements/isShinyUiNode.tsx
-  function isShinyUiNode(x2) {
-    return "uiName" != null && x2 != null && typeof x2 === "object" && "uiName" in x2;
-  }
+  var import_react38 = __toESM(require_react());
 
   // ../editor/src/components/UiNode/TreeManipulation/samePath.ts
   function samePath(aPath, bPath) {
@@ -47145,8 +47325,8 @@ the label */
     return sameArray(aPath, bPath);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-n3sI7mvuV9x9/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest28 = "bbeeecb6e195f94f88c0decd2c8a2ef373d4b4e6ed27301f7e235f30437ca06c";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-Tgusj1Ca6o9D/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest28 = "7c690b745227a367dfb123cdbc5b5695fb29c263a62df7b8c0e569b86e2deef1";
   var css28 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -47292,7 +47472,7 @@ illusion of the selected panel and tab being one entity */
   };
   function useGetNode(path3) {
     const uiTree = useSelector((state) => state.uiTree);
-    const node = import_react37.default.useMemo(() => {
+    const node = import_react38.default.useMemo(() => {
       if (!isShinyUiNode(uiTree))
         return dummyNode;
       return getNode(uiTree, path3);
@@ -47319,8 +47499,8 @@ illusion of the selected panel and tab being one entity */
     );
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-8Ruh6nViu4pA/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest29 = "6fdc55d91d7a34abed011aed63bd5b5224696ab107ac6eaf0d15f93f760ddf2c";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-yz4dSGtlKNlm/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest29 = "13ffb8139ff75c4751d0a77b15e4e5f36592429d385cfc1fdd4987ac37b313d2";
   var css29 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -47490,8 +47670,8 @@ illusion of the selected panel and tab being one entity */
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-fhpOTWxlz3VC/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest30 = "963f278c3d731dea5109b6b7ecf73f472a3aa9e87b8ade001943baa5f94b1b75";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-zvrfPpYCJyKB/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest30 = "d61bf28e8a9ba5ee679645a058213812e8c7b835e5e0209563aa37dc7a98c45c";
   var css30 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -47628,10 +47808,10 @@ illusion of the selected panel and tab being one entity */
   var Tabset_module_css_default3 = { "container": "_container_qbb7e_1", "header": "_header_qbb7e_13", "tabContents": "_tabContents_qbb7e_21", "pageTitle": "_pageTitle_qbb7e_26", "tabHolder": "_tabHolder_qbb7e_39", "tab": "_tab_qbb7e_21", "newTabDropDetector": "_newTabDropDetector_qbb7e_99", "addTabButton": "_addTabButton_qbb7e_104", "tabDropDetector": "_tabDropDetector_qbb7e_112" };
 
   // ../editor/src/components/Tabs/Tabset/useActiveTab.tsx
-  var import_react38 = __toESM(require_react());
+  var import_react39 = __toESM(require_react());
   function useActiveTab(numTabs, initalSelection = 0) {
-    const [activeTab, setActiveTab] = import_react38.default.useState(initalSelection);
-    import_react38.default.useEffect(() => {
+    const [activeTab, setActiveTab] = import_react39.default.useState(initalSelection);
+    import_react39.default.useEffect(() => {
       if (numTabs <= activeTab) {
         setActiveTab(numTabs - 1);
       }
@@ -47662,7 +47842,7 @@ illusion of the selected panel and tab being one entity */
         path: makeChildPath(path3, numChildren)
       });
     };
-    import_react39.default.useEffect(() => {
+    import_react40.default.useEffect(() => {
       const pathOfActiveTab = makeChildPath(path3, activeTab);
       if (!selectedPath)
         return;
@@ -47721,8 +47901,8 @@ illusion of the selected panel and tab being one entity */
   var Tabset_default = Tabset;
   function getTabNamesFromChildren(children) {
     let tabIds = [];
-    import_react39.default.Children.forEach(children, (child) => {
-      if (!import_react39.default.isValidElement(child)) {
+    import_react40.default.Children.forEach(children, (child) => {
+      if (!import_react40.default.isValidElement(child)) {
         return null;
       }
       const tabId = child.props.title;
@@ -47733,8 +47913,8 @@ illusion of the selected panel and tab being one entity */
     return tabIds;
   }
   function selectActiveTab(children, activeTab) {
-    return import_react39.default.Children.map(children, (child, i2) => {
-      if (!import_react39.default.isValidElement(child)) {
+    return import_react40.default.Children.map(children, (child, i2) => {
+      if (!import_react40.default.isValidElement(child)) {
         return child;
       }
       const tabId = child.props.title;
@@ -47766,8 +47946,8 @@ illusion of the selected panel and tab being one entity */
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-1EzqxRv21I6S/editor/src/Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage.module.css.js
-  var digest31 = "fa2de6f31e66c67fbacdd54daaa45928992af2245f1466c129ff578272a36919";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-LWGTzX6vVlgZ/editor/src/Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage.module.css.js
+  var digest31 = "4ad91334eac146edbda88483df6dd506c67d296a0aa0d0b03cf60c3eb23010bf";
   var css31 = `._noTabsMessage_130qz_1 {
   padding: 5px;
 }
@@ -47866,10 +48046,10 @@ illusion of the selected panel and tab being one entity */
   }
 
   // ../editor/src/Shiny-Ui-Elements/ShinyNumericInput/ShinyNumericInput.tsx
-  var React47 = __toESM(require_react());
+  var React48 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-uRMY1MmNHfRC/editor/src/Shiny-Ui-Elements/ShinyNumericInput/styles.module.css.js
-  var digest32 = "e66b54b84680bd932e9b7c1e122b2bdbe6d49f5ab64d0df67dab6592ba41453c";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-PW8UuPxasdHu/editor/src/Shiny-Ui-Elements/ShinyNumericInput/styles.module.css.js
+  var digest32 = "38661d01b2d31038ec44dfe6ac373d62f61c086ecf3f759b2a0c09dea0aed6eb";
   var css32 = `._container_yicbr_1 {
   position: relative;
   padding: 4px;
@@ -47900,8 +48080,8 @@ illusion of the selected panel and tab being one entity */
   }) => {
     const settings = { ...uiArguments };
     const width = settings.width ?? "200px";
-    const [value, setValue] = React47.useState(settings.value);
-    React47.useEffect(() => {
+    const [value, setValue] = React48.useState(settings.value);
+    React48.useEffect(() => {
       setValue(settings.value);
     }, [settings.value]);
     return /* @__PURE__ */ (0, import_jsx_runtime68.jsxs)(
@@ -47987,8 +48167,8 @@ illusion of the selected panel and tab being one entity */
     description: "An input control for entry of numeric values"
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-fCPvjli3RRRR/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
-  var digest33 = "a9edf5a1a47b337cc15d37ca8e818db9a656d85545cc6c1272d5675a483b1755";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-Elcoi19Ng87A/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
+  var digest33 = "18250e236b10978b28f8b0b0366fe4266b233a3ddf8ce7802709f758a247c573";
   var css33 = `._container_1rlbk_1 {
   max-height: 100%;
 }
@@ -48078,10 +48258,10 @@ illusion of the selected panel and tab being one entity */
   var shinyRadiobuttons_default = "data:image/png;base64,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";
 
   // ../editor/src/Shiny-Ui-Elements/ShinyRadioButtons/ShinyRadioButtons.tsx
-  var import_react40 = __toESM(require_react());
+  var import_react41 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-51Dltmeh977L/editor/src/Shiny-Ui-Elements/ShinyRadioButtons/styles.module.css.js
-  var digest34 = "59d3fbbb9813eb01f96acddcb6a624732ffe12dd1c2429717160d8d75b305064";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-x5W7uutYSFpr/editor/src/Shiny-Ui-Elements/ShinyRadioButtons/styles.module.css.js
+  var digest34 = "d31fffd2200e6c8843ab4ce356a499bb16d75c4ded3b0ba9951621c39be45801";
   var css34 = `._container_sgn7c_1 {
   position: relative;
   padding: 4px;
@@ -48117,8 +48297,8 @@ illusion of the selected panel and tab being one entity */
     const choices = uiArguments.choices;
     const keys2 = Object.keys(choices);
     const values = Object.values(choices);
-    const [selection, setSelection] = import_react40.default.useState(values[0]);
-    import_react40.default.useEffect(() => {
+    const [selection, setSelection] = import_react41.default.useState(values[0]);
+    import_react41.default.useEffect(() => {
       if (!values.includes(selection)) {
         setSelection(values[0]);
       }
@@ -48183,8 +48363,8 @@ illusion of the selected panel and tab being one entity */
   // ../editor/src/assets/icons/shinySelectbox.png
   var shinySelectbox_default = "data:image/png;base64,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";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-YxDfE8XhnOyi/editor/src/Shiny-Ui-Elements/ShinySelectInput/styles.module.css.js
-  var digest35 = "8524aa0a1684b9d24ab234e940feda258db6de82de2635afb541b6e9addb2b35";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-05C703s0sH9S/editor/src/Shiny-Ui-Elements/ShinySelectInput/styles.module.css.js
+  var digest35 = "c4537c577b6ccc71f947608e2124ed26753b876a5e4a5849b5600a938e1a4dcf";
   var css35 = `._container_1e5dd_1 {
   position: relative;
   padding: 4px;
@@ -48258,10 +48438,10 @@ illusion of the selected panel and tab being one entity */
   var shinySlider_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAEEklEQVR4nO3bT4iUdRzH8behaBI7ZiB1WLokemkvUVk3Ye2ShwjKS6cu1amTIXTpFKUEBR30FnSyQATrUAreDOwf5CEhL1vBhkGsGrK20nT4PQdZpnXn8fnM7PM87xd4cn/f+c3Dm2dmnnlm03A4RGrafdPegLrJsBRhWIowLEUYliIMSxGGpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqUIw1KEYSnCsBRhWIowLEUYliIMSxGGpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqUIw1KEYSnCsBRhWIowLEUYliIMSxGGpQjDUoRhKcKwFGFYijAsRRiWIgxLEZunvYGkt05eudufbAX2Ay8AzwCPAgPgGrAAfAOcBs4Dt+427Oihx2rvtWs6HdYaNgOvAu8Aj4z4/wEwV/17DbgKvA98DPwzmS22Wx9fCvcA3wMnGB3VKLuAD4Bvgb2hfXVK38J6ErhAORPVMVetf7qxHXVUn8LaC5wFdt7jnAeBr/DMtaa+hLUFOEl579SEAfBZNVcj9CWsN6n/8vd/Hq/maoQ+hLUNOByafbiar1U2DYfDae9hHLuB94B5YGY9Cy799jefXvgjtqFXnn2YudkHYvMr14FzwBHgl/SDNaFNZ6w9wEXgRdYZFcDPizdjGwK4HJ5fmaE874uU47DhtSmsd4Ed4y76/a/l5ncywfmr7KAchw2vTWHN11m0dPN20/uY6PwRnpv0A9bRprBqWV75t9Xz26pNYZ2rs2jbluxTTM8f4etJP2AdbQrrbWBp3EWD7dnv2Qf3T/R7/CXKcdjw2hTWZWAfcAq4sd5Fszuzl5lmH5rIZawblOe9j3IcNry2XccaS3U/1kuUr19SXgY+B+/HulObzlh1naHcT5XwZzVfq/QhrGXgWGj2sWq+VulDWAAfAT81PPMS8GHDMzujL2GtAIco97I34RrlvdVKQ/M6py9hQfk0Nc+9v9+6ChygJZ/OpqVPYQF8R7k9+Yea638EnqLc+6419C0sgF8p96y/ASyuc80i8DolqoXQvjqlrz//ug0cBz4BDgLPA09Qflc4Q7n/aYHya54vgS/w099YOn2BVNPTx5dCTYBhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqUIw1KEYSnCsBRhWIowLEUYliIMSxGGpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqUIw1KEYSnCsBRhWIowLEUYliIMSxGGpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxF/Aek7Hy8USK+/wAAAABJRU5ErkJggg==";
 
   // ../editor/src/Shiny-Ui-Elements/ShinySliderInput/ShinySliderInput.tsx
-  var React49 = __toESM(require_react());
+  var React50 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-1wtoyTCxMAds/editor/src/Shiny-Ui-Elements/ShinySliderInput/styles.module.css.js
-  var digest36 = "63c1f6723b280ba89f9306087893ebb1e5d58f4ffbff977713ac649517dc838f";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-pfqw76WLs3oM/editor/src/Shiny-Ui-Elements/ShinySliderInput/styles.module.css.js
+  var digest36 = "9c4a5e173b8ebf997f11d844cdb65fc6c1af4f4c8342cb4d9c3dd6863cb1c109";
   var css36 = `._container_1f2js_1 {
   padding: 6px;
 
@@ -48341,7 +48521,7 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   }) => {
     const settings = { ...uiArguments };
     const { width = "200px" } = settings;
-    const [currentVal, setCurrentVal] = React49.useState(settings.value);
+    const [currentVal, setCurrentVal] = React50.useState(settings.value);
     return /* @__PURE__ */ (0, import_jsx_runtime73.jsxs)(
       "div",
       {
@@ -48494,10 +48674,10 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   var shinyTextinput_default = "data:image/png;base64,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";
 
   // ../editor/src/Shiny-Ui-Elements/ShinyTextInput/ShinyTextInput.tsx
-  var React50 = __toESM(require_react());
+  var React51 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-uyMbtXoeY4P1/editor/src/Shiny-Ui-Elements/ShinyTextInput/styles.module.css.js
-  var digest37 = "dfce902740459c069b3fe547136948c15af97e49135e25405f621d47f1c48a56";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-QH0nbN28eAhz/editor/src/Shiny-Ui-Elements/ShinyTextInput/styles.module.css.js
+  var digest37 = "f8e75c3ce95a0dc944dc092c61c1e86f60babced29466465f844f957c385a33a";
   var css37 = `._container_yicbr_1 {
   position: relative;
   padding: 4px;
@@ -48529,8 +48709,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     const width = "200px";
     const height = "auto";
     const settings = { ...uiArguments };
-    const [value, setValue] = React50.useState(settings.value);
-    React50.useEffect(() => {
+    const [value, setValue] = React51.useState(settings.value);
+    React51.useEffect(() => {
       setValue(settings.value);
     }, [settings.value]);
     return /* @__PURE__ */ (0, import_jsx_runtime76.jsxs)(
@@ -48592,8 +48772,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // ../editor/src/assets/icons/shinyTextOutput.png
   var shinyTextOutput_default = "data:image/png;base64,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";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-3TiY5AmGWBuN/editor/src/Shiny-Ui-Elements/ShinyTextOutput/styles.module.css.js
-  var digest38 = "f78855bdfd35dfbbb7e3e390de97d2605643a31de3b204e6c118157fed42bbd7";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-IzYmPodlJfSp/editor/src/Shiny-Ui-Elements/ShinyTextOutput/styles.module.css.js
+  var digest38 = "03f4ad2ad93ccf9413661547dbb802cf29861a8898717aeddb278cc299471264";
   var css38 = `._container_1i6yi_1 {
   padding: 1rem;
   max-height: 100%;
@@ -48653,8 +48833,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // ../editor/src/assets/icons/shinyImage.png
   var shinyImage_default = "data:image/png;base64,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";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-2hw6KD51aZIe/editor/src/Shiny-Ui-Elements/ShinyUiOutput/styles.module.css.js
-  var digest39 = "b596cdc8b25d1ae0e735afb676c9019a3addfd6aaf0b2f3f99564625daa84e5a";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-KcD5ws64Rdth/editor/src/Shiny-Ui-Elements/ShinyUiOutput/styles.module.css.js
+  var digest39 = "3d228158905d8ac54e360b5c84f6da4ab9795adaf4536f382e4a50022b7bab32";
   var css39 = `._container_1xnzo_1 {
   display: grid;
   grid-template-rows: 1fr;
@@ -48724,8 +48904,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 1024 1024" }, "child": [{ "tag": "path", "attr": { "d": "M881.7 187.4l-45.1-45.1a8.03 8.03 0 0 0-11.3 0L667.8 299.9l-54.7-54.7a7.94 7.94 0 0 0-13.5 4.7L576.1 439c-.6 5.2 3.7 9.5 8.9 8.9l189.2-23.5c6.6-.8 9.3-8.8 4.7-13.5l-54.7-54.7 157.6-157.6c3-3 3-8.1-.1-11.2zM439 576.1l-189.2 23.5c-6.6.8-9.3 8.9-4.7 13.5l54.7 54.7-157.5 157.5a8.03 8.03 0 0 0 0 11.3l45.1 45.1c3.1 3.1 8.2 3.1 11.3 0l157.6-157.6 54.7 54.7a7.94 7.94 0 0 0 13.5-4.7L447.9 585a7.9 7.9 0 0 0-8.9-8.9z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-x5hk2ilzdVjD/editor/src/components/CategoryDivider/styles.module.css.js
-  var digest40 = "21abc1665411af73cad8e3d8efe852f274f3cdc2c3d24fd53c22cc905ed0c030";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-hIgaWN3ZsNdD/editor/src/components/CategoryDivider/styles.module.css.js
+  var digest40 = "95baa7e1e8179c32cf6601fb8d07f367a85dd6dc85f7084692afb5fa91738728";
   var css40 = `._categoryDivider_bdwku_1 {
   display: block;
   position: relative;
@@ -48842,184 +49022,26 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     unknownUiFunction: unknownUiFunctionInfo
   };
 
-  // ../editor/src/components/UiNode/TreeManipulation/addNodeMutating.ts
-  function addNodeMutating(tree, { path: path3, node }) {
-    const parentPath = getParentPath(path3);
-    const positionInChildren = path3[path3.length - 1];
-    const parentNode = getNode(tree, parentPath);
-    if (!shinyUiNodeInfo[parentNode.uiName].acceptsChildren) {
-      throw new Error(
-        "Can't add a child to a non-container node. Check the path"
-      );
-    }
-    if (!Array.isArray(parentNode.uiChildren)) {
-      parentNode.uiChildren = [];
-    }
-    parentNode.uiChildren = addAtIndex(
-      parentNode.uiChildren,
-      positionInChildren,
-      node
-    );
-  }
-
-  // ../editor/src/components/UiNode/TreeManipulation/removeNode.ts
-  function removeNodeMutating(tree, { path: path3 }) {
-    const { parentNode, indexToNode } = navigateToParent(tree, path3);
-    if (!checkIfContainerNode(parentNode)) {
-      throw new Error("Somehow trying to enter a leaf node");
-    }
-    parentNode.uiChildren.splice(indexToNode, 1);
-  }
-  function navigateToParent(tree, path3) {
-    const pathCopy = [...path3];
-    const indexToNode = pathCopy.pop();
-    if (typeof indexToNode === "undefined")
-      throw new Error("Path to node must have at least one element");
-    const parentNode = pathCopy.length === 0 ? tree : getNode(tree, pathCopy);
-    if (!checkIfContainerNode(parentNode)) {
-      throw new Error("Somehow trying to enter a leaf node");
-    }
-    return { parentNode, indexToNode };
-  }
-
-  // ../editor/src/components/UiNode/TreeManipulation/moveNodeMutating.ts
-  function moveNodeMutating(tree, { path: path3, currentPath, node }) {
-    const parentPath = getParentPath(path3);
-    const positionInChildren = path3[path3.length - 1];
-    const parentNode = getNode(tree, parentPath);
-    if (!shinyUiNodeInfo[parentNode.uiName].acceptsChildren) {
-      throw new Error(
-        "Can't add a child to a non-container node. Check the path"
-      );
-    }
-    if (!Array.isArray(parentNode.uiChildren)) {
-      parentNode.uiChildren = [];
-    }
-    const nextPath = [...parentPath, positionInChildren];
-    if (nodesAreSiblings(currentPath, nextPath)) {
-      const previousIndex = currentPath[currentPath.length - 1];
-      parentNode.uiChildren = moveElement(
-        parentNode.uiChildren,
-        previousIndex,
-        positionInChildren
-      );
-      return;
-    }
-    removeNodeMutating(tree, { path: currentPath });
-    parentNode.uiChildren = addAtIndex(
-      parentNode.uiChildren,
-      positionInChildren,
-      node
-    );
-  }
-
-  // ../editor/src/components/UiNode/TreeManipulation/placeNode.ts
-  function isNodeMove(opts) {
-    return "currentPath" in opts && opts.currentPath !== void 0;
-  }
-  function placeNodeMutating(tree, args) {
-    const { path: path3, node } = args;
-    if (isNodeMove(args)) {
-      moveNodeMutating(tree, { path: path3, currentPath: args.currentPath, node });
-      return;
-    }
-    addNodeMutating(tree, { path: path3, node: args.node });
-  }
-
-  // ../editor/src/components/UiNode/TreeManipulation/updateNode.ts
-  function updateNodeMutating(tree, { path: path3, node }) {
-    const existingNode = getNode(tree, path3);
-    Object.assign(existingNode, node);
-  }
-
-  // ../editor/src/state/watcherSubscriptions.ts
-  function getUniqueSubscriptions(type) {
-    const uniqueUpdateSubscribers = /* @__PURE__ */ new Set();
-    try {
-      for (const info of Object.values(shinyUiNodeInfo)) {
-        const nodeUpdateSubscriber = info?.stateUpdateSubscribers?.[type];
-        if (nodeUpdateSubscriber) {
-          uniqueUpdateSubscribers.add(nodeUpdateSubscriber);
-        }
+  // ../editor/src/state/getNamedPath.tsx
+  function getNamedPath(path3, tree) {
+    const totalDepth = path3.length;
+    let pathString = [];
+    for (let depth = 0; depth <= totalDepth; depth++) {
+      const nodeAtDepth = getNode(tree, path3.slice(0, depth));
+      if (nodeAtDepth === void 0) {
+        break;
       }
-      return uniqueUpdateSubscribers;
-    } catch {
-      return uniqueUpdateSubscribers;
+      pathString.push(shinyUiNodeInfo[nodeAtDepth.uiName].title);
     }
+    return pathString;
   }
-  var deleteSubscriptions = getUniqueSubscriptions("DELETE_NODE");
-  var updateSubscriptions = getUniqueSubscriptions("UPDATE_NODE");
-
-  // ../editor/src/state/uiTree.ts
-  var mainStateSlice = createSlice({
-    name: "state",
-    initialState: {
-      mode: "LOADING"
-    },
-    reducers: {
-      SET_FULL_STATE: (tree, action) => action.payload.state,
-      SET_UI_TREE: (tree, action) => {
-        return { mode: "MAIN", uiTree: action.payload.uiTree };
-      },
-      SHOW_TEMPLATE_CHOOSER: (state, { payload }) => {
-        return { mode: "TEMPLATE_CHOOSER", options: payload };
-      },
-      SET_LOADING: (state) => {
-        return { mode: "LOADING" };
-      },
-      UPDATE_NODE: (state, action) => {
-        if (state.mode !== "MAIN") {
-          throw new Error("Tried to update a node when in template chooser mode");
-        }
-        for (const subscription of updateSubscriptions) {
-          subscription(state.uiTree, action.payload);
-        }
-        updateNodeMutating(state.uiTree, action.payload);
-      },
-      PLACE_NODE: (state, action) => {
-        if (state.mode !== "MAIN") {
-          throw new Error("Tried to move a node when in template chooser mode");
-        }
-        placeNodeMutating(state.uiTree, action.payload);
-      },
-      DELETE_NODE: (state, action) => {
-        if (state.mode !== "MAIN") {
-          throw new Error("Tried to delete a node when in template chooser mode");
-        }
-        for (const subscription of deleteSubscriptions) {
-          subscription(state.uiTree, { path: action.payload.path });
-        }
-        removeNodeMutating(state.uiTree, action.payload);
-      }
-    }
-  });
-  var {
-    UPDATE_NODE,
-    PLACE_NODE,
-    DELETE_NODE,
-    SET_UI_TREE,
-    SET_FULL_STATE,
-    SHOW_TEMPLATE_CHOOSER,
-    SET_LOADING
-  } = mainStateSlice.actions;
-  function usePlaceNode() {
-    const dispatch = useDispatch();
-    const place_node = import_react41.default.useCallback(
-      (opts) => {
-        dispatch(PLACE_NODE(opts));
-      },
-      [dispatch]
-    );
-    return place_node;
-  }
-  var uiTree_default = mainStateSlice.reducer;
 
   // ../editor/src/backendCommunication/useSyncUiWithBackend.tsx
   function useSyncUiWithBackend() {
-    const { sendMsg, incomingMsgs: backendMsgs } = useBackendCallbacks();
-    const state = useSelector((state2) => state2.uiTree);
+    const { sendMsg, incomingMsgs: backendMsgs, mode } = useBackendConnection();
+    const state = useCurrentUiTree();
+    const currentSelection = useCurrentSelection();
     const dispatch = useDispatch();
-    const currentState = useSelector((state2) => state2.uiTree);
     const [errorMsg, setErrorMsg] = React52.useState(null);
     const lastRecievedRef = React52.useRef(null);
     React52.useEffect(() => {
@@ -49056,18 +49078,24 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
       [sendMsg]
     );
     React52.useEffect(() => {
-      if (currentState.mode === "LOADING" || currentState === lastRecievedRef.current) {
+      if (mode !== "VSCODE" || !currentSelection || state.mode !== "MAIN")
+        return;
+      const namedPath = getNamedPath(currentSelection, state.uiTree);
+      sendMsg({ path: "NODE-SELECTION", payload: namedPath });
+    }, [currentSelection, mode, sendMsg, state]);
+    React52.useEffect(() => {
+      if (state.mode === "LOADING" || state === lastRecievedRef.current) {
         return;
       }
-      if (currentState.mode === "TEMPLATE_CHOOSER") {
+      if (state.mode === "TEMPLATE_CHOOSER") {
         sendMsg({ path: "ENTERED-TEMPLATE-SELECTOR" });
         return;
       }
       debouncedSendMsg({
         path: "UPDATED-TREE",
-        payload: currentState.uiTree
+        payload: state.uiTree
       });
-    }, [currentState, debouncedSendMsg, sendMsg]);
+    }, [state, debouncedSendMsg, sendMsg]);
     return { state, errorMsg };
   }
 
@@ -49079,8 +49107,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 16 16", "fill": "currentColor" }, "child": [{ "tag": "path", "attr": { "fillRule": "evenodd", "clipRule": "evenodd", "d": "M12.75 8a4.5 4.5 0 0 1-8.61 1.834l-1.391.565A6.001 6.001 0 0 0 14.25 8 6 6 0 0 0 3.5 4.334V2.5H2v4l.75.75h3.5v-1.5H4.352A4.5 4.5 0 0 1 12.75 8z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-4uwd3zo9tgql/editor/src/components/AppPreview/AppPreview.module.css.js
-  var digest41 = "c2a388f380c910ce33299ba4956674430884e2629a145cba0798ecae0a3a58f5";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-2Ze6qGr0fYNp/editor/src/components/AppPreview/AppPreview.module.css.js
+  var digest41 = "197280386f5ca915c66f1be4dc03c2ab1f83de76d5dcdbc468d42d9f83990c56";
   var css41 = `div._appViewerHolder_zkojo_1 {
   /* This is over-ridden by an inline style but we just have it here in case */
   --app-scale-amnt: 0.24;
@@ -49346,8 +49374,8 @@ h2._error_zkojo_249 {
   })();
   var AppPreview_module_css_default = { "appViewerHolder": "_appViewerHolder_zkojo_1", "title": "_title_zkojo_55", "appContainer": "_appContainer_zkojo_89", "previewFrame": "_previewFrame_zkojo_109", "expandButton": "_expandButton_zkojo_134", "reloadButtonContainer": "_reloadButtonContainer_zkojo_135", "reloadButton": "_reloadButton_zkojo_135", "spin": "_spin_zkojo_174", "restartButton": "_restartButton_zkojo_211", "loadingMessage": "_loadingMessage_zkojo_238", "error": "_error_zkojo_249" };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-aDW29f7jyhNs/editor/src/components/AppPreview/AppPreview.module.css.js
-  var digest42 = "4b12eb8a863bedc4757d5a9b671c73739e7cd9c37f72e744ad82f4397339d59c";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-YnwqpHGzcKcI/editor/src/components/AppPreview/AppPreview.module.css.js
+  var digest42 = "c0b2f41a19365f4cb356df29237d840c5991f09f3edabef58547a062a1d6ba3f";
   var css42 = `div._appViewerHolder_zkojo_1 {
   /* This is over-ridden by an inline style but we just have it here in case */
   --app-scale-amnt: 0.24;
@@ -49613,8 +49641,8 @@ h2._error_zkojo_249 {
   })();
   var AppPreview_module_css_default2 = { "appViewerHolder": "_appViewerHolder_zkojo_1", "title": "_title_zkojo_55", "appContainer": "_appContainer_zkojo_89", "previewFrame": "_previewFrame_zkojo_109", "expandButton": "_expandButton_zkojo_134", "reloadButtonContainer": "_reloadButtonContainer_zkojo_135", "reloadButton": "_reloadButton_zkojo_135", "spin": "_spin_zkojo_174", "restartButton": "_restartButton_zkojo_211", "loadingMessage": "_loadingMessage_zkojo_238", "error": "_error_zkojo_249" };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-23xqzzanwLCi/editor/src/components/AppPreview/FakeDashboard.module.css.js
-  var digest43 = "fac8499bf86cf2ae33db9406047320f36a188f839369750053333adb6e9212b3";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-qbbpHy8salKW/editor/src/components/AppPreview/FakeDashboard.module.css.js
+  var digest43 = "9536285b31ccd4eed8928ef2d61cad25223993c2d5655d6615ce8581f64f07ca";
   var css43 = `._fakeApp_t3dh1_1 {
   display: grid;
   place-content: center;
@@ -49708,8 +49736,8 @@ h2._error_zkojo_249 {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "fill": "none", "stroke": "#000", "strokeWidth": "2", "d": "M12,22 C17.5228475,22 22,17.5228475 22,12 C22,6.4771525 17.5228475,2 12,2 C6.4771525,2 2,6.4771525 2,12 C2,17.5228475 6.4771525,22 12,22 Z M5,5 L19,19" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-C7U0zJ1dcu2E/editor/src/components/AppPreview/LogsViewer.module.css.js
-  var digest44 = "aab935175c9af94a7991da674d70c90ce4609d189ab6da971dd38260ac11d449";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-5T5MUJq1txTD/editor/src/components/AppPreview/LogsViewer.module.css.js
+  var digest44 = "240b72d50991923c2df45e34b61c6d2f940bbf8e41af7c0f3792d8300cfae42d";
   var css44 = `/* Logs section */
 ._logs_xjp5l_2 {
   --tab-height: var(--logs-button-h, 20px);
@@ -49939,7 +49967,7 @@ p._logLine_xjp5l_75 {
   // ../editor/src/components/AppPreview/useCommunicateWithBackend.tsx
   var import_react43 = __toESM(require_react());
   function useCommunicateWithBackend() {
-    const { sendMsg, incomingMsgs } = useBackendCallbacks();
+    const { sendMsg, incomingMsgs } = useBackendConnection();
     const [appLoc, setAppLoc] = import_react43.default.useState("HIDDEN");
     const [appLogs, setAppLogs] = import_react43.default.useState([]);
     const [errors, setErrors] = import_react43.default.useState(null);
@@ -50615,7 +50643,7 @@ p._logLine_xjp5l_75 {
   // ../editor/src/components/TemplatePreviews/useRequestTemplate.ts
   var import_react46 = __toESM(require_react());
   function useRequestTemplate() {
-    const { sendMsg } = useBackendCallbacks();
+    const { sendMsg } = useBackendConnection();
     const requestTemplate = import_react46.default.useCallback(
       (template) => {
         sendMsg({
@@ -50870,7 +50898,7 @@ p._logLine_xjp5l_75 {
   // ../editor/src/ElementsPalette/index.tsx
   var React59 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-h9pczVc04LDj/editor/src/ElementsPalette/styles.module.css.js
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-wznfIe1MuDmC/editor/src/ElementsPalette/styles.module.css.js
   var digest45 = "3993db3082666f1d333d60ec15540ff6a7ba2880c8d15e2197d816a899b292c4";
   var css45 = `._elementsPalette_qmlez_1 {
   --icon-size: 75px;
@@ -50942,8 +50970,8 @@ p._logLine_xjp5l_75 {
   })();
   var styles_module_css_default24 = { "elementsPalette": "_elementsPalette_qmlez_1", "OptionContainer": "_OptionContainer_qmlez_18", "optionContainer": "_OptionContainer_qmlez_18", "OptionItem": "_OptionItem_qmlez_24", "optionItem": "_OptionItem_qmlez_24", "OptionIcon": "_OptionIcon_qmlez_33", "optionIcon": "_OptionIcon_qmlez_33", "OptionLabel": "_OptionLabel_qmlez_41", "optionLabel": "_OptionLabel_qmlez_41" };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-1Hq6PO5nOocF/editor/src/ElementsPalette/styles.module.css.js
-  var digest46 = "9811dbaa1533fa5a382e5ca4d976573bda3885719d1d7a046f624368d3ea10b1";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-yoXLkUriL79W/editor/src/ElementsPalette/styles.module.css.js
+  var digest46 = "11f67684c03efe4798f89b6300e6f468350a071188ac1f92b3597ec427909e2a";
   var css46 = `._elementsPalette_qmlez_1 {
   --icon-size: 75px;
   --padding: 8px;
@@ -51222,8 +51250,8 @@ p._logLine_xjp5l_75 {
     return InputsComponents;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-JdDcp3vVP1hG/editor/src/SettingsPanel/PathBreadcrumb.module.css.js
-  var digest47 = "4f67d1e816586923f8af9febbffdc9ffd567a6e9d1aeeb95bb7402eb6b100b3a";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-VyxxEtV4Dcd4/editor/src/SettingsPanel/PathBreadcrumb.module.css.js
+  var digest47 = "331408768bd2b25fa952e2efcf9045ecacb1c23951f3bf147cc6c214d1d3ec72";
   var css47 = `._container_1fh41_1 {
   --flex-gap: 8px;
   padding: var(--vertical-spacing);
@@ -51323,15 +51351,8 @@ p._logLine_xjp5l_75 {
     path: path3,
     onSelect
   }) {
+    const pathString = getNamedPath(path3, tree);
     const totalDepth = path3.length;
-    let pathString = [];
-    for (let depth = 0; depth <= totalDepth; depth++) {
-      const nodeAtDepth = getNode(tree, path3.slice(0, depth));
-      if (nodeAtDepth === void 0) {
-        return null;
-      }
-      pathString.push(shinyUiNodeInfo[nodeAtDepth.uiName].title);
-    }
     return /* @__PURE__ */ (0, import_jsx_runtime96.jsx)("div", { className: PathBreadcrumb_module_css_default.container, "aria-label": "Path to selected node", children: pathString.map((name, i2) => {
       const isFinalNode = i2 === totalDepth;
       const cleanNodeName = removeNamespaceFromUiName(name);
@@ -51351,7 +51372,7 @@ p._logLine_xjp5l_75 {
     return uiName.replace(/[a-z]+::/, "");
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-MynGXp7Vghii/editor/src/SettingsPanel/SettingsPanel.module.css.js
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-wG7inJZ8ImY5/editor/src/SettingsPanel/SettingsPanel.module.css.js
   var digest48 = "2c243edf2255e1f734dfff3312a143d72aedee118fd70da2a30522707fbb6aa3";
   var css48 = `._settingsPanel_a44hx_1 {
   --vertical-gap: var(--vertical-spacing);
@@ -56793,8 +56814,8 @@ form._settingsForm_a44hx_17 {
     return false;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-10285-s7aodTaua1Qq/editor/src/components/UndoRedoButtons/UndoRedoButtons.module.css.js
-  var digest49 = "fa272e591c7adb6ef6abb430076d872887e53a8889ff56706ad105710a9c30ef";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-13424-mP7fNhZwVNTx/editor/src/components/UndoRedoButtons/UndoRedoButtons.module.css.js
+  var digest49 = "ed0ca7e2357cf7a3726287b1467ff38ac741a65f5d5af6c8f885f9f51511f293";
   var css49 = `._container_1d7pe_1 {
   display: flex;
   position: relative;
@@ -56868,7 +56889,7 @@ form._settingsForm_a44hx_17 {
   // ../editor/src/EditorContainer/OpenSideBySideWindowButton.tsx
   var import_jsx_runtime105 = __toESM(require_jsx_runtime());
   function OpenSideBySideWindowButton() {
-    const { sendMsg, mode } = useBackendCallbacks();
+    const { sendMsg, mode } = useBackendConnection();
     if (mode !== "VSCODE")
       return null;
     return /* @__PURE__ */ (0, import_jsx_runtime105.jsx)(
@@ -57068,7 +57089,7 @@ form._settingsForm_a44hx_17 {
   // ../editor/src/App.tsx
   var import_jsx_runtime110 = __toESM(require_jsx_runtime());
   function App(msgPassers) {
-    return /* @__PURE__ */ (0, import_jsx_runtime110.jsx)(ReduxProvider_default, { children: /* @__PURE__ */ (0, import_jsx_runtime110.jsx)(BackendCallbacksProvider, { ...msgPassers, children: /* @__PURE__ */ (0, import_jsx_runtime110.jsx)(EditorContainer, {}) }) });
+    return /* @__PURE__ */ (0, import_jsx_runtime110.jsx)(ReduxProvider_default, { children: /* @__PURE__ */ (0, import_jsx_runtime110.jsx)(BackendConnectionProvider, { ...msgPassers, children: /* @__PURE__ */ (0, import_jsx_runtime110.jsx)(EditorContainer, {}) }) });
   }
 
   // ../editor/src/runSUE.tsx

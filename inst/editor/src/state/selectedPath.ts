@@ -1,18 +1,22 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
+import { useSelector } from "react-redux";
 
 import type { NodePath } from "../Shiny-Ui-Elements/uiNodeTypes";
+
+import type { RootState } from "./store";
 
 // Note: Currently we're using Immer already so it's double immering this stuff
 // which is not efficient.
 
+type CurrentSelection = NodePath | null;
 export const selectedPathSlice = createSlice({
   name: "selectedPath",
-  initialState: [] as NodePath | null,
+  initialState: [] as CurrentSelection,
   reducers: {
     SET_SELECTION: (
       selectedPath,
-      action: PayloadAction<{ path: NodePath | null }>
+      action: PayloadAction<{ path: CurrentSelection }>
     ) => action.payload.path,
 
     STEP_BACK_SELECTION: (selectedPath) => {
@@ -26,5 +30,9 @@ export const selectedPathSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const { SET_SELECTION, STEP_BACK_SELECTION } = selectedPathSlice.actions;
+
+export function useCurrentSelection() {
+  return useSelector((state: RootState) => state.selectedPath);
+}
 
 export default selectedPathSlice.reducer;

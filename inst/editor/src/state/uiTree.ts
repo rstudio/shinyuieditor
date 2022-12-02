@@ -2,7 +2,7 @@ import React from "react";
 
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { getDefaultSettings } from "../components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
 import type { TemplateChooserOptions } from "../components/TemplatePreviews/TemplateChooserView";
@@ -17,6 +17,7 @@ import { isShinyUiNode } from "../Shiny-Ui-Elements/isShinyUiNode";
 import { shinyUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
 import { subtractElements } from "../utils/array-helpers";
 
+import type { RootState } from "./store";
 import {
   deleteSubscriptions,
   updateSubscriptions,
@@ -160,6 +161,10 @@ export function usePlaceNode() {
   );
 
   return place_node;
+}
+
+export function useCurrentUiTree() {
+  return useSelector((state: RootState) => state.uiTree);
 }
 
 export default mainStateSlice.reducer;
