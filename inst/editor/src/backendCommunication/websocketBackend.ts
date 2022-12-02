@@ -1,7 +1,9 @@
-import type { MessageFromBackend, MessageToBackend } from "communication-types";
-
-import type { MessageDispatcher } from "./messageDispatcher";
-import type { BackendMessagePassers } from "./useBackendMessageCallbacks";
+import type {
+  BackendConnection,
+  MessageFromBackend,
+  MessageToBackend,
+} from "communication-types";
+import type { MessageDispatcher } from "communication-types/src/messageDispatcher";
 
 type BackendMessage = { path: string; payload?: string | object };
 
@@ -16,17 +18,18 @@ export function setupWebsocketBackend({
 }) {
   let connectedToWebsocket = false;
 
-  return new Promise<BackendMessagePassers | "NO-WS-CONNECTION">((resolve) => {
+  return new Promise<BackendConnection | "NO-WS-CONNECTION">((resolve) => {
     try {
       if (!document.location.host) throw new Error("Not on a served site!");
 
       const ws = new WebSocket(buildWebsocketPathFromDomain(pathToWebsocket));
 
-      const messagePassingMethods: BackendMessagePassers = {
+      const messagePassingMethods: BackendConnection = {
         sendMsg: (msg) => {
           sendWsMessage(ws, msg as MessageToBackend);
         },
         incomingMsgs: messageDispatch,
+        mode: "HTTPUV",
       };
 
       ws.onerror = (e) => {

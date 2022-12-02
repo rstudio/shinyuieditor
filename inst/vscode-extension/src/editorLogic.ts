@@ -132,11 +132,6 @@ export function editorLogic({
       switch (msg.path) {
         case "READY-FOR-STATE":
           syncFileToClientState();
-          // Let client know we're in vscode mode
-          sendMessage({
-            path: "RUNTIME-TYPE",
-            payload: "VSCODE",
-          });
           return;
 
         case "TEMPLATE-SELECTION": {

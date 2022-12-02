@@ -1,4 +1,6 @@
-import type { MessageFromBackendByPath } from "communication-types";
+import type {
+  MessageFromBackendByPath,
+} from "communication-types";
 
 export function makeMessageDispatcherGeneric<
   Payload extends Record<string, unknown>

@@ -1,7 +1,11 @@
-import type { MessageFromBackend } from "communication-types";
+import type {
+  BackendConnection,
+  MessageFromBackend,
+} from "communication-types";
 import { isMessageFromBackend } from "communication-types";
-import type { MessageDispatcher, BackendMessagePassers } from "editor";
-import { makeMessageDispatcher, runSUE } from "editor";
+import type { MessageDispatcher } from "communication-types/src/messageDispatcher";
+import { makeMessageDispatcher } from "communication-types/src/messageDispatcher";
+import { runSUE } from "editor";
 
 const container = document.getElementById("root");
 
@@ -49,7 +53,7 @@ function setupVSCodeBackend({
     }
   });
 
-  const messagePassingMethods: BackendMessagePassers = {
+  const messagePassingMethods: BackendConnection = {
     sendMsg: (msg) => {
       logger("VSCode sendMsg()", msg);
       vscode.postMessage(msg);
@@ -82,6 +86,7 @@ function setupVSCodeBackend({
       // }
     },
     incomingMsgs: { subscribe: messageDispatch.subscribe },
+    mode: "VSCODE",
   };
   return messagePassingMethods;
 }

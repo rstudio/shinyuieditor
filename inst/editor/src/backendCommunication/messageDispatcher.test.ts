@@ -1,6 +1,5 @@
+import { makeMessageDispatcherGeneric } from "communication-types/src/messageDispatcher";
 import { vi } from "vitest";
-
-import { makeMessageDispatcherGeneric } from "./messageDispatcher";
 
 type Payloads = {
   strings: string;

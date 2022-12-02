@@ -1,25 +1,10 @@
 import React from "react";
 
-import type { MessageToBackend } from "communication-types";
-
-import type { MessageDispatcher } from "./messageDispatcher";
-/**
- * Communication layer for client and backend
- */
-export type BackendMessagePassers = {
-  /**
-   * Function to pass a message to the backend
-   */
-  sendMsg: (msg: MessageToBackend) => void;
-  /**
-   * Object to subscribe to incoming messages from backend
-   */
-  incomingMsgs: Omit<MessageDispatcher, "dispatch">;
-};
+import type { BackendConnection } from "communication-types";
 
 // eslint-disable-next-line no-console
 const logger = console.log;
-const dummyMessagePassers: BackendMessagePassers = {
+const dummyMessagePassers: BackendConnection = {
   sendMsg: (x) => logger("Sending message to backend", x),
   incomingMsgs: {
     subscribe: (on, callback) => {
@@ -30,25 +15,27 @@ const dummyMessagePassers: BackendMessagePassers = {
       };
     },
   },
+  mode: "HTTPUV",
 };
 
-const BackendCallbacksContext =
-  React.createContext<BackendMessagePassers>(dummyMessagePassers);
+const BackendConnectionContext =
+  React.createContext<BackendConnection>(dummyMessagePassers);
 
-export function BackendCallbacksProvider({
+export function BackendConnectionProvider({
   children,
   sendMsg,
   incomingMsgs,
+  mode,
 }: {
   children: React.ReactNode;
-} & BackendMessagePassers) {
+} & BackendConnection) {
   return (
-    <BackendCallbacksContext.Provider value={{ sendMsg, incomingMsgs }}>
+    <BackendConnectionContext.Provider value={{ sendMsg, incomingMsgs, mode }}>
       {children}
-    </BackendCallbacksContext.Provider>
+    </BackendConnectionContext.Provider>
   );
 }
 
-export function useBackendCallbacks() {
-  return React.useContext(BackendCallbacksContext);
+export function useBackendConnection() {
+  return React.useContext(BackendConnectionContext);
 }

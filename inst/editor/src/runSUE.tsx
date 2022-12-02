@@ -1,18 +1,18 @@
+import type { BackendConnection } from "communication-types";
 import { createRoot } from "react-dom/client";
 
 import { App } from "./App";
-import type { BackendMessagePassers } from "./backendCommunication/useBackendMessageCallbacks";
 
 export function runSUE({
   container,
-  backendDispatch: { sendMsg, incomingMsgs },
+  backendDispatch: { sendMsg, incomingMsgs, mode },
   showMessages,
 }: {
   container: HTMLElement | null;
-  backendDispatch: BackendMessagePassers;
+  backendDispatch: BackendConnection;
   showMessages: boolean;
 }) {
-  const dispatch: BackendMessagePassers = showMessages
+  const dispatch: BackendConnection = showMessages
     ? {
         sendMsg,
         incomingMsgs: {
@@ -22,10 +22,12 @@ export function runSUE({
             return incomingMsgs.subscribe(on, callback);
           },
         },
+        mode,
       }
     : {
         sendMsg,
         incomingMsgs,
+        mode,
       };
   const root = createRoot(container!); // createRoot(container!) if you use TypeScript
   root.render(<App {...dispatch} />);

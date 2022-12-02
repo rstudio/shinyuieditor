@@ -12,7 +12,6 @@ import {
 import { LostConnectionPopup } from "../EditorSkeleton/LostConnectionPopup";
 import ElementsPalette from "../ElementsPalette";
 import { SettingsPanel } from "../SettingsPanel/SettingsPanel";
-import { useListenForRuntimeType } from "../state/runtimeInfo";
 
 import { AppHeader } from "./AppHeader";
 import { DialogPopover } from "./DialogPopover";
@@ -25,8 +24,6 @@ const sizes_inline_styles = {
 
 export function EditorContainer() {
   const { state, errorMsg } = useSyncUiWithBackend();
-
-  useListenForRuntimeType();
 
   let pageBody: React.ReactNode;
 

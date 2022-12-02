@@ -7,10 +7,10 @@ import type { RootState } from "../state/store";
 import type { MainStateOption } from "../state/uiTree";
 import { SET_UI_TREE, SHOW_TEMPLATE_CHOOSER } from "../state/uiTree";
 
-import { useBackendCallbacks } from "./useBackendMessageCallbacks";
+import { useBackendConnection } from "./useBackendMessageCallbacks";
 
 export function useSyncUiWithBackend() {
-  const { sendMsg, incomingMsgs: backendMsgs } = useBackendCallbacks();
+  const { sendMsg, incomingMsgs: backendMsgs } = useBackendConnection();
 
   const state = useSelector((state: RootState) => state.uiTree);
   const dispatch = useDispatch();

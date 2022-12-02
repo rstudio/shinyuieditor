@@ -2,7 +2,7 @@ import React from "react";
 
 import type { MessageFromBackendByPath } from "communication-types";
 
-import { useBackendCallbacks } from "../../backendCommunication/useBackendMessageCallbacks";
+import { useBackendConnection } from "../../backendCommunication/useBackendMessageCallbacks";
 
 export type AppLogs = string[];
 
@@ -20,7 +20,7 @@ type CommunicationState = {
 };
 
 export function useCommunicateWithBackend(): CommunicationState {
-  const { sendMsg, incomingMsgs } = useBackendCallbacks();
+  const { sendMsg, incomingMsgs } = useBackendConnection();
   const [appLoc, setAppLoc] = React.useState<AppPreviewStatus>("HIDDEN");
   const [appLogs, setAppLogs] = React.useState<AppLogs>([]);
   const [errors, setErrors] = React.useState<string | null>(null);

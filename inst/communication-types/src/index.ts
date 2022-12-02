@@ -1,6 +1,8 @@
 // import { runSUE } from "@editor/main";
 import type { ShinyUiNode } from "editor";
 
+import type { MessageDispatcher } from "./messageDispatcher";
+
 // type ShinyUiNode = {
 //   uiName: string;
 //   uiArguments: Record<string, unknown>;
@@ -81,15 +83,9 @@ type MessageToBackendByPath = {
 export type CompanionEditorPosition = "BESIDE";
 
 /**
- * The different backend runtimes that can be supporting the ui editor client
- */
-export type RuntimeType = "VSCODE" | "HTTPUV";
-
-/**
  * All the paths and their payloads that can be received from the backend
  */
 export type MessageFromBackendByPath = {
-  "RUNTIME-TYPE": RuntimeType;
   "UPDATED-TREE": ShinyUiNode;
   "BACKEND-ERROR": string;
   "APP-PREVIEW-STATUS": "FAKE-PREVIEW" | "LOADING" | { url: string };
@@ -107,6 +103,24 @@ export type MessageToBackend = MessageUnion<MessageToBackendByPath>;
  * Union form of the message that can be received from backend
  */
 export type MessageFromBackend = MessageUnion<MessageFromBackendByPath>;
+
+/**
+ * Communication layer for client and backend
+ */
+export type BackendConnection = {
+  /**
+   * Function to pass a message to the backend
+   */
+  sendMsg: (msg: MessageToBackend) => void;
+  /**
+   * Object to subscribe to incoming messages from backend
+   */
+  incomingMsgs: Omit<MessageDispatcher, "dispatch">;
+  /**
+   * The different backend runtimes that can be supporting the ui editor client
+   */
+  mode: "VSCODE" | "HTTPUV" | "STATIC";
+};
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;

@@ -1,8 +1,9 @@
+import type { BackendConnection } from "communication-types";
+import type { MessageDispatcher } from "communication-types/src/messageDispatcher";
+
 import { TESTING_MODE } from "../env_variables";
 
 import { getClientsideOnlyTree } from "./getClientsideOnlyTree";
-import type { MessageDispatcher } from "./messageDispatcher";
-import type { BackendMessagePassers } from "./useBackendMessageCallbacks";
 
 export function setupStaticBackend({
   messageDispatch,
@@ -14,7 +15,7 @@ export function setupStaticBackend({
   // eslint-disable-next-line no-console
   const logger = showMessages ? console.log : (...args: any[]) => {};
 
-  const messagePassingMethods: BackendMessagePassers = {
+  const messagePassingMethods: BackendConnection = {
     sendMsg: (msg) => {
       logger("Static sendMsg()", msg);
       switch (msg.path) {
@@ -40,6 +41,7 @@ export function setupStaticBackend({
       }
     },
     incomingMsgs: messageDispatch,
+    mode: "STATIC",
   };
   return messagePassingMethods;
 }

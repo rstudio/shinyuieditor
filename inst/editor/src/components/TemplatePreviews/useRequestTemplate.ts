@@ -2,10 +2,10 @@ import React from "react";
 
 import type { TemplateSelection } from "communication-types";
 
-import { useBackendCallbacks } from "../../backendCommunication/useBackendMessageCallbacks";
+import { useBackendConnection } from "../../backendCommunication/useBackendMessageCallbacks";
 
 export function useRequestTemplate() {
-  const { sendMsg } = useBackendCallbacks();
+  const { sendMsg } = useBackendConnection();
 
   const requestTemplate = React.useCallback(
     (template: TemplateSelection) => {

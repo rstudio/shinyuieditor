@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
-import { makeMessageDispatcher } from "./backendCommunication/messageDispatcher";
+import type { BackendConnection } from "communication-types";
+import { makeMessageDispatcher } from "communication-types/src/messageDispatcher";
+
 import { setupStaticBackend } from "./backendCommunication/staticBackend";
-import type { BackendMessagePassers } from "./backendCommunication/useBackendMessageCallbacks";
 import { setupWebsocketBackend } from "./backendCommunication/websocketBackend";
 import { runSUE } from "./runSUE";
 
@@ -27,7 +28,7 @@ const showMessages = true;
       });
     }
 
-    const backendDispatch: BackendMessagePassers =
+    const backendDispatch: BackendConnection =
       websocketDispatch === "NO-WS-CONNECTION"
         ? setupStaticBackend({ messageDispatch, showMessages })
         : websocketDispatch;
