@@ -44,7 +44,7 @@ ${R}`),p("out",R),(S=e.onStdout)==null||S.call(e,R)}function m(E){var S;let R=E.
 				
 				<title>Shiny UI Editor</title>
 			</head>
-			<body>
+			<body style="padding-inline: 0;">
 				<noscript>You need to enable JavaScript to run this app.</noscript>
 				<div id="root" style="height: 100vh; display: relative"></div>
 				<script nonce="${r}" src="${o}"><\/script>

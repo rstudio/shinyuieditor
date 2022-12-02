@@ -152,7 +152,7 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
 				
 				<title>Shiny UI Editor</title>
 			</head>
-			<body>
+			<body style="padding-inline: 0;">
 				<noscript>You need to enable JavaScript to run this app.</noscript>
 				<div id="root" style="height: 100vh; display: relative"></div>
 				<script nonce="${nonce}" src="${scriptUri}"></script>
