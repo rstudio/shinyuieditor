@@ -1,4 +1,4 @@
-import type { MessageFromBackend, MessageToBackend } from "communication-types";
+import type { MessageToClient, MessageToBackend } from "communication-types";
 import { isMessageFromClient } from "communication-types";
 import debounce from "just-debounce-it";
 import * as vscode from "vscode";
@@ -24,7 +24,7 @@ export function editorLogic({
 }: {
   RProcess: ActiveRSession;
   document: vscode.TextDocument;
-  sendMessage: (msg: MessageFromBackend) => Thenable<boolean>;
+  sendMessage: (msg: MessageToClient) => Thenable<boolean>;
 }) {
   let hasInitialized: boolean = false;
 

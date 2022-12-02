@@ -1,6 +1,6 @@
 import type {
   BackendConnection,
-  MessageFromBackend,
+  MessageToClient,
   MessageToBackend,
 } from "communication-types";
 import type { MessageDispatcher } from "communication-types/src/messageDispatcher";
@@ -38,7 +38,7 @@ export function setupWebsocketBackend({
 
       ws.onopen = (event) => {
         listenForWsMessages(ws, (msg: BackendMessage) => {
-          const { path, payload } = msg as MessageFromBackend;
+          const { path, payload } = msg as MessageToClient;
           messageDispatch.dispatch(path, payload);
         });
         resolve(messagePassingMethods);

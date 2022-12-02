@@ -1,5 +1,5 @@
 import type {
-  MessageFromBackendByPath,
+  MessageToClientByPath,
 } from "communication-types";
 
 export function makeMessageDispatcherGeneric<
@@ -36,6 +36,6 @@ export function makeMessageDispatcherGeneric<
 }
 
 export const makeMessageDispatcher =
-  makeMessageDispatcherGeneric<MessageFromBackendByPath>;
+  makeMessageDispatcherGeneric<MessageToClientByPath>;
 
 export type MessageDispatcher = ReturnType<typeof makeMessageDispatcher>;

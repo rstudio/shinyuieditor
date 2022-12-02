@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import type { MessageFromBackend } from "communication-types";
+import type { MessageToClient } from "communication-types";
 import * as vscode from "vscode";
 
 import { editorLogic } from "./editorLogic";
@@ -66,7 +66,7 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
     const editorBackend = editorLogic({
       RProcess: this.RProcess,
       document,
-      sendMessage: (msg: MessageFromBackend) =>
+      sendMessage: (msg: MessageToClient) =>
         webviewPanel.webview.postMessage(msg),
     });
 

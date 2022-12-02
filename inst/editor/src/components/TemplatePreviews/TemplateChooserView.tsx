@@ -1,4 +1,4 @@
-import type { MessageFromBackendByPath } from "communication-types";
+import type { MessageToClientByPath } from "communication-types";
 
 import {
   EditorSkeleton,
@@ -13,7 +13,7 @@ import { TemplateFiltersForm } from "./TemplateFiltersForm";
 import { TemplatePreviewGrid } from "./TemplatePreviewGrid";
 
 export type TemplateChooserOptions = {
-  outputChoices: MessageFromBackendByPath["TEMPLATE_CHOOSER"];
+  outputChoices: MessageToClientByPath["TEMPLATE_CHOOSER"];
 };
 export function TemplateChooserView(opts: TemplateChooserOptions) {
   const {

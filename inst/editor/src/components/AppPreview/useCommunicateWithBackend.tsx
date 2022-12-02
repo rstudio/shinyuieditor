@@ -1,13 +1,13 @@
 import React from "react";
 
-import type { MessageFromBackendByPath } from "communication-types";
+import type { MessageToClientByPath } from "communication-types";
 
 import { useBackendConnection } from "../../backendCommunication/useBackendMessageCallbacks";
 
 export type AppLogs = string[];
 
 export type AppPreviewStatus =
-  | MessageFromBackendByPath["APP-PREVIEW-STATUS"]
+  | MessageToClientByPath["APP-PREVIEW-STATUS"]
   | "HIDDEN";
 
 type CommunicationState = {

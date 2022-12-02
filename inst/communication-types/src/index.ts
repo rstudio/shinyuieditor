@@ -85,7 +85,7 @@ export type CompanionEditorPosition = "BESIDE";
 /**
  * All the paths and their payloads that can be received from the backend
  */
-export type MessageFromBackendByPath = {
+export type MessageToClientByPath = {
   "UPDATED-TREE": ShinyUiNode;
   "BACKEND-ERROR": string;
   "APP-PREVIEW-STATUS": "FAKE-PREVIEW" | "LOADING" | { url: string };
@@ -102,7 +102,7 @@ export type MessageToBackend = MessageUnion<MessageToBackendByPath>;
 /**
  * Union form of the message that can be received from backend
  */
-export type MessageFromBackend = MessageUnion<MessageFromBackendByPath>;
+export type MessageToClient = MessageUnion<MessageToClientByPath>;
 
 /**
  * Communication layer for client and backend
@@ -125,7 +125,7 @@ export type BackendConnection = {
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;
 }
-export function isMessageFromBackend(x: unknown): x is MessageFromBackend {
+export function isMessageFromBackend(x: unknown): x is MessageToClient {
   if (!isRecord(x)) return false;
   return "path" in x;
 }
@@ -138,19 +138,19 @@ export function isMessageFromClient(x: unknown): x is MessageToBackend {
 // Helper generics to turn our simple message object type into unions that have
 // smart payload slots
 type PathsWithPayload<
-  MsgObj extends MessageToBackendByPath | MessageFromBackendByPath
+  MsgObj extends MessageToBackendByPath | MessageToClientByPath
 > = {
   [K in keyof MsgObj]-?: MsgObj[K] extends null ? never : K;
 }[keyof MsgObj];
 
 type PathsWithoutPayload<
-  MsgObj extends MessageToBackendByPath | MessageFromBackendByPath
+  MsgObj extends MessageToBackendByPath | MessageToClientByPath
 > = {
   [K in keyof MsgObj]-?: MsgObj[K] extends null ? K : never;
 }[keyof MsgObj];
 
 type MessageUnion<
-  MsgObj extends MessageToBackendByPath | MessageFromBackendByPath
+  MsgObj extends MessageToBackendByPath | MessageToClientByPath
 > =
   | {
       [T in PathsWithPayload<MsgObj>]: {
