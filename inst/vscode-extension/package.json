@@ -18,7 +18,8 @@
     "Other"
   ],
   "activationEvents": [
-    "onCustomEditor:shinyUiEditor.appFile"
+    "onCustomEditor:shinyUiEditor.appFile",
+    "onCommand:shinyUiEditor.startEditor"
   ],
   "main": "./build/extension.js",
   "contributes": {
@@ -34,7 +35,27 @@
         ]
       }
     ],
-    "commands": []
+    "commands": [
+      {
+        "command": "shinyUiEditor.startEditor",
+        "title": "Start ShinyUiEditor"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "when": "resourceFilename == app.R",
+          "command": "shinyUiEditor.startEditor"
+        }
+      ],
+      "editor/title": [
+        {
+          "when": "resourceFilename == app.R",
+          "command": "shinyUiEditor.startEditor",
+          "group": "navigation"
+        }
+      ]
+    }
   },
   "configuration": {
     "type": "object",

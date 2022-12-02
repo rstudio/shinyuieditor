@@ -3,6 +3,7 @@ import type { MessageToClient } from "communication-types";
 import * as vscode from "vscode";
 
 import { editorLogic } from "./editorLogic";
+import { appScriptStatus } from "./R-Utils/appScriptStatus";
 import type { ActiveRSession } from "./R-Utils/startBackgroundRProcess";
 import { startBackgroundRProcess } from "./R-Utils/startBackgroundRProcess";
 import { getNonce } from "./util";
@@ -52,6 +53,14 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
     webviewPanel: vscode.WebviewPanel,
     _token: vscode.CancellationToken
   ): Promise<void> {
+    const isInvalidAppScript = appScriptStatus(document) === "invalid";
+
+    if (isInvalidAppScript) {
+      const errMsg = `The active file doesn't appear to be a Shiny app. Make sure that the script is either empty or has a valid shiny app in it.`;
+      vscode.window.showErrorMessage(errMsg);
+      webviewPanel.dispose();
+      throw new Error(errMsg);
+    }
     // Setup initial content for the webview
     webviewPanel.webview.options = {
       enableScripts: true,
