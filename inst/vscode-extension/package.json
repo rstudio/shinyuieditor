@@ -4,7 +4,7 @@
   "description": "Visual editor interface for constructing R Shiny app UIs",
   "version": "0.0.1",
   "publisher": "posit",
-  "icon": "shinyuieditor-hex.png",
+  "icon": "assets/shinyuieditor-hex.png",
   "private": true,
   "license": "MIT",
   "repository": {
