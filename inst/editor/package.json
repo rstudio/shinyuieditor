@@ -24,12 +24,12 @@
     "react-redux": "^8.0.2",
     "react-sortablejs": "^6.1.4",
     "sortablejs": "^1.15.0",
-    "ts-pattern": "^4.0.5",
-    "tsconfig": "*",
-    "typescript": "^4.9.3",
-    "yarn": "^1.22.19"
+    "ts-pattern": "^4.0.5"
   },
   "devDependencies": {
+    "typescript": "^4.9.3",
+    "yarn": "^1.22.19",
+    "tsconfig": "*",
     "@babel/core": "^7.18.13",
     "@playwright/test": "^1.27.1",
     "@storybook/addon-actions": "^6.5.10",

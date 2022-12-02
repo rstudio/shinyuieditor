@@ -9,5 +9,6 @@ yarn prod
 
 git add inst/*/build/ 
 git add inst/*/media/build/ 
+git add *.vsix
 
 echo "All good! 👍"

@@ -1,0 +1,15 @@
+**/*.ts
+**/*.R
+**/*.r
+**/*.DS_Store
+**/tsconfig.json
+!file.ts
+
+# Avoid stuff hanging around in inst/ folder
+../**/
+
+# Avoid root files in repo
+../../*
+
+# Avoid subfolders of repo root
+../../*/
