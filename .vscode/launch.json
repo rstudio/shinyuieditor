@@ -16,6 +16,14 @@
       "preLaunchTask": "dev build"
     },
     {
+      "name": "Run extension unit tests",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceRoot}/inst/vscode-extension/",
+      "runtimeExecutable": "yarn",
+      "runtimeArgs": ["test"]
+    },
+    {
       "type": "R-Debugger",
       "name": "Launch R-Workspace",
       "request": "launch",
