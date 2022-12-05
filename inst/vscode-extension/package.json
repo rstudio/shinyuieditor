@@ -64,26 +64,26 @@
           "group": "navigation"
         }
       ]
-    }
-  },
-  "configuration": {
-    "type": "object",
-    "title": "R",
-    "properties": {
-      "r.rpath.windows": {
-        "type": "string",
-        "default": "",
-        "description": "Path to an R executable to launch R background processes for R Shiny applications/ code formatting (Windows)."
-      },
-      "r.rpath.mac": {
-        "type": "string",
-        "default": "testing/the/path",
-        "description": "Path to an R executable to launch R background processes for R Shiny applications/ code formatting (macOS)."
-      },
-      "r.rpath.linux": {
-        "type": "string",
-        "default": "",
-        "description": "Path to an R executable to launch R background processes for R Shiny applications/ code formatting (Linux)."
+    },
+    "configuration": {
+      "title": "ShinyUiEditor",
+      "type": "object",
+      "properties": {
+        "shinyUiEditor.rpath.windows": {
+          "type": "string",
+          "default": "",
+          "description": "Path to an R executable to launch R background processes for R Shiny applications/ code formatting (Windows)."
+        },
+        "shinyUiEditor.rpath.mac": {
+          "type": "string",
+          "default": "faux/path/to/R",
+          "description": "Path to an R executable to launch R background processes for R Shiny applications/ code formatting (macOS)."
+        },
+        "shinyUiEditor.rpath.linux": {
+          "type": "string",
+          "default": "",
+          "description": "Path to an R executable to launch R background processes for R Shiny applications/ code formatting (Linux)."
+        }
       }
     }
   },

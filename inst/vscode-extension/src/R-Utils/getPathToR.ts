@@ -53,20 +53,27 @@ async function getRpathFromSystem(): Promise<string> {
   return rpath;
 }
 
-function getRPathConfigEntry(): string {
+function getRPathConfigEntryLocation(): string {
   const platform =
     process.platform === "win32"
       ? "windows"
       : process.platform === "darwin"
       ? "mac"
       : "linux";
+
   return `rpath.${platform}`;
+}
+
+function getRPathFromConfig(): string | undefined {
+  const configEntry = getRPathConfigEntryLocation();
+  return vscode.workspace
+    .getConfiguration("shinyUiEditor")
+    .get<string>(configEntry);
 }
 
 export async function getPathToR(): Promise<string | undefined> {
   // First we check to see if the user has set a config for the R path
-  const configEntry = getRPathConfigEntry();
-  let pathToR = vscode.workspace.getConfiguration("r").get<string>(configEntry);
+  let pathToR = getRPathFromConfig();
 
   // If that didn't work, attempt to pull directly from the system.
   if (!pathToR) {
@@ -75,9 +82,15 @@ export async function getPathToR(): Promise<string | undefined> {
 
   if (!pathToR) {
     // inform user about missing R path:
-    void vscode.window.showErrorMessage(
-      `Cannot find R for running shinyuieditor. Make sure R is installed and/or updating the r.${configEntry} config option to proper to R path.`
-    );
+    const errMsg = `Cannot find R for running shinyuieditor. Make sure R is installed and/or updating the shinyUiEditor.${getRPathConfigEntryLocation()} config option to proper to R path.`;
+    void vscode.window.showErrorMessage(errMsg);
+    throw new Error(errMsg);
+  }
+
+  if (!existsSync(pathToR)) {
+    const errMsg = `Path to R is invalid: ${pathToR}. Make sure R is installed and/or updating the shinyUiEditor.${getRPathConfigEntryLocation()} config option to proper to R path.`;
+    void vscode.window.showErrorMessage(errMsg);
+    throw new Error(errMsg);
   }
 
   return removeQuotes(pathToR);
