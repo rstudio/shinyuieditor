@@ -2,20 +2,28 @@
 
 This is the VSCode extension for the ShinyUiEditor. It wraps the UIEditor and allows for it to be run right in your VSCode editor.
 
+![ShinyUiEditor running with code side-by-side](https://github.com/rstudio/shinyuieditor/raw/dev/inst/vscode-extension/assets/extension-with-code-open.png)
+
 ## Starting editor
 
 ### From an existing app
 
-With the extension installed any file with the name pattern of `*app.R` will be interpreted as a Shiny app. In this situation a small button will appear in the upper right that allows you to open the current file in the ui editor. If the app is a [valid app for the ui editor]() it will immediatley start up the editor. If the file is empty, a template chooser interface will be shown allowing you to populate the app. If the app is invalid, then an error will be shown and you will need to edit the file before running the editor.
+With the extension installed any file with the name pattern of `*app.R` will be interpreted as a Shiny app. In this situation a small button will appear in the upper right that allows you to open the current file in the ui editor.
+
+![Button to run ShinyUiEditor on app file](https://github.com/rstudio/shinyuieditor/raw/dev/inst/vscode-extension/assets/run-sue-btn.png)
+
+If the app is a [valid app for the ui editor]() it will immediately start up the editor. If the file is empty, a template chooser interface will be shown allowing you to populate the app. If the app is invalid, then an error will be shown and you will need to edit the file before running the editor.
 
 ### Building a new app
 
-If you wish to start a new app with the ui editor you can use the command `shinyuieditor.launchEditor` (or "Launch ShinyUiEditor"). This will open up a file picker dialog where you can chose the location of the app you wish to create followed by the name of the app file. This will start up the editor in the template chooser mode.
+If you wish to start a new app with the ui editor you can use the command `shinyuieditor.launchEditor` (or "Launch ShinyUiEditor").
+
+![Launch editor command](https://github.com/rstudio/shinyuieditor/raw/dev/inst/vscode-extension/assets/launch-editor-cmd.png)
+
+This will open up a file picker dialog where you can chose the location of the app you wish to create followed by the name of the app file. This will start up the editor in the template chooser mode.
 You may also start the editor on an existing app this way. Just choose an existing app location.
 
 ## About the ShinyUiEditor
-
-![VSCode editor](https://rstudio.github.io/shinyuieditor/articles/screenshots/template-chooser.png)
 
 A visual tool for building the UI portion of a Shiny application that generates clean and human-readable code.
 
