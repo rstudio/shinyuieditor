@@ -67,7 +67,7 @@ function getRPathConfigEntryLocation(): string {
 function getRPathFromConfig(): string | undefined {
   const configEntry = getRPathConfigEntryLocation();
   return vscode.workspace
-    .getConfiguration("shinyUiEditor")
+    .getConfiguration("shinyuieditor")
     .get<string>(configEntry);
 }
 
@@ -82,13 +82,13 @@ export async function getPathToR(): Promise<string | undefined> {
 
   if (!pathToR) {
     // inform user about missing R path:
-    const errMsg = `Cannot find R for running shinyuieditor. Make sure R is installed and/or updating the shinyUiEditor.${getRPathConfigEntryLocation()} config option to proper to R path.`;
+    const errMsg = `Cannot find R for running shinyuieditor. Make sure R is installed and/or updating the shinyuieditor.${getRPathConfigEntryLocation()} config option to proper to R path.`;
     void vscode.window.showErrorMessage(errMsg);
     throw new Error(errMsg);
   }
 
   if (!existsSync(pathToR)) {
-    const errMsg = `Path to R is invalid: ${pathToR}. Make sure R is installed and/or updating the shinyUiEditor.${getRPathConfigEntryLocation()} config option to proper to R path.`;
+    const errMsg = `Path to R is invalid: ${pathToR}. Make sure R is installed and/or updating the shinyuieditor.${getRPathConfigEntryLocation()} config option to proper to R path.`;
     void vscode.window.showErrorMessage(errMsg);
     throw new Error(errMsg);
   }

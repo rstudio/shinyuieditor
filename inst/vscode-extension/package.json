@@ -7,26 +7,37 @@
   "icon": "assets/shinyuieditor-hex.png",
   "private": true,
   "license": "MIT",
+  "keywords": [
+    "RStats",
+    "drag-and-drop",
+    "shiny",
+    "dashboard"
+  ],
+  "categories": [
+    "Data Science",
+    "Other"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/rstudio/shinyuieditor/"
   },
+  "homepage": "https://rstudio.github.io/shinyuieditor/",
+  "bugs": {
+    "url": "https://github.com/rstudio/shinyuieditor/issues"
+  },
   "engines": {
     "vscode": "^1.65.0"
   },
-  "categories": [
-    "Other"
-  ],
   "activationEvents": [
-    "onCustomEditor:shinyUiEditor.appFile",
-    "onCommand:shinyUiEditor.startEditorOnActiveFile",
-    "onCommand:shinyUiEditor.launchEditor"
+    "onCustomEditor:shinyuieditor.appFile",
+    "onCommand:shinyuieditor.startEditorOnActiveFile",
+    "onCommand:shinyuieditor.launchEditor"
   ],
   "main": "./build/extension.js",
   "contributes": {
     "customEditors": [
       {
-        "viewType": "shinyUiEditor.appFile",
+        "viewType": "shinyuieditor.appFile",
         "displayName": "ShinyUiEditor",
         "priority": "option",
         "selector": [
@@ -38,7 +49,7 @@
     ],
     "commands": [
       {
-        "command": "shinyUiEditor.startEditorOnActiveFile",
+        "command": "shinyuieditor.startEditorOnActiveFile",
         "title": "Start ShinyUiEditor on current file",
         "icon": {
           "light": "./assets/shinyuieditor-icon-light.svg",
@@ -46,21 +57,21 @@
         }
       },
       {
-        "command": "shinyUiEditor.launchEditor",
+        "command": "shinyuieditor.launchEditor",
         "title": "Launch ShinyUiEditor"
       }
     ],
     "menus": {
       "commandPalette": [
         {
-          "when": "resourceFilename == app.R",
-          "command": "shinyUiEditor.startEditorOnActiveFile"
+          "when": "resourceFilename =~ /app.R/",
+          "command": "shinyuieditor.startEditorOnActiveFile"
         }
       ],
       "editor/title": [
         {
-          "when": "resourceFilename == app.R",
-          "command": "shinyUiEditor.startEditorOnActiveFile",
+          "when": "resourceFilename =~ /app.R/",
+          "command": "shinyuieditor.startEditorOnActiveFile",
           "group": "navigation"
         }
       ]
@@ -69,17 +80,17 @@
       "title": "ShinyUiEditor",
       "type": "object",
       "properties": {
-        "shinyUiEditor.rpath.windows": {
+        "shinyuieditor.rpath.windows": {
           "type": "string",
           "default": "",
           "description": "Path to an R executable to launch R background processes for R Shiny applications/ code formatting (Windows)."
         },
-        "shinyUiEditor.rpath.mac": {
+        "shinyuieditor.rpath.mac": {
           "type": "string",
-          "default": "faux/path/to/R",
+          "default": "",
           "description": "Path to an R executable to launch R background processes for R Shiny applications/ code formatting (macOS)."
         },
-        "shinyUiEditor.rpath.linux": {
+        "shinyuieditor.rpath.linux": {
           "type": "string",
           "default": "",
           "description": "Path to an R executable to launch R background processes for R Shiny applications/ code formatting (Linux)."

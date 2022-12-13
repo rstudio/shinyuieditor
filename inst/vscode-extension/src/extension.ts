@@ -9,9 +9,9 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(ShinyUiEditorProvider.register(context));
   context.subscriptions.push(
     vscode.commands.registerCommand(
-      "shinyUiEditor.startEditorOnActiveFile",
+      "shinyuieditor.startEditorOnActiveFile",
       startEditorOnActiveFile
     ),
-    vscode.commands.registerCommand("shinyUiEditor.launchEditor", launchEditor)
+    vscode.commands.registerCommand("shinyuieditor.launchEditor", launchEditor)
   );
 }

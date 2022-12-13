@@ -28,6 +28,6 @@ export function startEditorOnActiveFile(name: string = "world") {
   vscode.commands.executeCommand(
     "vscode.openWith",
     activeEditor.document.uri,
-    "shinyUiEditor.appFile"
+    "shinyuieditor.appFile"
   );
 }

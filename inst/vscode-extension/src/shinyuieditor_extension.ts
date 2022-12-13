@@ -15,7 +15,7 @@ import { getNonce } from "./util";
 export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
   private RProcess: ActiveRSession | null = null;
 
-  private static readonly viewType = "shinyUiEditor.appFile";
+  private static readonly viewType = "shinyuieditor.appFile";
 
   public static register(context: vscode.ExtensionContext): vscode.Disposable {
     const provider = new ShinyUiEditorProvider(context);

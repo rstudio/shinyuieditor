@@ -42,7 +42,7 @@ export async function launchEditor() {
   vscode.commands.executeCommand(
     "vscode.openWith",
     newAppFile,
-    "shinyUiEditor.appFile"
+    "shinyuieditor.appFile"
   );
 }
 

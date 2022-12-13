@@ -1,5 +1,20 @@
 # ShinyUiEditor VSCode extension
 
+This is the VSCode extension for the ShinyUiEditor. It wraps the UIEditor and allows for it to be run right in your VSCode editor.
+
+## Starting editor
+
+### From an existing app
+
+With the extension installed any file with the name pattern of `*app.R` will be interpreted as a Shiny app. In this situation a small button will appear in the upper right that allows you to open the current file in the ui editor. If the app is a [valid app for the ui editor]() it will immediatley start up the editor. If the file is empty, a template chooser interface will be shown allowing you to populate the app. If the app is invalid, then an error will be shown and you will need to edit the file before running the editor.
+
+### Building a new app
+
+If you wish to start a new app with the ui editor you can use the command `shinyuieditor.launchEditor` (or "Launch ShinyUiEditor"). This will open up a file picker dialog where you can chose the location of the app you wish to create followed by the name of the app file. This will start up the editor in the template chooser mode.
+You may also start the editor on an existing app this way. Just choose an existing app location.
+
+## About the ShinyUiEditor
+
 ![VSCode editor](https://rstudio.github.io/shinyuieditor/articles/screenshots/template-chooser.png)
 
 A visual tool for building the UI portion of a Shiny application that generates clean and human-readable code.
@@ -39,3 +54,17 @@ We're trying hard to constrain the feature set so we have fewer but higher-quali
 > Complexity is anything related to the structure of a system that makes it hard to understand and modify that system
 
 _- A Philosophy of Software Design, John Ousterhout_
+
+## VSIX Install
+
+You can alternatively download and install the extension from the command line as follows:
+
+1.  Download the extension file from the repo: [shinyuieditor VS Code (VSIX)](https://github.com/rstudio/shinyuieditor/inst/vscode-extension)
+
+2.  Install from the command line with: _(Note that the version number suffix may be different for you)_
+
+    ```bash
+    code --install-extension vscode-extension-0.0.1.vsix
+    ```
+
+Note that in order to use the `code` command to perform the installation you may need to open the VS Code Command Palette (Ctrl+Shift+P) and type "shell command" to execute the `Shell Command: Install 'code' command in PATH` command. This will make sure that `code` can be invoked from the command line on your system.
