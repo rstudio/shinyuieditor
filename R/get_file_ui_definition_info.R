@@ -50,10 +50,12 @@ get_file_ui_definition_info <- function(file_lines, type = "SINGLE-FILE") {
     # expression is an assignment we need to get the third element of the AST
     # to get the actual ui definition
     ui_expr <- parsed[[idx]][[3]]
-  } else {
+  } else if (type == "MULTI-FILE"){
     # Last node in parsed file should be the ui definition
     idx <- length(parsed)
     ui_expr <- parsed[[idx]]
+  } else {
+    stop("Unknown app type", type, "Options include \"SINGLE-FILE\" and \"MULTI-FILE\"")
   }
 
   ui_srcref <- attr(parsed, "srcref")[[idx]]

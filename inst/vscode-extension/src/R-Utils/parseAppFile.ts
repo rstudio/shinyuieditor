@@ -47,7 +47,7 @@ function buildParseCommand(appText: string) {
   return collapseText(
     `app_lines <- strsplit("${escapedAppText}", "\\n")[[1]]`,
     `jsonlite::toJSON(`,
-    `  shinyuieditor:::get_file_ui_definition_info(app_lines, "single-file"),`,
+    `  shinyuieditor:::get_file_ui_definition_info(app_lines, "SINGLE-FILE"),`,
     `  auto_unbox = TRUE`,
     `)`
   );
