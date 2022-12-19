@@ -1,12 +1,12 @@
 pandoc: 2.19.2
-pkgdown: 2.0.6
+pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   faqs: faqs.html
   how-to: how-to.html
   quick-start: quick-start.html
   ui-editor-live-demo: ui-editor-live-demo.html
-last_built: 2022-12-12T13:11Z
+last_built: 2022-12-19T13:07Z
 urls:
   reference: https://rstudio.github.io/shinyuieditor/reference
   article: https://rstudio.github.io/shinyuieditor/articles
