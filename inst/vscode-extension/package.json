@@ -106,7 +106,8 @@
     "lint": "eslint \"src/**/*.ts\"",
     "type-check": "tsc -p ./ --noEmit",
     "test": "jest",
-    "test-watch": "jest --watch"
+    "test-watch": "jest --watch",
+    "benchmark": "tsx scripts/benchmark.ts"
   },
   "devDependencies": {
     "@types/jest": "^29.2.4",
