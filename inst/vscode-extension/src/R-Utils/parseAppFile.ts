@@ -3,7 +3,7 @@ import type { ShinyUiNode } from "editor";
 
 import { escapeDoubleQuotes, collapseText } from "../string-utils";
 
-import type { ActiveRSession } from "./startBackgroundRProcess";
+import { runRCommandCold } from "./runRCommandCold";
 
 type UiBounds = { start: number; end: number };
 
@@ -16,16 +16,22 @@ export type ParsedApp = {
 };
 
 export async function getAppFile(
-  fileText: string,
-  RProcess: ActiveRSession
+  fileText: string
 ): Promise<ParsedApp | "EMPTY"> {
+  console.log("Running getAppFile()");
   const parseCommand = buildParseCommand(fileText);
 
-  const parsedCommandOutput = await RProcess.runCmd(parseCommand);
+  const parsedCommandOutput = await runRCommandCold(parseCommand, {
+    verbose: false,
+  });
+
+  if (parsedCommandOutput.status === "error") {
+    throw new Error(`Error parsing app file: ${parsedCommandOutput.errorMsgs}`);
+  }
 
   try {
     const parsedAppInfo = JSON.parse(
-      parsedCommandOutput.reduce((all, l) => all + "\n" + l, "")
+      parsedCommandOutput.values.reduce((all, l) => all + "\n" + l, "")
     );
 
     // Nothing will get returned if we've provided an empty file

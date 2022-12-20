@@ -64,7 +64,7 @@ export function editorLogic({
       hasInitialized = true;
     }
 
-    const appFileInfo = await getAppFile(appFileText, RProcess);
+    const appFileInfo = await getAppFile(appFileText);
     if (appFileInfo === "EMPTY") {
       sendMessage({
         path: "TEMPLATE_CHOOSER",
