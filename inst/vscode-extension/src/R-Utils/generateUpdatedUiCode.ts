@@ -17,9 +17,14 @@ export async function generateUpdatedUiCode(
   try {
     const generatedUiCode = await RProc.runCmd(rCommand, { verbose: false });
 
-    return JSON.parse(collapseText(...generatedUiCode));
+    if (generatedUiCode.status === "error") {
+      throw new Error(
+        `Failed to generate new ui code from tree\n${generatedUiCode.errorMsg}`
+      );
+    }
+    return JSON.parse(collapseText(...generatedUiCode.values));
   } catch (e) {
-    throw new Error("Failed to generate new ui code from tree");
+    throw e;
   }
 }
 

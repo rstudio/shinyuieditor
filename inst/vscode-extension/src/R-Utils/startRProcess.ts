@@ -3,12 +3,7 @@ import { spawn } from "child_process";
 
 import { getPathToR } from "./getPathToR";
 
-export type RProcess = {
-  proc: ChildProcessWithoutNullStreams;
-  stop: () => boolean;
-};
-
-export type RunRCommandOptions = Partial<{
+type StartRProcessOptions = Partial<{
   onClose: () => void;
   onError: (e: Error) => void;
   onStdout: (out: string) => void;
@@ -17,10 +12,16 @@ export type RunRCommandOptions = Partial<{
   verbose: boolean;
 }>;
 
+export type RProcess = {
+  proc: ChildProcessWithoutNullStreams;
+  stop: () => boolean;
+  getIsRunning: () => boolean;
+};
+
 export async function startRProcess(
   commands: string[],
-  opts: RunRCommandOptions = {}
-) {
+  opts: StartRProcessOptions = {}
+): Promise<RProcess> {
   const pathToR = await getPathToR();
   if (pathToR === undefined) {
     throw new Error("Can't get R path");
@@ -59,7 +60,11 @@ export async function startRProcess(
     function onSpawn() {
       eventLog(`spawned`);
       clearTimeout(startTimeout);
-      resolve({ proc: spawnedProcess, stop });
+      resolve({
+        proc: spawnedProcess,
+        stop,
+        getIsRunning: () => spawnedProcess.exitCode === null,
+      });
     }
 
     function onError(d: Error) {
