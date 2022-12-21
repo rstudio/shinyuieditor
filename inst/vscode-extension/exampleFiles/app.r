@@ -5,23 +5,21 @@ library(plotly)
 
 ui <- grid_page(
   layout = c(
-    "sidebar sidebar  sidebar ",
-    "header  bluePlot bluePlot",
-    "table   table    plotly  ",
+    "header  header   header  ",
+    "sidebar bluePlot bluePlot",
     "table   table    plotly  "
   ),
-  row_sizes = c(
-    "40px",
-    "1.26fr",
-    "0.74fr",
-    "1fr"
-  ),
+  gap_size = "1rem",
   col_sizes = c(
-    "370px",
+    "285px",
     "0.59fr",
     "1.41fr"
   ),
-  gap_size = "1rem",
+  row_sizes = c(
+    "75px",
+    "1.25fr",
+    "1fr"
+  ),
   grid_card(
     area = "sidebar",
     title = "Settings",

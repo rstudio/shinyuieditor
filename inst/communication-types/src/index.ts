@@ -88,7 +88,10 @@ export type CompanionEditorPosition = "BESIDE";
  */
 export type MessageToClientByPath = {
   "UPDATED-TREE": ShinyUiNode;
-  "BACKEND-ERROR": string;
+  "BACKEND-ERROR": {
+    context: string;
+    msg: string;
+  };
   "APP-PREVIEW-STATUS": "FAKE-PREVIEW" | "LOADING" | { url: string };
   "APP-PREVIEW-CRASH": string;
   "APP-PREVIEW-LOGS": string[];

@@ -1,7 +1,10 @@
 import { spawn } from "child_process";
 
-import { getPathToR } from "./getPathToR";
-import type { CommandExecOptions } from "./runRCommand";
+type CommandExecOptions = {
+  timeout_ms?: number;
+  verbose?: boolean;
+  pathToR: string;
+};
 
 type CommandOutput =
   | { status: "success"; values: string[] }
@@ -9,11 +12,10 @@ type CommandOutput =
 
 export async function runRCommandCold(
   command: string,
-  { verbose = false, timeout_ms = 1500 }: CommandExecOptions
+  { verbose = false, timeout_ms = 1500, pathToR }: CommandExecOptions
 ): Promise<CommandOutput> {
   const logger = makeLogger(verbose, "runRCommand: ");
 
-  const pathToR = await getPathToR();
   if (!pathToR)
     return { status: "error", errorMsgs: "Failed to start find R binary" };
 
@@ -25,6 +27,8 @@ export async function runRCommandCold(
       command,
       "--silent",
       "--slave",
+      "--no-save",
+      "--no-restore",
     ]);
     function onSpawn() {
       logger("Spawned");
@@ -45,9 +49,9 @@ export async function runRCommandCold(
     }
     function onStderr(d: any) {
       logger(`stderr: ${d.toString()}`);
-
       stderrVals.push(d.toString());
     }
+
     function cleanup() {
       clearTimeout(startTimeout);
       spawnedProcess.off("spawn", onSpawn);
@@ -58,7 +62,6 @@ export async function runRCommandCold(
     }
 
     const startTimeout = setTimeout(() => {
-      console.log("Timeout");
       resolve({
         status: "error",
         errorMsgs: `Command, no response from run command within ${timeout_ms}ms:\n${command}`,

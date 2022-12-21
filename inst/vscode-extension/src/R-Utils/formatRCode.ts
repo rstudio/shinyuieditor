@@ -14,5 +14,10 @@ export async function formatRCode(
     )}", scope = "tokens")`,
     commandOpts
   );
-  return formattedLines.reduce((pasted, l) => pasted + "\n" + l, "");
+  if (formattedLines.status === "error") {
+    throw new Error(
+      "Failed to format new app code...\n" + formattedLines.errorMsg
+    );
+  }
+  return formattedLines.values.reduce((pasted, l) => pasted + "\n" + l, "");
 }

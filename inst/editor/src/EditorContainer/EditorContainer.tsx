@@ -23,15 +23,15 @@ const sizes_inline_styles = {
 } as React.CSSProperties;
 
 export function EditorContainer() {
-  const { state, errorMsg } = useSyncUiWithBackend();
+  const { state, errorInfo } = useSyncUiWithBackend();
 
   let pageBody: React.ReactNode;
 
-  if (errorMsg) {
+  if (errorInfo) {
     pageBody = (
       <DialogPopover className="message-mode">
-        <h2>Error</h2>
-        <p className="error-msg">{errorMsg}</p>
+        <h2>Error {errorInfo.context ? `while ${errorInfo.context}` : ``}</h2>
+        <p className="error-msg">{errorInfo.msg}</p>
       </DialogPopover>
     );
   } else if (state.mode === "LOADING") {

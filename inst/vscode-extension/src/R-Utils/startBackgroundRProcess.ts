@@ -6,20 +6,34 @@ import { startRProcess } from "./startRProcess";
 
 export type ActiveRSession = {
   proc: ChildProcessWithoutNullStreams;
-  runCmd: (cmd: string, opts?: CommandExecOptions) => Promise<string[]>;
+  runCmd: (
+    cmd: string,
+    opts?: CommandExecOptions
+  ) => ReturnType<typeof runRCommand>;
   stop: () => void;
 };
 
 export async function startBackgroundRProcess(): Promise<ActiveRSession | null> {
-  const rProc = await startRProcess(
-    ["--silent", "--slave", "--no-save", "--no-restore"],
-    { timeout_ms: 5000 }
-  );
+  async function startProc() {
+    return await startRProcess(
+      ["--silent", "--slave", "--no-save", "--no-restore"],
+      { timeout_ms: 5000 }
+    );
+  }
+  let rProc = await startProc();
 
   return {
     ...rProc,
-    runCmd: (cmd: string, opts?: CommandExecOptions) =>
-      runRCommand(rProc.proc, cmd, opts),
+    async runCmd(cmd: string, opts?: CommandExecOptions) {
+      if (!rProc.getIsRunning()) {
+        // If the process crashed for some reason we need to restart it
+        console.warn("Background R Process has crashed. Restarting...");
+        rProc.stop();
+        rProc = await startProc();
+        console.warn("Background R Process restarted");
+      }
+      return runRCommand(rProc.proc, cmd, opts);
+    },
   };
 }
 

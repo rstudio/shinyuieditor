@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import type { MessageToClientByPath } from "communication-types";
 import debounce from "just-debounce-it";
 import { useDispatch } from "react-redux";
 
@@ -20,7 +21,9 @@ export function useSyncUiWithBackend() {
   const currentSelection = useCurrentSelection();
   const dispatch = useDispatch();
 
-  const [errorMsg, setErrorMsg] = React.useState<null | string>(null);
+  const [errorInfo, setErrorInfo] = React.useState<
+    null | MessageToClientByPath["BACKEND-ERROR"]
+  >(null);
   const lastRecievedRef = React.useRef<MainStateOption | null>(null);
 
   // Subscribe to messages from the backend
@@ -44,9 +47,9 @@ export function useSyncUiWithBackend() {
       }
     );
 
-    const parsingErrorSubscription = backendMsgs.subscribe(
+    const backendErrorSubscription = backendMsgs.subscribe(
       "BACKEND-ERROR",
-      setErrorMsg
+      setErrorInfo
     );
 
     // Make sure to do this after subscriptions otherwise the response may be
@@ -56,7 +59,7 @@ export function useSyncUiWithBackend() {
     return () => {
       updatedTreeSubscription.unsubscribe();
       templateChooserSubscription.unsubscribe();
-      parsingErrorSubscription.unsubscribe();
+      backendErrorSubscription.unsubscribe();
     };
   }, [backendMsgs, dispatch, sendMsg]);
 
@@ -94,5 +97,5 @@ export function useSyncUiWithBackend() {
     });
   }, [state, debouncedSendMsg, sendMsg]);
 
-  return { state, errorMsg };
+  return { state, errorInfo };
 }

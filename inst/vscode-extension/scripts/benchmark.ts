@@ -1,10 +1,7 @@
+import { getRpathFromSystem } from "../src/R-Utils/getRpathFromSystem";
 import { runRCommandCold } from "../src/R-Utils/runRCommandCold";
+import { startBackgroundRProcess } from "../src/R-Utils/startBackgroundRProcess";
 import { collapseText, escapeDoubleQuotes } from "../src/string-utils";
-
-async function coldStart() {
-  return async () =>
-    runRCommandCold(buildParseCommand(testAppFile), { verbose: false });
-}
 
 const testAppFile = `
 library(shiny)
@@ -104,39 +101,47 @@ server <- function(input, output) {
 shinyApp(ui, server)
 `;
 
-const NUM_ITS = 1;
+const parseCommand = collapseText(
+  `app_lines <- strsplit("${escapeDoubleQuotes(testAppFile)}", "\\n")[[1]]`,
+  `jsonlite::toJSON(`,
+  `  shinyuieditor:::get_file_ui_definition_info(app_lines, "SINGLE-FILE"),`,
+  `  auto_unbox = TRUE`,
+  `)`
+);
 
-// liveProc().then(async (runner) => {
-//   console.time("liveRunner");
-
-//   for (let i = 0; i < NUM_ITS; i++) {
-//     console.log("Live", i);
-//     const res = await runner();
-//   }
-//   console.timeEnd("liveRunner");
-// });
-
-coldStart().then(async (runner) => {
-  console.time("coldStart");
-  for (let i = 0; i < NUM_ITS; i++) {
-    const res = await runner();
-    console.log(res);
-    if (res.status === "error") {
-      console.warn("Error in cold start");
-    }
-  }
-  // console.log("Cold", i);
-  console.timeEnd("coldStart");
-});
-
-function buildParseCommand(appText: string) {
-  const escapedAppText = escapeDoubleQuotes(appText);
-
-  return collapseText(
-    `app_lines <- strsplit("${escapedAppText}", "\\n")[[1]]`,
-    `jsonlite::toJSON(`,
-    `  shinyuieditor:::get_file_ui_definition_info(app_lines, "SINGLE-FILE"),`,
-    `  auto_unbox = TRUE`,
-    `)`
-  );
+async function coldStart() {
+  const pathToR = await getRpathFromSystem();
+  return async () =>
+    runRCommandCold(parseCommand, {
+      verbose: false,
+      pathToR,
+    });
 }
+
+async function liveProc() {
+  const rProc = await startBackgroundRProcess();
+  return async () =>
+    rProc?.runCmd(parseCommand, {
+      verbose: false,
+    });
+}
+
+const NUM_ITS = 10;
+
+async function benchmark() {
+  console.time("liveRunner");
+  const liveRunner = await liveProc();
+  for (let i = 0; i < NUM_ITS; i++) {
+    await liveRunner();
+  }
+  console.timeEnd("liveRunner");
+
+  console.time("coldStart");
+  const coldRunner = await coldStart();
+  for (let i = 0; i < NUM_ITS; i++) {
+    await coldRunner();
+  }
+  console.timeEnd("coldStart");
+}
+
+benchmark();

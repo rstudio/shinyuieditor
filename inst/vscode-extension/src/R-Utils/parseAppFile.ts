@@ -3,7 +3,8 @@ import type { ShinyUiNode } from "editor";
 
 import { escapeDoubleQuotes, collapseText } from "../string-utils";
 
-import { runRCommandCold } from "./runRCommandCold";
+import type { CommandOutputGeneric } from "./runRCommand";
+import type { ActiveRSession } from "./startBackgroundRProcess";
 
 type UiBounds = { start: number; end: number };
 
@@ -16,17 +17,17 @@ export type ParsedApp = {
 };
 
 export async function getAppFile(
+  rProc: ActiveRSession,
   fileText: string
-): Promise<ParsedApp | "EMPTY"> {
-  console.log("Running getAppFile()");
+): Promise<CommandOutputGeneric<ParsedApp | "EMPTY">> {
   const parseCommand = buildParseCommand(fileText);
 
-  const parsedCommandOutput = await runRCommandCold(parseCommand, {
+  const parsedCommandOutput = await rProc.runCmd(parseCommand, {
     verbose: false,
   });
 
   if (parsedCommandOutput.status === "error") {
-    throw new Error(`Error parsing app file: ${parsedCommandOutput.errorMsgs}`);
+    return parsedCommandOutput;
   }
 
   try {
@@ -36,14 +37,15 @@ export async function getAppFile(
 
     // Nothing will get returned if we've provided an empty file
     if (Object.keys(parsedAppInfo).length === 0) {
-      return "EMPTY";
+      return { status: "success", values: "EMPTY" };
     }
 
-    return parsedAppInfo;
+    return { status: "success", values: parsedAppInfo };
   } catch {
-    throw new Error(
-      "Could not get document as json. Content is not valid json"
-    );
+    return {
+      status: "error",
+      errorMsg: "Could not get document as json. Content is not valid json",
+    };
   }
 }
 

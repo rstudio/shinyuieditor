@@ -55,7 +55,10 @@ export function editorLogic({
       if (pkgsLoaded.status === "error") {
         sendMessage({
           path: "BACKEND-ERROR",
-          payload: pkgsLoaded.msg,
+          payload: {
+            context: "checking for shinyuieditor package",
+            msg: pkgsLoaded.msg,
+          },
         });
         showErrorMessage(pkgsLoaded.msg);
         throw new Error(pkgsLoaded.msg);
@@ -64,20 +67,37 @@ export function editorLogic({
       hasInitialized = true;
     }
 
-    const appFileInfo = await getAppFile(appFileText);
-    if (appFileInfo === "EMPTY") {
-      sendMessage({
-        path: "TEMPLATE_CHOOSER",
-        payload: "SINGLE-FILE",
-      });
-    } else {
-      const { ui_tree } = appFileInfo;
+    try {
+      const appFileInfo = await getAppFile(RProcess, appFileText);
 
-      uiBounds = appFileInfo.ui_bounds;
-      sendMessage({
-        path: "UPDATED-TREE",
-        payload: ui_tree,
-      });
+      if (appFileInfo.status === "error") {
+        sendMessage({
+          path: "BACKEND-ERROR",
+          payload: {
+            context: "parsing app",
+            msg: appFileInfo.errorMsg,
+          },
+        });
+        showErrorMessage(appFileInfo.errorMsg);
+        return;
+      }
+
+      if (appFileInfo.values === "EMPTY") {
+        sendMessage({
+          path: "TEMPLATE_CHOOSER",
+          payload: "SINGLE-FILE",
+        });
+      } else {
+        const { ui_tree } = appFileInfo.values;
+
+        uiBounds = appFileInfo.values.ui_bounds;
+        sendMessage({
+          path: "UPDATED-TREE",
+          payload: ui_tree,
+        });
+      }
+    } catch (e) {
+      console.error("Failed to parse", e);
     }
   };
 
