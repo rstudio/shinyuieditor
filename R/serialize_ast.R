@@ -2,8 +2,8 @@
 # representation. 
 serialize_ast <- function(expr, source_ref = NULL) {
 
-  if (identical(typeof(expr), "closure")) {
-    stop("Can't parse closures. Only language objects/ expressions can be serialized")
+  if (!is_serializable_node(expr)) {
+    stop("Unknown expression type, can't parse. typeof(node) = ", typeof(expr))
   }
   node_names <- names(expr)
    
@@ -37,8 +37,10 @@ serialize_ast <- function(expr, source_ref = NULL) {
     } else if (is_array_call(x)) {
       eval(x)
     } else {
+      # This will error if we give it a non-ast-valid node so no need to do
+      # exhaustive checks in this logic
       serialize_ast(x, attr(expr, "srcref")[[i]])   
-    }
+    } 
 
     ast_node[[i]] <- parsed_node   
     ast_node_names[i] <- node_names[i]
@@ -80,4 +82,11 @@ is_namespace_call <- function(expr) {
 
 is_array_call <- function(expr) {
   identical(as.character(expr[[1]]), "c")
+}
+
+is_serializable_node <- function(x) {
+  node_type <- typeof(x)
+  identical(node_type, "pairlist") || 
+    identical(node_type, "language") || 
+    identical(node_type, "expression")
 }
