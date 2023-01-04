@@ -34,9 +34,9 @@ ui_expr <- rlang::expr(
   )
 )
 
-f <- function(a) {
-  a * 2
-}
+# f <- function(a) {
+#   a * 2
+# }
 
 # serialize_ast(f)
 
@@ -47,7 +47,7 @@ fn_expr <- rlang::expr(
 )
 serialize_ast(fn_expr)
 
-# full_ast <- serialize_ast(parsed)
+full_ast <- serialize_ast(parsed)
 # jsonlite::toJSON(full_ast, auto_unbox = TRUE)
 # full_ast
 # tree(full_ast)
