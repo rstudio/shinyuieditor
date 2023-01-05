@@ -1,5 +1,4 @@
-import * as vscode from "vscode";
-
+import { getRemoteSafeUrl } from "../extension-api-utils/getRemoteSafeUrl";
 import { getFreePort } from "../getFreePort";
 import { collapseText } from "../string-utils";
 
@@ -41,9 +40,7 @@ export function startPreviewApp({
     try {
       const port = await getFreePort();
 
-      const previewAppUri = await vscode.env.asExternalUri(
-        vscode.Uri.parse(`http://localhost:${port}`)
-      );
+      const previewAppUri = await getRemoteSafeUrl(`http://localhost:${port}`);
 
       // Build a regex that watches for the app's location
       const readyToGoRegex = new RegExp(`listening on .+${port}`, "i");
