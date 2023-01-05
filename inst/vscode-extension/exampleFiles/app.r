@@ -9,17 +9,17 @@ ui <- grid_page(
     "sidebar bluePlot bluePlot",
     "table   table    plotly  "
   ),
-  gap_size = "1rem",
-  col_sizes = c(
-    "285px",
-    "0.59fr",
-    "1.41fr"
-  ),
   row_sizes = c(
     "75px",
     "1.25fr",
     "1fr"
   ),
+  col_sizes = c(
+    "285px",
+    "0.59fr",
+    "1.41fr"
+  ),
+  gap_size = "1rem",
   grid_card(
     area = "sidebar",
     title = "Settings",
