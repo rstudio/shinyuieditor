@@ -11,14 +11,9 @@ import { runShellCommand } from "./runShellCommand";
  * @returns Full url to access the proxied local server.
  */
 export async function getRemoteSafeUrl(local_port: number): Promise<string> {
-  console.log("process info", process.env);
-
   if (getInPositWorkbench()) {
-    console.log("We're in workbench!");
     return await getForwardedWorkbenchUrl(local_port);
   }
-  console.log("We are not in workbench");
-
   const local_uri = vscode.Uri.parse(`http://localhost:${local_port}`);
   return (await vscode.env.asExternalUri(local_uri)).toString();
 }
