@@ -24,6 +24,7 @@ export async function getAppFile(
 
   const parsedCommandOutput = await rProc.runCmd(parseCommand, {
     verbose: false,
+    timeout_ms: 5000,
   });
 
   if (parsedCommandOutput.status === "error") {
