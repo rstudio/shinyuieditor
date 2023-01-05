@@ -89,5 +89,5 @@ async function getForwardedWorkbenchUrl(local_port: number): Promise<string> {
   }
   const forwarded_port = port_forward_cmd_output.stdout[0];
 
-  return `${getWorkbenchUrlBase()}p/${forwarded_port}`;
+  return `${getWorkbenchUrlBase()}p/${forwarded_port}/`;
 }
