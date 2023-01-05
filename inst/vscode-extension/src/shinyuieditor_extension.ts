@@ -135,6 +135,7 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
     const nonce = getNonce();
 
     const cspSource = webview.cspSource;
+
     return /* html */ `
 			<!DOCTYPE html>
 			<html lang="en">
