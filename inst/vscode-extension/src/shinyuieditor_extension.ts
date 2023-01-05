@@ -3,6 +3,7 @@ import type { MessageToClient } from "communication-types";
 import * as vscode from "vscode";
 
 import { editorLogic } from "./editorLogic";
+import { getWorkbenchUrlBase } from "./extension-api-utils/getRemoteSafeUrl";
 import { appScriptStatus } from "./R-Utils/appScriptStatus";
 import type { ActiveRSession } from "./R-Utils/startBackgroundRProcess";
 import { startBackgroundRProcess } from "./R-Utils/startBackgroundRProcess";
@@ -135,6 +136,10 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
     const nonce = getNonce();
 
     const cspSource = webview.cspSource;
+
+    // If we're on workbench we need to let the iframe know it's allowed to use that for resources
+    const workbenchURL = getWorkbenchUrlBase();
+    const workbenchContentOrigin = workbenchURL ? `${workbenchURL}*` : ``;
     return /* html */ `
 			<!DOCTYPE html>
 			<html lang="en">
@@ -152,7 +157,7 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
 				-->
 				<meta 
           http-equiv="Content-Security-Policy" 
-          content="default-src 'none'; frame-src http://localhost:*/ ${cspSource} https:; img-src ${cspSource} data:; style-src ${webview.cspSource} 'unsafe-inline'; script-src 'nonce-${nonce}';">
+          content="default-src 'none'; frame-src http://localhost:*/ ${workbenchContentOrigin} ${cspSource} https:; img-src ${cspSource} data:; style-src ${webview.cspSource} 'unsafe-inline'; script-src 'nonce-${nonce}';">
 
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
