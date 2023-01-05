@@ -40,7 +40,7 @@ export function startPreviewApp({
     try {
       const port = await getFreePort();
 
-      const previewAppUri = await getRemoteSafeUrl(`http://localhost:${port}`);
+      const previewAppUri = await getRemoteSafeUrl(port);
 
       // Build a regex that watches for the app's location
       const readyToGoRegex = new RegExp(`listening on .+${port}`, "i");
