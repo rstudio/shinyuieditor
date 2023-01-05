@@ -43,24 +43,6 @@ function getInPositWorkbench(): boolean {
 }
 
 /**
- * Get the base url that forwarded assets would come from if on workbench
- * @returns Base url of Posit workbench instance that would be used to serve
- * local assets for this extension. If workbench is not available (based on
- * environment variables) then an empty string is returned
- */
-export function getWorkbenchUrlBase(): string | null {
-  const server_url = process.env["RS_SERVER_URL"];
-  const session_url = process.env["RS_SESSION_URL"];
-
-  if (server_url && session_url) {
-    return `${server_url}${session_url.slice(1)}`;
-  }
-
-  // Return empty string if we're not in workbench
-  return "";
-}
-
-/**
  * Get a full URL for a workbench proxied local server
  * @param local_port Port number of a locally running server
  * @returns Full url of remote accessable endpoint for local server
@@ -78,11 +60,12 @@ async function getForwardedWorkbenchUrl(local_port: number): Promise<string> {
     );
   }
 
-  const base_url = getWorkbenchUrlBase();
-  if (!base_url) {
+  const server_url = process.env["RS_SERVER_URL"];
+  const session_url = process.env["RS_SESSION_URL"];
+  if (!server_url || !session_url) {
     throw new Error("Can't find URL for workbench.");
   }
   const forwarded_port = port_forward_cmd_output.stdout[0];
 
-  return `${getWorkbenchUrlBase()}p/${forwarded_port}/`;
+  return `${server_url}${session_url.slice(1)}p/${forwarded_port}/`;
 }
