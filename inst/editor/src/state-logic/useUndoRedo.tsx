@@ -41,11 +41,19 @@ export function useUndoRedo() {
     [dispatch]
   );
   const goBackward = React.useCallback(() => {
-    setState(stateHistory.current.goBackwards());
+    try {
+      setState(stateHistory.current.goBackwards());
+    } catch (e) {
+      // Failed to go backwards. Probably at the begining of the state stack.
+    }
   }, [setState]);
 
   const goForward = React.useCallback(() => {
-    setState(stateHistory.current.goForwards());
+    try {
+      setState(stateHistory.current.goForwards());
+    } catch (e) {
+      // Failed to go forwards. Probably at at top of state stack
+    }
   }, [setState]);
 
   useKeyboardShortcut({
