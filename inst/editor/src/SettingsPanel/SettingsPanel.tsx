@@ -10,6 +10,7 @@ import { shinyUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
 import PathBreadcrumb from "./PathBreadcrumb";
 // import PathBreadcrumb from "./PathBreadcrumbLinear";
 import classes from "./SettingsPanel.module.css";
+import { useDeleteNodeWithKeyboard } from "./useDeleteNodeWithKeyboard";
 import { useUpdateSettings } from "./useUpdateSettings";
 
 export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
@@ -20,6 +21,9 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
     selectedPath,
     setNodeSelection,
   } = useUpdateSettings(tree);
+
+  // Adds a keyboard shortcut listener for deleting node with the delete key
+  useDeleteNodeWithKeyboard(selectedPath);
 
   if (selectedPath === null) {
     return <div>Select an element to edit properties</div>;
