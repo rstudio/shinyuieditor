@@ -6,6 +6,7 @@ import StateHistory from "../modules/StateHistory";
 import type { RootState } from "../state/store";
 import type { MainStateOption } from "../state/uiTree";
 import { SET_FULL_STATE } from "../state/uiTree";
+import { useKeyboardShortcut } from "../utils/hooks/useKeyboardShortcut";
 type HistoryEntry = MainStateOption;
 
 export function useUndoRedo() {
@@ -46,6 +47,19 @@ export function useUndoRedo() {
   const goForward = React.useCallback(() => {
     setState(stateHistory.current.goForwards());
   }, [setState]);
+
+  useKeyboardShortcut({
+    key: "z",
+    withMeta: true,
+    onPress: goBackward,
+  });
+
+  useKeyboardShortcut({
+    key: "z",
+    withMeta: true,
+    withShift: true,
+    onPress: goForward,
+  });
 
   return {
     goBackward,
