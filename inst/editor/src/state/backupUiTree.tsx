@@ -170,7 +170,7 @@ export const minimalPage: ShinyUiNode = {
 
 export const templateChooserMode: TemplateChooserNode = "TEMPLATE_CHOOSER";
 
-export const sampleAppTree = basicGridPage;
-// export const sampleAppTree = templateChooserMode;
+// export const sampleAppTree = basicGridPage;
+export const sampleAppTree = templateChooserMode;
 // export const sampleAppTree = basicNavbarPage;
 // export const sampleAppTree = minimalPage;
