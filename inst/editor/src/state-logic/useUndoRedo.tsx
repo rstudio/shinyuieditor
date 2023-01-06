@@ -50,13 +50,13 @@ export function useUndoRedo() {
 
   useKeyboardShortcut({
     key: "z",
-    withMeta: true,
+    withCmdCtrl: true,
     onPress: goBackward,
   });
 
   useKeyboardShortcut({
     key: "z",
-    withMeta: true,
+    withCmdCtrl: true,
     withShift: true,
     onPress: goForward,
   });

@@ -5,6 +5,7 @@ import { FaExpand } from "react-icons/fa";
 import { VscDebugRestart } from "react-icons/vsc";
 
 import { PanelHeader } from "../../EditorSkeleton/EditorSkeleton";
+import { onMac } from "../../utils/onMac";
 import Button from "../Inputs/Button/Button";
 import { TooltipButton } from "../PopoverEl/Tooltip";
 
@@ -156,7 +157,5 @@ function spinReloadButton(buttonEl: HTMLButtonElement) {
 }
 
 function getMetaKeyOnClient(): "\u2318" | "Alt" {
-  const isMac = /mac/i.test(window.navigator.platform);
-
-  return isMac ? "\u2318" : "Alt";
+  return onMac() ? "\u2318" : "Alt";
 }

@@ -1,11 +1,13 @@
 import * as React from "react";
 
+import { onMac } from "../onMac";
+
 type KeyboardShortcutOptions = {
   /** Key code to listen for. E.g. `"Backspace"` **/
   key: string;
   /** Do we need the metakey to be pressed down to count keypress? E.g. for
    * combos like command+z **/
-  withMeta?: boolean;
+  withCmdCtrl?: boolean;
   /** Do we need the shift to be pressed down to count keypress? E.g. for
    * combos like command+shift+z **/
   withShift?: boolean;
@@ -20,7 +22,7 @@ type KeyboardShortcutOptions = {
  */
 export function useKeyboardShortcut({
   key,
-  withMeta = false,
+  withCmdCtrl = false,
   withShift = false,
   onPress,
 }: KeyboardShortcutOptions) {
@@ -28,11 +30,15 @@ export function useKeyboardShortcut({
     (e: KeyboardEvent) => {
       if (!(e.target instanceof Element)) return;
 
-      if (e.key === key && withMeta === e.metaKey && withShift === e.shiftKey) {
+      if (
+        e.key === key &&
+        withCmdCtrl === (onMac() ? e.metaKey : e.ctrlKey) &&
+        withShift === e.shiftKey
+      ) {
         onPress(e.target);
       }
     },
-    [key, onPress, withMeta, withShift]
+    [key, onPress, withCmdCtrl, withShift]
   );
 
   React.useEffect(() => {
