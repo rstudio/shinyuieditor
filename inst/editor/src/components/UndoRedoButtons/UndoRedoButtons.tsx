@@ -1,14 +1,15 @@
-import React from "react";
-
-import { useUndoRedo } from "../../state-logic/useUndoRedo";
-import { Undo, Redo } from "../Icons";
+import type { HistoryInfo } from "../../state-logic/useUndoRedo";
+import { Redo, Undo } from "../Icons";
 import Button from "../Inputs/Button/Button";
 
 import classes from "./UndoRedoButtons.module.css";
 
-export function UndoRedoButtons() {
-  const { goBackward, goForward, canGoBackward, canGoForward } = useUndoRedo();
-
+export function UndoRedoButtons({
+  goBackward,
+  canGoBackward,
+  goForward,
+  canGoForward,
+}: HistoryInfo) {
   return (
     <div className={classes.container + " undo-redo-buttons"}>
       <Button

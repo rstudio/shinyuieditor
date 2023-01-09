@@ -4,6 +4,8 @@ import type { MessageToClientByPath } from "communication-types";
 import debounce from "just-debounce-it";
 import { useDispatch } from "react-redux";
 
+import { useDeleteNode } from "../components/DeleteNodeButton/useDeleteNode";
+import { useUndoRedo } from "../state-logic/useUndoRedo";
 import { getNamedPath } from "../state/getNamedPath";
 import { useCurrentSelection } from "../state/selectedPath";
 import type { MainStateOption } from "../state/uiTree";
@@ -12,6 +14,7 @@ import {
   SHOW_TEMPLATE_CHOOSER,
   useCurrentUiTree,
 } from "../state/uiTree";
+import { useKeyboardShortcuts } from "../utils/hooks/useKeyboardShortcuts";
 
 import { useBackendConnection } from "./useBackendMessageCallbacks";
 
@@ -21,10 +24,35 @@ export function useSyncUiWithBackend() {
   const currentSelection = useCurrentSelection();
   const dispatch = useDispatch();
 
+  const history = useUndoRedo(state);
+
+  const deleteNode = useDeleteNode(currentSelection);
+
   const [errorInfo, setErrorInfo] = React.useState<
     null | MessageToClientByPath["BACKEND-ERROR"]
   >(null);
   const lastRecievedRef = React.useRef<MainStateOption | null>(null);
+
+  useKeyboardShortcuts([
+    {
+      key: "z",
+      withCmdCtrl: true,
+      withShift: false,
+      onPress: history.goBackward,
+    },
+    {
+      key: "z",
+      withCmdCtrl: true,
+      withShift: true,
+      onPress: history.goForward,
+    },
+    {
+      key: "Backspace",
+      onPress: deleteNode,
+      withCmdCtrl: false,
+      withShift: false,
+    },
+  ]);
 
   // Subscribe to messages from the backend
   React.useEffect(() => {
@@ -97,5 +125,9 @@ export function useSyncUiWithBackend() {
     });
   }, [state, debouncedSendMsg, sendMsg]);
 
-  return { state, errorInfo };
+  return {
+    state,
+    errorInfo,
+    history,
+  };
 }
