@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import StateHistory from "../modules/StateHistory";
 import type { RootState } from "../state/store";
@@ -8,12 +8,17 @@ import type { MainStateOption } from "../state/uiTree";
 import { SET_FULL_STATE } from "../state/uiTree";
 type HistoryEntry = MainStateOption;
 
-export function useUndoRedo() {
-  const state = useSelector((state: RootState) => state.uiTree);
-
+export type HistoryInfo = {
+  goBackward: () => void;
+  goForward: () => void;
+  canGoBackward: boolean;
+  canGoForward: boolean;
+};
+export function useUndoRedo(state: RootState["uiTree"]): HistoryInfo {
   const dispatch = useDispatch();
 
   const [canGoForward, setCanGoForward] = React.useState(false);
+
   const [canGoBackward, setCanGoBackward] = React.useState(false);
   const stateHistory = React.useRef<StateHistory<HistoryEntry>>(
     new StateHistory({ comparisonFn: sameHistoryEntry })
@@ -40,11 +45,19 @@ export function useUndoRedo() {
     [dispatch]
   );
   const goBackward = React.useCallback(() => {
-    setState(stateHistory.current.goBackwards());
+    try {
+      setState(stateHistory.current.goBackwards());
+    } catch (e) {
+      // Failed to go backwards. Probably at the begining of the state stack.
+    }
   }, [setState]);
 
   const goForward = React.useCallback(() => {
-    setState(stateHistory.current.goForwards());
+    try {
+      setState(stateHistory.current.goForwards());
+    } catch (e) {
+      // Failed to go forwards. Probably at at top of state stack
+    }
   }, [setState]);
 
   return {
