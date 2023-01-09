@@ -7,38 +7,33 @@ type KeyboardShortcutOptions = {
   key: string;
   /** Do we need the metakey to be pressed down to count keypress? E.g. for
    * combos like command+z **/
-  withCmdCtrl?: boolean;
+  withCmdCtrl: boolean;
   /** Do we need the shift to be pressed down to count keypress? E.g. for
    * combos like command+shift+z **/
-  withShift?: boolean;
+  withShift: boolean;
   /** Callback to run after the key was pressed. Argument is the `Element` in
   focus when key was pressed.**/
-  onPress: (pressTarget: Element) => void;
+  onPress: () => void;
 };
 
 /**
  * Listen for the press of a given key and call a callback.
  * @param opts Options object
  */
-export function useKeyboardShortcut({
-  key,
-  withCmdCtrl = false,
-  withShift = false,
-  onPress,
-}: KeyboardShortcutOptions) {
+export function useKeyboardShortcuts(shortcuts: KeyboardShortcutOptions[]) {
   const onKeyDown = React.useCallback(
     (e: KeyboardEvent) => {
-      if (!(e.target instanceof Element)) return;
-
-      if (
-        e.key === key &&
-        withCmdCtrl === (onMac() ? e.metaKey : e.ctrlKey) &&
-        withShift === e.shiftKey
-      ) {
-        onPress(e.target);
+      // We only want keyboard shortcuts to apply when we're not focused on something
+      if (!(e.target instanceof Element) || e.target.tagName !== "BODY") {
+        return;
       }
+      shortcuts.forEach((shortcut) => {
+        if (matchesShortcutTrigger(e, shortcut)) {
+          shortcut.onPress();
+        }
+      });
     },
-    [key, onPress, withCmdCtrl, withShift]
+    [shortcuts]
   );
 
   React.useEffect(() => {
@@ -48,4 +43,15 @@ export function useKeyboardShortcut({
       document.removeEventListener("keydown", onKeyDown);
     };
   }, [onKeyDown]);
+}
+
+function matchesShortcutTrigger(
+  e: KeyboardEvent,
+  shortcut: Pick<KeyboardShortcutOptions, "key" | "withCmdCtrl" | "withShift">
+): boolean {
+  return (
+    e.key === shortcut.key &&
+    shortcut.withCmdCtrl === (onMac() ? e.metaKey : e.ctrlKey) &&
+    shortcut.withShift === e.shiftKey
+  );
 }
