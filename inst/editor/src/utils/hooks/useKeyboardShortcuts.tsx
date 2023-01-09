@@ -18,7 +18,7 @@ type KeyboardShortcutOptions = {
 
 /**
  * Listen for the press of a given key and call a callback.
- * @param opts Options object
+ * @param shortcuts Array of shortcut config options.
  */
 export function useKeyboardShortcuts(shortcuts: KeyboardShortcutOptions[]) {
   const onKeyDown = React.useCallback(
@@ -27,11 +27,13 @@ export function useKeyboardShortcuts(shortcuts: KeyboardShortcutOptions[]) {
       if (!(e.target instanceof Element) || e.target.tagName !== "BODY") {
         return;
       }
-      shortcuts.forEach((shortcut) => {
-        if (matchesShortcutTrigger(e, shortcut)) {
-          shortcut.onPress();
-        }
-      });
+      shortcuts
+        .filter((s) => matchesShortcutTrigger(e, s))
+        .forEach(({ onPress }) => onPress());
+
+      if (!e.defaultPrevented) {
+        e.stopPropagation();
+      }
     },
     [shortcuts]
   );
