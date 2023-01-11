@@ -8,6 +8,9 @@ library(lobstr)
 # )
 
 
+
+
+
 file_lines <- readLines("scratch/single-file-app/app.R")
 parsed <- parse(text = file_lines, keep.source = TRUE)
 
@@ -34,20 +37,16 @@ ui_expr <- rlang::expr(
   )
 )
 
-# f <- function(a) {
-#   a * 2
-# }
-
-# serialize_ast(f)
-
-fn_expr <- rlang::expr(
-  function(a, b = 2) {
-    a + b
-  }
-)
-serialize_ast(fn_expr)
-
 full_ast <- serialize_ast(parsed)
-# jsonlite::toJSON(full_ast, auto_unbox = TRUE)
-# full_ast
-# tree(full_ast)
+jsonlite::toJSON(full_ast, auto_unbox = TRUE)
+
+# serialize_ast(quote(alist(a =)))
+# tree(serialize_ast(quote(df[,2])))
+# tree(serialize_ast(quote(function(a, ...){})))
+
+# serialize_ast(parsed)
+# bench::mark(
+#   serialize_ast(parsed),
+#   serialize_ast_no_filter(parsed)
+# )
+

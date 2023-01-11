@@ -1,87 +1,82 @@
 # Take a parsed R expression and turn it into a fully serializable ast
 # representation. 
-serialize_ast <- function(expr, source_ref = NULL) {
+serialize_ast <- function(expr) {
 
   if (!is_serializable_node(expr)) {
     stop("Unknown expression type, can't parse. typeof(node) = ", typeof(expr))
   }
+
   node_names <- names(expr)
    
-  ast_node <- list()
-  ast_node_names <- c()
-
-  # Keep track of nodes that should be removed from result because they are null
-  # to keep ast compact. Null nodes are non-critical parts of the AST such as
-  # the text of a function call. We will ignore them
-  null_nodes <- c()
+  ast_node <- c()
 
   # We use a for loop here instead of an apply function because we need access
   # to the index for querying source refs
   for (i in seq_along(expr)) {
-    x <- expr[[i]]
+    
+    val <- parse_ast_node_value(
+      x = expr[[i]],
+      name = node_names[i], 
+      node_pos = get_source_position(attr(expr, "srcref")[[i]])
+    )
+    
+    if (length(val) > 0) {      
+      ast_node[[length(ast_node) + 1]] <- val
+    }
+  }
+
+  ast_node
+}
+
+
+parse_ast_node_value <- function(x, name, node_pos) {
 
     # Things like df[,1] will have a "missing" node in the ast for the first
     # argument of `[`,
-    parsed_node <- if (missing(x)) {
-      "<MISSING>"
-    } else if (identical(class(x), "srcref")) {
-      # Don't want to clutter with function source-reference 
-      null_nodes <- c(null_nodes, i)
-      next
+    val <- if (missing(x) || identical(class(x), "srcref")) {
+      NULL
     } else if (is.atomic(x)) {
       # Numbers, and characters etc..
       x
     } else if (is.symbol(x) || is_namespace_call(x)) {
       # Things like variable names and other syntactically relevant symbols
       deparse(x)
-    } else if (is_array_call(x)) {
-      eval(x)
     } else {
       # This will error if we give it a non-ast-valid node so no need to do
       # exhaustive checks in this logic
-      serialize_ast(x, attr(expr, "srcref")[[i]])   
-    } 
+      serialize_ast(x)   
+    }
 
-    ast_node[[i]] <- parsed_node   
-    ast_node_names[i] <- node_names[i]
-  }
+    # If the node is a call with named args and unnamed ones then we may have an
+    # empty character as the name, which we should treat as missing
+    if (identical(name, "")) {
+      name <- NULL
+    }
 
+    node <- list()
+    node$name <- name
+    node$val <- val
+    node$pos <- node_pos
   
-  names(ast_node) <- ast_node_names
-
-  # Remove null nodes if neccesary
-  if (length(null_nodes) > 0) {
-    ast_node <- ast_node[-null_nodes]
-  }
-
-  # If source ref info was passed in for the current node, add position data to
-  # a metadata field
-  if (!is.null(source_ref)) {
-    ast_node[["__meta__"]] <- get_source_position(source_ref)
-  }
-
-  if (is.null(names(ast_node))) {
-    names(ast_node) <- seq_along(ast_node)
-  }
-  
-  ast_node
+    node 
 }
 
 # Translate the raw integer array into meaningful position values. 
 # Tuple is (line#, column#)
 get_source_position <- function(source_ref) {
-  list( 
-    start_pos = c(source_ref[[1]], source_ref[[5]]),
-    end_pos = c(source_ref[[3]], source_ref[[6]])
-  )
+  if (is.null(source_ref)) {
+    NULL
+  } else {
+    start_row <- source_ref[[1]]
+    start_col <- source_ref[[5]]
+    end_row <- source_ref[[3]]
+    end_col <- source_ref[[6]]
+    c(start_row, start_col, end_row, end_col)
+  }
 }
 
 is_namespace_call <- function(expr) {
   identical(as.character(expr[[1]]), "::")
-}
-
-is_array_call <- function(expr) {
-  identical(as.character(expr[[1]]), "c")
 }
 
 is_serializable_node <- function(x) {
