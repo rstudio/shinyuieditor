@@ -7,10 +7,10 @@ import type { Primative_Map } from "./flatten_list";
 import { get_node_is_list } from "./flatten_list";
 import { flatten_list } from "./flatten_list";
 import {
-  is_ui_assignment_node,
   is_ast_branch_node,
   is_named_node,
   is_ast_leaf_node,
+  is_ui_assignment_node,
 } from "./node_identity_checkers";
 import { Parsing_Error } from "./parsing_error_class";
 
@@ -23,16 +23,33 @@ type Script_Position = [
   end_col: number
 ];
 
-export type AST_Node_Generic<T extends any> = {
-  val: T;
-  name?: string;
-  pos?: Script_Position;
+type Node_Vals_By_Key = {
+  s: string; // Symbol
+  c: string; // Characters/ strings
+  b: boolean;
+  n: number;
+  u: unknown;
+  m: never; // missing
+  e: R_AST; // another node/expression
 };
 
-export type Branch_Node = AST_Node_Generic<R_AST>;
-export type Leaf_Node = AST_Node_Generic<Primatives>;
-export type R_AST_Node = Branch_Node | Leaf_Node;
+type AST_Node_By_Key = {
+  [key in keyof Node_Vals_By_Key]: {
+    val: Node_Vals_By_Key[key];
+    type: key;
+    name?: string;
+    pos?: Script_Position;
+  };
+};
+
+export type Branch_Node = AST_Node_By_Key["e"];
+export type Leaf_Node = AST_Node_By_Key["c" | "b" | "n"];
+export type Unparsable_Node = AST_Node_By_Key["s" | "m" | "u"];
+export type R_AST_Node = AST_Node_By_Key[keyof Node_Vals_By_Key];
+
 export type R_AST = Array<R_AST_Node>;
+
+export type Fn_Call_AST = [fn_name: string, ...fn_args: R_AST_Node[]];
 
 type Shiny_Ui_Argument_Val =
   | Primatives
@@ -88,7 +105,7 @@ function process_named_arg(node: R_AST_Node): Shiny_Ui_Argument_Val {
     return node.val;
   }
 
-  if (get_node_is_array(node.val)) {
+  if (get_node_is_array(node)) {
     return flatten_array(node);
   }
 
@@ -100,7 +117,7 @@ function process_named_arg(node: R_AST_Node): Shiny_Ui_Argument_Val {
 }
 
 function process_unnamed_arg(node: R_AST_Node): Shiny_Ui_AST {
-  if (is_ast_leaf_node(node)) {
+  if (!is_ast_branch_node(node)) {
     throw new Parsing_Error({
       message: "Primative found in ui children of ui node.",
     });

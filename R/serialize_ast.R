@@ -29,35 +29,66 @@ serialize_ast <- function(expr) {
 }
 
 
+# Types key: "m" = missing,  "s" = symbol, "n" = numeric/number, "b" =
+# boolean/logical, "c" = string/character, "u" = unknown, "e" = expression/ast
+# node
+
 parse_ast_node_value <- function(x, name, node_pos) {
-
-    # Things like df[,1] will have a "missing" node in the ast for the first
-    # argument of `[`,
-    val <- if (missing(x) || identical(class(x), "srcref")) {
-      NULL
-    } else if (is.atomic(x)) {
-      # Numbers, and characters etc..
-      x
-    } else if (is.symbol(x) || is_namespace_call(x)) {
-      # Things like variable names and other syntactically relevant symbols
-      deparse(x)
-    } else {
-      # This will error if we give it a non-ast-valid node so no need to do
-      # exhaustive checks in this logic
-      serialize_ast(x)   
-    }
-
+    
     # If the node is a call with named args and unnamed ones then we may have an
     # empty character as the name, which we should treat as missing
     if (identical(name, "")) {
       name <- NULL
     }
 
+
+    val_type <- "u"
+    # Things like df[,1] will have a "missing" node in the ast for the first
+    # argument of `[`,
+    val <- if (missing(x) || identical(class(x), "srcref")) {
+      val_type <- "m"
+      NULL
+    } else if (is.atomic(x)) {
+      # Numbers, and characters etc..
+      val_type <- if (is.character((x))) {
+        "c"
+      } else if (is.numeric(x)) {
+        "n"
+      } else if (is.logical(x)) {
+        "b"
+      } else {
+        "u"
+      }
+      x
+    } else if (is.symbol(x) || is_namespace_call(x)) {
+      # Things like variable names and other syntactically relevant symbols
+      val_type <- "s"
+      deparse(x)
+    } else {
+      # This will error if we give it a non-ast-valid node so no need to do
+      # exhaustive checks in this logic
+      val_type <- "e"
+      serialize_ast(x)   
+    }
+
     node <- list()
     node$name <- name
     node$val <- val
+    node$type <- val_type
     node$pos <- node_pos
-  
+
+    # If we have an unnamed argument that has an empty value then it's missing
+    # and is probably caused by a trailing comma or something. We just remove
+    # these
+    if (identical(node$val, "") && is.null(node$name)) {
+      return(NULL)
+    }
+
+    # Empty missing nodes just get removed.
+    if (identical(val_type, "m") && is.null(node$name)) {
+      return(NULL)
+    }
+      
     node 
 }
 

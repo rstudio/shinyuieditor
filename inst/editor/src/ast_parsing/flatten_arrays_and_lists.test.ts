@@ -5,7 +5,13 @@ import type { R_AST_Node } from "./r_ast";
 describe("Can flatten arrays", () => {
   test("1d arrays", () => {
     const array_node: R_AST_Node = {
-      val: [{ val: "c" }, { val: "a" }, { val: "b" }, { val: "c" }],
+      val: [
+        { val: "c", type: "s" },
+        { val: "a", type: "c" },
+        { val: "b", type: "c" },
+        { val: "c", type: "c" },
+      ],
+      type: "e",
     };
 
     expect(flatten_array(array_node)).toStrictEqual(["a", "b", "c"]);
@@ -14,11 +20,33 @@ describe("Can flatten arrays", () => {
   test("2d arrays", () => {
     const array_node: R_AST_Node = {
       val: [
-        { val: "c" },
-        { val: [{ val: "c" }, { val: "a1" }, { val: "a2" }] },
-        { val: [{ val: "c" }, { val: "b1" }, { val: "b2" }] },
-        { val: [{ val: "c" }, { val: "c1" }, { val: "c2" }] },
+        { val: "c", type: "s" },
+        {
+          val: [
+            { val: "c", type: "s" },
+            { val: "a1", type: "c" },
+            { val: "a2", type: "c" },
+          ],
+          type: "e",
+        },
+        {
+          val: [
+            { val: "c", type: "s" },
+            { val: "b1", type: "c" },
+            { val: "b2", type: "c" },
+          ],
+          type: "e",
+        },
+        {
+          val: [
+            { val: "c", type: "s" },
+            { val: "c1", type: "c" },
+            { val: "c2", type: "c" },
+          ],
+          type: "e",
+        },
       ],
+      type: "e",
     };
 
     expect(flatten_array(array_node)).toStrictEqual([
@@ -33,11 +61,12 @@ describe("Can flatten lists", () => {
   test("1d arrays", () => {
     const array_node: R_AST_Node = {
       val: [
-        { val: "list" },
-        { name: "a", val: 1 },
-        { name: "b", val: 2 },
-        { name: "c", val: 3 },
+        { val: "list", type: "s" },
+        { name: "a", val: 1, type: "n" },
+        { name: "b", val: 2, type: "n" },
+        { name: "c", val: 3, type: "n" },
       ],
+      type: "e",
     };
 
     expect(flatten_list(array_node)).toStrictEqual({ a: 1, b: 2, c: 3 });

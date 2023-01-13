@@ -9,6 +9,7 @@ library(lobstr)
 
 
 
+immediate_fn <- rlang::expr((function(a, b) a + b)(1, 2))
 
 
 file_lines <- readLines("scratch/single-file-app/app.R")

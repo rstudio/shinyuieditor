@@ -3,7 +3,7 @@ import type { ShinyUiNodeByName } from "../Shiny-Ui-Elements/uiNodeTypes";
 import { create_unknownUiFunction } from "./create_unknownUiFunction";
 import { is_ast_branch_node, is_primative } from "./node_identity_checkers";
 import { Parsing_Error } from "./parsing_error_class";
-import type { Primatives, R_AST_Node, R_AST } from "./r_ast";
+import type { Primatives, R_AST_Node } from "./r_ast";
 
 export type Primative_Array = (Primatives | Primative_Array)[];
 
@@ -42,6 +42,6 @@ function flatten_array_internal(node: R_AST_Node): Primative_Array {
   );
 }
 
-export function get_node_is_array(node: R_AST): boolean {
-  return node[0].val === "c";
+export function get_node_is_array(node: R_AST_Node): boolean {
+  return is_ast_branch_node(node) && node.val[0].val === "c";
 }
