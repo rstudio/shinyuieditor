@@ -1,5 +1,5 @@
+import { create_unknownUiFunction } from "./create_unknownUiFunction";
 import type { R_AST } from "./r_ast";
-import { create_unknownUiFunction } from "./r_ast";
 import { get_ui_assignment_node } from "./r_ast";
 
 const app_ast: R_AST = [
@@ -201,7 +201,9 @@ describe("Can build unknown nodes", () => {
     ],
   };
 
-  const unknown_ast_node_parsed = create_unknownUiFunction(unknown_ast_node);
+  const unknown_ast_node_parsed = create_unknownUiFunction({
+    node: unknown_ast_node,
+  });
 
   test("Builds unknown ui node ui node", () => {
     expect(unknown_ast_node_parsed.uiArguments.text).toBe("animationOptions");
