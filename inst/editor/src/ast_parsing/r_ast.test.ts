@@ -1,6 +1,5 @@
 import type { R_AST } from "./r_ast";
 import { create_unknownUiFunction } from "./r_ast";
-import { flatten_array } from "./r_ast";
 import { get_ui_assignment_node } from "./r_ast";
 
 const app_ast: R_AST = [
@@ -187,34 +186,6 @@ const app_ast: R_AST = [
 describe("Parse app UI", () => {
   test("Can find ui node", () => {
     expect(get_ui_assignment_node(app_ast).val[0].val).toBe("grid_page");
-  });
-});
-
-describe("Can flatten arrays", () => {
-  test("1d arrays", () => {
-    const array_node: R_AST = [
-      { val: "c" },
-      { val: "a" },
-      { val: "b" },
-      { val: "c" },
-    ];
-
-    expect(flatten_array(array_node)).toStrictEqual(["a", "b", "c"]);
-  });
-
-  test("2d arrays", () => {
-    const array_node: R_AST = [
-      { val: "c" },
-      { val: [{ val: "c" }, { val: "a1" }, { val: "a2" }] },
-      { val: [{ val: "c" }, { val: "b1" }, { val: "b2" }] },
-      { val: [{ val: "c" }, { val: "c1" }, { val: "c2" }] },
-    ];
-
-    expect(flatten_array(array_node)).toStrictEqual([
-      ["a1", "a2"],
-      ["b1", "b2"],
-      ["c1", "c2"],
-    ]);
   });
 });
 
