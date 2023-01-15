@@ -1,9 +1,8 @@
 import type { ShinyUiNodeByName } from "../Shiny-Ui-Elements/uiNodeTypes";
 
 import { create_unknownUiFunction } from "./create_unknownUiFunction";
-import type { Primative_Array } from "./flatten_array";
-import { get_node_is_array, flatten_array } from "./flatten_array";
-import type { Primative_Map } from "./flatten_list";
+import type { Primative_Array, Primative_Map } from "./flatten_list";
+import { flatten_array, get_node_is_array } from "./flatten_list";
 import { get_node_is_list } from "./flatten_list";
 import { flatten_list } from "./flatten_list";
 import {

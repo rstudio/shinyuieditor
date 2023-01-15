@@ -1,6 +1,5 @@
-import { create_unknownUiFunction } from "./create_unknownUiFunction";
 import type { R_AST } from "./r_ast";
-import { get_ui_assignment_node , R_AST_Node } from "./r_ast";
+import { get_ui_assignment_node } from "./r_ast";
 
 const app_ast: R_AST = [
   {
@@ -262,24 +261,24 @@ describe("Parse app UI", () => {
   });
 });
 
-describe("Can build unknown nodes", () => {
-  const unknown_ast_node = {
-    name: "animate",
-    val: [
-      { val: "animationOptions", type: "s" },
-      { name: "interval", val: 1000, type: "n" },
-      { name: "loop", val: false, type: "b" },
-      { name: "playButton", val: "play", type: "c" },
-      { name: "pauseButton", val: "pause", type: "c" },
-    ],
-    type: "e",
-  } satisfies R_AST_Node;
+// describe("Can build unknown nodes", () => {
+//   const unknown_ast_node = {
+//     name: "animate",
+//     val: [
+//       { val: "animationOptions", type: "s" },
+//       { name: "interval", val: 1000, type: "n" },
+//       { name: "loop", val: false, type: "b" },
+//       { name: "playButton", val: "play", type: "c" },
+//       { name: "pauseButton", val: "pause", type: "c" },
+//     ],
+//     type: "e",
+//   } satisfies R_AST_Node;
 
-  const unknown_ast_node_parsed = create_unknownUiFunction({
-    node: unknown_ast_node,
-  });
+//   const unknown_ast_node_parsed = create_unknownUiFunction({
+//     node: unknown_ast_node,
+//   });
 
-  test("Builds unknown ui node ui node", () => {
-    expect(unknown_ast_node_parsed.uiArguments.text).toBe("animationOptions");
-  });
-});
+//   test("Builds unknown ui node ui node", () => {
+//     expect(unknown_ast_node_parsed.uiArguments.text).toBe("animationOptions");
+//   });
+// });

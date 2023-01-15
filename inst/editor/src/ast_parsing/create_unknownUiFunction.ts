@@ -1,7 +1,8 @@
 import type { ShinyUiNodeByName } from "../Shiny-Ui-Elements/uiNodeTypes";
 
+import { build_function_text } from "./build_function_text";
 import { is_ast_branch_node } from "./node_identity_checkers";
-import type { Branch_Node, R_AST_Node } from "./r_ast";
+import type { R_AST_Node } from "./r_ast";
 
 /**
  *
@@ -22,20 +23,8 @@ export function create_unknownUiFunction({
   return {
     uiName: "unknownUiFunction",
     uiArguments: {
-      text: is_ast_branch_node(node) ? build_function_text(node) : node.val,
+      text: is_ast_branch_node(node) ? build_function_text(node.val) : node.val,
       explanation,
     },
   };
-}
-
-export function build_function_text({ val }: Branch_Node): string {
-  const [fn_name, ...args] = val;
-
-  if (typeof fn_name.val !== "string") {
-    return "Unknown Ui Code";
-  }
-
-  // TODO: Finish by concatenating arguments together.
-
-  return `${fn_name.val}`;
 }
