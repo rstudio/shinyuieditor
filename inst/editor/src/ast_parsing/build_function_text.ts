@@ -19,6 +19,7 @@ export function build_function_text(call_node: R_AST): string {
   );
 
   const is_multi_line_call = should_line_break({
+    fn_name: fn_name.val,
     fn_args_list,
     max_line_length_for_multi_args: get_ast_is_array_or_list(call_node)
       ? LINE_BREAK_LENGTH
@@ -33,13 +34,20 @@ export function build_function_text(call_node: R_AST): string {
 }
 
 /**
- * Decide if we spread the call out over multiple lines, or keep on a single line
+ * Decide if we spread the call out over multiple lines, or keep on a single
+ * line. It's important to note that this logic doesn't account for indentation
+ * amount. So it could theoretically give poorly formatted code in highly nested
+ * examples.
  * @returns Boolean telling us if we need to use line breaks or not
  */
 function should_line_break({
+  fn_name,
   fn_args_list,
   max_line_length_for_multi_args,
 }: {
+  /** Name of the function. Used to calculate total length of call */
+  fn_name: string;
+
   /** Array of the printed function argument calls. */
   fn_args_list: string[];
 
@@ -67,7 +75,11 @@ function should_line_break({
     0
   );
 
-  return total_args_length > max_line_length_for_multi_args;
+  const name_and_parens_length = fn_name.length + 2;
+
+  return (
+    total_args_length + name_and_parens_length > max_line_length_for_multi_args
+  );
 }
 
 function print_node_val({ val, type }: R_AST_Node): string {

@@ -11,23 +11,36 @@ describe("Can turn AST into function call text with formatting", () => {
   });
 
   test("Multi-argument functions put arguments on their own lines", () => {
+    // prettier-ignore
+    const expected_result = 
+`my_fun(
+  a = 1,
+  b = "two"
+)`;
     expect(
       build_function_text([
         { val: "my_fun", type: "s" },
         { name: "a", val: 1, type: "n" },
         { name: "b", val: "two", type: "c" },
       ])
-    ).toBe(`my_fun(\n  a = 1,\n  b = "two"\n)`);
+    ).toBe(expected_result);
   });
 
   test("Distinguishes between characters and symbols", () => {
+    // prettier-ignore
+    const expected_result = 
+`my_fun(
+  char_arg = "a",
+  sym_arg = b
+)`;
+
     expect(
       build_function_text([
         { val: "my_fun", type: "s" },
         { name: "char_arg", val: "a", type: "c" },
         { name: "sym_arg", val: "b", type: "s" },
       ])
-    ).toBe(`my_fun(\n  char_arg = "a",\n  sym_arg = b\n)`);
+    ).toBe(expected_result);
   });
 });
 
@@ -65,7 +78,7 @@ describe("Nested function calls are properly indented", () => {
     a = 1,
     b = 2
   )
-)`
+)`;
 
     expect(
       build_function_text([
@@ -95,7 +108,7 @@ describe("Nested function calls are properly indented", () => {
       d = 4
     )
   )
-)`
+)`;
 
     expect(
       build_function_text([
@@ -130,7 +143,7 @@ describe("Nested function calls are properly indented", () => {
     b = 2,
     c = 3
   )
-)`
+)`;
 
     expect(
       build_function_text([
@@ -193,6 +206,14 @@ describe("Can print arrays and lists with smart line breaks", () => {
   });
 
   test("Long arguments will cause a multi-line array", () => {
+    // prettier-ignore
+    const expected_result = 
+`c(
+  "a suuuuper long",
+  "character vec with many arguments",
+  "splits to different lines"
+)`
+
     expect(
       build_function_text([
         { val: "c", type: "s" },
@@ -200,8 +221,6 @@ describe("Can print arrays and lists with smart line breaks", () => {
         { val: "character vec with many arguments", type: "c" },
         { val: "splits to different lines", type: "c" },
       ])
-    ).toBe(
-      `c(\n  "a suuuuper long",\n  "character vec with many arguments",\n  "splits to different lines"\n)`
-    );
+    ).toBe(expected_result);
   });
 });
