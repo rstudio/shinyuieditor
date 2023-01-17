@@ -1,7 +1,4 @@
-import {
-  build_function_text,
-  print_array_or_list,
-} from "./build_function_text";
+import { build_function_text } from "./build_function_text";
 
 describe("Can turn AST into function call text with formatting", () => {
   test("Simple one argument function", () => {
@@ -175,7 +172,7 @@ describe("Nested function calls are properly indented", () => {
 describe("Can print arrays and lists with smart line breaks", () => {
   test("Short multi-element arrays go on one line", () => {
     expect(
-      print_array_or_list([
+      build_function_text([
         { val: "c", type: "s" },
         { val: "a", type: "c" },
         { val: "b", type: "c" },
@@ -186,7 +183,7 @@ describe("Can print arrays and lists with smart line breaks", () => {
 
   test("Short multi-element lists go on one line", () => {
     expect(
-      print_array_or_list([
+      build_function_text([
         { val: "list", type: "s" },
         { name: "a", val: 1, type: "n" },
         { name: "b", val: 2, type: "n" },
@@ -197,7 +194,7 @@ describe("Can print arrays and lists with smart line breaks", () => {
 
   test("Long arguments will cause a multi-line array", () => {
     expect(
-      print_array_or_list([
+      build_function_text([
         { val: "c", type: "s" },
         { val: "a suuuuper long", type: "c" },
         { val: "character vec with many arguments", type: "c" },

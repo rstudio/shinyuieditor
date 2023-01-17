@@ -1,44 +1,73 @@
-import type { Array_Or_List_AST } from "./flatten_list";
 import { get_ast_is_array_or_list } from "./flatten_list";
 import type { R_AST, R_AST_Node } from "./r_ast";
 
 const INDENT_SPACES = 2;
 const INDENT = " ".repeat(INDENT_SPACES);
+const LINE_BREAK_LENGTH = 60;
 /** Newline with indent */
 const NL_INDENT = `\n${INDENT}`;
 
 export function build_function_text(call_node: R_AST): string {
-  // If the function called is an array or list, use the custom printer for that
-  if (get_ast_is_array_or_list(call_node)) {
-    return print_array_or_list(call_node);
-  }
-
   const [fn_name, ...args] = call_node;
 
   if (typeof fn_name.val !== "string") {
     return "Unknown Ui Code";
   }
 
-  const is_multi_arg = args.length > 1;
-  const fn_args_list = args.map(print_fn_argument);
-  const fn_args_collapsed = fn_args_list.join(
-    `,${is_multi_arg ? NL_INDENT : " "}`
+  const fn_args_list = args.map(
+    (node) => `${node.name ? `${node.name} = ` : ""}${print_node_val(node)}`
   );
 
-  // We want to put the args on a new line from the function name if there are
-  // multiple arguments or one of the arguments is a nested function call
-  // itself.
-  const is_multi_line_call = is_multi_arg || fn_args_collapsed.includes("\n");
+  const is_multi_line_call = should_line_break({
+    fn_args_list,
+    max_line_length_for_multi_args: get_ast_is_array_or_list(call_node)
+      ? LINE_BREAK_LENGTH
+      : 0,
+  });
+
+  const arg_seperator = `,${is_multi_line_call ? NL_INDENT : " "}`;
 
   return `${fn_name.val}(${
     is_multi_line_call ? NL_INDENT : ""
-  }${fn_args_collapsed}${is_multi_line_call ? "\n" : ""})`;
+  }${fn_args_list.join(arg_seperator)}${is_multi_line_call ? "\n" : ""})`;
 }
 
-function print_fn_argument(node: R_AST_Node): string {
-  const arg_name = node.name ? `${node.name} = ` : "";
+/**
+ * Decide if we spread the call out over multiple lines, or keep on a single line
+ * @returns Boolean telling us if we need to use line breaks or not
+ */
+function should_line_break({
+  fn_args_list,
+  max_line_length_for_multi_args,
+}: {
+  /** Array of the printed function argument calls. */
+  fn_args_list: string[];
 
-  return `${arg_name}${print_node_val(node)}`;
+  /** How many characters should we allow a multi-arg function to be before we
+   * split it up one arg to a line? Set to 0 to automatically make multi-arg
+   * functions split to new lines */
+  max_line_length_for_multi_args: number;
+}): boolean {
+  const args_have_line_breaks = fn_args_list.some((printed_arg) =>
+    printed_arg.includes("\n")
+  );
+  if (args_have_line_breaks) return true;
+
+  // If we're in a standard function call then we always do multi-lines for
+  // multi-argument calls
+  if (max_line_length_for_multi_args === 0) {
+    return fn_args_list.length > 1;
+  }
+
+  // If we're printing an array or list, then try to fit on a single line,
+  // unless there are enough args that we'd have an awkwardly long line
+  const total_args_length = fn_args_list.reduce(
+    //Add two to account for length of comma and space separating elements
+    (total_chars, printed_el) => total_chars + printed_el.length + 2,
+    0
+  );
+
+  return total_args_length > max_line_length_for_multi_args;
 }
 
 function print_node_val({ val, type }: R_AST_Node): string {
@@ -69,20 +98,4 @@ function print_node_val({ val, type }: R_AST_Node): string {
 
 function indent_line_breaks(txt: string): string {
   return txt.replaceAll(/\n/g, `${NL_INDENT}`);
-}
-
-export function print_array_or_list([call, ...elements]: Array_Or_List_AST) {
-  const elements_printed = elements.map(print_fn_argument);
-
-  // Add two to account for length of comma and space separating elements
-  const total_element_length = elements_printed.reduce(
-    (total_chars, printed_el) => total_chars + printed_el.length + 2,
-    0
-  );
-
-  if (total_element_length > 60) {
-    return `c(${NL_INDENT}${elements_printed.join(`,${NL_INDENT}`)}\n)`;
-  }
-
-  return `${call.val}(${elements_printed.join(", ")})`;
 }
