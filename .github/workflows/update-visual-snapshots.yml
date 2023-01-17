@@ -48,10 +48,10 @@ jobs:
         run: npx playwright install --with-deps
       # Update the snapshots
       - name: Update snapshots
-        run: npx playwright test visual --update-snapshots --reporter=list
+        run: yarn update-visual-snapshots
       # Run build to fix the environment variables
       - name: Rebuild main bundle
-        run: yarn build
+        run: yarn prod
       # Commit the changes
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
