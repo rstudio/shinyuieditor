@@ -1,4 +1,4 @@
-import { get_ast_is_array_or_list } from "./flatten_list";
+import { get_ast_is_array_or_list } from "./flatten_arrays_and_lists";
 import type { R_AST, R_AST_Node } from "./r_ast";
 
 const INDENT_SPACES = 2;

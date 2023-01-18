@@ -1,13 +1,3 @@
-import type { ShinyUiNodeByName } from "../Shiny-Ui-Elements/uiNodeTypes";
-
-import { test_app_ast } from "./ast-typings";
-import type { Primative_Array, Primative_Map } from "./flatten_list";
-import {
-  get_assignment_nodes,
-  get_ui_assignment_node,
-  parse_app_ast,
-} from "./get_assignment_nodes";
-
 export type Primatives = string | number | boolean;
 
 export type Script_Position = [
@@ -52,22 +42,3 @@ export type Unparsable_Node = AST_Node_By_Key["s" | "m" | "u"];
 export type R_AST_Node = AST_Node_By_Key[keyof Node_Vals_By_Key];
 
 export type R_AST = Array<R_AST_Node>;
-
-export type Fn_Call_AST = [fn_name: string, ...fn_args: R_AST_Node[]];
-
-export type Shiny_Ui_Argument_Val =
-  | Primatives
-  | Primative_Array
-  | Primative_Map
-  | ShinyUiNodeByName["unknownUiFunction"];
-
-export type Shiny_Ui_AST = {
-  ui_name: string;
-  ui_arguments: Record<string, Shiny_Ui_Argument_Val>;
-  ui_children: Shiny_Ui_AST[];
-};
-
-parse_app_ast(test_app_ast);
-
-const assignment_nodes = get_assignment_nodes(test_app_ast);
-const ui_def = get_ui_assignment_node(assignment_nodes);

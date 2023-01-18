@@ -1,4 +1,4 @@
-import { flatten_list, flatten_array } from "./flatten_list";
+import { flatten_to_list, flatten_to_array } from "./flatten_arrays_and_lists";
 import type { R_AST_Node } from "./r_ast";
 
 describe("Can flatten arrays", () => {
@@ -13,7 +13,7 @@ describe("Can flatten arrays", () => {
       type: "e",
     };
 
-    expect(flatten_array(array_node)).toStrictEqual(["a", "b", "c"]);
+    expect(flatten_to_array(array_node)).toStrictEqual(["a", "b", "c"]);
   });
 
   test("2d arrays", () => {
@@ -48,7 +48,7 @@ describe("Can flatten arrays", () => {
       type: "e",
     };
 
-    expect(flatten_array(array_node)).toStrictEqual([
+    expect(flatten_to_array(array_node)).toStrictEqual([
       ["a1", "a2"],
       ["b1", "b2"],
       ["c1", "c2"],
@@ -68,6 +68,6 @@ describe("Can flatten lists", () => {
       type: "e",
     };
 
-    expect(flatten_list(array_node)).toStrictEqual({ a: 1, b: 2, c: 3 });
+    expect(flatten_to_list(array_node)).toStrictEqual({ a: 1, b: 2, c: 3 });
   });
 });

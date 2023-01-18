@@ -9,14 +9,15 @@ import type {
   Symbol_Node,
 } from "./r_ast";
 
-export type Assignment_Symbol = Symbol_Node<"<-" | "=">;
+export type Assignment_Operator = "<-" | "=";
+export type Assignment_Symbol = Symbol_Node<Assignment_Operator>;
 
 type Assignment_Node_Gen<RHS extends R_AST_Node> = Expression_Node<
   [Assignment_Symbol, R_AST_Node, RHS]
 >;
 
 export type Assignment_Node = Assignment_Node_Gen<R_AST_Node>;
-type Ui_Assignment_Node = Required<Assignment_Node_Gen<Branch_Node>>;
+export type Ui_Assignment_Node = Required<Assignment_Node_Gen<Branch_Node>>;
 
 function is_assignment_node(
   node: R_AST_Node,
