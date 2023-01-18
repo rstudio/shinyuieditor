@@ -1,8 +1,9 @@
 import type { R_AST } from "./r_ast";
+import { get_server_fn } from "./r_ast";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
-const app_ast: R_AST = [
+export const test_app_ast: R_AST = [
   {
     val: [
       { val: "library", type: "s" },
@@ -235,6 +236,48 @@ const app_ast: R_AST = [
                 type: "e",
                 pos: [54, 3, 61, 4],
               },
+              {
+                val: [
+                  { val: "<-", type: "s" },
+                  {
+                    val: [
+                      { val: "$", type: "s" },
+                      { val: "output", type: "s" },
+                      { val: "redPlot", type: "s" },
+                    ],
+                    type: "e",
+                  },
+                  {
+                    val: [
+                      { val: "renderPlot", type: "s" },
+                      {
+                        val: [
+                          { val: "{", type: "s", pos: [63, 32, 63, 32] },
+                          {
+                            val: [
+                              { val: "hist", type: "s" },
+                              {
+                                val: [
+                                  { val: "rnorm", type: "s" },
+                                  { val: 100, type: "n" },
+                                ],
+                                type: "e",
+                              },
+                              { name: "col", val: "orangered", type: "c" },
+                            ],
+                            type: "e",
+                            pos: [65, 5, 65, 39],
+                          },
+                        ],
+                        type: "e",
+                      },
+                    ],
+                    type: "e",
+                  },
+                ],
+                type: "e",
+                pos: [63, 3, 66, 4],
+              },
             ],
             type: "e",
           },
@@ -243,7 +286,7 @@ const app_ast: R_AST = [
       },
     ],
     type: "e",
-    pos: [52, 1, 63, 1],
+    pos: [52, 1, 68, 1],
   },
   {
     val: [
@@ -252,6 +295,6 @@ const app_ast: R_AST = [
       { val: "server", type: "s" },
     ],
     type: "e",
-    pos: [65, 1, 65, 20],
+    pos: [70, 1, 70, 20],
   },
 ];

@@ -23,16 +23,15 @@ export function is_named_node(node: unknown): node is Named_Node {
   return is_object(node) && "name" in node;
 }
 
-// type Assignment_Node = AST_Node_Generic<
-//   [AST_Node_Generic<"<-">, AST_Node_Generic<string>, Branch_Node]
-// >;
-
-export function is_ui_assignment_node(node: R_AST_Node): node is Branch_Node {
+export function find_assignment_node(
+  node: R_AST_Node,
+  var_name: string
+): node is Branch_Node {
   if (!is_ast_branch_node(node)) return false;
 
   const { val } = node;
 
   const is_assignment = val[0].val === "<-" || val[0].val === "=";
 
-  return is_assignment && val[1].val === "ui";
+  return is_assignment && val[1].val === var_name;
 }
