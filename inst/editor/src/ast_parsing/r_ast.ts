@@ -1,14 +1,12 @@
 import type { ShinyUiNodeByName } from "../Shiny-Ui-Elements/uiNodeTypes";
 
 import { test_app_ast } from "./ast-typings";
-import { find_output_positions } from "./find_assignment_nodes";
 import type { Primative_Array, Primative_Map } from "./flatten_list";
-import { get_function_body, is_function_node } from "./is_function_node";
 import {
-  is_assignment_node,
-  is_ast_branch_node,
-} from "./node_identity_checkers";
-import { Parsing_Error } from "./parsing_error_class";
+  get_assignment_nodes,
+  get_ui_assignment_node,
+  parse_app_ast,
+} from "./get_assignment_nodes";
 
 export type Primatives = string | number | boolean;
 
@@ -38,9 +36,15 @@ export type AST_Node_By_Key = {
   };
 };
 
-export type ExpressionNode<T extends R_AST> = {
+export type Expression_Node<T extends R_AST> = {
   val: T;
   type: "e";
+  pos?: Script_Position;
+};
+export type Symbol_Node<Sym extends string> = {
+  val: Sym;
+  type: "s";
+  pos?: Script_Position;
 };
 export type Branch_Node = AST_Node_By_Key["e"];
 export type Leaf_Node = AST_Node_By_Key["c" | "b" | "n"];
@@ -63,46 +67,7 @@ export type Shiny_Ui_AST = {
   ui_children: Shiny_Ui_AST[];
 };
 
-export function get_ui_assignment_node(ast: R_AST): Branch_Node {
-  for (const index in ast) {
-    const subnode = ast[index];
-    if (
-      is_assignment_node(subnode, "ui") &&
-      is_ast_branch_node(subnode.val[2])
-    ) {
-      return subnode.val[2];
-    }
-  }
+parse_app_ast(test_app_ast);
 
-  throw new Parsing_Error({
-    message: "No ui assignment node was found in provided ast",
-  });
-}
-
-export function get_server_fn(ast: R_AST) {
-  for (const index in ast) {
-    const subnode = ast[index];
-    if (
-      is_assignment_node(subnode, "server") &&
-      is_ast_branch_node(subnode.val[2])
-    ) {
-      const fn_assignment = subnode.val;
-      const fn_node = fn_assignment[2];
-
-      if (!is_function_node(fn_node)) break;
-
-      return get_function_body(fn_node);
-    }
-  }
-
-  throw new Parsing_Error({
-    message: "No ui server assignment was found in provided ast",
-  });
-}
-
-const assignment_nodes = find_output_positions(test_app_ast);
-// assignment_nodes;
-
-const ui_def = get_ui_assignment_node(test_app_ast);
-const server_def = get_server_fn(test_app_ast);
-// server_def.val[2];
+const assignment_nodes = get_assignment_nodes(test_app_ast);
+const ui_def = get_ui_assignment_node(assignment_nodes);

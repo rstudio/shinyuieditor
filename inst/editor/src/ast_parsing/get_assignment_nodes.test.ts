@@ -1,7 +1,7 @@
+import { get_assignment_nodes, parse_app_ast } from "./get_assignment_nodes";
 import type { R_AST } from "./r_ast";
-import { get_ui_assignment_node } from "./r_ast";
 
-const app_ast: R_AST = [
+const test_app_ast: R_AST = [
   {
     val: [
       { val: "library", type: "s" },
@@ -31,6 +31,7 @@ const app_ast: R_AST = [
               { val: "c", type: "s" },
               { val: "header  header  ", type: "c" },
               { val: "sidebar bluePlot", type: "c" },
+              { val: "sidebar redPlot ", type: "c" },
             ],
             type: "e",
           },
@@ -38,7 +39,8 @@ const app_ast: R_AST = [
             name: "row_sizes",
             val: [
               { val: "c", type: "s" },
-              { val: "125px", type: "c" },
+              { val: "80px", type: "c" },
+              { val: "1fr", type: "c" },
               { val: "1fr", type: "c" },
             ],
             type: "e",
@@ -47,7 +49,7 @@ const app_ast: R_AST = [
             name: "col_sizes",
             val: [
               { val: "c", type: "s" },
-              { val: "735px", type: "c" },
+              { val: "330px", type: "c" },
               { val: "1fr", type: "c" },
             ],
             type: "e",
@@ -68,18 +70,15 @@ const app_ast: R_AST = [
                   { name: "min", val: 12, type: "n" },
                   { name: "max", val: 100, type: "n" },
                   { name: "value", val: 30, type: "n" },
-                  {
-                    name: "animate",
-                    val: [
-                      { val: "animationOptions", type: "s" },
-                      { name: "interval", val: 1000, type: "n" },
-                      { name: "loop", val: false, type: "b" },
-                      { name: "playButton", val: "play", type: "c" },
-                      { name: "pauseButton", val: "pause", type: "c" },
-                    ],
-                    type: "e",
-                  },
                   { name: "width", val: "100%", type: "c" },
+                ],
+                type: "e",
+              },
+              {
+                val: [
+                  { val: "actionButton", type: "s" },
+                  { name: "inputId", val: "redraw", type: "c" },
+                  { name: "label", val: "Redraw", type: "c" },
                 ],
                 type: "e",
               },
@@ -103,12 +102,19 @@ const app_ast: R_AST = [
             ],
             type: "e",
           },
+          {
+            val: [
+              { val: "grid_card_plot", type: "s" },
+              { name: "area", val: "redPlot", type: "c" },
+            ],
+            type: "e",
+          },
         ],
         type: "e",
       },
     ],
     type: "e",
-    pos: [6, 1, 47, 1],
+    pos: [5, 1, 47, 1],
   },
   {
     val: [
@@ -234,6 +240,131 @@ const app_ast: R_AST = [
                 type: "e",
                 pos: [54, 3, 61, 4],
               },
+              {
+                val: [
+                  { val: "<-", type: "s" },
+                  {
+                    val: [
+                      { val: "$", type: "s" },
+                      { val: "output", type: "s" },
+                      { val: "redPlot", type: "s" },
+                    ],
+                    type: "e",
+                  },
+                  {
+                    val: [
+                      { val: "renderPlot", type: "s" },
+                      {
+                        val: [
+                          { val: "{", type: "s", pos: [63, 32, 63, 32] },
+                          {
+                            val: [
+                              { val: "hist", type: "s" },
+                              {
+                                val: [
+                                  { val: "rnorm", type: "s" },
+                                  { val: 100, type: "n" },
+                                ],
+                                type: "e",
+                              },
+                              { name: "col", val: "orangered", type: "c" },
+                            ],
+                            type: "e",
+                            pos: [65, 5, 65, 39],
+                          },
+                        ],
+                        type: "e",
+                      },
+                    ],
+                    type: "e",
+                  },
+                ],
+                type: "e",
+                pos: [63, 3, 66, 4],
+              },
+              {
+                val: [
+                  { val: "%>%", type: "s" },
+                  {
+                    val: [
+                      { val: "observe", type: "s" },
+                      {
+                        val: [
+                          { val: "{", type: "s", pos: [68, 11, 68, 11] },
+                          {
+                            val: [
+                              { val: "<-", type: "s" },
+                              {
+                                val: [
+                                  { val: "$", type: "s" },
+                                  { val: "output", type: "s" },
+                                  { val: "redPlot", type: "s" },
+                                ],
+                                type: "e",
+                              },
+                              {
+                                val: [
+                                  { val: "renderPlot", type: "s" },
+                                  {
+                                    val: [
+                                      {
+                                        val: "{",
+                                        type: "s",
+                                        pos: [69, 34, 69, 34],
+                                      },
+                                      {
+                                        val: [
+                                          { val: "hist", type: "s" },
+                                          {
+                                            val: [
+                                              { val: "rnorm", type: "s" },
+                                              { val: 100, type: "n" },
+                                            ],
+                                            type: "e",
+                                          },
+                                          {
+                                            name: "col",
+                                            val: "orangered",
+                                            type: "c",
+                                          },
+                                        ],
+                                        type: "e",
+                                        pos: [70, 7, 70, 41],
+                                      },
+                                    ],
+                                    type: "e",
+                                  },
+                                ],
+                                type: "e",
+                              },
+                            ],
+                            type: "e",
+                            pos: [69, 5, 71, 6],
+                          },
+                        ],
+                        type: "e",
+                      },
+                    ],
+                    type: "e",
+                  },
+                  {
+                    val: [
+                      { val: "bindEvent", type: "s" },
+                      {
+                        val: [
+                          { val: "$", type: "s" },
+                          { val: "input", type: "s" },
+                          { val: "redraw", type: "s" },
+                        ],
+                        type: "e",
+                      },
+                    ],
+                    type: "e",
+                  },
+                ],
+                type: "e",
+                pos: [68, 3, 72, 32],
+              },
             ],
             type: "e",
           },
@@ -242,7 +373,7 @@ const app_ast: R_AST = [
       },
     ],
     type: "e",
-    pos: [52, 1, 63, 1],
+    pos: [52, 1, 74, 1],
   },
   {
     val: [
@@ -251,34 +382,29 @@ const app_ast: R_AST = [
       { val: "server", type: "s" },
     ],
     type: "e",
-    pos: [65, 1, 65, 20],
+    pos: [76, 1, 76, 20],
   },
 ];
 
-describe("Parse app UI", () => {
-  test("Can find ui node", () => {
-    expect(get_ui_assignment_node(app_ast).val[0].val).toBe("grid_page");
+const { ui_node, output_positions } = parse_app_ast(test_app_ast);
+
+describe("Can recursively parse ast to find all assignments ", () => {
+  test("Correct number of assignments are found", () => {
+    expect(get_assignment_nodes(test_app_ast)).toHaveLength(8);
   });
 });
 
-// describe("Can build unknown nodes", () => {
-//   const unknown_ast_node = {
-//     name: "animate",
-//     val: [
-//       { val: "animationOptions", type: "s" },
-//       { name: "interval", val: 1000, type: "n" },
-//       { name: "loop", val: false, type: "b" },
-//       { name: "playButton", val: "play", type: "c" },
-//       { name: "pauseButton", val: "pause", type: "c" },
-//     ],
-//     type: "e",
-//   } satisfies R_AST_Node;
+describe("Can find the output variables and their locations ", () => {
+  test("A single bluePlot assignment is given", () => {
+    expect(output_positions["bluePlot"]).toHaveLength(1);
+  });
+  test("There are two redplot assignments", () => {
+    expect(output_positions["redPlot"]).toHaveLength(2);
+  });
+});
 
-//   const unknown_ast_node_parsed = create_unknownUiFunction({
-//     node: unknown_ast_node,
-//   });
-
-//   test("Builds unknown ui node ui node", () => {
-//     expect(unknown_ast_node_parsed.uiArguments.text).toBe("animationOptions");
-//   });
-// });
+describe("Parse app UI", () => {
+  test("Can find ui node", () => {
+    expect(ui_node.val[2].val[0].val).toBe("grid_page");
+  });
+});

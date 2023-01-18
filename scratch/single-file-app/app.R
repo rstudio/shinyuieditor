@@ -2,18 +2,19 @@ library(shiny)
 library(gridlayout)
 
 # Here's a comment about this app
-
 ui <- grid_page(
   layout = c(
     "header  header  ",
     "sidebar bluePlot",
+    "sidebar redPlot "
   ),
   row_sizes = c(
-    "125px",
+    "80px",
+    "1fr",
     "1fr"
   ),
   col_sizes = c(
-    "735px",
+    "330px",
     "1fr"
   ),
   gap_size = "1rem",
@@ -28,13 +29,11 @@ ui <- grid_page(
       min = 12L,
       max = 100L,
       value = 30L,
-      animate = animationOptions(
-        interval = 1000,
-        loop = FALSE,
-        playButton = "play",
-        pauseButton = "pause"
-      ),
       width = "100%"
+    ),
+    actionButton(
+      inputId = "redraw",
+      label = "Redraw"
     )
   ),
   grid_card_text(
@@ -44,6 +43,7 @@ ui <- grid_page(
     is_title = FALSE
   ),
   grid_card_plot(area = "bluePlot"),
+  grid_card_plot(area = "redPlot")
 )
 
 other_ui <- "hello there"
@@ -59,6 +59,17 @@ server <- function(input, output) {
     # draw the histogram with the specified number of bins
     hist(x, breaks = bins, col = 'steelblue', border = 'white')
   })
+
+  output$redPlot <- renderPlot({
+    # draw the histogram with the specified number of bins
+    hist(rnorm(100), col = 'orangered')
+  })
+
+  observe({
+    output$redPlot <- renderPlot({
+      hist(rnorm(100), col = 'orangered')
+    })
+  }) %>% bindEvent(input$redraw)
 
 }
 

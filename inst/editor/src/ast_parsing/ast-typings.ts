@@ -1,5 +1,4 @@
 import type { R_AST } from "./r_ast";
-import { get_server_fn } from "./r_ast";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
@@ -33,6 +32,7 @@ export const test_app_ast: R_AST = [
               { val: "c", type: "s" },
               { val: "header  header  ", type: "c" },
               { val: "sidebar bluePlot", type: "c" },
+              { val: "sidebar redPlot ", type: "c" },
             ],
             type: "e",
           },
@@ -40,7 +40,8 @@ export const test_app_ast: R_AST = [
             name: "row_sizes",
             val: [
               { val: "c", type: "s" },
-              { val: "125px", type: "c" },
+              { val: "80px", type: "c" },
+              { val: "1fr", type: "c" },
               { val: "1fr", type: "c" },
             ],
             type: "e",
@@ -49,7 +50,7 @@ export const test_app_ast: R_AST = [
             name: "col_sizes",
             val: [
               { val: "c", type: "s" },
-              { val: "735px", type: "c" },
+              { val: "330px", type: "c" },
               { val: "1fr", type: "c" },
             ],
             type: "e",
@@ -70,18 +71,15 @@ export const test_app_ast: R_AST = [
                   { name: "min", val: 12, type: "n" },
                   { name: "max", val: 100, type: "n" },
                   { name: "value", val: 30, type: "n" },
-                  {
-                    name: "animate",
-                    val: [
-                      { val: "animationOptions", type: "s" },
-                      { name: "interval", val: 1000, type: "n" },
-                      { name: "loop", val: false, type: "b" },
-                      { name: "playButton", val: "play", type: "c" },
-                      { name: "pauseButton", val: "pause", type: "c" },
-                    ],
-                    type: "e",
-                  },
                   { name: "width", val: "100%", type: "c" },
+                ],
+                type: "e",
+              },
+              {
+                val: [
+                  { val: "actionButton", type: "s" },
+                  { name: "inputId", val: "redraw", type: "c" },
+                  { name: "label", val: "Redraw", type: "c" },
                 ],
                 type: "e",
               },
@@ -105,12 +103,19 @@ export const test_app_ast: R_AST = [
             ],
             type: "e",
           },
+          {
+            val: [
+              { val: "grid_card_plot", type: "s" },
+              { name: "area", val: "redPlot", type: "c" },
+            ],
+            type: "e",
+          },
         ],
         type: "e",
       },
     ],
     type: "e",
-    pos: [6, 1, 47, 1],
+    pos: [5, 1, 47, 1],
   },
   {
     val: [
@@ -278,6 +283,89 @@ export const test_app_ast: R_AST = [
                 type: "e",
                 pos: [63, 3, 66, 4],
               },
+              {
+                val: [
+                  { val: "%>%", type: "s" },
+                  {
+                    val: [
+                      { val: "observe", type: "s" },
+                      {
+                        val: [
+                          { val: "{", type: "s", pos: [68, 11, 68, 11] },
+                          {
+                            val: [
+                              { val: "<-", type: "s" },
+                              {
+                                val: [
+                                  { val: "$", type: "s" },
+                                  { val: "output", type: "s" },
+                                  { val: "redPlot", type: "s" },
+                                ],
+                                type: "e",
+                              },
+                              {
+                                val: [
+                                  { val: "renderPlot", type: "s" },
+                                  {
+                                    val: [
+                                      {
+                                        val: "{",
+                                        type: "s",
+                                        pos: [69, 34, 69, 34],
+                                      },
+                                      {
+                                        val: [
+                                          { val: "hist", type: "s" },
+                                          {
+                                            val: [
+                                              { val: "rnorm", type: "s" },
+                                              { val: 100, type: "n" },
+                                            ],
+                                            type: "e",
+                                          },
+                                          {
+                                            name: "col",
+                                            val: "orangered",
+                                            type: "c",
+                                          },
+                                        ],
+                                        type: "e",
+                                        pos: [70, 7, 70, 41],
+                                      },
+                                    ],
+                                    type: "e",
+                                  },
+                                ],
+                                type: "e",
+                              },
+                            ],
+                            type: "e",
+                            pos: [69, 5, 71, 6],
+                          },
+                        ],
+                        type: "e",
+                      },
+                    ],
+                    type: "e",
+                  },
+                  {
+                    val: [
+                      { val: "bindEvent", type: "s" },
+                      {
+                        val: [
+                          { val: "$", type: "s" },
+                          { val: "input", type: "s" },
+                          { val: "redraw", type: "s" },
+                        ],
+                        type: "e",
+                      },
+                    ],
+                    type: "e",
+                  },
+                ],
+                type: "e",
+                pos: [68, 3, 72, 32],
+              },
             ],
             type: "e",
           },
@@ -286,7 +374,7 @@ export const test_app_ast: R_AST = [
       },
     ],
     type: "e",
-    pos: [52, 1, 68, 1],
+    pos: [52, 1, 74, 1],
   },
   {
     val: [
@@ -295,6 +383,6 @@ export const test_app_ast: R_AST = [
       { val: "server", type: "s" },
     ],
     type: "e",
-    pos: [70, 1, 70, 20],
+    pos: [76, 1, 76, 20],
   },
 ];
