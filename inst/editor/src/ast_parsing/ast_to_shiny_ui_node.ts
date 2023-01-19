@@ -1,6 +1,8 @@
 import type { ShinyUiNode } from "../main";
 import { isShinyUiNode } from "../Shiny-Ui-Elements/isShinyUiNode";
 import type { ShinyUiNodeByName } from "../Shiny-Ui-Elements/uiNodeTypes";
+import { shinyUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
+import type { PickKeyFn } from "../TypescriptUtils";
 
 import { create_unknownUiFunction } from "./create_unknownUiFunction";
 import type {
@@ -13,10 +15,7 @@ import {
   get_node_is_array,
   get_node_is_list,
 } from "./flatten_arrays_and_lists";
-import type {
-  Assignment_Operator,
-  Ui_Assignment_Node,
-} from "./get_assignment_nodes";
+import type { Output_Server_Pos } from "./get_assignment_nodes";
 import {
   is_ast_branch_node,
   is_ast_leaf_node,
@@ -24,9 +23,17 @@ import {
 } from "./node_identity_checkers";
 import { normalize_ui_name } from "./normalize_ui_name";
 import { Parsing_Error } from "./parsing_error_class";
-import type { Branch_Node, Primatives, R_AST_Node } from "./r_ast";
+import type {
+  Branch_Node,
+  Primatives,
+  R_AST_Node,
+  Script_Position,
+} from "./r_ast";
 
-function flatten_to_ui_node(node: Branch_Node): ShinyUiNode {
+export function ast_to_ui_node(
+  node: Branch_Node,
+  output_positions?: Output_Server_Pos
+): ShinyUiNode {
   const [fn_name, ...args] = node.val;
 
   if (typeof fn_name.val !== "string") {
@@ -42,7 +49,7 @@ function flatten_to_ui_node(node: Branch_Node): ShinyUiNode {
     if (is_named_node(sub_node)) {
       uiArguments[sub_node.name] = process_named_arg(sub_node);
     } else {
-      uiChildren.push(process_unnamed_arg(sub_node));
+      uiChildren.push(process_unnamed_arg(sub_node, output_positions));
     }
   });
 
@@ -58,9 +65,48 @@ function flatten_to_ui_node(node: Branch_Node): ShinyUiNode {
     full_node.uiChildren = uiChildren;
   }
 
-  return isShinyUiNode(full_node)
-    ? full_node
-    : create_unknownUiFunction({ node });
+  if (!isShinyUiNode(full_node)) return create_unknownUiFunction({ node });
+
+  const serverOutputLocs = getServerOutputLocs(full_node, output_positions);
+  if (serverOutputLocs) {
+    full_node.serverOutputLocs = serverOutputLocs;
+  }
+
+  return full_node;
+}
+
+/**
+ * Look for potentially linked output locations for a given ui node.
+ * @param ui_node Ui Node that may have attachment to output
+ * @param output_positions Object keyed by outputId with locations of outputs
+ * use in server code as values
+ * @returns If locations are found, an array of those locations, otherwise
+ * `null`.
+ */
+function getServerOutputLocs(
+  ui_node: ShinyUiNode,
+  output_positions?: Output_Server_Pos
+): Script_Position[] | null {
+  if (!output_positions) return null;
+
+  const { serverOutputId } = shinyUiNodeInfo[ui_node.uiName];
+
+  if (typeof serverOutputId === "undefined") return null;
+
+  // I have no idea why I have to do this coercsian but for some reason this
+  // keeps getting narrowed to never type for args unless I do it.
+  const keyForOutput =
+    typeof serverOutputId === "string"
+      ? serverOutputId
+      : (serverOutputId as PickKeyFn<typeof ui_node["uiArguments"]>)(
+          ui_node.uiArguments
+        );
+
+  const outputId = ui_node.uiArguments[keyForOutput];
+
+  if (typeof outputId !== "string") return null;
+
+  return output_positions[outputId] || null;
 }
 
 function process_named_arg(
@@ -85,24 +131,15 @@ function process_named_arg(
   return create_unknownUiFunction({ node });
 }
 
-function process_unnamed_arg(node: R_AST_Node): ShinyUiNode {
+function process_unnamed_arg(
+  node: R_AST_Node,
+  output_positions?: Output_Server_Pos
+): ShinyUiNode {
   if (!is_ast_branch_node(node)) {
     throw new Parsing_Error({
       message: "Primative found in ui children of ui node.",
     });
   }
 
-  return flatten_to_ui_node(node);
-}
-
-export function ast_to_shiny_ui_node(node: Ui_Assignment_Node): {
-  ui_tree: ShinyUiNode;
-  pos: Ui_Assignment_Node["pos"];
-  assignment_operator: Assignment_Operator;
-} {
-  return {
-    ui_tree: flatten_to_ui_node(node.val[2]),
-    pos: node.pos,
-    assignment_operator: node.val[0].val,
-  };
+  return ast_to_ui_node(node, output_positions);
 }

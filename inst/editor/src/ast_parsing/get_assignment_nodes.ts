@@ -83,15 +83,6 @@ export function get_assignment_nodes(ast: R_AST): Variable_Assignment[] {
   return assignment_nodes;
 }
 
-export function parse_app_ast(ast: R_AST) {
-  const assignment_nodes = get_assignment_nodes(ast);
-
-  return {
-    ui_node: get_ui_assignment_node(assignment_nodes),
-    output_positions: get_output_positions(assignment_nodes),
-  };
-}
-
 type Output_Node = Expression_Node<
   [
     { val: "$"; type: "s" },
@@ -111,7 +102,10 @@ function is_output_node(node: R_AST_Node): node is Output_Node {
   );
 }
 
-export function get_output_positions(all_asignments: Variable_Assignment[]) {
+export type Output_Server_Pos = Record<string, Script_Position[]>;
+export function get_output_positions(
+  all_asignments: Variable_Assignment[]
+): Output_Server_Pos {
   return all_asignments
     .filter(({ is_output }) => is_output)
     .reduce((by_name, { name, node }) => {
@@ -121,7 +115,7 @@ export function get_output_positions(all_asignments: Variable_Assignment[]) {
       }
 
       return by_name;
-    }, {} as Record<string, Script_Position[]>);
+    }, {} as Output_Server_Pos);
 }
 
 function is_ui_assignment_node(

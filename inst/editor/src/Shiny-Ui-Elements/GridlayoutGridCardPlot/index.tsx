@@ -28,6 +28,8 @@ export const gridlayoutGridCardPlotInfo: UiComponentInfo<GridlayoutGridCardPlotP
         optional: true,
       },
     },
+    // If the outputId is undefined we use the area as our id but otherwise we use the standard
+    serverOutputId: (args) => (args.outputId ? "outputId" : "area"),
     acceptsChildren: false,
     iconSrc: icon,
     category: "gridlayout",

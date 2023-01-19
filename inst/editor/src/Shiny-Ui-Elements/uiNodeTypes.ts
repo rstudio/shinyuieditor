@@ -1,9 +1,11 @@
 import type React from "react";
 
+import type { Script_Position } from "../ast_parsing/r_ast";
 import type { DefaultSettingsFromInfo } from "../components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
 import type { CustomFormRenderFn } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
 import type { DynamicFieldInfo } from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";
 import type { UpdateAction, DeleteAction } from "../state/uiTree";
+import type { PickKeyFn } from "../TypescriptUtils";
 
 import { dtDTOutputInfo } from "./DtDtOutput";
 import { gridlayoutGridCardInfo } from "./GridlayoutGridCard";
@@ -64,6 +66,15 @@ export type UiComponentInfo<NodeSettings extends Record<string, any>> = {
    * in the elements pallete. String is interpreted as markdown.
    */
   description?: string;
+
+  /**
+   * Does this node have outputs code it connects to in the server side of
+   * things? If so what's the argument name that links it to the server code?
+   * Can also supply a function that takes the current arguments for the node
+   * and returns the key. This is useful for ones where the choice may be
+   * dynamic. See `GridlayoutGridCardPlot` for an example.
+   */
+  serverOutputId?: keyof NodeSettings | PickKeyFn<NodeSettings>;
 
   /**
    * Optional update subscribers
@@ -178,6 +189,8 @@ export type ShinyUiNodeByName = {
     uiArguments: ShinyUiArguments[UiName] & Record<string, unknown>;
     /** Any children of this node */
     uiChildren?: ShinyUiChildren;
+    /** Any locations of outputs related to node in server side of app */
+    serverOutputLocs?: Script_Position[];
   };
 };
 

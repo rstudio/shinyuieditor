@@ -17,3 +17,5 @@ export type StringKeys<T extends Record<string, any>> = Extract<
   keyof T,
   string
 >;
+
+export type PickKeyFn<Obj extends Record<string, any>> = (x: Obj) => keyof Obj;

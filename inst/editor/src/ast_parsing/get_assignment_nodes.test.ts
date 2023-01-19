@@ -1,4 +1,4 @@
-import { get_assignment_nodes, parse_app_ast } from "./get_assignment_nodes";
+import { get_assignment_nodes } from "./get_assignment_nodes";
 import type { R_AST } from "./r_ast";
 
 const test_app_ast: R_AST = [
@@ -386,25 +386,8 @@ const test_app_ast: R_AST = [
   },
 ];
 
-const { ui_node, output_positions } = parse_app_ast(test_app_ast);
-
 describe("Can recursively parse ast to find all assignments ", () => {
   test("Correct number of assignments are found", () => {
     expect(get_assignment_nodes(test_app_ast)).toHaveLength(8);
-  });
-});
-
-describe("Can find the output variables and their locations ", () => {
-  test("A single bluePlot assignment is given", () => {
-    expect(output_positions["bluePlot"]).toHaveLength(1);
-  });
-  test("There are two redplot assignments", () => {
-    expect(output_positions["redPlot"]).toHaveLength(2);
-  });
-});
-
-describe("Parse app UI", () => {
-  test("Can find ui node", () => {
-    expect(ui_node.val[2].val[0].val).toBe("grid_page");
   });
 });

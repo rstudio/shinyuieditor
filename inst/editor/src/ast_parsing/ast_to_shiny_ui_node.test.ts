@@ -1,5 +1,4 @@
-import { ast_to_shiny_ui_node } from "./ast_to_shiny_ui_node";
-import { parse_app_ast } from "./get_assignment_nodes";
+import { parse_app_ast } from "./parse_app_ast";
 import type { R_AST } from "./r_ast";
 
 const test_app_ast: R_AST = [
@@ -387,10 +386,9 @@ const test_app_ast: R_AST = [
   },
 ];
 
-const { ui_node } = parse_app_ast(test_app_ast);
+const { ui_tree, ui_pos, ui_assignment_operator } = parse_app_ast(test_app_ast);
 
 describe("Can convert from ui definition node in ast to the the UI Specific ast", () => {
-  const { ui_tree, assignment_operator, pos } = ast_to_shiny_ui_node(ui_node);
   test("Root node is right", () => {
     expect(ui_tree.uiName).toEqual("gridlayout::grid_page");
   });
@@ -410,10 +408,10 @@ describe("Can convert from ui definition node in ast to the the UI Specific ast"
   });
 
   test("Gives us the location of the ui nodes definition", () => {
-    expect(pos).toStrictEqual([5, 1, 47, 1]);
+    expect(ui_pos).toStrictEqual([5, 1, 47, 1]);
   });
 
   test("Preserves operator info so we can properly reconstruct the call", () => {
-    expect(assignment_operator).toEqual("<-");
+    expect(ui_assignment_operator).toEqual("<-");
   });
 });
