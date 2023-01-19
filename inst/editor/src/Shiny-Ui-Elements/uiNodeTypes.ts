@@ -178,7 +178,6 @@ export type ShinyUiNodeByName = {
     uiArguments: ShinyUiArguments[UiName] & Record<string, unknown>;
     /** Any children of this node */
     uiChildren?: ShinyUiChildren;
-    uiHTML?: string;
   };
 };
 
