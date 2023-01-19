@@ -1,8 +1,6 @@
 import type { ShinyUiNode } from "../main";
 import { isShinyUiNode } from "../Shiny-Ui-Elements/isShinyUiNode";
 import type { ShinyUiNodeByName } from "../Shiny-Ui-Elements/uiNodeTypes";
-import { shinyUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
-import type { PickKeyFn } from "../TypescriptUtils";
 
 import { create_unknownUiFunction } from "./create_unknownUiFunction";
 import type {
@@ -23,17 +21,9 @@ import {
 } from "./node_identity_checkers";
 import { normalize_ui_name } from "./normalize_ui_name";
 import { Parsing_Error } from "./parsing_error_class";
-import type {
-  Branch_Node,
-  Primatives,
-  R_AST_Node,
-  Script_Position,
-} from "./r_ast";
+import type { Branch_Node, Primatives, R_AST_Node } from "./r_ast";
 
-export function ast_to_ui_node(
-  node: Branch_Node,
-  output_positions?: Output_Server_Pos
-): ShinyUiNode {
+export function ast_to_ui_node(node: Branch_Node): ShinyUiNode {
   const [fn_name, ...args] = node.val;
 
   if (typeof fn_name.val !== "string") {
@@ -49,7 +39,7 @@ export function ast_to_ui_node(
     if (is_named_node(sub_node)) {
       uiArguments[sub_node.name] = process_named_arg(sub_node);
     } else {
-      uiChildren.push(process_unnamed_arg(sub_node, output_positions));
+      uiChildren.push(process_unnamed_arg(sub_node));
     }
   });
 
@@ -67,46 +57,7 @@ export function ast_to_ui_node(
 
   if (!isShinyUiNode(full_node)) return create_unknownUiFunction({ node });
 
-  const serverOutputLocs = getServerOutputLocs(full_node, output_positions);
-  if (serverOutputLocs) {
-    full_node.serverOutputLocs = serverOutputLocs;
-  }
-
   return full_node;
-}
-
-/**
- * Look for potentially linked output locations for a given ui node.
- * @param ui_node Ui Node that may have attachment to output
- * @param output_positions Object keyed by outputId with locations of outputs
- * use in server code as values
- * @returns If locations are found, an array of those locations, otherwise
- * `null`.
- */
-function getServerOutputLocs(
-  ui_node: ShinyUiNode,
-  output_positions?: Output_Server_Pos
-): Script_Position[] | null {
-  if (!output_positions) return null;
-
-  const { serverOutputId } = shinyUiNodeInfo[ui_node.uiName];
-
-  if (typeof serverOutputId === "undefined") return null;
-
-  // I have no idea why I have to do this coercsian but for some reason this
-  // keeps getting narrowed to never type for args unless I do it.
-  const keyForOutput =
-    typeof serverOutputId === "string"
-      ? serverOutputId
-      : (serverOutputId as PickKeyFn<typeof ui_node["uiArguments"]>)(
-          ui_node.uiArguments
-        );
-
-  const outputId = ui_node.uiArguments[keyForOutput];
-
-  if (typeof outputId !== "string") return null;
-
-  return output_positions[outputId] || null;
 }
 
 function process_named_arg(
@@ -141,5 +92,5 @@ function process_unnamed_arg(
     });
   }
 
-  return ast_to_ui_node(node, output_positions);
+  return ast_to_ui_node(node);
 }

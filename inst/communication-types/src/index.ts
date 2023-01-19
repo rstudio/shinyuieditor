@@ -63,6 +63,14 @@ export type ParsedAppInfo = {
   ui_tree: ShinyUiNode;
 };
 
+export type OutputSourceRequest = {
+  type: "Output";
+  /** The current output id used to bind to ui output fn */
+  outputId: string;
+  /** Code scaffold to put in if there's no existing output code for a source */
+  renderScaffold: string;
+};
+
 /**
  * Messages keyed by path that can be sent to the backend
  */
@@ -76,6 +84,7 @@ type MessageToBackendByPath = {
   "APP-PREVIEW-RESTART": null;
   "APP-PREVIEW-STOP": null;
   "OPEN-COMPANION-EDITOR": CompanionEditorPosition;
+  "GO-TO-SERVER": OutputSourceRequest;
 };
 
 /**

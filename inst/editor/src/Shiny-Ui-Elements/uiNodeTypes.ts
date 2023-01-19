@@ -1,10 +1,9 @@
 import type React from "react";
 
-import type { Script_Position } from "../ast_parsing/r_ast";
 import type { DefaultSettingsFromInfo } from "../components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
 import type { CustomFormRenderFn } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
 import type { DynamicFieldInfo } from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";
-import type { UpdateAction, DeleteAction } from "../state/uiTree";
+import type { DeleteAction, UpdateAction } from "../state/uiTree";
 import type { PickKeyFn } from "../TypescriptUtils";
 
 import { dtDTOutputInfo } from "./DtDtOutput";
@@ -74,7 +73,10 @@ export type UiComponentInfo<NodeSettings extends Record<string, any>> = {
    * and returns the key. This is useful for ones where the choice may be
    * dynamic. See `GridlayoutGridCardPlot` for an example.
    */
-  serverOutputId?: keyof NodeSettings | PickKeyFn<NodeSettings>;
+  serverOutput?: {
+    outputIdKey: keyof NodeSettings | PickKeyFn<NodeSettings>;
+    renderScaffold: string;
+  };
 
   /**
    * Optional update subscribers
@@ -189,8 +191,6 @@ export type ShinyUiNodeByName = {
     uiArguments: ShinyUiArguments[UiName] & Record<string, unknown>;
     /** Any children of this node */
     uiChildren?: ShinyUiChildren;
-    /** Any locations of outputs related to node in server side of app */
-    serverOutputLocs?: Script_Position[];
   };
 };
 

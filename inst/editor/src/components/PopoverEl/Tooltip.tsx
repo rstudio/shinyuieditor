@@ -1,4 +1,3 @@
-import type { ButtonHTMLAttributes } from "react";
 import React from "react";
 
 import "balloon-css";
@@ -42,6 +41,7 @@ export function TooltipButton({
   position = "down",
   size,
   children,
+  variant = "icon",
   ...buttonArgs
 }: {
   text: string;
@@ -49,13 +49,13 @@ export function TooltipButton({
   size?: TooltipSizes;
   children: React.ReactNode;
   className?: string;
-} & ButtonHTMLAttributes<HTMLButtonElement>) {
+} & Parameters<typeof Button>[0]) {
   return (
     <Button
       aria-label={text}
       data-balloon-pos={position}
       data-balloon-length={size}
-      variant="icon"
+      variant={variant}
       {...buttonArgs}
     >
       {children}
