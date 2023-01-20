@@ -33,7 +33,11 @@ export async function selectOutputReferences({
     );
     return;
   }
+  // Set the selection to found outputs
   editor.selection = matches_for_output[0];
+
+  // Make sure that the user can actually see those outputs.
+  editor.revealRange(matches_for_output[0]);
 }
 
 function find_with_ast(
