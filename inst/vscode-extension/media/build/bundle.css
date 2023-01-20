@@ -10556,6 +10556,48 @@ dialog::backdrop {
   border-radius: inherit;
 }
 
+/* ../editor/src/DragAndDropHelpers/DragAndDrop.css */
+.can-accept-drop {
+  --start-opacity: 0.1;
+  --end-opacity: 0.5;
+  position: relative;
+  background-color: var(--red);
+  opacity: 0.2;
+  animation-duration: 3s;
+  animation-name: pulse;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+.can-accept-drop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  text-align: center;
+  display: grid;
+  place-content: center;
+  overflow: hidden;
+  color: var(--rstudio-white);
+}
+@keyframes pulse {
+  from {
+    opacity: var(--start-opacity);
+  }
+  50% {
+    opacity: var(--end-opacity);
+  }
+  to {
+    opacity: var(--start-opacity);
+  }
+}
+div.can-accept-drop.hovering-over {
+  --start-opacity: 1;
+  --end-opacity: 1;
+  z-index: 10;
+}
+div.can-accept-drop.hovering-over::after {
+  content: "release to add";
+}
+
 /* ../editor/src/Shiny-Ui-Elements/DtDtOutput/styles.scss */
 .dtDTOutput {
   position: relative;
@@ -10602,48 +10644,6 @@ dialog::backdrop {
 }
 .dtDTOutput .faux-table .faux-table-body .faux-row:nth-child(odd) {
   --cell-color: hsl(218deg, 33%, 97%);
-}
-
-/* ../editor/src/DragAndDropHelpers/DragAndDrop.css */
-.can-accept-drop {
-  --start-opacity: 0.1;
-  --end-opacity: 0.5;
-  position: relative;
-  background-color: var(--red);
-  opacity: 0.2;
-  animation-duration: 3s;
-  animation-name: pulse;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-}
-.can-accept-drop::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  text-align: center;
-  display: grid;
-  place-content: center;
-  overflow: hidden;
-  color: var(--rstudio-white);
-}
-@keyframes pulse {
-  from {
-    opacity: var(--start-opacity);
-  }
-  50% {
-    opacity: var(--end-opacity);
-  }
-  to {
-    opacity: var(--start-opacity);
-  }
-}
-div.can-accept-drop.hovering-over {
-  --start-opacity: 1;
-  --end-opacity: 1;
-  z-index: 10;
-}
-div.can-accept-drop.hovering-over::after {
-  content: "release to add";
 }
 
 /* ../editor/src/components/Inputs/NumberInput/NumberInput.scss */
