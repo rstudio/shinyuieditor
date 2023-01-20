@@ -74,6 +74,11 @@ export const shinySliderInputInfo: UiComponentInfo<ShinySliderInputProps> = {
       </>
     );
   },
+  serverBindings: {
+    inputs: {
+      inputIdKey: "inputId",
+    },
+  },
   acceptsChildren: false,
   iconSrc: sliderIcon,
   category: "Inputs",

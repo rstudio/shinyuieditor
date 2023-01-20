@@ -73,9 +73,14 @@ export type UiComponentInfo<NodeSettings extends Record<string, any>> = {
    * and returns the key. This is useful for ones where the choice may be
    * dynamic. See `GridlayoutGridCardPlot` for an example.
    */
-  outputBindings?: {
-    outputIdKey: keyof NodeSettings | PickKeyFn<NodeSettings>;
-    renderScaffold: string;
+  serverBindings?: {
+    outputs?: {
+      outputIdKey: keyof NodeSettings | PickKeyFn<NodeSettings>;
+      renderScaffold: string;
+    };
+    inputs?: {
+      inputIdKey: keyof NodeSettings | PickKeyFn<NodeSettings>;
+    };
   };
 
   /**
@@ -152,6 +157,7 @@ export const shinyUiNodeInfo = {
 };
 
 export type ShinyUiNodeInfo = typeof shinyUiNodeInfo;
+export type ShinyUiNodeInfoUnion = ShinyUiNodeInfo[keyof ShinyUiNodeInfo];
 
 type NodeDefaultSettings<UiName extends keyof ShinyUiNodeInfo> =
   DefaultSettingsFromInfo<ShinyUiNodeInfo[UiName]["settingsInfo"]>;

@@ -13,7 +13,10 @@ import type { ParsedApp } from "./R-Utils/parseAppFile";
 import { getAppFile } from "./R-Utils/parseAppFile";
 import type { ActiveRSession } from "./R-Utils/startBackgroundRProcess";
 import { startPreviewApp } from "./R-Utils/startPreviewApp";
-import { selectOutputReferences } from "./selectOutputReferences";
+import {
+  selectInputReferences,
+  selectOutputReferences,
+} from "./selectServerReferences";
 import { updateAppUI } from "./updateAppUI";
 
 const { showErrorMessage } = vscode.window;
@@ -213,11 +216,18 @@ export function editorLogic({
             existingEditor: codeCompanionEditor,
           });
 
-          selectOutputReferences({
-            editor: codeCompanionEditor,
-            output: msg.payload,
-            RProcess,
-          });
+          if (msg.payload.type === "Output") {
+            selectOutputReferences({
+              editor: codeCompanionEditor,
+              output: msg.payload,
+              RProcess,
+            });
+          } else {
+            selectInputReferences({
+              editor: codeCompanionEditor,
+              input: msg.payload,
+            });
+          }
 
           return;
         }
