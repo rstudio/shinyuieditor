@@ -1,4 +1,4 @@
-import { shinyUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
+import { shinyUiNodeInfo } from "./uiNodeTypes";
 
 const namespace_regex = /^\w+::/;
 const full_ui_names = Object.keys(shinyUiNodeInfo);

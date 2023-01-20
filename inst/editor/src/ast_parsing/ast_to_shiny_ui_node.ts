@@ -1,5 +1,6 @@
 import type { ShinyUiNode } from "../main";
 import { isShinyUiNode } from "../Shiny-Ui-Elements/isShinyUiNode";
+import { normalize_ui_name } from "../Shiny-Ui-Elements/normalize_ui_name";
 import type { ShinyUiNodeByName } from "../Shiny-Ui-Elements/uiNodeTypes";
 
 import { create_unknownUiFunction } from "./create_unknownUiFunction";
@@ -19,7 +20,6 @@ import {
   is_ast_leaf_node,
   is_named_node,
 } from "./node_identity_checkers";
-import { normalize_ui_name } from "./normalize_ui_name";
 import { Parsing_Error } from "./parsing_error_class";
 import type { Branch_Node, Primatives, R_AST_Node } from "./r_ast";
 

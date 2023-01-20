@@ -1,4 +1,4 @@
-import type { MessageToClient, MessageToBackend } from "communication-types";
+import type { MessageToBackend, MessageToClient } from "communication-types";
 import { isMessageFromClient } from "communication-types";
 import debounce from "just-debounce-it";
 import * as vscode from "vscode";
@@ -13,6 +13,7 @@ import type { ParsedApp } from "./R-Utils/parseAppFile";
 import { getAppFile } from "./R-Utils/parseAppFile";
 import type { ActiveRSession } from "./R-Utils/startBackgroundRProcess";
 import { startPreviewApp } from "./R-Utils/startPreviewApp";
+import { selectOutputReferences } from "./selectOutputReferences";
 import { updateAppUI } from "./updateAppUI";
 
 const { showErrorMessage } = vscode.window;
@@ -203,6 +204,20 @@ export function editorLogic({
           if (uiBounds) {
             selectLinesInEditor(uiBounds, codeCompanionEditor);
           }
+
+          return;
+        }
+        case "GO-TO-SERVER": {
+          codeCompanionEditor = await openCodeCompanionEditor({
+            appFile: document,
+            existingEditor: codeCompanionEditor,
+          });
+
+          selectOutputReferences({
+            editor: codeCompanionEditor,
+            output: msg.payload,
+            RProcess,
+          });
 
           return;
         }
