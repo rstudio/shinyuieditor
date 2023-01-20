@@ -11,7 +11,7 @@ export function GoToSourceBtn({ node }: { node: ShinyUiNode | null }) {
   if (!node) return null;
 
   const { uiName, uiArguments } = node;
-  const serverOutputInfo = shinyUiNodeInfo[uiName].serverOutput;
+  const serverOutputInfo = shinyUiNodeInfo[uiName].outputBindings;
 
   if (typeof serverOutputInfo === "undefined") return null;
 

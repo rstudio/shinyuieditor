@@ -73,7 +73,7 @@ export type UiComponentInfo<NodeSettings extends Record<string, any>> = {
    * and returns the key. This is useful for ones where the choice may be
    * dynamic. See `GridlayoutGridCardPlot` for an example.
    */
-  serverOutput?: {
+  outputBindings?: {
     outputIdKey: keyof NodeSettings | PickKeyFn<NodeSettings>;
     renderScaffold: string;
   };
