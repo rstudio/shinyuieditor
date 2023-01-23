@@ -58,6 +58,7 @@ server <- function(input, output) {
 
   output$redPlot <- renderPlot({
     print(input$bins2)
+    print(input$bins)
     # draw the histogram with the specified number of bins
     hist(rnorm(100), col = 'orangered')
   })

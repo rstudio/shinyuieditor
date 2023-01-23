@@ -5,6 +5,7 @@ import type {
 } from "communication-types";
 import * as vscode from "vscode";
 
+import { selectMultupleLocations } from "./extension-api-utils/selectMultupleLocations";
 import type { App_Parser } from "./R-Utils/parseRApp";
 
 export async function selectOutputReferences({
@@ -49,21 +50,59 @@ export async function selectInputReferences({
   input: InputSourceRequest;
 }) {
   const fullInput = `input$${inputId}`;
-  const matches_for_input = find_with_regex(
-    editor.document.getText(),
-    fullInput
-  );
+  const to_find = fullInput;
+  const app_text = editor.document.getText();
+  const doc_lines = app_text.split("\n");
 
-  if (!matches_for_input) {
-    vscode.window.showErrorMessage(
-      `Failed to find any current use of ${fullInput} in server`
+  // To find valid examples we want to check:
+  // 1. That we're not looking after a comment, aka not active code. and
+  // 2. That right after our searched for variable we have a non word token to
+  //    avoid over-eager findings like input$bins2 matching when we're searching
+  //    for input$bins
+  const regex_for_output = new RegExp(
+    `(?<!#.*)${escapeRegExp(to_find)}(?=\\W)`
+  );
+  const lines_with_output = doc_lines
+    .map((l, i) => ({
+      line: i,
+      match: regex_for_output.exec(l),
+    }))
+    .filter(({ match }) => match !== null);
+
+  if (lines_with_output.length === 0) return null;
+
+  const selection_locations = lines_with_output.map(({ line, match }) => {
+    const startChar = match?.index ?? 0;
+    const searchStart = new vscode.Position(line, startChar);
+    // Add to account for length of prefix
+    const searchEnd = new vscode.Position(line, startChar + to_find.length);
+
+    return new vscode.Location(
+      editor.document.uri,
+      new vscode.Range(searchStart, searchEnd)
     );
-    return;
-  }
-  selectInEditor(editor, matches_for_input);
+  });
+
+  // const matches_for_input = find_with_regex(
+  //   editor.document.getText(),
+  //   fullInput
+  // );
+
+  // if (!matches_for_input) {
+  //   vscode.window.showErrorMessage(
+  //     `Failed to find any current use of ${fullInput} in server`
+  //   );
+  //   return;
+  // }
+  //
+  await selectMultupleLocations({
+    uri: editor.document.uri,
+    locations: selection_locations,
+    noResultsMessage: `Failed to find any current use of ${fullInput} in server`,
+  });
 }
 
-function selectInEditor(
+async function selectInEditor(
   editor: vscode.TextEditor,
   selections: vscode.Selection[]
 ) {
