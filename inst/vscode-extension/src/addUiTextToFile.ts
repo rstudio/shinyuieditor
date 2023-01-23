@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 
+import type { ParsedApp } from "./editorLogic";
 import { uiBoundsToSelection } from "./extension-api-utils/uiBoundsToSelection";
-import type { ParsedApp } from "./R-Utils/parseAppFile";
 
 export async function addUiTextToFile({
   text,

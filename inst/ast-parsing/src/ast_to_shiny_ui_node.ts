@@ -16,12 +16,16 @@ import {
 } from "./flatten_arrays_and_lists";
 import type { Output_Server_Pos } from "./get_assignment_nodes";
 import {
+  get_assignment_nodes,
+  get_ui_assignment_node,
+} from "./get_assignment_nodes";
+import {
   is_ast_branch_node,
   is_ast_leaf_node,
   is_named_node,
 } from "./node_identity_checkers";
 import { Parsing_Error } from "./parsing_error_class";
-import type { Branch_Node, Primatives, R_AST_Node } from "./r_ast";
+import type { Branch_Node, Primatives, R_AST, R_AST_Node } from "./r_ast";
 
 export function ast_to_ui_node(node: Branch_Node): ShinyUiNode {
   const [fn_name, ...args] = node.val;
@@ -93,4 +97,16 @@ function process_unnamed_arg(
   }
 
   return ast_to_ui_node(node);
+}
+
+export function ast_to_ui_info(ast: R_AST) {
+  const assignment_nodes = get_assignment_nodes(ast);
+  const ui_node = get_ui_assignment_node(assignment_nodes);
+  // const output_positions = get_output_positions(assignment_nodes);
+
+  return {
+    ui_tree: ast_to_ui_node(ui_node.val[2]),
+    ui_pos: ui_node.pos,
+    ui_assignment_operator: ui_node.val[0].val,
+  };
 }

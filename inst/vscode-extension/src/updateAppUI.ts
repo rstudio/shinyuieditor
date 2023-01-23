@@ -2,8 +2,8 @@ import type { ShinyUiNode } from "editor";
 import type * as vscode from "vscode";
 
 import { addUiTextToFile } from "./addUiTextToFile";
+import type { ParsedApp } from "./editorLogic";
 import { generateUpdatedUiCode } from "./R-Utils/generateUpdatedUiCode";
-import type { ParsedApp } from "./R-Utils/parseAppFile";
 import type { ActiveRSession } from "./R-Utils/startBackgroundRProcess";
 import { collapseText } from "./string-utils";
 

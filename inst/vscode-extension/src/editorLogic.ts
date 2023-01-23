@@ -1,5 +1,11 @@
-import type { MessageToBackend, MessageToClient } from "communication-types";
+import { ast_to_ui_info } from "ast-parsing/src/ast_to_shiny_ui_node";
+import type {
+  MessageToBackend,
+  MessageToClient,
+  OutputType,
+} from "communication-types";
 import { isMessageFromClient } from "communication-types";
+import type { ShinyUiNode } from "editor";
 import debounce from "just-debounce-it";
 import * as vscode from "vscode";
 
@@ -9,8 +15,7 @@ import { openCodeCompanionEditor } from "./extension-api-utils/openCodeCompanion
 import { selectLinesInEditor } from "./extension-api-utils/selectLinesInEditor";
 import { checkIfPkgAvailable } from "./R-Utils/checkIfPkgAvailable";
 import { generateAppTemplate } from "./R-Utils/generateAppTemplate";
-import type { ParsedApp } from "./R-Utils/parseAppFile";
-import { getAppFile } from "./R-Utils/parseAppFile";
+import { getAppAST } from "./R-Utils/getAppAST";
 import type { ActiveRSession } from "./R-Utils/startBackgroundRProcess";
 import { startPreviewApp } from "./R-Utils/startPreviewApp";
 import {
@@ -20,6 +25,21 @@ import {
 import { updateAppUI } from "./updateAppUI";
 
 const { showErrorMessage } = vscode.window;
+
+type UiBounds = {
+  start: number;
+  end: number;
+  startCol?: number;
+  endCol?: number;
+};
+
+export type ParsedApp = {
+  file_lines: string[];
+  loaded_libraries: string[];
+  type: OutputType;
+  ui_bounds: UiBounds;
+  ui_tree: ShinyUiNode;
+};
 
 export function editorLogic({
   RProcess,
@@ -72,34 +92,45 @@ export function editorLogic({
     }
 
     try {
-      const appFileInfo = await getAppFile(RProcess, appFileText);
+      const appAST = await getAppAST(RProcess, appFileText);
 
-      if (appFileInfo.status === "error") {
+      if (appAST.status === "error") {
         sendMessage({
           path: "BACKEND-ERROR",
           payload: {
             context: "parsing app",
-            msg: appFileInfo.errorMsg,
+            msg: appAST.errorMsg,
           },
         });
-        showErrorMessage(appFileInfo.errorMsg);
+        showErrorMessage(appAST.errorMsg);
         return;
       }
 
-      if (appFileInfo.values === "EMPTY") {
+      if (appAST.values === "EMPTY") {
         sendMessage({
           path: "TEMPLATE_CHOOSER",
           payload: "SINGLE-FILE",
         });
-      } else {
-        const { ui_tree } = appFileInfo.values;
-
-        uiBounds = appFileInfo.values.ui_bounds;
-        sendMessage({
-          path: "UPDATED-TREE",
-          payload: ui_tree,
-        });
+        return;
       }
+
+      const {
+        ui_tree,
+        ui_pos: [start_row, start_col, end_row, end_col],
+        ui_assignment_operator,
+      } = ast_to_ui_info(appAST.values);
+
+      // const { ui_tree } = appFileInfo.values;
+      uiBounds = {
+        start: start_row,
+        startCol: start_col,
+        end: end_row,
+        endCol: end_col,
+      };
+      sendMessage({
+        path: "UPDATED-TREE",
+        payload: ui_tree,
+      });
     } catch (e) {
       console.error("Failed to parse", e);
     }

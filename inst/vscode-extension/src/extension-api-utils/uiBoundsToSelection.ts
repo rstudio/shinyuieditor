@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 
-import type { ParsedApp } from "../R-Utils/parseAppFile";
+import type { ParsedApp } from "../editorLogic";
 
 export function uiBoundsToSelection({
   start,
