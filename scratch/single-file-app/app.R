@@ -10,8 +10,8 @@ ui <- grid_page(
   ),
   row_sizes = c(
     "110px",
-    "0.76fr",
-    "1.24fr"
+    "0.99fr",
+    "1.01fr"
   ),
   col_sizes = c(
     "330px",
@@ -34,6 +34,11 @@ ui <- grid_page(
     actionButton(
       inputId = "redraw",
       label = "Redraw2"
+    ),
+    textInput(
+      inputId = "bins2",
+      label = "Text Input",
+      value = ""
     )
   ),
   grid_card_text(
@@ -51,6 +56,12 @@ other_ui <- "hello there"
 # Define server logic required to draw a histogram
 server <- function(input, output) {
 
+  output$redPlot <- renderPlot({
+    print(input$bins2)
+    # draw the histogram with the specified number of bins
+    hist(rnorm(100), col = 'orangered')
+  })
+
   output$bluePlot <- renderPlot({
     # generate bins based on input$bins from ui.R
     x    <- faithful[, 2]
@@ -58,11 +69,6 @@ server <- function(input, output) {
 
     # draw the histogram with the specified number of bins
     hist(x, breaks = bins, col = 'steelblue', border = 'white')
-  })
-
-  output$redPlot <- renderPlot({
-    # draw the histogram with the specified number of bins
-    hist(rnorm(100), col = 'orangered')
   })
 
   observe({

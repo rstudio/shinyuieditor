@@ -98,7 +98,15 @@ function find_with_regex(
   to_find: string
 ): vscode.Selection[] | null {
   const doc_lines = app_text.split("\n");
-  const regex_for_output = new RegExp(escapeRegExp(to_find));
+
+  // To find valid examples we want to check:
+  // 1. That we're not looking after a comment, aka not active code. and
+  // 2. That right after our searched for variable we have a non word token to
+  //    avoid over-eager findings like input$bins2 matching when we're searching
+  //    for input$bins
+  const regex_for_output = new RegExp(
+    `(?<!#.*)${escapeRegExp(to_find)}(?=\\W)`
+  );
 
   const lines_with_output = doc_lines
     .map((l, i) => ({
