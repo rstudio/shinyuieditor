@@ -12,6 +12,8 @@
     "ts-jest": "^29.0.3"
   },
   "scripts": {
-    "type-check": "tsc -p ./ --noEmit"
+    "type-check": "tsc -p ./ --noEmit",
+    "test": "jest",
+    "test-watch": "jest --watch"
   }
 }
