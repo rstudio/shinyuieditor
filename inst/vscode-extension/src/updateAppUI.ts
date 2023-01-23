@@ -2,7 +2,7 @@ import type { ShinyUiNode } from "editor";
 import type * as vscode from "vscode";
 
 import { addUiTextToFile } from "./addUiTextToFile";
-import type { ParsedApp } from "./editorLogic";
+import type { App_Location } from "./editorLogic";
 import { generateUpdatedUiCode } from "./R-Utils/generateUpdatedUiCode";
 import type { ActiveRSession } from "./R-Utils/startBackgroundRProcess";
 import { collapseText } from "./string-utils";
@@ -18,7 +18,7 @@ export async function updateAppUI({
 }: {
   document: vscode.TextDocument;
   uiTree: ShinyUiNode;
-  uiBounds?: ParsedApp["ui_bounds"];
+  uiBounds?: App_Location;
   RProcess: ActiveRSession;
 }) {
   if (!uiBounds) {

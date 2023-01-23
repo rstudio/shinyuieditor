@@ -1,6 +1,6 @@
 import type { R_AST } from ".";
 
-import { ast_to_ui_info } from "./ast_to_shiny_ui_node";
+import { parse_app_ast } from "./ast_to_shiny_ui_node";
 
 const test_app_ast: R_AST = [
   {
@@ -387,8 +387,7 @@ const test_app_ast: R_AST = [
   },
 ];
 
-const { ui_tree, ui_pos, ui_assignment_operator } =
-  ast_to_ui_info(test_app_ast);
+const { ui_tree, ui_pos, ui_assignment_operator } = parse_app_ast(test_app_ast);
 
 describe("Can convert from ui definition node in ast to the the UI Specific ast", () => {
   test("Root node is right", () => {

@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 
-import type { ParsedApp } from "./editorLogic";
+import type { App_Location } from "./editorLogic";
 import { uiBoundsToSelection } from "./extension-api-utils/uiBoundsToSelection";
 
 export async function addUiTextToFile({
@@ -11,7 +11,7 @@ export async function addUiTextToFile({
 }: {
   text: string;
   document: vscode.TextDocument;
-  uiBounds?: ParsedApp["ui_bounds"];
+  uiBounds?: App_Location;
   type: "insert" | "replace";
 }) {
   const uri = document.uri;

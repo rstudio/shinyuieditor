@@ -1,15 +1,11 @@
-import type { R_AST } from "ast-parsing";
-import {
-  get_assignment_nodes,
-  get_output_positions,
-} from "ast-parsing/src/get_assignment_nodes";
+import type { Output_Server_Pos } from "ast-parsing/src/get_assignment_nodes";
 import type {
   InputSourceRequest,
   OutputSourceRequest,
 } from "communication-types";
 import * as vscode from "vscode";
 
-import type { App_AST_Getter } from "./R-Utils/getAppAST";
+import type { App_Parser } from "./R-Utils/parseRApp";
 
 export async function selectOutputReferences({
   editor,
@@ -17,7 +13,7 @@ export async function selectOutputReferences({
   get_ast,
 }: {
   editor: vscode.TextEditor;
-  get_ast: App_AST_Getter;
+  get_ast: App_Parser;
   output: OutputSourceRequest;
 }) {
   const app_text = editor.document.getText();
@@ -25,9 +21,10 @@ export async function selectOutputReferences({
   const app_ast_res = await get_ast();
 
   const fullOutput = `output$${outputId}`;
+
   const matches_for_output =
-    app_ast_res.status === "success" && app_ast_res.values !== "EMPTY"
-      ? find_with_ast(app_ast_res.values, outputId)
+    app_ast_res.type === "SUCCESS"
+      ? find_with_ast(app_ast_res.output_positions, outputId)
       : find_with_regex(app_text, fullOutput);
 
   if (!matches_for_output) {
@@ -78,12 +75,9 @@ function selectInEditor(
 }
 
 function find_with_ast(
-  ast: R_AST,
+  output_positions: Output_Server_Pos,
   outputId: string
 ): vscode.Selection[] | null {
-  const assignment_nodes = get_assignment_nodes(ast);
-  const output_positions = get_output_positions(assignment_nodes);
-
   const position_for_output = output_positions[outputId];
 
   if (!position_for_output) return null;

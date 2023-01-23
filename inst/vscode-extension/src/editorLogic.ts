@@ -1,11 +1,5 @@
-import { ast_to_ui_info } from "ast-parsing/src/ast_to_shiny_ui_node";
-import type {
-  MessageToBackend,
-  MessageToClient,
-  OutputType,
-} from "communication-types";
+import type { MessageToBackend, MessageToClient } from "communication-types";
 import { isMessageFromClient } from "communication-types";
-import type { ShinyUiNode } from "editor";
 import debounce from "just-debounce-it";
 import * as vscode from "vscode";
 
@@ -15,7 +9,7 @@ import { openCodeCompanionEditor } from "./extension-api-utils/openCodeCompanion
 import { selectLinesInEditor } from "./extension-api-utils/selectLinesInEditor";
 import { checkIfPkgAvailable } from "./R-Utils/checkIfPkgAvailable";
 import { generateAppTemplate } from "./R-Utils/generateAppTemplate";
-import { setup_app_ast_getter } from "./R-Utils/getAppAST";
+import { setup_app_parser } from "./R-Utils/parseRApp";
 import type { ActiveRSession } from "./R-Utils/startBackgroundRProcess";
 import { startPreviewApp } from "./R-Utils/startPreviewApp";
 import {
@@ -26,17 +20,11 @@ import { updateAppUI } from "./updateAppUI";
 
 const { showErrorMessage } = vscode.window;
 
-export type ParsedApp = {
-  file_lines: string[];
-  loaded_libraries: string[];
-  type: OutputType;
-  ui_bounds: {
-    start_row: number;
-    end_row: number;
-    start_col: number;
-    end_col: number;
-  };
-  ui_tree: ShinyUiNode;
+export type App_Location = {
+  start_row: number;
+  end_row: number;
+  start_col: number;
+  end_col: number;
 };
 
 export function editorLogic({
@@ -50,11 +38,12 @@ export function editorLogic({
 }) {
   let hasInitialized: boolean = false;
 
+  // Can probably replace this with the vscode.TextDocument's version field
   let latestAppWrite: string | null = null;
 
-  let uiBounds: ParsedApp["ui_bounds"] | undefined;
+  let uiBounds: App_Location | undefined;
 
-  const get_ast = setup_app_ast_getter(RProcess, document);
+  const get_ast = setup_app_parser(RProcess, document);
 
   /**
    * Plain text editor with apps code side-by-side with custom editor
@@ -94,19 +83,19 @@ export function editorLogic({
     try {
       const appAST = await get_ast();
 
-      if (appAST.status === "error") {
+      if (appAST.type === "ERROR") {
         sendMessage({
           path: "BACKEND-ERROR",
           payload: {
             context: "parsing app",
-            msg: appAST.errorMsg,
+            msg: appAST.message,
           },
         });
-        showErrorMessage(appAST.errorMsg);
+        showErrorMessage(appAST.message);
         return;
       }
 
-      if (appAST.values === "EMPTY") {
+      if (appAST.type === "EMPTY") {
         sendMessage({
           path: "TEMPLATE_CHOOSER",
           payload: "SINGLE-FILE",
@@ -114,22 +103,11 @@ export function editorLogic({
         return;
       }
 
-      const {
-        ui_tree,
-        ui_pos: [start_row, start_col, end_row, end_col],
-        ui_assignment_operator,
-      } = ast_to_ui_info(appAST.values);
+      uiBounds = appAST.ui_pos;
 
-      // const { ui_tree } = appFileInfo.values;
-      uiBounds = {
-        start_row: start_row,
-        start_col: start_col,
-        end_row: end_row,
-        end_col: end_col,
-      };
       sendMessage({
         path: "UPDATED-TREE",
-        payload: ui_tree,
+        payload: appAST.ui_tree,
       });
     } catch (e) {
       console.error("Failed to parse", e);

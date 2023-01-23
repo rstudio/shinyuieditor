@@ -9,9 +9,9 @@ ui <- grid_page(
     "sidebar redPlot "
   ),
   row_sizes = c(
-    "80px",
-    "0.92fr",
-    "1.08fr"
+    "110px",
+    "0.76fr",
+    "1.24fr"
   ),
   col_sizes = c(
     "330px",

@@ -1,6 +1,6 @@
 import type * as vscode from "vscode";
 
-import type { ParsedApp } from "../editorLogic";
+import type { App_Location } from "../editorLogic";
 
 import { uiBoundsToSelection } from "./uiBoundsToSelection";
 
@@ -11,7 +11,7 @@ import { uiBoundsToSelection } from "./uiBoundsToSelection";
  * @param editor `vscode.TextEditor` object
  */
 export function selectLinesInEditor(
-  selection: ParsedApp["ui_bounds"],
+  selection: App_Location,
   editor: vscode.TextEditor
 ) {
   editor.selection = uiBoundsToSelection(selection);
