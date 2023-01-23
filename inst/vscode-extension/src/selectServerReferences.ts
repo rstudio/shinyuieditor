@@ -1,8 +1,8 @@
+import type { R_AST } from "ast-parsing";
 import {
   get_assignment_nodes,
   get_output_positions,
 } from "ast-parsing/src/get_assignment_nodes";
-import type { R_AST } from "ast-parsing/src/r_ast";
 import type {
   InputSourceRequest,
   OutputSourceRequest,

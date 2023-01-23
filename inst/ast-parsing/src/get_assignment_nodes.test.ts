@@ -1,5 +1,5 @@
 import { get_assignment_nodes } from "./get_assignment_nodes";
-import type { R_AST } from "./r_ast";
+import type { R_AST } from ".";
 
 const test_app_ast: R_AST = [
   {

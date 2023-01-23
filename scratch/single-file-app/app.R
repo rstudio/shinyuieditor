@@ -10,8 +10,8 @@ ui <- grid_page(
   ),
   row_sizes = c(
     "80px",
-    "1.22fr",
-    "0.78fr"
+    "1.21fr",
+    "0.79fr"
   ),
   col_sizes = c(
     "330px",

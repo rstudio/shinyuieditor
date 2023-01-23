@@ -26,18 +26,16 @@ import { updateAppUI } from "./updateAppUI";
 
 const { showErrorMessage } = vscode.window;
 
-type UiBounds = {
-  start: number;
-  end: number;
-  startCol?: number;
-  endCol?: number;
-};
-
 export type ParsedApp = {
   file_lines: string[];
   loaded_libraries: string[];
   type: OutputType;
-  ui_bounds: UiBounds;
+  ui_bounds: {
+    start: number;
+    end: number;
+    startCol?: number;
+    endCol?: number;
+  };
   ui_tree: ShinyUiNode;
 };
 

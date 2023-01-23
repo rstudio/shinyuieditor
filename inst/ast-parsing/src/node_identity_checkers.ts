@@ -1,6 +1,6 @@
 import { is_object } from "editor/src/utils/is_object";
 
-import type { Branch_Node, Leaf_Node, Primatives, R_AST_Node } from "./r_ast";
+import type { Branch_Node, Leaf_Node, Primatives, R_AST_Node } from ".";
 
 export function is_primative(x: unknown): x is Primatives {
   return (

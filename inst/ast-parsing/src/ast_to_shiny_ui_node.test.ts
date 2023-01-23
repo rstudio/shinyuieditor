@@ -1,5 +1,6 @@
+import type { R_AST } from ".";
+
 import { ast_to_ui_info } from "./ast_to_shiny_ui_node";
-import type { R_AST } from "./r_ast";
 
 const test_app_ast: R_AST = [
   {

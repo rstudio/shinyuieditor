@@ -1,178 +1,44 @@
-// import { runSUE } from "@editor/main";
-import type { ShinyUiNode } from "editor";
+export type Primatives = string | number | boolean;
 
-import type { MessageDispatcher } from "./messageDispatcher";
+export type Script_Position = [
+  start_row: number,
+  start_col: number,
+  end_row: number,
+  end_col: number
+];
 
-// type ShinyUiNode = {
-//   uiName: string;
-//   uiArguments: Record<string, unknown>;
-//   uiChildren?: ShinyUiNode[];
-// };
+type Node_Vals_By_Key = {
+  s: string; // Symbol
+  c: string; // Characters/ strings
+  b: boolean;
+  n: number;
+  u: unknown;
+  m: never; // missing
+  e: R_AST; // another node/expression
+};
 
-/**
- * Defines basic information needed to build an app template for the template viewer
- */
-export type TemplateInfo = {
-  /**
-   * Displayed name of the template in the chooser view
-   */
-  title: string;
-  /** Long form description of the template available on hover. This can use
-   * markdown formatting
-   */
-  description: string;
-  /**
-   * Main tree definining the template. Used for generating preview and also the
-   * main ui definition of the template
-   */
-  uiTree: ShinyUiNode;
-  otherCode: {
-    /**
-     * Extra code that will be copied unchanged above the ui definition
-     */
-    uiExtra?: string;
-
-    /**
-     * List of libraries that need to be loaded in server code
-     */
-    serverLibraries?: string[];
-
-    /**
-     * Extra code that will be copied unchanged above server funtion definition
-     */
-    serverExtra?: string;
-
-    /**
-     * Body of server function. This will be wrapped in the code
-     * `function(input, output){....}`
-     */
-    serverFunctionBody?: string;
+export type AST_Node_By_Key = {
+  [key in keyof Node_Vals_By_Key]: {
+    val: Node_Vals_By_Key[key];
+    type: key;
+    name?: string;
+    pos?: Script_Position;
   };
 };
-export type OutputType = "SINGLE-FILE" | "MULTI-FILE";
 
-export type TemplateSelection = Omit<TemplateInfo, "title" | "description"> & {
-  outputType: OutputType;
+export type Expression_Node<T extends R_AST> = {
+  val: T;
+  type: "e";
+  pos?: Script_Position;
 };
-
-export type ParsedAppInfo = {
-  file_lines: string[];
-  loaded_libraries: string[];
-  type: OutputType;
-  ui_bounds: { start: number; end: number };
-  ui_tree: ShinyUiNode;
+export type Symbol_Node<Sym extends string> = {
+  val: Sym;
+  type: "s";
+  pos?: Script_Position;
 };
+export type Branch_Node = AST_Node_By_Key["e"];
+export type Leaf_Node = AST_Node_By_Key["c" | "b" | "n"];
+export type Unparsable_Node = AST_Node_By_Key["s" | "m" | "u"];
+export type R_AST_Node = AST_Node_By_Key[keyof Node_Vals_By_Key];
 
-export type OutputSourceRequest = {
-  type: "Output";
-  /** The current output id used to bind to ui output fn */
-  outputId: string;
-  /** Code scaffold to put in if there's no existing output code for a source */
-  renderScaffold: string;
-};
-
-/**
- * Messages keyed by path that can be sent to the backend
- */
-type MessageToBackendByPath = {
-  "READY-FOR-STATE": null;
-  "UPDATED-TREE": ShinyUiNode;
-  "NODE-SELECTION": string[];
-  "ENTERED-TEMPLATE-SELECTOR": null;
-  "TEMPLATE-SELECTION": TemplateSelection;
-  "APP-PREVIEW-REQUEST": null;
-  "APP-PREVIEW-RESTART": null;
-  "APP-PREVIEW-STOP": null;
-  "OPEN-COMPANION-EDITOR": CompanionEditorPosition;
-  "GO-TO-SERVER": OutputSourceRequest;
-};
-
-/**
- * Positions the user can request the companion editor to be placed in
- */
-export type CompanionEditorPosition = "BESIDE";
-
-/**
- * All the paths and their payloads that can be received from the backend
- */
-export type MessageToClientByPath = {
-  "UPDATED-TREE": ShinyUiNode;
-  "BACKEND-ERROR": {
-    context: string;
-    msg: string;
-  };
-  "APP-PREVIEW-STATUS": "FAKE-PREVIEW" | "LOADING" | { url: string };
-  "APP-PREVIEW-CRASH": string;
-  "APP-PREVIEW-LOGS": string[];
-  TEMPLATE_CHOOSER: OutputType | "USER-CHOICE";
-};
-
-/**
- * Union form of the backend messages with path and payload pairings for
- * callbacks
- */
-export type MessageToBackend = MessageUnion<MessageToBackendByPath>;
-/**
- * Union form of the message that can be received from backend
- */
-export type MessageToClient = MessageUnion<MessageToClientByPath>;
-
-/**
- * Communication layer for client and backend
- */
-export type BackendConnection = {
-  /**
-   * Function to pass a message to the backend
-   */
-  sendMsg: (msg: MessageToBackend) => void;
-  /**
-   * Object to subscribe to incoming messages from backend
-   */
-  incomingMsgs: Omit<MessageDispatcher, "dispatch">;
-  /**
-   * The different backend runtimes that can be supporting the ui editor client
-   */
-  mode: "VSCODE" | "HTTPUV" | "STATIC";
-};
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === "object" && value !== null;
-}
-export function isMessageFromBackend(x: unknown): x is MessageToClient {
-  if (!isRecord(x)) return false;
-  return "path" in x;
-}
-export function isMessageFromClient(x: unknown): x is MessageToBackend {
-  if (!isRecord(x)) return false;
-  return "path" in x;
-}
-
-// =============================================================================
-// Helper generics to turn our simple message object type into unions that have
-// smart payload slots
-type PathsWithPayload<
-  MsgObj extends MessageToBackendByPath | MessageToClientByPath
-> = {
-  [K in keyof MsgObj]-?: MsgObj[K] extends null ? never : K;
-}[keyof MsgObj];
-
-type PathsWithoutPayload<
-  MsgObj extends MessageToBackendByPath | MessageToClientByPath
-> = {
-  [K in keyof MsgObj]-?: MsgObj[K] extends null ? K : never;
-}[keyof MsgObj];
-
-type MessageUnion<
-  MsgObj extends MessageToBackendByPath | MessageToClientByPath
-> =
-  | {
-      [T in PathsWithPayload<MsgObj>]: {
-        path: T;
-        payload: MsgObj[T];
-      };
-    }[PathsWithPayload<MsgObj>]
-  | {
-      [T in PathsWithoutPayload<MsgObj>]: {
-        path: T;
-      };
-    }[PathsWithoutPayload<MsgObj>];
+export type R_AST = Array<R_AST_Node>;

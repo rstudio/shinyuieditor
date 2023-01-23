@@ -3,6 +3,8 @@ import { isShinyUiNode } from "editor/src/Shiny-Ui-Elements/isShinyUiNode";
 import { normalize_ui_name } from "editor/src/Shiny-Ui-Elements/normalize_ui_name";
 import type { ShinyUiNodeByName } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
 
+import type { Branch_Node, Primatives, R_AST, R_AST_Node } from ".";
+
 import { create_unknownUiFunction } from "./create_unknownUiFunction";
 import type {
   Primative_Array,
@@ -25,7 +27,6 @@ import {
   is_named_node,
 } from "./node_identity_checkers";
 import { Parsing_Error } from "./parsing_error_class";
-import type { Branch_Node, Primatives, R_AST, R_AST_Node } from "./r_ast";
 
 export function ast_to_ui_node(node: Branch_Node): ShinyUiNode {
   const [fn_name, ...args] = node.val;

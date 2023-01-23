@@ -1,5 +1,3 @@
-import { is_ast_branch_node, is_ast_leaf_node } from "./node_identity_checkers";
-import { Parsing_Error } from "./parsing_error_class";
 import type {
   Branch_Node,
   Expression_Node,
@@ -7,7 +5,10 @@ import type {
   R_AST_Node,
   Script_Position,
   Symbol_Node,
-} from "./r_ast";
+} from ".";
+
+import { is_ast_branch_node, is_ast_leaf_node } from "./node_identity_checkers";
+import { Parsing_Error } from "./parsing_error_class";
 
 export type Assignment_Operator = "<-" | "=";
 export type Assignment_Symbol = Symbol_Node<Assignment_Operator>;

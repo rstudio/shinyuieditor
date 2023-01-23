@@ -1,4 +1,4 @@
-import type { R_AST } from "./r_ast";
+import type { R_AST } from ".";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
