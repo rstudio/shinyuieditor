@@ -15,7 +15,7 @@ import { openCodeCompanionEditor } from "./extension-api-utils/openCodeCompanion
 import { selectLinesInEditor } from "./extension-api-utils/selectLinesInEditor";
 import { checkIfPkgAvailable } from "./R-Utils/checkIfPkgAvailable";
 import { generateAppTemplate } from "./R-Utils/generateAppTemplate";
-import { getAppAST } from "./R-Utils/getAppAST";
+import { setup_app_ast_getter } from "./R-Utils/getAppAST";
 import type { ActiveRSession } from "./R-Utils/startBackgroundRProcess";
 import { startPreviewApp } from "./R-Utils/startPreviewApp";
 import {
@@ -54,6 +54,8 @@ export function editorLogic({
 
   let uiBounds: ParsedApp["ui_bounds"] | undefined;
 
+  const get_ast = setup_app_ast_getter(RProcess, document);
+
   /**
    * Plain text editor with apps code side-by-side with custom editor
    */
@@ -90,7 +92,7 @@ export function editorLogic({
     }
 
     try {
-      const appAST = await getAppAST(RProcess, appFileText);
+      const appAST = await get_ast();
 
       if (appAST.status === "error") {
         sendMessage({
@@ -249,7 +251,7 @@ export function editorLogic({
             selectOutputReferences({
               editor: codeCompanionEditor,
               output: msg.payload,
-              RProcess,
+              get_ast,
             });
           } else {
             selectInputReferences({

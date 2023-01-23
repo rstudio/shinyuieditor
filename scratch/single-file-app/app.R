@@ -33,7 +33,7 @@ ui <- grid_page(
     ),
     actionButton(
       inputId = "redraw",
-      label = "Redraw"
+      label = "Redraw2"
     )
   ),
   grid_card_text(

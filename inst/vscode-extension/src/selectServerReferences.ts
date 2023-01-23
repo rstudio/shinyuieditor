@@ -9,21 +9,20 @@ import type {
 } from "communication-types";
 import * as vscode from "vscode";
 
-import { getAppAST } from "./R-Utils/getAppAST";
-import type { ActiveRSession } from "./R-Utils/startBackgroundRProcess";
+import type { App_AST_Getter } from "./R-Utils/getAppAST";
 
 export async function selectOutputReferences({
   editor,
   output: { outputId },
-  RProcess,
+  get_ast,
 }: {
   editor: vscode.TextEditor;
+  get_ast: App_AST_Getter;
   output: OutputSourceRequest;
-  RProcess: ActiveRSession;
 }) {
   const app_text = editor.document.getText();
 
-  const app_ast_res = await getAppAST(RProcess, app_text);
+  const app_ast_res = await get_ast();
 
   const fullOutput = `output$${outputId}`;
   const matches_for_output =
