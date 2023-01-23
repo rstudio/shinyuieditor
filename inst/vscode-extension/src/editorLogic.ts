@@ -31,10 +31,10 @@ export type ParsedApp = {
   loaded_libraries: string[];
   type: OutputType;
   ui_bounds: {
-    start: number;
-    end: number;
-    startCol?: number;
-    endCol?: number;
+    start_row: number;
+    end_row: number;
+    start_col: number;
+    end_col: number;
   };
   ui_tree: ShinyUiNode;
 };
@@ -120,10 +120,10 @@ export function editorLogic({
 
       // const { ui_tree } = appFileInfo.values;
       uiBounds = {
-        start: start_row,
-        startCol: start_col,
-        end: end_row,
-        endCol: end_col,
+        start_row: start_row,
+        start_col: start_col,
+        end_row: end_row,
+        end_col: end_col,
       };
       sendMessage({
         path: "UPDATED-TREE",

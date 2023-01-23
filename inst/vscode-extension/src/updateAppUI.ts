@@ -25,7 +25,7 @@ export async function updateAppUI({
     throw new Error("Attempting to update an app that has yet to be parsed.");
   }
 
-  const { start, end } = uiBounds;
+  const { start_row, start_col, end_row, end_col } = uiBounds;
 
   const uiCode = await generateUpdatedUiCode(uiTree, RProcess);
   const newUiText = `ui <- ${collapseText(...uiCode.text)}\n`;
@@ -37,15 +37,17 @@ export async function updateAppUI({
   });
 
   // Fix up ui bounds so next change will not mess up app
-  const oldUiNumLines = end - start + 1;
+  const oldUiNumLines = end_row - start_row + 1;
   const newUiNumLines = uiCode.text.length;
   const uiNumLinesDiff = newUiNumLines - oldUiNumLines;
 
   return {
     uiText: newUiText,
     uiBounds: {
-      start,
-      end: end + uiNumLinesDiff,
+      start_row,
+      start_col,
+      end_row: end_row + uiNumLinesDiff,
+      end_col,
     },
   };
 }

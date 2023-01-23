@@ -6,7 +6,7 @@ import { uiBoundsToSelection } from "./extension-api-utils/uiBoundsToSelection";
 export async function addUiTextToFile({
   text,
   document,
-  uiBounds = { start: 0, end: 0 },
+  uiBounds = { start_row: 0, end_row: 0, start_col: 0, end_col: 0 },
   type,
 }: {
   text: string;
