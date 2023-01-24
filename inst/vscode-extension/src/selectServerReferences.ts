@@ -1,4 +1,6 @@
+import type { Script_Position } from "ast-parsing";
 import type { Output_Server_Pos } from "ast-parsing/src/get_assignment_nodes";
+import { indent_text_block } from "ast-parsing/src/indent_text_block";
 import type {
   InputSourceRequest,
   OutputSourceRequest,
@@ -8,9 +10,12 @@ import * as vscode from "vscode";
 import { selectMultupleLocations } from "./extension-api-utils/selectMultupleLocations";
 import type { App_Parser } from "./R-Utils/parseRApp";
 
+// Dangerous assumption here
+const INDENT_SPACES = 2;
+
 export async function selectOutputReferences({
   editor,
-  output: { outputId },
+  output: { outputId, renderScaffold },
   get_ast,
 }: {
   editor: vscode.TextEditor;
@@ -28,19 +33,75 @@ export async function selectOutputReferences({
       ? find_with_ast(app_ast_res.output_positions, outputId)
       : find_with_regex(app_text, fullOutput);
 
-  if (!matches_for_output) {
-    // app_ast_res.type === "SUCCESS" ? app_ast_res.
+  if (matches_for_output) {
+    // If we found matches, select them
+    selectInEditor(editor, matches_for_output);
+    // Set the selection to found outputs
+    editor.selection = matches_for_output[0];
+
+    // Make sure that the user can actually see those outputs.
+    editor.revealRange(matches_for_output[0]);
+    return;
+  }
+
+  if (app_ast_res.type === "ERROR") {
+    // Tell user there's nothing we can do.
     vscode.window.showErrorMessage(
-      `Failed to find any current use of ${fullOutput} in server`
+      `Failed to find any current use of ${fullOutput} in server with error./nError msg: ${app_ast_res.message}`
     );
     return;
   }
-  selectInEditor(editor, matches_for_output);
-  // Set the selection to found outputs
-  editor.selection = matches_for_output[0];
 
-  // Make sure that the user can actually see those outputs.
-  editor.revealRange(matches_for_output[0]);
+  if (app_ast_res.type === "EMPTY") {
+    // Somehow we requested output matches on an empty app?
+    throw new Error("Can't find output instances in an empty app");
+  }
+
+  type Proceed_Option =
+    | "Generate template"
+    | "Proceed without creating template";
+
+  const proceed_choices: Proceed_Option[] = [
+    "Generate template",
+    "Proceed without creating template",
+  ];
+
+  const proceed_choice = (await vscode.window.showQuickPick(proceed_choices, {
+    title: "No output bindings found in app code. Generate one from template?",
+  })) as Proceed_Option | undefined;
+
+  if (proceed_choice !== "Generate template") {
+    vscode.window.showInformationMessage("No output template generated");
+    return;
+  }
+  // If no existing matches were found. Add a template in for the user to use
+  const server_position = script_position_to_vscode_positions(
+    app_ast_res.server_pos
+  );
+
+  const server_indent =
+    editor.document.lineAt(server_position.end.line)
+      .firstNonWhitespaceCharacterIndex + INDENT_SPACES;
+
+  // Fill in the template at bottom of server
+
+  // We want to match the indentation of the server block and also add a new
+  // line at the end so the closing of the server is actually finished.
+  const renderTemplate = new vscode.SnippetString(
+    indent_text_block(
+      `\noutput\\$${outputId} <- ${renderScaffold}`,
+      server_indent
+    ) + "\n"
+  );
+  const successfull_template_add = await editor.insertSnippet(
+    renderTemplate,
+    server_position.end.translate(0, -1)
+  );
+
+  if (!successfull_template_add) {
+    // Tell user there's nothing we can do.
+    vscode.window.showErrorMessage(`Failed to add output scaffold`);
+  }
 }
 
 export async function selectInputReferences({
@@ -113,6 +174,18 @@ async function selectInEditor(
   editor.revealRange(selections[0]);
 }
 
+export function script_position_to_vscode_positions([
+  start_row,
+  start_col,
+  end_row,
+  end_col,
+]: Script_Position): { start: vscode.Position; end: vscode.Position } {
+  return {
+    start: new vscode.Position(start_row - 1, start_col - 1),
+    end: new vscode.Position(end_row - 1, end_col),
+  };
+}
+
 function find_with_ast(
   output_positions: Output_Server_Pos,
   outputId: string
@@ -121,10 +194,9 @@ function find_with_ast(
 
   if (!position_for_output) return null;
 
-  return position_for_output.map(([start_row, start_col, end_row, end_col]) => {
-    const searchStart = new vscode.Position(start_row - 1, start_col - 1);
-    const searchEnd = new vscode.Position(end_row - 1, end_col);
-    return new vscode.Selection(searchStart, searchEnd);
+  return position_for_output.map((pos) => {
+    const vscode_positions = script_position_to_vscode_positions(pos);
+    return new vscode.Selection(vscode_positions.start, vscode_positions.end);
   });
 }
 

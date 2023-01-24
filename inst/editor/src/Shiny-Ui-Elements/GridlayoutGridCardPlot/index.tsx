@@ -32,7 +32,7 @@ export const gridlayoutGridCardPlotInfo: UiComponentInfo<GridlayoutGridCardPlotP
     serverBindings: {
       outputs: {
         outputIdKey: (args) => (args.outputId ? "outputId" : "area"),
-        renderScaffold: `renderPlot({ //Plot code goes here })`,
+        renderScaffold: `renderPlot({\n  #Plot code goes here\n  $0plot(rnorm(100))\n})`,
       },
     },
     acceptsChildren: false,

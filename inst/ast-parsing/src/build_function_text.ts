@@ -1,6 +1,7 @@
 import type { R_AST, R_AST_Node } from ".";
 
 import { get_ast_is_array_or_list } from "./flatten_arrays_and_lists";
+import { indent_text_block } from "./indent_text_block";
 
 const INDENT_SPACES = 2;
 const INDENT = " ".repeat(INDENT_SPACES);
@@ -110,5 +111,5 @@ function print_node_val({ val, type }: R_AST_Node): string {
 }
 
 function indent_line_breaks(txt: string): string {
-  return txt.replaceAll(/\n/g, `${NL_INDENT}`);
+  return indent_text_block(txt, INDENT_SPACES);
 }

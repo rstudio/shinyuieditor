@@ -14,7 +14,7 @@ ui <- grid_page(
     "1.01fr"
   ),
   col_sizes = c(
-    "330px",
+    "200px",
     "1fr"
   ),
   gap_size = "1rem",
@@ -78,6 +78,10 @@ server <- function(input, output) {
     })
   }) %>% bindEvent(input$redraw)
 
+  output$bluePlot2 <- renderPlot({
+    #Plot code goes here
+    plot(rnorm(100))
+  })
 }
 
 shinyApp(ui, server)

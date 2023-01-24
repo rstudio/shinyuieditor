@@ -103,7 +103,9 @@ export function editorLogic({
         return;
       }
 
-      uiBounds = appAST.ui_pos;
+      const [start_row, start_col, end_row, end_col] = appAST.ui_pos;
+
+      uiBounds = { start_row, start_col, end_row, end_col };
 
       sendMessage({
         path: "UPDATED-TREE",

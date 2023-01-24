@@ -76,6 +76,10 @@ export type UiComponentInfo<NodeSettings extends Record<string, any>> = {
   serverBindings?: {
     outputs?: {
       outputIdKey: keyof NodeSettings | PickKeyFn<NodeSettings>;
+      /** Scaffold text to be inserted into the app server if the user requests.
+       * Can use the [vscode snippet
+       * syntax](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_create-your-own-snippets).
+       * */
       renderScaffold: string;
     };
     inputs?: {

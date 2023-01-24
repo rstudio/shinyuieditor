@@ -2,8 +2,6 @@ import { parse_app_ast } from "ast-parsing/src/ast_to_shiny_ui_node";
 import type { R_AST } from "editor/src/ast_parsing/r_ast";
 import type * as vscode from "vscode";
 
-import type { App_Location } from "../editorLogic";
-
 import { getAppAST } from "./getAppAST";
 import type { CommandOutputGeneric } from "./runRCommand";
 import type { ActiveRSession } from "./startBackgroundRProcess";
@@ -11,8 +9,7 @@ import type { ActiveRSession } from "./startBackgroundRProcess";
 type AST_Result =
   | ({
       type: "SUCCESS";
-      ui_pos: App_Location;
-    } & Omit<ReturnType<typeof parse_app_ast>, "ui_pos">)
+    } & ReturnType<typeof parse_app_ast>)
   | {
       type: "EMPTY";
     }
@@ -71,18 +68,10 @@ function parse_fresh_app(
     return { type: "EMPTY" };
   }
 
-  const {
-    ui_tree,
-    ui_pos: [start_row, start_col, end_row, end_col],
-    ui_assignment_operator,
-    output_positions,
-  } = parse_app_ast(raw_ast_output.values);
+  const ast_parse_res = parse_app_ast(raw_ast_output.values);
 
   return {
     type: "SUCCESS",
-    ui_tree,
-    ui_pos: { start_row, start_col, end_row, end_col },
-    ui_assignment_operator,
-    output_positions,
+    ...ast_parse_res,
   };
 }
