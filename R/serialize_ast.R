@@ -1,9 +1,39 @@
 # Take a parsed R expression and turn it into a fully serializable ast
 # representation. 
-serialize_ast <- function(expr) {
+serialize_ast <- function(raw_expr) {
 
-  if (!is_serializable_node(expr)) {
-    stop("Unknown expression type, can't parse. typeof(node) = ", typeof(expr))
+  if (!is_serializable_node(raw_expr)) {
+    stop(
+      "Unknown expression type, can't parse. typeof(node) = ",
+      typeof(raw_expr)
+    )
+  }
+
+  # Call any library calls so we know we have the proper environment to run
+  # argument matching  
+  if (is_library_call(raw_expr)) {
+    eval(raw_expr)
+  }
+
+  # Fill in all the names of unnamed arguments
+  expr <- if (is.call(raw_expr)) {
+    tryCatch({
+      rlang::call_match(call = raw_expr, fn = eval(raw_expr[[1]]))
+    },
+    error = function(e) {
+        stop(
+          paste0(
+            "Problem with standardizing arguments supplied to expression.",
+            "\nError msg: \"",
+            e$message,
+            "\""
+          ),
+          call. = FALSE
+        )
+      }
+    )
+  } else {
+    raw_expr
   }
 
   node_names <- names(expr)
@@ -27,6 +57,7 @@ serialize_ast <- function(expr) {
 
   ast_node
 }
+
 
 
 # Types key: "m" = missing,  "s" = symbol, "n" = numeric/number, "b" =
@@ -115,4 +146,9 @@ is_serializable_node <- function(x) {
   identical(node_type, "pairlist") || 
     identical(node_type, "language") || 
     identical(node_type, "expression")
+}
+
+is_library_call <- function(expr) {
+  identical(typeof(expr[[1]]), "symbol") && 
+    identical(rlang::as_string(expr[[1]]), "library")
 }
