@@ -1,5 +1,6 @@
-import { get_assignment_nodes } from "./get_assignment_nodes";
 import type { R_AST } from ".";
+
+import { get_assignment_nodes } from "./get_assignment_nodes";
 
 const test_app_ast: R_AST = [
   {
@@ -388,6 +389,8 @@ const test_app_ast: R_AST = [
 
 describe("Can recursively parse ast to find all assignments ", () => {
   test("Correct number of assignments are found", () => {
-    expect(get_assignment_nodes(test_app_ast)).toHaveLength(8);
+    const assignment_nodes = get_assignment_nodes(test_app_ast);
+
+    expect(assignment_nodes.map((n) => n.name)).toHaveLength(8);
   });
 });

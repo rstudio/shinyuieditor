@@ -4,9 +4,9 @@ library(gridlayout)
 # Here's a comment about this app
 ui <- grid_page(
   layout = c(
-    "header  header  ",
-    "sidebar bluePlot",
-    "sidebar redPlot "
+    "header  header   ",
+    "sidebar bluePlot2",
+    "sidebar redPlot  "
   ),
   row_sizes = c(
     "110px",
@@ -47,7 +47,7 @@ ui <- grid_page(
     alignment = "start",
     is_title = FALSE
   ),
-  grid_card_plot(area = "bluePlot"),
+  grid_card_plot(area = "bluePlot2"),
   grid_card_plot(area = "redPlot")
 )
 

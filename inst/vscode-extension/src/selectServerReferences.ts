@@ -29,6 +29,7 @@ export async function selectOutputReferences({
       : find_with_regex(app_text, fullOutput);
 
   if (!matches_for_output) {
+    // app_ast_res.type === "SUCCESS" ? app_ast_res.
     vscode.window.showErrorMessage(
       `Failed to find any current use of ${fullOutput} in server`
     );
@@ -101,7 +102,6 @@ export async function selectInputReferences({
     noResultsMessage: `Failed to find any current use of ${fullInput} in server`,
   });
 }
-
 async function selectInEditor(
   editor: vscode.TextEditor,
   selections: vscode.Selection[]

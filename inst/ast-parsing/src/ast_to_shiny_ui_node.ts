@@ -104,6 +104,7 @@ function process_unnamed_arg(
 export function parse_app_ast(ast: R_AST) {
   const assignment_nodes = get_assignment_nodes(ast);
   const ui_node = get_ui_assignment_node(assignment_nodes);
+
   const output_positions = get_output_positions(assignment_nodes);
 
   return {
