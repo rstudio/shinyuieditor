@@ -145,18 +145,10 @@ export async function selectInputReferences({
     );
   });
 
-  // const matches_for_input = find_with_regex(
-  //   editor.document.getText(),
-  //   fullInput
-  // );
-
-  // if (!matches_for_input) {
-  //   vscode.window.showErrorMessage(
-  //     `Failed to find any current use of ${fullInput} in server`
-  //   );
-  //   return;
-  // }
-  //
+  // Force companion editor to be in focus. Otherwise the selection will show up
+  // on whatever was most recently clicked on which can kill the custom editor
+  // etc..
+  vscode.window.showTextDocument(editor.document);
   await selectMultupleLocations({
     uri: editor.document.uri,
     locations: selection_locations,
