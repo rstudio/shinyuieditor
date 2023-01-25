@@ -135,6 +135,30 @@
 <p>🚨 <em>Installation fail? See the <a href="#trouble-installing">Trouble installing section.</a></em></p>
 </div>
 <div class="section level2">
+<h2 id="running">Running<a class="anchor" aria-label="anchor" href="#running"></a>
+</h2>
+<p>There are two main ways to run the UI editor. Using the R packages included <code><a href="reference/launch_editor.html">launch_editor()</a></code> function, or using the VSCode extension.</p>
+<div class="section level3">
+<h3 id="launch_editor">
+<code>launch_editor()</code><a class="anchor" aria-label="anchor" href="#launch_editor"></a>
+</h3>
+<p>In any R console, simply run <code>launch_editor(app_loc = "loc/of/app")</code> and point it to the root of your Shiny app. This will open up a browser window with the UI editor for you.</p>
+</div>
+<div class="section level3">
+<h3 id="vscode-extension">VSCode extension<a class="anchor" aria-label="anchor" href="#vscode-extension"></a>
+</h3>
+<p>In VSCode, install the <code>ShinyUiEditor</code> extension from the marketplace. Once this extension is installed, anytime you open a file with the title ending in <code>app.R</code> you will see a small icon for running the ui editor in the top right.</p>
+<div class="figure">
+<img src="https://github.com/rstudio/shinyuieditor/raw/dev/inst/vscode-extension/assets/run-sue-btn.png" alt=""><p class="caption">Button to run ShinyUiEditor on app file</p>
+</div>
+<p>Click that icon to start the ui editor.</p>
+<p>Alternatively, if you wish to start a new app with the ui editor you can open the command palette and run the command <code>shinyuieditor.launchEditor</code> (or “Launch ShinyUiEditor”) to choose an app location for editing an existing app or creating a new one from a template.</p>
+<div class="figure">
+<img src="https://github.com/rstudio/shinyuieditor/raw/dev/inst/vscode-extension/assets/launch-editor-cmd.png" alt=""><p class="caption">Launch editor command</p>
+</div>
+</div>
+</div>
+<div class="section level2">
 <h2 id="feedback">Feedback<a class="anchor" aria-label="anchor" href="#feedback"></a>
 </h2>
 <p>Found a bug or want to suggest a feature? Use the github issues page: <a href="https://github.com/rstudio/shinyuieditor/issues" class="external-link">github repo’s issues.</a>.</p>

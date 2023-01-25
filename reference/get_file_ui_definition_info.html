@@ -93,7 +93,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_file_ui_definition_info</span><span class="op">(</span><span class="va">file_lines</span>, type <span class="op">=</span> <span class="st">"single-file"</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_file_ui_definition_info</span><span class="op">(</span><span class="va">file_lines</span>, type <span class="op">=</span> <span class="st">"SINGLE-FILE"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -104,8 +104,8 @@ shiny app's ui (as from <code><a href="https://rdrr.io/r/base/readLines.html" cl
 
 
 <dt>type</dt>
-<dd><p>Is the app a single-file app? E.g. app is container entirely in
-<code>app.R</code>? Or is it <code>multi-file</code>?</p></dd>
+<dd><p>Is the app a SINGLE-FILE app? E.g. app is container entirely in
+<code>app.R</code>? Or is it <code>MULTI-FILE</code>?</p></dd>
 
 </dl></div>
     <div id="value">
@@ -130,9 +130,9 @@ via <code><a href="https://rdrr.io/r/base/library.html" class="external-link">li
 <span class="r-in"><span>  <span class="st">"app-templates/geyser/app.R"</span>,</span></span>
 <span class="r-in"><span>  package <span class="op">=</span> <span class="st">"shinyuieditor"</span></span></span>
 <span class="r-in"><span> <span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">shinyuieditor</span><span class="fu">:::</span><span class="fu">get_file_ui_definition_info</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="va">app_loc</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"single-file"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">shinyuieditor</span><span class="fu">:::</span><span class="fu">get_file_ui_definition_info</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="va">app_loc</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"SINGLE-FILE"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "single-file"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "SINGLE-FILE"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $file_lines</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "library(shiny)"                                                 </span>
@@ -217,6 +217,9 @@ via <code><a href="https://rdrr.io/r/base/library.html" class="external-link">li
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "gridlayout::grid_page"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $ui_tree$uiArguments</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ui_tree$uiArguments$layout</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "header  header  " "sidebar distPlot" "sidebar bluePlot"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $ui_tree$uiArguments$row_sizes</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "100px" "1fr"   "1fr"  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -225,12 +228,6 @@ via <code><a href="https://rdrr.io/r/base/library.html" class="external-link">li
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $ui_tree$uiArguments$gap_size</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1rem"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ui_tree$uiArguments$areas</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1]      [,2]      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] "header"  "header"  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] "sidebar" "distPlot"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] "sidebar" "bluePlot"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $ui_tree$uiChildren</span>
@@ -324,9 +321,9 @@ via <code><a href="https://rdrr.io/r/base/library.html" class="external-link">li
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Also handles multi-file apps</span></span></span>
 <span class="r-in"><span><span class="va">app_loc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"app-templates/geyser_multi-file/ui.R"</span>, package <span class="op">=</span> <span class="st">"shinyuieditor"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">shinyuieditor</span><span class="fu">:::</span><span class="fu">get_file_ui_definition_info</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="va">app_loc</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"multi-file"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">shinyuieditor</span><span class="fu">:::</span><span class="fu">get_file_ui_definition_info</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="va">app_loc</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"MULTI-FILE"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "multi-file"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "MULTI-FILE"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $file_lines</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "library(gridlayout)"                   </span>
@@ -383,6 +380,9 @@ via <code><a href="https://rdrr.io/r/base/library.html" class="external-link">li
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "gridlayout::grid_page"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $ui_tree$uiArguments</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ui_tree$uiArguments$layout</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "header  header  " "sidebar bluePlot" "sidebar distPlot"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $ui_tree$uiArguments$row_sizes</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "100px" "1fr"   "1fr"  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -391,12 +391,6 @@ via <code><a href="https://rdrr.io/r/base/library.html" class="external-link">li
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $ui_tree$uiArguments$gap_size</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "15px"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ui_tree$uiArguments$areas</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1]      [,2]      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] "header"  "header"  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] "sidebar" "bluePlot"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] "sidebar" "distPlot"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $ui_tree$uiChildren</span>
