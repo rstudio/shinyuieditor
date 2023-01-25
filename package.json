@@ -1,0 +1,19 @@
+{
+  "private": true,
+  "workspaces": [
+    "inst/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "prod": "turbo run prod",
+    "test": "turbo run test",
+    "playwright": "turbo run playwright",
+    "update-visual-snapshots": "turbo run update-visual-snapshots",
+    "type-check": "turbo run type-check",
+    "watch": "turbo run watch --parallel --continue"
+  },
+  "devDependencies": {
+    "husky": "^8.0.2",
+    "turbo": "^1.6.3"
+  }
+}

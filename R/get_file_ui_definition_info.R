@@ -2,8 +2,8 @@
 #'
 #' @param file_lines Character vector of the lines of the file that defines a
 #'   shiny app's ui (as from `readLines()`).
-#' @param type Is the app a single-file app? E.g. app is container entirely in
-#'   `app.R`? Or is it `multi-file`?
+#' @param type Is the app a SINGLE-FILE app? E.g. app is container entirely in
+#'   `app.R`? Or is it `MULTI-FILE`?
 #'
 #'
 #' @return List with both the `type` and `file_lines` mirrored from the
@@ -23,17 +23,17 @@
 #'   "app-templates/geyser/app.R",
 #'   package = "shinyuieditor"
 #'  )
-#' shinyuieditor:::get_file_ui_definition_info(readLines(app_loc), type = "single-file")
+#' shinyuieditor:::get_file_ui_definition_info(readLines(app_loc), type = "SINGLE-FILE")
 #'
 #' # Also handles multi-file apps
 #' app_loc <- system.file("app-templates/geyser_multi-file/ui.R", package = "shinyuieditor")
-#' shinyuieditor:::get_file_ui_definition_info(readLines(app_loc), type = "multi-file")
+#' shinyuieditor:::get_file_ui_definition_info(readLines(app_loc), type = "MULTI-FILE")
 #'
-get_file_ui_definition_info <- function(file_lines, type = "single-file") {
+get_file_ui_definition_info <- function(file_lines, type = "SINGLE-FILE") {
   parsed <- parse(text = file_lines, keep.source = TRUE)
 
   idx <- 0
-  if (type == "single-file") {
+  if (type == "SINGLE-FILE") {
     for (i in seq_len(length(parsed))) {
       node <- parsed[[i]]
       if (inherits(node, "<-") && identical(node[[2]], as.name("ui"))) {
@@ -50,10 +50,12 @@ get_file_ui_definition_info <- function(file_lines, type = "single-file") {
     # expression is an assignment we need to get the third element of the AST
     # to get the actual ui definition
     ui_expr <- parsed[[idx]][[3]]
-  } else {
+  } else if (type == "MULTI-FILE"){
     # Last node in parsed file should be the ui definition
     idx <- length(parsed)
     ui_expr <- parsed[[idx]]
+  } else {
+    stop("Unknown app type", type, "Options include \"SINGLE-FILE\" and \"MULTI-FILE\"")
   }
 
   ui_srcref <- attr(parsed, "srcref")[[idx]]
@@ -139,7 +141,7 @@ update_ui_definition <- function(file_info, new_ui_tree, remove_namespace = TRUE
   additional_library_lines <- create_library_calls(libraries_to_add)
 
   # Our new ui text doesn't have the assignment on it so we need to add that
-  if (file_info$type == "single-file") {
+  if (file_info$type == "SINGLE-FILE") {
     new_ui_lines[1] <- paste("ui <-", new_ui_lines[1])
   }
 

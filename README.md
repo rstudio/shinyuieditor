@@ -24,6 +24,26 @@ remotes::install_github("rstudio/shinyuieditor")
 
 🚨 _Installation fail? See the [Trouble installing section.](#trouble-installing)_
 
+## Running
+
+There are two main ways to run the UI editor. Using the R packages included `launch_editor()` function, or using the VSCode extension.
+
+### `launch_editor()`
+
+In any R console, simply run `launch_editor(app_loc = "loc/of/app")` and point it to the root of your Shiny app. This will open up a browser window with the UI editor for you.
+
+### VSCode extension
+
+In VSCode, install the `ShinyUiEditor` extension from the marketplace. Once this extension is installed, anytime you open a file with the title ending in `app.R` you will see a small icon for running the ui editor in the top right.
+
+![Button to run ShinyUiEditor on app file](https://github.com/rstudio/shinyuieditor/raw/dev/inst/vscode-extension/assets/run-sue-btn.png)
+
+Click that icon to start the ui editor.
+
+Alternatively, if you wish to start a new app with the ui editor you can open the command palette and run the command `shinyuieditor.launchEditor` (or "Launch ShinyUiEditor") to choose an app location for editing an existing app or creating a new one from a template.
+
+![Launch editor command](https://github.com/rstudio/shinyuieditor/raw/dev/inst/vscode-extension/assets/launch-editor-cmd.png)
+
 ## Feedback
 
 Found a bug or want to suggest a feature? Use the github issues page: [github repo's issues.](https://github.com/rstudio/shinyuieditor/issues).

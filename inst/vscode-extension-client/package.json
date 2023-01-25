@@ -1,0 +1,22 @@
+{
+  "name": "vscode-extension-client",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@types/vscode": "^1.65.0",
+    "editor": "*",
+    "tsconfig": "*",
+    "tsx": "^3.12.1",
+    "typescript": "^4.9.3"
+  },
+  "scripts": {
+    "dev": "tsx scripts/build.ts",
+    "watch": "tsx scripts/build.ts --watch",
+    "prod": "tsx scripts/build.ts --prod",
+    "type-check": "tsc -p ./ --noEmit"
+  },
+  "devDependencies": {
+    "@types/vscode-webview": "^1.57.0",
+    "build-utils": "*"
+  }
+}

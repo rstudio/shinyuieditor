@@ -1,0 +1,11 @@
+{
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "features": {
+    "ghcr.io/rocker-org/devcontainer-features/r-rig:latest": {
+      "installDevTools": "true"
+    }
+  },
+  "remoteEnv": {
+    "PKG_SYSREQS": "true"
+  }
+}

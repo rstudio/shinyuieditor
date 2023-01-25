@@ -1,6 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^inst\/ui\-editor\-react\/(?!build).+$
+^shinyuieditor-hex\.png$
 ^scratch$
 ^LICENSE\.md$
 ^_pkgdown\.yml$
@@ -9,5 +9,18 @@
 ^\.github$
 ^vignettes/ui-editor-live-demo\.Rmd$
 ^\.hintrc$
+^\.yarnrc\.yml$
 ^\.lintr$
 ^\.vscode$
+^\.eslintrc.json$
+^\.husky$
+^package\.json$
+^turbo\.json$
+^yarn\.lock$
+^inst\/editor\/(?!build).+$
+^inst\/build-utils$
+^inst\/communication-types$
+^inst\/communication-types$
+^inst\/vscode-extension$
+^inst\/vscode-extension-client$
+^node_modules$

@@ -1,3 +1,17 @@
+# shinyuieditor 0.3.3
+
+### Major new features and improvements
+
+- There's now a VSCode extension for running the ui editor. It adds a button for jumping from an app script directly into the UI editor and opening app code alongside editor.
+
+### Minor new features and improvements
+
+- Elements can now be deleted and changes undone and redone using the keyboard (#131, #135)
+
+### Bug fixes
+
+- Fix bug where deleting the only item in a container then deleting that container could crash app (#a27d440)
+
 # shinyuieditor 0.3.2
 
 ### Major new features and improvements

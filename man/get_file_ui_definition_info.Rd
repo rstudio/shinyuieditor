@@ -4,14 +4,14 @@
 \alias{get_file_ui_definition_info}
 \title{Get app ui information from script}
 \usage{
-get_file_ui_definition_info(file_lines, type = "single-file")
+get_file_ui_definition_info(file_lines, type = "SINGLE-FILE")
 }
 \arguments{
 \item{file_lines}{Character vector of the lines of the file that defines a
 shiny app's ui (as from \code{readLines()}).}
 
-\item{type}{Is the app a single-file app? E.g. app is container entirely in
-\code{app.R}? Or is it \code{multi-file}?}
+\item{type}{Is the app a SINGLE-FILE app? E.g. app is container entirely in
+\code{app.R}? Or is it \code{MULTI-FILE}?}
 }
 \value{
 List with both the \code{type} and \code{file_lines} mirrored from the
@@ -33,10 +33,10 @@ app_loc <- system.file(
   "app-templates/geyser/app.R",
   package = "shinyuieditor"
  )
-shinyuieditor:::get_file_ui_definition_info(readLines(app_loc), type = "single-file")
+shinyuieditor:::get_file_ui_definition_info(readLines(app_loc), type = "SINGLE-FILE")
 
 # Also handles multi-file apps
 app_loc <- system.file("app-templates/geyser_multi-file/ui.R", package = "shinyuieditor")
-shinyuieditor:::get_file_ui_definition_info(readLines(app_loc), type = "multi-file")
+shinyuieditor:::get_file_ui_definition_info(readLines(app_loc), type = "MULTI-FILE")
 
 }

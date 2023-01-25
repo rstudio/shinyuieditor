@@ -13,6 +13,9 @@ jobs:
     # Common with standard build
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./inst/editor
     steps:
       # Checkout with personal TOKEN
       # and hop on the PR branch
@@ -38,6 +41,7 @@ jobs:
         with:
           node-version: "16.x"
       - name: Install JS dependencies
+        working-directory: ./inst/editor
         run: yarn install
         shell: bash
       - name: Install Playwright Browsers

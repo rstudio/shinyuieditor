@@ -1,0 +1,32 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "dev": {
+      "inputs": ["src/**/*.tsx", "src/**/*.ts", "assets/"],
+      "outputs": ["build/**", "media/build/**"],
+      "dependsOn": ["^dev"],
+      "outputMode": "new-only"
+    },
+    "prod": {
+      "inputs": ["src/**/*.tsx", "src/**/*.ts", "assets/"],
+      "outputs": ["build/**", "media/build/**", "vscode-extension-*.vsix"],
+      "outputMode": "new-only"
+    },
+    "type-check": {
+      "outputs": [],
+      "inputs": ["src/**/*.tsx", "src/**/*.ts"],
+      "outputMode": "new-only"
+    },
+    "test": {
+      "inputs": ["src/**/*.tsx", "src/**/*.ts"],
+      "outputs": [],
+      "outputMode": "new-only"
+    },
+    "playwright": {
+      "cache": false,
+      "outputs": []
+    },
+    "update-visual-snapshots": { "cache": false },
+    "watch": { "cache": false }
+  }
+}

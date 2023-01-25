@@ -13,13 +13,13 @@ ui <- grid_page(
     "table   bluePlot"
   ),
   row_sizes = c(
-    "100px",
+    "125px",
     "1fr",
     "1fr",
     "1fr"
   ),
   col_sizes = c(
-    "505px",
+    "735px",
     "1fr"
   ),
   gap_size = "1rem",

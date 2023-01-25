@@ -1,0 +1,133 @@
+{
+  "name": "vscode-extension",
+  "displayName": "ShinyUiEditor",
+  "description": "Visual editor interface for constructing R Shiny app UIs",
+  "version": "0.0.1",
+  "publisher": "posit",
+  "icon": "assets/shinyuieditor-hex.png",
+  "private": true,
+  "license": "MIT",
+  "keywords": [
+    "RStats",
+    "drag-and-drop",
+    "shiny",
+    "dashboard"
+  ],
+  "categories": [
+    "Data Science",
+    "Other"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rstudio/shinyuieditor/"
+  },
+  "homepage": "https://rstudio.github.io/shinyuieditor/",
+  "bugs": {
+    "url": "https://github.com/rstudio/shinyuieditor/issues"
+  },
+  "engines": {
+    "vscode": "^1.65.0"
+  },
+  "activationEvents": [
+    "onCustomEditor:shinyuieditor.appFile",
+    "onCommand:shinyuieditor.startEditorOnActiveFile",
+    "onCommand:shinyuieditor.launchEditor"
+  ],
+  "main": "./build/extension.js",
+  "contributes": {
+    "customEditors": [
+      {
+        "viewType": "shinyuieditor.appFile",
+        "displayName": "ShinyUiEditor",
+        "priority": "option",
+        "selector": [
+          {
+            "filenamePattern": "*app.R"
+          }
+        ]
+      }
+    ],
+    "commands": [
+      {
+        "command": "shinyuieditor.startEditorOnActiveFile",
+        "title": "Start ShinyUiEditor on current file",
+        "icon": {
+          "light": "./assets/shinyuieditor-icon-light.svg",
+          "dark": "./assets/shinyuieditor-icon-dark.svg"
+        }
+      },
+      {
+        "command": "shinyuieditor.launchEditor",
+        "title": "Launch ShinyUiEditor"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "when": "resourceFilename =~ /app.R/",
+          "command": "shinyuieditor.startEditorOnActiveFile"
+        }
+      ],
+      "editor/title": [
+        {
+          "when": "resourceFilename =~ /app.R/",
+          "command": "shinyuieditor.startEditorOnActiveFile",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "ShinyUiEditor",
+      "type": "object",
+      "properties": {
+        "shinyuieditor.rpath.windows": {
+          "type": "string",
+          "default": "",
+          "description": "Path to an R executable to launch R background processes for R Shiny applications/ code formatting (Windows)."
+        },
+        "shinyuieditor.rpath.mac": {
+          "type": "string",
+          "default": "",
+          "description": "Path to an R executable to launch R background processes for R Shiny applications/ code formatting (macOS)."
+        },
+        "shinyuieditor.rpath.linux": {
+          "type": "string",
+          "default": "",
+          "description": "Path to an R executable to launch R background processes for R Shiny applications/ code formatting (Linux)."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "dev": "tsx scripts/build.ts",
+    "watch": "tsx scripts/build.ts --watch",
+    "prod": "vsce package",
+    "vscode:prepublish": "tsx scripts/build.ts --prod",
+    "lint": "eslint \"src/**/*.ts\"",
+    "type-check": "tsc -p ./ --noEmit",
+    "test": "jest",
+    "test-watch": "jest --watch",
+    "benchmark": "tsx scripts/benchmark.ts"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.2.4",
+    "@types/node": "^16.11.7",
+    "@types/vscode": "^1.65.0",
+    "@types/winreg": "^1.2.31",
+    "@typescript-eslint/eslint-plugin": "^5.42.0",
+    "@typescript-eslint/parser": "^5.42.0",
+    "@vscode/vsce": "latest",
+    "build-utils": "*",
+    "communication-types": "*",
+    "eslint": "^8.26.0",
+    "jest": "^29.3.1",
+    "ts-jest": "^29.0.3",
+    "tsconfig": "*",
+    "tsx": "^3.12.1",
+    "typescript": "^4.9.3"
+  },
+  "dependencies": {
+    "just-debounce-it": "^3.1.1",
+    "winreg": "^1.2.4"
+  }
+}

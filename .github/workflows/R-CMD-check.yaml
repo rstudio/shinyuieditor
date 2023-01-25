@@ -33,7 +33,7 @@ jobs:
       - uses: ./.github/internals/setup-js
 
       - name: Build demo app for site
-        working-directory: ./inst/ui-editor-react
+        working-directory: ./inst/editor
         run: yarn build-website-demo
 
       - uses: r-lib/actions/setup-pandoc@v2
