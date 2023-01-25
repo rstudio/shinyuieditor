@@ -1,9 +1,8 @@
 import { createListenerMiddleware } from "@reduxjs/toolkit";
 
-import { nodesShareCommonParent } from "../components/UiNode/TreeManipulation/nodesShareCommonParent";
-import { sameArray } from "../utils/equalityCheckers";
+import { getNewSelectionPathAfterDeletion } from "../components/UiNode/TreeManipulation/getNewSelectionPathAfterDeletion";
 
-import { SET_SELECTION, STEP_BACK_SELECTION } from "./selectedPath";
+import { SET_SELECTION } from "./selectedPath";
 import type { RootState } from "./store";
 import { DELETE_NODE } from "./uiTree";
 
@@ -24,38 +23,18 @@ listenForDeleteMiddleware.startListening({
     const deletedPath = action.payload.path;
     const selectedPath = (listenerApi.getState() as RootState).selectedPath;
 
+    // console.log("Deciding new path based on", { deletedPath, selectedPath });
+
     // If nothing is selected then we dont need to worry about deleting the
     // current selection
-    if (selectedPath === null || selectedPath.length === 0) return;
+    if (selectedPath === null) return;
 
-    // Backup selection if it's the same as the deleted node
-    if (sameArray(deletedPath, selectedPath)) {
-      listenerApi.dispatch(STEP_BACK_SELECTION());
-    }
+    const updatedSelection = getNewSelectionPathAfterDeletion({
+      selectedPath,
+      deletedPath,
+    });
 
-    // If the selection is earlier in the tree than the deleted node then
-    // there's no need to change anything as that part of the tree will not be
-    // touched
-    if (selectedPath.length < deletedPath.length) return;
-
-    // If the selected path and the deleted node share a common parent
-    // and the selected paths's index is higher than the deleted ones, we will
-    // need to shift the selected path to account for the moving of the tree
-    if (!nodesShareCommonParent(selectedPath, deletedPath)) return;
-
-    const finalPosOfDeleted = deletedPath[deletedPath.length - 1];
-    const positionOfSelected = selectedPath[deletedPath.length - 1];
-
-    // Deleted node is later in the children of parent than the selected so the
-    // index of selection will not update
-    if (finalPosOfDeleted > positionOfSelected) return;
-
-    // Now just make a new version of the selected path with common parent index
-    // shifted down to reflect new tree shape
-    const newSelectionPath = [...selectedPath];
-    newSelectionPath[deletedPath.length - 1] = positionOfSelected - 1;
-    listenerApi.dispatch(SET_SELECTION({ path: newSelectionPath }));
+    listenerApi.dispatch(SET_SELECTION({ path: updatedSelection }));
   },
 });
-
 export default listenForDeleteMiddleware.middleware;
