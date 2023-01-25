@@ -1,5 +1,7 @@
 import type { ButtonHTMLAttributes } from "react";
 
+import { mergeClasses } from "../../../utils/mergeClasses";
+
 import classes from "./Button.module.css";
 
 type ButtonVariant = "delete" | "regular" | "icon" | "transparent";
@@ -16,12 +18,7 @@ const Button: React.FC<
     : "";
   return (
     <button
-      className={
-        classes.button +
-        " " +
-        variant_classes +
-        (className ? " " + className : "")
-      }
+      className={mergeClasses(classes.button, variant_classes, className)}
       {...passthroughProps}
     >
       {children}

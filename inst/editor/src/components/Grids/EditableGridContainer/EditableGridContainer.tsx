@@ -7,6 +7,7 @@ import type { TractDirection } from "../../../Shiny-Ui-Elements/GridlayoutGridPa
 import { ensureArray } from "../../../utils/array-helpers";
 import addTract from "../../../utils/gridTemplates/addTract";
 import removeTract from "../../../utils/gridTemplates/removeTract";
+import { mergeClasses } from "../../../utils/mergeClasses";
 import type { CSSMeasure } from "../../Inputs/CSSUnitInput/CSSMeasure";
 
 import classes from "./resizableGrid.module.css";
@@ -98,7 +99,7 @@ function EditableGridContainer({
   }, []);
   return (
     <div
-      className={containerClasses.join(" ")}
+      className={mergeClasses(...containerClasses)}
       ref={containerRef}
       style={styles}
     >

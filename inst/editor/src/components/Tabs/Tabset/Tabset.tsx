@@ -12,6 +12,7 @@ import {
 import type { NodePath } from "../../../Shiny-Ui-Elements/uiNodeTypes";
 import { usePlaceNode } from "../../../state/uiTree";
 import { seqArray } from "../../../utils/array-helpers";
+import { mergeClasses } from "../../../utils/mergeClasses";
 import { PopoverButton } from "../../Inputs/PopoverButton";
 import { nodeDepth } from "../../UiNode/TreeManipulation/nodeDepth";
 
@@ -62,7 +63,7 @@ function Tabset({
   }, [activeTab, path, selectedPath, setActiveTab]);
 
   return (
-    <div className={[className, classes.container].join(" ")} {...divProps}>
+    <div className={mergeClasses(className, classes.container)} {...divProps}>
       <div className={classes.header}>
         <h1 className={classes.pageTitle}>{title}</h1>
         <div className={classes.tabHolder} aria-label="tabs container">

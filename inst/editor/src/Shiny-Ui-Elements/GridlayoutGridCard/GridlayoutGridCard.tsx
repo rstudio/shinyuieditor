@@ -6,8 +6,9 @@ import {
   BsCardHeader,
 } from "../../components/Grids/GridLayoutPanelHelpers/GridCards";
 import UiNode from "../../components/UiNode/UiNode";
+import { mergeClasses } from "../../utils/mergeClasses";
 import { makeChildPath } from "../nodePathUtils";
-import type { UiNodeComponent, NodePath } from "../uiNodeTypes";
+import type { NodePath, UiNodeComponent } from "../uiNodeTypes";
 
 import type { GridCardSettings } from "./index";
 
@@ -28,7 +29,10 @@ const GridlayoutGridCard: UiNodeComponent<GridCardSettings> = ({
 
   return (
     <BsCard
-      className={classes.container + " " + (title ? classes.withTitle : "")}
+      className={mergeClasses(
+        classes.container,
+        title ? classes.withTitle : null
+      )}
       ref={compRef}
       style={
         {
@@ -87,7 +91,7 @@ function DropWatcherPanel({
   return (
     <div
       ref={watcherRef}
-      className={classes.dropWatcher + " " + position_class}
+      className={mergeClasses(classes.dropWatcher, position_class)}
       role="region"
       aria-label="drop watcher"
     />

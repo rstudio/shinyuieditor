@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import { BsCard } from "../../components/Grids/GridLayoutPanelHelpers/GridCards";
+import { mergeClasses } from "../../utils/mergeClasses";
 import { useGridItemSwapping } from "../GridlayoutGridCard/useGridItemSwapping";
 import { PlotPlaceholder } from "../ShinyPlotOutput/PlotPlaceholder";
 import type { UiNodeComponent } from "../uiNodeTypes";
@@ -22,7 +23,7 @@ const GridlayoutGridCardPlot: UiNodeComponent<GridlayoutGridCardPlotProps> = ({
     <BsCard
       ref={compRef}
       style={{ gridArea: area }}
-      className={classes.gridCardPlot + " gridlayout-gridCardPlot"}
+      className={mergeClasses(classes.gridCardPlot, "gridlayout-gridCardPlot")}
       {...wrapperProps}
     >
       <PlotPlaceholder outputId={outputId ?? area} />

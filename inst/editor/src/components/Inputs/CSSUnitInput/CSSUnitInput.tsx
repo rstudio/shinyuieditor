@@ -1,5 +1,6 @@
 import React from "react";
 
+import { mergeClasses } from "../../../utils/mergeClasses";
 import { NumberInputSimple } from "../NumberInput/NumberInput";
 import type { InputComponentProps } from "../SettingsFormBuilder/inputFieldTypes";
 import { makeLabelId } from "../SettingsFormBuilder/inputFieldTypes";
@@ -90,7 +91,7 @@ export function CSSUnitInput({
 
   return (
     <div
-      className={`SUE-Input ${classes.wrapper}`}
+      className={mergeClasses("SUE-Input", classes.wrapper)}
       aria-label={label}
       aria-labelledby={makeLabelId(id)}
     >

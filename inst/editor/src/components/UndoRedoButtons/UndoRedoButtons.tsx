@@ -1,4 +1,5 @@
 import type { HistoryInfo } from "../../state-logic/useUndoRedo";
+import { mergeClasses } from "../../utils/mergeClasses";
 import { Redo, Undo } from "../Icons";
 import Button from "../Inputs/Button/Button";
 
@@ -11,7 +12,7 @@ export function UndoRedoButtons({
   canGoForward,
 }: HistoryInfo) {
   return (
-    <div className={classes.container + " undo-redo-buttons"}>
+    <div className={mergeClasses(classes.container, "undo-redo-buttons")}>
       <Button
         variant={["transparent", "icon"]}
         disabled={!canGoBackward}
