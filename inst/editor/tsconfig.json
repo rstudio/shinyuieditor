@@ -1,5 +1,8 @@
 {
   "extends": "tsconfig/base.json",
   "include": ["src", "src/globals.d.ts"],
-  "exclude": ["node_modules", "**/.module.css"]
+  "exclude": ["node_modules", "**/.module.css"],
+  "compilerOptions": {
+    "plugins": [{ "name": "typescript-plugin-css-modules" }]
+  }
 }

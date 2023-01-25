@@ -6,9 +6,10 @@ import type { TemplatedGridProps } from "../../components/Grids/EditableGridCont
 import type { ResizeDirection } from "../../utils/gridTemplates/availableMoves";
 import { availableMoves } from "../../utils/gridTemplates/availableMoves";
 import type {
-  ItemLocation,
   GridItemExtent,
+  ItemLocation,
 } from "../../utils/gridTemplates/types";
+import { mergeClasses } from "../../utils/mergeClasses";
 
 import classes from "./AreaOverlay.module.css";
 import { useResizeOnDrag } from "./useResizeOnDrag";
@@ -48,7 +49,7 @@ export function AreaOverlay({
       movementArrows.push(
         <div
           key={resizeDir}
-          className={classes.dragger + " " + resizeDir}
+          className={mergeClasses(classes.dragger, resizeDir)}
           title={`resize ${area} ${resizeDir}`}
           onMouseDown={(e) => {
             stopEventPropigation(e);

@@ -1,3 +1,4 @@
+import { mergeClasses } from "../../../utils/mergeClasses";
 import type { InputComponentProps } from "../SettingsFormBuilder/inputFieldTypes";
 import { makeLabelId } from "../SettingsFormBuilder/inputFieldTypes";
 
@@ -15,7 +16,7 @@ export function BooleanInput({
   return (
     <>
       <input
-        className={`SUE-Input ${classes.checkboxInput}`}
+        className={mergeClasses("SUE-Input", classes.checkboxInput)}
         id={checkboxId}
         aria-labelledby={makeLabelId(id)}
         aria-label={label}

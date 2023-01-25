@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import { NumberInputSimple } from "../../components/Inputs/NumberInput/NumberInput";
+import { mergeClasses } from "../../utils/mergeClasses";
 import type { UiNodeComponent } from "../uiNodeTypes";
 
 import type { ShinyNumericInputProps } from ".";
@@ -23,7 +24,7 @@ const ShinyNumericInput: UiNodeComponent<ShinyNumericInputProps> = ({
 
   return (
     <div
-      className={classes.container + " shiny::numericInput"}
+      className={mergeClasses(classes.container, "shiny::numericInput")}
       style={{ width }}
       {...wrapperProps}
     >

@@ -10,7 +10,7 @@ test("Updating the area name of a grid item propigates through rest of app prope
 
   await page.goto("/");
 
-  //   The default state is no selection thus the proceed button shouldn't be allowed
+  // The default state is no selection thus the proceed button shouldn't be allowed
   await expect(page.locator(`text=Select a template`)).toBeDisabled();
 
   // Check that the filtering works
@@ -19,13 +19,13 @@ test("Updating the area name of a grid item propigates through rest of app prope
   await expect(page.getByTitle(/navbarPage/i)).not.toHaveCount(0);
 
   // Hide tab layouts using filter
-  await page.getByLabel("Tabs").click();
+  await page.getByLabel("Tabs", { exact: true }).click();
 
   // Now no tab apps should be visible
   await expect(page.getByTitle(/navbarPage layout app/i)).toHaveCount(0);
 
   // Reset tabs filter
-  await page.getByLabel("Tabs").click();
+  await page.getByLabel("Tabs", { exact: true }).click();
 
   // Select a given template
   await page

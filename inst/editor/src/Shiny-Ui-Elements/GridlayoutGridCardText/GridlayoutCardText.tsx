@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import { BsCard } from "../../components/Grids/GridLayoutPanelHelpers/GridCards";
+import { mergeClasses } from "../../utils/mergeClasses";
 import { useGridItemSwapping } from "../GridlayoutGridCard/useGridItemSwapping";
 import type { UiNodeComponent } from "../uiNodeTypes";
 
@@ -20,7 +21,7 @@ const GridlayoutGridCardText: UiNodeComponent<GridlayoutGridCardTextProps> = ({
   return (
     <BsCard
       ref={compRef}
-      className={classes.textPanel + " gridlayout-textPanel"}
+      className={mergeClasses(classes.textPanel, "gridlayout-textPanel")}
       style={{ gridArea: area, justifyItems: alignment }}
       {...wrapperProps}
     >

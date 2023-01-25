@@ -1,5 +1,7 @@
 import React from "react";
 
+import { mergeClasses } from "../../utils/mergeClasses";
+
 import previewClasses from "./AppPreview.module.css";
 import classes from "./FakeDashboard.module.css";
 
@@ -7,7 +9,10 @@ const FakeDashboard = () => {
   return (
     <div className={previewClasses.appContainer}>
       <div
-        className={classes.fakeDashboard + " " + previewClasses.previewFrame}
+        className={mergeClasses(
+          classes.fakeDashboard,
+          previewClasses.previewFrame
+        )}
       >
         <div className={classes.header}>
           <h1>App preview not available</h1>

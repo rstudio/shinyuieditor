@@ -15,7 +15,7 @@ export function useUpdateSettings(tree: ShinyUiNode) {
   const [selectedPath, setNodeSelection] = useNodeSelectionState();
 
   const [currentNode, setCurrentNode] = React.useState<ShinyUiNode | null>(
-    selectedPath !== null ? getNode(tree, selectedPath) : null
+    selectedPath !== null ? safeGetNode(tree, selectedPath) : null
   );
 
   // When the selection changes it triggers a change in the currentNode variable
@@ -44,13 +44,7 @@ export function useUpdateSettings(tree: ShinyUiNode) {
       setCurrentNode(null);
       return;
     }
-    const selectedNode = getNode(tree, selectedPath);
-
-    // Sometimes the selection will fail because the selected node was just
-    // moved. In this case back up until we get to an available parent
-    if (selectedNode === undefined) return;
-
-    setCurrentNode(getNode(tree, selectedPath));
+    setCurrentNode(safeGetNode(tree, selectedPath));
   }, [tree, selectedPath]);
 
   React.useEffect(() => {
@@ -95,4 +89,20 @@ export function useUpdateSettings(tree: ShinyUiNode) {
     selectedPath,
     setNodeSelection,
   };
+}
+
+// Sometimes we may have a twisted state due to inconsistant timings of events
+// firing. This makes sure that we don't crash the app if we try and go into a
+// node that's about to be deleted. Ideally this should not ever trigger the
+// catch, but just in case.
+function safeGetNode(
+  ...opts: Parameters<typeof getNode>
+): ReturnType<typeof getNode> | null {
+  try {
+    return getNode(...opts);
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.warn("Failed to get node. Args:", opts);
+    return null;
+  }
 }

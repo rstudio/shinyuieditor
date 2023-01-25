@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import { mergeClasses } from "../../utils/mergeClasses";
 import type { UiNodeComponent } from "../uiNodeTypes";
 
 import type { ShinyTextInputProps } from ".";
@@ -22,7 +23,7 @@ const ShinyTextInput: UiNodeComponent<ShinyTextInputProps> = ({
 
   return (
     <div
-      className={classes.container + " shiny::textInput"}
+      className={mergeClasses(classes.container, "shiny::textInput")}
       style={{ height, width }}
       {...wrapperProps}
     >

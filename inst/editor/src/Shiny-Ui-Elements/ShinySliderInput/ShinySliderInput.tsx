@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import { mergeClasses } from "../../utils/mergeClasses";
 import { InputOutputTitle } from "../InputOutputTitle";
 import type { UiNodeComponent } from "../uiNodeTypes";
 
@@ -16,7 +17,7 @@ const ShinySliderInput: UiNodeComponent<ShinySliderInputProps> = ({
   const [currentVal, setCurrentVal] = React.useState(settings.value);
   return (
     <div
-      className={classes.container + " shiny::sliderInput"}
+      className={mergeClasses(classes.container, "shiny::sliderInput")}
       style={{ width }}
       {...wrapperProps}
     >

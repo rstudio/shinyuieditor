@@ -1,6 +1,6 @@
 import type { ShinyUiNode } from "editor";
 
-import { collapseText, escapeDoubleQuotes } from "../string-utils";
+import { collapseText, makePortableString } from "../string-utils";
 
 import type { ActiveRSession } from "./startBackgroundRProcess";
 
@@ -32,7 +32,7 @@ function buildGeneratingCommand(
   uiTree: ShinyUiNode,
   removeNamespace: boolean = true
 ) {
-  const jsonifiedTree = escapeDoubleQuotes(JSON.stringify(uiTree, null, 2));
+  const jsonifiedTree = makePortableString(JSON.stringify(uiTree));
 
   const removeNamespaceArg = removeNamespace ? "TRUE" : "FALSE";
   return collapseText(

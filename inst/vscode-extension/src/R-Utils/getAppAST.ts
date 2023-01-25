@@ -1,6 +1,6 @@
 import type { R_AST } from "editor/src/ast_parsing/r_ast";
 
-import { collapseText, escapeDoubleQuotes } from "../string-utils";
+import { collapseText, makePortableString } from "../string-utils";
 
 import type { CommandOutputGeneric } from "./runRCommand";
 import type { ActiveRSession } from "./startBackgroundRProcess";
@@ -9,7 +9,7 @@ export async function getAppAST(
   rProc: ActiveRSession,
   fileText: string
 ): Promise<CommandOutputGeneric<R_AST | "EMPTY">> {
-  const escapedAppText = escapeDoubleQuotes(fileText);
+  const escapedAppText = makePortableString(fileText);
 
   const parseCommand = collapseText(
     `app_lines <- strsplit("${escapedAppText}", "\\n")[[1]]`,
