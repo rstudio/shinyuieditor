@@ -10,6 +10,8 @@
 
 ### Bug fixes
 
+- Fix bug where deleting the only item in a container then deleting that container could crash app (#a27d440)
+
 # shinyuieditor 0.3.2
 
 ### Major new features and improvements
