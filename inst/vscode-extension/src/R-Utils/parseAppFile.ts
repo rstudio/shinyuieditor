@@ -1,7 +1,7 @@
 import type { OutputType } from "communication-types";
 import type { ShinyUiNode } from "editor";
 
-import { escapeDoubleQuotes, collapseText } from "../string-utils";
+import { makePortableString, collapseText } from "../string-utils";
 
 import type { CommandOutputGeneric } from "./runRCommand";
 import type { ActiveRSession } from "./startBackgroundRProcess";
@@ -51,7 +51,7 @@ export async function getAppFile(
 }
 
 function buildParseCommand(appText: string) {
-  const escapedAppText = escapeDoubleQuotes(appText);
+  const escapedAppText = makePortableString(appText);
 
   return collapseText(
     `app_lines <- strsplit("${escapedAppText}", "\\n")[[1]]`,

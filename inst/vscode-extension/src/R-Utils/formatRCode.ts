@@ -1,4 +1,4 @@
-import { escapeDoubleQuotes } from "../string-utils";
+import { makePortableString } from "../string-utils";
 
 import type { CommandExecOptions } from "./runRCommand";
 import type { ActiveRSession } from "./startBackgroundRProcess";
@@ -9,7 +9,7 @@ export async function formatRCode(
   commandOpts?: CommandExecOptions | undefined
 ) {
   const formattedLines = await RProcess.runCmd(
-    `styler::style_text("${escapeDoubleQuotes(
+    `styler::style_text("${makePortableString(
       unformattedCode
     )}", scope = "tokens")`,
     commandOpts
