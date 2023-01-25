@@ -13,13 +13,13 @@ jobs:
       - uses: actions/checkout@v2
       - uses: ./.github/internals/setup-js
       - run: yarn prod
-      - name: Publish to Open VSX Registry
-        uses: HaaLeo/publish-vscode-extension@v1
-        with:
-          packagePath: ./inst/vscode-extension/
-          yarn: true
-          pat: ${{ secrets.OPEN_VSX_TOKEN }}
-          dryRun: ${{ github.ref_name == 'main' }}
+      # - name: Publish to Open VSX Registry
+      #   uses: HaaLeo/publish-vscode-extension@v1
+      #   with:
+      #     packagePath: ./inst/vscode-extension/
+      #     yarn: true
+      #     pat: ${{ secrets.OPEN_VSX_TOKEN }}
+      #     dryRun: ${{ github.ref_name == 'main' }}
       - name: Publish to Visual Studio Marketplace
         uses: HaaLeo/publish-vscode-extension@v1
         with:
