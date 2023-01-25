@@ -72,7 +72,7 @@ You can alternatively download and install the extension from the command line a
 2.  Install from the command line with: _(Note that the version number suffix may be different for you)_
 
     ```bash
-    code --install-extension vscode-extension-0.0.1.vsix
+    code --install-extension shinyuieditor-0.0.1.vsix
     ```
 
 Note that in order to use the `code` command to perform the installation you may need to open the VS Code Command Palette (Ctrl+Shift+P) and type "shell command" to execute the `Shell Command: Install 'code' command in PATH` command. This will make sure that `code` can be invoked from the command line on your system.
