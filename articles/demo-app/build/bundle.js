@@ -24719,7 +24719,7 @@
       }
       function getEnumerableOwnPropertySymbols(target) {
         return Object.getOwnPropertySymbols ? Object.getOwnPropertySymbols(target).filter(function(symbol) {
-          return target.propertyIsEnumerable(symbol);
+          return Object.propertyIsEnumerable.call(target, symbol);
         }) : [];
       }
       function getKeys(target) {
@@ -32475,8 +32475,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   // src/assets/icons/undo.png
   var undo_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAoCAYAAAC4h3lxAAAACXBIWXMAAAsTAAALEwEAmpwYAAABDElEQVRYhe2ZsQ7CMAxEr4gvZmBDXMXGwC+XgVQqERDbCbEr5ZaoalXdq+0kTqdlWbBnHbwN1GoAeGsAeGv3AMdfN8+3h+ZdVwDcXE8GP7hfTqrnW0UgN99NLQDczAP1AFvzM4xpU6MagNw8vz75R1kBQpgHCrPQF0nNW3eJqjTURiDMl1+liYDUvLWQTRGTRiDcl18lAQhrHigDhDYPlAGYxpDmAXkNhG2cSwBzGolXOoWTJIVCQ0hSiAgMIa0BIiiEZiVmGvOpNVfXgtfuhYhgkbDsRpnGUiS6NDfWfoAIEomajowIAFHbExPvEN1X7BanEsTnGuiiVudChBPENH5wOGsAeGsAeGv3AE8yEDlUwXXxqQAAAABJRU5ErkJggg==";
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-iRcavk2DdI2D/editor/src/components/Icons/styles.module.css.js
-  var digest = "7f6a39ff1815e85867ddf14303fb58317e710205f05a6f6467014cfa2058ea4a";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-RjiE8co00dOd/editor/src/components/Icons/styles.module.css.js
+  var digest = "51bea2fbcfc266d6765c1778fa80ca140a445deb33b3937880dc6982cd3f97f4";
   var css = `img._icon_1467k_1 {
   height: 30px;
   /* outline: 2px solid green; */
@@ -32771,8 +32771,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     return classes.filter((c2) => c2).join(" ");
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-srOZwBvWrTwi/editor/src/components/Inputs/Button/Button.module.css.js
-  var digest2 = "ddd60cc32f02f781308ce9d541bc62537fd5504d1005507af69649d902faf67b";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-2VDLp6sVTeWc/editor/src/components/Inputs/Button/Button.module.css.js
+  var digest2 = "ffe67605cb91ca99268770684c1f1e0b173ec8c78ee8fb6ca8fc060e2413da94";
   var css2 = `._button_1y00r_1 {
   --background-color: var(--rstudio-white);
   --text-color: var(--font-color);
@@ -33462,7 +33462,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     }
   }
   function x(n3, r3, t4) {
-    void 0 === t4 && (t4 = false), n3.h.D && n3.m && d(r3, t4);
+    void 0 === t4 && (t4 = false), !n3.l && n3.h.D && n3.m && d(r3, t4);
   }
   function z(n3, r3) {
     var t4 = n3[Q];
@@ -34212,11 +34212,6 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
       };
     };
   }
-  function isCrushed() {
-  }
-  if (typeof isCrushed.name === "string" && isCrushed.name !== "isCrushed") {
-    warning2('You are currently using minified code outside of NODE_ENV === "production". This means that you are running a slower development build of Redux. You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify or setting mode to production in webpack (https://webpack.js.org/concepts/mode/) to ensure you have the correct code for your production build.');
-  }
 
   // ../../node_modules/redux-thunk/es/index.js
   function createThunkMiddleware(extraArgument) {
@@ -34535,9 +34530,9 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     }
     return tracked;
   }
-  function detectMutations(isImmutable, ignorePaths, trackedProperty, obj, sameParentRef, path3) {
-    if (ignorePaths === void 0) {
-      ignorePaths = [];
+  function detectMutations(isImmutable, ignoredPaths, trackedProperty, obj, sameParentRef, path3) {
+    if (ignoredPaths === void 0) {
+      ignoredPaths = [];
     }
     if (sameParentRef === void 0) {
       sameParentRef = false;
@@ -34560,15 +34555,29 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     for (var key in obj) {
       keysToDetect[key] = true;
     }
-    for (var key in keysToDetect) {
-      var childPath = path3 ? path3 + "." + key : key;
-      if (ignorePaths.length && ignorePaths.indexOf(childPath) !== -1) {
-        continue;
+    var hasIgnoredPaths = ignoredPaths.length > 0;
+    var _loop_1 = function(key2) {
+      var nestedPath = path3 ? path3 + "." + key2 : key2;
+      if (hasIgnoredPaths) {
+        var hasMatches = ignoredPaths.some(function(ignored) {
+          if (ignored instanceof RegExp) {
+            return ignored.test(nestedPath);
+          }
+          return nestedPath === ignored;
+        });
+        if (hasMatches) {
+          return "continue";
+        }
       }
-      var result = detectMutations(isImmutable, ignorePaths, trackedProperty.children[key], obj[key], sameRef, childPath);
+      var result = detectMutations(isImmutable, ignoredPaths, trackedProperty.children[key2], obj[key2], sameRef, nestedPath);
       if (result.wasMutated) {
-        return result;
+        return { value: result };
       }
+    };
+    for (var key in keysToDetect) {
+      var state_1 = _loop_1(key);
+      if (typeof state_1 === "object")
+        return state_1.value;
     }
     return { wasMutated: false };
   }
@@ -34619,7 +34628,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     var type = typeof val;
     return val == null || type === "string" || type === "boolean" || type === "number" || Array.isArray(val) || isPlainObject3(val);
   }
-  function findNonSerializableValue(value, path3, isSerializable, getEntries, ignoredPaths) {
+  function findNonSerializableValue(value, path3, isSerializable, getEntries, ignoredPaths, cache) {
     if (path3 === void 0) {
       path3 = "";
     }
@@ -34639,28 +34648,57 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     if (typeof value !== "object" || value === null) {
       return false;
     }
+    if (cache == null ? void 0 : cache.has(value))
+      return false;
     var entries = getEntries != null ? getEntries(value) : Object.entries(value);
     var hasIgnoredPaths = ignoredPaths.length > 0;
-    for (var _i = 0, entries_1 = entries; _i < entries_1.length; _i++) {
-      var _c = entries_1[_i], key = _c[0], nestedValue = _c[1];
-      var nestedPath = path3 ? path3 + "." + key : key;
-      if (hasIgnoredPaths && ignoredPaths.indexOf(nestedPath) >= 0) {
-        continue;
-      }
-      if (!isSerializable(nestedValue)) {
-        return {
-          keyPath: nestedPath,
-          value: nestedValue
-        };
-      }
-      if (typeof nestedValue === "object") {
-        foundNestedSerializable = findNonSerializableValue(nestedValue, nestedPath, isSerializable, getEntries, ignoredPaths);
-        if (foundNestedSerializable) {
-          return foundNestedSerializable;
+    var _loop_2 = function(key2, nestedValue2) {
+      var nestedPath = path3 ? path3 + "." + key2 : key2;
+      if (hasIgnoredPaths) {
+        var hasMatches = ignoredPaths.some(function(ignored) {
+          if (ignored instanceof RegExp) {
+            return ignored.test(nestedPath);
+          }
+          return nestedPath === ignored;
+        });
+        if (hasMatches) {
+          return "continue";
         }
       }
+      if (!isSerializable(nestedValue2)) {
+        return { value: {
+          keyPath: nestedPath,
+          value: nestedValue2
+        } };
+      }
+      if (typeof nestedValue2 === "object") {
+        foundNestedSerializable = findNonSerializableValue(nestedValue2, nestedPath, isSerializable, getEntries, ignoredPaths, cache);
+        if (foundNestedSerializable) {
+          return { value: foundNestedSerializable };
+        }
+      }
+    };
+    for (var _i = 0, entries_1 = entries; _i < entries_1.length; _i++) {
+      var _c = entries_1[_i], key = _c[0], nestedValue = _c[1];
+      var state_2 = _loop_2(key, nestedValue);
+      if (typeof state_2 === "object")
+        return state_2.value;
     }
+    if (cache && isNestedFrozen(value))
+      cache.add(value);
     return false;
+  }
+  function isNestedFrozen(value) {
+    if (!Object.isFrozen(value))
+      return false;
+    for (var _i = 0, _c = Object.values(value); _i < _c.length; _i++) {
+      var nestedValue = _c[_i];
+      if (typeof nestedValue !== "object" || nestedValue === null)
+        continue;
+      if (!isNestedFrozen(nestedValue))
+        return false;
+    }
+    return true;
   }
   function createSerializableStateInvariantMiddleware(options) {
     if (options === void 0) {
@@ -34675,7 +34713,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
         };
       };
     }
-    var _c = options.isSerializable, isSerializable = _c === void 0 ? isPlain : _c, getEntries = options.getEntries, _d = options.ignoredActions, ignoredActions = _d === void 0 ? [] : _d, _e = options.ignoredActionPaths, ignoredActionPaths = _e === void 0 ? ["meta.arg", "meta.baseQueryMeta"] : _e, _f = options.ignoredPaths, ignoredPaths = _f === void 0 ? [] : _f, _g = options.warnAfter, warnAfter = _g === void 0 ? 32 : _g, _h = options.ignoreState, ignoreState = _h === void 0 ? false : _h, _j = options.ignoreActions, ignoreActions = _j === void 0 ? false : _j;
+    var _c = options.isSerializable, isSerializable = _c === void 0 ? isPlain : _c, getEntries = options.getEntries, _d = options.ignoredActions, ignoredActions = _d === void 0 ? [] : _d, _e = options.ignoredActionPaths, ignoredActionPaths = _e === void 0 ? ["meta.arg", "meta.baseQueryMeta"] : _e, _f = options.ignoredPaths, ignoredPaths = _f === void 0 ? [] : _f, _g = options.warnAfter, warnAfter = _g === void 0 ? 32 : _g, _h = options.ignoreState, ignoreState = _h === void 0 ? false : _h, _j = options.ignoreActions, ignoreActions = _j === void 0 ? false : _j, _k = options.disableCache, disableCache = _k === void 0 ? false : _k;
+    var cache = !disableCache && WeakSet ? /* @__PURE__ */ new WeakSet() : void 0;
     return function(storeAPI) {
       return function(next) {
         return function(action) {
@@ -34683,7 +34722,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
           var measureUtils = getTimeMeasureUtils(warnAfter, "SerializableStateInvariantMiddleware");
           if (!ignoreActions && !(ignoredActions.length && ignoredActions.indexOf(action.type) !== -1)) {
             measureUtils.measureTime(function() {
-              var foundActionNonSerializableValue = findNonSerializableValue(action, "", isSerializable, getEntries, ignoredActionPaths);
+              var foundActionNonSerializableValue = findNonSerializableValue(action, "", isSerializable, getEntries, ignoredActionPaths, cache);
               if (foundActionNonSerializableValue) {
                 var keyPath = foundActionNonSerializableValue.keyPath, value = foundActionNonSerializableValue.value;
                 console.error("A non-serializable value was detected in an action, in the path: `" + keyPath + "`. Value:", value, "\nTake a look at the logic that dispatched this action: ", action, "\n(See https://redux.js.org/faq/actions#why-should-type-be-a-string-or-at-least-serializable-why-should-my-action-types-be-constants)", "\n(To allow non-serializable values see: https://redux-toolkit.js.org/usage/usage-guide#working-with-non-serializable-data)");
@@ -34693,7 +34732,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
           if (!ignoreState) {
             measureUtils.measureTime(function() {
               var state = storeAPI.getState();
-              var foundStateNonSerializableValue = findNonSerializableValue(state, "", isSerializable, getEntries, ignoredPaths);
+              var foundStateNonSerializableValue = findNonSerializableValue(state, "", isSerializable, getEntries, ignoredPaths, cache);
               if (foundStateNonSerializableValue) {
                 var keyPath = foundStateNonSerializableValue.keyPath, value = foundStateNonSerializableValue.value;
                 console.error("A non-serializable value was detected in the state, in the path: `" + keyPath + "`. Value:", value, "\nTake a look at the reducer(s) handling this action type: " + action.type + ".\n(See https://redux.js.org/faq/organizing-state#can-i-put-functions-promises-or-other-non-serializable-items-in-my-store-state)");
@@ -35250,6 +35289,9 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   };
   var addAbortSignalListener = function(abortSignal, callback) {
     abortSignal.addEventListener("abort", callback, { once: true });
+    return function() {
+      return abortSignal.removeEventListener("abort", callback);
+    };
   };
   var abortControllerWithReason = function(abortController, reason) {
     var signal = abortController.signal;
@@ -35288,18 +35330,24 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
       throw new TaskAbortError(signal.reason);
     }
   };
-  var promisifyAbortSignal = function(signal) {
-    return catchRejection(new Promise(function(_2, reject) {
+  function raceWithSignal(signal, promise2) {
+    var cleanup = noop2;
+    return new Promise(function(resolve, reject) {
       var notifyRejection = function() {
         return reject(new TaskAbortError(signal.reason));
       };
       if (signal.aborted) {
         notifyRejection();
-      } else {
-        addAbortSignalListener(signal, notifyRejection);
+        return;
       }
-    }));
-  };
+      cleanup = addAbortSignalListener(signal, notifyRejection);
+      promise2.finally(function() {
+        return cleanup();
+      }).then(resolve, reject);
+    }).finally(function() {
+      cleanup = noop2;
+    });
+  }
   var runTask = function(task2, cleanUp) {
     return __async(void 0, null, function() {
       var value, error_1;
@@ -35334,7 +35382,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   };
   var createPause = function(signal) {
     return function(promise2) {
-      return catchRejection(Promise.race([promisifyAbortSignal(signal), promise2]).then(function(output) {
+      return catchRejection(raceWithSignal(signal, promise2).then(function(output) {
         validateActive(signal);
         return output;
       }));
@@ -35402,8 +35450,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
               validateActive(signal);
               unsubscribe = function() {
               };
-              tuplePromise = new Promise(function(resolve) {
-                unsubscribe = startListening({
+              tuplePromise = new Promise(function(resolve, reject) {
+                var stopListening = startListening({
                   predicate,
                   effect: function(action, listenerApi) {
                     listenerApi.unsubscribe();
@@ -35414,9 +35462,12 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
                     ]);
                   }
                 });
+                unsubscribe = function() {
+                  stopListening();
+                  reject();
+                };
               });
               promises = [
-                promisifyAbortSignal(signal),
                 tuplePromise
               ];
               if (timeout != null) {
@@ -35427,7 +35478,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
               _c.label = 1;
             case 1:
               _c.trys.push([1, , 3, 4]);
-              return [4, Promise.race(promises)];
+              return [4, raceWithSignal(signal, Promise.race(promises))];
             case 2:
               output = _c.sent();
               validateActive(signal);
@@ -35476,6 +35527,11 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     };
     return entry;
   };
+  var cancelActiveListeners = function(entry) {
+    entry.pending.forEach(function(controller) {
+      abortControllerWithReason(controller, listenerCancelled);
+    });
+  };
   var createClearListenerMiddleware = function(listenerMap) {
     return function() {
       listenerMap.forEach(cancelActiveListeners);
@@ -35500,11 +35556,6 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
       args[_i] = arguments[_i];
     }
     console.error.apply(console, __spreadArray([alm + "/error"], args));
-  };
-  var cancelActiveListeners = function(entry) {
-    entry.pending.forEach(function(controller) {
-      abortControllerWithReason(controller, listenerCancelled);
-    });
   };
   function createListenerMiddleware(middlewareOptions) {
     var _this = this;
@@ -35891,8 +35942,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   // src/Shiny-Ui-Elements/GridlayoutGridCard/GridlayoutGridCard.tsx
   var import_react21 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-FK2wtDxkwz4O/editor/src/components/DeleteNodeButton/styles.module.css.js
-  var digest3 = "a92e591ca4e1976e8b87e8fcdd4fba6500006147d677a1b5dbe01dccdb6e173d";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-JkIIlZsAkDbX/editor/src/components/DeleteNodeButton/styles.module.css.js
+  var digest3 = "b6ae0abd74cda09b631662e578ce6e2031d27a9321378f3638e808e5b464cee3";
   var css3 = `._deleteButton_1en02_1 {
   color: var(--red);
   display: flex;
@@ -36148,8 +36199,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   };
   var UiNode_default = UiNode;
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-8oGhqF4WPZdL/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
-  var digest4 = "27dbd84a89f4f36ef62d54ec05d8a555d023e11b7be2c1fe7f3178d766d229a5";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-3xHgomQdOtv5/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
+  var digest4 = "7b1bf4a6bf576a3e6dfd2ea8f7666b1d528f7d178a139378305ec605e11ebc74";
   var css4 = `._container_1a2os_1 {
   position: relative;
   height: 100%;
@@ -36575,8 +36626,8 @@ div._emptyGridCard_1a2os_144 > button {
     return setLayout;
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-VTu36piMgq9e/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
-  var digest5 = "5ff33b6cb00dfd9aee32f6aa96f2f95966544bd8795e763ff157d17a2476c43e";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-Hxb9rTz7ppFk/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
+  var digest5 = "adb7f9f460767e0be49f0961eacfce3cbc512b2fd34d3f4acd102da014c55fd1";
   var css5 = `._container_1a2os_1 {
   position: relative;
   height: 100%;
@@ -36933,8 +36984,8 @@ div._emptyGridCard_1a2os_144 > button {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 16 16" }, "child": [{ "tag": "path", "attr": { "fillRule": "evenodd", "d": "M16 14v1H0V0h1v14h15zM5 13H3V8h2v5zm4 0H7V3h2v10zm4 0h-2V6h2v7z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-zWGQ6wqiLu9Z/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
-  var digest6 = "face0501daecd7cc4e81fda3c212a475e799ac0d40f45b06b55e5dab2e07d315";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-gUPmTHME8Tiw/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
+  var digest6 = "3892cde650d31242c066b9091b1395c955e5dd2df6061f82d4ee2194c89ccdb4";
   var css6 = `._container_1rlbk_1 {
   max-height: 100%;
 }
@@ -37024,8 +37075,8 @@ div._emptyGridCard_1a2os_144 > button {
     return dimensions;
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-VQRiHd9oP6nb/editor/src/Shiny-Ui-Elements/GridlayoutGridCardPlot/styles.module.css.js
-  var digest7 = "4caaa1a4103b52ea46155da1de7bc879f034fe10cf4816c253bb90d008ba9df5";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-eBn9neuyWmSC/editor/src/Shiny-Ui-Elements/GridlayoutGridCardPlot/styles.module.css.js
+  var digest7 = "45eff6f81f083078303ff2e726717c675c19b01e040c4095022423981d5f480f";
   var css7 = `._gridCardPlot_1a94v_1 {
   background-color: var(--rstudio-white);
   width: 100%;
@@ -37108,8 +37159,8 @@ div._emptyGridCard_1a2os_144 > button {
   // src/Shiny-Ui-Elements/GridlayoutGridCardText/GridlayoutCardText.tsx
   var React21 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-l39m48NQ7sHa/editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/styles.module.css.js
-  var digest8 = "f99733fa3d0854e1b8be5b73a8d9a569494ea4c09ea27b650b7f7772660744eb";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-Xfw0nbWybRP4/editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/styles.module.css.js
+  var digest8 = "0a0ee31c2d76a5d25db2cb14b31cc67189d584a495207ff7179ff0e51ecea99d";
   var css8 = `._textPanel_525i2_1 {
   background-color: var(--rstudio-white);
   /* outline: var(--outline); */
@@ -37876,8 +37927,8 @@ div._emptyGridCard_1a2os_144 > button {
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-6KZgZrphKX9d/editor/src/components/Grids/AreaOverlay.module.css.js
-  var digest9 = "839510e5018053a9c460b4060df6e04f176a3b151eaf11584f0544de04185a8d";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-hB2gno693UJk/editor/src/components/Grids/AreaOverlay.module.css.js
+  var digest9 = "92aaa2e4f68e8c0a02e173b90f5bae2269dbfffc42791bec88c5b189f9ba3888";
   var css9 = `._marker_mumaw_1 {
   font-weight: lighter;
   font-style: italic;
@@ -38301,8 +38352,8 @@ div._emptyGridCard_1a2os_144 > button {
   // src/components/Grids/EditableGridContainer/EditableGridContainer.tsx
   var React33 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-Fnnzi4Q36OJ6/editor/src/components/Grids/EditableGridContainer/resizableGrid.module.css.js
-  var digest10 = "56e949619806185c93a0a3c1eb483d1321cb99cab764512048ed5976e0ca821d";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-4Q4EBOoFWw7v/editor/src/components/Grids/EditableGridContainer/resizableGrid.module.css.js
+  var digest10 = "5651a20dc410de7969709eca3185239995e6c7080d258f2d98a8b6b76a5f6fc0";
   var css10 = `._ResizableGrid_i4cq9_1 {
   --grid-gap: 5px;
 
@@ -38442,8 +38493,8 @@ div#_size-detection-cell_i4cq9_1 {
     }
     return "";
   }
-  function point(point3) {
-    return index(point3 && point3.line) + ":" + index(point3 && point3.column);
+  function point(point4) {
+    return index(point4 && point4.line) + ":" + index(point4 && point4.column);
   }
   function position(pos) {
     return point(pos && pos.start) + "-" + point(pos && pos.end);
@@ -40010,17 +40061,17 @@ div#_size-detection-cell_i4cq9_1 {
         }
         const indexBeforeExits = self2.events.length;
         let indexBeforeFlow = indexBeforeExits;
-        let point3;
+        let point4;
         while (indexBeforeFlow--) {
           if (self2.events[indexBeforeFlow][0] === "exit" && self2.events[indexBeforeFlow][1].type === "chunkFlow") {
-            point3 = self2.events[indexBeforeFlow][1].end;
+            point4 = self2.events[indexBeforeFlow][1].end;
             break;
           }
         }
         exitContainers(continued);
         let index2 = indexBeforeExits;
         while (index2 < self2.events.length) {
-          self2.events[index2][1].end = Object.assign({}, point3);
+          self2.events[index2][1].end = Object.assign({}, point4);
           index2++;
         }
         splice(
@@ -40130,11 +40181,11 @@ div#_size-detection-cell_i4cq9_1 {
         const indexBeforeExits = self2.events.length;
         let indexBeforeFlow = indexBeforeExits;
         let seen;
-        let point3;
+        let point4;
         while (indexBeforeFlow--) {
           if (self2.events[indexBeforeFlow][0] === "exit" && self2.events[indexBeforeFlow][1].type === "chunkFlow") {
             if (seen) {
-              point3 = self2.events[indexBeforeFlow][1].end;
+              point4 = self2.events[indexBeforeFlow][1].end;
               break;
             }
             seen = true;
@@ -40143,7 +40194,7 @@ div#_size-detection-cell_i4cq9_1 {
         exitContainers(continued);
         index2 = indexBeforeExits;
         while (index2 < self2.events.length) {
-          self2.events[index2][1].end = Object.assign({}, point3);
+          self2.events[index2][1].end = Object.assign({}, point4);
           index2++;
         }
         splice(
@@ -40331,10 +40382,10 @@ div#_size-detection-cell_i4cq9_1 {
       return ok3(code2);
     }
   }
-  function movePoint(point3, offset3) {
-    point3.column += offset3;
-    point3.offset += offset3;
-    point3._bufferIndex += offset3;
+  function movePoint(point4, offset3) {
+    point4.column += offset3;
+    point4.offset += offset3;
+    point4._bufferIndex += offset3;
   }
 
   // ../../node_modules/micromark-core-commonmark/lib/autolink.js
@@ -43133,7 +43184,7 @@ div#_size-detection-cell_i4cq9_1 {
 
   // ../../node_modules/micromark/lib/create-tokenizer.js
   function createTokenizer(parser, initialize, from) {
-    let point3 = Object.assign(
+    let point4 = Object.assign(
       from ? Object.assign({}, from) : {
         line: 1,
         column: 1,
@@ -43194,7 +43245,7 @@ div#_size-detection-cell_i4cq9_1 {
       return sliceChunks(chunks, token);
     }
     function now() {
-      return Object.assign({}, point3);
+      return Object.assign({}, point4);
     }
     function defineSkip(value) {
       columnStart[value.line] = value.column;
@@ -43202,15 +43253,15 @@ div#_size-detection-cell_i4cq9_1 {
     }
     function main2() {
       let chunkIndex;
-      while (point3._index < chunks.length) {
-        const chunk = chunks[point3._index];
+      while (point4._index < chunks.length) {
+        const chunk = chunks[point4._index];
         if (typeof chunk === "string") {
-          chunkIndex = point3._index;
-          if (point3._bufferIndex < 0) {
-            point3._bufferIndex = 0;
+          chunkIndex = point4._index;
+          if (point4._bufferIndex < 0) {
+            point4._bufferIndex = 0;
           }
-          while (point3._index === chunkIndex && point3._bufferIndex < chunk.length) {
-            go(chunk.charCodeAt(point3._bufferIndex));
+          while (point4._index === chunkIndex && point4._bufferIndex < chunk.length) {
+            go(chunk.charCodeAt(point4._bufferIndex));
           }
         } else {
           go(chunk);
@@ -43224,21 +43275,21 @@ div#_size-detection-cell_i4cq9_1 {
     }
     function consume(code2) {
       if (markdownLineEnding(code2)) {
-        point3.line++;
-        point3.column = 1;
-        point3.offset += code2 === -3 ? 2 : 1;
+        point4.line++;
+        point4.column = 1;
+        point4.offset += code2 === -3 ? 2 : 1;
         accountForPotentialSkip();
       } else if (code2 !== -1) {
-        point3.column++;
-        point3.offset++;
+        point4.column++;
+        point4.offset++;
       }
-      if (point3._bufferIndex < 0) {
-        point3._index++;
+      if (point4._bufferIndex < 0) {
+        point4._index++;
       } else {
-        point3._bufferIndex++;
-        if (point3._bufferIndex === chunks[point3._index].length) {
-          point3._bufferIndex = -1;
-          point3._index++;
+        point4._bufferIndex++;
+        if (point4._bufferIndex === chunks[point4._index].length) {
+          point4._bufferIndex = -1;
+          point4._index++;
         }
       }
       context.previous = code2;
@@ -43353,7 +43404,7 @@ div#_size-detection-cell_i4cq9_1 {
         from: startEventsIndex
       };
       function restore() {
-        point3 = startPoint;
+        point4 = startPoint;
         context.previous = startPrevious;
         context.currentConstruct = startCurrentConstruct;
         context.events.length = startEventsIndex;
@@ -43362,9 +43413,9 @@ div#_size-detection-cell_i4cq9_1 {
       }
     }
     function accountForPotentialSkip() {
-      if (point3.line in columnStart && point3.column < 2) {
-        point3.column = columnStart[point3.line];
-        point3.offset += columnStart[point3.line] - 1;
+      if (point4.line in columnStart && point4.column < 2) {
+        point4.column = columnStart[point4.line];
+        point4.offset += columnStart[point4.line] - 1;
       }
     }
   }
@@ -43658,113 +43709,105 @@ div#_size-detection-cell_i4cq9_1 {
       )
     );
   };
-  function compiler(options = {}) {
-    const config = configure(
-      {
-        transforms: [],
-        canContainEols: [
-          "emphasis",
-          "fragment",
-          "heading",
-          "paragraph",
-          "strong"
-        ],
-        enter: {
-          autolink: opener(link2),
-          autolinkProtocol: onenterdata,
-          autolinkEmail: onenterdata,
-          atxHeading: opener(heading2),
-          blockQuote: opener(blockQuote2),
-          characterEscape: onenterdata,
-          characterReference: onenterdata,
-          codeFenced: opener(codeFlow),
-          codeFencedFenceInfo: buffer3,
-          codeFencedFenceMeta: buffer3,
-          codeIndented: opener(codeFlow, buffer3),
-          codeText: opener(codeText2, buffer3),
-          codeTextData: onenterdata,
-          data: onenterdata,
-          codeFlowValue: onenterdata,
-          definition: opener(definition2),
-          definitionDestinationString: buffer3,
-          definitionLabelString: buffer3,
-          definitionTitleString: buffer3,
-          emphasis: opener(emphasis2),
-          hardBreakEscape: opener(hardBreak2),
-          hardBreakTrailing: opener(hardBreak2),
-          htmlFlow: opener(html4, buffer3),
-          htmlFlowData: onenterdata,
-          htmlText: opener(html4, buffer3),
-          htmlTextData: onenterdata,
-          image: opener(image2),
-          label: buffer3,
-          link: opener(link2),
-          listItem: opener(listItem2),
-          listItemValue: onenterlistitemvalue,
-          listOrdered: opener(list3, onenterlistordered),
-          listUnordered: opener(list3),
-          paragraph: opener(paragraph2),
-          reference: onenterreference,
-          referenceString: buffer3,
-          resourceDestinationString: buffer3,
-          resourceTitleString: buffer3,
-          setextHeading: opener(heading2),
-          strong: opener(strong2),
-          thematicBreak: opener(thematicBreak3)
-        },
-        exit: {
-          atxHeading: closer(),
-          atxHeadingSequence: onexitatxheadingsequence,
-          autolink: closer(),
-          autolinkEmail: onexitautolinkemail,
-          autolinkProtocol: onexitautolinkprotocol,
-          blockQuote: closer(),
-          characterEscapeValue: onexitdata,
-          characterReferenceMarkerHexadecimal: onexitcharacterreferencemarker,
-          characterReferenceMarkerNumeric: onexitcharacterreferencemarker,
-          characterReferenceValue: onexitcharacterreferencevalue,
-          codeFenced: closer(onexitcodefenced),
-          codeFencedFence: onexitcodefencedfence,
-          codeFencedFenceInfo: onexitcodefencedfenceinfo,
-          codeFencedFenceMeta: onexitcodefencedfencemeta,
-          codeFlowValue: onexitdata,
-          codeIndented: closer(onexitcodeindented),
-          codeText: closer(onexitcodetext),
-          codeTextData: onexitdata,
-          data: onexitdata,
-          definition: closer(),
-          definitionDestinationString: onexitdefinitiondestinationstring,
-          definitionLabelString: onexitdefinitionlabelstring,
-          definitionTitleString: onexitdefinitiontitlestring,
-          emphasis: closer(),
-          hardBreakEscape: closer(onexithardbreak),
-          hardBreakTrailing: closer(onexithardbreak),
-          htmlFlow: closer(onexithtmlflow),
-          htmlFlowData: onexitdata,
-          htmlText: closer(onexithtmltext),
-          htmlTextData: onexitdata,
-          image: closer(onexitimage),
-          label: onexitlabel,
-          labelText: onexitlabeltext,
-          lineEnding: onexitlineending,
-          link: closer(onexitlink),
-          listItem: closer(),
-          listOrdered: closer(),
-          listUnordered: closer(),
-          paragraph: closer(),
-          referenceString: onexitreferencestring,
-          resourceDestinationString: onexitresourcedestinationstring,
-          resourceTitleString: onexitresourcetitlestring,
-          resource: onexitresource,
-          setextHeading: closer(onexitsetextheading),
-          setextHeadingLineSequence: onexitsetextheadinglinesequence,
-          setextHeadingText: onexitsetextheadingtext,
-          strong: closer(),
-          thematicBreak: closer()
-        }
+  function compiler(options) {
+    const config = {
+      transforms: [],
+      canContainEols: ["emphasis", "fragment", "heading", "paragraph", "strong"],
+      enter: {
+        autolink: opener(link2),
+        autolinkProtocol: onenterdata,
+        autolinkEmail: onenterdata,
+        atxHeading: opener(heading2),
+        blockQuote: opener(blockQuote2),
+        characterEscape: onenterdata,
+        characterReference: onenterdata,
+        codeFenced: opener(codeFlow),
+        codeFencedFenceInfo: buffer3,
+        codeFencedFenceMeta: buffer3,
+        codeIndented: opener(codeFlow, buffer3),
+        codeText: opener(codeText2, buffer3),
+        codeTextData: onenterdata,
+        data: onenterdata,
+        codeFlowValue: onenterdata,
+        definition: opener(definition2),
+        definitionDestinationString: buffer3,
+        definitionLabelString: buffer3,
+        definitionTitleString: buffer3,
+        emphasis: opener(emphasis2),
+        hardBreakEscape: opener(hardBreak2),
+        hardBreakTrailing: opener(hardBreak2),
+        htmlFlow: opener(html4, buffer3),
+        htmlFlowData: onenterdata,
+        htmlText: opener(html4, buffer3),
+        htmlTextData: onenterdata,
+        image: opener(image2),
+        label: buffer3,
+        link: opener(link2),
+        listItem: opener(listItem2),
+        listItemValue: onenterlistitemvalue,
+        listOrdered: opener(list3, onenterlistordered),
+        listUnordered: opener(list3),
+        paragraph: opener(paragraph2),
+        reference: onenterreference,
+        referenceString: buffer3,
+        resourceDestinationString: buffer3,
+        resourceTitleString: buffer3,
+        setextHeading: opener(heading2),
+        strong: opener(strong2),
+        thematicBreak: opener(thematicBreak3)
       },
-      options.mdastExtensions || []
-    );
+      exit: {
+        atxHeading: closer(),
+        atxHeadingSequence: onexitatxheadingsequence,
+        autolink: closer(),
+        autolinkEmail: onexitautolinkemail,
+        autolinkProtocol: onexitautolinkprotocol,
+        blockQuote: closer(),
+        characterEscapeValue: onexitdata,
+        characterReferenceMarkerHexadecimal: onexitcharacterreferencemarker,
+        characterReferenceMarkerNumeric: onexitcharacterreferencemarker,
+        characterReferenceValue: onexitcharacterreferencevalue,
+        codeFenced: closer(onexitcodefenced),
+        codeFencedFence: onexitcodefencedfence,
+        codeFencedFenceInfo: onexitcodefencedfenceinfo,
+        codeFencedFenceMeta: onexitcodefencedfencemeta,
+        codeFlowValue: onexitdata,
+        codeIndented: closer(onexitcodeindented),
+        codeText: closer(onexitcodetext),
+        codeTextData: onexitdata,
+        data: onexitdata,
+        definition: closer(),
+        definitionDestinationString: onexitdefinitiondestinationstring,
+        definitionLabelString: onexitdefinitionlabelstring,
+        definitionTitleString: onexitdefinitiontitlestring,
+        emphasis: closer(),
+        hardBreakEscape: closer(onexithardbreak),
+        hardBreakTrailing: closer(onexithardbreak),
+        htmlFlow: closer(onexithtmlflow),
+        htmlFlowData: onexitdata,
+        htmlText: closer(onexithtmltext),
+        htmlTextData: onexitdata,
+        image: closer(onexitimage),
+        label: onexitlabel,
+        labelText: onexitlabeltext,
+        lineEnding: onexitlineending,
+        link: closer(onexitlink),
+        listItem: closer(),
+        listOrdered: closer(),
+        listUnordered: closer(),
+        paragraph: closer(),
+        referenceString: onexitreferencestring,
+        resourceDestinationString: onexitresourcedestinationstring,
+        resourceTitleString: onexitresourcetitlestring,
+        resource: onexitresource,
+        setextHeading: closer(onexitsetextheading),
+        setextHeadingLineSequence: onexitsetextheadinglinesequence,
+        setextHeadingText: onexitsetextheadingtext,
+        strong: closer(),
+        thematicBreak: closer()
+      }
+    };
+    configure(config, (options || {}).mdastExtensions || []);
     const data = {};
     return compile;
     function compile(events) {
@@ -43772,12 +43815,9 @@ div#_size-detection-cell_i4cq9_1 {
         type: "root",
         children: []
       };
-      const stack = [tree];
-      const tokenStack = [];
-      const listStack = [];
       const context = {
-        stack,
-        tokenStack,
+        stack: [tree],
+        tokenStack: [],
         config,
         enter,
         exit: exit2,
@@ -43786,6 +43826,7 @@ div#_size-detection-cell_i4cq9_1 {
         setData,
         getData
       };
+      const listStack = [];
       let index2 = -1;
       while (++index2 < events.length) {
         if (events[index2][1].type === "listOrdered" || events[index2][1].type === "listUnordered") {
@@ -43812,20 +43853,20 @@ div#_size-detection-cell_i4cq9_1 {
           );
         }
       }
-      if (tokenStack.length > 0) {
-        const tail = tokenStack[tokenStack.length - 1];
+      if (context.tokenStack.length > 0) {
+        const tail = context.tokenStack[context.tokenStack.length - 1];
         const handler = tail[1] || defaultOnError;
         handler.call(context, void 0, tail[0]);
       }
       tree.position = {
-        start: point3(
+        start: point2(
           events.length > 0 ? events[0][1].start : {
             line: 1,
             column: 1,
             offset: 0
           }
         ),
-        end: point3(
+        end: point2(
           events.length > 0 ? events[events.length - 2][1].end : {
             line: 1,
             column: 1,
@@ -43921,13 +43962,6 @@ div#_size-detection-cell_i4cq9_1 {
     function getData(key) {
       return data[key];
     }
-    function point3(d3) {
-      return {
-        line: d3.line,
-        column: d3.column,
-        offset: d3.offset
-      };
-    }
     function opener(create2, and) {
       return open;
       function open(token) {
@@ -43948,7 +43982,7 @@ div#_size-detection-cell_i4cq9_1 {
       this.stack.push(node2);
       this.tokenStack.push([token, errorHandler]);
       node2.position = {
-        start: point3(token.start)
+        start: point2(token.start)
       };
       return node2;
     }
@@ -43978,7 +44012,7 @@ div#_size-detection-cell_i4cq9_1 {
           handler.call(this, token, open[0]);
         }
       }
-      node2.position.end = point3(token.end);
+      node2.position.end = point2(token.end);
       return node2;
     }
     function resume() {
@@ -44057,27 +44091,27 @@ div#_size-detection-cell_i4cq9_1 {
       setData("setextHeadingSlurpLineEnding");
     }
     function onenterdata(token) {
-      const parent = this.stack[this.stack.length - 1];
-      let tail = parent.children[parent.children.length - 1];
+      const node2 = this.stack[this.stack.length - 1];
+      let tail = node2.children[node2.children.length - 1];
       if (!tail || tail.type !== "text") {
         tail = text4();
         tail.position = {
-          start: point3(token.start)
+          start: point2(token.start)
         };
-        parent.children.push(tail);
+        node2.children.push(tail);
       }
       this.stack.push(tail);
     }
     function onexitdata(token) {
       const tail = this.stack.pop();
       tail.value += this.sliceSerialize(token);
-      tail.position.end = point3(token.end);
+      tail.position.end = point2(token.end);
     }
     function onexitlineending(token) {
       const context = this.stack[this.stack.length - 1];
       if (getData("atHardBreak")) {
         const tail = context.children[context.children.length - 1];
-        tail.position.end = point3(token.end);
+        tail.position.end = point2(token.end);
         setData("atHardBreak");
         return;
       }
@@ -44105,34 +44139,36 @@ div#_size-detection-cell_i4cq9_1 {
       node2.value = data2;
     }
     function onexitlink() {
-      const context = this.stack[this.stack.length - 1];
+      const node2 = this.stack[this.stack.length - 1];
       if (getData("inReference")) {
-        context.type += "Reference";
-        context.referenceType = getData("referenceType") || "shortcut";
-        delete context.url;
-        delete context.title;
+        const referenceType = getData("referenceType") || "shortcut";
+        node2.type += "Reference";
+        node2.referenceType = referenceType;
+        delete node2.url;
+        delete node2.title;
       } else {
-        delete context.identifier;
-        delete context.label;
+        delete node2.identifier;
+        delete node2.label;
       }
       setData("referenceType");
     }
     function onexitimage() {
-      const context = this.stack[this.stack.length - 1];
+      const node2 = this.stack[this.stack.length - 1];
       if (getData("inReference")) {
-        context.type += "Reference";
-        context.referenceType = getData("referenceType") || "shortcut";
-        delete context.url;
-        delete context.title;
+        const referenceType = getData("referenceType") || "shortcut";
+        node2.type += "Reference";
+        node2.referenceType = referenceType;
+        delete node2.url;
+        delete node2.title;
       } else {
-        delete context.identifier;
-        delete context.label;
+        delete node2.identifier;
+        delete node2.label;
       }
       setData("referenceType");
     }
     function onexitlabeltext(token) {
-      const ancestor = this.stack[this.stack.length - 2];
       const string3 = this.sliceSerialize(token);
+      const ancestor = this.stack[this.stack.length - 2];
       ancestor.label = decodeString(string3);
       ancestor.identifier = normalizeIdentifier(string3).toLowerCase();
     }
@@ -44142,7 +44178,8 @@ div#_size-detection-cell_i4cq9_1 {
       const node2 = this.stack[this.stack.length - 1];
       setData("inReference", true);
       if (node2.type === "link") {
-        node2.children = fragment.children;
+        const children = fragment.children;
+        node2.children = children;
       } else {
         node2.alt = value;
       }
@@ -44186,11 +44223,12 @@ div#_size-detection-cell_i4cq9_1 {
         );
         setData("characterReferenceType");
       } else {
-        value = decodeNamedCharacterReference(data2);
+        const result = decodeNamedCharacterReference(data2);
+        value = result;
       }
       const tail = this.stack.pop();
       tail.value += value;
-      tail.position.end = point3(token.end);
+      tail.position.end = point2(token.end);
     }
     function onexitautolinkprotocol(token) {
       onexitdata.call(this, token);
@@ -44312,6 +44350,13 @@ div#_size-detection-cell_i4cq9_1 {
       };
     }
   }
+  function point2(d3) {
+    return {
+      line: d3.line,
+      column: d3.column,
+      offset: d3.offset
+    };
+  }
   function configure(combined, extensions) {
     let index2 = -1;
     while (++index2 < extensions.length) {
@@ -44322,21 +44367,25 @@ div#_size-detection-cell_i4cq9_1 {
         extension(combined, value);
       }
     }
-    return combined;
   }
   function extension(combined, extension2) {
     let key;
     for (key in extension2) {
       if (own2.call(extension2, key)) {
-        const list3 = key === "canContainEols" || key === "transforms";
-        const maybe = own2.call(combined, key) ? combined[key] : void 0;
-        const left2 = maybe || (combined[key] = list3 ? [] : {});
-        const right2 = extension2[key];
-        if (right2) {
-          if (list3) {
-            combined[key] = [...left2, ...right2];
-          } else {
-            Object.assign(left2, right2);
+        if (key === "canContainEols") {
+          const right2 = extension2[key];
+          if (right2) {
+            combined[key].push(...right2);
+          }
+        } else if (key === "transforms") {
+          const right2 = extension2[key];
+          if (right2) {
+            combined[key].push(...right2);
+          }
+        } else if (key === "enter" || key === "exit") {
+          const right2 = extension2[key];
+          if (right2) {
+            Object.assign(combined[key], right2);
           }
         }
       }
@@ -44597,16 +44646,16 @@ div#_size-detection-cell_i4cq9_1 {
   };
 
   // ../../node_modules/remark-rehype/node_modules/unist-util-position/lib/index.js
-  var pointStart = point2("start");
-  var pointEnd = point2("end");
-  function point2(type) {
-    return point3;
-    function point3(node2) {
-      const point4 = node2 && node2.position && node2.position[type] || {};
+  var pointStart = point3("start");
+  var pointEnd = point3("end");
+  function point3(type) {
+    return point4;
+    function point4(node2) {
+      const point5 = node2 && node2.position && node2.position[type] || {};
       return {
-        line: point4.line || null,
-        column: point4.column || null,
-        offset: point4.offset > -1 ? point4.offset : null
+        line: point5.line || null,
+        column: point5.column || null,
+        offset: point5.offset > -1 ? point5.offset : null
       };
     }
   }
@@ -44616,14 +44665,14 @@ div#_size-detection-cell_i4cq9_1 {
     return !node2 || !node2.position || !node2.position.start || !node2.position.start.line || !node2.position.start.column || !node2.position.end || !node2.position.end.line || !node2.position.end.column;
   }
 
-  // ../../node_modules/remark-rehype/node_modules/mdast-util-definitions/index.js
+  // ../../node_modules/remark-rehype/node_modules/mdast-util-definitions/lib/index.js
   var own4 = {}.hasOwnProperty;
-  function definitions(node2) {
+  function definitions(tree) {
     const cache = /* @__PURE__ */ Object.create(null);
-    if (!node2 || !node2.type) {
+    if (!tree || !tree.type) {
       throw new Error("mdast-util-definitions expected node");
     }
-    visit(node2, "definition", (definition3) => {
+    visit(tree, "definition", (definition3) => {
       const id = clean(definition3.identifier);
       if (id && !own4.call(cache, id)) {
         cache[id] = definition3;
@@ -48602,8 +48651,8 @@ div#_size-detection-cell_i4cq9_1 {
     };
   };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-3XAZHt9hLKze/editor/src/components/PopoverEl/styles.module.css.js
-  var digest11 = "7ddc0d8d88b2539ca7a5a2813c2e731ca544587f5e3a11728c3d8730c284a6d0";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-RB519h58yn5W/editor/src/components/PopoverEl/styles.module.css.js
+  var digest11 = "f6be3a0cee6d147b37ca8651a72dd0f0e112c20778278e2a62e4ff1e6c7bf40f";
   var css11 = `._popover_m2pq3_1 {
   pointer-events: none;
   opacity: 0;
@@ -48791,8 +48840,8 @@ div#_size-detection-cell_i4cq9_1 {
     );
   };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-7i7t5iwbbFoX/editor/src/components/Inputs/CSSUnitInput/CSSUnitInfo.module.css.js
-  var digest12 = "12e23c62c5f1d7e19b33f705f968dc6ced21b7ee4fa93b947f656c70e90e1523";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-UdBBVlR7OMdi/editor/src/components/Inputs/CSSUnitInput/CSSUnitInfo.module.css.js
+  var digest12 = "883ab76836b06dc1661a34e90c5a7508f84813bcf3cce4904659f26240eb26aa";
   var css12 = `._infoIcon_15ri6_1 {
   width: 24px;
   color: var(--rstudio-blue);
@@ -48871,8 +48920,8 @@ div#_size-detection-cell_i4cq9_1 {
     rem: "Pixel size of app font. Typically 16 pixels."
   };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-jpD7EVoaohNJ/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
-  var digest13 = "263aacdba6de0c06478b91a67c7fbf61ccc14a356e1072fa011b2f4224358013";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-s6bEki7dho1a/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
+  var digest13 = "1557d049672e9e73e76ccfe42d34f3381fb0bb63532c9137ed10ecfbf5062e99";
   var css13 = `._wrapper_3jy8f_1 {
   position: relative;
   display: flex;
@@ -49415,8 +49464,8 @@ div#_size-detection-cell_i4cq9_1 {
     return tractSizes.some((size) => size === "auto");
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-EjOiAMXzFQ3P/editor/src/components/Grids/EditableGridContainer/TractInfoDisplay.module.css.js
-  var digest14 = "62f97a84f7d35a75bde1d89b739c0d60428a29e20d36c1d9ad8795754190619b";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-Ara0eMzt0vHc/editor/src/components/Grids/EditableGridContainer/TractInfoDisplay.module.css.js
+  var digest14 = "cd916e2cbc7718944e7a679cd84c0e4445ef85dc3fa1c51075430c44b2b9f610";
   var css14 = `._tractInfoDisplay_cvtwo_1 {
   --transition-delay: 0.1s;
   --transition-speed: 0.1s;
@@ -49779,8 +49828,8 @@ user is typing in the input field but mouses off */
     });
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-FcOdnopFHtAx/editor/src/components/Grids/EditableGridContainer/TractSizer.module.css.js
-  var digest15 = "c3bf4b570c78120a4294db11d4947e45e9fb488eea1e52a4ffbeef408e21c372";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-q5pY3aepRua3/editor/src/components/Grids/EditableGridContainer/TractSizer.module.css.js
+  var digest15 = "89996038a81e3e79d5d870acdd41eeadfc7e6dac2ea6051cdef2c81a75b5d268";
   var css15 = `div._columnSizer_9b32k_1,
 div._rowSizer_9b32k_2 {
   --sizer-color: #c9e2f3;
@@ -50205,7 +50254,7 @@ div._rowSizer_9b32k_2::after {
     return /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("h3", { className: className + " panel-title", children });
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-GNSmvZOAvdTb/editor/src/PortalModal.module.css.js
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-qbDw94eRWT0S/editor/src/PortalModal.module.css.js
   var digest16 = "210a41bf95887856025bd78b03ed9397f2a869ba9ee5400871917f6d07719bac";
   var css16 = `._portalHolder_18ua3_1 {
   background-color: rgba(255, 255, 255, 0.735);
@@ -50322,8 +50371,8 @@ div._rowSizer_9b32k_2::after {
   }
   var PortalModal_default = PortalModal;
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-enYXLYpToRPd/editor/src/PortalModal.module.css.js
-  var digest17 = "dd2829deeec8ec59e15b8f95395f35192c52daa65505b9a9e2521a6b8728df3f";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-f3i1uXrv0Hnz/editor/src/PortalModal.module.css.js
+  var digest17 = "0b46ea8ce1ab707a1e3f7a3d69c8dc391cc8694c19445ff93051cbcb2a3d2bc8";
   var css17 = `._portalHolder_18ua3_1 {
   background-color: rgba(255, 255, 255, 0.735);
   position: absolute;
@@ -50522,8 +50571,8 @@ div._rowSizer_9b32k_2::after {
     }, n3;
   }();
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-TLPkgRfk7hFV/editor/src/components/Inputs/BooleanInput/styles.module.css.js
-  var digest18 = "3bfd9eec523c0ef3f95de1f79bd60cf641e40ea8deedef0c8645d50db3b88e64";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-XPcq9JKGZUrh/editor/src/components/Inputs/BooleanInput/styles.module.css.js
+  var digest18 = "986b5d6a8ddc33a657e7110731032729103da2d7e628529a99a0e284a0c19b87";
   var css18 = `._checkboxInput_7ym3w_1 {
   height: 0;
   width: 0;
@@ -50635,8 +50684,8 @@ label._checkboxLabel_7ym3w_10:after {
   // src/components/Inputs/CSSUnitInput/CSSUnitInput.tsx
   var import_react31 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-8BLHyyDy5Ad5/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
-  var digest19 = "e5c5a32644e24b3080be584da10823d7cb86de0f6c1a4e9ee66f63483109c0d7";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-bKNo9jAmzCdp/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
+  var digest19 = "d472340f3dc4ee215dd1e5040b6d0853a34694a89514975bfd37c0ed4885bb0f";
   var css19 = `._wrapper_3jy8f_1 {
   position: relative;
   display: flex;
@@ -50778,8 +50827,8 @@ label._checkboxLabel_7ym3w_10:after {
   // src/components/Inputs/ListInput/NamedListInput.tsx
   var import_react_sortablejs = __toESM(require_dist());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-U9bFtTXzJlqP/editor/src/components/Inputs/ListInput/styles.module.css.js
-  var digest20 = "ac97dc32a088ddc1a233e6301a87188212f994ee0d53c1e32b85bc047ed8f412";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-53kg70ObqvxH/editor/src/components/Inputs/ListInput/styles.module.css.js
+  var digest20 = "414e3b4642c84761a6bf71e3f98d1fc906a07e552c264078f82e3ca01a59bf73";
   var css20 = `._container_xt7ji_1 {
   --gap-size: 4px;
   margin-top: 21px;
@@ -51075,8 +51124,8 @@ label._checkboxLabel_7ym3w_10:after {
   // src/components/Inputs/RadioInputs/RadioInputsSimple.tsx
   var React39 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-lAPnvpLp6ewO/editor/src/components/Inputs/RadioInputs/RadioInputs.module.css.js
-  var digest21 = "cc3d3c2ac1e453d65c38bc00d87d56283a0a22b376fbb5f0c9934f4bc12598cb";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-Sk7fAUOWZte1/editor/src/components/Inputs/RadioInputs/RadioInputs.module.css.js
+  var digest21 = "f8fb063f3fe2dc8c01d1104e05ed18d8786e98d63e8d779b4252978356d4f89d";
   var css21 = `._radioContainer_1regb_1 {
   display: grid;
   gap: 5px;
@@ -51537,8 +51586,8 @@ the label */
     };
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-qi8V43Rgd12G/editor/src/components/GridlayoutElement/styles.module.css.js
-  var digest22 = "2bfcfe9649982e3277f3e924fba79061d117a0c6d02cd7437a88639a5e7c58b5";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-MtPUYL9tTm1A/editor/src/components/GridlayoutElement/styles.module.css.js
+  var digest22 = "ae57d4cb37b86822a0339f09092684eba95222683c8d72d79fb37857613229e5";
   var css22 = `._container_1hvsg_1 {
   display: grid;
   /* background-color: var(--bg-color); */
@@ -51883,8 +51932,8 @@ the label */
     return makeStringInputInfo("Label text", defaultValue);
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-MvJ2R8iQBkMT/editor/src/Shiny-Ui-Elements/ShinyActionButton/styles.module.css.js
-  var digest23 = "0879f0ee31029638e2a9ff7f186c6a9426b7bc16331a056d77f8f5d0e6a3dea2";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-JrIrQP2Q0R2G/editor/src/Shiny-Ui-Elements/ShinyActionButton/styles.module.css.js
+  var digest23 = "46aafe4a8d94835c4e1e6a1c965471d1879eea7683f8d54b23f8bf42e2f9bc15";
   var css23 = `._container_tyghz_1 {
   display: grid;
   grid-template-rows: 1fr;
@@ -51941,8 +51990,8 @@ the label */
   // src/assets/icons/shinyCheckgroup.png
   var shinyCheckgroup_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAFS0lEQVR4nO3cz2vTdxzH8Vfb9VeIa7ta1FW2FqQ6pqLbEERhm0OGFzcPY0dhl+LFo4cd9gfsuIs77LDbkAljDqEiCoKszMMEcbqFsjm2OaW6ptClP2zNDvkms2n6I99vXqTp5/mAQJKmn3wPT76fJCTvpnw+L6DWmut9ANiYCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFoQFC8KCBWHBgrBgQViwICxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFs/V+wDq5cy5seX+1BNd4piILkt8+uGOmEs2pmDDKrNL0ilJ70h6NeFaP0m6IumspJ8TrtWw2AqlYUl3JJ1W8qgUrXE6WnO4Bus1pNDPWCclff7sHZ1tzepsa4m12PTcgqbnnhZvNkVrz0r6Mv4hNqaQw+pTYbuSJA1s7tB7r/Wpv6c90aJ/Tczq2x/Hde/RTPGus5IuShpPtHCDCXkrPCWpU5K297Rr+O3+xFFJUn+01vYXSmt1RM8VlJDDOly8cmxvr1qam2q2cEtzk47t6a34XKEIeSs8VLwy0NeZaKHRTFaX7xQ+ZRh+60Vt6W4vX/NQxX/cwEIOK1W80toS/2x18ea4rmUmlW5vKUVVYc1UxX/ewELeChMbzWR1LTMpSTp5aGspKhBWbJO5J/rm5iNJ0on9m/Vywu10oyGsmL76/oEk6cBAWgeHuut7MOsQYcUwmsnq18ezSre36Ojid3+IEFaVJnNPSu8Aj+/rVVeqtc5HtD4RVpWu/5LV1OyCdm9Lad/A8/U+nHWLsKrwMDtbehf47l62wJUQVhUu3XosSXpzqIuPFlZBWBWMZrI6c25M5394ULrv9/Fp3f47J0k6vLO7TkfWOAirzMyTp6XPp27cmyrFdfvPKUmFsxUv2FdHWGU6Wpv10eGtpds37k0t+oT9jUFesK8FYVWwqz+tE/s3l24Xz2C7t6V4bbVGhLWMg0PdOjCQXnTf3pfSyzwa5UIO65/ildzcQsUHHN3Tq3R74WvKWza1VvW51TNfUZaW+eXORhby12auSzouSXfv5/T6wKYlD+hKteqT9wdjLX7n/r/lzxWUkM9Y3xWvjNx6rGxuvmYLZ3PzGok+84pcqNniDSLkM9YXkj6WNDg5Pa/PLv+hI6/0aMeWlNpifvFvbiGvsYc5Xb07oamZ0vb6W/RcQQk5LKnwI4cRSZqaWdCF6N2f4TmCE/JWKEmXVPj1c8awdiZa+5Jh7XUv9DOWJF2VtFPSB5KOqPCLmrjfUc+p8EL9iqTzNTm6BkVY//s6uqAGQt8KYUJYsCAsWBAWLHjxvpRlol9oCKuAiX41xlbIRD+L0M9YTPQzCTksJvoZhbwVMtHPKOSwmOhnFPJWyEQ/o5DDYqKfUchbYWJM9FseYcXERL+VEVZMTPRbGWHFwES/1RFWlZjotzaEVSUm+q0NYVWBiX5rR1hVYKLf2hFWBUz0S46wyjDRrzYIqwwT/WqDsCpgol9yhLUMJvolE3JYTPQzCvlrM0z0Mwr5jMVEP6OQz1hM9DMKOSyJiX42IW+FEhP9bEI/Y0lM9LNoyufz9T4GbEChb4UwISxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFoQFC8KCBWHBgrBgQViwICxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLP4DpWmTqmVmpDwAAAAASUVORK5CYII=";
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-ZmGfOiIMDrpR/editor/src/Shiny-Ui-Elements/ShinyCheckboxGroupInput/styles.module.css.js
-  var digest24 = "9a504808ee52f0ea2674234ff17e03862e4e4db33c43029658725718ca24e675";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-EGX6r9RaW334/editor/src/Shiny-Ui-Elements/ShinyCheckboxGroupInput/styles.module.css.js
+  var digest24 = "fc970319f245814adc86037de3cfb109d02360f6f06576054d517a55fd40634c";
   var css24 = `._container_162lp_1 {
   position: relative;
   padding: 4px;
@@ -52034,8 +52083,8 @@ the label */
   // src/Shiny-Ui-Elements/ShinyCheckboxInput/ShinyCheckboxInput.tsx
   var React43 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-lLh12rfRNmNZ/editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/styles.module.css.js
-  var digest25 = "c05a4f32fdec5e6685849077c348fe864bf109664ee88dfef09c6bdadf32c357";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-Y1ryD61tQGAd/editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/styles.module.css.js
+  var digest25 = "52b2706cc7242434479d26931ed85965bac6337901d30d7b562cdef94983a3a2";
   var css25 = `._container_1x0tz_1 {
   position: relative;
   padding: 4px;
@@ -52151,8 +52200,8 @@ the label */
     return getTabPanelTitle(firstChild) ?? "First Tab";
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-Ez9w5Do2Zr5i/editor/src/components/Tabs/TabPanel/TabPanel.module.css.js
-  var digest26 = "eea848881e462ee23a0b24731150b9d4df6aaf2550a35b9bc947da2aaf21511a";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-MAV3KVZsU5JX/editor/src/components/Tabs/TabPanel/TabPanel.module.css.js
+  var digest26 = "4332c660242e73e9d10c6ccdadd7b735333122bc1ec4e208197bf6e8ac1aa96e";
   var css26 = `._container_10z2l_1 {
   height: 100%;
 }
@@ -52281,8 +52330,8 @@ the label */
     }) });
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-3T3xw0Afiea1/editor/src/Shiny-Ui-Elements/ShinyTabPanel/ShinyTabPanel.module.css.js
-  var digest27 = "9ec451dd8f10bb9a74913d0e4e2bd7188c21abda7350483a7d5219da8459edac";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-BtbZO76bFy4b/editor/src/Shiny-Ui-Elements/ShinyTabPanel/ShinyTabPanel.module.css.js
+  var digest27 = "77b7f8f05ebb3285b72d3c15c9c6e209f2108fa356727005b67f9deb6836ee41";
   var css27 = `._container_fe3r8_1 {
   position: relative;
   height: 100%;
@@ -52389,8 +52438,8 @@ the label */
     return sameArray(aPath, bPath);
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-YLFbXoEoxdWY/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest28 = "545d09306654a7e0af26ca0e201b58835c961d9983d0e465c10fbb5c50f6d33f";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-h70XaDMO65Bi/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest28 = "0cec43ceacd2bc034be82fd2144fad4b673280d1ab3e73bfb9a75c148b3cae82";
   var css28 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -52563,8 +52612,8 @@ illusion of the selected panel and tab being one entity */
     );
   };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-5eGecd7oPrWY/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest29 = "506a31423826f12d44ca7ac942858ce21252cd92f9202c952aefd4d57a371080";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-KTbPkLdh7eex/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest29 = "0f0016a3ac26ff1c1d9320ea75533896ae5d560381b17f94378b1b0c6ed65e4a";
   var css29 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -52734,8 +52783,8 @@ illusion of the selected panel and tab being one entity */
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-5SiYVCQHeOul/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest30 = "4343ecab4a37c01042d633666a8a774f09f56d15951fb184f7a8574cf295408a";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-SvFG57uuipDm/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest30 = "78e88baefb538cb8a9382a6721c218c2d283b078d16d60a90338d87f3bb06938";
   var css30 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -53010,8 +53059,8 @@ illusion of the selected panel and tab being one entity */
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-3hUe2fQa5JNJ/editor/src/Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage.module.css.js
-  var digest31 = "3a6bceba1d820c60c705198603ff8d4e27b6070e31b23074fdff9ce6008d0982";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-ucAuZbtSOgJt/editor/src/Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage.module.css.js
+  var digest31 = "6236fb5b8251549edc7a2200f70b87a0af8eab2e2240cd11badea2643312d08c";
   var css31 = `._noTabsMessage_130qz_1 {
   padding: 5px;
 }
@@ -53112,8 +53161,8 @@ illusion of the selected panel and tab being one entity */
   // src/Shiny-Ui-Elements/ShinyNumericInput/ShinyNumericInput.tsx
   var React49 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-HZkkix4yPBMu/editor/src/Shiny-Ui-Elements/ShinyNumericInput/styles.module.css.js
-  var digest32 = "7581ffebac270269b1487e8c2f31501c0351605898e075b1dbaf490986f3e04b";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-MfAtOgmIm9rb/editor/src/Shiny-Ui-Elements/ShinyNumericInput/styles.module.css.js
+  var digest32 = "0b048b7ae167c0ff30bcc400aebdfd04ce6296045b78bdbce599cbdd561b6522";
   var css32 = `._container_yicbr_1 {
   position: relative;
   padding: 4px;
@@ -53231,8 +53280,8 @@ illusion of the selected panel and tab being one entity */
     description: "An input control for entry of numeric values"
   };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-BfM0SPqzFMla/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
-  var digest33 = "5385dfe8ccfc4b39d5922935dba37e3536da9131cc4843e0cae1537dd59176d5";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-2K57Ro5o6wTH/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
+  var digest33 = "bbf1eb5a1d16f1eeb02bed69c8d15d2926c35631634692b400a5b65d29a9060f";
   var css33 = `._container_1rlbk_1 {
   max-height: 100%;
 }
@@ -53324,8 +53373,8 @@ illusion of the selected panel and tab being one entity */
   // src/Shiny-Ui-Elements/ShinyRadioButtons/ShinyRadioButtons.tsx
   var import_react42 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-DAIkeyPOQShm/editor/src/Shiny-Ui-Elements/ShinyRadioButtons/styles.module.css.js
-  var digest34 = "f9c980b16c08aa2b31d93cdf6dac655dd5f3080fbc33651b852dd3a5b3f0d0ac";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-JymJ7f1apY4o/editor/src/Shiny-Ui-Elements/ShinyRadioButtons/styles.module.css.js
+  var digest34 = "b1aedfacb6e527889c8c75844ecda52a4a54717e414448daba3c7cf7155bedee";
   var css34 = `._container_sgn7c_1 {
   position: relative;
   padding: 4px;
@@ -53427,8 +53476,8 @@ illusion of the selected panel and tab being one entity */
   // src/assets/icons/shinySelectbox.png
   var shinySelectbox_default = "data:image/png;base64,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";
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-ghByho5erwNV/editor/src/Shiny-Ui-Elements/ShinySelectInput/styles.module.css.js
-  var digest35 = "b2381dad179e2d46e754db24f17881e499b3c0dccb77160b7b307959c388ad99";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-OOcl2rio9ucx/editor/src/Shiny-Ui-Elements/ShinySelectInput/styles.module.css.js
+  var digest35 = "781cee81ef40777cfd3074d68157a7ab754a3bc0b7c0be65bb89eb0a4a3134ec";
   var css35 = `._container_1e5dd_1 {
   position: relative;
   padding: 4px;
@@ -53504,8 +53553,8 @@ illusion of the selected panel and tab being one entity */
   // src/Shiny-Ui-Elements/ShinySliderInput/ShinySliderInput.tsx
   var React51 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-ungHXIyzLN8n/editor/src/Shiny-Ui-Elements/ShinySliderInput/styles.module.css.js
-  var digest36 = "7d7f8c7f7c9b873877ceab473b75686cde0c5ff1227edb57f004122194e05def";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-BqZ4m0JBh73q/editor/src/Shiny-Ui-Elements/ShinySliderInput/styles.module.css.js
+  var digest36 = "93c6de35884ebcfcd7d2f9afde041e2a0b578d6481086043c41a757f38062168";
   var css36 = `._container_1f2js_1 {
   padding: 6px;
 
@@ -53740,8 +53789,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // src/Shiny-Ui-Elements/ShinyTextInput/ShinyTextInput.tsx
   var React52 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-1vedwLnwHkgZ/editor/src/Shiny-Ui-Elements/ShinyTextInput/styles.module.css.js
-  var digest37 = "83f036afa7b75aedc1fd1a90005f07646928da4527ebc10dfa18e27f1103c0af";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-pcepgRk4a2u0/editor/src/Shiny-Ui-Elements/ShinyTextInput/styles.module.css.js
+  var digest37 = "394a43d934f089fc31e75ca492d2e69bd9eebc6eaa752663914127533420bba2";
   var css37 = `._container_yicbr_1 {
   position: relative;
   padding: 4px;
@@ -53836,8 +53885,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // src/assets/icons/shinyTextOutput.png
   var shinyTextOutput_default = "data:image/png;base64,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";
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-q9R2gYuWNMqm/editor/src/Shiny-Ui-Elements/ShinyTextOutput/styles.module.css.js
-  var digest38 = "363d66d531eff5f1c84cccc3a9caae3e0149a44e3edc9ad87831908a5ec5e362";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-vuEoyvZYWQzq/editor/src/Shiny-Ui-Elements/ShinyTextOutput/styles.module.css.js
+  var digest38 = "b9cc81213ad1d363eb43c888e7841c7b8420d966ac0e3f86f1a7cd72a4a70985";
   var css38 = `._container_1i6yi_1 {
   padding: 1rem;
   max-height: 100%;
@@ -53897,8 +53946,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // src/assets/icons/shinyImage.png
   var shinyImage_default = "data:image/png;base64,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";
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-KeZ7hhCCa6a1/editor/src/Shiny-Ui-Elements/ShinyUiOutput/styles.module.css.js
-  var digest39 = "8423f67c2cedf7ad222c52d4645f77471d8c509d5edb1062c8c9bdcfd9e2524f";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-ri9n23FApDf5/editor/src/Shiny-Ui-Elements/ShinyUiOutput/styles.module.css.js
+  var digest39 = "151d31bc92538d11b25293477dc476b1c0f5e6267cbaa6e7012af70f6f798526";
   var css39 = `._container_1xnzo_1 {
   display: grid;
   grid-template-rows: 1fr;
@@ -53968,8 +54017,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 1024 1024" }, "child": [{ "tag": "path", "attr": { "d": "M881.7 187.4l-45.1-45.1a8.03 8.03 0 0 0-11.3 0L667.8 299.9l-54.7-54.7a7.94 7.94 0 0 0-13.5 4.7L576.1 439c-.6 5.2 3.7 9.5 8.9 8.9l189.2-23.5c6.6-.8 9.3-8.8 4.7-13.5l-54.7-54.7 157.6-157.6c3-3 3-8.1-.1-11.2zM439 576.1l-189.2 23.5c-6.6.8-9.3 8.9-4.7 13.5l54.7 54.7-157.5 157.5a8.03 8.03 0 0 0 0 11.3l45.1 45.1c3.1 3.1 8.2 3.1 11.3 0l157.6-157.6 54.7 54.7a7.94 7.94 0 0 0 13.5-4.7L447.9 585a7.9 7.9 0 0 0-8.9-8.9z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-NreslmW7UbCM/editor/src/components/CategoryDivider/styles.module.css.js
-  var digest40 = "b59ecd8948745da4e4218147c381080f271ec38e1c9665aebf737eab278ad054";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-gC8JtGsJd6ZE/editor/src/components/CategoryDivider/styles.module.css.js
+  var digest40 = "18d0d03ab82682229d88e03907b05653cc19a14dad4d387dee8a38be455c6ed4";
   var css40 = `._categoryDivider_bdwku_1 {
   display: block;
   position: relative;
@@ -54541,8 +54590,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 16 16", "fill": "currentColor" }, "child": [{ "tag": "path", "attr": { "fillRule": "evenodd", "clipRule": "evenodd", "d": "M12.75 8a4.5 4.5 0 0 1-8.61 1.834l-1.391.565A6.001 6.001 0 0 0 14.25 8 6 6 0 0 0 3.5 4.334V2.5H2v4l.75.75h3.5v-1.5H4.352A4.5 4.5 0 0 1 12.75 8z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-i4qbeA1Ke47w/editor/src/components/AppPreview/AppPreview.module.css.js
-  var digest41 = "b6b56571cb543c87c729bf9a2adf3d6e36afd60ba1c6a2346d9b8502a5edca6a";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-2Uf9BWfDIzyr/editor/src/components/AppPreview/AppPreview.module.css.js
+  var digest41 = "4762031a5419c231978b81a22761eec88e6c5be392b077f5e8d67f4642055101";
   var css41 = `div._appViewerHolder_zkojo_1 {
   /* This is over-ridden by an inline style but we just have it here in case */
   --app-scale-amnt: 0.24;
@@ -54808,8 +54857,8 @@ h2._error_zkojo_249 {
   })();
   var AppPreview_module_css_default = { "appViewerHolder": "_appViewerHolder_zkojo_1", "title": "_title_zkojo_55", "appContainer": "_appContainer_zkojo_89", "previewFrame": "_previewFrame_zkojo_109", "expandButton": "_expandButton_zkojo_134", "reloadButtonContainer": "_reloadButtonContainer_zkojo_135", "reloadButton": "_reloadButton_zkojo_135", "spin": "_spin_zkojo_174", "restartButton": "_restartButton_zkojo_211", "loadingMessage": "_loadingMessage_zkojo_238", "error": "_error_zkojo_249" };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-x0eifp5SOfi3/editor/src/components/AppPreview/AppPreview.module.css.js
-  var digest42 = "34de8890f8df22c6e00a76231238966abb33c832000ae441f9e6a6e0a386458c";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-TP8mP0DWoKcA/editor/src/components/AppPreview/AppPreview.module.css.js
+  var digest42 = "ada7e1fb5861d6e5275f783814e9e3df6bf7bcccf3569dbca686d7993ec02e0d";
   var css42 = `div._appViewerHolder_zkojo_1 {
   /* This is over-ridden by an inline style but we just have it here in case */
   --app-scale-amnt: 0.24;
@@ -55075,8 +55124,8 @@ h2._error_zkojo_249 {
   })();
   var AppPreview_module_css_default2 = { "appViewerHolder": "_appViewerHolder_zkojo_1", "title": "_title_zkojo_55", "appContainer": "_appContainer_zkojo_89", "previewFrame": "_previewFrame_zkojo_109", "expandButton": "_expandButton_zkojo_134", "reloadButtonContainer": "_reloadButtonContainer_zkojo_135", "reloadButton": "_reloadButton_zkojo_135", "spin": "_spin_zkojo_174", "restartButton": "_restartButton_zkojo_211", "loadingMessage": "_loadingMessage_zkojo_238", "error": "_error_zkojo_249" };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-MfAoWU72m5pS/editor/src/components/AppPreview/FakeDashboard.module.css.js
-  var digest43 = "e5d301e03bedc799b6e1070f989cf76fb319ded0327e194062b54c98b0494aaa";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-xgOcEIfO8l68/editor/src/components/AppPreview/FakeDashboard.module.css.js
+  var digest43 = "5914cbce670c25c22e71c9b116a6a56c50742093104daf2014f362991a24ce88";
   var css43 = `._fakeApp_t3dh1_1 {
   display: grid;
   place-content: center;
@@ -55173,8 +55222,8 @@ h2._error_zkojo_249 {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "fill": "none", "stroke": "#000", "strokeWidth": "2", "d": "M12,22 C17.5228475,22 22,17.5228475 22,12 C22,6.4771525 17.5228475,2 12,2 C6.4771525,2 2,6.4771525 2,12 C2,17.5228475 6.4771525,22 12,22 Z M5,5 L19,19" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-QB9x750SpW8p/editor/src/components/AppPreview/LogsViewer.module.css.js
-  var digest44 = "1b7b46f6b215bf41995cabc628acb0857a3595d51a66a512893763fd52ecbaf5";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-MjVLVBdGb1sb/editor/src/components/AppPreview/LogsViewer.module.css.js
+  var digest44 = "4f680330a1866a39393d48f6831b19a0c307b6c105471ad29cda0e0756f93de3";
   var css44 = `/* Logs section */
 ._logs_xjp5l_2 {
   --tab-height: var(--logs-button-h, 20px);
@@ -56340,8 +56389,8 @@ p._logLine_xjp5l_75 {
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-6HHA8XbzXtVy/editor/src/components/UndoRedoButtons/UndoRedoButtons.module.css.js
-  var digest45 = "8bbf7298358a61b110b3039884b117e81516b21aeb0a6be37f3d6fb43a09ef56";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-KNhAyG0fxUnY/editor/src/components/UndoRedoButtons/UndoRedoButtons.module.css.js
+  var digest45 = "e7aa963d44e0862f7aeb88a23078e6d6894e1b9c835c9ebbb888ab178f99f4e6";
   var css45 = `._container_1d7pe_1 {
   display: flex;
   position: relative;
@@ -56426,7 +56475,7 @@ p._logLine_xjp5l_75 {
   // src/ElementsPalette/index.tsx
   var React64 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-wXUS5p6jRnfv/editor/src/ElementsPalette/styles.module.css.js
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-cz72FXtgg9RE/editor/src/ElementsPalette/styles.module.css.js
   var digest46 = "d62de7a9f2527c43b49c30ee81046603074ebc5f6592dae7cc12c514c0005059";
   var css46 = `._elementsPalette_qmlez_1 {
   --icon-size: 75px;
@@ -56498,8 +56547,8 @@ p._logLine_xjp5l_75 {
   })();
   var styles_module_css_default24 = { "elementsPalette": "_elementsPalette_qmlez_1", "OptionContainer": "_OptionContainer_qmlez_18", "optionContainer": "_OptionContainer_qmlez_18", "OptionItem": "_OptionItem_qmlez_24", "optionItem": "_OptionItem_qmlez_24", "OptionIcon": "_OptionIcon_qmlez_33", "optionIcon": "_OptionIcon_qmlez_33", "OptionLabel": "_OptionLabel_qmlez_41", "optionLabel": "_OptionLabel_qmlez_41" };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-AzLAdTyLKLFX/editor/src/ElementsPalette/styles.module.css.js
-  var digest47 = "b4748b738d75ada1260c080de4a4b525868bac5b4bf8bb0c410f07bdaf994cc6";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-6GT4eIlau9Zj/editor/src/ElementsPalette/styles.module.css.js
+  var digest47 = "b1fdd283472ad92570a7f4bfb284dfc261d5fd975c1bf4596807452591b03b01";
   var css47 = `._elementsPalette_qmlez_1 {
   --icon-size: 75px;
   --padding: 8px;
@@ -56778,8 +56827,8 @@ p._logLine_xjp5l_75 {
     return InputsComponents;
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-KFezrWPbDbG5/editor/src/SettingsPanel/PathBreadcrumb.module.css.js
-  var digest48 = "6186beb848b5354af93ea8e43de09c43775bb06bcc850923c065d456e2d6e23c";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-d4BmaYxIPsh3/editor/src/SettingsPanel/PathBreadcrumb.module.css.js
+  var digest48 = "a49ea6b803ffc075c1c77bcbba5921aa93b75d896f598ed6a127a6ee42e0521f";
   var css48 = `._container_1fh41_1 {
   --flex-gap: 8px;
   padding: var(--vertical-spacing);
@@ -56900,7 +56949,7 @@ p._logLine_xjp5l_75 {
     return uiName.replace(/[a-z]+::/, "");
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1920-XQnAczS04B11/editor/src/SettingsPanel/SettingsPanel.module.css.js
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-YDkbXAILieIb/editor/src/SettingsPanel/SettingsPanel.module.css.js
   var digest49 = "78f990d968cd653d43f793ebb7bb88813fb9d27ab02d631375fc71be8097a29c";
   var css49 = `._settingsPanel_a44hx_1 {
   --vertical-gap: var(--vertical-spacing);
