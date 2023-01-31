@@ -2,7 +2,7 @@ import type { ShinyUiNodeByName } from "editor/src/Shiny-Ui-Elements/uiNodeTypes
 
 import type { R_AST_Node } from ".";
 
-import { build_function_text } from "./build_function_text";
+import { build_function_text } from "./code_generation/build_function_text";
 import { is_ast_branch_node } from "./node_identity_checkers";
 
 /**
