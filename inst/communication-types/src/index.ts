@@ -53,7 +53,7 @@ export type OutputType = "SINGLE-FILE" | "MULTI-FILE";
 
 export type TemplateSelection = Omit<TemplateInfo, "title" | "description"> & {
   outputType: OutputType;
-};
+} & R_Ui_Code;
 
 export type ParsedAppInfo = {
   file_lines: string[];

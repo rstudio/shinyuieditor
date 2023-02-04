@@ -101,7 +101,6 @@ remove_app_template <- function(app_loc, app_type) {
 #'
 generate_app_template_files <- function(app_template, remove_namespace = TRUE) {
 
-  uiTree <- app_template$uiTree
   outputType <- app_template$outputType
 
   # Extract other code info into variables so it's easier to type/remember
@@ -112,9 +111,7 @@ generate_app_template_files <- function(app_template, remove_namespace = TRUE) {
   serverExtra <- otherCode$serverExtra
   serverFunctionBody <- otherCode$serverFunctionBody
 
-  ui_dfn_code <- ui_tree_to_code(uiTree, remove_namespace)
-
-  ui_libraries <- if (remove_namespace) ui_dfn_code$namespaces_removed else NULL
+  ui_libraries <- app_template$library_calls
 
   server_def <- paste0(
     "function(input, output) {",
@@ -130,7 +127,7 @@ generate_app_template_files <- function(app_template, remove_namespace = TRUE) {
 
     library_calls <- collapsed_library_calls(all_libraries)
 
-    ui_def_text <- paste0("ui <- ", paste(ui_dfn_code$text, collapse = "\n"))
+    ui_def_text <- paste0("ui <- ", app_template$ui_code)
 
     server_def_text <- paste0("server <- ", server_def)
 
@@ -146,14 +143,12 @@ generate_app_template_files <- function(app_template, remove_namespace = TRUE) {
 
     output_files$app_file <- format_code(app_file)
   } else if (outputType == "MULTI-FILE") {
-
-    ui_def_text <- paste(ui_dfn_code$text, collapse = "\n")
     
     output_files$ui_file <- format_code(
       paste(
         collapsed_library_calls(ui_libraries),
         uiExtra,
-        ui_def_text,
+        app_template$ui_code,
         sep = "\n"
       )
     )

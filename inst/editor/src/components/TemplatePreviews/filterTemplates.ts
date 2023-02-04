@@ -2,6 +2,7 @@ import React from "react";
 
 import type { OutputType } from "communication-types";
 
+import { ui_node_to_R_code } from "../../../../ast-parsing/src/code_generation/ui_node_to_R_code";
 import type { TemplateInfo } from "../../assets/app-templates/app_templates";
 import { app_templates } from "../../assets/app-templates/app_templates";
 
@@ -72,7 +73,16 @@ export function useFilteredTemplates({
     );
 
     if (!chosenTemplate) return;
-    requestTemplate({ ...chosenTemplate, outputType: selectedOutput });
+
+    const template_ui_code = ui_node_to_R_code(chosenTemplate.uiTree, {
+      remove_namespace: true,
+    });
+
+    requestTemplate({
+      ...chosenTemplate,
+      ...template_ui_code,
+      outputType: selectedOutput,
+    });
   };
 
   return {
