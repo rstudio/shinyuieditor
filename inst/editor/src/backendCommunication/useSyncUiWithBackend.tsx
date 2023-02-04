@@ -4,6 +4,7 @@ import type { MessageToClientByPath } from "communication-types";
 import debounce from "just-debounce-it";
 import { useDispatch } from "react-redux";
 
+import { ui_node_to_R_code } from "../../../ast-parsing/src/code_generation/ui_node_to_R_code";
 import { useDeleteNode } from "../components/DeleteNodeButton/useDeleteNode";
 import { useUndoRedo } from "../state-logic/useUndoRedo";
 import { getNamedPath } from "../state/getNamedPath";
@@ -120,8 +121,8 @@ export function useSyncUiWithBackend() {
     }
 
     debouncedSendMsg({
-      path: "UPDATED-TREE",
-      payload: state.uiTree,
+      path: "UPDATED-UI",
+      payload: ui_node_to_R_code(state.uiTree, { remove_namespace: true }),
     });
   }, [state, debouncedSendMsg, sendMsg]);
 

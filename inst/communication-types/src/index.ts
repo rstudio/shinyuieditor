@@ -76,12 +76,20 @@ export type InputSourceRequest = {
   inputId: string;
 };
 
+export type R_Ui_Code = {
+  /** String with formatted R code defining a shiny ui */
+  ui_code: string;
+  /** String with all the library calls to accompany the ui code*/
+  library_calls: string[];
+};
+
 /**
  * Messages keyed by path that can be sent to the backend
  */
 type MessageToBackendByPath = {
   "READY-FOR-STATE": null;
   "UPDATED-TREE": ShinyUiNode;
+  "UPDATED-UI": R_Ui_Code;
   "NODE-SELECTION": string[];
   "ENTERED-TEMPLATE-SELECTOR": null;
   "TEMPLATE-SELECTION": TemplateSelection;

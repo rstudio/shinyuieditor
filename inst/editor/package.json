@@ -24,7 +24,8 @@
     "react-redux": "^8.0.2",
     "react-sortablejs": "^6.1.4",
     "sortablejs": "^1.15.0",
-    "ts-pattern": "^4.0.5"
+    "ts-pattern": "^4.0.5",
+    "ast_parsing": "*"
   },
   "devDependencies": {
     "@babel/core": "^7.18.13",

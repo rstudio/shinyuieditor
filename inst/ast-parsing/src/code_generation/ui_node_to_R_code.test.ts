@@ -39,7 +39,7 @@ describe("Can keep or remove namespaces", () => {
       remove_namespace: false,
     });
     expect(ui_code).toBe(with_namespaces);
-    expect(library_calls).toBe("");
+    expect(library_calls).toStrictEqual([]);
   });
 
   test("Removing namespaces", () => {
@@ -56,14 +56,11 @@ describe("Can keep or remove namespaces", () => {
   )
 )`;
 
-    const library_code = `library(gridlayout)
-library(shiny)`;
-
     const { ui_code, library_calls } = ui_node_to_R_code(ui_ast, {
       remove_namespace: true,
     });
     expect(ui_code).toBe(no_namespaces);
-    expect(library_calls).toBe(library_code);
+    expect(library_calls).toStrictEqual(["gridlayout", "shiny"]);
   });
 });
 
@@ -252,7 +249,7 @@ describe("Full UI example", () => {
     area = "header",
     content = "My App",
     alignment = "start",
-    is_title = true
+    is_title = TRUE
   ),
   gridlayout::grid_card(
     area = "sidebar",

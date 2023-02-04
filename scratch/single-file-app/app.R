@@ -10,11 +10,11 @@ ui <- grid_page(
   ),
   row_sizes = c(
     "110px",
-    "0.99fr",
-    "1.01fr"
+    "0.46fr",
+    "1.54fr"
   ),
   col_sizes = c(
-    "200px",
+    "425px",
     "1fr"
   ),
   gap_size = "1rem",
@@ -25,16 +25,13 @@ ui <- grid_page(
     item_gap = "12px",
     sliderInput(
       inputId = "bins",
-      label = "Number of Bins",
-      min = 12L,
-      max = 100L,
-      value = 30L,
+      label = "Number of Bins ",
+      min = 12,
+      max = 100,
+      value = 30,
       width = "100%"
     ),
-    actionButton(
-      inputId = "redraw",
-      label = "Redraw2"
-    ),
+    actionButton(inputId = "redraw", label = "Redraw"),
     textInput(
       inputId = "bins2",
       label = "Text Input",

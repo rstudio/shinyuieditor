@@ -1,3 +1,4 @@
+import type { R_Ui_Code } from "communication-types";
 import type { ShinyUiNode } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
 
 import type { Primatives } from "..";
@@ -9,12 +10,6 @@ import {
   should_line_break,
 } from "./build_function_text";
 
-type R_Ui_Code = {
-  /** String with formatted R code defining a shiny ui */
-  ui_code: string;
-  /** String with all the library calls to accompany the ui code*/
-  library_calls: string;
-};
 /**
  * Convert a ui ast node into formatted R code.
  * @param node Ui Node to be converted
@@ -30,11 +25,7 @@ export function ui_node_to_R_code(
     opts
   );
 
-  const library_calls = Array.from(removed_namespaces)
-    .map((name) => `library(${name})`)
-    .join("\n");
-
-  return { ui_code, library_calls };
+  return { ui_code, library_calls: Array.from(removed_namespaces) };
 }
 
 /**
@@ -152,6 +143,8 @@ function print_R_argument_value(value: unknown): string {
   if (Array.isArray(value)) return print_R_array(value);
 
   if (isNamedList(value)) return print_named_R_list(value);
+
+  if (typeof value === "boolean") return value ? "TRUE" : "FALSE";
 
   return JSON.stringify(value);
 }

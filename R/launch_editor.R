@@ -194,16 +194,11 @@ launch_editor <- function(app_loc,
     }
 
 
-    write_new_ui <- function(new_ui_tree) {
-      update_app_ui(
-        file_info = file_info,
-        new_ui_tree = new_ui_tree,
-        remove_namespace = remove_namespace
-      )
+    write_new_ui_code <- function(new_ui_code) {
+      update_app_ui_with_code(file_info = file_info, new_ui_code)
       file_change_watcher$update_last_edit_time()
-      writeLog("<= Saved new ui state from client")
+      writeLog("<= Saved new ui code from client")
     }
-
 
     # Return a callback that takes in a message and reacts to it
     function(msg) {
@@ -243,15 +238,15 @@ launch_editor <- function(app_loc,
             load_new_app()
           }
         },
-        "UPDATED-TREE" = {
-          write_new_ui(msg$payload)
+        "UPDATED-UI" = {
+          write_new_ui_code(msg$payload)
         },
         "ENTERED-TEMPLATE-SELECTOR" = {
           server_mode <<- "template-chooser"
         },
         "TEMPLATE-SELECTION" = {
           load_app_template(msg$payload)
-        }
+        } 
       )
     }
   }
@@ -313,8 +308,6 @@ launch_editor <- function(app_loc,
     )
   )
 }
-
-
 
 
 announce_location_of_editor <- function(port, launch_browser) {
