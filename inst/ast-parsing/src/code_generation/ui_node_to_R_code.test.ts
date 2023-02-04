@@ -229,7 +229,7 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
 describe("Full UI example", () => {
   // prettier-ignore
   const ui_as_r_code = 
-`gridlayout::grid_page(
+`grid_page(
   layout = c(
     "header header",
     "sidebar plot",
@@ -245,22 +245,23 @@ describe("Full UI example", () => {
     "1fr"
   ),
   gap_size = "1rem",
-  gridlayout::grid_card_text(
+  theme = bslib::bs_theme(),
+  grid_card_text(
     area = "header",
     content = "My App",
     alignment = "start",
     is_title = TRUE
   ),
-  gridlayout::grid_card(
+  grid_card(
     area = "sidebar",
-    shiny::sliderInput(
+    sliderInput(
       inputId = "mySlider",
       label = "Slider",
       min = 2,
       max = 11,
       value = 7
     ),
-    shiny::numericInput(
+    numericInput(
       inputId = "myNumericInput",
       label = "Numeric Input",
       min = 2,
@@ -270,7 +271,7 @@ describe("Full UI example", () => {
     ),
     myCoolCustomRFunction(arg1, arg2)
   ),
-  gridlayout::grid_card_plot(area = "plot")
+  grid_card_plot(area = "plot")
 )`
 
   const ui_ast: ShinyUiNode = {
@@ -280,6 +281,12 @@ describe("Full UI example", () => {
       row_sizes: ["100px", "1fr", "1fr"],
       col_sizes: ["250px", "1fr"],
       gap_size: "1rem",
+      theme: {
+        uiName: "unknownUiFunction",
+        uiArguments: {
+          text: "bslib::bs_theme()",
+        },
+      },
     },
     uiChildren: [
       {
@@ -335,7 +342,7 @@ describe("Full UI example", () => {
     ],
   };
 
-  expect(ui_node_to_R_code(ui_ast, { remove_namespace: false }).ui_code).toBe(
+  expect(ui_node_to_R_code(ui_ast, { remove_namespace: true }).ui_code).toBe(
     ui_as_r_code
   );
 });
