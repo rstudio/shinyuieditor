@@ -1,31 +1,15 @@
 import type { ShinyUiNode } from "editor";
 
-import { build_ui_node_function_text } from "./build_ui_node_function_text";
+import { ui_node_to_R_code } from "./ui_node_to_R_code";
 
-describe("Can turn ShinyUiNode into function call text with formatting", () => {
-  test("Simple one argument function", () => {
-    expect(
-      build_ui_node_function_text({
-        uiName: "shiny::textOutput",
-        uiArguments: {
-          outputId: "myTextOutput",
-        },
-      })
-    ).toBe(`shiny::textOutput(outputId = "myTextOutput")`);
-  });
-
-  test("Multi-argument functions put arguments on their own lines", () => {
-    // prettier-ignore
-    const expected_result = 
-`shiny::sliderInput(
-  inputId = "my_slider",
-  label = "My Slider",
-  value = 5,
-  min = 0,
-  max = 12
-)`;
-    expect(
-      build_ui_node_function_text({
+describe("Can keep or remove namespaces", () => {
+  const ui_ast: ShinyUiNode = {
+    uiName: "gridlayout::grid_card",
+    uiArguments: {
+      area: "sidebar",
+    },
+    uiChildren: [
+      {
         uiName: "shiny::sliderInput",
         uiArguments: {
           inputId: "my_slider",
@@ -34,10 +18,56 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
           min: 0,
           max: 12,
         },
-      })
-    ).toBe(expected_result);
+      },
+    ],
+  };
+
+  test("Keeping namespaces", () => {
+    // prettier-ignore
+    const with_namespaces = 
+`gridlayout::grid_card(
+  area = "sidebar",
+  shiny::sliderInput(
+    inputId = "my_slider",
+    label = "My Slider",
+    value = 5,
+    min = 0,
+    max = 12
+  )
+)`;
+    const { ui_code, library_calls } = ui_node_to_R_code(ui_ast, {
+      remove_namespace: false,
+    });
+    expect(ui_code).toBe(with_namespaces);
+    expect(library_calls).toBe("");
   });
 
+  test("Removing namespaces", () => {
+    // prettier-ignore
+    const no_namespaces = 
+`grid_card(
+  area = "sidebar",
+  sliderInput(
+    inputId = "my_slider",
+    label = "My Slider",
+    value = 5,
+    min = 0,
+    max = 12
+  )
+)`;
+
+    const library_code = `library(gridlayout)
+library(shiny)`;
+
+    const { ui_code, library_calls } = ui_node_to_R_code(ui_ast, {
+      remove_namespace: true,
+    });
+    expect(ui_code).toBe(no_namespaces);
+    expect(library_calls).toBe(library_code);
+  });
+});
+
+describe("Can turn ShinyUiNode into function call text with formatting", () => {
   test("Handles child arguments", () => {
     // prettier-ignore
     const expected_result = 
@@ -53,24 +83,27 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
 )`;
 
     expect(
-      build_ui_node_function_text({
-        uiName: "gridlayout::grid_card",
-        uiArguments: {
-          area: "sidebar",
-        },
-        uiChildren: [
-          {
-            uiName: "shiny::sliderInput",
-            uiArguments: {
-              inputId: "my_slider",
-              label: "My Slider",
-              value: 5,
-              min: 0,
-              max: 12,
-            },
+      ui_node_to_R_code(
+        {
+          uiName: "gridlayout::grid_card",
+          uiArguments: {
+            area: "sidebar",
           },
-        ],
-      })
+          uiChildren: [
+            {
+              uiName: "shiny::sliderInput",
+              uiArguments: {
+                inputId: "my_slider",
+                label: "My Slider",
+                value: 5,
+                min: 0,
+                max: 12,
+              },
+            },
+          ],
+        },
+        { remove_namespace: false }
+      ).ui_code
     ).toBe(expected_result);
   });
   test("Handles named list arguments", () => {
@@ -88,19 +121,22 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
 )`;
 
     expect(
-      build_ui_node_function_text({
-        uiName: "shiny::selectInput",
-        uiArguments: {
-          inputId: "selector",
-          label: "My Select",
-          choices: {
-            "choice a": "a",
-            "choice b": "b",
-            "choice c": "c",
-            "choice d": "d",
+      ui_node_to_R_code(
+        {
+          uiName: "shiny::selectInput",
+          uiArguments: {
+            inputId: "selector",
+            label: "My Select",
+            choices: {
+              "choice a": "a",
+              "choice b": "b",
+              "choice c": "c",
+              "choice d": "d",
+            },
           },
         },
-      })
+        { remove_namespace: false }
+      ).ui_code
     ).toBe(expected_result);
   });
   test("Short named lists can be kept on same line", () => {
@@ -113,17 +149,20 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
 )`;
 
     expect(
-      build_ui_node_function_text({
-        uiName: "shiny::selectInput",
-        uiArguments: {
-          inputId: "selector",
-          label: "My Select",
-          choices: {
-            "choice a": "a",
-            "choice b": "b",
+      ui_node_to_R_code(
+        {
+          uiName: "shiny::selectInput",
+          uiArguments: {
+            inputId: "selector",
+            label: "My Select",
+            choices: {
+              "choice a": "a",
+              "choice b": "b",
+            },
           },
         },
-      })
+        { remove_namespace: false }
+      ).ui_code
     ).toBe(expected_result);
   });
 
@@ -147,15 +186,18 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
 )`;
 
     expect(
-      build_ui_node_function_text({
-        uiName: "gridlayout::grid_page",
-        uiArguments: {
-          layout: ["A B", "C D"],
-          col_sizes: ["100px", "1fr"],
-          row_sizes: ["1fr", "2fr"],
-          gap_size: "12px",
+      ui_node_to_R_code(
+        {
+          uiName: "gridlayout::grid_page",
+          uiArguments: {
+            layout: ["A B", "C D"],
+            col_sizes: ["100px", "1fr"],
+            row_sizes: ["1fr", "2fr"],
+            gap_size: "12px",
+          },
         },
-      })
+        { remove_namespace: false }
+      ).ui_code
     ).toBe(expected_result);
   });
 
@@ -168,18 +210,21 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
 )`;
 
     expect(
-      build_ui_node_function_text({
-        uiName: "gridlayout::grid_card",
-        uiArguments: { area: "mystery" },
-        uiChildren: [
-          {
-            uiName: "unknownUiFunction",
-            uiArguments: {
-              text: `myCoolCustomRFunction(arg1, arg2)`,
+      ui_node_to_R_code(
+        {
+          uiName: "gridlayout::grid_card",
+          uiArguments: { area: "mystery" },
+          uiChildren: [
+            {
+              uiName: "unknownUiFunction",
+              uiArguments: {
+                text: `myCoolCustomRFunction(arg1, arg2)`,
+              },
             },
-          },
-        ],
-      })
+          ],
+        },
+        { remove_namespace: false }
+      ).ui_code
     ).toBe(expected_result);
   });
 });
@@ -293,5 +338,7 @@ describe("Full UI example", () => {
     ],
   };
 
-  expect(build_ui_node_function_text(ui_ast)).toBe(ui_as_r_code);
+  expect(ui_node_to_R_code(ui_ast, { remove_namespace: false }).ui_code).toBe(
+    ui_as_r_code
+  );
 });
