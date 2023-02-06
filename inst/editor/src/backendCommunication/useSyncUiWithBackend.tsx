@@ -17,6 +17,7 @@ import {
 } from "../state/uiTree";
 import { useKeyboardShortcuts } from "../utils/hooks/useKeyboardShortcuts";
 
+import { raw_app_info_to_full } from "./full_app_info";
 import { useBackendConnection } from "./useBackendMessageCallbacks";
 
 export function useSyncUiWithBackend() {
@@ -64,6 +65,10 @@ export function useSyncUiWithBackend() {
         lastRecievedRef.current = { mode: "MAIN", uiTree };
       }
     );
+    const updatedAppSubscription = backendMsgs.subscribe("APP-INFO", (info) => {
+      const full_info = raw_app_info_to_full(info);
+      console.log("Full app info", info, full_info);
+    });
 
     const templateChooserSubscription = backendMsgs.subscribe(
       "TEMPLATE_CHOOSER",
@@ -86,6 +91,7 @@ export function useSyncUiWithBackend() {
     sendMsg({ path: "READY-FOR-STATE" });
 
     return () => {
+      updatedAppSubscription.unsubscribe();
       updatedTreeSubscription.unsubscribe();
       templateChooserSubscription.unsubscribe();
       backendErrorSubscription.unsubscribe();

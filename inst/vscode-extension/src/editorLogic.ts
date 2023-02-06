@@ -117,6 +117,13 @@ export function editorLogic({
       uiBounds = { start_row, start_col, end_row, end_col };
 
       sendMessage({
+        path: "APP-INFO",
+        payload: {
+          script: appFileText,
+          ast: appAST.ast,
+        },
+      });
+      sendMessage({
         path: "UPDATED-TREE",
         payload: appAST.ui_tree,
       });

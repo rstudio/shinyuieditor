@@ -1,5 +1,5 @@
+import type { R_AST } from "ast-parsing";
 import { parse_app_ast } from "ast-parsing/src/ast_to_shiny_ui_node";
-import type { R_AST } from "editor/src/ast_parsing/r_ast";
 import type * as vscode from "vscode";
 
 import { getAppAST } from "./getAppAST";
@@ -9,7 +9,7 @@ import type { ActiveRSession } from "./startBackgroundRProcess";
 type AST_Result =
   | ({
       type: "SUCCESS";
-    } & ReturnType<typeof parse_app_ast>)
+    } & ReturnType<typeof parse_app_ast> & { ast: R_AST })
   | {
       type: "EMPTY";
     }
@@ -73,5 +73,6 @@ function parse_fresh_app(
   return {
     type: "SUCCESS",
     ...ast_parse_res,
+    ast: raw_ast_output.values,
   };
 }

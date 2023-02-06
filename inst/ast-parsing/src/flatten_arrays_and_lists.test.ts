@@ -1,5 +1,6 @@
-import { flatten_to_list, flatten_to_array } from "./flatten_arrays_and_lists";
 import type { R_AST_Node } from ".";
+
+import { flatten_to_list, flatten_to_array } from "./flatten_arrays_and_lists";
 
 describe("Can flatten arrays", () => {
   test("1d arrays", () => {

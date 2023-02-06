@@ -1,4 +1,4 @@
-import type { R_AST } from "editor/src/ast_parsing/r_ast";
+import type { R_AST } from "ast-parsing";
 
 import { collapseText, makePortableString } from "../string-utils";
 

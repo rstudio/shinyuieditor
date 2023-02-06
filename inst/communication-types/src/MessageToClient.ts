@@ -1,3 +1,4 @@
+import type { Raw_App_Info } from "ast-parsing";
 import type { ShinyUiNode } from "editor";
 
 import { isRecord } from "./isRecord";
@@ -5,10 +6,11 @@ import type { OutputType } from "./MessageToBackend";
 import type { MessageUnion } from "./MessageUnion";
 
 /**
- * All the paths and their payloads that can be send to the client from the
+ * All the paths and their payloads that can be sent to the client from the
  * backend
  */
 export type MessageToClientByPath = {
+  "APP-INFO": Raw_App_Info;
   "UPDATED-TREE": ShinyUiNode;
   "BACKEND-ERROR": {
     context: string;

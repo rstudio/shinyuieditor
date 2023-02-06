@@ -42,3 +42,8 @@ export type Unparsable_Node = AST_Node_By_Key["s" | "m" | "u"];
 export type R_AST_Node = AST_Node_By_Key[keyof Node_Vals_By_Key];
 
 export type R_AST = Array<R_AST_Node>;
+
+export type Raw_App_Info = {
+  script: string;
+  ast: R_AST;
+};
