@@ -35,7 +35,7 @@ write_app_template <- function(app_template, app_loc, remove_namespace = TRUE) {
       file_type = "ui"
     )
   }
-  
+
   if (!is.null(app_files$server_file)) {
     write_app_file(
       app_lines = app_files$server_file,
@@ -48,7 +48,7 @@ write_app_template <- function(app_template, app_loc, remove_namespace = TRUE) {
 remove_app_template <- function(app_loc, app_type) {
 
   # If the app type is "none" this means we never added anything so there's
-  # nothing to remove 
+  # nothing to remove
   if (identical(app_type, "none")) return()
 
   if (identical(app_type, "SINGLE-FILE")) {
@@ -115,8 +115,8 @@ generate_app_template_files <- function(app_template, remove_namespace = TRUE) {
 
   server_def <- paste0(
     "function(input, output) {",
-    serverFunctionBody,
-    "}", sep = "\n")
+    indent_text_block(serverFunctionBody),
+    "\n}", sep = "\n")
 
   output_files <- list()
 
@@ -131,7 +131,7 @@ generate_app_template_files <- function(app_template, remove_namespace = TRUE) {
 
     server_def_text <- paste0("server <- ", server_def)
 
-    app_file <- paste(
+    output_files$app_file <- paste(
       library_calls,
       uiExtra,
       ui_def_text,
@@ -140,27 +140,22 @@ generate_app_template_files <- function(app_template, remove_namespace = TRUE) {
       "shinyApp(ui, server)",
       sep = "\n"
     )
-
-    output_files$app_file <- format_code(app_file)
   } else if (outputType == "MULTI-FILE") {
-    
-    output_files$ui_file <- format_code(
-      paste(
-        collapsed_library_calls(ui_libraries),
-        uiExtra,
-        app_template$ui_code,
-        sep = "\n"
-      )
+
+    output_files$ui_file <- paste(
+      collapsed_library_calls(ui_libraries),
+      uiExtra,
+      app_template$ui_code,
+      sep = "\n"
     )
 
-    output_files$server_file <- format_code(
-      paste(
-        collapsed_library_calls(serverLibraries),
-        serverExtra,
-        server_def,
-        sep = "\n"
-      )
+    output_files$server_file <- paste(
+      collapsed_library_calls(serverLibraries),
+      serverExtra,
+      server_def,
+      sep = "\n"
     )
+
   } else {
      stop(paste("Improper specification of template app output: ", outputType))
   }
@@ -168,10 +163,6 @@ generate_app_template_files <- function(app_template, remove_namespace = TRUE) {
   output_files
 }
 
-
-format_code <- function(txt) {
-  styler::style_text(txt, scope = "tokens")
-}
 collapsed_library_calls <- function(libraries) {
   paste(create_library_calls(libraries), collapse = "\n")
 }

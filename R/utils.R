@@ -8,6 +8,11 @@ str_replace_all <- function(text, pattern, replacement, fixed = FALSE) {
   gsub(pattern = pattern, replacement = replacement, x = text, perl = !fixed, fixed = fixed)
 }
 
+# Indent a given string with newlines by two spaces 
+indent_text_block <- function(txt) {
+  str_replace_all(txt, "\\n", "\n  ")
+}
+
 
 # Via https://stackoverflow.com/questions/10022436/do-call-in-combination-with
 do_call_namespaced <- function(what, args, ...) {
