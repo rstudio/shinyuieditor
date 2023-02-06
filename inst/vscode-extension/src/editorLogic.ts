@@ -165,7 +165,6 @@ export function editorLogic({
   // Receive message from the webview.
   const onDidReceiveMessage = async (msg: MessageToBackend) => {
     if (isMessageToBackend(msg)) {
-      console.log("Msg from client", msg);
       switch (msg.path) {
         case "READY-FOR-STATE":
           syncFileToClientState();
@@ -183,20 +182,14 @@ export function editorLogic({
           return;
         }
 
-        case "UPDATED-TREE": {
+        case "UPDATED-UI": {
           const updateRes = await updateAppUI({
             document,
             uiBounds,
-            RProcess,
-            uiTree: msg.payload,
+            ui_info: msg.payload,
           });
           latestAppWrite = updateRes.uiText;
           uiBounds = updateRes.uiBounds;
-          return;
-        }
-
-        case "UPDATED-UI": {
-          console.log(msg.payload);
           return;
         }
         case "APP-PREVIEW-REQUEST": {

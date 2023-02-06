@@ -9,7 +9,6 @@ import type { MessageUnion } from "./MessageUnion";
  */
 export type MessageToBackendByPath = {
   "READY-FOR-STATE": null;
-  "UPDATED-TREE": ShinyUiNode;
   "UPDATED-UI": R_Ui_Code;
   "NODE-SELECTION": string[];
   "ENTERED-TEMPLATE-SELECTOR": null;
