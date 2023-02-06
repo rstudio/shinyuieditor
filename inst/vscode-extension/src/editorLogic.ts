@@ -81,6 +81,14 @@ export function editorLogic({
       hasInitialized = true;
     }
 
+    if (appFileText === "") {
+      sendMessage({
+        path: "TEMPLATE_CHOOSER",
+        payload: "SINGLE-FILE",
+      });
+      return;
+    }
+
     try {
       const appAST = await get_ast();
 
@@ -171,7 +179,7 @@ export function editorLogic({
           return;
 
         case "TEMPLATE-SELECTION": {
-          const appFile = await generateAppTemplate(RProcess, msg.payload);
+          const appFile = await generateAppTemplate(msg.payload);
 
           await addUiTextToFile({
             text: appFile,
