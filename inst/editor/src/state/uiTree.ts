@@ -2,8 +2,11 @@ import React from "react";
 
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
+import type { Raw_App_Info } from "ast-parsing";
 import { useDispatch, useSelector } from "react-redux";
 
+import type { Full_App_Info } from "../backendCommunication/full_app_info";
+import { raw_app_info_to_full } from "../backendCommunication/full_app_info";
 import { getDefaultSettings } from "../components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
 import type { TemplateChooserOptions } from "../components/TemplatePreviews/TemplateChooserView";
 import type { PlaceNodeArguments } from "../components/UiNode/TreeManipulation/placeNode";
@@ -24,10 +27,7 @@ import {
 } from "./watcherSubscriptions";
 
 export type MainStateOption =
-  | {
-      mode: "MAIN";
-      uiTree: ShinyUiNode;
-    }
+  | ({ mode: "MAIN" } & Full_App_Info)
   | {
       mode: "TEMPLATE_CHOOSER";
       options: TemplateChooserOptions;
@@ -50,8 +50,18 @@ export const mainStateSlice = createSlice({
       action.payload.state,
     // This will initialize a state while also making sure the arguments match
     // what we expect in the app
-    SET_UI_TREE: (tree, action: PayloadAction<{ uiTree: ShinyUiNode }>) => {
-      return { mode: "MAIN", uiTree: action.payload.uiTree };
+    SET_APP_INFO: (
+      tree,
+      action: PayloadAction<Full_App_Info | Raw_App_Info>
+    ) => {
+      const full_app_info =
+        "code" in action.payload
+          ? action.payload
+          : raw_app_info_to_full(action.payload);
+      return {
+        mode: "MAIN",
+        ...full_app_info,
+      };
     },
     SHOW_TEMPLATE_CHOOSER: (
       state,
@@ -71,24 +81,24 @@ export const mainStateSlice = createSlice({
 
       // Make sure the tree is valid here
       for (const subscription of updateSubscriptions) {
-        subscription(state.uiTree, action.payload);
+        subscription(state.ui_tree, action.payload);
       }
-      updateNodeMutating(state.uiTree, action.payload);
+      updateNodeMutating(state.ui_tree, action.payload);
     },
     PLACE_NODE: (state, action: PayloadAction<PlaceNodeArguments>) => {
       if (state.mode !== "MAIN") {
         throw new Error("Tried to move a node when in template chooser mode");
       }
-      placeNodeMutating(state.uiTree, action.payload);
+      placeNodeMutating(state.ui_tree, action.payload);
     },
     DELETE_NODE: (state, action: PayloadAction<RemoveNodeArguments>) => {
       if (state.mode !== "MAIN") {
         throw new Error("Tried to delete a node when in template chooser mode");
       }
       for (const subscription of deleteSubscriptions) {
-        subscription(state.uiTree, { path: action.payload.path });
+        subscription(state.ui_tree, { path: action.payload.path });
       }
-      removeNodeMutating(state.uiTree, action.payload);
+      removeNodeMutating(state.ui_tree, action.payload);
     },
   },
 });
@@ -135,7 +145,7 @@ export const {
   UPDATE_NODE,
   PLACE_NODE,
   DELETE_NODE,
-  SET_UI_TREE,
+  SET_APP_INFO,
   SET_FULL_STATE,
   SHOW_TEMPLATE_CHOOSER,
   SET_LOADING,

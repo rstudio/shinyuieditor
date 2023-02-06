@@ -85,7 +85,7 @@ function sameHistoryEntry(newEntry: HistoryEntry, oldEntry?: HistoryEntry) {
   }
 
   if (newEntry.mode === "MAIN" && oldEntry.mode === "MAIN") {
-    return oldEntry.uiTree === newEntry.uiTree;
+    return oldEntry.ui_tree === newEntry.ui_tree;
   }
 
   return false;

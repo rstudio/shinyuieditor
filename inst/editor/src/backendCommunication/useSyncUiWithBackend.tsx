@@ -11,7 +11,7 @@ import { getNamedPath } from "../state/getNamedPath";
 import { useCurrentSelection } from "../state/selectedPath";
 import type { MainStateOption } from "../state/uiTree";
 import {
-  SET_UI_TREE,
+  SET_APP_INFO,
   SHOW_TEMPLATE_CHOOSER,
   useCurrentUiTree,
 } from "../state/uiTree";
@@ -58,16 +58,11 @@ export function useSyncUiWithBackend() {
 
   // Subscribe to messages from the backend
   React.useEffect(() => {
-    const updatedTreeSubscription = backendMsgs.subscribe(
-      "UPDATED-TREE",
-      (uiTree) => {
-        dispatch(SET_UI_TREE({ uiTree: uiTree }));
-        lastRecievedRef.current = { mode: "MAIN", uiTree };
-      }
-    );
     const updatedAppSubscription = backendMsgs.subscribe("APP-INFO", (info) => {
-      const full_info = raw_app_info_to_full(info);
-      console.log("Full app info", info, full_info);
+      const full_info = "code" in info ? info : raw_app_info_to_full(info);
+      dispatch(SET_APP_INFO(full_info));
+      lastRecievedRef.current = { mode: "MAIN", ...full_info };
+      console.log("Full app info", full_info);
     });
 
     const templateChooserSubscription = backendMsgs.subscribe(
@@ -92,7 +87,6 @@ export function useSyncUiWithBackend() {
 
     return () => {
       updatedAppSubscription.unsubscribe();
-      updatedTreeSubscription.unsubscribe();
       templateChooserSubscription.unsubscribe();
       backendErrorSubscription.unsubscribe();
     };
@@ -106,7 +100,7 @@ export function useSyncUiWithBackend() {
   // Send named path to the backend if we're in VSCODE mode
   React.useEffect(() => {
     if (mode !== "VSCODE" || !currentSelection || state.mode !== "MAIN") return;
-    const namedPath = getNamedPath(currentSelection, state.uiTree);
+    const namedPath = getNamedPath(currentSelection, state.ui_tree);
     sendMsg({ path: "NODE-SELECTION", payload: namedPath });
   }, [currentSelection, mode, sendMsg, state]);
 
@@ -128,7 +122,7 @@ export function useSyncUiWithBackend() {
 
     debouncedSendMsg({
       path: "UPDATED-UI",
-      payload: ui_node_to_R_code(state.uiTree, { remove_namespace: true }),
+      payload: ui_node_to_R_code(state.ui_tree, { remove_namespace: true }),
     });
   }, [state, debouncedSendMsg, sendMsg]);
 

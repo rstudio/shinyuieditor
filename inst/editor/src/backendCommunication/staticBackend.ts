@@ -23,13 +23,21 @@ export function setupStaticBackend({
             if (ui_tree === "TEMPLATE_CHOOSER") {
               messageDispatch.dispatch("TEMPLATE_CHOOSER", "USER-CHOICE");
             } else {
-              messageDispatch.dispatch("UPDATED-TREE", ui_tree);
+              messageDispatch.dispatch("APP-INFO", {
+                ui_tree,
+                code: dummy_code,
+                libraries: ["shiny"],
+              });
             }
           });
           return;
         }
         case "TEMPLATE-SELECTION": {
-          messageDispatch.dispatch("UPDATED-TREE", msg.payload.uiTree);
+          messageDispatch.dispatch("APP-INFO", {
+            ui_tree: msg.payload.uiTree,
+            code: dummy_code,
+            libraries: ["shiny"],
+          });
           return;
         }
         case "APP-PREVIEW-REQUEST": {
@@ -44,3 +52,15 @@ export function setupStaticBackend({
   };
   return messagePassingMethods;
 }
+
+const dummy_code: string = `
+<LIBRARIES>
+
+ui <- <UI>
+
+server <- function(input, output) {
+
+}
+
+shinyApp(ui, server)
+`;
