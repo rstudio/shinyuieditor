@@ -1,5 +1,4 @@
-import type { BackendConnection } from "communication-types";
-import type { MessageDispatcher } from "communication-types/src/messageDispatcher";
+import type { BackendConnection, MessageDispatcher } from "communication-types";
 
 import { TESTING_MODE } from "../env_variables";
 

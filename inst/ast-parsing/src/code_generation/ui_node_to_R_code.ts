@@ -1,4 +1,4 @@
-import type { R_Ui_Code } from "communication-types";
+import type { R_Ui_Code } from "communication-types/src/MessageToBackend";
 import type {
   ShinyUiNode,
   ShinyUiNodeByName,

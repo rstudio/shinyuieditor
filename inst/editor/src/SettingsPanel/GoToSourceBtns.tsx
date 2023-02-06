@@ -1,4 +1,4 @@
-import type { MessageToBackend } from "communication-types";
+import type { MessageToBackend } from "communication-types/src/MessageToBackend";
 
 import { useBackendConnection } from "../backendCommunication/useBackendMessageCallbacks";
 import { TooltipButton } from "../components/PopoverEl/Tooltip";

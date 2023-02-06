@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import type { BackendConnection } from "communication-types";
-import { makeMessageDispatcher } from "communication-types/src/messageDispatcher";
+import { makeMessageDispatcher } from "communication-types/src/BackendConnection";
 
 import { setupStaticBackend } from "./backendCommunication/staticBackend";
 import { setupWebsocketBackend } from "./backendCommunication/websocketBackend";

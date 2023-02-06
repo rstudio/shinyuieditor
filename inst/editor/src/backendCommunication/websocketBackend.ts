@@ -2,8 +2,8 @@ import type {
   BackendConnection,
   MessageToClient,
   MessageToBackend,
+  MessageDispatcher,
 } from "communication-types";
-import type { MessageDispatcher } from "communication-types/src/messageDispatcher";
 
 type BackendMessage = { path: string; payload?: string | object };
 

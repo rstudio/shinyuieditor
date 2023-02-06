@@ -1,5 +1,6 @@
-import type { MessageToBackend, MessageToClient } from "communication-types";
-import { isMessageFromClient } from "communication-types";
+import type { MessageToBackend } from "communication-types/src/MessageToBackend";
+import { isMessageToBackend } from "communication-types/src/MessageToBackend";
+import type { MessageToClient } from "communication-types/src/MessageToClient";
 import debounce from "just-debounce-it";
 import * as vscode from "vscode";
 
@@ -163,7 +164,8 @@ export function editorLogic({
 
   // Receive message from the webview.
   const onDidReceiveMessage = async (msg: MessageToBackend) => {
-    if (isMessageFromClient(msg)) {
+    if (isMessageToBackend(msg)) {
+      console.log("Msg from client", msg);
       switch (msg.path) {
         case "READY-FOR-STATE":
           syncFileToClientState();
@@ -190,6 +192,11 @@ export function editorLogic({
           });
           latestAppWrite = updateRes.uiText;
           uiBounds = updateRes.uiBounds;
+          return;
+        }
+
+        case "UPDATED-UI": {
+          console.log(msg.payload);
           return;
         }
         case "APP-PREVIEW-REQUEST": {

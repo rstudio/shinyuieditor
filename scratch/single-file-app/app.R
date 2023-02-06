@@ -9,7 +9,7 @@ ui <- grid_page(
     "sidebar redPlot  "
   ),
   row_sizes = c(
-    "110px",
+    "280px",
     "0.46fr",
     "1.54fr"
   ),
@@ -26,12 +26,15 @@ ui <- grid_page(
     sliderInput(
       inputId = "bins",
       label = "Number of Bins ",
-      min = 12,
-      max = 100,
-      value = 30,
+      min = 12L,
+      max = 100L,
+      value = 30L,
       width = "100%"
     ),
-    actionButton(inputId = "redraw", label = "Redraw"),
+    actionButton(
+      inputId = "redraw",
+      label = "Redraw"
+    ),
     textInput(
       inputId = "bins2",
       label = "Text Input",
