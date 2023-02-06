@@ -24638,13 +24638,13 @@
   // ../../node_modules/scrollparent/scrollparent.js
   var require_scrollparent = __commonJS({
     "../../node_modules/scrollparent/scrollparent.js"(exports, module) {
-      (function(root2, factory2) {
+      (function(root2, factory) {
         if (typeof define === "function" && define.amd) {
-          define([], factory2);
+          define([], factory);
         } else if (typeof module === "object" && module.exports) {
-          module.exports = factory2();
+          module.exports = factory();
         } else {
-          root2.Scrollparent = factory2();
+          root2.Scrollparent = factory();
         }
       })(exports, function() {
         var regex = /(auto|scroll)/;
@@ -25979,7 +25979,7 @@
           if ("undefined" != typeof window && window.navigator)
             return !!navigator.userAgent.match(t5);
         }
-        var y3 = t4(/(?:Trident.*rv[ :]?11\.|msie|iemobile|Windows Phone)/i), w3 = t4(/Edge/i), s2 = t4(/firefox/i), u4 = t4(/safari/i) && !t4(/chrome/i) && !t4(/android/i), n3 = t4(/iP(ad|od|hone)/i), c2 = t4(/chrome/i) && t4(/android/i), d3 = { capture: false, passive: false };
+        var y3 = t4(/(?:Trident.*rv[ :]?11\.|msie|iemobile|Windows Phone)/i), w3 = t4(/Edge/i), s2 = t4(/firefox/i), u3 = t4(/safari/i) && !t4(/chrome/i) && !t4(/android/i), n3 = t4(/iP(ad|od|hone)/i), c2 = t4(/chrome/i) && t4(/android/i), d3 = { capture: false, passive: false };
         function h3(t5, e3, n4) {
           t5.addEventListener(e3, n4, !y3 && d3);
         }
@@ -26050,7 +26050,7 @@
         }
         function k2(t5, e3, n4, o3, i3) {
           if (t5.getBoundingClientRect || t5 === window) {
-            var r4, a3, l3, s3, c3, u5, d4 = t5 !== window && t5.parentNode && t5 !== O3() ? (a3 = (r4 = t5.getBoundingClientRect()).top, l3 = r4.left, s3 = r4.bottom, c3 = r4.right, u5 = r4.height, r4.width) : (l3 = a3 = 0, s3 = window.innerHeight, c3 = window.innerWidth, u5 = window.innerHeight, window.innerWidth);
+            var r4, a3, l3, s3, c3, u4, d4 = t5 !== window && t5.parentNode && t5 !== O3() ? (a3 = (r4 = t5.getBoundingClientRect()).top, l3 = r4.left, s3 = r4.bottom, c3 = r4.right, u4 = r4.height, r4.width) : (l3 = a3 = 0, s3 = window.innerHeight, c3 = window.innerWidth, u4 = window.innerHeight, window.innerWidth);
             if ((e3 || n4) && t5 !== window && (i3 = i3 || t5.parentNode, !y3))
               do {
                 if (i3 && i3.getBoundingClientRect && ("none" !== P2(i3, "transform") || n4 && "static" !== P2(i3, "position"))) {
@@ -26059,7 +26059,7 @@
                   break;
                 }
               } while (i3 = i3.parentNode);
-            return o3 && t5 !== window && (o3 = (e3 = v2(i3 || t5)) && e3.a, t5 = e3 && e3.d, e3 && (s3 = (a3 /= t5) + (u5 /= t5), c3 = (l3 /= o3) + (d4 /= o3))), { top: a3, left: l3, bottom: s3, right: c3, width: d4, height: u5 };
+            return o3 && t5 !== window && (o3 = (e3 = v2(i3 || t5)) && e3.a, t5 = e3 && e3.d, e3 && (s3 = (a3 /= t5) + (u4 /= t5), c3 = (l3 /= o3) + (d4 /= o3))), { top: a3, left: l3, bottom: s3, right: c3, width: d4, height: u4 };
           }
         }
         function R2(t5, e3, n4) {
@@ -26171,13 +26171,13 @@
             var c3 = this;
             if (!this.options.animation)
               return clearTimeout(e3), void ("function" == typeof t5 && t5());
-            var u5 = false, d4 = 0;
+            var u4 = false, d4 = 0;
             o3.forEach(function(t6) {
               var e4 = 0, n4 = t6.target, o4 = n4.fromRect, i3 = k2(n4), r4 = n4.prevFromRect, a3 = n4.prevToRect, l3 = t6.rect, s3 = v2(n4, true);
-              s3 && (i3.top -= s3.f, i3.left -= s3.e), n4.toRect = i3, n4.thisAnimationDuration && D2(r4, i3) && !D2(o4, i3) && (l3.top - i3.top) / (l3.left - i3.left) == (o4.top - i3.top) / (o4.left - i3.left) && (t6 = l3, s3 = r4, r4 = a3, a3 = c3.options, e4 = Math.sqrt(Math.pow(s3.top - t6.top, 2) + Math.pow(s3.left - t6.left, 2)) / Math.sqrt(Math.pow(s3.top - r4.top, 2) + Math.pow(s3.left - r4.left, 2)) * a3.animation), D2(i3, o4) || (n4.prevFromRect = o4, n4.prevToRect = i3, e4 = e4 || c3.options.animation, c3.animate(n4, l3, i3, e4)), e4 && (u5 = true, d4 = Math.max(d4, e4), clearTimeout(n4.animationResetTimer), n4.animationResetTimer = setTimeout(function() {
+              s3 && (i3.top -= s3.f, i3.left -= s3.e), n4.toRect = i3, n4.thisAnimationDuration && D2(r4, i3) && !D2(o4, i3) && (l3.top - i3.top) / (l3.left - i3.left) == (o4.top - i3.top) / (o4.left - i3.left) && (t6 = l3, s3 = r4, r4 = a3, a3 = c3.options, e4 = Math.sqrt(Math.pow(s3.top - t6.top, 2) + Math.pow(s3.left - t6.left, 2)) / Math.sqrt(Math.pow(s3.top - r4.top, 2) + Math.pow(s3.left - r4.left, 2)) * a3.animation), D2(i3, o4) || (n4.prevFromRect = o4, n4.prevToRect = i3, e4 = e4 || c3.options.animation, c3.animate(n4, l3, i3, e4)), e4 && (u4 = true, d4 = Math.max(d4, e4), clearTimeout(n4.animationResetTimer), n4.animationResetTimer = setTimeout(function() {
                 n4.animationTime = 0, n4.prevFromRect = null, n4.fromRect = null, n4.prevToRect = null, n4.thisAnimationDuration = null;
               }, e4), n4.thisAnimationDuration = e4);
-            }), clearTimeout(e3), u5 ? e3 = setTimeout(function() {
+            }), clearTimeout(e3), u4 ? e3 = setTimeout(function() {
               "function" == typeof t5 && t5();
             }, d4) : "function" == typeof t5 && t5(), o3 = [];
           }, animate: function(t5, e4, n4, o4) {
@@ -26223,10 +26223,10 @@
           }), i3;
         } };
         function W2(t5) {
-          var e3 = t5.sortable, n4 = t5.rootEl, o3 = t5.name, i3 = t5.targetEl, r4 = t5.cloneEl, a3 = t5.toEl, l3 = t5.fromEl, s3 = t5.oldIndex, c3 = t5.newIndex, u5 = t5.oldDraggableIndex, d4 = t5.newDraggableIndex, h4 = t5.originalEvent, f3 = t5.putSortable, p4 = t5.extraEventProperties;
+          var e3 = t5.sortable, n4 = t5.rootEl, o3 = t5.name, i3 = t5.targetEl, r4 = t5.cloneEl, a3 = t5.toEl, l3 = t5.fromEl, s3 = t5.oldIndex, c3 = t5.newIndex, u4 = t5.oldDraggableIndex, d4 = t5.newDraggableIndex, h4 = t5.originalEvent, f3 = t5.putSortable, p4 = t5.extraEventProperties;
           if (e3 = e3 || n4 && n4[j2]) {
             var g4, m3 = e3.options, t5 = "on" + o3.charAt(0).toUpperCase() + o3.substr(1);
-            !window.CustomEvent || y3 || w3 ? (g4 = document.createEvent("Event")).initEvent(o3, true, true) : g4 = new CustomEvent(o3, { bubbles: true, cancelable: true }), g4.to = a3 || n4, g4.from = l3 || n4, g4.item = i3 || n4, g4.clone = r4, g4.oldIndex = s3, g4.newIndex = c3, g4.oldDraggableIndex = u5, g4.newDraggableIndex = d4, g4.originalEvent = h4, g4.pullMode = f3 ? f3.lastPutMode : void 0;
+            !window.CustomEvent || y3 || w3 ? (g4 = document.createEvent("Event")).initEvent(o3, true, true) : g4 = new CustomEvent(o3, { bubbles: true, cancelable: true }), g4.to = a3 || n4, g4.from = l3 || n4, g4.item = i3 || n4, g4.clone = r4, g4.oldIndex = s3, g4.newIndex = c3, g4.oldDraggableIndex = u4, g4.newDraggableIndex = d4, g4.originalEvent = h4, g4.pullMode = f3 ? f3.lastPutMode : void 0;
             var v3, b4 = M2(M2({}, p4), K2.getEventProperties(o3, e3));
             for (v3 in b4)
               g4[v3] = b4[v3];
@@ -26322,7 +26322,7 @@
             return It(t5, this.options);
           }, ghostClass: "sortable-ghost", chosenClass: "sortable-chosen", dragClass: "sortable-drag", ignore: "a, img", filter: null, preventOnFilter: true, animation: 0, easing: null, setData: function(t6, e4) {
             t6.setData("Text", e4.textContent);
-          }, dropBubble: false, dragoverBubble: false, dataIdAttr: "data-id", delay: 0, delayOnTouchOnly: false, touchStartThreshold: (Number.parseInt ? Number : window).parseInt(window.devicePixelRatio, 10) || 1, forceFallback: false, fallbackClass: "sortable-fallback", fallbackOnBody: false, fallbackTolerance: 0, fallbackOffset: { x: 0, y: 0 }, supportPointer: false !== Bt.supportPointer && "PointerEvent" in window && !u4, emptyInsertThreshold: 5 };
+          }, dropBubble: false, dragoverBubble: false, dataIdAttr: "data-id", delay: 0, delayOnTouchOnly: false, touchStartThreshold: (Number.parseInt ? Number : window).parseInt(window.devicePixelRatio, 10) || 1, forceFallback: false, fallbackClass: "sortable-fallback", fallbackOnBody: false, fallbackTolerance: 0, fallbackOffset: { x: 0, y: 0 }, supportPointer: false !== Bt.supportPointer && "PointerEvent" in window && !u3, emptyInsertThreshold: 5 };
           for (n4 in K2.initializePlugins(this, t5, i3), i3)
             n4 in e3 || (e3[n4] = i3[n4]);
           for (o3 in Pt(e3), this)
@@ -26330,8 +26330,8 @@
           this.nativeDraggable = !e3.forceFallback && Mt, this.nativeDraggable && (this.options.touchStartThreshold = 1), e3.supportPointer ? h3(t5, "pointerdown", this._onTapStart) : (h3(t5, "mousedown", this._onTapStart), h3(t5, "touchstart", this._onTapStart)), this.nativeDraggable && (h3(t5, "dragover", this), h3(t5, "dragenter", this)), Et.push(this.el), e3.store && e3.store.get && this.sort(e3.store.get(this) || []), a2(this, x2());
         }
         function Ft(t5, e3, n4, o3, i3, r4, a3, l3) {
-          var s3, c3, u5 = t5[j2], d4 = u5.options.onMove;
-          return !window.CustomEvent || y3 || w3 ? (s3 = document.createEvent("Event")).initEvent("move", true, true) : s3 = new CustomEvent("move", { bubbles: true, cancelable: true }), s3.to = e3, s3.from = t5, s3.dragged = n4, s3.draggedRect = o3, s3.related = i3 || e3, s3.relatedRect = r4 || k2(e3), s3.willInsertAfter = l3, s3.originalEvent = a3, t5.dispatchEvent(s3), c3 = d4 ? d4.call(u5, s3, a3) : c3;
+          var s3, c3, u4 = t5[j2], d4 = u4.options.onMove;
+          return !window.CustomEvent || y3 || w3 ? (s3 = document.createEvent("Event")).initEvent("move", true, true) : s3 = new CustomEvent("move", { bubbles: true, cancelable: true }), s3.to = e3, s3.from = t5, s3.dragged = n4, s3.draggedRect = o3, s3.related = i3 || e3, s3.relatedRect = r4 || k2(e3), s3.willInsertAfter = l3, s3.originalEvent = a3, t5.dispatchEvent(s3), c3 = d4 ? d4.call(u4, s3, a3) : c3;
         }
         function jt(t5) {
           t5.draggable = false;
@@ -26359,7 +26359,7 @@
                 var o4 = e4[n5];
                 o4.checked && Tt.push(o4);
               }
-            }(o3), !q2 && !(/mousedown|pointerdown/.test(r4) && 0 !== e3.button || t5.disabled) && !s3.isContentEditable && (this.nativeDraggable || !u4 || !l3 || "SELECT" !== l3.tagName.toUpperCase()) && !((l3 = N2(l3, t5.draggable, o3, false)) && l3.animated || J === l3)) {
+            }(o3), !q2 && !(/mousedown|pointerdown/.test(r4) && 0 !== e3.button || t5.disabled) && !s3.isContentEditable && (this.nativeDraggable || !u3 || !l3 || "SELECT" !== l3.tagName.toUpperCase()) && !((l3 = N2(l3, t5.draggable, o3, false)) && l3.animated || J === l3)) {
               if (nt = B2(l3), it = B2(l3, t5.draggable), "function" == typeof c3) {
                 if (c3.call(this, e3, l3, this))
                   return U2({ sortable: n4, rootEl: s3, name: "filter", targetEl: l3, toEl: o3, fromEl: o3 }), z2("filter", n4, { evt: e3 }), void (i3 && e3.cancelable && e3.preventDefault());
@@ -26435,15 +26435,15 @@
           var n4 = this, o3 = t5.dataTransfer, i3 = n4.options;
           z2("dragStart", this, { evt: t5 }), Bt.eventCanceled ? this._onDrop() : (z2("setupClone", this), Bt.eventCanceled || ((tt = _2(q2)).removeAttribute("id"), tt.draggable = false, tt.style["will-change"] = "", this._hideClone(), I2(tt, this.options.chosenClass, false), Bt.clone = tt), n4.cloneId = Lt(function() {
             z2("clone", n4), Bt.eventCanceled || (n4.options.removeCloneOnHide || $.insertBefore(tt, q2), n4._hideClone(), U2({ sortable: n4, name: "clone" }));
-          }), e3 || I2(q2, i3.dragClass, true), e3 ? (wt = true, n4._loopId = setInterval(n4._emulateDragOver, 50)) : (f2(document, "mouseup", n4._onDrop), f2(document, "touchend", n4._onDrop), f2(document, "touchcancel", n4._onDrop), o3 && (o3.effectAllowed = "move", i3.setData && i3.setData.call(n4, o3, q2)), h3(document, "drop", n4), P2(q2, "transform", "translateZ(0)")), yt = true, n4._dragStartId = Lt(n4._dragStarted.bind(n4, e3, t5)), h3(document, "selectstart", n4), pt = true, u4 && P2(document.body, "user-select", "none"));
+          }), e3 || I2(q2, i3.dragClass, true), e3 ? (wt = true, n4._loopId = setInterval(n4._emulateDragOver, 50)) : (f2(document, "mouseup", n4._onDrop), f2(document, "touchend", n4._onDrop), f2(document, "touchcancel", n4._onDrop), o3 && (o3.effectAllowed = "move", i3.setData && i3.setData.call(n4, o3, q2)), h3(document, "drop", n4), P2(q2, "transform", "translateZ(0)")), yt = true, n4._dragStartId = Lt(n4._dragStarted.bind(n4, e3, t5)), h3(document, "selectstart", n4), pt = true, u3 && P2(document.body, "user-select", "none"));
         }, _onDragOver: function(n4) {
-          var o3, i3, r4, t5, a3 = this.el, l3 = n4.target, e3 = this.options, s3 = e3.group, c3 = Bt.active, u5 = at === s3, d4 = e3.sort, h4 = lt || c3, f3 = this, p4 = false;
+          var o3, i3, r4, t5, a3 = this.el, l3 = n4.target, e3 = this.options, s3 = e3.group, c3 = Bt.active, u4 = at === s3, d4 = e3.sort, h4 = lt || c3, f3 = this, p4 = false;
           if (!Ct) {
             if (void 0 !== n4.preventDefault && n4.cancelable && n4.preventDefault(), l3 = N2(l3, e3.draggable, a3, true), T2("dragOver"), Bt.eventCanceled)
               return p4;
             if (q2.contains(n4.target) || l3.animated && l3.animatingX && l3.animatingY || f3._ignoreWhileAnimating === l3)
               return O4(false);
-            if (wt = false, c3 && !e3.disabled && (u5 ? d4 || (i3 = V !== $) : lt === this || (this.lastPutMode = at.checkPull(this, c3, q2, n4)) && s3.checkPut(this, c3, q2, n4))) {
+            if (wt = false, c3 && !e3.disabled && (u4 ? d4 || (i3 = V !== $) : lt === this || (this.lastPutMode = at.checkPull(this, c3, q2, n4)) && s3.checkPut(this, c3, q2, n4))) {
               if (r4 = "vertical" === this._getDirection(n4, l3), o3 = k2(q2), T2("dragOverValid"), Bt.eventCanceled)
                 return p4;
               if (i3)
@@ -26500,7 +26500,7 @@
             return false;
           }
           function T2(t6, e4) {
-            z2(t6, f3, M2({ evt: n4, isOwner: u5, axis: r4 ? "vertical" : "horizontal", revert: i3, dragRect: o3, targetRect: w4, canSort: d4, fromSortable: h4, target: l3, completed: O4, onMove: function(t7, e5) {
+            z2(t6, f3, M2({ evt: n4, isOwner: u4, axis: r4 ? "vertical" : "horizontal", revert: i3, dragRect: o3, targetRect: w4, canSort: d4, fromSortable: h4, target: l3, completed: O4, onMove: function(t7, e5) {
               return Ft($, a3, q2, o3, t7, k2(t7), n4, e5);
             }, changed: A4 }, e4));
           }
@@ -26508,7 +26508,7 @@
             T2("dragOverAnimationCapture"), f3.captureAnimationState(), f3 !== h4 && h4.captureAnimationState();
           }
           function O4(t6) {
-            return T2("dragOverCompleted", { insertion: t6 }), t6 && (u5 ? c3._hideClone() : c3._showClone(f3), f3 !== h4 && (I2(q2, (lt || c3).options.ghostClass, false), I2(q2, e3.ghostClass, true)), lt !== f3 && f3 !== Bt.active ? lt = f3 : f3 === Bt.active && lt && (lt = null), h4 === f3 && (f3._ignoreWhileAnimating = l3), f3.animateAll(function() {
+            return T2("dragOverCompleted", { insertion: t6 }), t6 && (u4 ? c3._hideClone() : c3._showClone(f3), f3 !== h4 && (I2(q2, (lt || c3).options.ghostClass, false), I2(q2, e3.ghostClass, true)), lt !== f3 && f3 !== Bt.active ? lt = f3 : f3 === Bt.active && lt && (lt = null), h4 === f3 && (f3._ignoreWhileAnimating = l3), f3.animateAll(function() {
               T2("dragOverAnimationComplete"), f3._ignoreWhileAnimating = null;
             }), f3 !== h4 && (h4.animateAll(), h4._ignoreWhileAnimating = null)), (l3 === q2 && !q2.animated || l3 === a3 && !l3.animated) && (gt = null), e3.dragoverBubble || n4.rootEl || l3 === document || (q2.parentNode[j2]._isOutsideThisEl(n4.target), t6 || Xt(n4)), !e3.dragoverBubble && n4.stopPropagation && n4.stopPropagation(), p4 = true;
           }
@@ -26522,7 +26522,7 @@
           f2(t5, "mouseup", this._onDrop), f2(t5, "touchend", this._onDrop), f2(t5, "pointerup", this._onDrop), f2(t5, "touchcancel", this._onDrop), f2(document, "selectstart", this);
         }, _onDrop: function(t5) {
           var e3 = this.el, n4 = this.options;
-          ot = B2(q2), rt = B2(q2, n4.draggable), z2("drop", this, { evt: t5 }), V = q2 && q2.parentNode, ot = B2(q2), rt = B2(q2, n4.draggable), Bt.eventCanceled || (Dt = St = yt = false, clearInterval(this._loopId), clearTimeout(this._dragStartTimer), Kt(this.cloneId), Kt(this._dragStartId), this.nativeDraggable && (f2(document, "drop", this), f2(e3, "dragstart", this._onDragStart)), this._offMoveEvents(), this._offUpEvents(), u4 && P2(document.body, "user-select", ""), P2(q2, "transform", ""), t5 && (pt && (t5.cancelable && t5.preventDefault(), n4.dropBubble || t5.stopPropagation()), Z2 && Z2.parentNode && Z2.parentNode.removeChild(Z2), ($ === V || lt && "clone" !== lt.lastPutMode) && tt && tt.parentNode && tt.parentNode.removeChild(tt), q2 && (this.nativeDraggable && f2(q2, "dragend", this), jt(q2), q2.style["will-change"] = "", pt && !yt && I2(q2, (lt || this).options.ghostClass, false), I2(q2, this.options.chosenClass, false), U2({ sortable: this, name: "unchoose", toEl: V, newIndex: null, newDraggableIndex: null, originalEvent: t5 }), $ !== V ? (0 <= ot && (U2({ rootEl: V, name: "add", toEl: V, fromEl: $, originalEvent: t5 }), U2({ sortable: this, name: "remove", toEl: V, originalEvent: t5 }), U2({ rootEl: V, name: "sort", toEl: V, fromEl: $, originalEvent: t5 }), U2({ sortable: this, name: "sort", toEl: V, originalEvent: t5 })), lt && lt.save()) : ot !== nt && 0 <= ot && (U2({ sortable: this, name: "update", toEl: V, originalEvent: t5 }), U2({ sortable: this, name: "sort", toEl: V, originalEvent: t5 })), Bt.active && (null != ot && -1 !== ot || (ot = nt, rt = it), U2({ sortable: this, name: "end", toEl: V, originalEvent: t5 }), this.save())))), this._nulling();
+          ot = B2(q2), rt = B2(q2, n4.draggable), z2("drop", this, { evt: t5 }), V = q2 && q2.parentNode, ot = B2(q2), rt = B2(q2, n4.draggable), Bt.eventCanceled || (Dt = St = yt = false, clearInterval(this._loopId), clearTimeout(this._dragStartTimer), Kt(this.cloneId), Kt(this._dragStartId), this.nativeDraggable && (f2(document, "drop", this), f2(e3, "dragstart", this._onDragStart)), this._offMoveEvents(), this._offUpEvents(), u3 && P2(document.body, "user-select", ""), P2(q2, "transform", ""), t5 && (pt && (t5.cancelable && t5.preventDefault(), n4.dropBubble || t5.stopPropagation()), Z2 && Z2.parentNode && Z2.parentNode.removeChild(Z2), ($ === V || lt && "clone" !== lt.lastPutMode) && tt && tt.parentNode && tt.parentNode.removeChild(tt), q2 && (this.nativeDraggable && f2(q2, "dragend", this), jt(q2), q2.style["will-change"] = "", pt && !yt && I2(q2, (lt || this).options.ghostClass, false), I2(q2, this.options.chosenClass, false), U2({ sortable: this, name: "unchoose", toEl: V, newIndex: null, newDraggableIndex: null, originalEvent: t5 }), $ !== V ? (0 <= ot && (U2({ rootEl: V, name: "add", toEl: V, fromEl: $, originalEvent: t5 }), U2({ sortable: this, name: "remove", toEl: V, originalEvent: t5 }), U2({ rootEl: V, name: "sort", toEl: V, fromEl: $, originalEvent: t5 }), U2({ sortable: this, name: "sort", toEl: V, originalEvent: t5 })), lt && lt.save()) : ot !== nt && 0 <= ot && (U2({ sortable: this, name: "update", toEl: V, originalEvent: t5 }), U2({ sortable: this, name: "sort", toEl: V, originalEvent: t5 })), Bt.active && (null != ot && -1 !== ot || (ot = nt, rt = it), U2({ sortable: this, name: "end", toEl: V, originalEvent: t5 }), this.save())))), this._nulling();
         }, _nulling: function() {
           z2("nulling", this), $ = q2 = V = Z2 = Q2 = tt = J = et = st = ct = pt = ot = rt = nt = it = gt = mt = lt = at = Bt.dragged = Bt.ghost = Bt.clone = Bt.active = null, Tt.forEach(function(t5) {
             t5.checked = true;
@@ -26614,7 +26614,7 @@
         }
         var te, ee = S2(function(n4, t5, e3, o3) {
           if (t5.scroll) {
-            var i3, r4 = (n4.touches ? n4.touches[0] : n4).clientX, a3 = (n4.touches ? n4.touches[0] : n4).clientY, l3 = t5.scrollSensitivity, s3 = t5.scrollSpeed, c3 = O3(), u5 = false;
+            var i3, r4 = (n4.touches ? n4.touches[0] : n4).clientX, a3 = (n4.touches ? n4.touches[0] : n4).clientY, l3 = t5.scrollSensitivity, s3 = t5.scrollSpeed, c3 = O3(), u4 = false;
             zt !== e3 && (zt = e3, Qt(), Wt = t5.scroll, i3 = t5.scrollFn, true === Wt && (Wt = A3(e3, true)));
             var d4 = 0, h4 = Wt;
             do {
@@ -26622,13 +26622,13 @@
               if (!Zt[d4])
                 for (var x3 = 0; x3 <= d4; x3++)
                   Zt[x3] || (Zt[x3] = {});
-              Zt[d4].vx == T2 && Zt[d4].vy == p4 && Zt[d4].el === f3 || (Zt[d4].el = f3, Zt[d4].vx = T2, Zt[d4].vy = p4, clearInterval(Zt[d4].pid), 0 == T2 && 0 == p4 || (u5 = true, Zt[d4].pid = setInterval(function() {
+              Zt[d4].vx == T2 && Zt[d4].vy == p4 && Zt[d4].el === f3 || (Zt[d4].el = f3, Zt[d4].vx = T2, Zt[d4].vy = p4, clearInterval(Zt[d4].pid), 0 == T2 && 0 == p4 || (u4 = true, Zt[d4].pid = setInterval(function() {
                 o3 && 0 === this.layer && Bt.active._onTouchMove(qt);
                 var t6 = Zt[this.layer].vy ? Zt[this.layer].vy * s3 : 0, e4 = Zt[this.layer].vx ? Zt[this.layer].vx * s3 : 0;
                 "function" == typeof i3 && "continue" !== i3.call(Bt.dragged.parentNode[j2], e4, t6, n4, qt, Zt[this.layer].el) || F2(Zt[this.layer].el, e4, t6);
               }.bind({ layer: d4 }), 24))), d4++;
             } while (t5.bubbleScroll && h4 !== c3 && (h4 = A3(h4, false)));
-            $t = u5;
+            $t = u4;
           }
         }, 30), c2 = function(t5) {
           var e3 = t5.originalEvent, n4 = t5.putSortable, o3 = t5.dragEl, i3 = t5.activeSortable, r4 = t5.dispatchSortableEvent, a3 = t5.hideGhostForTarget, t5 = t5.unhideGhostForTarget;
@@ -26681,7 +26681,7 @@
             this._handleAutoScroll(t6, true);
           }, _handleAutoScroll: function(e3, n4) {
             var o3, i3 = this, r4 = (e3.touches ? e3.touches[0] : e3).clientX, a3 = (e3.touches ? e3.touches[0] : e3).clientY, t6 = document.elementFromPoint(r4, a3);
-            qt = e3, n4 || this.options.forceAutoScrollFallback || w3 || y3 || u4 ? (ee(e3, this.options, t6, n4), o3 = A3(t6, true), !$t || Vt && r4 === Gt && a3 === Ut || (Vt && Jt(), Vt = setInterval(function() {
+            qt = e3, n4 || this.options.forceAutoScrollFallback || w3 || y3 || u3 ? (ee(e3, this.options, t6, n4), o3 = A3(t6, true), !$t || Vt && r4 === Gt && a3 === Ut || (Vt && Jt(), Vt = setInterval(function() {
               var t7 = A3(document.elementFromPoint(r4, a3), true);
               t7 !== o3 && (o3 = t7, Qt()), ee(e3, i3.options, t7, n4);
             }, 10), Gt = r4, Ut = a3)) : this.options.bubbleScroll && A3(t6, true) !== O3() ? ee(e3, this.options, A3(t6, false), false) : Qt();
@@ -26786,7 +26786,7 @@
           }, drop: function(t6) {
             var e3 = t6.originalEvent, n4 = t6.rootEl, o3 = t6.parentEl, i3 = t6.sortable, r4 = t6.dispatchSortableEvent, a3 = t6.oldIndex, l3 = t6.putSortable, s3 = l3 || this.sortable;
             if (e3) {
-              var c3, u5, d4, h4 = this.options, f3 = o3.children;
+              var c3, u4, d4, h4 = this.options, f3 = o3.children;
               if (!fe)
                 if (h4.multiDragKey && !this.multiDragKeyDown && this._deselectMultiDrag(), I2(ae, h4.selectedClass, !~ce.indexOf(ae)), ~ce.indexOf(ae))
                   ce.splice(ce.indexOf(ae), 1), ie = null, W2({ sortable: i3, rootEl: n4, name: "deselect", targetEl: ae, originalEvent: e3 });
@@ -26800,11 +26800,11 @@
                     ie = ae;
                   re = s3;
                 }
-              fe && this.isMultiDrag && (he = false, (o3[j2].options.sort || o3 !== n4) && 1 < ce.length && (c3 = k2(ae), u5 = B2(ae, ":not(." + this.options.selectedClass + ")"), !de && h4.animation && (ae.thisAnimationDuration = null), s3.captureAnimationState(), de || (h4.animation && (ae.fromRect = c3, ce.forEach(function(t7) {
+              fe && this.isMultiDrag && (he = false, (o3[j2].options.sort || o3 !== n4) && 1 < ce.length && (c3 = k2(ae), u4 = B2(ae, ":not(." + this.options.selectedClass + ")"), !de && h4.animation && (ae.thisAnimationDuration = null), s3.captureAnimationState(), de || (h4.animation && (ae.fromRect = c3, ce.forEach(function(t7) {
                 var e4;
                 t7.thisAnimationDuration = null, t7 !== ae && (e4 = he ? k2(t7) : c3, t7.fromRect = e4, s3.addAnimationState({ target: t7, rect: e4 }));
               })), ge(), ce.forEach(function(t7) {
-                f3[u5] ? o3.insertBefore(t7, f3[u5]) : o3.appendChild(t7), u5++;
+                f3[u4] ? o3.insertBefore(t7, f3[u4]) : o3.appendChild(t7), u4++;
               }), a3 === B2(ae) && (d4 = false, ce.forEach(function(t7) {
                 t7.sortableIndex !== B2(t7) && (d4 = true);
               }), d4 && r4("update"))), ce.forEach(function(t7) {
@@ -32475,8 +32475,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   // src/assets/icons/undo.png
   var undo_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAoCAYAAAC4h3lxAAAACXBIWXMAAAsTAAALEwEAmpwYAAABDElEQVRYhe2ZsQ7CMAxEr4gvZmBDXMXGwC+XgVQqERDbCbEr5ZaoalXdq+0kTqdlWbBnHbwN1GoAeGsAeGv3AMdfN8+3h+ZdVwDcXE8GP7hfTqrnW0UgN99NLQDczAP1AFvzM4xpU6MagNw8vz75R1kBQpgHCrPQF0nNW3eJqjTURiDMl1+liYDUvLWQTRGTRiDcl18lAQhrHigDhDYPlAGYxpDmAXkNhG2cSwBzGolXOoWTJIVCQ0hSiAgMIa0BIiiEZiVmGvOpNVfXgtfuhYhgkbDsRpnGUiS6NDfWfoAIEomajowIAFHbExPvEN1X7BanEsTnGuiiVudChBPENH5wOGsAeGsAeGv3AE8yEDlUwXXxqQAAAABJRU5ErkJggg==";
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-RjiE8co00dOd/editor/src/components/Icons/styles.module.css.js
-  var digest = "51bea2fbcfc266d6765c1778fa80ca140a445deb33b3937880dc6982cd3f97f4";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-2h4ftH9xd7f1/editor/src/components/Icons/styles.module.css.js
+  var digest = "aa0707340ea2922138d702958ab5bcf2f1584dea3fbebfb2cfe62460e2a438fa";
   var css = `img._icon_1467k_1 {
   height: 30px;
   /* outline: 2px solid green; */
@@ -32771,8 +32771,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     return classes.filter((c2) => c2).join(" ");
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-2VDLp6sVTeWc/editor/src/components/Inputs/Button/Button.module.css.js
-  var digest2 = "ffe67605cb91ca99268770684c1f1e0b173ec8c78ee8fb6ca8fc060e2413da94";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-QZE83nlfR8E5/editor/src/components/Inputs/Button/Button.module.css.js
+  var digest2 = "ce1d4d86a1e483b94fe474b888d4a39f7a278b05eeb5c87acccca0cf4e2fa922";
   var css2 = `._button_1y00r_1 {
   --background-color: var(--rstudio-white);
   --text-color: var(--font-color);
@@ -33440,8 +33440,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
       return x(n3, e2.t, true), e2.t;
     if (!e2.I) {
       e2.I = true, e2.A._--;
-      var o2 = 4 === e2.i || 5 === e2.i ? e2.o = l(e2.k) : e2.o, u4 = o2, a2 = false;
-      3 === e2.i && (u4 = new Set(o2), o2.clear(), a2 = true), i(u4, function(r4, i2) {
+      var o2 = 4 === e2.i || 5 === e2.i ? e2.o = l(e2.k) : e2.o, u3 = o2, a2 = false;
+      3 === e2.i && (u3 = new Set(o2), o2.clear(), a2 = true), i(u3, function(r4, i2) {
         return A(n3, e2, o2, r4, i2, t4, a2);
       }), x(n3, o2, false), t4 && n3.u && b("Patches").N(e2, t4, n3.u, n3.s);
     }
@@ -33487,7 +33487,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     var e2 = s(r3) ? b("MapSet").F(r3, t4) : v(r3) ? b("MapSet").T(r3, t4) : n3.g ? function(n4, r4) {
       var t5 = Array.isArray(n4), e3 = { i: t5 ? 1 : 0, A: r4 ? r4.A : _(), P: false, I: false, R: {}, l: r4, t: n4, k: null, o: null, j: null, C: false }, i2 = e3, o2 = en;
       t5 && (i2 = [e3], o2 = on2);
-      var u4 = Proxy.revocable(i2, o2), a2 = u4.revoke, f2 = u4.proxy;
+      var u3 = Proxy.revocable(i2, o2), a2 = u3.revoke, f2 = u3.proxy;
       return e3.k = f2, e3.j = a2, f2;
     }(r3, t4) : b("ES5").J(r3, t4);
     return (t4 ? t4.A : _()).p.push(e2), e2;
@@ -33496,15 +33496,15 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     return r(e2) || n(22, e2), function n3(r3) {
       if (!t(r3))
         return r3;
-      var e3, u4 = r3[Q], c2 = o(r3);
-      if (u4) {
-        if (!u4.P && (u4.i < 4 || !b("ES5").K(u4)))
-          return u4.t;
-        u4.I = true, e3 = D(r3, c2), u4.I = false;
+      var e3, u3 = r3[Q], c2 = o(r3);
+      if (u3) {
+        if (!u3.P && (u3.i < 4 || !b("ES5").K(u3)))
+          return u3.t;
+        u3.I = true, e3 = D(r3, c2), u3.I = false;
       } else
         e3 = D(r3, c2);
       return i(e3, function(r4, t4) {
-        u4 && a(u4.t, r4) === t4 || f(e3, r4, n3(t4));
+        u3 && a(u3.t, r4) === t4 || f(e3, r4, n3(t4));
       }), 3 === c2 ? new Set(e3) : e3;
     }(e2);
   }
@@ -33581,8 +33581,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
         }
         var o4 = rn(r4);
         delete o4[Q];
-        for (var u4 = nn(o4), a3 = 0; a3 < u4.length; a3++) {
-          var f3 = u4[a3];
+        for (var u3 = nn(o4), a3 = 0; a3 < u3.length; a3++) {
+          var f3 = u3[a3];
           o4[f3] = t4(f3, n4 || !!o4[f3].enumerable);
         }
         return Object.create(Object.getPrototypeOf(r4), o4);
@@ -33707,12 +33707,12 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
       var e3 = this;
       this.g = B, this.D = true, this.produce = function(r4, i3, o2) {
         if ("function" == typeof r4 && "function" != typeof i3) {
-          var u4 = i3;
+          var u3 = i3;
           i3 = r4;
           var a2 = e3;
           return function(n3) {
             var r5 = this;
-            void 0 === n3 && (n3 = u4);
+            void 0 === n3 && (n3 = u3);
             for (var t4 = arguments.length, e4 = Array(t4 > 1 ? t4 - 1 : 0), o3 = 1; o3 < t4; o3++)
               e4[o3 - 1] = arguments[o3];
             return a2.produce(n3, function(n4) {
@@ -35942,8 +35942,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   // src/Shiny-Ui-Elements/GridlayoutGridCard/GridlayoutGridCard.tsx
   var import_react21 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-JkIIlZsAkDbX/editor/src/components/DeleteNodeButton/styles.module.css.js
-  var digest3 = "b6ae0abd74cda09b631662e578ce6e2031d27a9321378f3638e808e5b464cee3";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-TGL0g5zQEgKc/editor/src/components/DeleteNodeButton/styles.module.css.js
+  var digest3 = "d9f13958327006a5cc08a29a0cedace0aa9ea15b500e653dc329284692c61048";
   var css3 = `._deleteButton_1en02_1 {
   color: var(--red);
   display: flex;
@@ -36199,8 +36199,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   };
   var UiNode_default = UiNode;
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-3xHgomQdOtv5/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
-  var digest4 = "7b1bf4a6bf576a3e6dfd2ea8f7666b1d528f7d178a139378305ec605e11ebc74";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-z8S54hSWDN8M/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
+  var digest4 = "0883616a784d094b89fa1c4c418dbff0dfc2434a8acd288ccf6da19757d14323";
   var css4 = `._container_1a2os_1 {
   position: relative;
   height: 100%;
@@ -36626,8 +36626,8 @@ div._emptyGridCard_1a2os_144 > button {
     return setLayout;
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-Hxb9rTz7ppFk/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
-  var digest5 = "adb7f9f460767e0be49f0961eacfce3cbc512b2fd34d3f4acd102da014c55fd1";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-SSY8NA6evMWx/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
+  var digest5 = "8ae3f97fe5479ad569f0badab7c24b0f22e50d8deb259132f44816f2f968903c";
   var css5 = `._container_1a2os_1 {
   position: relative;
   height: 100%;
@@ -36984,8 +36984,8 @@ div._emptyGridCard_1a2os_144 > button {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 16 16" }, "child": [{ "tag": "path", "attr": { "fillRule": "evenodd", "d": "M16 14v1H0V0h1v14h15zM5 13H3V8h2v5zm4 0H7V3h2v10zm4 0h-2V6h2v7z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-gUPmTHME8Tiw/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
-  var digest6 = "3892cde650d31242c066b9091b1395c955e5dd2df6061f82d4ee2194c89ccdb4";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-BW09MVulCUnb/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
+  var digest6 = "21fbdbdfb1c4de97ef8ba3a918e0661be05a095051de4b15b5974a1e9effe32e";
   var css6 = `._container_1rlbk_1 {
   max-height: 100%;
 }
@@ -37075,8 +37075,8 @@ div._emptyGridCard_1a2os_144 > button {
     return dimensions;
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-eBn9neuyWmSC/editor/src/Shiny-Ui-Elements/GridlayoutGridCardPlot/styles.module.css.js
-  var digest7 = "45eff6f81f083078303ff2e726717c675c19b01e040c4095022423981d5f480f";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-VRITBgJcxGGi/editor/src/Shiny-Ui-Elements/GridlayoutGridCardPlot/styles.module.css.js
+  var digest7 = "b85c48bf6d4240993875419173367146a7d842f53dd5760d2fb101680bab5d82";
   var css7 = `._gridCardPlot_1a94v_1 {
   background-color: var(--rstudio-white);
   width: 100%;
@@ -37159,8 +37159,8 @@ div._emptyGridCard_1a2os_144 > button {
   // src/Shiny-Ui-Elements/GridlayoutGridCardText/GridlayoutCardText.tsx
   var React21 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-Xfw0nbWybRP4/editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/styles.module.css.js
-  var digest8 = "0a0ee31c2d76a5d25db2cb14b31cc67189d584a495207ff7179ff0e51ecea99d";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-r6UMnjdp6XgD/editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/styles.module.css.js
+  var digest8 = "710908d1548da21590ab81300b4d953cc4700e6d5eeb002969aed9404c340056";
   var css8 = `._textPanel_525i2_1 {
   background-color: var(--rstudio-white);
   /* outline: var(--outline); */
@@ -37927,8 +37927,8 @@ div._emptyGridCard_1a2os_144 > button {
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-hB2gno693UJk/editor/src/components/Grids/AreaOverlay.module.css.js
-  var digest9 = "92aaa2e4f68e8c0a02e173b90f5bae2269dbfffc42791bec88c5b189f9ba3888";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-sF2RDO2b72JR/editor/src/components/Grids/AreaOverlay.module.css.js
+  var digest9 = "a444eed103f268ced3c816335dc14bfc59d26be11423902d45446fe848b96bce";
   var css9 = `._marker_mumaw_1 {
   font-weight: lighter;
   font-style: italic;
@@ -38352,8 +38352,8 @@ div._emptyGridCard_1a2os_144 > button {
   // src/components/Grids/EditableGridContainer/EditableGridContainer.tsx
   var React33 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-4Q4EBOoFWw7v/editor/src/components/Grids/EditableGridContainer/resizableGrid.module.css.js
-  var digest10 = "5651a20dc410de7969709eca3185239995e6c7080d258f2d98a8b6b76a5f6fc0";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-U1gUrVN0RWYr/editor/src/components/Grids/EditableGridContainer/resizableGrid.module.css.js
+  var digest10 = "5fc08c72cebe0f9a3e7a59933f0b80de06df99cc07ef8da9b19d2cbcc64947c4";
   var css10 = `._ResizableGrid_i4cq9_1 {
   --grid-gap: 5px;
 
@@ -44430,77 +44430,611 @@ div#_size-detection-cell_i4cq9_1 {
   // ../../node_modules/react-markdown/node_modules/remark-parse/index.js
   var remark_parse_default = remarkParse;
 
-  // ../../node_modules/remark-rehype/node_modules/unist-builder/lib/index.js
-  var u2 = function(type, props, value) {
-    const node2 = { type: String(type) };
-    if ((value === void 0 || value === null) && (typeof props === "string" || Array.isArray(props))) {
-      value = props;
-    } else {
-      Object.assign(node2, props);
-    }
-    if (Array.isArray(value)) {
-      node2.children = value;
-    } else if (value !== void 0 && value !== null) {
-      node2.value = String(value);
-    }
-    return node2;
-  };
+  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/blockquote.js
+  function blockquote(state, node2) {
+    const result = {
+      type: "element",
+      tagName: "blockquote",
+      properties: {},
+      children: state.wrap(state.all(node2), true)
+    };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
 
-  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/traverse.js
-  var own3 = {}.hasOwnProperty;
-  function unknown(h3, node2) {
-    const data = node2.data || {};
-    if ("value" in node2 && !(own3.call(data, "hName") || own3.call(data, "hProperties") || own3.call(data, "hChildren"))) {
-      return h3.augment(node2, u2("text", node2.value));
-    }
-    return h3(node2, "div", all2(h3, node2));
+  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/break.js
+  function hardBreak(state, node2) {
+    const result = { type: "element", tagName: "br", properties: {}, children: [] };
+    state.patch(node2, result);
+    return [state.applyData(node2, result), { type: "text", value: "\n" }];
   }
-  function one2(h3, node2, parent) {
-    const type = node2 && node2.type;
-    let fn3;
-    if (!type) {
-      throw new Error("Expected node, got `" + node2 + "`");
+
+  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/code.js
+  function code(state, node2) {
+    const value = node2.value ? node2.value + "\n" : "";
+    const lang = node2.lang ? node2.lang.match(/^[^ \t]+(?=[ \t]|$)/) : null;
+    const properties = {};
+    if (lang) {
+      properties.className = ["language-" + lang];
     }
-    if (own3.call(h3.handlers, type)) {
-      fn3 = h3.handlers[type];
-    } else if (h3.passThrough && h3.passThrough.includes(type)) {
-      fn3 = returnNode;
-    } else {
-      fn3 = h3.unknownHandler;
+    let result = {
+      type: "element",
+      tagName: "code",
+      properties,
+      children: [{ type: "text", value }]
+    };
+    if (node2.meta) {
+      result.data = { meta: node2.meta };
     }
-    return (typeof fn3 === "function" ? fn3 : unknown)(h3, node2, parent);
+    state.patch(node2, result);
+    result = state.applyData(node2, result);
+    result = { type: "element", tagName: "pre", properties: {}, children: [result] };
+    state.patch(node2, result);
+    return result;
   }
-  function returnNode(h3, node2) {
-    return "children" in node2 ? { ...node2, children: all2(h3, node2) } : node2;
+
+  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/delete.js
+  function strikethrough(state, node2) {
+    const result = {
+      type: "element",
+      tagName: "del",
+      properties: {},
+      children: state.all(node2)
+    };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
   }
-  function all2(h3, parent) {
-    const values = [];
-    if ("children" in parent) {
-      const nodes = parent.children;
-      let index2 = -1;
-      while (++index2 < nodes.length) {
-        const result = one2(h3, nodes[index2], parent);
-        if (result) {
-          if (index2 && nodes[index2 - 1].type === "break") {
-            if (!Array.isArray(result) && result.type === "text") {
-              result.value = result.value.replace(/^\s+/, "");
-            }
-            if (!Array.isArray(result) && result.type === "element") {
-              const head = result.children[0];
-              if (head && head.type === "text") {
-                head.value = head.value.replace(/^\s+/, "");
-              }
-            }
-          }
-          if (Array.isArray(result)) {
-            values.push(...result);
-          } else {
-            values.push(result);
-          }
+
+  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/emphasis.js
+  function emphasis(state, node2) {
+    const result = {
+      type: "element",
+      tagName: "em",
+      properties: {},
+      children: state.all(node2)
+    };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
+
+  // ../../node_modules/micromark-util-sanitize-uri/index.js
+  function normalizeUri(value) {
+    const result = [];
+    let index2 = -1;
+    let start2 = 0;
+    let skip = 0;
+    while (++index2 < value.length) {
+      const code2 = value.charCodeAt(index2);
+      let replace = "";
+      if (code2 === 37 && asciiAlphanumeric(value.charCodeAt(index2 + 1)) && asciiAlphanumeric(value.charCodeAt(index2 + 2))) {
+        skip = 2;
+      } else if (code2 < 128) {
+        if (!/[!#$&-;=?-Z_a-z~]/.test(String.fromCharCode(code2))) {
+          replace = String.fromCharCode(code2);
         }
+      } else if (code2 > 55295 && code2 < 57344) {
+        const next = value.charCodeAt(index2 + 1);
+        if (code2 < 56320 && next > 56319 && next < 57344) {
+          replace = String.fromCharCode(code2, next);
+          skip = 1;
+        } else {
+          replace = "\uFFFD";
+        }
+      } else {
+        replace = String.fromCharCode(code2);
+      }
+      if (replace) {
+        result.push(value.slice(start2, index2), encodeURIComponent(replace));
+        start2 = index2 + skip + 1;
+        replace = "";
+      }
+      if (skip) {
+        index2 += skip;
+        skip = 0;
       }
     }
-    return values;
+    return result.join("") + value.slice(start2);
+  }
+
+  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/footnote-reference.js
+  function footnoteReference(state, node2) {
+    const id = String(node2.identifier).toUpperCase();
+    const safeId = normalizeUri(id.toLowerCase());
+    const index2 = state.footnoteOrder.indexOf(id);
+    let counter;
+    if (index2 === -1) {
+      state.footnoteOrder.push(id);
+      state.footnoteCounts[id] = 1;
+      counter = state.footnoteOrder.length;
+    } else {
+      state.footnoteCounts[id]++;
+      counter = index2 + 1;
+    }
+    const reuseCounter = state.footnoteCounts[id];
+    const link2 = {
+      type: "element",
+      tagName: "a",
+      properties: {
+        href: "#" + state.clobberPrefix + "fn-" + safeId,
+        id: state.clobberPrefix + "fnref-" + safeId + (reuseCounter > 1 ? "-" + reuseCounter : ""),
+        dataFootnoteRef: true,
+        ariaDescribedBy: ["footnote-label"]
+      },
+      children: [{ type: "text", value: String(counter) }]
+    };
+    state.patch(node2, link2);
+    const sup = {
+      type: "element",
+      tagName: "sup",
+      properties: {},
+      children: [link2]
+    };
+    state.patch(node2, sup);
+    return state.applyData(node2, sup);
+  }
+
+  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/footnote.js
+  function footnote(state, node2) {
+    const footnoteById = state.footnoteById;
+    let no = 1;
+    while (no in footnoteById)
+      no++;
+    const identifier = String(no);
+    footnoteById[identifier] = {
+      type: "footnoteDefinition",
+      identifier,
+      children: [{ type: "paragraph", children: node2.children }],
+      position: node2.position
+    };
+    return footnoteReference(state, {
+      type: "footnoteReference",
+      identifier,
+      position: node2.position
+    });
+  }
+
+  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/heading.js
+  function heading(state, node2) {
+    const result = {
+      type: "element",
+      tagName: "h" + node2.depth,
+      properties: {},
+      children: state.all(node2)
+    };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
+
+  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/html.js
+  function html(state, node2) {
+    if (state.dangerous) {
+      const result = { type: "raw", value: node2.value };
+      state.patch(node2, result);
+      return state.applyData(node2, result);
+    }
+    return null;
+  }
+
+  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/revert.js
+  function revert(state, node2) {
+    const subtype = node2.referenceType;
+    let suffix = "]";
+    if (subtype === "collapsed") {
+      suffix += "[]";
+    } else if (subtype === "full") {
+      suffix += "[" + (node2.label || node2.identifier) + "]";
+    }
+    if (node2.type === "imageReference") {
+      return { type: "text", value: "![" + node2.alt + suffix };
+    }
+    const contents = state.all(node2);
+    const head = contents[0];
+    if (head && head.type === "text") {
+      head.value = "[" + head.value;
+    } else {
+      contents.unshift({ type: "text", value: "[" });
+    }
+    const tail = contents[contents.length - 1];
+    if (tail && tail.type === "text") {
+      tail.value += suffix;
+    } else {
+      contents.push({ type: "text", value: suffix });
+    }
+    return contents;
+  }
+
+  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/image-reference.js
+  function imageReference(state, node2) {
+    const def = state.definition(node2.identifier);
+    if (!def) {
+      return revert(state, node2);
+    }
+    const properties = { src: normalizeUri(def.url || ""), alt: node2.alt };
+    if (def.title !== null && def.title !== void 0) {
+      properties.title = def.title;
+    }
+    const result = { type: "element", tagName: "img", properties, children: [] };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
+
+  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/image.js
+  function image(state, node2) {
+    const properties = { src: normalizeUri(node2.url) };
+    if (node2.alt !== null && node2.alt !== void 0) {
+      properties.alt = node2.alt;
+    }
+    if (node2.title !== null && node2.title !== void 0) {
+      properties.title = node2.title;
+    }
+    const result = { type: "element", tagName: "img", properties, children: [] };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
+
+  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/inline-code.js
+  function inlineCode(state, node2) {
+    const text4 = { type: "text", value: node2.value.replace(/\r?\n|\r/g, " ") };
+    state.patch(node2, text4);
+    const result = {
+      type: "element",
+      tagName: "code",
+      properties: {},
+      children: [text4]
+    };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
+
+  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/link-reference.js
+  function linkReference(state, node2) {
+    const def = state.definition(node2.identifier);
+    if (!def) {
+      return revert(state, node2);
+    }
+    const properties = { href: normalizeUri(def.url || "") };
+    if (def.title !== null && def.title !== void 0) {
+      properties.title = def.title;
+    }
+    const result = {
+      type: "element",
+      tagName: "a",
+      properties,
+      children: state.all(node2)
+    };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
+
+  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/link.js
+  function link(state, node2) {
+    const properties = { href: normalizeUri(node2.url) };
+    if (node2.title !== null && node2.title !== void 0) {
+      properties.title = node2.title;
+    }
+    const result = {
+      type: "element",
+      tagName: "a",
+      properties,
+      children: state.all(node2)
+    };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
+
+  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/list-item.js
+  function listItem(state, node2, parent) {
+    const results = state.all(node2);
+    const loose = parent ? listLoose(parent) : listItemLoose(node2);
+    const properties = {};
+    const children = [];
+    if (typeof node2.checked === "boolean") {
+      const head = results[0];
+      let paragraph2;
+      if (head && head.type === "element" && head.tagName === "p") {
+        paragraph2 = head;
+      } else {
+        paragraph2 = { type: "element", tagName: "p", properties: {}, children: [] };
+        results.unshift(paragraph2);
+      }
+      if (paragraph2.children.length > 0) {
+        paragraph2.children.unshift({ type: "text", value: " " });
+      }
+      paragraph2.children.unshift({
+        type: "element",
+        tagName: "input",
+        properties: { type: "checkbox", checked: node2.checked, disabled: true },
+        children: []
+      });
+      properties.className = ["task-list-item"];
+    }
+    let index2 = -1;
+    while (++index2 < results.length) {
+      const child = results[index2];
+      if (loose || index2 !== 0 || child.type !== "element" || child.tagName !== "p") {
+        children.push({ type: "text", value: "\n" });
+      }
+      if (child.type === "element" && child.tagName === "p" && !loose) {
+        children.push(...child.children);
+      } else {
+        children.push(child);
+      }
+    }
+    const tail = results[results.length - 1];
+    if (tail && (loose || tail.type !== "element" || tail.tagName !== "p")) {
+      children.push({ type: "text", value: "\n" });
+    }
+    const result = { type: "element", tagName: "li", properties, children };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
+  function listLoose(node2) {
+    let loose = false;
+    if (node2.type === "list") {
+      loose = node2.spread || false;
+      const children = node2.children;
+      let index2 = -1;
+      while (!loose && ++index2 < children.length) {
+        loose = listItemLoose(children[index2]);
+      }
+    }
+    return loose;
+  }
+  function listItemLoose(node2) {
+    const spread = node2.spread;
+    return spread === void 0 || spread === null ? node2.children.length > 1 : spread;
+  }
+
+  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/list.js
+  function list2(state, node2) {
+    const properties = {};
+    const results = state.all(node2);
+    let index2 = -1;
+    if (typeof node2.start === "number" && node2.start !== 1) {
+      properties.start = node2.start;
+    }
+    while (++index2 < results.length) {
+      const child = results[index2];
+      if (child.type === "element" && child.tagName === "li" && child.properties && Array.isArray(child.properties.className) && child.properties.className.includes("task-list-item")) {
+        properties.className = ["contains-task-list"];
+        break;
+      }
+    }
+    const result = {
+      type: "element",
+      tagName: node2.ordered ? "ol" : "ul",
+      properties,
+      children: state.wrap(results, true)
+    };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
+
+  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/paragraph.js
+  function paragraph(state, node2) {
+    const result = {
+      type: "element",
+      tagName: "p",
+      properties: {},
+      children: state.all(node2)
+    };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
+
+  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/root.js
+  function root(state, node2) {
+    const result = { type: "root", children: state.wrap(state.all(node2)) };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
+
+  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/strong.js
+  function strong(state, node2) {
+    const result = {
+      type: "element",
+      tagName: "strong",
+      properties: {},
+      children: state.all(node2)
+    };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
+
+  // ../../node_modules/remark-rehype/node_modules/unist-util-position/lib/index.js
+  var pointStart = point3("start");
+  var pointEnd = point3("end");
+  function position2(node2) {
+    return { start: pointStart(node2), end: pointEnd(node2) };
+  }
+  function point3(type) {
+    return point4;
+    function point4(node2) {
+      const point5 = node2 && node2.position && node2.position[type] || {};
+      return {
+        line: point5.line || null,
+        column: point5.column || null,
+        offset: point5.offset > -1 ? point5.offset : null
+      };
+    }
+  }
+
+  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/table.js
+  function table(state, node2) {
+    const rows = state.all(node2);
+    const firstRow = rows.shift();
+    const tableContent = [];
+    if (firstRow) {
+      const head = {
+        type: "element",
+        tagName: "thead",
+        properties: {},
+        children: state.wrap([firstRow], true)
+      };
+      state.patch(node2.children[0], head);
+      tableContent.push(head);
+    }
+    if (rows.length > 0) {
+      const body = {
+        type: "element",
+        tagName: "tbody",
+        properties: {},
+        children: state.wrap(rows, true)
+      };
+      const start2 = pointStart(node2.children[1]);
+      const end2 = pointEnd(node2.children[node2.children.length - 1]);
+      if (start2.line && end2.line)
+        body.position = { start: start2, end: end2 };
+      tableContent.push(body);
+    }
+    const result = {
+      type: "element",
+      tagName: "table",
+      properties: {},
+      children: state.wrap(tableContent, true)
+    };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
+
+  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/table-row.js
+  function tableRow(state, node2, parent) {
+    const siblings = parent ? parent.children : void 0;
+    const rowIndex = siblings ? siblings.indexOf(node2) : 1;
+    const tagName = rowIndex === 0 ? "th" : "td";
+    const align = parent && parent.type === "table" ? parent.align : void 0;
+    const length = align ? align.length : node2.children.length;
+    let cellIndex = -1;
+    const cells = [];
+    while (++cellIndex < length) {
+      const cell = node2.children[cellIndex];
+      const properties = {};
+      const alignValue = align ? align[cellIndex] : void 0;
+      if (alignValue) {
+        properties.align = alignValue;
+      }
+      let result2 = { type: "element", tagName, properties, children: [] };
+      if (cell) {
+        result2.children = state.all(cell);
+        state.patch(cell, result2);
+        result2 = state.applyData(node2, result2);
+      }
+      cells.push(result2);
+    }
+    const result = {
+      type: "element",
+      tagName: "tr",
+      properties: {},
+      children: state.wrap(cells, true)
+    };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
+
+  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/table-cell.js
+  function tableCell(state, node2) {
+    const result = {
+      type: "element",
+      tagName: "td",
+      properties: {},
+      children: state.all(node2)
+    };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
+
+  // ../../node_modules/trim-lines/index.js
+  var tab = 9;
+  var space = 32;
+  function trimLines(value) {
+    const source = String(value);
+    const search2 = /\r?\n|\r/g;
+    let match = search2.exec(source);
+    let last = 0;
+    const lines = [];
+    while (match) {
+      lines.push(
+        trimLine(source.slice(last, match.index), last > 0, true),
+        match[0]
+      );
+      last = match.index + match[0].length;
+      match = search2.exec(source);
+    }
+    lines.push(trimLine(source.slice(last), last > 0, false));
+    return lines.join("");
+  }
+  function trimLine(value, start2, end2) {
+    let startIndex = 0;
+    let endIndex = value.length;
+    if (start2) {
+      let code2 = value.codePointAt(startIndex);
+      while (code2 === tab || code2 === space) {
+        startIndex++;
+        code2 = value.codePointAt(startIndex);
+      }
+    }
+    if (end2) {
+      let code2 = value.codePointAt(endIndex - 1);
+      while (code2 === tab || code2 === space) {
+        endIndex--;
+        code2 = value.codePointAt(endIndex - 1);
+      }
+    }
+    return endIndex > startIndex ? value.slice(startIndex, endIndex) : "";
+  }
+
+  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/text.js
+  function text3(state, node2) {
+    const result = { type: "text", value: trimLines(String(node2.value)) };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
+
+  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/thematic-break.js
+  function thematicBreak2(state, node2) {
+    const result = {
+      type: "element",
+      tagName: "hr",
+      properties: {},
+      children: []
+    };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
+
+  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/index.js
+  var handlers = {
+    blockquote,
+    break: hardBreak,
+    code,
+    delete: strikethrough,
+    emphasis,
+    footnoteReference,
+    footnote,
+    heading,
+    html,
+    imageReference,
+    image,
+    inlineCode,
+    linkReference,
+    link,
+    listItem,
+    list: list2,
+    paragraph,
+    root,
+    strong,
+    table,
+    tableCell,
+    tableRow,
+    text: text3,
+    thematicBreak: thematicBreak2,
+    toml: ignore,
+    yaml: ignore,
+    definition: ignore,
+    footnoteDefinition: ignore
+  };
+  function ignore() {
+    return null;
   }
 
   // ../../node_modules/remark-rehype/node_modules/unist-util-is/lib/index.js
@@ -44581,8 +45115,8 @@ div#_size-detection-cell_i4cq9_1 {
     }
     const is5 = convert(test);
     const step = reverse ? -1 : 1;
-    factory2(tree, void 0, [])();
-    function factory2(node2, index2, parents) {
+    factory(tree, void 0, [])();
+    function factory(node2, index2, parents) {
       const value = node2 && typeof node2 === "object" ? node2 : {};
       if (typeof value.type === "string") {
         const name = typeof value.tagName === "string" ? value.tagName : typeof value.name === "string" ? value.name : void 0;
@@ -44606,7 +45140,7 @@ div#_size-detection-cell_i4cq9_1 {
           offset3 = (reverse ? node2.children.length : -1) + step;
           grandparents = parents.concat(node2);
           while (offset3 > -1 && offset3 < node2.children.length) {
-            subresult = factory2(node2.children[offset3], offset3, grandparents)();
+            subresult = factory(node2.children[offset3], offset3, grandparents)();
             if (subresult[0] === EXIT) {
               return subresult;
             }
@@ -44645,28 +45179,13 @@ div#_size-detection-cell_i4cq9_1 {
     }
   };
 
-  // ../../node_modules/remark-rehype/node_modules/unist-util-position/lib/index.js
-  var pointStart = point3("start");
-  var pointEnd = point3("end");
-  function point3(type) {
-    return point4;
-    function point4(node2) {
-      const point5 = node2 && node2.position && node2.position[type] || {};
-      return {
-        line: point5.line || null,
-        column: point5.column || null,
-        offset: point5.offset > -1 ? point5.offset : null
-      };
-    }
-  }
-
   // ../../node_modules/remark-rehype/node_modules/unist-util-generated/lib/index.js
   function generated(node2) {
     return !node2 || !node2.position || !node2.position.start || !node2.position.start.line || !node2.position.start.column || !node2.position.end || !node2.position.end.line || !node2.position.end.column;
   }
 
   // ../../node_modules/remark-rehype/node_modules/mdast-util-definitions/lib/index.js
-  var own4 = {}.hasOwnProperty;
+  var own3 = {}.hasOwnProperty;
   function definitions(tree) {
     const cache = /* @__PURE__ */ Object.create(null);
     if (!tree || !tree.type) {
@@ -44674,100 +45193,229 @@ div#_size-detection-cell_i4cq9_1 {
     }
     visit(tree, "definition", (definition3) => {
       const id = clean(definition3.identifier);
-      if (id && !own4.call(cache, id)) {
+      if (id && !own3.call(cache, id)) {
         cache[id] = definition3;
       }
     });
     return definition2;
     function definition2(identifier) {
       const id = clean(identifier);
-      return id && own4.call(cache, id) ? cache[id] : null;
+      return id && own3.call(cache, id) ? cache[id] : null;
     }
   }
   function clean(value) {
     return String(value || "").toUpperCase();
   }
 
-  // ../../node_modules/micromark-util-sanitize-uri/index.js
-  function normalizeUri(value) {
-    const result = [];
-    let index2 = -1;
-    let start2 = 0;
-    let skip = 0;
-    while (++index2 < value.length) {
-      const code2 = value.charCodeAt(index2);
-      let replace = "";
-      if (code2 === 37 && asciiAlphanumeric(value.charCodeAt(index2 + 1)) && asciiAlphanumeric(value.charCodeAt(index2 + 2))) {
-        skip = 2;
-      } else if (code2 < 128) {
-        if (!/[!#$&-;=?-Z_a-z~]/.test(String.fromCharCode(code2))) {
-          replace = String.fromCharCode(code2);
+  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/state.js
+  var own4 = {}.hasOwnProperty;
+  function createState(tree, options) {
+    const settings = options || {};
+    const dangerous = settings.allowDangerousHtml || false;
+    const footnoteById = {};
+    state.dangerous = dangerous;
+    state.clobberPrefix = settings.clobberPrefix === void 0 || settings.clobberPrefix === null ? "user-content-" : settings.clobberPrefix;
+    state.footnoteLabel = settings.footnoteLabel || "Footnotes";
+    state.footnoteLabelTagName = settings.footnoteLabelTagName || "h2";
+    state.footnoteLabelProperties = settings.footnoteLabelProperties || {
+      className: ["sr-only"]
+    };
+    state.footnoteBackLabel = settings.footnoteBackLabel || "Back to content";
+    state.unknownHandler = settings.unknownHandler;
+    state.passThrough = settings.passThrough;
+    state.handlers = { ...handlers, ...settings.handlers };
+    state.definition = definitions(tree);
+    state.footnoteById = footnoteById;
+    state.footnoteOrder = [];
+    state.footnoteCounts = {};
+    state.patch = patch;
+    state.applyData = applyData;
+    state.one = oneBound;
+    state.all = allBound;
+    state.wrap = wrap2;
+    state.augment = augment;
+    visit(tree, "footnoteDefinition", (definition2) => {
+      const id = String(definition2.identifier).toUpperCase();
+      if (!own4.call(footnoteById, id)) {
+        footnoteById[id] = definition2;
+      }
+    });
+    return state;
+    function augment(left2, right2) {
+      if (left2 && "data" in left2 && left2.data) {
+        const data = left2.data;
+        if (data.hName) {
+          if (right2.type !== "element") {
+            right2 = {
+              type: "element",
+              tagName: "",
+              properties: {},
+              children: []
+            };
+          }
+          right2.tagName = data.hName;
         }
-      } else if (code2 > 55295 && code2 < 57344) {
-        const next = value.charCodeAt(index2 + 1);
-        if (code2 < 56320 && next > 56319 && next < 57344) {
-          replace = String.fromCharCode(code2, next);
-          skip = 1;
+        if (right2.type === "element" && data.hProperties) {
+          right2.properties = { ...right2.properties, ...data.hProperties };
+        }
+        if ("children" in right2 && right2.children && data.hChildren) {
+          right2.children = data.hChildren;
+        }
+      }
+      if (left2) {
+        const ctx = "type" in left2 ? left2 : { position: left2 };
+        if (!generated(ctx)) {
+          right2.position = { start: pointStart(ctx), end: pointEnd(ctx) };
+        }
+      }
+      return right2;
+    }
+    function state(node2, tagName, props, children) {
+      if (Array.isArray(props)) {
+        children = props;
+        props = {};
+      }
+      return augment(node2, {
+        type: "element",
+        tagName,
+        properties: props || {},
+        children: children || []
+      });
+    }
+    function oneBound(node2, parent) {
+      return one2(state, node2, parent);
+    }
+    function allBound(parent) {
+      return all2(state, parent);
+    }
+  }
+  function patch(from, to) {
+    if (from.position)
+      to.position = position2(from);
+  }
+  function applyData(from, to) {
+    let result = to;
+    if (from && from.data) {
+      const hName = from.data.hName;
+      const hChildren = from.data.hChildren;
+      const hProperties = from.data.hProperties;
+      if (typeof hName === "string") {
+        if (result.type === "element") {
+          result.tagName = hName;
         } else {
-          replace = "\uFFFD";
+          result = {
+            type: "element",
+            tagName: hName,
+            properties: {},
+            children: []
+          };
         }
-      } else {
-        replace = String.fromCharCode(code2);
       }
-      if (replace) {
-        result.push(value.slice(start2, index2), encodeURIComponent(replace));
-        start2 = index2 + skip + 1;
-        replace = "";
+      if (result.type === "element" && hProperties) {
+        result.properties = { ...result.properties, ...hProperties };
       }
-      if (skip) {
-        index2 += skip;
-        skip = 0;
+      if ("children" in result && result.children && hChildren !== null && hChildren !== void 0) {
+        result.children = hChildren;
       }
     }
-    return result.join("") + value.slice(start2);
+    return result;
   }
-
-  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/wrap.js
+  function one2(state, node2, parent) {
+    const type = node2 && node2.type;
+    if (!type) {
+      throw new Error("Expected node, got `" + node2 + "`");
+    }
+    if (own4.call(state.handlers, type)) {
+      return state.handlers[type](state, node2, parent);
+    }
+    if (state.passThrough && state.passThrough.includes(type)) {
+      return "children" in node2 ? { ...node2, children: all2(state, node2) } : node2;
+    }
+    if (state.unknownHandler) {
+      return state.unknownHandler(state, node2, parent);
+    }
+    return defaultUnknownHandler(state, node2);
+  }
+  function all2(state, parent) {
+    const values = [];
+    if ("children" in parent) {
+      const nodes = parent.children;
+      let index2 = -1;
+      while (++index2 < nodes.length) {
+        const result = one2(state, nodes[index2], parent);
+        if (result) {
+          if (index2 && nodes[index2 - 1].type === "break") {
+            if (!Array.isArray(result) && result.type === "text") {
+              result.value = result.value.replace(/^\s+/, "");
+            }
+            if (!Array.isArray(result) && result.type === "element") {
+              const head = result.children[0];
+              if (head && head.type === "text") {
+                head.value = head.value.replace(/^\s+/, "");
+              }
+            }
+          }
+          if (Array.isArray(result)) {
+            values.push(...result);
+          } else {
+            values.push(result);
+          }
+        }
+      }
+    }
+    return values;
+  }
+  function defaultUnknownHandler(state, node2) {
+    const data = node2.data || {};
+    const result = "value" in node2 && !(own4.call(data, "hProperties") || own4.call(data, "hChildren")) ? { type: "text", value: node2.value } : {
+      type: "element",
+      tagName: "div",
+      properties: {},
+      children: all2(state, node2)
+    };
+    state.patch(node2, result);
+    return state.applyData(node2, result);
+  }
   function wrap2(nodes, loose) {
     const result = [];
     let index2 = -1;
     if (loose) {
-      result.push(u2("text", "\n"));
+      result.push({ type: "text", value: "\n" });
     }
     while (++index2 < nodes.length) {
       if (index2)
-        result.push(u2("text", "\n"));
+        result.push({ type: "text", value: "\n" });
       result.push(nodes[index2]);
     }
     if (loose && nodes.length > 0) {
-      result.push(u2("text", "\n"));
+      result.push({ type: "text", value: "\n" });
     }
     return result;
   }
 
   // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/footer.js
-  function footer(h3) {
-    let index2 = -1;
+  function footer(state) {
     const listItems = [];
-    while (++index2 < h3.footnoteOrder.length) {
-      const def = h3.footnoteById[h3.footnoteOrder[index2].toUpperCase()];
+    let index2 = -1;
+    while (++index2 < state.footnoteOrder.length) {
+      const def = state.footnoteById[state.footnoteOrder[index2]];
       if (!def) {
         continue;
       }
-      const content3 = all2(h3, def);
-      const id = String(def.identifier);
+      const content3 = state.all(def);
+      const id = String(def.identifier).toUpperCase();
       const safeId = normalizeUri(id.toLowerCase());
       let referenceIndex = 0;
       const backReferences = [];
-      while (++referenceIndex <= h3.footnoteCounts[id]) {
+      while (++referenceIndex <= state.footnoteCounts[id]) {
         const backReference = {
           type: "element",
           tagName: "a",
           properties: {
-            href: "#" + h3.clobberPrefix + "fnref-" + safeId + (referenceIndex > 1 ? "-" + referenceIndex : ""),
+            href: "#" + state.clobberPrefix + "fnref-" + safeId + (referenceIndex > 1 ? "-" + referenceIndex : ""),
             dataFootnoteBackref: true,
             className: ["data-footnote-backref"],
-            ariaLabel: h3.footnoteBackLabel
+            ariaLabel: state.footnoteBackLabel
           },
           children: [{ type: "text", value: "\u21A9" }]
         };
@@ -44798,16 +45446,14 @@ div#_size-detection-cell_i4cq9_1 {
       const listItem2 = {
         type: "element",
         tagName: "li",
-        properties: { id: h3.clobberPrefix + "fn-" + safeId },
-        children: wrap2(content3, true)
+        properties: { id: state.clobberPrefix + "fn-" + safeId },
+        children: state.wrap(content3, true)
       };
-      if (def.position) {
-        listItem2.position = def.position;
-      }
+      state.patch(def, listItem2);
       listItems.push(listItem2);
     }
     if (listItems.length === 0) {
-      return null;
+      return;
     }
     return {
       type: "element",
@@ -44816,488 +45462,32 @@ div#_size-detection-cell_i4cq9_1 {
       children: [
         {
           type: "element",
-          tagName: h3.footnoteLabelTagName,
+          tagName: state.footnoteLabelTagName,
           properties: {
-            ...JSON.parse(JSON.stringify(h3.footnoteLabelProperties)),
+            ...JSON.parse(JSON.stringify(state.footnoteLabelProperties)),
             id: "footnote-label"
           },
-          children: [u2("text", h3.footnoteLabel)]
+          children: [{ type: "text", value: state.footnoteLabel }]
         },
         { type: "text", value: "\n" },
         {
           type: "element",
           tagName: "ol",
           properties: {},
-          children: wrap2(listItems, true)
+          children: state.wrap(listItems, true)
         },
         { type: "text", value: "\n" }
       ]
     };
   }
 
-  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/blockquote.js
-  function blockquote(h3, node2) {
-    return h3(node2, "blockquote", wrap2(all2(h3, node2), true));
-  }
-
-  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/break.js
-  function hardBreak(h3, node2) {
-    return [h3(node2, "br"), u2("text", "\n")];
-  }
-
-  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/code.js
-  function code(h3, node2) {
-    const value = node2.value ? node2.value + "\n" : "";
-    const lang = node2.lang && node2.lang.match(/^[^ \t]+(?=[ \t]|$)/);
-    const props = {};
-    if (lang) {
-      props.className = ["language-" + lang];
-    }
-    const code2 = h3(node2, "code", props, [u2("text", value)]);
-    if (node2.meta) {
-      code2.data = { meta: node2.meta };
-    }
-    return h3(node2.position, "pre", [code2]);
-  }
-
-  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/delete.js
-  function strikethrough(h3, node2) {
-    return h3(node2, "del", all2(h3, node2));
-  }
-
-  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/emphasis.js
-  function emphasis(h3, node2) {
-    return h3(node2, "em", all2(h3, node2));
-  }
-
-  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/footnote-reference.js
-  function footnoteReference(h3, node2) {
-    const id = String(node2.identifier);
-    const safeId = normalizeUri(id.toLowerCase());
-    const index2 = h3.footnoteOrder.indexOf(id);
-    let counter;
-    if (index2 === -1) {
-      h3.footnoteOrder.push(id);
-      h3.footnoteCounts[id] = 1;
-      counter = h3.footnoteOrder.length;
-    } else {
-      h3.footnoteCounts[id]++;
-      counter = index2 + 1;
-    }
-    const reuseCounter = h3.footnoteCounts[id];
-    return h3(node2, "sup", [
-      h3(
-        node2.position,
-        "a",
-        {
-          href: "#" + h3.clobberPrefix + "fn-" + safeId,
-          id: h3.clobberPrefix + "fnref-" + safeId + (reuseCounter > 1 ? "-" + reuseCounter : ""),
-          dataFootnoteRef: true,
-          ariaDescribedBy: "footnote-label"
-        },
-        [u2("text", String(counter))]
-      )
-    ]);
-  }
-
-  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/footnote.js
-  function footnote(h3, node2) {
-    const footnoteById = h3.footnoteById;
-    let no = 1;
-    while (no in footnoteById)
-      no++;
-    const identifier = String(no);
-    footnoteById[identifier] = {
-      type: "footnoteDefinition",
-      identifier,
-      children: [{ type: "paragraph", children: node2.children }],
-      position: node2.position
-    };
-    return footnoteReference(h3, {
-      type: "footnoteReference",
-      identifier,
-      position: node2.position
-    });
-  }
-
-  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/heading.js
-  function heading(h3, node2) {
-    return h3(node2, "h" + node2.depth, all2(h3, node2));
-  }
-
-  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/html.js
-  function html(h3, node2) {
-    return h3.dangerous ? h3.augment(node2, u2("raw", node2.value)) : null;
-  }
-
-  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/revert.js
-  function revert(h3, node2) {
-    const subtype = node2.referenceType;
-    let suffix = "]";
-    if (subtype === "collapsed") {
-      suffix += "[]";
-    } else if (subtype === "full") {
-      suffix += "[" + (node2.label || node2.identifier) + "]";
-    }
-    if (node2.type === "imageReference") {
-      return u2("text", "![" + node2.alt + suffix);
-    }
-    const contents = all2(h3, node2);
-    const head = contents[0];
-    if (head && head.type === "text") {
-      head.value = "[" + head.value;
-    } else {
-      contents.unshift(u2("text", "["));
-    }
-    const tail = contents[contents.length - 1];
-    if (tail && tail.type === "text") {
-      tail.value += suffix;
-    } else {
-      contents.push(u2("text", suffix));
-    }
-    return contents;
-  }
-
-  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/image-reference.js
-  function imageReference(h3, node2) {
-    const def = h3.definition(node2.identifier);
-    if (!def) {
-      return revert(h3, node2);
-    }
-    const props = { src: normalizeUri(def.url || ""), alt: node2.alt };
-    if (def.title !== null && def.title !== void 0) {
-      props.title = def.title;
-    }
-    return h3(node2, "img", props);
-  }
-
-  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/image.js
-  function image(h3, node2) {
-    const props = { src: normalizeUri(node2.url), alt: node2.alt };
-    if (node2.title !== null && node2.title !== void 0) {
-      props.title = node2.title;
-    }
-    return h3(node2, "img", props);
-  }
-
-  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/inline-code.js
-  function inlineCode(h3, node2) {
-    return h3(node2, "code", [u2("text", node2.value.replace(/\r?\n|\r/g, " "))]);
-  }
-
-  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/link-reference.js
-  function linkReference(h3, node2) {
-    const def = h3.definition(node2.identifier);
-    if (!def) {
-      return revert(h3, node2);
-    }
-    const props = { href: normalizeUri(def.url || "") };
-    if (def.title !== null && def.title !== void 0) {
-      props.title = def.title;
-    }
-    return h3(node2, "a", props, all2(h3, node2));
-  }
-
-  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/link.js
-  function link(h3, node2) {
-    const props = { href: normalizeUri(node2.url) };
-    if (node2.title !== null && node2.title !== void 0) {
-      props.title = node2.title;
-    }
-    return h3(node2, "a", props, all2(h3, node2));
-  }
-
-  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/list-item.js
-  function listItem(h3, node2, parent) {
-    const result = all2(h3, node2);
-    const loose = parent ? listLoose(parent) : listItemLoose(node2);
-    const props = {};
-    const wrapped = [];
-    if (typeof node2.checked === "boolean") {
-      let paragraph2;
-      if (result[0] && result[0].type === "element" && result[0].tagName === "p") {
-        paragraph2 = result[0];
-      } else {
-        paragraph2 = h3(null, "p", []);
-        result.unshift(paragraph2);
-      }
-      if (paragraph2.children.length > 0) {
-        paragraph2.children.unshift(u2("text", " "));
-      }
-      paragraph2.children.unshift(
-        h3(null, "input", {
-          type: "checkbox",
-          checked: node2.checked,
-          disabled: true
-        })
-      );
-      props.className = ["task-list-item"];
-    }
-    let index2 = -1;
-    while (++index2 < result.length) {
-      const child = result[index2];
-      if (loose || index2 !== 0 || child.type !== "element" || child.tagName !== "p") {
-        wrapped.push(u2("text", "\n"));
-      }
-      if (child.type === "element" && child.tagName === "p" && !loose) {
-        wrapped.push(...child.children);
-      } else {
-        wrapped.push(child);
-      }
-    }
-    const tail = result[result.length - 1];
-    if (tail && (loose || !("tagName" in tail) || tail.tagName !== "p")) {
-      wrapped.push(u2("text", "\n"));
-    }
-    return h3(node2, "li", props, wrapped);
-  }
-  function listLoose(node2) {
-    let loose = node2.spread;
-    const children = node2.children;
-    let index2 = -1;
-    while (!loose && ++index2 < children.length) {
-      loose = listItemLoose(children[index2]);
-    }
-    return Boolean(loose);
-  }
-  function listItemLoose(node2) {
-    const spread = node2.spread;
-    return spread === void 0 || spread === null ? node2.children.length > 1 : spread;
-  }
-
-  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/list.js
-  function list2(h3, node2) {
-    const props = {};
-    const name = node2.ordered ? "ol" : "ul";
-    const items = all2(h3, node2);
-    let index2 = -1;
-    if (typeof node2.start === "number" && node2.start !== 1) {
-      props.start = node2.start;
-    }
-    while (++index2 < items.length) {
-      const item = items[index2];
-      if (item.type === "element" && item.tagName === "li" && item.properties && Array.isArray(item.properties.className) && item.properties.className.includes("task-list-item")) {
-        props.className = ["contains-task-list"];
-        break;
-      }
-    }
-    return h3(node2, name, props, wrap2(items, true));
-  }
-
-  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/paragraph.js
-  function paragraph(h3, node2) {
-    return h3(node2, "p", all2(h3, node2));
-  }
-
-  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/root.js
-  function root(h3, node2) {
-    return h3.augment(node2, u2("root", wrap2(all2(h3, node2))));
-  }
-
-  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/strong.js
-  function strong(h3, node2) {
-    return h3(node2, "strong", all2(h3, node2));
-  }
-
-  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/table.js
-  function table(h3, node2) {
-    const rows = node2.children;
-    let index2 = -1;
-    const align = node2.align || [];
-    const result = [];
-    while (++index2 < rows.length) {
-      const row = rows[index2].children;
-      const name = index2 === 0 ? "th" : "td";
-      const out = [];
-      let cellIndex = -1;
-      const length = node2.align ? align.length : row.length;
-      while (++cellIndex < length) {
-        const cell = row[cellIndex];
-        out.push(
-          h3(cell, name, { align: align[cellIndex] }, cell ? all2(h3, cell) : [])
-        );
-      }
-      result[index2] = h3(rows[index2], "tr", wrap2(out, true));
-    }
-    return h3(
-      node2,
-      "table",
-      wrap2(
-        [h3(result[0].position, "thead", wrap2([result[0]], true))].concat(
-          result[1] ? h3(
-            {
-              start: pointStart(result[1]),
-              end: pointEnd(result[result.length - 1])
-            },
-            "tbody",
-            wrap2(result.slice(1), true)
-          ) : []
-        ),
-        true
-      )
-    );
-  }
-
-  // ../../node_modules/trim-lines/index.js
-  var tab = 9;
-  var space = 32;
-  function trimLines(value) {
-    const source = String(value);
-    const search2 = /\r?\n|\r/g;
-    let match = search2.exec(source);
-    let last = 0;
-    const lines = [];
-    while (match) {
-      lines.push(
-        trimLine(source.slice(last, match.index), last > 0, true),
-        match[0]
-      );
-      last = match.index + match[0].length;
-      match = search2.exec(source);
-    }
-    lines.push(trimLine(source.slice(last), last > 0, false));
-    return lines.join("");
-  }
-  function trimLine(value, start2, end2) {
-    let startIndex = 0;
-    let endIndex = value.length;
-    if (start2) {
-      let code2 = value.codePointAt(startIndex);
-      while (code2 === tab || code2 === space) {
-        startIndex++;
-        code2 = value.codePointAt(startIndex);
-      }
-    }
-    if (end2) {
-      let code2 = value.codePointAt(endIndex - 1);
-      while (code2 === tab || code2 === space) {
-        endIndex--;
-        code2 = value.codePointAt(endIndex - 1);
-      }
-    }
-    return endIndex > startIndex ? value.slice(startIndex, endIndex) : "";
-  }
-
-  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/text.js
-  function text3(h3, node2) {
-    return h3.augment(node2, u2("text", trimLines(String(node2.value))));
-  }
-
-  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/thematic-break.js
-  function thematicBreak2(h3, node2) {
-    return h3(node2, "hr");
-  }
-
-  // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/handlers/index.js
-  var handlers = {
-    blockquote,
-    break: hardBreak,
-    code,
-    delete: strikethrough,
-    emphasis,
-    footnoteReference,
-    footnote,
-    heading,
-    html,
-    imageReference,
-    image,
-    inlineCode,
-    linkReference,
-    link,
-    listItem,
-    list: list2,
-    paragraph,
-    root,
-    strong,
-    table,
-    text: text3,
-    thematicBreak: thematicBreak2,
-    toml: ignore,
-    yaml: ignore,
-    definition: ignore,
-    footnoteDefinition: ignore
-  };
-  function ignore() {
-    return null;
-  }
-
   // ../../node_modules/remark-rehype/node_modules/mdast-util-to-hast/lib/index.js
-  var own5 = {}.hasOwnProperty;
-  function factory(tree, options) {
-    const settings = options || {};
-    const dangerous = settings.allowDangerousHtml || false;
-    const footnoteById = {};
-    h3.dangerous = dangerous;
-    h3.clobberPrefix = settings.clobberPrefix === void 0 || settings.clobberPrefix === null ? "user-content-" : settings.clobberPrefix;
-    h3.footnoteLabel = settings.footnoteLabel || "Footnotes";
-    h3.footnoteLabelTagName = settings.footnoteLabelTagName || "h2";
-    h3.footnoteLabelProperties = settings.footnoteLabelProperties || {
-      className: ["sr-only"]
-    };
-    h3.footnoteBackLabel = settings.footnoteBackLabel || "Back to content";
-    h3.definition = definitions(tree);
-    h3.footnoteById = footnoteById;
-    h3.footnoteOrder = [];
-    h3.footnoteCounts = {};
-    h3.augment = augment;
-    h3.handlers = { ...handlers, ...settings.handlers };
-    h3.unknownHandler = settings.unknownHandler;
-    h3.passThrough = settings.passThrough;
-    visit(tree, "footnoteDefinition", (definition2) => {
-      const id = String(definition2.identifier).toUpperCase();
-      if (!own5.call(footnoteById, id)) {
-        footnoteById[id] = definition2;
-      }
-    });
-    return h3;
-    function augment(left2, right2) {
-      if (left2 && "data" in left2 && left2.data) {
-        const data = left2.data;
-        if (data.hName) {
-          if (right2.type !== "element") {
-            right2 = {
-              type: "element",
-              tagName: "",
-              properties: {},
-              children: []
-            };
-          }
-          right2.tagName = data.hName;
-        }
-        if (right2.type === "element" && data.hProperties) {
-          right2.properties = { ...right2.properties, ...data.hProperties };
-        }
-        if ("children" in right2 && right2.children && data.hChildren) {
-          right2.children = data.hChildren;
-        }
-      }
-      if (left2) {
-        const ctx = "type" in left2 ? left2 : { position: left2 };
-        if (!generated(ctx)) {
-          right2.position = { start: pointStart(ctx), end: pointEnd(ctx) };
-        }
-      }
-      return right2;
-    }
-    function h3(node2, tagName, props, children) {
-      if (Array.isArray(props)) {
-        children = props;
-        props = {};
-      }
-      return augment(node2, {
-        type: "element",
-        tagName,
-        properties: props || {},
-        children: children || []
-      });
-    }
-  }
   function toHast(tree, options) {
-    const h3 = factory(tree, options);
-    const node2 = one2(h3, tree, null);
-    const foot = footer(h3);
+    const state = createState(tree, options);
+    const node2 = state.one(tree, null);
+    const foot = footer(state);
     if (foot) {
-      node2.children.push(u2("text", "\n"), foot);
+      node2.children.push({ type: "text", value: "\n" }, foot);
     }
     return Array.isArray(node2) ? { type: "root", children: node2 } : node2;
   }
@@ -45416,13 +45606,13 @@ div#_size-detection-cell_i4cq9_1 {
   }
 
   // ../../node_modules/react-markdown/node_modules/property-information/lib/util/create.js
-  var own6 = {}.hasOwnProperty;
+  var own5 = {}.hasOwnProperty;
   function create(definition2) {
     const property = {};
     const normal = {};
     let prop;
     for (prop in definition2.properties) {
-      if (own6.call(definition2.properties, prop)) {
+      if (own5.call(definition2.properties, prop)) {
         const value = definition2.properties[prop];
         const info = new DefinedInfo(
           prop,
@@ -46534,8 +46724,8 @@ div#_size-detection-cell_i4cq9_1 {
     }
     const is5 = convert2(test);
     const step = reverse ? -1 : 1;
-    factory2(tree, void 0, [])();
-    function factory2(node2, index2, parents) {
+    factory(tree, void 0, [])();
+    function factory(node2, index2, parents) {
       const value = node2 && typeof node2 === "object" ? node2 : {};
       if (typeof value.type === "string") {
         const name = typeof value.tagName === "string" ? value.tagName : typeof value.name === "string" ? value.name : void 0;
@@ -46559,7 +46749,7 @@ div#_size-detection-cell_i4cq9_1 {
           offset3 = (reverse ? node2.children.length : -1) + step;
           grandparents = parents.concat(node2);
           while (offset3 > -1 && offset3 < node2.children.length) {
-            subresult = factory2(node2.children[offset3], offset3, grandparents)();
+            subresult = factory(node2.children[offset3], offset3, grandparents)();
             if (subresult[0] === EXIT2) {
               return subresult;
             }
@@ -46661,7 +46851,7 @@ div#_size-detection-cell_i4cq9_1 {
   var style_to_object_default = import_index.default;
 
   // ../../node_modules/react-markdown/lib/ast-to-react.js
-  var own7 = {}.hasOwnProperty;
+  var own6 = {}.hasOwnProperty;
   var tableElements = /* @__PURE__ */ new Set(["table", "thead", "tbody", "tfoot", "tr"]);
   function childrenToReact(context, node2) {
     const children = [];
@@ -46695,7 +46885,7 @@ div#_size-detection-cell_i4cq9_1 {
     }
     if (node2.properties) {
       for (property in node2.properties) {
-        if (own7.call(node2.properties, property)) {
+        if (own6.call(node2.properties, property)) {
           addProperty(properties, property, node2.properties[property], context);
         }
       }
@@ -46712,7 +46902,7 @@ div#_size-detection-cell_i4cq9_1 {
       start: { line: null, column: null, offset: null },
       end: { line: null, column: null, offset: null }
     };
-    const component = options.components && own7.call(options.components, name) ? options.components[name] : name;
+    const component = options.components && own6.call(options.components, name) ? options.components[name] : name;
     const basic = typeof component === "string" || component === import_react24.default.Fragment;
     if (!import_react_is3.default.isValidElementType(component)) {
       throw new TypeError(
@@ -46825,7 +47015,7 @@ div#_size-detection-cell_i4cq9_1 {
       result = parseStyle(result);
     }
     if (info.space && info.property) {
-      props[own7.call(hastToReact, info.property) ? hastToReact[info.property] : info.property] = result;
+      props[own6.call(hastToReact, info.property) ? hastToReact[info.property] : info.property] = result;
     } else if (info.attribute) {
       props[info.attribute] = result;
     }
@@ -46858,7 +47048,7 @@ div#_size-detection-cell_i4cq9_1 {
   }
 
   // ../../node_modules/react-markdown/lib/react-markdown.js
-  var own8 = {}.hasOwnProperty;
+  var own7 = {}.hasOwnProperty;
   var changelog = "https://github.com/remarkjs/react-markdown/blob/main/changelog.md";
   var deprecated = {
     plugins: { to: "remarkPlugins", id: "change-plugins-to-remarkplugins" },
@@ -46886,7 +47076,7 @@ div#_size-detection-cell_i4cq9_1 {
   };
   function ReactMarkdown(options) {
     for (const key in deprecated) {
-      if (own8.call(deprecated, key) && own8.call(options, key)) {
+      if (own7.call(deprecated, key) && own7.call(options, key)) {
         const deprecation = deprecated[key];
         console.warn(
           `[react-markdown] Warning: please ${deprecation.to ? `use \`${deprecation.to}\` instead of` : "remove"} \`${key}\` (see <${changelog}#${deprecation.id}> for more info)`
@@ -48651,8 +48841,8 @@ div#_size-detection-cell_i4cq9_1 {
     };
   };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-RB519h58yn5W/editor/src/components/PopoverEl/styles.module.css.js
-  var digest11 = "f6be3a0cee6d147b37ca8651a72dd0f0e112c20778278e2a62e4ff1e6c7bf40f";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-nwcNun5JUtm8/editor/src/components/PopoverEl/styles.module.css.js
+  var digest11 = "6300fad4c916a2e55ba4a6270a394c0094d0d5b6c8bcf994fb966ad04b37fdab";
   var css11 = `._popover_m2pq3_1 {
   pointer-events: none;
   opacity: 0;
@@ -48840,8 +49030,8 @@ div#_size-detection-cell_i4cq9_1 {
     );
   };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-UdBBVlR7OMdi/editor/src/components/Inputs/CSSUnitInput/CSSUnitInfo.module.css.js
-  var digest12 = "883ab76836b06dc1661a34e90c5a7508f84813bcf3cce4904659f26240eb26aa";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-76MIQ2cBMzPi/editor/src/components/Inputs/CSSUnitInput/CSSUnitInfo.module.css.js
+  var digest12 = "d93ae2f9d35e6cbdcbabc0c4b9498eaf436c63ff5f5737bc3047c9142f6fd054";
   var css12 = `._infoIcon_15ri6_1 {
   width: 24px;
   color: var(--rstudio-blue);
@@ -48920,8 +49110,8 @@ div#_size-detection-cell_i4cq9_1 {
     rem: "Pixel size of app font. Typically 16 pixels."
   };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-s6bEki7dho1a/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
-  var digest13 = "1557d049672e9e73e76ccfe42d34f3381fb0bb63532c9137ed10ecfbf5062e99";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-pmrCJrZJXKrb/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
+  var digest13 = "52555725c5c460d047e35b6032146d8a92cefb197b2e260fc710b5b9612ee19b";
   var css13 = `._wrapper_3jy8f_1 {
   position: relative;
   display: flex;
@@ -49464,8 +49654,8 @@ div#_size-detection-cell_i4cq9_1 {
     return tractSizes.some((size) => size === "auto");
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-Ara0eMzt0vHc/editor/src/components/Grids/EditableGridContainer/TractInfoDisplay.module.css.js
-  var digest14 = "cd916e2cbc7718944e7a679cd84c0e4445ef85dc3fa1c51075430c44b2b9f610";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-r7cvQnnVqlNI/editor/src/components/Grids/EditableGridContainer/TractInfoDisplay.module.css.js
+  var digest14 = "404c783e661ffaf7724c3207bc015f2d757acbd6646e308c0a583485dbf439a1";
   var css14 = `._tractInfoDisplay_cvtwo_1 {
   --transition-delay: 0.1s;
   --transition-speed: 0.1s;
@@ -49689,7 +49879,7 @@ user is typing in the input field but mouses off */
                 {
                   unit,
                   availableUnits: ALLOWED_UNITS,
-                  onChange: (u4) => changeUnit(u4)
+                  onChange: (u3) => changeUnit(u3)
                 }
               )
             ] })
@@ -49828,8 +50018,8 @@ user is typing in the input field but mouses off */
     });
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-q5pY3aepRua3/editor/src/components/Grids/EditableGridContainer/TractSizer.module.css.js
-  var digest15 = "89996038a81e3e79d5d870acdd41eeadfc7e6dac2ea6051cdef2c81a75b5d268";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-Rs7RckXzGmbA/editor/src/components/Grids/EditableGridContainer/TractSizer.module.css.js
+  var digest15 = "9c40f4481d3c014357cf7b9924924387955c6ddceabd7f9c0e11aae77554977c";
   var css15 = `div._columnSizer_9b32k_1,
 div._rowSizer_9b32k_2 {
   --sizer-color: #c9e2f3;
@@ -50254,8 +50444,8 @@ div._rowSizer_9b32k_2::after {
     return /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("h3", { className: className + " panel-title", children });
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-qbDw94eRWT0S/editor/src/PortalModal.module.css.js
-  var digest16 = "210a41bf95887856025bd78b03ed9397f2a869ba9ee5400871917f6d07719bac";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-1ni6pMbUUeHT/editor/src/PortalModal.module.css.js
+  var digest16 = "e7ce6e377975676bd07773cc70db7ab0829e769cd4dc30890745ad5e212f81e6";
   var css16 = `._portalHolder_18ua3_1 {
   background-color: rgba(255, 255, 255, 0.735);
   position: absolute;
@@ -50371,8 +50561,8 @@ div._rowSizer_9b32k_2::after {
   }
   var PortalModal_default = PortalModal;
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-f3i1uXrv0Hnz/editor/src/PortalModal.module.css.js
-  var digest17 = "0b46ea8ce1ab707a1e3f7a3d69c8dc391cc8694c19445ff93051cbcb2a3d2bc8";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-tsYCY8hb33qY/editor/src/PortalModal.module.css.js
+  var digest17 = "9aa8ba41d56b4a43d6b550ee365e55ae13dc00eed8ddad5ecfe932d625861b98";
   var css17 = `._portalHolder_18ua3_1 {
   background-color: rgba(255, 255, 255, 0.735);
   position: absolute;
@@ -50451,45 +50641,45 @@ div._rowSizer_9b32k_2::after {
   var r2 = function(t4) {
     return t4 && !!t4[n2];
   };
-  var u3 = function t3(u4, i2, c2) {
-    if (e(u4)) {
-      if (r2(u4)) {
-        var o2 = u4[n2]().match(i2), a2 = o2.matched, f2 = o2.selections;
+  var u2 = function t3(u3, i2, c2) {
+    if (e(u3)) {
+      if (r2(u3)) {
+        var o2 = u3[n2]().match(i2), a2 = o2.matched, f2 = o2.selections;
         return a2 && f2 && Object.keys(f2).forEach(function(n3) {
           return c2(n3, f2[n3]);
         }), a2;
       }
       if (!e(i2))
         return false;
-      if (Array.isArray(u4))
-        return !!Array.isArray(i2) && u4.length === i2.length && u4.every(function(n3, e2) {
+      if (Array.isArray(u3))
+        return !!Array.isArray(i2) && u3.length === i2.length && u3.every(function(n3, e2) {
           return t3(n3, i2[e2], c2);
         });
-      if (u4 instanceof Map)
-        return i2 instanceof Map && Array.from(u4.keys()).every(function(n3) {
-          return t3(u4.get(n3), i2.get(n3), c2);
+      if (u3 instanceof Map)
+        return i2 instanceof Map && Array.from(u3.keys()).every(function(n3) {
+          return t3(u3.get(n3), i2.get(n3), c2);
         });
-      if (u4 instanceof Set) {
+      if (u3 instanceof Set) {
         if (!(i2 instanceof Set))
           return false;
-        if (0 === u4.size)
+        if (0 === u3.size)
           return 0 === i2.size;
-        if (1 === u4.size) {
-          var s2 = Array.from(u4.values())[0];
+        if (1 === u3.size) {
+          var s2 = Array.from(u3.values())[0];
           return r2(s2) ? Array.from(i2.values()).every(function(n3) {
             return t3(s2, n3, c2);
           }) : i2.has(s2);
         }
-        return Array.from(u4.values()).every(function(n3) {
+        return Array.from(u3.values()).every(function(n3) {
           return i2.has(n3);
         });
       }
-      return Object.keys(u4).every(function(e2) {
-        var o3, a3 = u4[e2];
+      return Object.keys(u3).every(function(e2) {
+        var o3, a3 = u3[e2];
         return (e2 in i2 || r2(o3 = a3) && "optional" === o3[n2]().matcherType) && t3(a3, i2[e2], c2);
       });
     }
-    return Object.is(i2, u4);
+    return Object.is(i2, u3);
   };
   function h2(t4) {
     var e2;
@@ -50532,7 +50722,7 @@ div._rowSizer_9b32k_2::after {
       var e3 = [].slice.call(arguments), r3 = e3[e3.length - 1], i2 = [e3[0]], c2 = [];
       return 3 === e3.length && "function" == typeof e3[1] ? (i2.push(e3[0]), c2.push(e3[1])) : e3.length > 2 && i2.push.apply(i2, e3.slice(1, e3.length - 1)), new n3(this.value, this.cases.concat([{ match: function(n4) {
         var e4 = {}, r4 = Boolean(i2.some(function(t4) {
-          return u3(t4, n4, function(n5, t5) {
+          return u2(t4, n4, function(n5, t5) {
             e4[n5] = t5;
           });
         }) && c2.every(function(t4) {
@@ -50552,9 +50742,9 @@ div._rowSizer_9b32k_2::after {
       return this.run();
     }, e2.run = function() {
       for (var n4 = this.value, t4 = void 0, e3 = 0; e3 < this.cases.length; e3++) {
-        var r3 = this.cases[e3], u4 = r3.match(this.value);
-        if (u4.matched) {
-          n4 = u4.value, t4 = r3.handler;
+        var r3 = this.cases[e3], u3 = r3.match(this.value);
+        if (u3.matched) {
+          n4 = u3.value, t4 = r3.handler;
           break;
         }
       }
@@ -50571,8 +50761,8 @@ div._rowSizer_9b32k_2::after {
     }, n3;
   }();
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-XPcq9JKGZUrh/editor/src/components/Inputs/BooleanInput/styles.module.css.js
-  var digest18 = "986b5d6a8ddc33a657e7110731032729103da2d7e628529a99a0e284a0c19b87";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-2y9hKOSTWD0j/editor/src/components/Inputs/BooleanInput/styles.module.css.js
+  var digest18 = "23ec916286c760006c22bdcf2f8ce8068647bdb538c811b796e91d76180387f4";
   var css18 = `._checkboxInput_7ym3w_1 {
   height: 0;
   width: 0;
@@ -50684,8 +50874,8 @@ label._checkboxLabel_7ym3w_10:after {
   // src/components/Inputs/CSSUnitInput/CSSUnitInput.tsx
   var import_react31 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-bKNo9jAmzCdp/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
-  var digest19 = "d472340f3dc4ee215dd1e5040b6d0853a34694a89514975bfd37c0ed4885bb0f";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-Er09tXizxy7x/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
+  var digest19 = "6daae0f4d23b99ab75334ceee3f6a8fd3cee7b47a7155ee8e50e6f250fffde27";
   var css19 = `._wrapper_3jy8f_1 {
   position: relative;
   display: flex;
@@ -50827,8 +51017,8 @@ label._checkboxLabel_7ym3w_10:after {
   // src/components/Inputs/ListInput/NamedListInput.tsx
   var import_react_sortablejs = __toESM(require_dist());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-53kg70ObqvxH/editor/src/components/Inputs/ListInput/styles.module.css.js
-  var digest20 = "414e3b4642c84761a6bf71e3f98d1fc906a07e552c264078f82e3ca01a59bf73";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-21DDdLRkeolK/editor/src/components/Inputs/ListInput/styles.module.css.js
+  var digest20 = "d3b2fa2e2e65fd89ab288b6a2dca775415ed7e2595d6a01f7d5c692ab618519c";
   var css20 = `._container_xt7ji_1 {
   --gap-size: 4px;
   margin-top: 21px;
@@ -51124,8 +51314,8 @@ label._checkboxLabel_7ym3w_10:after {
   // src/components/Inputs/RadioInputs/RadioInputsSimple.tsx
   var React39 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-Sk7fAUOWZte1/editor/src/components/Inputs/RadioInputs/RadioInputs.module.css.js
-  var digest21 = "f8fb063f3fe2dc8c01d1104e05ed18d8786e98d63e8d779b4252978356d4f89d";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-1TwGRnKl52gH/editor/src/components/Inputs/RadioInputs/RadioInputs.module.css.js
+  var digest21 = "30dab907dfb495d02687d25cec3745fcacfd1125056a267c10d44c4d061c45ff";
   var css21 = `._radioContainer_1regb_1 {
   display: grid;
   gap: 5px;
@@ -51586,8 +51776,8 @@ the label */
     };
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-MtPUYL9tTm1A/editor/src/components/GridlayoutElement/styles.module.css.js
-  var digest22 = "ae57d4cb37b86822a0339f09092684eba95222683c8d72d79fb37857613229e5";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-O934lQSPnbZA/editor/src/components/GridlayoutElement/styles.module.css.js
+  var digest22 = "3dea481cc597be5f1e47443c9a6b0312cc819d1d920c5f4a0f91cfb3f85ef53c";
   var css22 = `._container_1hvsg_1 {
   display: grid;
   /* background-color: var(--bg-color); */
@@ -51932,8 +52122,8 @@ the label */
     return makeStringInputInfo("Label text", defaultValue);
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-JrIrQP2Q0R2G/editor/src/Shiny-Ui-Elements/ShinyActionButton/styles.module.css.js
-  var digest23 = "46aafe4a8d94835c4e1e6a1c965471d1879eea7683f8d54b23f8bf42e2f9bc15";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-hGFpCl9SN3xj/editor/src/Shiny-Ui-Elements/ShinyActionButton/styles.module.css.js
+  var digest23 = "abee6ad6334e39cd85240b4176433daabf7283df4c28caa821442e897510dedf";
   var css23 = `._container_tyghz_1 {
   display: grid;
   grid-template-rows: 1fr;
@@ -51990,8 +52180,8 @@ the label */
   // src/assets/icons/shinyCheckgroup.png
   var shinyCheckgroup_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAFS0lEQVR4nO3cz2vTdxzH8Vfb9VeIa7ta1FW2FqQ6pqLbEERhm0OGFzcPY0dhl+LFo4cd9gfsuIs77LDbkAljDqEiCoKszMMEcbqFsjm2OaW6ptClP2zNDvkms2n6I99vXqTp5/mAQJKmn3wPT76fJCTvpnw+L6DWmut9ANiYCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFoQFC8KCBWHBgrBgQViwICxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFs/V+wDq5cy5seX+1BNd4piILkt8+uGOmEs2pmDDKrNL0ilJ70h6NeFaP0m6IumspJ8TrtWw2AqlYUl3JJ1W8qgUrXE6WnO4Bus1pNDPWCclff7sHZ1tzepsa4m12PTcgqbnnhZvNkVrz0r6Mv4hNqaQw+pTYbuSJA1s7tB7r/Wpv6c90aJ/Tczq2x/Hde/RTPGus5IuShpPtHCDCXkrPCWpU5K297Rr+O3+xFFJUn+01vYXSmt1RM8VlJDDOly8cmxvr1qam2q2cEtzk47t6a34XKEIeSs8VLwy0NeZaKHRTFaX7xQ+ZRh+60Vt6W4vX/NQxX/cwEIOK1W80toS/2x18ea4rmUmlW5vKUVVYc1UxX/ewELeChMbzWR1LTMpSTp5aGspKhBWbJO5J/rm5iNJ0on9m/Vywu10oyGsmL76/oEk6cBAWgeHuut7MOsQYcUwmsnq18ezSre36Ojid3+IEFaVJnNPSu8Aj+/rVVeqtc5HtD4RVpWu/5LV1OyCdm9Lad/A8/U+nHWLsKrwMDtbehf47l62wJUQVhUu3XosSXpzqIuPFlZBWBWMZrI6c25M5394ULrv9/Fp3f47J0k6vLO7TkfWOAirzMyTp6XPp27cmyrFdfvPKUmFsxUv2FdHWGU6Wpv10eGtpds37k0t+oT9jUFesK8FYVWwqz+tE/s3l24Xz2C7t6V4bbVGhLWMg0PdOjCQXnTf3pfSyzwa5UIO65/ildzcQsUHHN3Tq3R74WvKWza1VvW51TNfUZaW+eXORhby12auSzouSXfv5/T6wKYlD+hKteqT9wdjLX7n/r/lzxWUkM9Y3xWvjNx6rGxuvmYLZ3PzGok+84pcqNniDSLkM9YXkj6WNDg5Pa/PLv+hI6/0aMeWlNpifvFvbiGvsYc5Xb07oamZ0vb6W/RcQQk5LKnwI4cRSZqaWdCF6N2f4TmCE/JWKEmXVPj1c8awdiZa+5Jh7XUv9DOWJF2VtFPSB5KOqPCLmrjfUc+p8EL9iqTzNTm6BkVY//s6uqAGQt8KYUJYsCAsWBAWLHjxvpRlol9oCKuAiX41xlbIRD+L0M9YTPQzCTksJvoZhbwVMtHPKOSwmOhnFPJWyEQ/o5DDYqKfUchbYWJM9FseYcXERL+VEVZMTPRbGWHFwES/1RFWlZjotzaEVSUm+q0NYVWBiX5rR1hVYKLf2hFWBUz0S46wyjDRrzYIqwwT/WqDsCpgol9yhLUMJvolE3JYTPQzCvlrM0z0Mwr5jMVEP6OQz1hM9DMKOSyJiX42IW+FEhP9bEI/Y0lM9LNoyufz9T4GbEChb4UwISxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFoQFC8KCBWHBgrBgQViwICxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLP4DpWmTqmVmpDwAAAAASUVORK5CYII=";
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-EGX6r9RaW334/editor/src/Shiny-Ui-Elements/ShinyCheckboxGroupInput/styles.module.css.js
-  var digest24 = "fc970319f245814adc86037de3cfb109d02360f6f06576054d517a55fd40634c";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-Uz3ibeY0K5Zz/editor/src/Shiny-Ui-Elements/ShinyCheckboxGroupInput/styles.module.css.js
+  var digest24 = "47eaba8afeea81a3f3d00e2d39b465a4ebaea82136106ff0646bc32ce0a366d5";
   var css24 = `._container_162lp_1 {
   position: relative;
   padding: 4px;
@@ -52083,8 +52273,8 @@ the label */
   // src/Shiny-Ui-Elements/ShinyCheckboxInput/ShinyCheckboxInput.tsx
   var React43 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-Y1ryD61tQGAd/editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/styles.module.css.js
-  var digest25 = "52b2706cc7242434479d26931ed85965bac6337901d30d7b562cdef94983a3a2";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-GKiBHvjnLm5C/editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/styles.module.css.js
+  var digest25 = "f8597dd17464645f4eeab2896c9aaae13dcfd9d27b207092a05ceebc5ce9af46";
   var css25 = `._container_1x0tz_1 {
   position: relative;
   padding: 4px;
@@ -52200,8 +52390,8 @@ the label */
     return getTabPanelTitle(firstChild) ?? "First Tab";
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-MAV3KVZsU5JX/editor/src/components/Tabs/TabPanel/TabPanel.module.css.js
-  var digest26 = "4332c660242e73e9d10c6ccdadd7b735333122bc1ec4e208197bf6e8ac1aa96e";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-TrCvIAsbkStr/editor/src/components/Tabs/TabPanel/TabPanel.module.css.js
+  var digest26 = "296b27e29353f63c501e9a97bcfa83d0c05c3c971a2b811c53a13ca3c1ba4f61";
   var css26 = `._container_10z2l_1 {
   height: 100%;
 }
@@ -52330,8 +52520,8 @@ the label */
     }) });
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-BtbZO76bFy4b/editor/src/Shiny-Ui-Elements/ShinyTabPanel/ShinyTabPanel.module.css.js
-  var digest27 = "77b7f8f05ebb3285b72d3c15c9c6e209f2108fa356727005b67f9deb6836ee41";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-Rs0K3h7QsFTX/editor/src/Shiny-Ui-Elements/ShinyTabPanel/ShinyTabPanel.module.css.js
+  var digest27 = "dfc9434fa45872e4d83ff608dba36a389a99d71b63dbb4f4ae7d7316ca8b9751";
   var css27 = `._container_fe3r8_1 {
   position: relative;
   height: 100%;
@@ -52438,8 +52628,8 @@ the label */
     return sameArray(aPath, bPath);
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-h70XaDMO65Bi/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest28 = "0cec43ceacd2bc034be82fd2144fad4b673280d1ab3e73bfb9a75c148b3cae82";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-comVnHGoqrNh/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest28 = "a9f6aacfc3221a2f664221a00811547d222e0d2b66cce68ca08abe50500bc8e4";
   var css28 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -52612,8 +52802,8 @@ illusion of the selected panel and tab being one entity */
     );
   };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-KTbPkLdh7eex/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest29 = "0f0016a3ac26ff1c1d9320ea75533896ae5d560381b17f94378b1b0c6ed65e4a";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-V9512JJZCBtY/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest29 = "618c1a1d8937c74abbde7471ba5d8bd50084d3869123514bdbbfefd92bb93590";
   var css29 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -52783,8 +52973,8 @@ illusion of the selected panel and tab being one entity */
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-SvFG57uuipDm/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest30 = "78e88baefb538cb8a9382a6721c218c2d283b078d16d60a90338d87f3bb06938";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-Ez9FH2j23rIW/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest30 = "63b024b7abb04d347276865043ed8475be2b1d69b849dfeadd1e565741950aa5";
   var css30 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -53059,8 +53249,8 @@ illusion of the selected panel and tab being one entity */
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-ucAuZbtSOgJt/editor/src/Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage.module.css.js
-  var digest31 = "6236fb5b8251549edc7a2200f70b87a0af8eab2e2240cd11badea2643312d08c";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-rJCymwVMd7g4/editor/src/Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage.module.css.js
+  var digest31 = "1fe8cb9e72cb43048295beecdd7ced97b68fa36770788d9bb7ee22a5c6358a48";
   var css31 = `._noTabsMessage_130qz_1 {
   padding: 5px;
 }
@@ -53161,8 +53351,8 @@ illusion of the selected panel and tab being one entity */
   // src/Shiny-Ui-Elements/ShinyNumericInput/ShinyNumericInput.tsx
   var React49 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-MfAtOgmIm9rb/editor/src/Shiny-Ui-Elements/ShinyNumericInput/styles.module.css.js
-  var digest32 = "0b048b7ae167c0ff30bcc400aebdfd04ce6296045b78bdbce599cbdd561b6522";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-W1xy0pQssrX7/editor/src/Shiny-Ui-Elements/ShinyNumericInput/styles.module.css.js
+  var digest32 = "a9c52d606acc53653b0664658d1aabb2d732f54a21fcee6741fc2bf01323d584";
   var css32 = `._container_yicbr_1 {
   position: relative;
   padding: 4px;
@@ -53280,8 +53470,8 @@ illusion of the selected panel and tab being one entity */
     description: "An input control for entry of numeric values"
   };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-2K57Ro5o6wTH/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
-  var digest33 = "bbf1eb5a1d16f1eeb02bed69c8d15d2926c35631634692b400a5b65d29a9060f";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-aZTOqvvgKZtL/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
+  var digest33 = "af7d9237d57f57d9e882445f2c6f24248374ee587b459052074f560edca8cfd8";
   var css33 = `._container_1rlbk_1 {
   max-height: 100%;
 }
@@ -53373,8 +53563,8 @@ illusion of the selected panel and tab being one entity */
   // src/Shiny-Ui-Elements/ShinyRadioButtons/ShinyRadioButtons.tsx
   var import_react42 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-JymJ7f1apY4o/editor/src/Shiny-Ui-Elements/ShinyRadioButtons/styles.module.css.js
-  var digest34 = "b1aedfacb6e527889c8c75844ecda52a4a54717e414448daba3c7cf7155bedee";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-UAp6b582R1Aw/editor/src/Shiny-Ui-Elements/ShinyRadioButtons/styles.module.css.js
+  var digest34 = "2a4e6a4096ffc428ce11eeafde8c5ac2b313220a1d10d486781b5392e417d19c";
   var css34 = `._container_sgn7c_1 {
   position: relative;
   padding: 4px;
@@ -53476,8 +53666,8 @@ illusion of the selected panel and tab being one entity */
   // src/assets/icons/shinySelectbox.png
   var shinySelectbox_default = "data:image/png;base64,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";
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-OOcl2rio9ucx/editor/src/Shiny-Ui-Elements/ShinySelectInput/styles.module.css.js
-  var digest35 = "781cee81ef40777cfd3074d68157a7ab754a3bc0b7c0be65bb89eb0a4a3134ec";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-yOPjNZYBlTCb/editor/src/Shiny-Ui-Elements/ShinySelectInput/styles.module.css.js
+  var digest35 = "73b2c28e2f596ffbcb681799e55689268efc2fd8132a127704ec09ea07c65b46";
   var css35 = `._container_1e5dd_1 {
   position: relative;
   padding: 4px;
@@ -53553,8 +53743,8 @@ illusion of the selected panel and tab being one entity */
   // src/Shiny-Ui-Elements/ShinySliderInput/ShinySliderInput.tsx
   var React51 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-BqZ4m0JBh73q/editor/src/Shiny-Ui-Elements/ShinySliderInput/styles.module.css.js
-  var digest36 = "93c6de35884ebcfcd7d2f9afde041e2a0b578d6481086043c41a757f38062168";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-cj0a0zYQPsqX/editor/src/Shiny-Ui-Elements/ShinySliderInput/styles.module.css.js
+  var digest36 = "aa95cd7d975b328c2a2525f40245a502e0ff2a2b07346b3503066273c467fcb4";
   var css36 = `._container_1f2js_1 {
   padding: 6px;
 
@@ -53789,8 +53979,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // src/Shiny-Ui-Elements/ShinyTextInput/ShinyTextInput.tsx
   var React52 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-pcepgRk4a2u0/editor/src/Shiny-Ui-Elements/ShinyTextInput/styles.module.css.js
-  var digest37 = "394a43d934f089fc31e75ca492d2e69bd9eebc6eaa752663914127533420bba2";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-pwvzjIgg4x1b/editor/src/Shiny-Ui-Elements/ShinyTextInput/styles.module.css.js
+  var digest37 = "6c7bd733ffd73413448ec37b8fcf279a00445805fa005b324ce4f0d0221fc06c";
   var css37 = `._container_yicbr_1 {
   position: relative;
   padding: 4px;
@@ -53885,8 +54075,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // src/assets/icons/shinyTextOutput.png
   var shinyTextOutput_default = "data:image/png;base64,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";
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-vuEoyvZYWQzq/editor/src/Shiny-Ui-Elements/ShinyTextOutput/styles.module.css.js
-  var digest38 = "b9cc81213ad1d363eb43c888e7841c7b8420d966ac0e3f86f1a7cd72a4a70985";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-ohUBODIREuxV/editor/src/Shiny-Ui-Elements/ShinyTextOutput/styles.module.css.js
+  var digest38 = "6235d1376bb79c9de8ffc3e8f1221a8f7a006badd1c74f6e8a982a249070494a";
   var css38 = `._container_1i6yi_1 {
   padding: 1rem;
   max-height: 100%;
@@ -53946,8 +54136,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // src/assets/icons/shinyImage.png
   var shinyImage_default = "data:image/png;base64,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";
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-ri9n23FApDf5/editor/src/Shiny-Ui-Elements/ShinyUiOutput/styles.module.css.js
-  var digest39 = "151d31bc92538d11b25293477dc476b1c0f5e6267cbaa6e7012af70f6f798526";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-SL733RkDFAUA/editor/src/Shiny-Ui-Elements/ShinyUiOutput/styles.module.css.js
+  var digest39 = "6b07f005b663383b64ca950aeb89c80f19f9994a2506fe3dcfb942743f3b62fd";
   var css39 = `._container_1xnzo_1 {
   display: grid;
   grid-template-rows: 1fr;
@@ -54017,8 +54207,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 1024 1024" }, "child": [{ "tag": "path", "attr": { "d": "M881.7 187.4l-45.1-45.1a8.03 8.03 0 0 0-11.3 0L667.8 299.9l-54.7-54.7a7.94 7.94 0 0 0-13.5 4.7L576.1 439c-.6 5.2 3.7 9.5 8.9 8.9l189.2-23.5c6.6-.8 9.3-8.8 4.7-13.5l-54.7-54.7 157.6-157.6c3-3 3-8.1-.1-11.2zM439 576.1l-189.2 23.5c-6.6.8-9.3 8.9-4.7 13.5l54.7 54.7-157.5 157.5a8.03 8.03 0 0 0 0 11.3l45.1 45.1c3.1 3.1 8.2 3.1 11.3 0l157.6-157.6 54.7 54.7a7.94 7.94 0 0 0 13.5-4.7L447.9 585a7.9 7.9 0 0 0-8.9-8.9z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-gC8JtGsJd6ZE/editor/src/components/CategoryDivider/styles.module.css.js
-  var digest40 = "18d0d03ab82682229d88e03907b05653cc19a14dad4d387dee8a38be455c6ed4";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-tSCjzE7oFhPN/editor/src/components/CategoryDivider/styles.module.css.js
+  var digest40 = "a6d0cce58380151a9b474c6309b19391892f1f4b17bcab6d745d2ffdd87a2df3";
   var css40 = `._categoryDivider_bdwku_1 {
   display: block;
   position: relative;
@@ -54590,8 +54780,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 16 16", "fill": "currentColor" }, "child": [{ "tag": "path", "attr": { "fillRule": "evenodd", "clipRule": "evenodd", "d": "M12.75 8a4.5 4.5 0 0 1-8.61 1.834l-1.391.565A6.001 6.001 0 0 0 14.25 8 6 6 0 0 0 3.5 4.334V2.5H2v4l.75.75h3.5v-1.5H4.352A4.5 4.5 0 0 1 12.75 8z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-2Uf9BWfDIzyr/editor/src/components/AppPreview/AppPreview.module.css.js
-  var digest41 = "4762031a5419c231978b81a22761eec88e6c5be392b077f5e8d67f4642055101";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-lg9gtVS3ypx4/editor/src/components/AppPreview/AppPreview.module.css.js
+  var digest41 = "dd0b9e6dad9976ccd40f4effa4e57b7bf6f1d50ed088c39ad24d5ba3fd204ebf";
   var css41 = `div._appViewerHolder_zkojo_1 {
   /* This is over-ridden by an inline style but we just have it here in case */
   --app-scale-amnt: 0.24;
@@ -54857,8 +55047,8 @@ h2._error_zkojo_249 {
   })();
   var AppPreview_module_css_default = { "appViewerHolder": "_appViewerHolder_zkojo_1", "title": "_title_zkojo_55", "appContainer": "_appContainer_zkojo_89", "previewFrame": "_previewFrame_zkojo_109", "expandButton": "_expandButton_zkojo_134", "reloadButtonContainer": "_reloadButtonContainer_zkojo_135", "reloadButton": "_reloadButton_zkojo_135", "spin": "_spin_zkojo_174", "restartButton": "_restartButton_zkojo_211", "loadingMessage": "_loadingMessage_zkojo_238", "error": "_error_zkojo_249" };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-TP8mP0DWoKcA/editor/src/components/AppPreview/AppPreview.module.css.js
-  var digest42 = "ada7e1fb5861d6e5275f783814e9e3df6bf7bcccf3569dbca686d7993ec02e0d";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-GPnEE6DMC5HH/editor/src/components/AppPreview/AppPreview.module.css.js
+  var digest42 = "526e134c15dffce38d23fd1abf51e0294526e2b376d93e1cbb64ddf8b683859f";
   var css42 = `div._appViewerHolder_zkojo_1 {
   /* This is over-ridden by an inline style but we just have it here in case */
   --app-scale-amnt: 0.24;
@@ -55124,8 +55314,8 @@ h2._error_zkojo_249 {
   })();
   var AppPreview_module_css_default2 = { "appViewerHolder": "_appViewerHolder_zkojo_1", "title": "_title_zkojo_55", "appContainer": "_appContainer_zkojo_89", "previewFrame": "_previewFrame_zkojo_109", "expandButton": "_expandButton_zkojo_134", "reloadButtonContainer": "_reloadButtonContainer_zkojo_135", "reloadButton": "_reloadButton_zkojo_135", "spin": "_spin_zkojo_174", "restartButton": "_restartButton_zkojo_211", "loadingMessage": "_loadingMessage_zkojo_238", "error": "_error_zkojo_249" };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-xgOcEIfO8l68/editor/src/components/AppPreview/FakeDashboard.module.css.js
-  var digest43 = "5914cbce670c25c22e71c9b116a6a56c50742093104daf2014f362991a24ce88";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-xhFM9f4g7v53/editor/src/components/AppPreview/FakeDashboard.module.css.js
+  var digest43 = "60b45a49c7b0b2d1b24e6fe71cdac3c3df80b8c71f278fa53766076905e53809";
   var css43 = `._fakeApp_t3dh1_1 {
   display: grid;
   place-content: center;
@@ -55222,8 +55412,8 @@ h2._error_zkojo_249 {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "fill": "none", "stroke": "#000", "strokeWidth": "2", "d": "M12,22 C17.5228475,22 22,17.5228475 22,12 C22,6.4771525 17.5228475,2 12,2 C6.4771525,2 2,6.4771525 2,12 C2,17.5228475 6.4771525,22 12,22 Z M5,5 L19,19" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-MjVLVBdGb1sb/editor/src/components/AppPreview/LogsViewer.module.css.js
-  var digest44 = "4f680330a1866a39393d48f6831b19a0c307b6c105471ad29cda0e0756f93de3";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-GOLv7V8OjlQR/editor/src/components/AppPreview/LogsViewer.module.css.js
+  var digest44 = "acd3b857bb09533d63f5f434fc7169d798d25ec82bebca7bc395492bf2c93e80";
   var css44 = `/* Logs section */
 ._logs_xjp5l_2 {
   --tab-height: var(--logs-button-h, 20px);
@@ -56389,8 +56579,8 @@ p._logLine_xjp5l_75 {
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-KNhAyG0fxUnY/editor/src/components/UndoRedoButtons/UndoRedoButtons.module.css.js
-  var digest45 = "e7aa963d44e0862f7aeb88a23078e6d6894e1b9c835c9ebbb888ab178f99f4e6";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-z5H8bkEUKvdO/editor/src/components/UndoRedoButtons/UndoRedoButtons.module.css.js
+  var digest45 = "79ead7b91a6d28485f7876c4ad7d9ad4183e5c69e309263eaa67e9e52000d136";
   var css45 = `._container_1d7pe_1 {
   display: flex;
   position: relative;
@@ -56475,8 +56665,8 @@ p._logLine_xjp5l_75 {
   // src/ElementsPalette/index.tsx
   var React64 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-cz72FXtgg9RE/editor/src/ElementsPalette/styles.module.css.js
-  var digest46 = "d62de7a9f2527c43b49c30ee81046603074ebc5f6592dae7cc12c514c0005059";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-YDGi3cyLqfjh/editor/src/ElementsPalette/styles.module.css.js
+  var digest46 = "c18e84fa87b5fb377a8655e8a65578b4d52bd0e2b1f4a55ac8a89d751e5f7966";
   var css46 = `._elementsPalette_qmlez_1 {
   --icon-size: 75px;
   --padding: 8px;
@@ -56547,8 +56737,8 @@ p._logLine_xjp5l_75 {
   })();
   var styles_module_css_default24 = { "elementsPalette": "_elementsPalette_qmlez_1", "OptionContainer": "_OptionContainer_qmlez_18", "optionContainer": "_OptionContainer_qmlez_18", "OptionItem": "_OptionItem_qmlez_24", "optionItem": "_OptionItem_qmlez_24", "OptionIcon": "_OptionIcon_qmlez_33", "optionIcon": "_OptionIcon_qmlez_33", "OptionLabel": "_OptionLabel_qmlez_41", "optionLabel": "_OptionLabel_qmlez_41" };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-6GT4eIlau9Zj/editor/src/ElementsPalette/styles.module.css.js
-  var digest47 = "b1fdd283472ad92570a7f4bfb284dfc261d5fd975c1bf4596807452591b03b01";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-ZJSRFGhrc2CN/editor/src/ElementsPalette/styles.module.css.js
+  var digest47 = "827e568c2ecf299926872cf289a163373755b6d88b5a95e91b7690c8f54a32fc";
   var css47 = `._elementsPalette_qmlez_1 {
   --icon-size: 75px;
   --padding: 8px;
@@ -56827,8 +57017,8 @@ p._logLine_xjp5l_75 {
     return InputsComponents;
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-d4BmaYxIPsh3/editor/src/SettingsPanel/PathBreadcrumb.module.css.js
-  var digest48 = "a49ea6b803ffc075c1c77bcbba5921aa93b75d896f598ed6a127a6ee42e0521f";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-9AcKL80suYQG/editor/src/SettingsPanel/PathBreadcrumb.module.css.js
+  var digest48 = "4224f601a2c7e11290167d632663db4cc57db367cd53e62c6d96949332568697";
   var css48 = `._container_1fh41_1 {
   --flex-gap: 8px;
   padding: var(--vertical-spacing);
@@ -56949,8 +57139,8 @@ p._logLine_xjp5l_75 {
     return uiName.replace(/[a-z]+::/, "");
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1991-YDkbXAILieIb/editor/src/SettingsPanel/SettingsPanel.module.css.js
-  var digest49 = "78f990d968cd653d43f793ebb7bb88813fb9d27ab02d631375fc71be8097a29c";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-GLtLiXFA1jpY/editor/src/SettingsPanel/SettingsPanel.module.css.js
+  var digest49 = "2b2027768defce576a4f9c4f7d257bd965a4af2da0a1a83db14bec56ebbe4a9c";
   var css49 = `._settingsPanel_a44hx_1 {
   --vertical-gap: var(--vertical-spacing);
   display: flex;
