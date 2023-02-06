@@ -7,6 +7,7 @@
 ^docs$
 ^pkgdown$
 ^\.github$
+^\.devcontainer$
 ^vignettes/ui-editor-live-demo\.Rmd$
 ^\.hintrc$
 ^\.yarnrc\.yml$
@@ -19,6 +20,7 @@
 ^yarn\.lock$
 ^inst\/editor\/(?!build).+$
 ^inst\/build-utils$
+^inst\/ast-parsing$
 ^inst\/communication-types$
 ^inst\/communication-types$
 ^inst\/vscode-extension$
