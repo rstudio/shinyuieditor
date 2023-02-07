@@ -6,8 +6,4 @@ export type {
   MessageToBackendByPath,
 } from "./MessageToBackend";
 export type { TemplateSelection } from "./AppTemplates";
-export type {
-  OutputType,
-  OutputSourceRequest,
-  InputSourceRequest,
-} from "./MessageToBackend";
+export type { OutputType, InputSourceRequest } from "./MessageToBackend";

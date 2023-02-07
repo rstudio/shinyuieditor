@@ -11,8 +11,7 @@ import type { PickKeyFn } from "../TypescriptUtils";
 export function GoToSourceBtns({ node }: { node: ShinyUiNode | null }) {
   const { sendMsg, mode } = useBackendConnection();
 
-  // if (mode !== "VSCODE") return null;
-  if (!node) return null;
+  if (mode !== "VSCODE" || !node) return null;
 
   const { serverBindings } = shinyUiNodeInfo[node.uiName];
 
@@ -128,7 +127,7 @@ function GoToInputsBtn({
       variant="regular"
       onClick={() => {
         sendMsg({
-          path: "GO-TO-SERVER",
+          path: "FIND-INPUT-USES",
           payload: { type: "Input", inputId },
         });
       }}

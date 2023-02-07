@@ -14,7 +14,6 @@ import { startPreviewApp } from "./R-Utils/startPreviewApp";
 import {
   insert_code_snippet,
   selectInputReferences,
-  selectOutputReferences,
   select_app_lines,
 } from "./selectServerReferences";
 
@@ -228,19 +227,11 @@ export function editorLogic({
           return;
         }
 
-        case "GO-TO-SERVER": {
-          if (msg.payload.type === "Output") {
-            selectOutputReferences({
-              editor: await get_companion_editor(),
-              output: msg.payload,
-              get_ast,
-            });
-          } else {
-            selectInputReferences({
-              editor: await get_companion_editor(),
-              input: msg.payload,
-            });
-          }
+        case "FIND-INPUT-USES": {
+          selectInputReferences({
+            editor: await get_companion_editor(),
+            input: msg.payload,
+          });
 
           return;
         }

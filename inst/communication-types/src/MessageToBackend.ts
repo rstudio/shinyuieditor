@@ -19,7 +19,7 @@ export type MessageToBackendByPath = {
   "OPEN-COMPANION-EDITOR": CompanionEditorPosition;
   "SHOW-APP-LINES": Script_Position[];
   "INSERT-SNIPPET": SnippetInsertRequest;
-  "GO-TO-SERVER": OutputSourceRequest | InputSourceRequest;
+  "FIND-INPUT-USES": InputSourceRequest;
 };
 
 /**
@@ -27,14 +27,6 @@ export type MessageToBackendByPath = {
  * callbacks
  */
 export type MessageToBackend = MessageUnion<MessageToBackendByPath>;
-
-export type OutputSourceRequest = {
-  type: "Output";
-  /** The current output id used to bind to ui output fn */
-  outputId: string;
-  /** Code scaffold to put in if there's no existing output code for a source */
-  renderScaffold: string;
-};
 
 export type SnippetInsertRequest = { snippet: string; below_line: number };
 export type InputSourceRequest = {
