@@ -1,0 +1,31 @@
+.show_btn {
+  margin: var(--size-md);
+}
+
+.modal {
+  border: 1px solid grey;
+  background-color: var(--rstudio-white);
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--corner-radius);
+  overflow: scroll;
+  padding: var(--size-lg);
+}
+
+.modal > h2 {
+  margin-block-end: var(--size-md);
+}
+
+.code_holder {
+  background-color: var(--light-grey);
+  padding: var(--size-md);
+  max-height: 70vh;
+  overflow-y: scroll;
+}
+
+.footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-block-start: var(--size-md);
+}
