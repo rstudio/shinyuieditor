@@ -6,14 +6,14 @@ import { useDispatch } from "react-redux";
 
 import { useDeleteNode } from "../components/DeleteNodeButton/useDeleteNode";
 import { useUndoRedo } from "../state-logic/useUndoRedo";
-import { getNamedPath } from "../state/getNamedPath";
-import { useCurrentSelection } from "../state/selectedPath";
-import type { MainStateOption } from "../state/uiTree";
+import type { MainStateOption } from "../state/app_info";
 import {
   SET_APP_INFO,
   SHOW_TEMPLATE_CHOOSER,
   useCurrentUiTree,
-} from "../state/uiTree";
+} from "../state/app_info";
+import { getNamedPath } from "../state/getNamedPath";
+import { useCurrentSelection } from "../state/selectedPath";
 import { useKeyboardShortcuts } from "../utils/hooks/useKeyboardShortcuts";
 
 import {

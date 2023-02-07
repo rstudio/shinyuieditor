@@ -7,7 +7,7 @@ import type { KnownInputFieldTypes } from "../components/Inputs/SettingsFormBuil
 import { getNode } from "../components/UiNode/TreeManipulation/getNode";
 import type { ShinyUiNode } from "../main";
 import { useNodeSelectionState } from "../NodeSelectionState";
-import { UPDATE_NODE } from "../state/uiTree";
+import { UPDATE_NODE } from "../state/app_info";
 
 export function useUpdateSettings(tree: ShinyUiNode) {
   const dispatch = useDispatch();

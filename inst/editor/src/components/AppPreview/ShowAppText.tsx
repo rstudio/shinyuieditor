@@ -17,7 +17,7 @@ export function ShowAppText() {
   const store = useStore();
 
   const getCurrentApp = () => {
-    const app_state = (store.getState() as RootState).uiTree;
+    const app_state = (store.getState() as RootState).app_info;
     if (app_state.mode !== "MAIN") return "Not in correct state";
 
     return generate_full_app_script(app_state).trim();

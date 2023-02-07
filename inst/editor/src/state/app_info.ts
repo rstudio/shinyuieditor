@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 import type { Full_App_Info } from "../backendCommunication/full_app_info";
 import { raw_app_info_to_full } from "../backendCommunication/full_app_info";
-import { getDefaultSettings } from "../components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
 import type { TemplateChooserOptions } from "../components/TemplatePreviews/TemplateChooserView";
 import type { PlaceNodeArguments } from "../components/UiNode/TreeManipulation/placeNode";
 import { placeNodeMutating } from "../components/UiNode/TreeManipulation/placeNode";
@@ -16,9 +15,6 @@ import { removeNodeMutating } from "../components/UiNode/TreeManipulation/remove
 import type { UpdateNodeArguments } from "../components/UiNode/TreeManipulation/updateNode";
 import { updateNodeMutating } from "../components/UiNode/TreeManipulation/updateNode";
 import type { ShinyUiNode } from "../main";
-import { isShinyUiNode } from "../Shiny-Ui-Elements/isShinyUiNode";
-import { shinyUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
-import { subtractElements } from "../utils/array-helpers";
 
 import type { RootState } from "./store";
 import {
@@ -100,43 +96,6 @@ export const mainStateSlice = createSlice({
   },
 });
 
-/**
- *
- * @param uiNode Shiny Ui Tree
- * @returns The ui tree modified by adding default values of any ommitted
- * properties with default values.
- *
- * It's not terribly clear if this is a good idea or not as it will immediately
- * mess with the user's code but will eliminate confusion when the settings
- * options controls don't actually match the presented values
- */
-function fillInDefaultValues(uiNode: ShinyUiNode) {
-  if (!isShinyUiNode(uiNode)) return uiNode;
-
-  const defaultSettingsForNode = getDefaultSettings(
-    shinyUiNodeInfo[uiNode.uiName].settingsInfo,
-    uiNode
-  );
-
-  const argsInNode = Object.keys(uiNode.uiArguments);
-  const defaultNodeArgs = Object.keys(defaultSettingsForNode);
-  const missingArgs = subtractElements(defaultNodeArgs, argsInNode);
-
-  // Only mess with the ui arguments if there's a discrepency in present
-  // arguments and required/default ones
-  if (missingArgs.length > 0) {
-    uiNode.uiArguments = { ...defaultSettingsForNode, ...uiNode.uiArguments };
-  }
-
-  // Recurse over all the children so entire tree is checked
-  if (uiNode.uiChildren) {
-    uiNode.uiChildren.forEach((childNode) => fillInDefaultValues(childNode));
-  }
-
-  // Return the ui node so the state knows it can update
-  return uiNode as ShinyUiNode;
-}
-
 // Action creators are generated for each case reducer function
 export const {
   UPDATE_NODE,
@@ -171,7 +130,7 @@ export function usePlaceNode() {
 }
 
 export function useCurrentUiTree() {
-  return useSelector((state: RootState) => state.uiTree);
+  return useSelector((state: RootState) => state.app_info);
 }
 
 export default mainStateSlice.reducer;

@@ -7,7 +7,7 @@ import type { RootState } from "../state/store";
 
 export function LostConnectionPopup() {
   const connectedToServer = useSelector(
-    (state: RootState) => state.connectedToServer
+    (state: RootState) => state.connected_to_server
   );
 
   if (connectedToServer) return null;

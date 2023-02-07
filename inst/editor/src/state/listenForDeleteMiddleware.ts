@@ -2,9 +2,9 @@ import { createListenerMiddleware } from "@reduxjs/toolkit";
 
 import { getNewSelectionPathAfterDeletion } from "../components/UiNode/TreeManipulation/getNewSelectionPathAfterDeletion";
 
+import { DELETE_NODE } from "./app_info";
 import { SET_SELECTION } from "./selectedPath";
 import type { RootState } from "./store";
-import { DELETE_NODE } from "./uiTree";
 
 // This middleware watches for the deletion of a node and handles updating the
 // current selection path appropriately. If the currently selected node was
@@ -21,7 +21,7 @@ listenForDeleteMiddleware.startListening({
   actionCreator: DELETE_NODE,
   effect: async (action, listenerApi) => {
     const deletedPath = action.payload.path;
-    const selectedPath = (listenerApi.getState() as RootState).selectedPath;
+    const selectedPath = (listenerApi.getState() as RootState).selected_path;
 
     // console.log("Deciding new path based on", { deletedPath, selectedPath });
 

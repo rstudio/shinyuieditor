@@ -31,7 +31,7 @@ const dummyNode: ShinyUiNode = {
 };
 
 function useGetNode(path: NodePath) {
-  const uiTree = useSelector((state: RootState) => state.uiTree);
+  const uiTree = useSelector((state: RootState) => state.app_info);
 
   const node = React.useMemo(() => {
     if (!isShinyUiNode(uiTree)) return dummyNode;

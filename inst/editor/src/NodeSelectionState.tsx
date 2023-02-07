@@ -11,7 +11,7 @@ type NodeSelectionState = [NodePath | null, (path: NodePath | null) => void];
 export function useNodeSelectionState(): NodeSelectionState {
   const dispatch = useDispatch();
 
-  const selectedPath = useSelector((state: RootState) => state.selectedPath);
+  const selectedPath = useSelector((state: RootState) => state.selected_path);
   const setSelectedPath = React.useCallback(
     (path: NodePath | null) => {
       dispatch(SET_SELECTION({ path }));
@@ -23,7 +23,7 @@ export function useNodeSelectionState(): NodeSelectionState {
 }
 
 export function useSelectedPath() {
-  const selectedPath = useSelector((state: RootState) => state.selectedPath);
+  const selectedPath = useSelector((state: RootState) => state.selected_path);
 
   return selectedPath;
 }

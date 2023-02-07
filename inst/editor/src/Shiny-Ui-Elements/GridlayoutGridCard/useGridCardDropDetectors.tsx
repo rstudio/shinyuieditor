@@ -3,7 +3,7 @@ import React from "react";
 import { getIsValidMove } from "../../components/UiNode/TreeManipulation/getIsValidMove";
 import type { DraggedNodeInfo } from "../../DragAndDropHelpers/DragAndDropHelpers";
 import { useFilteredDrop } from "../../DragAndDropHelpers/useFilteredDrop";
-import { usePlaceNode } from "../../state/uiTree";
+import { usePlaceNode } from "../../state/app_info";
 import { makeChildPath } from "../nodePathUtils";
 import type { NodePath, ShinyUiNode } from "../uiNodeTypes";
 

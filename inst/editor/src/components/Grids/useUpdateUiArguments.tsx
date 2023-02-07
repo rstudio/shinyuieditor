@@ -3,7 +3,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 
 import type { NodePath } from "../../Shiny-Ui-Elements/uiNodeTypes";
-import { UPDATE_NODE } from "../../state/uiTree";
+import { UPDATE_NODE } from "../../state/app_info";
 import type { GridLayoutArgs } from "../GridlayoutElement/GridLayoutArgs";
 
 export function useUpdateUiArguments(path: NodePath) {

@@ -32,7 +32,7 @@ export const selectedPathSlice = createSlice({
 export const { SET_SELECTION, STEP_BACK_SELECTION } = selectedPathSlice.actions;
 
 export function useCurrentSelection() {
-  return useSelector((state: RootState) => state.selectedPath);
+  return useSelector((state: RootState) => state.selected_path);
 }
 
 export default selectedPathSlice.reducer;
