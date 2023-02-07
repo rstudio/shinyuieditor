@@ -5,6 +5,7 @@ import { TooltipButton } from "../components/PopoverEl/Tooltip";
 import type { ShinyUiNode } from "../main";
 import type { ShinyUiNodeInfoUnion } from "../Shiny-Ui-Elements/uiNodeTypes";
 import { shinyUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
+import { useCurrentAppInfo } from "../state/app_info";
 import type { PickKeyFn } from "../TypescriptUtils";
 
 export function GoToSourceBtns({ node }: { node: ShinyUiNode | null }) {
@@ -40,7 +41,18 @@ function GoToOutputsBtn({
   serverOutputInfo: Required<ShinyUiNodeInfoUnion>["serverBindings"]["outputs"];
   sendMsg: (msg: MessageToBackend) => void;
 }) {
-  if (typeof serverOutputInfo === "undefined") return null;
+  const current_app_info = useCurrentAppInfo();
+
+  if (
+    !(
+      current_app_info.mode === "MAIN" && "output_positions" in current_app_info
+    ) ||
+    typeof serverOutputInfo === "undefined"
+  )
+    return null;
+
+  const current_output_positions = current_app_info.output_positions;
+  const current_server_position = current_app_info.server_pos;
 
   const { outputIdKey, renderScaffold } = serverOutputInfo;
 
@@ -54,23 +66,35 @@ function GoToOutputsBtn({
   const outputId = uiArguments[keyForOutput];
   if (typeof outputId !== "string") return null;
 
+  const existing_output_locations = current_output_positions[outputId];
+
   return (
     <TooltipButton
-      text="Find output declaration in app script"
+      text={
+        existing_output_locations
+          ? "Show output declaration in app script"
+          : "Create output binding in app server"
+      }
       position="left"
       variant="regular"
       onClick={() => {
-        sendMsg({
-          path: "GO-TO-SERVER",
-          payload: {
-            type: "Output",
-            outputId,
-            renderScaffold,
-          },
-        });
+        if (existing_output_locations) {
+          sendMsg({
+            path: "SHOW-APP-LINES",
+            payload: existing_output_locations,
+          });
+        } else {
+          sendMsg({
+            path: "INSERT-SNIPPET",
+            payload: {
+              snippet: `\noutput\\$${outputId} <- ${renderScaffold}`,
+              below_line: current_server_position[2] - 1,
+            },
+          });
+        }
       }}
     >
-      Find in server
+      {existing_output_locations ? "Show in server" : "Generate server code"}
     </TooltipButton>
   );
 }

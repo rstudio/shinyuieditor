@@ -10,7 +10,7 @@ import type { MainStateOption } from "../state/app_info";
 import {
   SET_APP_INFO,
   SHOW_TEMPLATE_CHOOSER,
-  useCurrentUiTree,
+  useCurrentAppInfo,
 } from "../state/app_info";
 import { getNamedPath } from "../state/getNamedPath";
 import { useCurrentSelection } from "../state/selectedPath";
@@ -24,7 +24,7 @@ import { useBackendConnection } from "./useBackendMessageCallbacks";
 
 export function useSyncUiWithBackend() {
   const { sendMsg, incomingMsgs: backendMsgs, mode } = useBackendConnection();
-  const state = useCurrentUiTree();
+  const state = useCurrentAppInfo();
   const currentSelection = useCurrentSelection();
   const dispatch = useDispatch();
 

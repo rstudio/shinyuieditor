@@ -2306,9 +2306,9 @@
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
           }
-          var React67 = require_react();
+          var React68 = require_react();
           var Scheduler = require_scheduler();
-          var ReactSharedInternals = React67.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React68.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           var suppressWarning = false;
           function setSuppressWarning(newSuppressWarning) {
             {
@@ -2357,7 +2357,7 @@
           var HostPortal = 4;
           var HostComponent = 5;
           var HostText = 6;
-          var Fragment17 = 7;
+          var Fragment18 = 7;
           var Mode = 8;
           var ContextConsumer = 9;
           var ContextProvider = 10;
@@ -3434,7 +3434,7 @@
                 return "DehydratedFragment";
               case ForwardRef2:
                 return getWrappedName$1(type, type.render, "ForwardRef");
-              case Fragment17:
+              case Fragment18:
                 return "Fragment";
               case HostComponent:
                 return type;
@@ -3829,7 +3829,7 @@
             {
               if (props.value == null) {
                 if (typeof props.children === "object" && props.children !== null) {
-                  React67.Children.forEach(props.children, function(child) {
+                  React68.Children.forEach(props.children, function(child) {
                     if (child == null) {
                       return;
                     }
@@ -10031,9 +10031,9 @@
           }
           function getSuspenseInstanceFallbackErrorDetails(instance) {
             var dataset = instance.nextSibling && instance.nextSibling.dataset;
-            var digest50, message, stack;
+            var digest52, message, stack;
             if (dataset) {
-              digest50 = dataset.dgst;
+              digest52 = dataset.dgst;
               {
                 message = dataset.msg;
                 stack = dataset.stck;
@@ -10042,7 +10042,7 @@
             {
               return {
                 message,
-                digest: digest50,
+                digest: digest52,
                 stack
               };
             }
@@ -11990,7 +11990,7 @@
             }
           }
           var fakeInternalInstance = {};
-          var emptyRefsObject = new React67.Component().refs;
+          var emptyRefsObject = new React68.Component().refs;
           var didWarnAboutStateAssignmentForComponent;
           var didWarnAboutUninitializedState;
           var didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate;
@@ -12799,7 +12799,7 @@
               }
             }
             function updateFragment2(returnFiber, current2, fragment, lanes, key) {
-              if (current2 === null || current2.tag !== Fragment17) {
+              if (current2 === null || current2.tag !== Fragment18) {
                 var created = createFiberFromFragment(fragment, returnFiber.mode, lanes, key);
                 created.return = returnFiber;
                 return created;
@@ -13201,7 +13201,7 @@
                 if (child.key === key) {
                   var elementType = element2.type;
                   if (elementType === REACT_FRAGMENT_TYPE) {
-                    if (child.tag === Fragment17) {
+                    if (child.tag === Fragment18) {
                       deleteRemainingChildren(returnFiber, child.sibling);
                       var existing = useFiber(child, element2.props.children);
                       existing.return = returnFiber;
@@ -15405,12 +15405,12 @@
               digest: null
             };
           }
-          function createCapturedValue(value, digest50, stack) {
+          function createCapturedValue(value, digest52, stack) {
             return {
               value,
               source: null,
               stack: stack != null ? stack : null,
-              digest: digest50 != null ? digest50 : null
+              digest: digest52 != null ? digest52 : null
             };
           }
           function showErrorDialog(boundary, errorInfo) {
@@ -16684,10 +16684,10 @@
                 );
               }
               if (isSuspenseInstanceFallback(suspenseInstance)) {
-                var digest50, message, stack;
+                var digest52, message, stack;
                 {
                   var _getSuspenseInstanceF = getSuspenseInstanceFallbackErrorDetails(suspenseInstance);
-                  digest50 = _getSuspenseInstanceF.digest;
+                  digest52 = _getSuspenseInstanceF.digest;
                   message = _getSuspenseInstanceF.message;
                   stack = _getSuspenseInstanceF.stack;
                 }
@@ -16697,7 +16697,7 @@
                 } else {
                   error2 = new Error("The server could not finish this Suspense boundary, likely due to an error during server rendering. Switched to client rendering.");
                 }
-                var capturedValue = createCapturedValue(error2, digest50, stack);
+                var capturedValue = createCapturedValue(error2, digest52, stack);
                 return retrySuspenseComponentWithoutHydrating(current2, workInProgress2, renderLanes2, capturedValue);
               }
               var hasContextChanged2 = includesSomeLane(renderLanes2, current2.childLanes);
@@ -17307,7 +17307,7 @@
                 var _resolvedProps2 = workInProgress2.elementType === type ? _unresolvedProps2 : resolveDefaultProps(type, _unresolvedProps2);
                 return updateForwardRef(current2, workInProgress2, type, _resolvedProps2, renderLanes2);
               }
-              case Fragment17:
+              case Fragment18:
                 return updateFragment(current2, workInProgress2, renderLanes2);
               case Mode:
                 return updateMode(current2, workInProgress2, renderLanes2);
@@ -17579,7 +17579,7 @@
               case SimpleMemoComponent:
               case FunctionComponent:
               case ForwardRef2:
-              case Fragment17:
+              case Fragment18:
               case Mode:
               case Profiler:
               case ContextConsumer:
@@ -20723,10 +20723,10 @@
               for (var i2 = 0; i2 < recoverableErrors.length; i2++) {
                 var recoverableError = recoverableErrors[i2];
                 var componentStack = recoverableError.stack;
-                var digest50 = recoverableError.digest;
+                var digest52 = recoverableError.digest;
                 onRecoverableError(recoverableError.value, {
                   componentStack,
-                  digest: digest50
+                  digest: digest52
                 });
               }
             }
@@ -21793,7 +21793,7 @@
             return fiber;
           }
           function createFiberFromFragment(elements, mode, lanes, key) {
-            var fiber = createFiber(Fragment17, elements, key, mode);
+            var fiber = createFiber(Fragment18, elements, key, mode);
             fiber.lanes = lanes;
             return fiber;
           }
@@ -22913,7 +22913,7 @@
       if (true) {
         (function() {
           "use strict";
-          var React67 = require_react();
+          var React68 = require_react();
           var REACT_ELEMENT_TYPE = Symbol.for("react.element");
           var REACT_PORTAL_TYPE = Symbol.for("react.portal");
           var REACT_FRAGMENT_TYPE = Symbol.for("react.fragment");
@@ -22939,7 +22939,7 @@
             }
             return null;
           }
-          var ReactSharedInternals = React67.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React68.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           function error(format2) {
             {
               {
@@ -23765,11 +23765,11 @@
               return jsxWithValidation(type, props, key, false);
             }
           }
-          var jsx109 = jsxWithValidationDynamic;
-          var jsxs61 = jsxWithValidationStatic;
+          var jsx110 = jsxWithValidationDynamic;
+          var jsxs62 = jsxWithValidationStatic;
           exports.Fragment = REACT_FRAGMENT_TYPE;
-          exports.jsx = jsx109;
-          exports.jsxs = jsxs61;
+          exports.jsx = jsx110;
+          exports.jsxs = jsxs62;
         })();
       }
     }
@@ -23855,7 +23855,7 @@
           var ContextProvider = REACT_PROVIDER_TYPE;
           var Element3 = REACT_ELEMENT_TYPE;
           var ForwardRef2 = REACT_FORWARD_REF_TYPE;
-          var Fragment17 = REACT_FRAGMENT_TYPE;
+          var Fragment18 = REACT_FRAGMENT_TYPE;
           var Lazy = REACT_LAZY_TYPE;
           var Memo = REACT_MEMO_TYPE;
           var Portal2 = REACT_PORTAL_TYPE;
@@ -23914,7 +23914,7 @@
           exports.ContextProvider = ContextProvider;
           exports.Element = Element3;
           exports.ForwardRef = ForwardRef2;
-          exports.Fragment = Fragment17;
+          exports.Fragment = Fragment18;
           exports.Lazy = Lazy;
           exports.Memo = Memo;
           exports.Portal = Portal2;
@@ -24828,8 +24828,8 @@
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
           }
-          var React67 = require_react();
-          var ReactSharedInternals = React67.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var React68 = require_react();
+          var ReactSharedInternals = React68.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           function error(format2) {
             {
               {
@@ -24859,13 +24859,13 @@
             return x2 === y2 && (x2 !== 0 || 1 / x2 === 1 / y2) || x2 !== x2 && y2 !== y2;
           }
           var objectIs = typeof Object.is === "function" ? Object.is : is3;
-          var useState11 = React67.useState, useEffect12 = React67.useEffect, useLayoutEffect3 = React67.useLayoutEffect, useDebugValue2 = React67.useDebugValue;
+          var useState11 = React68.useState, useEffect12 = React68.useEffect, useLayoutEffect3 = React68.useLayoutEffect, useDebugValue2 = React68.useDebugValue;
           var didWarnOld18Alpha = false;
           var didWarnUncachedGetSnapshot = false;
           function useSyncExternalStore3(subscribe, getSnapshot, getServerSnapshot) {
             {
               if (!didWarnOld18Alpha) {
-                if (React67.startTransition !== void 0) {
+                if (React68.startTransition !== void 0) {
                   didWarnOld18Alpha = true;
                   error("You are using an outdated, pre-release alpha of React 18 that does not support useSyncExternalStore. The use-sync-external-store shim will not work correctly. Upgrade to a newer pre-release.");
                 }
@@ -24930,7 +24930,7 @@
           var canUseDOM4 = !!(typeof window !== "undefined" && typeof window.document !== "undefined" && typeof window.document.createElement !== "undefined");
           var isServerEnvironment = !canUseDOM4;
           var shim = isServerEnvironment ? useSyncExternalStore$1 : useSyncExternalStore3;
-          var useSyncExternalStore$2 = React67.useSyncExternalStore !== void 0 ? React67.useSyncExternalStore : shim;
+          var useSyncExternalStore$2 = React68.useSyncExternalStore !== void 0 ? React68.useSyncExternalStore : shim;
           exports.useSyncExternalStore = useSyncExternalStore$2;
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(new Error());
@@ -24962,14 +24962,14 @@
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
           }
-          var React67 = require_react();
+          var React68 = require_react();
           var shim = require_shim();
           function is3(x2, y2) {
             return x2 === y2 && (x2 !== 0 || 1 / x2 === 1 / y2) || x2 !== x2 && y2 !== y2;
           }
           var objectIs = typeof Object.is === "function" ? Object.is : is3;
           var useSyncExternalStore3 = shim.useSyncExternalStore;
-          var useRef9 = React67.useRef, useEffect12 = React67.useEffect, useMemo7 = React67.useMemo, useDebugValue2 = React67.useDebugValue;
+          var useRef9 = React68.useRef, useEffect12 = React68.useEffect, useMemo7 = React68.useMemo, useDebugValue2 = React68.useDebugValue;
           function useSyncExternalStoreWithSelector3(subscribe, getSnapshot, getServerSnapshot, selector, isEqual3) {
             var instRef = useRef9(null);
             var inst;
@@ -25223,7 +25223,7 @@
           var ContextProvider = REACT_PROVIDER_TYPE;
           var Element3 = REACT_ELEMENT_TYPE;
           var ForwardRef2 = REACT_FORWARD_REF_TYPE;
-          var Fragment17 = REACT_FRAGMENT_TYPE;
+          var Fragment18 = REACT_FRAGMENT_TYPE;
           var Lazy = REACT_LAZY_TYPE;
           var Memo = REACT_MEMO_TYPE;
           var Portal2 = REACT_PORTAL_TYPE;
@@ -25291,7 +25291,7 @@
           exports.ContextProvider = ContextProvider;
           exports.Element = Element3;
           exports.ForwardRef = ForwardRef2;
-          exports.Fragment = Fragment17;
+          exports.Fragment = Fragment18;
           exports.Lazy = Lazy;
           exports.Memo = Memo;
           exports.Portal = Portal2;
@@ -25513,7 +25513,7 @@
           var ContextProvider = REACT_PROVIDER_TYPE;
           var Element3 = REACT_ELEMENT_TYPE;
           var ForwardRef2 = REACT_FORWARD_REF_TYPE;
-          var Fragment17 = REACT_FRAGMENT_TYPE;
+          var Fragment18 = REACT_FRAGMENT_TYPE;
           var Lazy = REACT_LAZY_TYPE;
           var Memo = REACT_MEMO_TYPE;
           var Portal2 = REACT_PORTAL_TYPE;
@@ -25581,7 +25581,7 @@
           exports.ContextProvider = ContextProvider;
           exports.Element = Element3;
           exports.ForwardRef = ForwardRef2;
-          exports.Fragment = Fragment17;
+          exports.Fragment = Fragment18;
           exports.Lazy = Lazy;
           exports.Memo = Memo;
           exports.Portal = Portal2;
@@ -28260,8 +28260,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
       return [];
     }
     var window2 = element2.ownerDocument.defaultView;
-    var css50 = window2.getComputedStyle(element2, null);
-    return property ? css50[property] : css50;
+    var css52 = window2.getComputedStyle(element2, null);
+    return property ? css52[property] : css52;
   }
   function getParentNode(element2) {
     if (element2.nodeName === "HTML") {
@@ -28989,9 +28989,9 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     }
     data.offsets.popper = getClientRect(data.offsets.popper);
     var center = reference2[side] + reference2[len] / 2 - arrowElementSize / 2;
-    var css50 = getStyleComputedProperty(data.instance.popper);
-    var popperMarginSide = parseFloat(css50["margin" + sideCapitalized]);
-    var popperBorderSide = parseFloat(css50["border" + sideCapitalized + "Width"]);
+    var css52 = getStyleComputedProperty(data.instance.popper);
+    var popperMarginSide = parseFloat(css52["margin" + sideCapitalized]);
+    var popperBorderSide = parseFloat(css52["border" + sideCapitalized + "Width"]);
     var sideValue = center - data.offsets.popper[side] - popperMarginSide - popperBorderSide;
     sideValue = Math.max(Math.min(popper2[len] - arrowElementSize, sideValue), 0);
     data.arrowElement = arrowElement;
@@ -31308,13 +31308,13 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
       if (!props.beaconComponent) {
         var head = document.head || document.getElementsByTagName("head")[0];
         var style2 = document.createElement("style");
-        var css50 = "\n        @keyframes joyride-beacon-inner {\n          20% {\n            opacity: 0.9;\n          }\n        \n          90% {\n            opacity: 0.7;\n          }\n        }\n        \n        @keyframes joyride-beacon-outer {\n          0% {\n            transform: scale(1);\n          }\n        \n          45% {\n            opacity: 0.7;\n            transform: scale(0.75);\n          }\n        \n          100% {\n            opacity: 0.9;\n            transform: scale(1);\n          }\n        }\n      ";
+        var css52 = "\n        @keyframes joyride-beacon-inner {\n          20% {\n            opacity: 0.9;\n          }\n        \n          90% {\n            opacity: 0.7;\n          }\n        }\n        \n        @keyframes joyride-beacon-outer {\n          0% {\n            transform: scale(1);\n          }\n        \n          45% {\n            opacity: 0.7;\n            transform: scale(0.75);\n          }\n        \n          100% {\n            opacity: 0.9;\n            transform: scale(1);\n          }\n        }\n      ";
         style2.type = "text/css";
         style2.id = "joyride-beacon-animation";
         if (props.nonce !== void 0) {
           style2.setAttribute("nonce", props.nonce);
         }
-        style2.appendChild(document.createTextNode(css50));
+        style2.appendChild(document.createTextNode(css52));
         head.appendChild(style2);
       }
       return _this;
@@ -32361,8 +32361,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   // ../editor/src/assets/icons/undo.png
   var undo_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAoCAYAAAC4h3lxAAAACXBIWXMAAAsTAAALEwEAmpwYAAABDElEQVRYhe2ZsQ7CMAxEr4gvZmBDXMXGwC+XgVQqERDbCbEr5ZaoalXdq+0kTqdlWbBnHbwN1GoAeGsAeGv3AMdfN8+3h+ZdVwDcXE8GP7hfTqrnW0UgN99NLQDczAP1AFvzM4xpU6MagNw8vz75R1kBQpgHCrPQF0nNW3eJqjTURiDMl1+liYDUvLWQTRGTRiDcl18lAQhrHigDhDYPlAGYxpDmAXkNhG2cSwBzGolXOoWTJIVCQ0hSiAgMIa0BIiiEZiVmGvOpNVfXgtfuhYhgkbDsRpnGUiS6NDfWfoAIEomajowIAFHbExPvEN1X7BanEsTnGuiiVudChBPENH5wOGsAeGsAeGv3AE8yEDlUwXXxqQAAAABJRU5ErkJggg==";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-twdEAtcLBV0L/editor/src/components/Icons/styles.module.css.js
-  var digest = "4f495df090255f7702f4f3d463e77d2625122e63c4535ab08c441598c30672ad";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-W2sv0h1JsNjQ/editor/src/components/Icons/styles.module.css.js
+  var digest = "14e0ca92847932c11be7797e197bcce54091f1149717d748aeb8f224563fc658";
   var css = `img._icon_1467k_1 {
   height: 30px;
   /* outline: 2px solid green; */
@@ -32657,8 +32657,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     return classes.filter((c2) => c2).join(" ");
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-zI2FtxfMkPk4/editor/src/components/Inputs/Button/Button.module.css.js
-  var digest2 = "9a58c84df787c72ea4554c9415e9b738d5d87bdb217681c36801b651f4e560f9";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-9yO9mW3Z5GWo/editor/src/components/Inputs/Button/Button.module.css.js
+  var digest2 = "f4404adcac168cdc6ba64fa10df2009417373f5fa5b49c4721894f95bdf45d36";
   var css2 = `._button_1y00r_1 {
   --background-color: var(--rstudio-white);
   --text-color: var(--font-color);
@@ -33196,7 +33196,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   // ../editor/src/components/DeleteNodeButton/useDeleteNode.tsx
   var React54 = __toESM(require_react());
 
-  // ../editor/src/state/uiTree.ts
+  // ../editor/src/state/app_info.ts
   var import_react43 = __toESM(require_react());
 
   // ../../node_modules/immer/dist/immer.esm.mjs
@@ -35727,8 +35727,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   // ../editor/src/Shiny-Ui-Elements/GridlayoutGridCard/GridlayoutGridCard.tsx
   var import_react21 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-EI475NHeM97B/editor/src/components/DeleteNodeButton/styles.module.css.js
-  var digest3 = "f664e176431f7bd663a6b58a9b099399eab461cbda36bf52b273c7f498e7f109";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-eOuYU701pQQb/editor/src/components/DeleteNodeButton/styles.module.css.js
+  var digest3 = "83d616c7db326bba3172fe845997ac81db7e26d78f62ce6ebb9a097f72b84621";
   var css3 = `._deleteButton_1en02_1 {
   color: var(--red);
   display: flex;
@@ -35890,14 +35890,14 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   });
   var { SET_SELECTION, STEP_BACK_SELECTION } = selectedPathSlice.actions;
   function useCurrentSelection() {
-    return useSelector((state) => state.selectedPath);
+    return useSelector((state) => state.selected_path);
   }
   var selectedPath_default = selectedPathSlice.reducer;
 
   // ../editor/src/NodeSelectionState.tsx
   function useNodeSelectionState() {
     const dispatch = useDispatch();
-    const selectedPath = useSelector((state) => state.selectedPath);
+    const selectedPath = useSelector((state) => state.selected_path);
     const setSelectedPath = React12.useCallback(
       (path3) => {
         dispatch(SET_SELECTION({ path: path3 }));
@@ -35907,7 +35907,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     return [selectedPath, setSelectedPath];
   }
   function useSelectedPath() {
-    const selectedPath = useSelector((state) => state.selectedPath);
+    const selectedPath = useSelector((state) => state.selected_path);
     return selectedPath;
   }
 
@@ -35984,8 +35984,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   };
   var UiNode_default = UiNode;
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-FHsGkSqOjlG7/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
-  var digest4 = "1ea69b08b86d49e62e401cb852279ea7c25812e6c55248d8b1604f40fa4a135a";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-DMwaD7zKXSnU/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
+  var digest4 = "6215d4849fab5a099dfd2acd1cd1e908d593223c094aac9fa06862ec2524c2e4";
   var css4 = `._container_1a2os_1 {
   position: relative;
   height: 100%;
@@ -36411,8 +36411,8 @@ div._emptyGridCard_1a2os_144 > button {
     return setLayout;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-AjJGmZNZPhZu/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
-  var digest5 = "8d7a1c28698cd36405b6be1182bd456821cc00f28d244d4b6fb023385676fb81";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-eOSTqdWeuIp8/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
+  var digest5 = "215b0cfea72ef16eb0c50c4cf0c0dce7de74e78fbf1f187f487b272e311d302a";
   var css5 = `._container_1a2os_1 {
   position: relative;
   height: 100%;
@@ -36769,8 +36769,8 @@ div._emptyGridCard_1a2os_144 > button {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 16 16" }, "child": [{ "tag": "path", "attr": { "fillRule": "evenodd", "d": "M16 14v1H0V0h1v14h15zM5 13H3V8h2v5zm4 0H7V3h2v10zm4 0h-2V6h2v7z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-h6nxe138ERNE/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
-  var digest6 = "9ae3830490c998eae0c9846a523780ce61a94ce5d2a15151ecd3e84fc177b281";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-Gf2Ipx8mvRZg/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
+  var digest6 = "640eec1bd83d223f0484e96c2b750867dbe75d2a99bf04b4763cbcc282c84b71";
   var css6 = `._container_1rlbk_1 {
   max-height: 100%;
 }
@@ -36860,8 +36860,8 @@ div._emptyGridCard_1a2os_144 > button {
     return dimensions;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-6c6HaYeKMGEs/editor/src/Shiny-Ui-Elements/GridlayoutGridCardPlot/styles.module.css.js
-  var digest7 = "ea4488551d643bb06c481b9eb46d01b5ea7632edc93b80526b14a7a8419d14bc";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-JLqee5VooW7R/editor/src/Shiny-Ui-Elements/GridlayoutGridCardPlot/styles.module.css.js
+  var digest7 = "77c51ac27fbf55d7b641fef48103e3e9d04419b760b4f37946a8575359a14e60";
   var css7 = `._gridCardPlot_1a94v_1 {
   background-color: var(--rstudio-white);
   width: 100%;
@@ -36953,8 +36953,8 @@ div._emptyGridCard_1a2os_144 > button {
   // ../editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/GridlayoutCardText.tsx
   var React21 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-Ly6KO2jJjMG2/editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/styles.module.css.js
-  var digest8 = "ff787dbdffdfdb1610ec220ba22a3d0d50adcff058052e3a7a4a37586a23442e";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-7dT4XEfvKvg5/editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/styles.module.css.js
+  var digest8 = "308b5afe3464a00b743059af1e9ebf7735bef9625055b67f80e9f38155390994";
   var css8 = `._textPanel_525i2_1 {
   background-color: var(--rstudio-white);
   /* outline: var(--outline); */
@@ -37721,8 +37721,8 @@ div._emptyGridCard_1a2os_144 > button {
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-N6E3LJ0Zc3I2/editor/src/components/Grids/AreaOverlay.module.css.js
-  var digest9 = "1ac10ff3e134affeef83f4670e514b372828d65b95591c971ead51b2dd891471";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-kFSUsuB4VTtB/editor/src/components/Grids/AreaOverlay.module.css.js
+  var digest9 = "11372d6af905f676b0e59be7df344d29b9c23c440343939af766479c00001b48";
   var css9 = `._marker_mumaw_1 {
   font-weight: lighter;
   font-style: italic;
@@ -38146,8 +38146,8 @@ div._emptyGridCard_1a2os_144 > button {
   // ../editor/src/components/Grids/EditableGridContainer/EditableGridContainer.tsx
   var React33 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-a7XgE8xty4ap/editor/src/components/Grids/EditableGridContainer/resizableGrid.module.css.js
-  var digest10 = "47150a017ab9d6aaeba9aa25d1c99cc2bb5f263d345660546eda81a31f7ee67f";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-iZGrpCRSik5N/editor/src/components/Grids/EditableGridContainer/resizableGrid.module.css.js
+  var digest10 = "7bbfff775073b9b02e27e98d42960f47dd5259b661b69a8bb0c9ad970d348aa8";
   var css10 = `._ResizableGrid_i4cq9_1 {
   --grid-gap: 5px;
 
@@ -47042,8 +47042,8 @@ div#_size-detection-cell_i4cq9_1 {
       currentNode = currentNode.host;
     }
     while (isHTMLElement(currentNode) && ["html", "body"].indexOf(getNodeName(currentNode)) < 0) {
-      var css50 = getComputedStyle2(currentNode);
-      if (css50.transform !== "none" || css50.perspective !== "none" || css50.contain === "paint" || ["transform", "perspective"].indexOf(css50.willChange) !== -1 || isFirefox2 && css50.willChange === "filter" || isFirefox2 && css50.filter && css50.filter !== "none") {
+      var css52 = getComputedStyle2(currentNode);
+      if (css52.transform !== "none" || css52.perspective !== "none" || css52.contain === "paint" || ["transform", "perspective"].indexOf(css52.willChange) !== -1 || isFirefox2 && css52.willChange === "filter" || isFirefox2 && css52.filter && css52.filter !== "none") {
         return currentNode;
       } else {
         currentNode = currentNode.parentNode;
@@ -48436,8 +48436,8 @@ div#_size-detection-cell_i4cq9_1 {
     };
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-sdVxYAHB9lFi/editor/src/components/PopoverEl/styles.module.css.js
-  var digest11 = "d14b1b887e147086e37aa8fbf3368f26e4c592c018609365a223e21e602fd03d";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-1hfSaDZI3ZeD/editor/src/components/PopoverEl/styles.module.css.js
+  var digest11 = "609d8021100d4a95916a68c33bcd9d6e691aa197357427c2bf1238622f552535";
   var css11 = `._popover_m2pq3_1 {
   pointer-events: none;
   opacity: 0;
@@ -48625,8 +48625,8 @@ div#_size-detection-cell_i4cq9_1 {
     );
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-m7ogH7f0wOzr/editor/src/components/Inputs/CSSUnitInput/CSSUnitInfo.module.css.js
-  var digest12 = "5cea656494429a2c7aa1e91a9d9f1bd8cff3e325bb1e784f6c6ba11661302da7";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-w98F4GosqHSH/editor/src/components/Inputs/CSSUnitInput/CSSUnitInfo.module.css.js
+  var digest12 = "e86b2c4b44c53be09ac3f9944b2a049d106561bee04d2e6ca8ff8ee067429a64";
   var css12 = `._infoIcon_15ri6_1 {
   width: 24px;
   color: var(--rstudio-blue);
@@ -48705,8 +48705,8 @@ div#_size-detection-cell_i4cq9_1 {
     rem: "Pixel size of app font. Typically 16 pixels."
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-w6br3dLDAWW9/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
-  var digest13 = "1dd7391b36c469d4c9d0d74369b6627cefd718ff6afa28f353848716df2c4bb9";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-3notk0tRxEy6/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
+  var digest13 = "3bf5f96e9e770c88658f96280677a4147111c02eefcb176e525930eeca6fdab0";
   var css13 = `._wrapper_3jy8f_1 {
   position: relative;
   display: flex;
@@ -49250,8 +49250,8 @@ div#_size-detection-cell_i4cq9_1 {
     return tractSizes.some((size) => size === "auto");
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-5nbu7jB7oGlq/editor/src/components/Grids/EditableGridContainer/TractInfoDisplay.module.css.js
-  var digest14 = "652511428995e15397c30ea8cba02e9edb98f02b6e0a9386cad7668bff1c842f";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-mXEp3t2mkf05/editor/src/components/Grids/EditableGridContainer/TractInfoDisplay.module.css.js
+  var digest14 = "0b8f94776e84a94b7cc9a6152279ae70d38c40d21fde5b2dc2d66f55c2c16a4c";
   var css14 = `._tractInfoDisplay_cvtwo_1 {
   --transition-delay: 0.1s;
   --transition-speed: 0.1s;
@@ -49614,8 +49614,8 @@ user is typing in the input field but mouses off */
     });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-MOIPeOax25f5/editor/src/components/Grids/EditableGridContainer/TractSizer.module.css.js
-  var digest15 = "135fe55e3799eb9b3ee3a017bfc88851a0ac68a279d89fc606ed48a1dbf5fa8d";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-3Bi80x1tXhMC/editor/src/components/Grids/EditableGridContainer/TractSizer.module.css.js
+  var digest15 = "3ff09477059a6d2ba347a48f10e3f4771c22ab5ed369a3c84417a1699ffc5be1";
   var css15 = `div._columnSizer_9b32k_1,
 div._rowSizer_9b32k_2 {
   --sizer-color: #c9e2f3;
@@ -50040,7 +50040,7 @@ div._rowSizer_9b32k_2::after {
     return /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("h3", { className: className + " panel-title", children });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-QZd4YdSsgP5N/editor/src/PortalModal.module.css.js
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-kQQy9cB5mWyW/editor/src/PortalModal.module.css.js
   var digest16 = "13f6af5e59e8ebc33477302381f7da21ea3317b2b22eeff877dda6aa750b7a6e";
   var css16 = `._portalHolder_18ua3_1 {
   background-color: rgba(255, 255, 255, 0.735);
@@ -50157,8 +50157,8 @@ div._rowSizer_9b32k_2::after {
   }
   var PortalModal_default = PortalModal;
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-R7VSPer5uQvR/editor/src/PortalModal.module.css.js
-  var digest17 = "91038337ba9aa80db9f5f46e9defbfb57c3d24ee67617f4ce26e827d793c73ae";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-HwxA37uCotVg/editor/src/PortalModal.module.css.js
+  var digest17 = "2f7c96b87ed245fc63a19bb01d72ff37a5f11080b8475337870dd2bf11dee33e";
   var css17 = `._portalHolder_18ua3_1 {
   background-color: rgba(255, 255, 255, 0.735);
   position: absolute;
@@ -50334,8 +50334,8 @@ div._rowSizer_9b32k_2::after {
     }
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-VBRg1fPn5feq/editor/src/components/Inputs/BooleanInput/styles.module.css.js
-  var digest18 = "43178a928ff35e27ac606290ec752b5f0bf011ee37862f1c9e502dd182fe669f";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-51q7gC0pHfb1/editor/src/components/Inputs/BooleanInput/styles.module.css.js
+  var digest18 = "21a7b0bbc9d9f358f67a5ac8606501c8438bc5c36e7d7e6c2423ed7e6fdda9fd";
   var css18 = `._checkboxInput_7ym3w_1 {
   height: 0;
   width: 0;
@@ -50447,8 +50447,8 @@ label._checkboxLabel_7ym3w_10:after {
   // ../editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.tsx
   var import_react31 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-VfjoPr4REcLI/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
-  var digest19 = "59fe39fd6f1813f40c52cd1d184a0516d505725515d4ba77e86fd3736de8b7df";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-dZVsiBt3svPy/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
+  var digest19 = "6e9822077e3e70eeabe24aaa518d62f5092e0b07552675e54b10c1aca2a24438";
   var css19 = `._wrapper_3jy8f_1 {
   position: relative;
   display: flex;
@@ -50590,8 +50590,8 @@ label._checkboxLabel_7ym3w_10:after {
   // ../editor/src/components/Inputs/ListInput/NamedListInput.tsx
   var import_react_sortablejs = __toESM(require_dist());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-amdX4tPm0DJH/editor/src/components/Inputs/ListInput/styles.module.css.js
-  var digest20 = "4e2bb16938f114b82a50e9d0ae030c3ba358ce4d1e9e31b819025d71b05cabfb";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-GhgVwvkD74vJ/editor/src/components/Inputs/ListInput/styles.module.css.js
+  var digest20 = "3553126681130b169bc81fe063585c1ea4fd7cf41b291a2a7433f0b92cbf5476";
   var css20 = `._container_xt7ji_1 {
   --gap-size: 4px;
   margin-top: 21px;
@@ -50887,8 +50887,8 @@ label._checkboxLabel_7ym3w_10:after {
   // ../editor/src/components/Inputs/RadioInputs/RadioInputsSimple.tsx
   var React39 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-2hKkWh8oBEPl/editor/src/components/Inputs/RadioInputs/RadioInputs.module.css.js
-  var digest21 = "f45080960734a7afde7f3104fdf0439ce2ba422ade1d57a6e655843e165fd7aa";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-KWxTNJmyCf1M/editor/src/components/Inputs/RadioInputs/RadioInputs.module.css.js
+  var digest21 = "f9044c10d6d0f3a6db04ed8435e44684833f449703d7d2ccd20a15fdd28c83d6";
   var css21 = `._radioContainer_1regb_1 {
   display: grid;
   gap: 5px;
@@ -51349,8 +51349,8 @@ the label */
     };
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-s8iUDVIYIaC7/editor/src/components/GridlayoutElement/styles.module.css.js
-  var digest22 = "d5ce96f3c93830244354b4c67fd3651b5f5e3100b2ac25eb121589ced2988d7c";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-ZaGQ7SdeZVZI/editor/src/components/GridlayoutElement/styles.module.css.js
+  var digest22 = "863091638356b2ce0b5f10241d2fc732942126e4bd7f179b2aed33aff1c02c10";
   var css22 = `._container_1hvsg_1 {
   display: grid;
   /* background-color: var(--bg-color); */
@@ -51702,8 +51702,8 @@ the label */
     return makeStringInputInfo("Label text", defaultValue);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-3H7hqfxyKNRE/editor/src/Shiny-Ui-Elements/ShinyActionButton/styles.module.css.js
-  var digest23 = "c74fb1bc36198ea4909e29e9d9d730748f673319282a735363300563e402ba42";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-0PxVsEorJC3D/editor/src/Shiny-Ui-Elements/ShinyActionButton/styles.module.css.js
+  var digest23 = "5d83cd37c9c1d585abf0a86d92712b04bb8dbc72a6aed705303f7ec8b29502ad";
   var css23 = `._container_tyghz_1 {
   display: grid;
   grid-template-rows: 1fr;
@@ -51760,8 +51760,8 @@ the label */
   // ../editor/src/assets/icons/shinyCheckgroup.png
   var shinyCheckgroup_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAFS0lEQVR4nO3cz2vTdxzH8Vfb9VeIa7ta1FW2FqQ6pqLbEERhm0OGFzcPY0dhl+LFo4cd9gfsuIs77LDbkAljDqEiCoKszMMEcbqFsjm2OaW6ptClP2zNDvkms2n6I99vXqTp5/mAQJKmn3wPT76fJCTvpnw+L6DWmut9ANiYCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFoQFC8KCBWHBgrBgQViwICxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFs/V+wDq5cy5seX+1BNd4piILkt8+uGOmEs2pmDDKrNL0ilJ70h6NeFaP0m6IumspJ8TrtWw2AqlYUl3JJ1W8qgUrXE6WnO4Bus1pNDPWCclff7sHZ1tzepsa4m12PTcgqbnnhZvNkVrz0r6Mv4hNqaQw+pTYbuSJA1s7tB7r/Wpv6c90aJ/Tczq2x/Hde/RTPGus5IuShpPtHCDCXkrPCWpU5K297Rr+O3+xFFJUn+01vYXSmt1RM8VlJDDOly8cmxvr1qam2q2cEtzk47t6a34XKEIeSs8VLwy0NeZaKHRTFaX7xQ+ZRh+60Vt6W4vX/NQxX/cwEIOK1W80toS/2x18ea4rmUmlW5vKUVVYc1UxX/ewELeChMbzWR1LTMpSTp5aGspKhBWbJO5J/rm5iNJ0on9m/Vywu10oyGsmL76/oEk6cBAWgeHuut7MOsQYcUwmsnq18ezSre36Ojid3+IEFaVJnNPSu8Aj+/rVVeqtc5HtD4RVpWu/5LV1OyCdm9Lad/A8/U+nHWLsKrwMDtbehf47l62wJUQVhUu3XosSXpzqIuPFlZBWBWMZrI6c25M5394ULrv9/Fp3f47J0k6vLO7TkfWOAirzMyTp6XPp27cmyrFdfvPKUmFsxUv2FdHWGU6Wpv10eGtpds37k0t+oT9jUFesK8FYVWwqz+tE/s3l24Xz2C7t6V4bbVGhLWMg0PdOjCQXnTf3pfSyzwa5UIO65/ildzcQsUHHN3Tq3R74WvKWza1VvW51TNfUZaW+eXORhby12auSzouSXfv5/T6wKYlD+hKteqT9wdjLX7n/r/lzxWUkM9Y3xWvjNx6rGxuvmYLZ3PzGok+84pcqNniDSLkM9YXkj6WNDg5Pa/PLv+hI6/0aMeWlNpifvFvbiGvsYc5Xb07oamZ0vb6W/RcQQk5LKnwI4cRSZqaWdCF6N2f4TmCE/JWKEmXVPj1c8awdiZa+5Jh7XUv9DOWJF2VtFPSB5KOqPCLmrjfUc+p8EL9iqTzNTm6BkVY//s6uqAGQt8KYUJYsCAsWBAWLHjxvpRlol9oCKuAiX41xlbIRD+L0M9YTPQzCTksJvoZhbwVMtHPKOSwmOhnFPJWyEQ/o5DDYqKfUchbYWJM9FseYcXERL+VEVZMTPRbGWHFwES/1RFWlZjotzaEVSUm+q0NYVWBiX5rR1hVYKLf2hFWBUz0S46wyjDRrzYIqwwT/WqDsCpgol9yhLUMJvolE3JYTPQzCvlrM0z0Mwr5jMVEP6OQz1hM9DMKOSyJiX42IW+FEhP9bEI/Y0lM9LNoyufz9T4GbEChb4UwISxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFoQFC8KCBWHBgrBgQViwICxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLP4DpWmTqmVmpDwAAAAASUVORK5CYII=";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-ksty78IWLEWL/editor/src/Shiny-Ui-Elements/ShinyCheckboxGroupInput/styles.module.css.js
-  var digest24 = "82ef9b46c8c39886f2d73dd653e9bc37fe5641f803da1ddc2ec36e206c09123f";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-rrY0uGHc22tB/editor/src/Shiny-Ui-Elements/ShinyCheckboxGroupInput/styles.module.css.js
+  var digest24 = "78c58fc98cf3b14f0a755973023548747199ae36a5434b5fb09810b64855f9bc";
   var css24 = `._container_162lp_1 {
   position: relative;
   padding: 4px;
@@ -51853,8 +51853,8 @@ the label */
   // ../editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/ShinyCheckboxInput.tsx
   var React43 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-Xc1jLzkQxkcs/editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/styles.module.css.js
-  var digest25 = "052ff8aea667f540ed1d7256d69abe4737ea5613c97ba2e7de499626eb2f681d";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-wg2Xf2G1FBBl/editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/styles.module.css.js
+  var digest25 = "ebbffc0704fce927d1adb6bef440c7e309838ae60ccafc65c7359391f6a7cb4c";
   var css25 = `._container_1x0tz_1 {
   position: relative;
   padding: 4px;
@@ -51970,8 +51970,8 @@ the label */
     return getTabPanelTitle(firstChild) ?? "First Tab";
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-zXb0iu6XNNC8/editor/src/components/Tabs/TabPanel/TabPanel.module.css.js
-  var digest26 = "f9b444cc548680d1bbfd39c99d97ed450f8c89579ceba0a09a6858e2e0928dc5";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-5UyBHUQGELo1/editor/src/components/Tabs/TabPanel/TabPanel.module.css.js
+  var digest26 = "b642cfe2f5cebe311ecd899e5a640c1394469731f33552537f59f68674b02ea8";
   var css26 = `._container_10z2l_1 {
   height: 100%;
 }
@@ -52145,8 +52145,8 @@ the label */
     }) });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-vvgPS7aNP1XI/editor/src/Shiny-Ui-Elements/ShinyTabPanel/ShinyTabPanel.module.css.js
-  var digest27 = "7cfa6930062dcc4399b8cff45e49b532a3246063d2a13de966b9dd4d3b4d5175";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-SP9yrPGfwp5Y/editor/src/Shiny-Ui-Elements/ShinyTabPanel/ShinyTabPanel.module.css.js
+  var digest27 = "884e37309ccc99a8c820646bdc9dfff1b0f968b54b4369bca7cfa8e84db1cd6c";
   var css27 = `._container_fe3r8_1 {
   position: relative;
   height: 100%;
@@ -52248,8 +52248,8 @@ the label */
     return sameArray(aPath, bPath);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-xnFo9fUO34f5/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest28 = "093b862acd9e1e02b306719722431ef9ffe88a87a2fbc52c676cea0e41a6bf59";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-hpnoujTVXmEW/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest28 = "7eb7750a04ad2347f9393d9ff5babcd9fe14172d7d27e1645fe4c5916b0782d8";
   var css28 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -52394,7 +52394,7 @@ illusion of the selected panel and tab being one entity */
     }
   };
   function useGetNode(path3) {
-    const uiTree = useSelector((state) => state.uiTree);
+    const uiTree = useSelector((state) => state.app_info);
     const node = import_react39.default.useMemo(() => {
       if (!isShinyUiNode(uiTree))
         return dummyNode;
@@ -52422,8 +52422,8 @@ illusion of the selected panel and tab being one entity */
     );
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-egdHnvS29UO5/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest29 = "e24057516b4f2f74cbaf07e71da8fc8e669e3556dc9c6d158e5f37b338bd98c0";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-cuyrLJcQuijA/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest29 = "35222a13e042195086e2c4bc0c13a4189e94c07e05306517100e316122de827d";
   var css29 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -52593,8 +52593,8 @@ illusion of the selected panel and tab being one entity */
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-tuEgCTNSsNxi/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest30 = "a850e2751c1b8dddc8ad90f23b99e853a50970901e8045e1473b7661af774faa";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-PjHEsYJPgHiB/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest30 = "d228b2f285a297210eeef15117c14acbe4ff1a9bbb4468abfe3174b163222a9c";
   var css30 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -52869,8 +52869,8 @@ illusion of the selected panel and tab being one entity */
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-SaH0OGE92ZV8/editor/src/Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage.module.css.js
-  var digest31 = "f9dffb5b39b3002c8788d912806c2e6499d54fd0bccfcc78806ae91b395d60d5";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-IK75zdS8DKhR/editor/src/Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage.module.css.js
+  var digest31 = "5c2a27c824c32b6b0558c888983128d3553f10dd79fc778ccafee8f1553c3d73";
   var css31 = `._noTabsMessage_130qz_1 {
   padding: 5px;
 }
@@ -52971,8 +52971,8 @@ illusion of the selected panel and tab being one entity */
   // ../editor/src/Shiny-Ui-Elements/ShinyNumericInput/ShinyNumericInput.tsx
   var React49 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-RUfFcs13YSfa/editor/src/Shiny-Ui-Elements/ShinyNumericInput/styles.module.css.js
-  var digest32 = "49b99e38d8f3c42917a39aa6c7cfcb4aa334fbb916279480805cb397853e39eb";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-GFJuX5U7XcvZ/editor/src/Shiny-Ui-Elements/ShinyNumericInput/styles.module.css.js
+  var digest32 = "3ec258ddd67207c6ca6e17a17bf52e62afe1d109939d006b7a77ab8936cf7139";
   var css32 = `._container_yicbr_1 {
   position: relative;
   padding: 4px;
@@ -53090,8 +53090,8 @@ illusion of the selected panel and tab being one entity */
     description: "An input control for entry of numeric values"
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-7hh9ELkM3qUp/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
-  var digest33 = "8d5d001eca5c5c945554cab46593b731da4d4a78a7df0b762a593bea1d0da1f1";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-dUATcM500oMY/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
+  var digest33 = "f5e0c1ab7a8c9cea3eec131620cc71fa78e609fac7eeecb363b682888892bc73";
   var css33 = `._container_1rlbk_1 {
   max-height: 100%;
 }
@@ -53183,8 +53183,8 @@ illusion of the selected panel and tab being one entity */
   // ../editor/src/Shiny-Ui-Elements/ShinyRadioButtons/ShinyRadioButtons.tsx
   var import_react42 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-nJ1F3HfLMt1N/editor/src/Shiny-Ui-Elements/ShinyRadioButtons/styles.module.css.js
-  var digest34 = "2e7758900c78330b7cd9698bc21be62408102cca4588cfa7070ba9efb7490dd1";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-EfDjysPDCgru/editor/src/Shiny-Ui-Elements/ShinyRadioButtons/styles.module.css.js
+  var digest34 = "0e8fd0f85042ef15b6f9ab67e79507d9fc1b9425b00a16829a2d780339c969a5";
   var css34 = `._container_sgn7c_1 {
   position: relative;
   padding: 4px;
@@ -53286,8 +53286,8 @@ illusion of the selected panel and tab being one entity */
   // ../editor/src/assets/icons/shinySelectbox.png
   var shinySelectbox_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAHmUlEQVR4nO3b329T5x3H8Xec2Akm4GRZlB+sbbZ6rVboRKACwgattKFVqtQIaVo0Wk1bM6kX6+WUP2CXuVy3CyTIpGotCprGoJo0KVtFA1rY1CZoM5mUWSu0wXYWQmxIHPwj9i5MEpskrTPyzTmGz0viwvbx0ZPD2+d5fGxX5fN5RDabx+kByKNJYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSZqnB7Akr7B8IN37QN+CBwBdgP1Wz0ml5sDrgGXgDPAaPGD/T1BJ8a0zDVhwcrB6BsMnwJ6nR2N69UDB+//+zlwur8n+FNY80W65VwVFkDfYPg88Gq1p4quYIC9T9bTGvDhq9GsXSydzRFLpLn66Rwj4QSLuXxv32C4ub8n2O302ACq8vm802MAll9lp4DewLYafnK0jfaGWodHVRki8RS/GY6SWMgCDAC9Tk+FbjoNdAK91Z4qRbVB7Q21vHG0jRpPFcAbFI6lo9wU1gmAQ0/vVFT/h7aGWg4+vXPp5gknxwLuCusIQOdTOzZth7/4wyf0DYa5l8lt2j7drOjYHXFyHOCusPYB7GrU2QpgJJxgJJzY0HPaV46d41Ohm94VegGqC+uEx9r4zXnOj04DENhWw3O7tpf1vJqVY+ezGVn53HTGEiCWSPPelSlyecjl4b0rU8QSaaeHtWFuOmOV7YPQDJfDd5hLLS7fd6CjniPPNtKyxsI/MZ/h7D9mCEWTAOxp8/O9bzat2vZeJsdfQjN8OLEyBX3efjdbIpnl9HCEdHZlTZjO5jg9HOGt73yFgL9y/rsq7oz1znCEP12bLYkK4O/X5zh5MbLmQv3kxchyVAChaJKTFyMkkpnl+xLJDL8e+qwkquL9Fm9rIbOYZ+BShEQyu+qxpeAyi+645liOynkJADemFwhFk7Ts8PL64daSs8g7w4V4xj65Q9czDSXP2+7z8OreJvZ27OReJsfZkRihaJKhf87w/YOtAJz/aJqpuxn2tPnpfqGZgN8LwB/HpvlwIlGy7WbL5eHdkRjR+PpTXiyR5t2RGD/6VhuVsAytqLCeat627oerX2/1E4omWUgvrnqsOMI6r4fuF5oJvX+D8egCUDhbhaJJ6mur+UFXK3XelRP5K53NvNLZbPDXrDg/Os34zfkv3G5pUX98v+14NkNFhbVkZCLOX8MJpu6WNz0FtntLb/u9tOzwMnU3w1Q8xex8YT8dX6otiWqrHN/fXBGxbETFhbU05T2s7b7VAflrK27J6VoVFdbV63fWXWONTMQ5N3ar7H3NpwuL/DqfB+7PQsnU43GFfitUVFi35wpT1uFg4KHe/k/FU0zdzVBfW728SAe4fjvFvUxuy6fDcx9Pl32VvSsYqIhps6LO/dt81QD8O5YsuazwQWiGofHZdZ93diS2fLkgkcxw7qP/AvDtYOFD24Dfy4GOeuZSiyXbQuFdYd9gmN/9Lbbpf8+S7n3NZV1df27Xdrr3uT8qqLAzVudXdzI0PksomiT0+/+U/bxQNEno/Rsl932tqZbDzzYu3z72fBM3ZlJrbltfW82x55sebvCfw1MFJw618Ks/T657lb014OPEoZaKuNQAFXbGqvN6ePOldva0+Uvuf3l3I8c7v7zu817e3Vhy+0BHPT9+cVfJlBfwe/nZsSd48ZnAqm3ffKm9ZMq04Kvx0Hu0fc2r6wF/Db1H2yvqW7Ru+gZpHpz/EYDTYok0bw99tnyV3VtdxVvffYK2hvI+V176vnt/T9DRc5ubXgIZgMWcO0J3SmvAx2tdrXiqClPka12tZUdV9BnjnNkAy+SmNdYocPDmbIonm+qcHoujihfp5X5lBihen13b/FFtjJvOWJcArn7q+IvNFbqCAbqCgS/esEjRsbu06QPaIDeFdQbgSjhBNJ5yeiwVJxpPc2XlWtgZJ8cC7gprFBjI5vIMDEeJKK6yReMpBoYjZAvr0wEe+FW0E9wUFv09wV7gQmIhy9tDk1wYu8Xk7VTJF9+kIJ3NMXk7xYWxW/xyaHLpN4UX7h9Dx7lp8Q5Af0+wu28wfGoxl++9PBHn8kTc6SFViuWf2LuBm65jPXjXfuB1Cj9l+gbgf3CDx1wS+BeFhfpvgY+LH3T6eqBrwpJHi6vWWPLoUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYmJ/wEXIDDKviZ6oQAAAABJRU5ErkJggg==";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-9hPJPK82De2A/editor/src/Shiny-Ui-Elements/ShinySelectInput/styles.module.css.js
-  var digest35 = "2d485fcbce3ba2d42ca6535a8efe525d7c0212bf2436490419c32631fe58f927";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-1zG3rUqZg4J4/editor/src/Shiny-Ui-Elements/ShinySelectInput/styles.module.css.js
+  var digest35 = "85887cc2e8cb605d8286b942549c195fba188788b2c11b66931e4b9ffd0c44f3";
   var css35 = `._container_1e5dd_1 {
   position: relative;
   padding: 4px;
@@ -53363,8 +53363,8 @@ illusion of the selected panel and tab being one entity */
   // ../editor/src/Shiny-Ui-Elements/ShinySliderInput/ShinySliderInput.tsx
   var React51 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-nVRVO7X7vi6c/editor/src/Shiny-Ui-Elements/ShinySliderInput/styles.module.css.js
-  var digest36 = "e7545ee92b32e6a542503ee207c934b8960336424cb2d595139dacb7267798a2";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-FZKvPs6RvDjr/editor/src/Shiny-Ui-Elements/ShinySliderInput/styles.module.css.js
+  var digest36 = "9bb192acbd8b72a6cae2e5de1e2ef0ddcaed86e36a14831c65c92dda902a6986";
   var css36 = `._container_1f2js_1 {
   padding: 6px;
 
@@ -53604,8 +53604,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // ../editor/src/Shiny-Ui-Elements/ShinyTextInput/ShinyTextInput.tsx
   var React52 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-R988I5pWPVpx/editor/src/Shiny-Ui-Elements/ShinyTextInput/styles.module.css.js
-  var digest37 = "5f68b68fbb69f49e2f8df517e6938c374a9cdb11c6d3e5647c56de912c6681d6";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-rQ3X7TrK5E7Y/editor/src/Shiny-Ui-Elements/ShinyTextInput/styles.module.css.js
+  var digest37 = "3815f34c25f82f9d1b7db2f81e0adadcc60f9f09ea254282a6b03f4deba965d5";
   var css37 = `._container_yicbr_1 {
   position: relative;
   padding: 4px;
@@ -53700,8 +53700,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // ../editor/src/assets/icons/shinyTextOutput.png
   var shinyTextOutput_default = "data:image/png;base64,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";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-drm8Nl8ymyda/editor/src/Shiny-Ui-Elements/ShinyTextOutput/styles.module.css.js
-  var digest38 = "0a433630494db7b3a5e8400ec1ed2a7ecf2bd7b49f21db08d10b2b037e570f1a";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-NgBaCUrg1Z8s/editor/src/Shiny-Ui-Elements/ShinyTextOutput/styles.module.css.js
+  var digest38 = "e7ed37cda93ed72578a8836d791c5a5a690ce1732e992e7277884b37ef20d31b";
   var css38 = `._container_1i6yi_1 {
   padding: 1rem;
   max-height: 100%;
@@ -53761,8 +53761,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // ../editor/src/assets/icons/shinyImage.png
   var shinyImage_default = "data:image/png;base64,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";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-evhtCUn5abec/editor/src/Shiny-Ui-Elements/ShinyUiOutput/styles.module.css.js
-  var digest39 = "f152538a87f00c38329df307e1c4c8cc51740c53ee045c03f180efbeb98ccdff";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-8E9iigbE6c6e/editor/src/Shiny-Ui-Elements/ShinyUiOutput/styles.module.css.js
+  var digest39 = "b56ada4e72f3275f5efd9304f3a0b1f6323d73cc55a622676fde068952cfb0f3";
   var css39 = `._container_1xnzo_1 {
   display: grid;
   grid-template-rows: 1fr;
@@ -53832,8 +53832,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 1024 1024" }, "child": [{ "tag": "path", "attr": { "d": "M881.7 187.4l-45.1-45.1a8.03 8.03 0 0 0-11.3 0L667.8 299.9l-54.7-54.7a7.94 7.94 0 0 0-13.5 4.7L576.1 439c-.6 5.2 3.7 9.5 8.9 8.9l189.2-23.5c6.6-.8 9.3-8.8 4.7-13.5l-54.7-54.7 157.6-157.6c3-3 3-8.1-.1-11.2zM439 576.1l-189.2 23.5c-6.6.8-9.3 8.9-4.7 13.5l54.7 54.7-157.5 157.5a8.03 8.03 0 0 0 0 11.3l45.1 45.1c3.1 3.1 8.2 3.1 11.3 0l157.6-157.6 54.7 54.7a7.94 7.94 0 0 0 13.5-4.7L447.9 585a7.9 7.9 0 0 0-8.9-8.9z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-BDh8hfe4QeOu/editor/src/components/CategoryDivider/styles.module.css.js
-  var digest40 = "3fe94c439174683fc96fbf96e0aa57880b3ef28bbcac1b28739e0a43578c5e10";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-Y69YIj9yKSIP/editor/src/components/CategoryDivider/styles.module.css.js
+  var digest40 = "03c473fdb06dc38c4e11f85daf257972d2d61743d12f894b7ac0ba8e039a6a24";
   var css40 = `._categoryDivider_bdwku_1 {
   display: block;
   position: relative;
@@ -54436,12 +54436,18 @@ ${INDENT}`;
     ast
   }) {
     const script_by_line = script.split("\n");
-    const ast_parse_res = parse_app_ast(ast);
+    const {
+      ui_tree,
+      ui_assignment_operator,
+      output_positions,
+      ui_pos,
+      server_pos
+    } = parse_app_ast(ast);
     let libraries = ["shiny"];
     let app_template_by_line = [];
     let previous_line_type;
     script_by_line.forEach((line, line_number) => {
-      const line_type = get_line_type(line, line_number, ast_parse_res);
+      const line_type = get_line_type({ line, line_number, ui_pos });
       if (line_type === "Other") {
         app_template_by_line.push(line);
         return;
@@ -54457,7 +54463,7 @@ ${INDENT}`;
       previous_line_type = line_type;
       if (line_type === "UI") {
         app_template_by_line.push(
-          `ui ${ast_parse_res.ui_assignment_operator} ${SCRIPT_LOC_KEYS.ui}`
+          `ui ${ui_assignment_operator} ${SCRIPT_LOC_KEYS.ui}`
         );
       } else if (line_type === "Library") {
         app_template_by_line.push(SCRIPT_LOC_KEYS.libraries);
@@ -54468,13 +54474,20 @@ ${INDENT}`;
     return {
       code: app_template_by_line.join("\n"),
       libraries,
-      ui_tree: ast_parse_res.ui_tree
+      ui_tree,
+      output_positions,
+      server_pos,
+      ui_pos
     };
   }
   function within_position(line_number, [ui_start_row, ui_start_col, ui_end_row, ui_end_col]) {
     return line_number >= ui_start_row - 1 && line_number <= ui_end_row - 1;
   }
-  function get_line_type(line, line_number, { ui_pos }) {
+  function get_line_type({
+    line,
+    line_number,
+    ui_pos
+  }) {
     if (within_position(line_number, ui_pos))
       return "UI";
     if (library_finder.test(line))
@@ -54603,7 +54616,7 @@ ${INDENT}`;
   var deleteSubscriptions = getUniqueSubscriptions("DELETE_NODE");
   var updateSubscriptions = getUniqueSubscriptions("UPDATE_NODE");
 
-  // ../editor/src/state/uiTree.ts
+  // ../editor/src/state/app_info.ts
   var mainStateSlice = createSlice({
     name: "state",
     initialState: {
@@ -54666,10 +54679,10 @@ ${INDENT}`;
     );
     return place_node;
   }
-  function useCurrentUiTree() {
-    return useSelector((state) => state.uiTree);
+  function useCurrentAppInfo() {
+    return useSelector((state) => state.app_info);
   }
-  var uiTree_default = mainStateSlice.reducer;
+  var app_info_default = mainStateSlice.reducer;
 
   // ../editor/src/components/DeleteNodeButton/useDeleteNode.tsx
   function useDeleteNode(pathToNode) {
@@ -54857,7 +54870,7 @@ ${INDENT}`;
   // ../editor/src/backendCommunication/useSyncUiWithBackend.tsx
   function useSyncUiWithBackend() {
     const { sendMsg, incomingMsgs: backendMsgs, mode } = useBackendConnection();
-    const state = useCurrentUiTree();
+    const state = useCurrentAppInfo();
     const currentSelection = useCurrentSelection();
     const dispatch = useDispatch();
     const history = useUndoRedo(state);
@@ -54943,15 +54956,15 @@ ${INDENT}`;
   }
 
   // ../editor/src/components/AppPreview/index.tsx
-  var import_react48 = __toESM(require_react());
+  var import_react49 = __toESM(require_react());
 
   // ../../node_modules/react-icons/vsc/index.esm.js
   function VscDebugRestart(props) {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 16 16", "fill": "currentColor" }, "child": [{ "tag": "path", "attr": { "fillRule": "evenodd", "clipRule": "evenodd", "d": "M12.75 8a4.5 4.5 0 0 1-8.61 1.834l-1.391.565A6.001 6.001 0 0 0 14.25 8 6 6 0 0 0 3.5 4.334V2.5H2v4l.75.75h3.5v-1.5H4.352A4.5 4.5 0 0 1 12.75 8z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-nHxAPdhJ9w01/editor/src/components/AppPreview/AppPreview.module.css.js
-  var digest41 = "c0445c891431b417dc741eddabc3978d517bfcdbd6aae01508129ddca44a1698";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-g04CsPB5grYh/editor/src/components/AppPreview/AppPreview.module.css.js
+  var digest41 = "e865a459b8503abe2a27ae33570c36c0b2d0adf9eb9a4cd2ff541e22d3d6dba6";
   var css41 = `div._appViewerHolder_zkojo_1 {
   /* This is over-ridden by an inline style but we just have it here in case */
   --app-scale-amnt: 0.24;
@@ -55217,8 +55230,8 @@ h2._error_zkojo_249 {
   })();
   var AppPreview_module_css_default = { "appViewerHolder": "_appViewerHolder_zkojo_1", "title": "_title_zkojo_55", "appContainer": "_appContainer_zkojo_89", "previewFrame": "_previewFrame_zkojo_109", "expandButton": "_expandButton_zkojo_134", "reloadButtonContainer": "_reloadButtonContainer_zkojo_135", "reloadButton": "_reloadButton_zkojo_135", "spin": "_spin_zkojo_174", "restartButton": "_restartButton_zkojo_211", "loadingMessage": "_loadingMessage_zkojo_238", "error": "_error_zkojo_249" };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-FvWsA1awTkGm/editor/src/components/AppPreview/AppPreview.module.css.js
-  var digest42 = "76936332938f38161a6cb031d32038066aab3c5e8578911bd188eacff94636d9";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-95TIiHjoKQkn/editor/src/components/AppPreview/AppPreview.module.css.js
+  var digest42 = "c24c81f2dd0def15a71f91387601cac613e78de7b35a092155820f0b44c39032";
   var css42 = `div._appViewerHolder_zkojo_1 {
   /* This is over-ridden by an inline style but we just have it here in case */
   --app-scale-amnt: 0.24;
@@ -55484,8 +55497,8 @@ h2._error_zkojo_249 {
   })();
   var AppPreview_module_css_default2 = { "appViewerHolder": "_appViewerHolder_zkojo_1", "title": "_title_zkojo_55", "appContainer": "_appContainer_zkojo_89", "previewFrame": "_previewFrame_zkojo_109", "expandButton": "_expandButton_zkojo_134", "reloadButtonContainer": "_reloadButtonContainer_zkojo_135", "reloadButton": "_reloadButton_zkojo_135", "spin": "_spin_zkojo_174", "restartButton": "_restartButton_zkojo_211", "loadingMessage": "_loadingMessage_zkojo_238", "error": "_error_zkojo_249" };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-bOdEO6ZoXv5N/editor/src/components/AppPreview/FakeDashboard.module.css.js
-  var digest43 = "eb5e90105d190bb64297c7a204880d85af59a85573080524a673fa4fd03ee9bb";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-klXFasCUtV9k/editor/src/components/AppPreview/FakeDashboard.module.css.js
+  var digest43 = "98cdf3b991f6e74c348c6850ddf1ae963c4fe031999a4b3d7ad19f11f5a0fa45";
   var css43 = `._fakeApp_t3dh1_1 {
   display: grid;
   place-content: center;
@@ -55582,8 +55595,8 @@ h2._error_zkojo_249 {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "fill": "none", "stroke": "#000", "strokeWidth": "2", "d": "M12,22 C17.5228475,22 22,17.5228475 22,12 C22,6.4771525 17.5228475,2 12,2 C6.4771525,2 2,6.4771525 2,12 C2,17.5228475 6.4771525,22 12,22 Z M5,5 L19,19" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-thnghmTcyOm8/editor/src/components/AppPreview/LogsViewer.module.css.js
-  var digest44 = "a2074013d0b6cb98e96c351010032431ca29476b3db46826b944a6b7051413bf";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-DP9uFYBSocPQ/editor/src/components/AppPreview/LogsViewer.module.css.js
+  var digest44 = "7109d32126f64fbebf006a4b8d3d39a9e7295c488acf44086f931a8f2b0c77da";
   var css44 = `/* Logs section */
 ._logs_xjp5l_2 {
   --tab-height: var(--logs-button-h, 20px);
@@ -55810,14 +55823,395 @@ p._logLine_xjp5l_75 {
     return { logsExpanded, toggleLogExpansion, unseenLogs };
   }
 
-  // ../editor/src/components/AppPreview/useCommunicateWithBackend.tsx
+  // ../editor/src/components/AppPreview/ShowAppText.tsx
   var import_react46 = __toESM(require_react());
+
+  // ../editor/src/EditorContainer/DialogPopover.tsx
+  var import_jsx_runtime89 = __toESM(require_jsx_runtime());
+  function DialogPopover({
+    children,
+    ...passthrough
+  }) {
+    return /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("dialog", { ...passthrough, ref: openDialog, children });
+  }
+  function openDialog(el) {
+    if (el === null)
+      return;
+    try {
+      el.showModal();
+    } catch {
+    }
+  }
+
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-V1rBCkEbsokt/editor/src/components/AppPreview/AppPreview.module.css.js
+  var digest45 = "c3ecfe5e21dbe82e2c465ddd9ea5300bcc77986018ebd2bb794c289263d04eb6";
+  var css45 = `div._appViewerHolder_zkojo_1 {
+  /* This is over-ridden by an inline style but we just have it here in case */
+  --app-scale-amnt: 0.24;
+
+  --animation-speed: 0.25s;
+  --animation-speed-timing: var(--animation-speed) ease;
+  --expand-btn-size: 1rem;
+
+  /* These take effect in LogsViewer.module.css but depend on the expansion so we set them here */
+  --logs-font-size: 0.65rem;
+  --logs-padding: var(--vertical-spacing);
+
+  /* Sizes */
+
+  /* How much in from the edges should the expanded app be? */
+  --expanded-inset-horizontal: 70px;
+  --expanded-inset-top: 70px;
+  --expanded-inset-bottom: calc(70px + var(--logs-offset-expanded));
+
+  /* How much in from the edges should the shrunken app be? */
+  --preview-inset-horizontal: 10px;
+  --preview-inset-top: 10px;
+  --preview-inset-bottom: calc(
+    var(--preview-inset-top) + var(--logs-button-h) + var(--logs-offset)
+  );
+
+  /* How tall should the tab to expand the logs be? */
+  --logs-button-h: 28px;
+  /* How much of the logs page should be peaking out from bottom of the container? */
+  --logs-offset: 0px;
+  --logs-offset-expanded: 30px;
+
+  /* Sizes of the app when expanded. Used to scale the preview window without triggering a resize */
+  --app-expanded-w: calc(100vw - var(--expanded-inset-horizontal) * 2);
+  --app-expanded-h: calc(
+    100vh - var(--expanded-inset-top) - var(--expanded-inset-bottom)
+  );
+
+  /* Size of the app window when shrunk down */
+  --app-preview-w: calc(var(--app-expanded-w) * var(--app-scale-amnt));
+  --app-preview-h: calc(var(--app-expanded-h) * var(--app-scale-amnt));
+
+  /* Height of the app window in preview mode */
+  height: calc(
+    var(--app-preview-h) + var(--preview-inset-top) +
+      var(--preview-inset-bottom)
+  );
+
+  position: relative;
+  /* Don't let the app logs drawer cause the main div to be larger than it
+  should be */
+  overflow: hidden;
+}
+
+._title_zkojo_55 {
+  /* z-index: 0; */
+  /* display: flex; */
+  position: relative;
+}
+
+._appViewerHolder_zkojo_1[data-expanded="true"] {
+  --expand-btn-size: 1.5rem;
+
+  --logs-font-size: 0.9rem;
+  --logs-padding: 32px;
+
+  --viewer-h: 1fr;
+  --logs-button-h: 30px;
+
+  --logs-offset: 35px;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  background-color: hsl(var(--rstudio-grey-hsl) / 0.15);
+  backdrop-filter: blur(6px);
+
+  transition: all var(--animation-speed-timing);
+  /* This overwrites the "all" above and only makes transitions occur on
+  specified properties */
+  transition-property: backdrop-filter background-color;
+}
+
+._appContainer_zkojo_89 {
+  display: grid;
+  place-content: center;
+}
+
+._appViewerHolder_zkojo_1[data-expanded="false"] > ._appContainer_zkojo_89 {
+  position: absolute;
+  top: var(--preview-inset-top);
+  right: var(--preview-inset-horizontal);
+  width: var(--app-preview-w);
+  height: var(--app-preview-h);
+}
+
+._appViewerHolder_zkojo_1[data-expanded="true"] > ._appContainer_zkojo_89 {
+  position: absolute;
+  inset-inline: var(--expanded-inset-horizontal);
+  top: var(--expanded-inset-top);
+  height: var(--app-expanded-h);
+}
+
+._previewFrame_zkojo_109 {
+  background-color: var(--rstudio-white);
+  width: var(--app-expanded-w);
+  height: var(--app-expanded-h);
+  transform: scale(var(--app-scale-amnt));
+  border: 1px solid var(--outline-color);
+  display: block;
+  /* Ever-so-slightly soften corners */
+  border-radius: 2px;
+}
+
+._appViewerHolder_zkojo_1[data-expanded="true"] ._previewFrame_zkojo_109 {
+  transform: scale(1);
+  transition: transform var(--animation-speed-timing);
+  border: none;
+  box-shadow: var(--shadow-elevation-medium);
+}
+
+._appViewerHolder_zkojo_1[data-expanded="false"] ._previewFrame_zkojo_109 {
+  /* Don't reverse the growing animation, just snap back to smaller */
+  transition: none;
+}
+
+/* ====== Buttons ========================================== */
+
+._expandButton_zkojo_134,
+._reloadButtonContainer_zkojo_135 {
+  position: absolute;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  transition-property: opacity, color, transform;
+  transition-duration: 0.25s;
+  transition-timing-function: ease-in;
+}
+
+._reloadButtonContainer_zkojo_135 {
+  height: var(--header-height);
+  width: var(--header-height);
+  top: 0;
+  left: 0;
+  bottom: 0;
+  /* outline: 1px solid pink; */
+  /* --normal-transform: scaleY(-1) var(--expand-scale, scale(1)) rotate(90deg);
+  transform: var(--normal-transform); */
+}
+
+._reloadButton_zkojo_135 {
+  color: currentColor;
+  font-size: 1.5rem;
+  height: 100%;
+  width: 100%;
+  aspect-ratio: 1;
+  background-color: transparent;
+}
+
+._reloadButton_zkojo_135 > svg {
+  scale: -1 1;
+}
+._reloadButton_zkojo_135:hover > svg {
+  scale: -1.1 1.1;
+}
+
+/* When this class is added to the reload button it will cause it to spin
+around, showing the user that their click actually did something */
+._spin_zkojo_174 {
+  animation-duration: 1s;
+  animation-name: _spin_zkojo_174;
+}
+
+@keyframes _spin_zkojo_174 {
+  from {
+    rotate: 0deg;
+  }
+
+  to {
+    rotate: 360deg;
+    animation-timing-function: ease-out;
+  }
+}
+
+._appViewerHolder_zkojo_1 ._reloadButtonContainer_zkojo_135 {
+  /* Hide reload button in the main panel until we're in full screen mode. We
+  have two reload buttons because the reload button in the header isn't
+  available in that zoom level */
+  display: none;
+}
+
+._expandButton_zkojo_134 {
+  width: 100%;
+  height: 100%;
+  font-size: 50px;
+  opacity: 0;
+  color: transparent;
+}
+
+._expandButton_zkojo_134:hover {
+  color: inherit;
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+._restartButton_zkojo_211 {
+  width: fit-content;
+  margin-inline: auto;
+}
+
+._appViewerHolder_zkojo_1[data-expanded="true"] ._expandButton_zkojo_134,
+._appViewerHolder_zkojo_1[data-expanded="true"] ._reloadButtonContainer_zkojo_135 {
+  width: var(--expanded-inset-left);
+  height: var(--expanded-inset-top);
+  font-size: 2.5rem;
+  opacity: 1;
+  position: fixed;
+  top: 0;
+  display: block;
+}
+
+._appViewerHolder_zkojo_1[data-expanded="true"] ._expandButton_zkojo_134 {
+  color: inherit;
+  right: 0;
+}
+
+._appViewerHolder_zkojo_1 > h2 {
+  color: var(--rstudio-grey);
+  text-align: center;
+  font-style: italic;
+}
+
+._loadingMessage_zkojo_238 {
+  display: grid;
+  place-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+}
+._loadingMessage_zkojo_238 > h2 {
+  text-align: center;
+}
+
+h2._error_zkojo_249 {
+  color: var(--red);
+}
+`;
+  (function() {
+    if (typeof document === "undefined") {
+      return;
+    }
+    if (!document.getElementById(digest45)) {
+      var el = document.createElement("style");
+      el.id = digest45;
+      el.textContent = css45;
+      document.head.appendChild(el);
+    }
+  })();
+  var AppPreview_module_css_default3 = { "appViewerHolder": "_appViewerHolder_zkojo_1", "title": "_title_zkojo_55", "appContainer": "_appContainer_zkojo_89", "previewFrame": "_previewFrame_zkojo_109", "expandButton": "_expandButton_zkojo_134", "reloadButtonContainer": "_reloadButtonContainer_zkojo_135", "reloadButton": "_reloadButton_zkojo_135", "spin": "_spin_zkojo_174", "restartButton": "_restartButton_zkojo_211", "loadingMessage": "_loadingMessage_zkojo_238", "error": "_error_zkojo_249" };
+
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-iG4sjnGuM5I7/editor/src/components/AppPreview/ShowAppText.module.css.js
+  var digest46 = "4a263ad121f99d7b20c9eb0d8b8345a96a173c6a187d3ef82f0b94b0d0667f2e";
+  var css46 = `._show_btn_cz6kg_1 {
+  margin: var(--size-md);
+}
+
+._modal_cz6kg_5 {
+  border: 1px solid grey;
+  background-color: var(--rstudio-white);
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--corner-radius);
+  overflow: scroll;
+  padding: var(--size-lg);
+}
+
+._modal_cz6kg_5 > h2 {
+  margin-block-end: var(--size-md);
+}
+
+._code_holder_cz6kg_19 {
+  background-color: var(--light-grey);
+  padding: var(--size-md);
+  max-height: 70vh;
+  overflow-y: scroll;
+}
+
+._footer_cz6kg_26 {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-block-start: var(--size-md);
+}
+`;
+  (function() {
+    if (typeof document === "undefined") {
+      return;
+    }
+    if (!document.getElementById(digest46)) {
+      var el = document.createElement("style");
+      el.id = digest46;
+      el.textContent = css46;
+      document.head.appendChild(el);
+    }
+  })();
+  var ShowAppText_module_css_default = { "show_btn": "_show_btn_cz6kg_1", "showBtn": "_show_btn_cz6kg_1", "modal": "_modal_cz6kg_5", "code_holder": "_code_holder_cz6kg_19", "codeHolder": "_code_holder_cz6kg_19", "footer": "_footer_cz6kg_26" };
+
+  // ../editor/src/components/AppPreview/ShowAppText.tsx
+  var import_jsx_runtime90 = __toESM(require_jsx_runtime());
+  function ShowAppText() {
+    const [script_visible, set_script_visible] = import_react46.default.useState(false);
+    const store2 = useStore();
+    const getCurrentApp = () => {
+      const app_state = store2.getState().app_info;
+      if (app_state.mode !== "MAIN")
+        return "Not in correct state";
+      return generate_full_app_script(app_state).trim();
+    };
+    return /* @__PURE__ */ (0, import_jsx_runtime90.jsxs)(import_jsx_runtime90.Fragment, { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(PanelHeader, { className: AppPreview_module_css_default3.title, children: "Code" }),
+      /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(
+        TooltipButton,
+        {
+          className: ShowAppText_module_css_default.show_btn,
+          text: "See current application code",
+          position: "left",
+          onClick: () => set_script_visible((is_visible) => !is_visible),
+          variant: "regular",
+          children: "Get app script"
+        }
+      ),
+      script_visible ? /* @__PURE__ */ (0, import_jsx_runtime90.jsxs)(
+        DialogPopover,
+        {
+          className: ShowAppText_module_css_default.modal,
+          title: "App Script",
+          onClose: () => set_script_visible(false),
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime90.jsx)("h2", { children: "App script" }),
+            /* @__PURE__ */ (0, import_jsx_runtime90.jsxs)("p", { children: [
+              "The following code defines the currently being edited app. Copy and paste it to an ",
+              /* @__PURE__ */ (0, import_jsx_runtime90.jsx)("code", { children: "app.R" }),
+              " file to use."
+            ] }),
+            /* @__PURE__ */ (0, import_jsx_runtime90.jsxs)("form", { method: "dialog", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime90.jsx)("div", { className: ShowAppText_module_css_default.code_holder, children: /* @__PURE__ */ (0, import_jsx_runtime90.jsx)("pre", { children: getCurrentApp() }) }),
+              /* @__PURE__ */ (0, import_jsx_runtime90.jsx)("div", { className: ShowAppText_module_css_default.footer, children: /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(Button_default, { type: "submit", children: "Okay" }) })
+            ] })
+          ]
+        }
+      ) : null
+    ] });
+  }
+
+  // ../editor/src/components/AppPreview/useCommunicateWithBackend.tsx
+  var import_react47 = __toESM(require_react());
   function useCommunicateWithBackend() {
     const { sendMsg, incomingMsgs } = useBackendConnection();
-    const [appLoc, setAppLoc] = import_react46.default.useState("HIDDEN");
-    const [appLogs, setAppLogs] = import_react46.default.useState([]);
-    const [errors, setErrors] = import_react46.default.useState(null);
-    import_react46.default.useEffect(() => {
+    const [appLoc, setAppLoc] = import_react47.default.useState("HIDDEN");
+    const [appLogs, setAppLogs] = import_react47.default.useState([]);
+    const [errors, setErrors] = import_react47.default.useState(null);
+    import_react47.default.useEffect(() => {
       const previewReadySubscription = incomingMsgs.subscribe(
         "APP-PREVIEW-STATUS",
         (previewLoc) => {
@@ -55846,13 +56240,13 @@ p._logLine_xjp5l_75 {
         previewCrashSubscription.unsubscribe();
       };
     }, [incomingMsgs, sendMsg]);
-    const [restartApp, setRestartApp] = import_react46.default.useState(
+    const [restartApp, setRestartApp] = import_react47.default.useState(
       () => () => console.warn("No app running to reset")
     );
-    const [stopApp, setStopApp] = import_react46.default.useState(
+    const [stopApp, setStopApp] = import_react47.default.useState(
       () => () => console.warn("No app running to stop")
     );
-    const clearLogs = import_react46.default.useCallback(() => {
+    const clearLogs = import_react47.default.useCallback(() => {
       setAppLogs([]);
     }, []);
     return {
@@ -55871,20 +56265,20 @@ p._logLine_xjp5l_75 {
   }
 
   // ../editor/src/components/AppPreview/usePreviewScale.tsx
-  var import_react47 = __toESM(require_react());
+  var import_react48 = __toESM(require_react());
   function usePreviewScale() {
     const pageSize = useGetPageSize();
     return getPreviewScale(pageSize.width);
   }
   function useGetPageSize() {
-    const [pageSize, setPageSize] = import_react47.default.useState(getPageSize());
-    const updateWindowSize = import_react47.default.useMemo(
+    const [pageSize, setPageSize] = import_react48.default.useState(getPageSize());
+    const updateWindowSize = import_react48.default.useMemo(
       () => functionDebounce(() => {
         setPageSize(getPageSize());
       }, 500),
       []
     );
-    import_react47.default.useEffect(() => {
+    import_react48.default.useEffect(() => {
       window.addEventListener("resize", updateWindowSize);
       return () => window.removeEventListener("resize", updateWindowSize);
     }, [updateWindowSize]);
@@ -55904,18 +56298,18 @@ p._logLine_xjp5l_75 {
   }
 
   // ../editor/src/components/AppPreview/index.tsx
-  var import_jsx_runtime89 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime91 = __toESM(require_jsx_runtime());
   var PREVIEW_INSET_HORIZONTAL_PX = 16;
   var EXPANDED_INSET_HORIZONTAL_PX = 55;
   function AppPreview() {
-    const iframeRef = import_react48.default.useRef(null);
-    const [isFullScreen, setIsFullScreen] = import_react48.default.useState(false);
-    const toggleFullscreen = import_react48.default.useCallback(() => {
+    const iframeRef = import_react49.default.useRef(null);
+    const [isFullScreen, setIsFullScreen] = import_react49.default.useState(false);
+    const toggleFullscreen = import_react49.default.useCallback(() => {
       setIsFullScreen((currentlyFullScreen) => !currentlyFullScreen);
     }, []);
     const { appLoc, errors, appLogs, clearLogs, restartApp } = useCommunicateWithBackend();
     const previewScale = usePreviewScale();
-    const reloadApp = import_react48.default.useCallback(
+    const reloadApp = import_react49.default.useCallback(
       (e2) => {
         spinReloadButton(e2.currentTarget);
         if (!iframeRef.current || typeof appLoc === "string")
@@ -55929,24 +56323,24 @@ p._logLine_xjp5l_75 {
       [appLoc, restartApp]
     );
     if (appLoc === "HIDDEN") {
-      return null;
+      return /* @__PURE__ */ (0, import_jsx_runtime91.jsx)(ShowAppText, {});
     }
-    const ReloadButton = ({ isExpandedMode }) => /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("div", { className: AppPreview_module_css_default.reloadButtonContainer, children: /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(
+    const ReloadButton = ({ isExpandedMode }) => /* @__PURE__ */ (0, import_jsx_runtime91.jsx)("div", { className: AppPreview_module_css_default.reloadButtonContainer, children: /* @__PURE__ */ (0, import_jsx_runtime91.jsx)(
       TooltipButton,
       {
         text: `Reload app session (hold ${getMetaKeyOnClient()} to restart app server also)`,
         className: AppPreview_module_css_default.reloadButton,
         onClick: reloadApp,
         position: isExpandedMode ? "right" : "up-right",
-        children: /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(VscDebugRestart, {})
+        children: /* @__PURE__ */ (0, import_jsx_runtime91.jsx)(VscDebugRestart, {})
       }
     ) });
-    return /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)(import_jsx_runtime89.Fragment, { children: [
-      /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)(PanelHeader, { className: AppPreview_module_css_default.title, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(ReloadButton, { isExpandedMode: false }),
+    return /* @__PURE__ */ (0, import_jsx_runtime91.jsxs)(import_jsx_runtime91.Fragment, { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime91.jsxs)(PanelHeader, { className: AppPreview_module_css_default.title, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime91.jsx)(ReloadButton, { isExpandedMode: false }),
         "App Preview"
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime91.jsx)(
         "div",
         {
           className: AppPreview_module_css_default.appViewerHolder,
@@ -55956,10 +56350,10 @@ p._logLine_xjp5l_75 {
             "--preview-inset-horizontal": `${PREVIEW_INSET_HORIZONTAL_PX}px`,
             "--expanded-inset-horizontal": `${EXPANDED_INSET_HORIZONTAL_PX}px`
           },
-          children: errors !== null ? /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(RestartPrompt, { onClick: restartApp }) : /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)(import_jsx_runtime89.Fragment, { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(ReloadButton, { isExpandedMode: true }),
-            /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)("div", { className: AppPreview_module_css_default.appContainer, children: [
-              appLoc === "FAKE-PREVIEW" ? /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(FakeDashboard_default, {}) : appLoc === "LOADING" ? /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(LoadingMessage, {}) : /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(
+          children: errors !== null ? /* @__PURE__ */ (0, import_jsx_runtime91.jsx)(RestartPrompt, { onClick: restartApp }) : /* @__PURE__ */ (0, import_jsx_runtime91.jsxs)(import_jsx_runtime91.Fragment, { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime91.jsx)(ReloadButton, { isExpandedMode: true }),
+            /* @__PURE__ */ (0, import_jsx_runtime91.jsxs)("div", { className: AppPreview_module_css_default.appContainer, children: [
+              appLoc === "FAKE-PREVIEW" ? /* @__PURE__ */ (0, import_jsx_runtime91.jsx)(FakeDashboard_default, {}) : appLoc === "LOADING" ? /* @__PURE__ */ (0, import_jsx_runtime91.jsx)(LoadingMessage, {}) : /* @__PURE__ */ (0, import_jsx_runtime91.jsx)(
                 "iframe",
                 {
                   className: AppPreview_module_css_default.previewFrame,
@@ -55968,31 +56362,31 @@ p._logLine_xjp5l_75 {
                   ref: iframeRef
                 }
               ),
-              /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(
+              /* @__PURE__ */ (0, import_jsx_runtime91.jsx)(
                 Button_default,
                 {
                   variant: "icon",
                   className: AppPreview_module_css_default.expandButton,
                   title: isFullScreen ? "Shrink app preview" : "Expand app preview",
                   onClick: toggleFullscreen,
-                  children: isFullScreen ? /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(AiOutlineShrink, {}) : /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(FaExpand, {})
+                  children: isFullScreen ? /* @__PURE__ */ (0, import_jsx_runtime91.jsx)(AiOutlineShrink, {}) : /* @__PURE__ */ (0, import_jsx_runtime91.jsx)(FaExpand, {})
                 }
               )
             ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(LogsViewer, { appLogs, clearLogs })
+            /* @__PURE__ */ (0, import_jsx_runtime91.jsx)(LogsViewer, { appLogs, clearLogs })
           ] })
         }
       )
     ] });
   }
   function RestartPrompt({ onClick }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)("div", { className: AppPreview_module_css_default.appContainer, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)("p", { children: [
+    return /* @__PURE__ */ (0, import_jsx_runtime91.jsxs)("div", { className: AppPreview_module_css_default.appContainer, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime91.jsxs)("p", { children: [
         "App preview crashed.",
-        /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("br", {}),
+        /* @__PURE__ */ (0, import_jsx_runtime91.jsx)("br", {}),
         " Try and restart?"
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)(
+      /* @__PURE__ */ (0, import_jsx_runtime91.jsxs)(
         Button_default,
         {
           className: AppPreview_module_css_default.restartButton,
@@ -56000,14 +56394,14 @@ p._logLine_xjp5l_75 {
           onClick,
           children: [
             "Restart app preview ",
-            /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(VscDebugRestart, {})
+            /* @__PURE__ */ (0, import_jsx_runtime91.jsx)(VscDebugRestart, {})
           ]
         }
       )
     ] });
   }
   function LoadingMessage() {
-    return /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("div", { className: AppPreview_module_css_default.loadingMessage, children: /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("h2", { children: "Loading app preview..." }) });
+    return /* @__PURE__ */ (0, import_jsx_runtime91.jsx)("div", { className: AppPreview_module_css_default.loadingMessage, children: /* @__PURE__ */ (0, import_jsx_runtime91.jsx)("h2", { children: "Loading app preview..." }) });
   }
   function spinReloadButton(buttonEl) {
     const reloadIcon = buttonEl.querySelector("svg");
@@ -56023,8 +56417,8 @@ p._logLine_xjp5l_75 {
   }
 
   // ../editor/src/components/Icons/ShinyLogo.tsx
-  var import_jsx_runtime90 = __toESM(require_jsx_runtime());
-  var SvgShinyLogo = (props) => /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(
+  var import_jsx_runtime92 = __toESM(require_jsx_runtime());
+  var SvgShinyLogo = (props) => /* @__PURE__ */ (0, import_jsx_runtime92.jsx)(
     "svg",
     {
       viewBox: "0 0 168 114",
@@ -56032,7 +56426,7 @@ p._logLine_xjp5l_75 {
       xmlns: "http://www.w3.org/2000/svg",
       "aria-label": "Shiny Logo",
       ...props,
-      children: /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(
+      children: /* @__PURE__ */ (0, import_jsx_runtime92.jsx)(
         "path",
         {
           opacity: 0.9,
@@ -56045,7 +56439,7 @@ p._logLine_xjp5l_75 {
   var ShinyLogo_default = SvgShinyLogo;
 
   // ../editor/src/components/TemplatePreviews/filterTemplates.ts
-  var import_react50 = __toESM(require_react());
+  var import_react51 = __toESM(require_react());
 
   // ../editor/src/assets/app-templates/templates/chickWeightsGrid.ts
   var navbarTree = {
@@ -56453,7 +56847,7 @@ shinyApp()
   }
 
   // ../editor/src/components/TemplatePreviews/AppTemplatePreview.tsx
-  var import_jsx_runtime91 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime93 = __toESM(require_jsx_runtime());
   var FULL_WIDTH_PX = 1260;
   var FULL_HEIGHT_PX = 800;
   function AppTemplatePreview({
@@ -56462,7 +56856,7 @@ shinyApp()
   }) {
     const height_px = FULL_HEIGHT_PX * (width_px / FULL_WIDTH_PX);
     const shrink_ratio = width_px / FULL_WIDTH_PX;
-    return /* @__PURE__ */ (0, import_jsx_runtime91.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime93.jsx)(
       "div",
       {
         className: "AppTemplatePreview",
@@ -56473,13 +56867,13 @@ shinyApp()
           "--full-h": `${FULL_HEIGHT_PX}px`,
           "--shrink-ratio": shrink_ratio
         },
-        children: /* @__PURE__ */ (0, import_jsx_runtime91.jsx)("div", { className: "template-container", children: /* @__PURE__ */ (0, import_jsx_runtime91.jsx)(UiNode_default, { path: [], node: uiTree }) })
+        children: /* @__PURE__ */ (0, import_jsx_runtime93.jsx)("div", { className: "template-container", children: /* @__PURE__ */ (0, import_jsx_runtime93.jsx)(UiNode_default, { path: [], node: uiTree }) })
       }
     );
   }
 
   // ../editor/src/components/TemplatePreviews/TemplatePreviewCard.tsx
-  var import_jsx_runtime92 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime94 = __toESM(require_jsx_runtime());
   function getLayoutType(layoutTree) {
     return layoutTree.uiName === "gridlayout::grid_page" ? "grid" : "navbarPage";
   }
@@ -56500,13 +56894,13 @@ shinyApp()
     const layoutType = getLayoutType(uiTree);
     const layoutIcon = layoutIcons[layoutType];
     const preview_view_w_px = width_px - 2 * PADDING_PX;
-    return /* @__PURE__ */ (0, import_jsx_runtime92.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime94.jsx)(
       PopoverEl,
       {
         placement: "bottom",
         popoverContent: description,
         openDelayMs: 400,
-        triggerEl: /* @__PURE__ */ (0, import_jsx_runtime92.jsxs)(
+        triggerEl: /* @__PURE__ */ (0, import_jsx_runtime94.jsxs)(
           "article",
           {
             className: "AppTemplateCard",
@@ -56515,10 +56909,10 @@ shinyApp()
             style: inlineVariableStyles,
             "data-selected": selected,
             children: [
-              /* @__PURE__ */ (0, import_jsx_runtime92.jsx)("div", { className: "preview-container", children: /* @__PURE__ */ (0, import_jsx_runtime92.jsx)(AppTemplatePreview, { uiTree, width_px: preview_view_w_px }) }),
-              /* @__PURE__ */ (0, import_jsx_runtime92.jsxs)("footer", { children: [
-                /* @__PURE__ */ (0, import_jsx_runtime92.jsx)("span", { children: title }),
-                /* @__PURE__ */ (0, import_jsx_runtime92.jsx)(
+              /* @__PURE__ */ (0, import_jsx_runtime94.jsx)("div", { className: "preview-container", children: /* @__PURE__ */ (0, import_jsx_runtime94.jsx)(AppTemplatePreview, { uiTree, width_px: preview_view_w_px }) }),
+              /* @__PURE__ */ (0, import_jsx_runtime94.jsxs)("footer", { children: [
+                /* @__PURE__ */ (0, import_jsx_runtime94.jsx)("span", { children: title }),
+                /* @__PURE__ */ (0, import_jsx_runtime94.jsx)(
                   "img",
                   {
                     src: layoutIcon,
@@ -56536,10 +56930,10 @@ shinyApp()
   }
 
   // ../editor/src/components/TemplatePreviews/useRequestTemplate.ts
-  var import_react49 = __toESM(require_react());
+  var import_react50 = __toESM(require_react());
   function useRequestTemplate() {
     const { sendMsg } = useBackendConnection();
-    const requestTemplate = import_react49.default.useCallback(
+    const requestTemplate = import_react50.default.useCallback(
       (template) => {
         const app_info = template_to_full_info(template);
         sendMsg({
@@ -56569,13 +56963,13 @@ shinyApp()
     outputChoices
   }) {
     const requestTemplate = useRequestTemplate();
-    const [filterState, setFilterState] = import_react50.default.useState({
+    const [filterState, setFilterState] = import_react51.default.useState({
       layoutTypes: allLayoutTypes
     });
-    const [selectedTemplate, setSelectedTemplate] = import_react50.default.useState(
+    const [selectedTemplate, setSelectedTemplate] = import_react51.default.useState(
       null
     );
-    const [selectedOutput, setSelectedOutput] = import_react50.default.useState(
+    const [selectedOutput, setSelectedOutput] = import_react51.default.useState(
       outputChoices === "USER-CHOICE" ? "SINGLE-FILE" : outputChoices
     );
     const setTemplateSelection = (title) => {
@@ -56583,11 +56977,11 @@ shinyApp()
         (currentSelection) => currentSelection === title ? null : title
       );
     };
-    const shownTemplates = import_react50.default.useMemo(
+    const shownTemplates = import_react51.default.useMemo(
       () => filteredTemplates(filterState),
       [filterState]
     );
-    import_react50.default.useEffect(() => {
+    import_react51.default.useEffect(() => {
       if (selectedTemplate && !shownTemplates.map((t3) => t3.title).includes(selectedTemplate)) {
         setSelectedTemplate(null);
       }
@@ -56620,7 +57014,7 @@ shinyApp()
   }
 
   // ../editor/src/components/TemplatePreviews/OutputTypeForm.tsx
-  var import_jsx_runtime93 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime95 = __toESM(require_jsx_runtime());
   var outputTypes = ["SINGLE-FILE", "MULTI-FILE"];
   var outputTypeLabel = {
     "SINGLE-FILE": "Single file mode",
@@ -56630,12 +57024,12 @@ shinyApp()
     selectedOutput,
     setSelectedOutput
   }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime93.jsxs)("form", { className: "OutputTypeForm", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime93.jsx)("legend", { children: "Generate app in:" }),
+    return /* @__PURE__ */ (0, import_jsx_runtime95.jsxs)("form", { className: "OutputTypeForm", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime95.jsx)("legend", { children: "Generate app in:" }),
       outputTypes.map((outputType) => {
         const outputLabel = outputTypeLabel[outputType];
-        return /* @__PURE__ */ (0, import_jsx_runtime93.jsxs)("div", { className: "labeled-form-option", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime93.jsx)(
+        return /* @__PURE__ */ (0, import_jsx_runtime95.jsxs)("div", { className: "labeled-form-option", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime95.jsx)(
             "input",
             {
               type: "radio",
@@ -56646,14 +57040,14 @@ shinyApp()
               onChange: (e2) => setSelectedOutput(outputType)
             }
           ),
-          /* @__PURE__ */ (0, import_jsx_runtime93.jsx)("label", { htmlFor: `${outputType}-choice`, children: outputLabel })
+          /* @__PURE__ */ (0, import_jsx_runtime95.jsx)("label", { htmlFor: `${outputType}-choice`, children: outputLabel })
         ] }, outputType);
       })
     ] });
   }
 
   // ../editor/src/components/TemplatePreviews/TemplateFiltersForm.tsx
-  var import_jsx_runtime94 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime96 = __toESM(require_jsx_runtime());
   var layoutLabels = {
     grid: "Grid",
     navbarPage: "Tabs"
@@ -56663,20 +57057,20 @@ shinyApp()
     setFilterState
   }) {
     const { layoutTypes } = filterState;
-    return /* @__PURE__ */ (0, import_jsx_runtime94.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime96.jsx)(
       "form",
       {
         className: "TemplateFiltersForm",
         onSubmit: (e2) => {
           e2.preventDefault();
         },
-        children: /* @__PURE__ */ (0, import_jsx_runtime94.jsxs)("fieldset", { "aria-label": "App layout type filters", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime94.jsx)("legend", { children: "Show templates based on selected layouts:" }),
-          /* @__PURE__ */ (0, import_jsx_runtime94.jsx)("div", { className: "layout-options", children: allLayoutTypes.map((layout) => {
+        children: /* @__PURE__ */ (0, import_jsx_runtime96.jsxs)("fieldset", { "aria-label": "App layout type filters", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime96.jsx)("legend", { children: "Show templates based on selected layouts:" }),
+          /* @__PURE__ */ (0, import_jsx_runtime96.jsx)("div", { className: "layout-options", children: allLayoutTypes.map((layout) => {
             const displayName = layoutLabels[layout];
             const isSelected = layoutTypes.includes(layout);
-            return /* @__PURE__ */ (0, import_jsx_runtime94.jsxs)("div", { className: "labeled-form-option", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime94.jsx)(
+            return /* @__PURE__ */ (0, import_jsx_runtime96.jsxs)("div", { className: "labeled-form-option", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime96.jsx)(
                 "input",
                 {
                   type: "checkbox",
@@ -56692,7 +57086,7 @@ shinyApp()
                   }
                 }
               ),
-              /* @__PURE__ */ (0, import_jsx_runtime94.jsx)("label", { htmlFor: `${layout}-choice`, children: displayName })
+              /* @__PURE__ */ (0, import_jsx_runtime96.jsx)("label", { htmlFor: `${layout}-choice`, children: displayName })
             ] }, layout);
           }) })
         ] })
@@ -56701,7 +57095,7 @@ shinyApp()
   }
 
   // ../editor/src/components/TemplatePreviews/TemplatePreviewGrid.tsx
-  var import_jsx_runtime95 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime97 = __toESM(require_jsx_runtime());
   var PREVIEW_WIDTH_PX = 294;
   var inlineVariableStyles2 = {
     "--card-w": `${PREVIEW_WIDTH_PX}px`
@@ -56712,9 +57106,9 @@ shinyApp()
     templates = app_templates
   }) {
     if (templates.length === 0) {
-      return /* @__PURE__ */ (0, import_jsx_runtime95.jsx)("div", { className: "TemplatePreviewGrid empty-results", children: "No app templates fit current filters. Try broadening your search." });
+      return /* @__PURE__ */ (0, import_jsx_runtime97.jsx)("div", { className: "TemplatePreviewGrid empty-results", children: "No app templates fit current filters. Try broadening your search." });
     }
-    return /* @__PURE__ */ (0, import_jsx_runtime95.jsx)("div", { className: "TemplatePreviewGrid", style: inlineVariableStyles2, children: templates.map((template) => /* @__PURE__ */ (0, import_jsx_runtime95.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime97.jsx)("div", { className: "TemplatePreviewGrid", style: inlineVariableStyles2, children: templates.map((template) => /* @__PURE__ */ (0, import_jsx_runtime97.jsx)(
       TemplatePreviewCard,
       {
         info: template,
@@ -56729,7 +57123,7 @@ shinyApp()
   }
 
   // ../editor/src/components/TemplatePreviews/TemplateChooserView.tsx
-  var import_jsx_runtime96 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime98 = __toESM(require_jsx_runtime());
   function TemplateChooserView(opts) {
     const {
       filterState,
@@ -56743,10 +57137,10 @@ shinyApp()
     } = useFilteredTemplates(opts);
     const canProceed = selectedTemplate !== null;
     const buttonMsg = canProceed ? "Next" : "Select a template";
-    return /* @__PURE__ */ (0, import_jsx_runtime96.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime98.jsx)(
       EditorSkeleton,
       {
-        main: /* @__PURE__ */ (0, import_jsx_runtime96.jsx)(
+        main: /* @__PURE__ */ (0, import_jsx_runtime98.jsx)(
           TemplatePreviewGrid,
           {
             templates: shownTemplates,
@@ -56754,25 +57148,25 @@ shinyApp()
             setSelectedTemplate
           }
         ),
-        left: /* @__PURE__ */ (0, import_jsx_runtime96.jsxs)(import_jsx_runtime96.Fragment, { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime96.jsx)(PanelHeader, { children: "Choose App Template" }),
-          /* @__PURE__ */ (0, import_jsx_runtime96.jsxs)("div", { className: "TemplateChooserSidebar", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime96.jsx)("section", { className: "instructions", children: "Hover over a template to see a description and what elements are used. Select the desired template and click next to edit." }),
-            /* @__PURE__ */ (0, import_jsx_runtime96.jsx)(
+        left: /* @__PURE__ */ (0, import_jsx_runtime98.jsxs)(import_jsx_runtime98.Fragment, { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime98.jsx)(PanelHeader, { children: "Choose App Template" }),
+          /* @__PURE__ */ (0, import_jsx_runtime98.jsxs)("div", { className: "TemplateChooserSidebar", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime98.jsx)("section", { className: "instructions", children: "Hover over a template to see a description and what elements are used. Select the desired template and click next to edit." }),
+            /* @__PURE__ */ (0, import_jsx_runtime98.jsx)(
               TemplateFiltersForm,
               {
                 filterState,
                 setFilterState
               }
             ),
-            opts.outputChoices === "USER-CHOICE" ? /* @__PURE__ */ (0, import_jsx_runtime96.jsx)(
+            opts.outputChoices === "USER-CHOICE" ? /* @__PURE__ */ (0, import_jsx_runtime98.jsx)(
               OutputTypeForm,
               {
                 selectedOutput,
                 setSelectedOutput
               }
             ) : null,
-            /* @__PURE__ */ (0, import_jsx_runtime96.jsx)(
+            /* @__PURE__ */ (0, import_jsx_runtime98.jsx)(
               Button_default,
               {
                 disabled: !canProceed,
@@ -56788,9 +57182,9 @@ shinyApp()
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-zmrxDJeqDhtK/editor/src/components/UndoRedoButtons/UndoRedoButtons.module.css.js
-  var digest45 = "ba9c31bf33dfd4e5a5a23b91fc658202f078a30cbf89fc642cfacb7f46d5ad77";
-  var css45 = `._container_1d7pe_1 {
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-qgdZ4tyXStMh/editor/src/components/UndoRedoButtons/UndoRedoButtons.module.css.js
+  var digest47 = "a8bc0ff5173400f72f4d04ca16f281e30c2466dfcd1434b7e73a204f44e95bc2";
+  var css47 = `._container_1d7pe_1 {
   display: flex;
   position: relative;
 }
@@ -56815,200 +57209,6 @@ shinyApp()
     if (typeof document === "undefined") {
       return;
     }
-    if (!document.getElementById(digest45)) {
-      var el = document.createElement("style");
-      el.id = digest45;
-      el.textContent = css45;
-      document.head.appendChild(el);
-    }
-  })();
-  var UndoRedoButtons_module_css_default = { "container": "_container_1d7pe_1" };
-
-  // ../editor/src/components/UndoRedoButtons/UndoRedoButtons.tsx
-  var import_jsx_runtime97 = __toESM(require_jsx_runtime());
-  function UndoRedoButtons({
-    goBackward,
-    canGoBackward,
-    goForward,
-    canGoForward
-  }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime97.jsxs)("div", { className: mergeClasses(UndoRedoButtons_module_css_default.container, "undo-redo-buttons"), children: [
-      /* @__PURE__ */ (0, import_jsx_runtime97.jsx)(
-        Button_default,
-        {
-          variant: ["transparent", "icon"],
-          disabled: !canGoBackward,
-          "aria-label": "Undo last change",
-          title: "Undo last change",
-          onClick: goBackward,
-          children: /* @__PURE__ */ (0, import_jsx_runtime97.jsx)(Undo_default, { height: "100%" })
-        }
-      ),
-      /* @__PURE__ */ (0, import_jsx_runtime97.jsx)(
-        Button_default,
-        {
-          variant: ["transparent", "icon"],
-          disabled: !canGoForward,
-          "aria-label": "Redo last change",
-          title: "Redo last change",
-          onClick: goForward,
-          children: /* @__PURE__ */ (0, import_jsx_runtime97.jsx)(Redo_default, { height: "100%" })
-        }
-      )
-    ] });
-  }
-
-  // ../editor/src/EditorSkeleton/LostConnectionPopup.tsx
-  var import_jsx_runtime98 = __toESM(require_jsx_runtime());
-  function LostConnectionPopup() {
-    const connectedToServer = useSelector(
-      (state) => state.connectedToServer
-    );
-    if (connectedToServer)
-      return null;
-    return /* @__PURE__ */ (0, import_jsx_runtime98.jsx)(PortalModal_default, { onConfirm: () => {
-    }, onCancel: () => {
-    }, children: /* @__PURE__ */ (0, import_jsx_runtime98.jsx)("p", { style: { color: "var(--red, pink)", textAlign: "center" }, children: "Lost connection to backend. Check console where editor was launched for details." }) });
-  }
-
-  // ../editor/src/ElementsPalette/index.tsx
-  var React64 = __toESM(require_react());
-
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-7t187TkV0BpE/editor/src/ElementsPalette/styles.module.css.js
-  var digest46 = "3993db3082666f1d333d60ec15540ff6a7ba2880c8d15e2197d816a899b292c4";
-  var css46 = `._elementsPalette_qmlez_1 {
-  --icon-size: 75px;
-  --padding: 8px;
-
-  height: 100%;
-  overflow: auto;
-  padding: var(--padding);
-  display: grid;
-  align-items: start;
-  grid-template-columns: repeat(2, var(--icon-size));
-  justify-content: center;
-  justify-items: center;
-  align-content: start;
-  gap: var(--padding);
-}
-/* Reduce vertical padding for first category list */
-
-._OptionContainer_qmlez_18 {
-  width: var(--icon-size);
-  height: 75px;
-  position: relative;
-}
-
-._OptionItem_qmlez_24 {
-  height: 100%;
-  border-radius: var(--corner-radius);
-  position: absolute;
-  inset: 0;
-  cursor: grab;
-  text-align: center;
-}
-
-._OptionIcon_qmlez_33 {
-  margin: 0;
-  margin-top: -12px;
-  display: block;
-  width: 100%;
-  pointer-events: none;
-}
-
-._OptionLabel_qmlez_41 {
-  margin-top: -18px;
-  display: block;
-  line-height: 15px;
-}
-
-._OptionItem_qmlez_24:hover {
-  outline: var(--outline);
-}
-._OptionItem_qmlez_24:active {
-  cursor: grabbing;
-}
-
-._OptionItem_qmlez_24 > svg {
-  color: var(--rstudio-blue);
-}
-`;
-  (function() {
-    if (typeof document === "undefined") {
-      return;
-    }
-    if (!document.getElementById(digest46)) {
-      var el = document.createElement("style");
-      el.id = digest46;
-      el.textContent = css46;
-      document.head.appendChild(el);
-    }
-  })();
-  var styles_module_css_default24 = { "elementsPalette": "_elementsPalette_qmlez_1", "OptionContainer": "_OptionContainer_qmlez_18", "optionContainer": "_OptionContainer_qmlez_18", "OptionItem": "_OptionItem_qmlez_24", "optionItem": "_OptionItem_qmlez_24", "OptionIcon": "_OptionIcon_qmlez_33", "optionIcon": "_OptionIcon_qmlez_33", "OptionLabel": "_OptionLabel_qmlez_41", "optionLabel": "_OptionLabel_qmlez_41" };
-
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-Y26UiCc2uKyT/editor/src/ElementsPalette/styles.module.css.js
-  var digest47 = "681b35e298b17c92c9ee85279ee85c143181529245ca919991bcade4598a0c29";
-  var css47 = `._elementsPalette_qmlez_1 {
-  --icon-size: 75px;
-  --padding: 8px;
-
-  height: 100%;
-  overflow: auto;
-  padding: var(--padding);
-  display: grid;
-  align-items: start;
-  grid-template-columns: repeat(2, var(--icon-size));
-  justify-content: center;
-  justify-items: center;
-  align-content: start;
-  gap: var(--padding);
-}
-/* Reduce vertical padding for first category list */
-
-._OptionContainer_qmlez_18 {
-  width: var(--icon-size);
-  height: 75px;
-  position: relative;
-}
-
-._OptionItem_qmlez_24 {
-  height: 100%;
-  border-radius: var(--corner-radius);
-  position: absolute;
-  inset: 0;
-  cursor: grab;
-  text-align: center;
-}
-
-._OptionIcon_qmlez_33 {
-  margin: 0;
-  margin-top: -12px;
-  display: block;
-  width: 100%;
-  pointer-events: none;
-}
-
-._OptionLabel_qmlez_41 {
-  margin-top: -18px;
-  display: block;
-  line-height: 15px;
-}
-
-._OptionItem_qmlez_24:hover {
-  outline: var(--outline);
-}
-._OptionItem_qmlez_24:active {
-  cursor: grabbing;
-}
-
-._OptionItem_qmlez_24 > svg {
-  color: var(--rstudio-blue);
-}
-`;
-  (function() {
-    if (typeof document === "undefined") {
-      return;
-    }
     if (!document.getElementById(digest47)) {
       var el = document.createElement("style");
       el.id = digest47;
@@ -57016,10 +57216,204 @@ shinyApp()
       document.head.appendChild(el);
     }
   })();
+  var UndoRedoButtons_module_css_default = { "container": "_container_1d7pe_1" };
+
+  // ../editor/src/components/UndoRedoButtons/UndoRedoButtons.tsx
+  var import_jsx_runtime99 = __toESM(require_jsx_runtime());
+  function UndoRedoButtons({
+    goBackward,
+    canGoBackward,
+    goForward,
+    canGoForward
+  }) {
+    return /* @__PURE__ */ (0, import_jsx_runtime99.jsxs)("div", { className: mergeClasses(UndoRedoButtons_module_css_default.container, "undo-redo-buttons"), children: [
+      /* @__PURE__ */ (0, import_jsx_runtime99.jsx)(
+        Button_default,
+        {
+          variant: ["transparent", "icon"],
+          disabled: !canGoBackward,
+          "aria-label": "Undo last change",
+          title: "Undo last change",
+          onClick: goBackward,
+          children: /* @__PURE__ */ (0, import_jsx_runtime99.jsx)(Undo_default, { height: "100%" })
+        }
+      ),
+      /* @__PURE__ */ (0, import_jsx_runtime99.jsx)(
+        Button_default,
+        {
+          variant: ["transparent", "icon"],
+          disabled: !canGoForward,
+          "aria-label": "Redo last change",
+          title: "Redo last change",
+          onClick: goForward,
+          children: /* @__PURE__ */ (0, import_jsx_runtime99.jsx)(Redo_default, { height: "100%" })
+        }
+      )
+    ] });
+  }
+
+  // ../editor/src/EditorSkeleton/LostConnectionPopup.tsx
+  var import_jsx_runtime100 = __toESM(require_jsx_runtime());
+  function LostConnectionPopup() {
+    const connectedToServer = useSelector(
+      (state) => state.connected_to_server
+    );
+    if (connectedToServer)
+      return null;
+    return /* @__PURE__ */ (0, import_jsx_runtime100.jsx)(PortalModal_default, { onConfirm: () => {
+    }, onCancel: () => {
+    }, children: /* @__PURE__ */ (0, import_jsx_runtime100.jsx)("p", { style: { color: "var(--red, pink)", textAlign: "center" }, children: "Lost connection to backend. Check console where editor was launched for details." }) });
+  }
+
+  // ../editor/src/ElementsPalette/index.tsx
+  var React65 = __toESM(require_react());
+
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-WFUVPPPFY2B4/editor/src/ElementsPalette/styles.module.css.js
+  var digest48 = "fcfe9186ccd679a4a62912a4edb1b1b361290029f06f1a3091064a33699369b6";
+  var css48 = `._elementsPalette_qmlez_1 {
+  --icon-size: 75px;
+  --padding: 8px;
+
+  height: 100%;
+  overflow: auto;
+  padding: var(--padding);
+  display: grid;
+  align-items: start;
+  grid-template-columns: repeat(2, var(--icon-size));
+  justify-content: center;
+  justify-items: center;
+  align-content: start;
+  gap: var(--padding);
+}
+/* Reduce vertical padding for first category list */
+
+._OptionContainer_qmlez_18 {
+  width: var(--icon-size);
+  height: 75px;
+  position: relative;
+}
+
+._OptionItem_qmlez_24 {
+  height: 100%;
+  border-radius: var(--corner-radius);
+  position: absolute;
+  inset: 0;
+  cursor: grab;
+  text-align: center;
+}
+
+._OptionIcon_qmlez_33 {
+  margin: 0;
+  margin-top: -12px;
+  display: block;
+  width: 100%;
+  pointer-events: none;
+}
+
+._OptionLabel_qmlez_41 {
+  margin-top: -18px;
+  display: block;
+  line-height: 15px;
+}
+
+._OptionItem_qmlez_24:hover {
+  outline: var(--outline);
+}
+._OptionItem_qmlez_24:active {
+  cursor: grabbing;
+}
+
+._OptionItem_qmlez_24 > svg {
+  color: var(--rstudio-blue);
+}
+`;
+  (function() {
+    if (typeof document === "undefined") {
+      return;
+    }
+    if (!document.getElementById(digest48)) {
+      var el = document.createElement("style");
+      el.id = digest48;
+      el.textContent = css48;
+      document.head.appendChild(el);
+    }
+  })();
+  var styles_module_css_default24 = { "elementsPalette": "_elementsPalette_qmlez_1", "OptionContainer": "_OptionContainer_qmlez_18", "optionContainer": "_OptionContainer_qmlez_18", "OptionItem": "_OptionItem_qmlez_24", "optionItem": "_OptionItem_qmlez_24", "OptionIcon": "_OptionIcon_qmlez_33", "optionIcon": "_OptionIcon_qmlez_33", "OptionLabel": "_OptionLabel_qmlez_41", "optionLabel": "_OptionLabel_qmlez_41" };
+
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-ZMUAnx5WGn5z/editor/src/ElementsPalette/styles.module.css.js
+  var digest49 = "6f6b6f6353745afe63d3628086d7aaab97b8c131dfa768eb7555b1d081ab8e79";
+  var css49 = `._elementsPalette_qmlez_1 {
+  --icon-size: 75px;
+  --padding: 8px;
+
+  height: 100%;
+  overflow: auto;
+  padding: var(--padding);
+  display: grid;
+  align-items: start;
+  grid-template-columns: repeat(2, var(--icon-size));
+  justify-content: center;
+  justify-items: center;
+  align-content: start;
+  gap: var(--padding);
+}
+/* Reduce vertical padding for first category list */
+
+._OptionContainer_qmlez_18 {
+  width: var(--icon-size);
+  height: 75px;
+  position: relative;
+}
+
+._OptionItem_qmlez_24 {
+  height: 100%;
+  border-radius: var(--corner-radius);
+  position: absolute;
+  inset: 0;
+  cursor: grab;
+  text-align: center;
+}
+
+._OptionIcon_qmlez_33 {
+  margin: 0;
+  margin-top: -12px;
+  display: block;
+  width: 100%;
+  pointer-events: none;
+}
+
+._OptionLabel_qmlez_41 {
+  margin-top: -18px;
+  display: block;
+  line-height: 15px;
+}
+
+._OptionItem_qmlez_24:hover {
+  outline: var(--outline);
+}
+._OptionItem_qmlez_24:active {
+  cursor: grabbing;
+}
+
+._OptionItem_qmlez_24 > svg {
+  color: var(--rstudio-blue);
+}
+`;
+  (function() {
+    if (typeof document === "undefined") {
+      return;
+    }
+    if (!document.getElementById(digest49)) {
+      var el = document.createElement("style");
+      el.id = digest49;
+      el.textContent = css49;
+      document.head.appendChild(el);
+    }
+  })();
   var styles_module_css_default25 = { "elementsPalette": "_elementsPalette_qmlez_1", "OptionContainer": "_OptionContainer_qmlez_18", "optionContainer": "_OptionContainer_qmlez_18", "OptionItem": "_OptionItem_qmlez_24", "optionItem": "_OptionItem_qmlez_24", "OptionIcon": "_OptionIcon_qmlez_33", "optionIcon": "_OptionIcon_qmlez_33", "OptionLabel": "_OptionLabel_qmlez_41", "optionLabel": "_OptionLabel_qmlez_41" };
 
   // ../editor/src/ElementsPalette/UiElementIcon.tsx
-  var import_jsx_runtime99 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime101 = __toESM(require_jsx_runtime());
   function UiElementIcon({ uiName }) {
     const {
       iconSrc,
@@ -57035,21 +57429,21 @@ shinyApp()
     if (iconSrc === void 0) {
       return null;
     }
-    return /* @__PURE__ */ (0, import_jsx_runtime99.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime101.jsx)(
       PopoverEl,
       {
         popoverContent: infoPopup,
         contentIsMd: true,
         openDelayMs: 500,
-        triggerEl: /* @__PURE__ */ (0, import_jsx_runtime99.jsx)("div", { className: styles_module_css_default25.OptionContainer, children: /* @__PURE__ */ (0, import_jsx_runtime99.jsxs)(
+        triggerEl: /* @__PURE__ */ (0, import_jsx_runtime101.jsx)("div", { className: styles_module_css_default25.OptionContainer, children: /* @__PURE__ */ (0, import_jsx_runtime101.jsxs)(
           "div",
           {
             className: styles_module_css_default25.OptionItem,
             "data-ui-name": uiName,
             ...dragProps,
             children: [
-              /* @__PURE__ */ (0, import_jsx_runtime99.jsx)("img", { src: iconSrc, alt: title, className: styles_module_css_default25.OptionIcon }),
-              /* @__PURE__ */ (0, import_jsx_runtime99.jsx)("label", { className: styles_module_css_default25.OptionLabel, children: title })
+              /* @__PURE__ */ (0, import_jsx_runtime101.jsx)("img", { src: iconSrc, alt: title, className: styles_module_css_default25.OptionIcon }),
+              /* @__PURE__ */ (0, import_jsx_runtime101.jsx)("label", { className: styles_module_css_default25.OptionLabel, children: title })
             ]
           }
         ) })
@@ -57058,7 +57452,7 @@ shinyApp()
   }
 
   // ../editor/src/ElementsPalette/index.tsx
-  var import_jsx_runtime100 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime102 = __toESM(require_jsx_runtime());
   var categoryOrder = [
     "Inputs",
     "Outputs",
@@ -57081,13 +57475,13 @@ shinyApp()
   function ElementsPalette({
     availableUi = shinyUiNodeInfo
   }) {
-    const ui_node_names = React64.useMemo(
+    const ui_node_names = React65.useMemo(
       () => Object.keys(availableUi).sort(sortByCategory),
       [availableUi]
     );
-    return /* @__PURE__ */ (0, import_jsx_runtime100.jsxs)(import_jsx_runtime100.Fragment, { children: [
-      /* @__PURE__ */ (0, import_jsx_runtime100.jsx)(PanelHeader, { children: "Elements" }),
-      /* @__PURE__ */ (0, import_jsx_runtime100.jsx)("div", { className: styles_module_css_default24.elementsPalette, children: ui_node_names.map((uiName) => /* @__PURE__ */ (0, import_jsx_runtime100.jsx)(UiElementIcon, { uiName }, uiName)) })
+    return /* @__PURE__ */ (0, import_jsx_runtime102.jsxs)(import_jsx_runtime102.Fragment, { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime102.jsx)(PanelHeader, { children: "Elements" }),
+      /* @__PURE__ */ (0, import_jsx_runtime102.jsx)("div", { className: styles_module_css_default24.elementsPalette, children: ui_node_names.map((uiName) => /* @__PURE__ */ (0, import_jsx_runtime102.jsx)(UiElementIcon, { uiName }, uiName)) })
     ] });
   }
 
@@ -57109,7 +57503,7 @@ shinyApp()
   }
 
   // ../editor/src/components/Inputs/SettingsFormBuilder/UnknownArgumentsRender.tsx
-  var import_jsx_runtime101 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime103 = __toESM(require_jsx_runtime());
   function UnknownArgumentsRender({
     settings,
     settingsInfo,
@@ -57121,8 +57515,8 @@ shinyApp()
     );
     if (unknownArguments.length === 0)
       return null;
-    return /* @__PURE__ */ (0, import_jsx_runtime101.jsxs)("section", { className: "unknown-arguments-list", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime101.jsx)("div", { className: "divider-line", children: /* @__PURE__ */ (0, import_jsx_runtime101.jsx)("label", { children: /* @__PURE__ */ (0, import_jsx_runtime101.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime103.jsxs)("section", { className: "unknown-arguments-list", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime103.jsx)("div", { className: "divider-line", children: /* @__PURE__ */ (0, import_jsx_runtime103.jsx)("label", { children: /* @__PURE__ */ (0, import_jsx_runtime103.jsx)(
         Tooltip,
         {
           text: "Arguments present in UI code but not known about or editable by the shinyuieditor",
@@ -57131,14 +57525,14 @@ shinyApp()
           children: "Unknown arguments"
         }
       ) }) }),
-      /* @__PURE__ */ (0, import_jsx_runtime101.jsx)("ul", { className: "unknown-form-fields", "aria-label": "Unknown arguments list", children: unknownArguments.map((argName) => /* @__PURE__ */ (0, import_jsx_runtime101.jsxs)(
+      /* @__PURE__ */ (0, import_jsx_runtime103.jsx)("ul", { className: "unknown-form-fields", "aria-label": "Unknown arguments list", children: unknownArguments.map((argName) => /* @__PURE__ */ (0, import_jsx_runtime103.jsxs)(
         "li",
         {
           className: "unknown-argument",
           "aria-label": "Unknown argument",
           style: { cursor: "default" },
           children: [
-            /* @__PURE__ */ (0, import_jsx_runtime101.jsx)(
+            /* @__PURE__ */ (0, import_jsx_runtime103.jsx)(
               "code",
               {
                 "aria-label": printValueOfUnknownArg(settings[argName]),
@@ -57147,14 +57541,14 @@ shinyApp()
                 children: argName
               }
             ),
-            /* @__PURE__ */ (0, import_jsx_runtime101.jsx)(
+            /* @__PURE__ */ (0, import_jsx_runtime103.jsx)(
               TooltipButton,
               {
                 text: `Remove ${argName} argument`,
                 onClick: () => onSettingsChange(argName, { type: "REMOVE" }),
                 type: "button",
                 position: "left",
-                children: /* @__PURE__ */ (0, import_jsx_runtime101.jsx)(Trash_default, {})
+                children: /* @__PURE__ */ (0, import_jsx_runtime103.jsx)(Trash_default, {})
               }
             )
           ]
@@ -57181,13 +57575,13 @@ shinyApp()
   }
 
   // ../editor/src/components/Inputs/SettingsFormBuilder/FormBuilder.tsx
-  var import_jsx_runtime102 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime104 = __toESM(require_jsx_runtime());
   function FormBuilder(args) {
     const {
       settings,
       settingsInfo,
       onSettingsChange,
-      renderInputs = ({ inputs }) => /* @__PURE__ */ (0, import_jsx_runtime102.jsx)(import_jsx_runtime102.Fragment, { children: Object.values(inputs) })
+      renderInputs = ({ inputs }) => /* @__PURE__ */ (0, import_jsx_runtime104.jsx)(import_jsx_runtime104.Fragment, { children: Object.values(inputs) })
     } = args;
     const { nonOmittedFormInfo } = removeOmittedFields(settingsInfo);
     const PrebuiltInputComponents = {
@@ -57198,9 +57592,9 @@ shinyApp()
       }),
       settings
     };
-    return /* @__PURE__ */ (0, import_jsx_runtime102.jsxs)("form", { className: "FormBuilder", onSubmit: disableDefaultSubmit, children: [
+    return /* @__PURE__ */ (0, import_jsx_runtime104.jsxs)("form", { className: "FormBuilder", onSubmit: disableDefaultSubmit, children: [
       renderInputs(PrebuiltInputComponents),
-      /* @__PURE__ */ (0, import_jsx_runtime102.jsx)(UnknownArgumentsRender, { ...args })
+      /* @__PURE__ */ (0, import_jsx_runtime104.jsx)(UnknownArgumentsRender, { ...args })
     ] });
   }
   var disableDefaultSubmit = (e2) => {
@@ -57221,20 +57615,20 @@ shinyApp()
         value: currentValue,
         onUpdate: (updatedAction) => onSettingsChange(name, updatedAction)
       };
-      InputsComponents[name] = /* @__PURE__ */ (0, import_jsx_runtime102.jsx)(SettingsInput, { ...inputProps }, name);
+      InputsComponents[name] = /* @__PURE__ */ (0, import_jsx_runtime104.jsx)(SettingsInput, { ...inputProps }, name);
     });
     return InputsComponents;
   }
 
   // ../editor/src/SettingsPanel/GoToSourceBtns.tsx
-  var import_jsx_runtime103 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime105 = __toESM(require_jsx_runtime());
   function GoToSourceBtns({ node }) {
     const { sendMsg, mode } = useBackendConnection();
     if (!node)
       return null;
     const { serverBindings } = shinyUiNodeInfo[node.uiName];
-    return /* @__PURE__ */ (0, import_jsx_runtime103.jsxs)("div", { children: [
-      /* @__PURE__ */ (0, import_jsx_runtime103.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime105.jsxs)("div", { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime105.jsx)(
         GoToOutputsBtn,
         {
           serverOutputInfo: serverBindings?.outputs,
@@ -57242,7 +57636,7 @@ shinyApp()
           sendMsg
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime103.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime105.jsx)(
         GoToInputsBtn,
         {
           serverInputInfo: serverBindings?.inputs,
@@ -57257,30 +57651,43 @@ shinyApp()
     node: { uiArguments },
     sendMsg
   }) {
-    if (typeof serverOutputInfo === "undefined")
+    const current_app_info = useCurrentAppInfo();
+    if (!(current_app_info.mode === "MAIN" && "output_positions" in current_app_info) || typeof serverOutputInfo === "undefined")
       return null;
+    const current_output_positions = current_app_info.output_positions;
+    const current_server_position = current_app_info.server_pos;
     const { outputIdKey, renderScaffold } = serverOutputInfo;
     const keyForOutput = typeof outputIdKey === "string" ? outputIdKey : outputIdKey(uiArguments);
     const outputId = uiArguments[keyForOutput];
     if (typeof outputId !== "string")
       return null;
-    return /* @__PURE__ */ (0, import_jsx_runtime103.jsx)(
+    const existing_output_locations = current_output_positions[outputId];
+    return /* @__PURE__ */ (0, import_jsx_runtime105.jsx)(
       TooltipButton,
       {
-        text: "Find output declaration in app script",
+        text: existing_output_locations ? "Show output declaration in app script" : "Create output binding in app server",
         position: "left",
         variant: "regular",
         onClick: () => {
-          sendMsg({
-            path: "GO-TO-SERVER",
-            payload: {
-              type: "Output",
-              outputId,
-              renderScaffold
-            }
-          });
+          if (existing_output_locations) {
+            console.log("Show lines!", existing_output_locations);
+            sendMsg({
+              path: "SHOW-APP-LINES",
+              payload: existing_output_locations
+            });
+          } else {
+            sendMsg({
+              path: "INSERT-SNIPPET",
+              payload: {
+                snippet: `
+output\\$${outputId} <- ${renderScaffold}`,
+                below_line: current_server_position[2] - 1
+              }
+            });
+            console.log("Make me some code, please!");
+          }
         },
-        children: "Find in server"
+        children: existing_output_locations ? "Show in server" : "Generate server code"
       }
     );
   }
@@ -57296,7 +57703,7 @@ shinyApp()
     const inputId = uiArguments[keyForInputId];
     if (typeof inputId !== "string")
       return null;
-    return /* @__PURE__ */ (0, import_jsx_runtime103.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime105.jsx)(
       TooltipButton,
       {
         text: `Find uses of bound input (input$${inputId}) in app script`,
@@ -57313,9 +57720,9 @@ shinyApp()
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-10qCt1Z6N1oi/editor/src/SettingsPanel/PathBreadcrumb.module.css.js
-  var digest48 = "5aaaf83d5d0f56b9ada2d6c27ada003f5431e0329bc743b1668607b0a1231316";
-  var css48 = `._container_1fh41_1 {
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-2b367fJ4IdxL/editor/src/SettingsPanel/PathBreadcrumb.module.css.js
+  var digest50 = "439cc74ed1792d158307fd1f3537c50be74a6a1896a21e6ae776f298e7308242";
+  var css50 = `._container_1fh41_1 {
   --flex-gap: 8px;
   padding: var(--vertical-spacing);
   display: flex;
@@ -57398,17 +57805,17 @@ shinyApp()
     if (typeof document === "undefined") {
       return;
     }
-    if (!document.getElementById(digest48)) {
+    if (!document.getElementById(digest50)) {
       var el = document.createElement("style");
-      el.id = digest48;
-      el.textContent = css48;
+      el.id = digest50;
+      el.textContent = css50;
       document.head.appendChild(el);
     }
   })();
   var PathBreadcrumb_module_css_default = { "container": "_container_1fh41_1", "node": "_node_1fh41_12" };
 
   // ../editor/src/SettingsPanel/PathBreadcrumb.tsx
-  var import_jsx_runtime104 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime106 = __toESM(require_jsx_runtime());
   function PathBreadcrumb({
     tree,
     path: path3,
@@ -57416,10 +57823,10 @@ shinyApp()
   }) {
     const pathString = getNamedPath(path3, tree);
     const totalDepth = path3.length;
-    return /* @__PURE__ */ (0, import_jsx_runtime104.jsx)("div", { className: PathBreadcrumb_module_css_default.container, "aria-label": "Path to selected node", children: pathString.map((name, i2) => {
+    return /* @__PURE__ */ (0, import_jsx_runtime106.jsx)("div", { className: PathBreadcrumb_module_css_default.container, "aria-label": "Path to selected node", children: pathString.map((name, i2) => {
       const isFinalNode = i2 === totalDepth;
       const cleanNodeName = removeNamespaceFromUiName(name);
-      return /* @__PURE__ */ (0, import_jsx_runtime104.jsx)(
+      return /* @__PURE__ */ (0, import_jsx_runtime106.jsx)(
         "div",
         {
           className: PathBreadcrumb_module_css_default.node,
@@ -57435,9 +57842,9 @@ shinyApp()
     return uiName.replace(/[a-z]+::/, "");
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-JluTIIYFi5oi/editor/src/SettingsPanel/SettingsPanel.module.css.js
-  var digest49 = "2c243edf2255e1f734dfff3312a143d72aedee118fd70da2a30522707fbb6aa3";
-  var css49 = `._settingsPanel_a44hx_1 {
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-TBN0MOphPMYt/editor/src/SettingsPanel/SettingsPanel.module.css.js
+  var digest51 = "176314e58f79f0604fda855318144df78c1416b3ccdd379559219688cf4b5e98";
+  var css51 = `._settingsPanel_a44hx_1 {
   --vertical-gap: var(--vertical-spacing);
   display: flex;
   flex-direction: column;
@@ -57491,17 +57898,17 @@ form._settingsForm_a44hx_17 {
     if (typeof document === "undefined") {
       return;
     }
-    if (!document.getElementById(digest49)) {
+    if (!document.getElementById(digest51)) {
       var el = document.createElement("style");
-      el.id = digest49;
-      el.textContent = css49;
+      el.id = digest51;
+      el.textContent = css51;
       document.head.appendChild(el);
     }
   })();
   var SettingsPanel_module_css_default = { "settingsPanel": "_settingsPanel_a44hx_1", "currentElementAbout": "_currentElementAbout_a44hx_10", "settingsForm": "_settingsForm_a44hx_17", "settingsInputs": "_settingsInputs_a44hx_24", "buttonsHolder": "_buttonsHolder_a44hx_28", "validationErrorMsg": "_validationErrorMsg_a44hx_45" };
 
   // ../editor/src/SettingsPanel/useUpdateSettings.tsx
-  var React65 = __toESM(require_react());
+  var React66 = __toESM(require_react());
 
   // ../../node_modules/just-omit/index.mjs
   var objectOmit = omit;
@@ -57524,11 +57931,11 @@ form._settingsForm_a44hx_17 {
   function useUpdateSettings(tree) {
     const dispatch = useDispatch();
     const [selectedPath, setNodeSelection] = useNodeSelectionState();
-    const [currentNode, setCurrentNode] = React65.useState(
+    const [currentNode, setCurrentNode] = React66.useState(
       selectedPath !== null ? safeGetNode(tree, selectedPath) : null
     );
-    const formHasBeenUpdated = React65.useRef(false);
-    const sendNewSettings = React65.useCallback(
+    const formHasBeenUpdated = React66.useRef(false);
+    const sendNewSettings = React66.useCallback(
       (updated_node) => {
         if (!selectedPath)
           return;
@@ -57538,7 +57945,7 @@ form._settingsForm_a44hx_17 {
       },
       [dispatch, selectedPath]
     );
-    React65.useEffect(() => {
+    React66.useEffect(() => {
       formHasBeenUpdated.current = false;
       if (selectedPath === null) {
         setCurrentNode(null);
@@ -57546,7 +57953,7 @@ form._settingsForm_a44hx_17 {
       }
       setCurrentNode(safeGetNode(tree, selectedPath));
     }, [tree, selectedPath]);
-    React65.useEffect(() => {
+    React66.useEffect(() => {
       if (!currentNode)
         return;
       sendNewSettings(currentNode);
@@ -57592,7 +57999,7 @@ form._settingsForm_a44hx_17 {
   }
 
   // ../editor/src/SettingsPanel/SettingsPanel.tsx
-  var import_jsx_runtime105 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime107 = __toESM(require_jsx_runtime());
   function SettingsPanel({ tree }) {
     const {
       currentNode,
@@ -57602,10 +58009,10 @@ form._settingsForm_a44hx_17 {
       setNodeSelection
     } = useUpdateSettings(tree);
     if (selectedPath === null) {
-      return /* @__PURE__ */ (0, import_jsx_runtime105.jsx)("div", { children: "Select an element to edit properties" });
+      return /* @__PURE__ */ (0, import_jsx_runtime107.jsx)("div", { children: "Select an element to edit properties" });
     }
     if (currentNode === null) {
-      return /* @__PURE__ */ (0, import_jsx_runtime105.jsxs)("div", { children: [
+      return /* @__PURE__ */ (0, import_jsx_runtime107.jsxs)("div", { children: [
         "Error finding requested node at path ",
         selectedPath.join(".")
       ] });
@@ -57617,10 +58024,10 @@ form._settingsForm_a44hx_17 {
       nodeInfo.settingsInfo,
       currentNode
     );
-    return /* @__PURE__ */ (0, import_jsx_runtime105.jsxs)(import_jsx_runtime105.Fragment, { children: [
-      /* @__PURE__ */ (0, import_jsx_runtime105.jsx)(PanelHeader, { children: "Properties" }),
-      /* @__PURE__ */ (0, import_jsx_runtime105.jsxs)("div", { className: SettingsPanel_module_css_default.settingsPanel, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime105.jsx)("div", { className: SettingsPanel_module_css_default.currentElementAbout, children: /* @__PURE__ */ (0, import_jsx_runtime105.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime107.jsxs)(import_jsx_runtime107.Fragment, { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(PanelHeader, { children: "Properties" }),
+      /* @__PURE__ */ (0, import_jsx_runtime107.jsxs)("div", { className: SettingsPanel_module_css_default.settingsPanel, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime107.jsx)("div", { className: SettingsPanel_module_css_default.currentElementAbout, children: /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(
           PathBreadcrumb,
           {
             tree,
@@ -57628,7 +58035,7 @@ form._settingsForm_a44hx_17 {
             onSelect: setNodeSelection
           }
         ) }),
-        /* @__PURE__ */ (0, import_jsx_runtime105.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(
           FormBuilder,
           {
             settings: uiArguments,
@@ -57646,37 +58053,20 @@ form._settingsForm_a44hx_17 {
             }
           }
         ),
-        /* @__PURE__ */ (0, import_jsx_runtime105.jsx)(GoToSourceBtns, { node: currentNode }),
-        /* @__PURE__ */ (0, import_jsx_runtime105.jsx)("div", { className: SettingsPanel_module_css_default.buttonsHolder, children: !isRootNode ? /* @__PURE__ */ (0, import_jsx_runtime105.jsx)(DeleteNodeButton_default, { path: selectedPath }) : null })
+        /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(GoToSourceBtns, { node: currentNode }),
+        /* @__PURE__ */ (0, import_jsx_runtime107.jsx)("div", { className: SettingsPanel_module_css_default.buttonsHolder, children: !isRootNode ? /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(DeleteNodeButton_default, { path: selectedPath }) : null })
       ] })
     ] });
   }
 
-  // ../editor/src/EditorContainer/DialogPopover.tsx
-  var import_jsx_runtime106 = __toESM(require_jsx_runtime());
-  function DialogPopover({
-    children,
-    ...passthrough
-  }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime106.jsx)("dialog", { ...passthrough, ref: openDialog, children });
-  }
-  function openDialog(el) {
-    if (el === null)
-      return;
-    try {
-      el.showModal();
-    } catch {
-    }
-  }
-
   // ../editor/src/EditorContainer/OpenSideBySideWindowButton.tsx
-  var import_jsx_runtime107 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime108 = __toESM(require_jsx_runtime());
   function OpenSideBySideWindowButton() {
     const { sendMsg, mode } = useBackendConnection();
     if (mode !== "VSCODE")
       return null;
-    return /* @__PURE__ */ (0, import_jsx_runtime107.jsxs)(import_jsx_runtime107.Fragment, { children: [
-      /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime108.jsxs)(import_jsx_runtime108.Fragment, { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(
         TooltipButton,
         {
           text: "Open app code next to editor",
@@ -57687,15 +58077,15 @@ form._settingsForm_a44hx_17 {
             });
           },
           className: "OpenSideBySideWindowButton",
-          children: /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(FaCode, {})
+          children: /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(FaCode, {})
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime107.jsx)("div", { className: "divider" })
+      /* @__PURE__ */ (0, import_jsx_runtime108.jsx)("div", { className: "divider" })
     ] });
   }
 
   // ../editor/src/EditorContainer/EditorContainer.tsx
-  var import_jsx_runtime108 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime109 = __toESM(require_jsx_runtime());
   var sizes_inline_styles = {
     "--properties-panel-width": `${PROPERTIES_PANEL_WIDTH_PX}px`
   };
@@ -57703,49 +58093,49 @@ form._settingsForm_a44hx_17 {
     const { state, errorInfo, history } = useSyncUiWithBackend();
     let pageBody;
     if (errorInfo) {
-      pageBody = /* @__PURE__ */ (0, import_jsx_runtime108.jsxs)(DialogPopover, { className: "message-mode", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime108.jsxs)("h2", { children: [
+      pageBody = /* @__PURE__ */ (0, import_jsx_runtime109.jsxs)(DialogPopover, { className: "message-mode", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime109.jsxs)("h2", { children: [
           "Error ",
           errorInfo.context ? `while ${errorInfo.context}` : ``
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime108.jsx)("p", { className: "error-msg", children: errorInfo.msg })
+        /* @__PURE__ */ (0, import_jsx_runtime109.jsx)("p", { className: "error-msg", children: errorInfo.msg })
       ] });
     } else if (state.mode === "LOADING") {
-      pageBody = /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(DialogPopover, { className: "message-mode", children: /* @__PURE__ */ (0, import_jsx_runtime108.jsx)("h2", { children: "Loading initial state from server" }) });
+      pageBody = /* @__PURE__ */ (0, import_jsx_runtime109.jsx)(DialogPopover, { className: "message-mode", children: /* @__PURE__ */ (0, import_jsx_runtime109.jsx)("h2", { children: "Loading initial state from server" }) });
     } else if (state.mode === "MAIN") {
-      pageBody = /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(CurrentDraggedNodeProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(
+      pageBody = /* @__PURE__ */ (0, import_jsx_runtime109.jsx)(CurrentDraggedNodeProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime109.jsx)(
         EditorSkeleton,
         {
-          main: /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(UiNode_default, { node: state.ui_tree, path: [] }),
-          left: /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(ElementsPalette, {}),
-          properties: /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(SettingsPanel, { tree: state.ui_tree }),
-          preview: /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(AppPreview, {})
+          main: /* @__PURE__ */ (0, import_jsx_runtime109.jsx)(UiNode_default, { node: state.ui_tree, path: [] }),
+          left: /* @__PURE__ */ (0, import_jsx_runtime109.jsx)(ElementsPalette, {}),
+          properties: /* @__PURE__ */ (0, import_jsx_runtime109.jsx)(SettingsPanel, { tree: state.ui_tree }),
+          preview: /* @__PURE__ */ (0, import_jsx_runtime109.jsx)(AppPreview, {})
         }
       ) });
     } else {
-      pageBody = /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(TemplateChooserView, { ...state.options });
+      pageBody = /* @__PURE__ */ (0, import_jsx_runtime109.jsx)(TemplateChooserView, { ...state.options });
     }
-    return /* @__PURE__ */ (0, import_jsx_runtime108.jsxs)("div", { className: "EditorContainer", style: sizes_inline_styles, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime108.jsxs)("header", { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(ShinyLogo_default, { className: "shiny-logo" }),
-        /* @__PURE__ */ (0, import_jsx_runtime108.jsx)("h1", { className: "app-title", children: "Shiny UI Editor" }),
-        /* @__PURE__ */ (0, import_jsx_runtime108.jsxs)("div", { className: "right", children: [
-          state.mode === "MAIN" ? /* @__PURE__ */ (0, import_jsx_runtime108.jsxs)(import_jsx_runtime108.Fragment, { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(OpenSideBySideWindowButton, {}),
-            /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(AppTour, {})
+    return /* @__PURE__ */ (0, import_jsx_runtime109.jsxs)("div", { className: "EditorContainer", style: sizes_inline_styles, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime109.jsxs)("header", { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime109.jsx)(ShinyLogo_default, { className: "shiny-logo" }),
+        /* @__PURE__ */ (0, import_jsx_runtime109.jsx)("h1", { className: "app-title", children: "Shiny UI Editor" }),
+        /* @__PURE__ */ (0, import_jsx_runtime109.jsxs)("div", { className: "right", children: [
+          state.mode === "MAIN" ? /* @__PURE__ */ (0, import_jsx_runtime109.jsxs)(import_jsx_runtime109.Fragment, { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime109.jsx)(OpenSideBySideWindowButton, {}),
+            /* @__PURE__ */ (0, import_jsx_runtime109.jsx)(AppTour, {})
           ] }) : null,
-          /* @__PURE__ */ (0, import_jsx_runtime108.jsx)("div", { className: "divider" }),
-          /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(UndoRedoButtons, { ...history }),
-          /* @__PURE__ */ (0, import_jsx_runtime108.jsx)("div", { className: "spacer last" })
+          /* @__PURE__ */ (0, import_jsx_runtime109.jsx)("div", { className: "divider" }),
+          /* @__PURE__ */ (0, import_jsx_runtime109.jsx)(UndoRedoButtons, { ...history }),
+          /* @__PURE__ */ (0, import_jsx_runtime109.jsx)("div", { className: "spacer last" })
         ] })
       ] }),
       pageBody,
-      /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(LostConnectionPopup, {})
+      /* @__PURE__ */ (0, import_jsx_runtime109.jsx)(LostConnectionPopup, {})
     ] });
   }
 
   // ../editor/src/state/connectedToServer.ts
-  var import_react51 = __toESM(require_react());
+  var import_react52 = __toESM(require_react());
   var connectedToServerSlice = createSlice({
     name: "connectedToServer",
     initialState: true,
@@ -57804,7 +58194,7 @@ form._settingsForm_a44hx_17 {
     actionCreator: DELETE_NODE,
     effect: async (action, listenerApi) => {
       const deletedPath = action.payload.path;
-      const selectedPath = listenerApi.getState().selectedPath;
+      const selectedPath = listenerApi.getState().selected_path;
       if (selectedPath === null)
         return;
       const updatedSelection = getNewSelectionPathAfterDeletion({
@@ -57862,28 +58252,28 @@ form._settingsForm_a44hx_17 {
   // ../editor/src/state/store.ts
   var store = configureStore({
     reducer: {
-      uiTree: uiTree_default,
-      selectedPath: selectedPath_default,
-      connectedToServer: connectedToServer_default
+      app_info: app_info_default,
+      selected_path: selectedPath_default,
+      connected_to_server: connectedToServer_default
     },
     middleware: (getDefaultMiddleware2) => getDefaultMiddleware2().concat(listenForDeleteMiddleware_default).concat(listenForNodeAddMiddleware_default).concat(resetSelectionInTemplateChooser)
   });
 
   // ../editor/src/state/ReduxProvider.tsx
-  var import_jsx_runtime109 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime110 = __toESM(require_jsx_runtime());
   function ReduxProvider({ children }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime109.jsx)(Provider_default, { store, children });
+    return /* @__PURE__ */ (0, import_jsx_runtime110.jsx)(Provider_default, { store, children });
   }
   var ReduxProvider_default = ReduxProvider;
 
   // ../editor/src/App.tsx
-  var import_jsx_runtime110 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime111 = __toESM(require_jsx_runtime());
   function App(msgPassers) {
-    return /* @__PURE__ */ (0, import_jsx_runtime110.jsx)(ReduxProvider_default, { children: /* @__PURE__ */ (0, import_jsx_runtime110.jsx)(BackendConnectionProvider, { ...msgPassers, children: /* @__PURE__ */ (0, import_jsx_runtime110.jsx)(EditorContainer, {}) }) });
+    return /* @__PURE__ */ (0, import_jsx_runtime111.jsx)(ReduxProvider_default, { children: /* @__PURE__ */ (0, import_jsx_runtime111.jsx)(BackendConnectionProvider, { ...msgPassers, children: /* @__PURE__ */ (0, import_jsx_runtime111.jsx)(EditorContainer, {}) }) });
   }
 
   // ../editor/src/runSUE.tsx
-  var import_jsx_runtime111 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime112 = __toESM(require_jsx_runtime());
   function runSUE({
     container: container2,
     backendDispatch: { sendMsg, incomingMsgs, mode },
@@ -57904,7 +58294,7 @@ form._settingsForm_a44hx_17 {
       mode
     };
     const root2 = (0, import_client.createRoot)(container2);
-    root2.render(/* @__PURE__ */ (0, import_jsx_runtime111.jsx)(App, { ...dispatch }));
+    root2.render(/* @__PURE__ */ (0, import_jsx_runtime112.jsx)(App, { ...dispatch }));
   }
 
   // src/index.ts

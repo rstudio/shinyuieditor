@@ -129,7 +129,7 @@ export function usePlaceNode() {
   return place_node;
 }
 
-export function useCurrentUiTree() {
+export function useCurrentAppInfo() {
   return useSelector((state: RootState) => state.app_info);
 }
 

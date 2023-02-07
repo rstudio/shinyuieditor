@@ -1,16 +1,17 @@
 import type { Raw_App_Info, Script_Position } from "ast-parsing";
 import { parse_app_ast } from "ast-parsing/src/ast_to_shiny_ui_node";
 import { ui_node_to_R_code } from "ast-parsing/src/code_generation/ui_node_to_R_code";
-import type { Output_Server_Pos } from "ast-parsing/src/get_assignment_nodes";
 import type { ShinyUiNode } from "editor";
 
-export type Full_App_Info = {
+type Parsed_AST = ReturnType<typeof parse_app_ast>;
+
+type Full_App_Info_Core = {
   code: string;
   ui_tree: ShinyUiNode;
   libraries: string[];
-  /** Sometimes these don't exist due to being in client-side mode without access to full */
-  output_positions?: Output_Server_Pos;
 };
+
+export type Full_App_Info = Full_App_Info_Core & (Parsed_AST | {});
 
 export const SCRIPT_LOC_KEYS = {
   ui: "<UI>",
@@ -22,8 +23,13 @@ export function raw_app_info_to_full({
   ast,
 }: Raw_App_Info): Full_App_Info {
   const script_by_line = script.split("\n");
-  const { ui_tree, ui_assignment_operator, output_positions, ui_pos } =
-    parse_app_ast(ast);
+  const {
+    ui_tree,
+    ui_assignment_operator,
+    output_positions,
+    ui_pos,
+    server_pos,
+  } = parse_app_ast(ast);
 
   let libraries: string[] = ["shiny"];
   let app_template_by_line: string[] = [];
@@ -65,6 +71,8 @@ export function raw_app_info_to_full({
     libraries,
     ui_tree,
     output_positions,
+    server_pos,
+    ui_pos,
   };
 }
 

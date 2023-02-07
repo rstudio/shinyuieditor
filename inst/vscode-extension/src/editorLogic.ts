@@ -12,8 +12,10 @@ import { setup_app_parser } from "./R-Utils/parseRApp";
 import type { ActiveRSession } from "./R-Utils/startBackgroundRProcess";
 import { startPreviewApp } from "./R-Utils/startPreviewApp";
 import {
+  insert_code_snippet,
   selectInputReferences,
   selectOutputReferences,
+  select_app_lines,
 } from "./selectServerReferences";
 
 const { showErrorMessage } = vscode.window;
@@ -166,6 +168,15 @@ export function editorLogic({
     },
   });
 
+  const get_companion_editor = async () => {
+    codeCompanionEditor = await openCodeCompanionEditor({
+      appFile: document,
+      existingEditor: codeCompanionEditor,
+    });
+
+    return codeCompanionEditor;
+  };
+
   // Receive message from the webview.
   const onDidReceiveMessage = async (msg: MessageToBackend) => {
     if (isMessageToBackend(msg)) {
@@ -198,28 +209,35 @@ export function editorLogic({
           return;
         }
         case "OPEN-COMPANION-EDITOR": {
-          codeCompanionEditor = await openCodeCompanionEditor({
-            appFile: document,
-            existingEditor: codeCompanionEditor,
-          });
-
+          await get_companion_editor();
           return;
         }
-        case "GO-TO-SERVER": {
-          codeCompanionEditor = await openCodeCompanionEditor({
-            appFile: document,
-            existingEditor: codeCompanionEditor,
+        case "SHOW-APP-LINES": {
+          select_app_lines({
+            editor: await get_companion_editor(),
+            selections: msg.payload,
           });
+          return;
+        }
+        case "INSERT-SNIPPET": {
+          console.log("Insert snippet into server", msg.payload);
+          insert_code_snippet({
+            editor: await get_companion_editor(),
+            ...msg.payload,
+          });
+          return;
+        }
 
+        case "GO-TO-SERVER": {
           if (msg.payload.type === "Output") {
             selectOutputReferences({
-              editor: codeCompanionEditor,
+              editor: await get_companion_editor(),
               output: msg.payload,
               get_ast,
             });
           } else {
             selectInputReferences({
-              editor: codeCompanionEditor,
+              editor: await get_companion_editor(),
               input: msg.payload,
             });
           }

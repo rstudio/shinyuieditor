@@ -5,6 +5,7 @@ import type {
   InputSourceRequest,
   OutputSourceRequest,
 } from "communication-types";
+import type { SnippetInsertRequest } from "communication-types/src/MessageToBackend";
 import * as vscode from "vscode";
 
 import { selectMultupleLocations } from "./extension-api-utils/selectMultupleLocations";
@@ -102,6 +103,43 @@ export async function selectOutputReferences({
     // Tell user there's nothing we can do.
     vscode.window.showErrorMessage(`Failed to add output scaffold`);
   }
+}
+
+export async function insert_code_snippet({
+  editor,
+  snippet,
+  below_line,
+}: { editor: vscode.TextEditor } & SnippetInsertRequest) {
+  // Fill in the template at bottom of server
+  const where_to_insert = editor.document.validatePosition(
+    new vscode.Position(below_line - 1, Infinity)
+  );
+
+  const successfull_template_add = await editor.insertSnippet(
+    new vscode.SnippetString("\n" + snippet),
+    where_to_insert
+  );
+
+  if (!successfull_template_add) {
+    // Tell user there's nothing we can do.
+    vscode.window.showErrorMessage(`Failed to add output scaffold`);
+  }
+}
+
+export function select_app_lines({
+  editor,
+  selections,
+}: {
+  editor: vscode.TextEditor;
+  selections: Script_Position[];
+}) {
+  selectInEditor(
+    editor,
+    selections.map((pos) => {
+      const vscode_positions = script_position_to_vscode_positions(pos);
+      return new vscode.Selection(vscode_positions.start, vscode_positions.end);
+    })
+  );
 }
 
 export async function selectInputReferences({

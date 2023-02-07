@@ -1,3 +1,4 @@
+import type { Script_Position } from "ast-parsing";
 import type { ShinyUiNode } from "editor";
 import type { Full_App_Info } from "editor/src/backendCommunication/full_app_info";
 
@@ -16,6 +17,8 @@ export type MessageToBackendByPath = {
   "APP-PREVIEW-RESTART": null;
   "APP-PREVIEW-STOP": null;
   "OPEN-COMPANION-EDITOR": CompanionEditorPosition;
+  "SHOW-APP-LINES": Script_Position[];
+  "INSERT-SNIPPET": SnippetInsertRequest;
   "GO-TO-SERVER": OutputSourceRequest | InputSourceRequest;
 };
 
@@ -33,6 +36,7 @@ export type OutputSourceRequest = {
   renderScaffold: string;
 };
 
+export type SnippetInsertRequest = { snippet: string; below_line: number };
 export type InputSourceRequest = {
   type: "Input";
   /** The current input id used to bind to ui output fn */
