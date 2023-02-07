@@ -4,10 +4,9 @@ import type { MessageToClient } from "communication-types/src/MessageToClient";
 import debounce from "just-debounce-it";
 import * as vscode from "vscode";
 
-import { addUiTextToFile } from "./addUiTextToFile";
+import { update_app_file } from "./addUiTextToFile";
 import { clearAppFile } from "./clearAppFile";
 import { openCodeCompanionEditor } from "./extension-api-utils/openCodeCompanionEditor";
-import { selectLinesInEditor } from "./extension-api-utils/selectLinesInEditor";
 import { checkIfPkgAvailable } from "./R-Utils/checkIfPkgAvailable";
 import { generateAppTemplate } from "./R-Utils/generateAppTemplate";
 import { setup_app_parser } from "./R-Utils/parseRApp";
@@ -17,7 +16,6 @@ import {
   selectInputReferences,
   selectOutputReferences,
 } from "./selectServerReferences";
-import { updateAppUI } from "./updateAppUI";
 
 const { showErrorMessage } = vscode.window;
 
@@ -41,8 +39,6 @@ export function editorLogic({
 
   // Can probably replace this with the vscode.TextDocument's version field
   let latestAppWrite: string | null = null;
-
-  let uiBounds: App_Location | undefined;
 
   const get_ast = setup_app_parser(RProcess, document);
 
@@ -112,20 +108,12 @@ export function editorLogic({
         return;
       }
 
-      const [start_row, start_col, end_row, end_col] = appAST.ui_pos;
-
-      uiBounds = { start_row, start_col, end_row, end_col };
-
       sendMessage({
         path: "APP-INFO",
         payload: {
           script: appFileText,
           ast: appAST.ast,
         },
-      });
-      sendMessage({
-        path: "UPDATED-TREE",
-        payload: appAST.ui_tree,
       });
     } catch (e) {
       console.error("Failed to parse", e);
@@ -188,25 +176,20 @@ export function editorLogic({
         case "TEMPLATE-SELECTION": {
           const appFile = await generateAppTemplate(msg.payload);
 
-          await addUiTextToFile({
-            text: appFile,
-            document,
-            type: "insert",
-            uiBounds,
-          });
+          // await addUiTextToFile({
+          //   text: appFile,
+          //   document,
+          //   type: "insert",
+          //   uiBounds,
+          // });
           return;
         }
 
-        case "UPDATED-UI": {
-          const updateRes = await updateAppUI({
-            document,
-            uiBounds,
-            ui_info: msg.payload,
-          });
-          latestAppWrite = updateRes.uiText;
-          uiBounds = updateRes.uiBounds;
+        case "UPDATED-APP": {
+          await update_app_file({ text: msg.payload.app, document });
           return;
         }
+
         case "APP-PREVIEW-REQUEST": {
           previewAppInfo.start();
           return;
@@ -229,10 +212,6 @@ export function editorLogic({
             appFile: document,
             existingEditor: codeCompanionEditor,
           });
-
-          if (uiBounds) {
-            selectLinesInEditor(uiBounds, codeCompanionEditor);
-          }
 
           return;
         }

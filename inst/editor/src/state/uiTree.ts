@@ -58,10 +58,7 @@ export const mainStateSlice = createSlice({
         "code" in action.payload
           ? action.payload
           : raw_app_info_to_full(action.payload);
-      return {
-        mode: "MAIN",
-        ...full_app_info,
-      };
+      return { mode: "MAIN", ...full_app_info };
     },
     SHOW_TEMPLATE_CHOOSER: (
       state,

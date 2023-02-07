@@ -4,7 +4,6 @@ import type { MessageToClientByPath } from "communication-types";
 import debounce from "just-debounce-it";
 import { useDispatch } from "react-redux";
 
-import { ui_node_to_R_code } from "../../../ast-parsing/src/code_generation/ui_node_to_R_code";
 import { useDeleteNode } from "../components/DeleteNodeButton/useDeleteNode";
 import { useUndoRedo } from "../state-logic/useUndoRedo";
 import { getNamedPath } from "../state/getNamedPath";
@@ -17,7 +16,10 @@ import {
 } from "../state/uiTree";
 import { useKeyboardShortcuts } from "../utils/hooks/useKeyboardShortcuts";
 
-import { raw_app_info_to_full } from "./full_app_info";
+import {
+  generate_full_app_script,
+  raw_app_info_to_full,
+} from "./full_app_info";
 import { useBackendConnection } from "./useBackendMessageCallbacks";
 
 export function useSyncUiWithBackend() {
@@ -121,8 +123,8 @@ export function useSyncUiWithBackend() {
     }
 
     debouncedSendMsg({
-      path: "UPDATED-UI",
-      payload: ui_node_to_R_code(state.ui_tree, { remove_namespace: true }),
+      path: "UPDATED-APP",
+      payload: { app: generate_full_app_script(state) },
     });
   }, [state, debouncedSendMsg, sendMsg]);
 

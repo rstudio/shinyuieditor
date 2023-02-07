@@ -238,8 +238,9 @@ launch_editor <- function(app_loc,
             load_new_app()
           }
         },
-        "UPDATED-UI" = {
-          write_new_ui_code(msg$payload)
+        "UPDATED-APP" = {
+          stop("Have not implemented new updated app editing")
+          # write_new_ui_code(msg$payload)
         },
         "ENTERED-TEMPLATE-SELECTOR" = {
           server_mode <<- "template-chooser"

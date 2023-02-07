@@ -32361,8 +32361,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   // ../editor/src/assets/icons/undo.png
   var undo_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAoCAYAAAC4h3lxAAAACXBIWXMAAAsTAAALEwEAmpwYAAABDElEQVRYhe2ZsQ7CMAxEr4gvZmBDXMXGwC+XgVQqERDbCbEr5ZaoalXdq+0kTqdlWbBnHbwN1GoAeGsAeGv3AMdfN8+3h+ZdVwDcXE8GP7hfTqrnW0UgN99NLQDczAP1AFvzM4xpU6MagNw8vz75R1kBQpgHCrPQF0nNW3eJqjTURiDMl1+liYDUvLWQTRGTRiDcl18lAQhrHigDhDYPlAGYxpDmAXkNhG2cSwBzGolXOoWTJIVCQ0hSiAgMIa0BIiiEZiVmGvOpNVfXgtfuhYhgkbDsRpnGUiS6NDfWfoAIEomajowIAFHbExPvEN1X7BanEsTnGuiiVudChBPENH5wOGsAeGsAeGv3AE8yEDlUwXXxqQAAAABJRU5ErkJggg==";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-EpZ0PEh7smCr/editor/src/components/Icons/styles.module.css.js
-  var digest = "dbfeaf17000f0e412fe3e93b8f1c18a30af469b1a4bcea8587151e5f8435e6f3";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-ozGTzucY41yD/editor/src/components/Icons/styles.module.css.js
+  var digest = "d11e97ee77055929fe86069edd65d4f93d25bb2757dc64e9c8a27f2dc8464695";
   var css = `img._icon_1467k_1 {
   height: 30px;
   /* outline: 2px solid green; */
@@ -32657,8 +32657,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     return classes.filter((c2) => c2).join(" ");
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-ALFXCUcRcemX/editor/src/components/Inputs/Button/Button.module.css.js
-  var digest2 = "12308f11bad8e8657f8ee7263e4ed3af0159ded673f774432d50bd3dfaf78001";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-2owuaZU5OknM/editor/src/components/Inputs/Button/Button.module.css.js
+  var digest2 = "9ec9f9e28f10c7e6c897eb36ec708f30b77377a4d1fc8722d1ecb39ccfa11b8f";
   var css2 = `._button_1y00r_1 {
   --background-color: var(--rstudio-white);
   --text-color: var(--font-color);
@@ -35864,49 +35864,9 @@ ${INDENT}`;
   };
   N();
 
-  // ../editor/src/components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo.ts
-  function isNodeToValueFn(x2) {
-    return typeof x2 === "function";
-  }
-  function getValueFromProperty(x2, node) {
-    if (isNodeToValueFn(x2)) {
-      return x2(node);
-    }
-    return x2;
-  }
-  function buildStaticFieldInfo(dynamicFieldInfo, node) {
-    let staticArgumentInfo = {};
-    for (let prop in dynamicFieldInfo) {
-      const dynamicVal = dynamicFieldInfo[prop];
-      staticArgumentInfo[prop] = getValueFromProperty(dynamicVal, node);
-    }
-    return staticArgumentInfo;
-  }
-  function buildStaticFormInfo(dynamicFormInfo, node) {
-    let staticSettingsInfo = {};
-    for (let argName in dynamicFormInfo) {
-      const dynamicVal = dynamicFormInfo[argName];
-      staticSettingsInfo[argName] = buildStaticFieldInfo(dynamicVal, node);
-    }
-    return staticSettingsInfo;
-  }
-  function getDefaultSettings(dynamicFormInfo, node) {
-    let defaultArgs = {};
-    for (let argName in dynamicFormInfo) {
-      const argInfo = dynamicFormInfo[argName];
-      const isOptional = "optional" in argInfo;
-      const forceDefault = "useDefaultIfOptional" in argInfo && argInfo.useDefaultIfOptional;
-      if (isOptional && !forceDefault) {
-        continue;
-      }
-      if ("defaultValue" in argInfo) {
-        defaultArgs[argName] = buildStaticFieldInfo(
-          dynamicFormInfo[argName],
-          node
-        ).defaultValue;
-      }
-    }
-    return defaultArgs;
+  // ../editor/src/Shiny-Ui-Elements/isShinyUiNode.tsx
+  function isShinyUiNode(x2) {
+    return "uiName" != null && x2 != null && typeof x2 === "object" && "uiName" in x2;
   }
 
   // ../editor/src/assets/icons/shinyTable.png
@@ -36066,8 +36026,8 @@ ${INDENT}`;
   // ../editor/src/Shiny-Ui-Elements/GridlayoutGridCard/GridlayoutGridCard.tsx
   var import_react21 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-zZmBNsO0yW14/editor/src/components/DeleteNodeButton/styles.module.css.js
-  var digest3 = "d8fc9d24e370afb8612b59b591d43ad2ae412f30029390be99fb9ce02b22b406";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-XGKPI862xooi/editor/src/components/DeleteNodeButton/styles.module.css.js
+  var digest3 = "f9877852162eb2115efca4bc8b6f5f649648c5e7041f32307f57783561d7c11c";
   var css3 = `._deleteButton_1en02_1 {
   color: var(--red);
   display: flex;
@@ -36323,8 +36283,8 @@ ${INDENT}`;
   };
   var UiNode_default = UiNode;
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-Yeh4yLU9kWVn/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
-  var digest4 = "9f09bc26759e93db4bfd1f6dc3952672d851c4dfa0d53b6a2514c4149deab783";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-Ez4g3Q6bYxkU/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
+  var digest4 = "131ba6c9bb45ca36832077e0e09021b5f5a178c34225d70cb19c8cf9cac9097e";
   var css4 = `._container_1a2os_1 {
   position: relative;
   height: 100%;
@@ -36750,8 +36710,8 @@ div._emptyGridCard_1a2os_144 > button {
     return setLayout;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-39LhGD3hnfkm/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
-  var digest5 = "eb15fcf728492794ee26d71a1957b2e39b940f7a33497e6ea9a63d7e258309ca";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-6Ua2Cx1KROTb/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
+  var digest5 = "50329940fb923dc90d4b66488f0d3f3069fd99eb277a5558dca655d6b82aff0f";
   var css5 = `._container_1a2os_1 {
   position: relative;
   height: 100%;
@@ -37108,8 +37068,8 @@ div._emptyGridCard_1a2os_144 > button {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 16 16" }, "child": [{ "tag": "path", "attr": { "fillRule": "evenodd", "d": "M16 14v1H0V0h1v14h15zM5 13H3V8h2v5zm4 0H7V3h2v10zm4 0h-2V6h2v7z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-SPDLGGT1LYu9/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
-  var digest6 = "c6fcb04900d77b5587f7c58e49ea0a0f8db32a5c030ff5da64bb2239dfb22c7f";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-Viya0viPH0Tt/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
+  var digest6 = "6b128e473002ef950d9fffa262628c5d27857db3fded7246d8e8cf5d56db8c71";
   var css6 = `._container_1rlbk_1 {
   max-height: 100%;
 }
@@ -37199,8 +37159,8 @@ div._emptyGridCard_1a2os_144 > button {
     return dimensions;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-zwjCz26HwVXR/editor/src/Shiny-Ui-Elements/GridlayoutGridCardPlot/styles.module.css.js
-  var digest7 = "c17901053ff83682f87133d8723a60639c5726ee778a9d0951f5d988eac735af";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-s3QJ5b0Cnb9W/editor/src/Shiny-Ui-Elements/GridlayoutGridCardPlot/styles.module.css.js
+  var digest7 = "1e4504541cd2572d4dbc515fb71fc4dd2493c0552256ef2cd9478153e6b941a6";
   var css7 = `._gridCardPlot_1a94v_1 {
   background-color: var(--rstudio-white);
   width: 100%;
@@ -37292,8 +37252,8 @@ div._emptyGridCard_1a2os_144 > button {
   // ../editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/GridlayoutCardText.tsx
   var React21 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-GFeqax0pE95U/editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/styles.module.css.js
-  var digest8 = "2d1e1d96326461d15497efcf585227fb8ba4d10a3f1c4820712cfe72aa1fa3b3";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-YgP90Y8bPznS/editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/styles.module.css.js
+  var digest8 = "d5c9e2e81cc1753c31fab1f5e3edca6196bbdea75e6bc55114baecfcc8bceee4";
   var css8 = `._textPanel_525i2_1 {
   background-color: var(--rstudio-white);
   /* outline: var(--outline); */
@@ -38060,8 +38020,8 @@ div._emptyGridCard_1a2os_144 > button {
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-zn4BGL480eRw/editor/src/components/Grids/AreaOverlay.module.css.js
-  var digest9 = "8572a6aa8069de6edb789bdd4430c0a0d22a3d2362a335b36fda3835b48972cc";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-cYOTdJax4dNi/editor/src/components/Grids/AreaOverlay.module.css.js
+  var digest9 = "f96f3f677d7e014bfb02eba6041caf62290e6eaca238359b764fa36eeafd35d2";
   var css9 = `._marker_mumaw_1 {
   font-weight: lighter;
   font-style: italic;
@@ -38485,8 +38445,8 @@ div._emptyGridCard_1a2os_144 > button {
   // ../editor/src/components/Grids/EditableGridContainer/EditableGridContainer.tsx
   var React33 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-PAw2CcvzjMcV/editor/src/components/Grids/EditableGridContainer/resizableGrid.module.css.js
-  var digest10 = "bb3555e860f18b7aced790b354cf8df47416124e02bb9812d61ea5562f4243d9";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-7E2PUF6fZc3n/editor/src/components/Grids/EditableGridContainer/resizableGrid.module.css.js
+  var digest10 = "cc2bff9b39432d381e4364ba0583b76b6d46334f4fb3e7df1c012ecca8d4f2b2";
   var css10 = `._ResizableGrid_i4cq9_1 {
   --grid-gap: 5px;
 
@@ -48775,8 +48735,8 @@ div#_size-detection-cell_i4cq9_1 {
     };
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-KlMHuXB6RGf5/editor/src/components/PopoverEl/styles.module.css.js
-  var digest11 = "e249e87b42f351ed61cc5d26370a92dd38e0da37008b1fe34184ec58f0b10680";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-7MKjnAEda3Do/editor/src/components/PopoverEl/styles.module.css.js
+  var digest11 = "dffda77cd5108f44147246b684cc9ff50789cc080ee229d8ab9f57aeae7fd85e";
   var css11 = `._popover_m2pq3_1 {
   pointer-events: none;
   opacity: 0;
@@ -48964,8 +48924,8 @@ div#_size-detection-cell_i4cq9_1 {
     );
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-7Jo9i27Onopd/editor/src/components/Inputs/CSSUnitInput/CSSUnitInfo.module.css.js
-  var digest12 = "fa3e5a0d7bb169f533594252219f9dcde6c269461a0aa5f8be8b58783b0031ea";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-UiahXB1CJIUE/editor/src/components/Inputs/CSSUnitInput/CSSUnitInfo.module.css.js
+  var digest12 = "5bcaddf68f13bbd9044a4ac78e10185b5091ae93de7a3c3488d9d3815ce729c9";
   var css12 = `._infoIcon_15ri6_1 {
   width: 24px;
   color: var(--rstudio-blue);
@@ -49044,8 +49004,8 @@ div#_size-detection-cell_i4cq9_1 {
     rem: "Pixel size of app font. Typically 16 pixels."
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-fcs0utzEO6lJ/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
-  var digest13 = "c4e089654a5eb6a3b8f38e1a3490a8959eff5e6c86f30b8a3eba0688151f36d2";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-2XhzqWEZlMFT/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
+  var digest13 = "72fd7adbe2bd62fa7357039581912f91bce0309dbd0e8ba53afe049ce6c3007a";
   var css13 = `._wrapper_3jy8f_1 {
   position: relative;
   display: flex;
@@ -49589,8 +49549,8 @@ div#_size-detection-cell_i4cq9_1 {
     return tractSizes.some((size) => size === "auto");
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-SX2K1yHWCzcM/editor/src/components/Grids/EditableGridContainer/TractInfoDisplay.module.css.js
-  var digest14 = "721fb69b26954434ab6f52d0013c195980cfa23359e533e7df6f39558bb9d3fc";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-Xay3IQz3g8Be/editor/src/components/Grids/EditableGridContainer/TractInfoDisplay.module.css.js
+  var digest14 = "4599a9b850f341881fb6e87240185cd7ee6ca6b38e9ff9e2e3bf6ef9a5784153";
   var css14 = `._tractInfoDisplay_cvtwo_1 {
   --transition-delay: 0.1s;
   --transition-speed: 0.1s;
@@ -49953,8 +49913,8 @@ user is typing in the input field but mouses off */
     });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-046hc4EncupY/editor/src/components/Grids/EditableGridContainer/TractSizer.module.css.js
-  var digest15 = "a1a70eb03ab33bcc7c332f7e859a1cb6d4b30da59e6fd0d59d20d4c354121589";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-ElEdrHDyNPoD/editor/src/components/Grids/EditableGridContainer/TractSizer.module.css.js
+  var digest15 = "c3fb7a3c0e3a297616cd9344ff113b129b1925051af6ee2caa7f8dbd0089bc6b";
   var css15 = `div._columnSizer_9b32k_1,
 div._rowSizer_9b32k_2 {
   --sizer-color: #c9e2f3;
@@ -50379,7 +50339,7 @@ div._rowSizer_9b32k_2::after {
     return /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("h3", { className: className + " panel-title", children });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-q7H7ii6mxO4p/editor/src/PortalModal.module.css.js
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-NE23olZsQGCH/editor/src/PortalModal.module.css.js
   var digest16 = "13f6af5e59e8ebc33477302381f7da21ea3317b2b22eeff877dda6aa750b7a6e";
   var css16 = `._portalHolder_18ua3_1 {
   background-color: rgba(255, 255, 255, 0.735);
@@ -50496,8 +50456,8 @@ div._rowSizer_9b32k_2::after {
   }
   var PortalModal_default = PortalModal;
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-I7AfouiDEnP3/editor/src/PortalModal.module.css.js
-  var digest17 = "d7d4cb3753550f100917b513b9dcdad87904aadfac6f9767bf4d51b4d60ae12b";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-W1bFnJkl2j47/editor/src/PortalModal.module.css.js
+  var digest17 = "58e3e7f65f094376c1471416a317697bc9f415be26cd2144ce71b85ebaa8d950";
   var css17 = `._portalHolder_18ua3_1 {
   background-color: rgba(255, 255, 255, 0.735);
   position: absolute;
@@ -50673,8 +50633,8 @@ div._rowSizer_9b32k_2::after {
     }
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-2r6QhvVkiyRm/editor/src/components/Inputs/BooleanInput/styles.module.css.js
-  var digest18 = "79637acf9afd0b50b4b51220e85547f23f66fce237200b6559c4b462f2f82750";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-hgHCQlIKkoAf/editor/src/components/Inputs/BooleanInput/styles.module.css.js
+  var digest18 = "149839d4b0e3e60af08ea350edfd28819345af11f8bd7edb9634ba3929ce7233";
   var css18 = `._checkboxInput_7ym3w_1 {
   height: 0;
   width: 0;
@@ -50786,8 +50746,8 @@ label._checkboxLabel_7ym3w_10:after {
   // ../editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.tsx
   var import_react31 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-jX3qpVNiqsb4/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
-  var digest19 = "b9d282522f0240587ec898bdf75c73fa9c9d3b637d6955ae81a06960e59c6f3a";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-1XiNoyYexbh8/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
+  var digest19 = "cec554963f40243d1d59d3fd15179fe070340b30ccd82828a248035074c26e2b";
   var css19 = `._wrapper_3jy8f_1 {
   position: relative;
   display: flex;
@@ -50929,8 +50889,8 @@ label._checkboxLabel_7ym3w_10:after {
   // ../editor/src/components/Inputs/ListInput/NamedListInput.tsx
   var import_react_sortablejs = __toESM(require_dist());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-286pTLmhoXgF/editor/src/components/Inputs/ListInput/styles.module.css.js
-  var digest20 = "c85a026f2d425e9032bdc6f05bc98badde3f0cbcc2cda3c9febf694797d4fb3e";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-YxFGPB7UGdf0/editor/src/components/Inputs/ListInput/styles.module.css.js
+  var digest20 = "5db4649fe46655476c23c3ce792bb751c4bc4edf911f0289313d20ff2637c931";
   var css20 = `._container_xt7ji_1 {
   --gap-size: 4px;
   margin-top: 21px;
@@ -51226,8 +51186,8 @@ label._checkboxLabel_7ym3w_10:after {
   // ../editor/src/components/Inputs/RadioInputs/RadioInputsSimple.tsx
   var React39 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-U82GTg5KsJMM/editor/src/components/Inputs/RadioInputs/RadioInputs.module.css.js
-  var digest21 = "65e2df5d5df3193d58c937941e53b12906150fe461e8f0363382fbb2aeb87b3b";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-0RWapSluvLHn/editor/src/components/Inputs/RadioInputs/RadioInputs.module.css.js
+  var digest21 = "1f6bf130c9db358b607ad50a92eec9b74eb5da27e48179f6ee6cc74e74829b7c";
   var css21 = `._radioContainer_1regb_1 {
   display: grid;
   gap: 5px;
@@ -51688,8 +51648,8 @@ the label */
     };
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-4zoUZ3koGl4m/editor/src/components/GridlayoutElement/styles.module.css.js
-  var digest22 = "ffa045934fd3e93ea29c4d31029901e8cdb66b9936f1cfc8cbcb9beb2963b2fa";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-t5UExfgy94oI/editor/src/components/GridlayoutElement/styles.module.css.js
+  var digest22 = "37ea2d92b70db8fb86c69d587af9260b8c61b07c9a129879dd4eb3fad3a7e60a";
   var css22 = `._container_1hvsg_1 {
   display: grid;
   /* background-color: var(--bg-color); */
@@ -52041,8 +52001,8 @@ the label */
     return makeStringInputInfo("Label text", defaultValue);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-lM6rRxC3f5Mi/editor/src/Shiny-Ui-Elements/ShinyActionButton/styles.module.css.js
-  var digest23 = "70817347c27b5940501a255f21bd64205f8943eca7e2b85cdca001c4d7b83521";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-De9hxERDVogy/editor/src/Shiny-Ui-Elements/ShinyActionButton/styles.module.css.js
+  var digest23 = "d9074929b651a529c9afafce284ce0c757ed41a7a2c711903cf78e9da32e7d54";
   var css23 = `._container_tyghz_1 {
   display: grid;
   grid-template-rows: 1fr;
@@ -52099,8 +52059,8 @@ the label */
   // ../editor/src/assets/icons/shinyCheckgroup.png
   var shinyCheckgroup_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAFS0lEQVR4nO3cz2vTdxzH8Vfb9VeIa7ta1FW2FqQ6pqLbEERhm0OGFzcPY0dhl+LFo4cd9gfsuIs77LDbkAljDqEiCoKszMMEcbqFsjm2OaW6ptClP2zNDvkms2n6I99vXqTp5/mAQJKmn3wPT76fJCTvpnw+L6DWmut9ANiYCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFoQFC8KCBWHBgrBgQViwICxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFs/V+wDq5cy5seX+1BNd4piILkt8+uGOmEs2pmDDKrNL0ilJ70h6NeFaP0m6IumspJ8TrtWw2AqlYUl3JJ1W8qgUrXE6WnO4Bus1pNDPWCclff7sHZ1tzepsa4m12PTcgqbnnhZvNkVrz0r6Mv4hNqaQw+pTYbuSJA1s7tB7r/Wpv6c90aJ/Tczq2x/Hde/RTPGus5IuShpPtHCDCXkrPCWpU5K297Rr+O3+xFFJUn+01vYXSmt1RM8VlJDDOly8cmxvr1qam2q2cEtzk47t6a34XKEIeSs8VLwy0NeZaKHRTFaX7xQ+ZRh+60Vt6W4vX/NQxX/cwEIOK1W80toS/2x18ea4rmUmlW5vKUVVYc1UxX/ewELeChMbzWR1LTMpSTp5aGspKhBWbJO5J/rm5iNJ0on9m/Vywu10oyGsmL76/oEk6cBAWgeHuut7MOsQYcUwmsnq18ezSre36Ojid3+IEFaVJnNPSu8Aj+/rVVeqtc5HtD4RVpWu/5LV1OyCdm9Lad/A8/U+nHWLsKrwMDtbehf47l62wJUQVhUu3XosSXpzqIuPFlZBWBWMZrI6c25M5394ULrv9/Fp3f47J0k6vLO7TkfWOAirzMyTp6XPp27cmyrFdfvPKUmFsxUv2FdHWGU6Wpv10eGtpds37k0t+oT9jUFesK8FYVWwqz+tE/s3l24Xz2C7t6V4bbVGhLWMg0PdOjCQXnTf3pfSyzwa5UIO65/ildzcQsUHHN3Tq3R74WvKWza1VvW51TNfUZaW+eXORhby12auSzouSXfv5/T6wKYlD+hKteqT9wdjLX7n/r/lzxWUkM9Y3xWvjNx6rGxuvmYLZ3PzGok+84pcqNniDSLkM9YXkj6WNDg5Pa/PLv+hI6/0aMeWlNpifvFvbiGvsYc5Xb07oamZ0vb6W/RcQQk5LKnwI4cRSZqaWdCF6N2f4TmCE/JWKEmXVPj1c8awdiZa+5Jh7XUv9DOWJF2VtFPSB5KOqPCLmrjfUc+p8EL9iqTzNTm6BkVY//s6uqAGQt8KYUJYsCAsWBAWLHjxvpRlol9oCKuAiX41xlbIRD+L0M9YTPQzCTksJvoZhbwVMtHPKOSwmOhnFPJWyEQ/o5DDYqKfUchbYWJM9FseYcXERL+VEVZMTPRbGWHFwES/1RFWlZjotzaEVSUm+q0NYVWBiX5rR1hVYKLf2hFWBUz0S46wyjDRrzYIqwwT/WqDsCpgol9yhLUMJvolE3JYTPQzCvlrM0z0Mwr5jMVEP6OQz1hM9DMKOSyJiX42IW+FEhP9bEI/Y0lM9LNoyufz9T4GbEChb4UwISxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFoQFC8KCBWHBgrBgQViwICxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLP4DpWmTqmVmpDwAAAAASUVORK5CYII=";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-l8Md7y6C2BYU/editor/src/Shiny-Ui-Elements/ShinyCheckboxGroupInput/styles.module.css.js
-  var digest24 = "1a778d3035d60fa70c846ab7539759458778a71bb836f30fd1493e27ab6d08ef";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-4Gq4zCCouUMZ/editor/src/Shiny-Ui-Elements/ShinyCheckboxGroupInput/styles.module.css.js
+  var digest24 = "07f284e6b36a8fc787a3e14f9c6014190ebd777099bf9a833a6c50bafcf5c3a2";
   var css24 = `._container_162lp_1 {
   position: relative;
   padding: 4px;
@@ -52192,8 +52152,8 @@ the label */
   // ../editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/ShinyCheckboxInput.tsx
   var React43 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-PuJ9aqJpkB6T/editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/styles.module.css.js
-  var digest25 = "3718db775cea3f446be09b0089687a4528d8579ace255d76a8f0dd7eced31ac6";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-zVIJG4k5Lg44/editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/styles.module.css.js
+  var digest25 = "cd85048855f805694cb4487f1444be0c8962b91acb98a1750e430714c47f4e4d";
   var css25 = `._container_1x0tz_1 {
   position: relative;
   padding: 4px;
@@ -52309,8 +52269,8 @@ the label */
     return getTabPanelTitle(firstChild) ?? "First Tab";
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-KMfOoH5274ho/editor/src/components/Tabs/TabPanel/TabPanel.module.css.js
-  var digest26 = "860e00432d3d68347357a499f9195bd1fab1ca0047310c2e9cfec99f17dcba64";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-k0tApyL940z5/editor/src/components/Tabs/TabPanel/TabPanel.module.css.js
+  var digest26 = "fd5d0ce15479e488c8bf4919aaa69011c1c5629bbf7cb74f9f26ad479baa0985";
   var css26 = `._container_10z2l_1 {
   height: 100%;
 }
@@ -52346,6 +52306,51 @@ the label */
 
   // ../editor/src/components/Tabs/Tabset/Tabset.tsx
   var import_react41 = __toESM(require_react());
+
+  // ../editor/src/components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo.ts
+  function isNodeToValueFn(x2) {
+    return typeof x2 === "function";
+  }
+  function getValueFromProperty(x2, node) {
+    if (isNodeToValueFn(x2)) {
+      return x2(node);
+    }
+    return x2;
+  }
+  function buildStaticFieldInfo(dynamicFieldInfo, node) {
+    let staticArgumentInfo = {};
+    for (let prop in dynamicFieldInfo) {
+      const dynamicVal = dynamicFieldInfo[prop];
+      staticArgumentInfo[prop] = getValueFromProperty(dynamicVal, node);
+    }
+    return staticArgumentInfo;
+  }
+  function buildStaticFormInfo(dynamicFormInfo, node) {
+    let staticSettingsInfo = {};
+    for (let argName in dynamicFormInfo) {
+      const dynamicVal = dynamicFormInfo[argName];
+      staticSettingsInfo[argName] = buildStaticFieldInfo(dynamicVal, node);
+    }
+    return staticSettingsInfo;
+  }
+  function getDefaultSettings(dynamicFormInfo, node) {
+    let defaultArgs = {};
+    for (let argName in dynamicFormInfo) {
+      const argInfo = dynamicFormInfo[argName];
+      const isOptional = "optional" in argInfo;
+      const forceDefault = "useDefaultIfOptional" in argInfo && argInfo.useDefaultIfOptional;
+      if (isOptional && !forceDefault) {
+        continue;
+      }
+      if ("defaultValue" in argInfo) {
+        defaultArgs[argName] = buildStaticFieldInfo(
+          dynamicFormInfo[argName],
+          node
+        ).defaultValue;
+      }
+    }
+    return defaultArgs;
+  }
 
   // ../editor/src/assets/icons/tabPanel.png
   var tabPanel_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAADSklEQVR4nO3cv0vUYQDH8c/pmWfpmV1G0uAPjAqiyYqWoK1oDKq5PdqE9qaG/ozAKWjpL4jWoKayrcWtIgqiuAYd9LQo8u3zfO39ghvux/C54y3PV9Br9fv9SLttqPQA7U+GJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlRLv0gF9ZXlkdfGg6yf0k15PMJhnd6007+JrkXZInSR4l+bD5yYe3FgtMqkO1YQ1YSvIsydHSQwaMJTm7cbuT5FqSV0UXVaIJR2EvydPUF9WgE1nfOVl6SA2aENa9JDOlR/yhuSR3S4+oQROOwhs7PTjb6+TS4mTmp8cy0RlOe7iFD/n+o5+PX7/n7dqXPH/zMWufvu30sttJHuBjKteEsLZdAV85M5Vr53p7PqQ93EpvfCS98ckszXfz+MVaXr//PPiy//eKfZMmHIUHNt+ZO9rJ1QJRDWoPtXLzwrF0x7b9bNbw22pxTQhri/ML3fCH3p/pjAzl4kK39IwqNS6s2V6n9IQtTh4/WHpClRoX1pHxkdITtpieqGtPLRoXVnuoloNw3ehI4z7CPeGn8o9qC70WhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCVHFP6zu8M0y+0Lp91Xy226qCCtJv/SAXVbL+yn2B/kehUIYlhCGJUQt11i/uxaYunzqcPf0zKGFjfuf9mLQ39i4SP6xvLL6svCUarT6/VquM7WfeBQKYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQvwEAzs9K42yqRkAAAAASUVORK5CYII=";
@@ -52439,8 +52444,8 @@ the label */
     }) });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-kGKhxwVtaio8/editor/src/Shiny-Ui-Elements/ShinyTabPanel/ShinyTabPanel.module.css.js
-  var digest27 = "e12cfda910e8dd4461b727f3f8d1b82373f45e9e4f5c4f12761fd029082b5402";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-ibIhXETWZM5Z/editor/src/Shiny-Ui-Elements/ShinyTabPanel/ShinyTabPanel.module.css.js
+  var digest27 = "16750dc1b3e3c33171966d3c2711a151d34235d99eeb9b84ef9fd2e5666dc00c";
   var css27 = `._container_fe3r8_1 {
   position: relative;
   height: 100%;
@@ -52535,11 +52540,6 @@ the label */
   // ../editor/src/components/Tabs/Tabset/Tab.tsx
   var import_react39 = __toESM(require_react());
 
-  // ../editor/src/Shiny-Ui-Elements/isShinyUiNode.tsx
-  function isShinyUiNode(x2) {
-    return "uiName" != null && x2 != null && typeof x2 === "object" && "uiName" in x2;
-  }
-
   // ../editor/src/components/UiNode/TreeManipulation/samePath.ts
   function samePath(aPath, bPath) {
     if (!aPath || !bPath)
@@ -52547,8 +52547,8 @@ the label */
     return sameArray(aPath, bPath);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-Saii22TNf6gh/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest28 = "fef70c207c44456e1359036216388fe4384061128442a681f826d541ceddf660";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-aFWwmtf91AEh/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest28 = "b09aea8ba4cd48ef8a91435567fbf30a2719e49a436002a7e28615e84aab3871";
   var css28 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -52721,8 +52721,8 @@ illusion of the selected panel and tab being one entity */
     );
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-da5QAbl6TDyb/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest29 = "0723358724027d358945a580780368105e602514dbb5003b01a225bc285ef251";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-1betmeEpzfDt/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest29 = "09075b93beb7b78127660d7970fe39a7110a97da48e8e736a3c7a26bd35afdf1";
   var css29 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -52892,8 +52892,8 @@ illusion of the selected panel and tab being one entity */
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-HlceKwNWJSIC/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest30 = "95992487c80c700ed489030f7a3af08e2fd8ce1021be88e662c3833272dd9dce";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-6DU7dpnRxz9N/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest30 = "83e1511449b0efe6070943a189c0105c83bdcf79ac58065e46f66282d414d618";
   var css30 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -53168,8 +53168,8 @@ illusion of the selected panel and tab being one entity */
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-4v0L6LVlq3wU/editor/src/Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage.module.css.js
-  var digest31 = "c37279ed953267bf28bc518517902dfe03541cab384e98a2055bc29826aae8f1";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-UmUIh3EgD8Sv/editor/src/Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage.module.css.js
+  var digest31 = "ee5155a20ba3a9bb6de69a09b8bd931a0170d38bc5191224de62b91c9b6d61cb";
   var css31 = `._noTabsMessage_130qz_1 {
   padding: 5px;
 }
@@ -53270,8 +53270,8 @@ illusion of the selected panel and tab being one entity */
   // ../editor/src/Shiny-Ui-Elements/ShinyNumericInput/ShinyNumericInput.tsx
   var React49 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-ZaBV81lj05jt/editor/src/Shiny-Ui-Elements/ShinyNumericInput/styles.module.css.js
-  var digest32 = "177cc2046ab82d28db8ee3337ab7320cd7c4bcd067faf3133e6e8ee683d2af83";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-DBOWvSVlb8HM/editor/src/Shiny-Ui-Elements/ShinyNumericInput/styles.module.css.js
+  var digest32 = "a667f060f87b54fb218fcf8c1db6b55c41309885257067d1db727a36b40fc3e8";
   var css32 = `._container_yicbr_1 {
   position: relative;
   padding: 4px;
@@ -53389,8 +53389,8 @@ illusion of the selected panel and tab being one entity */
     description: "An input control for entry of numeric values"
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-z1KGKwKzDdeA/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
-  var digest33 = "f2ea0d99a368141f1315d73986ca5bbc86b13198d10565f4cfd63fec57c224e2";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-JWbv7tZZIKXX/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
+  var digest33 = "b607a243068d71b8f49b302d90af68ea02ac0df33a3dc67da567fd8347a26e6c";
   var css33 = `._container_1rlbk_1 {
   max-height: 100%;
 }
@@ -53482,8 +53482,8 @@ illusion of the selected panel and tab being one entity */
   // ../editor/src/Shiny-Ui-Elements/ShinyRadioButtons/ShinyRadioButtons.tsx
   var import_react42 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-Pxnm5dA7J2Fh/editor/src/Shiny-Ui-Elements/ShinyRadioButtons/styles.module.css.js
-  var digest34 = "ed3d4cfcd657fbc0828a377ad8be1b7821ecd58bdce9a85422193cbc5f8de524";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-6MUS1gT8rTH0/editor/src/Shiny-Ui-Elements/ShinyRadioButtons/styles.module.css.js
+  var digest34 = "5c3f9c7d33fd5ca1aad7bd57e83fb52ebebd9f4c2860eb1432f791e81ed53b19";
   var css34 = `._container_sgn7c_1 {
   position: relative;
   padding: 4px;
@@ -53585,8 +53585,8 @@ illusion of the selected panel and tab being one entity */
   // ../editor/src/assets/icons/shinySelectbox.png
   var shinySelectbox_default = "data:image/png;base64,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";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-ldw9Qgb1dcMm/editor/src/Shiny-Ui-Elements/ShinySelectInput/styles.module.css.js
-  var digest35 = "c62a73692cd60ca3411e07f1c5912bf2c675a41e6a7ca416369e7390e37e6f7b";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-SdxB904okrt2/editor/src/Shiny-Ui-Elements/ShinySelectInput/styles.module.css.js
+  var digest35 = "32077c6dcf02374b26f54e0e81b5cc317639a7959542968b5d78eef07a68565c";
   var css35 = `._container_1e5dd_1 {
   position: relative;
   padding: 4px;
@@ -53662,8 +53662,8 @@ illusion of the selected panel and tab being one entity */
   // ../editor/src/Shiny-Ui-Elements/ShinySliderInput/ShinySliderInput.tsx
   var React51 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-VXyDNkgJTXm0/editor/src/Shiny-Ui-Elements/ShinySliderInput/styles.module.css.js
-  var digest36 = "8005d2cc366601983ed3e62b1f1b8bb7dbea29085893a2b5feea1b0f867a989c";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-EoyYsc82rT3Q/editor/src/Shiny-Ui-Elements/ShinySliderInput/styles.module.css.js
+  var digest36 = "05f67b167b9dd1013a83f70a1d5a19c9c13e1ec79c485d8422e90e6e21b48921";
   var css36 = `._container_1f2js_1 {
   padding: 6px;
 
@@ -53903,8 +53903,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // ../editor/src/Shiny-Ui-Elements/ShinyTextInput/ShinyTextInput.tsx
   var React52 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-URZAWuxZ8fYL/editor/src/Shiny-Ui-Elements/ShinyTextInput/styles.module.css.js
-  var digest37 = "e4760d8314d678059e7c0b779dc6871454a2021ba6e8dcc1e8d95bbcfb42ee53";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-BUxBy1qOd0y9/editor/src/Shiny-Ui-Elements/ShinyTextInput/styles.module.css.js
+  var digest37 = "83f6942e42fb055de6729f64ee6420ecf08d298e4ceda42b49fad8bd47dd3bfa";
   var css37 = `._container_yicbr_1 {
   position: relative;
   padding: 4px;
@@ -53999,8 +53999,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // ../editor/src/assets/icons/shinyTextOutput.png
   var shinyTextOutput_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAGh0lEQVR4nO3bv2skZQDG8W/8haBNIhbaqHu72Jv0olyw1CbZRfTsktJqk4CNgkVuF+wviIKNm2xz14kJ+AecsROUDWkE7W4LrQ4lFvNOMjOZ/ZXdJ/tGnw8cuezOvTNcvsw78+5k4ezsDLNZe2LeB2D/TQ7LJByWSTgsk3BYJuGwTMJhmYTDMgmHZRIOyyQclkk4LJNwWCbhsEzCYZmEwzIJh2USDsskHJZJOCyTcFgm4bBMwmGZhMMyCYdlEg7LJByWSTgsk3BYJuGwTMJhmYTDMgmHZRIOyyQclkk4LJNwWCbhsEzCYZmEwzIJh2USDsskHJZJOCyTcFgm4bBMwmGZhMMyCYdlEg7LJByWSTgsk3BYJuGwTMJhmYTDMgmHZRIOyyQclkk4LJNwWCbx1LwPIGthYWGm4zU7vXvARvj2qN2orc50BwVnZ2cjt9naP1EeQqlWvXrt+4wqLCv1CvBR+PuXwO9zPJaxOay4vQw8BF4M338MrAI/ze2IxuRrrLi9x0VUAEvAEfDGXI5mAg4rbn+XvLbIDYjLYcXtW+CXktejj8thxe1P4G3g15L3oo4r6ov3Zqd3G1gGtkn+I7NOgT2SZYTjCcfdJlmGqGRe3gO67UbtaIIxloG19LWwlLAHHLfq1b1JjmmIP4C3gB+A1wvvpXHdJrIL+oVx1l6uS7qO1ez0FoEDkv+wcey1G7XN4ovFdSxgJ4xbKW6b0W03auuD3gyxH3A59KJjYLNVr+ain2Id6yXK4wLoMySueaxjxToVHjJ+VAAbzU5vd8Q2lTDusKgA1pqd3kHZG81ObyOMMSoqSM5mh1v7J6P2N670zHUjpsXowspMMakjYL3dqC1k/wCbJGeF1HY40w1S4SKIu8CtzFjrJFNrai1ElD2uCnCvMGZxnFvhtdRiyb+Zxo2JK7qwyFyzED6GaTdq3eJG7UZtj2SxMGvUWe4UWGk3ajvtRu08pDD+Cvm4tgv/thjIanGcVr162qpXd0hCPT+mrf2TZWbnRsQVY1jZH8LQC+B2o9Ynf9YaNu30SWIovdAPY+1kx2p2estwfrbKRrsz7CK/Va92w/5Sk0zr44g+rujuCsOUMon+6E0AOM6eXQbsu9vs9PpcTJm3ScJdK2w68o6vVa8ujXlcVxX13WJ0YRU1O701kjNRhYs7vEFmcaF8zMUZJh0ve+12HM5u03ie5APld4FnpxxrkEXge+BN4GfRPgaKNqxwET/qTk8he1ZbLHyF/NR7VZ8C9RmMM8oLwBfAO9ewr5zowgrXMwfkr7XmJQ1qVksGqZUZjzfMa9e4r3PRhUVy95WNKl1hPy27O2x2epOueU3itPB1Vh6STFHX4cE17ScnqrDCqnY2krvtRm1n0PYi2aj7ha/F96/qM5KV9HXg6RmMN8gD4BPh+APFttyQO1Ndd1RhgTU77aXXU7mwRizEjuMv4APgGWBhij93gH8G7OMBSbiPpzzWK4nqjEX+hzru9DPtDzlrrTBeulbVJX8jsUF+hf2Srf2TR5mxdlr16tDtr+BD4GvgyZL35hoVxHfGmujMED7TG3dquh3uNAeNVSEfTzddVgjrX9kF0d0wbZfa2j8ZFOisRB0VxBdW9gewCByWfGa33Oz0tpud3iMuL1yOstvs9A6LgYV9/Eg+huI0XHx64rDZ6e2GIAHY2j+pbO2f7JLc1aaOik84TCn6qCDCx2bCWWjSYFK5x2cKj81MYjN8FpkTApzkQ+U+sNKqV8+n9Sl//esO8BUTRuXHZhKbjD917E2w7bjXbOtlUUHug+9xVt6PgdVsVFO6UlTzEl1Y7UatH36xdJ3kormoSzJNLZU93DfEafgccofLMaYfQC+VrZUVju+o3agthe3Ltt0jecBvZYZT4LCo7hNZVBDZVPh/cIWp8H3gGwZHVWdEVJ4Kreg5kjPglaOaF4cVt1dJ4iq6T8RRgcOKXQ/4rfDafSKPChxW7B6TPPLyHckzVZ9zA6ICX7ybiM9YJuGwTMJhmYTDMgmHZRIOyyQclkk4LJNwWCbhsEzCYZmEwzIJh2USDsskHJZJOCyTcFgm4bBMwmGZhMMyCYdlEg7LJByWSTgsk3BYJuGwTMJhmYTDMgmHZRIOyyQclkk4LJNwWCbhsEzCYZmEwzIJh2USDsskHJZJOCyTcFgm4bBMwmGZhMMyCYdlEg7LJByWSTgsk3BYJuGwTMJhmYTDMgmHZRIOyyQclkk4LJP4F7bdmR9UysBAAAAAAElFTkSuQmCC";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-0nHg4eTws6ic/editor/src/Shiny-Ui-Elements/ShinyTextOutput/styles.module.css.js
-  var digest38 = "4e9dd0108f7ef0191aeb28bac2f6b7451606e4241763c9230580828c88a8ffc2";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-wl2f5L0ZuoOY/editor/src/Shiny-Ui-Elements/ShinyTextOutput/styles.module.css.js
+  var digest38 = "f096c2d5c653eb19c7af74d86d1a50424ff993de8de20e56977c7800e01e47c7";
   var css38 = `._container_1i6yi_1 {
   padding: 1rem;
   max-height: 100%;
@@ -54060,8 +54060,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // ../editor/src/assets/icons/shinyImage.png
   var shinyImage_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAGT0lEQVR4nO3cy29UZRjH8e902tIbVFouNQpEQKLGCsEYUGJcGFHiQk2MxsTg0rgwulH/AmPiyoUoEdTgLdG4MJpoCJY7VTCgAQQpBVGm9+u0c+vcjosySENpC5ynp33n91k105PmafvNe86c87Yhz/MQ8VtJ0AOImxSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlpgoDXoAv7z5dWvhw/XAK8CDwG1AVVAzTWIE6AQOA9uAnwHefX5lkDP5xrUV6y3gELAZuJOZGxXAHGAZ8BywC3g32HH85cyKBTwCvAOE5lWWeo/dWxe6q6GKuZWllISCHm0sD4incrR2J9l5oi/fF8uUAG8wGtiuYKfzh0sr1qtAaH51af71jUtC65bPo7Zq5kUFEAJqKsKsWVrDaxuXlCyYW5a79KmXg5zLTy6FtQHg8cb6kpqKcNCzTFlFWQmbGusLAz8U6DA+cimsxQCrFs/ky6rxLV9UWfiwPsg5/OTSNVYIRk8xQfOAU21xTrfHiY/kqKsuY/XSGpbWV4x7fPWcyzOXT9eM1lwKa0ZIpHPsONjJ3z3JMa8faBlk/Ypanr5/4Yy87vObS6fCwHnAF81XR1Xw67koO0/0Te9QAVFYPjrTkaC1a/yoCvafGWQomZ2miYKjsHzU0pmY9Jhc3qO1e+L4XKCwfJQYyU1+0HUcN5spLB/Nr57ae6G66jLjSYKnsHy0eulcQpO846upCLNyceXEBzlAYfmoobach1fdcs3Ph4Cn1y6kvNT9H7vuY/nsyTULqCwPs/tUP5mcd/n1eZWlPLV2AY231wQ43fRRWD4LAY/eM58HV87jXHeSRDpPXVUpdyyspDRcBHdGL1FYRqrKw0WzOo1HYQFDySyHzw1xsT9FuCTEikWVrFtRS1kRrTB+K/qwTkZifHOkm1Qmf/m1P9viNLdGeWnDrSyudea58LRy/+3JBA6cGeTzQ51joiroHc7wwe4I56/x3E8mVpRhecAPf/Tywx+9eBMcl0zn2b6vnROR2HSN5oyiCyuX9/jql04OnBmc0vHZnMeXzZ00n43aDuaYorrGSmXy7DjYwbnrfAic9+C7Yz1Ek1meuK+eyS7pPQ+OR2K0diUoD5ewZlkNS+rG3+TnqqIJK5rM8sn+djoG0zf8NfacHmAomeXZBxYRvsZuvfhIjs8Ojd2TdbBlkEfuns+mxvpJH/m4oijC6hpK8/G+dgYTN78P6uiFYYZTOTZvaLjq0cxAPMv2fe30DI+N1wP2nh6gdzjNC+sbiuI2hvPXWBd6U3zY1OZLVAUtnQm27mkjlvp/+0vXUJoPmiJXRXWlk5E4W3e3MZzStplZ7WQkxkd720ik/f9FRvpH2NIUoS+W4d++0XijU9gZerE/xfs/X6QreuOn5NnA2VNh89ko3//eQ36i+wk3qS+WYUtThHTWI529+l7YtQzEs2xpivDiQw2saph9f642Fc6tWB7w0/E+vjtmG1VBLJW7rqgKUpk8nx7o4Mj5IYOpgufcivXN4S6OXhgOeowpyeU9vv2tm97hTNCj+M65FWu2RHWlvX8NBD2C75wLa5a7/nPqDOVSWC48cxkMegC/uBTW8aAH8MHJoAfwi0thfR/0AD74MegB/OJSWNuAf4Ie4ib0Mvo9OMGlsKLAM4z+w9jZJgo8C/QHPYhfXAoL4HegEXib0Wuumbz9cwRoAd5jdOZ9gU7js5DnTcPtaSk6rq1YMkMoLDGhsMSEwhITCktMKCwxobDEhMISEwpLTCgsMaGwxITCEhMKS0woLDGhsMSEwhITCktMKCwxobDEhMISEwpLTCgsMaGwxITCEhMKS0woLDGhsMSEwhITCktMKCwxobDEhMISEwpLTCgsMaGwxITCEhMKS0woLDGhsMSEwhITCktMKCwxobDEhMISEwpLTCgsMaGwxITCEhMKS0woLDGhsMSEwhITCktMKCwxobDExH/tpJ306UTa3AAAAABJRU5ErkJggg==";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-5slBYgkz3Ijk/editor/src/Shiny-Ui-Elements/ShinyUiOutput/styles.module.css.js
-  var digest39 = "7d73385dd8286d364518f3a800f98ee55d9e222c680366cc8a8612cb58d61c84";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-m22PWeg3agnE/editor/src/Shiny-Ui-Elements/ShinyUiOutput/styles.module.css.js
+  var digest39 = "b85fd0db961e320c6632131171197649379145c395de2d17aa16005e8df7e801";
   var css39 = `._container_1xnzo_1 {
   display: grid;
   grid-template-rows: 1fr;
@@ -54131,8 +54131,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 1024 1024" }, "child": [{ "tag": "path", "attr": { "d": "M881.7 187.4l-45.1-45.1a8.03 8.03 0 0 0-11.3 0L667.8 299.9l-54.7-54.7a7.94 7.94 0 0 0-13.5 4.7L576.1 439c-.6 5.2 3.7 9.5 8.9 8.9l189.2-23.5c6.6-.8 9.3-8.8 4.7-13.5l-54.7-54.7 157.6-157.6c3-3 3-8.1-.1-11.2zM439 576.1l-189.2 23.5c-6.6.8-9.3 8.9-4.7 13.5l54.7 54.7-157.5 157.5a8.03 8.03 0 0 0 0 11.3l45.1 45.1c3.1 3.1 8.2 3.1 11.3 0l157.6-157.6 54.7 54.7a7.94 7.94 0 0 0 13.5-4.7L447.9 585a7.9 7.9 0 0 0-8.9-8.9z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-KkM2X8aKUrxl/editor/src/components/CategoryDivider/styles.module.css.js
-  var digest40 = "6c13dfb12eef6c9fc1941164db6c453898a2747af5b89b58e0954c773832abdd";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-WYTJRCrPRJpF/editor/src/components/CategoryDivider/styles.module.css.js
+  var digest40 = "76eaac5a3c07d209c538836c6d39d9b31bd7af417edace34f50f9fd8a8d69e13";
   var css40 = `._categoryDivider_bdwku_1 {
   display: block;
   position: relative;
@@ -54248,364 +54248,6 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     "plotly::plotlyOutput": plotlyPlotlyOutputInfo,
     unknownUiFunction: unknownUiFunctionInfo
   };
-
-  // ../editor/src/components/UiNode/TreeManipulation/addNodeMutating.ts
-  function addNodeMutating(tree, { path: path3, node }) {
-    const parentPath = getParentPath(path3);
-    const positionInChildren = path3[path3.length - 1];
-    const parentNode = getNode(tree, parentPath);
-    if (!shinyUiNodeInfo[parentNode.uiName].acceptsChildren) {
-      throw new Error(
-        "Can't add a child to a non-container node. Check the path"
-      );
-    }
-    if (!Array.isArray(parentNode.uiChildren)) {
-      parentNode.uiChildren = [];
-    }
-    parentNode.uiChildren = addAtIndex(
-      parentNode.uiChildren,
-      positionInChildren,
-      node
-    );
-  }
-
-  // ../editor/src/components/UiNode/TreeManipulation/removeNode.ts
-  function removeNodeMutating(tree, { path: path3 }) {
-    const { parentNode, indexToNode } = navigateToParent(tree, path3);
-    if (!checkIfContainerNode(parentNode)) {
-      throw new Error("Somehow trying to enter a leaf node");
-    }
-    parentNode.uiChildren.splice(indexToNode, 1);
-  }
-  function navigateToParent(tree, path3) {
-    const pathCopy = [...path3];
-    const indexToNode = pathCopy.pop();
-    if (typeof indexToNode === "undefined")
-      throw new Error("Path to node must have at least one element");
-    const parentNode = pathCopy.length === 0 ? tree : getNode(tree, pathCopy);
-    if (!checkIfContainerNode(parentNode)) {
-      throw new Error("Somehow trying to enter a leaf node");
-    }
-    return { parentNode, indexToNode };
-  }
-
-  // ../editor/src/components/UiNode/TreeManipulation/moveNodeMutating.ts
-  function moveNodeMutating(tree, { path: path3, currentPath, node }) {
-    const parentPath = getParentPath(path3);
-    const positionInChildren = path3[path3.length - 1];
-    const parentNode = getNode(tree, parentPath);
-    if (!shinyUiNodeInfo[parentNode.uiName].acceptsChildren) {
-      throw new Error(
-        "Can't add a child to a non-container node. Check the path"
-      );
-    }
-    if (!Array.isArray(parentNode.uiChildren)) {
-      parentNode.uiChildren = [];
-    }
-    const nextPath = [...parentPath, positionInChildren];
-    if (nodesAreSiblings(currentPath, nextPath)) {
-      const previousIndex = currentPath[currentPath.length - 1];
-      parentNode.uiChildren = moveElement(
-        parentNode.uiChildren,
-        previousIndex,
-        positionInChildren
-      );
-      return;
-    }
-    removeNodeMutating(tree, { path: currentPath });
-    parentNode.uiChildren = addAtIndex(
-      parentNode.uiChildren,
-      positionInChildren,
-      node
-    );
-  }
-
-  // ../editor/src/components/UiNode/TreeManipulation/placeNode.ts
-  function isNodeMove(opts) {
-    return "currentPath" in opts && opts.currentPath !== void 0;
-  }
-  function placeNodeMutating(tree, args) {
-    const { path: path3, node } = args;
-    if (isNodeMove(args)) {
-      moveNodeMutating(tree, { path: path3, currentPath: args.currentPath, node });
-      return;
-    }
-    addNodeMutating(tree, { path: path3, node: args.node });
-  }
-
-  // ../editor/src/components/UiNode/TreeManipulation/updateNode.ts
-  function updateNodeMutating(tree, { path: path3, node }) {
-    const existingNode = getNode(tree, path3);
-    Object.assign(existingNode, node);
-  }
-
-  // ../editor/src/state/watcherSubscriptions.ts
-  function getUniqueSubscriptions(type) {
-    const uniqueUpdateSubscribers = /* @__PURE__ */ new Set();
-    try {
-      for (const info of Object.values(shinyUiNodeInfo)) {
-        const nodeUpdateSubscriber = info?.stateUpdateSubscribers?.[type];
-        if (nodeUpdateSubscriber) {
-          uniqueUpdateSubscribers.add(nodeUpdateSubscriber);
-        }
-      }
-      return uniqueUpdateSubscribers;
-    } catch {
-      return uniqueUpdateSubscribers;
-    }
-  }
-  var deleteSubscriptions = getUniqueSubscriptions("DELETE_NODE");
-  var updateSubscriptions = getUniqueSubscriptions("UPDATE_NODE");
-
-  // ../editor/src/state/uiTree.ts
-  var mainStateSlice = createSlice({
-    name: "state",
-    initialState: {
-      mode: "LOADING"
-    },
-    reducers: {
-      SET_FULL_STATE: (tree, action) => action.payload.state,
-      SET_UI_TREE: (tree, action) => {
-        return { mode: "MAIN", uiTree: action.payload.uiTree };
-      },
-      SHOW_TEMPLATE_CHOOSER: (state, { payload }) => {
-        return { mode: "TEMPLATE_CHOOSER", options: payload };
-      },
-      SET_LOADING: (state) => {
-        return { mode: "LOADING" };
-      },
-      UPDATE_NODE: (state, action) => {
-        if (state.mode !== "MAIN") {
-          throw new Error("Tried to update a node when in template chooser mode");
-        }
-        for (const subscription of updateSubscriptions) {
-          subscription(state.uiTree, action.payload);
-        }
-        updateNodeMutating(state.uiTree, action.payload);
-      },
-      PLACE_NODE: (state, action) => {
-        if (state.mode !== "MAIN") {
-          throw new Error("Tried to move a node when in template chooser mode");
-        }
-        placeNodeMutating(state.uiTree, action.payload);
-      },
-      DELETE_NODE: (state, action) => {
-        if (state.mode !== "MAIN") {
-          throw new Error("Tried to delete a node when in template chooser mode");
-        }
-        for (const subscription of deleteSubscriptions) {
-          subscription(state.uiTree, { path: action.payload.path });
-        }
-        removeNodeMutating(state.uiTree, action.payload);
-      }
-    }
-  });
-  var {
-    UPDATE_NODE,
-    PLACE_NODE,
-    DELETE_NODE,
-    SET_UI_TREE,
-    SET_FULL_STATE,
-    SHOW_TEMPLATE_CHOOSER,
-    SET_LOADING
-  } = mainStateSlice.actions;
-  function usePlaceNode() {
-    const dispatch = useDispatch();
-    const place_node = import_react43.default.useCallback(
-      (opts) => {
-        dispatch(PLACE_NODE(opts));
-      },
-      [dispatch]
-    );
-    return place_node;
-  }
-  function useCurrentUiTree() {
-    return useSelector((state) => state.uiTree);
-  }
-  var uiTree_default = mainStateSlice.reducer;
-
-  // ../editor/src/components/DeleteNodeButton/useDeleteNode.tsx
-  function useDeleteNode(pathToNode) {
-    const dispatch = useDispatch();
-    const deleteNode = React54.useCallback(() => {
-      if (pathToNode === null)
-        return;
-      dispatch(DELETE_NODE({ path: pathToNode }));
-    }, [dispatch, pathToNode]);
-    return deleteNode;
-  }
-
-  // ../editor/src/state-logic/useUndoRedo.tsx
-  var import_react44 = __toESM(require_react());
-
-  // ../editor/src/modules/StateHistory.ts
-  var StateHistory = class {
-    constructor({
-      comparisonFn
-    }) {
-      this.stack = [];
-      this.stepsBack = 0;
-      this.lastRequested = null;
-      this.isSameFn = comparisonFn;
-    }
-    isEntryFromHistory(entry) {
-      if (!this.lastRequested)
-        return false;
-      return this.isSameFn(entry, this.lastRequested);
-    }
-    lastEntry() {
-      return this.stack[this.stack.length - 1];
-    }
-    isDuplicateOfLastEntry(entry) {
-      return this.isSameFn(entry, this.lastEntry());
-    }
-    startNewHistoryBranch() {
-      this.stack = this.stack.slice(0, -this.stepsBack);
-      this.stepsBack = 0;
-    }
-    addEntry(entry) {
-      if (this.isEntryFromHistory(entry) || this.isDuplicateOfLastEntry(entry))
-        return;
-      if (this.stepsBack > 0)
-        this.startNewHistoryBranch();
-      this.stack = [...this.stack, entry];
-    }
-    canGoBackwards() {
-      if (this.stack.length === 1)
-        return false;
-      return this.stack.length - this.stepsBack > 1;
-    }
-    canGoForwards() {
-      return this.stepsBack > 0;
-    }
-    getEntryFromHistory(steps) {
-      this.stepsBack -= steps;
-      const numSnapshots = this.stack.length;
-      const newHistoryIndex = numSnapshots - this.stepsBack - 1;
-      if (newHistoryIndex < 0) {
-        throw new Error("Requested history entry too far backwards.");
-      } else if (newHistoryIndex > numSnapshots) {
-        throw new Error(
-          `Not enough entries in history to go ${steps} steps forward`
-        );
-      }
-      this.lastRequested = this.stack[newHistoryIndex];
-      return this.lastRequested;
-    }
-    goBackwards() {
-      if (!this.canGoBackwards())
-        throw new Error("Can't go backwards. At first entry in history");
-      return this.getEntryFromHistory(-1);
-    }
-    goForwards() {
-      if (!this.canGoForwards())
-        throw new Error("Can't go forwards. At latest entry in history");
-      return this.getEntryFromHistory(1);
-    }
-  };
-
-  // ../editor/src/state-logic/useUndoRedo.tsx
-  function useUndoRedo(state) {
-    const dispatch = useDispatch();
-    const [canGoForward, setCanGoForward] = import_react44.default.useState(false);
-    const [canGoBackward, setCanGoBackward] = import_react44.default.useState(false);
-    const stateHistory = import_react44.default.useRef(
-      new StateHistory({ comparisonFn: sameHistoryEntry })
-    );
-    import_react44.default.useEffect(() => {
-      if (!state || state.mode === "LOADING")
-        return;
-      const history = stateHistory.current;
-      history.addEntry(state);
-      setCanGoBackward(history.canGoBackwards());
-      setCanGoForward(history.canGoForwards());
-    }, [state]);
-    const setState = import_react44.default.useCallback(
-      (updatedState) => {
-        dispatch(SET_FULL_STATE({ state: updatedState }));
-      },
-      [dispatch]
-    );
-    const goBackward = import_react44.default.useCallback(() => {
-      try {
-        setState(stateHistory.current.goBackwards());
-      } catch (e2) {
-      }
-    }, [setState]);
-    const goForward = import_react44.default.useCallback(() => {
-      try {
-        setState(stateHistory.current.goForwards());
-      } catch (e2) {
-      }
-    }, [setState]);
-    return {
-      goBackward,
-      goForward,
-      canGoBackward,
-      canGoForward
-    };
-  }
-  function sameHistoryEntry(newEntry, oldEntry) {
-    if (typeof oldEntry === "undefined")
-      return false;
-    if (oldEntry.mode === "LOADING" && newEntry.mode === "LOADING") {
-      return true;
-    }
-    if (oldEntry.mode === "TEMPLATE_CHOOSER" && newEntry.mode === "TEMPLATE_CHOOSER") {
-      return JSON.stringify(oldEntry.options) === JSON.stringify(newEntry.options);
-    }
-    if (newEntry.mode === "MAIN" && oldEntry.mode === "MAIN") {
-      return oldEntry.uiTree === newEntry.uiTree;
-    }
-    return false;
-  }
-
-  // ../editor/src/state/getNamedPath.tsx
-  function getNamedPath(path3, tree) {
-    const totalDepth = path3.length;
-    let pathString = [];
-    for (let depth = 0; depth <= totalDepth; depth++) {
-      const nodeAtDepth = getNode(tree, path3.slice(0, depth));
-      if (nodeAtDepth === void 0) {
-        break;
-      }
-      pathString.push(shinyUiNodeInfo[nodeAtDepth.uiName].title);
-    }
-    return pathString;
-  }
-
-  // ../editor/src/utils/hooks/useKeyboardShortcuts.tsx
-  var React56 = __toESM(require_react());
-
-  // ../editor/src/utils/onMac.tsx
-  function onMac() {
-    return /mac/i.test(window.navigator.platform);
-  }
-
-  // ../editor/src/utils/hooks/useKeyboardShortcuts.tsx
-  function useKeyboardShortcuts(shortcuts) {
-    const onKeyDown = React56.useCallback(
-      (e2) => {
-        if (!(e2.target instanceof Element) || e2.target.tagName !== "BODY") {
-          return;
-        }
-        shortcuts.filter((s2) => matchesShortcutTrigger(e2, s2)).forEach(({ onPress }) => onPress());
-        if (!e2.defaultPrevented) {
-          e2.stopPropagation();
-        }
-      },
-      [shortcuts]
-    );
-    React56.useEffect(() => {
-      document.addEventListener("keydown", onKeyDown);
-      return () => {
-        document.removeEventListener("keydown", onKeyDown);
-      };
-    }, [onKeyDown]);
-  }
-  function matchesShortcutTrigger(e2, shortcut) {
-    return e2.key === shortcut.key && shortcut.withCmdCtrl === (onMac() ? e2.metaKey : e2.ctrlKey) && shortcut.withShift === e2.shiftKey;
-  }
 
   // ../editor/src/Shiny-Ui-Elements/normalize_ui_name.ts
   var namespace_regex = /^\w+::/;
@@ -54840,6 +54482,377 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     return "Other";
   }
   var library_finder = /^\s*library\((?<library>\w+)\)/;
+  function generate_full_app_script({
+    code: code2,
+    ui_tree,
+    libraries
+  }) {
+    const { ui_code, library_calls } = ui_node_to_R_code(ui_tree, {
+      remove_namespace: true
+    });
+    const extra_libraries = libraries.filter((l2) => !library_calls.includes(l2));
+    const all_library_calls = [...extra_libraries, ...library_calls].map((l2) => `library(${l2})`).join("\n");
+    return code2.replace(script_loc_keys.ui, ui_code).replace(script_loc_keys.libraries, all_library_calls);
+  }
+
+  // ../editor/src/components/UiNode/TreeManipulation/addNodeMutating.ts
+  function addNodeMutating(tree, { path: path3, node }) {
+    const parentPath = getParentPath(path3);
+    const positionInChildren = path3[path3.length - 1];
+    const parentNode = getNode(tree, parentPath);
+    if (!shinyUiNodeInfo[parentNode.uiName].acceptsChildren) {
+      throw new Error(
+        "Can't add a child to a non-container node. Check the path"
+      );
+    }
+    if (!Array.isArray(parentNode.uiChildren)) {
+      parentNode.uiChildren = [];
+    }
+    parentNode.uiChildren = addAtIndex(
+      parentNode.uiChildren,
+      positionInChildren,
+      node
+    );
+  }
+
+  // ../editor/src/components/UiNode/TreeManipulation/removeNode.ts
+  function removeNodeMutating(tree, { path: path3 }) {
+    const { parentNode, indexToNode } = navigateToParent(tree, path3);
+    if (!checkIfContainerNode(parentNode)) {
+      throw new Error("Somehow trying to enter a leaf node");
+    }
+    parentNode.uiChildren.splice(indexToNode, 1);
+  }
+  function navigateToParent(tree, path3) {
+    const pathCopy = [...path3];
+    const indexToNode = pathCopy.pop();
+    if (typeof indexToNode === "undefined")
+      throw new Error("Path to node must have at least one element");
+    const parentNode = pathCopy.length === 0 ? tree : getNode(tree, pathCopy);
+    if (!checkIfContainerNode(parentNode)) {
+      throw new Error("Somehow trying to enter a leaf node");
+    }
+    return { parentNode, indexToNode };
+  }
+
+  // ../editor/src/components/UiNode/TreeManipulation/moveNodeMutating.ts
+  function moveNodeMutating(tree, { path: path3, currentPath, node }) {
+    const parentPath = getParentPath(path3);
+    const positionInChildren = path3[path3.length - 1];
+    const parentNode = getNode(tree, parentPath);
+    if (!shinyUiNodeInfo[parentNode.uiName].acceptsChildren) {
+      throw new Error(
+        "Can't add a child to a non-container node. Check the path"
+      );
+    }
+    if (!Array.isArray(parentNode.uiChildren)) {
+      parentNode.uiChildren = [];
+    }
+    const nextPath = [...parentPath, positionInChildren];
+    if (nodesAreSiblings(currentPath, nextPath)) {
+      const previousIndex = currentPath[currentPath.length - 1];
+      parentNode.uiChildren = moveElement(
+        parentNode.uiChildren,
+        previousIndex,
+        positionInChildren
+      );
+      return;
+    }
+    removeNodeMutating(tree, { path: currentPath });
+    parentNode.uiChildren = addAtIndex(
+      parentNode.uiChildren,
+      positionInChildren,
+      node
+    );
+  }
+
+  // ../editor/src/components/UiNode/TreeManipulation/placeNode.ts
+  function isNodeMove(opts) {
+    return "currentPath" in opts && opts.currentPath !== void 0;
+  }
+  function placeNodeMutating(tree, args) {
+    const { path: path3, node } = args;
+    if (isNodeMove(args)) {
+      moveNodeMutating(tree, { path: path3, currentPath: args.currentPath, node });
+      return;
+    }
+    addNodeMutating(tree, { path: path3, node: args.node });
+  }
+
+  // ../editor/src/components/UiNode/TreeManipulation/updateNode.ts
+  function updateNodeMutating(tree, { path: path3, node }) {
+    const existingNode = getNode(tree, path3);
+    Object.assign(existingNode, node);
+  }
+
+  // ../editor/src/state/watcherSubscriptions.ts
+  function getUniqueSubscriptions(type) {
+    const uniqueUpdateSubscribers = /* @__PURE__ */ new Set();
+    try {
+      for (const info of Object.values(shinyUiNodeInfo)) {
+        const nodeUpdateSubscriber = info?.stateUpdateSubscribers?.[type];
+        if (nodeUpdateSubscriber) {
+          uniqueUpdateSubscribers.add(nodeUpdateSubscriber);
+        }
+      }
+      return uniqueUpdateSubscribers;
+    } catch {
+      return uniqueUpdateSubscribers;
+    }
+  }
+  var deleteSubscriptions = getUniqueSubscriptions("DELETE_NODE");
+  var updateSubscriptions = getUniqueSubscriptions("UPDATE_NODE");
+
+  // ../editor/src/state/uiTree.ts
+  var mainStateSlice = createSlice({
+    name: "state",
+    initialState: {
+      mode: "LOADING"
+    },
+    reducers: {
+      SET_FULL_STATE: (tree, action) => action.payload.state,
+      SET_APP_INFO: (tree, action) => {
+        const full_app_info = "code" in action.payload ? action.payload : raw_app_info_to_full(action.payload);
+        return { mode: "MAIN", ...full_app_info };
+      },
+      SHOW_TEMPLATE_CHOOSER: (state, { payload }) => {
+        return { mode: "TEMPLATE_CHOOSER", options: payload };
+      },
+      SET_LOADING: (state) => {
+        return { mode: "LOADING" };
+      },
+      UPDATE_NODE: (state, action) => {
+        if (state.mode !== "MAIN") {
+          throw new Error("Tried to update a node when in template chooser mode");
+        }
+        for (const subscription of updateSubscriptions) {
+          subscription(state.ui_tree, action.payload);
+        }
+        updateNodeMutating(state.ui_tree, action.payload);
+      },
+      PLACE_NODE: (state, action) => {
+        if (state.mode !== "MAIN") {
+          throw new Error("Tried to move a node when in template chooser mode");
+        }
+        placeNodeMutating(state.ui_tree, action.payload);
+      },
+      DELETE_NODE: (state, action) => {
+        if (state.mode !== "MAIN") {
+          throw new Error("Tried to delete a node when in template chooser mode");
+        }
+        for (const subscription of deleteSubscriptions) {
+          subscription(state.ui_tree, { path: action.payload.path });
+        }
+        removeNodeMutating(state.ui_tree, action.payload);
+      }
+    }
+  });
+  var {
+    UPDATE_NODE,
+    PLACE_NODE,
+    DELETE_NODE,
+    SET_APP_INFO,
+    SET_FULL_STATE,
+    SHOW_TEMPLATE_CHOOSER,
+    SET_LOADING
+  } = mainStateSlice.actions;
+  function usePlaceNode() {
+    const dispatch = useDispatch();
+    const place_node = import_react43.default.useCallback(
+      (opts) => {
+        dispatch(PLACE_NODE(opts));
+      },
+      [dispatch]
+    );
+    return place_node;
+  }
+  function useCurrentUiTree() {
+    return useSelector((state) => state.uiTree);
+  }
+  var uiTree_default = mainStateSlice.reducer;
+
+  // ../editor/src/components/DeleteNodeButton/useDeleteNode.tsx
+  function useDeleteNode(pathToNode) {
+    const dispatch = useDispatch();
+    const deleteNode = React54.useCallback(() => {
+      if (pathToNode === null)
+        return;
+      dispatch(DELETE_NODE({ path: pathToNode }));
+    }, [dispatch, pathToNode]);
+    return deleteNode;
+  }
+
+  // ../editor/src/state-logic/useUndoRedo.tsx
+  var import_react44 = __toESM(require_react());
+
+  // ../editor/src/modules/StateHistory.ts
+  var StateHistory = class {
+    constructor({
+      comparisonFn
+    }) {
+      this.stack = [];
+      this.stepsBack = 0;
+      this.lastRequested = null;
+      this.isSameFn = comparisonFn;
+    }
+    isEntryFromHistory(entry) {
+      if (!this.lastRequested)
+        return false;
+      return this.isSameFn(entry, this.lastRequested);
+    }
+    lastEntry() {
+      return this.stack[this.stack.length - 1];
+    }
+    isDuplicateOfLastEntry(entry) {
+      return this.isSameFn(entry, this.lastEntry());
+    }
+    startNewHistoryBranch() {
+      this.stack = this.stack.slice(0, -this.stepsBack);
+      this.stepsBack = 0;
+    }
+    addEntry(entry) {
+      if (this.isEntryFromHistory(entry) || this.isDuplicateOfLastEntry(entry))
+        return;
+      if (this.stepsBack > 0)
+        this.startNewHistoryBranch();
+      this.stack = [...this.stack, entry];
+    }
+    canGoBackwards() {
+      if (this.stack.length === 1)
+        return false;
+      return this.stack.length - this.stepsBack > 1;
+    }
+    canGoForwards() {
+      return this.stepsBack > 0;
+    }
+    getEntryFromHistory(steps) {
+      this.stepsBack -= steps;
+      const numSnapshots = this.stack.length;
+      const newHistoryIndex = numSnapshots - this.stepsBack - 1;
+      if (newHistoryIndex < 0) {
+        throw new Error("Requested history entry too far backwards.");
+      } else if (newHistoryIndex > numSnapshots) {
+        throw new Error(
+          `Not enough entries in history to go ${steps} steps forward`
+        );
+      }
+      this.lastRequested = this.stack[newHistoryIndex];
+      return this.lastRequested;
+    }
+    goBackwards() {
+      if (!this.canGoBackwards())
+        throw new Error("Can't go backwards. At first entry in history");
+      return this.getEntryFromHistory(-1);
+    }
+    goForwards() {
+      if (!this.canGoForwards())
+        throw new Error("Can't go forwards. At latest entry in history");
+      return this.getEntryFromHistory(1);
+    }
+  };
+
+  // ../editor/src/state-logic/useUndoRedo.tsx
+  function useUndoRedo(state) {
+    const dispatch = useDispatch();
+    const [canGoForward, setCanGoForward] = import_react44.default.useState(false);
+    const [canGoBackward, setCanGoBackward] = import_react44.default.useState(false);
+    const stateHistory = import_react44.default.useRef(
+      new StateHistory({ comparisonFn: sameHistoryEntry })
+    );
+    import_react44.default.useEffect(() => {
+      if (!state || state.mode === "LOADING")
+        return;
+      const history = stateHistory.current;
+      history.addEntry(state);
+      setCanGoBackward(history.canGoBackwards());
+      setCanGoForward(history.canGoForwards());
+    }, [state]);
+    const setState = import_react44.default.useCallback(
+      (updatedState) => {
+        dispatch(SET_FULL_STATE({ state: updatedState }));
+      },
+      [dispatch]
+    );
+    const goBackward = import_react44.default.useCallback(() => {
+      try {
+        setState(stateHistory.current.goBackwards());
+      } catch (e2) {
+      }
+    }, [setState]);
+    const goForward = import_react44.default.useCallback(() => {
+      try {
+        setState(stateHistory.current.goForwards());
+      } catch (e2) {
+      }
+    }, [setState]);
+    return {
+      goBackward,
+      goForward,
+      canGoBackward,
+      canGoForward
+    };
+  }
+  function sameHistoryEntry(newEntry, oldEntry) {
+    if (typeof oldEntry === "undefined")
+      return false;
+    if (oldEntry.mode === "LOADING" && newEntry.mode === "LOADING") {
+      return true;
+    }
+    if (oldEntry.mode === "TEMPLATE_CHOOSER" && newEntry.mode === "TEMPLATE_CHOOSER") {
+      return JSON.stringify(oldEntry.options) === JSON.stringify(newEntry.options);
+    }
+    if (newEntry.mode === "MAIN" && oldEntry.mode === "MAIN") {
+      return oldEntry.ui_tree === newEntry.ui_tree;
+    }
+    return false;
+  }
+
+  // ../editor/src/state/getNamedPath.tsx
+  function getNamedPath(path3, tree) {
+    const totalDepth = path3.length;
+    let pathString = [];
+    for (let depth = 0; depth <= totalDepth; depth++) {
+      const nodeAtDepth = getNode(tree, path3.slice(0, depth));
+      if (nodeAtDepth === void 0) {
+        break;
+      }
+      pathString.push(shinyUiNodeInfo[nodeAtDepth.uiName].title);
+    }
+    return pathString;
+  }
+
+  // ../editor/src/utils/hooks/useKeyboardShortcuts.tsx
+  var React56 = __toESM(require_react());
+
+  // ../editor/src/utils/onMac.tsx
+  function onMac() {
+    return /mac/i.test(window.navigator.platform);
+  }
+
+  // ../editor/src/utils/hooks/useKeyboardShortcuts.tsx
+  function useKeyboardShortcuts(shortcuts) {
+    const onKeyDown = React56.useCallback(
+      (e2) => {
+        if (!(e2.target instanceof Element) || e2.target.tagName !== "BODY") {
+          return;
+        }
+        shortcuts.filter((s2) => matchesShortcutTrigger(e2, s2)).forEach(({ onPress }) => onPress());
+        if (!e2.defaultPrevented) {
+          e2.stopPropagation();
+        }
+      },
+      [shortcuts]
+    );
+    React56.useEffect(() => {
+      document.addEventListener("keydown", onKeyDown);
+      return () => {
+        document.removeEventListener("keydown", onKeyDown);
+      };
+    }, [onKeyDown]);
+  }
+  function matchesShortcutTrigger(e2, shortcut) {
+    return e2.key === shortcut.key && shortcut.withCmdCtrl === (onMac() ? e2.metaKey : e2.ctrlKey) && shortcut.withShift === e2.shiftKey;
+  }
 
   // ../editor/src/backendCommunication/useSyncUiWithBackend.tsx
   function useSyncUiWithBackend() {
@@ -54872,16 +54885,11 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
       }
     ]);
     React57.useEffect(() => {
-      const updatedTreeSubscription = backendMsgs.subscribe(
-        "UPDATED-TREE",
-        (uiTree) => {
-          dispatch(SET_UI_TREE({ uiTree }));
-          lastRecievedRef.current = { mode: "MAIN", uiTree };
-        }
-      );
       const updatedAppSubscription = backendMsgs.subscribe("APP-INFO", (info) => {
-        const full_info = raw_app_info_to_full(info);
-        console.log("Full app info", info, full_info);
+        const full_info = "code" in info ? info : raw_app_info_to_full(info);
+        dispatch(SET_APP_INFO(full_info));
+        lastRecievedRef.current = { mode: "MAIN", ...full_info };
+        console.log("Full app info", full_info);
       });
       const templateChooserSubscription = backendMsgs.subscribe(
         "TEMPLATE_CHOOSER",
@@ -54900,7 +54908,6 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
       sendMsg({ path: "READY-FOR-STATE" });
       return () => {
         updatedAppSubscription.unsubscribe();
-        updatedTreeSubscription.unsubscribe();
         templateChooserSubscription.unsubscribe();
         backendErrorSubscription.unsubscribe();
       };
@@ -54912,7 +54919,7 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     React57.useEffect(() => {
       if (mode !== "VSCODE" || !currentSelection || state.mode !== "MAIN")
         return;
-      const namedPath = getNamedPath(currentSelection, state.uiTree);
+      const namedPath = getNamedPath(currentSelection, state.ui_tree);
       sendMsg({ path: "NODE-SELECTION", payload: namedPath });
     }, [currentSelection, mode, sendMsg, state]);
     React57.useEffect(() => {
@@ -54924,8 +54931,12 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
         return;
       }
       debouncedSendMsg({
+        path: "UPDATED-APP",
+        payload: { app: generate_full_app_script(state) }
+      });
+      debouncedSendMsg({
         path: "UPDATED-UI",
-        payload: ui_node_to_R_code(state.uiTree, { remove_namespace: true })
+        payload: ui_node_to_R_code(state.ui_tree, { remove_namespace: true })
       });
     }, [state, debouncedSendMsg, sendMsg]);
     return {
@@ -54943,8 +54954,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 16 16", "fill": "currentColor" }, "child": [{ "tag": "path", "attr": { "fillRule": "evenodd", "clipRule": "evenodd", "d": "M12.75 8a4.5 4.5 0 0 1-8.61 1.834l-1.391.565A6.001 6.001 0 0 0 14.25 8 6 6 0 0 0 3.5 4.334V2.5H2v4l.75.75h3.5v-1.5H4.352A4.5 4.5 0 0 1 12.75 8z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-bUaRsG6B8D0x/editor/src/components/AppPreview/AppPreview.module.css.js
-  var digest41 = "b2dbeba262236b48d8b399bd8a4bde01e459f3a06bbdbaf31bc26b108a4b0e34";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-qfDMgpdNa0IX/editor/src/components/AppPreview/AppPreview.module.css.js
+  var digest41 = "3e689f6e814217682e0ed2422466c27c08880900e28305a470c069cea6718a0e";
   var css41 = `div._appViewerHolder_zkojo_1 {
   /* This is over-ridden by an inline style but we just have it here in case */
   --app-scale-amnt: 0.24;
@@ -55210,8 +55221,8 @@ h2._error_zkojo_249 {
   })();
   var AppPreview_module_css_default = { "appViewerHolder": "_appViewerHolder_zkojo_1", "title": "_title_zkojo_55", "appContainer": "_appContainer_zkojo_89", "previewFrame": "_previewFrame_zkojo_109", "expandButton": "_expandButton_zkojo_134", "reloadButtonContainer": "_reloadButtonContainer_zkojo_135", "reloadButton": "_reloadButton_zkojo_135", "spin": "_spin_zkojo_174", "restartButton": "_restartButton_zkojo_211", "loadingMessage": "_loadingMessage_zkojo_238", "error": "_error_zkojo_249" };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-BhgCQKKySXke/editor/src/components/AppPreview/AppPreview.module.css.js
-  var digest42 = "7255e580be9392a76ce29bc42ddaf1976a504d5c4eed124a5965c57a69149e9f";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-SB6whuEOyVeY/editor/src/components/AppPreview/AppPreview.module.css.js
+  var digest42 = "b045f29854637d17b40dcbd790396933b62ef87e020a369f107b41f8118fe8bf";
   var css42 = `div._appViewerHolder_zkojo_1 {
   /* This is over-ridden by an inline style but we just have it here in case */
   --app-scale-amnt: 0.24;
@@ -55477,8 +55488,8 @@ h2._error_zkojo_249 {
   })();
   var AppPreview_module_css_default2 = { "appViewerHolder": "_appViewerHolder_zkojo_1", "title": "_title_zkojo_55", "appContainer": "_appContainer_zkojo_89", "previewFrame": "_previewFrame_zkojo_109", "expandButton": "_expandButton_zkojo_134", "reloadButtonContainer": "_reloadButtonContainer_zkojo_135", "reloadButton": "_reloadButton_zkojo_135", "spin": "_spin_zkojo_174", "restartButton": "_restartButton_zkojo_211", "loadingMessage": "_loadingMessage_zkojo_238", "error": "_error_zkojo_249" };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-W79vdgmX3nx8/editor/src/components/AppPreview/FakeDashboard.module.css.js
-  var digest43 = "748ab59966f962416d97e7f58dcd9212421d735a9837e7b0ae1dff6a6f48dd69";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-09AvW5GvThsw/editor/src/components/AppPreview/FakeDashboard.module.css.js
+  var digest43 = "19c40bc3be137f166ed0466810ac2c2ae6206542ab4bbec7245eca6f6e4551d4";
   var css43 = `._fakeApp_t3dh1_1 {
   display: grid;
   place-content: center;
@@ -55575,8 +55586,8 @@ h2._error_zkojo_249 {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "fill": "none", "stroke": "#000", "strokeWidth": "2", "d": "M12,22 C17.5228475,22 22,17.5228475 22,12 C22,6.4771525 17.5228475,2 12,2 C6.4771525,2 2,6.4771525 2,12 C2,17.5228475 6.4771525,22 12,22 Z M5,5 L19,19" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-TwfP7XeaYYBp/editor/src/components/AppPreview/LogsViewer.module.css.js
-  var digest44 = "d711cb16aa7f60962456e9841febbff2649c057f402405709f7ca0428f2f4598";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-dExeCwKqrPoU/editor/src/components/AppPreview/LogsViewer.module.css.js
+  var digest44 = "5eadfcc9527ca5d22f0f7b033b98e96da5cdbfd500e1e3822c81e47eae2a1b60";
   var css44 = `/* Logs section */
 ._logs_xjp5l_2 {
   --tab-height: var(--logs-button-h, 20px);
@@ -56748,8 +56759,8 @@ output$myTable <- renderDT({
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-xhHv6oKsI2aT/editor/src/components/UndoRedoButtons/UndoRedoButtons.module.css.js
-  var digest45 = "9ab9627d8c8d67460330a46d0913c6c96456e7240985f1f043589e30ffe6bd31";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-SiooRkoo4rWm/editor/src/components/UndoRedoButtons/UndoRedoButtons.module.css.js
+  var digest45 = "f2ae02910c1563866a14c8805c4646dc9bd4771911db2de0bb3619cec59be702";
   var css45 = `._container_1d7pe_1 {
   display: flex;
   position: relative;
@@ -56834,8 +56845,8 @@ output$myTable <- renderDT({
   // ../editor/src/ElementsPalette/index.tsx
   var React64 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-2Z4kuh5GwxqP/editor/src/ElementsPalette/styles.module.css.js
-  var digest46 = "fcfe9186ccd679a4a62912a4edb1b1b361290029f06f1a3091064a33699369b6";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-qZPlRd843trM/editor/src/ElementsPalette/styles.module.css.js
+  var digest46 = "3993db3082666f1d333d60ec15540ff6a7ba2880c8d15e2197d816a899b292c4";
   var css46 = `._elementsPalette_qmlez_1 {
   --icon-size: 75px;
   --padding: 8px;
@@ -56906,8 +56917,8 @@ output$myTable <- renderDT({
   })();
   var styles_module_css_default24 = { "elementsPalette": "_elementsPalette_qmlez_1", "OptionContainer": "_OptionContainer_qmlez_18", "optionContainer": "_OptionContainer_qmlez_18", "OptionItem": "_OptionItem_qmlez_24", "optionItem": "_OptionItem_qmlez_24", "OptionIcon": "_OptionIcon_qmlez_33", "optionIcon": "_OptionIcon_qmlez_33", "OptionLabel": "_OptionLabel_qmlez_41", "optionLabel": "_OptionLabel_qmlez_41" };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-a5RZh2bLEaH2/editor/src/ElementsPalette/styles.module.css.js
-  var digest47 = "64fce402f84788110b8b5838bb5d26c49462b2d8cd565d4981207c6479e7a4a6";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-mQLQ9MM42Scv/editor/src/ElementsPalette/styles.module.css.js
+  var digest47 = "b9715dfd4973fd95b4629e82cc9355222de8a801dac13b188c1355e90c2c9b35";
   var css47 = `._elementsPalette_qmlez_1 {
   --icon-size: 75px;
   --padding: 8px;
@@ -57273,8 +57284,8 @@ output$myTable <- renderDT({
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-l0HAVu2UcgMb/editor/src/SettingsPanel/PathBreadcrumb.module.css.js
-  var digest48 = "5672cbf8aed8790eb672762795edcdac792338d03b148fba3530fde51dc2210e";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-ooI6q6gvzK2c/editor/src/SettingsPanel/PathBreadcrumb.module.css.js
+  var digest48 = "5e706d096eaccb52896720d444998d6cd0508e5d756726099c5d5e948d89f602";
   var css48 = `._container_1fh41_1 {
   --flex-gap: 8px;
   padding: var(--vertical-spacing);
@@ -57395,8 +57406,8 @@ output$myTable <- renderDT({
     return uiName.replace(/[a-z]+::/, "");
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-50007-8nvVrkIEShqM/editor/src/SettingsPanel/SettingsPanel.module.css.js
-  var digest49 = "176314e58f79f0604fda855318144df78c1416b3ccdd379559219688cf4b5e98";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-1V7cOitHxmwL/editor/src/SettingsPanel/SettingsPanel.module.css.js
+  var digest49 = "2c243edf2255e1f734dfff3312a143d72aedee118fd70da2a30522707fbb6aa3";
   var css49 = `._settingsPanel_a44hx_1 {
   --vertical-gap: var(--vertical-spacing);
   display: flex;
@@ -57676,9 +57687,9 @@ form._settingsForm_a44hx_17 {
       pageBody = /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(CurrentDraggedNodeProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(
         EditorSkeleton,
         {
-          main: /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(UiNode_default, { node: state.uiTree, path: [] }),
+          main: /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(UiNode_default, { node: state.ui_tree, path: [] }),
           left: /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(ElementsPalette, {}),
-          properties: /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(SettingsPanel, { tree: state.uiTree }),
+          properties: /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(SettingsPanel, { tree: state.ui_tree }),
           preview: /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(AppPreview, {})
         }
       ) });

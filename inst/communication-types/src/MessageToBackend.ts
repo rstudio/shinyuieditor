@@ -9,7 +9,7 @@ import type { MessageUnion } from "./MessageUnion";
  */
 export type MessageToBackendByPath = {
   "READY-FOR-STATE": null;
-  "UPDATED-UI": R_Ui_Code;
+  "UPDATED-APP": { app: string };
   "NODE-SELECTION": string[];
   "ENTERED-TEMPLATE-SELECTOR": null;
   "TEMPLATE-SELECTION": TemplateSelection;

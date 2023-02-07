@@ -31,3 +31,25 @@ export async function addUiTextToFile({
   // Save so app preview will update
   document.save();
 }
+
+export async function update_app_file({
+  text,
+  document,
+}: {
+  text: string;
+  document: vscode.TextDocument;
+}) {
+  const uri = document.uri;
+  const edit = new vscode.WorkspaceEdit();
+
+  const full_selection = document.validateRange(
+    new vscode.Selection(0, 0, document.lineCount + 1, 0)
+  );
+
+  edit.replace(uri, full_selection, text);
+
+  await vscode.workspace.applyEdit(edit);
+
+  // Save so app preview will update
+  document.save();
+}
