@@ -1,6 +1,6 @@
 import type { ShinyUiNode } from "editor";
+import type { Full_App_Info } from "editor/src/backendCommunication/full_app_info";
 
-import type { TemplateSelection } from "./AppTemplates";
 import { isRecord } from "./isRecord";
 import type { MessageUnion } from "./MessageUnion";
 
@@ -9,10 +9,9 @@ import type { MessageUnion } from "./MessageUnion";
  */
 export type MessageToBackendByPath = {
   "READY-FOR-STATE": null;
-  "UPDATED-APP": { app: string };
+  "UPDATED-APP": { app: string; app_info?: Full_App_Info };
   "NODE-SELECTION": string[];
   "ENTERED-TEMPLATE-SELECTOR": null;
-  "TEMPLATE-SELECTION": TemplateSelection;
   "APP-PREVIEW-REQUEST": null;
   "APP-PREVIEW-RESTART": null;
   "APP-PREVIEW-STOP": null;

@@ -244,10 +244,7 @@ launch_editor <- function(app_loc,
         },
         "ENTERED-TEMPLATE-SELECTOR" = {
           server_mode <<- "template-chooser"
-        },
-        "TEMPLATE-SELECTION" = {
-          load_app_template(msg$payload)
-        } 
+        }
       )
     }
   }

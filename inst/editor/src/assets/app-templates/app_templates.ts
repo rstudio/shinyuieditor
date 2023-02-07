@@ -1,52 +1,49 @@
-import type { ShinyUiNode } from "../../main";
+import { indent_line_breaks } from "ast-parsing/src/code_generation/build_function_text";
+import type {
+  TemplateInfo,
+  TemplateSelection,
+} from "communication-types/src/AppTemplates";
+
+import type { Full_App_Info } from "../../backendCommunication/full_app_info";
+import { SCRIPT_LOC_KEYS } from "../../backendCommunication/full_app_info";
 
 import { chickWeightsGridTemplate } from "./templates/chickWeightsGrid";
 import { chickWeightsNavbar } from "./templates/chickWeightsNavbar";
 import { gridGeyserTemplate } from "./templates/gridGeyser";
-
-/**
- * Defines basic information needed to build an app template for the template viewer
- */
-export type TemplateInfo = {
-  /**
-   * Displayed name of the template in the chooser view
-   */
-  title: string;
-  /** Long form description of the template available on hover. This can use
-   * markdown formatting
-   */
-  description: string;
-  /**
-   * Main tree definining the template. Used for generating preview and also the
-   * main ui definition of the template
-   */
-  uiTree: ShinyUiNode;
-  otherCode: {
-    /**
-     * Extra code that will be copied unchanged above the ui definition
-     */
-    uiExtra?: string;
-
-    /**
-     * List of libraries that need to be loaded in server code
-     */
-    serverLibraries?: string[];
-
-    /**
-     * Extra code that will be copied unchanged above server funtion definition
-     */
-    serverExtra?: string;
-
-    /**
-     * Body of server function. This will be wrapped in the code
-     * `function(input, output){....}`
-     */
-    serverFunctionBody?: string;
-  };
-};
 
 export const app_templates: TemplateInfo[] = [
   gridGeyserTemplate,
   chickWeightsNavbar,
   chickWeightsGridTemplate,
 ];
+
+export function template_to_full_info({
+  uiTree,
+  otherCode: {
+    uiExtra = "",
+    serverExtra = "",
+    serverFunctionBody = "",
+    serverLibraries = [],
+  },
+}: TemplateSelection): Full_App_Info {
+  const code = `
+${SCRIPT_LOC_KEYS.libraries}
+
+${uiExtra}
+ui <- ${SCRIPT_LOC_KEYS.ui}
+
+${serverExtra}
+server <- function(input, output) {
+  ${indent_line_breaks(serverFunctionBody)}
+}
+
+shinyApp()
+  
+`;
+
+  return {
+    code,
+    libraries: ["shiny", ...serverLibraries],
+    ui_tree: uiTree,
+  };
+}

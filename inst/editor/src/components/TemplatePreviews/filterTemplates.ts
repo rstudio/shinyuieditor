@@ -1,9 +1,9 @@
 import React from "react";
 
 import type { OutputType } from "communication-types";
+import type { TemplateInfo } from "communication-types/src/AppTemplates";
 
 import { ui_node_to_R_code } from "../../../../ast-parsing/src/code_generation/ui_node_to_R_code";
-import type { TemplateInfo } from "../../assets/app-templates/app_templates";
 import { app_templates } from "../../assets/app-templates/app_templates";
 
 import type { TemplateChooserOptions } from "./TemplateChooserView";

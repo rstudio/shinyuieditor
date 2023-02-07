@@ -1,5 +1,6 @@
+import type { TemplateInfo } from "communication-types/src/AppTemplates";
+
 import type { ShinyUiNode } from "../../../Shiny-Ui-Elements/uiNodeTypes";
-import type { TemplateInfo } from "../app_templates";
 
 const navbarTree: ShinyUiNode = {
   uiName: "gridlayout::grid_page",

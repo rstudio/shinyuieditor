@@ -32361,8 +32361,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   // ../editor/src/assets/icons/undo.png
   var undo_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAoCAYAAAC4h3lxAAAACXBIWXMAAAsTAAALEwEAmpwYAAABDElEQVRYhe2ZsQ7CMAxEr4gvZmBDXMXGwC+XgVQqERDbCbEr5ZaoalXdq+0kTqdlWbBnHbwN1GoAeGsAeGv3AMdfN8+3h+ZdVwDcXE8GP7hfTqrnW0UgN99NLQDczAP1AFvzM4xpU6MagNw8vz75R1kBQpgHCrPQF0nNW3eJqjTURiDMl1+liYDUvLWQTRGTRiDcl18lAQhrHigDhDYPlAGYxpDmAXkNhG2cSwBzGolXOoWTJIVCQ0hSiAgMIa0BIiiEZiVmGvOpNVfXgtfuhYhgkbDsRpnGUiS6NDfWfoAIEomajowIAFHbExPvEN1X7BanEsTnGuiiVudChBPENH5wOGsAeGsAeGv3AE8yEDlUwXXxqQAAAABJRU5ErkJggg==";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-ozGTzucY41yD/editor/src/components/Icons/styles.module.css.js
-  var digest = "d11e97ee77055929fe86069edd65d4f93d25bb2757dc64e9c8a27f2dc8464695";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-twdEAtcLBV0L/editor/src/components/Icons/styles.module.css.js
+  var digest = "4f495df090255f7702f4f3d463e77d2625122e63c4535ab08c441598c30672ad";
   var css = `img._icon_1467k_1 {
   height: 30px;
   /* outline: 2px solid green; */
@@ -32657,8 +32657,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     return classes.filter((c2) => c2).join(" ");
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-2owuaZU5OknM/editor/src/components/Inputs/Button/Button.module.css.js
-  var digest2 = "9ec9f9e28f10c7e6c897eb36ec708f30b77377a4d1fc8722d1ecb39ccfa11b8f";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-zI2FtxfMkPk4/editor/src/components/Inputs/Button/Button.module.css.js
+  var digest2 = "9a58c84df787c72ea4554c9415e9b738d5d87bdb217681c36801b651f4e560f9";
   var css2 = `._button_1y00r_1 {
   --background-color: var(--rstudio-white);
   --text-color: var(--font-color);
@@ -33192,305 +33192,6 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   initializeUseSelector(import_with_selector.useSyncExternalStoreWithSelector);
   initializeConnect(import_shim.useSyncExternalStore);
   setBatch(import_react_dom3.unstable_batchedUpdates);
-
-  // ../editor/src/utils/is_object.ts
-  function is_object(x2) {
-    return typeof x2 === "object" && x2 !== null;
-  }
-
-  // ../ast-parsing/src/node_identity_checkers.ts
-  function is_primative(x2) {
-    return typeof x2 === "string" || typeof x2 === "number" || typeof x2 === "boolean";
-  }
-  function is_ast_leaf_node(node) {
-    return is_object(node) && "val" in node && ["string", "boolean", "number"].includes(typeof node.val);
-  }
-  function is_ast_branch_node(node) {
-    return is_object(node) && "val" in node && Array.isArray(node.val);
-  }
-  function is_named_node(node) {
-    return is_object(node) && "name" in node;
-  }
-
-  // ../ast-parsing/src/create_unknownUiFunction.ts
-  function create_unknownUiFunction({
-    node,
-    explanation
-  }) {
-    return {
-      uiName: "unknownUiFunction",
-      uiArguments: {
-        text: is_ast_branch_node(node) ? build_function_text(node.val) : node.val,
-        explanation
-      }
-    };
-  }
-
-  // ../ast-parsing/src/parsing_error_class.ts
-  var Parsing_Error = class extends Error {
-    constructor({ message, cause }) {
-      super();
-      this.name = "AST_PARSING_ERROR";
-      this.message = message;
-      this.cause = cause;
-    }
-  };
-
-  // ../ast-parsing/src/flatten_arrays_and_lists.ts
-  function get_ast_is_array(x2) {
-    return x2[0].val === "c";
-  }
-  function get_ast_is_array_or_list(x2) {
-    const call_val = x2[0].val;
-    return call_val === "c" || call_val === "list";
-  }
-  function get_node_is_array(node) {
-    return is_ast_branch_node(node) && get_ast_is_array(node.val);
-  }
-  function get_node_is_list(node) {
-    return is_ast_branch_node(node) && node.val[0].val === "list";
-  }
-  function flatten_to_array(node) {
-    try {
-      return flatten_array_internal(node);
-    } catch (e2) {
-      if (!(e2 instanceof Parsing_Error)) {
-        throw e2;
-      }
-      return create_unknownUiFunction({ node, explanation: e2.message });
-    }
-  }
-  function flatten_array_internal(node) {
-    if (!is_ast_branch_node(node)) {
-      throw new Parsing_Error({
-        message: "Tried to flatten a leaf/primative node"
-      });
-    }
-    const [call, ...vals] = node.val;
-    if (call.val !== "c") {
-      throw new Parsing_Error({
-        message: "Tried to flatten non array as array"
-      });
-    }
-    return vals.map(
-      (n3) => is_primative(n3.val) ? n3.val : flatten_array_internal(n3)
-    );
-  }
-  function flatten_to_list(node) {
-    if (!is_ast_branch_node(node)) {
-      throw new Parsing_Error({
-        message: "Tried to flatten a leaf/primative node"
-      });
-    }
-    try {
-      const [call, ...vals] = node.val;
-      if (call.val !== "list") {
-        throw new Parsing_Error({
-          message: "Tried to flatten non array as array",
-          cause: node
-        });
-      }
-      let res = {};
-      vals.forEach(({ name, val }) => {
-        if (typeof name !== "string") {
-          throw new Parsing_Error({
-            message: "All elements in list must have a name",
-            cause: node
-          });
-        }
-        if (!is_primative(val)) {
-          throw new Parsing_Error({
-            message: "Nested lists are not supported",
-            cause: node
-          });
-        }
-        res[name] = val;
-      });
-      return res;
-    } catch (e2) {
-      if (!(e2 instanceof Parsing_Error)) {
-        throw e2;
-      }
-      return create_unknownUiFunction({ node, explanation: e2.message });
-    }
-  }
-
-  // ../ast-parsing/src/indent_text_block.ts
-  function indent_text_block(txt, spaces_to_indent) {
-    const INDENT2 = " ".repeat(spaces_to_indent);
-    return txt.replaceAll(/\n/g, `
-${INDENT2}`);
-  }
-
-  // ../ast-parsing/src/code_generation/build_function_text.ts
-  var INDENT_SPACES = 2;
-  var INDENT = " ".repeat(INDENT_SPACES);
-  var LINE_BREAK_LENGTH = 60;
-  var NL_INDENT = `
-${INDENT}`;
-  function build_function_text(call_node) {
-    const [fn_name, ...args] = call_node;
-    if (typeof fn_name.val !== "string") {
-      return "Unknown Ui Code";
-    }
-    const fn_args_list = args.map(
-      (node) => `${node.name ? `${node.name} = ` : ""}${print_node_val(node)}`
-    );
-    const is_multi_line_call = should_line_break({
-      fn_name: fn_name.val,
-      fn_args_list,
-      max_line_length_for_multi_args: get_ast_is_array_or_list(call_node) ? LINE_BREAK_LENGTH : 0
-    });
-    const arg_seperator = `,${is_multi_line_call ? NL_INDENT : " "}`;
-    return `${fn_name.val}(${is_multi_line_call ? NL_INDENT : ""}${fn_args_list.join(arg_seperator)}${is_multi_line_call ? "\n" : ""})`;
-  }
-  function should_line_break({
-    fn_name,
-    fn_args_list,
-    max_line_length_for_multi_args
-  }) {
-    const args_have_line_breaks = fn_args_list.some(
-      (printed_arg) => printed_arg.includes("\n")
-    );
-    if (args_have_line_breaks)
-      return true;
-    if (max_line_length_for_multi_args === 0) {
-      return fn_args_list.length > 1;
-    }
-    const total_args_length = fn_args_list.reduce(
-      (total_chars, printed_el) => total_chars + printed_el.length + 2,
-      0
-    );
-    const name_and_parens_length = fn_name.length + 2;
-    return total_args_length + name_and_parens_length > max_line_length_for_multi_args;
-  }
-  function print_node_val({ val, type }) {
-    switch (type) {
-      case "b": {
-        return val ? "TRUE" : "FALSE";
-      }
-      case "c": {
-        return `"${val}"`;
-      }
-      case "m": {
-        return "";
-      }
-      case "n": {
-        return String(val);
-      }
-      case "s": {
-        return val;
-      }
-      case "e": {
-        return indent_line_breaks(build_function_text(val));
-      }
-      case "u": {
-        return "<...>";
-      }
-    }
-  }
-  function indent_line_breaks(txt) {
-    return indent_text_block(txt, INDENT_SPACES);
-  }
-
-  // ../ast-parsing/src/code_generation/ui_node_to_R_code.ts
-  function ui_node_to_R_code(node, opts) {
-    const { ui_code, removed_namespaces } = ui_node_to_R_code_internal(
-      node,
-      opts
-    );
-    return { ui_code, library_calls: Array.from(removed_namespaces) };
-  }
-  function ui_node_to_R_code_internal(node, opts) {
-    const { uiName, uiArguments, uiChildren } = node;
-    const removed_namespaces = /* @__PURE__ */ new Set();
-    if (isUnknownUiNode(node)) {
-      return {
-        ui_code: print_unknown_ui_node(node),
-        removed_namespaces
-      };
-    }
-    let fn_name = uiName;
-    if (opts.remove_namespace) {
-      const library_name = fn_name.match(/\w+(?=::)/)?.[0];
-      if (library_name) {
-        removed_namespaces.add(library_name);
-      }
-      fn_name = fn_name.replace(/\w+::/, "");
-    }
-    const fn_args_list = Object.keys(uiArguments).map(
-      (arg_name) => indent_line_breaks(
-        `${arg_name} = ${print_R_argument_value(uiArguments[arg_name])}`
-      )
-    );
-    uiChildren?.forEach((child) => {
-      const child_code = ui_node_to_R_code_internal(child, opts);
-      child_code.removed_namespaces.forEach(
-        (name) => removed_namespaces.add(name)
-      );
-      fn_args_list.push(indent_line_breaks(child_code.ui_code));
-    });
-    const is_multi_line_call = should_line_break({
-      fn_name: uiName,
-      fn_args_list,
-      max_line_length_for_multi_args: LINE_BREAK_LENGTH
-    });
-    const arg_seperator = `,${is_multi_line_call ? NL_INDENT : " "}`;
-    return {
-      removed_namespaces,
-      ui_code: `${fn_name}(${is_multi_line_call ? NL_INDENT : ""}${fn_args_list.join(arg_seperator)}${is_multi_line_call ? "\n" : ""})`
-    };
-  }
-  function isUnknownUiNode(x2) {
-    return is_object(x2) && "uiName" in x2 && x2.uiName === "unknownUiFunction";
-  }
-  function print_unknown_ui_node({
-    uiArguments
-  }) {
-    return uiArguments.text;
-  }
-  function isNamedList(x2) {
-    if (typeof x2 !== "object")
-      return false;
-    const hasNonStringEntries = Object.values(x2).find(
-      (el) => typeof el !== "string"
-    );
-    if (hasNonStringEntries)
-      return false;
-    return true;
-  }
-  function print_named_R_list(vals) {
-    const values = Object.keys(vals).map((name) => `"${name}" = "${vals[name]}"`);
-    const total_list_length = values.reduce((l2, a2) => l2 + a2.length, 0) + 6;
-    const is_multiline = total_list_length > LINE_BREAK_LENGTH;
-    const arg_seperator = is_multiline ? `,${NL_INDENT}` : `, `;
-    return `list(${is_multiline ? NL_INDENT : ""}${values.join(arg_seperator)}${is_multiline ? "\n" : ""})`;
-  }
-  function print_R_array(vals) {
-    const values = vals.map(print_primative);
-    return `c(${NL_INDENT}${values.join(`,${NL_INDENT}`)}
-)`;
-  }
-  function print_primative(val) {
-    switch (typeof val) {
-      case "string":
-        return `"${val}"`;
-      default:
-        return String(val);
-    }
-  }
-  function print_R_argument_value(value) {
-    if (Array.isArray(value))
-      return print_R_array(value);
-    if (isNamedList(value))
-      return print_named_R_list(value);
-    if (typeof value === "boolean")
-      return value ? "TRUE" : "FALSE";
-    if (isUnknownUiNode(value)) {
-      return print_unknown_ui_node(value);
-    }
-    return JSON.stringify(value);
-  }
 
   // ../editor/src/components/DeleteNodeButton/useDeleteNode.tsx
   var React54 = __toESM(require_react());
@@ -36026,8 +35727,8 @@ ${INDENT}`;
   // ../editor/src/Shiny-Ui-Elements/GridlayoutGridCard/GridlayoutGridCard.tsx
   var import_react21 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-XGKPI862xooi/editor/src/components/DeleteNodeButton/styles.module.css.js
-  var digest3 = "f9877852162eb2115efca4bc8b6f5f649648c5e7041f32307f57783561d7c11c";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-EI475NHeM97B/editor/src/components/DeleteNodeButton/styles.module.css.js
+  var digest3 = "f664e176431f7bd663a6b58a9b099399eab461cbda36bf52b273c7f498e7f109";
   var css3 = `._deleteButton_1en02_1 {
   color: var(--red);
   display: flex;
@@ -36283,8 +35984,8 @@ ${INDENT}`;
   };
   var UiNode_default = UiNode;
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-Ez4g3Q6bYxkU/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
-  var digest4 = "131ba6c9bb45ca36832077e0e09021b5f5a178c34225d70cb19c8cf9cac9097e";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-FHsGkSqOjlG7/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
+  var digest4 = "1ea69b08b86d49e62e401cb852279ea7c25812e6c55248d8b1604f40fa4a135a";
   var css4 = `._container_1a2os_1 {
   position: relative;
   height: 100%;
@@ -36710,8 +36411,8 @@ div._emptyGridCard_1a2os_144 > button {
     return setLayout;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-6Ua2Cx1KROTb/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
-  var digest5 = "50329940fb923dc90d4b66488f0d3f3069fd99eb277a5558dca655d6b82aff0f";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-AjJGmZNZPhZu/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
+  var digest5 = "8d7a1c28698cd36405b6be1182bd456821cc00f28d244d4b6fb023385676fb81";
   var css5 = `._container_1a2os_1 {
   position: relative;
   height: 100%;
@@ -37068,8 +36769,8 @@ div._emptyGridCard_1a2os_144 > button {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 16 16" }, "child": [{ "tag": "path", "attr": { "fillRule": "evenodd", "d": "M16 14v1H0V0h1v14h15zM5 13H3V8h2v5zm4 0H7V3h2v10zm4 0h-2V6h2v7z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-Viya0viPH0Tt/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
-  var digest6 = "6b128e473002ef950d9fffa262628c5d27857db3fded7246d8e8cf5d56db8c71";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-h6nxe138ERNE/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
+  var digest6 = "9ae3830490c998eae0c9846a523780ce61a94ce5d2a15151ecd3e84fc177b281";
   var css6 = `._container_1rlbk_1 {
   max-height: 100%;
 }
@@ -37159,8 +36860,8 @@ div._emptyGridCard_1a2os_144 > button {
     return dimensions;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-s3QJ5b0Cnb9W/editor/src/Shiny-Ui-Elements/GridlayoutGridCardPlot/styles.module.css.js
-  var digest7 = "1e4504541cd2572d4dbc515fb71fc4dd2493c0552256ef2cd9478153e6b941a6";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-6c6HaYeKMGEs/editor/src/Shiny-Ui-Elements/GridlayoutGridCardPlot/styles.module.css.js
+  var digest7 = "ea4488551d643bb06c481b9eb46d01b5ea7632edc93b80526b14a7a8419d14bc";
   var css7 = `._gridCardPlot_1a94v_1 {
   background-color: var(--rstudio-white);
   width: 100%;
@@ -37252,8 +36953,8 @@ div._emptyGridCard_1a2os_144 > button {
   // ../editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/GridlayoutCardText.tsx
   var React21 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-YgP90Y8bPznS/editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/styles.module.css.js
-  var digest8 = "d5c9e2e81cc1753c31fab1f5e3edca6196bbdea75e6bc55114baecfcc8bceee4";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-Ly6KO2jJjMG2/editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/styles.module.css.js
+  var digest8 = "ff787dbdffdfdb1610ec220ba22a3d0d50adcff058052e3a7a4a37586a23442e";
   var css8 = `._textPanel_525i2_1 {
   background-color: var(--rstudio-white);
   /* outline: var(--outline); */
@@ -38020,8 +37721,8 @@ div._emptyGridCard_1a2os_144 > button {
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-cYOTdJax4dNi/editor/src/components/Grids/AreaOverlay.module.css.js
-  var digest9 = "f96f3f677d7e014bfb02eba6041caf62290e6eaca238359b764fa36eeafd35d2";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-N6E3LJ0Zc3I2/editor/src/components/Grids/AreaOverlay.module.css.js
+  var digest9 = "1ac10ff3e134affeef83f4670e514b372828d65b95591c971ead51b2dd891471";
   var css9 = `._marker_mumaw_1 {
   font-weight: lighter;
   font-style: italic;
@@ -38445,8 +38146,8 @@ div._emptyGridCard_1a2os_144 > button {
   // ../editor/src/components/Grids/EditableGridContainer/EditableGridContainer.tsx
   var React33 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-7E2PUF6fZc3n/editor/src/components/Grids/EditableGridContainer/resizableGrid.module.css.js
-  var digest10 = "cc2bff9b39432d381e4364ba0583b76b6d46334f4fb3e7df1c012ecca8d4f2b2";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-a7XgE8xty4ap/editor/src/components/Grids/EditableGridContainer/resizableGrid.module.css.js
+  var digest10 = "47150a017ab9d6aaeba9aa25d1c99cc2bb5f263d345660546eda81a31f7ee67f";
   var css10 = `._ResizableGrid_i4cq9_1 {
   --grid-gap: 5px;
 
@@ -48735,8 +48436,8 @@ div#_size-detection-cell_i4cq9_1 {
     };
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-7MKjnAEda3Do/editor/src/components/PopoverEl/styles.module.css.js
-  var digest11 = "dffda77cd5108f44147246b684cc9ff50789cc080ee229d8ab9f57aeae7fd85e";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-sdVxYAHB9lFi/editor/src/components/PopoverEl/styles.module.css.js
+  var digest11 = "d14b1b887e147086e37aa8fbf3368f26e4c592c018609365a223e21e602fd03d";
   var css11 = `._popover_m2pq3_1 {
   pointer-events: none;
   opacity: 0;
@@ -48924,8 +48625,8 @@ div#_size-detection-cell_i4cq9_1 {
     );
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-UiahXB1CJIUE/editor/src/components/Inputs/CSSUnitInput/CSSUnitInfo.module.css.js
-  var digest12 = "5bcaddf68f13bbd9044a4ac78e10185b5091ae93de7a3c3488d9d3815ce729c9";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-m7ogH7f0wOzr/editor/src/components/Inputs/CSSUnitInput/CSSUnitInfo.module.css.js
+  var digest12 = "5cea656494429a2c7aa1e91a9d9f1bd8cff3e325bb1e784f6c6ba11661302da7";
   var css12 = `._infoIcon_15ri6_1 {
   width: 24px;
   color: var(--rstudio-blue);
@@ -49004,8 +48705,8 @@ div#_size-detection-cell_i4cq9_1 {
     rem: "Pixel size of app font. Typically 16 pixels."
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-2XhzqWEZlMFT/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
-  var digest13 = "72fd7adbe2bd62fa7357039581912f91bce0309dbd0e8ba53afe049ce6c3007a";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-w6br3dLDAWW9/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
+  var digest13 = "1dd7391b36c469d4c9d0d74369b6627cefd718ff6afa28f353848716df2c4bb9";
   var css13 = `._wrapper_3jy8f_1 {
   position: relative;
   display: flex;
@@ -49549,8 +49250,8 @@ div#_size-detection-cell_i4cq9_1 {
     return tractSizes.some((size) => size === "auto");
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-Xay3IQz3g8Be/editor/src/components/Grids/EditableGridContainer/TractInfoDisplay.module.css.js
-  var digest14 = "4599a9b850f341881fb6e87240185cd7ee6ca6b38e9ff9e2e3bf6ef9a5784153";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-5nbu7jB7oGlq/editor/src/components/Grids/EditableGridContainer/TractInfoDisplay.module.css.js
+  var digest14 = "652511428995e15397c30ea8cba02e9edb98f02b6e0a9386cad7668bff1c842f";
   var css14 = `._tractInfoDisplay_cvtwo_1 {
   --transition-delay: 0.1s;
   --transition-speed: 0.1s;
@@ -49913,8 +49614,8 @@ user is typing in the input field but mouses off */
     });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-ElEdrHDyNPoD/editor/src/components/Grids/EditableGridContainer/TractSizer.module.css.js
-  var digest15 = "c3fb7a3c0e3a297616cd9344ff113b129b1925051af6ee2caa7f8dbd0089bc6b";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-MOIPeOax25f5/editor/src/components/Grids/EditableGridContainer/TractSizer.module.css.js
+  var digest15 = "135fe55e3799eb9b3ee3a017bfc88851a0ac68a279d89fc606ed48a1dbf5fa8d";
   var css15 = `div._columnSizer_9b32k_1,
 div._rowSizer_9b32k_2 {
   --sizer-color: #c9e2f3;
@@ -50339,7 +50040,7 @@ div._rowSizer_9b32k_2::after {
     return /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("h3", { className: className + " panel-title", children });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-NE23olZsQGCH/editor/src/PortalModal.module.css.js
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-QZd4YdSsgP5N/editor/src/PortalModal.module.css.js
   var digest16 = "13f6af5e59e8ebc33477302381f7da21ea3317b2b22eeff877dda6aa750b7a6e";
   var css16 = `._portalHolder_18ua3_1 {
   background-color: rgba(255, 255, 255, 0.735);
@@ -50456,8 +50157,8 @@ div._rowSizer_9b32k_2::after {
   }
   var PortalModal_default = PortalModal;
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-W1bFnJkl2j47/editor/src/PortalModal.module.css.js
-  var digest17 = "58e3e7f65f094376c1471416a317697bc9f415be26cd2144ce71b85ebaa8d950";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-R7VSPer5uQvR/editor/src/PortalModal.module.css.js
+  var digest17 = "91038337ba9aa80db9f5f46e9defbfb57c3d24ee67617f4ce26e827d793c73ae";
   var css17 = `._portalHolder_18ua3_1 {
   background-color: rgba(255, 255, 255, 0.735);
   position: absolute;
@@ -50633,8 +50334,8 @@ div._rowSizer_9b32k_2::after {
     }
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-hgHCQlIKkoAf/editor/src/components/Inputs/BooleanInput/styles.module.css.js
-  var digest18 = "149839d4b0e3e60af08ea350edfd28819345af11f8bd7edb9634ba3929ce7233";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-VBRg1fPn5feq/editor/src/components/Inputs/BooleanInput/styles.module.css.js
+  var digest18 = "43178a928ff35e27ac606290ec752b5f0bf011ee37862f1c9e502dd182fe669f";
   var css18 = `._checkboxInput_7ym3w_1 {
   height: 0;
   width: 0;
@@ -50746,8 +50447,8 @@ label._checkboxLabel_7ym3w_10:after {
   // ../editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.tsx
   var import_react31 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-1XiNoyYexbh8/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
-  var digest19 = "cec554963f40243d1d59d3fd15179fe070340b30ccd82828a248035074c26e2b";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-VfjoPr4REcLI/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
+  var digest19 = "59fe39fd6f1813f40c52cd1d184a0516d505725515d4ba77e86fd3736de8b7df";
   var css19 = `._wrapper_3jy8f_1 {
   position: relative;
   display: flex;
@@ -50889,8 +50590,8 @@ label._checkboxLabel_7ym3w_10:after {
   // ../editor/src/components/Inputs/ListInput/NamedListInput.tsx
   var import_react_sortablejs = __toESM(require_dist());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-YxFGPB7UGdf0/editor/src/components/Inputs/ListInput/styles.module.css.js
-  var digest20 = "5db4649fe46655476c23c3ce792bb751c4bc4edf911f0289313d20ff2637c931";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-amdX4tPm0DJH/editor/src/components/Inputs/ListInput/styles.module.css.js
+  var digest20 = "4e2bb16938f114b82a50e9d0ae030c3ba358ce4d1e9e31b819025d71b05cabfb";
   var css20 = `._container_xt7ji_1 {
   --gap-size: 4px;
   margin-top: 21px;
@@ -50985,7 +50686,7 @@ label._checkboxLabel_7ym3w_10:after {
 
   // ../editor/src/components/Inputs/ListInput/NamedListInput.tsx
   var import_jsx_runtime49 = __toESM(require_jsx_runtime());
-  function isNamedList2(x2) {
+  function isNamedList(x2) {
     if (typeof x2 !== "object")
       return false;
     const hasNonStringEntries = Object.values(x2).find(
@@ -51186,8 +50887,8 @@ label._checkboxLabel_7ym3w_10:after {
   // ../editor/src/components/Inputs/RadioInputs/RadioInputsSimple.tsx
   var React39 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-0RWapSluvLHn/editor/src/components/Inputs/RadioInputs/RadioInputs.module.css.js
-  var digest21 = "1f6bf130c9db358b607ad50a92eec9b74eb5da27e48179f6ee6cc74e74829b7c";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-2hKkWh8oBEPl/editor/src/components/Inputs/RadioInputs/RadioInputs.module.css.js
+  var digest21 = "f45080960734a7afde7f3104fdf0439ce2ba422ade1d57a6e655843e165fd7aa";
   var css21 = `._radioContainer_1regb_1 {
   display: grid;
   gap: 5px;
@@ -51401,7 +51102,7 @@ the label */
       return typeof value === "boolean";
     }
     if (type === "list") {
-      return isNamedList2(value);
+      return isNamedList(value);
     }
     if (type === "dropdown") {
       return typeof value === "string";
@@ -51648,8 +51349,8 @@ the label */
     };
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-t5UExfgy94oI/editor/src/components/GridlayoutElement/styles.module.css.js
-  var digest22 = "37ea2d92b70db8fb86c69d587af9260b8c61b07c9a129879dd4eb3fad3a7e60a";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-s8iUDVIYIaC7/editor/src/components/GridlayoutElement/styles.module.css.js
+  var digest22 = "d5ce96f3c93830244354b4c67fd3651b5f5e3100b2ac25eb121589ced2988d7c";
   var css22 = `._container_1hvsg_1 {
   display: grid;
   /* background-color: var(--bg-color); */
@@ -52001,8 +51702,8 @@ the label */
     return makeStringInputInfo("Label text", defaultValue);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-De9hxERDVogy/editor/src/Shiny-Ui-Elements/ShinyActionButton/styles.module.css.js
-  var digest23 = "d9074929b651a529c9afafce284ce0c757ed41a7a2c711903cf78e9da32e7d54";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-3H7hqfxyKNRE/editor/src/Shiny-Ui-Elements/ShinyActionButton/styles.module.css.js
+  var digest23 = "c74fb1bc36198ea4909e29e9d9d730748f673319282a735363300563e402ba42";
   var css23 = `._container_tyghz_1 {
   display: grid;
   grid-template-rows: 1fr;
@@ -52059,8 +51760,8 @@ the label */
   // ../editor/src/assets/icons/shinyCheckgroup.png
   var shinyCheckgroup_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAFS0lEQVR4nO3cz2vTdxzH8Vfb9VeIa7ta1FW2FqQ6pqLbEERhm0OGFzcPY0dhl+LFo4cd9gfsuIs77LDbkAljDqEiCoKszMMEcbqFsjm2OaW6ptClP2zNDvkms2n6I99vXqTp5/mAQJKmn3wPT76fJCTvpnw+L6DWmut9ANiYCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFoQFC8KCBWHBgrBgQViwICxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFs/V+wDq5cy5seX+1BNd4piILkt8+uGOmEs2pmDDKrNL0ilJ70h6NeFaP0m6IumspJ8TrtWw2AqlYUl3JJ1W8qgUrXE6WnO4Bus1pNDPWCclff7sHZ1tzepsa4m12PTcgqbnnhZvNkVrz0r6Mv4hNqaQw+pTYbuSJA1s7tB7r/Wpv6c90aJ/Tczq2x/Hde/RTPGus5IuShpPtHCDCXkrPCWpU5K297Rr+O3+xFFJUn+01vYXSmt1RM8VlJDDOly8cmxvr1qam2q2cEtzk47t6a34XKEIeSs8VLwy0NeZaKHRTFaX7xQ+ZRh+60Vt6W4vX/NQxX/cwEIOK1W80toS/2x18ea4rmUmlW5vKUVVYc1UxX/ewELeChMbzWR1LTMpSTp5aGspKhBWbJO5J/rm5iNJ0on9m/Vywu10oyGsmL76/oEk6cBAWgeHuut7MOsQYcUwmsnq18ezSre36Ojid3+IEFaVJnNPSu8Aj+/rVVeqtc5HtD4RVpWu/5LV1OyCdm9Lad/A8/U+nHWLsKrwMDtbehf47l62wJUQVhUu3XosSXpzqIuPFlZBWBWMZrI6c25M5394ULrv9/Fp3f47J0k6vLO7TkfWOAirzMyTp6XPp27cmyrFdfvPKUmFsxUv2FdHWGU6Wpv10eGtpds37k0t+oT9jUFesK8FYVWwqz+tE/s3l24Xz2C7t6V4bbVGhLWMg0PdOjCQXnTf3pfSyzwa5UIO65/ildzcQsUHHN3Tq3R74WvKWza1VvW51TNfUZaW+eXORhby12auSzouSXfv5/T6wKYlD+hKteqT9wdjLX7n/r/lzxWUkM9Y3xWvjNx6rGxuvmYLZ3PzGok+84pcqNniDSLkM9YXkj6WNDg5Pa/PLv+hI6/0aMeWlNpifvFvbiGvsYc5Xb07oamZ0vb6W/RcQQk5LKnwI4cRSZqaWdCF6N2f4TmCE/JWKEmXVPj1c8awdiZa+5Jh7XUv9DOWJF2VtFPSB5KOqPCLmrjfUc+p8EL9iqTzNTm6BkVY//s6uqAGQt8KYUJYsCAsWBAWLHjxvpRlol9oCKuAiX41xlbIRD+L0M9YTPQzCTksJvoZhbwVMtHPKOSwmOhnFPJWyEQ/o5DDYqKfUchbYWJM9FseYcXERL+VEVZMTPRbGWHFwES/1RFWlZjotzaEVSUm+q0NYVWBiX5rR1hVYKLf2hFWBUz0S46wyjDRrzYIqwwT/WqDsCpgol9yhLUMJvolE3JYTPQzCvlrM0z0Mwr5jMVEP6OQz1hM9DMKOSyJiX42IW+FEhP9bEI/Y0lM9LNoyufz9T4GbEChb4UwISxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFoQFC8KCBWHBgrBgQViwICxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLP4DpWmTqmVmpDwAAAAASUVORK5CYII=";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-4Gq4zCCouUMZ/editor/src/Shiny-Ui-Elements/ShinyCheckboxGroupInput/styles.module.css.js
-  var digest24 = "07f284e6b36a8fc787a3e14f9c6014190ebd777099bf9a833a6c50bafcf5c3a2";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-ksty78IWLEWL/editor/src/Shiny-Ui-Elements/ShinyCheckboxGroupInput/styles.module.css.js
+  var digest24 = "82ef9b46c8c39886f2d73dd653e9bc37fe5641f803da1ddc2ec36e206c09123f";
   var css24 = `._container_162lp_1 {
   position: relative;
   padding: 4px;
@@ -52152,8 +51853,8 @@ the label */
   // ../editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/ShinyCheckboxInput.tsx
   var React43 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-zVIJG4k5Lg44/editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/styles.module.css.js
-  var digest25 = "cd85048855f805694cb4487f1444be0c8962b91acb98a1750e430714c47f4e4d";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-Xc1jLzkQxkcs/editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/styles.module.css.js
+  var digest25 = "052ff8aea667f540ed1d7256d69abe4737ea5613c97ba2e7de499626eb2f681d";
   var css25 = `._container_1x0tz_1 {
   position: relative;
   padding: 4px;
@@ -52269,8 +51970,8 @@ the label */
     return getTabPanelTitle(firstChild) ?? "First Tab";
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-k0tApyL940z5/editor/src/components/Tabs/TabPanel/TabPanel.module.css.js
-  var digest26 = "fd5d0ce15479e488c8bf4919aaa69011c1c5629bbf7cb74f9f26ad479baa0985";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-zXb0iu6XNNC8/editor/src/components/Tabs/TabPanel/TabPanel.module.css.js
+  var digest26 = "f9b444cc548680d1bbfd39c99d97ed450f8c89579ceba0a09a6858e2e0928dc5";
   var css26 = `._container_10z2l_1 {
   height: 100%;
 }
@@ -52444,8 +52145,8 @@ the label */
     }) });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-ibIhXETWZM5Z/editor/src/Shiny-Ui-Elements/ShinyTabPanel/ShinyTabPanel.module.css.js
-  var digest27 = "16750dc1b3e3c33171966d3c2711a151d34235d99eeb9b84ef9fd2e5666dc00c";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-vvgPS7aNP1XI/editor/src/Shiny-Ui-Elements/ShinyTabPanel/ShinyTabPanel.module.css.js
+  var digest27 = "7cfa6930062dcc4399b8cff45e49b532a3246063d2a13de966b9dd4d3b4d5175";
   var css27 = `._container_fe3r8_1 {
   position: relative;
   height: 100%;
@@ -52547,8 +52248,8 @@ the label */
     return sameArray(aPath, bPath);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-aFWwmtf91AEh/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest28 = "b09aea8ba4cd48ef8a91435567fbf30a2719e49a436002a7e28615e84aab3871";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-xnFo9fUO34f5/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest28 = "093b862acd9e1e02b306719722431ef9ffe88a87a2fbc52c676cea0e41a6bf59";
   var css28 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -52721,8 +52422,8 @@ illusion of the selected panel and tab being one entity */
     );
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-1betmeEpzfDt/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest29 = "09075b93beb7b78127660d7970fe39a7110a97da48e8e736a3c7a26bd35afdf1";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-egdHnvS29UO5/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest29 = "e24057516b4f2f74cbaf07e71da8fc8e669e3556dc9c6d158e5f37b338bd98c0";
   var css29 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -52892,8 +52593,8 @@ illusion of the selected panel and tab being one entity */
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-6DU7dpnRxz9N/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest30 = "83e1511449b0efe6070943a189c0105c83bdcf79ac58065e46f66282d414d618";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-tuEgCTNSsNxi/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest30 = "a850e2751c1b8dddc8ad90f23b99e853a50970901e8045e1473b7661af774faa";
   var css30 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -53168,8 +52869,8 @@ illusion of the selected panel and tab being one entity */
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-UmUIh3EgD8Sv/editor/src/Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage.module.css.js
-  var digest31 = "ee5155a20ba3a9bb6de69a09b8bd931a0170d38bc5191224de62b91c9b6d61cb";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-SaH0OGE92ZV8/editor/src/Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage.module.css.js
+  var digest31 = "f9dffb5b39b3002c8788d912806c2e6499d54fd0bccfcc78806ae91b395d60d5";
   var css31 = `._noTabsMessage_130qz_1 {
   padding: 5px;
 }
@@ -53270,8 +52971,8 @@ illusion of the selected panel and tab being one entity */
   // ../editor/src/Shiny-Ui-Elements/ShinyNumericInput/ShinyNumericInput.tsx
   var React49 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-DBOWvSVlb8HM/editor/src/Shiny-Ui-Elements/ShinyNumericInput/styles.module.css.js
-  var digest32 = "a667f060f87b54fb218fcf8c1db6b55c41309885257067d1db727a36b40fc3e8";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-RUfFcs13YSfa/editor/src/Shiny-Ui-Elements/ShinyNumericInput/styles.module.css.js
+  var digest32 = "49b99e38d8f3c42917a39aa6c7cfcb4aa334fbb916279480805cb397853e39eb";
   var css32 = `._container_yicbr_1 {
   position: relative;
   padding: 4px;
@@ -53389,8 +53090,8 @@ illusion of the selected panel and tab being one entity */
     description: "An input control for entry of numeric values"
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-JWbv7tZZIKXX/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
-  var digest33 = "b607a243068d71b8f49b302d90af68ea02ac0df33a3dc67da567fd8347a26e6c";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-7hh9ELkM3qUp/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
+  var digest33 = "8d5d001eca5c5c945554cab46593b731da4d4a78a7df0b762a593bea1d0da1f1";
   var css33 = `._container_1rlbk_1 {
   max-height: 100%;
 }
@@ -53482,8 +53183,8 @@ illusion of the selected panel and tab being one entity */
   // ../editor/src/Shiny-Ui-Elements/ShinyRadioButtons/ShinyRadioButtons.tsx
   var import_react42 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-6MUS1gT8rTH0/editor/src/Shiny-Ui-Elements/ShinyRadioButtons/styles.module.css.js
-  var digest34 = "5c3f9c7d33fd5ca1aad7bd57e83fb52ebebd9f4c2860eb1432f791e81ed53b19";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-nJ1F3HfLMt1N/editor/src/Shiny-Ui-Elements/ShinyRadioButtons/styles.module.css.js
+  var digest34 = "2e7758900c78330b7cd9698bc21be62408102cca4588cfa7070ba9efb7490dd1";
   var css34 = `._container_sgn7c_1 {
   position: relative;
   padding: 4px;
@@ -53585,8 +53286,8 @@ illusion of the selected panel and tab being one entity */
   // ../editor/src/assets/icons/shinySelectbox.png
   var shinySelectbox_default = "data:image/png;base64,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";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-SdxB904okrt2/editor/src/Shiny-Ui-Elements/ShinySelectInput/styles.module.css.js
-  var digest35 = "32077c6dcf02374b26f54e0e81b5cc317639a7959542968b5d78eef07a68565c";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-9hPJPK82De2A/editor/src/Shiny-Ui-Elements/ShinySelectInput/styles.module.css.js
+  var digest35 = "2d485fcbce3ba2d42ca6535a8efe525d7c0212bf2436490419c32631fe58f927";
   var css35 = `._container_1e5dd_1 {
   position: relative;
   padding: 4px;
@@ -53662,8 +53363,8 @@ illusion of the selected panel and tab being one entity */
   // ../editor/src/Shiny-Ui-Elements/ShinySliderInput/ShinySliderInput.tsx
   var React51 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-EoyYsc82rT3Q/editor/src/Shiny-Ui-Elements/ShinySliderInput/styles.module.css.js
-  var digest36 = "05f67b167b9dd1013a83f70a1d5a19c9c13e1ec79c485d8422e90e6e21b48921";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-nVRVO7X7vi6c/editor/src/Shiny-Ui-Elements/ShinySliderInput/styles.module.css.js
+  var digest36 = "e7545ee92b32e6a542503ee207c934b8960336424cb2d595139dacb7267798a2";
   var css36 = `._container_1f2js_1 {
   padding: 6px;
 
@@ -53903,8 +53604,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // ../editor/src/Shiny-Ui-Elements/ShinyTextInput/ShinyTextInput.tsx
   var React52 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-BUxBy1qOd0y9/editor/src/Shiny-Ui-Elements/ShinyTextInput/styles.module.css.js
-  var digest37 = "83f6942e42fb055de6729f64ee6420ecf08d298e4ceda42b49fad8bd47dd3bfa";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-R988I5pWPVpx/editor/src/Shiny-Ui-Elements/ShinyTextInput/styles.module.css.js
+  var digest37 = "5f68b68fbb69f49e2f8df517e6938c374a9cdb11c6d3e5647c56de912c6681d6";
   var css37 = `._container_yicbr_1 {
   position: relative;
   padding: 4px;
@@ -53999,8 +53700,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // ../editor/src/assets/icons/shinyTextOutput.png
   var shinyTextOutput_default = "data:image/png;base64,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";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-wl2f5L0ZuoOY/editor/src/Shiny-Ui-Elements/ShinyTextOutput/styles.module.css.js
-  var digest38 = "f096c2d5c653eb19c7af74d86d1a50424ff993de8de20e56977c7800e01e47c7";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-drm8Nl8ymyda/editor/src/Shiny-Ui-Elements/ShinyTextOutput/styles.module.css.js
+  var digest38 = "0a433630494db7b3a5e8400ec1ed2a7ecf2bd7b49f21db08d10b2b037e570f1a";
   var css38 = `._container_1i6yi_1 {
   padding: 1rem;
   max-height: 100%;
@@ -54060,8 +53761,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // ../editor/src/assets/icons/shinyImage.png
   var shinyImage_default = "data:image/png;base64,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";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-m22PWeg3agnE/editor/src/Shiny-Ui-Elements/ShinyUiOutput/styles.module.css.js
-  var digest39 = "b85fd0db961e320c6632131171197649379145c395de2d17aa16005e8df7e801";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-evhtCUn5abec/editor/src/Shiny-Ui-Elements/ShinyUiOutput/styles.module.css.js
+  var digest39 = "f152538a87f00c38329df307e1c4c8cc51740c53ee045c03f180efbeb98ccdff";
   var css39 = `._container_1xnzo_1 {
   display: grid;
   grid-template-rows: 1fr;
@@ -54131,8 +53832,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 1024 1024" }, "child": [{ "tag": "path", "attr": { "d": "M881.7 187.4l-45.1-45.1a8.03 8.03 0 0 0-11.3 0L667.8 299.9l-54.7-54.7a7.94 7.94 0 0 0-13.5 4.7L576.1 439c-.6 5.2 3.7 9.5 8.9 8.9l189.2-23.5c6.6-.8 9.3-8.8 4.7-13.5l-54.7-54.7 157.6-157.6c3-3 3-8.1-.1-11.2zM439 576.1l-189.2 23.5c-6.6.8-9.3 8.9-4.7 13.5l54.7 54.7-157.5 157.5a8.03 8.03 0 0 0 0 11.3l45.1 45.1c3.1 3.1 8.2 3.1 11.3 0l157.6-157.6 54.7 54.7a7.94 7.94 0 0 0 13.5-4.7L447.9 585a7.9 7.9 0 0 0-8.9-8.9z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-WYTJRCrPRJpF/editor/src/components/CategoryDivider/styles.module.css.js
-  var digest40 = "76eaac5a3c07d209c538836c6d39d9b31bd7af417edace34f50f9fd8a8d69e13";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-BDh8hfe4QeOu/editor/src/components/CategoryDivider/styles.module.css.js
+  var digest40 = "3fe94c439174683fc96fbf96e0aa57880b3ef28bbcac1b28739e0a43578c5e10";
   var css40 = `._categoryDivider_bdwku_1 {
   display: block;
   position: relative;
@@ -54257,6 +53958,206 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   );
   function normalize_ui_name(ui_name) {
     return bare_to_namespaced_ui_name.get(ui_name) || ui_name;
+  }
+
+  // ../editor/src/utils/is_object.ts
+  function is_object(x2) {
+    return typeof x2 === "object" && x2 !== null;
+  }
+
+  // ../ast-parsing/src/node_identity_checkers.ts
+  function is_primative(x2) {
+    return typeof x2 === "string" || typeof x2 === "number" || typeof x2 === "boolean";
+  }
+  function is_ast_leaf_node(node) {
+    return is_object(node) && "val" in node && ["string", "boolean", "number"].includes(typeof node.val);
+  }
+  function is_ast_branch_node(node) {
+    return is_object(node) && "val" in node && Array.isArray(node.val);
+  }
+  function is_named_node(node) {
+    return is_object(node) && "name" in node;
+  }
+
+  // ../ast-parsing/src/parsing_error_class.ts
+  var Parsing_Error = class extends Error {
+    constructor({ message, cause }) {
+      super();
+      this.name = "AST_PARSING_ERROR";
+      this.message = message;
+      this.cause = cause;
+    }
+  };
+
+  // ../ast-parsing/src/flatten_arrays_and_lists.ts
+  function get_ast_is_array(x2) {
+    return x2[0].val === "c";
+  }
+  function get_ast_is_array_or_list(x2) {
+    const call_val = x2[0].val;
+    return call_val === "c" || call_val === "list";
+  }
+  function get_node_is_array(node) {
+    return is_ast_branch_node(node) && get_ast_is_array(node.val);
+  }
+  function get_node_is_list(node) {
+    return is_ast_branch_node(node) && node.val[0].val === "list";
+  }
+  function flatten_to_array(node) {
+    try {
+      return flatten_array_internal(node);
+    } catch (e2) {
+      if (!(e2 instanceof Parsing_Error)) {
+        throw e2;
+      }
+      return create_unknownUiFunction({ node, explanation: e2.message });
+    }
+  }
+  function flatten_array_internal(node) {
+    if (!is_ast_branch_node(node)) {
+      throw new Parsing_Error({
+        message: "Tried to flatten a leaf/primative node"
+      });
+    }
+    const [call, ...vals] = node.val;
+    if (call.val !== "c") {
+      throw new Parsing_Error({
+        message: "Tried to flatten non array as array"
+      });
+    }
+    return vals.map(
+      (n3) => is_primative(n3.val) ? n3.val : flatten_array_internal(n3)
+    );
+  }
+  function flatten_to_list(node) {
+    if (!is_ast_branch_node(node)) {
+      throw new Parsing_Error({
+        message: "Tried to flatten a leaf/primative node"
+      });
+    }
+    try {
+      const [call, ...vals] = node.val;
+      if (call.val !== "list") {
+        throw new Parsing_Error({
+          message: "Tried to flatten non array as array",
+          cause: node
+        });
+      }
+      let res = {};
+      vals.forEach(({ name, val }) => {
+        if (typeof name !== "string") {
+          throw new Parsing_Error({
+            message: "All elements in list must have a name",
+            cause: node
+          });
+        }
+        if (!is_primative(val)) {
+          throw new Parsing_Error({
+            message: "Nested lists are not supported",
+            cause: node
+          });
+        }
+        res[name] = val;
+      });
+      return res;
+    } catch (e2) {
+      if (!(e2 instanceof Parsing_Error)) {
+        throw e2;
+      }
+      return create_unknownUiFunction({ node, explanation: e2.message });
+    }
+  }
+
+  // ../ast-parsing/src/indent_text_block.ts
+  function indent_text_block(txt, spaces_to_indent) {
+    const INDENT2 = " ".repeat(spaces_to_indent);
+    return txt.replaceAll(/\n/g, `
+${INDENT2}`);
+  }
+
+  // ../ast-parsing/src/code_generation/build_function_text.ts
+  var INDENT_SPACES = 2;
+  var INDENT = " ".repeat(INDENT_SPACES);
+  var LINE_BREAK_LENGTH = 60;
+  var NL_INDENT = `
+${INDENT}`;
+  function build_function_text(call_node) {
+    const [fn_name, ...args] = call_node;
+    if (typeof fn_name.val !== "string") {
+      return "Unknown Ui Code";
+    }
+    const fn_args_list = args.map(
+      (node) => `${node.name ? `${node.name} = ` : ""}${print_node_val(node)}`
+    );
+    const is_multi_line_call = should_line_break({
+      fn_name: fn_name.val,
+      fn_args_list,
+      max_line_length_for_multi_args: get_ast_is_array_or_list(call_node) ? LINE_BREAK_LENGTH : 0
+    });
+    const arg_seperator = `,${is_multi_line_call ? NL_INDENT : " "}`;
+    return `${fn_name.val}(${is_multi_line_call ? NL_INDENT : ""}${fn_args_list.join(arg_seperator)}${is_multi_line_call ? "\n" : ""})`;
+  }
+  function should_line_break({
+    fn_name,
+    fn_args_list,
+    max_line_length_for_multi_args
+  }) {
+    const args_have_line_breaks = fn_args_list.some(
+      (printed_arg) => printed_arg.includes("\n")
+    );
+    if (args_have_line_breaks)
+      return true;
+    if (max_line_length_for_multi_args === 0) {
+      return fn_args_list.length > 1;
+    }
+    const total_args_length = fn_args_list.reduce(
+      (total_chars, printed_el) => total_chars + printed_el.length + 2,
+      0
+    );
+    const name_and_parens_length = fn_name.length + 2;
+    return total_args_length + name_and_parens_length > max_line_length_for_multi_args;
+  }
+  function print_node_val({ val, type }) {
+    switch (type) {
+      case "b": {
+        return val ? "TRUE" : "FALSE";
+      }
+      case "c": {
+        return `"${val}"`;
+      }
+      case "m": {
+        return "";
+      }
+      case "n": {
+        return String(val);
+      }
+      case "s": {
+        return val;
+      }
+      case "e": {
+        return indent_line_breaks(build_function_text(val));
+      }
+      case "u": {
+        return "<...>";
+      }
+    }
+  }
+  function indent_line_breaks(txt) {
+    return indent_text_block(txt, INDENT_SPACES);
+  }
+
+  // ../ast-parsing/src/create_unknownUiFunction.ts
+  function create_unknownUiFunction({
+    node,
+    explanation
+  }) {
+    return {
+      uiName: "unknownUiFunction",
+      uiArguments: {
+        text: is_ast_branch_node(node) ? build_function_text(node.val) : node.val,
+        explanation
+      }
+    };
   }
 
   // ../ast-parsing/src/get_assignment_nodes.ts
@@ -54426,8 +54327,107 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     };
   }
 
+  // ../ast-parsing/src/code_generation/ui_node_to_R_code.ts
+  function ui_node_to_R_code(node, opts) {
+    const { ui_code, removed_namespaces } = ui_node_to_R_code_internal(
+      node,
+      opts
+    );
+    return { ui_code, library_calls: Array.from(removed_namespaces) };
+  }
+  function ui_node_to_R_code_internal(node, opts) {
+    const { uiName, uiArguments, uiChildren } = node;
+    const removed_namespaces = /* @__PURE__ */ new Set();
+    if (isUnknownUiNode(node)) {
+      return {
+        ui_code: print_unknown_ui_node(node),
+        removed_namespaces
+      };
+    }
+    let fn_name = uiName;
+    if (opts.remove_namespace) {
+      const library_name = fn_name.match(/\w+(?=::)/)?.[0];
+      if (library_name) {
+        removed_namespaces.add(library_name);
+      }
+      fn_name = fn_name.replace(/\w+::/, "");
+    }
+    const fn_args_list = Object.keys(uiArguments).map(
+      (arg_name) => indent_line_breaks(
+        `${arg_name} = ${print_R_argument_value(uiArguments[arg_name])}`
+      )
+    );
+    uiChildren?.forEach((child) => {
+      const child_code = ui_node_to_R_code_internal(child, opts);
+      child_code.removed_namespaces.forEach(
+        (name) => removed_namespaces.add(name)
+      );
+      fn_args_list.push(indent_line_breaks(child_code.ui_code));
+    });
+    const is_multi_line_call = should_line_break({
+      fn_name: uiName,
+      fn_args_list,
+      max_line_length_for_multi_args: LINE_BREAK_LENGTH
+    });
+    const arg_seperator = `,${is_multi_line_call ? NL_INDENT : " "}`;
+    return {
+      removed_namespaces,
+      ui_code: `${fn_name}(${is_multi_line_call ? NL_INDENT : ""}${fn_args_list.join(arg_seperator)}${is_multi_line_call ? "\n" : ""})`
+    };
+  }
+  function isUnknownUiNode(x2) {
+    return is_object(x2) && "uiName" in x2 && x2.uiName === "unknownUiFunction";
+  }
+  function print_unknown_ui_node({
+    uiArguments
+  }) {
+    return uiArguments.text;
+  }
+  function isNamedList2(x2) {
+    if (typeof x2 !== "object")
+      return false;
+    const hasNonStringEntries = Object.values(x2).find(
+      (el) => typeof el !== "string"
+    );
+    if (hasNonStringEntries)
+      return false;
+    return true;
+  }
+  function print_named_R_list(vals) {
+    const values = Object.keys(vals).map((name) => `"${name}" = "${vals[name]}"`);
+    const total_list_length = values.reduce((l2, a2) => l2 + a2.length, 0) + 6;
+    const is_multiline = total_list_length > LINE_BREAK_LENGTH;
+    const arg_seperator = is_multiline ? `,${NL_INDENT}` : `, `;
+    return `list(${is_multiline ? NL_INDENT : ""}${values.join(arg_seperator)}${is_multiline ? "\n" : ""})`;
+  }
+  function print_R_array(vals) {
+    const values = vals.map(print_primative);
+    return `c(${NL_INDENT}${values.join(`,${NL_INDENT}`)}
+)`;
+  }
+  function print_primative(val) {
+    switch (typeof val) {
+      case "string":
+        return `"${val}"`;
+      default:
+        return String(val);
+    }
+  }
+  function print_R_argument_value(value) {
+    if (Array.isArray(value))
+      return print_R_array(value);
+    if (isNamedList2(value))
+      return print_named_R_list(value);
+    if (typeof value === "boolean")
+      return value ? "TRUE" : "FALSE";
+    if (isUnknownUiNode(value)) {
+      return print_unknown_ui_node(value);
+    }
+    return JSON.stringify(value);
+  }
+
   // ../editor/src/backendCommunication/full_app_info.ts
-  var script_loc_keys = {
+  var SCRIPT_LOC_KEYS = {
     ui: "<UI>",
     libraries: "<LIBRARIES>"
   };
@@ -54457,10 +54457,10 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
       previous_line_type = line_type;
       if (line_type === "UI") {
         app_template_by_line.push(
-          `ui ${ast_parse_res.ui_assignment_operator} ${script_loc_keys.ui}`
+          `ui ${ast_parse_res.ui_assignment_operator} ${SCRIPT_LOC_KEYS.ui}`
         );
       } else if (line_type === "Library") {
-        app_template_by_line.push(script_loc_keys.libraries);
+        app_template_by_line.push(SCRIPT_LOC_KEYS.libraries);
       } else {
         throw new Error("Unknown line type");
       }
@@ -54492,7 +54492,7 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     });
     const extra_libraries = libraries.filter((l2) => !library_calls.includes(l2));
     const all_library_calls = [...extra_libraries, ...library_calls].map((l2) => `library(${l2})`).join("\n");
-    return code2.replace(script_loc_keys.ui, ui_code).replace(script_loc_keys.libraries, all_library_calls);
+    return code2.replace(SCRIPT_LOC_KEYS.ui, ui_code).replace(SCRIPT_LOC_KEYS.libraries, all_library_calls);
   }
 
   // ../editor/src/components/UiNode/TreeManipulation/addNodeMutating.ts
@@ -54934,10 +54934,6 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
         path: "UPDATED-APP",
         payload: { app: generate_full_app_script(state) }
       });
-      debouncedSendMsg({
-        path: "UPDATED-UI",
-        payload: ui_node_to_R_code(state.ui_tree, { remove_namespace: true })
-      });
     }, [state, debouncedSendMsg, sendMsg]);
     return {
       state,
@@ -54954,8 +54950,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 16 16", "fill": "currentColor" }, "child": [{ "tag": "path", "attr": { "fillRule": "evenodd", "clipRule": "evenodd", "d": "M12.75 8a4.5 4.5 0 0 1-8.61 1.834l-1.391.565A6.001 6.001 0 0 0 14.25 8 6 6 0 0 0 3.5 4.334V2.5H2v4l.75.75h3.5v-1.5H4.352A4.5 4.5 0 0 1 12.75 8z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-qfDMgpdNa0IX/editor/src/components/AppPreview/AppPreview.module.css.js
-  var digest41 = "3e689f6e814217682e0ed2422466c27c08880900e28305a470c069cea6718a0e";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-nHxAPdhJ9w01/editor/src/components/AppPreview/AppPreview.module.css.js
+  var digest41 = "c0445c891431b417dc741eddabc3978d517bfcdbd6aae01508129ddca44a1698";
   var css41 = `div._appViewerHolder_zkojo_1 {
   /* This is over-ridden by an inline style but we just have it here in case */
   --app-scale-amnt: 0.24;
@@ -55221,8 +55217,8 @@ h2._error_zkojo_249 {
   })();
   var AppPreview_module_css_default = { "appViewerHolder": "_appViewerHolder_zkojo_1", "title": "_title_zkojo_55", "appContainer": "_appContainer_zkojo_89", "previewFrame": "_previewFrame_zkojo_109", "expandButton": "_expandButton_zkojo_134", "reloadButtonContainer": "_reloadButtonContainer_zkojo_135", "reloadButton": "_reloadButton_zkojo_135", "spin": "_spin_zkojo_174", "restartButton": "_restartButton_zkojo_211", "loadingMessage": "_loadingMessage_zkojo_238", "error": "_error_zkojo_249" };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-SB6whuEOyVeY/editor/src/components/AppPreview/AppPreview.module.css.js
-  var digest42 = "b045f29854637d17b40dcbd790396933b62ef87e020a369f107b41f8118fe8bf";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-FvWsA1awTkGm/editor/src/components/AppPreview/AppPreview.module.css.js
+  var digest42 = "76936332938f38161a6cb031d32038066aab3c5e8578911bd188eacff94636d9";
   var css42 = `div._appViewerHolder_zkojo_1 {
   /* This is over-ridden by an inline style but we just have it here in case */
   --app-scale-amnt: 0.24;
@@ -55488,8 +55484,8 @@ h2._error_zkojo_249 {
   })();
   var AppPreview_module_css_default2 = { "appViewerHolder": "_appViewerHolder_zkojo_1", "title": "_title_zkojo_55", "appContainer": "_appContainer_zkojo_89", "previewFrame": "_previewFrame_zkojo_109", "expandButton": "_expandButton_zkojo_134", "reloadButtonContainer": "_reloadButtonContainer_zkojo_135", "reloadButton": "_reloadButton_zkojo_135", "spin": "_spin_zkojo_174", "restartButton": "_restartButton_zkojo_211", "loadingMessage": "_loadingMessage_zkojo_238", "error": "_error_zkojo_249" };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-09AvW5GvThsw/editor/src/components/AppPreview/FakeDashboard.module.css.js
-  var digest43 = "19c40bc3be137f166ed0466810ac2c2ae6206542ab4bbec7245eca6f6e4551d4";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-bOdEO6ZoXv5N/editor/src/components/AppPreview/FakeDashboard.module.css.js
+  var digest43 = "eb5e90105d190bb64297c7a204880d85af59a85573080524a673fa4fd03ee9bb";
   var css43 = `._fakeApp_t3dh1_1 {
   display: grid;
   place-content: center;
@@ -55586,8 +55582,8 @@ h2._error_zkojo_249 {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "fill": "none", "stroke": "#000", "strokeWidth": "2", "d": "M12,22 C17.5228475,22 22,17.5228475 22,12 C22,6.4771525 17.5228475,2 12,2 C6.4771525,2 2,6.4771525 2,12 C2,17.5228475 6.4771525,22 12,22 Z M5,5 L19,19" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-dExeCwKqrPoU/editor/src/components/AppPreview/LogsViewer.module.css.js
-  var digest44 = "5eadfcc9527ca5d22f0f7b033b98e96da5cdbfd500e1e3822c81e47eae2a1b60";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-thnghmTcyOm8/editor/src/components/AppPreview/LogsViewer.module.css.js
+  var digest44 = "a2074013d0b6cb98e96c351010032431ca29476b3db46826b944a6b7051413bf";
   var css44 = `/* Logs section */
 ._logs_xjp5l_2 {
   --tab-height: var(--logs-button-h, 20px);
@@ -56426,6 +56422,35 @@ output$myTable <- renderDT({
     chickWeightsNavbar,
     chickWeightsGridTemplate
   ];
+  function template_to_full_info({
+    uiTree,
+    otherCode: {
+      uiExtra = "",
+      serverExtra = "",
+      serverFunctionBody = "",
+      serverLibraries = []
+    }
+  }) {
+    const code2 = `
+${SCRIPT_LOC_KEYS.libraries}
+
+${uiExtra}
+ui <- ${SCRIPT_LOC_KEYS.ui}
+
+${serverExtra}
+server <- function(input, output) {
+  ${indent_line_breaks(serverFunctionBody)}
+}
+
+shinyApp()
+  
+`;
+    return {
+      code: code2,
+      libraries: ["shiny", ...serverLibraries],
+      ui_tree: uiTree
+    };
+  }
 
   // ../editor/src/components/TemplatePreviews/AppTemplatePreview.tsx
   var import_jsx_runtime91 = __toESM(require_jsx_runtime());
@@ -56516,9 +56541,13 @@ output$myTable <- renderDT({
     const { sendMsg } = useBackendConnection();
     const requestTemplate = import_react49.default.useCallback(
       (template) => {
+        const app_info = template_to_full_info(template);
         sendMsg({
-          path: "TEMPLATE-SELECTION",
-          payload: template
+          path: "UPDATED-APP",
+          payload: {
+            app: generate_full_app_script(app_info),
+            app_info
+          }
         });
       },
       [sendMsg]
@@ -56759,8 +56788,8 @@ output$myTable <- renderDT({
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-SiooRkoo4rWm/editor/src/components/UndoRedoButtons/UndoRedoButtons.module.css.js
-  var digest45 = "f2ae02910c1563866a14c8805c4646dc9bd4771911db2de0bb3619cec59be702";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-zmrxDJeqDhtK/editor/src/components/UndoRedoButtons/UndoRedoButtons.module.css.js
+  var digest45 = "ba9c31bf33dfd4e5a5a23b91fc658202f078a30cbf89fc642cfacb7f46d5ad77";
   var css45 = `._container_1d7pe_1 {
   display: flex;
   position: relative;
@@ -56845,7 +56874,7 @@ output$myTable <- renderDT({
   // ../editor/src/ElementsPalette/index.tsx
   var React64 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-qZPlRd843trM/editor/src/ElementsPalette/styles.module.css.js
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-7t187TkV0BpE/editor/src/ElementsPalette/styles.module.css.js
   var digest46 = "3993db3082666f1d333d60ec15540ff6a7ba2880c8d15e2197d816a899b292c4";
   var css46 = `._elementsPalette_qmlez_1 {
   --icon-size: 75px;
@@ -56917,8 +56946,8 @@ output$myTable <- renderDT({
   })();
   var styles_module_css_default24 = { "elementsPalette": "_elementsPalette_qmlez_1", "OptionContainer": "_OptionContainer_qmlez_18", "optionContainer": "_OptionContainer_qmlez_18", "OptionItem": "_OptionItem_qmlez_24", "optionItem": "_OptionItem_qmlez_24", "OptionIcon": "_OptionIcon_qmlez_33", "optionIcon": "_OptionIcon_qmlez_33", "OptionLabel": "_OptionLabel_qmlez_41", "optionLabel": "_OptionLabel_qmlez_41" };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-mQLQ9MM42Scv/editor/src/ElementsPalette/styles.module.css.js
-  var digest47 = "b9715dfd4973fd95b4629e82cc9355222de8a801dac13b188c1355e90c2c9b35";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-Y26UiCc2uKyT/editor/src/ElementsPalette/styles.module.css.js
+  var digest47 = "681b35e298b17c92c9ee85279ee85c143181529245ca919991bcade4598a0c29";
   var css47 = `._elementsPalette_qmlez_1 {
   --icon-size: 75px;
   --padding: 8px;
@@ -57284,8 +57313,8 @@ output$myTable <- renderDT({
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-ooI6q6gvzK2c/editor/src/SettingsPanel/PathBreadcrumb.module.css.js
-  var digest48 = "5e706d096eaccb52896720d444998d6cd0508e5d756726099c5d5e948d89f602";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-10qCt1Z6N1oi/editor/src/SettingsPanel/PathBreadcrumb.module.css.js
+  var digest48 = "5aaaf83d5d0f56b9ada2d6c27ada003f5431e0329bc743b1668607b0a1231316";
   var css48 = `._container_1fh41_1 {
   --flex-gap: 8px;
   padding: var(--vertical-spacing);
@@ -57406,7 +57435,7 @@ output$myTable <- renderDT({
     return uiName.replace(/[a-z]+::/, "");
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-58302-1V7cOitHxmwL/editor/src/SettingsPanel/SettingsPanel.module.css.js
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-63063-JluTIIYFi5oi/editor/src/SettingsPanel/SettingsPanel.module.css.js
   var digest49 = "2c243edf2255e1f734dfff3312a143d72aedee118fd70da2a30522707fbb6aa3";
   var css49 = `._settingsPanel_a44hx_1 {
   --vertical-gap: var(--vertical-spacing);

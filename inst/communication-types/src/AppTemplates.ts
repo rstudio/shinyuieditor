@@ -9,7 +9,7 @@ export type TemplateSelection = Omit<TemplateInfo, "title" | "description"> & {
  * Defines basic information needed to build an app template for the template viewer
  */
 
-type TemplateInfo = {
+export type TemplateInfo = {
   /**
    * Displayed name of the template in the chooser view
    */

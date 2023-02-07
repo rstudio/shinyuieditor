@@ -32,12 +32,10 @@ export function setupStaticBackend({
           });
           return;
         }
-        case "TEMPLATE-SELECTION": {
-          messageDispatch.dispatch("APP-INFO", {
-            ui_tree: msg.payload.uiTree,
-            code: dummy_code,
-            libraries: ["shiny"],
-          });
+        case "UPDATED-APP": {
+          if (msg.payload.app_info) {
+            messageDispatch.dispatch("APP-INFO", msg.payload.app_info);
+          }
           return;
         }
         case "APP-PREVIEW-REQUEST": {

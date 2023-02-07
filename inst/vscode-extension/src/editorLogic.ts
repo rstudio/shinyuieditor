@@ -8,7 +8,6 @@ import { update_app_file } from "./addUiTextToFile";
 import { clearAppFile } from "./clearAppFile";
 import { openCodeCompanionEditor } from "./extension-api-utils/openCodeCompanionEditor";
 import { checkIfPkgAvailable } from "./R-Utils/checkIfPkgAvailable";
-import { generateAppTemplate } from "./R-Utils/generateAppTemplate";
 import { setup_app_parser } from "./R-Utils/parseRApp";
 import type { ActiveRSession } from "./R-Utils/startBackgroundRProcess";
 import { startPreviewApp } from "./R-Utils/startPreviewApp";
@@ -108,6 +107,8 @@ export function editorLogic({
         return;
       }
 
+      latestAppWrite = appFileText;
+
       sendMessage({
         path: "APP-INFO",
         payload: {
@@ -173,19 +174,8 @@ export function editorLogic({
           syncFileToClientState();
           return;
 
-        case "TEMPLATE-SELECTION": {
-          const appFile = await generateAppTemplate(msg.payload);
-
-          // await addUiTextToFile({
-          //   text: appFile,
-          //   document,
-          //   type: "insert",
-          //   uiBounds,
-          // });
-          return;
-        }
-
         case "UPDATED-APP": {
+          latestAppWrite = msg.payload.app;
           await update_app_file({ text: msg.payload.app, document });
           return;
         }

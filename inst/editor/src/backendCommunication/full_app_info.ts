@@ -9,7 +9,7 @@ export type Full_App_Info = {
   libraries: string[];
 };
 
-const script_loc_keys = {
+export const SCRIPT_LOC_KEYS = {
   ui: "<UI>",
   libraries: "<LIBRARIES>",
 };
@@ -47,10 +47,10 @@ export function raw_app_info_to_full({
 
     if (line_type === "UI") {
       app_template_by_line.push(
-        `ui ${ast_parse_res.ui_assignment_operator} ${script_loc_keys.ui}`
+        `ui ${ast_parse_res.ui_assignment_operator} ${SCRIPT_LOC_KEYS.ui}`
       );
     } else if (line_type === "Library") {
-      app_template_by_line.push(script_loc_keys.libraries);
+      app_template_by_line.push(SCRIPT_LOC_KEYS.libraries);
     } else {
       throw new Error("Unknown line type");
     }
@@ -101,6 +101,6 @@ export function generate_full_app_script({
     .join("\n");
 
   return code
-    .replace(script_loc_keys.ui, ui_code)
-    .replace(script_loc_keys.libraries, all_library_calls);
+    .replace(SCRIPT_LOC_KEYS.ui, ui_code)
+    .replace(SCRIPT_LOC_KEYS.libraries, all_library_calls);
 }
