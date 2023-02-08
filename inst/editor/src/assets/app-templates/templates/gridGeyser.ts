@@ -5,15 +5,15 @@ import type { ShinyUiNode } from "../../../main";
 const appTree: ShinyUiNode = {
   uiName: "gridlayout::grid_page",
   uiArguments: {
-    row_sizes: ["100px", "1fr", "1fr", "1fr"],
-    col_sizes: ["250px", "0.59fr", "1.41fr"],
-    gap_size: "1rem",
     layout: [
       "header  header   header",
       "sidebar bluePlot bluePlot",
       "table   table    plotly",
       "table   table    plotly",
     ],
+    row_sizes: ["100px", "1fr", "1fr", "1fr"],
+    col_sizes: ["250px", "0.59fr", "1.41fr"],
+    gap_size: "1rem",
   },
   uiChildren: [
     {

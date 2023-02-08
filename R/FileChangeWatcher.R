@@ -1,5 +1,6 @@
-FileChangeWatcher <- function() {
+FileChangeWatcher <- function(dir_root) {
   watcher_subscription <- NULL
+  file_root <- fs::dir_create(dir_root)
   file_path <- NULL
   last_known_edit <- NULL
 
@@ -8,28 +9,36 @@ FileChangeWatcher <- function() {
       return(NULL)
     }
 
-    fs::file_info(file_path)$modification_time
+    file.mtime(file_path)
   }
 
-  update_last_known_edit <- function() {
+  update_last_known_edit_time <- function() {
     last_known_edit <<- get_last_edit_time()
   }
 
-  start_watching <- function(path_to_watch, on_update) {
+  set_file_path <- function(file_to_watch) {
+   file_path <<- fs::file_create(file_root, file_to_watch)
+  }
+
+  get_file_contents <- function() {
+    readLines(file_path)
+  }
+
+  start_watching <- function(on_update) {
 
     # Make sure we cleanup any old watchers if they exist
     cleanup()
 
-    file_path <<- path_to_watch
-    update_last_known_edit()
+    if (is.null(file_path)){
+      stop("File path to watch is uninitialized")
+    }
+    update_last_known_edit_time()
 
     watcher_subscription <<- create_output_subscribers(
       source_fn = get_last_edit_time,
       filter_fn = function(last_edited_new) {
-        time_delta <- as.numeric(last_known_edit - last_edited_new)
-        edited_since_last_known <- time_delta != 0
-       
-        edited_since_last_known
+        no_changes_to_file <- identical(last_known_edit, last_edited_new)
+        return(!no_changes_to_file)
       },
       delay = 0.25
     )
@@ -38,11 +47,18 @@ FileChangeWatcher <- function() {
       function(last_edited_new) {
         on_update()
         # Update the last edit time so this doesn't get called twice
-        update_last_known_edit()
+        update_last_known_edit_time()
       }
     )
   }
 
+  update_file <- function(contents) {
+    writeLines(
+      text = contents,
+      con = file_path
+    )
+    update_last_known_edit_time()
+  }
  
   cleanup <- function() {
     if (!is.null(watcher_subscription)) {
@@ -52,8 +68,10 @@ FileChangeWatcher <- function() {
   }
 
   list(
+    "set_file_path" = set_file_path,
+    "get_file_contents" = get_file_contents,
     "start_watching" = start_watching,
-    "update_last_edit_time" = update_last_known_edit,
+    "update_file" = update_file,
     "cleanup" = cleanup
   )
 }

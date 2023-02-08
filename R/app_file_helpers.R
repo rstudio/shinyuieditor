@@ -1,51 +1,40 @@
 # Helper functions related to file paths and apps
 
 
+
 # Convert a app file type from abstract name to R specific file name
-file_type_to_name <- list(
-  "app" = "app.r",
-  "ui" = "ui.r",
-  "server" = "server.r"
+file_type_to_ui_script <- list(
+  "SINGLE-FILE" = "app.R",
+  "MULTI-FILE" = "ui.R"
 )
 
-
-
-#' Get the file defining the ui for a shiny app directory
+#' Get the file type a shiny app directory
 #'
-#' @param app_loc Path to a shiny app @param error_on_missing Should the lack of
+#' @param app_loc Path to a shiny app 
+#' @param error_on_missing Should the lack of
 #' app ui file trigger an error? If not returns a type of "missing" and no path
 #'
-#' @return Path to either the `app.R` file in directory in the case of
-#'   single-file apps, or `ui.R` in the case of multi-file apps. If both exist
-#'   then `app.R` will take precedence
+#' @return either "SINGLE-FILE" (`app.R``), "MULTI-FILE" (`ui.R` and
+#' `server.R`), or "MISSING" (empty directory)
 #'
 #' @keywords internal
 #'
-get_app_ui_file <- function(app_loc, error_on_missing = FALSE) {
+get_app_file_type <- function(app_loc, error_on_missing = FALSE) {
 
-  if (fs::file_exists(fs::path(app_loc, "app.r"))) {
-    return(
-      list(path = fs::path(app_loc, "app.r"), type = "SINGLE-FILE")
-    )
+  if (
+    fs::file_exists(fs::path(app_loc, "app.r")) || 
+    fs::file_exists(fs::path(app_loc, "app.R"))
+  ) {
+    return("SINGLE-FILE")
   }
-  if (fs::file_exists(fs::path(app_loc, "app.R"))) {
-    return(
-      list(path = fs::path(app_loc, "app.R"), type = "SINGLE-FILE")
-    )
+ 
+  if (
+    fs::file_exists(fs::path(app_loc, "ui.r")) || 
+    fs::file_exists(fs::path(app_loc, "ui.R"))
+  ) {
+    return("MULTI-FILE")
   }
-  
-
-  if (fs::file_exists(fs::path(app_loc, "ui.r"))) {
-    return(
-      list(path = fs::path(app_loc, "ui.r"), type = "MULTI-FILE")
-    )
-  }
-  if (fs::file_exists(fs::path(app_loc, "ui.R"))) {
-    return(
-      list(path = fs::path(app_loc, "ui.R"), type = "MULTI-FILE")
-    )
-  }
-
+ 
   if (error_on_missing) {
     stop(
       "Can't find an app.R or ui.R file in the provided app_loc. ",
@@ -53,36 +42,36 @@ get_app_ui_file <- function(app_loc, error_on_missing = FALSE) {
     )
   }
 
-  list(type = "missing")
+  "MISSING"
 }
 
 
+remove_app_template <- function(app_loc) {
 
-#' Write app script to a file
-#'
-#' @param app_lines Character vector containing the code for the given script.
-#'   Will be concatinated with new lines
-#' @param app_loc Location of folder where script will be written to
-#' @param file_type Type of file being written. Can either be "app" for writing
-#'   an "app.R", or "ui"/"server" for writing the two scripts of a multi-file
-#'   app.
-#'
-#' @return NULL
-#' @keywords internal
-write_app_file <- function(app_lines, app_loc, file_type) {
+  app_type <- get_app_file_type(app_loc)
 
-  # Ensure the path to the app is valid
-  app_file_path <- fs::file_create(
-    fs::dir_create(app_loc), 
-    file_type_to_name[file_type]
+  switch(
+    app_type,
+    "SINGLE-FILE" = {
+      fs::file_delete(fs::path(app_loc, "app.R"))
+    },
+    "MULTI-FILE" = {
+      fs::file_delete(fs::path(app_loc, "ui.R"))
+      fs::file_delete(fs::path(app_loc, "server.R"))
+    }, 
+    "MISSING" = {
+      # If the app type is "MISSING" this means we never added anything so
+      # there's nothing to remove
+    },
+    {
+      stop(paste("Improper specification of template app output: ", app_type))
+    }
   )
+  
+  app_loc_now_empty <- identical(length(fs::dir_ls(app_loc)), 0L)
+  app_loc_is_cwd <- identical(app_loc, ".") || identical(getwd(), app_loc)
 
-  writeLines(
-    text = app_lines,
-    con = app_file_path
-  )
-}
-
-remove_app_file <- function(app_loc, file_type) {
-  fs::file_delete(fs::path(app_loc, file_type_to_name[file_type]))
+  if (app_loc_now_empty && !app_loc_is_cwd) {
+    fs::dir_delete(app_loc)
+  }
 }

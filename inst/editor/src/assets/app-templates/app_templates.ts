@@ -37,7 +37,7 @@ server <- function(input, output) {
   ${indent_line_breaks(serverFunctionBody)}
 }
 
-shinyApp()
+shinyApp(ui, server)
   
 `;
 
