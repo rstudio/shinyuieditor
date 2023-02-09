@@ -1,35 +1,36 @@
 FileChangeWatcher <- function(dir_root) {
   watcher_subscription <- NULL
   file_root <- fs::dir_create(dir_root)
-  file_path <- NULL
+  watched_files <- NULL
   last_known_edit <- NULL
 
   get_last_edit_time <- function() {
-    if (is.null(file_path)) {
+    if (is.null(watched_files)) {
       return(NULL)
     }
 
-    file.mtime(file_path)
+    max(file.mtime(watched_files))
   }
 
   update_last_known_edit_time <- function() {
     last_known_edit <<- get_last_edit_time()
   }
 
-  set_file_path <- function(file_to_watch) {
-   file_path <<- fs::file_create(file_root, file_to_watch)
+  set_watched_files <- function(files_to_watch) {
+    # Make sure files exist
+    watched_files <<- fs::file_create(fs::path(file_root, files_to_watch))
+    names(watched_files) <<- files_to_watch
   }
 
   get_file_contents <- function() {
-    readLines(file_path)
+    lapply(watched_files, readLines)
   }
 
   start_watching <- function(on_update) {
-
     # Make sure we cleanup any old watchers if they exist
     cleanup()
 
-    if (is.null(file_path)){
+    if (is.null(watched_files)) {
       stop("File path to watch is uninitialized")
     }
     update_last_known_edit_time()
@@ -52,14 +53,45 @@ FileChangeWatcher <- function(dir_root) {
     )
   }
 
-  update_file <- function(contents) {
-    writeLines(
-      text = contents,
-      con = file_path
-    )
+  update_files <- function(named_contents) {
+    for (file_name in names(named_contents)) {
+      path_to_file <- watched_files[paste0(file_name, ".R")]
+      if (is.null(path_to_file)) {
+        stop("Tried to update an unwatched file")
+      }
+      writeLines(
+        text = named_contents[[file_name]],
+        con = path_to_file
+      )
+    }
+
     update_last_known_edit_time()
   }
- 
+
+  # Delete the files and stop watching them as well
+  delete_files <- function(delete_root = FALSE) {
+    if (is.null(watched_files)) {
+      return()
+    }
+    cleanup()
+    fs::file_delete(watched_files)
+
+    if (!delete_root) {
+      return()
+    }
+
+    root_dir_now_empty <- identical(length(fs::dir_ls(file_root)), 0L)
+
+    # We don't want to delete our current working directory on accident, so
+    # check that
+    root_dir_is_cwd <- identical(file_root, ".") ||
+      identical(getwd(), file_root)
+
+    if (root_dir_now_empty && !root_dir_is_cwd) {
+      fs::dir_delete(file_root)
+    }
+  }
+
   cleanup <- function() {
     if (!is.null(watcher_subscription)) {
       watcher_subscription$cancel_all()
@@ -68,10 +100,11 @@ FileChangeWatcher <- function(dir_root) {
   }
 
   list(
-    "set_file_path" = set_file_path,
+    "set_watched_files" = set_watched_files,
     "get_file_contents" = get_file_contents,
     "start_watching" = start_watching,
-    "update_file" = update_file,
+    "update_files" = update_files,
+    "delete_files" = delete_files,
     "cleanup" = cleanup
   )
 }

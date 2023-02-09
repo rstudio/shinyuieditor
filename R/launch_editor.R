@@ -77,6 +77,9 @@ launch_editor <- function(app_loc,
   # "editing-app". This is used to know what to do on close
   server_mode <- "initializing"
 
+  # Type of app we're in. Can be "SINGLE-FILE", "MULTI-FILE", or "MISSING"
+  app_type <- get_app_file_type(app_loc)
+
   # ----------------------------------------------------------------------------
   # Initialize classes for controling app preview and polling for updates
   # ----------------------------------------------------------------------------
@@ -111,14 +114,21 @@ launch_editor <- function(app_loc,
     }
   }
 
-  get_app_info <- function() {
-    file_lines <- file_change_watcher$get_file_contents()
-    parsed <- parse(text = file_lines, keep.source = TRUE)
+  shutdown_app_preview <- function() {
+    if (app_preview) {
+      writeLog("Stopping app preview")
+      app_preview_obj$stop_app()
+    }
+  }
 
-    list(
-      script = paste(file_lines, collapse = "\n"), 
-      ast = serialize_ast(parsed)
-    )
+  setup_new_app_type <- function(new_app_type = app_type) {
+    app_type <<- new_app_type
+    shutdown_app_preview()
+    file_change_watcher$delete_files()
+
+    if (!identical(new_app_type, "MISSING")) {
+      file_change_watcher$set_watched_files(app_type_to_files[[new_app_type]])
+    }
   }
 
   # ----------------------------------------------------------------------------
@@ -128,12 +138,10 @@ launch_editor <- function(app_loc,
   # ----------------------------------------------------------------------------
   setup_msg_handlers <- function(send_msg) {
     send_app_info_to_client <- function() {
-      send_msg("APP-INFO", get_app_info())
+      send_msg("APP-INFO", get_app_info(app_loc))
     }
 
     load_new_app <- function() {
-      app_type <- get_app_file_type(app_loc)
-
       if (identical(app_type, "MISSING")) {
         send_msg("TEMPLATE_CHOOSER", "USER-CHOICE")
         server_mode <<- "template-chooser"
@@ -142,7 +150,6 @@ launch_editor <- function(app_loc,
 
       writeLog("=> Loading app ui and sending to ui editor")
 
-      file_change_watcher$set_file_path(file_type_to_ui_script[[app_type]])
       file_change_watcher$start_watching(
         on_update = function() {
           writeLog("=> Sending user updated ui to editor")
@@ -157,18 +164,32 @@ launch_editor <- function(app_loc,
 
     # Handles message from client with new app info
     handle_updated_app <- function(update_payload) {
-      is_single_file_app <- !is.null(update_payload$app)
+      update_type <- update_payload$app_type
 
-      if (is_single_file_app) {
-        file_change_watcher$set_file_path("app.R")
-        file_change_watcher$update_file(update_payload$app)
-      } else {
-        stop("Multi-file app support temporarily removed")
+      # If the file update doesn't match the existing app type, remove the old
+      # files and update the app type
+      changed_app_type <- !identical(update_type, app_type)
+      if (changed_app_type) {
+        setup_new_app_type(update_type)
       }
 
-      # If we're coming from the server mode, then we need to load the new app
-      # as well
-      if (identical(server_mode, "template-chooser")) {
+      updated_scripts <- switch(update_type,
+        "SINGLE-FILE" = {
+          list(app = update_payload$app)
+        },
+        "MULTI-FILE" = {
+          list(ui = update_payload$ui, server = update_payload$server)
+        },
+        {
+          stop("Don't know how to deal with that type...")
+        }
+      )
+
+      file_change_watcher$update_files(updated_scripts)
+
+      # If we're coming from the server mode or a new app type, then we need to
+      # load the new app as well
+      if (changed_app_type || identical(server_mode, "template-chooser")) {
         # Setup files
         load_new_app()
       }
@@ -185,7 +206,7 @@ launch_editor <- function(app_loc,
               # Once the background preview app is up and running, we can
               # send over the URL to the react app
               send_msg(
-                "APP-PREVIEW-STATUS", 
+                "APP-PREVIEW-STATUS",
                 payload = list(url = app_preview_obj$url)
               )
             },
@@ -204,6 +225,7 @@ launch_editor <- function(app_loc,
           app_preview_obj$stop_app()
         },
         "READY-FOR-STATE" = {
+          setup_new_app_type()
           load_new_app()
         },
         "UPDATED-APP" = {
@@ -225,7 +247,7 @@ launch_editor <- function(app_loc,
     app_close_watcher$cleanup()
 
     if (server_mode == "template-chooser") {
-      remove_app_template(app_loc = app_loc)
+      file_change_watcher$delete_files(delete_root = TRUE)
     }
   })
 
