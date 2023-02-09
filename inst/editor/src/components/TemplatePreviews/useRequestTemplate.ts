@@ -2,8 +2,7 @@ import React from "react";
 
 import type { TemplateSelection } from "communication-types";
 
-import { template_to_full_info } from "../../assets/app-templates/app_templates";
-import { generate_full_app_script } from "../../backendCommunication/full_app_info";
+import { template_to_app_contents } from "../../assets/app-templates/app_templates";
 import { useBackendConnection } from "../../backendCommunication/useBackendMessageCallbacks";
 
 export function useRequestTemplate() {
@@ -11,13 +10,9 @@ export function useRequestTemplate() {
 
   const requestTemplate = React.useCallback(
     (template: TemplateSelection) => {
-      const app_info = template_to_full_info(template);
       sendMsg({
         path: "UPDATED-APP",
-        payload: {
-          app: generate_full_app_script(app_info),
-          app_info,
-        },
+        payload: template_to_app_contents(template),
       });
     },
     [sendMsg]

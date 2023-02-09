@@ -25,16 +25,19 @@ export function setupStaticBackend({
             } else {
               messageDispatch.dispatch("APP-INFO", {
                 ui_tree,
-                code: dummy_code,
-                libraries: ["shiny"],
+                app_type: "SINGLE-FILE",
+                app: {
+                  code: dummy_code,
+                  libraries: ["shiny"],
+                },
               });
             }
           });
           return;
         }
         case "UPDATED-APP": {
-          if (msg.payload.app_info) {
-            messageDispatch.dispatch("APP-INFO", msg.payload.app_info);
+          if (msg.payload.info) {
+            messageDispatch.dispatch("APP-INFO", msg.payload.info);
           }
           return;
         }

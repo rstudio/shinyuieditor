@@ -32361,8 +32361,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   // ../editor/src/assets/icons/undo.png
   var undo_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAoCAYAAAC4h3lxAAAACXBIWXMAAAsTAAALEwEAmpwYAAABDElEQVRYhe2ZsQ7CMAxEr4gvZmBDXMXGwC+XgVQqERDbCbEr5ZaoalXdq+0kTqdlWbBnHbwN1GoAeGsAeGv3AMdfN8+3h+ZdVwDcXE8GP7hfTqrnW0UgN99NLQDczAP1AFvzM4xpU6MagNw8vz75R1kBQpgHCrPQF0nNW3eJqjTURiDMl1+liYDUvLWQTRGTRiDcl18lAQhrHigDhDYPlAGYxpDmAXkNhG2cSwBzGolXOoWTJIVCQ0hSiAgMIa0BIiiEZiVmGvOpNVfXgtfuhYhgkbDsRpnGUiS6NDfWfoAIEomajowIAFHbExPvEN1X7BanEsTnGuiiVudChBPENH5wOGsAeGsAeGv3AE8yEDlUwXXxqQAAAABJRU5ErkJggg==";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-W2sv0h1JsNjQ/editor/src/components/Icons/styles.module.css.js
-  var digest = "14e0ca92847932c11be7797e197bcce54091f1149717d748aeb8f224563fc658";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-P4qFn8x05PIu/editor/src/components/Icons/styles.module.css.js
+  var digest = "bfdffafa2a8b142cd5f8cba9803db403addc268a6ef81b42b481085fbb52e329";
   var css = `img._icon_1467k_1 {
   height: 30px;
   /* outline: 2px solid green; */
@@ -32657,8 +32657,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     return classes.filter((c2) => c2).join(" ");
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-9yO9mW3Z5GWo/editor/src/components/Inputs/Button/Button.module.css.js
-  var digest2 = "f4404adcac168cdc6ba64fa10df2009417373f5fa5b49c4721894f95bdf45d36";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-65uVAqLkrbNZ/editor/src/components/Inputs/Button/Button.module.css.js
+  var digest2 = "3e971b71e9d7b8b5d2ef0adfa282432e700d946edb25caacea59e5643044be5f";
   var css2 = `._button_1y00r_1 {
   --background-color: var(--rstudio-white);
   --text-color: var(--font-color);
@@ -35565,6 +35565,12 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   };
   N();
 
+  // ../ast-parsing/src/index.ts
+  var SCRIPT_LOC_KEYS = {
+    ui: "<UI>",
+    libraries: "<LIBRARIES>"
+  };
+
   // ../editor/src/Shiny-Ui-Elements/isShinyUiNode.tsx
   function isShinyUiNode(x2) {
     return "uiName" != null && x2 != null && typeof x2 === "object" && "uiName" in x2;
@@ -35727,8 +35733,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   // ../editor/src/Shiny-Ui-Elements/GridlayoutGridCard/GridlayoutGridCard.tsx
   var import_react21 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-eOuYU701pQQb/editor/src/components/DeleteNodeButton/styles.module.css.js
-  var digest3 = "83d616c7db326bba3172fe845997ac81db7e26d78f62ce6ebb9a097f72b84621";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-04yPq8QZtg9Y/editor/src/components/DeleteNodeButton/styles.module.css.js
+  var digest3 = "8373e58183d3789795602b0f6a3aadbdee6fa9a57ed8ba71f0943689f1cc241c";
   var css3 = `._deleteButton_1en02_1 {
   color: var(--red);
   display: flex;
@@ -35984,8 +35990,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   };
   var UiNode_default = UiNode;
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-DMwaD7zKXSnU/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
-  var digest4 = "6215d4849fab5a099dfd2acd1cd1e908d593223c094aac9fa06862ec2524c2e4";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-UlMpwdHs0ITa/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
+  var digest4 = "ba98b24fa7a6cf5626cdce7d38c39d94bb928519ecc0dc9eb8c8fb2c54656d5d";
   var css4 = `._container_1a2os_1 {
   position: relative;
   height: 100%;
@@ -36411,8 +36417,8 @@ div._emptyGridCard_1a2os_144 > button {
     return setLayout;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-eOSTqdWeuIp8/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
-  var digest5 = "215b0cfea72ef16eb0c50c4cf0c0dce7de74e78fbf1f187f487b272e311d302a";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-Bg85A8xurnyt/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
+  var digest5 = "586ae0536358d7275146c817abab1b782a26c2f8ab30b3c02726ce17f2b083d3";
   var css5 = `._container_1a2os_1 {
   position: relative;
   height: 100%;
@@ -36769,8 +36775,8 @@ div._emptyGridCard_1a2os_144 > button {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 16 16" }, "child": [{ "tag": "path", "attr": { "fillRule": "evenodd", "d": "M16 14v1H0V0h1v14h15zM5 13H3V8h2v5zm4 0H7V3h2v10zm4 0h-2V6h2v7z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-Gf2Ipx8mvRZg/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
-  var digest6 = "640eec1bd83d223f0484e96c2b750867dbe75d2a99bf04b4763cbcc282c84b71";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-Dcm13X6oO4v3/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
+  var digest6 = "1495ccbdb3cfbd970ed4595aedef7d058e61e51183e893b26ed47b24347aa11b";
   var css6 = `._container_1rlbk_1 {
   max-height: 100%;
 }
@@ -36860,8 +36866,8 @@ div._emptyGridCard_1a2os_144 > button {
     return dimensions;
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-JLqee5VooW7R/editor/src/Shiny-Ui-Elements/GridlayoutGridCardPlot/styles.module.css.js
-  var digest7 = "77c51ac27fbf55d7b641fef48103e3e9d04419b760b4f37946a8575359a14e60";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-AfYwiOkBGKiH/editor/src/Shiny-Ui-Elements/GridlayoutGridCardPlot/styles.module.css.js
+  var digest7 = "9cecf19b4a4a9fc3647bc6b2046b04fa135a0c501e902bfa907984e78bc3d19d";
   var css7 = `._gridCardPlot_1a94v_1 {
   background-color: var(--rstudio-white);
   width: 100%;
@@ -36953,8 +36959,8 @@ div._emptyGridCard_1a2os_144 > button {
   // ../editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/GridlayoutCardText.tsx
   var React21 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-7dT4XEfvKvg5/editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/styles.module.css.js
-  var digest8 = "308b5afe3464a00b743059af1e9ebf7735bef9625055b67f80e9f38155390994";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-HNdJ5NGsMaLZ/editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/styles.module.css.js
+  var digest8 = "a26b413d7e182a5b34522a7c6c9fa638747e998db24bbda4bcdf56c1cd52769d";
   var css8 = `._textPanel_525i2_1 {
   background-color: var(--rstudio-white);
   /* outline: var(--outline); */
@@ -37721,8 +37727,8 @@ div._emptyGridCard_1a2os_144 > button {
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-kFSUsuB4VTtB/editor/src/components/Grids/AreaOverlay.module.css.js
-  var digest9 = "11372d6af905f676b0e59be7df344d29b9c23c440343939af766479c00001b48";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-exYOqVgzkA5O/editor/src/components/Grids/AreaOverlay.module.css.js
+  var digest9 = "eac619c473b3a9e2529f0c45f940d72ebb8e65e99d897c93da796e1b97e74d14";
   var css9 = `._marker_mumaw_1 {
   font-weight: lighter;
   font-style: italic;
@@ -38146,8 +38152,8 @@ div._emptyGridCard_1a2os_144 > button {
   // ../editor/src/components/Grids/EditableGridContainer/EditableGridContainer.tsx
   var React33 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-iZGrpCRSik5N/editor/src/components/Grids/EditableGridContainer/resizableGrid.module.css.js
-  var digest10 = "7bbfff775073b9b02e27e98d42960f47dd5259b661b69a8bb0c9ad970d348aa8";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-jIv1ZCMAK5bO/editor/src/components/Grids/EditableGridContainer/resizableGrid.module.css.js
+  var digest10 = "5cadaf00e24aa9de7aa9cf0070fa761eb94f5ae4711c5c68f263cd87d784f2fa";
   var css10 = `._ResizableGrid_i4cq9_1 {
   --grid-gap: 5px;
 
@@ -48436,8 +48442,8 @@ div#_size-detection-cell_i4cq9_1 {
     };
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-1hfSaDZI3ZeD/editor/src/components/PopoverEl/styles.module.css.js
-  var digest11 = "609d8021100d4a95916a68c33bcd9d6e691aa197357427c2bf1238622f552535";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-G4CGaWWjl8LV/editor/src/components/PopoverEl/styles.module.css.js
+  var digest11 = "e4d04234f1cfd9d91e4a5ba77d2fb4056d3ddc06974517023acd350b6e90d26d";
   var css11 = `._popover_m2pq3_1 {
   pointer-events: none;
   opacity: 0;
@@ -48625,8 +48631,8 @@ div#_size-detection-cell_i4cq9_1 {
     );
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-w98F4GosqHSH/editor/src/components/Inputs/CSSUnitInput/CSSUnitInfo.module.css.js
-  var digest12 = "e86b2c4b44c53be09ac3f9944b2a049d106561bee04d2e6ca8ff8ee067429a64";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-ZLrCHhemVpA4/editor/src/components/Inputs/CSSUnitInput/CSSUnitInfo.module.css.js
+  var digest12 = "4175632c8635d709dc0af61fe2fdb22706de0933186cd86498e1fb2993d5cc7d";
   var css12 = `._infoIcon_15ri6_1 {
   width: 24px;
   color: var(--rstudio-blue);
@@ -48705,8 +48711,8 @@ div#_size-detection-cell_i4cq9_1 {
     rem: "Pixel size of app font. Typically 16 pixels."
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-3notk0tRxEy6/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
-  var digest13 = "3bf5f96e9e770c88658f96280677a4147111c02eefcb176e525930eeca6fdab0";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-BHOaCco3rhq1/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
+  var digest13 = "d397d024a0ae5b6675652f4a830b1c06c9ae1a917a3630f02aec37a611575fcd";
   var css13 = `._wrapper_3jy8f_1 {
   position: relative;
   display: flex;
@@ -49250,8 +49256,8 @@ div#_size-detection-cell_i4cq9_1 {
     return tractSizes.some((size) => size === "auto");
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-mXEp3t2mkf05/editor/src/components/Grids/EditableGridContainer/TractInfoDisplay.module.css.js
-  var digest14 = "0b8f94776e84a94b7cc9a6152279ae70d38c40d21fde5b2dc2d66f55c2c16a4c";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-zy72yI6ZCgSJ/editor/src/components/Grids/EditableGridContainer/TractInfoDisplay.module.css.js
+  var digest14 = "299ea6f10b3f4c60fff66a06a30e4b6ddba629f14326c2f74825d2e3a70248a0";
   var css14 = `._tractInfoDisplay_cvtwo_1 {
   --transition-delay: 0.1s;
   --transition-speed: 0.1s;
@@ -49614,8 +49620,8 @@ user is typing in the input field but mouses off */
     });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-3Bi80x1tXhMC/editor/src/components/Grids/EditableGridContainer/TractSizer.module.css.js
-  var digest15 = "3ff09477059a6d2ba347a48f10e3f4771c22ab5ed369a3c84417a1699ffc5be1";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-cihiAsrwt7yY/editor/src/components/Grids/EditableGridContainer/TractSizer.module.css.js
+  var digest15 = "187c871f4a59d394cc86aeb005ae7233bd8c595ba87483bc9e2221f3e3bb3c6f";
   var css15 = `div._columnSizer_9b32k_1,
 div._rowSizer_9b32k_2 {
   --sizer-color: #c9e2f3;
@@ -50040,7 +50046,7 @@ div._rowSizer_9b32k_2::after {
     return /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("h3", { className: className + " panel-title", children });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-kQQy9cB5mWyW/editor/src/PortalModal.module.css.js
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-pSL1ed4eOCFO/editor/src/PortalModal.module.css.js
   var digest16 = "13f6af5e59e8ebc33477302381f7da21ea3317b2b22eeff877dda6aa750b7a6e";
   var css16 = `._portalHolder_18ua3_1 {
   background-color: rgba(255, 255, 255, 0.735);
@@ -50157,8 +50163,8 @@ div._rowSizer_9b32k_2::after {
   }
   var PortalModal_default = PortalModal;
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-HwxA37uCotVg/editor/src/PortalModal.module.css.js
-  var digest17 = "2f7c96b87ed245fc63a19bb01d72ff37a5f11080b8475337870dd2bf11dee33e";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-LT0eRbq4RkLU/editor/src/PortalModal.module.css.js
+  var digest17 = "01182c03010aa0909db3c02798996f315cc9f178529a8908e2d2ac0991b5944f";
   var css17 = `._portalHolder_18ua3_1 {
   background-color: rgba(255, 255, 255, 0.735);
   position: absolute;
@@ -50334,8 +50340,8 @@ div._rowSizer_9b32k_2::after {
     }
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-51q7gC0pHfb1/editor/src/components/Inputs/BooleanInput/styles.module.css.js
-  var digest18 = "21a7b0bbc9d9f358f67a5ac8606501c8438bc5c36e7d7e6c2423ed7e6fdda9fd";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-RTQVwDfajkVZ/editor/src/components/Inputs/BooleanInput/styles.module.css.js
+  var digest18 = "f80eb8a9a097e0f92cb00867c69ad16be8f3d8d18e17d5ed15173a55abec894b";
   var css18 = `._checkboxInput_7ym3w_1 {
   height: 0;
   width: 0;
@@ -50447,8 +50453,8 @@ label._checkboxLabel_7ym3w_10:after {
   // ../editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.tsx
   var import_react31 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-dZVsiBt3svPy/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
-  var digest19 = "6e9822077e3e70eeabe24aaa518d62f5092e0b07552675e54b10c1aca2a24438";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-LnNnigfcXE68/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
+  var digest19 = "0a80cf218b925a722076956af7ef69d3e821fe985bd65e38b84d73f0706fb40d";
   var css19 = `._wrapper_3jy8f_1 {
   position: relative;
   display: flex;
@@ -50590,8 +50596,8 @@ label._checkboxLabel_7ym3w_10:after {
   // ../editor/src/components/Inputs/ListInput/NamedListInput.tsx
   var import_react_sortablejs = __toESM(require_dist());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-GhgVwvkD74vJ/editor/src/components/Inputs/ListInput/styles.module.css.js
-  var digest20 = "3553126681130b169bc81fe063585c1ea4fd7cf41b291a2a7433f0b92cbf5476";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-J1M3pLnaEdHP/editor/src/components/Inputs/ListInput/styles.module.css.js
+  var digest20 = "c5df7992084e11834488152ac3c1e8305d4354fc60840c6c568ea1eb9f397e60";
   var css20 = `._container_xt7ji_1 {
   --gap-size: 4px;
   margin-top: 21px;
@@ -50887,8 +50893,8 @@ label._checkboxLabel_7ym3w_10:after {
   // ../editor/src/components/Inputs/RadioInputs/RadioInputsSimple.tsx
   var React39 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-KWxTNJmyCf1M/editor/src/components/Inputs/RadioInputs/RadioInputs.module.css.js
-  var digest21 = "f9044c10d6d0f3a6db04ed8435e44684833f449703d7d2ccd20a15fdd28c83d6";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-7Ix350O1qyw6/editor/src/components/Inputs/RadioInputs/RadioInputs.module.css.js
+  var digest21 = "b08f6c855460eb751f79e42deafcacfc1a1e61e8417d7b9294c1ace87fa711ab";
   var css21 = `._radioContainer_1regb_1 {
   display: grid;
   gap: 5px;
@@ -51349,8 +51355,8 @@ the label */
     };
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-ZaGQ7SdeZVZI/editor/src/components/GridlayoutElement/styles.module.css.js
-  var digest22 = "863091638356b2ce0b5f10241d2fc732942126e4bd7f179b2aed33aff1c02c10";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-J7wXTrEc0451/editor/src/components/GridlayoutElement/styles.module.css.js
+  var digest22 = "0811dd6567e2ac9373782bb4de0b9fde0baf79747384d2b742e9ae1709a2d1f9";
   var css22 = `._container_1hvsg_1 {
   display: grid;
   /* background-color: var(--bg-color); */
@@ -51702,8 +51708,8 @@ the label */
     return makeStringInputInfo("Label text", defaultValue);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-0PxVsEorJC3D/editor/src/Shiny-Ui-Elements/ShinyActionButton/styles.module.css.js
-  var digest23 = "5d83cd37c9c1d585abf0a86d92712b04bb8dbc72a6aed705303f7ec8b29502ad";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-BzlA0ClY5H1n/editor/src/Shiny-Ui-Elements/ShinyActionButton/styles.module.css.js
+  var digest23 = "62b09e2fcf8f5f4f399d7214fe5aeb0407eed1094725b4daa68fd6d51616cabb";
   var css23 = `._container_tyghz_1 {
   display: grid;
   grid-template-rows: 1fr;
@@ -51760,8 +51766,8 @@ the label */
   // ../editor/src/assets/icons/shinyCheckgroup.png
   var shinyCheckgroup_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAFS0lEQVR4nO3cz2vTdxzH8Vfb9VeIa7ta1FW2FqQ6pqLbEERhm0OGFzcPY0dhl+LFo4cd9gfsuIs77LDbkAljDqEiCoKszMMEcbqFsjm2OaW6ptClP2zNDvkms2n6I99vXqTp5/mAQJKmn3wPT76fJCTvpnw+L6DWmut9ANiYCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFoQFC8KCBWHBgrBgQViwICxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFs/V+wDq5cy5seX+1BNd4piILkt8+uGOmEs2pmDDKrNL0ilJ70h6NeFaP0m6IumspJ8TrtWw2AqlYUl3JJ1W8qgUrXE6WnO4Bus1pNDPWCclff7sHZ1tzepsa4m12PTcgqbnnhZvNkVrz0r6Mv4hNqaQw+pTYbuSJA1s7tB7r/Wpv6c90aJ/Tczq2x/Hde/RTPGus5IuShpPtHCDCXkrPCWpU5K297Rr+O3+xFFJUn+01vYXSmt1RM8VlJDDOly8cmxvr1qam2q2cEtzk47t6a34XKEIeSs8VLwy0NeZaKHRTFaX7xQ+ZRh+60Vt6W4vX/NQxX/cwEIOK1W80toS/2x18ea4rmUmlW5vKUVVYc1UxX/ewELeChMbzWR1LTMpSTp5aGspKhBWbJO5J/rm5iNJ0on9m/Vywu10oyGsmL76/oEk6cBAWgeHuut7MOsQYcUwmsnq18ezSre36Ojid3+IEFaVJnNPSu8Aj+/rVVeqtc5HtD4RVpWu/5LV1OyCdm9Lad/A8/U+nHWLsKrwMDtbehf47l62wJUQVhUu3XosSXpzqIuPFlZBWBWMZrI6c25M5394ULrv9/Fp3f47J0k6vLO7TkfWOAirzMyTp6XPp27cmyrFdfvPKUmFsxUv2FdHWGU6Wpv10eGtpds37k0t+oT9jUFesK8FYVWwqz+tE/s3l24Xz2C7t6V4bbVGhLWMg0PdOjCQXnTf3pfSyzwa5UIO65/ildzcQsUHHN3Tq3R74WvKWza1VvW51TNfUZaW+eXORhby12auSzouSXfv5/T6wKYlD+hKteqT9wdjLX7n/r/lzxWUkM9Y3xWvjNx6rGxuvmYLZ3PzGok+84pcqNniDSLkM9YXkj6WNDg5Pa/PLv+hI6/0aMeWlNpifvFvbiGvsYc5Xb07oamZ0vb6W/RcQQk5LKnwI4cRSZqaWdCF6N2f4TmCE/JWKEmXVPj1c8awdiZa+5Jh7XUv9DOWJF2VtFPSB5KOqPCLmrjfUc+p8EL9iqTzNTm6BkVY//s6uqAGQt8KYUJYsCAsWBAWLHjxvpRlol9oCKuAiX41xlbIRD+L0M9YTPQzCTksJvoZhbwVMtHPKOSwmOhnFPJWyEQ/o5DDYqKfUchbYWJM9FseYcXERL+VEVZMTPRbGWHFwES/1RFWlZjotzaEVSUm+q0NYVWBiX5rR1hVYKLf2hFWBUz0S46wyjDRrzYIqwwT/WqDsCpgol9yhLUMJvolE3JYTPQzCvlrM0z0Mwr5jMVEP6OQz1hM9DMKOSyJiX42IW+FEhP9bEI/Y0lM9LNoyufz9T4GbEChb4UwISxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFoQFC8KCBWHBgrBgQViwICxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLP4DpWmTqmVmpDwAAAAASUVORK5CYII=";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-rrY0uGHc22tB/editor/src/Shiny-Ui-Elements/ShinyCheckboxGroupInput/styles.module.css.js
-  var digest24 = "78c58fc98cf3b14f0a755973023548747199ae36a5434b5fb09810b64855f9bc";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-ezyWrvaE99Sa/editor/src/Shiny-Ui-Elements/ShinyCheckboxGroupInput/styles.module.css.js
+  var digest24 = "0a7339666cff7aca588076a520c8e8584610d2efbd23f80726cd754031d186a4";
   var css24 = `._container_162lp_1 {
   position: relative;
   padding: 4px;
@@ -51853,8 +51859,8 @@ the label */
   // ../editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/ShinyCheckboxInput.tsx
   var React43 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-wg2Xf2G1FBBl/editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/styles.module.css.js
-  var digest25 = "ebbffc0704fce927d1adb6bef440c7e309838ae60ccafc65c7359391f6a7cb4c";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-oX5jybpBs7N5/editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/styles.module.css.js
+  var digest25 = "78c755ed6af01f1856572e05a59de0e0e691d62dd2a28192deec7f64b1078c4f";
   var css25 = `._container_1x0tz_1 {
   position: relative;
   padding: 4px;
@@ -51970,8 +51976,8 @@ the label */
     return getTabPanelTitle(firstChild) ?? "First Tab";
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-5UyBHUQGELo1/editor/src/components/Tabs/TabPanel/TabPanel.module.css.js
-  var digest26 = "b642cfe2f5cebe311ecd899e5a640c1394469731f33552537f59f68674b02ea8";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-JuMLtEusR5Zi/editor/src/components/Tabs/TabPanel/TabPanel.module.css.js
+  var digest26 = "f20a5ef139b444141cbe137b7e32d0bc3ed09e87b5bca527c5c69573694b0748";
   var css26 = `._container_10z2l_1 {
   height: 100%;
 }
@@ -52145,8 +52151,8 @@ the label */
     }) });
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-SP9yrPGfwp5Y/editor/src/Shiny-Ui-Elements/ShinyTabPanel/ShinyTabPanel.module.css.js
-  var digest27 = "884e37309ccc99a8c820646bdc9dfff1b0f968b54b4369bca7cfa8e84db1cd6c";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-9mN7ZTHCuftA/editor/src/Shiny-Ui-Elements/ShinyTabPanel/ShinyTabPanel.module.css.js
+  var digest27 = "367be46892d64561f7d19b68644cc8634e279d9345b5dbc9f8df20d41026d2bd";
   var css27 = `._container_fe3r8_1 {
   position: relative;
   height: 100%;
@@ -52248,8 +52254,8 @@ the label */
     return sameArray(aPath, bPath);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-hpnoujTVXmEW/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest28 = "7eb7750a04ad2347f9393d9ff5babcd9fe14172d7d27e1645fe4c5916b0782d8";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-j4P6V7YIGHVM/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest28 = "fe0aec21e14b3cdf78077efa78e57de4f77a025f168baa5d58ca2ace603348ba";
   var css28 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -52422,8 +52428,8 @@ illusion of the selected panel and tab being one entity */
     );
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-cuyrLJcQuijA/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest29 = "35222a13e042195086e2c4bc0c13a4189e94c07e05306517100e316122de827d";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-MsJ1WC59l3vy/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest29 = "8bb3d8faba57b981af9719be0c576e7572a8b128bad07e24c1b2a1b35584d730";
   var css29 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -52593,8 +52599,8 @@ illusion of the selected panel and tab being one entity */
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-PjHEsYJPgHiB/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest30 = "d228b2f285a297210eeef15117c14acbe4ff1a9bbb4468abfe3174b163222a9c";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-UoV3J2789zOh/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest30 = "5c9b9b3aed3c6f4b9b383f604f8e383ddb0332144e94b0fce0852a96f85ee377";
   var css30 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -52869,8 +52875,8 @@ illusion of the selected panel and tab being one entity */
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-IK75zdS8DKhR/editor/src/Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage.module.css.js
-  var digest31 = "5c2a27c824c32b6b0558c888983128d3553f10dd79fc778ccafee8f1553c3d73";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-sZwPNGbepKhv/editor/src/Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage.module.css.js
+  var digest31 = "38e49a3870a0d1610bb30e3432da73bbff649fc4be5f1920c9d7c2c17594a172";
   var css31 = `._noTabsMessage_130qz_1 {
   padding: 5px;
 }
@@ -52971,8 +52977,8 @@ illusion of the selected panel and tab being one entity */
   // ../editor/src/Shiny-Ui-Elements/ShinyNumericInput/ShinyNumericInput.tsx
   var React49 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-GFJuX5U7XcvZ/editor/src/Shiny-Ui-Elements/ShinyNumericInput/styles.module.css.js
-  var digest32 = "3ec258ddd67207c6ca6e17a17bf52e62afe1d109939d006b7a77ab8936cf7139";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-xWOO1xnlZ6gq/editor/src/Shiny-Ui-Elements/ShinyNumericInput/styles.module.css.js
+  var digest32 = "d933ab9221ec9b42f240606bcd5725d4cf269183c57663612d7140ad4056e579";
   var css32 = `._container_yicbr_1 {
   position: relative;
   padding: 4px;
@@ -53090,8 +53096,8 @@ illusion of the selected panel and tab being one entity */
     description: "An input control for entry of numeric values"
   };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-dUATcM500oMY/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
-  var digest33 = "f5e0c1ab7a8c9cea3eec131620cc71fa78e609fac7eeecb363b682888892bc73";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-EDkhaOu2cf75/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
+  var digest33 = "4e054ee634c37bb9220f6d6219469d513a3178d1355190ecc261704d04301d5b";
   var css33 = `._container_1rlbk_1 {
   max-height: 100%;
 }
@@ -53183,8 +53189,8 @@ illusion of the selected panel and tab being one entity */
   // ../editor/src/Shiny-Ui-Elements/ShinyRadioButtons/ShinyRadioButtons.tsx
   var import_react42 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-EfDjysPDCgru/editor/src/Shiny-Ui-Elements/ShinyRadioButtons/styles.module.css.js
-  var digest34 = "0e8fd0f85042ef15b6f9ab67e79507d9fc1b9425b00a16829a2d780339c969a5";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-26MfpSoJhJ1D/editor/src/Shiny-Ui-Elements/ShinyRadioButtons/styles.module.css.js
+  var digest34 = "2e7758900c78330b7cd9698bc21be62408102cca4588cfa7070ba9efb7490dd1";
   var css34 = `._container_sgn7c_1 {
   position: relative;
   padding: 4px;
@@ -53286,8 +53292,8 @@ illusion of the selected panel and tab being one entity */
   // ../editor/src/assets/icons/shinySelectbox.png
   var shinySelectbox_default = "data:image/png;base64,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";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-1zG3rUqZg4J4/editor/src/Shiny-Ui-Elements/ShinySelectInput/styles.module.css.js
-  var digest35 = "85887cc2e8cb605d8286b942549c195fba188788b2c11b66931e4b9ffd0c44f3";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-VdF5hmuuY0FL/editor/src/Shiny-Ui-Elements/ShinySelectInput/styles.module.css.js
+  var digest35 = "49cbc4df0849b05337b388f004528ae5ad66cacfbd73981ad133af3018a7d543";
   var css35 = `._container_1e5dd_1 {
   position: relative;
   padding: 4px;
@@ -53363,8 +53369,8 @@ illusion of the selected panel and tab being one entity */
   // ../editor/src/Shiny-Ui-Elements/ShinySliderInput/ShinySliderInput.tsx
   var React51 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-FZKvPs6RvDjr/editor/src/Shiny-Ui-Elements/ShinySliderInput/styles.module.css.js
-  var digest36 = "9bb192acbd8b72a6cae2e5de1e2ef0ddcaed86e36a14831c65c92dda902a6986";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-4efY7VhCk3p4/editor/src/Shiny-Ui-Elements/ShinySliderInput/styles.module.css.js
+  var digest36 = "aa8a3ca3a750e20f9d86d4d84c1cd77605161fe1250227ef3db00ab289293c5c";
   var css36 = `._container_1f2js_1 {
   padding: 6px;
 
@@ -53604,8 +53610,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // ../editor/src/Shiny-Ui-Elements/ShinyTextInput/ShinyTextInput.tsx
   var React52 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-rQ3X7TrK5E7Y/editor/src/Shiny-Ui-Elements/ShinyTextInput/styles.module.css.js
-  var digest37 = "3815f34c25f82f9d1b7db2f81e0adadcc60f9f09ea254282a6b03f4deba965d5";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-jxO01WuMeY6y/editor/src/Shiny-Ui-Elements/ShinyTextInput/styles.module.css.js
+  var digest37 = "99318a213711a415706973f7bf5f3b01b504298058f6ef5d9cb1e1a435c13d05";
   var css37 = `._container_yicbr_1 {
   position: relative;
   padding: 4px;
@@ -53700,8 +53706,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // ../editor/src/assets/icons/shinyTextOutput.png
   var shinyTextOutput_default = "data:image/png;base64,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";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-NgBaCUrg1Z8s/editor/src/Shiny-Ui-Elements/ShinyTextOutput/styles.module.css.js
-  var digest38 = "e7ed37cda93ed72578a8836d791c5a5a690ce1732e992e7277884b37ef20d31b";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-b7XdwMqzmoAs/editor/src/Shiny-Ui-Elements/ShinyTextOutput/styles.module.css.js
+  var digest38 = "21d50a75b2c58bc7e3c9bf6016b46212773d9efcac2318a51c78ce7419b4de3c";
   var css38 = `._container_1i6yi_1 {
   padding: 1rem;
   max-height: 100%;
@@ -53761,8 +53767,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // ../editor/src/assets/icons/shinyImage.png
   var shinyImage_default = "data:image/png;base64,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";
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-8E9iigbE6c6e/editor/src/Shiny-Ui-Elements/ShinyUiOutput/styles.module.css.js
-  var digest39 = "b56ada4e72f3275f5efd9304f3a0b1f6323d73cc55a622676fde068952cfb0f3";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-dbwAhmUD9uIo/editor/src/Shiny-Ui-Elements/ShinyUiOutput/styles.module.css.js
+  var digest39 = "377fade5d60134f97a15cd573d68452fc4a318d169562da2aa75fc639ec6f873";
   var css39 = `._container_1xnzo_1 {
   display: grid;
   grid-template-rows: 1fr;
@@ -53832,8 +53838,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 1024 1024" }, "child": [{ "tag": "path", "attr": { "d": "M881.7 187.4l-45.1-45.1a8.03 8.03 0 0 0-11.3 0L667.8 299.9l-54.7-54.7a7.94 7.94 0 0 0-13.5 4.7L576.1 439c-.6 5.2 3.7 9.5 8.9 8.9l189.2-23.5c6.6-.8 9.3-8.8 4.7-13.5l-54.7-54.7 157.6-157.6c3-3 3-8.1-.1-11.2zM439 576.1l-189.2 23.5c-6.6.8-9.3 8.9-4.7 13.5l54.7 54.7-157.5 157.5a8.03 8.03 0 0 0 0 11.3l45.1 45.1c3.1 3.1 8.2 3.1 11.3 0l157.6-157.6 54.7 54.7a7.94 7.94 0 0 0 13.5-4.7L447.9 585a7.9 7.9 0 0 0-8.9-8.9z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-Y69YIj9yKSIP/editor/src/components/CategoryDivider/styles.module.css.js
-  var digest40 = "03c473fdb06dc38c4e11f85daf257972d2d61743d12f894b7ac0ba8e039a6a24";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-dnb5FqQB3hu3/editor/src/components/CategoryDivider/styles.module.css.js
+  var digest40 = "53a90884a199f456515833a70887c2f85f1b2c67676cca3fd93830371b67f0b5";
   var css40 = `._categoryDivider_bdwku_1 {
   display: block;
   position: relative;
@@ -54160,6 +54166,55 @@ ${INDENT}`;
     };
   }
 
+  // ../ast-parsing/src/ast_to_shiny_ui_node.ts
+  function ast_to_ui_node(node) {
+    const [fn_name, ...args] = node.val;
+    if (typeof fn_name.val !== "string") {
+      throw new Parsing_Error({
+        message: "Invalid ui node, name is not a primative"
+      });
+    }
+    let uiArguments = {};
+    let uiChildren = [];
+    args.forEach((sub_node) => {
+      if (is_named_node(sub_node)) {
+        uiArguments[sub_node.name] = process_named_arg(sub_node);
+      } else {
+        uiChildren.push(process_unnamed_arg(sub_node));
+      }
+    });
+    const full_node = {
+      uiName: normalize_ui_name(fn_name.val),
+      uiArguments
+    };
+    if (uiChildren.length > 0) {
+      full_node.uiChildren = uiChildren;
+    }
+    if (!isShinyUiNode(full_node))
+      return create_unknownUiFunction({ node });
+    return full_node;
+  }
+  function process_named_arg(node) {
+    if (is_ast_leaf_node(node)) {
+      return node.val;
+    }
+    if (get_node_is_array(node)) {
+      return flatten_to_array(node);
+    }
+    if (get_node_is_list(node)) {
+      return flatten_to_list(node);
+    }
+    return create_unknownUiFunction({ node });
+  }
+  function process_unnamed_arg(node, output_positions) {
+    if (!is_ast_branch_node(node)) {
+      throw new Parsing_Error({
+        message: "Primative found in ui children of ui node."
+      });
+    }
+    return ast_to_ui_node(node);
+  }
+
   // ../ast-parsing/src/get_assignment_nodes.ts
   function is_assignment_node(node, var_name) {
     if (!is_ast_branch_node(node))
@@ -54264,185 +54319,70 @@ ${INDENT}`;
     return server;
   }
 
-  // ../ast-parsing/src/ast_to_shiny_ui_node.ts
-  function ast_to_ui_node(node) {
-    const [fn_name, ...args] = node.val;
-    if (typeof fn_name.val !== "string") {
-      throw new Parsing_Error({
-        message: "Invalid ui node, name is not a primative"
-      });
-    }
-    let uiArguments = {};
-    let uiChildren = [];
-    args.forEach((sub_node) => {
-      if (is_named_node(sub_node)) {
-        uiArguments[sub_node.name] = process_named_arg(sub_node);
-      } else {
-        uiChildren.push(process_unnamed_arg(sub_node));
-      }
-    });
-    const full_node = {
-      uiName: normalize_ui_name(fn_name.val),
-      uiArguments
-    };
-    if (uiChildren.length > 0) {
-      full_node.uiChildren = uiChildren;
-    }
-    if (!isShinyUiNode(full_node))
-      return create_unknownUiFunction({ node });
-    return full_node;
+  // ../ast-parsing/src/parse_app_ast.ts
+  function parse_app_ast(info) {
+    return info.app_type === "SINGLE-FILE" ? parse_single_file_ast(info) : parse_multi_file_ast(info);
   }
-  function process_named_arg(node) {
-    if (is_ast_leaf_node(node)) {
-      return node.val;
-    }
-    if (get_node_is_array(node)) {
-      return flatten_to_array(node);
-    }
-    if (get_node_is_list(node)) {
-      return flatten_to_list(node);
-    }
-    return create_unknownUiFunction({ node });
-  }
-  function process_unnamed_arg(node, output_positions) {
-    if (!is_ast_branch_node(node)) {
-      throw new Parsing_Error({
-        message: "Primative found in ui children of ui node."
-      });
-    }
-    return ast_to_ui_node(node);
-  }
-  function parse_app_ast(ast) {
+  function parse_single_file_ast({
+    app: { ast }
+  }) {
     const assignment_nodes = get_assignment_nodes(ast);
     const ui_node = get_ui_assignment_node(assignment_nodes);
     const server_node = get_server_assignment_node(assignment_nodes);
     const output_positions = get_output_positions(assignment_nodes);
     return {
-      ui_tree: ast_to_ui_node(ui_node.val[2]),
-      ui_pos: ui_node.pos,
-      ui_assignment_operator: ui_node.val[0].val,
-      server_pos: server_node.pos,
-      server_node,
-      output_positions
-    };
-  }
-
-  // ../ast-parsing/src/code_generation/ui_node_to_R_code.ts
-  function ui_node_to_R_code(node, opts) {
-    const { ui_code, removed_namespaces } = ui_node_to_R_code_internal(
-      node,
-      opts
-    );
-    return { ui_code, library_calls: Array.from(removed_namespaces) };
-  }
-  function ui_node_to_R_code_internal(node, opts) {
-    const { uiName, uiArguments, uiChildren } = node;
-    const removed_namespaces = /* @__PURE__ */ new Set();
-    if (isUnknownUiNode(node)) {
-      return {
-        ui_code: print_unknown_ui_node(node),
-        removed_namespaces
-      };
-    }
-    let fn_name = uiName;
-    if (opts.remove_namespace) {
-      const library_name = fn_name.match(/\w+(?=::)/)?.[0];
-      if (library_name) {
-        removed_namespaces.add(library_name);
+      app_type: "SINGLE-FILE",
+      app: {
+        ui_tree: ast_to_ui_node(ui_node.val[2]),
+        ui_pos: ui_node.pos,
+        ui_assignment_operator: ui_node.val[0].val,
+        server_pos: server_node.pos,
+        server_node,
+        output_positions
       }
-      fn_name = fn_name.replace(/\w+::/, "");
-    }
-    const fn_args_list = Object.keys(uiArguments).map(
-      (arg_name) => indent_line_breaks(
-        `${arg_name} = ${print_R_argument_value(uiArguments[arg_name])}`
-      )
-    );
-    uiChildren?.forEach((child) => {
-      const child_code = ui_node_to_R_code_internal(child, opts);
-      child_code.removed_namespaces.forEach(
-        (name) => removed_namespaces.add(name)
-      );
-      fn_args_list.push(indent_line_breaks(child_code.ui_code));
-    });
-    const is_multi_line_call = should_line_break({
-      fn_name: uiName,
-      fn_args_list,
-      max_line_length_for_multi_args: LINE_BREAK_LENGTH
-    });
-    const arg_seperator = `,${is_multi_line_call ? NL_INDENT : " "}`;
-    return {
-      removed_namespaces,
-      ui_code: `${fn_name}(${is_multi_line_call ? NL_INDENT : ""}${fn_args_list.join(arg_seperator)}${is_multi_line_call ? "\n" : ""})`
     };
   }
-  function isUnknownUiNode(x2) {
-    return is_object(x2) && "uiName" in x2 && x2.uiName === "unknownUiFunction";
-  }
-  function print_unknown_ui_node({
-    uiArguments
+  function parse_multi_file_ast({
+    ui,
+    server
   }) {
-    return uiArguments.text;
-  }
-  function isNamedList2(x2) {
-    if (typeof x2 !== "object")
-      return false;
-    const hasNonStringEntries = Object.values(x2).find(
-      (el) => typeof el !== "string"
-    );
-    if (hasNonStringEntries)
-      return false;
-    return true;
-  }
-  function print_named_R_list(vals) {
-    const values = Object.keys(vals).map((name) => `"${name}" = "${vals[name]}"`);
-    const total_list_length = values.reduce((l2, a2) => l2 + a2.length, 0) + 6;
-    const is_multiline = total_list_length > LINE_BREAK_LENGTH;
-    const arg_seperator = is_multiline ? `,${NL_INDENT}` : `, `;
-    return `list(${is_multiline ? NL_INDENT : ""}${values.join(arg_seperator)}${is_multiline ? "\n" : ""})`;
-  }
-  function print_R_array(vals) {
-    const values = vals.map(print_primative);
-    return `c(${NL_INDENT}${values.join(`,${NL_INDENT}`)}
-)`;
-  }
-  function print_primative(val) {
-    switch (typeof val) {
-      case "string":
-        return `"${val}"`;
-      default:
-        return String(val);
-    }
-  }
-  function print_R_argument_value(value) {
-    if (Array.isArray(value))
-      return print_R_array(value);
-    if (isNamedList2(value))
-      return print_named_R_list(value);
-    if (typeof value === "boolean")
-      return value ? "TRUE" : "FALSE";
-    if (isUnknownUiNode(value)) {
-      return print_unknown_ui_node(value);
-    }
-    return JSON.stringify(value);
+    const ui_assignment_nodes = get_assignment_nodes(ui.ast);
+    const ui_node = get_ui_assignment_node(ui_assignment_nodes);
+    const server_assignment_nodes = get_assignment_nodes(server.ast);
+    const server_node = get_server_assignment_node(server_assignment_nodes);
+    const output_positions = get_output_positions(server_assignment_nodes);
+    return {
+      app_type: "MULTI-FILE",
+      ui: {
+        ui_tree: ast_to_ui_node(ui_node.val[2]),
+        ui_pos: ui_node.pos,
+        ui_assignment_operator: ui_node.val[0].val
+      },
+      server: {
+        server_node,
+        output_positions,
+        server_pos: server_node.pos
+      }
+    };
   }
 
-  // ../editor/src/backendCommunication/full_app_info.ts
-  var SCRIPT_LOC_KEYS = {
-    ui: "<UI>",
-    libraries: "<LIBRARIES>"
-  };
-  function raw_app_info_to_full({
-    script,
-    ast
-  }) {
-    const script_by_line = script.split("\n");
+  // ../editor/src/backendCommunication/raw_app_info_to_full.ts
+  function raw_app_info_to_full(info) {
+    return info.app_type === "SINGLE-FILE" ? raw_single_file_app_info_to_full(info) : raw_multi_file_app_info_to_full(info);
+  }
+  function raw_single_file_app_info_to_full(raw_info) {
+    const parsed_ast = parse_app_ast(raw_info);
     const {
-      ui_tree,
-      ui_assignment_operator,
-      output_positions,
-      ui_pos,
-      server_pos
-    } = parse_app_ast(ast);
+      app: {
+        ui_pos,
+        ui_assignment_operator,
+        ui_tree,
+        output_positions,
+        server_pos
+      }
+    } = parsed_ast;
+    const script = raw_info.app.script;
+    const script_by_line = script.split("\n");
     let libraries = ["shiny"];
     let app_template_by_line = [];
     let previous_line_type;
@@ -54472,12 +54412,62 @@ ${INDENT}`;
       }
     });
     return {
-      code: app_template_by_line.join("\n"),
-      libraries,
+      app_type: "SINGLE-FILE",
       ui_tree,
       output_positions,
       server_pos,
-      ui_pos
+      app: {
+        code: app_template_by_line.join("\n"),
+        libraries
+      }
+    };
+  }
+  function generate_ui_script_template({ ui_pos, ui_assignment_operator }, ui_script) {
+    const ui_script_by_line = ui_script.split("\n");
+    let libraries = ["shiny"];
+    let ui_template_by_line = [];
+    let previous_line_type;
+    ui_script_by_line.forEach((line, line_number) => {
+      const line_type = get_line_type({ line, line_number, ui_pos });
+      if (line_type === "Other") {
+        ui_template_by_line.push(line);
+        return;
+      }
+      if (line_type === "Library") {
+        const loaded_library = library_finder.exec(line)?.groups?.library;
+        if (loaded_library && loaded_library !== "shiny") {
+          libraries.push(loaded_library);
+        }
+      }
+      if (line_type === previous_line_type)
+        return;
+      previous_line_type = line_type;
+      if (line_type === "UI") {
+        ui_template_by_line.push(
+          `ui ${ui_assignment_operator} ${SCRIPT_LOC_KEYS.ui}`
+        );
+      } else if (line_type === "Library") {
+        ui_template_by_line.push(SCRIPT_LOC_KEYS.libraries);
+      } else {
+        throw new Error("Unknown line type");
+      }
+    });
+    return { code: ui_template_by_line.join("\n"), libraries };
+  }
+  function raw_multi_file_app_info_to_full(raw_info) {
+    const {
+      ui,
+      server: { output_positions, server_pos }
+    } = parse_app_ast(raw_info);
+    return {
+      app_type: "MULTI-FILE",
+      ui_tree: ui.ui_tree,
+      output_positions,
+      server_pos,
+      ui: generate_ui_script_template(ui, raw_info.ui.script),
+      server: {
+        code: raw_info.server.script
+      }
     };
   }
   function within_position(line_number, [ui_start_row, ui_start_col, ui_end_row, ui_end_col]) {
@@ -54495,18 +54485,6 @@ ${INDENT}`;
     return "Other";
   }
   var library_finder = /^\s*library\((?<library>\w+)\)/;
-  function generate_full_app_script({
-    code: code2,
-    ui_tree,
-    libraries
-  }) {
-    const { ui_code, library_calls } = ui_node_to_R_code(ui_tree, {
-      remove_namespace: true
-    });
-    const extra_libraries = libraries.filter((l2) => !library_calls.includes(l2));
-    const all_library_calls = [...extra_libraries, ...library_calls].map((l2) => `library(${l2})`).join("\n");
-    return code2.replace(SCRIPT_LOC_KEYS.ui, ui_code).replace(SCRIPT_LOC_KEYS.libraries, all_library_calls);
-  }
 
   // ../editor/src/components/UiNode/TreeManipulation/addNodeMutating.ts
   function addNodeMutating(tree, { path: path3, node }) {
@@ -54625,7 +54603,7 @@ ${INDENT}`;
     reducers: {
       SET_FULL_STATE: (tree, action) => action.payload.state,
       SET_APP_INFO: (tree, action) => {
-        const full_app_info = "code" in action.payload ? action.payload : raw_app_info_to_full(action.payload);
+        const full_app_info = "ui_tree" in action.payload ? action.payload : raw_app_info_to_full(action.payload);
         return { mode: "MAIN", ...full_app_info };
       },
       SHOW_TEMPLATE_CHOOSER: (state, { payload }) => {
@@ -54867,6 +54845,143 @@ ${INDENT}`;
     return e2.key === shortcut.key && shortcut.withCmdCtrl === (onMac() ? e2.metaKey : e2.ctrlKey) && shortcut.withShift === e2.shiftKey;
   }
 
+  // ../ast-parsing/src/code_generation/ui_node_to_R_code.ts
+  function ui_node_to_R_code(node, opts) {
+    const { ui_code, removed_namespaces } = ui_node_to_R_code_internal(
+      node,
+      opts
+    );
+    return { ui_code, library_calls: Array.from(removed_namespaces) };
+  }
+  function ui_node_to_R_code_internal(node, opts) {
+    const { uiName, uiArguments, uiChildren } = node;
+    const removed_namespaces = /* @__PURE__ */ new Set();
+    if (isUnknownUiNode(node)) {
+      return {
+        ui_code: print_unknown_ui_node(node),
+        removed_namespaces
+      };
+    }
+    let fn_name = uiName;
+    if (opts.remove_namespace) {
+      const library_name = fn_name.match(/\w+(?=::)/)?.[0];
+      if (library_name) {
+        removed_namespaces.add(library_name);
+      }
+      fn_name = fn_name.replace(/\w+::/, "");
+    }
+    const fn_args_list = Object.keys(uiArguments).map(
+      (arg_name) => indent_line_breaks(
+        `${arg_name} = ${print_R_argument_value(uiArguments[arg_name])}`
+      )
+    );
+    uiChildren?.forEach((child) => {
+      const child_code = ui_node_to_R_code_internal(child, opts);
+      child_code.removed_namespaces.forEach(
+        (name) => removed_namespaces.add(name)
+      );
+      fn_args_list.push(indent_line_breaks(child_code.ui_code));
+    });
+    const is_multi_line_call = should_line_break({
+      fn_name: uiName,
+      fn_args_list,
+      max_line_length_for_multi_args: LINE_BREAK_LENGTH
+    });
+    const arg_seperator = `,${is_multi_line_call ? NL_INDENT : " "}`;
+    return {
+      removed_namespaces,
+      ui_code: `${fn_name}(${is_multi_line_call ? NL_INDENT : ""}${fn_args_list.join(arg_seperator)}${is_multi_line_call ? "\n" : ""})`
+    };
+  }
+  function isUnknownUiNode(x2) {
+    return is_object(x2) && "uiName" in x2 && x2.uiName === "unknownUiFunction";
+  }
+  function print_unknown_ui_node({
+    uiArguments
+  }) {
+    return uiArguments.text;
+  }
+  function isNamedList2(x2) {
+    if (typeof x2 !== "object")
+      return false;
+    const hasNonStringEntries = Object.values(x2).find(
+      (el) => typeof el !== "string"
+    );
+    if (hasNonStringEntries)
+      return false;
+    return true;
+  }
+  function print_named_R_list(vals) {
+    const values = Object.keys(vals).map((name) => `"${name}" = "${vals[name]}"`);
+    const total_list_length = values.reduce((l2, a2) => l2 + a2.length, 0) + 6;
+    const is_multiline = total_list_length > LINE_BREAK_LENGTH;
+    const arg_seperator = is_multiline ? `,${NL_INDENT}` : `, `;
+    return `list(${is_multiline ? NL_INDENT : ""}${values.join(arg_seperator)}${is_multiline ? "\n" : ""})`;
+  }
+  function print_R_array(vals) {
+    const values = vals.map(print_primative);
+    return `c(${NL_INDENT}${values.join(`,${NL_INDENT}`)}
+)`;
+  }
+  function print_primative(val) {
+    switch (typeof val) {
+      case "string":
+        return `"${val}"`;
+      default:
+        return String(val);
+    }
+  }
+  function print_R_argument_value(value) {
+    if (Array.isArray(value))
+      return print_R_array(value);
+    if (isNamedList2(value))
+      return print_named_R_list(value);
+    if (typeof value === "boolean")
+      return value ? "TRUE" : "FALSE";
+    if (isUnknownUiNode(value)) {
+      return print_unknown_ui_node(value);
+    }
+    return JSON.stringify(value);
+  }
+
+  // ../editor/src/backendCommunication/generate_full_app_script.ts
+  function generate_full_app_script(info, opts) {
+    return info.app_type === "SINGLE-FILE" ? generate_single_file_app_script(info, opts) : generate_multi_file_app_script(info, opts);
+  }
+  function generate_single_file_app_script(info, opts) {
+    return {
+      app_type: "SINGLE-FILE",
+      app: generate_ui_script({ ui_tree: info.ui_tree, ...info.app }),
+      ...opts?.include_info ? { info } : {}
+    };
+  }
+  function generate_multi_file_app_script(info, opts) {
+    return {
+      app_type: "MULTI-FILE",
+      ui: generate_ui_script({ ui_tree: info.ui_tree, ...info.ui }),
+      server: info.server.code,
+      ...opts?.include_info ? { info } : {}
+    };
+  }
+  function generate_ui_script({
+    ui_tree,
+    libraries,
+    code: code2
+  }) {
+    const { ui_code, library_calls } = ui_node_to_R_code(ui_tree, {
+      remove_namespace: true
+    });
+    const extra_libraries = libraries.filter((l2) => !library_calls.includes(l2));
+    const all_library_calls = write_library_calls([
+      ...extra_libraries,
+      ...library_calls
+    ]);
+    return code2.replace(SCRIPT_LOC_KEYS.ui, ui_code).replace(SCRIPT_LOC_KEYS.libraries, all_library_calls);
+  }
+  function write_library_calls(libraries) {
+    return libraries.map((l2) => `library(${l2})`).join("\n");
+  }
+
   // ../editor/src/backendCommunication/useSyncUiWithBackend.tsx
   function useSyncUiWithBackend() {
     const { sendMsg, incomingMsgs: backendMsgs, mode } = useBackendConnection();
@@ -54899,7 +55014,7 @@ ${INDENT}`;
     ]);
     React57.useEffect(() => {
       const updatedAppSubscription = backendMsgs.subscribe("APP-INFO", (info) => {
-        const full_info = "code" in info ? info : raw_app_info_to_full(info);
+        const full_info = "ui_tree" in info ? info : raw_app_info_to_full(info);
         dispatch(SET_APP_INFO(full_info));
         lastRecievedRef.current = { mode: "MAIN", ...full_info };
         console.log("Full app info", full_info);
@@ -54945,7 +55060,7 @@ ${INDENT}`;
       }
       debouncedSendMsg({
         path: "UPDATED-APP",
-        payload: { app: generate_full_app_script(state) }
+        payload: generate_full_app_script(state)
       });
     }, [state, debouncedSendMsg, sendMsg]);
     return {
@@ -54963,8 +55078,8 @@ ${INDENT}`;
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 16 16", "fill": "currentColor" }, "child": [{ "tag": "path", "attr": { "fillRule": "evenodd", "clipRule": "evenodd", "d": "M12.75 8a4.5 4.5 0 0 1-8.61 1.834l-1.391.565A6.001 6.001 0 0 0 14.25 8 6 6 0 0 0 3.5 4.334V2.5H2v4l.75.75h3.5v-1.5H4.352A4.5 4.5 0 0 1 12.75 8z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-g04CsPB5grYh/editor/src/components/AppPreview/AppPreview.module.css.js
-  var digest41 = "e865a459b8503abe2a27ae33570c36c0b2d0adf9eb9a4cd2ff541e22d3d6dba6";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-Q4p10ZbBvBy4/editor/src/components/AppPreview/AppPreview.module.css.js
+  var digest41 = "bed981775b45976e8dd6dea73f6bfdd93b0ae4055100ff93439dbc9a77751ab4";
   var css41 = `div._appViewerHolder_zkojo_1 {
   /* This is over-ridden by an inline style but we just have it here in case */
   --app-scale-amnt: 0.24;
@@ -55230,8 +55345,8 @@ h2._error_zkojo_249 {
   })();
   var AppPreview_module_css_default = { "appViewerHolder": "_appViewerHolder_zkojo_1", "title": "_title_zkojo_55", "appContainer": "_appContainer_zkojo_89", "previewFrame": "_previewFrame_zkojo_109", "expandButton": "_expandButton_zkojo_134", "reloadButtonContainer": "_reloadButtonContainer_zkojo_135", "reloadButton": "_reloadButton_zkojo_135", "spin": "_spin_zkojo_174", "restartButton": "_restartButton_zkojo_211", "loadingMessage": "_loadingMessage_zkojo_238", "error": "_error_zkojo_249" };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-95TIiHjoKQkn/editor/src/components/AppPreview/AppPreview.module.css.js
-  var digest42 = "c24c81f2dd0def15a71f91387601cac613e78de7b35a092155820f0b44c39032";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-qumA2e7ndb7N/editor/src/components/AppPreview/AppPreview.module.css.js
+  var digest42 = "0723112d3c383621d3cefc84a3dc79a9c9cf94c92e97a4ca74fd8cee0d421f98";
   var css42 = `div._appViewerHolder_zkojo_1 {
   /* This is over-ridden by an inline style but we just have it here in case */
   --app-scale-amnt: 0.24;
@@ -55497,8 +55612,8 @@ h2._error_zkojo_249 {
   })();
   var AppPreview_module_css_default2 = { "appViewerHolder": "_appViewerHolder_zkojo_1", "title": "_title_zkojo_55", "appContainer": "_appContainer_zkojo_89", "previewFrame": "_previewFrame_zkojo_109", "expandButton": "_expandButton_zkojo_134", "reloadButtonContainer": "_reloadButtonContainer_zkojo_135", "reloadButton": "_reloadButton_zkojo_135", "spin": "_spin_zkojo_174", "restartButton": "_restartButton_zkojo_211", "loadingMessage": "_loadingMessage_zkojo_238", "error": "_error_zkojo_249" };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-klXFasCUtV9k/editor/src/components/AppPreview/FakeDashboard.module.css.js
-  var digest43 = "98cdf3b991f6e74c348c6850ddf1ae963c4fe031999a4b3d7ad19f11f5a0fa45";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-EUFmsfHBgExm/editor/src/components/AppPreview/FakeDashboard.module.css.js
+  var digest43 = "9c83a40b95c46db714dc08238d00f7031e5bec87bc558079a9e3f20816971b68";
   var css43 = `._fakeApp_t3dh1_1 {
   display: grid;
   place-content: center;
@@ -55595,8 +55710,8 @@ h2._error_zkojo_249 {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "fill": "none", "stroke": "#000", "strokeWidth": "2", "d": "M12,22 C17.5228475,22 22,17.5228475 22,12 C22,6.4771525 17.5228475,2 12,2 C6.4771525,2 2,6.4771525 2,12 C2,17.5228475 6.4771525,22 12,22 Z M5,5 L19,19" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-DP9uFYBSocPQ/editor/src/components/AppPreview/LogsViewer.module.css.js
-  var digest44 = "7109d32126f64fbebf006a4b8d3d39a9e7295c488acf44086f931a8f2b0c77da";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-AM5ArmAD4EPn/editor/src/components/AppPreview/LogsViewer.module.css.js
+  var digest44 = "15c9dd16b81351f2f0f67d4efd8363b060434771d3a5f8a0ef13f3200beddc11";
   var css44 = `/* Logs section */
 ._logs_xjp5l_2 {
   --tab-height: var(--logs-button-h, 20px);
@@ -55843,8 +55958,8 @@ p._logLine_xjp5l_75 {
     }
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-V1rBCkEbsokt/editor/src/components/AppPreview/AppPreview.module.css.js
-  var digest45 = "c3ecfe5e21dbe82e2c465ddd9ea5300bcc77986018ebd2bb794c289263d04eb6";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-1p1Ih5jK2vd8/editor/src/components/AppPreview/AppPreview.module.css.js
+  var digest45 = "d2c3e80ed6bff94562925ac256e2e9707b90996354127a3d4bba0ffdf3090c7f";
   var css45 = `div._appViewerHolder_zkojo_1 {
   /* This is over-ridden by an inline style but we just have it here in case */
   --app-scale-amnt: 0.24;
@@ -56110,34 +56225,49 @@ h2._error_zkojo_249 {
   })();
   var AppPreview_module_css_default3 = { "appViewerHolder": "_appViewerHolder_zkojo_1", "title": "_title_zkojo_55", "appContainer": "_appContainer_zkojo_89", "previewFrame": "_previewFrame_zkojo_109", "expandButton": "_expandButton_zkojo_134", "reloadButtonContainer": "_reloadButtonContainer_zkojo_135", "reloadButton": "_reloadButton_zkojo_135", "spin": "_spin_zkojo_174", "restartButton": "_restartButton_zkojo_211", "loadingMessage": "_loadingMessage_zkojo_238", "error": "_error_zkojo_249" };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-iG4sjnGuM5I7/editor/src/components/AppPreview/ShowAppText.module.css.js
-  var digest46 = "4a263ad121f99d7b20c9eb0d8b8345a96a173c6a187d3ef82f0b94b0d0667f2e";
-  var css46 = `._show_btn_cz6kg_1 {
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-o0vdAb51U6In/editor/src/components/AppPreview/ShowAppText.module.css.js
+  var digest46 = "3e58893c54b57d0fdcd1c374a08b232f5f4b9495319f1115aefaef5928d55ae8";
+  var css46 = `._show_btn_xoue8_1 {
   margin: var(--size-md);
 }
 
-._modal_cz6kg_5 {
+._modal_xoue8_5 {
   border: 1px solid grey;
   background-color: var(--rstudio-white);
   display: flex;
   flex-direction: column;
   border-radius: var(--corner-radius);
   overflow: scroll;
-  padding: var(--size-lg);
+  padding-block: var(--size-lg);
+  padding-inline: var(--size-xl);
 }
 
-._modal_cz6kg_5 > h2 {
+._title_xoue8_16 {
   margin-block-end: var(--size-md);
 }
 
-._code_holder_cz6kg_19 {
-  background-color: var(--light-grey);
-  padding: var(--size-md);
-  max-height: 70vh;
-  overflow-y: scroll;
+._description_xoue8_20 {
+  padding-inline-start: var(--size-md);
 }
 
-._footer_cz6kg_26 {
+._code_holder_xoue8_24 {
+  max-height: 70vh;
+  overflow-y: scroll;
+  margin-block: var(--size-sm);
+}
+
+._code_holder_xoue8_24 > * {
+  padding: var(--size-md);
+  background-color: var(--light-grey);
+}
+
+._code_holder_xoue8_24 > label {
+  padding-block: var(--size-sm) 0;
+  border-radius: var(--corner-radius) var(--corner-radius) 0 0;
+  color: var(--rstudio-blue);
+}
+
+._footer_xoue8_41 {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -56155,19 +56285,54 @@ h2._error_zkojo_249 {
       document.head.appendChild(el);
     }
   })();
-  var ShowAppText_module_css_default = { "show_btn": "_show_btn_cz6kg_1", "showBtn": "_show_btn_cz6kg_1", "modal": "_modal_cz6kg_5", "code_holder": "_code_holder_cz6kg_19", "codeHolder": "_code_holder_cz6kg_19", "footer": "_footer_cz6kg_26" };
+  var ShowAppText_module_css_default = { "show_btn": "_show_btn_xoue8_1", "showBtn": "_show_btn_xoue8_1", "modal": "_modal_xoue8_5", "title": "_title_xoue8_16", "description": "_description_xoue8_20", "code_holder": "_code_holder_xoue8_24", "codeHolder": "_code_holder_xoue8_24", "footer": "_footer_xoue8_41" };
 
   // ../editor/src/components/AppPreview/ShowAppText.tsx
   var import_jsx_runtime90 = __toESM(require_jsx_runtime());
+  function AppFilesViewer({
+    info
+  }) {
+    const app_scripts = generate_full_app_script(info);
+    if (app_scripts.app_type === "SINGLE-FILE") {
+      return /* @__PURE__ */ (0, import_jsx_runtime90.jsxs)(import_jsx_runtime90.Fragment, { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime90.jsx)("h2", { className: ShowAppText_module_css_default.title, children: "App script" }),
+        /* @__PURE__ */ (0, import_jsx_runtime90.jsxs)("p", { className: ShowAppText_module_css_default.description, children: [
+          "The following code defines the currently being edited app. Copy and paste it to an ",
+          /* @__PURE__ */ (0, import_jsx_runtime90.jsx)("code", { children: "app.R" }),
+          " file to use."
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime90.jsxs)("div", { className: ShowAppText_module_css_default.code_holder, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime90.jsx)("label", { children: "app.R" }),
+          /* @__PURE__ */ (0, import_jsx_runtime90.jsx)("pre", { children: app_scripts.app })
+        ] })
+      ] });
+    }
+    return /* @__PURE__ */ (0, import_jsx_runtime90.jsxs)(import_jsx_runtime90.Fragment, { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime90.jsx)("h2", { className: ShowAppText_module_css_default.title, children: "App scripts" }),
+      /* @__PURE__ */ (0, import_jsx_runtime90.jsxs)("p", { className: ShowAppText_module_css_default.description, children: [
+        "The following code defines the currently being edited app. Copy and paste the ui and server scripts into ",
+        /* @__PURE__ */ (0, import_jsx_runtime90.jsx)("code", { children: "ui.R" }),
+        " and",
+        " ",
+        /* @__PURE__ */ (0, import_jsx_runtime90.jsx)("code", { children: "server.R" }),
+        " files to use."
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime90.jsxs)("div", { className: ShowAppText_module_css_default.code_holder, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime90.jsx)("label", { children: "ui.R" }),
+        /* @__PURE__ */ (0, import_jsx_runtime90.jsx)("pre", { children: app_scripts.ui })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime90.jsxs)("div", { className: ShowAppText_module_css_default.code_holder, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime90.jsx)("label", { children: "server.R" }),
+        /* @__PURE__ */ (0, import_jsx_runtime90.jsx)("pre", { children: app_scripts.server })
+      ] })
+    ] });
+  }
   function ShowAppText() {
     const [script_visible, set_script_visible] = import_react46.default.useState(false);
     const store2 = useStore();
-    const getCurrentApp = () => {
-      const app_state = store2.getState().app_info;
-      if (app_state.mode !== "MAIN")
-        return "Not in correct state";
-      return generate_full_app_script(app_state).trim();
-    };
+    const current_state = store2.getState().app_info;
+    if (current_state.mode !== "MAIN")
+      return null;
     return /* @__PURE__ */ (0, import_jsx_runtime90.jsxs)(import_jsx_runtime90.Fragment, { children: [
       /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(PanelHeader, { className: AppPreview_module_css_default3.title, children: "Code" }),
       /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(
@@ -56181,24 +56346,16 @@ h2._error_zkojo_249 {
           children: "Get app script"
         }
       ),
-      script_visible ? /* @__PURE__ */ (0, import_jsx_runtime90.jsxs)(
+      script_visible ? /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(
         DialogPopover,
         {
           className: ShowAppText_module_css_default.modal,
           title: "App Script",
           onClose: () => set_script_visible(false),
-          children: [
-            /* @__PURE__ */ (0, import_jsx_runtime90.jsx)("h2", { children: "App script" }),
-            /* @__PURE__ */ (0, import_jsx_runtime90.jsxs)("p", { children: [
-              "The following code defines the currently being edited app. Copy and paste it to an ",
-              /* @__PURE__ */ (0, import_jsx_runtime90.jsx)("code", { children: "app.R" }),
-              " file to use."
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime90.jsxs)("form", { method: "dialog", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime90.jsx)("div", { className: ShowAppText_module_css_default.code_holder, children: /* @__PURE__ */ (0, import_jsx_runtime90.jsx)("pre", { children: getCurrentApp() }) }),
-              /* @__PURE__ */ (0, import_jsx_runtime90.jsx)("div", { className: ShowAppText_module_css_default.footer, children: /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(Button_default, { type: "submit", children: "Okay" }) })
-            ] })
-          ]
+          children: /* @__PURE__ */ (0, import_jsx_runtime90.jsxs)("form", { method: "dialog", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(AppFilesViewer, { info: current_state }),
+            /* @__PURE__ */ (0, import_jsx_runtime90.jsx)("div", { className: ShowAppText_module_css_default.footer, children: /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(Button_default, { type: "submit", children: "Okay" }) })
+          ] })
         }
       ) : null
     ] });
@@ -56689,15 +56846,15 @@ output$dists <- renderPlot({
   var appTree = {
     uiName: "gridlayout::grid_page",
     uiArguments: {
-      row_sizes: ["100px", "1fr", "1fr", "1fr"],
-      col_sizes: ["250px", "0.59fr", "1.41fr"],
-      gap_size: "1rem",
       layout: [
         "header  header   header",
         "sidebar bluePlot bluePlot",
         "table   table    plotly",
         "table   table    plotly"
-      ]
+      ],
+      row_sizes: ["100px", "1fr", "1fr", "1fr"],
+      col_sizes: ["250px", "0.59fr", "1.41fr"],
+      gap_size: "1rem"
     },
     uiChildren: [
       {
@@ -56816,7 +56973,11 @@ output$myTable <- renderDT({
     chickWeightsNavbar,
     chickWeightsGridTemplate
   ];
-  function template_to_full_info({
+  function template_to_app_contents(selection) {
+    const app_info = selection.outputType === "SINGLE-FILE" ? template_to_single_file_info(selection) : template_to_multi_file_info(selection);
+    return generate_full_app_script(app_info, { include_info: true });
+  }
+  function template_to_single_file_info({
     uiTree,
     otherCode: {
       uiExtra = "",
@@ -56825,8 +56986,7 @@ output$myTable <- renderDT({
       serverLibraries = []
     }
   }) {
-    const code2 = `
-${SCRIPT_LOC_KEYS.libraries}
+    const code2 = `${SCRIPT_LOC_KEYS.libraries}
 
 ${uiExtra}
 ui <- ${SCRIPT_LOC_KEYS.ui}
@@ -56836,13 +56996,49 @@ server <- function(input, output) {
   ${indent_line_breaks(serverFunctionBody)}
 }
 
-shinyApp()
+shinyApp(ui, server)
   
 `;
     return {
-      code: code2,
-      libraries: ["shiny", ...serverLibraries],
-      ui_tree: uiTree
+      app_type: "SINGLE-FILE",
+      ui_tree: uiTree,
+      app: {
+        code: code2,
+        libraries: ["shiny", ...serverLibraries]
+      }
+    };
+  }
+  function template_to_multi_file_info({
+    uiTree,
+    otherCode: {
+      uiExtra = "",
+      serverExtra = "",
+      serverFunctionBody = "",
+      serverLibraries = []
+    }
+  }) {
+    const ui_code = `${SCRIPT_LOC_KEYS.libraries}
+
+${uiExtra}
+ui <- ${SCRIPT_LOC_KEYS.ui}
+`;
+    const server_code = `${write_library_calls(serverLibraries)}
+
+${serverExtra}
+server <- function(input, output) {
+  ${indent_line_breaks(serverFunctionBody)}
+}
+`;
+    return {
+      app_type: "MULTI-FILE",
+      ui_tree: uiTree,
+      ui: {
+        code: ui_code,
+        libraries: ["shiny", ...serverLibraries]
+      },
+      server: {
+        code: server_code
+      }
     };
   }
 
@@ -56935,13 +57131,9 @@ shinyApp()
     const { sendMsg } = useBackendConnection();
     const requestTemplate = import_react50.default.useCallback(
       (template) => {
-        const app_info = template_to_full_info(template);
         sendMsg({
           path: "UPDATED-APP",
-          payload: {
-            app: generate_full_app_script(app_info),
-            app_info
-          }
+          payload: template_to_app_contents(template)
         });
       },
       [sendMsg]
@@ -57024,7 +57216,7 @@ shinyApp()
     selectedOutput,
     setSelectedOutput
   }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime95.jsxs)("form", { className: "OutputTypeForm", children: [
+    return /* @__PURE__ */ (0, import_jsx_runtime95.jsxs)("form", { className: "App_TypeForm", children: [
       /* @__PURE__ */ (0, import_jsx_runtime95.jsx)("legend", { children: "Generate app in:" }),
       outputTypes.map((outputType) => {
         const outputLabel = outputTypeLabel[outputType];
@@ -57182,8 +57374,8 @@ shinyApp()
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-qgdZ4tyXStMh/editor/src/components/UndoRedoButtons/UndoRedoButtons.module.css.js
-  var digest47 = "a8bc0ff5173400f72f4d04ca16f281e30c2466dfcd1434b7e73a204f44e95bc2";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-J5m77KoD5TXH/editor/src/components/UndoRedoButtons/UndoRedoButtons.module.css.js
+  var digest47 = "eaf040cce8fb297f60cac88f18ddf459b905539d2f24cd9d4bf96d01986cb426";
   var css47 = `._container_1d7pe_1 {
   display: flex;
   position: relative;
@@ -57268,8 +57460,8 @@ shinyApp()
   // ../editor/src/ElementsPalette/index.tsx
   var React65 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-WFUVPPPFY2B4/editor/src/ElementsPalette/styles.module.css.js
-  var digest48 = "fcfe9186ccd679a4a62912a4edb1b1b361290029f06f1a3091064a33699369b6";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-WPfs6PdzWbVJ/editor/src/ElementsPalette/styles.module.css.js
+  var digest48 = "3993db3082666f1d333d60ec15540ff6a7ba2880c8d15e2197d816a899b292c4";
   var css48 = `._elementsPalette_qmlez_1 {
   --icon-size: 75px;
   --padding: 8px;
@@ -57340,8 +57532,8 @@ shinyApp()
   })();
   var styles_module_css_default24 = { "elementsPalette": "_elementsPalette_qmlez_1", "OptionContainer": "_OptionContainer_qmlez_18", "optionContainer": "_OptionContainer_qmlez_18", "OptionItem": "_OptionItem_qmlez_24", "optionItem": "_OptionItem_qmlez_24", "OptionIcon": "_OptionIcon_qmlez_33", "optionIcon": "_OptionIcon_qmlez_33", "OptionLabel": "_OptionLabel_qmlez_41", "optionLabel": "_OptionLabel_qmlez_41" };
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-ZMUAnx5WGn5z/editor/src/ElementsPalette/styles.module.css.js
-  var digest49 = "6f6b6f6353745afe63d3628086d7aaab97b8c131dfa768eb7555b1d081ab8e79";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-W3lofO8ZMAp7/editor/src/ElementsPalette/styles.module.css.js
+  var digest49 = "d34bed752d2dac416f8dba805468f6ee1110fb5fee8ab5a92d0766018ae650dd";
   var css49 = `._elementsPalette_qmlez_1 {
   --icon-size: 75px;
   --padding: 8px;
@@ -57624,7 +57816,7 @@ shinyApp()
   var import_jsx_runtime105 = __toESM(require_jsx_runtime());
   function GoToSourceBtns({ node }) {
     const { sendMsg, mode } = useBackendConnection();
-    if (!node)
+    if (mode !== "VSCODE" || !node)
       return null;
     const { serverBindings } = shinyUiNodeInfo[node.uiName];
     return /* @__PURE__ */ (0, import_jsx_runtime105.jsxs)("div", { children: [
@@ -57670,7 +57862,6 @@ shinyApp()
         variant: "regular",
         onClick: () => {
           if (existing_output_locations) {
-            console.log("Show lines!", existing_output_locations);
             sendMsg({
               path: "SHOW-APP-LINES",
               payload: existing_output_locations
@@ -57684,7 +57875,6 @@ output\\$${outputId} <- ${renderScaffold}`,
                 below_line: current_server_position[2] - 1
               }
             });
-            console.log("Make me some code, please!");
           }
         },
         children: existing_output_locations ? "Show in server" : "Generate server code"
@@ -57711,7 +57901,7 @@ output\\$${outputId} <- ${renderScaffold}`,
         variant: "regular",
         onClick: () => {
           sendMsg({
-            path: "GO-TO-SERVER",
+            path: "FIND-INPUT-USES",
             payload: { type: "Input", inputId }
           });
         },
@@ -57720,8 +57910,8 @@ output\\$${outputId} <- ${renderScaffold}`,
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-2b367fJ4IdxL/editor/src/SettingsPanel/PathBreadcrumb.module.css.js
-  var digest50 = "439cc74ed1792d158307fd1f3537c50be74a6a1896a21e6ae776f298e7308242";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-3kuUqTAC4ZgW/editor/src/SettingsPanel/PathBreadcrumb.module.css.js
+  var digest50 = "2b1749b3d021fcd5c1f67877abf7e70c62c5628626373d8d09d015a037fe69e0";
   var css50 = `._container_1fh41_1 {
   --flex-gap: 8px;
   padding: var(--vertical-spacing);
@@ -57842,8 +58032,8 @@ output\\$${outputId} <- ${renderScaffold}`,
     return uiName.replace(/[a-z]+::/, "");
   }
 
-  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-76950-TBN0MOphPMYt/editor/src/SettingsPanel/SettingsPanel.module.css.js
-  var digest51 = "176314e58f79f0604fda855318144df78c1416b3ccdd379559219688cf4b5e98";
+  // esbuild-css-modules-plugin-namespace:/var/folders/rp/ttzsjwxs6bx0x__xbb402xv80000gn/T/tmp-44423-afiQ3j34KKEX/editor/src/SettingsPanel/SettingsPanel.module.css.js
+  var digest51 = "2c243edf2255e1f734dfff3312a143d72aedee118fd70da2a30522707fbb6aa3";
   var css51 = `._settingsPanel_a44hx_1 {
   --vertical-gap: var(--vertical-spacing);
   display: flex;

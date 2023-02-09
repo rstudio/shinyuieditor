@@ -2,11 +2,10 @@ import React from "react";
 
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import type { Raw_App_Info } from "ast-parsing";
+import type { Full_App_Info, Raw_App_Info } from "ast-parsing";
 import { useDispatch, useSelector } from "react-redux";
 
-import type { Full_App_Info } from "../backendCommunication/full_app_info";
-import { raw_app_info_to_full } from "../backendCommunication/full_app_info";
+import { raw_app_info_to_full } from "../backendCommunication/raw_app_info_to_full";
 import type { TemplateChooserOptions } from "../components/TemplatePreviews/TemplateChooserView";
 import type { PlaceNodeArguments } from "../components/UiNode/TreeManipulation/placeNode";
 import { placeNodeMutating } from "../components/UiNode/TreeManipulation/placeNode";
@@ -51,7 +50,7 @@ export const mainStateSlice = createSlice({
       action: PayloadAction<Full_App_Info | Raw_App_Info>
     ) => {
       const full_app_info =
-        "code" in action.payload
+        "ui_tree" in action.payload
           ? action.payload
           : raw_app_info_to_full(action.payload);
       return { mode: "MAIN", ...full_app_info };

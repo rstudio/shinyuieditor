@@ -1,11 +1,22 @@
-import { indent_line_breaks } from "ast-parsing/src/code_generation/build_function_text";
 import type {
+  Multi_File_App_Script,
+  Multi_File_Full_Info,
+  Single_File_App_Script,
+  Single_File_Full_Info,
+} from "ast-parsing";
+import { SCRIPT_LOC_KEYS } from "ast-parsing";
+import { indent_line_breaks } from "ast-parsing/src/code_generation/build_function_text";
+import type { MessageToBackendByPath } from "communication-types";
+import type {
+  Multi_File_Template_Selection,
+  Single_File_Template_Selection,
   TemplateInfo,
-  TemplateSelection,
 } from "communication-types/src/AppTemplates";
 
-import type { Full_App_Info } from "../../backendCommunication/full_app_info";
-import { SCRIPT_LOC_KEYS } from "../../backendCommunication/full_app_info";
+import {
+  generate_full_app_script,
+  write_library_calls,
+} from "../../backendCommunication/generate_full_app_script";
 
 import { chickWeightsGridTemplate } from "./templates/chickWeightsGrid";
 import { chickWeightsNavbar } from "./templates/chickWeightsNavbar";
@@ -17,7 +28,18 @@ export const app_templates: TemplateInfo[] = [
   chickWeightsGridTemplate,
 ];
 
-export function template_to_full_info({
+export function template_to_app_contents(
+  selection: Single_File_Template_Selection | Multi_File_Template_Selection
+): MessageToBackendByPath["UPDATED-APP"] {
+  const app_info =
+    selection.outputType === "SINGLE-FILE"
+      ? template_to_single_file_info(selection)
+      : template_to_multi_file_info(selection);
+
+  return generate_full_app_script(app_info, { include_info: true });
+}
+
+function template_to_single_file_info({
   uiTree,
   otherCode: {
     uiExtra = "",
@@ -25,9 +47,8 @@ export function template_to_full_info({
     serverFunctionBody = "",
     serverLibraries = [],
   },
-}: TemplateSelection): Full_App_Info {
-  const code = `
-${SCRIPT_LOC_KEYS.libraries}
+}: Single_File_Template_Selection): Single_File_Full_Info {
+  const code = `${SCRIPT_LOC_KEYS.libraries}
 
 ${uiExtra}
 ui <- ${SCRIPT_LOC_KEYS.ui}
@@ -42,8 +63,46 @@ shinyApp(ui, server)
 `;
 
   return {
-    code,
-    libraries: ["shiny", ...serverLibraries],
+    app_type: "SINGLE-FILE",
     ui_tree: uiTree,
+    app: {
+      code,
+      libraries: ["shiny", ...serverLibraries],
+    },
+  };
+}
+
+function template_to_multi_file_info({
+  uiTree,
+  otherCode: {
+    uiExtra = "",
+    serverExtra = "",
+    serverFunctionBody = "",
+    serverLibraries = [],
+  },
+}: Multi_File_Template_Selection): Multi_File_Full_Info {
+  const ui_code = `${SCRIPT_LOC_KEYS.libraries}
+
+${uiExtra}
+ui <- ${SCRIPT_LOC_KEYS.ui}
+`;
+  const server_code = `${write_library_calls(serverLibraries)}
+
+${serverExtra}
+server <- function(input, output) {
+  ${indent_line_breaks(serverFunctionBody)}
+}
+`;
+
+  return {
+    app_type: "MULTI-FILE",
+    ui_tree: uiTree,
+    ui: {
+      code: ui_code,
+      libraries: ["shiny", ...serverLibraries],
+    },
+    server: {
+      code: server_code,
+    },
   };
 }

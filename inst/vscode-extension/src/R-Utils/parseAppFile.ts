@@ -1,4 +1,4 @@
-import type { OutputType } from "communication-types";
+import type { App_Type } from "ast-parsing";
 import type { ShinyUiNode } from "editor";
 
 import { makePortableString, collapseText } from "../string-utils";
@@ -11,7 +11,7 @@ type UiBounds = { start: number; end: number };
 export type ParsedApp = {
   file_lines: string[];
   loaded_libraries: string[];
-  type: OutputType;
+  type: App_Type;
   ui_bounds: UiBounds;
   ui_tree: ShinyUiNode;
 };

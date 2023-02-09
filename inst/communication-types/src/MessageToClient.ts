@@ -1,8 +1,6 @@
-import type { Raw_App_Info } from "ast-parsing";
-import type { Full_App_Info } from "editor/src/backendCommunication/full_app_info";
+import type { App_Type, Full_App_Info, Raw_App_Info } from "ast-parsing";
 
 import { isRecord } from "./isRecord";
-import type { OutputType } from "./MessageToBackend";
 import type { MessageUnion } from "./MessageUnion";
 
 /**
@@ -18,7 +16,7 @@ export type MessageToClientByPath = {
   "APP-PREVIEW-STATUS": "FAKE-PREVIEW" | "LOADING" | { url: string };
   "APP-PREVIEW-CRASH": string;
   "APP-PREVIEW-LOGS": string[];
-  TEMPLATE_CHOOSER: OutputType | "USER-CHOICE";
+  TEMPLATE_CHOOSER: App_Type | "USER-CHOICE";
 };
 
 /**

@@ -1,10 +1,10 @@
 import React from "react";
 
-import type { OutputType } from "communication-types";
+import type { App_Type } from "ast-parsing";
 
-const outputTypes: OutputType[] = ["SINGLE-FILE", "MULTI-FILE"];
+const outputTypes: App_Type[] = ["SINGLE-FILE", "MULTI-FILE"];
 
-const outputTypeLabel: Record<OutputType, string> = {
+const outputTypeLabel: Record<App_Type, string> = {
   "SINGLE-FILE": "Single file mode",
   "MULTI-FILE": "Multi file mode",
 };
@@ -13,11 +13,11 @@ export function OutputTypeForm({
   selectedOutput,
   setSelectedOutput,
 }: {
-  selectedOutput: OutputType;
-  setSelectedOutput: (o: OutputType) => void;
+  selectedOutput: App_Type;
+  setSelectedOutput: (o: App_Type) => void;
 }) {
   return (
-    <form className="OutputTypeForm">
+    <form className="App_TypeForm">
       <legend>Generate app in:</legend>
       {outputTypes.map((outputType) => {
         const outputLabel = outputTypeLabel[outputType];

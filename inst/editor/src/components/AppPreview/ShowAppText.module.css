@@ -9,18 +9,33 @@
   flex-direction: column;
   border-radius: var(--corner-radius);
   overflow: scroll;
-  padding: var(--size-lg);
+  padding-block: var(--size-lg);
+  padding-inline: var(--size-xl);
 }
 
-.modal > h2 {
+.title {
   margin-block-end: var(--size-md);
 }
 
+.description {
+  padding-inline-start: var(--size-md);
+}
+
 .code_holder {
-  background-color: var(--light-grey);
-  padding: var(--size-md);
   max-height: 70vh;
   overflow-y: scroll;
+  margin-block: var(--size-sm);
+}
+
+.code_holder > * {
+  padding: var(--size-md);
+  background-color: var(--light-grey);
+}
+
+.code_holder > label {
+  padding-block: var(--size-sm) 0;
+  border-radius: var(--corner-radius) var(--corner-radius) 0 0;
+  color: var(--rstudio-blue);
 }
 
 .footer {

@@ -8,7 +8,7 @@ import { update_app_file } from "./addUiTextToFile";
 import { clearAppFile } from "./clearAppFile";
 import { openCodeCompanionEditor } from "./extension-api-utils/openCodeCompanionEditor";
 import { checkIfPkgAvailable } from "./R-Utils/checkIfPkgAvailable";
-import { setup_app_parser } from "./R-Utils/parseRApp";
+import { getAppAST } from "./R-Utils/getAppAST";
 import type { ActiveRSession } from "./R-Utils/startBackgroundRProcess";
 import { startPreviewApp } from "./R-Utils/startPreviewApp";
 import {
@@ -39,8 +39,6 @@ export function editorLogic({
 
   // Can probably replace this with the vscode.TextDocument's version field
   let latestAppWrite: string | null = null;
-
-  const get_ast = setup_app_parser(RProcess, document);
 
   /**
    * Plain text editor with apps code side-by-side with custom editor
@@ -86,21 +84,21 @@ export function editorLogic({
     }
 
     try {
-      const appAST = await get_ast();
+      const appAST = await getAppAST(RProcess, appFileText);
 
-      if (appAST.type === "ERROR") {
+      if (appAST.status === "error") {
         sendMessage({
           path: "BACKEND-ERROR",
           payload: {
             context: "parsing app",
-            msg: appAST.message,
+            msg: appAST.errorMsg,
           },
         });
-        showErrorMessage(appAST.message);
+        showErrorMessage(appAST.errorMsg);
         return;
       }
 
-      if (appAST.type === "EMPTY") {
+      if (appAST.values === "EMPTY") {
         sendMessage({
           path: "TEMPLATE_CHOOSER",
           payload: "SINGLE-FILE",
@@ -113,8 +111,11 @@ export function editorLogic({
       sendMessage({
         path: "APP-INFO",
         payload: {
-          script: appFileText,
-          ast: appAST.ast,
+          app_type: "SINGLE-FILE",
+          app: {
+            script: appFileText,
+            ast: appAST.values,
+          },
         },
       });
     } catch (e) {
@@ -185,6 +186,8 @@ export function editorLogic({
           return;
 
         case "UPDATED-APP": {
+          if (msg.payload.app_type === "MULTI-FILE") return;
+
           latestAppWrite = msg.payload.app;
           await update_app_file({ text: msg.payload.app, document });
           return;

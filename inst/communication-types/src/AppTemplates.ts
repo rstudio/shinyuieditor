@@ -1,10 +1,22 @@
+import type { Multi_File_App_Type, Single_File_App_Type } from "ast-parsing";
 import type { ShinyUiNode } from "editor";
 
-import type { OutputType, R_Ui_Code } from "./MessageToBackend";
+import type { R_Ui_Code } from "./MessageToBackend";
 
-export type TemplateSelection = Omit<TemplateInfo, "title" | "description"> & {
-  outputType: OutputType;
-} & R_Ui_Code;
+export type Single_File_Template_Selection = {
+  outputType: Single_File_App_Type;
+} & Omit<TemplateInfo, "title" | "description"> &
+  R_Ui_Code;
+
+export type Multi_File_Template_Selection = {
+  outputType: Multi_File_App_Type;
+} & Omit<TemplateInfo, "title" | "description"> &
+  R_Ui_Code;
+
+export type TemplateSelection =
+  | Single_File_Template_Selection
+  | Multi_File_Template_Selection;
+
 /**
  * Defines basic information needed to build an app template for the template viewer
  */

@@ -16,10 +16,8 @@ import { getNamedPath } from "../state/getNamedPath";
 import { useCurrentSelection } from "../state/selectedPath";
 import { useKeyboardShortcuts } from "../utils/hooks/useKeyboardShortcuts";
 
-import {
-  generate_full_app_script,
-  raw_app_info_to_full,
-} from "./full_app_info";
+import { generate_full_app_script } from "./generate_full_app_script";
+import { raw_app_info_to_full } from "./raw_app_info_to_full";
 import { useBackendConnection } from "./useBackendMessageCallbacks";
 
 export function useSyncUiWithBackend() {
@@ -61,7 +59,8 @@ export function useSyncUiWithBackend() {
   // Subscribe to messages from the backend
   React.useEffect(() => {
     const updatedAppSubscription = backendMsgs.subscribe("APP-INFO", (info) => {
-      const full_info = "code" in info ? info : raw_app_info_to_full(info);
+      const full_info = "ui_tree" in info ? info : raw_app_info_to_full(info);
+
       dispatch(SET_APP_INFO(full_info));
       lastRecievedRef.current = { mode: "MAIN", ...full_info };
       console.log("Full app info", full_info);
@@ -124,7 +123,7 @@ export function useSyncUiWithBackend() {
 
     debouncedSendMsg({
       path: "UPDATED-APP",
-      payload: { app: generate_full_app_script(state) },
+      payload: generate_full_app_script(state),
     });
   }, [state, debouncedSendMsg, sendMsg]);
 
