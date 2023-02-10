@@ -3,9 +3,9 @@ import React from "react";
 import type { Multi_File_Full_Info, Single_File_Full_Info } from "ast-parsing";
 import { useStore } from "react-redux";
 
-import { generate_full_app_script } from "../../backendCommunication/generate_full_app_script";
 import { DialogPopover } from "../../EditorContainer/DialogPopover";
 import { PanelHeader } from "../../EditorSkeleton/EditorSkeleton";
+import { generate_full_app_script } from "../../state/app_model/generate_full_app_script";
 import type { RootState } from "../../state/store";
 import Button from "../Inputs/Button/Button";
 import { TooltipButton } from "../PopoverEl/Tooltip";
@@ -18,7 +18,7 @@ function AppFilesViewer({
 }: {
   info: Single_File_Full_Info | Multi_File_Full_Info;
 }) {
-  const app_scripts = generate_full_app_script(info);
+  const app_scripts = generate_full_app_script(info, { include_info: false });
 
   if (app_scripts.app_type === "SINGLE-FILE") {
     return (

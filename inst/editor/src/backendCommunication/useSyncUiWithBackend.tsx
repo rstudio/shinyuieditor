@@ -12,12 +12,12 @@ import {
   SHOW_TEMPLATE_CHOOSER,
   useCurrentAppInfo,
 } from "../state/app_info";
+import { generate_full_app_script } from "../state/app_model/generate_full_app_script";
+import { raw_app_info_to_full } from "../state/app_model/raw_app_info_to_full";
 import { getNamedPath } from "../state/getNamedPath";
 import { useCurrentSelection } from "../state/selectedPath";
 import { useKeyboardShortcuts } from "../utils/hooks/useKeyboardShortcuts";
 
-import { generate_full_app_script } from "./generate_full_app_script";
-import { raw_app_info_to_full } from "./raw_app_info_to_full";
 import { useBackendConnection } from "./useBackendMessageCallbacks";
 
 export function useSyncUiWithBackend() {
@@ -123,7 +123,7 @@ export function useSyncUiWithBackend() {
 
     debouncedSendMsg({
       path: "UPDATED-APP",
-      payload: generate_full_app_script(state),
+      payload: generate_full_app_script(state, { include_info: false }),
     });
   }, [state, debouncedSendMsg, sendMsg]);
 

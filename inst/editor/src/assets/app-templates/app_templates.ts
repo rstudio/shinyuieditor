@@ -1,9 +1,4 @@
-import type {
-  Multi_File_App_Script,
-  Multi_File_Full_Info,
-  Single_File_App_Script,
-  Single_File_Full_Info,
-} from "ast-parsing";
+import type { Multi_File_Full_Info, Single_File_Full_Info } from "ast-parsing";
 import { SCRIPT_LOC_KEYS } from "ast-parsing";
 import { indent_line_breaks } from "ast-parsing/src/code_generation/build_function_text";
 import type { MessageToBackendByPath } from "communication-types";
@@ -13,10 +8,8 @@ import type {
   TemplateInfo,
 } from "communication-types/src/AppTemplates";
 
-import {
-  generate_full_app_script,
-  write_library_calls,
-} from "../../backendCommunication/generate_full_app_script";
+import { generate_full_app_script } from "../../state/app_model/generate_full_app_script";
+import { write_library_calls } from "../../state/app_model/generate_ui_script";
 
 import { chickWeightsGridTemplate } from "./templates/chickWeightsGrid";
 import { chickWeightsNavbar } from "./templates/chickWeightsNavbar";
