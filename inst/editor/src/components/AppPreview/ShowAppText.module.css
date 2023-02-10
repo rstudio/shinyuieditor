@@ -11,6 +11,8 @@
   overflow: scroll;
   padding-block: var(--size-lg);
   padding-inline: var(--size-xl);
+  max-width: 800px;
+  width: 99%;
 }
 
 .title {
