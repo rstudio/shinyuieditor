@@ -29,6 +29,11 @@ export const shinySelectInputInfo: UiComponentInfo<ShinySelectInputProps> = {
       },
     },
   },
+  serverBindings: {
+    inputs: {
+      inputIdKey: "inputId",
+    },
+  },
   acceptsChildren: false,
   iconSrc: selectBoxIcon,
   category: "Inputs",

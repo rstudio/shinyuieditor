@@ -29,6 +29,12 @@ export const plotlyPlotlyOutputInfo: UiComponentInfo<PlotlyOutputSettings> = {
       defaultValue: "400px",
     },
   },
+  serverBindings: {
+    outputs: {
+      outputIdKey: "outputId",
+      renderScaffold: `renderPlotly({\n  plot_ly(z = ~volcano, type = "surface")\n})`,
+    },
+  },
   acceptsChildren: false,
   iconSrc: icon,
   category: "Plotting",

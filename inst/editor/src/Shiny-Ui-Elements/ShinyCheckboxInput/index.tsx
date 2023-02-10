@@ -34,6 +34,11 @@ export const shinyCheckboxInputInfo: UiComponentInfo<ShinyCheckboxInputProps> =
         units: ["%", "px", "rem"],
       },
     },
+    serverBindings: {
+      inputs: {
+        inputIdKey: "inputId",
+      },
+    },
     acceptsChildren: false,
     iconSrc: icon,
     category: "Inputs",

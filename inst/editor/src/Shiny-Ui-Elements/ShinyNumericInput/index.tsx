@@ -71,6 +71,11 @@ export const shinyNumericInputInfo: UiComponentInfo<ShinyNumericInputProps> = {
       </>
     );
   },
+  serverBindings: {
+    inputs: {
+      inputIdKey: "inputId",
+    },
+  },
   acceptsChildren: false,
   iconSrc: icon,
   category: "Inputs",
