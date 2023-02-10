@@ -32,10 +32,3 @@ reference:
       Run the `shinyuieditor`. The only function you'll probably use.
   - contents:
       - launch_editor
-  - title: Advanced
-    desc: >
-      Functions used behind the scenes to parse app ui into a tree structure. These are provided for context if one chooses to extend the editor, but will almost never be used directly.
-  - contents:
-      - get_file_ui_definition_info
-      - update_ui_definition
-      - ui_code_to_tree

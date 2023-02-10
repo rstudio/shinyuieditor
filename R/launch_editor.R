@@ -13,11 +13,6 @@
 #'   will then be written to the location specified.
 #' @param shiny_background_port Port to launch the shiny app preview on.
 #'   Typically not necessary to set manually.
-#' @param remove_namespace Should namespaces (`library::` prefixes) be stripped
-#'   from the generated UI code? Set to `FALSE` if you prefer the style of
-#'   `shiny::sliderInput()` to `sliderInput()`. If set to `TRUE`, then any
-#'   libraries needed for the nodes will be loaded at the top of your `app.R` or
-#'   `ui.R`.
 #' @param app_preview Should a live version of the Shiny app being edited run
 #'   and auto-show updates made? You may want to disable this if the app has
 #'   long-running or processor intensive initialization steps.
@@ -54,7 +49,6 @@ launch_editor <- function(app_loc,
                           host = "127.0.0.1",
                           port = httpuv::randomPort(),
                           shiny_background_port = httpuv::randomPort(),
-                          remove_namespace = TRUE,
                           app_preview = TRUE,
                           show_logs = TRUE,
                           show_preview_app_logs = TRUE,

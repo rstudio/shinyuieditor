@@ -34,8 +34,9 @@ Yes! If you run `launch_editor()` with `app_loc` set to an non-existing or non-a
 
 ## Is there a way to edit the server code for my app?
 
-There is no way to directly edit the server code for your app from within the editor window. However, if you edit the server code within your editor window and save, the app preview will automatically refresh the app with the new server code for you. This allows you to build your app by writing more traditional R code for your server and editing the ui with `shinyuieditor`'s visual interface.
+There is no way to directly edit the server code for your app from within the editor window. However, if you edit the server code within your editor window and save, the app preview will automatically refresh the app with the new server code for you. This allows you to build your app by writing more traditional R code for your server and editing the ui with `shinyuieditor`'s visual interface. 
 
+In the VSCode extension, buttons will appear in the settings panel for many input/ output elements that will open a text-editor to the server-uses of the bound inputs/outputs. For outputs with no currently bound outputs render call in the server, an option to create a simple scaffold is provided as well. 
 
 ## I use a lot of <widget name> in my apps and it's not available in the elements palette, can I still use the editor?
 
