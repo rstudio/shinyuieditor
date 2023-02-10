@@ -2,7 +2,7 @@
   "name": "vscode-extension",
   "displayName": "ShinyUiEditor",
   "description": "Visual editor interface for constructing R Shiny app UIs",
-  "version": "0.0.1",
+  "version": "0.4.0",
   "publisher": "posit",
   "icon": "assets/shinyuieditor-hex.png",
   "private": true,

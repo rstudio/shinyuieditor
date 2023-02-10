@@ -1,3 +1,14 @@
+# shinyuieditor 0.4.0
+
+### Major new features and improvements
+
+- VSCode extension can now highlight output definitions and input uses in the server code.
+- In embedded mode (on the main website) the ui editor now provides full code to reproduce the current app.
+
+### Minor new features and improvements
+
+### Bug fixes
+
 # shinyuieditor 0.3.3
 
 ### Major new features and improvements
