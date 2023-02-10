@@ -1,7 +1,5 @@
 import type { BackendConnection, MessageDispatcher } from "communication-types";
 
-import { TESTING_MODE } from "../env_variables";
-
 import { getClientsideOnlyTree } from "./getClientsideOnlyTree";
 
 export function setupStaticBackend({
@@ -42,8 +40,7 @@ export function setupStaticBackend({
           return;
         }
         case "APP-PREVIEW-REQUEST": {
-          if (!TESTING_MODE) return;
-          messageDispatch.dispatch("APP-PREVIEW-STATUS", "FAKE-PREVIEW");
+          // Ignore
           return;
         }
       }

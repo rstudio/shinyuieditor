@@ -10,7 +10,6 @@ import Button from "../Inputs/Button/Button";
 import { TooltipButton } from "../PopoverEl/Tooltip";
 
 import classes from "./AppPreview.module.css";
-import FakeDashboard from "./FakeDashboard";
 import { LogsViewer } from "./LogsViewer";
 import { ShowAppText } from "./ShowAppText";
 import { useCommunicateWithBackend } from "./useCommunicateWithBackend";
@@ -89,9 +88,7 @@ export default function AppPreview() {
           <>
             <ReloadButton isExpandedMode={true} />
             <div className={classes.appContainer}>
-              {appLoc === "FAKE-PREVIEW" ? (
-                <FakeDashboard />
-              ) : appLoc === "LOADING" ? (
+              {appLoc === "LOADING" ? (
                 <LoadingMessage />
               ) : (
                 <iframe

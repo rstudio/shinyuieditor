@@ -13,7 +13,7 @@ export type MessageToClientByPath = {
     context: string;
     msg: string;
   };
-  "APP-PREVIEW-STATUS": "FAKE-PREVIEW" | "LOADING" | { url: string };
+  "APP-PREVIEW-STATUS": "LOADING" | { url: string };
   "APP-PREVIEW-CRASH": string;
   "APP-PREVIEW-LOGS": string[];
   TEMPLATE_CHOOSER: App_Type | "USER-CHOICE";
