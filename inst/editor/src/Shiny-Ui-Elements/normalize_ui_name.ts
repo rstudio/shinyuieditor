@@ -1,16 +1,28 @@
 import { shinyUiNodeInfo } from "./uiNodeTypes";
 
-const namespace_regex = /^\w+::/;
-const full_ui_names = Object.keys(shinyUiNodeInfo);
-const bare_to_namespaced_ui_name = new Map<string, string>(
-  full_ui_names.map((n) => [n.replace(namespace_regex, ""), n])
-);
+const get_has_namespace = /^\w+::/;
 
 /**
  * Convert a potentially unspaced ui function name to a namespaced one
- * @param ui_name Either bare or namespaced ui name
+ * @param fn_name Either bare or namespaced ui name
  * @returns Namespace ui name
  */
-export function normalize_ui_name(ui_name: string): string {
-  return bare_to_namespaced_ui_name.get(ui_name) || ui_name;
+export function normalize_ui_name(fn_name: string): string {
+  // If the namespace is already on the name, then just return it
+  if (get_has_namespace.test(fn_name)) return fn_name;
+
+  // If we have a bare function name we need to loop through the known full
+  // function names and find the one that ends with the passed bare name
+  const find_ends_in_fn_name = new RegExp(`^\\w+::${fn_name}$`);
+  for (const full_name in shinyUiNodeInfo) {
+    if (find_ends_in_fn_name.test(full_name)) {
+      return full_name;
+    }
+  }
+
+  // If we didnt' find the function in our known functions something has gone
+  // wrong so we should error
+  throw new Error(
+    `Unknown function ${fn_name} made it passed the unknown function filter`
+  );
 }

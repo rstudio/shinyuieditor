@@ -147,9 +147,9 @@ describe("Single-File apps", () => {
   test("Libraries", () => {
     expect(full_info).toEqual(
       expect.objectContaining({
-        app: {
+        app: expect.objectContaining({
           libraries: ["shiny", "gridlayout"],
-        },
+        }),
       })
     );
   });
