@@ -32475,8 +32475,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   // src/assets/icons/undo.png
   var undo_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAoCAYAAAC4h3lxAAAACXBIWXMAAAsTAAALEwEAmpwYAAABDElEQVRYhe2ZsQ7CMAxEr4gvZmBDXMXGwC+XgVQqERDbCbEr5ZaoalXdq+0kTqdlWbBnHbwN1GoAeGsAeGv3AMdfN8+3h+ZdVwDcXE8GP7hfTqrnW0UgN99NLQDczAP1AFvzM4xpU6MagNw8vz75R1kBQpgHCrPQF0nNW3eJqjTURiDMl1+liYDUvLWQTRGTRiDcl18lAQhrHigDhDYPlAGYxpDmAXkNhG2cSwBzGolXOoWTJIVCQ0hSiAgMIa0BIiiEZiVmGvOpNVfXgtfuhYhgkbDsRpnGUiS6NDfWfoAIEomajowIAFHbExPvEN1X7BanEsTnGuiiVudChBPENH5wOGsAeGsAeGv3AE8yEDlUwXXxqQAAAABJRU5ErkJggg==";
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-2h4ftH9xd7f1/editor/src/components/Icons/styles.module.css.js
-  var digest = "aa0707340ea2922138d702958ab5bcf2f1584dea3fbebfb2cfe62460e2a438fa";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-K8Ijp2ll9lLh/editor/src/components/Icons/styles.module.css.js
+  var digest = "c24ae3cb84f2507866036971c3ef05192b0950c4aac7027806db51c2827ff458";
   var css = `img._icon_1467k_1 {
   height: 30px;
   /* outline: 2px solid green; */
@@ -32771,8 +32771,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     return classes.filter((c2) => c2).join(" ");
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-QZE83nlfR8E5/editor/src/components/Inputs/Button/Button.module.css.js
-  var digest2 = "ce1d4d86a1e483b94fe474b888d4a39f7a278b05eeb5c87acccca0cf4e2fa922";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-mMZg4uI0IKmo/editor/src/components/Inputs/Button/Button.module.css.js
+  var digest2 = "09b2722b4e36ce0178ff3215383bee58236f0dcf1360bbfa719d162eb7dce062";
   var css2 = `._button_1y00r_1 {
   --background-color: var(--rstudio-white);
   --text-color: var(--font-color);
@@ -35942,8 +35942,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   // src/Shiny-Ui-Elements/GridlayoutGridCard/GridlayoutGridCard.tsx
   var import_react21 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-TGL0g5zQEgKc/editor/src/components/DeleteNodeButton/styles.module.css.js
-  var digest3 = "d9f13958327006a5cc08a29a0cedace0aa9ea15b500e653dc329284692c61048";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-EIH1GsyqUW8g/editor/src/components/DeleteNodeButton/styles.module.css.js
+  var digest3 = "539d4b6237d813010c2ba9883373e971838cf02b0075de410178ed187c32db0b";
   var css3 = `._deleteButton_1en02_1 {
   color: var(--red);
   display: flex;
@@ -36199,8 +36199,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   };
   var UiNode_default = UiNode;
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-z8S54hSWDN8M/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
-  var digest4 = "0883616a784d094b89fa1c4c418dbff0dfc2434a8acd288ccf6da19757d14323";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-dgu6Pw4kd5d6/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
+  var digest4 = "913c661c06c903a1833f7f488d08624becde2933b5c1fbab106b5a7957acacaf";
   var css4 = `._container_1a2os_1 {
   position: relative;
   height: 100%;
@@ -36626,8 +36626,8 @@ div._emptyGridCard_1a2os_144 > button {
     return setLayout;
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-SSY8NA6evMWx/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
-  var digest5 = "8ae3f97fe5479ad569f0badab7c24b0f22e50d8deb259132f44816f2f968903c";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-oj3J5gd5xOTU/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
+  var digest5 = "5832715573ae9d6d648eb0c55aa1f405100252cfd65ae79e7afd3f51bb5e6ee3";
   var css5 = `._container_1a2os_1 {
   position: relative;
   height: 100%;
@@ -36984,8 +36984,8 @@ div._emptyGridCard_1a2os_144 > button {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 16 16" }, "child": [{ "tag": "path", "attr": { "fillRule": "evenodd", "d": "M16 14v1H0V0h1v14h15zM5 13H3V8h2v5zm4 0H7V3h2v10zm4 0h-2V6h2v7z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-BW09MVulCUnb/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
-  var digest6 = "21fbdbdfb1c4de97ef8ba3a918e0661be05a095051de4b15b5974a1e9effe32e";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-Ujq97cQEt9eE/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
+  var digest6 = "7379fa7d7a16eaa750872244aedafc279635184b5bb060e2ecaac73bba27c8fd";
   var css6 = `._container_1rlbk_1 {
   max-height: 100%;
 }
@@ -37075,8 +37075,8 @@ div._emptyGridCard_1a2os_144 > button {
     return dimensions;
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-VRITBgJcxGGi/editor/src/Shiny-Ui-Elements/GridlayoutGridCardPlot/styles.module.css.js
-  var digest7 = "b85c48bf6d4240993875419173367146a7d842f53dd5760d2fb101680bab5d82";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-T7j0aJY9s1Fq/editor/src/Shiny-Ui-Elements/GridlayoutGridCardPlot/styles.module.css.js
+  var digest7 = "d1b8b62a704ccd5e0d22a2faf6e4b423007da68373de869508ebed14fb353d9c";
   var css7 = `._gridCardPlot_1a94v_1 {
   background-color: var(--rstudio-white);
   width: 100%;
@@ -37159,8 +37159,8 @@ div._emptyGridCard_1a2os_144 > button {
   // src/Shiny-Ui-Elements/GridlayoutGridCardText/GridlayoutCardText.tsx
   var React21 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-r6UMnjdp6XgD/editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/styles.module.css.js
-  var digest8 = "710908d1548da21590ab81300b4d953cc4700e6d5eeb002969aed9404c340056";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-bxLGGLBRpPIy/editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/styles.module.css.js
+  var digest8 = "58429d7b0122ad9122bfd1c07838b8d375e62646938162098508708ea87bc5d6";
   var css8 = `._textPanel_525i2_1 {
   background-color: var(--rstudio-white);
   /* outline: var(--outline); */
@@ -37927,8 +37927,8 @@ div._emptyGridCard_1a2os_144 > button {
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-sF2RDO2b72JR/editor/src/components/Grids/AreaOverlay.module.css.js
-  var digest9 = "a444eed103f268ced3c816335dc14bfc59d26be11423902d45446fe848b96bce";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-qp2wziboogtY/editor/src/components/Grids/AreaOverlay.module.css.js
+  var digest9 = "28bba3ec589d74621ff6181be92745287880995a53421a496761f5b154c0a0b2";
   var css9 = `._marker_mumaw_1 {
   font-weight: lighter;
   font-style: italic;
@@ -38352,8 +38352,8 @@ div._emptyGridCard_1a2os_144 > button {
   // src/components/Grids/EditableGridContainer/EditableGridContainer.tsx
   var React33 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-U1gUrVN0RWYr/editor/src/components/Grids/EditableGridContainer/resizableGrid.module.css.js
-  var digest10 = "5fc08c72cebe0f9a3e7a59933f0b80de06df99cc07ef8da9b19d2cbcc64947c4";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-vEYyrVaEpD95/editor/src/components/Grids/EditableGridContainer/resizableGrid.module.css.js
+  var digest10 = "1964fed5d8b4d6a908c6947398959664d910d11734a5aec98d908f5f7b9f22b8";
   var css10 = `._ResizableGrid_i4cq9_1 {
   --grid-gap: 5px;
 
@@ -38503,7 +38503,7 @@ div#_size-detection-cell_i4cq9_1 {
     return value && typeof value === "number" ? value : 1;
   }
 
-  // ../../node_modules/react-markdown/node_modules/vfile-message/index.js
+  // ../../node_modules/react-markdown/node_modules/vfile-message/lib/index.js
   var VFileMessage = class extends Error {
     constructor(reason, place, origin) {
       const parts = [null, null];
@@ -38786,8 +38786,8 @@ div#_size-detection-cell_i4cq9_1 {
   }
 
   // ../../node_modules/react-markdown/node_modules/vfile/lib/minurl.shared.js
-  function isUrl(fileURLOrPath) {
-    return fileURLOrPath !== null && typeof fileURLOrPath === "object" && fileURLOrPath.href && fileURLOrPath.origin;
+  function isUrl(fileUrlOrPath) {
+    return fileUrlOrPath !== null && typeof fileUrlOrPath === "object" && fileUrlOrPath.href && fileUrlOrPath.origin;
   }
 
   // ../../node_modules/react-markdown/node_modules/vfile/lib/minurl.browser.js
@@ -38840,7 +38840,7 @@ div#_size-detection-cell_i4cq9_1 {
       let options;
       if (!value) {
         options = {};
-      } else if (typeof value === "string" || (0, import_is_buffer.default)(value)) {
+      } else if (typeof value === "string" || buffer(value)) {
         options = { value };
       } else if (isUrl(value)) {
         options = { path: value };
@@ -38858,14 +38858,15 @@ div#_size-detection-cell_i4cq9_1 {
       let index2 = -1;
       while (++index2 < order.length) {
         const prop2 = order[index2];
-        if (prop2 in options && options[prop2] !== void 0) {
+        if (prop2 in options && options[prop2] !== void 0 && options[prop2] !== null) {
           this[prop2] = prop2 === "history" ? [...options[prop2]] : options[prop2];
         }
       }
       let prop;
       for (prop in options) {
-        if (!order.includes(prop))
+        if (!order.includes(prop)) {
           this[prop] = options[prop];
+        }
       }
     }
     get path() {
@@ -38920,7 +38921,7 @@ div#_size-detection-cell_i4cq9_1 {
       this.path = path.join(this.dirname || "", stem + (this.extname || ""));
     }
     toString(encoding) {
-      return (this.value || "").toString(encoding);
+      return (this.value || "").toString(encoding || void 0);
     }
     message(reason, place, origin) {
       const message = new VFileMessage(reason, place, origin);
@@ -38959,6 +38960,9 @@ div#_size-detection-cell_i4cq9_1 {
     if (!path3) {
       throw new Error("Setting `" + name + "` requires `path` to be set too");
     }
+  }
+  function buffer(value) {
+    return (0, import_is_buffer.default)(value);
   }
 
   // ../../node_modules/bail/index.js
@@ -39065,7 +39069,7 @@ div#_size-detection-cell_i4cq9_1 {
   // ../../node_modules/unified/node_modules/vfile/lib/index.js
   var import_is_buffer2 = __toESM(require_is_buffer(), 1);
 
-  // ../../node_modules/unified/node_modules/vfile-message/index.js
+  // ../../node_modules/unified/node_modules/vfile-message/lib/index.js
   var VFileMessage2 = class extends Error {
     constructor(reason, place, origin) {
       const parts = [null, null];
@@ -39348,8 +39352,8 @@ div#_size-detection-cell_i4cq9_1 {
   }
 
   // ../../node_modules/unified/node_modules/vfile/lib/minurl.shared.js
-  function isUrl2(fileURLOrPath) {
-    return fileURLOrPath !== null && typeof fileURLOrPath === "object" && fileURLOrPath.href && fileURLOrPath.origin;
+  function isUrl2(fileUrlOrPath) {
+    return fileUrlOrPath !== null && typeof fileUrlOrPath === "object" && fileUrlOrPath.href && fileUrlOrPath.origin;
   }
 
   // ../../node_modules/unified/node_modules/vfile/lib/minurl.browser.js
@@ -39402,7 +39406,7 @@ div#_size-detection-cell_i4cq9_1 {
       let options;
       if (!value) {
         options = {};
-      } else if (typeof value === "string" || (0, import_is_buffer2.default)(value)) {
+      } else if (typeof value === "string" || buffer2(value)) {
         options = { value };
       } else if (isUrl2(value)) {
         options = { path: value };
@@ -39420,14 +39424,15 @@ div#_size-detection-cell_i4cq9_1 {
       let index2 = -1;
       while (++index2 < order2.length) {
         const prop2 = order2[index2];
-        if (prop2 in options && options[prop2] !== void 0) {
+        if (prop2 in options && options[prop2] !== void 0 && options[prop2] !== null) {
           this[prop2] = prop2 === "history" ? [...options[prop2]] : options[prop2];
         }
       }
       let prop;
       for (prop in options) {
-        if (!order2.includes(prop))
+        if (!order2.includes(prop)) {
           this[prop] = options[prop];
+        }
       }
     }
     get path() {
@@ -39482,7 +39487,7 @@ div#_size-detection-cell_i4cq9_1 {
       this.path = path2.join(this.dirname || "", stem + (this.extname || ""));
     }
     toString(encoding) {
-      return (this.value || "").toString(encoding);
+      return (this.value || "").toString(encoding || void 0);
     }
     message(reason, place, origin) {
       const message = new VFileMessage2(reason, place, origin);
@@ -39521,6 +39526,9 @@ div#_size-detection-cell_i4cq9_1 {
     if (!path3) {
       throw new Error("Setting `" + name + "` requires `path` to be set too");
     }
+  }
+  function buffer2(value) {
+    return (0, import_is_buffer2.default)(value);
   }
 
   // ../../node_modules/unified/lib/index.js
@@ -48841,8 +48849,8 @@ div#_size-detection-cell_i4cq9_1 {
     };
   };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-nwcNun5JUtm8/editor/src/components/PopoverEl/styles.module.css.js
-  var digest11 = "6300fad4c916a2e55ba4a6270a394c0094d0d5b6c8bcf994fb966ad04b37fdab";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-NNBKgLGWWQwU/editor/src/components/PopoverEl/styles.module.css.js
+  var digest11 = "3b83fb70c2e19ceb9300950d5e525cbfbe20c65e70392012e736b14096994dcb";
   var css11 = `._popover_m2pq3_1 {
   pointer-events: none;
   opacity: 0;
@@ -49030,8 +49038,8 @@ div#_size-detection-cell_i4cq9_1 {
     );
   };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-76MIQ2cBMzPi/editor/src/components/Inputs/CSSUnitInput/CSSUnitInfo.module.css.js
-  var digest12 = "d93ae2f9d35e6cbdcbabc0c4b9498eaf436c63ff5f5737bc3047c9142f6fd054";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-5OACy45n3J3y/editor/src/components/Inputs/CSSUnitInput/CSSUnitInfo.module.css.js
+  var digest12 = "e39dad2c02a14013c17f8176e17e6dddea3ff97438091d096e2b0c803bee7019";
   var css12 = `._infoIcon_15ri6_1 {
   width: 24px;
   color: var(--rstudio-blue);
@@ -49110,8 +49118,8 @@ div#_size-detection-cell_i4cq9_1 {
     rem: "Pixel size of app font. Typically 16 pixels."
   };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-pmrCJrZJXKrb/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
-  var digest13 = "52555725c5c460d047e35b6032146d8a92cefb197b2e260fc710b5b9612ee19b";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-YrFEMRxPTpef/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
+  var digest13 = "1dc3d5886ee72ab1db9b2682e8f000ff5b84f2a552f75fe6c0d6485297928e92";
   var css13 = `._wrapper_3jy8f_1 {
   position: relative;
   display: flex;
@@ -49654,8 +49662,8 @@ div#_size-detection-cell_i4cq9_1 {
     return tractSizes.some((size) => size === "auto");
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-r7cvQnnVqlNI/editor/src/components/Grids/EditableGridContainer/TractInfoDisplay.module.css.js
-  var digest14 = "404c783e661ffaf7724c3207bc015f2d757acbd6646e308c0a583485dbf439a1";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-CS6ktrUVzU9m/editor/src/components/Grids/EditableGridContainer/TractInfoDisplay.module.css.js
+  var digest14 = "9fcfa325012707bf3b54c5c1ddd72573898a6861deebd93d1f99b6209f5e397d";
   var css14 = `._tractInfoDisplay_cvtwo_1 {
   --transition-delay: 0.1s;
   --transition-speed: 0.1s;
@@ -50018,8 +50026,8 @@ user is typing in the input field but mouses off */
     });
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-Rs7RckXzGmbA/editor/src/components/Grids/EditableGridContainer/TractSizer.module.css.js
-  var digest15 = "9c40f4481d3c014357cf7b9924924387955c6ddceabd7f9c0e11aae77554977c";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-S4yzFtkpszga/editor/src/components/Grids/EditableGridContainer/TractSizer.module.css.js
+  var digest15 = "d157d71bca3b718c83689cb6f7d470bd80596e035bcd69c9eae27f3000d063ec";
   var css15 = `div._columnSizer_9b32k_1,
 div._rowSizer_9b32k_2 {
   --sizer-color: #c9e2f3;
@@ -50444,7 +50452,7 @@ div._rowSizer_9b32k_2::after {
     return /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("h3", { className: className + " panel-title", children });
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-1ni6pMbUUeHT/editor/src/PortalModal.module.css.js
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-E1lGloPcnmJf/editor/src/PortalModal.module.css.js
   var digest16 = "e7ce6e377975676bd07773cc70db7ab0829e769cd4dc30890745ad5e212f81e6";
   var css16 = `._portalHolder_18ua3_1 {
   background-color: rgba(255, 255, 255, 0.735);
@@ -50561,8 +50569,8 @@ div._rowSizer_9b32k_2::after {
   }
   var PortalModal_default = PortalModal;
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-tsYCY8hb33qY/editor/src/PortalModal.module.css.js
-  var digest17 = "9aa8ba41d56b4a43d6b550ee365e55ae13dc00eed8ddad5ecfe932d625861b98";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-G4n68TqSnkpy/editor/src/PortalModal.module.css.js
+  var digest17 = "72fe79d3b3f0b50ff92d211e71ea99af3fd8cb56974e74f79e768b3daf679f5d";
   var css17 = `._portalHolder_18ua3_1 {
   background-color: rgba(255, 255, 255, 0.735);
   position: absolute;
@@ -50761,8 +50769,8 @@ div._rowSizer_9b32k_2::after {
     }, n3;
   }();
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-2y9hKOSTWD0j/editor/src/components/Inputs/BooleanInput/styles.module.css.js
-  var digest18 = "23ec916286c760006c22bdcf2f8ce8068647bdb538c811b796e91d76180387f4";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-95p7aTUPze2C/editor/src/components/Inputs/BooleanInput/styles.module.css.js
+  var digest18 = "681243bd74439424c9b46a85329f619ba18a17467184e61b90e46f8829d3b858";
   var css18 = `._checkboxInput_7ym3w_1 {
   height: 0;
   width: 0;
@@ -50874,8 +50882,8 @@ label._checkboxLabel_7ym3w_10:after {
   // src/components/Inputs/CSSUnitInput/CSSUnitInput.tsx
   var import_react31 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-Er09tXizxy7x/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
-  var digest19 = "6daae0f4d23b99ab75334ceee3f6a8fd3cee7b47a7155ee8e50e6f250fffde27";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-B0ZlK8y7M21P/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
+  var digest19 = "a6561292c7cd8e01caf796265c31f0fdc7c879e01e750063f34962eb5e41b86f";
   var css19 = `._wrapper_3jy8f_1 {
   position: relative;
   display: flex;
@@ -51017,8 +51025,8 @@ label._checkboxLabel_7ym3w_10:after {
   // src/components/Inputs/ListInput/NamedListInput.tsx
   var import_react_sortablejs = __toESM(require_dist());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-21DDdLRkeolK/editor/src/components/Inputs/ListInput/styles.module.css.js
-  var digest20 = "d3b2fa2e2e65fd89ab288b6a2dca775415ed7e2595d6a01f7d5c692ab618519c";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-zIN903OOhar5/editor/src/components/Inputs/ListInput/styles.module.css.js
+  var digest20 = "18d8b821c8adfc013d979fbd3af8b6ab578c35ad229d37c9763a6654edddfd07";
   var css20 = `._container_xt7ji_1 {
   --gap-size: 4px;
   margin-top: 21px;
@@ -51314,8 +51322,8 @@ label._checkboxLabel_7ym3w_10:after {
   // src/components/Inputs/RadioInputs/RadioInputsSimple.tsx
   var React39 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-1TwGRnKl52gH/editor/src/components/Inputs/RadioInputs/RadioInputs.module.css.js
-  var digest21 = "30dab907dfb495d02687d25cec3745fcacfd1125056a267c10d44c4d061c45ff";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-tFKlgIMo2ShE/editor/src/components/Inputs/RadioInputs/RadioInputs.module.css.js
+  var digest21 = "862f1f6f138e0f82575c1775e8260f16e7a9c61616856ce4bcc8ab816ea48b15";
   var css21 = `._radioContainer_1regb_1 {
   display: grid;
   gap: 5px;
@@ -51776,8 +51784,8 @@ the label */
     };
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-O934lQSPnbZA/editor/src/components/GridlayoutElement/styles.module.css.js
-  var digest22 = "3dea481cc597be5f1e47443c9a6b0312cc819d1d920c5f4a0f91cfb3f85ef53c";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-JiEVGBlX4682/editor/src/components/GridlayoutElement/styles.module.css.js
+  var digest22 = "2a169a5e4a804e922186cc86d0d7dc928bc55f00419af35899203338578969d9";
   var css22 = `._container_1hvsg_1 {
   display: grid;
   /* background-color: var(--bg-color); */
@@ -52122,8 +52130,8 @@ the label */
     return makeStringInputInfo("Label text", defaultValue);
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-hGFpCl9SN3xj/editor/src/Shiny-Ui-Elements/ShinyActionButton/styles.module.css.js
-  var digest23 = "abee6ad6334e39cd85240b4176433daabf7283df4c28caa821442e897510dedf";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-lJRln7cu6jaZ/editor/src/Shiny-Ui-Elements/ShinyActionButton/styles.module.css.js
+  var digest23 = "8f18dc16b6f2d99588fd5ba94435acafbc1b795544906ff18c893efc3860dd4e";
   var css23 = `._container_tyghz_1 {
   display: grid;
   grid-template-rows: 1fr;
@@ -52180,8 +52188,8 @@ the label */
   // src/assets/icons/shinyCheckgroup.png
   var shinyCheckgroup_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAFS0lEQVR4nO3cz2vTdxzH8Vfb9VeIa7ta1FW2FqQ6pqLbEERhm0OGFzcPY0dhl+LFo4cd9gfsuIs77LDbkAljDqEiCoKszMMEcbqFsjm2OaW6ptClP2zNDvkms2n6I99vXqTp5/mAQJKmn3wPT76fJCTvpnw+L6DWmut9ANiYCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFoQFC8KCBWHBgrBgQViwICxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFs/V+wDq5cy5seX+1BNd4piILkt8+uGOmEs2pmDDKrNL0ilJ70h6NeFaP0m6IumspJ8TrtWw2AqlYUl3JJ1W8qgUrXE6WnO4Bus1pNDPWCclff7sHZ1tzepsa4m12PTcgqbnnhZvNkVrz0r6Mv4hNqaQw+pTYbuSJA1s7tB7r/Wpv6c90aJ/Tczq2x/Hde/RTPGus5IuShpPtHCDCXkrPCWpU5K297Rr+O3+xFFJUn+01vYXSmt1RM8VlJDDOly8cmxvr1qam2q2cEtzk47t6a34XKEIeSs8VLwy0NeZaKHRTFaX7xQ+ZRh+60Vt6W4vX/NQxX/cwEIOK1W80toS/2x18ea4rmUmlW5vKUVVYc1UxX/ewELeChMbzWR1LTMpSTp5aGspKhBWbJO5J/rm5iNJ0on9m/Vywu10oyGsmL76/oEk6cBAWgeHuut7MOsQYcUwmsnq18ezSre36Ojid3+IEFaVJnNPSu8Aj+/rVVeqtc5HtD4RVpWu/5LV1OyCdm9Lad/A8/U+nHWLsKrwMDtbehf47l62wJUQVhUu3XosSXpzqIuPFlZBWBWMZrI6c25M5394ULrv9/Fp3f47J0k6vLO7TkfWOAirzMyTp6XPp27cmyrFdfvPKUmFsxUv2FdHWGU6Wpv10eGtpds37k0t+oT9jUFesK8FYVWwqz+tE/s3l24Xz2C7t6V4bbVGhLWMg0PdOjCQXnTf3pfSyzwa5UIO65/ildzcQsUHHN3Tq3R74WvKWza1VvW51TNfUZaW+eXORhby12auSzouSXfv5/T6wKYlD+hKteqT9wdjLX7n/r/lzxWUkM9Y3xWvjNx6rGxuvmYLZ3PzGok+84pcqNniDSLkM9YXkj6WNDg5Pa/PLv+hI6/0aMeWlNpifvFvbiGvsYc5Xb07oamZ0vb6W/RcQQk5LKnwI4cRSZqaWdCF6N2f4TmCE/JWKEmXVPj1c8awdiZa+5Jh7XUv9DOWJF2VtFPSB5KOqPCLmrjfUc+p8EL9iqTzNTm6BkVY//s6uqAGQt8KYUJYsCAsWBAWLHjxvpRlol9oCKuAiX41xlbIRD+L0M9YTPQzCTksJvoZhbwVMtHPKOSwmOhnFPJWyEQ/o5DDYqKfUchbYWJM9FseYcXERL+VEVZMTPRbGWHFwES/1RFWlZjotzaEVSUm+q0NYVWBiX5rR1hVYKLf2hFWBUz0S46wyjDRrzYIqwwT/WqDsCpgol9yhLUMJvolE3JYTPQzCvlrM0z0Mwr5jMVEP6OQz1hM9DMKOSyJiX42IW+FEhP9bEI/Y0lM9LNoyufz9T4GbEChb4UwISxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFoQFC8KCBWHBgrBgQViwICxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLP4DpWmTqmVmpDwAAAAASUVORK5CYII=";
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-Uz3ibeY0K5Zz/editor/src/Shiny-Ui-Elements/ShinyCheckboxGroupInput/styles.module.css.js
-  var digest24 = "47eaba8afeea81a3f3d00e2d39b465a4ebaea82136106ff0646bc32ce0a366d5";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-iEnVzDd73P0K/editor/src/Shiny-Ui-Elements/ShinyCheckboxGroupInput/styles.module.css.js
+  var digest24 = "db3e07510ba6c82f65e31b427567ba370a207521a5abdb3f5abe36839d9b99c2";
   var css24 = `._container_162lp_1 {
   position: relative;
   padding: 4px;
@@ -52273,8 +52281,8 @@ the label */
   // src/Shiny-Ui-Elements/ShinyCheckboxInput/ShinyCheckboxInput.tsx
   var React43 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-GKiBHvjnLm5C/editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/styles.module.css.js
-  var digest25 = "f8597dd17464645f4eeab2896c9aaae13dcfd9d27b207092a05ceebc5ce9af46";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-QJ8V6YLViCtd/editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/styles.module.css.js
+  var digest25 = "2656e7939bcc0aa3e6a08923c9703696c7a69a5637fe20866f232ad8a1687ea5";
   var css25 = `._container_1x0tz_1 {
   position: relative;
   padding: 4px;
@@ -52390,8 +52398,8 @@ the label */
     return getTabPanelTitle(firstChild) ?? "First Tab";
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-TrCvIAsbkStr/editor/src/components/Tabs/TabPanel/TabPanel.module.css.js
-  var digest26 = "296b27e29353f63c501e9a97bcfa83d0c05c3c971a2b811c53a13ca3c1ba4f61";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-Q20Tscs9XvFC/editor/src/components/Tabs/TabPanel/TabPanel.module.css.js
+  var digest26 = "5ee8c7c62b4b7650974dd3ec48498516f7f8b6a4ec7b422526200284b8384c06";
   var css26 = `._container_10z2l_1 {
   height: 100%;
 }
@@ -52520,8 +52528,8 @@ the label */
     }) });
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-Rs0K3h7QsFTX/editor/src/Shiny-Ui-Elements/ShinyTabPanel/ShinyTabPanel.module.css.js
-  var digest27 = "dfc9434fa45872e4d83ff608dba36a389a99d71b63dbb4f4ae7d7316ca8b9751";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-mwC6y3dwaMVe/editor/src/Shiny-Ui-Elements/ShinyTabPanel/ShinyTabPanel.module.css.js
+  var digest27 = "c0bc37907680664b64078b425cd7cafe4b67eb2ad1ebafce86990ed25e074e17";
   var css27 = `._container_fe3r8_1 {
   position: relative;
   height: 100%;
@@ -52628,8 +52636,8 @@ the label */
     return sameArray(aPath, bPath);
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-comVnHGoqrNh/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest28 = "a9f6aacfc3221a2f664221a00811547d222e0d2b66cce68ca08abe50500bc8e4";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-hrTh8Kutj5qn/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest28 = "08baa2a4ebf44e23748aa7b39cf96b0275c33adddbd674ebfc9572b5fcf5a4d6";
   var css28 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -52802,8 +52810,8 @@ illusion of the selected panel and tab being one entity */
     );
   };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-V9512JJZCBtY/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest29 = "618c1a1d8937c74abbde7471ba5d8bd50084d3869123514bdbbfefd92bb93590";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-G1hE7Wy36oWn/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest29 = "a2689694fad35001d578070faef8b676351aaa5ec967a26b4771d5734499afb6";
   var css29 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -52973,8 +52981,8 @@ illusion of the selected panel and tab being one entity */
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-Ez9FH2j23rIW/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest30 = "63b024b7abb04d347276865043ed8475be2b1d69b849dfeadd1e565741950aa5";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-kOBrxC7iinLt/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest30 = "9ab588ac7d6108cb5990fc9e1f7edebe986c7e8e2fcd88f3641adcbf6291da7f";
   var css30 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -53249,8 +53257,8 @@ illusion of the selected panel and tab being one entity */
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-rJCymwVMd7g4/editor/src/Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage.module.css.js
-  var digest31 = "1fe8cb9e72cb43048295beecdd7ced97b68fa36770788d9bb7ee22a5c6358a48";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-pNLkd5gNnYGA/editor/src/Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage.module.css.js
+  var digest31 = "f3d3a9bb535249e07f17867f02d4b4599ca77a3fa645f367007ec73e2ddc8ca7";
   var css31 = `._noTabsMessage_130qz_1 {
   padding: 5px;
 }
@@ -53351,8 +53359,8 @@ illusion of the selected panel and tab being one entity */
   // src/Shiny-Ui-Elements/ShinyNumericInput/ShinyNumericInput.tsx
   var React49 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-W1xy0pQssrX7/editor/src/Shiny-Ui-Elements/ShinyNumericInput/styles.module.css.js
-  var digest32 = "a9c52d606acc53653b0664658d1aabb2d732f54a21fcee6741fc2bf01323d584";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-ILLMwYegq6qk/editor/src/Shiny-Ui-Elements/ShinyNumericInput/styles.module.css.js
+  var digest32 = "121ed747dcd2ec45f454c96e94355a28d618c85651589aaad46f0058675fd161";
   var css32 = `._container_yicbr_1 {
   position: relative;
   padding: 4px;
@@ -53470,8 +53478,8 @@ illusion of the selected panel and tab being one entity */
     description: "An input control for entry of numeric values"
   };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-aZTOqvvgKZtL/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
-  var digest33 = "af7d9237d57f57d9e882445f2c6f24248374ee587b459052074f560edca8cfd8";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-JvL4XZwSsZ6M/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
+  var digest33 = "4d8db9d0359ebb6e4fed367457ef5fa25ce3abe633246d9c3fa9f2c38e1945e5";
   var css33 = `._container_1rlbk_1 {
   max-height: 100%;
 }
@@ -53563,8 +53571,8 @@ illusion of the selected panel and tab being one entity */
   // src/Shiny-Ui-Elements/ShinyRadioButtons/ShinyRadioButtons.tsx
   var import_react42 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-UAp6b582R1Aw/editor/src/Shiny-Ui-Elements/ShinyRadioButtons/styles.module.css.js
-  var digest34 = "2a4e6a4096ffc428ce11eeafde8c5ac2b313220a1d10d486781b5392e417d19c";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-2B0f7kpCnlOv/editor/src/Shiny-Ui-Elements/ShinyRadioButtons/styles.module.css.js
+  var digest34 = "9570daa6b73e3c2ff9df38966e1155354deffcbb667c0952c6640c068f596280";
   var css34 = `._container_sgn7c_1 {
   position: relative;
   padding: 4px;
@@ -53666,8 +53674,8 @@ illusion of the selected panel and tab being one entity */
   // src/assets/icons/shinySelectbox.png
   var shinySelectbox_default = "data:image/png;base64,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";
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-yOPjNZYBlTCb/editor/src/Shiny-Ui-Elements/ShinySelectInput/styles.module.css.js
-  var digest35 = "73b2c28e2f596ffbcb681799e55689268efc2fd8132a127704ec09ea07c65b46";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-2sJsMz4Wn3gH/editor/src/Shiny-Ui-Elements/ShinySelectInput/styles.module.css.js
+  var digest35 = "fb867aaf0d823d7a871e19e88365f5926325622c3ca8dc9b44f89f7a59bd6cdf";
   var css35 = `._container_1e5dd_1 {
   position: relative;
   padding: 4px;
@@ -53743,8 +53751,8 @@ illusion of the selected panel and tab being one entity */
   // src/Shiny-Ui-Elements/ShinySliderInput/ShinySliderInput.tsx
   var React51 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-cj0a0zYQPsqX/editor/src/Shiny-Ui-Elements/ShinySliderInput/styles.module.css.js
-  var digest36 = "aa95cd7d975b328c2a2525f40245a502e0ff2a2b07346b3503066273c467fcb4";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-8cZb543VaSEC/editor/src/Shiny-Ui-Elements/ShinySliderInput/styles.module.css.js
+  var digest36 = "17b76bf2ad1312bb8f1dffad47f6b9a787b75f8fd9cf5619e6788bc2e170b7a8";
   var css36 = `._container_1f2js_1 {
   padding: 6px;
 
@@ -53979,8 +53987,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // src/Shiny-Ui-Elements/ShinyTextInput/ShinyTextInput.tsx
   var React52 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-pwvzjIgg4x1b/editor/src/Shiny-Ui-Elements/ShinyTextInput/styles.module.css.js
-  var digest37 = "6c7bd733ffd73413448ec37b8fcf279a00445805fa005b324ce4f0d0221fc06c";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-jJuzhgXwadOV/editor/src/Shiny-Ui-Elements/ShinyTextInput/styles.module.css.js
+  var digest37 = "adeabe81c45758c758a5e0737cee392990ca423775e716afec65991f91112607";
   var css37 = `._container_yicbr_1 {
   position: relative;
   padding: 4px;
@@ -54075,8 +54083,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // src/assets/icons/shinyTextOutput.png
   var shinyTextOutput_default = "data:image/png;base64,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";
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-ohUBODIREuxV/editor/src/Shiny-Ui-Elements/ShinyTextOutput/styles.module.css.js
-  var digest38 = "6235d1376bb79c9de8ffc3e8f1221a8f7a006badd1c74f6e8a982a249070494a";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-gy27Gx4tel7I/editor/src/Shiny-Ui-Elements/ShinyTextOutput/styles.module.css.js
+  var digest38 = "ac0fc1c37788ad31526b4c530cf57746020434d62035de18ead9670b5513bd00";
   var css38 = `._container_1i6yi_1 {
   padding: 1rem;
   max-height: 100%;
@@ -54136,8 +54144,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // src/assets/icons/shinyImage.png
   var shinyImage_default = "data:image/png;base64,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";
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-SL733RkDFAUA/editor/src/Shiny-Ui-Elements/ShinyUiOutput/styles.module.css.js
-  var digest39 = "6b07f005b663383b64ca950aeb89c80f19f9994a2506fe3dcfb942743f3b62fd";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-2MEGvd3oz4ze/editor/src/Shiny-Ui-Elements/ShinyUiOutput/styles.module.css.js
+  var digest39 = "3302cebf508d79ef499bdecb130a5ad09f933f67228fd719839ccaeb40b14b2a";
   var css39 = `._container_1xnzo_1 {
   display: grid;
   grid-template-rows: 1fr;
@@ -54207,8 +54215,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 1024 1024" }, "child": [{ "tag": "path", "attr": { "d": "M881.7 187.4l-45.1-45.1a8.03 8.03 0 0 0-11.3 0L667.8 299.9l-54.7-54.7a7.94 7.94 0 0 0-13.5 4.7L576.1 439c-.6 5.2 3.7 9.5 8.9 8.9l189.2-23.5c6.6-.8 9.3-8.8 4.7-13.5l-54.7-54.7 157.6-157.6c3-3 3-8.1-.1-11.2zM439 576.1l-189.2 23.5c-6.6.8-9.3 8.9-4.7 13.5l54.7 54.7-157.5 157.5a8.03 8.03 0 0 0 0 11.3l45.1 45.1c3.1 3.1 8.2 3.1 11.3 0l157.6-157.6 54.7 54.7a7.94 7.94 0 0 0 13.5-4.7L447.9 585a7.9 7.9 0 0 0-8.9-8.9z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-tSCjzE7oFhPN/editor/src/components/CategoryDivider/styles.module.css.js
-  var digest40 = "a6d0cce58380151a9b474c6309b19391892f1f4b17bcab6d745d2ffdd87a2df3";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-9bay1Pt0q2iE/editor/src/components/CategoryDivider/styles.module.css.js
+  var digest40 = "7574a6309982144e0d4e302df149b2a670f6245574e45d87fa05eaa20af6c295";
   var css40 = `._categoryDivider_bdwku_1 {
   display: block;
   position: relative;
@@ -54780,7 +54788,7 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 16 16", "fill": "currentColor" }, "child": [{ "tag": "path", "attr": { "fillRule": "evenodd", "clipRule": "evenodd", "d": "M12.75 8a4.5 4.5 0 0 1-8.61 1.834l-1.391.565A6.001 6.001 0 0 0 14.25 8 6 6 0 0 0 3.5 4.334V2.5H2v4l.75.75h3.5v-1.5H4.352A4.5 4.5 0 0 1 12.75 8z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-lg9gtVS3ypx4/editor/src/components/AppPreview/AppPreview.module.css.js
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-Q92t5KiWxcf4/editor/src/components/AppPreview/AppPreview.module.css.js
   var digest41 = "dd0b9e6dad9976ccd40f4effa4e57b7bf6f1d50ed088c39ad24d5ba3fd204ebf";
   var css41 = `div._appViewerHolder_zkojo_1 {
   /* This is over-ridden by an inline style but we just have it here in case */
@@ -55047,8 +55055,8 @@ h2._error_zkojo_249 {
   })();
   var AppPreview_module_css_default = { "appViewerHolder": "_appViewerHolder_zkojo_1", "title": "_title_zkojo_55", "appContainer": "_appContainer_zkojo_89", "previewFrame": "_previewFrame_zkojo_109", "expandButton": "_expandButton_zkojo_134", "reloadButtonContainer": "_reloadButtonContainer_zkojo_135", "reloadButton": "_reloadButton_zkojo_135", "spin": "_spin_zkojo_174", "restartButton": "_restartButton_zkojo_211", "loadingMessage": "_loadingMessage_zkojo_238", "error": "_error_zkojo_249" };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-GPnEE6DMC5HH/editor/src/components/AppPreview/AppPreview.module.css.js
-  var digest42 = "526e134c15dffce38d23fd1abf51e0294526e2b376d93e1cbb64ddf8b683859f";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-ptCOR64rVpUd/editor/src/components/AppPreview/AppPreview.module.css.js
+  var digest42 = "26dba36fe85283f5ebf1f0ef129c34ba7ab42f40afe799627cdd89ff42e75ec5";
   var css42 = `div._appViewerHolder_zkojo_1 {
   /* This is over-ridden by an inline style but we just have it here in case */
   --app-scale-amnt: 0.24;
@@ -55314,8 +55322,8 @@ h2._error_zkojo_249 {
   })();
   var AppPreview_module_css_default2 = { "appViewerHolder": "_appViewerHolder_zkojo_1", "title": "_title_zkojo_55", "appContainer": "_appContainer_zkojo_89", "previewFrame": "_previewFrame_zkojo_109", "expandButton": "_expandButton_zkojo_134", "reloadButtonContainer": "_reloadButtonContainer_zkojo_135", "reloadButton": "_reloadButton_zkojo_135", "spin": "_spin_zkojo_174", "restartButton": "_restartButton_zkojo_211", "loadingMessage": "_loadingMessage_zkojo_238", "error": "_error_zkojo_249" };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-xhFM9f4g7v53/editor/src/components/AppPreview/FakeDashboard.module.css.js
-  var digest43 = "60b45a49c7b0b2d1b24e6fe71cdac3c3df80b8c71f278fa53766076905e53809";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-vkoTJ1rdn5Vo/editor/src/components/AppPreview/FakeDashboard.module.css.js
+  var digest43 = "e6d0795021df23f382c06d09aedb3b9cb26460d9105374a5afe8eb1d8fb026e3";
   var css43 = `._fakeApp_t3dh1_1 {
   display: grid;
   place-content: center;
@@ -55412,8 +55420,8 @@ h2._error_zkojo_249 {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "fill": "none", "stroke": "#000", "strokeWidth": "2", "d": "M12,22 C17.5228475,22 22,17.5228475 22,12 C22,6.4771525 17.5228475,2 12,2 C6.4771525,2 2,6.4771525 2,12 C2,17.5228475 6.4771525,22 12,22 Z M5,5 L19,19" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-GOLv7V8OjlQR/editor/src/components/AppPreview/LogsViewer.module.css.js
-  var digest44 = "acd3b857bb09533d63f5f434fc7169d798d25ec82bebca7bc395492bf2c93e80";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-nj75e8bupuKp/editor/src/components/AppPreview/LogsViewer.module.css.js
+  var digest44 = "9295420f5e802e5edebad94b389fa6434f589fd8ee8a1163c22802dd51355d89";
   var css44 = `/* Logs section */
 ._logs_xjp5l_2 {
   --tab-height: var(--logs-button-h, 20px);
@@ -56579,8 +56587,8 @@ p._logLine_xjp5l_75 {
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-z5H8bkEUKvdO/editor/src/components/UndoRedoButtons/UndoRedoButtons.module.css.js
-  var digest45 = "79ead7b91a6d28485f7876c4ad7d9ad4183e5c69e309263eaa67e9e52000d136";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-4a5xrOeeC4Nl/editor/src/components/UndoRedoButtons/UndoRedoButtons.module.css.js
+  var digest45 = "895fa49abec90a1375b0a0b9a8caf5a249bffdd591f9de57ba07ae6aeaf1f5e4";
   var css45 = `._container_1d7pe_1 {
   display: flex;
   position: relative;
@@ -56665,7 +56673,7 @@ p._logLine_xjp5l_75 {
   // src/ElementsPalette/index.tsx
   var React64 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-YDGi3cyLqfjh/editor/src/ElementsPalette/styles.module.css.js
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-PuCaITQXDqXz/editor/src/ElementsPalette/styles.module.css.js
   var digest46 = "c18e84fa87b5fb377a8655e8a65578b4d52bd0e2b1f4a55ac8a89d751e5f7966";
   var css46 = `._elementsPalette_qmlez_1 {
   --icon-size: 75px;
@@ -56737,8 +56745,8 @@ p._logLine_xjp5l_75 {
   })();
   var styles_module_css_default24 = { "elementsPalette": "_elementsPalette_qmlez_1", "OptionContainer": "_OptionContainer_qmlez_18", "optionContainer": "_OptionContainer_qmlez_18", "OptionItem": "_OptionItem_qmlez_24", "optionItem": "_OptionItem_qmlez_24", "OptionIcon": "_OptionIcon_qmlez_33", "optionIcon": "_OptionIcon_qmlez_33", "OptionLabel": "_OptionLabel_qmlez_41", "optionLabel": "_OptionLabel_qmlez_41" };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-ZJSRFGhrc2CN/editor/src/ElementsPalette/styles.module.css.js
-  var digest47 = "827e568c2ecf299926872cf289a163373755b6d88b5a95e91b7690c8f54a32fc";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-r1rsAeyE9Rbr/editor/src/ElementsPalette/styles.module.css.js
+  var digest47 = "6fec68ef05ddb78f33cef601571c1a0e8f15693f1ba4d98a1653b8375a0d29b5";
   var css47 = `._elementsPalette_qmlez_1 {
   --icon-size: 75px;
   --padding: 8px;
@@ -57017,8 +57025,8 @@ p._logLine_xjp5l_75 {
     return InputsComponents;
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-9AcKL80suYQG/editor/src/SettingsPanel/PathBreadcrumb.module.css.js
-  var digest48 = "4224f601a2c7e11290167d632663db4cc57db367cd53e62c6d96949332568697";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-PfjI1z8FNB8b/editor/src/SettingsPanel/PathBreadcrumb.module.css.js
+  var digest48 = "37659405f893f51ca55a956630f27434f1d09aedecf841bfc674382369748cf3";
   var css48 = `._container_1fh41_1 {
   --flex-gap: 8px;
   padding: var(--vertical-spacing);
@@ -57139,7 +57147,7 @@ p._logLine_xjp5l_75 {
     return uiName.replace(/[a-z]+::/, "");
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-2054-GLtLiXFA1jpY/editor/src/SettingsPanel/SettingsPanel.module.css.js
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-WqEbF0V6kT07/editor/src/SettingsPanel/SettingsPanel.module.css.js
   var digest49 = "2b2027768defce576a4f9c4f7d257bd965a4af2da0a1a83db14bec56ebbe4a9c";
   var css49 = `._settingsPanel_a44hx_1 {
   --vertical-gap: var(--vertical-spacing);
