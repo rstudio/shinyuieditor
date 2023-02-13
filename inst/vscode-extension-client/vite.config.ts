@@ -10,16 +10,14 @@ const setup = ({ mode }) => {
     base: "./",
     server: { port: 3000 },
     build: {
-      outDir: mode === "vscode" ? "../vscode-extension/media/build" : "build",
-      lib:
-        mode === "vscode"
-          ? {
-              entry: resolve(__dirname, "src/vscode_index.ts"),
-              name: "editor-extension",
-              fileName: "extension-editor",
-              formats: ["es"],
-            }
-          : undefined,
+      outDir: "../vscode-extension/media/build",
+      lib: {
+        entry: resolve(__dirname, "src/index.ts"),
+        name: "editor-extension",
+        fileName: "extension-editor",
+        formats: ["es"],
+      },
+      rollupOptions: { external: ["vscode-webview"] },
       emptyOutDir: true,
       sourcemap: mode === "development",
       target: "es2015",

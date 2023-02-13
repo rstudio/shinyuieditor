@@ -6,6 +6,7 @@ import type {
 import { makeMessageDispatcher } from "communication-types/src/BackendConnection";
 import { isMessageToClient } from "communication-types/src/MessageToClient";
 import { runSUE } from "editor";
+import "vscode-webview";
 
 const container = document.getElementById("root");
 

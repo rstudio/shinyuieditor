@@ -3,8 +3,9 @@
   "compilerOptions": {
     "module": "commonjs",
     "rootDir": "src",
-    "outDir": "build"
+    "outDir": "build",
+    "moduleResolution": "node"
   },
   "include": ["src/"],
-  "exclude": ["node_modules", ".vscode-test", "build-utils"]
+  "exclude": ["node_modules", ".vscode-test", "build-utils", "editor"]
 }

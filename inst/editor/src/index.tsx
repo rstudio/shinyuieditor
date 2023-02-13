@@ -4,6 +4,7 @@ import { makeMessageDispatcher } from "communication-types/src/BackendConnection
 
 import { setupStaticBackend } from "./backendCommunication/staticBackend";
 import { setupWebsocketBackend } from "./backendCommunication/websocketBackend";
+import { DEV_MODE } from "./env_variables";
 import { runSUE } from "./runSUE";
 
 const container = document.getElementById("root");
@@ -13,20 +14,12 @@ const showMessages = true;
   try {
     const messageDispatch = makeMessageDispatcher();
 
-    let websocketDispatch = await setupWebsocketBackend({
+    const websocketDispatch = await setupWebsocketBackend({
       messageDispatch,
       onClose: () => console.log("Websocket closed!!"),
+      // If we're in dev, look at localhost 8888, otherwise use default
+      pathToWebsocket: DEV_MODE ? "localhost:8888" : undefined,
     });
-
-    if (websocketDispatch === "NO-WS-CONNECTION") {
-      // If we're developing locally we use the 8888 port for our websocket, so
-      // try that one before giving up and going to static
-      await setupWebsocketBackend({
-        messageDispatch,
-        onClose: () => console.log("Websocket closed!!"),
-        pathToWebsocket: "localhost:8888",
-      });
-    }
 
     const backendDispatch: BackendConnection =
       websocketDispatch === "NO-WS-CONNECTION"

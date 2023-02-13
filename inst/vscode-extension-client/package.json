@@ -1,6 +1,7 @@
 {
   "name": "vscode-extension-client",
   "version": "0.0.0",
+  "type": "module",
   "private": true,
   "dependencies": {
     "@types/vscode": "^1.65.0",
@@ -10,13 +11,14 @@
     "typescript": "^4.9.3"
   },
   "scripts": {
-    "dev": "tsx scripts/build.ts",
-    "watch": "tsx scripts/build.ts --watch",
-    "prod": "tsx scripts/build.ts --prod",
+    "dev": "vite build",
+    "prod": "vite build",
     "type-check": "tsc -p ./ --noEmit"
   },
   "devDependencies": {
     "@types/vscode-webview": "^1.57.0",
-    "build-utils": "*"
+    "@vitejs/plugin-react": "^3.1.0",
+    "vite": "^4.1.1",
+    "vite-tsconfig-paths": "^4.0.5"
   }
 }

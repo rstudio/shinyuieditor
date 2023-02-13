@@ -3,6 +3,7 @@
   "include": ["src", "src/globals.d.ts"],
   "exclude": ["node_modules", "**/.module.css"],
   "compilerOptions": {
-    "plugins": [{ "name": "typescript-plugin-css-modules" }]
+    "plugins": [{ "name": "typescript-plugin-css-modules" }],
+    "types": ["node", "vite/client", "jest", "@testing-library/jest-dom"]
   }
 }
