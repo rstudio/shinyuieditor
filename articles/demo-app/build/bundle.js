@@ -27510,7 +27510,10 @@ shinyApp(ui, server)
     incomingMsgs,
     mode
   }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BackendConnectionContext.Provider, { value: { sendMsg, incomingMsgs, mode }, children });
+    return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BackendConnectionContext.Provider, {
+      value: { sendMsg, incomingMsgs, mode },
+      children
+    });
   }
   function useBackendConnection() {
     return import_react.default.useContext(BackendConnectionContext);
@@ -32485,8 +32488,8 @@ shinyApp(ui, server)
   // src/assets/icons/undo.png
   var undo_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAoCAYAAAC4h3lxAAAACXBIWXMAAAsTAAALEwEAmpwYAAABDElEQVRYhe2ZsQ7CMAxEr4gvZmBDXMXGwC+XgVQqERDbCbEr5ZaoalXdq+0kTqdlWbBnHbwN1GoAeGsAeGv3AMdfN8+3h+ZdVwDcXE8GP7hfTqrnW0UgN99NLQDczAP1AFvzM4xpU6MagNw8vz75R1kBQpgHCrPQF0nNW3eJqjTURiDMl1+liYDUvLWQTRGTRiDcl18lAQhrHigDhDYPlAGYxpDmAXkNhG2cSwBzGolXOoWTJIVCQ0hSiAgMIa0BIiiEZiVmGvOpNVfXgtfuhYhgkbDsRpnGUiS6NDfWfoAIEomajowIAFHbExPvEN1X7BanEsTnGuiiVudChBPENH5wOGsAeGsAeGv3AE8yEDlUwXXxqQAAAABJRU5ErkJggg==";
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-vTsRaehBz169/editor/src/components/Icons/styles.module.css.js
-  var digest = "aaa2596cc0635e3b60a250656c6f8ba89d2866a65c221ebc56cfe5911a5f92f5";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-asOt20QXw60g/editor/src/components/Icons/styles.module.css.js
+  var digest = "fa3b5ce434504e7ca13a124f7ee2ab292e3d746dd0e97daa9e8d3f275ded3e1d";
   var css = `img._icon_1467k_1 {
   height: 30px;
   /* outline: 2px solid green; */
@@ -32525,15 +32528,12 @@ shinyApp(ui, server)
     alt = id,
     size
   }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
-      "img",
-      {
-        src: icons[id],
-        alt,
-        className: styles_module_css_default.icon,
-        style: size ? { height: size } : {}
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("img", {
+      src: icons[id],
+      alt,
+      className: styles_module_css_default.icon,
+      style: size ? { height: size } : {}
+    });
   }
 
   // ../../node_modules/react-icons/lib/esm/iconBase.js
@@ -32654,123 +32654,99 @@ shinyApp(ui, server)
 
   // src/components/Icons/generated/DownSpinnerButton.tsx
   var import_jsx_runtime13 = __toESM(require_jsx_runtime());
-  var SvgDownSpinnerButton = (props) => /* @__PURE__ */ (0, import_jsx_runtime13.jsx)(
-    "svg",
-    {
-      width: "1em",
-      height: "1em",
-      viewBox: "0 0 15 8",
-      fill: "none",
-      xmlns: "http://www.w3.org/2000/svg",
-      ...props,
-      children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("path", { d: "M7.38 7.477 14.432.691H.328L7.38 7.477Z", fill: "#75A8DB" })
-    }
-  );
+  var SvgDownSpinnerButton = (props) => /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("svg", {
+    width: "1em",
+    height: "1em",
+    viewBox: "0 0 15 8",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg",
+    ...props,
+    children: /* @__PURE__ */ (0, import_jsx_runtime13.jsx)("path", {
+      d: "M7.38 7.477 14.432.691H.328L7.38 7.477Z",
+      fill: "#75A8DB"
+    })
+  });
   var DownSpinnerButton_default = SvgDownSpinnerButton;
 
   // src/components/Icons/generated/Redo.tsx
   var import_jsx_runtime14 = __toESM(require_jsx_runtime());
-  var SvgRedo = (props) => /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
-    "svg",
-    {
-      xmlns: "http://www.w3.org/2000/svg",
-      fill: "none",
-      viewBox: "0 0 49 40",
-      width: "1em",
-      height: "1em",
-      ...props,
-      children: /* @__PURE__ */ (0, import_jsx_runtime14.jsx)(
-        "path",
-        {
-          stroke: "currentColor",
-          strokeWidth: 2,
-          d: "M27.42 8.115h2.074l10.592 11.414v1.052L28.705 32.04H27.4v-5.954H13.328l.105-11.975 13.988-.058V8.115Z"
-        }
-      )
-    }
-  );
+  var SvgRedo = (props) => /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    fill: "none",
+    viewBox: "0 0 49 40",
+    width: "1em",
+    height: "1em",
+    ...props,
+    children: /* @__PURE__ */ (0, import_jsx_runtime14.jsx)("path", {
+      stroke: "currentColor",
+      strokeWidth: 2,
+      d: "M27.42 8.115h2.074l10.592 11.414v1.052L28.705 32.04H27.4v-5.954H13.328l.105-11.975 13.988-.058V8.115Z"
+    })
+  });
   var Redo_default = SvgRedo;
 
   // src/components/Icons/generated/Trash.tsx
   var import_jsx_runtime15 = __toESM(require_jsx_runtime());
-  var SvgTrash = (props) => /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)(
-    "svg",
-    {
-      xmlns: "http://www.w3.org/2000/svg",
-      fill: "none",
-      viewBox: "0 0 16 20",
-      width: "1em",
-      height: "1em",
-      ...props,
-      children: [
-        /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
-          "path",
-          {
-            stroke: "currentColor",
-            strokeLinejoin: "round",
-            strokeWidth: 1.5,
-            d: "M0 4h16"
-          }
-        ),
-        /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
-          "path",
-          {
-            stroke: "currentColor",
-            strokeLinejoin: "round",
-            d: "M5.5 6.5 6 16m2-9.5V16m2.5-9.5L10 16"
-          }
-        ),
-        /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
-          "path",
-          {
-            stroke: "currentColor",
-            strokeLinejoin: "round",
-            strokeWidth: 1.5,
-            d: "M5.5 4.5v-2l1.5-1h2l1.5 1v2m-8 0 .5 12 1.5 2h7l1.5-2 .5-12"
-          }
-        )
-      ]
-    }
-  );
+  var SvgTrash = (props) => /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    fill: "none",
+    viewBox: "0 0 16 20",
+    width: "1em",
+    height: "1em",
+    ...props,
+    children: [
+      /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("path", {
+        stroke: "currentColor",
+        strokeLinejoin: "round",
+        strokeWidth: 1.5,
+        d: "M0 4h16"
+      }),
+      /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("path", {
+        stroke: "currentColor",
+        strokeLinejoin: "round",
+        d: "M5.5 6.5 6 16m2-9.5V16m2.5-9.5L10 16"
+      }),
+      /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("path", {
+        stroke: "currentColor",
+        strokeLinejoin: "round",
+        strokeWidth: 1.5,
+        d: "M5.5 4.5v-2l1.5-1h2l1.5 1v2m-8 0 .5 12 1.5 2h7l1.5-2 .5-12"
+      })
+    ]
+  });
   var Trash_default = SvgTrash;
 
   // src/components/Icons/generated/Undo.tsx
   var import_jsx_runtime16 = __toESM(require_jsx_runtime());
-  var SvgUndo = (props) => /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
-    "svg",
-    {
-      xmlns: "http://www.w3.org/2000/svg",
-      fill: "none",
-      viewBox: "0 0 44 40",
-      width: "1em",
-      height: "1em",
-      ...props,
-      children: /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
-        "path",
-        {
-          stroke: "currentColor",
-          strokeWidth: 2,
-          d: "M17.08 8.115h-2.074L4.414 19.529v1.052L15.795 32.04H17.1v-5.954h14.072l-.105-11.975-13.988-.058V8.115Z"
-        }
-      )
-    }
-  );
+  var SvgUndo = (props) => /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    fill: "none",
+    viewBox: "0 0 44 40",
+    width: "1em",
+    height: "1em",
+    ...props,
+    children: /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("path", {
+      stroke: "currentColor",
+      strokeWidth: 2,
+      d: "M17.08 8.115h-2.074L4.414 19.529v1.052L15.795 32.04H17.1v-5.954h14.072l-.105-11.975-13.988-.058V8.115Z"
+    })
+  });
   var Undo_default = SvgUndo;
 
   // src/components/Icons/generated/UpSpinnerButton.tsx
   var import_jsx_runtime17 = __toESM(require_jsx_runtime());
-  var SvgUpSpinnerButton = (props) => /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
-    "svg",
-    {
-      width: "1em",
-      height: "1em",
-      viewBox: "0 0 15 8",
-      fill: "none",
-      xmlns: "http://www.w3.org/2000/svg",
-      ...props,
-      children: /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("path", { d: "m7.38.477 7.052 6.786H.328L7.38.477Z", fill: "#75A8DB" })
-    }
-  );
+  var SvgUpSpinnerButton = (props) => /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("svg", {
+    width: "1em",
+    height: "1em",
+    viewBox: "0 0 15 8",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg",
+    ...props,
+    children: /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("path", {
+      d: "m7.38.477 7.052 6.786H.328L7.38.477Z",
+      fill: "#75A8DB"
+    })
+  });
   var UpSpinnerButton_default = SvgUpSpinnerButton;
 
   // src/components/Icons/index.tsx
@@ -32781,8 +32757,8 @@ shinyApp(ui, server)
     return classes.filter((c2) => c2).join(" ");
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-mkWYytzcY4vl/editor/src/components/Inputs/Button/Button.module.css.js
-  var digest2 = "ae6c56e11f4fe6592d6e75367f2fd9b959531311afb106ea3507ce8423a0b6bd";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-uFwDLsi6ZNHa/editor/src/components/Inputs/Button/Button.module.css.js
+  var digest2 = "35a3846e2d554b64e0ad3de195985c9db737da2e4c85420465b5c341f7929323";
   var css2 = `._button_1y00r_1 {
   --background-color: var(--rstudio-white);
   --text-color: var(--font-color);
@@ -32846,51 +32822,83 @@ shinyApp(ui, server)
   var import_jsx_runtime18 = __toESM(require_jsx_runtime());
   var Button = ({ children, variant = "regular", className, ...passthroughProps }) => {
     const variant_classes = variant ? Array.isArray(variant) ? variant.map((v2) => Button_module_css_default[v2]).join(" ") : Button_module_css_default[variant] : "";
-    return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
-      "button",
-      {
-        className: mergeClasses(Button_module_css_default.button, variant_classes, className),
-        ...passthroughProps,
-        children
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("button", {
+      className: mergeClasses(Button_module_css_default.button, variant_classes, className),
+      ...passthroughProps,
+      children
+    });
   };
   var Button_default = Button;
 
   // src/AppTour/AppPreviewAbout.tsx
   var import_jsx_runtime19 = __toESM(require_jsx_runtime());
-  var AppPreviewAbout = /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("div", { children: [
-    /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("p", { children: "You can see how the changes impact your app with the app preview." }),
-    /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("p", { children: "Click in the center of the preview to expand it to full screen to get a better view of your app." }),
-    /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("p", { children: 'Any log messages from the app will be placed into the "App Logs" drawer.' })
-  ] });
+  var AppPreviewAbout = /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("div", {
+    children: [
+      /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("p", {
+        children: "You can see how the changes impact your app with the app preview."
+      }),
+      /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("p", {
+        children: "Click in the center of the preview to expand it to full screen to get a better view of your app."
+      }),
+      /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("p", {
+        children: 'Any log messages from the app will be placed into the "App Logs" drawer.'
+      })
+    ]
+  });
 
   // src/AppTour/AppViewAbout.tsx
   var import_jsx_runtime20 = __toESM(require_jsx_runtime());
-  var AppViewAbout = /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { children: [
-    /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("p", { children: "The app view shows a skeleton view of the current state of your app's UI." }),
-    /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("p", { children: "You can click on elements to select them or drag them around to move them." }),
-    /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("p", { children: "Cards can be resized by dragging resize handles on the sides." }),
-    /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("p", { children: "Rows and Columns can be resized by dragging between tracts and added by hovering over the left and top respectively to reveal the tract controls widget." }),
-    /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("p", { children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("a", { href: "https://rstudio.github.io/shinyuieditor/articles/how-to.html#show-size-widget", children: "More info" }) })
-  ] });
+  var AppViewAbout = /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", {
+    children: [
+      /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("p", {
+        children: "The app view shows a skeleton view of the current state of your app's UI."
+      }),
+      /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("p", {
+        children: "You can click on elements to select them or drag them around to move them."
+      }),
+      /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("p", {
+        children: "Cards can be resized by dragging resize handles on the sides."
+      }),
+      /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("p", {
+        children: "Rows and Columns can be resized by dragging between tracts and added by hovering over the left and top respectively to reveal the tract controls widget."
+      }),
+      /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("p", {
+        children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("a", {
+          href: "https://rstudio.github.io/shinyuieditor/articles/how-to.html#show-size-widget",
+          children: "More info"
+        })
+      })
+    ]
+  });
 
   // src/AppTour/ElementsPanelAbout.tsx
   var import_jsx_runtime21 = __toESM(require_jsx_runtime());
-  var ElementsPanelAbout = /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { children: [
-    "Drag elements from the elements palette into the app pane on the right to add them to your app. ",
-    /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("br", {}),
-    " In the app view, the areas available for the element to be dropped in will pulse with an",
-    " ",
-    /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { className: "can-accept-drop", style: { padding: "2px" }, children: "orange outline." })
-  ] });
+  var ElementsPanelAbout = /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", {
+    children: [
+      "Drag elements from the elements palette into the app pane on the right to add them to your app. ",
+      /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("br", {}),
+      " In the app view, the areas available for the element to be dropped in will pulse with an",
+      " ",
+      /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", {
+        className: "can-accept-drop",
+        style: { padding: "2px" },
+        children: "orange outline."
+      })
+    ]
+  });
 
   // src/AppTour/PropertiesPanelAbout.tsx
   var import_jsx_runtime22 = __toESM(require_jsx_runtime());
-  var PropertiesPanelAbout = /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("div", { children: [
-    /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("p", { children: "After selecting an element in your app, you can adjust the settings for that element in the properties pane." }),
-    /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("p", { children: "Changes made will be automatically applied to your element both in the app view and your code so there's no need to save or submit these changes." })
-  ] });
+  var PropertiesPanelAbout = /* @__PURE__ */ (0, import_jsx_runtime22.jsxs)("div", {
+    children: [
+      /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("p", {
+        children: "After selecting an element in your app, you can adjust the settings for that element in the properties pane."
+      }),
+      /* @__PURE__ */ (0, import_jsx_runtime22.jsx)("p", {
+        children: "Changes made will be automatically applied to your element both in the app view and your code so there's no need to save or submit these changes."
+      })
+    ]
+  });
 
   // src/AppTour/index.tsx
   var import_jsx_runtime23 = __toESM(require_jsx_runtime());
@@ -32949,22 +32957,21 @@ shinyApp(ui, server)
     const startTour = React6.useCallback(() => {
       setRun(true);
     }, []);
-    return /* @__PURE__ */ (0, import_jsx_runtime23.jsxs)(import_jsx_runtime23.Fragment, { children: [
-      /* @__PURE__ */ (0, import_jsx_runtime23.jsxs)(
-        Button_default,
-        {
+    return /* @__PURE__ */ (0, import_jsx_runtime23.jsxs)(import_jsx_runtime23.Fragment, {
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime23.jsxs)(Button_default, {
           onClick: startTour,
           title: "Take a guided tour of app",
           variant: "transparent",
           children: [
-            /* @__PURE__ */ (0, import_jsx_runtime23.jsx)(Icons_default, { id: "tour", size: "24px" }),
+            /* @__PURE__ */ (0, import_jsx_runtime23.jsx)(Icons_default, {
+              id: "tour",
+              size: "24px"
+            }),
             "Tour App"
           ]
-        }
-      ),
-      /* @__PURE__ */ (0, import_jsx_runtime23.jsx)(
-        Joyride,
-        {
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime23.jsx)(Joyride, {
           callback: handleJoyrideCallback,
           steps: joyrideSteps,
           stepIndex,
@@ -32982,9 +32989,9 @@ shinyApp(ui, server)
             skip: "Skip tour"
           },
           styles: joyrideStyles
-        }
-      )
-    ] });
+        })
+      ]
+    });
   }
   var beaconColorBase = `#e07189`;
   var beaconColorLight = `#f6d5dc`;
@@ -35831,42 +35838,66 @@ shinyApp(ui, server)
     name,
     className
   }) => {
-    return /* @__PURE__ */ (0, import_jsx_runtime24.jsxs)("code", { className, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime24.jsxs)("span", { style: { opacity: 0.55 }, children: [
-        type,
-        "$"
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime24.jsx)("span", { children: name })
-    ] });
+    return /* @__PURE__ */ (0, import_jsx_runtime24.jsxs)("code", {
+      className,
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime24.jsxs)("span", {
+          style: { opacity: 0.55 },
+          children: [
+            type,
+            "$"
+          ]
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime24.jsx)("span", {
+          children: name
+        })
+      ]
+    });
   };
 
   // src/Shiny-Ui-Elements/DtDtOutput/DtOutput.tsx
   var import_jsx_runtime25 = __toESM(require_jsx_runtime());
   var NUM_COLS = 4;
   var NUM_ROWS = 25;
-  var table_cells = seqArray(NUM_ROWS).map((i2) => /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("div", { className: "faux-row", children: seqArray(NUM_COLS).map((i3) => /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("div", { className: "faux-cell", children: "i" }, i3)) }, i2));
+  var table_cells = seqArray(NUM_ROWS).map((i2) => /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("div", {
+    className: "faux-row",
+    children: seqArray(NUM_COLS).map((i3) => /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("div", {
+      className: "faux-cell",
+      children: "i"
+    }, i3))
+  }, i2));
   var DtDTOutput = ({
     uiArguments,
     path: path3,
     wrapperProps
   }) => {
-    return /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("div", { className: "dtDTOutput", ...wrapperProps, children: /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)(
-      "div",
-      {
+    return /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("div", {
+      className: "dtDTOutput",
+      ...wrapperProps,
+      children: /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)("div", {
         className: "faux-table",
         style: {
           "--table-w": uiArguments.width,
           "--table-h": uiArguments.height
         },
         children: [
-          /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)("div", { className: "faux-header", children: [
-            "Table: ",
-            /* @__PURE__ */ (0, import_jsx_runtime25.jsx)(InputOutputTitle, { type: "output", name: uiArguments.outputId })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("div", { className: "faux-table-body", children: table_cells })
+          /* @__PURE__ */ (0, import_jsx_runtime25.jsxs)("div", {
+            className: "faux-header",
+            children: [
+              "Table: ",
+              /* @__PURE__ */ (0, import_jsx_runtime25.jsx)(InputOutputTitle, {
+                type: "output",
+                name: uiArguments.outputId
+              })
+            ]
+          }),
+          /* @__PURE__ */ (0, import_jsx_runtime25.jsx)("div", {
+            className: "faux-table-body",
+            children: table_cells
+          })
         ]
-      }
-    ) });
+      })
+    });
   };
   var DtOutput_default = DtDTOutput;
 
@@ -35915,8 +35946,8 @@ shinyApp(ui, server)
   // src/Shiny-Ui-Elements/GridlayoutGridCard/GridlayoutGridCard.tsx
   var import_react21 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-amXVKI3LpmdJ/editor/src/components/DeleteNodeButton/styles.module.css.js
-  var digest3 = "599bb85ca96bf8a23dd6704375e21a4592349136e422b33b9217b405a1b24aab";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-xH7rJiElYSxA/editor/src/components/DeleteNodeButton/styles.module.css.js
+  var digest3 = "436eacdee205c04456af5eabdcb9f2e8802158959bfce629368931920bdbcb2a";
   var css3 = `._deleteButton_1en02_1 {
   color: var(--red);
   display: flex;
@@ -35949,24 +35980,21 @@ shinyApp(ui, server)
     label = "Delete Node"
   }) {
     const deleteNode = useDeleteNode(path3);
-    return /* @__PURE__ */ (0, import_jsx_runtime26.jsxs)(
-      Button_default,
-      {
-        className: styles_module_css_default2.deleteButton,
-        onClick: (e2) => {
-          e2.stopPropagation();
-          deleteNode();
-        },
-        "aria-label": label,
-        title: label,
-        variant: justIcon ? "icon" : "delete",
-        type: "button",
-        children: [
-          /* @__PURE__ */ (0, import_jsx_runtime26.jsx)(Trash_default, {}),
-          justIcon ? null : "Delete Element"
-        ]
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime26.jsxs)(Button_default, {
+      className: styles_module_css_default2.deleteButton,
+      onClick: (e2) => {
+        e2.stopPropagation();
+        deleteNode();
+      },
+      "aria-label": label,
+      title: label,
+      variant: justIcon ? "icon" : "delete",
+      type: "button",
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime26.jsx)(Trash_default, {}),
+        justIcon ? null : "Delete Element"
+      ]
+    });
   }
   var DeleteNodeButton_default = DeleteNodeButton;
 
@@ -35976,13 +36004,22 @@ shinyApp(ui, server)
   var BsCard = import_react13.default.forwardRef(
     ({ className = "", children, ...props }, ref) => {
       const combinedClasses = className + " card";
-      return /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("div", { ref, className: combinedClasses, ...props, children });
+      return /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("div", {
+        ref,
+        className: combinedClasses,
+        ...props,
+        children
+      });
     }
   );
   var BsCardHeader = import_react13.default.forwardRef(
     ({ className = "", ...props }, ref) => {
       const combinedClasses = className + " card-header";
-      return /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("div", { ref, className: combinedClasses, ...props });
+      return /* @__PURE__ */ (0, import_jsx_runtime27.jsx)("div", {
+        ref,
+        className: combinedClasses,
+        ...props
+      });
     }
   );
 
@@ -36001,7 +36038,10 @@ shinyApp(ui, server)
     children
   }) {
     const draggedNodeState = import_react14.default.useState(null);
-    return /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(DraggedNodeContext.Provider, { value: draggedNodeState, children });
+    return /* @__PURE__ */ (0, import_jsx_runtime28.jsx)(DraggedNodeContext.Provider, {
+      value: draggedNodeState,
+      children
+    });
   }
   function useCurrentDraggedNode() {
     return import_react14.default.useContext(DraggedNodeContext);
@@ -36160,20 +36200,17 @@ shinyApp(ui, server)
     const { uiName, uiArguments, uiChildren } = node2;
     const Comp = shinyUiNodeInfo[uiName].UiComponent;
     const wrapperProps = useMakeWrapperProps(node2, path3);
-    return /* @__PURE__ */ (0, import_jsx_runtime29.jsx)(
-      Comp,
-      {
-        wrapperProps,
-        uiArguments,
-        uiChildren,
-        path: path3
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime29.jsx)(Comp, {
+      wrapperProps,
+      uiArguments,
+      uiChildren,
+      path: path3
+    });
   };
   var UiNode_default = UiNode;
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-kvX63OCIppgT/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
-  var digest4 = "6cb94fefd88dfa555efc63237a39000e8b98408da54f4f436c7f6ad45ad0a8c6";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-OK302dVMNZic/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
+  var digest4 = "d2c5b6e5fd3bba8e526969996dedf38757c92b5d09df12303ded668e25c30071";
   var css4 = `._container_1a2os_1 {
   position: relative;
   height: 100%;
@@ -36599,8 +36636,8 @@ div._emptyGridCard_1a2os_144 > button {
     return setLayout;
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-DkeDbV0DZNo7/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
-  var digest5 = "110882fc8a0815adbcbe18ebcdee915326ee4a35e1839d7ec929c91dadda8610";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-Z4eWzl5OI7Zy/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
+  var digest5 = "c3a954ea0c0950c2fc3cdbc16d41a4a096c8d6b05b08e4a378469d9083d78a5f";
   var css5 = `._container_1a2os_1 {
   position: relative;
   height: 100%;
@@ -36824,45 +36861,50 @@ div._emptyGridCard_1a2os_144 > button {
     const compRef = import_react21.default.useRef(null);
     const numChildren = uiChildren?.length ?? 0;
     useGridItemSwapping({ containerRef: compRef, area, path: path3 });
-    return /* @__PURE__ */ (0, import_jsx_runtime30.jsxs)(
-      BsCard,
-      {
-        className: mergeClasses(
-          styles_module_css_default3.container,
-          title ? styles_module_css_default3.withTitle : null
-        ),
-        ref: compRef,
-        style: {
-          gridArea: area,
-          "--item-gap": item_gap
-        },
-        ...wrapperProps,
-        children: [
-          title ? /* @__PURE__ */ (0, import_jsx_runtime30.jsx)(BsCardHeader, { className: styles_module_css_default3.panelTitle, children: title }) : null,
-          /* @__PURE__ */ (0, import_jsx_runtime30.jsxs)("div", { className: styles_module_css_default3.contentHolder, "data-alignment": "top", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime30.jsx)(
-              DropWatcherPanel,
-              {
-                index: 0,
-                parentPath: path3,
-                numChildren
-              }
-            ),
-            numChildren > 0 ? uiChildren?.map((childNode, i2) => /* @__PURE__ */ (0, import_jsx_runtime30.jsxs)(import_react21.default.Fragment, { children: [
-              /* @__PURE__ */ (0, import_jsx_runtime30.jsx)(UiNode_default, { path: makeChildPath(path3, i2), node: childNode }),
-              /* @__PURE__ */ (0, import_jsx_runtime30.jsx)(
-                DropWatcherPanel,
-                {
+    return /* @__PURE__ */ (0, import_jsx_runtime30.jsxs)(BsCard, {
+      className: mergeClasses(
+        styles_module_css_default3.container,
+        title ? styles_module_css_default3.withTitle : null
+      ),
+      ref: compRef,
+      style: {
+        gridArea: area,
+        "--item-gap": item_gap
+      },
+      ...wrapperProps,
+      children: [
+        title ? /* @__PURE__ */ (0, import_jsx_runtime30.jsx)(BsCardHeader, {
+          className: styles_module_css_default3.panelTitle,
+          children: title
+        }) : null,
+        /* @__PURE__ */ (0, import_jsx_runtime30.jsxs)("div", {
+          className: styles_module_css_default3.contentHolder,
+          "data-alignment": "top",
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime30.jsx)(DropWatcherPanel, {
+              index: 0,
+              parentPath: path3,
+              numChildren
+            }),
+            numChildren > 0 ? uiChildren?.map((childNode, i2) => /* @__PURE__ */ (0, import_jsx_runtime30.jsxs)(import_react21.default.Fragment, {
+              children: [
+                /* @__PURE__ */ (0, import_jsx_runtime30.jsx)(UiNode_default, {
+                  path: makeChildPath(path3, i2),
+                  node: childNode
+                }),
+                /* @__PURE__ */ (0, import_jsx_runtime30.jsx)(DropWatcherPanel, {
                   index: i2 + 1,
                   numChildren: uiChildren.length,
                   parentPath: path3
-                }
-              )
-            ] }, path3.join(".") + i2)) : /* @__PURE__ */ (0, import_jsx_runtime30.jsx)(EmptyGridCardMessage, { path: path3 })
-          ] })
-        ]
-      }
-    );
+                })
+              ]
+            }, path3.join(".") + i2)) : /* @__PURE__ */ (0, import_jsx_runtime30.jsx)(EmptyGridCardMessage, {
+              path: path3
+            })
+          ]
+        })
+      ]
+    });
   };
   function DropWatcherPanel({
     index: index2,
@@ -36876,15 +36918,12 @@ div._emptyGridCard_1a2os_144 > button {
       parentPath
     });
     const position_class = dropWatcherPositionClass(index2, numChildren);
-    return /* @__PURE__ */ (0, import_jsx_runtime30.jsx)(
-      "div",
-      {
-        ref: watcherRef,
-        className: mergeClasses(styles_module_css_default3.dropWatcher, position_class),
-        role: "region",
-        "aria-label": "drop watcher"
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime30.jsx)("div", {
+      ref: watcherRef,
+      className: mergeClasses(styles_module_css_default3.dropWatcher, position_class),
+      role: "region",
+      "aria-label": "drop watcher"
+    });
   }
   function dropWatcherPositionClass(i2, numChildren) {
     if (i2 === 0 && numChildren === 0) {
@@ -36899,17 +36938,20 @@ div._emptyGridCard_1a2os_144 > button {
     return styles_module_css_default3.middleDropWatcher;
   }
   function EmptyGridCardMessage({ path: path3 }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime30.jsxs)("div", { className: styles_module_css_default3.emptyGridCard, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime30.jsx)("span", { className: styles_module_css_default3.emptyMessage, children: "Empty grid card" }),
-      /* @__PURE__ */ (0, import_jsx_runtime30.jsx)(
-        DeleteNodeButton_default,
-        {
+    return /* @__PURE__ */ (0, import_jsx_runtime30.jsxs)("div", {
+      className: styles_module_css_default3.emptyGridCard,
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime30.jsx)("span", {
+          className: styles_module_css_default3.emptyMessage,
+          children: "Empty grid card"
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime30.jsx)(DeleteNodeButton_default, {
           path: path3,
           justIcon: true,
           label: "Delete empty grid card"
-        }
-      )
-    ] });
+        })
+      ]
+    });
   }
   var GridlayoutGridCard_default = GridlayoutGridCard;
 
@@ -36957,8 +36999,8 @@ div._emptyGridCard_1a2os_144 > button {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 16 16" }, "child": [{ "tag": "path", "attr": { "fillRule": "evenodd", "d": "M16 14v1H0V0h1v14h15zM5 13H3V8h2v5zm4 0H7V3h2v10zm4 0h-2V6h2v7z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-N1XxPtN5l03t/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
-  var digest6 = "5c0a951825800e3e4ddeaf59616cc46745a7ee4b06618353f21f8dfea16dd19f";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-GKdpA9NsCsI3/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
+  var digest6 = "03b286619e2adbbb9bed2745045386c49e8fdf1914046419bde5c537c76dc168";
   var css6 = `._container_1rlbk_1 {
   max-height: 100%;
 }
@@ -37005,30 +37047,21 @@ div._emptyGridCard_1a2os_144 > button {
     const plotHolderRef = React19.useRef(null);
     const containerDimensions = useContainerDimensions(plotHolderRef);
     const smallestDim = containerDimensions === null ? 100 : Math.min(containerDimensions.width, containerDimensions.height);
-    return /* @__PURE__ */ (0, import_jsx_runtime31.jsxs)(
-      "div",
-      {
-        ref: plotHolderRef,
-        className: styles_module_css_default5.plotPlaceholder,
-        "aria-label": "shiny::plotOutput placeholder",
-        children: [
-          /* @__PURE__ */ (0, import_jsx_runtime31.jsx)(
-            InputOutputTitle,
-            {
-              className: styles_module_css_default5.label,
-              type: "output",
-              name: outputId
-            }
-          ),
-          /* @__PURE__ */ (0, import_jsx_runtime31.jsx)(
-            GoGraph,
-            {
-              size: `calc(${smallestDim}px - 80px)`
-            }
-          )
-        ]
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime31.jsxs)("div", {
+      ref: plotHolderRef,
+      className: styles_module_css_default5.plotPlaceholder,
+      "aria-label": "shiny::plotOutput placeholder",
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime31.jsx)(InputOutputTitle, {
+          className: styles_module_css_default5.label,
+          type: "output",
+          name: outputId
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime31.jsx)(GoGraph, {
+          size: `calc(${smallestDim}px - 80px)`
+        })
+      ]
+    });
   }
   function useContainerDimensions(containerRef) {
     const [dimensions, setDimensions] = React19.useState(null);
@@ -37048,8 +37081,8 @@ div._emptyGridCard_1a2os_144 > button {
     return dimensions;
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-lhkrQdo7mWAJ/editor/src/Shiny-Ui-Elements/GridlayoutGridCardPlot/styles.module.css.js
-  var digest7 = "7eb9039acb4b2a099e235724531a0f37c04f15377cf1fa2bb129e462e34cc027";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-jrFS2P8p1cLW/editor/src/Shiny-Ui-Elements/GridlayoutGridCardPlot/styles.module.css.js
+  var digest7 = "5571212981bfe4069a14afc24b182e1e09352ee0133eb1406862ee3454385213";
   var css7 = `._gridCardPlot_1a94v_1 {
   background-color: var(--rstudio-white);
   width: 100%;
@@ -37085,16 +37118,15 @@ div._emptyGridCard_1a2os_144 > button {
   }) => {
     const compRef = React20.useRef(null);
     useGridItemSwapping({ containerRef: compRef, area, path: path3 });
-    return /* @__PURE__ */ (0, import_jsx_runtime32.jsx)(
-      BsCard,
-      {
-        ref: compRef,
-        style: { gridArea: area },
-        className: mergeClasses(styles_module_css_default6.gridCardPlot, "gridlayout-gridCardPlot"),
-        ...wrapperProps,
-        children: /* @__PURE__ */ (0, import_jsx_runtime32.jsx)(PlotPlaceholder, { outputId: outputId ?? area })
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime32.jsx)(BsCard, {
+      ref: compRef,
+      style: { gridArea: area },
+      className: mergeClasses(styles_module_css_default6.gridCardPlot, "gridlayout-gridCardPlot"),
+      ...wrapperProps,
+      children: /* @__PURE__ */ (0, import_jsx_runtime32.jsx)(PlotPlaceholder, {
+        outputId: outputId ?? area
+      })
+    });
   };
   var GridlayoutGridCardPlot_default = GridlayoutGridCardPlot;
 
@@ -37141,8 +37173,8 @@ div._emptyGridCard_1a2os_144 > button {
   // src/Shiny-Ui-Elements/GridlayoutGridCardText/GridlayoutCardText.tsx
   var React21 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-utF0NXvOvw1m/editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/styles.module.css.js
-  var digest8 = "062fdbb4034528ebc3fb8c616450c319be7aec02a81c3fe12cf0c067db48567b";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-34ZJwUXjNAhN/editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/styles.module.css.js
+  var digest8 = "90432d831af021ffc34f7e5e6529ab73250ae1c1020ecf6e201eb209e85d5676";
   var css8 = `._textPanel_525i2_1 {
   background-color: var(--rstudio-white);
   /* outline: var(--outline); */
@@ -37180,16 +37212,15 @@ div._emptyGridCard_1a2os_144 > button {
   }) => {
     const compRef = React21.useRef(null);
     useGridItemSwapping({ containerRef: compRef, area, path: path3 });
-    return /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(
-      BsCard,
-      {
-        ref: compRef,
-        className: mergeClasses(styles_module_css_default7.textPanel, "gridlayout-textPanel"),
-        style: { gridArea: area, justifyItems: alignment },
-        ...wrapperProps,
-        children: /* @__PURE__ */ (0, import_jsx_runtime33.jsx)("h1", { children: title })
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime33.jsx)(BsCard, {
+      ref: compRef,
+      className: mergeClasses(styles_module_css_default7.textPanel, "gridlayout-textPanel"),
+      style: { gridArea: area, justifyItems: alignment },
+      ...wrapperProps,
+      children: /* @__PURE__ */ (0, import_jsx_runtime33.jsx)("h1", {
+        children: title
+      })
+    });
   };
   var GridlayoutCardText_default = GridlayoutGridCardText;
 
@@ -37909,8 +37940,8 @@ div._emptyGridCard_1a2os_144 > button {
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-GYEkJ34wkUAL/editor/src/components/Grids/AreaOverlay.module.css.js
-  var digest9 = "3ccaeff75992a75cb3e9f4adf950d84855b83818d8e67882184acb240d0d66a7";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-RZIIzQ4HGFNP/editor/src/components/Grids/AreaOverlay.module.css.js
+  var digest9 = "8a2f16bbb6f0567c86f597508549625bdc0cdc43078a1adcf8673f1c0f9088fd";
   var css9 = `._marker_mumaw_1 {
   font-weight: lighter;
   font-style: italic;
@@ -38290,19 +38321,15 @@ div._emptyGridCard_1a2os_144 > button {
       let movementArrows = [];
       for (let resizeDir of movementOptions) {
         movementArrows.push(
-          /* @__PURE__ */ (0, import_jsx_runtime34.jsx)(
-            "div",
-            {
-              className: mergeClasses(AreaOverlay_module_css_default.dragger, resizeDir),
-              title: `resize ${area} ${resizeDir}`,
-              onMouseDown: (e2) => {
-                stopEventPropigation(e2);
-                startDrag(resizeDir);
-              },
-              children: resizeDirToArrow[resizeDir]
+          /* @__PURE__ */ (0, import_jsx_runtime34.jsx)("div", {
+            className: mergeClasses(AreaOverlay_module_css_default.dragger, resizeDir),
+            title: `resize ${area} ${resizeDir}`,
+            onMouseDown: (e2) => {
+              stopEventPropigation(e2);
+              startDrag(resizeDir);
             },
-            resizeDir
-          )
+            children: resizeDirToArrow[resizeDir]
+          }, resizeDir)
         );
       }
       return movementArrows;
@@ -38310,15 +38337,12 @@ div._emptyGridCard_1a2os_144 > button {
     import_react23.default.useEffect(() => {
       overlayRef.current?.style.setProperty("--grid-area", area);
     }, [area]);
-    return /* @__PURE__ */ (0, import_jsx_runtime34.jsx)(
-      "div",
-      {
-        ref: overlayRef,
-        onClick: stopEventPropigation,
-        className: AreaOverlay_module_css_default.marker + " grid-area-overlay",
-        children: movementHandles
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime34.jsx)("div", {
+      ref: overlayRef,
+      onClick: stopEventPropigation,
+      className: AreaOverlay_module_css_default.marker + " grid-area-overlay",
+      children: movementHandles
+    });
   }
   function stopEventPropigation(e2) {
     e2.preventDefault();
@@ -38334,8 +38358,8 @@ div._emptyGridCard_1a2os_144 > button {
   // src/components/Grids/EditableGridContainer/EditableGridContainer.tsx
   var React33 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-t5OanZXZm2Oz/editor/src/components/Grids/EditableGridContainer/resizableGrid.module.css.js
-  var digest10 = "60f5c54e886b8415395a326eac2222acbbf9ea90d52737dd06a288246dc10328";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-9IdtxaNrxskU/editor/src/components/Grids/EditableGridContainer/resizableGrid.module.css.js
+  var digest10 = "bb86f1c8987776e1fa59a54177d64ece7e05cff023ff9f330f98ec0bd1f085ec";
   var css10 = `._ResizableGrid_i4cq9_1 {
   --grid-gap: 5px;
 
@@ -48831,8 +48855,8 @@ div#_size-detection-cell_i4cq9_1 {
     };
   };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-JfyGeAPc40C7/editor/src/components/PopoverEl/styles.module.css.js
-  var digest11 = "096f29a30edc080e3563916783c6f3925b8beef1857718a1d120a5cf75556a4e";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-qsRmCybsh7l6/editor/src/components/PopoverEl/styles.module.css.js
+  var digest11 = "f48004de1d52d497854af3597cc7cd61d96885e0e72f11c38924c2908b363604";
   var css11 = `._popover_m2pq3_1 {
   pointer-events: none;
   opacity: 0;
@@ -48967,33 +48991,35 @@ div#_size-detection-cell_i4cq9_1 {
         onPointerDown: () => hidePopper()
       };
     }, [openDelayMs, popperElement, showOn, update2]);
-    const content3 = typeof popoverContent !== "string" ? popoverContent : contentIsMd ? /* @__PURE__ */ (0, import_jsx_runtime35.jsx)(ReactMarkdown, { className: styles_module_css_default8.popoverMarkdown, children: popoverContent }) : /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("div", { className: styles_module_css_default8.textContent, children: popoverContent });
-    return /* @__PURE__ */ (0, import_jsx_runtime35.jsxs)(import_jsx_runtime35.Fragment, { children: [
-      import_react26.default.cloneElement(triggerEl, {
-        ...eventListeners,
-        ref: setReferenceElement
-      }),
-      /* @__PURE__ */ (0, import_jsx_runtime35.jsxs)(
-        "div",
-        {
+    const content3 = typeof popoverContent !== "string" ? popoverContent : contentIsMd ? /* @__PURE__ */ (0, import_jsx_runtime35.jsx)(ReactMarkdown, {
+      className: styles_module_css_default8.popoverMarkdown,
+      children: popoverContent
+    }) : /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("div", {
+      className: styles_module_css_default8.textContent,
+      children: popoverContent
+    });
+    return /* @__PURE__ */ (0, import_jsx_runtime35.jsxs)(import_jsx_runtime35.Fragment, {
+      children: [
+        import_react26.default.cloneElement(triggerEl, {
+          ...eventListeners,
+          ref: setReferenceElement
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime35.jsxs)("div", {
           ref: setPopperElement,
           className: styles_module_css_default8.popover,
           style: popperStyles,
           ...attributes.popper,
           children: [
             content3,
-            /* @__PURE__ */ (0, import_jsx_runtime35.jsx)(
-              "div",
-              {
-                ref: setArrowElement,
-                className: styles_module_css_default8.popperArrow,
-                style: styles.arrow
-              }
-            )
+            /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("div", {
+              ref: setArrowElement,
+              className: styles_module_css_default8.popperArrow,
+              style: styles.arrow
+            })
           ]
-        }
-      )
-    ] });
+        })
+      ]
+    });
   };
 
   // src/components/Inputs/PopoverButton.tsx
@@ -49007,21 +49033,21 @@ div#_size-detection-cell_i4cq9_1 {
     openDelayMs = 0,
     ...passthroughProps
   }) => {
-    return /* @__PURE__ */ (0, import_jsx_runtime36.jsx)(
-      PopoverEl,
-      {
-        placement,
-        showOn,
-        popoverContent,
-        bgColor,
-        openDelayMs,
-        triggerEl: /* @__PURE__ */ (0, import_jsx_runtime36.jsx)("button", { ...passthroughProps, children })
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime36.jsx)(PopoverEl, {
+      placement,
+      showOn,
+      popoverContent,
+      bgColor,
+      openDelayMs,
+      triggerEl: /* @__PURE__ */ (0, import_jsx_runtime36.jsx)("button", {
+        ...passthroughProps,
+        children
+      })
+    });
   };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-MbBLS4EZIXUz/editor/src/components/Inputs/CSSUnitInput/CSSUnitInfo.module.css.js
-  var digest12 = "c3c827eb4cda4c5038af8a67f79daec9ee43d41b0135027c0a593f6818c24717";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-8eNMICI5TkB4/editor/src/components/Inputs/CSSUnitInput/CSSUnitInfo.module.css.js
+  var digest12 = "161e588eb6df1936a31533cbd6b4c48ac9d4ad6c371cc22e3e038e36cda19936";
   var css12 = `._infoIcon_15ri6_1 {
   width: 24px;
   color: var(--rstudio-blue);
@@ -49072,25 +49098,41 @@ div#_size-detection-cell_i4cq9_1 {
   // src/components/Inputs/CSSUnitInput/CSSUnitInfo.tsx
   var import_jsx_runtime37 = __toESM(require_jsx_runtime());
   var CSSUnitInfo = ({ units }) => {
-    return /* @__PURE__ */ (0, import_jsx_runtime37.jsx)(
-      PopoverButton,
-      {
-        className: CSSUnitInfo_module_css_default.infoIcon,
-        popoverContent: /* @__PURE__ */ (0, import_jsx_runtime37.jsx)(UnitInfoText, { units }),
-        openDelayMs: 500,
-        placement: "auto",
-        children: /* @__PURE__ */ (0, import_jsx_runtime37.jsx)(IoMdInformationCircleOutline, {})
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime37.jsx)(PopoverButton, {
+      className: CSSUnitInfo_module_css_default.infoIcon,
+      popoverContent: /* @__PURE__ */ (0, import_jsx_runtime37.jsx)(UnitInfoText, {
+        units
+      }),
+      openDelayMs: 500,
+      placement: "auto",
+      children: /* @__PURE__ */ (0, import_jsx_runtime37.jsx)(IoMdInformationCircleOutline, {})
+    });
   };
   function UnitInfoText({ units }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime37.jsxs)("div", { className: CSSUnitInfo_module_css_default.container, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime37.jsx)("div", { className: CSSUnitInfo_module_css_default.header, children: "CSS size options" }),
-      /* @__PURE__ */ (0, import_jsx_runtime37.jsx)("div", { className: CSSUnitInfo_module_css_default.info, children: units.map((unit) => /* @__PURE__ */ (0, import_jsx_runtime37.jsxs)(import_react27.default.Fragment, { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime37.jsx)("div", { className: CSSUnitInfo_module_css_default.unit, children: unit }),
-        /* @__PURE__ */ (0, import_jsx_runtime37.jsx)("div", { className: CSSUnitInfo_module_css_default.description, children: unitDescriptions[unit] })
-      ] }, unit)) })
-    ] });
+    return /* @__PURE__ */ (0, import_jsx_runtime37.jsxs)("div", {
+      className: CSSUnitInfo_module_css_default.container,
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime37.jsx)("div", {
+          className: CSSUnitInfo_module_css_default.header,
+          children: "CSS size options"
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime37.jsx)("div", {
+          className: CSSUnitInfo_module_css_default.info,
+          children: units.map((unit) => /* @__PURE__ */ (0, import_jsx_runtime37.jsxs)(import_react27.default.Fragment, {
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime37.jsx)("div", {
+                className: CSSUnitInfo_module_css_default.unit,
+                children: unit
+              }),
+              /* @__PURE__ */ (0, import_jsx_runtime37.jsx)("div", {
+                className: CSSUnitInfo_module_css_default.description,
+                children: unitDescriptions[unit]
+              })
+            ]
+          }, unit))
+        })
+      ]
+    });
   }
   var unitDescriptions = {
     "%": "Relative to percentage of container size",
@@ -49100,8 +49142,8 @@ div#_size-detection-cell_i4cq9_1 {
     rem: "Pixel size of app font. Typically 16 pixels."
   };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-DgUQeKwfMiIo/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
-  var digest13 = "27d3d6e3491f7f84708e09ac503da7c886d5a62f83d270036c5796133c397405";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-2oyxeetthChc/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
+  var digest13 = "ff958f00e7d3b9c11042ac783509ac6d6e77baf2352581cc1ee0ebc7ea0c0781";
   var css13 = `._wrapper_3jy8f_1 {
   position: relative;
   display: flex;
@@ -49149,20 +49191,24 @@ div#_size-detection-cell_i4cq9_1 {
     availableUnits,
     onChange
   }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)(import_jsx_runtime38.Fragment, { children: [
-      /* @__PURE__ */ (0, import_jsx_runtime38.jsx)(
-        "select",
-        {
+    return /* @__PURE__ */ (0, import_jsx_runtime38.jsxs)(import_jsx_runtime38.Fragment, {
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("select", {
           className: CSSUnitInput_module_css_default.unitSelector,
           "aria-label": "value-unit",
           name: "value-unit",
           value: unit,
           onChange: (e2) => onChange(e2.target.value),
-          children: availableUnits.map((unit2) => /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("option", { value: unit2, children: unit2 }, unit2))
-        }
-      ),
-      /* @__PURE__ */ (0, import_jsx_runtime38.jsx)(CSSUnitInfo, { units: availableUnits })
-    ] });
+          children: availableUnits.map((unit2) => /* @__PURE__ */ (0, import_jsx_runtime38.jsx)("option", {
+            value: unit2,
+            children: unit2
+          }, unit2))
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime38.jsx)(CSSUnitInfo, {
+          units: availableUnits
+        })
+      ]
+    });
   }
 
   // src/components/Inputs/NumberInput/NumberInput.tsx
@@ -49181,16 +49227,13 @@ div#_size-detection-cell_i4cq9_1 {
     value,
     onChange
   }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime39.jsx)(
-      NumberInputSimple,
-      {
-        id,
-        "aria-label": label,
-        "aria-labelledby": makeLabelId(id),
-        value,
-        onChange
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime39.jsx)(NumberInputSimple, {
+      id,
+      "aria-label": label,
+      "aria-labelledby": makeLabelId(id),
+      value,
+      onChange
+    });
   }
   function NumberInputSimple({
     value,
@@ -49208,53 +49251,44 @@ div#_size-detection-cell_i4cq9_1 {
       value,
       onChange
     });
-    return /* @__PURE__ */ (0, import_jsx_runtime39.jsxs)(
-      "div",
-      {
-        className: "NumberInput SUE-Input",
-        "aria-disabled": disabled,
-        onBlur: handleBlur,
-        children: [
-          /* @__PURE__ */ (0, import_jsx_runtime39.jsx)(
-            "input",
-            {
-              ...passthroughProps,
-              className: "input-field",
-              type: "number",
-              placeholder: "0",
-              value: displayedVal,
-              min: min2,
-              max: max2,
-              step,
-              disabled,
-              onChange: handleChange
-            }
-          ),
-          /* @__PURE__ */ (0, import_jsx_runtime39.jsxs)("div", { className: "incrementer-buttons", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime39.jsx)(
-              "button",
-              {
-                className: "up-button",
-                "aria-label": "Increment number up",
-                onClick: incrementUp,
-                type: "button",
-                children: /* @__PURE__ */ (0, import_jsx_runtime39.jsx)(UpSpinnerButton_default, {})
-              }
-            ),
-            /* @__PURE__ */ (0, import_jsx_runtime39.jsx)(
-              "button",
-              {
-                className: "down-button",
-                "aria-label": "Increment number down",
-                onClick: incrementDown,
-                type: "button",
-                children: /* @__PURE__ */ (0, import_jsx_runtime39.jsx)(DownSpinnerButton_default, {})
-              }
-            )
-          ] })
-        ]
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime39.jsxs)("div", {
+      className: "NumberInput SUE-Input",
+      "aria-disabled": disabled,
+      onBlur: handleBlur,
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime39.jsx)("input", {
+          ...passthroughProps,
+          className: "input-field",
+          type: "number",
+          placeholder: "0",
+          value: displayedVal,
+          min: min2,
+          max: max2,
+          step,
+          disabled,
+          onChange: handleChange
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime39.jsxs)("div", {
+          className: "incrementer-buttons",
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime39.jsx)("button", {
+              className: "up-button",
+              "aria-label": "Increment number up",
+              onClick: incrementUp,
+              type: "button",
+              children: /* @__PURE__ */ (0, import_jsx_runtime39.jsx)(UpSpinnerButton_default, {})
+            }),
+            /* @__PURE__ */ (0, import_jsx_runtime39.jsx)("button", {
+              className: "down-button",
+              "aria-label": "Increment number down",
+              onClick: incrementDown,
+              type: "button",
+              children: /* @__PURE__ */ (0, import_jsx_runtime39.jsx)(DownSpinnerButton_default, {})
+            })
+          ]
+        })
+      ]
+    });
   }
   function useNumberInput({
     min: min2 = -Infinity,
@@ -49322,15 +49356,12 @@ div#_size-detection-cell_i4cq9_1 {
     size,
     children
   }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime40.jsx)(
-      "span",
-      {
-        "aria-label": text4,
-        "data-balloon-pos": position3,
-        "data-balloon-length": size,
-        children
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime40.jsx)("span", {
+      "aria-label": text4,
+      "data-balloon-pos": position3,
+      "data-balloon-length": size,
+      children
+    });
   }
   function TooltipButton({
     text: text4,
@@ -49340,17 +49371,14 @@ div#_size-detection-cell_i4cq9_1 {
     variant = "icon",
     ...buttonArgs
   }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime40.jsx)(
-      Button_default,
-      {
-        "aria-label": text4,
-        "data-balloon-pos": position3,
-        "data-balloon-length": size,
-        variant,
-        ...buttonArgs,
-        children
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime40.jsx)(Button_default, {
+      "aria-label": text4,
+      "data-balloon-pos": position3,
+      "data-balloon-length": size,
+      variant,
+      ...buttonArgs,
+      children
+    });
   }
 
   // src/components/Grids/EditableGridContainer/utils.tsx
@@ -49645,8 +49673,8 @@ div#_size-detection-cell_i4cq9_1 {
     return tractSizes.some((size) => size === "auto");
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-EZ446zp86HRf/editor/src/components/Grids/EditableGridContainer/TractInfoDisplay.module.css.js
-  var digest14 = "436d0f2bb4bb6b298f20fdd427d45ab132823385a95224915ac76671373acdb3";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-Pub5kbVnzSYC/editor/src/components/Grids/EditableGridContainer/TractInfoDisplay.module.css.js
+  var digest14 = "59e6d0d26a80f937951ad421d2640e95d38abdcb9e11fce4035ce463cf03c0b2";
   var css14 = `._tractInfoDisplay_cvtwo_1 {
   --transition-delay: 0.1s;
   --transition-speed: 0.1s;
@@ -49831,53 +49859,59 @@ user is typing in the input field but mouses off */
     changeCount
   }) {
     const { unit, count } = parseCSSMeasure(size);
-    return /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)(
-      "div",
-      {
-        className: TractInfoDisplay_module_css_default.tractInfoDisplay,
-        "data-drag-dir": dir,
-        style: {
-          "--tract-index": index2 + 1
-        },
-        children: [
-          /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("div", { className: TractInfoDisplay_module_css_default.hoverListener }),
-          /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { className: TractInfoDisplay_module_css_default.sizeWidget, onClick: stopPropagation, children: [
-            /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { className: TractInfoDisplay_module_css_default.buttons, children: [
-              /* @__PURE__ */ (0, import_jsx_runtime41.jsx)(AddTractButton, { dir, onClick: () => addTract2("before") }),
-              /* @__PURE__ */ (0, import_jsx_runtime41.jsx)(
-                DeleteTractButton,
-                {
+    return /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", {
+      className: TractInfoDisplay_module_css_default.tractInfoDisplay,
+      "data-drag-dir": dir,
+      style: {
+        "--tract-index": index2 + 1
+      },
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime41.jsx)("div", {
+          className: TractInfoDisplay_module_css_default.hoverListener
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", {
+          className: TractInfoDisplay_module_css_default.sizeWidget,
+          onClick: stopPropagation,
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", {
+              className: TractInfoDisplay_module_css_default.buttons,
+              children: [
+                /* @__PURE__ */ (0, import_jsx_runtime41.jsx)(AddTractButton, {
+                  dir,
+                  onClick: () => addTract2("before")
+                }),
+                /* @__PURE__ */ (0, import_jsx_runtime41.jsx)(DeleteTractButton, {
                   dir,
                   onClick: deleteTract,
                   deletionConflicts
-                }
-              ),
-              /* @__PURE__ */ (0, import_jsx_runtime41.jsx)(AddTractButton, { dir, onClick: () => addTract2("after") })
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", { className: TractInfoDisplay_module_css_default.cssSizeInput, children: [
-              /* @__PURE__ */ (0, import_jsx_runtime41.jsx)(
-                NumberInputSimple,
-                {
+                }),
+                /* @__PURE__ */ (0, import_jsx_runtime41.jsx)(AddTractButton, {
+                  dir,
+                  onClick: () => addTract2("after")
+                })
+              ]
+            }),
+            /* @__PURE__ */ (0, import_jsx_runtime41.jsxs)("div", {
+              className: TractInfoDisplay_module_css_default.cssSizeInput,
+              children: [
+                /* @__PURE__ */ (0, import_jsx_runtime41.jsx)(NumberInputSimple, {
                   name: "value-count",
                   "aria-label": "value-count",
                   value: count,
                   onChange: changeCount,
                   min: 0
-                }
-              ),
-              /* @__PURE__ */ (0, import_jsx_runtime41.jsx)(
-                CSSUnitChooser,
-                {
+                }),
+                /* @__PURE__ */ (0, import_jsx_runtime41.jsx)(CSSUnitChooser, {
                   unit,
                   availableUnits: ALLOWED_UNITS,
                   onChange: (u3) => changeUnit(u3)
-                }
-              )
-            ] })
-          ] })
-        ]
-      }
-    );
+                })
+              ]
+            })
+          ]
+        })
+      ]
+    });
   }
   function DeleteTractButton({
     dir,
@@ -49889,18 +49923,15 @@ user is typing in the input field but mouses off */
     const message = !enabled ? `Can't delete because the items ${deletionConflicts.join(
       ","
     )} are entirely contained in tract` : "Delete tract";
-    return /* @__PURE__ */ (0, import_jsx_runtime41.jsx)(
-      TooltipButton,
-      {
-        className: TractInfoDisplay_module_css_default.deleteButton,
-        onClick: removeFocusAfterClick(enabled ? onClick : void 0),
-        "data-enabled": enabled,
-        text: message,
-        size: "medium",
-        position: popoverPlacement,
-        children: /* @__PURE__ */ (0, import_jsx_runtime41.jsx)(Trash_default, {})
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime41.jsx)(TooltipButton, {
+      className: TractInfoDisplay_module_css_default.deleteButton,
+      onClick: removeFocusAfterClick(enabled ? onClick : void 0),
+      "data-enabled": enabled,
+      text: message,
+      size: "medium",
+      position: popoverPlacement,
+      children: /* @__PURE__ */ (0, import_jsx_runtime41.jsx)(Trash_default, {})
+    });
   }
   function AddTractButton({
     dir,
@@ -49908,16 +49939,13 @@ user is typing in the input field but mouses off */
   }) {
     const popoverPlacement = dir === "rows" ? "right" : "down";
     const label = dir === "rows" ? `Add row` : `Add column`;
-    return /* @__PURE__ */ (0, import_jsx_runtime41.jsx)(
-      TooltipButton,
-      {
-        className: TractInfoDisplay_module_css_default.tractAddButton,
-        onClick: removeFocusAfterClick(onClick),
-        position: popoverPlacement,
-        text: label,
-        children: /* @__PURE__ */ (0, import_jsx_runtime41.jsx)(FaPlus, {})
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime41.jsx)(TooltipButton, {
+      className: TractInfoDisplay_module_css_default.tractAddButton,
+      onClick: removeFocusAfterClick(onClick),
+      position: popoverPlacement,
+      text: label,
+      children: /* @__PURE__ */ (0, import_jsx_runtime41.jsx)(FaPlus, {})
+    });
   }
   function removeFocusAfterClick(onClick) {
     return function(e2) {
@@ -49985,9 +50013,8 @@ user is typing in the input field but mouses off */
     const deleteTract = (i2) => () => {
       onUpdate2({ type: "DELETE", dir, index: i2 + 1 });
     };
-    return /* @__PURE__ */ (0, import_jsx_runtime41.jsx)(import_jsx_runtime41.Fragment, { children: sizes.map((size, index2) => /* @__PURE__ */ (0, import_jsx_runtime41.jsx)(
-      TractInfoDisplay,
-      {
+    return /* @__PURE__ */ (0, import_jsx_runtime41.jsx)(import_jsx_runtime41.Fragment, {
+      children: sizes.map((size, index2) => /* @__PURE__ */ (0, import_jsx_runtime41.jsx)(TractInfoDisplay, {
         index: index2,
         dir,
         addTract: addTract2(index2),
@@ -49996,9 +50023,8 @@ user is typing in the input field but mouses off */
         changeCount: changeCount(index2),
         size,
         deletionConflicts: findDeleteConflicts({ dir, index: index2 })
-      },
-      dir + index2
-    )) });
+      }, dir + index2))
+    });
   }
   function stopPropagation(e2) {
     e2.stopPropagation();
@@ -50009,8 +50035,8 @@ user is typing in the input field but mouses off */
     });
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-crnBcJoVakRf/editor/src/components/Grids/EditableGridContainer/TractSizer.module.css.js
-  var digest15 = "3e979d533152b4644d47439c231e998cb95e907a2a002e51e19f8b7c5fbf61a9";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-LEl5JRSCsWtR/editor/src/components/Grids/EditableGridContainer/TractSizer.module.css.js
+  var digest15 = "3efc3cc8121711be18ee85457965b2ad63bee6c7b0d507c6d8484aa4b1fa7175";
   var css15 = `div._columnSizer_9b32k_1,
 div._rowSizer_9b32k_2 {
   --sizer-color: #c9e2f3;
@@ -50109,15 +50135,12 @@ div._rowSizer_9b32k_2::after {
     index: index2,
     onStartDrag
   }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime42.jsx)(
-      "div",
-      {
-        className: dir === "rows" ? TractSizer_module_css_default.rowSizer : TractSizer_module_css_default.columnSizer,
-        title: `resize ${dir === "rows" ? "rows" : "columns"} ${index2 - 1} and ${index2}`,
-        onMouseDown: (e2) => onStartDrag({ e: e2, dir, index: index2 }),
-        style: { [dir === "rows" ? "gridRow" : "gridColumn"]: index2 }
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime42.jsx)("div", {
+      className: dir === "rows" ? TractSizer_module_css_default.rowSizer : TractSizer_module_css_default.columnSizer,
+      title: `resize ${dir === "rows" ? "rows" : "columns"} ${index2 - 1} and ${index2}`,
+      onMouseDown: (e2) => onStartDrag({ e: e2, dir, index: index2 }),
+      style: { [dir === "rows" ? "gridRow" : "gridColumn"]: index2 }
+    });
   }
 
   // src/components/Grids/EditableGridContainer/useDragToResizeGrid.ts
@@ -50309,55 +50332,38 @@ div._rowSizer_9b32k_2::after {
         return [];
       return getTractSizesInPx({ container: container2, dir });
     }, []);
-    return /* @__PURE__ */ (0, import_jsx_runtime43.jsxs)(
-      "div",
-      {
-        className: mergeClasses(...containerClasses),
-        ref: containerRef,
-        style: styles,
-        children: [
-          columnSizers.map((gap_index) => /* @__PURE__ */ (0, import_jsx_runtime43.jsx)(
-            TractSizerHandle,
-            {
-              dir: "cols",
-              index: gap_index,
-              onStartDrag: startDrag
-            },
-            "cols" + gap_index
-          )),
-          rowSizers.map((gap_index) => /* @__PURE__ */ (0, import_jsx_runtime43.jsx)(
-            TractSizerHandle,
-            {
-              dir: "rows",
-              index: gap_index,
-              onStartDrag: startDrag
-            },
-            "rows" + gap_index
-          )),
-          children,
-          /* @__PURE__ */ (0, import_jsx_runtime43.jsx)(
-            TractInfoDisplays,
-            {
-              dir: "cols",
-              sizes: col_sizes,
-              getActualSizes: () => getActualSizeByTract("cols"),
-              areas: layout.areas,
-              onUpdate: handleUpdate
-            }
-          ),
-          /* @__PURE__ */ (0, import_jsx_runtime43.jsx)(
-            TractInfoDisplays,
-            {
-              dir: "rows",
-              sizes: row_sizes,
-              getActualSizes: () => getActualSizeByTract("rows"),
-              areas: layout.areas,
-              onUpdate: handleUpdate
-            }
-          )
-        ]
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime43.jsxs)("div", {
+      className: mergeClasses(...containerClasses),
+      ref: containerRef,
+      style: styles,
+      children: [
+        columnSizers.map((gap_index) => /* @__PURE__ */ (0, import_jsx_runtime43.jsx)(TractSizerHandle, {
+          dir: "cols",
+          index: gap_index,
+          onStartDrag: startDrag
+        }, "cols" + gap_index)),
+        rowSizers.map((gap_index) => /* @__PURE__ */ (0, import_jsx_runtime43.jsx)(TractSizerHandle, {
+          dir: "rows",
+          index: gap_index,
+          onStartDrag: startDrag
+        }, "rows" + gap_index)),
+        children,
+        /* @__PURE__ */ (0, import_jsx_runtime43.jsx)(TractInfoDisplays, {
+          dir: "cols",
+          sizes: col_sizes,
+          getActualSizes: () => getActualSizeByTract("cols"),
+          areas: layout.areas,
+          onUpdate: handleUpdate
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime43.jsx)(TractInfoDisplays, {
+          dir: "rows",
+          sizes: row_sizes,
+          getActualSizes: () => getActualSizeByTract("rows"),
+          areas: layout.areas,
+          onUpdate: handleUpdate
+        })
+      ]
+    });
   }
   function updateTractSize(layout, { dir, index: index2, size }) {
     return immer_esm_default(layout, (updatedLayout) => {
@@ -50390,19 +50396,16 @@ div._rowSizer_9b32k_2::after {
         });
       }
     });
-    return /* @__PURE__ */ (0, import_jsx_runtime44.jsx)(
-      "div",
-      {
-        className: "grid-cell",
-        ref: cellRef,
-        "data-cell-pos": gridRow + "-" + gridColumn,
-        style: {
-          gridRow,
-          gridColumn,
-          margin: "2px"
-        }
+    return /* @__PURE__ */ (0, import_jsx_runtime44.jsx)("div", {
+      className: "grid-cell",
+      ref: cellRef,
+      "data-cell-pos": gridRow + "-" + gridColumn,
+      style: {
+        gridRow,
+        gridColumn,
+        margin: "2px"
       }
-    );
+    });
   }
 
   // src/components/Grids/NameNewPanelModal.tsx
@@ -50421,22 +50424,42 @@ div._rowSizer_9b32k_2::after {
     preview,
     left: left2
   }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime45.jsx)(import_jsx_runtime45.Fragment, { children: /* @__PURE__ */ (0, import_jsx_runtime45.jsxs)("div", { className: "EditorSkeleton", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("div", { className: "elements-panel panel", children: left2 }),
-      /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("div", { className: "app-view", children: main2 }),
-      /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("div", { className: "properties-panel panel", children: properties }),
-      /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("div", { className: "app-preview panel", children: preview })
-    ] }) });
+    return /* @__PURE__ */ (0, import_jsx_runtime45.jsx)(import_jsx_runtime45.Fragment, {
+      children: /* @__PURE__ */ (0, import_jsx_runtime45.jsxs)("div", {
+        className: "EditorSkeleton",
+        children: [
+          /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("div", {
+            className: "elements-panel panel",
+            children: left2
+          }),
+          /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("div", {
+            className: "app-view",
+            children: main2
+          }),
+          /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("div", {
+            className: "properties-panel panel",
+            children: properties
+          }),
+          /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("div", {
+            className: "app-preview panel",
+            children: preview
+          })
+        ]
+      })
+    });
   }
   function PanelHeader({
     children,
     className = ""
   }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("h3", { className: className + " panel-title", children });
+    return /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("h3", {
+      className: className + " panel-title",
+      children
+    });
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-aaBlmaE3vwX1/editor/src/PortalModal.module.css.js
-  var digest16 = "e7ce6e377975676bd07773cc70db7ab0829e769cd4dc30890745ad5e212f81e6";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-XFYNEqk32n7P/editor/src/PortalModal.module.css.js
+  var digest16 = "91b865e35fb1d4d3f8bedf7125a67dd941c5b7d694ef187d2c2f25689ec32ec2";
   var css16 = `._portalHolder_18ua3_1 {
   background-color: rgba(255, 255, 255, 0.735);
   position: absolute;
@@ -50525,9 +50548,8 @@ div._rowSizer_9b32k_2::after {
     onConfirm,
     onCancel
   }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime46.jsx)(Portal, { children: /* @__PURE__ */ (0, import_jsx_runtime46.jsx)(
-      "div",
-      {
+    return /* @__PURE__ */ (0, import_jsx_runtime46.jsx)(Portal, {
+      children: /* @__PURE__ */ (0, import_jsx_runtime46.jsx)("div", {
         className: PortalModal_module_css_default.portalHolder,
         onClick: () => onCancel(),
         onKeyDown: (e2) => {
@@ -50535,25 +50557,28 @@ div._rowSizer_9b32k_2::after {
             onCancel();
           }
         },
-        children: /* @__PURE__ */ (0, import_jsx_runtime46.jsxs)(
-          "div",
-          {
-            className: PortalModal_module_css_default.portalModal,
-            onClick: (e2) => e2.stopPropagation(),
-            "aria-label": label ?? "popup modal",
-            children: [
-              title ? /* @__PURE__ */ (0, import_jsx_runtime46.jsx)(PanelHeader, { className: PortalModal_module_css_default.title, children: title }) : null,
-              /* @__PURE__ */ (0, import_jsx_runtime46.jsx)("div", { className: PortalModal_module_css_default.body, children })
-            ]
-          }
-        )
-      }
-    ) });
+        children: /* @__PURE__ */ (0, import_jsx_runtime46.jsxs)("div", {
+          className: PortalModal_module_css_default.portalModal,
+          onClick: (e2) => e2.stopPropagation(),
+          "aria-label": label ?? "popup modal",
+          children: [
+            title ? /* @__PURE__ */ (0, import_jsx_runtime46.jsx)(PanelHeader, {
+              className: PortalModal_module_css_default.title,
+              children: title
+            }) : null,
+            /* @__PURE__ */ (0, import_jsx_runtime46.jsx)("div", {
+              className: PortalModal_module_css_default.body,
+              children
+            })
+          ]
+        })
+      })
+    });
   }
   var PortalModal_default = PortalModal;
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-5aAaIFCcN8Mh/editor/src/PortalModal.module.css.js
-  var digest17 = "53a8dae5ba2644c9c1dad78eb547d8dd16c2679eb2d541d2e8449821984b7754";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-xb2SZhbPYlO5/editor/src/PortalModal.module.css.js
+  var digest17 = "85e1dad0d1006f1b03286cd72e50fb3485447051a11a31d893dc3d476e6840a6";
   var css17 = `._portalHolder_18ua3_1 {
   background-color: rgba(255, 255, 255, 0.735);
   position: absolute;
@@ -50752,8 +50777,8 @@ div._rowSizer_9b32k_2::after {
     }, n3;
   }();
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-bzhYDl85SbwN/editor/src/components/Inputs/BooleanInput/styles.module.css.js
-  var digest18 = "df3e8309c1e17bf7af6ab65aca6d7876b05059eb2aa0a5e9a86541289084c72b";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-cl3TBF2VNKvT/editor/src/components/Inputs/BooleanInput/styles.module.css.js
+  var digest18 = "77faee9119ed05048dbb6cad8b9b2ae2607a95b6d866d49eab673fd34d600d50";
   var css18 = `._checkboxInput_7ym3w_1 {
   height: 0;
   width: 0;
@@ -50837,10 +50862,9 @@ label._checkboxLabel_7ym3w_10:after {
   }) {
     const checkboxId = `${id}-checkbox-input`;
     const handleChange = (e2) => onChange(e2.target.checked);
-    return /* @__PURE__ */ (0, import_jsx_runtime47.jsxs)(import_jsx_runtime47.Fragment, { children: [
-      /* @__PURE__ */ (0, import_jsx_runtime47.jsx)(
-        "input",
-        {
+    return /* @__PURE__ */ (0, import_jsx_runtime47.jsxs)(import_jsx_runtime47.Fragment, {
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime47.jsx)("input", {
           className: mergeClasses("SUE-Input", styles_module_css_default9.checkboxInput),
           id: checkboxId,
           "aria-labelledby": makeLabelId(id),
@@ -50848,25 +50872,22 @@ label._checkboxLabel_7ym3w_10:after {
           type: "checkbox",
           checked: value,
           onChange: handleChange
-        }
-      ),
-      /* @__PURE__ */ (0, import_jsx_runtime47.jsx)(
-        "label",
-        {
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime47.jsx)("label", {
           className: styles_module_css_default9.checkboxLabel,
           htmlFor: checkboxId,
           "data-value": value ? "TRUE" : "FALSE",
           children: "Toggle"
-        }
-      )
-    ] });
+        })
+      ]
+    });
   }
 
   // src/components/Inputs/CSSUnitInput/CSSUnitInput.tsx
   var import_react31 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-SYVOiSAlwuja/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
-  var digest19 = "566a11ded5f57c4384e2c266f068c5f381292a3d8392fcc1e9c9d47c64148c21";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-zyH4qAjfUkLl/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
+  var digest19 = "0b291e403b3f093f3bc9bbbe26693a18587213b2e43a001c6c08a0b2e8a9085e";
   var css19 = `._wrapper_3jy8f_1 {
   position: relative;
   display: flex;
@@ -50966,35 +50987,26 @@ label._checkboxLabel_7ym3w_10:after {
       units.push(unit);
     }
     const no_count = count === null;
-    return /* @__PURE__ */ (0, import_jsx_runtime48.jsxs)(
-      "div",
-      {
-        className: mergeClasses("SUE-Input", CSSUnitInput_module_css_default2.wrapper),
-        "aria-label": label,
-        "aria-labelledby": makeLabelId(id),
-        children: [
-          /* @__PURE__ */ (0, import_jsx_runtime48.jsx)(
-            NumberInputSimple,
-            {
-              name: "value-count",
-              "aria-label": "value-count",
-              value: count,
-              disabled: no_count,
-              onChange: updateCount,
-              min: 0
-            }
-          ),
-          /* @__PURE__ */ (0, import_jsx_runtime48.jsx)(
-            CSSUnitChooser,
-            {
-              unit,
-              availableUnits: units,
-              onChange: updateUnit
-            }
-          )
-        ]
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime48.jsxs)("div", {
+      className: mergeClasses("SUE-Input", CSSUnitInput_module_css_default2.wrapper),
+      "aria-label": label,
+      "aria-labelledby": makeLabelId(id),
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime48.jsx)(NumberInputSimple, {
+          name: "value-count",
+          "aria-label": "value-count",
+          value: count,
+          disabled: no_count,
+          onChange: updateCount,
+          min: 0
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime48.jsx)(CSSUnitChooser, {
+          unit,
+          availableUnits: units,
+          onChange: updateUnit
+        })
+      ]
+    });
   }
 
   // src/components/Inputs/ListInput/NamedListInput.tsx
@@ -51008,8 +51020,8 @@ label._checkboxLabel_7ym3w_10:after {
   // src/components/Inputs/ListInput/NamedListInput.tsx
   var import_react_sortablejs = __toESM(require_dist());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-iRJzyaS5aJD6/editor/src/components/Inputs/ListInput/styles.module.css.js
-  var digest20 = "975c0081333a4004fdca5adea748bdfdaec4bb31a0ee4e11bcbe24558e334e96";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-StZuSpsJ9FiA/editor/src/components/Inputs/ListInput/styles.module.css.js
+  var digest20 = "42604017aa038149f164731160a593e0da934046dbc32880858c95e1fa942072";
   var css20 = `._container_xt7ji_1 {
   --gap-size: 4px;
   margin-top: 21px;
@@ -51126,88 +51138,83 @@ label._checkboxLabel_7ym3w_10:after {
       onChange,
       newItemValue
     });
-    return /* @__PURE__ */ (0, import_jsx_runtime49.jsxs)(
-      "div",
-      {
-        className: styles_module_css_default10.list,
-        "aria-labelledby": makeLabelId(id),
-        "aria-label": label,
-        children: [
-          /* @__PURE__ */ (0, import_jsx_runtime49.jsxs)(
-            "div",
-            {
-              className: styles_module_css_default10.item + " " + styles_module_css_default10.header,
-              "aria-label": "Columns field labels",
-              children: [
-                /* @__PURE__ */ (0, import_jsx_runtime49.jsx)("span", { className: styles_module_css_default10.keyField, children: "Key" }),
-                /* @__PURE__ */ (0, import_jsx_runtime49.jsx)("span", { className: styles_module_css_default10.valueField, children: "Value" })
-              ]
-            }
-          ),
-          /* @__PURE__ */ (0, import_jsx_runtime49.jsx)(
-            import_react_sortablejs.ReactSortable,
-            {
-              list: state,
-              setList: setState,
-              handle: `.${styles_module_css_default10.dragHandle}`,
-              children: state.map((item, i2) => /* @__PURE__ */ (0, import_jsx_runtime49.jsxs)("div", { className: styles_module_css_default10.item, children: [
-                /* @__PURE__ */ (0, import_jsx_runtime49.jsx)("div", { className: styles_module_css_default10.dragHandle, title: "Reorder list", children: /* @__PURE__ */ (0, import_jsx_runtime49.jsx)(MdDragHandle, {}) }),
-                /* @__PURE__ */ (0, import_jsx_runtime49.jsx)(
-                  "input",
-                  {
-                    title: "Key Field",
-                    className: styles_module_css_default10.keyField,
-                    type: "text",
-                    value: item.key,
-                    onChange: (e2) => {
-                      const newList = [...state];
-                      newList[i2] = { ...item, key: e2.target.value };
-                      setState(newList);
-                    }
-                  }
-                ),
-                /* @__PURE__ */ (0, import_jsx_runtime49.jsx)("span", { className: styles_module_css_default10.separator, children: ":" }),
-                /* @__PURE__ */ (0, import_jsx_runtime49.jsx)(
-                  "input",
-                  {
-                    title: "Value Field",
-                    className: styles_module_css_default10.valueField,
-                    type: "text",
-                    value: item.value,
-                    onChange: (e2) => {
-                      const newList = [...state];
-                      newList[i2] = { ...item, value: e2.target.value };
-                      setState(newList);
-                    }
-                  }
-                ),
-                /* @__PURE__ */ (0, import_jsx_runtime49.jsx)(
-                  Button_default,
-                  {
-                    className: styles_module_css_default10.deleteButton,
-                    onClick: () => deleteItem(item.id),
-                    variant: ["icon", "transparent"],
-                    title: `Delete ${item.value}`,
-                    children: /* @__PURE__ */ (0, import_jsx_runtime49.jsx)(Trash_default, {})
-                  }
-                )
-              ] }, item.id))
-            }
-          ),
-          /* @__PURE__ */ (0, import_jsx_runtime49.jsx)(
-            Button_default,
-            {
-              className: styles_module_css_default10.addItemButton,
-              onClick: () => addItem2(),
-              variant: ["icon", "transparent"],
-              title: "Add new item",
-              "aria-label": "Add new item to list",
-              children: /* @__PURE__ */ (0, import_jsx_runtime49.jsx)(FaPlus, {})
-            }
-          )
-        ]
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime49.jsxs)("div", {
+      className: styles_module_css_default10.list,
+      "aria-labelledby": makeLabelId(id),
+      "aria-label": label,
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime49.jsxs)("div", {
+          className: styles_module_css_default10.item + " " + styles_module_css_default10.header,
+          "aria-label": "Columns field labels",
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime49.jsx)("span", {
+              className: styles_module_css_default10.keyField,
+              children: "Key"
+            }),
+            /* @__PURE__ */ (0, import_jsx_runtime49.jsx)("span", {
+              className: styles_module_css_default10.valueField,
+              children: "Value"
+            })
+          ]
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime49.jsx)(import_react_sortablejs.ReactSortable, {
+          list: state,
+          setList: setState,
+          handle: `.${styles_module_css_default10.dragHandle}`,
+          children: state.map((item, i2) => /* @__PURE__ */ (0, import_jsx_runtime49.jsxs)("div", {
+            className: styles_module_css_default10.item,
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime49.jsx)("div", {
+                className: styles_module_css_default10.dragHandle,
+                title: "Reorder list",
+                children: /* @__PURE__ */ (0, import_jsx_runtime49.jsx)(MdDragHandle, {})
+              }),
+              /* @__PURE__ */ (0, import_jsx_runtime49.jsx)("input", {
+                title: "Key Field",
+                className: styles_module_css_default10.keyField,
+                type: "text",
+                value: item.key,
+                onChange: (e2) => {
+                  const newList = [...state];
+                  newList[i2] = { ...item, key: e2.target.value };
+                  setState(newList);
+                }
+              }),
+              /* @__PURE__ */ (0, import_jsx_runtime49.jsx)("span", {
+                className: styles_module_css_default10.separator,
+                children: ":"
+              }),
+              /* @__PURE__ */ (0, import_jsx_runtime49.jsx)("input", {
+                title: "Value Field",
+                className: styles_module_css_default10.valueField,
+                type: "text",
+                value: item.value,
+                onChange: (e2) => {
+                  const newList = [...state];
+                  newList[i2] = { ...item, value: e2.target.value };
+                  setState(newList);
+                }
+              }),
+              /* @__PURE__ */ (0, import_jsx_runtime49.jsx)(Button_default, {
+                className: styles_module_css_default10.deleteButton,
+                onClick: () => deleteItem(item.id),
+                variant: ["icon", "transparent"],
+                title: `Delete ${item.value}`,
+                children: /* @__PURE__ */ (0, import_jsx_runtime49.jsx)(Trash_default, {})
+              })
+            ]
+          }, item.id))
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime49.jsx)(Button_default, {
+          className: styles_module_css_default10.addItemButton,
+          onClick: () => addItem2(),
+          variant: ["icon", "transparent"],
+          title: "Add new item",
+          "aria-label": "Add new item to list",
+          children: /* @__PURE__ */ (0, import_jsx_runtime49.jsx)(FaPlus, {})
+        })
+      ]
+    });
   }
   function useListState({
     value,
@@ -51278,35 +51285,32 @@ label._checkboxLabel_7ym3w_10:after {
     };
     const uniqueOptions = removeDuplicates(choices);
     if (uniqueOptions.length === 0) {
-      return /* @__PURE__ */ (0, import_jsx_runtime50.jsx)(
-        "select",
-        {
-          title: `${label} selector`,
-          "aria-labelledby": makeLabelId(id),
-          "aria-label": label,
-          className: "OptionsDropdown SUE-Input",
-          placeholder: "No available options"
-        }
-      );
-    }
-    return /* @__PURE__ */ (0, import_jsx_runtime50.jsx)(
-      "select",
-      {
+      return /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("select", {
         title: `${label} selector`,
         "aria-labelledby": makeLabelId(id),
+        "aria-label": label,
         className: "OptionsDropdown SUE-Input",
-        onChange: handleChange,
-        value: selected,
-        children: uniqueOptions.map((opt) => /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("option", { value: opt, children: opt }, opt))
-      }
-    );
+        placeholder: "No available options"
+      });
+    }
+    return /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("select", {
+      title: `${label} selector`,
+      "aria-labelledby": makeLabelId(id),
+      className: "OptionsDropdown SUE-Input",
+      onChange: handleChange,
+      value: selected,
+      children: uniqueOptions.map((opt) => /* @__PURE__ */ (0, import_jsx_runtime50.jsx)("option", {
+        value: opt,
+        children: opt
+      }, opt))
+    });
   }
 
   // src/components/Inputs/RadioInputs/RadioInputsSimple.tsx
   var React39 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-YANL3aR46QGz/editor/src/components/Inputs/RadioInputs/RadioInputs.module.css.js
-  var digest21 = "a82fbb951b36da1f2b8e6dc9bd011e4bd16d8b6f1e19698dd63be0c13058d5ea";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-2iDEqMINwMpz/editor/src/components/Inputs/RadioInputs/RadioInputs.module.css.js
+  var digest21 = "e4d245d1e0bac75a42f9fd42ebf4b3b42ec74cdac79a21001cb8b650fc5f9327";
   var css21 = `._radioContainer_1regb_1 {
   display: grid;
   gap: 5px;
@@ -51429,42 +51433,40 @@ the label */
       }),
       [optionsPerColumn]
     );
-    return /* @__PURE__ */ (0, import_jsx_runtime51.jsx)(
-      "fieldset",
-      {
-        className: RadioInputs_module_css_default.radioContainer,
-        "aria-labelledby": makeLabelId(id),
-        "aria-label": label,
-        style: columns_style_defn,
-        children: values.map((option) => {
-          const { icon, label: label2 = option } = choices[option] ?? {};
-          const optionId = id + option;
-          return /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("div", { className: RadioInputs_module_css_default.option, children: [
-            /* @__PURE__ */ (0, import_jsx_runtime51.jsx)(
-              "input",
-              {
-                className: RadioInputs_module_css_default.radioInput,
-                name: id,
-                id: optionId,
-                type: "radio",
-                value: option,
-                onChange: () => onChange(option),
-                checked: option === currentSelection
-              }
-            ),
-            /* @__PURE__ */ (0, import_jsx_runtime51.jsx)(
-              "label",
-              {
-                className: RadioInputs_module_css_default.radioLabel,
-                htmlFor: optionId,
-                "data-name": label2,
-                children: typeof icon === "string" ? /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("img", { src: icon, alt: label2, className: RadioInputs_module_css_default.icon }) : icon
-              }
-            )
-          ] }, option);
-        })
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("fieldset", {
+      className: RadioInputs_module_css_default.radioContainer,
+      "aria-labelledby": makeLabelId(id),
+      "aria-label": label,
+      style: columns_style_defn,
+      children: values.map((option) => {
+        const { icon, label: label2 = option } = choices[option] ?? {};
+        const optionId = id + option;
+        return /* @__PURE__ */ (0, import_jsx_runtime51.jsxs)("div", {
+          className: RadioInputs_module_css_default.option,
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("input", {
+              className: RadioInputs_module_css_default.radioInput,
+              name: id,
+              id: optionId,
+              type: "radio",
+              value: option,
+              onChange: () => onChange(option),
+              checked: option === currentSelection
+            }),
+            /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("label", {
+              className: RadioInputs_module_css_default.radioLabel,
+              htmlFor: optionId,
+              "data-name": label2,
+              children: typeof icon === "string" ? /* @__PURE__ */ (0, import_jsx_runtime51.jsx)("img", {
+                src: icon,
+                alt: label2,
+                className: RadioInputs_module_css_default.icon
+              }) : icon
+            })
+          ]
+        }, option);
+      })
+    });
   }
 
   // src/components/Inputs/SettingsFormBuilder/SettingsInput/StringInput.tsx
@@ -51475,31 +51477,44 @@ the label */
     value,
     onChange
   }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime52.jsx)(
-      "input",
-      {
-        className: "SUE-Input",
-        "aria-label": label,
-        "aria-labelledby": makeLabelId(id),
-        id,
-        type: "text",
-        value,
-        onChange: (e2) => {
-          const newValue = e2.target.value;
-          onChange(newValue);
-        }
+    return /* @__PURE__ */ (0, import_jsx_runtime52.jsx)("input", {
+      className: "SUE-Input",
+      "aria-label": label,
+      "aria-labelledby": makeLabelId(id),
+      id,
+      type: "text",
+      value,
+      onChange: (e2) => {
+        const newValue = e2.target.value;
+        onChange(newValue);
       }
-    );
+    });
   }
 
   // src/components/Inputs/SettingsFormBuilder/SettingsInput/SettingsInputElement.tsx
   var import_jsx_runtime53 = __toESM(require_jsx_runtime());
   function SettingsInputElement(args) {
-    return K(args).with({ inputType: "string" }, (x2) => /* @__PURE__ */ (0, import_jsx_runtime53.jsx)(StringInput, { ...x2 })).with({ inputType: "number" }, (x2) => /* @__PURE__ */ (0, import_jsx_runtime53.jsx)(NumberInput, { ...x2 })).with({ inputType: "cssMeasure" }, (x2) => /* @__PURE__ */ (0, import_jsx_runtime53.jsx)(CSSUnitInput, { ...x2 })).with({ inputType: "boolean" }, (x2) => /* @__PURE__ */ (0, import_jsx_runtime53.jsx)(BooleanInput, { ...x2 })).with({ inputType: "list" }, (x2) => /* @__PURE__ */ (0, import_jsx_runtime53.jsx)(NamedListInput, { ...x2 })).with({ inputType: "dropdown" }, (x2) => /* @__PURE__ */ (0, import_jsx_runtime53.jsx)(DropdownSelect, { ...x2 })).with({ inputType: "radio" }, (x2) => /* @__PURE__ */ (0, import_jsx_runtime53.jsx)(RadioInputs, { ...x2 })).otherwise(({ inputType }) => /* @__PURE__ */ (0, import_jsx_runtime53.jsxs)("div", { children: [
-      "I don't know how to render the input of type ",
-      inputType,
-      " yet! Sorry."
-    ] }));
+    return K(args).with({ inputType: "string" }, (x2) => /* @__PURE__ */ (0, import_jsx_runtime53.jsx)(StringInput, {
+      ...x2
+    })).with({ inputType: "number" }, (x2) => /* @__PURE__ */ (0, import_jsx_runtime53.jsx)(NumberInput, {
+      ...x2
+    })).with({ inputType: "cssMeasure" }, (x2) => /* @__PURE__ */ (0, import_jsx_runtime53.jsx)(CSSUnitInput, {
+      ...x2
+    })).with({ inputType: "boolean" }, (x2) => /* @__PURE__ */ (0, import_jsx_runtime53.jsx)(BooleanInput, {
+      ...x2
+    })).with({ inputType: "list" }, (x2) => /* @__PURE__ */ (0, import_jsx_runtime53.jsx)(NamedListInput, {
+      ...x2
+    })).with({ inputType: "dropdown" }, (x2) => /* @__PURE__ */ (0, import_jsx_runtime53.jsx)(DropdownSelect, {
+      ...x2
+    })).with({ inputType: "radio" }, (x2) => /* @__PURE__ */ (0, import_jsx_runtime53.jsx)(RadioInputs, {
+      ...x2
+    })).otherwise(({ inputType }) => /* @__PURE__ */ (0, import_jsx_runtime53.jsxs)("div", {
+      children: [
+        "I don't know how to render the input of type ",
+        inputType,
+        " yet! Sorry."
+      ]
+    }));
   }
 
   // src/components/Inputs/SettingsFormBuilder/SettingsInput/valueIsType.tsx
@@ -51547,94 +51562,97 @@ the label */
     let mainInputBody;
     if (opts.value === void 0) {
       if (opts.optional) {
-        mainInputBody = /* @__PURE__ */ (0, import_jsx_runtime54.jsx)(UnsetArgumentMessage, { labelledBy: labelId });
+        mainInputBody = /* @__PURE__ */ (0, import_jsx_runtime54.jsx)(UnsetArgumentMessage, {
+          labelledBy: labelId
+        });
       } else {
-        mainInputBody = /* @__PURE__ */ (0, import_jsx_runtime54.jsx)(
-          MissingRequiredArgumentMessage,
-          {
-            name: opts.name,
-            onReset: setToDefault
-          }
-        );
+        mainInputBody = /* @__PURE__ */ (0, import_jsx_runtime54.jsx)(MissingRequiredArgumentMessage, {
+          name: opts.name,
+          onReset: setToDefault
+        });
       }
     } else {
       if (!valueIsType(opts.value, opts.inputType)) {
-        mainInputBody = /* @__PURE__ */ (0, import_jsx_runtime54.jsx)(MismatchedTypeMessage, { name: opts.name, onReset: setToDefault });
+        mainInputBody = /* @__PURE__ */ (0, import_jsx_runtime54.jsx)(MismatchedTypeMessage, {
+          name: opts.name,
+          onReset: setToDefault
+        });
       } else {
-        mainInputBody = /* @__PURE__ */ (0, import_jsx_runtime54.jsx)(
-          SettingsInputElement,
-          {
-            label,
-            id: opts.name,
-            onChange: updateArgument,
-            ...opts
-          }
-        );
+        mainInputBody = /* @__PURE__ */ (0, import_jsx_runtime54.jsx)(SettingsInputElement, {
+          label,
+          id: opts.name,
+          onChange: updateArgument,
+          ...opts
+        });
       }
     }
-    return /* @__PURE__ */ (0, import_jsx_runtime54.jsxs)("div", { className: "SUE-SettingsInput", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime54.jsxs)("div", { className: "info", "data-unset": argumentIsUnset, children: [
-        argumentIsOptional ? /* @__PURE__ */ (0, import_jsx_runtime54.jsx)(
-          "input",
-          {
-            type: "checkbox",
-            checked: !argumentIsUnset,
-            title: `Use ${opts.name} argument`,
-            "aria-label": `Use ${opts.name} argument`,
-            onChange: argumentIsUnset ? setToDefault : unsetArgument
-          }
-        ) : null,
-        /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("label", { id: labelId, children: label })
-      ] }),
-      mainInputBody
-    ] });
+    return /* @__PURE__ */ (0, import_jsx_runtime54.jsxs)("div", {
+      className: "SUE-SettingsInput",
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime54.jsxs)("div", {
+          className: "info",
+          "data-unset": argumentIsUnset,
+          children: [
+            argumentIsOptional ? /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("input", {
+              type: "checkbox",
+              checked: !argumentIsUnset,
+              title: `Use ${opts.name} argument`,
+              "aria-label": `Use ${opts.name} argument`,
+              onChange: argumentIsUnset ? setToDefault : unsetArgument
+            }) : null,
+            /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("label", {
+              id: labelId,
+              children: label
+            })
+          ]
+        }),
+        mainInputBody
+      ]
+    });
   }
   function MismatchedTypeMessage({
     name,
     onReset
   }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime54.jsxs)("div", { className: "mismatched-argument-types", children: [
-      "Argument for ",
-      name,
-      " of unsupported type.",
-      /* @__PURE__ */ (0, import_jsx_runtime54.jsx)(
-        Button_default,
-        {
+    return /* @__PURE__ */ (0, import_jsx_runtime54.jsxs)("div", {
+      className: "mismatched-argument-types",
+      children: [
+        "Argument for ",
+        name,
+        " of unsupported type.",
+        /* @__PURE__ */ (0, import_jsx_runtime54.jsx)(Button_default, {
           style: { padding: "0.25rem 0.5rem", marginInline: "0.25rem" },
           onClick: onReset,
           children: "Reset"
-        }
-      )
-    ] });
+        })
+      ]
+    });
   }
   function MissingRequiredArgumentMessage({
     name,
     onReset
   }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime54.jsxs)("div", { className: "missing-required-argument-message", children: [
-      'Required argument "',
-      name,
-      '" not provided.',
-      /* @__PURE__ */ (0, import_jsx_runtime54.jsx)(
-        Button_default,
-        {
+    return /* @__PURE__ */ (0, import_jsx_runtime54.jsxs)("div", {
+      className: "missing-required-argument-message",
+      children: [
+        'Required argument "',
+        name,
+        '" not provided.',
+        /* @__PURE__ */ (0, import_jsx_runtime54.jsx)(Button_default, {
           style: { padding: "0.25rem 0.5rem", marginInline: "0.25rem" },
           onClick: onReset,
           children: "Reset"
-        }
-      )
-    ] });
+        })
+      ]
+    });
   }
   function UnsetArgumentMessage({ labelledBy }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime54.jsx)(
-      "input",
-      {
-        className: "unset-argument SUE-Input",
-        "aria-labelledby": labelledBy,
-        placeholder: "Default",
-        disabled: true
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime54.jsx)("input", {
+      className: "unset-argument SUE-Input",
+      "aria-labelledby": labelledBy,
+      placeholder: "Default",
+      disabled: true
+    });
   }
 
   // src/components/Grids/NameNewPanelModal.tsx
@@ -51671,36 +51689,53 @@ the label */
       setWarningMsg(null);
       setNewItemName(action.value);
     }, []);
-    return /* @__PURE__ */ (0, import_jsx_runtime55.jsxs)(
-      PortalModal_default,
-      {
-        title: "Name new grid area",
-        label: "New grid area naming modal",
-        onConfirm: () => onDone(newItemName),
-        onCancel,
-        children: [
-          /* @__PURE__ */ (0, import_jsx_runtime55.jsx)("form", { className: PortalModal_module_css_default2.portalForm, onSubmit: handleSubmit, children: /* @__PURE__ */ (0, import_jsx_runtime55.jsxs)("div", { className: PortalModal_module_css_default2.portalFormInputs, children: [
-            /* @__PURE__ */ (0, import_jsx_runtime55.jsx)("span", { className: PortalModal_module_css_default2.infoText, children: "Name for grid area needs to be unique, start with a letter, and contain only letters and numbers." }),
-            /* @__PURE__ */ (0, import_jsx_runtime55.jsx)(
-              SettingsInput,
-              {
+    return /* @__PURE__ */ (0, import_jsx_runtime55.jsxs)(PortalModal_default, {
+      title: "Name new grid area",
+      label: "New grid area naming modal",
+      onConfirm: () => onDone(newItemName),
+      onCancel,
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime55.jsx)("form", {
+          className: PortalModal_module_css_default2.portalForm,
+          onSubmit: handleSubmit,
+          children: /* @__PURE__ */ (0, import_jsx_runtime55.jsxs)("div", {
+            className: PortalModal_module_css_default2.portalFormInputs,
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime55.jsx)("span", {
+                className: PortalModal_module_css_default2.infoText,
+                children: "Name for grid area needs to be unique, start with a letter, and contain only letters and numbers."
+              }),
+              /* @__PURE__ */ (0, import_jsx_runtime55.jsx)(SettingsInput, {
                 label: "Name of new grid area",
                 name: "New-Item-Name",
                 inputType: "string",
                 onUpdate: handleNameUpdate,
                 value: newItemName,
                 defaultValue: defaultName
-              }
-            ),
-            warningMsg ? /* @__PURE__ */ (0, import_jsx_runtime55.jsx)("div", { className: PortalModal_module_css_default2.validationMsg, children: warningMsg }) : null
-          ] }) }),
-          /* @__PURE__ */ (0, import_jsx_runtime55.jsxs)("div", { className: PortalModal_module_css_default2.portalFormFooter, children: [
-            /* @__PURE__ */ (0, import_jsx_runtime55.jsx)(Button_default, { variant: "delete", onClick: onCancel, children: "Cancel" }),
-            /* @__PURE__ */ (0, import_jsx_runtime55.jsx)(Button_default, { onClick: () => handleSubmit(), children: "Done" })
-          ] })
-        ]
-      }
-    );
+              }),
+              warningMsg ? /* @__PURE__ */ (0, import_jsx_runtime55.jsx)("div", {
+                className: PortalModal_module_css_default2.validationMsg,
+                children: warningMsg
+              }) : null
+            ]
+          })
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime55.jsxs)("div", {
+          className: PortalModal_module_css_default2.portalFormFooter,
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime55.jsx)(Button_default, {
+              variant: "delete",
+              onClick: onCancel,
+              children: "Cancel"
+            }),
+            /* @__PURE__ */ (0, import_jsx_runtime55.jsx)(Button_default, {
+              onClick: () => handleSubmit(),
+              children: "Done"
+            })
+          ]
+        })
+      ]
+    });
   }
   function validateGridAreaName({
     name,
@@ -51767,8 +51802,8 @@ the label */
     };
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-M1sGPDTikyR3/editor/src/components/GridlayoutElement/styles.module.css.js
-  var digest22 = "73b7601541051886b114375cb28200fe0aea36dc428574408a9a3d3341d4cff1";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-1zTQh8kMyCVV/editor/src/components/GridlayoutElement/styles.module.css.js
+  var digest22 = "d522c45de2ccf79fcb472a12eadbd2bfce0a1da678dc520e274dc411172d99e5";
   var css22 = `._container_1hvsg_1 {
   display: grid;
   /* background-color: var(--bg-color); */
@@ -51831,16 +51866,12 @@ the label */
       },
       [updateArguments]
     );
-    const areaOverlays = uniqueAreas.map((area) => /* @__PURE__ */ (0, import_jsx_runtime56.jsx)(
-      AreaOverlay,
-      {
-        area,
-        areas,
-        gridLocation: itemGridLocations.get(area),
-        onNewPos: (pos) => handleLayoutUpdate({ type: "MOVE_ITEM", name: area, pos })
-      },
-      area
-    ));
+    const areaOverlays = uniqueAreas.map((area) => /* @__PURE__ */ (0, import_jsx_runtime56.jsx)(AreaOverlay, {
+      area,
+      areas,
+      gridLocation: itemGridLocations.get(area),
+      onNewPos: (pos) => handleLayoutUpdate({ type: "MOVE_ITEM", name: area, pos })
+    }, area));
     const stylesForGrid = {
       "--gap": layoutDef.gap_size,
       "--row-gutter": "150px",
@@ -51873,55 +51904,41 @@ the label */
       });
       setShowModal(null);
     };
-    return /* @__PURE__ */ (0, import_jsx_runtime56.jsxs)(LayoutDispatchContext.Provider, { value: handleLayoutUpdate, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime56.jsx)(
-        "div",
-        {
+    return /* @__PURE__ */ (0, import_jsx_runtime56.jsxs)(LayoutDispatchContext.Provider, {
+      value: handleLayoutUpdate,
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime56.jsx)("div", {
           style: stylesForGrid,
           className: styles_module_css_default11.container,
           ...wrapperProps,
           draggable: false,
           onDragStart: () => {
           },
-          children: /* @__PURE__ */ (0, import_jsx_runtime56.jsxs)(
-            EditableGridContainer_default,
-            {
-              ...layout,
-              onNewLayout: handleNewLayoutTemplate,
-              children: [
-                findEmptyCells(areas).map(({ row, col }) => /* @__PURE__ */ (0, import_jsx_runtime56.jsx)(
-                  GridCell,
-                  {
-                    gridRow: row,
-                    gridColumn: col,
-                    onDroppedNode: handleNodeDrop
-                  },
-                  toStringLoc({ row, col })
-                )),
-                uiChildren?.map((childNode, i2) => /* @__PURE__ */ (0, import_jsx_runtime56.jsx)(
-                  UiNode_default,
-                  {
-                    path: [...path3, i2],
-                    node: childNode
-                  },
-                  path3.join(".") + i2
-                )),
-                areaOverlays
-              ]
-            }
-          )
-        }
-      ),
-      showModal ? /* @__PURE__ */ (0, import_jsx_runtime56.jsx)(
-        NameNewPanelModal,
-        {
+          children: /* @__PURE__ */ (0, import_jsx_runtime56.jsxs)(EditableGridContainer_default, {
+            ...layout,
+            onNewLayout: handleNewLayoutTemplate,
+            children: [
+              findEmptyCells(areas).map(({ row, col }) => /* @__PURE__ */ (0, import_jsx_runtime56.jsx)(GridCell, {
+                gridRow: row,
+                gridColumn: col,
+                onDroppedNode: handleNodeDrop
+              }, toStringLoc({ row, col }))),
+              uiChildren?.map((childNode, i2) => /* @__PURE__ */ (0, import_jsx_runtime56.jsx)(UiNode_default, {
+                path: [...path3, i2],
+                node: childNode
+              }, path3.join(".") + i2)),
+              areaOverlays
+            ]
+          })
+        }),
+        showModal ? /* @__PURE__ */ (0, import_jsx_runtime56.jsx)(NameNewPanelModal, {
           info: showModal,
           onCancel: () => setShowModal(null),
           onDone: (name) => addNewGridItem(name, showModal),
           existingAreaNames: uniqueAreas
-        }
-      ) : null
-    ] });
+        }) : null
+      ]
+    });
   };
 
   // src/Shiny-Ui-Elements/GridlayoutGridContainer/GridlayoutGridContainer.tsx
@@ -51932,15 +51949,12 @@ the label */
     path: path3,
     wrapperProps
   }) => {
-    return /* @__PURE__ */ (0, import_jsx_runtime57.jsx)(
-      GridlayoutElement,
-      {
-        uiArguments,
-        uiChildren,
-        path: path3,
-        wrapperProps
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime57.jsx)(GridlayoutElement, {
+      uiArguments,
+      uiChildren,
+      path: path3,
+      wrapperProps
+    });
   };
   var GridlayoutGridContainer_default = GridlayoutGridContainer;
 
@@ -51975,7 +51989,9 @@ the label */
   // src/Shiny-Ui-Elements/GridlayoutGridPage/GridlayoutGridPage.tsx
   var import_jsx_runtime58 = __toESM(require_jsx_runtime());
   var GridlayoutGridPage = (args) => {
-    return /* @__PURE__ */ (0, import_jsx_runtime58.jsx)(GridlayoutElement, { ...args });
+    return /* @__PURE__ */ (0, import_jsx_runtime58.jsx)(GridlayoutElement, {
+      ...args
+    });
   };
 
   // src/Shiny-Ui-Elements/GridlayoutGridPage/index.tsx
@@ -52018,19 +52034,29 @@ the label */
     seqArray(NUM_BARS).map((i2) => TESTING_MODE ? i2 + 1 : Math.random())
   ).map((x2) => `${Math.round(x2 * 100)}%`);
   function PlotPlaceholder2({
-    title = /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("span", { children: "My Plot" })
+    title = /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("span", {
+      children: "My Plot"
+    })
   }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("div", { className: "PlotPlaceholder", children: /* @__PURE__ */ (0, import_jsx_runtime59.jsxs)("div", { className: "plot", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("div", { className: "title", children: title }),
-      /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("div", { className: "plot-body", children: bar_values.map((val, i2) => /* @__PURE__ */ (0, import_jsx_runtime59.jsx)(
-        "div",
-        {
-          className: "bar",
-          style: { "--value": val }
-        },
-        `${i2}-${val}`
-      )) })
-    ] }) });
+    return /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("div", {
+      className: "PlotPlaceholder",
+      children: /* @__PURE__ */ (0, import_jsx_runtime59.jsxs)("div", {
+        className: "plot",
+        children: [
+          /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("div", {
+            className: "title",
+            children: title
+          }),
+          /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("div", {
+            className: "plot-body",
+            children: bar_values.map((val, i2) => /* @__PURE__ */ (0, import_jsx_runtime59.jsx)("div", {
+              className: "bar",
+              style: { "--value": val }
+            }, `${i2}-${val}`))
+          })
+        ]
+      })
+    });
   }
   function normalize4(arr) {
     const MAX_VAL = 0.95;
@@ -52055,23 +52081,26 @@ the label */
     uiArguments: { outputId, width = "100%", height = "400px" },
     wrapperProps
   }) => {
-    return /* @__PURE__ */ (0, import_jsx_runtime60.jsx)(
-      "div",
-      {
-        className: "plotlyPlotlyOutput",
-        style: { height, width },
-        ...wrapperProps,
-        children: /* @__PURE__ */ (0, import_jsx_runtime60.jsx)(
-          PlotPlaceholder2,
-          {
-            title: /* @__PURE__ */ (0, import_jsx_runtime60.jsxs)("span", { className: "title-bar", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime60.jsx)(InputOutputTitle, { type: "output", name: outputId }),
-              /* @__PURE__ */ (0, import_jsx_runtime60.jsx)("span", { className: "plotly-name", children: "Plotly" })
-            ] })
-          }
-        )
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime60.jsx)("div", {
+      className: "plotlyPlotlyOutput",
+      style: { height, width },
+      ...wrapperProps,
+      children: /* @__PURE__ */ (0, import_jsx_runtime60.jsx)(PlotPlaceholder2, {
+        title: /* @__PURE__ */ (0, import_jsx_runtime60.jsxs)("span", {
+          className: "title-bar",
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime60.jsx)(InputOutputTitle, {
+              type: "output",
+              name: outputId
+            }),
+            /* @__PURE__ */ (0, import_jsx_runtime60.jsx)("span", {
+              className: "plotly-name",
+              children: "Plotly"
+            })
+          ]
+        })
+      })
+    });
   };
   var PlotlyPlotlyOutput_default = PlotlyPlotlyOutput;
 
@@ -52128,8 +52157,8 @@ the label */
     return makeStringInputInfo("Label text", defaultValue);
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-8lngEJ2z1lp8/editor/src/Shiny-Ui-Elements/ShinyActionButton/styles.module.css.js
-  var digest23 = "d46a313a815224b88b344b39c68e98f20fb5b7220d08d34641e9337898e75ccd";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-bbtbn4R6cwk1/editor/src/Shiny-Ui-Elements/ShinyActionButton/styles.module.css.js
+  var digest23 = "c7876219f7afd3cb8af87c5bd1ad2637149478b35195602064910d46378f1dad";
   var css23 = `._container_tyghz_1 {
   display: grid;
   grid-template-rows: 1fr;
@@ -52159,7 +52188,14 @@ the label */
     wrapperProps
   }) => {
     const { label = "My Action Button", width } = uiArguments;
-    return /* @__PURE__ */ (0, import_jsx_runtime61.jsx)("div", { className: styles_module_css_default12.container, ...wrapperProps, children: /* @__PURE__ */ (0, import_jsx_runtime61.jsx)(Button_default, { style: width ? { width } : void 0, children: label }) });
+    return /* @__PURE__ */ (0, import_jsx_runtime61.jsx)("div", {
+      className: styles_module_css_default12.container,
+      ...wrapperProps,
+      children: /* @__PURE__ */ (0, import_jsx_runtime61.jsx)(Button_default, {
+        style: width ? { width } : void 0,
+        children: label
+      })
+    });
   };
   var ShinyActionButton_default = ShinyActionButton;
 
@@ -52191,8 +52227,8 @@ the label */
   // src/assets/icons/shinyCheckgroup.png
   var shinyCheckgroup_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAFS0lEQVR4nO3cz2vTdxzH8Vfb9VeIa7ta1FW2FqQ6pqLbEERhm0OGFzcPY0dhl+LFo4cd9gfsuIs77LDbkAljDqEiCoKszMMEcbqFsjm2OaW6ptClP2zNDvkms2n6I99vXqTp5/mAQJKmn3wPT76fJCTvpnw+L6DWmut9ANiYCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFoQFC8KCBWHBgrBgQViwICxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFs/V+wDq5cy5seX+1BNd4piILkt8+uGOmEs2pmDDKrNL0ilJ70h6NeFaP0m6IumspJ8TrtWw2AqlYUl3JJ1W8qgUrXE6WnO4Bus1pNDPWCclff7sHZ1tzepsa4m12PTcgqbnnhZvNkVrz0r6Mv4hNqaQw+pTYbuSJA1s7tB7r/Wpv6c90aJ/Tczq2x/Hde/RTPGus5IuShpPtHCDCXkrPCWpU5K297Rr+O3+xFFJUn+01vYXSmt1RM8VlJDDOly8cmxvr1qam2q2cEtzk47t6a34XKEIeSs8VLwy0NeZaKHRTFaX7xQ+ZRh+60Vt6W4vX/NQxX/cwEIOK1W80toS/2x18ea4rmUmlW5vKUVVYc1UxX/ewELeChMbzWR1LTMpSTp5aGspKhBWbJO5J/rm5iNJ0on9m/Vywu10oyGsmL76/oEk6cBAWgeHuut7MOsQYcUwmsnq18ezSre36Ojid3+IEFaVJnNPSu8Aj+/rVVeqtc5HtD4RVpWu/5LV1OyCdm9Lad/A8/U+nHWLsKrwMDtbehf47l62wJUQVhUu3XosSXpzqIuPFlZBWBWMZrI6c25M5394ULrv9/Fp3f47J0k6vLO7TkfWOAirzMyTp6XPp27cmyrFdfvPKUmFsxUv2FdHWGU6Wpv10eGtpds37k0t+oT9jUFesK8FYVWwqz+tE/s3l24Xz2C7t6V4bbVGhLWMg0PdOjCQXnTf3pfSyzwa5UIO65/ildzcQsUHHN3Tq3R74WvKWza1VvW51TNfUZaW+eXORhby12auSzouSXfv5/T6wKYlD+hKteqT9wdjLX7n/r/lzxWUkM9Y3xWvjNx6rGxuvmYLZ3PzGok+84pcqNniDSLkM9YXkj6WNDg5Pa/PLv+hI6/0aMeWlNpifvFvbiGvsYc5Xb07oamZ0vb6W/RcQQk5LKnwI4cRSZqaWdCF6N2f4TmCE/JWKEmXVPj1c8awdiZa+5Jh7XUv9DOWJF2VtFPSB5KOqPCLmrjfUc+p8EL9iqTzNTm6BkVY//s6uqAGQt8KYUJYsCAsWBAWLHjxvpRlol9oCKuAiX41xlbIRD+L0M9YTPQzCTksJvoZhbwVMtHPKOSwmOhnFPJWyEQ/o5DDYqKfUchbYWJM9FseYcXERL+VEVZMTPRbGWHFwES/1RFWlZjotzaEVSUm+q0NYVWBiX5rR1hVYKLf2hFWBUz0S46wyjDRrzYIqwwT/WqDsCpgol9yhLUMJvolE3JYTPQzCvlrM0z0Mwr5jMVEP6OQz1hM9DMKOSyJiX42IW+FEhP9bEI/Y0lM9LNoyufz9T4GbEChb4UwISxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFoQFC8KCBWHBgrBgQViwICxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLP4DpWmTqmVmpDwAAAAASUVORK5CYII=";
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-CJ3TjMxpOss0/editor/src/Shiny-Ui-Elements/ShinyCheckboxGroupInput/styles.module.css.js
-  var digest24 = "d8b0ec9ab5eae2584e260e1469977421eabfbf8daf92ff5db3cca9526993318b";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-p2NFrekK368D/editor/src/Shiny-Ui-Elements/ShinyCheckboxGroupInput/styles.module.css.js
+  var digest24 = "831884caf06280cb3e85eaebd11b3d6197af99a768cef5f52a7af10e1ca2f85e";
   var css24 = `._container_162lp_1 {
   position: relative;
   padding: 4px;
@@ -52230,29 +52266,35 @@ the label */
   var import_jsx_runtime62 = __toESM(require_jsx_runtime());
   var ShinyCheckboxGroupInput = ({ uiArguments, wrapperProps }) => {
     const choices = uiArguments.choices;
-    return /* @__PURE__ */ (0, import_jsx_runtime62.jsxs)(
-      "div",
-      {
-        className: styles_module_css_default13.container,
-        style: { width: uiArguments.width },
-        ...wrapperProps,
-        children: [
-          /* @__PURE__ */ (0, import_jsx_runtime62.jsx)("label", { children: uiArguments.label }),
-          /* @__PURE__ */ (0, import_jsx_runtime62.jsx)("div", { children: Object.keys(choices).map((key, i2) => /* @__PURE__ */ (0, import_jsx_runtime62.jsx)("div", { className: styles_module_css_default13.radio, children: /* @__PURE__ */ (0, import_jsx_runtime62.jsxs)("label", { className: styles_module_css_default13.checkbox, children: [
-            /* @__PURE__ */ (0, import_jsx_runtime62.jsx)(
-              "input",
-              {
-                type: "checkbox",
-                name: choices[key],
-                value: choices[key],
-                defaultChecked: i2 === 0
-              }
-            ),
-            /* @__PURE__ */ (0, import_jsx_runtime62.jsx)("span", { children: key })
-          ] }) }, key)) })
-        ]
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime62.jsxs)("div", {
+      className: styles_module_css_default13.container,
+      style: { width: uiArguments.width },
+      ...wrapperProps,
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime62.jsx)("label", {
+          children: uiArguments.label
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime62.jsx)("div", {
+          children: Object.keys(choices).map((key, i2) => /* @__PURE__ */ (0, import_jsx_runtime62.jsx)("div", {
+            className: styles_module_css_default13.radio,
+            children: /* @__PURE__ */ (0, import_jsx_runtime62.jsxs)("label", {
+              className: styles_module_css_default13.checkbox,
+              children: [
+                /* @__PURE__ */ (0, import_jsx_runtime62.jsx)("input", {
+                  type: "checkbox",
+                  name: choices[key],
+                  value: choices[key],
+                  defaultChecked: i2 === 0
+                }),
+                /* @__PURE__ */ (0, import_jsx_runtime62.jsx)("span", {
+                  children: key
+                })
+              ]
+            })
+          }, key))
+        })
+      ]
+    });
   };
   var ShinyCheckboxGroupInput_default = ShinyCheckboxGroupInput;
 
@@ -52289,8 +52331,8 @@ the label */
   // src/Shiny-Ui-Elements/ShinyCheckboxInput/ShinyCheckboxInput.tsx
   var React43 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-vaZ9H0dt3SDf/editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/styles.module.css.js
-  var digest25 = "e8987ccc090ae805527350b00774abb53a5c1e936bc38859655aee099184528b";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-Auuw5sxsxAuN/editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/styles.module.css.js
+  var digest25 = "56fda8b7b79ac6791112c333b0c632714d7427a6082ec10ccf6f6e5e82984ec2";
   var css25 = `._container_1x0tz_1 {
   position: relative;
   padding: 4px;
@@ -52329,26 +52371,26 @@ the label */
     React43.useEffect(() => {
       setValue(settings.value);
     }, [settings.value]);
-    return /* @__PURE__ */ (0, import_jsx_runtime63.jsx)(
-      "div",
-      {
-        className: styles_module_css_default14.container + " shiny::checkbox",
-        style: { width },
-        ...wrapperProps,
-        children: /* @__PURE__ */ (0, import_jsx_runtime63.jsxs)("label", { htmlFor: settings.inputId, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime63.jsx)(
-            "input",
-            {
-              id: settings.inputId,
-              type: "checkbox",
-              checked: value,
-              onChange: (e2) => setValue(e2.target.checked)
-            }
-          ),
-          /* @__PURE__ */ (0, import_jsx_runtime63.jsx)("span", { className: styles_module_css_default14.label, children: settings.label })
-        ] })
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime63.jsx)("div", {
+      className: styles_module_css_default14.container + " shiny::checkbox",
+      style: { width },
+      ...wrapperProps,
+      children: /* @__PURE__ */ (0, import_jsx_runtime63.jsxs)("label", {
+        htmlFor: settings.inputId,
+        children: [
+          /* @__PURE__ */ (0, import_jsx_runtime63.jsx)("input", {
+            id: settings.inputId,
+            type: "checkbox",
+            checked: value,
+            onChange: (e2) => setValue(e2.target.checked)
+          }),
+          /* @__PURE__ */ (0, import_jsx_runtime63.jsx)("span", {
+            className: styles_module_css_default14.label,
+            children: settings.label
+          })
+        ]
+      })
+    });
   };
   var ShinyCheckboxInput_default = ShinyCheckboxInput;
 
@@ -52411,8 +52453,8 @@ the label */
     return getTabPanelTitle(firstChild) ?? "First Tab";
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-8vrRSYpLfOrT/editor/src/components/Tabs/TabPanel/TabPanel.module.css.js
-  var digest26 = "142383bcf31725ae15a6704199b3cac7efe40c235f7d709814f7b43b1133825b";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-Z5lT2bRvCXDY/editor/src/components/Tabs/TabPanel/TabPanel.module.css.js
+  var digest26 = "fb5500f49c87d62f481228faa42d5a838403076a79f36af1eb14871ece9e46ba";
   var css26 = `._container_10z2l_1 {
   height: 100%;
 }
@@ -52433,16 +52475,13 @@ the label */
   // src/components/Tabs/TabPanel/TabPanel.tsx
   var import_jsx_runtime64 = __toESM(require_jsx_runtime());
   function TabPanel({ title, children, ...divProps }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime64.jsx)(
-      "div",
-      {
-        className: TabPanel_module_css_default.container,
-        "data-tab-id": title,
-        "aria-label": `tab panel ${title}`,
-        ...divProps,
-        children
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime64.jsx)("div", {
+      className: TabPanel_module_css_default.container,
+      "data-tab-id": title,
+      "aria-label": `tab panel ${title}`,
+      ...divProps,
+      children
+    });
   }
   var TabPanel_default = TabPanel;
 
@@ -52563,7 +52602,11 @@ the label */
   function DropDetector({ children, dropArgs, ...divProps }) {
     const detectorRef = import_react38.default.useRef(null);
     useDropHandlers(detectorRef, dropArgs);
-    return /* @__PURE__ */ (0, import_jsx_runtime65.jsx)("div", { ref: detectorRef, ...divProps, children });
+    return /* @__PURE__ */ (0, import_jsx_runtime65.jsx)("div", {
+      ref: detectorRef,
+      ...divProps,
+      children
+    });
   }
   var DropDetector_default = DropDetector;
 
@@ -52573,21 +52616,19 @@ the label */
     uiChildren,
     parentPath
   }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime66.jsx)(import_jsx_runtime66.Fragment, { children: uiChildren.map((childNode, i2) => {
-      const nodePath = makeChildPath(parentPath, i2);
-      return /* @__PURE__ */ (0, import_jsx_runtime66.jsx)(
-        UiNode_default,
-        {
+    return /* @__PURE__ */ (0, import_jsx_runtime66.jsx)(import_jsx_runtime66.Fragment, {
+      children: uiChildren.map((childNode, i2) => {
+        const nodePath = makeChildPath(parentPath, i2);
+        return /* @__PURE__ */ (0, import_jsx_runtime66.jsx)(UiNode_default, {
           path: nodePath,
           node: childNode
-        },
-        pathToString(nodePath)
-      );
-    }) });
+        }, pathToString(nodePath));
+      })
+    });
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-lxOfo0K2zxOw/editor/src/Shiny-Ui-Elements/ShinyTabPanel/ShinyTabPanel.module.css.js
-  var digest27 = "d6f493403f2ec8af4963fa46e77a9ea08e5a346a57e5367d6dd768d72b5ab442";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-LBliGq2REH8t/editor/src/Shiny-Ui-Elements/ShinyTabPanel/ShinyTabPanel.module.css.js
+  var digest27 = "b6f899e8e0bcb3769289df08c2fbb3daf9b6b83317123289a1bc9e2e6222076b";
   var css27 = `._container_fe3r8_1 {
   position: relative;
   height: 100%;
@@ -52632,9 +52673,13 @@ the label */
     wrapperProps
   }) => {
     const hasChildren = uiChildren && uiChildren.length > 0;
-    return /* @__PURE__ */ (0, import_jsx_runtime67.jsx)("div", { className: ShinyTabPanel_module_css_default.container, ...wrapperProps, children: hasChildren ? /* @__PURE__ */ (0, import_jsx_runtime67.jsx)(RenderUiChildren, { uiChildren, parentPath: path3 }) : /* @__PURE__ */ (0, import_jsx_runtime67.jsx)(
-      DropDetector_default,
-      {
+    return /* @__PURE__ */ (0, import_jsx_runtime67.jsx)("div", {
+      className: ShinyTabPanel_module_css_default.container,
+      ...wrapperProps,
+      children: hasChildren ? /* @__PURE__ */ (0, import_jsx_runtime67.jsx)(RenderUiChildren, {
+        uiChildren,
+        parentPath: path3
+      }) : /* @__PURE__ */ (0, import_jsx_runtime67.jsx)(DropDetector_default, {
         className: ShinyTabPanel_module_css_default.emptyTabPanelDropDetector,
         dropArgs: {
           dropFilters,
@@ -52642,8 +52687,8 @@ the label */
           parentPath: path3,
           onDrop: "add-node"
         }
-      }
-    ) });
+      })
+    });
   };
   var ShinyTabPanel_default = ShinyTabPanel;
 
@@ -52694,8 +52739,8 @@ the label */
     return sameArray(aPath, bPath);
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-CLYLluX7N0zj/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest28 = "e08fa40e987a21f8326814a669173ca9769dfa4ce420748a62475510fa409eb2";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-7w13oPNMVGQJ/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest28 = "c34524d22394a5d9bc3e7560f4306045d393d5ec27c7dd6c4dcc0896e4f6f044";
   var css28 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -52854,22 +52899,19 @@ illusion of the selected panel and tab being one entity */
     const nodeForTab = useGetNode(pathToTabPanel);
     const wrapperProps = useMakeWrapperProps(nodeForTab, pathToTabPanel);
     const isSelected = samePath(pathToTabPanel, selectedPath);
-    return /* @__PURE__ */ (0, import_jsx_runtime68.jsx)(
-      "div",
-      {
-        className: Tabset_module_css_default.tab,
-        "data-active-tab": isActive,
-        "data-selected-tab": isSelected,
-        ...wrapperProps,
-        style: { order: index2 },
-        "aria-label": isActive ? `Active tab ${name}` : `Select ${name} tab`,
-        children: name
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime68.jsx)("div", {
+      className: Tabset_module_css_default.tab,
+      "data-active-tab": isActive,
+      "data-selected-tab": isSelected,
+      ...wrapperProps,
+      style: { order: index2 },
+      "aria-label": isActive ? `Active tab ${name}` : `Select ${name} tab`,
+      children: name
+    });
   };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-qnSR95uEgmqP/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest29 = "71548286a10d80471b6fad178245e43432a893ff67766dbcf3dcf38b30d18189";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-jxWGCO8EQ4tA/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest29 = "5c94a3ebabf5076174f20f4cb2f0dc11005f1db07a883341444d948be7d5ba68";
   var css29 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -53018,29 +53060,26 @@ illusion of the selected panel and tab being one entity */
     children,
     baseWidth
   }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime69.jsx)(
-      DropDetector_default,
-      {
-        className: Tabset_module_css_default2.tabDropDetector,
-        "aria-label": "tab drop detector",
-        dropArgs: {
-          parentPath,
-          onDrop: "add-node",
-          positionInChildren: index2,
-          processDropped: wrapNodeInTabPanel,
-          dropFilters: dropFilters2
-        },
-        style: {
-          "--baseWidth": baseWidth,
-          order: index2 - 1
-        },
-        children
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime69.jsx)(DropDetector_default, {
+      className: Tabset_module_css_default2.tabDropDetector,
+      "aria-label": "tab drop detector",
+      dropArgs: {
+        parentPath,
+        onDrop: "add-node",
+        positionInChildren: index2,
+        processDropped: wrapNodeInTabPanel,
+        dropFilters: dropFilters2
+      },
+      style: {
+        "--baseWidth": baseWidth,
+        order: index2 - 1
+      },
+      children
+    });
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-H52kH6pon3RD/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest30 = "ec2516023902a386e26f47f0197213e4096f5b75ecb2daf4f4132733b5457794";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-aB5xKAYqaHSo/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest30 = "e87d1dec42105ee1fb5d45cc325d19eb253f8b11bbc38e898af95625f4621acb";
   var css30 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -53220,52 +53259,55 @@ illusion of the selected panel and tab being one entity */
         setActiveTab(selectedPath[nodeDepth(pathOfActiveTab) - 1]);
       }
     }, [activeTab, path3, selectedPath, setActiveTab]);
-    return /* @__PURE__ */ (0, import_jsx_runtime70.jsxs)("div", { className: mergeClasses(className, Tabset_module_css_default3.container), ...divProps, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime70.jsxs)("div", { className: Tabset_module_css_default3.header, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime70.jsx)("h1", { className: Tabset_module_css_default3.pageTitle, children: title }),
-        /* @__PURE__ */ (0, import_jsx_runtime70.jsxs)("div", { className: Tabset_module_css_default3.tabHolder, "aria-label": "tabs container", children: [
-          tabNames.map((name, i2) => /* @__PURE__ */ (0, import_jsx_runtime70.jsx)(
-            Tab,
-            {
-              name,
-              parentPath: path3,
-              isActive: i2 === activeTab,
-              index: i2
-            },
-            name + i2
-          )),
-          seqArray(numChildren).map((i2) => /* @__PURE__ */ (0, import_jsx_runtime70.jsx)(
-            TabDropDetector,
-            {
-              parentPath: path3,
-              index: i2,
-              baseWidth: "10px"
-            },
-            i2
-          )),
-          /* @__PURE__ */ (0, import_jsx_runtime70.jsx)(
-            TabDropDetector,
-            {
-              parentPath: path3,
-              index: numChildren,
-              baseWidth: "25px",
-              children: /* @__PURE__ */ (0, import_jsx_runtime70.jsx)(
-                PlusButton,
-                {
-                  className: Tabset_module_css_default3.addTabButton,
-                  label: "Add new tab",
-                  onClick: (e2) => {
-                    e2.stopPropagation();
-                    addNewTab();
-                  }
-                }
-              )
-            }
-          )
-        ] })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime70.jsx)("div", { className: Tabset_module_css_default3.tabContents, children: selectActiveTab(children, activeTab) })
-    ] });
+    return /* @__PURE__ */ (0, import_jsx_runtime70.jsxs)("div", {
+      className: mergeClasses(className, Tabset_module_css_default3.container),
+      ...divProps,
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime70.jsxs)("div", {
+          className: Tabset_module_css_default3.header,
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime70.jsx)("h1", {
+              className: Tabset_module_css_default3.pageTitle,
+              children: title
+            }),
+            /* @__PURE__ */ (0, import_jsx_runtime70.jsxs)("div", {
+              className: Tabset_module_css_default3.tabHolder,
+              "aria-label": "tabs container",
+              children: [
+                tabNames.map((name, i2) => /* @__PURE__ */ (0, import_jsx_runtime70.jsx)(Tab, {
+                  name,
+                  parentPath: path3,
+                  isActive: i2 === activeTab,
+                  index: i2
+                }, name + i2)),
+                seqArray(numChildren).map((i2) => /* @__PURE__ */ (0, import_jsx_runtime70.jsx)(TabDropDetector, {
+                  parentPath: path3,
+                  index: i2,
+                  baseWidth: "10px"
+                }, i2)),
+                /* @__PURE__ */ (0, import_jsx_runtime70.jsx)(TabDropDetector, {
+                  parentPath: path3,
+                  index: numChildren,
+                  baseWidth: "25px",
+                  children: /* @__PURE__ */ (0, import_jsx_runtime70.jsx)(PlusButton, {
+                    className: Tabset_module_css_default3.addTabButton,
+                    label: "Add new tab",
+                    onClick: (e2) => {
+                      e2.stopPropagation();
+                      addNewTab();
+                    }
+                  })
+                })
+              ]
+            })
+          ]
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime70.jsx)("div", {
+          className: Tabset_module_css_default3.tabContents,
+          children: selectActiveTab(children, activeTab)
+        })
+      ]
+    });
   }
   var Tabset_default = Tabset;
   function getTabNamesFromChildren(children) {
@@ -53288,7 +53330,11 @@ illusion of the selected panel and tab being one entity */
       }
       const tabId = child.props.title;
       if (typeof tabId === "string") {
-        return /* @__PURE__ */ (0, import_jsx_runtime70.jsx)("div", { className: Tabset_module_css_default3.tabContents, "data-active-tab": i2 === activeTab, children: child });
+        return /* @__PURE__ */ (0, import_jsx_runtime70.jsx)("div", {
+          className: Tabset_module_css_default3.tabContents,
+          "data-active-tab": i2 === activeTab,
+          children: child
+        });
       }
       return child;
     });
@@ -53301,22 +53347,21 @@ illusion of the selected panel and tab being one entity */
     onClick,
     className
   }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime70.jsx)(
-      PopoverButton,
-      {
-        className,
-        placement: "bottom",
-        "aria-label": label,
-        popoverContent: label,
-        onClick,
-        openDelayMs: 0,
-        children: /* @__PURE__ */ (0, import_jsx_runtime70.jsx)(FaPlus, { style: ButtonStyle })
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime70.jsx)(PopoverButton, {
+      className,
+      placement: "bottom",
+      "aria-label": label,
+      popoverContent: label,
+      onClick,
+      openDelayMs: 0,
+      children: /* @__PURE__ */ (0, import_jsx_runtime70.jsx)(FaPlus, {
+        style: ButtonStyle
+      })
+    });
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-FTjHLnAc9okY/editor/src/Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage.module.css.js
-  var digest31 = "8562ca0a6594f69c538a57a8db1e8e468d43c97bb6ab6172b5e6bca96103df87";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-tPh1wn9tfn8a/editor/src/Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage.module.css.js
+  var digest31 = "b0c374b02381e636bc0b41f3e30161c040fe7527686a6d3b90314dc01d08cc17";
   var css31 = `._noTabsMessage_130qz_1 {
   padding: 5px;
 }
@@ -53344,23 +53389,33 @@ illusion of the selected panel and tab being one entity */
   }) => {
     const numChildren = uiChildren?.length ?? 0;
     const hasChildren = numChildren > 0;
-    return /* @__PURE__ */ (0, import_jsx_runtime71.jsx)(
-      Tabset_default,
-      {
-        path: path3,
-        title,
-        className: ShinyNavbarPage_module_css_default.container,
-        ...wrapperProps,
-        children: uiChildren ? uiChildren.map((node2, i2) => {
-          const nodePath = makeChildPath(path3, i2);
-          const title2 = isValidTabPanel(node2) ? node2.uiArguments.title : "unknown tab";
-          return /* @__PURE__ */ (0, import_jsx_runtime71.jsx)(TabPanel_default, { title: title2, children: /* @__PURE__ */ (0, import_jsx_runtime71.jsx)(UiNode_default, { path: nodePath, node: node2 }) }, pathToString(nodePath));
-        }) : /* @__PURE__ */ (0, import_jsx_runtime71.jsx)(EmptyNavbarPageMessage, { hasChildren })
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime71.jsx)(Tabset_default, {
+      path: path3,
+      title,
+      className: ShinyNavbarPage_module_css_default.container,
+      ...wrapperProps,
+      children: uiChildren ? uiChildren.map((node2, i2) => {
+        const nodePath = makeChildPath(path3, i2);
+        const title2 = isValidTabPanel(node2) ? node2.uiArguments.title : "unknown tab";
+        return /* @__PURE__ */ (0, import_jsx_runtime71.jsx)(TabPanel_default, {
+          title: title2,
+          children: /* @__PURE__ */ (0, import_jsx_runtime71.jsx)(UiNode_default, {
+            path: nodePath,
+            node: node2
+          })
+        }, pathToString(nodePath));
+      }) : /* @__PURE__ */ (0, import_jsx_runtime71.jsx)(EmptyNavbarPageMessage, {
+        hasChildren
+      })
+    });
   };
   function EmptyNavbarPageMessage({ hasChildren }) {
-    return hasChildren ? null : /* @__PURE__ */ (0, import_jsx_runtime71.jsx)("div", { className: ShinyNavbarPage_module_css_default.noTabsMessage, children: /* @__PURE__ */ (0, import_jsx_runtime71.jsx)("span", { children: "Empty page. Drag elements or Tab Panel on to add content" }) });
+    return hasChildren ? null : /* @__PURE__ */ (0, import_jsx_runtime71.jsx)("div", {
+      className: ShinyNavbarPage_module_css_default.noTabsMessage,
+      children: /* @__PURE__ */ (0, import_jsx_runtime71.jsx)("span", {
+        children: "Empty page. Drag elements or Tab Panel on to add content"
+      })
+    });
   }
   var ShinyNavbarPage_default = ShinyNavbarPage;
 
@@ -53407,18 +53462,31 @@ illusion of the selected panel and tab being one entity */
     label,
     children
   }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime72.jsxs)("div", { className: "LabeledInputCategory", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime72.jsx)("div", { className: "divider-line", children: /* @__PURE__ */ (0, import_jsx_runtime72.jsx)("label", { children: label }) }),
-      /* @__PURE__ */ (0, import_jsx_runtime72.jsx)("section", { className: "grouped-inputs", children }),
-      /* @__PURE__ */ (0, import_jsx_runtime72.jsx)("div", { className: "divider-line" })
-    ] });
+    return /* @__PURE__ */ (0, import_jsx_runtime72.jsxs)("div", {
+      className: "LabeledInputCategory",
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime72.jsx)("div", {
+          className: "divider-line",
+          children: /* @__PURE__ */ (0, import_jsx_runtime72.jsx)("label", {
+            children: label
+          })
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime72.jsx)("section", {
+          className: "grouped-inputs",
+          children
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime72.jsx)("div", {
+          className: "divider-line"
+        })
+      ]
+    });
   }
 
   // src/Shiny-Ui-Elements/ShinyNumericInput/ShinyNumericInput.tsx
   var React49 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-v3HL0mWV4baA/editor/src/Shiny-Ui-Elements/ShinyNumericInput/styles.module.css.js
-  var digest32 = "7dd5425d573080f0f9a35ae24d18b8f3bcf128b2bffbbb431e258067ab0ca2ac";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-xi2rMcO8Rcxp/editor/src/Shiny-Ui-Elements/ShinyNumericInput/styles.module.css.js
+  var digest32 = "8c16b1815cba5e086b38bf54b325687439f812b5f8d4121eef17ffd6c2e30ebf";
   var css32 = `._container_yicbr_1 {
   position: relative;
   padding: 4px;
@@ -53453,28 +53521,24 @@ illusion of the selected panel and tab being one entity */
     React49.useEffect(() => {
       setValue(settings.value);
     }, [settings.value]);
-    return /* @__PURE__ */ (0, import_jsx_runtime73.jsxs)(
-      "div",
-      {
-        className: mergeClasses(styles_module_css_default15.container, "shiny::numericInput"),
-        style: { width },
-        ...wrapperProps,
-        children: [
-          /* @__PURE__ */ (0, import_jsx_runtime73.jsx)("span", { children: settings.label }),
-          /* @__PURE__ */ (0, import_jsx_runtime73.jsx)(
-            NumberInputSimple,
-            {
-              type: "number",
-              value,
-              onChange: setValue,
-              min: settings.min,
-              max: settings.max,
-              step: settings.step
-            }
-          )
-        ]
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime73.jsxs)("div", {
+      className: mergeClasses(styles_module_css_default15.container, "shiny::numericInput"),
+      style: { width },
+      ...wrapperProps,
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime73.jsx)("span", {
+          children: settings.label
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime73.jsx)(NumberInputSimple, {
+          type: "number",
+          value,
+          onChange: setValue,
+          min: settings.min,
+          max: settings.max,
+          step: settings.step
+        })
+      ]
+    });
   };
   var ShinyNumericInput_default = ShinyNumericInput;
 
@@ -53518,17 +53582,22 @@ illusion of the selected panel and tab being one entity */
       }
     },
     settingsFormRender: ({ inputs }) => {
-      return /* @__PURE__ */ (0, import_jsx_runtime74.jsxs)(import_jsx_runtime74.Fragment, { children: [
-        inputs.inputId,
-        inputs.label,
-        /* @__PURE__ */ (0, import_jsx_runtime74.jsxs)(LabeledInputCategory, { label: "Values", children: [
-          inputs.min,
-          inputs.max,
-          inputs.value,
-          inputs.step
-        ] }),
-        inputs.width
-      ] });
+      return /* @__PURE__ */ (0, import_jsx_runtime74.jsxs)(import_jsx_runtime74.Fragment, {
+        children: [
+          inputs.inputId,
+          inputs.label,
+          /* @__PURE__ */ (0, import_jsx_runtime74.jsxs)(LabeledInputCategory, {
+            label: "Values",
+            children: [
+              inputs.min,
+              inputs.max,
+              inputs.value,
+              inputs.step
+            ]
+          }),
+          inputs.width
+        ]
+      });
     },
     serverBindings: {
       inputs: {
@@ -53541,8 +53610,8 @@ illusion of the selected panel and tab being one entity */
     description: "An input control for entry of numeric values"
   };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-etHaqBLt04t6/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
-  var digest33 = "02b8be132a4138fd147c646df95d8081dc72a6413c68db0aec7ea2e436538456";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-XuDzJrAx1IAq/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
+  var digest33 = "63775680165939da1a4aab7f388b9a332388304e19fc5cd443ffc903f15259de";
   var css33 = `._container_1rlbk_1 {
   max-height: 100%;
 }
@@ -53589,15 +53658,14 @@ illusion of the selected panel and tab being one entity */
     uiArguments: { outputId, width = "300px", height = "200px" },
     wrapperProps
   }) => {
-    return /* @__PURE__ */ (0, import_jsx_runtime75.jsx)(
-      "div",
-      {
-        className: styles_module_css_default16.container,
-        style: { height, width },
-        ...wrapperProps,
-        children: /* @__PURE__ */ (0, import_jsx_runtime75.jsx)(PlotPlaceholder, { outputId })
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime75.jsx)("div", {
+      className: styles_module_css_default16.container,
+      style: { height, width },
+      ...wrapperProps,
+      children: /* @__PURE__ */ (0, import_jsx_runtime75.jsx)(PlotPlaceholder, {
+        outputId
+      })
+    });
   };
   var ShinyPlotOutput_default = ShinyPlotOutput;
 
@@ -53643,8 +53711,8 @@ illusion of the selected panel and tab being one entity */
   // src/Shiny-Ui-Elements/ShinyRadioButtons/ShinyRadioButtons.tsx
   var import_react42 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-PenHKzu8i7RN/editor/src/Shiny-Ui-Elements/ShinyRadioButtons/styles.module.css.js
-  var digest34 = "4c02b653065344d97570d2982d2f45b176e2111e70f56f1e164887594d3dea55";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-RZHpKOHIded2/editor/src/Shiny-Ui-Elements/ShinyRadioButtons/styles.module.css.js
+  var digest34 = "44e0500cc1e3252b31126fee709928f254610ad1ee0c182c945f74ae41437b3c";
   var css34 = `._container_sgn7c_1 {
   position: relative;
   padding: 4px;
@@ -53686,30 +53754,35 @@ illusion of the selected panel and tab being one entity */
         setSelection(values[0]);
       }
     }, [selection, values]);
-    return /* @__PURE__ */ (0, import_jsx_runtime76.jsxs)(
-      "div",
-      {
-        className: styles_module_css_default17.container,
-        style: { width: uiArguments.width },
-        ...wrapperProps,
-        children: [
-          /* @__PURE__ */ (0, import_jsx_runtime76.jsx)("label", { children: uiArguments.label }),
-          /* @__PURE__ */ (0, import_jsx_runtime76.jsx)("div", { children: values.map((value, i2) => /* @__PURE__ */ (0, import_jsx_runtime76.jsx)("div", { className: styles_module_css_default17.radio, children: /* @__PURE__ */ (0, import_jsx_runtime76.jsxs)("label", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime76.jsx)(
-              "input",
-              {
-                type: "radio",
-                name: uiArguments.inputId,
-                value,
-                onChange: (x2) => setSelection(x2.target.value),
-                checked: value === selection
-              }
-            ),
-            /* @__PURE__ */ (0, import_jsx_runtime76.jsx)("span", { children: keys2[i2] })
-          ] }) }, value)) })
-        ]
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime76.jsxs)("div", {
+      className: styles_module_css_default17.container,
+      style: { width: uiArguments.width },
+      ...wrapperProps,
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime76.jsx)("label", {
+          children: uiArguments.label
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime76.jsx)("div", {
+          children: values.map((value, i2) => /* @__PURE__ */ (0, import_jsx_runtime76.jsx)("div", {
+            className: styles_module_css_default17.radio,
+            children: /* @__PURE__ */ (0, import_jsx_runtime76.jsxs)("label", {
+              children: [
+                /* @__PURE__ */ (0, import_jsx_runtime76.jsx)("input", {
+                  type: "radio",
+                  name: uiArguments.inputId,
+                  value,
+                  onChange: (x2) => setSelection(x2.target.value),
+                  checked: value === selection
+                }),
+                /* @__PURE__ */ (0, import_jsx_runtime76.jsx)("span", {
+                  children: keys2[i2]
+                })
+              ]
+            })
+          }, value))
+        })
+      ]
+    });
   };
   var ShinyRadioButtons_default = ShinyRadioButtons;
 
@@ -53751,8 +53824,8 @@ illusion of the selected panel and tab being one entity */
   // src/assets/icons/shinySelectbox.png
   var shinySelectbox_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAHmUlEQVR4nO3b329T5x3H8Xec2Akm4GRZlB+sbbZ6rVboRKACwgattKFVqtQIaVo0Wk1bM6kX6+WUP2CXuVy3CyTIpGotCprGoJo0KVtFA1rY1CZoM5mUWSu0wXYWQmxIHPwj9i5MEpskrTPyzTmGz0viwvbx0ZPD2+d5fGxX5fN5RDabx+kByKNJYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSZqnB7Akr7B8IN37QN+CBwBdgP1Wz0ml5sDrgGXgDPAaPGD/T1BJ8a0zDVhwcrB6BsMnwJ6nR2N69UDB+//+zlwur8n+FNY80W65VwVFkDfYPg88Gq1p4quYIC9T9bTGvDhq9GsXSydzRFLpLn66Rwj4QSLuXxv32C4ub8n2O302ACq8vm802MAll9lp4DewLYafnK0jfaGWodHVRki8RS/GY6SWMgCDAC9Tk+FbjoNdAK91Z4qRbVB7Q21vHG0jRpPFcAbFI6lo9wU1gmAQ0/vVFT/h7aGWg4+vXPp5gknxwLuCusIQOdTOzZth7/4wyf0DYa5l8lt2j7drOjYHXFyHOCusPYB7GrU2QpgJJxgJJzY0HPaV46d41Ohm94VegGqC+uEx9r4zXnOj04DENhWw3O7tpf1vJqVY+ezGVn53HTGEiCWSPPelSlyecjl4b0rU8QSaaeHtWFuOmOV7YPQDJfDd5hLLS7fd6CjniPPNtKyxsI/MZ/h7D9mCEWTAOxp8/O9bzat2vZeJsdfQjN8OLEyBX3efjdbIpnl9HCEdHZlTZjO5jg9HOGt73yFgL9y/rsq7oz1znCEP12bLYkK4O/X5zh5MbLmQv3kxchyVAChaJKTFyMkkpnl+xLJDL8e+qwkquL9Fm9rIbOYZ+BShEQyu+qxpeAyi+645liOynkJADemFwhFk7Ts8PL64daSs8g7w4V4xj65Q9czDSXP2+7z8OreJvZ27OReJsfZkRihaJKhf87w/YOtAJz/aJqpuxn2tPnpfqGZgN8LwB/HpvlwIlGy7WbL5eHdkRjR+PpTXiyR5t2RGD/6VhuVsAytqLCeat627oerX2/1E4omWUgvrnqsOMI6r4fuF5oJvX+D8egCUDhbhaJJ6mur+UFXK3XelRP5K53NvNLZbPDXrDg/Os34zfkv3G5pUX98v+14NkNFhbVkZCLOX8MJpu6WNz0FtntLb/u9tOzwMnU3w1Q8xex8YT8dX6otiWqrHN/fXBGxbETFhbU05T2s7b7VAflrK27J6VoVFdbV63fWXWONTMQ5N3ar7H3NpwuL/DqfB+7PQsnU43GFfitUVFi35wpT1uFg4KHe/k/FU0zdzVBfW728SAe4fjvFvUxuy6fDcx9Pl32VvSsYqIhps6LO/dt81QD8O5YsuazwQWiGofHZdZ93diS2fLkgkcxw7qP/AvDtYOFD24Dfy4GOeuZSiyXbQuFdYd9gmN/9Lbbpf8+S7n3NZV1df27Xdrr3uT8qqLAzVudXdzI0PksomiT0+/+U/bxQNEno/Rsl932tqZbDzzYu3z72fBM3ZlJrbltfW82x55sebvCfw1MFJw618Ks/T657lb014OPEoZaKuNQAFXbGqvN6ePOldva0+Uvuf3l3I8c7v7zu817e3Vhy+0BHPT9+cVfJlBfwe/nZsSd48ZnAqm3ffKm9ZMq04Kvx0Hu0fc2r6wF/Db1H2yvqW7Ru+gZpHpz/EYDTYok0bw99tnyV3VtdxVvffYK2hvI+V176vnt/T9DRc5ubXgIZgMWcO0J3SmvAx2tdrXiqClPka12tZUdV9BnjnNkAy+SmNdYocPDmbIonm+qcHoujihfp5X5lBihen13b/FFtjJvOWJcArn7q+IvNFbqCAbqCgS/esEjRsbu06QPaIDeFdQbgSjhBNJ5yeiwVJxpPc2XlWtgZJ8cC7gprFBjI5vIMDEeJKK6yReMpBoYjZAvr0wEe+FW0E9wUFv09wV7gQmIhy9tDk1wYu8Xk7VTJF9+kIJ3NMXk7xYWxW/xyaHLpN4UX7h9Dx7lp8Q5Af0+wu28wfGoxl++9PBHn8kTc6SFViuWf2LuBm65jPXjXfuB1Cj9l+gbgf3CDx1wS+BeFhfpvgY+LH3T6eqBrwpJHi6vWWPLoUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYmJ/wEXIDDKviZ6oQAAAABJRU5ErkJggg==";
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-yNgle0CqjLpn/editor/src/Shiny-Ui-Elements/ShinySelectInput/styles.module.css.js
-  var digest35 = "cfd389d067698200c3cb85767e29182c02086fc62d68a131fddbdc3bd167f54f";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-4k99kvUd7EmB/editor/src/Shiny-Ui-Elements/ShinySelectInput/styles.module.css.js
+  var digest35 = "c2d441bd7d2079136bdc9e6939caaa43d19af7549e5607b8ca99d5b29f26bb8b";
   var css35 = `._container_1e5dd_1 {
   position: relative;
   padding: 4px;
@@ -53793,10 +53866,23 @@ illusion of the selected panel and tab being one entity */
   }) => {
     const choices = uiArguments.choices;
     const id = uiArguments.inputId;
-    return /* @__PURE__ */ (0, import_jsx_runtime77.jsxs)("div", { className: styles_module_css_default18.container, ...wrapperProps, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime77.jsx)("label", { htmlFor: id, children: uiArguments.label }),
-      /* @__PURE__ */ (0, import_jsx_runtime77.jsx)("select", { id, children: Object.keys(choices).map((key, i2) => /* @__PURE__ */ (0, import_jsx_runtime77.jsx)("option", { value: choices[key], children: key }, key)) })
-    ] });
+    return /* @__PURE__ */ (0, import_jsx_runtime77.jsxs)("div", {
+      className: styles_module_css_default18.container,
+      ...wrapperProps,
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime77.jsx)("label", {
+          htmlFor: id,
+          children: uiArguments.label
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime77.jsx)("select", {
+          id,
+          children: Object.keys(choices).map((key, i2) => /* @__PURE__ */ (0, import_jsx_runtime77.jsx)("option", {
+            value: choices[key],
+            children: key
+          }, key))
+        })
+      ]
+    });
   };
   var ShinySelectInput_default = ShinySelectInput;
 
@@ -53833,8 +53919,8 @@ illusion of the selected panel and tab being one entity */
   // src/Shiny-Ui-Elements/ShinySliderInput/ShinySliderInput.tsx
   var React51 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-GEqA8n7PHNAL/editor/src/Shiny-Ui-Elements/ShinySliderInput/styles.module.css.js
-  var digest36 = "1d591f45b143ae939860b6780cb903e1c18d8c5828799c157a66eb272d3578ea";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-QW56Ka1IaiMM/editor/src/Shiny-Ui-Elements/ShinySliderInput/styles.module.css.js
+  var digest36 = "eddfd8417b3e4e42617c5ddd22166e8289a28f1a77a4ce397e5f870648748fe0";
   var css36 = `._container_1f2js_1 {
   padding: 6px;
 
@@ -53915,41 +54001,45 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     const settings = { ...uiArguments };
     const { width = "200px" } = settings;
     const [currentVal, setCurrentVal] = React51.useState(settings.value);
-    return /* @__PURE__ */ (0, import_jsx_runtime78.jsxs)(
-      "div",
-      {
-        className: mergeClasses(styles_module_css_default19.container, "shiny::sliderInput"),
-        style: { width },
-        ...wrapperProps,
-        children: [
-          /* @__PURE__ */ (0, import_jsx_runtime78.jsx)("div", { children: settings.label }),
-          /* @__PURE__ */ (0, import_jsx_runtime78.jsx)("div", { className: styles_module_css_default19.sliderWrapper, children: /* @__PURE__ */ (0, import_jsx_runtime78.jsx)(
-            "input",
-            {
-              type: "range",
-              min: settings.min,
-              max: settings.max,
-              value: currentVal,
-              onChange: (e2) => setCurrentVal(Number(e2.target.value)),
-              className: "slider " + styles_module_css_default19.sliderInput,
-              "aria-label": "slider input",
-              "data-min": settings.min,
-              "data-max": settings.max,
-              draggable: true,
-              onDragStartCapture: (e2) => {
-                e2.stopPropagation();
-                e2.preventDefault();
-              }
+    return /* @__PURE__ */ (0, import_jsx_runtime78.jsxs)("div", {
+      className: mergeClasses(styles_module_css_default19.container, "shiny::sliderInput"),
+      style: { width },
+      ...wrapperProps,
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime78.jsx)("div", {
+          children: settings.label
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime78.jsx)("div", {
+          className: styles_module_css_default19.sliderWrapper,
+          children: /* @__PURE__ */ (0, import_jsx_runtime78.jsx)("input", {
+            type: "range",
+            min: settings.min,
+            max: settings.max,
+            value: currentVal,
+            onChange: (e2) => setCurrentVal(Number(e2.target.value)),
+            className: "slider " + styles_module_css_default19.sliderInput,
+            "aria-label": "slider input",
+            "data-min": settings.min,
+            "data-max": settings.max,
+            draggable: true,
+            onDragStartCapture: (e2) => {
+              e2.stopPropagation();
+              e2.preventDefault();
             }
-          ) }),
-          /* @__PURE__ */ (0, import_jsx_runtime78.jsxs)("div", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime78.jsx)(InputOutputTitle, { type: "input", name: settings.inputId }),
+          })
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime78.jsxs)("div", {
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime78.jsx)(InputOutputTitle, {
+              type: "input",
+              name: settings.inputId
+            }),
             " = ",
             currentVal
-          ] })
-        ]
-      }
-    );
+          ]
+        })
+      ]
+    });
   };
   var ShinySliderInput_default = ShinySliderInput;
 
@@ -54000,17 +54090,22 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
       }
     },
     settingsFormRender: ({ inputs }) => {
-      return /* @__PURE__ */ (0, import_jsx_runtime79.jsxs)(import_jsx_runtime79.Fragment, { children: [
-        inputs.inputId,
-        inputs.label,
-        /* @__PURE__ */ (0, import_jsx_runtime79.jsxs)(LabeledInputCategory, { label: "Values", children: [
-          inputs.min,
-          inputs.max,
-          inputs.value,
-          inputs.step
-        ] }),
-        inputs.width
-      ] });
+      return /* @__PURE__ */ (0, import_jsx_runtime79.jsxs)(import_jsx_runtime79.Fragment, {
+        children: [
+          inputs.inputId,
+          inputs.label,
+          /* @__PURE__ */ (0, import_jsx_runtime79.jsxs)(LabeledInputCategory, {
+            label: "Values",
+            children: [
+              inputs.min,
+              inputs.max,
+              inputs.value,
+              inputs.step
+            ]
+          }),
+          inputs.width
+        ]
+      });
     },
     serverBindings: {
       inputs: {
@@ -54035,11 +54130,26 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     wrapperProps
   }) => {
     const numChildren = uiChildren?.length ?? 0;
-    return /* @__PURE__ */ (0, import_jsx_runtime80.jsx)(Tabset_default, { path: path3, ...wrapperProps, children: numChildren > 0 ? uiChildren?.map((node2, i2) => {
-      const nodePath = makeChildPath(path3, i2);
-      const title = getTabPanelTitle(node2) ?? "unknown tab";
-      return /* @__PURE__ */ (0, import_jsx_runtime80.jsx)(TabPanel_default, { title, children: /* @__PURE__ */ (0, import_jsx_runtime80.jsx)(UiNode_default, { path: nodePath, node: node2 }) }, pathToString(nodePath));
-    }) : /* @__PURE__ */ (0, import_jsx_runtime80.jsx)("div", { style: { padding: "5px" }, children: /* @__PURE__ */ (0, import_jsx_runtime80.jsx)("span", { children: "Empty tabset. Drag elements or Tab Panel on to add content" }) }) });
+    return /* @__PURE__ */ (0, import_jsx_runtime80.jsx)(Tabset_default, {
+      path: path3,
+      ...wrapperProps,
+      children: numChildren > 0 ? uiChildren?.map((node2, i2) => {
+        const nodePath = makeChildPath(path3, i2);
+        const title = getTabPanelTitle(node2) ?? "unknown tab";
+        return /* @__PURE__ */ (0, import_jsx_runtime80.jsx)(TabPanel_default, {
+          title,
+          children: /* @__PURE__ */ (0, import_jsx_runtime80.jsx)(UiNode_default, {
+            path: nodePath,
+            node: node2
+          })
+        }, pathToString(nodePath));
+      }) : /* @__PURE__ */ (0, import_jsx_runtime80.jsx)("div", {
+        style: { padding: "5px" },
+        children: /* @__PURE__ */ (0, import_jsx_runtime80.jsx)("span", {
+          children: "Empty tabset. Drag elements or Tab Panel on to add content"
+        })
+      })
+    });
   };
   var ShinyTabsetPanel_default = ShinyTabsetPanel;
 
@@ -54074,8 +54184,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // src/Shiny-Ui-Elements/ShinyTextInput/ShinyTextInput.tsx
   var React52 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-Pkvkf4NlRIuq/editor/src/Shiny-Ui-Elements/ShinyTextInput/styles.module.css.js
-  var digest37 = "d7c4279546d06613984682ea459e7f930d3b6b7fc2e27cdb8029f3a681b7bbbb";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-Aipk6sv5cOez/editor/src/Shiny-Ui-Elements/ShinyTextInput/styles.module.css.js
+  var digest37 = "3a5333cb389e01ec888cec1a27d8d464dfb28cae045e50eeaa7288087f55298c";
   var css37 = `._container_yicbr_1 {
   position: relative;
   padding: 4px;
@@ -54111,27 +54221,24 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     React52.useEffect(() => {
       setValue(settings.value);
     }, [settings.value]);
-    return /* @__PURE__ */ (0, import_jsx_runtime81.jsxs)(
-      "div",
-      {
-        className: mergeClasses(styles_module_css_default20.container, "shiny::textInput"),
-        style: { height, width },
-        ...wrapperProps,
-        children: [
-          /* @__PURE__ */ (0, import_jsx_runtime81.jsx)("label", { htmlFor: settings.inputId, children: settings.label }),
-          /* @__PURE__ */ (0, import_jsx_runtime81.jsx)(
-            "input",
-            {
-              id: settings.inputId,
-              type: "text",
-              value,
-              onChange: (e2) => setValue(e2.target.value),
-              placeholder: settings.placeholder
-            }
-          )
-        ]
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime81.jsxs)("div", {
+      className: mergeClasses(styles_module_css_default20.container, "shiny::textInput"),
+      style: { height, width },
+      ...wrapperProps,
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime81.jsx)("label", {
+          htmlFor: settings.inputId,
+          children: settings.label
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime81.jsx)("input", {
+          id: settings.inputId,
+          type: "text",
+          value,
+          onChange: (e2) => setValue(e2.target.value),
+          placeholder: settings.placeholder
+        })
+      ]
+    });
   };
   var ShinyTextInput_default = ShinyTextInput;
 
@@ -54175,8 +54282,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // src/assets/icons/shinyTextOutput.png
   var shinyTextOutput_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAGh0lEQVR4nO3bv2skZQDG8W/8haBNIhbaqHu72Jv0olyw1CbZRfTsktJqk4CNgkVuF+wviIKNm2xz14kJ+AecsROUDWkE7W4LrQ4lFvNOMjOZ/ZXdJ/tGnw8cuezOvTNcvsw78+5k4ezsDLNZe2LeB2D/TQ7LJByWSTgsk3BYJuGwTMJhmYTDMgmHZRIOyyQclkk4LJNwWCbhsEzCYZmEwzIJh2USDsskHJZJOCyTcFgm4bBMwmGZhMMyCYdlEg7LJByWSTgsk3BYJuGwTMJhmYTDMgmHZRIOyyQclkk4LJNwWCbhsEzCYZmEwzIJh2USDsskHJZJOCyTcFgm4bBMwmGZhMMyCYdlEg7LJByWSTgsk3BYJuGwTMJhmYTDMgmHZRIOyyQclkk4LJNwWCbx1LwPIGthYWGm4zU7vXvARvj2qN2orc50BwVnZ2cjt9naP1EeQqlWvXrt+4wqLCv1CvBR+PuXwO9zPJaxOay4vQw8BF4M338MrAI/ze2IxuRrrLi9x0VUAEvAEfDGXI5mAg4rbn+XvLbIDYjLYcXtW+CXktejj8thxe1P4G3g15L3oo4r6ov3Zqd3G1gGtkn+I7NOgT2SZYTjCcfdJlmGqGRe3gO67UbtaIIxloG19LWwlLAHHLfq1b1JjmmIP4C3gB+A1wvvpXHdJrIL+oVx1l6uS7qO1ez0FoEDkv+wcey1G7XN4ovFdSxgJ4xbKW6b0W03auuD3gyxH3A59KJjYLNVr+ain2Id6yXK4wLoMySueaxjxToVHjJ+VAAbzU5vd8Q2lTDusKgA1pqd3kHZG81ObyOMMSoqSM5mh1v7J6P2N670zHUjpsXowspMMakjYL3dqC1k/wCbJGeF1HY40w1S4SKIu8CtzFjrJFNrai1ElD2uCnCvMGZxnFvhtdRiyb+Zxo2JK7qwyFyzED6GaTdq3eJG7UZtj2SxMGvUWe4UWGk3ajvtRu08pDD+Cvm4tgv/thjIanGcVr162qpXd0hCPT+mrf2TZWbnRsQVY1jZH8LQC+B2o9Ynf9YaNu30SWIovdAPY+1kx2p2estwfrbKRrsz7CK/Va92w/5Sk0zr44g+rujuCsOUMon+6E0AOM6eXQbsu9vs9PpcTJm3ScJdK2w68o6vVa8ujXlcVxX13WJ0YRU1O701kjNRhYs7vEFmcaF8zMUZJh0ve+12HM5u03ie5APld4FnpxxrkEXge+BN4GfRPgaKNqxwET/qTk8he1ZbLHyF/NR7VZ8C9RmMM8oLwBfAO9ewr5zowgrXMwfkr7XmJQ1qVksGqZUZjzfMa9e4r3PRhUVy95WNKl1hPy27O2x2epOueU3itPB1Vh6STFHX4cE17ScnqrDCqnY2krvtRm1n0PYi2aj7ha/F96/qM5KV9HXg6RmMN8gD4BPh+APFttyQO1Ndd1RhgTU77aXXU7mwRizEjuMv4APgGWBhij93gH8G7OMBSbiPpzzWK4nqjEX+hzru9DPtDzlrrTBeulbVJX8jsUF+hf2Srf2TR5mxdlr16tDtr+BD4GvgyZL35hoVxHfGmujMED7TG3dquh3uNAeNVSEfTzddVgjrX9kF0d0wbZfa2j8ZFOisRB0VxBdW9gewCByWfGa33Oz0tpud3iMuL1yOstvs9A6LgYV9/Eg+huI0XHx64rDZ6e2GIAHY2j+pbO2f7JLc1aaOik84TCn6qCDCx2bCWWjSYFK5x2cKj81MYjN8FpkTApzkQ+U+sNKqV8+n9Sl//esO8BUTRuXHZhKbjD917E2w7bjXbOtlUUHug+9xVt6PgdVsVFO6UlTzEl1Y7UatH36xdJ3kormoSzJNLZU93DfEafgccofLMaYfQC+VrZUVju+o3agthe3Ltt0jecBvZYZT4LCo7hNZVBDZVPh/cIWp8H3gGwZHVWdEVJ4Kreg5kjPglaOaF4cVt1dJ4iq6T8RRgcOKXQ/4rfDafSKPChxW7B6TPPLyHckzVZ9zA6ICX7ybiM9YJuGwTMJhmYTDMgmHZRIOyyQclkk4LJNwWCbhsEzCYZmEwzIJh2USDsskHJZJOCyTcFgm4bBMwmGZhMMyCYdlEg7LJByWSTgsk3BYJuGwTMJhmYTDMgmHZRIOyyQclkk4LJNwWCbhsEzCYZmEwzIJh2USDsskHJZJOCyTcFgm4bBMwmGZhMMyCYdlEg7LJByWSTgsk3BYJuGwTMJhmYTDMgmHZRIOyyQclkk4LJP4F7bdmR9UysBAAAAAAElFTkSuQmCC";
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-s4jcSbGOH9cX/editor/src/Shiny-Ui-Elements/ShinyTextOutput/styles.module.css.js
-  var digest38 = "372df11bf46ed55929fe54e88a5a638007752dbc27d3e842b6af8eeceb7c934a";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-7bdn1mhiwrQB/editor/src/Shiny-Ui-Elements/ShinyTextOutput/styles.module.css.js
+  var digest38 = "f9c059dc5cc5afda4c1ea5550630e2109b52551896db9b49e3275391d5e31151";
   var css38 = `._container_1i6yi_1 {
   padding: 1rem;
   max-height: 100%;
@@ -54203,13 +54310,19 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     uiArguments,
     wrapperProps
   }) => {
-    return /* @__PURE__ */ (0, import_jsx_runtime82.jsxs)("div", { className: styles_module_css_default21.container, ...wrapperProps, children: [
-      "Dynamic text from ",
-      /* @__PURE__ */ (0, import_jsx_runtime82.jsxs)("code", { children: [
-        "output$",
-        uiArguments.outputId
-      ] })
-    ] });
+    return /* @__PURE__ */ (0, import_jsx_runtime82.jsxs)("div", {
+      className: styles_module_css_default21.container,
+      ...wrapperProps,
+      children: [
+        "Dynamic text from ",
+        /* @__PURE__ */ (0, import_jsx_runtime82.jsxs)("code", {
+          children: [
+            "output$",
+            uiArguments.outputId
+          ]
+        })
+      ]
+    });
   };
   var ShinyTextOutput_default = ShinyTextOutput;
 
@@ -54244,8 +54357,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // src/assets/icons/shinyImage.png
   var shinyImage_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAGT0lEQVR4nO3cy29UZRjH8e902tIbVFouNQpEQKLGCsEYUGJcGFHiQk2MxsTg0rgwulH/AmPiyoUoEdTgLdG4MJpoCJY7VTCgAQQpBVGm9+u0c+vcjosySENpC5ynp33n91k105PmafvNe86c87Yhz/MQ8VtJ0AOImxSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlpgoDXoAv7z5dWvhw/XAK8CDwG1AVVAzTWIE6AQOA9uAnwHefX5lkDP5xrUV6y3gELAZuJOZGxXAHGAZ8BywC3g32HH85cyKBTwCvAOE5lWWeo/dWxe6q6GKuZWllISCHm0sD4incrR2J9l5oi/fF8uUAG8wGtiuYKfzh0sr1qtAaH51af71jUtC65bPo7Zq5kUFEAJqKsKsWVrDaxuXlCyYW5a79KmXg5zLTy6FtQHg8cb6kpqKcNCzTFlFWQmbGusLAz8U6DA+cimsxQCrFs/ky6rxLV9UWfiwPsg5/OTSNVYIRk8xQfOAU21xTrfHiY/kqKsuY/XSGpbWV4x7fPWcyzOXT9eM1lwKa0ZIpHPsONjJ3z3JMa8faBlk/Ypanr5/4Yy87vObS6fCwHnAF81XR1Xw67koO0/0Te9QAVFYPjrTkaC1a/yoCvafGWQomZ2miYKjsHzU0pmY9Jhc3qO1e+L4XKCwfJQYyU1+0HUcN5spLB/Nr57ae6G66jLjSYKnsHy0eulcQpO846upCLNyceXEBzlAYfmoobach1fdcs3Ph4Cn1y6kvNT9H7vuY/nsyTULqCwPs/tUP5mcd/n1eZWlPLV2AY231wQ43fRRWD4LAY/eM58HV87jXHeSRDpPXVUpdyyspDRcBHdGL1FYRqrKw0WzOo1HYQFDySyHzw1xsT9FuCTEikWVrFtRS1kRrTB+K/qwTkZifHOkm1Qmf/m1P9viNLdGeWnDrSyudea58LRy/+3JBA6cGeTzQ51joiroHc7wwe4I56/x3E8mVpRhecAPf/Tywx+9eBMcl0zn2b6vnROR2HSN5oyiCyuX9/jql04OnBmc0vHZnMeXzZ00n43aDuaYorrGSmXy7DjYwbnrfAic9+C7Yz1Ek1meuK+eyS7pPQ+OR2K0diUoD5ewZlkNS+rG3+TnqqIJK5rM8sn+djoG0zf8NfacHmAomeXZBxYRvsZuvfhIjs8Ojd2TdbBlkEfuns+mxvpJH/m4oijC6hpK8/G+dgYTN78P6uiFYYZTOTZvaLjq0cxAPMv2fe30DI+N1wP2nh6gdzjNC+sbiuI2hvPXWBd6U3zY1OZLVAUtnQm27mkjlvp/+0vXUJoPmiJXRXWlk5E4W3e3MZzStplZ7WQkxkd720ik/f9FRvpH2NIUoS+W4d++0XijU9gZerE/xfs/X6QreuOn5NnA2VNh89ko3//eQ36i+wk3qS+WYUtThHTWI529+l7YtQzEs2xpivDiQw2saph9f642Fc6tWB7w0/E+vjtmG1VBLJW7rqgKUpk8nx7o4Mj5IYOpgufcivXN4S6OXhgOeowpyeU9vv2tm97hTNCj+M65FWu2RHWlvX8NBD2C75wLa5a7/nPqDOVSWC48cxkMegC/uBTW8aAH8MHJoAfwi0thfR/0AD74MegB/OJSWNuAf4Ie4ib0Mvo9OMGlsKLAM4z+w9jZJgo8C/QHPYhfXAoL4HegEXib0Wuumbz9cwRoAd5jdOZ9gU7js5DnTcPtaSk6rq1YMkMoLDGhsMSEwhITCktMKCwxobDEhMISEwpLTCgsMaGwxITCEhMKS0woLDGhsMSEwhITCktMKCwxobDEhMISEwpLTCgsMaGwxITCEhMKS0woLDGhsMSEwhITCktMKCwxobDEhMISEwpLTCgsMaGwxITCEhMKS0woLDGhsMSEwhITCktMKCwxobDEhMISEwpLTCgsMaGwxITCEhMKS0woLDGhsMSEwhITCktMKCwxobDExH/tpJ306UTa3AAAAABJRU5ErkJggg==";
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-rDznUIjps9jF/editor/src/Shiny-Ui-Elements/ShinyUiOutput/styles.module.css.js
-  var digest39 = "008162068c1501bc744fb8eada0108c88b7c677a5900b2c5fd05b919dd49ad9f";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-odvVLvaStnAY/editor/src/Shiny-Ui-Elements/ShinyUiOutput/styles.module.css.js
+  var digest39 = "43e1f0ef23d5a48d614e7f7c31addfb32b30f595e1b504dd3bf3f3c964703dca";
   var css39 = `._container_1xnzo_1 {
   display: grid;
   grid-template-rows: 1fr;
@@ -54278,11 +54391,18 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     wrapperProps
   }) => {
     const { outputId = "shiny-ui-output" } = uiArguments;
-    return /* @__PURE__ */ (0, import_jsx_runtime83.jsx)("div", { className: styles_module_css_default22.container, ...wrapperProps, children: /* @__PURE__ */ (0, import_jsx_runtime83.jsxs)("div", { style: { gridArea: "1/1", placeSelf: "center" }, children: [
-      "This is a a dynamic UI Output ",
-      outputId,
-      "!"
-    ] }) });
+    return /* @__PURE__ */ (0, import_jsx_runtime83.jsx)("div", {
+      className: styles_module_css_default22.container,
+      ...wrapperProps,
+      children: /* @__PURE__ */ (0, import_jsx_runtime83.jsxs)("div", {
+        style: { gridArea: "1/1", placeSelf: "center" },
+        children: [
+          "This is a a dynamic UI Output ",
+          outputId,
+          "!"
+        ]
+      })
+    });
   };
   var ShinyUiOutput_default = ShinyUiOutput;
 
@@ -54323,8 +54443,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 1024 1024" }, "child": [{ "tag": "path", "attr": { "d": "M881.7 187.4l-45.1-45.1a8.03 8.03 0 0 0-11.3 0L667.8 299.9l-54.7-54.7a7.94 7.94 0 0 0-13.5 4.7L576.1 439c-.6 5.2 3.7 9.5 8.9 8.9l189.2-23.5c6.6-.8 9.3-8.8 4.7-13.5l-54.7-54.7 157.6-157.6c3-3 3-8.1-.1-11.2zM439 576.1l-189.2 23.5c-6.6.8-9.3 8.9-4.7 13.5l54.7 54.7-157.5 157.5a8.03 8.03 0 0 0 0 11.3l45.1 45.1c3.1 3.1 8.2 3.1 11.3 0l157.6-157.6 54.7 54.7a7.94 7.94 0 0 0 13.5-4.7L447.9 585a7.9 7.9 0 0 0-8.9-8.9z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-yZ0iB0cHGlxG/editor/src/components/CategoryDivider/styles.module.css.js
-  var digest40 = "a05a054729293a246bd216a27dcd1cf34f9b218b3049f19f13487911c96218d5";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-v3UY8MRCbBOk/editor/src/components/CategoryDivider/styles.module.css.js
+  var digest40 = "3f709b5806f3edd2b8d7ac457681ed5029ff674e4a31173fcd7f27668ee5bade";
   var css40 = `._categoryDivider_bdwku_1 {
   display: block;
   position: relative;
@@ -54367,7 +54487,10 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // src/components/CategoryDivider/index.tsx
   var import_jsx_runtime84 = __toESM(require_jsx_runtime());
   function CategoryDivider({ children }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime84.jsx)("div", { className: styles_module_css_default23.categoryDivider, children });
+    return /* @__PURE__ */ (0, import_jsx_runtime84.jsx)("div", {
+      className: styles_module_css_default23.categoryDivider,
+      children
+    });
   }
   var CategoryDivider_default = CategoryDivider;
 
@@ -54384,10 +54507,18 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     wrapperProps
   }) => {
     const functionName = uiArguments.text.slice(0, num_preview_chars).replaceAll(/\s$/g, "") + "...";
-    return /* @__PURE__ */ (0, import_jsx_runtime85.jsx)("div", { className: "unknown-ui-function-display", ...wrapperProps, children: /* @__PURE__ */ (0, import_jsx_runtime85.jsxs)("div", { children: [
-      "unknown ui output: ",
-      /* @__PURE__ */ (0, import_jsx_runtime85.jsx)("code", { children: functionName })
-    ] }) });
+    return /* @__PURE__ */ (0, import_jsx_runtime85.jsx)("div", {
+      className: "unknown-ui-function-display",
+      ...wrapperProps,
+      children: /* @__PURE__ */ (0, import_jsx_runtime85.jsxs)("div", {
+        children: [
+          "unknown ui output: ",
+          /* @__PURE__ */ (0, import_jsx_runtime85.jsx)("code", {
+            children: functionName
+          })
+        ]
+      })
+    });
   };
   var UnknownUiFunction_default = UnknownUiFunction;
 
@@ -54403,14 +54534,33 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
       }
     },
     settingsFormRender: ({ settings }) => {
-      return /* @__PURE__ */ (0, import_jsx_runtime86.jsxs)("div", { className: "unknown-ui-function-settings", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime86.jsx)("div", { className: "SUE-SettingsInput", children: /* @__PURE__ */ (0, import_jsx_runtime86.jsxs)("span", { className: "info-msg", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime86.jsx)(AiOutlineQuestionCircle, {}),
-          "Unknown function call. Can't modify with visual editor."
-        ] }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime86.jsx)(CategoryDivider_default, { children: /* @__PURE__ */ (0, import_jsx_runtime86.jsx)("span", { children: "Code" }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime86.jsx)("div", { className: "SUE-SettingsInput", children: /* @__PURE__ */ (0, import_jsx_runtime86.jsx)("pre", { className: "code-holder", children: formatFunctionText(settings.text) }) })
-      ] });
+      return /* @__PURE__ */ (0, import_jsx_runtime86.jsxs)("div", {
+        className: "unknown-ui-function-settings",
+        children: [
+          /* @__PURE__ */ (0, import_jsx_runtime86.jsx)("div", {
+            className: "SUE-SettingsInput",
+            children: /* @__PURE__ */ (0, import_jsx_runtime86.jsxs)("span", {
+              className: "info-msg",
+              children: [
+                /* @__PURE__ */ (0, import_jsx_runtime86.jsx)(AiOutlineQuestionCircle, {}),
+                "Unknown function call. Can't modify with visual editor."
+              ]
+            })
+          }),
+          /* @__PURE__ */ (0, import_jsx_runtime86.jsx)(CategoryDivider_default, {
+            children: /* @__PURE__ */ (0, import_jsx_runtime86.jsx)("span", {
+              children: "Code"
+            })
+          }),
+          /* @__PURE__ */ (0, import_jsx_runtime86.jsx)("div", {
+            className: "SUE-SettingsInput",
+            children: /* @__PURE__ */ (0, import_jsx_runtime86.jsx)("pre", {
+              className: "code-holder",
+              children: formatFunctionText(settings.text)
+            })
+          })
+        ]
+      });
     },
     acceptsChildren: false
   };
@@ -55580,8 +55730,8 @@ ${INDENT}`;
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 16 16", "fill": "currentColor" }, "child": [{ "tag": "path", "attr": { "fillRule": "evenodd", "clipRule": "evenodd", "d": "M12.75 8a4.5 4.5 0 0 1-8.61 1.834l-1.391.565A6.001 6.001 0 0 0 14.25 8 6 6 0 0 0 3.5 4.334V2.5H2v4l.75.75h3.5v-1.5H4.352A4.5 4.5 0 0 1 12.75 8z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-lFe12n8htwtG/editor/src/components/AppPreview/AppPreview.module.css.js
-  var digest41 = "dd0b9e6dad9976ccd40f4effa4e57b7bf6f1d50ed088c39ad24d5ba3fd204ebf";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-tEigllECg2RV/editor/src/components/AppPreview/AppPreview.module.css.js
+  var digest41 = "10cc222f2c0d03fa46f57b370c6d765c08677508b6fc95709e3bfa76f713ab19";
   var css41 = `div._appViewerHolder_zkojo_1 {
   /* This is over-ridden by an inline style but we just have it here in case */
   --app-scale-amnt: 0.24;
@@ -55866,8 +56016,8 @@ h2._error_zkojo_249 {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "fill": "none", "stroke": "#000", "strokeWidth": "2", "d": "M12,22 C17.5228475,22 22,17.5228475 22,12 C22,6.4771525 17.5228475,2 12,2 C6.4771525,2 2,6.4771525 2,12 C2,17.5228475 6.4771525,22 12,22 Z M5,5 L19,19" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-q50d3YegFi61/editor/src/components/AppPreview/LogsViewer.module.css.js
-  var digest42 = "8036d1eb7f61c317f54d78b1425ee7c6e915afca8c3fd58a36eb49c9c71b3cc5";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-iWk6AgZ4kgLR/editor/src/components/AppPreview/LogsViewer.module.css.js
+  var digest42 = "f554fc8c0174f39bba6895f3f09e3aaccae4b28235218cb313512cd859b7e288";
   var css42 = `/* Logs section */
 ._logs_xjp5l_2 {
   --tab-height: var(--logs-button-h, 20px);
@@ -56025,40 +56175,44 @@ p._logLine_xjp5l_75 {
   }) {
     const { logsExpanded, toggleLogExpansion, unseenLogs } = useExpandableLogs(appLogs);
     const noLogs = appLogs.length === 0;
-    return /* @__PURE__ */ (0, import_jsx_runtime87.jsxs)("div", { className: LogsViewer_module_css_default.logs, "data-expanded": logsExpanded, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime87.jsxs)(
-        "button",
-        {
+    return /* @__PURE__ */ (0, import_jsx_runtime87.jsxs)("div", {
+      className: LogsViewer_module_css_default.logs,
+      "data-expanded": logsExpanded,
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime87.jsxs)("button", {
           className: LogsViewer_module_css_default.expandTab,
           title: logsExpanded ? "hide logs" : "show logs",
           onClick: toggleLogExpansion,
           children: [
-            /* @__PURE__ */ (0, import_jsx_runtime87.jsx)(
-              BsCircleFill,
-              {
-                className: LogsViewer_module_css_default.unseenLogsNotification,
-                "data-show": unseenLogs
-              }
-            ),
+            /* @__PURE__ */ (0, import_jsx_runtime87.jsx)(BsCircleFill, {
+              className: LogsViewer_module_css_default.unseenLogsNotification,
+              "data-show": unseenLogs
+            }),
             "App Logs",
             logsExpanded ? /* @__PURE__ */ (0, import_jsx_runtime87.jsx)(BsChevronDown, {}) : /* @__PURE__ */ (0, import_jsx_runtime87.jsx)(BsChevronUp, {})
           ]
-        }
-      ),
-      /* @__PURE__ */ (0, import_jsx_runtime87.jsxs)("div", { className: LogsViewer_module_css_default.logsContents, children: [
-        noLogs ? /* @__PURE__ */ (0, import_jsx_runtime87.jsx)("p", { className: LogsViewer_module_css_default.noLogsMsg, children: "No recent logs" }) : appLogs.map((line, i2) => /* @__PURE__ */ (0, import_jsx_runtime87.jsx)("p", { className: LogsViewer_module_css_default.logLine, children: line }, i2)),
-        !noLogs ? /* @__PURE__ */ (0, import_jsx_runtime87.jsx)(
-          Button_default,
-          {
-            variant: "icon",
-            title: "clear logs",
-            className: LogsViewer_module_css_default.clearLogsButton,
-            onClick: clearLogs,
-            children: /* @__PURE__ */ (0, import_jsx_runtime87.jsx)(GrClear, {})
-          }
-        ) : null
-      ] })
-    ] });
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime87.jsxs)("div", {
+          className: LogsViewer_module_css_default.logsContents,
+          children: [
+            noLogs ? /* @__PURE__ */ (0, import_jsx_runtime87.jsx)("p", {
+              className: LogsViewer_module_css_default.noLogsMsg,
+              children: "No recent logs"
+            }) : appLogs.map((line, i2) => /* @__PURE__ */ (0, import_jsx_runtime87.jsx)("p", {
+              className: LogsViewer_module_css_default.logLine,
+              children: line
+            }, i2)),
+            !noLogs ? /* @__PURE__ */ (0, import_jsx_runtime87.jsx)(Button_default, {
+              variant: "icon",
+              title: "clear logs",
+              className: LogsViewer_module_css_default.clearLogsButton,
+              onClick: clearLogs,
+              children: /* @__PURE__ */ (0, import_jsx_runtime87.jsx)(GrClear, {})
+            }) : null
+          ]
+        })
+      ]
+    });
   }
   function useExpandableLogs(appLogs) {
     const [logsExpanded, setLogsExpanded] = import_react45.default.useState(false);
@@ -56124,11 +56278,16 @@ p._logLine_xjp5l_75 {
         dialog.removeEventListener("click", onClick);
       };
     }, [onClose]);
-    return /* @__PURE__ */ (0, import_jsx_runtime88.jsx)("dialog", { ...passthrough, ref: dialog_ref, onClose, children });
+    return /* @__PURE__ */ (0, import_jsx_runtime88.jsx)("dialog", {
+      ...passthrough,
+      ref: dialog_ref,
+      onClose,
+      children
+    });
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-PD3wZ7Mkhdbx/editor/src/components/AppPreview/AppPreview.module.css.js
-  var digest43 = "749e05b315e9a2bc6bd903db0cc8f1afd68fa90dc8499c3e7fffd5d3338cd327";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-UTGaVaxSef5K/editor/src/components/AppPreview/AppPreview.module.css.js
+  var digest43 = "1ec1aea47a15cb5a99d601cbe957b09a649faad8af5433855d104114f95c069b";
   var css43 = `div._appViewerHolder_zkojo_1 {
   /* This is over-ridden by an inline style but we just have it here in case */
   --app-scale-amnt: 0.24;
@@ -56394,8 +56553,8 @@ h2._error_zkojo_249 {
   })();
   var AppPreview_module_css_default2 = { "appViewerHolder": "_appViewerHolder_zkojo_1", "title": "_title_zkojo_55", "appContainer": "_appContainer_zkojo_89", "previewFrame": "_previewFrame_zkojo_109", "expandButton": "_expandButton_zkojo_134", "reloadButtonContainer": "_reloadButtonContainer_zkojo_135", "reloadButton": "_reloadButton_zkojo_135", "spin": "_spin_zkojo_174", "restartButton": "_restartButton_zkojo_211", "loadingMessage": "_loadingMessage_zkojo_238", "error": "_error_zkojo_249" };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-A9H6UPdUHlji/editor/src/components/AppPreview/ShowAppText.module.css.js
-  var digest44 = "4f71f51fd83805b7723fb1209a317254e465def25eaed050764aa40a026a2a2e";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-xH7k2dhqr3W2/editor/src/components/AppPreview/ShowAppText.module.css.js
+  var digest44 = "2d2379ee56331e308e5de9ecc76507e7da6adbe5b2d95874c9dd9923d5704858";
   var css44 = `._show_btn_83j0t_1 {
   margin: var(--size-md);
 }
@@ -56465,38 +56624,81 @@ h2._error_zkojo_249 {
   }) {
     const app_scripts = generate_full_app_script(info, { include_info: false });
     if (app_scripts.app_type === "SINGLE-FILE") {
-      return /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)(import_jsx_runtime89.Fragment, { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("h2", { className: ShowAppText_module_css_default.title, children: "App script" }),
-        /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)("p", { className: ShowAppText_module_css_default.description, children: [
-          "The following code defines the currently being edited app. Copy and paste it to an ",
-          /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("code", { children: "app.R" }),
-          " file to use."
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)("div", { className: ShowAppText_module_css_default.code_holder, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("label", { children: "app.R" }),
-          /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("pre", { children: app_scripts.app })
-        ] })
-      ] });
+      return /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)(import_jsx_runtime89.Fragment, {
+        children: [
+          /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("h2", {
+            className: ShowAppText_module_css_default.title,
+            children: "App script"
+          }),
+          /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)("p", {
+            className: ShowAppText_module_css_default.description,
+            children: [
+              "The following code defines the currently being edited app. Copy and paste it to an ",
+              /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("code", {
+                children: "app.R"
+              }),
+              " file to use."
+            ]
+          }),
+          /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)("div", {
+            className: ShowAppText_module_css_default.code_holder,
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("label", {
+                children: "app.R"
+              }),
+              /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("pre", {
+                children: app_scripts.app
+              })
+            ]
+          })
+        ]
+      });
     }
-    return /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)(import_jsx_runtime89.Fragment, { children: [
-      /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("h2", { className: ShowAppText_module_css_default.title, children: "App scripts" }),
-      /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)("p", { className: ShowAppText_module_css_default.description, children: [
-        "The following code defines the currently being edited app. Copy and paste the ui and server scripts into ",
-        /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("code", { children: "ui.R" }),
-        " and",
-        " ",
-        /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("code", { children: "server.R" }),
-        " files to use."
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)("div", { className: ShowAppText_module_css_default.code_holder, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("label", { children: "ui.R" }),
-        /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("pre", { children: app_scripts.ui })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)("div", { className: ShowAppText_module_css_default.code_holder, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("label", { children: "server.R" }),
-        /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("pre", { children: app_scripts.server })
-      ] })
-    ] });
+    return /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)(import_jsx_runtime89.Fragment, {
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("h2", {
+          className: ShowAppText_module_css_default.title,
+          children: "App scripts"
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)("p", {
+          className: ShowAppText_module_css_default.description,
+          children: [
+            "The following code defines the currently being edited app. Copy and paste the ui and server scripts into ",
+            /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("code", {
+              children: "ui.R"
+            }),
+            " and",
+            " ",
+            /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("code", {
+              children: "server.R"
+            }),
+            " files to use."
+          ]
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)("div", {
+          className: ShowAppText_module_css_default.code_holder,
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("label", {
+              children: "ui.R"
+            }),
+            /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("pre", {
+              children: app_scripts.ui
+            })
+          ]
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)("div", {
+          className: ShowAppText_module_css_default.code_holder,
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("label", {
+              children: "server.R"
+            }),
+            /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("pre", {
+              children: app_scripts.server
+            })
+          ]
+        })
+      ]
+    });
   }
   function ShowAppText() {
     const [script_visible, set_script_visible] = import_react47.default.useState(false);
@@ -56504,32 +56706,42 @@ h2._error_zkojo_249 {
     const current_state = store2.getState().app_info;
     if (current_state.mode !== "MAIN")
       return null;
-    return /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)(import_jsx_runtime89.Fragment, { children: [
-      /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(PanelHeader, { className: AppPreview_module_css_default2.title, children: "Code" }),
-      /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(
-        TooltipButton,
-        {
+    return /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)(import_jsx_runtime89.Fragment, {
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(PanelHeader, {
+          className: AppPreview_module_css_default2.title,
+          children: "Code"
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(TooltipButton, {
           className: ShowAppText_module_css_default.show_btn,
           text: "See current application code",
           position: "left",
           onClick: () => set_script_visible((is_visible) => !is_visible),
           variant: "regular",
           children: "Get app script"
-        }
-      ),
-      script_visible ? /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(
-        DialogPopover,
-        {
+        }),
+        script_visible ? /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(DialogPopover, {
           className: ShowAppText_module_css_default.modal,
           title: "App Script",
           onClose: () => set_script_visible(false),
-          children: /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)("form", { method: "dialog", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(AppFilesViewer, { info: current_state }),
-            /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("div", { className: ShowAppText_module_css_default.footer, children: /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(Button_default, { type: "submit", children: "Okay" }) })
-          ] })
-        }
-      ) : null
-    ] });
+          children: /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)("form", {
+            method: "dialog",
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(AppFilesViewer, {
+                info: current_state
+              }),
+              /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("div", {
+                className: ShowAppText_module_css_default.footer,
+                children: /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(Button_default, {
+                  type: "submit",
+                  children: "Okay"
+                })
+              })
+            ]
+          })
+        }) : null
+      ]
+    });
   }
 
   // src/components/AppPreview/useCommunicateWithBackend.tsx
@@ -56653,24 +56865,28 @@ h2._error_zkojo_249 {
     if (appLoc === "HIDDEN") {
       return /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(ShowAppText, {});
     }
-    const ReloadButton = ({ isExpandedMode }) => /* @__PURE__ */ (0, import_jsx_runtime90.jsx)("div", { className: AppPreview_module_css_default.reloadButtonContainer, children: /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(
-      TooltipButton,
-      {
+    const ReloadButton = ({ isExpandedMode }) => /* @__PURE__ */ (0, import_jsx_runtime90.jsx)("div", {
+      className: AppPreview_module_css_default.reloadButtonContainer,
+      children: /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(TooltipButton, {
         text: `Reload app session (hold ${getMetaKeyOnClient()} to restart app server also)`,
         className: AppPreview_module_css_default.reloadButton,
         onClick: reloadApp,
         position: isExpandedMode ? "right" : "up-right",
         children: /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(VscDebugRestart, {})
-      }
-    ) });
-    return /* @__PURE__ */ (0, import_jsx_runtime90.jsxs)(import_jsx_runtime90.Fragment, { children: [
-      /* @__PURE__ */ (0, import_jsx_runtime90.jsxs)(PanelHeader, { className: AppPreview_module_css_default.title, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(ReloadButton, { isExpandedMode: false }),
-        "App Preview"
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(
-        "div",
-        {
+      })
+    });
+    return /* @__PURE__ */ (0, import_jsx_runtime90.jsxs)(import_jsx_runtime90.Fragment, {
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime90.jsxs)(PanelHeader, {
+          className: AppPreview_module_css_default.title,
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(ReloadButton, {
+              isExpandedMode: false
+            }),
+            "App Preview"
+          ]
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime90.jsx)("div", {
           className: AppPreview_module_css_default.appViewerHolder,
           "data-expanded": isFullScreen,
           style: {
@@ -56678,45 +56894,53 @@ h2._error_zkojo_249 {
             "--preview-inset-horizontal": `${PREVIEW_INSET_HORIZONTAL_PX}px`,
             "--expanded-inset-horizontal": `${EXPANDED_INSET_HORIZONTAL_PX}px`
           },
-          children: errors !== null ? /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(RestartPrompt, { onClick: restartApp }) : /* @__PURE__ */ (0, import_jsx_runtime90.jsxs)(import_jsx_runtime90.Fragment, { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(ReloadButton, { isExpandedMode: true }),
-            /* @__PURE__ */ (0, import_jsx_runtime90.jsxs)("div", { className: AppPreview_module_css_default.appContainer, children: [
-              appLoc === "LOADING" ? /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(LoadingMessage, {}) : /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(
-                "iframe",
-                {
-                  className: AppPreview_module_css_default.previewFrame,
-                  src: appLoc.url,
-                  title: "Application Preview",
-                  ref: iframeRef
-                }
-              ),
-              /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(
-                Button_default,
-                {
-                  variant: "icon",
-                  className: AppPreview_module_css_default.expandButton,
-                  title: isFullScreen ? "Shrink app preview" : "Expand app preview",
-                  onClick: toggleFullscreen,
-                  children: isFullScreen ? /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(AiOutlineShrink, {}) : /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(FaExpand, {})
-                }
-              )
-            ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(LogsViewer, { appLogs, clearLogs })
-          ] })
-        }
-      )
-    ] });
+          children: errors !== null ? /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(RestartPrompt, {
+            onClick: restartApp
+          }) : /* @__PURE__ */ (0, import_jsx_runtime90.jsxs)(import_jsx_runtime90.Fragment, {
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(ReloadButton, {
+                isExpandedMode: true
+              }),
+              /* @__PURE__ */ (0, import_jsx_runtime90.jsxs)("div", {
+                className: AppPreview_module_css_default.appContainer,
+                children: [
+                  appLoc === "LOADING" ? /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(LoadingMessage, {}) : /* @__PURE__ */ (0, import_jsx_runtime90.jsx)("iframe", {
+                    className: AppPreview_module_css_default.previewFrame,
+                    src: appLoc.url,
+                    title: "Application Preview",
+                    ref: iframeRef
+                  }),
+                  /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(Button_default, {
+                    variant: "icon",
+                    className: AppPreview_module_css_default.expandButton,
+                    title: isFullScreen ? "Shrink app preview" : "Expand app preview",
+                    onClick: toggleFullscreen,
+                    children: isFullScreen ? /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(AiOutlineShrink, {}) : /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(FaExpand, {})
+                  })
+                ]
+              }),
+              /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(LogsViewer, {
+                appLogs,
+                clearLogs
+              })
+            ]
+          })
+        })
+      ]
+    });
   }
   function RestartPrompt({ onClick }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime90.jsxs)("div", { className: AppPreview_module_css_default.appContainer, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime90.jsxs)("p", { children: [
-        "App preview crashed.",
-        /* @__PURE__ */ (0, import_jsx_runtime90.jsx)("br", {}),
-        " Try and restart?"
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime90.jsxs)(
-        Button_default,
-        {
+    return /* @__PURE__ */ (0, import_jsx_runtime90.jsxs)("div", {
+      className: AppPreview_module_css_default.appContainer,
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime90.jsxs)("p", {
+          children: [
+            "App preview crashed.",
+            /* @__PURE__ */ (0, import_jsx_runtime90.jsx)("br", {}),
+            " Try and restart?"
+          ]
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime90.jsxs)(Button_default, {
           className: AppPreview_module_css_default.restartButton,
           title: "Restart app preview",
           onClick,
@@ -56724,12 +56948,17 @@ h2._error_zkojo_249 {
             "Restart app preview ",
             /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(VscDebugRestart, {})
           ]
-        }
-      )
-    ] });
+        })
+      ]
+    });
   }
   function LoadingMessage() {
-    return /* @__PURE__ */ (0, import_jsx_runtime90.jsx)("div", { className: AppPreview_module_css_default.loadingMessage, children: /* @__PURE__ */ (0, import_jsx_runtime90.jsx)("h2", { children: "Loading app preview..." }) });
+    return /* @__PURE__ */ (0, import_jsx_runtime90.jsx)("div", {
+      className: AppPreview_module_css_default.loadingMessage,
+      children: /* @__PURE__ */ (0, import_jsx_runtime90.jsx)("h2", {
+        children: "Loading app preview..."
+      })
+    });
   }
   function spinReloadButton(buttonEl) {
     const reloadIcon = buttonEl.querySelector("svg");
@@ -56746,24 +56975,18 @@ h2._error_zkojo_249 {
 
   // src/components/Icons/ShinyLogo.tsx
   var import_jsx_runtime91 = __toESM(require_jsx_runtime());
-  var SvgShinyLogo = (props) => /* @__PURE__ */ (0, import_jsx_runtime91.jsx)(
-    "svg",
-    {
-      viewBox: "0 0 168 114",
-      fill: "none",
-      xmlns: "http://www.w3.org/2000/svg",
-      "aria-label": "Shiny Logo",
-      ...props,
-      children: /* @__PURE__ */ (0, import_jsx_runtime91.jsx)(
-        "path",
-        {
-          opacity: 0.9,
-          d: "M17.524 62.626c-.898-.027-.3 0 0 0Zm-.027 0c-.871-.027-.49 0-.19 0h.462-.272c.272.027.19 0 0 0Zm.244 0c9.497.218 19.43-1.986 22.313-13.279 1.878-7.293-2.802-12.599-6.938-17.932-.028-.027-.055-.054-.055-.109-.163-.68-4.653-4.816-5.904-6.367 0-.027-.028-.027-.055-.055-.599-.435-1.224-2.64-1.524-3.864a3.323 3.323 0 0 1-.027-1.55c1.089-5.552 1.687-9.606 9.061-8.409 5.306.871 2.558 8.653 5.415 9.415h.055c1.714.164 5.06-3.945 5.55-5.333 1.905-5.388-9.088-8.68-12.435-8.463-6.72.408-11.129 4.055-13.823 10.068-4.952 11.075 4.3 18.45 9.905 26.041 4.245 5.742 4.054 10.857-1.143 15.782-5.714 5.415-12.354-2.04-13.116-7.292-.68-4.816-.625-8.163-4.653-2.04-3.728 5.686.11 13.088 7.374 13.387ZM167.266 36.34v.055a13.555 13.555 0 0 1-.762 3.428 27.79 27.79 0 0 1-2.693 5.306c-1.334 2.041-2.041 2.857-3.429 4.653-2.612 3.402-4.626 5.932-7.674 9.17-4.244 4.49-8.979 9.633-14.149 13.306-7.374 5.28-16.68 6.722-25.497 7.538-25.796 2.34-63.755 5.823-71.755 33.741-.054.164-.19.245-.354.191-.081-.027-.136-.055-.163-.136-7.837-13.388-24.68-23.211-40.3-22.748-.162.027-.299-.055-.326-.218-.027-.163.055-.3.218-.327 40.218-19.972 81.306-10.394 124.735-18.15 10.857-1.931 19.972-9.06 26.53-17.632 2.504-3.238 5.715-5.986 7.919-9.442.353-.572 2.176-5.116-.653-3.184-4.381 2.966-8.082 6.64-12.844 8.953a5.605 5.605 0 0 1-.707.299c-.082.027-.137.109-.164.19a27.286 27.286 0 0 1-2.857 6.368 18.325 18.325 0 0 1-5.66 5.632c-2.122 1.415-4.598 2.232-7.129 2.422-.354.027-.68.027-1.034.027-2.014 0-3.32-.163-4.871-.952-1.986-1.034-2.612-2.721-2.748-4.762-.082-1.224.68-2.558 1.306-3.565.626-1.006 1.633-2.122 2.34-2.421l.055-.028c3.537-2.612 9.551-2.802 13.632-3.918.109-.027.191-.109.191-.19l2.041-7.456c.054-.163-.055-.3-.191-.354a.301.301 0 0 0-.299.109 40.263 40.263 0 0 1-3.402 4.326c-1.605 1.688-2.857 2.721-3.809 3.102a11.152 11.152 0 0 1-3.374.708c-1.361.082-2.531-.463-3.429-1.605-.898-1.143-1.388-2.83-1.496-5.062a8.521 8.521 0 0 1 0-1.197.312.312 0 0 0-.191-.354.313.313 0 0 0-.354.19c-.435.844-.87 1.633-1.306 2.34-1.279 2.232-2.884 4.273-4.707 6.096-1.796 1.796-3.538 2.748-5.143 2.857-3.021.19-4.653-1.523-4.871-5.115-.218-3.429 1.143-10.477 4.082-20.98.163-.462.217-.952.19-1.415-.054-.952-.598-1.333-1.714-1.252a6.312 6.312 0 0 0-3.51 1.47 12.19 12.19 0 0 0-3.021 3.837c-.898 1.632-1.687 3.32-2.421 5.034a42.75 42.75 0 0 0-1.878 5.823c-.544 2.204-1.007 4.054-1.306 5.496a144.944 144.944 0 0 0-.925 4.708c-.218 1.143-.463 2.557-.517 2.775l-.055.218-7.483.49-.027-.272c-.054-.654.49-2.966 1.578-7.02l-.653 1.142a29.066 29.066 0 0 1-4.68 6.095c-1.796 1.796-3.537 2.749-5.143 2.857h-.326c-2.64 0-4.136-2.068-4.381-6.15-.055-.816-.082-1.632-.055-2.475a.312.312 0 0 0-.19-.354.312.312 0 0 0-.354.19c-4.109 7.538-7.81 11.347-11.238 11.565-3.02.19-4.653-1.605-4.898-5.36-.272-4.164.87-10.26 3.401-18.096.545-1.932.79-3.265.735-3.973-.082-1.088-.571-1.224-.98-1.224h-.108c-.354.027-1.116.245-2.722 1.252a14.477 14.477 0 0 0-3.646 3.4c-1.17 1.525-2.095 3.239-2.775 5.035-.708 1.905-1.28 3.565-1.687 4.952-.408 1.388-.817 3.102-1.225 5.062-.408 1.959-.762 3.646-1.088 4.898a73.777 73.777 0 0 0-.98 4.353l-.054.218-7.184.462c-.163 0-.3-.108-.3-.272v-.108c1.062-3.674 2.559-9.633 4.463-17.688 1.905-8.054 3.647-14.503 5.061-19.129 1.225-4.027 2.667-8 4.354-11.836a32.438 32.438 0 0 1 5.225-8.273c2.04-2.285 4.326-3.51 6.748-3.673 2.558-.163 3.919 1.116 4.109 3.755.109 1.769-.408 4.136-1.524 7.102-2.04 5.252-5.442 11.374-10.15 18.204a.296.296 0 0 0 0 .408c.11.11.3.11.409 0a16.315 16.315 0 0 1 2.612-1.66c1.36-.707 2.857-1.115 4.408-1.251 2.912-.19 4.463 1.143 4.653 3.945a8.216 8.216 0 0 1-.326 3.048c-.273.898-.572 1.96-.926 3.13-.326 1.17-.598 2.149-.816 2.884-.218.761-.49 1.768-.844 3.047-.353 1.28-.625 2.395-.789 3.266-.49 2.204-.68 3.972-.598 5.251.109 1.633.762 1.633.98 1.633h.081c2.748-.163 5.986-4.953 9.66-14.204.027-.055.027-.082.054-.136a64.454 64.454 0 0 1 3.184-8.925c1.524-3.347 3.374-5.116 5.551-5.252l4.354-.218c.163 0 .299.109.299.272a.31.31 0 0 1-.082.218c-.68.653-1.578 2.395-2.666 5.197-1.143 3.02-1.932 5.089-2.45 6.476-.516 1.443-1.115 3.402-1.74 5.85-.627 2.45-.899 4.409-.79 5.878.136 1.932.87 1.932 1.116 1.932h.081c.381-.027 1.089-.299 2.368-1.47a14.924 14.924 0 0 0 2.53-3.02c.653-1.06 1.36-2.394 2.15-4.027.79-1.632 1.47-3.047 2.04-4.245.627-1.279.872-1.714 1.035-1.877l.354-.653c1.333-5.388 1.959-9.17 1.823-11.266a2.31 2.31 0 0 0-.245-1.034c-.082-.108-.082-.299.054-.38a.387.387 0 0 1 .163-.055l3.02-.19c1.77-.11 2.885 0 3.457.38.571.381.925 1.007.952 1.66a9.83 9.83 0 0 1-.19 1.987c-.028.163.081.3.245.326.081.028.19-.027.244-.081 3.402-3.538 6.939-5.442 10.585-5.66 2.912-.19 4.49 1.197 4.654 4.109.054.925 0 1.85-.191 2.775-.19.925-.653 2.721-1.469 5.497-1.715 5.959-2.531 9.959-2.395 11.918.082 1.388.626 1.551 1.034 1.551h.082c.381-.027 1.088-.3 2.34-1.496a17.296 17.296 0 0 0 2.558-3.075 43.208 43.208 0 0 0 2.177-3.973c.789-1.578 1.442-2.993 2.013-4.19.191-.436.354-.762.49-1.035 0-.027.027-.027.027-.054.789-3.32 1.714-6.068 2.776-8.19 1.224-2.504 2.612-4.164 4.081-4.98 1.47-.816 3.483-1.279 6.068-1.442a.58.58 0 0 1 .626.517v.054c.027.3-.136.626-.462 1.034-1.824 1.987-3.592 5.497-5.307 10.45-1.714 4.952-2.448 9.115-2.258 12.435.109 1.523.49 2.313 1.143 2.313h.054c1.606-.11 3.647-2.096 6.014-5.932a50.108 50.108 0 0 0 5.442-11.674c.163-.544.381-1.306.68-2.34.3-1.034.517-1.714.626-2.095.109-.381.327-.925.599-1.606.19-.544.462-1.034.789-1.496.218-.245.544-.572.925-.98.381-.408.816-.707 1.333-.87a19.15 19.15 0 0 1 3.919-.735l3.02-.19c.136-.055.3.026.354.162.054.137-.027.3-.163.354l-.055.055c-1.36 1.06-2.694 3.591-3.945 7.537-1.034 3.347-1.905 6.449-2.585 9.197a295.694 295.694 0 0 1-1.279 5.034c-.164.599-.517 2.068-1.061 4.3a177.514 177.514 0 0 1-1.062 4.19c-.054.136 0 .3.136.354.082.027.191.027.272-.055a43.638 43.638 0 0 0 8.164-6.313c1.387-1.387 11.918-13.088 12.408-5.66l.054.327ZM66.503 2.708c-1.06.054-2.938 1.687-5.768 8.98-1.96 5.033-3.864 10.775-5.687 17.087-.055.164.054.3.19.354.109.027.245 0 .327-.109 4.898-7.483 8.299-13.714 10.095-18.585 1.115-3.32 1.633-5.523 1.578-6.503-.082-1.197-.544-1.197-.68-1.197l-.055-.027ZM137.17 54c.054-.136-.027-.3-.163-.354a.173.173 0 0 0-.163 0c-1.47.3-2.939.544-4.381.898-2.041.49-5.143.98-6.722 2.694-.027.027-.027.054-.054.082-.272.598-.326 1.55-.272 2.748.054.844.871 1.633 1.578 2.204a3.24 3.24 0 0 0 2.313.68c3.211-.244 5.85-3.238 7.864-8.952ZM88.517 18.98c1.742-.082 3.918-.735 4.435-3.32.245-1.17-.462-2.504-.898-2.885-.435-.38-1.034-.544-1.823-.49-.789.055-1.741.545-2.64 1.389-1.196 1.115-1.142 2.72-.761 3.782.354.898.98 1.496 1.687 1.524Z",
-          fill: "#fff"
-        }
-      )
-    }
-  );
+  var SvgShinyLogo = (props) => /* @__PURE__ */ (0, import_jsx_runtime91.jsx)("svg", {
+    viewBox: "0 0 168 114",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg",
+    "aria-label": "Shiny Logo",
+    ...props,
+    children: /* @__PURE__ */ (0, import_jsx_runtime91.jsx)("path", {
+      opacity: 0.9,
+      d: "M17.524 62.626c-.898-.027-.3 0 0 0Zm-.027 0c-.871-.027-.49 0-.19 0h.462-.272c.272.027.19 0 0 0Zm.244 0c9.497.218 19.43-1.986 22.313-13.279 1.878-7.293-2.802-12.599-6.938-17.932-.028-.027-.055-.054-.055-.109-.163-.68-4.653-4.816-5.904-6.367 0-.027-.028-.027-.055-.055-.599-.435-1.224-2.64-1.524-3.864a3.323 3.323 0 0 1-.027-1.55c1.089-5.552 1.687-9.606 9.061-8.409 5.306.871 2.558 8.653 5.415 9.415h.055c1.714.164 5.06-3.945 5.55-5.333 1.905-5.388-9.088-8.68-12.435-8.463-6.72.408-11.129 4.055-13.823 10.068-4.952 11.075 4.3 18.45 9.905 26.041 4.245 5.742 4.054 10.857-1.143 15.782-5.714 5.415-12.354-2.04-13.116-7.292-.68-4.816-.625-8.163-4.653-2.04-3.728 5.686.11 13.088 7.374 13.387ZM167.266 36.34v.055a13.555 13.555 0 0 1-.762 3.428 27.79 27.79 0 0 1-2.693 5.306c-1.334 2.041-2.041 2.857-3.429 4.653-2.612 3.402-4.626 5.932-7.674 9.17-4.244 4.49-8.979 9.633-14.149 13.306-7.374 5.28-16.68 6.722-25.497 7.538-25.796 2.34-63.755 5.823-71.755 33.741-.054.164-.19.245-.354.191-.081-.027-.136-.055-.163-.136-7.837-13.388-24.68-23.211-40.3-22.748-.162.027-.299-.055-.326-.218-.027-.163.055-.3.218-.327 40.218-19.972 81.306-10.394 124.735-18.15 10.857-1.931 19.972-9.06 26.53-17.632 2.504-3.238 5.715-5.986 7.919-9.442.353-.572 2.176-5.116-.653-3.184-4.381 2.966-8.082 6.64-12.844 8.953a5.605 5.605 0 0 1-.707.299c-.082.027-.137.109-.164.19a27.286 27.286 0 0 1-2.857 6.368 18.325 18.325 0 0 1-5.66 5.632c-2.122 1.415-4.598 2.232-7.129 2.422-.354.027-.68.027-1.034.027-2.014 0-3.32-.163-4.871-.952-1.986-1.034-2.612-2.721-2.748-4.762-.082-1.224.68-2.558 1.306-3.565.626-1.006 1.633-2.122 2.34-2.421l.055-.028c3.537-2.612 9.551-2.802 13.632-3.918.109-.027.191-.109.191-.19l2.041-7.456c.054-.163-.055-.3-.191-.354a.301.301 0 0 0-.299.109 40.263 40.263 0 0 1-3.402 4.326c-1.605 1.688-2.857 2.721-3.809 3.102a11.152 11.152 0 0 1-3.374.708c-1.361.082-2.531-.463-3.429-1.605-.898-1.143-1.388-2.83-1.496-5.062a8.521 8.521 0 0 1 0-1.197.312.312 0 0 0-.191-.354.313.313 0 0 0-.354.19c-.435.844-.87 1.633-1.306 2.34-1.279 2.232-2.884 4.273-4.707 6.096-1.796 1.796-3.538 2.748-5.143 2.857-3.021.19-4.653-1.523-4.871-5.115-.218-3.429 1.143-10.477 4.082-20.98.163-.462.217-.952.19-1.415-.054-.952-.598-1.333-1.714-1.252a6.312 6.312 0 0 0-3.51 1.47 12.19 12.19 0 0 0-3.021 3.837c-.898 1.632-1.687 3.32-2.421 5.034a42.75 42.75 0 0 0-1.878 5.823c-.544 2.204-1.007 4.054-1.306 5.496a144.944 144.944 0 0 0-.925 4.708c-.218 1.143-.463 2.557-.517 2.775l-.055.218-7.483.49-.027-.272c-.054-.654.49-2.966 1.578-7.02l-.653 1.142a29.066 29.066 0 0 1-4.68 6.095c-1.796 1.796-3.537 2.749-5.143 2.857h-.326c-2.64 0-4.136-2.068-4.381-6.15-.055-.816-.082-1.632-.055-2.475a.312.312 0 0 0-.19-.354.312.312 0 0 0-.354.19c-4.109 7.538-7.81 11.347-11.238 11.565-3.02.19-4.653-1.605-4.898-5.36-.272-4.164.87-10.26 3.401-18.096.545-1.932.79-3.265.735-3.973-.082-1.088-.571-1.224-.98-1.224h-.108c-.354.027-1.116.245-2.722 1.252a14.477 14.477 0 0 0-3.646 3.4c-1.17 1.525-2.095 3.239-2.775 5.035-.708 1.905-1.28 3.565-1.687 4.952-.408 1.388-.817 3.102-1.225 5.062-.408 1.959-.762 3.646-1.088 4.898a73.777 73.777 0 0 0-.98 4.353l-.054.218-7.184.462c-.163 0-.3-.108-.3-.272v-.108c1.062-3.674 2.559-9.633 4.463-17.688 1.905-8.054 3.647-14.503 5.061-19.129 1.225-4.027 2.667-8 4.354-11.836a32.438 32.438 0 0 1 5.225-8.273c2.04-2.285 4.326-3.51 6.748-3.673 2.558-.163 3.919 1.116 4.109 3.755.109 1.769-.408 4.136-1.524 7.102-2.04 5.252-5.442 11.374-10.15 18.204a.296.296 0 0 0 0 .408c.11.11.3.11.409 0a16.315 16.315 0 0 1 2.612-1.66c1.36-.707 2.857-1.115 4.408-1.251 2.912-.19 4.463 1.143 4.653 3.945a8.216 8.216 0 0 1-.326 3.048c-.273.898-.572 1.96-.926 3.13-.326 1.17-.598 2.149-.816 2.884-.218.761-.49 1.768-.844 3.047-.353 1.28-.625 2.395-.789 3.266-.49 2.204-.68 3.972-.598 5.251.109 1.633.762 1.633.98 1.633h.081c2.748-.163 5.986-4.953 9.66-14.204.027-.055.027-.082.054-.136a64.454 64.454 0 0 1 3.184-8.925c1.524-3.347 3.374-5.116 5.551-5.252l4.354-.218c.163 0 .299.109.299.272a.31.31 0 0 1-.082.218c-.68.653-1.578 2.395-2.666 5.197-1.143 3.02-1.932 5.089-2.45 6.476-.516 1.443-1.115 3.402-1.74 5.85-.627 2.45-.899 4.409-.79 5.878.136 1.932.87 1.932 1.116 1.932h.081c.381-.027 1.089-.299 2.368-1.47a14.924 14.924 0 0 0 2.53-3.02c.653-1.06 1.36-2.394 2.15-4.027.79-1.632 1.47-3.047 2.04-4.245.627-1.279.872-1.714 1.035-1.877l.354-.653c1.333-5.388 1.959-9.17 1.823-11.266a2.31 2.31 0 0 0-.245-1.034c-.082-.108-.082-.299.054-.38a.387.387 0 0 1 .163-.055l3.02-.19c1.77-.11 2.885 0 3.457.38.571.381.925 1.007.952 1.66a9.83 9.83 0 0 1-.19 1.987c-.028.163.081.3.245.326.081.028.19-.027.244-.081 3.402-3.538 6.939-5.442 10.585-5.66 2.912-.19 4.49 1.197 4.654 4.109.054.925 0 1.85-.191 2.775-.19.925-.653 2.721-1.469 5.497-1.715 5.959-2.531 9.959-2.395 11.918.082 1.388.626 1.551 1.034 1.551h.082c.381-.027 1.088-.3 2.34-1.496a17.296 17.296 0 0 0 2.558-3.075 43.208 43.208 0 0 0 2.177-3.973c.789-1.578 1.442-2.993 2.013-4.19.191-.436.354-.762.49-1.035 0-.027.027-.027.027-.054.789-3.32 1.714-6.068 2.776-8.19 1.224-2.504 2.612-4.164 4.081-4.98 1.47-.816 3.483-1.279 6.068-1.442a.58.58 0 0 1 .626.517v.054c.027.3-.136.626-.462 1.034-1.824 1.987-3.592 5.497-5.307 10.45-1.714 4.952-2.448 9.115-2.258 12.435.109 1.523.49 2.313 1.143 2.313h.054c1.606-.11 3.647-2.096 6.014-5.932a50.108 50.108 0 0 0 5.442-11.674c.163-.544.381-1.306.68-2.34.3-1.034.517-1.714.626-2.095.109-.381.327-.925.599-1.606.19-.544.462-1.034.789-1.496.218-.245.544-.572.925-.98.381-.408.816-.707 1.333-.87a19.15 19.15 0 0 1 3.919-.735l3.02-.19c.136-.055.3.026.354.162.054.137-.027.3-.163.354l-.055.055c-1.36 1.06-2.694 3.591-3.945 7.537-1.034 3.347-1.905 6.449-2.585 9.197a295.694 295.694 0 0 1-1.279 5.034c-.164.599-.517 2.068-1.061 4.3a177.514 177.514 0 0 1-1.062 4.19c-.054.136 0 .3.136.354.082.027.191.027.272-.055a43.638 43.638 0 0 0 8.164-6.313c1.387-1.387 11.918-13.088 12.408-5.66l.054.327ZM66.503 2.708c-1.06.054-2.938 1.687-5.768 8.98-1.96 5.033-3.864 10.775-5.687 17.087-.055.164.054.3.19.354.109.027.245 0 .327-.109 4.898-7.483 8.299-13.714 10.095-18.585 1.115-3.32 1.633-5.523 1.578-6.503-.082-1.197-.544-1.197-.68-1.197l-.055-.027ZM137.17 54c.054-.136-.027-.3-.163-.354a.173.173 0 0 0-.163 0c-1.47.3-2.939.544-4.381.898-2.041.49-5.143.98-6.722 2.694-.027.027-.027.054-.054.082-.272.598-.326 1.55-.272 2.748.054.844.871 1.633 1.578 2.204a3.24 3.24 0 0 0 2.313.68c3.211-.244 5.85-3.238 7.864-8.952ZM88.517 18.98c1.742-.082 3.918-.735 4.435-3.32.245-1.17-.462-2.504-.898-2.885-.435-.38-1.034-.544-1.823-.49-.789.055-1.741.545-2.64 1.389-1.196 1.115-1.142 2.72-.761 3.782.354.898.98 1.496 1.687 1.524Z",
+      fill: "#fff"
+    })
+  });
   var ShinyLogo_default = SvgShinyLogo;
 
   // src/components/TemplatePreviews/filterTemplates.ts
@@ -57223,20 +57446,23 @@ server <- function(input, output) {
   }) {
     const height_px = FULL_HEIGHT_PX * (width_px / FULL_WIDTH_PX);
     const shrink_ratio = width_px / FULL_WIDTH_PX;
-    return /* @__PURE__ */ (0, import_jsx_runtime92.jsx)(
-      "div",
-      {
-        className: "AppTemplatePreview",
-        style: {
-          width: `${width_px}px`,
-          height: `${height_px}px`,
-          "--full-w": `${FULL_WIDTH_PX}px`,
-          "--full-h": `${FULL_HEIGHT_PX}px`,
-          "--shrink-ratio": shrink_ratio
-        },
-        children: /* @__PURE__ */ (0, import_jsx_runtime92.jsx)("div", { className: "template-container", children: /* @__PURE__ */ (0, import_jsx_runtime92.jsx)(UiNode_default, { path: [], node: uiTree }) })
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime92.jsx)("div", {
+      className: "AppTemplatePreview",
+      style: {
+        width: `${width_px}px`,
+        height: `${height_px}px`,
+        "--full-w": `${FULL_WIDTH_PX}px`,
+        "--full-h": `${FULL_HEIGHT_PX}px`,
+        "--shrink-ratio": shrink_ratio
+      },
+      children: /* @__PURE__ */ (0, import_jsx_runtime92.jsx)("div", {
+        className: "template-container",
+        children: /* @__PURE__ */ (0, import_jsx_runtime92.jsx)(UiNode_default, {
+          path: [],
+          node: uiTree
+        })
+      })
+    });
   }
 
   // src/components/TemplatePreviews/TemplatePreviewCard.tsx
@@ -57261,39 +57487,40 @@ server <- function(input, output) {
     const layoutType = getLayoutType(uiTree);
     const layoutIcon = layoutIcons[layoutType];
     const preview_view_w_px = width_px - 2 * PADDING_PX;
-    return /* @__PURE__ */ (0, import_jsx_runtime93.jsx)(
-      PopoverEl,
-      {
-        placement: "bottom",
-        popoverContent: description,
-        openDelayMs: 400,
-        triggerEl: /* @__PURE__ */ (0, import_jsx_runtime93.jsxs)(
-          "article",
-          {
-            className: "AppTemplateCard",
-            "aria-label": "App template preview card",
-            onClick: onSelect,
-            style: inlineVariableStyles,
-            "data-selected": selected,
+    return /* @__PURE__ */ (0, import_jsx_runtime93.jsx)(PopoverEl, {
+      placement: "bottom",
+      popoverContent: description,
+      openDelayMs: 400,
+      triggerEl: /* @__PURE__ */ (0, import_jsx_runtime93.jsxs)("article", {
+        className: "AppTemplateCard",
+        "aria-label": "App template preview card",
+        onClick: onSelect,
+        style: inlineVariableStyles,
+        "data-selected": selected,
+        children: [
+          /* @__PURE__ */ (0, import_jsx_runtime93.jsx)("div", {
+            className: "preview-container",
+            children: /* @__PURE__ */ (0, import_jsx_runtime93.jsx)(AppTemplatePreview, {
+              uiTree,
+              width_px: preview_view_w_px
+            })
+          }),
+          /* @__PURE__ */ (0, import_jsx_runtime93.jsxs)("footer", {
             children: [
-              /* @__PURE__ */ (0, import_jsx_runtime93.jsx)("div", { className: "preview-container", children: /* @__PURE__ */ (0, import_jsx_runtime93.jsx)(AppTemplatePreview, { uiTree, width_px: preview_view_w_px }) }),
-              /* @__PURE__ */ (0, import_jsx_runtime93.jsxs)("footer", { children: [
-                /* @__PURE__ */ (0, import_jsx_runtime93.jsx)("span", { children: title }),
-                /* @__PURE__ */ (0, import_jsx_runtime93.jsx)(
-                  "img",
-                  {
-                    src: layoutIcon,
-                    alt: `${layoutType} layout icon`,
-                    title: `${layoutType} layout app`,
-                    className: "layout-icon"
-                  }
-                )
-              ] })
+              /* @__PURE__ */ (0, import_jsx_runtime93.jsx)("span", {
+                children: title
+              }),
+              /* @__PURE__ */ (0, import_jsx_runtime93.jsx)("img", {
+                src: layoutIcon,
+                alt: `${layoutType} layout icon`,
+                title: `${layoutType} layout app`,
+                className: "layout-icon"
+              })
             ]
-          }
-        )
-      }
-    );
+          })
+        ]
+      })
+    });
   }
 
   // src/components/TemplatePreviews/useRequestTemplate.ts
@@ -57387,26 +57614,34 @@ server <- function(input, output) {
     selectedOutput,
     setSelectedOutput
   }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime94.jsxs)("form", { className: "App_TypeForm", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime94.jsx)("legend", { children: "Generate app in:" }),
-      outputTypes.map((outputType) => {
-        const outputLabel = outputTypeLabel[outputType];
-        return /* @__PURE__ */ (0, import_jsx_runtime94.jsxs)("div", { className: "labeled-form-option", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime94.jsx)(
-            "input",
-            {
-              type: "radio",
-              id: `${outputType}-choice`,
-              name: outputLabel,
-              value: outputType,
-              checked: outputType === selectedOutput,
-              onChange: (e2) => setSelectedOutput(outputType)
-            }
-          ),
-          /* @__PURE__ */ (0, import_jsx_runtime94.jsx)("label", { htmlFor: `${outputType}-choice`, children: outputLabel })
-        ] }, outputType);
-      })
-    ] });
+    return /* @__PURE__ */ (0, import_jsx_runtime94.jsxs)("form", {
+      className: "App_TypeForm",
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime94.jsx)("legend", {
+          children: "Generate app in:"
+        }),
+        outputTypes.map((outputType) => {
+          const outputLabel = outputTypeLabel[outputType];
+          return /* @__PURE__ */ (0, import_jsx_runtime94.jsxs)("div", {
+            className: "labeled-form-option",
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime94.jsx)("input", {
+                type: "radio",
+                id: `${outputType}-choice`,
+                name: outputLabel,
+                value: outputType,
+                checked: outputType === selectedOutput,
+                onChange: (e2) => setSelectedOutput(outputType)
+              }),
+              /* @__PURE__ */ (0, import_jsx_runtime94.jsx)("label", {
+                htmlFor: `${outputType}-choice`,
+                children: outputLabel
+              })
+            ]
+          }, outputType);
+        })
+      ]
+    });
   }
 
   // src/components/TemplatePreviews/TemplateFiltersForm.tsx
@@ -57420,41 +57655,49 @@ server <- function(input, output) {
     setFilterState
   }) {
     const { layoutTypes } = filterState;
-    return /* @__PURE__ */ (0, import_jsx_runtime95.jsx)(
-      "form",
-      {
-        className: "TemplateFiltersForm",
-        onSubmit: (e2) => {
-          e2.preventDefault();
-        },
-        children: /* @__PURE__ */ (0, import_jsx_runtime95.jsxs)("fieldset", { "aria-label": "App layout type filters", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime95.jsx)("legend", { children: "Show templates based on selected layouts:" }),
-          /* @__PURE__ */ (0, import_jsx_runtime95.jsx)("div", { className: "layout-options", children: allLayoutTypes.map((layout) => {
-            const displayName = layoutLabels[layout];
-            const isSelected = layoutTypes.includes(layout);
-            return /* @__PURE__ */ (0, import_jsx_runtime95.jsxs)("div", { className: "labeled-form-option", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime95.jsx)(
-                "input",
-                {
-                  type: "checkbox",
-                  id: `${layout}-choice`,
-                  name: displayName,
-                  value: layout,
-                  checked: isSelected,
-                  onChange: () => {
-                    setFilterState({
-                      ...filterState,
-                      layoutTypes: isSelected ? layoutTypes.filter((l2) => l2 !== layout) : [...layoutTypes, layout]
-                    });
-                  }
-                }
-              ),
-              /* @__PURE__ */ (0, import_jsx_runtime95.jsx)("label", { htmlFor: `${layout}-choice`, children: displayName })
-            ] }, layout);
-          }) })
-        ] })
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime95.jsx)("form", {
+      className: "TemplateFiltersForm",
+      onSubmit: (e2) => {
+        e2.preventDefault();
+      },
+      children: /* @__PURE__ */ (0, import_jsx_runtime95.jsxs)("fieldset", {
+        "aria-label": "App layout type filters",
+        children: [
+          /* @__PURE__ */ (0, import_jsx_runtime95.jsx)("legend", {
+            children: "Show templates based on selected layouts:"
+          }),
+          /* @__PURE__ */ (0, import_jsx_runtime95.jsx)("div", {
+            className: "layout-options",
+            children: allLayoutTypes.map((layout) => {
+              const displayName = layoutLabels[layout];
+              const isSelected = layoutTypes.includes(layout);
+              return /* @__PURE__ */ (0, import_jsx_runtime95.jsxs)("div", {
+                className: "labeled-form-option",
+                children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime95.jsx)("input", {
+                    type: "checkbox",
+                    id: `${layout}-choice`,
+                    name: displayName,
+                    value: layout,
+                    checked: isSelected,
+                    onChange: () => {
+                      setFilterState({
+                        ...filterState,
+                        layoutTypes: isSelected ? layoutTypes.filter((l2) => l2 !== layout) : [...layoutTypes, layout]
+                      });
+                    }
+                  }),
+                  /* @__PURE__ */ (0, import_jsx_runtime95.jsx)("label", {
+                    htmlFor: `${layout}-choice`,
+                    children: displayName
+                  })
+                ]
+              }, layout);
+            })
+          })
+        ]
+      })
+    });
   }
 
   // src/components/TemplatePreviews/TemplatePreviewGrid.tsx
@@ -57469,20 +57712,23 @@ server <- function(input, output) {
     templates = app_templates
   }) {
     if (templates.length === 0) {
-      return /* @__PURE__ */ (0, import_jsx_runtime96.jsx)("div", { className: "TemplatePreviewGrid empty-results", children: "No app templates fit current filters. Try broadening your search." });
+      return /* @__PURE__ */ (0, import_jsx_runtime96.jsx)("div", {
+        className: "TemplatePreviewGrid empty-results",
+        children: "No app templates fit current filters. Try broadening your search."
+      });
     }
-    return /* @__PURE__ */ (0, import_jsx_runtime96.jsx)("div", { className: "TemplatePreviewGrid", style: inlineVariableStyles2, children: templates.map((template) => /* @__PURE__ */ (0, import_jsx_runtime96.jsx)(
-      TemplatePreviewCard,
-      {
+    return /* @__PURE__ */ (0, import_jsx_runtime96.jsx)("div", {
+      className: "TemplatePreviewGrid",
+      style: inlineVariableStyles2,
+      children: templates.map((template) => /* @__PURE__ */ (0, import_jsx_runtime96.jsx)(TemplatePreviewCard, {
         info: template,
         selected: template.title === selectedTemplate,
         onSelect: () => {
           setSelectedTemplate(template.title);
         },
         width_px: PREVIEW_WIDTH_PX
-      },
-      template.title
-    )) });
+      }, template.title))
+    });
   }
 
   // src/components/TemplatePreviews/TemplateChooserView.tsx
@@ -57500,53 +57746,48 @@ server <- function(input, output) {
     } = useFilteredTemplates(opts);
     const canProceed = selectedTemplate !== null;
     const buttonMsg = canProceed ? "Next" : "Select a template";
-    return /* @__PURE__ */ (0, import_jsx_runtime97.jsx)(
-      EditorSkeleton,
-      {
-        main: /* @__PURE__ */ (0, import_jsx_runtime97.jsx)(
-          TemplatePreviewGrid,
-          {
-            templates: shownTemplates,
-            selectedTemplate,
-            setSelectedTemplate
-          }
-        ),
-        left: /* @__PURE__ */ (0, import_jsx_runtime97.jsxs)(import_jsx_runtime97.Fragment, { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime97.jsx)(PanelHeader, { children: "Choose App Template" }),
-          /* @__PURE__ */ (0, import_jsx_runtime97.jsxs)("div", { className: "TemplateChooserSidebar", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime97.jsx)("section", { className: "instructions", children: "Hover over a template to see a description and what elements are used. Select the desired template and click next to edit." }),
-            /* @__PURE__ */ (0, import_jsx_runtime97.jsx)(
-              TemplateFiltersForm,
-              {
+    return /* @__PURE__ */ (0, import_jsx_runtime97.jsx)(EditorSkeleton, {
+      main: /* @__PURE__ */ (0, import_jsx_runtime97.jsx)(TemplatePreviewGrid, {
+        templates: shownTemplates,
+        selectedTemplate,
+        setSelectedTemplate
+      }),
+      left: /* @__PURE__ */ (0, import_jsx_runtime97.jsxs)(import_jsx_runtime97.Fragment, {
+        children: [
+          /* @__PURE__ */ (0, import_jsx_runtime97.jsx)(PanelHeader, {
+            children: "Choose App Template"
+          }),
+          /* @__PURE__ */ (0, import_jsx_runtime97.jsxs)("div", {
+            className: "TemplateChooserSidebar",
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime97.jsx)("section", {
+                className: "instructions",
+                children: "Hover over a template to see a description and what elements are used. Select the desired template and click next to edit."
+              }),
+              /* @__PURE__ */ (0, import_jsx_runtime97.jsx)(TemplateFiltersForm, {
                 filterState,
                 setFilterState
-              }
-            ),
-            opts.outputChoices === "USER-CHOICE" ? /* @__PURE__ */ (0, import_jsx_runtime97.jsx)(
-              OutputTypeForm,
-              {
+              }),
+              opts.outputChoices === "USER-CHOICE" ? /* @__PURE__ */ (0, import_jsx_runtime97.jsx)(OutputTypeForm, {
                 selectedOutput,
                 setSelectedOutput
-              }
-            ) : null,
-            /* @__PURE__ */ (0, import_jsx_runtime97.jsx)(
-              Button_default,
-              {
+              }) : null,
+              /* @__PURE__ */ (0, import_jsx_runtime97.jsx)(Button_default, {
                 disabled: !canProceed,
                 onClick: finishSelection,
                 "aria-label": canProceed ? "Start editor with selected template" : "Need to select a template to proceed",
                 "data-balloon-pos": "right",
                 children: buttonMsg
-              }
-            )
-          ] })
-        ] })
-      }
-    );
+              })
+            ]
+          })
+        ]
+      })
+    });
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-03VgA8Vb3w5D/editor/src/components/UndoRedoButtons/UndoRedoButtons.module.css.js
-  var digest45 = "722aba6b1813ff93a3a0ae53e94460858c990f73278077c190cd8f3b192de8f7";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-62sxaUPuGCzE/editor/src/components/UndoRedoButtons/UndoRedoButtons.module.css.js
+  var digest45 = "c03f27e6feab15a25606364c109780e298ada879ff1a2c1634497d926c872d84";
   var css45 = `._container_1d7pe_1 {
   display: flex;
   position: relative;
@@ -57589,30 +57830,31 @@ server <- function(input, output) {
     goForward,
     canGoForward
   }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime98.jsxs)("div", { className: mergeClasses(UndoRedoButtons_module_css_default.container, "undo-redo-buttons"), children: [
-      /* @__PURE__ */ (0, import_jsx_runtime98.jsx)(
-        Button_default,
-        {
+    return /* @__PURE__ */ (0, import_jsx_runtime98.jsxs)("div", {
+      className: mergeClasses(UndoRedoButtons_module_css_default.container, "undo-redo-buttons"),
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime98.jsx)(Button_default, {
           variant: ["transparent", "icon"],
           disabled: !canGoBackward,
           "aria-label": "Undo last change",
           title: "Undo last change",
           onClick: goBackward,
-          children: /* @__PURE__ */ (0, import_jsx_runtime98.jsx)(Undo_default, { height: "100%" })
-        }
-      ),
-      /* @__PURE__ */ (0, import_jsx_runtime98.jsx)(
-        Button_default,
-        {
+          children: /* @__PURE__ */ (0, import_jsx_runtime98.jsx)(Undo_default, {
+            height: "100%"
+          })
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime98.jsx)(Button_default, {
           variant: ["transparent", "icon"],
           disabled: !canGoForward,
           "aria-label": "Redo last change",
           title: "Redo last change",
           onClick: goForward,
-          children: /* @__PURE__ */ (0, import_jsx_runtime98.jsx)(Redo_default, { height: "100%" })
-        }
-      )
-    ] });
+          children: /* @__PURE__ */ (0, import_jsx_runtime98.jsx)(Redo_default, {
+            height: "100%"
+          })
+        })
+      ]
+    });
   }
 
   // src/EditorSkeleton/LostConnectionPopup.tsx
@@ -57623,16 +57865,23 @@ server <- function(input, output) {
     );
     if (connectedToServer)
       return null;
-    return /* @__PURE__ */ (0, import_jsx_runtime99.jsx)(PortalModal_default, { onConfirm: () => {
-    }, onCancel: () => {
-    }, children: /* @__PURE__ */ (0, import_jsx_runtime99.jsx)("p", { style: { color: "var(--red, pink)", textAlign: "center" }, children: "Lost connection to backend. Check console where editor was launched for details." }) });
+    return /* @__PURE__ */ (0, import_jsx_runtime99.jsx)(PortalModal_default, {
+      onConfirm: () => {
+      },
+      onCancel: () => {
+      },
+      children: /* @__PURE__ */ (0, import_jsx_runtime99.jsx)("p", {
+        style: { color: "var(--red, pink)", textAlign: "center" },
+        children: "Lost connection to backend. Check console where editor was launched for details."
+      })
+    });
   }
 
   // src/ElementsPalette/index.tsx
   var React66 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-jMxcgX0t5uZq/editor/src/ElementsPalette/styles.module.css.js
-  var digest46 = "4b1c1624af22165df7d23a1234b764d583e197300d019be3c0f964913d48adeb";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-CtqbsrrnOvvv/editor/src/ElementsPalette/styles.module.css.js
+  var digest46 = "4fbf0eb6f8ea0e2a8c167c56478c0b91f6de50c54867b7a72d33157d8d84056e";
   var css46 = `._elementsPalette_qmlez_1 {
   --icon-size: 75px;
   --padding: 8px;
@@ -57703,8 +57952,8 @@ server <- function(input, output) {
   })();
   var styles_module_css_default24 = { "elementsPalette": "_elementsPalette_qmlez_1", "OptionContainer": "_OptionContainer_qmlez_18", "optionContainer": "_OptionContainer_qmlez_18", "OptionItem": "_OptionItem_qmlez_24", "optionItem": "_OptionItem_qmlez_24", "OptionIcon": "_OptionIcon_qmlez_33", "optionIcon": "_OptionIcon_qmlez_33", "OptionLabel": "_OptionLabel_qmlez_41", "optionLabel": "_OptionLabel_qmlez_41" };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-dCKwMk4H3pyG/editor/src/ElementsPalette/styles.module.css.js
-  var digest47 = "8df5deca884495552487ef3e8ecd0a73a63f7747e79914b3a249902b8b584bd7";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-cPNCVaJomPpx/editor/src/ElementsPalette/styles.module.css.js
+  var digest47 = "d91e9768b76b8c132bd1bf3887d23f809d27080a833a7f5816d0582697786592";
   var css47 = `._elementsPalette_qmlez_1 {
   --icon-size: 75px;
   --padding: 8px;
@@ -57792,26 +58041,30 @@ server <- function(input, output) {
     if (iconSrc === void 0) {
       return null;
     }
-    return /* @__PURE__ */ (0, import_jsx_runtime100.jsx)(
-      PopoverEl,
-      {
-        popoverContent: infoPopup,
-        contentIsMd: true,
-        openDelayMs: 500,
-        triggerEl: /* @__PURE__ */ (0, import_jsx_runtime100.jsx)("div", { className: styles_module_css_default25.OptionContainer, children: /* @__PURE__ */ (0, import_jsx_runtime100.jsxs)(
-          "div",
-          {
-            className: styles_module_css_default25.OptionItem,
-            "data-ui-name": uiName,
-            ...dragProps,
-            children: [
-              /* @__PURE__ */ (0, import_jsx_runtime100.jsx)("img", { src: iconSrc, alt: title, className: styles_module_css_default25.OptionIcon }),
-              /* @__PURE__ */ (0, import_jsx_runtime100.jsx)("label", { className: styles_module_css_default25.OptionLabel, children: title })
-            ]
-          }
-        ) })
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime100.jsx)(PopoverEl, {
+      popoverContent: infoPopup,
+      contentIsMd: true,
+      openDelayMs: 500,
+      triggerEl: /* @__PURE__ */ (0, import_jsx_runtime100.jsx)("div", {
+        className: styles_module_css_default25.OptionContainer,
+        children: /* @__PURE__ */ (0, import_jsx_runtime100.jsxs)("div", {
+          className: styles_module_css_default25.OptionItem,
+          "data-ui-name": uiName,
+          ...dragProps,
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime100.jsx)("img", {
+              src: iconSrc,
+              alt: title,
+              className: styles_module_css_default25.OptionIcon
+            }),
+            /* @__PURE__ */ (0, import_jsx_runtime100.jsx)("label", {
+              className: styles_module_css_default25.OptionLabel,
+              children: title
+            })
+          ]
+        })
+      })
+    });
   }
 
   // src/ElementsPalette/index.tsx
@@ -57842,10 +58095,19 @@ server <- function(input, output) {
       () => Object.keys(availableUi).sort(sortByCategory),
       [availableUi]
     );
-    return /* @__PURE__ */ (0, import_jsx_runtime101.jsxs)(import_jsx_runtime101.Fragment, { children: [
-      /* @__PURE__ */ (0, import_jsx_runtime101.jsx)(PanelHeader, { children: "Elements" }),
-      /* @__PURE__ */ (0, import_jsx_runtime101.jsx)("div", { className: styles_module_css_default24.elementsPalette, children: ui_node_names.map((uiName) => /* @__PURE__ */ (0, import_jsx_runtime101.jsx)(UiElementIcon, { uiName }, uiName)) })
-    ] });
+    return /* @__PURE__ */ (0, import_jsx_runtime101.jsxs)(import_jsx_runtime101.Fragment, {
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime101.jsx)(PanelHeader, {
+          children: "Elements"
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime101.jsx)("div", {
+          className: styles_module_css_default24.elementsPalette,
+          children: ui_node_names.map((uiName) => /* @__PURE__ */ (0, import_jsx_runtime101.jsx)(UiElementIcon, {
+            uiName
+          }, uiName))
+        })
+      ]
+    });
   }
 
   // src/components/Inputs/SettingsFormBuilder/removeOmittedFields.tsx
@@ -57878,47 +58140,46 @@ server <- function(input, output) {
     );
     if (unknownArguments.length === 0)
       return null;
-    return /* @__PURE__ */ (0, import_jsx_runtime102.jsxs)("section", { className: "unknown-arguments-list", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime102.jsx)("div", { className: "divider-line", children: /* @__PURE__ */ (0, import_jsx_runtime102.jsx)("label", { children: /* @__PURE__ */ (0, import_jsx_runtime102.jsx)(
-        Tooltip,
-        {
-          text: "Arguments present in UI code but not known about or editable by the shinyuieditor",
-          position: "left",
-          size: "fit",
-          children: "Unknown arguments"
-        }
-      ) }) }),
-      /* @__PURE__ */ (0, import_jsx_runtime102.jsx)("ul", { className: "unknown-form-fields", "aria-label": "Unknown arguments list", children: unknownArguments.map((argName) => /* @__PURE__ */ (0, import_jsx_runtime102.jsxs)(
-        "li",
-        {
-          className: "unknown-argument",
-          "aria-label": "Unknown argument",
-          style: { cursor: "default" },
-          children: [
-            /* @__PURE__ */ (0, import_jsx_runtime102.jsx)(
-              "code",
-              {
+    return /* @__PURE__ */ (0, import_jsx_runtime102.jsxs)("section", {
+      className: "unknown-arguments-list",
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime102.jsx)("div", {
+          className: "divider-line",
+          children: /* @__PURE__ */ (0, import_jsx_runtime102.jsx)("label", {
+            children: /* @__PURE__ */ (0, import_jsx_runtime102.jsx)(Tooltip, {
+              text: "Arguments present in UI code but not known about or editable by the shinyuieditor",
+              position: "left",
+              size: "fit",
+              children: "Unknown arguments"
+            })
+          })
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime102.jsx)("ul", {
+          className: "unknown-form-fields",
+          "aria-label": "Unknown arguments list",
+          children: unknownArguments.map((argName) => /* @__PURE__ */ (0, import_jsx_runtime102.jsxs)("li", {
+            className: "unknown-argument",
+            "aria-label": "Unknown argument",
+            style: { cursor: "default" },
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime102.jsx)("code", {
                 "aria-label": printValueOfUnknownArg(settings[argName]),
                 "data-balloon-pos": "left",
                 style: { cursor: "inherit" },
                 children: argName
-              }
-            ),
-            /* @__PURE__ */ (0, import_jsx_runtime102.jsx)(
-              TooltipButton,
-              {
+              }),
+              /* @__PURE__ */ (0, import_jsx_runtime102.jsx)(TooltipButton, {
                 text: `Remove ${argName} argument`,
                 onClick: () => onSettingsChange(argName, { type: "REMOVE" }),
                 type: "button",
                 position: "left",
                 children: /* @__PURE__ */ (0, import_jsx_runtime102.jsx)(Trash_default, {})
-              }
-            )
-          ]
-        },
-        argName
-      )) })
-    ] });
+              })
+            ]
+          }, argName))
+        })
+      ]
+    });
   }
   function isUnknownUiFunction(x2) {
     if (!isShinyUiNode(x2))
@@ -57944,7 +58205,9 @@ server <- function(input, output) {
       settings,
       settingsInfo,
       onSettingsChange,
-      renderInputs = ({ inputs }) => /* @__PURE__ */ (0, import_jsx_runtime103.jsx)(import_jsx_runtime103.Fragment, { children: Object.values(inputs) })
+      renderInputs = ({ inputs }) => /* @__PURE__ */ (0, import_jsx_runtime103.jsx)(import_jsx_runtime103.Fragment, {
+        children: Object.values(inputs)
+      })
     } = args;
     const { nonOmittedFormInfo } = removeOmittedFields(settingsInfo);
     const PrebuiltInputComponents = {
@@ -57955,10 +58218,16 @@ server <- function(input, output) {
       }),
       settings
     };
-    return /* @__PURE__ */ (0, import_jsx_runtime103.jsxs)("form", { className: "FormBuilder", onSubmit: disableDefaultSubmit, children: [
-      renderInputs(PrebuiltInputComponents),
-      /* @__PURE__ */ (0, import_jsx_runtime103.jsx)(UnknownArgumentsRender, { ...args })
-    ] });
+    return /* @__PURE__ */ (0, import_jsx_runtime103.jsxs)("form", {
+      className: "FormBuilder",
+      onSubmit: disableDefaultSubmit,
+      children: [
+        renderInputs(PrebuiltInputComponents),
+        /* @__PURE__ */ (0, import_jsx_runtime103.jsx)(UnknownArgumentsRender, {
+          ...args
+        })
+      ]
+    });
   }
   var disableDefaultSubmit = (e2) => {
     e2.preventDefault();
@@ -57978,7 +58247,9 @@ server <- function(input, output) {
         value: currentValue,
         onUpdate: (updatedAction) => onSettingsChange(name, updatedAction)
       };
-      InputsComponents[name] = /* @__PURE__ */ (0, import_jsx_runtime103.jsx)(SettingsInput, { ...inputProps }, name);
+      InputsComponents[name] = /* @__PURE__ */ (0, import_jsx_runtime103.jsx)(SettingsInput, {
+        ...inputProps
+      }, name);
     });
     return InputsComponents;
   }
@@ -57990,24 +58261,20 @@ server <- function(input, output) {
     if (mode !== "VSCODE" || !node2)
       return null;
     const { serverBindings } = shinyUiNodeInfo[node2.uiName];
-    return /* @__PURE__ */ (0, import_jsx_runtime104.jsxs)("div", { children: [
-      /* @__PURE__ */ (0, import_jsx_runtime104.jsx)(
-        GoToOutputsBtn,
-        {
+    return /* @__PURE__ */ (0, import_jsx_runtime104.jsxs)("div", {
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime104.jsx)(GoToOutputsBtn, {
           serverOutputInfo: serverBindings?.outputs,
           node: node2,
           sendMsg
-        }
-      ),
-      /* @__PURE__ */ (0, import_jsx_runtime104.jsx)(
-        GoToInputsBtn,
-        {
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime104.jsx)(GoToInputsBtn, {
           serverInputInfo: serverBindings?.inputs,
           node: node2,
           sendMsg
-        }
-      )
-    ] });
+        })
+      ]
+    });
   }
   function GoToOutputsBtn({
     serverOutputInfo,
@@ -58025,32 +58292,29 @@ server <- function(input, output) {
     if (typeof outputId !== "string")
       return null;
     const existing_output_locations = current_output_positions[outputId];
-    return /* @__PURE__ */ (0, import_jsx_runtime104.jsx)(
-      TooltipButton,
-      {
-        text: existing_output_locations ? "Show output declaration in app script" : "Create output binding in app server",
-        position: "left",
-        variant: "regular",
-        onClick: () => {
-          if (existing_output_locations) {
-            sendMsg({
-              path: "SHOW-APP-LINES",
-              payload: existing_output_locations
-            });
-          } else {
-            sendMsg({
-              path: "INSERT-SNIPPET",
-              payload: {
-                snippet: `
+    return /* @__PURE__ */ (0, import_jsx_runtime104.jsx)(TooltipButton, {
+      text: existing_output_locations ? "Show output declaration in app script" : "Create output binding in app server",
+      position: "left",
+      variant: "regular",
+      onClick: () => {
+        if (existing_output_locations) {
+          sendMsg({
+            path: "SHOW-APP-LINES",
+            payload: existing_output_locations
+          });
+        } else {
+          sendMsg({
+            path: "INSERT-SNIPPET",
+            payload: {
+              snippet: `
 output\\$${outputId} <- ${renderScaffold}`,
-                below_line: current_server_position[2] - 1
-              }
-            });
-          }
-        },
-        children: existing_output_locations ? "Show in server" : "Generate server code"
-      }
-    );
+              below_line: current_server_position[2] - 1
+            }
+          });
+        }
+      },
+      children: existing_output_locations ? "Show in server" : "Generate server code"
+    });
   }
   function GoToInputsBtn({
     serverInputInfo,
@@ -58064,25 +58328,22 @@ output\\$${outputId} <- ${renderScaffold}`,
     const inputId = uiArguments[keyForInputId];
     if (typeof inputId !== "string")
       return null;
-    return /* @__PURE__ */ (0, import_jsx_runtime104.jsx)(
-      TooltipButton,
-      {
-        text: `Find uses of bound input (input$${inputId}) in app script`,
-        position: "left",
-        variant: "regular",
-        onClick: () => {
-          sendMsg({
-            path: "FIND-INPUT-USES",
-            payload: { type: "Input", inputId }
-          });
-        },
-        children: "Find in server"
-      }
-    );
+    return /* @__PURE__ */ (0, import_jsx_runtime104.jsx)(TooltipButton, {
+      text: `Find uses of bound input (input$${inputId}) in app script`,
+      position: "left",
+      variant: "regular",
+      onClick: () => {
+        sendMsg({
+          path: "FIND-INPUT-USES",
+          payload: { type: "Input", inputId }
+        });
+      },
+      children: "Find in server"
+    });
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-OCZ3g9Nctjbi/editor/src/SettingsPanel/PathBreadcrumb.module.css.js
-  var digest48 = "95bd598416c1d4768901f0e78a2df300e0e43fe2f1e224627df8b7f506a15f43";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-4LJgpmELxkB7/editor/src/SettingsPanel/PathBreadcrumb.module.css.js
+  var digest48 = "ebf9a49502ce6d55836f0fb89ecf637424304fc9399616a742e66e979e4b1f89";
   var css48 = `._container_1fh41_1 {
   --flex-gap: 8px;
   padding: var(--vertical-spacing);
@@ -58184,27 +58445,27 @@ output\\$${outputId} <- ${renderScaffold}`,
   }) {
     const pathString = getNamedPath(path3, tree);
     const totalDepth = path3.length;
-    return /* @__PURE__ */ (0, import_jsx_runtime105.jsx)("div", { className: PathBreadcrumb_module_css_default.container, "aria-label": "Path to selected node", children: pathString.map((name, i2) => {
-      const isFinalNode = i2 === totalDepth;
-      const cleanNodeName = removeNamespaceFromUiName(name);
-      return /* @__PURE__ */ (0, import_jsx_runtime105.jsx)(
-        "div",
-        {
+    return /* @__PURE__ */ (0, import_jsx_runtime105.jsx)("div", {
+      className: PathBreadcrumb_module_css_default.container,
+      "aria-label": "Path to selected node",
+      children: pathString.map((name, i2) => {
+        const isFinalNode = i2 === totalDepth;
+        const cleanNodeName = removeNamespaceFromUiName(name);
+        return /* @__PURE__ */ (0, import_jsx_runtime105.jsx)("div", {
           className: PathBreadcrumb_module_css_default.node,
           "aria-label": isFinalNode ? "current selection" : "ancestor of selection",
           onClick: isFinalNode ? void 0 : () => onSelect(path3.slice(0, i2)),
           children: cleanNodeName
-        },
-        name + i2
-      );
-    }) });
+        }, name + i2);
+      })
+    });
   }
   function removeNamespaceFromUiName(uiName) {
     return uiName.replace(/[a-z]+::/, "");
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-e45G7uhBb61t/editor/src/SettingsPanel/SettingsPanel.module.css.js
-  var digest49 = "99365e435b8401dcbde8c8c23f09b84c4781f084b07023ef2428d3ace33350f9";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1981-ChGa2tUG9Cje/editor/src/SettingsPanel/SettingsPanel.module.css.js
+  var digest49 = "757ef8981f122836e5e82c7f14a53357936943abd93bb64bd3f5e686c9d917ed";
   var css49 = `._settingsPanel_a44hx_1 {
   --vertical-gap: var(--vertical-spacing);
   display: flex;
@@ -58370,13 +58631,17 @@ form._settingsForm_a44hx_17 {
       setNodeSelection
     } = useUpdateSettings(tree);
     if (selectedPath === null) {
-      return /* @__PURE__ */ (0, import_jsx_runtime106.jsx)("div", { children: "Select an element to edit properties" });
+      return /* @__PURE__ */ (0, import_jsx_runtime106.jsx)("div", {
+        children: "Select an element to edit properties"
+      });
     }
     if (currentNode === null) {
-      return /* @__PURE__ */ (0, import_jsx_runtime106.jsxs)("div", { children: [
-        "Error finding requested node at path ",
-        selectedPath.join(".")
-      ] });
+      return /* @__PURE__ */ (0, import_jsx_runtime106.jsxs)("div", {
+        children: [
+          "Error finding requested node at path ",
+          selectedPath.join(".")
+        ]
+      });
     }
     const isRootNode = selectedPath.length === 0;
     const { uiName, uiArguments } = currentNode;
@@ -58385,39 +58650,50 @@ form._settingsForm_a44hx_17 {
       nodeInfo.settingsInfo,
       currentNode
     );
-    return /* @__PURE__ */ (0, import_jsx_runtime106.jsxs)(import_jsx_runtime106.Fragment, { children: [
-      /* @__PURE__ */ (0, import_jsx_runtime106.jsx)(PanelHeader, { children: "Properties" }),
-      /* @__PURE__ */ (0, import_jsx_runtime106.jsxs)("div", { className: SettingsPanel_module_css_default.settingsPanel, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime106.jsx)("div", { className: SettingsPanel_module_css_default.currentElementAbout, children: /* @__PURE__ */ (0, import_jsx_runtime106.jsx)(
-          PathBreadcrumb,
-          {
-            tree,
-            path: selectedPath,
-            onSelect: setNodeSelection
-          }
-        ) }),
-        /* @__PURE__ */ (0, import_jsx_runtime106.jsx)(
-          FormBuilder,
-          {
-            settings: uiArguments,
-            settingsInfo: staticSettingsInfo,
-            renderInputs: nodeInfo.settingsFormRender,
-            onSettingsChange: (name, action) => {
-              switch (action.type) {
-                case "UPDATE":
-                  updateArgumentsByName(name, action.value);
-                  return;
-                case "REMOVE":
-                  deleteArgumentByName(name);
-                  return;
+    return /* @__PURE__ */ (0, import_jsx_runtime106.jsxs)(import_jsx_runtime106.Fragment, {
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime106.jsx)(PanelHeader, {
+          children: "Properties"
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime106.jsxs)("div", {
+          className: SettingsPanel_module_css_default.settingsPanel,
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime106.jsx)("div", {
+              className: SettingsPanel_module_css_default.currentElementAbout,
+              children: /* @__PURE__ */ (0, import_jsx_runtime106.jsx)(PathBreadcrumb, {
+                tree,
+                path: selectedPath,
+                onSelect: setNodeSelection
+              })
+            }),
+            /* @__PURE__ */ (0, import_jsx_runtime106.jsx)(FormBuilder, {
+              settings: uiArguments,
+              settingsInfo: staticSettingsInfo,
+              renderInputs: nodeInfo.settingsFormRender,
+              onSettingsChange: (name, action) => {
+                switch (action.type) {
+                  case "UPDATE":
+                    updateArgumentsByName(name, action.value);
+                    return;
+                  case "REMOVE":
+                    deleteArgumentByName(name);
+                    return;
+                }
               }
-            }
-          }
-        ),
-        /* @__PURE__ */ (0, import_jsx_runtime106.jsx)(GoToSourceBtns, { node: currentNode }),
-        /* @__PURE__ */ (0, import_jsx_runtime106.jsx)("div", { className: SettingsPanel_module_css_default.buttonsHolder, children: !isRootNode ? /* @__PURE__ */ (0, import_jsx_runtime106.jsx)(DeleteNodeButton_default, { path: selectedPath }) : null })
-      ] })
-    ] });
+            }),
+            /* @__PURE__ */ (0, import_jsx_runtime106.jsx)(GoToSourceBtns, {
+              node: currentNode
+            }),
+            /* @__PURE__ */ (0, import_jsx_runtime106.jsx)("div", {
+              className: SettingsPanel_module_css_default.buttonsHolder,
+              children: !isRootNode ? /* @__PURE__ */ (0, import_jsx_runtime106.jsx)(DeleteNodeButton_default, {
+                path: selectedPath
+              }) : null
+            })
+          ]
+        })
+      ]
+    });
   }
 
   // src/EditorContainer/OpenSideBySideWindowButton.tsx
@@ -58426,10 +58702,9 @@ form._settingsForm_a44hx_17 {
     const { sendMsg, mode } = useBackendConnection();
     if (mode !== "VSCODE")
       return null;
-    return /* @__PURE__ */ (0, import_jsx_runtime107.jsxs)(import_jsx_runtime107.Fragment, { children: [
-      /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(
-        TooltipButton,
-        {
+    return /* @__PURE__ */ (0, import_jsx_runtime107.jsxs)(import_jsx_runtime107.Fragment, {
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(TooltipButton, {
           text: "Open app code next to editor",
           onClick: () => {
             sendMsg({
@@ -58439,10 +58714,12 @@ form._settingsForm_a44hx_17 {
           },
           className: "OpenSideBySideWindowButton",
           children: /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(FaCode, {})
-        }
-      ),
-      /* @__PURE__ */ (0, import_jsx_runtime107.jsx)("div", { className: "divider" })
-    ] });
+        }),
+        /* @__PURE__ */ (0, import_jsx_runtime107.jsx)("div", {
+          className: "divider"
+        })
+      ]
+    });
   }
 
   // src/EditorContainer/EditorContainer.tsx
@@ -58454,45 +58731,86 @@ form._settingsForm_a44hx_17 {
     const { state, errorInfo, history } = useSyncUiWithBackend();
     let pageBody;
     if (errorInfo) {
-      pageBody = /* @__PURE__ */ (0, import_jsx_runtime108.jsxs)(DialogPopover, { className: "message-mode", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime108.jsxs)("h2", { children: [
-          "Error ",
-          errorInfo.context ? `while ${errorInfo.context}` : ``
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime108.jsx)("p", { className: "error-msg", children: errorInfo.msg })
-      ] });
+      pageBody = /* @__PURE__ */ (0, import_jsx_runtime108.jsxs)(DialogPopover, {
+        className: "message-mode",
+        children: [
+          /* @__PURE__ */ (0, import_jsx_runtime108.jsxs)("h2", {
+            children: [
+              "Error ",
+              errorInfo.context ? `while ${errorInfo.context}` : ``
+            ]
+          }),
+          /* @__PURE__ */ (0, import_jsx_runtime108.jsx)("p", {
+            className: "error-msg",
+            children: errorInfo.msg
+          })
+        ]
+      });
     } else if (state.mode === "LOADING") {
-      pageBody = /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(DialogPopover, { className: "message-mode", children: /* @__PURE__ */ (0, import_jsx_runtime108.jsx)("h2", { children: "Loading initial state from server" }) });
+      pageBody = /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(DialogPopover, {
+        className: "message-mode",
+        children: /* @__PURE__ */ (0, import_jsx_runtime108.jsx)("h2", {
+          children: "Loading initial state from server"
+        })
+      });
     } else if (state.mode === "MAIN") {
-      pageBody = /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(CurrentDraggedNodeProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(
-        EditorSkeleton,
-        {
-          main: /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(UiNode_default, { node: state.ui_tree, path: [] }),
+      pageBody = /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(CurrentDraggedNodeProvider, {
+        children: /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(EditorSkeleton, {
+          main: /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(UiNode_default, {
+            node: state.ui_tree,
+            path: []
+          }),
           left: /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(ElementsPalette, {}),
-          properties: /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(SettingsPanel, { tree: state.ui_tree }),
+          properties: /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(SettingsPanel, {
+            tree: state.ui_tree
+          }),
           preview: /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(AppPreview, {})
-        }
-      ) });
+        })
+      });
     } else {
-      pageBody = /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(TemplateChooserView, { ...state.options });
+      pageBody = /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(TemplateChooserView, {
+        ...state.options
+      });
     }
-    return /* @__PURE__ */ (0, import_jsx_runtime108.jsxs)("div", { className: "EditorContainer", style: sizes_inline_styles, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime108.jsxs)("header", { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(ShinyLogo_default, { className: "shiny-logo" }),
-        /* @__PURE__ */ (0, import_jsx_runtime108.jsx)("h1", { className: "app-title", children: "Shiny UI Editor" }),
-        /* @__PURE__ */ (0, import_jsx_runtime108.jsxs)("div", { className: "right", children: [
-          state.mode === "MAIN" ? /* @__PURE__ */ (0, import_jsx_runtime108.jsxs)(import_jsx_runtime108.Fragment, { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(OpenSideBySideWindowButton, {}),
-            /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(AppTour, {})
-          ] }) : null,
-          /* @__PURE__ */ (0, import_jsx_runtime108.jsx)("div", { className: "divider" }),
-          /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(UndoRedoButtons, { ...history }),
-          /* @__PURE__ */ (0, import_jsx_runtime108.jsx)("div", { className: "spacer last" })
-        ] })
-      ] }),
-      pageBody,
-      /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(LostConnectionPopup, {})
-    ] });
+    return /* @__PURE__ */ (0, import_jsx_runtime108.jsxs)("div", {
+      className: "EditorContainer",
+      style: sizes_inline_styles,
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime108.jsxs)("header", {
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(ShinyLogo_default, {
+              className: "shiny-logo"
+            }),
+            /* @__PURE__ */ (0, import_jsx_runtime108.jsx)("h1", {
+              className: "app-title",
+              children: "Shiny UI Editor"
+            }),
+            /* @__PURE__ */ (0, import_jsx_runtime108.jsxs)("div", {
+              className: "right",
+              children: [
+                state.mode === "MAIN" ? /* @__PURE__ */ (0, import_jsx_runtime108.jsxs)(import_jsx_runtime108.Fragment, {
+                  children: [
+                    /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(OpenSideBySideWindowButton, {}),
+                    /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(AppTour, {})
+                  ]
+                }) : null,
+                /* @__PURE__ */ (0, import_jsx_runtime108.jsx)("div", {
+                  className: "divider"
+                }),
+                /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(UndoRedoButtons, {
+                  ...history
+                }),
+                /* @__PURE__ */ (0, import_jsx_runtime108.jsx)("div", {
+                  className: "spacer last"
+                })
+              ]
+            })
+          ]
+        }),
+        pageBody,
+        /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(LostConnectionPopup, {})
+      ]
+    });
   }
 
   // src/state/connectedToServer.ts
@@ -58623,14 +58941,22 @@ form._settingsForm_a44hx_17 {
   // src/state/ReduxProvider.tsx
   var import_jsx_runtime109 = __toESM(require_jsx_runtime());
   function ReduxProvider({ children }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime109.jsx)(Provider_default, { store, children });
+    return /* @__PURE__ */ (0, import_jsx_runtime109.jsx)(Provider_default, {
+      store,
+      children
+    });
   }
   var ReduxProvider_default = ReduxProvider;
 
   // src/App.tsx
   var import_jsx_runtime110 = __toESM(require_jsx_runtime());
   function App(msgPassers) {
-    return /* @__PURE__ */ (0, import_jsx_runtime110.jsx)(ReduxProvider_default, { children: /* @__PURE__ */ (0, import_jsx_runtime110.jsx)(BackendConnectionProvider, { ...msgPassers, children: /* @__PURE__ */ (0, import_jsx_runtime110.jsx)(EditorContainer, {}) }) });
+    return /* @__PURE__ */ (0, import_jsx_runtime110.jsx)(ReduxProvider_default, {
+      children: /* @__PURE__ */ (0, import_jsx_runtime110.jsx)(BackendConnectionProvider, {
+        ...msgPassers,
+        children: /* @__PURE__ */ (0, import_jsx_runtime110.jsx)(EditorContainer, {})
+      })
+    });
   }
 
   // src/runSUE.tsx
@@ -58655,7 +58981,9 @@ form._settingsForm_a44hx_17 {
       mode
     };
     const root2 = (0, import_client.createRoot)(container2);
-    root2.render(/* @__PURE__ */ (0, import_jsx_runtime111.jsx)(App, { ...dispatch }));
+    root2.render(/* @__PURE__ */ (0, import_jsx_runtime111.jsx)(App, {
+      ...dispatch
+    }));
   }
 
   // src/index.tsx
