@@ -1,7 +1,10 @@
-import type { BackendConnection, MessageToClient } from "communication-types";
-import { isMessageFromBackend } from "communication-types";
-import type { MessageDispatcher } from "communication-types/src/messageDispatcher";
-import { makeMessageDispatcher } from "communication-types/src/messageDispatcher";
+import type {
+  BackendConnection,
+  MessageDispatcher,
+  MessageToClient,
+} from "communication-types";
+import { makeMessageDispatcher } from "communication-types/src/BackendConnection";
+import { isMessageToClient } from "communication-types/src/MessageToClient";
 import { runSUE } from "editor";
 
 const container = document.getElementById("root");
@@ -43,7 +46,7 @@ function setupVSCodeBackend({
   window.addEventListener("message", (event) => {
     const message = event.data; // The json data that the extension sent
 
-    if (isMessageFromBackend(message)) {
+    if (isMessageToClient(message)) {
       dispatchMessageToClient(message);
     } else {
       // eslint-disable-next-line no-console

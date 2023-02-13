@@ -34,6 +34,12 @@ export const dtDTOutputInfo: UiComponentInfo<DTOutputSettings> = {
       optional: true,
     },
   },
+  serverBindings: {
+    outputs: {
+      outputIdKey: "outputId",
+      renderScaffold: `renderDT({\n  iris\n})`,
+    },
+  },
   acceptsChildren: true,
   iconSrc: icon,
   category: "Outputs",

@@ -1,10 +1,17 @@
 import * as vscode from "vscode";
 
-import type { ParsedApp } from "../R-Utils/parseAppFile";
+import type { App_Location } from "../editorLogic";
 
 export function uiBoundsToSelection({
-  start,
-  end,
-}: ParsedApp["ui_bounds"]): vscode.Selection {
-  return new vscode.Selection(start - 1, 0, end, 0);
+  start_row,
+  start_col,
+  end_row,
+  end_col,
+}: App_Location): vscode.Selection {
+  return new vscode.Selection(
+    start_row - 1,
+    start_col - 1,
+    end_row,
+    end_col - 1
+  );
 }

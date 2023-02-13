@@ -7,6 +7,7 @@ import { PanelHeader } from "../EditorSkeleton/EditorSkeleton";
 import type { ShinyUiNode } from "../main";
 import { shinyUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
 
+import { GoToSourceBtns } from "./GoToSourceBtns";
 import PathBreadcrumb from "./PathBreadcrumb";
 // import PathBreadcrumb from "./PathBreadcrumbLinear";
 import classes from "./SettingsPanel.module.css";
@@ -74,6 +75,7 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
             }
           }}
         />
+        <GoToSourceBtns node={currentNode} />
         <div className={classes.buttonsHolder}>
           {!isRootNode ? <DeleteNodeButton path={selectedPath} /> : null}
         </div>

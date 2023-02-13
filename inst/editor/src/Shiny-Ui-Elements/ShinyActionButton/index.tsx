@@ -27,6 +27,11 @@ export const shinyActionButtonInfo: UiComponentInfo<ShinyActionButtonProps> = {
       units: ["%", "px", "rem"],
     },
   },
+  serverBindings: {
+    inputs: {
+      inputIdKey: "inputId",
+    },
+  },
   acceptsChildren: false,
   iconSrc: buttonIcon,
   category: "Inputs",

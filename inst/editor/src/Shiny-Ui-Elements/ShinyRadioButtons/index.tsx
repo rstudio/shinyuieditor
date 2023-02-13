@@ -39,6 +39,11 @@ export const shinyRadioButtonsInfo: UiComponentInfo<ShinyRadioButtonsProps> = {
       useDefaultIfOptional: true,
     },
   },
+  serverBindings: {
+    inputs: {
+      inputIdKey: "inputId",
+    },
+  },
   acceptsChildren: false,
   iconSrc: icon,
   category: "Inputs",

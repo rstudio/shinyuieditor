@@ -1,8 +1,9 @@
 import React from "react";
 
-import type { OutputType } from "communication-types";
+import type { App_Type } from "ast-parsing";
+import type { TemplateInfo } from "communication-types/src/AppTemplates";
 
-import type { TemplateInfo } from "../../assets/app-templates/app_templates";
+import { ui_node_to_R_code } from "../../../../ast-parsing/src/code_generation/ui_node_to_R_code";
 import { app_templates } from "../../assets/app-templates/app_templates";
 
 import type { TemplateChooserOptions } from "./TemplateChooserView";
@@ -16,7 +17,7 @@ export type TemplateFilterState = {
   layoutTypes: LayoutType[];
 };
 export type TemplateSelection = Omit<TemplateInfo, "title" | "description"> & {
-  outputType: OutputType;
+  outputType: App_Type;
 };
 
 function filteredTemplates(filters: TemplateFilterState): TemplateInfo[] {
@@ -41,7 +42,7 @@ export function useFilteredTemplates({
     null
   );
 
-  const [selectedOutput, setSelectedOutput] = React.useState<OutputType>(
+  const [selectedOutput, setSelectedOutput] = React.useState<App_Type>(
     outputChoices === "USER-CHOICE" ? "SINGLE-FILE" : outputChoices
   );
 
@@ -72,7 +73,16 @@ export function useFilteredTemplates({
     );
 
     if (!chosenTemplate) return;
-    requestTemplate({ ...chosenTemplate, outputType: selectedOutput });
+
+    const template_ui_code = ui_node_to_R_code(chosenTemplate.uiTree, {
+      remove_namespace: true,
+    });
+
+    requestTemplate({
+      ...chosenTemplate,
+      ...template_ui_code,
+      outputType: selectedOutput,
+    });
   };
 
   return {

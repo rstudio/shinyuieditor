@@ -1,7 +1,7 @@
 import { createListenerMiddleware } from "@reduxjs/toolkit";
 
 import { SET_SELECTION } from "../selectedPath";
-import { SET_FULL_STATE } from "../uiTree";
+import { SET_FULL_STATE } from "../app_info";
 
 // Create the middleware instance and methods
 const listenForTemplateChooserMode = createListenerMiddleware();

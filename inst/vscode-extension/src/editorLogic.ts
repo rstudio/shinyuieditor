@@ -1,21 +1,30 @@
-import type { MessageToClient, MessageToBackend } from "communication-types";
-import { isMessageFromClient } from "communication-types";
+import type { MessageToBackend } from "communication-types/src/MessageToBackend";
+import { isMessageToBackend } from "communication-types/src/MessageToBackend";
+import type { MessageToClient } from "communication-types/src/MessageToClient";
 import debounce from "just-debounce-it";
 import * as vscode from "vscode";
 
-import { addUiTextToFile } from "./addUiTextToFile";
+import { update_app_file } from "./addUiTextToFile";
 import { clearAppFile } from "./clearAppFile";
 import { openCodeCompanionEditor } from "./extension-api-utils/openCodeCompanionEditor";
-import { selectLinesInEditor } from "./extension-api-utils/selectLinesInEditor";
 import { checkIfPkgAvailable } from "./R-Utils/checkIfPkgAvailable";
-import { generateAppTemplate } from "./R-Utils/generateAppTemplate";
-import type { ParsedApp } from "./R-Utils/parseAppFile";
-import { getAppFile } from "./R-Utils/parseAppFile";
+import { getAppAST } from "./R-Utils/getAppAST";
 import type { ActiveRSession } from "./R-Utils/startBackgroundRProcess";
 import { startPreviewApp } from "./R-Utils/startPreviewApp";
-import { updateAppUI } from "./updateAppUI";
+import {
+  insert_code_snippet,
+  selectInputReferences,
+  select_app_lines,
+} from "./selectServerReferences";
 
 const { showErrorMessage } = vscode.window;
+
+export type App_Location = {
+  start_row: number;
+  end_row: number;
+  start_col: number;
+  end_col: number;
+};
 
 export function editorLogic({
   RProcess,
@@ -28,9 +37,8 @@ export function editorLogic({
 }) {
   let hasInitialized: boolean = false;
 
+  // Can probably replace this with the vscode.TextDocument's version field
   let latestAppWrite: string | null = null;
-
-  let uiBounds: ParsedApp["ui_bounds"] | undefined;
 
   /**
    * Plain text editor with apps code side-by-side with custom editor
@@ -67,35 +75,49 @@ export function editorLogic({
       hasInitialized = true;
     }
 
-    try {
-      const appFileInfo = await getAppFile(RProcess, appFileText);
+    if (appFileText === "") {
+      sendMessage({
+        path: "TEMPLATE_CHOOSER",
+        payload: "SINGLE-FILE",
+      });
+      return;
+    }
 
-      if (appFileInfo.status === "error") {
+    try {
+      const appAST = await getAppAST(RProcess, appFileText);
+
+      if (appAST.status === "error") {
         sendMessage({
           path: "BACKEND-ERROR",
           payload: {
             context: "parsing app",
-            msg: appFileInfo.errorMsg,
+            msg: appAST.errorMsg,
           },
         });
-        showErrorMessage(appFileInfo.errorMsg);
+        showErrorMessage(appAST.errorMsg);
         return;
       }
 
-      if (appFileInfo.values === "EMPTY") {
+      if (appAST.values === "EMPTY") {
         sendMessage({
           path: "TEMPLATE_CHOOSER",
           payload: "SINGLE-FILE",
         });
-      } else {
-        const { ui_tree } = appFileInfo.values;
-
-        uiBounds = appFileInfo.values.ui_bounds;
-        sendMessage({
-          path: "UPDATED-TREE",
-          payload: ui_tree,
-        });
+        return;
       }
+
+      latestAppWrite = appFileText;
+
+      sendMessage({
+        path: "APP-INFO",
+        payload: {
+          app_type: "SINGLE-FILE",
+          app: {
+            script: appFileText,
+            ast: appAST.values,
+          },
+        },
+      });
     } catch (e) {
       console.error("Failed to parse", e);
     }
@@ -146,37 +168,31 @@ export function editorLogic({
     },
   });
 
+  const get_companion_editor = async () => {
+    codeCompanionEditor = await openCodeCompanionEditor({
+      appFile: document,
+      existingEditor: codeCompanionEditor,
+    });
+
+    return codeCompanionEditor;
+  };
+
   // Receive message from the webview.
   const onDidReceiveMessage = async (msg: MessageToBackend) => {
-    if (isMessageFromClient(msg)) {
+    if (isMessageToBackend(msg)) {
       switch (msg.path) {
         case "READY-FOR-STATE":
           syncFileToClientState();
           return;
 
-        case "TEMPLATE-SELECTION": {
-          const appFile = await generateAppTemplate(RProcess, msg.payload);
+        case "UPDATED-APP": {
+          if (msg.payload.app_type === "MULTI-FILE") return;
 
-          await addUiTextToFile({
-            text: appFile,
-            document,
-            type: "insert",
-            uiBounds,
-          });
+          latestAppWrite = msg.payload.app;
+          await update_app_file({ text: msg.payload.app, document });
           return;
         }
 
-        case "UPDATED-TREE": {
-          const updateRes = await updateAppUI({
-            document,
-            uiBounds,
-            RProcess,
-            uiTree: msg.payload,
-          });
-          latestAppWrite = updateRes.uiText;
-          uiBounds = updateRes.uiBounds;
-          return;
-        }
         case "APP-PREVIEW-REQUEST": {
           previewAppInfo.start();
           return;
@@ -195,14 +211,30 @@ export function editorLogic({
           return;
         }
         case "OPEN-COMPANION-EDITOR": {
-          codeCompanionEditor = await openCodeCompanionEditor({
-            appFile: document,
-            existingEditor: codeCompanionEditor,
+          await get_companion_editor();
+          return;
+        }
+        case "SHOW-APP-LINES": {
+          select_app_lines({
+            editor: await get_companion_editor(),
+            selections: msg.payload,
           });
+          return;
+        }
+        case "INSERT-SNIPPET": {
+          console.log("Insert snippet into server", msg.payload);
+          insert_code_snippet({
+            editor: await get_companion_editor(),
+            ...msg.payload,
+          });
+          return;
+        }
 
-          if (uiBounds) {
-            selectLinesInEditor(uiBounds, codeCompanionEditor);
-          }
+        case "FIND-INPUT-USES": {
+          selectInputReferences({
+            editor: await get_companion_editor(),
+            input: msg.payload,
+          });
 
           return;
         }

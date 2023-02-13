@@ -17,6 +17,12 @@ export const shinyTextOutputInfo: UiComponentInfo<ShinyTextOutputProps> = {
       defaultValue: "textOutput",
     },
   },
+  serverBindings: {
+    outputs: {
+      outputIdKey: "outputId",
+      renderScaffold: `renderText({\n  "Hello, World"\n})`,
+    },
+  },
   acceptsChildren: false,
   iconSrc: uiIcon,
   category: "Outputs",

@@ -1,6 +1,10 @@
-
-
-start_background_shiny_app <- function(app_loc, host, port, writeLog, show_preview_app_logs) {
+start_background_shiny_app <- function(
+  app_loc, 
+  host, 
+  port, 
+  writeLog, 
+  show_preview_app_logs
+) {
   start_app <- function() {
     writeLog("Starting up background shiny app")
     p <- callr::r_bg(
@@ -13,7 +17,10 @@ start_background_shiny_app <- function(app_loc, host, port, writeLog, show_previ
       args = list(app_loc, host, port),
       supervise = TRUE # Extra security for process being cleaned up properly
     )
-    writeLog("Started Shiny preview app: ", crayon::red("App PID:", p$get_pid()))
+    writeLog(
+      "Started Shiny preview app: ", 
+      crayon::red("App PID:", p$get_pid())
+    )
     p
   }
   p <- start_app()

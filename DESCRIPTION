@@ -1,6 +1,6 @@
 Package: shinyuieditor
 Title: Build and Modify your Shiny UI, visually
-Version: 0.3.2
+Version: 0.4.0
 Authors@R: 
     person(given = "Nick",
            family = "Strayer",
@@ -20,7 +20,6 @@ Imports:
     later,
     rlang,
     shiny,
-    styler,
     utils,
     gridlayout (>= 0.1.0),
 Suggests: 

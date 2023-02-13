@@ -10,8 +10,8 @@ import Button from "../Inputs/Button/Button";
 import { TooltipButton } from "../PopoverEl/Tooltip";
 
 import classes from "./AppPreview.module.css";
-import FakeDashboard from "./FakeDashboard";
 import { LogsViewer } from "./LogsViewer";
+import { ShowAppText } from "./ShowAppText";
 import { useCommunicateWithBackend } from "./useCommunicateWithBackend";
 import { usePreviewScale } from "./usePreviewScale";
 
@@ -48,7 +48,7 @@ export default function AppPreview() {
   // in development mode we want to hide the preview window when there's no app
   // preview present to not confuse users
   if (appLoc === "HIDDEN") {
-    return null;
+    return <ShowAppText />;
   }
 
   const ReloadButton = ({ isExpandedMode }: { isExpandedMode: boolean }) => (
@@ -88,9 +88,7 @@ export default function AppPreview() {
           <>
             <ReloadButton isExpandedMode={true} />
             <div className={classes.appContainer}>
-              {appLoc === "FAKE-PREVIEW" ? (
-                <FakeDashboard />
-              ) : appLoc === "LOADING" ? (
+              {appLoc === "LOADING" ? (
                 <LoadingMessage />
               ) : (
                 <iframe

@@ -10,7 +10,7 @@ import {
   newTabPanelNode,
 } from "../../../Shiny-Ui-Elements/ShinyTabPanel/tabPanelHelpers";
 import type { NodePath } from "../../../Shiny-Ui-Elements/uiNodeTypes";
-import { usePlaceNode } from "../../../state/uiTree";
+import { usePlaceNode } from "../../../state/app_info";
 import { seqArray } from "../../../utils/array-helpers";
 import { mergeClasses } from "../../../utils/mergeClasses";
 import { PopoverButton } from "../../Inputs/PopoverButton";

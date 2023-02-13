@@ -3,7 +3,7 @@ import React from "react";
 import type { DraggedNodeInfo } from "../../DragAndDropHelpers/DragAndDropHelpers";
 import { makeChildPath } from "../../Shiny-Ui-Elements/nodePathUtils";
 import type { UiNodeComponent } from "../../Shiny-Ui-Elements/uiNodeTypes";
-import { usePlaceNode } from "../../state/uiTree";
+import { usePlaceNode } from "../../state/app_info";
 import { findEmptyCells } from "../../utils/gridTemplates/findItemLocation";
 import { areasToItemLocations } from "../../utils/gridTemplates/itemLocations";
 import type { GridItemExtent } from "../../utils/gridTemplates/types";

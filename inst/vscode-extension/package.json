@@ -2,7 +2,7 @@
   "name": "shinyuieditor",
   "displayName": "ShinyUiEditor",
   "description": "Visual editor interface for constructing R Shiny app UIs",
-  "version": "0.0.1",
+  "version": "0.4.0",
   "publisher": "posit",
   "icon": "assets/shinyuieditor-hex.png",
   "private": true,
@@ -128,6 +128,7 @@
   },
   "dependencies": {
     "just-debounce-it": "^3.1.1",
-    "winreg": "^1.2.4"
+    "winreg": "^1.2.4",
+    "ast-parsing": "*"
   }
 }

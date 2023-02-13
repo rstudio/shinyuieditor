@@ -47,9 +47,9 @@ export function EditorContainer() {
     pageBody = (
       <CurrentDraggedNodeProvider>
         <EditorSkeleton
-          main={<UiNode node={state.uiTree} path={[]} />}
+          main={<UiNode node={state.ui_tree} path={[]} />}
           left={<ElementsPalette />}
-          properties={<SettingsPanel tree={state.uiTree} />}
+          properties={<SettingsPanel tree={state.ui_tree} />}
           preview={<AppPreview />}
         />
       </CurrentDraggedNodeProvider>

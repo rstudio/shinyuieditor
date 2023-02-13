@@ -3,9 +3,9 @@ import React from "react";
 import { useDispatch } from "react-redux";
 
 import StateHistory from "../modules/StateHistory";
+import type { MainStateOption } from "../state/app_info";
+import { SET_FULL_STATE } from "../state/app_info";
 import type { RootState } from "../state/store";
-import type { MainStateOption } from "../state/uiTree";
-import { SET_FULL_STATE } from "../state/uiTree";
 type HistoryEntry = MainStateOption;
 
 export type HistoryInfo = {
@@ -14,7 +14,7 @@ export type HistoryInfo = {
   canGoBackward: boolean;
   canGoForward: boolean;
 };
-export function useUndoRedo(state: RootState["uiTree"]): HistoryInfo {
+export function useUndoRedo(state: RootState["app_info"]): HistoryInfo {
   const dispatch = useDispatch();
 
   const [canGoForward, setCanGoForward] = React.useState(false);
@@ -85,7 +85,7 @@ function sameHistoryEntry(newEntry: HistoryEntry, oldEntry?: HistoryEntry) {
   }
 
   if (newEntry.mode === "MAIN" && oldEntry.mode === "MAIN") {
-    return oldEntry.uiTree === newEntry.uiTree;
+    return oldEntry.ui_tree === newEntry.ui_tree;
   }
 
   return false;

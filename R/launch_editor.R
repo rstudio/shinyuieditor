@@ -13,11 +13,6 @@
 #'   will then be written to the location specified.
 #' @param shiny_background_port Port to launch the shiny app preview on.
 #'   Typically not necessary to set manually.
-#' @param remove_namespace Should namespaces (`library::` prefixes) be stripped
-#'   from the generated UI code? Set to `FALSE` if you prefer the style of
-#'   `shiny::sliderInput()` to `sliderInput()`. If set to `TRUE`, then any
-#'   libraries needed for the nodes will be loaded at the top of your `app.R` or
-#'   `ui.R`.
 #' @param app_preview Should a live version of the Shiny app being edited run
 #'   and auto-show updates made? You may want to disable this if the app has
 #'   long-running or processor intensive initialization steps.
@@ -54,7 +49,6 @@ launch_editor <- function(app_loc,
                           host = "127.0.0.1",
                           port = httpuv::randomPort(),
                           shiny_background_port = httpuv::randomPort(),
-                          remove_namespace = TRUE,
                           app_preview = TRUE,
                           show_logs = TRUE,
                           show_preview_app_logs = TRUE,
@@ -69,27 +63,23 @@ launch_editor <- function(app_loc,
   # Make sure environment will allow features to work properly
   check_for_url_issues()
 
-
   # ----------------------------------------------------------------------------
   # State variables to keep track of app location etc..
   # ----------------------------------------------------------------------------
-
-  # file info is a list that has both the path to the app's ui (app.r for
-  # single-file or ui.r for multi-file) and the type of the app (i.e
-  # "single-file" or "multi-file")
-  file_info <- NULL
 
   # Basic mode of server. Can either be "initializing" | "template-chooser" |
   # "editing-app". This is used to know what to do on close
   server_mode <- "initializing"
 
+  # Type of app we're in. Can be "SINGLE-FILE", "MULTI-FILE", or "MISSING"
+  app_type <- get_app_file_type(app_loc)
 
   # ----------------------------------------------------------------------------
   # Initialize classes for controling app preview and polling for updates
   # ----------------------------------------------------------------------------
 
   # Object that will watch for changes to the app script
-  file_change_watcher <- FileChangeWatcher()
+  file_change_watcher <- FileChangeWatcher(app_loc)
 
   # Empty function so variable can always be called even if the timeout hasn't
   # been initialized
@@ -118,96 +108,90 @@ launch_editor <- function(app_loc,
     }
   }
 
+  shutdown_app_preview <- function() {
+    if (app_preview) {
+      writeLog("Stopping app preview")
+      app_preview_obj$stop_app()
+    }
+  }
+
+  setup_new_app_type <- function(new_app_type = app_type) {
+    app_type <<- new_app_type
+    shutdown_app_preview()
+    file_change_watcher$delete_files()
+
+    if (!identical(new_app_type, "MISSING")) {
+      file_change_watcher$set_watched_files(app_type_to_files[[new_app_type]])
+    }
+  }
+
   # ----------------------------------------------------------------------------
   # Main logic for responding to messages from the client. Messages have a path
   # used for routing and an optional payload. A method of responding is provided
   # with a send_msg callback
   # ----------------------------------------------------------------------------
   setup_msg_handlers <- function(send_msg) {
-    request_template_chooser <- function() {
-      send_msg("TEMPLATE_CHOOSER", "USER-CHOICE")
-      server_mode <<- "template-chooser"
-    }
-
-    update_ui_tree_on_client <- function(ui_tree) {
-      send_msg("UPDATED-TREE", ui_tree)
+    send_app_info_to_client <- function() {
+      send_msg("APP-INFO", get_app_info(app_loc))
     }
 
     load_new_app <- function() {
+      if (identical(app_type, "MISSING")) {
+        send_msg("TEMPLATE_CHOOSER", "USER-CHOICE")
+        server_mode <<- "template-chooser"
+        return()
+      }
+
       writeLog("=> Loading app ui and sending to ui editor")
 
-      file_info <<- get_app_ui_file(app_loc, error_on_missing = TRUE)
-
-      ui_tree <- get_app_ui_tree(app_loc)
-      if (!ui_tree$uiName %in% valid_root_nodes) {
-        err_msg <- paste(
-          "Invalid app ui. App needs to start with one of",
-          paste(valid_root_nodes, collapse = ", ")
-        )
-        send_msg(
-          "BACKEND-ERROR", 
-          payload = list(context = "parsing app", msg = err_msg)
-        )
-        stop(err_msg)
-      }
-      update_ui_tree_on_client(ui_tree)
-
-      startup_app_preview()
-
       file_change_watcher$start_watching(
-        path_to_watch = file_info$path,
         on_update = function() {
           writeLog("=> Sending user updated ui to editor")
-          update_ui_tree_on_client(get_app_ui_tree(app_loc))
+          send_app_info_to_client()
         }
       )
 
       server_mode <<- "editing-app"
+      startup_app_preview()
+      send_app_info_to_client()
     }
 
-    # State variable to keep track of written templates.
-    previous_template_type <- NULL
-    load_app_template <- function(template_info) {
-      writeLog("<= Loading app template")
+    # Handles message from client with new app info
+    handle_updated_app <- function(update_payload) {
+      update_type <- update_payload$app_type
 
-      # If we've written a template previously of another output type, we need
-      # to do a few housekeeping things...
-      switched_template_output_types <- !is.null(previous_template_type) && 
-        !identical(template_info$outputType, previous_template_type)
-
-      if (switched_template_output_types) {
-        # Stopping the app preview will avoid it getting confused when all of a
-        # sudden the file it's watching dissapears
-        app_preview_obj$stop_app()
-        
-        # Finally we need to remove the old template files themselves, again to
-        # not confused the app preview not leave around unused files
-        remove_app_template(
-          app_loc = app_loc,
-          app_type = previous_template_type
-        )
+      # If the file update doesn't match the existing app type, remove the old
+      # files and update the app type
+      changed_app_type <- !identical(update_type, app_type)
+      if (changed_app_type) {
+        setup_new_app_type(update_type)
       }
 
-      write_app_template(template_info, app_loc)
-      load_new_app()
-      previous_template_type <<- template_info$outputType
-    }
-
-
-    write_new_ui <- function(new_ui_tree) {
-      update_app_ui(
-        file_info = file_info,
-        new_ui_tree = new_ui_tree,
-        remove_namespace = remove_namespace
+      updated_scripts <- switch(update_type,
+        "SINGLE-FILE" = {
+          list(app = update_payload$app)
+        },
+        "MULTI-FILE" = {
+          list(ui = update_payload$ui, server = update_payload$server)
+        },
+        {
+          stop("Don't know how to deal with that type...")
+        }
       )
-      file_change_watcher$update_last_edit_time()
-      writeLog("<= Saved new ui state from client")
-    }
 
+      file_change_watcher$update_files(updated_scripts)
+
+      # If we're coming from the server mode or a new app type, then we need to
+      # load the new app as well
+      if (changed_app_type || identical(server_mode, "template-chooser")) {
+        # Setup files
+        load_new_app()
+      }
+    }
 
     # Return a callback that takes in a message and reacts to it
     function(msg) {
-      writeLog("Message from backend", msg$path)
+      writeLog("Message from client", msg$path)
       switch(msg$path,
         "APP-PREVIEW-REQUEST" = {
           send_msg("APP-PREVIEW-STATUS", payload = "LOADING")
@@ -216,7 +200,7 @@ launch_editor <- function(app_loc,
               # Once the background preview app is up and running, we can
               # send over the URL to the react app
               send_msg(
-                "APP-PREVIEW-STATUS", 
+                "APP-PREVIEW-STATUS",
                 payload = list(url = app_preview_obj$url)
               )
             },
@@ -235,22 +219,15 @@ launch_editor <- function(app_loc,
           app_preview_obj$stop_app()
         },
         "READY-FOR-STATE" = {
-          # Route to the proper starting screen based on if there's an existing
-          # app or not
-          if (get_app_ui_file(app_loc)$type == "missing") {
-            request_template_chooser()
-          } else {
-            load_new_app()
-          }
+          setup_new_app_type()
+          load_new_app()
         },
-        "UPDATED-TREE" = {
-          write_new_ui(msg$payload)
+        "UPDATED-APP" = {
+          handle_updated_app(msg$payload)
         },
         "ENTERED-TEMPLATE-SELECTOR" = {
+          writeLog("Template chooser mode")
           server_mode <<- "template-chooser"
-        },
-        "TEMPLATE-SELECTION" = {
-          load_app_template(msg$payload)
         }
       )
     }
@@ -264,7 +241,7 @@ launch_editor <- function(app_loc,
     app_close_watcher$cleanup()
 
     if (server_mode == "template-chooser") {
-      remove_app_template(app_loc = app_loc, app_type = file_info$type)
+      file_change_watcher$delete_files(delete_root = TRUE)
     }
   })
 
@@ -277,17 +254,16 @@ launch_editor <- function(app_loc,
     host = host, port = port,
     app = list(
       onWSOpen = function(ws) {
-
         # Cancel any app close timeouts that may have been caused by the
         # user refreshing the page
         app_close_watcher$connection_opened()
 
         # Setup function to respond to client
-        send_msg <- function(path, payload) {
-          ws$send(format_outgoing_msg(path, payload))
-        }
-
-        handle_incoming_msg <- setup_msg_handlers(send_msg)
+        handle_incoming_msg <- setup_msg_handlers(
+          send_msg = function(path, payload) {
+            ws$send(format_outgoing_msg(path, payload))
+          }
+        )
 
         # The ws object is a WebSocket object
         ws$onMessage(function(binary, raw_msg) {
@@ -312,18 +288,4 @@ launch_editor <- function(app_loc,
       )
     )
   )
-}
-
-
-
-
-announce_location_of_editor <- function(port, launch_browser) {
-  location_of_editor <- paste0("http://localhost:", port)
-  cat(crayon::bold(ascii_box(
-    paste("Live editor running at", location_of_editor)
-  )))
-
-  if (launch_browser) {
-    utils::browseURL(location_of_editor)
-  }
 }

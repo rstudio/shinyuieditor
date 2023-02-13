@@ -1,6 +1,7 @@
 import React from "react";
 
-import type { TemplateInfo } from "../../assets/app-templates/app_templates";
+import type { TemplateInfo } from "communication-types/src/AppTemplates";
+
 import gridIcon from "../../assets/icons/shinyGridContainer.png";
 import navbarIcon from "../../assets/icons/tabsetPanel.png";
 import type { ShinyUiNode } from "../../main";

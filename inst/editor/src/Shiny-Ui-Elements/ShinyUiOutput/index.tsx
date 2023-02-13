@@ -17,6 +17,12 @@ export const shinyUiOutputInfo: UiComponentInfo<ShinyUiOutputProps> = {
       defaultValue: "dynamicUiOutput",
     },
   },
+  serverBindings: {
+    outputs: {
+      outputIdKey: "outputId",
+      renderScaffold: `renderUI({\n  h1("Hello, World")\n})`,
+    },
+  },
   acceptsChildren: false,
   iconSrc: uiIcon,
   category: "Outputs",

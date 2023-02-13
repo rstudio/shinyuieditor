@@ -28,6 +28,13 @@ export const gridlayoutGridCardPlotInfo: UiComponentInfo<GridlayoutGridCardPlotP
         optional: true,
       },
     },
+    // If the outputId is undefined we use the area as our id but otherwise we use the standard
+    serverBindings: {
+      outputs: {
+        outputIdKey: (args) => (args.outputId ? "outputId" : "area"),
+        renderScaffold: `renderPlot({\n  #Plot code goes here\n  $0plot(rnorm(100))\n})`,
+      },
+    },
     acceptsChildren: false,
     iconSrc: icon,
     category: "gridlayout",

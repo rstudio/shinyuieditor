@@ -4,7 +4,7 @@ import { getIsValidMove } from "../components/UiNode/TreeManipulation/getIsValid
 import type { ShinyUiNode } from "../main";
 import { makeChildPath } from "../Shiny-Ui-Elements/nodePathUtils";
 import type { NodePath, ShinyUiNames } from "../Shiny-Ui-Elements/uiNodeTypes";
-import { usePlaceNode } from "../state/uiTree";
+import { usePlaceNode } from "../state/app_info";
 
 import type { DraggedNodeInfo } from "./DragAndDropHelpers";
 import { useFilteredDrop } from "./useFilteredDrop";

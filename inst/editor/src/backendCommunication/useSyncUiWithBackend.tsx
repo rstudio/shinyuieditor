@@ -6,21 +6,23 @@ import { useDispatch } from "react-redux";
 
 import { useDeleteNode } from "../components/DeleteNodeButton/useDeleteNode";
 import { useUndoRedo } from "../state-logic/useUndoRedo";
+import type { MainStateOption } from "../state/app_info";
+import {
+  SET_APP_INFO,
+  SHOW_TEMPLATE_CHOOSER,
+  useCurrentAppInfo,
+} from "../state/app_info";
+import { generate_full_app_script } from "../state/app_model/generate_full_app_script";
+import { raw_app_info_to_full } from "../state/app_model/raw_app_info_to_full";
 import { getNamedPath } from "../state/getNamedPath";
 import { useCurrentSelection } from "../state/selectedPath";
-import type { MainStateOption } from "../state/uiTree";
-import {
-  SET_UI_TREE,
-  SHOW_TEMPLATE_CHOOSER,
-  useCurrentUiTree,
-} from "../state/uiTree";
 import { useKeyboardShortcuts } from "../utils/hooks/useKeyboardShortcuts";
 
 import { useBackendConnection } from "./useBackendMessageCallbacks";
 
 export function useSyncUiWithBackend() {
   const { sendMsg, incomingMsgs: backendMsgs, mode } = useBackendConnection();
-  const state = useCurrentUiTree();
+  const state = useCurrentAppInfo();
   const currentSelection = useCurrentSelection();
   const dispatch = useDispatch();
 
@@ -56,13 +58,13 @@ export function useSyncUiWithBackend() {
 
   // Subscribe to messages from the backend
   React.useEffect(() => {
-    const updatedTreeSubscription = backendMsgs.subscribe(
-      "UPDATED-TREE",
-      (uiTree) => {
-        dispatch(SET_UI_TREE({ uiTree: uiTree }));
-        lastRecievedRef.current = { mode: "MAIN", uiTree };
-      }
-    );
+    const updatedAppSubscription = backendMsgs.subscribe("APP-INFO", (info) => {
+      const full_info = "ui_tree" in info ? info : raw_app_info_to_full(info);
+
+      dispatch(SET_APP_INFO(full_info));
+      lastRecievedRef.current = { mode: "MAIN", ...full_info };
+      console.log("Full app info", full_info);
+    });
 
     const templateChooserSubscription = backendMsgs.subscribe(
       "TEMPLATE_CHOOSER",
@@ -85,7 +87,7 @@ export function useSyncUiWithBackend() {
     sendMsg({ path: "READY-FOR-STATE" });
 
     return () => {
-      updatedTreeSubscription.unsubscribe();
+      updatedAppSubscription.unsubscribe();
       templateChooserSubscription.unsubscribe();
       backendErrorSubscription.unsubscribe();
     };
@@ -99,7 +101,7 @@ export function useSyncUiWithBackend() {
   // Send named path to the backend if we're in VSCODE mode
   React.useEffect(() => {
     if (mode !== "VSCODE" || !currentSelection || state.mode !== "MAIN") return;
-    const namedPath = getNamedPath(currentSelection, state.uiTree);
+    const namedPath = getNamedPath(currentSelection, state.ui_tree);
     sendMsg({ path: "NODE-SELECTION", payload: namedPath });
   }, [currentSelection, mode, sendMsg, state]);
 
@@ -120,8 +122,8 @@ export function useSyncUiWithBackend() {
     }
 
     debouncedSendMsg({
-      path: "UPDATED-TREE",
-      payload: state.uiTree,
+      path: "UPDATED-APP",
+      payload: generate_full_app_script(state, { include_info: false }),
     });
   }, [state, debouncedSendMsg, sendMsg]);
 

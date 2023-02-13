@@ -32,7 +32,7 @@ test("Can show a subset of units", async () => {
   );
 
   await waitFor(() => {
-    const selectInput = screen.getByLabelText(/value-unit/g);
+    const selectInput = screen.getByLabelText(/value-unit/i);
     expect(selectInput).toBeTruthy();
 
     expect(within(selectInput).queryByText(/rem/i)).toBeTruthy();

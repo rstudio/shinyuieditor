@@ -2,26 +2,17 @@ import type { TemplateSelection } from "communication-types";
 
 import { collapseText } from "../string-utils";
 
-import { formatRCode } from "./formatRCode";
-import { generateUpdatedUiCode } from "./generateUpdatedUiCode";
-import type { ActiveRSession } from "./startBackgroundRProcess";
-
-export async function generateAppTemplate(
-  RProcess: ActiveRSession,
-  {
-    uiTree,
-    otherCode: { uiExtra, serverFunctionBody, serverExtra, serverLibraries },
-  }: TemplateSelection
-): Promise<string> {
-  const { text: ui_def_text, namespaces_removed } = await generateUpdatedUiCode(
-    uiTree,
-    RProcess
-  );
+export async function generateAppTemplate({
+  ui_code,
+  library_calls,
+  otherCode: { uiExtra, serverFunctionBody, serverExtra, serverLibraries },
+}: TemplateSelection): Promise<string> {
   const unique_libraries = new Set([
     ...(serverLibraries ?? []),
-    ...namespaces_removed,
+    ...library_calls,
   ]);
-  const library_calls = [...unique_libraries].map((l) => `library(${l})`);
+
+  const all_library_calls = [...unique_libraries].map((l) => `library(${l})`);
 
   const server_def = [
     "server <- function(input, output) {",
@@ -29,10 +20,10 @@ export async function generateAppTemplate(
     "}",
   ];
 
-  const ui_def = "ui <- " + collapseText(...ui_def_text);
+  const ui_def = "ui <- " + ui_code;
 
   const app_file = collapseText(
-    ...library_calls,
+    ...all_library_calls,
     uiExtra,
     "",
     ui_def,
@@ -44,7 +35,5 @@ export async function generateAppTemplate(
     "shinyApp(ui, server)"
   );
 
-  const formattedApp = await formatRCode(RProcess, app_file);
-
-  return formattedApp;
+  return app_file;
 }

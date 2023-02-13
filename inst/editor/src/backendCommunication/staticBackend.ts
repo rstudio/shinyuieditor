@@ -1,7 +1,4 @@
-import type { BackendConnection } from "communication-types";
-import type { MessageDispatcher } from "communication-types/src/messageDispatcher";
-
-import { TESTING_MODE } from "../env_variables";
+import type { BackendConnection, MessageDispatcher } from "communication-types";
 
 import { getClientsideOnlyTree } from "./getClientsideOnlyTree";
 
@@ -24,18 +21,26 @@ export function setupStaticBackend({
             if (ui_tree === "TEMPLATE_CHOOSER") {
               messageDispatch.dispatch("TEMPLATE_CHOOSER", "USER-CHOICE");
             } else {
-              messageDispatch.dispatch("UPDATED-TREE", ui_tree);
+              messageDispatch.dispatch("APP-INFO", {
+                ui_tree,
+                app_type: "SINGLE-FILE",
+                app: {
+                  code: dummy_code,
+                  libraries: ["shiny"],
+                },
+              });
             }
           });
           return;
         }
-        case "TEMPLATE-SELECTION": {
-          messageDispatch.dispatch("UPDATED-TREE", msg.payload.uiTree);
+        case "UPDATED-APP": {
+          if (msg.payload.info) {
+            messageDispatch.dispatch("APP-INFO", msg.payload.info);
+          }
           return;
         }
         case "APP-PREVIEW-REQUEST": {
-          if (!TESTING_MODE) return;
-          messageDispatch.dispatch("APP-PREVIEW-STATUS", "FAKE-PREVIEW");
+          // Ignore
           return;
         }
       }
@@ -45,3 +50,15 @@ export function setupStaticBackend({
   };
   return messagePassingMethods;
 }
+
+const dummy_code: string = `
+<LIBRARIES>
+
+ui <- <UI>
+
+server <- function(input, output) {
+
+}
+
+shinyApp(ui, server)
+`;

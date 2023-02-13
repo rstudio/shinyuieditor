@@ -1,52 +1,101 @@
-import type { ShinyUiNode } from "../../main";
+import type { Multi_File_Full_Info, Single_File_Full_Info } from "ast-parsing";
+import { SCRIPT_LOC_KEYS } from "ast-parsing";
+import { indent_line_breaks } from "ast-parsing/src/code_generation/build_function_text";
+import type { MessageToBackendByPath } from "communication-types";
+import type {
+  Multi_File_Template_Selection,
+  Single_File_Template_Selection,
+  TemplateInfo,
+} from "communication-types/src/AppTemplates";
+
+import { generate_full_app_script } from "../../state/app_model/generate_full_app_script";
+import { write_library_calls } from "../../state/app_model/generate_ui_script";
 
 import { chickWeightsGridTemplate } from "./templates/chickWeightsGrid";
 import { chickWeightsNavbar } from "./templates/chickWeightsNavbar";
 import { gridGeyserTemplate } from "./templates/gridGeyser";
-
-/**
- * Defines basic information needed to build an app template for the template viewer
- */
-export type TemplateInfo = {
-  /**
-   * Displayed name of the template in the chooser view
-   */
-  title: string;
-  /** Long form description of the template available on hover. This can use
-   * markdown formatting
-   */
-  description: string;
-  /**
-   * Main tree definining the template. Used for generating preview and also the
-   * main ui definition of the template
-   */
-  uiTree: ShinyUiNode;
-  otherCode: {
-    /**
-     * Extra code that will be copied unchanged above the ui definition
-     */
-    uiExtra?: string;
-
-    /**
-     * List of libraries that need to be loaded in server code
-     */
-    serverLibraries?: string[];
-
-    /**
-     * Extra code that will be copied unchanged above server funtion definition
-     */
-    serverExtra?: string;
-
-    /**
-     * Body of server function. This will be wrapped in the code
-     * `function(input, output){....}`
-     */
-    serverFunctionBody?: string;
-  };
-};
 
 export const app_templates: TemplateInfo[] = [
   gridGeyserTemplate,
   chickWeightsNavbar,
   chickWeightsGridTemplate,
 ];
+
+export function template_to_app_contents(
+  selection: Single_File_Template_Selection | Multi_File_Template_Selection
+): MessageToBackendByPath["UPDATED-APP"] {
+  const app_info =
+    selection.outputType === "SINGLE-FILE"
+      ? template_to_single_file_info(selection)
+      : template_to_multi_file_info(selection);
+
+  return generate_full_app_script(app_info, { include_info: true });
+}
+
+function template_to_single_file_info({
+  uiTree,
+  otherCode: {
+    uiExtra = "",
+    serverExtra = "",
+    serverFunctionBody = "",
+    serverLibraries = [],
+  },
+}: Single_File_Template_Selection): Single_File_Full_Info {
+  const code = `${SCRIPT_LOC_KEYS.libraries}
+
+${uiExtra}
+ui <- ${SCRIPT_LOC_KEYS.ui}
+
+${serverExtra}
+server <- function(input, output) {
+  ${indent_line_breaks(serverFunctionBody)}
+}
+
+shinyApp(ui, server)
+  
+`;
+
+  return {
+    app_type: "SINGLE-FILE",
+    ui_tree: uiTree,
+    app: {
+      code,
+      libraries: ["shiny", ...serverLibraries],
+    },
+  };
+}
+
+function template_to_multi_file_info({
+  uiTree,
+  otherCode: {
+    uiExtra = "",
+    serverExtra = "",
+    serverFunctionBody = "",
+    serverLibraries = [],
+  },
+}: Multi_File_Template_Selection): Multi_File_Full_Info {
+  const ui_code = `${SCRIPT_LOC_KEYS.libraries}
+
+${uiExtra}
+ui <- ${SCRIPT_LOC_KEYS.ui}
+`;
+  const server_code = `${write_library_calls(serverLibraries)}
+
+${serverExtra}
+server <- function(input, output) {
+  ${indent_line_breaks(serverFunctionBody)}
+}
+`;
+
+  return {
+    app_type: "MULTI-FILE",
+    ui_tree: uiTree,
+    ui: {
+      code: ui_code,
+      libraries: ["shiny", ...serverLibraries],
+    },
+    server: {
+      code: server_code,
+    },
+  };
+}

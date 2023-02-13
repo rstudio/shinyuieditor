@@ -29,6 +29,12 @@ export const shinyPlotOutputInfo: UiComponentInfo<ShinyPlotOutputProps> = {
       defaultValue: "400px",
     },
   },
+  serverBindings: {
+    outputs: {
+      outputIdKey: "outputId",
+      renderScaffold: `renderPlot({\n  #Plot code goes here\n  $0plot(rnorm(100))\n})`,
+    },
+  },
   acceptsChildren: false,
   iconSrc: plotIcon,
   category: "Outputs",

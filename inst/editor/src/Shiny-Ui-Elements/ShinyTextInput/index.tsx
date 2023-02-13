@@ -41,6 +41,11 @@ export const shinyTextInputInfo: UiComponentInfo<ShinyTextInputProps> = {
       optional: true,
     },
   },
+  serverBindings: {
+    inputs: {
+      inputIdKey: "inputId",
+    },
+  },
   acceptsChildren: false,
   iconSrc: icon,
   category: "Inputs",

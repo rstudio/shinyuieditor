@@ -1,18 +1,19 @@
+import type { TemplateInfo } from "communication-types/src/AppTemplates";
+
 import type { ShinyUiNode } from "../../../main";
-import type { TemplateInfo } from "../app_templates";
 
 const appTree: ShinyUiNode = {
   uiName: "gridlayout::grid_page",
   uiArguments: {
-    row_sizes: ["100px", "1fr", "1fr", "1fr"],
-    col_sizes: ["250px", "0.59fr", "1.41fr"],
-    gap_size: "1rem",
     layout: [
       "header  header   header",
       "sidebar bluePlot bluePlot",
       "table   table    plotly",
       "table   table    plotly",
     ],
+    row_sizes: ["100px", "1fr", "1fr", "1fr"],
+    col_sizes: ["250px", "0.59fr", "1.41fr"],
+    gap_size: "1rem",
   },
   uiChildren: [
     {
@@ -107,23 +108,22 @@ export const gridGeyserTemplate: TemplateInfo = {
   otherCode: {
     serverLibraries: ["plotly"],
     serverFunctionBody: ` 
-    output$distPlot <- renderPlotly({
-      # generate bins based on input$bins from ui.R
-      plot_ly(x = ~ faithful[, 2], type = "histogram")
-    })
-  
-    output$bluePlot <- renderPlot({
-      # generate bins based on input$bins from ui.R
-      x <- faithful[, 2]
-      bins <- seq(min(x), max(x), length.out = input$bins + 1)
-  
-      # draw the histogram with the specified number of bins
-      hist(x, breaks = bins, col = "steelblue", border = "white")
-    })
-  
-  
-    output$myTable <- renderDT({
-      head(faithful, input$numRows)
-    })`,
+output$distPlot <- renderPlotly({
+  # generate bins based on input$bins from ui.R
+  plot_ly(x = ~ faithful[, 2], type = "histogram")
+})
+
+output$bluePlot <- renderPlot({
+  # generate bins based on input$bins from ui.R
+  x <- faithful[, 2]
+  bins <- seq(min(x), max(x), length.out = input$bins + 1)
+
+  # draw the histogram with the specified number of bins
+  hist(x, breaks = bins, col = "steelblue", border = "white")
+})
+
+output$myTable <- renderDT({
+  head(faithful, input$numRows)
+})`,
   },
 };

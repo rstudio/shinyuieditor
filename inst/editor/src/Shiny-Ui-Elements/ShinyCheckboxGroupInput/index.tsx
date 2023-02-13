@@ -32,6 +32,11 @@ export const shinyCheckboxGroupInputInfo: UiComponentInfo<ShinyCheckboxGroupInpu
         },
       },
     },
+    serverBindings: {
+      inputs: {
+        inputIdKey: "inputId",
+      },
+    },
     acceptsChildren: false,
     iconSrc: icon,
     category: "Inputs",

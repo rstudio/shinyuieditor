@@ -2,6 +2,7 @@ import React from "react";
 
 import type { TemplateSelection } from "communication-types";
 
+import { template_to_app_contents } from "../../assets/app-templates/app_templates";
 import { useBackendConnection } from "../../backendCommunication/useBackendMessageCallbacks";
 
 export function useRequestTemplate() {
@@ -9,10 +10,9 @@ export function useRequestTemplate() {
 
   const requestTemplate = React.useCallback(
     (template: TemplateSelection) => {
-      // Sending a request for a template to backend
       sendMsg({
-        path: "TEMPLATE-SELECTION",
-        payload: template as TemplateSelection,
+        path: "UPDATED-APP",
+        payload: template_to_app_contents(template),
       });
     },
     [sendMsg]

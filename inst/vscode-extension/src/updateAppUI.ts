@@ -1,11 +1,8 @@
-import type { ShinyUiNode } from "editor";
+import type { R_Ui_Code } from "communication-types/src/MessageToBackend";
 import type * as vscode from "vscode";
 
 import { addUiTextToFile } from "./addUiTextToFile";
-import { generateUpdatedUiCode } from "./R-Utils/generateUpdatedUiCode";
-import type { ParsedApp } from "./R-Utils/parseAppFile";
-import type { ActiveRSession } from "./R-Utils/startBackgroundRProcess";
-import { collapseText } from "./string-utils";
+import type { App_Location } from "./editorLogic";
 
 /**
  * Write out new app ui into text document json to a given document.
@@ -13,22 +10,21 @@ import { collapseText } from "./string-utils";
 export async function updateAppUI({
   document,
   uiBounds,
-  RProcess,
-  uiTree,
+  ui_info,
 }: {
   document: vscode.TextDocument;
-  uiTree: ShinyUiNode;
-  uiBounds?: ParsedApp["ui_bounds"];
-  RProcess: ActiveRSession;
+  ui_info: R_Ui_Code;
+  uiBounds?: App_Location;
 }) {
   if (!uiBounds) {
     throw new Error("Attempting to update an app that has yet to be parsed.");
   }
 
-  const { start, end } = uiBounds;
+  const { ui_code } = ui_info;
 
-  const uiCode = await generateUpdatedUiCode(uiTree, RProcess);
-  const newUiText = `ui <- ${collapseText(...uiCode.text)}\n`;
+  const { start_row, start_col, end_row, end_col } = uiBounds;
+
+  const newUiText = `ui <- ${ui_code}\n`;
   await addUiTextToFile({
     text: newUiText,
     document,
@@ -37,15 +33,17 @@ export async function updateAppUI({
   });
 
   // Fix up ui bounds so next change will not mess up app
-  const oldUiNumLines = end - start + 1;
-  const newUiNumLines = uiCode.text.length;
+  const oldUiNumLines = end_row - start_row + 1;
+  const newUiNumLines = ui_code.split("\n").length;
   const uiNumLinesDiff = newUiNumLines - oldUiNumLines;
 
   return {
     uiText: newUiText,
     uiBounds: {
-      start,
-      end: end + uiNumLinesDiff,
+      start_row,
+      start_col,
+      end_row: end_row + uiNumLinesDiff,
+      end_col,
     },
   };
 }
