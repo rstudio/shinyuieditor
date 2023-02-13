@@ -2306,9 +2306,9 @@
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
           }
-          var React67 = require_react();
+          var React69 = require_react();
           var Scheduler = require_scheduler();
-          var ReactSharedInternals = React67.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React69.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           var suppressWarning = false;
           function setSuppressWarning(newSuppressWarning) {
             {
@@ -2357,7 +2357,7 @@
           var HostPortal = 4;
           var HostComponent = 5;
           var HostText = 6;
-          var Fragment17 = 7;
+          var Fragment18 = 7;
           var Mode = 8;
           var ContextConsumer = 9;
           var ContextProvider = 10;
@@ -3434,7 +3434,7 @@
                 return "DehydratedFragment";
               case ForwardRef2:
                 return getWrappedName$1(type, type.render, "ForwardRef");
-              case Fragment17:
+              case Fragment18:
                 return "Fragment";
               case HostComponent:
                 return type;
@@ -3829,7 +3829,7 @@
             {
               if (props.value == null) {
                 if (typeof props.children === "object" && props.children !== null) {
-                  React67.Children.forEach(props.children, function(child) {
+                  React69.Children.forEach(props.children, function(child) {
                     if (child == null) {
                       return;
                     }
@@ -11990,7 +11990,7 @@
             }
           }
           var fakeInternalInstance = {};
-          var emptyRefsObject = new React67.Component().refs;
+          var emptyRefsObject = new React69.Component().refs;
           var didWarnAboutStateAssignmentForComponent;
           var didWarnAboutUninitializedState;
           var didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate;
@@ -12799,7 +12799,7 @@
               }
             }
             function updateFragment2(returnFiber, current2, fragment, lanes, key) {
-              if (current2 === null || current2.tag !== Fragment17) {
+              if (current2 === null || current2.tag !== Fragment18) {
                 var created = createFiberFromFragment(fragment, returnFiber.mode, lanes, key);
                 created.return = returnFiber;
                 return created;
@@ -13201,7 +13201,7 @@
                 if (child.key === key) {
                   var elementType = element2.type;
                   if (elementType === REACT_FRAGMENT_TYPE) {
-                    if (child.tag === Fragment17) {
+                    if (child.tag === Fragment18) {
                       deleteRemainingChildren(returnFiber, child.sibling);
                       var existing = useFiber(child, element2.props.children);
                       existing.return = returnFiber;
@@ -17307,7 +17307,7 @@
                 var _resolvedProps2 = workInProgress2.elementType === type ? _unresolvedProps2 : resolveDefaultProps(type, _unresolvedProps2);
                 return updateForwardRef(current2, workInProgress2, type, _resolvedProps2, renderLanes2);
               }
-              case Fragment17:
+              case Fragment18:
                 return updateFragment(current2, workInProgress2, renderLanes2);
               case Mode:
                 return updateMode(current2, workInProgress2, renderLanes2);
@@ -17579,7 +17579,7 @@
               case SimpleMemoComponent:
               case FunctionComponent:
               case ForwardRef2:
-              case Fragment17:
+              case Fragment18:
               case Mode:
               case Profiler:
               case ContextConsumer:
@@ -21793,7 +21793,7 @@
             return fiber;
           }
           function createFiberFromFragment(elements, mode, lanes, key) {
-            var fiber = createFiber(Fragment17, elements, key, mode);
+            var fiber = createFiber(Fragment18, elements, key, mode);
             fiber.lanes = lanes;
             return fiber;
           }
@@ -22913,7 +22913,7 @@
       if (true) {
         (function() {
           "use strict";
-          var React67 = require_react();
+          var React69 = require_react();
           var REACT_ELEMENT_TYPE = Symbol.for("react.element");
           var REACT_PORTAL_TYPE = Symbol.for("react.portal");
           var REACT_FRAGMENT_TYPE = Symbol.for("react.fragment");
@@ -22939,7 +22939,7 @@
             }
             return null;
           }
-          var ReactSharedInternals = React67.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React69.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           function error(format2) {
             {
               {
@@ -23765,11 +23765,11 @@
               return jsxWithValidation(type, props, key, false);
             }
           }
-          var jsx108 = jsxWithValidationDynamic;
-          var jsxs60 = jsxWithValidationStatic;
+          var jsx109 = jsxWithValidationDynamic;
+          var jsxs61 = jsxWithValidationStatic;
           exports.Fragment = REACT_FRAGMENT_TYPE;
-          exports.jsx = jsx108;
-          exports.jsxs = jsxs60;
+          exports.jsx = jsx109;
+          exports.jsxs = jsxs61;
         })();
       }
     }
@@ -23855,7 +23855,7 @@
           var ContextProvider = REACT_PROVIDER_TYPE;
           var Element3 = REACT_ELEMENT_TYPE;
           var ForwardRef2 = REACT_FORWARD_REF_TYPE;
-          var Fragment17 = REACT_FRAGMENT_TYPE;
+          var Fragment18 = REACT_FRAGMENT_TYPE;
           var Lazy = REACT_LAZY_TYPE;
           var Memo = REACT_MEMO_TYPE;
           var Portal2 = REACT_PORTAL_TYPE;
@@ -23914,7 +23914,7 @@
           exports.ContextProvider = ContextProvider;
           exports.Element = Element3;
           exports.ForwardRef = ForwardRef2;
-          exports.Fragment = Fragment17;
+          exports.Fragment = Fragment18;
           exports.Lazy = Lazy;
           exports.Memo = Memo;
           exports.Portal = Portal2;
@@ -24828,8 +24828,8 @@
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
           }
-          var React67 = require_react();
-          var ReactSharedInternals = React67.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var React69 = require_react();
+          var ReactSharedInternals = React69.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           function error(format2) {
             {
               {
@@ -24859,13 +24859,13 @@
             return x2 === y3 && (x2 !== 0 || 1 / x2 === 1 / y3) || x2 !== x2 && y3 !== y3;
           }
           var objectIs = typeof Object.is === "function" ? Object.is : is5;
-          var useState11 = React67.useState, useEffect12 = React67.useEffect, useLayoutEffect3 = React67.useLayoutEffect, useDebugValue2 = React67.useDebugValue;
+          var useState11 = React69.useState, useEffect12 = React69.useEffect, useLayoutEffect3 = React69.useLayoutEffect, useDebugValue2 = React69.useDebugValue;
           var didWarnOld18Alpha = false;
           var didWarnUncachedGetSnapshot = false;
           function useSyncExternalStore3(subscribe, getSnapshot, getServerSnapshot) {
             {
               if (!didWarnOld18Alpha) {
-                if (React67.startTransition !== void 0) {
+                if (React69.startTransition !== void 0) {
                   didWarnOld18Alpha = true;
                   error("You are using an outdated, pre-release alpha of React 18 that does not support useSyncExternalStore. The use-sync-external-store shim will not work correctly. Upgrade to a newer pre-release.");
                 }
@@ -24930,7 +24930,7 @@
           var canUseDOM4 = !!(typeof window !== "undefined" && typeof window.document !== "undefined" && typeof window.document.createElement !== "undefined");
           var isServerEnvironment = !canUseDOM4;
           var shim = isServerEnvironment ? useSyncExternalStore$1 : useSyncExternalStore3;
-          var useSyncExternalStore$2 = React67.useSyncExternalStore !== void 0 ? React67.useSyncExternalStore : shim;
+          var useSyncExternalStore$2 = React69.useSyncExternalStore !== void 0 ? React69.useSyncExternalStore : shim;
           exports.useSyncExternalStore = useSyncExternalStore$2;
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(new Error());
@@ -24962,14 +24962,14 @@
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
           }
-          var React67 = require_react();
+          var React69 = require_react();
           var shim = require_shim();
           function is5(x2, y3) {
             return x2 === y3 && (x2 !== 0 || 1 / x2 === 1 / y3) || x2 !== x2 && y3 !== y3;
           }
           var objectIs = typeof Object.is === "function" ? Object.is : is5;
           var useSyncExternalStore3 = shim.useSyncExternalStore;
-          var useRef9 = React67.useRef, useEffect12 = React67.useEffect, useMemo7 = React67.useMemo, useDebugValue2 = React67.useDebugValue;
+          var useRef9 = React69.useRef, useEffect12 = React69.useEffect, useMemo7 = React69.useMemo, useDebugValue2 = React69.useDebugValue;
           function useSyncExternalStoreWithSelector3(subscribe, getSnapshot, getServerSnapshot, selector, isEqual3) {
             var instRef = useRef9(null);
             var inst;
@@ -25223,7 +25223,7 @@
           var ContextProvider = REACT_PROVIDER_TYPE;
           var Element3 = REACT_ELEMENT_TYPE;
           var ForwardRef2 = REACT_FORWARD_REF_TYPE;
-          var Fragment17 = REACT_FRAGMENT_TYPE;
+          var Fragment18 = REACT_FRAGMENT_TYPE;
           var Lazy = REACT_LAZY_TYPE;
           var Memo = REACT_MEMO_TYPE;
           var Portal2 = REACT_PORTAL_TYPE;
@@ -25291,7 +25291,7 @@
           exports.ContextProvider = ContextProvider;
           exports.Element = Element3;
           exports.ForwardRef = ForwardRef2;
-          exports.Fragment = Fragment17;
+          exports.Fragment = Fragment18;
           exports.Lazy = Lazy;
           exports.Memo = Memo;
           exports.Portal = Portal2;
@@ -25513,7 +25513,7 @@
           var ContextProvider = REACT_PROVIDER_TYPE;
           var Element3 = REACT_ELEMENT_TYPE;
           var ForwardRef2 = REACT_FORWARD_REF_TYPE;
-          var Fragment17 = REACT_FRAGMENT_TYPE;
+          var Fragment18 = REACT_FRAGMENT_TYPE;
           var Lazy = REACT_LAZY_TYPE;
           var Memo = REACT_MEMO_TYPE;
           var Portal2 = REACT_PORTAL_TYPE;
@@ -25581,7 +25581,7 @@
           exports.ContextProvider = ContextProvider;
           exports.Element = Element3;
           exports.ForwardRef = ForwardRef2;
-          exports.Fragment = Fragment17;
+          exports.Fragment = Fragment18;
           exports.Lazy = Lazy;
           exports.Memo = Memo;
           exports.Portal = Portal2;
@@ -27327,7 +27327,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     }
   });
 
-  // ../communication-types/src/messageDispatcher.ts
+  // ../communication-types/src/BackendConnection.ts
+  var makeMessageDispatcher = makeMessageDispatcherGeneric;
   function makeMessageDispatcherGeneric() {
     const subscriptions = {};
     return {
@@ -27346,14 +27347,6 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
         subscriptions[path3]?.forEach((callback) => callback(payload));
       }
     };
-  }
-  var makeMessageDispatcher = makeMessageDispatcherGeneric;
-
-  // src/env_variables.ts
-  var TESTING_MODE = false;
-  try {
-    TESTING_MODE = false;
-  } catch {
   }
 
   // src/state/backupUiTree.tsx
@@ -27390,19 +27383,25 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
               if (ui_tree === "TEMPLATE_CHOOSER") {
                 messageDispatch.dispatch("TEMPLATE_CHOOSER", "USER-CHOICE");
               } else {
-                messageDispatch.dispatch("UPDATED-TREE", ui_tree);
+                messageDispatch.dispatch("APP-INFO", {
+                  ui_tree,
+                  app_type: "SINGLE-FILE",
+                  app: {
+                    code: dummy_code,
+                    libraries: ["shiny"]
+                  }
+                });
               }
             });
             return;
           }
-          case "TEMPLATE-SELECTION": {
-            messageDispatch.dispatch("UPDATED-TREE", msg.payload.uiTree);
+          case "UPDATED-APP": {
+            if (msg.payload.info) {
+              messageDispatch.dispatch("APP-INFO", msg.payload.info);
+            }
             return;
           }
           case "APP-PREVIEW-REQUEST": {
-            if (!TESTING_MODE)
-              return;
-            messageDispatch.dispatch("APP-PREVIEW-STATUS", "FAKE-PREVIEW");
             return;
           }
         }
@@ -27412,6 +27411,17 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     };
     return messagePassingMethods;
   }
+  var dummy_code = `
+<LIBRARIES>
+
+ui <- <UI>
+
+server <- function(input, output) {
+
+}
+
+shinyApp(ui, server)
+`;
 
   // src/backendCommunication/websocketBackend.ts
   function setupWebsocketBackend({
@@ -32475,8 +32485,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   // src/assets/icons/undo.png
   var undo_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAoCAYAAAC4h3lxAAAACXBIWXMAAAsTAAALEwEAmpwYAAABDElEQVRYhe2ZsQ7CMAxEr4gvZmBDXMXGwC+XgVQqERDbCbEr5ZaoalXdq+0kTqdlWbBnHbwN1GoAeGsAeGv3AMdfN8+3h+ZdVwDcXE8GP7hfTqrnW0UgN99NLQDczAP1AFvzM4xpU6MagNw8vz75R1kBQpgHCrPQF0nNW3eJqjTURiDMl1+liYDUvLWQTRGTRiDcl18lAQhrHigDhDYPlAGYxpDmAXkNhG2cSwBzGolXOoWTJIVCQ0hSiAgMIa0BIiiEZiVmGvOpNVfXgtfuhYhgkbDsRpnGUiS6NDfWfoAIEomajowIAFHbExPvEN1X7BanEsTnGuiiVudChBPENH5wOGsAeGsAeGv3AE8yEDlUwXXxqQAAAABJRU5ErkJggg==";
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-K8Ijp2ll9lLh/editor/src/components/Icons/styles.module.css.js
-  var digest = "c24ae3cb84f2507866036971c3ef05192b0950c4aac7027806db51c2827ff458";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-vTsRaehBz169/editor/src/components/Icons/styles.module.css.js
+  var digest = "aaa2596cc0635e3b60a250656c6f8ba89d2866a65c221ebc56cfe5911a5f92f5";
   var css = `img._icon_1467k_1 {
   height: 30px;
   /* outline: 2px solid green; */
@@ -32771,8 +32781,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     return classes.filter((c2) => c2).join(" ");
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-mMZg4uI0IKmo/editor/src/components/Inputs/Button/Button.module.css.js
-  var digest2 = "09b2722b4e36ce0178ff3215383bee58236f0dcf1360bbfa719d162eb7dce062";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-mkWYytzcY4vl/editor/src/components/Inputs/Button/Button.module.css.js
+  var digest2 = "ae6c56e11f4fe6592d6e75367f2fd9b959531311afb106ea3507ce8423a0b6bd";
   var css2 = `._button_1y00r_1 {
   --background-color: var(--rstudio-white);
   --text-color: var(--font-color);
@@ -33310,7 +33320,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   // src/components/DeleteNodeButton/useDeleteNode.tsx
   var React54 = __toESM(require_react());
 
-  // src/state/uiTree.ts
+  // src/state/app_info.ts
   var import_react43 = __toESM(require_react());
 
   // ../../node_modules/immer/dist/immer.esm.mjs
@@ -35740,51 +35750,6 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   var rAF = typeof window !== "undefined" && window.requestAnimationFrame ? window.requestAnimationFrame : createQueueWithTimer(10);
   F();
 
-  // src/components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo.ts
-  function isNodeToValueFn(x2) {
-    return typeof x2 === "function";
-  }
-  function getValueFromProperty(x2, node2) {
-    if (isNodeToValueFn(x2)) {
-      return x2(node2);
-    }
-    return x2;
-  }
-  function buildStaticFieldInfo(dynamicFieldInfo, node2) {
-    let staticArgumentInfo = {};
-    for (let prop in dynamicFieldInfo) {
-      const dynamicVal = dynamicFieldInfo[prop];
-      staticArgumentInfo[prop] = getValueFromProperty(dynamicVal, node2);
-    }
-    return staticArgumentInfo;
-  }
-  function buildStaticFormInfo(dynamicFormInfo, node2) {
-    let staticSettingsInfo = {};
-    for (let argName in dynamicFormInfo) {
-      const dynamicVal = dynamicFormInfo[argName];
-      staticSettingsInfo[argName] = buildStaticFieldInfo(dynamicVal, node2);
-    }
-    return staticSettingsInfo;
-  }
-  function getDefaultSettings(dynamicFormInfo, node2) {
-    let defaultArgs = {};
-    for (let argName in dynamicFormInfo) {
-      const argInfo = dynamicFormInfo[argName];
-      const isOptional = "optional" in argInfo;
-      const forceDefault = "useDefaultIfOptional" in argInfo && argInfo.useDefaultIfOptional;
-      if (isOptional && !forceDefault) {
-        continue;
-      }
-      if ("defaultValue" in argInfo) {
-        defaultArgs[argName] = buildStaticFieldInfo(
-          dynamicFormInfo[argName],
-          node2
-        ).defaultValue;
-      }
-    }
-    return defaultArgs;
-  }
-
   // src/assets/icons/shinyTable.png
   var shinyTable_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAEAElEQVR4nO3dvW4cVRyG8ceIj4KUcAfbIKIAFlIqXwEIylUiKmwp0KO5iK3S8SEnNAhrSxBwA25CEQckojTTcgchUkyxFDMLloVWLN53Z/6r59eMHU9W51jPnpXmyDN7i8UCadNeGHoA2k2GpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqUIw1KEYSnCsBRhWIowLEUYliIMSxGGpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqUIw1KEYSnCsBRhWIowLEUYliIMSxGGpYgXhx7Aupp5e/mf9oFbwAHwJnBt22PasKfAY+AUOAHOLv5wNp0MMaa1VV+xjoGHwGfATepHBd0cbtLN6SFwXCWmi8qtWBd8B3wAnANf0L27f5tNJ0//y3/uV77lk9b3AuP7+7XXCaOZt9eA63Sr8CfAYTNvXwc+3PgIg6qGdUwX1e/A+7Pp5Jdhh7M5/RvjAfCgmbdfAz/QzfUecDjk2NZR8aPwHbpf8Dk7FtVl/dzeA54DH9PNvYSKYd3uj1/uclRLs+nkV+Cr/tvbq84dk4phHfTHbwcdxXYt53qw8qwRqRjWfn88W3nWbnnUH/0oDHoJYDadnA89kG2ZTSfP+y9fHnQga6gYlgowLEUYliKqXiD9tz3D0ao01k0pGxb/bJmM7bW2+dqj5UehIiqvWJvYON7KJvSGX68EVyxFGJYiDEsRhqUIw1KEYSnCsBRhWIqofIHULZ0Rc8VSROUVyy2dEXPFUoRhKcKwFGFYijAsRRiWIgxLEYaliMoXSN3SGTFXLEVUXrHc0hmxsmFd9Yav2/zr5E3cnLbaX1P7UagIw1KEYSmiYlh/AjTztszd7a6qv/c7dE+tKKFiWMt7j+6vPGu3XO+PjwcdxRoqhnXaH28NOortWs71dOVZI1IxrJP+eKeZt28NOpItaObtDeBO/+3JqnPHpGJYZ8B94BXgx2bevj3scHL6N85PdHO9T6FbkFe9QHoIvEb3jJmfm3n7OfAN8GQ2nfwx6MiuqJm3rwJvAB8Bn9Ldgvt7Cj1HB2BvsSi1U3D5CvQxxX7h/8O92XRytJx3lUfMVfwovOgIeBe4S/dsv2eDjmYzntHN5S7d3I6qbedAwRVLNVRfsTRShqUIw1KEYSnCsBRhWIowLEUYliIMSxGGpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqUIw1KEYSnCsBRhWIowLEUYliIMSxGGpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYi/gL6TZmwrBJftQAAAABJRU5ErkJggg==";
 
@@ -35930,6 +35895,14 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
         optional: true
       }
     },
+    serverBindings: {
+      outputs: {
+        outputIdKey: "outputId",
+        renderScaffold: `renderDT({
+  iris
+})`
+      }
+    },
     acceptsChildren: true,
     iconSrc: shinyTable_default,
     category: "Outputs",
@@ -35942,8 +35915,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   // src/Shiny-Ui-Elements/GridlayoutGridCard/GridlayoutGridCard.tsx
   var import_react21 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-EIH1GsyqUW8g/editor/src/components/DeleteNodeButton/styles.module.css.js
-  var digest3 = "539d4b6237d813010c2ba9883373e971838cf02b0075de410178ed187c32db0b";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-amXVKI3LpmdJ/editor/src/components/DeleteNodeButton/styles.module.css.js
+  var digest3 = "599bb85ca96bf8a23dd6704375e21a4592349136e422b33b9217b405a1b24aab";
   var css3 = `._deleteButton_1en02_1 {
   color: var(--red);
   display: flex;
@@ -36105,14 +36078,14 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   });
   var { SET_SELECTION, STEP_BACK_SELECTION } = selectedPathSlice.actions;
   function useCurrentSelection() {
-    return useSelector((state) => state.selectedPath);
+    return useSelector((state) => state.selected_path);
   }
   var selectedPath_default = selectedPathSlice.reducer;
 
   // src/NodeSelectionState.tsx
   function useNodeSelectionState() {
     const dispatch = useDispatch();
-    const selectedPath = useSelector((state) => state.selectedPath);
+    const selectedPath = useSelector((state) => state.selected_path);
     const setSelectedPath = React12.useCallback(
       (path3) => {
         dispatch(SET_SELECTION({ path: path3 }));
@@ -36122,7 +36095,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     return [selectedPath, setSelectedPath];
   }
   function useSelectedPath() {
-    const selectedPath = useSelector((state) => state.selectedPath);
+    const selectedPath = useSelector((state) => state.selected_path);
     return selectedPath;
   }
 
@@ -36199,8 +36172,8 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
   };
   var UiNode_default = UiNode;
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-dgu6Pw4kd5d6/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
-  var digest4 = "913c661c06c903a1833f7f488d08624becde2933b5c1fbab106b5a7957acacaf";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-kvX63OCIppgT/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
+  var digest4 = "6cb94fefd88dfa555efc63237a39000e8b98408da54f4f436c7f6ad45ad0a8c6";
   var css4 = `._container_1a2os_1 {
   position: relative;
   height: 100%;
@@ -36626,8 +36599,8 @@ div._emptyGridCard_1a2os_144 > button {
     return setLayout;
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-oj3J5gd5xOTU/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
-  var digest5 = "5832715573ae9d6d648eb0c55aa1f405100252cfd65ae79e7afd3f51bb5e6ee3";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-DkeDbV0DZNo7/editor/src/Shiny-Ui-Elements/GridlayoutGridCard/styles.module.css.js
+  var digest5 = "110882fc8a0815adbcbe18ebcdee915326ee4a35e1839d7ec929c91dadda8610";
   var css5 = `._container_1a2os_1 {
   position: relative;
   height: 100%;
@@ -36984,8 +36957,8 @@ div._emptyGridCard_1a2os_144 > button {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 16 16" }, "child": [{ "tag": "path", "attr": { "fillRule": "evenodd", "d": "M16 14v1H0V0h1v14h15zM5 13H3V8h2v5zm4 0H7V3h2v10zm4 0h-2V6h2v7z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-Ujq97cQEt9eE/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
-  var digest6 = "7379fa7d7a16eaa750872244aedafc279635184b5bb060e2ecaac73bba27c8fd";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-N1XxPtN5l03t/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
+  var digest6 = "5c0a951825800e3e4ddeaf59616cc46745a7ee4b06618353f21f8dfea16dd19f";
   var css6 = `._container_1rlbk_1 {
   max-height: 100%;
 }
@@ -37075,8 +37048,8 @@ div._emptyGridCard_1a2os_144 > button {
     return dimensions;
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-T7j0aJY9s1Fq/editor/src/Shiny-Ui-Elements/GridlayoutGridCardPlot/styles.module.css.js
-  var digest7 = "d1b8b62a704ccd5e0d22a2faf6e4b423007da68373de869508ebed14fb353d9c";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-lhkrQdo7mWAJ/editor/src/Shiny-Ui-Elements/GridlayoutGridCardPlot/styles.module.css.js
+  var digest7 = "7eb9039acb4b2a099e235724531a0f37c04f15377cf1fa2bb129e462e34cc027";
   var css7 = `._gridCardPlot_1a94v_1 {
   background-color: var(--rstudio-white);
   width: 100%;
@@ -37146,6 +37119,15 @@ div._emptyGridCard_1a2os_144 > button {
         optional: true
       }
     },
+    serverBindings: {
+      outputs: {
+        outputIdKey: (args) => args.outputId ? "outputId" : "area",
+        renderScaffold: `renderPlot({
+  #Plot code goes here
+  $0plot(rnorm(100))
+})`
+      }
+    },
     acceptsChildren: false,
     iconSrc: shinyPlot_default,
     category: "gridlayout",
@@ -37159,8 +37141,8 @@ div._emptyGridCard_1a2os_144 > button {
   // src/Shiny-Ui-Elements/GridlayoutGridCardText/GridlayoutCardText.tsx
   var React21 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-bxLGGLBRpPIy/editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/styles.module.css.js
-  var digest8 = "58429d7b0122ad9122bfd1c07838b8d375e62646938162098508708ea87bc5d6";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-utF0NXvOvw1m/editor/src/Shiny-Ui-Elements/GridlayoutGridCardText/styles.module.css.js
+  var digest8 = "062fdbb4034528ebc3fb8c616450c319be7aec02a81c3fe12cf0c067db48567b";
   var css8 = `._textPanel_525i2_1 {
   background-color: var(--rstudio-white);
   /* outline: var(--outline); */
@@ -37927,8 +37909,8 @@ div._emptyGridCard_1a2os_144 > button {
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-qp2wziboogtY/editor/src/components/Grids/AreaOverlay.module.css.js
-  var digest9 = "28bba3ec589d74621ff6181be92745287880995a53421a496761f5b154c0a0b2";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-GYEkJ34wkUAL/editor/src/components/Grids/AreaOverlay.module.css.js
+  var digest9 = "3ccaeff75992a75cb3e9f4adf950d84855b83818d8e67882184acb240d0d66a7";
   var css9 = `._marker_mumaw_1 {
   font-weight: lighter;
   font-style: italic;
@@ -38352,8 +38334,8 @@ div._emptyGridCard_1a2os_144 > button {
   // src/components/Grids/EditableGridContainer/EditableGridContainer.tsx
   var React33 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-vEYyrVaEpD95/editor/src/components/Grids/EditableGridContainer/resizableGrid.module.css.js
-  var digest10 = "1964fed5d8b4d6a908c6947398959664d910d11734a5aec98d908f5f7b9f22b8";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-t5OanZXZm2Oz/editor/src/components/Grids/EditableGridContainer/resizableGrid.module.css.js
+  var digest10 = "60f5c54e886b8415395a326eac2222acbbf9ea90d52737dd06a288246dc10328";
   var css10 = `._ResizableGrid_i4cq9_1 {
   --grid-gap: 5px;
 
@@ -48849,8 +48831,8 @@ div#_size-detection-cell_i4cq9_1 {
     };
   };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-NNBKgLGWWQwU/editor/src/components/PopoverEl/styles.module.css.js
-  var digest11 = "3b83fb70c2e19ceb9300950d5e525cbfbe20c65e70392012e736b14096994dcb";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-JfyGeAPc40C7/editor/src/components/PopoverEl/styles.module.css.js
+  var digest11 = "096f29a30edc080e3563916783c6f3925b8beef1857718a1d120a5cf75556a4e";
   var css11 = `._popover_m2pq3_1 {
   pointer-events: none;
   opacity: 0;
@@ -49038,8 +49020,8 @@ div#_size-detection-cell_i4cq9_1 {
     );
   };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-5OACy45n3J3y/editor/src/components/Inputs/CSSUnitInput/CSSUnitInfo.module.css.js
-  var digest12 = "e39dad2c02a14013c17f8176e17e6dddea3ff97438091d096e2b0c803bee7019";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-MbBLS4EZIXUz/editor/src/components/Inputs/CSSUnitInput/CSSUnitInfo.module.css.js
+  var digest12 = "c3c827eb4cda4c5038af8a67f79daec9ee43d41b0135027c0a593f6818c24717";
   var css12 = `._infoIcon_15ri6_1 {
   width: 24px;
   color: var(--rstudio-blue);
@@ -49118,8 +49100,8 @@ div#_size-detection-cell_i4cq9_1 {
     rem: "Pixel size of app font. Typically 16 pixels."
   };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-YrFEMRxPTpef/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
-  var digest13 = "1dc3d5886ee72ab1db9b2682e8f000ff5b84f2a552f75fe6c0d6485297928e92";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-DgUQeKwfMiIo/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
+  var digest13 = "27d3d6e3491f7f84708e09ac503da7c886d5a62f83d270036c5796133c397405";
   var css13 = `._wrapper_3jy8f_1 {
   position: relative;
   display: flex;
@@ -49355,6 +49337,7 @@ div#_size-detection-cell_i4cq9_1 {
     position: position3 = "down",
     size,
     children,
+    variant = "icon",
     ...buttonArgs
   }) {
     return /* @__PURE__ */ (0, import_jsx_runtime40.jsx)(
@@ -49363,7 +49346,7 @@ div#_size-detection-cell_i4cq9_1 {
         "aria-label": text4,
         "data-balloon-pos": position3,
         "data-balloon-length": size,
-        variant: "icon",
+        variant,
         ...buttonArgs,
         children
       }
@@ -49662,8 +49645,8 @@ div#_size-detection-cell_i4cq9_1 {
     return tractSizes.some((size) => size === "auto");
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-CS6ktrUVzU9m/editor/src/components/Grids/EditableGridContainer/TractInfoDisplay.module.css.js
-  var digest14 = "9fcfa325012707bf3b54c5c1ddd72573898a6861deebd93d1f99b6209f5e397d";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-EZ446zp86HRf/editor/src/components/Grids/EditableGridContainer/TractInfoDisplay.module.css.js
+  var digest14 = "436d0f2bb4bb6b298f20fdd427d45ab132823385a95224915ac76671373acdb3";
   var css14 = `._tractInfoDisplay_cvtwo_1 {
   --transition-delay: 0.1s;
   --transition-speed: 0.1s;
@@ -50026,8 +50009,8 @@ user is typing in the input field but mouses off */
     });
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-S4yzFtkpszga/editor/src/components/Grids/EditableGridContainer/TractSizer.module.css.js
-  var digest15 = "d157d71bca3b718c83689cb6f7d470bd80596e035bcd69c9eae27f3000d063ec";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-crnBcJoVakRf/editor/src/components/Grids/EditableGridContainer/TractSizer.module.css.js
+  var digest15 = "3e979d533152b4644d47439c231e998cb95e907a2a002e51e19f8b7c5fbf61a9";
   var css15 = `div._columnSizer_9b32k_1,
 div._rowSizer_9b32k_2 {
   --sizer-color: #c9e2f3;
@@ -50452,7 +50435,7 @@ div._rowSizer_9b32k_2::after {
     return /* @__PURE__ */ (0, import_jsx_runtime45.jsx)("h3", { className: className + " panel-title", children });
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-E1lGloPcnmJf/editor/src/PortalModal.module.css.js
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-aaBlmaE3vwX1/editor/src/PortalModal.module.css.js
   var digest16 = "e7ce6e377975676bd07773cc70db7ab0829e769cd4dc30890745ad5e212f81e6";
   var css16 = `._portalHolder_18ua3_1 {
   background-color: rgba(255, 255, 255, 0.735);
@@ -50569,8 +50552,8 @@ div._rowSizer_9b32k_2::after {
   }
   var PortalModal_default = PortalModal;
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-G4n68TqSnkpy/editor/src/PortalModal.module.css.js
-  var digest17 = "72fe79d3b3f0b50ff92d211e71ea99af3fd8cb56974e74f79e768b3daf679f5d";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-5aAaIFCcN8Mh/editor/src/PortalModal.module.css.js
+  var digest17 = "53a8dae5ba2644c9c1dad78eb547d8dd16c2679eb2d541d2e8449821984b7754";
   var css17 = `._portalHolder_18ua3_1 {
   background-color: rgba(255, 255, 255, 0.735);
   position: absolute;
@@ -50769,8 +50752,8 @@ div._rowSizer_9b32k_2::after {
     }, n3;
   }();
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-95p7aTUPze2C/editor/src/components/Inputs/BooleanInput/styles.module.css.js
-  var digest18 = "681243bd74439424c9b46a85329f619ba18a17467184e61b90e46f8829d3b858";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-bzhYDl85SbwN/editor/src/components/Inputs/BooleanInput/styles.module.css.js
+  var digest18 = "df3e8309c1e17bf7af6ab65aca6d7876b05059eb2aa0a5e9a86541289084c72b";
   var css18 = `._checkboxInput_7ym3w_1 {
   height: 0;
   width: 0;
@@ -50882,8 +50865,8 @@ label._checkboxLabel_7ym3w_10:after {
   // src/components/Inputs/CSSUnitInput/CSSUnitInput.tsx
   var import_react31 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-B0ZlK8y7M21P/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
-  var digest19 = "a6561292c7cd8e01caf796265c31f0fdc7c879e01e750063f34962eb5e41b86f";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-SYVOiSAlwuja/editor/src/components/Inputs/CSSUnitInput/CSSUnitInput.module.css.js
+  var digest19 = "566a11ded5f57c4384e2c266f068c5f381292a3d8392fcc1e9c9d47c64148c21";
   var css19 = `._wrapper_3jy8f_1 {
   position: relative;
   display: flex;
@@ -51025,8 +51008,8 @@ label._checkboxLabel_7ym3w_10:after {
   // src/components/Inputs/ListInput/NamedListInput.tsx
   var import_react_sortablejs = __toESM(require_dist());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-zIN903OOhar5/editor/src/components/Inputs/ListInput/styles.module.css.js
-  var digest20 = "18d8b821c8adfc013d979fbd3af8b6ab578c35ad229d37c9763a6654edddfd07";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-iRJzyaS5aJD6/editor/src/components/Inputs/ListInput/styles.module.css.js
+  var digest20 = "975c0081333a4004fdca5adea748bdfdaec4bb31a0ee4e11bcbe24558e334e96";
   var css20 = `._container_xt7ji_1 {
   --gap-size: 4px;
   margin-top: 21px;
@@ -51322,8 +51305,8 @@ label._checkboxLabel_7ym3w_10:after {
   // src/components/Inputs/RadioInputs/RadioInputsSimple.tsx
   var React39 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-tFKlgIMo2ShE/editor/src/components/Inputs/RadioInputs/RadioInputs.module.css.js
-  var digest21 = "862f1f6f138e0f82575c1775e8260f16e7a9c61616856ce4bcc8ab816ea48b15";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-YANL3aR46QGz/editor/src/components/Inputs/RadioInputs/RadioInputs.module.css.js
+  var digest21 = "a82fbb951b36da1f2b8e6dc9bd011e4bd16d8b6f1e19698dd63be0c13058d5ea";
   var css21 = `._radioContainer_1regb_1 {
   display: grid;
   gap: 5px;
@@ -51784,8 +51767,8 @@ the label */
     };
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-JiEVGBlX4682/editor/src/components/GridlayoutElement/styles.module.css.js
-  var digest22 = "2a169a5e4a804e922186cc86d0d7dc928bc55f00419af35899203338578969d9";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-M1sGPDTikyR3/editor/src/components/GridlayoutElement/styles.module.css.js
+  var digest22 = "73b7601541051886b114375cb28200fe0aea36dc428574408a9a3d3341d4cff1";
   var css22 = `._container_1hvsg_1 {
   display: grid;
   /* background-color: var(--bg-color); */
@@ -52021,6 +52004,13 @@ the label */
     category: "gridlayout"
   };
 
+  // src/env_variables.ts
+  var TESTING_MODE = false;
+  try {
+    TESTING_MODE = false;
+  } catch {
+  }
+
   // src/components/PlotPlaceholder/PlotPlaceholder.tsx
   var import_jsx_runtime59 = __toESM(require_jsx_runtime());
   var NUM_BARS = 11;
@@ -52106,6 +52096,14 @@ the label */
         defaultValue: "400px"
       }
     },
+    serverBindings: {
+      outputs: {
+        outputIdKey: "outputId",
+        renderScaffold: `renderPlotly({
+  plot_ly(z = ~volcano, type = "surface")
+})`
+      }
+    },
     acceptsChildren: false,
     iconSrc: shinyPlot_default,
     category: "Plotting",
@@ -52130,8 +52128,8 @@ the label */
     return makeStringInputInfo("Label text", defaultValue);
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-lJRln7cu6jaZ/editor/src/Shiny-Ui-Elements/ShinyActionButton/styles.module.css.js
-  var digest23 = "8f18dc16b6f2d99588fd5ba94435acafbc1b795544906ff18c893efc3860dd4e";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-8lngEJ2z1lp8/editor/src/Shiny-Ui-Elements/ShinyActionButton/styles.module.css.js
+  var digest23 = "d46a313a815224b88b344b39c68e98f20fb5b7220d08d34641e9337898e75ccd";
   var css23 = `._container_tyghz_1 {
   display: grid;
   grid-template-rows: 1fr;
@@ -52179,6 +52177,11 @@ the label */
         units: ["%", "px", "rem"]
       }
     },
+    serverBindings: {
+      inputs: {
+        inputIdKey: "inputId"
+      }
+    },
     acceptsChildren: false,
     iconSrc: shinyButton_default,
     category: "Inputs",
@@ -52188,8 +52191,8 @@ the label */
   // src/assets/icons/shinyCheckgroup.png
   var shinyCheckgroup_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAFS0lEQVR4nO3cz2vTdxzH8Vfb9VeIa7ta1FW2FqQ6pqLbEERhm0OGFzcPY0dhl+LFo4cd9gfsuIs77LDbkAljDqEiCoKszMMEcbqFsjm2OaW6ptClP2zNDvkms2n6I99vXqTp5/mAQJKmn3wPT76fJCTvpnw+L6DWmut9ANiYCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFoQFC8KCBWHBgrBgQViwICxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFs/V+wDq5cy5seX+1BNd4piILkt8+uGOmEs2pmDDKrNL0ilJ70h6NeFaP0m6IumspJ8TrtWw2AqlYUl3JJ1W8qgUrXE6WnO4Bus1pNDPWCclff7sHZ1tzepsa4m12PTcgqbnnhZvNkVrz0r6Mv4hNqaQw+pTYbuSJA1s7tB7r/Wpv6c90aJ/Tczq2x/Hde/RTPGus5IuShpPtHCDCXkrPCWpU5K297Rr+O3+xFFJUn+01vYXSmt1RM8VlJDDOly8cmxvr1qam2q2cEtzk47t6a34XKEIeSs8VLwy0NeZaKHRTFaX7xQ+ZRh+60Vt6W4vX/NQxX/cwEIOK1W80toS/2x18ea4rmUmlW5vKUVVYc1UxX/ewELeChMbzWR1LTMpSTp5aGspKhBWbJO5J/rm5iNJ0on9m/Vywu10oyGsmL76/oEk6cBAWgeHuut7MOsQYcUwmsnq18ezSre36Ojid3+IEFaVJnNPSu8Aj+/rVVeqtc5HtD4RVpWu/5LV1OyCdm9Lad/A8/U+nHWLsKrwMDtbehf47l62wJUQVhUu3XosSXpzqIuPFlZBWBWMZrI6c25M5394ULrv9/Fp3f47J0k6vLO7TkfWOAirzMyTp6XPp27cmyrFdfvPKUmFsxUv2FdHWGU6Wpv10eGtpds37k0t+oT9jUFesK8FYVWwqz+tE/s3l24Xz2C7t6V4bbVGhLWMg0PdOjCQXnTf3pfSyzwa5UIO65/ildzcQsUHHN3Tq3R74WvKWza1VvW51TNfUZaW+eXORhby12auSzouSXfv5/T6wKYlD+hKteqT9wdjLX7n/r/lzxWUkM9Y3xWvjNx6rGxuvmYLZ3PzGok+84pcqNniDSLkM9YXkj6WNDg5Pa/PLv+hI6/0aMeWlNpifvFvbiGvsYc5Xb07oamZ0vb6W/RcQQk5LKnwI4cRSZqaWdCF6N2f4TmCE/JWKEmXVPj1c8awdiZa+5Jh7XUv9DOWJF2VtFPSB5KOqPCLmrjfUc+p8EL9iqTzNTm6BkVY//s6uqAGQt8KYUJYsCAsWBAWLHjxvpRlol9oCKuAiX41xlbIRD+L0M9YTPQzCTksJvoZhbwVMtHPKOSwmOhnFPJWyEQ/o5DDYqKfUchbYWJM9FseYcXERL+VEVZMTPRbGWHFwES/1RFWlZjotzaEVSUm+q0NYVWBiX5rR1hVYKLf2hFWBUz0S46wyjDRrzYIqwwT/WqDsCpgol9yhLUMJvolE3JYTPQzCvlrM0z0Mwr5jMVEP6OQz1hM9DMKOSyJiX42IW+FEhP9bEI/Y0lM9LNoyufz9T4GbEChb4UwISxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLAgLFoQFC8KCBWHBgrBgQViwICxYEBYsCAsWhAULwoIFYcGCsGBBWLAgLFgQFiwICxaEBQvCggVhwYKwYEFYsCAsWBAWLP4DpWmTqmVmpDwAAAAASUVORK5CYII=";
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-iEnVzDd73P0K/editor/src/Shiny-Ui-Elements/ShinyCheckboxGroupInput/styles.module.css.js
-  var digest24 = "db3e07510ba6c82f65e31b427567ba370a207521a5abdb3f5abe36839d9b99c2";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-CJ3TjMxpOss0/editor/src/Shiny-Ui-Elements/ShinyCheckboxGroupInput/styles.module.css.js
+  var digest24 = "d8b0ec9ab5eae2584e260e1469977421eabfbf8daf92ff5db3cca9526993318b";
   var css24 = `._container_162lp_1 {
   position: relative;
   padding: 4px;
@@ -52269,6 +52272,11 @@ the label */
         }
       }
     },
+    serverBindings: {
+      inputs: {
+        inputIdKey: "inputId"
+      }
+    },
     acceptsChildren: false,
     iconSrc: shinyCheckgroup_default,
     category: "Inputs",
@@ -52281,8 +52289,8 @@ the label */
   // src/Shiny-Ui-Elements/ShinyCheckboxInput/ShinyCheckboxInput.tsx
   var React43 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-QJ8V6YLViCtd/editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/styles.module.css.js
-  var digest25 = "2656e7939bcc0aa3e6a08923c9703696c7a69a5637fe20866f232ad8a1687ea5";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-vaZ9H0dt3SDf/editor/src/Shiny-Ui-Elements/ShinyCheckboxInput/styles.module.css.js
+  var digest25 = "e8987ccc090ae805527350b00774abb53a5c1e936bc38859655aee099184528b";
   var css25 = `._container_1x0tz_1 {
   position: relative;
   padding: 4px;
@@ -52363,6 +52371,11 @@ the label */
         units: ["%", "px", "rem"]
       }
     },
+    serverBindings: {
+      inputs: {
+        inputIdKey: "inputId"
+      }
+    },
     acceptsChildren: false,
     iconSrc: shinycheckbox_default,
     category: "Inputs",
@@ -52398,8 +52411,8 @@ the label */
     return getTabPanelTitle(firstChild) ?? "First Tab";
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-Q20Tscs9XvFC/editor/src/components/Tabs/TabPanel/TabPanel.module.css.js
-  var digest26 = "5ee8c7c62b4b7650974dd3ec48498516f7f8b6a4ec7b422526200284b8384c06";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-8vrRSYpLfOrT/editor/src/components/Tabs/TabPanel/TabPanel.module.css.js
+  var digest26 = "142383bcf31725ae15a6704199b3cac7efe40c235f7d709814f7b43b1133825b";
   var css26 = `._container_10z2l_1 {
   height: 100%;
 }
@@ -52435,6 +52448,51 @@ the label */
 
   // src/components/Tabs/Tabset/Tabset.tsx
   var import_react41 = __toESM(require_react());
+
+  // src/components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo.ts
+  function isNodeToValueFn(x2) {
+    return typeof x2 === "function";
+  }
+  function getValueFromProperty(x2, node2) {
+    if (isNodeToValueFn(x2)) {
+      return x2(node2);
+    }
+    return x2;
+  }
+  function buildStaticFieldInfo(dynamicFieldInfo, node2) {
+    let staticArgumentInfo = {};
+    for (let prop in dynamicFieldInfo) {
+      const dynamicVal = dynamicFieldInfo[prop];
+      staticArgumentInfo[prop] = getValueFromProperty(dynamicVal, node2);
+    }
+    return staticArgumentInfo;
+  }
+  function buildStaticFormInfo(dynamicFormInfo, node2) {
+    let staticSettingsInfo = {};
+    for (let argName in dynamicFormInfo) {
+      const dynamicVal = dynamicFormInfo[argName];
+      staticSettingsInfo[argName] = buildStaticFieldInfo(dynamicVal, node2);
+    }
+    return staticSettingsInfo;
+  }
+  function getDefaultSettings(dynamicFormInfo, node2) {
+    let defaultArgs = {};
+    for (let argName in dynamicFormInfo) {
+      const argInfo = dynamicFormInfo[argName];
+      const isOptional = "optional" in argInfo;
+      const forceDefault = "useDefaultIfOptional" in argInfo && argInfo.useDefaultIfOptional;
+      if (isOptional && !forceDefault) {
+        continue;
+      }
+      if ("defaultValue" in argInfo) {
+        defaultArgs[argName] = buildStaticFieldInfo(
+          dynamicFormInfo[argName],
+          node2
+        ).defaultValue;
+      }
+    }
+    return defaultArgs;
+  }
 
   // src/assets/icons/tabPanel.png
   var tabPanel_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAADSklEQVR4nO3cv0vUYQDH8c/pmWfpmV1G0uAPjAqiyYqWoK1oDKq5PdqE9qaG/ozAKWjpL4jWoKayrcWtIgqiuAYd9LQo8u3zfO39ghvux/C54y3PV9Br9fv9SLttqPQA7U+GJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlRLv0gF9ZXlkdfGg6yf0k15PMJhnd6007+JrkXZInSR4l+bD5yYe3FgtMqkO1YQ1YSvIsydHSQwaMJTm7cbuT5FqSV0UXVaIJR2EvydPUF9WgE1nfOVl6SA2aENa9JDOlR/yhuSR3S4+oQROOwhs7PTjb6+TS4mTmp8cy0RlOe7iFD/n+o5+PX7/n7dqXPH/zMWufvu30sttJHuBjKteEsLZdAV85M5Vr53p7PqQ93EpvfCS98ckszXfz+MVaXr//PPiy//eKfZMmHIUHNt+ZO9rJ1QJRDWoPtXLzwrF0x7b9bNbw22pxTQhri/ML3fCH3p/pjAzl4kK39IwqNS6s2V6n9IQtTh4/WHpClRoX1pHxkdITtpieqGtPLRoXVnuoloNw3ehI4z7CPeGn8o9qC70WhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCVHFP6zu8M0y+0Lp91Xy226qCCtJv/SAXVbL+yn2B/kehUIYlhCGJUQt11i/uxaYunzqcPf0zKGFjfuf9mLQ39i4SP6xvLL6svCUarT6/VquM7WfeBQKYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQhiWEIYlhGEJYVhCGJYQhiWEYQlhWEIYlhCGJYRhCWFYQvwEAzs9K42yqRkAAAAASUVORK5CYII=";
@@ -52528,8 +52586,8 @@ the label */
     }) });
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-mwC6y3dwaMVe/editor/src/Shiny-Ui-Elements/ShinyTabPanel/ShinyTabPanel.module.css.js
-  var digest27 = "c0bc37907680664b64078b425cd7cafe4b67eb2ad1ebafce86990ed25e074e17";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-lxOfo0K2zxOw/editor/src/Shiny-Ui-Elements/ShinyTabPanel/ShinyTabPanel.module.css.js
+  var digest27 = "d6f493403f2ec8af4963fa46e77a9ea08e5a346a57e5367d6dd768d72b5ab442";
   var css27 = `._container_fe3r8_1 {
   position: relative;
   height: 100%;
@@ -52636,8 +52694,8 @@ the label */
     return sameArray(aPath, bPath);
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-hrTh8Kutj5qn/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest28 = "08baa2a4ebf44e23748aa7b39cf96b0275c33adddbd674ebfc9572b5fcf5a4d6";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-CLYLluX7N0zj/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest28 = "e08fa40e987a21f8326814a669173ca9769dfa4ce420748a62475510fa409eb2";
   var css28 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -52782,7 +52840,7 @@ illusion of the selected panel and tab being one entity */
     }
   };
   function useGetNode(path3) {
-    const uiTree = useSelector((state) => state.uiTree);
+    const uiTree = useSelector((state) => state.app_info);
     const node2 = import_react39.default.useMemo(() => {
       if (!isShinyUiNode(uiTree))
         return dummyNode;
@@ -52810,8 +52868,8 @@ illusion of the selected panel and tab being one entity */
     );
   };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-G1hE7Wy36oWn/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest29 = "a2689694fad35001d578070faef8b676351aaa5ec967a26b4771d5734499afb6";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-qnSR95uEgmqP/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest29 = "71548286a10d80471b6fad178245e43432a893ff67766dbcf3dcf38b30d18189";
   var css29 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -52981,8 +53039,8 @@ illusion of the selected panel and tab being one entity */
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-kOBrxC7iinLt/editor/src/components/Tabs/Tabset/Tabset.module.css.js
-  var digest30 = "9ab588ac7d6108cb5990fc9e1f7edebe986c7e8e2fcd88f3641adcbf6291da7f";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-H52kH6pon3RD/editor/src/components/Tabs/Tabset/Tabset.module.css.js
+  var digest30 = "ec2516023902a386e26f47f0197213e4096f5b75ecb2daf4f4132733b5457794";
   var css30 = `._container_qbb7e_1 {
   position: relative;
   height: 100%;
@@ -53257,8 +53315,8 @@ illusion of the selected panel and tab being one entity */
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-pNLkd5gNnYGA/editor/src/Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage.module.css.js
-  var digest31 = "f3d3a9bb535249e07f17867f02d4b4599ca77a3fa645f367007ec73e2ddc8ca7";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-FTjHLnAc9okY/editor/src/Shiny-Ui-Elements/ShinyNavbarPage/ShinyNavbarPage.module.css.js
+  var digest31 = "8562ca0a6594f69c538a57a8db1e8e468d43c97bb6ab6172b5e6bca96103df87";
   var css31 = `._noTabsMessage_130qz_1 {
   padding: 5px;
 }
@@ -53359,8 +53417,8 @@ illusion of the selected panel and tab being one entity */
   // src/Shiny-Ui-Elements/ShinyNumericInput/ShinyNumericInput.tsx
   var React49 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-ILLMwYegq6qk/editor/src/Shiny-Ui-Elements/ShinyNumericInput/styles.module.css.js
-  var digest32 = "121ed747dcd2ec45f454c96e94355a28d618c85651589aaad46f0058675fd161";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-v3HL0mWV4baA/editor/src/Shiny-Ui-Elements/ShinyNumericInput/styles.module.css.js
+  var digest32 = "7dd5425d573080f0f9a35ae24d18b8f3bcf128b2bffbbb431e258067ab0ca2ac";
   var css32 = `._container_yicbr_1 {
   position: relative;
   padding: 4px;
@@ -53472,14 +53530,19 @@ illusion of the selected panel and tab being one entity */
         inputs.width
       ] });
     },
+    serverBindings: {
+      inputs: {
+        inputIdKey: "inputId"
+      }
+    },
     acceptsChildren: false,
     iconSrc: shinyNumericinput_default,
     category: "Inputs",
     description: "An input control for entry of numeric values"
   };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-JvL4XZwSsZ6M/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
-  var digest33 = "4d8db9d0359ebb6e4fed367457ef5fa25ce3abe633246d9c3fa9f2c38e1945e5";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-etHaqBLt04t6/editor/src/Shiny-Ui-Elements/ShinyPlotOutput/styles.module.css.js
+  var digest33 = "02b8be132a4138fd147c646df95d8081dc72a6413c68db0aec7ea2e436538456";
   var css33 = `._container_1rlbk_1 {
   max-height: 100%;
 }
@@ -53559,6 +53622,15 @@ illusion of the selected panel and tab being one entity */
         defaultValue: "400px"
       }
     },
+    serverBindings: {
+      outputs: {
+        outputIdKey: "outputId",
+        renderScaffold: `renderPlot({
+  #Plot code goes here
+  $0plot(rnorm(100))
+})`
+      }
+    },
     acceptsChildren: false,
     iconSrc: shinyPlot_default,
     category: "Outputs",
@@ -53571,8 +53643,8 @@ illusion of the selected panel and tab being one entity */
   // src/Shiny-Ui-Elements/ShinyRadioButtons/ShinyRadioButtons.tsx
   var import_react42 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-2B0f7kpCnlOv/editor/src/Shiny-Ui-Elements/ShinyRadioButtons/styles.module.css.js
-  var digest34 = "9570daa6b73e3c2ff9df38966e1155354deffcbb667c0952c6640c068f596280";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-PenHKzu8i7RN/editor/src/Shiny-Ui-Elements/ShinyRadioButtons/styles.module.css.js
+  var digest34 = "4c02b653065344d97570d2982d2f45b176e2111e70f56f1e164887594d3dea55";
   var css34 = `._container_sgn7c_1 {
   position: relative;
   padding: 4px;
@@ -53665,6 +53737,11 @@ illusion of the selected panel and tab being one entity */
         useDefaultIfOptional: true
       }
     },
+    serverBindings: {
+      inputs: {
+        inputIdKey: "inputId"
+      }
+    },
     acceptsChildren: false,
     iconSrc: shinyRadiobuttons_default,
     category: "Inputs",
@@ -53674,8 +53751,8 @@ illusion of the selected panel and tab being one entity */
   // src/assets/icons/shinySelectbox.png
   var shinySelectbox_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAHmUlEQVR4nO3b329T5x3H8Xec2Akm4GRZlB+sbbZ6rVboRKACwgattKFVqtQIaVo0Wk1bM6kX6+WUP2CXuVy3CyTIpGotCprGoJo0KVtFA1rY1CZoM5mUWSu0wXYWQmxIHPwj9i5MEpskrTPyzTmGz0viwvbx0ZPD2+d5fGxX5fN5RDabx+kByKNJYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSZqnB7Akr7B8IN37QN+CBwBdgP1Wz0ml5sDrgGXgDPAaPGD/T1BJ8a0zDVhwcrB6BsMnwJ6nR2N69UDB+//+zlwur8n+FNY80W65VwVFkDfYPg88Gq1p4quYIC9T9bTGvDhq9GsXSydzRFLpLn66Rwj4QSLuXxv32C4ub8n2O302ACq8vm802MAll9lp4DewLYafnK0jfaGWodHVRki8RS/GY6SWMgCDAC9Tk+FbjoNdAK91Z4qRbVB7Q21vHG0jRpPFcAbFI6lo9wU1gmAQ0/vVFT/h7aGWg4+vXPp5gknxwLuCusIQOdTOzZth7/4wyf0DYa5l8lt2j7drOjYHXFyHOCusPYB7GrU2QpgJJxgJJzY0HPaV46d41Ohm94VegGqC+uEx9r4zXnOj04DENhWw3O7tpf1vJqVY+ezGVn53HTGEiCWSPPelSlyecjl4b0rU8QSaaeHtWFuOmOV7YPQDJfDd5hLLS7fd6CjniPPNtKyxsI/MZ/h7D9mCEWTAOxp8/O9bzat2vZeJsdfQjN8OLEyBX3efjdbIpnl9HCEdHZlTZjO5jg9HOGt73yFgL9y/rsq7oz1znCEP12bLYkK4O/X5zh5MbLmQv3kxchyVAChaJKTFyMkkpnl+xLJDL8e+qwkquL9Fm9rIbOYZ+BShEQyu+qxpeAyi+645liOynkJADemFwhFk7Ts8PL64daSs8g7w4V4xj65Q9czDSXP2+7z8OreJvZ27OReJsfZkRihaJKhf87w/YOtAJz/aJqpuxn2tPnpfqGZgN8LwB/HpvlwIlGy7WbL5eHdkRjR+PpTXiyR5t2RGD/6VhuVsAytqLCeat627oerX2/1E4omWUgvrnqsOMI6r4fuF5oJvX+D8egCUDhbhaJJ6mur+UFXK3XelRP5K53NvNLZbPDXrDg/Os34zfkv3G5pUX98v+14NkNFhbVkZCLOX8MJpu6WNz0FtntLb/u9tOzwMnU3w1Q8xex8YT8dX6otiWqrHN/fXBGxbETFhbU05T2s7b7VAflrK27J6VoVFdbV63fWXWONTMQ5N3ar7H3NpwuL/DqfB+7PQsnU43GFfitUVFi35wpT1uFg4KHe/k/FU0zdzVBfW728SAe4fjvFvUxuy6fDcx9Pl32VvSsYqIhps6LO/dt81QD8O5YsuazwQWiGofHZdZ93diS2fLkgkcxw7qP/AvDtYOFD24Dfy4GOeuZSiyXbQuFdYd9gmN/9Lbbpf8+S7n3NZV1df27Xdrr3uT8qqLAzVudXdzI0PksomiT0+/+U/bxQNEno/Rsl932tqZbDzzYu3z72fBM3ZlJrbltfW82x55sebvCfw1MFJw618Ks/T657lb014OPEoZaKuNQAFXbGqvN6ePOldva0+Uvuf3l3I8c7v7zu817e3Vhy+0BHPT9+cVfJlBfwe/nZsSd48ZnAqm3ffKm9ZMq04Kvx0Hu0fc2r6wF/Db1H2yvqW7Ru+gZpHpz/EYDTYok0bw99tnyV3VtdxVvffYK2hvI+V176vnt/T9DRc5ubXgIZgMWcO0J3SmvAx2tdrXiqClPka12tZUdV9BnjnNkAy+SmNdYocPDmbIonm+qcHoujihfp5X5lBihen13b/FFtjJvOWJcArn7q+IvNFbqCAbqCgS/esEjRsbu06QPaIDeFdQbgSjhBNJ5yeiwVJxpPc2XlWtgZJ8cC7gprFBjI5vIMDEeJKK6yReMpBoYjZAvr0wEe+FW0E9wUFv09wV7gQmIhy9tDk1wYu8Xk7VTJF9+kIJ3NMXk7xYWxW/xyaHLpN4UX7h9Dx7lp8Q5Af0+wu28wfGoxl++9PBHn8kTc6SFViuWf2LuBm65jPXjXfuB1Cj9l+gbgf3CDx1wS+BeFhfpvgY+LH3T6eqBrwpJHi6vWWPLoUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYmJ/wEXIDDKviZ6oQAAAABJRU5ErkJggg==";
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-2sJsMz4Wn3gH/editor/src/Shiny-Ui-Elements/ShinySelectInput/styles.module.css.js
-  var digest35 = "fb867aaf0d823d7a871e19e88365f5926325622c3ca8dc9b44f89f7a59bd6cdf";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-yNgle0CqjLpn/editor/src/Shiny-Ui-Elements/ShinySelectInput/styles.module.css.js
+  var digest35 = "cfd389d067698200c3cb85767e29182c02086fc62d68a131fddbdc3bd167f54f";
   var css35 = `._container_1e5dd_1 {
   position: relative;
   padding: 4px;
@@ -53739,6 +53816,11 @@ illusion of the selected panel and tab being one entity */
         }
       }
     },
+    serverBindings: {
+      inputs: {
+        inputIdKey: "inputId"
+      }
+    },
     acceptsChildren: false,
     iconSrc: shinySelectbox_default,
     category: "Inputs",
@@ -53751,8 +53833,8 @@ illusion of the selected panel and tab being one entity */
   // src/Shiny-Ui-Elements/ShinySliderInput/ShinySliderInput.tsx
   var React51 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-8cZb543VaSEC/editor/src/Shiny-Ui-Elements/ShinySliderInput/styles.module.css.js
-  var digest36 = "17b76bf2ad1312bb8f1dffad47f6b9a787b75f8fd9cf5619e6788bc2e170b7a8";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-GEqA8n7PHNAL/editor/src/Shiny-Ui-Elements/ShinySliderInput/styles.module.css.js
+  var digest36 = "1d591f45b143ae939860b6780cb903e1c18d8c5828799c157a66eb272d3578ea";
   var css36 = `._container_1f2js_1 {
   padding: 6px;
 
@@ -53930,6 +54012,11 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
         inputs.width
       ] });
     },
+    serverBindings: {
+      inputs: {
+        inputIdKey: "inputId"
+      }
+    },
     acceptsChildren: false,
     iconSrc: shinySlider_default,
     category: "Inputs",
@@ -53987,8 +54074,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // src/Shiny-Ui-Elements/ShinyTextInput/ShinyTextInput.tsx
   var React52 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-jJuzhgXwadOV/editor/src/Shiny-Ui-Elements/ShinyTextInput/styles.module.css.js
-  var digest37 = "adeabe81c45758c758a5e0737cee392990ca423775e716afec65991f91112607";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-Pkvkf4NlRIuq/editor/src/Shiny-Ui-Elements/ShinyTextInput/styles.module.css.js
+  var digest37 = "d7c4279546d06613984682ea459e7f930d3b6b7fc2e27cdb8029f3a681b7bbbb";
   var css37 = `._container_yicbr_1 {
   position: relative;
   padding: 4px;
@@ -54074,6 +54161,11 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
         optional: true
       }
     },
+    serverBindings: {
+      inputs: {
+        inputIdKey: "inputId"
+      }
+    },
     acceptsChildren: false,
     iconSrc: shinyTextinput_default,
     category: "Inputs",
@@ -54083,8 +54175,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // src/assets/icons/shinyTextOutput.png
   var shinyTextOutput_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAGh0lEQVR4nO3bv2skZQDG8W/8haBNIhbaqHu72Jv0olyw1CbZRfTsktJqk4CNgkVuF+wviIKNm2xz14kJ+AecsROUDWkE7W4LrQ4lFvNOMjOZ/ZXdJ/tGnw8cuezOvTNcvsw78+5k4ezsDLNZe2LeB2D/TQ7LJByWSTgsk3BYJuGwTMJhmYTDMgmHZRIOyyQclkk4LJNwWCbhsEzCYZmEwzIJh2USDsskHJZJOCyTcFgm4bBMwmGZhMMyCYdlEg7LJByWSTgsk3BYJuGwTMJhmYTDMgmHZRIOyyQclkk4LJNwWCbhsEzCYZmEwzIJh2USDsskHJZJOCyTcFgm4bBMwmGZhMMyCYdlEg7LJByWSTgsk3BYJuGwTMJhmYTDMgmHZRIOyyQclkk4LJNwWCbx1LwPIGthYWGm4zU7vXvARvj2qN2orc50BwVnZ2cjt9naP1EeQqlWvXrt+4wqLCv1CvBR+PuXwO9zPJaxOay4vQw8BF4M338MrAI/ze2IxuRrrLi9x0VUAEvAEfDGXI5mAg4rbn+XvLbIDYjLYcXtW+CXktejj8thxe1P4G3g15L3oo4r6ov3Zqd3G1gGtkn+I7NOgT2SZYTjCcfdJlmGqGRe3gO67UbtaIIxloG19LWwlLAHHLfq1b1JjmmIP4C3gB+A1wvvpXHdJrIL+oVx1l6uS7qO1ez0FoEDkv+wcey1G7XN4ovFdSxgJ4xbKW6b0W03auuD3gyxH3A59KJjYLNVr+ain2Id6yXK4wLoMySueaxjxToVHjJ+VAAbzU5vd8Q2lTDusKgA1pqd3kHZG81ObyOMMSoqSM5mh1v7J6P2N670zHUjpsXowspMMakjYL3dqC1k/wCbJGeF1HY40w1S4SKIu8CtzFjrJFNrai1ElD2uCnCvMGZxnFvhtdRiyb+Zxo2JK7qwyFyzED6GaTdq3eJG7UZtj2SxMGvUWe4UWGk3ajvtRu08pDD+Cvm4tgv/thjIanGcVr162qpXd0hCPT+mrf2TZWbnRsQVY1jZH8LQC+B2o9Ynf9YaNu30SWIovdAPY+1kx2p2estwfrbKRrsz7CK/Va92w/5Sk0zr44g+rujuCsOUMon+6E0AOM6eXQbsu9vs9PpcTJm3ScJdK2w68o6vVa8ujXlcVxX13WJ0YRU1O701kjNRhYs7vEFmcaF8zMUZJh0ve+12HM5u03ie5APld4FnpxxrkEXge+BN4GfRPgaKNqxwET/qTk8he1ZbLHyF/NR7VZ8C9RmMM8oLwBfAO9ewr5zowgrXMwfkr7XmJQ1qVksGqZUZjzfMa9e4r3PRhUVy95WNKl1hPy27O2x2epOueU3itPB1Vh6STFHX4cE17ScnqrDCqnY2krvtRm1n0PYi2aj7ha/F96/qM5KV9HXg6RmMN8gD4BPh+APFttyQO1Ndd1RhgTU77aXXU7mwRizEjuMv4APgGWBhij93gH8G7OMBSbiPpzzWK4nqjEX+hzru9DPtDzlrrTBeulbVJX8jsUF+hf2Srf2TR5mxdlr16tDtr+BD4GvgyZL35hoVxHfGmujMED7TG3dquh3uNAeNVSEfTzddVgjrX9kF0d0wbZfa2j8ZFOisRB0VxBdW9gewCByWfGa33Oz0tpud3iMuL1yOstvs9A6LgYV9/Eg+huI0XHx64rDZ6e2GIAHY2j+pbO2f7JLc1aaOik84TCn6qCDCx2bCWWjSYFK5x2cKj81MYjN8FpkTApzkQ+U+sNKqV8+n9Sl//esO8BUTRuXHZhKbjD917E2w7bjXbOtlUUHug+9xVt6PgdVsVFO6UlTzEl1Y7UatH36xdJ3kormoSzJNLZU93DfEafgccofLMaYfQC+VrZUVju+o3agthe3Ltt0jecBvZYZT4LCo7hNZVBDZVPh/cIWp8H3gGwZHVWdEVJ4Kreg5kjPglaOaF4cVt1dJ4iq6T8RRgcOKXQ/4rfDafSKPChxW7B6TPPLyHckzVZ9zA6ICX7ybiM9YJuGwTMJhmYTDMgmHZRIOyyQclkk4LJNwWCbhsEzCYZmEwzIJh2USDsskHJZJOCyTcFgm4bBMwmGZhMMyCYdlEg7LJByWSTgsk3BYJuGwTMJhmYTDMgmHZRIOyyQclkk4LJNwWCbhsEzCYZmEwzIJh2USDsskHJZJOCyTcFgm4bBMwmGZhMMyCYdlEg7LJByWSTgsk3BYJuGwTMJhmYTDMgmHZRIOyyQclkk4LJP4F7bdmR9UysBAAAAAAElFTkSuQmCC";
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-gy27Gx4tel7I/editor/src/Shiny-Ui-Elements/ShinyTextOutput/styles.module.css.js
-  var digest38 = "ac0fc1c37788ad31526b4c530cf57746020434d62035de18ead9670b5513bd00";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-s4jcSbGOH9cX/editor/src/Shiny-Ui-Elements/ShinyTextOutput/styles.module.css.js
+  var digest38 = "372df11bf46ed55929fe54e88a5a638007752dbc27d3e842b6af8eeceb7c934a";
   var css38 = `._container_1i6yi_1 {
   padding: 1rem;
   max-height: 100%;
@@ -54132,6 +54224,14 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
         defaultValue: "textOutput"
       }
     },
+    serverBindings: {
+      outputs: {
+        outputIdKey: "outputId",
+        renderScaffold: `renderText({
+  "Hello, World"
+})`
+      }
+    },
     acceptsChildren: false,
     iconSrc: shinyTextOutput_default,
     category: "Outputs",
@@ -54144,8 +54244,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // src/assets/icons/shinyImage.png
   var shinyImage_default = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAGT0lEQVR4nO3cy29UZRjH8e902tIbVFouNQpEQKLGCsEYUGJcGFHiQk2MxsTg0rgwulH/AmPiyoUoEdTgLdG4MJpoCJY7VTCgAQQpBVGm9+u0c+vcjosySENpC5ynp33n91k105PmafvNe86c87Yhz/MQ8VtJ0AOImxSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlphQWGJCYYkJhSUmFJaYUFhiQmGJCYUlJhSWmFBYYkJhiQmFJSYUlpgoDXoAv7z5dWvhw/XAK8CDwG1AVVAzTWIE6AQOA9uAnwHefX5lkDP5xrUV6y3gELAZuJOZGxXAHGAZ8BywC3g32HH85cyKBTwCvAOE5lWWeo/dWxe6q6GKuZWllISCHm0sD4incrR2J9l5oi/fF8uUAG8wGtiuYKfzh0sr1qtAaH51af71jUtC65bPo7Zq5kUFEAJqKsKsWVrDaxuXlCyYW5a79KmXg5zLTy6FtQHg8cb6kpqKcNCzTFlFWQmbGusLAz8U6DA+cimsxQCrFs/ky6rxLV9UWfiwPsg5/OTSNVYIRk8xQfOAU21xTrfHiY/kqKsuY/XSGpbWV4x7fPWcyzOXT9eM1lwKa0ZIpHPsONjJ3z3JMa8faBlk/Ypanr5/4Yy87vObS6fCwHnAF81XR1Xw67koO0/0Te9QAVFYPjrTkaC1a/yoCvafGWQomZ2miYKjsHzU0pmY9Jhc3qO1e+L4XKCwfJQYyU1+0HUcN5spLB/Nr57ae6G66jLjSYKnsHy0eulcQpO846upCLNyceXEBzlAYfmoobach1fdcs3Ph4Cn1y6kvNT9H7vuY/nsyTULqCwPs/tUP5mcd/n1eZWlPLV2AY231wQ43fRRWD4LAY/eM58HV87jXHeSRDpPXVUpdyyspDRcBHdGL1FYRqrKw0WzOo1HYQFDySyHzw1xsT9FuCTEikWVrFtRS1kRrTB+K/qwTkZifHOkm1Qmf/m1P9viNLdGeWnDrSyudea58LRy/+3JBA6cGeTzQ51joiroHc7wwe4I56/x3E8mVpRhecAPf/Tywx+9eBMcl0zn2b6vnROR2HSN5oyiCyuX9/jql04OnBmc0vHZnMeXzZ00n43aDuaYorrGSmXy7DjYwbnrfAic9+C7Yz1Ek1meuK+eyS7pPQ+OR2K0diUoD5ewZlkNS+rG3+TnqqIJK5rM8sn+djoG0zf8NfacHmAomeXZBxYRvsZuvfhIjs8Ojd2TdbBlkEfuns+mxvpJH/m4oijC6hpK8/G+dgYTN78P6uiFYYZTOTZvaLjq0cxAPMv2fe30DI+N1wP2nh6gdzjNC+sbiuI2hvPXWBd6U3zY1OZLVAUtnQm27mkjlvp/+0vXUJoPmiJXRXWlk5E4W3e3MZzStplZ7WQkxkd720ik/f9FRvpH2NIUoS+W4d++0XijU9gZerE/xfs/X6QreuOn5NnA2VNh89ko3//eQ36i+wk3qS+WYUtThHTWI529+l7YtQzEs2xpivDiQw2saph9f642Fc6tWB7w0/E+vjtmG1VBLJW7rqgKUpk8nx7o4Mj5IYOpgufcivXN4S6OXhgOeowpyeU9vv2tm97hTNCj+M65FWu2RHWlvX8NBD2C75wLa5a7/nPqDOVSWC48cxkMegC/uBTW8aAH8MHJoAfwi0thfR/0AD74MegB/OJSWNuAf4Ie4ib0Mvo9OMGlsKLAM4z+w9jZJgo8C/QHPYhfXAoL4HegEXib0Wuumbz9cwRoAd5jdOZ9gU7js5DnTcPtaSk6rq1YMkMoLDGhsMSEwhITCktMKCwxobDEhMISEwpLTCgsMaGwxITCEhMKS0woLDGhsMSEwhITCktMKCwxobDEhMISEwpLTCgsMaGwxITCEhMKS0woLDGhsMSEwhITCktMKCwxobDEhMISEwpLTCgsMaGwxITCEhMKS0woLDGhsMSEwhITCktMKCwxobDEhMISEwpLTCgsMaGwxITCEhMKS0woLDGhsMSEwhITCktMKCwxobDExH/tpJ306UTa3AAAAABJRU5ErkJggg==";
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-2MEGvd3oz4ze/editor/src/Shiny-Ui-Elements/ShinyUiOutput/styles.module.css.js
-  var digest39 = "3302cebf508d79ef499bdecb130a5ad09f933f67228fd719839ccaeb40b14b2a";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-rDznUIjps9jF/editor/src/Shiny-Ui-Elements/ShinyUiOutput/styles.module.css.js
+  var digest39 = "008162068c1501bc744fb8eada0108c88b7c677a5900b2c5fd05b919dd49ad9f";
   var css39 = `._container_1xnzo_1 {
   display: grid;
   grid-template-rows: 1fr;
@@ -54197,6 +54297,14 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
         defaultValue: "dynamicUiOutput"
       }
     },
+    serverBindings: {
+      outputs: {
+        outputIdKey: "outputId",
+        renderScaffold: `renderUI({
+  h1("Hello, World")
+})`
+      }
+    },
     acceptsChildren: false,
     iconSrc: shinyImage_default,
     category: "Outputs",
@@ -54215,8 +54323,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 1024 1024" }, "child": [{ "tag": "path", "attr": { "d": "M881.7 187.4l-45.1-45.1a8.03 8.03 0 0 0-11.3 0L667.8 299.9l-54.7-54.7a7.94 7.94 0 0 0-13.5 4.7L576.1 439c-.6 5.2 3.7 9.5 8.9 8.9l189.2-23.5c6.6-.8 9.3-8.8 4.7-13.5l-54.7-54.7 157.6-157.6c3-3 3-8.1-.1-11.2zM439 576.1l-189.2 23.5c-6.6.8-9.3 8.9-4.7 13.5l54.7 54.7-157.5 157.5a8.03 8.03 0 0 0 0 11.3l45.1 45.1c3.1 3.1 8.2 3.1 11.3 0l157.6-157.6 54.7 54.7a7.94 7.94 0 0 0 13.5-4.7L447.9 585a7.9 7.9 0 0 0-8.9-8.9z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-9bay1Pt0q2iE/editor/src/components/CategoryDivider/styles.module.css.js
-  var digest40 = "7574a6309982144e0d4e302df149b2a670f6245574e45d87fa05eaa20af6c295";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-yZ0iB0cHGlxG/editor/src/components/CategoryDivider/styles.module.css.js
+  var digest40 = "a05a054729293a246bd216a27dcd1cf34f9b218b3049f19f13487911c96218d5";
   var css40 = `._categoryDivider_bdwku_1 {
   display: block;
   position: relative;
@@ -54423,6 +54531,548 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     Object.assign(existingNode, node2);
   }
 
+  // ../ast-parsing/src/index.ts
+  var SCRIPT_LOC_KEYS = {
+    ui: "<UI>",
+    libraries: "<LIBRARIES>"
+  };
+
+  // src/Shiny-Ui-Elements/normalize_ui_name.ts
+  var get_has_namespace = /^\w+::/;
+  function normalize_ui_name(fn_name) {
+    if (get_has_namespace.test(fn_name))
+      return fn_name;
+    const find_ends_in_fn_name = new RegExp(`^\\w+::${fn_name}$`);
+    for (const full_name in shinyUiNodeInfo) {
+      if (find_ends_in_fn_name.test(full_name)) {
+        return full_name;
+      }
+    }
+    throw new Error(
+      `Unknown function ${fn_name} made it passed the unknown function filter`
+    );
+  }
+
+  // src/utils/is_object.ts
+  function is_object(x2) {
+    return typeof x2 === "object" && x2 !== null;
+  }
+
+  // ../ast-parsing/src/node_identity_checkers.ts
+  function is_primative(x2) {
+    return typeof x2 === "string" || typeof x2 === "number" || typeof x2 === "boolean";
+  }
+  function is_ast_leaf_node(node2) {
+    return is_object(node2) && "val" in node2 && ["string", "boolean", "number"].includes(typeof node2.val);
+  }
+  function is_ast_branch_node(node2) {
+    return is_object(node2) && "val" in node2 && Array.isArray(node2.val);
+  }
+  function is_named_node(node2) {
+    return is_object(node2) && "name" in node2;
+  }
+
+  // ../ast-parsing/src/parsing_error_class.ts
+  var Parsing_Error = class extends Error {
+    constructor({ message, cause }) {
+      super();
+      this.name = "AST_PARSING_ERROR";
+      this.message = message;
+      this.cause = cause;
+    }
+  };
+
+  // ../ast-parsing/src/flatten_arrays_and_lists.ts
+  function get_ast_is_array(x2) {
+    return x2[0].val === "c";
+  }
+  function get_ast_is_array_or_list(x2) {
+    const call_val = x2[0].val;
+    return call_val === "c" || call_val === "list";
+  }
+  function get_node_is_array(node2) {
+    return is_ast_branch_node(node2) && get_ast_is_array(node2.val);
+  }
+  function get_node_is_list(node2) {
+    return is_ast_branch_node(node2) && node2.val[0].val === "list";
+  }
+  function flatten_to_array(node2) {
+    try {
+      return flatten_array_internal(node2);
+    } catch (e2) {
+      if (!(e2 instanceof Parsing_Error)) {
+        throw e2;
+      }
+      return create_unknownUiFunction({ node: node2, explanation: e2.message });
+    }
+  }
+  function flatten_array_internal(node2) {
+    if (!is_ast_branch_node(node2)) {
+      throw new Parsing_Error({
+        message: "Tried to flatten a leaf/primative node"
+      });
+    }
+    const [call, ...vals] = node2.val;
+    if (call.val !== "c") {
+      throw new Parsing_Error({
+        message: "Tried to flatten non array as array"
+      });
+    }
+    return vals.map(
+      (n3) => is_primative(n3.val) ? n3.val : flatten_array_internal(n3)
+    );
+  }
+  function flatten_to_list(node2) {
+    if (!is_ast_branch_node(node2)) {
+      throw new Parsing_Error({
+        message: "Tried to flatten a leaf/primative node"
+      });
+    }
+    try {
+      const [call, ...vals] = node2.val;
+      if (call.val !== "list") {
+        throw new Parsing_Error({
+          message: "Tried to flatten non array as array",
+          cause: node2
+        });
+      }
+      let res = {};
+      vals.forEach(({ name, val }) => {
+        if (typeof name !== "string") {
+          throw new Parsing_Error({
+            message: "All elements in list must have a name",
+            cause: node2
+          });
+        }
+        if (!is_primative(val)) {
+          throw new Parsing_Error({
+            message: "Nested lists are not supported",
+            cause: node2
+          });
+        }
+        res[name] = val;
+      });
+      return res;
+    } catch (e2) {
+      if (!(e2 instanceof Parsing_Error)) {
+        throw e2;
+      }
+      return create_unknownUiFunction({ node: node2, explanation: e2.message });
+    }
+  }
+
+  // ../ast-parsing/src/indent_text_block.ts
+  function indent_text_block(txt, spaces_to_indent) {
+    const INDENT2 = " ".repeat(spaces_to_indent);
+    return txt.replaceAll(/\n/g, `
+${INDENT2}`);
+  }
+
+  // ../ast-parsing/src/code_generation/build_function_text.ts
+  var INDENT_SPACES = 2;
+  var INDENT = " ".repeat(INDENT_SPACES);
+  var LINE_BREAK_LENGTH = 60;
+  var NL_INDENT = `
+${INDENT}`;
+  function build_function_text(call_node) {
+    const [fn_name, ...args] = call_node;
+    if (typeof fn_name.val !== "string") {
+      return "Unknown Ui Code";
+    }
+    const fn_args_list = args.map(
+      (node2) => `${node2.name ? `${node2.name} = ` : ""}${print_node_val(node2)}`
+    );
+    const is_multi_line_call = should_line_break({
+      fn_name: fn_name.val,
+      fn_args_list,
+      max_line_length_for_multi_args: get_ast_is_array_or_list(call_node) ? LINE_BREAK_LENGTH : 0
+    });
+    const arg_seperator = `,${is_multi_line_call ? NL_INDENT : " "}`;
+    return `${fn_name.val}(${is_multi_line_call ? NL_INDENT : ""}${fn_args_list.join(arg_seperator)}${is_multi_line_call ? "\n" : ""})`;
+  }
+  function should_line_break({
+    fn_name,
+    fn_args_list,
+    max_line_length_for_multi_args
+  }) {
+    const args_have_line_breaks = fn_args_list.some(
+      (printed_arg) => printed_arg.includes("\n")
+    );
+    if (args_have_line_breaks)
+      return true;
+    if (max_line_length_for_multi_args === 0) {
+      return fn_args_list.length > 1;
+    }
+    const total_args_length = fn_args_list.reduce(
+      (total_chars, printed_el) => total_chars + printed_el.length + 2,
+      0
+    );
+    const name_and_parens_length = fn_name.length + 2;
+    return total_args_length + name_and_parens_length > max_line_length_for_multi_args;
+  }
+  function print_node_val({ val, type }) {
+    switch (type) {
+      case "b": {
+        return val ? "TRUE" : "FALSE";
+      }
+      case "c": {
+        return `"${val}"`;
+      }
+      case "m": {
+        return "";
+      }
+      case "n": {
+        return String(val);
+      }
+      case "s": {
+        return val;
+      }
+      case "e": {
+        return indent_line_breaks(build_function_text(val));
+      }
+      case "u": {
+        return "<...>";
+      }
+    }
+  }
+  function indent_line_breaks(txt) {
+    return indent_text_block(txt, INDENT_SPACES);
+  }
+
+  // ../ast-parsing/src/create_unknownUiFunction.ts
+  function create_unknownUiFunction({
+    node: node2,
+    explanation
+  }) {
+    return {
+      uiName: "unknownUiFunction",
+      uiArguments: {
+        text: is_ast_branch_node(node2) ? build_function_text(node2.val) : node2.val,
+        explanation
+      }
+    };
+  }
+
+  // ../ast-parsing/src/ast_to_shiny_ui_node.ts
+  function ast_to_ui_node(node2) {
+    const [fn_name, ...args] = node2.val;
+    if (typeof fn_name.val !== "string") {
+      throw new Parsing_Error({
+        message: "Invalid ui node, name is not a primative"
+      });
+    }
+    let uiArguments = {};
+    let uiChildren = [];
+    args.forEach((sub_node) => {
+      if (is_named_node(sub_node)) {
+        uiArguments[sub_node.name] = process_named_arg(sub_node);
+      } else {
+        uiChildren.push(process_unnamed_arg(sub_node));
+      }
+    });
+    const full_node = {
+      uiName: normalize_ui_name(fn_name.val),
+      uiArguments
+    };
+    if (uiChildren.length > 0) {
+      full_node.uiChildren = uiChildren;
+    }
+    if (!isShinyUiNode(full_node))
+      return create_unknownUiFunction({ node: node2 });
+    return full_node;
+  }
+  function process_named_arg(node2) {
+    if (is_ast_leaf_node(node2)) {
+      return node2.val;
+    }
+    if (get_node_is_array(node2)) {
+      return flatten_to_array(node2);
+    }
+    if (get_node_is_list(node2)) {
+      return flatten_to_list(node2);
+    }
+    return create_unknownUiFunction({ node: node2 });
+  }
+  function process_unnamed_arg(node2, output_positions) {
+    if (!is_ast_branch_node(node2)) {
+      throw new Parsing_Error({
+        message: "Primative found in ui children of ui node."
+      });
+    }
+    return ast_to_ui_node(node2);
+  }
+
+  // ../ast-parsing/src/get_assignment_nodes.ts
+  function is_assignment_node(node2, var_name) {
+    if (!is_ast_branch_node(node2))
+      return false;
+    const { val } = node2;
+    const is_assignment = val[0].val === "<-" || val[0].val === "=";
+    if (!is_assignment)
+      return false;
+    return var_name ? val[1].val === var_name : true;
+  }
+  function get_assignment_lhs(node2) {
+    return node2.val[1];
+  }
+  function get_assignment_rhs(node2) {
+    return node2.val[2];
+  }
+  function get_assignment_nodes(ast) {
+    let assignment_nodes = [];
+    ast.forEach((node2) => {
+      if (is_assignment_node(node2)) {
+        const assigned_name = get_assignment_lhs(node2);
+        if (is_output_node(assigned_name)) {
+          assignment_nodes.push({
+            name: assigned_name.val[2].val,
+            is_output: true,
+            node: node2
+          });
+        } else if (assigned_name.type === "s") {
+          assignment_nodes.push({
+            name: assigned_name.val,
+            is_output: false,
+            node: node2
+          });
+        } else {
+        }
+      }
+      if (is_ast_branch_node(node2)) {
+        const sub_assignments = get_assignment_nodes(node2.val);
+        assignment_nodes.push(...sub_assignments);
+      }
+    });
+    return assignment_nodes;
+  }
+  function is_output_node(node2) {
+    if (!is_ast_branch_node(node2))
+      return false;
+    const { val: subnodes } = node2;
+    return subnodes.length === 3 && subnodes[1].val === "output" && typeof subnodes[2].val === "string";
+  }
+  function get_output_positions(all_asignments) {
+    return all_asignments.filter(({ is_output }) => is_output).reduce((by_name, { name, node: node2 }) => {
+      const { pos } = node2;
+      if (pos) {
+        by_name[name] = [...by_name[name] ?? [], pos];
+      }
+      return by_name;
+    }, {});
+  }
+  function is_ui_assignment_node(node2) {
+    const has_position = Boolean(node2.pos);
+    if (!has_position)
+      return false;
+    const assigns_to_ui = get_assignment_lhs(node2).val === "ui";
+    if (!assigns_to_ui)
+      return false;
+    return is_ast_branch_node(get_assignment_rhs(node2));
+  }
+  function get_ui_assignment_node(all_asignments) {
+    const ui_assignment = all_asignments.find(
+      ({ name, is_output }) => name === "ui" && !is_output
+    );
+    if (!ui_assignment) {
+      throw new Parsing_Error({
+        message: "No ui assignment node was found in provided ast"
+      });
+    }
+    const { node: ui_node } = ui_assignment;
+    if (!is_ui_assignment_node(ui_node)) {
+      throw new Parsing_Error({
+        message: "No position info attached to the ui assignment node",
+        cause: ui_node
+      });
+    }
+    return ui_node;
+  }
+  function get_server_assignment_node(all_asignments) {
+    const server_assignment = all_asignments.find(
+      ({ name, is_output }) => name === "server" && !is_output
+    );
+    if (!server_assignment) {
+      throw new Parsing_Error({
+        message: "No server assignment node was found in provided ast"
+      });
+    }
+    const { node: server } = server_assignment;
+    if (!server.pos) {
+      throw new Parsing_Error({
+        message: "No position info attached to the ui assignment node",
+        cause: server
+      });
+    }
+    return server;
+  }
+
+  // ../ast-parsing/src/parse_app_ast.ts
+  function parse_app_ast(info) {
+    return info.app_type === "SINGLE-FILE" ? parse_single_file_ast(info) : parse_multi_file_ast(info);
+  }
+  function parse_single_file_ast({
+    app: { ast }
+  }) {
+    const assignment_nodes = get_assignment_nodes(ast);
+    const ui_node = get_ui_assignment_node(assignment_nodes);
+    const server_node = get_server_assignment_node(assignment_nodes);
+    const output_positions = get_output_positions(assignment_nodes);
+    return {
+      app_type: "SINGLE-FILE",
+      app: {
+        ui_tree: ast_to_ui_node(ui_node.val[2]),
+        ui_pos: ui_node.pos,
+        ui_assignment_operator: ui_node.val[0].val,
+        server_pos: server_node.pos,
+        server_node,
+        output_positions
+      }
+    };
+  }
+  function parse_multi_file_ast({
+    ui,
+    server
+  }) {
+    const ui_assignment_nodes = get_assignment_nodes(ui.ast);
+    const ui_node = get_ui_assignment_node(ui_assignment_nodes);
+    const server_assignment_nodes = get_assignment_nodes(server.ast);
+    const server_node = get_server_assignment_node(server_assignment_nodes);
+    const output_positions = get_output_positions(server_assignment_nodes);
+    return {
+      app_type: "MULTI-FILE",
+      ui: {
+        ui_tree: ast_to_ui_node(ui_node.val[2]),
+        ui_pos: ui_node.pos,
+        ui_assignment_operator: ui_node.val[0].val
+      },
+      server: {
+        server_node,
+        output_positions,
+        server_pos: server_node.pos
+      }
+    };
+  }
+
+  // src/state/app_model/raw_app_info_to_full.ts
+  function raw_app_info_to_full(info) {
+    return info.app_type === "SINGLE-FILE" ? raw_single_file_app_info_to_full(info) : raw_multi_file_app_info_to_full(info);
+  }
+  function raw_single_file_app_info_to_full(raw_info) {
+    const parsed_ast = parse_app_ast(raw_info);
+    const {
+      app: {
+        ui_pos,
+        ui_assignment_operator,
+        ui_tree,
+        output_positions,
+        server_pos
+      }
+    } = parsed_ast;
+    const script = raw_info.app.script;
+    const script_by_line = script.split("\n");
+    let libraries = ["shiny"];
+    let app_template_by_line = [];
+    let previous_line_type;
+    script_by_line.forEach((line, line_number) => {
+      const line_type = get_line_type({ line, line_number, ui_pos });
+      if (line_type === "Other") {
+        app_template_by_line.push(line);
+        return;
+      }
+      if (line_type === "Library") {
+        const loaded_library = library_finder.exec(line)?.groups?.library;
+        if (loaded_library && loaded_library !== "shiny") {
+          libraries.push(loaded_library);
+        }
+      }
+      if (line_type === previous_line_type)
+        return;
+      previous_line_type = line_type;
+      if (line_type === "UI") {
+        app_template_by_line.push(
+          `ui ${ui_assignment_operator} ${SCRIPT_LOC_KEYS.ui}`
+        );
+      } else if (line_type === "Library") {
+        app_template_by_line.push(SCRIPT_LOC_KEYS.libraries);
+      } else {
+        throw new Error("Unknown line type");
+      }
+    });
+    return {
+      app_type: "SINGLE-FILE",
+      ui_tree,
+      output_positions,
+      server_pos,
+      app: {
+        code: app_template_by_line.join("\n"),
+        libraries
+      }
+    };
+  }
+  function generate_ui_script_template({ ui_pos, ui_assignment_operator }, ui_script) {
+    const ui_script_by_line = ui_script.split("\n");
+    let libraries = ["shiny"];
+    let ui_template_by_line = [];
+    let previous_line_type;
+    ui_script_by_line.forEach((line, line_number) => {
+      const line_type = get_line_type({ line, line_number, ui_pos });
+      if (line_type === "Other") {
+        ui_template_by_line.push(line);
+        return;
+      }
+      if (line_type === "Library") {
+        const loaded_library = library_finder.exec(line)?.groups?.library;
+        if (loaded_library && loaded_library !== "shiny") {
+          libraries.push(loaded_library);
+        }
+      }
+      if (line_type === previous_line_type)
+        return;
+      previous_line_type = line_type;
+      if (line_type === "UI") {
+        ui_template_by_line.push(
+          `ui ${ui_assignment_operator} ${SCRIPT_LOC_KEYS.ui}`
+        );
+      } else if (line_type === "Library") {
+        ui_template_by_line.push(SCRIPT_LOC_KEYS.libraries);
+      } else {
+        throw new Error("Unknown line type");
+      }
+    });
+    return { code: ui_template_by_line.join("\n"), libraries };
+  }
+  function raw_multi_file_app_info_to_full(raw_info) {
+    const {
+      ui,
+      server: { output_positions, server_pos }
+    } = parse_app_ast(raw_info);
+    return {
+      app_type: "MULTI-FILE",
+      ui_tree: ui.ui_tree,
+      output_positions,
+      server_pos,
+      ui: generate_ui_script_template(ui, raw_info.ui.script),
+      server: {
+        code: raw_info.server.script
+      }
+    };
+  }
+  function within_position(line_number, [ui_start_row, ui_start_col, ui_end_row, ui_end_col]) {
+    return line_number >= ui_start_row - 1 && line_number <= ui_end_row - 1;
+  }
+  function get_line_type({
+    line,
+    line_number,
+    ui_pos
+  }) {
+    if (within_position(line_number, ui_pos))
+      return "UI";
+    if (library_finder.test(line))
+      return "Library";
+    return "Other";
+  }
+  var library_finder = /^\s*library\((?<library>\w+)\)/;
+
   // src/state/watcherSubscriptions.ts
   function getUniqueSubscriptions(type) {
     const uniqueUpdateSubscribers = /* @__PURE__ */ new Set();
@@ -54441,7 +55091,7 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   var deleteSubscriptions = getUniqueSubscriptions("DELETE_NODE");
   var updateSubscriptions = getUniqueSubscriptions("UPDATE_NODE");
 
-  // src/state/uiTree.ts
+  // src/state/app_info.ts
   var mainStateSlice = createSlice({
     name: "state",
     initialState: {
@@ -54449,8 +55099,9 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     },
     reducers: {
       SET_FULL_STATE: (tree, action) => action.payload.state,
-      SET_UI_TREE: (tree, action) => {
-        return { mode: "MAIN", uiTree: action.payload.uiTree };
+      SET_APP_INFO: (tree, action) => {
+        const full_app_info = "ui_tree" in action.payload ? action.payload : raw_app_info_to_full(action.payload);
+        return { mode: "MAIN", ...full_app_info };
       },
       SHOW_TEMPLATE_CHOOSER: (state, { payload }) => {
         return { mode: "TEMPLATE_CHOOSER", options: payload };
@@ -54463,24 +55114,24 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
           throw new Error("Tried to update a node when in template chooser mode");
         }
         for (const subscription of updateSubscriptions) {
-          subscription(state.uiTree, action.payload);
+          subscription(state.ui_tree, action.payload);
         }
-        updateNodeMutating(state.uiTree, action.payload);
+        updateNodeMutating(state.ui_tree, action.payload);
       },
       PLACE_NODE: (state, action) => {
         if (state.mode !== "MAIN") {
           throw new Error("Tried to move a node when in template chooser mode");
         }
-        placeNodeMutating(state.uiTree, action.payload);
+        placeNodeMutating(state.ui_tree, action.payload);
       },
       DELETE_NODE: (state, action) => {
         if (state.mode !== "MAIN") {
           throw new Error("Tried to delete a node when in template chooser mode");
         }
         for (const subscription of deleteSubscriptions) {
-          subscription(state.uiTree, { path: action.payload.path });
+          subscription(state.ui_tree, { path: action.payload.path });
         }
-        removeNodeMutating(state.uiTree, action.payload);
+        removeNodeMutating(state.ui_tree, action.payload);
       }
     }
   });
@@ -54488,7 +55139,7 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     UPDATE_NODE,
     PLACE_NODE,
     DELETE_NODE,
-    SET_UI_TREE,
+    SET_APP_INFO,
     SET_FULL_STATE,
     SHOW_TEMPLATE_CHOOSER,
     SET_LOADING
@@ -54503,10 +55154,10 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     );
     return place_node;
   }
-  function useCurrentUiTree() {
-    return useSelector((state) => state.uiTree);
+  function useCurrentAppInfo() {
+    return useSelector((state) => state.app_info);
   }
-  var uiTree_default = mainStateSlice.reducer;
+  var app_info_default = mainStateSlice.reducer;
 
   // src/components/DeleteNodeButton/useDeleteNode.tsx
   function useDeleteNode(pathToNode) {
@@ -54639,9 +55290,151 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
       return JSON.stringify(oldEntry.options) === JSON.stringify(newEntry.options);
     }
     if (newEntry.mode === "MAIN" && oldEntry.mode === "MAIN") {
-      return oldEntry.uiTree === newEntry.uiTree;
+      return oldEntry.ui_tree === newEntry.ui_tree;
     }
     return false;
+  }
+
+  // ../ast-parsing/src/code_generation/ui_node_to_R_code.ts
+  function ui_node_to_R_code(node2, opts) {
+    const { ui_code, removed_namespaces } = ui_node_to_R_code_internal(
+      node2,
+      opts
+    );
+    return { ui_code, library_calls: Array.from(removed_namespaces) };
+  }
+  function ui_node_to_R_code_internal(node2, opts) {
+    const { uiName, uiArguments, uiChildren } = node2;
+    const removed_namespaces = /* @__PURE__ */ new Set();
+    if (isUnknownUiNode(node2)) {
+      return {
+        ui_code: print_unknown_ui_node(node2),
+        removed_namespaces
+      };
+    }
+    let fn_name = uiName;
+    if (opts.remove_namespace) {
+      const library_name = fn_name.match(/\w+(?=::)/)?.[0];
+      if (library_name) {
+        removed_namespaces.add(library_name);
+      }
+      fn_name = fn_name.replace(/\w+::/, "");
+    }
+    const fn_args_list = Object.keys(uiArguments).map(
+      (arg_name) => indent_line_breaks(
+        `${arg_name} = ${print_R_argument_value(uiArguments[arg_name])}`
+      )
+    );
+    uiChildren?.forEach((child) => {
+      const child_code = ui_node_to_R_code_internal(child, opts);
+      child_code.removed_namespaces.forEach(
+        (name) => removed_namespaces.add(name)
+      );
+      fn_args_list.push(indent_line_breaks(child_code.ui_code));
+    });
+    const is_multi_line_call = should_line_break({
+      fn_name: uiName,
+      fn_args_list,
+      max_line_length_for_multi_args: LINE_BREAK_LENGTH
+    });
+    const arg_seperator = `,${is_multi_line_call ? NL_INDENT : " "}`;
+    return {
+      removed_namespaces,
+      ui_code: `${fn_name}(${is_multi_line_call ? NL_INDENT : ""}${fn_args_list.join(arg_seperator)}${is_multi_line_call ? "\n" : ""})`
+    };
+  }
+  function isUnknownUiNode(x2) {
+    return is_object(x2) && "uiName" in x2 && x2.uiName === "unknownUiFunction";
+  }
+  function print_unknown_ui_node({
+    uiArguments
+  }) {
+    return uiArguments.text;
+  }
+  function isNamedList2(x2) {
+    if (typeof x2 !== "object")
+      return false;
+    const hasNonStringEntries = Object.values(x2).find(
+      (el) => typeof el !== "string"
+    );
+    if (hasNonStringEntries)
+      return false;
+    return true;
+  }
+  function print_named_R_list(vals) {
+    const values = Object.keys(vals).map((name) => `"${name}" = "${vals[name]}"`);
+    const total_list_length = values.reduce((l2, a2) => l2 + a2.length, 0) + 6;
+    const is_multiline = total_list_length > LINE_BREAK_LENGTH;
+    const arg_seperator = is_multiline ? `,${NL_INDENT}` : `, `;
+    return `list(${is_multiline ? NL_INDENT : ""}${values.join(arg_seperator)}${is_multiline ? "\n" : ""})`;
+  }
+  function print_R_array(vals) {
+    const values = vals.map(print_primative);
+    return `c(${NL_INDENT}${values.join(`,${NL_INDENT}`)}
+)`;
+  }
+  function print_primative(val) {
+    switch (typeof val) {
+      case "string":
+        return `"${val}"`;
+      default:
+        return String(val);
+    }
+  }
+  function print_R_argument_value(value) {
+    if (Array.isArray(value))
+      return print_R_array(value);
+    if (isNamedList2(value))
+      return print_named_R_list(value);
+    if (typeof value === "boolean")
+      return value ? "TRUE" : "FALSE";
+    if (isUnknownUiNode(value)) {
+      return print_unknown_ui_node(value);
+    }
+    return JSON.stringify(value);
+  }
+
+  // src/state/app_model/generate_ui_script.ts
+  function generate_ui_script({
+    ui_tree,
+    libraries: existing_libraries,
+    code: code2
+  }) {
+    const { ui_code, library_calls } = ui_node_to_R_code(ui_tree, {
+      remove_namespace: true
+    });
+    const all_libraries = [...existing_libraries];
+    library_calls.forEach((l2) => {
+      if (!existing_libraries.includes(l2)) {
+        all_libraries.push(l2);
+      }
+    });
+    return code2.replace(SCRIPT_LOC_KEYS.ui, ui_code).replace(SCRIPT_LOC_KEYS.libraries, write_library_calls(all_libraries));
+  }
+  function write_library_calls(libraries) {
+    return libraries.map((l2) => `library(${l2})`).join("\n");
+  }
+
+  // src/state/app_model/generate_full_app_script.ts
+  function generate_full_app_script(info, { include_info }) {
+    const { app_type, ui_tree } = info;
+    switch (app_type) {
+      case "SINGLE-FILE": {
+        return {
+          app_type,
+          app: generate_ui_script({ ui_tree, ...info.app }),
+          ...include_info && { info }
+        };
+      }
+      case "MULTI-FILE": {
+        return {
+          app_type,
+          ui: generate_ui_script({ ui_tree, ...info.ui }),
+          server: info.server.code,
+          ...include_info && { info }
+        };
+      }
+    }
   }
 
   // src/state/getNamedPath.tsx
@@ -54694,7 +55487,7 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   // src/backendCommunication/useSyncUiWithBackend.tsx
   function useSyncUiWithBackend() {
     const { sendMsg, incomingMsgs: backendMsgs, mode } = useBackendConnection();
-    const state = useCurrentUiTree();
+    const state = useCurrentAppInfo();
     const currentSelection = useCurrentSelection();
     const dispatch = useDispatch();
     const history = useUndoRedo(state);
@@ -54722,13 +55515,12 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
       }
     ]);
     React57.useEffect(() => {
-      const updatedTreeSubscription = backendMsgs.subscribe(
-        "UPDATED-TREE",
-        (uiTree) => {
-          dispatch(SET_UI_TREE({ uiTree }));
-          lastRecievedRef.current = { mode: "MAIN", uiTree };
-        }
-      );
+      const updatedAppSubscription = backendMsgs.subscribe("APP-INFO", (info) => {
+        const full_info = "ui_tree" in info ? info : raw_app_info_to_full(info);
+        dispatch(SET_APP_INFO(full_info));
+        lastRecievedRef.current = { mode: "MAIN", ...full_info };
+        console.log("Full app info", full_info);
+      });
       const templateChooserSubscription = backendMsgs.subscribe(
         "TEMPLATE_CHOOSER",
         (outputChoices) => {
@@ -54745,7 +55537,7 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
       );
       sendMsg({ path: "READY-FOR-STATE" });
       return () => {
-        updatedTreeSubscription.unsubscribe();
+        updatedAppSubscription.unsubscribe();
         templateChooserSubscription.unsubscribe();
         backendErrorSubscription.unsubscribe();
       };
@@ -54757,7 +55549,7 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
     React57.useEffect(() => {
       if (mode !== "VSCODE" || !currentSelection || state.mode !== "MAIN")
         return;
-      const namedPath = getNamedPath(currentSelection, state.uiTree);
+      const namedPath = getNamedPath(currentSelection, state.ui_tree);
       sendMsg({ path: "NODE-SELECTION", payload: namedPath });
     }, [currentSelection, mode, sendMsg, state]);
     React57.useEffect(() => {
@@ -54769,8 +55561,8 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
         return;
       }
       debouncedSendMsg({
-        path: "UPDATED-TREE",
-        payload: state.uiTree
+        path: "UPDATED-APP",
+        payload: generate_full_app_script(state, { include_info: false })
       });
     }, [state, debouncedSendMsg, sendMsg]);
     return {
@@ -54781,14 +55573,14 @@ input[type="range"]._sliderInput_1f2js_16::-webkit-slider-thumb {
   }
 
   // src/components/AppPreview/index.tsx
-  var import_react48 = __toESM(require_react());
+  var import_react50 = __toESM(require_react());
 
   // ../../node_modules/react-icons/vsc/index.esm.js
   function VscDebugRestart(props) {
     return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 16 16", "fill": "currentColor" }, "child": [{ "tag": "path", "attr": { "fillRule": "evenodd", "clipRule": "evenodd", "d": "M12.75 8a4.5 4.5 0 0 1-8.61 1.834l-1.391.565A6.001 6.001 0 0 0 14.25 8 6 6 0 0 0 3.5 4.334V2.5H2v4l.75.75h3.5v-1.5H4.352A4.5 4.5 0 0 1 12.75 8z" } }] })(props);
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-Q92t5KiWxcf4/editor/src/components/AppPreview/AppPreview.module.css.js
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-lFe12n8htwtG/editor/src/components/AppPreview/AppPreview.module.css.js
   var digest41 = "dd0b9e6dad9976ccd40f4effa4e57b7bf6f1d50ed088c39ad24d5ba3fd204ebf";
   var css41 = `div._appViewerHolder_zkojo_1 {
   /* This is over-ridden by an inline style but we just have it here in case */
@@ -55055,9 +55847,289 @@ h2._error_zkojo_249 {
   })();
   var AppPreview_module_css_default = { "appViewerHolder": "_appViewerHolder_zkojo_1", "title": "_title_zkojo_55", "appContainer": "_appContainer_zkojo_89", "previewFrame": "_previewFrame_zkojo_109", "expandButton": "_expandButton_zkojo_134", "reloadButtonContainer": "_reloadButtonContainer_zkojo_135", "reloadButton": "_reloadButton_zkojo_135", "spin": "_spin_zkojo_174", "restartButton": "_restartButton_zkojo_211", "loadingMessage": "_loadingMessage_zkojo_238", "error": "_error_zkojo_249" };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-ptCOR64rVpUd/editor/src/components/AppPreview/AppPreview.module.css.js
-  var digest42 = "26dba36fe85283f5ebf1f0ef129c34ba7ab42f40afe799627cdd89ff42e75ec5";
-  var css42 = `div._appViewerHolder_zkojo_1 {
+  // src/components/AppPreview/LogsViewer.tsx
+  var import_react45 = __toESM(require_react());
+
+  // ../../node_modules/react-icons/bs/index.esm.js
+  function BsChevronDown(props) {
+    return GenIcon({ "tag": "svg", "attr": { "fill": "currentColor", "viewBox": "0 0 16 16" }, "child": [{ "tag": "path", "attr": { "fillRule": "evenodd", "d": "M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" } }] })(props);
+  }
+  function BsChevronUp(props) {
+    return GenIcon({ "tag": "svg", "attr": { "fill": "currentColor", "viewBox": "0 0 16 16" }, "child": [{ "tag": "path", "attr": { "fillRule": "evenodd", "d": "M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" } }] })(props);
+  }
+  function BsCircleFill(props) {
+    return GenIcon({ "tag": "svg", "attr": { "fill": "currentColor", "viewBox": "0 0 16 16" }, "child": [{ "tag": "circle", "attr": { "cx": "8", "cy": "8", "r": "8" } }] })(props);
+  }
+
+  // ../../node_modules/react-icons/gr/index.esm.js
+  function GrClear(props) {
+    return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "fill": "none", "stroke": "#000", "strokeWidth": "2", "d": "M12,22 C17.5228475,22 22,17.5228475 22,12 C22,6.4771525 17.5228475,2 12,2 C6.4771525,2 2,6.4771525 2,12 C2,17.5228475 6.4771525,22 12,22 Z M5,5 L19,19" } }] })(props);
+  }
+
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-q50d3YegFi61/editor/src/components/AppPreview/LogsViewer.module.css.js
+  var digest42 = "8036d1eb7f61c317f54d78b1425ee7c6e915afca8c3fd58a36eb49c9c71b3cc5";
+  var css42 = `/* Logs section */
+._logs_xjp5l_2 {
+  --tab-height: var(--logs-button-h, 20px);
+  --background-color: var(--rstudio-white);
+  --outline-color: var(--rstudio-grey, red);
+  --side-offset: 8px;
+  position: absolute;
+  bottom: 0;
+  left: var(--side-offset);
+  right: var(--side-offset);
+  top: 0;
+  grid-area: logs;
+  /* Enable stacking context so z-indices work */
+  isolation: isolate;
+  transform: translateY(
+    calc(100% - var(--tab-height) - var(--logs-offset, 0px))
+  );
+  transition: transform var(--animation-speed, 0.25s) ease-in;
+}
+
+._logs_xjp5l_2[data-expanded="true"] {
+  transform: translateY(5px);
+}
+
+._logs_xjp5l_2[data-expanded="true"] ._logsContents_xjp5l_25 {
+  overflow: auto;
+}
+
+button._expandTab_xjp5l_29,
+._logsContents_xjp5l_25 {
+  background-color: var(--background-color);
+}
+
+button._expandTab_xjp5l_29 {
+  z-index: 2;
+  border-radius: var(--corner-radius) var(--corner-radius) 0 0 !important;
+  width: fit-content;
+  height: var(--tab-height);
+  margin-inline: auto;
+  display: flex;
+  gap: 5px;
+  padding-inline: 10px;
+  justify-content: center;
+  background-color: var(--background-color);
+  outline: var(--outline);
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+/* Cover up the bottom border to make tab appear to pop out of the contents */
+button._expandTab_xjp5l_29::after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 3px;
+  bottom: -2px;
+  background-color: var(--background-color);
+}
+
+._logsContents_xjp5l_25 {
+  z-index: 1;
+  border: var(--outline);
+  height: calc(100% - var(--tab-height));
+  padding: var(--logs-padding);
+  position: relative;
+}
+
+._clearLogsButton_xjp5l_69 {
+  outline: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+p._logLine_xjp5l_75 {
+  font-family: var(--mono-fonts);
+  font-size: var(--logs-font-size);
+  margin: 0;
+}
+
+._noLogsMsg_xjp5l_81 {
+  opacity: 0.8;
+  height: 100%;
+  text-align: center;
+  font-size: 1rem;
+}
+/* 
+.clearLogsButton {
+  display: none;
+  height: 100%;
+} */
+
+/* .expandedLogs .clearLogsButton {
+  display: block;
+} */
+
+._expandedLogs_xjp5l_93 ._logsContents_xjp5l_25 {
+  overflow: auto;
+}
+
+._expandLogsButton_xjp5l_101 {
+  flex-grow: 1;
+  text-align: center;
+  font-size: calc(var(--logs-font-size) * 1.3);
+  height: 100%;
+}
+
+._unseenLogsNotification_xjp5l_108 {
+  color: var(--red);
+  right: 0;
+  opacity: 0;
+  font-size: 9px;
+}
+._unseenLogsNotification_xjp5l_108[data-show="true"] {
+  opacity: 1;
+  animation-duration: 2s;
+  animation-name: _slidein_xjp5l_1;
+  animation-iteration-count: 3;
+  animation-timing-function: ease-in-out;
+  transition: opacity 1s;
+}
+
+@keyframes _slidein_xjp5l_1 {
+  from {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.5);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+`;
+  (function() {
+    if (typeof document === "undefined") {
+      return;
+    }
+    if (!document.getElementById(digest42)) {
+      var el = document.createElement("style");
+      el.id = digest42;
+      el.textContent = css42;
+      document.head.appendChild(el);
+    }
+  })();
+  var LogsViewer_module_css_default = { "logs": "_logs_xjp5l_2", "logsContents": "_logsContents_xjp5l_25", "expandTab": "_expandTab_xjp5l_29", "clearLogsButton": "_clearLogsButton_xjp5l_69", "logLine": "_logLine_xjp5l_75", "noLogsMsg": "_noLogsMsg_xjp5l_81", "expandedLogs": "_expandedLogs_xjp5l_93", "expandLogsButton": "_expandLogsButton_xjp5l_101", "unseenLogsNotification": "_unseenLogsNotification_xjp5l_108", "slidein": "_slidein_xjp5l_1" };
+
+  // src/components/AppPreview/LogsViewer.tsx
+  var import_jsx_runtime87 = __toESM(require_jsx_runtime());
+  function LogsViewer({
+    appLogs,
+    clearLogs
+  }) {
+    const { logsExpanded, toggleLogExpansion, unseenLogs } = useExpandableLogs(appLogs);
+    const noLogs = appLogs.length === 0;
+    return /* @__PURE__ */ (0, import_jsx_runtime87.jsxs)("div", { className: LogsViewer_module_css_default.logs, "data-expanded": logsExpanded, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime87.jsxs)(
+        "button",
+        {
+          className: LogsViewer_module_css_default.expandTab,
+          title: logsExpanded ? "hide logs" : "show logs",
+          onClick: toggleLogExpansion,
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime87.jsx)(
+              BsCircleFill,
+              {
+                className: LogsViewer_module_css_default.unseenLogsNotification,
+                "data-show": unseenLogs
+              }
+            ),
+            "App Logs",
+            logsExpanded ? /* @__PURE__ */ (0, import_jsx_runtime87.jsx)(BsChevronDown, {}) : /* @__PURE__ */ (0, import_jsx_runtime87.jsx)(BsChevronUp, {})
+          ]
+        }
+      ),
+      /* @__PURE__ */ (0, import_jsx_runtime87.jsxs)("div", { className: LogsViewer_module_css_default.logsContents, children: [
+        noLogs ? /* @__PURE__ */ (0, import_jsx_runtime87.jsx)("p", { className: LogsViewer_module_css_default.noLogsMsg, children: "No recent logs" }) : appLogs.map((line, i2) => /* @__PURE__ */ (0, import_jsx_runtime87.jsx)("p", { className: LogsViewer_module_css_default.logLine, children: line }, i2)),
+        !noLogs ? /* @__PURE__ */ (0, import_jsx_runtime87.jsx)(
+          Button_default,
+          {
+            variant: "icon",
+            title: "clear logs",
+            className: LogsViewer_module_css_default.clearLogsButton,
+            onClick: clearLogs,
+            children: /* @__PURE__ */ (0, import_jsx_runtime87.jsx)(GrClear, {})
+          }
+        ) : null
+      ] })
+    ] });
+  }
+  function useExpandableLogs(appLogs) {
+    const [logsExpanded, setLogsExpanded] = import_react45.default.useState(false);
+    const [unseenLogs, setUnseenLogs] = import_react45.default.useState(false);
+    const [logsLastExpanded, setLogsLastExpanded] = import_react45.default.useState(
+      null
+    );
+    const [logsLastReceived, setLogsLastReceived] = import_react45.default.useState(
+      new Date()
+    );
+    const toggleLogExpansion = import_react45.default.useCallback(() => {
+      if (logsExpanded) {
+        setLogsExpanded(false);
+        setLogsLastExpanded(new Date());
+        return;
+      }
+      setLogsExpanded(true);
+      setUnseenLogs(false);
+    }, [logsExpanded]);
+    import_react45.default.useEffect(() => {
+      setLogsLastReceived(new Date());
+    }, [appLogs]);
+    import_react45.default.useEffect(() => {
+      if (logsExpanded || appLogs.length === 0) {
+        setUnseenLogs(false);
+        return;
+      }
+      if (logsLastExpanded === null || logsLastExpanded < logsLastReceived) {
+        setUnseenLogs(true);
+        return;
+      }
+    }, [appLogs.length, logsExpanded, logsLastExpanded, logsLastReceived]);
+    return { logsExpanded, toggleLogExpansion, unseenLogs };
+  }
+
+  // src/components/AppPreview/ShowAppText.tsx
+  var import_react47 = __toESM(require_react());
+
+  // src/EditorContainer/DialogPopover.tsx
+  var import_react46 = __toESM(require_react());
+  var import_jsx_runtime88 = __toESM(require_jsx_runtime());
+  function DialogPopover({
+    children,
+    onClose,
+    ...passthrough
+  }) {
+    const dialog_ref = import_react46.default.useRef(null);
+    import_react46.default.useEffect(() => {
+      if (!dialog_ref.current || typeof onClose === "undefined")
+        return;
+      const dialog = dialog_ref.current;
+      function onClick(event) {
+        if (event.target === dialog) {
+          onClose?.();
+        }
+      }
+      dialog.addEventListener("click", onClick);
+      try {
+        dialog.showModal();
+      } catch {
+      }
+      return () => {
+        dialog.removeEventListener("click", onClick);
+      };
+    }, [onClose]);
+    return /* @__PURE__ */ (0, import_jsx_runtime88.jsx)("dialog", { ...passthrough, ref: dialog_ref, onClose, children });
+  }
+
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-PD3wZ7Mkhdbx/editor/src/components/AppPreview/AppPreview.module.css.js
+  var digest43 = "749e05b315e9a2bc6bd903db0cc8f1afd68fa90dc8499c3e7fffd5d3338cd327";
+  var css43 = `div._appViewerHolder_zkojo_1 {
   /* This is over-ridden by an inline style but we just have it here in case */
   --app-scale-amnt: 0.24;
 
@@ -55313,64 +56385,6 @@ h2._error_zkojo_249 {
     if (typeof document === "undefined") {
       return;
     }
-    if (!document.getElementById(digest42)) {
-      var el = document.createElement("style");
-      el.id = digest42;
-      el.textContent = css42;
-      document.head.appendChild(el);
-    }
-  })();
-  var AppPreview_module_css_default2 = { "appViewerHolder": "_appViewerHolder_zkojo_1", "title": "_title_zkojo_55", "appContainer": "_appContainer_zkojo_89", "previewFrame": "_previewFrame_zkojo_109", "expandButton": "_expandButton_zkojo_134", "reloadButtonContainer": "_reloadButtonContainer_zkojo_135", "reloadButton": "_reloadButton_zkojo_135", "spin": "_spin_zkojo_174", "restartButton": "_restartButton_zkojo_211", "loadingMessage": "_loadingMessage_zkojo_238", "error": "_error_zkojo_249" };
-
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-vkoTJ1rdn5Vo/editor/src/components/AppPreview/FakeDashboard.module.css.js
-  var digest43 = "e6d0795021df23f382c06d09aedb3b9cb26460d9105374a5afe8eb1d8fb026e3";
-  var css43 = `._fakeApp_t3dh1_1 {
-  display: grid;
-  place-content: center;
-  font-size: 4rem;
-}
-
-._fakeDashboard_t3dh1_7 {
-  display: grid;
-  gap: 5px;
-  grid:
-    "header   header" 100px
-    "sidebar  top   " 2fr
-    "sidebar  bottom" 1fr
-    / 150px 1fr;
-}
-
-._fakeDashboard_t3dh1_7 > div {
-  width: 100%;
-  height: 100%;
-}
-
-._fakeDashboard_t3dh1_7 > ._header_t3dh1_22 {
-  grid-area: header;
-  background-color: hsl(288 59% 58% / 0.7);
-  display: grid;
-  place-content: center;
-}
-._header_t3dh1_22 > h1 {
-  color: white;
-}
-._fakeDashboard_t3dh1_7 > ._sidebar_t3dh1_31 {
-  grid-area: sidebar;
-  background-color: hsl(30 59% 53% / 0.7);
-}
-._fakeDashboard_t3dh1_7 > ._top_t3dh1_35 {
-  grid-area: top;
-  background-color: hsl(120 61% 34% / 0.7);
-}
-._fakeDashboard_t3dh1_7 > ._bottom_t3dh1_39 {
-  grid-area: bottom;
-  background-color: hsl(207 44% 49% / 0.7);
-}
-`;
-  (function() {
-    if (typeof document === "undefined") {
-      return;
-    }
     if (!document.getElementById(digest43)) {
       var el = document.createElement("style");
       el.id = digest43;
@@ -55378,184 +56392,57 @@ h2._error_zkojo_249 {
       document.head.appendChild(el);
     }
   })();
-  var FakeDashboard_module_css_default = { "fakeApp": "_fakeApp_t3dh1_1", "fakeDashboard": "_fakeDashboard_t3dh1_7", "header": "_header_t3dh1_22", "sidebar": "_sidebar_t3dh1_31", "top": "_top_t3dh1_35", "bottom": "_bottom_t3dh1_39" };
+  var AppPreview_module_css_default2 = { "appViewerHolder": "_appViewerHolder_zkojo_1", "title": "_title_zkojo_55", "appContainer": "_appContainer_zkojo_89", "previewFrame": "_previewFrame_zkojo_109", "expandButton": "_expandButton_zkojo_134", "reloadButtonContainer": "_reloadButtonContainer_zkojo_135", "reloadButton": "_reloadButton_zkojo_135", "spin": "_spin_zkojo_174", "restartButton": "_restartButton_zkojo_211", "loadingMessage": "_loadingMessage_zkojo_238", "error": "_error_zkojo_249" };
 
-  // src/components/AppPreview/FakeDashboard.tsx
-  var import_jsx_runtime87 = __toESM(require_jsx_runtime());
-  var FakeDashboard = () => {
-    return /* @__PURE__ */ (0, import_jsx_runtime87.jsx)("div", { className: AppPreview_module_css_default2.appContainer, children: /* @__PURE__ */ (0, import_jsx_runtime87.jsxs)(
-      "div",
-      {
-        className: mergeClasses(
-          FakeDashboard_module_css_default.fakeDashboard,
-          AppPreview_module_css_default2.previewFrame
-        ),
-        children: [
-          /* @__PURE__ */ (0, import_jsx_runtime87.jsx)("div", { className: FakeDashboard_module_css_default.header, children: /* @__PURE__ */ (0, import_jsx_runtime87.jsx)("h1", { children: "App preview not available" }) }),
-          /* @__PURE__ */ (0, import_jsx_runtime87.jsx)("div", { className: FakeDashboard_module_css_default.sidebar }),
-          /* @__PURE__ */ (0, import_jsx_runtime87.jsx)("div", { className: FakeDashboard_module_css_default.top }),
-          /* @__PURE__ */ (0, import_jsx_runtime87.jsx)("div", { className: FakeDashboard_module_css_default.bottom })
-        ]
-      }
-    ) });
-  };
-  var FakeDashboard_default = FakeDashboard;
-
-  // src/components/AppPreview/LogsViewer.tsx
-  var import_react45 = __toESM(require_react());
-
-  // ../../node_modules/react-icons/bs/index.esm.js
-  function BsChevronDown(props) {
-    return GenIcon({ "tag": "svg", "attr": { "fill": "currentColor", "viewBox": "0 0 16 16" }, "child": [{ "tag": "path", "attr": { "fillRule": "evenodd", "d": "M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" } }] })(props);
-  }
-  function BsChevronUp(props) {
-    return GenIcon({ "tag": "svg", "attr": { "fill": "currentColor", "viewBox": "0 0 16 16" }, "child": [{ "tag": "path", "attr": { "fillRule": "evenodd", "d": "M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" } }] })(props);
-  }
-  function BsCircleFill(props) {
-    return GenIcon({ "tag": "svg", "attr": { "fill": "currentColor", "viewBox": "0 0 16 16" }, "child": [{ "tag": "circle", "attr": { "cx": "8", "cy": "8", "r": "8" } }] })(props);
-  }
-
-  // ../../node_modules/react-icons/gr/index.esm.js
-  function GrClear(props) {
-    return GenIcon({ "tag": "svg", "attr": { "viewBox": "0 0 24 24" }, "child": [{ "tag": "path", "attr": { "fill": "none", "stroke": "#000", "strokeWidth": "2", "d": "M12,22 C17.5228475,22 22,17.5228475 22,12 C22,6.4771525 17.5228475,2 12,2 C6.4771525,2 2,6.4771525 2,12 C2,17.5228475 6.4771525,22 12,22 Z M5,5 L19,19" } }] })(props);
-  }
-
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-nj75e8bupuKp/editor/src/components/AppPreview/LogsViewer.module.css.js
-  var digest44 = "9295420f5e802e5edebad94b389fa6434f589fd8ee8a1163c22802dd51355d89";
-  var css44 = `/* Logs section */
-._logs_xjp5l_2 {
-  --tab-height: var(--logs-button-h, 20px);
-  --background-color: var(--rstudio-white);
-  --outline-color: var(--rstudio-grey, red);
-  --side-offset: 8px;
-  position: absolute;
-  bottom: 0;
-  left: var(--side-offset);
-  right: var(--side-offset);
-  top: 0;
-  grid-area: logs;
-  /* Enable stacking context so z-indices work */
-  isolation: isolate;
-  transform: translateY(
-    calc(100% - var(--tab-height) - var(--logs-offset, 0px))
-  );
-  transition: transform var(--animation-speed, 0.25s) ease-in;
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-A9H6UPdUHlji/editor/src/components/AppPreview/ShowAppText.module.css.js
+  var digest44 = "4f71f51fd83805b7723fb1209a317254e465def25eaed050764aa40a026a2a2e";
+  var css44 = `._show_btn_83j0t_1 {
+  margin: var(--size-md);
 }
 
-._logs_xjp5l_2[data-expanded="true"] {
-  transform: translateY(5px);
-}
-
-._logs_xjp5l_2[data-expanded="true"] ._logsContents_xjp5l_25 {
-  overflow: auto;
-}
-
-button._expandTab_xjp5l_29,
-._logsContents_xjp5l_25 {
-  background-color: var(--background-color);
-}
-
-button._expandTab_xjp5l_29 {
-  z-index: 2;
-  border-radius: var(--corner-radius) var(--corner-radius) 0 0 !important;
-  width: fit-content;
-  height: var(--tab-height);
-  margin-inline: auto;
+._modal_83j0t_5 {
+  border: 1px solid grey;
+  background-color: var(--rstudio-white);
   display: flex;
-  gap: 5px;
-  padding-inline: 10px;
-  justify-content: center;
-  background-color: var(--background-color);
-  outline: var(--outline);
+  flex-direction: column;
+  border-radius: var(--corner-radius);
+  overflow: scroll;
+  padding-block: var(--size-lg);
+  padding-inline: var(--size-xl);
+  max-width: 800px;
+  width: 99%;
+}
+
+._title_83j0t_18 {
+  margin-block-end: var(--size-md);
+}
+
+._description_83j0t_22 {
+  padding-inline-start: var(--size-md);
+}
+
+._code_holder_83j0t_26 {
+  max-height: 70vh;
+  overflow-y: scroll;
+  margin-block: var(--size-sm);
+}
+
+._code_holder_83j0t_26 > * {
+  padding: var(--size-md);
+  background-color: var(--light-grey);
+}
+
+._code_holder_83j0t_26 > label {
+  padding-block: var(--size-sm) 0;
+  border-radius: var(--corner-radius) var(--corner-radius) 0 0;
+  color: var(--rstudio-blue);
+}
+
+._footer_83j0t_43 {
   display: flex;
-  align-items: center;
-  position: relative;
-}
-
-/* Cover up the bottom border to make tab appear to pop out of the contents */
-button._expandTab_xjp5l_29::after {
-  position: absolute;
-  content: "";
-  width: 100%;
-  height: 3px;
-  bottom: -2px;
-  background-color: var(--background-color);
-}
-
-._logsContents_xjp5l_25 {
-  z-index: 1;
-  border: var(--outline);
-  height: calc(100% - var(--tab-height));
-  padding: var(--logs-padding);
-  position: relative;
-}
-
-._clearLogsButton_xjp5l_69 {
-  outline: none;
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-p._logLine_xjp5l_75 {
-  font-family: var(--mono-fonts);
-  font-size: var(--logs-font-size);
-  margin: 0;
-}
-
-._noLogsMsg_xjp5l_81 {
-  opacity: 0.8;
-  height: 100%;
-  text-align: center;
-  font-size: 1rem;
-}
-/* 
-.clearLogsButton {
-  display: none;
-  height: 100%;
-} */
-
-/* .expandedLogs .clearLogsButton {
-  display: block;
-} */
-
-._expandedLogs_xjp5l_93 ._logsContents_xjp5l_25 {
-  overflow: auto;
-}
-
-._expandLogsButton_xjp5l_101 {
-  flex-grow: 1;
-  text-align: center;
-  font-size: calc(var(--logs-font-size) * 1.3);
-  height: 100%;
-}
-
-._unseenLogsNotification_xjp5l_108 {
-  color: var(--red);
-  right: 0;
-  opacity: 0;
-  font-size: 9px;
-}
-._unseenLogsNotification_xjp5l_108[data-show="true"] {
-  opacity: 1;
-  animation-duration: 2s;
-  animation-name: _slidein_xjp5l_1;
-  animation-iteration-count: 3;
-  animation-timing-function: ease-in-out;
-  transition: opacity 1s;
-}
-
-@keyframes _slidein_xjp5l_1 {
-  from {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.5);
-  }
-
-  to {
-    transform: scale(1);
-  }
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-block-start: var(--size-md);
 }
 `;
   (function() {
@@ -55569,93 +56456,90 @@ p._logLine_xjp5l_75 {
       document.head.appendChild(el);
     }
   })();
-  var LogsViewer_module_css_default = { "logs": "_logs_xjp5l_2", "logsContents": "_logsContents_xjp5l_25", "expandTab": "_expandTab_xjp5l_29", "clearLogsButton": "_clearLogsButton_xjp5l_69", "logLine": "_logLine_xjp5l_75", "noLogsMsg": "_noLogsMsg_xjp5l_81", "expandedLogs": "_expandedLogs_xjp5l_93", "expandLogsButton": "_expandLogsButton_xjp5l_101", "unseenLogsNotification": "_unseenLogsNotification_xjp5l_108", "slidein": "_slidein_xjp5l_1" };
+  var ShowAppText_module_css_default = { "show_btn": "_show_btn_83j0t_1", "showBtn": "_show_btn_83j0t_1", "modal": "_modal_83j0t_5", "title": "_title_83j0t_18", "description": "_description_83j0t_22", "code_holder": "_code_holder_83j0t_26", "codeHolder": "_code_holder_83j0t_26", "footer": "_footer_83j0t_43" };
 
-  // src/components/AppPreview/LogsViewer.tsx
-  var import_jsx_runtime88 = __toESM(require_jsx_runtime());
-  function LogsViewer({
-    appLogs,
-    clearLogs
+  // src/components/AppPreview/ShowAppText.tsx
+  var import_jsx_runtime89 = __toESM(require_jsx_runtime());
+  function AppFilesViewer({
+    info
   }) {
-    const { logsExpanded, toggleLogExpansion, unseenLogs } = useExpandableLogs(appLogs);
-    const noLogs = appLogs.length === 0;
-    return /* @__PURE__ */ (0, import_jsx_runtime88.jsxs)("div", { className: LogsViewer_module_css_default.logs, "data-expanded": logsExpanded, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime88.jsxs)(
-        "button",
-        {
-          className: LogsViewer_module_css_default.expandTab,
-          title: logsExpanded ? "hide logs" : "show logs",
-          onClick: toggleLogExpansion,
-          children: [
-            /* @__PURE__ */ (0, import_jsx_runtime88.jsx)(
-              BsCircleFill,
-              {
-                className: LogsViewer_module_css_default.unseenLogsNotification,
-                "data-show": unseenLogs
-              }
-            ),
-            "App Logs",
-            logsExpanded ? /* @__PURE__ */ (0, import_jsx_runtime88.jsx)(BsChevronDown, {}) : /* @__PURE__ */ (0, import_jsx_runtime88.jsx)(BsChevronUp, {})
-          ]
-        }
-      ),
-      /* @__PURE__ */ (0, import_jsx_runtime88.jsxs)("div", { className: LogsViewer_module_css_default.logsContents, children: [
-        noLogs ? /* @__PURE__ */ (0, import_jsx_runtime88.jsx)("p", { className: LogsViewer_module_css_default.noLogsMsg, children: "No recent logs" }) : appLogs.map((line, i2) => /* @__PURE__ */ (0, import_jsx_runtime88.jsx)("p", { className: LogsViewer_module_css_default.logLine, children: line }, i2)),
-        !noLogs ? /* @__PURE__ */ (0, import_jsx_runtime88.jsx)(
-          Button_default,
-          {
-            variant: "icon",
-            title: "clear logs",
-            className: LogsViewer_module_css_default.clearLogsButton,
-            onClick: clearLogs,
-            children: /* @__PURE__ */ (0, import_jsx_runtime88.jsx)(GrClear, {})
-          }
-        ) : null
+    const app_scripts = generate_full_app_script(info, { include_info: false });
+    if (app_scripts.app_type === "SINGLE-FILE") {
+      return /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)(import_jsx_runtime89.Fragment, { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("h2", { className: ShowAppText_module_css_default.title, children: "App script" }),
+        /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)("p", { className: ShowAppText_module_css_default.description, children: [
+          "The following code defines the currently being edited app. Copy and paste it to an ",
+          /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("code", { children: "app.R" }),
+          " file to use."
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)("div", { className: ShowAppText_module_css_default.code_holder, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("label", { children: "app.R" }),
+          /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("pre", { children: app_scripts.app })
+        ] })
+      ] });
+    }
+    return /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)(import_jsx_runtime89.Fragment, { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("h2", { className: ShowAppText_module_css_default.title, children: "App scripts" }),
+      /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)("p", { className: ShowAppText_module_css_default.description, children: [
+        "The following code defines the currently being edited app. Copy and paste the ui and server scripts into ",
+        /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("code", { children: "ui.R" }),
+        " and",
+        " ",
+        /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("code", { children: "server.R" }),
+        " files to use."
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)("div", { className: ShowAppText_module_css_default.code_holder, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("label", { children: "ui.R" }),
+        /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("pre", { children: app_scripts.ui })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)("div", { className: ShowAppText_module_css_default.code_holder, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("label", { children: "server.R" }),
+        /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("pre", { children: app_scripts.server })
       ] })
     ] });
   }
-  function useExpandableLogs(appLogs) {
-    const [logsExpanded, setLogsExpanded] = import_react45.default.useState(false);
-    const [unseenLogs, setUnseenLogs] = import_react45.default.useState(false);
-    const [logsLastExpanded, setLogsLastExpanded] = import_react45.default.useState(
-      null
-    );
-    const [logsLastReceived, setLogsLastReceived] = import_react45.default.useState(
-      new Date()
-    );
-    const toggleLogExpansion = import_react45.default.useCallback(() => {
-      if (logsExpanded) {
-        setLogsExpanded(false);
-        setLogsLastExpanded(new Date());
-        return;
-      }
-      setLogsExpanded(true);
-      setUnseenLogs(false);
-    }, [logsExpanded]);
-    import_react45.default.useEffect(() => {
-      setLogsLastReceived(new Date());
-    }, [appLogs]);
-    import_react45.default.useEffect(() => {
-      if (logsExpanded || appLogs.length === 0) {
-        setUnseenLogs(false);
-        return;
-      }
-      if (logsLastExpanded === null || logsLastExpanded < logsLastReceived) {
-        setUnseenLogs(true);
-        return;
-      }
-    }, [appLogs.length, logsExpanded, logsLastExpanded, logsLastReceived]);
-    return { logsExpanded, toggleLogExpansion, unseenLogs };
+  function ShowAppText() {
+    const [script_visible, set_script_visible] = import_react47.default.useState(false);
+    const store2 = useStore();
+    const current_state = store2.getState().app_info;
+    if (current_state.mode !== "MAIN")
+      return null;
+    return /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)(import_jsx_runtime89.Fragment, { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(PanelHeader, { className: AppPreview_module_css_default2.title, children: "Code" }),
+      /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(
+        TooltipButton,
+        {
+          className: ShowAppText_module_css_default.show_btn,
+          text: "See current application code",
+          position: "left",
+          onClick: () => set_script_visible((is_visible) => !is_visible),
+          variant: "regular",
+          children: "Get app script"
+        }
+      ),
+      script_visible ? /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(
+        DialogPopover,
+        {
+          className: ShowAppText_module_css_default.modal,
+          title: "App Script",
+          onClose: () => set_script_visible(false),
+          children: /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)("form", { method: "dialog", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(AppFilesViewer, { info: current_state }),
+            /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("div", { className: ShowAppText_module_css_default.footer, children: /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(Button_default, { type: "submit", children: "Okay" }) })
+          ] })
+        }
+      ) : null
+    ] });
   }
 
   // src/components/AppPreview/useCommunicateWithBackend.tsx
-  var import_react46 = __toESM(require_react());
+  var import_react48 = __toESM(require_react());
   function useCommunicateWithBackend() {
     const { sendMsg, incomingMsgs } = useBackendConnection();
-    const [appLoc, setAppLoc] = import_react46.default.useState("HIDDEN");
-    const [appLogs, setAppLogs] = import_react46.default.useState([]);
-    const [errors, setErrors] = import_react46.default.useState(null);
-    import_react46.default.useEffect(() => {
+    const [appLoc, setAppLoc] = import_react48.default.useState("HIDDEN");
+    const [appLogs, setAppLogs] = import_react48.default.useState([]);
+    const [errors, setErrors] = import_react48.default.useState(null);
+    import_react48.default.useEffect(() => {
       const previewReadySubscription = incomingMsgs.subscribe(
         "APP-PREVIEW-STATUS",
         (previewLoc) => {
@@ -55684,13 +56568,13 @@ p._logLine_xjp5l_75 {
         previewCrashSubscription.unsubscribe();
       };
     }, [incomingMsgs, sendMsg]);
-    const [restartApp, setRestartApp] = import_react46.default.useState(
+    const [restartApp, setRestartApp] = import_react48.default.useState(
       () => () => console.warn("No app running to reset")
     );
-    const [stopApp, setStopApp] = import_react46.default.useState(
+    const [stopApp, setStopApp] = import_react48.default.useState(
       () => () => console.warn("No app running to stop")
     );
-    const clearLogs = import_react46.default.useCallback(() => {
+    const clearLogs = import_react48.default.useCallback(() => {
       setAppLogs([]);
     }, []);
     return {
@@ -55709,20 +56593,20 @@ p._logLine_xjp5l_75 {
   }
 
   // src/components/AppPreview/usePreviewScale.tsx
-  var import_react47 = __toESM(require_react());
+  var import_react49 = __toESM(require_react());
   function usePreviewScale() {
     const pageSize = useGetPageSize();
     return getPreviewScale(pageSize.width);
   }
   function useGetPageSize() {
-    const [pageSize, setPageSize] = import_react47.default.useState(getPageSize());
-    const updateWindowSize = import_react47.default.useMemo(
+    const [pageSize, setPageSize] = import_react49.default.useState(getPageSize());
+    const updateWindowSize = import_react49.default.useMemo(
       () => functionDebounce(() => {
         setPageSize(getPageSize());
       }, 500),
       []
     );
-    import_react47.default.useEffect(() => {
+    import_react49.default.useEffect(() => {
       window.addEventListener("resize", updateWindowSize);
       return () => window.removeEventListener("resize", updateWindowSize);
     }, [updateWindowSize]);
@@ -55742,18 +56626,18 @@ p._logLine_xjp5l_75 {
   }
 
   // src/components/AppPreview/index.tsx
-  var import_jsx_runtime89 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime90 = __toESM(require_jsx_runtime());
   var PREVIEW_INSET_HORIZONTAL_PX = 16;
   var EXPANDED_INSET_HORIZONTAL_PX = 55;
   function AppPreview() {
-    const iframeRef = import_react48.default.useRef(null);
-    const [isFullScreen, setIsFullScreen] = import_react48.default.useState(false);
-    const toggleFullscreen = import_react48.default.useCallback(() => {
+    const iframeRef = import_react50.default.useRef(null);
+    const [isFullScreen, setIsFullScreen] = import_react50.default.useState(false);
+    const toggleFullscreen = import_react50.default.useCallback(() => {
       setIsFullScreen((currentlyFullScreen) => !currentlyFullScreen);
     }, []);
     const { appLoc, errors, appLogs, clearLogs, restartApp } = useCommunicateWithBackend();
     const previewScale = usePreviewScale();
-    const reloadApp = import_react48.default.useCallback(
+    const reloadApp = import_react50.default.useCallback(
       (e2) => {
         spinReloadButton(e2.currentTarget);
         if (!iframeRef.current || typeof appLoc === "string")
@@ -55767,24 +56651,24 @@ p._logLine_xjp5l_75 {
       [appLoc, restartApp]
     );
     if (appLoc === "HIDDEN") {
-      return null;
+      return /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(ShowAppText, {});
     }
-    const ReloadButton = ({ isExpandedMode }) => /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("div", { className: AppPreview_module_css_default.reloadButtonContainer, children: /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(
+    const ReloadButton = ({ isExpandedMode }) => /* @__PURE__ */ (0, import_jsx_runtime90.jsx)("div", { className: AppPreview_module_css_default.reloadButtonContainer, children: /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(
       TooltipButton,
       {
         text: `Reload app session (hold ${getMetaKeyOnClient()} to restart app server also)`,
         className: AppPreview_module_css_default.reloadButton,
         onClick: reloadApp,
         position: isExpandedMode ? "right" : "up-right",
-        children: /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(VscDebugRestart, {})
+        children: /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(VscDebugRestart, {})
       }
     ) });
-    return /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)(import_jsx_runtime89.Fragment, { children: [
-      /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)(PanelHeader, { className: AppPreview_module_css_default.title, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(ReloadButton, { isExpandedMode: false }),
+    return /* @__PURE__ */ (0, import_jsx_runtime90.jsxs)(import_jsx_runtime90.Fragment, { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime90.jsxs)(PanelHeader, { className: AppPreview_module_css_default.title, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(ReloadButton, { isExpandedMode: false }),
         "App Preview"
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(
         "div",
         {
           className: AppPreview_module_css_default.appViewerHolder,
@@ -55794,10 +56678,10 @@ p._logLine_xjp5l_75 {
             "--preview-inset-horizontal": `${PREVIEW_INSET_HORIZONTAL_PX}px`,
             "--expanded-inset-horizontal": `${EXPANDED_INSET_HORIZONTAL_PX}px`
           },
-          children: errors !== null ? /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(RestartPrompt, { onClick: restartApp }) : /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)(import_jsx_runtime89.Fragment, { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(ReloadButton, { isExpandedMode: true }),
-            /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)("div", { className: AppPreview_module_css_default.appContainer, children: [
-              appLoc === "FAKE-PREVIEW" ? /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(FakeDashboard_default, {}) : appLoc === "LOADING" ? /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(LoadingMessage, {}) : /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(
+          children: errors !== null ? /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(RestartPrompt, { onClick: restartApp }) : /* @__PURE__ */ (0, import_jsx_runtime90.jsxs)(import_jsx_runtime90.Fragment, { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(ReloadButton, { isExpandedMode: true }),
+            /* @__PURE__ */ (0, import_jsx_runtime90.jsxs)("div", { className: AppPreview_module_css_default.appContainer, children: [
+              appLoc === "LOADING" ? /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(LoadingMessage, {}) : /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(
                 "iframe",
                 {
                   className: AppPreview_module_css_default.previewFrame,
@@ -55806,31 +56690,31 @@ p._logLine_xjp5l_75 {
                   ref: iframeRef
                 }
               ),
-              /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(
+              /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(
                 Button_default,
                 {
                   variant: "icon",
                   className: AppPreview_module_css_default.expandButton,
                   title: isFullScreen ? "Shrink app preview" : "Expand app preview",
                   onClick: toggleFullscreen,
-                  children: isFullScreen ? /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(AiOutlineShrink, {}) : /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(FaExpand, {})
+                  children: isFullScreen ? /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(AiOutlineShrink, {}) : /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(FaExpand, {})
                 }
               )
             ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(LogsViewer, { appLogs, clearLogs })
+            /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(LogsViewer, { appLogs, clearLogs })
           ] })
         }
       )
     ] });
   }
   function RestartPrompt({ onClick }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)("div", { className: AppPreview_module_css_default.appContainer, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)("p", { children: [
+    return /* @__PURE__ */ (0, import_jsx_runtime90.jsxs)("div", { className: AppPreview_module_css_default.appContainer, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime90.jsxs)("p", { children: [
         "App preview crashed.",
-        /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("br", {}),
+        /* @__PURE__ */ (0, import_jsx_runtime90.jsx)("br", {}),
         " Try and restart?"
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime89.jsxs)(
+      /* @__PURE__ */ (0, import_jsx_runtime90.jsxs)(
         Button_default,
         {
           className: AppPreview_module_css_default.restartButton,
@@ -55838,14 +56722,14 @@ p._logLine_xjp5l_75 {
           onClick,
           children: [
             "Restart app preview ",
-            /* @__PURE__ */ (0, import_jsx_runtime89.jsx)(VscDebugRestart, {})
+            /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(VscDebugRestart, {})
           ]
         }
       )
     ] });
   }
   function LoadingMessage() {
-    return /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("div", { className: AppPreview_module_css_default.loadingMessage, children: /* @__PURE__ */ (0, import_jsx_runtime89.jsx)("h2", { children: "Loading app preview..." }) });
+    return /* @__PURE__ */ (0, import_jsx_runtime90.jsx)("div", { className: AppPreview_module_css_default.loadingMessage, children: /* @__PURE__ */ (0, import_jsx_runtime90.jsx)("h2", { children: "Loading app preview..." }) });
   }
   function spinReloadButton(buttonEl) {
     const reloadIcon = buttonEl.querySelector("svg");
@@ -55861,8 +56745,8 @@ p._logLine_xjp5l_75 {
   }
 
   // src/components/Icons/ShinyLogo.tsx
-  var import_jsx_runtime90 = __toESM(require_jsx_runtime());
-  var SvgShinyLogo = (props) => /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(
+  var import_jsx_runtime91 = __toESM(require_jsx_runtime());
+  var SvgShinyLogo = (props) => /* @__PURE__ */ (0, import_jsx_runtime91.jsx)(
     "svg",
     {
       viewBox: "0 0 168 114",
@@ -55870,7 +56754,7 @@ p._logLine_xjp5l_75 {
       xmlns: "http://www.w3.org/2000/svg",
       "aria-label": "Shiny Logo",
       ...props,
-      children: /* @__PURE__ */ (0, import_jsx_runtime90.jsx)(
+      children: /* @__PURE__ */ (0, import_jsx_runtime91.jsx)(
         "path",
         {
           opacity: 0.9,
@@ -55883,7 +56767,7 @@ p._logLine_xjp5l_75 {
   var ShinyLogo_default = SvgShinyLogo;
 
   // src/components/TemplatePreviews/filterTemplates.ts
-  var import_react50 = __toESM(require_react());
+  var import_react52 = __toESM(require_react());
 
   // src/assets/app-templates/templates/chickWeightsGrid.ts
   var navbarTree = {
@@ -55958,31 +56842,31 @@ p._logLine_xjp5l_75 {
     otherCode: {
       serverLibraries: ["ggplot2"],
       serverFunctionBody: ` 
-    output$linePlots <- renderPlot({
-      obs_to_include <- as.integer(ChickWeight$Chick) <= input$numChicks
-      chicks <- ChickWeight[obs_to_include, ]
-  
-      ggplot(
-        chicks,
-        aes(
-          x = Time,
-          y = weight,
-          group = Chick
-        )
-      ) +
-        geom_line(alpha = 0.5) +
-        ggtitle("Chick weights over time")
-    })
-  
-    output$dists <- renderPlot({
-      ggplot(
-        ChickWeight,
-        aes(x = weight)
-      ) +
-        facet_wrap(input$distFacet) +
-        geom_density(fill = "#fa551b", color = "#ee6331") +
-        ggtitle("Distribution of weights by diet")
-    })`
+output$linePlots <- renderPlot({
+  obs_to_include <- as.integer(ChickWeight$Chick) <= input$numChicks
+  chicks <- ChickWeight[obs_to_include, ]
+
+  ggplot(
+    chicks,
+    aes(
+      x = Time,
+      y = weight,
+      group = Chick
+    )
+  ) +
+    geom_line(alpha = 0.5) +
+    ggtitle("Chick weights over time")
+})
+
+output$dists <- renderPlot({
+  ggplot(
+    ChickWeight,
+    aes(x = weight)
+  ) +
+    facet_wrap(input$distFacet) +
+    geom_density(fill = "#fa551b", color = "#ee6331") +
+    ggtitle("Distribution of weights by diet")
+})`
     }
   };
 
@@ -56100,32 +56984,32 @@ p._logLine_xjp5l_75 {
     otherCode: {
       serverLibraries: ["ggplot2"],
       serverFunctionBody: ` 
-    output$linePlots <- renderPlot({
-      obs_to_include <- as.integer(ChickWeight$Chick) <= input$numChicks
-      chicks <- ChickWeight[obs_to_include, ]
-  
-      ggplot(
-        chicks,
-        aes(
-          x = Time,
-          y = weight,
-          group = Chick
-        )
-      ) +
-        geom_line(alpha = 0.5) +
-        ggtitle("Chick weights over time")
-    })
-  
-    output$dists <- renderPlot({
-      ggplot(
-        ChickWeight,
-        aes(x = weight)
-      ) +
-        facet_wrap(input$distFacet) +
-        geom_density(fill = "#fa551b", color = "#ee6331") +
-        ggtitle("Distribution of weights by diet")
-    })
-  `
+output$linePlots <- renderPlot({
+  obs_to_include <- as.integer(ChickWeight$Chick) <= input$numChicks
+  chicks <- ChickWeight[obs_to_include, ]
+
+  ggplot(
+    chicks,
+    aes(
+      x = Time,
+      y = weight,
+      group = Chick
+    )
+  ) +
+    geom_line(alpha = 0.5) +
+    ggtitle("Chick weights over time")
+})
+
+output$dists <- renderPlot({
+  ggplot(
+    ChickWeight,
+    aes(x = weight)
+  ) +
+    facet_wrap(input$distFacet) +
+    geom_density(fill = "#fa551b", color = "#ee6331") +
+    ggtitle("Distribution of weights by diet")
+})
+`
     }
   };
 
@@ -56133,15 +57017,15 @@ p._logLine_xjp5l_75 {
   var appTree = {
     uiName: "gridlayout::grid_page",
     uiArguments: {
-      row_sizes: ["100px", "1fr", "1fr", "1fr"],
-      col_sizes: ["250px", "0.59fr", "1.41fr"],
-      gap_size: "1rem",
       layout: [
         "header  header   header",
         "sidebar bluePlot bluePlot",
         "table   table    plotly",
         "table   table    plotly"
-      ]
+      ],
+      row_sizes: ["100px", "1fr", "1fr", "1fr"],
+      col_sizes: ["250px", "0.59fr", "1.41fr"],
+      gap_size: "1rem"
     },
     uiChildren: [
       {
@@ -56234,24 +57118,23 @@ p._logLine_xjp5l_75 {
     otherCode: {
       serverLibraries: ["plotly"],
       serverFunctionBody: ` 
-    output$distPlot <- renderPlotly({
-      # generate bins based on input$bins from ui.R
-      plot_ly(x = ~ faithful[, 2], type = "histogram")
-    })
-  
-    output$bluePlot <- renderPlot({
-      # generate bins based on input$bins from ui.R
-      x <- faithful[, 2]
-      bins <- seq(min(x), max(x), length.out = input$bins + 1)
-  
-      # draw the histogram with the specified number of bins
-      hist(x, breaks = bins, col = "steelblue", border = "white")
-    })
-  
-  
-    output$myTable <- renderDT({
-      head(faithful, input$numRows)
-    })`
+output$distPlot <- renderPlotly({
+  # generate bins based on input$bins from ui.R
+  plot_ly(x = ~ faithful[, 2], type = "histogram")
+})
+
+output$bluePlot <- renderPlot({
+  # generate bins based on input$bins from ui.R
+  x <- faithful[, 2]
+  bins <- seq(min(x), max(x), length.out = input$bins + 1)
+
+  # draw the histogram with the specified number of bins
+  hist(x, breaks = bins, col = "steelblue", border = "white")
+})
+
+output$myTable <- renderDT({
+  head(faithful, input$numRows)
+})`
     }
   };
 
@@ -56261,9 +57144,77 @@ p._logLine_xjp5l_75 {
     chickWeightsNavbar,
     chickWeightsGridTemplate
   ];
+  function template_to_app_contents(selection) {
+    const app_info = selection.outputType === "SINGLE-FILE" ? template_to_single_file_info(selection) : template_to_multi_file_info(selection);
+    return generate_full_app_script(app_info, { include_info: true });
+  }
+  function template_to_single_file_info({
+    uiTree,
+    otherCode: {
+      uiExtra = "",
+      serverExtra = "",
+      serverFunctionBody = "",
+      serverLibraries = []
+    }
+  }) {
+    const code2 = `${SCRIPT_LOC_KEYS.libraries}
+
+${uiExtra}
+ui <- ${SCRIPT_LOC_KEYS.ui}
+
+${serverExtra}
+server <- function(input, output) {
+  ${indent_line_breaks(serverFunctionBody)}
+}
+
+shinyApp(ui, server)
+  
+`;
+    return {
+      app_type: "SINGLE-FILE",
+      ui_tree: uiTree,
+      app: {
+        code: code2,
+        libraries: ["shiny", ...serverLibraries]
+      }
+    };
+  }
+  function template_to_multi_file_info({
+    uiTree,
+    otherCode: {
+      uiExtra = "",
+      serverExtra = "",
+      serverFunctionBody = "",
+      serverLibraries = []
+    }
+  }) {
+    const ui_code = `${SCRIPT_LOC_KEYS.libraries}
+
+${uiExtra}
+ui <- ${SCRIPT_LOC_KEYS.ui}
+`;
+    const server_code = `${write_library_calls(serverLibraries)}
+
+${serverExtra}
+server <- function(input, output) {
+  ${indent_line_breaks(serverFunctionBody)}
+}
+`;
+    return {
+      app_type: "MULTI-FILE",
+      ui_tree: uiTree,
+      ui: {
+        code: ui_code,
+        libraries: ["shiny", ...serverLibraries]
+      },
+      server: {
+        code: server_code
+      }
+    };
+  }
 
   // src/components/TemplatePreviews/AppTemplatePreview.tsx
-  var import_jsx_runtime91 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime92 = __toESM(require_jsx_runtime());
   var FULL_WIDTH_PX = 1260;
   var FULL_HEIGHT_PX = 800;
   function AppTemplatePreview({
@@ -56272,7 +57223,7 @@ p._logLine_xjp5l_75 {
   }) {
     const height_px = FULL_HEIGHT_PX * (width_px / FULL_WIDTH_PX);
     const shrink_ratio = width_px / FULL_WIDTH_PX;
-    return /* @__PURE__ */ (0, import_jsx_runtime91.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime92.jsx)(
       "div",
       {
         className: "AppTemplatePreview",
@@ -56283,13 +57234,13 @@ p._logLine_xjp5l_75 {
           "--full-h": `${FULL_HEIGHT_PX}px`,
           "--shrink-ratio": shrink_ratio
         },
-        children: /* @__PURE__ */ (0, import_jsx_runtime91.jsx)("div", { className: "template-container", children: /* @__PURE__ */ (0, import_jsx_runtime91.jsx)(UiNode_default, { path: [], node: uiTree }) })
+        children: /* @__PURE__ */ (0, import_jsx_runtime92.jsx)("div", { className: "template-container", children: /* @__PURE__ */ (0, import_jsx_runtime92.jsx)(UiNode_default, { path: [], node: uiTree }) })
       }
     );
   }
 
   // src/components/TemplatePreviews/TemplatePreviewCard.tsx
-  var import_jsx_runtime92 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime93 = __toESM(require_jsx_runtime());
   function getLayoutType(layoutTree) {
     return layoutTree.uiName === "gridlayout::grid_page" ? "grid" : "navbarPage";
   }
@@ -56310,13 +57261,13 @@ p._logLine_xjp5l_75 {
     const layoutType = getLayoutType(uiTree);
     const layoutIcon = layoutIcons[layoutType];
     const preview_view_w_px = width_px - 2 * PADDING_PX;
-    return /* @__PURE__ */ (0, import_jsx_runtime92.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime93.jsx)(
       PopoverEl,
       {
         placement: "bottom",
         popoverContent: description,
         openDelayMs: 400,
-        triggerEl: /* @__PURE__ */ (0, import_jsx_runtime92.jsxs)(
+        triggerEl: /* @__PURE__ */ (0, import_jsx_runtime93.jsxs)(
           "article",
           {
             className: "AppTemplateCard",
@@ -56325,10 +57276,10 @@ p._logLine_xjp5l_75 {
             style: inlineVariableStyles,
             "data-selected": selected,
             children: [
-              /* @__PURE__ */ (0, import_jsx_runtime92.jsx)("div", { className: "preview-container", children: /* @__PURE__ */ (0, import_jsx_runtime92.jsx)(AppTemplatePreview, { uiTree, width_px: preview_view_w_px }) }),
-              /* @__PURE__ */ (0, import_jsx_runtime92.jsxs)("footer", { children: [
-                /* @__PURE__ */ (0, import_jsx_runtime92.jsx)("span", { children: title }),
-                /* @__PURE__ */ (0, import_jsx_runtime92.jsx)(
+              /* @__PURE__ */ (0, import_jsx_runtime93.jsx)("div", { className: "preview-container", children: /* @__PURE__ */ (0, import_jsx_runtime93.jsx)(AppTemplatePreview, { uiTree, width_px: preview_view_w_px }) }),
+              /* @__PURE__ */ (0, import_jsx_runtime93.jsxs)("footer", { children: [
+                /* @__PURE__ */ (0, import_jsx_runtime93.jsx)("span", { children: title }),
+                /* @__PURE__ */ (0, import_jsx_runtime93.jsx)(
                   "img",
                   {
                     src: layoutIcon,
@@ -56346,14 +57297,14 @@ p._logLine_xjp5l_75 {
   }
 
   // src/components/TemplatePreviews/useRequestTemplate.ts
-  var import_react49 = __toESM(require_react());
+  var import_react51 = __toESM(require_react());
   function useRequestTemplate() {
     const { sendMsg } = useBackendConnection();
-    const requestTemplate = import_react49.default.useCallback(
+    const requestTemplate = import_react51.default.useCallback(
       (template) => {
         sendMsg({
-          path: "TEMPLATE-SELECTION",
-          payload: template
+          path: "UPDATED-APP",
+          payload: template_to_app_contents(template)
         });
       },
       [sendMsg]
@@ -56375,13 +57326,13 @@ p._logLine_xjp5l_75 {
     outputChoices
   }) {
     const requestTemplate = useRequestTemplate();
-    const [filterState, setFilterState] = import_react50.default.useState({
+    const [filterState, setFilterState] = import_react52.default.useState({
       layoutTypes: allLayoutTypes
     });
-    const [selectedTemplate, setSelectedTemplate] = import_react50.default.useState(
+    const [selectedTemplate, setSelectedTemplate] = import_react52.default.useState(
       null
     );
-    const [selectedOutput, setSelectedOutput] = import_react50.default.useState(
+    const [selectedOutput, setSelectedOutput] = import_react52.default.useState(
       outputChoices === "USER-CHOICE" ? "SINGLE-FILE" : outputChoices
     );
     const setTemplateSelection = (title) => {
@@ -56389,11 +57340,11 @@ p._logLine_xjp5l_75 {
         (currentSelection) => currentSelection === title ? null : title
       );
     };
-    const shownTemplates = import_react50.default.useMemo(
+    const shownTemplates = import_react52.default.useMemo(
       () => filteredTemplates(filterState),
       [filterState]
     );
-    import_react50.default.useEffect(() => {
+    import_react52.default.useEffect(() => {
       if (selectedTemplate && !shownTemplates.map((t4) => t4.title).includes(selectedTemplate)) {
         setSelectedTemplate(null);
       }
@@ -56404,7 +57355,14 @@ p._logLine_xjp5l_75 {
       );
       if (!chosenTemplate)
         return;
-      requestTemplate({ ...chosenTemplate, outputType: selectedOutput });
+      const template_ui_code = ui_node_to_R_code(chosenTemplate.uiTree, {
+        remove_namespace: true
+      });
+      requestTemplate({
+        ...chosenTemplate,
+        ...template_ui_code,
+        outputType: selectedOutput
+      });
     };
     return {
       filterState,
@@ -56419,7 +57377,7 @@ p._logLine_xjp5l_75 {
   }
 
   // src/components/TemplatePreviews/OutputTypeForm.tsx
-  var import_jsx_runtime93 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime94 = __toESM(require_jsx_runtime());
   var outputTypes = ["SINGLE-FILE", "MULTI-FILE"];
   var outputTypeLabel = {
     "SINGLE-FILE": "Single file mode",
@@ -56429,12 +57387,12 @@ p._logLine_xjp5l_75 {
     selectedOutput,
     setSelectedOutput
   }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime93.jsxs)("form", { className: "OutputTypeForm", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime93.jsx)("legend", { children: "Generate app in:" }),
+    return /* @__PURE__ */ (0, import_jsx_runtime94.jsxs)("form", { className: "App_TypeForm", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime94.jsx)("legend", { children: "Generate app in:" }),
       outputTypes.map((outputType) => {
         const outputLabel = outputTypeLabel[outputType];
-        return /* @__PURE__ */ (0, import_jsx_runtime93.jsxs)("div", { className: "labeled-form-option", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime93.jsx)(
+        return /* @__PURE__ */ (0, import_jsx_runtime94.jsxs)("div", { className: "labeled-form-option", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime94.jsx)(
             "input",
             {
               type: "radio",
@@ -56445,14 +57403,14 @@ p._logLine_xjp5l_75 {
               onChange: (e2) => setSelectedOutput(outputType)
             }
           ),
-          /* @__PURE__ */ (0, import_jsx_runtime93.jsx)("label", { htmlFor: `${outputType}-choice`, children: outputLabel })
+          /* @__PURE__ */ (0, import_jsx_runtime94.jsx)("label", { htmlFor: `${outputType}-choice`, children: outputLabel })
         ] }, outputType);
       })
     ] });
   }
 
   // src/components/TemplatePreviews/TemplateFiltersForm.tsx
-  var import_jsx_runtime94 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime95 = __toESM(require_jsx_runtime());
   var layoutLabels = {
     grid: "Grid",
     navbarPage: "Tabs"
@@ -56462,20 +57420,20 @@ p._logLine_xjp5l_75 {
     setFilterState
   }) {
     const { layoutTypes } = filterState;
-    return /* @__PURE__ */ (0, import_jsx_runtime94.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime95.jsx)(
       "form",
       {
         className: "TemplateFiltersForm",
         onSubmit: (e2) => {
           e2.preventDefault();
         },
-        children: /* @__PURE__ */ (0, import_jsx_runtime94.jsxs)("fieldset", { "aria-label": "App layout type filters", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime94.jsx)("legend", { children: "Show templates based on selected layouts:" }),
-          /* @__PURE__ */ (0, import_jsx_runtime94.jsx)("div", { className: "layout-options", children: allLayoutTypes.map((layout) => {
+        children: /* @__PURE__ */ (0, import_jsx_runtime95.jsxs)("fieldset", { "aria-label": "App layout type filters", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime95.jsx)("legend", { children: "Show templates based on selected layouts:" }),
+          /* @__PURE__ */ (0, import_jsx_runtime95.jsx)("div", { className: "layout-options", children: allLayoutTypes.map((layout) => {
             const displayName = layoutLabels[layout];
             const isSelected = layoutTypes.includes(layout);
-            return /* @__PURE__ */ (0, import_jsx_runtime94.jsxs)("div", { className: "labeled-form-option", children: [
-              /* @__PURE__ */ (0, import_jsx_runtime94.jsx)(
+            return /* @__PURE__ */ (0, import_jsx_runtime95.jsxs)("div", { className: "labeled-form-option", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime95.jsx)(
                 "input",
                 {
                   type: "checkbox",
@@ -56491,7 +57449,7 @@ p._logLine_xjp5l_75 {
                   }
                 }
               ),
-              /* @__PURE__ */ (0, import_jsx_runtime94.jsx)("label", { htmlFor: `${layout}-choice`, children: displayName })
+              /* @__PURE__ */ (0, import_jsx_runtime95.jsx)("label", { htmlFor: `${layout}-choice`, children: displayName })
             ] }, layout);
           }) })
         ] })
@@ -56500,7 +57458,7 @@ p._logLine_xjp5l_75 {
   }
 
   // src/components/TemplatePreviews/TemplatePreviewGrid.tsx
-  var import_jsx_runtime95 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime96 = __toESM(require_jsx_runtime());
   var PREVIEW_WIDTH_PX = 294;
   var inlineVariableStyles2 = {
     "--card-w": `${PREVIEW_WIDTH_PX}px`
@@ -56511,9 +57469,9 @@ p._logLine_xjp5l_75 {
     templates = app_templates
   }) {
     if (templates.length === 0) {
-      return /* @__PURE__ */ (0, import_jsx_runtime95.jsx)("div", { className: "TemplatePreviewGrid empty-results", children: "No app templates fit current filters. Try broadening your search." });
+      return /* @__PURE__ */ (0, import_jsx_runtime96.jsx)("div", { className: "TemplatePreviewGrid empty-results", children: "No app templates fit current filters. Try broadening your search." });
     }
-    return /* @__PURE__ */ (0, import_jsx_runtime95.jsx)("div", { className: "TemplatePreviewGrid", style: inlineVariableStyles2, children: templates.map((template) => /* @__PURE__ */ (0, import_jsx_runtime95.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime96.jsx)("div", { className: "TemplatePreviewGrid", style: inlineVariableStyles2, children: templates.map((template) => /* @__PURE__ */ (0, import_jsx_runtime96.jsx)(
       TemplatePreviewCard,
       {
         info: template,
@@ -56528,7 +57486,7 @@ p._logLine_xjp5l_75 {
   }
 
   // src/components/TemplatePreviews/TemplateChooserView.tsx
-  var import_jsx_runtime96 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime97 = __toESM(require_jsx_runtime());
   function TemplateChooserView(opts) {
     const {
       filterState,
@@ -56542,10 +57500,10 @@ p._logLine_xjp5l_75 {
     } = useFilteredTemplates(opts);
     const canProceed = selectedTemplate !== null;
     const buttonMsg = canProceed ? "Next" : "Select a template";
-    return /* @__PURE__ */ (0, import_jsx_runtime96.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime97.jsx)(
       EditorSkeleton,
       {
-        main: /* @__PURE__ */ (0, import_jsx_runtime96.jsx)(
+        main: /* @__PURE__ */ (0, import_jsx_runtime97.jsx)(
           TemplatePreviewGrid,
           {
             templates: shownTemplates,
@@ -56553,25 +57511,25 @@ p._logLine_xjp5l_75 {
             setSelectedTemplate
           }
         ),
-        left: /* @__PURE__ */ (0, import_jsx_runtime96.jsxs)(import_jsx_runtime96.Fragment, { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime96.jsx)(PanelHeader, { children: "Choose App Template" }),
-          /* @__PURE__ */ (0, import_jsx_runtime96.jsxs)("div", { className: "TemplateChooserSidebar", children: [
-            /* @__PURE__ */ (0, import_jsx_runtime96.jsx)("section", { className: "instructions", children: "Hover over a template to see a description and what elements are used. Select the desired template and click next to edit." }),
-            /* @__PURE__ */ (0, import_jsx_runtime96.jsx)(
+        left: /* @__PURE__ */ (0, import_jsx_runtime97.jsxs)(import_jsx_runtime97.Fragment, { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime97.jsx)(PanelHeader, { children: "Choose App Template" }),
+          /* @__PURE__ */ (0, import_jsx_runtime97.jsxs)("div", { className: "TemplateChooserSidebar", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime97.jsx)("section", { className: "instructions", children: "Hover over a template to see a description and what elements are used. Select the desired template and click next to edit." }),
+            /* @__PURE__ */ (0, import_jsx_runtime97.jsx)(
               TemplateFiltersForm,
               {
                 filterState,
                 setFilterState
               }
             ),
-            opts.outputChoices === "USER-CHOICE" ? /* @__PURE__ */ (0, import_jsx_runtime96.jsx)(
+            opts.outputChoices === "USER-CHOICE" ? /* @__PURE__ */ (0, import_jsx_runtime97.jsx)(
               OutputTypeForm,
               {
                 selectedOutput,
                 setSelectedOutput
               }
             ) : null,
-            /* @__PURE__ */ (0, import_jsx_runtime96.jsx)(
+            /* @__PURE__ */ (0, import_jsx_runtime97.jsx)(
               Button_default,
               {
                 disabled: !canProceed,
@@ -56587,8 +57545,8 @@ p._logLine_xjp5l_75 {
     );
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-4a5xrOeeC4Nl/editor/src/components/UndoRedoButtons/UndoRedoButtons.module.css.js
-  var digest45 = "895fa49abec90a1375b0a0b9a8caf5a249bffdd591f9de57ba07ae6aeaf1f5e4";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-03VgA8Vb3w5D/editor/src/components/UndoRedoButtons/UndoRedoButtons.module.css.js
+  var digest45 = "722aba6b1813ff93a3a0ae53e94460858c990f73278077c190cd8f3b192de8f7";
   var css45 = `._container_1d7pe_1 {
   display: flex;
   position: relative;
@@ -56624,15 +57582,15 @@ p._logLine_xjp5l_75 {
   var UndoRedoButtons_module_css_default = { "container": "_container_1d7pe_1" };
 
   // src/components/UndoRedoButtons/UndoRedoButtons.tsx
-  var import_jsx_runtime97 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime98 = __toESM(require_jsx_runtime());
   function UndoRedoButtons({
     goBackward,
     canGoBackward,
     goForward,
     canGoForward
   }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime97.jsxs)("div", { className: mergeClasses(UndoRedoButtons_module_css_default.container, "undo-redo-buttons"), children: [
-      /* @__PURE__ */ (0, import_jsx_runtime97.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime98.jsxs)("div", { className: mergeClasses(UndoRedoButtons_module_css_default.container, "undo-redo-buttons"), children: [
+      /* @__PURE__ */ (0, import_jsx_runtime98.jsx)(
         Button_default,
         {
           variant: ["transparent", "icon"],
@@ -56640,10 +57598,10 @@ p._logLine_xjp5l_75 {
           "aria-label": "Undo last change",
           title: "Undo last change",
           onClick: goBackward,
-          children: /* @__PURE__ */ (0, import_jsx_runtime97.jsx)(Undo_default, { height: "100%" })
+          children: /* @__PURE__ */ (0, import_jsx_runtime98.jsx)(Undo_default, { height: "100%" })
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime97.jsx)(
+      /* @__PURE__ */ (0, import_jsx_runtime98.jsx)(
         Button_default,
         {
           variant: ["transparent", "icon"],
@@ -56651,30 +57609,30 @@ p._logLine_xjp5l_75 {
           "aria-label": "Redo last change",
           title: "Redo last change",
           onClick: goForward,
-          children: /* @__PURE__ */ (0, import_jsx_runtime97.jsx)(Redo_default, { height: "100%" })
+          children: /* @__PURE__ */ (0, import_jsx_runtime98.jsx)(Redo_default, { height: "100%" })
         }
       )
     ] });
   }
 
   // src/EditorSkeleton/LostConnectionPopup.tsx
-  var import_jsx_runtime98 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime99 = __toESM(require_jsx_runtime());
   function LostConnectionPopup() {
     const connectedToServer = useSelector(
-      (state) => state.connectedToServer
+      (state) => state.connected_to_server
     );
     if (connectedToServer)
       return null;
-    return /* @__PURE__ */ (0, import_jsx_runtime98.jsx)(PortalModal_default, { onConfirm: () => {
+    return /* @__PURE__ */ (0, import_jsx_runtime99.jsx)(PortalModal_default, { onConfirm: () => {
     }, onCancel: () => {
-    }, children: /* @__PURE__ */ (0, import_jsx_runtime98.jsx)("p", { style: { color: "var(--red, pink)", textAlign: "center" }, children: "Lost connection to backend. Check console where editor was launched for details." }) });
+    }, children: /* @__PURE__ */ (0, import_jsx_runtime99.jsx)("p", { style: { color: "var(--red, pink)", textAlign: "center" }, children: "Lost connection to backend. Check console where editor was launched for details." }) });
   }
 
   // src/ElementsPalette/index.tsx
-  var React64 = __toESM(require_react());
+  var React66 = __toESM(require_react());
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-PuCaITQXDqXz/editor/src/ElementsPalette/styles.module.css.js
-  var digest46 = "c18e84fa87b5fb377a8655e8a65578b4d52bd0e2b1f4a55ac8a89d751e5f7966";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-jMxcgX0t5uZq/editor/src/ElementsPalette/styles.module.css.js
+  var digest46 = "4b1c1624af22165df7d23a1234b764d583e197300d019be3c0f964913d48adeb";
   var css46 = `._elementsPalette_qmlez_1 {
   --icon-size: 75px;
   --padding: 8px;
@@ -56745,8 +57703,8 @@ p._logLine_xjp5l_75 {
   })();
   var styles_module_css_default24 = { "elementsPalette": "_elementsPalette_qmlez_1", "OptionContainer": "_OptionContainer_qmlez_18", "optionContainer": "_OptionContainer_qmlez_18", "OptionItem": "_OptionItem_qmlez_24", "optionItem": "_OptionItem_qmlez_24", "OptionIcon": "_OptionIcon_qmlez_33", "optionIcon": "_OptionIcon_qmlez_33", "OptionLabel": "_OptionLabel_qmlez_41", "optionLabel": "_OptionLabel_qmlez_41" };
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-r1rsAeyE9Rbr/editor/src/ElementsPalette/styles.module.css.js
-  var digest47 = "6fec68ef05ddb78f33cef601571c1a0e8f15693f1ba4d98a1653b8375a0d29b5";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-dCKwMk4H3pyG/editor/src/ElementsPalette/styles.module.css.js
+  var digest47 = "8df5deca884495552487ef3e8ecd0a73a63f7747e79914b3a249902b8b584bd7";
   var css47 = `._elementsPalette_qmlez_1 {
   --icon-size: 75px;
   --padding: 8px;
@@ -56818,7 +57776,7 @@ p._logLine_xjp5l_75 {
   var styles_module_css_default25 = { "elementsPalette": "_elementsPalette_qmlez_1", "OptionContainer": "_OptionContainer_qmlez_18", "optionContainer": "_OptionContainer_qmlez_18", "OptionItem": "_OptionItem_qmlez_24", "optionItem": "_OptionItem_qmlez_24", "OptionIcon": "_OptionIcon_qmlez_33", "optionIcon": "_OptionIcon_qmlez_33", "OptionLabel": "_OptionLabel_qmlez_41", "optionLabel": "_OptionLabel_qmlez_41" };
 
   // src/ElementsPalette/UiElementIcon.tsx
-  var import_jsx_runtime99 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime100 = __toESM(require_jsx_runtime());
   function UiElementIcon({ uiName }) {
     const {
       iconSrc,
@@ -56834,21 +57792,21 @@ p._logLine_xjp5l_75 {
     if (iconSrc === void 0) {
       return null;
     }
-    return /* @__PURE__ */ (0, import_jsx_runtime99.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime100.jsx)(
       PopoverEl,
       {
         popoverContent: infoPopup,
         contentIsMd: true,
         openDelayMs: 500,
-        triggerEl: /* @__PURE__ */ (0, import_jsx_runtime99.jsx)("div", { className: styles_module_css_default25.OptionContainer, children: /* @__PURE__ */ (0, import_jsx_runtime99.jsxs)(
+        triggerEl: /* @__PURE__ */ (0, import_jsx_runtime100.jsx)("div", { className: styles_module_css_default25.OptionContainer, children: /* @__PURE__ */ (0, import_jsx_runtime100.jsxs)(
           "div",
           {
             className: styles_module_css_default25.OptionItem,
             "data-ui-name": uiName,
             ...dragProps,
             children: [
-              /* @__PURE__ */ (0, import_jsx_runtime99.jsx)("img", { src: iconSrc, alt: title, className: styles_module_css_default25.OptionIcon }),
-              /* @__PURE__ */ (0, import_jsx_runtime99.jsx)("label", { className: styles_module_css_default25.OptionLabel, children: title })
+              /* @__PURE__ */ (0, import_jsx_runtime100.jsx)("img", { src: iconSrc, alt: title, className: styles_module_css_default25.OptionIcon }),
+              /* @__PURE__ */ (0, import_jsx_runtime100.jsx)("label", { className: styles_module_css_default25.OptionLabel, children: title })
             ]
           }
         ) })
@@ -56857,7 +57815,7 @@ p._logLine_xjp5l_75 {
   }
 
   // src/ElementsPalette/index.tsx
-  var import_jsx_runtime100 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime101 = __toESM(require_jsx_runtime());
   var categoryOrder = [
     "Inputs",
     "Outputs",
@@ -56880,13 +57838,13 @@ p._logLine_xjp5l_75 {
   function ElementsPalette({
     availableUi = shinyUiNodeInfo
   }) {
-    const ui_node_names = React64.useMemo(
+    const ui_node_names = React66.useMemo(
       () => Object.keys(availableUi).sort(sortByCategory),
       [availableUi]
     );
-    return /* @__PURE__ */ (0, import_jsx_runtime100.jsxs)(import_jsx_runtime100.Fragment, { children: [
-      /* @__PURE__ */ (0, import_jsx_runtime100.jsx)(PanelHeader, { children: "Elements" }),
-      /* @__PURE__ */ (0, import_jsx_runtime100.jsx)("div", { className: styles_module_css_default24.elementsPalette, children: ui_node_names.map((uiName) => /* @__PURE__ */ (0, import_jsx_runtime100.jsx)(UiElementIcon, { uiName }, uiName)) })
+    return /* @__PURE__ */ (0, import_jsx_runtime101.jsxs)(import_jsx_runtime101.Fragment, { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime101.jsx)(PanelHeader, { children: "Elements" }),
+      /* @__PURE__ */ (0, import_jsx_runtime101.jsx)("div", { className: styles_module_css_default24.elementsPalette, children: ui_node_names.map((uiName) => /* @__PURE__ */ (0, import_jsx_runtime101.jsx)(UiElementIcon, { uiName }, uiName)) })
     ] });
   }
 
@@ -56908,7 +57866,7 @@ p._logLine_xjp5l_75 {
   }
 
   // src/components/Inputs/SettingsFormBuilder/UnknownArgumentsRender.tsx
-  var import_jsx_runtime101 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime102 = __toESM(require_jsx_runtime());
   function UnknownArgumentsRender({
     settings,
     settingsInfo,
@@ -56920,8 +57878,8 @@ p._logLine_xjp5l_75 {
     );
     if (unknownArguments.length === 0)
       return null;
-    return /* @__PURE__ */ (0, import_jsx_runtime101.jsxs)("section", { className: "unknown-arguments-list", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime101.jsx)("div", { className: "divider-line", children: /* @__PURE__ */ (0, import_jsx_runtime101.jsx)("label", { children: /* @__PURE__ */ (0, import_jsx_runtime101.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime102.jsxs)("section", { className: "unknown-arguments-list", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime102.jsx)("div", { className: "divider-line", children: /* @__PURE__ */ (0, import_jsx_runtime102.jsx)("label", { children: /* @__PURE__ */ (0, import_jsx_runtime102.jsx)(
         Tooltip,
         {
           text: "Arguments present in UI code but not known about or editable by the shinyuieditor",
@@ -56930,14 +57888,14 @@ p._logLine_xjp5l_75 {
           children: "Unknown arguments"
         }
       ) }) }),
-      /* @__PURE__ */ (0, import_jsx_runtime101.jsx)("ul", { className: "unknown-form-fields", "aria-label": "Unknown arguments list", children: unknownArguments.map((argName) => /* @__PURE__ */ (0, import_jsx_runtime101.jsxs)(
+      /* @__PURE__ */ (0, import_jsx_runtime102.jsx)("ul", { className: "unknown-form-fields", "aria-label": "Unknown arguments list", children: unknownArguments.map((argName) => /* @__PURE__ */ (0, import_jsx_runtime102.jsxs)(
         "li",
         {
           className: "unknown-argument",
           "aria-label": "Unknown argument",
           style: { cursor: "default" },
           children: [
-            /* @__PURE__ */ (0, import_jsx_runtime101.jsx)(
+            /* @__PURE__ */ (0, import_jsx_runtime102.jsx)(
               "code",
               {
                 "aria-label": printValueOfUnknownArg(settings[argName]),
@@ -56946,14 +57904,14 @@ p._logLine_xjp5l_75 {
                 children: argName
               }
             ),
-            /* @__PURE__ */ (0, import_jsx_runtime101.jsx)(
+            /* @__PURE__ */ (0, import_jsx_runtime102.jsx)(
               TooltipButton,
               {
                 text: `Remove ${argName} argument`,
                 onClick: () => onSettingsChange(argName, { type: "REMOVE" }),
                 type: "button",
                 position: "left",
-                children: /* @__PURE__ */ (0, import_jsx_runtime101.jsx)(Trash_default, {})
+                children: /* @__PURE__ */ (0, import_jsx_runtime102.jsx)(Trash_default, {})
               }
             )
           ]
@@ -56980,13 +57938,13 @@ p._logLine_xjp5l_75 {
   }
 
   // src/components/Inputs/SettingsFormBuilder/FormBuilder.tsx
-  var import_jsx_runtime102 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime103 = __toESM(require_jsx_runtime());
   function FormBuilder(args) {
     const {
       settings,
       settingsInfo,
       onSettingsChange,
-      renderInputs = ({ inputs }) => /* @__PURE__ */ (0, import_jsx_runtime102.jsx)(import_jsx_runtime102.Fragment, { children: Object.values(inputs) })
+      renderInputs = ({ inputs }) => /* @__PURE__ */ (0, import_jsx_runtime103.jsx)(import_jsx_runtime103.Fragment, { children: Object.values(inputs) })
     } = args;
     const { nonOmittedFormInfo } = removeOmittedFields(settingsInfo);
     const PrebuiltInputComponents = {
@@ -56997,9 +57955,9 @@ p._logLine_xjp5l_75 {
       }),
       settings
     };
-    return /* @__PURE__ */ (0, import_jsx_runtime102.jsxs)("form", { className: "FormBuilder", onSubmit: disableDefaultSubmit, children: [
+    return /* @__PURE__ */ (0, import_jsx_runtime103.jsxs)("form", { className: "FormBuilder", onSubmit: disableDefaultSubmit, children: [
       renderInputs(PrebuiltInputComponents),
-      /* @__PURE__ */ (0, import_jsx_runtime102.jsx)(UnknownArgumentsRender, { ...args })
+      /* @__PURE__ */ (0, import_jsx_runtime103.jsx)(UnknownArgumentsRender, { ...args })
     ] });
   }
   var disableDefaultSubmit = (e2) => {
@@ -57020,13 +57978,111 @@ p._logLine_xjp5l_75 {
         value: currentValue,
         onUpdate: (updatedAction) => onSettingsChange(name, updatedAction)
       };
-      InputsComponents[name] = /* @__PURE__ */ (0, import_jsx_runtime102.jsx)(SettingsInput, { ...inputProps }, name);
+      InputsComponents[name] = /* @__PURE__ */ (0, import_jsx_runtime103.jsx)(SettingsInput, { ...inputProps }, name);
     });
     return InputsComponents;
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-PfjI1z8FNB8b/editor/src/SettingsPanel/PathBreadcrumb.module.css.js
-  var digest48 = "37659405f893f51ca55a956630f27434f1d09aedecf841bfc674382369748cf3";
+  // src/SettingsPanel/GoToSourceBtns.tsx
+  var import_jsx_runtime104 = __toESM(require_jsx_runtime());
+  function GoToSourceBtns({ node: node2 }) {
+    const { sendMsg, mode } = useBackendConnection();
+    if (mode !== "VSCODE" || !node2)
+      return null;
+    const { serverBindings } = shinyUiNodeInfo[node2.uiName];
+    return /* @__PURE__ */ (0, import_jsx_runtime104.jsxs)("div", { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime104.jsx)(
+        GoToOutputsBtn,
+        {
+          serverOutputInfo: serverBindings?.outputs,
+          node: node2,
+          sendMsg
+        }
+      ),
+      /* @__PURE__ */ (0, import_jsx_runtime104.jsx)(
+        GoToInputsBtn,
+        {
+          serverInputInfo: serverBindings?.inputs,
+          node: node2,
+          sendMsg
+        }
+      )
+    ] });
+  }
+  function GoToOutputsBtn({
+    serverOutputInfo,
+    node: { uiArguments },
+    sendMsg
+  }) {
+    const current_app_info = useCurrentAppInfo();
+    if (!(current_app_info.mode === "MAIN" && "output_positions" in current_app_info) || typeof serverOutputInfo === "undefined")
+      return null;
+    const current_output_positions = current_app_info.output_positions;
+    const current_server_position = current_app_info.server_pos;
+    const { outputIdKey, renderScaffold } = serverOutputInfo;
+    const keyForOutput = typeof outputIdKey === "string" ? outputIdKey : outputIdKey(uiArguments);
+    const outputId = uiArguments[keyForOutput];
+    if (typeof outputId !== "string")
+      return null;
+    const existing_output_locations = current_output_positions[outputId];
+    return /* @__PURE__ */ (0, import_jsx_runtime104.jsx)(
+      TooltipButton,
+      {
+        text: existing_output_locations ? "Show output declaration in app script" : "Create output binding in app server",
+        position: "left",
+        variant: "regular",
+        onClick: () => {
+          if (existing_output_locations) {
+            sendMsg({
+              path: "SHOW-APP-LINES",
+              payload: existing_output_locations
+            });
+          } else {
+            sendMsg({
+              path: "INSERT-SNIPPET",
+              payload: {
+                snippet: `
+output\\$${outputId} <- ${renderScaffold}`,
+                below_line: current_server_position[2] - 1
+              }
+            });
+          }
+        },
+        children: existing_output_locations ? "Show in server" : "Generate server code"
+      }
+    );
+  }
+  function GoToInputsBtn({
+    serverInputInfo,
+    node: { uiArguments },
+    sendMsg
+  }) {
+    if (typeof serverInputInfo === "undefined")
+      return null;
+    const { inputIdKey } = serverInputInfo;
+    const keyForInputId = typeof inputIdKey === "string" ? inputIdKey : inputIdKey(uiArguments);
+    const inputId = uiArguments[keyForInputId];
+    if (typeof inputId !== "string")
+      return null;
+    return /* @__PURE__ */ (0, import_jsx_runtime104.jsx)(
+      TooltipButton,
+      {
+        text: `Find uses of bound input (input$${inputId}) in app script`,
+        position: "left",
+        variant: "regular",
+        onClick: () => {
+          sendMsg({
+            path: "FIND-INPUT-USES",
+            payload: { type: "Input", inputId }
+          });
+        },
+        children: "Find in server"
+      }
+    );
+  }
+
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-OCZ3g9Nctjbi/editor/src/SettingsPanel/PathBreadcrumb.module.css.js
+  var digest48 = "95bd598416c1d4768901f0e78a2df300e0e43fe2f1e224627df8b7f506a15f43";
   var css48 = `._container_1fh41_1 {
   --flex-gap: 8px;
   padding: var(--vertical-spacing);
@@ -57120,7 +58176,7 @@ p._logLine_xjp5l_75 {
   var PathBreadcrumb_module_css_default = { "container": "_container_1fh41_1", "node": "_node_1fh41_12" };
 
   // src/SettingsPanel/PathBreadcrumb.tsx
-  var import_jsx_runtime103 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime105 = __toESM(require_jsx_runtime());
   function PathBreadcrumb({
     tree,
     path: path3,
@@ -57128,10 +58184,10 @@ p._logLine_xjp5l_75 {
   }) {
     const pathString = getNamedPath(path3, tree);
     const totalDepth = path3.length;
-    return /* @__PURE__ */ (0, import_jsx_runtime103.jsx)("div", { className: PathBreadcrumb_module_css_default.container, "aria-label": "Path to selected node", children: pathString.map((name, i2) => {
+    return /* @__PURE__ */ (0, import_jsx_runtime105.jsx)("div", { className: PathBreadcrumb_module_css_default.container, "aria-label": "Path to selected node", children: pathString.map((name, i2) => {
       const isFinalNode = i2 === totalDepth;
       const cleanNodeName = removeNamespaceFromUiName(name);
-      return /* @__PURE__ */ (0, import_jsx_runtime103.jsx)(
+      return /* @__PURE__ */ (0, import_jsx_runtime105.jsx)(
         "div",
         {
           className: PathBreadcrumb_module_css_default.node,
@@ -57147,8 +58203,8 @@ p._logLine_xjp5l_75 {
     return uiName.replace(/[a-z]+::/, "");
   }
 
-  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1933-WqEbF0V6kT07/editor/src/SettingsPanel/SettingsPanel.module.css.js
-  var digest49 = "2b2027768defce576a4f9c4f7d257bd965a4af2da0a1a83db14bec56ebbe4a9c";
+  // esbuild-css-modules-plugin-namespace:/tmp/tmp-1984-e45G7uhBb61t/editor/src/SettingsPanel/SettingsPanel.module.css.js
+  var digest49 = "99365e435b8401dcbde8c8c23f09b84c4781f084b07023ef2428d3ace33350f9";
   var css49 = `._settingsPanel_a44hx_1 {
   --vertical-gap: var(--vertical-spacing);
   display: flex;
@@ -57213,7 +58269,7 @@ form._settingsForm_a44hx_17 {
   var SettingsPanel_module_css_default = { "settingsPanel": "_settingsPanel_a44hx_1", "currentElementAbout": "_currentElementAbout_a44hx_10", "settingsForm": "_settingsForm_a44hx_17", "settingsInputs": "_settingsInputs_a44hx_24", "buttonsHolder": "_buttonsHolder_a44hx_28", "validationErrorMsg": "_validationErrorMsg_a44hx_45" };
 
   // src/SettingsPanel/useUpdateSettings.tsx
-  var React65 = __toESM(require_react());
+  var React67 = __toESM(require_react());
 
   // ../../node_modules/just-omit/index.mjs
   var objectOmit = omit;
@@ -57236,11 +58292,11 @@ form._settingsForm_a44hx_17 {
   function useUpdateSettings(tree) {
     const dispatch = useDispatch();
     const [selectedPath, setNodeSelection] = useNodeSelectionState();
-    const [currentNode, setCurrentNode] = React65.useState(
+    const [currentNode, setCurrentNode] = React67.useState(
       selectedPath !== null ? safeGetNode(tree, selectedPath) : null
     );
-    const formHasBeenUpdated = React65.useRef(false);
-    const sendNewSettings = React65.useCallback(
+    const formHasBeenUpdated = React67.useRef(false);
+    const sendNewSettings = React67.useCallback(
       (updated_node) => {
         if (!selectedPath)
           return;
@@ -57250,7 +58306,7 @@ form._settingsForm_a44hx_17 {
       },
       [dispatch, selectedPath]
     );
-    React65.useEffect(() => {
+    React67.useEffect(() => {
       formHasBeenUpdated.current = false;
       if (selectedPath === null) {
         setCurrentNode(null);
@@ -57258,7 +58314,7 @@ form._settingsForm_a44hx_17 {
       }
       setCurrentNode(safeGetNode(tree, selectedPath));
     }, [tree, selectedPath]);
-    React65.useEffect(() => {
+    React67.useEffect(() => {
       if (!currentNode)
         return;
       sendNewSettings(currentNode);
@@ -57304,7 +58360,7 @@ form._settingsForm_a44hx_17 {
   }
 
   // src/SettingsPanel/SettingsPanel.tsx
-  var import_jsx_runtime104 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime106 = __toESM(require_jsx_runtime());
   function SettingsPanel({ tree }) {
     const {
       currentNode,
@@ -57314,10 +58370,10 @@ form._settingsForm_a44hx_17 {
       setNodeSelection
     } = useUpdateSettings(tree);
     if (selectedPath === null) {
-      return /* @__PURE__ */ (0, import_jsx_runtime104.jsx)("div", { children: "Select an element to edit properties" });
+      return /* @__PURE__ */ (0, import_jsx_runtime106.jsx)("div", { children: "Select an element to edit properties" });
     }
     if (currentNode === null) {
-      return /* @__PURE__ */ (0, import_jsx_runtime104.jsxs)("div", { children: [
+      return /* @__PURE__ */ (0, import_jsx_runtime106.jsxs)("div", { children: [
         "Error finding requested node at path ",
         selectedPath.join(".")
       ] });
@@ -57329,10 +58385,10 @@ form._settingsForm_a44hx_17 {
       nodeInfo.settingsInfo,
       currentNode
     );
-    return /* @__PURE__ */ (0, import_jsx_runtime104.jsxs)(import_jsx_runtime104.Fragment, { children: [
-      /* @__PURE__ */ (0, import_jsx_runtime104.jsx)(PanelHeader, { children: "Properties" }),
-      /* @__PURE__ */ (0, import_jsx_runtime104.jsxs)("div", { className: SettingsPanel_module_css_default.settingsPanel, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime104.jsx)("div", { className: SettingsPanel_module_css_default.currentElementAbout, children: /* @__PURE__ */ (0, import_jsx_runtime104.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime106.jsxs)(import_jsx_runtime106.Fragment, { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime106.jsx)(PanelHeader, { children: "Properties" }),
+      /* @__PURE__ */ (0, import_jsx_runtime106.jsxs)("div", { className: SettingsPanel_module_css_default.settingsPanel, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime106.jsx)("div", { className: SettingsPanel_module_css_default.currentElementAbout, children: /* @__PURE__ */ (0, import_jsx_runtime106.jsx)(
           PathBreadcrumb,
           {
             tree,
@@ -57340,7 +58396,7 @@ form._settingsForm_a44hx_17 {
             onSelect: setNodeSelection
           }
         ) }),
-        /* @__PURE__ */ (0, import_jsx_runtime104.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime106.jsx)(
           FormBuilder,
           {
             settings: uiArguments,
@@ -57358,36 +58414,20 @@ form._settingsForm_a44hx_17 {
             }
           }
         ),
-        /* @__PURE__ */ (0, import_jsx_runtime104.jsx)("div", { className: SettingsPanel_module_css_default.buttonsHolder, children: !isRootNode ? /* @__PURE__ */ (0, import_jsx_runtime104.jsx)(DeleteNodeButton_default, { path: selectedPath }) : null })
+        /* @__PURE__ */ (0, import_jsx_runtime106.jsx)(GoToSourceBtns, { node: currentNode }),
+        /* @__PURE__ */ (0, import_jsx_runtime106.jsx)("div", { className: SettingsPanel_module_css_default.buttonsHolder, children: !isRootNode ? /* @__PURE__ */ (0, import_jsx_runtime106.jsx)(DeleteNodeButton_default, { path: selectedPath }) : null })
       ] })
     ] });
   }
 
-  // src/EditorContainer/DialogPopover.tsx
-  var import_jsx_runtime105 = __toESM(require_jsx_runtime());
-  function DialogPopover({
-    children,
-    ...passthrough
-  }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime105.jsx)("dialog", { ...passthrough, ref: openDialog, children });
-  }
-  function openDialog(el) {
-    if (el === null)
-      return;
-    try {
-      el.showModal();
-    } catch {
-    }
-  }
-
   // src/EditorContainer/OpenSideBySideWindowButton.tsx
-  var import_jsx_runtime106 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime107 = __toESM(require_jsx_runtime());
   function OpenSideBySideWindowButton() {
     const { sendMsg, mode } = useBackendConnection();
     if (mode !== "VSCODE")
       return null;
-    return /* @__PURE__ */ (0, import_jsx_runtime106.jsxs)(import_jsx_runtime106.Fragment, { children: [
-      /* @__PURE__ */ (0, import_jsx_runtime106.jsx)(
+    return /* @__PURE__ */ (0, import_jsx_runtime107.jsxs)(import_jsx_runtime107.Fragment, { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(
         TooltipButton,
         {
           text: "Open app code next to editor",
@@ -57398,15 +58438,15 @@ form._settingsForm_a44hx_17 {
             });
           },
           className: "OpenSideBySideWindowButton",
-          children: /* @__PURE__ */ (0, import_jsx_runtime106.jsx)(FaCode, {})
+          children: /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(FaCode, {})
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime106.jsx)("div", { className: "divider" })
+      /* @__PURE__ */ (0, import_jsx_runtime107.jsx)("div", { className: "divider" })
     ] });
   }
 
   // src/EditorContainer/EditorContainer.tsx
-  var import_jsx_runtime107 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime108 = __toESM(require_jsx_runtime());
   var sizes_inline_styles = {
     "--properties-panel-width": `${PROPERTIES_PANEL_WIDTH_PX}px`
   };
@@ -57414,49 +58454,49 @@ form._settingsForm_a44hx_17 {
     const { state, errorInfo, history } = useSyncUiWithBackend();
     let pageBody;
     if (errorInfo) {
-      pageBody = /* @__PURE__ */ (0, import_jsx_runtime107.jsxs)(DialogPopover, { className: "message-mode", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime107.jsxs)("h2", { children: [
+      pageBody = /* @__PURE__ */ (0, import_jsx_runtime108.jsxs)(DialogPopover, { className: "message-mode", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime108.jsxs)("h2", { children: [
           "Error ",
           errorInfo.context ? `while ${errorInfo.context}` : ``
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime107.jsx)("p", { className: "error-msg", children: errorInfo.msg })
+        /* @__PURE__ */ (0, import_jsx_runtime108.jsx)("p", { className: "error-msg", children: errorInfo.msg })
       ] });
     } else if (state.mode === "LOADING") {
-      pageBody = /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(DialogPopover, { className: "message-mode", children: /* @__PURE__ */ (0, import_jsx_runtime107.jsx)("h2", { children: "Loading initial state from server" }) });
+      pageBody = /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(DialogPopover, { className: "message-mode", children: /* @__PURE__ */ (0, import_jsx_runtime108.jsx)("h2", { children: "Loading initial state from server" }) });
     } else if (state.mode === "MAIN") {
-      pageBody = /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(CurrentDraggedNodeProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(
+      pageBody = /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(CurrentDraggedNodeProvider, { children: /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(
         EditorSkeleton,
         {
-          main: /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(UiNode_default, { node: state.uiTree, path: [] }),
-          left: /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(ElementsPalette, {}),
-          properties: /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(SettingsPanel, { tree: state.uiTree }),
-          preview: /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(AppPreview, {})
+          main: /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(UiNode_default, { node: state.ui_tree, path: [] }),
+          left: /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(ElementsPalette, {}),
+          properties: /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(SettingsPanel, { tree: state.ui_tree }),
+          preview: /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(AppPreview, {})
         }
       ) });
     } else {
-      pageBody = /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(TemplateChooserView, { ...state.options });
+      pageBody = /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(TemplateChooserView, { ...state.options });
     }
-    return /* @__PURE__ */ (0, import_jsx_runtime107.jsxs)("div", { className: "EditorContainer", style: sizes_inline_styles, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime107.jsxs)("header", { children: [
-        /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(ShinyLogo_default, { className: "shiny-logo" }),
-        /* @__PURE__ */ (0, import_jsx_runtime107.jsx)("h1", { className: "app-title", children: "Shiny UI Editor" }),
-        /* @__PURE__ */ (0, import_jsx_runtime107.jsxs)("div", { className: "right", children: [
-          state.mode === "MAIN" ? /* @__PURE__ */ (0, import_jsx_runtime107.jsxs)(import_jsx_runtime107.Fragment, { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(OpenSideBySideWindowButton, {}),
-            /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(AppTour, {})
+    return /* @__PURE__ */ (0, import_jsx_runtime108.jsxs)("div", { className: "EditorContainer", style: sizes_inline_styles, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime108.jsxs)("header", { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(ShinyLogo_default, { className: "shiny-logo" }),
+        /* @__PURE__ */ (0, import_jsx_runtime108.jsx)("h1", { className: "app-title", children: "Shiny UI Editor" }),
+        /* @__PURE__ */ (0, import_jsx_runtime108.jsxs)("div", { className: "right", children: [
+          state.mode === "MAIN" ? /* @__PURE__ */ (0, import_jsx_runtime108.jsxs)(import_jsx_runtime108.Fragment, { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(OpenSideBySideWindowButton, {}),
+            /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(AppTour, {})
           ] }) : null,
-          /* @__PURE__ */ (0, import_jsx_runtime107.jsx)("div", { className: "divider" }),
-          /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(UndoRedoButtons, { ...history }),
-          /* @__PURE__ */ (0, import_jsx_runtime107.jsx)("div", { className: "spacer last" })
+          /* @__PURE__ */ (0, import_jsx_runtime108.jsx)("div", { className: "divider" }),
+          /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(UndoRedoButtons, { ...history }),
+          /* @__PURE__ */ (0, import_jsx_runtime108.jsx)("div", { className: "spacer last" })
         ] })
       ] }),
       pageBody,
-      /* @__PURE__ */ (0, import_jsx_runtime107.jsx)(LostConnectionPopup, {})
+      /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(LostConnectionPopup, {})
     ] });
   }
 
   // src/state/connectedToServer.ts
-  var import_react51 = __toESM(require_react());
+  var import_react53 = __toESM(require_react());
   var connectedToServerSlice = createSlice({
     name: "connectedToServer",
     initialState: true,
@@ -57515,7 +58555,7 @@ form._settingsForm_a44hx_17 {
     actionCreator: DELETE_NODE,
     effect: async (action, listenerApi) => {
       const deletedPath = action.payload.path;
-      const selectedPath = listenerApi.getState().selectedPath;
+      const selectedPath = listenerApi.getState().selected_path;
       if (selectedPath === null)
         return;
       const updatedSelection = getNewSelectionPathAfterDeletion({
@@ -57573,28 +58613,28 @@ form._settingsForm_a44hx_17 {
   // src/state/store.ts
   var store = configureStore({
     reducer: {
-      uiTree: uiTree_default,
-      selectedPath: selectedPath_default,
-      connectedToServer: connectedToServer_default
+      app_info: app_info_default,
+      selected_path: selectedPath_default,
+      connected_to_server: connectedToServer_default
     },
     middleware: (getDefaultMiddleware2) => getDefaultMiddleware2().concat(listenForDeleteMiddleware_default).concat(listenForNodeAddMiddleware_default).concat(resetSelectionInTemplateChooser)
   });
 
   // src/state/ReduxProvider.tsx
-  var import_jsx_runtime108 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime109 = __toESM(require_jsx_runtime());
   function ReduxProvider({ children }) {
-    return /* @__PURE__ */ (0, import_jsx_runtime108.jsx)(Provider_default, { store, children });
+    return /* @__PURE__ */ (0, import_jsx_runtime109.jsx)(Provider_default, { store, children });
   }
   var ReduxProvider_default = ReduxProvider;
 
   // src/App.tsx
-  var import_jsx_runtime109 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime110 = __toESM(require_jsx_runtime());
   function App(msgPassers) {
-    return /* @__PURE__ */ (0, import_jsx_runtime109.jsx)(ReduxProvider_default, { children: /* @__PURE__ */ (0, import_jsx_runtime109.jsx)(BackendConnectionProvider, { ...msgPassers, children: /* @__PURE__ */ (0, import_jsx_runtime109.jsx)(EditorContainer, {}) }) });
+    return /* @__PURE__ */ (0, import_jsx_runtime110.jsx)(ReduxProvider_default, { children: /* @__PURE__ */ (0, import_jsx_runtime110.jsx)(BackendConnectionProvider, { ...msgPassers, children: /* @__PURE__ */ (0, import_jsx_runtime110.jsx)(EditorContainer, {}) }) });
   }
 
   // src/runSUE.tsx
-  var import_jsx_runtime110 = __toESM(require_jsx_runtime());
+  var import_jsx_runtime111 = __toESM(require_jsx_runtime());
   function runSUE({
     container: container2,
     backendDispatch: { sendMsg, incomingMsgs, mode },
@@ -57615,7 +58655,7 @@ form._settingsForm_a44hx_17 {
       mode
     };
     const root2 = (0, import_client.createRoot)(container2);
-    root2.render(/* @__PURE__ */ (0, import_jsx_runtime110.jsx)(App, { ...dispatch }));
+    root2.render(/* @__PURE__ */ (0, import_jsx_runtime111.jsx)(App, { ...dispatch }));
   }
 
   // src/index.tsx

@@ -26,14 +26,14 @@ editor."><meta name="twitter:card" content="summary"><!-- mathjax --><script src
 
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">shinyuieditor</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.0</span>
       </span>
 
       <!--<div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">shinyuieditor</a>
         <div class="info hidden-xs hidden-sm">
           <span class="partof">part of  <a href=""></a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.2</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.0</span>
         </div>
       </div>-->
     </div>
@@ -102,7 +102,6 @@ editor.</p>
 <span>  host <span class="op">=</span> <span class="st">"127.0.0.1"</span>,</span>
 <span>  port <span class="op">=</span> <span class="fu">httpuv</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/httpuv/man/randomPort.html" class="external-link">randomPort</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  shiny_background_port <span class="op">=</span> <span class="fu">httpuv</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/httpuv/man/randomPort.html" class="external-link">randomPort</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  remove_namespace <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  app_preview <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  show_logs <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  show_preview_app_logs <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -135,14 +134,6 @@ X, port numbers smaller than 1025 require root privileges.</p></dd>
 <dt>shiny_background_port</dt>
 <dd><p>Port to launch the shiny app preview on.
 Typically not necessary to set manually.</p></dd>
-
-
-<dt>remove_namespace</dt>
-<dd><p>Should namespaces (<code>library::</code> prefixes) be stripped
-from the generated UI code? Set to <code>FALSE</code> if you prefer the style of
-<code><a href="https://shiny.rstudio.com/reference/shiny/latest/sliderInput.html" class="external-link">shiny::sliderInput()</a></code> to <code>sliderInput()</code>. If set to <code>TRUE</code>, then any
-libraries needed for the nodes will be loaded at the top of your <code>app.R</code> or
-<code>ui.R</code>.</p></dd>
 
 
 <dt>app_preview</dt>
