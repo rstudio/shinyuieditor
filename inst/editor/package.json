@@ -10,7 +10,6 @@
     "@testing-library/jest-dom": "^5.16.5",
     "balloon-css": "^1.2.0",
     "bootstrap": "^5.2.0",
-    "build-utils": "*",
     "immer": "^9.0.12",
     "just-clone": "^6.1.1",
     "just-debounce-it": "^3.1.1",
@@ -65,11 +64,11 @@
     "yarn": "^1.22.19"
   },
   "scripts": {
+    "start": "vite",
     "dev": "vite build --mode dev",
     "prod": "vite build",
     "build-website-demo": "vite build --outDir ../../vignettes/demo-app/",
     "build": "vite build",
-    "start": "vite",
     "build-netlify": "VITE_SHOW_FAKE_PREVIEW=true PUBLIC_URL=/ yarn build",
     "test": "vitest run",
     "test-watch": "vitest",

@@ -36,7 +36,6 @@ var Ca = (e, t, n) => new Promise((r, i) => {
   }, l = (s) => s.done ? r(s.value) : Promise.resolve(s.value).then(o, a);
   l((n = n.apply(e, t)).next());
 });
-import "vscode-webview";
 const tx = nx;
 function nx() {
   const e = {};
@@ -12661,7 +12660,7 @@ const vE = tg({
     SET_SELECTION: (e, t) => t.payload.path,
     STEP_BACK_SELECTION: (e) => e === null || e.length === 0 ? null : (e.pop(), e)
   }
-}), { SET_SELECTION: df, STEP_BACK_SELECTION: XU } = vE.actions;
+}), { SET_SELECTION: df, STEP_BACK_SELECTION: KU } = vE.actions;
 function W_() {
   return fa((e) => e.selected_path);
 }
@@ -26905,7 +26904,7 @@ const v9 = kC("DELETE_NODE"), y9 = kC("UPDATE_NODE"), OC = tg({
   SET_APP_INFO: w9,
   SET_FULL_STATE: _C,
   SHOW_TEMPLATE_CHOOSER: b9,
-  SET_LOADING: ez
+  SET_LOADING: ZU
 } = OC.actions;
 function Df() {
   const e = to();

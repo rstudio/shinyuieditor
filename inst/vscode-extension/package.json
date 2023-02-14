@@ -99,10 +99,11 @@
     }
   },
   "scripts": {
-    "dev": "tsx scripts/build.ts",
-    "watch": "tsx scripts/build.ts --watch",
     "prod": "vsce package",
-    "vscode:prepublish": "tsx scripts/build.ts --prod",
+    "vscode:prepublish": "yarn run esbuild-base -- --minify",
+    "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=build/extension.js --external:vscode --format=cjs --platform=node",
+    "dev": "yarn run esbuild-base -- --sourcemap",
+    "esbuild-watch": "yarn run esbuild-base -- --sourcemap --watch",
     "lint": "eslint \"src/**/*.ts\"",
     "type-check": "tsc -p ./ --noEmit",
     "test": "jest",
@@ -117,8 +118,8 @@
     "@typescript-eslint/eslint-plugin": "^5.42.0",
     "@typescript-eslint/parser": "^5.42.0",
     "@vscode/vsce": "latest",
-    "build-utils": "*",
     "communication-types": "*",
+    "esbuild": "^0.17.8",
     "eslint": "^8.26.0",
     "jest": "^29.3.1",
     "ts-jest": "^29.0.3",
@@ -127,8 +128,8 @@
     "typescript": "^4.9.3"
   },
   "dependencies": {
+    "ast-parsing": "*",
     "just-debounce-it": "^3.1.1",
-    "winreg": "^1.2.4",
-    "ast-parsing": "*"
+    "winreg": "^1.2.4"
   }
 }
