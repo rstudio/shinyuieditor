@@ -57,7 +57,7 @@ export const PopoverEl = ({
   }, [bgColor, styles.popper]);
 
   const eventListeners = React.useMemo(() => {
-    let delayedShowTimeout: NodeJS.Timeout;
+    let delayedShowTimeout: ReturnType<typeof setTimeout>;
     function showPopper() {
       delayedShowTimeout = setTimeout(() => {
         update?.();
