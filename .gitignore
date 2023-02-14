@@ -20,3 +20,4 @@ node_modules/
 *.css.map
 
 inst/*/.turbo/
+**/storybook-static/*

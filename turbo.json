@@ -24,7 +24,11 @@
     },
     "playwright": {
       "cache": false,
-      "outputs": []
+      "outputs": [""]
+    },
+    "build-storybook": {
+      "cache": false,
+      "outputs": ["storybook-static/"]
     },
     "update-visual-snapshots": { "cache": false },
     "watch": { "cache": false }
