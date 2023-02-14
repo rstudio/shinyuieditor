@@ -5,6 +5,5 @@
     "rootDir": "src",
     "outDir": "build"
   },
-  "include": ["src/"],
-  "exclude": ["node_modules", ".vscode-test", "build-utils"]
+  "include": ["src/"]
 }

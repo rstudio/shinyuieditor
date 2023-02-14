@@ -1,12 +1,4 @@
-declare var TESTING_MODE_ESBUILD: boolean;
-
-// We need to wrap in try statements because if we're not using esbuild these
-// will be undefined
-
-/**
- * Is the app running in our e2e tests?
- */
-export let TESTING_MODE = false;
-try {
-  TESTING_MODE = TESTING_MODE_ESBUILD;
-} catch {}
+// Put here so we're not tied to a given build tool's decision on where to place
+// env variables.
+// @ts-ignore
+export let DEV_MODE = import.meta.env.MODE === "development";
