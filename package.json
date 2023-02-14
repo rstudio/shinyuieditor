@@ -10,6 +10,7 @@
     "playwright": "turbo run playwright",
     "update-visual-snapshots": "turbo run update-visual-snapshots",
     "type-check": "turbo run type-check",
+    "build-storybook": "turbo run build-storybook",
     "watch": "turbo run watch --parallel --continue"
   },
   "devDependencies": {
