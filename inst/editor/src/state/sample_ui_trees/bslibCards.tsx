@@ -56,7 +56,15 @@ export const bslibCards: ShinyUiNode = {
           uiArguments: {
             title: "Card Header",
           },
-          uiChildren: [],
+          uiChildren: [
+            {
+              uiName: "shiny::actionButton",
+              uiArguments: {
+                inputId: "my_button",
+                label: "Click me",
+              },
+            },
+          ],
         },
         {
           uiName: "bslib::card_body",
