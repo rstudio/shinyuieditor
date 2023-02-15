@@ -1,7 +1,7 @@
 import React from "react";
 
 import { mergeClasses } from "../../utils/mergeClasses";
-import { find_card_elements } from "../BslibCards/BslibCard";
+import { render_card_elements } from "../BslibCards/render_card_elements";
 import { useGridItemSwapping } from "../GridlayoutGridCard/useGridItemSwapping";
 import type { UiNodeComponent } from "../uiNodeTypes";
 
@@ -9,35 +9,26 @@ import type { GridBslibCardCardSettings } from ".";
 
 import styles from "./styles.module.css";
 
-const GridlayoutGridCard: UiNodeComponent<GridBslibCardCardSettings> = ({
-  uiArguments: { area, ...bslibCardArgs },
-  uiChildren = [],
-  path,
-  wrapperProps,
-}) => {
-  const compRef = React.useRef<HTMLDivElement>(null);
+const GridlayoutGridCard: UiNodeComponent<GridBslibCardCardSettings> = (
+  node
+) => {
+  const {
+    uiArguments: { area, ...bslibCardArgs },
+    uiChildren = [],
+    path,
+    wrapperProps,
+  } = node;
 
-  useGridItemSwapping({ containerRef: compRef, area, path });
-
-  const { body_node, header_node, footer_node } = find_card_elements(
-    uiChildren,
-    path
-  );
+  const compRef = useGridItemSwapping({ area, path });
 
   return (
     <div
       ref={compRef}
-      style={
-        {
-          gridArea: area,
-        } as React.CSSProperties
-      }
+      style={{ gridArea: area }}
       className={mergeClasses("card", styles.container)}
       {...wrapperProps}
     >
-      {header_node}
-      {body_node}
-      {footer_node}
+      {render_card_elements(uiChildren, path)}
     </div>
   );
 };

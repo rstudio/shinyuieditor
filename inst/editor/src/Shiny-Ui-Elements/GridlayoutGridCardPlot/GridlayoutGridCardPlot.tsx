@@ -15,9 +15,7 @@ const GridlayoutGridCardPlot: UiNodeComponent<GridlayoutGridCardPlotProps> = ({
   path,
   wrapperProps,
 }) => {
-  const compRef = React.useRef<HTMLDivElement>(null);
-
-  useGridItemSwapping({ containerRef: compRef, area, path });
+  const compRef = useGridItemSwapping({ area, path });
 
   return (
     <BsCard

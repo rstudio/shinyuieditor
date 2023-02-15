@@ -4,6 +4,10 @@
   width: 100%;
 }
 
+.header > * {
+  outline: 1px solid black;
+}
+
 .muted_text {
   opacity: 0.3;
   font-style: italic;
@@ -11,9 +15,15 @@
 
 .card_body {
   position: relative;
+  height: 100%;
+  width: 100%;
+  /* Stop blowout and enable properties like padding to be used as expected */
+  min-width: 0;
+
+  isolation: isolate;
+  position: relative;
   display: flex;
   flex-direction: column;
-  overflow: auto;
 }
 
 .empty_msg {

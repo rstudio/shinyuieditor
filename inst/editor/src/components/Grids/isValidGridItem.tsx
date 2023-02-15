@@ -12,6 +12,7 @@ export type GridItemNode = ShinyUiNodeByName[
 const gridItemNodes: ShinyUiNames[] = [
   "gridlayout::grid_card_text",
   "gridlayout::grid_card",
+  "gridlayout::grid_card_panel",
   "gridlayout::grid_card_plot",
 ];
 

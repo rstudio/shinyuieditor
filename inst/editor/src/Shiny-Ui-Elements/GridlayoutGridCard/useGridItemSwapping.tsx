@@ -10,14 +10,14 @@ import type { NodePath } from "../uiNodeTypes";
 import classes from "./styles.module.css";
 
 export function useGridItemSwapping({
-  containerRef,
   path,
   area,
 }: {
-  containerRef: React.RefObject<HTMLDivElement>;
   path: NodePath;
   area: string;
 }) {
+  const containerRef = React.useRef<HTMLDivElement>(null);
+
   const setLayout = useSetLayout();
 
   const getIsValidSwap: (dragInfo: DraggedNodeInfo) => boolean =
@@ -58,4 +58,6 @@ export function useGridItemSwapping({
     canAcceptDropClass: classes.availableToSwap,
     hoveringOverClass: classes.hoveringOverSwap,
   });
+
+  return containerRef;
 }

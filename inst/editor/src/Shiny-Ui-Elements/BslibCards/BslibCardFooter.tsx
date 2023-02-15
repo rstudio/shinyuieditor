@@ -2,7 +2,7 @@ import { CardFooter } from "../../components/cards/CardFooter";
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 export const bslibCardFooterInfo: UiComponentInfo<CardFooterSettings> = {
-  title: "Card Header",
+  title: "Card Footer",
   UiComponent: ({ uiArguments, uiChildren = [], path, wrapperProps }) => {
     return <CardFooter {...wrapperProps}>{uiArguments.title}</CardFooter>;
   },

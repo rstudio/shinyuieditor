@@ -22,10 +22,9 @@ const GridlayoutGridCard: UiNodeComponent<GridCardSettings> = ({
   path,
   wrapperProps,
 }) => {
-  const compRef = React.useRef<HTMLDivElement>(null);
   const numChildren = uiChildren?.length ?? 0;
 
-  useGridItemSwapping({ containerRef: compRef, area, path });
+  const compRef = useGridItemSwapping({ area, path });
 
   return (
     <BsCard
