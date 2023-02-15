@@ -6,7 +6,14 @@ import type { DynamicFieldInfo } from "../components/Inputs/SettingsFormBuilder/
 import type { DeleteAction, UpdateAction } from "../state/app_info";
 import type { PickKeyFn } from "../TypescriptUtils";
 
+import {
+  bslibCardInfo,
+  bslibCardBodyInfo,
+  bslibCardHeaderInfo,
+  bslibCardFooterInfo,
+} from "./BslibCards";
 import { dtDTOutputInfo } from "./DtDtOutput";
+import { gridlayoutCardInfo } from "./GridlayoutCard";
 import { gridlayoutGridCardInfo } from "./GridlayoutGridCard";
 import { gridlayoutGridCardPlotInfo } from "./GridlayoutGridCardPlot";
 import { gridlayoutTextPanelInfo } from "./GridlayoutGridCardText";
@@ -152,10 +159,15 @@ export const shinyUiNodeInfo = {
   "shiny::tabsetPanel": shinyTabsetPanelInfo,
   "gridlayout::grid_page": gridlayoutGridPageInfo,
   "gridlayout::grid_card": gridlayoutGridCardInfo,
+  "gridlayout::grid_card_panel": gridlayoutCardInfo,
   "gridlayout::grid_card_text": gridlayoutTextPanelInfo,
   "gridlayout::grid_card_plot": gridlayoutGridCardPlotInfo,
   "gridlayout::grid_container": gridlayoutGridContainerInfo,
   "DT::DTOutput": dtDTOutputInfo,
+  "bslib::card": bslibCardInfo,
+  "bslib::card_body": bslibCardBodyInfo,
+  "bslib::card_header": bslibCardHeaderInfo,
+  "bslib::card_footer": bslibCardFooterInfo,
   "plotly::plotlyOutput": plotlyPlotlyOutputInfo,
   unknownUiFunction: unknownUiFunctionInfo,
 };
@@ -211,6 +223,7 @@ export type ShinyUiNode = ShinyUiNodeByName[ShinyUiNames];
 
 export type TemplateChooserNode = "TEMPLATE_CHOOSER";
 
+export type ShinyUiRootNode = ShinyUiNode | TemplateChooserNode;
 // export function isShinyUiNode(node: ShinyUiNode): node is ShinyUiNode {
 //   return node !== "TEMPLATE_CHOOSER";
 // }
@@ -247,15 +260,23 @@ export type UiNodeWrapperProps = {
   "aria-label": string;
 } & DragPassthroughEvents;
 
+type UiNodeComponentOptions = { TakesChildren: boolean };
+export type UiNodeComponentProps<
+  NodeSettings extends object,
+  Opts extends UiNodeComponentOptions = { TakesChildren: true }
+> = {
+  uiArguments: NodeSettings;
+  path: NodePath;
+  wrapperProps: UiNodeWrapperProps;
+} & (Opts["TakesChildren"] extends true ? { uiChildren: ShinyUiChildren } : {});
+
 /**
  * Type of component defining the app view of a given ui node
  */
-export type UiNodeComponent<NodeSettings extends object> = (props: {
-  uiArguments: NodeSettings;
-  path: NodePath;
-  uiChildren?: ShinyUiChildren;
-  wrapperProps: UiNodeWrapperProps;
-}) => JSX.Element;
+export type UiNodeComponent<
+  NodeSettings extends object,
+  Opts extends UiNodeComponentOptions = { TakesChildren: true }
+> = (props: UiNodeComponentProps<NodeSettings, Opts>) => JSX.Element;
 
 /**
  * Path to a given node. Starts at [0] for the root. The first child for

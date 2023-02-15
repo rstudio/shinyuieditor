@@ -1,0 +1,25 @@
+.container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.muted_text {
+  opacity: 0.3;
+  font-style: italic;
+}
+
+.card_body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.empty_msg {
+  position: absolute;
+  display: grid;
+  place-content: center;
+  inset: 0;
+  pointer-events: none;
+}

@@ -23,7 +23,11 @@ const showMessages = true;
 
     const backendDispatch: BackendConnection =
       websocketDispatch === "NO-WS-CONNECTION"
-        ? setupStaticBackend({ messageDispatch, showMessages })
+        ? setupStaticBackend({
+            messageDispatch,
+            showMessages,
+            defaultTree: "TEMPLATE_CHOOSER",
+          })
         : websocketDispatch;
 
     runSUE({ container, backendDispatch, showMessages });

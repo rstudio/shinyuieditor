@@ -1,7 +1,7 @@
 import icon from "../../assets/icons/shinyContainer.png";
 import type { UiComponentInfo } from "../uiNodeTypes";
 
-import PkgNodeName from "./Component";
+import { PkgNodeName } from "./Component";
 
 export type NodeNameSettings = {
   name: string;
@@ -22,5 +22,3 @@ export const pkgNodeNameInfo: UiComponentInfo<NodeNameSettings> = {
   category: "NODE CATEGORY",
   description: "DESCRIPTION OF NODE",
 };
-
-export default pkgNodeNameInfo;

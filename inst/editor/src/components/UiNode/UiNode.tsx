@@ -27,7 +27,7 @@ const UiNode = ({ path, node }: UiNodeSettings) => {
     <Comp
       wrapperProps={wrapperProps}
       uiArguments={uiArguments}
-      uiChildren={uiChildren}
+      uiChildren={uiChildren ?? []}
       path={path}
     />
   );
