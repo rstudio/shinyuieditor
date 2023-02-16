@@ -12,7 +12,7 @@ import type { NodePath, UiNodeComponent } from "../uiNodeTypes";
 
 import type { GridCardSettings } from "./index";
 
-import { DropWatcherPanel } from "./DropWatcherPanel";
+import { CardDropWatcherPanel } from "./DropWatcherPanel";
 import classes from "./styles.module.css";
 import { useGridItemSwapping } from "./useGridItemSwapping";
 
@@ -45,7 +45,7 @@ const GridlayoutGridCard: UiNodeComponent<GridCardSettings> = ({
         <BsCardHeader className={classes.panelTitle}>{title}</BsCardHeader>
       ) : null}
       <div className={classes.contentHolder} data-alignment="top">
-        <DropWatcherPanel
+        <CardDropWatcherPanel
           index={0}
           parentPath={path}
           numChildren={numChildren}
@@ -54,7 +54,7 @@ const GridlayoutGridCard: UiNodeComponent<GridCardSettings> = ({
           uiChildren?.map((childNode, i) => (
             <React.Fragment key={path.join(".") + i}>
               <UiNode path={makeChildPath(path, i)} node={childNode} />
-              <DropWatcherPanel
+              <CardDropWatcherPanel
                 index={i + 1}
                 numChildren={uiChildren.length}
                 parentPath={path}

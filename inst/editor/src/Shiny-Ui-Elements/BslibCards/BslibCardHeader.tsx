@@ -1,8 +1,8 @@
 import React from "react";
 
 import UiNode from "../../components/UiNode/UiNode";
+import { DropWatcherPanel } from "../../DragAndDropHelpers/DropWatcherPanel";
 import { mergeClasses } from "../../utils/mergeClasses";
-import { DropWatcherPanel } from "../GridlayoutGridCard/DropWatcherPanel";
 import { makeChildPath } from "../nodePathUtils";
 import type { UiComponentInfo, UiNodeComponent } from "../uiNodeTypes";
 

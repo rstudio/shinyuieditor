@@ -2,7 +2,7 @@ import React from "react";
 
 import { CardBody } from "../../components/cards/CardBody";
 import UiNode from "../../components/UiNode/UiNode";
-import { DropWatcherPanel } from "../GridlayoutGridCard/DropWatcherPanel";
+import { CardDropWatcherPanel } from "../GridlayoutGridCard/DropWatcherPanel";
 import { makeChildPath } from "../nodePathUtils";
 import type { UiComponentInfo, UiNodeComponentProps } from "../uiNodeTypes";
 
@@ -38,12 +38,16 @@ function BslibCardBody({
 
   return (
     <CardBody {...wrapperProps} className={styles.card_body}>
-      <DropWatcherPanel index={0} parentPath={path} numChildren={numChildren} />
+      <CardDropWatcherPanel
+        index={0}
+        parentPath={path}
+        numChildren={numChildren}
+      />
       {numChildren > 0 ? (
         uiChildren?.map((childNode, i) => (
           <React.Fragment key={path.join(".") + i}>
             <UiNode path={makeChildPath(path, i)} node={childNode} />
-            <DropWatcherPanel
+            <CardDropWatcherPanel
               index={i + 1}
               numChildren={uiChildren.length}
               parentPath={path}

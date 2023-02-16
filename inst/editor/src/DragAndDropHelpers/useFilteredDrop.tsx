@@ -4,7 +4,7 @@ import "./DragAndDrop.css";
 import type { DraggedNodeInfo } from "./DragAndDropHelpers";
 import { useCurrentDraggedNode } from "./useCurrentDraggedNode";
 
-type DropHandlerArguments = {
+export type DropHandlerArguments = {
   getCanAcceptDrop?: (droppedNode: DraggedNodeInfo) => void;
   onDrop: (droppedNode: DraggedNodeInfo) => void;
   onDragOver?: () => void;
