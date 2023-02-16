@@ -6,8 +6,21 @@ import { setupStaticBackend } from "./backendCommunication/staticBackend";
 import { setupWebsocketBackend } from "./backendCommunication/websocketBackend";
 import { DEV_MODE } from "./env_variables";
 import { runSUE } from "./runSUE";
+import type { ShinyUiRootNode } from "./Shiny-Ui-Elements/uiNodeTypes";
+import { bslibCards } from "./state/sample_ui_trees/bslibCards";
 
 const container = document.getElementById("root");
+
+// If we're in dev, look at localhost 8888, otherwise use default
+const { pathToWebsocket, defaultTree } = DEV_MODE
+  ? {
+      pathToWebsocket: "localhost:8888",
+      defaultTree: bslibCards,
+    }
+  : {
+      pathToWebsocket: undefined,
+      defaultTree: "TEMPLATE_CHOOSER" as ShinyUiRootNode,
+    };
 
 const showMessages = true;
 (async () => {
@@ -17,8 +30,8 @@ const showMessages = true;
     const websocketDispatch = await setupWebsocketBackend({
       messageDispatch,
       onClose: () => console.log("Websocket closed!!"),
-      // If we're in dev, look at localhost 8888, otherwise use default
-      pathToWebsocket: DEV_MODE ? "localhost:8888" : undefined,
+
+      pathToWebsocket,
     });
 
     const backendDispatch: BackendConnection =
@@ -26,7 +39,7 @@ const showMessages = true;
         ? setupStaticBackend({
             messageDispatch,
             showMessages,
-            defaultTree: "TEMPLATE_CHOOSER",
+            defaultTree,
           })
         : websocketDispatch;
 
