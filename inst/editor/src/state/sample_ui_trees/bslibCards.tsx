@@ -5,16 +5,20 @@ import type { ShinyUiNode } from "../../main";
 export const bslibCards: ShinyUiNode = {
   uiName: "gridlayout::grid_page",
   uiArguments: {
-    layout: [
-      "info  info     info",
-      "empty onlyBody full",
-      "empty onlyBody full",
-    ],
-    row_sizes: ["100px", "500px", "1fr"],
-    col_sizes: ["1fr", "500px", "1fr"],
+    layout: ["info  info    ", "empty onlyBody", "full  full    "],
+    row_sizes: ["70px", "1fr", "1fr"],
+    col_sizes: ["1fr", "1fr"],
     gap_size: "1rem",
   },
   uiChildren: [
+    {
+      uiName: "gridlayout::grid_card_text",
+      uiArguments: {
+        content: "Example of super simple bslib cards",
+        alignment: "start",
+        area: "info",
+      },
+    },
     {
       uiName: "gridlayout::grid_card_panel",
       uiArguments: {
@@ -29,14 +33,6 @@ export const bslibCards: ShinyUiNode = {
           uiChildren: [],
         },
       ],
-    },
-    {
-      uiName: "gridlayout::grid_card_text",
-      uiArguments: {
-        content: "Example of super simple bslib cards",
-        alignment: "start",
-        area: "info",
-      },
     },
     {
       uiName: "gridlayout::grid_card_panel",

@@ -36,7 +36,6 @@ function BslibCardBody({
 }: UiNodeComponentProps<CardBodySettings, { TakesChildren: true }>) {
   const numChildren = uiChildren.length;
 
-  console.log("BSLIB card body", { uiArguments, uiChildren, path });
   return (
     <CardBody {...wrapperProps} className={styles.card_body}>
       <DropWatcherPanel index={0} parentPath={path} numChildren={numChildren} />

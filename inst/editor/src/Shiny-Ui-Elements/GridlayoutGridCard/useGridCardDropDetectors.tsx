@@ -7,15 +7,15 @@ import { usePlaceNode } from "../../state/app_info";
 import { makeChildPath } from "../nodePathUtils";
 import type { NodePath, ShinyUiNode } from "../uiNodeTypes";
 
-export function useGridCardDropDetectors({
-  watcherRef,
+export function useDropWatcherPanel({
   positionInChildren,
   parentPath,
 }: {
-  watcherRef: React.RefObject<HTMLDivElement>;
   positionInChildren: number;
   parentPath: NodePath;
 }) {
+  const watcherRef = React.useRef<HTMLDivElement>(null);
+
   const place_node = usePlaceNode();
 
   const getCanAcceptDrop: (dragInfo: DraggedNodeInfo) => boolean =
@@ -55,6 +55,8 @@ export function useGridCardDropDetectors({
     getCanAcceptDrop,
     onDrop,
   });
+
+  return watcherRef;
 }
 
 // Special function that peels away grid_panels to see if their contents can be

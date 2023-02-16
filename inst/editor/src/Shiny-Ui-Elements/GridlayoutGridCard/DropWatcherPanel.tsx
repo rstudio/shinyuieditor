@@ -4,7 +4,7 @@ import { mergeClasses } from "../../utils/mergeClasses";
 import type { NodePath } from "../uiNodeTypes";
 
 import classes from "./styles.module.css";
-import { useGridCardDropDetectors } from "./useGridCardDropDetectors";
+import { useDropWatcherPanel } from "./useGridCardDropDetectors";
 
 export function DropWatcherPanel({
   index,
@@ -15,9 +15,7 @@ export function DropWatcherPanel({
   numChildren: number;
   parentPath: NodePath;
 }) {
-  const watcherRef = React.useRef<HTMLDivElement>(null);
-  useGridCardDropDetectors({
-    watcherRef,
+  const watcherRef = useDropWatcherPanel({
     positionInChildren: index,
     parentPath,
   });
