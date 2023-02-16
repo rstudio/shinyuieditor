@@ -4,6 +4,7 @@ import { mergeClasses } from "../../utils/mergeClasses";
 import type { UiComponentInfo, UiNodeComponent } from "../uiNodeTypes";
 
 import { ChildrenWithDropNodes } from "./ChildrenWithDropNodes";
+import { MutedText } from "./MutedText";
 import styles from "./style.module.css";
 export type CardHeaderSettings = {};
 
@@ -19,6 +20,7 @@ const BslibCardHeader: UiNodeComponent<CardHeaderSettings> = (node) => {
         uiChildren={uiChildren}
         path={path}
         dropPanelClass={styles.drop_watcher}
+        showOnEmpty={<MutedText>Drag elements to add to card header</MutedText>}
       />
     </div>
   );

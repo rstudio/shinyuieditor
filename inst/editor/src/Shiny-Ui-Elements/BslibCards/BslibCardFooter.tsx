@@ -1,11 +1,13 @@
 import { CardFooter } from "../../components/cards/CardFooter";
-import type { UiComponentInfo } from "../uiNodeTypes";
+import type { UiComponentInfo, UiNodeComponentProps } from "../uiNodeTypes";
+
+import { ChildrenWithDropNodes } from "./ChildrenWithDropNodes";
+import { MutedText } from "./MutedText";
+import styles from "./style.module.css";
 
 export const bslibCardFooterInfo: UiComponentInfo<CardFooterSettings> = {
   title: "Card Footer",
-  UiComponent: ({ uiArguments, uiChildren = [], path, wrapperProps }) => {
-    return <CardFooter {...wrapperProps}>{uiArguments.title}</CardFooter>;
-  },
+  UiComponent: BslibCardFooter,
   settingsInfo: {
     title: {
       label: "Name of node",
@@ -21,3 +23,21 @@ export const bslibCardFooterInfo: UiComponentInfo<CardFooterSettings> = {
 export type CardFooterSettings = {
   title: string;
 };
+
+function BslibCardFooter({
+  uiArguments,
+  uiChildren = [],
+  path,
+  wrapperProps,
+}: UiNodeComponentProps<CardFooterSettings>) {
+  return (
+    <CardFooter {...wrapperProps}>
+      <ChildrenWithDropNodes
+        uiChildren={uiChildren}
+        path={path}
+        dropPanelClass={styles.drop_watcher}
+        showOnEmpty={<MutedText>Drag elements to add to card footer</MutedText>}
+      />
+    </CardFooter>
+  );
+}
