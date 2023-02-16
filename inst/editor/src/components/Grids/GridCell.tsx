@@ -12,10 +12,7 @@ export function GridCell({
   gridColumn: number;
   onDroppedNode: (nodeInfo: NewItemInfo) => void;
 }) {
-  const cellRef = React.useRef<HTMLDivElement>(null);
-
-  useFilteredDrop({
-    watcherRef: cellRef,
+  const cellRef = useFilteredDrop({
     getCanAcceptDrop: (nodeInfo) =>
       nodeInfo.node.uiName !== "gridlayout::grid_container",
     onDrop: (nodeInfo) => {

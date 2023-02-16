@@ -21,16 +21,13 @@ export type DropHandlerArguments = {
   processDropped?: (node: ShinyUiNode) => ShinyUiNode;
 };
 
-export function useDropHandlers(
-  watcherRef: React.RefObject<HTMLDivElement>,
-  {
-    dropFilters = { rejectedNodes: [] },
-    positionInChildren,
-    parentPath,
-    onDrop,
-    processDropped = (x) => x,
-  }: DropHandlerArguments
-) {
+export function useDropHandlers({
+  dropFilters = { rejectedNodes: [] },
+  positionInChildren,
+  parentPath,
+  onDrop,
+  processDropped = (x) => x,
+}: DropHandlerArguments) {
   const place_node = usePlaceNode();
 
   const getCanAcceptDrop: (dragInfo: DraggedNodeInfo) => boolean =
@@ -64,8 +61,7 @@ export function useDropHandlers(
     [onDrop, parentPath, place_node, positionInChildren, processDropped]
   );
 
-  useFilteredDrop({
-    watcherRef,
+  return useFilteredDrop({
     getCanAcceptDrop,
     onDrop: handleDrop,
   });

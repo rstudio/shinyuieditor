@@ -8,9 +8,7 @@ type DropDetectorProps = {
 } & React.ComponentPropsWithoutRef<"div">;
 
 function DropDetector({ children, dropArgs, ...divProps }: DropDetectorProps) {
-  const detectorRef = React.useRef<HTMLDivElement>(null);
-
-  useDropHandlers(detectorRef, dropArgs);
+  const detectorRef = useDropHandlers(dropArgs);
 
   return (
     <div ref={detectorRef} {...divProps}>

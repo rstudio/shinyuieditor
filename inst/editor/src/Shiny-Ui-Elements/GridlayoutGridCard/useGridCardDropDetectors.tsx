@@ -14,8 +14,6 @@ export function useDropWatcherPanel({
   positionInChildren: number;
   parentPath: NodePath;
 }) {
-  const watcherRef = React.useRef<HTMLDivElement>(null);
-
   const place_node = usePlaceNode();
 
   const getCanAcceptDrop: (dragInfo: DraggedNodeInfo) => boolean =
@@ -50,8 +48,7 @@ export function useDropWatcherPanel({
     [positionInChildren, parentPath, place_node]
   );
 
-  useFilteredDrop({
-    watcherRef,
+  const watcherRef = useFilteredDrop({
     getCanAcceptDrop,
     onDrop,
   });

@@ -16,8 +16,6 @@ export function useGridItemSwapping({
   path: NodePath;
   area: string;
 }) {
-  const containerRef = React.useRef<HTMLDivElement>(null);
-
   const setLayout = useSetLayout();
 
   const getIsValidSwap: (dragInfo: DraggedNodeInfo) => boolean =
@@ -51,13 +49,10 @@ export function useGridItemSwapping({
     [area, setLayout]
   );
 
-  useFilteredDrop({
-    watcherRef: containerRef,
+  return useFilteredDrop({
     getCanAcceptDrop: getIsValidSwap,
     onDrop,
     canAcceptDropClass: classes.availableToSwap,
     hoveringOverClass: classes.hoveringOverSwap,
   });
-
-  return containerRef;
 }

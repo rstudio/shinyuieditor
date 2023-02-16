@@ -5,7 +5,6 @@ import type { DraggedNodeInfo } from "./DragAndDropHelpers";
 import { useCurrentDraggedNode } from "./useCurrentDraggedNode";
 
 type DropHandlerArguments = {
-  watcherRef: React.RefObject<HTMLDivElement>;
   getCanAcceptDrop?: (droppedNode: DraggedNodeInfo) => void;
   onDrop: (droppedNode: DraggedNodeInfo) => void;
   onDragOver?: () => void;
@@ -14,13 +13,14 @@ type DropHandlerArguments = {
 };
 
 export function useFilteredDrop({
-  watcherRef,
   getCanAcceptDrop = () => true,
   onDrop,
   onDragOver,
   canAcceptDropClass = "can-accept-drop",
   hoveringOverClass = "hovering-over",
 }: DropHandlerArguments) {
+  const watcherRef = React.useRef<HTMLDivElement>(null);
+
   const [currentlyDragged, setCurrentlyDragged] = useCurrentDraggedNode();
 
   const {
@@ -119,6 +119,8 @@ export function useFilteredDrop({
     removeAllHighlights,
     watcherRef,
   ]);
+
+  return watcherRef;
 }
 
 function useDropHighlights({
