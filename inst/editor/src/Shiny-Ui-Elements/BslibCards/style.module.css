@@ -4,13 +4,12 @@
   width: 100%;
 }
 
-.header > * {
-  outline: 1px solid black;
-}
-
 .muted_text {
   opacity: 0.3;
   font-style: italic;
+}
+
+.header {
 }
 
 .card_body {
@@ -32,4 +31,13 @@
   place-content: center;
   inset: 0;
   pointer-events: none;
+}
+
+.drop_watcher {
+  width: 100%;
+  height: 0px;
+}
+
+.drop_watcher:global(.can-accept-drop) {
+  height: 10px;
 }

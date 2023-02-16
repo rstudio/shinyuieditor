@@ -1,38 +1,25 @@
 import React from "react";
 
-import UiNode from "../../components/UiNode/UiNode";
-import { DropWatcherPanel } from "../../DragAndDropHelpers/DropWatcherPanel";
 import { mergeClasses } from "../../utils/mergeClasses";
-import { makeChildPath } from "../nodePathUtils";
 import type { UiComponentInfo, UiNodeComponent } from "../uiNodeTypes";
 
+import { ChildrenWithDropNodes } from "./ChildrenWithDropNodes";
 import styles from "./style.module.css";
-export type CardHeaderSettings = {
-  title: string;
-};
+export type CardHeaderSettings = {};
 
 const BslibCardHeader: UiNodeComponent<CardHeaderSettings> = (node) => {
   const { uiArguments, uiChildren, path, wrapperProps } = node;
-  console.log("Card header", node);
-
-  const children_nodes = uiChildren.map((childNode, i) => (
-    <React.Fragment key={path.join(".") + i}>
-      <UiNode path={makeChildPath(path, i)} node={childNode} />
-      <DropWatcherPanel
-        index={i + 1}
-        numChildren={uiChildren.length}
-        parentPath={path}
-      />
-    </React.Fragment>
-  ));
 
   return (
     <div
       className={mergeClasses(styles.header, "card-header")}
       {...wrapperProps}
     >
-      <span>{uiArguments.title}</span>
-      {children_nodes}
+      <ChildrenWithDropNodes
+        uiChildren={uiChildren}
+        path={path}
+        dropPanelClass={styles.drop_watcher}
+      />
     </div>
   );
 };
@@ -40,13 +27,7 @@ const BslibCardHeader: UiNodeComponent<CardHeaderSettings> = (node) => {
 export const bslibCardHeaderInfo: UiComponentInfo<CardHeaderSettings> = {
   title: "Card Header",
   UiComponent: BslibCardHeader,
-  settingsInfo: {
-    title: {
-      label: "Name of node",
-      inputType: "string",
-      defaultValue: "NODE NAME",
-    },
-  },
+  settingsInfo: {},
   acceptsChildren: true,
   category: "Cards",
   description: "Header for bslib cards",

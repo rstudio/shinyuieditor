@@ -10,12 +10,16 @@ export function DropWatcherPanel({
   numChildren,
   parentPath,
   dropHandlerArgs = {},
+  className,
   ...divProps
-}: React.ComponentPropsWithoutRef<"div"> & {
+}: Omit<React.ComponentPropsWithoutRef<"div">, "className"> & {
   index: number;
   numChildren: number;
   parentPath: NodePath;
   dropHandlerArgs?: Partial<DropHandlerArguments>;
+  /** Classname can either be static string or can be a function that returns a
+   * class name when passed the panels index */
+  className: string | ((index: number) => string);
 }) {
   const ref = useFilteredDrop({
     onDrop: (nodeInfo) => {
@@ -24,5 +28,9 @@ export function DropWatcherPanel({
     ...dropHandlerArgs,
   });
 
-  return <div ref={ref} {...divProps} />;
+  const panelClass =
+    typeof className === "string" ? className : className(index);
+  return (
+    <div ref={ref} className={panelClass} {...divProps} data-index={index} />
+  );
 }
