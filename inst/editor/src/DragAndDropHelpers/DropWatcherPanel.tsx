@@ -1,29 +1,34 @@
 import React from "react";
 
+import { makeChildPath } from "../Shiny-Ui-Elements/nodePathUtils";
 import type { NodePath } from "../Shiny-Ui-Elements/uiNodeTypes";
+import { usePlaceNode } from "../state/app_info";
 
 import type { DropHandlerArguments } from "./useFilteredDrop";
 import { useFilteredDrop } from "./useFilteredDrop";
 
 export function DropWatcherPanel({
   index,
-  numChildren,
   parentPath,
-  dropHandlerArgs = {},
-  className,
+  dropHandlerArgs,
+  className = "",
   ...divProps
 }: Omit<React.ComponentPropsWithoutRef<"div">, "className"> & {
   index: number;
-  numChildren: number;
   parentPath: NodePath;
   dropHandlerArgs?: Partial<DropHandlerArguments>;
   /** Classname can either be static string or can be a function that returns a
    * class name when passed the panels index */
-  className: string | ((index: number) => string);
+  className?: string | ((index: number) => string);
 }) {
+  const place_node = usePlaceNode();
+
   const ref = useFilteredDrop({
     onDrop: (nodeInfo) => {
-      console.log("Add this node as my child, please!", nodeInfo);
+      place_node({
+        ...nodeInfo,
+        path: makeChildPath(parentPath, index),
+      });
     },
     ...dropHandlerArgs,
   });

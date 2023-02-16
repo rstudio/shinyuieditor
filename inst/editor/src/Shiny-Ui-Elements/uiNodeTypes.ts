@@ -184,7 +184,7 @@ type NodeDefaultSettings<UiName extends keyof ShinyUiNodeInfo> =
  * This is the only place where any new UI element should be added as the rest
  * of the types will automatically be built based on this type.
  */
-type ShinyUiArguments = {
+export type ShinyUiArguments = {
   [UiName in keyof ShinyUiNodeInfo]: NodeDefaultSettings<UiName>;
 };
 

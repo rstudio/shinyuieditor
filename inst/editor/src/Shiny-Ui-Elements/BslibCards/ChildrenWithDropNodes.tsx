@@ -18,12 +18,7 @@ export function ChildrenWithDropNodes({
 }) {
   return (
     <>
-      <DropWatcherPanel
-        className={dropPanelClass}
-        index={0}
-        numChildren={uiChildren.length}
-        parentPath={path}
-      >
+      <DropWatcherPanel className={dropPanelClass} index={0} parentPath={path}>
         {uiChildren.length === 0 ? showOnEmpty : null}
       </DropWatcherPanel>
       {uiChildren.map((childNode, i) => (
@@ -32,7 +27,6 @@ export function ChildrenWithDropNodes({
           <DropWatcherPanel
             className={dropPanelClass}
             index={i + 1}
-            numChildren={uiChildren.length}
             parentPath={path}
           />
         </React.Fragment>
