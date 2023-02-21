@@ -7,6 +7,19 @@ import {
 
 import type { DraggedNodeInfo } from "./DragAndDropHelpers";
 
+type DragEventCallback = React.DragEventHandler<HTMLDivElement>;
+type DragCallbacks = {
+  onDragStart: DragEventCallback;
+  onDragEnd: DragEventCallback;
+  draggable: boolean;
+};
+
+export const dragCallbacksReset: DragCallbacks = {
+  onDragStart: (e) => {},
+  onDragEnd: (e) => {},
+  draggable: false,
+};
+
 export function useMakeDraggable({
   nodeInfo,
   immovable = false,
@@ -14,7 +27,7 @@ export function useMakeDraggable({
   nodeInfo: DraggedNodeInfo;
   // A way of disabling drag behavior
   immovable?: boolean;
-}) {
+}): DragCallbacks {
   // Keep track of if we're in the middle of a drag. This will help avoid
   // unneccesary duplicate work when of calling endDrag twice we get when the
   // user abandons a drag
@@ -50,7 +63,6 @@ export function useMakeDraggable({
 
   const startDrag: React.DragEventHandler<HTMLDivElement> = React.useCallback(
     (e) => {
-      console.log("Drag started", { e, nodeInfo });
       e.stopPropagation();
       setDraggedNode(nodeInfo);
       dragHappening.current = true;
@@ -63,7 +75,7 @@ export function useMakeDraggable({
   if (nodeInfo.currentPath?.length === 0 || immovable) {
     // Don't let the root node be dragged. It can't go anywhere and causes
     // super annoying visual shift
-    return {};
+    return dragCallbacksReset;
   }
 
   return {
