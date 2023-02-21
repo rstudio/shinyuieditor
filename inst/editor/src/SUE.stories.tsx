@@ -1,4 +1,3 @@
-import { CardContainerShowcase } from "./components/cards/Cards.stories";
 import { basicGridPage } from "./state/sample_ui_trees/basicGridPage";
 import { bslibCards } from "./state/sample_ui_trees/bslibCards";
 import type { SUE_Props } from "./SUE";
@@ -10,7 +9,7 @@ export const SueShowcase = (args: SUE_Props) => {
 
 export default {
   title: "Full App",
-  component: CardContainerShowcase,
+  component: SUE,
   args: {},
 };
 

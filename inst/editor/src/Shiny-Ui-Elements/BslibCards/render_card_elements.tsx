@@ -1,12 +1,12 @@
-import { CardBody } from "../../components/cards/CardBody";
-import { CardFooter } from "../../components/cards/CardFooter";
-import { CardHeader } from "../../components/cards/CardHeader";
 import UiNode from "../../components/UiNode/UiNode";
 import { DropWatcherPanel } from "../../DragAndDropHelpers/DropWatcherPanel";
 import { makeChildPath } from "../nodePathUtils";
 import type { NodePath, ShinyUiChildren } from "../uiNodeTypes";
 
-import { MutedText } from "./MutedText";
+import { CardBody } from "./CardBody";
+import { CardFooter } from "./CardFooter";
+import { CardHeader } from "./CardHeader";
+import styles from "./style.module.css";
 
 const possible_elements = new Set([
   "bslib::card_body",
@@ -61,36 +61,30 @@ export function render_card_elements(
   return (
     <>
       {header ?? (
-        <CardHeader>
+        <CardHeader className={styles.missing_card_element}>
           <DropWatcherPanel
-            index={child_index++}
+            index={child_index}
             parentPath={path}
             wrappingNode={headerScaffold}
-          >
-            <MutedText>Add card header</MutedText>
-          </DropWatcherPanel>
+          />
         </CardHeader>
       )}
       {body ?? (
-        <CardBody>
+        <CardBody className={styles.missing_card_element}>
           <DropWatcherPanel
-            index={child_index++}
+            index={child_index}
             parentPath={path}
             wrappingNode={bodyScaffold}
-          >
-            <MutedText>Add card body</MutedText>
-          </DropWatcherPanel>
+          />
         </CardBody>
       )}
       {footer ?? (
-        <CardFooter>
+        <CardFooter className={styles.missing_card_element}>
           <DropWatcherPanel
-            index={child_index++}
+            index={child_index}
             parentPath={path}
             wrappingNode={footerScaffold}
-          >
-            <MutedText>Add card footer</MutedText>
-          </DropWatcherPanel>
+          />
         </CardFooter>
       )}
     </>

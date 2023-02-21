@@ -1,12 +1,11 @@
 import React from "react";
 
-import { CardBody } from "../../components/cards/CardBody";
 import UiNode from "../../components/UiNode/UiNode";
 import { CardDropWatcherPanel } from "../GridlayoutGridCard/DropWatcherPanel";
 import { makeChildPath } from "../nodePathUtils";
 import type { UiComponentInfo, UiNodeComponentProps } from "../uiNodeTypes";
 
-import { MutedText } from "./MutedText";
+import { CardBody } from "./CardBody";
 import styles from "./style.module.css";
 
 export const bslibCardBodyInfo: UiComponentInfo<CardBodySettings> = {
@@ -37,7 +36,7 @@ function BslibCardBody({
   const numChildren = uiChildren.length;
 
   return (
-    <CardBody {...wrapperProps} className={styles.card_body}>
+    <CardBody {...wrapperProps}>
       <CardDropWatcherPanel
         index={0}
         parentPath={path}
@@ -55,9 +54,7 @@ function BslibCardBody({
           </React.Fragment>
         ))
       ) : (
-        <div className={styles.empty_msg}>
-          <MutedText>I am an empty card body</MutedText>
-        </div>
+        <div className={styles.empty_msg} />
       )}
     </CardBody>
   );

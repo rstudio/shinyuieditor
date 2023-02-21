@@ -1,8 +1,7 @@
-import { CardFooter } from "../../components/cards/CardFooter";
 import type { UiComponentInfo, UiNodeComponentProps } from "../uiNodeTypes";
 
+import { CardFooter } from "./CardFooter";
 import { ChildrenWithDropNodes } from "./ChildrenWithDropNodes";
-import { MutedText } from "./MutedText";
 import styles from "./style.module.css";
 
 export const bslibCardFooterInfo: UiComponentInfo<CardFooterSettings> = {
@@ -36,7 +35,6 @@ function BslibCardFooter({
         uiChildren={uiChildren}
         path={path}
         dropPanelClass={styles.drop_watcher}
-        showOnEmpty={<MutedText>Drag elements to add to card footer</MutedText>}
       />
     </CardFooter>
   );
