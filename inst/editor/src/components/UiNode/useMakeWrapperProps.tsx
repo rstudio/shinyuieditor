@@ -1,20 +1,19 @@
 import { useMakeDraggable } from "../../DragAndDropHelpers/useMakeDraggable";
-import type { ShinyUiNode } from "../../main";
 import { pathToString } from "../../Shiny-Ui-Elements/nodePathUtils";
-import type {
-  NodePath,
-  UiNodeWrapperProps,
-} from "../../Shiny-Ui-Elements/uiNodeTypes";
+import type { UiNodeWrapperProps } from "../../Shiny-Ui-Elements/uiNodeTypes";
 
+import type { UiNodeProps } from "./UiNode";
 import { usePathInformation } from "./usePathInformation";
 
-export function useMakeWrapperProps(
-  node: ShinyUiNode,
-  path: NodePath
-): UiNodeWrapperProps {
+export function useMakeWrapperProps({
+  node,
+  path,
+  canDrag,
+}: UiNodeProps): Required<UiNodeWrapperProps> {
   const dragProps = useMakeDraggable({
     nodeInfo: { node, currentPath: path },
   });
+
   const { onClick, isSelected } = usePathInformation(path);
 
   return {
@@ -22,6 +21,6 @@ export function useMakeWrapperProps(
     "data-sue-path": pathToString(path),
     "data-is-selected-node": isSelected,
     "aria-label": node.uiName,
-    ...dragProps,
+    ...(canDrag ? dragProps : {}),
   };
 }

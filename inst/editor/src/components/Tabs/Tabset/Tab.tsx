@@ -45,7 +45,11 @@ export const Tab = ({ name, isActive, index, parentPath }: TabProps) => {
 
   const [selectedPath] = useNodeSelectionState();
   const nodeForTab = useGetNode(pathToTabPanel);
-  const wrapperProps = useMakeWrapperProps(nodeForTab, pathToTabPanel);
+  const wrapperProps = useMakeWrapperProps({
+    node: nodeForTab,
+    path: pathToTabPanel,
+    canDrag: true,
+  });
 
   const isSelected = samePath(pathToTabPanel, selectedPath);
 

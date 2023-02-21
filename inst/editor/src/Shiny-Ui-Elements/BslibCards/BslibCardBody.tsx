@@ -2,7 +2,6 @@ import React from "react";
 
 import { CardBody } from "../../components/cards/CardBody";
 import UiNode from "../../components/UiNode/UiNode";
-import { dragCallbacksReset } from "../../DragAndDropHelpers/useMakeDraggable";
 import { CardDropWatcherPanel } from "../GridlayoutGridCard/DropWatcherPanel";
 import { makeChildPath } from "../nodePathUtils";
 import type { UiComponentInfo, UiNodeComponentProps } from "../uiNodeTypes";
@@ -36,13 +35,9 @@ function BslibCardBody({
   wrapperProps,
 }: UiNodeComponentProps<CardBodySettings, { TakesChildren: true }>) {
   const numChildren = uiChildren.length;
-  const wrapperPropsNoDrag = {
-    ...wrapperProps,
-    ...dragCallbacksReset,
-  };
 
   return (
-    <CardBody {...wrapperPropsNoDrag} className={styles.card_body}>
+    <CardBody {...wrapperProps} className={styles.card_body}>
       <CardDropWatcherPanel
         index={0}
         parentPath={path}

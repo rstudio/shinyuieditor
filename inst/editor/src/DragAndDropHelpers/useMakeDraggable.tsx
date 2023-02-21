@@ -14,12 +14,6 @@ type DragCallbacks = {
   draggable: boolean;
 };
 
-export const dragCallbacksReset: DragCallbacks = {
-  onDragStart: (e) => {},
-  onDragEnd: (e) => {},
-  draggable: false,
-};
-
 export function useMakeDraggable({
   nodeInfo,
   immovable = false,
@@ -27,7 +21,7 @@ export function useMakeDraggable({
   nodeInfo: DraggedNodeInfo;
   // A way of disabling drag behavior
   immovable?: boolean;
-}): DragCallbacks {
+}): DragCallbacks | null {
   // Keep track of if we're in the middle of a drag. This will help avoid
   // unneccesary duplicate work when of calling endDrag twice we get when the
   // user abandons a drag
@@ -73,9 +67,10 @@ export function useMakeDraggable({
   );
 
   if (nodeInfo.currentPath?.length === 0 || immovable) {
+    console.log("Triggered case of root note having drag disabled");
     // Don't let the root node be dragged. It can't go anywhere and causes
     // super annoying visual shift
-    return dragCallbacksReset;
+    return null;
   }
 
   return {

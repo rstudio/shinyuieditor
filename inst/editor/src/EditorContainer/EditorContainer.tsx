@@ -45,7 +45,7 @@ export function EditorContainer() {
   } else if (state.mode === "MAIN") {
     pageBody = (
       <EditorSkeleton
-        main={<UiNode node={state.ui_tree} path={[]} />}
+        main={<UiNode node={state.ui_tree} path={[]} canDrag={false} />}
         left={<ElementsPalette />}
         properties={<SettingsPanel tree={state.ui_tree} />}
         preview={<AppPreview />}

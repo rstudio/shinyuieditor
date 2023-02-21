@@ -42,7 +42,11 @@ export function render_card_elements(
       return;
     }
     const child_node = (
-      <UiNode node={child} path={makeChildPath(path, child_index)} />
+      <UiNode
+        node={child}
+        path={makeChildPath(path, child_index)}
+        canDrag={false}
+      />
     );
     child_index++;
     if (uiName === "bslib::card_header") {

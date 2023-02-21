@@ -1,5 +1,4 @@
 import { CardFooter } from "../../components/cards/CardFooter";
-import { dragCallbacksReset } from "../../DragAndDropHelpers/useMakeDraggable";
 import type { UiComponentInfo, UiNodeComponentProps } from "../uiNodeTypes";
 
 import { ChildrenWithDropNodes } from "./ChildrenWithDropNodes";
@@ -31,12 +30,8 @@ function BslibCardFooter({
   path,
   wrapperProps,
 }: UiNodeComponentProps<CardFooterSettings>) {
-  const wrapperPropsNoDrag = {
-    ...wrapperProps,
-    ...dragCallbacksReset,
-  };
   return (
-    <CardFooter {...wrapperPropsNoDrag}>
+    <CardFooter {...wrapperProps}>
       <ChildrenWithDropNodes
         uiChildren={uiChildren}
         path={path}
