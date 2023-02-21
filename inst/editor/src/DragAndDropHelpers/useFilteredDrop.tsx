@@ -1,8 +1,12 @@
 import React from "react";
 
+import {
+  useCurrentDraggedNode,
+  useUnsetCurrentDraggedNode,
+} from "../state/currentlyDraggedNode";
+
 import "./DragAndDrop.css";
 import type { DraggedNodeInfo } from "./DragAndDropHelpers";
-import { useCurrentDraggedNode } from "./useCurrentDraggedNode";
 
 export type DropHandlerArguments = {
   getCanAcceptDrop?: (droppedNode: DraggedNodeInfo) => void;
@@ -21,7 +25,8 @@ export function useFilteredDrop({
 }: DropHandlerArguments) {
   const watcherRef = React.useRef<HTMLDivElement>(null);
 
-  const [currentlyDragged, setCurrentlyDragged] = useCurrentDraggedNode();
+  const currentlyDragged = useCurrentDraggedNode();
+  const unsetCurrentlyDragged = useUnsetCurrentDraggedNode();
 
   const {
     addCanAcceptDropHighlight,
@@ -78,14 +83,14 @@ export function useFilteredDrop({
       }
 
       // Turn off drag
-      setCurrentlyDragged(null);
+      unsetCurrentlyDragged();
     },
     [
       canAcceptDrop,
       currentlyDragged,
       onDrop,
       removeHoveredOverHighlight,
-      setCurrentlyDragged,
+      unsetCurrentlyDragged,
     ]
   );
 

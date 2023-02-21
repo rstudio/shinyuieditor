@@ -7,7 +7,6 @@ import SvgShinyLogo from "../components/Icons/ShinyLogo";
 import { TemplateChooserView } from "../components/TemplatePreviews/TemplateChooserView";
 import UiNode from "../components/UiNode/UiNode";
 import { UndoRedoButtons } from "../components/UndoRedoButtons/UndoRedoButtons";
-import { CurrentDraggedNodeProvider } from "../DragAndDropHelpers/useCurrentDraggedNode";
 import {
   EditorSkeleton,
   PROPERTIES_PANEL_WIDTH_PX,
@@ -45,14 +44,12 @@ export function EditorContainer() {
     );
   } else if (state.mode === "MAIN") {
     pageBody = (
-      <CurrentDraggedNodeProvider>
-        <EditorSkeleton
-          main={<UiNode node={state.ui_tree} path={[]} />}
-          left={<ElementsPalette />}
-          properties={<SettingsPanel tree={state.ui_tree} />}
-          preview={<AppPreview />}
-        />
-      </CurrentDraggedNodeProvider>
+      <EditorSkeleton
+        main={<UiNode node={state.ui_tree} path={[]} />}
+        left={<ElementsPalette />}
+        properties={<SettingsPanel tree={state.ui_tree} />}
+        preview={<AppPreview />}
+      />
     );
   } else {
     pageBody = <TemplateChooserView {...state.options} />;

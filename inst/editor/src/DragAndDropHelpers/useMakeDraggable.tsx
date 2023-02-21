@@ -1,7 +1,11 @@
 import React from "react";
 
+import {
+  useUnsetCurrentDraggedNode,
+  useSetCurrentDraggedNode,
+} from "../state/currentlyDraggedNode";
+
 import type { DraggedNodeInfo } from "./DragAndDropHelpers";
-import { DraggedNodeContext } from "./useCurrentDraggedNode";
 
 export function useMakeDraggable({
   nodeInfo,
@@ -15,7 +19,8 @@ export function useMakeDraggable({
   // unneccesary duplicate work when of calling endDrag twice we get when the
   // user abandons a drag
   const dragHappening = React.useRef(false);
-  const [, setDraggedNode] = React.useContext(DraggedNodeContext);
+  const setDraggedNode = useSetCurrentDraggedNode();
+  const unsetDraggedNode = useUnsetCurrentDraggedNode();
 
   // The drag can end three different ways
   // 1. The user drags the item onto a suitable drop target. Then the dragend
@@ -35,16 +40,17 @@ export function useMakeDraggable({
   const endDrag = React.useCallback(
     (e: React.DragEvent<HTMLDivElement> | DragEvent) => {
       if (dragHappening.current === false || immovable) return;
-      setDraggedNode(null);
+      unsetDraggedNode();
       dragHappening.current = false;
       document.body.removeEventListener("dragover", dummyDragOverListener);
       document.body.removeEventListener("drop", endDrag);
     },
-    [immovable, setDraggedNode]
+    [immovable, unsetDraggedNode]
   );
 
   const startDrag: React.DragEventHandler<HTMLDivElement> = React.useCallback(
     (e) => {
+      console.log("Drag started", { e, nodeInfo });
       e.stopPropagation();
       setDraggedNode(nodeInfo);
       dragHappening.current = true;
