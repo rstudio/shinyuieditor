@@ -1,9 +1,7 @@
-import React from "react";
-
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import type { Full_App_Info, Raw_App_Info } from "ast-parsing";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import type { TemplateChooserOptions } from "../components/TemplatePreviews/TemplateChooserView";
 import type { PlaceNodeArguments } from "../components/UiNode/TreeManipulation/placeNode";
@@ -114,19 +112,6 @@ export type DeleteAction = (
   tree: ShinyUiNode,
   payload: RemoveNodeArguments
 ) => void;
-
-export function usePlaceNode() {
-  const dispatch = useDispatch();
-
-  const place_node = React.useCallback(
-    (opts: PlaceNodeArguments) => {
-      dispatch(PLACE_NODE(opts));
-    },
-    [dispatch]
-  );
-
-  return place_node;
-}
 
 export function useCurrentAppInfo() {
   return useSelector((state: RootState) => state.app_info);

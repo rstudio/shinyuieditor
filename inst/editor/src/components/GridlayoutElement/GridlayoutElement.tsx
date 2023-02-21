@@ -3,7 +3,7 @@ import React from "react";
 import type { DraggedNodeInfo } from "../../DragAndDropHelpers/DragAndDropHelpers";
 import { makeChildPath } from "../../Shiny-Ui-Elements/nodePathUtils";
 import type { UiNodeComponent } from "../../Shiny-Ui-Elements/uiNodeTypes";
-import { usePlaceNode } from "../../state/app_info";
+import { usePlaceNode } from "../../state/usePlaceNode";
 import { findEmptyCells } from "../../utils/gridTemplates/findItemLocation";
 import { areasToItemLocations } from "../../utils/gridTemplates/itemLocations";
 import type { GridItemExtent } from "../../utils/gridTemplates/types";
@@ -112,18 +112,13 @@ export const GridlayoutElement: UiNodeComponent<GridLayoutArgs> = ({
     // If we're using a grid-aware node already then we just need to put the
     // new name into its settings. Otherwise automatically wrap the item in a
     // grid container
-    if (isValidGridItem(node)) {
+    const dropped_is_grid_aware = isValidGridItem(node);
+    if (dropped_is_grid_aware) {
       const argsWithArea: GridItemNode["uiArguments"] = {
         ...node.uiArguments,
         area: name,
       };
       node.uiArguments = argsWithArea;
-    } else {
-      node = {
-        uiName: "gridlayout::grid_card",
-        uiArguments: { area: name },
-        uiChildren: [node],
-      };
     }
 
     // Let the state know we have a new child node
@@ -131,6 +126,12 @@ export const GridlayoutElement: UiNodeComponent<GridLayoutArgs> = ({
       // Place in the last position
       path: makeChildPath(path, uiChildren?.length ?? 0),
       node: node,
+      wrappingNode: dropped_is_grid_aware
+        ? undefined
+        : {
+            uiName: "gridlayout::grid_card",
+            uiArguments: { area: name },
+          },
       currentPath,
     });
 

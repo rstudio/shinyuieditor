@@ -3,19 +3,22 @@ import React from "react";
 import { getIsValidMove } from "../../components/UiNode/TreeManipulation/getIsValidMove";
 import type { DraggedNodeInfo } from "../../DragAndDropHelpers/DragAndDropHelpers";
 import { DropWatcherPanel } from "../../DragAndDropHelpers/DropWatcherPanel";
-import { usePlaceNode } from "../../state/app_info";
+import { usePlaceNode } from "../../state/usePlaceNode";
 import { mergeClasses } from "../../utils/mergeClasses";
 import { makeChildPath } from "../nodePathUtils";
 import type { NodePath, ShinyUiNode } from "../uiNodeTypes";
 
 import classes from "./styles.module.css";
 
-export function CardDropWatcherPanel(pos: {
+export function CardDropWatcherPanel({
+  index,
+  numChildren,
+  parentPath,
+}: {
   index: number;
   numChildren: number;
   parentPath: NodePath;
 }) {
-  const { index, numChildren, parentPath } = pos;
   const dropHandlerArgs = useDropWatcherPanel({
     positionInChildren: index,
     parentPath,
@@ -26,7 +29,8 @@ export function CardDropWatcherPanel(pos: {
   return (
     <DropWatcherPanel
       className={mergeClasses(classes.dropWatcher, position_class)}
-      {...pos}
+      index={index}
+      parentPath={parentPath}
       dropHandlerArgs={dropHandlerArgs}
     />
   );

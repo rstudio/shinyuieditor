@@ -7,7 +7,8 @@ import { setupWebsocketBackend } from "./backendCommunication/websocketBackend";
 import { DEV_MODE } from "./env_variables";
 import { runSUE } from "./runSUE";
 import type { ShinyUiRootNode } from "./Shiny-Ui-Elements/uiNodeTypes";
-import { bslibCards } from "./state/sample_ui_trees/bslibCards";
+import { basicNavbarPage as devModeTree } from "./state/sample_ui_trees/basicNavbarPage";
+// import { bslibCards as devModeTree } from "./state/sample_ui_trees/bslibCards";
 
 const container = document.getElementById("root");
 
@@ -15,7 +16,7 @@ const container = document.getElementById("root");
 const { pathToWebsocket, defaultTree } = DEV_MODE
   ? {
       pathToWebsocket: "localhost:8888",
-      defaultTree: bslibCards,
+      defaultTree: devModeTree,
     }
   : {
       pathToWebsocket: undefined,

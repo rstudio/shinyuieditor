@@ -42,5 +42,5 @@ export function placeNodeMutating(
     return;
   }
 
-  addNodeMutating(tree, { path, node: args.node });
+  addNodeMutating(tree, { path, node });
 }

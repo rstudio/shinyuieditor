@@ -1,5 +1,5 @@
+import { DropWatcherPanel } from "../../DragAndDropHelpers/DropWatcherPanel";
 import type { ShinyUiNames, UiNodeComponent } from "../uiNodeTypes";
-import DropDetector from "../utils/DropDetector";
 import { RenderUiChildren } from "../utils/RenderUiChildren";
 
 import type { TabPanelSettings } from "./index";
@@ -15,7 +15,7 @@ export const invalidTabPanelContents: ShinyUiNames[] = [
 ];
 
 const dropFilters = {
-  rejectedNodes: invalidTabPanelContents,
+  rejected: invalidTabPanelContents,
 };
 
 const ShinyTabPanel: UiNodeComponent<TabPanelSettings> = ({
@@ -31,14 +31,11 @@ const ShinyTabPanel: UiNodeComponent<TabPanelSettings> = ({
       {hasChildren ? (
         <RenderUiChildren uiChildren={uiChildren} parentPath={path} />
       ) : (
-        <DropDetector
+        <DropWatcherPanel
           className={classes.emptyTabPanelDropDetector}
-          dropArgs={{
-            dropFilters,
-            positionInChildren: 0,
-            parentPath: path,
-            onDrop: "add-node",
-          }}
+          index={0}
+          parentPath={path}
+          dropFilters={dropFilters}
         />
       )}
     </div>

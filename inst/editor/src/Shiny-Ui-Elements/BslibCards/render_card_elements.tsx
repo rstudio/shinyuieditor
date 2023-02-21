@@ -3,12 +3,10 @@ import { CardFooter } from "../../components/cards/CardFooter";
 import { CardHeader } from "../../components/cards/CardHeader";
 import UiNode from "../../components/UiNode/UiNode";
 import { DropWatcherPanel } from "../../DragAndDropHelpers/DropWatcherPanel";
-import { usePlaceNode } from "../../state/app_info";
 import { makeChildPath } from "../nodePathUtils";
-import type { NodePath, ShinyUiChildren, ShinyUiNode } from "../uiNodeTypes";
+import type { NodePath, ShinyUiChildren } from "../uiNodeTypes";
 
 import { MutedText } from "./MutedText";
-import { wrapInNode } from "./wrapInNode";
 
 const possible_elements = new Set([
   "bslib::card_body",
@@ -60,72 +58,37 @@ export function render_card_elements(
     <>
       {header ?? (
         <CardHeader>
-          <WrappedDropWatcher
+          <DropWatcherPanel
             index={child_index++}
             parentPath={path}
             wrappingNode={headerScaffold}
           >
             <MutedText>Add card header</MutedText>
-          </WrappedDropWatcher>
+          </DropWatcherPanel>
         </CardHeader>
       )}
       {body ?? (
         <CardBody>
-          <WrappedDropWatcher
+          <DropWatcherPanel
             index={child_index++}
             parentPath={path}
             wrappingNode={bodyScaffold}
           >
             <MutedText>Add card body</MutedText>
-          </WrappedDropWatcher>
+          </DropWatcherPanel>
         </CardBody>
       )}
       {footer ?? (
         <CardFooter>
-          <WrappedDropWatcher
+          <DropWatcherPanel
             index={child_index++}
             parentPath={path}
             wrappingNode={footerScaffold}
           >
             <MutedText>Add card footer</MutedText>
-          </WrappedDropWatcher>
+          </DropWatcherPanel>
         </CardFooter>
       )}
     </>
-  );
-}
-
-function WrappedDropWatcher({
-  index,
-  parentPath,
-  wrappingNode,
-  children,
-}: {
-  index: number;
-  parentPath: NodePath;
-  wrappingNode: Pick<ShinyUiNode, "uiName" | "uiArguments">;
-  children: React.ReactNode;
-}) {
-  const place_node = usePlaceNode();
-
-  return (
-    <DropWatcherPanel
-      index={index}
-      parentPath={parentPath}
-      dropHandlerArgs={{
-        onDrop: ({ node, currentPath }) => {
-          place_node({
-            node: wrapInNode({
-              child: node,
-              parent: wrappingNode,
-            }),
-            currentPath,
-            path: makeChildPath(parentPath, index),
-          });
-        },
-      }}
-    >
-      {children}
-    </DropWatcherPanel>
   );
 }

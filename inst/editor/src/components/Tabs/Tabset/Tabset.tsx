@@ -5,12 +5,8 @@ import { FaPlus } from "react-icons/fa";
 import type { ShinyUiNode } from "../../../main";
 import { useSelectedPath } from "../../../NodeSelectionState";
 import { makeChildPath } from "../../../Shiny-Ui-Elements/nodePathUtils";
-import {
-  wrapNodeInTabPanel,
-  newTabPanelNode,
-} from "../../../Shiny-Ui-Elements/ShinyTabPanel/tabPanelHelpers";
 import type { NodePath } from "../../../Shiny-Ui-Elements/uiNodeTypes";
-import { usePlaceNode } from "../../../state/app_info";
+import { usePlaceNode } from "../../../state/usePlaceNode";
 import { seqArray } from "../../../utils/array-helpers";
 import { mergeClasses } from "../../../utils/mergeClasses";
 import { PopoverButton } from "../../Inputs/PopoverButton";
@@ -39,13 +35,6 @@ function Tabset({
 
   const { activeTab, setActiveTab } = useActiveTab(tabNames.length);
   const place_node = usePlaceNode();
-
-  const addNewTab = (node?: ShinyUiNode) => {
-    place_node({
-      node: node ? wrapNodeInTabPanel(node) : newTabPanelNode,
-      path: makeChildPath(path, numChildren),
-    });
-  };
 
   React.useEffect(() => {
     // Make sure that we have the proper tab active so that the selected node is
@@ -94,7 +83,10 @@ function Tabset({
               label="Add new tab"
               onClick={(e) => {
                 e.stopPropagation();
-                addNewTab();
+                place_node({
+                  path: makeChildPath(path, numChildren),
+                  node: emptyTabPanel,
+                });
               }}
             />
           </TabDropDetector>
@@ -106,6 +98,13 @@ function Tabset({
     </div>
   );
 }
+
+const emptyTabPanel = {
+  uiName: "shiny::tabPanel",
+  uiArguments: { title: "Empty Tab" },
+  uiChildren: [],
+} satisfies ShinyUiNode;
+
 
 export default Tabset;
 

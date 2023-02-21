@@ -1,16 +1,27 @@
 import React from "react";
 
+import { DropWatcherPanel } from "../../../DragAndDropHelpers/DropWatcherPanel";
 import { invalidTabPanelContents } from "../../../Shiny-Ui-Elements/ShinyTabPanel/ShinyTabPanel";
-import { wrapNodeInTabPanel } from "../../../Shiny-Ui-Elements/ShinyTabPanel/tabPanelHelpers";
-import type { NodePath } from "../../../Shiny-Ui-Elements/uiNodeTypes";
-import DropDetector from "../../../Shiny-Ui-Elements/utils/DropDetector";
+import type {
+  NodePath,
+  ShinyUiNode,
+} from "../../../Shiny-Ui-Elements/uiNodeTypes";
 
 import classes from "./Tabset.module.css";
 
 const dropFilters = {
-  rejectedNodes: invalidTabPanelContents.filter(
+  rejected: invalidTabPanelContents.filter(
     (uiName) => uiName !== "shiny::tabPanel"
   ),
+};
+
+const wrap_in_tab_panel = ({ uiName }: ShinyUiNode) => {
+  return uiName !== "shiny::tabPanel"
+    ? ({
+        uiName: "shiny::tabPanel",
+        uiArguments: { title: "Tab Panel" },
+      } as const)
+    : null;
 };
 
 export function TabDropDetector({
@@ -25,16 +36,13 @@ export function TabDropDetector({
   children?: React.ReactElement;
 }) {
   return (
-    <DropDetector
+    <DropWatcherPanel
       className={classes.tabDropDetector}
       aria-label="tab drop detector"
-      dropArgs={{
-        parentPath,
-        onDrop: "add-node",
-        positionInChildren: index,
-        processDropped: wrapNodeInTabPanel,
-        dropFilters,
-      }}
+      parentPath={parentPath}
+      index={index}
+      dropFilters={dropFilters}
+      wrappingNode={wrap_in_tab_panel}
       style={
         {
           "--baseWidth": baseWidth,
@@ -43,6 +51,6 @@ export function TabDropDetector({
       }
     >
       {children}
-    </DropDetector>
+    </DropWatcherPanel>
   );
 }
