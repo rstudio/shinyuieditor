@@ -1,5 +1,6 @@
 import React from "react";
 
+import { getIsValidMove } from "../components/UiNode/TreeManipulation/getIsValidMove";
 import type { Wrapping_Node } from "../components/UiNode/TreeManipulation/wrapInNode";
 import { makeChildPath } from "../Shiny-Ui-Elements/nodePathUtils";
 import type { NodePath, ShinyUiNames } from "../Shiny-Ui-Elements/uiNodeTypes";
@@ -41,7 +42,20 @@ export function DropWatcherPanel({
         wrappingNode,
       });
     },
-    getCanAcceptDrop: ({ node }) => {
+    getCanAcceptDrop: (nodeInfo) => {
+      const { node, currentPath } = nodeInfo;
+
+      // First check that this move makes sense navigationally. E.g. were not
+      // trying to move a node into it's own children or something
+      if (
+        !getIsValidMove({
+          fromPath: currentPath,
+          toPath: [...parentPath, index],
+        })
+      ) {
+        return false;
+      }
+
       if (!dropFilters) return true;
 
       if ("accepted" in dropFilters) {
