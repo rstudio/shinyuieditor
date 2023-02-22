@@ -33,7 +33,7 @@ export function getPathAfterMove({ fromPath, toPath }: NodeMoveArgs): NodePath {
 
   const indexOfChange = fromDepth - 1;
 
-  if (fromPath[indexOfChange] > toPath[indexOfChange]) {
+  if (fromPath[indexOfChange] >= toPath[indexOfChange]) {
     return toPath;
   }
 
