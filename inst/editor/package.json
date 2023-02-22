@@ -6,6 +6,7 @@
   "private": true,
   "dependencies": {
     "@popperjs/core": "^2.11.2",
+    "@preact/signals-react": "^1.2.2",
     "@reduxjs/toolkit": "^1.8.0",
     "@testing-library/jest-dom": "^5.16.5",
     "balloon-css": "^1.2.0",
