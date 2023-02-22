@@ -30,7 +30,16 @@ export const bslibCards: ShinyUiNode = {
           uiArguments: {
             title: "Card Body",
           },
-          uiChildren: [],
+          uiChildren: [
+            {
+              uiName: "shiny::textInput",
+              uiArguments: {
+                inputId: "myText",
+                label: "Text Input",
+                value: "Some Text",
+              },
+            },
+          ],
         },
       ],
     },
