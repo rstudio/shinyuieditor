@@ -1,4 +1,3 @@
-import "bootstrap/dist/css/bootstrap.css";
 import type { BackendConnection } from "communication-types";
 import { makeMessageDispatcher } from "communication-types/src/BackendConnection";
 
