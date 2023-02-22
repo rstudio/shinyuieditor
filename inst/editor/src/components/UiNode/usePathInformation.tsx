@@ -1,7 +1,10 @@
 import React from "react";
 
-import { useNodeSelectionState } from "../../NodeSelectionState";
 import type { NodePath } from "../../Shiny-Ui-Elements/uiNodeTypes";
+import {
+  useCurrentSelection,
+  useSetCurrentSelection,
+} from "../../state/selectedPath";
 import { sameArray } from "../../utils/equalityCheckers";
 
 /**
@@ -10,15 +13,16 @@ import { sameArray } from "../../utils/equalityCheckers";
  * @param path Path of the ui node within the ui tree
  */
 export function usePathInformation(path: NodePath) {
-  const [selectedPath, setNodeSelection] = useNodeSelectionState();
+  const selectedPath = useCurrentSelection();
+  const setSelectedPath = useSetCurrentSelection();
 
   const handleClick: React.MouseEventHandler<HTMLDivElement> =
     React.useCallback(
       (e) => {
         e.stopPropagation();
-        setNodeSelection(path);
+        setSelectedPath(path);
       },
-      [path, setNodeSelection]
+      [path, setSelectedPath]
     );
 
   const isSelected = Boolean(selectedPath && sameArray(selectedPath, path));

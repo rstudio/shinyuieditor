@@ -6,13 +6,17 @@ import { useDispatch } from "react-redux";
 import type { KnownInputFieldTypes } from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";
 import { getNode } from "../components/UiNode/TreeManipulation/getNode";
 import type { ShinyUiNode } from "../main";
-import { useNodeSelectionState } from "../NodeSelectionState";
 import { UPDATE_NODE } from "../state/app_info";
+import {
+  useCurrentSelection,
+  useSetCurrentSelection,
+} from "../state/selectedPath";
 
 export function useUpdateSettings(tree: ShinyUiNode) {
   const dispatch = useDispatch();
 
-  const [selectedPath, setNodeSelection] = useNodeSelectionState();
+  const selectedPath = useCurrentSelection();
+  const setNodeSelection = useSetCurrentSelection();
 
   const [currentNode, setCurrentNode] = React.useState<ShinyUiNode | null>(
     selectedPath !== null ? safeGetNode(tree, selectedPath) : null

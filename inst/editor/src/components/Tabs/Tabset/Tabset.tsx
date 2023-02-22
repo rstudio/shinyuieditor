@@ -3,9 +3,9 @@ import React from "react";
 import { FaPlus } from "react-icons/fa";
 
 import type { ShinyUiNode } from "../../../main";
-import { useSelectedPath } from "../../../NodeSelectionState";
 import { makeChildPath } from "../../../Shiny-Ui-Elements/nodePathUtils";
 import type { NodePath } from "../../../Shiny-Ui-Elements/uiNodeTypes";
+import { useCurrentSelection } from "../../../state/selectedPath";
 import { usePlaceNode } from "../../../state/usePlaceNode";
 import { seqArray } from "../../../utils/array-helpers";
 import { mergeClasses } from "../../../utils/mergeClasses";
@@ -31,7 +31,7 @@ function Tabset({
 }: TabsetProps & { path: NodePath }) {
   const tabNames = getTabNamesFromChildren(children);
   const numChildren = tabNames.length;
-  const selectedPath = useSelectedPath();
+  const selectedPath = useCurrentSelection();
 
   const { activeTab, setActiveTab } = useActiveTab(tabNames.length);
   const place_node = usePlaceNode();
