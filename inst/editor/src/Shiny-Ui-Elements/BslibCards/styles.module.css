@@ -33,12 +33,16 @@
 
 .drop_watcher {
   width: 100%;
-  height: fit-content;
+  height: 0;
 }
 
 .drop_watcher:global(.can-accept-drop) {
-  height: max(10px, fit-content);
+  height: 15px;
   color: var(--rstudio-white);
+}
+
+.missing_card_element.card_body > .drop_watcher {
+  height: 100%;
 }
 
 .missing_card_element:not(:has(:global(.can-accept-drop))) {
@@ -46,13 +50,6 @@
   padding: 0;
   opacity: 0;
   overflow: hidden;
-}
-
-.missing_card_element > div {
-  height: 20px;
-}
-.missing_card_element.card_body > div {
-  height: 100%;
 }
 
 .missing_card_element:has(:global(.can-accept-drop)) {

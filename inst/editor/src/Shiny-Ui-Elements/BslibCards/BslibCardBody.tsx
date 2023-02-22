@@ -6,7 +6,7 @@ import { makeChildPath } from "../nodePathUtils";
 import type { UiComponentInfo, UiNodeComponentProps } from "../uiNodeTypes";
 
 import { CardBody } from "./CardBody";
-import styles from "./style.module.css";
+import styles from "./styles.module.css";
 
 export const bslibCardBodyInfo: UiComponentInfo<CardBodySettings> = {
   title: "Card Body",

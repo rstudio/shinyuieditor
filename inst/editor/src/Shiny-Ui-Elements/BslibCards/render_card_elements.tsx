@@ -6,7 +6,7 @@ import type { NodePath, ShinyUiChildren } from "../uiNodeTypes";
 import { CardBody } from "./CardBody";
 import { CardFooter } from "./CardFooter";
 import { CardHeader } from "./CardHeader";
-import styles from "./style.module.css";
+import styles from "./styles.module.css";
 
 const possible_elements = new Set([
   "bslib::card_body",
@@ -63,6 +63,7 @@ export function render_card_elements(
       {header ?? (
         <CardHeader className={styles.missing_card_element}>
           <DropWatcherPanel
+            className={styles.drop_watcher}
             index={child_index}
             parentPath={path}
             wrappingNode={headerScaffold}
@@ -72,6 +73,7 @@ export function render_card_elements(
       {body ?? (
         <CardBody className={styles.missing_card_element}>
           <DropWatcherPanel
+            className={styles.drop_watcher}
             index={child_index}
             parentPath={path}
             wrappingNode={bodyScaffold}
@@ -81,6 +83,7 @@ export function render_card_elements(
       {footer ?? (
         <CardFooter className={styles.missing_card_element}>
           <DropWatcherPanel
+            className={styles.drop_watcher}
             index={child_index}
             parentPath={path}
             wrappingNode={footerScaffold}

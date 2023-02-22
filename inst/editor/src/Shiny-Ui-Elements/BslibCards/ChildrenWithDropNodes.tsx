@@ -5,14 +5,16 @@ import { DropWatcherPanel } from "../../DragAndDropHelpers/DropWatcherPanel";
 import { makeChildPath } from "../nodePathUtils";
 import type { NodePath, ShinyUiChildren } from "../uiNodeTypes";
 
+import styles from "./styles.module.css";
+
 export function ChildrenWithDropNodes({
-  dropPanelClass = "",
-  uiChildren,
+  dropPanelClass = styles.drop_watcher,
+  uiChildren = [],
   path,
   showOnEmpty,
 }: {
-  dropPanelClass: string | ((index: number) => string);
-  uiChildren: ShinyUiChildren;
+  dropPanelClass?: string | ((index: number) => string);
+  uiChildren?: ShinyUiChildren;
   path: NodePath;
   showOnEmpty?: React.ReactNode;
 }) {

@@ -2,7 +2,7 @@ import { mergeClasses } from "../../utils/mergeClasses";
 import type { UiComponentInfo, UiNodeComponent } from "../uiNodeTypes";
 
 import { ChildrenWithDropNodes } from "./ChildrenWithDropNodes";
-import styles from "./style.module.css";
+import styles from "./styles.module.css";
 export type CardHeaderSettings = {};
 
 const BslibCardHeader: UiNodeComponent<CardHeaderSettings> = (node) => {
@@ -13,11 +13,7 @@ const BslibCardHeader: UiNodeComponent<CardHeaderSettings> = (node) => {
       className={mergeClasses(styles.card_header, "card-header")}
       {...wrapperProps}
     >
-      <ChildrenWithDropNodes
-        uiChildren={uiChildren}
-        path={path}
-        dropPanelClass={styles.drop_watcher}
-      />
+      <ChildrenWithDropNodes uiChildren={uiChildren} path={path} />
     </div>
   );
 };

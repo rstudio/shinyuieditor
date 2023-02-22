@@ -8,15 +8,10 @@ import { usePlaceNode } from "../state/usePlaceNode";
 import type { DropHandlerArguments } from "./useFilteredDrop";
 import { useFilteredDrop } from "./useFilteredDrop";
 
-export function DropWatcherPanel({
-  index,
-  parentPath,
-  dropHandlerArgs,
-  className = "",
-  wrappingNode,
-  dropFilters,
-  ...divProps
-}: Omit<React.ComponentPropsWithoutRef<"div">, "className"> & {
+export type DropWatcherPanelProps = Omit<
+  React.ComponentPropsWithoutRef<"div">,
+  "className"
+> & {
   index: number;
   parentPath: NodePath;
   wrappingNode?: Wrapping_Node;
@@ -25,7 +20,17 @@ export function DropWatcherPanel({
   /** Classname can either be static string or can be a function that returns a
    * class name when passed the panels index */
   className?: string | ((index: number) => string);
-}) {
+};
+
+export function DropWatcherPanel({
+  index,
+  parentPath,
+  dropHandlerArgs,
+  className = "",
+  wrappingNode,
+  dropFilters,
+  ...divProps
+}: DropWatcherPanelProps) {
   const place_node = usePlaceNode();
 
   const ref = useFilteredDrop({

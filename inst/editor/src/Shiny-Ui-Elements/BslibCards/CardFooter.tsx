@@ -1,6 +1,6 @@
 import { mergeClasses } from "../../utils/mergeClasses";
 
-import styles from "./style.module.css";
+import styles from "./styles.module.css";
 
 export function CardFooter({
   className,

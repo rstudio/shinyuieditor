@@ -2,7 +2,6 @@ import type { UiComponentInfo, UiNodeComponentProps } from "../uiNodeTypes";
 
 import { CardFooter } from "./CardFooter";
 import { ChildrenWithDropNodes } from "./ChildrenWithDropNodes";
-import styles from "./style.module.css";
 
 export const bslibCardFooterInfo: UiComponentInfo<CardFooterSettings> = {
   title: "Card Footer",
@@ -31,11 +30,7 @@ function BslibCardFooter({
 }: UiNodeComponentProps<CardFooterSettings>) {
   return (
     <CardFooter {...wrapperProps}>
-      <ChildrenWithDropNodes
-        uiChildren={uiChildren}
-        path={path}
-        dropPanelClass={styles.drop_watcher}
-      />
+      <ChildrenWithDropNodes uiChildren={uiChildren} path={path} />
     </CardFooter>
   );
 }
