@@ -1,12 +1,12 @@
 import * as React from "react";
 
-import type { UiNodeComponent } from "../uiNodeTypes";
+import type { UiLeafNodeComponent } from "../uiNodeTypes";
 
 import type { ShinyCheckboxInputProps } from ".";
 
 import classes from "./styles.module.css";
 
-const ShinyCheckboxInput: UiNodeComponent<ShinyCheckboxInputProps> = ({
+const ShinyCheckboxInput: UiLeafNodeComponent<ShinyCheckboxInputProps> = ({
   uiArguments,
   wrapperProps,
 }) => {

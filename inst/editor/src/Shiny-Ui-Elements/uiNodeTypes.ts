@@ -109,7 +109,7 @@ export type UiComponentInfo<NodeSettings extends Record<string, any>> = {
        * The component that is used to actually draw the main interface for ui
        * element
        */
-      UiComponent: UiNodeComponent<NodeSettings>;
+      UiComponent: UiNodeComponent<NodeSettings, { TakesChildren: false }>;
     }
   | {
       /**
@@ -121,7 +121,7 @@ export type UiComponentInfo<NodeSettings extends Record<string, any>> = {
        * The component that is used to actually draw the main interface for ui
        * element
        */
-      UiComponent: UiNodeComponent<NodeSettings>;
+      UiComponent: UiNodeComponent<NodeSettings, { TakesChildren: true }>;
     }
 );
 
@@ -169,6 +169,7 @@ export const shinyUiNodeInfo = {
   "bslib::card_header": bslibCardHeaderInfo,
   "bslib::card_footer": bslibCardFooterInfo,
   "plotly::plotlyOutput": plotlyPlotlyOutputInfo,
+  textNode: textNodeInfo,
   unknownUiFunction: unknownUiFunctionInfo,
 };
 
@@ -277,6 +278,11 @@ export type UiNodeComponent<
   NodeSettings extends object,
   Opts extends UiNodeComponentOptions = { TakesChildren: true }
 > = (props: UiNodeComponentProps<NodeSettings, Opts>) => JSX.Element;
+
+export type UiLeafNodeComponent<NodeSettings extends object> = UiNodeComponent<
+  NodeSettings,
+  { TakesChildren: false }
+>;
 
 /**
  * Path to a given node. Starts at [0] for the root. The first child for

@@ -1,15 +1,15 @@
-import * as React from "react";
-
 import { BsCard } from "../../components/Grids/GridLayoutPanelHelpers/GridCards";
 import { mergeClasses } from "../../utils/mergeClasses";
 import { useGridItemSwapping } from "../GridlayoutGridCard/useGridItemSwapping";
-import type { UiNodeComponent } from "../uiNodeTypes";
+import type { UiLeafNodeComponent } from "../uiNodeTypes";
 
 import type { GridlayoutGridCardTextProps } from "./index";
 
 import classes from "./styles.module.css";
 
-const GridlayoutGridCardText: UiNodeComponent<GridlayoutGridCardTextProps> = ({
+const GridlayoutGridCardText: UiLeafNodeComponent<
+  GridlayoutGridCardTextProps
+> = ({
   uiArguments: { content: title, area, alignment },
   path,
   wrapperProps,

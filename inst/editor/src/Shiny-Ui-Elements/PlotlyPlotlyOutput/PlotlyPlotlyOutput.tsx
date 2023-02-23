@@ -1,12 +1,12 @@
 import { PlotPlaceholder } from "../../components/PlotPlaceholder/PlotPlaceholder";
 import { InputOutputTitle } from "../InputOutputTitle";
-import type { UiNodeComponent } from "../uiNodeTypes";
+import type { UiLeafNodeComponent } from "../uiNodeTypes";
 
 import type { PlotlyOutputSettings } from "./index";
 
 import "./styles.scss";
 
-const PlotlyPlotlyOutput: UiNodeComponent<PlotlyOutputSettings> = ({
+const PlotlyPlotlyOutput: UiLeafNodeComponent<PlotlyOutputSettings> = ({
   uiArguments: { outputId, width = "100%", height = "400px" },
   wrapperProps,
 }) => {

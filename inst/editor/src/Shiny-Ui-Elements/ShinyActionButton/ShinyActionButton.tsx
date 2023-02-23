@@ -1,13 +1,11 @@
-import * as React from "react";
-
 import Button from "../../components/Inputs/Button/Button";
-import type { UiNodeComponent } from "../uiNodeTypes";
+import type { UiLeafNodeComponent } from "../uiNodeTypes";
 
 import type { ShinyActionButtonProps } from "./index";
 
 import classes from "./styles.module.css";
 
-const ShinyActionButton: UiNodeComponent<ShinyActionButtonProps> = ({
+const ShinyActionButton: UiLeafNodeComponent<ShinyActionButtonProps> = ({
   uiArguments,
   wrapperProps,
 }) => {

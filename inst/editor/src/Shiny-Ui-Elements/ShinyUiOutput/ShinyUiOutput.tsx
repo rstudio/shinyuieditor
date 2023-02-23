@@ -1,10 +1,10 @@
-import type { UiNodeComponent } from "../uiNodeTypes";
+import type { UiLeafNodeComponent } from "../uiNodeTypes";
 
 import type { ShinyUiOutputProps } from "./index";
 
 import classes from "./styles.module.css";
 
-const ShinyUiOutput: UiNodeComponent<ShinyUiOutputProps> = ({
+const ShinyUiOutput: UiLeafNodeComponent<ShinyUiOutputProps> = ({
   uiArguments,
   wrapperProps,
 }) => {

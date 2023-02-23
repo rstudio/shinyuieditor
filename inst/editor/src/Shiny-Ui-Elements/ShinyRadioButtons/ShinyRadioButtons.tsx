@@ -1,12 +1,12 @@
 import React from "react";
 
-import type { UiNodeComponent } from "../uiNodeTypes";
+import type { UiLeafNodeComponent } from "../uiNodeTypes";
 
 import type { ShinyRadioButtonsProps } from ".";
 
 import classes from "./styles.module.css";
 
-const ShinyRadioButtons: UiNodeComponent<ShinyRadioButtonsProps> = ({
+const ShinyRadioButtons: UiLeafNodeComponent<ShinyRadioButtonsProps> = ({
   uiArguments,
   wrapperProps,
 }) => {

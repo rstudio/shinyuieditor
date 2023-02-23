@@ -2,13 +2,13 @@ import * as React from "react";
 
 import { mergeClasses } from "../../utils/mergeClasses";
 import { InputOutputTitle } from "../InputOutputTitle";
-import type { UiNodeComponent } from "../uiNodeTypes";
+import type { UiLeafNodeComponent } from "../uiNodeTypes";
 
 import type { ShinySliderInputProps } from ".";
 
 import classes from "./styles.module.css";
 
-const ShinySliderInput: UiNodeComponent<ShinySliderInputProps> = ({
+const ShinySliderInput: UiLeafNodeComponent<ShinySliderInputProps> = ({
   uiArguments,
   wrapperProps,
 }) => {

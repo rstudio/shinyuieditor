@@ -1,10 +1,10 @@
-import type { UiNodeComponent } from "../uiNodeTypes";
+import type { UiLeafNodeComponent } from "../uiNodeTypes";
 
 import type { ShinyCheckboxGroupInputProps } from ".";
 
 import classes from "./styles.module.css";
 
-const ShinyCheckboxGroupInput: UiNodeComponent<
+const ShinyCheckboxGroupInput: UiLeafNodeComponent<
   ShinyCheckboxGroupInputProps
 > = ({ uiArguments, wrapperProps }) => {
   const choices = uiArguments.choices;
