@@ -14,14 +14,9 @@ type DragCallbacks = {
   draggable: boolean;
 };
 
-export function useMakeDraggable({
-  nodeInfo,
-  immovable = false,
-}: {
-  nodeInfo: DraggedNodeInfo;
-  // A way of disabling drag behavior
-  immovable?: boolean;
-}): DragCallbacks | null {
+export function useMakeDraggable(
+  nodeInfo: DraggedNodeInfo
+): DragCallbacks | null {
   // Keep track of if we're in the middle of a drag. This will help avoid
   // unneccesary duplicate work when of calling endDrag twice we get when the
   // user abandons a drag
@@ -46,32 +41,32 @@ export function useMakeDraggable({
   //    window. This will trigger the dragend event instantly.
   const endDrag = React.useCallback(
     (e: React.DragEvent<HTMLDivElement> | DragEvent) => {
-      if (dragHappening.current === false || immovable) return;
+      if (dragHappening.current === false) return;
+      e.stopPropagation();
       unsetDraggedNode();
+      // debugger;
       dragHappening.current = false;
       document.body.removeEventListener("dragover", dummyDragOverListener);
       document.body.removeEventListener("drop", endDrag);
     },
-    [immovable, unsetDraggedNode]
+    [unsetDraggedNode]
   );
 
   const startDrag: React.DragEventHandler<HTMLDivElement> = React.useCallback(
     (e) => {
       e.stopPropagation();
-      setDraggedNode(nodeInfo);
       dragHappening.current = true;
       document.body.addEventListener("dragover", dummyDragOverListener);
       document.body.addEventListener("drop", endDrag);
+
+      // We need to use a timeout here to ensure the drag state is fully set on
+      // the dragged element before we start showing drop zones etc, otherwise
+      // the layout shift from the drop mode can cause the mouse to leave the
+      // dragged item and thus prematurely terminate the drag event
+      window.setTimeout(() => setDraggedNode(nodeInfo), 5);
     },
     [endDrag, nodeInfo, setDraggedNode]
   );
-
-  if (nodeInfo.currentPath?.length === 0 || immovable) {
-    console.log("Triggered case of root note having drag disabled");
-    // Don't let the root node be dragged. It can't go anywhere and causes
-    // super annoying visual shift
-    return null;
-  }
 
   return {
     onDragStart: startDrag,

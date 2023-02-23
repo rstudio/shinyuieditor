@@ -10,9 +10,7 @@ export function useMakeWrapperProps({
   path,
   canDrag,
 }: UiNodeProps): Required<UiNodeWrapperProps> {
-  const dragProps = useMakeDraggable({
-    nodeInfo: { node, currentPath: path },
-  });
+  const dragProps = useMakeDraggable({ node, currentPath: path });
 
   const { onClick, isSelected } = usePathInformation(path);
 

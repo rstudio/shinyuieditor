@@ -22,7 +22,7 @@ export function UiElementIcon({ uiName }: { uiName: ShinyUiNames }) {
     uiArguments: getDefaultSettings(settingsInfo),
   } as ShinyUiNode;
 
-  const dragProps = useMakeDraggable({ nodeInfo: { node } });
+  const dragProps = useMakeDraggable({ node });
 
   if (iconSrc === undefined) {
     return null;
