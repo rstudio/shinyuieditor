@@ -13,7 +13,7 @@ const BslibCard: UiNodeComponent<CardSettings> = ({
   wrapperProps,
 }) => {
   return (
-    <div className={mergeClasses("card", styles.container)} {...wrapperProps}>
+    <div className={mergeClasses("card", styles.card)} {...wrapperProps}>
       {render_card_elements(uiChildren, path)}
     </div>
   );
