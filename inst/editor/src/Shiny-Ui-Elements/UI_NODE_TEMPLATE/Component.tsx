@@ -3,7 +3,7 @@ import type { UiNodeComponent } from "../uiNodeTypes";
 
 import type { NodeNameSettings } from "./index";
 
-import styles from "./style.module.css";
+import styles from "./styles.module.css";
 
 export const PkgNodeName: UiNodeComponent<NodeNameSettings> = ({
   uiArguments,
