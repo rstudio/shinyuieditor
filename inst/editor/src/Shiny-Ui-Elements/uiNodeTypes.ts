@@ -34,6 +34,7 @@ import { shinyTabsetPanelInfo } from "./ShinyTabsetPanel";
 import { shinyTextInputInfo } from "./ShinyTextInput";
 import { shinyTextOutputInfo } from "./ShinyTextOutput";
 import { shinyUiOutputInfo } from "./ShinyUiOutput";
+import { textNodeInfo } from "./TextNode";
 import { unknownUiFunctionInfo } from "./UnknownUiFunction";
 
 /**
