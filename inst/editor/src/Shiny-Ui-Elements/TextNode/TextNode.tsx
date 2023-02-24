@@ -4,10 +4,10 @@ import type { UiLeafNodeComponent } from "../uiNodeTypes";
 import styles from "./styles.module.css";
 
 export const TextNode: UiLeafNodeComponent<TextNodeSettings> = ({
-  uiArguments: { contents, decoration, size: WrapperComp },
-  path,
+  uiArguments: { contents, decoration, size },
   wrapperProps,
 }) => {
+  const WrapperComp = size ?? "span";
   return (
     <WrapperComp
       className={styles.wrapper}

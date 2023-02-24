@@ -8,8 +8,8 @@ export type Text_Node_Tag = typeof valid_text_node_tags[number];
 
 export type TextNodeSettings = {
   contents: string;
-  decoration: "default" | "italic" | "bold";
-  size: Text_Node_Tag;
+  decoration?: "default" | "italic" | "bold";
+  size?: Text_Node_Tag;
 };
 
 export type Text_Node =
@@ -21,23 +21,15 @@ export type Text_Node =
 export function build_text_node(
   node: Text_Node
 ): ShinyUiNodeByName["textNode"] {
-  let contents: string = "";
-  let size: TextNodeSettings["size"] = "span";
-  let decoration: TextNodeSettings["decoration"] = "default";
-
-  if (IsNodeOfType(node, "character")) {
-    contents = node.val;
-  } else {
-    contents = node.val[1].val;
-    size = node.val[0].val;
-  }
-
   return {
     uiName: "textNode",
-    uiArguments: {
-      contents,
-      decoration,
-      size,
-    },
+    uiArguments: IsNodeOfType(node, "character")
+      ? {
+          contents: node.val,
+        }
+      : {
+          contents: node.val[1].val,
+          size: node.val[0].val,
+        },
   };
 }
