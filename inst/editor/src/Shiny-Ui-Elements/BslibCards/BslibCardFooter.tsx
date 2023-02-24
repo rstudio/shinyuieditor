@@ -6,21 +6,13 @@ import { ChildrenWithDropNodes } from "./ChildrenWithDropNodes";
 export const bslibCardFooterInfo: UiComponentInfo<CardFooterSettings> = {
   title: "Card Footer",
   UiComponent: BslibCardFooter,
-  settingsInfo: {
-    title: {
-      label: "Name of node",
-      inputType: "string",
-      defaultValue: "NODE NAME",
-    },
-  },
+  settingsInfo: {},
   acceptsChildren: true,
   category: "Cards",
   description: "Header for bslib cards",
 };
 
-export type CardFooterSettings = {
-  title: string;
-};
+export type CardFooterSettings = {};
 
 function BslibCardFooter({
   uiArguments,

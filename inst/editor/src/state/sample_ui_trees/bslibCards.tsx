@@ -27,9 +27,7 @@ export const bslibCards: ShinyUiNode = {
       uiChildren: [
         {
           uiName: "bslib::card_body",
-          uiArguments: {
-            title: "Card Body",
-          },
+          uiArguments: {},
           uiChildren: [
             {
               uiName: "shiny::textInput",
@@ -45,16 +43,12 @@ export const bslibCards: ShinyUiNode = {
     },
     {
       uiName: "gridlayout::grid_card_panel",
-      uiArguments: {
-        area: "empty",
-      },
+      uiArguments: { area: "empty" },
       uiChildren: [],
     },
     {
       uiName: "gridlayout::grid_card_panel",
-      uiArguments: {
-        area: "full",
-      },
+      uiArguments: { area: "full" },
       uiChildren: [
         {
           uiName: "bslib::card_header",
@@ -70,16 +64,12 @@ export const bslibCards: ShinyUiNode = {
         },
         {
           uiName: "bslib::card_body",
-          uiArguments: {
-            title: "Card Body",
-          },
+          uiArguments: {},
           uiChildren: [],
         },
         {
           uiName: "bslib::card_footer",
-          uiArguments: {
-            title: "Card Footer",
-          },
+          uiArguments: {},
           uiChildren: [],
         },
       ],
