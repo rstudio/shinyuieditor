@@ -1,10 +1,14 @@
+import icon from "../../assets/icons/shinyText.png";
 import type { TextNodeSettings } from "../../ast_parsing/text_nodes/build_text_node";
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import { TextNode } from "./TextNode";
 
 export const textNodeInfo: UiComponentInfo<TextNodeSettings> = {
-  title: "Text Node",
+  title: "Static Text",
+  category: "Utilities",
+  description:
+    "Add static text to your ui for things like descriptions and headers.",
   UiComponent: TextNode,
   settingsInfo: {
     contents: {
@@ -37,6 +41,5 @@ export const textNodeInfo: UiComponentInfo<TextNodeSettings> = {
     },
   },
   acceptsChildren: false,
-  category: "Utilities",
-  description: "Add simple text to your ui",
+  iconSrc: icon,
 };
