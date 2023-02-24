@@ -17,14 +17,14 @@ import {
   get_node_is_list,
 } from "./flatten_arrays_and_lists";
 import type { Output_Server_Pos } from "./get_assignment_nodes";
-import type { Character_Node } from "./node_identity_checkers";
 import {
   is_ast_branch_node,
   is_ast_leaf_node,
-  is_character_node,
   is_named_node,
 } from "./node_identity_checkers";
 import { Parsing_Error } from "./parsing_error_class";
+import { build_text_node } from "./text_nodes/build_text_node";
+import { is_text_node } from "./text_nodes/is_text_node";
 
 export function ast_to_ui_node(node: Branch_Node): ShinyUiNode {
   const [fn_name, ...args] = node.val;
@@ -89,7 +89,7 @@ function process_unnamed_arg(
   node: R_AST_Node,
   output_positions?: Output_Server_Pos
 ): ShinyUiNode {
-  if (is_character_node(node)) {
+  if (is_text_node(node)) {
     return build_text_node(node);
   }
   if (is_ast_branch_node(node)) {
@@ -100,15 +100,4 @@ function process_unnamed_arg(
     message: "Primative found in ui children of ui node.",
     cause: node,
   });
-}
-
-function build_text_node({ val }: Character_Node): ShinyUiNode {
-  return {
-    uiName: "textNode",
-    uiArguments: {
-      contents: val,
-      decoration: "default",
-      size: "default",
-    },
-  };
 }

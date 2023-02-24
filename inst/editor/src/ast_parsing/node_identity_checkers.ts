@@ -1,12 +1,6 @@
 import { is_object } from "editor/src/utils/is_object";
 
-import type {
-  AST_Node_By_Key,
-  Branch_Node,
-  Leaf_Node,
-  Primatives,
-  R_AST_Node,
-} from ".";
+import type { Branch_Node, Leaf_Node, Primatives, R_AST_Node } from ".";
 
 export function is_primative(x: unknown): x is Primatives {
   return (
@@ -19,11 +13,6 @@ export function is_ast_leaf_node(node: unknown): node is Leaf_Node {
     "val" in node &&
     ["string", "boolean", "number"].includes(typeof node.val)
   );
-}
-
-export type Character_Node = AST_Node_By_Key["c"];
-export function is_character_node(node: R_AST_Node): node is Character_Node {
-  return node.type === "c";
 }
 
 export function is_ast_branch_node(node: unknown): node is Branch_Node {

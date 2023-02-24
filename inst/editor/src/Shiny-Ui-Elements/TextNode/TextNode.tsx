@@ -1,6 +1,5 @@
+import type { TextNodeSettings } from "../../ast_parsing/text_nodes/build_text_node";
 import type { UiLeafNodeComponent } from "../uiNodeTypes";
-
-import type { TextNodeSettings } from "./index";
 
 import styles from "./styles.module.css";
 

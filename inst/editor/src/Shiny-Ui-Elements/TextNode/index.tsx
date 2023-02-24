@@ -1,12 +1,7 @@
+import type { TextNodeSettings } from "../../ast_parsing/text_nodes/build_text_node";
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import { TextNode } from "./TextNode";
-
-export type TextNodeSettings = {
-  contents: string;
-  decoration: "default" | "italic" | "bold";
-  size: "span" | "small" | "h1" | "h2";
-};
 
 export const textNodeInfo: UiComponentInfo<TextNodeSettings> = {
   title: "Text Node",
