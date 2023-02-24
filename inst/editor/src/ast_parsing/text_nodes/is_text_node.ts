@@ -4,7 +4,7 @@ import { IsNodeOfType } from "..";
 import type { Text_Node, Text_Node_Tag } from "./build_text_node";
 import { valid_text_node_tags } from "./build_text_node";
 
-export function is_text_node(node: R_AST_Node): node is Text_Node {
+export function is_raw_text_node(node: R_AST_Node): node is Text_Node {
   if (node.type === "c") return true;
 
   if (node.type !== "e") return false;

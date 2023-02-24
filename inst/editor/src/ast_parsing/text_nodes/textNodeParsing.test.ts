@@ -59,8 +59,6 @@ describe("Can convert from ui text node to code", () => {
         uiName: "textNode",
         uiArguments: {
           contents: text_contents,
-          size: "span",
-          decoration: "default",
         },
       })
     ).toEqual(`"${text_contents}"`);

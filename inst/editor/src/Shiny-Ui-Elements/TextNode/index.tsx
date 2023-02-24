@@ -14,6 +14,7 @@ export const textNodeInfo: UiComponentInfo<TextNodeSettings> = {
     },
     decoration: {
       label: "Decoration",
+      optional: true,
       inputType: "radio",
       defaultValue: "default",
       choices: {
@@ -25,6 +26,7 @@ export const textNodeInfo: UiComponentInfo<TextNodeSettings> = {
     size: {
       label: "Font size",
       inputType: "radio",
+      optional: true,
       defaultValue: "span",
       choices: {
         span: { icon: <span>normal</span> },

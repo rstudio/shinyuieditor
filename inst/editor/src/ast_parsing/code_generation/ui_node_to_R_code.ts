@@ -3,9 +3,10 @@ import type {
   ShinyUiNode,
   ShinyUiNodeByName,
 } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
-import { is_object } from "editor/src/utils/is_object";
+import { isUiNodeOfType } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
 
 import type { Primatives } from "..";
+import { text_node_to_code } from "../text_nodes/text_node_to_code";
 
 import {
   indent_line_breaks,
@@ -50,9 +51,16 @@ function ui_node_to_R_code_internal(
   const { uiName, uiArguments, uiChildren } = node;
   const removed_namespaces: Set<string> = new Set<string>();
 
-  if (isUnknownUiNode(node)) {
+  if (isUiNodeOfType(node, "unknownUiFunction")) {
     return {
       ui_code: print_unknown_ui_node(node),
+      removed_namespaces,
+    };
+  }
+
+  if (isUiNodeOfType(node, "textNode")) {
+    return {
+      ui_code: text_node_to_code(node),
       removed_namespaces,
     };
   }
@@ -102,11 +110,6 @@ function ui_node_to_R_code_internal(
 }
 export type NamedList = Record<string, string>;
 
-type UnknownUiNode = ShinyUiNodeByName["unknownUiFunction"];
-
-function isUnknownUiNode(x: unknown): x is UnknownUiNode {
-  return is_object(x) && "uiName" in x && x.uiName === "unknownUiFunction";
-}
 function print_unknown_ui_node({
   uiArguments,
 }: ShinyUiNodeByName["unknownUiFunction"]) {
@@ -161,7 +164,7 @@ function print_R_argument_value(value: unknown): string {
 
   if (typeof value === "boolean") return value ? "TRUE" : "FALSE";
 
-  if (isUnknownUiNode(value)) {
+  if (isUiNodeOfType(value, "unknownUiFunction")) {
     return print_unknown_ui_node(value);
   }
 

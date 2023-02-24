@@ -8,9 +8,10 @@ export function text_node_to_code(
   // Why does this not automatically resolve for me?
   const { contents, size, decoration } =
     ui_node.uiArguments as TextNodeSettings;
+
   const quoted_contents = `"${contents}"`;
 
-  if (size === "span" && decoration === "default") return quoted_contents;
+  if (!size && !decoration) return quoted_contents;
 
   return `${size}(${quoted_contents})`;
 }

@@ -4,6 +4,7 @@ import type { DefaultSettingsFromInfo } from "../components/Inputs/SettingsFormB
 import type { CustomFormRenderFn } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
 import type { DynamicFieldInfo } from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";
 import type { DeleteAction, UpdateAction } from "../state/app_info";
+import { is_object } from "../utils/is_object";
 import type { PickKeyFn } from "../utils/TypescriptUtils";
 
 import {
@@ -222,6 +223,13 @@ export type ShinyUiNodeByName = {
  * Union of Ui element name and associated arguments for easy narrowing
  */
 export type ShinyUiNode = ShinyUiNodeByName[ShinyUiNames];
+
+export function isUiNodeOfType<UiName extends ShinyUiNames>(
+  x: unknown,
+  uiName: UiName
+): x is ShinyUiNodeByName[UiName] {
+  return is_object(x) && "uiName" in x && x.uiName === uiName;
+}
 
 export type TemplateChooserNode = "TEMPLATE_CHOOSER";
 

@@ -24,7 +24,7 @@ import {
 } from "./node_identity_checkers";
 import { Parsing_Error } from "./parsing_error_class";
 import { build_text_node } from "./text_nodes/build_text_node";
-import { is_text_node } from "./text_nodes/is_text_node";
+import { is_raw_text_node } from "./text_nodes/is_text_node";
 
 export function ast_to_ui_node(node: Branch_Node): ShinyUiNode {
   const [fn_name, ...args] = node.val;
@@ -89,7 +89,7 @@ function process_unnamed_arg(
   node: R_AST_Node,
   output_positions?: Output_Server_Pos
 ): ShinyUiNode {
-  if (is_text_node(node)) {
+  if (is_raw_text_node(node)) {
     return build_text_node(node);
   }
   if (is_ast_branch_node(node)) {
