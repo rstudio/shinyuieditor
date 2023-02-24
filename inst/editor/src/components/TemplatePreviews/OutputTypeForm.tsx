@@ -1,6 +1,6 @@
 import React from "react";
 
-import type { App_Type } from "ast-parsing";
+import type { App_Type } from "../../ast_parsing";
 
 const outputTypes: App_Type[] = ["SINGLE-FILE", "MULTI-FILE"];
 

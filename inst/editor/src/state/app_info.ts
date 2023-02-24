@@ -1,8 +1,9 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import type { Full_App_Info, Raw_App_Info } from "ast-parsing";
 import { useSelector } from "react-redux";
 
+import type { Full_App_Info, Raw_App_Info } from "../ast_parsing";
+import { raw_app_info_to_full } from "../ast_parsing/raw_app_info_to_full";
 import type { TemplateChooserOptions } from "../components/TemplatePreviews/TemplateChooserView";
 import type { PlaceNodeArguments } from "../components/UiNode/TreeManipulation/placeNode";
 import { placeNodeMutating } from "../components/UiNode/TreeManipulation/placeNode";
@@ -12,7 +13,6 @@ import type { UpdateNodeArguments } from "../components/UiNode/TreeManipulation/
 import { updateNodeMutating } from "../components/UiNode/TreeManipulation/updateNode";
 import type { ShinyUiNode } from "../main";
 
-import { raw_app_info_to_full } from "./app_model/raw_app_info_to_full";
 import type { RootState } from "./store";
 import {
   deleteSubscriptions,

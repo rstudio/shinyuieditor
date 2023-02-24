@@ -1,14 +1,15 @@
 import type {
+  Raw_App_Info,
+  Single_File_Raw_App_Info,
+  Single_File_Full_Info,
   Multi_File_Full_Info,
   Multi_File_Raw_App_Info,
-  Raw_App_Info,
   Script_Position,
-  Single_File_Full_Info,
-  Single_File_Raw_App_Info,
-} from "ast-parsing";
-import { SCRIPT_LOC_KEYS } from "ast-parsing";
-import type { Parsed_Multi_File_AST } from "ast-parsing/src/parse_app_ast";
-import { parse_app_ast } from "ast-parsing/src/parse_app_ast";
+} from ".";
+import { SCRIPT_LOC_KEYS } from ".";
+
+import type { Parsed_Multi_File_AST } from "./parse_app_ast";
+import { parse_app_ast } from "./parse_app_ast";
 
 export function raw_app_info_to_full(info: Raw_App_Info) {
   return info.app_type === "SINGLE-FILE"

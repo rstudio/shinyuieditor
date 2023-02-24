@@ -1,10 +1,10 @@
+import type { ShinyUiNode } from "editor";
 import type {
-  App_Type,
+  Single_File_App_Script,
   Multi_File_App_Script,
   Script_Position,
-  Single_File_App_Script,
-} from "ast-parsing";
-import type { ShinyUiNode } from "editor";
+  App_Type,
+} from "editor/src/ast_parsing";
 
 import { isRecord } from "./isRecord";
 import type { MessageUnion } from "./MessageUnion";

@@ -1,10 +1,10 @@
 import React from "react";
 
-import type { App_Type } from "ast-parsing";
 import type { TemplateInfo } from "communication-types/src/AppTemplates";
 
-import { ui_node_to_R_code } from "../../../../ast-parsing/src/code_generation/ui_node_to_R_code";
 import { app_templates } from "../../assets/app-templates/app_templates";
+import type { App_Type } from "../../ast_parsing";
+import { ui_node_to_R_code } from "../../ast_parsing/code_generation/ui_node_to_R_code";
 
 import type { TemplateChooserOptions } from "./TemplateChooserView";
 import type { LayoutType } from "./TemplatePreviewCard";

@@ -226,7 +226,7 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
   });
 });
 
-describe("Full UI example", () => {
+test("Full UI example", () => {
   // prettier-ignore
   const ui_as_r_code = 
 `grid_page(

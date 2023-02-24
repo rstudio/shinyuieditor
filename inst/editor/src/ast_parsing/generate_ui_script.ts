@@ -1,6 +1,7 @@
-import type { Multi_File_Full_Info } from "ast-parsing";
-import { SCRIPT_LOC_KEYS } from "ast-parsing";
-import { ui_node_to_R_code } from "ast-parsing/src/code_generation/ui_node_to_R_code";
+import type { Multi_File_Full_Info } from ".";
+import { SCRIPT_LOC_KEYS } from ".";
+
+import { ui_node_to_R_code } from "./code_generation/ui_node_to_R_code";
 
 export function generate_ui_script({
   ui_tree,

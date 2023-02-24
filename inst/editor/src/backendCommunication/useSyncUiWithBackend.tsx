@@ -4,18 +4,18 @@ import type { MessageToClientByPath } from "communication-types";
 import debounce from "just-debounce-it";
 import { useDispatch } from "react-redux";
 
+import { generate_full_app_script } from "../ast_parsing/generate_full_app_script";
+import { raw_app_info_to_full } from "../ast_parsing/raw_app_info_to_full";
 import { useDeleteNode } from "../components/DeleteNodeButton/useDeleteNode";
-import { useUndoRedo } from "../state-logic/useUndoRedo";
 import type { MainStateOption } from "../state/app_info";
 import {
   SET_APP_INFO,
   SHOW_TEMPLATE_CHOOSER,
   useCurrentAppInfo,
 } from "../state/app_info";
-import { generate_full_app_script } from "../state/app_model/generate_full_app_script";
-import { raw_app_info_to_full } from "../state/app_model/raw_app_info_to_full";
 import { getNamedPath } from "../state/getNamedPath";
 import { useCurrentSelection } from "../state/selectedPath";
+import { useUndoRedo } from "../state-logic/useUndoRedo";
 import { useKeyboardShortcuts } from "../utils/hooks/useKeyboardShortcuts";
 
 import { useBackendConnection } from "./useBackendMessageCallbacks";
