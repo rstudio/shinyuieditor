@@ -6,7 +6,7 @@ import type { ShinyUiNode } from "../main";
 import type { ShinyUiNodeInfoUnion } from "../Shiny-Ui-Elements/uiNodeTypes";
 import { shinyUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
 import { useCurrentAppInfo } from "../state/app_info";
-import type { PickKeyFn } from "../TypescriptUtils";
+import type { PickKeyFn } from "../utils/TypescriptUtils";
 
 export function GoToSourceBtns({ node }: { node: ShinyUiNode | null }) {
   const { sendMsg, mode } = useBackendConnection();

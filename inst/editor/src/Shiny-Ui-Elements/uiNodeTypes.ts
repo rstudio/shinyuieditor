@@ -4,7 +4,7 @@ import type { DefaultSettingsFromInfo } from "../components/Inputs/SettingsFormB
 import type { CustomFormRenderFn } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
 import type { DynamicFieldInfo } from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";
 import type { DeleteAction, UpdateAction } from "../state/app_info";
-import type { PickKeyFn } from "../TypescriptUtils";
+import type { PickKeyFn } from "../utils/TypescriptUtils";
 
 import {
   bslibCardInfo,

@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { useSelector } from "react-redux";
 
-import PortalModal from "../PortalModal";
+import PortalModal from "../components/PortalModal/PortalModal";
 import type { RootState } from "../state/store";
 
 export function LostConnectionPopup() {

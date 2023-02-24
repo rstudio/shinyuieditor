@@ -1,7 +1,6 @@
-import type { Single_File_Raw_App_Info, Multi_File_Raw_App_Info } from ".";
-
-import { generate_full_app_script } from "./generate_full_app_script";
-import { raw_app_info_to_full } from "./raw_app_info_to_full";
+import type { Single_File_Raw_App_Info, Multi_File_Raw_App_Info } from "..";
+import { generate_full_app_script } from "../generate_full_app_script";
+import { raw_app_info_to_full } from "../raw_app_info_to_full";
 
 describe("Single-File apps", () => {
   // It's super important the script and ast match eachother here.

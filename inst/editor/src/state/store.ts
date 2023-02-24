@@ -3,8 +3,8 @@ import { configureStore } from "@reduxjs/toolkit";
 import uiTreeReducer from "./app_info";
 import connectedToServerReducer from "./connectedToServer";
 import currentlyDraggedNodeReducer from "./currentlyDraggedNode";
-import listenForDeleteMiddleware from "./listenForDeleteMiddleware";
-import listenForNodeAddMiddleware from "./listenForNodeAddMiddleware";
+import listenForDeleteMiddleware from "./middleware/listenForDeleteMiddleware";
+import listenForNodeAddMiddleware from "./middleware/listenForNodeAddMiddleware";
 import { resetSelectionInTemplateChooser } from "./middleware/resetSelectionInTemplateChooser";
 import selectedPathReducer from "./selectedPath";
 

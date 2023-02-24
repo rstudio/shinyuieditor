@@ -2,7 +2,8 @@ import * as React from "react";
 
 import * as ReactDOM from "react-dom";
 
-import { PanelHeader } from "./EditorSkeleton/EditorSkeleton";
+import { PanelHeader } from "../../EditorSkeleton/EditorSkeleton";
+
 import classes from "./PortalModal.module.css";
 
 interface IProps {

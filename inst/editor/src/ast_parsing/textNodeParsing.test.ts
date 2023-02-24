@@ -1,7 +1,6 @@
-// This test being here is really because I can't get it to run inside of the
+import type { Branch_Node } from ".";
 
-import type { Branch_Node } from "../../ast_parsing";
-import { ast_to_ui_node } from "../../ast_parsing/ast_to_shiny_ui_node";
+import { ast_to_ui_node } from "./ast_to_shiny_ui_node";
 
 // ast parsing library due to imports not working well with editor dependency
 test("Can construct text nodes correctly", () => {

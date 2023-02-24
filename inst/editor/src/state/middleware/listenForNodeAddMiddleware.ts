@@ -1,10 +1,9 @@
 import { createListenerMiddleware } from "@reduxjs/toolkit";
 
-import { getPathAfterMove } from "../components/UiNode/TreeManipulation/getPathAfterMove";
-import { isNodeMove } from "../components/UiNode/TreeManipulation/placeNode";
-
-import { PLACE_NODE } from "./app_info";
-import { SET_SELECTION } from "./selectedPath";
+import { getPathAfterMove } from "../../components/UiNode/TreeManipulation/getPathAfterMove";
+import { isNodeMove } from "../../components/UiNode/TreeManipulation/placeNode";
+import { PLACE_NODE } from "../app_info";
+import { SET_SELECTION } from "../selectedPath";
 
 // This middleware watches for the placement of a node and handles updating the
 // current selection path appropriately.

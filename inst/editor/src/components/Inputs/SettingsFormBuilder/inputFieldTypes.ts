@@ -1,5 +1,5 @@
 import type { ShinyUiNode } from "../../../main";
-import type { MapDiscriminatedUnion } from "../../../TypescriptUtils";
+import type { MapDiscriminatedUnion } from "../../../utils/TypescriptUtils";
 import type { CSSMeasure, CSSUnit } from "../CSSUnitInput/CSSMeasure";
 import type { NamedList } from "../ListInput/NamedListInput";
 import type { DropdownOption } from "../OptionsDropdown/DropdownSelect";
