@@ -1,9 +1,5 @@
 import icon from "../../assets/icons/shinyTextinput.png";
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
-import {
-  makeInputIdInfo,
-  makeLabelInputInfo,
-} from "../commonSettingsTemplates";
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import ShinyTextInput from "./ShinyTextInput";
@@ -20,8 +16,16 @@ export const shinyTextInputInfo: UiComponentInfo<ShinyTextInputProps> = {
   title: "Text Input",
   UiComponent: ShinyTextInput,
   settingsInfo: {
-    inputId: makeInputIdInfo("myTextInput"),
-    label: makeLabelInputInfo("Text Input"),
+    inputId: {
+      inputType: "string",
+      label: "inputId",
+      defaultValue: "myTextInput",
+    },
+    label: {
+      inputType: "string",
+      label: "label",
+      defaultValue: "Text Input",
+    },
     value: {
       inputType: "string",
       label: "Starting text",

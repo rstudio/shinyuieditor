@@ -2,7 +2,10 @@ import type { ShinyUiNodeByName } from "editor/src/Shiny-Ui-Elements/uiNodeTypes
 
 import type { R_AST_Node } from ".";
 
-import { build_function_text } from "./code_generation/build_function_text";
+import {
+  build_function_text,
+  print_node_val,
+} from "./code_generation/build_function_text";
 import { is_ast_branch_node } from "./node_identity_checkers";
 
 /**
@@ -24,7 +27,9 @@ export function create_unknownUiFunction({
   return {
     uiName: "unknownUiFunction",
     uiArguments: {
-      text: is_ast_branch_node(node) ? build_function_text(node.val) : node.val,
+      text: is_ast_branch_node(node)
+        ? build_function_text(node.val)
+        : print_node_val(node),
       explanation,
     },
   };

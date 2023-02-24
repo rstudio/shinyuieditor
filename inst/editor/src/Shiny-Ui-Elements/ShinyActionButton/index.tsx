@@ -1,9 +1,5 @@
 import buttonIcon from "../../assets/icons/shinyButton.png";
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
-import {
-  makeInputIdInfo,
-  makeLabelInputInfo,
-} from "../commonSettingsTemplates";
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import ShinyActionButton from "./ShinyActionButton";
@@ -18,13 +14,22 @@ export const shinyActionButtonInfo: UiComponentInfo<ShinyActionButtonProps> = {
   title: "Action Button",
   UiComponent: ShinyActionButton,
   settingsInfo: {
-    inputId: makeInputIdInfo("myButton"),
-    label: makeLabelInputInfo("My Button"),
+    inputId: {
+      inputType: "string",
+      label: "inputId",
+      defaultValue: "myButton",
+    },
+    label: {
+      inputType: "string",
+      label: "label",
+      defaultValue: "my button",
+    },
     width: {
       inputType: "cssMeasure",
       label: "Width",
       defaultValue: "100%",
       units: ["%", "px", "rem"],
+      optional: true,
     },
   },
   serverBindings: {

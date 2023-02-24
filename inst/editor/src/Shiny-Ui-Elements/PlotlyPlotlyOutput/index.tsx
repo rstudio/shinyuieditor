@@ -1,12 +1,13 @@
 import icon from "../../assets/icons/shinyPlot.png";
+import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import PlotlyPlotlyOutput from "./PlotlyPlotlyOutput";
 
 export type PlotlyOutputSettings = {
   outputId: string;
-  width?: string;
-  height?: string;
+  width?: CSSMeasure;
+  height?: CSSMeasure;
 };
 
 export const plotlyPlotlyOutputInfo: UiComponentInfo<PlotlyOutputSettings> = {
@@ -22,11 +23,13 @@ export const plotlyPlotlyOutputInfo: UiComponentInfo<PlotlyOutputSettings> = {
       label: "Width",
       inputType: "cssMeasure",
       defaultValue: "100%",
+      optional: true,
     },
     height: {
       label: "Height",
       inputType: "cssMeasure",
       defaultValue: "400px",
+      optional: true,
     },
   },
   serverBindings: {

@@ -44,7 +44,11 @@ export function useGridItemSwapping({
       // error for us.
       const droppedArea = dropInfo.node.uiArguments.area ?? "__BAD_DROP__";
 
-      setLayout?.({ type: "SWAP_ITEMS", item_a: area, item_b: droppedArea });
+      setLayout?.({
+        type: "SWAP_ITEMS",
+        item_a: area,
+        item_b: droppedArea as string,
+      });
     },
     [area, setLayout]
   );

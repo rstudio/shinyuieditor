@@ -41,5 +41,9 @@ export function valueIsType(
     return typeof value === "string";
   }
 
+  if (type === "string-array") {
+    return Array.isArray(value) && typeof value[0] === "string";
+  }
+
   throw new Error("Unimplemented argument type check", type);
 }

@@ -1,10 +1,6 @@
 import icon from "../../assets/icons/shinyRadiobuttons.png";
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
 import type { NamedList } from "../../components/Inputs/ListInput/NamedListInput";
-import {
-  makeInputIdInfo,
-  makeLabelInputInfo,
-} from "../commonSettingsTemplates";
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import ShinyRadioButtons from "./ShinyRadioButtons";
@@ -20,8 +16,16 @@ export const shinyRadioButtonsInfo: UiComponentInfo<ShinyRadioButtonsProps> = {
   title: "Radio Buttons",
   UiComponent: ShinyRadioButtons,
   settingsInfo: {
-    inputId: makeInputIdInfo("myRadioButtons"),
-    label: makeLabelInputInfo("Radio Buttons"),
+    inputId: {
+      inputType: "string",
+      label: "inputId",
+      defaultValue: "myRadioButtons",
+    },
+    label: {
+      inputType: "string",
+      label: "label",
+      defaultValue: "Radio Buttons",
+    },
     choices: {
       label: "Choices",
       inputType: "list",

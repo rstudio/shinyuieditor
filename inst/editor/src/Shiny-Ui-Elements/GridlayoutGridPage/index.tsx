@@ -1,7 +1,7 @@
 import type { GridLayoutArgs } from "../../components/GridlayoutElement/GridLayoutArgs";
 import {
-  updateGridLayoutAreaOnItemAreaChange,
   removeDeletedGridAreaFromLayout,
+  updateGridLayoutAreaOnItemAreaChange,
 } from "../../components/Grids/watchAndReactToGridAreaUpdatesupdate";
 import type { UiComponentInfo } from "../uiNodeTypes";
 
@@ -24,8 +24,14 @@ export const gridlayoutGridPageInfo: UiComponentInfo<GridLayoutArgs> = {
       inputType: "omitted",
       defaultValue: [". .", ". ."],
     },
-    row_sizes: { inputType: "omitted", defaultValue: ["1fr", "1fr"] },
-    col_sizes: { inputType: "omitted", defaultValue: ["1fr", "1fr"] },
+    row_sizes: {
+      inputType: "omitted",
+      defaultValue: ["1fr", "1fr"],
+    },
+    col_sizes: {
+      inputType: "omitted",
+      defaultValue: ["1fr", "1fr"],
+    },
   },
   stateUpdateSubscribers: {
     UPDATE_NODE: updateGridLayoutAreaOnItemAreaChange,

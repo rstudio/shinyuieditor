@@ -1,12 +1,13 @@
 import plotIcon from "../../assets/icons/shinyPlot.png";
+import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import ShinyPlotOutput from "./ShinyPlotOutput";
 
 export type ShinyPlotOutputProps = {
   outputId: string;
-  width?: string;
-  height?: string;
+  width?: CSSMeasure;
+  height?: CSSMeasure;
 };
 
 export const shinyPlotOutputInfo: UiComponentInfo<ShinyPlotOutputProps> = {
@@ -22,11 +23,13 @@ export const shinyPlotOutputInfo: UiComponentInfo<ShinyPlotOutputProps> = {
       label: "Width",
       inputType: "cssMeasure",
       defaultValue: "100%",
+      optional: true,
     },
     height: {
       label: "Height",
       inputType: "cssMeasure",
       defaultValue: "400px",
+      optional: true,
     },
   },
   serverBindings: {

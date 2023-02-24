@@ -1,9 +1,5 @@
 import selectBoxIcon from "../../assets/icons/shinySelectbox.png";
 import type { NamedList } from "../../components/Inputs/ListInput/NamedListInput";
-import {
-  makeInputIdInfo,
-  makeLabelInputInfo,
-} from "../commonSettingsTemplates";
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import ShinySelectInput from "./ShinySelectInput";
@@ -18,8 +14,16 @@ export const shinySelectInputInfo: UiComponentInfo<ShinySelectInputProps> = {
   title: "Select Input",
   UiComponent: ShinySelectInput,
   settingsInfo: {
-    inputId: makeInputIdInfo("mySelectInput"),
-    label: makeLabelInputInfo("Select Input"),
+    inputId: {
+      inputType: "string",
+      label: "inputId",
+      defaultValue: "mySelectInput",
+    },
+    label: {
+      inputType: "string",
+      label: "label",
+      defaultValue: "Select Input",
+    },
     choices: {
       label: "Choices",
       inputType: "list",

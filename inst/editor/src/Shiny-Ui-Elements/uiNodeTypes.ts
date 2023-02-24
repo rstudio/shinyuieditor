@@ -1,17 +1,16 @@
 import type React from "react";
 
-import type { DefaultSettingsFromInfo } from "../components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
 import type { CustomFormRenderFn } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
-import type { DynamicFieldInfo } from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";
+import type { SettingsTypeToInfo } from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";
 import type { DeleteAction, UpdateAction } from "../state/app_info";
 import { is_object } from "../utils/is_object";
 import type { PickKeyFn } from "../utils/TypescriptUtils";
 
 import {
-  bslibCardInfo,
   bslibCardBodyInfo,
-  bslibCardHeaderInfo,
   bslibCardFooterInfo,
+  bslibCardHeaderInfo,
+  bslibCardInfo,
 } from "./BslibCards";
 import { dtDTOutputInfo } from "./DtDtOutput";
 import { gridlayoutCardInfo } from "./GridlayoutCard";
@@ -50,9 +49,11 @@ export type UiComponentInfo<NodeSettings extends Record<string, any>> = {
   /**
    * Info declaring what arguments to render in settings panel and how
    */
-  settingsInfo: {
-    [ArgName in keyof NodeSettings]: DynamicFieldInfo;
-  };
+  settingsInfo: SettingsTypeToInfo<NodeSettings>;
+
+  /** Optional field that is only here so the proper settings type gets carried
+   * along with the info object.  */
+  exampleSettings?: NodeSettings;
 
   settingsFormRender?: CustomFormRenderFn<NodeSettings>;
 
@@ -178,9 +179,6 @@ export const shinyUiNodeInfo = {
 export type ShinyUiNodeInfo = typeof shinyUiNodeInfo;
 export type ShinyUiNodeInfoUnion = ShinyUiNodeInfo[keyof ShinyUiNodeInfo];
 
-type NodeDefaultSettings<UiName extends keyof ShinyUiNodeInfo> =
-  DefaultSettingsFromInfo<ShinyUiNodeInfo[UiName]["settingsInfo"]>;
-
 /**
  * All possible props/arguments for the defined UI components
  *
@@ -188,7 +186,9 @@ type NodeDefaultSettings<UiName extends keyof ShinyUiNodeInfo> =
  * of the types will automatically be built based on this type.
  */
 export type ShinyUiArguments = {
-  [UiName in keyof ShinyUiNodeInfo]: NodeDefaultSettings<UiName>;
+  [UiName in keyof ShinyUiNodeInfo]: Required<
+    ShinyUiNodeInfo[UiName]
+  >["exampleSettings"];
 };
 
 /**
@@ -197,7 +197,7 @@ export type ShinyUiArguments = {
  * haven't been coded up in the editor code
  */
 export type ArgsWithPotentialUnknowns<T extends ShinyUiNames> =
-  NodeDefaultSettings<T> & { [arg: string]: unknown };
+  ShinyUiArguments[T] & { [arg: string]: unknown };
 
 /**
  * Names of all the available Ui elements

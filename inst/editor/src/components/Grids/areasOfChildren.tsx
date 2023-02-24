@@ -9,7 +9,7 @@ export function areasOfChildren(children: ShinyUiChildren) {
   children.forEach((child) => {
     if ("area" in child.uiArguments && child.uiArguments.area !== undefined) {
       const area = child.uiArguments.area;
-      all_children_areas.push(area);
+      all_children_areas.push(area as string);
     }
   });
 

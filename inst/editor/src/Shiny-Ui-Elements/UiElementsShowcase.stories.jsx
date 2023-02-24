@@ -1,46 +1,23 @@
+// The very dynamic nature of this story was causing huge headaches for
+// typescript. So since it's not in the "production path" I'm just going to have
+// it be javascript.
 import React from "react";
 
-import type { ComponentMeta, ComponentStory } from "@storybook/react";
 import omit from "just-omit";
 
 import "../App.css";
-import type { DefaultSettingsFromInfo } from "../components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
 import {
   buildStaticFormInfo,
   getDefaultSettings,
 } from "../components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
 import { FormBuilder } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
-import type {
-  FormInfo,
-  FormValuesFromInfo,
-} from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";
-import type { SettingsUpdateAction } from "../components/Inputs/SettingsFormBuilder/SettingsInput/SettingsInput";
 
 import classes from "./UiElementsShowcase.module.css";
-import type {
-  ArgsWithPotentialUnknowns,
-  ShinyUiNames,
-  ShinyUiNode,
-  ShinyUiNodeInfo,
-  UiNodeComponent,
-} from "./uiNodeTypes";
+
 import { shinyUiNodeInfo } from "./uiNodeTypes";
 
-function UiNodeAndSettings<T extends ShinyUiNames>({
-  uiName,
-  uiArguments,
-}: {
-  uiName: T;
-  uiArguments: ArgsWithPotentialUnknowns<T>;
-}) {
-  type NodeSettingsType = DefaultSettingsFromInfo<
-    ShinyUiNodeInfo[T]["settingsInfo"]
-  >;
-  const [infoToRender, setInfoToRender] = React.useState<{
-    node: ShinyUiNode;
-    Comp: UiNodeComponent<NodeSettingsType>;
-    settingsInfo: FormInfo;
-  } | null>(null);
+function UiNodeAndSettings({ uiName, uiArguments }) {
+  const [infoToRender, setInfoToRender] = React.useState(null);
 
   React.useEffect(() => {
     const nodeInfo = shinyUiNodeInfo[uiName];
@@ -50,46 +27,46 @@ function UiNodeAndSettings<T extends ShinyUiNames>({
       uiName,
       uiArguments,
       uiChildren: [],
-    } as ShinyUiNode;
+    };
 
     setInfoToRender({
       node: newNode,
-      Comp: nodeInfo.UiComponent as UiNodeComponent<NodeSettingsType>,
+      Comp: nodeInfo.UiComponent,
       settingsInfo: buildStaticFormInfo(nodeInfo.settingsInfo, newNode),
     });
   }, [uiArguments, uiName]);
 
-  const updateSettings: (name: string, action: SettingsUpdateAction) => void =
-    React.useCallback((name, action) => {
-      setInfoToRender((info) => {
-        if (!info) return null;
-        const { node } = info;
+  const updateSettings = React.useCallback((name, action) => {
+    setInfoToRender((info) => {
+      if (!info) return null;
+      const { node } = info;
 
-        const prevSettings = node.uiArguments;
-        const newSettings =
-          action.type === "UPDATE"
-            ? { ...prevSettings, [name]: action.value }
-            : omit(prevSettings, name as keyof typeof prevSettings);
+      const prevSettings = node.uiArguments;
+      const newSettings =
+        action.type === "UPDATE"
+          ? { ...prevSettings, [name]: action.value }
+          : omit(prevSettings, name);
 
-        const newNode = {
-          ...node,
-          uiArguments: newSettings,
-        } as ShinyUiNode;
+      const newNode = {
+        ...node,
+        uiArguments: newSettings,
+      };
 
-        return {
-          ...info,
-          node: newNode,
-          settingsInfo: buildStaticFormInfo(
-            shinyUiNodeInfo[node.uiName].settingsInfo,
-            newNode
-          ),
-        };
-      });
-    }, []);
+      return {
+        ...info,
+        node: newNode,
+        settingsInfo: buildStaticFormInfo(
+          shinyUiNodeInfo[node.uiName].settingsInfo,
+          newNode
+        ),
+      };
+    });
+  }, []);
 
   if (!infoToRender) return <div>Setting up the settings info...</div>;
 
-  const { node, Comp, settingsInfo } = infoToRender;
+  // const { node, Comp, settingsInfo } = infoToRender;
+  const Comp = infoToRender.Comp;
 
   return (
     <div className={classes.container}>
@@ -98,7 +75,7 @@ function UiNodeAndSettings<T extends ShinyUiNames>({
         <div className={classes.uiHolder}>
           <Comp
             uiChildren={[]}
-            uiArguments={node.uiArguments}
+            uiArguments={infoToRender.node.uiArguments}
             path={[0]}
             wrapperProps={{
               onClick: (e) => {
@@ -106,7 +83,7 @@ function UiNodeAndSettings<T extends ShinyUiNames>({
               },
               "data-sue-path": "0",
               "data-is-selected-node": false,
-              "aria-label": node.uiName,
+              "aria-label": infoToRender.node.uiName,
             }}
           />
         </div>
@@ -114,8 +91,8 @@ function UiNodeAndSettings<T extends ShinyUiNames>({
       <div>
         <h1>Settings Panel</h1>
         <FormBuilder
-          settings={node.uiArguments as FormValuesFromInfo<typeof settingsInfo>}
-          settingsInfo={settingsInfo}
+          settings={infoToRender.node.uiArguments}
+          settingsInfo={infoToRender.settingsInfo}
           onSettingsChange={updateSettings}
         />
       </div>
@@ -126,11 +103,9 @@ function UiNodeAndSettings<T extends ShinyUiNames>({
 export default {
   title: "Ui Elements Showcase",
   component: UiNodeAndSettings,
-} as ComponentMeta<typeof UiNodeAndSettings>;
+};
 
-export const UiElementsShowcase: ComponentStory<
-  ({ nameOfElement }: { nameOfElement: ShinyUiNames }) => JSX.Element
-> = ({ nameOfElement }) => {
+export const UiElementsShowcase = ({ nameOfElement }) => {
   const defaultSettings = getDefaultSettings(
     shinyUiNodeInfo[nameOfElement].settingsInfo
   );

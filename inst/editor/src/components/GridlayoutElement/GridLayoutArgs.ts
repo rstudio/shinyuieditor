@@ -1,8 +1,8 @@
 import type { CSSMeasure } from "../Inputs/CSSUnitInput/CSSMeasure";
 
 export type GridLayoutArgs = {
-  layout: string[] | string;
-  row_sizes: CSSMeasure[] | CSSMeasure;
-  col_sizes: CSSMeasure[] | CSSMeasure;
+  layout: string[];
+  row_sizes: CSSMeasure[];
+  col_sizes: CSSMeasure[];
   gap_size: CSSMeasure;
 };

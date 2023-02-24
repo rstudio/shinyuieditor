@@ -21,9 +21,11 @@ export const gridlayoutGridCardPlotInfo: UiComponentInfo<GridlayoutGridCardPlotP
       outputId: {
         label: "Output ID",
         inputType: "string",
-        defaultValue: (node) => {
-          if (!node) return "MyPlot";
-          return "area" in node.uiArguments ? node.uiArguments.area : "MyPlot";
+        defaultValue: function (node): string {
+          if (node && "area" in node.uiArguments) {
+            return node.uiArguments.area as string;
+          }
+          return "MyPlot";
         },
         optional: true,
       },

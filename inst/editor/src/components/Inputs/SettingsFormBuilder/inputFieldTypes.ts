@@ -1,5 +1,9 @@
 import type { ShinyUiNode } from "../../../main";
-import type { MapDiscriminatedUnion } from "../../../utils/TypescriptUtils";
+import type {
+  MapDiscriminatedUnion,
+  NonOptionalKeys,
+  OptionalKeys,
+} from "../../../utils/TypescriptUtils";
 import type { CSSMeasure, CSSUnit } from "../CSSUnitInput/CSSMeasure";
 import type { NamedList } from "../ListInput/NamedListInput";
 import type { DropdownOption } from "../OptionsDropdown/DropdownSelect";
@@ -40,15 +44,69 @@ export type FieldEntryUnion =
       inputType: "radio";
       value: RadioOption;
       choices: RadioOptions;
+    }
+  | {
+      inputType: "string-array";
+      value: string[];
     };
-
-export type InputFieldEntryNames = FieldEntryUnion["inputType"];
-export type KnownInputFieldTypes = FieldEntryUnion["value"];
 
 export type InputFieldEntryMap = MapDiscriminatedUnion<
   FieldEntryUnion,
   "inputType"
 >;
+
+type FullInputTypeNameToType = {
+  [Name in keyof InputFieldEntryMap]:
+    | ({
+        defaultValue: DynamicValueType<InputFieldEntryMap[Name]["value"]>;
+        inputType: InputFieldEntryMap[Name]["inputType"];
+        /** Should the default value be given to a new instance of a settings object
+         * if that field is optional?  */
+        useDefaultIfOptional?: boolean;
+        /** What should the label be above the input for this field? */
+        label?: string;
+      } & ArgumentsOrCallbacks<
+        Omit<InputFieldEntryMap[Name], "value" | "inputType">
+      >)
+    | { inputType: "omitted"; defaultValue: unknown };
+};
+
+type ArgTypeToInfo<ArgType extends KnownInputFieldTypes> =
+  ArgType extends CSSMeasure
+    ? FullInputTypeNameToType["cssMeasure"]
+    : ArgType extends string
+    ? FullInputTypeNameToType["string" | "dropdown" | "radio"]
+    : ArgType extends number
+    ? FullInputTypeNameToType["number"]
+    : ArgType extends Record<string, string>
+    ? FullInputTypeNameToType["list"]
+    : ArgType extends boolean
+    ? FullInputTypeNameToType["boolean"]
+    : ArgType extends string[]
+    ? FullInputTypeNameToType["string-array"]
+    : never;
+
+/**
+ * Convert from a basic settings object to a settings info object
+ */
+export type SettingsTypeToInfo<
+  SettingsTypes extends Record<string, KnownInputFieldTypes>
+> = {
+  [ArgID in NonOptionalKeys<SettingsTypes>]: ArgTypeToInfo<
+    SettingsTypes[ArgID]
+  >;
+} & {
+  [ArgID in OptionalKeys<SettingsTypes>]: ArgTypeToInfo<
+    Required<SettingsTypes>[ArgID]
+  > & { optional: true };
+};
+
+export type InputTypeNameToType = {
+  [Name in keyof InputFieldEntryMap]: InputFieldEntryMap[Name]["value"];
+};
+
+export type InputFieldEntryNames = FieldEntryUnion["inputType"];
+export type KnownInputFieldTypes = FieldEntryUnion["value"];
 
 export type NodeToValueFn<T> = (node?: ShinyUiNode) => T;
 
@@ -57,7 +115,7 @@ type DynamicValueType<T> = T | NodeToValueFn<T>;
  * Object is filled with either values or callbacks to get those values from a
  * ui node
  */
-type ArgumentsOrCallbacks<Obj extends Record<string, any>> = {
+type ArgumentsOrCallbacks<Obj extends Record<string, unknown>> = {
   [Key in keyof Obj]: DynamicValueType<Obj[Key]>;
 };
 

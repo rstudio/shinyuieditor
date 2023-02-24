@@ -83,7 +83,7 @@ export function should_line_break({
   );
 }
 
-function print_node_val({ val, type }: R_AST_Node): string {
+export function print_node_val({ val, type }: R_AST_Node): string {
   switch (type) {
     case "b": {
       return val ? "TRUE" : "FALSE";

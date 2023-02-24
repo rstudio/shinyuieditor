@@ -1,9 +1,5 @@
 import icon from "../../assets/icons/shinycheckbox.png";
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
-import {
-  makeInputIdInfo,
-  makeLabelInputInfo,
-} from "../commonSettingsTemplates";
 import type { UiComponentInfo } from "../uiNodeTypes";
 
 import ShinyCheckboxInput from "./ShinyCheckboxInput";
@@ -20,8 +16,16 @@ export const shinyCheckboxInputInfo: UiComponentInfo<ShinyCheckboxInputProps> =
     title: "Checkbox Input",
     UiComponent: ShinyCheckboxInput,
     settingsInfo: {
-      inputId: makeInputIdInfo("myCheckboxInput"),
-      label: makeLabelInputInfo("Checkbox Input"),
+      inputId: {
+        inputType: "string",
+        label: "inputId",
+        defaultValue: "myCheckboxInput",
+      },
+      label: {
+        inputType: "string",
+        label: "label",
+        defaultValue: "Checkbox Input",
+      },
       value: {
         inputType: "boolean",
         label: "Starting value",
@@ -32,6 +36,7 @@ export const shinyCheckboxInputInfo: UiComponentInfo<ShinyCheckboxInputProps> =
         label: "Width",
         defaultValue: "100%",
         units: ["%", "px", "rem"],
+        optional: true,
       },
     },
     serverBindings: {
