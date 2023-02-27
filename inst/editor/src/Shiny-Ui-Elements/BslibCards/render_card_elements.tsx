@@ -1,5 +1,6 @@
 import UiNode from "../../components/UiNode/UiNode";
 import { DropWatcherPanel } from "../../DragAndDropHelpers/DropWatcherPanel";
+import { sum_booleans } from "../../utils/sum_booleans";
 import { makeChildPath } from "../nodePathUtils";
 import type { NodePath, ShinyUiChildren } from "../uiNodeTypes";
 
@@ -33,7 +34,7 @@ export function render_card_elements(
   let footer: JSX.Element | null = null;
 
   let child_index = 0;
-  // const elements: JSX.Element[] = [];
+
   uiChildren.forEach((child) => {
     const { uiName } = child;
     if (!possible_elements.has(uiName)) {
@@ -58,13 +59,16 @@ export function render_card_elements(
     }
   });
 
+  const has_header = Boolean(header);
+  const has_body = Boolean(body);
+
   return (
     <>
       {header ?? (
         <CardHeader className={styles.missing_card_element}>
           <DropWatcherPanel
             className={styles.drop_watcher}
-            index={child_index}
+            index={0}
             parentPath={path}
             wrappingNode={headerScaffold}
           />
@@ -74,7 +78,7 @@ export function render_card_elements(
         <CardBody className={styles.missing_card_element}>
           <DropWatcherPanel
             className={styles.drop_watcher}
-            index={child_index}
+            index={sum_booleans(has_header)}
             parentPath={path}
             wrappingNode={bodyScaffold}
           />
@@ -84,7 +88,7 @@ export function render_card_elements(
         <CardFooter className={styles.missing_card_element}>
           <DropWatcherPanel
             className={styles.drop_watcher}
-            index={child_index}
+            index={sum_booleans(has_header, has_body)}
             parentPath={path}
             wrappingNode={footerScaffold}
           />
