@@ -83,3 +83,7 @@ the label */
   transition-timing-function: ease-out;
   opacity: 0;
 }
+
+.text_only_label {
+  /* padding: var(--size-md); */
+}

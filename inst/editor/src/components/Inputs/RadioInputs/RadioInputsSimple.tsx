@@ -3,13 +3,13 @@ import * as React from "react";
 import type { InputComponentByType } from "../SettingsFormBuilder/inputFieldTypes";
 import { makeLabelId } from "../SettingsFormBuilder/inputFieldTypes";
 
-import classes from "./RadioInputs.module.css";
+import styles from "./RadioInputs.module.css";
 
 export type RadioOption = string;
-export type RadioOptions = Record<
-  RadioOption,
-  { icon: JSX.Element | string; label?: string }
->;
+type OptionDisplayInfo =
+  | { icon: JSX.Element | string; label?: string }
+  | { label: string };
+export type RadioOptions = Record<RadioOption, OptionDisplayInfo>;
 export const DEFAULT_RADIO_CHOICE = "__DEFAULT-RADIO-CHOICE__";
 
 export function RadioInputs({
@@ -40,18 +40,22 @@ export function RadioInputs({
 
   return (
     <fieldset
-      className={classes.radioContainer}
+      className={styles.radioContainer}
       aria-labelledby={makeLabelId(id)}
       aria-label={label}
       style={columns_style_defn}
     >
       {values.map((option) => {
-        const { icon, label = option } = choices[option] ?? {};
         const optionId = id + option;
+        const info = choices[option];
+        const icon = "icon" in info ? info.icon : null;
+        const text_only = icon === null;
+        const label = info.label ?? option;
+
         return (
-          <div className={classes.option} key={option}>
+          <div className={styles.option} key={option}>
             <input
-              className={classes.radioInput}
+              className={styles.radioInput}
               name={id}
               id={optionId}
               type="radio"
@@ -60,13 +64,19 @@ export function RadioInputs({
               checked={option === currentSelection}
             />
             <label
-              className={classes.radioLabel}
+              className={styles.radioLabel}
               htmlFor={optionId}
-              data-name={label}
+              data-name={text_only ? null : label}
             >
-              {typeof icon === "string" ? (
-                <img src={icon} alt={label} className={classes.icon} />
+              {text_only ? (
+                // We have no icon at all and want to just show the label text
+                <span className={styles.text_only_label}>{label}</span>
+              ) : typeof icon === "string" ? (
+                // Icon being a string is a path to an icon png so place in image
+                <img src={icon} alt={label} className={styles.icon} />
               ) : (
+                // Otherwise, if the icon is present it's a jsx element so we just need to
+                // give that back
                 icon
               )}
             </label>
