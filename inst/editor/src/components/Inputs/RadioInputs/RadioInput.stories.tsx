@@ -55,3 +55,21 @@ export const TextOptions = () => {
     </>
   );
 };
+
+export const TwoColumnsOptions = () => {
+  const [value, setValue] = React.useState<RadioOption>("default");
+
+  return (
+    <>
+      <span>Current value: {value}</span>
+      <RadioInputs
+        id="myRadio"
+        label="Radio Input"
+        choices={textOptions}
+        value={value}
+        onChange={setValue}
+        optionsPerColumn={2}
+      />
+    </>
+  );
+};
