@@ -21,8 +21,8 @@ export const shinyActionButtonInfo: UiComponentInfo<ShinyActionButtonProps> = {
     },
     label: {
       inputType: "string",
-      label: "label",
-      defaultValue: "my button",
+      label: "Label",
+      defaultValue: "My Button",
     },
     width: {
       inputType: "cssMeasure",
