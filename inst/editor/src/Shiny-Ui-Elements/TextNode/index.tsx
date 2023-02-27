@@ -15,6 +15,7 @@ export const textNodeInfo: UiComponentInfo<TextNodeSettings> = {
       label: "Text contents",
       inputType: "string",
       defaultValue: "Lorem Ipsum",
+      longform: true,
     },
     decoration: {
       label: "Decoration",

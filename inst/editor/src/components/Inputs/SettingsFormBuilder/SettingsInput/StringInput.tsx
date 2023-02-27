@@ -8,18 +8,21 @@ export function StringInput({
   onChange,
   longform,
 }: InputComponentByType<"string">) {
-  return (
-    <input
-      className="SUE-Input"
-      aria-label={label}
-      aria-labelledby={makeLabelId(id)}
-      id={id}
-      type="text"
-      value={value}
-      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-        const newValue = e.target.value;
-        onChange(newValue);
-      }}
-    />
-  );
+  const common_props = {
+    className: "SUE-Input",
+    "aria-label": label,
+    "aria-labelledby": makeLabelId(id),
+    id,
+    value,
+    onChange: (
+      e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+    ) => {
+      const newValue = e.target.value;
+      onChange(newValue);
+    },
+  };
+  if (longform) {
+    return <textarea {...common_props} />;
+  }
+  return <input {...common_props} type="text" />;
 }
