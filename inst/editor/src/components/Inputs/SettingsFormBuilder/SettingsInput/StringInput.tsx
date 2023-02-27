@@ -1,4 +1,4 @@
-import type { InputComponentProps } from "../inputFieldTypes";
+import type { InputComponentByType } from "../inputFieldTypes";
 import { makeLabelId } from "../inputFieldTypes";
 
 export function StringInput({
@@ -6,7 +6,8 @@ export function StringInput({
   label,
   value,
   onChange,
-}: InputComponentProps<string>) {
+  longform,
+}: InputComponentByType<"string">) {
   return (
     <input
       className="SUE-Input"

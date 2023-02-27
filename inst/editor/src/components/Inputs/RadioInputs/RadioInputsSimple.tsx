@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import type { InputComponentProps } from "../SettingsFormBuilder/inputFieldTypes";
+import type { InputComponentByType } from "../SettingsFormBuilder/inputFieldTypes";
 import { makeLabelId } from "../SettingsFormBuilder/inputFieldTypes";
 
 import classes from "./RadioInputs.module.css";
@@ -19,13 +19,7 @@ export function RadioInputs({
   value: currentSelection,
   onChange,
   optionsPerColumn,
-}: InputComponentProps<
-  RadioOption,
-  {
-    choices: RadioOptions;
-    optionsPerColumn?: number;
-  }
->) {
+}: InputComponentByType<"radio">) {
   const values = Object.keys(choices) as RadioOption[];
 
   // If we've been given the reset signal default to the first option

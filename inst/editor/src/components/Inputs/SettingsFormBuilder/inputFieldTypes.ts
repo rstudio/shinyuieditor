@@ -4,7 +4,7 @@ import type {
   NonOptionalKeys,
   OptionalKeys,
 } from "../../../utils/TypescriptUtils";
-import type { CSSMeasure, CSSUnit } from "../CSSUnitInput/CSSMeasure";
+import type { CSSMeasure, CSSUnitWAuto } from "../CSSUnitInput/CSSMeasure";
 import type { NamedList } from "../ListInput/NamedListInput";
 import type { DropdownOption } from "../OptionsDropdown/DropdownSelect";
 import type {
@@ -16,6 +16,7 @@ export type FieldEntryUnion =
   | {
       inputType: "string";
       value: string;
+      longform?: boolean;
     }
   | {
       inputType: "number";
@@ -27,7 +28,7 @@ export type FieldEntryUnion =
   | {
       inputType: "cssMeasure";
       value: CSSMeasure;
-      units?: CSSUnit[];
+      units?: CSSUnitWAuto[];
     }
   | { inputType: "boolean"; value: boolean }
   | {
@@ -44,6 +45,7 @@ export type FieldEntryUnion =
       inputType: "radio";
       value: RadioOption;
       choices: RadioOptions;
+      optionsPerColumn?: number;
     }
   | {
       inputType: "string-array";
@@ -99,10 +101,6 @@ export type SettingsTypeToInfo<
   [ArgID in OptionalKeys<SettingsTypes>]: ArgTypeToInfo<
     Required<SettingsTypes>[ArgID]
   > & { optional: true };
-};
-
-export type InputTypeNameToType = {
-  [Name in keyof InputFieldEntryMap]: InputFieldEntryMap[Name]["value"];
 };
 
 export type InputFieldEntryNames = FieldEntryUnion["inputType"];
@@ -203,12 +201,12 @@ export type FormValuesFromInfo<Info extends FormInfo> = {
   [K in RequiredSettingsKeys<Info>]: typeFromInfo<Info[K]>;
 };
 
-export type InputComponentProps<T, Opts extends object = {}> = {
+export type InputComponentByType<InputType extends keyof InputFieldEntryMap> = {
   id: string;
   label: string;
-  value: T;
-  onChange: (value: T) => void;
-} & Opts;
+  value: InputFieldEntryMap[InputType]["value"];
+  onChange: (value: InputFieldEntryMap[InputType]["value"]) => void;
+} & Omit<InputFieldEntryMap[InputType], "inputType" | "value">;
 
 export function makeLabelId(id: string) {
   return id + "-label";

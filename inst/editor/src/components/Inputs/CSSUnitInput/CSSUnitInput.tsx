@@ -2,15 +2,13 @@ import React from "react";
 
 import { mergeClasses } from "../../../utils/mergeClasses";
 import { NumberInputSimple } from "../NumberInput/NumberInput";
-import type { InputComponentProps } from "../SettingsFormBuilder/inputFieldTypes";
+import type { InputComponentByType } from "../SettingsFormBuilder/inputFieldTypes";
 import { makeLabelId } from "../SettingsFormBuilder/inputFieldTypes";
 
-import type { CSSMeasure } from "./CSSMeasure";
+import type { CSSUnitWAuto } from "./CSSMeasure";
 import { deparseCSSMeasure, parseCSSMeasure } from "./CSSMeasure";
 import { CSSUnitChooser } from "./CSSUnitChooser";
 import classes from "./CSSUnitInput.module.css";
-
-export type CSSUnits = "fr" | "px" | "rem" | "auto" | "%";
 
 const defaultCounts = {
   fr: 1,
@@ -25,12 +23,7 @@ export function CSSUnitInput({
   value: initialValue,
   onChange,
   units = ["px", "rem", "%"],
-}: InputComponentProps<
-  CSSMeasure,
-  {
-    units?: CSSUnits[];
-  }
->) {
+}: InputComponentByType<"cssMeasure">) {
   const { count, unit } = parseCSSMeasure(initialValue);
 
   const updateCount = React.useCallback(
@@ -55,7 +48,7 @@ export function CSSUnitInput({
   );
 
   const updateUnit = React.useCallback(
-    (newUnit: CSSUnits) => {
+    (newUnit: CSSUnitWAuto) => {
       if (newUnit === "auto") {
         onChange(
           deparseCSSMeasure({
