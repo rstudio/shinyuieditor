@@ -1,0 +1,66 @@
+.hoveringOverSwap,
+.availableToSwap {
+  --highlight-color: var(--rstudio-blue, pink);
+}
+
+div.hoveringOverSwap::after {
+  content: "Swap positions";
+  position: absolute;
+  background-color: var(--highlight-color);
+  color: var(--rstudio-white);
+  bottom: 100%;
+  inset-inline: 20px;
+  z-index: 2;
+  text-align: center;
+  padding-block: 4px;
+}
+
+div.availableToSwap {
+  --outline-start-width: 2px;
+  --outline-end-width: 5px;
+  --start-shadow: inset 0px 0 0px var(--outline-start-width)
+    var(--highlight-color);
+  --end-shadow: inset 0px 0 0px var(--outline-end-width) var(--highlight-color);
+
+  box-shadow: var(--start-shadow);
+  animation-duration: 3s;
+  animation-name: pulse;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+@keyframes pulse {
+  from {
+    box-shadow: var(--start-shadow);
+  }
+
+  50% {
+    box-shadow: var(--end-shadow);
+  }
+  to {
+    box-shadow: var(--start-shadow);
+  }
+}
+
+/* Small message that shows up when a card is empty to allow easy deletion */
+div.emptyGridCard {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: var(--vertical-spacing);
+  /* Needs to sit above the select-by-clicking watcher */
+  z-index: 2;
+  /* Don't let the panel swallow initial drag over event for drop watcher */
+  pointer-events: none;
+}
+div.emptyGridCard > button {
+  /* Re-enable pointer events so the button actually works */
+  pointer-events: initial;
+}
+
+.emptyMessage {
+  font-style: italic;
+  opacity: 0.5;
+}

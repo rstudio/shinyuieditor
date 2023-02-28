@@ -11,13 +11,15 @@ import {
   bslibCardFooterInfo,
   bslibCardHeaderInfo,
   bslibCardInfo,
-} from "./BslibCards";
+} from "./Bslib";
 import { dtDTOutputInfo } from "./DtDtOutput";
-import { gridlayoutCardInfo } from "./GridlayoutCard";
-import { gridlayoutGridCardPlotInfo } from "./GridlayoutGridCardPlot";
-import { gridlayoutTextPanelInfo } from "./GridlayoutGridCardText";
-import { gridlayoutGridContainerInfo } from "./GridlayoutGridContainer";
-import { gridlayoutGridPageInfo } from "./GridlayoutGridPage";
+import {
+  gridlayoutGridPageInfo,
+  gridlayoutTextPanelInfo,
+  gridlayoutGridCardPlotInfo,
+  gridlayoutGridContainerInfo,
+  gridlayoutCardInfo,
+} from "./Gridlayout";
 import { plotlyPlotlyOutputInfo } from "./PlotlyPlotlyOutput";
 import { shinyActionButtonInfo } from "./ShinyActionButton";
 import { shinyCheckboxGroupInputInfo } from "./ShinyCheckboxGroupInput";

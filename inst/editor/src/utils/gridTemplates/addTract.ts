@@ -1,8 +1,8 @@
 import produce from "immer";
 
-import type { TemplatedGridProps } from "../../components/Grids/EditableGridContainer/TemplatedGridProps";
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
-import type { TractDirection } from "../../Shiny-Ui-Elements/GridlayoutGridPage";
+import type { TractDirection } from "../../Shiny-Ui-Elements/Gridlayout/GridlayoutGridPage";
+import type { TemplatedGridProps } from "../../Shiny-Ui-Elements/Gridlayout/Utils/EditableGridContainer/TemplatedGridProps";
 import { fillArr, addAtIndex } from "../array-helpers";
 import { insertRowOrCol } from "../matrix-helpers";
 

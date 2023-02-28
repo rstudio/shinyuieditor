@@ -1,0 +1,64 @@
+.card_body {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  /* Stop blowout and enable properties like padding to be used as expected */
+  min-width: 0;
+
+  isolation: isolate;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.empty_msg {
+  position: absolute;
+  display: grid;
+  place-content: center;
+  inset: 0;
+  pointer-events: none;
+}
+
+.drop_watcher {
+  width: 100%;
+  height: 0;
+}
+/* The final panel should grow as large as it needs to fill end of card */
+.drop_watcher:last-of-type {
+  flex-grow: 1;
+  height: unset;
+}
+
+.drop_watcher:global(.can-accept-drop) {
+  color: var(--rstudio-white);
+  height: 15px;
+}
+
+.missing_card_element:not(:has(:global(.can-accept-drop))) {
+  height: 0;
+  padding: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.missing_card_element:has(:global(.can-accept-drop)) {
+  height: auto;
+}
+
+.drop_watcher:global(.can-accept-drop),
+.missing_card_element:has(:global(.can-accept-drop)) {
+  /* Add subtle transition to ease jarring layout transition */
+  transition-property: height flex-grow flex;
+  transition-duration: 0.1s;
+  transition-timing-function: ease-in;
+}
+
+.card_body > div:global(.can-accept-drop.hovering-over)::after {
+  content: "Add to card body";
+}
+.card_header > div:global(.can-accept-drop.hovering-over)::after {
+  content: "Add to card header";
+}
+.card_footer > div:global(.can-accept-drop.hovering-over)::after {
+  content: "Add to card footer";
+}

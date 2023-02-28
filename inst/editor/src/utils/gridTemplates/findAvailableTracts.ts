@@ -1,6 +1,6 @@
-import type { TemplatedGridProps } from "../../components/Grids/EditableGridContainer/TemplatedGridProps";
-import { gridLocationToExtent } from "../../components/Grids/helpers";
-import type { DragHandle } from "../../components/Grids/useResizeOnDrag";
+import type { TemplatedGridProps } from "../../Shiny-Ui-Elements/Gridlayout/Utils/EditableGridContainer/TemplatedGridProps";
+import { gridLocationToExtent } from "../../Shiny-Ui-Elements/Gridlayout/Utils/helpers";
+import type { DragHandle } from "../../Shiny-Ui-Elements/Gridlayout/Utils/useResizeOnDrag";
 import { buildRange } from "../array-helpers";
 
 import { emptyCell } from "./itemLocations";
