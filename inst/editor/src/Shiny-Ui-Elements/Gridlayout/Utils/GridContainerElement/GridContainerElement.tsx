@@ -21,8 +21,8 @@ import { useUpdateUiArguments } from "../useUpdateUiArguments";
 
 import { ensureProperBoxedGridLayoutArgs } from "./ensureProperBoxedGridLayoutArts";
 import type { GridLayoutArgs } from "./GridLayoutArgs";
-import { gridLayoutReducer } from "./gridLayoutReducer";
 import type { GridLayoutAction } from "./gridLayoutReducer";
+import { gridLayoutReducer } from "./gridLayoutReducer";
 import {
   convertTemplatedLayoutToGridlayoutArgs,
   parseGridLayoutArgs,
@@ -125,12 +125,18 @@ export const GridContainerElement: UiNodeComponent<GridLayoutArgs> = ({
     place_node({
       // Place in the last position
       path: makeChildPath(path, uiChildren?.length ?? 0),
-      node: node,
-      wrappingNode: dropped_is_grid_aware
-        ? undefined
+      node: dropped_is_grid_aware
+        ? node
         : {
             uiName: "gridlayout::grid_card",
             uiArguments: { area: name },
+            uiChildren: [
+              {
+                uiName: "bslib::card_body",
+                uiArguments: {},
+                uiChildren: [node],
+              },
+            ],
           },
       currentPath,
     });
