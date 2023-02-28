@@ -6,9 +6,9 @@ import type { ShinyUiNode } from "../../../main";
 import { emptyCell } from "../../../utils/gridTemplates/itemLocations";
 import type { NodePath } from "../../uiNodeTypes";
 import type { GridContainerSettings } from "../GridlayoutCard";
-import { gridLayoutReducer } from "./GridContainerElement/gridLayoutReducer";
 
 import { areasOfChildren } from "./areasOfChildren";
+import { gridLayoutReducer } from "./GridContainerElement/gridLayoutReducer";
 import type { GridContainerNode } from "./isValidGridContainer";
 import { isValidGridContainer } from "./isValidGridContainer";
 

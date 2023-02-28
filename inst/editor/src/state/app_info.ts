@@ -13,11 +13,11 @@ import type { UpdateNodeArguments } from "../components/UiNode/TreeManipulation/
 import { updateNodeMutating } from "../components/UiNode/TreeManipulation/updateNode";
 import type { ShinyUiNode } from "../main";
 
-import type { RootState } from "./store";
 import {
-  deleteSubscriptions,
-  updateSubscriptions,
-} from "./watcherSubscriptions";
+  get_deletion_subscriptions,
+  get_update_subscriptions,
+} from "./create_subscriber_getter";
+import type { RootState } from "./store";
 
 export type MainStateOption =
   | ({ mode: "MAIN" } & Full_App_Info)
@@ -70,7 +70,7 @@ export const mainStateSlice = createSlice({
       }
 
       // Make sure the tree is valid here
-      for (const subscription of updateSubscriptions) {
+      for (const subscription of get_update_subscriptions()) {
         subscription(state.ui_tree, action.payload);
       }
       updateNodeMutating(state.ui_tree, action.payload);
@@ -85,7 +85,8 @@ export const mainStateSlice = createSlice({
       if (state.mode !== "MAIN") {
         throw new Error("Tried to delete a node when in template chooser mode");
       }
-      for (const subscription of deleteSubscriptions) {
+      for (const subscription of get_deletion_subscriptions()) {
+        console.log("Running delete subscription!");
         subscription(state.ui_tree, { path: action.payload.path });
       }
       removeNodeMutating(state.ui_tree, action.payload);
