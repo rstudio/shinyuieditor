@@ -4,12 +4,13 @@ import type { UiComponentInfo } from "../uiNodeTypes";
 
 import GridlayoutGridCard from "./GridlayoutCard";
 
-export type GridBslibCardCardSettings = CardSettings & {
+export type GridContainerSettings = {
   area: string;
 };
+export type GridBslibCardCardSettings = CardSettings & GridContainerSettings;
 
 export const gridlayoutCardInfo: UiComponentInfo<GridBslibCardCardSettings> = {
-  title: "Grid Card Panel",
+  title: "Grid Card",
   UiComponent: GridlayoutGridCard,
   settingsInfo: {
     area: {

@@ -14,7 +14,6 @@ import {
 } from "./BslibCards";
 import { dtDTOutputInfo } from "./DtDtOutput";
 import { gridlayoutCardInfo } from "./GridlayoutCard";
-import { gridlayoutGridCardInfo } from "./GridlayoutGridCard";
 import { gridlayoutGridCardPlotInfo } from "./GridlayoutGridCardPlot";
 import { gridlayoutTextPanelInfo } from "./GridlayoutGridCardText";
 import { gridlayoutGridContainerInfo } from "./GridlayoutGridContainer";
@@ -161,8 +160,7 @@ export const shinyUiNodeInfo = {
   "shiny::tabPanel": shinyTabPanelInfo,
   "shiny::tabsetPanel": shinyTabsetPanelInfo,
   "gridlayout::grid_page": gridlayoutGridPageInfo,
-  "gridlayout::grid_card": gridlayoutGridCardInfo,
-  "gridlayout::grid_card_panel": gridlayoutCardInfo,
+  "gridlayout::grid_card": gridlayoutCardInfo,
   "gridlayout::grid_card_text": gridlayoutTextPanelInfo,
   "gridlayout::grid_card_plot": gridlayoutGridCardPlotInfo,
   "gridlayout::grid_container": gridlayoutGridContainerInfo,

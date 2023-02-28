@@ -1,6 +1,6 @@
 import { BsCard } from "../../components/Grids/GridLayoutPanelHelpers/GridCards";
 import { mergeClasses } from "../../utils/mergeClasses";
-import { useGridItemSwapping } from "../GridlayoutGridCard/useGridItemSwapping";
+import { useGridItemSwapping } from "../GridlayoutCard/useGridItemSwapping";
 import { PlotPlaceholder } from "../ShinyPlotOutput/PlotPlaceholder";
 import type { UiLeafNodeComponent } from "../uiNodeTypes";
 

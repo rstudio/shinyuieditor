@@ -1,6 +1,6 @@
 import { BsCard } from "../../components/Grids/GridLayoutPanelHelpers/GridCards";
 import { mergeClasses } from "../../utils/mergeClasses";
-import { useGridItemSwapping } from "../GridlayoutGridCard/useGridItemSwapping";
+import { useGridItemSwapping } from "../GridlayoutCard/useGridItemSwapping";
 import type { UiLeafNodeComponent } from "../uiNodeTypes";
 
 import type { GridlayoutGridCardTextProps } from "./index";

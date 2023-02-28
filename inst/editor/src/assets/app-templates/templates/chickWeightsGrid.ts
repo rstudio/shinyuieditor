@@ -13,34 +13,43 @@ const navbarTree: ShinyUiNode = {
   uiChildren: [
     {
       uiName: "gridlayout::grid_card",
-      uiArguments: {
-        area: "sidebar",
-        title: "Settings",
-        item_gap: "12px",
-      },
+      uiArguments: { area: "sidebar" },
       uiChildren: [
         {
-          uiName: "shiny::sliderInput",
-          uiArguments: {
-            inputId: "numChicks",
-            label: "Number of Chicks",
-            min: 1,
-            max: 15,
-            value: 5,
-            width: "100%",
-            step: 1,
-          },
+          uiName: "bslib::card_header",
+          uiArguments: {},
+          uiChildren: [
+            { uiName: "textNode", uiArguments: { contents: "Settings" } },
+          ],
         },
         {
-          uiName: "shiny::radioButtons",
-          uiArguments: {
-            inputId: "distFacet",
-            label: "Facet Distribution By",
-            choices: {
-              "Diet Type": "Diet",
-              "Measure Time": "Time",
+          uiName: "bslib::card_body",
+          uiArguments: {},
+          uiChildren: [
+            {
+              uiName: "shiny::sliderInput",
+              uiArguments: {
+                inputId: "numChicks",
+                label: "Number of Chicks",
+                min: 1,
+                max: 15,
+                value: 5,
+                width: "100%",
+                step: 1,
+              },
             },
-          },
+            {
+              uiName: "shiny::radioButtons",
+              uiArguments: {
+                inputId: "distFacet",
+                label: "Facet Distribution By",
+                choices: {
+                  "Diet Type": "Diet",
+                  "Measure Time": "Time",
+                },
+              },
+            },
+          ],
         },
       ],
     },

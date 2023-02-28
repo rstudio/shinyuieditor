@@ -2,7 +2,7 @@ import React from "react";
 
 import { mergeClasses } from "../../utils/mergeClasses";
 import { render_card_elements } from "../BslibCards/render_card_elements";
-import { useGridItemSwapping } from "../GridlayoutGridCard/useGridItemSwapping";
+import { useGridItemSwapping } from "./useGridItemSwapping";
 import type { UiNodeComponent } from "../uiNodeTypes";
 
 import type { GridBslibCardCardSettings } from ".";

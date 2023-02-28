@@ -20,7 +20,7 @@ export const bslibCards: ShinyUiNode = {
       },
     },
     {
-      uiName: "gridlayout::grid_card_panel",
+      uiName: "gridlayout::grid_card",
       uiArguments: {
         area: "onlyBody",
       },
@@ -42,12 +42,12 @@ export const bslibCards: ShinyUiNode = {
       ],
     },
     {
-      uiName: "gridlayout::grid_card_panel",
+      uiName: "gridlayout::grid_card",
       uiArguments: { area: "empty" },
       uiChildren: [],
     },
     {
-      uiName: "gridlayout::grid_card_panel",
+      uiName: "gridlayout::grid_card",
       uiArguments: { area: "full" },
       uiChildren: [
         {

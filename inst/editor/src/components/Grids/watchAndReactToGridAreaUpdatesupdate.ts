@@ -1,5 +1,5 @@
 import type { ShinyUiNode } from "../../main";
-import type { GridCardSettings } from "../../Shiny-Ui-Elements/GridlayoutGridCard";
+import type { GridContainerSettings } from "../../Shiny-Ui-Elements/GridlayoutCard";
 import type { NodePath } from "../../Shiny-Ui-Elements/uiNodeTypes";
 import { emptyCell } from "../../utils/gridTemplates/itemLocations";
 import { gridLayoutReducer } from "../GridlayoutElement/gridLayoutReducer";
@@ -31,7 +31,8 @@ export function updateGridLayoutAreaOnItemAreaChange(
   const oldAreaName = areasOfChildren(gridPageNode.uiChildren)[
     getChildIndex(path)
   ];
-  const newAreaName = (node.uiArguments as GridCardSettings).area ?? emptyCell;
+  const newAreaName =
+    (node.uiArguments as GridContainerSettings).area ?? emptyCell;
 
   if (oldAreaName === newAreaName) return;
 
@@ -55,7 +56,8 @@ export function removeDeletedGridAreaFromLayout(
 
   const { gridPageNode, gridItemNode } = gridPageAndItemNodes;
 
-  const deletedAreaName = (gridItemNode.uiArguments as GridCardSettings).area;
+  const deletedAreaName = (gridItemNode.uiArguments as GridContainerSettings)
+    .area;
 
   if (!deletedAreaName) {
     // eslint-disable-next-line no-console

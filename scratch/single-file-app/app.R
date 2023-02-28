@@ -1,17 +1,18 @@
 library(shiny)
 library(gridlayout)
+library(bslib)
 
 # Here's a comment about this app
 ui <- grid_page(
   layout = c(
-    "header  header   ",
-    "sidebar bluePlot2",
-    "sidebar redPlot  "
+    "header  header ",
+    "sidebar area3  ",
+    "sidebar redPlot"
   ),
   row_sizes = c(
     "175px",
-    "0.46fr",
-    "1.54fr"
+    "1.01fr",
+    "0.99fr"
   ),
   col_sizes = c(
     "425px",
@@ -44,8 +45,20 @@ ui <- grid_page(
     alignment = "start",
     is_title = FALSE
   ),
-  grid_card_plot(area = "bluePlot2"),
-  grid_card_plot(area = "redPlot")
+  grid_card_plot(area = "redPlot"),
+  grid_card_panel(
+    area = "area3",
+    card_header("Lorem Ipsum"),
+    card_body(
+      numericInput(
+        inputId = "myNumericInput",
+        label = "Numeric Input",
+        value = 5
+      ),
+      "Lorem Ipsum"
+    ),
+    card_footer("Lorem Ipsum")
+  )
 )
 
 other_ui <- "hello there"
