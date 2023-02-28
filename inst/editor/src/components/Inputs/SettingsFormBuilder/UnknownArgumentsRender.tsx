@@ -5,17 +5,18 @@ import { Trash } from "../../Icons";
 import { Tooltip, TooltipButton } from "../../PopoverEl/Tooltip";
 
 import type { FormBuilderProps } from "./FormBuilder";
-import type { FormInfo } from "./inputFieldTypes";
+import type { UiArgumentsObject } from "./inputFieldTypes";
 
-export function UnknownArgumentsRender<Info extends FormInfo>({
+export function UnknownArgumentsRender<Args extends UiArgumentsObject>({
   settings,
   settingsInfo,
   onSettingsChange,
-}: FormBuilderProps<Info>) {
+}: FormBuilderProps<Args>) {
   const unknownArguments = inANotInB(
     Object.keys(settings),
     Object.keys(settingsInfo)
   );
+  console.log({ settings, settingsInfo, unknownArguments });
 
   if (unknownArguments.length === 0) return null;
 

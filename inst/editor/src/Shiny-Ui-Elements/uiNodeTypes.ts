@@ -1,7 +1,10 @@
 import type React from "react";
 
 import type { CustomFormRenderFn } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
-import type { SettingsTypeToInfo } from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";
+import type {
+  ArgsToDynamicInfo,
+  UiArgumentsObject,
+} from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";
 import type { DeleteAction, UpdateAction } from "../state/app_info";
 import { is_object } from "../utils/is_object";
 import type { PickKeyFn } from "../utils/TypescriptUtils";
@@ -14,11 +17,11 @@ import {
 } from "./Bslib";
 import { dtDTOutputInfo } from "./DtDtOutput";
 import {
-  gridlayoutGridPageInfo,
-  gridlayoutTextPanelInfo,
+  gridlayoutCardInfo,
   gridlayoutGridCardPlotInfo,
   gridlayoutGridContainerInfo,
-  gridlayoutCardInfo,
+  gridlayoutGridPageInfo,
+  gridlayoutTextPanelInfo,
 } from "./Gridlayout";
 import { plotlyPlotlyOutputInfo } from "./PlotlyPlotlyOutput";
 import { shinyActionButtonInfo } from "./ShinyActionButton";
@@ -41,7 +44,7 @@ import { unknownUiFunctionInfo } from "./UnknownUiFunction";
 /**
  * Defines everything needed to add a new Shiny UI component to the app
  */
-export type UiComponentInfo<NodeSettings extends Record<string, any>> = {
+export type UiComponentInfo<NodeSettings extends UiArgumentsObject> = {
   /**
    * The name of the component in plain language. E.g. Plot Output
    */
@@ -50,7 +53,7 @@ export type UiComponentInfo<NodeSettings extends Record<string, any>> = {
   /**
    * Info declaring what arguments to render in settings panel and how
    */
-  settingsInfo: SettingsTypeToInfo<NodeSettings>;
+  settingsInfo: ArgsToDynamicInfo<NodeSettings>;
 
   /** Optional field that is only here so the proper settings type gets carried
    * along with the info object.  */
@@ -206,6 +209,10 @@ export type ShinyUiNames = keyof ShinyUiArguments;
 
 export type ShinyUiChildren = ShinyUiNode[];
 
+export type ShinyUiNodeByArgs<Args extends UiArgumentsObject> = {
+  uiName: string;
+  uiArguments: Args;
+};
 /**
  * Map of all the ui nodes/elements keyed by the uiName
  */
@@ -213,7 +220,7 @@ export type ShinyUiNodeByName = {
   [UiName in ShinyUiNames]: {
     uiName: UiName;
     /** Unknown record allows for extra args not accounted for in the editor */
-    uiArguments: ShinyUiArguments[UiName] & Record<string, unknown>;
+    uiArguments: ShinyUiArguments[UiName];
     /** Any children of this node */
     uiChildren?: ShinyUiChildren;
   };

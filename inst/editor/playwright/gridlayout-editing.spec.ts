@@ -16,27 +16,34 @@ const basicGridApp: ShinyUiNode = {
   uiChildren: [
     {
       uiName: "gridlayout::grid_card",
-      uiArguments: {
-        area: "A",
-        title: "A",
-      },
-      uiChildren: [],
+      uiArguments: { area: "A" },
+      uiChildren: [
+        {
+          uiName: "bslib::card_header",
+          uiArguments: {},
+          uiChildren: [{ uiName: "textNode", uiArguments: { contents: "A" } }],
+        },
+      ],
     },
     {
       uiName: "gridlayout::grid_card",
       uiArguments: {
         area: "B",
-        title: "B",
       },
-      uiChildren: [],
+      uiChildren: [
+        {
+          uiName: "bslib::card_header",
+          uiArguments: {},
+          uiChildren: [{ uiName: "textNode", uiArguments: { contents: "B" } }],
+        },
+      ],
     },
     {
       uiName: "gridlayout::grid_card",
       uiArguments: {
         area: "C",
-        title: "C",
       },
-      uiChildren: [],
+      uiChildren: [{ uiName: "textNode", uiArguments: { contents: "C" } }],
     },
   ],
 };

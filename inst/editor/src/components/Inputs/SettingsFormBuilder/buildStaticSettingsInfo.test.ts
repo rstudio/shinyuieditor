@@ -1,13 +1,17 @@
-import type { ShinyUiNode } from "../../../Shiny-Ui-Elements/uiNodeTypes";
+import type {
+  ShinyUiNode,
+  ShinyUiNodeByName,
+} from "../../../Shiny-Ui-Elements/uiNodeTypes";
 import { getFirstTabName, getTabNames } from "../../Tabs/Tabset/utils";
 
-import { buildStaticFormInfo } from "./buildStaticSettingsInfo";
-import { buildStaticFieldInfo } from "./buildStaticSettingsInfo";
+import {
+  buildStaticFieldInfo,
+  buildStaticFormInfo,
+} from "./buildStaticSettingsInfo";
 import type {
+  ArgsToDynamicInfo,
   DynamicFieldInfo,
   StaticFieldInfo,
-  UiNodeSettingsInfo,
-  FormInfo,
 } from "./inputFieldTypes";
 
 const navbarWithThreeTabs: ShinyUiNode = {
@@ -72,8 +76,12 @@ describe("Can convert dynamic argument info object into a static one", () => {
 });
 
 describe("Can convert full dynamic settings info object into a static one", () => {
+  type NavbarAbbridgedArgs = Pick<
+    ShinyUiNodeByName["shiny::navbarPage"]["uiArguments"],
+    "title" | "selected"
+  >;
   test("All dynamic values", () => {
-    const navbarPageDynamicInfo: UiNodeSettingsInfo = {
+    const navbarPageDynamicInfo: ArgsToDynamicInfo<NavbarAbbridgedArgs> = {
       title: {
         inputType: "string",
         defaultValue: (node) =>
@@ -81,13 +89,16 @@ describe("Can convert full dynamic settings info object into a static one", () =
       },
       selected: {
         inputType: "dropdown",
-        label: "My List",
+        optional: true,
+        label: "Selected tab on load",
         defaultValue: (node) => (node ? getFirstTabName(node) : "First Tab"),
         choices: (node) => (node ? getTabNames(node) : ["First Tab"]),
       },
     };
 
-    const expectedOutput: FormInfo = {
+    expect(
+      buildStaticFormInfo(navbarPageDynamicInfo, navbarWithThreeTabs)
+    ).toEqual({
       title: {
         inputType: "string",
         defaultValue: `tabset with 3 tabs`,
@@ -98,10 +109,6 @@ describe("Can convert full dynamic settings info object into a static one", () =
         defaultValue: "first tab",
         choices: ["first tab", "second tab", "third tab"],
       },
-    };
-
-    expect(
-      buildStaticFormInfo(navbarPageDynamicInfo, navbarWithThreeTabs)
-    ).toEqual(expectedOutput);
+    });
   });
 });

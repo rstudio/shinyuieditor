@@ -77,10 +77,9 @@ function ui_node_to_R_code_internal(
     fn_name = fn_name.replace(/\w+::/, "");
   }
 
-  const fn_args_list = Object.keys(uiArguments).map((arg_name) =>
-    indent_line_breaks(
-      `${arg_name} = ${print_R_argument_value(uiArguments[arg_name])}`
-    )
+  const fn_args_list = Object.entries(uiArguments).map(
+    ([arg_name, arg_value]) =>
+      indent_line_breaks(`${arg_name} = ${print_R_argument_value(arg_value)}`)
   );
 
   uiChildren?.forEach((child) => {

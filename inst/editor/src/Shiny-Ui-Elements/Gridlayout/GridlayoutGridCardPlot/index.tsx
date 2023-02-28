@@ -3,10 +3,10 @@ import type { UiComponentInfo } from "../../uiNodeTypes";
 
 import GridlayoutGridCardPlot from "./GridlayoutGridCardPlot";
 
-export interface GridlayoutGridCardPlotProps {
+export type GridlayoutGridCardPlotProps = {
   area: string;
   outputId?: string;
-}
+};
 
 export const gridlayoutGridCardPlotInfo: UiComponentInfo<GridlayoutGridCardPlotProps> =
   {

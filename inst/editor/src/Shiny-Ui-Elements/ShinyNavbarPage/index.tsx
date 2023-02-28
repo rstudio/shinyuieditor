@@ -13,6 +13,7 @@ export type NavbarPageSettings = {
   collapsible: boolean;
   id?: string;
   selected?: string;
+  theme?: unknown;
 };
 
 export const shinyNavbarPageInfo: UiComponentInfo<NavbarPageSettings> = {
@@ -42,6 +43,7 @@ export const shinyNavbarPageInfo: UiComponentInfo<NavbarPageSettings> = {
       defaultValue: (node) => (node ? getFirstTabName(node) : "First Tab"),
       choices: (node) => (node ? getTabNames(node) : ["First Tab"]),
     },
+    theme: { inputType: "omitted" },
   },
   acceptsChildren: true,
   // iconSrc: icon,

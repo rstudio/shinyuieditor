@@ -8,12 +8,12 @@ import type { UiComponentInfo } from "../../uiNodeTypes";
 
 import GridlayoutGridCardText from "./GridlayoutCardText";
 
-export interface GridlayoutGridCardTextProps {
+export type GridlayoutGridCardTextProps = {
   content: string;
   alignment: "center" | "start" | "end";
   area: string;
   is_title?: boolean;
-}
+};
 
 export const gridlayoutTextPanelInfo: UiComponentInfo<GridlayoutGridCardTextProps> =
   {

@@ -2,7 +2,6 @@ import DeleteNodeButton from "../components/DeleteNodeButton";
 import { buildStaticFormInfo } from "../components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
 import type { CustomFormRenderFn } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
 import { FormBuilder } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
-import type { FormValuesFromInfo } from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";
 import { PanelHeader } from "../EditorSkeleton/EditorSkeleton";
 import type { ShinyUiNode } from "../main";
 import { shinyUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
@@ -54,9 +53,7 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
           />
         </div>
         <FormBuilder
-          settings={
-            uiArguments as FormValuesFromInfo<typeof staticSettingsInfo>
-          }
+          settings={uiArguments}
           settingsInfo={staticSettingsInfo}
           renderInputs={
             nodeInfo.settingsFormRender as CustomFormRenderFn<

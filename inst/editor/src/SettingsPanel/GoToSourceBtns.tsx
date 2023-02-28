@@ -62,7 +62,7 @@ function GoToOutputsBtn({
       ? outputIdKey
       : (outputIdKey as PickKeyFn<typeof uiArguments>)(uiArguments);
 
-  const outputId = uiArguments[keyForOutput];
+  const outputId = uiArguments[keyForOutput as keyof typeof uiArguments];
   if (typeof outputId !== "string") return null;
 
   const existing_output_locations = current_output_positions[outputId];
@@ -97,6 +97,7 @@ function GoToOutputsBtn({
     </TooltipButton>
   );
 }
+
 function GoToInputsBtn({
   serverInputInfo,
   node: { uiArguments },
@@ -117,7 +118,8 @@ function GoToInputsBtn({
       ? inputIdKey
       : (inputIdKey as PickKeyFn<typeof uiArguments>)(uiArguments);
 
-  const inputId = uiArguments[keyForInputId];
+  const inputId = uiArguments[keyForInputId as keyof typeof uiArguments];
+
   if (typeof inputId !== "string") return null;
 
   return (

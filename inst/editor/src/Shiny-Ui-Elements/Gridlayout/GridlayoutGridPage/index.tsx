@@ -9,7 +9,9 @@ import { GridlayoutGridPage } from "./GridlayoutGridPage";
 
 export type TractDirection = "rows" | "cols";
 
-export const gridlayoutGridPageInfo: UiComponentInfo<GridLayoutArgs> = {
+export const gridlayoutGridPageInfo: UiComponentInfo<
+  GridLayoutArgs & { theme?: unknown }
+> = {
   title: "Grid Page",
   UiComponent: GridlayoutGridPage,
   acceptsChildren: true,
@@ -32,6 +34,7 @@ export const gridlayoutGridPageInfo: UiComponentInfo<GridLayoutArgs> = {
       inputType: "omitted",
       defaultValue: ["1fr", "1fr"],
     },
+    theme: { inputType: "omitted" },
   },
   stateUpdateSubscribers: {
     UPDATE_NODE: updateGridLayoutAreaOnItemAreaChange,

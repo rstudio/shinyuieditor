@@ -3,6 +3,8 @@ import { isShinyUiNode } from "editor/src/Shiny-Ui-Elements/isShinyUiNode";
 import { normalize_ui_name } from "editor/src/Shiny-Ui-Elements/normalize_ui_name";
 import type { ShinyUiNodeByName } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
 
+import type { UiArgumentsObject } from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";
+
 import type { Branch_Node, Primatives, R_AST_Node } from ".";
 
 import { create_unknownUiFunction } from "./create_unknownUiFunction";
@@ -35,7 +37,7 @@ export function ast_to_ui_node(node: Branch_Node): ShinyUiNode {
     });
   }
 
-  let uiArguments: ShinyUiNode["uiArguments"] = {};
+  let uiArguments: UiArgumentsObject = {};
   let uiChildren: ShinyUiNode[] = [];
 
   args.forEach((sub_node) => {

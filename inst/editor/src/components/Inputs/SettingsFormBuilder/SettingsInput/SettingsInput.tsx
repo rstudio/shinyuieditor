@@ -4,7 +4,7 @@ import type {
   InputFieldEntryNames,
   InputFieldEntryMap,
   KnownInputFieldTypes,
-  StaticFieldInfoByType,
+  InputTypeToStaticInfo,
 } from "../inputFieldTypes";
 import { makeLabelId } from "../inputFieldTypes";
 
@@ -23,7 +23,8 @@ export type SettingsUpdateAction =
     };
 
 export type SettingsInputProps = {
-  [ArgType in InputFieldEntryNames]: StaticFieldInfoByType[ArgType] & {
+  [ArgType in InputFieldEntryNames]: InputTypeToStaticInfo<ArgType> & {
+    optional?: true;
     name: string;
     value?: InputFieldEntryMap[ArgType]["value"];
     onUpdate: (x: SettingsUpdateAction) => void;
