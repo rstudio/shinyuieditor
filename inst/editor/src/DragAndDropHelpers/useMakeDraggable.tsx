@@ -59,11 +59,7 @@ export function useMakeDraggable(
       document.body.addEventListener("dragover", dummyDragOverListener);
       document.body.addEventListener("drop", endDrag);
 
-      // We need to use a timeout here to ensure the drag state is fully set on
-      // the dragged element before we start showing drop zones etc, otherwise
-      // the layout shift from the drop mode can cause the mouse to leave the
-      // dragged item and thus prematurely terminate the drag event
-      window.setTimeout(() => setDraggedNode(nodeInfo), 1);
+      setDraggedNode(nodeInfo);
     },
     [endDrag, nodeInfo, setDraggedNode]
   );
