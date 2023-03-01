@@ -1,14 +1,8 @@
 import type { ShinyUiNode } from "../../../main";
 
 import type {
-  ArgsToDynamicInfo,
-  ArgsToStaticInfo,
-  DynamicFieldInfo,
-  InputFieldEntryNames,
-  InputTypeToDynamicInfo,
-  InputTypeToStaticInfo,
+  InfoFromArgs,
   NodeToValueFn,
-  StaticFieldInfo,
   UiArgumentsObject,
 } from "./inputFieldTypes";
 
@@ -27,31 +21,9 @@ function getValueFromProperty<T>(
 }
 
 /**
- * Convert a single argument from dynamic form to static form
- * @param dynamicFieldInfo Argument info about an argument
- * @param node ShinyUiNode that represents the argument being converted belongs
- * to the settings/uiArguments of
- * @returns A static version of the argument info where the callback versions of
- * info have been evaluated to their output types
- */
-export function buildStaticFieldInfo<InputType extends InputFieldEntryNames>(
-  dynamicFieldInfo: InputTypeToDynamicInfo<InputType>,
-  node?: ShinyUiNode
-): InputTypeToStaticInfo<InputType> {
-  let staticArgumentInfo: Record<string, any> = {};
-
-  for (let prop in dynamicFieldInfo) {
-    const dynamicVal = dynamicFieldInfo[prop as keyof DynamicFieldInfo];
-    staticArgumentInfo[prop] = getValueFromProperty(dynamicVal, node);
-  }
-
-  return staticArgumentInfo as InputTypeToStaticInfo<InputType>;
-}
-
-/**
  * Convert a whole settings info object from dynamic callback form to static
  * form
- * @param dynamicFormInfo A full settings info object for all settings in a
+ * @param inputInfoForArgs A full settings info object for all settings in a
  * ui nodes uiArguments object
  * @param node ShinyUiNode for which the dynamicSettingsInfo represents the
  * settings/uiArguments for
@@ -59,26 +31,25 @@ export function buildStaticFieldInfo<InputType extends InputFieldEntryNames>(
  * functions have been evaluated to their constant values
  */
 export function buildStaticFormInfo<Args extends UiArgumentsObject>(
-  dynamicFormInfo: ArgsToDynamicInfo<Args>,
+  inputInfoForArgs: InfoFromArgs<Args, { dynamic: true }>,
   node?: ShinyUiNode
-): ArgsToStaticInfo<Args> {
-  let staticSettingsInfo: Record<string, StaticFieldInfo> = {};
+): InfoFromArgs<Args, { dynamic: false }> {
+  let staticSettingsInfo: Record<string, Record<string, unknown>> = {};
 
-  for (let argName in dynamicFormInfo) {
-    const dynamicVal = dynamicFormInfo[argName];
-    const inputType = dynamicVal.inputType;
+  for (let arg_name in inputInfoForArgs) {
+    const { inputType, ...info_for_arg } = inputInfoForArgs[arg_name];
 
-    staticSettingsInfo[argName] = (
-      inputType !== "omitted"
-        ? buildStaticFieldInfo<typeof inputType>(
-            dynamicVal as InputTypeToDynamicInfo<typeof inputType>,
-            node
-          )
-        : dynamicVal
-    ) as StaticFieldInfo;
+    staticSettingsInfo[arg_name] = { inputType };
+
+    Object.entries(info_for_arg).forEach(([prop, dynamicVal]) => {
+      staticSettingsInfo[arg_name][prop] = getValueFromProperty(
+        dynamicVal,
+        node
+      );
+    });
   }
 
-  return staticSettingsInfo as ArgsToStaticInfo<Args>;
+  return staticSettingsInfo as InfoFromArgs<Args, { dynamic: false }>;
 }
 
 /**
@@ -92,7 +63,7 @@ export function buildStaticFormInfo<Args extends UiArgumentsObject>(
  * functions have been evaluated to their constant values
  */
 export function getDefaultSettings<Args extends UiArgumentsObject>(
-  dynamicFormInfo: ArgsToDynamicInfo<Args>,
+  dynamicFormInfo: InfoFromArgs<Args, { dynamic: true }>,
   node?: ShinyUiNode
 ): Args {
   let defaultArgs: Record<string, any> = {};

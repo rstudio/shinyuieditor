@@ -20,7 +20,7 @@ export const unknownUiFunctionInfo: UiComponentInfo<UnknownUiFunctionProps> = {
       inputType: "omitted",
       defaultValue: "Unknown Ui Function",
     },
-    explanation: { inputType: "omitted" },
+    explanation: { inputType: "omitted", optional: true },
   },
   settingsFormRender: ({ settings }) => {
     return (

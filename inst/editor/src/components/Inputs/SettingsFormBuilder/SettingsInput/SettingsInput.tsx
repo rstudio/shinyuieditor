@@ -1,10 +1,9 @@
 import Button from "../../Button/Button";
 import type {
-  FieldEntryUnion,
-  InputFieldEntryNames,
-  InputFieldEntryMap,
+  InputInfoUnion,
+  InputTypeToInfo,
   KnownInputFieldTypes,
-  InputTypeToStaticInfo,
+  KnownInputTypeNames,
 } from "../inputFieldTypes";
 import { makeLabelId } from "../inputFieldTypes";
 
@@ -23,13 +22,15 @@ export type SettingsUpdateAction =
     };
 
 export type SettingsInputProps = {
-  [ArgType in InputFieldEntryNames]: InputTypeToStaticInfo<ArgType> & {
+  [ArgType in KnownInputTypeNames]: InputTypeToInfo<{
+    dynamic: false;
+  }>[ArgType] & {
     optional?: true;
     name: string;
-    value?: InputFieldEntryMap[ArgType]["value"];
+    value?: InputTypeToInfo<{ dynamic: false }>[ArgType]["defaultValue"];
     onUpdate: (x: SettingsUpdateAction) => void;
   };
-}[InputFieldEntryNames];
+}[KnownInputTypeNames];
 
 export function SettingsInput({ onUpdate, ...opts }: SettingsInputProps) {
   const argumentIsUnset = opts.value === undefined;
@@ -72,7 +73,7 @@ export function SettingsInput({ onUpdate, ...opts }: SettingsInputProps) {
           label={label}
           id={opts.name}
           onChange={updateArgument}
-          {...(opts as FieldEntryUnion)}
+          {...(opts as InputInfoUnion)}
         />
       );
     }

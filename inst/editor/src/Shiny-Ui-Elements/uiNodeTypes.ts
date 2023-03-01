@@ -2,7 +2,7 @@ import type React from "react";
 
 import type { CustomFormRenderFn } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
 import type {
-  ArgsToDynamicInfo,
+  DynamicInfoFromArgs,
   UiArgumentsObject,
 } from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";
 import type { DeleteAction, UpdateAction } from "../state/app_info";
@@ -53,7 +53,7 @@ export type UiComponentInfo<NodeSettings extends UiArgumentsObject> = {
   /**
    * Info declaring what arguments to render in settings panel and how
    */
-  settingsInfo: ArgsToDynamicInfo<NodeSettings>;
+  settingsInfo: DynamicInfoFromArgs<NodeSettings>;
 
   /** Optional field that is only here so the proper settings type gets carried
    * along with the info object.  */

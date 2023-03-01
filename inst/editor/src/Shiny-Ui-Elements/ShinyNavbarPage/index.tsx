@@ -43,7 +43,7 @@ export const shinyNavbarPageInfo: UiComponentInfo<NavbarPageSettings> = {
       defaultValue: (node) => (node ? getFirstTabName(node) : "First Tab"),
       choices: (node) => (node ? getTabNames(node) : ["First Tab"]),
     },
-    theme: { inputType: "omitted" },
+    theme: { inputType: "omitted", optional: true },
   },
   acceptsChildren: true,
   // iconSrc: icon,

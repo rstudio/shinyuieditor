@@ -34,7 +34,7 @@ export const gridlayoutGridPageInfo: UiComponentInfo<
       inputType: "omitted",
       defaultValue: ["1fr", "1fr"],
     },
-    theme: { inputType: "omitted" },
+    theme: { inputType: "omitted", optional: true },
   },
   stateUpdateSubscribers: {
     UPDATE_NODE: updateGridLayoutAreaOnItemAreaChange,

@@ -2,7 +2,7 @@ import React from "react";
 
 import type { StringKeys } from "../../../utils/TypescriptUtils";
 
-import type { ArgsToDynamicInfo, UiArgumentsObject } from "./inputFieldTypes";
+import type { DynamicInfoFromArgs, UiArgumentsObject } from "./inputFieldTypes";
 import type {
   SettingsInputProps,
   SettingsUpdateAction,
@@ -24,7 +24,7 @@ export type CustomFormRenderFn<Settings extends SettingsObj> = (
 
 export type FormBuilderProps<Args extends UiArgumentsObject> = {
   settings: Args;
-  settingsInfo: ArgsToDynamicInfo<Args>;
+  settingsInfo: DynamicInfoFromArgs<Args>;
   onSettingsChange: (name: string, action: SettingsUpdateAction) => void;
   renderInputs?: CustomFormRenderFn<SettingsObj>;
 };
@@ -67,22 +67,24 @@ function knownArgumentInputs<Args extends UiArgumentsObject>({
 }: FormBuilderProps<Args>) {
   const InputsComponents: Record<string, JSX.Element> = {};
 
-  Object.keys(settingsInfo).forEach((name) => {
-    const infoForArg = settingsInfo[name];
+  for (const arg_name in settingsInfo) {
+    const arg_info = settingsInfo[arg_name];
 
-    if (infoForArg.inputType === "omitted") return;
+    if (arg_info.inputType === "omitted") continue;
 
-    const currentValue = settings[name as keyof typeof settings];
+    const current_arg_value = settings[arg_name];
 
     const inputProps = {
-      ...infoForArg,
-      name,
-      value: currentValue,
-      onUpdate: (updatedAction) => onSettingsChange(name, updatedAction),
+      ...arg_info,
+      name: arg_name,
+      value: current_arg_value,
+      onUpdate: (updatedAction) => onSettingsChange(arg_name, updatedAction),
     } as SettingsInputProps;
 
-    InputsComponents[name] = <SettingsInput key={name} {...inputProps} />;
-  });
+    InputsComponents[arg_name] = (
+      <SettingsInput key={arg_name} {...inputProps} />
+    );
+  }
 
   return InputsComponents;
 }

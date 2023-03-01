@@ -1,13 +1,10 @@
 import { isCSSMeasure } from "../../CSSUnitInput/CSSMeasure";
 import { isNamedList } from "../../ListInput/NamedListInput";
-import type {
-  InputFieldEntryNames,
-  KnownInputFieldTypes,
-} from "../inputFieldTypes";
+import type { KnownInputFieldTypes, InputTypeNames } from "../inputFieldTypes";
 
 export function valueIsType(
   value: KnownInputFieldTypes | undefined,
-  type: InputFieldEntryNames
+  type: InputTypeNames
 ): boolean {
   if (value === undefined) {
     return true;
@@ -43,6 +40,10 @@ export function valueIsType(
 
   if (type === "string-array") {
     return Array.isArray(value) && typeof value[0] === "string";
+  }
+
+  if (type === "omitted") {
+    return true;
   }
 
   throw new Error("Unimplemented argument type check", type);

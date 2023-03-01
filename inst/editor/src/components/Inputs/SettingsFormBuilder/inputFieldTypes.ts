@@ -1,5 +1,4 @@
 import type { ShinyUiNode } from "../../../main";
-import type { MapDiscriminatedUnion } from "../../../utils/TypescriptUtils";
 import type { CSSMeasure, CSSUnitWAuto } from "../CSSUnitInput/CSSMeasure";
 import type { NamedList } from "../ListInput/NamedListInput";
 import type {
@@ -7,173 +6,151 @@ import type {
   RadioOptions,
 } from "../RadioInputs/RadioInputsSimple";
 
-export type FieldEntryUnion =
-  | {
-      inputType: "string";
-      value: string;
-      longform?: boolean;
-    }
-  | {
-      inputType: "number";
-      value: number;
-      // Currently not used at all
-      min?: number;
-      max?: number;
-    }
-  | {
-      inputType: "cssMeasure";
-      value: CSSMeasure;
-      units?: CSSUnitWAuto[];
-    }
-  | { inputType: "boolean"; value: boolean }
-  | {
-      inputType: "list";
-      value: NamedList;
-      newItemValue?: { key: string; value: string };
-    }
-  | {
-      inputType: "dropdown";
-      value: string;
-      choices: string[];
-    }
-  | {
-      inputType: "radio";
-      value: RadioOption;
-      choices: RadioOptions;
-      optionsPerColumn?: number;
-    }
-  | {
-      inputType: "string-array";
-      value: string[];
-    };
+type InputOptionsByTypeNoOmitted = {
+  string: {
+    value: string;
+    longform?: boolean;
+  };
+  number: {
+    value: number;
+    // Currently not used at all
+    min?: number;
+    max?: number;
+  };
+  cssMeasure: {
+    value: CSSMeasure;
+    units?: CSSUnitWAuto[];
+  };
+  boolean: {
+    value: boolean;
+  };
+  list: {
+    value: NamedList;
+    newItemValue?: { key: string; value: string };
+  };
+  dropdown: {
+    value: string;
+    choices: string[];
+  };
+  radio: {
+    value: RadioOption;
+    choices: RadioOptions;
+    optionsPerColumn?: number;
+  };
+  "string-array": {
+    value: string[];
+  };
+};
 
-/** All possible input type names */
-export type InputFieldEntryNames = FieldEntryUnion["inputType"];
+type InputOptionsByType = InputOptionsByTypeNoOmitted & {
+  omitted: {
+    value: unknown;
+  };
+};
 
-/** All possible input types */
-export type KnownInputFieldTypes = FieldEntryUnion["value"];
+export type KnownInputTypeNames = keyof InputOptionsByTypeNoOmitted;
+export type InputTypeNames = keyof InputOptionsByType;
+
+export type InputInfoUnion = {
+  [InputType in InputTypeNames]: {
+    inputType: InputType;
+  } & InputOptionsByType[InputType];
+}[InputTypeNames];
+
+export type KnownInputFieldTypes = {
+  [InputType in keyof InputOptionsByTypeNoOmitted]: InputOptionsByTypeNoOmitted[InputType]["value"];
+}[keyof InputOptionsByTypeNoOmitted];
 
 /** Format of a valid ui arguments object */
-export type UiArgumentsObject = Record<string, KnownInputFieldTypes | unknown>;
-
-/**
- * Go from input type (e.g. "string" or "radio") to the arguments needed for
- * that input type
- */
-export type InputFieldEntryMap = MapDiscriminatedUnion<
-  FieldEntryUnion,
-  "inputType"
->;
-
-type InputFieldInfoMap = {
-  [Key in keyof InputFieldEntryMap]: {
-    defaultValue: InputFieldEntryMap[Key]["value"];
-  } & Omit<InputFieldEntryMap[Key], "inputType" | "value">;
-};
+export type UiArgumentsObject = Record<string, InputInfoUnion["value"]>;
 
 /**
  * Convert directly from a argument type (e.g. string or boolean) to the
  * inputTypes that are allowed for that type
  */
-type ArgTypeToTypeString<ArgType extends KnownInputFieldTypes> =
-  ArgType extends CSSMeasure
-    ? "cssMeasure"
-    : ArgType extends string
-    ? "string" | "dropdown" | "radio"
-    : ArgType extends number
-    ? "number"
-    : ArgType extends Record<string, string>
-    ? "list"
-    : ArgType extends boolean
-    ? "boolean"
-    : ArgType extends string[]
-    ? "string-array"
-    : never;
+type ArgTypeToTypeString<ArgType extends unknown> =
+  | (ArgType extends CSSMeasure
+      ? "cssMeasure"
+      : ArgType extends string
+      ? "string" | "dropdown" | "radio"
+      : ArgType extends number
+      ? "number"
+      : ArgType extends Record<string, string>
+      ? "list"
+      : ArgType extends boolean
+      ? "boolean"
+      : ArgType extends string[]
+      ? "string-array"
+      : never)
+  | "omitted";
 
-/** Options object for generic functions to either enable or disable dynamic fields */
-type InfoOptions = { dynamic: boolean };
+type DynamicSetting = { dynamic: boolean };
 
-/**
- * Convert from a basic settings object to a settings info object
- */
-type ArgsToInfo<Args extends UiArgumentsObject, Opts extends InfoOptions> = {
-  [key in keyof Args]-?:
-    | (Required<Args>[key] extends KnownInputFieldTypes
-        ? undefined extends Args[key]
-          ? ArgTypeToInfo<Required<Args>[key], Opts & { optional: true }>
-          : ArgTypeToInfo<Required<Args>[key], Opts & { optional: false }>
-        : OmittedArg)
-    | OmittedArg;
-};
-
-type OmittedArg = {
-  inputType: "omitted";
-  defaultValue?: unknown;
-};
-
-export type ArgsToDynamicInfo<Args extends UiArgumentsObject> = ArgsToInfo<
-  Args,
-  { dynamic: true }
->;
-export type ArgsToStaticInfo<Args extends UiArgumentsObject> = ArgsToInfo<
-  Args,
-  { dynamic: false }
->;
-
-type IndividualArgInfoOptions = InfoOptions & { optional: boolean };
-
-type InputTypeToInfo<
-  InputType extends InputFieldEntryNames,
-  Opts extends IndividualArgInfoOptions
+type AddFullInfo<
+  BaseInfo extends InputOptionsByType[InputTypeNames],
+  Opts extends DynamicSetting
 > = {
-  inputType: InputType;
+  defaultValue: Opts["dynamic"] extends true
+    ? DynamicArg<BaseInfo["value"]>
+    : BaseInfo["value"];
   /** Should the default value be given to a new instance of a settings object
    * if that field is optional?  */
   useDefaultIfOptional?: true;
   /** What should the label be above the input for this field? */
   label?: string;
 } & (Opts["dynamic"] extends true
-  ? DynamicArguments<InputFieldInfoMap[InputType]>
-  : InputFieldInfoMap[InputType]) &
-  (Opts["optional"] extends true ? { optional: true } : {});
+  ? DynamicArguments<Omit<BaseInfo, "value">>
+  : Omit<BaseInfo, "value">);
+
+/**
+ * Go from named input type (e.g. "dropdown" or "radio") to the info object for its corresponding settings input
+ */
+export type InputTypeToInfo<Opts extends DynamicSetting> = {
+  [InputType in KnownInputTypeNames]: {
+    inputType: InputType;
+  } & AddFullInfo<InputOptionsByType[InputType], Opts>;
+} & { omitted: { inputType: "omitted" } & Record<string, unknown> };
 
 /**
  * Go from argument type to the info object for its corresponding settings input
  */
 type ArgTypeToInfo<
-  ArgType extends KnownInputFieldTypes,
-  Opts extends IndividualArgInfoOptions
-> = InputTypeToInfo<ArgTypeToTypeString<ArgType>, Opts>;
+  ArgType extends unknown,
+  Opts extends DynamicSetting
+> = InputTypeToInfo<Opts>[ArgTypeToTypeString<ArgType>];
 
-export type InputTypeToDynamicInfo<InputType extends InputFieldEntryNames> =
-  InputTypeToInfo<InputType, { dynamic: true; optional: false }>;
+// const test3 = {inputType: "omitted", defaultValue: new Date()} satisfies ArgTypeToInfo<Date, { dynamic: false }>;
 
-export type DynamicFieldInfo =
-  | InputTypeToDynamicInfo<InputFieldEntryNames>
-  | OmittedArg;
+// type test4 = ArgTypeToInfo<Date, { dynamic: true }>["de"];
+export type InfoFromArgs<
+  Args extends UiArgumentsObject,
+  Opts extends DynamicSetting
+> = {
+  [Key in keyof Args]: ArgTypeToInfo<Required<Args>[Key], Opts> &
+    (undefined extends Args[Key] ? { optional: true } : {});
+};
 
-export type InputTypeToStaticInfo<InputType extends InputFieldEntryNames> =
-  InputTypeToInfo<InputType, { dynamic: false; optional: false }>;
+export type DynamicInfoFromArgs<Args extends UiArgumentsObject> = InfoFromArgs<
+  Args,
+  { dynamic: true }
+>;
 
-export type StaticFieldInfo =
-  | InputTypeToStaticInfo<InputFieldEntryNames>
-  | OmittedArg;
-
+type DynamicArg<Val extends unknown> = Val | NodeToValueFn<Val>;
 /**
  * Object is filled with either values or callbacks to get those values from a
  * ui node
  */
 type DynamicArguments<Obj extends Record<string, unknown>> = {
-  [Key in keyof Obj]: Obj[Key] | NodeToValueFn<Obj[Key]>;
+  [Key in keyof Obj]: DynamicArg<Obj[Key]>;
 };
 export type NodeToValueFn<T> = (node?: ShinyUiNode) => T;
 
-export type InputComponentByType<InputType extends keyof InputFieldEntryMap> = {
+export type InputComponentByType<InputType extends InputTypeNames> = {
   id: string;
   label: string;
-  value: InputFieldEntryMap[InputType]["value"];
-  onChange: (value: InputFieldEntryMap[InputType]["value"]) => void;
-} & Omit<InputFieldEntryMap[InputType], "inputType" | "value">;
+  value: InputOptionsByType[InputType]["value"];
+  onChange: (value: InputOptionsByType[InputType]["value"]) => void;
+} & Omit<InputOptionsByType[InputType], "value">;
 
 export function makeLabelId(id: string) {
   return id + "-label";
