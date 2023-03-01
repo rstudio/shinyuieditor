@@ -4,6 +4,7 @@ import { getIsValidMove } from "../components/UiNode/TreeManipulation/getIsValid
 import type { Wrapping_Node } from "../components/UiNode/TreeManipulation/wrapInNode";
 import { makeChildPath } from "../Shiny-Ui-Elements/nodePathUtils";
 import type { NodePath, ShinyUiNames } from "../Shiny-Ui-Elements/uiNodeTypes";
+import { shinyUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
 import { usePlaceNode } from "../state/usePlaceNode";
 
 import type { DropHandlerArguments } from "./useFilteredDrop";
@@ -13,6 +14,7 @@ export type DropWatcherPanelProps = Omit<
   React.ComponentPropsWithoutRef<"div">,
   "className"
 > & {
+  parentNodeType: ShinyUiNames;
   index: number;
   parentPath: NodePath;
   wrappingNode?: Wrapping_Node;
@@ -25,6 +27,7 @@ export type DropWatcherPanelProps = Omit<
 
 export function DropWatcherPanel({
   index,
+  parentNodeType,
   parentPath,
   dropHandlerArgs,
   className = "",
@@ -53,6 +56,15 @@ export function DropWatcherPanel({
           toPath: [...parentPath, index],
         })
       ) {
+        return false;
+      }
+
+      const draggedNodeInfo = shinyUiNodeInfo[node.uiName];
+      if (
+        "allowedParents" in draggedNodeInfo &&
+        !draggedNodeInfo.allowedParents?.includes(parentNodeType)
+      ) {
+        console.warn("Not allowed parent-to-child combo");
         return false;
       }
 

@@ -1,7 +1,7 @@
 import type { UiComponentInfo, UiNodeComponent } from "../uiNodeTypes";
 
 import { CardHeader } from "./Utils/CardHeader";
-import { ChildrenWithDropNodes } from "./Utils/ChildrenWithDropNodes";
+import { CardChildrenWithDropNodes } from "./Utils/ChildrenWithDropNodes";
 export type CardHeaderSettings = {};
 
 const BslibCardHeader: UiNodeComponent<CardHeaderSettings> = (node) => {
@@ -9,7 +9,11 @@ const BslibCardHeader: UiNodeComponent<CardHeaderSettings> = (node) => {
 
   return (
     <CardHeader {...wrapperProps}>
-      <ChildrenWithDropNodes uiChildren={uiChildren} path={path} />
+      <CardChildrenWithDropNodes
+        uiChildren={uiChildren}
+        path={path}
+        parentUiName="bslib::card_header"
+      />
     </CardHeader>
   );
 };

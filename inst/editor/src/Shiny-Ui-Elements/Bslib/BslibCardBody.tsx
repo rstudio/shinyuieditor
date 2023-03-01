@@ -1,7 +1,7 @@
 import type { UiComponentInfo, UiNodeComponentProps } from "../uiNodeTypes";
 
 import { CardBody } from "./Utils/CardBody";
-import { ChildrenWithDropNodes } from "./Utils/ChildrenWithDropNodes";
+import { CardChildrenWithDropNodes } from "./Utils/ChildrenWithDropNodes";
 export const bslibCardBodyInfo: UiComponentInfo<CardBodySettings> = {
   title: "Card Body",
   UiComponent: BslibCardBody,
@@ -21,7 +21,11 @@ function BslibCardBody({
 }: UiNodeComponentProps<CardBodySettings, { TakesChildren: true }>) {
   return (
     <CardBody {...wrapperProps}>
-      <ChildrenWithDropNodes uiChildren={uiChildren} path={path} />
+      <CardChildrenWithDropNodes
+        uiChildren={uiChildren}
+        path={path}
+        parentUiName="bslib::card_body"
+      />
     </CardBody>
   );
 }

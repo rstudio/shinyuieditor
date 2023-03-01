@@ -40,6 +40,7 @@ export function TabDropDetector({
       className={classes.tabDropDetector}
       aria-label="tab drop detector"
       parentPath={parentPath}
+      parentNodeType="shiny::tabPanel"
       index={index}
       dropFilters={dropFilters}
       wrappingNode={wrap_in_tab_panel}

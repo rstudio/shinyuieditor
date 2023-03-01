@@ -36,6 +36,7 @@ const ShinyTabPanel: UiNodeComponent<TabPanelSettings> = ({
           index={0}
           parentPath={path}
           dropFilters={dropFilters}
+          parentNodeType="shiny::tabPanel"
         />
       )}
     </div>

@@ -3,16 +3,23 @@ import React from "react";
 import UiNode from "../../../components/UiNode/UiNode";
 import { DropWatcherPanel } from "../../../DragAndDropHelpers/DropWatcherPanel";
 import { makeChildPath } from "../../nodePathUtils";
-import type { NodePath, ShinyUiChildren } from "../../uiNodeTypes";
+import type {
+  NodePath,
+  ShinyUiChildren,
+  ShinyUiNames,
+} from "../../uiNodeTypes";
 
 import styles from "./styles.module.css";
 
-export function ChildrenWithDropNodes({
-  dropPanelClass = styles.drop_watcher,
+export function CardChildrenWithDropNodes({
+  parentUiName,
   uiChildren = [],
   path,
+  dropPanelClass = styles.drop_watcher,
   showOnEmpty,
 }: {
+  parentUiName: ShinyUiNames;
+  // parent: ShinyUiNode;
   dropPanelClass?: string | ((index: number) => string);
   uiChildren?: ShinyUiChildren;
   path: NodePath;
@@ -20,7 +27,12 @@ export function ChildrenWithDropNodes({
 }) {
   return (
     <>
-      <DropWatcherPanel className={dropPanelClass} index={0} parentPath={path}>
+      <DropWatcherPanel
+        className={dropPanelClass}
+        index={0}
+        parentPath={path}
+        parentNodeType={parentUiName}
+      >
         {uiChildren.length === 0 ? showOnEmpty : null}
       </DropWatcherPanel>
       {uiChildren.map((childNode, i) => (
@@ -30,6 +42,7 @@ export function ChildrenWithDropNodes({
             className={dropPanelClass}
             index={i + 1}
             parentPath={path}
+            parentNodeType={parentUiName}
           />
         </React.Fragment>
       ))}

@@ -1,6 +1,7 @@
 import containerIcon from "../../../assets/icons/shinyContainer.png";
 import type { CardSettings } from "../../Bslib/BslibCard";
 import type { UiComponentInfo } from "../../uiNodeTypes";
+import { grid_container_nodes } from "../grid_container_nodes";
 
 import GridlayoutGridCard from "./GridlayoutCard";
 
@@ -19,6 +20,7 @@ export const gridlayoutCardInfo: UiComponentInfo<GridBslibCardCardSettings> = {
       defaultValue: "default-area",
     },
   },
+  allowedParents: grid_container_nodes,
   acceptsChildren: true,
   iconSrc: containerIcon,
   category: "gridlayout",

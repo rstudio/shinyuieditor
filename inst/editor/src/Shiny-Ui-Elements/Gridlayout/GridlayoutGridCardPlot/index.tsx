@@ -1,5 +1,6 @@
 import icon from "../../../assets/icons/shinyPlot.png";
 import type { UiComponentInfo } from "../../uiNodeTypes";
+import { grid_container_nodes } from "../grid_container_nodes";
 
 import GridlayoutGridCardPlot from "./GridlayoutGridCardPlot";
 
@@ -37,6 +38,7 @@ export const gridlayoutGridCardPlotInfo: UiComponentInfo<GridlayoutGridCardPlotP
         renderScaffold: `renderPlot({\n  #Plot code goes here\n  $0plot(rnorm(100))\n})`,
       },
     },
+    allowedParents: grid_container_nodes,
     acceptsChildren: false,
     iconSrc: icon,
     category: "gridlayout",

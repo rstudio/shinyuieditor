@@ -5,6 +5,7 @@ import {
   alignTextRight,
 } from "../../../components/Icons";
 import type { UiComponentInfo } from "../../uiNodeTypes";
+import { grid_container_nodes } from "../grid_container_nodes";
 
 import GridlayoutGridCardText from "./GridlayoutCardText";
 
@@ -47,6 +48,7 @@ export const gridlayoutTextPanelInfo: UiComponentInfo<GridlayoutGridCardTextProp
         optional: true,
       },
     },
+    allowedParents: grid_container_nodes,
     acceptsChildren: false,
     iconSrc: textIcon,
     category: "gridlayout",

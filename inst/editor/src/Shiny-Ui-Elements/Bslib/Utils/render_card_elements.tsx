@@ -71,6 +71,7 @@ export function render_card_elements(
             index={0}
             parentPath={path}
             wrappingNode={headerScaffold}
+            parentNodeType="bslib::card_header"
           />
         </CardHeader>
       )}
@@ -81,6 +82,7 @@ export function render_card_elements(
             index={sum_booleans(has_header)}
             parentPath={path}
             wrappingNode={bodyScaffold}
+            parentNodeType="bslib::card_body"
           />
         </CardBody>
       )}
@@ -91,6 +93,7 @@ export function render_card_elements(
             index={sum_booleans(has_header, has_body)}
             parentPath={path}
             wrappingNode={footerScaffold}
+            parentNodeType="bslib::card_footer"
           />
         </CardFooter>
       )}

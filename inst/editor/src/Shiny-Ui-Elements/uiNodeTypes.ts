@@ -80,6 +80,8 @@ export type UiComponentInfo<NodeSettings extends UiArgumentsObject> = {
    */
   description?: string;
 
+  allowedParents?: ShinyUiNames[];
+
   /**
    * Does this node have outputs code it connects to in the server side of
    * things? If so what's the argument name that links it to the server code?
