@@ -66,17 +66,14 @@ export function getDefaultSettings<Args extends UiArgumentsObject>(
   dynamicFormInfo: InfoFromArgs<Args, { dynamic: true }>,
   node?: ShinyUiNode
 ): Args {
-  let defaultArgs: Record<string, any> = {};
+  let defaultArgs: Partial<Args> = {};
 
   for (let argName in dynamicFormInfo) {
     const argInfo = dynamicFormInfo[argName];
-    const isOptional = "optional" in argInfo;
-    const forceDefault = "useDefaultIfOptional" in argInfo;
-    if (
-      argInfo.inputType !== "omitted" &&
-      "defaultValue" in argInfo &&
-      (forceDefault || !isOptional)
-    ) {
+    const notOptional = !("optional" in argInfo);
+    const forceDefaultIfOptional = "useDefaultIfOptional" in argInfo;
+
+    if (notOptional || forceDefaultIfOptional) {
       defaultArgs[argName] =
         typeof argInfo.defaultValue === "function"
           ? argInfo.defaultValue(node)
