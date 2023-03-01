@@ -44,7 +44,6 @@ export function useMakeDraggable(
       if (dragHappening.current === false) return;
       e.stopPropagation();
       unsetDraggedNode();
-      // debugger;
       dragHappening.current = false;
       document.body.removeEventListener("dragover", dummyDragOverListener);
       document.body.removeEventListener("drop", endDrag);

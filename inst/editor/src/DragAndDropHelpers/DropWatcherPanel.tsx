@@ -64,7 +64,6 @@ export function DropWatcherPanel({
         "allowedParents" in draggedNodeInfo &&
         !draggedNodeInfo.allowedParents?.includes(parentNodeType)
       ) {
-        console.warn("Not allowed parent-to-child combo");
         return false;
       }
 
