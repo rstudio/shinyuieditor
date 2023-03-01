@@ -63,7 +63,7 @@ export function useMakeDraggable(
       // the dragged element before we start showing drop zones etc, otherwise
       // the layout shift from the drop mode can cause the mouse to leave the
       // dragged item and thus prematurely terminate the drag event
-      window.setTimeout(() => setDraggedNode(nodeInfo), 5);
+      window.setTimeout(() => setDraggedNode(nodeInfo), 1);
     },
     [endDrag, nodeInfo, setDraggedNode]
   );
