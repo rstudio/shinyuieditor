@@ -3,6 +3,7 @@ import React from "react";
 import { nodesAreSiblings } from "../../../components/UiNode/TreeManipulation/nodesAreSiblings";
 import type { DraggedNodeInfo } from "../../../DragAndDropHelpers/DragAndDropHelpers";
 import { useFilteredDrop } from "../../../DragAndDropHelpers/useFilteredDrop";
+import { useCurrentDraggedNode } from "../../../state/currentlyDraggedNode";
 import type { NodePath } from "../../uiNodeTypes";
 
 import { isValidGridItem } from "./isValidGridItem";
@@ -16,6 +17,8 @@ export function useGridItemSwapping({
   path: NodePath;
   area: string;
 }) {
+  const currentDrag = useCurrentDraggedNode();
+
   const setLayout = useSetLayout();
 
   const getIsValidSwap: (dragInfo: DraggedNodeInfo) => boolean =
@@ -25,7 +28,9 @@ export function useGridItemSwapping({
 
         if (!isValidGridItem(node)) return false;
 
-        return nodesAreSiblings(currentPath, path);
+        const valid = nodesAreSiblings(currentPath, path);
+
+        return valid;
       },
       [path]
     );
@@ -53,10 +58,31 @@ export function useGridItemSwapping({
     [area, setLayout]
   );
 
-  return useFilteredDrop({
+  const ref = useFilteredDrop({
     getCanAcceptDrop: getIsValidSwap,
     onDrop,
     canAcceptDropClass: classes.availableToSwap,
     hoveringOverClass: classes.hoveringOverSwap,
   });
+
+  // The following effects add some data attributes to the grid node that are
+  // used to populate a little message telling the user what grid items are
+  // swapping
+  React.useEffect(() => {
+    if (ref.current) {
+      ref.current.dataset["gridArea"] = area;
+    }
+  }, [area, ref]);
+
+  React.useEffect(() => {
+    if (
+      ref.current &&
+      currentDrag?.node &&
+      "area" in currentDrag.node.uiArguments
+    ) {
+      ref.current.dataset["swapWith"] = currentDrag.node.uiArguments?.area;
+    }
+  }, [currentDrag?.node, ref]);
+
+  return ref;
 }

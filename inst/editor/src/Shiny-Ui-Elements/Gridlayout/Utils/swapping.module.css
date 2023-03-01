@@ -3,8 +3,8 @@
   --highlight-color: var(--rstudio-blue, pink);
 }
 
-div.hoveringOverSwap::after {
-  content: "Swap positions";
+div.hoveringOverSwap::before {
+  content: "Swap " attr(data-swap-with) " with " attr(data-grid-area);
   position: absolute;
   background-color: var(--highlight-color);
   color: var(--rstudio-white);
@@ -13,6 +13,7 @@ div.hoveringOverSwap::after {
   z-index: 2;
   text-align: center;
   padding-block: 4px;
+  pointer-events: none;
 }
 
 div.availableToSwap {
@@ -21,12 +22,17 @@ div.availableToSwap {
   --start-shadow: inset 0px 0 0px var(--outline-start-width)
     var(--highlight-color);
   --end-shadow: inset 0px 0 0px var(--outline-end-width) var(--highlight-color);
-
+  opacity: 1;
   box-shadow: var(--start-shadow);
   animation-duration: 3s;
   animation-name: pulse;
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
+}
+
+div.availableToSwap.hoveringOverSwap {
+  /* This ensures the currently hovered item always takes full precidence */
+  z-index: 2;
 }
 
 @keyframes pulse {
