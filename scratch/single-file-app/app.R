@@ -10,7 +10,7 @@ ui <- grid_page(
     "sidebar redPlot"
   ),
   row_sizes = c(
-    "175px",
+    "80px",
     "1.01fr",
     "0.99fr"
   ),
@@ -21,22 +21,27 @@ ui <- grid_page(
   gap_size = "1rem",
   grid_card(
     area = "sidebar",
-    item_alignment = "top",
-    title = "Settings",
-    item_gap = "12px",
-    sliderInput(
-      inputId = "bins",
-      label = "Number of Bins ",
-      min = 12,
-      max = 100,
-      value = 30,
-      width = "100%"
-    ),
-    actionButton(inputId = "redraw", label = "Redraw"),
-    textInput(
-      inputId = "bins2",
-      label = "Text Input",
-      value = ""
+    card_header(h2("Lorem Ipsum")),
+    card_body(
+      sliderInput(
+        inputId = "bins",
+        label = "Number of Bins ",
+        min = 12,
+        max = 100,
+        value = 30,
+        width = "100%"
+      ),
+      numericInput(
+        inputId = "myNumericInput",
+        label = "Numeric Input",
+        value = 5
+      ),
+      actionButton(inputId = "redraw", label = "Redraw"),
+      textInput(
+        inputId = "bins2",
+        label = "Text Input",
+        value = ""
+      )
     )
   ),
   grid_card_text(
@@ -46,18 +51,10 @@ ui <- grid_page(
     is_title = FALSE
   ),
   grid_card_plot(area = "redPlot"),
-  grid_card_panel(
+  grid_card(
     area = "area3",
-    card_header("Lorem Ipsum"),
-    card_body(
-      numericInput(
-        inputId = "myNumericInput",
-        label = "Numeric Input",
-        value = 5
-      ),
-      "Lorem Ipsum"
-    ),
-    card_footer("Lorem Ipsum")
+    card_header(h2("Lorem Ipsum")),
+    card_body()
   )
 )
 
@@ -92,6 +89,12 @@ server <- function(input, output) {
     #Plot code goes here
     plot(rnorm(100))
   })
+
+  output$plot <- renderPlot({
+    #Plot code goes here
+    plot(rnorm(100))
+  })
+
 }
 
 shinyApp(ui, server)

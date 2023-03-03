@@ -16,7 +16,6 @@ export function UnknownArgumentsRender<Args extends UiArgumentsObject>({
     Object.keys(settings),
     Object.keys(settingsInfo)
   );
-  console.log({ settings, settingsInfo, unknownArguments });
 
   if (unknownArguments.length === 0) return null;
 
