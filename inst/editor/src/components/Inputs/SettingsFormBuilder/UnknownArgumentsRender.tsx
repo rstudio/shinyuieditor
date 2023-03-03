@@ -1,11 +1,13 @@
 import { isShinyUiNode } from "../../../Shiny-Ui-Elements/isShinyUiNode";
-import type { ShinyUiNodeByName } from "../../../Shiny-Ui-Elements/uiNodeTypes";
+import type {
+  ShinyUiNodeByName,
+  UiArgumentsObject,
+} from "../../../Shiny-Ui-Elements/uiNodeTypes";
 import { inANotInB } from "../../../utils/array-helpers";
 import { Trash } from "../../Icons";
 import { Tooltip, TooltipButton } from "../../PopoverEl/Tooltip";
 
 import type { FormBuilderProps } from "./FormBuilder";
-import type { UiArgumentsObject } from "./inputFieldTypes";
 
 export function UnknownArgumentsRender<Args extends UiArgumentsObject>({
   settings,

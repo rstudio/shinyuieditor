@@ -78,10 +78,6 @@ export function addAtIndex<T>(arr: T[], index: number, val: T) {
   // array only has 1 element, then we're get an undefined location, filter
   // these out to make function more robust
 
-  if (newArr.find((x) => typeof x === "undefined")) {
-    console.warn("We've generated an array with an undefined array");
-  }
-
   return newArr;
 }
 

@@ -1,6 +1,6 @@
 import type { UiNodeComponent } from "../../uiNodeTypes";
-import type { GridLayoutArgs } from "../Utils/GridContainerElement/GridLayoutArgs";
 import { GridContainerElement } from "../Utils/GridContainerElement/GridContainerElement";
+import type { GridLayoutArgs } from "../Utils/GridContainerElement/GridLayoutArgs";
 
 export const GridlayoutGridPage: UiNodeComponent<GridLayoutArgs> = (args) => {
   return <GridContainerElement {...args} />;

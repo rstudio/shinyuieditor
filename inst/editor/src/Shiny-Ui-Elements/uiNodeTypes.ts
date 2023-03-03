@@ -1,10 +1,7 @@
 import type React from "react";
 
 import type { CustomFormRenderFn } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
-import type {
-  DynamicInfoFromArgs,
-  UiArgumentsObject,
-} from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";
+import type { ArgsToDynamicInfo } from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";
 import type { DeleteAction, UpdateAction } from "../state/app_info";
 import { is_object } from "../utils/is_object";
 import type { PickKeyFn } from "../utils/TypescriptUtils";
@@ -41,6 +38,8 @@ import { shinyUiOutputInfo } from "./ShinyUiOutput";
 import { textNodeInfo } from "./TextNode";
 import { unknownUiFunctionInfo } from "./UnknownUiFunction";
 
+export type UiArgumentsObject = Record<string, unknown | undefined>;
+
 /**
  * Defines everything needed to add a new Shiny UI component to the app
  */
@@ -53,7 +52,7 @@ export type UiComponentInfo<NodeSettings extends UiArgumentsObject> = {
   /**
    * Info declaring what arguments to render in settings panel and how
    */
-  settingsInfo: DynamicInfoFromArgs<NodeSettings>;
+  settingsInfo: ArgsToDynamicInfo<NodeSettings>;
 
   /** Optional field that is only here so the proper settings type gets carried
    * along with the info object.  */

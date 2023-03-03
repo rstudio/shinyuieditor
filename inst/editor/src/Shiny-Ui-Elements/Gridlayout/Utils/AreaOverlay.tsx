@@ -2,7 +2,6 @@ import React from "react";
 
 import { FaGripLines, FaGripLinesVertical } from "react-icons/fa";
 
-import type { TemplatedGridProps } from "./EditableGridContainer/TemplatedGridProps";
 import type { ResizeDirection } from "../../../utils/gridTemplates/availableMoves";
 import { availableMoves } from "../../../utils/gridTemplates/availableMoves";
 import type {
@@ -12,6 +11,7 @@ import type {
 import { mergeClasses } from "../../../utils/mergeClasses";
 
 import classes from "./AreaOverlay.module.css";
+import type { TemplatedGridProps } from "./EditableGridContainer/TemplatedGridProps";
 import { useResizeOnDrag } from "./useResizeOnDrag";
 
 export function AreaOverlay({

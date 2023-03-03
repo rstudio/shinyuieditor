@@ -1,5 +1,5 @@
-import type { TemplatedGridProps } from "../../Shiny-Ui-Elements/Gridlayout/Utils/EditableGridContainer/TemplatedGridProps";
 import type { TractDirection } from "../../Shiny-Ui-Elements/Gridlayout/GridlayoutGridPage";
+import type { TemplatedGridProps } from "../../Shiny-Ui-Elements/Gridlayout/Utils/EditableGridContainer/TemplatedGridProps";
 import { joinPretty, removeAtIndex } from "../array-helpers";
 import { removeRowOrCol } from "../matrix-helpers";
 

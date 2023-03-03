@@ -1,6 +1,7 @@
-import type { TemplatedGridProps } from "./TemplatedGridProps";
-import type { TractDirection } from "../../GridlayoutGridPage";
 import type { CSSMeasure } from "../../../../components/Inputs/CSSUnitInput/CSSMeasure";
+import type { TractDirection } from "../../GridlayoutGridPage";
+
+import type { TemplatedGridProps } from "./TemplatedGridProps";
 
 export function buildRange(from: number, to: number): number[] {
   const numEls = Math.abs(to - from) + 1;

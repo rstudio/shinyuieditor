@@ -2,6 +2,7 @@ import DeleteNodeButton from "../components/DeleteNodeButton";
 import { buildStaticFormInfo } from "../components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
 import type { CustomFormRenderFn } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
 import { FormBuilder } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
+import type { DynamicInputOptions } from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";
 import { PanelHeader } from "../EditorSkeleton/EditorSkeleton";
 import type { ShinyUiNode } from "../main";
 import { shinyUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
@@ -37,7 +38,7 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
   // If performance issues happen this can be memoized
   const nodeInfo = shinyUiNodeInfo[uiName];
   const staticSettingsInfo = buildStaticFormInfo(
-    nodeInfo.settingsInfo,
+    nodeInfo.settingsInfo as Record<string, DynamicInputOptions>,
     currentNode
   );
 

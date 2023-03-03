@@ -63,7 +63,6 @@ export function useSyncUiWithBackend() {
 
       dispatch(SET_APP_INFO(full_info));
       lastRecievedRef.current = { mode: "MAIN", ...full_info };
-      console.log("Full app info", full_info);
     });
 
     const templateChooserSubscription = backendMsgs.subscribe(

@@ -13,7 +13,8 @@ const GridlayoutGridCard: UiNodeComponent<GridBslibCardCardSettings> = (
   node
 ) => {
   const {
-    uiArguments: { area, ...bslibCardArgs },
+    uiArguments: { area },
+    // uiArguments: { area, ...bslibCardArgs },
     uiChildren = [],
     path,
     wrapperProps,

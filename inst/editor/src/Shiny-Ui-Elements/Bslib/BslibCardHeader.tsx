@@ -5,7 +5,7 @@ import { CardChildrenWithDropNodes } from "./Utils/ChildrenWithDropNodes";
 export type CardHeaderSettings = {};
 
 const BslibCardHeader: UiNodeComponent<CardHeaderSettings> = (node) => {
-  const { uiArguments, uiChildren, path, wrapperProps } = node;
+  const { uiChildren, path, wrapperProps } = node;
 
   return (
     <CardHeader {...wrapperProps}>

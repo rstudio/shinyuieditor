@@ -1,6 +1,6 @@
 import clone from "just-clone";
 
-import type { TractDirection } from "../../GridlayoutGridPage";
+import type { CSSMeasure } from "../../../../components/Inputs/CSSUnitInput/CSSMeasure";
 import addItem from "../../../../utils/gridTemplates/addItem";
 import addTract from "../../../../utils/gridTemplates/addTract";
 import {
@@ -12,8 +12,8 @@ import { renameItem } from "../../../../utils/gridTemplates/renameItem";
 import resizeTract from "../../../../utils/gridTemplates/resizeTract";
 import swapItems from "../../../../utils/gridTemplates/swapItems";
 import type { GridItemExtent } from "../../../../utils/gridTemplates/types";
+import type { TractDirection } from "../../GridlayoutGridPage";
 import type { TemplatedGridProps } from "../EditableGridContainer/TemplatedGridProps";
-import type { CSSMeasure } from "../../../../components/Inputs/CSSUnitInput/CSSMeasure";
 
 import type { GridLayoutArgsProperlyBoxed } from "./ensureProperBoxedGridLayoutArts";
 import {

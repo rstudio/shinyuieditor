@@ -1,8 +1,10 @@
 import React from "react";
 
+import type { UiArgumentsObject } from "../../../Shiny-Ui-Elements/uiNodeTypes";
+import { is_object } from "../../../utils/is_object";
 import type { StringKeys } from "../../../utils/TypescriptUtils";
 
-import type { DynamicInfoFromArgs, UiArgumentsObject } from "./inputFieldTypes";
+import type { ArgsToDynamicInfo } from "./inputFieldTypes";
 import type {
   SettingsInputProps,
   SettingsUpdateAction,
@@ -24,7 +26,7 @@ export type CustomFormRenderFn<Settings extends SettingsObj> = (
 
 export type FormBuilderProps<Args extends UiArgumentsObject> = {
   settings: Args;
-  settingsInfo: DynamicInfoFromArgs<Args>;
+  settingsInfo: ArgsToDynamicInfo<Args>;
   onSettingsChange: (name: string, action: SettingsUpdateAction) => void;
   renderInputs?: CustomFormRenderFn<SettingsObj>;
 };
@@ -70,7 +72,14 @@ function knownArgumentInputs<Args extends UiArgumentsObject>({
   for (const arg_name in settingsInfo) {
     const arg_info = settingsInfo[arg_name];
 
-    if (arg_info.inputType === "omitted") continue;
+    if (!is_object(arg_info)) continue;
+
+    if (
+      !("inputType" in arg_info) ||
+      !("defaultValue" in arg_info) ||
+      arg_info.inputType === "omitted"
+    )
+      continue;
 
     const current_arg_value = settings[arg_name];
 

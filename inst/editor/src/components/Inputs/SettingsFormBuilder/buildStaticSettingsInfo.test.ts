@@ -1,7 +1,4 @@
-import type {
-  ShinyUiNode,
-  ShinyUiNodeByName,
-} from "../../../Shiny-Ui-Elements/uiNodeTypes";
+import type { ShinyUiNode } from "../../../Shiny-Ui-Elements/uiNodeTypes";
 import { getFirstTabName, getTabNames } from "../../Tabs/Tabset/utils";
 
 import { buildStaticFormInfo } from "./buildStaticSettingsInfo";
@@ -29,13 +26,9 @@ const navbarWithThreeTabs: ShinyUiNode = {
 };
 
 describe("Can convert full dynamic settings info object into a static one", () => {
-  type NavbarAbbridgedArgs = Pick<
-    ShinyUiNodeByName["shiny::navbarPage"]["uiArguments"],
-    "title" | "selected"
-  >;
   test("All dynamic values", () => {
     expect(
-      buildStaticFormInfo<NavbarAbbridgedArgs>(
+      buildStaticFormInfo(
         {
           title: {
             inputType: "string",

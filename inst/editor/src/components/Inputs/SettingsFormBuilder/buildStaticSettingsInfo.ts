@@ -1,9 +1,11 @@
 import type { ShinyUiNode } from "../../../main";
+import type { UiArgumentsObject } from "../../../Shiny-Ui-Elements/uiNodeTypes";
 
 import type {
-  InfoFromArgs,
+  ArgsToDynamicInfo,
+  ConvertToStatic,
+  DynamicInputOptions,
   NodeToValueFn,
-  UiArgumentsObject,
 } from "./inputFieldTypes";
 
 function isNodeToValueFn<T>(x: T | NodeToValueFn<T>): x is NodeToValueFn<T> {
@@ -30,10 +32,12 @@ function getValueFromProperty<T>(
  * @returns A static version of the settings info for all arugments where
  * functions have been evaluated to their constant values
  */
-export function buildStaticFormInfo<Args extends UiArgumentsObject>(
-  inputInfoForArgs: InfoFromArgs<Args, { dynamic: true }>,
+export function buildStaticFormInfo<
+  DynamicArgInfo extends Record<string, DynamicInputOptions>
+>(
+  inputInfoForArgs: DynamicArgInfo,
   node?: ShinyUiNode
-): InfoFromArgs<Args, { dynamic: false }> {
+): ConvertToStatic<DynamicArgInfo> {
   let staticSettingsInfo: Record<string, Record<string, unknown>> = {};
 
   for (let arg_name in inputInfoForArgs) {
@@ -49,7 +53,7 @@ export function buildStaticFormInfo<Args extends UiArgumentsObject>(
     });
   }
 
-  return staticSettingsInfo as InfoFromArgs<Args, { dynamic: false }>;
+  return staticSettingsInfo as ConvertToStatic<DynamicArgInfo>;
 }
 
 /**
@@ -63,13 +67,14 @@ export function buildStaticFormInfo<Args extends UiArgumentsObject>(
  * functions have been evaluated to their constant values
  */
 export function getDefaultSettings<Args extends UiArgumentsObject>(
-  dynamicFormInfo: InfoFromArgs<Args, { dynamic: true }>,
+  dynamicFormInfo: ArgsToDynamicInfo<Args>,
   node?: ShinyUiNode
 ): Args {
-  let defaultArgs: Partial<Args> = {};
+  let defaultArgs: Record<string, unknown> = {};
 
   for (let argName in dynamicFormInfo) {
-    const argInfo = dynamicFormInfo[argName];
+    const argInfo = dynamicFormInfo[argName] as DynamicInputOptions;
+
     const notOptional = !("optional" in argInfo);
     const forceDefaultIfOptional = "useDefaultIfOptional" in argInfo;
 

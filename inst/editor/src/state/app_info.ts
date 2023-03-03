@@ -86,7 +86,6 @@ export const mainStateSlice = createSlice({
         throw new Error("Tried to delete a node when in template chooser mode");
       }
       for (const subscription of get_deletion_subscriptions()) {
-        console.log("Running delete subscription!");
         subscription(state.ui_tree, { path: action.payload.path });
       }
       removeNodeMutating(state.ui_tree, action.payload);

@@ -1,6 +1,6 @@
 import { isCSSMeasure } from "../../CSSUnitInput/CSSMeasure";
 import { isNamedList } from "../../ListInput/NamedListInput";
-import type { KnownInputFieldTypes, InputTypeNames } from "../inputFieldTypes";
+import type { InputTypeNames, KnownInputFieldTypes } from "../inputFieldTypes";
 
 export function valueIsType(
   value: KnownInputFieldTypes | undefined,

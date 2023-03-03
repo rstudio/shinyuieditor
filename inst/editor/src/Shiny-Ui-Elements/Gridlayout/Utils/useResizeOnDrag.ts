@@ -1,14 +1,14 @@
 import React from "react";
 
-import type { TemplatedGridProps } from "./EditableGridContainer/TemplatedGridProps";
-import type { TractDirection } from "../GridlayoutGridPage";
 import findAvailableTracts from "../../../utils/gridTemplates/findAvailableTracts";
 import type {
   GridItemExtent,
   ItemLocation,
 } from "../../../utils/gridTemplates/types";
 import { within } from "../../../utils/within";
+import type { TractDirection } from "../GridlayoutGridPage";
 
+import type { TemplatedGridProps } from "./EditableGridContainer/TemplatedGridProps";
 import type { TractExtents } from "./getTractExtents";
 import { getTractExtents } from "./getTractExtents";
 import { gridLocationToExtent, sameLocation } from "./helpers";

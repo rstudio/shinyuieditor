@@ -6,11 +6,11 @@ import { NamedListInput } from "../../ListInput/NamedListInput";
 import { NumberInput } from "../../NumberInput/NumberInput";
 import { DropdownSelect } from "../../OptionsDropdown/DropdownSelect";
 import { RadioInputs } from "../../RadioInputs/RadioInputsSimple";
-import type { InputInfoUnion, KnownInputFieldTypes } from "../inputFieldTypes";
+import type { InputOptions, KnownInputFieldTypes } from "../inputFieldTypes";
 
 import { StringInput } from "./StringInput";
 
-type SettingsInputElementProps = InputInfoUnion & {
+type SettingsInputElementProps = InputOptions & {
   id: string;
   label: string;
   /**

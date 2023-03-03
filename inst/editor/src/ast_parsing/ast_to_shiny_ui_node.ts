@@ -1,9 +1,10 @@
 import type { ShinyUiNode } from "editor";
 import { isShinyUiNode } from "editor/src/Shiny-Ui-Elements/isShinyUiNode";
 import { normalize_ui_name } from "editor/src/Shiny-Ui-Elements/normalize_ui_name";
-import type { ShinyUiNodeByName } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
-
-import type { UiArgumentsObject } from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";
+import type {
+  ShinyUiNodeByName,
+  UiArgumentsObject,
+} from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
 
 import type { Branch_Node, Primatives, R_AST_Node } from ".";
 
