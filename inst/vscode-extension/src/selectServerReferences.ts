@@ -1,6 +1,7 @@
 import type { InputSourceRequest } from "communication-types";
 import type { SnippetInsertRequest } from "communication-types/src/MessageToBackend";
 import type { Script_Position } from "r-ast-parsing";
+import { indent_text_block } from "util-functions/src/strings";
 import * as vscode from "vscode";
 
 import { selectMultupleLocations } from "./extension-api-utils/selectMultupleLocations";
@@ -8,15 +9,29 @@ import { selectMultupleLocations } from "./extension-api-utils/selectMultupleLoc
 export async function insert_code_snippet({
   editor,
   snippet,
-  below_line,
-}: { editor: vscode.TextEditor } & SnippetInsertRequest) {
+  server_pos,
+  where_in_server,
+}: {
+  editor: vscode.TextEditor;
+  server_pos: Script_Position;
+} & SnippetInsertRequest) {
+  // This is an assumption that we should probably extract from the script
+  // itself
+  const INDENT_SPACES = 2;
+  const [start_row, , end_row] = server_pos;
+
   // Fill in the template at bottom of server
   const where_to_insert = editor.document.validatePosition(
-    new vscode.Position(below_line - 1, Infinity)
+    new vscode.Position(
+      where_in_server === "end" ? end_row - 2 : start_row - 2,
+      Infinity
+    )
   );
 
   const successfull_template_add = await editor.insertSnippet(
-    new vscode.SnippetString("\n" + snippet),
+    new vscode.SnippetString(
+      `\n  ${indent_text_block(snippet, INDENT_SPACES)}`
+    ),
     where_to_insert
   );
 

@@ -118,7 +118,7 @@ export function editorLogic({
           app_type: "SINGLE-FILE",
           app: {
             script: appFileText,
-            ast: appAST.values,
+            ast: appAST.values.ast,
           },
         },
       });
@@ -233,11 +233,14 @@ export function editorLogic({
           return;
         }
         case "INSERT-SNIPPET": {
-          console.log("Insert snippet into server", msg.payload);
-          insert_code_snippet({
-            editor: await get_companion_editor(),
-            ...msg.payload,
-          });
+          const appAST = await get_app_ast(RProcess);
+          if (appAST.status === "success" && appAST.values !== "EMPTY") {
+            insert_code_snippet({
+              editor: await get_companion_editor(),
+              server_pos: appAST.values.server_info.server_pos,
+              ...msg.payload,
+            });
+          }
           return;
         }
 
@@ -250,12 +253,12 @@ export function editorLogic({
           } else {
             const appAST = await get_app_ast(RProcess);
             if (appAST.status === "success" && appAST.values !== "EMPTY") {
-              const server_info = parse_app_server_info(appAST.values);
-
               select_app_lines({
                 editor: await get_companion_editor(),
                 selections:
-                  server_info.get_output_position(msg.payload.outputId) ?? [],
+                  appAST.values.server_info.get_output_position(
+                    msg.payload.outputId
+                  ) ?? [],
               });
             }
           }

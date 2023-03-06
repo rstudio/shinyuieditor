@@ -32,7 +32,11 @@ export type MessageToBackendByPath = {
  */
 export type MessageToBackend = MessageUnion<MessageToBackendByPath>;
 
-export type SnippetInsertRequest = { snippet: string; below_line: number };
+export type SnippetInsertRequest = {
+  snippet: string;
+  where_in_server: "end" | "start";
+};
+
 export type InputSourceRequest = {
   type: "Input";
   /** The current input id used to bind to ui output fn */

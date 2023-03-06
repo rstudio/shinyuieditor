@@ -1,11 +1,14 @@
 import type { R_AST } from "r-ast-parsing";
+import { parse_app_server_info } from "r-ast-parsing/src/parse_app_server_info";
 import { makePortableString, collapseText } from "util-functions/src/strings";
 import type * as vscode from "vscode";
 
 import type { CommandOutputGeneric } from "./runRCommand";
 import type { ActiveRSession } from "./startBackgroundRProcess";
 
-type AST_GET_RESULTS = R_AST | "EMPTY";
+type AST_GET_RESULTS =
+  | { ast: R_AST; server_info: ReturnType<typeof parse_app_server_info> }
+  | "EMPTY";
 async function getAppAST(
   rProc: ActiveRSession,
   fileText: string
@@ -40,7 +43,9 @@ async function getAppAST(
       return { status: "success", values: "EMPTY" };
     }
 
-    return { status: "success", values: parsedAST };
+    const server_info = parse_app_server_info(parsedAST);
+
+    return { status: "success", values: { ast: parsedAST, server_info } };
   } catch {
     return {
       status: "error",
@@ -52,7 +57,7 @@ async function getAppAST(
 export function make_cached_ast_getter(document: vscode.TextDocument) {
   let last_ast_grabbed: {
     file_version: number;
-    ast: AST_GET_RESULTS;
+    ast_info: AST_GET_RESULTS;
   } | null = null;
 
   async function get_ast(
@@ -62,7 +67,7 @@ export function make_cached_ast_getter(document: vscode.TextDocument) {
 
     if (current_file_version === last_ast_grabbed?.file_version) {
       // Use cached ast since nothing has changed!
-      return { status: "success", values: last_ast_grabbed.ast };
+      return { status: "success", values: last_ast_grabbed.ast_info };
     }
 
     const ast_get_attempt = await getAppAST(rProc, document.getText());
@@ -71,9 +76,11 @@ export function make_cached_ast_getter(document: vscode.TextDocument) {
       return ast_get_attempt;
     }
 
+    const ast_info = ast_get_attempt.values;
+
     last_ast_grabbed = {
       file_version: current_file_version,
-      ast: ast_get_attempt.values,
+      ast_info,
     };
 
     return ast_get_attempt;

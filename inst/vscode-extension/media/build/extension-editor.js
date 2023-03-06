@@ -12819,20 +12819,25 @@ shinyApp(ui, server)
       `Unknown function ${e} made it passed the unknown function filter`
     );
   }
-  function $P(e) {
-    return e[0].val === "c";
+  function $P(e, t) {
+    const n = " ".repeat(t);
+    return e.replaceAll(/\n/g, `
+${n}`);
   }
   function HP(e) {
+    return e[0].val === "c";
+  }
+  function GP(e) {
     const t = e[0].val;
     return t === "c" || t === "list";
   }
-  function GP(e) {
-    return lr(e) && $P(e.val);
-  }
   function JP(e) {
-    return lr(e) && e.val[0].val === "list";
+    return lr(e) && HP(e.val);
   }
   function QP(e) {
+    return lr(e) && e.val[0].val === "list";
+  }
+  function KP(e) {
     try {
       return wE(e);
     } catch (t) {
@@ -12855,7 +12860,7 @@ shinyApp(ui, server)
       (r) => hE(r.val) ? r.val : wE(r)
     );
   }
-  function KP(e) {
+  function qP(e) {
     if (!lr(e))
       throw new Rt({
         message: "Tried to flatten a leaf/primative node"
@@ -12887,11 +12892,6 @@ shinyApp(ui, server)
       return uf({ node: e, explanation: t.message });
     }
   }
-  function qP(e, t) {
-    const n = " ".repeat(t);
-    return e.replaceAll(/\n/g, `
-${n}`);
-  }
   const bE = 2, XP = " ".repeat(bE), qm = 60, di = `
 ${XP}`;
   function SE(e) {
@@ -12903,7 +12903,7 @@ ${XP}`;
     ), i = EE({
       fn_name: t.val,
       fn_args_list: r,
-      max_line_length_for_multi_args: HP(e) ? qm : 0
+      max_line_length_for_multi_args: GP(e) ? qm : 0
     }), o = `,${i ? di : " "}`;
     return `${t.val}(${i ? di : ""}${r.join(o)}${i ? `
 ` : ""})`;
@@ -12946,7 +12946,7 @@ ${XP}`;
     }
   }
   function jl(e) {
-    return qP(e, bE);
+    return $P(e, bE);
   }
   function uf({
     node: e,
@@ -13010,7 +13010,7 @@ ${XP}`;
     return i.length > 0 && (o.uiChildren = i), Km(o) ? o : uf({ node: e });
   }
   function n4(e) {
-    return FP(e) ? e.val : GP(e) ? QP(e) : JP(e) ? KP(e) : uf({ node: e });
+    return FP(e) ? e.val : JP(e) ? KP(e) : QP(e) ? qP(e) : uf({ node: e });
   }
   function r4(e, t) {
     if (t4(e))

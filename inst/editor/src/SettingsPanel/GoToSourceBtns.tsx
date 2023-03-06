@@ -94,7 +94,7 @@ function GoToOutputsBtn({
             path: "INSERT-SNIPPET",
             payload: {
               snippet: `\noutput\\$${outputId} <- ${renderScaffold}`,
-              below_line: current_server_position[2] - 1,
+              where_in_server: "end",
             },
           });
         }
