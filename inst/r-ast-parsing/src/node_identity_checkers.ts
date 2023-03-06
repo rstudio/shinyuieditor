@@ -1,4 +1,4 @@
-import { is_object } from "editor/src/utils/is_object";
+import { is_object } from "util-functions/src/is_object";
 
 import type { Branch_Node, Leaf_Node, Primatives, R_AST_Node } from ".";
 

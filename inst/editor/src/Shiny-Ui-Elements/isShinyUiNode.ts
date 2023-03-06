@@ -1,5 +1,6 @@
+import { is_object } from "util-functions/src/is_object";
+
 import type { ShinyUiNode } from "../main";
-import { is_object } from "../utils/is_object";
 
 import { shinyUiNodeInfo } from "./uiNodeTypes";
 
