@@ -1,9 +1,10 @@
+import { inANotInB } from "util-functions/src/arrays";
+
 import { isShinyUiNode } from "../../../Shiny-Ui-Elements/isShinyUiNode";
 import type {
   ShinyUiNodeByName,
   UiArgumentsObject,
 } from "../../../Shiny-Ui-Elements/uiNodeTypes";
-import { inANotInB } from "../../../utils/array-helpers";
 import { Trash } from "../../Icons";
 import { Tooltip, TooltipButton } from "../../PopoverEl/Tooltip";
 

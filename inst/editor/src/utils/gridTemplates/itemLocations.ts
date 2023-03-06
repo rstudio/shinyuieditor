@@ -1,5 +1,6 @@
+import { arrayRange } from "util-functions/src/arrays";
+
 import type { TemplatedGridProps } from "../../Shiny-Ui-Elements/Gridlayout/Utils/EditableGridContainer/TemplatedGridProps";
-import { arrayRange } from "../array-helpers";
 import { matrixDimensions } from "../matrix-helpers";
 
 import type { ItemLocation } from "./types";

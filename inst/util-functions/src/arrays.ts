@@ -4,6 +4,7 @@ export const seqArray = (
 ): number[] => {
   return Array.from({ length }, (_, i) => i);
 };
+
 export const buildRange = (from: number, to: number): number[] => {
   const numEls = Math.abs(to - from) + 1;
   const step = from < to ? 1 : -1;

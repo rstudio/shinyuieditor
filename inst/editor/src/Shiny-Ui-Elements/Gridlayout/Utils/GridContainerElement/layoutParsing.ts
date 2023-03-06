@@ -1,4 +1,5 @@
-import { fillArr } from "../../../../utils/array-helpers";
+import { fillArr } from "util-functions/src/arrays";
+
 import { emptyCell } from "../../../../utils/gridTemplates/itemLocations";
 import { matrixDimensions } from "../../../../utils/matrix-helpers";
 import type { TemplatedGridProps } from "../EditableGridContainer/TemplatedGridProps";

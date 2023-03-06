@@ -1,7 +1,8 @@
 import React from "react";
 
+import { seqArray } from "util-functions/src/arrays";
+
 import { DEV_MODE } from "../../env_variables";
-import { seqArray } from "../../utils/array-helpers";
 
 import "./styles.scss";
 

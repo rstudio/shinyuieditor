@@ -1,9 +1,4 @@
-import {
-  addAtIndex,
-  arrayRange,
-  buildRange,
-  moveElement,
-} from "./array-helpers";
+import { addAtIndex, arrayRange, buildRange, moveElement } from "./arrays";
 
 describe("Tells you if array forms consecutive sequence of numbers", () => {
   test("Valid sequence", () => {

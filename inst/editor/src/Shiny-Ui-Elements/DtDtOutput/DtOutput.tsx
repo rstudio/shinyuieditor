@@ -1,6 +1,7 @@
 import React from "react";
 
-import { seqArray } from "../../utils/array-helpers";
+import { seqArray } from "util-functions/src/arrays";
+
 import { InputOutputTitle } from "../InputOutputTitle";
 import type { UiNodeComponent } from "../uiNodeTypes";
 

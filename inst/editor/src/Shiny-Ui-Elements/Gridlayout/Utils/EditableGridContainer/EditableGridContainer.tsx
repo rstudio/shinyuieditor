@@ -1,9 +1,9 @@
 import * as React from "react";
 
 import produce from "immer";
+import { ensureArray } from "util-functions/src/arrays";
 
 import type { CSSMeasure } from "../../../../components/Inputs/CSSUnitInput/CSSMeasure";
-import { ensureArray } from "../../../../utils/array-helpers";
 import addTract from "../../../../utils/gridTemplates/addTract";
 import removeTract from "../../../../utils/gridTemplates/removeTract";
 import { mergeClasses } from "../../../../utils/mergeClasses";
