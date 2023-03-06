@@ -10986,17 +10986,6 @@ shinyApp(ui, server)
   const Pr = /* @__PURE__ */ xI();
   dI(qp.useSyncExternalStoreWithSelector);
   uI(ai.unstable_batchedUpdates);
-  const kI = {
-    symbol: "s",
-    character: "c",
-    boolean: "b",
-    number: "n",
-    unknown: "u",
-    expression: "e"
-  };
-  function Xp(e, t) {
-    return e.type === kI[t];
-  }
   const nr = {
     ui: "<UI>",
     libraries: "<LIBRARIES>"
@@ -11004,8 +10993,8 @@ shinyApp(ui, server)
   function sa(e) {
     return typeof e == "object" && e !== null;
   }
-  const jS = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAEO0lEQVR4nO3dsYqcVRiH8WeNrkXMDRgLixRWRjSiXoMWG0iUXIGNsii4wRsQTApD0EIvQBCJ2RD0GqIoRjthC4vsHaRxRcbi7MDk28kMgv+c92SfH2zxfbPFmZcnZ06+LWZjNpsh/d+e6L0APZ4MSxGGpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqUIw1KEYSnCsBRhWIowLEUYliIMSxGGpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqWIJ3svYJ2db/aW3d4Etg5/3gCePby3Mfm96RcFjfj6feAe8CtwE7gFHEx+jyvvnJne6qp8WEucB64AtSaZ8wzwwuHPJWAPuAx813NR64z0UXgC+JQ20OMS1TJngBu0WZzovJaHGmnH+gTY6b2IQuazuNx1FQ8xyo51gaNRHQDXaWesUxw9n3B4b/FnxNdP0d7jdY6erXZosylnhLA2gc8m9/aB14Bt4A7tgPu4uk97j9u097w/ef0abUaljBDWReC5hesD4C3gbpfV9HUXeBP4a+HeaeDtLqtZYYSwtibXX3I8o5r7Dfhqcm+rwzpWGiGsVyfXX3dZRS3TGZzrsooVRvhf4fOT63LniQ7usPywX8YIO9bUkafOqmfEsDQAw1LECGesdX+oPa5Kz8UdSxGGpQjDUsQIZ6xSZ4dCSs/FHUsRhqUIw1LECGes0s9rOio9F3csRRiWIgxLESOcsUqdHQopPRd3LEUYliIMSxEjnLFKP6/pqPRc3LEUYViKMCxFjHDGKnV2KKT0XNyxFGFYijAsRYxwxir9vKaj0nNxx1KEYSnCsBQxwhmr1NmhkNJzccdShGEpwrAUMcIZq/Tzmo5Kz8UdSxGGpQjDUsQIZ6xSZ4dCSs/FHUsRhqWIEcPyK08GMEJYf9Ce2cx/Xu67nBJe58GZ/Nl1NUuMENbvk+tLXVZRy3QGP3dZxQojhLU7uX4XONthHVW8SJvBot0O61hphLC+Be4tXD8NfA+81GU1fZ0FfqDNYG6fNqNSRgjrAPhwcu808CPt+5DPAScf8ZoepZO093gN+In23hd9wINf5VvCCA9Iof2LvAp8tHBvk/YF3NsL96YPDdf9oXa016euUnC3gjF2rLmPgc97L6KQL2gzKWmksP4B3gcuAHud19LTHnAReI82k5JG+ShcdAO4TRvueeAV2rnjqZ6LCvqbdkD/BbhJ++gr//XFG7PZuo9x6b8b6aNQAzEsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqUIw1KEYSnCsBRhWIowLEUYliIMSxGGpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqUIw1KEYSnCsBRhWIowLEUYliL+BXaHdHGUC5uqAAAAAElFTkSuQmCC", _I = "_card_vugev_1", OI = {
-    card: _I
+  const jS = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAYAAAA8AXHiAAAACXBIWXMAABYlAAAWJQFJUiTwAAAEO0lEQVR4nO3dsYqcVRiH8WeNrkXMDRgLixRWRjSiXoMWG0iUXIGNsii4wRsQTApD0EIvQBCJ2RD0GqIoRjthC4vsHaRxRcbi7MDk28kMgv+c92SfH2zxfbPFmZcnZ06+LWZjNpsh/d+e6L0APZ4MSxGGpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqUIw1KEYSnCsBRhWIowLEUYliIMSxGGpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqWIJ3svYJ2db/aW3d4Etg5/3gCePby3Mfm96RcFjfj6feAe8CtwE7gFHEx+jyvvnJne6qp8WEucB64AtSaZ8wzwwuHPJWAPuAx813NR64z0UXgC+JQ20OMS1TJngBu0WZzovJaHGmnH+gTY6b2IQuazuNx1FQ8xyo51gaNRHQDXaWesUxw9n3B4b/FnxNdP0d7jdY6erXZosylnhLA2gc8m9/aB14Bt4A7tgPu4uk97j9u097w/ef0abUaljBDWReC5hesD4C3gbpfV9HUXeBP4a+HeaeDtLqtZYYSwtibXX3I8o5r7Dfhqcm+rwzpWGiGsVyfXX3dZRS3TGZzrsooVRvhf4fOT63LniQ7usPywX8YIO9bUkafOqmfEsDQAw1LECGesdX+oPa5Kz8UdSxGGpQjDUsQIZ6xSZ4dCSs/FHUsRhqUIw1LECGes0s9rOio9F3csRRiWIgxLESOcsUqdHQopPRd3LEUYliIMSxEjnLFKP6/pqPRc3LEUYViKMCxFjHDGKnV2KKT0XNyxFGFYijAsRYxwxir9vKaj0nNxx1KEYSnCsBQxwhmr1NmhkNJzccdShGEpwrAUMcIZq/Tzmo5Kz8UdSxGGpQjDUsQIZ6xSZ4dCSs/FHUsRhqWIEcPyK08GMEJYf9Ce2cx/Xu67nBJe58GZ/Nl1NUuMENbvk+tLXVZRy3QGP3dZxQojhLU7uX4XONthHVW8SJvBot0O61hphLC+Be4tXD8NfA+81GU1fZ0FfqDNYG6fNqNSRgjrAPhwcu808CPt+5DPAScf8ZoepZO093gN+In23hd9wINf5VvCCA9Iof2LvAp8tHBvk/YF3NsL96YPDdf9oXa016euUnC3gjF2rLmPgc97L6KQL2gzKWmksP4B3gcuAHud19LTHnAReI82k5JG+ShcdAO4TRvueeAV2rnjqZ6LCvqbdkD/BbhJ++gr//XFG7PZuo9x6b8b6aNQAzEsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqUIw1KEYSnCsBRhWIowLEUYliIMSxGGpQjDUoRhKcKwFGFYijAsRRiWIgxLEYalCMNShGEpwrAUYViKMCxFGJYiDEsRhqUIw1KEYSnCsBRhWIowLEUYliL+BXaHdHGUC5uqAAAAAElFTkSuQmCC", kI = "_card_vugev_1", _I = {
+    card: kI
   };
   function Rn(e) {
     for (var t = arguments.length, n = Array(t > 1 ? t - 1 : 0), r = 1; r < t; r++)
@@ -11026,7 +11015,7 @@ shinyApp(ui, server)
       if (r === null)
         return !0;
       var i = Object.hasOwnProperty.call(r, "constructor") && r.constructor;
-      return i === Object || typeof i == "function" && Function.toString.call(i) === FI;
+      return i === Object || typeof i == "function" && Function.toString.call(i) === MI;
     }(e) || Array.isArray(e) || !!e[Iy] || !!(!((t = e.constructor) === null || t === void 0) && t[Iy]) || jm(e) || Wm(e));
   }
   function Ji(e, t, n) {
@@ -11043,7 +11032,7 @@ shinyApp(ui, server)
   function Po(e, t) {
     return ua(e) === 2 ? e.has(t) : Object.prototype.hasOwnProperty.call(e, t);
   }
-  function TI(e, t) {
+  function OI(e, t) {
     return ua(e) === 2 ? e.get(t) : e[t];
   }
   function WS(e, t, n) {
@@ -11054,10 +11043,10 @@ shinyApp(ui, server)
     return e === t ? e !== 0 || 1 / e == 1 / t : e != e && t != t;
   }
   function jm(e) {
-    return LI && e instanceof Map;
+    return RI && e instanceof Map;
   }
   function Wm(e) {
-    return MI && e instanceof Set;
+    return LI && e instanceof Set;
   }
   function Ti(e) {
     return e.o || e.t;
@@ -11074,39 +11063,39 @@ shinyApp(ui, server)
     return Object.create(Object.getPrototypeOf(e), t);
   }
   function Vm(e, t) {
-    return t === void 0 && (t = !1), $m(e) || fi(e) || !xr(e) || (ua(e) > 1 && (e.set = e.add = e.clear = e.delete = II), Object.freeze(e), t && Ji(e, function(n, r) {
+    return t === void 0 && (t = !1), $m(e) || fi(e) || !xr(e) || (ua(e) > 1 && (e.set = e.add = e.clear = e.delete = TI), Object.freeze(e), t && Ji(e, function(n, r) {
       return Vm(r, !0);
     }, !0)), e;
   }
-  function II() {
+  function TI() {
     Rn(2);
   }
   function $m(e) {
     return e == null || typeof e != "object" || Object.isFrozen(e);
   }
   function Zn(e) {
-    var t = nh[e];
+    var t = th[e];
     return t || Rn(18, e), t;
   }
-  function PI(e, t) {
-    nh[e] || (nh[e] = t);
+  function II(e, t) {
+    th[e] || (th[e] = t);
   }
-  function Zp() {
+  function Xp() {
     return Fl;
   }
   function hd(e, t) {
     t && (Zn("Patches"), e.u = [], e.s = [], e.v = t);
   }
   function Qu(e) {
-    eh(e), e.p.forEach(NI), e.p = null;
+    Zp(e), e.p.forEach(PI), e.p = null;
   }
-  function eh(e) {
+  function Zp(e) {
     e === Fl && (Fl = e.l);
   }
   function Cy(e) {
     return Fl = { p: [], l: Fl, h: e, m: !0, _: 0 };
   }
-  function NI(e) {
+  function PI(e) {
     var t = e[Ne];
     t.i === 0 || t.i === 1 ? t.j() : t.O = !0;
   }
@@ -11172,16 +11161,16 @@ shinyApp(ui, server)
   function vd(e) {
     e.o || (e.o = Ym(e.t));
   }
-  function th(e, t, n) {
+  function eh(e, t, n) {
     var r = jm(t) ? Zn("MapSet").F(t, n) : Wm(t) ? Zn("MapSet").T(t, n) : e.g ? function(i, o) {
-      var a = Array.isArray(i), l = { i: a ? 1 : 0, A: o ? o.A : Zp(), P: !1, I: !1, R: {}, l: o, t: i, k: null, o: null, j: null, C: !1 }, s = l, u = Bl;
+      var a = Array.isArray(i), l = { i: a ? 1 : 0, A: o ? o.A : Xp(), P: !1, I: !1, R: {}, l: o, t: i, k: null, o: null, j: null, C: !1 }, s = l, u = Bl;
       a && (s = [l], u = Va);
       var c = Proxy.revocable(s, u), f = c.revoke, d = c.proxy;
       return l.k = d, l.j = f, d;
     }(t, n) : Zn("ES5").J(t, n);
-    return (n ? n.A : Zp()).p.push(r), r;
+    return (n ? n.A : Xp()).p.push(r), r;
   }
-  function DI(e) {
+  function NI(e) {
     return fi(e) || Rn(22, e), function t(n) {
       if (!xr(n))
         return n;
@@ -11193,7 +11182,7 @@ shinyApp(ui, server)
       } else
         r = _y(n, o);
       return Ji(r, function(a, l) {
-        i && TI(i.t, a) === l || WS(r, a, t(l));
+        i && OI(i.t, a) === l || WS(r, a, t(l));
       }), o === 3 ? new Set(r) : r;
     }(e);
   }
@@ -11206,7 +11195,7 @@ shinyApp(ui, server)
     }
     return Ym(e);
   }
-  function RI() {
+  function DI() {
     function e(o, a) {
       var l = i[o];
       return l ? l.enumerable = a : i[o] = l = { configurable: !0, enumerable: a, get: function() {
@@ -11258,7 +11247,7 @@ shinyApp(ui, server)
       return !1;
     }
     var i = {};
-    PI("ES5", { J: function(o, a) {
+    II("ES5", { J: function(o, a) {
       var l = Array.isArray(o), s = function(c, f) {
         if (c) {
           for (var d = Array(f.length), p = 0; p < f.length; p++)
@@ -11272,7 +11261,7 @@ shinyApp(ui, server)
           h[g] = e(g, c || !!h[g].enumerable);
         }
         return Object.create(Object.getPrototypeOf(f), h);
-      }(l, o), u = { i: l ? 5 : 4, A: a ? a.A : Zp(), P: !1, I: !1, R: {}, l: a, t: o, k: s, o: null, O: !1, C: !1 };
+      }(l, o), u = { i: l ? 5 : 4, A: a ? a.A : Xp(), P: !1, I: !1, R: {}, l: a, t: o, k: s, o: null, O: !1, C: !1 };
       return Object.defineProperty(s, Ne, { value: u, writable: !0 }), s;
     }, S: function(o, a, l) {
       l ? fi(a) && a[Ne].A === o && t(o.p) : (o.u && function s(u) {
@@ -11303,14 +11292,14 @@ shinyApp(ui, server)
       return o.i === 4 ? n(o) : r(o);
     } });
   }
-  var Oy, Fl, Hm = typeof Symbol != "undefined" && typeof Symbol("x") == "symbol", LI = typeof Map != "undefined", MI = typeof Set != "undefined", Ty = typeof Proxy != "undefined" && Proxy.revocable !== void 0 && typeof Reflect != "undefined", VS = Hm ? Symbol.for("immer-nothing") : ((Oy = {})["immer-nothing"] = !0, Oy), Iy = Hm ? Symbol.for("immer-draftable") : "__$immer_draftable", Ne = Hm ? Symbol.for("immer-state") : "__$immer_state", FI = "" + Object.prototype.constructor, No = typeof Reflect != "undefined" && Reflect.ownKeys ? Reflect.ownKeys : Object.getOwnPropertySymbols !== void 0 ? function(e) {
+  var Oy, Fl, Hm = typeof Symbol != "undefined" && typeof Symbol("x") == "symbol", RI = typeof Map != "undefined", LI = typeof Set != "undefined", Ty = typeof Proxy != "undefined" && Proxy.revocable !== void 0 && typeof Reflect != "undefined", VS = Hm ? Symbol.for("immer-nothing") : ((Oy = {})["immer-nothing"] = !0, Oy), Iy = Hm ? Symbol.for("immer-draftable") : "__$immer_draftable", Ne = Hm ? Symbol.for("immer-state") : "__$immer_state", MI = "" + Object.prototype.constructor, No = typeof Reflect != "undefined" && Reflect.ownKeys ? Reflect.ownKeys : Object.getOwnPropertySymbols !== void 0 ? function(e) {
     return Object.getOwnPropertyNames(e).concat(Object.getOwnPropertySymbols(e));
   } : Object.getOwnPropertyNames, $S = Object.getOwnPropertyDescriptors || function(e) {
     var t = {};
     return No(e).forEach(function(n) {
       t[n] = Object.getOwnPropertyDescriptor(e, n);
     }), t;
-  }, nh = {}, Bl = { get: function(e, t) {
+  }, th = {}, Bl = { get: function(e, t) {
     if (t === Ne)
       return e;
     var n = Ti(e);
@@ -11320,7 +11309,7 @@ shinyApp(ui, server)
         return s ? "value" in s ? s.value : (l = s.get) === null || l === void 0 ? void 0 : l.call(i.k) : void 0;
       }(e, n, t);
     var r = n[t];
-    return e.I || !xr(r) ? r : r === gd(e.t, t) ? (vd(e), e.o[t] = th(e.A.h, r, e)) : r;
+    return e.I || !xr(r) ? r : r === gd(e.t, t) ? (vd(e), e.o[t] = eh(e.A.h, r, e)) : r;
   }, has: function(e, t) {
     return t in Ti(e);
   }, ownKeys: function(e) {
@@ -11359,7 +11348,7 @@ shinyApp(ui, server)
   }, Va.set = function(e, t, n) {
     return Bl.set.call(this, e[0], t, n, e[0]);
   };
-  var BI = function() {
+  var FI = function() {
     function e(n) {
       var r = this;
       this.g = Ty, this.D = !0, this.produce = function(i, o, a) {
@@ -11380,11 +11369,11 @@ shinyApp(ui, server)
         }
         var u;
         if (typeof o != "function" && Rn(6), a !== void 0 && typeof a != "function" && Rn(7), xr(i)) {
-          var c = Cy(r), f = th(r, i, void 0), d = !0;
+          var c = Cy(r), f = eh(r, i, void 0), d = !0;
           try {
             u = o(f), d = !1;
           } finally {
-            d ? Qu(c) : eh(c);
+            d ? Qu(c) : Zp(c);
           }
           return typeof Promise != "undefined" && u instanceof Promise ? u.then(function(m) {
             return hd(c, a), md(m, c);
@@ -11419,9 +11408,9 @@ shinyApp(ui, server)
     }
     var t = e.prototype;
     return t.createDraft = function(n) {
-      xr(n) || Rn(8), fi(n) && (n = DI(n));
-      var r = Cy(this), i = th(this, n, void 0);
-      return i[Ne].C = !0, eh(r), i;
+      xr(n) || Rn(8), fi(n) && (n = NI(n));
+      var r = Cy(this), i = eh(this, n, void 0);
+      return i[Ne].C = !0, Zp(r), i;
     }, t.finishDraft = function(n, r) {
       var i = n && n[Ne], o = i.A;
       return hd(o, r), md(void 0, o);
@@ -11444,7 +11433,7 @@ shinyApp(ui, server)
         return a(l, r);
       });
     }, e;
-  }(), en = new BI(), gi = en.produce;
+  }(), en = new FI(), gi = en.produce;
   en.produceWithPatches.bind(en);
   en.setAutoFreeze.bind(en);
   en.setUseProxies.bind(en);
@@ -11458,7 +11447,7 @@ shinyApp(ui, server)
       return t && typeof Symbol == "function" && t.constructor === Symbol && t !== Symbol.prototype ? "symbol" : typeof t;
     }, Ul(e);
   }
-  function UI(e, t) {
+  function BI(e, t) {
     if (Ul(e) !== "object" || e === null)
       return e;
     var n = e[Symbol.toPrimitive];
@@ -11470,12 +11459,12 @@ shinyApp(ui, server)
     }
     return (t === "string" ? String : Number)(e);
   }
-  function zI(e) {
-    var t = UI(e, "string");
+  function UI(e) {
+    var t = BI(e, "string");
     return Ul(t) === "symbol" ? t : String(t);
   }
-  function jI(e, t, n) {
-    return t = zI(t), t in e ? Object.defineProperty(e, t, {
+  function zI(e, t, n) {
+    return t = UI(t), t in e ? Object.defineProperty(e, t, {
       value: n,
       enumerable: !0,
       configurable: !0,
@@ -11496,7 +11485,7 @@ shinyApp(ui, server)
     for (var t = 1; t < arguments.length; t++) {
       var n = arguments[t] != null ? arguments[t] : {};
       t % 2 ? Py(Object(n), !0).forEach(function(r) {
-        jI(e, r, n[r]);
+        zI(e, r, n[r]);
       }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(n)) : Py(Object(n)).forEach(function(r) {
         Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(n, r));
       });
@@ -11517,7 +11506,7 @@ shinyApp(ui, server)
       return "@@redux/PROBE_UNKNOWN_ACTION" + yd();
     }
   };
-  function WI(e) {
+  function jI(e) {
     if (typeof e != "object" || e === null)
       return !1;
     for (var t = e; Object.getPrototypeOf(t) !== null; )
@@ -11561,7 +11550,7 @@ shinyApp(ui, server)
       };
     }
     function d(m) {
-      if (!WI(m))
+      if (!jI(m))
         throw new Error(yt(7));
       if (typeof m.type == "undefined")
         throw new Error(yt(8));
@@ -11621,7 +11610,7 @@ shinyApp(ui, server)
       replaceReducer: p
     }, r[Dy] = h, r;
   }
-  function YI(e) {
+  function WI(e) {
     Object.keys(e).forEach(function(t) {
       var n = e[t], r = n(void 0, {
         type: Xu.INIT
@@ -11634,14 +11623,14 @@ shinyApp(ui, server)
         throw new Error(yt(13));
     });
   }
-  function VI(e) {
+  function YI(e) {
     for (var t = Object.keys(e), n = {}, r = 0; r < t.length; r++) {
       var i = t[r];
       typeof e[i] == "function" && (n[i] = e[i]);
     }
     var o = Object.keys(n), a;
     try {
-      YI(n);
+      WI(n);
     } catch (l) {
       a = l;
     }
@@ -11668,7 +11657,7 @@ shinyApp(ui, server)
       };
     });
   }
-  function $I() {
+  function VI() {
     for (var e = arguments.length, t = new Array(e), n = 0; n < e; n++)
       t[n] = arguments[n];
     return function(r) {
@@ -11703,7 +11692,7 @@ shinyApp(ui, server)
   var JS = GS();
   JS.withExtraArgument = GS;
   const Ry = JS;
-  var HI = globalThis && globalThis.__extends || function() {
+  var $I = globalThis && globalThis.__extends || function() {
     var e = function(t, n) {
       return e = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(r, i) {
         r.__proto__ = i;
@@ -11789,19 +11778,19 @@ shinyApp(ui, server)
     for (var n = 0, r = t.length, i = e.length; n < r; n++, i++)
       e[i] = t[n];
     return e;
-  }, GI = Object.defineProperty, JI = Object.defineProperties, QI = Object.getOwnPropertyDescriptors, Ly = Object.getOwnPropertySymbols, KI = Object.prototype.hasOwnProperty, qI = Object.prototype.propertyIsEnumerable, My = function(e, t, n) {
-    return t in e ? GI(e, t, { enumerable: !0, configurable: !0, writable: !0, value: n }) : e[t] = n;
+  }, HI = Object.defineProperty, GI = Object.defineProperties, JI = Object.getOwnPropertyDescriptors, Ly = Object.getOwnPropertySymbols, QI = Object.prototype.hasOwnProperty, KI = Object.prototype.propertyIsEnumerable, My = function(e, t, n) {
+    return t in e ? HI(e, t, { enumerable: !0, configurable: !0, writable: !0, value: n }) : e[t] = n;
   }, oi = function(e, t) {
     for (var n in t || (t = {}))
-      KI.call(t, n) && My(e, n, t[n]);
+      QI.call(t, n) && My(e, n, t[n]);
     if (Ly)
       for (var r = 0, i = Ly(t); r < i.length; r++) {
         var n = i[r];
-        qI.call(t, n) && My(e, n, t[n]);
+        KI.call(t, n) && My(e, n, t[n]);
       }
     return e;
   }, wd = function(e, t) {
-    return JI(e, QI(t));
+    return GI(e, JI(t));
   }, ls = function(e, t, n) {
     return new Promise(function(r, i) {
       var o = function(s) {
@@ -11821,11 +11810,11 @@ shinyApp(ui, server)
       };
       l((n = n.apply(e, t)).next());
     });
-  }, XI = typeof window != "undefined" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : function() {
+  }, qI = typeof window != "undefined" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : function() {
     if (arguments.length !== 0)
       return typeof arguments[0] == "object" ? Zu : Zu.apply(null, arguments);
   };
-  function ZI(e) {
+  function XI(e) {
     if (typeof e != "object" || e === null)
       return !1;
     var t = Object.getPrototypeOf(e);
@@ -11835,10 +11824,10 @@ shinyApp(ui, server)
       n = Object.getPrototypeOf(n);
     return t === n;
   }
-  var eP = (
+  var ZI = (
     /** @class */
     function(e) {
-      HI(t, e);
+      $I(t, e);
       function t() {
         for (var n = [], r = 0; r < arguments.length; r++)
           n[r] = arguments[r];
@@ -11862,39 +11851,39 @@ shinyApp(ui, server)
       }, t;
     }(Array)
   );
-  function rh(e) {
+  function nh(e) {
     return xr(e) ? gi(e, function() {
     }) : e;
   }
-  function tP(e) {
+  function eP(e) {
     return typeof e == "boolean";
   }
-  function nP() {
+  function tP() {
     return function(t) {
-      return rP(t);
+      return nP(t);
     };
   }
-  function rP(e) {
+  function nP(e) {
     e === void 0 && (e = {});
     var t = e.thunk, n = t === void 0 ? !0 : t;
     e.immutableCheck, e.serializableCheck;
-    var r = new eP();
-    return n && (tP(n) ? r.push(Ry) : r.push(Ry.withExtraArgument(n.extraArgument))), r;
+    var r = new ZI();
+    return n && (eP(n) ? r.push(Ry) : r.push(Ry.withExtraArgument(n.extraArgument))), r;
   }
-  var iP = !0;
-  function oP(e) {
-    var t = nP(), n = e || {}, r = n.reducer, i = r === void 0 ? void 0 : r, o = n.middleware, a = o === void 0 ? t() : o, l = n.devTools, s = l === void 0 ? !0 : l, u = n.preloadedState, c = u === void 0 ? void 0 : u, f = n.enhancers, d = f === void 0 ? void 0 : f, p;
+  var rP = !0;
+  function iP(e) {
+    var t = tP(), n = e || {}, r = n.reducer, i = r === void 0 ? void 0 : r, o = n.middleware, a = o === void 0 ? t() : o, l = n.devTools, s = l === void 0 ? !0 : l, u = n.preloadedState, c = u === void 0 ? void 0 : u, f = n.enhancers, d = f === void 0 ? void 0 : f, p;
     if (typeof i == "function")
       p = i;
-    else if (ZI(i))
-      p = VI(i);
+    else if (XI(i))
+      p = YI(i);
     else
       throw new Error('"reducer" is a required argument, and must be a function or an object of functions that can be passed to combineReducers');
     var h = a;
     typeof h == "function" && (h = h(t));
-    var m = $I.apply(void 0, h), S = Zu;
-    s && (S = XI(oi({
-      trace: !iP
+    var m = VI.apply(void 0, h), S = Zu;
+    s && (S = qI(oi({
+      trace: !rP
     }, typeof s == "object" && s)));
     var g = [m];
     Array.isArray(d) ? g = zl([m], d) : typeof d == "function" && (g = d(g));
@@ -11939,18 +11928,18 @@ shinyApp(ui, server)
     };
     return e(i), [t, n, r];
   }
-  function aP(e) {
+  function oP(e) {
     return typeof e == "function";
   }
-  function lP(e, t, n, r) {
+  function aP(e, t, n, r) {
     n === void 0 && (n = []);
     var i = typeof t == "function" ? QS(t) : [t, n, r], o = i[0], a = i[1], l = i[2], s;
-    if (aP(e))
+    if (oP(e))
       s = function() {
-        return rh(e());
+        return nh(e());
       };
     else {
-      var u = rh(e);
+      var u = nh(e);
       s = function() {
         return u;
       };
@@ -11991,21 +11980,21 @@ shinyApp(ui, server)
     }
     return c.getInitialState = s, c;
   }
-  function sP(e, t) {
+  function lP(e, t) {
     return e + "/" + t;
   }
   function of(e) {
     var t = e.name;
     if (!t)
       throw new Error("`name` is a required option for createSlice");
-    var n = typeof e.initialState == "function" ? e.initialState : rh(e.initialState), r = e.reducers || {}, i = Object.keys(r), o = {}, a = {}, l = {};
+    var n = typeof e.initialState == "function" ? e.initialState : nh(e.initialState), r = e.reducers || {}, i = Object.keys(r), o = {}, a = {}, l = {};
     i.forEach(function(c) {
-      var f = r[c], d = sP(t, c), p, h;
+      var f = r[c], d = lP(t, c), p, h;
       "reducer" in f ? (p = f.reducer, h = f.prepare) : p = f, o[c] = p, a[d] = p, l[c] = h ? wr(d, h) : wr(d);
     });
     function s() {
       var c = typeof e.extraReducers == "function" ? QS(e.extraReducers) : [e.extraReducers], f = c[0], d = f === void 0 ? {} : f, p = c[1], h = p === void 0 ? [] : p, m = c[2], S = m === void 0 ? void 0 : m, g = oi(oi({}, d), a);
-      return lP(n, function(v) {
+      return aP(n, function(v) {
         for (var w in g)
           v.addCase(w, g[w]);
         for (var E = 0, k = h; E < k.length; E++) {
@@ -12028,12 +12017,12 @@ shinyApp(ui, server)
       }
     };
   }
-  var uP = "ModuleSymbhasOwnPr-0123456789ABCDEFGHNRVfgctiUvz_KqYTJkLxpZXIjQW", KS = function(e) {
+  var sP = "ModuleSymbhasOwnPr-0123456789ABCDEFGHNRVfgctiUvz_KqYTJkLxpZXIjQW", KS = function(e) {
     e === void 0 && (e = 21);
     for (var t = "", n = e; n--; )
-      t += uP[Math.random() * 64 | 0];
+      t += sP[Math.random() * 64 | 0];
     return t;
-  }, cP = [
+  }, uP = [
     "name",
     "message",
     "stack",
@@ -12054,9 +12043,9 @@ shinyApp(ui, server)
       }
       return e;
     }()
-  ), fP = function(e) {
+  ), cP = function(e) {
     if (typeof e == "object" && e !== null) {
-      for (var t = {}, n = 0, r = cP; n < r.length; n++) {
+      for (var t = {}, n = 0, r = uP; n < r.length; n++) {
         var i = r[n];
         typeof e[i] == "string" && (t[i] = e[i]);
       }
@@ -12087,7 +12076,7 @@ shinyApp(ui, server)
       }), a = wr(t + "/rejected", function(u, c, f, d, p) {
         return {
           payload: d,
-          error: (r && r.serializeError || fP)(u || "Rejected"),
+          error: (r && r.serializeError || cP)(u || "Rejected"),
           meta: wd(oi({}, p || {}), {
             arg: f,
             requestId: c,
@@ -12133,7 +12122,7 @@ shinyApp(ui, server)
               return as(this, function(I) {
                 switch (I.label) {
                   case 0:
-                    return I.trys.push([0, 4, , 5]), k = (v = r == null ? void 0 : r.condition) == null ? void 0 : v.call(r, u, { getState: f, extra: d }), pP(k) ? [4, k] : [3, 2];
+                    return I.trys.push([0, 4, , 5]), k = (v = r == null ? void 0 : r.condition) == null ? void 0 : v.call(r, u, { getState: f, extra: d }), dP(k) ? [4, k] : [3, 2];
                   case 1:
                     k = I.sent(), I.label = 2;
                   case 2:
@@ -12185,7 +12174,7 @@ shinyApp(ui, server)
             requestId: p,
             arg: u,
             unwrap: function() {
-              return g.then(dP);
+              return g.then(fP);
             }
           });
         };
@@ -12201,22 +12190,22 @@ shinyApp(ui, server)
       return e;
     }, e;
   })();
-  function dP(e) {
+  function fP(e) {
     if (e.meta && e.meta.rejectedWithValue)
       throw e.payload;
     if (e.error)
       throw e.error;
     return e.payload;
   }
-  function pP(e) {
+  function dP(e) {
     return e !== null && typeof e == "object" && typeof e.then == "function";
   }
   var Gm = function(e, t) {
     if (typeof e != "function")
       throw new TypeError(t + " is not a function");
-  }, ih = function() {
+  }, rh = function() {
   }, qS = function(e, t) {
-    return t === void 0 && (t = ih), e.catch(t), e;
+    return t === void 0 && (t = rh), e.catch(t), e;
   }, XS = function(e, t) {
     return e.addEventListener("abort", t, { once: !0 }), function() {
       return e.removeEventListener("abort", t);
@@ -12229,11 +12218,11 @@ shinyApp(ui, server)
       configurable: !0,
       writable: !0
     }), e.abort(t));
-  }, hP = "task", ZS = "listener", eE = "completed", Jm = "cancelled", mP = "task-" + Jm, gP = "task-" + eE, tE = ZS + "-" + Jm, vP = ZS + "-" + eE, af = (
+  }, pP = "task", ZS = "listener", eE = "completed", Jm = "cancelled", hP = "task-" + Jm, mP = "task-" + eE, tE = ZS + "-" + Jm, gP = ZS + "-" + eE, af = (
     /** @class */
     function() {
       function e(t) {
-        this.code = t, this.name = "TaskAbortError", this.message = hP + " " + Jm + " (reason: " + t + ")";
+        this.code = t, this.name = "TaskAbortError", this.message = pP + " " + Jm + " (reason: " + t + ")";
       }
       return e;
     }()
@@ -12242,7 +12231,7 @@ shinyApp(ui, server)
       throw new af(e.reason);
   };
   function nE(e, t) {
-    var n = ih;
+    var n = rh;
     return new Promise(function(r, i) {
       var o = function() {
         return i(new af(e.reason));
@@ -12255,10 +12244,10 @@ shinyApp(ui, server)
         return n();
       }).then(r, i);
     }).finally(function() {
-      n = ih;
+      n = rh;
     });
   }
-  var yP = function(e, t) {
+  var vP = function(e, t) {
     return ls(void 0, null, function() {
       var n, r;
       return as(this, function(i) {
@@ -12303,7 +12292,7 @@ shinyApp(ui, server)
         return setTimeout(r, n);
       }));
     };
-  }, wP = Object.assign, By = {}, ss = "listenerMiddleware", bP = function(e) {
+  }, yP = Object.assign, By = {}, ss = "listenerMiddleware", wP = function(e) {
     var t = function(n) {
       return XS(e, function() {
         return Do(n, e.reason);
@@ -12313,7 +12302,7 @@ shinyApp(ui, server)
       Gm(n, "taskExecutor");
       var r = new AbortController();
       t(r);
-      var i = yP(function() {
+      var i = vP(function() {
         return ls(void 0, null, function() {
           var o;
           return as(this, function(a) {
@@ -12330,16 +12319,16 @@ shinyApp(ui, server)
           });
         });
       }, function() {
-        return Do(r, gP);
+        return Do(r, mP);
       });
       return {
         result: ec(e)(i),
         cancel: function() {
-          Do(r, mP);
+          Do(r, hP);
         }
       };
     };
-  }, SP = function(e, t) {
+  }, bP = function(e, t) {
     var n = function(r, i) {
       return ls(void 0, null, function() {
         var o, a, l, s;
@@ -12398,7 +12387,7 @@ shinyApp(ui, server)
     else if (!i)
       throw new Error("Creating or removing a listener requires one of the known fields for matching an action");
     return Gm(o, "options.listener"), { predicate: i, type: t, effect: o };
-  }, EP = function(e) {
+  }, SP = function(e) {
     var t = iE(e), n = t.type, r = t.predicate, i = t.effect, o = KS(), a = {
       id: o,
       effect: i,
@@ -12410,13 +12399,13 @@ shinyApp(ui, server)
       }
     };
     return a;
-  }, oh = function(e) {
+  }, ih = function(e) {
     e.pending.forEach(function(t) {
       Do(t, tE);
     });
-  }, AP = function(e) {
+  }, EP = function(e) {
     return function() {
-      e.forEach(oh), e.clear();
+      e.forEach(ih), e.clear();
     };
   }, Uy = function(e, t, n) {
     try {
@@ -12426,7 +12415,7 @@ shinyApp(ui, server)
         throw r;
       }, 0);
     }
-  }, CP = wr(ss + "/add"), xP = wr(ss + "/removeAll"), kP = wr(ss + "/remove"), _P = function() {
+  }, AP = wr(ss + "/add"), CP = wr(ss + "/removeAll"), xP = wr(ss + "/remove"), kP = function() {
     for (var e = [], t = 0; t < arguments.length; t++)
       e[t] = arguments[t];
     console.error.apply(console, zl([ss + "/error"], e));
@@ -12434,13 +12423,13 @@ shinyApp(ui, server)
   function Qm(e) {
     var t = this;
     e === void 0 && (e = {});
-    var n = /* @__PURE__ */ new Map(), r = e.extra, i = e.onError, o = i === void 0 ? _P : i;
+    var n = /* @__PURE__ */ new Map(), r = e.extra, i = e.onError, o = i === void 0 ? kP : i;
     Gm(o, "onError");
     var a = function(p) {
       return p.unsubscribe = function() {
         return n.delete(p.id);
       }, n.set(p.id, p), function(h) {
-        p.unsubscribe(), h != null && h.cancelActive && oh(p);
+        p.unsubscribe(), h != null && h.cancelActive && ih(p);
       };
     }, l = function(p) {
       for (var h = 0, m = Array.from(n.values()); h < m.length; h++) {
@@ -12452,22 +12441,22 @@ shinyApp(ui, server)
       var h = l(function(m) {
         return m.effect === p.effect;
       });
-      return h || (h = EP(p)), a(h);
+      return h || (h = SP(p)), a(h);
     }, u = function(p) {
       var h = iE(p), m = h.type, S = h.effect, g = h.predicate, v = l(function(w) {
         var E = typeof m == "string" ? w.type === m : w.predicate === g;
         return E && w.effect === S;
       });
-      return v && (v.unsubscribe(), p.cancelActive && oh(v)), !!v;
+      return v && (v.unsubscribe(), p.cancelActive && ih(v)), !!v;
     }, c = function(p, h, m, S) {
       return ls(t, null, function() {
         var g, v, w;
         return as(this, function(E) {
           switch (E.label) {
             case 0:
-              g = new AbortController(), v = SP(s, g.signal), E.label = 1;
+              g = new AbortController(), v = bP(s, g.signal), E.label = 1;
             case 1:
-              return E.trys.push([1, 3, 4, 5]), p.pending.add(g), [4, Promise.resolve(p.effect(h, wP({}, m, {
+              return E.trys.push([1, 3, 4, 5]), p.pending.add(g), [4, Promise.resolve(p.effect(h, yP({}, m, {
                 getOriginalState: S,
                 condition: function(k, b) {
                   return v(k, b).then(Boolean);
@@ -12477,7 +12466,7 @@ shinyApp(ui, server)
                 pause: ec(g.signal),
                 extra: r,
                 signal: g.signal,
-                fork: bP(g.signal),
+                fork: wP(g.signal),
                 unsubscribe: p.unsubscribe,
                 subscribe: function() {
                   n.set(p.id, p);
@@ -12495,7 +12484,7 @@ shinyApp(ui, server)
                 raisedBy: "effect"
               }), [3, 5];
             case 4:
-              return Do(g, vP), p.pending.delete(g), [
+              return Do(g, gP), p.pending.delete(g), [
                 7
                 /*endfinally*/
               ];
@@ -12507,16 +12496,16 @@ shinyApp(ui, server)
           }
         });
       });
-    }, f = AP(n), d = function(p) {
+    }, f = EP(n), d = function(p) {
       return function(h) {
         return function(m) {
-          if (CP.match(m))
+          if (AP.match(m))
             return s(m.payload);
-          if (xP.match(m)) {
+          if (CP.match(m)) {
             f();
             return;
           }
-          if (kP.match(m))
+          if (xP.match(m))
             return u(m.payload);
           var S = p.getState(), g = function() {
             if (S === By)
@@ -12552,7 +12541,7 @@ shinyApp(ui, server)
   }
   var zy;
   typeof queueMicrotask == "function" && queueMicrotask.bind(typeof window != "undefined" ? window : typeof global != "undefined" ? global : globalThis);
-  RI();
+  DI();
   const oE = of({
     name: "currentlyDraggedNode",
     initialState: null,
@@ -12560,21 +12549,21 @@ shinyApp(ui, server)
       SET_DRAGGED: (e, t) => t.payload.node_info,
       UNSET_DRAGGED: (e) => null
     }
-  }), { SET_DRAGGED: OP, UNSET_DRAGGED: TP } = oE.actions;
+  }), { SET_DRAGGED: _P, UNSET_DRAGGED: OP } = oE.actions;
   function aE() {
     return os((e) => e.currentlyDraggedNode);
   }
-  function IP() {
+  function TP() {
     const e = Pr();
-    return (t) => e(OP({ node_info: t }));
+    return (t) => e(_P({ node_info: t }));
   }
   function lE() {
     const e = Pr();
-    return () => e(TP());
+    return () => e(OP());
   }
-  const PP = oE.reducer;
+  const IP = oE.reducer;
   function sE(e) {
-    const t = _.useRef(!1), n = IP(), r = lE(), i = _.useCallback(
+    const t = _.useRef(!1), n = TP(), r = lE(), i = _.useCallback(
       (a) => {
         t.current !== !1 && (a.stopPropagation(), r(), t.current = !1, document.body.removeEventListener("dragover", jy), document.body.removeEventListener("drop", i));
       },
@@ -12620,7 +12609,7 @@ shinyApp(ui, server)
       [e]
     );
   }
-  const NP = uE.reducer;
+  const PP = uE.reducer;
   function ca(e, t) {
     if (e === t)
       return !0;
@@ -12631,7 +12620,7 @@ shinyApp(ui, server)
         return !1;
     return !0;
   }
-  function DP(e, t, n = []) {
+  function NP(e, t, n = []) {
     if (e === t)
       return !0;
     const r = Object.keys(e).filter((o) => !n.includes(o)), i = Object.keys(t).filter((o) => !n.includes(o));
@@ -12642,7 +12631,7 @@ shinyApp(ui, server)
         return !1;
     return !0;
   }
-  function RP(e) {
+  function DP(e) {
     const t = us(), n = cE(), r = _.useCallback(
       (o) => {
         o.stopPropagation(), n(e);
@@ -12656,7 +12645,7 @@ shinyApp(ui, server)
     path: t,
     canDrag: n
   }) {
-    const r = sE({ node: e, currentPath: t }), { onClick: i, isSelected: o } = RP(t);
+    const r = sE({ node: e, currentPath: t }), { onClick: i, isSelected: o } = DP(t);
     return L({
       onClick: i,
       "data-sue-path": lf(t),
@@ -12682,7 +12671,7 @@ shinyApp(ui, server)
   function dE(e, t, n) {
     return n === 0 ? !0 : ca(e.slice(0, n), t.slice(0, n));
   }
-  function LP(e, t) {
+  function RP(e, t) {
     const n = Bi(e), r = Bi(t);
     return n >= r ? !1 : dE(e, t, n);
   }
@@ -12690,13 +12679,13 @@ shinyApp(ui, server)
     const n = Math.min(e.length, t.length) - 1;
     return n <= 0 ? !0 : dE(e, t, n);
   }
-  function MP({
+  function LP({
     fromPath: e,
     toPath: t
   }) {
     if (e == null)
       return !0;
-    if (LP(e, t))
+    if (RP(e, t))
       return !1;
     if (pE(e, t)) {
       const n = e.length, r = e[n - 1], i = t[n - 1];
@@ -12705,7 +12694,7 @@ shinyApp(ui, server)
     }
     return !0;
   }
-  function FP({
+  function MP({
     child: e,
     wrapper: t
   }) {
@@ -12717,12 +12706,110 @@ shinyApp(ui, server)
       uiChildren: [e]
     });
   }
+  function hE(e) {
+    return typeof e == "string" || typeof e == "number" || typeof e == "boolean";
+  }
+  function FP(e) {
+    return sa(e) && "val" in e && ["string", "boolean", "number"].includes(typeof e.val);
+  }
+  function lr(e) {
+    return sa(e) && "val" in e && Array.isArray(e.val);
+  }
+  function BP(e) {
+    return sa(e) && "name" in e;
+  }
+  class Rt extends Error {
+    constructor({ message: t, cause: n }) {
+      super(), this.name = "AST_PARSING_ERROR", this.message = t, this.cause = n;
+    }
+  }
+  function UP(e, t) {
+    if (!lr(e))
+      return !1;
+    const { val: n } = e;
+    return n[0].val === "<-" || n[0].val === "=" ? t ? n[1].val === t : !0 : !1;
+  }
+  function mE(e) {
+    return e.val[1];
+  }
+  function zP(e) {
+    return e.val[2];
+  }
+  function tc(e) {
+    let t = [];
+    return e.forEach((n) => {
+      if (UP(n)) {
+        const r = mE(n);
+        jP(r) ? t.push({
+          name: r.val[2].val,
+          is_output: !0,
+          node: n
+        }) : r.type === "s" && t.push({
+          name: r.val,
+          is_output: !1,
+          node: n
+        });
+      }
+      if (lr(n)) {
+        const r = tc(n.val);
+        t.push(...r);
+      }
+    }), t;
+  }
+  function jP(e) {
+    if (!lr(e))
+      return !1;
+    const { val: t } = e;
+    return t.length === 3 && t[1].val === "output" && typeof t[2].val == "string";
+  }
+  function gE(e) {
+    return e.filter(({ is_output: t }) => t).reduce((t, { name: n, node: r }) => {
+      var o;
+      const { pos: i } = r;
+      return i && (t[n] = [...(o = t[n]) != null ? o : [], i]), t;
+    }, {});
+  }
+  function WP(e) {
+    return !Boolean(e.pos) || !(mE(e).val === "ui") ? !1 : lr(zP(e));
+  }
+  function vE(e) {
+    const t = e.find(
+      ({ name: r, is_output: i }) => r === "ui" && !i
+    );
+    if (!t)
+      throw new Rt({
+        message: "No ui assignment node was found in provided ast"
+      });
+    const { node: n } = t;
+    if (!WP(n))
+      throw new Rt({
+        message: "No position info attached to the ui assignment node",
+        cause: n
+      });
+    return n;
+  }
+  function yE(e) {
+    const t = e.find(
+      ({ name: r, is_output: i }) => r === "server" && !i
+    );
+    if (!t)
+      throw new Rt({
+        message: "No server assignment node was found in provided ast"
+      });
+    const { node: n } = t;
+    if (!n.pos)
+      throw new Rt({
+        message: "No position info attached to the ui assignment node",
+        cause: n
+      });
+    return n;
+  }
   function Km(e) {
     return sa(e) && "uiName" in e && typeof e.uiName == "string" && e.uiName in Wt;
   }
-  const BP = /^\w+::/;
-  function UP(e) {
-    if (BP.test(e))
+  const YP = /^\w+::/;
+  function VP(e) {
+    if (YP.test(e))
       return e;
     const t = new RegExp(`^\\w+::${e}$`);
     for (const n in Wt)
@@ -12732,46 +12819,29 @@ shinyApp(ui, server)
       `Unknown function ${e} made it passed the unknown function filter`
     );
   }
-  function hE(e) {
-    return typeof e == "string" || typeof e == "number" || typeof e == "boolean";
-  }
-  function zP(e) {
-    return sa(e) && "val" in e && ["string", "boolean", "number"].includes(typeof e.val);
-  }
-  function lr(e) {
-    return sa(e) && "val" in e && Array.isArray(e.val);
-  }
-  function jP(e) {
-    return sa(e) && "name" in e;
-  }
-  class Rt extends Error {
-    constructor({ message: t, cause: n }) {
-      super(), this.name = "AST_PARSING_ERROR", this.message = t, this.cause = n;
-    }
-  }
-  function WP(e) {
+  function $P(e) {
     return e[0].val === "c";
   }
-  function YP(e) {
+  function HP(e) {
     const t = e[0].val;
     return t === "c" || t === "list";
   }
-  function VP(e) {
-    return lr(e) && WP(e.val);
+  function GP(e) {
+    return lr(e) && $P(e.val);
   }
-  function $P(e) {
+  function JP(e) {
     return lr(e) && e.val[0].val === "list";
   }
-  function HP(e) {
+  function QP(e) {
     try {
-      return mE(e);
+      return wE(e);
     } catch (t) {
       if (!(t instanceof Rt))
         throw t;
       return uf({ node: e, explanation: t.message });
     }
   }
-  function mE(e) {
+  function wE(e) {
     if (!lr(e))
       throw new Rt({
         message: "Tried to flatten a leaf/primative node"
@@ -12782,10 +12852,10 @@ shinyApp(ui, server)
         message: "Tried to flatten non array as array"
       });
     return n.map(
-      (r) => hE(r.val) ? r.val : mE(r)
+      (r) => hE(r.val) ? r.val : wE(r)
     );
   }
-  function GP(e) {
+  function KP(e) {
     if (!lr(e))
       throw new Rt({
         message: "Tried to flatten a leaf/primative node"
@@ -12817,28 +12887,28 @@ shinyApp(ui, server)
       return uf({ node: e, explanation: t.message });
     }
   }
-  function JP(e, t) {
+  function qP(e, t) {
     const n = " ".repeat(t);
     return e.replaceAll(/\n/g, `
 ${n}`);
   }
-  const gE = 2, QP = " ".repeat(gE), qm = 60, di = `
-${QP}`;
-  function vE(e) {
+  const bE = 2, XP = " ".repeat(bE), qm = 60, di = `
+${XP}`;
+  function SE(e) {
     const [t, ...n] = e;
     if (typeof t.val != "string")
       return "Unknown Ui Code";
     const r = n.map(
-      (a) => `${a.name ? `${a.name} = ` : ""}${wE(a)}`
-    ), i = yE({
+      (a) => `${a.name ? `${a.name} = ` : ""}${AE(a)}`
+    ), i = EE({
       fn_name: t.val,
       fn_args_list: r,
-      max_line_length_for_multi_args: YP(e) ? qm : 0
+      max_line_length_for_multi_args: HP(e) ? qm : 0
     }), o = `,${i ? di : " "}`;
     return `${t.val}(${i ? di : ""}${r.join(o)}${i ? `
 ` : ""})`;
   }
-  function yE({
+  function EE({
     fn_name: e,
     fn_args_list: t,
     max_line_length_for_multi_args: n
@@ -12857,7 +12927,7 @@ ${QP}`;
     ), o = e.length + 2;
     return i + o > n;
   }
-  function wE({ val: e, type: t }) {
+  function AE({ val: e, type: t }) {
     switch (t) {
       case "b":
         return e ? "TRUE" : "FALSE";
@@ -12870,13 +12940,13 @@ ${QP}`;
       case "s":
         return e;
       case "e":
-        return jl(vE(e));
+        return jl(SE(e));
       case "u":
         return "<...>";
     }
   }
   function jl(e) {
-    return JP(e, gE);
+    return qP(e, bE);
   }
   function uf({
     node: e,
@@ -12885,16 +12955,27 @@ ${QP}`;
     return {
       uiName: "unknownUiFunction",
       uiArguments: {
-        text: lr(e) ? vE(e.val) : wE(e),
+        text: lr(e) ? SE(e.val) : AE(e),
         explanation: t
       }
     };
   }
-  const bE = ["span", "small", "h1", "h2"];
-  function KP(e) {
+  const ZP = {
+    symbol: "s",
+    character: "c",
+    boolean: "b",
+    number: "n",
+    unknown: "u",
+    expression: "e"
+  };
+  function oh(e, t) {
+    return e.type === ZP[t];
+  }
+  const CE = ["span", "small", "h1", "h2"];
+  function e4(e) {
     return {
       uiName: "textNode",
-      uiArguments: Xp(e, "character") ? {
+      uiArguments: oh(e, "character") ? {
         contents: e.val
       } : {
         contents: e.val[1].val,
@@ -12902,15 +12983,15 @@ ${QP}`;
       }
     };
   }
-  function qP(e) {
+  function t4(e) {
     if (e.type === "c")
       return !0;
     if (e.type !== "e")
       return !1;
     const t = e.val[0];
-    return Xp(t, "symbol") ? bE.includes(
+    return oh(t, "symbol") ? CE.includes(
       t.val
-    ) && Xp(e.val[1], "character") : !1;
+    ) && oh(e.val[1], "character") : !1;
   }
   function Xm(e) {
     const [t, ...n] = e.val;
@@ -12920,20 +13001,20 @@ ${QP}`;
       });
     let r = {}, i = [];
     n.forEach((a) => {
-      jP(a) ? r[a.name] = XP(a) : i.push(ZP(a));
+      BP(a) ? r[a.name] = n4(a) : i.push(r4(a));
     });
     const o = {
-      uiName: UP(t.val),
+      uiName: VP(t.val),
       uiArguments: r
     };
     return i.length > 0 && (o.uiChildren = i), Km(o) ? o : uf({ node: e });
   }
-  function XP(e) {
-    return zP(e) ? e.val : VP(e) ? HP(e) : $P(e) ? GP(e) : uf({ node: e });
+  function n4(e) {
+    return FP(e) ? e.val : GP(e) ? QP(e) : JP(e) ? KP(e) : uf({ node: e });
   }
-  function ZP(e, t) {
-    if (qP(e))
-      return KP(e);
+  function r4(e, t) {
+    if (t4(e))
+      return e4(e);
     if (lr(e))
       return Xm(e);
     throw new Rt({
@@ -12941,94 +13022,13 @@ ${QP}`;
       cause: e
     });
   }
-  function e4(e, t) {
-    if (!lr(e))
-      return !1;
-    const { val: n } = e;
-    return n[0].val === "<-" || n[0].val === "=" ? t ? n[1].val === t : !0 : !1;
-  }
-  function SE(e) {
-    return e.val[1];
-  }
-  function t4(e) {
-    return e.val[2];
-  }
-  function tc(e) {
-    let t = [];
-    return e.forEach((n) => {
-      if (e4(n)) {
-        const r = SE(n);
-        n4(r) ? t.push({
-          name: r.val[2].val,
-          is_output: !0,
-          node: n
-        }) : r.type === "s" && t.push({
-          name: r.val,
-          is_output: !1,
-          node: n
-        });
-      }
-      if (lr(n)) {
-        const r = tc(n.val);
-        t.push(...r);
-      }
-    }), t;
-  }
-  function n4(e) {
-    if (!lr(e))
-      return !1;
-    const { val: t } = e;
-    return t.length === 3 && t[1].val === "output" && typeof t[2].val == "string";
-  }
-  function EE(e) {
-    return e.filter(({ is_output: t }) => t).reduce((t, { name: n, node: r }) => {
-      var o;
-      const { pos: i } = r;
-      return i && (t[n] = [...(o = t[n]) != null ? o : [], i]), t;
-    }, {});
-  }
-  function r4(e) {
-    return !Boolean(e.pos) || !(SE(e).val === "ui") ? !1 : lr(t4(e));
-  }
-  function AE(e) {
-    const t = e.find(
-      ({ name: r, is_output: i }) => r === "ui" && !i
-    );
-    if (!t)
-      throw new Rt({
-        message: "No ui assignment node was found in provided ast"
-      });
-    const { node: n } = t;
-    if (!r4(n))
-      throw new Rt({
-        message: "No position info attached to the ui assignment node",
-        cause: n
-      });
-    return n;
-  }
-  function CE(e) {
-    const t = e.find(
-      ({ name: r, is_output: i }) => r === "server" && !i
-    );
-    if (!t)
-      throw new Rt({
-        message: "No server assignment node was found in provided ast"
-      });
-    const { node: n } = t;
-    if (!n.pos)
-      throw new Rt({
-        message: "No position info attached to the ui assignment node",
-        cause: n
-      });
-    return n;
-  }
   function xE(e) {
     return e.app_type === "SINGLE-FILE" ? i4(e) : o4(e);
   }
   function i4({
     app: { ast: e }
   }) {
-    const t = tc(e), n = AE(t), r = CE(t), i = EE(t);
+    const t = tc(e), n = vE(t), r = yE(t), i = gE(t);
     return {
       app_type: "SINGLE-FILE",
       app: {
@@ -13045,7 +13045,7 @@ ${QP}`;
     ui: e,
     server: t
   }) {
-    const n = tc(e.ast), r = AE(n), i = tc(t.ast), o = CE(i), a = EE(i);
+    const n = tc(e.ast), r = vE(n), i = tc(t.ast), o = yE(i), a = gE(i);
     return {
       app_type: "MULTI-FILE",
       ui: {
@@ -13375,7 +13375,7 @@ ${QP}`;
           "wrappingNode",
           "node"
         ]);
-        n && (r = FP({ child: r, wrapper: n })), e(LE(L({ node: r }, i)));
+        n && (r = MP({ child: r, wrapper: n })), e(LE(L({ node: r }, i)));
       },
       [e]
     );
@@ -13486,7 +13486,7 @@ ${QP}`;
       getCanAcceptDrop: (p) => {
         var g;
         const { node: h, currentPath: m } = p;
-        if (!MP({
+        if (!LP({
           fromPath: m,
           toPath: [...n, e]
         }))
@@ -13618,7 +13618,7 @@ ${QP}`;
     uiChildren: t = [],
     path: n,
     wrapperProps: r
-  }) => /* @__PURE__ */ y("div", $(L({ className: ht("card", OI.card) }, r), { children: WE(t, n) })), B4 = {
+  }) => /* @__PURE__ */ y("div", $(L({ className: ht("card", _I.card) }, r), { children: WE(t, n) })), B4 = {
     title: "Card",
     UiComponent: F4,
     settingsInfo: {},
@@ -25146,7 +25146,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     );
     _.useEffect(() => {
       const l = t8(r);
-      DP(l, e != null ? e : {}) || t(l);
+      NP(l, e != null ? e : {}) || t(l);
     }, [t, r, e]);
     const o = _.useCallback((l) => {
       i((s) => s.filter(({ id: u }) => u !== l));
@@ -26910,7 +26910,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
     uiArguments: { contents: e, decoration: t, size: n = "span" },
     wrapperProps: r
   }) => {
-    const i = bE.includes(
+    const i = CE.includes(
       n
     ) ? n : "span";
     return /* @__PURE__ */ y(
@@ -27076,7 +27076,7 @@ Please read the updated README.md at https://github.com/SortableJS/react-sortabl
         (p) => o.add(p)
       ), l.push(jl(d.ui_code));
     });
-    const s = yE({
+    const s = EE({
       fn_name: n,
       fn_args_list: l,
       max_line_length_for_multi_args: qm
@@ -29145,12 +29145,12 @@ output\\$${u} <- ${l}`,
       t.dispatch(sf({ path: [] }));
     })
   });
-  const cz = QC.middleware, fz = oP({
+  const cz = QC.middleware, fz = iP({
     reducer: {
       app_info: x4,
-      selected_path: NP,
+      selected_path: PP,
       connected_to_server: iz,
-      currentlyDraggedNode: PP
+      currentlyDraggedNode: IP
     },
     middleware: (e) => e().concat(lz).concat(uz).concat(cz)
   });

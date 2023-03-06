@@ -1,14 +1,16 @@
 import type { R_AST } from "r-ast-parsing";
+import type * as vscode from "vscode";
 
 import { collapseText, makePortableString } from "../string-utils";
 
 import type { CommandOutputGeneric } from "./runRCommand";
 import type { ActiveRSession } from "./startBackgroundRProcess";
 
-export async function getAppAST(
+type AST_GET_RESULTS = R_AST | "EMPTY";
+async function getAppAST(
   rProc: ActiveRSession,
   fileText: string
-): Promise<CommandOutputGeneric<R_AST | "EMPTY">> {
+): Promise<CommandOutputGeneric<AST_GET_RESULTS>> {
   const escapedAppText = makePortableString(fileText);
 
   const parseCommand = collapseText(
@@ -46,4 +48,37 @@ export async function getAppAST(
       errorMsg: "Could not get document as json. Content is not valid json",
     };
   }
+}
+
+export function make_cached_ast_getter(document: vscode.TextDocument) {
+  let last_ast_grabbed: {
+    file_version: number;
+    ast: AST_GET_RESULTS;
+  } | null = null;
+
+  async function get_ast(
+    rProc: ActiveRSession
+  ): Promise<CommandOutputGeneric<AST_GET_RESULTS>> {
+    const current_file_version = document.version;
+
+    if (current_file_version === last_ast_grabbed?.file_version) {
+      // Use cached ast since nothing has changed!
+      return { status: "success", values: last_ast_grabbed.ast };
+    }
+
+    const ast_get_attempt = await getAppAST(rProc, document.getText());
+
+    if (ast_get_attempt.status === "error") {
+      return ast_get_attempt;
+    }
+
+    last_ast_grabbed = {
+      file_version: current_file_version,
+      ast: ast_get_attempt.values,
+    };
+
+    return ast_get_attempt;
+  }
+
+  return get_ast;
 }

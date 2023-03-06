@@ -8,7 +8,7 @@ import * as vscode from "vscode";
 import { clearAppFile } from "./clearAppFile";
 import { openCodeCompanionEditor } from "./extension-api-utils/openCodeCompanionEditor";
 import { checkIfPkgAvailable } from "./R-Utils/checkIfPkgAvailable";
-import { getAppAST } from "./R-Utils/getAppAST";
+import { make_cached_ast_getter } from "./R-Utils/getAppAST";
 import type { ActiveRSession } from "./R-Utils/startBackgroundRProcess";
 import { startPreviewApp } from "./R-Utils/startPreviewApp";
 import {
@@ -45,6 +45,8 @@ export function editorLogic({
    * Plain text editor with apps code side-by-side with custom editor
    */
   let codeCompanionEditor: vscode.TextEditor | undefined = undefined;
+
+  const get_app_ast = make_cached_ast_getter(document);
 
   const syncFileToClientState = async () => {
     const appFileText = document.getText();
@@ -86,7 +88,7 @@ export function editorLogic({
     }
 
     try {
-      const appAST = await getAppAST(RProcess, appFileText);
+      const appAST = await get_app_ast(RProcess);
 
       if (appAST.status === "error") {
         sendMessage({
@@ -246,7 +248,7 @@ export function editorLogic({
               input: msg.payload,
             });
           } else {
-            const appAST = await getAppAST(RProcess, document.getText());
+            const appAST = await get_app_ast(RProcess);
             if (appAST.status === "success" && appAST.values !== "EMPTY") {
               const server_info = parse_app_server_info(appAST.values);
 
