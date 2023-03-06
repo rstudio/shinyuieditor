@@ -1,5 +1,6 @@
+import { sameArray } from "util-functions/src/equalityCheckers";
+
 import type { NodePath } from "../../../Shiny-Ui-Elements/uiNodeTypes";
-import { sameArray } from "../../../utils/equalityCheckers";
 
 /**
  * Are nodes A and B siblings of eachother? A node is _not_ its own sibling.

@@ -3,8 +3,8 @@ import React from "react";
 import { FaPlus } from "react-icons/fa";
 import { MdDragHandle } from "react-icons/md";
 import { ReactSortable } from "react-sortablejs";
+import { sameObject } from "util-functions/src/equalityCheckers";
 
-import { sameObject } from "../../../utils/equalityCheckers";
 import { Trash } from "../../Icons";
 import Button from "../Button/Button";
 import type { InputComponentByType } from "../SettingsFormBuilder/inputFieldTypes";
