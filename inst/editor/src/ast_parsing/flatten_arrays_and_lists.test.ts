@@ -1,4 +1,4 @@
-import type { R_AST_Node } from ".";
+import type { R_AST_Node } from "r-ast-parsing";
 
 import { flatten_to_list, flatten_to_array } from "./flatten_arrays_and_lists";
 

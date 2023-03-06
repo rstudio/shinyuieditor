@@ -101,7 +101,7 @@
   "scripts": {
     "prod": "vsce package",
     "vscode:prepublish": "yarn run esbuild-base -- --minify",
-    "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=build/extension.js --external:vscode --format=cjs --platform=node",
+    "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=build/extension.js --external:vscode \"--external:*.png\" \"--external:*.scss\" --format=cjs --platform=node",
     "dev": "yarn run esbuild-base -- --sourcemap",
     "esbuild-watch": "yarn run esbuild-base -- --sourcemap --watch",
     "lint": "eslint \"src/**/*.ts\"",
@@ -128,7 +128,7 @@
     "typescript": "^4.9.3"
   },
   "dependencies": {
-    "ast-parsing": "*",
+    "r-ast-parsing": "*",
     "just-debounce-it": "^3.1.1",
     "winreg": "^1.2.4"
   }

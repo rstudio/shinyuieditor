@@ -5,8 +5,14 @@ import type {
   ShinyUiNodeByName,
   UiArgumentsObject,
 } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
-
-import type { Branch_Node, Primatives, R_AST_Node } from ".";
+import type { Branch_Node, R_AST_Node, Primatives } from "r-ast-parsing";
+import type { Output_Server_Pos } from "r-ast-parsing/src/get_assignment_nodes";
+import {
+  is_named_node,
+  is_ast_leaf_node,
+  is_ast_branch_node,
+} from "r-ast-parsing/src/node_identity_checkers";
+import { Parsing_Error } from "r-ast-parsing/src/parsing_error_class";
 
 import { create_unknownUiFunction } from "./create_unknownUiFunction";
 import type {
@@ -19,13 +25,6 @@ import {
   get_node_is_array,
   get_node_is_list,
 } from "./flatten_arrays_and_lists";
-import type { Output_Server_Pos } from "./get_assignment_nodes";
-import {
-  is_ast_branch_node,
-  is_ast_leaf_node,
-  is_named_node,
-} from "./node_identity_checkers";
-import { Parsing_Error } from "./parsing_error_class";
 import { build_text_node } from "./text_nodes/build_text_node";
 import { is_raw_text_node } from "./text_nodes/is_text_node";
 

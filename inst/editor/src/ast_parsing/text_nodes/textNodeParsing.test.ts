@@ -1,4 +1,5 @@
-import type { Branch_Node } from "..";
+import type { Branch_Node } from "r-ast-parsing";
+
 import { ast_to_ui_node } from "../ast_to_shiny_ui_node";
 
 import { text_node_to_code } from "./text_node_to_code";

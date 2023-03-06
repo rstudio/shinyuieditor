@@ -5,6 +5,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "r-ast-parsing": "*",
+    "tsconfig": "*",
     "@popperjs/core": "^2.11.2",
     "@preact/signals-react": "^1.2.2",
     "@reduxjs/toolkit": "^1.8.0",
@@ -56,7 +58,6 @@
     "prettier": "2.7.1",
     "sass": "^1.54.8",
     "storybook": "^7.0.0-beta.47",
-    "tsconfig": "*",
     "tsx": "^3.11.0",
     "typescript": "^4.9.3",
     "typescript-plugin-css-modules": "^4.1.1",

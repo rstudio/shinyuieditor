@@ -2,6 +2,7 @@ import type { MessageToBackend } from "communication-types/src/MessageToBackend"
 import { isMessageToBackend } from "communication-types/src/MessageToBackend";
 import type { MessageToClient } from "communication-types/src/MessageToClient";
 import debounce from "just-debounce-it";
+import { parse_app_server_info } from "r-ast-parsing/src/parse_app_server_info";
 import * as vscode from "vscode";
 
 import { clearAppFile } from "./clearAppFile";
@@ -54,7 +55,7 @@ export function editorLogic({
 
     // console.log("Updating client state");
     // Skip unneccesary app file parsing
-    // if (updateWeMade) return;
+    if (updateWeMade) return;
 
     // If it's our first time connecting to the viewer, load our libraries and
     // let the user know if this failed and they need to fix it.
@@ -238,11 +239,24 @@ export function editorLogic({
           return;
         }
 
-        case "FIND-INPUT-USES": {
-          selectInputReferences({
-            editor: await get_companion_editor(),
-            input: msg.payload,
-          });
+        case "FIND-SERVER-USES": {
+          if (msg.payload.type === "Input") {
+            selectInputReferences({
+              editor: await get_companion_editor(),
+              input: msg.payload,
+            });
+          } else {
+            const appAST = await getAppAST(RProcess, document.getText());
+            if (appAST.status === "success" && appAST.values !== "EMPTY") {
+              const server_info = parse_app_server_info(appAST.values);
+
+              select_app_lines({
+                editor: await get_companion_editor(),
+                selections:
+                  server_info.get_output_position(msg.payload.outputId) ?? [],
+              });
+            }
+          }
 
           return;
         }

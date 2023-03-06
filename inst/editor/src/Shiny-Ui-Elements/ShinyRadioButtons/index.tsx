@@ -1,4 +1,4 @@
-import icon from "../../assets/icons/shinyRadiobuttons.png";
+import icon from "../../assets/icons/shinyRadioButtons.png";
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
 import type { NamedList } from "../../components/Inputs/ListInput/NamedListInput";
 import type { UiComponentInfo } from "../uiNodeTypes";

@@ -4,8 +4,8 @@ import type {
   ShinyUiNodeByName,
 } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
 import { isUiNodeOfType } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
+import type { Primatives } from "r-ast-parsing";
 
-import type { Primatives } from "..";
 import { text_node_to_code } from "../text_nodes/text_node_to_code";
 
 import {

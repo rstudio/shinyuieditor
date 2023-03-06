@@ -1,10 +1,11 @@
+import type { Script_Position } from "r-ast-parsing";
+
 import type {
   Raw_App_Info,
   Single_File_Raw_App_Info,
   Single_File_Full_Info,
   Multi_File_Full_Info,
   Multi_File_Raw_App_Info,
-  Script_Position,
 } from ".";
 import { SCRIPT_LOC_KEYS } from ".";
 

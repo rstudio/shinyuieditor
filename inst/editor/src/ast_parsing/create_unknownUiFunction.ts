@@ -1,12 +1,11 @@
 import type { ShinyUiNodeByName } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
-
-import type { R_AST_Node } from ".";
+import type { R_AST_Node } from "r-ast-parsing";
+import { is_ast_branch_node } from "r-ast-parsing/src/node_identity_checkers";
 
 import {
   build_function_text,
   print_node_val,
 } from "./code_generation/build_function_text";
-import { is_ast_branch_node } from "./node_identity_checkers";
 
 /**
  *

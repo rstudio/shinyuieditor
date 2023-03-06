@@ -1,10 +1,12 @@
 import type { ShinyUiNodeByName } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
-
-import type { Leaf_Node, Primatives, R_AST, R_AST_Node } from ".";
+import type { Primatives, Leaf_Node, R_AST, R_AST_Node } from "r-ast-parsing";
+import {
+  is_ast_branch_node,
+  is_primative,
+} from "r-ast-parsing/src/node_identity_checkers";
+import { Parsing_Error } from "r-ast-parsing/src/parsing_error_class";
 
 import { create_unknownUiFunction } from "./create_unknownUiFunction";
-import { is_ast_branch_node, is_primative } from "./node_identity_checkers";
-import { Parsing_Error } from "./parsing_error_class";
 
 export type Primative_Map = Record<string, Primatives>;
 

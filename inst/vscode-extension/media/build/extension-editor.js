@@ -28823,8 +28823,11 @@ server <- function(input, output) {
         variant: "regular",
         onClick: () => {
           n(c ? {
-            path: "SHOW-APP-LINES",
-            payload: c
+            path: "FIND-SERVER-USES",
+            payload: {
+              type: "Output",
+              outputId: u
+            }
           } : {
             path: "INSERT-SNIPPET",
             payload: {
@@ -28854,7 +28857,7 @@ output\\$${u} <- ${l}`,
         variant: "regular",
         onClick: () => {
           n({
-            path: "FIND-INPUT-USES",
+            path: "FIND-SERVER-USES",
             payload: { type: "Input", inputId: o }
           });
         },

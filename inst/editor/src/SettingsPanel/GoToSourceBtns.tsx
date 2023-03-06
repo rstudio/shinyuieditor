@@ -79,9 +79,16 @@ function GoToOutputsBtn({
       onClick={() => {
         if (existing_output_locations) {
           sendMsg({
-            path: "SHOW-APP-LINES",
-            payload: existing_output_locations,
+            path: "FIND-SERVER-USES",
+            payload: {
+              type: "Output",
+              outputId: outputId,
+            },
           });
+          // sendMsg({
+          //   path: "SHOW-APP-LINES",
+          //   payload: existing_output_locations,
+          // });
         } else {
           sendMsg({
             path: "INSERT-SNIPPET",
@@ -129,7 +136,7 @@ function GoToInputsBtn({
       variant="regular"
       onClick={() => {
         sendMsg({
-          path: "FIND-INPUT-USES",
+          path: "FIND-SERVER-USES",
           payload: { type: "Input", inputId },
         });
       }}

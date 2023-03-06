@@ -1,5 +1,6 @@
-import type { AST_Node_By_Name, Expression_Node } from "..";
-import { IsNodeOfType } from "..";
+import type { AST_Node_By_Name, Expression_Node } from "r-ast-parsing";
+import { IsNodeOfType } from "r-ast-parsing";
+
 import type { ShinyUiNodeByName } from "../../Shiny-Ui-Elements/uiNodeTypes";
 
 export const valid_text_node_tags = ["span", "small", "h1", "h2"] as const;
