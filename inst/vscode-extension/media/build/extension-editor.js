@@ -28811,33 +28811,35 @@ server <- function(input, output) {
     const r = BE();
     if (!(r.mode === "MAIN" && "output_positions" in r) || typeof e == "undefined")
       return null;
-    const i = r.output_positions, o = r.server_pos, { outputIdKey: a, renderScaffold: l } = e, s = typeof a == "string" ? a : a(t), u = t[s];
-    if (typeof u != "string")
+    const i = r.output_positions;
+    r.server_pos;
+    const { outputIdKey: o, renderScaffold: a } = e, l = typeof o == "string" ? o : o(t), s = t[l];
+    if (typeof s != "string")
       return null;
-    const c = i[u];
+    const u = i[s];
     return /* @__PURE__ */ y(
       Si,
       {
-        text: c ? "Show output declaration in app script" : "Create output binding in app server",
+        text: u ? "Show output declaration in app script" : "Create output binding in app server",
         position: "left",
         variant: "regular",
         onClick: () => {
-          n(c ? {
+          n(u ? {
             path: "FIND-SERVER-USES",
             payload: {
               type: "Output",
-              outputId: u
+              outputId: s
             }
           } : {
             path: "INSERT-SNIPPET",
             payload: {
               snippet: `
-output\\$${u} <- ${l}`,
-              below_line: o[2] - 1
+output\\$${s} <- ${a}`,
+              where_in_server: "end"
             }
           });
         },
-        children: c ? "Show in server" : "Generate server code"
+        children: u ? "Show in server" : "Generate server code"
       }
     );
   }

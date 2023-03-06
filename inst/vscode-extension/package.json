@@ -128,6 +128,7 @@
     "typescript": "^4.9.3"
   },
   "dependencies": {
+    "util-functions": "*",
     "r-ast-parsing": "*",
     "just-debounce-it": "^3.1.1",
     "winreg": "^1.2.4"

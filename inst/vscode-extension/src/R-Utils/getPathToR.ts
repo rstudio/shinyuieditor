@@ -1,6 +1,6 @@
 import { existsSync } from "fs";
 
-import { removeQuotes } from "../string-utils";
+import { removeQuotes } from "util-functions/src/strings";
 
 // import { getRPathFromConfig } from "./getRPathFromConfig";
 import { getRpathFromSystem } from "./getRpathFromSystem";

@@ -1,7 +1,7 @@
 import type { R_AST, R_AST_Node } from "r-ast-parsing";
+import { indent_text_block } from "util-functions/src/strings";
 
 import { get_ast_is_array_or_list } from "../flatten_arrays_and_lists";
-import { indent_text_block } from "../indent_text_block";
 
 const INDENT_SPACES = 2;
 const INDENT = " ".repeat(INDENT_SPACES);

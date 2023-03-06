@@ -5,6 +5,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "util-functions": "*",
     "r-ast-parsing": "*",
     "tsconfig": "*",
     "@popperjs/core": "^2.11.2",

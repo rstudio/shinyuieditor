@@ -1,7 +1,6 @@
 import type { R_AST } from "r-ast-parsing";
+import { makePortableString, collapseText } from "util-functions/src/strings";
 import type * as vscode from "vscode";
-
-import { collapseText, makePortableString } from "../string-utils";
 
 import type { CommandOutputGeneric } from "./runRCommand";
 import type { ActiveRSession } from "./startBackgroundRProcess";
