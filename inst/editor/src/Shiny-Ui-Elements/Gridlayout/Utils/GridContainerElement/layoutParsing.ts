@@ -1,7 +1,7 @@
 import { fillArr } from "util-functions/src/arrays";
+import { matrixDimensions } from "util-functions/src/matrix-helpers";
 
 import { emptyCell } from "../../../../utils/gridTemplates/itemLocations";
-import { matrixDimensions } from "../../../../utils/matrix-helpers";
 import type { TemplatedGridProps } from "../EditableGridContainer/TemplatedGridProps";
 
 import type { GridLayoutArgsProperlyBoxed } from "./ensureProperBoxedGridLayoutArts";

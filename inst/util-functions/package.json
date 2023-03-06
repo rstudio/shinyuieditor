@@ -6,7 +6,8 @@
   "dependencies": {
     "tsconfig": "*",
     "typescript": "^4.9.3",
-    "vitest": "^0.22.1"
+    "vitest": "^0.22.1",
+    "just-clone": "^6.1.1"
   },
   "scripts": {
     "type-check": "tsc -p ./ --noEmit",

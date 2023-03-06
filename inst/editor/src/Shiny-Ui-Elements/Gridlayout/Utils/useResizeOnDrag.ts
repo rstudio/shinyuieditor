@@ -1,11 +1,12 @@
 import React from "react";
 
+import { within } from "util-functions/src/within";
+
 import findAvailableTracts from "../../../utils/gridTemplates/findAvailableTracts";
 import type {
   GridItemExtent,
   ItemLocation,
 } from "../../../utils/gridTemplates/types";
-import { within } from "../../../utils/within";
 import type { TractDirection } from "../GridlayoutGridPage";
 
 import type { TemplatedGridProps } from "./EditableGridContainer/TemplatedGridProps";

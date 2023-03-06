@@ -1,11 +1,11 @@
 import type React from "react";
 
 import { is_object } from "util-functions/src/is_object";
+import type { PickKeyFn } from "util-functions/src/TypescriptUtils";
 
 import type { CustomFormRenderFn } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
 import type { ArgsToDynamicInfo } from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";
 import type { DeleteAction, UpdateAction } from "../state/app_info";
-import type { PickKeyFn } from "../utils/TypescriptUtils";
 
 import {
   bslibCardBodyInfo,

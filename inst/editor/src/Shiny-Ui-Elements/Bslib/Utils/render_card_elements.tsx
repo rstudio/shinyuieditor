@@ -1,6 +1,7 @@
+import { sum_booleans } from "util-functions/src/sum_booleans";
+
 import UiNode from "../../../components/UiNode/UiNode";
 import { DropWatcherPanel } from "../../../DragAndDropHelpers/DropWatcherPanel";
-import { sum_booleans } from "../../../utils/sum_booleans";
 import { makeChildPath } from "../../nodePathUtils";
 import type { NodePath, ShinyUiChildren } from "../../uiNodeTypes";
 

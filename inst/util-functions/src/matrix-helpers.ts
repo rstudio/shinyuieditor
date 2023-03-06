@@ -1,8 +1,7 @@
 import clone from "just-clone";
 import { addAtIndex, removeAtIndex } from "util-functions/src/arrays";
 
-import type { TractDirection } from "../Shiny-Ui-Elements/Gridlayout/GridlayoutGridPage";
-
+type TractDirection = "rows" | "cols";
 type Matrix<T> = T[][];
 
 type RowOrCol = { index: number; dir: TractDirection };

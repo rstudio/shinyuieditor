@@ -1,9 +1,9 @@
 import React from "react";
 
 import { is_object } from "util-functions/src/is_object";
+import type { StringKeys } from "util-functions/src/TypescriptUtils";
 
 import type { UiArgumentsObject } from "../../../Shiny-Ui-Elements/uiNodeTypes";
-import type { StringKeys } from "../../../utils/TypescriptUtils";
 
 import type { ArgsToDynamicInfo } from "./inputFieldTypes";
 import type {
