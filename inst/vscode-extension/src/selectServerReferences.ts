@@ -1,6 +1,6 @@
-import type { Script_Position } from "ast-parsing";
 import type { InputSourceRequest } from "communication-types";
 import type { SnippetInsertRequest } from "communication-types/src/MessageToBackend";
+import type { Script_Position } from "editor/src/ast_parsing";
 import * as vscode from "vscode";
 
 import { selectMultupleLocations } from "./extension-api-utils/selectMultupleLocations";

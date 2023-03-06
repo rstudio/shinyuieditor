@@ -1,5 +1,5 @@
-import type { App_Type } from "ast-parsing";
 import type { ShinyUiNode } from "editor";
+import type { App_Type } from "editor/src/ast_parsing";
 
 import { makePortableString, collapseText } from "../string-utils";
 

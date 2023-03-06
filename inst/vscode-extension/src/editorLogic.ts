@@ -52,8 +52,9 @@ export function editorLogic({
     const updateWeMade =
       latestAppWrite !== null && appFileText.includes(latestAppWrite);
 
+    // console.log("Updating client state");
     // Skip unneccesary app file parsing
-    if (updateWeMade) return;
+    // if (updateWeMade) return;
 
     // If it's our first time connecting to the viewer, load our libraries and
     // let the user know if this failed and they need to fix it.
@@ -188,8 +189,15 @@ export function editorLogic({
         case "UPDATED-APP": {
           if (msg.payload.app_type === "MULTI-FILE") return;
 
-          latestAppWrite = msg.payload.app;
-          await update_app_file({ text: msg.payload.app, document });
+          const app_file_was_updated = await update_app_file({
+            script_text: msg.payload.app,
+            document,
+          });
+
+          if (app_file_was_updated) {
+            latestAppWrite = msg.payload.app;
+          }
+
           return;
         }
 

@@ -31,7 +31,6 @@ const showMessages = true;
     const websocketDispatch = await setupWebsocketBackend({
       messageDispatch,
       onClose: () => console.log("Websocket closed!!"),
-
       pathToWebsocket,
     });
 
