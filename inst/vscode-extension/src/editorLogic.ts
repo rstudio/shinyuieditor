@@ -2,7 +2,6 @@ import type { MessageToBackend } from "communication-types/src/MessageToBackend"
 import { isMessageToBackend } from "communication-types/src/MessageToBackend";
 import type { MessageToClient } from "communication-types/src/MessageToClient";
 import debounce from "just-debounce-it";
-import { parse_app_server_info } from "r-ast-parsing/src/parse_app_server_info";
 import * as vscode from "vscode";
 
 import { clearAppFile } from "./clearAppFile";
@@ -46,7 +45,7 @@ export function editorLogic({
    */
   let codeCompanionEditor: vscode.TextEditor | undefined = undefined;
 
-  const get_app_ast = make_cached_ast_getter(document);
+  const get_app_ast = make_cached_ast_getter(document, RProcess);
 
   const syncFileToClientState = async () => {
     const appFileText = document.getText();
@@ -88,7 +87,7 @@ export function editorLogic({
     }
 
     try {
-      const appAST = await get_app_ast(RProcess);
+      const appAST = await get_app_ast();
 
       if (appAST.status === "error") {
         sendMessage({
@@ -233,7 +232,7 @@ export function editorLogic({
           return;
         }
         case "INSERT-SNIPPET": {
-          const appAST = await get_app_ast(RProcess);
+          const appAST = await get_app_ast();
           if (appAST.status === "success" && appAST.values !== "EMPTY") {
             insert_code_snippet({
               editor: await get_companion_editor(),
@@ -251,7 +250,7 @@ export function editorLogic({
               input: msg.payload,
             });
           } else {
-            const appAST = await get_app_ast(RProcess);
+            const appAST = await get_app_ast();
             if (appAST.status === "success" && appAST.values !== "EMPTY") {
               select_app_lines({
                 editor: await get_companion_editor(),

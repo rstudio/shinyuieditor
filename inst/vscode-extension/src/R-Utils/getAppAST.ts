@@ -54,15 +54,16 @@ async function getAppAST(
   }
 }
 
-export function make_cached_ast_getter(document: vscode.TextDocument) {
+export function make_cached_ast_getter(
+  document: vscode.TextDocument,
+  rProc: ActiveRSession
+) {
   let last_ast_grabbed: {
     file_version: number;
     ast_info: AST_GET_RESULTS;
   } | null = null;
 
-  async function get_ast(
-    rProc: ActiveRSession
-  ): Promise<CommandOutputGeneric<AST_GET_RESULTS>> {
+  async function get_ast(): Promise<CommandOutputGeneric<AST_GET_RESULTS>> {
     const current_file_version = document.version;
 
     if (current_file_version === last_ast_grabbed?.file_version) {
