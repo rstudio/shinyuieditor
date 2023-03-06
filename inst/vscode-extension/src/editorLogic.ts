@@ -4,7 +4,6 @@ import type { MessageToClient } from "communication-types/src/MessageToClient";
 import debounce from "just-debounce-it";
 import * as vscode from "vscode";
 
-import { update_app_file } from "./addUiTextToFile";
 import { clearAppFile } from "./clearAppFile";
 import { openCodeCompanionEditor } from "./extension-api-utils/openCodeCompanionEditor";
 import { checkIfPkgAvailable } from "./R-Utils/checkIfPkgAvailable";
@@ -16,6 +15,7 @@ import {
   selectInputReferences,
   select_app_lines,
 } from "./selectServerReferences";
+import { update_app_file } from "./update_app_file";
 
 const { showErrorMessage } = vscode.window;
 
