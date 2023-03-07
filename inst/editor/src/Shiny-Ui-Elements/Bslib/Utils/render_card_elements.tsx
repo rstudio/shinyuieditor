@@ -11,7 +11,7 @@ import { CardHeader } from "./CardHeader";
 import styles from "./styles.module.css";
 
 const possible_elements = new Set([
-  "bslib::card_body",
+  "bslib::card_body_fill",
   "bslib::card_header",
   "bslib::card_footer",
 ]);
@@ -20,7 +20,10 @@ const headerScaffold = {
   uiName: "bslib::card_header",
   uiArguments: {},
 } as const;
-const bodyScaffold = { uiName: "bslib::card_body", uiArguments: {} } as const;
+const bodyScaffold = {
+  uiName: "bslib::card_body_fill",
+  uiArguments: {},
+} as const;
 const footerScaffold = {
   uiName: "bslib::card_footer",
   uiArguments: {},
@@ -53,7 +56,7 @@ export function render_card_elements(
     child_index++;
     if (uiName === "bslib::card_header") {
       header = child_node;
-    } else if (uiName === "bslib::card_body") {
+    } else if (uiName === "bslib::card_body_fill") {
       body = child_node;
     } else if (uiName === "bslib::card_footer") {
       footer = child_node;
@@ -83,7 +86,7 @@ export function render_card_elements(
             index={sum_booleans(has_header)}
             parentPath={path}
             wrappingNode={bodyScaffold}
-            parentNodeType="bslib::card_body"
+            parentNodeType="bslib::card_body_fill"
           />
         </CardBody>
       )}

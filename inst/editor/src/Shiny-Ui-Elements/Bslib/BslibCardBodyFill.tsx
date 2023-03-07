@@ -24,7 +24,7 @@ function BslibCardBody({
       <CardChildrenWithDropNodes
         uiChildren={uiChildren}
         path={path}
-        parentUiName="bslib::card_body"
+        parentUiName="bslib::card_body_fill"
       />
     </CardBody>
   );

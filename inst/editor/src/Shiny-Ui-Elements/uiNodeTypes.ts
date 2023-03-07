@@ -173,7 +173,7 @@ export const shinyUiNodeInfo = {
   "gridlayout::grid_container": gridlayoutGridContainerInfo,
   "DT::DTOutput": dtDTOutputInfo,
   "bslib::card": bslibCardInfo,
-  "bslib::card_body": bslibCardBodyInfo,
+  "bslib::card_body_fill": bslibCardBodyInfo,
   "bslib::card_header": bslibCardHeaderInfo,
   "bslib::card_footer": bslibCardFooterInfo,
   "plotly::plotlyOutput": plotlyPlotlyOutputInfo,

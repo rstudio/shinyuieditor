@@ -46,7 +46,7 @@ const navbarTree: ShinyUiNode = {
                   ],
                 },
                 {
-                  uiName: "bslib::card_body",
+                  uiName: "bslib::card_body_fill",
                   uiArguments: {},
                   uiChildren: [
                     {
@@ -113,7 +113,7 @@ const navbarTree: ShinyUiNode = {
                   ],
                 },
                 {
-                  uiName: "bslib::card_body",
+                  uiName: "bslib::card_body_fill",
                   uiArguments: {},
                   uiChildren: [
                     {

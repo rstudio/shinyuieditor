@@ -26,7 +26,7 @@ export const bslibCards: ShinyUiNode = {
       },
       uiChildren: [
         {
-          uiName: "bslib::card_body",
+          uiName: "bslib::card_body_fill",
           uiArguments: {},
           uiChildren: [
             {
@@ -63,7 +63,7 @@ export const bslibCards: ShinyUiNode = {
           ],
         },
         {
-          uiName: "bslib::card_body",
+          uiName: "bslib::card_body_fill",
           uiArguments: {},
           uiChildren: [],
         },

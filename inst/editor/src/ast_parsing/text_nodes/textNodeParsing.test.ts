@@ -10,7 +10,7 @@ describe("Can parse raw ast to text nodes", () => {
   test("Can construct raw text nodes correctly", () => {
     const call_w_text: Branch_Node = {
       val: [
-        { val: "bslib::card_body", type: "s" },
+        { val: "bslib::card_body_fill", type: "s" },
         { val: text_contents, type: "c" },
         { name: "fill", val: false, type: "b" },
       ],

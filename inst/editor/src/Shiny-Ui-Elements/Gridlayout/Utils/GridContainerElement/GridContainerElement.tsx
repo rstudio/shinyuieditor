@@ -132,7 +132,7 @@ export const GridContainerElement: UiNodeComponent<GridLayoutArgs> = ({
             uiArguments: { area: name },
             uiChildren: [
               {
-                uiName: "bslib::card_body",
+                uiName: "bslib::card_body_fill",
                 uiArguments: {},
                 uiChildren: [node],
               },
