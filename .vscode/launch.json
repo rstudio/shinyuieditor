@@ -71,6 +71,36 @@
       "request": "attach",
       "name": "Attach to R process",
       "splitOverwrittenOutput": true
+    },
+    {
+      "type": "msedge",
+      "name": "Launch Microsoft Edge to debug editor dev server",
+      "request": "launch",
+      "runtimeArgs": ["--remote-debugging-port=9222"],
+      "url": "http://localhost:3000",
+      "presentation": {
+        "hidden": true
+      },
+      "preLaunchTask": "dev serve",
+      "postDebugTask": "stop server"
+    },
+    {
+      "type": "vscode-edge-devtools.debug",
+      "name": "Open Edge DevTools to debug editor dev server",
+      "request": "attach",
+      "url": "http://localhost:3000",
+      "presentation": {
+        "hidden": true
+      }
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Debug dev server with Edge",
+      "configurations": [
+        "Launch Microsoft Edge to debug editor dev server",
+        "Open Edge DevTools to debug editor dev server"
+      ]
     }
   ]
 }
