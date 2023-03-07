@@ -1,6 +1,6 @@
 import type { ShinyUiNode } from "editor";
-import type { R_AST, Script_Position } from "r-ast-parsing";
-import type { Output_Server_Pos } from "r-ast-parsing/src/get_assignment_nodes";
+import type { R_AST } from "r-ast-parsing";
+import type { Known_Outputs } from "r-ast-parsing/src/get_assignment_nodes";
 
 export type Raw_Script_Info = {
   script: string;
@@ -26,7 +26,7 @@ export type Raw_App_Info = Single_File_Raw_App_Info | Multi_File_Raw_App_Info;
 // Shared by both single and multi-file apps.
 export type Full_App_Info_Core = {
   ui_tree: ShinyUiNode;
-} & ({ output_positions: Output_Server_Pos; server_pos: Script_Position } | {});
+} & ({ known_outputs: Known_Outputs } | {});
 
 export type Single_File_Full_Info = Full_App_Info_Core & {
   app_type: Single_File_App_Type;

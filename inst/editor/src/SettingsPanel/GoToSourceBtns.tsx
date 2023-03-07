@@ -1,4 +1,5 @@
 import type { MessageToBackend } from "communication-types/src/MessageToBackend";
+import type { PickKeyFn } from "util-functions/src/TypescriptUtils";
 
 import { useBackendConnection } from "../backendCommunication/useBackendMessageCallbacks";
 import { TooltipButton } from "../components/PopoverEl/Tooltip";
@@ -6,7 +7,6 @@ import type { ShinyUiNode } from "../main";
 import type { ShinyUiNodeInfoUnion } from "../Shiny-Ui-Elements/uiNodeTypes";
 import { shinyUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
 import { useCurrentAppInfo } from "../state/app_info";
-import type { PickKeyFn } from "util-functions/src/TypescriptUtils";
 
 export function GoToSourceBtns({ node }: { node: ShinyUiNode | null }) {
   const { sendMsg, mode } = useBackendConnection();
@@ -44,14 +44,13 @@ function GoToOutputsBtn({
 
   if (
     !(
-      current_app_info.mode === "MAIN" && "output_positions" in current_app_info
+      current_app_info.mode === "MAIN" && "known_outputs" in current_app_info
     ) ||
     typeof serverOutputInfo === "undefined"
   )
     return null;
 
-  const current_output_positions = current_app_info.output_positions;
-  const current_server_position = current_app_info.server_pos;
+  const known_outputs = current_app_info.known_outputs;
 
   const { outputIdKey, renderScaffold } = serverOutputInfo;
 
@@ -65,7 +64,7 @@ function GoToOutputsBtn({
   const outputId = uiArguments[keyForOutput as keyof typeof uiArguments];
   if (typeof outputId !== "string") return null;
 
-  const existing_output_locations = current_output_positions[outputId];
+  const existing_output_locations = known_outputs.has(outputId);
 
   return (
     <TooltipButton
@@ -85,10 +84,6 @@ function GoToOutputsBtn({
               outputId: outputId,
             },
           });
-          // sendMsg({
-          //   path: "SHOW-APP-LINES",
-          //   payload: existing_output_locations,
-          // });
         } else {
           sendMsg({
             path: "INSERT-SNIPPET",

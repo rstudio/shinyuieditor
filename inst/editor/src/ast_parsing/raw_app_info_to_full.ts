@@ -23,13 +23,7 @@ function raw_single_file_app_info_to_full(
 ): Single_File_Full_Info {
   const parsed_ast = parse_app_ast(raw_info);
   const {
-    app: {
-      ui_pos,
-      ui_assignment_operator,
-      ui_tree,
-      output_positions,
-      server_pos,
-    },
+    app: { ui_pos, ui_assignment_operator, ui_tree, known_outputs },
   } = parsed_ast;
   const script = raw_info.app.script;
 
@@ -72,8 +66,7 @@ function raw_single_file_app_info_to_full(
   return {
     app_type: "SINGLE-FILE",
     ui_tree,
-    output_positions,
-    server_pos,
+    known_outputs,
     app: {
       code: app_template_by_line.join("\n"),
       libraries,
@@ -129,14 +122,13 @@ function raw_multi_file_app_info_to_full(
 ): Multi_File_Full_Info {
   const {
     ui,
-    server: { output_positions, server_pos },
+    server: { known_outputs },
   } = parse_app_ast(raw_info);
 
   return {
     app_type: "MULTI-FILE",
     ui_tree: ui.ui_tree,
-    output_positions,
-    server_pos,
+    known_outputs,
     ui: generate_ui_script_template(ui, raw_info.ui.script),
     server: {
       code: raw_info.server.script,

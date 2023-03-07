@@ -89,12 +89,6 @@ server <- function(input, output) {
     #Plot code goes here
     plot(rnorm(100))
   })
-
-  output$plot <- renderPlot({
-    #Plot code goes here
-    plot(rnorm(100))
-  })
-
 }
 
 shinyApp(ui, server)

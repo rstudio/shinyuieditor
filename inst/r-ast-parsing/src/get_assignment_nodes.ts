@@ -123,6 +123,19 @@ export function get_output_positions(
     }, {} as Output_Server_Pos);
 }
 
+export type Known_Outputs = Set<string>;
+export function get_known_outputs(
+  all_asignments: Variable_Assignment[]
+): Known_Outputs {
+  const output_nodes = all_asignments.filter(({ is_output }) => is_output);
+
+  const known_names = new Set<string>();
+  output_nodes.forEach(({ name }) => {
+    known_names.add(name);
+  });
+  return known_names;
+}
+
 export type Ui_Assignment_Node = Required<
   Assignment_Node_Gen<Branch_Node, Symbol_Node<"ui">>
 >;

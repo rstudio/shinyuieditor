@@ -1,6 +1,7 @@
+import type { Expand } from "util-functions/src/TypescriptUtils";
+
 import type { ShinyUiNode } from "../../../main";
 import type { UiArgumentsObject } from "../../../Shiny-Ui-Elements/uiNodeTypes";
-import type { Expand } from "util-functions/src/TypescriptUtils";
 import type { CSSMeasure, CSSUnitWAuto } from "../CSSUnitInput/CSSMeasure";
 import type { NamedList } from "../ListInput/NamedListInput";
 import type {

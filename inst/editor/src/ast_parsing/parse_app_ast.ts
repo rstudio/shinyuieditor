@@ -2,13 +2,12 @@ import type { ShinyUiNode } from "editor";
 import type { Script_Position } from "r-ast-parsing";
 import type {
   Assignment_Operator,
-  Output_Server_Pos,
+  Known_Outputs,
 } from "r-ast-parsing/src/get_assignment_nodes";
 import {
-  get_server_assignment_node,
   get_assignment_nodes,
+  get_known_outputs,
   get_ui_assignment_node,
-  get_output_positions,
 } from "r-ast-parsing/src/get_assignment_nodes";
 
 import type {
@@ -25,15 +24,13 @@ type Parsed_AST = {
   ui_tree: ShinyUiNode;
   ui_pos: Script_Position;
   ui_assignment_operator: Assignment_Operator;
-  server_pos: Script_Position;
-  server_node: ReturnType<typeof get_server_assignment_node>;
-  output_positions: Output_Server_Pos;
+  known_outputs: Known_Outputs;
 };
 
 export type Parsed_Multi_File_AST = {
   app_type: Multi_File_App_Type;
   ui: Pick<Parsed_AST, "ui_tree" | "ui_pos" | "ui_assignment_operator">;
-  server: Pick<Parsed_AST, "server_node" | "server_pos" | "output_positions">;
+  server: Pick<Parsed_AST, "known_outputs">;
 };
 
 export type Parsed_Single_File_AST = {
@@ -60,8 +57,6 @@ function parse_single_file_ast({
 }: Single_File_Raw_App_Info): Parsed_Single_File_AST {
   const assignment_nodes = get_assignment_nodes(ast);
   const ui_node = get_ui_assignment_node(assignment_nodes);
-  const server_node = get_server_assignment_node(assignment_nodes);
-  const output_positions = get_output_positions(assignment_nodes);
 
   return {
     app_type: "SINGLE-FILE",
@@ -69,9 +64,7 @@ function parse_single_file_ast({
       ui_tree: ast_to_ui_node(ui_node.val[2]),
       ui_pos: ui_node.pos,
       ui_assignment_operator: ui_node.val[0].val,
-      server_pos: server_node.pos,
-      server_node,
-      output_positions,
+      known_outputs: get_known_outputs(assignment_nodes),
     },
   };
 }
@@ -84,9 +77,6 @@ function parse_multi_file_ast({
   const ui_node = get_ui_assignment_node(ui_assignment_nodes);
 
   const server_assignment_nodes = get_assignment_nodes(server.ast);
-  const server_node = get_server_assignment_node(server_assignment_nodes);
-
-  const output_positions = get_output_positions(server_assignment_nodes);
 
   return {
     app_type: "MULTI-FILE",
@@ -96,9 +86,7 @@ function parse_multi_file_ast({
       ui_assignment_operator: ui_node.val[0].val,
     },
     server: {
-      server_node,
-      output_positions,
-      server_pos: server_node.pos,
+      known_outputs: get_known_outputs(server_assignment_nodes),
     },
   };
 }
