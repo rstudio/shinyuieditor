@@ -5,6 +5,15 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Debug dev server with chrome",
+      "request": "launch",
+      "type": "chrome",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}",
+      "preLaunchTask": "dev serve",
+      "postDebugTask": "stop server"
+    },
+    {
       "name": "Run Extension",
       "type": "extensionHost",
       "request": "launch",

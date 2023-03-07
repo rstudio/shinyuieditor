@@ -2,6 +2,11 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "stop server",
+      "command": "echo ${input:terminate}",
+      "type": "shell"
+    },
+    {
       "label": "dev build",
       "type": "npm",
       "script": "dev",
@@ -13,6 +18,50 @@
         "kind": "build",
         "isDefault": true
       }
+    },
+    {
+      "label": "dev serve",
+      "type": "npm",
+      "script": "start",
+      "path": "inst/editor/",
+      "problemMatcher": [
+        {
+          "pattern": [
+            {
+              "regexp": ".",
+              "file": 1,
+              "line": 1,
+              "column": 1,
+              "message": 1
+            }
+          ],
+          "background": {
+            "activeOnStart": true,
+            "beginsPattern": {
+              "regexp": "."
+            },
+            "endsPattern": {
+              "regexp": "."
+            }
+          }
+        }
+      ],
+      "presentation": {
+        "reveal": "never"
+      },
+      "isBackground": true,
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "id": "terminate",
+      "type": "command",
+      "command": "workbench.action.tasks.terminate",
+      "args": "terminateAll"
     }
   ]
 }
