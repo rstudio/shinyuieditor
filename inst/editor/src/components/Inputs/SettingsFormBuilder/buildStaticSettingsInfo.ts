@@ -93,36 +93,45 @@ function convert_dynamic_info_to_static<
 /**
  * Convert a whole settings info object from dynamic callback form to static
  * form
- * @param dynamicFormInfo A full settings info object for all settings in a
- * ui nodes uiArguments object
- * @param node ShinyUiNode for which the dynamicSettingsInfo represents the
- * settings/uiArguments for
- * @returns A static version of the settings info for all arugments where
- * functions have been evaluated to their constant values
+ * @param dynamicFormInfo A full settings info object for all settings in a ui
+ * nodes uiArguments object
+ * @returns Object of arguments corresponding to the info passed with only
+ * required fields filled in with their default values
  */
 export function getDefaultSettings<DynArgs extends DynamicArgumentInfo>(
   dynamic_args: DynArgs
-): ArgsFromInfo<DynArgs> {
+) {
   const static_args: Record<string, unknown> = {};
 
   for (const arg_key in dynamic_args) {
     const info_for_arg = dynamic_args[arg_key];
 
-    if ("defaultValue" in info_for_arg) {
-      const default_value_field = info_for_arg["defaultValue"];
+    // Omit optional args
+    const is_optional_arg = "optional" in info_for_arg;
+    const fill_even_if_optional = "useDefaultIfOptional" in info_for_arg;
+    if (is_optional_arg && !fill_even_if_optional) continue;
 
-      static_args[arg_key] =
-        typeof default_value_field === "function"
-          ? default_value_field()
-          : default_value_field;
-    }
+    const default_value_field = info_for_arg["defaultValue"];
+
+    static_args[arg_key] =
+      typeof default_value_field === "function"
+        ? default_value_field()
+        : default_value_field;
   }
 
-  return static_args as ArgsFromInfo<DynArgs>;
+  return static_args as {
+    [Key in __KeysInDefaultArgs<DynArgs>]: __ArgFromInfo<DynArgs[Key]>;
+  };
 }
+type __KeysInDefaultArgs<Info extends DynamicArgumentInfo> = {
+  [ArgName in keyof Info]: Info[ArgName] extends { optional: true }
+    ? Info[ArgName] extends { useDefaultIfOptional: true }
+      ? ArgName
+      : never
+    : ArgName;
+}[keyof Info];
 
 // Helper types
-
 type __DynamicInputOptions = Expand<
   {
     [StaticOptions in StaticInputOptions as StaticOptions["inputType"]]: MakeOmittedOption<
