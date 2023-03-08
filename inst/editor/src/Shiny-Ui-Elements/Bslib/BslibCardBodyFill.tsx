@@ -5,7 +5,7 @@ import type {
   UiNodeComponentProps,
 } from "../uiNodeTypes";
 
-import { CardBody } from "./Utils/CardBody";
+import { CardBody } from "./Utils/CardElements";
 import { CardChildrenWithDropNodes } from "./Utils/ChildrenWithDropNodes";
 
 export type CardBodySettings = {

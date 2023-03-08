@@ -1,6 +1,6 @@
 import type { UiComponentInfo, UiNodeComponentProps } from "../uiNodeTypes";
 
-import { CardFooter } from "./Utils/CardFooter";
+import { CardFooter } from "./Utils/CardElements";
 import { CardChildrenWithDropNodes } from "./Utils/ChildrenWithDropNodes";
 
 export const bslibCardFooterInfo: UiComponentInfo<CardFooterSettings> = {

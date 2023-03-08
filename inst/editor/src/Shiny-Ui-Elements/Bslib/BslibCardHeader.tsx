@@ -1,6 +1,6 @@
 import type { UiComponentInfo, UiNodeComponent } from "../uiNodeTypes";
 
-import { CardHeader } from "./Utils/CardHeader";
+import { CardHeader } from "./Utils/CardElements";
 import { CardChildrenWithDropNodes } from "./Utils/ChildrenWithDropNodes";
 export type CardHeaderSettings = {};
 

@@ -23,7 +23,9 @@ const GridlayoutGridCardText: UiLeafNodeComponent<
       style={{ gridArea: area, justifyItems: alignment }}
       {...wrapperProps}
     >
-      <h1>{title}</h1>
+      <div className={classes.text_holder}>
+        <h1>{title}</h1>
+      </div>
     </BsCard>
   );
 };

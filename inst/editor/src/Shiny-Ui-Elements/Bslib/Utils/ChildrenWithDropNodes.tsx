@@ -9,7 +9,7 @@ import type {
   ShinyUiNames,
 } from "../../uiNodeTypes";
 
-import styles from "./styles.module.css";
+import styles from "./CardUtils.module.css";
 
 export function CardChildrenWithDropNodes({
   parentUiName,

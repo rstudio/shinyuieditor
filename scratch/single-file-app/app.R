@@ -5,23 +5,22 @@ library(bslib)
 # Here's a comment about this app
 ui <- grid_page(
   layout = c(
-    "header  header ",
-    "sidebar area3  ",
-    "sidebar redPlot"
+    "header   header ",
+    "sidebar  newPlot",
+    "cardDemo redPlot"
   ),
   row_sizes = c(
-    "80px",
+    "100px",
     "1.01fr",
     "0.99fr"
   ),
   col_sizes = c(
-    "425px",
+    "300px",
     "1fr"
   ),
   gap_size = "1rem",
   grid_card(
     area = "sidebar",
-    card_header(h2("Lorem Ipsum")),
     card_body(
       sliderInput(
         inputId = "bins",
@@ -46,15 +45,29 @@ ui <- grid_page(
   ),
   grid_card_text(
     area = "header",
-    content = "Single File App",
+    content = "My demo app",
     alignment = "start",
     is_title = FALSE
   ),
   grid_card_plot(area = "redPlot"),
+  grid_card_plot(area = "newPlot"),
   grid_card(
-    area = "area3",
-    card_header(h2("Lorem Ipsum")),
-    card_body()
+    area = "cardDemo",
+    card_header(h2("My Card header")),
+    card_body(
+      numericInput(
+        inputId = "myNumericInput",
+        label = "Numeric Input",
+        value = 5
+      )
+    ),
+    card_footer(
+      textInput(
+        inputId = "myTextInput",
+        label = "Text Input",
+        value = ""
+      )
+    )
   )
 )
 

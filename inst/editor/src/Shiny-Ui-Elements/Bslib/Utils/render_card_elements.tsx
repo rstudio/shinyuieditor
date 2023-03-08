@@ -5,10 +5,8 @@ import { DropWatcherPanel } from "../../../DragAndDropHelpers/DropWatcherPanel";
 import { makeChildPath } from "../../nodePathUtils";
 import type { NodePath, ShinyUiChildren } from "../../uiNodeTypes";
 
-import { CardBody } from "./CardBody";
-import { CardFooter } from "./CardFooter";
-import { CardHeader } from "./CardHeader";
-import styles from "./styles.module.css";
+import { CardBody, CardFooter, CardHeader } from "./CardElements";
+import styles from "./CardUtils.module.css";
 
 const possible_elements = new Set([
   "bslib::card_body_fill",
