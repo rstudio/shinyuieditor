@@ -1,7 +1,8 @@
 import type { ShinyUiNode } from "../../../Shiny-Ui-Elements/uiNodeTypes";
 import { getFirstTabName, getTabNames } from "../../Tabs/Tabset/utils";
 
-import { buildStaticFormInfo } from "./buildStaticSettingsInfo";
+import type { DynamicArgumentInfo} from "./buildStaticSettingsInfo";
+import { buildStaticFormInfo, getDefaultSettings } from "./buildStaticSettingsInfo";
 
 const navbarWithThreeTabs: ShinyUiNode = {
   uiName: "shiny::navbarPage",
@@ -44,6 +45,7 @@ describe("Can convert full dynamic settings info object into a static one", () =
             choices: (node) => (node ? getTabNames(node) : ["First Tab"]),
           },
         },
+
         navbarWithThreeTabs
       )
     ).toEqual({
@@ -59,3 +61,35 @@ describe("Can convert full dynamic settings info object into a static one", () =
     });
   });
 });
+
+
+describe("Can convert from dynamic info to static arguments for default settings", () => {
+
+  const sampleArgInfo = {
+    num: {
+      inputType: "number",
+      defaultValue: 42,
+    },
+    optionalString: {
+      inputType: "string",
+      defaultValue: "hello",
+      optional: true,
+    },
+    mystery: {
+      inputType: "omitted",
+      optional: true,
+      // defaultValue: new Date(),
+    },
+    bool: {
+      inputType: "boolean",
+      defaultValue: (node) => node ? false: true,
+    },
+  // } as const;
+  // } satisfies ArgsToDynamicInfo<SampleArgs>;
+  } satisfies DynamicArgumentInfo;
+
+  test("Works with no node", () => {
+    expect(getDefaultSettings(sampleArgInfo)).toStrictEqual({num: 42, optionalString: "hello", bool: true })
+  })
+
+})

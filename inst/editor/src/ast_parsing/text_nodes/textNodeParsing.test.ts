@@ -29,7 +29,7 @@ describe("Can parse raw ast to text nodes", () => {
   test("Can construct wrapped text nodes correctly", () => {
     const call_w_text: Branch_Node = {
       val: [
-        { val: "card_body", type: "s" },
+        { val: "card_body_fill", type: "s" },
         {
           val: [
             { val: "h1", type: "s" },

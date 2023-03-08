@@ -5,9 +5,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "util-functions": "*",
-    "r-ast-parsing": "*",
-    "tsconfig": "*",
     "@popperjs/core": "^2.11.2",
     "@preact/signals-react": "^1.2.2",
     "@reduxjs/toolkit": "^1.8.0",
@@ -18,6 +15,7 @@
     "just-clone": "^6.1.1",
     "just-debounce-it": "^3.1.1",
     "just-omit": "^2.1.1",
+    "r-ast-parsing": "*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
@@ -27,7 +25,9 @@
     "react-redux": "^8.0.2",
     "react-sortablejs": "^6.1.4",
     "sortablejs": "^1.15.0",
-    "ts-pattern": "^4.0.5"
+    "ts-pattern": "^4.0.5",
+    "tsconfig": "*",
+    "util-functions": "*"
   },
   "devDependencies": {
     "@babel/core": "^7.18.13",

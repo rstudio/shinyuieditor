@@ -68,15 +68,16 @@ export type StaticInputOptionsByInputType = Expand<{
   };
 }>;
 
-type StaticInputOptions =
-  StaticInputOptionsByInputType[InputOptions["inputType"]];
+type AddOptionalCase<Obj extends { defaultValue: unknown }> =
+  | Obj
+  | (Omit<Obj, "defaultValue"> & {
+      defaultValue?: Obj["defaultValue"];
+      optional: true;
+    });
 
-export type DynamicInputOptions = Expand<
-  {
-    [StaticOptions in StaticInputOptions as StaticOptions["inputType"]]: MakeOmittedOption<
-      MakeDynamicArguments<StaticOptions>
-    >;
-  }[InputOptions["inputType"]]
+export type StaticInputOptions = AddOptionalCase<
+  | StaticInputOptionsByInputType[InputOptions["inputType"]]
+  | { inputType: "omitted"; defaultValue: unknown }
 >;
 
 type KeysOfKnownArgs<Args extends Record<string, unknown>> = {
@@ -107,46 +108,35 @@ export type ArgsToStaticInfo<Args extends UiArgumentsObject> = {
     : { defaultValue: Args[Key] });
 };
 
-type MakeOmittedOption<Options extends Record<string, unknown>> =
+export type MakeOmittedOption<Options extends Record<string, unknown>> =
   | Options
   | ({ inputType: "omitted" } & (Options["optional"] extends true
       ? { optional: true; defaultValue?: Options["value"] }
       : { defaultValue: Options["value"] }));
 
-type ConvertToDynamic<
-  ArgsInfo extends Record<string, Record<string, unknown>>
-> = {
-  [ArgName in keyof ArgsInfo]: MakeDynamicArguments<ArgsInfo[ArgName]>;
-};
-
 /**
  * Object is filled with either values or callbacks to get those values from a
  * ui node
  */
-export type NodeToValueFn<T extends unknown> = (node?: ShinyUiNode) => T;
-type NonDynamicArgs = "inputType" | "useDefaultIfOptional" | "label";
-type MakeDynamicArguments<Obj extends Record<string, unknown>> = {
+type NonDynamicArgs =
+  | "inputType"
+  | "useDefaultIfOptional"
+  | "label"
+  | "optional";
+
+export type MakeDynamicArguments<Obj extends Record<string, unknown>> = {
   [Key in keyof Obj]: Key extends NonDynamicArgs
     ? Obj[Key]
-    : Obj[Key] | NodeToValueFn<Obj[Key]>;
+    : Obj[Key] | ((node?: ShinyUiNode) => Obj[Key]);
 };
 
 export type ArgsToDynamicInfo<Args extends UiArgumentsObject> = Expand<
   ConvertToDynamic<ArgsToStaticInfo<Args>>
 >;
-
-export type ConvertToStatic<
+type ConvertToDynamic<
   ArgsInfo extends Record<string, Record<string, unknown>>
 > = {
-  [ArgName in keyof ArgsInfo]: MakeStaticArguments<ArgsInfo[ArgName]>;
-};
-
-type MakeStaticArguments<Obj extends Record<string, unknown>> = {
-  [Key in keyof Obj]: Obj[Key] extends
-    | infer Val
-    | ((node: ShinyUiNode) => infer Val)
-    ? Val
-    : Obj[Key];
+  [ArgName in keyof ArgsInfo]: MakeDynamicArguments<ArgsInfo[ArgName]>;
 };
 
 export type InputComponentByType<InputType extends InputTypeNames> = {
@@ -160,3 +150,8 @@ export type InputComponentByType<InputType extends InputTypeNames> = {
 export function makeLabelId(id: string) {
   return id + "-label";
 }
+
+// Where we use arg info object
+// 1. Generate default settings: arg_info => args
+// 2. Generate static values to feed into form builder: arg_info => static_arg_info
+// 3. Get out of form builder a new instance of args: static_arg_info => args
