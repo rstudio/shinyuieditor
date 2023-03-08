@@ -1,3 +1,18 @@
+# shinyuieditor 0.4.1
+
+### Major new features and improvements
+
+- New more flexible `bslib::card()` based cards are now available along with the old gric cards being updated to reflect the new the `gridlayout` wrapper `gridlayout::grid_card()`.
+
+### Minor new features and improvements
+
+### Bug fixes
+
+- In vscode, if ui changes are made to the app the selection of output definitions and addition of new output definitions no longer breaks.
+- Fixed problem where making lots of quick updates to the state would cause the app to crash due to backend and client getting out of sync.
+- Content of cards can no longer spill over obscuring other elements like grid tract resizers.
+- The visual indicator for swapping positions of items on the grid no longer flickers and actually is legible.
+
 # shinyuieditor 0.4.0
 
 ### Major new features and improvements
