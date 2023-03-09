@@ -14,6 +14,8 @@ export type ShinyCheckboxGroupInputProps = {
 
 export const shinyCheckboxGroupInputInfo: UiComponentInfo<ShinyCheckboxGroupInputProps> =
   {
+    library: "shiny",
+    name: "checkboxGroupInput",
     title: "Checkbox Group",
     UiComponent: ShinyCheckboxGroupInput,
     settingsInfo: {

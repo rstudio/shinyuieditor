@@ -23,6 +23,8 @@ const BslibCard: UiNodeComponent<CardSettings> = ({
 };
 
 export const bslibCardInfo: UiComponentInfo<CardSettings> = {
+  library: "bslib",
+  name: "card",
   title: "Card",
   UiComponent: BslibCard,
   settingsInfo: {},

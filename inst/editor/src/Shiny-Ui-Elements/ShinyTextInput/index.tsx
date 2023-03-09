@@ -13,6 +13,8 @@ export type ShinyTextInputProps = {
 };
 
 export const shinyTextInputInfo: UiComponentInfo<ShinyTextInputProps> = {
+  library: "shiny",
+  name: "textInput",
   title: "Text Input",
   UiComponent: ShinyTextInput,
   settingsInfo: {

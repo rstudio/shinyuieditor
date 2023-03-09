@@ -13,6 +13,8 @@ export type ShinyCheckboxInputProps = {
 
 export const shinyCheckboxInputInfo: UiComponentInfo<ShinyCheckboxInputProps> =
   {
+    library: "shiny",
+    name: "checkboxInput",
     title: "Checkbox Input",
     UiComponent: ShinyCheckboxInput,
     settingsInfo: {

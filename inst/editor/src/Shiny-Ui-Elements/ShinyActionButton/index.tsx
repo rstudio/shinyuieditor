@@ -11,6 +11,8 @@ export type ShinyActionButtonProps = {
 };
 
 export const shinyActionButtonInfo: UiComponentInfo<ShinyActionButtonProps> = {
+  library: "shiny",
+  name: "actionButton",
   title: "Action Button",
   UiComponent: ShinyActionButton,
   settingsInfo: {

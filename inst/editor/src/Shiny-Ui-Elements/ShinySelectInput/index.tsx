@@ -11,6 +11,8 @@ export type ShinySelectInputProps = {
 };
 
 export const shinySelectInputInfo: UiComponentInfo<ShinySelectInputProps> = {
+  library: "shiny",
+  name: "selectInput",
   title: "Select Input",
   UiComponent: ShinySelectInput,
   settingsInfo: {

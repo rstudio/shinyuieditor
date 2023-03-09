@@ -11,6 +11,8 @@ export type GridlayoutGridCardPlotProps = {
 
 export const gridlayoutGridCardPlotInfo: UiComponentInfo<GridlayoutGridCardPlotProps> =
   {
+    library: "gridlayout",
+    name: "grid_card_plot",
     title: "Grid Plot Card",
     UiComponent: GridlayoutGridCardPlot,
     settingsInfo: {

@@ -8,6 +8,8 @@ export type ShinyTextOutputProps = {
 };
 
 export const shinyTextOutputInfo: UiComponentInfo<ShinyTextOutputProps> = {
+  library: "shiny",
+  name: "textOutput",
   title: "Text Output",
   UiComponent: ShinyTextOutput,
   settingsInfo: {

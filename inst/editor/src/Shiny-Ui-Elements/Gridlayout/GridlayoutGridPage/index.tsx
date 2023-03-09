@@ -12,6 +12,8 @@ export type TractDirection = "rows" | "cols";
 export const gridlayoutGridPageInfo: UiComponentInfo<
   GridLayoutArgs & { theme?: unknown }
 > = {
+  library: "gridlayout",
+  name: "grid_page",
   title: "Grid Page",
   UiComponent: GridlayoutGridPage,
   acceptsChildren: true,

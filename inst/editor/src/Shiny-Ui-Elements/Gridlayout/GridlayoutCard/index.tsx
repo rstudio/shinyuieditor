@@ -11,6 +11,8 @@ export type GridItemSettings = {
 export type GridBslibCardCardSettings = CardSettings & GridItemSettings;
 
 export const gridlayoutCardInfo: UiComponentInfo<GridBslibCardCardSettings> = {
+  library: "gridlayout",
+  name: "grid_card",
   title: "Grid Card",
   UiComponent: GridlayoutGridCard,
   settingsInfo: {

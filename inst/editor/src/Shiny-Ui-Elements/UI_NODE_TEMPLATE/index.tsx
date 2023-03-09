@@ -8,6 +8,8 @@ export type NodeNameSettings = {
 };
 
 export const pkgNodeNameInfo: UiComponentInfo<NodeNameSettings> = {
+  library: "PKG_NAME",
+  name: "node_name",
   title: "NODE NAME",
   UiComponent: PkgNodeName,
   settingsInfo: {

@@ -17,6 +17,8 @@ export type NavbarPageSettings = {
 };
 
 export const shinyNavbarPageInfo: UiComponentInfo<NavbarPageSettings> = {
+  library: "shiny",
+  name: "navbarPage",
   title: "Navbar Page",
   UiComponent: ShinyNavbarPage,
   settingsInfo: {

@@ -11,6 +11,8 @@ export type PlotlyOutputSettings = {
 };
 
 export const plotlyPlotlyOutputInfo: UiComponentInfo<PlotlyOutputSettings> = {
+  library: "plotly",
+  name: "plotlyOutput",
   title: "Plotly Plot",
   UiComponent: PlotlyPlotlyOutput,
   settingsInfo: {

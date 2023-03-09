@@ -23,6 +23,8 @@ const BslibCardFooter: UiNodeComponent<CardFooterSettings> = ({
 };
 
 export const bslibCardFooterInfo: UiComponentInfo<CardFooterSettings> = {
+  library: "bslib",
+  name: "card_footer",
   title: "Card Footer",
   UiComponent: BslibCardFooter,
   settingsInfo: {},

@@ -16,6 +16,8 @@ export type ShinySliderInputProps = {
 };
 
 export const shinySliderInputInfo: UiComponentInfo<ShinySliderInputProps> = {
+  library: "shiny",
+  name: "sliderInput",
   title: "Slider Input",
   UiComponent: ShinySliderInput,
   settingsInfo: {

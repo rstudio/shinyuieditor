@@ -31,6 +31,8 @@ const BslibCardBody: UiNodeComponent<
 };
 
 export const bslibCardBodyInfo: UiComponentInfo<CardBodySettings> = {
+  library: "bslib",
+  name: "card_body_fill",
   title: "Card Body",
   UiComponent: BslibCardBody,
   settingsInfo: {

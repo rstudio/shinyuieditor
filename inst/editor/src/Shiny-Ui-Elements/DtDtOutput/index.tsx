@@ -11,6 +11,8 @@ export type DTOutputSettings = {
 };
 
 export const dtDTOutputInfo: UiComponentInfo<DTOutputSettings> = {
+  library: "DT",
+  name: "DTOutput",
   title: "DT Table",
   UiComponent: DtDTOutput,
   settingsInfo: {

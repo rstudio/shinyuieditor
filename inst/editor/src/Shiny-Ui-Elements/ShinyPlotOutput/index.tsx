@@ -11,6 +11,8 @@ export type ShinyPlotOutputProps = {
 };
 
 export const shinyPlotOutputInfo: UiComponentInfo<ShinyPlotOutputProps> = {
+  library: "shiny",
+  name: "plotOutput",
   title: "Plot Output",
   UiComponent: ShinyPlotOutput,
   settingsInfo: {

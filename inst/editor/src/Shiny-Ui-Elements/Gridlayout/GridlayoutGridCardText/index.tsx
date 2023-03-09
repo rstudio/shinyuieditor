@@ -18,6 +18,8 @@ export type GridlayoutGridCardTextProps = {
 
 export const gridlayoutTextPanelInfo: UiComponentInfo<GridlayoutGridCardTextProps> =
   {
+    library: "gridlayout",
+    name: "grid_card_text",
     title: "Grid Text Card",
     UiComponent: GridlayoutGridCardText,
     settingsInfo: {

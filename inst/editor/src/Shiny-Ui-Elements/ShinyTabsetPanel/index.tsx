@@ -4,13 +4,14 @@ import {
   getTabNames,
 } from "../../components/Tabs/Tabset/utils";
 import type { ShinyUiParentNode, UiComponentInfo } from "../uiNodeTypes";
-import { isParentNode } from "../uiNodeTypes";
 
 import ShinyTabsetPanel from "./ShinyTabsetPanel";
 
 export type TabsetPanelSettings = { id?: string; selected?: string };
 
 export const shinyTabsetPanelInfo: UiComponentInfo<TabsetPanelSettings> = {
+  library: "shiny",
+  name: "tabsetPanel",
   title: "Tabset Panel",
   UiComponent: ShinyTabsetPanel,
   settingsInfo: {

@@ -12,6 +12,8 @@ export type GridContainerSettings = GridLayoutArgs;
 
 export const gridlayoutGridContainerInfo: UiComponentInfo<GridContainerSettings> =
   {
+    library: "gridlayout",
+    name: "grid_container",
     title: "Grid Container",
     UiComponent: GridlayoutGridContainer,
     settingsInfo: {

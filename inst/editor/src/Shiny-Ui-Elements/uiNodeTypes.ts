@@ -43,6 +43,13 @@ export type UiArgumentsObject = Record<string, unknown | undefined>;
  * Defines everything needed to add a new Shiny UI component to the app
  */
 export type UiComponentInfo<NodeSettings extends UiArgumentsObject> = {
+  library?: string;
+
+  /**
+   * Name of function as called in code: e.g. `"sliderInput"` for `shiny::sliderInput()`
+   */
+  name: string;
+
   /**
    * The name of the component in plain language. E.g. Plot Output
    */
@@ -210,6 +217,7 @@ export type ShinyUiLeafNode = {
 export type ShinyUiParentNode = ShinyUiLeafNode & {
   uiChildren: Array<ShinyUiNode>;
 };
+export type ShinyUiRootNode = ShinyUiParentNode | "TEMPLATE_CHOOSER";
 
 /**
  * General ui node that can be a leaf or a parent node
@@ -230,8 +238,6 @@ export type MakeShinyUiNode<
 export function isParentNode(node: ShinyUiNode): node is ShinyUiParentNode {
   return "uiChildren" in node;
 }
-
-export type ShinyUiRootNode = ShinyUiParentNode | "TEMPLATE_CHOOSER";
 
 /**
  * Type of component defining the app view of a given ui node

@@ -22,6 +22,7 @@ export function isUnknownUiNode(node: ShinyUiNode): node is UnknownUiNode {
 }
 
 export const unknownUiFunctionInfo: UiComponentInfo<UnknownUiFunctionProps> = {
+  name: "unknownUiFunction",
   title: "Unknown UI Function",
   UiComponent: UnknownUiFunction,
   settingsInfo: {

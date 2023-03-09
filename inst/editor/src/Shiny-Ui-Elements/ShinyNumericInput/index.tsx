@@ -16,6 +16,8 @@ export type ShinyNumericInputProps = {
 };
 
 export const shinyNumericInputInfo: UiComponentInfo<ShinyNumericInputProps> = {
+  library: "shiny",
+  name: "numericInput",
   title: "Numeric Input",
   UiComponent: ShinyNumericInput,
   settingsInfo: {

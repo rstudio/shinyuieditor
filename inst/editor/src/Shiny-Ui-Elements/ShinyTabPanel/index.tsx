@@ -10,6 +10,8 @@ export type TabPanelSettings = {
 export type TabPanelNode = MakeShinyUiNode<TabPanelSettings>;
 
 export const shinyTabPanelInfo: UiComponentInfo<TabPanelSettings> = {
+  library: "shiny",
+  name: "tabPanel",
   title: "Tab Panel",
   UiComponent: ShinyTabPanel,
   settingsInfo: {

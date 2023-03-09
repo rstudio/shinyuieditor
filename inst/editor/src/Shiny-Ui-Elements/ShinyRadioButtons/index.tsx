@@ -13,6 +13,8 @@ export type ShinyRadioButtonsProps = {
 };
 
 export const shinyRadioButtonsInfo: UiComponentInfo<ShinyRadioButtonsProps> = {
+  library: "shiny",
+  name: "radioButtons",
   title: "Radio Buttons",
   UiComponent: ShinyRadioButtons,
   settingsInfo: {
