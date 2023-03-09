@@ -5,7 +5,7 @@ import { useBackendConnection } from "../backendCommunication/useBackendMessageC
 import { TooltipButton } from "../components/PopoverEl/Tooltip";
 import type { ShinyUiNode } from "../main";
 import { getUiNodeInfo } from "../Shiny-Ui-Elements/getUiNodeInfo";
-import type { ShinyUiNodeInfoUnion } from "../Shiny-Ui-Elements/uiNodeTypes";
+import type { ServerBindings } from "../Shiny-Ui-Elements/uiNodeTypes";
 import { useCurrentAppInfo } from "../state/app_info";
 
 export function GoToSourceBtns({ node }: { node: ShinyUiNode | null }) {
@@ -13,7 +13,8 @@ export function GoToSourceBtns({ node }: { node: ShinyUiNode | null }) {
 
   if (mode !== "VSCODE" || !node) return null;
 
-  const { serverBindings } = getUiNodeInfo(node.uiName);
+  const serverBindings = (getUiNodeInfo(node.uiName).serverBindings ??
+    {}) as Partial<ServerBindings>;
 
   return (
     <div>
@@ -37,7 +38,7 @@ function GoToOutputsBtn({
   sendMsg,
 }: {
   node: ShinyUiNode;
-  serverOutputInfo: Required<ShinyUiNodeInfoUnion>["serverBindings"]["outputs"];
+  serverOutputInfo?: ServerBindings["outputs"];
   sendMsg: (msg: MessageToBackend) => void;
 }) {
   const current_app_info = useCurrentAppInfo();
@@ -106,7 +107,7 @@ function GoToInputsBtn({
   sendMsg,
 }: {
   node: ShinyUiNode;
-  serverInputInfo: Required<ShinyUiNodeInfoUnion>["serverBindings"]["inputs"];
+  serverInputInfo?: ServerBindings["inputs"];
   sendMsg: (msg: MessageToBackend) => void;
 }) {
   if (typeof serverInputInfo === "undefined") return null;

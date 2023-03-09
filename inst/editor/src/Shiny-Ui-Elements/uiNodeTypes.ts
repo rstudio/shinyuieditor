@@ -87,19 +87,7 @@ export type UiComponentInfo<NodeSettings extends UiArgumentsObject> = {
    * and returns the key. This is useful for ones where the choice may be
    * dynamic. See `GridlayoutGridCardPlot` for an example.
    */
-  serverBindings?: {
-    outputs?: {
-      outputIdKey: keyof NodeSettings | PickKeyFn<NodeSettings>;
-      /** Scaffold text to be inserted into the app server if the user requests.
-       * Can use the [vscode snippet
-       * syntax](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_create-your-own-snippets).
-       * */
-      renderScaffold: string;
-    };
-    inputs?: {
-      inputIdKey: keyof NodeSettings | PickKeyFn<NodeSettings>;
-    };
-  };
+  serverBindings?: Partial<ServerBindings<NodeSettings>>;
 
   /**
    * Optional update subscribers
@@ -131,6 +119,22 @@ export type UiComponentInfo<NodeSettings extends UiArgumentsObject> = {
       UiComponent: UiNodeComponent<NodeSettings, { TakesChildren: true }>;
     }
 );
+
+export type ServerBindings<
+  NodeSettings extends UiArgumentsObject = UiArgumentsObject
+> = {
+  outputs: {
+    outputIdKey: keyof NodeSettings | PickKeyFn<NodeSettings>;
+    /** Scaffold text to be inserted into the app server if the user requests.
+     * Can use the [vscode snippet
+     * syntax](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_create-your-own-snippets).
+     * */
+    renderScaffold: string;
+  };
+  inputs: {
+    inputIdKey: keyof NodeSettings | PickKeyFn<NodeSettings>;
+  };
+};
 
 /**
  * Optional functions that will hook into the state update reducers and allow
@@ -179,38 +183,18 @@ export const shinyUiNodeInfo = {
   unknownUiFunction: unknownUiFunctionInfo,
 };
 
-export type ShinyUiNodeInfo = typeof shinyUiNodeInfo;
-export type ShinyUiNodeInfoUnion = ShinyUiNodeInfo[keyof ShinyUiNodeInfo];
-
 /**
  * All possible props/arguments for the defined UI components
  *
  * This is the only place where any new UI element should be added as the rest
  * of the types will automatically be built based on this type.
  */
-type ShinyUiArguments = {
-  [UiName in keyof ShinyUiNodeInfo]: Required<
-    ShinyUiNodeInfo[UiName]
-  >["exampleSettings"];
-};
 
 /**
  * Names of all the available Ui elements
  */
-export type ShinyUiNames = keyof ShinyUiArguments;
-
-/**
- * Map of all the ui nodes/elements keyed by the uiName
- */
-export type ShinyUiNodeByName = {
-  [UiName in ShinyUiNames]: {
-    uiName: UiName;
-    /** Unknown record allows for extra args not accounted for in the editor */
-    uiArguments: ShinyUiArguments[UiName];
-    /** Any children of this node */
-    uiChildren?: ShinyUiParentNode["uiChildren"];
-  };
-};
+export const shinyUiNames = new Set(Object.keys(shinyUiNodeInfo));
+export type ShinyUiNames = keyof typeof shinyUiNodeInfo;
 
 /**
  * Ui Node with no children
@@ -231,6 +215,14 @@ export type ShinyUiParentNode = ShinyUiLeafNode & {
  * General ui node that can be a leaf or a parent node
  */
 export type ShinyUiNode = ShinyUiLeafNode | ShinyUiParentNode;
+
+export type MakeShinyUiNode<
+  Args extends UiArgumentsObject,
+  TakesChildren extends boolean = false
+> = {
+  uiName: string;
+  uiArguments: Args;
+} & (TakesChildren extends true ? { uiChildren: Array<ShinyUiNode> } : {});
 
 /**
  * Narrow if a node is a parent node or not

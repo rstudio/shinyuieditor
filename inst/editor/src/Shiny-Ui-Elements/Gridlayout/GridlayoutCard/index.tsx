@@ -5,10 +5,10 @@ import { grid_container_nodes } from "../grid_container_nodes";
 
 import GridlayoutGridCard from "./GridlayoutCard";
 
-export type GridContainerSettings = {
+export type GridItemSettings = {
   area: string;
 };
-export type GridBslibCardCardSettings = CardSettings & GridContainerSettings;
+export type GridBslibCardCardSettings = CardSettings & GridItemSettings;
 
 export const gridlayoutCardInfo: UiComponentInfo<GridBslibCardCardSettings> = {
   title: "Grid Card",

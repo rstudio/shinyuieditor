@@ -1,10 +1,8 @@
-import type { ShinyUiNode } from "../../../main";
-import type { ShinyUiNodeByName } from "../../uiNodeTypes";
+import type { MakeShinyUiNode, ShinyUiNode } from "../../uiNodeTypes";
+import type { GridContainerSettings } from "../GridlayoutGridContainer";
 
 // Make it known that the ui children are required here
-export type GridContainerNode = Required<
-  ShinyUiNodeByName["gridlayout::grid_page" | "gridlayout::grid_container"]
->;
+export type GridContainerNode = MakeShinyUiNode<GridContainerSettings, true>;
 
 const validGridContainerNodeNames = [
   "gridlayout::grid_page",

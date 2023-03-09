@@ -1,14 +1,15 @@
 import type { R_Ui_Code } from "communication-types/src/MessageToBackend";
-import type {
-  ShinyUiNames,
-  ShinyUiNode,
-  ShinyUiNodeByName,
-} from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
+import type { ShinyUiNode } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
 import { isParentNode } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
 import type { Primatives } from "r-ast-parsing";
-import { is_object } from "util-functions/src/is_object";
 
-import { text_node_to_code } from "../text_nodes/text_node_to_code";
+import { isShinyUiNode } from "../../Shiny-Ui-Elements/isShinyUiNode";
+import {
+  isTextUiNode,
+  text_node_to_code,
+} from "../../Shiny-Ui-Elements/TextNode";
+import type { UnknownUiNode } from "../../Shiny-Ui-Elements/UnknownUiFunction";
+import { isUnknownUiNode } from "../../Shiny-Ui-Elements/UnknownUiFunction";
 
 import {
   indent_line_breaks,
@@ -16,13 +17,6 @@ import {
   NL_INDENT,
   should_line_break,
 } from "./build_function_text";
-
-function isUiNodeOfType<UiName extends ShinyUiNames>(
-  x: unknown,
-  uiName: UiName
-): x is ShinyUiNodeByName[UiName] {
-  return is_object(x) && "uiName" in x && x.uiName === uiName;
-}
 
 /**
  * Convert a ui ast node into formatted R code.
@@ -60,14 +54,14 @@ function ui_node_to_R_code_internal(
   const { uiName, uiArguments } = node;
   const removed_namespaces: Set<string> = new Set<string>();
 
-  if (isUiNodeOfType(node, "unknownUiFunction")) {
+  if (isUnknownUiNode(node)) {
     return {
       ui_code: print_unknown_ui_node(node),
       removed_namespaces,
     };
   }
 
-  if (isUiNodeOfType(node, "textNode")) {
+  if (isTextUiNode(node)) {
     return {
       ui_code: text_node_to_code(node),
       removed_namespaces,
@@ -120,9 +114,7 @@ function ui_node_to_R_code_internal(
 }
 export type NamedList = Record<string, string>;
 
-function print_unknown_ui_node({
-  uiArguments,
-}: ShinyUiNodeByName["unknownUiFunction"]) {
+function print_unknown_ui_node({ uiArguments }: UnknownUiNode) {
   return uiArguments.text;
 }
 
@@ -174,7 +166,7 @@ function print_R_argument_value(value: unknown): string {
 
   if (typeof value === "boolean") return value ? "TRUE" : "FALSE";
 
-  if (isUiNodeOfType(value, "unknownUiFunction")) {
+  if (isShinyUiNode(value) && isUnknownUiNode(value)) {
     return print_unknown_ui_node(value);
   }
 

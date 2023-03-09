@@ -1,12 +1,7 @@
-import * as React from "react";
-
 import { PanelHeader } from "../EditorSkeleton/EditorSkeleton";
 import { getUiNodeInfo } from "../Shiny-Ui-Elements/getUiNodeInfo";
-import type {
-  ShinyUiNames,
-  ShinyUiNodeInfo,
-} from "../Shiny-Ui-Elements/uiNodeTypes";
-import { shinyUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
+import type { ShinyUiNames } from "../Shiny-Ui-Elements/uiNodeTypes";
+import { shinyUiNames } from "../Shiny-Ui-Elements/uiNodeTypes";
 
 import classes from "./styles.module.css";
 import { UiElementIcon } from "./UiElementIcon";
@@ -33,13 +28,12 @@ function sortByCategory(nameA: ShinyUiNames, nameB: ShinyUiNames): number {
 }
 
 export default function ElementsPalette({
-  availableUi = shinyUiNodeInfo,
+  availableUiNodes = shinyUiNames,
 }: {
-  availableUi?: ShinyUiNodeInfo;
+  availableUiNodes?: typeof shinyUiNames;
 }) {
-  const ui_node_names = React.useMemo(
-    () => (Object.keys(availableUi) as ShinyUiNames[]).sort(sortByCategory),
-    [availableUi]
+  const ui_node_names = ([...availableUiNodes] as ShinyUiNames[]).sort(
+    sortByCategory
   );
 
   return (

@@ -1,4 +1,4 @@
-import { shinyUiNodeInfo } from "./uiNodeTypes";
+import { shinyUiNames } from "./uiNodeTypes";
 
 const get_has_namespace = /^\w+::/;
 
@@ -14,7 +14,8 @@ export function normalize_ui_name(fn_name: string): string {
   // If we have a bare function name we need to loop through the known full
   // function names and find the one that ends with the passed bare name
   const find_ends_in_fn_name = new RegExp(`^\\w+::${fn_name}$`);
-  for (const full_name in shinyUiNodeInfo) {
+
+  for (const full_name of shinyUiNames) {
     if (find_ends_in_fn_name.test(full_name)) {
       return full_name;
     }

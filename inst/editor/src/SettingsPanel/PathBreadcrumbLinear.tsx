@@ -2,7 +2,6 @@ import { getNode } from "../components/UiNode/TreeManipulation/getNode";
 import type { ShinyUiNode } from "../main";
 import { getUiNodeInfo } from "../Shiny-Ui-Elements/getUiNodeInfo";
 import type { NodePath } from "../Shiny-Ui-Elements/uiNodeTypes";
-import { shinyUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
 
 import classes from "./PathBreadcrumbLinear.module.css";
 

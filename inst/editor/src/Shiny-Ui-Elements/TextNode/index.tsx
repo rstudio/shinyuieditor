@@ -1,8 +1,18 @@
 import icon from "../../assets/icons/shinyText.png";
 import type { TextNodeSettings } from "../../ast_parsing/text_nodes/build_text_node";
-import type { UiComponentInfo } from "../uiNodeTypes";
+import type {
+  MakeShinyUiNode,
+  ShinyUiNode,
+  UiComponentInfo,
+} from "../uiNodeTypes";
 
 import { TextNode } from "./TextNode";
+
+export type TextUiNode = MakeShinyUiNode<TextNodeSettings>;
+
+export function isTextUiNode(node: ShinyUiNode): node is TextUiNode {
+  return "contents" in node.uiArguments && node.uiName === "textNode";
+}
 
 export const textNodeInfo: UiComponentInfo<TextNodeSettings> = {
   title: "Static Text",
@@ -46,3 +56,15 @@ export const textNodeInfo: UiComponentInfo<TextNodeSettings> = {
   acceptsChildren: false,
   iconSrc: icon,
 };
+
+export function text_node_to_code(ui_node: TextUiNode): string {
+  // Why does this not automatically resolve for me?
+  const { contents, size, decoration } =
+    ui_node.uiArguments as TextNodeSettings;
+
+  const quoted_contents = `"${contents}"`;
+
+  if (!size && !decoration) return quoted_contents;
+
+  return `${size}(${quoted_contents})`;
+}

@@ -56,9 +56,11 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
           settings={uiArguments}
           settingsInfo={staticSettingsInfo}
           renderInputs={
-            nodeInfo.settingsFormRender as CustomFormRenderFn<
-              typeof uiArguments
-            >
+            "settingsFormRender" in nodeInfo
+              ? (nodeInfo.settingsFormRender as CustomFormRenderFn<
+                  typeof uiArguments
+                >)
+              : undefined
           }
           onSettingsChange={(name, action) => {
             switch (action.type) {

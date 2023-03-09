@@ -21,10 +21,11 @@ function create_subscriber_getter<T extends keyof StateUpdateSubscribers>(
     // Sometimes in a test/storybook environments we may not have loaded the
     // node info module so we need to watch out for this.
     for (const info of Object.values(shinyUiNodeInfo)) {
-      const nodeUpdateSubscriber = info?.stateUpdateSubscribers?.[type];
-
-      if (nodeUpdateSubscriber) {
-        subscriptions.add(nodeUpdateSubscriber);
+      if ("stateUpdateSubscribers" in info) {
+        const nodeUpdateSubscriber = info.stateUpdateSubscribers?.[type];
+        if (nodeUpdateSubscriber) {
+          subscriptions.add(nodeUpdateSubscriber);
+        }
       }
     }
     return subscriptions;

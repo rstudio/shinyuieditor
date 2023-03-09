@@ -14,8 +14,8 @@ import { FormBuilder } from "../components/Inputs/SettingsFormBuilder/FormBuilde
 
 import classes from "./UiElementsShowcase.module.css";
 
-import { shinyUiNodeInfo } from "./uiNodeTypes";
 import { getUiNodeInfo } from "./getUiNodeInfo";
+import { shinyUiNames } from "./uiNodeTypes";
 function UiNodeAndSettings({ uiName, uiArguments }) {
   const [infoToRender, setInfoToRender] = React.useState(null);
 
@@ -118,7 +118,7 @@ export const UiElementsShowcase = ({ nameOfElement }) => {
 UiElementsShowcase.argTypes = {
   nameOfElement: {
     control: { type: "select" },
-    options: Object.keys(shinyUiNodeInfo),
+    options: shinyUiNames,
   },
 };
 

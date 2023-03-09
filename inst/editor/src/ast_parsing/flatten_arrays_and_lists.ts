@@ -1,10 +1,11 @@
-import type { ShinyUiNodeByName } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
-import type { Primatives, Leaf_Node, R_AST, R_AST_Node } from "r-ast-parsing";
+import type { Leaf_Node, Primatives, R_AST, R_AST_Node } from "r-ast-parsing";
 import {
   is_ast_branch_node,
   is_primative,
 } from "r-ast-parsing/src/node_identity_checkers";
 import { Parsing_Error } from "r-ast-parsing/src/parsing_error_class";
+
+import type { UnknownUiNode } from "../Shiny-Ui-Elements/UnknownUiFunction";
 
 import { create_unknownUiFunction } from "./create_unknownUiFunction";
 
@@ -38,7 +39,7 @@ export function get_node_is_list(node: R_AST_Node): boolean {
 
 export function flatten_to_array(
   node: R_AST_Node
-): Primative_Array | ShinyUiNodeByName["unknownUiFunction"] {
+): Primative_Array | UnknownUiNode {
   try {
     return flatten_array_internal(node);
   } catch (e) {
@@ -73,7 +74,7 @@ function flatten_array_internal(node: R_AST_Node): Primative_Array {
 
 export function flatten_to_list(
   node: R_AST_Node
-): Primative_Map | ShinyUiNodeByName["unknownUiFunction"] {
+): Primative_Map | UnknownUiNode {
   if (!is_ast_branch_node(node)) {
     throw new Parsing_Error({
       message: "Tried to flatten a leaf/primative node",

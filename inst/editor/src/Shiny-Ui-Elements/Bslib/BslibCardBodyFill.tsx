@@ -1,6 +1,6 @@
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
 import type {
-  ShinyUiNodeByName,
+  MakeShinyUiNode,
   UiComponentInfo,
   UiNodeComponent,
 } from "../uiNodeTypes";
@@ -12,6 +12,8 @@ export type CardBodySettings = {
   max_height?: CSSMeasure;
   min_height?: CSSMeasure;
 };
+
+type CardBodyFillNode = MakeShinyUiNode<CardBodySettings>;
 
 const BslibCardBody: UiNodeComponent<
   CardBodySettings,
@@ -39,10 +41,7 @@ export const bslibCardBodyInfo: UiComponentInfo<CardBodySettings> = {
       defaultValue: (node) => {
         if (!node) return "500px";
 
-        return (
-          (node as ShinyUiNodeByName["bslib::card_body_fill"]).uiArguments
-            .min_height ?? "500px"
-        );
+        return (node as CardBodyFillNode).uiArguments.min_height ?? "500px";
       },
       units: ["px", "%"],
     },
@@ -53,10 +52,7 @@ export const bslibCardBodyInfo: UiComponentInfo<CardBodySettings> = {
       defaultValue: (node) => {
         if (!node) return "100px";
 
-        return (
-          (node as ShinyUiNodeByName["bslib::card_body_fill"]).uiArguments
-            .max_height ?? "100px"
-        );
+        return (node as CardBodyFillNode).uiArguments.max_height ?? "100px";
       },
       units: ["px", "%"],
     },

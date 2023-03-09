@@ -1,11 +1,13 @@
 import icon from "../../assets/icons/tabPanel.png";
-import type { UiComponentInfo } from "../uiNodeTypes";
+import type { MakeShinyUiNode, UiComponentInfo } from "../uiNodeTypes";
 
 import ShinyTabPanel from "./ShinyTabPanel";
 
 export type TabPanelSettings = {
   title: string;
 };
+
+export type TabPanelNode = MakeShinyUiNode<TabPanelSettings>;
 
 export const shinyTabPanelInfo: UiComponentInfo<TabPanelSettings> = {
   title: "Tab Panel",

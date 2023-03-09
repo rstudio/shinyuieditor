@@ -2,28 +2,21 @@ import type { ShinyUiNode } from "editor";
 import { isShinyUiNode } from "editor/src/Shiny-Ui-Elements/isShinyUiNode";
 import { normalize_ui_name } from "editor/src/Shiny-Ui-Elements/normalize_ui_name";
 import type {
-  ShinyUiNodeByName,
-  UiArgumentsObject,
+  UiArgumentsObject
 } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
-import type { Branch_Node, R_AST_Node, Primatives } from "r-ast-parsing";
+import type { Branch_Node, R_AST_Node } from "r-ast-parsing";
 import type { Output_Server_Pos } from "r-ast-parsing/src/get_assignment_nodes";
 import {
-  is_named_node,
-  is_ast_leaf_node,
-  is_ast_branch_node,
+  is_ast_branch_node, is_ast_leaf_node, is_named_node
 } from "r-ast-parsing/src/node_identity_checkers";
 import { Parsing_Error } from "r-ast-parsing/src/parsing_error_class";
 
 import { create_unknownUiFunction } from "./create_unknownUiFunction";
-import type {
-  Primative_Array,
-  Primative_Map,
-} from "./flatten_arrays_and_lists";
 import {
   flatten_to_array,
   flatten_to_list,
   get_node_is_array,
-  get_node_is_list,
+  get_node_is_list
 } from "./flatten_arrays_and_lists";
 import { build_text_node } from "./text_nodes/build_text_node";
 import { is_raw_text_node } from "./text_nodes/is_text_node";
@@ -61,11 +54,7 @@ export function ast_to_ui_node(node: Branch_Node): ShinyUiNode {
 
 function process_named_arg(
   node: R_AST_Node
-):
-  | Primatives
-  | Primative_Array
-  | Primative_Map
-  | ShinyUiNodeByName["unknownUiFunction"] {
+) {
   if (is_ast_leaf_node(node)) {
     return node.val;
   }

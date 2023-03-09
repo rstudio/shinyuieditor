@@ -1,6 +1,7 @@
-import type { ShinyUiNodeByName } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
 import type { R_AST_Node } from "r-ast-parsing";
 import { is_ast_branch_node } from "r-ast-parsing/src/node_identity_checkers";
+
+import type { UnknownUiNode } from "../Shiny-Ui-Elements/UnknownUiFunction";
 
 import {
   build_function_text,
@@ -22,7 +23,7 @@ export function create_unknownUiFunction({
 }: {
   node: R_AST_Node;
   explanation?: string;
-}): ShinyUiNodeByName["unknownUiFunction"] {
+}): UnknownUiNode {
   return {
     uiName: "unknownUiFunction",
     uiArguments: {

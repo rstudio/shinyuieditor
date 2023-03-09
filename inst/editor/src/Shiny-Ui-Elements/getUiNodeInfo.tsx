@@ -1,5 +1,7 @@
-import type { ShinyUiNodeInfoUnion } from "./uiNodeTypes";
 import { shinyUiNodeInfo } from "./uiNodeTypes";
+
+type ShinyUiNodeInfoUnion =
+  typeof shinyUiNodeInfo[keyof typeof shinyUiNodeInfo];
 
 export function getUiNodeInfo(uiName: string): ShinyUiNodeInfoUnion {
   const info = shinyUiNodeInfo[uiName as keyof typeof shinyUiNodeInfo];

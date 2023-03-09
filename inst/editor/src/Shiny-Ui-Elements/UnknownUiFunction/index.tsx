@@ -1,7 +1,11 @@
 import { AiOutlineQuestionCircle } from "react-icons/ai";
 
 import CategoryDivider from "../../components/CategoryDivider";
-import type { UiComponentInfo } from "../uiNodeTypes";
+import type {
+  MakeShinyUiNode,
+  ShinyUiNode,
+  UiComponentInfo,
+} from "../uiNodeTypes";
 
 import { formatFunctionText } from "./formatFunctionText";
 import "./styles.scss";
@@ -11,6 +15,11 @@ export type UnknownUiFunctionProps = {
   text: string;
   explanation?: string;
 };
+export type UnknownUiNode = MakeShinyUiNode<UnknownUiFunctionProps>;
+
+export function isUnknownUiNode(node: ShinyUiNode): node is UnknownUiNode {
+  return "text" in node.uiArguments && node.uiName === "unknownUiFunction";
+}
 
 export const unknownUiFunctionInfo: UiComponentInfo<UnknownUiFunctionProps> = {
   title: "Unknown UI Function",

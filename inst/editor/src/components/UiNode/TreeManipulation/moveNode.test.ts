@@ -1,5 +1,5 @@
 import type { ShinyUiNode } from "../../../main";
-import type { ShinyUiNodeByName } from "../../../Shiny-Ui-Elements/uiNodeTypes";
+import type { ShinyUiLeafNode } from "../../../Shiny-Ui-Elements/uiNodeTypes";
 
 import { getNode } from "./getNode";
 import { placeNode } from "./placeNode";
@@ -160,9 +160,8 @@ test("Move node around within its current container", () => {
 });
 
 describe("Node can displace its parent", () => {
-  type GridCard = ShinyUiNodeByName["gridlayout::grid_card"];
   test("parent to child", () => {
-    const leafNode: GridCard = {
+    const leafNode: ShinyUiLeafNode = {
       uiName: "gridlayout::grid_card",
       uiArguments: { area: "child" },
     };
@@ -189,7 +188,10 @@ describe("Node can displace its parent", () => {
       ],
     };
 
-    expect((getNode(tree, [1]) as GridCard).uiArguments.area).toEqual("parent");
+    // expect((getNode(tree, [1]) as GridCard).uiArguments.area).toEqual("parent");
+    expect(getNode(tree, [1]).uiArguments).toEqual(
+      expect.objectContaining({ area: "parent" })
+    );
 
     const updatedTree = placeNode(tree, {
       node: leafNode,
@@ -198,13 +200,13 @@ describe("Node can displace its parent", () => {
     });
 
     // Child now exists where parent used to...
-    expect((getNode(updatedTree, [1]) as GridCard).uiArguments.area).toEqual(
-      "child"
+    expect(getNode(updatedTree, [1]).uiArguments).toEqual(
+      expect.objectContaining({ area: "child" })
     );
 
     // Parent has been moved up one
-    expect((getNode(updatedTree, [2]) as GridCard).uiArguments.area).toEqual(
-      "parent"
+    expect(getNode(updatedTree, [2]).uiArguments).toEqual(
+      expect.objectContaining({ area: "parent" })
     );
   });
 });
