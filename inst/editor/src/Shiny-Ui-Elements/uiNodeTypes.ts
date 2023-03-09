@@ -1,10 +1,8 @@
-import type React from "react";
-
-import { is_object } from "util-functions/src/is_object";
 import type { PickKeyFn } from "util-functions/src/TypescriptUtils";
 
 import type { CustomFormRenderFn } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
 import type { ArgsToDynamicInfo } from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";
+import type { useMakeWrapperProps } from "../components/UiNode/useMakeWrapperProps";
 import type { DeleteAction, UpdateAction } from "../state/app_info";
 
 import {
@@ -190,29 +188,17 @@ export type ShinyUiNodeInfoUnion = ShinyUiNodeInfo[keyof ShinyUiNodeInfo];
  * This is the only place where any new UI element should be added as the rest
  * of the types will automatically be built based on this type.
  */
-export type ShinyUiArguments = {
+type ShinyUiArguments = {
   [UiName in keyof ShinyUiNodeInfo]: Required<
     ShinyUiNodeInfo[UiName]
   >["exampleSettings"];
 };
 
 /**
- * Utility type that aknowledges that the settings objects may contain unknown
- * arguments that are probably valid settings in the base language but just
- * haven't been coded up in the editor code
- */
-export type ArgsWithPotentialUnknowns<T extends ShinyUiNames> =
-  ShinyUiArguments[T] & { [arg: string]: unknown };
-
-/**
  * Names of all the available Ui elements
  */
 export type ShinyUiNames = keyof ShinyUiArguments;
 
-export type ShinyUiNodeByArgs<Args extends UiArgumentsObject> = {
-  uiName: string;
-  uiArguments: Args;
-};
 /**
  * Map of all the ui nodes/elements keyed by the uiName
  */
@@ -222,94 +208,54 @@ export type ShinyUiNodeByName = {
     /** Unknown record allows for extra args not accounted for in the editor */
     uiArguments: ShinyUiArguments[UiName];
     /** Any children of this node */
-    uiChildren?: ShinyUiChildren;
+    uiChildren?: ShinyUiParentNode["uiChildren"];
   };
 };
 
 /**
- * Union of Ui element name and associated arguments for easy narrowing
+ * Ui Node with no children
  */
 export type ShinyUiLeafNode = {
   uiName: string;
   uiArguments: UiArgumentsObject;
 };
 
+/**
+ * Ui Node with children
+ */
 export type ShinyUiParentNode = ShinyUiLeafNode & {
   uiChildren: Array<ShinyUiNode>;
 };
-export type ShinyUiChildren = ShinyUiParentNode["uiChildren"];
 
+/**
+ * General ui node that can be a leaf or a parent node
+ */
+export type ShinyUiNode = ShinyUiLeafNode | ShinyUiParentNode;
+
+/**
+ * Narrow if a node is a parent node or not
+ */
 export function isParentNode(node: ShinyUiNode): node is ShinyUiParentNode {
   return "uiChildren" in node;
 }
 
-export type ShinyUiNode = ShinyUiLeafNode | ShinyUiParentNode;
-
-export function isUiNodeOfType<UiName extends ShinyUiNames>(
-  x: unknown,
-  uiName: UiName
-): x is ShinyUiNodeByName[UiName] {
-  return is_object(x) && "uiName" in x && x.uiName === uiName;
-}
-
-export type TemplateChooserNode = "TEMPLATE_CHOOSER";
-
-export type ShinyUiRootNode = ShinyUiParentNode | TemplateChooserNode;
-// export function isShinyUiNode(node: ShinyUiNode): node is ShinyUiNode {
-//   return node !== "TEMPLATE_CHOOSER";
-// }
-
-/**
- * Optional props that will enable drag behavior on a given ui node. Non
- * draggable nodes will simple get an empty object.
- */
-type DragPassthroughEvents =
-  | {
-      onDragStart: React.DragEventHandler<HTMLDivElement>;
-      onDragEnd: (e: React.DragEvent<HTMLDivElement> | DragEvent) => void;
-      /**
-       * Should this node be allowed to be dragged out of its parent node? This
-       * would be set to false for a container that typically always stays wrapped
-       * around a single child where almost every time the user wants to move the
-       * child they want the container to move with it. E.g. a grid panel with a
-       * single element in it
-       */
-      draggable: boolean;
-    }
-  | {};
-
-/**
- * Bundle of props that will get passed through to every ui node. These are to
- * be destructured into the top level of the ui component and enable things like
- * selection on click as well as attaching some data attributes to enable the ui
- * element component to interact with the rest of the app properly.
- */
-export type UiNodeWrapperProps = {
-  onClick: React.MouseEventHandler<HTMLDivElement>;
-  "data-sue-path": string;
-  "data-is-selected-node": boolean;
-  "aria-label": string;
-} & DragPassthroughEvents;
-
-type UiNodeComponentOptions = { TakesChildren: boolean };
-export type UiNodeComponentProps<
-  NodeSettings extends object,
-  Opts extends UiNodeComponentOptions = { TakesChildren: true }
-> = {
-  uiArguments: NodeSettings;
-  path: NodePath;
-  wrapperProps: UiNodeWrapperProps;
-} & (Opts["TakesChildren"] extends true
-  ? { uiChildren: Array<ShinyUiNode> }
-  : {});
+export type ShinyUiRootNode = ShinyUiParentNode | "TEMPLATE_CHOOSER";
 
 /**
  * Type of component defining the app view of a given ui node
  */
 export type UiNodeComponent<
   NodeSettings extends object,
-  Opts extends UiNodeComponentOptions = { TakesChildren: true }
-> = (props: UiNodeComponentProps<NodeSettings, Opts>) => JSX.Element;
+  Opts extends { TakesChildren: boolean } = { TakesChildren: true }
+> = (
+  props: {
+    uiArguments: NodeSettings;
+    path: NodePath;
+    wrapperProps: ReturnType<typeof useMakeWrapperProps>;
+  } & (Opts["TakesChildren"] extends true
+    ? { uiChildren: Array<ShinyUiNode> }
+    : {})
+) => JSX.Element;
 
 export type UiLeafNodeComponent<NodeSettings extends object> = UiNodeComponent<
   NodeSettings,

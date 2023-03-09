@@ -1,25 +1,16 @@
-import type { UiComponentInfo, UiNodeComponentProps } from "../uiNodeTypes";
+import type { UiComponentInfo, UiNodeComponent } from "../uiNodeTypes";
 
 import { CardFooter } from "./Utils/CardElements";
 import { CardChildrenWithDropNodes } from "./Utils/ChildrenWithDropNodes";
 
-export const bslibCardFooterInfo: UiComponentInfo<CardFooterSettings> = {
-  title: "Card Footer",
-  UiComponent: BslibCardFooter,
-  settingsInfo: {},
-  acceptsChildren: true,
-  category: "Cards",
-  description: "Header for bslib cards",
-};
+type CardFooterSettings = {};
 
-export type CardFooterSettings = {};
-
-function BslibCardFooter({
+const BslibCardFooter: UiNodeComponent<CardFooterSettings> = ({
   uiArguments,
   uiChildren = [],
   path,
   wrapperProps,
-}: UiNodeComponentProps<CardFooterSettings>) {
+}) => {
   return (
     <CardFooter {...wrapperProps}>
       <CardChildrenWithDropNodes
@@ -29,4 +20,13 @@ function BslibCardFooter({
       />
     </CardFooter>
   );
-}
+};
+
+export const bslibCardFooterInfo: UiComponentInfo<CardFooterSettings> = {
+  title: "Card Footer",
+  UiComponent: BslibCardFooter,
+  settingsInfo: {},
+  acceptsChildren: true,
+  category: "Cards",
+  description: "Header for bslib cards",
+};

@@ -2,7 +2,7 @@ import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure
 import type {
   ShinyUiNodeByName,
   UiComponentInfo,
-  UiNodeComponentProps,
+  UiNodeComponent,
 } from "../uiNodeTypes";
 
 import { CardBody } from "./Utils/CardElements";
@@ -13,12 +13,10 @@ export type CardBodySettings = {
   min_height?: CSSMeasure;
 };
 
-function BslibCardBody({
-  uiArguments,
-  uiChildren = [],
-  path,
-  wrapperProps,
-}: UiNodeComponentProps<CardBodySettings, { TakesChildren: true }>) {
+const BslibCardBody: UiNodeComponent<
+  CardBodySettings,
+  { TakesChildren: true }
+> = ({ uiArguments, uiChildren = [], path, wrapperProps }) => {
   return (
     <CardBody {...wrapperProps}>
       <CardChildrenWithDropNodes
@@ -28,7 +26,7 @@ function BslibCardBody({
       />
     </CardBody>
   );
-}
+};
 
 export const bslibCardBodyInfo: UiComponentInfo<CardBodySettings> = {
   title: "Card Body",

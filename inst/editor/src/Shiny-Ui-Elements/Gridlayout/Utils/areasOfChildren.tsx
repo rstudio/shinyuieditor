@@ -2,9 +2,9 @@
  * component. This assumes that they are stored in the "area" property on the
  * uiArguments */
 
-import type { ShinyUiChildren } from "../../uiNodeTypes";
+import type { ShinyUiParentNode } from "../../uiNodeTypes";
 
-export function areasOfChildren(children: ShinyUiChildren) {
+export function areasOfChildren(children: ShinyUiParentNode["uiChildren"]) {
   let all_children_areas: string[] = [];
   children.forEach((child) => {
     if ("area" in child.uiArguments && child.uiArguments.area !== undefined) {

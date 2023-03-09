@@ -5,8 +5,8 @@ import { DropWatcherPanel } from "../../../DragAndDropHelpers/DropWatcherPanel";
 import { makeChildPath } from "../../nodePathUtils";
 import type {
   NodePath,
-  ShinyUiChildren,
   ShinyUiNames,
+  ShinyUiParentNode,
 } from "../../uiNodeTypes";
 
 import styles from "./CardUtils.module.css";
@@ -21,7 +21,7 @@ export function CardChildrenWithDropNodes({
   parentUiName: ShinyUiNames;
   // parent: ShinyUiNode;
   dropPanelClass?: string | ((index: number) => string);
-  uiChildren?: ShinyUiChildren;
+  uiChildren?: ShinyUiParentNode["uiChildren"];
   path: NodePath;
   showOnEmpty?: React.ReactNode;
 }) {

@@ -1,13 +1,12 @@
 import type { R_Ui_Code } from "communication-types/src/MessageToBackend";
 import type {
+  ShinyUiNames,
   ShinyUiNode,
   ShinyUiNodeByName,
 } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
-import {
-  isParentNode,
-  isUiNodeOfType,
-} from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
+import { isParentNode } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
 import type { Primatives } from "r-ast-parsing";
+import { is_object } from "util-functions/src/is_object";
 
 import { text_node_to_code } from "../text_nodes/text_node_to_code";
 
@@ -17,6 +16,13 @@ import {
   NL_INDENT,
   should_line_break,
 } from "./build_function_text";
+
+function isUiNodeOfType<UiName extends ShinyUiNames>(
+  x: unknown,
+  uiName: UiName
+): x is ShinyUiNodeByName[UiName] {
+  return is_object(x) && "uiName" in x && x.uiName === uiName;
+}
 
 /**
  * Convert a ui ast node into formatted R code.

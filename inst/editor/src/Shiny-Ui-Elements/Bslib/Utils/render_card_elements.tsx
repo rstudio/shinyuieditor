@@ -3,7 +3,7 @@ import { sum_booleans } from "util-functions/src/sum_booleans";
 import UiNode from "../../../components/UiNode/UiNode";
 import { DropWatcherPanel } from "../../../DragAndDropHelpers/DropWatcherPanel";
 import { makeChildPath } from "../../nodePathUtils";
-import type { NodePath, ShinyUiChildren } from "../../uiNodeTypes";
+import type { NodePath, ShinyUiParentNode } from "../../uiNodeTypes";
 
 import { CardBody, CardFooter, CardHeader } from "./CardElements";
 import styles from "./CardUtils.module.css";
@@ -28,7 +28,7 @@ const footerScaffold = {
 } as const;
 
 export function render_card_elements(
-  uiChildren: ShinyUiChildren,
+  uiChildren: ShinyUiParentNode["uiChildren"],
   path: NodePath
 ): React.ReactNode {
   let header: JSX.Element | null = null;
