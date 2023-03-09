@@ -1,6 +1,6 @@
 import plotIcon from "../../assets/icons/shinyPlot.png";
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
-import type { UiComponentInfo } from "../uiNodeTypes";
+import { nodeInfoFactory } from "../ShinyActionButton/makeUiNodeInfo";
 
 import ShinyPlotOutput from "./ShinyPlotOutput";
 
@@ -10,7 +10,7 @@ export type ShinyPlotOutputProps = {
   height?: CSSMeasure;
 };
 
-export const shinyPlotOutputInfo: UiComponentInfo<ShinyPlotOutputProps> = {
+export const shinyPlotOutputInfo = nodeInfoFactory<ShinyPlotOutputProps>()({
   library: "shiny",
   name: "plotOutput",
   title: "Plot Output",
@@ -44,6 +44,6 @@ export const shinyPlotOutputInfo: UiComponentInfo<ShinyPlotOutputProps> = {
   iconSrc: plotIcon,
   category: "Outputs",
   description: "Render a `renderPlot()` within an application page.",
-};
+});
 
 export default ShinyPlotOutput;

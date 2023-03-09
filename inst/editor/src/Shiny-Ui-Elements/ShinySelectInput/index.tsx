@@ -1,6 +1,6 @@
 import selectBoxIcon from "../../assets/icons/shinySelectbox.png";
 import type { NamedList } from "../../components/Inputs/ListInput/NamedListInput";
-import type { UiComponentInfo } from "../uiNodeTypes";
+import { nodeInfoFactory } from "../ShinyActionButton/makeUiNodeInfo";
 
 import ShinySelectInput from "./ShinySelectInput";
 
@@ -10,7 +10,7 @@ export type ShinySelectInputProps = {
   choices: NamedList;
 };
 
-export const shinySelectInputInfo: UiComponentInfo<ShinySelectInputProps> = {
+export const shinySelectInputInfo = nodeInfoFactory<ShinySelectInputProps>()({
   library: "shiny",
   name: "selectInput",
   title: "Select Input",
@@ -45,4 +45,4 @@ export const shinySelectInputInfo: UiComponentInfo<ShinySelectInputProps> = {
   category: "Inputs",
   description:
     "Create a select list that can be used to choose a single or multiple items from a list of values.",
-};
+});

@@ -1,10 +1,10 @@
 import textIcon from "../../../assets/icons/shinyText.png";
 import {
-  alignTextLeft,
   alignTextCenter,
+  alignTextLeft,
   alignTextRight,
 } from "../../../components/Icons";
-import type { UiComponentInfo } from "../../uiNodeTypes";
+import { nodeInfoFactory } from "../../ShinyActionButton/makeUiNodeInfo";
 import { grid_container_nodes } from "../grid_container_nodes";
 
 import GridlayoutGridCardText from "./GridlayoutCardText";
@@ -16,8 +16,8 @@ export type GridlayoutGridCardTextProps = {
   is_title?: boolean;
 };
 
-export const gridlayoutTextPanelInfo: UiComponentInfo<GridlayoutGridCardTextProps> =
-  {
+export const gridlayoutTextPanelInfo =
+  nodeInfoFactory<GridlayoutGridCardTextProps>()({
     library: "gridlayout",
     name: "grid_card_text",
     title: "Grid Text Card",
@@ -56,4 +56,4 @@ export const gridlayoutTextPanelInfo: UiComponentInfo<GridlayoutGridCardTextProp
     category: "gridlayout",
     description:
       "A grid card that contains just text that is vertically centered within the panel. Useful for app titles or displaying text-based statistics.",
-  };
+  });

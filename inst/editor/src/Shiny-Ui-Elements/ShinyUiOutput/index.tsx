@@ -1,5 +1,5 @@
 import uiIcon from "../../assets/icons/shinyImage.png";
-import type { UiComponentInfo } from "../uiNodeTypes";
+import { nodeInfoFactory } from "../ShinyActionButton/makeUiNodeInfo";
 
 import ShinyUiOutput from "./ShinyUiOutput";
 
@@ -7,7 +7,7 @@ export type ShinyUiOutputProps = {
   outputId: string;
 };
 
-export const shinyUiOutputInfo: UiComponentInfo<ShinyUiOutputProps> = {
+export const shinyUiOutputInfo = nodeInfoFactory<ShinyUiOutputProps>()({
   library: "shiny",
   name: "uiOutput",
   title: "Dynamic UI Output",
@@ -33,6 +33,5 @@ export const shinyUiOutputInfo: UiComponentInfo<ShinyUiOutputProps> = {
   The text will be included within an HTML \`div\` tag, and is presumed to 
   contain HTML content which should not be escaped.
   `,
-};
-
+});
 export default ShinyUiOutput;

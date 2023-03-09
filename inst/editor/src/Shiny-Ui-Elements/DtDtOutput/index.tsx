@@ -1,6 +1,6 @@
 import icon from "../../assets/icons/shinyTable.png";
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
-import type { UiComponentInfo } from "../uiNodeTypes";
+import { nodeInfoFactory } from "../ShinyActionButton/makeUiNodeInfo";
 
 import DtDTOutput from "./DtOutput";
 
@@ -10,7 +10,7 @@ export type DTOutputSettings = {
   height?: CSSMeasure;
 };
 
-export const dtDTOutputInfo: UiComponentInfo<DTOutputSettings> = {
+export const dtDTOutputInfo = nodeInfoFactory<DTOutputSettings>()({
   library: "DT",
   name: "DTOutput",
   title: "DT Table",
@@ -46,4 +46,4 @@ export const dtDTOutputInfo: UiComponentInfo<DTOutputSettings> = {
   iconSrc: icon,
   category: "Outputs",
   description: `\`DataTable\` table output`,
-};
+});

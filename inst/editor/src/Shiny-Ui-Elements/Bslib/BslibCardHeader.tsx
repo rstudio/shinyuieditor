@@ -1,4 +1,5 @@
-import type { UiComponentInfo, UiNodeComponent } from "../uiNodeTypes";
+import { nodeInfoFactory } from "../ShinyActionButton/makeUiNodeInfo";
+import type { UiNodeComponent } from "../uiNodeTypes";
 
 import { CardHeader } from "./Utils/CardElements";
 import { CardChildrenWithDropNodes } from "./Utils/ChildrenWithDropNodes";
@@ -18,7 +19,7 @@ const BslibCardHeader: UiNodeComponent<CardHeaderSettings> = (node) => {
   );
 };
 
-export const bslibCardHeaderInfo: UiComponentInfo<CardHeaderSettings> = {
+export const bslibCardHeaderInfo = nodeInfoFactory<CardHeaderSettings>()({
   library: "bslib",
   name: "card_header",
   title: "Card Header",
@@ -27,4 +28,4 @@ export const bslibCardHeaderInfo: UiComponentInfo<CardHeaderSettings> = {
   acceptsChildren: true,
   category: "Cards",
   description: "Header for bslib cards",
-};
+});

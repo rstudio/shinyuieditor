@@ -1,7 +1,7 @@
 import icon from "../../assets/icons/shinyRadioButtons.png";
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
 import type { NamedList } from "../../components/Inputs/ListInput/NamedListInput";
-import type { UiComponentInfo } from "../uiNodeTypes";
+import { nodeInfoFactory } from "../ShinyActionButton/makeUiNodeInfo";
 
 import ShinyRadioButtons from "./ShinyRadioButtons";
 
@@ -12,7 +12,7 @@ export type ShinyRadioButtonsProps = {
   width?: CSSMeasure;
 };
 
-export const shinyRadioButtonsInfo: UiComponentInfo<ShinyRadioButtonsProps> = {
+export const shinyRadioButtonsInfo = nodeInfoFactory<ShinyRadioButtonsProps>()({
   library: "shiny",
   name: "radioButtons",
   title: "Radio Buttons",
@@ -55,4 +55,4 @@ export const shinyRadioButtonsInfo: UiComponentInfo<ShinyRadioButtonsProps> = {
   category: "Inputs",
   description:
     "Create a set of radio buttons used to select an item from a list.",
-};
+});

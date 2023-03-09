@@ -4,7 +4,8 @@ import {
   getFirstTabName,
   getTabNames,
 } from "../../components/Tabs/Tabset/utils";
-import type { ShinyUiParentNode, UiComponentInfo } from "../uiNodeTypes";
+import { nodeInfoFactory } from "../ShinyActionButton/makeUiNodeInfo";
+import type { ShinyUiParentNode } from "../uiNodeTypes";
 
 import ShinyNavbarPage from "./ShinyNavbarPage";
 
@@ -16,7 +17,7 @@ export type NavbarPageSettings = {
   theme?: unknown;
 };
 
-export const shinyNavbarPageInfo: UiComponentInfo<NavbarPageSettings> = {
+export const shinyNavbarPageInfo = nodeInfoFactory<NavbarPageSettings>()({
   library: "shiny",
   name: "navbarPage",
   title: "Navbar Page",
@@ -53,4 +54,4 @@ export const shinyNavbarPageInfo: UiComponentInfo<NavbarPageSettings> = {
   // iconSrc: icon,
   category: "layouts",
   description: "Layout an app with tab-based navigation",
-};
+});

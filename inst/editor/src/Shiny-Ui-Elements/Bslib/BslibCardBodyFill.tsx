@@ -1,9 +1,6 @@
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
-import type {
-  MakeShinyUiNode,
-  UiComponentInfo,
-  UiNodeComponent,
-} from "../uiNodeTypes";
+import { nodeInfoFactory } from "../ShinyActionButton/makeUiNodeInfo";
+import type { MakeShinyUiNode, UiNodeComponent } from "../uiNodeTypes";
 
 import { CardBody } from "./Utils/CardElements";
 import { CardChildrenWithDropNodes } from "./Utils/ChildrenWithDropNodes";
@@ -30,7 +27,7 @@ const BslibCardBody: UiNodeComponent<
   );
 };
 
-export const bslibCardBodyInfo: UiComponentInfo<CardBodySettings> = {
+export const bslibCardBodyInfo = nodeInfoFactory<CardBodySettings>()({
   library: "bslib",
   name: "card_body_fill",
   title: "Card Body",
@@ -62,4 +59,4 @@ export const bslibCardBodyInfo: UiComponentInfo<CardBodySettings> = {
   acceptsChildren: true,
   category: "Cards",
   description: "body holder for bslib cards",
-};
+});

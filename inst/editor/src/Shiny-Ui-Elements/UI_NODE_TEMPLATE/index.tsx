@@ -1,5 +1,5 @@
 import icon from "../../assets/icons/shinyContainer.png";
-import type { UiComponentInfo } from "../uiNodeTypes";
+import { nodeInfoFactory } from "../ShinyActionButton/makeUiNodeInfo";
 
 import { PkgNodeName } from "./Component";
 
@@ -7,7 +7,7 @@ export type NodeNameSettings = {
   name: string;
 };
 
-export const pkgNodeNameInfo: UiComponentInfo<NodeNameSettings> = {
+export const pkgNodeNameInfo = nodeInfoFactory<NodeNameSettings>()({
   library: "PKG_NAME",
   name: "node_name",
   title: "NODE NAME",
@@ -23,4 +23,4 @@ export const pkgNodeNameInfo: UiComponentInfo<NodeNameSettings> = {
   iconSrc: icon,
   category: "NODE CATEGORY",
   description: "DESCRIPTION OF NODE",
-};
+});

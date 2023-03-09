@@ -3,13 +3,14 @@ import {
   getFirstTabName,
   getTabNames,
 } from "../../components/Tabs/Tabset/utils";
-import type { ShinyUiParentNode, UiComponentInfo } from "../uiNodeTypes";
+import { nodeInfoFactory } from "../ShinyActionButton/makeUiNodeInfo";
+import type { ShinyUiParentNode } from "../uiNodeTypes";
 
 import ShinyTabsetPanel from "./ShinyTabsetPanel";
 
 export type TabsetPanelSettings = { id?: string; selected?: string };
 
-export const shinyTabsetPanelInfo: UiComponentInfo<TabsetPanelSettings> = {
+export const shinyTabsetPanelInfo = nodeInfoFactory<TabsetPanelSettings>()({
   library: "shiny",
   name: "tabsetPanel",
   title: "Tabset Panel",
@@ -35,4 +36,4 @@ export const shinyTabsetPanelInfo: UiComponentInfo<TabsetPanelSettings> = {
   iconSrc: icon,
   category: "Tabs",
   description: "A container filled with tabs",
-};
+});

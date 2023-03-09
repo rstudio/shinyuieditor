@@ -1,5 +1,5 @@
 import icon from "../../../assets/icons/shinyPlot.png";
-import type { UiComponentInfo } from "../../uiNodeTypes";
+import { nodeInfoFactory } from "../../ShinyActionButton/makeUiNodeInfo";
 import { grid_container_nodes } from "../grid_container_nodes";
 
 import GridlayoutGridCardPlot from "./GridlayoutGridCardPlot";
@@ -9,8 +9,8 @@ export type GridlayoutGridCardPlotProps = {
   outputId?: string;
 };
 
-export const gridlayoutGridCardPlotInfo: UiComponentInfo<GridlayoutGridCardPlotProps> =
-  {
+export const gridlayoutGridCardPlotInfo =
+  nodeInfoFactory<GridlayoutGridCardPlotProps>()({
     library: "gridlayout",
     name: "grid_card_plot",
     title: "Grid Plot Card",
@@ -46,4 +46,4 @@ export const gridlayoutGridCardPlotInfo: UiComponentInfo<GridlayoutGridCardPlotP
     category: "gridlayout",
     description: `A wrapper for \`shiny::plotOutput()\` that uses \`gridlayout\`-friendly sizing defaults. 
     For when you want to have a grid area filled entirely with a single plot.`,
-  };
+  });

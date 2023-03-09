@@ -1,10 +1,7 @@
 import icon from "../../assets/icons/shinyText.png";
 import type { TextNodeSettings } from "../../ast_parsing/text_nodes/build_text_node";
-import type {
-  MakeShinyUiNode,
-  ShinyUiNode,
-  UiComponentInfo,
-} from "../uiNodeTypes";
+import { nodeInfoFactory } from "../ShinyActionButton/makeUiNodeInfo";
+import type { MakeShinyUiNode, ShinyUiNode } from "../uiNodeTypes";
 
 import { TextNode } from "./TextNode";
 
@@ -14,7 +11,8 @@ export function isTextUiNode(node: ShinyUiNode): node is TextUiNode {
   return "contents" in node.uiArguments && node.uiName === "textNode";
 }
 
-export const textNodeInfo: UiComponentInfo<TextNodeSettings> = {
+export const textNodeInfo = nodeInfoFactory<TextNodeSettings>()({
+  library: "",
   name: "textNode",
   title: "Static Text",
   category: "Utilities",
@@ -56,7 +54,7 @@ export const textNodeInfo: UiComponentInfo<TextNodeSettings> = {
   },
   acceptsChildren: false,
   iconSrc: icon,
-};
+});
 
 export function text_node_to_code(ui_node: TextUiNode): string {
   // Why does this not automatically resolve for me?

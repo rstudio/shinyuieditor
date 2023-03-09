@@ -1,4 +1,4 @@
-import type { UiComponentInfo } from "../../uiNodeTypes";
+import { nodeInfoFactory } from "../../ShinyActionButton/makeUiNodeInfo";
 import type { GridLayoutArgs } from "../Utils/GridContainerElement/GridLayoutArgs";
 import {
   removeDeletedGridAreaFromLayout,
@@ -9,9 +9,9 @@ import { GridlayoutGridPage } from "./GridlayoutGridPage";
 
 export type TractDirection = "rows" | "cols";
 
-export const gridlayoutGridPageInfo: UiComponentInfo<
+export const gridlayoutGridPageInfo = nodeInfoFactory<
   GridLayoutArgs & { theme?: unknown }
-> = {
+>()({
   library: "gridlayout",
   name: "grid_page",
   title: "Grid Page",
@@ -43,6 +43,6 @@ export const gridlayoutGridPageInfo: UiComponentInfo<
     DELETE_NODE: removeDeletedGridAreaFromLayout,
   },
   category: "gridlayout",
-};
+});
 
 export default GridlayoutGridPage;

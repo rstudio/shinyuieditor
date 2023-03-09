@@ -1,6 +1,6 @@
 import icon from "../../assets/icons/shinyPlot.png";
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
-import type { UiComponentInfo } from "../uiNodeTypes";
+import { nodeInfoFactory } from "../ShinyActionButton/makeUiNodeInfo";
 
 import PlotlyPlotlyOutput from "./PlotlyPlotlyOutput";
 
@@ -10,7 +10,7 @@ export type PlotlyOutputSettings = {
   height?: CSSMeasure;
 };
 
-export const plotlyPlotlyOutputInfo: UiComponentInfo<PlotlyOutputSettings> = {
+export const plotlyPlotlyOutputInfo = nodeInfoFactory<PlotlyOutputSettings>()({
   library: "plotly",
   name: "plotlyOutput",
   title: "Plotly Plot",
@@ -44,4 +44,4 @@ export const plotlyPlotlyOutputInfo: UiComponentInfo<PlotlyOutputSettings> = {
   iconSrc: icon,
   category: "Plotting",
   description: "Output for interactive `plotly` plots.",
-};
+});

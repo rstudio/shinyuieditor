@@ -1,13 +1,16 @@
-import { shinyUiNodeInfo } from "./uiNodeTypes";
+import type { ShinyUiNodeInfo } from "./uiNodeTypes";
+import { shinyUiNodeInfoArray } from "./uiNodeTypes";
 
-type ShinyUiNodeInfoUnion =
-  typeof shinyUiNodeInfo[keyof typeof shinyUiNodeInfo];
+const shinyUiNodeInfo = new Map<string, ShinyUiNodeInfo>(
+  shinyUiNodeInfoArray.map((info) => [
+    `${info.library}::${info.name}` as const,
+    info,
+  ])
+);
 
-export function getUiNodeInfo(uiName: string): ShinyUiNodeInfoUnion {
-  const info = shinyUiNodeInfo[uiName as keyof typeof shinyUiNodeInfo];
-
-  if (!info) {
+export function getUiNodeInfo(uiName: string): ShinyUiNodeInfo {
+  if (!shinyUiNodeInfo.has(uiName)) {
     throw new Error(`Failed to find node info for requested node: ${uiName}`);
   }
-  return shinyUiNodeInfo[uiName as keyof typeof shinyUiNodeInfo];
+  return shinyUiNodeInfo.get(uiName) as ShinyUiNodeInfo;
 }

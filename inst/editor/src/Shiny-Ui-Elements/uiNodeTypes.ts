@@ -1,7 +1,5 @@
 import type { PickKeyFn } from "util-functions/src/TypescriptUtils";
 
-import type { CustomFormRenderFn } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
-import type { ArgsToDynamicInfo } from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";
 import type { useMakeWrapperProps } from "../components/UiNode/useMakeWrapperProps";
 import type { DeleteAction, UpdateAction } from "../state/app_info";
 
@@ -39,94 +37,6 @@ import { unknownUiFunctionInfo } from "./UnknownUiFunction";
 
 export type UiArgumentsObject = Record<string, unknown | undefined>;
 
-/**
- * Defines everything needed to add a new Shiny UI component to the app
- */
-export type UiComponentInfo<NodeSettings extends UiArgumentsObject> = {
-  library?: string;
-
-  /**
-   * Name of function as called in code: e.g. `"sliderInput"` for `shiny::sliderInput()`
-   */
-  name: string;
-
-  /**
-   * The name of the component in plain language. E.g. Plot Output
-   */
-  title: string;
-
-  /**
-   * Info declaring what arguments to render in settings panel and how
-   */
-  settingsInfo: ArgsToDynamicInfo<NodeSettings>;
-
-  /** Optional field that is only here so the proper settings type gets carried
-   * along with the info object.  */
-  exampleSettings?: NodeSettings;
-
-  settingsFormRender?: CustomFormRenderFn<NodeSettings>;
-
-  /**
-   * The source of the icon. This comes from the importing of a png. If this is
-   * not provided then the node will not show up in the element palette.
-   */
-  iconSrc?: string;
-
-  /**
-   * Optional category of the node. Used to organize the elements palette. All
-   * nodes with the same category will be grouped together under that categories
-   * header.
-   */
-  category?: string;
-
-  /**
-   * Description of the component that will show up on long hover over element
-   * in the elements pallete. String is interpreted as markdown.
-   */
-  description?: string;
-
-  allowedParents?: ShinyUiNames[];
-
-  /**
-   * Does this node have outputs code it connects to in the server side of
-   * things? If so what's the argument name that links it to the server code?
-   * Can also supply a function that takes the current arguments for the node
-   * and returns the key. This is useful for ones where the choice may be
-   * dynamic. See `GridlayoutGridCardPlot` for an example.
-   */
-  serverBindings?: Partial<ServerBindings<NodeSettings>>;
-
-  /**
-   * Optional update subscribers
-   */
-  stateUpdateSubscribers?: Partial<StateUpdateSubscribers>;
-} & (
-  | {
-      /**
-       * Does this component accept children? This is used to enable or disable the
-       * drag-to-drop callbacks.
-       */
-      acceptsChildren: false;
-      /**
-       * The component that is used to actually draw the main interface for ui
-       * element
-       */
-      UiComponent: UiNodeComponent<NodeSettings, { TakesChildren: false }>;
-    }
-  | {
-      /**
-       * Does this component accept children? This is used to enable or disable the
-       * drag-to-drop callbacks.
-       */
-      acceptsChildren: true;
-      /**
-       * The component that is used to actually draw the main interface for ui
-       * element
-       */
-      UiComponent: UiNodeComponent<NodeSettings, { TakesChildren: true }>;
-    }
-);
-
 export type ServerBindings<
   NodeSettings extends UiArgumentsObject = UiArgumentsObject
 > = {
@@ -160,35 +70,42 @@ export type StateUpdateSubscribers = {
  * node info object is created and added here the ui-node will be usable within
  * the editor
  */
-export const shinyUiNodeInfo = {
-  "shiny::actionButton": shinyActionButtonInfo,
-  "shiny::numericInput": shinyNumericInputInfo,
-  "shiny::sliderInput": shinySliderInputInfo,
-  "shiny::textInput": shinyTextInputInfo,
-  "shiny::checkboxInput": shinyCheckboxInputInfo,
-  "shiny::checkboxGroupInput": shinyCheckboxGroupInputInfo,
-  "shiny::selectInput": shinySelectInputInfo,
-  "shiny::radioButtons": shinyRadioButtonsInfo,
-  "shiny::plotOutput": shinyPlotOutputInfo,
-  "shiny::textOutput": shinyTextOutputInfo,
-  "shiny::uiOutput": shinyUiOutputInfo,
-  "shiny::navbarPage": shinyNavbarPageInfo,
-  "shiny::tabPanel": shinyTabPanelInfo,
-  "shiny::tabsetPanel": shinyTabsetPanelInfo,
-  "gridlayout::grid_page": gridlayoutGridPageInfo,
-  "gridlayout::grid_card": gridlayoutCardInfo,
-  "gridlayout::grid_card_text": gridlayoutTextPanelInfo,
-  "gridlayout::grid_card_plot": gridlayoutGridCardPlotInfo,
-  "gridlayout::grid_container": gridlayoutGridContainerInfo,
-  "DT::DTOutput": dtDTOutputInfo,
-  "bslib::card": bslibCardInfo,
-  "bslib::card_body_fill": bslibCardBodyInfo,
-  "bslib::card_header": bslibCardHeaderInfo,
-  "bslib::card_footer": bslibCardFooterInfo,
-  "plotly::plotlyOutput": plotlyPlotlyOutputInfo,
-  textNode: textNodeInfo,
-  unknownUiFunction: unknownUiFunctionInfo,
-};
+export const shinyUiNodeInfoArray = [
+  shinyActionButtonInfo,
+  shinyNumericInputInfo,
+  shinySliderInputInfo,
+  shinyTextInputInfo,
+  shinyCheckboxInputInfo,
+  shinyCheckboxGroupInputInfo,
+  shinySelectInputInfo,
+  shinyRadioButtonsInfo,
+  shinyPlotOutputInfo,
+  shinyTextOutputInfo,
+  shinyUiOutputInfo,
+  shinyNavbarPageInfo,
+  shinyTabPanelInfo,
+  shinyTabsetPanelInfo,
+  gridlayoutGridPageInfo,
+  gridlayoutCardInfo,
+  gridlayoutTextPanelInfo,
+  gridlayoutGridCardPlotInfo,
+  gridlayoutGridContainerInfo,
+  dtDTOutputInfo,
+  bslibCardInfo,
+  bslibCardBodyInfo,
+  bslibCardHeaderInfo,
+  bslibCardFooterInfo,
+  plotlyPlotlyOutputInfo,
+  textNodeInfo,
+  unknownUiFunctionInfo,
+] as const;
+
+export type ShinyUiNodeInfo = typeof shinyUiNodeInfoArray[number];
+export type AllUiNames = {
+  [info in ShinyUiNodeInfo as info["name"]]: `${info["library"]}::${info["name"]}`;
+}[ShinyUiNodeInfo["name"]];
+
+export type ShinyUiNames = string;
 
 /**
  * All possible props/arguments for the defined UI components
@@ -200,8 +117,10 @@ export const shinyUiNodeInfo = {
 /**
  * Names of all the available Ui elements
  */
-export const shinyUiNames = new Set(Object.keys(shinyUiNodeInfo));
-export type ShinyUiNames = keyof typeof shinyUiNodeInfo;
+
+export const shinyUiNames = new Set(
+  shinyUiNodeInfoArray.map(({ library, name }) => `${library}::${name}`)
+);
 
 /**
  * Ui Node with no children

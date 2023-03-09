@@ -1,5 +1,5 @@
 import icon from "../../../assets/icons/shinyGridContainer.png";
-import type { UiComponentInfo } from "../../uiNodeTypes";
+import { nodeInfoFactory } from "../../ShinyActionButton/makeUiNodeInfo";
 import type { GridLayoutArgs } from "../Utils/GridContainerElement/GridLayoutArgs";
 import {
   removeDeletedGridAreaFromLayout,
@@ -10,8 +10,8 @@ import GridlayoutGridContainer from "./GridlayoutGridContainer";
 
 export type GridContainerSettings = GridLayoutArgs;
 
-export const gridlayoutGridContainerInfo: UiComponentInfo<GridContainerSettings> =
-  {
+export const gridlayoutGridContainerInfo =
+  nodeInfoFactory<GridContainerSettings>()({
     library: "gridlayout",
     name: "grid_container",
     title: "Grid Container",
@@ -38,4 +38,4 @@ export const gridlayoutGridContainerInfo: UiComponentInfo<GridContainerSettings>
       DELETE_NODE: removeDeletedGridAreaFromLayout,
     },
     description: `A general container for arranging items using \`gridlayout\``,
-  };
+  });

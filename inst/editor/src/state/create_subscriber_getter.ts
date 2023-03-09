@@ -1,5 +1,5 @@
 import type { StateUpdateSubscribers } from "../Shiny-Ui-Elements/uiNodeTypes";
-import { shinyUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
+import { shinyUiNodeInfoArray } from "../Shiny-Ui-Elements/uiNodeTypes";
 
 /**
  * Generate a getter to lazily retreive update subscriptions from various nodes.
@@ -20,7 +20,7 @@ function create_subscriber_getter<T extends keyof StateUpdateSubscribers>(
     subscriptions = new Set<StateUpdateSubscribers[T]>();
     // Sometimes in a test/storybook environments we may not have loaded the
     // node info module so we need to watch out for this.
-    for (const info of Object.values(shinyUiNodeInfo)) {
+    for (const info of shinyUiNodeInfoArray) {
       if ("stateUpdateSubscribers" in info) {
         const nodeUpdateSubscriber = info.stateUpdateSubscribers?.[type];
         if (nodeUpdateSubscriber) {

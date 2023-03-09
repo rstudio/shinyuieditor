@@ -1,7 +1,7 @@
 import icon from "../../assets/icons/shinyCheckgroup.png";
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
 import type { NamedList } from "../../components/Inputs/ListInput/NamedListInput";
-import type { UiComponentInfo } from "../uiNodeTypes";
+import { nodeInfoFactory } from "../ShinyActionButton/makeUiNodeInfo";
 
 import ShinyCheckboxGroupInput from "./ShinyCheckboxGroupInput";
 
@@ -12,8 +12,8 @@ export type ShinyCheckboxGroupInputProps = {
   width?: CSSMeasure;
 };
 
-export const shinyCheckboxGroupInputInfo: UiComponentInfo<ShinyCheckboxGroupInputProps> =
-  {
+export const shinyCheckboxGroupInputInfo =
+  nodeInfoFactory<ShinyCheckboxGroupInputProps>()({
     library: "shiny",
     name: "checkboxGroupInput",
     title: "Checkbox Group",
@@ -55,4 +55,4 @@ export const shinyCheckboxGroupInputInfo: UiComponentInfo<ShinyCheckboxGroupInpu
     category: "Inputs",
     description:
       "Create a group of checkboxes that can be used to toggle multiple choices independently. The server will receive the input as a character vector of the selected values.",
-  };
+  });

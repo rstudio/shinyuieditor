@@ -1,5 +1,6 @@
 import icon from "../../assets/icons/tabPanel.png";
-import type { MakeShinyUiNode, UiComponentInfo } from "../uiNodeTypes";
+import { nodeInfoFactory } from "../ShinyActionButton/makeUiNodeInfo";
+import type { MakeShinyUiNode } from "../uiNodeTypes";
 
 import ShinyTabPanel from "./ShinyTabPanel";
 
@@ -9,7 +10,7 @@ export type TabPanelSettings = {
 
 export type TabPanelNode = MakeShinyUiNode<TabPanelSettings>;
 
-export const shinyTabPanelInfo: UiComponentInfo<TabPanelSettings> = {
+export const shinyTabPanelInfo = nodeInfoFactory<TabPanelSettings>()({
   library: "shiny",
   name: "tabPanel",
   title: "Tab Panel",
@@ -26,4 +27,4 @@ export const shinyTabPanelInfo: UiComponentInfo<TabPanelSettings> = {
   category: "Tabs",
   description:
     "Panel containing content for tab-based interfaces like navbar pages",
-};
+});
