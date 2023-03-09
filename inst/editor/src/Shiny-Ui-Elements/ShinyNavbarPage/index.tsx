@@ -4,7 +4,7 @@ import {
   getFirstTabName,
   getTabNames,
 } from "../../components/Tabs/Tabset/utils";
-import { nodeInfoFactory } from "../ShinyActionButton/makeUiNodeInfo";
+import { nodeInfoFactory } from "../nodeInfoFactory";
 import type { ShinyUiParentNode } from "../uiNodeTypes";
 
 import ShinyNavbarPage from "./ShinyNavbarPage";
@@ -50,7 +50,6 @@ export const shinyNavbarPageInfo = nodeInfoFactory<NavbarPageSettings>()({
     },
     theme: { inputType: "omitted", optional: true },
   },
-  acceptsChildren: true,
   // iconSrc: icon,
   category: "layouts",
   description: "Layout an app with tab-based navigation",

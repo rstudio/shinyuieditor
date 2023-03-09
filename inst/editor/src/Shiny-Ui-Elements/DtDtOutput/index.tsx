@@ -1,6 +1,6 @@
 import icon from "../../assets/icons/shinyTable.png";
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
-import { nodeInfoFactory } from "../ShinyActionButton/makeUiNodeInfo";
+import { nodeInfoFactory } from "../nodeInfoFactory";
 
 import DtDTOutput from "./DtOutput";
 
@@ -42,7 +42,6 @@ export const dtDTOutputInfo = nodeInfoFactory<DTOutputSettings>()({
       renderScaffold: `renderDT({\n  iris\n})`,
     },
   },
-  acceptsChildren: true,
   iconSrc: icon,
   category: "Outputs",
   description: `\`DataTable\` table output`,

@@ -3,11 +3,11 @@ import { PopoverEl } from "../components/PopoverEl/PopoverEl";
 import { useMakeDraggable } from "../DragAndDropHelpers/useMakeDraggable";
 import type { ShinyUiNode } from "../main";
 import { getUiNodeInfo } from "../Shiny-Ui-Elements/getUiNodeInfo";
-import type { ShinyUiNames } from "../Shiny-Ui-Elements/uiNodeTypes";
+import type { ShinyUiNodeNames } from "../Shiny-Ui-Elements/uiNodeTypes";
 
 import classes from "./styles.module.css";
 
-export function UiElementIcon({ uiName }: { uiName: ShinyUiNames }) {
+export function UiElementIcon({ uiName }: { uiName: ShinyUiNodeNames }) {
   const {
     iconSrc,
     title,

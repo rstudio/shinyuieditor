@@ -1,5 +1,5 @@
 import icon from "../../../assets/icons/shinyGridContainer.png";
-import { nodeInfoFactory } from "../../ShinyActionButton/makeUiNodeInfo";
+import { nodeInfoFactory } from "../../nodeInfoFactory";
 import type { GridLayoutArgs } from "../Utils/GridContainerElement/GridLayoutArgs";
 import {
   removeDeletedGridAreaFromLayout,
@@ -30,7 +30,6 @@ export const gridlayoutGridContainerInfo =
       row_sizes: { inputType: "omitted", defaultValue: ["1fr", "1fr"] },
       col_sizes: { inputType: "omitted", defaultValue: ["1fr", "1fr"] },
     },
-    acceptsChildren: true,
     iconSrc: icon,
     category: "Tabs",
     stateUpdateSubscribers: {

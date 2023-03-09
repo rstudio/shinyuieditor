@@ -1,6 +1,6 @@
 import plotIcon from "../../assets/icons/shinyPlot.png";
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
-import { nodeInfoFactory } from "../ShinyActionButton/makeUiNodeInfo";
+import { nodeInfoFactory } from "../nodeInfoFactory";
 
 import ShinyPlotOutput from "./ShinyPlotOutput";
 
@@ -40,7 +40,6 @@ export const shinyPlotOutputInfo = nodeInfoFactory<ShinyPlotOutputProps>()({
       renderScaffold: `renderPlot({\n  #Plot code goes here\n  $0plot(rnorm(100))\n})`,
     },
   },
-  acceptsChildren: false,
   iconSrc: plotIcon,
   category: "Outputs",
   description: "Render a `renderPlot()` within an application page.",

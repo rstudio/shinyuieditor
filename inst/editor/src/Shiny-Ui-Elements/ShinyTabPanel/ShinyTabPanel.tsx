@@ -1,12 +1,12 @@
 import { DropWatcherPanel } from "../../DragAndDropHelpers/DropWatcherPanel";
-import type { ShinyUiNames, UiNodeComponent } from "../uiNodeTypes";
+import type { ShinyUiNodeNames, UiNodeComponent } from "../uiNodeTypes";
 import { RenderUiChildren } from "../utils/RenderUiChildren";
 
 import type { TabPanelSettings } from "./index";
 
 import classes from "./ShinyTabPanel.module.css";
 
-export const invalidTabPanelContents: ShinyUiNames[] = [
+export const invalidTabPanelContents: ShinyUiNodeNames[] = [
   "shiny::navbarPage",
   "shiny::tabPanel",
   "gridlayout::grid_card",

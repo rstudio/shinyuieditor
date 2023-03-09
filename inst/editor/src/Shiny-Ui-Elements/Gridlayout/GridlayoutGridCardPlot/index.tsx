@@ -1,5 +1,5 @@
 import icon from "../../../assets/icons/shinyPlot.png";
-import { nodeInfoFactory } from "../../ShinyActionButton/makeUiNodeInfo";
+import { nodeInfoFactory } from "../../nodeInfoFactory";
 import { grid_container_nodes } from "../grid_container_nodes";
 
 import GridlayoutGridCardPlot from "./GridlayoutGridCardPlot";
@@ -41,7 +41,6 @@ export const gridlayoutGridCardPlotInfo =
       },
     },
     allowedParents: grid_container_nodes,
-    acceptsChildren: false,
     iconSrc: icon,
     category: "gridlayout",
     description: `A wrapper for \`shiny::plotOutput()\` that uses \`gridlayout\`-friendly sizing defaults. 

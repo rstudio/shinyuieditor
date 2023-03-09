@@ -1,6 +1,6 @@
 import icon from "../../assets/icons/shinyTextinput.png";
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
-import { nodeInfoFactory } from "../ShinyActionButton/makeUiNodeInfo";
+import { nodeInfoFactory } from "../nodeInfoFactory";
 
 import ShinyTextInput from "./ShinyTextInput";
 
@@ -52,7 +52,6 @@ export const shinyTextInputInfo = nodeInfoFactory<ShinyTextInputProps>()({
       inputIdKey: "inputId",
     },
   },
-  acceptsChildren: false,
   iconSrc: icon,
   category: "Inputs",
   description: "Create an input control for entry of unstructured text values.",

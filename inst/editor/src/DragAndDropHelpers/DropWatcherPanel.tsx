@@ -4,7 +4,10 @@ import { getIsValidMove } from "../components/UiNode/TreeManipulation/getIsValid
 import type { Wrapping_Node } from "../components/UiNode/TreeManipulation/wrapInNode";
 import { getUiNodeInfo } from "../Shiny-Ui-Elements/getUiNodeInfo";
 import { makeChildPath } from "../Shiny-Ui-Elements/nodePathUtils";
-import type { NodePath, ShinyUiNames } from "../Shiny-Ui-Elements/uiNodeTypes";
+import type {
+  ShinyUiNodeNames,
+  NodePath,
+} from "../Shiny-Ui-Elements/uiNodeTypes";
 import { usePlaceNode } from "../state/usePlaceNode";
 
 import type { DropHandlerArguments } from "./useFilteredDrop";
@@ -14,11 +17,13 @@ export type DropWatcherPanelProps = Omit<
   React.ComponentPropsWithoutRef<"div">,
   "className"
 > & {
-  parentNodeType: ShinyUiNames;
+  parentNodeType: ShinyUiNodeNames;
   index: number;
   parentPath: NodePath;
   wrappingNode?: Wrapping_Node;
-  dropFilters?: { rejected: ShinyUiNames[] } | { accepted: ShinyUiNames[] };
+  dropFilters?:
+    | { rejected: ShinyUiNodeNames[] }
+    | { accepted: ShinyUiNodeNames[] };
   dropHandlerArgs?: Partial<DropHandlerArguments>;
   /** Classname can either be static string or can be a function that returns a
    * class name when passed the panels index */

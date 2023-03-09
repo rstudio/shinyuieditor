@@ -1,5 +1,5 @@
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
-import { nodeInfoFactory } from "../ShinyActionButton/makeUiNodeInfo";
+import { nodeInfoFactory } from "../nodeInfoFactory";
 import type { MakeShinyUiNode, UiNodeComponent } from "../uiNodeTypes";
 
 import { CardBody } from "./Utils/CardElements";
@@ -56,7 +56,6 @@ export const bslibCardBodyInfo = nodeInfoFactory<CardBodySettings>()({
       units: ["px", "%"],
     },
   },
-  acceptsChildren: true,
   category: "Cards",
   description: "body holder for bslib cards",
 });

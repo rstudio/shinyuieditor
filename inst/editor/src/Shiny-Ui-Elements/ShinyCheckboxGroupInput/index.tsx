@@ -1,7 +1,7 @@
 import icon from "../../assets/icons/shinyCheckgroup.png";
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
 import type { NamedList } from "../../components/Inputs/ListInput/NamedListInput";
-import { nodeInfoFactory } from "../ShinyActionButton/makeUiNodeInfo";
+import { nodeInfoFactory } from "../nodeInfoFactory";
 
 import ShinyCheckboxGroupInput from "./ShinyCheckboxGroupInput";
 
@@ -50,7 +50,6 @@ export const shinyCheckboxGroupInputInfo =
         inputIdKey: "inputId",
       },
     },
-    acceptsChildren: false,
     iconSrc: icon,
     category: "Inputs",
     description:

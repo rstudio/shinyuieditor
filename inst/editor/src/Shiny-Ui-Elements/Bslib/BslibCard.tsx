@@ -1,6 +1,6 @@
 import icon from "../../assets/icons/shinyContainer.png";
 import { mergeClasses } from "../../utils/mergeClasses";
-import { nodeInfoFactory } from "../ShinyActionButton/makeUiNodeInfo";
+import { nodeInfoFactory } from "../nodeInfoFactory";
 import type { UiNodeComponent } from "../uiNodeTypes";
 
 import styles from "./BslibCard.module.css";
@@ -29,7 +29,6 @@ export const bslibCardInfo = nodeInfoFactory<CardSettings>()({
   title: "Card",
   UiComponent: BslibCard,
   settingsInfo: {},
-  acceptsChildren: true,
   iconSrc: icon,
   category: "Containers",
   description: "Bootstrap card with smart fill behavior",

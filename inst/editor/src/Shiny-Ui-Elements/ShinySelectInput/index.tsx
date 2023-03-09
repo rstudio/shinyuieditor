@@ -1,6 +1,6 @@
 import selectBoxIcon from "../../assets/icons/shinySelectbox.png";
 import type { NamedList } from "../../components/Inputs/ListInput/NamedListInput";
-import { nodeInfoFactory } from "../ShinyActionButton/makeUiNodeInfo";
+import { nodeInfoFactory } from "../nodeInfoFactory";
 
 import ShinySelectInput from "./ShinySelectInput";
 
@@ -40,7 +40,6 @@ export const shinySelectInputInfo = nodeInfoFactory<ShinySelectInputProps>()({
       inputIdKey: "inputId",
     },
   },
-  acceptsChildren: false,
   iconSrc: selectBoxIcon,
   category: "Inputs",
   description:

@@ -1,4 +1,4 @@
-import { nodeInfoFactory } from "../../ShinyActionButton/makeUiNodeInfo";
+import { nodeInfoFactory } from "../../nodeInfoFactory";
 import type { GridLayoutArgs } from "../Utils/GridContainerElement/GridLayoutArgs";
 import {
   removeDeletedGridAreaFromLayout,
@@ -16,7 +16,6 @@ export const gridlayoutGridPageInfo = nodeInfoFactory<
   name: "grid_page",
   title: "Grid Page",
   UiComponent: GridlayoutGridPage,
-  acceptsChildren: true,
   settingsInfo: {
     gap_size: {
       label: "Width",

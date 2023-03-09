@@ -1,5 +1,5 @@
 import icon from "../../assets/icons/tabPanel.png";
-import { nodeInfoFactory } from "../ShinyActionButton/makeUiNodeInfo";
+import { nodeInfoFactory } from "../nodeInfoFactory";
 import type { MakeShinyUiNode } from "../uiNodeTypes";
 
 import ShinyTabPanel from "./ShinyTabPanel";
@@ -22,7 +22,6 @@ export const shinyTabPanelInfo = nodeInfoFactory<TabPanelSettings>()({
       defaultValue: "My Shiny App",
     },
   },
-  acceptsChildren: true,
   iconSrc: icon,
   category: "Tabs",
   description:

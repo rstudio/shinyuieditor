@@ -1,5 +1,5 @@
 import uiIcon from "../../assets/icons/shinyImage.png";
-import { nodeInfoFactory } from "../ShinyActionButton/makeUiNodeInfo";
+import { nodeInfoFactory } from "../nodeInfoFactory";
 
 import ShinyUiOutput from "./ShinyUiOutput";
 
@@ -25,7 +25,6 @@ export const shinyUiOutputInfo = nodeInfoFactory<ShinyUiOutputProps>()({
       renderScaffold: `renderUI({\n  h1("Hello, World")\n})`,
     },
   },
-  acceptsChildren: false,
   iconSrc: uiIcon,
   category: "Outputs",
   description: `

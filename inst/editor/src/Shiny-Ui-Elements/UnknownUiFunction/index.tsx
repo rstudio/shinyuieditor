@@ -1,7 +1,7 @@
 import { AiOutlineQuestionCircle } from "react-icons/ai";
 
 import CategoryDivider from "../../components/CategoryDivider";
-import { nodeInfoFactory } from "../ShinyActionButton/makeUiNodeInfo";
+import { nodeInfoFactory } from "../nodeInfoFactory";
 import type { MakeShinyUiNode, ShinyUiNode } from "../uiNodeTypes";
 
 import { formatFunctionText } from "./formatFunctionText";
@@ -48,6 +48,5 @@ export const unknownUiFunctionInfo = nodeInfoFactory<UnknownUiFunctionProps>()({
       </div>
     );
   },
-  acceptsChildren: false,
 });
 export default UnknownUiFunction;

@@ -1,6 +1,6 @@
 import icon from "../../assets/icons/shinyText.png";
 import type { TextNodeSettings } from "../../ast_parsing/text_nodes/build_text_node";
-import { nodeInfoFactory } from "../ShinyActionButton/makeUiNodeInfo";
+import { nodeInfoFactory } from "../nodeInfoFactory";
 import type { MakeShinyUiNode, ShinyUiNode } from "../uiNodeTypes";
 
 import { TextNode } from "./TextNode";
@@ -52,7 +52,6 @@ export const textNodeInfo = nodeInfoFactory<TextNodeSettings>()({
       optionsPerColumn: 2,
     },
   },
-  acceptsChildren: false,
   iconSrc: icon,
 });
 

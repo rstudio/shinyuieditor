@@ -1,6 +1,6 @@
 import { PanelHeader } from "../EditorSkeleton/EditorSkeleton";
 import { getUiNodeInfo } from "../Shiny-Ui-Elements/getUiNodeInfo";
-import type { ShinyUiNames } from "../Shiny-Ui-Elements/uiNodeTypes";
+import type { ShinyUiNodeNames } from "../Shiny-Ui-Elements/uiNodeTypes";
 import { shinyUiNames } from "../Shiny-Ui-Elements/uiNodeTypes";
 
 import classes from "./styles.module.css";
@@ -13,7 +13,10 @@ const categoryOrder: string[] = [
   "uncategorized",
 ];
 
-function sortByCategory(nameA: ShinyUiNames, nameB: ShinyUiNames): number {
+function sortByCategory(
+  nameA: ShinyUiNodeNames,
+  nameB: ShinyUiNodeNames
+): number {
   const categoryA = categoryOrder.indexOf(
     getUiNodeInfo(nameA)?.category || "uncategorized"
   );
@@ -32,7 +35,7 @@ export default function ElementsPalette({
 }: {
   availableUiNodes?: typeof shinyUiNames;
 }) {
-  const ui_node_names = ([...availableUiNodes] as ShinyUiNames[]).sort(
+  const ui_node_names = ([...availableUiNodes] as ShinyUiNodeNames[]).sort(
     sortByCategory
   );
 

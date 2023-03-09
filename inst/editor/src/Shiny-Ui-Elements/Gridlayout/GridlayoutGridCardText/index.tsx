@@ -4,7 +4,7 @@ import {
   alignTextLeft,
   alignTextRight,
 } from "../../../components/Icons";
-import { nodeInfoFactory } from "../../ShinyActionButton/makeUiNodeInfo";
+import { nodeInfoFactory } from "../../nodeInfoFactory";
 import { grid_container_nodes } from "../grid_container_nodes";
 
 import GridlayoutGridCardText from "./GridlayoutCardText";
@@ -51,7 +51,6 @@ export const gridlayoutTextPanelInfo =
       },
     },
     allowedParents: grid_container_nodes,
-    acceptsChildren: false,
     iconSrc: textIcon,
     category: "gridlayout",
     description:

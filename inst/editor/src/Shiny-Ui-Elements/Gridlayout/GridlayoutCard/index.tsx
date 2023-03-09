@@ -1,6 +1,6 @@
 import containerIcon from "../../../assets/icons/shinyContainer.png";
 import type { CardSettings } from "../../Bslib/BslibCard";
-import { nodeInfoFactory } from "../../ShinyActionButton/makeUiNodeInfo";
+import { nodeInfoFactory } from "../../nodeInfoFactory";
 import { grid_container_nodes } from "../grid_container_nodes";
 
 import GridlayoutGridCard from "./GridlayoutCard";
@@ -23,7 +23,6 @@ export const gridlayoutCardInfo = nodeInfoFactory<GridBslibCardCardSettings>()({
     },
   },
   allowedParents: grid_container_nodes,
-  acceptsChildren: true,
   iconSrc: containerIcon,
   category: "gridlayout",
   description: "bslib styled card for grid layouts",

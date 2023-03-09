@@ -3,7 +3,7 @@ import {
   getFirstTabName,
   getTabNames,
 } from "../../components/Tabs/Tabset/utils";
-import { nodeInfoFactory } from "../ShinyActionButton/makeUiNodeInfo";
+import { nodeInfoFactory } from "../nodeInfoFactory";
 import type { ShinyUiParentNode } from "../uiNodeTypes";
 
 import ShinyTabsetPanel from "./ShinyTabsetPanel";
@@ -32,7 +32,6 @@ export const shinyTabsetPanelInfo = nodeInfoFactory<TabsetPanelSettings>()({
         node ? getTabNames(node as ShinyUiParentNode) : ["First Tab"],
     },
   },
-  acceptsChildren: true,
   iconSrc: icon,
   category: "Tabs",
   description: "A container filled with tabs",

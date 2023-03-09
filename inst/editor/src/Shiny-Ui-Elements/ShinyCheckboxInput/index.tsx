@@ -1,6 +1,6 @@
 import icon from "../../assets/icons/shinycheckbox.png";
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
-import { nodeInfoFactory } from "../ShinyActionButton/makeUiNodeInfo";
+import { nodeInfoFactory } from "../nodeInfoFactory";
 
 import ShinyCheckboxInput from "./ShinyCheckboxInput";
 
@@ -46,7 +46,6 @@ export const shinyCheckboxInputInfo =
         inputIdKey: "inputId",
       },
     },
-    acceptsChildren: false,
     iconSrc: icon,
     category: "Inputs",
     description:

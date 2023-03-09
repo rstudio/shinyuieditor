@@ -1,5 +1,5 @@
 import icon from "../../assets/icons/shinyContainer.png";
-import { nodeInfoFactory } from "../ShinyActionButton/makeUiNodeInfo";
+import { nodeInfoFactory } from "../nodeInfoFactory";
 
 import { PkgNodeName } from "./Component";
 
@@ -19,7 +19,6 @@ export const pkgNodeNameInfo = nodeInfoFactory<NodeNameSettings>()({
       defaultValue: "NODE NAME",
     },
   },
-  acceptsChildren: true,
   iconSrc: icon,
   category: "NODE CATEGORY",
   description: "DESCRIPTION OF NODE",

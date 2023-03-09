@@ -1,4 +1,4 @@
-import { nodeInfoFactory } from "../ShinyActionButton/makeUiNodeInfo";
+import { nodeInfoFactory } from "../nodeInfoFactory";
 import type { UiNodeComponent } from "../uiNodeTypes";
 
 import { CardFooter } from "./Utils/CardElements";
@@ -29,7 +29,6 @@ export const bslibCardFooterInfo = nodeInfoFactory<CardFooterSettings>()({
   title: "Card Footer",
   UiComponent: BslibCardFooter,
   settingsInfo: {},
-  acceptsChildren: true,
   category: "Cards",
   description: "Header for bslib cards",
 });

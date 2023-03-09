@@ -1,6 +1,6 @@
 import icon from "../../assets/icons/shinyPlot.png";
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
-import { nodeInfoFactory } from "../ShinyActionButton/makeUiNodeInfo";
+import { nodeInfoFactory } from "../nodeInfoFactory";
 
 import PlotlyPlotlyOutput from "./PlotlyPlotlyOutput";
 
@@ -40,7 +40,6 @@ export const plotlyPlotlyOutputInfo = nodeInfoFactory<PlotlyOutputSettings>()({
       renderScaffold: `renderPlotly({\n  plot_ly(z = ~volcano, type = "surface")\n})`,
     },
   },
-  acceptsChildren: false,
   iconSrc: icon,
   category: "Plotting",
   description: "Output for interactive `plotly` plots.",

@@ -1,5 +1,5 @@
 import uiIcon from "../../assets/icons/shinyTextOutput.png";
-import { nodeInfoFactory } from "../ShinyActionButton/makeUiNodeInfo";
+import { nodeInfoFactory } from "../nodeInfoFactory";
 
 import ShinyTextOutput from "./ShinyTextOutput";
 
@@ -25,7 +25,6 @@ export const shinyTextOutputInfo = nodeInfoFactory<ShinyTextOutputProps>()({
       renderScaffold: `renderText({\n  "Hello, World"\n})`,
     },
   },
-  acceptsChildren: false,
   iconSrc: uiIcon,
   category: "Outputs",
   description: `

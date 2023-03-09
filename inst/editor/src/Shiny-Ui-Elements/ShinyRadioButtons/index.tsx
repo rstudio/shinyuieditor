@@ -1,7 +1,7 @@
 import icon from "../../assets/icons/shinyRadioButtons.png";
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
 import type { NamedList } from "../../components/Inputs/ListInput/NamedListInput";
-import { nodeInfoFactory } from "../ShinyActionButton/makeUiNodeInfo";
+import { nodeInfoFactory } from "../nodeInfoFactory";
 
 import ShinyRadioButtons from "./ShinyRadioButtons";
 
@@ -50,7 +50,6 @@ export const shinyRadioButtonsInfo = nodeInfoFactory<ShinyRadioButtonsProps>()({
       inputIdKey: "inputId",
     },
   },
-  acceptsChildren: false,
   iconSrc: icon,
   category: "Inputs",
   description:
