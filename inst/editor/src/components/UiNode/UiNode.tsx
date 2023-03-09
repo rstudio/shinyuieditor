@@ -1,9 +1,10 @@
-import type { ShinyUiNode } from "../../main";
+import { getUiNodeInfo } from "../../Shiny-Ui-Elements/getUiNodeInfo";
 import type {
   NodePath,
+  ShinyUiNode,
   UiNodeComponent,
 } from "../../Shiny-Ui-Elements/uiNodeTypes";
-import { shinyUiNodeInfo } from "../../Shiny-Ui-Elements/uiNodeTypes";
+import { isParentNode } from "../../Shiny-Ui-Elements/uiNodeTypes";
 
 import { useMakeWrapperProps } from "./useMakeWrapperProps";
 
@@ -16,10 +17,10 @@ export type UiNodeProps = {
  * Recursively render the nodes in a UI Tree
  */
 const UiNode = ({ path, node, canDrag = true }: UiNodeProps) => {
-  const { uiName, uiArguments, uiChildren } = node;
+  // const { uiName, uiArguments, uiChildren } = node;
 
-  const Comp = shinyUiNodeInfo[uiName].UiComponent as UiNodeComponent<
-    typeof uiArguments
+  const Comp = getUiNodeInfo(node.uiName).UiComponent as UiNodeComponent<
+    typeof node.uiArguments
   >;
 
   const wrapperProps = useMakeWrapperProps({ path, node, canDrag });
@@ -27,8 +28,8 @@ const UiNode = ({ path, node, canDrag = true }: UiNodeProps) => {
   return (
     <Comp
       wrapperProps={wrapperProps}
-      uiArguments={uiArguments}
-      uiChildren={uiChildren ?? []}
+      uiArguments={node.uiArguments}
+      uiChildren={isParentNode(node) ? node.uiChildren : []}
       path={path}
     />
   );

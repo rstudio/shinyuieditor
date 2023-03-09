@@ -15,12 +15,12 @@ import { FormBuilder } from "../components/Inputs/SettingsFormBuilder/FormBuilde
 import classes from "./UiElementsShowcase.module.css";
 
 import { shinyUiNodeInfo } from "./uiNodeTypes";
-
+import { getUiNodeInfo } from "./getUiNodeInfo";
 function UiNodeAndSettings({ uiName, uiArguments }) {
   const [infoToRender, setInfoToRender] = React.useState(null);
 
   React.useEffect(() => {
-    const nodeInfo = shinyUiNodeInfo[uiName];
+    const nodeInfo = getUiNodeInfo(uiName);
 
     // If performance issues happen this can be memoized
     const newNode = {
@@ -56,7 +56,7 @@ function UiNodeAndSettings({ uiName, uiArguments }) {
         ...info,
         node: newNode,
         settingsInfo: buildStaticFormInfo(
-          shinyUiNodeInfo[node.uiName].settingsInfo,
+          getUiNodeInfo(node.uiName).settingsInfo,
           newNode
         ),
       };
@@ -107,7 +107,7 @@ export default {
 
 export const UiElementsShowcase = ({ nameOfElement }) => {
   const defaultSettings = getDefaultSettings(
-    shinyUiNodeInfo[nameOfElement].settingsInfo
+    getUiNodeInfo(nameOfElement).settingsInfo
   );
 
   return (

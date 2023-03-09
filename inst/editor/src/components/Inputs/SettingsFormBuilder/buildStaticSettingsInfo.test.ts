@@ -1,12 +1,12 @@
 import type { Equal, Expect } from "util-functions/src/TypescriptUtils";
 
-import type { ShinyUiNode } from "../../../Shiny-Ui-Elements/uiNodeTypes";
+import type { ShinyUiParentNode } from "../../../Shiny-Ui-Elements/uiNodeTypes";
 import { getFirstTabName, getTabNames } from "../../Tabs/Tabset/utils";
 
 import type { DynamicArgumentInfo } from "./buildStaticSettingsInfo";
 import { buildStaticFormInfo, getDefaultSettings } from "./buildStaticSettingsInfo";
 
-const navbarWithThreeTabs: ShinyUiNode = {
+const navbarWithThreeTabs: ShinyUiParentNode = {
   uiName: "shiny::navbarPage",
   uiArguments: {
     title: "My Navbar Page",
@@ -36,15 +36,15 @@ describe("Can convert full dynamic settings info object into a static one", () =
           title: {
             inputType: "string",
             defaultValue: (node) =>
-              `tabset with ${node?.uiChildren?.length ?? -1} tabs`,
+              `tabset with ${(node as ShinyUiParentNode)?.uiChildren?.length ?? -1} tabs`,
           },
           selected: {
             inputType: "dropdown",
             optional: true,
             label: "Selected tab on load",
             defaultValue: (node) =>
-              node ? getFirstTabName(node) : "First Tab",
-            choices: (node) => (node ? getTabNames(node) : ["First Tab"]),
+              node ? getFirstTabName(node as ShinyUiParentNode) : "First Tab",
+            choices: (node) => (node ? getTabNames(node as ShinyUiParentNode) : ["First Tab"]),
           },
         },
 

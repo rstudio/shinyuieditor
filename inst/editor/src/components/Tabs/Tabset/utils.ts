@@ -1,5 +1,8 @@
-import type { ShinyUiNode } from "../../../main";
 import { isValidTabPanel } from "../../../Shiny-Ui-Elements/ShinyTabPanel/isValidTabPanel";
+import type {
+  ShinyUiNode,
+  ShinyUiParentNode,
+} from "../../../Shiny-Ui-Elements/uiNodeTypes";
 
 export function getTabPanelTitle(node: ShinyUiNode): string | null {
   if (isValidTabPanel(node)) {
@@ -8,7 +11,7 @@ export function getTabPanelTitle(node: ShinyUiNode): string | null {
   return null;
 }
 
-export function getTabNames({ uiChildren }: ShinyUiNode): string[] {
+export function getTabNames({ uiChildren }: ShinyUiParentNode): string[] {
   let titles: string[] = [];
 
   uiChildren?.forEach((child) => {
@@ -19,7 +22,7 @@ export function getTabNames({ uiChildren }: ShinyUiNode): string[] {
   return titles;
 }
 
-export function getFirstTabName({ uiChildren }: ShinyUiNode): string {
+export function getFirstTabName({ uiChildren }: ShinyUiParentNode): string {
   const firstChild = uiChildren?.[0];
   if (!firstChild) return "First Tab";
   return getTabPanelTitle(firstChild) ?? "First Tab";

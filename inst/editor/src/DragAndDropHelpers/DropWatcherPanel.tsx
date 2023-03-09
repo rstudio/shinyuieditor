@@ -2,9 +2,9 @@ import React from "react";
 
 import { getIsValidMove } from "../components/UiNode/TreeManipulation/getIsValidMove";
 import type { Wrapping_Node } from "../components/UiNode/TreeManipulation/wrapInNode";
+import { getUiNodeInfo } from "../Shiny-Ui-Elements/getUiNodeInfo";
 import { makeChildPath } from "../Shiny-Ui-Elements/nodePathUtils";
 import type { NodePath, ShinyUiNames } from "../Shiny-Ui-Elements/uiNodeTypes";
-import { shinyUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
 import { usePlaceNode } from "../state/usePlaceNode";
 
 import type { DropHandlerArguments } from "./useFilteredDrop";
@@ -59,7 +59,7 @@ export function DropWatcherPanel({
         return false;
       }
 
-      const draggedNodeInfo = shinyUiNodeInfo[node.uiName];
+      const draggedNodeInfo = getUiNodeInfo(node.uiName);
       if (
         "allowedParents" in draggedNodeInfo &&
         !draggedNodeInfo.allowedParents?.includes(parentNodeType)

@@ -1,6 +1,6 @@
 import type { Expand } from "util-functions/src/TypescriptUtils";
 
-import type { ShinyUiNode } from "../../../main";
+import type { ShinyUiNode } from "../../../Shiny-Ui-Elements/uiNodeTypes";
 
 import type {
   InputOptions,
@@ -38,12 +38,6 @@ export type AllDynamicOptions = {
 
 export type DynamicArgumentInfo = Record<string, AllDynamicOptions>;
 
-type ArgsFromInfo<Info extends DynamicArgumentInfo> = {
-  [Key in __RequiredArgKeys<Info>]: __ArgFromInfo<Info[Key]>;
-} & {
-  [Key in __OptionalArgKeys<Info>]?: __ArgFromInfo<Info[Key]>;
-};
-
 /**
  * Convert a whole settings info object from dynamic callback form to static
  * form
@@ -56,10 +50,7 @@ type ArgsFromInfo<Info extends DynamicArgumentInfo> = {
  */
 export function buildStaticFormInfo<DynArgs extends DynamicArgumentInfo>(
   dynamic_args: DynArgs,
-  node?: {
-    uiArguments: ArgsFromInfo<DynArgs>;
-    uiChildren?: ShinyUiNode[];
-  }
+  node?: ShinyUiNode
 ): ConvertToStatic<DynArgs> {
   const static_args: Record<string, unknown> = {};
 
@@ -143,12 +134,7 @@ type __DynamicInputOptions = Expand<
 type __ArgFromInfo<Info extends __DynamicInputOptions> = __GetArgType<
   Info["defaultValue"]
 >;
-type __OptionalArgKeys<Info extends DynamicArgumentInfo> = {
-  [K in keyof Info]: Info[K] extends { optional: true } ? K : never;
-}[keyof Info];
-type __RequiredArgKeys<Info extends DynamicArgumentInfo> = {
-  [K in keyof Info]: Info[K] extends { optional: true } ? never : K;
-}[keyof Info];
+
 type __GetArgType<TArg> = TArg extends (...args: any[]) => infer TRet
   ? TRet
   : TArg;

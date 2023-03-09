@@ -1,8 +1,8 @@
-import type { ShinyUiNode } from "../../main";
+import type { ShinyUiParentNode } from "../../Shiny-Ui-Elements/uiNodeTypes";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
-export const bslibCards: ShinyUiNode = {
+export const bslibCards: ShinyUiParentNode = {
   uiName: "gridlayout::grid_page",
   uiArguments: {
     layout: ["info  info    ", "empty onlyBody", "full  .    "],

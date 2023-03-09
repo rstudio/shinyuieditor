@@ -3,7 +3,10 @@ import type {
   ShinyUiNode,
   ShinyUiNodeByName,
 } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
-import { isUiNodeOfType } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
+import {
+  isParentNode,
+  isUiNodeOfType,
+} from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
 import type { Primatives } from "r-ast-parsing";
 
 import { text_node_to_code } from "../text_nodes/text_node_to_code";
@@ -48,7 +51,7 @@ function ui_node_to_R_code_internal(
   ui_code: string;
   removed_namespaces: Set<string>;
 } {
-  const { uiName, uiArguments, uiChildren } = node;
+  const { uiName, uiArguments } = node;
   const removed_namespaces: Set<string> = new Set<string>();
 
   if (isUiNodeOfType(node, "unknownUiFunction")) {
@@ -82,15 +85,17 @@ function ui_node_to_R_code_internal(
       indent_line_breaks(`${arg_name} = ${print_R_argument_value(arg_value)}`)
   );
 
-  uiChildren?.forEach((child) => {
-    const child_code = ui_node_to_R_code_internal(child, opts);
+  if (isParentNode(node)) {
+    node.uiChildren?.forEach((child) => {
+      const child_code = ui_node_to_R_code_internal(child, opts);
 
-    child_code.removed_namespaces.forEach((name) =>
-      removed_namespaces.add(name)
-    );
+      child_code.removed_namespaces.forEach((name) =>
+        removed_namespaces.add(name)
+      );
 
-    fn_args_list.push(indent_line_breaks(child_code.ui_code));
-  });
+      fn_args_list.push(indent_line_breaks(child_code.ui_code));
+    });
+  }
 
   const is_multi_line_call = should_line_break({
     fn_name: uiName,

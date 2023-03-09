@@ -48,17 +48,11 @@ export function ast_to_ui_node(node: Branch_Node): ShinyUiNode {
     }
   });
 
-  const full_node: Pick<ShinyUiNode, "uiArguments" | "uiChildren"> & {
-    uiName: string;
-  } = {
+  const full_node = {
     uiName: normalize_ui_name(fn_name.val),
     uiArguments,
-  };
-
-  // Only add ui children if it's not empty
-  if (uiChildren.length > 0) {
-    full_node.uiChildren = uiChildren;
-  }
+    uiChildren: uiChildren.length > 0 ? uiChildren: undefined,
+  } satisfies ShinyUiNode;
 
   if (!isShinyUiNode(full_node)) return create_unknownUiFunction({ node });
 

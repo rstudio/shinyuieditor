@@ -1,5 +1,6 @@
 import type { Branch_Node } from "r-ast-parsing";
 
+import type { ShinyUiParentNode } from "../../Shiny-Ui-Elements/uiNodeTypes";
 import { ast_to_ui_node } from "../ast_to_shiny_ui_node";
 
 import { text_node_to_code } from "./text_node_to_code";
@@ -16,7 +17,9 @@ describe("Can parse raw ast to text nodes", () => {
       ],
       type: "e",
     };
-    expect(ast_to_ui_node(call_w_text).uiChildren).toStrictEqual([
+    expect(
+      (ast_to_ui_node(call_w_text) as ShinyUiParentNode).uiChildren
+    ).toStrictEqual([
       {
         uiName: "textNode",
         uiArguments: expect.objectContaining({
@@ -41,7 +44,9 @@ describe("Can parse raw ast to text nodes", () => {
       ],
       type: "e",
     };
-    expect(ast_to_ui_node(call_w_text).uiChildren).toStrictEqual([
+    expect(
+      (ast_to_ui_node(call_w_text) as ShinyUiParentNode).uiChildren
+    ).toStrictEqual([
       {
         uiName: "textNode",
         uiArguments: expect.objectContaining({

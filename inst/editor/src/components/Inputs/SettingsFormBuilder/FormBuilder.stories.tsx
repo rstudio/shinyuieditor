@@ -2,8 +2,6 @@ import React from "react";
 
 import omit from "just-omit";
 
-import type { CSSMeasure } from "../CSSUnitInput/CSSMeasure";
-
 import { FormBuilder } from "./FormBuilder";
 import type { SettingsUpdateAction } from "./SettingsInput/SettingsInput";
 
@@ -36,12 +34,7 @@ export const AutoBuild = () => {
   }, [value]);
 
   return (
-    <FormBuilder<{
-      name: string;
-      myNumberArg?: number;
-      myCSSArg?: CSSMeasure;
-      myBooleanArg?: boolean;
-    }>
+    <FormBuilder
       settings={value}
       settingsInfo={{
         name: {

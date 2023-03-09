@@ -5,7 +5,7 @@ import type { StringKeys } from "util-functions/src/TypescriptUtils";
 
 import type { UiArgumentsObject } from "../../../Shiny-Ui-Elements/uiNodeTypes";
 
-import type { ArgsToDynamicInfo } from "./inputFieldTypes";
+import type { DynamicArgumentInfo } from "./buildStaticSettingsInfo";
 import type {
   SettingsInputProps,
   SettingsUpdateAction,
@@ -25,16 +25,14 @@ export type CustomFormRenderFn<Settings extends SettingsObj> = (
   x: FormFieldComponents<Settings>
 ) => JSX.Element;
 
-export type FormBuilderProps<Args extends UiArgumentsObject> = {
-  settings: Args;
-  settingsInfo: ArgsToDynamicInfo<Args>;
+export type FormBuilderProps = {
+  settings: UiArgumentsObject;
+  settingsInfo: DynamicArgumentInfo;
   onSettingsChange: (name: string, action: SettingsUpdateAction) => void;
   renderInputs?: CustomFormRenderFn<SettingsObj>;
 };
 
-export function FormBuilder<Args extends UiArgumentsObject>(
-  args: FormBuilderProps<Args>
-) {
+export function FormBuilder(args: FormBuilderProps) {
   const {
     settings,
     settingsInfo,
@@ -63,11 +61,11 @@ const disableDefaultSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
   e.preventDefault();
 };
 
-function knownArgumentInputs<Args extends UiArgumentsObject>({
+function knownArgumentInputs({
   settings,
   settingsInfo,
   onSettingsChange,
-}: FormBuilderProps<Args>) {
+}: FormBuilderProps) {
   const InputsComponents: Record<string, JSX.Element> = {};
 
   for (const arg_name in settingsInfo) {

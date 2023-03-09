@@ -1,5 +1,8 @@
-import type { ShinyUiNode } from "../../../main";
-import type { ShinyUiNodeByName, ShinyUiNames } from "../../uiNodeTypes";
+import type {
+  ShinyUiNodeByName,
+  ShinyUiNames,
+  ShinyUiNode,
+} from "../../uiNodeTypes";
 
 export type GridItemNode = ShinyUiNodeByName[
   | "gridlayout::grid_card"
@@ -13,5 +16,5 @@ const gridItemNodes: ShinyUiNames[] = [
 ];
 
 export function isValidGridItem(node: ShinyUiNode): node is GridItemNode {
-  return gridItemNodes.includes(node.uiName);
+  return gridItemNodes.includes(node.uiName as ShinyUiNames);
 }

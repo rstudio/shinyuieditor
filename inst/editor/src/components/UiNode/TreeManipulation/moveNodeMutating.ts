@@ -1,8 +1,11 @@
-import { moveElement, addAtIndex } from "util-functions/src/arrays";
+import { addAtIndex, moveElement } from "util-functions/src/arrays";
 
-import type { ShinyUiNode } from "../../../main";
-import type { NodePath } from "../../../Shiny-Ui-Elements/uiNodeTypes";
-import { shinyUiNodeInfo } from "../../../Shiny-Ui-Elements/uiNodeTypes";
+import { getUiNodeInfo } from "../../../Shiny-Ui-Elements/getUiNodeInfo";
+import type {
+  NodePath,
+  ShinyUiNode,
+  ShinyUiParentNode,
+} from "../../../Shiny-Ui-Elements/uiNodeTypes";
 
 import { getNode } from "./getNode";
 import { getParentPath } from "./getParentPath";
@@ -36,9 +39,9 @@ export function moveNodeMutating(
 ) {
   const parentPath = getParentPath(path);
   const positionInChildren = path[path.length - 1];
-  const parentNode = getNode(tree, parentPath);
+  const parentNode = getNode(tree, parentPath) as ShinyUiParentNode;
 
-  if (!shinyUiNodeInfo[parentNode.uiName].acceptsChildren) {
+  if (!getUiNodeInfo(parentNode.uiName).acceptsChildren) {
     throw new Error(
       "Can't add a child to a non-container node. Check the path"
     );

@@ -209,8 +209,6 @@ export type ArgsWithPotentialUnknowns<T extends ShinyUiNames> =
  */
 export type ShinyUiNames = keyof ShinyUiArguments;
 
-export type ShinyUiChildren = ShinyUiNode[];
-
 export type ShinyUiNodeByArgs<Args extends UiArgumentsObject> = {
   uiName: string;
   uiArguments: Args;
@@ -231,7 +229,21 @@ export type ShinyUiNodeByName = {
 /**
  * Union of Ui element name and associated arguments for easy narrowing
  */
-export type ShinyUiNode = ShinyUiNodeByName[ShinyUiNames];
+export type ShinyUiLeafNode = {
+  uiName: string;
+  uiArguments: UiArgumentsObject;
+};
+
+export type ShinyUiParentNode = ShinyUiLeafNode & {
+  uiChildren: Array<ShinyUiNode>;
+};
+export type ShinyUiChildren = ShinyUiParentNode["uiChildren"];
+
+export function isParentNode(node: ShinyUiNode): node is ShinyUiParentNode {
+  return "uiChildren" in node;
+}
+
+export type ShinyUiNode = ShinyUiLeafNode | ShinyUiParentNode;
 
 export function isUiNodeOfType<UiName extends ShinyUiNames>(
   x: unknown,
@@ -242,7 +254,7 @@ export function isUiNodeOfType<UiName extends ShinyUiNames>(
 
 export type TemplateChooserNode = "TEMPLATE_CHOOSER";
 
-export type ShinyUiRootNode = ShinyUiNode | TemplateChooserNode;
+export type ShinyUiRootNode = ShinyUiParentNode | TemplateChooserNode;
 // export function isShinyUiNode(node: ShinyUiNode): node is ShinyUiNode {
 //   return node !== "TEMPLATE_CHOOSER";
 // }
@@ -287,7 +299,9 @@ export type UiNodeComponentProps<
   uiArguments: NodeSettings;
   path: NodePath;
   wrapperProps: UiNodeWrapperProps;
-} & (Opts["TakesChildren"] extends true ? { uiChildren: ShinyUiChildren } : {});
+} & (Opts["TakesChildren"] extends true
+  ? { uiChildren: Array<ShinyUiNode> }
+  : {});
 
 /**
  * Type of component defining the app view of a given ui node

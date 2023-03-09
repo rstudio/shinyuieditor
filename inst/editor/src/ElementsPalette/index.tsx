@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import { PanelHeader } from "../EditorSkeleton/EditorSkeleton";
+import { getUiNodeInfo } from "../Shiny-Ui-Elements/getUiNodeInfo";
 import type {
   ShinyUiNames,
   ShinyUiNodeInfo,
@@ -19,10 +20,10 @@ const categoryOrder: string[] = [
 
 function sortByCategory(nameA: ShinyUiNames, nameB: ShinyUiNames): number {
   const categoryA = categoryOrder.indexOf(
-    shinyUiNodeInfo[nameA]?.category || "uncategorized"
+    getUiNodeInfo(nameA)?.category || "uncategorized"
   );
   const categoryB = categoryOrder.indexOf(
-    shinyUiNodeInfo[nameB]?.category || "uncategorized"
+    getUiNodeInfo(nameB)?.category || "uncategorized"
   );
 
   if (categoryA < categoryB) return -1;

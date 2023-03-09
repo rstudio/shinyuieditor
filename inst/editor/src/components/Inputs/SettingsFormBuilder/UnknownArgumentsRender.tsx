@@ -1,20 +1,17 @@
 import { inANotInB } from "util-functions/src/arrays";
 
 import { isShinyUiNode } from "../../../Shiny-Ui-Elements/isShinyUiNode";
-import type {
-  ShinyUiNodeByName,
-  UiArgumentsObject,
-} from "../../../Shiny-Ui-Elements/uiNodeTypes";
+import type { ShinyUiNodeByName } from "../../../Shiny-Ui-Elements/uiNodeTypes";
 import { Trash } from "../../Icons";
 import { Tooltip, TooltipButton } from "../../PopoverEl/Tooltip";
 
 import type { FormBuilderProps } from "./FormBuilder";
 
-export function UnknownArgumentsRender<Args extends UiArgumentsObject>({
+export function UnknownArgumentsRender({
   settings,
   settingsInfo,
   onSettingsChange,
-}: FormBuilderProps<Args>) {
+}: FormBuilderProps) {
   const unknownArguments = inANotInB(
     Object.keys(settings),
     Object.keys(settingsInfo)

@@ -1,6 +1,6 @@
-import type { ShinyUiNode } from "../uiNodeTypes";
+import type { ShinyUiParentNode } from "../uiNodeTypes";
 
-export const newTabPanelNode: ShinyUiNode = {
+export const newTabPanelNode: ShinyUiParentNode = {
   uiName: "shiny::tabPanel",
   uiArguments: {
     title: "Tab",

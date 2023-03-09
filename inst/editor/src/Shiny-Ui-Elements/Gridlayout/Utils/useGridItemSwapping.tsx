@@ -80,7 +80,8 @@ export function useGridItemSwapping({
       currentDrag?.node &&
       "area" in currentDrag.node.uiArguments
     ) {
-      ref.current.dataset["swapWith"] = currentDrag.node.uiArguments?.area;
+      ref.current.dataset["swapWith"] = currentDrag.node.uiArguments
+        .area as string;
     }
   }, [currentDrag?.node, ref]);
 

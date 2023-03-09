@@ -4,7 +4,7 @@ import type { CustomFormRenderFn } from "../components/Inputs/SettingsFormBuilde
 import { FormBuilder } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
 import { PanelHeader } from "../EditorSkeleton/EditorSkeleton";
 import type { ShinyUiNode } from "../main";
-import { shinyUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
+import { getUiNodeInfo } from "../Shiny-Ui-Elements/getUiNodeInfo";
 
 import { GoToSourceBtns } from "./GoToSourceBtns";
 import PathBreadcrumb from "./PathBreadcrumb";
@@ -35,7 +35,7 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
   const { uiName, uiArguments } = currentNode;
 
   // If performance issues happen this can be memoized
-  const nodeInfo = shinyUiNodeInfo[uiName];
+  const nodeInfo = getUiNodeInfo(uiName);
   const staticSettingsInfo = buildStaticFormInfo(
     nodeInfo.settingsInfo,
     currentNode

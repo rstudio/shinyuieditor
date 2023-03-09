@@ -4,8 +4,8 @@ import type { PickKeyFn } from "util-functions/src/TypescriptUtils";
 import { useBackendConnection } from "../backendCommunication/useBackendMessageCallbacks";
 import { TooltipButton } from "../components/PopoverEl/Tooltip";
 import type { ShinyUiNode } from "../main";
+import { getUiNodeInfo } from "../Shiny-Ui-Elements/getUiNodeInfo";
 import type { ShinyUiNodeInfoUnion } from "../Shiny-Ui-Elements/uiNodeTypes";
-import { shinyUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
 import { useCurrentAppInfo } from "../state/app_info";
 
 export function GoToSourceBtns({ node }: { node: ShinyUiNode | null }) {
@@ -13,7 +13,7 @@ export function GoToSourceBtns({ node }: { node: ShinyUiNode | null }) {
 
   if (mode !== "VSCODE" || !node) return null;
 
-  const { serverBindings } = shinyUiNodeInfo[node.uiName];
+  const { serverBindings } = getUiNodeInfo(node.uiName);
 
   return (
     <div>
