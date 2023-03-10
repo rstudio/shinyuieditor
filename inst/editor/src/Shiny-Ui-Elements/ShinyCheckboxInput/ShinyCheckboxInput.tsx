@@ -1,15 +1,15 @@
 import * as React from "react";
 
-import type { UiLeafNodeComponent } from "../uiNodeTypes";
+import type { UiNodeComponent } from "../uiNodeTypes";
 
 import type { ShinyCheckboxInputProps } from ".";
 
 import classes from "./styles.module.css";
 
-const ShinyCheckboxInput: UiLeafNodeComponent<ShinyCheckboxInputProps> = ({
-  uiArguments,
-  wrapperProps,
-}) => {
+const ShinyCheckboxInput: UiNodeComponent<
+  ShinyCheckboxInputProps,
+  { TakesChildren: false }
+> = ({ uiArguments, wrapperProps }) => {
   const width = uiArguments.width ?? "auto";
 
   const settings = { ...uiArguments };

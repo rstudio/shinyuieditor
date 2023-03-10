@@ -1,5 +1,5 @@
 import { mergeClasses } from "../../../utils/mergeClasses";
-import type { UiLeafNodeComponent } from "../../uiNodeTypes";
+import type { UiNodeComponent } from "../../uiNodeTypes";
 import { BsCard } from "../Utils/GridLayoutPanelHelpers/GridCards";
 import { useGridItemSwapping } from "../Utils/useGridItemSwapping";
 
@@ -7,8 +7,9 @@ import type { GridlayoutGridCardTextProps } from "./index";
 
 import classes from "./styles.module.css";
 
-const GridlayoutGridCardText: UiLeafNodeComponent<
-  GridlayoutGridCardTextProps
+const GridlayoutGridCardText: UiNodeComponent<
+  GridlayoutGridCardTextProps,
+  { TakesChildren: false }
 > = ({
   uiArguments: { content: title, area, alignment },
   path,

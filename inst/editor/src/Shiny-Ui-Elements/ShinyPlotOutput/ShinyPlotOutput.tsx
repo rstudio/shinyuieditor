@@ -1,11 +1,14 @@
-import type { UiLeafNodeComponent } from "../uiNodeTypes";
+import type { UiNodeComponent } from "../uiNodeTypes";
 
 import type { ShinyPlotOutputProps } from "./index";
 
 import { PlotPlaceholder } from "./PlotPlaceholder";
 import classes from "./styles.module.css";
 
-const ShinyPlotOutput: UiLeafNodeComponent<ShinyPlotOutputProps> = ({
+const ShinyPlotOutput: UiNodeComponent<
+  ShinyPlotOutputProps,
+  { TakesChildren: false }
+> = ({
   uiArguments: { outputId, width = "300px", height = "200px" },
   wrapperProps,
 }) => {

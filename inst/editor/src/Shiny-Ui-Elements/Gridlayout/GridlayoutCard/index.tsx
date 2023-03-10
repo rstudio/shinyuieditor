@@ -13,7 +13,10 @@ export type GridItemSettings = {
 };
 export type GridBslibCardSettings = BslibCardArguments & GridItemSettings;
 
-const GridlayoutGridCard: UiNodeComponent<GridBslibCardSettings> = (node) => {
+const GridlayoutGridCard: UiNodeComponent<
+  GridBslibCardSettings,
+  { TakesChildren: true }
+> = (node) => {
   const {
     uiArguments: { area, ...card_args },
     uiChildren = [],

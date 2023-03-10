@@ -23,8 +23,8 @@ import type { unknownUiFunctionInfo } from "./UnknownUiFunction";
 export function nodeInfoFactory<Args extends UiArgumentsObject>() {
   return function makeInfo<
     Name extends string,
-    Comp extends UiNodeComponent<Args, { TakesChildren: boolean }>,
     TakesChildren extends boolean,
+    Comp extends UiNodeComponent<Args, { TakesChildren: TakesChildren }>,
     Lib extends string = "Internal",
     Cat extends string = "Uncategorized"
   >({

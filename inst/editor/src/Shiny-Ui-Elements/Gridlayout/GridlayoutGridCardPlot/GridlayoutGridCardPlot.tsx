@@ -1,6 +1,6 @@
 import { mergeClasses } from "../../../utils/mergeClasses";
 import { PlotPlaceholder } from "../../ShinyPlotOutput/PlotPlaceholder";
-import type { UiLeafNodeComponent } from "../../uiNodeTypes";
+import type { UiNodeComponent } from "../../uiNodeTypes";
 import { BsCard } from "../Utils/GridLayoutPanelHelpers/GridCards";
 import { useGridItemSwapping } from "../Utils/useGridItemSwapping";
 
@@ -8,8 +8,9 @@ import type { GridlayoutGridCardPlotProps } from "./index";
 
 import classes from "./styles.module.css";
 
-const GridlayoutGridCardPlot: UiLeafNodeComponent<
-  GridlayoutGridCardPlotProps
+const GridlayoutGridCardPlot: UiNodeComponent<
+  GridlayoutGridCardPlotProps,
+  { TakesChildren: false }
 > = ({ uiArguments: { outputId, area }, path, wrapperProps }) => {
   const compRef = useGridItemSwapping({ area, path });
 

@@ -7,12 +7,10 @@ import type { UiNodeComponent } from "../uiNodeTypes";
 
 import type { TabsetPanelSettings } from "./index";
 
-const ShinyTabsetPanel: UiNodeComponent<TabsetPanelSettings> = ({
-  uiArguments,
-  uiChildren,
-  path,
-  wrapperProps,
-}) => {
+const ShinyTabsetPanel: UiNodeComponent<
+  TabsetPanelSettings,
+  { TakesChildren: true }
+> = ({ uiArguments, uiChildren, path, wrapperProps }) => {
   const numChildren = uiChildren?.length ?? 0;
 
   return (

@@ -10,12 +10,10 @@ export type BslibCardArguments = {
   full_screen?: boolean;
 };
 
-const BslibCard: UiNodeComponent<BslibCardArguments> = ({
-  uiArguments,
-  uiChildren = [],
-  path,
-  wrapperProps,
-}) => {
+const BslibCard: UiNodeComponent<
+  BslibCardArguments,
+  { TakesChildren: true }
+> = ({ uiArguments, uiChildren = [], path, wrapperProps }) => {
   return (
     <BslibCardContainer {...wrapperProps} card_args={uiArguments}>
       {render_card_elements(uiChildren, path)}

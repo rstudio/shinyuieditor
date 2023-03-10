@@ -17,10 +17,11 @@ export type UiNodeProps = {
  * Recursively render the nodes in a UI Tree
  */
 const UiNode = ({ path, node, canDrag = true }: UiNodeProps) => {
-  // const { uiName, uiArguments, uiChildren } = node;
+  const node_info = getUiNodeInfo(node.uiName);
 
-  const Comp = getUiNodeInfo(node.uiName).UiComponent as UiNodeComponent<
-    typeof node.uiArguments
+  const Comp = node_info.UiComponent as UiNodeComponent<
+    typeof node.uiArguments,
+    { TakesChildren: true }
   >;
 
   const wrapperProps = useMakeWrapperProps({ path, node, canDrag });

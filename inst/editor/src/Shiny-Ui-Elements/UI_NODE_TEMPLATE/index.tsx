@@ -11,7 +11,7 @@ export const pkgNodeNameInfo = nodeInfoFactory<NodeNameSettings>()({
   library: "PKG_NAME",
   name: "node_name",
   title: "NODE NAME",
-  takesChildren: false,
+  takesChildren: true,
   UiComponent: PkgNodeName,
   settingsInfo: {
     name: {

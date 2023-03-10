@@ -1,16 +1,16 @@
 import * as React from "react";
 
 import { mergeClasses } from "../../utils/mergeClasses";
-import type { UiLeafNodeComponent } from "../uiNodeTypes";
+import type { UiNodeComponent } from "../uiNodeTypes";
 
 import type { ShinyTextInputProps } from ".";
 
 import classes from "./styles.module.css";
 
-const ShinyTextInput: UiLeafNodeComponent<ShinyTextInputProps> = ({
-  uiArguments,
-  wrapperProps,
-}) => {
+const ShinyTextInput: UiNodeComponent<
+  ShinyTextInputProps,
+  { TakesChildren: false }
+> = ({ uiArguments, wrapperProps }) => {
   const width = "200px";
   const height = "auto";
   const settings = { ...uiArguments };

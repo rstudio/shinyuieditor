@@ -6,7 +6,8 @@ import { CardChildrenWithDropNodes } from "./Utils/ChildrenWithDropNodes";
 
 type CardFooterSettings = {};
 
-const BslibCardFooter: UiNodeComponent<CardFooterSettings> = ({
+const BslibCardFooter: UiNodeComponent<CardFooterSettings, 
+  { TakesChildren: true }> = ({
   uiArguments,
   uiChildren = [],
   path,

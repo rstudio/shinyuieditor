@@ -1,15 +1,15 @@
 import React from "react";
 
-import type { UiLeafNodeComponent } from "../uiNodeTypes";
+import type { UiNodeComponent } from "../uiNodeTypes";
 
 import type { ShinyRadioButtonsProps } from ".";
 
 import classes from "./styles.module.css";
 
-const ShinyRadioButtons: UiLeafNodeComponent<ShinyRadioButtonsProps> = ({
-  uiArguments,
-  wrapperProps,
-}) => {
+const ShinyRadioButtons: UiNodeComponent<
+  ShinyRadioButtonsProps,
+  { TakesChildren: false }
+> = ({ uiArguments, wrapperProps }) => {
   const choices = uiArguments.choices;
   const keys = Object.keys(choices);
   const values = Object.values(choices);

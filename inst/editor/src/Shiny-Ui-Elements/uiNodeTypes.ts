@@ -176,7 +176,7 @@ export function isParentNode(node: ShinyUiNode): node is ShinyUiParentNode {
  */
 export type UiNodeComponent<
   NodeSettings extends object,
-  Opts extends { TakesChildren: boolean } = { TakesChildren: true }
+  Opts extends { TakesChildren: boolean }
 > = (
   props: {
     uiArguments: NodeSettings;
@@ -186,11 +186,6 @@ export type UiNodeComponent<
     ? { uiChildren: Array<ShinyUiNode> }
     : {})
 ) => JSX.Element;
-
-export type UiLeafNodeComponent<NodeSettings extends object> = UiNodeComponent<
-  NodeSettings,
-  { TakesChildren: false }
->;
 
 /**
  * Path to a given node. Starts at [0] for the root. The first child for

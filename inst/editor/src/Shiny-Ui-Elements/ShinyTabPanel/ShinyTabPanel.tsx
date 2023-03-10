@@ -18,12 +18,10 @@ const dropFilters = {
   rejected: invalidTabPanelContents,
 };
 
-const ShinyTabPanel: UiNodeComponent<TabPanelSettings> = ({
-  uiArguments,
-  uiChildren,
-  path,
-  wrapperProps,
-}) => {
+const ShinyTabPanel: UiNodeComponent<
+  TabPanelSettings,
+  { TakesChildren: true }
+> = ({ uiArguments, uiChildren, path, wrapperProps }) => {
   const hasChildren = uiChildren && uiChildren.length > 0;
 
   return (

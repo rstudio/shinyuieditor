@@ -33,12 +33,10 @@ export type NewItemInfo = DraggedNodeInfo & {
   pos: GridItemExtent;
 };
 
-export const GridContainerElement: UiNodeComponent<GridLayoutArgs> = ({
-  uiArguments,
-  uiChildren,
-  path,
-  wrapperProps,
-}) => {
+export const GridContainerElement: UiNodeComponent<
+  GridLayoutArgs,
+  { TakesChildren: true }
+> = ({ uiArguments, uiChildren, path, wrapperProps }) => {
   const layoutDef = ensureProperBoxedGridLayoutArgs(uiArguments);
   const place_node = usePlaceNode();
   const { uniqueAreas, ...layout } = parseGridLayoutArgs(layoutDef);

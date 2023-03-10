@@ -2,16 +2,16 @@ import * as React from "react";
 
 import { NumberInputSimple } from "../../components/Inputs/NumberInput/NumberInput";
 import { mergeClasses } from "../../utils/mergeClasses";
-import type { UiLeafNodeComponent } from "../uiNodeTypes";
+import type { UiNodeComponent } from "../uiNodeTypes";
 
 import type { ShinyNumericInputProps } from ".";
 
 import classes from "./styles.module.css";
 
-const ShinyNumericInput: UiLeafNodeComponent<ShinyNumericInputProps> = ({
-  uiArguments,
-  wrapperProps,
-}) => {
+const ShinyNumericInput: UiNodeComponent<
+  ShinyNumericInputProps,
+  { TakesChildren: false }
+> = ({ uiArguments, wrapperProps }) => {
   const settings = { ...uiArguments };
 
   const width = settings.width ?? "200px";

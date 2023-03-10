@@ -2,16 +2,16 @@ import * as React from "react";
 
 import { mergeClasses } from "../../utils/mergeClasses";
 import { InputOutputTitle } from "../InputOutputTitle";
-import type { UiLeafNodeComponent } from "../uiNodeTypes";
+import type { UiNodeComponent } from "../uiNodeTypes";
 
 import type { ShinySliderInputProps } from ".";
 
 import classes from "./styles.module.css";
 
-const ShinySliderInput: UiLeafNodeComponent<ShinySliderInputProps> = ({
-  uiArguments,
-  wrapperProps,
-}) => {
+const ShinySliderInput: UiNodeComponent<
+  ShinySliderInputProps,
+  { TakesChildren: false }
+> = ({ uiArguments, wrapperProps }) => {
   const settings = { ...uiArguments };
   const { width = "200px" } = settings;
   const [currentVal, setCurrentVal] = React.useState(settings.value);

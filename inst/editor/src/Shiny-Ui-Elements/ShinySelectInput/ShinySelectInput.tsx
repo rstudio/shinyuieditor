@@ -1,13 +1,13 @@
-import type { UiLeafNodeComponent } from "../uiNodeTypes";
+import type { UiNodeComponent } from "../uiNodeTypes";
 
 import type { ShinySelectInputProps } from ".";
 
 import classes from "./styles.module.css";
 
-const ShinySelectInput: UiLeafNodeComponent<ShinySelectInputProps> = ({
-  uiArguments,
-  wrapperProps,
-}) => {
+const ShinySelectInput: UiNodeComponent<
+  ShinySelectInputProps,
+  { TakesChildren: false }
+> = ({ uiArguments, wrapperProps }) => {
   const choices = uiArguments.choices;
   const id = uiArguments.inputId;
   return (

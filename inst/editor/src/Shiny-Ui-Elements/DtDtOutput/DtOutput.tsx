@@ -21,11 +21,10 @@ const table_cells = seqArray(NUM_ROWS).map((i) => (
     ))}
   </div>
 ));
-const DtDTOutput: UiNodeComponent<DTOutputSettings> = ({
-  uiArguments,
-  path,
-  wrapperProps,
-}) => {
+const DtDTOutput: UiNodeComponent<
+  DTOutputSettings,
+  { TakesChildren: false }
+> = ({ uiArguments, path, wrapperProps }) => {
   return (
     <div className="dtDTOutput" {...wrapperProps}>
       <div

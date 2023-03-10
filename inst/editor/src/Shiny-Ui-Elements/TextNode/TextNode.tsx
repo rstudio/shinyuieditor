@@ -3,11 +3,14 @@ import type {
   Text_Node_Tag,
 } from "../../ast_parsing/text_nodes/build_text_node";
 import { valid_text_node_tags } from "../../ast_parsing/text_nodes/build_text_node";
-import type { UiLeafNodeComponent } from "../uiNodeTypes";
+import type { UiNodeComponent } from "../uiNodeTypes";
 
 import styles from "./styles.module.css";
 
-export const TextNode: UiLeafNodeComponent<TextNodeSettings> = ({
+export const TextNode: UiNodeComponent<
+  TextNodeSettings,
+  { TakesChildren: false }
+> = ({
   uiArguments: { contents, decoration, size = "span" },
   wrapperProps,
 }) => {
