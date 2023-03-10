@@ -1,17 +1,41 @@
 import containerIcon from "../../../assets/icons/shinyContainer.png";
-import type { CardSettings } from "../../Bslib/BslibCard";
+import type { BslibCardArguments } from "../../Bslib/BslibCard";
 import { bslib_card_settings_info } from "../../Bslib/BslibCard";
+import { BslibCardContainer } from "../../Bslib/BslibCardContainer";
+import { render_card_elements } from "../../Bslib/Utils/render_card_elements";
 import { nodeInfoFactory } from "../../nodeInfoFactory";
+import type { UiNodeComponent } from "../../uiNodeTypes";
 import { grid_container_nodes } from "../grid_container_nodes";
-
-import GridlayoutGridCard from "./GridlayoutCard";
+import { useGridItemSwapping } from "../Utils/useGridItemSwapping";
 
 export type GridItemSettings = {
   area: string;
 };
-export type GridBslibCardCardSettings = CardSettings & GridItemSettings;
+export type GridBslibCardSettings = BslibCardArguments & GridItemSettings;
 
-export const gridlayoutCardInfo = nodeInfoFactory<GridBslibCardCardSettings>()({
+const GridlayoutGridCard: UiNodeComponent<GridBslibCardSettings> = (node) => {
+  const {
+    uiArguments: { area, ...card_args },
+    uiChildren = [],
+    path,
+    wrapperProps,
+  } = node;
+
+  const compRef = useGridItemSwapping({ area, path });
+
+  return (
+    <BslibCardContainer
+      ref={compRef}
+      style={{ gridArea: area }}
+      card_args={card_args}
+      {...wrapperProps}
+    >
+      {render_card_elements(uiChildren, path)}
+    </BslibCardContainer>
+  );
+};
+
+export const gridlayoutCardInfo = nodeInfoFactory<GridBslibCardSettings>()({
   library: "gridlayout",
   name: "grid_card",
   title: "Grid Card",

@@ -1,4 +1,16 @@
-.card {
+.container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  /* Stop blowout and enable properties like padding to be used as expected */
+  min-width: 0;
+  background-color: var(--rstudio-white, white);
+  /* outline: var(--outline); */
+  --card-padding: 6px;
+  isolation: isolate;
+}
+
+.card_holder {
   position: relative;
   height: 100%;
   width: 100%;
