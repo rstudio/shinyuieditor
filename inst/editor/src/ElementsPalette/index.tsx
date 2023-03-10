@@ -6,23 +6,36 @@ import { shinyUiNames } from "../Shiny-Ui-Elements/uiNodeTypes";
 import classes from "./styles.module.css";
 import { UiElementIcon } from "./UiElementIcon";
 
-const categoryOrder: string[] = [
-  "Inputs",
-  "Outputs",
-  "gridlayout",
-  "uncategorized",
-];
+// We use an object here to enforce that we categorize all of the objects
+const catOrderObj: Record<ReturnType<typeof getNodeCategory>, 1> = {
+  Utilities: 1,
+  Inputs: 1,
+  Outputs: 1,
+  layouts: 1,
+  gridlayout: 1,
+  Tabs: 1,
+  Containers: 1,
+  Cards: 1,
+  Plotting: 1,
+  uncategorized: 1,
+};
+
+const categoryOrder = Object.keys(catOrderObj);
+
+function getNodeCategory(name: string) {
+  const node_info = getUiNodeInfo(name);
+
+  if ("category" in node_info && node_info.category) return node_info.category;
+
+  return "uncategorized";
+}
 
 function sortByCategory(
   nameA: ShinyUiNodeNames,
   nameB: ShinyUiNodeNames
 ): number {
-  const categoryA = categoryOrder.indexOf(
-    getUiNodeInfo(nameA)?.category || "uncategorized"
-  );
-  const categoryB = categoryOrder.indexOf(
-    getUiNodeInfo(nameB)?.category || "uncategorized"
-  );
+  const categoryA = categoryOrder.indexOf(getNodeCategory(nameA));
+  const categoryB = categoryOrder.indexOf(getNodeCategory(nameB));
 
   if (categoryA < categoryB) return -1;
   if (categoryA > categoryB) return 1;

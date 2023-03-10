@@ -102,26 +102,11 @@ export const shinyUiNodeInfoArray = [
 
 export type ShinyUiNodeInfo = typeof shinyUiNodeInfoArray[number];
 
-// type ParentNodeNames = Extract<
-//   ShinyUiNodeInfo,
-//   { takesChildren?: true }
-// >["uiName"];
-
-// type ChildNodeNames = Exclude<
-//   ShinyUiNodeInfo,
-//   { takesChildren?: true }
-// >["uiName"];
-
 export type ShinyUiNodeNames = ShinyUiNodeInfo["uiName"];
-// type noCatType = Pick<
-//   typeof unknownUiFunctionInfo,
-//   "name" | "category" | "UiComponent"
-// >;
-// type cardType = Pick<typeof bslibCardInfo, "name" | "category" | "UiComponent">;
-export type ShinyUiNodeCategories = Pick<
-  Extract<ShinyUiNodeInfo, { category: string }>,
-  "uiName" | "category"
->;
+export type ShinyUiNodeCategories = Extract<
+  ShinyUiNodeInfo,
+  { category: string }
+>["category"];
 
 /**
  * All possible props/arguments for the defined UI components

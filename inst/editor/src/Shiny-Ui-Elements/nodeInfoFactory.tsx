@@ -30,28 +30,10 @@ export function nodeInfoFactory<Args extends UiArgumentsObject>() {
   return function makeInfo<
     Lib extends string,
     Name extends string,
-    Cat extends string,
-    Comp extends UiNodeComponent<Args, { TakesChildren: boolean }>
-  >({ category: provided_cat, ...info }: InfoType<Args, Lib, Name, Comp, Cat>) {
-    return {
-      uiName: makeFullName(info),
-      category: provided_cat ?? ("uncategorized" as const),
-      ...info,
-    };
-  };
-}
-
-type InfoType<
-  Args extends UiArgumentsObject,
-  Lib extends string,
-  Name extends string,
-  Comp extends UiNodeComponent<Args, { TakesChildren: boolean }>,
-  Cat extends string | "uncategorized" = "uncategorized"
-> = Comp extends UiNodeComponent<
-  Args,
-  { TakesChildren: infer TChildren extends boolean }
->
-  ? {
+    Comp extends UiNodeComponent<Args, { TakesChildren: boolean }>,
+    Cat extends string | undefined = undefined
+  >(
+    info: {
       library: Lib;
 
       /**
@@ -76,13 +58,6 @@ type InfoType<
        * not provided then the node will not show up in the element palette.
        */
       iconSrc?: string;
-
-      /**
-       * Optional category of the node. Used to organize the elements palette. All
-       * nodes with the same category will be grouped together under that categories
-       * header.
-       */
-      category?: Cat;
 
       /**
        * Description of the component that will show up on long hover over element
@@ -111,7 +86,14 @@ type InfoType<
        * element
        */
       UiComponent: Comp;
-
-      takesChildren?: TChildren;
-    }
-  : never;
+    } & (Comp extends UiNodeComponent<Args, { TakesChildren: true }>
+      ? { takesChildren?: true }
+      : { takesChildren?: false }) &
+      ({ category: Cat } | {})
+  ) {
+    return {
+      uiName: makeFullName(info),
+      ...info,
+    };
+  };
+}
