@@ -11,8 +11,8 @@ ui <- grid_page(
   ),
   row_sizes = c(
     "100px",
-    "1.01fr",
-    "0.99fr"
+    "0.97fr",
+    "1.03fr"
   ),
   col_sizes = c(
     "300px",
@@ -21,7 +21,7 @@ ui <- grid_page(
   gap_size = "1rem",
   grid_card(
     area = "sidebar",
-    card_body(
+    card_body_fill(
       sliderInput(
         inputId = "bins",
         label = "Number of Bins ",
@@ -54,7 +54,7 @@ ui <- grid_page(
   grid_card(
     area = "cardDemo",
     card_header(h2("My Card header")),
-    card_body(
+    card_body_fill(
       numericInput(
         inputId = "myNumericInput",
         label = "Numeric Input",

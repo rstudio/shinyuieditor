@@ -1,4 +1,4 @@
-import type { PickKeyFn } from "util-functions/src/TypescriptUtils";
+import type { Expand, PickKeyFn } from "util-functions/src/TypescriptUtils";
 
 import type { useMakeWrapperProps } from "../components/UiNode/useMakeWrapperProps";
 import type { DeleteAction, UpdateAction } from "../state/app_info";
@@ -100,13 +100,21 @@ export const shinyUiNodeInfoArray = [
   unknownUiFunctionInfo,
 ] as const;
 
-export type ShinyUiNodeInfo = typeof shinyUiNodeInfoArray[number];
+const shinyUiNodeInfo = new Map<string, ShinyUiNodeInfo>(
+  shinyUiNodeInfoArray.map((info) => [info.uiName, info])
+);
 
+export function getUiNodeInfo(uiName: string): ShinyUiNodeInfo {
+  if (!shinyUiNodeInfo.has(uiName)) {
+    throw new Error(`Failed to find node info for requested node: ${uiName}`);
+  }
+  return shinyUiNodeInfo.get(uiName) as ShinyUiNodeInfo;
+}
+
+export type ShinyUiNodeInfo = Expand<typeof shinyUiNodeInfoArray[number]>;
 export type ShinyUiNodeNames = ShinyUiNodeInfo["uiName"];
-export type ShinyUiNodeCategories = Extract<
-  ShinyUiNodeInfo,
-  { category: string }
->["category"];
+export type ShinyUiNodeLibraries = ShinyUiNodeInfo["library"];
+export type ShinyUiNodeCategories = ShinyUiNodeInfo["category"];
 
 /**
  * All possible props/arguments for the defined UI components
@@ -119,8 +127,8 @@ export type ShinyUiNodeCategories = Extract<
  * Names of all the available Ui elements
  */
 
-export const shinyUiNames = new Set(
-  shinyUiNodeInfoArray.map(({ library, name }) => `${library}::${name}`)
+export const shinyUiNames = new Set<string>(
+  shinyUiNodeInfoArray.map(({ uiName }) => uiName)
 );
 
 /**

@@ -2,12 +2,12 @@ import React from "react";
 
 import { getIsValidMove } from "../components/UiNode/TreeManipulation/getIsValidMove";
 import type { Wrapping_Node } from "../components/UiNode/TreeManipulation/wrapInNode";
-import { getUiNodeInfo } from "../Shiny-Ui-Elements/getUiNodeInfo";
 import { makeChildPath } from "../Shiny-Ui-Elements/nodePathUtils";
 import type {
   ShinyUiNodeNames,
   NodePath,
 } from "../Shiny-Ui-Elements/uiNodeTypes";
+import { getUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
 import { usePlaceNode } from "../state/usePlaceNode";
 
 import type { DropHandlerArguments } from "./useFilteredDrop";

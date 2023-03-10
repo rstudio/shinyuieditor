@@ -4,7 +4,7 @@ import type { CustomFormRenderFn } from "../components/Inputs/SettingsFormBuilde
 import { FormBuilder } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
 import { PanelHeader } from "../EditorSkeleton/EditorSkeleton";
 import type { ShinyUiNode } from "../main";
-import { getUiNodeInfo } from "../Shiny-Ui-Elements/getUiNodeInfo";
+import { getUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
 
 import { GoToSourceBtns } from "./GoToSourceBtns";
 import PathBreadcrumb from "./PathBreadcrumb";

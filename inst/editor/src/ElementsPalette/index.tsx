@@ -1,13 +1,16 @@
 import { PanelHeader } from "../EditorSkeleton/EditorSkeleton";
-import { getUiNodeInfo } from "../Shiny-Ui-Elements/getUiNodeInfo";
-import type { ShinyUiNodeNames } from "../Shiny-Ui-Elements/uiNodeTypes";
+import type {
+  ShinyUiNodeCategories,
+  ShinyUiNodeNames,
+} from "../Shiny-Ui-Elements/uiNodeTypes";
+import { getUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
 import { shinyUiNames } from "../Shiny-Ui-Elements/uiNodeTypes";
 
 import classes from "./styles.module.css";
 import { UiElementIcon } from "./UiElementIcon";
 
 // We use an object here to enforce that we categorize all of the objects
-const catOrderObj: Record<ReturnType<typeof getNodeCategory>, 1> = {
+const catOrderObj: Record<ShinyUiNodeCategories, 1> = {
   Utilities: 1,
   Inputs: 1,
   Outputs: 1,
@@ -17,7 +20,7 @@ const catOrderObj: Record<ReturnType<typeof getNodeCategory>, 1> = {
   Containers: 1,
   Cards: 1,
   Plotting: 1,
-  uncategorized: 1,
+  Uncategorized: 1,
 };
 
 const categoryOrder = Object.keys(catOrderObj);
