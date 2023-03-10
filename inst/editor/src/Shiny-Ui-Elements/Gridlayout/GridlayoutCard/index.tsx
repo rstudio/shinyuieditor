@@ -1,5 +1,6 @@
 import containerIcon from "../../../assets/icons/shinyContainer.png";
 import type { CardSettings } from "../../Bslib/BslibCard";
+import { bslib_card_settings_info } from "../../Bslib/BslibCard";
 import { nodeInfoFactory } from "../../nodeInfoFactory";
 import { grid_container_nodes } from "../grid_container_nodes";
 
@@ -21,6 +22,7 @@ export const gridlayoutCardInfo = nodeInfoFactory<GridBslibCardCardSettings>()({
       inputType: "string",
       defaultValue: "default-area",
     },
+    ...bslib_card_settings_info,
   },
   allowedParents: grid_container_nodes,
   iconSrc: containerIcon,

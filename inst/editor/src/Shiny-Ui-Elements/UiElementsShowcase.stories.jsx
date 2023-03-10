@@ -6,6 +6,8 @@ import React from "react";
 import omit from "just-omit";
 
 import "../App.css";
+
+import { getUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
 import {
   buildStaticFormInfo,
   getDefaultSettings,
@@ -14,7 +16,6 @@ import { FormBuilder } from "../components/Inputs/SettingsFormBuilder/FormBuilde
 
 import classes from "./UiElementsShowcase.module.css";
 
-import { getUiNodeInfo } from "./getUiNodeInfo";
 import { shinyUiNames } from "./uiNodeTypes";
 function UiNodeAndSettings({ uiName, uiArguments }) {
   const [infoToRender, setInfoToRender] = React.useState(null);
