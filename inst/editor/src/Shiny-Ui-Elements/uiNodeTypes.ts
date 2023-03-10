@@ -104,9 +104,11 @@ const shinyUiNodeInfo = new Map<string, ShinyUiNodeInfo>(
   shinyUiNodeInfoArray.map((info) => [info.uiName, info])
 );
 
-// const containerNodes = new Set<string>(
-//   shinyUiNodeInfoArray.map((info) => [info.uiName, info]
-// )
+const containerNodes = new Set<string>(
+  shinyUiNodeInfoArray
+    .filter((info) => info.takesChildren)
+    .map((info) => info.uiName)
+);
 
 export function getUiNodeInfo(uiName: string): ShinyUiNodeInfo {
   if (!shinyUiNodeInfo.has(uiName)) {
@@ -168,7 +170,7 @@ export type MakeShinyUiNode<
  * Narrow if a node is a parent node or not
  */
 export function isParentNode(node: ShinyUiNode): node is ShinyUiParentNode {
-  return "uiChildren" in node;
+  return "uiChildren" in node || containerNodes.has(node.uiName);
 }
 
 /**
