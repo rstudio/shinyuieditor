@@ -36,6 +36,7 @@ export const bslibCardInfo = nodeInfoFactory<BslibCardArguments>()({
   library: "bslib",
   name: "card",
   title: "Card",
+  takesChildren: true,
   UiComponent: BslibCard,
   settingsInfo: bslib_card_settings_info,
   iconSrc: icon,

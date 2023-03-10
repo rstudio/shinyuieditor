@@ -19,6 +19,7 @@ export const shinySliderInputInfo = nodeInfoFactory<ShinySliderInputProps>()({
   library: "shiny",
   name: "sliderInput",
   title: "Slider Input",
+  takesChildren: false,
   UiComponent: ShinySliderInput,
   settingsInfo: {
     inputId: {

@@ -15,6 +15,7 @@ export const gridlayoutGridContainerInfo =
     library: "gridlayout",
     name: "grid_container",
     title: "Grid Container",
+    takesChildren: true,
     UiComponent: GridlayoutGridContainer,
     settingsInfo: {
       gap_size: {

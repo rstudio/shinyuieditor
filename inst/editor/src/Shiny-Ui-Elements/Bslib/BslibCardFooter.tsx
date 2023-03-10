@@ -27,6 +27,7 @@ export const bslibCardFooterInfo = nodeInfoFactory<CardFooterSettings>()({
   library: "bslib",
   name: "card_footer",
   title: "Card Footer",
+  takesChildren: true,
   UiComponent: BslibCardFooter,
   settingsInfo: {},
   category: "Cards",

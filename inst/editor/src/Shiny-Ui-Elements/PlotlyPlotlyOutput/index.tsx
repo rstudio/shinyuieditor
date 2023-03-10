@@ -14,6 +14,7 @@ export const plotlyPlotlyOutputInfo = nodeInfoFactory<PlotlyOutputSettings>()({
   library: "plotly",
   name: "plotlyOutput",
   title: "Plotly Plot",
+  takesChildren: false,
   UiComponent: PlotlyPlotlyOutput,
   settingsInfo: {
     outputId: {

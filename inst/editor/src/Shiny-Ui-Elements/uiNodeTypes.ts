@@ -104,6 +104,10 @@ const shinyUiNodeInfo = new Map<string, ShinyUiNodeInfo>(
   shinyUiNodeInfoArray.map((info) => [info.uiName, info])
 );
 
+// const containerNodes = new Set<string>(
+//   shinyUiNodeInfoArray.map((info) => [info.uiName, info]
+// )
+
 export function getUiNodeInfo(uiName: string): ShinyUiNodeInfo {
   if (!shinyUiNodeInfo.has(uiName)) {
     throw new Error(`Failed to find node info for requested node: ${uiName}`);

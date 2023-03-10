@@ -14,6 +14,7 @@ export const shinySelectInputInfo = nodeInfoFactory<ShinySelectInputProps>()({
   library: "shiny",
   name: "selectInput",
   title: "Select Input",
+  takesChildren: false,
   UiComponent: ShinySelectInput,
   settingsInfo: {
     inputId: {

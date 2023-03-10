@@ -14,6 +14,7 @@ export const dtDTOutputInfo = nodeInfoFactory<DTOutputSettings>()({
   library: "DT",
   name: "DTOutput",
   title: "DT Table",
+  takesChildren: false,
   UiComponent: DtDTOutput,
   settingsInfo: {
     outputId: {

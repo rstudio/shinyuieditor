@@ -17,6 +17,7 @@ export const textNodeInfo = nodeInfoFactory<TextNodeSettings>()({
   category: "Utilities",
   description:
     "Add static text to your ui for things like descriptions and headers.",
+  takesChildren: false,
   UiComponent: TextNode,
   settingsInfo: {
     contents: {

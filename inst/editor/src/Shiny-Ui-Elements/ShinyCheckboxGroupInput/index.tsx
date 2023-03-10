@@ -17,6 +17,7 @@ export const shinyCheckboxGroupInputInfo =
     library: "shiny",
     name: "checkboxGroupInput",
     title: "Checkbox Group",
+    takesChildren: false,
     UiComponent: ShinyCheckboxGroupInput,
     settingsInfo: {
       inputId: {

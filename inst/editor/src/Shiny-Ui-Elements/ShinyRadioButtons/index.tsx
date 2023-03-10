@@ -16,6 +16,7 @@ export const shinyRadioButtonsInfo = nodeInfoFactory<ShinyRadioButtonsProps>()({
   library: "shiny",
   name: "radioButtons",
   title: "Radio Buttons",
+  takesChildren: false,
   UiComponent: ShinyRadioButtons,
   settingsInfo: {
     inputId: {

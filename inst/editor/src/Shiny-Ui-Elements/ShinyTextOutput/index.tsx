@@ -11,6 +11,7 @@ export const shinyTextOutputInfo = nodeInfoFactory<ShinyTextOutputProps>()({
   library: "shiny",
   name: "textOutput",
   title: "Text Output",
+  takesChildren: false,
   UiComponent: ShinyTextOutput,
   settingsInfo: {
     outputId: {

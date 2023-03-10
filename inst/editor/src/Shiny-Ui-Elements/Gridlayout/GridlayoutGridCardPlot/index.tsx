@@ -14,6 +14,7 @@ export const gridlayoutGridCardPlotInfo =
     library: "gridlayout",
     name: "grid_card_plot",
     title: "Grid Plot Card",
+    takesChildren: false,
     UiComponent: GridlayoutGridCardPlot,
     settingsInfo: {
       area: {

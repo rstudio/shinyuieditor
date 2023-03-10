@@ -31,6 +31,7 @@ export const bslibCardBodyInfo = nodeInfoFactory<CardBodySettings>()({
   library: "bslib",
   name: "card_body_fill",
   title: "Card Body",
+  takesChildren: true,
   UiComponent: BslibCardBody,
   settingsInfo: {
     max_height: {

@@ -14,6 +14,7 @@ export const shinyTabPanelInfo = nodeInfoFactory<TabPanelSettings>()({
   library: "shiny",
   name: "tabPanel",
   title: "Tab Panel",
+  takesChildren: true,
   UiComponent: ShinyTabPanel,
   settingsInfo: {
     title: {

@@ -14,6 +14,7 @@ export const shinyPlotOutputInfo = nodeInfoFactory<ShinyPlotOutputProps>()({
   library: "shiny",
   name: "plotOutput",
   title: "Plot Output",
+  takesChildren: false,
   UiComponent: ShinyPlotOutput,
   settingsInfo: {
     outputId: {

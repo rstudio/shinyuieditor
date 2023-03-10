@@ -23,6 +23,7 @@ export const bslibCardHeaderInfo = nodeInfoFactory<CardHeaderSettings>()({
   library: "bslib",
   name: "card_header",
   title: "Card Header",
+  takesChildren: true,
   UiComponent: BslibCardHeader,
   settingsInfo: {},
   category: "Cards",

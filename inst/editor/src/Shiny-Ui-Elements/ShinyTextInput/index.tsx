@@ -16,6 +16,7 @@ export const shinyTextInputInfo = nodeInfoFactory<ShinyTextInputProps>()({
   library: "shiny",
   name: "textInput",
   title: "Text Input",
+  takesChildren: false,
   UiComponent: ShinyTextInput,
   settingsInfo: {
     inputId: {

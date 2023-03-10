@@ -16,6 +16,7 @@ export const shinyCheckboxInputInfo =
     library: "shiny",
     name: "checkboxInput",
     title: "Checkbox Input",
+    takesChildren: false,
     UiComponent: ShinyCheckboxInput,
     settingsInfo: {
       inputId: {

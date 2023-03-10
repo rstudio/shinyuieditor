@@ -24,6 +24,7 @@ export function nodeInfoFactory<Args extends UiArgumentsObject>() {
   return function makeInfo<
     Name extends string,
     Comp extends UiNodeComponent<Args, { TakesChildren: boolean }>,
+    TakesChildren extends boolean,
     Lib extends string = "Internal",
     Cat extends string = "Uncategorized"
   >({
@@ -34,14 +35,14 @@ export function nodeInfoFactory<Args extends UiArgumentsObject>() {
   }: {
     library?: Lib;
     category?: Cat;
-  } & CommonInfo<Args, Name, Comp>) {
+  } & CommonInfo<Args, Name, Comp, TakesChildren>) {
     return {
       uiName: library ? `${library}::${name}` : name,
       name,
       library,
       category: category ?? "Uncategorized",
       ...info,
-    } as InfoOut<Args, Name, Comp, Lib, Cat>;
+    } as InfoOut<Args, Name, Comp, Lib, Cat, TakesChildren>;
   };
 }
 
@@ -61,17 +62,19 @@ type InfoOut<
   Name extends string,
   Comp extends UiNodeComponent<Args, { TakesChildren: boolean }>,
   Lib extends string,
-  Cat extends string
+  Cat extends string,
+  TakesChildren extends boolean
 > = {
   uiName: Lib extends "Internal" ? Name : `${Lib}::${Name}`;
   library: Lib;
   category: Cat;
-} & CommonInfo<Args, Name, Comp>;
+} & CommonInfo<Args, Name, Comp, TakesChildren>;
 
 type CommonInfo<
   Args extends UiArgumentsObject,
   Name extends string,
-  Comp extends UiNodeComponent<Args, { TakesChildren: boolean }>
+  Comp extends UiNodeComponent<Args, { TakesChildren: boolean }>,
+  TakesChildren extends boolean
 > = {
   /**
    * Name of function as called in code: e.g. `"sliderInput"` for `shiny::sliderInput()`
@@ -123,4 +126,6 @@ type CommonInfo<
    * element
    */
   UiComponent: Comp;
+
+  takesChildren: TakesChildren;
 };

@@ -21,6 +21,7 @@ export const shinyNavbarPageInfo = nodeInfoFactory<NavbarPageSettings>()({
   library: "shiny",
   name: "navbarPage",
   title: "Navbar Page",
+  takesChildren: true,
   UiComponent: ShinyNavbarPage,
   settingsInfo: {
     title: {

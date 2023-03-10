@@ -14,6 +14,7 @@ export const shinyActionButtonInfo = nodeInfoFactory<ShinyActionButtonProps>()({
   title: "Action Button",
   library: "shiny",
   name: "actionButton",
+  takesChildren: false,
   UiComponent: ShinyActionButton,
   iconSrc: buttonIcon,
   settingsInfo: {

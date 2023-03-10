@@ -21,6 +21,7 @@ export const gridlayoutTextPanelInfo =
     library: "gridlayout",
     name: "grid_card_text",
     title: "Grid Text Card",
+    takesChildren: false,
     UiComponent: GridlayoutGridCardText,
     settingsInfo: {
       content: {

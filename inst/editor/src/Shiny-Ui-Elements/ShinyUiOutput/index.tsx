@@ -11,6 +11,7 @@ export const shinyUiOutputInfo = nodeInfoFactory<ShinyUiOutputProps>()({
   library: "shiny",
   name: "uiOutput",
   title: "Dynamic UI Output",
+  takesChildren: false,
   UiComponent: ShinyUiOutput,
   settingsInfo: {
     outputId: {

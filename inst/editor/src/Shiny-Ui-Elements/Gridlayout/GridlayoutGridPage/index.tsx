@@ -15,6 +15,7 @@ export const gridlayoutGridPageInfo = nodeInfoFactory<
   library: "gridlayout",
   name: "grid_page",
   title: "Grid Page",
+  takesChildren: true,
   UiComponent: GridlayoutGridPage,
   settingsInfo: {
     gap_size: {
