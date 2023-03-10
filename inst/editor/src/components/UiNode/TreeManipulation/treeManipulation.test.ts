@@ -50,7 +50,7 @@ test("Remove a node", () => {
   const withoutNode = removeNode(baseNode as ShinyUiNode, {
     path: [0, 1],
   });
-  expect(getNode(withoutNode, [0, 1])).toEqual(undefined);
+  expect(() => getNode(withoutNode, [0, 1])).toThrow();
   expect(getNode(baseNode, [0, 1])).not.toEqual(undefined);
 });
 

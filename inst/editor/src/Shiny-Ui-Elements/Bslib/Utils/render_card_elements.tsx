@@ -28,7 +28,7 @@ const footerScaffold = {
 } as const;
 
 export function render_card_elements(
-  uiChildren: ShinyUiParentNode["uiChildren"],
+  uiChildren: ShinyUiParentNode["uiChildren"] = [],
   path: NodePath
 ): React.ReactNode {
   let header: JSX.Element | null = null;

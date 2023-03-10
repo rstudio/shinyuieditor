@@ -3,6 +3,7 @@ import produce from "immer";
 import type {
   NodePath,
   ShinyUiNode,
+  ShinyUiParentNode,
 } from "../../../Shiny-Ui-Elements/uiNodeTypes";
 import { isParentNode } from "../../../Shiny-Ui-Elements/uiNodeTypes";
 
@@ -29,6 +30,14 @@ export function removeNode(tree: ShinyUiNode, removeArgs: RemoveNodeArguments) {
   });
 }
 
+function verifyNodeHasChildren(
+  node: ShinyUiParentNode
+): asserts node is Required<ShinyUiParentNode> {
+  if (!node.uiChildren) {
+    throw new Error("Somehow trying to enter a leaf node");
+  }
+}
+
 export function removeNodeMutating(
   tree: ShinyUiNode,
   { path }: RemoveNodeArguments
@@ -39,6 +48,9 @@ export function removeNodeMutating(
   if (!isParentNode(parentNode)) {
     throw new Error("Somehow trying to enter a leaf node");
   }
+
+  verifyNodeHasChildren(parentNode);
+
   parentNode.uiChildren.splice(indexToNode, 1);
 }
 

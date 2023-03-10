@@ -87,7 +87,7 @@ describe("Move nodes within tree", () => {
     });
 
     // Should be gone from that position in the new tree
-    expect(getNode(plotToRight, [0, 1])).toEqual(undefined);
+    expect(() => getNode(plotToRight, [0, 1])).toThrow();
 
     // And should be placed as the last child of the toPath
     expect(getNode(plotToRight, [1, 1])).toEqual({

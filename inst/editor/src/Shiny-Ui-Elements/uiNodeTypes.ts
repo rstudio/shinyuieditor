@@ -149,7 +149,7 @@ export type ShinyUiLeafNode = {
  * Ui Node with children
  */
 export type ShinyUiParentNode = ShinyUiLeafNode & {
-  uiChildren: Array<ShinyUiNode>;
+  uiChildren?: Array<ShinyUiNode>;
 };
 export type ShinyUiRootNode = ShinyUiParentNode | "TEMPLATE_CHOOSER";
 

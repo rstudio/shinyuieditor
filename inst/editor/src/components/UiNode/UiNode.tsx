@@ -30,7 +30,7 @@ const UiNode = ({ path, node, canDrag = true }: UiNodeProps) => {
     <Comp
       wrapperProps={wrapperProps}
       uiArguments={node.uiArguments}
-      uiChildren={isParentNode(node) ? node.uiChildren : []}
+      uiChildren={isParentNode(node) ? node.uiChildren ?? [] : []}
       path={path}
     />
   );

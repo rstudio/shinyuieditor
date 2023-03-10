@@ -4,7 +4,9 @@
 
 import type { ShinyUiParentNode } from "../../uiNodeTypes";
 
-export function areasOfChildren(children: ShinyUiParentNode["uiChildren"]) {
+export function areasOfChildren(
+  children: ShinyUiParentNode["uiChildren"] = []
+) {
   let all_children_areas: string[] = [];
   children.forEach((child) => {
     if ("area" in child.uiArguments && child.uiArguments.area !== undefined) {
