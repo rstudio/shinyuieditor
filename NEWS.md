@@ -2,7 +2,8 @@
 
 ### Major new features and improvements
 
-- New more flexible `bslib::card()` based cards are now available along with the old gric cards being updated to reflect the new the `gridlayout` wrapper `gridlayout::grid_card()`.
+- New more flexible `bslib::card()` based cards are now available along with the old grid cards being updated to reflect the new the `gridlayout` wrapper `gridlayout::grid_card()`.
+- You can now add plain text anywhere you could add normal elements. The new "Static Text" node let's you enter descriptions etc... The contents can also have basic styles applied such as sizing and decoration.
 
 ### Minor new features and improvements
 
@@ -12,6 +13,7 @@
 - Fixed problem where making lots of quick updates to the state would cause the app to crash due to backend and client getting out of sync.
 - Content of cards can no longer spill over obscuring other elements like grid tract resizers.
 - The visual indicator for swapping positions of items on the grid no longer flickers and actually is legible.
+- The width argument of shiny text input elements is now reflected in the main editor view.
 
 # shinyuieditor 0.4.0
 
