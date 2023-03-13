@@ -1,4 +1,5 @@
 import { mergeClasses } from "../../../utils/mergeClasses";
+import type { CardBodyFillSettings } from "../BslibCardBodyFill";
 
 import styles from "./CardUtils.module.css";
 
@@ -9,17 +10,24 @@ function CardElementChildrenHolder({
 }) {
   return <div className={styles.card_children_container}>{children}</div>;
 }
-export function CardBody({
+
+export function CardBodyFill({
   className,
   children,
+  args = {},
   ...props
-}: React.ComponentPropsWithoutRef<"div">) {
+}: React.ComponentPropsWithoutRef<"div"> & { args?: CardBodyFillSettings }) {
+  const content_styles = {
+    gap: args?.gap,
+  } as React.CSSProperties;
   return (
     <div
-      className={mergeClasses(className, "card-body", styles.card_body)}
+      className={mergeClasses(className, "card-body", styles.card_body_fill)}
       {...props}
     >
-      <CardElementChildrenHolder>{children}</CardElementChildrenHolder>
+      <div className={styles.card_children_container} style={content_styles}>
+        {children}
+      </div>
     </div>
   );
 }

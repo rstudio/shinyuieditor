@@ -1,4 +1,4 @@
-.card_body {
+.card_body_fill {
   /* A small amount of inset so the body doesn't sit flush with the card itself.
   We take it away from the default bslib card padding to not change the total
   whitespace*/
@@ -67,7 +67,7 @@
   transition-timing-function: ease-in;
 }
 
-.card_body
+.card_body_fill
   > .card_children_container
   div:global(.can-accept-drop.hovering-over)::after {
   content: "Add to card body";

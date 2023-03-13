@@ -5,7 +5,7 @@ import { DropWatcherPanel } from "../../../DragAndDropHelpers/DropWatcherPanel";
 import { makeChildPath } from "../../nodePathUtils";
 import type { NodePath, ShinyUiParentNode } from "../../uiNodeTypes";
 
-import { CardBody, CardFooter, CardHeader } from "./CardElements";
+import { CardBodyFill, CardFooter, CardHeader } from "./CardElements";
 import styles from "./CardUtils.module.css";
 
 const possible_elements = new Set([
@@ -78,7 +78,7 @@ export function render_card_elements(
         </CardHeader>
       )}
       {body ?? (
-        <CardBody className={styles.missing_card_element}>
+        <CardBodyFill className={styles.missing_card_element}>
           <DropWatcherPanel
             className={styles.drop_watcher}
             index={sum_booleans(has_header)}
@@ -86,7 +86,7 @@ export function render_card_elements(
             wrappingNode={bodyScaffold}
             parentNodeType="bslib::card_body_fill"
           />
-        </CardBody>
+        </CardBodyFill>
       )}
       {footer ?? (
         <CardFooter className={styles.missing_card_element}>

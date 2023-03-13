@@ -2,38 +2,46 @@ import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure
 import { nodeInfoFactory } from "../nodeInfoFactory";
 import type { MakeShinyUiNode, UiNodeComponent } from "../uiNodeTypes";
 
-import { CardBody } from "./Utils/CardElements";
+import { CardBodyFill } from "./Utils/CardElements";
 import { CardChildrenWithDropNodes } from "./Utils/ChildrenWithDropNodes";
 
-export type CardBodySettings = {
+export type CardBodyFillSettings = {
+  gap?: CSSMeasure;
   max_height?: CSSMeasure;
   min_height?: CSSMeasure;
 };
 
-type CardBodyFillNode = MakeShinyUiNode<CardBodySettings>;
+type CardBodyFillNode = MakeShinyUiNode<CardBodyFillSettings>;
 
 const BslibCardBody: UiNodeComponent<
-  CardBodySettings,
+  CardBodyFillSettings,
   { TakesChildren: true }
 > = ({ uiArguments, uiChildren = [], path, wrapperProps }) => {
   return (
-    <CardBody {...wrapperProps}>
+    <CardBodyFill {...wrapperProps} args={uiArguments}>
       <CardChildrenWithDropNodes
         uiChildren={uiChildren}
         path={path}
         parentUiName="bslib::card_body_fill"
       />
-    </CardBody>
+    </CardBodyFill>
   );
 };
 
-export const bslibCardBodyInfo = nodeInfoFactory<CardBodySettings>()({
+export const bslibCardBodyInfo = nodeInfoFactory<CardBodyFillSettings>()({
   library: "bslib",
   name: "card_body_fill",
   title: "Card Body",
   takesChildren: true,
   UiComponent: BslibCardBody,
   settingsInfo: {
+    gap: {
+      label: "Gap between items",
+      inputType: "cssMeasure",
+      optional: true,
+      defaultValue: "10px",
+      units: ["px", "rem"],
+    },
     max_height: {
       label: "Max allowed height",
       inputType: "cssMeasure",
