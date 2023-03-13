@@ -54,15 +54,3 @@ export const textNodeInfo = nodeInfoFactory<TextNodeSettings>()({
   },
   iconSrc: icon,
 });
-
-export function text_node_to_code(ui_node: TextUiNode): string {
-  // Why does this not automatically resolve for me?
-  const { contents, size, decoration } =
-    ui_node.uiArguments as TextNodeSettings;
-
-  const quoted_contents = `"${contents}"`;
-
-  if (!size && !decoration) return quoted_contents;
-
-  return `${size}(${quoted_contents})`;
-}

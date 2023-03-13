@@ -1,6 +1,6 @@
 import type { Branch_Node } from "r-ast-parsing";
 
-import { text_node_to_code } from "../../Shiny-Ui-Elements/TextNode";
+import { text_node_to_code } from "../../Shiny-Ui-Elements/TextNode/text_node_to_code";
 import type { ShinyUiParentNode } from "../../Shiny-Ui-Elements/uiNodeTypes";
 import { ast_to_ui_node } from "../ast_to_shiny_ui_node";
 

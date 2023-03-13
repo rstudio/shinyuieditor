@@ -5,13 +5,17 @@ import type { TextUiNode } from "../../Shiny-Ui-Elements/TextNode";
 
 export const valid_text_node_tags = ["span", "small", "h1", "h2"] as const;
 
-export const valid_text_node_decorations = ["default", "italic", "bold"];
+export const valid_text_node_decorations = [
+  "default",
+  "italic",
+  "bold",
+] as const;
 export type Text_Node_Tag = typeof valid_text_node_tags[number];
 
 export type TextNodeSettings = {
   contents: string;
-  decoration?: string;
-  size?: string;
+  decoration?: typeof valid_text_node_decorations[number];
+  size?: typeof valid_text_node_tags[number];
 };
 
 export type Text_Node =
