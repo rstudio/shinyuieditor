@@ -10,10 +10,9 @@ import classes from "./styles.module.css";
 const ShinyTextInput: UiNodeComponent<
   ShinyTextInputProps,
   { TakesChildren: false }
-> = ({ uiArguments, wrapperProps }) => {
-  const width = "200px";
+> = ({ uiArguments: { width = "200px", ...inputArgs }, wrapperProps }) => {
   const height = "auto";
-  const settings = { ...uiArguments };
+  const settings = { ...inputArgs };
 
   const [value, setValue] = React.useState(settings.value);
 
