@@ -1,6 +1,8 @@
 import React from "react";
 
 import { TooltipButton } from "../../components/PopoverEl/Tooltip";
+import { Portal } from "../../components/PortalModal/Portal";
+import { sizes_inline_styles } from "../../EditorContainer/App_Layout_Sizes";
 import { mergeClasses } from "../../utils/mergeClasses";
 
 import type { BslibCardArguments } from "./BslibCard";
@@ -21,23 +23,31 @@ export const BslibCardContainer = React.forwardRef(
     const [isFullScreen, setIsFullScreen] = React.useState(false);
     const toggle_full_screen = () => setIsFullScreen((isFull) => !isFull);
 
+    const contents = (
+      <div
+        style={sizes_inline_styles}
+        className={mergeClasses(
+          "card",
+          styles.container,
+          isFullScreen ? styles.full_screen_mode : null
+        )}
+      >
+        {full_screen ? (
+          <FullScreenButton
+            isFullScreen={isFullScreen}
+            onClick={toggle_full_screen}
+          />
+        ) : null}
+        {children}
+      </div>
+    );
+
+    if (isFullScreen) {
+      return <Portal>{contents}</Portal>;
+    }
     return (
       <div ref={ref} style={style} className={styles.card_holder} {...props}>
-        <div
-          className={mergeClasses(
-            "card",
-            styles.container,
-            isFullScreen ? styles.full_screen_mode : null
-          )}
-        >
-          {full_screen ? (
-            <FullScreenButton
-              isFullScreen={isFullScreen}
-              onClick={toggle_full_screen}
-            />
-          ) : null}
-          {children}
-        </div>
+        {contents}
       </div>
     );
   }

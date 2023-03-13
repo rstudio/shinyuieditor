@@ -1,33 +1,9 @@
 import * as React from "react";
 
-import * as ReactDOM from "react-dom";
-
 import { PanelHeader } from "../../EditorSkeleton/EditorSkeleton";
 
+import { Portal } from "./Portal";
 import classes from "./PortalModal.module.css";
-
-interface IProps {
-  el?: string;
-  children: React.ReactNode;
-}
-
-/**
- * React portal based on https://stackoverflow.com/a/59154364
- * @param children Child elements
- * @param el HTML element to create.  default: div
- */
-const Portal: React.FC<IProps> = ({ children, el = "div" }: IProps) => {
-  const [container] = React.useState(document.createElement(el));
-
-  React.useEffect(() => {
-    document.body.appendChild(container);
-    return () => {
-      document.body.removeChild(container);
-    };
-  }, [container]);
-
-  return ReactDOM.createPortal(children, container);
-};
 
 function PortalModal({
   children,

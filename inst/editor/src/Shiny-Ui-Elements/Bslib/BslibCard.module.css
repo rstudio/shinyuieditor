@@ -14,12 +14,11 @@
   --pad: 10px;
   width: unset;
   height: unset;
-  position: fixed;
+  position: absolute;
   top: calc(var(--header-height) + var(--pad));
   left: calc(var(--elements-palette-width) + var(--pad));
   right: calc(var(--properties-panel-width) + var(--pad));
   bottom: var(--pad);
-  /* background: rgba(255, 192, 203, 0.396); */
   z-index: 20;
 }
 
