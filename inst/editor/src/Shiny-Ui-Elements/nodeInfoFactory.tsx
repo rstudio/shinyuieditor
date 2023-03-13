@@ -128,4 +128,10 @@ type CommonInfo<
   UiComponent: Comp;
 
   takesChildren: TakesChildren;
+
+  /**
+   * Optional example for args. Primarily used so we can extrac the types from
+   * the info objects and provide autocomplete later. Not used at runtime ever
+   */
+  example_args?: Args;
 };

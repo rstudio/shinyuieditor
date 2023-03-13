@@ -1,6 +1,6 @@
-import type { ShinyUiNode } from "../../main";
+import type { KnownShinyUiNode } from "../../Shiny-Ui-Elements/uiNodeTypes";
 
-export const minimalPage: ShinyUiNode = {
+export const minimalPage = {
   uiName: "shiny::navbarPage",
   uiArguments: {
     title: "My Navbar Page",
@@ -24,4 +24,4 @@ export const minimalPage: ShinyUiNode = {
       ],
     },
   ],
-};
+} satisfies KnownShinyUiNode;

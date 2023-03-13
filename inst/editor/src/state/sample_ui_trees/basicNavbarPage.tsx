@@ -1,11 +1,11 @@
-import type { ShinyUiNode } from "../../main";
+import type { KnownShinyUiNode } from "../../Shiny-Ui-Elements/uiNodeTypes";
 
 /**
  * Basic navbar page with tabs
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
-export const basicNavbarPage: ShinyUiNode = {
+export const basicNavbarPage = {
   uiName: "shiny::navbarPage",
   uiArguments: {
     title: "My Navbar Page",
@@ -21,6 +21,7 @@ export const basicNavbarPage: ShinyUiNode = {
         {
           uiName: "shiny::tabsetPanel",
           uiArguments: {},
+          uiChildren: [],
         },
       ],
     },
@@ -57,4 +58,4 @@ export const basicNavbarPage: ShinyUiNode = {
       ],
     },
   ],
-};
+} satisfies KnownShinyUiNode;

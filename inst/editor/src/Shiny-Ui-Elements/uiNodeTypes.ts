@@ -1,5 +1,8 @@
+import { type } from "@testing-library/user-event/dist/types/setup/api";
+import { string } from "ts-pattern/dist/patterns";
 import type { Expand, PickKeyFn } from "util-functions/src/TypescriptUtils";
 
+import type { ArgsToDynamicInfo } from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";
 import type { useMakeWrapperProps } from "../components/UiNode/useMakeWrapperProps";
 import type { DeleteAction, UpdateAction } from "../state/app_info";
 
@@ -136,6 +139,44 @@ export type ShinyUiNodeCategories = ShinyUiNodeInfo["category"];
 export const shinyUiNames = new Set<string>(
   shinyUiNodeInfoArray.map(({ uiName }) => uiName)
 );
+
+/** A ui node type that type checks its values. Used for things like declaring test ui trees etc.. */
+export type KnownShinyUiNode = {
+  [NodeInfo in ShinyUiNodeInfo as NodeInfo["uiName"]]: {
+    uiName: NodeInfo["uiName"];
+    uiArguments: Required<NodeInfo>["example_args"];
+  } & (NodeInfo["takesChildren"] extends true
+    ? { uiChildren: KnownUiChildren }
+    : {});
+}[ShinyUiNodeInfo["uiName"]];
+
+type KnownUiChildren = Array<KnownShinyUiNode>;
+
+const knownUiNodeTest: KnownShinyUiNode = {
+  uiName: "bslib::card",
+  uiArguments: { full_screen: true },
+  uiChildren: [
+    {
+      uiName: "shiny::actionButton",
+      uiArguments: { inputId: "btn", label: "My Button" },
+    },
+  ],
+};
+
+// @ts-expect-error
+const knownUiNodeTestFail: KnownShinyUiNode = {
+  uiName: "shiny::actionButton",
+  uiArguments: {
+    inputId: "test",
+  },
+};
+
+type getNodeArgs<Info extends ShinyUiNodeInfo> =
+  Info["settingsInfo"] extends ArgsToDynamicInfo<infer Args> ? Args : never;
+
+type Testing = getNodeArgs<typeof shinyActionButtonInfo>;
+
+// ArgsToDynamicInfo<Args>
 
 /**
  * Ui Node with no children
