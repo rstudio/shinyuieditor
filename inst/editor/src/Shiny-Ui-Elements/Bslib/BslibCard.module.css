@@ -10,6 +10,68 @@
   isolation: isolate;
 }
 
+.container.full_screen_mode {
+  --pad: 10px;
+  width: unset;
+  height: unset;
+  position: fixed;
+  top: calc(var(--header-height) + var(--pad));
+  left: calc(var(--elements-palette-width) + var(--pad));
+  right: calc(var(--properties-panel-width) + var(--pad));
+  bottom: var(--pad);
+  /* background: rgba(255, 192, 203, 0.396); */
+  z-index: 20;
+}
+
+.full_screen_button_container {
+  position: absolute;
+  --inset-amt: var(--size-xs);
+  z-index: 10;
+  right: var(--inset-amt);
+}
+
+.full_screen_button_container:hover {
+  position: absolute;
+  --inset-amt: var(--size-xs);
+  z-index: 10;
+  right: var(--inset-amt);
+}
+
+.full_screen_button_container[data-is-full-screen="false"] {
+  top: var(--inset-amt);
+}
+
+.full_screen_button_container[data-is-full-screen="false"] > button {
+  transform: scale(0);
+  transition: transform 0.05s ease-in;
+}
+
+.full_screen_button_container[data-is-full-screen="false"]:hover > button {
+  transform: scale(1);
+}
+
+.full_screen_button_container[data-is-full-screen="false"] > button {
+  background-color: var(--dark-grey);
+  color: var(--rstudio-white);
+  padding: var(--size-sm);
+  border-radius: 50%;
+}
+
+.full_screen_button_container[data-is-full-screen="true"] {
+  bottom: calc(100% + var(--inset-amt));
+}
+
+.full_screen_button_container[data-is-full-screen="true"] > button {
+  padding-inline: var(--size-sm);
+  padding-block: var(--size-xs);
+}
+
+.full_screen_button_container svg {
+  fill: currentColor;
+  height: 1em;
+  width: 1em;
+}
+
 .card_holder {
   position: relative;
   height: 100%;
