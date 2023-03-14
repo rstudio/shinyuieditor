@@ -29,15 +29,8 @@
   right: var(--inset-amt);
 }
 
-.full_screen_button_container:hover {
-  position: absolute;
-  --inset-amt: var(--size-xs);
-  z-index: 10;
-  right: var(--inset-amt);
-}
-
 .full_screen_button_container[data-is-full-screen="false"] {
-  top: var(--inset-amt);
+  bottom: var(--inset-amt);
 }
 
 .full_screen_button_container[data-is-full-screen="false"] > button {
@@ -45,7 +38,9 @@
   transition: transform 0.05s ease-in;
 }
 
-.full_screen_button_container[data-is-full-screen="false"]:hover > button {
+.container:hover
+  .full_screen_button_container[data-is-full-screen="false"]
+  > button {
   transform: scale(1);
 }
 
