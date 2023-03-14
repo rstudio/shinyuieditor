@@ -4,11 +4,17 @@ import type {
   AST_Name_To_Key,
   AST_Node_By_Name,
   Branch_Node,
-  Leaf_Node,
-  Primatives,
   R_AST_Node,
 } from ".";
 import { ast_name_to_key } from ".";
+
+import { Parsing_Error } from "./parsing_error_class";
+
+export function assert_is_ast_node(x: unknown): asserts x is R_AST_Node {
+  if (!is_object(x) || !("type" in x) || !("val" in x)) {
+    throw new Parsing_Error({ message: "Invalid AST node passed", cause: x });
+  }
+}
 
 export function IsNodeOfType<TypeName extends keyof AST_Name_To_Key>(
   node: R_AST_Node,
@@ -17,24 +23,13 @@ export function IsNodeOfType<TypeName extends keyof AST_Name_To_Key>(
   return node.type === ast_name_to_key[type];
 }
 
-export function is_primative(x: unknown): x is Primatives {
-  return (
-    typeof x === "string" || typeof x === "number" || typeof x === "boolean"
-  );
-}
-export function is_ast_leaf_node(node: unknown): node is Leaf_Node {
-  return (
-    is_object(node) &&
-    "val" in node &&
-    ["string", "boolean", "number"].includes(typeof node.val)
-  );
+const primative_type_keys = new Set(["c", "n", "b"]);
+export function is_primative_node(
+  node: R_AST_Node
+): node is AST_Node_By_Name["character" | "number" | "boolean"] {
+  return primative_type_keys.has(node.type);
 }
 
-export function is_ast_branch_node(node: unknown): node is Branch_Node {
-  return is_object(node) && "val" in node && Array.isArray(node.val);
-}
-
-type Named_Node = Required<Pick<R_AST_Node, "val" | "name">>;
-export function is_named_node(node: unknown): node is Named_Node {
-  return is_object(node) && "name" in node;
+export function is_ast_branch_node(node: R_AST_Node): node is Branch_Node {
+  return node.type === "e" && Array.isArray(node.val);
 }

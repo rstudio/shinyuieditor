@@ -1,8 +1,5 @@
 import type { Leaf_Node, Primatives, R_AST, R_AST_Node } from "r-ast-parsing";
-import {
-  is_ast_branch_node,
-  is_primative,
-} from "r-ast-parsing/src/node_identity_checkers";
+import { is_ast_branch_node } from "r-ast-parsing/src/node_identity_checkers";
 import { Parsing_Error } from "r-ast-parsing/src/parsing_error_class";
 
 import type { UnknownUiNode } from "../Shiny-Ui-Elements/UnknownUiFunction";
@@ -117,4 +114,10 @@ export function flatten_to_list(
     // node. This might happen if there's nested elements etc..
     return create_unknownUiFunction({ node, explanation: e.message });
   }
+}
+
+function is_primative(x: unknown): x is Primatives {
+  return (
+    typeof x === "string" || typeof x === "number" || typeof x === "boolean"
+  );
 }

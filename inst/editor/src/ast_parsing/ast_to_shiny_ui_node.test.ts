@@ -59,6 +59,61 @@ describe("Can handle unknown code properly", () => {
       expected_result
     );
   });
+
+  test("Unknown symbols as named arguments", () => {
+    expect(
+      ast_to_ui_node({
+        val: [
+          { val: "card_body_fill", type: "s" },
+          { name: "max_height", val: "card_height", type: "s" },
+        ],
+        type: "e",
+      })
+    ).toStrictEqual(
+      expect.objectContaining({
+        uiName: "bslib::card_body_fill",
+        uiArguments: {
+          max_height: {
+            uiName: "unknownUiFunction",
+            uiArguments: expect.objectContaining({
+              text: "card_height",
+            }),
+          },
+        },
+      })
+    );
+  });
+
+  test("Unknown functions as named arguments", () => {
+    expect(
+      ast_to_ui_node({
+        val: [
+          { val: "card_body_fill", type: "s" },
+          {
+            name: "max_height",
+            val: [
+              { val: "make_px", type: "s" },
+              { name: "num", val: 100, type: "n" },
+            ],
+            type: "e",
+          },
+        ],
+        type: "e",
+      })
+    ).toStrictEqual(
+      expect.objectContaining({
+        uiName: "bslib::card_body_fill",
+        uiArguments: {
+          max_height: {
+            uiName: "unknownUiFunction",
+            uiArguments: expect.objectContaining({
+              text: "make_px(num = 100)",
+            }),
+          },
+        },
+      })
+    );
+  });
 });
 
 describe("Can convert from ui definition node in ast to the the UI Specific ast", () => {

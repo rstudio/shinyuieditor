@@ -10,6 +10,8 @@ custom_input <- sliderInput(
   value = 30
 )
 
+card_height <- "200px"
+
 # Here's a comment about this app
 ui <- grid_page(
   layout = c(
@@ -25,7 +27,10 @@ ui <- grid_page(
   gap_size = "1rem",
   grid_card(
     area = "sidebar",
-    card_body_fill(custom_input)
+    card_body_fill(
+      custom_input,
+      max_height = card_height
+      )
   ),
   grid_card_plot(area = "newPlot")
 )

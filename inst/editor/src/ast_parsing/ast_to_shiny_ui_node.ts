@@ -9,7 +9,7 @@ import type { Branch_Node, R_AST_Node } from "r-ast-parsing";
 import type { Output_Server_Pos } from "r-ast-parsing/src/get_assignment_nodes";
 import {
   IsNodeOfType,
-  is_ast_branch_node, is_ast_leaf_node, is_named_node
+  is_ast_branch_node, is_primative_node
 } from "r-ast-parsing/src/node_identity_checkers";
 import { Parsing_Error } from "r-ast-parsing/src/parsing_error_class";
 
@@ -36,7 +36,9 @@ export function ast_to_ui_node(node: Branch_Node): ShinyUiNode {
   let uiChildren: ShinyUiNode[] = [];
 
   args.forEach((sub_node) => {
-    if (is_named_node(sub_node)) {
+    
+    // Check if it's a named argument
+    if (sub_node.name) {
       uiArguments[sub_node.name] = process_named_arg(sub_node);
     } else {
       uiChildren.push(process_unnamed_arg(sub_node));
@@ -59,9 +61,11 @@ export function ast_to_ui_node(node: Branch_Node): ShinyUiNode {
 function process_named_arg(
   node: R_AST_Node
 ) {
-  if (is_ast_leaf_node(node)) {
+
+  if (is_primative_node(node)) {
     return node.val;
   }
+
 
   if (get_node_is_array(node)) {
     return flatten_to_array(node);

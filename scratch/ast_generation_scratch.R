@@ -3,9 +3,13 @@ library(lobstr)
 library(shiny)
 library(bslib)
 
-  my_custom_fn <- function(foo) {span(foo)}
+
+make_px <- function(num) {paste0(num, "px")}
+  card_height <- "200px"
 rlang::expr(
-   card_body_fill(my_custom_fn(foo = "bar"))
+   card_body_fill(
+      max_height = make_px(100)
+      )
 )|> 
  serialize_ast() |> 
  jsonlite::toJSON(auto_unbox = TRUE)
