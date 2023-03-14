@@ -1,5 +1,5 @@
 import type { AST_Node_By_Name, Expression_Node } from "r-ast-parsing";
-import { IsNodeOfType } from "r-ast-parsing";
+import { IsNodeOfType } from "r-ast-parsing/src/node_identity_checkers";
 
 import type { TextUiNode } from "../../Shiny-Ui-Elements/TextNode";
 

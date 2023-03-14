@@ -1,5 +1,5 @@
 import type { R_AST_Node } from "r-ast-parsing";
-import { IsNodeOfType } from "r-ast-parsing";
+import { IsNodeOfType } from "r-ast-parsing/src/node_identity_checkers";
 
 import type { Text_Node, Text_Node_Tag } from "./build_text_node";
 import { valid_text_node_tags } from "./build_text_node";

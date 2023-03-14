@@ -1,12 +1,14 @@
 import type { ShinyUiNode } from "editor";
-import { isShinyUiNode } from "editor/src/Shiny-Ui-Elements/isShinyUiNode";
-import { normalize_ui_name } from "editor/src/Shiny-Ui-Elements/normalize_ui_name";
 import type {
   UiArgumentsObject
+} from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
+import {
+  shinyUiNameToNamespacedName
 } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
 import type { Branch_Node, R_AST_Node } from "r-ast-parsing";
 import type { Output_Server_Pos } from "r-ast-parsing/src/get_assignment_nodes";
 import {
+  IsNodeOfType,
   is_ast_branch_node, is_ast_leaf_node, is_named_node
 } from "r-ast-parsing/src/node_identity_checkers";
 import { Parsing_Error } from "r-ast-parsing/src/parsing_error_class";
@@ -41,15 +43,17 @@ export function ast_to_ui_node(node: Branch_Node): ShinyUiNode {
     }
   });
 
-  const full_node = {
-    uiName: normalize_ui_name(fn_name.val),
+  const node_normalized_name = shinyUiNameToNamespacedName.get(fn_name.val);
+
+  if (node_normalized_name === undefined) {
+    return create_unknownUiFunction({ node });
+  }
+
+  return {
+    uiName: node_normalized_name,
     uiArguments,
     uiChildren: uiChildren.length > 0 ? uiChildren: undefined,
   } satisfies ShinyUiNode;
-
-  if (!isShinyUiNode(full_node)) return create_unknownUiFunction({ node });
-
-  return full_node;
 }
 
 function process_named_arg(
@@ -74,9 +78,15 @@ function process_unnamed_arg(
   node: R_AST_Node,
   output_positions?: Output_Server_Pos
 ): ShinyUiNode {
+
+  if (IsNodeOfType(node, "symbol")) {
+    return create_unknownUiFunction({ node, explanation: "Unknown symbol" });
+  }
+
   if (is_raw_text_node(node)) {
     return build_text_node(node);
   }
+
   if (is_ast_branch_node(node)) {
     return ast_to_ui_node(node);
   }

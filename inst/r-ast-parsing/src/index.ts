@@ -1,5 +1,3 @@
-import type { Output_Server_Pos } from "./get_assignment_nodes";
-
 export type Primatives = string | number | boolean;
 
 export type Script_Position = [
@@ -19,7 +17,7 @@ type Node_Vals_By_Key = {
   e: R_AST; // another node/expression
 };
 
-const ast_name_to_key = {
+export const ast_name_to_key = {
   symbol: "s",
   character: "c",
   boolean: "b",
@@ -27,14 +25,8 @@ const ast_name_to_key = {
   unknown: "u",
   expression: "e",
 } as const;
-type AST_Name_To_Key = typeof ast_name_to_key;
 
-export function IsNodeOfType<TypeName extends keyof AST_Name_To_Key>(
-  node: R_AST_Node,
-  type: TypeName
-): node is AST_Node_By_Name[TypeName] {
-  return node.type === ast_name_to_key[type];
-}
+export type AST_Name_To_Key = typeof ast_name_to_key;
 
 export type AST_Node_By_Key = {
   [key in keyof Node_Vals_By_Key]: {

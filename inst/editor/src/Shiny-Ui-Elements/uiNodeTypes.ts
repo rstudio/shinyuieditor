@@ -1,5 +1,3 @@
-import { type } from "@testing-library/user-event/dist/types/setup/api";
-import { string } from "ts-pattern/dist/patterns";
 import type { Expand, PickKeyFn } from "util-functions/src/TypescriptUtils";
 
 import type { ArgsToDynamicInfo } from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";
@@ -135,10 +133,25 @@ export type ShinyUiNodeCategories = ShinyUiNodeInfo["category"];
 /**
  * Names of all the available Ui elements
  */
-
 export const shinyUiNames = new Set<string>(
   shinyUiNodeInfoArray.map(({ uiName }) => uiName)
 );
+
+/**
+ * Go from either an unnamespaced name (e.g. `sliderInput`) or a already
+ * namespaced name (`shiny::sliderInput`)  to the namespaced name. Also acts as
+ * a check for if a node is in known functions
+ * */
+export const shinyUiNameToNamespacedName = new Map<string, string>([
+  ...(shinyUiNodeInfoArray.map(({ name, uiName }) => [name, uiName]) as [
+    string,
+    string
+  ][]),
+  ...(shinyUiNodeInfoArray.map(({ uiName }) => [uiName, uiName]) as [
+    string,
+    string
+  ][]),
+]);
 
 /** A ui node type that type checks its values. Used for things like declaring test ui trees etc.. */
 export type KnownShinyUiNode = {
