@@ -4,8 +4,9 @@ import UiNode from "../../../components/UiNode/UiNode";
 import { DropWatcherPanel } from "../../../DragAndDropHelpers/DropWatcherPanel";
 import { makeChildPath } from "../../nodePathUtils";
 import type {
-  ShinyUiNodeNames,
+  KnownShinyUiNode,
   NodePath,
+  ShinyUiNodeNames,
   ShinyUiParentNode,
 } from "../../uiNodeTypes";
 
@@ -49,3 +50,26 @@ export function CardChildrenWithDropNodes({
     </>
   );
 }
+
+// Find the Ui nodes that have a height argument in them
+type NodesWithHeightSettings = Exclude<
+  {
+    [Node in KnownShinyUiNode as Node["uiName"]]: Node["uiArguments"] extends {
+      height?: any;
+    }
+      ? Node["uiName"]
+      : never;
+  }[KnownShinyUiNode["uiName"]],
+  // Ignore bslib specific nodes
+  `bslib::card_${string}`
+>;
+
+// This is here to spit a typescript error if we add a new node with a height
+// property so we know to add it to `CardUtils.module.css` and the flex-targeted
+// children
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const nodes_that_can_flex: Record<NodesWithHeightSettings, true> = {
+  "DT::DTOutput": true,
+  "plotly::plotlyOutput": true,
+  "shiny::plotOutput": true,
+};

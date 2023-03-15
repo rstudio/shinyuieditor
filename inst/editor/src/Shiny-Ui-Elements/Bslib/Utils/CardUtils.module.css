@@ -22,9 +22,12 @@
   overflow: auto;
 }
 
-/* Make children take advantage of flex sizing. This maybe should be a less
-powerful selector to allow easier overloading but it seems fine for now */
-.card_children_container > * {
+/* Make children take advantage of flex sizing. Only add grow behavior for nodes
+with "opinionated heights". These were extracted with a type check done in
+ChildrenWithDropNotes.tsx  */
+.card_children_container > [aria-label="shiny::plotOutput"],
+.card_children_container > [aria-label="DT::DTOutput"],
+.card_children_container > [aria-label="plotly::plotlyOutput"] {
   flex: 1;
 }
 
