@@ -6,6 +6,7 @@ import type { ArgsToDynamicInfo } from "../components/Inputs/SettingsFormBuilder
 import type { shinyActionButtonInfo } from "./ShinyActionButton";
 import type {
   ServerBindings,
+  ShinyUiNode,
   StateUpdateSubscribers,
   UiArgumentsObject,
   UiNodeComponent,
@@ -128,6 +129,17 @@ type CommonInfo<
   UiComponent: Comp;
 
   takesChildren: TakesChildren;
+
+  /**
+   * Optional way of defining what the default value for a node is. This will be
+   * used when a node is dragged from the elements palette. Can be useful for
+   * filling in various settings with typically desired presets or adding
+   * children. If this is not defined the node is generated using the arguments
+   * info and defined default values
+   */
+  default_node?: { uiArguments: Args } & (TakesChildren extends true
+    ? { uiChildren: Array<ShinyUiNode> }
+    : {});
 
   /**
    * Optional example for args. Primarily used so we can extrac the types from

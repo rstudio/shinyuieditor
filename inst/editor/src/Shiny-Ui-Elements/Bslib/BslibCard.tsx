@@ -44,6 +44,23 @@ export const bslibCardInfo = nodeInfoFactory<BslibCardArguments>()({
   iconSrc: icon,
   category: "Containers",
   description: "Bootstrap card with smart fill behavior",
+  default_node: {
+    uiArguments: { full_screen: true },
+    uiChildren: [
+      {
+        uiName: "bslib::card_header",
+        uiArguments: {},
+        uiChildren: [
+          {
+            uiName: "textNode",
+            uiArguments: {
+              contents: "Header",
+            },
+          },
+        ],
+      },
+    ],
+  },
 });
 
 type BslibCardNode = Extract<KnownShinyUiNode, { uiName: "bslib::card" }>;
