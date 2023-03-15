@@ -22,6 +22,12 @@
   overflow: auto;
 }
 
+/* Make children take advantage of flex sizing. This maybe should be a less
+powerful selector to allow easier overloading but it seems fine for now */
+.card_children_container > * {
+  flex: 1;
+}
+
 .empty_msg {
   position: absolute;
   display: grid;
