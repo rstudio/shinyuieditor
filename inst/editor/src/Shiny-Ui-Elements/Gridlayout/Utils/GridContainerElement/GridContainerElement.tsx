@@ -6,14 +6,15 @@ import { usePlaceNode } from "../../../../state/usePlaceNode";
 import { findEmptyCells } from "../../../../utils/gridTemplates/findItemLocation";
 import { areasToItemLocations } from "../../../../utils/gridTemplates/itemLocations";
 import type { GridItemExtent } from "../../../../utils/gridTemplates/types";
+import { isBslibCard } from "../../../Bslib/BslibCard";
 import { makeChildPath } from "../../../nodePathUtils";
-import type { UiNodeComponent } from "../../../uiNodeTypes";
+import type { ShinyUiNode, UiNodeComponent } from "../../../uiNodeTypes";
+import type { GridlayoutCardNode } from "../../GridlayoutCard";
 import { AreaOverlay } from "../AreaOverlay";
 import EditableGridContainer from "../EditableGridContainer/EditableGridContainer";
 import type { TemplatedGridProps } from "../EditableGridContainer/TemplatedGridProps";
 import { GridCell } from "../GridCell";
 import { toStringLoc } from "../helpers";
-import type { GridItemNode } from "../isValidGridItem";
 import { isValidGridItem } from "../isValidGridItem";
 import { NameNewPanelModal } from "../NameNewPanelModal";
 import { LayoutDispatchContext } from "../useSetLayout";
@@ -25,7 +26,7 @@ import type { GridLayoutAction } from "./gridLayoutReducer";
 import { gridLayoutReducer } from "./gridLayoutReducer";
 import {
   convertTemplatedLayoutToGridlayoutArgs,
-  parseGridLayoutArgs,
+  parseGridLayoutArgs
 } from "./layoutParsing";
 import classes from "./styles.module.css";
 
@@ -110,32 +111,30 @@ export const GridContainerElement: UiNodeComponent<
     // If we're using a grid-aware node already then we just need to put the
     // new name into its settings. Otherwise automatically wrap the item in a
     // grid container
-    const dropped_is_grid_aware = isValidGridItem(node);
-    if (dropped_is_grid_aware) {
-      const argsWithArea: GridItemNode["uiArguments"] = {
+
+
+    let node_to_add: ShinyUiNode = node;
+    
+    if (isValidGridItem(node)) {
+      node_to_add.uiArguments = {
         ...node.uiArguments,
         area: name,
       };
-      node.uiArguments = argsWithArea;
+    } else if (isBslibCard(node)) {
+      const {uiArguments, uiChildren} = node;
+      node_to_add = {
+        uiName: "gridlayout::grid_card",
+        uiArguments: {area: name, ...uiArguments},
+        uiChildren
+      } satisfies GridlayoutCardNode
     }
+   
 
     // Let the state know we have a new child node
     place_node({
       // Place in the last position
       path: makeChildPath(path, uiChildren?.length ?? 0),
-      node: dropped_is_grid_aware
-        ? node
-        : {
-            uiName: "gridlayout::grid_card",
-            uiArguments: { area: name },
-            uiChildren: [
-              {
-                uiName: "bslib::card_body_fill",
-                uiArguments: {},
-                uiChildren: [node],
-              },
-            ],
-          },
+      node: node_to_add,
       currentPath,
     });
 

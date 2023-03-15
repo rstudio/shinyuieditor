@@ -1,10 +1,9 @@
-import containerIcon from "../../../assets/icons/shinyContainer.png";
 import type { BslibCardArguments } from "../../Bslib/BslibCard";
 import { bslib_card_settings_info } from "../../Bslib/BslibCard";
 import { BslibCardContainer } from "../../Bslib/BslibCardContainer";
 import { render_card_elements } from "../../Bslib/Utils/render_card_elements";
 import { nodeInfoFactory } from "../../nodeInfoFactory";
-import type { UiNodeComponent } from "../../uiNodeTypes";
+import type { KnownShinyUiNode, UiNodeComponent } from "../../uiNodeTypes";
 import { grid_container_nodes } from "../grid_container_nodes";
 import { useGridItemSwapping } from "../Utils/useGridItemSwapping";
 
@@ -53,7 +52,11 @@ export const gridlayoutCardInfo = nodeInfoFactory<GridBslibCardSettings>()({
     ...bslib_card_settings_info,
   },
   allowedParents: grid_container_nodes,
-  iconSrc: containerIcon,
   category: "gridlayout",
   description: "bslib styled card for grid layouts",
 });
+
+export type GridlayoutCardNode = Extract<
+  KnownShinyUiNode,
+  { uiName: "gridlayout::grid_card" }
+>;

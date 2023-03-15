@@ -1,7 +1,11 @@
 import icon from "../../assets/icons/shinyContainer.png";
 import type { ArgsToDynamicInfo } from "../../components/Inputs/SettingsFormBuilder/inputFieldTypes";
 import { nodeInfoFactory } from "../nodeInfoFactory";
-import type { UiNodeComponent } from "../uiNodeTypes";
+import type {
+  KnownShinyUiNode,
+  ShinyUiNode,
+  UiNodeComponent,
+} from "../uiNodeTypes";
 
 import { BslibCardContainer } from "./BslibCardContainer";
 import { render_card_elements } from "./Utils/render_card_elements";
@@ -41,3 +45,9 @@ export const bslibCardInfo = nodeInfoFactory<BslibCardArguments>()({
   category: "Containers",
   description: "Bootstrap card with smart fill behavior",
 });
+
+type BslibCardNode = Extract<KnownShinyUiNode, { uiName: "bslib::card" }>;
+
+export function isBslibCard(node: ShinyUiNode): node is BslibCardNode {
+  return node.uiName === "bslib::card";
+}
