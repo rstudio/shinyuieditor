@@ -7,6 +7,8 @@
 
 ### Minor new features and improvements
 
+- Cards now have a simple header by default
+
 ### Bug fixes
 
 - In vscode, if ui changes are made to the app the selection of output definitions and addition of new output definitions no longer breaks.
@@ -14,6 +16,8 @@
 - Content of cards can no longer spill over obscuring other elements like grid tract resizers.
 - The visual indicator for swapping positions of items on the grid no longer flickers and actually is legible.
 - The width argument of shiny text input elements is now reflected in the main editor view.
+- plot outputs no longer have a fixed width of `200px` when their `width` argument is unset, instead filling width of container as they do in running app.
+- Code/ functions that the editor doesn't know how to deal with (e.g. custom functions or non-implemented ui elements) no longer crash app to blank screen.
 
 # shinyuieditor 0.4.0
 
