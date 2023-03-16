@@ -1,11 +1,7 @@
-import icon from "../../assets/icons/shinyRadiobuttons.png";
+import icon from "../../assets/icons/shinyRadioButtons.png";
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
 import type { NamedList } from "../../components/Inputs/ListInput/NamedListInput";
-import {
-  makeInputIdInfo,
-  makeLabelInputInfo,
-} from "../commonSettingsTemplates";
-import type { UiComponentInfo } from "../uiNodeTypes";
+import { nodeInfoFactory } from "../nodeInfoFactory";
 
 import ShinyRadioButtons from "./ShinyRadioButtons";
 
@@ -16,12 +12,23 @@ export type ShinyRadioButtonsProps = {
   width?: CSSMeasure;
 };
 
-export const shinyRadioButtonsInfo: UiComponentInfo<ShinyRadioButtonsProps> = {
+export const shinyRadioButtonsInfo = nodeInfoFactory<ShinyRadioButtonsProps>()({
+  library: "shiny",
+  name: "radioButtons",
   title: "Radio Buttons",
+  takesChildren: false,
   UiComponent: ShinyRadioButtons,
   settingsInfo: {
-    inputId: makeInputIdInfo("myRadioButtons"),
-    label: makeLabelInputInfo("Radio Buttons"),
+    inputId: {
+      inputType: "string",
+      label: "inputId",
+      defaultValue: "myRadioButtons",
+    },
+    label: {
+      inputType: "string",
+      label: "label",
+      defaultValue: "Radio Buttons",
+    },
     choices: {
       label: "Choices",
       inputType: "list",
@@ -44,9 +51,8 @@ export const shinyRadioButtonsInfo: UiComponentInfo<ShinyRadioButtonsProps> = {
       inputIdKey: "inputId",
     },
   },
-  acceptsChildren: false,
   iconSrc: icon,
   category: "Inputs",
   description:
     "Create a set of radio buttons used to select an item from a list.",
-};
+});

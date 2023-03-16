@@ -1,7 +1,7 @@
 import produce from "immer";
+import { matrixDimensions } from "util-functions/src/matrix-helpers";
 
-import type { TemplatedGridProps } from "../../components/Grids/EditableGridContainer/TemplatedGridProps";
-import { matrixDimensions } from "../matrix-helpers";
+import type { TemplatedGridProps } from "../../Shiny-Ui-Elements/Gridlayout/Utils/EditableGridContainer/TemplatedGridProps";
 
 /**
  *

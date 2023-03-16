@@ -1,8 +1,8 @@
 import type { TemplateInfo } from "communication-types/src/AppTemplates";
 
-import type { ShinyUiNode } from "../../../Shiny-Ui-Elements/uiNodeTypes";
+import type { ShinyUiParentNode } from "../../../Shiny-Ui-Elements/uiNodeTypes";
 
-const navbarTree: ShinyUiNode = {
+const navbarTree: ShinyUiParentNode = {
   uiName: "gridlayout::grid_page",
   uiArguments: {
     row_sizes: ["70px", "1fr", "1fr"],
@@ -13,34 +13,43 @@ const navbarTree: ShinyUiNode = {
   uiChildren: [
     {
       uiName: "gridlayout::grid_card",
-      uiArguments: {
-        area: "sidebar",
-        title: "Settings",
-        item_gap: "12px",
-      },
+      uiArguments: { area: "sidebar" },
       uiChildren: [
         {
-          uiName: "shiny::sliderInput",
-          uiArguments: {
-            inputId: "numChicks",
-            label: "Number of Chicks",
-            min: 1,
-            max: 15,
-            value: 5,
-            width: "100%",
-            step: 1,
-          },
+          uiName: "bslib::card_header",
+          uiArguments: {},
+          uiChildren: [
+            { uiName: "textNode", uiArguments: { contents: "Settings" } },
+          ],
         },
         {
-          uiName: "shiny::radioButtons",
-          uiArguments: {
-            inputId: "distFacet",
-            label: "Facet Distribution By",
-            choices: {
-              "Diet Type": "Diet",
-              "Measure Time": "Time",
+          uiName: "bslib::card_body_fill",
+          uiArguments: {},
+          uiChildren: [
+            {
+              uiName: "shiny::sliderInput",
+              uiArguments: {
+                inputId: "numChicks",
+                label: "Number of Chicks",
+                min: 1,
+                max: 15,
+                value: 5,
+                width: "100%",
+                step: 1,
+              },
             },
-          },
+            {
+              uiName: "shiny::radioButtons",
+              uiArguments: {
+                inputId: "distFacet",
+                label: "Facet Distribution By",
+                choices: {
+                  "Diet Type": "Diet",
+                  "Measure Time": "Time",
+                },
+              },
+            },
+          ],
         },
       ],
     },
@@ -71,7 +80,7 @@ const navbarTree: ShinyUiNode = {
 export const chickWeightsGridTemplate: TemplateInfo = {
   title: "Chick Weights Grid",
   description: "Plots investigating the ChickWeights built-in dataset",
-  uiTree: navbarTree as ShinyUiNode,
+  uiTree: navbarTree,
   otherCode: {
     serverLibraries: ["ggplot2"],
     serverFunctionBody: ` 

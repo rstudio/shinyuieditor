@@ -6,7 +6,10 @@ import type { PlotlyOutputSettings } from "./index";
 
 import "./styles.scss";
 
-const PlotlyPlotlyOutput: UiNodeComponent<PlotlyOutputSettings> = ({
+const PlotlyPlotlyOutput: UiNodeComponent<
+  PlotlyOutputSettings,
+  { TakesChildren: false }
+> = ({
   uiArguments: { outputId, width = "100%", height = "400px" },
   wrapperProps,
 }) => {

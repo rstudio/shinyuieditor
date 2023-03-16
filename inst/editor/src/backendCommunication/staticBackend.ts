@@ -1,13 +1,17 @@
 import type { BackendConnection, MessageDispatcher } from "communication-types";
 
+import type { ShinyUiRootNode } from "../Shiny-Ui-Elements/uiNodeTypes";
+
 import { getClientsideOnlyTree } from "./getClientsideOnlyTree";
 
 export function setupStaticBackend({
   messageDispatch,
   showMessages,
+  defaultTree,
 }: {
   messageDispatch: MessageDispatcher;
   showMessages: boolean;
+  defaultTree: ShinyUiRootNode;
 }) {
   // eslint-disable-next-line no-console
   const logger = showMessages ? console.log : (...args: any[]) => {};
@@ -17,7 +21,7 @@ export function setupStaticBackend({
       logger("Static sendMsg()", msg);
       switch (msg.path) {
         case "READY-FOR-STATE": {
-          getClientsideOnlyTree().then((ui_tree) => {
+          getClientsideOnlyTree(defaultTree).then((ui_tree) => {
             if (ui_tree === "TEMPLATE_CHOOSER") {
               messageDispatch.dispatch("TEMPLATE_CHOOSER", "USER-CHOICE");
             } else {

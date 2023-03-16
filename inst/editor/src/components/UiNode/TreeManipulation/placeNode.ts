@@ -1,6 +1,6 @@
 import produce from "immer";
 
-import type { ShinyUiNode } from "../../../main";
+import type { ShinyUiNode } from "../../../Shiny-Ui-Elements/uiNodeTypes";
 
 import type { AddNodeArguments } from "./addNodeMutating";
 import { addNodeMutating } from "./addNodeMutating";
@@ -42,5 +42,5 @@ export function placeNodeMutating(
     return;
   }
 
-  addNodeMutating(tree, { path, node: args.node });
+  addNodeMutating(tree, { path, node });
 }

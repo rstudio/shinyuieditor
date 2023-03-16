@@ -1,6 +1,6 @@
 import UiNode from "../../components/UiNode/UiNode";
 import { makeChildPath, pathToString } from "../nodePathUtils";
-import type { ShinyUiChildren, NodePath } from "../uiNodeTypes";
+import type { NodePath, ShinyUiNode } from "../uiNodeTypes";
 
 /**
  * Render basic Ui children
@@ -11,7 +11,7 @@ export function RenderUiChildren({
   uiChildren,
   parentPath,
 }: {
-  uiChildren: ShinyUiChildren;
+  uiChildren: Array<ShinyUiNode>;
   parentPath: NodePath;
 }) {
   return (

@@ -1,11 +1,7 @@
 import icon from "../../assets/icons/shinyCheckgroup.png";
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
 import type { NamedList } from "../../components/Inputs/ListInput/NamedListInput";
-import {
-  makeInputIdInfo,
-  makeLabelInputInfo,
-} from "../commonSettingsTemplates";
-import type { UiComponentInfo } from "../uiNodeTypes";
+import { nodeInfoFactory } from "../nodeInfoFactory";
 
 import ShinyCheckboxGroupInput from "./ShinyCheckboxGroupInput";
 
@@ -16,13 +12,24 @@ export type ShinyCheckboxGroupInputProps = {
   width?: CSSMeasure;
 };
 
-export const shinyCheckboxGroupInputInfo: UiComponentInfo<ShinyCheckboxGroupInputProps> =
-  {
+export const shinyCheckboxGroupInputInfo =
+  nodeInfoFactory<ShinyCheckboxGroupInputProps>()({
+    library: "shiny",
+    name: "checkboxGroupInput",
     title: "Checkbox Group",
+    takesChildren: false,
     UiComponent: ShinyCheckboxGroupInput,
     settingsInfo: {
-      inputId: makeInputIdInfo("myCheckboxGroup"),
-      label: makeLabelInputInfo("Checkbox Group"),
+      inputId: {
+        inputType: "string",
+        label: "inputId",
+        defaultValue: "myCheckboxGroup",
+      },
+      label: {
+        inputType: "string",
+        label: "label",
+        defaultValue: "Checkbox Group",
+      },
       choices: {
         label: "Choices",
         inputType: "list",
@@ -31,15 +38,21 @@ export const shinyCheckboxGroupInputInfo: UiComponentInfo<ShinyCheckboxGroupInpu
           "choice b": "b",
         },
       },
+      width: {
+        inputType: "cssMeasure",
+        label: "Width",
+        defaultValue: "100%",
+        units: ["%", "px", "rem"],
+        optional: true,
+      },
     },
     serverBindings: {
       inputs: {
         inputIdKey: "inputId",
       },
     },
-    acceptsChildren: false,
     iconSrc: icon,
     category: "Inputs",
     description:
       "Create a group of checkboxes that can be used to toggle multiple choices independently. The server will receive the input as a character vector of the selected values.",
-  };
+  });

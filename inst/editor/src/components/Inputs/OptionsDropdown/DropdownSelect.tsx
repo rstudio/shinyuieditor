@@ -1,7 +1,8 @@
 import React from "react";
 
-import { removeDuplicates } from "../../../utils/array-helpers";
-import type { InputComponentProps } from "../SettingsFormBuilder/inputFieldTypes";
+import { removeDuplicates } from "util-functions/src/arrays";
+
+import type { InputComponentByType } from "../SettingsFormBuilder/inputFieldTypes";
 import { makeLabelId } from "../SettingsFormBuilder/inputFieldTypes";
 import "./styles.scss";
 
@@ -18,7 +19,7 @@ export function DropdownSelect({
   choices,
   onChange,
   value: selected,
-}: InputComponentProps<DropdownOption, { choices: DropdownOption[] }>) {
+}: InputComponentByType<"dropdown">) {
   // Reset the current selection if it gets out of sync with the options
   React.useEffect(() => {
     if (selected === DEFAULT_DROPDOWN_CHOICE) {

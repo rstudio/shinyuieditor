@@ -16,27 +16,34 @@ const basicGridApp: ShinyUiNode = {
   uiChildren: [
     {
       uiName: "gridlayout::grid_card",
-      uiArguments: {
-        area: "A",
-        title: "A",
-      },
-      uiChildren: [],
+      uiArguments: { area: "A" },
+      uiChildren: [
+        {
+          uiName: "bslib::card_header",
+          uiArguments: {},
+          uiChildren: [{ uiName: "textNode", uiArguments: { contents: "A" } }],
+        },
+      ],
     },
     {
       uiName: "gridlayout::grid_card",
       uiArguments: {
         area: "B",
-        title: "B",
       },
-      uiChildren: [],
+      uiChildren: [
+        {
+          uiName: "bslib::card_header",
+          uiArguments: {},
+          uiChildren: [{ uiName: "textNode", uiArguments: { contents: "B" } }],
+        },
+      ],
     },
     {
       uiName: "gridlayout::grid_card",
       uiArguments: {
         area: "C",
-        title: "C",
       },
-      uiChildren: [],
+      uiChildren: [{ uiName: "textNode", uiArguments: { contents: "C" } }],
     },
   ],
 };
@@ -50,7 +57,8 @@ test("Can resize tracts of the layout by dragging", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "Elements" })).toBeVisible();
 
   // ====== Test that we can resize tracts of the layout by dragging =======
-  const cardASelector = page.getByText(/^A$/);
+  const cardASelector = page.locator(`[data-sue-path="0"]`);
+
   const cardAPreWidth = (await cardASelector.boundingBox())?.width as number;
   expect(cardAPreWidth).not.toBeUndefined();
 
@@ -79,6 +87,11 @@ test("Can update the positions of cards by dragging edges", async ({
 
   // Select the B card (doing this so it's easier to query for its size)
   await page.getByText(/^B$/).click();
+  // Now make sure we've selected the card itself not one of its elements
+  await page
+    .locator(`[aria-label="Path to selected node"]`)
+    .getByText(/grid card/i)
+    .click();
 
   const cardSelector = page.locator(`[data-is-selected-node="true"]`);
   const startingCardHeight = (await cardSelector.boundingBox())!.height;

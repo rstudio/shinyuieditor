@@ -1,7 +1,7 @@
 import React from "react";
 
 import { DownSpinnerButton, UpSpinnerButton } from "../../Icons";
-import type { InputComponentProps } from "../SettingsFormBuilder/inputFieldTypes";
+import type { InputComponentByType } from "../SettingsFormBuilder/inputFieldTypes";
 import { makeLabelId } from "../SettingsFormBuilder/inputFieldTypes";
 import "./NumberInput.scss";
 
@@ -10,7 +10,7 @@ export function NumberInput({
   label,
   value,
   onChange,
-}: InputComponentProps<number>) {
+}: InputComponentByType<"number">) {
   return (
     <NumberInputSimple
       id={id}

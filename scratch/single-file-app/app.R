@@ -1,51 +1,76 @@
 library(shiny)
 library(gridlayout)
+library(bslib)
 
 # Here's a comment about this app
 ui <- grid_page(
   layout = c(
-    "header  header   ",
-    "sidebar bluePlot2",
-    "sidebar redPlot  "
+    "header   header ",
+    "sidebar  newPlot",
+    "cardDemo redPlot"
   ),
   row_sizes = c(
-    "175px",
-    "0.46fr",
-    "1.54fr"
+    "100px",
+    "0.97fr",
+    "1.03fr"
   ),
   col_sizes = c(
-    "425px",
+    "300px",
     "1fr"
   ),
   gap_size = "1rem",
   grid_card(
     area = "sidebar",
-    item_alignment = "top",
-    title = "Settings",
-    item_gap = "12px",
-    sliderInput(
-      inputId = "bins",
-      label = "Number of Bins ",
-      min = 12,
-      max = 100,
-      value = 30,
-      width = "100%"
+    card_body(
+      sliderInput(
+        inputId = "bins",
+        label = "Number of Bins ",
+        min = 12,
+        max = 100,
+        value = 30,
+        width = "100%"
+      )
     ),
-    actionButton(inputId = "redraw", label = "Redraw"),
-    textInput(
-      inputId = "bins2",
-      label = "Text Input",
-      value = ""
+    card_body_fill(
+      numericInput(
+        inputId = "myNumericInput",
+        label = "Numeric Input",
+        value = 5
+      ),
+      actionButton(inputId = "redraw", label = "Redraw"),
+      textInput(
+        inputId = "bins2",
+        label = "Text Input",
+        value = ""
+      )
     )
   ),
   grid_card_text(
     area = "header",
-    content = "Single File App",
+    content = "My demo app",
     alignment = "start",
     is_title = FALSE
   ),
-  grid_card_plot(area = "bluePlot2"),
-  grid_card_plot(area = "redPlot")
+  grid_card_plot(area = "redPlot"),
+  grid_card_plot(area = "newPlot"),
+  grid_card(
+    area = "cardDemo",
+    card_header(h2("My Card header")),
+    card_body_fill(
+      numericInput(
+        inputId = "myNumericInput",
+        label = "Numeric Input",
+        value = 5
+      )
+    ),
+    card_footer(
+      textInput(
+        inputId = "myTextInput",
+        label = "Text Input",
+        value = ""
+      )
+    )
+  )
 )
 
 other_ui <- "hello there"

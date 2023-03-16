@@ -33,21 +33,35 @@ const navbarTree: ShinyUiNode = {
           uiChildren: [
             {
               uiName: "gridlayout::grid_card",
-              uiArguments: {
-                area: "num_chicks",
-              },
+              uiArguments: { area: "num_chicks" },
               uiChildren: [
                 {
-                  uiName: "shiny::sliderInput",
-                  uiArguments: {
-                    inputId: "numChicks",
-                    label: "Number of chicks",
-                    min: 1,
-                    max: 15,
-                    value: 5,
-                    step: 1,
-                    width: "100%",
-                  },
+                  uiName: "bslib::card_header",
+                  uiArguments: {},
+                  uiChildren: [
+                    {
+                      uiName: "textNode",
+                      uiArguments: { contents: "Settings" },
+                    },
+                  ],
+                },
+                {
+                  uiName: "bslib::card_body_fill",
+                  uiArguments: {},
+                  uiChildren: [
+                    {
+                      uiName: "shiny::sliderInput",
+                      uiArguments: {
+                        inputId: "numChicks",
+                        label: "Number of chicks",
+                        min: 1,
+                        max: 15,
+                        value: 5,
+                        step: 1,
+                        width: "100%",
+                      },
+                    },
+                  ],
                 },
               ],
             },
@@ -86,19 +100,34 @@ const navbarTree: ShinyUiNode = {
               uiName: "gridlayout::grid_card",
               uiArguments: {
                 area: "facetOption",
-                title: "Distribution Plot Options",
               },
               uiChildren: [
                 {
-                  uiName: "shiny::radioButtons",
-                  uiArguments: {
-                    inputId: "distFacet",
-                    label: "Facet distribution by",
-                    choices: {
-                      "Diet Option": "Diet",
-                      "Measure Time": "Time",
+                  uiName: "bslib::card_header",
+                  uiArguments: {},
+                  uiChildren: [
+                    {
+                      uiName: "textNode",
+                      uiArguments: { contents: "Distribution Plot Options" },
                     },
-                  },
+                  ],
+                },
+                {
+                  uiName: "bslib::card_body_fill",
+                  uiArguments: {},
+                  uiChildren: [
+                    {
+                      uiName: "shiny::radioButtons",
+                      uiArguments: {
+                        inputId: "distFacet",
+                        label: "Facet distribution by",
+                        choices: {
+                          "Diet Option": "Diet",
+                          "Measure Time": "Time",
+                        },
+                      },
+                    },
+                  ],
                 },
               ],
             },

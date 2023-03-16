@@ -1,17 +1,23 @@
-import type React from "react";
+import type { Expand, PickKeyFn } from "util-functions/src/TypescriptUtils";
 
-import type { DefaultSettingsFromInfo } from "../components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
-import type { CustomFormRenderFn } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
-import type { DynamicFieldInfo } from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";
+import type { ArgsToDynamicInfo } from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";
+import type { useMakeWrapperProps } from "../components/UiNode/useMakeWrapperProps";
 import type { DeleteAction, UpdateAction } from "../state/app_info";
-import type { PickKeyFn } from "../TypescriptUtils";
 
+import {
+  bslibCardBodyInfo,
+  bslibCardFooterInfo,
+  bslibCardHeaderInfo,
+  bslibCardInfo,
+} from "./Bslib";
 import { dtDTOutputInfo } from "./DtDtOutput";
-import { gridlayoutGridCardInfo } from "./GridlayoutGridCard";
-import { gridlayoutGridCardPlotInfo } from "./GridlayoutGridCardPlot";
-import { gridlayoutTextPanelInfo } from "./GridlayoutGridCardText";
-import { gridlayoutGridContainerInfo } from "./GridlayoutGridContainer";
-import { gridlayoutGridPageInfo } from "./GridlayoutGridPage";
+import {
+  gridlayoutCardInfo,
+  gridlayoutGridCardPlotInfo,
+  gridlayoutGridContainerInfo,
+  gridlayoutGridPageInfo,
+  gridlayoutTextPanelInfo,
+} from "./Gridlayout";
 import { plotlyPlotlyOutputInfo } from "./PlotlyPlotlyOutput";
 import { shinyActionButtonInfo } from "./ShinyActionButton";
 import { shinyCheckboxGroupInputInfo } from "./ShinyCheckboxGroupInput";
@@ -27,96 +33,26 @@ import { shinyTabsetPanelInfo } from "./ShinyTabsetPanel";
 import { shinyTextInputInfo } from "./ShinyTextInput";
 import { shinyTextOutputInfo } from "./ShinyTextOutput";
 import { shinyUiOutputInfo } from "./ShinyUiOutput";
+import { textNodeInfo } from "./TextNode";
 import { unknownUiFunctionInfo } from "./UnknownUiFunction";
 
-/**
- * Defines everything needed to add a new Shiny UI component to the app
- */
-export type UiComponentInfo<NodeSettings extends Record<string, any>> = {
-  /**
-   * The name of the component in plain language. E.g. Plot Output
-   */
-  title: string;
+export type UiArgumentsObject = Record<string, unknown | undefined>;
 
-  /**
-   * Info declaring what arguments to render in settings panel and how
-   */
-  settingsInfo: {
-    [ArgName in keyof NodeSettings]: DynamicFieldInfo;
+export type ServerBindings<
+  NodeSettings extends UiArgumentsObject = UiArgumentsObject
+> = {
+  outputs: {
+    outputIdKey: keyof NodeSettings | PickKeyFn<NodeSettings>;
+    /** Scaffold text to be inserted into the app server if the user requests.
+     * Can use the [vscode snippet
+     * syntax](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_create-your-own-snippets).
+     * */
+    renderScaffold: string;
   };
-
-  settingsFormRender?: CustomFormRenderFn<NodeSettings>;
-
-  /**
-   * The source of the icon. This comes from the importing of a png. If this is
-   * not provided then the node will not show up in the element palette.
-   */
-  iconSrc?: string;
-
-  /**
-   * Optional category of the node. Used to organize the elements palette. All
-   * nodes with the same category will be grouped together under that categories
-   * header.
-   */
-  category?: string;
-
-  /**
-   * Description of the component that will show up on long hover over element
-   * in the elements pallete. String is interpreted as markdown.
-   */
-  description?: string;
-
-  /**
-   * Does this node have outputs code it connects to in the server side of
-   * things? If so what's the argument name that links it to the server code?
-   * Can also supply a function that takes the current arguments for the node
-   * and returns the key. This is useful for ones where the choice may be
-   * dynamic. See `GridlayoutGridCardPlot` for an example.
-   */
-  serverBindings?: {
-    outputs?: {
-      outputIdKey: keyof NodeSettings | PickKeyFn<NodeSettings>;
-      /** Scaffold text to be inserted into the app server if the user requests.
-       * Can use the [vscode snippet
-       * syntax](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_create-your-own-snippets).
-       * */
-      renderScaffold: string;
-    };
-    inputs?: {
-      inputIdKey: keyof NodeSettings | PickKeyFn<NodeSettings>;
-    };
+  inputs: {
+    inputIdKey: keyof NodeSettings | PickKeyFn<NodeSettings>;
   };
-
-  /**
-   * Optional update subscribers
-   */
-  stateUpdateSubscribers?: Partial<StateUpdateSubscribers>;
-} & (
-  | {
-      /**
-       * Does this component accept children? This is used to enable or disable the
-       * drag-to-drop callbacks.
-       */
-      acceptsChildren: false;
-      /**
-       * The component that is used to actually draw the main interface for ui
-       * element
-       */
-      UiComponent: UiNodeComponent<NodeSettings>;
-    }
-  | {
-      /**
-       * Does this component accept children? This is used to enable or disable the
-       * drag-to-drop callbacks.
-       */
-      acceptsChildren: true;
-      /**
-       * The component that is used to actually draw the main interface for ui
-       * element
-       */
-      UiComponent: UiNodeComponent<NodeSettings>;
-    }
-);
+};
 
 /**
  * Optional functions that will hook into the state update reducers and allow
@@ -135,36 +71,57 @@ export type StateUpdateSubscribers = {
  * node info object is created and added here the ui-node will be usable within
  * the editor
  */
-export const shinyUiNodeInfo = {
-  "shiny::actionButton": shinyActionButtonInfo,
-  "shiny::numericInput": shinyNumericInputInfo,
-  "shiny::sliderInput": shinySliderInputInfo,
-  "shiny::textInput": shinyTextInputInfo,
-  "shiny::checkboxInput": shinyCheckboxInputInfo,
-  "shiny::checkboxGroupInput": shinyCheckboxGroupInputInfo,
-  "shiny::selectInput": shinySelectInputInfo,
-  "shiny::radioButtons": shinyRadioButtonsInfo,
-  "shiny::plotOutput": shinyPlotOutputInfo,
-  "shiny::textOutput": shinyTextOutputInfo,
-  "shiny::uiOutput": shinyUiOutputInfo,
-  "shiny::navbarPage": shinyNavbarPageInfo,
-  "shiny::tabPanel": shinyTabPanelInfo,
-  "shiny::tabsetPanel": shinyTabsetPanelInfo,
-  "gridlayout::grid_page": gridlayoutGridPageInfo,
-  "gridlayout::grid_card": gridlayoutGridCardInfo,
-  "gridlayout::grid_card_text": gridlayoutTextPanelInfo,
-  "gridlayout::grid_card_plot": gridlayoutGridCardPlotInfo,
-  "gridlayout::grid_container": gridlayoutGridContainerInfo,
-  "DT::DTOutput": dtDTOutputInfo,
-  "plotly::plotlyOutput": plotlyPlotlyOutputInfo,
-  unknownUiFunction: unknownUiFunctionInfo,
-};
+export const shinyUiNodeInfoArray = [
+  shinyActionButtonInfo,
+  shinyNumericInputInfo,
+  shinySliderInputInfo,
+  shinyTextInputInfo,
+  shinyCheckboxInputInfo,
+  shinyCheckboxGroupInputInfo,
+  shinySelectInputInfo,
+  shinyRadioButtonsInfo,
+  shinyPlotOutputInfo,
+  shinyTextOutputInfo,
+  shinyUiOutputInfo,
+  shinyNavbarPageInfo,
+  shinyTabPanelInfo,
+  shinyTabsetPanelInfo,
+  gridlayoutGridPageInfo,
+  gridlayoutCardInfo,
+  gridlayoutTextPanelInfo,
+  gridlayoutGridCardPlotInfo,
+  gridlayoutGridContainerInfo,
+  dtDTOutputInfo,
+  bslibCardInfo,
+  bslibCardBodyInfo,
+  bslibCardHeaderInfo,
+  bslibCardFooterInfo,
+  plotlyPlotlyOutputInfo,
+  textNodeInfo,
+  unknownUiFunctionInfo,
+] as const;
 
-export type ShinyUiNodeInfo = typeof shinyUiNodeInfo;
-export type ShinyUiNodeInfoUnion = ShinyUiNodeInfo[keyof ShinyUiNodeInfo];
+const shinyUiNodeInfo = new Map<string, ShinyUiNodeInfo>(
+  shinyUiNodeInfoArray.map((info) => [info.uiName, info])
+);
 
-type NodeDefaultSettings<UiName extends keyof ShinyUiNodeInfo> =
-  DefaultSettingsFromInfo<ShinyUiNodeInfo[UiName]["settingsInfo"]>;
+const containerNodes = new Set<string>(
+  shinyUiNodeInfoArray
+    .filter((info) => info.takesChildren)
+    .map((info) => info.uiName)
+);
+
+export function getUiNodeInfo(uiName: string): ShinyUiNodeInfo {
+  if (!shinyUiNodeInfo.has(uiName)) {
+    throw new Error(`Failed to find node info for requested node: ${uiName}`);
+  }
+  return shinyUiNodeInfo.get(uiName) as ShinyUiNodeInfo;
+}
+
+export type ShinyUiNodeInfo = Expand<typeof shinyUiNodeInfoArray[number]>;
+export type ShinyUiNodeNames = ShinyUiNodeInfo["uiName"];
+export type ShinyUiNodeLibraries = ShinyUiNodeInfo["library"];
+export type ShinyUiNodeCategories = ShinyUiNodeInfo["category"];
 
 /**
  * All possible props/arguments for the defined UI components
@@ -172,90 +129,119 @@ type NodeDefaultSettings<UiName extends keyof ShinyUiNodeInfo> =
  * This is the only place where any new UI element should be added as the rest
  * of the types will automatically be built based on this type.
  */
-type ShinyUiArguments = {
-  [UiName in keyof ShinyUiNodeInfo]: NodeDefaultSettings<UiName>;
-};
-
-/**
- * Utility type that aknowledges that the settings objects may contain unknown
- * arguments that are probably valid settings in the base language but just
- * haven't been coded up in the editor code
- */
-export type ArgsWithPotentialUnknowns<T extends ShinyUiNames> =
-  NodeDefaultSettings<T> & { [arg: string]: unknown };
 
 /**
  * Names of all the available Ui elements
  */
-export type ShinyUiNames = keyof ShinyUiArguments;
-
-export type ShinyUiChildren = ShinyUiNode[];
+export const shinyUiNames = new Set<string>(
+  shinyUiNodeInfoArray.map(({ uiName }) => uiName)
+);
 
 /**
- * Map of all the ui nodes/elements keyed by the uiName
+ * Go from either an unnamespaced name (e.g. `sliderInput`) or a already
+ * namespaced name (`shiny::sliderInput`)  to the namespaced name. Also acts as
+ * a check for if a node is in known functions
+ * */
+export const shinyUiNameToNamespacedName = new Map<string, string>([
+  ...(shinyUiNodeInfoArray.map(({ name, uiName }) => [name, uiName]) as [
+    string,
+    string
+  ][]),
+  ...(shinyUiNodeInfoArray.map(({ uiName }) => [uiName, uiName]) as [
+    string,
+    string
+  ][]),
+]);
+
+/** A ui node type that type checks its values. Used for things like declaring test ui trees etc.. */
+export type KnownShinyUiNode = {
+  [NodeInfo in ShinyUiNodeInfo as NodeInfo["uiName"]]: {
+    uiName: NodeInfo["uiName"];
+    uiArguments: Required<NodeInfo>["example_args"];
+  } & (NodeInfo["takesChildren"] extends true
+    ? { uiChildren: KnownUiChildren }
+    : {});
+}[ShinyUiNodeInfo["uiName"]];
+
+type KnownUiChildren = Array<KnownShinyUiNode>;
+
+const knownUiNodeTest: KnownShinyUiNode = {
+  uiName: "bslib::card",
+  uiArguments: { full_screen: true },
+  uiChildren: [
+    {
+      uiName: "shiny::actionButton",
+      uiArguments: { inputId: "btn", label: "My Button" },
+    },
+  ],
+};
+
+// @ts-expect-error
+const knownUiNodeTestFail: KnownShinyUiNode = {
+  uiName: "shiny::actionButton",
+  uiArguments: {
+    inputId: "test",
+  },
+};
+
+type getNodeArgs<Info extends ShinyUiNodeInfo> =
+  Info["settingsInfo"] extends ArgsToDynamicInfo<infer Args> ? Args : never;
+
+type Testing = getNodeArgs<typeof shinyActionButtonInfo>;
+
+// ArgsToDynamicInfo<Args>
+
+/**
+ * Ui Node with no children
  */
-export type ShinyUiNodeByName = {
-  [UiName in ShinyUiNames]: {
-    uiName: UiName;
-    /** Unknown record allows for extra args not accounted for in the editor */
-    uiArguments: ShinyUiArguments[UiName] & Record<string, unknown>;
-    /** Any children of this node */
-    uiChildren?: ShinyUiChildren;
-  };
+export type ShinyUiLeafNode = {
+  uiName: string;
+  uiArguments: UiArgumentsObject;
 };
 
 /**
- * Union of Ui element name and associated arguments for easy narrowing
+ * Ui Node with children
  */
-export type ShinyUiNode = ShinyUiNodeByName[ShinyUiNames];
-
-export type TemplateChooserNode = "TEMPLATE_CHOOSER";
-
-// export function isShinyUiNode(node: ShinyUiNode): node is ShinyUiNode {
-//   return node !== "TEMPLATE_CHOOSER";
-// }
+export type ShinyUiParentNode = ShinyUiLeafNode & {
+  uiChildren?: Array<ShinyUiNode>;
+};
+export type ShinyUiRootNode = ShinyUiParentNode | "TEMPLATE_CHOOSER";
 
 /**
- * Optional props that will enable drag behavior on a given ui node. Non
- * draggable nodes will simple get an empty object.
+ * General ui node that can be a leaf or a parent node
  */
-type DragPassthroughEvents =
-  | {
-      onDragStart: React.DragEventHandler<HTMLDivElement>;
-      onDragEnd: (e: React.DragEvent<HTMLDivElement> | DragEvent) => void;
-      /**
-       * Should this node be allowed to be dragged out of its parent node? This
-       * would be set to false for a container that typically always stays wrapped
-       * around a single child where almost every time the user wants to move the
-       * child they want the container to move with it. E.g. a grid panel with a
-       * single element in it
-       */
-      draggable: boolean;
-    }
-  | {};
+export type ShinyUiNode = ShinyUiLeafNode | ShinyUiParentNode;
+
+export type MakeShinyUiNode<
+  Args extends UiArgumentsObject,
+  TakesChildren extends boolean = false
+> = {
+  uiName: string;
+  uiArguments: Args;
+} & (TakesChildren extends true ? { uiChildren: Array<ShinyUiNode> } : {});
 
 /**
- * Bundle of props that will get passed through to every ui node. These are to
- * be destructured into the top level of the ui component and enable things like
- * selection on click as well as attaching some data attributes to enable the ui
- * element component to interact with the rest of the app properly.
+ * Narrow if a node is a parent node or not
  */
-export type UiNodeWrapperProps = {
-  onClick: React.MouseEventHandler<HTMLDivElement>;
-  "data-sue-path": string;
-  "data-is-selected-node": boolean;
-  "aria-label": string;
-} & DragPassthroughEvents;
+export function isParentNode(node: ShinyUiNode): node is ShinyUiParentNode {
+  return "uiChildren" in node || containerNodes.has(node.uiName);
+}
 
 /**
  * Type of component defining the app view of a given ui node
  */
-export type UiNodeComponent<NodeSettings extends object> = (props: {
-  uiArguments: NodeSettings;
-  path: NodePath;
-  uiChildren?: ShinyUiChildren;
-  wrapperProps: UiNodeWrapperProps;
-}) => JSX.Element;
+export type UiNodeComponent<
+  NodeSettings extends object,
+  Opts extends { TakesChildren: boolean }
+> = (
+  props: {
+    uiArguments: NodeSettings;
+    path: NodePath;
+    wrapperProps: ReturnType<typeof useMakeWrapperProps>;
+  } & (Opts["TakesChildren"] extends true
+    ? { uiChildren: Array<ShinyUiNode> }
+    : {})
+) => JSX.Element;
 
 /**
  * Path to a given node. Starts at [0] for the root. The first child for

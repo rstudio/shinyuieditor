@@ -1,4 +1,7 @@
-import type { ShinyUiNode } from "../../../main";
+import type {
+  ShinyUiNode,
+  ShinyUiParentNode,
+} from "../../../Shiny-Ui-Elements/uiNodeTypes";
 
 import { getNode } from "./getNode";
 import { placeNode } from "./placeNode";
@@ -47,7 +50,7 @@ test("Remove a node", () => {
   const withoutNode = removeNode(baseNode as ShinyUiNode, {
     path: [0, 1],
   });
-  expect(getNode(withoutNode, [0, 1])).toEqual(undefined);
+  expect(() => getNode(withoutNode, [0, 1])).toThrow();
   expect(getNode(baseNode, [0, 1])).not.toEqual(undefined);
 });
 
@@ -176,7 +179,9 @@ test("Modify a node at first level", () => {
 // });
 
 test("Add a node", () => {
-  expect(getNode(baseNode, [0]).uiChildren).toHaveLength(2);
+  expect((getNode(baseNode, [0]) as ShinyUiParentNode).uiChildren).toHaveLength(
+    2
+  );
 
   const newUiNode: ShinyUiNode = {
     uiName: "shiny::actionButton",
@@ -191,7 +196,7 @@ test("Add a node", () => {
     node: newUiNode,
   });
 
-  const newContainer = getNode(withNewNode, [0]);
+  const newContainer = getNode(withNewNode, [0]) as ShinyUiParentNode;
   expect(newContainer.uiChildren).toHaveLength(3);
   expect(newContainer.uiChildren?.[2]).toEqual(newUiNode);
 });

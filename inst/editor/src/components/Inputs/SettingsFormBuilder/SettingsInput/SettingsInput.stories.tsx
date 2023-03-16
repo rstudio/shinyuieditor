@@ -218,6 +218,7 @@ const horizontalAlignOptions = {
   center: { icon: alignTextCenter, label: "center" },
   end: { icon: alignTextRight, label: "right" },
 };
+
 export const RadioInput = () => {
   const [value, setValue] = React.useState<RadioOption | undefined>("center");
 

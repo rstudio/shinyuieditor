@@ -1,0 +1,101 @@
+.card_body_fill {
+  /* A small amount of inset so the body doesn't sit flush with the card itself.
+  We take it away from the default bslib card padding to not change the total
+  whitespace*/
+  --inset-amount: var(--size-sm, 10px);
+  margin: var(--inset-amount);
+  padding: calc(var(--bs-card-spacer-y) - var(--inset-amount))
+    calc(var(--bs-card-spacer-x) - var(--inset-amount));
+  height: 100%;
+  /* Stop blowout and enable properties like padding to be used as expected */
+  min-width: 0;
+  min-height: 0;
+  isolation: isolate;
+  position: relative;
+}
+
+.card_children_container {
+  display: flex;
+  flex-direction: column;
+  padding: 3px;
+  height: 100%;
+  overflow: auto;
+}
+
+/* Make children take advantage of flex sizing. Only add grow behavior for nodes
+with "opinionated heights". These were extracted with a type check done in
+ChildrenWithDropNotes.tsx  */
+.card_children_container > [aria-label="shiny::plotOutput"],
+.card_children_container > [aria-label="DT::DTOutput"],
+.card_children_container > [aria-label="plotly::plotlyOutput"] {
+  flex: 1;
+}
+
+.empty_msg {
+  position: absolute;
+  display: grid;
+  place-content: center;
+  inset: 0;
+  pointer-events: none;
+}
+
+.drop_watcher {
+  /* Hide drop detectors when their not needed so they don't mess up flex
+  positioning etc */
+  display: none;
+  width: 100%;
+  height: 0;
+  --active-target-height: 15px;
+}
+
+.drop_watcher:global(.can-accept-drop) {
+  /* Reveal drop detectors when they need to reflect the ability to add stuff to
+  them */
+  display: block;
+  color: var(--rstudio-white);
+  min-height: var(--active-target-height);
+  flex-basis: var(--active-target-height);
+}
+
+/* The final panel should grow as large as it needs to fill end of card */
+.drop_watcher:last-of-type {
+  flex: 1;
+  height: unset;
+}
+
+.missing_card_element:not(:has(:global(.can-accept-drop))) {
+  height: 0;
+  padding: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.missing_card_element:has(:global(.can-accept-drop)) {
+  height: auto;
+}
+
+.drop_watcher:global(.can-accept-drop),
+.missing_card_element:has(:global(.can-accept-drop)) {
+  /* Add subtle transition to ease jarring layout transition */
+  transition-property: height flex-grow flex;
+  transition-duration: 0.1s;
+  transition-timing-function: ease-in;
+}
+
+.card_body_fill
+  > .card_children_container
+  div:global(.can-accept-drop.hovering-over)::after {
+  content: "Add to card body";
+}
+
+.card_footer
+  > .card_children_container
+  div:global(.can-accept-drop.hovering-over)::after {
+  content: "Add to card footer";
+}
+
+.card_header
+  > .card_children_container
+  div:global(.can-accept-drop.hovering-over)::after {
+  content: "Add to card header";
+}

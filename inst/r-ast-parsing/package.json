@@ -1,0 +1,14 @@
+{
+  "name": "r-ast-parsing",
+  "main": "./src/index.ts",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "util-functions": "*",
+    "tsconfig": "*",
+    "typescript": "^4.9.3"
+  },
+  "scripts": {
+    "type-check": "tsc -p ./ --noEmit"
+  }
+}

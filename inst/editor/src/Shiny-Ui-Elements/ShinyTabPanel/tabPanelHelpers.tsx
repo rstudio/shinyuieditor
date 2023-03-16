@@ -1,22 +1,9 @@
-import { getDefaultSettings } from "../../components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
-import type { ShinyUiNode } from "../uiNodeTypes";
+import type { ShinyUiParentNode } from "../uiNodeTypes";
 
-import { shinyTabPanelInfo } from ".";
-
-import { isValidTabPanel } from "./isValidTabPanel";
-
-export function wrapNodeInTabPanel(node: ShinyUiNode): ShinyUiNode {
-  // Already wrapped?
-  if (isValidTabPanel(node)) return node;
-
-  return {
-    ...newTabPanelNode,
-    uiChildren: [node],
-  };
-}
-
-export const newTabPanelNode: ShinyUiNode = {
+export const newTabPanelNode: ShinyUiParentNode = {
   uiName: "shiny::tabPanel",
-  uiArguments: getDefaultSettings(shinyTabPanelInfo.settingsInfo),
+  uiArguments: {
+    title: "Tab",
+  },
   uiChildren: [],
 };

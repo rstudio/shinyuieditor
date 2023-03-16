@@ -1,6 +1,6 @@
 import icon from "../../assets/icons/shinyTable.png";
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
-import type { UiComponentInfo } from "../uiNodeTypes";
+import { nodeInfoFactory } from "../nodeInfoFactory";
 
 import DtDTOutput from "./DtOutput";
 
@@ -10,8 +10,11 @@ export type DTOutputSettings = {
   height?: CSSMeasure;
 };
 
-export const dtDTOutputInfo: UiComponentInfo<DTOutputSettings> = {
+export const dtDTOutputInfo = nodeInfoFactory<DTOutputSettings>()({
+  library: "DT",
+  name: "DTOutput",
   title: "DT Table",
+  takesChildren: false,
   UiComponent: DtDTOutput,
   settingsInfo: {
     outputId: {
@@ -40,8 +43,7 @@ export const dtDTOutputInfo: UiComponentInfo<DTOutputSettings> = {
       renderScaffold: `renderDT({\n  iris\n})`,
     },
   },
-  acceptsChildren: true,
   iconSrc: icon,
   category: "Outputs",
   description: `\`DataTable\` table output`,
-};
+});

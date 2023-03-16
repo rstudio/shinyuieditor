@@ -1,4 +1,8 @@
-import type { App_Type, Full_App_Info, Raw_App_Info } from "ast-parsing";
+import type {
+  Raw_App_Info,
+  Full_App_Info,
+  App_Type,
+} from "editor/src/ast_parsing";
 
 import { isRecord } from "./isRecord";
 import type { MessageUnion } from "./MessageUnion";

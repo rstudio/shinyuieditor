@@ -1,8 +1,18 @@
 import { test, expect } from "@playwright/test";
 
-import { testingUiTree } from "../src/state/backupUiTree";
+import type { ShinyUiNode } from "../src/main";
 
 import { mockBackendState } from "./utils/mockBackend";
+const testingUiTree: ShinyUiNode = {
+  uiName: "gridlayout::grid_page",
+  uiArguments: {
+    layout: [". .", ". ."],
+    row_sizes: ["1fr", "1fr"],
+    col_sizes: ["1fr", "1fr"],
+    gap_size: "1rem",
+  },
+  uiChildren: [],
+};
 
 test("Drag and drop an item onto the grid and name area", async ({ page }) => {
   await mockBackendState(page, testingUiTree);
@@ -23,7 +33,7 @@ test("Drag and drop an item onto the grid and name area", async ({ page }) => {
 
   // Select the action button and change its label to "Action Button"
   await page.locator("text=My Button").click();
-  await page.locator('[aria-label="Label text"]').fill("Action Button");
+  await page.locator('[aria-label="Label"]').fill("Action Button");
 
   await expect(
     page.locator("button", { hasText: "Action Button" })

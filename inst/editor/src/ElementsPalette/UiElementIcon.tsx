@@ -1,28 +1,32 @@
-import * as React from "react";
-
 import { getDefaultSettings } from "../components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
 import { PopoverEl } from "../components/PopoverEl/PopoverEl";
 import { useMakeDraggable } from "../DragAndDropHelpers/useMakeDraggable";
 import type { ShinyUiNode } from "../main";
-import type { ShinyUiNames } from "../Shiny-Ui-Elements/uiNodeTypes";
-import { shinyUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
+import type { ShinyUiNodeNames } from "../Shiny-Ui-Elements/uiNodeTypes";
+import { getUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
 
 import classes from "./styles.module.css";
 
-export function UiElementIcon({ uiName }: { uiName: ShinyUiNames }) {
+export function UiElementIcon({ uiName }: { uiName: ShinyUiNodeNames }) {
   const {
     iconSrc,
     title,
     settingsInfo,
     description: infoPopup = title,
-  } = shinyUiNodeInfo[uiName];
+    default_node,
+  } = getUiNodeInfo(uiName);
 
-  const node = {
-    uiName,
-    uiArguments: getDefaultSettings(settingsInfo),
-  } as ShinyUiNode;
+  const node = default_node
+    ? {
+        uiName,
+        ...default_node,
+      }
+    : ({
+        uiName,
+        uiArguments: getDefaultSettings(settingsInfo),
+      } as ShinyUiNode);
 
-  const dragProps = useMakeDraggable({ nodeInfo: { node } });
+  const dragProps = useMakeDraggable({ node });
 
   if (iconSrc === undefined) {
     return null;

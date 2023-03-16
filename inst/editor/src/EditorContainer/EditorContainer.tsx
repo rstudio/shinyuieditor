@@ -7,23 +7,16 @@ import SvgShinyLogo from "../components/Icons/ShinyLogo";
 import { TemplateChooserView } from "../components/TemplatePreviews/TemplateChooserView";
 import UiNode from "../components/UiNode/UiNode";
 import { UndoRedoButtons } from "../components/UndoRedoButtons/UndoRedoButtons";
-import { CurrentDraggedNodeProvider } from "../DragAndDropHelpers/useCurrentDraggedNode";
-import {
-  EditorSkeleton,
-  PROPERTIES_PANEL_WIDTH_PX,
-} from "../EditorSkeleton/EditorSkeleton";
+import { EditorSkeleton } from "../EditorSkeleton/EditorSkeleton";
 import { LostConnectionPopup } from "../EditorSkeleton/LostConnectionPopup";
 import ElementsPalette from "../ElementsPalette";
 import { SettingsPanel } from "../SettingsPanel/SettingsPanel";
 
+import { sizes_inline_styles } from "./App_Layout_Sizes";
 import { DialogPopover } from "./DialogPopover";
 import { OpenSideBySideWindowButton } from "./OpenSideBySideWindowButton";
 
 import "./styles.scss";
-
-const sizes_inline_styles = {
-  "--properties-panel-width": `${PROPERTIES_PANEL_WIDTH_PX}px`,
-} as React.CSSProperties;
 
 export function EditorContainer() {
   const { state, errorInfo, history } = useSyncUiWithBackend();
@@ -45,14 +38,12 @@ export function EditorContainer() {
     );
   } else if (state.mode === "MAIN") {
     pageBody = (
-      <CurrentDraggedNodeProvider>
-        <EditorSkeleton
-          main={<UiNode node={state.ui_tree} path={[]} />}
-          left={<ElementsPalette />}
-          properties={<SettingsPanel tree={state.ui_tree} />}
-          preview={<AppPreview />}
-        />
-      </CurrentDraggedNodeProvider>
+      <EditorSkeleton
+        main={<UiNode node={state.ui_tree} path={[]} canDrag={false} />}
+        left={<ElementsPalette />}
+        properties={<SettingsPanel tree={state.ui_tree} />}
+        preview={<AppPreview />}
+      />
     );
   } else {
     pageBody = <TemplateChooserView {...state.options} />;

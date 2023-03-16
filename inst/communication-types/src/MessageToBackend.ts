@@ -1,10 +1,10 @@
-import type {
-  App_Type,
-  Multi_File_App_Script,
-  Script_Position,
-  Single_File_App_Script,
-} from "ast-parsing";
 import type { ShinyUiNode } from "editor";
+import type {
+  Single_File_App_Script,
+  Multi_File_App_Script,
+  App_Type,
+} from "editor/src/ast_parsing";
+import type { Script_Position } from "r-ast-parsing";
 
 import { isRecord } from "./isRecord";
 import type { MessageUnion } from "./MessageUnion";
@@ -23,7 +23,7 @@ export type MessageToBackendByPath = {
   "OPEN-COMPANION-EDITOR": CompanionEditorPosition;
   "SHOW-APP-LINES": Script_Position[];
   "INSERT-SNIPPET": SnippetInsertRequest;
-  "FIND-INPUT-USES": InputSourceRequest;
+  "FIND-SERVER-USES": InputSourceRequest | OutputSourceRequest;
 };
 
 /**
@@ -32,11 +32,20 @@ export type MessageToBackendByPath = {
  */
 export type MessageToBackend = MessageUnion<MessageToBackendByPath>;
 
-export type SnippetInsertRequest = { snippet: string; below_line: number };
+export type SnippetInsertRequest = {
+  snippet: string;
+  where_in_server: "end" | "start";
+};
+
 export type InputSourceRequest = {
   type: "Input";
   /** The current input id used to bind to ui output fn */
   inputId: string;
+};
+
+export type OutputSourceRequest = {
+  type: "Output";
+  outputId: string;
 };
 
 export type R_Ui_Code = {

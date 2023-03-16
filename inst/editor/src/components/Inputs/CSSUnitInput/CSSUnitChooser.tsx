@@ -1,7 +1,7 @@
 import React from "react";
 
+import type { CSSUnitWAuto } from "./CSSMeasure";
 import { CSSUnitInfo } from "./CSSUnitInfo";
-import type { CSSUnits } from "./CSSUnitInput";
 import classes from "./CSSUnitInput.module.css";
 
 export function CSSUnitChooser<AllowedUnit extends string>({
@@ -28,7 +28,7 @@ export function CSSUnitChooser<AllowedUnit extends string>({
           </option>
         ))}
       </select>
-      <CSSUnitInfo units={availableUnits as CSSUnits[]} />
+      <CSSUnitInfo units={availableUnits as CSSUnitWAuto[]} />
     </>
   );
 }

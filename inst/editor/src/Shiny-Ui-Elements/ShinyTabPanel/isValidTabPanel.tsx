@@ -1,11 +1,13 @@
 // Not a fan of having to replicate the names across two instances here but
 
-import type { ShinyUiNodeByName, ShinyUiNode } from "../uiNodeTypes";
+import type { ShinyUiNode } from "../uiNodeTypes";
+
+import type { TabPanelNode } from ".";
 
 // right now I can't figure out a more elegant way to do it
 const validTabPanels = ["shiny::tabPanel"];
 
-type ValidTabPanels = ShinyUiNodeByName["shiny::tabPanel"];
+type ValidTabPanels = TabPanelNode;
 
 /**
  * Is a ui node a valid tab panel? Aka can it be used as a direct child of a

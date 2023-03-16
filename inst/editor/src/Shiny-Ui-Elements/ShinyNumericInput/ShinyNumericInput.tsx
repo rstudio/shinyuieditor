@@ -8,10 +8,10 @@ import type { ShinyNumericInputProps } from ".";
 
 import classes from "./styles.module.css";
 
-const ShinyNumericInput: UiNodeComponent<ShinyNumericInputProps> = ({
-  uiArguments,
-  wrapperProps,
-}) => {
+const ShinyNumericInput: UiNodeComponent<
+  ShinyNumericInputProps,
+  { TakesChildren: false }
+> = ({ uiArguments, wrapperProps }) => {
   const settings = { ...uiArguments };
 
   const width = settings.width ?? "200px";

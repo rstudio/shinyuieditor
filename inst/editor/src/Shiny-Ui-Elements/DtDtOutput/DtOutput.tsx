@@ -1,6 +1,7 @@
 import React from "react";
 
-import { seqArray } from "../../utils/array-helpers";
+import { seqArray } from "util-functions/src/arrays";
+
 import { InputOutputTitle } from "../InputOutputTitle";
 import type { UiNodeComponent } from "../uiNodeTypes";
 
@@ -20,11 +21,10 @@ const table_cells = seqArray(NUM_ROWS).map((i) => (
     ))}
   </div>
 ));
-const DtDTOutput: UiNodeComponent<DTOutputSettings> = ({
-  uiArguments,
-  path,
-  wrapperProps,
-}) => {
+const DtDTOutput: UiNodeComponent<
+  DTOutputSettings,
+  { TakesChildren: false }
+> = ({ uiArguments, path, wrapperProps }) => {
   return (
     <div className="dtDTOutput" {...wrapperProps}>
       <div

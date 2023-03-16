@@ -6,10 +6,10 @@ import type { ShinyRadioButtonsProps } from ".";
 
 import classes from "./styles.module.css";
 
-const ShinyRadioButtons: UiNodeComponent<ShinyRadioButtonsProps> = ({
-  uiArguments,
-  wrapperProps,
-}) => {
+const ShinyRadioButtons: UiNodeComponent<
+  ShinyRadioButtonsProps,
+  { TakesChildren: false }
+> = ({ uiArguments, wrapperProps }) => {
   const choices = uiArguments.choices;
   const keys = Object.keys(choices);
   const values = Object.values(choices);

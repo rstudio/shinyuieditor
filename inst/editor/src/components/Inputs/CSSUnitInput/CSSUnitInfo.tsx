@@ -3,10 +3,10 @@ import React from "react";
 import { Info } from "../../Icons";
 import { PopoverButton } from "../PopoverButton";
 
+import type { CSSUnitWAuto } from "./CSSMeasure";
 import classes from "./CSSUnitInfo.module.css";
-import type { CSSUnits } from "./CSSUnitInput";
 
-export const CSSUnitInfo = ({ units }: { units: CSSUnits[] }) => {
+export const CSSUnitInfo = ({ units }: { units: CSSUnitWAuto[] }) => {
   return (
     <PopoverButton
       className={classes.infoIcon}
@@ -19,7 +19,7 @@ export const CSSUnitInfo = ({ units }: { units: CSSUnits[] }) => {
   );
 };
 
-function UnitInfoText({ units }: { units: CSSUnits[] }) {
+function UnitInfoText({ units }: { units: CSSUnitWAuto[] }) {
   return (
     <div className={classes.container}>
       <div className={classes.header}>CSS size options</div>
@@ -35,7 +35,7 @@ function UnitInfoText({ units }: { units: CSSUnits[] }) {
   );
 }
 
-const unitDescriptions: Record<CSSUnits, string> = {
+const unitDescriptions: Record<CSSUnitWAuto, string> = {
   "%": "Relative to percentage of container size",
   auto: "Let the content decide size",
   fr: "Relative unit. E.g. 2fr is twice the size of 1fr",

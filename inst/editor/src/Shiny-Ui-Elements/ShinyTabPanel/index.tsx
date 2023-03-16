@@ -1,5 +1,6 @@
 import icon from "../../assets/icons/tabPanel.png";
-import type { UiComponentInfo } from "../uiNodeTypes";
+import { nodeInfoFactory } from "../nodeInfoFactory";
+import type { MakeShinyUiNode } from "../uiNodeTypes";
 
 import ShinyTabPanel from "./ShinyTabPanel";
 
@@ -7,8 +8,13 @@ export type TabPanelSettings = {
   title: string;
 };
 
-export const shinyTabPanelInfo: UiComponentInfo<TabPanelSettings> = {
+export type TabPanelNode = MakeShinyUiNode<TabPanelSettings>;
+
+export const shinyTabPanelInfo = nodeInfoFactory<TabPanelSettings>()({
+  library: "shiny",
+  name: "tabPanel",
   title: "Tab Panel",
+  takesChildren: true,
   UiComponent: ShinyTabPanel,
   settingsInfo: {
     title: {
@@ -17,9 +23,8 @@ export const shinyTabPanelInfo: UiComponentInfo<TabPanelSettings> = {
       defaultValue: "My Shiny App",
     },
   },
-  acceptsChildren: true,
   iconSrc: icon,
   category: "Tabs",
   description:
     "Panel containing content for tab-based interfaces like navbar pages",
-};
+});

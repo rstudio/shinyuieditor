@@ -1,5 +1,6 @@
-import type { TemplatedGridProps } from "../../components/Grids/EditableGridContainer/TemplatedGridProps";
-import { buildRange } from "../array-helpers";
+import { buildRange } from "util-functions/src/arrays";
+
+import type { TemplatedGridProps } from "../../Shiny-Ui-Elements/Gridlayout/Utils/EditableGridContainer/TemplatedGridProps";
 
 import { emptyCell } from "./itemLocations";
 import type { ItemLocation } from "./types";

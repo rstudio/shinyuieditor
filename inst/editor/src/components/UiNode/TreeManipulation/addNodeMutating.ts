@@ -1,7 +1,8 @@
+import { addAtIndex } from "util-functions/src/arrays";
+
 import type { ShinyUiNode } from "../../../main";
 import type { NodePath } from "../../../Shiny-Ui-Elements/uiNodeTypes";
-import { shinyUiNodeInfo } from "../../../Shiny-Ui-Elements/uiNodeTypes";
-import { addAtIndex } from "../../../utils/array-helpers";
+import { isParentNode } from "../../../Shiny-Ui-Elements/uiNodeTypes";
 
 import { getNode } from "./getNode";
 import { getParentPath } from "./getParentPath";
@@ -14,7 +15,7 @@ export function addNodeMutating(
   const positionInChildren = path[path.length - 1];
   const parentNode = getNode(tree, parentPath);
 
-  if (!shinyUiNodeInfo[parentNode.uiName].acceptsChildren) {
+  if (!isParentNode(parentNode)) {
     throw new Error(
       "Can't add a child to a non-container node. Check the path"
     );

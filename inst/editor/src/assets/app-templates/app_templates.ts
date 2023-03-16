@@ -1,6 +1,3 @@
-import type { Multi_File_Full_Info, Single_File_Full_Info } from "ast-parsing";
-import { SCRIPT_LOC_KEYS } from "ast-parsing";
-import { indent_line_breaks } from "ast-parsing/src/code_generation/build_function_text";
 import type { MessageToBackendByPath } from "communication-types";
 import type {
   Multi_File_Template_Selection,
@@ -8,8 +5,14 @@ import type {
   TemplateInfo,
 } from "communication-types/src/AppTemplates";
 
-import { generate_full_app_script } from "../../state/app_model/generate_full_app_script";
-import { write_library_calls } from "../../state/app_model/generate_ui_script";
+import type {
+  Single_File_Full_Info,
+  Multi_File_Full_Info,
+} from "../../ast_parsing";
+import { SCRIPT_LOC_KEYS } from "../../ast_parsing";
+import { indent_line_breaks } from "../../ast_parsing/code_generation/build_function_text";
+import { generate_full_app_script } from "../../ast_parsing/generate_full_app_script";
+import { write_library_calls } from "../../ast_parsing/generate_ui_script";
 
 import { chickWeightsGridTemplate } from "./templates/chickWeightsGrid";
 import { chickWeightsNavbar } from "./templates/chickWeightsNavbar";

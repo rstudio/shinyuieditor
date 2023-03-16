@@ -9,12 +9,10 @@ import type { NavbarPageSettings } from "./index";
 
 import classes from "./ShinyNavbarPage.module.css";
 
-const ShinyNavbarPage: UiNodeComponent<NavbarPageSettings> = ({
-  uiArguments: { title },
-  uiChildren,
-  path,
-  wrapperProps,
-}) => {
+const ShinyNavbarPage: UiNodeComponent<
+  NavbarPageSettings,
+  { TakesChildren: true }
+> = ({ uiArguments: { title }, uiChildren, path, wrapperProps }) => {
   const numChildren = uiChildren?.length ?? 0;
   const hasChildren = numChildren > 0;
 

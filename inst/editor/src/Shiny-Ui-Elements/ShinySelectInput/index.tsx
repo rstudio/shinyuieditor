@@ -1,10 +1,6 @@
 import selectBoxIcon from "../../assets/icons/shinySelectbox.png";
 import type { NamedList } from "../../components/Inputs/ListInput/NamedListInput";
-import {
-  makeInputIdInfo,
-  makeLabelInputInfo,
-} from "../commonSettingsTemplates";
-import type { UiComponentInfo } from "../uiNodeTypes";
+import { nodeInfoFactory } from "../nodeInfoFactory";
 
 import ShinySelectInput from "./ShinySelectInput";
 
@@ -14,12 +10,23 @@ export type ShinySelectInputProps = {
   choices: NamedList;
 };
 
-export const shinySelectInputInfo: UiComponentInfo<ShinySelectInputProps> = {
+export const shinySelectInputInfo = nodeInfoFactory<ShinySelectInputProps>()({
+  library: "shiny",
+  name: "selectInput",
   title: "Select Input",
+  takesChildren: false,
   UiComponent: ShinySelectInput,
   settingsInfo: {
-    inputId: makeInputIdInfo("mySelectInput"),
-    label: makeLabelInputInfo("Select Input"),
+    inputId: {
+      inputType: "string",
+      label: "inputId",
+      defaultValue: "mySelectInput",
+    },
+    label: {
+      inputType: "string",
+      label: "label",
+      defaultValue: "Select Input",
+    },
     choices: {
       label: "Choices",
       inputType: "list",
@@ -34,9 +41,8 @@ export const shinySelectInputInfo: UiComponentInfo<ShinySelectInputProps> = {
       inputIdKey: "inputId",
     },
   },
-  acceptsChildren: false,
   iconSrc: selectBoxIcon,
   category: "Inputs",
   description:
     "Create a select list that can be used to choose a single or multiple items from a list of values.",
-};
+});

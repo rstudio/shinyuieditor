@@ -1,6 +1,7 @@
+import { collapseText } from "util-functions/src/strings";
+
 import { getRemoteSafeUrl } from "../extension-api-utils/getRemoteSafeUrl";
 import { getFreePort } from "../getFreePort";
-import { collapseText } from "../string-utils";
 
 import type { RProcess } from "./startRProcess";
 import { startRProcess } from "./startRProcess";

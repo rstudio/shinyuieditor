@@ -2,13 +2,13 @@ import React from "react";
 
 import { useSelector } from "react-redux";
 
-import { useNodeSelectionState } from "../../../NodeSelectionState";
 import { isShinyUiNode } from "../../../Shiny-Ui-Elements/isShinyUiNode";
 import { makeChildPath } from "../../../Shiny-Ui-Elements/nodePathUtils";
 import type {
   NodePath,
   ShinyUiNode,
 } from "../../../Shiny-Ui-Elements/uiNodeTypes";
+import { useCurrentSelection } from "../../../state/selectedPath";
 import type { RootState } from "../../../state/store";
 import { getNode } from "../../UiNode/TreeManipulation/getNode";
 import { samePath } from "../../UiNode/TreeManipulation/samePath";
@@ -43,9 +43,13 @@ function useGetNode(path: NodePath) {
 export const Tab = ({ name, isActive, index, parentPath }: TabProps) => {
   const pathToTabPanel = makeChildPath(parentPath, index);
 
-  const [selectedPath] = useNodeSelectionState();
+  const selectedPath = useCurrentSelection();
   const nodeForTab = useGetNode(pathToTabPanel);
-  const wrapperProps = useMakeWrapperProps(nodeForTab, pathToTabPanel);
+  const wrapperProps = useMakeWrapperProps({
+    node: nodeForTab,
+    path: pathToTabPanel,
+    canDrag: true,
+  });
 
   const isSelected = samePath(pathToTabPanel, selectedPath);
 

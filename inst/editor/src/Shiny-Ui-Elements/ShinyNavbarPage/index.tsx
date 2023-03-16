@@ -4,7 +4,8 @@ import {
   getFirstTabName,
   getTabNames,
 } from "../../components/Tabs/Tabset/utils";
-import type { UiComponentInfo } from "../uiNodeTypes";
+import { nodeInfoFactory } from "../nodeInfoFactory";
+import type { ShinyUiParentNode } from "../uiNodeTypes";
 
 import ShinyNavbarPage from "./ShinyNavbarPage";
 
@@ -13,10 +14,14 @@ export type NavbarPageSettings = {
   collapsible: boolean;
   id?: string;
   selected?: string;
+  theme?: unknown;
 };
 
-export const shinyNavbarPageInfo: UiComponentInfo<NavbarPageSettings> = {
+export const shinyNavbarPageInfo = nodeInfoFactory<NavbarPageSettings>()({
+  library: "shiny",
+  name: "navbarPage",
   title: "Navbar Page",
+  takesChildren: true,
   UiComponent: ShinyNavbarPage,
   settingsInfo: {
     title: {
@@ -39,12 +44,14 @@ export const shinyNavbarPageInfo: UiComponentInfo<NavbarPageSettings> = {
       inputType: "dropdown",
       optional: true,
       label: "Selected tab on load",
-      defaultValue: (node) => (node ? getFirstTabName(node) : "First Tab"),
-      choices: (node) => (node ? getTabNames(node) : ["First Tab"]),
+      defaultValue: (node) =>
+        node ? getFirstTabName(node as ShinyUiParentNode) : "First Tab",
+      choices: (node) =>
+        node ? getTabNames(node as ShinyUiParentNode) : ["First Tab"],
     },
+    theme: { inputType: "omitted", optional: true },
   },
-  acceptsChildren: true,
   // iconSrc: icon,
   category: "layouts",
   description: "Layout an app with tab-based navigation",
-};
+});

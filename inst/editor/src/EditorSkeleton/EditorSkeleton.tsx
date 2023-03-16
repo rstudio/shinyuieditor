@@ -2,8 +2,6 @@ import * as React from "react";
 
 import "./styles.scss";
 
-export const PROPERTIES_PANEL_WIDTH_PX = 236;
-
 export function EditorSkeleton({
   main,
   properties,

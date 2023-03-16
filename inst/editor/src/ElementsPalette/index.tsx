@@ -1,29 +1,44 @@
-import * as React from "react";
-
 import { PanelHeader } from "../EditorSkeleton/EditorSkeleton";
 import type {
-  ShinyUiNames,
-  ShinyUiNodeInfo,
+  ShinyUiNodeCategories,
+  ShinyUiNodeNames,
 } from "../Shiny-Ui-Elements/uiNodeTypes";
-import { shinyUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
+import { getUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
+import { shinyUiNames } from "../Shiny-Ui-Elements/uiNodeTypes";
 
 import classes from "./styles.module.css";
 import { UiElementIcon } from "./UiElementIcon";
 
-const categoryOrder: string[] = [
-  "Inputs",
-  "Outputs",
-  "gridlayout",
-  "uncategorized",
-];
+// We use an object here to enforce that we categorize all of the objects
+const catOrderObj: Record<ShinyUiNodeCategories, 1> = {
+  Utilities: 1,
+  Inputs: 1,
+  Outputs: 1,
+  layouts: 1,
+  gridlayout: 1,
+  Tabs: 1,
+  Containers: 1,
+  Cards: 1,
+  Plotting: 1,
+  Uncategorized: 1,
+};
 
-function sortByCategory(nameA: ShinyUiNames, nameB: ShinyUiNames): number {
-  const categoryA = categoryOrder.indexOf(
-    shinyUiNodeInfo[nameA]?.category || "uncategorized"
-  );
-  const categoryB = categoryOrder.indexOf(
-    shinyUiNodeInfo[nameB]?.category || "uncategorized"
-  );
+const categoryOrder = Object.keys(catOrderObj);
+
+function getNodeCategory(name: string) {
+  const node_info = getUiNodeInfo(name);
+
+  if ("category" in node_info && node_info.category) return node_info.category;
+
+  return "uncategorized";
+}
+
+function sortByCategory(
+  nameA: ShinyUiNodeNames,
+  nameB: ShinyUiNodeNames
+): number {
+  const categoryA = categoryOrder.indexOf(getNodeCategory(nameA));
+  const categoryB = categoryOrder.indexOf(getNodeCategory(nameB));
 
   if (categoryA < categoryB) return -1;
   if (categoryA > categoryB) return 1;
@@ -32,13 +47,12 @@ function sortByCategory(nameA: ShinyUiNames, nameB: ShinyUiNames): number {
 }
 
 export default function ElementsPalette({
-  availableUi = shinyUiNodeInfo,
+  availableUiNodes = shinyUiNames,
 }: {
-  availableUi?: ShinyUiNodeInfo;
+  availableUiNodes?: typeof shinyUiNames;
 }) {
-  const ui_node_names = React.useMemo(
-    () => (Object.keys(availableUi) as ShinyUiNames[]).sort(sortByCategory),
-    [availableUi]
+  const ui_node_names = ([...availableUiNodes] as ShinyUiNodeNames[]).sort(
+    sortByCategory
   );
 
   return (

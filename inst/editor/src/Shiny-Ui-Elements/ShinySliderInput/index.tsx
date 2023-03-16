@@ -1,7 +1,7 @@
 import sliderIcon from "../../assets/icons/shinySlider.png";
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
 import { LabeledInputCategory } from "../../components/Inputs/SettingsFormBuilder/LabeledInputCategory";
-import type { UiComponentInfo } from "../uiNodeTypes";
+import { nodeInfoFactory } from "../nodeInfoFactory";
 
 import ShinySliderInput from "./ShinySliderInput";
 
@@ -15,8 +15,11 @@ export type ShinySliderInputProps = {
   width?: CSSMeasure;
 };
 
-export const shinySliderInputInfo: UiComponentInfo<ShinySliderInputProps> = {
+export const shinySliderInputInfo = nodeInfoFactory<ShinySliderInputProps>()({
+  library: "shiny",
+  name: "sliderInput",
   title: "Slider Input",
+  takesChildren: false,
   UiComponent: ShinySliderInput,
   settingsInfo: {
     inputId: {
@@ -79,11 +82,9 @@ export const shinySliderInputInfo: UiComponentInfo<ShinySliderInputProps> = {
       inputIdKey: "inputId",
     },
   },
-  acceptsChildren: false,
   iconSrc: sliderIcon,
   category: "Inputs",
   description:
     "Constructs a slider widget to select a number from a range. _(Dates and date-times not currently supported.)_",
-};
-
+});
 export default ShinySliderInput;

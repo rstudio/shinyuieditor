@@ -1,7 +1,8 @@
 import { AiOutlineQuestionCircle } from "react-icons/ai";
 
 import CategoryDivider from "../../components/CategoryDivider";
-import type { UiComponentInfo } from "../uiNodeTypes";
+import { nodeInfoFactory } from "../nodeInfoFactory";
+import type { MakeShinyUiNode, ShinyUiNode } from "../uiNodeTypes";
 
 import { formatFunctionText } from "./formatFunctionText";
 import "./styles.scss";
@@ -9,16 +10,25 @@ import UnknownUiFunction from "./UnknownUiFunction";
 
 export type UnknownUiFunctionProps = {
   text: string;
+  explanation?: string;
 };
+export type UnknownUiNode = MakeShinyUiNode<UnknownUiFunctionProps>;
 
-export const unknownUiFunctionInfo: UiComponentInfo<UnknownUiFunctionProps> = {
+export function isUnknownUiNode(node: ShinyUiNode): node is UnknownUiNode {
+  return "text" in node.uiArguments && node.uiName === "unknownUiFunction";
+}
+
+export const unknownUiFunctionInfo = nodeInfoFactory<UnknownUiFunctionProps>()({
+  name: "unknownUiFunction",
   title: "Unknown UI Function",
+  takesChildren: false,
   UiComponent: UnknownUiFunction,
   settingsInfo: {
     text: {
       inputType: "omitted",
       defaultValue: "Unknown Ui Function",
     },
+    explanation: { inputType: "omitted", optional: true },
   },
   settingsFormRender: ({ settings }) => {
     return (
@@ -38,7 +48,5 @@ export const unknownUiFunctionInfo: UiComponentInfo<UnknownUiFunctionProps> = {
       </div>
     );
   },
-  acceptsChildren: false,
-};
-
+});
 export default UnknownUiFunction;

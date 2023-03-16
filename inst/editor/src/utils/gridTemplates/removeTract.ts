@@ -1,7 +1,8 @@
-import type { TemplatedGridProps } from "../../components/Grids/EditableGridContainer/TemplatedGridProps";
-import type { TractDirection } from "../../Shiny-Ui-Elements/GridlayoutGridPage";
-import { joinPretty, removeAtIndex } from "../array-helpers";
-import { removeRowOrCol } from "../matrix-helpers";
+import { joinPretty, removeAtIndex } from "util-functions/src/arrays";
+import { removeRowOrCol } from "util-functions/src/matrix-helpers";
+
+import type { TractDirection } from "../../Shiny-Ui-Elements/Gridlayout/GridlayoutGridPage";
+import type { TemplatedGridProps } from "../../Shiny-Ui-Elements/Gridlayout/Utils/EditableGridContainer/TemplatedGridProps";
 
 import { itemBoundsInDir } from "./itemBoundsInDir";
 import { areasToItemLocations } from "./itemLocations";

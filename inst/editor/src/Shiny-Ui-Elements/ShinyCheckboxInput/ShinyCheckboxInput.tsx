@@ -6,10 +6,10 @@ import type { ShinyCheckboxInputProps } from ".";
 
 import classes from "./styles.module.css";
 
-const ShinyCheckboxInput: UiNodeComponent<ShinyCheckboxInputProps> = ({
-  uiArguments,
-  wrapperProps,
-}) => {
+const ShinyCheckboxInput: UiNodeComponent<
+  ShinyCheckboxInputProps,
+  { TakesChildren: false }
+> = ({ uiArguments, wrapperProps }) => {
   const width = uiArguments.width ?? "auto";
 
   const settings = { ...uiArguments };

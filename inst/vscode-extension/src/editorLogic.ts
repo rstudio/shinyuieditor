@@ -4,11 +4,10 @@ import type { MessageToClient } from "communication-types/src/MessageToClient";
 import debounce from "just-debounce-it";
 import * as vscode from "vscode";
 
-import { update_app_file } from "./addUiTextToFile";
 import { clearAppFile } from "./clearAppFile";
 import { openCodeCompanionEditor } from "./extension-api-utils/openCodeCompanionEditor";
 import { checkIfPkgAvailable } from "./R-Utils/checkIfPkgAvailable";
-import { getAppAST } from "./R-Utils/getAppAST";
+import { make_cached_ast_getter } from "./R-Utils/getAppAST";
 import type { ActiveRSession } from "./R-Utils/startBackgroundRProcess";
 import { startPreviewApp } from "./R-Utils/startPreviewApp";
 import {
@@ -16,6 +15,7 @@ import {
   selectInputReferences,
   select_app_lines,
 } from "./selectServerReferences";
+import { update_app_file } from "./update_app_file";
 
 const { showErrorMessage } = vscode.window;
 
@@ -45,6 +45,8 @@ export function editorLogic({
    */
   let codeCompanionEditor: vscode.TextEditor | undefined = undefined;
 
+  const get_app_ast = make_cached_ast_getter(document, RProcess);
+
   const syncFileToClientState = async () => {
     const appFileText = document.getText();
 
@@ -52,6 +54,7 @@ export function editorLogic({
     const updateWeMade =
       latestAppWrite !== null && appFileText.includes(latestAppWrite);
 
+    // console.log("Updating client state");
     // Skip unneccesary app file parsing
     if (updateWeMade) return;
 
@@ -84,7 +87,7 @@ export function editorLogic({
     }
 
     try {
-      const appAST = await getAppAST(RProcess, appFileText);
+      const appAST = await get_app_ast();
 
       if (appAST.status === "error") {
         sendMessage({
@@ -114,7 +117,7 @@ export function editorLogic({
           app_type: "SINGLE-FILE",
           app: {
             script: appFileText,
-            ast: appAST.values,
+            ast: appAST.values.ast,
           },
         },
       });
@@ -188,8 +191,15 @@ export function editorLogic({
         case "UPDATED-APP": {
           if (msg.payload.app_type === "MULTI-FILE") return;
 
-          latestAppWrite = msg.payload.app;
-          await update_app_file({ text: msg.payload.app, document });
+          const app_file_was_updated = await update_app_file({
+            script_text: msg.payload.app,
+            document,
+          });
+
+          if (app_file_was_updated) {
+            latestAppWrite = msg.payload.app;
+          }
+
           return;
         }
 
@@ -222,19 +232,35 @@ export function editorLogic({
           return;
         }
         case "INSERT-SNIPPET": {
-          console.log("Insert snippet into server", msg.payload);
-          insert_code_snippet({
-            editor: await get_companion_editor(),
-            ...msg.payload,
-          });
+          const appAST = await get_app_ast();
+          if (appAST.status === "success" && appAST.values !== "EMPTY") {
+            insert_code_snippet({
+              editor: await get_companion_editor(),
+              server_pos: appAST.values.server_info.server_pos,
+              ...msg.payload,
+            });
+          }
           return;
         }
 
-        case "FIND-INPUT-USES": {
-          selectInputReferences({
-            editor: await get_companion_editor(),
-            input: msg.payload,
-          });
+        case "FIND-SERVER-USES": {
+          if (msg.payload.type === "Input") {
+            selectInputReferences({
+              editor: await get_companion_editor(),
+              input: msg.payload,
+            });
+          } else {
+            const appAST = await get_app_ast();
+            if (appAST.status === "success" && appAST.values !== "EMPTY") {
+              select_app_lines({
+                editor: await get_companion_editor(),
+                selections:
+                  appAST.values.server_info.get_output_position(
+                    msg.payload.outputId
+                  ) ?? [],
+              });
+            }
+          }
 
           return;
         }

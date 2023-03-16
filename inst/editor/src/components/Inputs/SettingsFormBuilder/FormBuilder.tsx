@@ -1,13 +1,11 @@
 import React from "react";
 
-import type { StringKeys } from "../../../TypescriptUtils";
+import { is_object } from "util-functions/src/is_object";
+import type { StringKeys } from "util-functions/src/TypescriptUtils";
 
-import type {
-  FormInfo,
-  InputFieldEntryNames,
-  StaticFieldInfoByType,
-} from "./inputFieldTypes";
-import { removeOmittedFields } from "./removeOmittedFields";
+import type { UiArgumentsObject } from "../../../Shiny-Ui-Elements/uiNodeTypes";
+
+import type { DynamicArgumentInfo } from "./buildStaticSettingsInfo";
 import type {
   SettingsInputProps,
   SettingsUpdateAction,
@@ -18,15 +16,6 @@ import { UnknownArgumentsRender } from "./UnknownArgumentsRender";
 
 type SettingsObj = Record<string, unknown>;
 
-/**
- * Info object with all the arguments marked as omitted removed. Aka only the
- * ones we want to render inputs for.
- */
-export type NonOmittedFormInfo = Record<
-  string,
-  StaticFieldInfoByType[InputFieldEntryNames]
->;
-
 type FormFieldComponents<Info extends SettingsObj> = {
   inputs: Record<StringKeys<Info>, JSX.Element>;
   settings: Info;
@@ -36,28 +25,25 @@ export type CustomFormRenderFn<Settings extends SettingsObj> = (
   x: FormFieldComponents<Settings>
 ) => JSX.Element;
 
-export type FormBuilderProps<Info extends FormInfo> = {
-  settings: SettingsObj;
-  settingsInfo: Info;
+export type FormBuilderProps = {
+  settings: UiArgumentsObject;
+  settingsInfo: DynamicArgumentInfo;
   onSettingsChange: (name: string, action: SettingsUpdateAction) => void;
   renderInputs?: CustomFormRenderFn<SettingsObj>;
 };
 
-export function FormBuilder<Info extends FormInfo>(
-  args: FormBuilderProps<Info>
-) {
+export function FormBuilder(args: FormBuilderProps) {
   const {
     settings,
     settingsInfo,
     onSettingsChange,
     renderInputs = ({ inputs }) => <>{Object.values(inputs)}</>,
   } = args;
-  const { nonOmittedFormInfo } = removeOmittedFields(settingsInfo);
 
   const PrebuiltInputComponents = {
     inputs: knownArgumentInputs({
       settings,
-      settingsInfo: nonOmittedFormInfo,
+      settingsInfo,
       onSettingsChange,
     }),
     settings,
@@ -75,27 +61,38 @@ const disableDefaultSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
   e.preventDefault();
 };
 
-function knownArgumentInputs<Info extends NonOmittedFormInfo>({
+function knownArgumentInputs({
   settings,
   settingsInfo,
   onSettingsChange,
-}: FormBuilderProps<Info>) {
+}: FormBuilderProps) {
   const InputsComponents: Record<string, JSX.Element> = {};
 
-  Object.keys(settingsInfo).forEach((name) => {
-    const infoForArg = settingsInfo[name];
+  for (const arg_name in settingsInfo) {
+    const arg_info = settingsInfo[arg_name];
 
-    const currentValue = settings[name as keyof typeof settings];
+    if (!is_object(arg_info)) continue;
+
+    if (
+      !("inputType" in arg_info) ||
+      !("defaultValue" in arg_info) ||
+      arg_info.inputType === "omitted"
+    )
+      continue;
+
+    const current_arg_value = settings[arg_name];
 
     const inputProps = {
-      ...infoForArg,
-      name,
-      value: currentValue,
-      onUpdate: (updatedAction) => onSettingsChange(name, updatedAction),
+      ...arg_info,
+      name: arg_name,
+      value: current_arg_value,
+      onUpdate: (updatedAction) => onSettingsChange(arg_name, updatedAction),
     } as SettingsInputProps;
 
-    InputsComponents[name] = <SettingsInput key={name} {...inputProps} />;
-  });
+    InputsComponents[arg_name] = (
+      <SettingsInput key={arg_name} {...inputProps} />
+    );
+  }
 
   return InputsComponents;
 }

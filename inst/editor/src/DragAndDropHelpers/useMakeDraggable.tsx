@@ -1,21 +1,28 @@
 import React from "react";
 
-import type { DraggedNodeInfo } from "./DragAndDropHelpers";
-import { DraggedNodeContext } from "./useCurrentDraggedNode";
+import {
+  useUnsetCurrentDraggedNode,
+  useSetCurrentDraggedNode,
+} from "../state/currentlyDraggedNode";
 
-export function useMakeDraggable({
-  nodeInfo,
-  immovable = false,
-}: {
-  nodeInfo: DraggedNodeInfo;
-  // A way of disabling drag behavior
-  immovable?: boolean;
-}) {
+import type { DraggedNodeInfo } from "./DragAndDropHelpers";
+
+type DragEventCallback = React.DragEventHandler<HTMLDivElement>;
+type DragCallbacks = {
+  onDragStart: DragEventCallback;
+  onDragEnd: DragEventCallback;
+  draggable: boolean;
+};
+
+export function useMakeDraggable(
+  nodeInfo: DraggedNodeInfo
+): DragCallbacks | null {
   // Keep track of if we're in the middle of a drag. This will help avoid
   // unneccesary duplicate work when of calling endDrag twice we get when the
   // user abandons a drag
   const dragHappening = React.useRef(false);
-  const [, setDraggedNode] = React.useContext(DraggedNodeContext);
+  const setDraggedNode = useSetCurrentDraggedNode();
+  const unsetDraggedNode = useUnsetCurrentDraggedNode();
 
   // The drag can end three different ways
   // 1. The user drags the item onto a suitable drop target. Then the dragend
@@ -34,31 +41,27 @@ export function useMakeDraggable({
   //    window. This will trigger the dragend event instantly.
   const endDrag = React.useCallback(
     (e: React.DragEvent<HTMLDivElement> | DragEvent) => {
-      if (dragHappening.current === false || immovable) return;
-      setDraggedNode(null);
+      if (dragHappening.current === false) return;
+      e.stopPropagation();
+      unsetDraggedNode();
       dragHappening.current = false;
       document.body.removeEventListener("dragover", dummyDragOverListener);
       document.body.removeEventListener("drop", endDrag);
     },
-    [immovable, setDraggedNode]
+    [unsetDraggedNode]
   );
 
   const startDrag: React.DragEventHandler<HTMLDivElement> = React.useCallback(
     (e) => {
       e.stopPropagation();
-      setDraggedNode(nodeInfo);
       dragHappening.current = true;
       document.body.addEventListener("dragover", dummyDragOverListener);
       document.body.addEventListener("drop", endDrag);
+
+      setDraggedNode(nodeInfo);
     },
     [endDrag, nodeInfo, setDraggedNode]
   );
-
-  if (nodeInfo.currentPath?.length === 0 || immovable) {
-    // Don't let the root node be dragged. It can't go anywhere and causes
-    // super annoying visual shift
-    return {};
-  }
 
   return {
     onDragStart: startDrag,

@@ -1,4 +1,4 @@
-import type { InputComponentProps } from "../inputFieldTypes";
+import type { InputComponentByType } from "../inputFieldTypes";
 import { makeLabelId } from "../inputFieldTypes";
 
 export function StringInput({
@@ -6,19 +6,23 @@ export function StringInput({
   label,
   value,
   onChange,
-}: InputComponentProps<string>) {
-  return (
-    <input
-      className="SUE-Input"
-      aria-label={label}
-      aria-labelledby={makeLabelId(id)}
-      id={id}
-      type="text"
-      value={value}
-      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-        const newValue = e.target.value;
-        onChange(newValue);
-      }}
-    />
-  );
+  longform,
+}: InputComponentByType<"string">) {
+  const common_props = {
+    className: "SUE-Input",
+    "aria-label": label,
+    "aria-labelledby": makeLabelId(id),
+    id,
+    value,
+    onChange: (
+      e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+    ) => {
+      const newValue = e.target.value;
+      onChange(newValue);
+    },
+  };
+  if (longform) {
+    return <textarea {...common_props} />;
+  }
+  return <input {...common_props} type="text" />;
 }

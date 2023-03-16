@@ -1,16 +1,20 @@
 import plotIcon from "../../assets/icons/shinyPlot.png";
-import type { UiComponentInfo } from "../uiNodeTypes";
+import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
+import { nodeInfoFactory } from "../nodeInfoFactory";
 
 import ShinyPlotOutput from "./ShinyPlotOutput";
 
 export type ShinyPlotOutputProps = {
   outputId: string;
-  width?: string;
-  height?: string;
+  width?: CSSMeasure;
+  height?: CSSMeasure;
 };
 
-export const shinyPlotOutputInfo: UiComponentInfo<ShinyPlotOutputProps> = {
+export const shinyPlotOutputInfo = nodeInfoFactory<ShinyPlotOutputProps>()({
+  library: "shiny",
+  name: "plotOutput",
   title: "Plot Output",
+  takesChildren: false,
   UiComponent: ShinyPlotOutput,
   settingsInfo: {
     outputId: {
@@ -22,11 +26,13 @@ export const shinyPlotOutputInfo: UiComponentInfo<ShinyPlotOutputProps> = {
       label: "Width",
       inputType: "cssMeasure",
       defaultValue: "100%",
+      optional: true,
     },
     height: {
       label: "Height",
       inputType: "cssMeasure",
       defaultValue: "400px",
+      optional: true,
     },
   },
   serverBindings: {
@@ -35,10 +41,9 @@ export const shinyPlotOutputInfo: UiComponentInfo<ShinyPlotOutputProps> = {
       renderScaffold: `renderPlot({\n  #Plot code goes here\n  $0plot(rnorm(100))\n})`,
     },
   },
-  acceptsChildren: false,
   iconSrc: plotIcon,
   category: "Outputs",
   description: "Render a `renderPlot()` within an application page.",
-};
+});
 
 export default ShinyPlotOutput;

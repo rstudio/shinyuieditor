@@ -1,14 +1,17 @@
 import icon from "../../assets/icons/shinyContainer.png";
-import type { UiComponentInfo } from "../uiNodeTypes";
+import { nodeInfoFactory } from "../nodeInfoFactory";
 
-import PkgNodeName from "./Component";
+import { PkgNodeName } from "./Component";
 
 export type NodeNameSettings = {
   name: string;
 };
 
-export const pkgNodeNameInfo: UiComponentInfo<NodeNameSettings> = {
+export const pkgNodeNameInfo = nodeInfoFactory<NodeNameSettings>()({
+  library: "PKG_NAME",
+  name: "node_name",
   title: "NODE NAME",
+  takesChildren: true,
   UiComponent: PkgNodeName,
   settingsInfo: {
     name: {
@@ -17,10 +20,7 @@ export const pkgNodeNameInfo: UiComponentInfo<NodeNameSettings> = {
       defaultValue: "NODE NAME",
     },
   },
-  acceptsChildren: true,
   iconSrc: icon,
   category: "NODE CATEGORY",
   description: "DESCRIPTION OF NODE",
-};
-
-export default pkgNodeNameInfo;
+});

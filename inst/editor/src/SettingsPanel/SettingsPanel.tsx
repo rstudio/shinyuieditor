@@ -2,10 +2,9 @@ import DeleteNodeButton from "../components/DeleteNodeButton";
 import { buildStaticFormInfo } from "../components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
 import type { CustomFormRenderFn } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
 import { FormBuilder } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
-import type { FormValuesFromInfo } from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";
 import { PanelHeader } from "../EditorSkeleton/EditorSkeleton";
 import type { ShinyUiNode } from "../main";
-import { shinyUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
+import { getUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
 
 import { GoToSourceBtns } from "./GoToSourceBtns";
 import PathBreadcrumb from "./PathBreadcrumb";
@@ -36,7 +35,7 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
   const { uiName, uiArguments } = currentNode;
 
   // If performance issues happen this can be memoized
-  const nodeInfo = shinyUiNodeInfo[uiName];
+  const nodeInfo = getUiNodeInfo(uiName);
   const staticSettingsInfo = buildStaticFormInfo(
     nodeInfo.settingsInfo,
     currentNode
@@ -54,14 +53,14 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
           />
         </div>
         <FormBuilder
-          settings={
-            uiArguments as FormValuesFromInfo<typeof staticSettingsInfo>
-          }
+          settings={uiArguments}
           settingsInfo={staticSettingsInfo}
           renderInputs={
-            nodeInfo.settingsFormRender as CustomFormRenderFn<
-              typeof uiArguments
-            >
+            "settingsFormRender" in nodeInfo
+              ? (nodeInfo.settingsFormRender as CustomFormRenderFn<
+                  typeof uiArguments
+                >)
+              : undefined
           }
           onSettingsChange={(name, action) => {
             switch (action.type) {

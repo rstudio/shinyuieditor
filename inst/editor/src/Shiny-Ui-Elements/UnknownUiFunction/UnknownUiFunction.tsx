@@ -7,10 +7,10 @@ import type { UnknownUiFunctionProps } from "./index";
 import "./styles.scss";
 
 const num_preview_chars = 20;
-const UnknownUiFunction: UiNodeComponent<UnknownUiFunctionProps> = ({
-  uiArguments,
-  wrapperProps,
-}) => {
+const UnknownUiFunction: UiNodeComponent<
+  UnknownUiFunctionProps,
+  { TakesChildren: false }
+> = ({ uiArguments, wrapperProps }) => {
   const functionName =
     uiArguments.text.slice(0, num_preview_chars).replaceAll(/\s$/g, "") + "...";
   return (

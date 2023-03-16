@@ -3,11 +3,11 @@ import React from "react";
 import { FaPlus } from "react-icons/fa";
 import { MdDragHandle } from "react-icons/md";
 import { ReactSortable } from "react-sortablejs";
+import { sameObject } from "util-functions/src/equalityCheckers";
 
-import { sameObject } from "../../../utils/equalityCheckers";
 import { Trash } from "../../Icons";
 import Button from "../Button/Button";
-import type { InputComponentProps } from "../SettingsFormBuilder/inputFieldTypes";
+import type { InputComponentByType } from "../SettingsFormBuilder/inputFieldTypes";
 import { makeLabelId } from "../SettingsFormBuilder/inputFieldTypes";
 
 import classes from "./styles.module.css";
@@ -39,12 +39,7 @@ export function NamedListInput({
   value,
   onChange,
   newItemValue = { key: "myKey", value: "myValue" },
-}: InputComponentProps<
-  NamedList,
-  {
-    newItemValue?: NewItemValue;
-  }
->) {
+}: InputComponentByType<"list">) {
   const { state, setState, addItem, deleteItem } = useListState({
     value,
     onChange,

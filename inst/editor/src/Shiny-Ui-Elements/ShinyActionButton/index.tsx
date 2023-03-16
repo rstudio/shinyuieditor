@@ -1,10 +1,6 @@
 import buttonIcon from "../../assets/icons/shinyButton.png";
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
-import {
-  makeInputIdInfo,
-  makeLabelInputInfo,
-} from "../commonSettingsTemplates";
-import type { UiComponentInfo } from "../uiNodeTypes";
+import { nodeInfoFactory } from "../nodeInfoFactory";
 
 import ShinyActionButton from "./ShinyActionButton";
 
@@ -14,17 +10,30 @@ export type ShinyActionButtonProps = {
   width?: CSSMeasure;
 };
 
-export const shinyActionButtonInfo: UiComponentInfo<ShinyActionButtonProps> = {
+export const shinyActionButtonInfo = nodeInfoFactory<ShinyActionButtonProps>()({
   title: "Action Button",
+  library: "shiny",
+  name: "actionButton",
+  takesChildren: false,
   UiComponent: ShinyActionButton,
+  iconSrc: buttonIcon,
   settingsInfo: {
-    inputId: makeInputIdInfo("myButton"),
-    label: makeLabelInputInfo("My Button"),
+    inputId: {
+      inputType: "string",
+      label: "inputId",
+      defaultValue: "myButton",
+    },
+    label: {
+      inputType: "string",
+      label: "Label",
+      defaultValue: "My Button",
+    },
     width: {
       inputType: "cssMeasure",
       label: "Width",
       defaultValue: "100%",
       units: ["%", "px", "rem"],
+      optional: true,
     },
   },
   serverBindings: {
@@ -32,11 +41,9 @@ export const shinyActionButtonInfo: UiComponentInfo<ShinyActionButtonProps> = {
       inputIdKey: "inputId",
     },
   },
-  acceptsChildren: false,
-  iconSrc: buttonIcon,
   category: "Inputs",
   description:
     "Creates an action button whose value is initially zero, and increments by one each time it is pressed.",
-};
+});
 
 export default ShinyActionButton;

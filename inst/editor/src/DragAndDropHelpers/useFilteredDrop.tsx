@@ -1,12 +1,15 @@
 import React from "react";
 
+import {
+  useCurrentDraggedNode,
+  useUnsetCurrentDraggedNode,
+} from "../state/currentlyDraggedNode";
+
 import "./DragAndDrop.css";
 import type { DraggedNodeInfo } from "./DragAndDropHelpers";
-import { useCurrentDraggedNode } from "./useCurrentDraggedNode";
 
-type DropHandlerArguments = {
-  watcherRef: React.RefObject<HTMLDivElement>;
-  getCanAcceptDrop?: (droppedNode: DraggedNodeInfo) => void;
+export type DropHandlerArguments = {
+  getCanAcceptDrop: (droppedNode: DraggedNodeInfo) => void;
   onDrop: (droppedNode: DraggedNodeInfo) => void;
   onDragOver?: () => void;
   canAcceptDropClass?: string;
@@ -14,14 +17,16 @@ type DropHandlerArguments = {
 };
 
 export function useFilteredDrop({
-  watcherRef,
-  getCanAcceptDrop = () => true,
+  getCanAcceptDrop,
   onDrop,
   onDragOver,
   canAcceptDropClass = "can-accept-drop",
   hoveringOverClass = "hovering-over",
 }: DropHandlerArguments) {
-  const [currentlyDragged, setCurrentlyDragged] = useCurrentDraggedNode();
+  const watcherRef = React.useRef<HTMLDivElement>(null);
+
+  const currentlyDragged = useCurrentDraggedNode();
+  const unsetCurrentlyDragged = useUnsetCurrentDraggedNode();
 
   const {
     addCanAcceptDropHighlight,
@@ -78,14 +83,14 @@ export function useFilteredDrop({
       }
 
       // Turn off drag
-      setCurrentlyDragged(null);
+      unsetCurrentlyDragged();
     },
     [
       canAcceptDrop,
       currentlyDragged,
       onDrop,
       removeHoveredOverHighlight,
-      setCurrentlyDragged,
+      unsetCurrentlyDragged,
     ]
   );
 
@@ -119,6 +124,8 @@ export function useFilteredDrop({
     removeAllHighlights,
     watcherRef,
   ]);
+
+  return watcherRef;
 }
 
 function useDropHighlights({
@@ -132,8 +139,14 @@ function useDropHighlights({
 }) {
   const addCanAcceptDropHighlight = React.useCallback(() => {
     if (!watcherRef.current) return;
-    watcherRef.current.classList.add(canAcceptDropClass);
-    watcherRef.current.classList.add("can-accept-drop");
+    // We need to use a timeout here to ensure the drag state is fully set on
+    // the dragged element before we start showing drop zones etc, otherwise
+    // the layout shift from the drop mode can cause the mouse to leave the
+    // dragged item and thus prematurely terminate the drag event
+    setTimeout(() => {
+      watcherRef.current?.classList.add(canAcceptDropClass);
+      watcherRef.current?.classList.add("can-accept-drop");
+    }, 1);
   }, [canAcceptDropClass, watcherRef]);
 
   const addHoveredOverHighlight = React.useCallback(() => {

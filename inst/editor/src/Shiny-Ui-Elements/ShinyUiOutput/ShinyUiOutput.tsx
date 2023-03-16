@@ -4,10 +4,10 @@ import type { ShinyUiOutputProps } from "./index";
 
 import classes from "./styles.module.css";
 
-const ShinyUiOutput: UiNodeComponent<ShinyUiOutputProps> = ({
-  uiArguments,
-  wrapperProps,
-}) => {
+const ShinyUiOutput: UiNodeComponent<
+  ShinyUiOutputProps,
+  { TakesChildren: false }
+> = ({ uiArguments, wrapperProps }) => {
   const { outputId = "shiny-ui-output" } = uiArguments;
 
   return (

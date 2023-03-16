@@ -1,0 +1,17 @@
+{
+  "name": "util-functions",
+  "main": "./src/index.ts",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "tsconfig": "*",
+    "typescript": "^4.9.3",
+    "vitest": "^0.22.1",
+    "just-clone": "^6.1.1"
+  },
+  "scripts": {
+    "type-check": "tsc -p ./ --noEmit",
+    "test": "vitest run",
+    "test-watch": "vitest"
+  }
+}

@@ -1,3 +1,24 @@
+# shinyuieditor 0.4.1
+
+### Major new features and improvements
+
+- New more flexible `bslib::card()` based cards are now available along with the old grid cards being updated to reflect the new the `gridlayout` wrapper `gridlayout::grid_card()`.
+- You can now add plain text anywhere you could add normal elements. The new "Static Text" node let's you enter descriptions etc... The contents can also have basic styles applied such as sizing and decoration.
+
+### Minor new features and improvements
+
+- Cards now have a simple header by default
+
+### Bug fixes
+
+- In vscode, if ui changes are made to the app the selection of output definitions and addition of new output definitions no longer breaks.
+- Fixed problem where making lots of quick updates to the state would cause the app to crash due to backend and client getting out of sync.
+- Content of cards can no longer spill over obscuring other elements like grid tract resizers.
+- The visual indicator for swapping positions of items on the grid no longer flickers and actually is legible.
+- The width argument of shiny text input elements is now reflected in the main editor view.
+- plot outputs no longer have a fixed width of `200px` when their `width` argument is unset, instead filling width of container as they do in running app.
+- Code/ functions that the editor doesn't know how to deal with (e.g. custom functions or non-implemented ui elements) no longer crash app to blank screen.
+
 # shinyuieditor 0.4.0
 
 ### Major new features and improvements

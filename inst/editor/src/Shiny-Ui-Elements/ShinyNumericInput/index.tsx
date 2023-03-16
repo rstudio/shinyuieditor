@@ -1,11 +1,7 @@
 import icon from "../../assets/icons/shinyNumericinput.png";
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
 import { LabeledInputCategory } from "../../components/Inputs/SettingsFormBuilder/LabeledInputCategory";
-import {
-  makeInputIdInfo,
-  makeLabelInputInfo,
-} from "../commonSettingsTemplates";
-import type { UiComponentInfo } from "../uiNodeTypes";
+import { nodeInfoFactory } from "../nodeInfoFactory";
 
 import ShinyNumericInput from "./ShinyNumericInput";
 
@@ -19,12 +15,23 @@ export type ShinyNumericInputProps = {
   width?: CSSMeasure;
 };
 
-export const shinyNumericInputInfo: UiComponentInfo<ShinyNumericInputProps> = {
+export const shinyNumericInputInfo = nodeInfoFactory<ShinyNumericInputProps>()({
+  library: "shiny",
+  name: "numericInput",
   title: "Numeric Input",
+  takesChildren: false,
   UiComponent: ShinyNumericInput,
   settingsInfo: {
-    inputId: makeInputIdInfo("myNumericInput"),
-    label: makeLabelInputInfo("Numeric Input"),
+    inputId: {
+      inputType: "string",
+      label: "inputId",
+      defaultValue: "myNumericInput",
+    },
+    label: {
+      inputType: "string",
+      label: "label",
+      defaultValue: "Numeric Input",
+    },
     min: {
       label: "Min",
       inputType: "number",
@@ -76,8 +83,7 @@ export const shinyNumericInputInfo: UiComponentInfo<ShinyNumericInputProps> = {
       inputIdKey: "inputId",
     },
   },
-  acceptsChildren: false,
   iconSrc: icon,
   category: "Inputs",
   description: "An input control for entry of numeric values",
-};
+});

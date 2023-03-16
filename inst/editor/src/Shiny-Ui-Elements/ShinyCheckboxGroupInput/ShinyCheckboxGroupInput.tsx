@@ -5,7 +5,8 @@ import type { ShinyCheckboxGroupInputProps } from ".";
 import classes from "./styles.module.css";
 
 const ShinyCheckboxGroupInput: UiNodeComponent<
-  ShinyCheckboxGroupInputProps
+  ShinyCheckboxGroupInputProps,
+  { TakesChildren: false }
 > = ({ uiArguments, wrapperProps }) => {
   const choices = uiArguments.choices;
   return (

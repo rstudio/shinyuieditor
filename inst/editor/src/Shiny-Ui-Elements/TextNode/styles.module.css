@@ -1,0 +1,12 @@
+.wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.wrapper[data-decoration="italic"] {
+  font-style: italic;
+}
+
+.wrapper[data-decoration="bold"] {
+  font-weight: bold;
+}

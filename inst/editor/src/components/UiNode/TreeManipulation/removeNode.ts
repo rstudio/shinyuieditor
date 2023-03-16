@@ -1,9 +1,12 @@
 import produce from "immer";
 
-import type { ShinyUiNode } from "../../../main";
-import type { NodePath } from "../../../Shiny-Ui-Elements/uiNodeTypes";
+import type {
+  NodePath,
+  ShinyUiNode,
+  ShinyUiParentNode,
+} from "../../../Shiny-Ui-Elements/uiNodeTypes";
+import { isParentNode } from "../../../Shiny-Ui-Elements/uiNodeTypes";
 
-import { checkIfContainerNode } from "./checkIfContainerNode";
 import { getNode } from "./getNode";
 
 /**
@@ -27,6 +30,14 @@ export function removeNode(tree: ShinyUiNode, removeArgs: RemoveNodeArguments) {
   });
 }
 
+function verifyNodeHasChildren(
+  node: ShinyUiParentNode
+): asserts node is Required<ShinyUiParentNode> {
+  if (!node.uiChildren) {
+    throw new Error("Somehow trying to enter a leaf node");
+  }
+}
+
 export function removeNodeMutating(
   tree: ShinyUiNode,
   { path }: RemoveNodeArguments
@@ -34,9 +45,12 @@ export function removeNodeMutating(
   const { parentNode, indexToNode } = navigateToParent(tree, path);
 
   // Splice out this child
-  if (!checkIfContainerNode(parentNode)) {
+  if (!isParentNode(parentNode)) {
     throw new Error("Somehow trying to enter a leaf node");
   }
+
+  verifyNodeHasChildren(parentNode);
+
   parentNode.uiChildren.splice(indexToNode, 1);
 }
 
@@ -57,7 +71,7 @@ function navigateToParent(
   // itself to get to the "parent"
   const parentNode = pathCopy.length === 0 ? tree : getNode(tree, pathCopy);
 
-  if (!checkIfContainerNode(parentNode)) {
+  if (!isParentNode(parentNode)) {
     throw new Error("Somehow trying to enter a leaf node");
   }
 

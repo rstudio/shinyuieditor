@@ -8,7 +8,7 @@
   subtly creep out of the box and cause horizontal scrollbars to appear */
   max-width: 100%;
   min-width: 0;
-  grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(40px, auto));
   padding: 0;
 }
 
@@ -82,4 +82,8 @@ the label */
 .radioInput:hover + .radioLabel .icon {
   transition-timing-function: ease-out;
   opacity: 0;
+}
+
+.text_only_label {
+  /* padding: var(--size-md); */
 }

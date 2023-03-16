@@ -4,10 +4,10 @@ import type { ShinySelectInputProps } from ".";
 
 import classes from "./styles.module.css";
 
-const ShinySelectInput: UiNodeComponent<ShinySelectInputProps> = ({
-  uiArguments,
-  wrapperProps,
-}) => {
+const ShinySelectInput: UiNodeComponent<
+  ShinySelectInputProps,
+  { TakesChildren: false }
+> = ({ uiArguments, wrapperProps }) => {
   const choices = uiArguments.choices;
   const id = uiArguments.inputId;
   return (

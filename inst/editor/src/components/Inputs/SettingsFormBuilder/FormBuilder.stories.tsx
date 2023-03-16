@@ -3,38 +3,11 @@ import React from "react";
 import omit from "just-omit";
 
 import { FormBuilder } from "./FormBuilder";
-import type { FormInfo } from "./inputFieldTypes";
 import type { SettingsUpdateAction } from "./SettingsInput/SettingsInput";
 
 export default {
   title: "SettingsFormBuilder",
   component: FormBuilder,
-};
-
-const settingsInfo: FormInfo = {
-  name: {
-    defaultValue: "name default",
-    label: "String argument",
-    inputType: "string",
-  },
-  myNumberArg: {
-    defaultValue: 42,
-    label: "Optional number argument",
-    optional: true,
-    inputType: "number",
-  },
-  myCSSArg: {
-    inputType: "cssMeasure",
-    label: "I am a css measure",
-    defaultValue: "1rem",
-    optional: true,
-  },
-  myBooleanArg: {
-    inputType: "boolean",
-    label: "I am a boolean measure",
-    defaultValue: true,
-    optional: true,
-  },
 };
 
 export const AutoBuild = () => {
@@ -63,7 +36,31 @@ export const AutoBuild = () => {
   return (
     <FormBuilder
       settings={value}
-      settingsInfo={settingsInfo}
+      settingsInfo={{
+        name: {
+          defaultValue: "name default",
+          label: "String argument",
+          inputType: "string",
+        },
+        myNumberArg: {
+          defaultValue: 42,
+          label: "Optional number argument",
+          optional: true,
+          inputType: "number",
+        },
+        myCSSArg: {
+          inputType: "cssMeasure",
+          label: "I am a css measure",
+          defaultValue: "1rem",
+          optional: true,
+        },
+        myBooleanArg: {
+          inputType: "boolean",
+          label: "I am a boolean measure",
+          defaultValue: true,
+          optional: true,
+        },
+      }}
       onSettingsChange={handleSettingsChange}
     />
   );

@@ -1,16 +1,20 @@
 import icon from "../../assets/icons/shinyPlot.png";
-import type { UiComponentInfo } from "../uiNodeTypes";
+import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
+import { nodeInfoFactory } from "../nodeInfoFactory";
 
 import PlotlyPlotlyOutput from "./PlotlyPlotlyOutput";
 
 export type PlotlyOutputSettings = {
   outputId: string;
-  width?: string;
-  height?: string;
+  width?: CSSMeasure;
+  height?: CSSMeasure;
 };
 
-export const plotlyPlotlyOutputInfo: UiComponentInfo<PlotlyOutputSettings> = {
+export const plotlyPlotlyOutputInfo = nodeInfoFactory<PlotlyOutputSettings>()({
+  library: "plotly",
+  name: "plotlyOutput",
   title: "Plotly Plot",
+  takesChildren: false,
   UiComponent: PlotlyPlotlyOutput,
   settingsInfo: {
     outputId: {
@@ -22,11 +26,13 @@ export const plotlyPlotlyOutputInfo: UiComponentInfo<PlotlyOutputSettings> = {
       label: "Width",
       inputType: "cssMeasure",
       defaultValue: "100%",
+      optional: true,
     },
     height: {
       label: "Height",
       inputType: "cssMeasure",
       defaultValue: "400px",
+      optional: true,
     },
   },
   serverBindings: {
@@ -35,8 +41,7 @@ export const plotlyPlotlyOutputInfo: UiComponentInfo<PlotlyOutputSettings> = {
       renderScaffold: `renderPlotly({\n  plot_ly(z = ~volcano, type = "surface")\n})`,
     },
   },
-  acceptsChildren: false,
   iconSrc: icon,
   category: "Plotting",
   description: "Output for interactive `plotly` plots.",
-};
+});

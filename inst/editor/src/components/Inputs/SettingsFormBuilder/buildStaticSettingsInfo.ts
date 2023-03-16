@@ -1,117 +1,140 @@
-import type { ShinyUiNode } from "../../../main";
+import type { Expand } from "util-functions/src/TypescriptUtils";
+
+import type { ShinyUiNode } from "../../../Shiny-Ui-Elements/uiNodeTypes";
 
 import type {
-  DynamicFieldInfoByType,
-  FormInfo,
-  NodeToValueFn,
-  StaticFieldInfo,
-  StaticFieldInfoByType,
-  UiNodeSettingsInfo,
+  InputOptions,
+  MakeDynamicArguments,
+  MakeOmittedOption,
+  StaticInputOptions,
+  StaticInputOptionsByInputType,
 } from "./inputFieldTypes";
 
-function isNodeToValueFn<T>(x: T | NodeToValueFn<T>): x is NodeToValueFn<T> {
-  return typeof x === "function";
-}
+type ConvertToStatic<ArgsInfo extends Record<string, Record<string, unknown>>> =
+  {
+    [ArgName in keyof ArgsInfo]: MakeStaticArguments<ArgsInfo[ArgName]>;
+  };
 
-function getValueFromProperty<T>(
-  x: T | NodeToValueFn<T>,
-  node?: ShinyUiNode
-): T {
-  if (isNodeToValueFn(x)) {
-    return x(node);
-  }
-  return x;
-}
-
-/**
- * Convert a single argument from dynamic form to static form
- * @param dynamicFieldInfo Argument info about an argument
- * @param node ShinyUiNode that represents the argument being converted belongs
- * to the settings/uiArguments of
- * @returns A static version of the argument info where the callback versions of
- * info have been evaluated to their output types
- */
-export function buildStaticFieldInfo<
-  ArgType extends keyof DynamicFieldInfoByType
->(
-  dynamicFieldInfo: DynamicFieldInfoByType[ArgType],
-  node?: ShinyUiNode
-): StaticFieldInfoByType[ArgType] {
-  let staticArgumentInfo: Record<string, any> = {};
-
-  for (let prop in dynamicFieldInfo) {
-    const dynamicVal = dynamicFieldInfo[prop];
-    staticArgumentInfo[prop] = getValueFromProperty(dynamicVal, node);
-  }
-
-  return staticArgumentInfo as StaticFieldInfoByType[ArgType];
-}
-
-/**
- * Convert a whole settings info object from dynamic callback form to static
- * form
- * @param dynamicFormInfo A full settings info object for all settings in a
- * ui nodes uiArguments object
- * @param node ShinyUiNode for which the dynamicSettingsInfo represents the
- * settings/uiArguments for
- * @returns A static version of the settings info for all arugments where
- * functions have been evaluated to their constant values
- */
-export function buildStaticFormInfo<DynInfo extends UiNodeSettingsInfo>(
-  dynamicFormInfo: DynInfo,
-  node: ShinyUiNode
-): FormInfo {
-  let staticSettingsInfo: Record<string, StaticFieldInfo> = {};
-
-  for (let argName in dynamicFormInfo) {
-    const dynamicVal = dynamicFormInfo[argName];
-    staticSettingsInfo[argName] = buildStaticFieldInfo(dynamicVal, node);
-  }
-
-  return staticSettingsInfo as FormInfo;
-}
-
-export type DefaultSettingsFromInfo<DynInfo extends UiNodeSettingsInfo> = {
-  [ArgName in keyof DynInfo]: DynInfo[ArgName] extends { optional: true }
-    ? never
-    : DynInfo[ArgName]["defaultValue"];
-  // : GetValueFromDynamicProp<DynInfo[ArgName]["defaultValue"]>;
+type MakeStaticArguments<Obj extends Record<string, unknown>> = {
+  [Key in keyof Obj]: Obj[Key] extends
+    | infer Val
+    | ((node: ShinyUiNode) => infer Val)
+    ? Val
+    : Obj[Key];
 };
 
+type AllStaticOptions =
+  | (StaticInputOptionsByInputType[keyof StaticInputOptionsByInputType] & {
+      optional?: true;
+    })
+  | ({ inputType: "omitted" } & (
+      | { defaultValue: unknown }
+      | { defaultValue?: unknown; optional: true }
+    ));
+
+export type AllDynamicOptions = {
+  [StaticOption in AllStaticOptions as StaticOption["inputType"]]: MakeDynamicArguments<StaticOption>;
+}[AllStaticOptions["inputType"]];
+
+export type DynamicArgumentInfo = Record<string, AllDynamicOptions>;
+
 /**
  * Convert a whole settings info object from dynamic callback form to static
  * form
- * @param dynamicFormInfo A full settings info object for all settings in a
+ * @param inputInfoForArgs A full settings info object for all settings in a
  * ui nodes uiArguments object
  * @param node ShinyUiNode for which the dynamicSettingsInfo represents the
  * settings/uiArguments for
  * @returns A static version of the settings info for all arugments where
  * functions have been evaluated to their constant values
  */
-export function getDefaultSettings<DynInfo extends UiNodeSettingsInfo>(
-  dynamicFormInfo: DynInfo,
+export function buildStaticFormInfo<DynArgs extends DynamicArgumentInfo>(
+  dynamic_args: DynArgs,
   node?: ShinyUiNode
-): DefaultSettingsFromInfo<DynInfo> {
-  let defaultArgs: Record<string, any> = {};
+): ConvertToStatic<DynArgs> {
+  const static_args: Record<string, unknown> = {};
 
-  for (let argName in dynamicFormInfo) {
-    const argInfo = dynamicFormInfo[argName];
+  for (const arg_key in dynamic_args) {
+    static_args[arg_key] = convert_dynamic_info_to_static(
+      dynamic_args[arg_key],
+      node
+    );
+  }
 
-    const isOptional = "optional" in argInfo;
-    const forceDefault =
-      "useDefaultIfOptional" in argInfo && argInfo.useDefaultIfOptional;
+  return static_args as ConvertToStatic<DynArgs>;
+}
 
-    if (isOptional && !forceDefault) {
-      continue;
-    }
+function convert_dynamic_info_to_static<
+  DynInfo extends AllDynamicOptions,
+  UiNode
+>(dyn_info: DynInfo, node?: UiNode): MakeStaticArguments<DynInfo> {
+  const info_copy = { ...dyn_info };
 
-    if ("defaultValue" in argInfo) {
-      defaultArgs[argName] = buildStaticFieldInfo(
-        dynamicFormInfo[argName],
-        node
-      ).defaultValue;
+  for (const key in info_copy) {
+    const info_value = info_copy[key];
+
+    if (typeof info_value === "function") {
+      info_copy[key] = info_value(node);
     }
   }
 
-  return defaultArgs as DefaultSettingsFromInfo<DynInfo>;
+  return info_copy as MakeStaticArguments<DynInfo>;
 }
+
+/**
+ * Convert a whole settings info object from dynamic callback form to static
+ * form
+ * @param dynamicFormInfo A full settings info object for all settings in a ui
+ * nodes uiArguments object
+ * @returns Object of arguments corresponding to the info passed with only
+ * required fields filled in with their default values
+ */
+export function getDefaultSettings<DynArgs extends DynamicArgumentInfo>(
+  dynamic_args: DynArgs
+) {
+  const static_args: Record<string, unknown> = {};
+
+  for (const arg_key in dynamic_args) {
+    const info_for_arg = dynamic_args[arg_key];
+
+    // Omit optional args
+    const is_optional_arg = "optional" in info_for_arg;
+    const fill_even_if_optional = "useDefaultIfOptional" in info_for_arg;
+    if (is_optional_arg && !fill_even_if_optional) continue;
+
+    const default_value_field = info_for_arg["defaultValue"];
+
+    static_args[arg_key] =
+      typeof default_value_field === "function"
+        ? default_value_field()
+        : default_value_field;
+  }
+
+  return static_args as {
+    [Key in __KeysInDefaultArgs<DynArgs>]: __ArgFromInfo<DynArgs[Key]>;
+  };
+}
+type __KeysInDefaultArgs<Info extends DynamicArgumentInfo> = {
+  [ArgName in keyof Info]: Info[ArgName] extends { optional: true }
+    ? Info[ArgName] extends { useDefaultIfOptional: true }
+      ? ArgName
+      : never
+    : ArgName;
+}[keyof Info];
+
+// Helper types
+type __DynamicInputOptions = Expand<
+  {
+    [StaticOptions in StaticInputOptions as StaticOptions["inputType"]]: MakeOmittedOption<
+      MakeDynamicArguments<StaticOptions>
+    >;
+  }[InputOptions["inputType"]]
+>;
+
+type __ArgFromInfo<Info extends __DynamicInputOptions> = __GetArgType<
+  Info["defaultValue"]
+>;
+
+type __GetArgType<TArg> = TArg extends (...args: any[]) => infer TRet
+  ? TRet
+  : TArg;

@@ -1,10 +1,9 @@
-import React from "react";
-
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import type { Full_App_Info, Raw_App_Info } from "ast-parsing";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
+import type { Full_App_Info, Raw_App_Info } from "../ast_parsing";
+import { raw_app_info_to_full } from "../ast_parsing/raw_app_info_to_full";
 import type { TemplateChooserOptions } from "../components/TemplatePreviews/TemplateChooserView";
 import type { PlaceNodeArguments } from "../components/UiNode/TreeManipulation/placeNode";
 import { placeNodeMutating } from "../components/UiNode/TreeManipulation/placeNode";
@@ -14,12 +13,11 @@ import type { UpdateNodeArguments } from "../components/UiNode/TreeManipulation/
 import { updateNodeMutating } from "../components/UiNode/TreeManipulation/updateNode";
 import type { ShinyUiNode } from "../main";
 
-import { raw_app_info_to_full } from "./app_model/raw_app_info_to_full";
-import type { RootState } from "./store";
 import {
-  deleteSubscriptions,
-  updateSubscriptions,
-} from "./watcherSubscriptions";
+  get_deletion_subscriptions,
+  get_update_subscriptions,
+} from "./create_subscriber_getter";
+import type { RootState } from "./store";
 
 export type MainStateOption =
   | ({ mode: "MAIN" } & Full_App_Info)
@@ -72,7 +70,7 @@ export const mainStateSlice = createSlice({
       }
 
       // Make sure the tree is valid here
-      for (const subscription of updateSubscriptions) {
+      for (const subscription of get_update_subscriptions()) {
         subscription(state.ui_tree, action.payload);
       }
       updateNodeMutating(state.ui_tree, action.payload);
@@ -87,7 +85,7 @@ export const mainStateSlice = createSlice({
       if (state.mode !== "MAIN") {
         throw new Error("Tried to delete a node when in template chooser mode");
       }
-      for (const subscription of deleteSubscriptions) {
+      for (const subscription of get_deletion_subscriptions()) {
         subscription(state.ui_tree, { path: action.payload.path });
       }
       removeNodeMutating(state.ui_tree, action.payload);
@@ -114,19 +112,6 @@ export type DeleteAction = (
   tree: ShinyUiNode,
   payload: RemoveNodeArguments
 ) => void;
-
-export function usePlaceNode() {
-  const dispatch = useDispatch();
-
-  const place_node = React.useCallback(
-    (opts: PlaceNodeArguments) => {
-      dispatch(PLACE_NODE(opts));
-    },
-    [dispatch]
-  );
-
-  return place_node;
-}
 
 export function useCurrentAppInfo() {
   return useSelector((state: RootState) => state.app_info);

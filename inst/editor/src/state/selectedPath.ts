@@ -1,6 +1,8 @@
+import React from "react";
+
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import type { NodePath } from "../Shiny-Ui-Elements/uiNodeTypes";
 
@@ -33,6 +35,19 @@ export const { SET_SELECTION, STEP_BACK_SELECTION } = selectedPathSlice.actions;
 
 export function useCurrentSelection() {
   return useSelector((state: RootState) => state.selected_path);
+}
+
+export function useSetCurrentSelection() {
+  const dispatch = useDispatch();
+
+  const set_selection = React.useCallback(
+    (sel: CurrentSelection) => {
+      dispatch(SET_SELECTION({ path: sel }));
+    },
+    [dispatch]
+  );
+
+  return set_selection;
 }
 
 export default selectedPathSlice.reducer;

@@ -1,8 +1,12 @@
-import type { TemplatedGridProps } from "../../components/Grids/EditableGridContainer/TemplatedGridProps";
+import { fillArr } from "util-functions/src/arrays";
+import {
+  uniqueMatrixElements,
+  matrixDimensions,
+} from "util-functions/src/matrix-helpers";
+
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
-import type { TractDirection } from "../../Shiny-Ui-Elements/GridlayoutGridPage";
-import { fillArr } from "../array-helpers";
-import { matrixDimensions, uniqueMatrixElements } from "../matrix-helpers";
+import type { TractDirection } from "../../Shiny-Ui-Elements/Gridlayout/GridlayoutGridPage";
+import type { TemplatedGridProps } from "../../Shiny-Ui-Elements/Gridlayout/Utils/EditableGridContainer/TemplatedGridProps";
 
 type ParsedGridTemplate = {
   numRows: number;

@@ -3,14 +3,18 @@ import {
   getFirstTabName,
   getTabNames,
 } from "../../components/Tabs/Tabset/utils";
-import type { UiComponentInfo } from "../uiNodeTypes";
+import { nodeInfoFactory } from "../nodeInfoFactory";
+import type { ShinyUiParentNode } from "../uiNodeTypes";
 
 import ShinyTabsetPanel from "./ShinyTabsetPanel";
 
 export type TabsetPanelSettings = { id?: string; selected?: string };
 
-export const shinyTabsetPanelInfo: UiComponentInfo<TabsetPanelSettings> = {
+export const shinyTabsetPanelInfo = nodeInfoFactory<TabsetPanelSettings>()({
+  library: "shiny",
+  name: "tabsetPanel",
   title: "Tabset Panel",
+  takesChildren: true,
   UiComponent: ShinyTabsetPanel,
   settingsInfo: {
     id: {
@@ -23,12 +27,13 @@ export const shinyTabsetPanelInfo: UiComponentInfo<TabsetPanelSettings> = {
       inputType: "dropdown",
       optional: true,
       label: "Selected tab on load",
-      defaultValue: (node) => (node ? getFirstTabName(node) : "First Tab"),
-      choices: (node) => (node ? getTabNames(node) : ["First Tab"]),
+      defaultValue: (node) =>
+        node ? getFirstTabName(node as ShinyUiParentNode) : "First Tab",
+      choices: (node) =>
+        node ? getTabNames(node as ShinyUiParentNode) : ["First Tab"],
     },
   },
-  acceptsChildren: true,
   iconSrc: icon,
   category: "Tabs",
   description: "A container filled with tabs",
-};
+});

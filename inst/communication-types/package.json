@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "ast-parsing": "*",
+    "r-ast-parsing": "*",
     "editor": "*",
     "tsconfig": "*",
     "typescript": "^4.9.3"

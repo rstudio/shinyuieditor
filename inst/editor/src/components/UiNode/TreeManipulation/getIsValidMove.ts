@@ -1,7 +1,7 @@
 import type { NodePath } from "../../../Shiny-Ui-Elements/uiNodeTypes";
 
 import { aIsParentOfB } from "./aIsParentOfB";
-import { nodesAreSiblings } from "./nodesAreSiblings";
+import { nodesShareCommonParent } from "./nodesShareCommonParent";
 
 export function getIsValidMove({
   fromPath,
@@ -17,7 +17,7 @@ export function getIsValidMove({
     return false;
   }
 
-  if (nodesAreSiblings(fromPath, toPath)) {
+  if (nodesShareCommonParent(fromPath, toPath)) {
     // A move of a node to its own position or the one immediately following are
     // effectivly 'no ops' so we count them as invalid
     const depth = fromPath.length;

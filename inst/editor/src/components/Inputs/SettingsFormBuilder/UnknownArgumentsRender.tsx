@@ -1,17 +1,17 @@
+import { inANotInB } from "util-functions/src/arrays";
+
 import { isShinyUiNode } from "../../../Shiny-Ui-Elements/isShinyUiNode";
-import type { ShinyUiNodeByName } from "../../../Shiny-Ui-Elements/uiNodeTypes";
-import { inANotInB } from "../../../utils/array-helpers";
+import type { UnknownUiNode } from "../../../Shiny-Ui-Elements/UnknownUiFunction";
 import { Trash } from "../../Icons";
 import { Tooltip, TooltipButton } from "../../PopoverEl/Tooltip";
 
 import type { FormBuilderProps } from "./FormBuilder";
-import type { FormInfo } from "./inputFieldTypes";
 
-export function UnknownArgumentsRender<Info extends FormInfo>({
+export function UnknownArgumentsRender({
   settings,
   settingsInfo,
   onSettingsChange,
-}: FormBuilderProps<Info>) {
+}: FormBuilderProps) {
   const unknownArguments = inANotInB(
     Object.keys(settings),
     Object.keys(settingsInfo)
@@ -64,9 +64,7 @@ export function UnknownArgumentsRender<Info extends FormInfo>({
   );
 }
 
-type UnknownUiFunction = ShinyUiNodeByName["unknownUiFunction"];
-
-function isUnknownUiFunction(x: unknown): x is UnknownUiFunction {
+function isUnknownUiFunction(x: unknown): x is UnknownUiNode {
   if (!isShinyUiNode(x)) return false;
   return x.uiName === "unknownUiFunction";
 }

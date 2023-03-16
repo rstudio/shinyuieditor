@@ -1,12 +1,12 @@
-import type { ShinyUiNames, UiNodeComponent } from "../uiNodeTypes";
-import DropDetector from "../utils/DropDetector";
+import { DropWatcherPanel } from "../../DragAndDropHelpers/DropWatcherPanel";
+import type { ShinyUiNodeNames, UiNodeComponent } from "../uiNodeTypes";
 import { RenderUiChildren } from "../utils/RenderUiChildren";
 
 import type { TabPanelSettings } from "./index";
 
 import classes from "./ShinyTabPanel.module.css";
 
-export const invalidTabPanelContents: ShinyUiNames[] = [
+export const invalidTabPanelContents: ShinyUiNodeNames[] = [
   "shiny::navbarPage",
   "shiny::tabPanel",
   "gridlayout::grid_card",
@@ -15,15 +15,13 @@ export const invalidTabPanelContents: ShinyUiNames[] = [
 ];
 
 const dropFilters = {
-  rejectedNodes: invalidTabPanelContents,
+  rejected: invalidTabPanelContents,
 };
 
-const ShinyTabPanel: UiNodeComponent<TabPanelSettings> = ({
-  uiArguments,
-  uiChildren,
-  path,
-  wrapperProps,
-}) => {
+const ShinyTabPanel: UiNodeComponent<
+  TabPanelSettings,
+  { TakesChildren: true }
+> = ({ uiArguments, uiChildren, path, wrapperProps }) => {
   const hasChildren = uiChildren && uiChildren.length > 0;
 
   return (
@@ -31,14 +29,12 @@ const ShinyTabPanel: UiNodeComponent<TabPanelSettings> = ({
       {hasChildren ? (
         <RenderUiChildren uiChildren={uiChildren} parentPath={path} />
       ) : (
-        <DropDetector
+        <DropWatcherPanel
           className={classes.emptyTabPanelDropDetector}
-          dropArgs={{
-            dropFilters,
-            positionInChildren: 0,
-            parentPath: path,
-            onDrop: "add-node",
-          }}
+          index={0}
+          parentPath={path}
+          dropFilters={dropFilters}
+          parentNodeType="shiny::tabPanel"
         />
       )}
     </div>

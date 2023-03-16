@@ -1,10 +1,6 @@
 import icon from "../../assets/icons/shinycheckbox.png";
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
-import {
-  makeInputIdInfo,
-  makeLabelInputInfo,
-} from "../commonSettingsTemplates";
-import type { UiComponentInfo } from "../uiNodeTypes";
+import { nodeInfoFactory } from "../nodeInfoFactory";
 
 import ShinyCheckboxInput from "./ShinyCheckboxInput";
 
@@ -15,13 +11,24 @@ export type ShinyCheckboxInputProps = {
   width?: CSSMeasure;
 };
 
-export const shinyCheckboxInputInfo: UiComponentInfo<ShinyCheckboxInputProps> =
-  {
+export const shinyCheckboxInputInfo =
+  nodeInfoFactory<ShinyCheckboxInputProps>()({
+    library: "shiny",
+    name: "checkboxInput",
     title: "Checkbox Input",
+    takesChildren: false,
     UiComponent: ShinyCheckboxInput,
     settingsInfo: {
-      inputId: makeInputIdInfo("myCheckboxInput"),
-      label: makeLabelInputInfo("Checkbox Input"),
+      inputId: {
+        inputType: "string",
+        label: "inputId",
+        defaultValue: "myCheckboxInput",
+      },
+      label: {
+        inputType: "string",
+        label: "label",
+        defaultValue: "Checkbox Input",
+      },
       value: {
         inputType: "boolean",
         label: "Starting value",
@@ -32,6 +39,7 @@ export const shinyCheckboxInputInfo: UiComponentInfo<ShinyCheckboxInputProps> =
         label: "Width",
         defaultValue: "100%",
         units: ["%", "px", "rem"],
+        optional: true,
       },
     },
     serverBindings: {
@@ -39,9 +47,8 @@ export const shinyCheckboxInputInfo: UiComponentInfo<ShinyCheckboxInputProps> =
         inputIdKey: "inputId",
       },
     },
-    acceptsChildren: false,
     iconSrc: icon,
     category: "Inputs",
     description:
       "Create a checkbox that can be used to specify logical values.",
-  };
+  });
