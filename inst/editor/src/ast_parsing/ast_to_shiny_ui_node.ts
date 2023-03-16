@@ -21,7 +21,7 @@ import {
   get_node_is_list
 } from "./flatten_arrays_and_lists";
 import { build_text_node } from "./text_nodes/build_text_node";
-import { is_raw_text_node } from "./text_nodes/is_text_node";
+import { is_text_node } from "./text_nodes/is_text_node";
 
 export function ast_to_ui_node(node: Branch_Node): ShinyUiNode {
   const [fn_name, ...args] = node.val;
@@ -87,7 +87,7 @@ function process_unnamed_arg(
     return create_unknownUiFunction({ node, explanation: "Unknown symbol" });
   }
 
-  if (is_raw_text_node(node)) {
+  if (is_text_node(node)) {
     return build_text_node(node);
   }
 

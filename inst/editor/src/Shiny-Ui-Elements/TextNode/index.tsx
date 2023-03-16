@@ -1,5 +1,5 @@
 import icon from "../../assets/icons/shinyText.png";
-import type { TextNodeSettings } from "../../ast_parsing/text_nodes/build_text_node";
+import type { TextNodeSettings } from "../../ast_parsing/text_nodes/is_text_node";
 import { nodeInfoFactory } from "../nodeInfoFactory";
 import type { MakeShinyUiNode, ShinyUiNode } from "../uiNodeTypes";
 
@@ -35,20 +35,20 @@ export const textNodeInfo = nodeInfoFactory<TextNodeSettings>()({
         default: { label: "Normal" },
         italic: { label: "Italic" },
         bold: { label: "Bold" },
-      },
+      } satisfies Record<Required<TextNodeSettings>["decoration"], { label: string }>,
       optionsPerColumn: 2,
     },
     size: {
       label: "Font size",
       inputType: "radio",
       optional: true,
-      defaultValue: "span",
+      defaultValue: "default",
       choices: {
-        span: { label: "Normal" },
+        default: {label: "Normal"},
         small: { label: "Small" },
-        h1: { label: "Headline" },
-        h2: { label: "Subtitle" },
-      },
+        headline: { label: "Headline" },
+        subtitle: { label: "Subtitle" },
+      } satisfies Record<Required<TextNodeSettings>["size"], { label: string }>,
       optionsPerColumn: 2,
     },
   },

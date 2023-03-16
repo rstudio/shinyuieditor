@@ -1,9 +1,9 @@
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
-import type { ShinyUiNode } from "../src/main";
+import type { KnownShinyUiNode } from "../src/Shiny-Ui-Elements/uiNodeTypes";
 
 import { mockBackendState } from "./utils/mockBackend";
-const shortCardTree: ShinyUiNode = {
+const shortCardTree: KnownShinyUiNode = {
   uiName: "gridlayout::grid_page",
   uiArguments: {
     layout: ["onlyBody", ".       "],
@@ -65,7 +65,6 @@ const shortCardTree: ShinyUiNode = {
               uiArguments: {
                 contents: "Lorem Ipsum",
                 decoration: "default",
-                size: "span",
               },
             },
           ],

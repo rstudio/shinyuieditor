@@ -1,10 +1,10 @@
-import type { TextNodeSettings } from "../../ast_parsing/text_nodes/build_text_node";
+import type { TextUiNode } from "../../Shiny-Ui-Elements/TextNode/index";
 
-import type { TextUiNode } from "./index";
+import { decoration_to_wrapper, size_to_wrapper } from "./is_text_node";
 
 export function text_node_to_code(ui_node: TextUiNode): string {
   // Why does this not automatically resolve for me?
-  let container_fn = ui_node.uiArguments.size;
+  let text_size = ui_node.uiArguments.size;
   const { contents, decoration } = ui_node.uiArguments;
 
   const quoted_contents = `"${contents}"`;
@@ -17,18 +17,10 @@ export function text_node_to_code(ui_node: TextUiNode): string {
     ? `${decoration_wrapper}(${quoted_contents})`
     : quoted_contents;
 
-  if (!container_fn) {
+  if (!text_size) {
     // Just plain text
     return decorated_contents;
   }
 
-  return `${container_fn}(${decorated_contents})`;
+  return `${size_to_wrapper[text_size]}(${decorated_contents})`;
 }
-const decoration_to_wrapper: Record<
-  Exclude<TextNodeSettings["decoration"], undefined>,
-  string
-> = {
-  default: "",
-  bold: "strong",
-  italic: "em",
-};

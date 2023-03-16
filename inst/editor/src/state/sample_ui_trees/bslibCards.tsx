@@ -72,7 +72,7 @@ export const bslibCards = {
               uiArguments: {
                 contents: "Lorem Ipsum",
                 decoration: "default",
-                size: "span",
+                size: "default",
               },
             },
           ],

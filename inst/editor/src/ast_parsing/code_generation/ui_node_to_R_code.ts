@@ -5,9 +5,9 @@ import type { Primatives } from "r-ast-parsing";
 
 import { isShinyUiNode } from "../../Shiny-Ui-Elements/isShinyUiNode";
 import { isTextUiNode } from "../../Shiny-Ui-Elements/TextNode";
-import { text_node_to_code } from "../../Shiny-Ui-Elements/TextNode/text_node_to_code";
 import type { UnknownUiNode } from "../../Shiny-Ui-Elements/UnknownUiFunction";
 import { isUnknownUiNode } from "../../Shiny-Ui-Elements/UnknownUiFunction";
+import { text_node_to_code } from "../text_nodes/text_node_to_code";
 
 import {
   indent_line_breaks,
