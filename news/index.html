@@ -88,6 +88,28 @@
     </div>
 
     <div class="section level2">
+<h2 class="page-header" data-toc-text="0.4.1" id="shinyuieditor-041">shinyuieditor 0.4.1<a class="anchor" aria-label="anchor" href="#shinyuieditor-041"></a></h2>
+<div class="section level4">
+<h4 id="major-new-features-and-improvements-0-4-1">Major new features and improvements<a class="anchor" aria-label="anchor" href="#major-new-features-and-improvements-0-4-1"></a></h4>
+<ul><li>New more flexible <code><a href="https://rstudio.github.io/bslib/reference/card.html" class="external-link">bslib::card()</a></code> based cards are now available along with the old grid cards being updated to reflect the new the <code>gridlayout</code> wrapper <code><a href="https://rdrr.io/pkg/gridlayout/man/grid_card.html" class="external-link">gridlayout::grid_card()</a></code>.</li>
+<li>You can now add plain text anywhere you could add normal elements. The new “Static Text” node let’s you enter descriptions etc… The contents can also have basic styles applied such as sizing and decoration.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="minor-new-features-and-improvements-0-4-1">Minor new features and improvements<a class="anchor" aria-label="anchor" href="#minor-new-features-and-improvements-0-4-1"></a></h4>
+<ul><li>Cards now have a simple header by default</li>
+</ul></div>
+<div class="section level4">
+<h4 id="bug-fixes-0-4-1">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-4-1"></a></h4>
+<ul><li>In vscode, if ui changes are made to the app the selection of output definitions and addition of new output definitions no longer breaks.</li>
+<li>Fixed problem where making lots of quick updates to the state would cause the app to crash due to backend and client getting out of sync.</li>
+<li>Content of cards can no longer spill over obscuring other elements like grid tract resizers.</li>
+<li>The visual indicator for swapping positions of items on the grid no longer flickers and actually is legible.</li>
+<li>The width argument of shiny text input elements is now reflected in the main editor view.</li>
+<li>plot outputs no longer have a fixed width of <code>200px</code> when their <code>width</code> argument is unset, instead filling width of container as they do in running app.</li>
+<li>Code/ functions that the editor doesn’t know how to deal with (e.g. custom functions or non-implemented ui elements) no longer crash app to blank screen.</li>
+</ul></div>
+</div>
+    <div class="section level2">
 <h2 class="page-header" data-toc-text="0.4.0" id="shinyuieditor-040">shinyuieditor 0.4.0<a class="anchor" aria-label="anchor" href="#shinyuieditor-040"></a></h2>
 <div class="section level4">
 <h4 id="major-new-features-and-improvements-0-4-0">Major new features and improvements<a class="anchor" aria-label="anchor" href="#major-new-features-and-improvements-0-4-0"></a></h4>
