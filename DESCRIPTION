@@ -31,7 +31,7 @@ Suggests:
     DT,
     plotly
 Remotes:
-    rstudio/gridlayout
+    rstudio/gridlayout,
     rstudio/bslib
 Config/Needs/website:
     rstudio/quillt
