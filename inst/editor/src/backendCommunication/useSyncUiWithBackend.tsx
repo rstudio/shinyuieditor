@@ -5,9 +5,7 @@ import debounce from "just-debounce-it";
 import { useDispatch } from "react-redux";
 
 import { generate_full_app_script } from "../ast_parsing/generate_full_app_script";
-import { raw_app_info_to_full } from "../ast_parsing/raw_app_info_to_full";
 import { useDeleteNode } from "../components/DeleteNodeButton/useDeleteNode";
-import type { MainStateOption } from "../state/app_info";
 import {
   SET_APP_INFO,
   SHOW_TEMPLATE_CHOOSER,
@@ -33,7 +31,6 @@ export function useSyncUiWithBackend() {
   const [errorInfo, setErrorInfo] = React.useState<
     null | MessageToClientByPath["BACKEND-ERROR"]
   >(null);
-  const lastRecievedRef = React.useRef<MainStateOption | null>(null);
 
   useKeyboardShortcuts([
     {
@@ -59,20 +56,13 @@ export function useSyncUiWithBackend() {
   // Subscribe to messages from the backend
   React.useEffect(() => {
     const updatedAppSubscription = backendMsgs.subscribe("APP-INFO", (info) => {
-      const full_info = "ui_tree" in info ? info : raw_app_info_to_full(info);
-
-      dispatch(SET_APP_INFO(full_info));
-      lastRecievedRef.current = { mode: "MAIN", ...full_info };
+      dispatch(SET_APP_INFO(info));
     });
 
     const templateChooserSubscription = backendMsgs.subscribe(
       "TEMPLATE_CHOOSER",
       (outputChoices) => {
         dispatch(SHOW_TEMPLATE_CHOOSER({ outputChoices }));
-        lastRecievedRef.current = {
-          mode: "TEMPLATE_CHOOSER",
-          options: { outputChoices },
-        };
       }
     );
 
@@ -107,7 +97,7 @@ export function useSyncUiWithBackend() {
   // Keep the client-side state insync with the backend by sending update
   // messages
   React.useEffect(() => {
-    if (state.mode === "LOADING" || state === lastRecievedRef.current) {
+    if (state.mode === "LOADING") {
       // Avoiding unnecesary message to backend when the state hasn't changed
       // from the one sent to it
       return;

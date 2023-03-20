@@ -6,13 +6,16 @@ import type {
   Single_File_Full_Info,
   Multi_File_Full_Info,
   Multi_File_Raw_App_Info,
+  Full_App_Info,
 } from ".";
 import { SCRIPT_LOC_KEYS } from ".";
 
 import type { Parsed_Multi_File_AST } from "./parse_app_ast";
 import { parse_app_ast } from "./parse_app_ast";
 
-export function raw_app_info_to_full(info: Raw_App_Info) {
+export function ensure_full_app_info(info: Raw_App_Info | Full_App_Info) {
+  if ("ui_tree" in info) return info;
+
   return info.app_type === "SINGLE-FILE"
     ? raw_single_file_app_info_to_full(info)
     : raw_multi_file_app_info_to_full(info);
