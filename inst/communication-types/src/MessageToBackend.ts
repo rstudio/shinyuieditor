@@ -15,7 +15,6 @@ import type { MessageUnion } from "./MessageUnion";
 export type MessageToBackendByPath = {
   "READY-FOR-STATE": null;
   "UPDATED-APP": Single_File_App_Script | Multi_File_App_Script;
-  "NODE-SELECTION": string[];
   "ENTERED-TEMPLATE-SELECTOR": null;
   "APP-PREVIEW-REQUEST": null;
   "APP-PREVIEW-RESTART": null;

@@ -11,7 +11,6 @@ import {
   SHOW_TEMPLATE_CHOOSER,
   useCurrentAppInfo,
 } from "../state/app_info";
-import { getNamedPath } from "../state/getNamedPath";
 import { useCurrentSelection } from "../state/selectedPath";
 import { useUndoRedo } from "../state-logic/useUndoRedo";
 import { useKeyboardShortcuts } from "../utils/hooks/useKeyboardShortcuts";
@@ -86,13 +85,6 @@ export function useSyncUiWithBackend() {
     () => debounce(sendMsg, 500, true),
     [sendMsg]
   );
-
-  // Send named path to the backend if we're in VSCODE mode
-  React.useEffect(() => {
-    if (mode !== "VSCODE" || !currentSelection || state.mode !== "MAIN") return;
-    const namedPath = getNamedPath(currentSelection, state.ui_tree);
-    sendMsg({ path: "NODE-SELECTION", payload: namedPath });
-  }, [currentSelection, mode, sendMsg, state]);
 
   // Keep the client-side state insync with the backend by sending update
   // messages
