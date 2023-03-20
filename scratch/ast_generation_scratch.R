@@ -3,16 +3,15 @@ library(lobstr)
 library(shiny)
 library(bslib)
 
-
-make_px <- function(num) {paste0(num, "px")}
-  card_height <- "200px"
 rlang::expr(
-   card_body_fill(
-      max_height = make_px(100)
-      )
-)|> 
- serialize_ast() |> 
- jsonlite::toJSON(auto_unbox = TRUE)
+  {
+    my_fn <- function(name) paste("hello", name)
+    my_fn("shiny")
+  }
+) |>
+ serialize_ast() |>
+tree(index_unnamed = TRUE)
+ # jsonlite::toJSON(auto_unbox = TRUE)
 
 
 # file_lines <- readLines("scratch/app-w-unknown-code/app.R")
