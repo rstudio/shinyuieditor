@@ -17,3 +17,26 @@ test_that("Can fill in unnamed named arguments", {
     "myArea"
   )
 })
+
+
+test_that("Can handle functions declared in scope. E.g. reactives.", {
+  expr_with_fn_declaration <- rlang::expr(
+    {
+      my_fn <- function(name) paste("hello", name)
+      my_fn("shiny")
+    }
+  )
+
+  serialized <- serialize_ast(expr_with_fn_declaration)
+
+  my_fn_call <- serialized[[3]]
+
+  expect_equal(
+    my_fn_call$val,
+    list(
+      list(val="my_fn", type="s"),
+      list(val="shiny", type="c")
+    )
+
+  )
+})
