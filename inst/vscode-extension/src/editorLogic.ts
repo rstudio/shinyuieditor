@@ -264,10 +264,6 @@ export function editorLogic({
 
           return;
         }
-        case "NODE-SELECTION": {
-          console.log("New node selection", msg.payload);
-          return;
-        }
         default:
           console.warn("Unhandled message from client", msg);
       }
