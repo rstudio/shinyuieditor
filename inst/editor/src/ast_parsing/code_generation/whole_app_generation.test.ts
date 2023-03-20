@@ -1,6 +1,6 @@
 import type { Single_File_Raw_App_Info, Multi_File_Raw_App_Info } from "..";
+import { ensure_full_app_info } from "../ensure_full_app_info";
 import { generate_full_app_script } from "../generate_full_app_script";
-import { raw_app_info_to_full } from "../raw_app_info_to_full";
 
 describe("Single-File apps", () => {
   // It's super important the script and ast match eachother here.
@@ -141,7 +141,7 @@ shinyApp(ui, server)
     },
   };
 
-  const full_info = raw_app_info_to_full(raw_info);
+  const full_info = ensure_full_app_info(raw_info);
 
   test("Libraries", () => {
     expect(full_info).toEqual(
@@ -308,7 +308,7 @@ server <- function(input, output) {
     },
   };
 
-  const full_info = raw_app_info_to_full(raw_info);
+  const full_info = ensure_full_app_info(raw_info);
 
   test("Libraries", () => {
     expect(full_info).toEqual(

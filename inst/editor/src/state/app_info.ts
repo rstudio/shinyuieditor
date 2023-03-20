@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 
 import type { Full_App_Info, Raw_App_Info } from "../ast_parsing";
-import { raw_app_info_to_full } from "../ast_parsing/raw_app_info_to_full";
+import { ensure_full_app_info } from "../ast_parsing/ensure_full_app_info";
 import type { TemplateChooserOptions } from "../components/TemplatePreviews/TemplateChooserView";
 import type { PlaceNodeArguments } from "../components/UiNode/TreeManipulation/placeNode";
 import { placeNodeMutating } from "../components/UiNode/TreeManipulation/placeNode";
@@ -45,13 +45,9 @@ export const mainStateSlice = createSlice({
     // what we expect in the app
     SET_APP_INFO: (
       tree,
-      action: PayloadAction<Full_App_Info | Raw_App_Info>
+      action: PayloadAction<Raw_App_Info | Full_App_Info>
     ) => {
-      const full_app_info =
-        "ui_tree" in action.payload
-          ? action.payload
-          : raw_app_info_to_full(action.payload);
-      return { mode: "MAIN", ...full_app_info };
+      return { mode: "MAIN", ...ensure_full_app_info(action.payload) };
     },
     SHOW_TEMPLATE_CHOOSER: (
       state,
