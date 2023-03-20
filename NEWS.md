@@ -1,3 +1,13 @@
+# shinyuieditor 0.4.2
+
+### Major new features and improvements
+
+### Minor new features and improvements
+
+### Bug fixes
+
+- Fixed bug where reactive values (or any user-declared functions) were called in code. #148
+
 # shinyuieditor 0.4.1
 
 ### Major new features and improvements
