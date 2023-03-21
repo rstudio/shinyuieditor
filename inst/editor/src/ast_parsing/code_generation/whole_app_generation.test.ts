@@ -142,6 +142,9 @@ shinyApp(ui, server)
   };
 
   const full_info = ensure_full_app_info(raw_info);
+  if (full_info.mode === "ERROR") {
+    throw new Error("Error processing info for tests");
+  }
 
   test("Libraries", () => {
     expect(full_info).toEqual(
@@ -309,7 +312,9 @@ server <- function(input, output) {
   };
 
   const full_info = ensure_full_app_info(raw_info);
-
+  if (full_info.mode === "ERROR") {
+    throw new Error("Error processing info for tests");
+  }
   test("Libraries", () => {
     expect(full_info).toEqual(
       expect.objectContaining({
