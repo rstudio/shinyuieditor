@@ -1,6 +1,7 @@
 import type { R_AST } from "r-ast-parsing";
 import { parse_app_server_info } from "r-ast-parsing/src/parse_app_server_info";
-import { makePortableString, collapseText } from "util-functions/src/strings";
+import { is_object } from "util-functions/src/is_object";
+import { makePortableString } from "util-functions/src/strings";
 import type * as vscode from "vscode";
 
 import type { CommandOutputGeneric } from "./runRCommand";
@@ -15,14 +16,7 @@ async function getAppAST(
 ): Promise<CommandOutputGeneric<AST_GET_RESULTS>> {
   const escapedAppText = makePortableString(fileText);
 
-  const parseCommand = collapseText(
-    `app_lines <- strsplit("${escapedAppText}", "\\n")[[1]]`,
-    `parsed <- parse(text = app_lines, keep.source = TRUE)`,
-    `jsonlite::toJSON(`,
-    `  shinyuieditor:::serialize_ast(parsed),`,
-    `  auto_unbox = TRUE`,
-    `)`
-  );
+  const parseCommand = `shinyuieditor:::safe_parse_and_serialize("${escapedAppText}")`;
 
   const parsedCommandOutput = await rProc.runCmd(parseCommand, {
     verbose: false,
@@ -34,24 +28,65 @@ async function getAppAST(
   }
 
   try {
-    const parsedAST = JSON.parse(
+    const output_response = JSON.parse(
       parsedCommandOutput.values.reduce((all, l) => all + "\n" + l, "")
     );
 
+    assert_is_ast_parse_response(output_response);
+
+    if (output_response.type === "error") {
+      return {
+        status: "error",
+        errorMsg: output_response.msg,
+      };
+    }
+
     // Nothing will get returned if we've provided an empty file
-    if (Object.keys(parsedAST).length === 0) {
+    if (Object.keys(output_response.ast).length === 0) {
       return { status: "success", values: "EMPTY" };
     }
 
-    const server_info = parse_app_server_info(parsedAST);
+    const server_info = parse_app_server_info(output_response.ast);
 
-    return { status: "success", values: { ast: parsedAST, server_info } };
+    return {
+      status: "success",
+      values: { ast: output_response.ast, server_info },
+    };
   } catch {
     return {
       status: "error",
-      errorMsg: "Could not get document as json. Content is not valid json",
+      errorMsg:
+        "Something went wrong parsing app. Check to make sure your app text doesn't contain any syntax errors.",
     };
   }
+}
+
+type Safe_AST_Parse_Success = {
+  type: "success";
+  ast: R_AST;
+};
+
+type Safe_AST_Parse_Error = {
+  type: "error";
+  msg: string;
+};
+
+type Safe_AST_Parse_Response = Safe_AST_Parse_Success | Safe_AST_Parse_Error;
+
+function assert_is_ast_parse_response(
+  parse_res: unknown
+): asserts parse_res is Safe_AST_Parse_Response {
+  if (
+    is_object(parse_res) &&
+    "type" in parse_res &&
+    (parse_res.type === "success" || parse_res.type === "error")
+  ) {
+    return;
+  }
+
+  throw new Error(
+    "Parse result does not appear to be from safe ast parse function"
+  );
 }
 
 export function make_cached_ast_getter(
