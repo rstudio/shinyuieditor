@@ -54,7 +54,6 @@ export function editorLogic({
     const updateWeMade =
       latestAppWrite !== null && appFileText.includes(latestAppWrite);
 
-    // console.log("Updating client state");
     // Skip unneccesary app file parsing
     if (updateWeMade) return;
 
@@ -97,7 +96,10 @@ export function editorLogic({
             msg: appAST.errorMsg,
           },
         });
-        showErrorMessage(appAST.errorMsg);
+        // Error means that there is no latest app write. If we don't set this
+        // the app will think nothing has changed after problem is fixed if it
+        // is simply reverted.
+        latestAppWrite = null;
         return;
       }
 
