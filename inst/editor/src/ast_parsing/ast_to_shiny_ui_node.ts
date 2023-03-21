@@ -11,8 +11,8 @@ import {
   IsNodeOfType,
   is_ast_branch_node, is_primative_node
 } from "r-ast-parsing/src/node_identity_checkers";
-import { Parsing_Error } from "r-ast-parsing/src/parsing_error_class";
 
+import { print_node_val } from "./code_generation/build_function_text";
 import { create_unknownUiFunction } from "./create_unknownUiFunction";
 import {
   flatten_to_array,
@@ -27,9 +27,7 @@ export function ast_to_ui_node(node: Branch_Node): ShinyUiNode {
   const [fn_name, ...args] = node.val;
 
   if (typeof fn_name.val !== "string") {
-    throw new Parsing_Error({
-      message: "Invalid ui node, name is not a primative",
-    });
+    return create_unknownUiFunction({ node });
   }
 
   let uiArguments: UiArgumentsObject = {};
@@ -41,7 +39,7 @@ export function ast_to_ui_node(node: Branch_Node): ShinyUiNode {
     if (sub_node.name) {
       uiArguments[sub_node.name] = process_named_arg(sub_node);
     } else {
-      uiChildren.push(process_unnamed_arg(sub_node));
+      uiChildren.push(process_child_arg(sub_node));
     }
   });
 
@@ -78,7 +76,7 @@ function process_named_arg(
   return create_unknownUiFunction({ node });
 }
 
-function process_unnamed_arg(
+function process_child_arg(
   node: R_AST_Node,
   output_positions?: Output_Server_Pos
 ): ShinyUiNode {
@@ -95,8 +93,9 @@ function process_unnamed_arg(
     return ast_to_ui_node(node);
   }
 
-  throw new Parsing_Error({
-    message: "Primative found in ui children of ui node.",
-    cause: node,
-  });
+  // Here we have a primative value that's not text, so we just coerce it to
+  // plain text. Doesn't seem great but the output of the ui will be the same as
+  // this is what the tags do anyways
+  return build_text_node(print_node_val(node));
+
 }

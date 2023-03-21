@@ -8,13 +8,21 @@ import {
   parse_text_decoration_tag_node,
 } from "./is_text_node";
 
-export function build_text_node(node: Text_Node): TextUiNode {
+export function build_text_node(text: string): TextUiNode;
+export function build_text_node(node: Text_Node): TextUiNode;
+
+export function build_text_node(node: Text_Node | string): TextUiNode {
   const text_node: TextUiNode = {
     uiName: "textNode",
     uiArguments: {
       contents: "TO_REPLACE",
     },
   };
+
+  if (typeof node === "string") {
+    text_node.uiArguments.contents = node;
+    return text_node;
+  }
 
   if (is_text_size_tag_node(node)) {
     text_node.uiArguments.size = size_tag_to_name[node.val[0].val];
