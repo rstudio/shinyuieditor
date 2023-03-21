@@ -23,11 +23,21 @@ export function EditorContainer() {
 
   let pageBody: React.ReactNode;
 
-  if (errorInfo) {
+  if (errorInfo || state.mode === "ERROR") {
+    const { context, msg } =
+      state.mode === "ERROR"
+        ? state
+        : errorInfo
+        ? errorInfo
+        : {
+            context: "Error Context Placeholder",
+            msg: "This error message should not be seen",
+          };
+
     pageBody = (
       <DialogPopover className="message-mode">
-        <h2>Error {errorInfo.context ? `while ${errorInfo.context}` : ``}</h2>
-        <p className="error-msg">{errorInfo.msg}</p>
+        <h2>Error {context ? `while ${context}` : ``}</h2>
+        <p className="error-msg">{msg}</p>
       </DialogPopover>
     );
   } else if (state.mode === "LOADING") {

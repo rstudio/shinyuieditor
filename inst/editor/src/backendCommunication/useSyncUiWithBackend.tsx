@@ -102,6 +102,11 @@ export function useSyncUiWithBackend() {
       return;
     }
 
+    if (state.mode === "ERROR") {
+      setErrorInfo(state);
+      return;
+    }
+
     debouncedSendMsg({
       path: "UPDATED-APP",
       payload: generate_full_app_script(state, { include_info: false }),

@@ -19,15 +19,27 @@ import {
 } from "./create_subscriber_getter";
 import type { RootState } from "./store";
 
+export type EditingState = { mode: "MAIN" } & Full_App_Info;
+export type TemplateChooserState = {
+  mode: "TEMPLATE_CHOOSER";
+  options: TemplateChooserOptions;
+};
+export type LoadingState = {
+  mode: "LOADING";
+};
+export type ErrorState = {
+  mode: "ERROR";
+  /** Where this error occured. E.g. "Parsing ast" */
+  context: string;
+  /** Error message from error */
+  msg: string;
+};
+
 export type MainStateOption =
-  | ({ mode: "MAIN" } & Full_App_Info)
-  | {
-      mode: "TEMPLATE_CHOOSER";
-      options: TemplateChooserOptions;
-    }
-  | {
-      mode: "LOADING";
-    };
+  | EditingState
+  | TemplateChooserState
+  | LoadingState
+  | ErrorState;
 
 // Note: The reducer callbacks use immer so the mutations we make to the object
 // are safe and we just make the needed mutations to the tree object and don't
@@ -47,7 +59,7 @@ export const mainStateSlice = createSlice({
       tree,
       action: PayloadAction<Raw_App_Info | Full_App_Info>
     ) => {
-      return { mode: "MAIN", ...ensure_full_app_info(action.payload) };
+      return ensure_full_app_info(action.payload);
     },
     SHOW_TEMPLATE_CHOOSER: (
       state,
