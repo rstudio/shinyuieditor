@@ -18,20 +18,12 @@ import styles from "./EditorContainer.module.css";
 import { OpenSideBySideWindowButton } from "./OpenSideBySideWindowButton";
 
 export function EditorContainer() {
-  const { state, errorInfo, history } = useSyncUiWithBackend();
+  const { state, history } = useSyncUiWithBackend();
 
   let pageBody: React.ReactNode;
 
-  if (errorInfo || state.mode === "ERROR") {
-    const { context, msg } =
-      state.mode === "ERROR"
-        ? state
-        : errorInfo
-        ? errorInfo
-        : {
-            context: "Error Context Placeholder",
-            msg: "This error message should not be seen",
-          };
+  if (state.mode === "ERROR") {
+    const { context, msg } = state;
 
     pageBody = (
       <MessageForUser>
