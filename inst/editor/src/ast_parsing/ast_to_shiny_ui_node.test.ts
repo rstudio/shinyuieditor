@@ -114,37 +114,66 @@ describe("Can handle unknown code properly", () => {
       })
     );
   });
+
+  test("Immediately invoked functions are not mangled", () => {
+    expect(
+      ast_to_ui_node({
+        val: [
+          {
+            val: [
+              { val: "(", type: "s" },
+              {
+                val: [
+                  { val: "function", type: "s" },
+                  { val: [{ name: "name", val: "", type: "s" }], type: "e" },
+                  {
+                    val: [
+                      { val: "paste", type: "s" },
+                      { val: "hello", type: "c" },
+                      { val: "name", type: "s" },
+                    ],
+                    type: "e",
+                  },
+                ],
+                type: "e",
+              },
+            ],
+            type: "e",
+          },
+          { name: "name", val: "shiny", type: "c" },
+        ],
+        type: "e",
+      })
+    ).toEqual({
+      uiName: "unknownUiFunction",
+      uiArguments: expect.objectContaining({
+        text: `(function(name) {...})(name = "shiny")`,
+      }),
+    });
+  });
 });
 
-describe("Can convert from ui definition node in ast to the the UI Specific ast", () => {
-  test("Basic test to avoid test errors", () => {
-    expect(true).toEqual(true);
-  });
-  // test("Root node is right", () => {
-  //   expect(ui_tree.uiName).toEqual("gridlayout::grid_page");
-  // });
-
-  // test("Correct number of children nodes", () => {
-  //   expect(ui_tree.uiChildren).toHaveLength(4);
-  // });
-
-  // test("UI Arguments for grid_page parse properly", () => {
-  //   expect(ui_tree.uiArguments.layout).toHaveLength(3);
-  //   expect(ui_tree.uiArguments.row_sizes).toHaveLength(3);
-  //   expect(ui_tree.uiArguments.col_sizes).toHaveLength(2);
-  // });
-
-  // test("Children are correctly recursed into", () => {
-  //   expect(ui_tree.uiChildren?.[0].uiName).toEqual("gridlayout::grid_card");
-  // });
-
-  // test("Gives us the location of the ui nodes definition", () => {
-  //   expect(ui_pos).toStrictEqual([5, 1, 47, 1]);
-  // });
-
-  // test("Preserves operator info so we can properly reconstruct the call", () => {
-  //   expect(ui_assignment_operator).toEqual("<-");
-  // });
+test("Handle primative values as children", () => {
+  const output: KnownShinyUiNode = {
+    uiName: "bslib::card_body_fill",
+    uiArguments: {},
+    uiChildren: [
+      { uiName: "textNode", uiArguments: { contents: "Hi" } },
+      { uiName: "textNode", uiArguments: { contents: "3" } },
+      { uiName: "textNode", uiArguments: { contents: "FALSE" } },
+    ],
+  };
+  expect(
+    ast_to_ui_node({
+      val: [
+        { val: "bslib::card_body_fill", type: "s" },
+        { val: "Hi", type: "c" },
+        { val: 3, type: "n" },
+        { val: false, type: "b" },
+      ],
+      type: "e",
+    })
+  ).toStrictEqual(output);
 });
 
 export {};
