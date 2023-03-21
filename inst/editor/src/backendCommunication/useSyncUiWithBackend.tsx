@@ -1,6 +1,5 @@
 import * as React from "react";
 
-import type { MessageToClientByPath } from "communication-types";
 import debounce from "just-debounce-it";
 import { useDispatch } from "react-redux";
 
@@ -27,10 +26,6 @@ export function useSyncUiWithBackend() {
   const history = useUndoRedo(state);
 
   const deleteNode = useDeleteNode(currentSelection);
-
-  const [errorInfo, setErrorInfo] = React.useState<
-    null | MessageToClientByPath["BACKEND-ERROR"]
-  >(null);
 
   useKeyboardShortcuts([
     {
@@ -90,7 +85,7 @@ export function useSyncUiWithBackend() {
   // Keep the client-side state insync with the backend by sending update
   // messages
   React.useEffect(() => {
-    if (state.mode === "LOADING") {
+    if (state.mode === "LOADING" || state.mode === "ERROR") {
       // Avoiding unnecesary message to backend when the state hasn't changed
       // from the one sent to it
       return;
@@ -103,11 +98,6 @@ export function useSyncUiWithBackend() {
       return;
     }
 
-    if (state.mode === "ERROR") {
-      setErrorInfo(state);
-      return;
-    }
-
     debouncedSendMsg({
       path: "UPDATED-APP",
       payload: generate_full_app_script(state, { include_info: false }),
@@ -116,7 +106,6 @@ export function useSyncUiWithBackend() {
 
   return {
     state,
-    errorInfo,
     history,
   };
 }
