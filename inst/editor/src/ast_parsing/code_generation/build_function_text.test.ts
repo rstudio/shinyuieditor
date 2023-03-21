@@ -1,4 +1,5 @@
 import { build_function_text } from "./build_function_text";
+import { print_fn_definition_preview } from "./function_definition_printing";
 
 describe("Can turn AST into function call text with formatting", () => {
   test("Simple one argument function", () => {
@@ -222,5 +223,46 @@ describe("Can print arrays and lists with smart line breaks", () => {
         { val: "splits to different lines", type: "c" },
       ])
     ).toBe(expected_result);
+  });
+});
+
+describe("Can write immediately invoked functions", () => {
+  test("Can write out function definitions previews", () => {
+    expect(
+      print_fn_definition_preview([
+        { val: "function", type: "s" },
+        { val: [{ name: "x", val: "", type: "s" }], type: "e" },
+        { val: "x", type: "s" },
+      ])
+    ).toBe(`function(x) {...}`);
+  });
+
+  test("Properly wraps inplace function definitions with abbridged previews", () => {
+    expect(
+      build_function_text([
+        {
+          val: [
+            { val: "(", type: "s" },
+            {
+              val: [
+                { val: "function", type: "s" },
+                { val: [{ name: "a", val: "", type: "s" }], type: "e" },
+                {
+                  val: [
+                    { val: "*", type: "s" },
+                    { val: "a", type: "s" },
+                    { val: 2, type: "n" },
+                  ],
+                  type: "e",
+                },
+              ],
+              type: "e",
+            },
+          ],
+          type: "e",
+        },
+        { val: 2, type: "n" },
+      ])
+    ).toBe(`(function(a) {...})(2)`);
   });
 });
