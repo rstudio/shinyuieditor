@@ -1,7 +1,13 @@
 import type { R_AST, R_AST_Node } from "r-ast-parsing";
+import { IsNodeOfType } from "r-ast-parsing/src/node_identity_checkers";
 import { indent_text_block } from "util-functions/src/strings";
 
 import { get_ast_is_array_or_list } from "../flatten_arrays_and_lists";
+
+import {
+  is_wrapped_function_def_node,
+  print_fn_definition_preview,
+} from "./function_definition_printing";
 
 const INDENT_SPACES = 2;
 const INDENT = " ".repeat(INDENT_SPACES);
@@ -12,8 +18,16 @@ export const NL_INDENT = `\n${INDENT}`;
 export function build_function_text(call_node: R_AST): string {
   const [fn_name, ...args] = call_node;
 
-  if (typeof fn_name.val !== "string") {
+  let function_call: string;
+  // We will break out early if we're dealing with unknown code or a function
+  // definition ast
+  if (is_wrapped_function_def_node(fn_name)) {
+    function_call = `(${print_fn_definition_preview(fn_name.val[1].val)})`;
+  } else if (!IsNodeOfType(fn_name, "symbol")) {
+    // If we're not dealing with a symbol declaring a function name
     return "Unknown Ui Code";
+  } else {
+    function_call = fn_name.val;
   }
 
   const fn_args_list = args.map(
@@ -21,7 +35,7 @@ export function build_function_text(call_node: R_AST): string {
   );
 
   const is_multi_line_call = should_line_break({
-    fn_name: fn_name.val,
+    fn_name: function_call,
     fn_args_list,
     max_line_length_for_multi_args: get_ast_is_array_or_list(call_node)
       ? LINE_BREAK_LENGTH
@@ -30,9 +44,11 @@ export function build_function_text(call_node: R_AST): string {
 
   const arg_seperator = `,${is_multi_line_call ? NL_INDENT : " "}`;
 
-  return `${fn_name.val}(${
-    is_multi_line_call ? NL_INDENT : ""
-  }${fn_args_list.join(arg_seperator)}${is_multi_line_call ? "\n" : ""})`;
+  const args_text = fn_args_list.join(arg_seperator);
+
+  return `${function_call}(${is_multi_line_call ? NL_INDENT : ""}${args_text}${
+    is_multi_line_call ? "\n" : ""
+  })`;
 }
 
 /**
