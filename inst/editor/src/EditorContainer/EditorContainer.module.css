@@ -1,0 +1,111 @@
+.EditorContainer {
+  --padding: var(--horizontal-spacing);
+  background-color: var(--background-grey, #edf2f7);
+
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.message_for_user {
+  height: 100%;
+  display: grid;
+  place-content: center;
+}
+
+.message_container {
+  background-color: var(--rstudio-white);
+  border-radius: var(--corner-radius);
+  border: var(--outline);
+  width: 600px;
+  max-width: 95%;
+  padding: 25px;
+}
+
+.message_container > h2 {
+  font-size: 24px;
+  margin-block-end: 18px;
+}
+
+.message_container > p {
+  margin: 0;
+  padding: 0;
+}
+
+.error_msg {
+  color: var(--red);
+  font-family: var(--mono-fonts);
+}
+
+.shiny_logo {
+  display: inline-block;
+  height: 100%;
+  border-radius: 0 15px 15px 0;
+  padding-block: 3px;
+  padding-inline: 5px;
+  background-color: var(--rstudio-blue);
+}
+
+.app_title {
+  font-size: 1.15rem;
+  color: var(--rstudio-blue);
+}
+
+.divider {
+  height: 20px;
+  background-color: var(--divider-color);
+  width: 2px;
+}
+
+.header {
+  height: var(--header-height);
+  gap: var(--padding);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.OpenSideBySideWindowButton {
+  background-color: transparent;
+  font-size: 18px;
+  color: var(--icon-color);
+  margin-inline: 7px;
+}
+
+/*  Divider next to it needs some slightly different margins from other divider */
+.OpenSideBySideWindowButton + .divider {
+  margin-inline-end: 3px;
+  margin-inline-start: 6px;
+}
+
+.header button {
+  padding: 0;
+}
+
+.react-joyride {
+  display: none;
+}
+
+.undo-redo-buttons {
+  transform: translate(-1px, -1px);
+}
+
+.right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+.divider {
+  margin-inline-end: 12px;
+  margin-inline-start: 14px;
+}
+
+.spacer {
+  height: 20px;
+}
+
+.spacer.last {
+  width: 58px;
+}

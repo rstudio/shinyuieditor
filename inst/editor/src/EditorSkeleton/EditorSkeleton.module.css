@@ -1,0 +1,81 @@
+.EditorSkeleton {
+  --padding: var(--horizontal-spacing);
+  width: 100%;
+  height: calc(100% - var(--header-height));
+
+  /* Define positions and z-indices of all the components */
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: 1fr auto;
+  grid-template-areas:
+    "elements editor properties"
+    "elements editor preview";
+}
+.app_view {
+  grid-area: editor;
+  z-index: 2;
+
+  background-color: var(--rstudio-white);
+  padding-top: 32px;
+  padding-left: 32px;
+  padding-right: 32px;
+  padding-bottom: 32px;
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.elements_panel {
+  grid-area: elements;
+  z-index: 3;
+}
+
+.properties_panel {
+  grid-area: properties;
+  z-index: 4;
+}
+
+.app_preview {
+  grid-area: preview;
+  z-index: 5;
+}
+
+/* Width of right-side is provided by inline styles so value can be stored in
+  JS and used to calculate the shrinking for the preview window automatically */
+.properties_panel,
+.app_preview {
+  max-width: var(--properties-panel-width);
+  width: var(--properties-panel-width);
+}
+.properties_panel:empty,
+.app_preview:empty {
+  display: none;
+}
+
+.EditorSkeleton > div {
+  outline: 1px solid var(--header-grey);
+  min-width: 0;
+  min-height: 0;
+  /* Each sub-section gets its own stacking context so it won't leak over others */
+  isolation: isolate;
+}
+
+.panel {
+  display: grid;
+  grid-template-rows: var(--header-height) 1fr;
+  background-color: var(--background-grey);
+  /* Make sure z-indices dont leak out of panels and overlap things like modals
+    */
+  isolation: isolate;
+}
+.panel > * {
+  min-width: 0;
+}
+.panel_title {
+  text-align: center;
+  line-height: var(--header-height);
+  background-color: var(--header-grey);
+  font-size: 1.05rem;
+  font-weight: lighter;
+  color: var(--rstudio-white);
+}

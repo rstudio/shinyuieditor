@@ -11,12 +11,11 @@ import { EditorSkeleton } from "../EditorSkeleton/EditorSkeleton";
 import { LostConnectionPopup } from "../EditorSkeleton/LostConnectionPopup";
 import ElementsPalette from "../ElementsPalette";
 import { SettingsPanel } from "../SettingsPanel/SettingsPanel";
+import { mergeClasses } from "../utils/mergeClasses";
 
 import { sizes_inline_styles } from "./App_Layout_Sizes";
-import { DialogPopover } from "./DialogPopover";
+import styles from "./EditorContainer.module.css";
 import { OpenSideBySideWindowButton } from "./OpenSideBySideWindowButton";
-
-import "./styles.scss";
 
 export function EditorContainer() {
   const { state, errorInfo, history } = useSyncUiWithBackend();
@@ -35,16 +34,16 @@ export function EditorContainer() {
           };
 
     pageBody = (
-      <DialogPopover className="message-mode">
+      <MessageForUser>
         <h2>Error {context ? `while ${context}` : ``}</h2>
-        <p className="error-msg">{msg}</p>
-      </DialogPopover>
+        <p className={styles.error_msg}>{msg}</p>
+      </MessageForUser>
     );
   } else if (state.mode === "LOADING") {
     pageBody = (
-      <DialogPopover className="message-mode">
+      <MessageForUser>
         <h2>Loading initial state from server</h2>
-      </DialogPopover>
+      </MessageForUser>
     );
   } else if (state.mode === "MAIN") {
     pageBody = (
@@ -60,24 +59,32 @@ export function EditorContainer() {
   }
 
   return (
-    <div className="EditorContainer" style={sizes_inline_styles}>
-      <header>
-        <SvgShinyLogo className="shiny-logo" />
-        <h1 className="app-title">Shiny UI Editor</h1>
-        <div className="right">
+    <div className={styles.EditorContainer} style={sizes_inline_styles}>
+      <header className={styles.header}>
+        <SvgShinyLogo className={styles.shiny_logo} />
+        <h1 className={styles.app_title}>Shiny UI Editor</h1>
+        <div className={styles.right}>
           {state.mode === "MAIN" ? (
             <>
               <OpenSideBySideWindowButton />
               <AppTour />
             </>
           ) : null}
-          <div className="divider" />
+          <div className={styles.divider} />
           <UndoRedoButtons {...history} />
-          <div className="spacer last" />
+          <div className={mergeClasses(styles.spacer, styles.last)} />
         </div>
       </header>
       {pageBody}
       <LostConnectionPopup />
+    </div>
+  );
+}
+
+function MessageForUser({ children }: { children: React.ReactNode }) {
+  return (
+    <div className={styles.message_for_user}>
+      <div className={styles.message_container}>{children}</div>
     </div>
   );
 }
