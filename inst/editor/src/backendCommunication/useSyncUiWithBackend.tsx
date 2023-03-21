@@ -8,6 +8,7 @@ import { generate_full_app_script } from "../ast_parsing/generate_full_app_scrip
 import { useDeleteNode } from "../components/DeleteNodeButton/useDeleteNode";
 import {
   SET_APP_INFO,
+  SET_ERROR,
   SHOW_TEMPLATE_CHOOSER,
   useCurrentAppInfo,
 } from "../state/app_info";
@@ -67,7 +68,7 @@ export function useSyncUiWithBackend() {
 
     const backendErrorSubscription = backendMsgs.subscribe(
       "BACKEND-ERROR",
-      setErrorInfo
+      (error_info) => dispatch(SET_ERROR(error_info))
     );
 
     // Make sure to do this after subscriptions otherwise the response may be

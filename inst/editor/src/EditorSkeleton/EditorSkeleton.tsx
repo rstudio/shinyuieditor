@@ -1,6 +1,8 @@
 import * as React from "react";
 
-import "./styles.scss";
+import { mergeClasses } from "../utils/mergeClasses";
+
+import styles from "./EditorSkeleton.module.css";
 
 export function EditorSkeleton({
   main,
@@ -15,11 +17,17 @@ export function EditorSkeleton({
 }) {
   return (
     <>
-      <div className="EditorSkeleton">
-        <div className="elements-panel panel">{left}</div>
-        <div className="app-view">{main}</div>
-        <div className="properties-panel panel">{properties}</div>
-        <div className="app-preview panel">{preview}</div>
+      <div className={styles.EditorSkeleton}>
+        <div className={mergeClasses(styles.elements_panel, styles.panel)}>
+          {left}
+        </div>
+        <div className={styles.app_view}>{main}</div>
+        <div className={mergeClasses(styles.properties_panel, styles.panel)}>
+          {properties}
+        </div>
+        <div className={mergeClasses(styles.app_preview, styles.panel)}>
+          {preview}
+        </div>
       </div>
     </>
   );
@@ -32,5 +40,7 @@ export function PanelHeader({
   children: React.ReactNode;
   className?: string;
 }) {
-  return <h3 className={className + " panel-title"}>{children}</h3>;
+  return (
+    <h3 className={mergeClasses(className, styles.panel_title)}>{children}</h3>
+  );
 }

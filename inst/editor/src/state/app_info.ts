@@ -1,5 +1,6 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
+import type { MessageToClientByPath } from "communication-types";
 import { useSelector } from "react-redux";
 
 import type { Full_App_Info, Raw_App_Info } from "../ast_parsing";
@@ -61,6 +62,12 @@ export const mainStateSlice = createSlice({
     ) => {
       return ensure_full_app_info(action.payload);
     },
+    SET_ERROR: (
+      state,
+      { payload }: PayloadAction<MessageToClientByPath["BACKEND-ERROR"]>
+    ) => {
+      return { mode: "ERROR", ...payload };
+    },
     SHOW_TEMPLATE_CHOOSER: (
       state,
       { payload }: PayloadAction<TemplateChooserOptions>
@@ -107,6 +114,7 @@ export const {
   PLACE_NODE,
   DELETE_NODE,
   SET_APP_INFO,
+  SET_ERROR,
   SET_FULL_STATE,
   SHOW_TEMPLATE_CHOOSER,
   SET_LOADING,
