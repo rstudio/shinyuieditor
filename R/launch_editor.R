@@ -132,7 +132,20 @@ launch_editor <- function(app_loc,
   # ----------------------------------------------------------------------------
   setup_msg_handlers <- function(send_msg) {
     send_app_info_to_client <- function() {
-      send_msg("APP-INFO", get_app_info(app_loc))
+      tryCatch(
+        {
+          send_msg("APP-INFO", get_app_info(app_loc))
+        },
+        error = function(error) {
+          send_msg(
+            "BACKEND-ERROR",
+            list(
+              context = "parsing app file",
+              msg = error$message
+            )
+          )
+        }
+      )
     }
 
     load_new_app <- function() {
@@ -157,7 +170,7 @@ launch_editor <- function(app_loc,
     }
 
     # Handles message from client with new app info
-    handle_updated_app <- function(update_payload) {
+    handle_new_ui_from_client <- function(update_payload) {
       update_type <- update_payload$app_type
 
       # If the file update doesn't match the existing app type, remove the old
@@ -223,7 +236,7 @@ launch_editor <- function(app_loc,
           load_new_app()
         },
         "UPDATED-APP" = {
-          handle_updated_app(msg$payload)
+          handle_new_ui_from_client(msg$payload)
         },
         "ENTERED-TEMPLATE-SELECTOR" = {
           writeLog("Template chooser mode")
