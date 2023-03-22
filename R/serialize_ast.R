@@ -1,30 +1,44 @@
 # Helper function for the vscode extension (and in general external callers.)
 # Attempt to handle parsing/serialization failures gracefully
 safe_parse_and_serialize <- function(app_text) {
-
-  parsed <- tryCatch({
-    app_lines <- strsplit(app_text, "\\n")[[1]]
-    
-    parse(text = app_lines, keep.source = TRUE)
-  }, error = function(e) {
-    # TODO: Extract better error message from parsing failure to provide hints
-    # to user
-    list(type = "error", msg = "Failed to parse app")
-  })
+  parsed <- tryCatch(
+    {
+      app_lines <- strsplit(app_text, "\\n")[[1]]
+      parse(text = app_lines, keep.source = TRUE)
+    },
+    error = function(e) {
+      list(
+        type = "error",
+        msg = paste0(
+          "Failed to parse app2. Error message:\n",
+          e$message
+        )
+      )
+    }
+  )
 
   if (identical(parsed[["type"]], "error")) {
     return(make_json(parsed))
   }
 
-  serialized <- tryCatch({  
-    list(
-      type = "success",
-      ast = serialize_ast(parsed)
-    )
-  }, error = function(e) {
-    list(type = "error", msg = as.character(e))
-  })
-  
+  serialized <- tryCatch(
+    {
+      list(
+        type = "success",
+        ast = serialize_ast(parsed)
+      )
+    },
+    error = function(e) {
+      list(
+        type = "error",
+        msg = paste0(
+          "Failed to serialize app to ast. Error message:\n",
+          e$message
+        )
+      )
+    }
+  )
+
   make_json(serialized)
 }
 
