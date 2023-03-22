@@ -6,15 +6,16 @@ AppPreview <- R6::R6Class(
     p = NULL,
     is_running = FALSE,
     on_ready = NULL,
-    on_logs = NULL,
-    on_crash = NULL,
     on_ready_poll = NULL,
+    on_logs = NULL,
     on_log_poll = NULL,
+    on_crash = NULL,
+    on_crash_poll = NULL,
+    on_starting_up = NULL,
     app_loc = NULL,
     print_logs = NULL,
     previous_logs = NULL,
     logger = NULL,
-    on_crash_poll = NULL,
     start_listeners = function() {
       private$on_ready_poll <- subscribe_once(
         source_fn = function() {
@@ -71,6 +72,12 @@ AppPreview <- R6::R6Class(
         # App is already running. No need to start up again
         return()
       }
+
+      # Send message that we're starting up the preview app
+      if (!is.null(private$on_starting_up)) {
+        private$on_starting_up()
+      }
+
       private$logger("=> Starting Shiny preview app...")
       private$p <- callr::r_bg(
         func = function(app_loc, host, port) {
@@ -114,9 +121,11 @@ AppPreview <- R6::R6Class(
     },
     restart = function() {
       private$logger("Restarting app preview process\n")
-      private$stop_listeners()
 
-      private$start_app()
+      self$stop_app()
+
+
+      self$start_app()
 
       # TODO: Send a message to the websocket that the app is restarting so
       # there's not an awkard 1s pause where the user thinks the app is frozen
@@ -148,10 +157,11 @@ AppPreview <- R6::R6Class(
         }
       )
     },
-    set_listeners = function(on_ready, on_crash, on_logs) {
+    set_listeners = function(on_ready, on_crash, on_logs, on_starting_up) {
       private$on_ready <- on_ready
       private$on_crash <- on_crash
       private$on_logs <- on_logs
+      private$on_starting_up <- on_starting_up
 
       private$start_listeners()
     }

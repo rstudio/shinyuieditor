@@ -222,6 +222,9 @@ launch_editor <- function(app_loc,
             },
             on_logs = function(log_lines) {
               send_msg("APP-PREVIEW-LOGS", payload = log_lines)
+            },
+            on_starting_up = function() {
+              send_msg("APP-PREVIEW-STATUS", payload = "LOADING")
             }
           )
         },
