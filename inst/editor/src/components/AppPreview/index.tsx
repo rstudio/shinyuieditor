@@ -4,7 +4,7 @@ import { AiOutlineShrink } from "react-icons/ai";
 import { FaExpand } from "react-icons/fa";
 import { VscDebugRestart } from "react-icons/vsc";
 
-import { PanelHeader } from "../../EditorSkeleton/EditorSkeleton";
+import { PanelHeader } from "../../EditorLayout/PanelHeader";
 import { onMac } from "../../utils/onMac";
 import Button from "../Inputs/Button/Button";
 import { TooltipButton } from "../PopoverEl/Tooltip";

@@ -1,4 +1,4 @@
-import { PanelHeader } from "../EditorSkeleton/EditorSkeleton";
+import { PanelHeader } from "../EditorLayout/PanelHeader";
 import type {
   ShinyUiNodeCategories,
   ShinyUiNodeNames,

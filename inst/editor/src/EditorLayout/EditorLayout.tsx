@@ -2,9 +2,9 @@ import * as React from "react";
 
 import { mergeClasses } from "../utils/mergeClasses";
 
-import styles from "./EditorSkeleton.module.css";
+import styles from "./EditorLayout.module.css";
 
-export function EditorSkeleton({
+export function EditorLayout({
   main,
   properties,
   preview,
@@ -30,17 +30,5 @@ export function EditorSkeleton({
         </div>
       </div>
     </>
-  );
-}
-
-export function PanelHeader({
-  children,
-  className = "",
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <h3 className={mergeClasses(className, styles.panel_title)}>{children}</h3>
   );
 }

@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { PanelHeader } from "../../EditorSkeleton/EditorSkeleton";
+import { PanelHeader } from "../../EditorLayout/PanelHeader";
 
 import { Portal } from "./Portal";
 import classes from "./PortalModal.module.css";

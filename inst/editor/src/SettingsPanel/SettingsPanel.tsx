@@ -2,7 +2,7 @@ import DeleteNodeButton from "../components/DeleteNodeButton";
 import { buildStaticFormInfo } from "../components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
 import type { CustomFormRenderFn } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
 import { FormBuilder } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
-import { PanelHeader } from "../EditorSkeleton/EditorSkeleton";
+import { PanelHeader } from "../EditorLayout/PanelHeader";
 import type { ShinyUiNode } from "../main";
 import { getUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
 
