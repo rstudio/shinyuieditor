@@ -4,9 +4,12 @@
 
 ### Minor new features and improvements
 
+- Failures in reading/ parsing the app files are now caught and communicated to the user in the main UI in addition to the R console/ VSCode output pane. This means most crashes caused by malformed apps can be recovered from by fixing the formatting without needing to restart editor. Issue #56
+
 ### Bug fixes
 
 - Fixed bug where reactive values (or any user-declared functions) were called in code. #148
+- Fixed problem where hard-resetting the app preview server didn't work when running in HTTPUV mode.
 
 # shinyuieditor 0.4.1
 
