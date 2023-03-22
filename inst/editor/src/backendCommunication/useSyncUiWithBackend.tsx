@@ -18,7 +18,7 @@ import { useKeyboardShortcuts } from "../utils/hooks/useKeyboardShortcuts";
 import { useBackendConnection } from "./useBackendMessageCallbacks";
 
 export function useSyncUiWithBackend() {
-  const { sendMsg, incomingMsgs: backendMsgs, mode } = useBackendConnection();
+  const { sendMsg, incomingMsgs: backendMsgs } = useBackendConnection();
   const state = useCurrentAppInfo();
   const currentSelection = useCurrentSelection();
   const dispatch = useDispatch();
