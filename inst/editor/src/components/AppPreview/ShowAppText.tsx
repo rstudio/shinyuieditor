@@ -8,7 +8,7 @@ import type {
 } from "../../ast_parsing";
 import { generate_full_app_script } from "../../ast_parsing/generate_full_app_script";
 import { DialogPopover } from "../../EditorContainer/DialogPopover";
-import { PanelHeader } from "../../EditorSkeleton/EditorSkeleton";
+import { PanelHeader } from "../../EditorLayout/PanelHeader";
 import type { RootState } from "../../state/store";
 import Button from "../Inputs/Button/Button";
 import { TooltipButton } from "../PopoverEl/Tooltip";

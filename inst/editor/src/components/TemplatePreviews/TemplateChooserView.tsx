@@ -1,9 +1,7 @@
 import type { MessageToClientByPath } from "communication-types";
 
-import {
-  EditorSkeleton,
-  PanelHeader,
-} from "../../EditorSkeleton/EditorSkeleton";
+import { EditorLayout } from "../../EditorLayout/EditorLayout";
+import { PanelHeader } from "../../EditorLayout/PanelHeader";
 import Button from "../Inputs/Button/Button";
 
 import { useFilteredTemplates } from "./filterTemplates";
@@ -31,7 +29,7 @@ export function TemplateChooserView(opts: TemplateChooserOptions) {
   const buttonMsg = canProceed ? "Next" : "Select a template";
 
   return (
-    <EditorSkeleton
+    <EditorLayout
       main={
         <TemplatePreviewGrid
           templates={shownTemplates}
