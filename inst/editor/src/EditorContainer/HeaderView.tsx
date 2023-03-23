@@ -5,7 +5,7 @@ import type { MainStateOption } from "../state/app_info";
 import type { HistoryInfo } from "../state-logic/useUndoRedo";
 import { mergeClasses } from "../utils/mergeClasses";
 
-import styles from "./EditorContainer.module.css";
+import styles from "./HeaderView.module.css";
 import { OpenSideBySideWindowButton } from "./OpenSideBySideWindowButton";
 
 export function HeaderView({
