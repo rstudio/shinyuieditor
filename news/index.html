@@ -94,10 +94,12 @@
 </div>
 <div class="section level4">
 <h4 id="minor-new-features-and-improvements-0-4-2">Minor new features and improvements<a class="anchor" aria-label="anchor" href="#minor-new-features-and-improvements-0-4-2"></a></h4>
-</div>
+<ul><li>Failures in reading/ parsing the app files are now caught and communicated to the user in the main UI in addition to the R console/ VSCode output pane. This means most crashes caused by malformed apps can be recovered from by fixing the formatting without needing to restart editor. Issue #56</li>
+</ul></div>
 <div class="section level4">
 <h4 id="bug-fixes-0-4-2">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-4-2"></a></h4>
 <ul><li>Fixed bug where reactive values (or any user-declared functions) were called in code. #148</li>
+<li>Fixed problem where hard-resetting the app preview server didn’t work when running in HTTPUV mode.</li>
 </ul></div>
 </div>
     <div class="section level2">
