@@ -1,0 +1,10 @@
+{
+  "name": "r-package-build-tool",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "install-r-pkg": "R CMD INSTALL --preclean --no-multiarch --with-keep.source ../../",
+    "test-r-pkg": "R --slave --silent --no-save -e \"devtools::test('../../')\"",
+    "format": "R --slave --silent --no-save -e \"styler::style_pkg(pkg = '../../')\""
+  }
+}

@@ -3,7 +3,6 @@
 # the client will be safe to use and if not lets the user know how to fix the
 # problem
 check_for_url_issues <- function() {
-
   running_outside_rstudio <- get_running_outside_rstudio()
 
   # If we're not in RStudio we don't need to (/can't) do anything

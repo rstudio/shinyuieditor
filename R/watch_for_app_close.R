@@ -1,9 +1,10 @@
 WatchForAppClose <- function(on_close) {
-
   timeout_fn <- NULL
 
   connection_opened <- function() {
-    if (is.null(timeout_fn)) return()
+    if (is.null(timeout_fn)) {
+      return()
+    }
 
     # Cancel any app close timeouts that may have been caused by the
     # user refreshing the page
