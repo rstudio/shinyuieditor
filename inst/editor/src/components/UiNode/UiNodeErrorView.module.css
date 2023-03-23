@@ -10,19 +10,21 @@
 }
 
 .header {
-  /* background-color: pink; */
+  color: var(--red);
+  font-size: 1.5rem;
 }
 
 .information {
   margin-block: var(--size-sm);
+  font-style: italic;
 }
 
 .error_msg {
+  display: block;
+  background-color: var(--light-grey);
   color: var(--red);
   font-family: monospace;
-  /* background-color: red; */
-  display: block;
-  margin-block: var(--size-sm);
+  padding: var(--size-sm);
 }
 
 .actions {

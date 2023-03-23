@@ -36,9 +36,9 @@ const UiNode = ({ path, node, canDrag = true }: UiNodeProps) => {
 
   const fallbackRender = React.useMemo(
     () => (fallbackProps: FallbackProps) => {
-      return <UiNodeErrorView node={node} {...fallbackProps} />;
+      return <UiNodeErrorView node={node} path={path} {...fallbackProps} />;
     },
-    [node]
+    [node, path]
   );
 
   return (
