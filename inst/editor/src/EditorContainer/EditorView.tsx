@@ -3,7 +3,7 @@ import { TemplateChooserView } from "../components/TemplatePreviews/TemplateChoo
 import UiNode from "../components/UiNode/UiNode";
 import { EditorLayout } from "../EditorLayout/EditorLayout";
 import ElementsPalette from "../ElementsPalette";
-import { SettingsPanel } from "../SettingsPanel/SettingsPanel";
+import { SettingsPanelSafe } from "../SettingsPanel/SettingsPanel";
 import type {
   EditingState,
   ErrorState,
@@ -33,7 +33,7 @@ function MainEditorView({ state }: { state: EditingState }) {
     <EditorLayout
       main={<UiNode node={state.ui_tree} path={[]} canDrag={false} />}
       left={<ElementsPalette />}
-      properties={<SettingsPanel tree={state.ui_tree} />}
+      properties={<SettingsPanelSafe tree={state.ui_tree} />}
       preview={<AppPreview />}
     />
   );

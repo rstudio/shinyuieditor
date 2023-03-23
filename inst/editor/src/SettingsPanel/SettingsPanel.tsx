@@ -1,10 +1,20 @@
+import React from "react";
+
+import type { FallbackProps } from "react-error-boundary";
+import { ErrorBoundary } from "react-error-boundary";
+
 import DeleteNodeButton from "../components/DeleteNodeButton";
+import { GeneralErrorView } from "../components/ErrorCatcher/GeneralErrorView";
 import { buildStaticFormInfo } from "../components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
 import type { CustomFormRenderFn } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
 import { FormBuilder } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
 import { PanelHeader } from "../EditorLayout/PanelHeader";
 import type { ShinyUiNode } from "../main";
 import { getUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
+import {
+  generate_gh_issue_url,
+  generate_serialized_state_for_error,
+} from "../utils/generate_issue_reports";
 
 import { GoToSourceBtns } from "./GoToSourceBtns";
 import PathBreadcrumb from "./PathBreadcrumb";
@@ -12,7 +22,43 @@ import PathBreadcrumb from "./PathBreadcrumb";
 import classes from "./SettingsPanel.module.css";
 import { useUpdateSettings } from "./useUpdateSettings";
 
-export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
+export function SettingsPanelSafe(props: SettingsPanelProps) {
+  const fallbackRender = React.useMemo(
+    () => (fallbackProps: FallbackProps) => {
+      return (
+        <GeneralErrorView
+          header="Error rendering settings panel"
+          generateIssueLink={(state_at_error) =>
+            generate_gh_issue_url({
+              title: "Error rendering settings panel",
+              body: `Error rendering settings panel:\n${generate_serialized_state_for_error(
+                state_at_error
+              )}`,
+              labels: ["Settings-Panel"],
+            })
+          }
+          {...fallbackProps}
+        />
+      );
+    },
+    []
+  );
+  return (
+    <>
+      <PanelHeader>Properties</PanelHeader>
+
+      <ErrorBoundary fallbackRender={fallbackRender}>
+        <SettingsPanel {...props} />
+      </ErrorBoundary>
+    </>
+  );
+}
+
+type SettingsPanelProps = {
+  tree: ShinyUiNode;
+};
+
+export function SettingsPanel({ tree }: SettingsPanelProps) {
   const {
     currentNode,
     updateArgumentsByName,
@@ -43,7 +89,6 @@ export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
 
   return (
     <>
-      <PanelHeader>Properties</PanelHeader>
       <div className={classes.settingsPanel}>
         <div className={classes.currentElementAbout}>
           <PathBreadcrumb
