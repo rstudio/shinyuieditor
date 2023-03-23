@@ -7,6 +7,8 @@
 
   display: flex;
   flex-direction: column;
+  gap: var(--size-md);
+  overflow: auto;
 }
 
 .header {
@@ -30,5 +32,7 @@
 .actions {
   margin-block-start: auto;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
+  gap: var(--size-sm);
+  flex-wrap: wrap;
 }
