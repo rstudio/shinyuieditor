@@ -1,4 +1,9 @@
 /* eslint-disable no-useless-escape */
+/**
+ *
+ * @param textLines Lines of text to join together
+ * @returns Lines of text joined together with newlines between them
+ */
 export function collapseText(...textLines: (string | undefined)[]): string {
   const cleanLines = textLines.filter((l) => l !== undefined) as string[];
 
