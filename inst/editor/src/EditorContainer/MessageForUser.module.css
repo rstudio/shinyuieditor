@@ -1,0 +1,28 @@
+.message_for_user {
+  height: 100%;
+  display: grid;
+  place-content: center;
+}
+.message_container {
+  background-color: var(--rstudio-white);
+  border-radius: var(--corner-radius);
+  border: var(--outline);
+  width: 600px;
+  max-width: 95%;
+  padding: 25px;
+}
+
+.message_container > h2 {
+  font-size: 24px;
+  margin-block-end: 18px;
+}
+
+.message_container > p {
+  margin: 0;
+  padding: 0;
+}
+
+.error_msg {
+  color: var(--red);
+  font-family: var(--mono-fonts);
+}

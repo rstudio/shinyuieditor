@@ -1,6 +1,6 @@
 import React from "react";
 
-import styles from "./EditorContainer.module.css";
+import styles from "./MessageForUser.module.css";
 
 export function MessageForUser({ children }: { children: React.ReactNode }) {
   return (
