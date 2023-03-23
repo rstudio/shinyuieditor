@@ -1,0 +1,32 @@
+.container {
+  --inset: var(--size-md);
+  height: calc(100% - var(--inset) * 2);
+  width: calc(100% - var(--inset) * 2);
+  margin: var(--inset);
+  padding: var(--size-md);
+
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  /* background-color: pink; */
+}
+
+.information {
+  margin-block: var(--size-sm);
+}
+
+.error_msg {
+  color: var(--red);
+  font-family: monospace;
+  /* background-color: red; */
+  display: block;
+  margin-block: var(--size-sm);
+}
+
+.actions {
+  margin-block-start: auto;
+  display: flex;
+  justify-content: space-evenly;
+}

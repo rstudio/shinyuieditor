@@ -1,11 +1,19 @@
+import React from "react";
+
+import type { FallbackProps } from "react-error-boundary";
+import { ErrorBoundary } from "react-error-boundary";
+
 import type {
   NodePath,
   ShinyUiNode,
   UiNodeComponent,
 } from "../../Shiny-Ui-Elements/uiNodeTypes";
-import { getUiNodeInfo } from "../../Shiny-Ui-Elements/uiNodeTypes";
-import { isParentNode } from "../../Shiny-Ui-Elements/uiNodeTypes";
+import {
+  getUiNodeInfo,
+  isParentNode,
+} from "../../Shiny-Ui-Elements/uiNodeTypes";
 
+import { UiNodeErrorView } from "./UiNodeErrorView";
 import { useMakeWrapperProps } from "./useMakeWrapperProps";
 
 export type UiNodeProps = {
@@ -26,13 +34,22 @@ const UiNode = ({ path, node, canDrag = true }: UiNodeProps) => {
 
   const wrapperProps = useMakeWrapperProps({ path, node, canDrag });
 
+  const fallbackRender = React.useMemo(
+    () => (fallbackProps: FallbackProps) => {
+      return <UiNodeErrorView node={node} {...fallbackProps} />;
+    },
+    [node]
+  );
+
   return (
-    <Comp
-      wrapperProps={wrapperProps}
-      uiArguments={node.uiArguments}
-      uiChildren={isParentNode(node) ? node.uiChildren ?? [] : []}
-      path={path}
-    />
+    <ErrorBoundary fallbackRender={fallbackRender}>
+      <Comp
+        wrapperProps={wrapperProps}
+        uiArguments={node.uiArguments}
+        uiChildren={isParentNode(node) ? node.uiChildren ?? [] : []}
+        path={path}
+      />
+    </ErrorBoundary>
   );
 };
 

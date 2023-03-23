@@ -18,6 +18,7 @@
     "r-ast-parsing": "*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-error-boundary": "^4.0.1",
     "react-icons": "^4.4.0",
     "react-joyride": "^2.5.1",
     "react-markdown": "^8.0.3",
