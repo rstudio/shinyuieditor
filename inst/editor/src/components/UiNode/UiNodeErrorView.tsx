@@ -1,15 +1,9 @@
-import { useStore } from "react-redux";
-
-import { useHistoryGoBackward } from "../../EditorContainer/HistoryGoBackwardProvider";
 import type {
   NodePath,
   ShinyUiNode,
 } from "../../Shiny-Ui-Elements/uiNodeTypes";
-import type { RootState } from "../../state/store";
 import { generate_ui_node_github_error_link } from "../../utils/generate_issue_reports";
-import { TooltipButton } from "../PopoverEl/Tooltip";
-
-import styles from "./UiNodeErrorView.module.css";
+import { GeneralErrorView } from "../ErrorCatcher/GeneralErrorView";
 
 export function UiNodeErrorView({
   node,
@@ -22,60 +16,18 @@ export function UiNodeErrorView({
   error: Error;
   resetErrorBoundary: () => void;
 }) {
-  const { goBackward, canGoBackward } = useHistoryGoBackward();
-
-  const store = useStore<RootState>();
-
   return (
-    <div className={styles.container}>
-      <h3 className={styles.header}>
-        Something went wrong rendering {node.uiName}()
-      </h3>
-      <p className={styles.information}>Error message:</p>
-      <code className={styles.error_msg}>{error.message}</code>
-
-      <div className={styles.actions}>
-        <TooltipButton
-          variant="regular"
-          position="right"
-          text="Try rendering again to see if it fixes the error"
-          onClick={() => resetErrorBoundary()}
-        >
-          Reset
-        </TooltipButton>
-
-        {canGoBackward ? (
-          <TooltipButton
-            variant="regular"
-            position="up"
-            text="Undo the last state change to see if that fixes issue"
-            onClick={() => {
-              goBackward();
-              resetErrorBoundary();
-            }}
-          >
-            Undo last change
-          </TooltipButton>
-        ) : null}
-        <TooltipButton
-          role="link"
-          text="Generate a bug report for github"
-          variant="regular"
-          position="left"
-          onClick={() => {
-            window.open(
-              generate_ui_node_github_error_link({
-                node,
-                path,
-                app_state: store.getState(),
-              }),
-              "_blank"
-            );
-          }}
-        >
-          Submit bug report
-        </TooltipButton>
-      </div>
-    </div>
+    <GeneralErrorView
+      header={`Something went wrong rendering ${node.uiName}()`}
+      error={error}
+      resetErrorBoundary={resetErrorBoundary}
+      generateIssueLink={(state_at_error) =>
+        generate_ui_node_github_error_link({
+          node,
+          path,
+          app_state: state_at_error,
+        })
+      }
+    />
   );
 }
