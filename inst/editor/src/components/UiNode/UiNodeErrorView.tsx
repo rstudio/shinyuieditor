@@ -47,7 +47,7 @@ export function UiNodeErrorView({
         {canGoBackward ? (
           <TooltipButton
             variant="regular"
-            position="right"
+            position="up"
             text="Undo the last state change to see if that fixes issue"
             onClick={() => {
               goBackward();
@@ -57,17 +57,24 @@ export function UiNodeErrorView({
             Undo last change
           </TooltipButton>
         ) : null}
-        <a
-          href={generate_ui_node_github_error_link({
-            node,
-            path,
-            app_state: store.getState(),
-          })}
-          target="_blank"
-          rel="noreferrer"
+        <TooltipButton
+          role="link"
+          text="Generate a bug report for github"
+          variant="regular"
+          position="left"
+          onClick={() => {
+            window.open(
+              generate_ui_node_github_error_link({
+                node,
+                path,
+                app_state: store.getState(),
+              }),
+              "_blank"
+            );
+          }}
         >
           Submit bug report
-        </a>
+        </TooltipButton>
       </div>
     </div>
   );
