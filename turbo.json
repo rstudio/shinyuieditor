@@ -4,13 +4,14 @@
     "dev": {
       "inputs": ["src/**/*.tsx", "src/**/*.ts", "assets/"],
       "outputs": ["build/**", "media/build/**"],
-      "dependsOn": ["^dev"],
+      "dependsOn": ["^dev", "install-r-pkg"],
       "outputMode": "new-only"
     },
     "prod": {
       "inputs": ["src/**/*.tsx", "src/**/*.ts", "assets/"],
       "outputs": ["build/**", "media/build/**", "vscode-extension-*.vsix"],
-      "outputMode": "new-only"
+      "outputMode": "new-only",
+      "dependsOn": ["install-r-pkg"]
     },
     "type-check": {
       "outputs": [],
@@ -22,6 +23,9 @@
       "outputs": [],
       "outputMode": "new-only"
     },
+    "format": {
+      "inputs": ["../../R/*.R"]
+    },
     "playwright": {
       "cache": false,
       "outputs": [""]
@@ -31,6 +35,9 @@
       "outputs": ["storybook-static/"]
     },
     "update-visual-snapshots": { "cache": false },
-    "watch": { "cache": false }
+    "watch": { "cache": false },
+    "install-r-pkg": {
+      "inputs": ["../../R/*.R"]
+    }
   }
 }

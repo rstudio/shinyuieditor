@@ -51,12 +51,11 @@ AppPreview <- R6::R6Class(
     host = NULL,
     port = NULL,
     url = NULL,
-    initialize = function(
-      app_loc, 
-      port, 
-      host, 
-      print_logs, 
-      logger = function() { } # nolint
+    initialize = function(app_loc,
+                          port,
+                          host,
+                          print_logs,
+                          logger = function() { } # nolint
     ) {
       private$logger <- logger
       private$print_logs <- print_logs
@@ -66,10 +65,8 @@ AppPreview <- R6::R6Class(
       # The location of the background app that is sent to the react app's
       # iframe for viewing
       self$url <- get_app_url(host = host, port = port)
-
     },
     start_app = function() {
-
       if (private$is_running) {
         # App is already running. No need to start up again
         return()
@@ -95,7 +92,6 @@ AppPreview <- R6::R6Class(
           length(lines) > 0
         },
         callback = function(log_lines) {
-
           if (identical(private$previous_logs, log_lines)) {
             # Ommiting logs as they have not changed. Needed when errors occur
             # as they just look like an endless stream of the same error
@@ -130,8 +126,10 @@ AppPreview <- R6::R6Class(
     },
     stop_app = function() {
 
-      # If the app was never started, then we don't need to stop it 
-      if (!private$is_running) return()
+      # If the app was never started, then we don't need to stop it
+      if (!private$is_running) {
+        return()
+      }
 
       private$logger("Stopping app preview process\n")
 
@@ -202,7 +200,6 @@ get_app_url <- function(host, port) {
 # localhost based urls and need to use rstudioapi's translateLocalUrl() function
 # to send the appropriate URLS over to the client
 make_url_hosted_friendly <- function(local_url) {
-
   has_rstudioapi <- rlang::is_installed("rstudioapi")
   # If we can, run the URL through rstudioapi's url translator, otherwise just
   # return the plain un-proxied url We also need to check to make sure that

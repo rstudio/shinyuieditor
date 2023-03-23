@@ -13,7 +13,7 @@ ascii_box <- function(msg) {
 # Format outgoing message into JSON to be read by client
 format_outgoing_msg <- function(path, payload) {
   jsonlite::toJSON(
-    list(path = path, payload = payload), 
+    list(path = path, payload = payload),
     auto_unbox = TRUE
   )
 }
