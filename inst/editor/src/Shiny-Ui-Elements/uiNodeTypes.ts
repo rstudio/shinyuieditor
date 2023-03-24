@@ -4,6 +4,7 @@ import type { ArgsToDynamicInfo } from "../components/Inputs/SettingsFormBuilder
 import type { useMakeWrapperProps } from "../components/UiNode/useMakeWrapperProps";
 import type { DeleteAction, UpdateAction } from "../state/app_info";
 
+import { testingErrorNodeInfo } from "./__TestingErrorNode";
 import {
   bslibCardBodyInfo,
   bslibCardFooterInfo,
@@ -99,6 +100,7 @@ export const shinyUiNodeInfoArray = [
   plotlyPlotlyOutputInfo,
   textNodeInfo,
   unknownUiFunctionInfo,
+  testingErrorNodeInfo,
 ] as const;
 
 const shinyUiNodeInfo = new Map<string, ShinyUiNodeInfo>(
@@ -121,7 +123,10 @@ export function getUiNodeInfo(uiName: string): ShinyUiNodeInfo {
 export type ShinyUiNodeInfo = Expand<typeof shinyUiNodeInfoArray[number]>;
 export type ShinyUiNodeNames = ShinyUiNodeInfo["uiName"];
 export type ShinyUiNodeLibraries = ShinyUiNodeInfo["library"];
-export type ShinyUiNodeCategories = ShinyUiNodeInfo["category"];
+export type ShinyUiNodeCategories = Exclude<
+  ShinyUiNodeInfo["category"],
+  "TESTING"
+>;
 
 /**
  * All possible props/arguments for the defined UI components
