@@ -22,38 +22,6 @@ import PathBreadcrumb from "./PathBreadcrumb";
 import classes from "./SettingsPanel.module.css";
 import { useUpdateSettings } from "./useUpdateSettings";
 
-export function SettingsPanelSafe(props: SettingsPanelProps) {
-  const fallbackRender = React.useMemo(
-    () => (fallbackProps: FallbackProps) => {
-      return (
-        <GeneralErrorView
-          header="Error rendering settings panel"
-          generateIssueLink={(state_at_error) =>
-            generate_gh_issue_url({
-              title: "Error rendering settings panel",
-              body: `Error rendering settings panel:\n${generate_serialized_state_for_error(
-                state_at_error
-              )}`,
-              labels: ["Settings-Panel"],
-            })
-          }
-          {...fallbackProps}
-        />
-      );
-    },
-    []
-  );
-  return (
-    <>
-      <PanelHeader>Properties</PanelHeader>
-
-      <ErrorBoundary fallbackRender={fallbackRender}>
-        <SettingsPanel {...props} />
-      </ErrorBoundary>
-    </>
-  );
-}
-
 type SettingsPanelProps = {
   tree: ShinyUiNode;
 };
@@ -89,41 +57,61 @@ export function SettingsPanel({ tree }: SettingsPanelProps) {
 
   return (
     <>
-      <div className={classes.settingsPanel}>
-        <div className={classes.currentElementAbout}>
-          <PathBreadcrumb
-            tree={tree}
-            path={selectedPath}
-            onSelect={setNodeSelection}
-          />
-        </div>
-        <FormBuilder
-          settings={uiArguments}
-          settingsInfo={staticSettingsInfo}
-          renderInputs={
-            "settingsFormRender" in nodeInfo
-              ? (nodeInfo.settingsFormRender as CustomFormRenderFn<
-                  typeof uiArguments
-                >)
-              : undefined
-          }
-          onSettingsChange={(name, action) => {
-            switch (action.type) {
-              case "UPDATE":
-                updateArgumentsByName(name, action.value);
-                return;
-
-              case "REMOVE":
-                deleteArgumentByName(name);
-                return;
+      <PanelHeader>Properties</PanelHeader>
+      <ErrorBoundary fallbackRender={SettingsPanelErrorFallback}>
+        <div className={classes.settingsPanel}>
+          <div className={classes.currentElementAbout}>
+            <PathBreadcrumb
+              tree={tree}
+              path={selectedPath}
+              onSelect={setNodeSelection}
+            />
+          </div>
+          <FormBuilder
+            settings={uiArguments}
+            settingsInfo={staticSettingsInfo}
+            renderInputs={
+              "settingsFormRender" in nodeInfo
+                ? (nodeInfo.settingsFormRender as CustomFormRenderFn<
+                    typeof uiArguments
+                  >)
+                : undefined
             }
-          }}
-        />
-        <GoToSourceBtns node={currentNode} />
-        <div className={classes.buttonsHolder}>
-          {!isRootNode ? <DeleteNodeButton path={selectedPath} /> : null}
+            onSettingsChange={(name, action) => {
+              switch (action.type) {
+                case "UPDATE":
+                  updateArgumentsByName(name, action.value);
+                  return;
+
+                case "REMOVE":
+                  deleteArgumentByName(name);
+                  return;
+              }
+            }}
+          />
+          <GoToSourceBtns node={currentNode} />
+          <div className={classes.buttonsHolder}>
+            {!isRootNode ? <DeleteNodeButton path={selectedPath} /> : null}
+          </div>
         </div>
-      </div>
+      </ErrorBoundary>
     </>
   );
 }
+const SettingsPanelErrorFallback = (fallbackProps: FallbackProps) => {
+  return (
+    <GeneralErrorView
+      header="Error rendering settings panel"
+      generateIssueLink={(state_at_error) =>
+        generate_gh_issue_url({
+          title: "Error rendering settings panel",
+          body: `Error rendering settings panel:\n${generate_serialized_state_for_error(
+            state_at_error
+          )}`,
+          labels: ["Settings-Panel"],
+        })
+      }
+      {...fallbackProps}
+    />
+  );
+};
