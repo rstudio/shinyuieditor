@@ -5,7 +5,11 @@ import type { TemplateInfo } from "communication-types/src/AppTemplates";
 import gridIcon from "../../assets/icons/shinyGridContainer.png";
 import navbarIcon from "../../assets/icons/tabsetPanel.png";
 import type { ShinyUiNode } from "../../main";
-import { PopoverEl } from "../PopoverEl/PopoverEl";
+import {
+  MarkdownTooltipContent,
+  Tooltip,
+  TooltipTrigger,
+} from "../PopoverEl/FloatingPopover";
 
 import { AppTemplatePreview } from "./AppTemplatePreview";
 
@@ -42,11 +46,8 @@ export function TemplatePreviewCard({
   const preview_view_w_px = width_px - 2 * PADDING_PX;
 
   return (
-    <PopoverEl
-      placement="bottom"
-      popoverContent={description}
-      openDelayMs={400}
-      triggerEl={
+    <Tooltip placement="bottom">
+      <TooltipTrigger asChild>
         <article
           className="AppTemplateCard"
           aria-label="App template preview card"
@@ -67,7 +68,8 @@ export function TemplatePreviewCard({
             />
           </footer>
         </article>
-      }
-    />
+      </TooltipTrigger>
+      <MarkdownTooltipContent content={description} />
+    </Tooltip>
   );
 }

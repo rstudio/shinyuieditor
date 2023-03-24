@@ -3,7 +3,7 @@ import { inANotInB } from "util-functions/src/arrays";
 import { isShinyUiNode } from "../../../Shiny-Ui-Elements/isShinyUiNode";
 import type { UnknownUiNode } from "../../../Shiny-Ui-Elements/UnknownUiFunction";
 import { Trash } from "../../Icons";
-import { Tooltip, TooltipButton } from "../../PopoverEl/Tooltip";
+import { SimpleTooltip, TooltipButton } from "../../PopoverEl/Tooltip";
 
 import type { FormBuilderProps } from "./FormBuilder";
 
@@ -23,13 +23,13 @@ export function UnknownArgumentsRender({
     <section className="unknown-arguments-list">
       <div className="divider-line">
         <label>
-          <Tooltip
+          <SimpleTooltip
             text="Arguments present in UI code but not known about or editable by the shinyuieditor"
             position="left"
             size="fit"
           >
             Unknown arguments
-          </Tooltip>
+          </SimpleTooltip>
         </label>
       </div>
 
