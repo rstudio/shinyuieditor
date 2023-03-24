@@ -1,10 +1,25 @@
 import icon from "../../assets/icons/shinyContainer.png";
 import { nodeInfoFactory } from "../nodeInfoFactory";
+import { pathToString } from "../nodePathUtils";
+import type { UiNodeComponent } from "../uiNodeTypes";
 
-import { PkgNodeName } from "./Component";
+import styles from "./styles.module.css";
 
-export type NodeNameSettings = {
+type NodeNameSettings = {
   name: string;
+};
+
+const NodeComponent: UiNodeComponent<
+  NodeNameSettings,
+  { TakesChildren: true }
+> = ({ uiArguments, uiChildren, path, wrapperProps }) => {
+  return (
+    <div className={styles.container} {...wrapperProps}>
+      <p>NODE NAME: {uiArguments.name}</p>
+      <p>Path: {pathToString(path)}</p>
+      <p>There are {uiChildren?.length ?? 0} children</p>
+    </div>
+  );
 };
 
 export const pkgNodeNameInfo = nodeInfoFactory<NodeNameSettings>()({
@@ -12,7 +27,7 @@ export const pkgNodeNameInfo = nodeInfoFactory<NodeNameSettings>()({
   name: "node_name",
   title: "NODE NAME",
   takesChildren: true,
-  UiComponent: PkgNodeName,
+  UiComponent: NodeComponent,
   settingsInfo: {
     name: {
       label: "Name of node",
