@@ -43,7 +43,10 @@ export function GeneralErrorView({
             popoverContent="Undo the last state change to see if that fixes issue"
             onClick={() => {
               goBackward();
-              resetErrorBoundary();
+              // Call resetErrorBoundary after a 10ms delay
+              // This is to give the state time to update
+              // before the error boundary is reset
+              setTimeout(resetErrorBoundary, 5);
             }}
           >
             Undo last change
