@@ -2,7 +2,7 @@ import { useStore } from "react-redux";
 
 import { useHistoryGoBackward } from "../../EditorContainer/HistoryGoBackwardProvider";
 import type { RootState } from "../../state/store";
-import { TooltipButton } from "../PopoverEl/Tooltip";
+import { PopoverButton } from "../Inputs/PopoverButton";
 
 import styles from "./GeneralErrorView.module.css";
 
@@ -28,39 +28,39 @@ export function GeneralErrorView({
       <code className={styles.error_msg}>{error.message}</code>
 
       <div className={styles.actions}>
-        <TooltipButton
-          variant="regular"
-          position="right"
-          text="Try rendering again to see if it fixes the error"
+        <PopoverButton
+          placement="top"
+          popoverContent={"Try rendering again to see if it fixes the error"}
           onClick={() => resetErrorBoundary()}
         >
           Reset
-        </TooltipButton>
+        </PopoverButton>
 
         {canGoBackward ? (
-          <TooltipButton
+          <PopoverButton
             variant="regular"
-            position="up"
-            text="Undo the last state change to see if that fixes issue"
+            placement="top"
+            popoverContent="Undo the last state change to see if that fixes issue"
             onClick={() => {
               goBackward();
               resetErrorBoundary();
             }}
           >
             Undo last change
-          </TooltipButton>
+          </PopoverButton>
         ) : null}
-        <TooltipButton
+
+        <PopoverButton
           role="link"
-          text="Generate a bug report for github"
+          popoverContent="Generate a bug report for github"
           variant="regular"
-          position="left"
+          placement="top"
           onClick={() => {
             window.open(generateIssueLink(store.getState()), "_blank");
           }}
         >
           Submit bug report
-        </TooltipButton>
+        </PopoverButton>
       </div>
     </div>
   );
