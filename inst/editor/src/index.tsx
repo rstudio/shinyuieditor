@@ -9,7 +9,7 @@ import { runSUE } from "./runSUE";
 import type { ShinyUiRootNode } from "./Shiny-Ui-Elements/uiNodeTypes";
 // import { basicNavbarPage as devModeTree } from "./state/sample_ui_trees/basicNavbarPage";
 import { bslibCards as devModeTree } from "./state/sample_ui_trees/bslibCards";
-
+// import { errorTestingTree as devModeTree } from "./state/sample_ui_trees/errorTesting";
 const container = document.getElementById("root");
 
 // If we're in dev, look at localhost 8888, otherwise use default
