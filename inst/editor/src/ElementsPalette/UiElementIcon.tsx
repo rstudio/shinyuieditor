@@ -38,7 +38,7 @@ export function UiElementIcon({ uiName }: { uiName: ShinyUiNodeNames }) {
 
   return (
     <Tooltip placement="right">
-      <TooltipTrigger>
+      <TooltipTrigger asChild>
         <div className={classes.OptionContainer}>
           <div
             className={classes.OptionItem}
