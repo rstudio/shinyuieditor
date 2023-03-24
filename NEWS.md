@@ -8,6 +8,7 @@
 
 ### Bug fixes
 
+- Fixed problem introduced in 0.4.1 where elements dropped onto a grid layout would not be properly wrapped in a grid card if neccessary.
 - Fixed bug where reactive values (or any user-declared functions) were called in code. #148
 - Fixed problem where hard-resetting the app preview server didn't work when running in HTTPUV mode.
 
