@@ -160,12 +160,12 @@ function PlusButton({
 }) {
   return (
     <PopoverButton
+      variant={["icon", "transparent"]}
       className={className}
-      placement="bottom"
+      placement="bottom-start"
       aria-label={label}
       popoverContent={label}
       onClick={onClick}
-      openDelayMs={0}
     >
       <FaPlus style={ButtonStyle} />
     </PopoverButton>

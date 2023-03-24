@@ -1,27 +1,35 @@
 import React from "react";
 
-import type { PopoverProps } from "../PopoverEl/PopoverEl";
-import { PopoverEl } from "../PopoverEl/PopoverEl";
+import type { TooltipOptions } from "../PopoverEl/FloatingPopover";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "../PopoverEl/FloatingPopover";
 
+import Button from "./Button/Button";
+
+type ButtonCompProps = React.ComponentProps<typeof Button>;
 export const PopoverButton: React.FC<
-  Omit<PopoverProps, "triggerEl"> & React.HTMLAttributes<HTMLButtonElement>
+  TooltipOptions &
+    ButtonCompProps & {
+      popoverContent: React.ReactNode;
+      tooltipClass?: string;
+    }
 > = ({
-  children,
   placement = "right",
-  showOn = "hover",
   popoverContent,
-  bgColor,
-  openDelayMs = 0,
+  tooltipClass,
   ...passthroughProps
 }) => {
   return (
-    <PopoverEl
-      placement={placement}
-      showOn={showOn}
-      popoverContent={popoverContent}
-      bgColor={bgColor}
-      openDelayMs={openDelayMs}
-      triggerEl={<button {...passthroughProps}>{children}</button>}
-    ></PopoverEl>
+    <Tooltip placement={placement}>
+      <TooltipTrigger asChild>
+        <Button {...passthroughProps} />
+      </TooltipTrigger>
+      <TooltipContent>
+        <div className={tooltipClass}>{popoverContent}</div>
+      </TooltipContent>
+    </Tooltip>
   );
 };

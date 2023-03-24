@@ -1,21 +1,25 @@
 import React from "react";
 
 import { Info } from "../../Icons";
-import { PopoverButton } from "../PopoverButton";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "../../PopoverEl/FloatingPopover";
 
 import type { CSSUnitWAuto } from "./CSSMeasure";
 import classes from "./CSSUnitInfo.module.css";
 
 export const CSSUnitInfo = ({ units }: { units: CSSUnitWAuto[] }) => {
   return (
-    <PopoverButton
-      className={classes.infoIcon}
-      popoverContent={<UnitInfoText units={units} />}
-      openDelayMs={500}
-      placement="auto"
-    >
-      <Info />
-    </PopoverButton>
+    <Tooltip placement="right">
+      <TooltipTrigger className={classes.infoIcon}>
+        <Info />
+      </TooltipTrigger>
+      <TooltipContent>
+        <UnitInfoText units={units} />
+      </TooltipContent>
+    </Tooltip>
   );
 };
 

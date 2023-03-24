@@ -1,5 +1,9 @@
 import { getDefaultSettings } from "../components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
-import { PopoverEl } from "../components/PopoverEl/PopoverEl";
+import {
+  MarkdownTooltipContent,
+  Tooltip,
+  TooltipTrigger,
+} from "../components/PopoverEl/FloatingPopover";
 import { useMakeDraggable } from "../DragAndDropHelpers/useMakeDraggable";
 import type { ShinyUiNode } from "../main";
 import type { ShinyUiNodeNames } from "../Shiny-Ui-Elements/uiNodeTypes";
@@ -33,11 +37,8 @@ export function UiElementIcon({ uiName }: { uiName: ShinyUiNodeNames }) {
   }
 
   return (
-    <PopoverEl
-      popoverContent={infoPopup}
-      contentIsMd={true}
-      openDelayMs={500}
-      triggerEl={
+    <Tooltip placement="right">
+      <TooltipTrigger>
         <div className={classes.OptionContainer}>
           <div
             className={classes.OptionItem}
@@ -48,7 +49,8 @@ export function UiElementIcon({ uiName }: { uiName: ShinyUiNodeNames }) {
             <label className={classes.OptionLabel}>{title}</label>
           </div>
         </div>
-      }
-    ></PopoverEl>
+      </TooltipTrigger>
+      <MarkdownTooltipContent content={infoPopup} />
+    </Tooltip>
   );
 }

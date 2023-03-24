@@ -14,7 +14,7 @@ type TooltipPositions =
   | "down-right";
 
 type TooltipSizes = "fit" | "large" | "medium" | "small";
-export function Tooltip({
+export function SimpleTooltip({
   text,
   position = "down",
   size,
