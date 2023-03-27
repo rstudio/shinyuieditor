@@ -5,6 +5,7 @@
 ### Minor new features and improvements
 
 - Failures in reading/ parsing the app files are now caught and communicated to the user in the main UI in addition to the R console/ VSCode output pane. This means most crashes caused by malformed apps can be recovered from by fixing the formatting without needing to restart editor. Issue #56
+- Failures in the front-end of the editor are now isolated to their location and include options for remedying along with submitting bug reports to github. #155
 
 ### Bug fixes
 
