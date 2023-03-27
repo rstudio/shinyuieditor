@@ -1,0 +1,24 @@
+.icon_list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-sm);
+  width: fit-content;
+  padding: var(--size-sm);
+}
+
+.icon_preview {
+  display: flex;
+  flex-direction: row;
+  gap: var(--size-sm);
+  align-items: center;
+  padding-inline: var(--size-sm);
+}
+
+/* Add a line between each instance of .icon_preview except for the last one */
+.icon_preview:not(:last-child) {
+  border-bottom: 1px solid var(--rstudio-white);
+}
+
+.selected {
+  outline: 1px solid black;
+}
