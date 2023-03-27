@@ -3,7 +3,7 @@
   border-radius: var(--corner-radius);
   background-color: var(--tooltip-bg-color);
   /* Use a backdrop filter to provide a tiny bit of lift off the background */
-  filter: drop-shadow(1px 1px 4px hsl(0deg 0% 0% / 0.25));
+  filter: var(--simple-drop-shadow-filter);
   padding: 5px;
 }
 

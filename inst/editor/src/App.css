@@ -78,6 +78,8 @@
     2.1px 4.1px 5.2px -1.7px hsl(var(--shadow-color) / 0.36),
     5px 10px 12.6px -2.5px hsl(var(--shadow-color) / 0.36);
 
+  --simple-drop-shadow-filter: drop-shadow(1px 1px 4px hsl(0deg 0% 0% / 0.25));
+
   --size-xs: 4px;
   --size-sm: 8px;
   --size-md: 12px;

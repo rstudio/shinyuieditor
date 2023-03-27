@@ -10,12 +10,21 @@ export default {
 export const Primary = () => (
   <div
     style={{
-      width: "var(--layout-elements-panel-w, 200px)",
+      width: "100%",
       height: "90vh",
       outline: "1px solid grey",
       backgroundColor: "var(--light-grey)",
+      padding: "50px",
+      display: "grid",
+      alignItems: "start",
+      justifyItems: "center",
+
+      position: "relative",
     }}
   >
-    <IconSelector onIconSelect={(icon) => console.log(icon)} />
+    <IconSelector
+      initialValue="circle"
+      onIconSelect={(icon) => console.log(icon)}
+    />
   </div>
 );

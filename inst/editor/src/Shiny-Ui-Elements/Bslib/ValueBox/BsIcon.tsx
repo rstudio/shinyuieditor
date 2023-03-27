@@ -31,7 +31,16 @@ function clean_icon_name(icon_name: string): string {
 }
 
 export const BsIcon = ({ icon_name, ...props }: IconProps) => {
-  const icon_name_clean = clean_icon_name(icon_name);
+  let icon_name_clean = "icon_name";
+  try {
+    icon_name_clean = clean_icon_name(icon_name);
+  } catch (error) {
+    return (
+      <span>
+        Failed to find <strong>{icon_name}</strong>
+      </span>
+    );
+  }
 
   if (!(icon_name_clean in icons)) {
     return (

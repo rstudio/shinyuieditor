@@ -4,7 +4,7 @@
   height: 100%;
 }
 .error_fallback {
-  filter: drop-shadow(1px 1px 4px hsl(0deg 0% 0% / 0.25));
+  filter: var(--simple-drop-shadow-filter);
   padding: var(--size-lg);
   rotate: 3deg;
 }
