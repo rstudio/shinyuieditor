@@ -12,6 +12,24 @@ export const bslibCards = {
   },
   uiChildren: [
     {
+      uiName: "gridlayout::grid_card",
+      uiArguments: { area: "empty" },
+      uiChildren: [
+        {
+          uiName: "bslib::card_body_fill",
+          uiArguments: {},
+          uiChildren: [
+
+            {
+              uiName: "bslib::value_box",
+              uiArguments: { title: "Value Box", showcase_icon: "github" },
+              uiChildren: [],
+            },
+          ],
+        }
+      ],
+    },
+    {
       uiName: "gridlayout::grid_card_text",
       uiArguments: {
         content: "Example of super simple bslib cards",
@@ -78,11 +96,6 @@ export const bslibCards = {
           ],
         },
       ],
-    },
-    {
-      uiName: "gridlayout::grid_card",
-      uiArguments: { area: "empty" },
-      uiChildren: [],
     },
     {
       uiName: "gridlayout::grid_card",

@@ -1,0 +1,28 @@
+.container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 30% 70%;
+  grid-template-rows: 100%;
+  grid-template-areas: "showcase content";
+  /* background-color: var(--rstudio-blue);
+  color: var(--rstudio-white); */
+}
+
+.showcase {
+  grid-area: showcase;
+}
+
+.showcase svg {
+  width: 100%;
+  height: 100%;
+  padding: var(--size-md);
+}
+
+.content {
+  grid-area: content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

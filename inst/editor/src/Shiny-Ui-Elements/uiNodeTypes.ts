@@ -11,6 +11,7 @@ import {
   bslibCardHeaderInfo,
   bslibCardInfo,
 } from "./Bslib";
+import { bslibValueBoxInfo } from "./Bslib/ValueBox/ValueBox";
 import { dtDTOutputInfo } from "./DtDtOutput";
 import {
   gridlayoutCardInfo,
@@ -94,6 +95,7 @@ export const shinyUiNodeInfoArray = [
   gridlayoutGridContainerInfo,
   dtDTOutputInfo,
   bslibCardInfo,
+  bslibValueBoxInfo,
   bslibCardBodyInfo,
   bslibCardHeaderInfo,
   bslibCardFooterInfo,
