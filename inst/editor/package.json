@@ -32,6 +32,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.18.13",
+    "@playwright/experimental-ct-react": "^1.32.1",
     "@playwright/test": "^1.32.1",
     "@storybook/addon-actions": "^7.0.0-beta.47",
     "@storybook/addon-essentials": "^7.0.0-beta.47",
@@ -88,7 +89,8 @@
     "playwright-backend": "playwright test backend --project=chromium --workers=1",
     "playwright-visual": "playwright test visual --workers=1",
     "generate-doc-screenshots": "npx ts-node-esm playwright/utils/generate_docs_screenshots.mts",
-    "deps-check": "knip"
+    "deps-check": "knip",
+    "test-ct": "playwright test -c playwright-ct.config.ts"
   },
   "browserslist": {
     "production": [
