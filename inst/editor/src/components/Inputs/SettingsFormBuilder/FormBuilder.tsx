@@ -16,14 +16,11 @@ import { UnknownArgumentsRender } from "./UnknownArgumentsRender";
 
 type SettingsObj = Record<string, unknown>;
 
-type FormFieldComponents<Info extends SettingsObj> = {
-  inputs: Record<StringKeys<Info>, JSX.Element>;
-  settings: Info;
-};
-
-export type CustomFormRenderFn<Settings extends SettingsObj> = (
-  x: FormFieldComponents<Settings>
-) => JSX.Element;
+export type CustomFormRenderFn<Settings extends SettingsObj> = (x: {
+  inputs: Record<StringKeys<Settings>, JSX.Element>;
+  settings: Settings;
+  onSettingsChange?: (name: string, action: SettingsUpdateAction) => void;
+}) => JSX.Element;
 
 export type FormBuilderProps = {
   settings: UiArgumentsObject;
@@ -40,18 +37,17 @@ export function FormBuilder(args: FormBuilderProps) {
     renderInputs = ({ inputs }) => <>{Object.values(inputs)}</>,
   } = args;
 
-  const PrebuiltInputComponents = {
-    inputs: knownArgumentInputs({
-      settings,
-      settingsInfo,
-      onSettingsChange,
-    }),
-    settings,
-  };
-
   return (
     <form className="FormBuilder" onSubmit={disableDefaultSubmit}>
-      {renderInputs(PrebuiltInputComponents)}
+      {renderInputs({
+        inputs: knownArgumentInputs({
+          settings,
+          settingsInfo,
+          onSettingsChange,
+        }),
+        settings,
+        onSettingsChange,
+      })}
       <UnknownArgumentsRender {...args} />
     </form>
   );
