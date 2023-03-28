@@ -19,29 +19,6 @@ import allBsIconNames from "../../../assets/bsicons/all-bsicon-names.json";
 import { BsIcon } from "./BsIcon";
 import styles from "./IconSelector.module.css";
 
-const IconResult = forwardRef<
-  HTMLDivElement,
-  {
-    icon: string;
-    active: boolean;
-  } & React.HTMLProps<HTMLDivElement>
->(({ icon, active, ...rest }, ref) => {
-  const id = useId();
-  return (
-    <div
-      ref={ref}
-      role="option"
-      id={id}
-      className={styles.icon_preview}
-      aria-selected={active}
-      {...rest}
-    >
-      <BsIcon icon_name={icon} />
-      <span className={styles.icon_name}>{icon}</span>
-    </div>
-  );
-});
-
 export function IconSelector({
   initialValue,
   onIconSelect,
@@ -63,7 +40,7 @@ export function IconSelector({
     middleware: [
       flip({ padding: 10 }),
       size({
-        apply({ rects, availableHeight, elements }) {
+        apply({ availableHeight, elements }) {
           Object.assign(elements.floating.style, {
             maxHeight: `${availableHeight}px`,
           });
@@ -106,6 +83,13 @@ export function IconSelector({
     }
   }
 
+  const select_icon = (icon: string) => {
+    setInputValue(icon);
+    setOpen(false);
+    onIconSelect(icon);
+    setActiveIndex(null);
+  };
+
   const filtered_icons = FilterIconsList(inputValue);
 
   const current_selection =
@@ -129,11 +113,7 @@ export function IconSelector({
               filtered_icons &&
               filtered_icons[activeIndex]
             ) {
-              const selected_icon = filtered_icons[activeIndex];
-              setInputValue(selected_icon);
-              setActiveIndex(null);
-              setOpen(false);
-              onIconSelect(selected_icon);
+              select_icon(filtered_icons[activeIndex]);
             }
           },
         })}
@@ -159,15 +139,13 @@ export function IconSelector({
               {filtered_icons ? (
                 filtered_icons.map((icon, index) => (
                   <IconResult
+                    key={icon}
                     {...getItemProps({
-                      key: icon,
                       ref(node) {
                         listRef.current[index] = node;
                       },
                       onClick() {
-                        setInputValue(icon);
-                        setOpen(false);
-                        refs.domReference.current?.focus();
+                        select_icon(icon);
                       },
                     })}
                     active={activeIndex === index}
@@ -188,6 +166,29 @@ export function IconSelector({
   );
 }
 
+const IconResult = forwardRef<
+  HTMLDivElement,
+  {
+    icon: string;
+    active: boolean;
+  } & React.HTMLProps<HTMLDivElement>
+>(({ icon, active, ...rest }, ref) => {
+  const id = useId();
+  return (
+    <div
+      ref={ref}
+      role="option"
+      id={id}
+      className={styles.icon_preview}
+      aria-selected={active}
+      aria-label={icon}
+      {...rest}
+    >
+      <BsIcon icon_name={icon} />
+      <span className={styles.icon_name}>{icon}</span>
+    </div>
+  );
+});
 const AlphaNumericRegex = /^[A-Za-z0-9-]*$/;
 
 function FilterIconsList(icon_search: string): NonEmptyArray<string> | null {
