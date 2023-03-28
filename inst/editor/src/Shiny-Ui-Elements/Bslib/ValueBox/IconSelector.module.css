@@ -21,6 +21,7 @@
 }
 
 .icon_list {
+  z-index: 10;
   display: flex;
   flex-direction: column;
   width: 180px;
