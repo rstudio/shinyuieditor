@@ -23,6 +23,7 @@ const BslibCardBody: UiNodeComponent<
         uiChildren={uiChildren}
         path={path}
         parentUiName="bslib::card_body_fill"
+        messageOnHover="Add to card body"
       />
     </CardBodyFill>
   );

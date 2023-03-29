@@ -17,6 +17,7 @@ const BslibCardHeader: UiNodeComponent<
         uiChildren={uiChildren}
         path={path}
         parentUiName="bslib::card_header"
+        messageOnHover="Add to card header"
       />
     </CardHeader>
   );

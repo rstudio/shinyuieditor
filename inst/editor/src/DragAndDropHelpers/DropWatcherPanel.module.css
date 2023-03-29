@@ -1,19 +1,33 @@
 .drop_watcher_panel {
+  --active-target-height: max(fit-content, 100px);
+  width: 100%;
+}
+
+.drop_watcher_panel:empty {
   --active-target-height: 15px;
   display: none;
-  width: 100%;
   height: 0;
 }
 
-.drop_watcher_panel:global(.can-accept-drop) {
-  /* Reveal drop detectors when they need to reflect the ability to add stuff to
-    them */
+/* Empty drop detectors will need to animate to size */
+.drop_watcher_panel:empty:global(.can-accept-drop) {
   display: block;
   color: var(--rstudio-white);
-  min-height: var(--active-target-height);
-  flex-basis: var(--active-target-height);
+}
+.drop_watcher_panel:not(:empty):global(.can-accept-drop) {
+  border: 3px solid red;
+}
 
+.drop_watcher_panel:global(.can-accept-drop) {
   transition-property: height flex-grow flex;
   transition-duration: 0.1s;
   transition-timing-function: ease-in;
+
+  min-height: var(--active-target-height);
+  flex-basis: var(--active-target-height);
+}
+
+/* Flash text over drop watcher panel when the user hovered over */
+.drop_watcher_panel:global(.can-accept-drop.hovering-over)::after {
+  content: attr(data-messageOnHover);
 }

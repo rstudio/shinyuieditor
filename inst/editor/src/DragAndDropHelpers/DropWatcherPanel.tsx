@@ -22,6 +22,7 @@ export type DropWatcherPanelProps = {
   parentNodeType: ShinyUiNodeNames;
   parentPath: NodePath;
   wrappingNode?: Wrapping_Node;
+  messageOnHover?: string;
   dropFilters?:
     | { rejected: ShinyUiNodeNames[] }
     | { accepted: ShinyUiNodeNames[] };
@@ -38,6 +39,7 @@ export function DropWatcherPanel({
   className = "",
   wrappingNode,
   dropFilters,
+  messageOnHover = "Drop to add",
   ...divProps
 }: DropWatcherPanelProps &
   Omit<React.ComponentPropsWithoutRef<"div">, "className">) {
@@ -90,6 +92,7 @@ export function DropWatcherPanel({
       className={mergeClasses(styles.drop_watcher_panel, className)}
       {...divProps}
       data-index={index}
+      data-messageOnHover={messageOnHover}
     />
   );
 }

@@ -74,6 +74,7 @@ export function render_card_elements(
             parentPath={path}
             wrappingNode={headerScaffold}
             parentNodeType="bslib::card_header"
+            messageOnHover="Add to card header"
           />
         </CardHeader>
       )}
@@ -85,6 +86,7 @@ export function render_card_elements(
             parentPath={path}
             wrappingNode={bodyScaffold}
             parentNodeType="bslib::card_body_fill"
+            messageOnHover="Add to card body"
           />
         </CardBodyFill>
       )}
@@ -96,6 +98,7 @@ export function render_card_elements(
             parentPath={path}
             wrappingNode={footerScaffold}
             parentNodeType="bslib::card_footer"
+            messageOnHover="Add to card footer"
           />
         </CardFooter>
       )}
