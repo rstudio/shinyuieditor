@@ -13,12 +13,10 @@ import { usePlaceNode } from "../state/usePlaceNode";
 import type { DropHandlerArguments } from "./useFilteredDrop";
 import { useFilteredDrop } from "./useFilteredDrop";
 
-export type DropWatcherPanelProps = Omit<
-  React.ComponentPropsWithoutRef<"div">,
-  "className"
-> & {
-  parentNodeType: ShinyUiNodeNames;
+export type DropWatcherPanelProps = {
   index: number;
+  className?: string;
+  parentNodeType: ShinyUiNodeNames;
   parentPath: NodePath;
   wrappingNode?: Wrapping_Node;
   dropFilters?:
@@ -27,7 +25,6 @@ export type DropWatcherPanelProps = Omit<
   dropHandlerArgs?: Partial<DropHandlerArguments>;
   /** Classname can either be static string or can be a function that returns a
    * class name when passed the panels index */
-  className?: string | ((index: number) => string);
 };
 
 export function DropWatcherPanel({
@@ -39,7 +36,8 @@ export function DropWatcherPanel({
   wrappingNode,
   dropFilters,
   ...divProps
-}: DropWatcherPanelProps) {
+}: DropWatcherPanelProps &
+  Omit<React.ComponentPropsWithoutRef<"div">, "className">) {
   const place_node = usePlaceNode();
 
   const ref = useFilteredDrop({
@@ -83,8 +81,7 @@ export function DropWatcherPanel({
     ...dropHandlerArgs,
   });
 
-  const panelClass =
-    typeof className === "string" ? className : className(index);
+  const panelClass = className;
   return (
     <div ref={ref} className={panelClass} {...divProps} data-index={index} />
   );

@@ -21,7 +21,7 @@ export function CardChildrenWithDropNodes({
 }: {
   parentUiName: ShinyUiNodeNames;
   // parent: ShinyUiNode;
-  dropPanelClass?: string | ((index: number) => string);
+  dropPanelClass?: string;
   uiChildren?: ShinyUiParentNode["uiChildren"];
   path: NodePath;
   showOnEmpty?: React.ReactNode;
