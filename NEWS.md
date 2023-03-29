@@ -1,3 +1,13 @@
+# shinyuieditor 0.4.3
+
+### Major new features and improvements
+
+### Minor new features and improvements
+
+- Updated underlying data structures to allow for more flexible navigation of the editors internal data structures. This will allow for more advanced features in the future where ui nodes can be added not only as children but as named arguments.
+
+### Bug fixes
+
 # shinyuieditor 0.4.2
 
 ### Major new features and improvements
