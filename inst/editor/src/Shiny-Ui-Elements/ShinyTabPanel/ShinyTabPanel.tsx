@@ -31,7 +31,7 @@ const ShinyTabPanel: UiNodeComponent<
       ) : (
         <DropWatcherPanel
           className={classes.emptyTabPanelDropDetector}
-          index={0}
+          child_loc={0}
           parentPath={path}
           dropFilters={dropFilters}
           parentNodeType="shiny::tabPanel"

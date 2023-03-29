@@ -39,24 +39,6 @@ ChildrenWithDropNotes.tsx  */
   pointer-events: none;
 }
 
-.drop_watcher {
-  /* Hide drop detectors when their not needed so they don't mess up flex
-  positioning etc */
-  display: none;
-  width: 100%;
-  height: 0;
-  --active-target-height: 15px;
-}
-
-.drop_watcher:global(.can-accept-drop) {
-  /* Reveal drop detectors when they need to reflect the ability to add stuff to
-  them */
-  display: block;
-  color: var(--rstudio-white);
-  min-height: var(--active-target-height);
-  flex-basis: var(--active-target-height);
-}
-
 /* The final panel should grow as large as it needs to fill end of card */
 .drop_watcher:last-of-type {
   flex: 1;

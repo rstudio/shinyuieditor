@@ -30,7 +30,7 @@ export function CardChildrenWithDropNodes({
     <>
       <DropWatcherPanel
         className={dropPanelClass}
-        index={0}
+        child_loc={0}
         parentPath={path}
         parentNodeType={parentUiName}
       >
@@ -41,7 +41,7 @@ export function CardChildrenWithDropNodes({
           <UiNode path={makeChildPath(path, i)} node={childNode} />
           <DropWatcherPanel
             className={dropPanelClass}
-            index={i + 1}
+            child_loc={i + 1}
             parentPath={path}
             parentNodeType={parentUiName}
           />

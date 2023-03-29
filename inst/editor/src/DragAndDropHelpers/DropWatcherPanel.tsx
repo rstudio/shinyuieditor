@@ -6,15 +6,18 @@ import { makeChildPath } from "../Shiny-Ui-Elements/nodePathUtils";
 import type {
   ShinyUiNodeNames,
   NodePath,
+  PathElement,
 } from "../Shiny-Ui-Elements/uiNodeTypes";
 import { getUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
 import { usePlaceNode } from "../state/usePlaceNode";
+import { mergeClasses } from "../utils/mergeClasses";
 
+import styles from "./DropWatcherPanel.module.css";
 import type { DropHandlerArguments } from "./useFilteredDrop";
 import { useFilteredDrop } from "./useFilteredDrop";
 
 export type DropWatcherPanelProps = {
-  index: number;
+  child_loc: PathElement;
   className?: string;
   parentNodeType: ShinyUiNodeNames;
   parentPath: NodePath;
@@ -28,7 +31,7 @@ export type DropWatcherPanelProps = {
 };
 
 export function DropWatcherPanel({
-  index,
+  child_loc: index,
   parentNodeType,
   parentPath,
   dropHandlerArgs,
@@ -81,8 +84,12 @@ export function DropWatcherPanel({
     ...dropHandlerArgs,
   });
 
-  const panelClass = className;
   return (
-    <div ref={ref} className={panelClass} {...divProps} data-index={index} />
+    <div
+      ref={ref}
+      className={mergeClasses(styles.drop_watcher_panel, className)}
+      {...divProps}
+      data-index={index}
+    />
   );
 }
