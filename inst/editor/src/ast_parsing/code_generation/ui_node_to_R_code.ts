@@ -3,7 +3,7 @@ import type { ShinyUiNode } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
 import { isParentNode } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
 import type { Primatives } from "r-ast-parsing";
 
-import { isShinyUiNode } from "../../Shiny-Ui-Elements/isShinyUiNode";
+import { isKnownShinyUiNode } from "../../Shiny-Ui-Elements/isShinyUiNode";
 import { isTextUiNode } from "../../Shiny-Ui-Elements/TextNode";
 import type { UnknownUiNode } from "../../Shiny-Ui-Elements/UnknownUiFunction";
 import { isUnknownUiNode } from "../../Shiny-Ui-Elements/UnknownUiFunction";
@@ -164,7 +164,7 @@ function print_R_argument_value(value: unknown): string {
 
   if (typeof value === "boolean") return value ? "TRUE" : "FALSE";
 
-  if (isShinyUiNode(value) && isUnknownUiNode(value)) {
+  if (isKnownShinyUiNode(value) && isUnknownUiNode(value)) {
     return print_unknown_ui_node(value);
   }
 

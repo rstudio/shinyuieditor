@@ -2,6 +2,7 @@ import { sameArray } from "util-functions/src/equalityCheckers";
 
 import type { NodePath } from "../../../Shiny-Ui-Elements/uiNodeTypes";
 
+import { separateIntoParentAndChildPaths } from "./getParentPath";
 import { nodesShareCommonParent } from "./nodesShareCommonParent";
 
 export function getNewSelectionPathAfterDeletion({
@@ -30,6 +31,12 @@ export function getNewSelectionPathAfterDeletion({
   // need to shift the selected path to account for the moving of the tree
   if (!nodesShareCommonParent(selectedPath, deletedPath)) return selectedPath;
 
+  const paths_of_deletion = separateIntoParentAndChildPaths(deletedPath);
+
+  // Deleting a named argument node will never cause the position of non child
+  // nodes to move
+  if (paths_of_deletion.child_location !== "uiChildren") return selectedPath;
+
   const finalNodeIndex = deletedPath.length - 1;
 
   if (finalNodeIndex < 0) {
@@ -37,8 +44,13 @@ export function getNewSelectionPathAfterDeletion({
     return [];
   }
 
-  const finalPosOfDeleted = deletedPath[finalNodeIndex];
+  const finalPosOfDeleted = paths_of_deletion.child_path;
   const positionOfSelected = selectedPath[finalNodeIndex];
+
+  if (typeof positionOfSelected !== "number") {
+    // Non child nodes won't get shifted
+    return selectedPath;
+  }
 
   // Deleted node is later in the children of parent than the selected so the
   // index of selection will not update

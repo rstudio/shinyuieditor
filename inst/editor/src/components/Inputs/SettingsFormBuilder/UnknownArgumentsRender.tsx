@@ -1,6 +1,6 @@
 import { inANotInB } from "util-functions/src/arrays";
 
-import { isShinyUiNode } from "../../../Shiny-Ui-Elements/isShinyUiNode";
+import { isKnownShinyUiNode } from "../../../Shiny-Ui-Elements/isShinyUiNode";
 import type { UnknownUiNode } from "../../../Shiny-Ui-Elements/UnknownUiFunction";
 import { Trash } from "../../Icons";
 import { SimpleTooltip, TooltipButton } from "../../PopoverEl/Tooltip";
@@ -65,7 +65,7 @@ export function UnknownArgumentsRender({
 }
 
 function isUnknownUiFunction(x: unknown): x is UnknownUiNode {
-  if (!isShinyUiNode(x)) return false;
+  if (!isKnownShinyUiNode(x)) return false;
   return x.uiName === "unknownUiFunction";
 }
 

@@ -3,11 +3,10 @@ import produce from "immer";
 import type {
   NodePath,
   ShinyUiNode,
-  ShinyUiParentNode,
 } from "../../../Shiny-Ui-Elements/uiNodeTypes";
-import { isParentNode } from "../../../Shiny-Ui-Elements/uiNodeTypes";
 
 import { getNode } from "./getNode";
+import { separateIntoParentAndChildPaths } from "./getParentPath";
 
 /**
  * Arguments to remove node from the Shiny Ui Node tree
@@ -30,50 +29,36 @@ export function removeNode(tree: ShinyUiNode, removeArgs: RemoveNodeArguments) {
   });
 }
 
-function verifyNodeHasChildren(
-  node: ShinyUiParentNode
-): asserts node is Required<ShinyUiParentNode> {
-  if (!node.uiChildren) {
-    throw new Error("Somehow trying to enter a leaf node");
-  }
-}
-
 export function removeNodeMutating(
   tree: ShinyUiNode,
   { path }: RemoveNodeArguments
 ): void {
-  const { parentNode, indexToNode } = navigateToParent(tree, path);
+  const paths = separateIntoParentAndChildPaths(path);
 
-  // Splice out this child
-  if (!isParentNode(parentNode)) {
-    throw new Error("Somehow trying to enter a leaf node");
+  // Get the parent node first
+  const parent_node = getNode(tree, paths.parent_path);
+
+  // Check if we're removing a child node or an argument node
+
+  if (paths.child_location === "uiArguments") {
+    // We're removing an argument node
+    if (parent_node.uiArguments[paths.child_path]) {
+      delete parent_node.uiArguments[paths.child_path];
+    } else {
+      throw new Error("Trying to remove an argument that doesn't exist");
+    }
+  } else if (paths.child_location === "uiChildren") {
+    // Make sure the child we're going to remove actually exists
+    if (
+      !("uiChildren" in parent_node) ||
+      parent_node.uiChildren === undefined ||
+      paths.child_path < 0 ||
+      paths.child_path >= parent_node.uiChildren.length
+    ) {
+      throw new Error("Trying to remove a child that doesn't exist");
+    }
+
+    // Splice out this child
+    parent_node.uiChildren.splice(paths.child_path, 1);
   }
-
-  verifyNodeHasChildren(parentNode);
-
-  parentNode.uiChildren.splice(indexToNode, 1);
-}
-
-/**
- * Get the containing node of another node by its path. Also returns the final
- * index to get to the node so it can be easily modified
- */
-function navigateToParent(
-  tree: ShinyUiNode,
-  path: NodePath
-): { parentNode: ShinyUiNode; indexToNode: number } {
-  const pathCopy = [...path];
-  const indexToNode = pathCopy.pop();
-  if (typeof indexToNode === "undefined")
-    throw new Error("Path to node must have at least one element");
-
-  // If we're only going one level deep, then we just need to return the tree
-  // itself to get to the "parent"
-  const parentNode = pathCopy.length === 0 ? tree : getNode(tree, pathCopy);
-
-  if (!isParentNode(parentNode)) {
-    throw new Error("Somehow trying to enter a leaf node");
-  }
-
-  return { parentNode, indexToNode };
 }

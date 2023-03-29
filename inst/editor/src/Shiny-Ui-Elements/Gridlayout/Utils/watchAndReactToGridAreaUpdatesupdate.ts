@@ -1,5 +1,8 @@
 import { getNode } from "../../../components/UiNode/TreeManipulation/getNode";
-import { getChildIndex } from "../../../components/UiNode/TreeManipulation/getParentPath";
+import {
+  getChildIndex,
+  separateIntoParentAndChildPaths,
+} from "../../../components/UiNode/TreeManipulation/getParentPath";
 import type { RemoveNodeArguments } from "../../../components/UiNode/TreeManipulation/removeNode";
 import type { UpdateNodeArguments } from "../../../components/UiNode/TreeManipulation/updateNode";
 import type { ShinyUiNode } from "../../../main";
@@ -28,9 +31,13 @@ export function updateGridLayoutAreaOnItemAreaChange(
   if (gridPageAndItemNodes === null) return;
   const { gridPageNode } = gridPageAndItemNodes;
 
-  const oldAreaName = areasOfChildren(gridPageNode.uiChildren)[
-    getChildIndex(path)
-  ];
+  const child_index = getChildIndex(path);
+  if (typeof child_index !== "number") {
+    throw new Error("Grid item node should always be a child of the parent");
+  }
+
+  const oldAreaName = areasOfChildren(gridPageNode.uiChildren)[child_index];
+
   const newAreaName = (node.uiArguments as GridItemSettings).area ?? emptyCell;
 
   if (oldAreaName === newAreaName) return;
@@ -76,19 +83,24 @@ function getGridContainerAndItemNodes({
   tree: ShinyUiNode;
   pathToGridItem: NodePath;
 }): { gridPageNode: GridContainerNode; gridItemNode: ShinyUiNode } | null {
-  // Don't bother if we're at the root node
-  if (pathToGridItem.length === 0) return null;
-  const parentNode = getNode(tree, pathToGridItem.slice(0, -1));
+  const item_paths = separateIntoParentAndChildPaths(pathToGridItem);
+
+  // A grid item node should always be a child of the parent grid container
+  if (
+    item_paths.child_location === "uiArguments" ||
+    item_paths.child_location === "missing"
+  )
+    return null;
+
+  const parentNode = getNode(tree, item_paths.parent_path);
 
   // Make sure that the parent of this node is in fact a grid page
-  // const gridPageNode = getNode(tree, pathToGridItem.slice(0, -1));
   if (!isValidGridContainer(parentNode)) {
     return null;
   }
 
   // Make sure the child node is in fact a grid item aware node
-  const gridItemNode =
-    parentNode.uiChildren[pathToGridItem[pathToGridItem.length - 1]];
+  const gridItemNode = parentNode.uiChildren[item_paths.child_path];
 
   // Only trigger on updates of grid area nodes
   if (!("area" in gridItemNode.uiArguments)) return null;
