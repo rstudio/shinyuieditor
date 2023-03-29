@@ -1,36 +1,52 @@
 import { addAtIndex } from "util-functions/src/arrays";
 
 import type { ShinyUiNode } from "../../../main";
-import type { NodePath } from "../../../Shiny-Ui-Elements/uiNodeTypes";
-import { isParentNode } from "../../../Shiny-Ui-Elements/uiNodeTypes";
+import type {
+  NodePath,
+  ShinyUiParentNode,
+} from "../../../Shiny-Ui-Elements/uiNodeTypes";
 
 import { getNode } from "./getNode";
-import { getParentPath } from "./getParentPath";
+import { separateIntoParentAndChildPaths } from "./getParentPath";
 
 export function addNodeMutating(
   tree: ShinyUiNode,
   { path, node }: AddNodeArguments
 ) {
-  const parentPath = getParentPath(path);
-  const positionInChildren = path[path.length - 1];
-  const parentNode = getNode(tree, parentPath);
+  const destination_paths = separateIntoParentAndChildPaths(path);
 
-  if (!isParentNode(parentNode)) {
-    throw new Error(
-      "Can't add a child to a non-container node. Check the path"
+  const destination_parent = getNode(
+    tree,
+    destination_paths.parent_path
+  ) as ShinyUiParentNode;
+
+  if (destination_paths.child_location === "uiChildren") {
+    // If the destination parent node doesn't have ui children, then we need to create it
+    if (
+      !("uiChildren" in destination_parent) ||
+      destination_parent.uiChildren === undefined
+    ) {
+      destination_parent.uiChildren = [];
+    }
+
+    // Add node to new children position
+    destination_parent.uiChildren = addAtIndex(
+      destination_parent.uiChildren as ShinyUiNode[],
+      destination_paths.child_path,
+      node
     );
+
+    return;
   }
 
-  // If this is the first child we may need to create the uiChildren array first
-  if (!Array.isArray(parentNode.uiChildren)) {
-    parentNode.uiChildren = [];
+  if (destination_paths.child_location === "uiArguments") {
+    // Add node to new arguments position
+    destination_parent.uiArguments[destination_paths.child_path] = node;
+
+    return;
   }
 
-  parentNode.uiChildren = addAtIndex(
-    parentNode.uiChildren,
-    positionInChildren,
-    node
-  );
+  throw new Error("Failed to add node to tree at path " + path);
 }
 /**
  * Arguments to add a new node to a Shiny Ui Node tree

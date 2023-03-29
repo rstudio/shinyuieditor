@@ -2,7 +2,7 @@ import React from "react";
 
 import { useSelector } from "react-redux";
 
-import { isShinyUiNode } from "../../../Shiny-Ui-Elements/isShinyUiNode";
+import { isKnownShinyUiNode } from "../../../Shiny-Ui-Elements/isShinyUiNode";
 import { makeChildPath } from "../../../Shiny-Ui-Elements/nodePathUtils";
 import type {
   NodePath,
@@ -34,7 +34,7 @@ function useGetNode(path: NodePath) {
   const uiTree = useSelector((state: RootState) => state.app_info);
 
   const node = React.useMemo(() => {
-    if (!isShinyUiNode(uiTree)) return dummyNode;
+    if (!isKnownShinyUiNode(uiTree)) return dummyNode;
     return getNode(uiTree, path);
   }, [path, uiTree]);
 

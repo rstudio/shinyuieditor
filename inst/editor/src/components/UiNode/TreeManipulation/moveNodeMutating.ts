@@ -1,13 +1,14 @@
-import { addAtIndex, moveElement } from "util-functions/src/arrays";
+import { moveElement } from "util-functions/src/arrays";
 
 import type {
   NodePath,
   ShinyUiNode,
+  ShinyUiParentNode,
 } from "../../../Shiny-Ui-Elements/uiNodeTypes";
-import { isParentNode } from "../../../Shiny-Ui-Elements/uiNodeTypes";
 
+import { addNodeMutating } from "./addNodeMutating";
 import { getNode } from "./getNode";
-import { getParentPath } from "./getParentPath";
+import { separateIntoParentAndChildPaths } from "./getParentPath";
 import { nodesAreSiblings } from "./nodesAreSiblings";
 import { removeNodeMutating } from "./removeNode";
 
@@ -19,6 +20,7 @@ export type MoveNodeArguments = {
    * New path to place the node at
    */
   path: NodePath;
+
   /**
    * The full current path of the node, if it is being moved and added
    */
@@ -36,44 +38,44 @@ export function moveNodeMutating(
   tree: ShinyUiNode,
   { path, currentPath, node }: MoveNodeArguments
 ) {
-  const parentPath = getParentPath(path);
-  const positionInChildren = path[path.length - 1];
-  const parentNode = getNode(tree, parentPath);
+  const destination_paths = separateIntoParentAndChildPaths(path);
+  const current_paths = separateIntoParentAndChildPaths(currentPath);
 
-  if (!isParentNode(parentNode)) {
-    throw new Error(
-      "Can't add a child to a non-container node. Check the path"
-    );
+  const destination_parent = getNode(
+    tree,
+    destination_paths.parent_path
+  ) as ShinyUiParentNode;
+
+  if (destination_paths.child_location === "uiChildren") {
+    // If the destination parent node doesn't have ui children, then we need to create it
+    if (
+      !("uiChildren" in destination_parent) ||
+      destination_parent.uiChildren === undefined
+    ) {
+      destination_parent.uiChildren = [];
+    }
+
+    if (current_paths.child_location === "uiChildren") {
+      // Siblings are a special scenario we need to account for. The problem we
+      // face is that the final index of the node will shift when we remove the
+      // node from it's previous place in certain scenarios. The moveElement
+      // function deals with this for us
+      if (nodesAreSiblings(currentPath, path)) {
+        destination_parent.uiChildren = moveElement(
+          destination_parent.uiChildren,
+          current_paths.child_path,
+          destination_paths.child_path
+        );
+
+        // We're done now so return early
+        return;
+      }
+    }
   }
 
-  // If this is the first child we may need to create the uiChildren array first
-  if (!Array.isArray(parentNode.uiChildren)) {
-    parentNode.uiChildren = [];
-  }
-
-  // If there's a current path for the node, then this is a move rather than a
-  // pure add of a node
-  const nextPath = [...parentPath, positionInChildren];
-
-  // A special case of moving is reordering a node within the children.
-  if (nodesAreSiblings(currentPath, nextPath)) {
-    const previousIndex = currentPath[currentPath.length - 1];
-
-    parentNode.uiChildren = moveElement(
-      parentNode.uiChildren,
-      previousIndex,
-      positionInChildren
-    );
-
-    // We're done now so return early
-    return;
-  }
-
+  // Remove the node from its current location
   removeNodeMutating(tree, { path: currentPath });
 
-  parentNode.uiChildren = addAtIndex(
-    parentNode.uiChildren,
-    positionInChildren,
-    node
-  );
+  // Add the node to its new location
+  addNodeMutating(tree, { path, node });
 }

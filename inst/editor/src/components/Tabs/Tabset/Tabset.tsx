@@ -43,11 +43,19 @@ function Tabset({
 
     if (!selectedPath) return;
 
+    const depth_of_active_tab = nodeDepth(pathOfActiveTab);
+    const depth_of_selection = nodeDepth(selectedPath);
+
     const selectedNodeIsDeeperThanActiveTab =
-      nodeDepth(selectedPath) >= nodeDepth(pathOfActiveTab);
+      depth_of_selection >= depth_of_active_tab;
 
     if (selectedNodeIsDeeperThanActiveTab) {
-      setActiveTab(selectedPath[nodeDepth(pathOfActiveTab) - 1]);
+      const index_of_tab_containing_selection =
+        selectedPath[nodeDepth(pathOfActiveTab) - 1];
+      if (typeof index_of_tab_containing_selection !== "number") {
+        throw new Error("Somehow active tab is not a child of the tabset");
+      }
+      setActiveTab(index_of_tab_containing_selection);
     }
   }, [activeTab, path, selectedPath, setActiveTab]);
 
@@ -99,12 +107,11 @@ function Tabset({
   );
 }
 
-const emptyTabPanel = {
+const emptyTabPanel: ShinyUiNode = {
   uiName: "shiny::tabPanel",
   uiArguments: { title: "Empty Tab" },
   uiChildren: [],
-} satisfies ShinyUiNode;
-
+};
 
 export default Tabset;
 

@@ -1,6 +1,7 @@
 import type { NodePath } from "../../../Shiny-Ui-Elements/uiNodeTypes";
 
 import { aIsParentOfB } from "./aIsParentOfB";
+import { separateIntoParentAndChildPaths } from "./getParentPath";
 import { nodesShareCommonParent } from "./nodesShareCommonParent";
 
 export function getIsValidMove({
@@ -16,14 +17,32 @@ export function getIsValidMove({
   if (aIsParentOfB(fromPath, toPath)) {
     return false;
   }
-
+  // We only need to be careful if we're moving a node to somewhere in its same branch
   if (nodesShareCommonParent(fromPath, toPath)) {
-    // A move of a node to its own position or the one immediately following are
-    // effectivly 'no ops' so we count them as invalid
-    const depth = fromPath.length;
-    const fromIndex = fromPath[depth - 1];
-    const toIndex = toPath[depth - 1];
-    if (fromIndex === toIndex || fromIndex === toIndex - 1) return false;
+    const to_paths = separateIntoParentAndChildPaths(toPath);
+    const from_paths = separateIntoParentAndChildPaths(fromPath);
+
+    if (
+      to_paths.child_location === "missing" ||
+      from_paths.child_location === "missing"
+    ) {
+      return false;
+    }
+
+    // Moving a node to the same position is a 'no op' so we count it as invalid
+    if (to_paths.child_path === from_paths.child_path) {
+      return false;
+    }
+
+    // Moving a child node to the position immediately following is
+    // effectivly a 'no ops' so we count them as invalid
+    if (
+      to_paths.child_location === "uiChildren" &&
+      from_paths.child_location === "uiChildren" &&
+      from_paths.child_path === to_paths.child_path - 1
+    ) {
+      return false;
+    }
   }
 
   return true;

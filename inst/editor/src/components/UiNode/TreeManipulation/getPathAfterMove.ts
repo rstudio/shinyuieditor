@@ -33,14 +33,24 @@ export function getPathAfterMove({ fromPath, toPath }: NodeMoveArgs): NodePath {
 
   const indexOfChange = fromDepth - 1;
 
-  if (fromPath[indexOfChange] >= toPath[indexOfChange]) {
+  const fromPathIndex = fromPath[indexOfChange];
+  const toPathIndex = toPath[indexOfChange];
+
+  if (typeof fromPathIndex !== "number" || typeof toPathIndex !== "number") {
+    return toPath;
+  }
+
+  if (fromPathIndex >= toPathIndex) {
     return toPath;
   }
 
   // If the new path is in a later child than the from path (which is now gone)
   // we will need to decrement the path index at that depth down one
   const updatedPath = [...toPath];
-  updatedPath[indexOfChange]--;
+
+  // We know that this is a number because we tested it before. Typescript can't
+  // narrow this though so we use an assertion
+  (updatedPath[indexOfChange] as number)--;
 
   return updatedPath;
 }
