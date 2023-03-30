@@ -3,7 +3,7 @@
   width: 100%;
 }
 
-.drop_watcher_panel:empty {
+.drop_watcher_panel:empty:not([data-visiblewhenempty]) {
   --active-target-height: 15px;
   display: none;
   height: 0;

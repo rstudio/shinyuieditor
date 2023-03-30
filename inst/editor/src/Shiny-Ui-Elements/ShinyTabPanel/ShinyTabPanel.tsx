@@ -35,6 +35,7 @@ const ShinyTabPanel: UiNodeComponent<
           parentPath={path}
           dropFilters={dropFilters}
           parentNodeType="shiny::tabPanel"
+          visibleWhenEmpty
         />
       )}
     </div>

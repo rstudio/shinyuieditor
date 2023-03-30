@@ -148,6 +148,7 @@ export const GridContainerElement: UiNodeComponent<
                 key={cell_pos}
                 data-cell-pos={cell_pos}
                 minHeightOnAvailable="100%"
+                visibleWhenEmpty
                 style={{
                   gridRow: row,
                   gridColumn: col,

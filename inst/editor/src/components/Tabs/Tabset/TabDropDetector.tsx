@@ -44,12 +44,14 @@ export function TabDropDetector({
       child_loc={index}
       dropFilters={dropFilters}
       wrappingNode={wrap_in_tab_panel}
+      messageOnHover=""
       style={
         {
           "--baseWidth": baseWidth,
           order: index - 1,
         } as React.CSSProperties
       }
+      visibleWhenEmpty={true}
     >
       {children}
     </DropWatcherPanel>

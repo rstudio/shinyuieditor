@@ -34,6 +34,7 @@ export type DropWatcherPanelProps = {
    * rendered and will be able to be replaced by dropping another node on it
    */
   existing_node?: ShinyUiNode;
+
   /**
    * The location of the child in the parent node. E.g. number 2 for the 3rd
    * child or "value" for value argument of the node
@@ -74,6 +75,12 @@ export type DropWatcherPanelProps = {
   minHeightOnAvailable?: string;
 
   /**
+   * By default an empty drop watcher is not visible unless it's a viable drop
+   * target for a dragged node. This can be overwridden with this property
+   */
+  visibleWhenEmpty?: boolean;
+
+  /**
    * Filters for what nodes can be dropped here. If not provided, all nodes are
    * allowed. If provided, only nodes that match the filter are allowed.
    */
@@ -99,8 +106,10 @@ export function DropWatcherPanel({
   wrappingNode,
   dropFilters,
   messageOnHover = "Drop to add",
+  visibleWhenEmpty = false,
   minHeightOnAvailable = existing_node ? "fit-content" : "15px",
   style = {},
+  children,
   ...divProps
 }: DropWatcherPanelProps &
   Omit<React.ComponentPropsWithoutRef<"div">, "className">) {
@@ -181,6 +190,7 @@ export function DropWatcherPanel({
           style={merged_styles}
           data-index={child_loc}
           data-messageonhover={messageOnHover}
+          data-visiblewhenempty={visibleWhenEmpty ? "true" : null}
         >
           {existing_node ? (
             <UiNode
@@ -188,6 +198,7 @@ export function DropWatcherPanel({
               node={existing_node}
             />
           ) : null}
+          {children}
         </div>
       </TooltipTrigger>
       <TooltipContent>
