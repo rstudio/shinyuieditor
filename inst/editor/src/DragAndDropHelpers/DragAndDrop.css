@@ -22,6 +22,10 @@
   color: var(--rstudio-white);
 }
 
+.can-accept-drop:not(:empty)::after {
+  background-color: rgba(var(--red-rgb), 0.7);
+}
+
 @keyframes pulse {
   from {
     opacity: var(--start-opacity);
@@ -47,6 +51,7 @@ div.can-accept-drop.hovering-over {
   doesn't interfere with dropping */
   z-index: 10;
 }
+
 div.can-accept-drop.hovering-over::after {
   content: "release to add";
 }

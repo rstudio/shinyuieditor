@@ -1,7 +1,7 @@
 import icon from "../../../assets/icons/shinyContainer.png";
+import { DropWatcherPanel } from "../../../DragAndDropHelpers/DropWatcherPanel";
 import { nodeInfoFactory } from "../../nodeInfoFactory";
-import type { UiNodeComponent } from "../../uiNodeTypes";
-import { CardChildrenWithDropNodes } from "../Utils/ChildrenWithDropNodes";
+import type { ShinyUiNode, UiNodeComponent } from "../../uiNodeTypes";
 
 import { BsIcon } from "./BsIcon";
 import { IconSelector } from "./IconSelector";
@@ -10,6 +10,7 @@ import styles from "./ValueBox.module.css";
 type ValueBoxArgs = {
   title: string;
   showcase_icon: string;
+  value: ShinyUiNode;
 };
 
 const ValueBox: UiNodeComponent<ValueBoxArgs, { TakesChildren: true }> = ({
@@ -25,11 +26,21 @@ const ValueBox: UiNodeComponent<ValueBoxArgs, { TakesChildren: true }> = ({
       </div>
       <div className={styles.content}>
         <h3>{uiArguments.title}</h3>
-        <CardChildrenWithDropNodes
+        <h4>Value goes here</h4>
+        <DropWatcherPanel
+          existing_node={uiArguments.value}
+          child_loc={"value"}
+          parentPath={path}
+          messageOnHover={
+            uiArguments.value ? "Replace value" : "Drop a value node here"
+          }
+          parentNodeType="bslib::value_box"
+        />
+        {/* <CardChildrenWithDropNodes
           uiChildren={uiChildren}
           path={path}
           parentUiName="bslib::value_box"
-        />
+        /> */}
       </div>
     </div>
   );
@@ -50,6 +61,15 @@ export const bslibValueBoxInfo = nodeInfoFactory<ValueBoxArgs>()({
     showcase_icon: {
       inputType: "omitted",
       defaultValue: "circle",
+    },
+    value: {
+      inputType: "omitted",
+      defaultValue: {
+        uiName: "shiny::textOutput",
+        uiArguments: {
+          outputId: "valueBoxValue",
+        },
+      },
     },
   },
   settingsFormRender: ({ settings, onSettingsChange, inputs }) => {

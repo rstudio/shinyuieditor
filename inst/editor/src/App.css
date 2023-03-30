@@ -40,7 +40,9 @@
   --background-grey: var(--light-grey);
   --header-grey: var(--grey);
 
-  --red: rgb(250, 83, 22);
+  --red-rgb: 250, 83, 22;
+
+  --red: rgb(var(--red-rgb));
 
   --font-color: hsl(214 9% 15%);
   --font-color-disabled: hsl(214 9% 15% / 0.5);

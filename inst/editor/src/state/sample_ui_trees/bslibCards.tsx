@@ -22,7 +22,12 @@ export const bslibCards = {
 
             {
               uiName: "bslib::value_box",
-              uiArguments: { title: "Value Box", showcase_icon: "github" },
+              uiArguments: { title: "Value Box", showcase_icon: "github", value:{
+                uiName:"textNode",
+                uiArguments: {
+                  contents: "Lorem Ipsum",
+                }
+              } },
               uiChildren: [],
             },
           ],
