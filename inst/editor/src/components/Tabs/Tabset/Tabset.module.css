@@ -1,3 +1,5 @@
+@value can_accept_drop from "../../../DragAndDropHelpers/DropWatcherPanel.module.css";
+
 .container {
   position: relative;
   height: 100%;
@@ -116,6 +118,6 @@ illusion of the selected panel and tab being one entity */
   transition: width 0.1s ease-in-out;
 }
 
-.tabDropDetector:global(.can-accept-drop) {
+.tabDropDetector:global(.can_accept_drop) {
   width: calc(var(--baseWidth) * 2);
 }

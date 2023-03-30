@@ -10,16 +10,16 @@
 }
 
 /* Empty drop detectors will need to animate to size */
-.drop_watcher_panel:empty:global(.can-accept-drop) {
+.drop_watcher_panel:empty.can_accept_drop {
   display: block;
   color: var(--rstudio-white);
 }
 
-.drop_watcher_panel:not(:empty):global(.can-accept-drop) {
+.drop_watcher_panel:not(:empty).can_accept_drop {
   border: 3px solid var(--red);
 }
 
-.drop_watcher_panel:global(.can-accept-drop) {
+.drop_watcher_panel.can_accept_drop {
   transition-property: height flex-grow flex;
   transition-duration: 0.1s;
   transition-timing-function: ease-in;
@@ -29,7 +29,7 @@
 }
 
 /* Flash text over drop watcher panel when the user hovered over */
-.drop_watcher_panel:global(.can-accept-drop.hovering-over)::after {
+.drop_watcher_panel.can_accept_drop.hovering_over::after {
   content: attr(data-messageonhover);
 }
 
@@ -42,4 +42,62 @@
 .button_container {
   display: flex;
   justify-content: space-around;
+}
+
+.can_accept_drop {
+  --start-opacity: 0.1;
+  --end-opacity: 0.5;
+
+  position: relative;
+  background-color: var(--red);
+  opacity: 0.2;
+  animation-duration: 3s;
+  animation-name: pulse;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.can_accept_drop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  text-align: center;
+  display: grid;
+  place-content: center;
+  overflow: hidden;
+  color: var(--rstudio-white);
+}
+
+.can_accept_drop:not(:empty)::after {
+  background-color: rgba(var(--red-rgb), 0.7);
+}
+
+@keyframes pulse {
+  from {
+    opacity: var(--start-opacity);
+  }
+
+  50% {
+    opacity: var(--end-opacity);
+  }
+  to {
+    opacity: var(--start-opacity);
+  }
+}
+
+/* This is currently overlapped by the selectedOverlay so selected items don't
+give visual feedback about their ability to be dropped onto. The use of div
+prefixing is to give this style the greatest possible specificity. It will cause
+troubles if in the future another element type can be dropped into, but that
+seems unlikely to happen. */
+div.can_accept_drop.hovering_over {
+  --start-opacity: 1;
+  --end-opacity: 1;
+  /* Lift up whatever element is being hovered so anything placed over it
+  doesn't interfere with dropping */
+  z-index: 10;
+}
+
+div.can_accept_drop.hovering_over::after {
+  content: "release to add";
 }

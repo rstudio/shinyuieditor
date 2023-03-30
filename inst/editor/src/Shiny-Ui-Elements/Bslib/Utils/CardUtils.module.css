@@ -1,3 +1,5 @@
+@value can_accept_drop from "../../../DragAndDropHelpers/DropWatcherPanel.module.css";
+
 .card_body_fill {
   /* A small amount of inset so the body doesn't sit flush with the card itself.
   We take it away from the default bslib card padding to not change the total
@@ -45,19 +47,19 @@ ChildrenWithDropNotes.tsx  */
   height: unset;
 }
 
-.missing_card_element:not(:has(:global(.can-accept-drop))) {
+.missing_card_element:not(:has(:global(.can_accept_drop))) {
   height: 0;
   padding: 0;
   opacity: 0;
   overflow: hidden;
 }
 
-.missing_card_element:has(:global(.can-accept-drop)) {
+.missing_card_element:has(:global(.can_accept_drop)) {
   height: auto;
 }
 
-.drop_watcher:global(.can-accept-drop),
-.missing_card_element:has(:global(.can-accept-drop)) {
+.drop_watcher:global(.can_accept_drop),
+.missing_card_element:has(:global(.can_accept_drop)) {
   /* Add subtle transition to ease jarring layout transition */
   transition-property: height flex-grow flex;
   transition-duration: 0.1s;
