@@ -38,7 +38,7 @@ export type DropWatcherPanelProps = {
    * The location of the child in the parent node. E.g. number 2 for the 3rd
    * child or "value" for value argument of the node
    */
-  child_loc: PathElement;
+  child_loc?: PathElement;
 
   /**
    * Class name to apply to the div. This gets added to an existing class that
@@ -68,6 +68,12 @@ export type DropWatcherPanelProps = {
   messageOnHover?: string;
 
   /**
+   * At least how tall should this drop area be when it's available to be
+   * dropped on?
+   */
+  minHeightOnAvailable?: string;
+
+  /**
    * Filters for what nodes can be dropped here. If not provided, all nodes are
    * allowed. If provided, only nodes that match the filter are allowed.
    */
@@ -85,7 +91,7 @@ export type DropWatcherPanelProps = {
 
 export function DropWatcherPanel({
   existing_node,
-  child_loc: index,
+  child_loc = 0,
   parentNodeType,
   parentPath,
   dropHandlerArgs,
@@ -93,31 +99,39 @@ export function DropWatcherPanel({
   wrappingNode,
   dropFilters,
   messageOnHover = "Drop to add",
+  minHeightOnAvailable = existing_node ? "fit-content" : "15px",
+  style = {},
   ...divProps
 }: DropWatcherPanelProps &
   Omit<React.ComponentPropsWithoutRef<"div">, "className">) {
-  const has_existing_node = !!existing_node;
-
   const [replacementNode, setReplacementNode] =
     React.useState<DraggedNodeInfo | null>(null);
 
   const place_node = usePlaceNode();
 
+  const merged_styles = React.useMemo(
+    () => ({
+      ...style,
+      "--active-target-height": minHeightOnAvailable,
+    }),
+    [minHeightOnAvailable, style]
+  );
+
   const finish_drop = React.useCallback(
     (nodeInfo: DraggedNodeInfo) => {
       place_node({
         ...nodeInfo,
-        path: makeChildPath(parentPath, index),
+        path: makeChildPath(parentPath, child_loc),
         wrappingNode,
       });
       setReplacementNode(null);
     },
-    [index, parentPath, place_node, wrappingNode]
+    [child_loc, parentPath, place_node, wrappingNode]
   );
 
   const ref = useFilteredDrop({
     onDrop: (nodeInfo) => {
-      if (has_existing_node) {
+      if (existing_node) {
         // if we have an existing node, we should prompt the user to confirm they really do want to replace it
         setReplacementNode(nodeInfo);
       } else {
@@ -132,7 +146,7 @@ export function DropWatcherPanel({
       if (
         !getIsValidMove({
           fromPath: currentPath,
-          toPath: [...parentPath, index],
+          toPath: [...parentPath, child_loc],
         })
       ) {
         return false;
@@ -164,12 +178,13 @@ export function DropWatcherPanel({
           ref={ref}
           className={mergeClasses(styles.drop_watcher_panel, className)}
           {...divProps}
-          data-index={index}
-          data-messageOnHover={messageOnHover}
+          style={merged_styles}
+          data-index={child_loc}
+          data-messageonhover={messageOnHover}
         >
           {existing_node ? (
             <UiNode
-              path={makeChildPath(parentPath, index)}
+              path={makeChildPath(parentPath, child_loc)}
               node={existing_node}
             />
           ) : null}

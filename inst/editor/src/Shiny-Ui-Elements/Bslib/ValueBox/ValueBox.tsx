@@ -25,8 +25,7 @@ const ValueBox: UiNodeComponent<ValueBoxArgs, { TakesChildren: true }> = ({
         <BsIcon icon_name={uiArguments.showcase_icon} />
       </div>
       <div className={styles.content}>
-        <h3>{uiArguments.title}</h3>
-        <h4>Value goes here</h4>
+        <h5>{uiArguments.title}</h5>
         <DropWatcherPanel
           existing_node={uiArguments.value}
           child_loc={"value"}

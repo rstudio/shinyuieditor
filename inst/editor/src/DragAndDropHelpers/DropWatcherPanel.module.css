@@ -30,7 +30,7 @@
 
 /* Flash text over drop watcher panel when the user hovered over */
 .drop_watcher_panel:global(.can-accept-drop.hovering-over)::after {
-  content: attr(data-messageOnHover);
+  content: attr(data-messageonhover);
 }
 
 .replace_node_question {
