@@ -2,14 +2,19 @@
   position: relative;
   height: 100%;
   width: 100%;
+}
+
+.value_box {
+  height: 100%;
   display: grid;
   grid-template-columns: 3fr 7fr;
   grid-template-rows: 100%;
   grid-template-areas: "showcase content";
-  /* background-color: var(--rstudio-blue);
-  color: var(--rstudio-white); */
   padding: var(--size-md);
   gap: var(--size-md);
+  overflow: auto;
+  /* background-color: var(--rstudio-blue);
+  color: var(--rstudio-white); */
 }
 
 .container > * {

@@ -21,25 +21,27 @@ const ValueBox: UiNodeComponent<ValueBoxArgs, { TakesChildren: true }> = ({
 }) => {
   return (
     <div className={styles.container} {...wrapperProps}>
-      <div className={styles.showcase}>
-        <BsIcon icon_name={uiArguments.showcase_icon} />
-      </div>
-      <div className={styles.content}>
-        <h5>{uiArguments.title}</h5>
-        <DropWatcherPanel
-          existing_node={uiArguments.value}
-          child_loc={"value"}
-          parentPath={path}
-          messageOnHover={
-            uiArguments.value ? "Replace value" : "Drop a value node here"
-          }
-          parentNodeType="bslib::value_box"
-        />
-        {/* <CardChildrenWithDropNodes
+      <div className={styles.value_box}>
+        <div className={styles.showcase}>
+          <BsIcon icon_name={uiArguments.showcase_icon} />
+        </div>
+        <div className={styles.content}>
+          <h5>{uiArguments.title}</h5>
+          <DropWatcherPanel
+            existing_node={uiArguments.value}
+            child_loc={"value"}
+            parentPath={path}
+            messageOnHover={
+              uiArguments.value ? "Replace value" : "Drop a value node here"
+            }
+            parentNodeType="bslib::value_box"
+          />
+          {/* <CardChildrenWithDropNodes
           uiChildren={uiChildren}
           path={path}
           parentUiName="bslib::value_box"
         /> */}
+        </div>
       </div>
     </div>
   );
