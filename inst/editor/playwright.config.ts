@@ -1,5 +1,5 @@
+import { defineConfig, devices } from "@playwright/experimental-ct-react";
 import type { PlaywrightTestConfig } from "@playwright/test";
-import { devices } from "@playwright/test";
 
 /**
  * Read environment variables from file.
@@ -10,7 +10,7 @@ import { devices } from "@playwright/test";
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
-const config: PlaywrightTestConfig = {
+const config: PlaywrightTestConfig = defineConfig({
   testDir: "./playwright",
   /* Maximum time one test can run for. */
   timeout: 30 * 1000,
@@ -40,6 +40,9 @@ const config: PlaywrightTestConfig = {
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "retain-on-failure",
+
+    /* Port to use for Playwright component endpoint. */
+    ctPort: 3100,
   },
 
   /* Configure projects for major browsers */
@@ -102,6 +105,6 @@ const config: PlaywrightTestConfig = {
     command: "yarn start --port 3001",
     port: 3001,
   },
-};
+});
 
 export default config;

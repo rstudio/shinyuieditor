@@ -89,8 +89,7 @@
     "playwright-backend": "playwright test backend --project=chromium --workers=1",
     "playwright-visual": "playwright test visual --workers=1",
     "generate-doc-screenshots": "npx ts-node-esm playwright/utils/generate_docs_screenshots.mts",
-    "deps-check": "knip",
-    "test-ct": "playwright test -c playwright-ct.config.ts"
+    "deps-check": "knip"
   },
   "browserslist": {
     "production": [
