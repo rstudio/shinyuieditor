@@ -16,6 +16,7 @@ import type {
   ShinyUiNode,
   ShinyUiNodeNames,
 } from "../Shiny-Ui-Elements/uiNodeTypes";
+import { getUiNodeTitle } from "../Shiny-Ui-Elements/uiNodeTypes";
 import { getUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
 import { usePlaceNode } from "../state/usePlaceNode";
 import { mergeClasses } from "../utils/mergeClasses";
@@ -99,7 +100,7 @@ export type DropWatcherPanelProps = {
 export function DropWatcherPanel({
   existing_node,
   child_loc = 0,
-  parentNodeType,
+  parentNodeType: parentNodeUiName,
   parentPath,
   dropHandlerArgs,
   className = "",
@@ -147,36 +148,16 @@ export function DropWatcherPanel({
         finish_drop(nodeInfo);
       }
     },
-    getCanAcceptDrop: (nodeInfo: DraggedNodeInfo) => {
-      const { node, currentPath } = nodeInfo;
-
-      // First check that this move makes sense navigationally. E.g. were not
-      // trying to move a node into it's own children or something
-      if (
-        !getIsValidMove({
-          fromPath: currentPath,
-          toPath: [...parentPath, child_loc],
-        })
-      ) {
-        return false;
-      }
-
-      const draggedNodeInfo = getUiNodeInfo(node.uiName);
-      if (
-        "allowedParents" in draggedNodeInfo &&
-        !draggedNodeInfo.allowedParents?.includes(parentNodeType)
-      ) {
-        return false;
-      }
-
-      if (!dropFilters) return true;
-
-      if ("accepted" in dropFilters) {
-        return node.uiName in dropFilters.accepted;
-      } else {
-        return !(node.uiName in dropFilters.rejected);
-      }
-    },
+    getCanAcceptDrop: (nodeInfo: DraggedNodeInfo) =>
+      getIsValidMove({
+        fromPath: nodeInfo.currentPath,
+        toPath: [...parentPath, child_loc],
+      }) &&
+      isAllowedParent({
+        dragged: nodeInfo.node.uiName,
+        parent: parentNodeUiName,
+      }) &&
+      isDropFilterAccepted(nodeInfo, dropFilters),
     ...dropHandlerArgs,
   });
 
@@ -202,18 +183,88 @@ export function DropWatcherPanel({
         </div>
       </TooltipTrigger>
       <TooltipContent>
-        <div className={styles.replace_node_question}>
-          <p>
-            Are you sure you want to replace{" "}
-            <strong>{existing_node?.uiName}</strong> with{" "}
-            <strong>{replacementNode?.node.uiName}</strong>?
-          </p>
-          <div className={styles.button_container}>
-            <Button onClick={() => finish_drop(replacementNode!)}>Yes</Button>
-            <Button onClick={() => setReplacementNode(null)}>No</Button>
-          </div>
-        </div>
+        <ReplaceNodeDialog
+          existing_node={existing_node}
+          replacementNode={replacementNode}
+          on_yes={() => finish_drop(replacementNode!)}
+          on_no={() => setReplacementNode(null)}
+        />
       </TooltipContent>
     </Tooltip>
   );
+}
+
+function ReplaceNodeDialog({
+  existing_node,
+  replacementNode,
+  on_yes,
+  on_no,
+}: {
+  existing_node: ShinyUiNode | undefined;
+  replacementNode: DraggedNodeInfo | null;
+  on_yes: () => void;
+  on_no: () => void;
+}) {
+  if (!existing_node || !replacementNode) return null;
+
+  const existing_node_name = getUiNodeTitle(existing_node.uiName);
+  const replacement_node_name = getUiNodeTitle(replacementNode.node.uiName);
+
+  return (
+    <div className={styles.replace_node_question} role="dialog">
+      <p>
+        Are you sure you want to replace the existing{" "}
+        <strong>{existing_node_name}</strong> with{" "}
+        <strong>{replacement_node_name}</strong>?
+      </p>
+      <div className={styles.button_container} role="group">
+        <Button onClick={on_yes}>Yes</Button>
+        <Button onClick={on_no}>No</Button>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Does the dragged node satisfy the drop filters for the watcher panel, if they exist?
+ * @param nodeInfo Info about the dragged node
+ * @param dropFilters The drop filters for the watcher panel
+ * @returns True if the dragged node satisfies the drop filters
+ */
+function isDropFilterAccepted(
+  nodeInfo: DraggedNodeInfo,
+  dropFilters: DropWatcherPanelProps["dropFilters"]
+): boolean {
+  if (!dropFilters) return true;
+
+  if ("accepted" in dropFilters) {
+    return nodeInfo.node.uiName in dropFilters.accepted;
+  } else {
+    return !(nodeInfo.node.uiName in dropFilters.rejected);
+  }
+}
+
+/**
+ * Is the dragged node allowed to be dropped on the parent node?
+ * @param node_names The names of the dragged node and the parent node
+ * @param node_names.dragged The name of the dragged node
+ * @param node_names.parent The name of the parent node
+ * @returns True if the dragged node can be dropped on the parent node
+ */
+function isAllowedParent(node_names: {
+  dragged: string;
+  parent: ShinyUiNodeNames;
+}): boolean {
+  const draggedNodeInfo = getUiNodeInfo(node_names.dragged);
+
+  const has_allowed_parents_filters = "allowedParents" in draggedNodeInfo;
+
+  if (
+    has_allowed_parents_filters &&
+    Array.isArray(draggedNodeInfo.allowedParents)
+  ) {
+    return draggedNodeInfo.allowedParents.includes(node_names.parent);
+  }
+
+  return true;
 }
