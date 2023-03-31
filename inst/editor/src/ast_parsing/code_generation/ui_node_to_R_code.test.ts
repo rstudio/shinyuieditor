@@ -1,5 +1,7 @@
 import type { ShinyUiNode } from "editor";
 
+import type { KnownShinyUiNode } from "../../Shiny-Ui-Elements/uiNodeTypes";
+
 import { ui_node_to_R_code } from "./ui_node_to_R_code";
 
 describe("Can keep or remove namespaces", () => {
@@ -61,6 +63,37 @@ describe("Can keep or remove namespaces", () => {
     });
     expect(ui_code).toBe(no_namespaces);
     expect(library_calls).toStrictEqual(["gridlayout", "shiny"]);
+  });
+});
+
+describe("Handles nodes with ui nodes as named arguments", () => {
+  test("value boxes", () => {
+    const value_box_node: KnownShinyUiNode = {
+      uiName: "bslib::value_box",
+      uiArguments: {
+        title: "My Title",
+        value: {
+          uiName: "shiny::textOutput",
+          uiArguments: {
+            outputId: "my_text",
+          },
+        },
+        showcase_icon: "github",
+      },
+      uiChildren: [],
+    };
+
+    // prettier-ignore
+    const expected_result = 
+`value_box(
+  title = "My Title",
+  value = textOutput(outputId = "my_text"),
+  showcase_icon = "github"
+)`;
+
+    expect(
+      ui_node_to_R_code(value_box_node, { remove_namespace: true }).ui_code
+    ).toBe(expected_result);
   });
 });
 
