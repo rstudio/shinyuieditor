@@ -1,4 +1,4 @@
-import type { Branch_Node } from "r-ast-parsing";
+import type { Branch_Node, Function_Node, R_AST } from "r-ast-parsing";
 
 import type { KnownShinyUiNode } from "../Shiny-Ui-Elements/uiNodeTypes";
 
@@ -6,7 +6,7 @@ import { ast_to_ui_node } from "./ast_to_shiny_ui_node";
 
 describe("Can handle unknown code properly", () => {
   test("Unknown symbols work", () => {
-    const card_body_w_unknown_input: Branch_Node = {
+    const card_body_w_unknown_input: Function_Node = {
       val: [
         { val: "card_body_fill", type: "s" },
         { val: "custom_input", type: "s" },
@@ -29,7 +29,7 @@ describe("Can handle unknown code properly", () => {
   });
 
   test("Unknown function calls", () => {
-    const card_body_w_unknown_fn_call: Branch_Node = {
+    const card_body_w_unknown_fn_call: Function_Node = {
       val: [
         { val: "card_body_fill", type: "s" },
         {
@@ -174,6 +174,35 @@ test("Handle primative values as children", () => {
       type: "e",
     })
   ).toStrictEqual(output);
+});
+
+test("Successfully parses known ui nodes in named arguments", () => {
+  const value_card_ast: Branch_Node = {
+    val: [
+      { val: "value_box", type: "s" },
+      { name: "title", val: "I got", type: "c" },
+      {
+        name: "value",
+        val: [
+          { val: "textOutput", type: "s" },
+          { name: "outputId", val: "my_value", type: "c" },
+        ],
+        type: "e",
+      },
+    ],
+    type: "e",
+  };
+
+  expect(ast_to_ui_node(value_card_ast)).toStrictEqual({
+    uiName: "bslib::value_box",
+    uiArguments: {
+      title: "I got",
+      value: {
+        uiName: "shiny::textOutput",
+        uiArguments: { outputId: "my_value" },
+      },
+    },
+  });
 });
 
 export {};

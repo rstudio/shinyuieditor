@@ -4,14 +4,15 @@ library(shiny)
 library(bslib)
 
 rlang::expr(
-  {
-    my_fn <- function(name) paste("hello", name)
-    my_fn("shiny")
-  }
+   value_box(
+  title = "I got", 
+  value = textOutput("my_value"),
+  # showcase = bs_icon("music-note-beamed")
+)
 ) |>
  serialize_ast() |>
-tree(index_unnamed = TRUE)
- # jsonlite::toJSON(auto_unbox = TRUE)
+# tree(index_unnamed = TRUE)
+ jsonlite::toJSON(auto_unbox = TRUE)
 
 
 # file_lines <- readLines("scratch/app-w-unknown-code/app.R")

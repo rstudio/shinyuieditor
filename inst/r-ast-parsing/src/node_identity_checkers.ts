@@ -4,6 +4,7 @@ import type {
   AST_Name_To_Key,
   AST_Node_By_Name,
   Branch_Node,
+  Function_Node,
   R_AST_Node,
 } from ".";
 import { ast_name_to_key } from ".";
@@ -32,4 +33,13 @@ export function is_primative_node(
 
 export function is_ast_branch_node(node: R_AST_Node): node is Branch_Node {
   return node.type === "e" && Array.isArray(node.val);
+}
+
+export function is_function_node(node: R_AST_Node): node is Function_Node {
+  return (
+    node.type === "e" &&
+    Array.isArray(node.val) &&
+    IsNodeOfType(node.val[0], "symbol") &&
+    node.val.length > 1
+  );
 }
