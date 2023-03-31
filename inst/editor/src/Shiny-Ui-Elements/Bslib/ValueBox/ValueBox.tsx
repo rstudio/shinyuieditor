@@ -25,6 +25,8 @@ const ValueBox: UiNodeComponent<ValueBoxArgs, { TakesChildren: true }> = ({
     <div className={styles.container} {...wrapperProps}>
       <div
         className={mergeClasses(
+          "bg-primary",
+          "text-white",
           styles.value_box,
           uiArguments.showcase_layout === "right" ? styles.showcase_right : null
         )}
