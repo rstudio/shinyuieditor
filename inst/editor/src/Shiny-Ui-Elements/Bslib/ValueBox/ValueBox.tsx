@@ -3,16 +3,24 @@ import { DropWatcherPanel } from "../../../DragAndDropHelpers/DropWatcherPanel";
 import { mergeClasses } from "../../../utils/mergeClasses";
 import { nodeInfoFactory } from "../../nodeInfoFactory";
 import type { ShinyUiNode, UiNodeComponent } from "../../uiNodeTypes";
+import { CardChildrenWithDropNodes } from "../Utils/ChildrenWithDropNodes";
 
 import { BsIcon } from "./BsIcon";
 import { IconSelector } from "./IconSelector";
 import styles from "./ValueBox.module.css";
 
+// TODO: Use this object to help generate output code for the valuebox by
+// transforming the string value to the function call from bslib
+const layout_dir_to_code = {
+  left: "showcase_left_center()",
+  right: "showcase_top_right()",
+} as const;
+
 type ValueBoxArgs = {
   title: string;
   showcase_icon: string;
   value: ShinyUiNode;
-  showcase_layout?: "left" | "right";
+  showcase_layout?: keyof typeof layout_dir_to_code;
 };
 
 const ValueBox: UiNodeComponent<ValueBoxArgs, { TakesChildren: true }> = ({
@@ -45,11 +53,12 @@ const ValueBox: UiNodeComponent<ValueBoxArgs, { TakesChildren: true }> = ({
             }
             parentNodeType="bslib::value_box"
           />
-          {/* <CardChildrenWithDropNodes
-          uiChildren={uiChildren}
-          path={path}
-          parentUiName="bslib::value_box"
-        /> */}
+          <CardChildrenWithDropNodes
+            uiChildren={uiChildren}
+            path={path}
+            parentUiName="bslib::value_box"
+            messageOnHover="Add node to value box"
+          />
         </div>
       </div>
     </div>
