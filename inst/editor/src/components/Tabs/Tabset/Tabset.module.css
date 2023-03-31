@@ -58,7 +58,7 @@
   display: grid;
   place-content: center;
   cursor: pointer;
-  border: var(--selected-outline-width) solid transparent;
+  border: var(--selected-outline-base) transparent;
 }
 
 .tab[data-active-tab="true"] {

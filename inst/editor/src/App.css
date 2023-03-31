@@ -48,10 +48,9 @@
   --font-color-disabled: hsl(214 9% 15% / 0.5);
   --font-size: 13px;
 
+  --selected-outline-base: 3px solid;
   --selected-outline-color: var(--rstudio-blue);
-  --selected-outline-width: 3px;
-  --selected-outline: var(--selected-outline-width) solid
-    var(--selected-outline-color);
+  --selected-outline: var(--selected-outline-base) var(--selected-outline-color);
 
   --outline-color: var(--grey);
 
@@ -156,6 +155,7 @@ dialog::backdrop {
 [data-is-selected-node="true"] {
   position: relative;
 }
+
 [data-is-selected-node="true"]::before {
   content: "";
   position: absolute;
