@@ -20,7 +20,6 @@ export default function PathBreadcrumb({
     <div className={classes.container} aria-label="Path to selected node">
       {pathString.map((name, i) => {
         const isFinalNode = i === totalDepth;
-        const cleanNodeName = removeNamespaceFromUiName(name);
         return (
           <div
             key={name + i}
@@ -35,14 +34,10 @@ export default function PathBreadcrumb({
               isFinalNode ? undefined : () => onSelect(path.slice(0, i))
             }
           >
-            {cleanNodeName}
+            {name}
           </div>
         );
       })}
     </div>
   );
-}
-
-function removeNamespaceFromUiName(uiName: string): string {
-  return uiName.replace(/[a-z]+::/, "");
 }
