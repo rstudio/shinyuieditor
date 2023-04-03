@@ -1,8 +1,10 @@
 import type { R_Ui_Code } from "communication-types/src/MessageToBackend";
 import type { ShinyUiNode } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
+import { getUiNodeInfo } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
 import type { Primatives } from "r-ast-parsing";
 
 import { isShinyUiNode } from "../../Shiny-Ui-Elements/isShinyUiNode";
+import type { ProcessNamedArgs } from "../../Shiny-Ui-Elements/nodeInfoFactory";
 
 import {
   indent_line_breaks,
@@ -40,6 +42,9 @@ export function ui_node_to_R_code(
       return print_internal_ui_nodes(node);
     }
 
+    // Check if the ui node has a custom print function
+    const node_info = getUiNodeInfo(node.uiName);
+
     let fn_name: string = node.uiName;
 
     if (opts.remove_namespace) {
@@ -52,11 +57,21 @@ export function ui_node_to_R_code(
       fn_name = fn_name.replace(/\w+::/, "");
     }
 
-    const fn_args_list: string[] = [];
+    let fn_args_list: string[] = [];
 
     // Print the named arguments first
-    for (const [arg_name, arg_value] of Object.entries(node.uiArguments)) {
-      fn_args_list.push(`${arg_name} = ${print_code(arg_value)}`);
+    if (node_info.process_named_args) {
+      // Need to do some coercion here to get the types to work out because of
+      // the ProcessNamedArgs being scoped to the specific node's arguments type
+      // but this printing function is generic to all nodes
+      const arg_printer = node_info.process_named_args as ProcessNamedArgs<
+        typeof node.uiArguments
+      >;
+      fn_args_list = arg_printer(node.uiArguments, print_code);
+    } else {
+      for (const [arg_name, arg_value] of Object.entries(node.uiArguments)) {
+        fn_args_list.push(`${arg_name} = ${print_code(arg_value)}`);
+      }
     }
 
     // Next handle the children

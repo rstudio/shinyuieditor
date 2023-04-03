@@ -9,8 +9,6 @@ import { BsIcon } from "./BsIcon";
 import { IconSelector } from "./IconSelector";
 import styles from "./ValueBox.module.css";
 
-// TODO: Use this object to help generate output code for the valuebox by
-// transforming the string value to the function call from bslib
 const layout_dir_to_code = {
   left: "showcase_left_center()",
   right: "showcase_top_right()",
@@ -119,6 +117,22 @@ export const bslibValueBoxInfo = nodeInfoFactory<ValueBoxArgs>()({
         {Object.values(inputs)}
       </div>
     );
+  },
+  process_named_args: (args, render_child) => {
+    const { title, showcase_icon, value, showcase_layout } = args;
+
+    const named_args = [
+      `title = "${title}"`,
+      `value = ${render_child(value)}`,
+      `showcase = bsicons::bs_icon("${showcase_icon}")`,
+    ];
+
+    if (showcase_layout) {
+      named_args.push(
+        `showcase_layout = ${layout_dir_to_code[showcase_layout]}`
+      );
+    }
+    return named_args;
   },
   iconSrc: icon,
   category: "Cards",

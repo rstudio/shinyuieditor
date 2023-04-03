@@ -88,7 +88,7 @@ describe("Handles nodes with ui nodes as named arguments", () => {
 `value_box(
   title = "My Title",
   value = textOutput(outputId = "my_text"),
-  showcase_icon = "github"
+  showcase = bsicons::bs_icon("github")
 )`;
 
     expect(
