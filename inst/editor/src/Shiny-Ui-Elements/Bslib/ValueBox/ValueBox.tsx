@@ -122,55 +122,58 @@ export const bslibValueBoxInfo = nodeInfoFactory<ValueBoxArgs>()({
       </div>
     );
   },
-  process_named_args: (args, render_child) => {
-    const { title, showcase_icon, value, showcase_layout } = args;
+  code_gen_R: {
+    print_named_args: (args, render_child) => {
+      const { title, showcase_icon, value, showcase_layout } = args;
 
-    const named_args = [
-      `title = "${title}"`,
-      `value = ${render_child(value)}`,
-      `showcase = bsicons::bs_icon("${showcase_icon}")`,
-    ];
+      const named_args = [
+        `title = "${title}"`,
+        `value = ${render_child(value)}`,
+        `showcase = bsicons::bs_icon("${showcase_icon}")`,
+      ];
 
-    if (showcase_layout) {
-      named_args.push(
-        `showcase_layout = ${layout_dir_to_code[showcase_layout]}`
-      );
-    }
-    return named_args;
-  },
-  preprocess_ast_arg: (arg) => {
-    const arg_name = arg.name;
-    if (!arg_name) return arg;
-
-    if (
-      arg_name === "showcase" &&
-      (is_function_call(arg, "bsicons::bs_icon") ||
-        is_function_call(arg, "bs_icon"))
-    ) {
-      const icon = arg.val[1].val as string;
-      return {
-        name: "showcase_icon",
-        val: icon,
-        type: "c",
-      };
-    } else if (arg_name === "showcase_layout") {
-      if (is_function_call(arg, "showcase_left_center")) {
-        return {
-          name: "showcase_layout",
-          val: "left",
-          type: "c",
-        };
-      } else if (is_function_call(arg, "showcase_top_right")) {
-        return {
-          name: "showcase_layout",
-          val: "right",
-          type: "c",
-        };
+      if (showcase_layout) {
+        named_args.push(
+          `showcase_layout = ${layout_dir_to_code[showcase_layout]}`
+        );
       }
-    }
+      return named_args;
+    },
+    preprocess_raw_ast_arg: (arg) => {
+      const arg_name = arg.name;
+      if (!arg_name) return arg;
 
-    return arg;
+      if (
+        arg_name === "showcase" &&
+        (is_function_call(arg, "bsicons::bs_icon") ||
+          is_function_call(arg, "bs_icon"))
+      ) {
+        const icon = arg.val[1].val as string;
+        return {
+          name: "showcase_icon",
+          val: icon,
+          type: "c",
+        };
+      } else if (arg_name === "showcase_layout") {
+        if (is_function_call(arg, "showcase_left_center")) {
+          return {
+            name: "showcase_layout",
+            val: "left",
+            type: "c",
+          };
+        } else if (is_function_call(arg, "showcase_top_right")) {
+          return {
+            name: "showcase_layout",
+            val: "right",
+            type: "c",
+          };
+        }
+      }
+
+      return arg;
+    },
   },
+
   iconSrc: icon,
   category: "Cards",
   description: "Colorful box to display a value",

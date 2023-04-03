@@ -60,13 +60,12 @@ export function ui_node_to_R_code(
     let fn_args_list: string[] = [];
 
     // Print the named arguments first
-    if (node_info.process_named_args) {
+    if (node_info.code_gen_R?.print_named_args) {
       // Need to do some coercion here to get the types to work out because of
       // the ProcessNamedArgs being scoped to the specific node's arguments type
       // but this printing function is generic to all nodes
-      const arg_printer = node_info.process_named_args as ProcessNamedArgs<
-        typeof node.uiArguments
-      >;
+      const arg_printer = node_info.code_gen_R
+        ?.print_named_args as ProcessNamedArgs<typeof node.uiArguments>;
       fn_args_list = arg_printer(node.uiArguments, print_code);
     } else {
       for (const [arg_name, arg_value] of Object.entries(node.uiArguments)) {

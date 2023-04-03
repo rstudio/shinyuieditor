@@ -149,19 +149,25 @@ type CommonInfo<
   example_args?: Args;
 
   /**
-   * Optional function to process the named arguments of the node. Useful for
-   * when the simple args object -> key-value option isn't enough. E.g.
-   * collapsing multiple args into a single one or or converting to code output
-   * etc..
+   * Optional functions to process the arguments of the node when coming from or
+   * going to R code
    */
-  process_named_args?: ProcessNamedArgs<Args>;
+  code_gen_R?: {
+    /**
+     * Optional function to process the named arguments of the node. Useful for
+     * when the simple args object -> key-value option isn't enough. E.g.
+     * collapsing multiple args into a single one or or converting to code output
+     * etc..
+     */
+    print_named_args?: ProcessNamedArgs<Args>;
 
-  /**
-   * Pre-process an argument to the ui node before it's converted to a ShinyUiNode type
-   * @param arg_node - AST node of the argument to the node
-   * @returns Processed version of the AST argument node
-   */
-  preprocess_ast_arg?: (arg_node: R_AST_Node) => R_AST_Node;
+    /**
+     * Pre-process an argument to the ui node before it's converted to a ShinyUiNode type
+     * @param arg_node - AST node of the argument to the node
+     * @returns Processed version of the AST argument node
+     */
+    preprocess_raw_ast_arg?: (arg_node: R_AST_Node) => R_AST_Node;
+  };
 };
 
 /**

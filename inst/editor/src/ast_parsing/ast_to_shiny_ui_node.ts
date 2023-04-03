@@ -41,7 +41,8 @@ export function ast_to_ui_node(node: Branch_Node): ShinyUiNode {
   // If the node has a ast argument preprocessor, use that to process the
   // arguments first. Otherwise we just pass them through untouched
   const node_info = getUiNodeInfo(node_normalized_name);
-  const pre_process_node = node_info.preprocess_ast_arg ?? identify_fn;
+  const pre_process_node =
+    node_info.code_gen_R?.preprocess_raw_ast_arg ?? identify_fn;
 
   const argument_nodes = args.map(pre_process_node);
 
