@@ -2,8 +2,11 @@
 
 ### Major new features and improvements
 
+- Value Boxes from `bslib` are now available to use
+
 ### Minor new features and improvements
 
+- Ability to hook into pre/post processing of a node when going from raw ast to ui node and from ui node to R code. This enables the ability to abstract away things like function calls for arguments into things like enums or strings and then convert them back to function calls when generating R code.
 - Updated underlying data structures to allow for more flexible navigation of the editors internal data structures. This will allow for more advanced features in the future where ui nodes can be added not only as children but as named arguments.
 
 ### Bug fixes
