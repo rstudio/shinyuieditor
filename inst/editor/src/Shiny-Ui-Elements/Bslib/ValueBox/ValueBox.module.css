@@ -49,3 +49,12 @@ of the card */
   flex-direction: column;
   justify-content: center;
 }
+
+.card_title {
+  font-size: 1rem;
+}
+
+/* If we've got pure text inside the card value slot, make it big*/
+.card_value span {
+  font-size: 1.5rem;
+}
