@@ -1,6 +1,6 @@
 import { is_function_call } from "r-ast-parsing/src/node_identity_checkers";
 
-import icon from "../../../assets/icons/shinyContainer.png";
+import icon from "../../../assets/icons/shinyValueBox.png";
 import { DropWatcherPanel } from "../../../DragAndDropHelpers/DropWatcherPanel";
 import { mergeClasses } from "../../../utils/mergeClasses";
 import { nodeInfoFactory } from "../../nodeInfoFactory";
