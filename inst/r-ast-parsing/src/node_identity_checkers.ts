@@ -4,6 +4,7 @@ import type {
   AST_Name_To_Key,
   AST_Node_By_Name,
   Branch_Node,
+  Expression_Node,
   Function_Node,
   R_AST_Node,
 } from ".";
@@ -39,7 +40,23 @@ export function is_function_node(node: R_AST_Node): node is Function_Node {
   return (
     node.type === "e" &&
     Array.isArray(node.val) &&
+    IsNodeOfType(node.val[0], "symbol")
+  );
+}
+
+/**
+ * Check if a given array of ast nodes represent a call to a function of a given name
+ * @param nodes Array of AST nodes that may or may not respesent a function call
+ * @param fn_name Name of the function we're checking for
+ * @returns True if the first node is a symbol node with the value of `fn_name`
+ */
+export function is_function_call<Fn_Name extends string>(
+  node: R_AST_Node,
+  fn_name: Fn_Name
+): node is Expression_Node<[{ val: Fn_Name; type: "s" }, ...R_AST_Node[]]> {
+  return (
+    is_function_node(node) &&
     IsNodeOfType(node.val[0], "symbol") &&
-    node.val.length > 1
+    node.val[0].val === fn_name
   );
 }

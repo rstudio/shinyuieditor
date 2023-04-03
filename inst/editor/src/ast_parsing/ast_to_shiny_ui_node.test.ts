@@ -1,4 +1,4 @@
-import type { Branch_Node, Function_Node, R_AST } from "r-ast-parsing";
+import type { Branch_Node, Function_Node } from "r-ast-parsing";
 
 import type { KnownShinyUiNode } from "../Shiny-Ui-Elements/uiNodeTypes";
 
@@ -202,6 +202,60 @@ test("Successfully parses known ui nodes in named arguments", () => {
         uiArguments: { outputId: "my_value" },
       },
     },
+  });
+});
+
+describe("Custom behavior for parsing to ui ast is respected", () => {
+  const value_box_ast: Branch_Node = {
+    val: [
+      { val: "value_box", type: "s" },
+      { name: "title", val: "My Title", type: "c" },
+      {
+        name: "value",
+        val: [
+          { val: "textOutput", type: "s" },
+          { name: "outputId", val: "my_value", type: "c" },
+        ],
+        type: "e",
+      },
+      {
+        name: "showcase",
+        val: [
+          { val: "bs_icon", type: "s" },
+          { val: "github", type: "c" },
+        ],
+        type: "e",
+      },
+      {
+        name: "showcase_layout",
+        val: [{ val: "showcase_left_center", type: "s" }],
+        type: "e",
+      },
+    ],
+    type: "e",
+  };
+
+  const value_box_ui_node = ast_to_ui_node(value_box_ast);
+
+  test("Intercepted named arugments are modified as expected, but simple one are left alone", () => {
+    expect(value_box_ui_node.uiArguments).toStrictEqual(
+      expect.objectContaining({
+        title: "My Title",
+        showcase_icon: "github",
+        showcase_layout: "left",
+      })
+    );
+  });
+
+  test("Ui nodes as children get rendered properly", () => {
+    expect(value_box_ui_node.uiArguments).toStrictEqual(
+      expect.objectContaining({
+        value: {
+          uiName: "shiny::textOutput",
+          uiArguments: { outputId: "my_value" },
+        },
+      })
+    );
   });
 });
 

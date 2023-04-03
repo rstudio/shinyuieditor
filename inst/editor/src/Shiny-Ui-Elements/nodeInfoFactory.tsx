@@ -1,3 +1,4 @@
+import type { R_AST_Node } from "r-ast-parsing";
 import type { Expect, Equal } from "util-functions/src/TypescriptUtils";
 
 import type { CustomFormRenderFn } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
@@ -154,6 +155,13 @@ type CommonInfo<
    * etc..
    */
   process_named_args?: ProcessNamedArgs<Args>;
+
+  /**
+   * Pre-process an argument to the ui node before it's converted to a ShinyUiNode type
+   * @param arg_node - AST node of the argument to the node
+   * @returns Processed version of the AST argument node
+   */
+  preprocess_ast_arg?: (arg_node: R_AST_Node) => R_AST_Node;
 };
 
 /**

@@ -75,3 +75,12 @@ export type UnionToTuple<T, A extends unknown[] = []> = IsUnion<T> extends true
  * Array of type that guarentees there's at least one element
  */
 export type NonEmptyArray<T> = [T, ...T[]];
+
+/**
+ * Typesafe no-op function
+ * @param x
+ * @returns
+ */
+export function identify_fn<T>(x: T) {
+  return x;
+}

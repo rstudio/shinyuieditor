@@ -1,3 +1,5 @@
+import { is_function_call } from "r-ast-parsing/src/node_identity_checkers";
+
 import icon from "../../../assets/icons/shinyContainer.png";
 import { DropWatcherPanel } from "../../../DragAndDropHelpers/DropWatcherPanel";
 import { mergeClasses } from "../../../utils/mergeClasses";
@@ -133,6 +135,39 @@ export const bslibValueBoxInfo = nodeInfoFactory<ValueBoxArgs>()({
       );
     }
     return named_args;
+  },
+  preprocess_ast_arg: (arg) => {
+    const arg_name = arg.name;
+    if (!arg_name) return arg;
+
+    if (
+      arg_name === "showcase" &&
+      (is_function_call(arg, "bsicons::bs_icon") ||
+        is_function_call(arg, "bs_icon"))
+    ) {
+      const icon = arg.val[1].val as string;
+      return {
+        name: "showcase_icon",
+        val: icon,
+        type: "c",
+      };
+    } else if (arg_name === "showcase_layout") {
+      if (is_function_call(arg, "showcase_left_center")) {
+        return {
+          name: "showcase_layout",
+          val: "left",
+          type: "c",
+        };
+      } else if (is_function_call(arg, "showcase_top_right")) {
+        return {
+          name: "showcase_layout",
+          val: "right",
+          type: "c",
+        };
+      }
+    }
+
+    return arg;
   },
   iconSrc: icon,
   category: "Cards",

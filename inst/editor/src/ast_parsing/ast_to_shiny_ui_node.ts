@@ -1,5 +1,6 @@
 import type { ShinyUiNode } from "editor";
 import type { UiArgumentsObject } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
+import { getUiNodeInfo } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
 import { shinyUiNameToNamespacedName } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
 import type { Branch_Node, Function_Node, R_AST_Node } from "r-ast-parsing";
 import {
@@ -7,6 +8,7 @@ import {
   is_function_node,
   is_primative_node,
 } from "r-ast-parsing/src/node_identity_checkers";
+import { identify_fn } from "util-functions/src/TypescriptUtils";
 
 import { print_node_val } from "./code_generation/build_function_text";
 import { create_unknownUiFunction } from "./create_unknownUiFunction";
@@ -32,15 +34,22 @@ export function ast_to_ui_node(node: Branch_Node): ShinyUiNode {
     return create_unknownUiFunction({ node });
   }
 
+  // If the node has a ast argument preprocessor, use that to process the
+  // arguments first. Otherwise we just pass them through untouched
+  const pre_process_node =
+    getUiNodeInfo(node_normalized_name).preprocess_ast_arg ?? identify_fn;
+
+  const argument_nodes = args.map(pre_process_node);
+
   const uiArguments: UiArgumentsObject = Object.fromEntries(
-    args
+    argument_nodes
       .filter((sub_node) => sub_node.name)
       .map((sub_node) => {
         return [sub_node.name!, process_named_arg(sub_node)];
       })
   );
 
-  const uiChildren = args
+  const uiChildren = argument_nodes
     .filter((sub_node) => !sub_node.name)
     .map(process_child_arg);
 
