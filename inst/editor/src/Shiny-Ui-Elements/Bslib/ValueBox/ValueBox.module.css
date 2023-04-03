@@ -36,6 +36,7 @@ of the card */
 
 .showcase {
   grid-area: showcase;
+  padding: var(--size-sm);
 }
 
 .showcase svg {
