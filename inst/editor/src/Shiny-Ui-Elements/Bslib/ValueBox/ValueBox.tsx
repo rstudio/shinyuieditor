@@ -82,7 +82,7 @@ export const bslibValueBoxInfo = nodeInfoFactory<ValueBoxArgs>()({
       defaultValue: "circle",
     },
     value: {
-      inputType: "omitted",
+      inputType: "ui-node",
       defaultValue: {
         uiName: "shiny::textOutput",
         uiArguments: {

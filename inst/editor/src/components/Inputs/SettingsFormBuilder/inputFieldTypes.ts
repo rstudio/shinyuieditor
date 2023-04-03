@@ -37,6 +37,10 @@ export type InputOptions =
   | {
       inputType: "string-array";
       value: string[];
+    }
+  | {
+      inputType: "ui-node";
+      value: ShinyUiNode;
     };
 
 type ArgTypeToInputType<Arg extends unknown> = Arg extends number
@@ -51,6 +55,8 @@ type ArgTypeToInputType<Arg extends unknown> = Arg extends number
   ? "list"
   : Arg extends string[]
   ? "string-array"
+  : Arg extends ShinyUiNode
+  ? "ui-node"
   : "omitted";
 
 export type InputTypeNames = InputOptions["inputType"];
