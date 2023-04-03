@@ -19,6 +19,7 @@
 ^turbo\.json$
 ^yarn\.lock$
 ^inst\/editor\/(?!build).+$
+^inst\/editor\/playwright$
 ^inst\/build-utils$
 ^inst\/ast-parsing$
 ^inst\/communication-types$
