@@ -21,6 +21,10 @@ of the card */
   grid-template-areas: "showcase content";
 }
 
+.value_box > * {
+  min-width: 0;
+}
+
 .value_box.showcase_right {
   grid-template-columns: 7fr 3fr;
   grid-template-areas: "content showcase";
