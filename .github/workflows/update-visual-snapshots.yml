@@ -1,3 +1,5 @@
+# When the comment with the text "/update-snapshots" is added to a PR rebuild
+# all the visual snapshots for playwright tests and push them to the PR branch
 name: Update Visual Snapshots
 
 on:

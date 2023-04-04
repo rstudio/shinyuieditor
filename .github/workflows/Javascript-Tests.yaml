@@ -1,3 +1,4 @@
+# Run javascript unit and playwright tests
 name: Javascript Tests
 on:
   push:

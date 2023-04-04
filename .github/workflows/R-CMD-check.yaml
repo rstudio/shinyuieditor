@@ -1,3 +1,4 @@
+# Run package checks for R package
 # Workflow derived from https://github.com/rstudio/shiny-workflows
 #
 # NOTE: This Shiny team GHA workflow is overkill for most R packages.

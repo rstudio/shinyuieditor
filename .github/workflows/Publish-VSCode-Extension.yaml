@@ -1,3 +1,5 @@
+# Build and deploy the vscode extension to the marketplace when a tag is pushed
+# to main branch
 on:
   push:
     tags:
