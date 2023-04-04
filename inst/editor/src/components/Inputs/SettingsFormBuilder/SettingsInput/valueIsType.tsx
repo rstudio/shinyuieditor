@@ -1,3 +1,4 @@
+import { isShinyUiNode } from "../../../../Shiny-Ui-Elements/isShinyUiNode";
 import { isCSSMeasure } from "../../CSSUnitInput/CSSMeasure";
 import { isNamedList } from "../../ListInput/NamedListInput";
 import type { InputTypeNames, KnownInputFieldTypes } from "../inputFieldTypes";
@@ -40,6 +41,10 @@ export function valueIsType(
 
   if (type === "string-array") {
     return Array.isArray(value) && typeof value[0] === "string";
+  }
+
+  if (type === "ui-node") {
+    return isShinyUiNode(value);
   }
 
   if (type === "omitted") {

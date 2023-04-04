@@ -20,10 +20,7 @@ test("Drag and drop an item onto the grid and name area", async ({ page }) => {
   await page.goto("/");
 
   // Drag and drop a numeric input onto the upper-left grid cell
-  await page.dragAndDrop(
-    "text=/^Action Button$/",
-    `.grid-cell[data-cell-pos="1-1"]`
-  );
+  await page.dragAndDrop("text=/^Action Button$/", `[data-cell-pos="1-1"]`);
 
   // Fill in the area naming popup
   await page.locator('[aria-label="Name of new grid area"]').fill("settings");

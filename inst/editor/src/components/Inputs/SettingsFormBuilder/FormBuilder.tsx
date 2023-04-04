@@ -6,6 +6,7 @@ import type { StringKeys } from "util-functions/src/TypescriptUtils";
 import type { UiArgumentsObject } from "../../../Shiny-Ui-Elements/uiNodeTypes";
 
 import type { DynamicArgumentInfo } from "./buildStaticSettingsInfo";
+import type { All_Input_Types } from "./inputFieldTypes";
 import type {
   SettingsInputProps,
   SettingsUpdateAction,
@@ -16,14 +17,11 @@ import { UnknownArgumentsRender } from "./UnknownArgumentsRender";
 
 type SettingsObj = Record<string, unknown>;
 
-type FormFieldComponents<Info extends SettingsObj> = {
-  inputs: Record<StringKeys<Info>, JSX.Element>;
-  settings: Info;
-};
-
-export type CustomFormRenderFn<Settings extends SettingsObj> = (
-  x: FormFieldComponents<Settings>
-) => JSX.Element;
+export type CustomFormRenderFn<Settings extends SettingsObj> = (x: {
+  inputs: Record<StringKeys<Settings>, JSX.Element>;
+  settings: Settings;
+  onSettingsChange?: (name: string, action: SettingsUpdateAction) => void;
+}) => JSX.Element;
 
 export type FormBuilderProps = {
   settings: UiArgumentsObject;
@@ -40,18 +38,17 @@ export function FormBuilder(args: FormBuilderProps) {
     renderInputs = ({ inputs }) => <>{Object.values(inputs)}</>,
   } = args;
 
-  const PrebuiltInputComponents = {
-    inputs: knownArgumentInputs({
-      settings,
-      settingsInfo,
-      onSettingsChange,
-    }),
-    settings,
-  };
-
   return (
     <form className="FormBuilder" onSubmit={disableDefaultSubmit}>
-      {renderInputs(PrebuiltInputComponents)}
+      {renderInputs({
+        inputs: knownArgumentInputs({
+          settings,
+          settingsInfo,
+          onSettingsChange,
+        }),
+        settings,
+        onSettingsChange,
+      })}
       <UnknownArgumentsRender {...args} />
     </form>
   );
@@ -60,6 +57,14 @@ export function FormBuilder(args: FormBuilderProps) {
 const disableDefaultSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
   e.preventDefault();
 };
+
+/**
+ * Input types that should not be rendered in the form
+ */
+const non_rendered_input_types = new Set<All_Input_Types>([
+  "omitted",
+  "ui-node",
+]);
 
 function knownArgumentInputs({
   settings,
@@ -76,7 +81,7 @@ function knownArgumentInputs({
     if (
       !("inputType" in arg_info) ||
       !("defaultValue" in arg_info) ||
-      arg_info.inputType === "omitted"
+      non_rendered_input_types.has(arg_info.inputType)
     )
       continue;
 

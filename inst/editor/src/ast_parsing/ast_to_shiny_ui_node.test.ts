@@ -1,4 +1,4 @@
-import type { Branch_Node } from "r-ast-parsing";
+import type { Branch_Node, Function_Node } from "r-ast-parsing";
 
 import type { KnownShinyUiNode } from "../Shiny-Ui-Elements/uiNodeTypes";
 
@@ -6,7 +6,7 @@ import { ast_to_ui_node } from "./ast_to_shiny_ui_node";
 
 describe("Can handle unknown code properly", () => {
   test("Unknown symbols work", () => {
-    const card_body_w_unknown_input: Branch_Node = {
+    const card_body_w_unknown_input: Function_Node = {
       val: [
         { val: "card_body_fill", type: "s" },
         { val: "custom_input", type: "s" },
@@ -29,7 +29,7 @@ describe("Can handle unknown code properly", () => {
   });
 
   test("Unknown function calls", () => {
-    const card_body_w_unknown_fn_call: Branch_Node = {
+    const card_body_w_unknown_fn_call: Function_Node = {
       val: [
         { val: "card_body_fill", type: "s" },
         {
@@ -174,6 +174,89 @@ test("Handle primative values as children", () => {
       type: "e",
     })
   ).toStrictEqual(output);
+});
+
+test("Successfully parses known ui nodes in named arguments", () => {
+  const value_card_ast: Branch_Node = {
+    val: [
+      { val: "value_box", type: "s" },
+      { name: "title", val: "I got", type: "c" },
+      {
+        name: "value",
+        val: [
+          { val: "textOutput", type: "s" },
+          { name: "outputId", val: "my_value", type: "c" },
+        ],
+        type: "e",
+      },
+    ],
+    type: "e",
+  };
+
+  expect(ast_to_ui_node(value_card_ast)).toStrictEqual({
+    uiName: "bslib::value_box",
+    uiArguments: {
+      title: "I got",
+      value: {
+        uiName: "shiny::textOutput",
+        uiArguments: { outputId: "my_value" },
+      },
+    },
+  });
+});
+
+describe("Custom behavior for parsing to ui ast is respected", () => {
+  const value_box_ast: Branch_Node = {
+    val: [
+      { val: "value_box", type: "s" },
+      { name: "title", val: "My Title", type: "c" },
+      {
+        name: "value",
+        val: [
+          { val: "textOutput", type: "s" },
+          { name: "outputId", val: "my_value", type: "c" },
+        ],
+        type: "e",
+      },
+      {
+        name: "showcase",
+        val: [
+          { val: "bs_icon", type: "s" },
+          { val: "github", type: "c" },
+        ],
+        type: "e",
+      },
+      {
+        name: "showcase_layout",
+        val: [{ val: "showcase_left_center", type: "s" }],
+        type: "e",
+      },
+    ],
+    type: "e",
+  };
+
+  const value_box_ui_node = ast_to_ui_node(value_box_ast);
+
+  test("Intercepted named arugments are modified as expected, but simple one are left alone", () => {
+    expect(value_box_ui_node.uiArguments).toStrictEqual(
+      expect.objectContaining({
+        title: "My Title",
+        showcase_icon: "github",
+        showcase_layout: "left",
+      })
+    );
+  });
+
+  test("Ui nodes as children get rendered properly", () => {
+    expect(value_box_ui_node.uiArguments).toStrictEqual(
+      expect.objectContaining({
+        value: {
+          uiName: "shiny::textOutput",
+          uiArguments: { outputId: "my_value" },
+        },
+      })
+    );
+  });
 });
 
 export {};

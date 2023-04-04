@@ -6,7 +6,7 @@ library(bslib)
 ui <- grid_page(
   layout = c(
     "header   header ",
-    "sidebar  newPlot",
+    "sidebar  vbox   ",
     "cardDemo redPlot"
   ),
   row_sizes = c(
@@ -52,7 +52,6 @@ ui <- grid_page(
     is_title = FALSE
   ),
   grid_card_plot(area = "redPlot"),
-  grid_card_plot(area = "newPlot"),
   grid_card(
     area = "cardDemo",
     card_header(h2("My Card header")),
@@ -68,6 +67,16 @@ ui <- grid_page(
         inputId = "myTextInput",
         label = "Text Input",
         value = ""
+      )
+    )
+  ),
+  grid_card(
+    area = "vbox",
+    card_body_fill(
+      value_box(
+        title = "Look at me!",
+        value = "Big number!",
+        showcase = bsicons::bs_icon("github")
       )
     )
   )

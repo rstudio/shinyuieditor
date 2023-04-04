@@ -4,13 +4,20 @@ import { aIsParentOfB } from "./aIsParentOfB";
 import { separateIntoParentAndChildPaths } from "./getParentPath";
 import { nodesShareCommonParent } from "./nodesShareCommonParent";
 
-export function getIsValidMove({
-  fromPath,
-  toPath,
-}: {
+/**
+ * Is the move of a node from one path to another valid? E.g. make sure we
+ * aren't moving a node to be its own child or something crazy like that.
+ * @param paths - The paths to check
+ * @param paths.fromPath - The path of the node we're moving
+ * @param paths.toPath - The path of the node we're moving to
+ *
+ * @returns true if the move is valid, false otherwise
+ */
+export function getIsValidMove(paths: {
   fromPath: NodePath | undefined | null;
   toPath: NodePath;
 }): boolean {
+  const { fromPath, toPath } = paths;
   if (fromPath === undefined || fromPath === null) return true;
 
   // Can't move a node to be its own child

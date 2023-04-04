@@ -6,19 +6,17 @@ import { CardChildrenWithDropNodes } from "./Utils/ChildrenWithDropNodes";
 
 type CardFooterSettings = {};
 
-const BslibCardFooter: UiNodeComponent<CardFooterSettings, 
-  { TakesChildren: true }> = ({
-  uiArguments,
-  uiChildren = [],
-  path,
-  wrapperProps,
-}) => {
+const BslibCardFooter: UiNodeComponent<
+  CardFooterSettings,
+  { TakesChildren: true }
+> = ({ uiArguments, uiChildren = [], path, wrapperProps }) => {
   return (
     <CardFooter {...wrapperProps}>
       <CardChildrenWithDropNodes
         uiChildren={uiChildren}
         path={path}
         parentUiName="bslib::card_footer"
+        messageOnHover="Add to card footer"
       />
     </CardFooter>
   );

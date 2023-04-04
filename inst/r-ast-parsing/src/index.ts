@@ -52,6 +52,9 @@ export type Symbol_Node<Sym extends string> = {
   pos?: Script_Position;
 };
 export type Branch_Node = AST_Node_By_Key["e"];
+export type Function_Node = Expression_Node<
+  [AST_Node_By_Name["symbol"], ...R_AST_Node[]]
+>;
 export type Leaf_Node = AST_Node_By_Key["c" | "b" | "n"];
 export type Unparsable_Node = AST_Node_By_Key["s" | "m" | "u"];
 export type R_AST_Node = AST_Node_By_Key[keyof Node_Vals_By_Key];

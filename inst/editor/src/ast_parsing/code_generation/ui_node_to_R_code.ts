@@ -1,13 +1,10 @@
 import type { R_Ui_Code } from "communication-types/src/MessageToBackend";
 import type { ShinyUiNode } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
-import { isParentNode } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
+import { getUiNodeInfo } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
 import type { Primatives } from "r-ast-parsing";
 
-import { isKnownShinyUiNode } from "../../Shiny-Ui-Elements/isShinyUiNode";
-import { isTextUiNode } from "../../Shiny-Ui-Elements/TextNode";
-import type { UnknownUiNode } from "../../Shiny-Ui-Elements/UnknownUiFunction";
-import { isUnknownUiNode } from "../../Shiny-Ui-Elements/UnknownUiFunction";
-import { text_node_to_code } from "../text_nodes/text_node_to_code";
+import { isShinyUiNode } from "../../Shiny-Ui-Elements/isShinyUiNode";
+import type { ProcessNamedArgs } from "../../Shiny-Ui-Elements/nodeInfoFactory";
 
 import {
   indent_line_breaks,
@@ -15,131 +12,92 @@ import {
   NL_INDENT,
   should_line_break,
 } from "./build_function_text";
+import {
+  isInternalUiNode,
+  print_internal_ui_nodes,
+} from "./print_internal_ui_nodes";
+import { isNamedList, print_named_R_list } from "./print_named_list";
 
 /**
  * Convert a ui ast node into formatted R code.
  * @param node Ui Node to be converted
  * @param opts Options controlling how code generation runs
+ * @param opts.remove_namespace If true, removes the namespace from the ui function call
  * @returns Object with constructed code and library calls
  */
 export function ui_node_to_R_code(
   node: ShinyUiNode,
   opts: { remove_namespace: boolean }
 ): R_Ui_Code {
-  const { ui_code, removed_namespaces } = ui_node_to_R_code_internal(
-    node,
-    opts
-  );
-
-  return { ui_code, library_calls: Array.from(removed_namespaces) };
-}
-
-/**
- * Internal version of r code generation. Difference is this one returns a set
- * of namespaces/libraries removed instead of concatinated text like the
- * exported version.
- * @param node
- * @param opts
- * @returns
- */
-function ui_node_to_R_code_internal(
-  node: ShinyUiNode,
-  opts: { remove_namespace: boolean }
-): {
-  ui_code: string;
-  removed_namespaces: Set<string>;
-} {
-  const { uiName, uiArguments } = node;
   const removed_namespaces: Set<string> = new Set<string>();
 
-  if (isUnknownUiNode(node)) {
-    return {
-      ui_code: print_unknown_ui_node(node),
-      removed_namespaces,
-    };
+  function print_code(node: unknown): string {
+    return isShinyUiNode(node)
+      ? print_ui_node(node)
+      : print_R_argument_value(node);
   }
 
-  if (isTextUiNode(node)) {
-    return {
-      ui_code: text_node_to_code(node),
-      removed_namespaces,
-    };
-  }
-
-  let fn_name: string = uiName;
-
-  if (opts.remove_namespace) {
-    const library_name = fn_name.match(/\w+(?=::)/)?.[0];
-
-    if (library_name) {
-      removed_namespaces.add(library_name);
+  function print_ui_node(node: ShinyUiNode): string {
+    if (isInternalUiNode(node)) {
+      return print_internal_ui_nodes(node);
     }
 
-    fn_name = fn_name.replace(/\w+::/, "");
+    // Check if the ui node has a custom print function
+    const node_info = getUiNodeInfo(node.uiName);
+
+    let fn_name: string = node.uiName;
+
+    if (opts.remove_namespace) {
+      const library_name = fn_name.match(/\w+(?=::)/)?.[0];
+
+      if (library_name) {
+        removed_namespaces.add(library_name);
+      }
+
+      fn_name = fn_name.replace(/\w+::/, "");
+    }
+
+    let fn_args_list: string[] = [];
+
+    // Print the named arguments first
+    if (node_info.code_gen_R?.print_named_args) {
+      // Need to do some coercion here to get the types to work out because of
+      // the ProcessNamedArgs being scoped to the specific node's arguments type
+      // but this printing function is generic to all nodes
+      const arg_printer = node_info.code_gen_R
+        ?.print_named_args as ProcessNamedArgs<typeof node.uiArguments>;
+      fn_args_list = arg_printer(node.uiArguments, print_code);
+    } else {
+      for (const [arg_name, arg_value] of Object.entries(node.uiArguments)) {
+        fn_args_list.push(`${arg_name} = ${print_code(arg_value)}`);
+      }
+    }
+
+    // Next handle the children
+    if ("uiChildren" in node && node.uiChildren) {
+      for (const child of node.uiChildren) {
+        fn_args_list.push(print_code(child));
+      }
+    }
+
+    const printed_args = fn_args_list.map(indent_line_breaks);
+
+    if (
+      should_line_break({
+        fn_name,
+        fn_args_list,
+        max_line_length_for_multi_args: LINE_BREAK_LENGTH,
+      })
+    ) {
+      return `${fn_name}(${NL_INDENT}${printed_args.join(`,${NL_INDENT}`)}\n)`;
+    }
+    return `${fn_name}(${printed_args.join(", ")})`;
   }
-
-  const fn_args_list = Object.entries(uiArguments).map(
-    ([arg_name, arg_value]) =>
-      indent_line_breaks(`${arg_name} = ${print_R_argument_value(arg_value)}`)
-  );
-
-  if (isParentNode(node)) {
-    node.uiChildren?.forEach((child) => {
-      const child_code = ui_node_to_R_code_internal(child, opts);
-
-      child_code.removed_namespaces.forEach((name) =>
-        removed_namespaces.add(name)
-      );
-
-      fn_args_list.push(indent_line_breaks(child_code.ui_code));
-    });
-  }
-
-  const is_multi_line_call = should_line_break({
-    fn_name: uiName,
-    fn_args_list,
-    max_line_length_for_multi_args: LINE_BREAK_LENGTH,
-  });
-
-  const arg_seperator = `,${is_multi_line_call ? NL_INDENT : " "}`;
 
   return {
-    removed_namespaces,
-    ui_code: `${fn_name}(${
-      is_multi_line_call ? NL_INDENT : ""
-    }${fn_args_list.join(arg_seperator)}${is_multi_line_call ? "\n" : ""})`,
+    ui_code: print_code(node),
+    library_calls: Array.from(removed_namespaces),
   };
-}
-export type NamedList = Record<string, string>;
-
-function print_unknown_ui_node({ uiArguments }: UnknownUiNode) {
-  return uiArguments.text;
-}
-
-export function isNamedList(x: any): x is NamedList {
-  if (typeof x !== "object") return false;
-
-  const hasNonStringEntries = Object.values(x).find(
-    (el) => typeof el !== "string"
-  );
-  if (hasNonStringEntries) return false;
-
-  return true;
-}
-
-function print_named_R_list(vals: NamedList): string {
-  const values = Object.keys(vals).map((name) => `"${name}" = "${vals[name]}"`);
-
-  // Add 6 for length of `list(` prefix and `)` postfix
-  const total_list_length = values.reduce((l, a) => l + a.length, 0) + 6;
-
-  const is_multiline = total_list_length > LINE_BREAK_LENGTH;
-
-  const arg_seperator = is_multiline ? `,${NL_INDENT}` : `, `;
-
-  return `list(${is_multiline ? NL_INDENT : ""}${values.join(arg_seperator)}${
-    is_multiline ? "\n" : ""
-  })`;
 }
 
 function print_R_array(vals: Primatives[]): string {
@@ -163,10 +121,6 @@ function print_R_argument_value(value: unknown): string {
   if (isNamedList(value)) return print_named_R_list(value);
 
   if (typeof value === "boolean") return value ? "TRUE" : "FALSE";
-
-  if (isKnownShinyUiNode(value) && isUnknownUiNode(value)) {
-    return print_unknown_ui_node(value);
-  }
 
   return JSON.stringify(value);
 }

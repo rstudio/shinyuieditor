@@ -2,5 +2,6 @@
   padding: 1rem;
   max-height: 100%;
   background-color: var(--light-grey);
+  color: var(--font-color, pink);
   border-radius: var(--corner-radius);
 }

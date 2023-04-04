@@ -5,8 +5,8 @@ import {
   useUnsetCurrentDraggedNode,
 } from "../state/currentlyDraggedNode";
 
-import "./DragAndDrop.css";
 import type { DraggedNodeInfo } from "./DragAndDropHelpers";
+import styles from "./DropWatcherPanel.module.css";
 
 export type DropHandlerArguments = {
   getCanAcceptDrop: (droppedNode: DraggedNodeInfo) => void;
@@ -20,8 +20,8 @@ export function useFilteredDrop({
   getCanAcceptDrop,
   onDrop,
   onDragOver,
-  canAcceptDropClass = "can-accept-drop",
-  hoveringOverClass = "hovering-over",
+  canAcceptDropClass = styles.can_accept_drop,
+  hoveringOverClass = styles.hovering_over,
 }: DropHandlerArguments) {
   const watcherRef = React.useRef<HTMLDivElement>(null);
 
@@ -145,7 +145,6 @@ function useDropHighlights({
     // dragged item and thus prematurely terminate the drag event
     setTimeout(() => {
       watcherRef.current?.classList.add(canAcceptDropClass);
-      watcherRef.current?.classList.add("can-accept-drop");
     }, 1);
   }, [canAcceptDropClass, watcherRef]);
 
@@ -166,7 +165,6 @@ function useDropHighlights({
 
     watcherRef.current.classList.remove(hoveringOverClass);
     watcherRef.current.classList.remove(canAcceptDropClass);
-    watcherRef.current.classList.remove("can-accept-drop");
   }, [canAcceptDropClass, hoveringOverClass, watcherRef]);
 
   return {

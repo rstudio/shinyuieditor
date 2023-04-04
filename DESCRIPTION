@@ -21,8 +21,9 @@ Imports:
     rlang,
     shiny,
     utils,
-    plotly, 
+    plotly,
     gridlayout (>= 0.1.0),
+    bsicons
 Suggests: 
     rmarkdown,
     ggplot2,

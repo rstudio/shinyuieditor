@@ -40,16 +40,17 @@
   --background-grey: var(--light-grey);
   --header-grey: var(--grey);
 
-  --red: rgb(250, 83, 22);
+  --red-rgb: 250, 83, 22;
+
+  --red: rgb(var(--red-rgb));
 
   --font-color: hsl(214 9% 15%);
   --font-color-disabled: hsl(214 9% 15% / 0.5);
   --font-size: 13px;
 
+  --selected-outline-base: 3px solid;
   --selected-outline-color: var(--rstudio-blue);
-  --selected-outline-width: 3px;
-  --selected-outline: var(--selected-outline-width) solid
-    var(--selected-outline-color);
+  --selected-outline: var(--selected-outline-base) var(--selected-outline-color);
 
   --outline-color: var(--grey);
 
@@ -77,6 +78,8 @@
     0.8px 1.6px 2px -0.8px hsl(var(--shadow-color) / 0.36),
     2.1px 4.1px 5.2px -1.7px hsl(var(--shadow-color) / 0.36),
     5px 10px 12.6px -2.5px hsl(var(--shadow-color) / 0.36);
+
+  --simple-drop-shadow-filter: drop-shadow(1px 1px 4px hsl(0deg 0% 0% / 0.25));
 
   --size-xs: 4px;
   --size-sm: 8px;
@@ -152,6 +155,7 @@ dialog::backdrop {
 [data-is-selected-node="true"] {
   position: relative;
 }
+
 [data-is-selected-node="true"]::before {
   content: "";
   position: absolute;

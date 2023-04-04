@@ -11,6 +11,7 @@ import {
   bslibCardHeaderInfo,
   bslibCardInfo,
 } from "./Bslib";
+import { bslibValueBoxInfo } from "./Bslib/ValueBox/ValueBox";
 import { dtDTOutputInfo } from "./DtDtOutput";
 import {
   gridlayoutCardInfo,
@@ -94,6 +95,7 @@ export const shinyUiNodeInfoArray = [
   gridlayoutGridContainerInfo,
   dtDTOutputInfo,
   bslibCardInfo,
+  bslibValueBoxInfo,
   bslibCardBodyInfo,
   bslibCardHeaderInfo,
   bslibCardFooterInfo,
@@ -113,11 +115,27 @@ const containerNodes = new Set<string>(
     .map((info) => info.uiName)
 );
 
+/**
+ *
+ * @param uiName Name of ui node to look up
+ * @returns Set of information about that node, or error if it doesn't exist
+ * @throws Error if node doesn't exist
+ */
 export function getUiNodeInfo(uiName: string): ShinyUiNodeInfo {
   if (!shinyUiNodeInfo.has(uiName)) {
     throw new Error(`Failed to find node info for requested node: ${uiName}`);
   }
   return shinyUiNodeInfo.get(uiName) as ShinyUiNodeInfo;
+}
+
+/**
+ * Get plain english title of a node based on its uiName
+ * @param uiName Name of ui node to look up
+ * @returns Plain english title for node. E.g. `Slider Input`
+ * @throws Error if node doesn't exist
+ */
+export function getUiNodeTitle(uiName: string): string {
+  return getUiNodeInfo(uiName).title;
 }
 
 export type ShinyUiNodeInfo = Expand<typeof shinyUiNodeInfoArray[number]>;

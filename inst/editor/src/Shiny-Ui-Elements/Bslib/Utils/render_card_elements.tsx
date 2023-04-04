@@ -70,10 +70,11 @@ export function render_card_elements(
         <CardHeader className={styles.missing_card_element}>
           <DropWatcherPanel
             className={styles.drop_watcher}
-            index={0}
+            child_loc={0}
             parentPath={path}
             wrappingNode={headerScaffold}
             parentNodeType="bslib::card_header"
+            messageOnHover="Add to card header"
           />
         </CardHeader>
       )}
@@ -81,10 +82,11 @@ export function render_card_elements(
         <CardBodyFill className={styles.missing_card_element}>
           <DropWatcherPanel
             className={styles.drop_watcher}
-            index={sum_booleans(has_header)}
+            child_loc={sum_booleans(has_header)}
             parentPath={path}
             wrappingNode={bodyScaffold}
             parentNodeType="bslib::card_body_fill"
+            messageOnHover="Add to card body"
           />
         </CardBodyFill>
       )}
@@ -92,10 +94,11 @@ export function render_card_elements(
         <CardFooter className={styles.missing_card_element}>
           <DropWatcherPanel
             className={styles.drop_watcher}
-            index={sum_booleans(has_header, has_body)}
+            child_loc={sum_booleans(has_header, has_body)}
             parentPath={path}
             wrappingNode={footerScaffold}
             parentNodeType="bslib::card_footer"
+            messageOnHover="Add to card footer"
           />
         </CardFooter>
       )}

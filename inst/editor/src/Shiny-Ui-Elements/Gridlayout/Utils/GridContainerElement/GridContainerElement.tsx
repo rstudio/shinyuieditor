@@ -2,6 +2,7 @@ import React from "react";
 
 import UiNode from "../../../../components/UiNode/UiNode";
 import type { DraggedNodeInfo } from "../../../../DragAndDropHelpers/DragAndDropHelpers";
+import { DropWatcherPanel } from "../../../../DragAndDropHelpers/DropWatcherPanel";
 import { usePlaceNode } from "../../../../state/usePlaceNode";
 import { findEmptyCells } from "../../../../utils/gridTemplates/findItemLocation";
 import { areasToItemLocations } from "../../../../utils/gridTemplates/itemLocations";
@@ -12,8 +13,6 @@ import { makeGridFriendlyNode } from "../../GridlayoutCard/makeGridFriendlyNode"
 import { AreaOverlay } from "../AreaOverlay";
 import EditableGridContainer from "../EditableGridContainer/EditableGridContainer";
 import type { TemplatedGridProps } from "../EditableGridContainer/TemplatedGridProps";
-import { GridCell } from "../GridCell";
-import { toStringLoc } from "../helpers";
 import { isValidGridItem } from "../isValidGridItem";
 import { NameNewPanelModal } from "../NameNewPanelModal";
 import { LayoutDispatchContext } from "../useSetLayout";
@@ -139,14 +138,41 @@ export const GridContainerElement: UiNodeComponent<
           {...layout}
           onNewLayout={handleNewLayoutTemplate}
         >
-          {findEmptyCells(areas).map(({ row, col }) => (
-            <GridCell
-              key={toStringLoc({ row, col })}
-              gridRow={row}
-              gridColumn={col}
-              onDroppedNode={handleNodeDrop}
-            />
-          ))}
+          {findEmptyCells(areas).map(({ row, col }) => {
+            const cell_pos = row + "-" + col;
+
+            return (
+              <DropWatcherPanel
+                parentPath={path}
+                parentNodeType="gridlayout::grid_container"
+                key={cell_pos}
+                data-cell-pos={cell_pos}
+                minHeightOnAvailable="100%"
+                visibleWhenEmpty
+                style={{
+                  gridRow: row,
+                  gridColumn: col,
+                  // By insetting a tiny bit we ensure that the cells won't peak out from
+                  // behind any item placed over them
+                  margin: "2px",
+                }}
+                dropHandlerArgs={{
+                  getCanAcceptDrop: (nodeInfo) => true,
+                  onDrop: (nodeInfo) => {
+                    handleNodeDrop({
+                      ...nodeInfo,
+                      pos: {
+                        rowStart: row,
+                        rowEnd: row,
+                        colStart: col,
+                        colEnd: col,
+                      },
+                    });
+                  },
+                }}
+              />
+            );
+          })}
           {uiChildren?.map((childNode, i) => (
             <UiNode
               key={path.join(".") + i}

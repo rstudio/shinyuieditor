@@ -78,9 +78,10 @@ export function SettingsInput({ onUpdate, ...opts }: SettingsInputProps) {
   }
 
   return (
-    <div className="SUE-SettingsInput">
-      <div className="info" data-unset={argumentIsUnset}>
-        {argumentIsOptional ? (
+    <InputLabelWrapper
+      argumentIsUnset={argumentIsUnset}
+      optionalField={
+        argumentIsOptional ? (
           <input
             type="checkbox"
             checked={!argumentIsUnset}
@@ -88,10 +89,35 @@ export function SettingsInput({ onUpdate, ...opts }: SettingsInputProps) {
             aria-label={`Use ${opts.name} argument`}
             onChange={argumentIsUnset ? setToDefault : unsetArgument}
           />
-        ) : null}
+        ) : null
+      }
+      label={label}
+      labelId={labelId}
+      mainInput={mainInputBody}
+    />
+  );
+}
+
+export function InputLabelWrapper({
+  argumentIsUnset = false,
+  optionalField,
+  label,
+  labelId,
+  mainInput,
+}: {
+  argumentIsUnset?: boolean;
+  optionalField?: React.ReactNode;
+  label: string;
+  labelId: string;
+  mainInput: React.ReactNode;
+}) {
+  return (
+    <div className="SUE-SettingsInput">
+      <div className="info" data-unset={argumentIsUnset}>
+        {optionalField}
         <label id={labelId}>{label}</label>
       </div>
-      {mainInputBody}
+      {mainInput}
     </div>
   );
 }

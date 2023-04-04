@@ -17,11 +17,12 @@ export function CardChildrenWithDropNodes({
   uiChildren = [],
   path,
   dropPanelClass = styles.drop_watcher,
+  messageOnHover,
   showOnEmpty,
 }: {
   parentUiName: ShinyUiNodeNames;
-  // parent: ShinyUiNode;
-  dropPanelClass?: string | ((index: number) => string);
+  messageOnHover: string;
+  dropPanelClass?: string;
   uiChildren?: ShinyUiParentNode["uiChildren"];
   path: NodePath;
   showOnEmpty?: React.ReactNode;
@@ -30,9 +31,10 @@ export function CardChildrenWithDropNodes({
     <>
       <DropWatcherPanel
         className={dropPanelClass}
-        index={0}
+        child_loc={0}
         parentPath={path}
         parentNodeType={parentUiName}
+        messageOnHover={messageOnHover}
       >
         {uiChildren.length === 0 ? showOnEmpty : null}
       </DropWatcherPanel>
@@ -41,9 +43,10 @@ export function CardChildrenWithDropNodes({
           <UiNode path={makeChildPath(path, i)} node={childNode} />
           <DropWatcherPanel
             className={dropPanelClass}
-            index={i + 1}
+            child_loc={i + 1}
             parentPath={path}
             parentNodeType={parentUiName}
+            messageOnHover={messageOnHover}
           />
         </React.Fragment>
       ))}

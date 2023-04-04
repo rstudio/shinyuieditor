@@ -1,6 +1,9 @@
-import type { NodePath } from "./uiNodeTypes";
+import type { NodePath, PathElement } from "./uiNodeTypes";
 
-export function makeChildPath(path: NodePath, childIndex: number): NodePath {
+export function makeChildPath(
+  path: NodePath,
+  childIndex: PathElement
+): NodePath {
   return [...path, childIndex];
 }
 
