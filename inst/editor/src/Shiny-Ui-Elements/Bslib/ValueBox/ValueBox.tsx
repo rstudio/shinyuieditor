@@ -83,7 +83,7 @@ export const bslibValueBoxInfo = nodeInfoFactory<ValueBoxArgs>()({
     },
     showcase_icon: {
       inputType: "omitted",
-      defaultValue: "circle",
+      defaultValue: "database",
     },
     value: {
       inputType: "ui-node",
