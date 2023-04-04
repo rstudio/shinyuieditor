@@ -86,9 +86,9 @@ export const bslibValueBoxInfo = nodeInfoFactory<ValueBoxArgs>()({
     value: {
       inputType: "ui-node",
       defaultValue: {
-        uiName: "shiny::textOutput",
+        uiName: "textNode",
         uiArguments: {
-          outputId: "valueBoxValue",
+          contents: "My value",
         },
       },
     },
@@ -173,7 +173,6 @@ export const bslibValueBoxInfo = nodeInfoFactory<ValueBoxArgs>()({
       return arg;
     },
   },
-
   iconSrc: icon,
   category: "Cards",
   description: "Colorful box to display a value",
