@@ -1,6 +1,8 @@
 import { is_function_call } from "r-ast-parsing/src/node_identity_checkers";
 
 import icon from "../../../assets/icons/shinyValueBox.png";
+import { RadioInputs } from "../../../components/Inputs/RadioInputs/RadioInputsSimple";
+import { InputLabelWrapper } from "../../../components/Inputs/SettingsFormBuilder/SettingsInput/SettingsInput";
 import { DropWatcherPanel } from "../../../DragAndDropHelpers/DropWatcherPanel";
 import { mergeClasses } from "../../../utils/mergeClasses";
 import { nodeInfoFactory } from "../../nodeInfoFactory";
@@ -93,31 +95,57 @@ export const bslibValueBoxInfo = nodeInfoFactory<ValueBoxArgs>()({
       },
     },
     showcase_layout: {
-      label: "Showcase Side",
-      inputType: "radio",
+      inputType: "omitted",
       defaultValue: "left",
       optional: true,
-      optionsPerColumn: 2,
-      choices: {
-        left: { label: "Left" },
-        right: { label: "Right" },
-      },
     },
   },
   settingsFormRender: ({ settings, onSettingsChange, inputs }) => {
     return (
       <div>
-        <p>Here's the settings for the value box!</p>
-        <label>Choose icon for showcase</label>
-        <IconSelector
-          initialValue={settings.showcase_icon}
-          onIconSelect={(icon_name) => {
-            onSettingsChange?.("showcase_icon", {
-              type: "UPDATE",
-              value: icon_name,
-            });
-          }}
+        <InputLabelWrapper
+          label="Choose icon for showcase"
+          labelId="showcase-icon"
+          mainInput={
+            <IconSelector
+              initialValue={settings.showcase_icon}
+              onIconSelect={(icon_name) => {
+                onSettingsChange?.("showcase_icon", {
+                  type: "UPDATE",
+                  value: icon_name,
+                });
+              }}
+            />
+          }
         />
+        <InputLabelWrapper
+          label="Showcase Direction"
+          labelId="showcase-direction"
+          mainInput={
+            <RadioInputs
+              id="showcase-direction"
+              label="Showcase Direction"
+              value={settings.showcase_layout ?? "left"}
+              onChange={(dir) => {
+                onSettingsChange?.(
+                  "showcase_layout",
+                  dir === "left"
+                    ? { type: "REMOVE" }
+                    : {
+                        type: "UPDATE",
+                        value: dir,
+                      }
+                );
+              }}
+              optionsPerColumn={2}
+              choices={{
+                left: { label: "Left" },
+                right: { label: "Right" },
+              }}
+            />
+          }
+        />
+
         {Object.values(inputs)}
       </div>
     );
