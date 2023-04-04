@@ -6,6 +6,7 @@ import type { StringKeys } from "util-functions/src/TypescriptUtils";
 import type { UiArgumentsObject } from "../../../Shiny-Ui-Elements/uiNodeTypes";
 
 import type { DynamicArgumentInfo } from "./buildStaticSettingsInfo";
+import type { All_Input_Types } from "./inputFieldTypes";
 import type {
   SettingsInputProps,
   SettingsUpdateAction,
@@ -57,6 +58,14 @@ const disableDefaultSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
   e.preventDefault();
 };
 
+/**
+ * Input types that should not be rendered in the form
+ */
+const non_rendered_input_types = new Set<All_Input_Types>([
+  "omitted",
+  "ui-node",
+]);
+
 function knownArgumentInputs({
   settings,
   settingsInfo,
@@ -72,7 +81,7 @@ function knownArgumentInputs({
     if (
       !("inputType" in arg_info) ||
       !("defaultValue" in arg_info) ||
-      arg_info.inputType === "omitted"
+      non_rendered_input_types.has(arg_info.inputType)
     )
       continue;
 

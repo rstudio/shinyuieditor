@@ -88,6 +88,11 @@ export type StaticInputOptions = AddOptionalCase<
   | { inputType: "omitted"; defaultValue: unknown }
 >;
 
+/**
+ * Every input type including ommitted and ui nodes
+ */
+export type All_Input_Types = StaticInputOptions["inputType"];
+
 type KeysOfKnownArgs<Args extends Record<string, unknown>> = {
   [Key in keyof Args]-?: Required<Args>[Key] extends KnownInputFieldTypes
     ? Key
