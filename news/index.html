@@ -91,10 +91,12 @@
 <h2 class="page-header" data-toc-text="0.4.3" id="shinyuieditor-043">shinyuieditor 0.4.3<a class="anchor" aria-label="anchor" href="#shinyuieditor-043"></a></h2>
 <div class="section level4">
 <h4 id="major-new-features-and-improvements-0-4-3">Major new features and improvements<a class="anchor" aria-label="anchor" href="#major-new-features-and-improvements-0-4-3"></a></h4>
-</div>
+<ul><li>Value Boxes from <code>bslib</code> are now available to use</li>
+</ul></div>
 <div class="section level4">
 <h4 id="minor-new-features-and-improvements-0-4-3">Minor new features and improvements<a class="anchor" aria-label="anchor" href="#minor-new-features-and-improvements-0-4-3"></a></h4>
-<ul><li>Updated underlying data structures to allow for more flexible navigation of the editors internal data structures. This will allow for more advanced features in the future where ui nodes can be added not only as children but as named arguments.</li>
+<ul><li>Ability to hook into pre/post processing of a node when going from raw ast to ui node and from ui node to R code. This enables the ability to abstract away things like function calls for arguments into things like enums or strings and then convert them back to function calls when generating R code.</li>
+<li>Updated underlying data structures to allow for more flexible navigation of the editors internal data structures. This will allow for more advanced features in the future where ui nodes can be added not only as children but as named arguments.</li>
 </ul></div>
 <div class="section level4">
 <h4 id="bug-fixes-0-4-3">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-4-3"></a></h4>
