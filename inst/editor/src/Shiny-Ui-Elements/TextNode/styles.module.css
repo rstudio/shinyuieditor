@@ -1,6 +1,7 @@
 .wrapper {
   position: relative;
   display: inline-block;
+  color: var(--font-color);
 }
 
 .wrapper[data-decoration="italic"] {
