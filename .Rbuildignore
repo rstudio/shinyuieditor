@@ -19,8 +19,8 @@
 ^turbo\.json$
 ^yarn\.lock$
 ^node_modules$
-^inst\/editor\/playwright
 ^inst\/editor\/(?!build).+$
+^inst\/editor\/playwright.*
 ^inst\/vscode-extension-client
 ^inst\/vscode-extension
 ^inst\/communication-types
