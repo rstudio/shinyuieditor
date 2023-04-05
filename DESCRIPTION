@@ -22,6 +22,7 @@ Imports:
     shiny,
     utils,
     plotly,
+    DT,
     gridlayout (>= 0.1.0),
     bsicons
 Suggests: 
@@ -29,9 +30,7 @@ Suggests:
     ggplot2,
     knitr,
     testthat (>= 3.0.0),
-    rstudioapi,
-    DT,
-    plotly
+    rstudioapi
 Remotes:
     rstudio/gridlayout,
     rstudio/bslib
