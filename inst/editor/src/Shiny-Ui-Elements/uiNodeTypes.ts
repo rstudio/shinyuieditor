@@ -1,6 +1,5 @@
 import type { Expand, PickKeyFn } from "util-functions/src/TypescriptUtils";
 
-import type { ArgsToDynamicInfo } from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";
 import type { useMakeWrapperProps } from "../components/UiNode/useMakeWrapperProps";
 import type { DeleteAction, UpdateAction } from "../state/app_info";
 
@@ -188,6 +187,7 @@ export type KnownShinyUiNode = {
 
 type KnownUiChildren = Array<KnownShinyUiNode>;
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const knownUiNodeTest: KnownShinyUiNode = {
   uiName: "bslib::card",
   uiArguments: { full_screen: true },
@@ -200,19 +200,13 @@ const knownUiNodeTest: KnownShinyUiNode = {
 };
 
 // @ts-expect-error
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const knownUiNodeTestFail: KnownShinyUiNode = {
   uiName: "shiny::actionButton",
   uiArguments: {
     inputId: "test",
   },
 };
-
-type getNodeArgs<Info extends ShinyUiNodeInfo> =
-  Info["settingsInfo"] extends ArgsToDynamicInfo<infer Args> ? Args : never;
-
-type Testing = getNodeArgs<typeof shinyActionButtonInfo>;
-
-// ArgsToDynamicInfo<Args>
 
 /**
  * Ui Node with no children

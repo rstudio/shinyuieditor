@@ -1,4 +1,8 @@
-import { is_function_call } from "r-ast-parsing/src/node_identity_checkers";
+import { is_function_call } from "r-ast-parsing/src/Function_Call_Node";
+import {
+  make_character_node,
+  name_node,
+} from "r-ast-parsing/src/node_builders";
 
 import icon from "../../../assets/icons/shinyValueBox.png";
 import { RadioInputs } from "../../../components/Inputs/RadioInputs/RadioInputsSimple";
@@ -177,24 +181,12 @@ export const bslibValueBoxInfo = nodeInfoFactory<ValueBoxArgs>()({
           is_function_call(arg, "bs_icon"))
       ) {
         const icon = arg.val[1].val as string;
-        return {
-          name: "showcase_icon",
-          val: icon,
-          type: "c",
-        };
+        return name_node(make_character_node(icon), "showcase_icon");
       } else if (arg_name === "showcase_layout") {
         if (is_function_call(arg, "showcase_left_center")) {
-          return {
-            name: "showcase_layout",
-            val: "left",
-            type: "c",
-          };
+          return name_node(make_character_node("left"), "showcase_layout");
         } else if (is_function_call(arg, "showcase_top_right")) {
-          return {
-            name: "showcase_layout",
-            val: "right",
-            type: "c",
-          };
+          return name_node(make_character_node("right"), "showcase_layout");
         }
       }
 

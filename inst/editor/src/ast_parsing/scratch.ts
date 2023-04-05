@@ -1,6 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { R_AST } from "r-ast-parsing";
-
-import { ast_to_ui_node } from "./ast_to_shiny_ui_node";
 
 const app_with_unknown_code_ast: R_AST = [
   {
