@@ -24,36 +24,39 @@ import type { unknownUiFunctionInfo } from "./UnknownUiFunction";
  */
 export function nodeInfoFactory<Args extends namedArgsObject>() {
   return function makeInfo<
-    Name extends string,
+    RFnName extends string,
     TakesChildren extends boolean,
     Comp extends UiNodeComponent<Args, { TakesChildren: TakesChildren }>,
     RPackage extends string,
+    ID extends string = RFnName,
     PyPackage extends string = "none",
     Cat extends string = "Uncategorized"
   >({
-    name,
+    id,
+    r_fn_name,
     r_package,
     py_package,
     category,
     ...info
   }: {
+    id?: ID;
     r_package: RPackage;
     py_package?: PyPackage;
     category?: Cat;
-  } & CommonInfo<Args, Name, Comp, TakesChildren>) {
+  } & CommonInfo<Args, RFnName, Comp, TakesChildren>) {
     return {
-      id: name,
-      name,
+      id: id ?? r_fn_name,
+      r_fn_name,
       r_package,
       py_package: py_package ?? "none",
       category: category ?? "Uncategorized",
       ...info,
     } as {
-      id: Name;
+      id: ID;
       r_package: RPackage;
       py_package: undefined extends PyPackage ? "none" : PyPackage;
       category: Cat;
-    } & CommonInfo<Args, Name, Comp, TakesChildren>;
+    } & CommonInfo<Args, RFnName, Comp, TakesChildren>;
   };
 }
 
@@ -64,6 +67,7 @@ type testing = [
   Expect<Equal<typeof unknownUiFunctionInfo["id"], "unknownUiFunction">>,
   Expect<Equal<typeof unknownUiFunctionInfo["r_package"], "Internal">>,
   Expect<Equal<typeof shinyActionButtonInfo["id"], "actionButton">>,
+  Expect<Equal<typeof shinyActionButtonInfo["r_fn_name"], "actionButton">>,
   Expect<Equal<typeof shinyActionButtonInfo["category"], "Inputs">>,
   Expect<Equal<typeof shinyActionButtonInfo["r_package"], "shiny">>
 ];
@@ -77,7 +81,7 @@ type CommonInfo<
   /**
    * Name of function as called in code: e.g. `"sliderInput"` for `shiny::sliderInput()`
    */
-  name: Name;
+  r_fn_name: Name;
 
   /**
    * The name of the component in plain language. E.g. Plot Output

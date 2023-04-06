@@ -13,7 +13,7 @@ export const gridlayoutGridPageInfo = nodeInfoFactory<
   GridLayoutArgs & { theme?: unknown }
 >()({
   r_package: "gridlayout",
-  name: "grid_page",
+  r_fn_name: "grid_page",
   title: "Grid Page",
   takesChildren: true,
   UiComponent: GridlayoutGridPage,

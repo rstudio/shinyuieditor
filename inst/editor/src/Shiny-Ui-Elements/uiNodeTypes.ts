@@ -177,7 +177,7 @@ export const shinyids = new Set<string>(
  * a check for if a node is in known functions
  * */
 export const shinyidToNamespacedName = new Map<string, string>([
-  ...(shinyUiNodeInfoArray.map(({ name, id }) => [name, id]) as [
+  ...(shinyUiNodeInfoArray.map(({ r_fn_name: name, id }) => [name, id]) as [
     string,
     string
   ][]),

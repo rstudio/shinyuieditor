@@ -17,7 +17,7 @@ export type ShinyNumericInputProps = {
 
 export const shinyNumericInputInfo = nodeInfoFactory<ShinyNumericInputProps>()({
   r_package: "shiny",
-  name: "numericInput",
+  r_fn_name: "numericInput",
   title: "Numeric Input",
   takesChildren: false,
   UiComponent: ShinyNumericInput,

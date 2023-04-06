@@ -12,7 +12,7 @@ export type TabsetPanelSettings = { id?: string; selected?: string };
 
 export const shinyTabsetPanelInfo = nodeInfoFactory<TabsetPanelSettings>()({
   r_package: "shiny",
-  name: "tabsetPanel",
+  r_fn_name: "tabsetPanel",
   title: "Tabset Panel",
   takesChildren: true,
   UiComponent: ShinyTabsetPanel,

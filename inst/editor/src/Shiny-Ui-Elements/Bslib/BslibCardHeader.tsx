@@ -25,7 +25,7 @@ const BslibCardHeader: UiNodeComponent<
 
 export const bslibCardHeaderInfo = nodeInfoFactory<CardHeaderSettings>()({
   r_package: "bslib",
-  name: "card_header",
+  r_fn_name: "card_header",
   title: "Card Header",
   takesChildren: true,
   UiComponent: BslibCardHeader,

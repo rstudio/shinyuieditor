@@ -11,7 +11,7 @@ export const testingErrorNodeInfo = nodeInfoFactory<{
   error_msg: string;
 }>()({
   r_package: "TESTING",
-  name: "error_node",
+  r_fn_name: "error_node",
   title: "Error Throwing Node",
   takesChildren: false,
   UiComponent: ({ namedArgs, path, wrapperProps }) => {
