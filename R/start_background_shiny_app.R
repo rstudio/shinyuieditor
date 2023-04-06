@@ -1,21 +1,20 @@
 start_background_shiny_app <- function(app_loc,
                                        host,
                                        port,
-                                       writeLog,
+                                       write_log,
                                        show_preview_app_logs) {
   start_app <- function() {
-    writeLog("Starting up background shiny app")
+    write_log("Starting up background shiny app")
     p <- callr::r_bg(
       func = function(app_loc, host, port) {
-        # Turn on live-reload and dev mode
-        # shiny::devmode(TRUE)
+        # Turn on live-reload and dev mode 
         options(shiny.autoreload = TRUE)
         shiny::runApp(app_loc, port = port, host = host)
       },
       args = list(app_loc, host, port),
       supervise = TRUE # Extra security for process being cleaned up properly
     )
-    writeLog(
+    write_log(
       "Started Shiny preview app: ",
       crayon::red("App PID:", p$get_pid())
     )
@@ -61,7 +60,7 @@ start_background_shiny_app <- function(app_loc,
   }
 
   stop_listeners <- function() {
-    writeLog("Stopping listeners\n")
+    write_log("Stopping listeners\n")
     on_log$cancel_all()
     on_crash$cancel_all()
     on_ready$cancel_all()
@@ -75,20 +74,18 @@ start_background_shiny_app <- function(app_loc,
   stop_app <- function() {
     tryCatch(
       {
-        writeLog("=> Shutting down running shiny app...")
-        # tools::SIGINT = 2
-        # tools::SIGTERM = 15
+        write_log("=> Shutting down running shiny app...")
         p$signal(15L)
       },
       error = function(e) {
-        writeLog("Error shutting down background Shiny app:")
+        write_log("Error shutting down background Shiny app:")
         print(e)
       }
     )
   }
 
   restart <- function() {
-    writeLog("Restarting app...\n\n")
+    write_log("Restarting app...\n\n")
     p <<- start_app()
     on_log <<- on_log$update_subscribed(p$read_error_lines)
     on_crash <<- on_crash$update_subscribed(p$is_alive)

@@ -1,11 +1,11 @@
-# Copied from https://github.com/rstudio/chromote/blob/fcc2f0d49e73cb81ff541ab14e1f27a581c02027/R/callbacks.R
+# Copied from https://github.com/rstudio/chromote/blob/fcc2f0d49e73cb81ff541ab14e1f27a581c02027/R/callbacks.R # nolint
 
 # The data structure for storing callbacks is essentially a queue: items are
 # added to the end, and removed from the front. Occasionally a callback will
 # be manually removed from the middle of the queue. For each callback that's
 # registered, we provide a function that can remove that callback from the
 # queue.
-Callbacks <- R6::R6Class(
+callbacks <- R6::R6Class(
   "Callbacks",
   public = list(
     initialize = function() {

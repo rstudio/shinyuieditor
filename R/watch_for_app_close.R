@@ -1,4 +1,4 @@
-WatchForAppClose <- function(on_close) {
+watch_for_app_close <- function(on_close) {
   timeout_fn <- NULL
 
   connection_opened <- function() {

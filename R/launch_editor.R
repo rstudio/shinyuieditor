@@ -54,7 +54,7 @@ launch_editor <- function(app_loc,
                           show_preview_app_logs = TRUE,
                           launch_browser = interactive(),
                           stop_on_browser_close = TRUE) {
-  writeLog <- function(...) {
+  write_log <- function(...) {
     if (show_logs) {
       cat(..., "\n", file = stderr())
     }
@@ -83,34 +83,34 @@ launch_editor <- function(app_loc,
 
   # Empty function so variable can always be called even if the timeout hasn't
   # been initialized
-  app_close_watcher <- WatchForAppClose(
+  app_close_watcher <- watch_for_app_close(
     on_close = if (stop_on_browser_close) {
       function() {
-        writeLog("Editor window closed, stopping server")
+        write_log("Editor window closed, stopping server")
         rlang::interrupt()
       }
     }
   )
 
   # Initialize app preview object for controlling background app preview
-  app_preview_obj <- AppPreview$new(
+  app_preview_obj <- app_preview$new(
     app_loc = app_loc,
     port = shiny_background_port,
     host = host,
     print_logs = show_preview_app_logs,
-    logger = writeLog
+    logger = write_log
   )
 
   startup_app_preview <- function() {
     if (app_preview) {
-      writeLog("Starting app preview")
+      write_log("Starting app preview")
       app_preview_obj$start_app()
     }
   }
 
   shutdown_app_preview <- function() {
     if (app_preview) {
-      writeLog("Stopping app preview")
+      write_log("Stopping app preview")
       app_preview_obj$stop_app()
     }
   }
@@ -155,11 +155,11 @@ launch_editor <- function(app_loc,
         return()
       }
 
-      writeLog("=> Loading app ui and sending to ui editor")
+      write_log("=> Loading app ui and sending to ui editor")
 
       file_change_watcher$start_watching(
         on_update = function() {
-          writeLog("=> Sending user updated ui to editor")
+          write_log("=> Sending user updated ui to editor")
           send_app_info_to_client()
         }
       )
@@ -204,7 +204,7 @@ launch_editor <- function(app_loc,
 
     # Return a callback that takes in a message and reacts to it
     function(msg) {
-      writeLog("Message from client", msg$path)
+      write_log("Message from client", msg$path)
       switch(msg$path,
         "APP-PREVIEW-REQUEST" = {
           send_msg("APP-PREVIEW-STATUS", payload = "LOADING")
@@ -242,7 +242,7 @@ launch_editor <- function(app_loc,
           handle_new_ui_from_client(msg$payload)
         },
         "ENTERED-TEMPLATE-SELECTOR" = {
-          writeLog("Template chooser mode")
+          write_log("Template chooser mode")
           server_mode <<- "template-chooser"
         }
       )

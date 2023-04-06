@@ -1,4 +1,4 @@
-FileChangeWatcher <- function(dir_root) {
+FileChangeWatcher <- function(dir_root) { # nolint
   watcher_subscription <- NULL
   file_root <- fs::dir_create(dir_root)
   watched_files <- NULL
