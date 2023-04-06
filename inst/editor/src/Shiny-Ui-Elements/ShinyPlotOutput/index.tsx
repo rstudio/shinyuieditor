@@ -12,7 +12,7 @@ export type ShinyPlotOutputProps = {
 
 export const shinyPlotOutputInfo = nodeInfoFactory<ShinyPlotOutputProps>()({
   r_package: "shiny",
-  name: "plotOutput",
+  r_fn_name: "plotOutput",
   title: "Plot Output",
   takesChildren: false,
   UiComponent: ShinyPlotOutput,

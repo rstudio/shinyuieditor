@@ -12,7 +12,7 @@ export type PlotlyOutputSettings = {
 
 export const plotlyPlotlyOutputInfo = nodeInfoFactory<PlotlyOutputSettings>()({
   r_package: "plotly",
-  name: "plotlyOutput",
+  r_fn_name: "plotlyOutput",
   title: "Plotly Plot",
   takesChildren: false,
   UiComponent: PlotlyPlotlyOutput,

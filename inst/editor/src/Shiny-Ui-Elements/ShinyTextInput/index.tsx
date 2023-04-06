@@ -14,7 +14,7 @@ export type ShinyTextInputProps = {
 
 export const shinyTextInputInfo = nodeInfoFactory<ShinyTextInputProps>()({
   r_package: "shiny",
-  name: "textInput",
+  r_fn_name: "textInput",
   title: "Text Input",
   takesChildren: false,
   UiComponent: ShinyTextInput,

@@ -31,7 +31,7 @@ const BslibCardBody: UiNodeComponent<
 
 export const bslibCardBodyInfo = nodeInfoFactory<CardBodyFillSettings>()({
   r_package: "bslib",
-  name: "card_body_fill",
+  r_fn_name: "card_body_fill",
   title: "Card Body",
   takesChildren: true,
   UiComponent: BslibCardBody,

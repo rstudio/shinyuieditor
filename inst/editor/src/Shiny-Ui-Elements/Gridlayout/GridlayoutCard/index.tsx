@@ -39,7 +39,7 @@ const GridlayoutGridCard: UiNodeComponent<
 
 export const gridlayoutCardInfo = nodeInfoFactory<GridBslibCardSettings>()({
   r_package: "gridlayout",
-  name: "grid_card",
+  r_fn_name: "grid_card",
   title: "Grid Card",
   takesChildren: true,
   UiComponent: GridlayoutGridCard,

@@ -13,7 +13,7 @@ export type GridContainerSettings = GridLayoutArgs;
 export const gridlayoutGridContainerInfo =
   nodeInfoFactory<GridContainerSettings>()({
     r_package: "gridlayout",
-    name: "grid_container",
+    r_fn_name: "grid_container",
     title: "Grid Container",
     takesChildren: true,
     UiComponent: GridlayoutGridContainer,

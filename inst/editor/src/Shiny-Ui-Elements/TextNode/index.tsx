@@ -12,7 +12,7 @@ export function isTextUiNode(node: ShinyUiNode): node is TextUiNode {
 }
 
 export const textNodeInfo = nodeInfoFactory<TextNodeSettings>()({
-  name: "textNode",
+  r_fn_name: "textNode",
   title: "Static Text",
   r_package: "Internal",
   category: "Utilities",
