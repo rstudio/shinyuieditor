@@ -74,7 +74,7 @@ const ValueBox: UiNodeComponent<ValueBoxArgs, { TakesChildren: true }> = ({
 };
 
 export const bslibValueBoxInfo = nodeInfoFactory<ValueBoxArgs>()({
-  library: "bslib",
+  r_package: "bslib",
   name: "value_box",
   title: "Value Box",
   takesChildren: true,

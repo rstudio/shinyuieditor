@@ -8,7 +8,7 @@ export type ShinyUiOutputProps = {
 };
 
 export const shinyUiOutputInfo = nodeInfoFactory<ShinyUiOutputProps>()({
-  library: "shiny",
+  r_package: "shiny",
   name: "uiOutput",
   title: "Dynamic UI Output",
   takesChildren: false,

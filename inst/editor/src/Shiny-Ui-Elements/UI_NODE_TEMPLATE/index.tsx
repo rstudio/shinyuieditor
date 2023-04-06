@@ -23,7 +23,7 @@ const NodeComponent: UiNodeComponent<
 };
 
 export const pkgNodeNameInfo = nodeInfoFactory<NodeNameSettings>()({
-  library: "PKG_NAME",
+  r_package: "PKG_NAME",
   name: "node_name",
   title: "NODE NAME",
   takesChildren: true,

@@ -11,7 +11,7 @@ import ShinyTabsetPanel from "./ShinyTabsetPanel";
 export type TabsetPanelSettings = { id?: string; selected?: string };
 
 export const shinyTabsetPanelInfo = nodeInfoFactory<TabsetPanelSettings>()({
-  library: "shiny",
+  r_package: "shiny",
   name: "tabsetPanel",
   title: "Tabset Panel",
   takesChildren: true,

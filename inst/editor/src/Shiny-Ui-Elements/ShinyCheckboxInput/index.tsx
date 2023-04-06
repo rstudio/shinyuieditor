@@ -13,7 +13,7 @@ export type ShinyCheckboxInputProps = {
 
 export const shinyCheckboxInputInfo =
   nodeInfoFactory<ShinyCheckboxInputProps>()({
-    library: "shiny",
+    r_package: "shiny",
     name: "checkboxInput",
     title: "Checkbox Input",
     takesChildren: false,

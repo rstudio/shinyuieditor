@@ -11,7 +11,7 @@ export type PlotlyOutputSettings = {
 };
 
 export const plotlyPlotlyOutputInfo = nodeInfoFactory<PlotlyOutputSettings>()({
-  library: "plotly",
+  r_package: "plotly",
   name: "plotlyOutput",
   title: "Plotly Plot",
   takesChildren: false,

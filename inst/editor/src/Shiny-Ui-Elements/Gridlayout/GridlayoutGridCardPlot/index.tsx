@@ -11,7 +11,7 @@ export type GridlayoutGridCardPlotProps = {
 
 export const gridlayoutGridCardPlotInfo =
   nodeInfoFactory<GridlayoutGridCardPlotProps>()({
-    library: "gridlayout",
+    r_package: "gridlayout",
     name: "grid_card_plot",
     title: "Grid Plot Card",
     takesChildren: false,
