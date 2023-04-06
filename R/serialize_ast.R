@@ -107,6 +107,44 @@ serialize_ast <- function(raw_expr) {
 # Types key: "m" = missing,  "s" = symbol, "n" = numeric/number, "b" =
 # boolean/logical, "c" = string/character, "u" = unknown, "e" = expression/ast
 # node
+extract_value_and_type <- function(x) {
+  # Things like df[,1] will have a "missing" node in the ast for the first
+  # argument of `[`,
+  if (missing(x) || identical(class(x), "srcref")) {
+    list(
+      val = NULL,
+      type = "m"
+    )
+  } else if (is.atomic(x)) {
+    # Numbers, and characters etc..
+    list(
+      val = x,
+      type = if (is.character((x))) {
+        "c"
+      } else if (is.numeric(x)) {
+        "n"
+      } else if (is.logical(x)) {
+        "b"
+      } else {
+        "u"
+      }
+    )
+  } else if (is.symbol(x) || is_namespace_call(x)) {
+
+    # Things like variable names and other syntactically relevant symbols
+    list(
+      val = deparse(x),
+      type = "s"
+    )
+  } else {
+    # This will error if we give it a non-ast-valid node so no need to do
+    # exhaustive checks in this logic
+    list(
+      val = serialize_ast(x),
+      type = "e"
+    )
+  }
+}
 
 parse_ast_node_value <- function(x, name, node_pos) {
 
@@ -116,40 +154,8 @@ parse_ast_node_value <- function(x, name, node_pos) {
     name <- NULL
   }
 
-
-  val_type <- "u"
-  # Things like df[,1] will have a "missing" node in the ast for the first
-  # argument of `[`,
-  val <- if (missing(x) || identical(class(x), "srcref")) {
-    val_type <- "m"
-    NULL
-  } else if (is.atomic(x)) {
-    # Numbers, and characters etc..
-    val_type <- if (is.character((x))) {
-      "c"
-    } else if (is.numeric(x)) {
-      "n"
-    } else if (is.logical(x)) {
-      "b"
-    } else {
-      "u"
-    }
-    x
-  } else if (is.symbol(x) || is_namespace_call(x)) {
-    # Things like variable names and other syntactically relevant symbols
-    val_type <- "s"
-    deparse(x)
-  } else {
-    # This will error if we give it a non-ast-valid node so no need to do
-    # exhaustive checks in this logic
-    val_type <- "e"
-    serialize_ast(x)
-  }
-
-  node <- list()
+  node <- extract_value_and_type(x)
   node$name <- name
-  node$val <- val
-  node$type <- val_type
   node$pos <- node_pos
 
   # If we have an unnamed argument that has an empty value then it's missing
@@ -160,7 +166,7 @@ parse_ast_node_value <- function(x, name, node_pos) {
   }
 
   # Empty missing nodes just get removed.
-  if (identical(val_type, "m") && is.null(node$name)) {
+  if (identical(node$type, "m") && is.null(node$name)) {
     return(NULL)
   }
 

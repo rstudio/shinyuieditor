@@ -1,7 +1,7 @@
 # Class to start up and manage the background process running the preview app
 # shared with the shiny ui editor
-AppPreview <- R6::R6Class(
-  "AppPreview",
+app_preview_runner <- R6::R6Class(
+  "App_Preview",
   private = list(
     p = NULL,
     is_running = FALSE,
@@ -116,7 +116,10 @@ AppPreview <- R6::R6Class(
         }
       )
 
-      private$logger("Started Shiny preview app - App PID:", private$p$get_pid())
+      private$logger(
+        "Started Shiny preview app - App PID:",
+        private$p$get_pid()
+      )
       private$is_running <- TRUE
     },
     restart = function() {
@@ -130,7 +133,9 @@ AppPreview <- R6::R6Class(
       # TODO: Send a message to the websocket that the app is restarting so
       # there's not an awkard 1s pause where the user thinks the app is frozen
       Sys.sleep(1)
-      private$logger("Restarted app preview, listening for ready and new crashes...\n")
+      private$logger(
+        "Restarted app preview, listening for ready and new crashes...\n"
+      )
       private$start_listeners()
     },
     stop_app = function() {
@@ -148,7 +153,6 @@ AppPreview <- R6::R6Class(
       tryCatch(
         {
           private$logger("=> Shutting down running shiny app...")
-          # tools::SIGTERM = 15
           private$p$signal(15L)
         },
         error = function(e) {

@@ -47,7 +47,7 @@ create_output_subscribers <- function(source_fn,
                                       filter_fn = function(...) TRUE,
                                       delay = 0.1,
                                       callback = NULL) {
-  callbacks <- Callbacks$new()
+  callbacks <- callbacks$new()
 
   subscribed_fn <- source_fn
 

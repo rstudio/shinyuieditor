@@ -1,3 +1,4 @@
+# Run package checks for R package
 # Workflow derived from https://github.com/rstudio/shiny-workflows
 #
 # NOTE: This Shiny team GHA workflow is overkill for most R packages.
@@ -13,8 +14,8 @@ on:
 name: Package checks
 
 jobs:
-  # routine:
-  #   uses: rstudio/shiny-workflows/.github/workflows/routine.yaml@v1
+  routine:
+    uses: rstudio/shiny-workflows/.github/workflows/routine.yaml@v1
   R-CMD-check:
     uses: rstudio/shiny-workflows/.github/workflows/R-CMD-check.yaml@v1
     with:

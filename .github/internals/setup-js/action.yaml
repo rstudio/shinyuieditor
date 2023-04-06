@@ -1,31 +1,8 @@
+# Setup the javascript dependencies for the editor. Doesn't build but gets all
+# the packages installed such that other actions can run their resepective `yarn *` commands
 name: "setup-js-deps"
 description: "Clone repo and run yarn install to make app ready to use"
 author: "Nick Strayer"
-# inputs:
-#   working-directory:
-#     description: 'Using the working-directory keyword, you can specify the working directory of where "pkg_deps" command searches for dependencies in the "DESCRIPTION" file.'
-#     default: "./inst/editor"
-#   cache:
-#     description: 'A boolean value indicating whether packages should be cached from one to the other'
-#     required: true
-#     default: true
-#   cache-version:
-#     description: 'The version of the cache, change this from the default (1) to start over with a fresh cache. Ignored if cache: false'
-#     required: true
-#     default: 1
-#   extra-packages:
-#     description: 'Any extra packages to install outside of the packages listed in the dependencies'
-#   needs:
-#     description: 'Any extra Config/Needs fields which need to be included when installing dependencies'
-#   packages:
-#     description: 'Which package(s) to install.'
-#     default: 'deps::., any::sessioninfo'
-#   pak-version:
-#     description: 'Which pak version to use. Possible values are "stable", "rc" and "devel".'
-#     default: 'stable'
-#   dependencies:
-#     description: 'Types of dependencies to install. Must be an R expression in single quotes.'
-#     default: '"all"'
 runs:
   using: "composite"
   steps:
@@ -48,6 +25,5 @@ runs:
         node-version: "16.x"
 
     - name: Install JS dependencies
-      working-directory: ./inst/editor
       run: yarn install --immutable
       shell: bash

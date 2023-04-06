@@ -14,7 +14,6 @@
 ^\.lintr$
 ^\.vscode$
 ^\.eslintrc.json$
-^\.husky$
 ^package\.json$
 ^turbo\.json$
 ^yarn\.lock$

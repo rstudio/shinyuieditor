@@ -1,9 +1,9 @@
+# Build and deploy the vscode extension to the marketplace when a tag is pushed
+# to main branch
 on:
   push:
     tags:
       - "v[0-9]*"
-    branches:
-      - "main"
 
 name: Deploy Extension
 jobs:

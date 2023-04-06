@@ -1,4 +1,12 @@
-WatchForAppClose <- function(on_close) {
+# Watch for the app to close and trigger an interrupt if it does
+
+#' Create a watcher that checks when an app is as indicated by a websocket
+#' connection being severed
+#' @param on_close A function to call when the app
+#' closes @return A list of functions to call when the app opens or closes
+#' @keywords internal
+#' 
+watch_for_app_close <- function(on_close) {
   timeout_fn <- NULL
 
   connection_opened <- function() {
