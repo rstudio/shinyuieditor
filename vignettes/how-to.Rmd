@@ -21,8 +21,8 @@ show_video <- function(name) {
   cat(
     paste0(
     '<video class="how-to-video" controls autoplay loop>',
-    '  <source src="how-to-videos/', name, '.webm" type="video/webm; codecs=vp9">',
-    '</video>'
+    '  <source src="how-to-videos/', name, '.webm" type="video/webm; codecs=vp9">', # nolint
+    '</video>' # nolint
     )
   )
 }
