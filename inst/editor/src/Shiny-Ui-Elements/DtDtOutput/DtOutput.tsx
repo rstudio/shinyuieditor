@@ -24,20 +24,20 @@ const table_cells = seqArray(NUM_ROWS).map((i) => (
 const DtDTOutput: UiNodeComponent<
   DTOutputSettings,
   { TakesChildren: false }
-> = ({ uiArguments, path, wrapperProps }) => {
+> = ({ namedArgs, path, wrapperProps }) => {
   return (
     <div className="dtDTOutput" {...wrapperProps}>
       <div
         className="faux-table"
         style={
           {
-            "--table-w": uiArguments.width,
-            "--table-h": uiArguments.height,
+            "--table-w": namedArgs.width,
+            "--table-h": namedArgs.height,
           } as React.CSSProperties
         }
       >
         <div className="faux-header">
-          Table: <InputOutputTitle type="output" name={uiArguments.outputId} />
+          Table: <InputOutputTitle type="output" name={namedArgs.outputId} />
         </div>
         <div className="faux-table-body">{table_cells}</div>
       </div>

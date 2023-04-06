@@ -7,8 +7,8 @@ import classes from "./styles.module.css";
 const ShinyUiOutput: UiNodeComponent<
   ShinyUiOutputProps,
   { TakesChildren: false }
-> = ({ uiArguments, wrapperProps }) => {
-  const { outputId = "shiny-ui-output" } = uiArguments;
+> = ({ namedArgs, wrapperProps }) => {
+  const { outputId = "shiny-ui-output" } = namedArgs;
 
   return (
     <div className={classes.container} {...wrapperProps}>

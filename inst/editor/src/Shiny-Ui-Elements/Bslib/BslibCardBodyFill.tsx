@@ -16,9 +16,9 @@ type CardBodyFillNode = MakeShinyUiNode<CardBodyFillSettings>;
 const BslibCardBody: UiNodeComponent<
   CardBodyFillSettings,
   { TakesChildren: true }
-> = ({ uiArguments, uiChildren = [], path, wrapperProps }) => {
+> = ({ namedArgs, uiChildren = [], path, wrapperProps }) => {
   return (
-    <CardBodyFill {...wrapperProps} args={uiArguments}>
+    <CardBodyFill {...wrapperProps} args={namedArgs}>
       <CardChildrenWithDropNodes
         uiChildren={uiChildren}
         path={path}
@@ -50,7 +50,7 @@ export const bslibCardBodyInfo = nodeInfoFactory<CardBodyFillSettings>()({
       defaultValue: (node) => {
         if (!node) return "500px";
 
-        return (node as CardBodyFillNode).uiArguments.min_height ?? "500px";
+        return (node as CardBodyFillNode).namedArgs.min_height ?? "500px";
       },
       units: ["px", "%"],
     },
@@ -61,7 +61,7 @@ export const bslibCardBodyInfo = nodeInfoFactory<CardBodyFillSettings>()({
       defaultValue: (node) => {
         if (!node) return "100px";
 
-        return (node as CardBodyFillNode).uiArguments.max_height ?? "100px";
+        return (node as CardBodyFillNode).namedArgs.max_height ?? "100px";
       },
       units: ["px", "%"],
     },

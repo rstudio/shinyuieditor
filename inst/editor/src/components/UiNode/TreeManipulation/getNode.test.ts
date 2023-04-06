@@ -4,23 +4,21 @@ import { getNode } from "./getNode";
 
 const tree: ShinyUiNode = {
   id: "root",
-  uiArguments: {
+  namedArgs: {
     title: "my page",
     sidebar: {
       id: "panel",
-      uiArguments: { position: "side" },
-      uiChildren: [
-        { id: "slider", uiArguments: { inputId: "argument_slider" } },
-      ],
+      namedArgs: { position: "side" },
+      uiChildren: [{ id: "slider", namedArgs: { inputId: "argument_slider" } }],
     },
   },
   uiChildren: [
-    { id: "plot", uiArguments: { outputId: "plot" } },
-    { id: "caption", uiArguments: { inputId: "caption" } },
+    { id: "plot", namedArgs: { outputId: "plot" } },
+    { id: "caption", namedArgs: { inputId: "caption" } },
     {
       id: "panel",
-      uiArguments: { position: "bottom" },
-      uiChildren: [{ id: "slider", uiArguments: { inputId: "child_slider" } }],
+      namedArgs: { position: "bottom" },
+      uiChildren: [{ id: "slider", namedArgs: { inputId: "child_slider" } }],
     },
   ],
 };
@@ -36,7 +34,7 @@ describe("Can navigate into ui node and retrieve other nodes baesd on a path", (
     // This should work and return `{ name: "slider", args: { inputId: "child_slider" } }`
     expect(child_slider).toStrictEqual({
       id: "slider",
-      uiArguments: { inputId: "child_slider" },
+      namedArgs: { inputId: "child_slider" },
     });
   });
 
@@ -46,7 +44,7 @@ describe("Can navigate into ui node and retrieve other nodes baesd on a path", (
     // This should work and return `{ name: "slider", args: { inputId: "argument_slider" } }`
     expect(sidebar_slider).toStrictEqual({
       id: "slider",
-      uiArguments: { inputId: "argument_slider" },
+      namedArgs: { inputId: "argument_slider" },
     });
   });
 });

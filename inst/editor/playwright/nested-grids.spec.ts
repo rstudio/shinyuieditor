@@ -6,20 +6,20 @@ import { mockBackendState } from "./utils/mockBackend";
 
 const basicNavbarPage: ShinyUiNode = {
   id: "shiny::navbarPage",
-  uiArguments: {
+  namedArgs: {
     title: "Site Title",
     collapsible: false,
   },
   uiChildren: [
     {
       id: "shiny::tabPanel",
-      uiArguments: {
+      namedArgs: {
         title: "Plot",
       },
       uiChildren: [
         {
           id: "shiny::plotOutput",
-          uiArguments: {
+          namedArgs: {
             outputId: "MyPlot",
             width: "100%",
             height: "100%",
@@ -29,13 +29,13 @@ const basicNavbarPage: ShinyUiNode = {
     },
     {
       id: "shiny::tabPanel",
-      uiArguments: {
+      namedArgs: {
         title: "Grid Tab",
       },
       uiChildren: [
         {
           id: "gridlayout::grid_container",
-          uiArguments: {
+          namedArgs: {
             layout: ["button button"],
             row_sizes: ["1fr"],
             col_sizes: ["1fr", "1fr"],
@@ -44,13 +44,13 @@ const basicNavbarPage: ShinyUiNode = {
           uiChildren: [
             {
               id: "gridlayout::grid_card",
-              uiArguments: {
+              namedArgs: {
                 area: "button",
               },
               uiChildren: [
                 {
                   id: "shiny::actionButton",
-                  uiArguments: {
+                  namedArgs: {
                     inputId: "myButton",
                     label: "My Button",
                   },

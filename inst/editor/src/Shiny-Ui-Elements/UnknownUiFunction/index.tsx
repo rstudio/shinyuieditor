@@ -15,7 +15,7 @@ export type UnknownUiFunctionProps = {
 export type UnknownUiNode = MakeShinyUiNode<UnknownUiFunctionProps>;
 
 export function isUnknownUiNode(node: ShinyUiNode): node is UnknownUiNode {
-  return "text" in node.uiArguments && node.id === "unknownUiFunction";
+  return "text" in node.namedArgs && node.id === "unknownUiFunction";
 }
 
 export const unknownUiFunctionInfo = nodeInfoFactory<UnknownUiFunctionProps>()({

@@ -7,7 +7,7 @@ import type { NodePath } from "../../uiNodeTypes";
 
 import type { GridLayoutArgs } from "./GridContainerElement/GridLayoutArgs";
 
-export function useUpdateUiArguments(path: NodePath) {
+export function useUpdateNamedArgs(path: NodePath) {
   const dispatch = useDispatch();
 
   const updateArguments = React.useCallback(
@@ -16,7 +16,7 @@ export function useUpdateUiArguments(path: NodePath) {
         UPDATE_NODE({
           path: path,
           node: {
-            uiArguments: newArguments,
+            namedArgs: newArguments,
           },
         })
       );

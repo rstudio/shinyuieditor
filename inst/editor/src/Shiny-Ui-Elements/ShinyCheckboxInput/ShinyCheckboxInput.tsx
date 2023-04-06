@@ -9,10 +9,10 @@ import classes from "./styles.module.css";
 const ShinyCheckboxInput: UiNodeComponent<
   ShinyCheckboxInputProps,
   { TakesChildren: false }
-> = ({ uiArguments, wrapperProps }) => {
-  const width = uiArguments.width ?? "auto";
+> = ({ namedArgs, wrapperProps }) => {
+  const width = namedArgs.width ?? "auto";
 
-  const settings = { ...uiArguments };
+  const settings = { ...namedArgs };
 
   const [value, setValue] = React.useState(settings.value);
 

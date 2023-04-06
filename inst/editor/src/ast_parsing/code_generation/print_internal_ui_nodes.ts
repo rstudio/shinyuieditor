@@ -31,6 +31,6 @@ export function print_internal_ui_nodes(node: InternalUiNode): string {
   }
 }
 
-function print_unknown_ui_node({ uiArguments }: UnknownUiNode) {
-  return uiArguments.text;
+function print_unknown_ui_node({ namedArgs }: UnknownUiNode) {
+  return namedArgs.text;
 }

@@ -10,7 +10,7 @@ import classes from "./styles.module.css";
 const ShinyTextInput: UiNodeComponent<
   ShinyTextInputProps,
   { TakesChildren: false }
-> = ({ uiArguments: { width = "200px", ...inputArgs }, wrapperProps }) => {
+> = ({ namedArgs: { width = "200px", ...inputArgs }, wrapperProps }) => {
   const height = "auto";
   const settings = { ...inputArgs };
 

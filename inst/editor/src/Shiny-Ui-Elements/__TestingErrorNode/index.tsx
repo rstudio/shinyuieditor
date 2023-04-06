@@ -14,7 +14,7 @@ export const testingErrorNodeInfo = nodeInfoFactory<{
   name: "error_node",
   title: "Error Throwing Node",
   takesChildren: false,
-  UiComponent: ({ uiArguments, path, wrapperProps }) => {
+  UiComponent: ({ namedArgs, path, wrapperProps }) => {
     const { showBoundary } = useErrorBoundary();
 
     return (
@@ -25,7 +25,7 @@ export const testingErrorNodeInfo = nodeInfoFactory<{
           aria-label="Throw an error"
           onClick={() => {
             // throw an error with message "something broke!"
-            showBoundary(new Error(`Ui Node error: ${uiArguments.error_msg}`));
+            showBoundary(new Error(`Ui Node error: ${namedArgs.error_msg}`));
           }}
         >
           💣

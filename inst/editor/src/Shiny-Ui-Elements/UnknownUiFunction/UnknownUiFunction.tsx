@@ -10,9 +10,9 @@ const num_preview_chars = 20;
 const UnknownUiFunction: UiNodeComponent<
   UnknownUiFunctionProps,
   { TakesChildren: false }
-> = ({ uiArguments, wrapperProps }) => {
+> = ({ namedArgs, wrapperProps }) => {
   const functionName =
-    uiArguments.text.slice(0, num_preview_chars).replaceAll(/\s$/g, "") + "...";
+    namedArgs.text.slice(0, num_preview_chars).replaceAll(/\s$/g, "") + "...";
   return (
     <div className="unknown-ui-function-display" {...wrapperProps}>
       <div>

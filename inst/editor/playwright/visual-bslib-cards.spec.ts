@@ -5,7 +5,7 @@ import type { KnownShinyUiNode } from "../src/Shiny-Ui-Elements/uiNodeTypes";
 import { mockBackendState } from "./utils/mockBackend";
 const shortCardTree: KnownShinyUiNode = {
   id: "gridlayout::grid_page",
-  uiArguments: {
+  namedArgs: {
     layout: ["onlyBody", ".       "],
     row_sizes: ["165px", "1fr"],
     col_sizes: ["1fr"],
@@ -14,17 +14,17 @@ const shortCardTree: KnownShinyUiNode = {
   uiChildren: [
     {
       id: "gridlayout::grid_card",
-      uiArguments: {
+      namedArgs: {
         area: "onlyBody",
       },
       uiChildren: [
         {
           id: "bslib::card_body_fill",
-          uiArguments: {},
+          namedArgs: {},
           uiChildren: [
             {
               id: "shiny::textInput",
-              uiArguments: {
+              namedArgs: {
                 inputId: "myText",
                 label: "Text Input",
                 value: "Some Text",
@@ -32,7 +32,7 @@ const shortCardTree: KnownShinyUiNode = {
             },
             {
               id: "shiny::checkboxGroupInput",
-              uiArguments: {
+              namedArgs: {
                 inputId: "myCheckboxGroup",
                 label: "Checkbox Group",
                 choices: {
@@ -44,7 +44,7 @@ const shortCardTree: KnownShinyUiNode = {
             },
             {
               id: "shiny::radioButtons",
-              uiArguments: {
+              namedArgs: {
                 inputId: "myRadioButtons",
                 label: "Radio Buttons",
                 choices: {
@@ -58,11 +58,11 @@ const shortCardTree: KnownShinyUiNode = {
         },
         {
           id: "bslib::card_footer",
-          uiArguments: {},
+          namedArgs: {},
           uiChildren: [
             {
               id: "textNode",
-              uiArguments: {
+              namedArgs: {
                 contents: "Lorem Ipsum",
                 decoration: "default",
               },

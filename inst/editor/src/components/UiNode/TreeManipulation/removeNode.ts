@@ -40,10 +40,10 @@ export function removeNodeMutating(
 
   // Check if we're removing a child node or an argument node
 
-  if (paths.child_location === "uiArguments") {
+  if (paths.child_location === "namedArgs") {
     // We're removing an argument node
-    if (parent_node.uiArguments[paths.child_path]) {
-      delete parent_node.uiArguments[paths.child_path];
+    if (parent_node.namedArgs[paths.child_path]) {
+      delete parent_node.namedArgs[paths.child_path];
     } else {
       throw new Error("Trying to remove an argument that doesn't exist");
     }

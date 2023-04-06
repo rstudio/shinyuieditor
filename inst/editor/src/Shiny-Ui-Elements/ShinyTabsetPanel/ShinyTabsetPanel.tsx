@@ -10,7 +10,7 @@ import type { TabsetPanelSettings } from "./index";
 const ShinyTabsetPanel: UiNodeComponent<
   TabsetPanelSettings,
   { TakesChildren: true }
-> = ({ uiArguments, uiChildren, path, wrapperProps }) => {
+> = ({ namedArgs, uiChildren, path, wrapperProps }) => {
   const numChildren = uiChildren?.length ?? 0;
 
   return (

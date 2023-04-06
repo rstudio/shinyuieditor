@@ -6,7 +6,7 @@ type PathElement = string | number;
  * Navigate into a ui node and return the node at the end of the path
  * @param tree A shiny ui node to search in
  * @param path A path to a node in the tree consisting of strings for indexing
- * into uiArguments and numbers for indexing into uiChildren
+ * into namedArgs and numbers for indexing into uiChildren
  * @returns The node at the end of the path
  */
 export function getNode(tree: ShinyUiNode, path: PathElement[]): ShinyUiNode {
@@ -33,12 +33,12 @@ export function getNode(tree: ShinyUiNode, path: PathElement[]): ShinyUiNode {
     }
     return getNode(child, remaining_path);
   } else if (typeof path_element === "string") {
-    const argValue = tree.uiArguments[path_element];
+    const argValue = tree.namedArgs[path_element];
 
     if (argValue === undefined) {
       throw new Error(
         `Requested argument (${path_element}) does not exist on the node arguments ${JSON.stringify(
-          tree.uiArguments,
+          tree.namedArgs,
           null,
           2
         )} `

@@ -9,7 +9,7 @@ import type {
   ServerBindings,
   ShinyUiNode,
   StateUpdateSubscribers,
-  UiArgumentsObject,
+  namedArgsObject,
   UiNodeComponent,
 } from "./uiNodeTypes";
 import type { unknownUiFunctionInfo } from "./UnknownUiFunction";
@@ -22,7 +22,7 @@ import type { unknownUiFunctionInfo } from "./UnknownUiFunction";
  * @returns Function to build info for a ui node that has the arguments provided
  * by the `Args` parameter.
  */
-export function nodeInfoFactory<Args extends UiArgumentsObject>() {
+export function nodeInfoFactory<Args extends namedArgsObject>() {
   return function makeInfo<
     Name extends string,
     TakesChildren extends boolean,
@@ -60,7 +60,7 @@ type testing = [
 ];
 
 type InfoOut<
-  Args extends UiArgumentsObject,
+  Args extends namedArgsObject,
   Name extends string,
   Comp extends UiNodeComponent<Args, { TakesChildren: boolean }>,
   Lib extends string,
@@ -75,7 +75,7 @@ type InfoOut<
 } & CommonInfo<Args, Name, Comp, TakesChildren>;
 
 type CommonInfo<
-  Args extends UiArgumentsObject,
+  Args extends namedArgsObject,
   Name extends string,
   Comp extends UiNodeComponent<Args, { TakesChildren: boolean }>,
   TakesChildren extends boolean
@@ -151,7 +151,7 @@ type CommonInfo<
    * children. If this is not defined the node is generated using the arguments
    * info and defined default values
    */
-  default_node?: { uiArguments: Args } & (TakesChildren extends true
+  default_node?: { namedArgs: Args } & (TakesChildren extends true
     ? { uiChildren: Array<ShinyUiNode> }
     : {});
 
@@ -194,7 +194,7 @@ type CommonInfo<
  * @returns Array of strings that will be joined with `","` to form the named
  * arguments in the generated R code
  */
-export type ProcessNamedArgs<Args extends UiArgumentsObject> = (
+export type ProcessNamedArgs<Args extends namedArgsObject> = (
   args: Args,
   render_child: (child: ShinyUiNode) => string
 ) => string[];

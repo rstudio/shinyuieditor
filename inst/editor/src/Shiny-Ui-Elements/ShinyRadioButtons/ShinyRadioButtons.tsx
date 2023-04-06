@@ -9,8 +9,8 @@ import classes from "./styles.module.css";
 const ShinyRadioButtons: UiNodeComponent<
   ShinyRadioButtonsProps,
   { TakesChildren: false }
-> = ({ uiArguments, wrapperProps }) => {
-  const choices = uiArguments.choices;
+> = ({ namedArgs, wrapperProps }) => {
+  const choices = namedArgs.choices;
   const keys = Object.keys(choices);
   const values = Object.values(choices);
 
@@ -27,17 +27,17 @@ const ShinyRadioButtons: UiNodeComponent<
   return (
     <div
       className={classes.container}
-      style={{ width: uiArguments.width }}
+      style={{ width: namedArgs.width }}
       {...wrapperProps}
     >
-      <label>{uiArguments.label}</label>
+      <label>{namedArgs.label}</label>
       <div>
         {values.map((value, i) => (
           <div className={classes.radio} key={value}>
             <label>
               <input
                 type="radio"
-                name={uiArguments.inputId}
+                name={namedArgs.inputId}
                 value={value}
                 onChange={(x) => setSelection(x.target.value)}
                 checked={value === selection}

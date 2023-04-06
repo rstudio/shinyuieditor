@@ -17,7 +17,7 @@ const GridlayoutGridCard: UiNodeComponent<
   { TakesChildren: true }
 > = (node) => {
   const {
-    uiArguments: { area, ...card_args },
+    namedArgs: { area, ...card_args },
     uiChildren = [],
     path,
     wrapperProps,

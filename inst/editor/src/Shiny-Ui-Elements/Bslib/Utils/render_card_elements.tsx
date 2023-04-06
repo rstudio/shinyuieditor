@@ -16,15 +16,15 @@ const possible_elements = new Set([
 
 const headerScaffold = {
   id: "bslib::card_header",
-  uiArguments: {},
+  namedArgs: {},
 } as const;
 const bodyScaffold = {
   id: "bslib::card_body_fill",
-  uiArguments: {},
+  namedArgs: {},
 } as const;
 const footerScaffold = {
   id: "bslib::card_footer",
-  uiArguments: {},
+  namedArgs: {},
 } as const;
 
 export function render_card_elements(

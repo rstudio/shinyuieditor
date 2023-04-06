@@ -6,7 +6,7 @@ import { shinyids } from "./uiNodeTypes";
 
 /**
  * Check if a value is a shiny ui node in the sense that it has a `id` and
- *`uiArguments` field but not neccesarily that it is in the list of known nodes
+ *`namedArgs` field but not neccesarily that it is in the list of known nodes
  * @param x The node to check
  * @returns  True if the node fits the structure of a shiny ui node
  */
@@ -15,8 +15,8 @@ export function isShinyUiNode(x: unknown): x is ShinyUiNode {
     is_object(x) &&
     "id" in x &&
     typeof x.id === "string" &&
-    "uiArguments" in x &&
-    is_object(x.uiArguments)
+    "namedArgs" in x &&
+    is_object(x.namedArgs)
   );
 }
 

@@ -17,7 +17,7 @@ import { FormBuilder } from "../components/Inputs/SettingsFormBuilder/FormBuilde
 import classes from "./UiElementsShowcase.module.css";
 
 import { shinyids } from "./uiNodeTypes";
-function UiNodeAndSettings({ id, uiArguments }) {
+function UiNodeAndSettings({ id, namedArgs }) {
   const [infoToRender, setInfoToRender] = React.useState(null);
 
   React.useEffect(() => {
@@ -26,7 +26,7 @@ function UiNodeAndSettings({ id, uiArguments }) {
     // If performance issues happen this can be memoized
     const newNode = {
       id,
-      uiArguments,
+      namedArgs,
       uiChildren: [],
     };
 
@@ -35,14 +35,14 @@ function UiNodeAndSettings({ id, uiArguments }) {
       Comp: nodeInfo.UiComponent,
       settingsInfo: buildStaticFormInfo(nodeInfo.settingsInfo, newNode),
     });
-  }, [uiArguments, id]);
+  }, [namedArgs, id]);
 
   const updateSettings = React.useCallback((name, action) => {
     setInfoToRender((info) => {
       if (!info) return null;
       const { node } = info;
 
-      const prevSettings = node.uiArguments;
+      const prevSettings = node.namedArgs;
       const newSettings =
         action.type === "UPDATE"
           ? { ...prevSettings, [name]: action.value }
@@ -50,7 +50,7 @@ function UiNodeAndSettings({ id, uiArguments }) {
 
       const newNode = {
         ...node,
-        uiArguments: newSettings,
+        namedArgs: newSettings,
       };
 
       return {
@@ -76,7 +76,7 @@ function UiNodeAndSettings({ id, uiArguments }) {
         <div className={classes.uiHolder}>
           <Comp
             uiChildren={[]}
-            uiArguments={infoToRender.node.uiArguments}
+            namedArgs={infoToRender.node.namedArgs}
             path={[0]}
             wrapperProps={{
               onClick: (e) => {
@@ -92,7 +92,7 @@ function UiNodeAndSettings({ id, uiArguments }) {
       <div>
         <h1>Settings Panel</h1>
         <FormBuilder
-          settings={infoToRender.node.uiArguments}
+          settings={infoToRender.node.namedArgs}
           settingsInfo={infoToRender.settingsInfo}
           onSettingsChange={updateSettings}
         />
@@ -111,7 +111,7 @@ export const UiElementsShowcase = ({ nameOfElement }) => {
     getUiNodeInfo(nameOfElement).settingsInfo
   );
 
-  return <UiNodeAndSettings id={nameOfElement} uiArguments={defaultSettings} />;
+  return <UiNodeAndSettings id={nameOfElement} namedArgs={defaultSettings} />;
 };
 
 UiElementsShowcase.argTypes = {
@@ -129,7 +129,7 @@ UiElementsShowcase.args = {
 //   return (
 //     <UiNodeAndSettings
 //       id={"shiny::sliderInput"}
-//       uiArguments={{
+//       namedArgs={{
 //         inputId: "mySlider",
 //         label: "Slid your value!",
 //         min: 0,

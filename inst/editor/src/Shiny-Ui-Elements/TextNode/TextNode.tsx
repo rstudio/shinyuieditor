@@ -8,7 +8,7 @@ export const TextNode: UiNodeComponent<
   TextNodeSettings,
   { TakesChildren: false }
 > = ({
-  uiArguments: { contents, decoration, size = "default" },
+  namedArgs: { contents, decoration, size = "default" },
   wrapperProps,
 }) => {
   const WrapperComp = size_to_wrapper[size];

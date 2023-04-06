@@ -11,7 +11,7 @@ import classes from "./styles.module.css";
 const GridlayoutGridCardPlot: UiNodeComponent<
   GridlayoutGridCardPlotProps,
   { TakesChildren: false }
-> = ({ uiArguments: { outputId, area }, path, wrapperProps }) => {
+> = ({ namedArgs: { outputId, area }, path, wrapperProps }) => {
   const compRef = useGridItemSwapping({ area, path });
 
   return (

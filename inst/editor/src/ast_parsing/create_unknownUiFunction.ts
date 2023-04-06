@@ -26,7 +26,7 @@ export function create_unknownUiFunction({
 }): UnknownUiNode {
   return {
     id: "unknownUiFunction",
-    uiArguments: {
+    namedArgs: {
       text: is_ast_branch_node(node)
         ? build_function_text(node.val)
         : print_node_val(node),

@@ -4,7 +4,7 @@ import type { KnownShinyUiNode } from "../../Shiny-Ui-Elements/uiNodeTypes";
 
 export const basicGridPage: KnownShinyUiNode = {
   id: "gridlayout::grid_page",
-  uiArguments: {
+  namedArgs: {
     layout: ["header header", "sidebar plot", "sidebar plot"],
     row_sizes: ["100px", "1fr", "1fr"],
     col_sizes: ["250px", "1fr"],
@@ -13,7 +13,7 @@ export const basicGridPage: KnownShinyUiNode = {
   uiChildren: [
     {
       id: "gridlayout::grid_card_text",
-      uiArguments: {
+      namedArgs: {
         area: "header",
         content: "My App",
         alignment: "start",
@@ -22,13 +22,13 @@ export const basicGridPage: KnownShinyUiNode = {
     },
     {
       id: "gridlayout::grid_card",
-      uiArguments: {
+      namedArgs: {
         area: "sidebar",
       },
       uiChildren: [
         {
           id: "shiny::sliderInput",
-          uiArguments: {
+          namedArgs: {
             inputId: "mySlider",
             label: "Slider",
             min: 2,
@@ -38,7 +38,7 @@ export const basicGridPage: KnownShinyUiNode = {
         },
         {
           id: "shiny::numericInput",
-          uiArguments: {
+          namedArgs: {
             inputId: "myNumericInput",
             label: "Numeric Input",
             min: 2,
@@ -49,7 +49,7 @@ export const basicGridPage: KnownShinyUiNode = {
         },
         {
           id: "unknownUiFunction",
-          uiArguments: {
+          namedArgs: {
             text: `myCoolCustomRFunction(arg1, arg2)`,
           },
         },
@@ -57,7 +57,7 @@ export const basicGridPage: KnownShinyUiNode = {
     },
     {
       id: "gridlayout::grid_card_plot",
-      uiArguments: {
+      namedArgs: {
         area: "plot",
       },
     },

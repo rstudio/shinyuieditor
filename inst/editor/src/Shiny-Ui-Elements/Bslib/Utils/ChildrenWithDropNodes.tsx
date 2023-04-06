@@ -57,7 +57,7 @@ export function CardChildrenWithDropNodes({
 // Find the Ui nodes that have a height argument in them
 type NodesWithHeightSettings = Exclude<
   {
-    [Node in KnownShinyUiNode as Node["id"]]: Node["uiArguments"] extends {
+    [Node in KnownShinyUiNode as Node["id"]]: Node["namedArgs"] extends {
       height?: any;
     }
       ? Node["id"]

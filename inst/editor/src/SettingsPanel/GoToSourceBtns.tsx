@@ -34,7 +34,7 @@ export function GoToSourceBtns({ node }: { node: ShinyUiNode | null }) {
 
 function GoToOutputsBtn({
   serverOutputInfo,
-  node: { uiArguments },
+  node: { namedArgs },
   sendMsg,
 }: {
   node: ShinyUiNode;
@@ -60,9 +60,9 @@ function GoToOutputsBtn({
   const keyForOutput =
     typeof outputIdKey === "string"
       ? outputIdKey
-      : (outputIdKey as PickKeyFn<typeof uiArguments>)(uiArguments);
+      : (outputIdKey as PickKeyFn<typeof namedArgs>)(namedArgs);
 
-  const outputId = uiArguments[keyForOutput as keyof typeof uiArguments];
+  const outputId = namedArgs[keyForOutput as keyof typeof namedArgs];
   if (typeof outputId !== "string") return null;
 
   const existing_output_locations = known_outputs.has(outputId);
@@ -103,7 +103,7 @@ function GoToOutputsBtn({
 
 function GoToInputsBtn({
   serverInputInfo,
-  node: { uiArguments },
+  node: { namedArgs },
   sendMsg,
 }: {
   node: ShinyUiNode;
@@ -119,9 +119,9 @@ function GoToInputsBtn({
   const keyForInputId =
     typeof inputIdKey === "string"
       ? inputIdKey
-      : (inputIdKey as PickKeyFn<typeof uiArguments>)(uiArguments);
+      : (inputIdKey as PickKeyFn<typeof namedArgs>)(namedArgs);
 
-  const inputId = uiArguments[keyForInputId as keyof typeof uiArguments];
+  const inputId = namedArgs[keyForInputId as keyof typeof namedArgs];
 
   if (typeof inputId !== "string") return null;
 

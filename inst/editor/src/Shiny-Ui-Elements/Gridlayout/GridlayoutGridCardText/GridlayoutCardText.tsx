@@ -11,7 +11,7 @@ const GridlayoutGridCardText: UiNodeComponent<
   GridlayoutGridCardTextProps,
   { TakesChildren: false }
 > = ({
-  uiArguments: { content: title, area, alignment },
+  namedArgs: { content: title, area, alignment },
   path,
   wrapperProps,
 }) => {

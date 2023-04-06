@@ -30,7 +30,7 @@ type ValueBoxArgs = {
 };
 
 const ValueBox: UiNodeComponent<ValueBoxArgs, { TakesChildren: true }> = ({
-  uiArguments,
+  namedArgs,
   uiChildren,
   path,
   wrapperProps,
@@ -42,21 +42,21 @@ const ValueBox: UiNodeComponent<ValueBoxArgs, { TakesChildren: true }> = ({
           "bg-primary",
           "text-white",
           styles.value_box,
-          uiArguments.showcase_layout === "right" ? styles.showcase_right : null
+          namedArgs.showcase_layout === "right" ? styles.showcase_right : null
         )}
       >
         <div className={styles.showcase}>
-          <BsIcon icon_name={uiArguments.showcase_icon} />
+          <BsIcon icon_name={namedArgs.showcase_icon} />
         </div>
         <div className={styles.content}>
-          <h5 className={styles.card_title}>{uiArguments.title}</h5>
+          <h5 className={styles.card_title}>{namedArgs.title}</h5>
           <div className={styles.card_value}>
             <DropWatcherPanel
-              existing_node={uiArguments.value}
+              existing_node={namedArgs.value}
               child_loc={"value"}
               parentPath={path}
               messageOnHover={
-                uiArguments.value ? "Replace value" : "Drop a value node here"
+                namedArgs.value ? "Replace value" : "Drop a value node here"
               }
               parentNodeType="bslib::value_box"
             />
@@ -93,7 +93,7 @@ export const bslibValueBoxInfo = nodeInfoFactory<ValueBoxArgs>()({
       inputType: "ui-node",
       defaultValue: {
         id: "textNode",
-        uiArguments: {
+        namedArgs: {
           contents: "My value",
         },
       },

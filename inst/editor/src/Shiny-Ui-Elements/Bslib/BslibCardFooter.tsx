@@ -9,7 +9,7 @@ type CardFooterSettings = {};
 const BslibCardFooter: UiNodeComponent<
   CardFooterSettings,
   { TakesChildren: true }
-> = ({ uiArguments, uiChildren = [], path, wrapperProps }) => {
+> = ({ namedArgs, uiChildren = [], path, wrapperProps }) => {
   return (
     <CardFooter {...wrapperProps}>
       <CardChildrenWithDropNodes

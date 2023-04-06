@@ -17,7 +17,7 @@ const wrap_in_tab_panel = ({ id }: ShinyUiNode) => {
   return id !== "shiny::tabPanel"
     ? ({
         id: "shiny::tabPanel",
-        uiArguments: { title: "Tab Panel" },
+        namedArgs: { title: "Tab Panel" },
       } as const)
     : null;
 };

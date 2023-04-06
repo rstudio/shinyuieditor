@@ -42,9 +42,9 @@ export type DynamicArgumentInfo = Record<string, AllDynamicOptions>;
  * Convert a whole settings info object from dynamic callback form to static
  * form
  * @param inputInfoForArgs A full settings info object for all settings in a
- * ui nodes uiArguments object
+ * ui nodes namedArgs object
  * @param node ShinyUiNode for which the dynamicSettingsInfo represents the
- * settings/uiArguments for
+ * settings/namedArgs for
  * @returns A static version of the settings info for all arugments where
  * functions have been evaluated to their constant values
  */
@@ -85,7 +85,7 @@ function convert_dynamic_info_to_static<
  * Convert a whole settings info object from dynamic callback form to static
  * form
  * @param dynamicFormInfo A full settings info object for all settings in a ui
- * nodes uiArguments object
+ * nodes namedArgs object
  * @returns Object of arguments corresponding to the info passed with only
  * required fields filled in with their default values
  */

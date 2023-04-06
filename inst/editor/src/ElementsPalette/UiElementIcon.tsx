@@ -27,7 +27,7 @@ export function UiElementIcon({ id }: { id: ShinyUiNodeNames }) {
       }
     : ({
         id,
-        uiArguments: getDefaultSettings(settingsInfo),
+        namedArgs: getDefaultSettings(settingsInfo),
       } as ShinyUiNode);
 
   const dragProps = useMakeDraggable({ node });

@@ -28,7 +28,7 @@ const UiNode = ({ path, node, canDrag = true }: UiNodeProps) => {
   const node_info = getUiNodeInfo(node.id);
 
   const Comp = node_info.UiComponent as UiNodeComponent<
-    typeof node.uiArguments,
+    typeof node.namedArgs,
     { TakesChildren: true }
   >;
 
@@ -45,7 +45,7 @@ const UiNode = ({ path, node, canDrag = true }: UiNodeProps) => {
     <ErrorBoundary fallbackRender={fallbackRender}>
       <Comp
         wrapperProps={wrapperProps}
-        uiArguments={node.uiArguments}
+        namedArgs={node.namedArgs}
         uiChildren={isParentNode(node) ? node.uiChildren ?? [] : []}
         path={path}
       />

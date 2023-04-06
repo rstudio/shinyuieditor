@@ -7,10 +7,10 @@ import classes from "./styles.module.css";
 const ShinyTextOutput: UiNodeComponent<
   ShinyTextOutputProps,
   { TakesChildren: false }
-> = ({ uiArguments, wrapperProps }) => {
+> = ({ namedArgs, wrapperProps }) => {
   return (
     <div className={classes.container} {...wrapperProps}>
-      Dynamic text from <code>output${uiArguments.outputId}</code>
+      Dynamic text from <code>output${namedArgs.outputId}</code>
     </div>
   );
 };

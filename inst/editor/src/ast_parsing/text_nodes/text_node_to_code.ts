@@ -4,8 +4,8 @@ import { decoration_to_wrapper, size_to_wrapper } from "./is_text_node";
 
 export function text_node_to_code(ui_node: TextUiNode): string {
   // Why does this not automatically resolve for me?
-  let text_size = ui_node.uiArguments.size;
-  const { contents, decoration } = ui_node.uiArguments;
+  let text_size = ui_node.namedArgs.size;
+  const { contents, decoration } = ui_node.namedArgs;
 
   const quoted_contents = `"${contents}"`;
 

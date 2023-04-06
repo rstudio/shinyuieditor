@@ -1,5 +1,5 @@
 import type { ShinyUiNode } from "editor";
-import type { UiArgumentsObject } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
+import type { namedArgsObject } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
 import {
   getUiNodeInfo,
   shinyidToNamespacedName,
@@ -46,7 +46,7 @@ export function ast_to_ui_node(node: Branch_Node): ShinyUiNode {
 
   const argument_nodes = args.map(pre_process_node);
 
-  const uiArguments: UiArgumentsObject = Object.fromEntries(
+  const namedArgs: namedArgsObject = Object.fromEntries(
     argument_nodes
       .filter((sub_node) => sub_node.name) // filter out unnamed nodes
       .map((sub_node) => {
@@ -72,7 +72,7 @@ export function ast_to_ui_node(node: Branch_Node): ShinyUiNode {
 
   return {
     id: node_normalized_name,
-    uiArguments,
+    namedArgs,
     ...(uiChildren.length > 0 ? { uiChildren } : {}),
   };
 }

@@ -7,15 +7,15 @@ import classes from "./styles.module.css";
 const ShinyCheckboxGroupInput: UiNodeComponent<
   ShinyCheckboxGroupInputProps,
   { TakesChildren: false }
-> = ({ uiArguments, wrapperProps }) => {
-  const choices = uiArguments.choices;
+> = ({ namedArgs, wrapperProps }) => {
+  const choices = namedArgs.choices;
   return (
     <div
       className={classes.container}
-      style={{ width: uiArguments.width }}
+      style={{ width: namedArgs.width }}
       {...wrapperProps}
     >
-      <label>{uiArguments.label}</label>
+      <label>{namedArgs.label}</label>
       <div>
         {Object.keys(choices).map((key, i) => (
           <div className={classes.radio} key={key}>
