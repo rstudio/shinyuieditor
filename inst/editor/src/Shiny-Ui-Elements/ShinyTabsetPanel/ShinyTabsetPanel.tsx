@@ -10,13 +10,13 @@ import type { TabsetPanelSettings } from "./index";
 const ShinyTabsetPanel: UiNodeComponent<
   TabsetPanelSettings,
   { TakesChildren: true }
-> = ({ namedArgs, uiChildren, path, wrapperProps }) => {
-  const numChildren = uiChildren?.length ?? 0;
+> = ({ namedArgs, children, path, wrapperProps }) => {
+  const numChildren = children?.length ?? 0;
 
   return (
     <Tabset path={path} {...wrapperProps}>
       {numChildren > 0 ? (
-        uiChildren?.map((node, i) => {
+        children?.map((node, i) => {
           const nodePath = makeChildPath(path, i);
           const title = getTabPanelTitle(node) ?? "unknown tab";
           return (

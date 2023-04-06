@@ -11,10 +11,10 @@ export function getTabPanelTitle(node: ShinyUiNode): string | null {
   return null;
 }
 
-export function getTabNames({ uiChildren }: ShinyUiParentNode): string[] {
+export function getTabNames({ children }: ShinyUiParentNode): string[] {
   let titles: string[] = [];
 
-  uiChildren?.forEach((child) => {
+  children?.forEach((child) => {
     const panelTitle = getTabPanelTitle(child);
     if (panelTitle) titles.push(panelTitle);
   });
@@ -22,8 +22,8 @@ export function getTabNames({ uiChildren }: ShinyUiParentNode): string[] {
   return titles;
 }
 
-export function getFirstTabName({ uiChildren }: ShinyUiParentNode): string {
-  const firstChild = uiChildren?.[0];
+export function getFirstTabName({ children }: ShinyUiParentNode): string {
+  const firstChild = children?.[0];
   if (!firstChild) return "First Tab";
   return getTabPanelTitle(firstChild) ?? "First Tab";
 }

@@ -18,7 +18,7 @@ describe("Can handle unknown code properly", () => {
     const expected_result: KnownShinyUiNode = {
       id: "bslib::card_body_fill",
       namedArgs: {},
-      uiChildren: [
+      children: [
         {
           id: "unknownUiFunction",
           namedArgs: expect.objectContaining({ text: "custom_input" }),
@@ -46,7 +46,7 @@ describe("Can handle unknown code properly", () => {
     const expected_result: KnownShinyUiNode = {
       id: "bslib::card_body_fill",
       namedArgs: {},
-      uiChildren: [
+      children: [
         {
           id: "unknownUiFunction",
           namedArgs: expect.objectContaining({
@@ -157,7 +157,7 @@ test("Handle primative values as children", () => {
   const output: KnownShinyUiNode = {
     id: "bslib::card_body_fill",
     namedArgs: {},
-    uiChildren: [
+    children: [
       { id: "textNode", namedArgs: { contents: "Hi" } },
       { id: "textNode", namedArgs: { contents: "3" } },
       { id: "textNode", namedArgs: { contents: "FALSE" } },

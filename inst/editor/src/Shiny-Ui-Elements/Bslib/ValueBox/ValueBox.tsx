@@ -31,7 +31,7 @@ type ValueBoxArgs = {
 
 const ValueBox: UiNodeComponent<ValueBoxArgs, { TakesChildren: true }> = ({
   namedArgs,
-  uiChildren,
+  children,
   path,
   wrapperProps,
 }) => {
@@ -62,7 +62,7 @@ const ValueBox: UiNodeComponent<ValueBoxArgs, { TakesChildren: true }> = ({
             />
           </div>
           <CardChildrenWithDropNodes
-            uiChildren={uiChildren}
+            children={children}
             path={path}
             parentid="bslib::value_box"
             messageOnHover="Add node to value box"

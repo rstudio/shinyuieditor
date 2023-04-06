@@ -66,14 +66,14 @@ export function ast_to_ui_node(node: Branch_Node): ShinyUiNode {
       })
   );
 
-  const uiChildren = argument_nodes
+  const children = argument_nodes
     .filter((sub_node) => !sub_node.name)
     .map(process_child_arg);
 
   return {
     id: node_normalized_name,
     namedArgs,
-    ...(uiChildren.length > 0 ? { uiChildren } : {}),
+    ...(children.length > 0 ? { children } : {}),
   };
 }
 

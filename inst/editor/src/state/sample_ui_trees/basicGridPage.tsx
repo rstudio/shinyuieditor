@@ -10,7 +10,7 @@ export const basicGridPage: KnownShinyUiNode = {
     col_sizes: ["250px", "1fr"],
     gap_size: "1rem",
   },
-  uiChildren: [
+  children: [
     {
       id: "gridlayout::grid_card_text",
       namedArgs: {
@@ -25,7 +25,7 @@ export const basicGridPage: KnownShinyUiNode = {
       namedArgs: {
         area: "sidebar",
       },
-      uiChildren: [
+      children: [
         {
           id: "shiny::sliderInput",
           namedArgs: {

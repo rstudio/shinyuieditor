@@ -18,7 +18,7 @@ const GridlayoutGridCard: UiNodeComponent<
 > = (node) => {
   const {
     namedArgs: { area, ...card_args },
-    uiChildren = [],
+    children = [],
     path,
     wrapperProps,
   } = node;
@@ -32,7 +32,7 @@ const GridlayoutGridCard: UiNodeComponent<
       card_args={card_args}
       {...wrapperProps}
     >
-      {render_card_elements(uiChildren, path)}
+      {render_card_elements(children, path)}
     </BslibCardContainer>
   );
 };

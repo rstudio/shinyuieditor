@@ -30,23 +30,23 @@ export function makeGridFriendlyNode(  node: ShinyUiNode,
   }
 
   if (isBslibCard(node)) {
-    const { namedArgs, uiChildren } = node;
+    const { namedArgs, children } = node;
 
     return {
       id: "gridlayout::grid_card",
       namedArgs: { area, ...namedArgs },
-      uiChildren,
+      children,
     } satisfies GridlayoutCardNode;
   }
 
   return {
     id: "gridlayout::grid_card",
     namedArgs: { area },
-    uiChildren: [
+    children: [
       {
         id: "bslib::card_body_fill",
         namedArgs: {},
-        uiChildren: [node as KnownShinyUiNode],
+        children: [node as KnownShinyUiNode],
       },
     ],
   };

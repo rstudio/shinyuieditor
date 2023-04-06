@@ -47,18 +47,18 @@ export function removeNodeMutating(
     } else {
       throw new Error("Trying to remove an argument that doesn't exist");
     }
-  } else if (paths.child_location === "uiChildren") {
+  } else if (paths.child_location === "children") {
     // Make sure the child we're going to remove actually exists
     if (
-      !("uiChildren" in parent_node) ||
-      parent_node.uiChildren === undefined ||
+      !("children" in parent_node) ||
+      parent_node.children === undefined ||
       paths.child_path < 0 ||
-      paths.child_path >= parent_node.uiChildren.length
+      paths.child_path >= parent_node.children.length
     ) {
       throw new Error("Trying to remove a child that doesn't exist");
     }
 
     // Splice out this child
-    parent_node.uiChildren.splice(paths.child_path, 1);
+    parent_node.children.splice(paths.child_path, 1);
   }
 }

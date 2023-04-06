@@ -13,14 +13,14 @@ const baseNode: ShinyUiNode = {
   namedArgs: {
     area: "panel",
   },
-  uiChildren: [
+  children: [
     {
       // path = [0]
       id: "gridlayout::grid_card",
       namedArgs: {
         area: "panel2",
       },
-      uiChildren: [
+      children: [
         // path = [0, 0]
         {
           id: "shiny::plotOutput",
@@ -82,7 +82,7 @@ test("Modify a node at first level", () => {
     namedArgs: {
       area: "panel",
     },
-    uiChildren: [
+    children: [
       // path = [0]
       {
         id: "shiny::plotOutput",
@@ -121,7 +121,7 @@ test("Modify a node at first level", () => {
 //       row_sizes: ["1fr"],
 //       col_sizes: ["250px", "1fr"],
 //     },
-//     uiChildren: [
+//     children: [
 //       {
 //         id: "gridlayout::grid_card",
 //         namedArgs: {
@@ -129,7 +129,7 @@ test("Modify a node at first level", () => {
 //           horizontalAlign: "right",
 //           verticalAlign: "center",
 //         },
-//         uiChildren: [
+//         children: [
 //           {
 //             id: "shiny::sliderInput",
 //             namedArgs: {
@@ -149,7 +149,7 @@ test("Modify a node at first level", () => {
 //           horizontalAlign: "right",
 //           verticalAlign: "center",
 //         },
-//         uiChildren: [
+//         children: [
 //           {
 //             id: "shiny::plotOutput",
 //             namedArgs: {
@@ -179,7 +179,7 @@ test("Modify a node at first level", () => {
 // });
 
 test("Add a node", () => {
-  expect((getNode(baseNode, [0]) as ShinyUiParentNode).uiChildren).toHaveLength(
+  expect((getNode(baseNode, [0]) as ShinyUiParentNode).children).toHaveLength(
     2
   );
 
@@ -197,6 +197,6 @@ test("Add a node", () => {
   });
 
   const newContainer = getNode(withNewNode, [0]) as ShinyUiParentNode;
-  expect(newContainer.uiChildren).toHaveLength(3);
-  expect(newContainer.uiChildren?.[2]).toEqual(newUiNode);
+  expect(newContainer.children).toHaveLength(3);
+  expect(newContainer.children?.[2]).toEqual(newUiNode);
 });

@@ -12,7 +12,7 @@ const navbarWithThreeTabs: ShinyUiParentNode = {
     title: "My Navbar Page",
     collapsible: false,
   },
-  uiChildren: [
+  children: [
     {
       id: "shiny::tabPanel",
       namedArgs: { title: "first tab" },
@@ -36,7 +36,7 @@ describe("Can convert full dynamic settings info object into a static one", () =
           title: {
             inputType: "string",
             defaultValue: (node) =>
-              `tabset with ${(node as ShinyUiParentNode)?.uiChildren?.length ?? -1} tabs`,
+              `tabset with ${(node as ShinyUiParentNode)?.children?.length ?? -1} tabs`,
           },
           selected: {
             inputType: "dropdown",

@@ -9,11 +9,11 @@ type CardFooterSettings = {};
 const BslibCardFooter: UiNodeComponent<
   CardFooterSettings,
   { TakesChildren: true }
-> = ({ namedArgs, uiChildren = [], path, wrapperProps }) => {
+> = ({ namedArgs, children = [], path, wrapperProps }) => {
   return (
     <CardFooter {...wrapperProps}>
       <CardChildrenWithDropNodes
-        uiChildren={uiChildren}
+        children={children}
         path={path}
         parentid="bslib::card_footer"
         messageOnHover="Add to card footer"

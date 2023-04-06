@@ -13,17 +13,17 @@ export const errorTestingTree = {
     col_sizes: ["1fr"],
     row_sizes: ["1fr"],
   },
-  uiChildren: [
+  children: [
     {
       id: "gridlayout::grid_card",
       namedArgs: {
         area: "A",
       },
-      uiChildren: [
+      children: [
         {
           id: "bslib::card_body_fill",
           namedArgs: {},
-          uiChildren: [
+          children: [
             {
               id: "TESTING::error_node",
               namedArgs: { error_msg: "Uh oh" },

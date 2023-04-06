@@ -15,13 +15,13 @@ export type UpdateNodeArguments = {
   path: NodePath;
   /**
    * New node values to be added. This node will be merged with the old node so
-   * things like uiChildren wont get removed if you just change a setting
+   * things like children wont get removed if you just change a setting
    */
   node: Partial<ShinyUiNode>;
 };
 
 /**
- * Update the namedArgs and id of a node but leave the uiChildren alone
+ * Update the namedArgs and id of a node but leave the children alone
  */
 export function updateNode(
   tree: ShinyUiNode,

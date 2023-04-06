@@ -9,16 +9,16 @@ const tree: ShinyUiNode = {
     sidebar: {
       id: "panel",
       namedArgs: { position: "side" },
-      uiChildren: [{ id: "slider", namedArgs: { inputId: "argument_slider" } }],
+      children: [{ id: "slider", namedArgs: { inputId: "argument_slider" } }],
     },
   },
-  uiChildren: [
+  children: [
     { id: "plot", namedArgs: { outputId: "plot" } },
     { id: "caption", namedArgs: { inputId: "caption" } },
     {
       id: "panel",
       namedArgs: { position: "bottom" },
-      uiChildren: [{ id: "slider", namedArgs: { inputId: "child_slider" } }],
+      children: [{ id: "slider", namedArgs: { inputId: "child_slider" } }],
     },
   ],
 };

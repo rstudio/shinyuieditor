@@ -6,7 +6,7 @@ type PathElement = string | number;
  * Navigate into a ui node and return the node at the end of the path
  * @param tree A shiny ui node to search in
  * @param path A path to a node in the tree consisting of strings for indexing
- * into namedArgs and numbers for indexing into uiChildren
+ * into namedArgs and numbers for indexing into children
  * @returns The node at the end of the path
  */
 export function getNode(tree: ShinyUiNode, path: PathElement[]): ShinyUiNode {
@@ -16,11 +16,11 @@ export function getNode(tree: ShinyUiNode, path: PathElement[]): ShinyUiNode {
   const [path_element, ...remaining_path] = path;
 
   if (typeof path_element === "number") {
-    if (!("uiChildren" in tree) || tree.uiChildren === undefined) {
+    if (!("children" in tree) || tree.children === undefined) {
       throw new Error("Somehow trying to enter a leaf node");
     }
 
-    const child = tree.uiChildren[path_element];
+    const child = tree.children[path_element];
 
     if (!child) {
       throw new Error(

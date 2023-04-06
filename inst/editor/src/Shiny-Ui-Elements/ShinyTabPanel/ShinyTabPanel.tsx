@@ -21,13 +21,13 @@ const dropFilters = {
 const ShinyTabPanel: UiNodeComponent<
   TabPanelSettings,
   { TakesChildren: true }
-> = ({ namedArgs, uiChildren, path, wrapperProps }) => {
-  const hasChildren = uiChildren && uiChildren.length > 0;
+> = ({ namedArgs, children, path, wrapperProps }) => {
+  const hasChildren = children && children.length > 0;
 
   return (
     <div className={classes.container} {...wrapperProps}>
       {hasChildren ? (
-        <RenderUiChildren uiChildren={uiChildren} parentPath={path} />
+        <RenderUiChildren children={children} parentPath={path} />
       ) : (
         <DropWatcherPanel
           className={classes.emptyTabPanelDropDetector}

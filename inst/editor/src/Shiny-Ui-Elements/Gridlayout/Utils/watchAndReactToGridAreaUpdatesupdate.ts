@@ -36,7 +36,7 @@ export function updateGridLayoutAreaOnItemAreaChange(
     throw new Error("Grid item node should always be a child of the parent");
   }
 
-  const oldAreaName = areasOfChildren(gridPageNode.uiChildren)[child_index];
+  const oldAreaName = areasOfChildren(gridPageNode.children)[child_index];
 
   const newAreaName = (node.namedArgs as GridItemSettings).area ?? emptyCell;
 
@@ -100,13 +100,13 @@ function getGridContainerAndItemNodes({
   }
 
   // Make sure the child node is in fact a grid item aware node
-  const gridItemNode = parentNode.uiChildren[item_paths.child_path];
+  const gridItemNode = parentNode.children[item_paths.child_path];
 
   // Only trigger on updates of grid area nodes
   if (!("area" in gridItemNode.namedArgs)) return null;
 
   // Not sure why typescript cant properly infer this type here but we check for
-  // the uiChildren already so it's a safe inference
+  // the children already so it's a safe inference
   return {
     gridPageNode: parentNode,
     gridItemNode,

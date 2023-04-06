@@ -13,15 +13,15 @@ const basicGridApp: ShinyUiNode = {
     col_sizes: ["200px", "2fr"],
     gap_size: "12px",
   },
-  uiChildren: [
+  children: [
     {
       id: "gridlayout::grid_card",
       namedArgs: { area: "A" },
-      uiChildren: [
+      children: [
         {
           id: "bslib::card_header",
           namedArgs: {},
-          uiChildren: [{ id: "textNode", namedArgs: { contents: "A" } }],
+          children: [{ id: "textNode", namedArgs: { contents: "A" } }],
         },
       ],
     },
@@ -30,11 +30,11 @@ const basicGridApp: ShinyUiNode = {
       namedArgs: {
         area: "B",
       },
-      uiChildren: [
+      children: [
         {
           id: "bslib::card_header",
           namedArgs: {},
-          uiChildren: [{ id: "textNode", namedArgs: { contents: "B" } }],
+          children: [{ id: "textNode", namedArgs: { contents: "B" } }],
         },
       ],
     },
@@ -43,7 +43,7 @@ const basicGridApp: ShinyUiNode = {
       namedArgs: {
         area: "C",
       },
-      uiChildren: [{ id: "textNode", namedArgs: { contents: "C" } }],
+      children: [{ id: "textNode", namedArgs: { contents: "C" } }],
     },
   ],
 };

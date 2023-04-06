@@ -20,18 +20,18 @@ export function addNodeMutating(
     destination_paths.parent_path
   ) as ShinyUiParentNode;
 
-  if (destination_paths.child_location === "uiChildren") {
+  if (destination_paths.child_location === "children") {
     // If the destination parent node doesn't have ui children, then we need to create it
     if (
-      !("uiChildren" in destination_parent) ||
-      destination_parent.uiChildren === undefined
+      !("children" in destination_parent) ||
+      destination_parent.children === undefined
     ) {
-      destination_parent.uiChildren = [];
+      destination_parent.children = [];
     }
 
     // Add node to new children position
-    destination_parent.uiChildren = addAtIndex(
-      destination_parent.uiChildren as ShinyUiNode[],
+    destination_parent.children = addAtIndex(
+      destination_parent.children as ShinyUiNode[],
       destination_paths.child_path,
       node
     );

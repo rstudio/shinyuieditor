@@ -10,7 +10,7 @@ describe("Can keep or remove namespaces", () => {
     namedArgs: {
       area: "sidebar",
     },
-    uiChildren: [
+    children: [
       {
         id: "shiny::sliderInput",
         namedArgs: {
@@ -80,7 +80,7 @@ describe("Handles nodes with ui nodes as named arguments", () => {
         },
         showcase_icon: "github",
       },
-      uiChildren: [],
+      children: [],
     };
 
     // prettier-ignore
@@ -119,7 +119,7 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
           namedArgs: {
             area: "sidebar",
           },
-          uiChildren: [
+          children: [
             {
               id: "shiny::sliderInput",
               namedArgs: {
@@ -244,7 +244,7 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
         {
           id: "gridlayout::grid_card",
           namedArgs: { area: "mystery" },
-          uiChildren: [
+          children: [
             {
               id: "unknownUiFunction",
               namedArgs: {
@@ -321,7 +321,7 @@ test("Full UI example", () => {
         },
       },
     },
-    uiChildren: [
+    children: [
       {
         id: "gridlayout::grid_card_text",
         namedArgs: {
@@ -336,7 +336,7 @@ test("Full UI example", () => {
         namedArgs: {
           area: "sidebar",
         },
-        uiChildren: [
+        children: [
           {
             id: "shiny::sliderInput",
             namedArgs: {

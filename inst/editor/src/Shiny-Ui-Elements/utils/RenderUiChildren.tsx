@@ -8,15 +8,15 @@ import type { NodePath, ShinyUiNode } from "../uiNodeTypes";
  * @returns
  */
 export function RenderUiChildren({
-  uiChildren,
+  children,
   parentPath,
 }: {
-  uiChildren: Array<ShinyUiNode>;
+  children: Array<ShinyUiNode>;
   parentPath: NodePath;
 }) {
   return (
     <>
-      {uiChildren.map((childNode, i) => {
+      {children.map((childNode, i) => {
         const nodePath = makeChildPath(parentPath, i);
         return (
           <UiNode

@@ -74,8 +74,8 @@ export function ui_node_to_R_code(
     }
 
     // Next handle the children
-    if ("uiChildren" in node && node.uiChildren) {
-      for (const child of node.uiChildren) {
+    if ("children" in node && node.children) {
+      for (const child of node.children) {
         fn_args_list.push(print_code(child));
       }
     }

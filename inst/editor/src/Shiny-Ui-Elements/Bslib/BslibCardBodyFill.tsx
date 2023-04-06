@@ -16,11 +16,11 @@ type CardBodyFillNode = MakeShinyUiNode<CardBodyFillSettings>;
 const BslibCardBody: UiNodeComponent<
   CardBodyFillSettings,
   { TakesChildren: true }
-> = ({ namedArgs, uiChildren = [], path, wrapperProps }) => {
+> = ({ namedArgs, children = [], path, wrapperProps }) => {
   return (
     <CardBodyFill {...wrapperProps} args={namedArgs}>
       <CardChildrenWithDropNodes
-        uiChildren={uiChildren}
+        children={children}
         path={path}
         parentid="bslib::card_body_fill"
         messageOnHover="Add to card body"
