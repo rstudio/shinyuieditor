@@ -5,20 +5,20 @@ import type { ShinyUiNode } from "../src/Shiny-Ui-Elements/uiNodeTypes";
 import { mockBackendState } from "./utils/mockBackend";
 
 const basicNavbarPage: ShinyUiNode = {
-  uiName: "shiny::navbarPage",
+  id: "shiny::navbarPage",
   uiArguments: {
     title: "Site Title",
     collapsible: false,
   },
   uiChildren: [
     {
-      uiName: "shiny::tabPanel",
+      id: "shiny::tabPanel",
       uiArguments: {
         title: "Plot",
       },
       uiChildren: [
         {
-          uiName: "shiny::plotOutput",
+          id: "shiny::plotOutput",
           uiArguments: {
             outputId: "MyPlot",
             width: "100%",
@@ -28,13 +28,13 @@ const basicNavbarPage: ShinyUiNode = {
       ],
     },
     {
-      uiName: "shiny::tabPanel",
+      id: "shiny::tabPanel",
       uiArguments: {
         title: "Grid Tab",
       },
       uiChildren: [
         {
-          uiName: "gridlayout::grid_container",
+          id: "gridlayout::grid_container",
           uiArguments: {
             layout: ["button button"],
             row_sizes: ["1fr"],
@@ -43,13 +43,13 @@ const basicNavbarPage: ShinyUiNode = {
           },
           uiChildren: [
             {
-              uiName: "gridlayout::grid_card",
+              id: "gridlayout::grid_card",
               uiArguments: {
                 area: "button",
               },
               uiChildren: [
                 {
-                  uiName: "shiny::actionButton",
+                  id: "shiny::actionButton",
                   uiArguments: {
                     inputId: "myButton",
                     label: "My Button",

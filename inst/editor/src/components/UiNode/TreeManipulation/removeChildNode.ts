@@ -12,7 +12,7 @@ export function removeChildNode(
   parent_node: ShinyUiParentNode,
   child_index: number
 ) {
-  const { uiName, uiArguments, uiChildren = [] } = parent_node;
+  const { id, uiArguments, uiChildren = [] } = parent_node;
 
   // Make sure the child we're going to remove actually exists
   const children = [...uiChildren];
@@ -26,7 +26,7 @@ export function removeChildNode(
 
   // Update the ui children array on parent to this spliced array
   return {
-    uiName,
+    id,
     uiArguments,
     uiChildren: children,
   };

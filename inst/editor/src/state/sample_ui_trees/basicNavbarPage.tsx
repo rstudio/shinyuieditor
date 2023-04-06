@@ -6,33 +6,33 @@ import type { KnownShinyUiNode } from "../../Shiny-Ui-Elements/uiNodeTypes";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
 export const basicNavbarPage = {
-  uiName: "shiny::navbarPage",
+  id: "shiny::navbarPage",
   uiArguments: {
     title: "My Navbar Page",
     collapsible: false,
   },
   uiChildren: [
     {
-      uiName: "shiny::tabPanel",
+      id: "shiny::tabPanel",
       uiArguments: {
         title: "Settings",
       },
       uiChildren: [
         {
-          uiName: "shiny::tabsetPanel",
+          id: "shiny::tabsetPanel",
           uiArguments: {},
           uiChildren: [],
         },
       ],
     },
     {
-      uiName: "shiny::tabPanel",
+      id: "shiny::tabPanel",
       uiArguments: {
         title: "Plot 1",
       },
       uiChildren: [
         {
-          uiName: "shiny::plotOutput",
+          id: "shiny::plotOutput",
           uiArguments: {
             outputId: "MyPlot",
             width: "100%",
@@ -42,13 +42,13 @@ export const basicNavbarPage = {
       ],
     },
     {
-      uiName: "shiny::tabPanel",
+      id: "shiny::tabPanel",
       uiArguments: {
         title: "Plot 2",
       },
       uiChildren: [
         {
-          uiName: "shiny::plotOutput",
+          id: "shiny::plotOutput",
           uiArguments: {
             outputId: "MyOtherPlot",
             width: "50%",

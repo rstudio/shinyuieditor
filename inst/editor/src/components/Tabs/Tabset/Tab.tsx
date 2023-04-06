@@ -24,7 +24,7 @@ type TabProps = {
 };
 
 const dummyNode: ShinyUiNode = {
-  uiName: "unknownUiFunction",
+  id: "unknownUiFunction",
   uiArguments: {
     text: "Dummy ui node for app previews",
   },

@@ -13,7 +13,7 @@ export function GoToSourceBtns({ node }: { node: ShinyUiNode | null }) {
 
   if (mode !== "VSCODE" || !node) return null;
 
-  const serverBindings = (getUiNodeInfo(node.uiName).serverBindings ??
+  const serverBindings = (getUiNodeInfo(node.id).serverBindings ??
     {}) as Partial<ServerBindings>;
 
   return (

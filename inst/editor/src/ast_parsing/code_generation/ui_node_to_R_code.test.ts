@@ -6,13 +6,13 @@ import { ui_node_to_R_code } from "./ui_node_to_R_code";
 
 describe("Can keep or remove namespaces", () => {
   const ui_ast: ShinyUiNode = {
-    uiName: "gridlayout::grid_card",
+    id: "gridlayout::grid_card",
     uiArguments: {
       area: "sidebar",
     },
     uiChildren: [
       {
-        uiName: "shiny::sliderInput",
+        id: "shiny::sliderInput",
         uiArguments: {
           inputId: "my_slider",
           label: "My Slider",
@@ -69,11 +69,11 @@ describe("Can keep or remove namespaces", () => {
 describe("Handles nodes with ui nodes as named arguments", () => {
   test("value boxes", () => {
     const value_box_node: KnownShinyUiNode = {
-      uiName: "bslib::value_box",
+      id: "bslib::value_box",
       uiArguments: {
         title: "My Title",
         value: {
-          uiName: "shiny::textOutput",
+          id: "shiny::textOutput",
           uiArguments: {
             outputId: "my_text",
           },
@@ -115,13 +115,13 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
     expect(
       ui_node_to_R_code(
         {
-          uiName: "gridlayout::grid_card",
+          id: "gridlayout::grid_card",
           uiArguments: {
             area: "sidebar",
           },
           uiChildren: [
             {
-              uiName: "shiny::sliderInput",
+              id: "shiny::sliderInput",
               uiArguments: {
                 inputId: "my_slider",
                 label: "My Slider",
@@ -153,7 +153,7 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
     expect(
       ui_node_to_R_code(
         {
-          uiName: "shiny::selectInput",
+          id: "shiny::selectInput",
           uiArguments: {
             inputId: "selector",
             label: "My Select",
@@ -181,7 +181,7 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
     expect(
       ui_node_to_R_code(
         {
-          uiName: "shiny::selectInput",
+          id: "shiny::selectInput",
           uiArguments: {
             inputId: "selector",
             label: "My Select",
@@ -218,7 +218,7 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
     expect(
       ui_node_to_R_code(
         {
-          uiName: "gridlayout::grid_page",
+          id: "gridlayout::grid_page",
           uiArguments: {
             layout: ["A B", "C D"],
             col_sizes: ["100px", "1fr"],
@@ -242,11 +242,11 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
     expect(
       ui_node_to_R_code(
         {
-          uiName: "gridlayout::grid_card",
+          id: "gridlayout::grid_card",
           uiArguments: { area: "mystery" },
           uiChildren: [
             {
-              uiName: "unknownUiFunction",
+              id: "unknownUiFunction",
               uiArguments: {
                 text: `myCoolCustomRFunction(arg1, arg2)`,
               },
@@ -308,14 +308,14 @@ test("Full UI example", () => {
 )`
 
   const ui_ast: ShinyUiNode = {
-    uiName: "gridlayout::grid_page",
+    id: "gridlayout::grid_page",
     uiArguments: {
       layout: ["header header", "sidebar plot", "sidebar plot"],
       row_sizes: ["100px", "1fr", "1fr"],
       col_sizes: ["250px", "1fr"],
       gap_size: "1rem",
       theme: {
-        uiName: "unknownUiFunction",
+        id: "unknownUiFunction",
         uiArguments: {
           text: "bslib::bs_theme()",
         },
@@ -323,7 +323,7 @@ test("Full UI example", () => {
     },
     uiChildren: [
       {
-        uiName: "gridlayout::grid_card_text",
+        id: "gridlayout::grid_card_text",
         uiArguments: {
           area: "header",
           content: "My App",
@@ -332,13 +332,13 @@ test("Full UI example", () => {
         },
       },
       {
-        uiName: "gridlayout::grid_card",
+        id: "gridlayout::grid_card",
         uiArguments: {
           area: "sidebar",
         },
         uiChildren: [
           {
-            uiName: "shiny::sliderInput",
+            id: "shiny::sliderInput",
             uiArguments: {
               inputId: "mySlider",
               label: "Slider",
@@ -348,7 +348,7 @@ test("Full UI example", () => {
             },
           },
           {
-            uiName: "shiny::numericInput",
+            id: "shiny::numericInput",
             uiArguments: {
               inputId: "myNumericInput",
               label: "Numeric Input",
@@ -359,7 +359,7 @@ test("Full UI example", () => {
             },
           },
           {
-            uiName: "unknownUiFunction",
+            id: "unknownUiFunction",
             uiArguments: {
               text: `myCoolCustomRFunction(arg1, arg2)`,
             },
@@ -367,7 +367,7 @@ test("Full UI example", () => {
         ],
       },
       {
-        uiName: "gridlayout::grid_card_plot",
+        id: "gridlayout::grid_card_plot",
         uiArguments: {
           area: "plot",
         },

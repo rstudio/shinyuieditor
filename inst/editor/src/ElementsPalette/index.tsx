@@ -4,7 +4,7 @@ import type {
   ShinyUiNodeNames,
 } from "../Shiny-Ui-Elements/uiNodeTypes";
 import { getUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
-import { shinyUiNames } from "../Shiny-Ui-Elements/uiNodeTypes";
+import { shinyids } from "../Shiny-Ui-Elements/uiNodeTypes";
 
 import classes from "./styles.module.css";
 import { UiElementIcon } from "./UiElementIcon";
@@ -47,9 +47,9 @@ function sortByCategory(
 }
 
 export default function ElementsPalette({
-  availableUiNodes = shinyUiNames,
+  availableUiNodes = shinyids,
 }: {
-  availableUiNodes?: typeof shinyUiNames;
+  availableUiNodes?: typeof shinyids;
 }) {
   const ui_node_names = ([...availableUiNodes] as ShinyUiNodeNames[]).sort(
     sortByCategory
@@ -59,8 +59,8 @@ export default function ElementsPalette({
     <>
       <PanelHeader>Elements</PanelHeader>
       <div className={classes.elementsPalette}>
-        {ui_node_names.map((uiName) => (
-          <UiElementIcon key={uiName} uiName={uiName} />
+        {ui_node_names.map((id) => (
+          <UiElementIcon key={id} id={id} />
         ))}
       </div>
     </>

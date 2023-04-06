@@ -16,11 +16,11 @@ describe("Can handle unknown code properly", () => {
     const parsed_card_w_unknown = ast_to_ui_node(card_body_w_unknown_input);
 
     const expected_result: KnownShinyUiNode = {
-      uiName: "bslib::card_body_fill",
+      id: "bslib::card_body_fill",
       uiArguments: {},
       uiChildren: [
         {
-          uiName: "unknownUiFunction",
+          id: "unknownUiFunction",
           uiArguments: expect.objectContaining({ text: "custom_input" }),
         },
       ],
@@ -44,11 +44,11 @@ describe("Can handle unknown code properly", () => {
     };
 
     const expected_result: KnownShinyUiNode = {
-      uiName: "bslib::card_body_fill",
+      id: "bslib::card_body_fill",
       uiArguments: {},
       uiChildren: [
         {
-          uiName: "unknownUiFunction",
+          id: "unknownUiFunction",
           uiArguments: expect.objectContaining({
             text: 'my_custom_fn(foo = "bar")',
           }),
@@ -71,10 +71,10 @@ describe("Can handle unknown code properly", () => {
       })
     ).toStrictEqual(
       expect.objectContaining({
-        uiName: "bslib::card_body_fill",
+        id: "bslib::card_body_fill",
         uiArguments: {
           max_height: {
-            uiName: "unknownUiFunction",
+            id: "unknownUiFunction",
             uiArguments: expect.objectContaining({
               text: "card_height",
             }),
@@ -102,10 +102,10 @@ describe("Can handle unknown code properly", () => {
       })
     ).toStrictEqual(
       expect.objectContaining({
-        uiName: "bslib::card_body_fill",
+        id: "bslib::card_body_fill",
         uiArguments: {
           max_height: {
-            uiName: "unknownUiFunction",
+            id: "unknownUiFunction",
             uiArguments: expect.objectContaining({
               text: "make_px(num = 100)",
             }),
@@ -145,7 +145,7 @@ describe("Can handle unknown code properly", () => {
         type: "e",
       })
     ).toEqual({
-      uiName: "unknownUiFunction",
+      id: "unknownUiFunction",
       uiArguments: expect.objectContaining({
         text: `(function(name) {...})(name = "shiny")`,
       }),
@@ -155,12 +155,12 @@ describe("Can handle unknown code properly", () => {
 
 test("Handle primative values as children", () => {
   const output: KnownShinyUiNode = {
-    uiName: "bslib::card_body_fill",
+    id: "bslib::card_body_fill",
     uiArguments: {},
     uiChildren: [
-      { uiName: "textNode", uiArguments: { contents: "Hi" } },
-      { uiName: "textNode", uiArguments: { contents: "3" } },
-      { uiName: "textNode", uiArguments: { contents: "FALSE" } },
+      { id: "textNode", uiArguments: { contents: "Hi" } },
+      { id: "textNode", uiArguments: { contents: "3" } },
+      { id: "textNode", uiArguments: { contents: "FALSE" } },
     ],
   };
   expect(
@@ -194,11 +194,11 @@ test("Successfully parses known ui nodes in named arguments", () => {
   };
 
   expect(ast_to_ui_node(value_card_ast)).toStrictEqual({
-    uiName: "bslib::value_box",
+    id: "bslib::value_box",
     uiArguments: {
       title: "I got",
       value: {
-        uiName: "shiny::textOutput",
+        id: "shiny::textOutput",
         uiArguments: { outputId: "my_value" },
       },
     },
@@ -251,7 +251,7 @@ describe("Custom behavior for parsing to ui ast is respected", () => {
     expect(value_box_ui_node.uiArguments).toStrictEqual(
       expect.objectContaining({
         value: {
-          uiName: "shiny::textOutput",
+          id: "shiny::textOutput",
           uiArguments: { outputId: "my_value" },
         },
       })

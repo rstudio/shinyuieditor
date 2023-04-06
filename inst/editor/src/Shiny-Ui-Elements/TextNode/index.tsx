@@ -8,7 +8,7 @@ import { TextNode } from "./TextNode";
 export type TextUiNode = MakeShinyUiNode<TextNodeSettings>;
 
 export function isTextUiNode(node: ShinyUiNode): node is TextUiNode {
-  return "contents" in node.uiArguments && node.uiName === "textNode";
+  return "contents" in node.uiArguments && node.id === "textNode";
 }
 
 export const textNodeInfo = nodeInfoFactory<TextNodeSettings>()({

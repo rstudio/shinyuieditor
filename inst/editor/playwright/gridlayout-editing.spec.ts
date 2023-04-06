@@ -6,7 +6,7 @@ import { dragInDir } from "./utils/dragInDir";
 import { mockBackendState } from "./utils/mockBackend";
 
 const basicGridApp: ShinyUiNode = {
-  uiName: "gridlayout::grid_page",
+  id: "gridlayout::grid_page",
   uiArguments: {
     layout: ["A B", "C ."],
     row_sizes: ["100px", "1fr"],
@@ -15,35 +15,35 @@ const basicGridApp: ShinyUiNode = {
   },
   uiChildren: [
     {
-      uiName: "gridlayout::grid_card",
+      id: "gridlayout::grid_card",
       uiArguments: { area: "A" },
       uiChildren: [
         {
-          uiName: "bslib::card_header",
+          id: "bslib::card_header",
           uiArguments: {},
-          uiChildren: [{ uiName: "textNode", uiArguments: { contents: "A" } }],
+          uiChildren: [{ id: "textNode", uiArguments: { contents: "A" } }],
         },
       ],
     },
     {
-      uiName: "gridlayout::grid_card",
+      id: "gridlayout::grid_card",
       uiArguments: {
         area: "B",
       },
       uiChildren: [
         {
-          uiName: "bslib::card_header",
+          id: "bslib::card_header",
           uiArguments: {},
-          uiChildren: [{ uiName: "textNode", uiArguments: { contents: "B" } }],
+          uiChildren: [{ id: "textNode", uiArguments: { contents: "B" } }],
         },
       ],
     },
     {
-      uiName: "gridlayout::grid_card",
+      id: "gridlayout::grid_card",
       uiArguments: {
         area: "C",
       },
-      uiChildren: [{ uiName: "textNode", uiArguments: { contents: "C" } }],
+      uiChildren: [{ id: "textNode", uiArguments: { contents: "C" } }],
     },
   ],
 };

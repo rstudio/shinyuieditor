@@ -16,5 +16,5 @@ type ValidTabPanels = TabPanelNode;
  * @returns Boolean value of if node is a tab panel
  */
 export function isValidTabPanel(node: ShinyUiNode): node is ValidTabPanels {
-  return validTabPanels.includes(node.uiName);
+  return validTabPanels.includes(node.id);
 }

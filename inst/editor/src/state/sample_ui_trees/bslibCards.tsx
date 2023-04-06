@@ -3,7 +3,7 @@ import type { KnownShinyUiNode } from "../../Shiny-Ui-Elements/uiNodeTypes";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
 export const bslibCards = {
-  uiName: "gridlayout::grid_page",
+  id: "gridlayout::grid_page",
   uiArguments: {
     layout: ["info  info    ", "empty onlyBody", "full  .    "],
     row_sizes: ["70px", "200px", "1fr"],
@@ -12,18 +12,18 @@ export const bslibCards = {
   },
   uiChildren: [
     {
-      uiName: "gridlayout::grid_card",
+      id: "gridlayout::grid_card",
       uiArguments: { area: "empty" },
       uiChildren: [
         {
-          uiName: "bslib::card_body_fill",
+          id: "bslib::card_body_fill",
           uiArguments: {},
           uiChildren: [
 
             {
-              uiName: "bslib::value_box",
+              id: "bslib::value_box",
               uiArguments: { title: "Value Box", showcase_icon: "github", value:{
-                uiName:"textNode",
+                id:"textNode",
                 uiArguments: {
                   contents: "Lorem Ipsum",
                 }
@@ -35,7 +35,7 @@ export const bslibCards = {
       ],
     },
     {
-      uiName: "gridlayout::grid_card_text",
+      id: "gridlayout::grid_card_text",
       uiArguments: {
         content: "Example of super simple bslib cards",
         alignment: "start",
@@ -43,17 +43,17 @@ export const bslibCards = {
       },
     },
     {
-      uiName: "gridlayout::grid_card",
+      id: "gridlayout::grid_card",
       uiArguments: {
         area: "onlyBody",
       },
       uiChildren: [
         {
-          uiName: "bslib::card_body_fill",
+          id: "bslib::card_body_fill",
           uiArguments: {},
           uiChildren: [
             {
-              uiName: "shiny::textInput",
+              id: "shiny::textInput",
               uiArguments: {
                 inputId: "myText",
                 label: "Text Input",
@@ -61,7 +61,7 @@ export const bslibCards = {
               },
             },
             {
-              uiName: "shiny::checkboxGroupInput",
+              id: "shiny::checkboxGroupInput",
               uiArguments: {
                 inputId: "myCheckboxGroup",
                 label: "Checkbox Group",
@@ -73,7 +73,7 @@ export const bslibCards = {
               },
             },
             {
-              uiName: "shiny::radioButtons",
+              id: "shiny::radioButtons",
               uiArguments: {
                 inputId: "myRadioButtons",
                 label: "Radio Buttons",
@@ -87,11 +87,11 @@ export const bslibCards = {
           ],
         },
         {
-          uiName: "bslib::card_footer",
+          id: "bslib::card_footer",
           uiArguments: {},
           uiChildren: [
             {
-              uiName: "textNode",
+              id: "textNode",
               uiArguments: {
                 contents: "Lorem Ipsum",
                 decoration: "default",
@@ -103,15 +103,15 @@ export const bslibCards = {
       ],
     },
     {
-      uiName: "gridlayout::grid_card",
+      id: "gridlayout::grid_card",
       uiArguments: { area: "full" },
       uiChildren: [
         {
-          uiName: "bslib::card_header",
+          id: "bslib::card_header",
           uiArguments: {},
           uiChildren: [
             {
-              uiName: "textNode",
+              id: "textNode",
               uiArguments: {
                 contents: "I am a text node!",
               },
@@ -119,12 +119,12 @@ export const bslibCards = {
           ],
         },
         {
-          uiName: "bslib::card_body_fill",
+          id: "bslib::card_body_fill",
           uiArguments: {},
           uiChildren: [],
         },
         {
-          uiName: "bslib::card_footer",
+          id: "bslib::card_footer",
           uiArguments: {},
           uiChildren: [],
         },

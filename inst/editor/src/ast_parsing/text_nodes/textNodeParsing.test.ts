@@ -105,7 +105,7 @@ describe("Can parse raw ast to text nodes", () => {
       (ast_to_ui_node(call_w_text) as ShinyUiParentNode).uiChildren
     ).toStrictEqual([
       {
-        uiName: "textNode",
+        id: "textNode",
         uiArguments: expect.objectContaining({
           contents: text_contents,
         }),
@@ -132,7 +132,7 @@ describe("Can parse raw ast to text nodes", () => {
       (ast_to_ui_node(call_w_text) as ShinyUiParentNode).uiChildren
     ).toStrictEqual([
       {
-        uiName: "textNode",
+        id: "textNode",
         uiArguments: expect.objectContaining({
           contents: text_contents,
           size: "headline",
@@ -160,7 +160,7 @@ describe("Can parse raw ast to text nodes", () => {
       (ast_to_ui_node(call_w_text) as ShinyUiParentNode).uiChildren
     ).toStrictEqual([
       {
-        uiName: "textNode",
+        id: "textNode",
         uiArguments: expect.objectContaining({
           contents: text_contents,
           decoration: "italic",
@@ -174,7 +174,7 @@ describe("Can convert from ui text node to code", () => {
   test("Basic undecorated text", () => {
     expect(
       text_node_to_code({
-        uiName: "textNode",
+        id: "textNode",
         uiArguments: {
           contents: text_contents,
         },
@@ -184,7 +184,7 @@ describe("Can convert from ui text node to code", () => {
   test("Header text", () => {
     expect(
       text_node_to_code({
-        uiName: "textNode",
+        id: "textNode",
         uiArguments: {
           contents: text_contents,
           size: "subtitle",

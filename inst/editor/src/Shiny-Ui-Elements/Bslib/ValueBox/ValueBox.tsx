@@ -64,7 +64,7 @@ const ValueBox: UiNodeComponent<ValueBoxArgs, { TakesChildren: true }> = ({
           <CardChildrenWithDropNodes
             uiChildren={uiChildren}
             path={path}
-            parentUiName="bslib::value_box"
+            parentid="bslib::value_box"
             messageOnHover="Add node to value box"
           />
         </div>
@@ -92,7 +92,7 @@ export const bslibValueBoxInfo = nodeInfoFactory<ValueBoxArgs>()({
     value: {
       inputType: "ui-node",
       defaultValue: {
-        uiName: "textNode",
+        id: "textNode",
         uiArguments: {
           contents: "My value",
         },

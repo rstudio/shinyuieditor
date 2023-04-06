@@ -30,7 +30,7 @@ export default function PathBreadcrumbLinear({
       return null;
     }
 
-    pathString.push(getUiNodeInfo(nodeAtDepth.uiName).title);
+    pathString.push(getUiNodeInfo(nodeAtDepth.id).title);
   }
 
   return (
@@ -44,13 +44,13 @@ export default function PathBreadcrumbLinear({
           }
           onClick={() => onSelect(path.slice(0, i))}
         >
-          {removeNamespaceFromUiName(name)}
+          {removeNamespaceFromid(name)}
         </div>
       ))}
     </div>
   );
 }
 
-function removeNamespaceFromUiName(uiName: string): string {
-  return uiName.replace(/[a-z]+::/, "");
+function removeNamespaceFromid(id: string): string {
+  return id.replace(/[a-z]+::/, "");
 }

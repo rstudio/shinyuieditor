@@ -9,28 +9,28 @@ import { removeNode } from "./removeNode";
 import { updateNode } from "./updateNode";
 
 const baseNode: ShinyUiNode = {
-  uiName: "gridlayout::grid_card",
+  id: "gridlayout::grid_card",
   uiArguments: {
     area: "panel",
   },
   uiChildren: [
     {
       // path = [0]
-      uiName: "gridlayout::grid_card",
+      id: "gridlayout::grid_card",
       uiArguments: {
         area: "panel2",
       },
       uiChildren: [
         // path = [0, 0]
         {
-          uiName: "shiny::plotOutput",
+          id: "shiny::plotOutput",
           uiArguments: {
             outputId: "myPlot",
           },
         },
         // path = [0, 1]
         {
-          uiName: "shiny::plotOutput",
+          id: "shiny::plotOutput",
           uiArguments: {
             outputId: "myPlot2",
           },
@@ -42,7 +42,7 @@ const baseNode: ShinyUiNode = {
 
 test("Remove a node", () => {
   expect(getNode(baseNode, [0, 1])).toEqual({
-    uiName: "shiny::plotOutput",
+    id: "shiny::plotOutput",
     uiArguments: {
       outputId: "myPlot2",
     },
@@ -56,14 +56,14 @@ test("Remove a node", () => {
 
 test("Modify a node", () => {
   expect(getNode(baseNode, [0, 0])).toEqual({
-    uiName: "shiny::plotOutput",
+    id: "shiny::plotOutput",
     uiArguments: {
       outputId: "myPlot",
     },
   });
 
   const nodeToReplaceWith: ShinyUiNode = {
-    uiName: "shiny::plotOutput",
+    id: "shiny::plotOutput",
     uiArguments: {
       outputId: "replacedNode",
     },
@@ -78,14 +78,14 @@ test("Modify a node", () => {
 
 test("Modify a node at first level", () => {
   const baseNode: ShinyUiNode = {
-    uiName: "gridlayout::grid_card",
+    id: "gridlayout::grid_card",
     uiArguments: {
       area: "panel",
     },
     uiChildren: [
       // path = [0]
       {
-        uiName: "shiny::plotOutput",
+        id: "shiny::plotOutput",
         uiArguments: {
           outputId: "myPlot",
         },
@@ -93,14 +93,14 @@ test("Modify a node at first level", () => {
     ],
   };
   expect(getNode(baseNode, [0])).toEqual({
-    uiName: "shiny::plotOutput",
+    id: "shiny::plotOutput",
     uiArguments: {
       outputId: "myPlot",
     },
   });
 
   const nodeToReplaceWith: ShinyUiNode = {
-    uiName: "shiny::plotOutput",
+    id: "shiny::plotOutput",
     uiArguments: {
       outputId: "replacedNode",
     },
@@ -115,7 +115,7 @@ test("Modify a node at first level", () => {
 
 // test("Update the settings of the root node", () => {
 //   const grid_app = {
-//     uiName: "gridlayout::grid_page",
+//     id: "gridlayout::grid_page",
 //     uiArguments: {
 //       areas: [["sidebar", "plot"]],
 //       row_sizes: ["1fr"],
@@ -123,7 +123,7 @@ test("Modify a node at first level", () => {
 //     },
 //     uiChildren: [
 //       {
-//         uiName: "gridlayout::grid_card",
+//         id: "gridlayout::grid_card",
 //         uiArguments: {
 //           area: "sidebar",
 //           horizontalAlign: "right",
@@ -131,7 +131,7 @@ test("Modify a node at first level", () => {
 //         },
 //         uiChildren: [
 //           {
-//             uiName: "shiny::sliderInput",
+//             id: "shiny::sliderInput",
 //             uiArguments: {
 //               inputId: "mySlider",
 //               label: "slider",
@@ -143,7 +143,7 @@ test("Modify a node at first level", () => {
 //         ],
 //       },
 //       {
-//         uiName: "gridlayout::grid_card",
+//         id: "gridlayout::grid_card",
 //         uiArguments: {
 //           area: "plot",
 //           horizontalAlign: "right",
@@ -151,7 +151,7 @@ test("Modify a node at first level", () => {
 //         },
 //         uiChildren: [
 //           {
-//             uiName: "shiny::plotOutput",
+//             id: "shiny::plotOutput",
 //             uiArguments: {
 //               outputId: "myPlot",
 //             },
@@ -164,7 +164,7 @@ test("Modify a node at first level", () => {
 //   const updated_app = updateNode(grid_app, {
 //     path: [],
 //     node: {
-//       uiName: "gridlayout::grid_page",
+//       id: "gridlayout::grid_page",
 //       uiArguments: fillInPartialTemplate({
 //         areas: [["new_sidebar_name", "plot"]],
 //         row_sizes: ["1fr"],
@@ -184,7 +184,7 @@ test("Add a node", () => {
   );
 
   const newUiNode: ShinyUiNode = {
-    uiName: "shiny::actionButton",
+    id: "shiny::actionButton",
     uiArguments: {
       inputId: "button",
       label: "My Button",

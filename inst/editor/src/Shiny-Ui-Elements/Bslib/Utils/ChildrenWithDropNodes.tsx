@@ -13,14 +13,14 @@ import type {
 import styles from "./CardUtils.module.css";
 
 export function CardChildrenWithDropNodes({
-  parentUiName,
+  parentid,
   uiChildren = [],
   path,
   dropPanelClass = styles.drop_watcher,
   messageOnHover,
   showOnEmpty,
 }: {
-  parentUiName: ShinyUiNodeNames;
+  parentid: ShinyUiNodeNames;
   messageOnHover: string;
   dropPanelClass?: string;
   uiChildren?: ShinyUiParentNode["uiChildren"];
@@ -33,7 +33,7 @@ export function CardChildrenWithDropNodes({
         className={dropPanelClass}
         child_loc={0}
         parentPath={path}
-        parentNodeType={parentUiName}
+        parentNodeType={parentid}
         messageOnHover={messageOnHover}
       >
         {uiChildren.length === 0 ? showOnEmpty : null}
@@ -45,7 +45,7 @@ export function CardChildrenWithDropNodes({
             className={dropPanelClass}
             child_loc={i + 1}
             parentPath={path}
-            parentNodeType={parentUiName}
+            parentNodeType={parentid}
             messageOnHover={messageOnHover}
           />
         </React.Fragment>
@@ -57,12 +57,12 @@ export function CardChildrenWithDropNodes({
 // Find the Ui nodes that have a height argument in them
 type NodesWithHeightSettings = Exclude<
   {
-    [Node in KnownShinyUiNode as Node["uiName"]]: Node["uiArguments"] extends {
+    [Node in KnownShinyUiNode as Node["id"]]: Node["uiArguments"] extends {
       height?: any;
     }
-      ? Node["uiName"]
+      ? Node["id"]
       : never;
-  }[KnownShinyUiNode["uiName"]],
+  }[KnownShinyUiNode["id"]],
   // Ignore bslib specific nodes
   `bslib::card_${string}`
 >;

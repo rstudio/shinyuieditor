@@ -4,10 +4,10 @@ import type { KnownShinyUiNode, ShinyUiNode } from "../../uiNodeTypes";
 
 export type GridItemNode = Extract<
   KnownShinyUiNode,
-  { uiName: `gridlayout::${string}`; uiArguments: { area: string } }
+  { id: `gridlayout::${string}`; uiArguments: { area: string } }
 >;
 
-const gridAwareNodeNamesTuple: UnionToTuple<GridItemNode["uiName"]> = [
+const gridAwareNodeNamesTuple: UnionToTuple<GridItemNode["id"]> = [
   "gridlayout::grid_card",
   "gridlayout::grid_card_text",
   "gridlayout::grid_card_plot",
@@ -17,5 +17,5 @@ const gridAwareNodeNamesTuple: UnionToTuple<GridItemNode["uiName"]> = [
 const gridItemNodes = new Set(gridAwareNodeNamesTuple);
 
 export function isValidGridItem(node: ShinyUiNode): node is GridItemNode {
-  return gridItemNodes.has(node.uiName as GridItemNode["uiName"]);
+  return gridItemNodes.has(node.id as GridItemNode["id"]);
 }

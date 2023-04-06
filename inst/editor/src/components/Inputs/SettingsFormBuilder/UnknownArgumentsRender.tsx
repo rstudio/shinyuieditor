@@ -66,7 +66,7 @@ export function UnknownArgumentsRender({
 
 function isUnknownUiFunction(x: unknown): x is UnknownUiNode {
   if (!isKnownShinyUiNode(x)) return false;
-  return x.uiName === "unknownUiFunction";
+  return x.id === "unknownUiFunction";
 }
 
 // Maximum number of characters of value to show before truncating

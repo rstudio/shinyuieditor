@@ -81,7 +81,7 @@ export function generate_ui_node_github_error_link(info: {
 }) {
   const { node, path, app_state } = info;
   return generate_gh_issue_url({
-    title: `Error rendering ${node.uiName}`,
+    title: `Error rendering ${node.id}`,
     body: collapseText(
       `This is what I was going when this error happened...\n`,
       generate_serialized_state_for_error(app_state),

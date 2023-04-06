@@ -16,16 +16,16 @@ import { FormBuilder } from "../components/Inputs/SettingsFormBuilder/FormBuilde
 
 import classes from "./UiElementsShowcase.module.css";
 
-import { shinyUiNames } from "./uiNodeTypes";
-function UiNodeAndSettings({ uiName, uiArguments }) {
+import { shinyids } from "./uiNodeTypes";
+function UiNodeAndSettings({ id, uiArguments }) {
   const [infoToRender, setInfoToRender] = React.useState(null);
 
   React.useEffect(() => {
-    const nodeInfo = getUiNodeInfo(uiName);
+    const nodeInfo = getUiNodeInfo(id);
 
     // If performance issues happen this can be memoized
     const newNode = {
-      uiName,
+      id,
       uiArguments,
       uiChildren: [],
     };
@@ -35,7 +35,7 @@ function UiNodeAndSettings({ uiName, uiArguments }) {
       Comp: nodeInfo.UiComponent,
       settingsInfo: buildStaticFormInfo(nodeInfo.settingsInfo, newNode),
     });
-  }, [uiArguments, uiName]);
+  }, [uiArguments, id]);
 
   const updateSettings = React.useCallback((name, action) => {
     setInfoToRender((info) => {
@@ -57,7 +57,7 @@ function UiNodeAndSettings({ uiName, uiArguments }) {
         ...info,
         node: newNode,
         settingsInfo: buildStaticFormInfo(
-          getUiNodeInfo(node.uiName).settingsInfo,
+          getUiNodeInfo(node.id).settingsInfo,
           newNode
         ),
       };
@@ -84,7 +84,7 @@ function UiNodeAndSettings({ uiName, uiArguments }) {
               },
               "data-sue-path": "0",
               "data-is-selected-node": false,
-              "aria-label": infoToRender.node.uiName,
+              "aria-label": infoToRender.node.id,
             }}
           />
         </div>
@@ -111,15 +111,13 @@ export const UiElementsShowcase = ({ nameOfElement }) => {
     getUiNodeInfo(nameOfElement).settingsInfo
   );
 
-  return (
-    <UiNodeAndSettings uiName={nameOfElement} uiArguments={defaultSettings} />
-  );
+  return <UiNodeAndSettings id={nameOfElement} uiArguments={defaultSettings} />;
 };
 
 UiElementsShowcase.argTypes = {
   nameOfElement: {
     control: { type: "select" },
-    options: shinyUiNames,
+    options: shinyids,
   },
 };
 
@@ -130,7 +128,7 @@ UiElementsShowcase.args = {
 // export const UnknownArgs: Story = () => {
 //   return (
 //     <UiNodeAndSettings
-//       uiName={"shiny::sliderInput"}
+//       id={"shiny::sliderInput"}
 //       uiArguments={{
 //         inputId: "mySlider",
 //         label: "Slid your value!",

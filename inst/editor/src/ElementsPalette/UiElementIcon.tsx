@@ -11,22 +11,22 @@ import { getUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
 
 import classes from "./styles.module.css";
 
-export function UiElementIcon({ uiName }: { uiName: ShinyUiNodeNames }) {
+export function UiElementIcon({ id }: { id: ShinyUiNodeNames }) {
   const {
     iconSrc,
     title,
     settingsInfo,
     description: infoPopup = title,
     default_node,
-  } = getUiNodeInfo(uiName);
+  } = getUiNodeInfo(id);
 
   const node = default_node
     ? {
-        uiName,
+        id,
         ...default_node,
       }
     : ({
-        uiName,
+        id,
         uiArguments: getDefaultSettings(settingsInfo),
       } as ShinyUiNode);
 
@@ -40,11 +40,7 @@ export function UiElementIcon({ uiName }: { uiName: ShinyUiNodeNames }) {
     <Tooltip placement="right">
       <TooltipTrigger asChild>
         <div className={classes.OptionContainer}>
-          <div
-            className={classes.OptionItem}
-            data-ui-name={uiName}
-            {...dragProps}
-          >
+          <div className={classes.OptionItem} data-ui-name={id} {...dragProps}>
             <img src={iconSrc} alt={title} className={classes.OptionIcon} />
             <label className={classes.OptionLabel}>{title}</label>
           </div>

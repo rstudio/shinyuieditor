@@ -58,5 +58,5 @@ export const gridlayoutCardInfo = nodeInfoFactory<GridBslibCardSettings>()({
 
 export type GridlayoutCardNode = Extract<
   KnownShinyUiNode,
-  { uiName: "gridlayout::grid_card" }
+  { id: "gridlayout::grid_card" }
 >;
