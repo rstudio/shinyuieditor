@@ -1,6 +1,6 @@
 # Class to start up and manage the background process running the preview app
 # shared with the shiny ui editor
-app_preview <- R6::R6Class(
+app_preview_runner <- R6::R6Class(
   "App_Preview",
   private = list(
     p = NULL,

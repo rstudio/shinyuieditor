@@ -93,7 +93,7 @@ launch_editor <- function(app_loc,
   )
 
   # Initialize app preview object for controlling background app preview
-  app_preview_obj <- app_preview$new(
+  app_preview_obj <- app_preview_runner$new(
     app_loc = app_loc,
     port = shiny_background_port,
     host = host,
