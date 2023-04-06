@@ -1,15 +1,19 @@
 import type { R_AST_Node } from "r-ast-parsing";
-import type { Expect, Equal } from "util-functions/src/TypescriptUtils";
+import type {
+  Equal,
+  Expand_Single,
+  Expect,
+} from "util-functions/src/TypescriptUtils";
 
 import type { CustomFormRenderFn } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
 import type { ArgsToDynamicInfo } from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";
 
 import type { shinyActionButtonInfo } from "./ShinyActionButton";
 import type {
+  namedArgsObject,
   ServerBindings,
   ShinyUiNode,
   StateUpdateSubscribers,
-  namedArgsObject,
   UiNodeComponent,
 } from "./uiNodeTypes";
 import type { unknownUiFunctionInfo } from "./UnknownUiFunction";
@@ -27,7 +31,7 @@ export function nodeInfoFactory<Args extends namedArgsObject>() {
     RFnName extends string,
     TakesChildren extends boolean,
     Comp extends UiNodeComponent<Args, { TakesChildren: TakesChildren }>,
-    RPackage extends string,
+    RPackage extends string = "none",
     ID extends string = RFnName,
     PyPackage extends string = "none",
     Cat extends string = "Uncategorized"
@@ -38,25 +42,37 @@ export function nodeInfoFactory<Args extends namedArgsObject>() {
     py_package,
     category,
     ...info
-  }: {
-    id?: ID;
-    r_package: RPackage;
-    py_package?: PyPackage;
-    category?: Cat;
-  } & CommonInfo<Args, RFnName, Comp, TakesChildren>) {
+  }: CommonInfo<
+    Args,
+    ID,
+    Cat,
+    RFnName,
+    RPackage,
+    PyPackage,
+    TakesChildren,
+    Comp
+  >) {
     return {
       id: id ?? r_fn_name,
       r_fn_name,
-      r_package,
+      r_package: r_package ?? "none",
       py_package: py_package ?? "none",
       category: category ?? "Uncategorized",
       ...info,
-    } as {
-      id: ID;
-      r_package: RPackage;
-      py_package: undefined extends PyPackage ? "none" : PyPackage;
-      category: Cat;
-    } & CommonInfo<Args, RFnName, Comp, TakesChildren>;
+    } as Expand_Single<
+      Required<
+        CommonInfo<
+          Args,
+          ID,
+          Cat,
+          RFnName,
+          RPackage,
+          PyPackage,
+          TakesChildren,
+          Comp
+        >
+      >
+    >;
   };
 }
 
@@ -74,14 +90,43 @@ type testing = [
 
 type CommonInfo<
   Args extends namedArgsObject,
-  Name extends string,
-  Comp extends UiNodeComponent<Args, { TakesChildren: boolean }>,
-  TakesChildren extends boolean
+  ID extends string,
+  Cat extends string,
+  RFnName extends string,
+  RPackage extends string,
+  PyPackage extends string,
+  TakesChildren extends boolean,
+  Comp extends UiNodeComponent<Args, { TakesChildren: TakesChildren }>
 > = {
   /**
-   * Name of function as called in code: e.g. `"sliderInput"` for `shiny::sliderInput()`
+   * Unique identifier for this node. Should not overlap with other nodes.
+   * Typically this is the function name but for functions with different names
+   * between r and python it may be something different
    */
-  r_fn_name: Name;
+  id?: ID;
+
+  /**
+   * What is the name of the R package that this node resides in, if it does. If
+   * left blank will default to "none"
+   */
+  r_package?: RPackage;
+
+  /**
+   * What's the name of the R package that this node resides in? If left blank will default to "none"
+   */
+  py_package?: PyPackage;
+
+  /**
+   * What category does this node belong to? If left blank will default to
+   * "Uncategorized"
+   */
+  category?: Cat;
+
+  /**
+   * Name of function as called in R code: e.g. `"sliderInput"` for
+   * `shiny::sliderInput()`
+   */
+  r_fn_name: RFnName;
 
   /**
    * The name of the component in plain language. E.g. Plot Output
