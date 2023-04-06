@@ -48,7 +48,7 @@ export type DropWatcherPanelProps = {
    */
   className?: string;
   /**
-   * UiName of the parent node. This is used to determine if the node being
+   * id of the parent node. This is used to determine if the node being
    * dropped is allowed to be dropped here or not.
    */
   parentNodeType: ShinyUiNodeNames;
@@ -100,7 +100,7 @@ export type DropWatcherPanelProps = {
 export function DropWatcherPanel({
   existing_node,
   child_loc = 0,
-  parentNodeType: parentNodeUiName,
+  parentNodeType: parentNodeid,
   parentPath,
   dropHandlerArgs,
   className = "",
@@ -154,8 +154,8 @@ export function DropWatcherPanel({
         toPath: [...parentPath, child_loc],
       }) &&
       isAllowedParent({
-        dragged: nodeInfo.node.uiName,
-        parent: parentNodeUiName,
+        dragged: nodeInfo.node.id,
+        parent: parentNodeid,
       }) &&
       isDropFilterAccepted(nodeInfo, dropFilters),
     ...dropHandlerArgs,
@@ -207,8 +207,8 @@ function ReplaceNodeDialog({
 }) {
   if (!existing_node || !replacementNode) return null;
 
-  const existing_node_name = getUiNodeTitle(existing_node.uiName);
-  const replacement_node_name = getUiNodeTitle(replacementNode.node.uiName);
+  const existing_node_name = getUiNodeTitle(existing_node.id);
+  const replacement_node_name = getUiNodeTitle(replacementNode.node.id);
 
   return (
     <div className={styles.replace_node_question} role="dialog">
@@ -238,9 +238,9 @@ function isDropFilterAccepted(
   if (!dropFilters) return true;
 
   if ("accepted" in dropFilters) {
-    return nodeInfo.node.uiName in dropFilters.accepted;
+    return nodeInfo.node.id in dropFilters.accepted;
   } else {
-    return !(nodeInfo.node.uiName in dropFilters.rejected);
+    return !(nodeInfo.node.id in dropFilters.rejected);
   }
 }
 

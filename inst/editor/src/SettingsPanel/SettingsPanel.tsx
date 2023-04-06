@@ -46,10 +46,10 @@ export function SettingsPanel({ tree }: SettingsPanelProps) {
 
   const isRootNode = selectedPath.length === 0;
 
-  const { uiName, uiArguments } = currentNode;
+  const { id, uiArguments } = currentNode;
 
   // If performance issues happen this can be memoized
-  const nodeInfo = getUiNodeInfo(uiName);
+  const nodeInfo = getUiNodeInfo(id);
   const staticSettingsInfo = buildStaticFormInfo(
     nodeInfo.settingsInfo,
     currentNode

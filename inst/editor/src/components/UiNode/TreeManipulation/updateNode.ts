@@ -21,7 +21,7 @@ export type UpdateNodeArguments = {
 };
 
 /**
- * Update the uiArguments and uiName of a node but leave the uiChildren alone
+ * Update the uiArguments and id of a node but leave the uiChildren alone
  */
 export function updateNode(
   tree: ShinyUiNode,

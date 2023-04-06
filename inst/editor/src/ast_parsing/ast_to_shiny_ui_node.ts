@@ -2,7 +2,7 @@ import type { ShinyUiNode } from "editor";
 import type { UiArgumentsObject } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
 import {
   getUiNodeInfo,
-  shinyUiNameToNamespacedName,
+  shinyidToNamespacedName,
 } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
 import type { Branch_Node, R_AST_Node } from "r-ast-parsing";
 import {
@@ -32,7 +32,7 @@ export function ast_to_ui_node(node: Branch_Node): ShinyUiNode {
     return create_unknownUiFunction({ node });
   }
 
-  const node_normalized_name = shinyUiNameToNamespacedName.get(fn_name.val);
+  const node_normalized_name = shinyidToNamespacedName.get(fn_name.val);
 
   if (node_normalized_name === undefined) {
     return create_unknownUiFunction({ node });
@@ -71,7 +71,7 @@ export function ast_to_ui_node(node: Branch_Node): ShinyUiNode {
     .map(process_child_arg);
 
   return {
-    uiName: node_normalized_name,
+    id: node_normalized_name,
     uiArguments,
     ...(uiChildren.length > 0 ? { uiChildren } : {}),
   };

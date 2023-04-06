@@ -16,7 +16,7 @@ import { AppTemplatePreview } from "./AppTemplatePreview";
 export type LayoutType = "grid" | "navbarPage";
 
 export function getLayoutType(layoutTree: ShinyUiNode): LayoutType {
-  return layoutTree.uiName === "gridlayout::grid_page" ? "grid" : "navbarPage";
+  return layoutTree.id === "gridlayout::grid_page" ? "grid" : "navbarPage";
 }
 
 const layoutIcons: Record<LayoutType, string> = {

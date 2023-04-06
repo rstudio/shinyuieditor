@@ -3,7 +3,7 @@ import type { TemplateInfo } from "communication-types/src/AppTemplates";
 import type { ShinyUiNode } from "../../../main";
 
 const appTree: ShinyUiNode = {
-  uiName: "gridlayout::grid_page",
+  id: "gridlayout::grid_page",
   uiArguments: {
     layout: [
       "header  header   header",
@@ -17,15 +17,15 @@ const appTree: ShinyUiNode = {
   },
   uiChildren: [
     {
-      uiName: "gridlayout::grid_card",
+      id: "gridlayout::grid_card",
       uiArguments: { area: "sidebar" },
       uiChildren: [
         {
-          uiName: "bslib::card_header",
+          id: "bslib::card_header",
           uiArguments: {},
           uiChildren: [
             {
-              uiName: "textNode",
+              id: "textNode",
               uiArguments: {
                 contents: "Settings",
               },
@@ -33,11 +33,11 @@ const appTree: ShinyUiNode = {
           ],
         },
         {
-          uiName: "bslib::card_body_fill",
+          id: "bslib::card_body_fill",
           uiArguments: {},
           uiChildren: [
             {
-              uiName: "shiny::sliderInput",
+              id: "shiny::sliderInput",
               uiArguments: {
                 inputId: "bins",
                 label: "Number of Bins",
@@ -48,7 +48,7 @@ const appTree: ShinyUiNode = {
               },
             },
             {
-              uiName: "shiny::numericInput",
+              id: "shiny::numericInput",
               uiArguments: {
                 inputId: "numRows",
                 label: "Number of table rows",
@@ -63,7 +63,7 @@ const appTree: ShinyUiNode = {
       ],
     },
     {
-      uiName: "gridlayout::grid_card_text",
+      id: "gridlayout::grid_card_text",
       uiArguments: {
         area: "header",
         content: "Geysers!",
@@ -72,17 +72,17 @@ const appTree: ShinyUiNode = {
       },
     },
     {
-      uiName: "gridlayout::grid_card",
+      id: "gridlayout::grid_card",
       uiArguments: {
         area: "table",
       },
       uiChildren: [
         {
-          uiName: "bslib::card_header",
+          id: "bslib::card_header",
           uiArguments: {},
           uiChildren: [
             {
-              uiName: "textNode",
+              id: "textNode",
               uiArguments: {
                 contents: "Table",
               },
@@ -90,11 +90,11 @@ const appTree: ShinyUiNode = {
           ],
         },
         {
-          uiName: "bslib::card_body_fill",
+          id: "bslib::card_body_fill",
           uiArguments: {},
           uiChildren: [
             {
-              uiName: "DT::DTOutput",
+              id: "DT::DTOutput",
               uiArguments: {
                 outputId: "myTable",
                 width: "100%",
@@ -105,21 +105,21 @@ const appTree: ShinyUiNode = {
       ],
     },
     {
-      uiName: "gridlayout::grid_card_plot",
+      id: "gridlayout::grid_card_plot",
       uiArguments: {
         area: "bluePlot",
       },
     },
     {
-      uiName: "gridlayout::grid_card",
+      id: "gridlayout::grid_card",
       uiArguments: { area: "plotly" },
       uiChildren: [
         {
-          uiName: "bslib::card_header",
+          id: "bslib::card_header",
           uiArguments: {},
           uiChildren: [
             {
-              uiName: "textNode",
+              id: "textNode",
               uiArguments: {
                 contents: "Interactive Plot",
               },
@@ -127,11 +127,11 @@ const appTree: ShinyUiNode = {
           ],
         },
         {
-          uiName: "bslib::card_body_fill",
+          id: "bslib::card_body_fill",
           uiArguments: {},
           uiChildren: [
             {
-              uiName: "plotly::plotlyOutput",
+              id: "plotly::plotlyOutput",
               uiArguments: {
                 outputId: "distPlot",
                 width: "100%",

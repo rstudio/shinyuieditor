@@ -48,11 +48,11 @@ export const bslibCardInfo = nodeInfoFactory<BslibCardArguments>()({
     uiArguments: { full_screen: true },
     uiChildren: [
       {
-        uiName: "bslib::card_header",
+        id: "bslib::card_header",
         uiArguments: {},
         uiChildren: [
           {
-            uiName: "textNode",
+            id: "textNode",
             uiArguments: {
               contents: "Header",
             },
@@ -63,8 +63,8 @@ export const bslibCardInfo = nodeInfoFactory<BslibCardArguments>()({
   },
 });
 
-type BslibCardNode = Extract<KnownShinyUiNode, { uiName: "bslib::card" }>;
+type BslibCardNode = Extract<KnownShinyUiNode, { id: "bslib::card" }>;
 
 export function isBslibCard(node: ShinyUiNode): node is BslibCardNode {
-  return node.uiName === "bslib::card";
+  return node.id === "bslib::card";
 }

@@ -10,15 +10,13 @@ import type {
 import classes from "./Tabset.module.css";
 
 const dropFilters = {
-  rejected: invalidTabPanelContents.filter(
-    (uiName) => uiName !== "shiny::tabPanel"
-  ),
+  rejected: invalidTabPanelContents.filter((id) => id !== "shiny::tabPanel"),
 };
 
-const wrap_in_tab_panel = ({ uiName }: ShinyUiNode) => {
-  return uiName !== "shiny::tabPanel"
+const wrap_in_tab_panel = ({ id }: ShinyUiNode) => {
+  return id !== "shiny::tabPanel"
     ? ({
-        uiName: "shiny::tabPanel",
+        id: "shiny::tabPanel",
         uiArguments: { title: "Tab Panel" },
       } as const)
     : null;

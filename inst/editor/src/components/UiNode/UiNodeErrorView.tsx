@@ -18,7 +18,7 @@ export function UiNodeErrorView({
 }) {
   return (
     <GeneralErrorView
-      header={`Something went wrong rendering ${node.uiName}()`}
+      header={`Something went wrong rendering ${node.id}()`}
       error={error}
       resetErrorBoundary={resetErrorBoundary}
       generateIssueLink={(state_at_error) =>

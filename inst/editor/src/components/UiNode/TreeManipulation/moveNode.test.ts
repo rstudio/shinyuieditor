@@ -6,26 +6,26 @@ import { placeNode } from "./placeNode";
 
 // Two Panels, one with a slider and a plot and the other with just a plot
 const baseNode: ShinyUiNode = {
-  uiName: "gridlayout::grid_card",
+  id: "gridlayout::grid_card",
   uiArguments: {
     area: "panel",
   },
   uiChildren: [
     {
       // path = [0]
-      uiName: "gridlayout::grid_card",
+      id: "gridlayout::grid_card",
       uiArguments: {
         area: "left",
       },
       uiChildren: [
         // path = [0, 0]
         {
-          uiName: "gridlayout::grid_card",
+          id: "gridlayout::grid_card",
           uiArguments: { area: "controls-holder" },
           uiChildren: [
             {
               // path = [0, 0, 0]
-              uiName: "shiny::actionButton",
+              id: "shiny::actionButton",
               uiArguments: {
                 inputId: "bins",
                 label: "Number of Bins",
@@ -33,7 +33,7 @@ const baseNode: ShinyUiNode = {
             },
             {
               // path = [0, 0, 1]
-              uiName: "gridlayout::grid_card",
+              id: "gridlayout::grid_card",
               uiArguments: { area: "controls-sub" },
               uiChildren: [],
             },
@@ -41,7 +41,7 @@ const baseNode: ShinyUiNode = {
         },
         // path = [0, 1]
         {
-          uiName: "shiny::plotOutput",
+          id: "shiny::plotOutput",
           uiArguments: {
             outputId: "plotA",
           },
@@ -50,12 +50,12 @@ const baseNode: ShinyUiNode = {
     },
     {
       // path = [1]
-      uiName: "gridlayout::grid_card",
+      id: "gridlayout::grid_card",
       uiArguments: { area: "right" },
       uiChildren: [
         // path = [1, 0]
         {
-          uiName: "shiny::plotOutput",
+          id: "shiny::plotOutput",
           uiArguments: {
             outputId: "plotB",
           },
@@ -67,7 +67,7 @@ const baseNode: ShinyUiNode = {
 
 describe("Move nodes within tree", () => {
   const plotANode: ShinyUiNode = {
-    uiName: "shiny::plotOutput",
+    id: "shiny::plotOutput",
     uiArguments: {
       outputId: "plotA",
     },
@@ -80,7 +80,7 @@ describe("Move nodes within tree", () => {
     });
 
     expect(getNode(baseNode, [0, 1])).toEqual({
-      uiName: "shiny::plotOutput",
+      id: "shiny::plotOutput",
       uiArguments: {
         outputId: "plotA",
       },
@@ -91,7 +91,7 @@ describe("Move nodes within tree", () => {
 
     // And should be placed as the last child of the toPath
     expect(getNode(plotToRight, [1, 1])).toEqual({
-      uiName: "shiny::plotOutput",
+      id: "shiny::plotOutput",
       uiArguments: {
         outputId: "plotA",
       },
@@ -111,7 +111,7 @@ describe("Move nodes within tree", () => {
 
 test("Move node around within its current container", () => {
   const buttonA: ShinyUiNode = {
-    uiName: "shiny::actionButton",
+    id: "shiny::actionButton",
     uiArguments: {
       inputId: "A",
       label: "A",
@@ -119,21 +119,21 @@ test("Move node around within its current container", () => {
   };
 
   const buttonB: ShinyUiNode = {
-    uiName: "shiny::actionButton",
+    id: "shiny::actionButton",
     uiArguments: {
       inputId: "B",
       label: "B",
     },
   };
   const buttonC: ShinyUiNode = {
-    uiName: "shiny::actionButton",
+    id: "shiny::actionButton",
     uiArguments: {
       inputId: "C",
       label: "C",
     },
   };
   const sliderPanel: ShinyUiNode = {
-    uiName: "gridlayout::grid_card",
+    id: "gridlayout::grid_card",
     uiArguments: { area: "controls-holder" },
     uiChildren: [
       buttonA, // [0]
@@ -162,24 +162,24 @@ test("Move node around within its current container", () => {
 describe("Node can displace its parent", () => {
   test("parent to child", () => {
     const leafNode: ShinyUiLeafNode = {
-      uiName: "gridlayout::grid_card",
+      id: "gridlayout::grid_card",
       uiArguments: { area: "child" },
     };
 
     const tree: ShinyUiNode = {
-      uiName: "gridlayout::grid_card",
+      id: "gridlayout::grid_card",
       uiArguments: { area: "root" },
       uiChildren: [
         {
-          uiName: "gridlayout::grid_card",
+          id: "gridlayout::grid_card",
           uiArguments: { area: "leaf1" },
         },
         {
-          uiName: "gridlayout::grid_card",
+          id: "gridlayout::grid_card",
           uiArguments: { area: "parent" },
           uiChildren: [
             {
-              uiName: "gridlayout::grid_card",
+              id: "gridlayout::grid_card",
               uiArguments: { area: "leaf2" },
             },
             leafNode,

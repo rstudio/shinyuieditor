@@ -33,18 +33,18 @@ export function makeGridFriendlyNode(  node: ShinyUiNode,
     const { uiArguments, uiChildren } = node;
 
     return {
-      uiName: "gridlayout::grid_card",
+      id: "gridlayout::grid_card",
       uiArguments: { area, ...uiArguments },
       uiChildren,
     } satisfies GridlayoutCardNode;
   }
 
   return {
-    uiName: "gridlayout::grid_card",
+    id: "gridlayout::grid_card",
     uiArguments: { area },
     uiChildren: [
       {
-        uiName: "bslib::card_body_fill",
+        id: "bslib::card_body_fill",
         uiArguments: {},
         uiChildren: [node as KnownShinyUiNode],
       },

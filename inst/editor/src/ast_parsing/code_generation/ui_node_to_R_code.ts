@@ -43,9 +43,9 @@ export function ui_node_to_R_code(
     }
 
     // Check if the ui node has a custom print function
-    const node_info = getUiNodeInfo(node.uiName);
+    const node_info = getUiNodeInfo(node.id);
 
-    let fn_name: string = node.uiName;
+    let fn_name: string = node.id;
 
     if (opts.remove_namespace) {
       const library_name = fn_name.match(/\w+(?=::)/)?.[0];

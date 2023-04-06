@@ -25,7 +25,7 @@ export type UiNodeProps = {
  * Recursively render the nodes in a UI Tree
  */
 const UiNode = ({ path, node, canDrag = true }: UiNodeProps) => {
-  const node_info = getUiNodeInfo(node.uiName);
+  const node_info = getUiNodeInfo(node.id);
 
   const Comp = node_info.UiComponent as UiNodeComponent<
     typeof node.uiArguments,

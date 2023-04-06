@@ -3,7 +3,7 @@ import type { KnownShinyUiNode } from "../../Shiny-Ui-Elements/uiNodeTypes";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
 export const basicGridPage: KnownShinyUiNode = {
-  uiName: "gridlayout::grid_page",
+  id: "gridlayout::grid_page",
   uiArguments: {
     layout: ["header header", "sidebar plot", "sidebar plot"],
     row_sizes: ["100px", "1fr", "1fr"],
@@ -12,7 +12,7 @@ export const basicGridPage: KnownShinyUiNode = {
   },
   uiChildren: [
     {
-      uiName: "gridlayout::grid_card_text",
+      id: "gridlayout::grid_card_text",
       uiArguments: {
         area: "header",
         content: "My App",
@@ -21,13 +21,13 @@ export const basicGridPage: KnownShinyUiNode = {
       },
     },
     {
-      uiName: "gridlayout::grid_card",
+      id: "gridlayout::grid_card",
       uiArguments: {
         area: "sidebar",
       },
       uiChildren: [
         {
-          uiName: "shiny::sliderInput",
+          id: "shiny::sliderInput",
           uiArguments: {
             inputId: "mySlider",
             label: "Slider",
@@ -37,7 +37,7 @@ export const basicGridPage: KnownShinyUiNode = {
           },
         },
         {
-          uiName: "shiny::numericInput",
+          id: "shiny::numericInput",
           uiArguments: {
             inputId: "myNumericInput",
             label: "Numeric Input",
@@ -48,7 +48,7 @@ export const basicGridPage: KnownShinyUiNode = {
           },
         },
         {
-          uiName: "unknownUiFunction",
+          id: "unknownUiFunction",
           uiArguments: {
             text: `myCoolCustomRFunction(arg1, arg2)`,
           },
@@ -56,7 +56,7 @@ export const basicGridPage: KnownShinyUiNode = {
       ],
     },
     {
-      uiName: "gridlayout::grid_card_plot",
+      id: "gridlayout::grid_card_plot",
       uiArguments: {
         area: "plot",
       },

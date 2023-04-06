@@ -105,40 +105,40 @@ export const shinyUiNodeInfoArray = [
 ] as const;
 
 const shinyUiNodeInfo = new Map<string, ShinyUiNodeInfo>(
-  shinyUiNodeInfoArray.map((info) => [info.uiName, info])
+  shinyUiNodeInfoArray.map((info) => [info.id, info])
 );
 
 const containerNodes = new Set<string>(
   shinyUiNodeInfoArray
     .filter((info) => info.takesChildren)
-    .map((info) => info.uiName)
+    .map((info) => info.id)
 );
 
 /**
  *
- * @param uiName Name of ui node to look up
+ * @param id Name of ui node to look up
  * @returns Set of information about that node, or error if it doesn't exist
  * @throws Error if node doesn't exist
  */
-export function getUiNodeInfo(uiName: string): ShinyUiNodeInfo {
-  if (!shinyUiNodeInfo.has(uiName)) {
-    throw new Error(`Failed to find node info for requested node: ${uiName}`);
+export function getUiNodeInfo(id: string): ShinyUiNodeInfo {
+  if (!shinyUiNodeInfo.has(id)) {
+    throw new Error(`Failed to find node info for requested node: ${id}`);
   }
-  return shinyUiNodeInfo.get(uiName) as ShinyUiNodeInfo;
+  return shinyUiNodeInfo.get(id) as ShinyUiNodeInfo;
 }
 
 /**
- * Get plain english title of a node based on its uiName
- * @param uiName Name of ui node to look up
+ * Get plain english title of a node based on its id
+ * @param id Name of ui node to look up
  * @returns Plain english title for node. E.g. `Slider Input`
  * @throws Error if node doesn't exist
  */
-export function getUiNodeTitle(uiName: string): string {
-  return getUiNodeInfo(uiName).title;
+export function getUiNodeTitle(id: string): string {
+  return getUiNodeInfo(id).title;
 }
 
 export type ShinyUiNodeInfo = Expand<typeof shinyUiNodeInfoArray[number]>;
-export type ShinyUiNodeNames = ShinyUiNodeInfo["uiName"];
+export type ShinyUiNodeNames = ShinyUiNodeInfo["id"];
 export type ShinyUiNodeLibraries = ShinyUiNodeInfo["library"];
 export type ShinyUiNodeCategories = Exclude<
   ShinyUiNodeInfo["category"],
@@ -155,8 +155,8 @@ export type ShinyUiNodeCategories = Exclude<
 /**
  * Names of all the available Ui elements
  */
-export const shinyUiNames = new Set<string>(
-  shinyUiNodeInfoArray.map(({ uiName }) => uiName)
+export const shinyids = new Set<string>(
+  shinyUiNodeInfoArray.map(({ id }) => id)
 );
 
 /**
@@ -164,36 +164,33 @@ export const shinyUiNames = new Set<string>(
  * namespaced name (`shiny::sliderInput`)  to the namespaced name. Also acts as
  * a check for if a node is in known functions
  * */
-export const shinyUiNameToNamespacedName = new Map<string, string>([
-  ...(shinyUiNodeInfoArray.map(({ name, uiName }) => [name, uiName]) as [
+export const shinyidToNamespacedName = new Map<string, string>([
+  ...(shinyUiNodeInfoArray.map(({ name, id }) => [name, id]) as [
     string,
     string
   ][]),
-  ...(shinyUiNodeInfoArray.map(({ uiName }) => [uiName, uiName]) as [
-    string,
-    string
-  ][]),
+  ...(shinyUiNodeInfoArray.map(({ id }) => [id, id]) as [string, string][]),
 ]);
 
 /** A ui node type that type checks its values. Used for things like declaring test ui trees etc.. */
 export type KnownShinyUiNode = {
-  [NodeInfo in ShinyUiNodeInfo as NodeInfo["uiName"]]: {
-    uiName: NodeInfo["uiName"];
+  [NodeInfo in ShinyUiNodeInfo as NodeInfo["id"]]: {
+    id: NodeInfo["id"];
     uiArguments: Required<NodeInfo>["example_args"];
   } & (NodeInfo["takesChildren"] extends true
     ? { uiChildren: KnownUiChildren }
     : {});
-}[ShinyUiNodeInfo["uiName"]];
+}[ShinyUiNodeInfo["id"]];
 
 type KnownUiChildren = Array<KnownShinyUiNode>;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const knownUiNodeTest: KnownShinyUiNode = {
-  uiName: "bslib::card",
+  id: "bslib::card",
   uiArguments: { full_screen: true },
   uiChildren: [
     {
-      uiName: "shiny::actionButton",
+      id: "shiny::actionButton",
       uiArguments: { inputId: "btn", label: "My Button" },
     },
   ],
@@ -202,7 +199,7 @@ const knownUiNodeTest: KnownShinyUiNode = {
 // @ts-expect-error
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const knownUiNodeTestFail: KnownShinyUiNode = {
-  uiName: "shiny::actionButton",
+  id: "shiny::actionButton",
   uiArguments: {
     inputId: "test",
   },
@@ -212,7 +209,7 @@ const knownUiNodeTestFail: KnownShinyUiNode = {
  * Ui Node with no children
  */
 export type ShinyUiLeafNode = {
-  uiName: string;
+  id: string;
   uiArguments: UiArgumentsObject;
 };
 
@@ -233,7 +230,7 @@ export type MakeShinyUiNode<
   Args extends UiArgumentsObject,
   TakesChildren extends boolean = false
 > = {
-  uiName: string;
+  id: string;
   uiArguments: Args;
 } & (TakesChildren extends true ? { uiChildren: Array<ShinyUiNode> } : {});
 
@@ -241,7 +238,7 @@ export type MakeShinyUiNode<
  * Narrow if a node is a parent node or not
  */
 export function isParentNode(node: ShinyUiNode): node is ShinyUiParentNode {
-  return "uiChildren" in node || containerNodes.has(node.uiName);
+  return "uiChildren" in node || containerNodes.has(node.id);
 }
 
 /**

@@ -15,15 +15,15 @@ const possible_elements = new Set([
 ]);
 
 const headerScaffold = {
-  uiName: "bslib::card_header",
+  id: "bslib::card_header",
   uiArguments: {},
 } as const;
 const bodyScaffold = {
-  uiName: "bslib::card_body_fill",
+  id: "bslib::card_body_fill",
   uiArguments: {},
 } as const;
 const footerScaffold = {
-  uiName: "bslib::card_footer",
+  id: "bslib::card_footer",
   uiArguments: {},
 } as const;
 
@@ -38,8 +38,8 @@ export function render_card_elements(
   let child_index = 0;
 
   uiChildren.forEach((child) => {
-    const { uiName } = child;
-    if (!possible_elements.has(uiName)) {
+    const { id } = child;
+    if (!possible_elements.has(id)) {
       // eslint-disable-next-line no-console
       console.warn("Unknown child of a grid card seen. Ignoring", child);
       return;
@@ -52,11 +52,11 @@ export function render_card_elements(
       />
     );
     child_index++;
-    if (uiName === "bslib::card_header") {
+    if (id === "bslib::card_header") {
       header = child_node;
-    } else if (uiName === "bslib::card_body_fill") {
+    } else if (id === "bslib::card_body_fill") {
       body = child_node;
-    } else if (uiName === "bslib::card_footer") {
+    } else if (id === "bslib::card_footer") {
       footer = child_node;
     }
   });

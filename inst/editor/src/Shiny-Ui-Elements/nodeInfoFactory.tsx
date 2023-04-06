@@ -39,7 +39,7 @@ export function nodeInfoFactory<Args extends UiArgumentsObject>() {
     category?: Cat;
   } & CommonInfo<Args, Name, Comp, TakesChildren>) {
     return {
-      uiName: library ? `${library}::${name}` : name,
+      id: library ? `${library}::${name}` : name,
       name,
       library,
       category: category ?? "Uncategorized",
@@ -52,9 +52,9 @@ export function nodeInfoFactory<Args extends UiArgumentsObject>() {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 type testing = [
   Expect<Equal<typeof unknownUiFunctionInfo["category"], "Uncategorized">>,
-  Expect<Equal<typeof unknownUiFunctionInfo["uiName"], "unknownUiFunction">>,
+  Expect<Equal<typeof unknownUiFunctionInfo["id"], "unknownUiFunction">>,
   Expect<Equal<typeof unknownUiFunctionInfo["library"], "Internal">>,
-  Expect<Equal<typeof shinyActionButtonInfo["uiName"], "shiny::actionButton">>,
+  Expect<Equal<typeof shinyActionButtonInfo["id"], "shiny::actionButton">>,
   Expect<Equal<typeof shinyActionButtonInfo["category"], "Inputs">>,
   Expect<Equal<typeof shinyActionButtonInfo["library"], "shiny">>
 ];
@@ -67,7 +67,7 @@ type InfoOut<
   Cat extends string,
   TakesChildren extends boolean
 > = {
-  uiName: Lib extends "Internal" ? Name : `${Lib}::${Name}`;
+  id: Lib extends "Internal" ? Name : `${Lib}::${Name}`;
   /** We use library instead of package here because package is a reserved
    * keyword in strict js modules */
   library: Lib;

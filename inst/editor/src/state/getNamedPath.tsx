@@ -14,7 +14,7 @@ export function getNamedPath(path: NodePath, tree: ShinyUiNode): string[] {
       break;
     }
 
-    pathString.push(getUiNodeTitle(nodeAtDepth.uiName));
+    pathString.push(getUiNodeTitle(nodeAtDepth.id));
   }
 
   return pathString;

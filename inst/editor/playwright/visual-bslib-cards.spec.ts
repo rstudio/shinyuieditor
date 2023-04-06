@@ -4,7 +4,7 @@ import type { KnownShinyUiNode } from "../src/Shiny-Ui-Elements/uiNodeTypes";
 
 import { mockBackendState } from "./utils/mockBackend";
 const shortCardTree: KnownShinyUiNode = {
-  uiName: "gridlayout::grid_page",
+  id: "gridlayout::grid_page",
   uiArguments: {
     layout: ["onlyBody", ".       "],
     row_sizes: ["165px", "1fr"],
@@ -13,17 +13,17 @@ const shortCardTree: KnownShinyUiNode = {
   },
   uiChildren: [
     {
-      uiName: "gridlayout::grid_card",
+      id: "gridlayout::grid_card",
       uiArguments: {
         area: "onlyBody",
       },
       uiChildren: [
         {
-          uiName: "bslib::card_body_fill",
+          id: "bslib::card_body_fill",
           uiArguments: {},
           uiChildren: [
             {
-              uiName: "shiny::textInput",
+              id: "shiny::textInput",
               uiArguments: {
                 inputId: "myText",
                 label: "Text Input",
@@ -31,7 +31,7 @@ const shortCardTree: KnownShinyUiNode = {
               },
             },
             {
-              uiName: "shiny::checkboxGroupInput",
+              id: "shiny::checkboxGroupInput",
               uiArguments: {
                 inputId: "myCheckboxGroup",
                 label: "Checkbox Group",
@@ -43,7 +43,7 @@ const shortCardTree: KnownShinyUiNode = {
               },
             },
             {
-              uiName: "shiny::radioButtons",
+              id: "shiny::radioButtons",
               uiArguments: {
                 inputId: "myRadioButtons",
                 label: "Radio Buttons",
@@ -57,11 +57,11 @@ const shortCardTree: KnownShinyUiNode = {
           ],
         },
         {
-          uiName: "bslib::card_footer",
+          id: "bslib::card_footer",
           uiArguments: {},
           uiChildren: [
             {
-              uiName: "textNode",
+              id: "textNode",
               uiArguments: {
                 contents: "Lorem Ipsum",
                 decoration: "default",

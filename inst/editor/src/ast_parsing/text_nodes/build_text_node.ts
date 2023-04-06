@@ -13,7 +13,7 @@ export function build_text_node(node: Text_Node): TextUiNode;
 
 export function build_text_node(node: Text_Node | string): TextUiNode {
   const text_node: TextUiNode = {
-    uiName: "textNode",
+    id: "textNode",
     uiArguments: {
       contents: "TO_REPLACE",
     },

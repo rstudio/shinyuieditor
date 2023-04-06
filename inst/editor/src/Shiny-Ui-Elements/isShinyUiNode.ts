@@ -2,10 +2,10 @@ import { is_object } from "util-functions/src/is_object";
 
 import type { ShinyUiNode } from "../main";
 
-import { shinyUiNames } from "./uiNodeTypes";
+import { shinyids } from "./uiNodeTypes";
 
 /**
- * Check if a value is a shiny ui node in the sense that it has a `uiName` and
+ * Check if a value is a shiny ui node in the sense that it has a `id` and
  *`uiArguments` field but not neccesarily that it is in the list of known nodes
  * @param x The node to check
  * @returns  True if the node fits the structure of a shiny ui node
@@ -13,8 +13,8 @@ import { shinyUiNames } from "./uiNodeTypes";
 export function isShinyUiNode(x: unknown): x is ShinyUiNode {
   return (
     is_object(x) &&
-    "uiName" in x &&
-    typeof x.uiName === "string" &&
+    "id" in x &&
+    typeof x.id === "string" &&
     "uiArguments" in x &&
     is_object(x.uiArguments)
   );
@@ -28,9 +28,6 @@ export function isShinyUiNode(x: unknown): x is ShinyUiNode {
  */
 export function isKnownShinyUiNode(x: unknown): x is ShinyUiNode {
   return (
-    is_object(x) &&
-    "uiName" in x &&
-    typeof x.uiName === "string" &&
-    shinyUiNames.has(x.uiName)
+    is_object(x) && "id" in x && typeof x.id === "string" && shinyids.has(x.id)
   );
 }

@@ -3,13 +3,13 @@ import type { TemplateInfo } from "communication-types/src/AppTemplates";
 import type { ShinyUiNode } from "../../../main";
 
 const navbarTree: ShinyUiNode = {
-  uiName: "shiny::navbarPage",
+  id: "shiny::navbarPage",
   uiArguments: {
     title: "Chick Weights",
     selected: "Line Plots",
     collapsible: true,
     theme: {
-      uiName: "unknownUiFunction",
+      id: "unknownUiFunction",
       uiArguments: {
         text: "bslib::bs_theme()",
       },
@@ -17,13 +17,13 @@ const navbarTree: ShinyUiNode = {
   },
   uiChildren: [
     {
-      uiName: "shiny::tabPanel",
+      id: "shiny::tabPanel",
       uiArguments: {
         title: "Line Plots",
       },
       uiChildren: [
         {
-          uiName: "gridlayout::grid_container",
+          id: "gridlayout::grid_container",
           uiArguments: {
             row_sizes: ["1fr"],
             col_sizes: ["250px", "1fr"],
@@ -32,25 +32,25 @@ const navbarTree: ShinyUiNode = {
           },
           uiChildren: [
             {
-              uiName: "gridlayout::grid_card",
+              id: "gridlayout::grid_card",
               uiArguments: { area: "num_chicks" },
               uiChildren: [
                 {
-                  uiName: "bslib::card_header",
+                  id: "bslib::card_header",
                   uiArguments: {},
                   uiChildren: [
                     {
-                      uiName: "textNode",
+                      id: "textNode",
                       uiArguments: { contents: "Settings" },
                     },
                   ],
                 },
                 {
-                  uiName: "bslib::card_body_fill",
+                  id: "bslib::card_body_fill",
                   uiArguments: {},
                   uiChildren: [
                     {
-                      uiName: "shiny::sliderInput",
+                      id: "shiny::sliderInput",
                       uiArguments: {
                         inputId: "numChicks",
                         label: "Number of chicks",
@@ -66,7 +66,7 @@ const navbarTree: ShinyUiNode = {
               ],
             },
             {
-              uiName: "gridlayout::grid_card_plot",
+              id: "gridlayout::grid_card_plot",
               uiArguments: {
                 area: "linePlots",
               },
@@ -76,13 +76,13 @@ const navbarTree: ShinyUiNode = {
       ],
     },
     {
-      uiName: "shiny::tabPanel",
+      id: "shiny::tabPanel",
       uiArguments: {
         title: "Distributions",
       },
       uiChildren: [
         {
-          uiName: "gridlayout::grid_container",
+          id: "gridlayout::grid_container",
           uiArguments: {
             row_sizes: ["165px", "1fr"],
             col_sizes: ["1fr"],
@@ -91,33 +91,33 @@ const navbarTree: ShinyUiNode = {
           },
           uiChildren: [
             {
-              uiName: "gridlayout::grid_card_plot",
+              id: "gridlayout::grid_card_plot",
               uiArguments: {
                 area: "dists",
               },
             },
             {
-              uiName: "gridlayout::grid_card",
+              id: "gridlayout::grid_card",
               uiArguments: {
                 area: "facetOption",
               },
               uiChildren: [
                 {
-                  uiName: "bslib::card_header",
+                  id: "bslib::card_header",
                   uiArguments: {},
                   uiChildren: [
                     {
-                      uiName: "textNode",
+                      id: "textNode",
                       uiArguments: { contents: "Distribution Plot Options" },
                     },
                   ],
                 },
                 {
-                  uiName: "bslib::card_body_fill",
+                  id: "bslib::card_body_fill",
                   uiArguments: {},
                   uiChildren: [
                     {
-                      uiName: "shiny::radioButtons",
+                      id: "shiny::radioButtons",
                       uiArguments: {
                         inputId: "distFacet",
                         label: "Facet distribution by",

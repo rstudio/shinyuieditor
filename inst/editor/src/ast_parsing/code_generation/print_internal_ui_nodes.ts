@@ -12,19 +12,16 @@ import { text_node_to_code } from "../text_nodes/text_node_to_code";
 type InternalUiNodeNames = Extract<
   ShinyUiNodeInfo,
   { library: "Internal" }
->["uiName"];
+>["id"];
 
-type InternalUiNode = Extract<
-  KnownShinyUiNode,
-  { uiName: InternalUiNodeNames }
->;
+type InternalUiNode = Extract<KnownShinyUiNode, { id: InternalUiNodeNames }>;
 
 export function isInternalUiNode(node: ShinyUiNode): node is InternalUiNode {
   return isUnknownUiNode(node) || isTextUiNode(node);
 }
 
 export function print_internal_ui_nodes(node: InternalUiNode): string {
-  switch (node.uiName) {
+  switch (node.id) {
     case "unknownUiFunction":
       return print_unknown_ui_node(node);
     case "textNode":

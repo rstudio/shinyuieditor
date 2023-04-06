@@ -17,5 +17,5 @@ const validGridContainerNodeNames = [
 export function isValidGridContainer(
   node: ShinyUiNode
 ): node is GridContainerNode {
-  return validGridContainerNodeNames.includes(node.uiName);
+  return validGridContainerNodeNames.includes(node.id);
 }

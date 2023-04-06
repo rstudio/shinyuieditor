@@ -1,7 +1,7 @@
 import type { ShinyUiParentNode } from "../uiNodeTypes";
 
 export const newTabPanelNode: ShinyUiParentNode = {
-  uiName: "shiny::tabPanel",
+  id: "shiny::tabPanel",
   uiArguments: {
     title: "Tab",
   },

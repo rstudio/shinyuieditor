@@ -3,7 +3,7 @@ import type { TemplateInfo } from "communication-types/src/AppTemplates";
 import type { ShinyUiParentNode } from "../../../Shiny-Ui-Elements/uiNodeTypes";
 
 const navbarTree: ShinyUiParentNode = {
-  uiName: "gridlayout::grid_page",
+  id: "gridlayout::grid_page",
   uiArguments: {
     row_sizes: ["70px", "1fr", "1fr"],
     col_sizes: ["250px", "1fr"],
@@ -12,22 +12,22 @@ const navbarTree: ShinyUiParentNode = {
   },
   uiChildren: [
     {
-      uiName: "gridlayout::grid_card",
+      id: "gridlayout::grid_card",
       uiArguments: { area: "sidebar" },
       uiChildren: [
         {
-          uiName: "bslib::card_header",
+          id: "bslib::card_header",
           uiArguments: {},
           uiChildren: [
-            { uiName: "textNode", uiArguments: { contents: "Settings" } },
+            { id: "textNode", uiArguments: { contents: "Settings" } },
           ],
         },
         {
-          uiName: "bslib::card_body_fill",
+          id: "bslib::card_body_fill",
           uiArguments: {},
           uiChildren: [
             {
-              uiName: "shiny::sliderInput",
+              id: "shiny::sliderInput",
               uiArguments: {
                 inputId: "numChicks",
                 label: "Number of Chicks",
@@ -39,7 +39,7 @@ const navbarTree: ShinyUiParentNode = {
               },
             },
             {
-              uiName: "shiny::radioButtons",
+              id: "shiny::radioButtons",
               uiArguments: {
                 inputId: "distFacet",
                 label: "Facet Distribution By",
@@ -54,7 +54,7 @@ const navbarTree: ShinyUiParentNode = {
       ],
     },
     {
-      uiName: "gridlayout::grid_card_text",
+      id: "gridlayout::grid_card_text",
       uiArguments: {
         area: "header",
         content: "Chick Weights",
@@ -63,13 +63,13 @@ const navbarTree: ShinyUiParentNode = {
       },
     },
     {
-      uiName: "gridlayout::grid_card_plot",
+      id: "gridlayout::grid_card_plot",
       uiArguments: {
         area: "dists",
       },
     },
     {
-      uiName: "gridlayout::grid_card_plot",
+      id: "gridlayout::grid_card_plot",
       uiArguments: {
         area: "linePlots",
       },

@@ -15,7 +15,7 @@ const BslibCardFooter: UiNodeComponent<
       <CardChildrenWithDropNodes
         uiChildren={uiChildren}
         path={path}
-        parentUiName="bslib::card_footer"
+        parentid="bslib::card_footer"
         messageOnHover="Add to card footer"
       />
     </CardFooter>

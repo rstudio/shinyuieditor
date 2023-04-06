@@ -4,7 +4,7 @@ import type { ShinyUiNode } from "../src/main";
 
 import { mockBackendState } from "./utils/mockBackend";
 const testingUiTree: ShinyUiNode = {
-  uiName: "gridlayout::grid_page",
+  id: "gridlayout::grid_page",
   uiArguments: {
     layout: [". .", ". ."],
     row_sizes: ["1fr", "1fr"],
