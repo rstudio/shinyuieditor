@@ -11,7 +11,7 @@ export type ShinySelectInputProps = {
 };
 
 export const shinySelectInputInfo = nodeInfoFactory<ShinySelectInputProps>()({
-  library: "shiny",
+  r_package: "shiny",
   name: "selectInput",
   title: "Select Input",
   takesChildren: false,

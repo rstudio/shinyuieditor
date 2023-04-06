@@ -35,7 +35,7 @@ export const bslib_card_settings_info: ArgsToDynamicInfo<BslibCardArguments> = {
 };
 
 export const bslibCardInfo = nodeInfoFactory<BslibCardArguments>()({
-  library: "bslib",
+  r_package: "bslib",
   name: "card",
   title: "Card",
   takesChildren: true,

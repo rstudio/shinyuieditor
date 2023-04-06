@@ -18,7 +18,7 @@ export type GridlayoutGridCardTextProps = {
 
 export const gridlayoutTextPanelInfo =
   nodeInfoFactory<GridlayoutGridCardTextProps>()({
-    library: "gridlayout",
+    r_package: "gridlayout",
     name: "grid_card_text",
     title: "Grid Text Card",
     takesChildren: false,

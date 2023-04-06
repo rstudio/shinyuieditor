@@ -13,7 +13,7 @@ export type ShinyTextInputProps = {
 };
 
 export const shinyTextInputInfo = nodeInfoFactory<ShinyTextInputProps>()({
-  library: "shiny",
+  r_package: "shiny",
   name: "textInput",
   title: "Text Input",
   takesChildren: false,

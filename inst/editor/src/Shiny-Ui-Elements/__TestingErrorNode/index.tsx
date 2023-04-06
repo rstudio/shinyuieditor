@@ -10,7 +10,7 @@ import styles from "./styles.module.css";
 export const testingErrorNodeInfo = nodeInfoFactory<{
   error_msg: string;
 }>()({
-  library: "TESTING",
+  r_package: "TESTING",
   name: "error_node",
   title: "Error Throwing Node",
   takesChildren: false,

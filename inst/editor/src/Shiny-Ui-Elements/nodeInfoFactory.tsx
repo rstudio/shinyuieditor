@@ -31,17 +31,17 @@ export function nodeInfoFactory<Args extends namedArgsObject>() {
     Cat extends string = "Uncategorized"
   >({
     name,
-    library,
+    r_package,
     category,
     ...info
   }: {
-    library?: Lib;
+    r_package?: Lib;
     category?: Cat;
   } & CommonInfo<Args, Name, Comp, TakesChildren>) {
     return {
-      id: library ? `${library}::${name}` : name,
+      id: r_package ? `${r_package}::${name}` : name,
       name,
-      library,
+      r_package,
       category: category ?? "Uncategorized",
       ...info,
     } as InfoOut<Args, Name, Comp, Lib, Cat, TakesChildren>;
@@ -53,10 +53,10 @@ export function nodeInfoFactory<Args extends namedArgsObject>() {
 type testing = [
   Expect<Equal<typeof unknownUiFunctionInfo["category"], "Uncategorized">>,
   Expect<Equal<typeof unknownUiFunctionInfo["id"], "unknownUiFunction">>,
-  Expect<Equal<typeof unknownUiFunctionInfo["library"], "Internal">>,
+  Expect<Equal<typeof unknownUiFunctionInfo["r_package"], "Internal">>,
   Expect<Equal<typeof shinyActionButtonInfo["id"], "shiny::actionButton">>,
   Expect<Equal<typeof shinyActionButtonInfo["category"], "Inputs">>,
-  Expect<Equal<typeof shinyActionButtonInfo["library"], "shiny">>
+  Expect<Equal<typeof shinyActionButtonInfo["r_package"], "shiny">>
 ];
 
 type InfoOut<
@@ -68,9 +68,7 @@ type InfoOut<
   TakesChildren extends boolean
 > = {
   id: Lib extends "Internal" ? Name : `${Lib}::${Name}`;
-  /** We use library instead of package here because package is a reserved
-   * keyword in strict js modules */
-  library: Lib;
+  r_package: Lib;
   category: Cat;
 } & CommonInfo<Args, Name, Comp, TakesChildren>;
 

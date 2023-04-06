@@ -14,7 +14,7 @@ export type ShinyCheckboxGroupInputProps = {
 
 export const shinyCheckboxGroupInputInfo =
   nodeInfoFactory<ShinyCheckboxGroupInputProps>()({
-    library: "shiny",
+    r_package: "shiny",
     name: "checkboxGroupInput",
     title: "Checkbox Group",
     takesChildren: false,
