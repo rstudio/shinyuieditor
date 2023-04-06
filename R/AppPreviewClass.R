@@ -117,7 +117,7 @@ app_preview_runner <- R6::R6Class(
       )
 
       private$logger(
-        "Started Shiny preview app - App PID:", 
+        "Started Shiny preview app - App PID:",
         private$p$get_pid()
       )
       private$is_running <- TRUE

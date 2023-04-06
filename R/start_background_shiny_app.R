@@ -7,7 +7,7 @@ start_background_shiny_app <- function(app_loc,
     write_log("Starting up background shiny app")
     p <- callr::r_bg(
       func = function(app_loc, host, port) {
-        # Turn on live-reload and dev mode 
+        # Turn on live-reload and dev mode
         options(shiny.autoreload = TRUE)
         shiny::runApp(app_loc, port = port, host = host)
       },

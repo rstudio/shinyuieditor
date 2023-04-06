@@ -136,7 +136,6 @@ extract_value_and_type <- function(x) {
       val = deparse(x),
       type = "s"
     )
-    
   } else {
     # This will error if we give it a non-ast-valid node so no need to do
     # exhaustive checks in this logic
