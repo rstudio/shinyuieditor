@@ -5,8 +5,10 @@ import {
   TooltipTrigger,
 } from "../components/PopoverEl/FloatingPopover";
 import { useMakeDraggable } from "../DragAndDropHelpers/useMakeDraggable";
-import type { ShinyUiNode } from "../main";
-import type { ShinyUiNodeNames } from "../Shiny-Ui-Elements/uiNodeTypes";
+import type {
+  ShinyUiNode,
+  ShinyUiNodeNames,
+} from "../Shiny-Ui-Elements/uiNodeTypes";
 import { getUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
 
 import classes from "./styles.module.css";

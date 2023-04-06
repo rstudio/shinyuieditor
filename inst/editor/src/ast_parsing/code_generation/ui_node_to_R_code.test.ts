@@ -1,6 +1,7 @@
-import type { ShinyUiNode } from "editor";
-
-import type { KnownShinyUiNode } from "../../Shiny-Ui-Elements/uiNodeTypes";
+import type {
+  KnownShinyUiNode,
+  ShinyUiNode,
+} from "../../Shiny-Ui-Elements/uiNodeTypes";
 
 import { ui_node_to_R_code } from "./ui_node_to_R_code";
 

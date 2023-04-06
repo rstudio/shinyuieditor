@@ -1,5 +1,4 @@
-import type { ShinyUiNode } from "../main";
-import type { NodePath } from "../Shiny-Ui-Elements/uiNodeTypes";
+import type { NodePath, ShinyUiNode } from "../Shiny-Ui-Elements/uiNodeTypes";
 import { getNamedPath } from "../state/getNamedPath";
 
 import classes from "./PathBreadcrumb.module.css";

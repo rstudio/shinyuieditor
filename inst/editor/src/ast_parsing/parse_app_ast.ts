@@ -1,4 +1,3 @@
-import type { ShinyUiNode } from "editor";
 import type { Script_Position } from "r-ast-parsing";
 import type {
   Assignment_Operator,
@@ -9,6 +8,8 @@ import {
   get_known_outputs,
   get_ui_assignment_node,
 } from "r-ast-parsing/src/get_assignment_nodes";
+
+import type { ShinyUiNode } from "../Shiny-Ui-Elements/uiNodeTypes";
 
 import type {
   Multi_File_App_Type,

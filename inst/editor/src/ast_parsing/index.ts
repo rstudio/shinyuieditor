@@ -1,6 +1,7 @@
-import type { ShinyUiNode } from "editor";
 import type { R_AST } from "r-ast-parsing";
 import type { Known_Outputs } from "r-ast-parsing/src/get_assignment_nodes";
+
+import type { ShinyUiNode } from "../Shiny-Ui-Elements/uiNodeTypes";
 
 export type Raw_Script_Info = {
   script: string;

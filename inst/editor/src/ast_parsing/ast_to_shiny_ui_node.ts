@@ -1,5 +1,7 @@
-import type { ShinyUiNode } from "editor";
-import type { namedArgsObject } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
+import type {
+  namedArgsObject,
+  ShinyUiNode,
+} from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
 import {
   getUiNodeInfo,
   shinyidToNamespacedName,

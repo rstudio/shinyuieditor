@@ -1,8 +1,8 @@
 import { addAtIndex } from "util-functions/src/arrays";
 
-import type { ShinyUiNode } from "../../../main";
 import type {
   NodePath,
+  ShinyUiNode,
   ShinyUiParentNode,
 } from "../../../Shiny-Ui-Elements/uiNodeTypes";
 

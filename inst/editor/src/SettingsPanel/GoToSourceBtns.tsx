@@ -3,8 +3,10 @@ import type { PickKeyFn } from "util-functions/src/TypescriptUtils";
 
 import { useBackendConnection } from "../backendCommunication/useBackendMessageCallbacks";
 import { TooltipButton } from "../components/PopoverEl/Tooltip";
-import type { ShinyUiNode } from "../main";
-import type { ServerBindings } from "../Shiny-Ui-Elements/uiNodeTypes";
+import type {
+  ServerBindings,
+  ShinyUiNode,
+} from "../Shiny-Ui-Elements/uiNodeTypes";
 import { getUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
 import { useCurrentAppInfo } from "../state/app_info";
 

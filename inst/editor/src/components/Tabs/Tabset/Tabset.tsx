@@ -3,9 +3,11 @@ import React from "react";
 import { FaPlus } from "react-icons/fa";
 import { seqArray } from "util-functions/src/arrays";
 
-import type { ShinyUiNode } from "../../../main";
 import { makeChildPath } from "../../../Shiny-Ui-Elements/nodePathUtils";
-import type { NodePath } from "../../../Shiny-Ui-Elements/uiNodeTypes";
+import type {
+  NodePath,
+  ShinyUiNode,
+} from "../../../Shiny-Ui-Elements/uiNodeTypes";
 import { useCurrentSelection } from "../../../state/selectedPath";
 import { usePlaceNode } from "../../../state/usePlaceNode";
 import { mergeClasses } from "../../../utils/mergeClasses";
