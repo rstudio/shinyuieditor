@@ -9,28 +9,28 @@ import { removeNode } from "./removeNode";
 import { updateNode } from "./updateNode";
 
 const baseNode: ShinyUiNode = {
-  id: "gridlayout::grid_card",
+  id: "grid_card",
   namedArgs: {
     area: "panel",
   },
   children: [
     {
       // path = [0]
-      id: "gridlayout::grid_card",
+      id: "grid_card",
       namedArgs: {
         area: "panel2",
       },
       children: [
         // path = [0, 0]
         {
-          id: "shiny::plotOutput",
+          id: "plotOutput",
           namedArgs: {
             outputId: "myPlot",
           },
         },
         // path = [0, 1]
         {
-          id: "shiny::plotOutput",
+          id: "plotOutput",
           namedArgs: {
             outputId: "myPlot2",
           },
@@ -42,7 +42,7 @@ const baseNode: ShinyUiNode = {
 
 test("Remove a node", () => {
   expect(getNode(baseNode, [0, 1])).toEqual({
-    id: "shiny::plotOutput",
+    id: "plotOutput",
     namedArgs: {
       outputId: "myPlot2",
     },
@@ -56,14 +56,14 @@ test("Remove a node", () => {
 
 test("Modify a node", () => {
   expect(getNode(baseNode, [0, 0])).toEqual({
-    id: "shiny::plotOutput",
+    id: "plotOutput",
     namedArgs: {
       outputId: "myPlot",
     },
   });
 
   const nodeToReplaceWith: ShinyUiNode = {
-    id: "shiny::plotOutput",
+    id: "plotOutput",
     namedArgs: {
       outputId: "replacedNode",
     },
@@ -78,14 +78,14 @@ test("Modify a node", () => {
 
 test("Modify a node at first level", () => {
   const baseNode: ShinyUiNode = {
-    id: "gridlayout::grid_card",
+    id: "grid_card",
     namedArgs: {
       area: "panel",
     },
     children: [
       // path = [0]
       {
-        id: "shiny::plotOutput",
+        id: "plotOutput",
         namedArgs: {
           outputId: "myPlot",
         },
@@ -93,14 +93,14 @@ test("Modify a node at first level", () => {
     ],
   };
   expect(getNode(baseNode, [0])).toEqual({
-    id: "shiny::plotOutput",
+    id: "plotOutput",
     namedArgs: {
       outputId: "myPlot",
     },
   });
 
   const nodeToReplaceWith: ShinyUiNode = {
-    id: "shiny::plotOutput",
+    id: "plotOutput",
     namedArgs: {
       outputId: "replacedNode",
     },
@@ -115,7 +115,7 @@ test("Modify a node at first level", () => {
 
 // test("Update the settings of the root node", () => {
 //   const grid_app = {
-//     id: "gridlayout::grid_page",
+//     id: "grid_page",
 //     namedArgs: {
 //       areas: [["sidebar", "plot"]],
 //       row_sizes: ["1fr"],
@@ -123,7 +123,7 @@ test("Modify a node at first level", () => {
 //     },
 //     children: [
 //       {
-//         id: "gridlayout::grid_card",
+//         id: "grid_card",
 //         namedArgs: {
 //           area: "sidebar",
 //           horizontalAlign: "right",
@@ -131,7 +131,7 @@ test("Modify a node at first level", () => {
 //         },
 //         children: [
 //           {
-//             id: "shiny::sliderInput",
+//             id: "sliderInput",
 //             namedArgs: {
 //               inputId: "mySlider",
 //               label: "slider",
@@ -143,7 +143,7 @@ test("Modify a node at first level", () => {
 //         ],
 //       },
 //       {
-//         id: "gridlayout::grid_card",
+//         id: "grid_card",
 //         namedArgs: {
 //           area: "plot",
 //           horizontalAlign: "right",
@@ -151,7 +151,7 @@ test("Modify a node at first level", () => {
 //         },
 //         children: [
 //           {
-//             id: "shiny::plotOutput",
+//             id: "plotOutput",
 //             namedArgs: {
 //               outputId: "myPlot",
 //             },
@@ -164,7 +164,7 @@ test("Modify a node at first level", () => {
 //   const updated_app = updateNode(grid_app, {
 //     path: [],
 //     node: {
-//       id: "gridlayout::grid_page",
+//       id: "grid_page",
 //       namedArgs: fillInPartialTemplate({
 //         areas: [["new_sidebar_name", "plot"]],
 //         row_sizes: ["1fr"],
@@ -184,7 +184,7 @@ test("Add a node", () => {
   );
 
   const newUiNode: ShinyUiNode = {
-    id: "shiny::actionButton",
+    id: "actionButton",
     namedArgs: {
       inputId: "button",
       label: "My Button",

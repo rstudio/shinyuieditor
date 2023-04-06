@@ -24,7 +24,7 @@ const ShinyNumericInput: UiNodeComponent<
 
   return (
     <div
-      className={mergeClasses(classes.container, "shiny::numericInput")}
+      className={mergeClasses(classes.container, "numericInput")}
       style={{ width }}
       {...wrapperProps}
     >

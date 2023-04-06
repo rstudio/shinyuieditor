@@ -17,7 +17,7 @@ const ShinySliderInput: UiNodeComponent<
   const [currentVal, setCurrentVal] = React.useState(settings.value);
   return (
     <div
-      className={mergeClasses(classes.container, "shiny::sliderInput")}
+      className={mergeClasses(classes.container, "sliderInput")}
       style={{ width }}
       {...wrapperProps}
     >

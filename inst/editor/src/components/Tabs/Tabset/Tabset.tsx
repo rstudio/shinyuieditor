@@ -110,7 +110,7 @@ function Tabset({
 }
 
 const emptyTabPanel: ShinyUiNode = {
-  id: "shiny::tabPanel",
+  id: "tabPanel",
   namedArgs: { title: "Empty Tab" },
   children: [],
 };

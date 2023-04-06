@@ -1,16 +1,22 @@
 import type { UnionToTuple } from "util-functions/src/TypescriptUtils";
 
-import type { KnownShinyUiNode, ShinyUiNode } from "../../uiNodeTypes";
-
-export type GridItemNode = Extract<
+import type {
   KnownShinyUiNode,
-  { id: `gridlayout::${string}`; namedArgs: { area: string } }
->;
+  NodeInfoByRPackage,
+  ShinyUiNode,
+} from "../../uiNodeTypes";
 
-const gridAwareNodeNamesTuple: UnionToTuple<GridItemNode["id"]> = [
-  "gridlayout::grid_card",
-  "gridlayout::grid_card_text",
-  "gridlayout::grid_card_plot",
+type GridItemNodeIds = Extract<
+  NodeInfoByRPackage["gridlayout"],
+  { settingsInfo: { area: any } }
+>["id"];
+
+export type GridItemNode = Extract<KnownShinyUiNode, { id: GridItemNodeIds }>;
+
+const gridAwareNodeNamesTuple: UnionToTuple<GridItemNodeIds> = [
+  "grid_card",
+  "grid_card_text",
+  "grid_card_plot",
 ];
 
 // Place in a set so our checking of the node name is O(1)

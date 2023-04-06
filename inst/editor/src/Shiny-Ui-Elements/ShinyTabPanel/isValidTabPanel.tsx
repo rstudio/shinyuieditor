@@ -5,7 +5,7 @@ import type { ShinyUiNode } from "../uiNodeTypes";
 import type { TabPanelNode } from ".";
 
 // right now I can't figure out a more elegant way to do it
-const validTabPanels = ["shiny::tabPanel"];
+const validTabPanels = ["tabPanel"];
 
 type ValidTabPanels = TabPanelNode;
 

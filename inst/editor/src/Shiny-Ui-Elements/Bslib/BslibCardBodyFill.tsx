@@ -22,7 +22,7 @@ const BslibCardBody: UiNodeComponent<
       <CardChildrenWithDropNodes
         children={children}
         path={path}
-        parentid="bslib::card_body_fill"
+        parentid="card_body_fill"
         messageOnHover="Add to card body"
       />
     </CardBodyFill>

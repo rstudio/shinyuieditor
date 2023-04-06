@@ -6,7 +6,7 @@ import type { KnownShinyUiNode } from "../../Shiny-Ui-Elements/uiNodeTypes";
  * An app with a node that spits errors for testing error catching.
  */
 export const errorTestingTree = {
-  id: "gridlayout::grid_page",
+  id: "grid_page",
   namedArgs: {
     layout: ["A"],
     gap_size: "1rem",
@@ -15,17 +15,17 @@ export const errorTestingTree = {
   },
   children: [
     {
-      id: "gridlayout::grid_card",
+      id: "grid_card",
       namedArgs: {
         area: "A",
       },
       children: [
         {
-          id: "bslib::card_body_fill",
+          id: "card_body_fill",
           namedArgs: {},
           children: [
             {
-              id: "TESTING::error_node",
+              id: "error_node",
               namedArgs: { error_msg: "Uh oh" },
             },
           ],

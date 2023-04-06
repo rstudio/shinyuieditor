@@ -5,20 +5,20 @@ import type { ShinyUiNode } from "../src/Shiny-Ui-Elements/uiNodeTypes";
 import { mockBackendState } from "./utils/mockBackend";
 
 const basicNavbarPage: ShinyUiNode = {
-  id: "shiny::navbarPage",
+  id: "navbarPage",
   namedArgs: {
     title: "My Navbar Page",
     collapsible: true,
   },
   children: [
     {
-      id: "shiny::tabPanel",
+      id: "tabPanel",
       namedArgs: {
         title: "Settings",
       },
       children: [
         {
-          id: "shiny::actionButton",
+          id: "actionButton",
           namedArgs: {
             label: "Do something",
             inputId: "btn",
@@ -27,13 +27,13 @@ const basicNavbarPage: ShinyUiNode = {
       ],
     },
     {
-      id: "shiny::tabPanel",
+      id: "tabPanel",
       namedArgs: {
         title: "Plot 1",
       },
       children: [
         {
-          id: "shiny::plotOutput",
+          id: "plotOutput",
           namedArgs: {
             outputId: "MyPlot",
             width: "100%",
@@ -43,13 +43,13 @@ const basicNavbarPage: ShinyUiNode = {
       ],
     },
     {
-      id: "shiny::tabPanel",
+      id: "tabPanel",
       namedArgs: {
         title: "Plot 2",
       },
       children: [
         {
-          id: "shiny::plotOutput",
+          id: "plotOutput",
           namedArgs: {
             outputId: "MyOtherPlot",
             width: "50%",
@@ -72,9 +72,7 @@ test("Can delete elements and undo/redo those changes with keyboard shortcuts", 
 
   await page.goto("/");
 
-  const plotTab = page.locator(
-    `[aria-label="shiny::navbarPage"] >> text=Plot 1`
-  );
+  const plotTab = page.locator(`[aria-label="navbarPage"] >> text=Plot 1`);
   // First we switch to a different tab
   await plotTab.click();
 

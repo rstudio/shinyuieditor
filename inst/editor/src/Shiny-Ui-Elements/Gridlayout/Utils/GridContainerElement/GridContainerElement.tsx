@@ -144,7 +144,7 @@ export const GridContainerElement: UiNodeComponent<
             return (
               <DropWatcherPanel
                 parentPath={path}
-                parentNodeType="gridlayout::grid_container"
+                parentNodeType="grid_container"
                 key={cell_pos}
                 data-cell-pos={cell_pos}
                 minHeightOnAvailable="100%"

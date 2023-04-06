@@ -6,20 +6,20 @@ import { dragDrop } from "./utils/dragDrop";
 import { mockBackendState } from "./utils/mockBackend";
 
 const basicNavbarPage: ShinyUiNode = {
-  id: "shiny::navbarPage",
+  id: "navbarPage",
   namedArgs: {
     title: "My Navbar Page",
     collapsible: true,
   },
   children: [
     {
-      id: "shiny::tabPanel",
+      id: "tabPanel",
       namedArgs: {
         title: "Settings",
       },
       children: [
         {
-          id: "shiny::actionButton",
+          id: "actionButton",
           namedArgs: {
             label: "Do something",
             inputId: "btn",
@@ -28,13 +28,13 @@ const basicNavbarPage: ShinyUiNode = {
       ],
     },
     {
-      id: "shiny::tabPanel",
+      id: "tabPanel",
       namedArgs: {
         title: "Plot 1",
       },
       children: [
         {
-          id: "shiny::plotOutput",
+          id: "plotOutput",
           namedArgs: {
             outputId: "MyPlot",
             width: "100%",
@@ -44,13 +44,13 @@ const basicNavbarPage: ShinyUiNode = {
       ],
     },
     {
-      id: "shiny::tabPanel",
+      id: "tabPanel",
       namedArgs: {
         title: "Plot 2",
       },
       children: [
         {
-          id: "shiny::plotOutput",
+          id: "plotOutput",
           namedArgs: {
             outputId: "MyOtherPlot",
             width: "50%",
@@ -68,11 +68,11 @@ test("Basic usage of navbar page", async ({ page }) => {
   await page.goto("/");
 
   // First we switch to a different tab
-  await page.locator(`[aria-label="shiny::navbarPage"] >> text=Plot 1`).click();
+  await page.locator(`[aria-label="navbarPage"] >> text=Plot 1`).click();
 
   // Now we select the element contained within that tab
   await page
-    .locator(`[aria-label="tab panel Plot 1"] [aria-label="shiny::plotOutput"]`)
+    .locator(`[aria-label="tab panel Plot 1"] [aria-label="plotOutput"]`)
     .click();
 
   // Next we delete that element
@@ -105,18 +105,14 @@ test("Basic usage of navbar page", async ({ page }) => {
   await dragDrop(page, "text=/^Select Input$/", `[aria-label="Add new tab"]`);
 
   // Make sure that the newly added tab is visible
-  await expect(
-    page.locator(`[aria-label = "shiny::selectInput"]`)
-  ).toBeVisible();
+  await expect(page.locator(`[aria-label = "selectInput"]`)).toBeVisible();
 
-  await expect(
-    page.locator(`[aria-label = "shiny::plotOutput"]`)
-  ).not.toBeVisible();
+  await expect(page.locator(`[aria-label = "plotOutput"]`)).not.toBeVisible();
 
   // Add a new empty tab panel by clicking the new tab button
   await page.locator(`button[aria-label="Add new tab"]`).click();
 
-  const openTabSelector = `[data-active-tab="true"] [aria-label="shiny::tabPanel"]`;
+  const openTabSelector = `[data-active-tab="true"] [aria-label="tabPanel"]`;
   const childrenOfOpenTabLocator = page
     .locator(openTabSelector)
     .locator(`[data-sue-path]`);

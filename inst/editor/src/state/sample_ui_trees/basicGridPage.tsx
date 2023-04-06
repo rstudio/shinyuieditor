@@ -3,7 +3,7 @@ import type { KnownShinyUiNode } from "../../Shiny-Ui-Elements/uiNodeTypes";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
 export const basicGridPage: KnownShinyUiNode = {
-  id: "gridlayout::grid_page",
+  id: "grid_page",
   namedArgs: {
     layout: ["header header", "sidebar plot", "sidebar plot"],
     row_sizes: ["100px", "1fr", "1fr"],
@@ -12,7 +12,7 @@ export const basicGridPage: KnownShinyUiNode = {
   },
   children: [
     {
-      id: "gridlayout::grid_card_text",
+      id: "grid_card_text",
       namedArgs: {
         area: "header",
         content: "My App",
@@ -21,13 +21,13 @@ export const basicGridPage: KnownShinyUiNode = {
       },
     },
     {
-      id: "gridlayout::grid_card",
+      id: "grid_card",
       namedArgs: {
         area: "sidebar",
       },
       children: [
         {
-          id: "shiny::sliderInput",
+          id: "sliderInput",
           namedArgs: {
             inputId: "mySlider",
             label: "Slider",
@@ -37,7 +37,7 @@ export const basicGridPage: KnownShinyUiNode = {
           },
         },
         {
-          id: "shiny::numericInput",
+          id: "numericInput",
           namedArgs: {
             inputId: "myNumericInput",
             label: "Numeric Input",
@@ -56,7 +56,7 @@ export const basicGridPage: KnownShinyUiNode = {
       ],
     },
     {
-      id: "gridlayout::grid_card_plot",
+      id: "grid_card_plot",
       namedArgs: {
         area: "plot",
       },

@@ -42,14 +42,14 @@ export function nodeInfoFactory<Args extends namedArgsObject>() {
     category?: Cat;
   } & CommonInfo<Args, Name, Comp, TakesChildren>) {
     return {
-      id: r_package ? `${r_package}::${name}` : name,
+      id: name,
       name,
       r_package,
       py_package: py_package ?? "none",
       category: category ?? "Uncategorized",
       ...info,
     } as {
-      id: RPackage extends "Internal" ? Name : `${RPackage}::${Name}`;
+      id: Name;
       r_package: RPackage;
       py_package: undefined extends PyPackage ? "none" : PyPackage;
       category: Cat;
@@ -63,7 +63,7 @@ type testing = [
   Expect<Equal<typeof unknownUiFunctionInfo["category"], "Uncategorized">>,
   Expect<Equal<typeof unknownUiFunctionInfo["id"], "unknownUiFunction">>,
   Expect<Equal<typeof unknownUiFunctionInfo["r_package"], "Internal">>,
-  Expect<Equal<typeof shinyActionButtonInfo["id"], "shiny::actionButton">>,
+  Expect<Equal<typeof shinyActionButtonInfo["id"], "actionButton">>,
   Expect<Equal<typeof shinyActionButtonInfo["category"], "Inputs">>,
   Expect<Equal<typeof shinyActionButtonInfo["r_package"], "shiny">>
 ];

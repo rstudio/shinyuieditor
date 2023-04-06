@@ -58,13 +58,13 @@ const ValueBox: UiNodeComponent<ValueBoxArgs, { TakesChildren: true }> = ({
               messageOnHover={
                 namedArgs.value ? "Replace value" : "Drop a value node here"
               }
-              parentNodeType="bslib::value_box"
+              parentNodeType="value_box"
             />
           </div>
           <CardChildrenWithDropNodes
             children={children}
             path={path}
-            parentid="bslib::value_box"
+            parentid="value_box"
             messageOnHover="Add node to value box"
           />
         </div>
@@ -177,8 +177,7 @@ export const bslibValueBoxInfo = nodeInfoFactory<ValueBoxArgs>()({
 
       if (
         arg_name === "showcase" &&
-        (is_function_call(arg, "bsicons::bs_icon") ||
-          is_function_call(arg, "bs_icon"))
+        (is_function_call(arg, "bs_icon") || is_function_call(arg, "bs_icon"))
       ) {
         const icon = arg.val[1].val as string;
         return name_node(make_character_node(icon), "showcase_icon");

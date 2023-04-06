@@ -6,7 +6,7 @@ import { dragInDir } from "./utils/dragInDir";
 import { mockBackendState } from "./utils/mockBackend";
 
 const basicGridApp: ShinyUiNode = {
-  id: "gridlayout::grid_page",
+  id: "grid_page",
   namedArgs: {
     layout: ["A B", "C ."],
     row_sizes: ["100px", "1fr"],
@@ -15,31 +15,31 @@ const basicGridApp: ShinyUiNode = {
   },
   children: [
     {
-      id: "gridlayout::grid_card",
+      id: "grid_card",
       namedArgs: { area: "A" },
       children: [
         {
-          id: "bslib::card_header",
+          id: "card_header",
           namedArgs: {},
           children: [{ id: "textNode", namedArgs: { contents: "A" } }],
         },
       ],
     },
     {
-      id: "gridlayout::grid_card",
+      id: "grid_card",
       namedArgs: {
         area: "B",
       },
       children: [
         {
-          id: "bslib::card_header",
+          id: "card_header",
           namedArgs: {},
           children: [{ id: "textNode", namedArgs: { contents: "B" } }],
         },
       ],
     },
     {
-      id: "gridlayout::grid_card",
+      id: "grid_card",
       namedArgs: {
         area: "C",
       },
