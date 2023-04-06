@@ -1,3 +1,4 @@
+# Watch for the app to close and trigger an interrupt if it does
 watch_for_app_close <- function(on_close) {
   timeout_fn <- NULL
 
