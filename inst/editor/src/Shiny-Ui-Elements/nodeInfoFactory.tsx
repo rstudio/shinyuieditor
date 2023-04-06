@@ -27,24 +27,33 @@ export function nodeInfoFactory<Args extends namedArgsObject>() {
     Name extends string,
     TakesChildren extends boolean,
     Comp extends UiNodeComponent<Args, { TakesChildren: TakesChildren }>,
-    Lib extends string = "Internal",
+    RPackage extends string,
+    PyPackage extends string = "none",
     Cat extends string = "Uncategorized"
   >({
     name,
     r_package,
+    py_package,
     category,
     ...info
   }: {
-    r_package?: Lib;
+    r_package: RPackage;
+    py_package?: PyPackage;
     category?: Cat;
   } & CommonInfo<Args, Name, Comp, TakesChildren>) {
     return {
       id: r_package ? `${r_package}::${name}` : name,
       name,
       r_package,
+      py_package: py_package ?? "none",
       category: category ?? "Uncategorized",
       ...info,
-    } as InfoOut<Args, Name, Comp, Lib, Cat, TakesChildren>;
+    } as {
+      id: RPackage extends "Internal" ? Name : `${RPackage}::${Name}`;
+      r_package: RPackage;
+      py_package: undefined extends PyPackage ? "none" : PyPackage;
+      category: Cat;
+    } & CommonInfo<Args, Name, Comp, TakesChildren>;
   };
 }
 
@@ -58,19 +67,6 @@ type testing = [
   Expect<Equal<typeof shinyActionButtonInfo["category"], "Inputs">>,
   Expect<Equal<typeof shinyActionButtonInfo["r_package"], "shiny">>
 ];
-
-type InfoOut<
-  Args extends namedArgsObject,
-  Name extends string,
-  Comp extends UiNodeComponent<Args, { TakesChildren: boolean }>,
-  Lib extends string,
-  Cat extends string,
-  TakesChildren extends boolean
-> = {
-  id: Lib extends "Internal" ? Name : `${Lib}::${Name}`;
-  r_package: Lib;
-  category: Cat;
-} & CommonInfo<Args, Name, Comp, TakesChildren>;
 
 type CommonInfo<
   Args extends namedArgsObject,
