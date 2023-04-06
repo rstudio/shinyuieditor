@@ -25,6 +25,5 @@ runs:
         node-version: "16.x"
 
     - name: Install JS dependencies
-      working-directory: ./inst/editor
       run: yarn install --immutable
       shell: bash
