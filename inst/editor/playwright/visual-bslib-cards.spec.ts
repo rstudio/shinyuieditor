@@ -11,17 +11,17 @@ const shortCardTree: KnownShinyUiNode = {
     col_sizes: ["1fr"],
     gap_size: "1rem",
   },
-  uiChildren: [
+  children: [
     {
       id: "gridlayout::grid_card",
       namedArgs: {
         area: "onlyBody",
       },
-      uiChildren: [
+      children: [
         {
           id: "bslib::card_body_fill",
           namedArgs: {},
-          uiChildren: [
+          children: [
             {
               id: "shiny::textInput",
               namedArgs: {
@@ -59,7 +59,7 @@ const shortCardTree: KnownShinyUiNode = {
         {
           id: "bslib::card_footer",
           namedArgs: {},
-          uiChildren: [
+          children: [
             {
               id: "textNode",
               namedArgs: {

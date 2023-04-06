@@ -9,12 +9,12 @@ const BslibCardHeader: UiNodeComponent<
   CardHeaderSettings,
   { TakesChildren: true }
 > = (node) => {
-  const { uiChildren, path, wrapperProps } = node;
+  const { children, path, wrapperProps } = node;
 
   return (
     <CardHeader {...wrapperProps}>
       <CardChildrenWithDropNodes
-        uiChildren={uiChildren}
+        children={children}
         path={path}
         parentid="bslib::card_header"
         messageOnHover="Add to card header"

@@ -15,15 +15,15 @@ const appTree: ShinyUiNode = {
     col_sizes: ["250px", "0.59fr", "1.41fr"],
     gap_size: "1rem",
   },
-  uiChildren: [
+  children: [
     {
       id: "gridlayout::grid_card",
       namedArgs: { area: "sidebar" },
-      uiChildren: [
+      children: [
         {
           id: "bslib::card_header",
           namedArgs: {},
-          uiChildren: [
+          children: [
             {
               id: "textNode",
               namedArgs: {
@@ -35,7 +35,7 @@ const appTree: ShinyUiNode = {
         {
           id: "bslib::card_body_fill",
           namedArgs: {},
-          uiChildren: [
+          children: [
             {
               id: "shiny::sliderInput",
               namedArgs: {
@@ -76,11 +76,11 @@ const appTree: ShinyUiNode = {
       namedArgs: {
         area: "table",
       },
-      uiChildren: [
+      children: [
         {
           id: "bslib::card_header",
           namedArgs: {},
-          uiChildren: [
+          children: [
             {
               id: "textNode",
               namedArgs: {
@@ -92,7 +92,7 @@ const appTree: ShinyUiNode = {
         {
           id: "bslib::card_body_fill",
           namedArgs: {},
-          uiChildren: [
+          children: [
             {
               id: "DT::DTOutput",
               namedArgs: {
@@ -113,11 +113,11 @@ const appTree: ShinyUiNode = {
     {
       id: "gridlayout::grid_card",
       namedArgs: { area: "plotly" },
-      uiChildren: [
+      children: [
         {
           id: "bslib::card_header",
           namedArgs: {},
-          uiChildren: [
+          children: [
             {
               id: "textNode",
               namedArgs: {
@@ -129,7 +129,7 @@ const appTree: ShinyUiNode = {
         {
           id: "bslib::card_body_fill",
           namedArgs: {},
-          uiChildren: [
+          children: [
             {
               id: "plotly::plotlyOutput",
               namedArgs: {

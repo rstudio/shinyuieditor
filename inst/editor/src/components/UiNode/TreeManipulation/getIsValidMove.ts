@@ -44,8 +44,8 @@ export function getIsValidMove(paths: {
     // Moving a child node to the position immediately following is
     // effectivly a 'no ops' so we count them as invalid
     if (
-      to_paths.child_location === "uiChildren" &&
-      from_paths.child_location === "uiChildren" &&
+      to_paths.child_location === "children" &&
+      from_paths.child_location === "children" &&
       from_paths.child_path === to_paths.child_path - 1
     ) {
       return false;

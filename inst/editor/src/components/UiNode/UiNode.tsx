@@ -46,7 +46,7 @@ const UiNode = ({ path, node, canDrag = true }: UiNodeProps) => {
       <Comp
         wrapperProps={wrapperProps}
         namedArgs={node.namedArgs}
-        uiChildren={isParentNode(node) ? node.uiChildren ?? [] : []}
+        children={isParentNode(node) ? node.children ?? [] : []}
         path={path}
       />
     </ErrorBoundary>

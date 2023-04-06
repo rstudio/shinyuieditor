@@ -35,7 +35,7 @@ export type NewItemInfo = DraggedNodeInfo & {
 export const GridContainerElement: UiNodeComponent<
   GridLayoutArgs,
   { TakesChildren: true }
-> = ({ namedArgs, uiChildren, path, wrapperProps }) => {
+> = ({ namedArgs, children, path, wrapperProps }) => {
   const layoutDef = ensureProperBoxedGridLayoutArgs(namedArgs);
   const place_node = usePlaceNode();
   const { uniqueAreas, ...layout } = parseGridLayoutArgs(layoutDef);
@@ -109,7 +109,7 @@ export const GridContainerElement: UiNodeComponent<
     // Let the state know we have a new child node
     place_node({
       // Place in the last position
-      path: makeChildPath(path, uiChildren?.length ?? 0),
+      path: makeChildPath(path, children?.length ?? 0),
       node: makeGridFriendlyNode(node, name),
       currentPath,
     });
@@ -173,7 +173,7 @@ export const GridContainerElement: UiNodeComponent<
               />
             );
           })}
-          {uiChildren?.map((childNode, i) => (
+          {children?.map((childNode, i) => (
             <UiNode
               key={path.join(".") + i}
               path={[...path, i]}

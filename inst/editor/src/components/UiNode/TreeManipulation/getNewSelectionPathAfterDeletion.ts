@@ -35,7 +35,7 @@ export function getNewSelectionPathAfterDeletion({
 
   // Deleting a named argument node will never cause the position of non child
   // nodes to move
-  if (paths_of_deletion.child_location !== "uiChildren") return selectedPath;
+  if (paths_of_deletion.child_location !== "children") return selectedPath;
 
   const finalNodeIndex = deletedPath.length - 1;
 

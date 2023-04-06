@@ -152,7 +152,7 @@ type CommonInfo<
    * info and defined default values
    */
   default_node?: { namedArgs: Args } & (TakesChildren extends true
-    ? { uiChildren: Array<ShinyUiNode> }
+    ? { children: Array<ShinyUiNode> }
     : {});
 
   /**

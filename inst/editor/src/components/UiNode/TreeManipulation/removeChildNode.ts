@@ -1,7 +1,7 @@
 import type { ShinyUiParentNode } from "../../../Shiny-Ui-Elements/uiNodeTypes";
 
 /**
- * Removes a node by index from a parent node's uiChildren array
+ * Removes a node by index from a parent node's children array
  * @param parent_node Node for which we want to remove a child
  * @param child_index Index of child to remove
  * @returns  A new parent node with the child removed. The original parent node
@@ -12,10 +12,10 @@ export function removeChildNode(
   parent_node: ShinyUiParentNode,
   child_index: number
 ) {
-  const { id, namedArgs, uiChildren = [] } = parent_node;
+  const { id, namedArgs, children: node_children = [] } = parent_node;
 
   // Make sure the child we're going to remove actually exists
-  const children = [...uiChildren];
+  const children = [...node_children];
 
   if (child_index < 0 || child_index >= children.length) {
     throw new Error("Trying to remove a child that doesn't exist");
@@ -28,6 +28,6 @@ export function removeChildNode(
   return {
     id,
     namedArgs,
-    uiChildren: children,
+    children,
   };
 }

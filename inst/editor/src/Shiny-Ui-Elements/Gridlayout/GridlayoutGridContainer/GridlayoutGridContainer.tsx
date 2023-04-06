@@ -6,11 +6,11 @@ import type { GridContainerSettings } from "./index";
 const GridlayoutGridContainer: UiNodeComponent<
   GridContainerSettings,
   { TakesChildren: true }
-> = ({ namedArgs, uiChildren, path, wrapperProps }) => {
+> = ({ namedArgs, children, path, wrapperProps }) => {
   return (
     <GridContainerElement
       namedArgs={namedArgs}
-      uiChildren={uiChildren}
+      children={children}
       path={path}
       wrapperProps={wrapperProps}
     />

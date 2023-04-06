@@ -23,7 +23,7 @@ export function separateIntoParentAndChildPaths(path: NodePath): {
   parent_path: NodePath;
 } & (
   | {
-      child_location: "uiChildren";
+      child_location: "children";
       child_path: number;
     }
   | {
@@ -40,7 +40,7 @@ export function separateIntoParentAndChildPaths(path: NodePath): {
   if (typeof child_path === "string") {
     return { parent_path, child_location: "namedArgs", child_path };
   } else if (typeof child_path === "number") {
-    return { parent_path, child_location: "uiChildren", child_path };
+    return { parent_path, child_location: "children", child_path };
   }
   return { parent_path, child_location: "missing" };
 }

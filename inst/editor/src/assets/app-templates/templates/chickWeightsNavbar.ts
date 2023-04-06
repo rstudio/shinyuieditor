@@ -15,13 +15,13 @@ const navbarTree: ShinyUiNode = {
       },
     },
   },
-  uiChildren: [
+  children: [
     {
       id: "shiny::tabPanel",
       namedArgs: {
         title: "Line Plots",
       },
-      uiChildren: [
+      children: [
         {
           id: "gridlayout::grid_container",
           namedArgs: {
@@ -30,15 +30,15 @@ const navbarTree: ShinyUiNode = {
             gap_size: "10px",
             layout: ["num_chicks linePlots"],
           },
-          uiChildren: [
+          children: [
             {
               id: "gridlayout::grid_card",
               namedArgs: { area: "num_chicks" },
-              uiChildren: [
+              children: [
                 {
                   id: "bslib::card_header",
                   namedArgs: {},
-                  uiChildren: [
+                  children: [
                     {
                       id: "textNode",
                       namedArgs: { contents: "Settings" },
@@ -48,7 +48,7 @@ const navbarTree: ShinyUiNode = {
                 {
                   id: "bslib::card_body_fill",
                   namedArgs: {},
-                  uiChildren: [
+                  children: [
                     {
                       id: "shiny::sliderInput",
                       namedArgs: {
@@ -80,7 +80,7 @@ const navbarTree: ShinyUiNode = {
       namedArgs: {
         title: "Distributions",
       },
-      uiChildren: [
+      children: [
         {
           id: "gridlayout::grid_container",
           namedArgs: {
@@ -89,7 +89,7 @@ const navbarTree: ShinyUiNode = {
             gap_size: "10px",
             layout: ["facetOption", "dists"],
           },
-          uiChildren: [
+          children: [
             {
               id: "gridlayout::grid_card_plot",
               namedArgs: {
@@ -101,11 +101,11 @@ const navbarTree: ShinyUiNode = {
               namedArgs: {
                 area: "facetOption",
               },
-              uiChildren: [
+              children: [
                 {
                   id: "bslib::card_header",
                   namedArgs: {},
-                  uiChildren: [
+                  children: [
                     {
                       id: "textNode",
                       namedArgs: { contents: "Distribution Plot Options" },
@@ -115,7 +115,7 @@ const navbarTree: ShinyUiNode = {
                 {
                   id: "bslib::card_body_fill",
                   namedArgs: {},
-                  uiChildren: [
+                  children: [
                     {
                       id: "shiny::radioButtons",
                       namedArgs: {

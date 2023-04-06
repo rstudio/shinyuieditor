@@ -27,7 +27,7 @@ function UiNodeAndSettings({ id, namedArgs }) {
     const newNode = {
       id,
       namedArgs,
-      uiChildren: [],
+      children: [],
     };
 
     setInfoToRender({
@@ -75,7 +75,7 @@ function UiNodeAndSettings({ id, namedArgs }) {
         <h1>Ui Component</h1>
         <div className={classes.uiHolder}>
           <Comp
-            uiChildren={[]}
+            children={[]}
             namedArgs={infoToRender.node.namedArgs}
             path={[0]}
             wrapperProps={{

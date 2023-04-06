@@ -6,7 +6,7 @@ describe("Can remove children nodes from a parent node", () => {
   const parent: ShinyUiParentNode = {
     id: "parent",
     namedArgs: {},
-    uiChildren: [
+    children: [
       { id: "child1", namedArgs: {} },
       { id: "child2", namedArgs: {} },
       { id: "child3", namedArgs: {} },
@@ -15,14 +15,14 @@ describe("Can remove children nodes from a parent node", () => {
 
   test("Can remove the first child", () => {
     const newParent = removeChildNode(parent, 0);
-    expect(newParent.uiChildren).toEqual([
+    expect(newParent.children).toEqual([
       { id: "child2", namedArgs: {} },
       { id: "child3", namedArgs: {} },
     ]);
   });
   test("Can remove the second child", () => {
     const newParent = removeChildNode(parent, 1);
-    expect(newParent.uiChildren).toEqual([
+    expect(newParent.children).toEqual([
       { id: "child1", namedArgs: {} },
       { id: "child3", namedArgs: {} },
     ]);
@@ -30,7 +30,7 @@ describe("Can remove children nodes from a parent node", () => {
 
   test("Can remove the last child", () => {
     const newParent = removeChildNode(parent, 2);
-    expect(newParent.uiChildren).toEqual([
+    expect(newParent.children).toEqual([
       { id: "child1", namedArgs: {} },
       { id: "child2", namedArgs: {} },
     ]);

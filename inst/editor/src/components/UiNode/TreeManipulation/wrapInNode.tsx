@@ -24,6 +24,6 @@ export function wrapInNode({
   }
   return {
     ...wrapper,
-    uiChildren: [child],
+    children: [child],
   };
 }

@@ -28,7 +28,7 @@ const footerScaffold = {
 } as const;
 
 export function render_card_elements(
-  uiChildren: ShinyUiParentNode["uiChildren"] = [],
+  children: ShinyUiParentNode["children"] = [],
   path: NodePath
 ): React.ReactNode {
   let header: JSX.Element | null = null;
@@ -37,7 +37,7 @@ export function render_card_elements(
 
   let child_index = 0;
 
-  uiChildren.forEach((child) => {
+  children.forEach((child) => {
     const { id } = child;
     if (!possible_elements.has(id)) {
       // eslint-disable-next-line no-console

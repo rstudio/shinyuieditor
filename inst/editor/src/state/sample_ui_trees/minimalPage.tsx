@@ -6,13 +6,13 @@ export const minimalPage = {
     title: "My Navbar Page",
     collapsible: false,
   },
-  uiChildren: [
+  children: [
     {
       id: "shiny::tabPanel",
       namedArgs: {
         title: "Plot 1",
       },
-      uiChildren: [
+      children: [
         {
           id: "shiny::plotOutput",
           namedArgs: {

@@ -10,19 +10,19 @@ const baseNode: ShinyUiNode = {
   namedArgs: {
     area: "panel",
   },
-  uiChildren: [
+  children: [
     {
       // path = [0]
       id: "gridlayout::grid_card",
       namedArgs: {
         area: "left",
       },
-      uiChildren: [
+      children: [
         // path = [0, 0]
         {
           id: "gridlayout::grid_card",
           namedArgs: { area: "controls-holder" },
-          uiChildren: [
+          children: [
             {
               // path = [0, 0, 0]
               id: "shiny::actionButton",
@@ -35,7 +35,7 @@ const baseNode: ShinyUiNode = {
               // path = [0, 0, 1]
               id: "gridlayout::grid_card",
               namedArgs: { area: "controls-sub" },
-              uiChildren: [],
+              children: [],
             },
           ],
         },
@@ -52,7 +52,7 @@ const baseNode: ShinyUiNode = {
       // path = [1]
       id: "gridlayout::grid_card",
       namedArgs: { area: "right" },
-      uiChildren: [
+      children: [
         // path = [1, 0]
         {
           id: "shiny::plotOutput",
@@ -135,7 +135,7 @@ test("Move node around within its current container", () => {
   const sliderPanel: ShinyUiNode = {
     id: "gridlayout::grid_card",
     namedArgs: { area: "controls-holder" },
-    uiChildren: [
+    children: [
       buttonA, // [0]
       buttonB, // [1]
       buttonC, // [2]
@@ -169,7 +169,7 @@ describe("Node can displace its parent", () => {
     const tree: ShinyUiNode = {
       id: "gridlayout::grid_card",
       namedArgs: { area: "root" },
-      uiChildren: [
+      children: [
         {
           id: "gridlayout::grid_card",
           namedArgs: { area: "leaf1" },
@@ -177,7 +177,7 @@ describe("Node can displace its parent", () => {
         {
           id: "gridlayout::grid_card",
           namedArgs: { area: "parent" },
-          uiChildren: [
+          children: [
             {
               id: "gridlayout::grid_card",
               namedArgs: { area: "leaf2" },

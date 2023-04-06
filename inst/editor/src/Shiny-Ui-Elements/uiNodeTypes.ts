@@ -178,7 +178,7 @@ export type KnownShinyUiNode = {
     id: NodeInfo["id"];
     namedArgs: Required<NodeInfo>["example_args"];
   } & (NodeInfo["takesChildren"] extends true
-    ? { uiChildren: KnownUiChildren }
+    ? { children: KnownUiChildren }
     : {});
 }[ShinyUiNodeInfo["id"]];
 
@@ -188,7 +188,7 @@ type KnownUiChildren = Array<KnownShinyUiNode>;
 const knownUiNodeTest: KnownShinyUiNode = {
   id: "bslib::card",
   namedArgs: { full_screen: true },
-  uiChildren: [
+  children: [
     {
       id: "shiny::actionButton",
       namedArgs: { inputId: "btn", label: "My Button" },
@@ -217,7 +217,7 @@ export type ShinyUiLeafNode = {
  * Ui Node with children
  */
 export type ShinyUiParentNode = ShinyUiLeafNode & {
-  uiChildren?: Array<ShinyUiNode>;
+  children?: Array<ShinyUiNode>;
 };
 export type ShinyUiRootNode = ShinyUiParentNode | "TEMPLATE_CHOOSER";
 
@@ -232,13 +232,13 @@ export type MakeShinyUiNode<
 > = {
   id: string;
   namedArgs: Args;
-} & (TakesChildren extends true ? { uiChildren: Array<ShinyUiNode> } : {});
+} & (TakesChildren extends true ? { children: Array<ShinyUiNode> } : {});
 
 /**
  * Narrow if a node is a parent node or not
  */
 export function isParentNode(node: ShinyUiNode): node is ShinyUiParentNode {
-  return "uiChildren" in node || containerNodes.has(node.id);
+  return "children" in node || containerNodes.has(node.id);
 }
 
 /**
@@ -253,7 +253,7 @@ export type UiNodeComponent<
     path: NodePath;
     wrapperProps: ReturnType<typeof useMakeWrapperProps>;
   } & (Opts["TakesChildren"] extends true
-    ? { uiChildren: Array<ShinyUiNode> }
+    ? { children: Array<ShinyUiNode> }
     : {})
 ) => JSX.Element;
 

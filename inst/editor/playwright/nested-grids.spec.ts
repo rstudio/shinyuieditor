@@ -10,13 +10,13 @@ const basicNavbarPage: ShinyUiNode = {
     title: "Site Title",
     collapsible: false,
   },
-  uiChildren: [
+  children: [
     {
       id: "shiny::tabPanel",
       namedArgs: {
         title: "Plot",
       },
-      uiChildren: [
+      children: [
         {
           id: "shiny::plotOutput",
           namedArgs: {
@@ -32,7 +32,7 @@ const basicNavbarPage: ShinyUiNode = {
       namedArgs: {
         title: "Grid Tab",
       },
-      uiChildren: [
+      children: [
         {
           id: "gridlayout::grid_container",
           namedArgs: {
@@ -41,13 +41,13 @@ const basicNavbarPage: ShinyUiNode = {
             col_sizes: ["1fr", "1fr"],
             gap_size: "1rem",
           },
-          uiChildren: [
+          children: [
             {
               id: "gridlayout::grid_card",
               namedArgs: {
                 area: "button",
               },
-              uiChildren: [
+              children: [
                 {
                   id: "shiny::actionButton",
                   namedArgs: {

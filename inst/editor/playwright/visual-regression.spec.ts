@@ -11,7 +11,7 @@ const testingUiTree: ShinyUiNode = {
     col_sizes: ["1fr", "1fr"],
     gap_size: "1rem",
   },
-  uiChildren: [],
+  children: [],
 };
 
 test("Landing page visual regression", async ({ page }) => {

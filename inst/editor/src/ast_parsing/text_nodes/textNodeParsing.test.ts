@@ -102,7 +102,7 @@ describe("Can parse raw ast to text nodes", () => {
       type: "e",
     };
     expect(
-      (ast_to_ui_node(call_w_text) as ShinyUiParentNode).uiChildren
+      (ast_to_ui_node(call_w_text) as ShinyUiParentNode).children
     ).toStrictEqual([
       {
         id: "textNode",
@@ -129,7 +129,7 @@ describe("Can parse raw ast to text nodes", () => {
       type: "e",
     };
     expect(
-      (ast_to_ui_node(call_w_text) as ShinyUiParentNode).uiChildren
+      (ast_to_ui_node(call_w_text) as ShinyUiParentNode).children
     ).toStrictEqual([
       {
         id: "textNode",
@@ -157,7 +157,7 @@ describe("Can parse raw ast to text nodes", () => {
       type: "e",
     };
     expect(
-      (ast_to_ui_node(call_w_text) as ShinyUiParentNode).uiChildren
+      (ast_to_ui_node(call_w_text) as ShinyUiParentNode).children
     ).toStrictEqual([
       {
         id: "textNode",

@@ -10,15 +10,15 @@ export const bslibCards = {
     col_sizes: ["1fr", "1fr"],
     gap_size: "1rem",
   },
-  uiChildren: [
+  children: [
     {
       id: "gridlayout::grid_card",
       namedArgs: { area: "empty" },
-      uiChildren: [
+      children: [
         {
           id: "bslib::card_body_fill",
           namedArgs: {},
-          uiChildren: [
+          children: [
 
             {
               id: "bslib::value_box",
@@ -28,7 +28,7 @@ export const bslibCards = {
                   contents: "Lorem Ipsum",
                 }
               } },
-              uiChildren: [],
+              children: [],
             },
           ],
         }
@@ -47,11 +47,11 @@ export const bslibCards = {
       namedArgs: {
         area: "onlyBody",
       },
-      uiChildren: [
+      children: [
         {
           id: "bslib::card_body_fill",
           namedArgs: {},
-          uiChildren: [
+          children: [
             {
               id: "shiny::textInput",
               namedArgs: {
@@ -89,7 +89,7 @@ export const bslibCards = {
         {
           id: "bslib::card_footer",
           namedArgs: {},
-          uiChildren: [
+          children: [
             {
               id: "textNode",
               namedArgs: {
@@ -105,11 +105,11 @@ export const bslibCards = {
     {
       id: "gridlayout::grid_card",
       namedArgs: { area: "full" },
-      uiChildren: [
+      children: [
         {
           id: "bslib::card_header",
           namedArgs: {},
-          uiChildren: [
+          children: [
             {
               id: "textNode",
               namedArgs: {
@@ -121,12 +121,12 @@ export const bslibCards = {
         {
           id: "bslib::card_body_fill",
           namedArgs: {},
-          uiChildren: [],
+          children: [],
         },
         {
           id: "bslib::card_footer",
           namedArgs: {},
-          uiChildren: [],
+          children: [],
         },
       ],
     },

@@ -11,13 +11,13 @@ const basicNavbarPage: ShinyUiNode = {
     title: "My Navbar Page",
     collapsible: true,
   },
-  uiChildren: [
+  children: [
     {
       id: "shiny::tabPanel",
       namedArgs: {
         title: "Settings",
       },
-      uiChildren: [
+      children: [
         {
           id: "shiny::actionButton",
           namedArgs: {
@@ -32,7 +32,7 @@ const basicNavbarPage: ShinyUiNode = {
       namedArgs: {
         title: "Plot 1",
       },
-      uiChildren: [
+      children: [
         {
           id: "shiny::plotOutput",
           namedArgs: {
@@ -48,7 +48,7 @@ const basicNavbarPage: ShinyUiNode = {
       namedArgs: {
         title: "Plot 2",
       },
-      uiChildren: [
+      children: [
         {
           id: "shiny::plotOutput",
           namedArgs: {

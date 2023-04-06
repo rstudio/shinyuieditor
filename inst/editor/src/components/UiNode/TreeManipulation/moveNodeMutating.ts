@@ -46,23 +46,23 @@ export function moveNodeMutating(
     destination_paths.parent_path
   ) as ShinyUiParentNode;
 
-  if (destination_paths.child_location === "uiChildren") {
+  if (destination_paths.child_location === "children") {
     // If the destination parent node doesn't have ui children, then we need to create it
     if (
-      !("uiChildren" in destination_parent) ||
-      destination_parent.uiChildren === undefined
+      !("children" in destination_parent) ||
+      destination_parent.children === undefined
     ) {
-      destination_parent.uiChildren = [];
+      destination_parent.children = [];
     }
 
-    if (current_paths.child_location === "uiChildren") {
+    if (current_paths.child_location === "children") {
       // Siblings are a special scenario we need to account for. The problem we
       // face is that the final index of the node will shift when we remove the
       // node from it's previous place in certain scenarios. The moveElement
       // function deals with this for us
       if (nodesAreSiblings(currentPath, path)) {
-        destination_parent.uiChildren = moveElement(
-          destination_parent.uiChildren,
+        destination_parent.children = moveElement(
+          destination_parent.children,
           current_paths.child_path,
           destination_paths.child_path
         );

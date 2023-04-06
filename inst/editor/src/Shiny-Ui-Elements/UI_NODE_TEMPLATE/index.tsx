@@ -12,12 +12,12 @@ type NodeNameSettings = {
 const NodeComponent: UiNodeComponent<
   NodeNameSettings,
   { TakesChildren: true }
-> = ({ namedArgs, uiChildren, path, wrapperProps }) => {
+> = ({ namedArgs, children, path, wrapperProps }) => {
   return (
     <div className={styles.container} {...wrapperProps}>
       <p>NODE NAME: {namedArgs.name}</p>
       <p>Path: {pathToString(path)}</p>
-      <p>There are {uiChildren?.length ?? 0} children</p>
+      <p>There are {children?.length ?? 0} children</p>
     </div>
   );
 };

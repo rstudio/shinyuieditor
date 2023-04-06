@@ -11,17 +11,17 @@ export const basicNavbarPage = {
     title: "My Navbar Page",
     collapsible: false,
   },
-  uiChildren: [
+  children: [
     {
       id: "shiny::tabPanel",
       namedArgs: {
         title: "Settings",
       },
-      uiChildren: [
+      children: [
         {
           id: "shiny::tabsetPanel",
           namedArgs: {},
-          uiChildren: [],
+          children: [],
         },
       ],
     },
@@ -30,7 +30,7 @@ export const basicNavbarPage = {
       namedArgs: {
         title: "Plot 1",
       },
-      uiChildren: [
+      children: [
         {
           id: "shiny::plotOutput",
           namedArgs: {
@@ -46,7 +46,7 @@ export const basicNavbarPage = {
       namedArgs: {
         title: "Plot 2",
       },
-      uiChildren: [
+      children: [
         {
           id: "shiny::plotOutput",
           namedArgs: {

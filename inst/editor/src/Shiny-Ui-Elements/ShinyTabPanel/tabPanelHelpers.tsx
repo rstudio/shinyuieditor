@@ -5,5 +5,5 @@ export const newTabPanelNode: ShinyUiParentNode = {
   namedArgs: {
     title: "Tab",
   },
-  uiChildren: [],
+  children: [],
 };

@@ -10,20 +10,20 @@ const navbarTree: ShinyUiParentNode = {
     gap_size: "1rem",
     layout: ["header header", "sidebar linePlots", "dists dists"],
   },
-  uiChildren: [
+  children: [
     {
       id: "gridlayout::grid_card",
       namedArgs: { area: "sidebar" },
-      uiChildren: [
+      children: [
         {
           id: "bslib::card_header",
           namedArgs: {},
-          uiChildren: [{ id: "textNode", namedArgs: { contents: "Settings" } }],
+          children: [{ id: "textNode", namedArgs: { contents: "Settings" } }],
         },
         {
           id: "bslib::card_body_fill",
           namedArgs: {},
-          uiChildren: [
+          children: [
             {
               id: "shiny::sliderInput",
               namedArgs: {
