@@ -14,7 +14,7 @@ import type {
   NodePath,
   PathElement,
   ShinyUiNode,
-  ShinyUiNodeNames,
+  ShinyUiNodeIds,
 } from "../Shiny-Ui-Elements/uiNodeTypes";
 import { getUiNodeTitle } from "../Shiny-Ui-Elements/uiNodeTypes";
 import { getUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
@@ -51,7 +51,7 @@ export type DropWatcherPanelProps = {
    * id of the parent node. This is used to determine if the node being
    * dropped is allowed to be dropped here or not.
    */
-  parentNodeType: ShinyUiNodeNames;
+  parentNodeType: ShinyUiNodeIds;
   /**
    * Path to the parent node. Is combined with `child_loc` to create the final
    * path for a dropped node. Also used for determining if drop is valid for
@@ -85,9 +85,7 @@ export type DropWatcherPanelProps = {
    * Filters for what nodes can be dropped here. If not provided, all nodes are
    * allowed. If provided, only nodes that match the filter are allowed.
    */
-  dropFilters?:
-    | { rejected: ShinyUiNodeNames[] }
-    | { accepted: ShinyUiNodeNames[] };
+  dropFilters?: { rejected: ShinyUiNodeIds[] } | { accepted: ShinyUiNodeIds[] };
 
   /**
    * Arguments to pass to the drop handler. This is useful if you want to
@@ -253,7 +251,7 @@ function isDropFilterAccepted(
  */
 function isAllowedParent(node_names: {
   dragged: string;
-  parent: ShinyUiNodeNames;
+  parent: ShinyUiNodeIds;
 }): boolean {
   const draggedNodeInfo = getUiNodeInfo(node_names.dragged);
 
