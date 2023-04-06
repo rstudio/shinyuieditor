@@ -68,6 +68,8 @@ type InfoOut<
   TakesChildren extends boolean
 > = {
   uiName: Lib extends "Internal" ? Name : `${Lib}::${Name}`;
+  /** We use library instead of package here because package is a reserved
+   * keyword in strict js modules */
   library: Lib;
   category: Cat;
 } & CommonInfo<Args, Name, Comp, TakesChildren>;
@@ -93,6 +95,10 @@ type CommonInfo<
    */
   settingsInfo: ArgsToDynamicInfo<Args>;
 
+  /**
+   * Optional function to render the settings panel. If not provided then the
+   * appropriate settings components will be rendered sequentially.
+   */
   settingsFormRender?: CustomFormRenderFn<Args>;
 
   /**
@@ -107,6 +113,10 @@ type CommonInfo<
    */
   description?: string;
 
+  /**
+   * List of names of allowed parent nodes. This should typically be set to
+   * `satisfies ShinyUiNodeNames[]` to ensure that the names are valid.
+   */
   allowedParents?: string[];
 
   /**
@@ -129,6 +139,9 @@ type CommonInfo<
    */
   UiComponent: Comp;
 
+  /**
+   * Does this node take children? Aka is it a parent node?
+   */
   takesChildren: TakesChildren;
 
   /**
