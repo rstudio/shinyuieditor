@@ -6,7 +6,7 @@ import { makeChildPath } from "../../nodePathUtils";
 import type {
   KnownShinyUiNode,
   NodePath,
-  ShinyUiNodeNames,
+  ShinyUiNodeIds,
   ShinyUiParentNode,
 } from "../../uiNodeTypes";
 
@@ -20,7 +20,7 @@ export function CardChildrenWithDropNodes({
   messageOnHover,
   showOnEmpty,
 }: {
-  parentid: ShinyUiNodeNames;
+  parentid: ShinyUiNodeIds;
   messageOnHover: string;
   dropPanelClass?: string;
   children?: ShinyUiParentNode["children"];

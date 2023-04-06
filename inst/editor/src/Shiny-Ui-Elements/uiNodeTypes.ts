@@ -138,7 +138,7 @@ export function getUiNodeTitle(id: string): string {
 }
 
 export type ShinyUiNodeInfo = Expand<typeof shinyUiNodeInfoArray[number]>;
-export type ShinyUiNodeNames = ShinyUiNodeInfo["id"];
+export type ShinyUiNodeIds = ShinyUiNodeInfo["id"];
 export type ShinyUiNodeRPackages = ShinyUiNodeInfo["r_package"];
 export type ShinyUiNodeCategories = Exclude<
   ShinyUiNodeInfo["category"],

@@ -7,13 +7,13 @@ import {
 import { useMakeDraggable } from "../DragAndDropHelpers/useMakeDraggable";
 import type {
   ShinyUiNode,
-  ShinyUiNodeNames,
+  ShinyUiNodeIds,
 } from "../Shiny-Ui-Elements/uiNodeTypes";
 import { getUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
 
 import classes from "./styles.module.css";
 
-export function UiElementIcon({ id }: { id: ShinyUiNodeNames }) {
+export function UiElementIcon({ id }: { id: ShinyUiNodeIds }) {
   const {
     iconSrc,
     title,
