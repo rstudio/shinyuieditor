@@ -12,7 +12,7 @@ import classes from "./ShinyNavbarPage.module.css";
 const ShinyNavbarPage: UiNodeComponent<
   NavbarPageSettings,
   { TakesChildren: true }
-> = ({ uiArguments: { title }, uiChildren, path, wrapperProps }) => {
+> = ({ namedArgs: { title }, uiChildren, path, wrapperProps }) => {
   const numChildren = uiChildren?.length ?? 0;
   const hasChildren = numChildren > 0;
 
@@ -27,7 +27,7 @@ const ShinyNavbarPage: UiNodeComponent<
         uiChildren.map((node, i) => {
           const nodePath = makeChildPath(path, i);
           const title = isValidTabPanel(node)
-            ? node.uiArguments.title
+            ? node.namedArgs.title
             : "unknown tab";
           return (
             <TabPanel key={pathToString(nodePath)} title={title}>

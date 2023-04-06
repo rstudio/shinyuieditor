@@ -10,28 +10,28 @@ import { updateNode } from "./updateNode";
 
 const baseNode: ShinyUiNode = {
   id: "gridlayout::grid_card",
-  uiArguments: {
+  namedArgs: {
     area: "panel",
   },
   uiChildren: [
     {
       // path = [0]
       id: "gridlayout::grid_card",
-      uiArguments: {
+      namedArgs: {
         area: "panel2",
       },
       uiChildren: [
         // path = [0, 0]
         {
           id: "shiny::plotOutput",
-          uiArguments: {
+          namedArgs: {
             outputId: "myPlot",
           },
         },
         // path = [0, 1]
         {
           id: "shiny::plotOutput",
-          uiArguments: {
+          namedArgs: {
             outputId: "myPlot2",
           },
         },
@@ -43,7 +43,7 @@ const baseNode: ShinyUiNode = {
 test("Remove a node", () => {
   expect(getNode(baseNode, [0, 1])).toEqual({
     id: "shiny::plotOutput",
-    uiArguments: {
+    namedArgs: {
       outputId: "myPlot2",
     },
   });
@@ -57,14 +57,14 @@ test("Remove a node", () => {
 test("Modify a node", () => {
   expect(getNode(baseNode, [0, 0])).toEqual({
     id: "shiny::plotOutput",
-    uiArguments: {
+    namedArgs: {
       outputId: "myPlot",
     },
   });
 
   const nodeToReplaceWith: ShinyUiNode = {
     id: "shiny::plotOutput",
-    uiArguments: {
+    namedArgs: {
       outputId: "replacedNode",
     },
   };
@@ -79,14 +79,14 @@ test("Modify a node", () => {
 test("Modify a node at first level", () => {
   const baseNode: ShinyUiNode = {
     id: "gridlayout::grid_card",
-    uiArguments: {
+    namedArgs: {
       area: "panel",
     },
     uiChildren: [
       // path = [0]
       {
         id: "shiny::plotOutput",
-        uiArguments: {
+        namedArgs: {
           outputId: "myPlot",
         },
       },
@@ -94,14 +94,14 @@ test("Modify a node at first level", () => {
   };
   expect(getNode(baseNode, [0])).toEqual({
     id: "shiny::plotOutput",
-    uiArguments: {
+    namedArgs: {
       outputId: "myPlot",
     },
   });
 
   const nodeToReplaceWith: ShinyUiNode = {
     id: "shiny::plotOutput",
-    uiArguments: {
+    namedArgs: {
       outputId: "replacedNode",
     },
   };
@@ -116,7 +116,7 @@ test("Modify a node at first level", () => {
 // test("Update the settings of the root node", () => {
 //   const grid_app = {
 //     id: "gridlayout::grid_page",
-//     uiArguments: {
+//     namedArgs: {
 //       areas: [["sidebar", "plot"]],
 //       row_sizes: ["1fr"],
 //       col_sizes: ["250px", "1fr"],
@@ -124,7 +124,7 @@ test("Modify a node at first level", () => {
 //     uiChildren: [
 //       {
 //         id: "gridlayout::grid_card",
-//         uiArguments: {
+//         namedArgs: {
 //           area: "sidebar",
 //           horizontalAlign: "right",
 //           verticalAlign: "center",
@@ -132,7 +132,7 @@ test("Modify a node at first level", () => {
 //         uiChildren: [
 //           {
 //             id: "shiny::sliderInput",
-//             uiArguments: {
+//             namedArgs: {
 //               inputId: "mySlider",
 //               label: "slider",
 //               min: 1,
@@ -144,7 +144,7 @@ test("Modify a node at first level", () => {
 //       },
 //       {
 //         id: "gridlayout::grid_card",
-//         uiArguments: {
+//         namedArgs: {
 //           area: "plot",
 //           horizontalAlign: "right",
 //           verticalAlign: "center",
@@ -152,7 +152,7 @@ test("Modify a node at first level", () => {
 //         uiChildren: [
 //           {
 //             id: "shiny::plotOutput",
-//             uiArguments: {
+//             namedArgs: {
 //               outputId: "myPlot",
 //             },
 //           },
@@ -165,7 +165,7 @@ test("Modify a node at first level", () => {
 //     path: [],
 //     node: {
 //       id: "gridlayout::grid_page",
-//       uiArguments: fillInPartialTemplate({
+//       namedArgs: fillInPartialTemplate({
 //         areas: [["new_sidebar_name", "plot"]],
 //         row_sizes: ["1fr"],
 //         col_sizes: ["250px", "1fr"],
@@ -173,7 +173,7 @@ test("Modify a node at first level", () => {
 //     },
 //   });
 
-//   // expect((updated_app.uiArguments as any).areas[0][0]).toEqual(
+//   // expect((updated_app.namedArgs as any).areas[0][0]).toEqual(
 //   //   "new_sidebar_name"
 //   // );
 // });
@@ -185,7 +185,7 @@ test("Add a node", () => {
 
   const newUiNode: ShinyUiNode = {
     id: "shiny::actionButton",
-    uiArguments: {
+    namedArgs: {
       inputId: "button",
       label: "My Button",
     },

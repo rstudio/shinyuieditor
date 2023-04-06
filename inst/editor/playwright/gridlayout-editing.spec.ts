@@ -7,7 +7,7 @@ import { mockBackendState } from "./utils/mockBackend";
 
 const basicGridApp: ShinyUiNode = {
   id: "gridlayout::grid_page",
-  uiArguments: {
+  namedArgs: {
     layout: ["A B", "C ."],
     row_sizes: ["100px", "1fr"],
     col_sizes: ["200px", "2fr"],
@@ -16,34 +16,34 @@ const basicGridApp: ShinyUiNode = {
   uiChildren: [
     {
       id: "gridlayout::grid_card",
-      uiArguments: { area: "A" },
+      namedArgs: { area: "A" },
       uiChildren: [
         {
           id: "bslib::card_header",
-          uiArguments: {},
-          uiChildren: [{ id: "textNode", uiArguments: { contents: "A" } }],
+          namedArgs: {},
+          uiChildren: [{ id: "textNode", namedArgs: { contents: "A" } }],
         },
       ],
     },
     {
       id: "gridlayout::grid_card",
-      uiArguments: {
+      namedArgs: {
         area: "B",
       },
       uiChildren: [
         {
           id: "bslib::card_header",
-          uiArguments: {},
-          uiChildren: [{ id: "textNode", uiArguments: { contents: "B" } }],
+          namedArgs: {},
+          uiChildren: [{ id: "textNode", namedArgs: { contents: "B" } }],
         },
       ],
     },
     {
       id: "gridlayout::grid_card",
-      uiArguments: {
+      namedArgs: {
         area: "C",
       },
-      uiChildren: [{ id: "textNode", uiArguments: { contents: "C" } }],
+      uiChildren: [{ id: "textNode", namedArgs: { contents: "C" } }],
     },
   ],
 };

@@ -46,7 +46,7 @@ export function SettingsPanel({ tree }: SettingsPanelProps) {
 
   const isRootNode = selectedPath.length === 0;
 
-  const { id, uiArguments } = currentNode;
+  const { id, namedArgs } = currentNode;
 
   // If performance issues happen this can be memoized
   const nodeInfo = getUiNodeInfo(id);
@@ -68,12 +68,12 @@ export function SettingsPanel({ tree }: SettingsPanelProps) {
             />
           </div>
           <FormBuilder
-            settings={uiArguments}
+            settings={namedArgs}
             settingsInfo={staticSettingsInfo}
             renderInputs={
               "settingsFormRender" in nodeInfo
                 ? (nodeInfo.settingsFormRender as CustomFormRenderFn<
-                    typeof uiArguments
+                    typeof namedArgs
                   >)
                 : undefined
             }

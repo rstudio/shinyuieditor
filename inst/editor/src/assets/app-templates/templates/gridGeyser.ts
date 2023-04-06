@@ -4,7 +4,7 @@ import type { ShinyUiNode } from "../../../main";
 
 const appTree: ShinyUiNode = {
   id: "gridlayout::grid_page",
-  uiArguments: {
+  namedArgs: {
     layout: [
       "header  header   header",
       "sidebar bluePlot bluePlot",
@@ -18,15 +18,15 @@ const appTree: ShinyUiNode = {
   uiChildren: [
     {
       id: "gridlayout::grid_card",
-      uiArguments: { area: "sidebar" },
+      namedArgs: { area: "sidebar" },
       uiChildren: [
         {
           id: "bslib::card_header",
-          uiArguments: {},
+          namedArgs: {},
           uiChildren: [
             {
               id: "textNode",
-              uiArguments: {
+              namedArgs: {
                 contents: "Settings",
               },
             },
@@ -34,11 +34,11 @@ const appTree: ShinyUiNode = {
         },
         {
           id: "bslib::card_body_fill",
-          uiArguments: {},
+          namedArgs: {},
           uiChildren: [
             {
               id: "shiny::sliderInput",
-              uiArguments: {
+              namedArgs: {
                 inputId: "bins",
                 label: "Number of Bins",
                 min: 12,
@@ -49,7 +49,7 @@ const appTree: ShinyUiNode = {
             },
             {
               id: "shiny::numericInput",
-              uiArguments: {
+              namedArgs: {
                 inputId: "numRows",
                 label: "Number of table rows",
                 value: 10,
@@ -64,7 +64,7 @@ const appTree: ShinyUiNode = {
     },
     {
       id: "gridlayout::grid_card_text",
-      uiArguments: {
+      namedArgs: {
         area: "header",
         content: "Geysers!",
         alignment: "start",
@@ -73,17 +73,17 @@ const appTree: ShinyUiNode = {
     },
     {
       id: "gridlayout::grid_card",
-      uiArguments: {
+      namedArgs: {
         area: "table",
       },
       uiChildren: [
         {
           id: "bslib::card_header",
-          uiArguments: {},
+          namedArgs: {},
           uiChildren: [
             {
               id: "textNode",
-              uiArguments: {
+              namedArgs: {
                 contents: "Table",
               },
             },
@@ -91,11 +91,11 @@ const appTree: ShinyUiNode = {
         },
         {
           id: "bslib::card_body_fill",
-          uiArguments: {},
+          namedArgs: {},
           uiChildren: [
             {
               id: "DT::DTOutput",
-              uiArguments: {
+              namedArgs: {
                 outputId: "myTable",
                 width: "100%",
               },
@@ -106,21 +106,21 @@ const appTree: ShinyUiNode = {
     },
     {
       id: "gridlayout::grid_card_plot",
-      uiArguments: {
+      namedArgs: {
         area: "bluePlot",
       },
     },
     {
       id: "gridlayout::grid_card",
-      uiArguments: { area: "plotly" },
+      namedArgs: { area: "plotly" },
       uiChildren: [
         {
           id: "bslib::card_header",
-          uiArguments: {},
+          namedArgs: {},
           uiChildren: [
             {
               id: "textNode",
-              uiArguments: {
+              namedArgs: {
                 contents: "Interactive Plot",
               },
             },
@@ -128,11 +128,11 @@ const appTree: ShinyUiNode = {
         },
         {
           id: "bslib::card_body_fill",
-          uiArguments: {},
+          namedArgs: {},
           uiChildren: [
             {
               id: "plotly::plotlyOutput",
-              uiArguments: {
+              namedArgs: {
                 outputId: "distPlot",
                 width: "100%",
                 height: "100%",

@@ -11,8 +11,8 @@ import classes from "./styles.module.css";
 const ShinyNumericInput: UiNodeComponent<
   ShinyNumericInputProps,
   { TakesChildren: false }
-> = ({ uiArguments, wrapperProps }) => {
-  const settings = { ...uiArguments };
+> = ({ namedArgs, wrapperProps }) => {
+  const settings = { ...namedArgs };
 
   const width = settings.width ?? "200px";
 

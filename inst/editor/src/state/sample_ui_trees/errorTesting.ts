@@ -7,7 +7,7 @@ import type { KnownShinyUiNode } from "../../Shiny-Ui-Elements/uiNodeTypes";
  */
 export const errorTestingTree = {
   id: "gridlayout::grid_page",
-  uiArguments: {
+  namedArgs: {
     layout: ["A"],
     gap_size: "1rem",
     col_sizes: ["1fr"],
@@ -16,17 +16,17 @@ export const errorTestingTree = {
   uiChildren: [
     {
       id: "gridlayout::grid_card",
-      uiArguments: {
+      namedArgs: {
         area: "A",
       },
       uiChildren: [
         {
           id: "bslib::card_body_fill",
-          uiArguments: {},
+          namedArgs: {},
           uiChildren: [
             {
               id: "TESTING::error_node",
-              uiArguments: { error_msg: "Uh oh" },
+              namedArgs: { error_msg: "Uh oh" },
             },
           ],
         },

@@ -4,13 +4,13 @@ import type { ShinyUiNode } from "../../../main";
 
 const navbarTree: ShinyUiNode = {
   id: "shiny::navbarPage",
-  uiArguments: {
+  namedArgs: {
     title: "Chick Weights",
     selected: "Line Plots",
     collapsible: true,
     theme: {
       id: "unknownUiFunction",
-      uiArguments: {
+      namedArgs: {
         text: "bslib::bs_theme()",
       },
     },
@@ -18,13 +18,13 @@ const navbarTree: ShinyUiNode = {
   uiChildren: [
     {
       id: "shiny::tabPanel",
-      uiArguments: {
+      namedArgs: {
         title: "Line Plots",
       },
       uiChildren: [
         {
           id: "gridlayout::grid_container",
-          uiArguments: {
+          namedArgs: {
             row_sizes: ["1fr"],
             col_sizes: ["250px", "1fr"],
             gap_size: "10px",
@@ -33,25 +33,25 @@ const navbarTree: ShinyUiNode = {
           uiChildren: [
             {
               id: "gridlayout::grid_card",
-              uiArguments: { area: "num_chicks" },
+              namedArgs: { area: "num_chicks" },
               uiChildren: [
                 {
                   id: "bslib::card_header",
-                  uiArguments: {},
+                  namedArgs: {},
                   uiChildren: [
                     {
                       id: "textNode",
-                      uiArguments: { contents: "Settings" },
+                      namedArgs: { contents: "Settings" },
                     },
                   ],
                 },
                 {
                   id: "bslib::card_body_fill",
-                  uiArguments: {},
+                  namedArgs: {},
                   uiChildren: [
                     {
                       id: "shiny::sliderInput",
-                      uiArguments: {
+                      namedArgs: {
                         inputId: "numChicks",
                         label: "Number of chicks",
                         min: 1,
@@ -67,7 +67,7 @@ const navbarTree: ShinyUiNode = {
             },
             {
               id: "gridlayout::grid_card_plot",
-              uiArguments: {
+              namedArgs: {
                 area: "linePlots",
               },
             },
@@ -77,13 +77,13 @@ const navbarTree: ShinyUiNode = {
     },
     {
       id: "shiny::tabPanel",
-      uiArguments: {
+      namedArgs: {
         title: "Distributions",
       },
       uiChildren: [
         {
           id: "gridlayout::grid_container",
-          uiArguments: {
+          namedArgs: {
             row_sizes: ["165px", "1fr"],
             col_sizes: ["1fr"],
             gap_size: "10px",
@@ -92,33 +92,33 @@ const navbarTree: ShinyUiNode = {
           uiChildren: [
             {
               id: "gridlayout::grid_card_plot",
-              uiArguments: {
+              namedArgs: {
                 area: "dists",
               },
             },
             {
               id: "gridlayout::grid_card",
-              uiArguments: {
+              namedArgs: {
                 area: "facetOption",
               },
               uiChildren: [
                 {
                   id: "bslib::card_header",
-                  uiArguments: {},
+                  namedArgs: {},
                   uiChildren: [
                     {
                       id: "textNode",
-                      uiArguments: { contents: "Distribution Plot Options" },
+                      namedArgs: { contents: "Distribution Plot Options" },
                     },
                   ],
                 },
                 {
                   id: "bslib::card_body_fill",
-                  uiArguments: {},
+                  namedArgs: {},
                   uiChildren: [
                     {
                       id: "shiny::radioButtons",
-                      uiArguments: {
+                      namedArgs: {
                         inputId: "distFacet",
                         label: "Facet distribution by",
                         choices: {

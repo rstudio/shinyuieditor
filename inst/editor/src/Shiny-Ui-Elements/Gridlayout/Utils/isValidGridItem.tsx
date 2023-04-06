@@ -4,7 +4,7 @@ import type { KnownShinyUiNode, ShinyUiNode } from "../../uiNodeTypes";
 
 export type GridItemNode = Extract<
   KnownShinyUiNode,
-  { id: `gridlayout::${string}`; uiArguments: { area: string } }
+  { id: `gridlayout::${string}`; namedArgs: { area: string } }
 >;
 
 const gridAwareNodeNamesTuple: UnionToTuple<GridItemNode["id"]> = [

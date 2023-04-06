@@ -3,7 +3,7 @@ import React from "react";
 import { is_object } from "util-functions/src/is_object";
 import type { StringKeys } from "util-functions/src/TypescriptUtils";
 
-import type { UiArgumentsObject } from "../../../Shiny-Ui-Elements/uiNodeTypes";
+import type { namedArgsObject } from "../../../Shiny-Ui-Elements/uiNodeTypes";
 
 import type { DynamicArgumentInfo } from "./buildStaticSettingsInfo";
 import type { All_Input_Types } from "./inputFieldTypes";
@@ -24,7 +24,7 @@ export type CustomFormRenderFn<Settings extends SettingsObj> = (x: {
 }) => JSX.Element;
 
 export type FormBuilderProps = {
-  settings: UiArgumentsObject;
+  settings: namedArgsObject;
   settingsInfo: DynamicArgumentInfo;
   onSettingsChange: (name: string, action: SettingsUpdateAction) => void;
   renderInputs?: CustomFormRenderFn<SettingsObj>;

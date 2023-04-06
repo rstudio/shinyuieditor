@@ -65,10 +65,10 @@ export function ui_node_to_R_code(
       // the ProcessNamedArgs being scoped to the specific node's arguments type
       // but this printing function is generic to all nodes
       const arg_printer = node_info.code_gen_R
-        ?.print_named_args as ProcessNamedArgs<typeof node.uiArguments>;
-      fn_args_list = arg_printer(node.uiArguments, print_code);
+        ?.print_named_args as ProcessNamedArgs<typeof node.namedArgs>;
+      fn_args_list = arg_printer(node.namedArgs, print_code);
     } else {
-      for (const [arg_name, arg_value] of Object.entries(node.uiArguments)) {
+      for (const [arg_name, arg_value] of Object.entries(node.namedArgs)) {
         fn_args_list.push(`${arg_name} = ${print_code(arg_value)}`);
       }
     }

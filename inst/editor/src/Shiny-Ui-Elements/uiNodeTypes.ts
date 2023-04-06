@@ -37,10 +37,10 @@ import { shinyUiOutputInfo } from "./ShinyUiOutput";
 import { textNodeInfo } from "./TextNode";
 import { unknownUiFunctionInfo } from "./UnknownUiFunction";
 
-export type UiArgumentsObject = Record<string, unknown | undefined>;
+export type namedArgsObject = Record<string, unknown | undefined>;
 
 export type ServerBindings<
-  NodeSettings extends UiArgumentsObject = UiArgumentsObject
+  NodeSettings extends namedArgsObject = namedArgsObject
 > = {
   outputs: {
     outputIdKey: keyof NodeSettings | PickKeyFn<NodeSettings>;
@@ -176,7 +176,7 @@ export const shinyidToNamespacedName = new Map<string, string>([
 export type KnownShinyUiNode = {
   [NodeInfo in ShinyUiNodeInfo as NodeInfo["id"]]: {
     id: NodeInfo["id"];
-    uiArguments: Required<NodeInfo>["example_args"];
+    namedArgs: Required<NodeInfo>["example_args"];
   } & (NodeInfo["takesChildren"] extends true
     ? { uiChildren: KnownUiChildren }
     : {});
@@ -187,11 +187,11 @@ type KnownUiChildren = Array<KnownShinyUiNode>;
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const knownUiNodeTest: KnownShinyUiNode = {
   id: "bslib::card",
-  uiArguments: { full_screen: true },
+  namedArgs: { full_screen: true },
   uiChildren: [
     {
       id: "shiny::actionButton",
-      uiArguments: { inputId: "btn", label: "My Button" },
+      namedArgs: { inputId: "btn", label: "My Button" },
     },
   ],
 };
@@ -200,7 +200,7 @@ const knownUiNodeTest: KnownShinyUiNode = {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const knownUiNodeTestFail: KnownShinyUiNode = {
   id: "shiny::actionButton",
-  uiArguments: {
+  namedArgs: {
     inputId: "test",
   },
 };
@@ -210,7 +210,7 @@ const knownUiNodeTestFail: KnownShinyUiNode = {
  */
 export type ShinyUiLeafNode = {
   id: string;
-  uiArguments: UiArgumentsObject;
+  namedArgs: namedArgsObject;
 };
 
 /**
@@ -227,11 +227,11 @@ export type ShinyUiRootNode = ShinyUiParentNode | "TEMPLATE_CHOOSER";
 export type ShinyUiNode = ShinyUiLeafNode | ShinyUiParentNode;
 
 export type MakeShinyUiNode<
-  Args extends UiArgumentsObject,
+  Args extends namedArgsObject,
   TakesChildren extends boolean = false
 > = {
   id: string;
-  uiArguments: Args;
+  namedArgs: Args;
 } & (TakesChildren extends true ? { uiChildren: Array<ShinyUiNode> } : {});
 
 /**
@@ -249,7 +249,7 @@ export type UiNodeComponent<
   Opts extends { TakesChildren: boolean }
 > = (
   props: {
-    uiArguments: NodeSettings;
+    namedArgs: NodeSettings;
     path: NodePath;
     wrapperProps: ReturnType<typeof useMakeWrapperProps>;
   } & (Opts["TakesChildren"] extends true

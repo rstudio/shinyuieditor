@@ -6,7 +6,7 @@ import type {
 
 export function getTabPanelTitle(node: ShinyUiNode): string | null {
   if (isValidTabPanel(node)) {
-    return node.uiArguments.title;
+    return node.namedArgs.title;
   }
   return null;
 }

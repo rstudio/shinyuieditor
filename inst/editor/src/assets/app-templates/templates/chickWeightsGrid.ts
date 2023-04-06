@@ -4,7 +4,7 @@ import type { ShinyUiParentNode } from "../../../Shiny-Ui-Elements/uiNodeTypes";
 
 const navbarTree: ShinyUiParentNode = {
   id: "gridlayout::grid_page",
-  uiArguments: {
+  namedArgs: {
     row_sizes: ["70px", "1fr", "1fr"],
     col_sizes: ["250px", "1fr"],
     gap_size: "1rem",
@@ -13,22 +13,20 @@ const navbarTree: ShinyUiParentNode = {
   uiChildren: [
     {
       id: "gridlayout::grid_card",
-      uiArguments: { area: "sidebar" },
+      namedArgs: { area: "sidebar" },
       uiChildren: [
         {
           id: "bslib::card_header",
-          uiArguments: {},
-          uiChildren: [
-            { id: "textNode", uiArguments: { contents: "Settings" } },
-          ],
+          namedArgs: {},
+          uiChildren: [{ id: "textNode", namedArgs: { contents: "Settings" } }],
         },
         {
           id: "bslib::card_body_fill",
-          uiArguments: {},
+          namedArgs: {},
           uiChildren: [
             {
               id: "shiny::sliderInput",
-              uiArguments: {
+              namedArgs: {
                 inputId: "numChicks",
                 label: "Number of Chicks",
                 min: 1,
@@ -40,7 +38,7 @@ const navbarTree: ShinyUiParentNode = {
             },
             {
               id: "shiny::radioButtons",
-              uiArguments: {
+              namedArgs: {
                 inputId: "distFacet",
                 label: "Facet Distribution By",
                 choices: {
@@ -55,7 +53,7 @@ const navbarTree: ShinyUiParentNode = {
     },
     {
       id: "gridlayout::grid_card_text",
-      uiArguments: {
+      namedArgs: {
         area: "header",
         content: "Chick Weights",
         alignment: "center",
@@ -64,13 +62,13 @@ const navbarTree: ShinyUiParentNode = {
     },
     {
       id: "gridlayout::grid_card_plot",
-      uiArguments: {
+      namedArgs: {
         area: "dists",
       },
     },
     {
       id: "gridlayout::grid_card_plot",
-      uiArguments: {
+      namedArgs: {
         area: "linePlots",
       },
     },

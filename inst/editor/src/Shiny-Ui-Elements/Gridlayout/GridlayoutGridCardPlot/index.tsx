@@ -26,8 +26,8 @@ export const gridlayoutGridCardPlotInfo =
         label: "Output ID",
         inputType: "string",
         defaultValue: function (node): string {
-          if (node && "area" in node.uiArguments) {
-            return node.uiArguments.area as string;
+          if (node && "area" in node.namedArgs) {
+            return node.namedArgs.area as string;
           }
           return "MyPlot";
         },

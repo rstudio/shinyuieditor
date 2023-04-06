@@ -3,7 +3,7 @@ import type {
   ShinyUiNode,
 } from "../../../Shiny-Ui-Elements/uiNodeTypes";
 
-type Wrapper = Pick<ShinyUiNode, "id" | "uiArguments">;
+type Wrapper = Pick<ShinyUiNode, "id" | "namedArgs">;
 export type Wrapping_Node = Wrapper | ((child: ShinyUiNode) => Wrapper | null);
 
 type ChildToWrapperFunction = (child: ShinyUiNode) => ShinyUiLeafNode | null;

@@ -7,33 +7,33 @@ import type { KnownShinyUiNode } from "../../Shiny-Ui-Elements/uiNodeTypes";
 
 export const basicNavbarPage = {
   id: "shiny::navbarPage",
-  uiArguments: {
+  namedArgs: {
     title: "My Navbar Page",
     collapsible: false,
   },
   uiChildren: [
     {
       id: "shiny::tabPanel",
-      uiArguments: {
+      namedArgs: {
         title: "Settings",
       },
       uiChildren: [
         {
           id: "shiny::tabsetPanel",
-          uiArguments: {},
+          namedArgs: {},
           uiChildren: [],
         },
       ],
     },
     {
       id: "shiny::tabPanel",
-      uiArguments: {
+      namedArgs: {
         title: "Plot 1",
       },
       uiChildren: [
         {
           id: "shiny::plotOutput",
-          uiArguments: {
+          namedArgs: {
             outputId: "MyPlot",
             width: "100%",
             height: "100%",
@@ -43,13 +43,13 @@ export const basicNavbarPage = {
     },
     {
       id: "shiny::tabPanel",
-      uiArguments: {
+      namedArgs: {
         title: "Plot 2",
       },
       uiChildren: [
         {
           id: "shiny::plotOutput",
-          uiArguments: {
+          namedArgs: {
             outputId: "MyOtherPlot",
             width: "50%",
             height: "50%",

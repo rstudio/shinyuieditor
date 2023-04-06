@@ -17,9 +17,9 @@ export type BslibCardArguments = {
 const BslibCard: UiNodeComponent<
   BslibCardArguments,
   { TakesChildren: true }
-> = ({ uiArguments, uiChildren = [], path, wrapperProps }) => {
+> = ({ namedArgs, uiChildren = [], path, wrapperProps }) => {
   return (
-    <BslibCardContainer {...wrapperProps} card_args={uiArguments}>
+    <BslibCardContainer {...wrapperProps} card_args={namedArgs}>
       {render_card_elements(uiChildren, path)}
     </BslibCardContainer>
   );
@@ -45,15 +45,15 @@ export const bslibCardInfo = nodeInfoFactory<BslibCardArguments>()({
   category: "Containers",
   description: "Bootstrap card with smart fill behavior",
   default_node: {
-    uiArguments: { full_screen: true },
+    namedArgs: { full_screen: true },
     uiChildren: [
       {
         id: "bslib::card_header",
-        uiArguments: {},
+        namedArgs: {},
         uiChildren: [
           {
             id: "textNode",
-            uiArguments: {
+            namedArgs: {
               contents: "Header",
             },
           },

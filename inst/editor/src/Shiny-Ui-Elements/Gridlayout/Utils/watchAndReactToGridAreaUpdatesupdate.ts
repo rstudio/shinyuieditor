@@ -38,11 +38,11 @@ export function updateGridLayoutAreaOnItemAreaChange(
 
   const oldAreaName = areasOfChildren(gridPageNode.uiChildren)[child_index];
 
-  const newAreaName = (node.uiArguments as GridItemSettings).area ?? emptyCell;
+  const newAreaName = (node.namedArgs as GridItemSettings).area ?? emptyCell;
 
   if (oldAreaName === newAreaName) return;
 
-  gridPageNode.uiArguments = gridLayoutReducer(gridPageNode.uiArguments, {
+  gridPageNode.namedArgs = gridLayoutReducer(gridPageNode.namedArgs, {
     type: "RENAME_ITEM",
     oldName: oldAreaName,
     newName: newAreaName,
@@ -62,7 +62,7 @@ export function removeDeletedGridAreaFromLayout(
 
   const { gridPageNode, gridItemNode } = gridPageAndItemNodes;
 
-  const deletedAreaName = (gridItemNode.uiArguments as GridItemSettings).area;
+  const deletedAreaName = (gridItemNode.namedArgs as GridItemSettings).area;
 
   if (!deletedAreaName) {
     // eslint-disable-next-line no-console
@@ -70,7 +70,7 @@ export function removeDeletedGridAreaFromLayout(
     return;
   }
 
-  gridPageNode.uiArguments = gridLayoutReducer(gridPageNode.uiArguments, {
+  gridPageNode.namedArgs = gridLayoutReducer(gridPageNode.namedArgs, {
     type: "REMOVE_ITEM",
     name: deletedAreaName,
   });
@@ -87,7 +87,7 @@ function getGridContainerAndItemNodes({
 
   // A grid item node should always be a child of the parent grid container
   if (
-    item_paths.child_location === "uiArguments" ||
+    item_paths.child_location === "namedArgs" ||
     item_paths.child_location === "missing"
   )
     return null;
@@ -103,7 +103,7 @@ function getGridContainerAndItemNodes({
   const gridItemNode = parentNode.uiChildren[item_paths.child_path];
 
   // Only trigger on updates of grid area nodes
-  if (!("area" in gridItemNode.uiArguments)) return null;
+  if (!("area" in gridItemNode.namedArgs)) return null;
 
   // Not sure why typescript cant properly infer this type here but we check for
   // the uiChildren already so it's a safe inference

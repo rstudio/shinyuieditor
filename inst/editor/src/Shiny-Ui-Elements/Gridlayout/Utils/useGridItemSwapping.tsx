@@ -37,7 +37,7 @@ export function useGridItemSwapping({
 
   const onDrop = React.useCallback(
     (dropInfo: DraggedNodeInfo) => {
-      if (!("area" in dropInfo.node.uiArguments)) {
+      if (!("area" in dropInfo.node.namedArgs)) {
         // eslint-disable-next-line no-console
         console.error("Invalid grid area swap drop", { dropInfo });
         return;
@@ -47,7 +47,7 @@ export function useGridItemSwapping({
       // dropped node (which is should be because we don't allow drops unless
       // it's a grid panel), then let the swap_nodes() function detect that and
       // error for us.
-      const droppedArea = dropInfo.node.uiArguments.area ?? "__BAD_DROP__";
+      const droppedArea = dropInfo.node.namedArgs.area ?? "__BAD_DROP__";
 
       setLayout?.({
         type: "SWAP_ITEMS",
@@ -78,9 +78,9 @@ export function useGridItemSwapping({
     if (
       ref.current &&
       currentDrag?.node &&
-      "area" in currentDrag.node.uiArguments
+      "area" in currentDrag.node.namedArgs
     ) {
-      ref.current.dataset["swapWith"] = currentDrag.node.uiArguments
+      ref.current.dataset["swapWith"] = currentDrag.node.namedArgs
         .area as string;
     }
   }, [currentDrag?.node, ref]);

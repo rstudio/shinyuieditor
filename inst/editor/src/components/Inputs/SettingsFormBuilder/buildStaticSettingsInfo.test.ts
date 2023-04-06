@@ -8,22 +8,22 @@ import { buildStaticFormInfo, getDefaultSettings } from "./buildStaticSettingsIn
 
 const navbarWithThreeTabs: ShinyUiParentNode = {
   id: "shiny::navbarPage",
-  uiArguments: {
+  namedArgs: {
     title: "My Navbar Page",
     collapsible: false,
   },
   uiChildren: [
     {
       id: "shiny::tabPanel",
-      uiArguments: { title: "first tab" },
+      namedArgs: { title: "first tab" },
     },
     {
       id: "shiny::tabPanel",
-      uiArguments: { title: "second tab" },
+      namedArgs: { title: "second tab" },
     },
     {
       id: "shiny::tabPanel",
-      uiArguments: { title: "third tab" },
+      namedArgs: { title: "third tab" },
     },
   ],
 };

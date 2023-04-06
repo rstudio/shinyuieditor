@@ -74,7 +74,7 @@ const MAX_VALUE_PRINT = 50;
 function printValueOfUnknownArg(unknownArgValue: unknown): string {
   let argumentValue = JSON.stringify(
     isUnknownUiFunction(unknownArgValue)
-      ? unknownArgValue.uiArguments.text
+      ? unknownArgValue.namedArgs.text
       : unknownArgValue
   );
 

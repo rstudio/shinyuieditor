@@ -65,7 +65,7 @@ export function useUpdateSettings(tree: ShinyUiNode) {
       (node) =>
         ({
           ...node,
-          uiArguments: { ...node?.uiArguments, [name]: value },
+          namedArgs: { ...node?.namedArgs, [name]: value },
         } as typeof currentNode)
     );
     formHasBeenUpdated.current = true;
@@ -77,9 +77,9 @@ export function useUpdateSettings(tree: ShinyUiNode) {
 
       return {
         ...node,
-        uiArguments: omit(
-          node.uiArguments ?? {},
-          name as keyof typeof node.uiArguments
+        namedArgs: omit(
+          node.namedArgs ?? {},
+          name as keyof typeof node.namedArgs
         ),
       } as typeof currentNode;
     });

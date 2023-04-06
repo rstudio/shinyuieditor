@@ -39,9 +39,9 @@ export function addNodeMutating(
     return;
   }
 
-  if (destination_paths.child_location === "uiArguments") {
+  if (destination_paths.child_location === "namedArgs") {
     // Add node to new arguments position
-    destination_parent.uiArguments[destination_paths.child_path] = node;
+    destination_parent.namedArgs[destination_paths.child_path] = node;
 
     return;
   }

@@ -10,7 +10,7 @@ const PlotlyPlotlyOutput: UiNodeComponent<
   PlotlyOutputSettings,
   { TakesChildren: false }
 > = ({
-  uiArguments: { outputId, width = "100%", height = "400px" },
+  namedArgs: { outputId, width = "100%", height = "400px" },
   wrapperProps,
 }) => {
   return (

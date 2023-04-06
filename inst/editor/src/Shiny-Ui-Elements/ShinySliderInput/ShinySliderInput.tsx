@@ -11,8 +11,8 @@ import classes from "./styles.module.css";
 const ShinySliderInput: UiNodeComponent<
   ShinySliderInputProps,
   { TakesChildren: false }
-> = ({ uiArguments, wrapperProps }) => {
-  const settings = { ...uiArguments };
+> = ({ namedArgs, wrapperProps }) => {
+  const settings = { ...namedArgs };
   const { width = "200px" } = settings;
   const [currentVal, setCurrentVal] = React.useState(settings.value);
   return (

@@ -8,8 +8,8 @@ import classes from "./styles.module.css";
 const ShinyActionButton: UiNodeComponent<
   ShinyActionButtonProps,
   { TakesChildren: false }
-> = ({ uiArguments, wrapperProps }) => {
-  const { label = "My Action Button", width } = uiArguments;
+> = ({ namedArgs, wrapperProps }) => {
+  const { label = "My Action Button", width } = namedArgs;
 
   return (
     <div className={classes.container} {...wrapperProps}>

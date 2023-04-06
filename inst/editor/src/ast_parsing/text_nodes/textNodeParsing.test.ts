@@ -106,7 +106,7 @@ describe("Can parse raw ast to text nodes", () => {
     ).toStrictEqual([
       {
         id: "textNode",
-        uiArguments: expect.objectContaining({
+        namedArgs: expect.objectContaining({
           contents: text_contents,
         }),
       },
@@ -133,7 +133,7 @@ describe("Can parse raw ast to text nodes", () => {
     ).toStrictEqual([
       {
         id: "textNode",
-        uiArguments: expect.objectContaining({
+        namedArgs: expect.objectContaining({
           contents: text_contents,
           size: "headline",
         }),
@@ -161,7 +161,7 @@ describe("Can parse raw ast to text nodes", () => {
     ).toStrictEqual([
       {
         id: "textNode",
-        uiArguments: expect.objectContaining({
+        namedArgs: expect.objectContaining({
           contents: text_contents,
           decoration: "italic",
         }),
@@ -175,7 +175,7 @@ describe("Can convert from ui text node to code", () => {
     expect(
       text_node_to_code({
         id: "textNode",
-        uiArguments: {
+        namedArgs: {
           contents: text_contents,
         },
       })
@@ -185,7 +185,7 @@ describe("Can convert from ui text node to code", () => {
     expect(
       text_node_to_code({
         id: "textNode",
-        uiArguments: {
+        namedArgs: {
           contents: text_contents,
           size: "subtitle",
           decoration: "default",

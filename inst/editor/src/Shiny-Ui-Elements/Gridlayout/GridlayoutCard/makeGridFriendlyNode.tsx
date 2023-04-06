@@ -24,28 +24,28 @@ export function makeGridFriendlyNode(  node: ShinyUiNode,
   area: string): GridItemNode {
 
   if (isValidGridItem(node)) {
-    node.uiArguments.area = area;
+    node.namedArgs.area = area;
 
     return node;
   }
 
   if (isBslibCard(node)) {
-    const { uiArguments, uiChildren } = node;
+    const { namedArgs, uiChildren } = node;
 
     return {
       id: "gridlayout::grid_card",
-      uiArguments: { area, ...uiArguments },
+      namedArgs: { area, ...namedArgs },
       uiChildren,
     } satisfies GridlayoutCardNode;
   }
 
   return {
     id: "gridlayout::grid_card",
-    uiArguments: { area },
+    namedArgs: { area },
     uiChildren: [
       {
         id: "bslib::card_body_fill",
-        uiArguments: {},
+        namedArgs: {},
         uiChildren: [node as KnownShinyUiNode],
       },
     ],

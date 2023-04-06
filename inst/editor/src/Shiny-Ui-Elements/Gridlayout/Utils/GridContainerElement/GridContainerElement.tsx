@@ -16,7 +16,7 @@ import type { TemplatedGridProps } from "../EditableGridContainer/TemplatedGridP
 import { isValidGridItem } from "../isValidGridItem";
 import { NameNewPanelModal } from "../NameNewPanelModal";
 import { LayoutDispatchContext } from "../useSetLayout";
-import { useUpdateUiArguments } from "../useUpdateUiArguments";
+import { useUpdateNamedArgs } from "../useUpdateUiArguments";
 
 import { ensureProperBoxedGridLayoutArgs } from "./ensureProperBoxedGridLayoutArts";
 import type { GridLayoutArgs } from "./GridLayoutArgs";
@@ -35,12 +35,12 @@ export type NewItemInfo = DraggedNodeInfo & {
 export const GridContainerElement: UiNodeComponent<
   GridLayoutArgs,
   { TakesChildren: true }
-> = ({ uiArguments, uiChildren, path, wrapperProps }) => {
-  const layoutDef = ensureProperBoxedGridLayoutArgs(uiArguments);
+> = ({ namedArgs, uiChildren, path, wrapperProps }) => {
+  const layoutDef = ensureProperBoxedGridLayoutArgs(namedArgs);
   const place_node = usePlaceNode();
   const { uniqueAreas, ...layout } = parseGridLayoutArgs(layoutDef);
   const { areas } = layout;
-  const updateArguments = useUpdateUiArguments(path);
+  const updateArguments = useUpdateNamedArgs(path);
   const itemGridLocations = React.useMemo(
     () => areasToItemLocations(areas),
     [areas]
@@ -56,12 +56,12 @@ export const GridContainerElement: UiNodeComponent<
     if (
       isNodeMove &&
       isGridCard &&
-      "area" in node.uiArguments &&
-      node.uiArguments.area
+      "area" in node.namedArgs &&
+      node.namedArgs.area
     ) {
       // Just move the panel and let the layout know to update. No need to
       // update the tree because nothing about the node itself changed
-      const areaName = node.uiArguments.area;
+      const areaName = node.namedArgs.area;
       handleLayoutUpdate({ type: "MOVE_ITEM", name: areaName, pos });
 
       return;

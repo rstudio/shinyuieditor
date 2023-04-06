@@ -17,11 +17,11 @@ describe("Can handle unknown code properly", () => {
 
     const expected_result: KnownShinyUiNode = {
       id: "bslib::card_body_fill",
-      uiArguments: {},
+      namedArgs: {},
       uiChildren: [
         {
           id: "unknownUiFunction",
-          uiArguments: expect.objectContaining({ text: "custom_input" }),
+          namedArgs: expect.objectContaining({ text: "custom_input" }),
         },
       ],
     };
@@ -45,11 +45,11 @@ describe("Can handle unknown code properly", () => {
 
     const expected_result: KnownShinyUiNode = {
       id: "bslib::card_body_fill",
-      uiArguments: {},
+      namedArgs: {},
       uiChildren: [
         {
           id: "unknownUiFunction",
-          uiArguments: expect.objectContaining({
+          namedArgs: expect.objectContaining({
             text: 'my_custom_fn(foo = "bar")',
           }),
         },
@@ -72,10 +72,10 @@ describe("Can handle unknown code properly", () => {
     ).toStrictEqual(
       expect.objectContaining({
         id: "bslib::card_body_fill",
-        uiArguments: {
+        namedArgs: {
           max_height: {
             id: "unknownUiFunction",
-            uiArguments: expect.objectContaining({
+            namedArgs: expect.objectContaining({
               text: "card_height",
             }),
           },
@@ -103,10 +103,10 @@ describe("Can handle unknown code properly", () => {
     ).toStrictEqual(
       expect.objectContaining({
         id: "bslib::card_body_fill",
-        uiArguments: {
+        namedArgs: {
           max_height: {
             id: "unknownUiFunction",
-            uiArguments: expect.objectContaining({
+            namedArgs: expect.objectContaining({
               text: "make_px(num = 100)",
             }),
           },
@@ -146,7 +146,7 @@ describe("Can handle unknown code properly", () => {
       })
     ).toEqual({
       id: "unknownUiFunction",
-      uiArguments: expect.objectContaining({
+      namedArgs: expect.objectContaining({
         text: `(function(name) {...})(name = "shiny")`,
       }),
     });
@@ -156,11 +156,11 @@ describe("Can handle unknown code properly", () => {
 test("Handle primative values as children", () => {
   const output: KnownShinyUiNode = {
     id: "bslib::card_body_fill",
-    uiArguments: {},
+    namedArgs: {},
     uiChildren: [
-      { id: "textNode", uiArguments: { contents: "Hi" } },
-      { id: "textNode", uiArguments: { contents: "3" } },
-      { id: "textNode", uiArguments: { contents: "FALSE" } },
+      { id: "textNode", namedArgs: { contents: "Hi" } },
+      { id: "textNode", namedArgs: { contents: "3" } },
+      { id: "textNode", namedArgs: { contents: "FALSE" } },
     ],
   };
   expect(
@@ -195,11 +195,11 @@ test("Successfully parses known ui nodes in named arguments", () => {
 
   expect(ast_to_ui_node(value_card_ast)).toStrictEqual({
     id: "bslib::value_box",
-    uiArguments: {
+    namedArgs: {
       title: "I got",
       value: {
         id: "shiny::textOutput",
-        uiArguments: { outputId: "my_value" },
+        namedArgs: { outputId: "my_value" },
       },
     },
   });
@@ -238,7 +238,7 @@ describe("Custom behavior for parsing to ui ast is respected", () => {
   const value_box_ui_node = ast_to_ui_node(value_box_ast);
 
   test("Intercepted named arugments are modified as expected, but simple one are left alone", () => {
-    expect(value_box_ui_node.uiArguments).toStrictEqual(
+    expect(value_box_ui_node.namedArgs).toStrictEqual(
       expect.objectContaining({
         title: "My Title",
         showcase_icon: "github",
@@ -248,11 +248,11 @@ describe("Custom behavior for parsing to ui ast is respected", () => {
   });
 
   test("Ui nodes as children get rendered properly", () => {
-    expect(value_box_ui_node.uiArguments).toStrictEqual(
+    expect(value_box_ui_node.namedArgs).toStrictEqual(
       expect.objectContaining({
         value: {
           id: "shiny::textOutput",
-          uiArguments: { outputId: "my_value" },
+          namedArgs: { outputId: "my_value" },
         },
       })
     );
