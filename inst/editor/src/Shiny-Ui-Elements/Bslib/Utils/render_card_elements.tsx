@@ -9,21 +9,21 @@ import { CardBodyFill, CardFooter, CardHeader } from "./CardElements";
 import styles from "./CardUtils.module.css";
 
 const possible_elements = new Set([
-  "bslib::card_body_fill",
-  "bslib::card_header",
-  "bslib::card_footer",
+  "card_body_fill",
+  "card_header",
+  "card_footer",
 ]);
 
 const headerScaffold = {
-  id: "bslib::card_header",
+  id: "card_header",
   namedArgs: {},
 } as const;
 const bodyScaffold = {
-  id: "bslib::card_body_fill",
+  id: "card_body_fill",
   namedArgs: {},
 } as const;
 const footerScaffold = {
-  id: "bslib::card_footer",
+  id: "card_footer",
   namedArgs: {},
 } as const;
 
@@ -52,11 +52,11 @@ export function render_card_elements(
       />
     );
     child_index++;
-    if (id === "bslib::card_header") {
+    if (id === "card_header") {
       header = child_node;
-    } else if (id === "bslib::card_body_fill") {
+    } else if (id === "card_body_fill") {
       body = child_node;
-    } else if (id === "bslib::card_footer") {
+    } else if (id === "card_footer") {
       footer = child_node;
     }
   });
@@ -73,7 +73,7 @@ export function render_card_elements(
             child_loc={0}
             parentPath={path}
             wrappingNode={headerScaffold}
-            parentNodeType="bslib::card_header"
+            parentNodeType="card_header"
             messageOnHover="Add to card header"
           />
         </CardHeader>
@@ -85,7 +85,7 @@ export function render_card_elements(
             child_loc={sum_booleans(has_header)}
             parentPath={path}
             wrappingNode={bodyScaffold}
-            parentNodeType="bslib::card_body_fill"
+            parentNodeType="card_body_fill"
             messageOnHover="Add to card body"
           />
         </CardBodyFill>
@@ -97,7 +97,7 @@ export function render_card_elements(
             child_loc={sum_booleans(has_header, has_body)}
             parentPath={path}
             wrappingNode={footerScaffold}
-            parentNodeType="bslib::card_footer"
+            parentNodeType="card_footer"
             messageOnHover="Add to card footer"
           />
         </CardFooter>

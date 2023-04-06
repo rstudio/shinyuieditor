@@ -5,6 +5,7 @@ import { DropWatcherPanel } from "../../../DragAndDropHelpers/DropWatcherPanel";
 import { makeChildPath } from "../../nodePathUtils";
 import type {
   KnownShinyUiNode,
+  NodeInfoByRPackage,
   NodePath,
   ShinyUiNodeIds,
   ShinyUiParentNode,
@@ -64,7 +65,7 @@ type NodesWithHeightSettings = Exclude<
       : never;
   }[KnownShinyUiNode["id"]],
   // Ignore bslib specific nodes
-  `bslib::card_${string}`
+  NodeInfoByRPackage["bslib"]["id"]
 >;
 
 // This is here to spit a typescript error if we add a new node with a height
@@ -72,7 +73,7 @@ type NodesWithHeightSettings = Exclude<
 // children
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const nodes_that_can_flex: Record<NodesWithHeightSettings, true> = {
-  "DT::DTOutput": true,
-  "plotly::plotlyOutput": true,
-  "shiny::plotOutput": true,
+  DTOutput: true,
+  plotlyOutput: true,
+  plotOutput: true,
 };

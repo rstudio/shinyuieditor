@@ -16,7 +16,7 @@ const BslibCardHeader: UiNodeComponent<
       <CardChildrenWithDropNodes
         children={children}
         path={path}
-        parentid="bslib::card_header"
+        parentid="card_header"
         messageOnHover="Add to card header"
       />
     </CardHeader>

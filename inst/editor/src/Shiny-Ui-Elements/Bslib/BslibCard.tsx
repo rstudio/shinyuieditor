@@ -48,7 +48,7 @@ export const bslibCardInfo = nodeInfoFactory<BslibCardArguments>()({
     namedArgs: { full_screen: true },
     children: [
       {
-        id: "bslib::card_header",
+        id: "card_header",
         namedArgs: {},
         children: [
           {
@@ -63,8 +63,8 @@ export const bslibCardInfo = nodeInfoFactory<BslibCardArguments>()({
   },
 });
 
-type BslibCardNode = Extract<KnownShinyUiNode, { id: "bslib::card" }>;
+type BslibCardNode = Extract<KnownShinyUiNode, { id: "card" }>;
 
 export function isBslibCard(node: ShinyUiNode): node is BslibCardNode {
-  return node.id === "bslib::card";
+  return node.id === "card";
 }

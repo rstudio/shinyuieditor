@@ -3,7 +3,7 @@ import type { TemplateInfo } from "communication-types/src/AppTemplates";
 import type { ShinyUiNode } from "../../../Shiny-Ui-Elements/uiNodeTypes";
 
 const navbarTree: ShinyUiNode = {
-  id: "shiny::navbarPage",
+  id: "navbarPage",
   namedArgs: {
     title: "Chick Weights",
     selected: "Line Plots",
@@ -17,13 +17,13 @@ const navbarTree: ShinyUiNode = {
   },
   children: [
     {
-      id: "shiny::tabPanel",
+      id: "tabPanel",
       namedArgs: {
         title: "Line Plots",
       },
       children: [
         {
-          id: "gridlayout::grid_container",
+          id: "grid_container",
           namedArgs: {
             row_sizes: ["1fr"],
             col_sizes: ["250px", "1fr"],
@@ -32,11 +32,11 @@ const navbarTree: ShinyUiNode = {
           },
           children: [
             {
-              id: "gridlayout::grid_card",
+              id: "grid_card",
               namedArgs: { area: "num_chicks" },
               children: [
                 {
-                  id: "bslib::card_header",
+                  id: "card_header",
                   namedArgs: {},
                   children: [
                     {
@@ -46,11 +46,11 @@ const navbarTree: ShinyUiNode = {
                   ],
                 },
                 {
-                  id: "bslib::card_body_fill",
+                  id: "card_body_fill",
                   namedArgs: {},
                   children: [
                     {
-                      id: "shiny::sliderInput",
+                      id: "sliderInput",
                       namedArgs: {
                         inputId: "numChicks",
                         label: "Number of chicks",
@@ -66,7 +66,7 @@ const navbarTree: ShinyUiNode = {
               ],
             },
             {
-              id: "gridlayout::grid_card_plot",
+              id: "grid_card_plot",
               namedArgs: {
                 area: "linePlots",
               },
@@ -76,13 +76,13 @@ const navbarTree: ShinyUiNode = {
       ],
     },
     {
-      id: "shiny::tabPanel",
+      id: "tabPanel",
       namedArgs: {
         title: "Distributions",
       },
       children: [
         {
-          id: "gridlayout::grid_container",
+          id: "grid_container",
           namedArgs: {
             row_sizes: ["165px", "1fr"],
             col_sizes: ["1fr"],
@@ -91,19 +91,19 @@ const navbarTree: ShinyUiNode = {
           },
           children: [
             {
-              id: "gridlayout::grid_card_plot",
+              id: "grid_card_plot",
               namedArgs: {
                 area: "dists",
               },
             },
             {
-              id: "gridlayout::grid_card",
+              id: "grid_card",
               namedArgs: {
                 area: "facetOption",
               },
               children: [
                 {
-                  id: "bslib::card_header",
+                  id: "card_header",
                   namedArgs: {},
                   children: [
                     {
@@ -113,11 +113,11 @@ const navbarTree: ShinyUiNode = {
                   ],
                 },
                 {
-                  id: "bslib::card_body_fill",
+                  id: "card_body_fill",
                   namedArgs: {},
                   children: [
                     {
-                      id: "shiny::radioButtons",
+                      id: "radioButtons",
                       namedArgs: {
                         inputId: "distFacet",
                         label: "Facet distribution by",

@@ -10,13 +10,13 @@ import type {
 import classes from "./Tabset.module.css";
 
 const dropFilters = {
-  rejected: invalidTabPanelContents.filter((id) => id !== "shiny::tabPanel"),
+  rejected: invalidTabPanelContents.filter((id) => id !== "tabPanel"),
 };
 
 const wrap_in_tab_panel = ({ id }: ShinyUiNode) => {
-  return id !== "shiny::tabPanel"
+  return id !== "tabPanel"
     ? ({
-        id: "shiny::tabPanel",
+        id: "tabPanel",
         namedArgs: { title: "Tab Panel" },
       } as const)
     : null;
@@ -38,7 +38,7 @@ export function TabDropDetector({
       className={classes.tabDropDetector}
       aria-label="tab drop detector"
       parentPath={parentPath}
-      parentNodeType="shiny::tabPanel"
+      parentNodeType="tabPanel"
       child_loc={index}
       dropFilters={dropFilters}
       wrappingNode={wrap_in_tab_panel}

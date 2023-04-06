@@ -7,11 +7,11 @@ import type { TabPanelSettings } from "./index";
 import classes from "./ShinyTabPanel.module.css";
 
 export const invalidTabPanelContents: ShinyUiNodeIds[] = [
-  "shiny::navbarPage",
-  "shiny::tabPanel",
-  "gridlayout::grid_card",
-  "gridlayout::grid_card_plot",
-  "gridlayout::grid_card_text",
+  "navbarPage",
+  "tabPanel",
+  "grid_card",
+  "grid_card_plot",
+  "grid_card_text",
 ];
 
 const dropFilters = {
@@ -34,7 +34,7 @@ const ShinyTabPanel: UiNodeComponent<
           child_loc={0}
           parentPath={path}
           dropFilters={dropFilters}
-          parentNodeType="shiny::tabPanel"
+          parentNodeType="tabPanel"
           visibleWhenEmpty
         />
       )}

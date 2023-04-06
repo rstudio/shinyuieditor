@@ -16,7 +16,7 @@ describe("Can handle unknown code properly", () => {
     const parsed_card_w_unknown = ast_to_ui_node(card_body_w_unknown_input);
 
     const expected_result: KnownShinyUiNode = {
-      id: "bslib::card_body_fill",
+      id: "card_body_fill",
       namedArgs: {},
       children: [
         {
@@ -44,7 +44,7 @@ describe("Can handle unknown code properly", () => {
     };
 
     const expected_result: KnownShinyUiNode = {
-      id: "bslib::card_body_fill",
+      id: "card_body_fill",
       namedArgs: {},
       children: [
         {
@@ -71,7 +71,7 @@ describe("Can handle unknown code properly", () => {
       })
     ).toStrictEqual(
       expect.objectContaining({
-        id: "bslib::card_body_fill",
+        id: "card_body_fill",
         namedArgs: {
           max_height: {
             id: "unknownUiFunction",
@@ -102,7 +102,7 @@ describe("Can handle unknown code properly", () => {
       })
     ).toStrictEqual(
       expect.objectContaining({
-        id: "bslib::card_body_fill",
+        id: "card_body_fill",
         namedArgs: {
           max_height: {
             id: "unknownUiFunction",
@@ -155,7 +155,7 @@ describe("Can handle unknown code properly", () => {
 
 test("Handle primative values as children", () => {
   const output: KnownShinyUiNode = {
-    id: "bslib::card_body_fill",
+    id: "card_body_fill",
     namedArgs: {},
     children: [
       { id: "textNode", namedArgs: { contents: "Hi" } },
@@ -166,7 +166,7 @@ test("Handle primative values as children", () => {
   expect(
     ast_to_ui_node({
       val: [
-        { val: "bslib::card_body_fill", type: "s" },
+        { val: "card_body_fill", type: "s" },
         { val: "Hi", type: "c" },
         { val: 3, type: "n" },
         { val: false, type: "b" },
@@ -194,11 +194,11 @@ test("Successfully parses known ui nodes in named arguments", () => {
   };
 
   expect(ast_to_ui_node(value_card_ast)).toStrictEqual({
-    id: "bslib::value_box",
+    id: "value_box",
     namedArgs: {
       title: "I got",
       value: {
-        id: "shiny::textOutput",
+        id: "textOutput",
         namedArgs: { outputId: "my_value" },
       },
     },
@@ -251,7 +251,7 @@ describe("Custom behavior for parsing to ui ast is respected", () => {
     expect(value_box_ui_node.namedArgs).toStrictEqual(
       expect.objectContaining({
         value: {
-          id: "shiny::textOutput",
+          id: "textOutput",
           namedArgs: { outputId: "my_value" },
         },
       })

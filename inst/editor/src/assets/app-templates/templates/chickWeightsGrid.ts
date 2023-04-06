@@ -3,7 +3,7 @@ import type { TemplateInfo } from "communication-types/src/AppTemplates";
 import type { ShinyUiParentNode } from "../../../Shiny-Ui-Elements/uiNodeTypes";
 
 const navbarTree: ShinyUiParentNode = {
-  id: "gridlayout::grid_page",
+  id: "grid_page",
   namedArgs: {
     row_sizes: ["70px", "1fr", "1fr"],
     col_sizes: ["250px", "1fr"],
@@ -12,20 +12,20 @@ const navbarTree: ShinyUiParentNode = {
   },
   children: [
     {
-      id: "gridlayout::grid_card",
+      id: "grid_card",
       namedArgs: { area: "sidebar" },
       children: [
         {
-          id: "bslib::card_header",
+          id: "card_header",
           namedArgs: {},
           children: [{ id: "textNode", namedArgs: { contents: "Settings" } }],
         },
         {
-          id: "bslib::card_body_fill",
+          id: "card_body_fill",
           namedArgs: {},
           children: [
             {
-              id: "shiny::sliderInput",
+              id: "sliderInput",
               namedArgs: {
                 inputId: "numChicks",
                 label: "Number of Chicks",
@@ -37,7 +37,7 @@ const navbarTree: ShinyUiParentNode = {
               },
             },
             {
-              id: "shiny::radioButtons",
+              id: "radioButtons",
               namedArgs: {
                 inputId: "distFacet",
                 label: "Facet Distribution By",
@@ -52,7 +52,7 @@ const navbarTree: ShinyUiParentNode = {
       ],
     },
     {
-      id: "gridlayout::grid_card_text",
+      id: "grid_card_text",
       namedArgs: {
         area: "header",
         content: "Chick Weights",
@@ -61,13 +61,13 @@ const navbarTree: ShinyUiParentNode = {
       },
     },
     {
-      id: "gridlayout::grid_card_plot",
+      id: "grid_card_plot",
       namedArgs: {
         area: "dists",
       },
     },
     {
-      id: "gridlayout::grid_card_plot",
+      id: "grid_card_plot",
       namedArgs: {
         area: "linePlots",
       },

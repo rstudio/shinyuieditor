@@ -22,7 +22,7 @@ const ShinyTextInput: UiNodeComponent<
 
   return (
     <div
-      className={mergeClasses(classes.container, "shiny::textInput")}
+      className={mergeClasses(classes.container, "textInput")}
       style={{ height, width }}
       {...wrapperProps}
     >

@@ -1,20 +1,20 @@
 import type { KnownShinyUiNode } from "../../Shiny-Ui-Elements/uiNodeTypes";
 
 export const minimalPage = {
-  id: "shiny::navbarPage",
+  id: "navbarPage",
   namedArgs: {
     title: "My Navbar Page",
     collapsible: false,
   },
   children: [
     {
-      id: "shiny::tabPanel",
+      id: "tabPanel",
       namedArgs: {
         title: "Plot 1",
       },
       children: [
         {
-          id: "shiny::plotOutput",
+          id: "plotOutput",
           namedArgs: {
             outputId: "MyPlot",
             width: "100%",

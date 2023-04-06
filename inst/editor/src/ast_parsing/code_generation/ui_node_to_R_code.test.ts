@@ -7,13 +7,13 @@ import { ui_node_to_R_code } from "./ui_node_to_R_code";
 
 describe("Can keep or remove namespaces", () => {
   const ui_ast: ShinyUiNode = {
-    id: "gridlayout::grid_card",
+    id: "grid_card",
     namedArgs: {
       area: "sidebar",
     },
     children: [
       {
-        id: "shiny::sliderInput",
+        id: "sliderInput",
         namedArgs: {
           inputId: "my_slider",
           label: "My Slider",
@@ -70,11 +70,11 @@ describe("Can keep or remove namespaces", () => {
 describe("Handles nodes with ui nodes as named arguments", () => {
   test("value boxes", () => {
     const value_box_node: KnownShinyUiNode = {
-      id: "bslib::value_box",
+      id: "value_box",
       namedArgs: {
         title: "My Title",
         value: {
-          id: "shiny::textOutput",
+          id: "textOutput",
           namedArgs: {
             outputId: "my_text",
           },
@@ -116,13 +116,13 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
     expect(
       ui_node_to_R_code(
         {
-          id: "gridlayout::grid_card",
+          id: "grid_card",
           namedArgs: {
             area: "sidebar",
           },
           children: [
             {
-              id: "shiny::sliderInput",
+              id: "sliderInput",
               namedArgs: {
                 inputId: "my_slider",
                 label: "My Slider",
@@ -154,7 +154,7 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
     expect(
       ui_node_to_R_code(
         {
-          id: "shiny::selectInput",
+          id: "selectInput",
           namedArgs: {
             inputId: "selector",
             label: "My Select",
@@ -182,7 +182,7 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
     expect(
       ui_node_to_R_code(
         {
-          id: "shiny::selectInput",
+          id: "selectInput",
           namedArgs: {
             inputId: "selector",
             label: "My Select",
@@ -219,7 +219,7 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
     expect(
       ui_node_to_R_code(
         {
-          id: "gridlayout::grid_page",
+          id: "grid_page",
           namedArgs: {
             layout: ["A B", "C D"],
             col_sizes: ["100px", "1fr"],
@@ -243,7 +243,7 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
     expect(
       ui_node_to_R_code(
         {
-          id: "gridlayout::grid_card",
+          id: "grid_card",
           namedArgs: { area: "mystery" },
           children: [
             {
@@ -309,7 +309,7 @@ test("Full UI example", () => {
 )`
 
   const ui_ast: ShinyUiNode = {
-    id: "gridlayout::grid_page",
+    id: "grid_page",
     namedArgs: {
       layout: ["header header", "sidebar plot", "sidebar plot"],
       row_sizes: ["100px", "1fr", "1fr"],
@@ -324,7 +324,7 @@ test("Full UI example", () => {
     },
     children: [
       {
-        id: "gridlayout::grid_card_text",
+        id: "grid_card_text",
         namedArgs: {
           area: "header",
           content: "My App",
@@ -333,13 +333,13 @@ test("Full UI example", () => {
         },
       },
       {
-        id: "gridlayout::grid_card",
+        id: "grid_card",
         namedArgs: {
           area: "sidebar",
         },
         children: [
           {
-            id: "shiny::sliderInput",
+            id: "sliderInput",
             namedArgs: {
               inputId: "mySlider",
               label: "Slider",
@@ -349,7 +349,7 @@ test("Full UI example", () => {
             },
           },
           {
-            id: "shiny::numericInput",
+            id: "numericInput",
             namedArgs: {
               inputId: "myNumericInput",
               label: "Numeric Input",
@@ -368,7 +368,7 @@ test("Full UI example", () => {
         ],
       },
       {
-        id: "gridlayout::grid_card_plot",
+        id: "grid_card_plot",
         namedArgs: {
           area: "plot",
         },

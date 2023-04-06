@@ -4,10 +4,7 @@ import type { GridContainerSettings } from "../GridlayoutGridContainer";
 // Make it known that the ui children are required here
 export type GridContainerNode = MakeShinyUiNode<GridContainerSettings, true>;
 
-const validGridContainerNodeNames = [
-  "gridlayout::grid_page",
-  "gridlayout::grid_container",
-];
+const validGridContainerNodeNames = ["grid_page", "grid_container"];
 
 /**
  * Checks to make sure the node is a grid container node

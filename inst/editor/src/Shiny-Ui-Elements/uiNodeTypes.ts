@@ -146,6 +146,17 @@ export type ShinyUiNodeCategories = Exclude<
   "TESTING"
 >;
 
+export type NodeInfoByRPackage = {
+  [RPackage in ShinyUiNodeRPackages]: Extract<
+    ShinyUiNodeInfo,
+    { r_package: RPackage }
+  >;
+};
+export type NodeIdsForRPackage<RPackage extends ShinyUiNodeRPackages> = Extract<
+  ShinyUiNodeInfo,
+  { r_package: RPackage }
+>["id"];
+
 /**
  * All possible props/arguments for the defined UI components
  *
@@ -187,11 +198,11 @@ type KnownUiChildren = Array<KnownShinyUiNode>;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const knownUiNodeTest: KnownShinyUiNode = {
-  id: "bslib::card",
+  id: "card",
   namedArgs: { full_screen: true },
   children: [
     {
-      id: "shiny::actionButton",
+      id: "actionButton",
       namedArgs: { inputId: "btn", label: "My Button" },
     },
   ],
@@ -200,7 +211,7 @@ const knownUiNodeTest: KnownShinyUiNode = {
 // @ts-expect-error
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const knownUiNodeTestFail: KnownShinyUiNode = {
-  id: "shiny::actionButton",
+  id: "actionButton",
   namedArgs: {
     inputId: "test",
   },

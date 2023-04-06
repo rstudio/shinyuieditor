@@ -3,7 +3,7 @@ import type { KnownShinyUiNode } from "../../Shiny-Ui-Elements/uiNodeTypes";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
 export const bslibCards = {
-  id: "gridlayout::grid_page",
+  id: "grid_page",
   namedArgs: {
     layout: ["info  info    ", "empty onlyBody", "full  .    "],
     row_sizes: ["70px", "200px", "1fr"],
@@ -12,16 +12,16 @@ export const bslibCards = {
   },
   children: [
     {
-      id: "gridlayout::grid_card",
+      id: "grid_card",
       namedArgs: { area: "empty" },
       children: [
         {
-          id: "bslib::card_body_fill",
+          id: "card_body_fill",
           namedArgs: {},
           children: [
 
             {
-              id: "bslib::value_box",
+              id: "value_box",
               namedArgs: { title: "Value Box", showcase_icon: "github", value:{
                 id:"textNode",
                 namedArgs: {
@@ -35,7 +35,7 @@ export const bslibCards = {
       ],
     },
     {
-      id: "gridlayout::grid_card_text",
+      id: "grid_card_text",
       namedArgs: {
         content: "Example of super simple bslib cards",
         alignment: "start",
@@ -43,17 +43,17 @@ export const bslibCards = {
       },
     },
     {
-      id: "gridlayout::grid_card",
+      id: "grid_card",
       namedArgs: {
         area: "onlyBody",
       },
       children: [
         {
-          id: "bslib::card_body_fill",
+          id: "card_body_fill",
           namedArgs: {},
           children: [
             {
-              id: "shiny::textInput",
+              id: "textInput",
               namedArgs: {
                 inputId: "myText",
                 label: "Text Input",
@@ -61,7 +61,7 @@ export const bslibCards = {
               },
             },
             {
-              id: "shiny::checkboxGroupInput",
+              id: "checkboxGroupInput",
               namedArgs: {
                 inputId: "myCheckboxGroup",
                 label: "Checkbox Group",
@@ -73,7 +73,7 @@ export const bslibCards = {
               },
             },
             {
-              id: "shiny::radioButtons",
+              id: "radioButtons",
               namedArgs: {
                 inputId: "myRadioButtons",
                 label: "Radio Buttons",
@@ -87,7 +87,7 @@ export const bslibCards = {
           ],
         },
         {
-          id: "bslib::card_footer",
+          id: "card_footer",
           namedArgs: {},
           children: [
             {
@@ -103,11 +103,11 @@ export const bslibCards = {
       ],
     },
     {
-      id: "gridlayout::grid_card",
+      id: "grid_card",
       namedArgs: { area: "full" },
       children: [
         {
-          id: "bslib::card_header",
+          id: "card_header",
           namedArgs: {},
           children: [
             {
@@ -119,12 +119,12 @@ export const bslibCards = {
           ],
         },
         {
-          id: "bslib::card_body_fill",
+          id: "card_body_fill",
           namedArgs: {},
           children: [],
         },
         {
-          id: "bslib::card_footer",
+          id: "card_footer",
           namedArgs: {},
           children: [],
         },

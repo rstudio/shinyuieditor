@@ -5,20 +5,20 @@ import type { ShinyUiNode } from "../src/Shiny-Ui-Elements/uiNodeTypes";
 import { mockBackendState } from "./utils/mockBackend";
 
 const basicNavbarPage: ShinyUiNode = {
-  id: "shiny::navbarPage",
+  id: "navbarPage",
   namedArgs: {
     title: "Site Title",
     collapsible: false,
   },
   children: [
     {
-      id: "shiny::tabPanel",
+      id: "tabPanel",
       namedArgs: {
         title: "Plot",
       },
       children: [
         {
-          id: "shiny::plotOutput",
+          id: "plotOutput",
           namedArgs: {
             outputId: "MyPlot",
             width: "100%",
@@ -28,13 +28,13 @@ const basicNavbarPage: ShinyUiNode = {
       ],
     },
     {
-      id: "shiny::tabPanel",
+      id: "tabPanel",
       namedArgs: {
         title: "Grid Tab",
       },
       children: [
         {
-          id: "gridlayout::grid_container",
+          id: "grid_container",
           namedArgs: {
             layout: ["button button"],
             row_sizes: ["1fr"],
@@ -43,13 +43,13 @@ const basicNavbarPage: ShinyUiNode = {
           },
           children: [
             {
-              id: "gridlayout::grid_card",
+              id: "grid_card",
               namedArgs: {
                 area: "button",
               },
               children: [
                 {
-                  id: "shiny::actionButton",
+                  id: "actionButton",
                   namedArgs: {
                     inputId: "myButton",
                     label: "My Button",
@@ -72,12 +72,10 @@ test("Updating the area name of a grid item propigates through rest of app prope
   await page.goto("/");
 
   // Navigate to the nested grid tab
-  await page
-    .locator(`[aria-label="shiny::navbarPage"] >> text=Grid Tab`)
-    .click();
+  await page.locator(`[aria-label="navbarPage"] >> text=Grid Tab`).click();
 
   // Select the grid container child of tab
-  await page.locator(`[aria-label="gridlayout::grid_card"]`).click();
+  await page.locator(`[aria-label="grid_card"]`).click();
 
   await expect(
     page
@@ -85,14 +83,15 @@ test("Updating the area name of a grid item propigates through rest of app prope
       .locator(`[aria-label="current selection"]`)
   ).toHaveText("Grid Card");
 
-  await expect(
-    page.locator(`[aria-label="gridlayout::grid_card"]`)
-  ).not.toHaveCSS("grid-area", /updated/i);
+  await expect(page.locator(`[aria-label="grid_card"]`)).not.toHaveCSS(
+    "grid-area",
+    /updated/i
+  );
 
   // Update grid area name
   await page.locator(`[aria-label="Name of grid area"]`).fill("updated");
 
-  await expect(page.locator(`[aria-label="gridlayout::grid_card"]`)).toHaveCSS(
+  await expect(page.locator(`[aria-label="grid_card"]`)).toHaveCSS(
     "grid-area",
     /updated/i
   );
