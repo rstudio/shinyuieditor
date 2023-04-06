@@ -15,3 +15,4 @@ closes @return A list of functions to call when the app opens or closes}
 Create a watcher that checks when an app is as indicated by a websocket
 connection being severed
 }
+\keyword{internal}
