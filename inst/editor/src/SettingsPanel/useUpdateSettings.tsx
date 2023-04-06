@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 
 import type { KnownInputFieldTypes } from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";
 import { getNode } from "../components/UiNode/TreeManipulation/getNode";
-import type { ShinyUiNode } from "../main";
+import type { ShinyUiNode } from "../Shiny-Ui-Elements/uiNodeTypes";
 import { UPDATE_NODE } from "../state/app_info";
 import {
   useCurrentSelection,

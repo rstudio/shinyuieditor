@@ -5,9 +5,8 @@ import {
 } from "../../../components/UiNode/TreeManipulation/getParentPath";
 import type { RemoveNodeArguments } from "../../../components/UiNode/TreeManipulation/removeNode";
 import type { UpdateNodeArguments } from "../../../components/UiNode/TreeManipulation/updateNode";
-import type { ShinyUiNode } from "../../../main";
 import { emptyCell } from "../../../utils/gridTemplates/itemLocations";
-import type { NodePath } from "../../uiNodeTypes";
+import type { NodePath, ShinyUiNode } from "../../uiNodeTypes";
 import type { GridItemSettings } from "../GridlayoutCard";
 
 import { areasOfChildren } from "./areasOfChildren";

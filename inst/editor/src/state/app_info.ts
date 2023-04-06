@@ -12,7 +12,7 @@ import type { RemoveNodeArguments } from "../components/UiNode/TreeManipulation/
 import { removeNodeMutating } from "../components/UiNode/TreeManipulation/removeNode";
 import type { UpdateNodeArguments } from "../components/UiNode/TreeManipulation/updateNode";
 import { updateNodeMutating } from "../components/UiNode/TreeManipulation/updateNode";
-import type { ShinyUiNode } from "../main";
+import type { ShinyUiNode } from "../Shiny-Ui-Elements/uiNodeTypes";
 
 import {
   get_deletion_subscriptions,

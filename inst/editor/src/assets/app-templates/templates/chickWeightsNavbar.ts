@@ -1,6 +1,6 @@
 import type { TemplateInfo } from "communication-types/src/AppTemplates";
 
-import type { ShinyUiNode } from "../../../main";
+import type { ShinyUiNode } from "../../../Shiny-Ui-Elements/uiNodeTypes";
 
 const navbarTree: ShinyUiNode = {
   id: "shiny::navbarPage",

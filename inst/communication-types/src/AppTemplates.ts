@@ -1,8 +1,8 @@
-import type { ShinyUiNode } from "editor";
 import type {
   Single_File_App_Type,
   Multi_File_App_Type,
 } from "editor/src/ast_parsing";
+import type { ShinyUiNode } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
 
 import type { R_Ui_Code } from "./MessageToBackend";
 
