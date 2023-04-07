@@ -2,6 +2,7 @@ import React from "react";
 
 import type { TooltipOptions } from "../PopoverEl/FloatingPopover";
 import {
+  MarkdownTooltipContent,
   Tooltip,
   TooltipContent,
   TooltipTrigger,
@@ -13,11 +14,20 @@ type ButtonCompProps = React.ComponentProps<typeof Button>;
 export const PopoverButton: React.FC<
   TooltipOptions &
     ButtonCompProps & {
-      popoverContent: React.ReactNode;
       tooltipClass?: string;
-    }
+    } & (
+      | {
+          use_markdown: true;
+          popoverContent: string;
+        }
+      | {
+          use_markdown?: false;
+          popoverContent: React.ReactNode;
+        }
+    )
 > = ({
   placement = "right",
+  use_markdown = false,
   popoverContent,
   tooltipClass,
   ...passthroughProps
@@ -27,9 +37,13 @@ export const PopoverButton: React.FC<
       <TooltipTrigger asChild>
         <Button {...passthroughProps} />
       </TooltipTrigger>
-      <TooltipContent>
-        <div className={tooltipClass}>{popoverContent}</div>
-      </TooltipContent>
+      {use_markdown ? (
+        <MarkdownTooltipContent content={popoverContent as string} />
+      ) : (
+        <TooltipContent>
+          <div className={tooltipClass}>{popoverContent}</div>
+        </TooltipContent>
+      )}
     </Tooltip>
   );
 };

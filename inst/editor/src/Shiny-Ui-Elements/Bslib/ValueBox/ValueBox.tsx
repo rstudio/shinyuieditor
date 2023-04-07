@@ -6,12 +6,15 @@ import {
 } from "r-ast-parsing/src/node_builders";
 
 import icon from "../../../assets/icons/shinyValueBox.png";
+import { PopoverButton } from "../../../components/Inputs/PopoverButton";
 import { RadioInputs } from "../../../components/Inputs/RadioInputs/RadioInputsSimple";
 import { InputLabelWrapper } from "../../../components/Inputs/SettingsFormBuilder/SettingsInput/SettingsInput";
 import { DropWatcherPanel } from "../../../DragAndDropHelpers/DropWatcherPanel";
 import { mergeClasses } from "../../../utils/mergeClasses";
+import { isShinyUiNode } from "../../isShinyUiNode";
 import { nodeInfoFactory } from "../../nodeInfoFactory";
 import type { ShinyUiNode, UiNodeComponent } from "../../uiNodeTypes";
+import { isUnknownUiNode } from "../../UnknownUiFunction";
 import { CardChildrenWithDropNodes } from "../Utils/ChildrenWithDropNodes";
 
 import { BsIcon } from "./BsIcon";
@@ -25,7 +28,8 @@ const layout_dir_to_code = {
 
 type ValueBoxArgs = {
   title: string;
-  showcase_icon: string;
+  showcase_icon?: string;
+  showcase?: unknown;
   value: ShinyUiNode;
   showcase_layout?: keyof typeof layout_dir_to_code;
 };
@@ -47,7 +51,7 @@ const ValueBox: UiNodeComponent<ValueBoxArgs, { TakesChildren: true }> = ({
         )}
       >
         <div className={styles.showcase}>
-          <BsIcon icon_name={namedArgs.showcase_icon} />
+          <BsIcon icon_name={namedArgs.showcase_icon ?? "question-circle"} />
         </div>
         <div className={styles.content}>
           <h5 className={styles.card_title}>{namedArgs.title}</h5>
@@ -88,7 +92,12 @@ export const bslibValueBoxInfo = nodeInfoFactory<ValueBoxArgs>()({
     },
     showcase_icon: {
       inputType: "omitted",
+      optional: true,
       defaultValue: "database",
+    },
+    showcase: {
+      inputType: "omitted",
+      optional: true,
     },
     value: {
       inputType: "ui-node",
@@ -109,18 +118,35 @@ export const bslibValueBoxInfo = nodeInfoFactory<ValueBoxArgs>()({
     return (
       <div>
         <InputLabelWrapper
-          label="Choose icon for showcase"
+          label={`Showcase ${settings.showcase_icon ? "Icon" : "Value"}`}
           labelId="showcase-icon"
           mainInput={
-            <IconSelector
-              initialValue={settings.showcase_icon}
-              onIconSelect={(icon_name) => {
-                onSettingsChange?.("showcase_icon", {
-                  type: "UPDATE",
-                  value: icon_name,
-                });
-              }}
-            />
+            settings.showcase_icon ? (
+              <IconSelector
+                initialValue={settings.showcase_icon}
+                onIconSelect={(icon_name) => {
+                  onSettingsChange?.("showcase_icon", {
+                    type: "UPDATE",
+                    value: icon_name,
+                  });
+                }}
+              />
+            ) : (
+              <PopoverButton
+                className={styles.replace_showcase_btn}
+                use_markdown={true}
+                popoverContent="Replace current showcase value with an icon from the
+                  bsicons package."
+                onClick={() => {
+                  onSettingsChange?.("showcase_icon", {
+                    type: "UPDATE",
+                    value: "database",
+                  });
+                }}
+              >
+                Replace with icon
+              </PopoverButton>
+            )
           }
         />
         <InputLabelWrapper
@@ -157,13 +183,22 @@ export const bslibValueBoxInfo = nodeInfoFactory<ValueBoxArgs>()({
   },
   code_gen_R: {
     print_named_args: (args, render_child) => {
-      const { title, showcase_icon, value, showcase_layout } = args;
+      const { title, showcase_icon, showcase, value, showcase_layout } = args;
 
-      const named_args = [
-        `title = "${title}"`,
-        `value = ${render_child(value)}`,
-        `showcase = bsicons::bs_icon("${showcase_icon}")`,
-      ];
+      let named_args = [`title = "${title}"`, `value = ${render_child(value)}`];
+
+      // We need to do a little dancing to make sure that the showcase icon
+      // doesn't wipe out another type of showcase the user may have and also to
+      // make sure we preserve any non-icon showcases
+      if (showcase_icon) {
+        named_args.push(`showcase = bsicons::bs_icon("${showcase_icon}")`);
+      } else if (
+        showcase &&
+        isShinyUiNode(showcase) &&
+        isUnknownUiNode(showcase)
+      ) {
+        named_args.push(`showcase = ${render_child(showcase)}`);
+      }
 
       if (showcase_layout) {
         named_args.push(

@@ -13,7 +13,7 @@
 }
 
 .option {
-  height: 25px;
+  height: var(--height-sm);
   width: 100%;
 }
 

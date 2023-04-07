@@ -62,3 +62,8 @@ of the card */
 .card_value span {
   font-size: 1.5rem;
 }
+
+.replace_showcase_btn {
+  width: 100%;
+  height: var(--height-sm);
+}

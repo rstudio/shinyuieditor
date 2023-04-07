@@ -86,6 +86,8 @@
   --size-md: 12px;
   --size-lg: 20px;
   --size-xl: 28px;
+
+  --height-sm: 25px;
 }
 
 * {
