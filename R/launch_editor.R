@@ -115,15 +115,28 @@ launch_editor <- function(app_loc,
     }
   }
 
-  setup_new_app_type <- function(new_app_type = app_type) {
-    app_type <<- new_app_type
+  # Turn off app preview and delete the watched files. This should only happen
+  # when the user has backed out of editing a template app and chosen a new file
+  # type
+  reset_app_type <- function() {
     shutdown_app_preview()
     file_change_watcher$delete_files()
-
-    if (!identical(new_app_type, "MISSING")) {
-      file_change_watcher$set_watched_files(app_type_to_files[[new_app_type]])
-    }
   }
+
+  # Sets app type variable and also makes sure the files being watched are set.
+  # I'm not a huge fan of this pattern but it's the best I could come up with
+  # for now and since we probably will eventually rewrite this in another
+  # language it feels acceptable for now
+  setup_new_app_type <- function(new_app_type = app_type) {
+    # If app type is an existing app then we need to make sure the files being
+    # watched are properly recorded
+    is_existing_app <- !identical(new_app_type, "MISSING")
+    if (is_existing_app) {
+      file_change_watcher$set_watched_files(app_type_to_files[[new_app_type]])
+    }         
+    app_type <<- new_app_type
+  }
+
 
   # ----------------------------------------------------------------------------
   # Main logic for responding to messages from the client. Messages have a path
@@ -177,6 +190,7 @@ launch_editor <- function(app_loc,
       # files and update the app type
       changed_app_type <- !identical(update_type, app_type)
       if (changed_app_type) {
+        reset_app_type()
         setup_new_app_type(update_type)
       }
 
