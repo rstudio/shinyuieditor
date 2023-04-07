@@ -69,7 +69,7 @@ ui <- grid_page(
       value_box(
         title = "Look at me!",
         value = "Big number!",
-        showcase = bsicons::bs_icon("github")
+        showcase = bsicons::bs_icon("database")
       )
     )
   )
