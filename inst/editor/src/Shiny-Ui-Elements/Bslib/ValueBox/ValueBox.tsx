@@ -175,12 +175,17 @@ export const bslibValueBoxInfo = nodeInfoFactory<ValueBoxArgs>()({
       const arg_name = arg.name;
       if (!arg_name) return arg;
 
-      if (
-        arg_name === "showcase" &&
-        (is_function_call(arg, "bs_icon") || is_function_call(arg, "bs_icon"))
-      ) {
-        const icon = arg.val[1].val as string;
-        return name_node(make_character_node(icon), "showcase_icon");
+      if (arg_name === "showcase") {
+        const is_icon_call =
+          is_function_call(arg, "bsicons::bs_icon") ||
+          is_function_call(arg, "bs_icon");
+
+        if (is_icon_call) {
+          const icon = arg.val[1].val as string;
+          return name_node(make_character_node(icon), "showcase_icon");
+        }
+
+        return arg;
       } else if (arg_name === "showcase_layout") {
         if (is_function_call(arg, "showcase_left_center")) {
           return name_node(make_character_node("left"), "showcase_layout");

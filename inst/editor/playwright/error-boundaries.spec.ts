@@ -48,7 +48,7 @@ test("Errors are caught and not allowed to propigate up beyond their local posit
   // Error message should be visible now
   await expect(
     page.getByRole("heading", {
-      name: "Something went wrong rendering TESTING::error_node()",
+      name: "Something went wrong rendering error_node()",
     })
   ).toBeVisible();
 
