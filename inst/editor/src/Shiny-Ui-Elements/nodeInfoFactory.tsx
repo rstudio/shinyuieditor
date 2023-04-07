@@ -34,11 +34,13 @@ export function nodeInfoFactory<Args extends namedArgsObject>() {
     RPackage extends string = "none",
     ID extends string = RFnName,
     PyPackage extends string = "none",
+    PyFnName extends string = "none",
     Cat extends string = "Uncategorized"
   >({
     id,
     r_fn_name,
     r_package,
+    py_fn_name,
     py_package,
     category,
     ...info
@@ -48,6 +50,7 @@ export function nodeInfoFactory<Args extends namedArgsObject>() {
     Cat,
     RFnName,
     RPackage,
+    PyFnName,
     PyPackage,
     TakesChildren,
     Comp
@@ -56,6 +59,7 @@ export function nodeInfoFactory<Args extends namedArgsObject>() {
       id: id ?? r_fn_name,
       r_fn_name,
       r_package: r_package ?? "none",
+      py_fn_name: py_fn_name ?? "none",
       py_package: py_package ?? "none",
       category: category ?? "Uncategorized",
       ...info,
@@ -67,6 +71,7 @@ export function nodeInfoFactory<Args extends namedArgsObject>() {
           Cat,
           RFnName,
           RPackage,
+          PyFnName,
           PyPackage,
           TakesChildren,
           Comp
@@ -94,6 +99,7 @@ type CommonInfo<
   Cat extends string,
   RFnName extends string,
   RPackage extends string,
+  PyFnName extends string,
   PyPackage extends string,
   TakesChildren extends boolean,
   Comp extends UiNodeComponent<Args, { TakesChildren: TakesChildren }>
@@ -106,10 +112,21 @@ type CommonInfo<
   id?: ID;
 
   /**
+   * Name of function as called in R code: e.g. `"sliderInput"` for
+   * `shiny::sliderInput()`
+   */
+  r_fn_name: RFnName;
+
+  /**
    * What is the name of the R package that this node resides in, if it does. If
    * left blank will default to "none"
    */
   r_package?: RPackage;
+
+  /**
+   * Name of function as called in Python code: e.g. `"ui.input_slider"`
+   */
+  py_fn_name?: PyFnName;
 
   /**
    * What's the name of the R package that this node resides in? If left blank will default to "none"
@@ -121,12 +138,6 @@ type CommonInfo<
    * "Uncategorized"
    */
   category?: Cat;
-
-  /**
-   * Name of function as called in R code: e.g. `"sliderInput"` for
-   * `shiny::sliderInput()`
-   */
-  r_fn_name: RFnName;
 
   /**
    * The name of the component in plain language. E.g. Plot Output
