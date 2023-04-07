@@ -38,10 +38,7 @@ export function CardFooter({
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
   return (
-    <div
-      className={mergeClasses(className, "card-footer", styles.card_footer)}
-      {...props}
-    >
+    <div className={mergeClasses(className, "card-footer")} {...props}>
       <CardElementChildrenHolder>{children}</CardElementChildrenHolder>
     </div>
   );
@@ -53,10 +50,7 @@ export function CardHeader({
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
   return (
-    <div
-      className={mergeClasses(className, "card-header", styles.card_header)}
-      {...props}
-    >
+    <div className={mergeClasses(className, "card-header")} {...props}>
       <CardElementChildrenHolder>{children}</CardElementChildrenHolder>
     </div>
   );

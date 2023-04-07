@@ -10,7 +10,7 @@ ui <- grid_page(
     "cardDemo redPlot"
   ),
   row_sizes = c(
-    "100px",
+    "110px",
     "0.97fr",
     "1.03fr"
   ),
@@ -21,7 +21,7 @@ ui <- grid_page(
   gap_size = "1rem",
   grid_card(
     area = "sidebar",
-    card_body(
+    card_body_fill(
       sliderInput(
         inputId = "bins",
         label = "Number of Bins ",
@@ -29,13 +29,6 @@ ui <- grid_page(
         max = 100,
         value = 30,
         width = "100%"
-      )
-    ),
-    card_body_fill(
-      numericInput(
-        inputId = "myNumericInput",
-        label = "Numeric Input",
-        value = 5
       ),
       actionButton(inputId = "redraw", label = "Redraw"),
       textInput(

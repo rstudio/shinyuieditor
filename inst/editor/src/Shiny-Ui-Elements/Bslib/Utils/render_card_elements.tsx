@@ -2,10 +2,10 @@ import { sum_booleans } from "util-functions/src/sum_booleans";
 
 import UiNode from "../../../components/UiNode/UiNode";
 import { DropWatcherPanel } from "../../../DragAndDropHelpers/DropWatcherPanel";
+import { mergeClasses } from "../../../utils/mergeClasses";
 import { makeChildPath } from "../../nodePathUtils";
 import type { NodePath, ShinyUiParentNode } from "../../uiNodeTypes";
 
-import { CardBodyFill, CardFooter, CardHeader } from "./CardElements";
 import styles from "./CardUtils.module.css";
 
 const possible_elements = new Set([
@@ -67,40 +67,49 @@ export function render_card_elements(
   return (
     <>
       {header ?? (
-        <CardHeader className={styles.missing_card_element}>
-          <DropWatcherPanel
-            className={styles.drop_watcher}
-            child_loc={0}
-            parentPath={path}
-            wrappingNode={headerScaffold}
-            parentNodeType="card_header"
-            messageOnHover="Add to card header"
-          />
-        </CardHeader>
+        <DropWatcherPanel
+          className={mergeClasses(
+            "card-header",
+            styles.drop_watcher,
+            styles.missing_card_element
+          )}
+          child_loc={0}
+          parentPath={path}
+          wrappingNode={headerScaffold}
+          parentNodeType="card_header"
+          messageOnHover="Add to card header"
+          minHeightOnAvailable="20px"
+        />
       )}
       {body ?? (
-        <CardBodyFill className={styles.missing_card_element}>
-          <DropWatcherPanel
-            className={styles.drop_watcher}
-            child_loc={sum_booleans(has_header)}
-            parentPath={path}
-            wrappingNode={bodyScaffold}
-            parentNodeType="card_body_fill"
-            messageOnHover="Add to card body"
-          />
-        </CardBodyFill>
+        <DropWatcherPanel
+          className={mergeClasses(
+            "card-body",
+            styles.drop_watcher,
+            styles.missing_card_element
+          )}
+          child_loc={sum_booleans(has_header)}
+          parentPath={path}
+          wrappingNode={bodyScaffold}
+          visibleWhenEmpty={true}
+          parentNodeType="card_body_fill"
+          messageOnHover="Add to card body"
+        />
       )}
       {footer ?? (
-        <CardFooter className={styles.missing_card_element}>
-          <DropWatcherPanel
-            className={styles.drop_watcher}
-            child_loc={sum_booleans(has_header, has_body)}
-            parentPath={path}
-            wrappingNode={footerScaffold}
-            parentNodeType="card_footer"
-            messageOnHover="Add to card footer"
-          />
-        </CardFooter>
+        <DropWatcherPanel
+          className={mergeClasses(
+            styles.drop_watcher,
+            "card-footer",
+            styles.missing_card_element
+          )}
+          child_loc={sum_booleans(has_header, has_body)}
+          parentPath={path}
+          wrappingNode={footerScaffold}
+          parentNodeType="card_footer"
+          messageOnHover="Add to card footer"
+          minHeightOnAvailable="20px"
+        />
       )}
     </>
   );
