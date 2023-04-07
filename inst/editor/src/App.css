@@ -34,6 +34,7 @@
   --grey: hsl(211 19% 70%);
   --light-grey: #e9edf3;
   --dark-grey: hsl(211 19% 50%);
+  --black: hsl(214 9% 15%);
   --divider-color: #a5b3c2;
   --icon-color: #76838f;
 
@@ -41,10 +42,9 @@
   --header-grey: var(--grey);
 
   --red-rgb: 250, 83, 22;
-
   --red: rgb(var(--red-rgb));
 
-  --font-color: hsl(214 9% 15%);
+  --font-color: var(--black);
   --font-color-disabled: hsl(214 9% 15% / 0.5);
   --font-size: 13px;
 

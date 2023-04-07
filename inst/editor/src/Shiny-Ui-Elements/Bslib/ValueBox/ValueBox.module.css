@@ -10,7 +10,7 @@
 /* Make sure that the selection outline isn't impossible to see due to the color
 of the card */
 .container[data-is-selected-node="true"]::before {
-  outline: var(--selected-outline-base) var(--font-color);
+  outline: var(--selected-outline-base) var(--black);
 }
 
 .value_box {
