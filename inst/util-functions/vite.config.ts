@@ -7,9 +7,6 @@ const setup = () => {
       include: [`src/**/*.test.{ts,tsx}`],
       globals: true,
       environment: "jsdom",
-      deps: {
-        inline: true,
-      },
     },
   });
 };
