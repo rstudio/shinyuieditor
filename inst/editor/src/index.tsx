@@ -7,8 +7,8 @@ import { setupWebsocketBackend } from "./backendCommunication/websocketBackend";
 import { DEV_MODE } from "./env_variables";
 import { runSUE } from "./runSUE";
 import type { ShinyUiRootNode } from "./Shiny-Ui-Elements/uiNodeTypes";
-// import { basicNavbarPage as devModeTree } from "./state/sample_ui_trees/basicNavbarPage";
-import { bslibCards as devModeTree } from "./state/sample_ui_trees/bslibCards";
+import { basicNavbarPage as devModeTree } from "./state/sample_ui_trees/basicNavbarPage";
+// import { bslibCards as devModeTree } from "./state/sample_ui_trees/bslibCards";
 // import { errorTestingTree as devModeTree } from "./state/sample_ui_trees/errorTesting";
 // const devModeTree = "TEMPLATE_CHOOSER" as ShinyUiRootNode;
 
