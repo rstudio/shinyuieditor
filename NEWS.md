@@ -1,3 +1,11 @@
+# development
+
+### Bug fixes
+
+- Fixed bug where refreshing the page when using the editor via the `launch_editor()` function (as opposed to the vscode extension) could cause app file to be erased. (6aa03f4)
+- Fixed visual bug where headers and footers of bslib cards would show up even when nothing was in them in the vscode extension. (7d253de)
+- Fixed bug where non-bsicon versions of value boxes would be converted to `bsicons::bs_icon("undefined")`. (aefb778)
+
 # shinyuieditor 0.4.3
 
 ### Major new features and improvements
