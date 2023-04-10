@@ -7,7 +7,7 @@
     "r-ast-parsing": "*",
     "editor": "*",
     "tsconfig": "*",
-    "typescript": "^4.9.3"
+    "typescript": "^5.0.4"
   },
   "scripts": {
     "type-check": "tsc -p ./ --noEmit"
