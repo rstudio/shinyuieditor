@@ -6,7 +6,7 @@
   "dependencies": {
     "tsconfig": "*",
     "typescript": "^5.0.4",
-    "vitest": "^0.22.1",
+    "vitest": "^0.30.0",
     "just-clone": "^6.1.1"
   },
   "scripts": {
