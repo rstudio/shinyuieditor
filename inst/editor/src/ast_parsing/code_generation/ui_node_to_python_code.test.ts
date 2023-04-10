@@ -5,11 +5,11 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
     // prettier-ignore
     const expected_result = 
 `ui.input_slider(
-  id = "obs", 
-  label = "Number of bins:", 
+  id = "obs",
+  label = "Number of bins:",
   value = 30,
-  min = 10, 
-  max = 100 
+  min = 10,
+  max = 100
 )`;
 
     expect(

@@ -4,7 +4,7 @@ import { getUiNodeInfo } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
 import type { Primatives } from "r-ast-parsing";
 
 import { isShinyUiNode } from "../../Shiny-Ui-Elements/isShinyUiNode";
-import type { ProcessNamedArgs } from "../../Shiny-Ui-Elements/nodeInfoFactory";
+import type { Named_Arg_Transformer } from "../../Shiny-Ui-Elements/nodeInfoFactory";
 
 import {
   indent_line_breaks,
@@ -48,21 +48,17 @@ export function ui_node_to_python_code(node: ShinyUiNode): R_Ui_Code {
       removed_namespaces.add(library_name);
     }
 
-    let fn_args_list: string[] = [];
+    const arg_transformer = node_info.code_gen_py?.transform_named_args;
 
-    // Print the named arguments first
-    if (node_info.code_gen_R?.print_named_args) {
-      // Need to do some coercion here to get the types to work out because of
-      // the ProcessNamedArgs being scoped to the specific node's arguments type
-      // but this printing function is generic to all nodes
-      const arg_printer = node_info.code_gen_R
-        ?.print_named_args as ProcessNamedArgs<typeof node.namedArgs>;
-      fn_args_list = arg_printer(node.namedArgs, print_code);
-    } else {
-      for (const [arg_name, arg_value] of Object.entries(node.namedArgs)) {
-        fn_args_list.push(`${arg_name} = ${print_code(arg_value)}`);
-      }
-    }
+    const named_args = arg_transformer
+      ? (arg_transformer as Named_Arg_Transformer<typeof node.namedArgs>)(
+          node.namedArgs
+        )
+      : node.namedArgs;
+
+    const fn_args_list: string[] = Object.entries(named_args).map(
+      ([arg_name, arg_value]) => `${arg_name} = ${print_code(arg_value)}`
+    );
 
     // Next handle the children
     if ("children" in node && node.children) {

@@ -11,10 +11,13 @@ import { RadioInputs } from "../../../components/Inputs/RadioInputs/RadioInputsS
 import { InputLabelWrapper } from "../../../components/Inputs/SettingsFormBuilder/SettingsInput/SettingsInput";
 import { DropWatcherPanel } from "../../../DragAndDropHelpers/DropWatcherPanel";
 import { mergeClasses } from "../../../utils/mergeClasses";
-import { isShinyUiNode } from "../../isShinyUiNode";
 import { nodeInfoFactory } from "../../nodeInfoFactory";
-import type { ShinyUiNode, UiNodeComponent } from "../../uiNodeTypes";
-import { isUnknownUiNode } from "../../UnknownUiFunction";
+import type {
+  namedArgsObject,
+  ShinyUiNode,
+  UiNodeComponent,
+} from "../../uiNodeTypes";
+import { make_unknown_ui_function } from "../../UnknownUiFunction";
 import { CardChildrenWithDropNodes } from "../Utils/ChildrenWithDropNodes";
 
 import { BsIcon } from "./BsIcon";
@@ -182,30 +185,23 @@ export const bslibValueBoxInfo = nodeInfoFactory<ValueBoxArgs>()({
     );
   },
   code_gen_R: {
-    print_named_args: (args, render_child) => {
-      const { title, showcase_icon, showcase, value, showcase_layout } = args;
+    transform_named_args: (args) => {
+      const { showcase_icon, showcase_layout, ...others } = args;
 
-      let named_args = [`title = "${title}"`, `value = ${render_child(value)}`];
-
-      // We need to do a little dancing to make sure that the showcase icon
-      // doesn't wipe out another type of showcase the user may have and also to
-      // make sure we preserve any non-icon showcases
+      const to_return = others as namedArgsObject;
       if (showcase_icon) {
-        named_args.push(`showcase = bsicons::bs_icon("${showcase_icon}")`);
-      } else if (
-        showcase &&
-        isShinyUiNode(showcase) &&
-        isUnknownUiNode(showcase)
-      ) {
-        named_args.push(`showcase = ${render_child(showcase)}`);
+        to_return.showcase = make_unknown_ui_function(
+          `bsicons::bs_icon("${showcase_icon}")`
+        );
       }
 
       if (showcase_layout) {
-        named_args.push(
-          `showcase_layout = ${layout_dir_to_code[showcase_layout]}`
+        to_return.showcase_layout = make_unknown_ui_function(
+          layout_dir_to_code[showcase_layout]
         );
       }
-      return named_args;
+
+      return to_return;
     },
     preprocess_raw_ast_arg: (arg) => {
       switch (arg.name) {

@@ -84,6 +84,14 @@ export const shinySliderInputInfo = nodeInfoFactory<ShinySliderInputProps>()({
       inputIdKey: "inputId",
     },
   },
+  code_gen_py: {
+    transform_named_args: ({ inputId, ...args }) => {
+      return {
+        id: inputId,
+        ...args,
+      };
+    },
+  },
   iconSrc: sliderIcon,
   category: "Inputs",
   description:

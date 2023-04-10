@@ -221,13 +221,10 @@ type CommonInfo<
    */
   code_gen_R?: {
     /**
-     * Optional function to process the named arguments of the node. Useful for
-     * when the simple args object -> key-value option isn't enough. E.g.
-     * collapsing multiple args into a single one or or converting to code output
-     * etc..
+     * Optional function to take named args object before printing and transform
+     * it to some new form. E.g. adding, removing, or renaming args.
      */
-    print_named_args?: ProcessNamedArgs<Args>;
-
+    transform_named_args?: Named_Arg_Transformer<Args>;
     /**
      * Pre-process an argument to the ui node before it's converted to a ShinyUiNode type
      * @param arg_node - AST node of the argument to the node
@@ -235,20 +232,23 @@ type CommonInfo<
      */
     preprocess_raw_ast_arg?: (arg_node: R_AST_Node) => R_AST_Node;
   };
+
+  code_gen_py?: {
+    /**
+     * Optional function to take named args object before printing and transform
+     * it to some new form. E.g. adding, removing, or renaming args.
+     */
+    transform_named_args?: Named_Arg_Transformer<Args>;
+  };
 };
 
 /**
- * Generates rendered code for the named arguments of code. This is useful for
- * functions where processesing of the arguments may need to be done. Like
- * converting a keyword for a function call etc.. If this function is procided
- * it is used in-lieu of the default printing of arguments.
- * @param args - Arguments for the node being rendered
- * @param render_child - Function to render a child node to be used to render
- * ui node type arguments if neccesary
- * @returns Array of strings that will be joined with `","` to form the named
- * arguments in the generated R code
+ * Optional function to take named args object before printing and transform
+ * it to some new form. E.g. adding, removing, or renaming args.
+ * @param args - Universal Args object for ui node
+ * @returns Manipulated args object. Either with args added, renamed, or
+ * removed. Whatever is needed
  */
-export type ProcessNamedArgs<Args extends namedArgsObject> = (
-  args: Args,
-  render_child: (child: ShinyUiNode) => string
-) => string[];
+export type Named_Arg_Transformer<Args extends namedArgsObject> = (
+  args: Args
+) => namedArgsObject;
