@@ -11,6 +11,7 @@ import {
   SHOW_TEMPLATE_CHOOSER,
   useCurrentAppInfo,
 } from "../state/app_info";
+import { useLanguageMode, useSetLanguageMode } from "../state/languageMode";
 import { useCurrentSelection } from "../state/selectedPath";
 import { useUndoRedo } from "../state-logic/useUndoRedo";
 import { useKeyboardShortcuts } from "../utils/hooks/useKeyboardShortcuts";
@@ -21,6 +22,8 @@ export function useSyncUiWithBackend() {
   const { sendMsg, incomingMsgs: backendMsgs } = useBackendConnection();
   const state = useCurrentAppInfo();
   const currentSelection = useCurrentSelection();
+  const currentLanguageMode = useLanguageMode();
+  const setLanguageMode = useSetLanguageMode();
   const dispatch = useDispatch();
 
   const history = useUndoRedo(state);
@@ -69,6 +72,9 @@ export function useSyncUiWithBackend() {
     // Make sure to do this after subscriptions otherwise the response may be
     // received before subscribers are setup to receive
     sendMsg({ path: "READY-FOR-STATE" });
+
+    //! Remove this once basic setup is complete
+    setLanguageMode("PYTHON");
 
     return () => {
       updatedAppSubscription.unsubscribe();
