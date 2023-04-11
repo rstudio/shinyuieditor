@@ -22,7 +22,7 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
           min: 10,
           max: 100,
         },
-      }).ui_code
+      }).code
     ).toBe(expected_result);
   });
 

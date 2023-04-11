@@ -33,7 +33,7 @@ export function generate_ui_script({
   ui_tree: Multi_File_Full_Info["ui_tree"];
   language: Language_Mode;
 } & Multi_File_Full_Info["ui"]): string {
-  const { ui_code, library_calls } = ui_node_to_code({
+  const { code: ui_code, packages: library_calls } = ui_node_to_code({
     ui_tree,
     language,
   });

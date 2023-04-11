@@ -1,4 +1,4 @@
-import type { R_Ui_Code } from "communication-types/src/MessageToBackend";
+import type { Generated_UI_Def } from "communication-types/src/MessageToBackend";
 import type { ShinyUiNode } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
 import { getUiNodeInfo } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
 import type { Primatives } from "r-ast-parsing";
@@ -28,7 +28,7 @@ import { isNamedList, print_named_R_list } from "./print_named_list";
 export function ui_node_to_R_code(
   node: ShinyUiNode,
   opts: { remove_namespace: boolean }
-): R_Ui_Code {
+): Generated_UI_Def {
   const removed_namespaces: Set<string> = new Set<string>();
 
   function print_code(node: unknown): string {
@@ -91,8 +91,8 @@ export function ui_node_to_R_code(
   }
 
   return {
-    ui_code: print_code(node),
-    library_calls: Array.from(removed_namespaces),
+    code: print_code(node),
+    packages: Array.from(removed_namespaces),
   };
 }
 

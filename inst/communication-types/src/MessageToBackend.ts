@@ -47,11 +47,21 @@ export type OutputSourceRequest = {
   outputId: string;
 };
 
-export type R_Ui_Code = {
-  /** String with formatted R code defining a shiny ui */
-  ui_code: string;
-  /** String with all the library calls to accompany the ui code*/
-  library_calls: string[];
+/**
+ * Output of code generation functions for ui. Contains the definition of the ui
+ * as a function call in the `code` field and the  and the packages that were
+ * used in that code in the `packages` field.
+ */
+export type Generated_UI_Def = {
+  /**
+   * String with formatted R or Python code defining a shiny ui
+   *
+   **/
+  code: string;
+  /**
+   * List of all packages used in the ui definition call
+   **/
+  packages: string[];
 };
 
 /**

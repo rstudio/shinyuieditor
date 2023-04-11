@@ -38,9 +38,12 @@ describe("Can keep or remove namespaces", () => {
     max = 12
   )
 )`;
-    const { ui_code, library_calls } = ui_node_to_R_code(ui_ast, {
-      remove_namespace: false,
-    });
+    const { code: ui_code, packages: library_calls } = ui_node_to_R_code(
+      ui_ast,
+      {
+        remove_namespace: false,
+      }
+    );
     expect(ui_code).toBe(with_namespaces);
     expect(library_calls).toStrictEqual([]);
   });
@@ -59,9 +62,12 @@ describe("Can keep or remove namespaces", () => {
   )
 )`;
 
-    const { ui_code, library_calls } = ui_node_to_R_code(ui_ast, {
-      remove_namespace: true,
-    });
+    const { code: ui_code, packages: library_calls } = ui_node_to_R_code(
+      ui_ast,
+      {
+        remove_namespace: true,
+      }
+    );
     expect(ui_code).toBe(no_namespaces);
     expect(library_calls).toStrictEqual(["gridlayout", "shiny"]);
   });
@@ -93,7 +99,7 @@ describe("Handles nodes with ui nodes as named arguments", () => {
 )`;
 
     expect(
-      ui_node_to_R_code(value_box_node, { remove_namespace: true }).ui_code
+      ui_node_to_R_code(value_box_node, { remove_namespace: true }).code
     ).toBe(expected_result);
   });
 });
@@ -134,7 +140,7 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
           ],
         },
         { remove_namespace: false }
-      ).ui_code
+      ).code
     ).toBe(expected_result);
   });
   test("Handles named list arguments", () => {
@@ -167,7 +173,7 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
           },
         },
         { remove_namespace: false }
-      ).ui_code
+      ).code
     ).toBe(expected_result);
   });
   test("Short named lists can be kept on same line", () => {
@@ -193,7 +199,7 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
           },
         },
         { remove_namespace: false }
-      ).ui_code
+      ).code
     ).toBe(expected_result);
   });
 
@@ -228,7 +234,7 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
           },
         },
         { remove_namespace: false }
-      ).ui_code
+      ).code
     ).toBe(expected_result);
   });
 
@@ -255,7 +261,7 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
           ],
         },
         { remove_namespace: false }
-      ).ui_code
+      ).code
     ).toBe(expected_result);
   });
 });
@@ -376,7 +382,7 @@ test("Full UI example", () => {
     ],
   };
 
-  expect(ui_node_to_R_code(ui_ast, { remove_namespace: true }).ui_code).toBe(
+  expect(ui_node_to_R_code(ui_ast, { remove_namespace: true }).code).toBe(
     ui_as_r_code
   );
 });

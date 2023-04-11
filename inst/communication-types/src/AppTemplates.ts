@@ -4,17 +4,17 @@ import type {
 } from "editor/src/ast_parsing";
 import type { ShinyUiNode } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
 
-import type { R_Ui_Code } from "./MessageToBackend";
+import type { Generated_UI_Def } from "./MessageToBackend";
 
 export type Single_File_Template_Selection = {
   outputType: Single_File_App_Type;
 } & Omit<TemplateInfo, "title" | "description"> &
-  R_Ui_Code;
+  Generated_UI_Def;
 
 export type Multi_File_Template_Selection = {
   outputType: Multi_File_App_Type;
 } & Omit<TemplateInfo, "title" | "description"> &
-  R_Ui_Code;
+  Generated_UI_Def;
 
 export type TemplateSelection =
   | Single_File_Template_Selection
