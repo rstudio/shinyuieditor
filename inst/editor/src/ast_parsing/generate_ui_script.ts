@@ -44,13 +44,22 @@ export function generate_ui_script({
   const app_template =
     code ?? (language === "R" ? dummy_R_code : dummy_python_code);
 
+  const package_calls =
+    language === "R"
+      ? write_R_library_calls(all_packages)
+      : write_python_imports(all_packages);
+
   return app_template
     .replace(SCRIPT_LOC_KEYS.ui, ui_def.code)
-    .replace(SCRIPT_LOC_KEYS.packages, write_R_library_calls(all_packages));
+    .replace(SCRIPT_LOC_KEYS.packages, package_calls);
 }
 
 export function write_R_library_calls(libraries: string[]): string {
   return libraries.map((l) => `library(${l})`).join("\n");
+}
+
+function write_python_imports(packages: string[]): string {
+  return packages.map((pkg) => `from ${pkg} import *`).join("\n");
 }
 
 const dummy_R_code: string = `
@@ -68,10 +77,10 @@ shinyApp(ui, server)
 const dummy_python_code: string = `
 <PACKAGES>
 
-ui = <UI>
+app_ui = <UI>
 
 def server(input, output):
   pass
 
-shinyApp(ui, server)
+app = App(app_ui, server)
 `;
