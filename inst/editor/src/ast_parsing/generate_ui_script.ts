@@ -1,8 +1,8 @@
+import type { Multi_File_Full_Info } from "communication-types/src/AppInfo";
+import { SCRIPT_LOC_KEYS } from "communication-types/src/AppInfo";
+
 import type { ShinyUiNode } from "../Shiny-Ui-Elements/uiNodeTypes";
 import type { Language_Mode } from "../state/languageMode";
-
-import type { Multi_File_Full_Info } from ".";
-import { SCRIPT_LOC_KEYS } from ".";
 
 import { ui_node_to_python_code } from "./code_generation/ui_node_to_python_code";
 import { ui_node_to_R_code } from "./code_generation/ui_node_to_R_code";

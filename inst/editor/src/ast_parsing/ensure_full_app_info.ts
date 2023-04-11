@@ -1,16 +1,15 @@
-import type { Script_Position } from "r-ast-parsing";
-
-import type { EditingState, ErrorState } from "../state/app_info";
-
 import type {
   Raw_App_Info,
+  Full_App_Info,
   Single_File_Raw_App_Info,
   Single_File_Full_Info,
   Multi_File_Full_Info,
   Multi_File_Raw_App_Info,
-  Full_App_Info,
-} from ".";
-import { SCRIPT_LOC_KEYS } from ".";
+} from "communication-types/src/AppInfo";
+import { SCRIPT_LOC_KEYS } from "communication-types/src/AppInfo";
+import type { Script_Position } from "r-ast-parsing";
+
+import type { EditingState, ErrorState } from "../state/app_info";
 
 import type { Parsed_Multi_File_AST } from "./parse_app_ast";
 import { parse_app_ast } from "./parse_app_ast";

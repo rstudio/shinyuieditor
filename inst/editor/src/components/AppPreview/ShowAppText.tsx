@@ -1,11 +1,11 @@
 import React from "react";
 
-import { useStore } from "react-redux";
-
 import type {
   Single_File_Full_Info,
   Multi_File_Full_Info,
-} from "../../ast_parsing";
+} from "communication-types/src/AppInfo";
+import { useStore } from "react-redux";
+
 import { generate_full_app_script } from "../../ast_parsing/generate_full_app_script";
 import { DialogPopover } from "../../EditorContainer/DialogPopover";
 import { PanelHeader } from "../../EditorLayout/PanelHeader";

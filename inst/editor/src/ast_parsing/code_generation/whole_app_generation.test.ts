@@ -1,4 +1,8 @@
-import type { Single_File_Raw_App_Info, Multi_File_Raw_App_Info } from "..";
+import type {
+  Single_File_Raw_App_Info,
+  Multi_File_Raw_App_Info,
+} from "communication-types/src/AppInfo";
+
 import { ensure_full_app_info } from "../ensure_full_app_info";
 import { generate_full_app_script } from "../generate_full_app_script";
 

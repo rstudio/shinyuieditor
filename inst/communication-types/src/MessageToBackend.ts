@@ -1,11 +1,11 @@
-import type {
-  Single_File_App_Script,
-  Multi_File_App_Script,
-  App_Type,
-} from "editor/src/ast_parsing";
 import type { ShinyUiNode } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
 import type { Script_Position } from "r-ast-parsing";
 
+import type {
+  App_Type,
+  Multi_File_App_Script,
+  Single_File_App_Script,
+} from "./AppInfo";
 import { isRecord } from "./isRecord";
 import type { MessageUnion } from "./MessageUnion";
 

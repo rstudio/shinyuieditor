@@ -1,9 +1,12 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import type { MessageToClientByPath } from "communication-types";
+import type {
+  Full_App_Info,
+  Raw_App_Info,
+} from "communication-types/src/AppInfo";
 import { useSelector } from "react-redux";
 
-import type { Full_App_Info, Raw_App_Info } from "../ast_parsing";
 import { ensure_full_app_info } from "../ast_parsing/ensure_full_app_info";
 import type { TemplateChooserOptions } from "../components/TemplatePreviews/TemplateChooserView";
 import type { PlaceNodeArguments } from "../components/UiNode/TreeManipulation/placeNode";

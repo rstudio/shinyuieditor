@@ -1,3 +1,10 @@
+import type {
+  Multi_File_App_Type,
+  Single_File_App_Type,
+  Multi_File_Raw_App_Info,
+  Single_File_Raw_App_Info,
+  Raw_App_Info,
+} from "communication-types/src/AppInfo";
 import type { Script_Position } from "r-ast-parsing";
 import type {
   Assignment_Operator,
@@ -10,14 +17,6 @@ import {
 } from "r-ast-parsing/src/get_assignment_nodes";
 
 import type { ShinyUiNode } from "../Shiny-Ui-Elements/uiNodeTypes";
-
-import type {
-  Multi_File_App_Type,
-  Multi_File_Raw_App_Info,
-  Raw_App_Info,
-  Single_File_App_Type,
-  Single_File_Raw_App_Info,
-} from ".";
 
 import { ast_to_ui_node } from "./ast_to_shiny_ui_node";
 

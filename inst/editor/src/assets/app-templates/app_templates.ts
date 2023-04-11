@@ -1,15 +1,15 @@
 import type { MessageToBackendByPath } from "communication-types";
 import type {
+  Single_File_Full_Info,
+  Multi_File_Full_Info,
+} from "communication-types/src/AppInfo";
+import { SCRIPT_LOC_KEYS } from "communication-types/src/AppInfo";
+import type {
   Multi_File_Template_Selection,
   Single_File_Template_Selection,
   TemplateInfo,
 } from "communication-types/src/AppTemplates";
 
-import type {
-  Single_File_Full_Info,
-  Multi_File_Full_Info,
-} from "../../ast_parsing";
-import { SCRIPT_LOC_KEYS } from "../../ast_parsing";
 import { indent_line_breaks } from "../../ast_parsing/code_generation/build_function_text";
 import { generate_full_app_script } from "../../ast_parsing/generate_full_app_script";
 import { write_R_library_calls } from "../../ast_parsing/generate_ui_script";

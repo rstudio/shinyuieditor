@@ -1,11 +1,11 @@
-import type { Language_Mode } from "../state/languageMode";
-
 import type {
   Single_File_Full_Info,
   Multi_File_Full_Info,
   Single_File_App_Script,
   Multi_File_App_Script,
-} from ".";
+} from "communication-types/src/AppInfo";
+
+import type { Language_Mode } from "../state/languageMode";
 
 import { generate_ui_script } from "./generate_ui_script";
 
