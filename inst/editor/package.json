@@ -26,7 +26,6 @@
     "react-redux": "^8.0.2",
     "react-sortablejs": "^6.1.4",
     "sortablejs": "^1.15.0",
-    "ts-pattern": "^4.0.5",
     "tsconfig": "*",
     "util-functions": "*"
   },

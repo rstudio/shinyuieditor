@@ -1,5 +1,3 @@
-import { match } from "ts-pattern";
-
 import { BooleanInput } from "../../BooleanInput/BooleanInputSimple";
 import { CSSUnitInput } from "../../CSSUnitInput/CSSUnitInput";
 import { NamedListInput } from "../../ListInput/NamedListInput";
@@ -23,17 +21,27 @@ type SettingsInputElementProps = InputOptions & {
 };
 
 export function SettingsInputElement(args: SettingsInputElementProps) {
-  return match(args)
-    .with({ inputType: "string" }, (x) => <StringInput {...x} />)
-    .with({ inputType: "number" }, (x) => <NumberInput {...x} />)
-    .with({ inputType: "cssMeasure" }, (x) => <CSSUnitInput {...x} />)
-    .with({ inputType: "boolean" }, (x) => <BooleanInput {...x} />)
-    .with({ inputType: "list" }, (x) => <NamedListInput {...x} />)
-    .with({ inputType: "dropdown" }, (x) => <DropdownSelect {...x} />)
-    .with({ inputType: "radio" }, (x) => <RadioInputs {...x} />)
-    .otherwise(({ inputType }) => (
-      <div>
-        I don't know how to render the input of type {inputType} yet! Sorry.
-      </div>
-    ));
+  switch (args.inputType) {
+    case "string":
+      return <StringInput {...args} />;
+    case "number":
+      return <NumberInput {...args} />;
+    case "cssMeasure":
+      return <CSSUnitInput {...args} />;
+    case "boolean":
+      return <BooleanInput {...args} />;
+    case "list":
+      return <NamedListInput {...args} />;
+    case "dropdown":
+      return <DropdownSelect {...args} />;
+    case "radio":
+      return <RadioInputs {...args} />;
+    default:
+      return (
+        <div>
+          I don't know how to render the input of type {args.inputType} yet!
+          Sorry.
+        </div>
+      );
+  }
 }

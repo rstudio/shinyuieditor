@@ -1,6 +1,5 @@
 import type { Multi_File_Full_Info } from "communication-types/src/AppInfo";
 import { SCRIPT_LOC_KEYS } from "communication-types/src/AppInfo";
-import { match } from "ts-pattern";
 
 import type { ShinyUiNode } from "../Shiny-Ui-Elements/uiNodeTypes";
 import type { Language_Mode } from "../state/languageMode";
@@ -15,10 +14,14 @@ function ui_node_to_code({
   ui_tree: ShinyUiNode;
   language: Language_Mode;
 }) {
-  return match(language)
-    .with("PYTHON", () => ui_node_to_python_code(ui_tree))
-    .with("R", () => ui_node_to_R_code(ui_tree, { remove_namespace: true }))
-    .exhaustive();
+  switch (language) {
+    case "PYTHON":
+      return ui_node_to_python_code(ui_tree);
+    case "R":
+      return ui_node_to_R_code(ui_tree, { remove_namespace: true });
+    default:
+      throw new Error(`Unknown language "${language}"`);
+  }
 }
 
 export function generate_ui_script({
