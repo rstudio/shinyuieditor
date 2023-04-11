@@ -21,7 +21,7 @@ export const shinyNavbarPageInfo = nodeInfoFactory<NavbarPageSettings>()({
   r_package: "shiny",
   r_fn_name: "navbarPage",
   py_package: "shiny",
-  py_fn_name: "ui.navbar_page",
+  py_fn_name: "ui.page_navbar",
   title: "Navbar Page",
   takesChildren: true,
   UiComponent: ShinyNavbarPage,

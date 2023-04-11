@@ -56,23 +56,23 @@ export function ui_node_to_python_code(node: ShinyUiNode): Generated_UI_Def {
         )
       : node.namedArgs;
 
-    const fn_args_list: string[] = Object.entries(named_args).map(
+    const printed_named_args: string[] = Object.entries(named_args).map(
       ([arg_name, arg_value]) => `${arg_name} = ${print_code(arg_value)}`
     );
 
-    // Next handle the children
-    if ("children" in node && node.children) {
-      for (const child of node.children) {
-        fn_args_list.push(print_code(child));
-      }
-    }
+    const printed_child_args: string[] =
+      "children" in node && node.children
+        ? node.children.map((child) => print_code(child))
+        : [];
 
-    const printed_args = fn_args_list.map(indent_line_breaks);
+    const printed_args = [...printed_child_args, ...printed_named_args].map(
+      indent_line_breaks
+    );
 
     if (
       should_line_break({
         fn_name,
-        fn_args_list,
+        fn_args_list: printed_args,
         max_line_length_for_multi_args: LINE_BREAK_LENGTH,
       })
     ) {

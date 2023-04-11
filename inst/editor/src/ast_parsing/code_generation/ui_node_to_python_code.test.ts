@@ -26,6 +26,42 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
     ).toBe(expected_result);
   });
 
+  test("Places positional arguments before named arguments if they exist", () => {
+    // prettier-ignore
+    const expected_result = 
+`ui.nav(
+  ui.input_slider(
+    id = "obs",
+    label = "Number of bins:",
+    value = 30,
+    min = 10,
+    max = 100
+  ),
+  title = "Tab A"
+)`;
+
+    expect(
+      ui_node_to_python_code({
+        id: "tabPanel",
+        namedArgs: {
+          title: "Tab A",
+        },
+        children: [
+          {
+            id: "sliderInput",
+            namedArgs: {
+              inputId: "obs",
+              label: "Number of bins:",
+              value: 30,
+              min: 10,
+              max: 100,
+            },
+          },
+        ],
+      }).code
+    ).toBe(expected_result);
+  });
+
   //   test("Short named lists can be kept on same line", () => {
   //     // prettier-ignore
   //     const expected_result =
