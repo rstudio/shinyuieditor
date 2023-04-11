@@ -12,7 +12,7 @@ import type {
 import { SCRIPT_LOC_KEYS } from "../../ast_parsing";
 import { indent_line_breaks } from "../../ast_parsing/code_generation/build_function_text";
 import { generate_full_app_script } from "../../ast_parsing/generate_full_app_script";
-import { write_library_calls } from "../../ast_parsing/generate_ui_script";
+import { write_R_library_calls } from "../../ast_parsing/generate_ui_script";
 import type { Language_Mode } from "../../state/languageMode";
 
 import { chickWeightsGridTemplate } from "./templates/chickWeightsGrid";
@@ -46,7 +46,7 @@ function template_to_single_file_info({
     serverLibraries = [],
   },
 }: Single_File_Template_Selection): Single_File_Full_Info {
-  const code = `${SCRIPT_LOC_KEYS.libraries}
+  const code = `${SCRIPT_LOC_KEYS.packages}
 
 ${uiExtra}
 ui <- ${SCRIPT_LOC_KEYS.ui}
@@ -65,7 +65,7 @@ shinyApp(ui, server)
     ui_tree: uiTree,
     app: {
       code,
-      libraries: ["shiny", ...serverLibraries],
+      packages: ["shiny", ...serverLibraries],
     },
   };
 }
@@ -79,12 +79,12 @@ function template_to_multi_file_info({
     serverLibraries = [],
   },
 }: Multi_File_Template_Selection): Multi_File_Full_Info {
-  const ui_code = `${SCRIPT_LOC_KEYS.libraries}
+  const ui_code = `${SCRIPT_LOC_KEYS.packages}
 
 ${uiExtra}
 ui <- ${SCRIPT_LOC_KEYS.ui}
 `;
-  const server_code = `${write_library_calls(serverLibraries)}
+  const server_code = `${write_R_library_calls(serverLibraries)}
 
 ${serverExtra}
 server <- function(input, output) {
@@ -97,7 +97,7 @@ server <- function(input, output) {
     ui_tree: uiTree,
     ui: {
       code: ui_code,
-      libraries: ["shiny", ...serverLibraries],
+      packages: ["shiny", ...serverLibraries],
     },
     server: {
       code: server_code,

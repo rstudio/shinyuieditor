@@ -33,7 +33,7 @@ export type Single_File_Full_Info = Full_App_Info_Core & {
   app_type: Single_File_App_Type;
   app: {
     code: string;
-    libraries: string[];
+    packages: string[];
   };
 };
 
@@ -41,7 +41,7 @@ export type Multi_File_Full_Info = Full_App_Info_Core & {
   app_type: Multi_File_App_Type;
   ui: {
     code: string;
-    libraries: string[];
+    packages: string[];
   };
   server: {
     code: string;
@@ -50,7 +50,7 @@ export type Multi_File_Full_Info = Full_App_Info_Core & {
 
 export const SCRIPT_LOC_KEYS = {
   ui: "<UI>",
-  libraries: "<LIBRARIES>",
+  packages: "<PACKAGES>",
 };
 
 export type Full_App_Info = Single_File_Full_Info | Multi_File_Full_Info;

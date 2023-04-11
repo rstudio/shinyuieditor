@@ -81,7 +81,7 @@ function raw_single_file_app_info_to_full(
         `ui ${ui_assignment_operator} ${SCRIPT_LOC_KEYS.ui}`
       );
     } else if (line_type === "Library") {
-      app_template_by_line.push(SCRIPT_LOC_KEYS.libraries);
+      app_template_by_line.push(SCRIPT_LOC_KEYS.packages);
     } else {
       throw new Error("Unknown line type");
     }
@@ -93,7 +93,7 @@ function raw_single_file_app_info_to_full(
     known_outputs,
     app: {
       code: app_template_by_line.join("\n"),
-      libraries,
+      packages: libraries,
     },
   };
 }
@@ -132,13 +132,13 @@ function generate_ui_script_template(
         `ui ${ui_assignment_operator} ${SCRIPT_LOC_KEYS.ui}`
       );
     } else if (line_type === "Library") {
-      ui_template_by_line.push(SCRIPT_LOC_KEYS.libraries);
+      ui_template_by_line.push(SCRIPT_LOC_KEYS.packages);
     } else {
       throw new Error("Unknown line type");
     }
   });
 
-  return { code: ui_template_by_line.join("\n"), libraries };
+  return { code: ui_template_by_line.join("\n"), packages: libraries };
 }
 
 function raw_multi_file_app_info_to_full(

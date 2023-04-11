@@ -29,8 +29,8 @@ export function setupStaticBackend({
                 ui_tree,
                 app_type: "SINGLE-FILE",
                 app: {
-                  code: dummy_code,
-                  libraries: ["shiny"],
+                  code: dummy_R_code,
+                  packages: ["shiny"],
                 },
               });
             }
@@ -55,14 +55,25 @@ export function setupStaticBackend({
   return messagePassingMethods;
 }
 
-const dummy_code: string = `
-<LIBRARIES>
+const dummy_R_code: string = `
+<PACKAGES>
 
 ui <- <UI>
 
 server <- function(input, output) {
 
 }
+
+shinyApp(ui, server)
+`;
+
+const dummy_python_code: string = `
+<PACKAGES>
+
+ui = <UI>
+
+def server(input, output):
+  pass
 
 shinyApp(ui, server)
 `;

@@ -26,32 +26,29 @@ function ui_node_to_code({
 
 export function generate_ui_script({
   ui_tree,
-  libraries: existing_libraries,
+  packages: existing_libraries,
   language,
   code,
 }: {
   ui_tree: Multi_File_Full_Info["ui_tree"];
   language: Language_Mode;
 } & Multi_File_Full_Info["ui"]): string {
-  const { code: ui_code, packages: library_calls } = ui_node_to_code({
-    ui_tree,
-    language,
-  });
+  const ui_def = ui_node_to_code({ ui_tree, language });
 
   // We need to check to make sure there aren't any libraries used in the ui
   // tree that are not declared in the script and add them
-  const all_libraries = [...existing_libraries];
-  library_calls.forEach((l) => {
+  const all_packages = [...existing_libraries];
+  ui_def.packages.forEach((l) => {
     if (!existing_libraries.includes(l)) {
-      all_libraries.push(l);
+      all_packages.push(l);
     }
   });
 
   return code
-    .replace(SCRIPT_LOC_KEYS.ui, ui_code)
-    .replace(SCRIPT_LOC_KEYS.libraries, write_library_calls(all_libraries));
+    .replace(SCRIPT_LOC_KEYS.ui, ui_def.code)
+    .replace(SCRIPT_LOC_KEYS.packages, write_R_library_calls(all_packages));
 }
 
-export function write_library_calls(libraries: string[]): string {
+export function write_R_library_calls(libraries: string[]): string {
   return libraries.map((l) => `library(${l})`).join("\n");
 }

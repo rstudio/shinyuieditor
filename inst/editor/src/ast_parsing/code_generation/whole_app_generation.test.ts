@@ -150,7 +150,7 @@ shinyApp(ui, server)
     expect(full_info).toEqual(
       expect.objectContaining({
         app: expect.objectContaining({
-          libraries: ["shiny", "gridlayout"],
+          packages: ["shiny", "gridlayout"],
         }),
       })
     );
@@ -320,7 +320,7 @@ server <- function(input, output) {
     expect(full_info).toEqual(
       expect.objectContaining({
         ui: expect.objectContaining({
-          libraries: ["shiny", "gridlayout"],
+          packages: ["shiny", "gridlayout"],
         }),
       })
     );
