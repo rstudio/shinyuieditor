@@ -13,6 +13,7 @@ import { SCRIPT_LOC_KEYS } from "../../ast_parsing";
 import { indent_line_breaks } from "../../ast_parsing/code_generation/build_function_text";
 import { generate_full_app_script } from "../../ast_parsing/generate_full_app_script";
 import { write_library_calls } from "../../ast_parsing/generate_ui_script";
+import type { Language_Mode } from "../../state/languageMode";
 
 import { chickWeightsGridTemplate } from "./templates/chickWeightsGrid";
 import { chickWeightsNavbar } from "./templates/chickWeightsNavbar";
@@ -25,14 +26,15 @@ export const app_templates: TemplateInfo[] = [
 ];
 
 export function template_to_app_contents(
-  selection: Single_File_Template_Selection | Multi_File_Template_Selection
+  selection: Single_File_Template_Selection | Multi_File_Template_Selection,
+  language: Language_Mode
 ): MessageToBackendByPath["UPDATED-APP"] {
   const app_info =
     selection.outputType === "SINGLE-FILE"
       ? template_to_single_file_info(selection)
       : template_to_multi_file_info(selection);
 
-  return generate_full_app_script(app_info, { include_info: true });
+  return generate_full_app_script(app_info, { include_info: true, language });
 }
 
 function template_to_single_file_info({

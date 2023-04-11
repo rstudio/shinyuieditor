@@ -22,7 +22,7 @@ export function useSyncUiWithBackend() {
   const { sendMsg, incomingMsgs: backendMsgs } = useBackendConnection();
   const state = useCurrentAppInfo();
   const currentSelection = useCurrentSelection();
-  const currentLanguageMode = useLanguageMode();
+  const language = useLanguageMode();
   const setLanguageMode = useSetLanguageMode();
   const dispatch = useDispatch();
 
@@ -106,9 +106,12 @@ export function useSyncUiWithBackend() {
 
     debouncedSendMsg({
       path: "UPDATED-APP",
-      payload: generate_full_app_script(state, { include_info: false }),
+      payload: generate_full_app_script(state, {
+        include_info: false,
+        language,
+      }),
     });
-  }, [state, debouncedSendMsg, sendMsg]);
+  }, [state, debouncedSendMsg, sendMsg, language]);
 
   return {
     state,

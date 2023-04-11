@@ -159,6 +159,7 @@ shinyApp(ui, server)
   test("Can convert back to code", () => {
     const back_to_script = generate_full_app_script(full_info, {
       include_info: false,
+      language: "R",
     });
     expect(back_to_script).toEqual(
       expect.objectContaining({
@@ -328,6 +329,7 @@ server <- function(input, output) {
   test("Can convert back to code", () => {
     const back_to_script = generate_full_app_script(full_info, {
       include_info: false,
+      language: "R",
     });
     expect(back_to_script).toEqual(
       expect.objectContaining({

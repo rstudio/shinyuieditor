@@ -9,6 +9,7 @@ import type {
 import { generate_full_app_script } from "../../ast_parsing/generate_full_app_script";
 import { DialogPopover } from "../../EditorContainer/DialogPopover";
 import { PanelHeader } from "../../EditorLayout/PanelHeader";
+import { useLanguageMode } from "../../state/languageMode";
 import type { RootState } from "../../state/store";
 import Button from "../Inputs/Button/Button";
 import { TooltipButton } from "../PopoverEl/Tooltip";
@@ -21,7 +22,11 @@ function AppFilesViewer({
 }: {
   info: Single_File_Full_Info | Multi_File_Full_Info;
 }) {
-  const app_scripts = generate_full_app_script(info, { include_info: false });
+  const language = useLanguageMode();
+  const app_scripts = generate_full_app_script(info, {
+    include_info: false,
+    language,
+  });
 
   if (app_scripts.app_type === "SINGLE-FILE") {
     return (
