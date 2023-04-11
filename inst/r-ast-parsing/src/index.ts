@@ -60,29 +60,3 @@ export type Unparsable_Node = AST_Node_By_Key["s" | "m" | "u"];
 export type R_AST_Node = AST_Node_By_Key[keyof Node_Vals_By_Key];
 
 export type R_AST = Array<R_AST_Node>;
-
-export type Raw_Script_Info = {
-  script: string;
-  ast: R_AST;
-};
-
-export type Single_File_App_Type = "SINGLE-FILE";
-export type Multi_File_App_Type = "MULTI-FILE";
-export type App_Type = Single_File_App_Type | Multi_File_App_Type;
-
-export type Single_File_Raw_App_Info = {
-  app_type: Single_File_App_Type;
-  app: Raw_Script_Info;
-};
-export type Multi_File_Raw_App_Info = {
-  app_type: Multi_File_App_Type;
-  ui: Raw_Script_Info;
-  server: Raw_Script_Info;
-};
-
-export type Raw_App_Info = Single_File_Raw_App_Info | Multi_File_Raw_App_Info;
-
-export const SCRIPT_LOC_KEYS = {
-  ui: "<UI>",
-  libraries: "<LIBRARIES>",
-};
