@@ -1,5 +1,6 @@
 import type { Multi_File_Full_Info } from "communication-types/src/AppInfo";
 import { SCRIPT_LOC_KEYS } from "communication-types/src/AppInfo";
+import { match } from "ts-pattern";
 
 import type { ShinyUiNode } from "../Shiny-Ui-Elements/uiNodeTypes";
 import type { Language_Mode } from "../state/languageMode";
@@ -14,14 +15,10 @@ function ui_node_to_code({
   ui_tree: ShinyUiNode;
   language: Language_Mode;
 }) {
-  switch (language) {
-    case "R": {
-      return ui_node_to_R_code(ui_tree, { remove_namespace: true });
-    }
-    case "PYTHON": {
-      return ui_node_to_python_code(ui_tree);
-    }
-  }
+  return match(language)
+    .with("PYTHON", () => ui_node_to_python_code(ui_tree))
+    .with("R", () => ui_node_to_R_code(ui_tree, { remove_namespace: true }))
+    .exhaustive();
 }
 
 export function generate_ui_script({
@@ -44,7 +41,10 @@ export function generate_ui_script({
     }
   });
 
-  return code
+  const app_template =
+    code ?? (language === "R" ? dummy_R_code : dummy_python_code);
+
+  return app_template
     .replace(SCRIPT_LOC_KEYS.ui, ui_def.code)
     .replace(SCRIPT_LOC_KEYS.packages, write_R_library_calls(all_packages));
 }
@@ -52,3 +52,26 @@ export function generate_ui_script({
 export function write_R_library_calls(libraries: string[]): string {
   return libraries.map((l) => `library(${l})`).join("\n");
 }
+
+const dummy_R_code: string = `
+<PACKAGES>
+
+ui <- <UI>
+
+server <- function(input, output) {
+
+}
+
+shinyApp(ui, server)
+`;
+
+const dummy_python_code: string = `
+<PACKAGES>
+
+ui = <UI>
+
+def server(input, output):
+  pass
+
+shinyApp(ui, server)
+`;

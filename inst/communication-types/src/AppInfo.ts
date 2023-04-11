@@ -28,20 +28,31 @@ export type Full_App_Info_Core = {
   ui_tree: ShinyUiNode;
 } & ({ known_outputs: Known_Outputs } | {});
 
+/**
+ * Contextual information neccesary to produce a full ui definition for an
+ * application.
+ */
+type UI_Template = {
+  /**
+   * Code template for the app. If this is omitted very simple templates with
+   * no server will be used instead
+   */
+  code?: string;
+  /**
+   * Packages that are already loaded in the ui declaring script. Could be for
+   * some unknown ui code that is not properly captured by the ui tree
+   */
+  packages: string[];
+};
+
 export type Single_File_Full_Info = Full_App_Info_Core & {
   app_type: Single_File_App_Type;
-  app: {
-    code: string;
-    packages: string[];
-  };
+  app: UI_Template;
 };
 
 export type Multi_File_Full_Info = Full_App_Info_Core & {
   app_type: Multi_File_App_Type;
-  ui: {
-    code: string;
-    packages: string[];
-  };
+  ui: UI_Template;
   server: {
     code: string;
   };
@@ -59,6 +70,7 @@ export type Single_File_App_Script = {
   app: string;
   info?: Single_File_Full_Info;
 };
+
 export type Multi_File_App_Script = {
   app_type: Multi_File_App_Type;
   ui: string;

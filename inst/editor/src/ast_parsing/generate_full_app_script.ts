@@ -1,8 +1,8 @@
 import type {
-  Single_File_Full_Info,
+  Multi_File_App_Script,
   Multi_File_Full_Info,
   Single_File_App_Script,
-  Multi_File_App_Script,
+  Single_File_Full_Info,
 } from "communication-types/src/AppInfo";
 
 import type { Language_Mode } from "../state/languageMode";
