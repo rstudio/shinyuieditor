@@ -30,7 +30,6 @@ export function nodeInfoFactory<Args extends namedArgsObject>() {
   return function makeInfo<
     RFnName extends string,
     TakesChildren extends boolean,
-    Comp extends UiNodeComponent<Args, { TakesChildren: TakesChildren }>,
     RPackage extends string = "none",
     ID extends string = RFnName,
     PyPackage extends string = "none",
@@ -44,17 +43,42 @@ export function nodeInfoFactory<Args extends namedArgsObject>() {
     py_package,
     category,
     ...info
-  }: CommonInfo<
-    Args,
-    ID,
-    Cat,
-    RFnName,
-    RPackage,
-    PyFnName,
-    PyPackage,
-    TakesChildren,
-    Comp
-  >) {
+  }: {
+    /**
+     * Unique identifier for this node. Should not overlap with other nodes.
+     * Typically this is the function name but for functions with different names
+     * between r and python it may be something different
+     */
+    id?: ID;
+
+    /**
+     * Name of function as called in R code: e.g. `"sliderInput"` for
+     * `shiny::sliderInput()`
+     */
+    r_fn_name: RFnName;
+
+    /**
+     * What is the name of the R package that this node resides in, if it does. If
+     * left blank will default to "none"
+     */
+    r_package?: RPackage;
+
+    /**
+     * Name of function as called in Python code: e.g. `"ui.input_slider"`
+     */
+    py_fn_name?: PyFnName;
+
+    /**
+     * What's the name of the R package that this node resides in? If left blank will default to "none"
+     */
+    py_package?: PyPackage;
+
+    /**
+     * What category does this node belong to? If left blank will default to
+     * "Uncategorized"
+     */
+    category?: Cat;
+  } & CommonInfo<Args, TakesChildren>) {
     return {
       id: id ?? r_fn_name,
       r_fn_name,
@@ -64,19 +88,14 @@ export function nodeInfoFactory<Args extends namedArgsObject>() {
       category: category ?? "Uncategorized",
       ...info,
     } as Expand_Single<
-      Required<
-        CommonInfo<
-          Args,
-          ID,
-          Cat,
-          RFnName,
-          RPackage,
-          PyFnName,
-          PyPackage,
-          TakesChildren,
-          Comp
-        >
-      >
+      {
+        id: undefined extends ID ? RFnName : ID;
+        r_fn_name: RFnName;
+        r_package: RPackage;
+        py_fn_name: PyFnName;
+        py_package: PyPackage;
+        category: Cat;
+      } & Required<CommonInfo<Args, TakesChildren>>
     >;
   };
 }
@@ -84,61 +103,16 @@ export function nodeInfoFactory<Args extends namedArgsObject>() {
 // Sanity tests for types
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 type testing = [
-  Expect<Equal<typeof unknownUiFunctionInfo["category"], "Uncategorized">>,
-  Expect<Equal<typeof unknownUiFunctionInfo["id"], "unknownUiFunction">>,
-  Expect<Equal<typeof unknownUiFunctionInfo["r_package"], "Internal">>,
-  Expect<Equal<typeof shinyActionButtonInfo["id"], "actionButton">>,
-  Expect<Equal<typeof shinyActionButtonInfo["r_fn_name"], "actionButton">>,
-  Expect<Equal<typeof shinyActionButtonInfo["category"], "Inputs">>,
-  Expect<Equal<typeof shinyActionButtonInfo["r_package"], "shiny">>
+  Expect<Equal<(typeof unknownUiFunctionInfo)["category"], "Uncategorized">>,
+  Expect<Equal<(typeof unknownUiFunctionInfo)["id"], "unknownUiFunction">>,
+  Expect<Equal<(typeof unknownUiFunctionInfo)["r_package"], "Internal">>,
+  Expect<Equal<(typeof shinyActionButtonInfo)["id"], "actionButton">>,
+  Expect<Equal<(typeof shinyActionButtonInfo)["r_fn_name"], "actionButton">>,
+  Expect<Equal<(typeof shinyActionButtonInfo)["category"], "Inputs">>,
+  Expect<Equal<(typeof shinyActionButtonInfo)["r_package"], "shiny">>
 ];
 
-type CommonInfo<
-  Args extends namedArgsObject,
-  ID extends string,
-  Cat extends string,
-  RFnName extends string,
-  RPackage extends string,
-  PyFnName extends string,
-  PyPackage extends string,
-  TakesChildren extends boolean,
-  Comp extends UiNodeComponent<Args, { TakesChildren: TakesChildren }>
-> = {
-  /**
-   * Unique identifier for this node. Should not overlap with other nodes.
-   * Typically this is the function name but for functions with different names
-   * between r and python it may be something different
-   */
-  id?: ID;
-
-  /**
-   * Name of function as called in R code: e.g. `"sliderInput"` for
-   * `shiny::sliderInput()`
-   */
-  r_fn_name: RFnName;
-
-  /**
-   * What is the name of the R package that this node resides in, if it does. If
-   * left blank will default to "none"
-   */
-  r_package?: RPackage;
-
-  /**
-   * Name of function as called in Python code: e.g. `"ui.input_slider"`
-   */
-  py_fn_name?: PyFnName;
-
-  /**
-   * What's the name of the R package that this node resides in? If left blank will default to "none"
-   */
-  py_package?: PyPackage;
-
-  /**
-   * What category does this node belong to? If left blank will default to
-   * "Uncategorized"
-   */
-  category?: Cat;
-
+type CommonInfo<Args extends namedArgsObject, TakesChildren extends boolean> = {
   /**
    * The name of the component in plain language. E.g. Plot Output
    */
@@ -191,7 +165,7 @@ type CommonInfo<
    * The component that is used to actually draw the main interface for ui
    * element
    */
-  UiComponent: Comp;
+  UiComponent: UiNodeComponent<Args, { TakesChildren: TakesChildren }>;
 
   /**
    * Does this node take children? Aka is it a parent node?
