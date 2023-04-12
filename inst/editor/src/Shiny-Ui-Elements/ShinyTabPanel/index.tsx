@@ -13,8 +13,11 @@ export type TabPanelNode = MakeShinyUiNode<TabPanelSettings>;
 export const shinyTabPanelInfo = nodeInfoFactory<TabPanelSettings>()({
   r_package: "shiny",
   r_fn_name: "tabPanel",
-  py_package: "shiny",
-  py_fn_name: "ui.nav",
+  py_info: {
+    fn_name: "ui.nav",
+    package: "shiny",
+  },
+
   title: "Tab Panel",
   takesChildren: true,
   UiComponent: ShinyTabPanel,

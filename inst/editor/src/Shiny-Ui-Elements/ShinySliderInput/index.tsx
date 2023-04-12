@@ -18,8 +18,16 @@ export type ShinySliderInputProps = {
 export const shinySliderInputInfo = nodeInfoFactory<ShinySliderInputProps>()({
   r_package: "shiny",
   r_fn_name: "sliderInput",
-  py_package: "shiny",
-  py_fn_name: "ui.input_slider",
+  py_info: {
+    fn_name: "ui.input_slider",
+    package: "shiny",
+    transform_named_args: ({ inputId, ...args }) => {
+      return {
+        id: inputId,
+        ...args,
+      };
+    },
+  },
   title: "Slider Input",
   takesChildren: false,
   UiComponent: ShinySliderInput,
@@ -82,14 +90,6 @@ export const shinySliderInputInfo = nodeInfoFactory<ShinySliderInputProps>()({
   serverBindings: {
     inputs: {
       inputIdKey: "inputId",
-    },
-  },
-  code_gen_py: {
-    transform_named_args: ({ inputId, ...args }) => {
-      return {
-        id: inputId,
-        ...args,
-      };
     },
   },
   iconSrc: sliderIcon,

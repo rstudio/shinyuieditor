@@ -137,11 +137,11 @@ export function getUiNodeTitle(id: string): string {
   return getUiNodeInfo(id).title;
 }
 
-export type ShinyUiNodeInfo = Expand<typeof shinyUiNodeInfoArray[number]>;
+export type ShinyUiNodeInfo = Expand<(typeof shinyUiNodeInfoArray)[number]>;
 export type ShinyUiNodeIds = ShinyUiNodeInfo["id"];
 export type ShinyUiNodeRPackages = ShinyUiNodeInfo["r_package"];
-export type ShinyUiNodePyPackages = ShinyUiNodeInfo["py_package"];
-export type ShinyUiNodePyFns = ShinyUiNodeInfo["py_fn_name"];
+export type ShinyUiNodePyPackages = ShinyUiNodeInfo["py_info"]["package"];
+export type ShinyUiNodePyFns = ShinyUiNodeInfo["py_info"]["fn_name"];
 export type ShinyUiNodeCategories = Exclude<
   ShinyUiNodeInfo["category"],
   "TESTING"

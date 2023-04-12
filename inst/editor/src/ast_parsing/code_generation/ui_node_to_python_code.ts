@@ -40,20 +40,27 @@ export function ui_node_to_python_code(node: ShinyUiNode): Generated_UI_Def {
     // Check if the ui node has a custom print function
     const node_info = getUiNodeInfo(node.id);
 
-    const fn_name: string = node_info.py_fn_name;
+    if (!("py_info" in node_info)) {
+      throw new Error(`Node ${node.id} has no python info`);
+    }
 
-    const library_name = node_info.r_package;
+    const { fn_name, package: library_name } = node_info.py_info;
 
-    if (library_name && library_name !== "Internal") {
+    if (library_name) {
       removed_namespaces.add(library_name);
     }
 
-    const arg_transformer = node_info.code_gen_py?.transform_named_args;
+    const arg_transformer =
+      "transform_named_args" in node_info.py_info
+        ? // Forgive me for I have sinned
+          (node_info.py_info
+            .transform_named_args as any as Named_Arg_Transformer<
+            typeof node.namedArgs
+          >)
+        : null;
 
     const named_args = arg_transformer
-      ? (arg_transformer as Named_Arg_Transformer<typeof node.namedArgs>)(
-          node.namedArgs
-        )
+      ? arg_transformer(node.namedArgs)
       : node.namedArgs;
 
     const printed_named_args: string[] = Object.entries(named_args).map(

@@ -30,17 +30,15 @@ export function nodeInfoFactory<Args extends namedArgsObject>() {
   return function makeInfo<
     RFnName extends string,
     TakesChildren extends boolean,
+    const PyInfo extends Lang_Info<Args> | undefined,
     RPackage extends string = "none",
     ID extends string = RFnName,
-    PyPackage extends string = "none",
-    PyFnName extends string = "none",
     Cat extends string = "Uncategorized"
   >({
     id,
     r_fn_name,
     r_package,
-    py_fn_name,
-    py_package,
+    py_info,
     category,
     ...info
   }: {
@@ -63,15 +61,7 @@ export function nodeInfoFactory<Args extends namedArgsObject>() {
      */
     r_package?: RPackage;
 
-    /**
-     * Name of function as called in Python code: e.g. `"ui.input_slider"`
-     */
-    py_fn_name?: PyFnName;
-
-    /**
-     * What's the name of the R package that this node resides in? If left blank will default to "none"
-     */
-    py_package?: PyPackage;
+    py_info?: PyInfo;
 
     /**
      * What category does this node belong to? If left blank will default to
@@ -83,8 +73,7 @@ export function nodeInfoFactory<Args extends namedArgsObject>() {
       id: id ?? r_fn_name,
       r_fn_name,
       r_package: r_package ?? "none",
-      py_fn_name: py_fn_name ?? "none",
-      py_package: py_package ?? "none",
+      ...(py_info ? { py_info } : {}),
       category: category ?? "Uncategorized",
       ...info,
     } as Expand_Single<
@@ -92,13 +81,42 @@ export function nodeInfoFactory<Args extends namedArgsObject>() {
         id: undefined extends ID ? RFnName : ID;
         r_fn_name: RFnName;
         r_package: RPackage;
-        py_fn_name: PyFnName;
-        py_package: PyPackage;
+        py_info: undefined extends PyInfo ? never : PyInfo;
         category: Cat;
       } & Required<CommonInfo<Args, TakesChildren>>
     >;
   };
 }
+
+type Lang_Info<
+  Args extends namedArgsObject,
+  Name extends string = string,
+  Pkg extends string = string
+> = {
+  /**
+   * Name of function as called in code: e.g. `"sliderInput"` for
+   * `shiny::sliderInput()`
+   */
+  fn_name: Name;
+
+  /**
+   * What is the name of the package that this node resides in, if it does. If
+   * left blank will default to "none"
+   */
+  package: Pkg;
+
+  /**
+   * Optional function to take named args object before printing and transform
+   * it to some new form. E.g. adding, removing, or renaming args.
+   */
+  transform_named_args?: Named_Arg_Transformer<Args>;
+  /**
+   * Pre-process an argument to the ui node before it's converted to a ShinyUiNode type
+   * @param arg_node - AST node of the argument to the node
+   * @returns Processed version of the AST argument node
+   */
+  preprocess_raw_ast_arg?: (arg_node: R_AST_Node) => R_AST_Node;
+};
 
 // Sanity tests for types
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -205,14 +223,6 @@ type CommonInfo<Args extends namedArgsObject, TakesChildren extends boolean> = {
      * @returns Processed version of the AST argument node
      */
     preprocess_raw_ast_arg?: (arg_node: R_AST_Node) => R_AST_Node;
-  };
-
-  code_gen_py?: {
-    /**
-     * Optional function to take named args object before printing and transform
-     * it to some new form. E.g. adding, removing, or renaming args.
-     */
-    transform_named_args?: Named_Arg_Transformer<Args>;
   };
 };
 

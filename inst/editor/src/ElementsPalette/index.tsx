@@ -22,7 +22,7 @@ const categoryOrder = Object.keys({
   Uncategorized: 1,
 } satisfies Record<ShinyUiNodeCategories, 1>);
 
-type Node_Info = typeof shinyUiNodeInfoArray[number];
+type Node_Info = (typeof shinyUiNodeInfoArray)[number];
 
 function sortByCategory(info_a: Node_Info, info_b: Node_Info): number {
   const cat_a = categoryOrder.indexOf(info_a.category);
@@ -36,7 +36,7 @@ function filterToLanguage(info: Node_Info, language: Language_Mode): boolean {
     case "R":
       return info.r_fn_name !== undefined;
     case "PYTHON":
-      return info.py_fn_name !== undefined && info.py_fn_name !== "none";
+      return info.py_info !== undefined;
   }
 }
 
