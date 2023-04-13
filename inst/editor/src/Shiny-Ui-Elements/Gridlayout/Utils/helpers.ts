@@ -40,13 +40,3 @@ export function sameLocation(
     a.rowEnd === b.rowEnd
   );
 }
-
-export function toStringLoc({
-  row,
-  col,
-}: {
-  row: number;
-  col: number;
-}): `row${number}-col${number}` {
-  return `row${row}-col${col}`;
-}

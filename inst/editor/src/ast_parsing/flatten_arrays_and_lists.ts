@@ -6,18 +6,15 @@ import type { UnknownUiNode } from "../Shiny-Ui-Elements/UnknownUiFunction";
 
 import { create_unknownUiFunction } from "./create_unknownUiFunction";
 
-export type Primative_Map = Record<string, Primatives>;
+type Primative_Map = Record<string, Primatives>;
 
-export type Primative_Array = (Primatives | Primative_Array)[];
+type Primative_Array = (Primatives | Primative_Array)[];
 
-export type Array_Or_List_AST = [
-  { val: "c" | "list"; type: "s" },
-  ...Leaf_Node[]
-];
+type Array_Or_List_AST = [{ val: "c" | "list"; type: "s" }, ...Leaf_Node[]];
 
-export type Array_AST = [{ val: "c"; type: "s" }, ...Leaf_Node[]];
+type Array_AST = [{ val: "c"; type: "s" }, ...Leaf_Node[]];
 
-export function get_ast_is_array(x: R_AST): x is Array_AST {
+function get_ast_is_array(x: R_AST): x is Array_AST {
   return x[0].val === "c";
 }
 export function get_ast_is_array_or_list(x: R_AST): x is Array_Or_List_AST {

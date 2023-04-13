@@ -24,13 +24,7 @@ import {
 import type { RootState } from "./store";
 
 export type EditingState = { mode: "MAIN" } & Full_App_Info;
-export type TemplateChooserState = {
-  mode: "TEMPLATE_CHOOSER";
-  options: TemplateChooserOptions;
-};
-export type LoadingState = {
-  mode: "LOADING";
-};
+
 export type ErrorState = {
   mode: "ERROR";
   /** Where this error occured. E.g. "Parsing ast" */
@@ -41,8 +35,13 @@ export type ErrorState = {
 
 export type MainStateOption =
   | EditingState
-  | TemplateChooserState
-  | LoadingState
+  | {
+      mode: "TEMPLATE_CHOOSER";
+      options: TemplateChooserOptions;
+    }
+  | {
+      mode: "LOADING";
+    }
   | ErrorState;
 
 // Note: The reducer callbacks use immer so the mutations we make to the object

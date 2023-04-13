@@ -32,7 +32,7 @@ type AllStaticOptions =
       | { defaultValue?: unknown; optional: true }
     ));
 
-export type AllDynamicOptions = {
+type AllDynamicOptions = {
   [StaticOption in AllStaticOptions as StaticOption["inputType"]]: MakeDynamicArguments<StaticOption>;
 }[AllStaticOptions["inputType"]];
 

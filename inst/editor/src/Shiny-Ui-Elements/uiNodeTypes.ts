@@ -139,7 +139,6 @@ export function getUiNodeTitle(id: string): string {
 
 export type ShinyUiNodeInfo = Expand<(typeof shinyUiNodeInfoArray)[number]>;
 export type ShinyUiNodeIds = ShinyUiNodeInfo["id"];
-export type ShinyUiNodeRPackages = ShinyUiNodeInfo["r_info"]["package"];
 export type ShinyUiNodePyPackages = ShinyUiNodeInfo["py_info"]["package"];
 export type ShinyUiNodePyFns = ShinyUiNodeInfo["py_info"]["fn_name"];
 export type ShinyUiNodeCategories = Exclude<
@@ -148,16 +147,11 @@ export type ShinyUiNodeCategories = Exclude<
 >;
 
 export type NodeInfoByRPackage = {
-  [RPackage in ShinyUiNodeRPackages]: Extract<
+  [RPackage in ShinyUiNodeInfo["r_info"]["package"]]: Extract<
     ShinyUiNodeInfo,
     { r_info: { package: RPackage } }
   >;
 };
-
-export type NodeIdsForRPackage<RPackage extends ShinyUiNodeRPackages> = Extract<
-  ShinyUiNodeInfo,
-  { r_package: RPackage }
->["id"];
 
 /**
  * All possible props/arguments for the defined UI components
