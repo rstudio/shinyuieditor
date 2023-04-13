@@ -125,12 +125,13 @@
     "ts-jest": "^29.0.3",
     "tsconfig": "*",
     "tsx": "^3.12.1",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "vite-tsconfig-paths": "^4.2.0"
   },
   "dependencies": {
-    "util-functions": "*",
-    "r-ast-parsing": "*",
     "just-debounce-it": "^3.1.1",
+    "r-ast-parsing": "*",
+    "util-functions": "*",
     "winreg": "^1.2.4"
   }
 }
