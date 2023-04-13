@@ -72,15 +72,43 @@ export function ui_node_to_code(
       ? lang_info.transform_named_args(node.namedArgs)
       : node.namedArgs;
 
-    const printed_named_args: string[] = Object.entries(named_args).map(
-      ([arg_name, arg_value]) => {
+    const printed_positional_args = Object.entries(settingsInfo)
+      .filter(
+        ([, info]) =>
+          language === "PYTHON" && info.py_positional_index !== undefined
+      )
+      .sort(
+        ([, a_info], [, b_info]) =>
+          (a_info.py_positional_index as number) -
+          (b_info.py_positional_index as number)
+      )
+      .map(([arg_name]) => {
+        const arg_value = named_args[arg_name];
+        if (arg_value === undefined) {
+          throw new Error(
+            `Node ${node.id} is missing the positional argument ${arg_name}`
+          );
+        }
+        return print_code(arg_value);
+      });
+
+    const printed_named_args: string[] = Object.entries(named_args)
+      .filter(
+        ([name, value]) =>
+          !(
+            language === "PYTHON" &&
+            "py_positional_index" in
+              settingsInfo[name as keyof typeof settingsInfo] &&
+            value !== undefined
+          )
+      )
+      .map(([arg_name, arg_value]) => {
         return `${get_printed_name(
           language,
           settingsInfo,
           arg_name
         )} = ${print_code(arg_value)}`;
-      }
-    );
+      });
 
     const printed_child_args: string[] =
       "children" in node && node.children
@@ -90,8 +118,16 @@ export function ui_node_to_code(
     // We need to reverse the order for the args in python compared to R
     const printed_args_in_order =
       language === "R"
-        ? [...printed_named_args, ...printed_child_args]
-        : [...printed_child_args, ...printed_named_args];
+        ? [
+            ...printed_positional_args,
+            ...printed_named_args,
+            ...printed_child_args,
+          ]
+        : [
+            ...printed_positional_args,
+            ...printed_child_args,
+            ...printed_named_args,
+          ];
 
     const printed_args = printed_args_in_order.map(indent_line_breaks);
 

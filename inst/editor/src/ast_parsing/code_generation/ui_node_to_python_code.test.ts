@@ -34,18 +34,18 @@ describe("Can turn ShinyUiNode into function call text with formatting", () => {
     ).toBe(expected_result);
   });
 
-  test("Places positional arguments before named arguments if they exist", () => {
+  test("Place required named args as positional arguments before named arguments if they exist", () => {
     // prettier-ignore
     const expected_result = 
 `ui.nav(
+  "Tab A",
   ui.input_slider(
     id = "obs",
     label = "Number of bins:",
     value = 30,
     min = 10,
     max = 100
-  ),
-  title = "Tab A"
+  )
 )`;
 
     expect(

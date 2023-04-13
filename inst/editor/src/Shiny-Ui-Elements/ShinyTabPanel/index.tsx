@@ -29,6 +29,7 @@ export const shinyTabPanelInfo = nodeInfoFactory<TabPanelSettings>()({
       label: "Title of panel",
       inputType: "string",
       defaultValue: "My Shiny App",
+      py_positional_index: 0,
     },
   },
   iconSrc: icon,

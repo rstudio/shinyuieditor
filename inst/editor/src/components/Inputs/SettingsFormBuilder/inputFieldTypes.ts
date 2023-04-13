@@ -70,6 +70,14 @@ type Common_Static_Fields = {
   /** Optional mapping for printing the name of the argument in python code */
   py_name?: string;
 
+  /**
+   * If the argument is a requir ed argument in python, then this controls the
+   * order at which it is called in the function. Try to avoid duplicating these
+   * indices. Because these arguments are passed positionally, then they do not
+   * have names prepended to them.
+   */
+  py_positional_index?: number;
+
   /** Optional mapping for printing the name of the argument in R code */
   r_name?: string;
 };
