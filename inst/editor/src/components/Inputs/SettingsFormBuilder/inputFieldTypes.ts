@@ -66,8 +66,12 @@ export type KnownInputFieldTypes = InputOptions["value"];
 type Common_Static_Fields = {
   /** What should the label be above the input for this field? */
   label?: string;
+
   /** Optional mapping for printing the name of the argument in python code */
   py_name?: string;
+
+  /** Optional mapping for printing the name of the argument in R code */
+  r_name?: string;
 };
 
 export type StaticInputOptionsByInputType = Expand<{
@@ -133,6 +137,7 @@ export type MakeOmittedOption<Options extends Record<string, unknown>> =
       ? { optional: true; defaultValue?: Options["value"] }
       : { defaultValue: Options["value"] }));
 
+type CommonStaticFieldNames = keyof Common_Static_Fields;
 /**
  * Object is filled with either values or callbacks to get those values from a
  * ui node
@@ -141,7 +146,8 @@ type NonDynamicArgs =
   | "inputType"
   | "useDefaultIfOptional"
   | "label"
-  | "optional";
+  | "optional"
+  | CommonStaticFieldNames;
 
 export type MakeDynamicArguments<Obj extends Record<string, unknown>> = {
   [Key in keyof Obj]: Key extends NonDynamicArgs

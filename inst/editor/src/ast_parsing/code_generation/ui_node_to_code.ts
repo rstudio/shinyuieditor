@@ -74,16 +74,11 @@ export function ui_node_to_code(
 
     const printed_named_args: string[] = Object.entries(named_args).map(
       ([arg_name, arg_value]) => {
-        const info_for_arg = settingsInfo[
-          arg_name as keyof typeof settingsInfo
-        ] as DynamicArgumentInfo[string] | undefined;
-
-        const print_name =
-          language === "PYTHON" && info_for_arg && "py_name" in info_for_arg
-            ? info_for_arg.py_name
-            : arg_name;
-
-        return `${print_name} = ${print_code(arg_value)}`;
+        return `${get_printed_name(
+          language,
+          settingsInfo,
+          arg_name
+        )} = ${print_code(arg_value)}`;
       }
     );
 
@@ -116,4 +111,33 @@ export function ui_node_to_code(
     code: print_code(node),
     packages: Array.from(removed_namespaces),
   };
+}
+
+/**
+ * Get the correct name for a given argument given the current language mode. If
+ * no specific name is set then it just defaults to the name of the argument in
+ * the namedArguments field
+ * @param language The current language mode
+ * @param settingsInfo The settings info for the node that the argument belongs to
+ * @param arg_name The name of the argument
+ * @returns The proper name of the argument for the current language mode
+ */
+function get_printed_name(
+  language: Language_Mode,
+  settingsInfo: DynamicArgumentInfo,
+  arg_name: string
+): string {
+  const info_for_arg = settingsInfo[arg_name as keyof typeof settingsInfo];
+
+  if (info_for_arg) {
+    if (language === "R" && "r_name" in info_for_arg) {
+      return info_for_arg.r_name ?? arg_name;
+    }
+
+    if (language === "PYTHON" && "py_name" in info_for_arg) {
+      return info_for_arg.py_name ?? arg_name;
+    }
+  }
+
+  return arg_name;
 }
