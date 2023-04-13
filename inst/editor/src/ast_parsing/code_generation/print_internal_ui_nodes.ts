@@ -11,7 +11,7 @@ import { text_node_to_code } from "../text_nodes/text_node_to_code";
 
 type InternalUiNodeNames = Extract<
   ShinyUiNodeInfo,
-  { r_package: "Internal" }
+  { r_info: { package: "Internal" } }
 >["id"];
 
 type InternalUiNode = Extract<KnownShinyUiNode, { id: InternalUiNodeNames }>;

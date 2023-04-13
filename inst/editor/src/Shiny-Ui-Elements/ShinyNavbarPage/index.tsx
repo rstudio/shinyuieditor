@@ -18,8 +18,11 @@ export type NavbarPageSettings = {
 };
 
 export const shinyNavbarPageInfo = nodeInfoFactory<NavbarPageSettings>()({
-  r_package: "shiny",
-  r_fn_name: "navbarPage",
+  id: "navbarPage",
+  r_info: {
+    fn_name: "navbarPage",
+    package: "shiny",
+  },
   py_info: {
     fn_name: "ui.page_navbar",
     package: "shiny",

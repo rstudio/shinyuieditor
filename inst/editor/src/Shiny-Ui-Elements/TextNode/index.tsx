@@ -12,9 +12,12 @@ export function isTextUiNode(node: ShinyUiNode): node is TextUiNode {
 }
 
 export const textNodeInfo = nodeInfoFactory<TextNodeSettings>()({
-  r_fn_name: "textNode",
+  id: "textNode",
   title: "Static Text",
-  r_package: "Internal",
+  r_info: {
+    fn_name: "textNode",
+    package: "Internal",
+  },
   category: "Utilities",
   description:
     "Add static text to your ui for things like descriptions and headers.",
@@ -36,7 +39,10 @@ export const textNodeInfo = nodeInfoFactory<TextNodeSettings>()({
         default: { label: "Normal" },
         italic: { label: "Italic" },
         bold: { label: "Bold" },
-      } satisfies Record<Required<TextNodeSettings>["decoration"], { label: string }>,
+      } satisfies Record<
+        Required<TextNodeSettings>["decoration"],
+        { label: string }
+      >,
       optionsPerColumn: 2,
     },
     size: {
@@ -45,7 +51,7 @@ export const textNodeInfo = nodeInfoFactory<TextNodeSettings>()({
       optional: true,
       defaultValue: "default",
       choices: {
-        default: {label: "Normal"},
+        default: { label: "Normal" },
         small: { label: "Small" },
         headline: { label: "Headline" },
         subtitle: { label: "Subtitle" },

@@ -45,15 +45,19 @@ export function ui_node_to_R_code(
     // Check if the ui node has a custom print function
     const node_info = getUiNodeInfo(node.id);
 
+    if (!("r_info" in node_info)) {
+      throw new Error(`Node ${node.id} has no R info`);
+    }
+
+    const r_info = node_info.r_info;
+
     const fn_name: string = opts.remove_namespace
-      ? node_info.r_fn_name
-      : `${node_info.r_package}::${node_info.r_fn_name}`;
+      ? r_info.fn_name
+      : `${r_info.package}::${r_info.fn_name}`;
 
     if (opts.remove_namespace) {
-      const library_name = node_info.r_package;
-
-      if (library_name && library_name !== "Internal") {
-        removed_namespaces.add(library_name);
+      if (r_info.package !== "Internal") {
+        removed_namespaces.add(r_info.package);
       }
     }
 

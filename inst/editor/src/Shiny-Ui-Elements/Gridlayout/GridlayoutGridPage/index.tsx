@@ -12,8 +12,11 @@ export type TractDirection = "rows" | "cols";
 export const gridlayoutGridPageInfo = nodeInfoFactory<
   GridLayoutArgs & { theme?: unknown }
 >()({
-  r_package: "gridlayout",
-  r_fn_name: "grid_page",
+  id: "grid_page",
+  r_info: {
+    fn_name: "grid_page",
+    package: "gridlayout",
+  },
   title: "Grid Page",
   takesChildren: true,
   UiComponent: GridlayoutGridPage,

@@ -10,8 +10,11 @@ import styles from "./styles.module.css";
 export const testingErrorNodeInfo = nodeInfoFactory<{
   error_msg: string;
 }>()({
-  r_package: "TESTING",
-  r_fn_name: "error_node",
+  r_info: {
+    fn_name: "error_node",
+    package: "TESTING",
+  },
+  id: "error_node",
   title: "Error Throwing Node",
   takesChildren: false,
   UiComponent: ({ namedArgs, path, wrapperProps }) => {

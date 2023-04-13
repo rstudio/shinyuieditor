@@ -13,8 +13,11 @@ export type ShinyRadioButtonsProps = {
 };
 
 export const shinyRadioButtonsInfo = nodeInfoFactory<ShinyRadioButtonsProps>()({
-  r_package: "shiny",
-  r_fn_name: "radioButtons",
+  id: "radioButtons",
+  r_info: {
+    fn_name: "radioButtons",
+    package: "shiny",
+  },
   title: "Radio Buttons",
   takesChildren: false,
   UiComponent: ShinyRadioButtons,

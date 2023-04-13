@@ -8,8 +8,11 @@ export type ShinyTextOutputProps = {
 };
 
 export const shinyTextOutputInfo = nodeInfoFactory<ShinyTextOutputProps>()({
-  r_package: "shiny",
-  r_fn_name: "textOutput",
+  id: "textOutput",
+  r_info: {
+    fn_name: "textOutput",
+    package: "shiny",
+  },
   title: "Text Output",
   takesChildren: false,
   UiComponent: ShinyTextOutput,

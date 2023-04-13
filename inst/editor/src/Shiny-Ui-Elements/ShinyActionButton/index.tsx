@@ -12,9 +12,11 @@ export type ShinyActionButtonProps = {
 
 export const shinyActionButtonInfo = nodeInfoFactory<ShinyActionButtonProps>()({
   title: "Action Button",
+  r_info: {
+    fn_name: "actionButton",
+    package: "shiny",
+  },
   id: "actionButton",
-  r_package: "shiny",
-  r_fn_name: "actionButton",
   takesChildren: false,
   UiComponent: ShinyActionButton,
   iconSrc: buttonIcon,

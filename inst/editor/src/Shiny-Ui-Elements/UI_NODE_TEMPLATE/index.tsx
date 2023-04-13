@@ -23,8 +23,15 @@ const NodeComponent: UiNodeComponent<
 };
 
 export const pkgNodeNameInfo = nodeInfoFactory<NodeNameSettings>()({
-  r_package: "PKG_NAME",
-  r_fn_name: "node_name",
+  r_info: {
+    fn_name: "node_name",
+    package: "PKG_NAME",
+  },
+  py_info: {
+    fn_name: "node_name",
+    package: "PKG_NAME",
+  },
+  id: "node_name",
   title: "NODE NAME",
   takesChildren: true,
   UiComponent: NodeComponent,

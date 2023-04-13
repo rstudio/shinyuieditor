@@ -18,8 +18,11 @@ export type GridlayoutGridCardTextProps = {
 
 export const gridlayoutTextPanelInfo =
   nodeInfoFactory<GridlayoutGridCardTextProps>()({
-    r_package: "gridlayout",
-    r_fn_name: "grid_card_text",
+    id: "grid_card_text",
+    r_info: {
+      fn_name: "grid_card_text",
+      package: "gridlayout",
+    },
     title: "Grid Text Card",
     takesChildren: false,
     UiComponent: GridlayoutGridCardText,

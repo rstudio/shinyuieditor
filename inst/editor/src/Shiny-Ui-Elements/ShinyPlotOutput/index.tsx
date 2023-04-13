@@ -11,8 +11,11 @@ export type ShinyPlotOutputProps = {
 };
 
 export const shinyPlotOutputInfo = nodeInfoFactory<ShinyPlotOutputProps>()({
-  r_package: "shiny",
-  r_fn_name: "plotOutput",
+  id: "plotOutput",
+  r_info: {
+    fn_name: "plotOutput",
+    package: "shiny",
+  },
   py_info: {
     fn_name: "ui.output_plot",
     package: "shiny",

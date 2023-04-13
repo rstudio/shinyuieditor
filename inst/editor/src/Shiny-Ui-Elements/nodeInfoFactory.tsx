@@ -28,17 +28,17 @@ import type { unknownUiFunctionInfo } from "./UnknownUiFunction";
  */
 export function nodeInfoFactory<Args extends namedArgsObject>() {
   return function makeInfo<
-    RFnName extends string,
+    ID extends string,
     TakesChildren extends boolean,
     const PyInfo extends Lang_Info<Args> | undefined,
+    const RInfo extends Lang_Info<Args> | undefined,
     RPackage extends string = "none",
-    ID extends string = RFnName,
     Cat extends string = "Uncategorized"
   >({
     id,
-    r_fn_name,
-    r_package,
+
     py_info,
+    r_info,
     category,
     ...info
   }: {
@@ -49,19 +49,8 @@ export function nodeInfoFactory<Args extends namedArgsObject>() {
      */
     id?: ID;
 
-    /**
-     * Name of function as called in R code: e.g. `"sliderInput"` for
-     * `shiny::sliderInput()`
-     */
-    r_fn_name: RFnName;
-
-    /**
-     * What is the name of the R package that this node resides in, if it does. If
-     * left blank will default to "none"
-     */
-    r_package?: RPackage;
-
     py_info?: PyInfo;
+    r_info?: RInfo;
 
     /**
      * What category does this node belong to? If left blank will default to
@@ -70,18 +59,16 @@ export function nodeInfoFactory<Args extends namedArgsObject>() {
     category?: Cat;
   } & CommonInfo<Args, TakesChildren>) {
     return {
-      id: id ?? r_fn_name,
-      r_fn_name,
-      r_package: r_package ?? "none",
+      id: id,
       ...(py_info ? { py_info } : {}),
+      ...(r_info ? { r_info } : {}),
       category: category ?? "Uncategorized",
       ...info,
     } as Expand_Single<
       {
-        id: undefined extends ID ? RFnName : ID;
-        r_fn_name: RFnName;
-        r_package: RPackage;
+        id: ID;
         py_info: undefined extends PyInfo ? never : PyInfo;
+        r_info: undefined extends RInfo ? never : RInfo;
         category: Cat;
       } & Required<CommonInfo<Args, TakesChildren>>
     >;
@@ -123,11 +110,15 @@ type Lang_Info<
 type testing = [
   Expect<Equal<(typeof unknownUiFunctionInfo)["category"], "Uncategorized">>,
   Expect<Equal<(typeof unknownUiFunctionInfo)["id"], "unknownUiFunction">>,
-  Expect<Equal<(typeof unknownUiFunctionInfo)["r_package"], "Internal">>,
+  Expect<
+    Equal<(typeof unknownUiFunctionInfo)["r_info"]["package"], "Internal">
+  >,
   Expect<Equal<(typeof shinyActionButtonInfo)["id"], "actionButton">>,
-  Expect<Equal<(typeof shinyActionButtonInfo)["r_fn_name"], "actionButton">>,
+  Expect<
+    Equal<(typeof shinyActionButtonInfo)["r_info"]["fn_name"], "actionButton">
+  >,
   Expect<Equal<(typeof shinyActionButtonInfo)["category"], "Inputs">>,
-  Expect<Equal<(typeof shinyActionButtonInfo)["r_package"], "shiny">>
+  Expect<Equal<(typeof shinyActionButtonInfo)["r_info"]["package"], "shiny">>
 ];
 
 type CommonInfo<Args extends namedArgsObject, TakesChildren extends boolean> = {

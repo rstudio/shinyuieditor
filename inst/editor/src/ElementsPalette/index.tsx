@@ -34,7 +34,7 @@ function sortByCategory(info_a: Node_Info, info_b: Node_Info): number {
 function filterToLanguage(info: Node_Info, language: Language_Mode): boolean {
   switch (language) {
     case "R":
-      return info.r_fn_name !== undefined;
+      return info.r_info !== undefined;
     case "PYTHON":
       return info.py_info !== undefined;
   }

@@ -11,8 +11,11 @@ export type TabPanelSettings = {
 export type TabPanelNode = MakeShinyUiNode<TabPanelSettings>;
 
 export const shinyTabPanelInfo = nodeInfoFactory<TabPanelSettings>()({
-  r_package: "shiny",
-  r_fn_name: "tabPanel",
+  id: "tabPanel",
+  r_info: {
+    fn_name: "tabPanel",
+    package: "shiny",
+  },
   py_info: {
     fn_name: "ui.nav",
     package: "shiny",

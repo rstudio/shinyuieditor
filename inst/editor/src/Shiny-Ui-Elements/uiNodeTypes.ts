@@ -139,7 +139,7 @@ export function getUiNodeTitle(id: string): string {
 
 export type ShinyUiNodeInfo = Expand<(typeof shinyUiNodeInfoArray)[number]>;
 export type ShinyUiNodeIds = ShinyUiNodeInfo["id"];
-export type ShinyUiNodeRPackages = ShinyUiNodeInfo["r_package"];
+export type ShinyUiNodeRPackages = ShinyUiNodeInfo["r_info"]["package"];
 export type ShinyUiNodePyPackages = ShinyUiNodeInfo["py_info"]["package"];
 export type ShinyUiNodePyFns = ShinyUiNodeInfo["py_info"]["fn_name"];
 export type ShinyUiNodeCategories = Exclude<
@@ -150,9 +150,10 @@ export type ShinyUiNodeCategories = Exclude<
 export type NodeInfoByRPackage = {
   [RPackage in ShinyUiNodeRPackages]: Extract<
     ShinyUiNodeInfo,
-    { r_package: RPackage }
+    { r_info: { package: RPackage } }
   >;
 };
+
 export type NodeIdsForRPackage<RPackage extends ShinyUiNodeRPackages> = Extract<
   ShinyUiNodeInfo,
   { r_package: RPackage }
@@ -177,8 +178,9 @@ export const shinyids = new Set<string>(
  * namespaced name (`shiny::sliderInput`)  to the namespaced name. Also acts as
  * a check for if a node is in known functions
  * */
+// TODO: Change this to note that it's the R namespaced name
 export const shinyidToNamespacedName = new Map<string, string>([
-  ...(shinyUiNodeInfoArray.map(({ r_fn_name: name, id }) => [name, id]) as [
+  ...(shinyUiNodeInfoArray.map(({ r_info, id }) => [r_info.fn_name, id]) as [
     string,
     string
   ][]),

@@ -11,8 +11,11 @@ export type DTOutputSettings = {
 };
 
 export const dtDTOutputInfo = nodeInfoFactory<DTOutputSettings>()({
-  r_package: "DT",
-  r_fn_name: "DTOutput",
+  id: "DTOutput",
+  r_info: {
+    fn_name: "DTOutput",
+    package: "DT",
+  },
   title: "DT Table",
   takesChildren: false,
   UiComponent: DtDTOutput,
