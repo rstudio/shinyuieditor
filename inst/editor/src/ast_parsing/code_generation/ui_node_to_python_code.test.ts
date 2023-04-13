@@ -1,4 +1,12 @@
-import { ui_node_to_python_code } from "./ui_node_to_python_code";
+import type { Generated_UI_Def } from "communication-types/src/MessageToBackend";
+
+import type { ShinyUiNode } from "../../Shiny-Ui-Elements/uiNodeTypes";
+
+import { ui_node_to_code } from "./ui_node_to_code";
+
+function ui_node_to_python_code(node: ShinyUiNode): Generated_UI_Def {
+  return ui_node_to_code(node, "PYTHON");
+}
 
 describe("Can turn ShinyUiNode into function call text with formatting", () => {
   test("Handles child arguments", () => {

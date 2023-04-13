@@ -86,6 +86,24 @@ export const bslibValueBoxInfo = nodeInfoFactory<ValueBoxArgs>()({
   r_info: {
     fn_name: "value_box",
     package: "bslib",
+    transform_named_args: (args) => {
+      const { showcase_icon, showcase_layout, ...others } = args;
+
+      const to_return = others as namedArgsObject;
+      if (showcase_icon) {
+        to_return.showcase = make_unknown_ui_function(
+          `bsicons::bs_icon("${showcase_icon}")`
+        );
+      }
+
+      if (showcase_layout) {
+        to_return.showcase_layout = make_unknown_ui_function(
+          layout_dir_to_code[showcase_layout]
+        );
+      }
+
+      return to_return;
+    },
   },
   title: "Value Box",
   takesChildren: true,

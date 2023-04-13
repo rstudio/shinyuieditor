@@ -1,118 +1,19 @@
-import type { Generated_UI_Def } from "communication-types/src/MessageToBackend";
-import type { ShinyUiNode } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
-import { getUiNodeInfo } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
 import type { Primatives } from "r-ast-parsing";
 
-import type { DynamicArgumentInfo } from "../../components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
-import { isShinyUiNode } from "../../Shiny-Ui-Elements/isShinyUiNode";
-import type { Named_Arg_Transformer } from "../../Shiny-Ui-Elements/nodeInfoFactory";
-
-import {
-  indent_line_breaks,
-  LINE_BREAK_LENGTH,
-  NL_INDENT,
-  should_line_break,
-} from "./build_function_text";
-import {
-  isInternalUiNode,
-  print_internal_ui_nodes,
-} from "./print_internal_ui_nodes";
+import { NL_INDENT } from "./build_function_text";
 import { isNamedList, print_named_python_list } from "./print_named_list";
 
-/**
- * Convert a ui ast node into formatted python code.
- * @param node Ui Node to be converted
- * @returns Object with constructed code and library calls
- */
-export function ui_node_to_python_code(node: ShinyUiNode): Generated_UI_Def {
-  const removed_namespaces: Set<string> = new Set<string>();
+export function print_python_argument_value(value: unknown): string {
+  if (Array.isArray(value)) return print_python_array(value);
 
-  function print_code(node: unknown): string {
-    return isShinyUiNode(node)
-      ? print_ui_node(node)
-      : print_python_argument_value(node);
-  }
+  if (isNamedList(value)) return print_named_python_list(value);
 
-  function print_ui_node(node: ShinyUiNode): string {
-    if (isInternalUiNode(node)) {
-      return print_internal_ui_nodes(node);
-    }
+  if (typeof value === "boolean") return value ? "True" : "False";
 
-    // Check if the ui node has a custom print function
-    const node_info = getUiNodeInfo(node.id);
-
-    if (!("py_info" in node_info)) {
-      throw new Error(`Node ${node.id} has no python info`);
-    }
-
-    const {
-      settingsInfo,
-      py_info: { fn_name, package: library_name },
-    } = node_info;
-
-    if (library_name) {
-      removed_namespaces.add(library_name);
-    }
-
-    const arg_transformer =
-      "transform_named_args" in node_info.py_info
-        ? // Forgive me for I have sinned
-          (node_info.py_info
-            .transform_named_args as any as Named_Arg_Transformer<
-            typeof node.namedArgs
-          >)
-        : null;
-
-    const named_args = arg_transformer
-      ? arg_transformer(node.namedArgs)
-      : node.namedArgs;
-
-    const printed_named_args: string[] = Object.entries(named_args).map(
-      ([arg_name, arg_value]) => {
-        // Lots of type coercion here due but it should be fine.
-        const info_for_arg = settingsInfo[
-          arg_name as keyof typeof settingsInfo
-        ] as DynamicArgumentInfo[string] | undefined;
-
-        // If the argument has a custom name, use that instead of the default
-        // arg name
-        const print_name =
-          info_for_arg && "py_name" in info_for_arg
-            ? info_for_arg.py_name
-            : arg_name;
-
-        return `${print_name} = ${print_code(arg_value)}`;
-      }
-    );
-
-    const printed_child_args: string[] =
-      "children" in node && node.children
-        ? node.children.map((child) => print_code(child))
-        : [];
-
-    const printed_args = [...printed_child_args, ...printed_named_args].map(
-      indent_line_breaks
-    );
-
-    if (
-      should_line_break({
-        fn_name,
-        fn_args_list: printed_args,
-        max_line_length_for_multi_args: LINE_BREAK_LENGTH,
-      })
-    ) {
-      return `${fn_name}(${NL_INDENT}${printed_args.join(`,${NL_INDENT}`)}\n)`;
-    }
-    return `${fn_name}(${printed_args.join(", ")})`;
-  }
-
-  return {
-    code: print_code(node),
-    packages: Array.from(removed_namespaces),
-  };
+  return JSON.stringify(value);
 }
 
-function print_python_array(vals: Primatives[]): string {
+export function print_python_array(vals: Primatives[]): string {
   const values = vals.map(print_primative);
 
   return `[${NL_INDENT}${values.join(`,${NL_INDENT}`)}\n]`;
@@ -125,14 +26,4 @@ function print_primative(val: Primatives): string {
     default:
       return String(val);
   }
-}
-
-function print_python_argument_value(value: unknown): string {
-  if (Array.isArray(value)) return print_python_array(value);
-
-  if (isNamedList(value)) return print_named_python_list(value);
-
-  if (typeof value === "boolean") return value ? "True" : "False";
-
-  return JSON.stringify(value);
 }

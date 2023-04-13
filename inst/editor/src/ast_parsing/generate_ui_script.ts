@@ -1,28 +1,9 @@
 import type { Multi_File_Full_Info } from "communication-types/src/AppInfo";
 import { SCRIPT_LOC_KEYS } from "communication-types/src/AppInfo";
 
-import type { ShinyUiNode } from "../Shiny-Ui-Elements/uiNodeTypes";
 import type { Language_Mode } from "../state/languageMode";
 
-import { ui_node_to_python_code } from "./code_generation/ui_node_to_python_code";
-import { ui_node_to_R_code } from "./code_generation/ui_node_to_R_code";
-
-function ui_node_to_code({
-  ui_tree,
-  language,
-}: {
-  ui_tree: ShinyUiNode;
-  language: Language_Mode;
-}) {
-  switch (language) {
-    case "PYTHON":
-      return ui_node_to_python_code(ui_tree);
-    case "R":
-      return ui_node_to_R_code(ui_tree, { remove_namespace: true });
-    default:
-      throw new Error(`Unknown language "${language}"`);
-  }
-}
+import { ui_node_to_code } from "./code_generation/ui_node_to_code";
 
 export function generate_ui_script({
   ui_tree,
@@ -33,7 +14,7 @@ export function generate_ui_script({
   ui_tree: Multi_File_Full_Info["ui_tree"];
   language: Language_Mode;
 } & Multi_File_Full_Info["ui"]): string {
-  const ui_def = ui_node_to_code({ ui_tree, language });
+  const ui_def = ui_node_to_code(ui_tree, language);
 
   // We need to check to make sure there aren't any libraries used in the ui
   // tree that are not declared in the script and add them

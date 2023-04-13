@@ -4,7 +4,7 @@ import type { App_Type } from "communication-types/src/AppInfo";
 import type { TemplateInfo } from "communication-types/src/AppTemplates";
 
 import { app_templates } from "../../assets/app-templates/app_templates";
-import { ui_node_to_R_code } from "../../ast_parsing/code_generation/ui_node_to_R_code";
+import { ui_node_to_code } from "../../ast_parsing/code_generation/ui_node_to_code";
 
 import type { TemplateChooserOptions } from "./TemplateChooserView";
 import type { LayoutType } from "./TemplatePreviewCard";
@@ -74,7 +74,7 @@ export function useFilteredTemplates({
 
     if (!chosenTemplate) return;
 
-    const template_ui_code = ui_node_to_R_code(chosenTemplate.uiTree, {
+    const template_ui_code = ui_node_to_code(chosenTemplate.uiTree, "R", {
       remove_namespace: true,
     });
 

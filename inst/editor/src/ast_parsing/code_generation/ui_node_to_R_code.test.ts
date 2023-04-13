@@ -1,9 +1,18 @@
+import type { Generated_UI_Def } from "communication-types/src/MessageToBackend";
+
 import type {
   KnownShinyUiNode,
   ShinyUiNode,
 } from "../../Shiny-Ui-Elements/uiNodeTypes";
 
-import { ui_node_to_R_code } from "./ui_node_to_R_code";
+import { ui_node_to_code } from "./ui_node_to_code";
+
+function ui_node_to_R_code(
+  node: ShinyUiNode,
+  opts: { remove_namespace: boolean }
+): Generated_UI_Def {
+  return ui_node_to_code(node, "R", opts);
+}
 
 describe("Can keep or remove namespaces", () => {
   const ui_ast: ShinyUiNode = {

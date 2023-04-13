@@ -73,7 +73,7 @@ export function nodeInfoFactory<Args extends namedArgsObject>() {
   };
 }
 
-type Lang_Info<
+export type Lang_Info<
   Args extends namedArgsObject,
   Name extends string = string,
   Pkg extends string = string
