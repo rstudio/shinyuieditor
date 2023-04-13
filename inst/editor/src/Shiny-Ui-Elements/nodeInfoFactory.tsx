@@ -32,7 +32,6 @@ export function nodeInfoFactory<Args extends namedArgsObject>() {
     TakesChildren extends boolean,
     const PyInfo extends Lang_Info<Args> | undefined,
     const RInfo extends Lang_Info<Args> | undefined,
-    RPackage extends string = "none",
     Cat extends string = "Uncategorized"
   >({
     id,

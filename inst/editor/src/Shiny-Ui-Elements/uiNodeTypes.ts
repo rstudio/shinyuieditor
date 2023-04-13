@@ -175,11 +175,10 @@ export const shinyids = new Set<string>(
 
 /**
  * Go from either an unnamespaced name (e.g. `sliderInput`) or a already
- * namespaced name (`shiny::sliderInput`)  to the namespaced name. Also acts as
- * a check for if a node is in known functions
+ * namespaced name (`shiny::sliderInput`)  to the ui node id. Also acts as
+ * a check for if a node is in known R functions
  * */
-// TODO: Change this to note that it's the R namespaced name
-export const shinyidToNamespacedName = new Map<string, string>([
+export const rFnNameToNodeId = new Map<string, string>([
   ...(shinyUiNodeInfoArray.map(({ r_info, id }) => [r_info.fn_name, id]) as [
     string,
     string

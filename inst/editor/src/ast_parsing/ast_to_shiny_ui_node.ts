@@ -4,13 +4,13 @@ import type {
 } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
 import {
   getUiNodeInfo,
-  shinyidToNamespacedName,
+  rFnNameToNodeId,
 } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
 import type { Branch_Node, R_AST_Node } from "r-ast-parsing";
 import {
-  IsNodeOfType,
   is_function_node,
   is_primative_node,
+  IsNodeOfType,
 } from "r-ast-parsing/src/node_identity_checkers";
 import { identify_fn } from "util-functions/src/TypescriptUtils";
 
@@ -34,7 +34,7 @@ export function ast_to_ui_node(node: Branch_Node): ShinyUiNode {
     return create_unknownUiFunction({ node });
   }
 
-  const node_normalized_name = shinyidToNamespacedName.get(fn_name.val);
+  const node_normalized_name = rFnNameToNodeId.get(fn_name.val);
 
   if (node_normalized_name === undefined) {
     return create_unknownUiFunction({ node });
