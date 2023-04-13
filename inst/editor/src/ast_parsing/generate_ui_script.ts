@@ -82,7 +82,7 @@ const dummy_python_code: string = `
 
 app_ui = <UI>
 
-def server(input, output):
+def server(input, output, session):
   pass
 
 app = App(app_ui, server)

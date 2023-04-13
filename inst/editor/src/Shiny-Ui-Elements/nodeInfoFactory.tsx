@@ -35,7 +35,6 @@ export function nodeInfoFactory<Args extends namedArgsObject>() {
     Cat extends string = "Uncategorized"
   >({
     id,
-
     py_info,
     r_info,
     category,

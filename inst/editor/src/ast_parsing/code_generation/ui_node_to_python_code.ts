@@ -16,7 +16,7 @@ import {
   isInternalUiNode,
   print_internal_ui_nodes,
 } from "./print_internal_ui_nodes";
-import { isNamedList, print_named_R_list } from "./print_named_list";
+import { isNamedList, print_named_python_list } from "./print_named_list";
 
 /**
  * Convert a ui ast node into formatted python code.
@@ -29,7 +29,7 @@ export function ui_node_to_python_code(node: ShinyUiNode): Generated_UI_Def {
   function print_code(node: unknown): string {
     return isShinyUiNode(node)
       ? print_ui_node(node)
-      : print_R_argument_value(node);
+      : print_python_argument_value(node);
   }
 
   function print_ui_node(node: ShinyUiNode): string {
@@ -94,10 +94,10 @@ export function ui_node_to_python_code(node: ShinyUiNode): Generated_UI_Def {
   };
 }
 
-function print_R_array(vals: Primatives[]): string {
+function print_python_array(vals: Primatives[]): string {
   const values = vals.map(print_primative);
 
-  return `c(${NL_INDENT}${values.join(`,${NL_INDENT}`)}\n)`;
+  return `[${NL_INDENT}${values.join(`,${NL_INDENT}`)}\n]`;
 }
 
 function print_primative(val: Primatives): string {
@@ -109,12 +109,12 @@ function print_primative(val: Primatives): string {
   }
 }
 
-function print_R_argument_value(value: unknown): string {
-  if (Array.isArray(value)) return print_R_array(value);
+function print_python_argument_value(value: unknown): string {
+  if (Array.isArray(value)) return print_python_array(value);
 
-  if (isNamedList(value)) return print_named_R_list(value);
+  if (isNamedList(value)) return print_named_python_list(value);
 
-  if (typeof value === "boolean") return value ? "TRUE" : "FALSE";
+  if (typeof value === "boolean") return value ? "True" : "False";
 
   return JSON.stringify(value);
 }
