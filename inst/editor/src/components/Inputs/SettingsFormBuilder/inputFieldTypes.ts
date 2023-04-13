@@ -62,6 +62,14 @@ type ArgTypeToInputType<Arg extends unknown> = Arg extends number
 export type InputTypeNames = InputOptions["inputType"];
 export type KnownInputFieldTypes = InputOptions["value"];
 
+/** Fields that are appended to every argument option regardless of type.  */
+type Common_Static_Fields = {
+  /** What should the label be above the input for this field? */
+  label?: string;
+  /** Optional mapping for printing the name of the argument in python code */
+  py_name?: string;
+};
+
 export type StaticInputOptionsByInputType = Expand<{
   [Input in InputOptions as Input["inputType"]]: {
     [Key in keyof Input as Key extends "value"
@@ -71,9 +79,7 @@ export type StaticInputOptionsByInputType = Expand<{
     /** Should the default value be given to a new instance of a settings object
      * if that field is optional?  */
     useDefaultIfOptional?: true;
-    /** What should the label be above the input for this field? */
-    label?: string;
-  };
+  } & Common_Static_Fields;
 }>;
 
 type AddOptionalCase<Obj extends { defaultValue: unknown }> =

@@ -24,12 +24,6 @@ export const shinySliderInputInfo = nodeInfoFactory<ShinySliderInputProps>()({
   py_info: {
     fn_name: "ui.input_slider",
     package: "shiny",
-    transform_named_args: ({ inputId, ...args }) => {
-      return {
-        id: inputId,
-        ...args,
-      };
-    },
   },
   title: "Slider Input",
   takesChildren: false,
@@ -39,6 +33,8 @@ export const shinySliderInputInfo = nodeInfoFactory<ShinySliderInputProps>()({
       label: "Input ID",
       inputType: "string",
       defaultValue: "inputId",
+      // Here we note that the python version of this function has a different argument for the input ID
+      py_name: "id",
     },
     label: {
       label: "Label text",

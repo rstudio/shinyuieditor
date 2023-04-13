@@ -28,6 +28,7 @@ export const shinyPlotOutputInfo = nodeInfoFactory<ShinyPlotOutputProps>()({
       inputType: "string",
       label: "Output ID for plot",
       defaultValue: "plot",
+      py_name: "id",
     },
     width: {
       label: "Width",
