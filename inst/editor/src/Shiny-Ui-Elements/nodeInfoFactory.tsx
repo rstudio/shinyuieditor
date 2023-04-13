@@ -195,24 +195,6 @@ type CommonInfo<Args extends namedArgsObject, TakesChildren extends boolean> = {
    * the info objects and provide autocomplete later. Not used at runtime ever
    */
   example_args?: Args;
-
-  /**
-   * Optional functions to process the arguments of the node when coming from or
-   * going to R code
-   */
-  code_gen_R?: {
-    /**
-     * Optional function to take named args object before printing and transform
-     * it to some new form. E.g. adding, removing, or renaming args.
-     */
-    transform_named_args?: Named_Arg_Transformer<Args>;
-    /**
-     * Pre-process an argument to the ui node before it's converted to a ShinyUiNode type
-     * @param arg_node - AST node of the argument to the node
-     * @returns Processed version of the AST argument node
-     */
-    preprocess_raw_ast_arg?: (arg_node: R_AST_Node) => R_AST_Node;
-  };
 };
 
 /**

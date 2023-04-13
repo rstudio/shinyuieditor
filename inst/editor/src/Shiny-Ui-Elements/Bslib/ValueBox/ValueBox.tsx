@@ -104,6 +104,16 @@ export const bslibValueBoxInfo = nodeInfoFactory<ValueBoxArgs>()({
 
       return to_return;
     },
+    preprocess_raw_ast_arg: (arg) => {
+      switch (arg.name) {
+        case "showcase":
+          return convertShowcaseArg(arg);
+        case "showcase_layout":
+          return convertShowcaseLayoutArg(arg);
+        default:
+          return arg;
+      }
+    },
   },
   title: "Value Box",
   takesChildren: true,
@@ -204,36 +214,6 @@ export const bslibValueBoxInfo = nodeInfoFactory<ValueBoxArgs>()({
         {Object.values(inputs)}
       </div>
     );
-  },
-  code_gen_R: {
-    transform_named_args: (args) => {
-      const { showcase_icon, showcase_layout, ...others } = args;
-
-      const to_return = others as namedArgsObject;
-      if (showcase_icon) {
-        to_return.showcase = make_unknown_ui_function(
-          `bsicons::bs_icon("${showcase_icon}")`
-        );
-      }
-
-      if (showcase_layout) {
-        to_return.showcase_layout = make_unknown_ui_function(
-          layout_dir_to_code[showcase_layout]
-        );
-      }
-
-      return to_return;
-    },
-    preprocess_raw_ast_arg: (arg) => {
-      switch (arg.name) {
-        case "showcase":
-          return convertShowcaseArg(arg);
-        case "showcase_layout":
-          return convertShowcaseLayoutArg(arg);
-        default:
-          return arg;
-      }
-    },
   },
   iconSrc: icon,
   category: "Cards",
