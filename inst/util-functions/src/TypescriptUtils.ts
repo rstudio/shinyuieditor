@@ -84,3 +84,27 @@ export type NonEmptyArray<T> = [T, ...T[]];
 export function identify_fn<T>(x: T) {
   return x;
 }
+
+/**
+ * Get a union of all the keys of currently required values in the object along
+ * with adding the newly requested keys
+ */
+type RequiredKeys<T> = {
+  [K in keyof T]: undefined extends T[K] ? never : K;
+}[keyof T];
+
+/**
+ * Set a subset of keys of an object to be required. Like a more specific
+ * version of `Required<T>`
+ */
+export type RequireKeys<T, K extends keyof T> = Expand_Single<
+  Required<Pick<T, RequiredKeys<T> | K>> & Omit<T, RequiredKeys<T> | K>
+>;
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+type test_require_keys = Expect<
+  Equal<
+    RequireKeys<{ a: string; b?: number; c?: string[] }, "b">,
+    { a: string; b: number; c?: string[] }
+  >
+>;
