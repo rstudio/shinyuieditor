@@ -1,0 +1,31 @@
+{
+  "name": "abstract_snake_tree",
+  "main": "src/index.ts",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Node library to parse and write python scripts",
+  "devDependencies": {
+    "@types/jest": "^29.2.4",
+    "@types/node": "^16.11.7",
+    "@typescript-eslint/eslint-plugin": "^5.42.0",
+    "@typescript-eslint/parser": "^5.42.0",
+    "esbuild": "^0.17.8",
+    "eslint": "^8.26.0",
+    "jest": "^29.3.1",
+    "ts-jest": "^29.0.3",
+    "tsconfig": "*",
+    "tsx": "^3.12.1",
+    "typescript": "^5.0.4",
+    "vitest": "^0.30.0"
+  },
+  "scripts": {
+    "type-check": "tsc -p ./ --noEmit",
+    "test": "vitest run",
+    "test-watch": "vitest"
+  },
+  "dependencies": {
+    "tree-sitter": "^0.20.1",
+    "tree-sitter-javascript": "^0.19.0",
+    "tree-sitter-python": "^0.20.1"
+  }
+}
