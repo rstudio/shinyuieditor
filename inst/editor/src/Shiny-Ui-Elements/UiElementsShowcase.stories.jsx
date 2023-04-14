@@ -5,6 +5,8 @@ import React from "react";
 
 import omit from "just-omit";
 
+import ReduxProvider from "../state/ReduxProvider";
+
 import "../App.css";
 
 import { getUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
@@ -70,34 +72,36 @@ function UiNodeAndSettings({ id, namedArgs }) {
   const Comp = infoToRender.Comp;
 
   return (
-    <div className={classes.container}>
-      <div>
-        <h1>Ui Component</h1>
-        <div className={classes.uiHolder}>
-          <Comp
-            children={[]}
-            namedArgs={infoToRender.node.namedArgs}
-            path={[0]}
-            wrapperProps={{
-              onClick: (e) => {
-                console.log("Clicked node", e);
-              },
-              "data-sue-path": "0",
-              "data-is-selected-node": false,
-              "aria-label": infoToRender.node.id,
-            }}
+    <ReduxProvider>
+      <div className={classes.container} key={id}>
+        <div>
+          <h1>Ui Component</h1>
+          <div className={classes.uiHolder}>
+            <Comp
+              children={[]}
+              namedArgs={infoToRender.node.namedArgs}
+              path={[0]}
+              wrapperProps={{
+                onClick: (e) => {
+                  console.log("Clicked node", e);
+                },
+                "data-sue-path": "0",
+                "data-is-selected-node": false,
+                "aria-label": infoToRender.node.id,
+              }}
+            />
+          </div>
+        </div>
+        <div>
+          <h1>Settings Panel</h1>
+          <FormBuilder
+            settings={infoToRender.node.namedArgs}
+            settingsInfo={infoToRender.settingsInfo}
+            onSettingsChange={updateSettings}
           />
         </div>
       </div>
-      <div>
-        <h1>Settings Panel</h1>
-        <FormBuilder
-          settings={infoToRender.node.namedArgs}
-          settingsInfo={infoToRender.settingsInfo}
-          onSettingsChange={updateSettings}
-        />
-      </div>
-    </div>
+    </ReduxProvider>
   );
 }
 
@@ -110,6 +114,7 @@ export const UiElementsShowcase = ({ nameOfElement }) => {
   const defaultSettings = getDefaultSettings(
     getUiNodeInfo(nameOfElement).settingsInfo
   );
+  console.log("All IDs", shinyids);
 
   return <UiNodeAndSettings id={nameOfElement} namedArgs={defaultSettings} />;
 };
@@ -117,12 +122,12 @@ export const UiElementsShowcase = ({ nameOfElement }) => {
 UiElementsShowcase.argTypes = {
   nameOfElement: {
     control: { type: "select" },
-    options: shinyids,
+    options: [...shinyids],
   },
 };
 
 UiElementsShowcase.args = {
-  nameOfElement: "shiny::plotOutput",
+  nameOfElement: "plotOutput",
 };
 
 // export const UnknownArgs: Story = () => {
