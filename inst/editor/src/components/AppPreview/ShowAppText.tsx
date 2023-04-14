@@ -4,6 +4,8 @@ import type {
   Single_File_Full_Info,
   Multi_File_Full_Info,
 } from "communication-types/src/AppInfo";
+import LZString from "lz-string";
+import { ArrowUpRightSquare } from "react-bootstrap-icons";
 import { useStore } from "react-redux";
 
 import { generate_full_app_script } from "../../ast_parsing/generate_full_app_script";
@@ -34,8 +36,24 @@ function AppFilesViewer({
         <h2 className={styles.title}>App script</h2>
         <p className={styles.description}>
           The following code defines the currently being edited app. Copy and
-          paste it to an <code>app.R</code> file to use.
+          paste it to an <code>app.{language === "PYTHON" ? "py" : "R"}</code>{" "}
+          file to use.
         </p>
+
+        {language === "PYTHON" ? (
+          <div className={styles.openButtons}>
+            <span>Want to start coding your app? </span>
+            <Button
+              onClick={() => {
+                const editor_url = fileContentsToUrlString(app_scripts.app);
+                window.open(editor_url);
+              }}
+            >
+              <ArrowUpRightSquare />
+              Open in ShinyLive Editor
+            </Button>
+          </div>
+        ) : null}
         <div className={styles.code_holder}>
           <label>app.R</label>
           <pre>{app_scripts.app}</pre>
@@ -99,4 +117,22 @@ export function ShowAppText() {
       ) : null}
     </>
   );
+}
+
+const editorUrlPrefix = "https://shinylive.io/py/editor/";
+/**
+ * Create a ShinyLive editor Url from a given app script
+ */
+export function fileContentsToUrlString(app_text: string): string {
+  const encoded_app = LZString.compressToEncodedURIComponent(
+    JSON.stringify([
+      {
+        name: "app.py",
+        content: app_text,
+        type: "text",
+      },
+    ])
+  );
+
+  return editorUrlPrefix + "#code=" + encoded_app;
 }
