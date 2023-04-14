@@ -68,68 +68,23 @@ export function ui_node_to_code(
         ? `${lang_info.package}::${lang_info.fn_name}`
         : lang_info.fn_name;
 
-    const named_args = lang_info.transform_named_args
-      ? lang_info.transform_named_args(node.namedArgs)
-      : node.namedArgs;
+    const arg_printing_info: Arg_Printing_Info = {
+      id: node.id,
+      named_args: lang_info.transform_named_args
+        ? lang_info.transform_named_args(node.namedArgs)
+        : node.namedArgs,
+      print_code,
+      printed_children:
+        "children" in node && node.children
+          ? node.children.map((child) => print_code(child))
+          : [],
+    };
 
-    const printed_positional_args = Object.entries(settingsInfo)
-      .filter(
-        ([, info]) =>
-          language === "PYTHON" && info.py_positional_index !== undefined
-      )
-      .sort(
-        ([, a_info], [, b_info]) =>
-          (a_info.py_positional_index as number) -
-          (b_info.py_positional_index as number)
-      )
-      .map(([arg_name]) => {
-        const arg_value = named_args[arg_name];
-        if (arg_value === undefined) {
-          throw new Error(
-            `Node ${node.id} is missing the positional argument ${arg_name}`
-          );
-        }
-        return print_code(arg_value);
-      });
-
-    const printed_named_args: string[] = Object.entries(named_args)
-      .filter(
-        ([name, value]) =>
-          !(
-            language === "PYTHON" &&
-            "py_positional_index" in
-              settingsInfo[name as keyof typeof settingsInfo] &&
-            value !== undefined
-          )
-      )
-      .map(([arg_name, arg_value]) => {
-        return `${get_printed_name(
-          language,
-          settingsInfo,
-          arg_name
-        )} = ${print_code(arg_value)}`;
-      });
-
-    const printed_child_args: string[] =
-      "children" in node && node.children
-        ? node.children.map((child) => print_code(child))
-        : [];
-
-    // We need to reverse the order for the args in python compared to R
-    const printed_args_in_order =
-      language === "R"
-        ? [
-            ...printed_positional_args,
-            ...printed_named_args,
-            ...printed_child_args,
-          ]
-        : [
-            ...printed_positional_args,
-            ...printed_child_args,
-            ...printed_named_args,
-          ];
-
-    const printed_args = printed_args_in_order.map(indent_line_breaks);
+    const printed_args = (
+      language === "PYTHON"
+        ? print_named_args_python(arg_printing_info)
+        : print_named_args_r(arg_printing_info)
+    ).map(indent_line_breaks);
 
     if (
       should_line_break({
@@ -150,30 +105,131 @@ export function ui_node_to_code(
 }
 
 /**
- * Get the correct name for a given argument given the current language mode. If
+ * Get the correct name for a given argument in Python mode. If
  * no specific name is set then it just defaults to the name of the argument in
  * the namedArguments field
- * @param language The current language mode
  * @param settingsInfo The settings info for the node that the argument belongs to
  * @param arg_name The name of the argument
  * @returns The proper name of the argument for the current language mode
  */
-function get_printed_name(
-  language: Language_Mode,
+function get_python_printed_name(
   settingsInfo: DynamicArgumentInfo,
   arg_name: string
 ): string {
   const info_for_arg = settingsInfo[arg_name as keyof typeof settingsInfo];
 
-  if (info_for_arg) {
-    if (language === "R" && "r_name" in info_for_arg) {
-      return info_for_arg.r_name ?? arg_name;
-    }
+  if (
+    info_for_arg &&
+    "py_name" in info_for_arg &&
+    info_for_arg.py_name !== undefined
+  ) {
+    return info_for_arg.py_name;
+  }
+  return arg_name;
+}
 
-    if (language === "PYTHON" && "py_name" in info_for_arg) {
-      return info_for_arg.py_name ?? arg_name;
+/**
+ * Get the correct name for a given argument in Python mode. If
+ * no specific name is set then it just defaults to the name of the argument in
+ * the namedArguments field
+ * @param settingsInfo The settings info for the node that the argument belongs to
+ * @param arg_name The name of the argument
+ * @returns The proper name of the argument for the current language mode
+ */
+function get_r_printed_name(
+  settingsInfo: DynamicArgumentInfo,
+  arg_name: string
+): string {
+  const info_for_arg = settingsInfo[arg_name as keyof typeof settingsInfo];
+
+  if (
+    info_for_arg &&
+    "r_name" in info_for_arg &&
+    info_for_arg.r_name !== undefined
+  ) {
+    return info_for_arg.r_name;
+  }
+  return arg_name;
+}
+
+function get_ordered_positional_args(
+  settingsInfo: DynamicArgumentInfo
+): Set<string> {
+  let positional_args: [position: number, value: string][] = [];
+
+  for (let [name, info] of Object.entries(settingsInfo)) {
+    if (
+      "py_positional_index" in info &&
+      typeof info.py_positional_index === "number"
+    ) {
+      positional_args.push([info.py_positional_index, name]);
     }
   }
 
-  return arg_name;
+  positional_args.sort(([a], [b]) => a - b);
+
+  return new Set(positional_args.map(([_, name]) => name));
+}
+
+type Arg_Printing_Info = {
+  id: string;
+  named_args: namedArgsObject;
+  print_code: (x: unknown) => string;
+  printed_children: string[];
+};
+
+function print_named_args_python({
+  id,
+  named_args,
+  print_code,
+  printed_children,
+}: Arg_Printing_Info): string[] {
+  const { settingsInfo } = getUiNodeInfo(id);
+
+  const positional_args = get_ordered_positional_args(settingsInfo);
+
+  const printed_positional_args = [...positional_args].map((arg_name) => {
+    const arg_value = named_args[arg_name];
+    if (arg_value === undefined) {
+      throw new Error(
+        `Node ${id} is missing the positional argument ${arg_name}`
+      );
+    }
+    return print_code(arg_value);
+  });
+
+  const printed_named_args: string[] = Object.entries(named_args)
+    .filter(
+      ([name, value]) => !positional_args.has(name) && value !== undefined
+    )
+    .map(([arg_name, arg_value]) => {
+      return `${get_python_printed_name(settingsInfo, arg_name)} = ${print_code(
+        arg_value
+      )}`;
+    });
+
+  return [
+    ...printed_positional_args,
+    ...printed_children,
+    ...printed_named_args,
+  ];
+}
+
+function print_named_args_r({
+  id,
+  named_args: namedArgs,
+  print_code,
+  printed_children,
+}: Arg_Printing_Info): string[] {
+  const { settingsInfo } = getUiNodeInfo(id);
+
+  const printed_named_args: string[] = Object.entries(namedArgs).map(
+    ([arg_name, arg_value]) => {
+      return `${get_r_printed_name(settingsInfo, arg_name)} = ${print_code(
+        arg_value
+      )}`;
+    }
+  );
+
+  return [...printed_named_args, ...printed_children];
 }
