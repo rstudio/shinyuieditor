@@ -1,4 +1,5 @@
 import { basicGridPage } from "./state/sample_ui_trees/basicGridPage";
+import { basicNavbarPage } from "./state/sample_ui_trees/basicNavbarPage";
 import { bslibCards } from "./state/sample_ui_trees/bslibCards";
 import type { SUE_Props } from "./SUE";
 import { SUE } from "./SUE";
@@ -15,3 +16,4 @@ export default {
 
 export const GridApp = () => <SUE defaultTree={basicGridPage}></SUE>;
 export const BslibCard = () => <SUE defaultTree={bslibCards}></SUE>;
+export const NavbarPage = () => <SUE defaultTree={basicNavbarPage}></SUE>;
