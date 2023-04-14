@@ -5,12 +5,14 @@ import { FaExpand } from "react-icons/fa";
 import { VscDebugRestart } from "react-icons/vsc";
 
 import { PanelHeader } from "../../EditorLayout/PanelHeader";
+import { useLanguageMode } from "../../state/languageMode";
 import { onMac } from "../../utils/onMac";
 import Button from "../Inputs/Button/Button";
 import { TooltipButton } from "../PopoverEl/Tooltip";
 
 import classes from "./AppPreview.module.css";
 import { LogsViewer } from "./LogsViewer";
+import { ShinyLivePreviewExperiment } from "./ShinyLivePreviewExperiment";
 import { ShowAppText } from "./ShowAppText";
 import { useCommunicateWithBackend } from "./useCommunicateWithBackend";
 import { usePreviewScale } from "./usePreviewScale";
@@ -25,16 +27,17 @@ export default function AppPreview() {
     setIsFullScreen((currentlyFullScreen) => !currentlyFullScreen);
   }, []);
 
+  const language = useLanguageMode();
+
   const { appLoc, errors, appLogs, clearLogs, restartApp } =
     useCommunicateWithBackend();
 
   const previewScale = usePreviewScale();
 
   const reloadApp = React.useCallback(
-    (e: React.MouseEvent<HTMLButtonElement>) => {
-      spinReloadButton(e.currentTarget);
+    (metaKey: boolean) => {
       if (!iframeRef.current || typeof appLoc === "string") return;
-      if (e.metaKey) {
+      if (metaKey) {
         restartApp();
       } else {
         iframeRef.current.src = appLoc.url;
@@ -42,6 +45,10 @@ export default function AppPreview() {
     },
     [appLoc, restartApp]
   );
+
+  if (language === "PYTHON") {
+    return <ShinyLivePreviewExperiment />;
+  }
 
   // This is a custom environment variable that is set to "True" in the
   // development testing so we can see a fake app preview window. If we're not
@@ -51,23 +58,10 @@ export default function AppPreview() {
     return <ShowAppText />;
   }
 
-  const ReloadButton = ({ isExpandedMode }: { isExpandedMode: boolean }) => (
-    <div className={classes.reloadButtonContainer}>
-      <TooltipButton
-        text={`Reload app session (hold ${getMetaKeyOnClient()} to restart app server also)`}
-        className={classes.reloadButton}
-        onClick={reloadApp}
-        position={isExpandedMode ? "right" : "up-right"}
-      >
-        <VscDebugRestart />
-      </TooltipButton>
-    </div>
-  );
-
   return (
     <>
       <PanelHeader className={classes.title}>
-        <ReloadButton isExpandedMode={false} />
+        <ReloadButton isExpandedMode={false} onClick={reloadApp} />
         App Preview
       </PanelHeader>
 
@@ -86,7 +80,7 @@ export default function AppPreview() {
           <RestartPrompt onClick={restartApp} />
         ) : (
           <>
-            <ReloadButton isExpandedMode={true} />
+            <ReloadButton isExpandedMode={true} onClick={reloadApp} />
             <div className={classes.appContainer}>
               {appLoc === "LOADING" ? (
                 <LoadingMessage />
@@ -117,7 +111,31 @@ export default function AppPreview() {
   );
 }
 
-function RestartPrompt({ onClick }: { onClick: () => void }) {
+export function ReloadButton({
+  isExpandedMode,
+  onClick,
+}: {
+  isExpandedMode: boolean;
+  onClick: (metaKey: boolean) => void;
+}) {
+  return (
+    <div className={classes.reloadButtonContainer}>
+      <TooltipButton
+        text={`Reload app session (hold ${getMetaKeyOnClient()} to restart app server also)`}
+        className={classes.reloadButton}
+        onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+          spinReloadButton(e.currentTarget);
+          onClick(e.metaKey);
+        }}
+        position={isExpandedMode ? "right" : "up-right"}
+      >
+        <VscDebugRestart />
+      </TooltipButton>
+    </div>
+  );
+}
+
+function RestartPrompt({ onClick }: { onClick: (metaKey: boolean) => void }) {
   return (
     <div className={classes.appContainer}>
       <p>
@@ -126,7 +144,10 @@ function RestartPrompt({ onClick }: { onClick: () => void }) {
       <Button
         className={classes.restartButton}
         title="Restart app preview"
-        onClick={onClick}
+        onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+          spinReloadButton(e.currentTarget);
+          onClick(e.metaKey);
+        }}
       >
         Restart app preview <VscDebugRestart />
       </Button>
@@ -134,7 +155,7 @@ function RestartPrompt({ onClick }: { onClick: () => void }) {
   );
 }
 
-function LoadingMessage() {
+export function LoadingMessage() {
   return (
     <div className={classes.loadingMessage}>
       <h2>Loading app preview...</h2>
