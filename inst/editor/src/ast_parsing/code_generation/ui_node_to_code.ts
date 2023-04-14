@@ -152,25 +152,6 @@ function get_r_printed_name(
   return arg_name;
 }
 
-function get_ordered_positional_args(
-  settingsInfo: DynamicArgumentInfo
-): Set<string> {
-  let positional_args: [position: number, value: string][] = [];
-
-  for (let [name, info] of Object.entries(settingsInfo)) {
-    if (
-      "py_positional_index" in info &&
-      typeof info.py_positional_index === "number"
-    ) {
-      positional_args.push([info.py_positional_index, name]);
-    }
-  }
-
-  positional_args.sort(([a], [b]) => a - b);
-
-  return new Set(positional_args.map(([_, name]) => name));
-}
-
 type Arg_Printing_Info = {
   id: string;
   named_args: namedArgsObject;
@@ -184,23 +165,24 @@ function print_named_args_python({
   print_code,
   printed_children,
 }: Arg_Printing_Info): string[] {
-  const { settingsInfo } = getUiNodeInfo(id);
+  const { settingsInfo, ordered_positional_args } = getUiNodeInfo(id);
 
-  const positional_args = get_ordered_positional_args(settingsInfo);
-
-  const printed_positional_args = [...positional_args].map((arg_name) => {
-    const arg_value = named_args[arg_name];
-    if (arg_value === undefined) {
-      throw new Error(
-        `Node ${id} is missing the positional argument ${arg_name}`
-      );
+  const printed_positional_args = [...ordered_positional_args].map(
+    (arg_name) => {
+      const arg_value = named_args[arg_name];
+      if (arg_value === undefined) {
+        throw new Error(
+          `Node ${id} is missing the positional argument ${arg_name}`
+        );
+      }
+      return print_code(arg_value);
     }
-    return print_code(arg_value);
-  });
+  );
 
   const printed_named_args: string[] = Object.entries(named_args)
     .filter(
-      ([name, value]) => !positional_args.has(name) && value !== undefined
+      ([name, value]) =>
+        !ordered_positional_args.has(name) && value !== undefined
     )
     .map(([arg_name, arg_value]) => {
       return `${get_python_printed_name(settingsInfo, arg_name)} = ${print_code(

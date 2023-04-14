@@ -5,6 +5,8 @@ import type {
   Expect,
 } from "util-functions/src/TypescriptUtils";
 
+import { get_ordered_positional_args } from "../ast_parsing/code_generation/get_ordered_positional_args";
+import type { DynamicArgumentInfo } from "../components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
 import type { CustomFormRenderFn } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
 import type { ArgsToDynamicInfo } from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";
 
@@ -56,11 +58,15 @@ export function nodeInfoFactory<Args extends namedArgsObject>() {
      */
     category?: Cat;
   } & CommonInfo<Args, TakesChildren>) {
+    const ordered_positional_args = get_ordered_positional_args(
+      info.settingsInfo as DynamicArgumentInfo
+    );
     return {
       id: id,
       ...(py_info ? { py_info } : {}),
       ...(r_info ? { r_info } : {}),
       category: category ?? "Uncategorized",
+      ordered_positional_args,
       ...info,
     } as Expand_Single<
       {
@@ -68,7 +74,8 @@ export function nodeInfoFactory<Args extends namedArgsObject>() {
         py_info: undefined extends PyInfo ? never : PyInfo;
         r_info: undefined extends RInfo ? never : RInfo;
         category: Cat;
-      } & Required<CommonInfo<Args, TakesChildren>>
+      } & Required<CommonInfo<Args, TakesChildren>> &
+        ComputedInfo
     >;
   };
 }
@@ -118,6 +125,16 @@ type testing = [
   Expect<Equal<(typeof shinyActionButtonInfo)["category"], "Inputs">>,
   Expect<Equal<(typeof shinyActionButtonInfo)["r_info"]["package"], "shiny">>
 ];
+
+/**
+ * Fields in info that we compute from passed static info.
+ */
+type ComputedInfo = {
+  /**
+   * Ordered list of positional named arguments for this node in python.
+   */
+  ordered_positional_args: Set<string>;
+};
 
 type CommonInfo<Args extends namedArgsObject, TakesChildren extends boolean> = {
   /**
