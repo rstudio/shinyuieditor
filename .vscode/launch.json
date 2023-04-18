@@ -31,7 +31,7 @@
       "runtimeArgs": ["-r", "ts-node/register/transpile-only", "--inspect"],
       "args": ["${file}"],
       "cwd": "${workspaceFolder}",
-      "console": "integratedTerminal",
+      "console": "internalConsole",
       "internalConsoleOptions": "neverOpen",
       "sourceMaps": true,
       "outFiles": ["${workspaceFolder}/inst/**/*.js"],
