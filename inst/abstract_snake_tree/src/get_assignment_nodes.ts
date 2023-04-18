@@ -12,7 +12,7 @@ export type Node_Assignment_Map = Map<string, Parser.SyntaxNode>;
  * @returns All assignment nodes in the script as a map of variable name to the
  * node
  */
-export function find_assignment_nodes(
+export function get_assignment_nodes(
   tree: Parser.SyntaxNode
 ): Node_Assignment_Map {
   const assignment_nodes: Node_Assignment_Map = new Map();

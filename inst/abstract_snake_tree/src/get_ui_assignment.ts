@@ -1,4 +1,4 @@
-import type { Node_Assignment_Map } from "./find_assignment_nodes";
+import type { Node_Assignment_Map } from "./get_assignment_nodes";
 
 /**
  *
@@ -9,7 +9,7 @@ import type { Node_Assignment_Map } from "./find_assignment_nodes";
  * @returns The node containing the UI definition
  * @throws Error if the UI node is not found
  */
-export function find_ui_assignment(
+export function get_ui_assignment(
   assignment_map: Node_Assignment_Map,
   ui_node_name: string = "app_ui"
 ) {
