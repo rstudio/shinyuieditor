@@ -21,3 +21,4 @@ node_modules/
 
 inst/*/.turbo/
 **/storybook-static/*
+inst/inst/abstract_snake_tree/src/
