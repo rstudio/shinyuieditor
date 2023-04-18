@@ -25,6 +25,40 @@
       "preLaunchTask": "dev build"
     },
     {
+      "name": "Debug Current TypeScript File",
+      "type": "node",
+      "request": "launch",
+      "runtimeArgs": ["-r", "ts-node/register/transpile-only", "--inspect"],
+      "args": ["${file}"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "sourceMaps": true,
+      "outFiles": ["${workspaceFolder}/inst/**/*.js"],
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/inst/**",
+        "!**/node_modules/**"
+      ]
+      // "preLaunchTask": "Compile Current TypeScript File"
+    },
+    {
+      "name": "Run Current TypeScript File",
+      "type": "node",
+      "request": "launch",
+      "runtimeArgs": ["-r", "ts-node/register/transpile-only"],
+      "args": ["${file}"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "sourceMaps": true,
+      "outFiles": ["${workspaceFolder}/inst/**/*.js"],
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/inst/**",
+        "!**/node_modules/**"
+      ],
+      "preLaunchTask": "Compile Current TypeScript File"
+    },
+    {
       "name": "Run extension unit tests",
       "type": "node",
       "request": "launch",

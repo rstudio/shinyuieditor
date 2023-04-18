@@ -1,12 +1,20 @@
 import Parser from "tree-sitter";
+import JavaScriptGrammar from "tree-sitter-javascript";
 
-// TODO: Fix this import by adding module type declaration
-import JavaScript from "tree-sitter-python";
+console.log("Starting the file run!!!!!");
 
 export function parse_python_script(script_text: string): string {
   return "Yup, that's a Python script!";
 }
 
-// TODO: Follow this tutorial https://github.com/tree-sitter/node-tree-sitter#usage to get started
+const testing = parse_python_script("import * from shiny");
 const parser = new Parser();
-parser.setLanguage(JavaScript);
+parser.setLanguage(JavaScriptGrammar);
+
+const sourceCode = "let x = 1; console.log(x);";
+
+const tree = parser.parse(sourceCode);
+// console.log(tree);
+
+console.log("FInished file run!");
+// const callExpression = tree.rootNode.child(1).firstChild;
