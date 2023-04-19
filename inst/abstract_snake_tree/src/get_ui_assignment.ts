@@ -6,7 +6,7 @@ import type { Node_Assignment_Map } from "./get_assignment_nodes";
  * `find_assignment_nodes()`
  * @param ui_node_name Name of the variable we're looking for that contains the
  * UI definition. Defaults to `app_ui`.
- * @returns The node containing the UI definition
+ * @returns The node containing the UI definition, `null` if not found
  * @throws Error if the UI node is not found
  */
 export function get_ui_assignment(
@@ -16,7 +16,6 @@ export function get_ui_assignment(
   const ui_node = assignment_map.get(ui_node_name);
   if (ui_node) {
     return ui_node;
-  } else {
-    throw new Error(`Unable to find node for ${ui_node_name}`);
   }
+  return null;
 }
