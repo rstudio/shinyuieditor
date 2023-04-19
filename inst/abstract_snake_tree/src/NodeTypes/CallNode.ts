@@ -8,18 +8,20 @@ import type { Parsed_Nodes_By_Type } from "./Parsed_Ui_Node";
  * Call node for when a node represents a function call. This is one of the
  * `eval`ed types in tree sitter so there's not built-in type/class for it
  */
-interface CallNode extends Parser.SyntaxNode {
+interface TSCallNode extends Parser.SyntaxNode {
   argumentsNode: Parser.SyntaxNode;
   functionNode: Parser.SyntaxNode;
 }
 
-export function is_call_node(node: Parser.SyntaxNode): node is CallNode {
+export function is_call_node(node: Parser.SyntaxNode): node is TSCallNode {
   return (
     node.type === "call" && "argumentsNode" in node && "functionNode" in node
   );
 }
 
-export function parse_call_node(node: CallNode): Parsed_Nodes_By_Type["call"] {
+export function parse_call_node(
+  node: TSCallNode
+): Parsed_Nodes_By_Type["call"] {
   return {
     type: "call",
     fn_name: node.functionNode.text,

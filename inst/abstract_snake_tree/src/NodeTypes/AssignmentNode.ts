@@ -4,7 +4,7 @@ import type Parser from "tree-sitter";
  * Node representing an assignment in python. Has special properties for the
  * left and right nodes of the assignment
  */
-interface AssignmentNode extends Parser.SyntaxNode {
+interface TSAssignmentNode extends Parser.SyntaxNode {
   /**
    * Node representing the variable being assigned
    */
@@ -22,7 +22,7 @@ interface AssignmentNode extends Parser.SyntaxNode {
  */
 export function is_assignment_node(
   node: Parser.SyntaxNode
-): node is AssignmentNode {
+): node is TSAssignmentNode {
   return (
     node.type === "assignment" && "leftNode" in node && "rightNode" in node
   );
@@ -35,7 +35,7 @@ export function is_assignment_node(
  */
 export function assert_assignment_node(
   node: Parser.SyntaxNode
-): asserts node is AssignmentNode {
+): asserts node is TSAssignmentNode {
   if (node.type === "assignment" && "leftNode" in node && "rightNode" in node) {
     return;
   }

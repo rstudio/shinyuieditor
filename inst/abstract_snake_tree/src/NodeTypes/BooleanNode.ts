@@ -2,12 +2,14 @@ import type Parser from "tree-sitter";
 
 import type { Parsed_Nodes_By_Type } from "./Parsed_Ui_Node";
 
-export interface BooleanNode extends Parser.SyntaxNode {
+export interface TSBooleanNode extends Parser.SyntaxNode {
   type: "boolean";
   text: string;
 }
 
-export function is_boolean_node(node: Parser.SyntaxNode): node is BooleanNode {
+export function is_boolean_node(
+  node: Parser.SyntaxNode
+): node is TSBooleanNode {
   return node.type === "false" || node.type === "true";
 }
 
@@ -16,7 +18,7 @@ export function is_boolean_node(node: Parser.SyntaxNode): node is BooleanNode {
  * @param node String node to extract the content from
  * @returns The text of the string node with the quotes removed
  */
-function extract_boolean_content(node: BooleanNode): boolean {
+function extract_boolean_content(node: TSBooleanNode): boolean {
   let value: boolean;
 
   // Better safe than sorry here. We want to make sure we're not accidentally
@@ -33,7 +35,7 @@ function extract_boolean_content(node: BooleanNode): boolean {
 }
 
 export function parse_boolean_node(
-  node: BooleanNode
+  node: TSBooleanNode
 ): Parsed_Nodes_By_Type["boolean"] {
   return {
     type: "boolean",

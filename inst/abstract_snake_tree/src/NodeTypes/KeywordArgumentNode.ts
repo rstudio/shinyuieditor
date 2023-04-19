@@ -9,7 +9,7 @@ import type { Parsed_Nodes_By_Type } from "./Parsed_Ui_Node";
  * This is one of the `eval`ed types in tree sitter so there's no built-in type
  * or class for it
  */
-interface KeywordArgumentNode extends Parser.SyntaxNode {
+interface TSKeywordArgumentNode extends Parser.SyntaxNode {
   /**
    * The node representing the value of the keyword argument
    */
@@ -23,7 +23,7 @@ interface KeywordArgumentNode extends Parser.SyntaxNode {
 
 export function is_keyword_argument_node(
   node: Parser.SyntaxNode
-): node is KeywordArgumentNode {
+): node is TSKeywordArgumentNode {
   return (
     node.type === "keyword_argument" &&
     "valueNode" in node &&
@@ -32,7 +32,7 @@ export function is_keyword_argument_node(
 }
 
 export function parse_keyword_argument_node(
-  node: KeywordArgumentNode
+  node: TSKeywordArgumentNode
 ): Parsed_Nodes_By_Type["kwarg"] {
   return {
     type: "kwarg",
