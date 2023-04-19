@@ -12,11 +12,9 @@ export type Node_Assignment_Map = Map<string, Parser.SyntaxNode>;
  * @returns All assignment nodes in the script as a map of variable name to the
  * node
  */
-export function get_assignment_nodes(
-  tree: Parser.SyntaxNode
-): Node_Assignment_Map {
+export function get_assignment_nodes(tree: Parser.Tree): Node_Assignment_Map {
   const assignment_nodes: Node_Assignment_Map = new Map();
-  for (const node of tree.descendantsOfType("assignment")) {
+  for (const node of tree.rootNode.descendantsOfType("assignment")) {
     // Get the name of the variable being assigned
     const name = node.children[0].text;
     const assignment_symbol = node.children[1].text;
