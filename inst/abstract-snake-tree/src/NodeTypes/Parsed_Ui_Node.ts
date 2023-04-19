@@ -8,15 +8,6 @@ type Node_Fields_By_Type = {
     fn_name: string;
     args: Parsed_Ui_Node[];
   };
-
-  /**
-   * A node representing a keyword argument pair in the ui tree. E.g. `foo = bar`.
-   * Extracts the name and value of the keyword argument.
-   */
-  kwarg: {
-    name: string;
-    value: Parsed_Ui_Node;
-  };
   string: {
     value: string;
   };
@@ -35,10 +26,18 @@ type Node_Fields_By_Type = {
   };
 };
 
-export type Parsed_Nodes_By_Type = Expand_Single<{
+export type Parsed_Nodes_By_Type = {
   [K in keyof Node_Fields_By_Type]: {
     type: K;
+    /**
+     * A node will have a name property attached if it represents a keyword
+     * argument pair in the ui tree. E.g. `foo = bar`. Extracts the name and
+     * value of the keyword argument.
+     */
+    name?: string;
   } & Node_Fields_By_Type[K];
-}>;
+};
 
-export type Parsed_Ui_Node = Parsed_Nodes_By_Type[keyof Node_Fields_By_Type];
+export type Parsed_Ui_Node = Expand_Single<
+  Parsed_Nodes_By_Type[keyof Node_Fields_By_Type]
+>;

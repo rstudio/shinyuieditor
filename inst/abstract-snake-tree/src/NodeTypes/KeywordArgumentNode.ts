@@ -2,7 +2,7 @@ import type Parser from "tree-sitter";
 
 import { node_to_uitree } from "../node_to_uitree";
 
-import type { Parsed_Nodes_By_Type } from "./Parsed_Ui_Node";
+import type { Parsed_Ui_Node } from "./Parsed_Ui_Node";
 
 /**
  * Node representing a pair of key-value in a keyword argument. E.g. `foo = bar`
@@ -63,10 +63,9 @@ export function is_keyword_argument_node(
 
 export function parse_keyword_argument_node(
   node: TSKeywordArgumentNode
-): Parsed_Nodes_By_Type["kwarg"] {
+): Parsed_Ui_Node {
   return {
-    type: "kwarg",
+    ...node_to_uitree(node.valueNode),
     name: node.nameNode.text,
-    value: node_to_uitree(node.valueNode),
   };
 }
