@@ -16,14 +16,15 @@ export function get_assignment_nodes(tree: Parser.Tree): Node_Assignment_Map {
   const assignment_nodes: Node_Assignment_Map = new Map();
   for (const node of tree.rootNode.descendantsOfType("assignment")) {
     // Get the name of the variable being assigned
-    const name = node.children[0].text;
-    const assignment_symbol = node.children[1].text;
-    const assigned_value = node.children[2];
+    const name_node = node.child(0);
+    const assigned_value = node.child(2);
 
-    // We only care about assignments where the symbol is "=" and the value is defined
-    if (assignment_symbol === "=" && assigned_value) {
-      assignment_nodes.set(name, assigned_value);
+    if (!name_node || !assigned_value) {
+      // If for some reason there's no name or value for the assignment, skip it
+      continue;
     }
+
+    assignment_nodes.set(name_node.text, assigned_value);
   }
   return assignment_nodes;
 }
