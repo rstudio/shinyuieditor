@@ -6,7 +6,6 @@ const setup = () => {
     test: {
       include: [`src/**/*.test.{ts,tsx}`],
       globals: true,
-      environment: "jsdom",
     },
   });
 };
