@@ -51,7 +51,6 @@ print("Hello world")
     expect(ui_node).toBeNull();
   });
 
-  // Test that the parsed ui node looks good
   test("Can parse ui node", () => {
     const ui_node = get_ui_assignment(
       get_assignment_nodes(parse_python_script(simple_app_script))
@@ -61,6 +60,27 @@ print("Hello world")
       throw new Error("ui_node is null");
     }
 
-    expect(node_to_uitree(ui_node)).not.toBeNull();
+    expect(node_to_uitree(ui_node)).toStrictEqual({
+      type: "call",
+      fn_name: "ui.page_fluid",
+      args: [
+        {
+          type: "call",
+          fn_name: "ui.input_slider",
+          args: [
+            { type: "value", value_type: "string", value: "n" },
+            { type: "value", value_type: "string", value: "N" },
+            { type: "value", value_type: "number", value: 0 },
+            { type: "value", value_type: "number", value: 100 },
+            { type: "value", value_type: "number", value: 20 },
+          ],
+        },
+        {
+          type: "call",
+          fn_name: "ui.output_text_verbatim",
+          args: [{ type: "value", value_type: "string", value: "txt" }],
+        },
+      ],
+    });
   });
 });
