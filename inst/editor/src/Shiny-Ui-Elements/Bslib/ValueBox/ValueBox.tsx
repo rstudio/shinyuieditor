@@ -1,9 +1,4 @@
-import type { R_AST_Node } from "r-ast-parsing";
-import { is_function_call } from "r-ast-parsing/src/Function_Call_Node";
-import {
-  make_character_node,
-  name_node,
-} from "r-ast-parsing/src/node_builders";
+import { bslib_value_box } from "ui-node-definitions/src/Bslib/ValueBox";
 
 import icon from "../../../assets/icons/shinyValueBox.png";
 import { PopoverButton } from "../../../components/Inputs/PopoverButton";
@@ -11,33 +6,15 @@ import { RadioInputs } from "../../../components/Inputs/RadioInputs/RadioInputsS
 import { InputLabelWrapper } from "../../../components/Inputs/SettingsFormBuilder/SettingsInput/SettingsInput";
 import { DropWatcherPanel } from "../../../DragAndDropHelpers/DropWatcherPanel";
 import { mergeClasses } from "../../../utils/mergeClasses";
-import { nodeInfoFactory } from "../../nodeInfoFactory";
-import type {
-  namedArgsObject,
-  ShinyUiNode,
-  UiNodeComponent,
-} from "../../uiNodeTypes";
-import { make_unknown_ui_function } from "../../UnknownUiFunction";
+import type { UiComponent_from_info } from "../../add_editor_info_to_ui_node";
+import { add_editor_info_to_ui_node } from "../../add_editor_info_to_ui_node";
 import { CardChildrenWithDropNodes } from "../Utils/ChildrenWithDropNodes";
 
 import { BsIcon } from "./BsIcon";
 import { IconSelector } from "./IconSelector";
 import styles from "./ValueBox.module.css";
 
-const layout_dir_to_code = {
-  left: "showcase_left_center()",
-  right: "showcase_top_right()",
-} as const;
-
-type ValueBoxArgs = {
-  title: string;
-  showcase_icon?: string;
-  showcase?: unknown;
-  value: ShinyUiNode;
-  showcase_layout?: keyof typeof layout_dir_to_code;
-};
-
-const ValueBox: UiNodeComponent<ValueBoxArgs, { TakesChildren: true }> = ({
+const ValueBox: UiComponent_from_info<typeof bslib_value_box> = ({
   namedArgs,
   children,
   path,
@@ -81,73 +58,9 @@ const ValueBox: UiNodeComponent<ValueBoxArgs, { TakesChildren: true }> = ({
   );
 };
 
-export const bslibValueBoxInfo = nodeInfoFactory<ValueBoxArgs>()({
-  id: "value_box",
-  r_info: {
-    fn_name: "value_box",
-    package: "bslib",
-    transform_named_args: (args) => {
-      const { showcase_icon, showcase_layout, ...others } = args;
-
-      const to_return = others as namedArgsObject;
-      if (showcase_icon) {
-        to_return.showcase = make_unknown_ui_function(
-          `bsicons::bs_icon("${showcase_icon}")`
-        );
-      }
-
-      if (showcase_layout) {
-        to_return.showcase_layout = make_unknown_ui_function(
-          layout_dir_to_code[showcase_layout]
-        );
-      }
-
-      return to_return;
-    },
-    preprocess_raw_ast_arg: (arg) => {
-      switch (arg.name) {
-        case "showcase":
-          return convertShowcaseArg(arg);
-        case "showcase_layout":
-          return convertShowcaseLayoutArg(arg);
-        default:
-          return arg;
-      }
-    },
-  },
-  title: "Value Box",
-  takesChildren: true,
-  UiComponent: ValueBox,
-  settingsInfo: {
-    title: {
-      label: "Title of valuebox",
-      inputType: "string",
-      defaultValue: "Look at me!",
-    },
-    showcase_icon: {
-      inputType: "omitted",
-      optional: true,
-      defaultValue: "database",
-    },
-    showcase: {
-      inputType: "omitted",
-      optional: true,
-    },
-    value: {
-      inputType: "ui-node",
-      defaultValue: {
-        id: "textNode",
-        namedArgs: {
-          contents: "My value",
-        },
-      },
-    },
-    showcase_layout: {
-      inputType: "omitted",
-      defaultValue: "left",
-      optional: true,
-    },
-  },
+export const bslibValueBoxInfo = add_editor_info_to_ui_node(bslib_value_box, {
+  iconSrc: icon,
+  component: ValueBox,
   settingsFormRender: ({ settings, onSettingsChange, inputs }) => {
     return (
       <div>
@@ -215,46 +128,4 @@ export const bslibValueBoxInfo = nodeInfoFactory<ValueBoxArgs>()({
       </div>
     );
   },
-  iconSrc: icon,
-  category: "Cards",
-  description: "Colorful box to display a value",
 });
-
-/**
- *
- * @param arg Argument representing the passed value to the "showcase" argument
- * of the value_box function call
- * @returns Updated argument, switching the name to the internal "showcase_icon"
- * and converting the icon, if it exists, to a character node representing the
- * icon name. If the passed value doesn't match an icon format. Then the
- * original is returned.
- */
-function convertShowcaseArg(arg: R_AST_Node) {
-  const is_icon_call =
-    is_function_call(arg, "bsicons::bs_icon") ||
-    is_function_call(arg, "bs_icon");
-
-  if (is_icon_call) {
-    const icon = arg.val[1].val as string;
-    return name_node(make_character_node(icon), "showcase_icon");
-  }
-
-  return arg;
-}
-
-/**
- *
- * @param arg Argument representing the passed value to the "showcase_layout"
- * argument of the value_box function call.
- * @returns Updated argument, converting the function call to a character node
- * of left or right based on the original passed function.
- */
-function convertShowcaseLayoutArg(arg: R_AST_Node) {
-  if (is_function_call(arg, "showcase_left_center")) {
-    return name_node(make_character_node("left"), "showcase_layout");
-  } else if (is_function_call(arg, "showcase_top_right")) {
-    return name_node(make_character_node("right"), "showcase_layout");
-  }
-
-  return arg;
-}

@@ -27,7 +27,8 @@
     "react-sortablejs": "^6.1.4",
     "sortablejs": "^1.15.0",
     "tsconfig": "*",
-    "util-functions": "*"
+    "util-functions": "*",
+    "ui-node-definitions": "*"
   },
   "devDependencies": {
     "@playwright/experimental-ct-react": "^1.32.1",

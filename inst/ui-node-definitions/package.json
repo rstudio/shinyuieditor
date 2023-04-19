@@ -1,0 +1,14 @@
+{
+  "name": "ui-node-definitions",
+  "main": "./src/index.ts",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "r-ast-parsing": "*",
+    "tsconfig": "*",
+    "typescript": "^5.0.4"
+  },
+  "scripts": {
+    "type-check": "tsc -p ./ --noEmit"
+  }
+}

@@ -1,21 +1,13 @@
-import type { BslibCardArguments } from "../../Bslib/BslibCard";
-import { bslib_card_settings_info } from "../../Bslib/BslibCard";
+import { grid_card } from "ui-node-definitions/src/gridlayout/Grid_Card";
+
+import type { UiComponent_from_info } from "../../add_editor_info_to_ui_node";
+import { add_editor_info_to_ui_node } from "../../add_editor_info_to_ui_node";
 import { BslibCardContainer } from "../../Bslib/BslibCardContainer";
 import { render_card_elements } from "../../Bslib/Utils/render_card_elements";
-import { nodeInfoFactory } from "../../nodeInfoFactory";
-import type { KnownShinyUiNode, UiNodeComponent } from "../../uiNodeTypes";
-import { grid_container_nodes } from "../grid_container_nodes";
+import type { KnownShinyUiNode } from "../../uiNodeTypes";
 import { useGridItemSwapping } from "../Utils/useGridItemSwapping";
 
-export type GridItemSettings = {
-  area: string;
-};
-export type GridBslibCardSettings = BslibCardArguments & GridItemSettings;
-
-const GridlayoutGridCard: UiNodeComponent<
-  GridBslibCardSettings,
-  { TakesChildren: true }
-> = (node) => {
+const GridlayoutGridCard: UiComponent_from_info<typeof grid_card> = (node) => {
   const {
     namedArgs: { area, ...card_args },
     children = [],
@@ -37,26 +29,7 @@ const GridlayoutGridCard: UiNodeComponent<
   );
 };
 
-export const gridlayoutCardInfo = nodeInfoFactory<GridBslibCardSettings>()({
-  id: "grid_card",
-  r_info: {
-    fn_name: "grid_card",
-    package: "gridlayout",
-  },
-  title: "Grid Card",
-  takesChildren: true,
-  UiComponent: GridlayoutGridCard,
-  settingsInfo: {
-    area: {
-      label: "Name of grid area",
-      inputType: "string",
-      defaultValue: "default-area",
-    },
-    ...bslib_card_settings_info,
-  },
-  allowedParents: grid_container_nodes,
-  category: "gridlayout",
-  description: "bslib styled card for grid layouts",
+export const gridlayoutCardInfo = add_editor_info_to_ui_node(grid_card, {
+  component: GridlayoutGridCard,
 });
-
 export type GridlayoutCardNode = Extract<KnownShinyUiNode, { id: "grid_card" }>;

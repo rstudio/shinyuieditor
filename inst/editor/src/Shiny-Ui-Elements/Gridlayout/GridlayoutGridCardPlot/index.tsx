@@ -1,52 +1,38 @@
+import { grid_card_plot } from "ui-node-definitions/src/gridlayout/Grid_Card_Plot";
+
 import icon from "../../../assets/icons/shinyPlot.png";
-import { nodeInfoFactory } from "../../nodeInfoFactory";
-import { grid_container_nodes } from "../grid_container_nodes";
+import { mergeClasses } from "../../../utils/mergeClasses";
+import type { UiComponent_from_info } from "../../add_editor_info_to_ui_node";
+import { add_editor_info_to_ui_node } from "../../add_editor_info_to_ui_node";
+import { PlotPlaceholder } from "../../ShinyPlotOutput/PlotPlaceholder";
+import { BsCard } from "../Utils/GridLayoutPanelHelpers/GridCards";
+import { useGridItemSwapping } from "../Utils/useGridItemSwapping";
 
-import GridlayoutGridCardPlot from "./GridlayoutGridCardPlot";
+import classes from "./styles.module.css";
 
-export type GridlayoutGridCardPlotProps = {
-  area: string;
-  outputId?: string;
+const GridlayoutGridCardPlot: UiComponent_from_info<typeof grid_card_plot> = ({
+  namedArgs: { outputId, area },
+  path,
+  wrapperProps,
+}) => {
+  const compRef = useGridItemSwapping({ area, path });
+
+  return (
+    <BsCard
+      ref={compRef}
+      style={{ gridArea: area }}
+      className={mergeClasses(classes.gridCardPlot, "gridlayout-gridCardPlot")}
+      {...wrapperProps}
+    >
+      <PlotPlaceholder outputId={outputId ?? area} />
+    </BsCard>
+  );
 };
 
-export const gridlayoutGridCardPlotInfo =
-  nodeInfoFactory<GridlayoutGridCardPlotProps>()({
-    id: "grid_card_plot",
-    r_info: {
-      fn_name: "grid_card_plot",
-      package: "gridlayout",
-    },
-    title: "Grid Plot Card",
-    takesChildren: false,
-    UiComponent: GridlayoutGridCardPlot,
-    settingsInfo: {
-      area: {
-        label: "Name of grid area",
-        inputType: "string",
-        defaultValue: "default-area",
-      },
-      outputId: {
-        label: "Output ID",
-        inputType: "string",
-        defaultValue: function (node): string {
-          if (node && "area" in node.namedArgs) {
-            return node.namedArgs.area as string;
-          }
-          return "MyPlot";
-        },
-        optional: true,
-      },
-    },
-    // If the outputId is undefined we use the area as our id but otherwise we use the standard
-    serverBindings: {
-      outputs: {
-        outputIdKey: (args) => (args.outputId ? "outputId" : "area"),
-        renderScaffold: `renderPlot({\n  #Plot code goes here\n  $0plot(rnorm(100))\n})`,
-      },
-    },
-    allowedParents: grid_container_nodes,
+export const gridlayoutGridCardPlotInfo = add_editor_info_to_ui_node(
+  grid_card_plot,
+  {
     iconSrc: icon,
-    category: "gridlayout",
-    description: `A wrapper for \`shiny::plotOutput()\` that uses \`gridlayout\`-friendly sizing defaults. 
-    For when you want to have a grid area filled entirely with a single plot.`,
-  });
+    component: GridlayoutGridCardPlot,
+  }
+);
