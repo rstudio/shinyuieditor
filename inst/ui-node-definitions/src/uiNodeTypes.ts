@@ -1,5 +1,14 @@
 import type { Expand, PickKeyFn } from "util-functions/src/TypescriptUtils";
 
+import { bslib_card } from "./Bslib/card";
+import { card_body_fill } from "./Bslib/card_body_fill";
+import { card_footer } from "./Bslib/card_footer";
+import { card_header } from "./Bslib/card_header";
+import { value_box } from "./Bslib/value_box";
+import { grid_card } from "./gridlayout/grid_card";
+import { grid_card_plot } from "./gridlayout/grid_card_plot";
+import { grid_card_text } from "./gridlayout/grid_card_text";
+import { grid_container } from "./gridlayout/grid_container";
 import { shinyActionButtonInfo } from "./Shiny/ActionButton";
 
 export type namedArgsObject = Record<string, unknown | undefined>;
@@ -25,7 +34,18 @@ export type ServerBindings<
  * node info object is created and added here the ui-node will be usable within
  * the editor
  */
-export const shinyUiNodeInfoArray = [shinyActionButtonInfo] as const;
+export const shinyUiNodeInfoArray = [
+  shinyActionButtonInfo,
+  grid_card,
+  grid_card_plot,
+  grid_card_text,
+  grid_container,
+  bslib_card,
+  value_box,
+  card_body_fill,
+  card_footer,
+  card_header,
+] as const;
 
 const shinyUiNodeInfo = new Map<string, ShinyUiNodeInfo>(
   shinyUiNodeInfoArray.map((info) => [info.id, info])

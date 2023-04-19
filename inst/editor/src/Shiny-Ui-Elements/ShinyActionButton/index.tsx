@@ -7,7 +7,7 @@ import { add_editor_info_to_ui_node } from "../add_editor_info_to_ui_node";
 import classes from "./styles.module.css";
 
 export const shinyActionButtonInfo = add_editor_info_to_ui_node(info2, {
-  component: ({ namedArgs, wrapperProps }) => {
+  UiComponent: ({ namedArgs, wrapperProps }) => {
     const { label = "My Action Button", width } = namedArgs;
 
     return (

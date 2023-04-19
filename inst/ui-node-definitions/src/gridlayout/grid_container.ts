@@ -2,7 +2,7 @@ import { nodeInfoFactory } from "../nodeInfoFactory";
 
 import type { GridLayoutArgs } from "./GridLayoutArgs";
 
-export const gridlayoutGridContainerInfo = nodeInfoFactory<GridLayoutArgs>()({
+export const grid_container = nodeInfoFactory<GridLayoutArgs>()({
   id: "grid_container",
   r_info: {
     fn_name: "grid_container",
@@ -25,9 +25,5 @@ export const gridlayoutGridContainerInfo = nodeInfoFactory<GridLayoutArgs>()({
     col_sizes: { inputType: "omitted", defaultValue: ["1fr", "1fr"] },
   },
   category: "Tabs",
-  stateUpdateSubscribers: {
-    UPDATE_NODE: updateGridLayoutAreaOnItemAreaChange,
-    DELETE_NODE: removeDeletedGridAreaFromLayout,
-  },
   description: `A general container for arranging items using \`gridlayout\``,
 });

@@ -1,6 +1,6 @@
 import { nodeInfoFactory } from "../nodeInfoFactory";
 
-import { grid_parents } from "./Grid_Card";
+import { grid_parents } from "./grid_card";
 
 export const grid_card_plot = nodeInfoFactory<{
   area: string;

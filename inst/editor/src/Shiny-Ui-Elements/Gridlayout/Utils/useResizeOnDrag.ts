@@ -7,7 +7,7 @@ import type {
   GridItemExtent,
   ItemLocation,
 } from "../../../utils/gridTemplates/types";
-import type { TractDirection } from "../GridlayoutGridPage";
+import type { TractDirection } from "../GridlayoutGridPage/TractDirection";
 
 import type { TemplatedGridProps } from "./EditableGridContainer/TemplatedGridProps";
 import type { TractExtents } from "./getTractExtents";

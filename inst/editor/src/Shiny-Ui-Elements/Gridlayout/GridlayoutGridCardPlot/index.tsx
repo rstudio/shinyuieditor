@@ -33,6 +33,6 @@ export const gridlayoutGridCardPlotInfo = add_editor_info_to_ui_node(
   grid_card_plot,
   {
     iconSrc: icon,
-    component: GridlayoutGridCardPlot,
+    UiComponent: GridlayoutGridCardPlot,
   }
 );

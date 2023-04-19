@@ -34,6 +34,6 @@ export const gridlayoutTextPanelInfo = add_editor_info_to_ui_node(
   grid_card_text,
   {
     iconSrc: textIcon,
-    component: GridlayoutGridCardText,
+    UiComponent: GridlayoutGridCardText,
   }
 );

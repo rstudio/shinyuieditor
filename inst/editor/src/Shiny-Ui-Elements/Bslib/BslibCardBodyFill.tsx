@@ -1,74 +1,21 @@
-import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
-import { nodeInfoFactory } from "../nodeInfoFactory";
-import type { MakeShinyUiNode, UiNodeComponent } from "../uiNodeTypes";
+import { card_body_fill } from "ui-node-definitions/src/Bslib/card_body_fill";
+
+import { add_editor_info_to_ui_node } from "../add_editor_info_to_ui_node";
 
 import { CardBodyFill } from "./Utils/CardElements";
 import { CardChildrenWithDropNodes } from "./Utils/ChildrenWithDropNodes";
 
-export type CardBodyFillSettings = {
-  gap?: CSSMeasure;
-  max_height?: CSSMeasure;
-  min_height?: CSSMeasure;
-};
-
-type CardBodyFillNode = MakeShinyUiNode<CardBodyFillSettings>;
-
-const BslibCardBody: UiNodeComponent<
-  CardBodyFillSettings,
-  { TakesChildren: true }
-> = ({ namedArgs, children = [], path, wrapperProps }) => {
-  return (
-    <CardBodyFill {...wrapperProps} args={namedArgs}>
-      <CardChildrenWithDropNodes
-        children={children}
-        path={path}
-        parentid="card_body_fill"
-        messageOnHover="Add to card body"
-      />
-    </CardBodyFill>
-  );
-};
-
-export const bslibCardBodyInfo = nodeInfoFactory<CardBodyFillSettings>()({
-  id: "card_body_fill",
-  r_info: {
-    fn_name: "card_body_fill",
-    package: "bslib",
+export const bslibCardBodyInfo = add_editor_info_to_ui_node(card_body_fill, {
+  UiComponent: ({ namedArgs, children = [], path, wrapperProps }) => {
+    return (
+      <CardBodyFill {...wrapperProps} args={namedArgs}>
+        <CardChildrenWithDropNodes
+          children={children}
+          path={path}
+          parentid="card_body_fill"
+          messageOnHover="Add to card body"
+        />
+      </CardBodyFill>
+    );
   },
-  title: "Card Body",
-  takesChildren: true,
-  UiComponent: BslibCardBody,
-  settingsInfo: {
-    gap: {
-      label: "Gap between items",
-      inputType: "cssMeasure",
-      optional: true,
-      defaultValue: "10px",
-      units: ["px", "rem"],
-    },
-    max_height: {
-      label: "Max allowed height",
-      inputType: "cssMeasure",
-      optional: true,
-      defaultValue: (node) => {
-        if (!node) return "500px";
-
-        return (node as CardBodyFillNode).namedArgs.min_height ?? "500px";
-      },
-      units: ["px", "%"],
-    },
-    min_height: {
-      label: "Min allowed height",
-      inputType: "cssMeasure",
-      optional: true,
-      defaultValue: (node) => {
-        if (!node) return "100px";
-
-        return (node as CardBodyFillNode).namedArgs.max_height ?? "100px";
-      },
-      units: ["px", "%"],
-    },
-  },
-  category: "Cards",
-  description: "body holder for bslib cards",
 });

@@ -7,7 +7,7 @@ import type { CSSMeasure } from "../../../../components/Inputs/CSSUnitInput/CSSM
 import addTract from "../../../../utils/gridTemplates/addTract";
 import removeTract from "../../../../utils/gridTemplates/removeTract";
 import { mergeClasses } from "../../../../utils/mergeClasses";
-import type { TractDirection } from "../../GridlayoutGridPage";
+import type { TractDirection } from "../../GridlayoutGridPage/TractDirection";
 
 import classes from "./resizableGrid.module.css";
 import type { TemplatedGridProps } from "./TemplatedGridProps";

@@ -1,4 +1,4 @@
-import { bslib_value_box } from "ui-node-definitions/src/Bslib/ValueBox";
+import { value_box } from "ui-node-definitions/src/Bslib/ValueBox";
 
 import icon from "../../../assets/icons/shinyValueBox.png";
 import { PopoverButton } from "../../../components/Inputs/PopoverButton";
@@ -14,7 +14,7 @@ import { BsIcon } from "./BsIcon";
 import { IconSelector } from "./IconSelector";
 import styles from "./ValueBox.module.css";
 
-const ValueBox: UiComponent_from_info<typeof bslib_value_box> = ({
+const ValueBox: UiComponent_from_info<typeof value_box> = ({
   namedArgs,
   children,
   path,
@@ -58,9 +58,9 @@ const ValueBox: UiComponent_from_info<typeof bslib_value_box> = ({
   );
 };
 
-export const bslibValueBoxInfo = add_editor_info_to_ui_node(bslib_value_box, {
+export const bslibValueBoxInfo = add_editor_info_to_ui_node(value_box, {
   iconSrc: icon,
-  component: ValueBox,
+  UiComponent: ValueBox,
   settingsFormRender: ({ settings, onSettingsChange, inputs }) => {
     return (
       <div>

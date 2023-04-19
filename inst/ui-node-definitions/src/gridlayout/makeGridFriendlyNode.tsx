@@ -1,4 +1,9 @@
-import type { ShinyUiNode } from "../uiNodeTypes";
+import { isBslibCard } from "../Bslib/card";
+import type { KnownShinyUiNode, ShinyUiNode } from "../uiNodeTypes";
+
+import type { GridlayoutCardNode } from "./grid_card";
+import type { GridItemNode } from "./isValidGridItem";
+import { isValidGridItem } from "./isValidGridItem";
 
 /**
  * Takes any ui node and makes sure that it can be placed on a gridlayout in the

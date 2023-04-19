@@ -197,14 +197,6 @@ type CommonInfo<Args extends namedArgsObject, TakesChildren extends boolean> = {
   serverBindings?: Partial<ServerBindings<Args>>;
 
   /**
-   * Optional update subscribers
-   */
-  stateUpdateSubscribers?: {
-    UPDATE_NODE?: UpdateAction;
-    DELETE_NODE?: DeleteAction;
-  };
-
-  /**
    * Does this node take children? Aka is it a parent node?
    */
   takesChildren: TakesChildren;

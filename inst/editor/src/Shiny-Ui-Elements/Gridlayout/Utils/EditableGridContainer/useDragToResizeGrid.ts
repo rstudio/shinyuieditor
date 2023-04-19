@@ -2,7 +2,7 @@ import React from "react";
 
 import type { CSSMeasure } from "../../../../components/Inputs/CSSUnitInput/CSSMeasure";
 import { validateRef } from "../../../../utils/validateRef";
-import type { TractDirection } from "../../GridlayoutGridPage";
+import type { TractDirection } from "../../GridlayoutGridPage/TractDirection";
 
 import { initDragState, updateDragState } from "./dragToResizeHelpers";
 import type { TemplatedGridProps } from "./TemplatedGridProps";

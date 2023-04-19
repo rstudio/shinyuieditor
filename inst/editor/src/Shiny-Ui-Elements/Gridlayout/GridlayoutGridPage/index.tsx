@@ -1,51 +1,18 @@
-import { nodeInfoFactory } from "../../nodeInfoFactory";
-import type { GridLayoutArgs } from "../Utils/GridContainerElement/GridLayoutArgs";
+import { grid_page } from "ui-node-definitions/src/gridlayout/grid_page";
+
+import { add_editor_info_to_ui_node } from "../../add_editor_info_to_ui_node";
+import { GridContainerElement } from "../Utils/GridContainerElement/GridContainerElement";
 import {
   removeDeletedGridAreaFromLayout,
   updateGridLayoutAreaOnItemAreaChange,
 } from "../Utils/watchAndReactToGridAreaUpdatesupdate";
 
-import { GridlayoutGridPage } from "./GridlayoutGridPage";
-
-export type TractDirection = "rows" | "cols";
-
-export const gridlayoutGridPageInfo = nodeInfoFactory<
-  GridLayoutArgs & { theme?: unknown }
->()({
-  id: "grid_page",
-  r_info: {
-    fn_name: "grid_page",
-    package: "gridlayout",
-  },
-  title: "Grid Page",
-  takesChildren: true,
-  UiComponent: GridlayoutGridPage,
-  settingsInfo: {
-    gap_size: {
-      label: "Width",
-      inputType: "cssMeasure",
-      defaultValue: "10px",
-      units: ["px", "rem"],
-    },
-    layout: {
-      inputType: "omitted",
-      defaultValue: [". .", ". ."],
-    },
-    row_sizes: {
-      inputType: "omitted",
-      defaultValue: ["1fr", "1fr"],
-    },
-    col_sizes: {
-      inputType: "omitted",
-      defaultValue: ["1fr", "1fr"],
-    },
-    theme: { inputType: "omitted", optional: true },
+export const gridlayoutGridPageInfo = add_editor_info_to_ui_node(grid_page, {
+  UiComponent: (args) => {
+    return <GridContainerElement {...args} />;
   },
   stateUpdateSubscribers: {
     UPDATE_NODE: updateGridLayoutAreaOnItemAreaChange,
     DELETE_NODE: removeDeletedGridAreaFromLayout,
   },
-  category: "gridlayout",
 });
-
-export default GridlayoutGridPage;

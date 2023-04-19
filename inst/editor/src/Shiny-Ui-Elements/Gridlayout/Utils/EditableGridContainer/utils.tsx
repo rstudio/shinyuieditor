@@ -1,5 +1,5 @@
 import type { CSSMeasure } from "../../../../components/Inputs/CSSUnitInput/CSSMeasure";
-import type { TractDirection } from "../../GridlayoutGridPage";
+import type { TractDirection } from "../../GridlayoutGridPage/TractDirection";
 
 import type { TemplatedGridProps } from "./TemplatedGridProps";
 

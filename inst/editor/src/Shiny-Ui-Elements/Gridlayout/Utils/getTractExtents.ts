@@ -1,4 +1,4 @@
-import type { TractDirection } from "../GridlayoutGridPage";
+import type { TractDirection } from "../GridlayoutGridPage/TractDirection";
 
 export type TractExtents = { index: number; start: number; end: number }[];
 export function getTractExtents({

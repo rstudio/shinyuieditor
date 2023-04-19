@@ -1,13 +1,16 @@
 import React from "react";
 
+import type { bslib_card } from "ui-node-definitions/src/Bslib/card";
+
 import { TooltipButton } from "../../components/PopoverEl/Tooltip";
 import { Portal } from "../../components/PortalModal/Portal";
 import { sizes_inline_styles } from "../../EditorContainer/App_Layout_Sizes";
 import { mergeClasses } from "../../utils/mergeClasses";
+import type { args_from_info } from "../add_editor_info_to_ui_node";
 
-import type { BslibCardArguments } from "./BslibCard";
 import styles from "./BslibCard.module.css";
 
+type BslibCardArguments = args_from_info<typeof bslib_card>;
 export const BslibCardContainer = React.forwardRef(
   (
     {

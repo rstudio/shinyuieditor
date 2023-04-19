@@ -1,7 +1,7 @@
 import produce from "immer";
 
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
-import type { TractDirection } from "../../Shiny-Ui-Elements/Gridlayout/GridlayoutGridPage";
+import type { TractDirection } from "../../Shiny-Ui-Elements/Gridlayout/GridlayoutGridPage/TractDirection";
 import type { TemplatedGridProps } from "../../Shiny-Ui-Elements/Gridlayout/Utils/EditableGridContainer/TemplatedGridProps";
 
 export default function resizeTract(

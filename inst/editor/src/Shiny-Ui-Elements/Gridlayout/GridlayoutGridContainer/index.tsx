@@ -1,44 +1,33 @@
+import { grid_container } from "ui-node-definitions/src/gridlayout/grid_container";
+
 import icon from "../../../assets/icons/shinyGridContainer.png";
-import { nodeInfoFactory } from "../../nodeInfoFactory";
+import { add_editor_info_to_ui_node } from "../../add_editor_info_to_ui_node";
+import { GridContainerElement } from "../Utils/GridContainerElement/GridContainerElement";
 import type { GridLayoutArgs } from "../Utils/GridContainerElement/GridLayoutArgs";
 import {
   removeDeletedGridAreaFromLayout,
   updateGridLayoutAreaOnItemAreaChange,
 } from "../Utils/watchAndReactToGridAreaUpdatesupdate";
 
-import GridlayoutGridContainer from "./GridlayoutGridContainer";
-
 export type GridContainerSettings = GridLayoutArgs;
 
-export const gridlayoutGridContainerInfo =
-  nodeInfoFactory<GridContainerSettings>()({
-    id: "grid_container",
-    r_info: {
-      fn_name: "grid_container",
-      package: "gridlayout",
-    },
-    title: "Grid Container",
-    takesChildren: true,
-    UiComponent: GridlayoutGridContainer,
-    settingsInfo: {
-      gap_size: {
-        label: "Width",
-        inputType: "cssMeasure",
-        defaultValue: "10px",
-        units: ["px", "rem"],
-      },
-      layout: {
-        inputType: "omitted",
-        defaultValue: [". .", ". ."],
-      },
-      row_sizes: { inputType: "omitted", defaultValue: ["1fr", "1fr"] },
-      col_sizes: { inputType: "omitted", defaultValue: ["1fr", "1fr"] },
-    },
+export const gridlayoutGridContainerInfo = add_editor_info_to_ui_node(
+  grid_container,
+  {
     iconSrc: icon,
-    category: "Tabs",
+    UiComponent: ({ namedArgs, children, path, wrapperProps }) => {
+      return (
+        <GridContainerElement
+          namedArgs={namedArgs}
+          children={children}
+          path={path}
+          wrapperProps={wrapperProps}
+        />
+      );
+    },
     stateUpdateSubscribers: {
       UPDATE_NODE: updateGridLayoutAreaOnItemAreaChange,
       DELETE_NODE: removeDeletedGridAreaFromLayout,
     },
-    description: `A general container for arranging items using \`gridlayout\``,
-  });
+  }
+);

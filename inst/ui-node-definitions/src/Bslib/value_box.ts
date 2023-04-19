@@ -14,7 +14,7 @@ const layout_dir_to_code = {
   right: "showcase_top_right()",
 } as const;
 
-export const bslib_value_box = nodeInfoFactory<{
+export const value_box = nodeInfoFactory<{
   title: string;
   showcase_icon?: string;
   showcase?: unknown;

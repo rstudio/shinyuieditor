@@ -1,5 +1,5 @@
-import type { BslibCardArguments } from "../Bslib/Card";
-import { bslib_card } from "../Bslib/Card";
+import type { BslibCardArguments } from "../Bslib/card";
+import { bslib_card } from "../Bslib/card";
 import { nodeInfoFactory } from "../nodeInfoFactory";
 import type { KnownShinyUiNode } from "../uiNodeTypes";
 

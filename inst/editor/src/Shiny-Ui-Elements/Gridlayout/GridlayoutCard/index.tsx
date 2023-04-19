@@ -30,6 +30,6 @@ const GridlayoutGridCard: UiComponent_from_info<typeof grid_card> = (node) => {
 };
 
 export const gridlayoutCardInfo = add_editor_info_to_ui_node(grid_card, {
-  component: GridlayoutGridCard,
+  UiComponent: GridlayoutGridCard,
 });
 export type GridlayoutCardNode = Extract<KnownShinyUiNode, { id: "grid_card" }>;

@@ -1,4 +1,5 @@
 import type { CustomFormRenderFn } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
+import type { UpdateAction, DeleteAction } from "../state/app_info";
 
 import type { UiNodeComponent } from "./uiNodeTypes";
 
@@ -6,31 +7,35 @@ export function add_editor_info_to_ui_node<
   Info extends { example_args?: unknown; takesChildren: boolean }
 >(
   info: Info,
-  {
-    iconSrc,
-    component: UiComponent,
-  }: {
+  editor_info: {
     /**
      * The source of the icon. This comes from the importing of a png. If this is
      * not provided then the node will not show up in the element palette.
      */
     iconSrc?: string;
-    component: UiComponent_from_info<Info>;
+    UiComponent: UiComponent_from_info<Info>;
     settingsFormRender?: CustomFormRenderFn<Required<Info["example_args"]>>;
+    /**
+     * Optional update subscribers
+     */
+    stateUpdateSubscribers?: {
+      UPDATE_NODE?: UpdateAction;
+      DELETE_NODE?: DeleteAction;
+    };
   }
 ) {
   return {
     ...info,
-    UiComponent,
-    iconSrc,
+    ...editor_info,
   };
 }
 
-type args_from_info<Info extends { example_args?: unknown }> = Info extends {
-  example_args?: infer Args;
-}
-  ? Args
-  : never;
+export type args_from_info<Info extends { example_args?: unknown }> =
+  Info extends {
+    example_args?: infer Args;
+  }
+    ? Args
+    : never;
 
 type takes_child_from_info<Info extends { takesChildren: boolean }> =
   Info extends { takesChildren: infer T } ? T : never;
