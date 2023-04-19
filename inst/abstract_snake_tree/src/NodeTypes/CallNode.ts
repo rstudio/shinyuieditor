@@ -2,7 +2,7 @@ import type Parser from "tree-sitter";
 
 import { node_to_uitree } from "../node_to_uitree";
 
-import type { Parsed_Ui_Node } from "./Parsed_Ui_Node";
+import type { Parsed_Nodes_By_Type } from "./Parsed_Ui_Node";
 
 /**
  * Call node for when a node represents a function call. This is one of the
@@ -19,13 +19,7 @@ export function is_call_node(node: Parser.SyntaxNode): node is CallNode {
   );
 }
 
-export interface Parsed_Call_Node extends Parsed_Ui_Node {
-  type: "call";
-  fn_name: string;
-  args: Parsed_Ui_Node[];
-}
-
-export function parse_call_node(node: CallNode): Parsed_Call_Node {
+export function parse_call_node(node: CallNode): Parsed_Nodes_By_Type["call"] {
   return {
     type: "call",
     fn_name: node.functionNode.text,

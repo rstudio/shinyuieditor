@@ -2,7 +2,7 @@ import type Parser from "tree-sitter";
 
 import { node_to_uitree } from "../node_to_uitree";
 
-import type { Parsed_Ui_Node } from "./Parsed_Ui_Node";
+import type { Parsed_Nodes_By_Type } from "./Parsed_Ui_Node";
 
 /**
  * Node representing a pair of key-value in a keyword argument. E.g. `foo = bar`
@@ -31,27 +31,9 @@ export function is_keyword_argument_node(
   );
 }
 
-/**
- * A node representing a keyword argument pair in the ui tree. E.g. `foo = bar`.
- * Extracts the name and value of the keyword argument.
- */
-export interface Parsed_Keyword_Arg_Node extends Parsed_Ui_Node {
-  type: "kwarg";
-
-  /**
-   * Name of the argument being passed. E.g. `foo` in `foo = bar`
-   */
-  name: string;
-
-  /**
-   * The parsed value of the argument being passed. E.g. `bar` in `foo = bar`
-   */
-  value: Parsed_Ui_Node;
-}
-
 export function parse_keyword_argument_node(
   node: KeywordArgumentNode
-): Parsed_Keyword_Arg_Node {
+): Parsed_Nodes_By_Type["kwarg"] {
   return {
     type: "kwarg",
     name: node.nameNode.text,

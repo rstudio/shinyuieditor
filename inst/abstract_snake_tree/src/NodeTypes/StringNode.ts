@@ -1,7 +1,7 @@
 import type Parser from "tree-sitter";
 import type { SyntaxNode } from "tree-sitter";
 
-import type { Parsed_Value_Node } from "./ValueNode";
+import type { Parsed_Nodes_By_Type } from "./Parsed_Ui_Node";
 
 export interface StringNode extends Parser.SyntaxNode {
   type: "string";
@@ -21,15 +21,11 @@ export function extract_string_content(node: StringNode): string {
   return node.text.slice(1, -1);
 }
 
-export interface Parsed_String_Node extends Parsed_Value_Node {
-  value_type: "string";
-  value: string;
-}
-
-export function parse_string_node(node: StringNode): Parsed_String_Node {
+export function parse_string_node(
+  node: StringNode
+): Parsed_Nodes_By_Type["string"] {
   return {
-    type: "value",
-    value_type: "string",
+    type: "string",
     value: extract_string_content(node),
   };
 }

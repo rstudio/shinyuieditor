@@ -1,6 +1,6 @@
 import type Parser from "tree-sitter";
 
-import type { Parsed_Value_Node } from "./ValueNode";
+import type { Parsed_Nodes_By_Type } from "./Parsed_Ui_Node";
 
 export interface NumberNode extends Parser.SyntaxNode {
   type: "number";
@@ -25,15 +25,11 @@ function extract_number_content(node: NumberNode): number {
   return number;
 }
 
-export interface Parsed_Number_Node extends Parsed_Value_Node {
-  value_type: "number";
-  value: number;
-}
-
-export function parse_number_node(node: NumberNode): Parsed_Number_Node {
+export function parse_number_node(
+  node: NumberNode
+): Parsed_Nodes_By_Type["number"] {
   return {
-    type: "value",
-    value_type: "number",
+    type: "number",
     value: extract_number_content(node),
   };
 }

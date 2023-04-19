@@ -1,6 +1,6 @@
 import type Parser from "tree-sitter";
 
-import type { Parsed_Value_Node } from "./ValueNode";
+import type { Parsed_Nodes_By_Type } from "./Parsed_Ui_Node";
 
 export interface BooleanNode extends Parser.SyntaxNode {
   type: "boolean";
@@ -32,15 +32,11 @@ function extract_boolean_content(node: BooleanNode): boolean {
   return value;
 }
 
-export interface Parsed_Boolean_Node extends Parsed_Value_Node {
-  value_type: "boolean";
-  value: boolean;
-}
-
-export function parse_boolean_node(node: BooleanNode): Parsed_Boolean_Node {
+export function parse_boolean_node(
+  node: BooleanNode
+): Parsed_Nodes_By_Type["boolean"] {
   return {
-    type: "value",
-    value_type: "boolean",
+    type: "boolean",
     value: extract_boolean_content(node),
   };
 }

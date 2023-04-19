@@ -68,17 +68,17 @@ print("Hello world")
           type: "call",
           fn_name: "ui.input_slider",
           args: [
-            { type: "value", value_type: "string", value: "n" },
-            { type: "value", value_type: "string", value: "N" },
-            { type: "value", value_type: "number", value: 0 },
-            { type: "value", value_type: "number", value: 100 },
-            { type: "value", value_type: "number", value: 20 },
+            { type: "string", value: "n" },
+            { type: "string", value: "N" },
+            { type: "number", value: 0 },
+            { type: "number", value: 100 },
+            { type: "number", value: 20 },
           ],
         },
         {
           type: "call",
           fn_name: "ui.output_text_verbatim",
-          args: [{ type: "value", value_type: "string", value: "txt" }],
+          args: [{ type: "string", value: "txt" }],
         },
       ],
     });
