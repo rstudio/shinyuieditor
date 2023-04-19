@@ -8,6 +8,36 @@ import type { Parsed_Nodes_By_Type } from "./Parsed_Ui_Node";
  * Node representing a pair of key-value in a keyword argument. E.g. `foo = bar`
  * This is one of the `eval`ed types in tree sitter so there's no built-in type
  * or class for it
+ *
+ * Definition of the keyword_argument node in the python tree-sitter grammar (node-types.json)
+ * ```
+ * {
+ *   "type": "keyword_argument",
+ *   "named": true,
+ *   "fields": {
+ *     "name": {
+ *       "multiple": false,
+ *       "required": true,
+ *       "types": [
+ *         {
+ *           "type": "identifier",
+ *           "named": true
+ *         }
+ *       ]
+ *     },
+ *     "value": {
+ *       "multiple": false,
+ *       "required": true,
+ *       "types": [
+ *         {
+ *           "type": "expression",
+ *           "named": true
+ *         }
+ *       ]
+ *     }
+ *   }
+ * }
+ * ```
  */
 interface TSKeywordArgumentNode extends Parser.SyntaxNode {
   /**

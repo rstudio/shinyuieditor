@@ -3,6 +3,65 @@ import type Parser from "tree-sitter";
 /**
  * Node representing an assignment in python. Has special properties for the
  * left and right nodes of the assignment
+ *
+ * Definition of the assignment node in the tree-sitter grammar:
+ *  ```{
+ *  "type": "assignment",
+ *  "named": true,
+ *  "fields": {
+ *    "left": {
+ *      "multiple": false,
+ *      "required": true,
+ *      "types": [
+ *        {
+ *          "type": "pattern",
+ *          "named": true
+ *        },
+ *        {
+ *          "type": "pattern_list",
+ *          "named": true
+ *        }
+ *      ]
+ *    },
+ *    "right": {
+ *      "multiple": false,
+ *      "required": false,
+ *      "types": [
+ *        {
+ *          "type": "assignment",
+ *          "named": true
+ *        },
+ *        {
+ *          "type": "augmented_assignment",
+ *          "named": true
+ *        },
+ *        {
+ *          "type": "expression",
+ *          "named": true
+ *        },
+ *        {
+ *          "type": "expression_list",
+ *          "named": true
+ *        },
+ *        {
+ *          "type": "yield",
+ *          "named": true
+ *        }
+ *      ]
+ *    },
+ *    "type": {
+ *      "multiple": false,
+ *      "required": false,
+ *      "types": [
+ *        {
+ *          "type": "type",
+ *          "named": true
+ *        }
+ *      ]
+ *    }
+ *  }
+ * }
+ * ```
  */
 interface TSAssignmentNode extends Parser.SyntaxNode {
   /**
