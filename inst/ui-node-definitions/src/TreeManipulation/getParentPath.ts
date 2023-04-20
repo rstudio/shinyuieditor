@@ -1,4 +1,4 @@
-import type { NodePath } from "ui-node-definitions/src/NodePath";
+import type { NodePath } from "../NodePath";
 
 export function getParentPath(path: NodePath) {
   return separateIntoParentAndChildPaths(path).parent_path;

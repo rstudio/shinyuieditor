@@ -1,6 +1,6 @@
-import type { NodePath } from "ui-node-definitions/src/NodePath";
 import { sameArray } from "util-functions/src/equalityCheckers";
 
+import type { NodePath } from "../NodePath";
 
 import { separateIntoParentAndChildPaths } from "./getParentPath";
 import { nodesShareCommonParent } from "./nodesShareCommonParent";

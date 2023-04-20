@@ -2,8 +2,8 @@ import React from "react";
 
 import { isValidGridItem } from "ui-node-definitions/src/gridlayout/isValidGridItem";
 import type { NodePath } from "ui-node-definitions/src/NodePath";
+import { nodesAreSiblings } from "ui-node-definitions/src/TreeManipulation/nodesAreSiblings";
 
-import { nodesAreSiblings } from "../../../components/UiNode/TreeManipulation/nodesAreSiblings";
 import type { DraggedNodeInfo } from "../../../DragAndDropHelpers/DragAndDropHelpers";
 import { useFilteredDrop } from "../../../DragAndDropHelpers/useFilteredDrop";
 import { useCurrentDraggedNode } from "../../../state/currentlyDraggedNode";

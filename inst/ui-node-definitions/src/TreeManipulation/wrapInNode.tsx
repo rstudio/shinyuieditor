@@ -1,7 +1,4 @@
-import type {
-  ShinyUiNode,
-  ShinyUiLeafNode,
-} from "ui-node-definitions/src/uiNodeTypes";
+import type { ShinyUiNode, ShinyUiLeafNode } from "../uiNodeTypes";
 
 type Wrapper = Pick<ShinyUiNode, "id" | "namedArgs">;
 export type Wrapping_Node = Wrapper | ((child: ShinyUiNode) => Wrapper | null);

@@ -2,6 +2,8 @@ import React from "react";
 
 import type { PathElement, NodePath } from "ui-node-definitions/src/NodePath";
 import { makeChildPath } from "ui-node-definitions/src/nodePathUtils";
+import { getIsValidMove } from "ui-node-definitions/src/TreeManipulation/getIsValidMove";
+import type { Wrapping_Node } from "ui-node-definitions/src/TreeManipulation/wrapInNode";
 import type {
   ShinyUiNode,
   ShinyUiNodeIds,
@@ -15,8 +17,6 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "../components/PopoverEl/FloatingPopover";
-import { getIsValidMove } from "../components/UiNode/TreeManipulation/getIsValidMove";
-import type { Wrapping_Node } from "../components/UiNode/TreeManipulation/wrapInNode";
 import UiNode from "../components/UiNode/UiNode";
 import { usePlaceNode } from "../state/usePlaceNode";
 import { mergeClasses } from "../utils/mergeClasses";

@@ -1,9 +1,7 @@
-import type { NodePath } from "ui-node-definitions/src/NodePath";
-import type {
-  ShinyUiNode,
-  ShinyUiParentNode,
-} from "ui-node-definitions/src/uiNodeTypes";
 import { moveElement } from "util-functions/src/arrays";
+
+import type { NodePath } from "../NodePath";
+import type { ShinyUiNode, ShinyUiParentNode } from "../uiNodeTypes";
 
 import { addNodeMutating } from "./addNodeMutating";
 import { getNode } from "./getNode";

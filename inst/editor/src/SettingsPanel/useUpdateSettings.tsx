@@ -2,10 +2,10 @@ import * as React from "react";
 
 import omit from "just-omit";
 import { useDispatch } from "react-redux";
+import { getNode } from "ui-node-definitions/src/TreeManipulation/getNode";
 import type { ShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
 
 import type { KnownInputFieldTypes } from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";
-import { getNode } from "../components/UiNode/TreeManipulation/getNode";
 import { UPDATE_NODE } from "../state/app_info";
 import {
   useCurrentSelection,

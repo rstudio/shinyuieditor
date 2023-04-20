@@ -1,4 +1,4 @@
-import type { NodePath } from "ui-node-definitions/src/NodePath";
+import type { NodePath } from "../NodePath";
 
 import { nodeDepth } from "./nodeDepth";
 

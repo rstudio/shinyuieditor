@@ -6,16 +6,16 @@ import type {
   Raw_App_Info,
 } from "communication-types/src/AppInfo";
 import { useSelector } from "react-redux";
+import type { PlaceNodeArguments } from "ui-node-definitions/src/TreeManipulation/placeNode";
+import { placeNodeMutating } from "ui-node-definitions/src/TreeManipulation/placeNode";
+import type { RemoveNodeArguments } from "ui-node-definitions/src/TreeManipulation/removeNode";
+import { removeNodeMutating } from "ui-node-definitions/src/TreeManipulation/removeNode";
+import type { UpdateNodeArguments } from "ui-node-definitions/src/TreeManipulation/updateNode";
+import { updateNodeMutating } from "ui-node-definitions/src/TreeManipulation/updateNode";
 import type { ShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
 
 import { ensure_full_app_info } from "../ast_parsing/ensure_full_app_info";
 import type { TemplateChooserOptions } from "../components/TemplatePreviews/TemplateChooserView";
-import type { PlaceNodeArguments } from "../components/UiNode/TreeManipulation/placeNode";
-import { placeNodeMutating } from "../components/UiNode/TreeManipulation/placeNode";
-import type { RemoveNodeArguments } from "../components/UiNode/TreeManipulation/removeNode";
-import { removeNodeMutating } from "../components/UiNode/TreeManipulation/removeNode";
-import type { UpdateNodeArguments } from "../components/UiNode/TreeManipulation/updateNode";
-import { updateNodeMutating } from "../components/UiNode/TreeManipulation/updateNode";
 
 import {
   get_deletion_subscriptions,

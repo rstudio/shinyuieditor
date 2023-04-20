@@ -6,7 +6,9 @@
   "dependencies": {
     "r-ast-parsing": "*",
     "tsconfig": "*",
-    "typescript": "^5.0.4"
+    "util-functions": "*",
+    "typescript": "^5.0.4",
+    "immer": "^9.0.12"
   },
   "scripts": {
     "type-check": "tsc -p ./ --noEmit"

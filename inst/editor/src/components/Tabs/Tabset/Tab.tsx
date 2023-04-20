@@ -4,12 +4,12 @@ import { useSelector } from "react-redux";
 import { isKnownShinyUiNode } from "ui-node-definitions/src/isShinyUiNode";
 import type { NodePath } from "ui-node-definitions/src/NodePath";
 import { makeChildPath } from "ui-node-definitions/src/nodePathUtils";
+import { getNode } from "ui-node-definitions/src/TreeManipulation/getNode";
+import { samePath } from "ui-node-definitions/src/TreeManipulation/samePath";
 import type { ShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
 
 import { useCurrentSelection } from "../../../state/selectedPath";
 import type { RootState } from "../../../state/store";
-import { getNode } from "../../UiNode/TreeManipulation/getNode";
-import { samePath } from "../../UiNode/TreeManipulation/samePath";
 import { useMakeWrapperProps } from "../../UiNode/useMakeWrapperProps";
 
 import classes from "./Tabset.module.css";

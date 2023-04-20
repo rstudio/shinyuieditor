@@ -1,6 +1,6 @@
 import { createListenerMiddleware } from "@reduxjs/toolkit";
+import { getNewSelectionPathAfterDeletion } from "ui-node-definitions/src/TreeManipulation/getNewSelectionPathAfterDeletion";
 
-import { getNewSelectionPathAfterDeletion } from "../../components/UiNode/TreeManipulation/getNewSelectionPathAfterDeletion";
 import { DELETE_NODE } from "../app_info";
 import { SET_SELECTION } from "../selectedPath";
 import type { RootState } from "../store";

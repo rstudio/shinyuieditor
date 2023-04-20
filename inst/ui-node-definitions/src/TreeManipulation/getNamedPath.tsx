@@ -1,8 +1,8 @@
-import type { NodePath } from "ui-node-definitions/src/NodePath";
-import type { ShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
-import { getUiNodeTitle } from "ui-node-definitions/src/uiNodeTypes";
+import type { NodePath } from "../NodePath";
+import { getUiNodeTitle } from "../uiNodeTypes";
+import type { ShinyUiNode } from "../uiNodeTypes";
 
-import { getNode } from "../components/UiNode/TreeManipulation/getNode";
+import { getNode } from "./getNode";
 
 export function getNamedPath(path: NodePath, tree: ShinyUiNode): string[] {
   const totalDepth = path.length;

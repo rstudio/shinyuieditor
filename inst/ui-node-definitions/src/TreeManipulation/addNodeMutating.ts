@@ -1,9 +1,7 @@
-import type { NodePath } from "ui-node-definitions/src/NodePath";
-import type {
-  ShinyUiNode,
-  ShinyUiParentNode,
-} from "ui-node-definitions/src/uiNodeTypes";
 import { addAtIndex } from "util-functions/src/arrays";
+
+import type { NodePath } from "../NodePath";
+import type { ShinyUiNode, ShinyUiParentNode } from "../uiNodeTypes";
 
 import { getNode } from "./getNode";
 import { separateIntoParentAndChildPaths } from "./getParentPath";
