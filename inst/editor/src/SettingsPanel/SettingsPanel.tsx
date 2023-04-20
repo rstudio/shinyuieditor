@@ -11,6 +11,7 @@ import { buildStaticFormInfo } from "../components/Inputs/SettingsFormBuilder/bu
 import type { CustomFormRenderFn } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
 import { FormBuilder } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
 import { PanelHeader } from "../EditorLayout/PanelHeader";
+import { getUiNodeSettingsRenderer } from "../Shiny-Ui-Elements/registered_ui_nodes";
 import {
   generate_gh_issue_url,
   generate_serialized_state_for_error,
@@ -22,11 +23,7 @@ import PathBreadcrumb from "./PathBreadcrumb";
 import classes from "./SettingsPanel.module.css";
 import { useUpdateSettings } from "./useUpdateSettings";
 
-type SettingsPanelProps = {
-  tree: ShinyUiNode;
-};
-
-export function SettingsPanel({ tree }: SettingsPanelProps) {
+export function SettingsPanel({ tree }: { tree: ShinyUiNode }) {
   const {
     currentNode,
     updateArgumentsByName,
@@ -54,6 +51,7 @@ export function SettingsPanel({ tree }: SettingsPanelProps) {
     nodeInfo.settingsInfo,
     currentNode
   );
+  const customSettingsRenderer = getUiNodeSettingsRenderer(id);
 
   return (
     <>
@@ -71,8 +69,8 @@ export function SettingsPanel({ tree }: SettingsPanelProps) {
             settings={namedArgs}
             settingsInfo={staticSettingsInfo}
             renderInputs={
-              "settingsFormRender" in nodeInfo
-                ? (nodeInfo.settingsFormRender as CustomFormRenderFn<
+              customSettingsRenderer
+                ? (customSettingsRenderer as CustomFormRenderFn<
                     typeof namedArgs
                   >)
                 : undefined
