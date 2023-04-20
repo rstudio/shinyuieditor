@@ -1,0 +1,22 @@
+{
+  // Place your shinyuieditor workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and
+  // description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope
+  // is left empty or omitted, the snippet gets applied to all languages. The prefix is what is
+  // used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+  // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders.
+  // Placeholders with the same ids are connected.
+  // Example:
+  "Convert Ui Node": {
+    // "scope": "javascript,typescript",
+    "prefix": ["convert", "ui-node-convert"],
+    "body": [
+      "import type { UiComponent_from_info } from '../add_editor_info_to_ui_node';",
+      "import { add_editor_info_to_ui_node } from '../add_editor_info_to_ui_node';",
+      "import { $1 } from 'ui-node-definitions/src/Shiny/$1';",
+      "add_editor_info_to_ui_node($1, {",
+      "  iconSrc: icon,",
+      "})"
+    ],
+    "description": "Setup imports and variable definitions needed for converting to stand-alone node info"
+  }
+}

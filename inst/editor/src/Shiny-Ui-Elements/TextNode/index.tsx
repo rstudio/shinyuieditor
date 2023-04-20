@@ -1,63 +1,27 @@
+import { size_to_wrapper } from "ui-node-definitions/src/internal/is_text_node";
+import { text_node } from "ui-node-definitions/src/internal/text_node";
+
 import icon from "../../assets/icons/shinyText.png";
-import type { TextNodeSettings } from "../../ast_parsing/text_nodes/is_text_node";
-import { nodeInfoFactory } from "../nodeInfoFactory";
-import type { MakeShinyUiNode, ShinyUiNode } from "../uiNodeTypes";
+import { add_editor_info_to_ui_node } from "../add_editor_info_to_ui_node";
 
-import { TextNode } from "./TextNode";
+import styles from "./styles.module.css";
 
-export type TextUiNode = MakeShinyUiNode<TextNodeSettings>;
-
-export function isTextUiNode(node: ShinyUiNode): node is TextUiNode {
-  return "contents" in node.namedArgs && node.id === "textNode";
-}
-
-export const textNodeInfo = nodeInfoFactory<TextNodeSettings>()({
-  id: "textNode",
-  title: "Static Text",
-  r_info: {
-    fn_name: "textNode",
-    package: "Internal",
-  },
-  category: "Utilities",
-  description:
-    "Add static text to your ui for things like descriptions and headers.",
-  takesChildren: false,
-  UiComponent: TextNode,
-  settingsInfo: {
-    contents: {
-      label: "Text contents",
-      inputType: "string",
-      defaultValue: "Lorem Ipsum",
-      longform: true,
-    },
-    decoration: {
-      label: "Decoration",
-      optional: true,
-      inputType: "radio",
-      defaultValue: "default",
-      choices: {
-        default: { label: "Normal" },
-        italic: { label: "Italic" },
-        bold: { label: "Bold" },
-      } satisfies Record<
-        Required<TextNodeSettings>["decoration"],
-        { label: string }
-      >,
-      optionsPerColumn: 2,
-    },
-    size: {
-      label: "Font size",
-      inputType: "radio",
-      optional: true,
-      defaultValue: "default",
-      choices: {
-        default: { label: "Normal" },
-        small: { label: "Small" },
-        headline: { label: "Headline" },
-        subtitle: { label: "Subtitle" },
-      } satisfies Record<Required<TextNodeSettings>["size"], { label: string }>,
-      optionsPerColumn: 2,
-    },
-  },
+export const textNodeInfo = add_editor_info_to_ui_node(text_node, {
   iconSrc: icon,
+  UiComponent: ({
+    namedArgs: { contents, decoration, size = "default" },
+    wrapperProps,
+  }) => {
+    const WrapperComp = size_to_wrapper[size];
+
+    return (
+      <WrapperComp
+        className={styles.wrapper}
+        {...wrapperProps}
+        data-decoration={decoration}
+      >
+        {contents}
+      </WrapperComp>
+    );
+  },
 });

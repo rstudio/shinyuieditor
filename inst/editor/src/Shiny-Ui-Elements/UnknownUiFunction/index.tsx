@@ -1,38 +1,26 @@
+import "./styles.scss";
+
 import { AiOutlineQuestionCircle } from "react-icons/ai";
+import { unknown_code } from "ui-node-definitions/src/internal/unknown_code";
 
 import CategoryDivider from "../../components/CategoryDivider";
-import { nodeInfoFactory } from "../nodeInfoFactory";
-import type { MakeShinyUiNode, ShinyUiNode } from "../uiNodeTypes";
+import { add_editor_info_to_ui_node } from "../add_editor_info_to_ui_node";
 
 import { formatFunctionText } from "./formatFunctionText";
-import "./styles.scss";
-import UnknownUiFunction from "./UnknownUiFunction";
 
-export type UnknownUiFunctionProps = {
-  text: string;
-  explanation?: string;
-};
-export type UnknownUiNode = MakeShinyUiNode<UnknownUiFunctionProps>;
+const num_preview_chars = 20;
 
-export function isUnknownUiNode(node: ShinyUiNode): node is UnknownUiNode {
-  return "text" in node.namedArgs && node.id === "unknownUiFunction";
-}
-
-export const unknownUiFunctionInfo = nodeInfoFactory<UnknownUiFunctionProps>()({
-  id: "unknownUiFunction",
-  r_info: {
-    fn_name: "unknownUiFunction",
-    package: "Internal",
-  },
-  title: "Unknown UI Function",
-  takesChildren: false,
-  UiComponent: UnknownUiFunction,
-  settingsInfo: {
-    text: {
-      inputType: "omitted",
-      defaultValue: "Unknown Ui Function",
-    },
-    explanation: { inputType: "omitted", optional: true },
+export const unknownUiFunctionInfo = add_editor_info_to_ui_node(unknown_code, {
+  UiComponent: ({ namedArgs, wrapperProps }) => {
+    const functionName =
+      namedArgs.text.slice(0, num_preview_chars).replaceAll(/\s$/g, "") + "...";
+    return (
+      <div className="unknown-ui-function-display" {...wrapperProps}>
+        <div>
+          unknown ui output: <code>{functionName}</code>
+        </div>
+      </div>
+    );
   },
   settingsFormRender: ({ settings }) => {
     return (
@@ -53,21 +41,3 @@ export const unknownUiFunctionInfo = nodeInfoFactory<UnknownUiFunctionProps>()({
     );
   },
 });
-
-/**
- * Generate a node for an unknown UI function from text.
- * @param text The text of the function call
- * @param explanation An optional explanation of why the function is unknown
- * @returns A node for the unknown UI function
- */
-export function make_unknown_ui_function(text: string, explanation?: string) {
-  return {
-    id: "unknownUiFunction",
-    namedArgs: {
-      text,
-      explanation,
-    },
-  };
-}
-
-export default UnknownUiFunction;

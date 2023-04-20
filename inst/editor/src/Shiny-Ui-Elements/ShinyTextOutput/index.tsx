@@ -1,39 +1,17 @@
+import { output_text } from "ui-node-definitions/src/Shiny/output_text";
+
 import uiIcon from "../../assets/icons/shinyTextOutput.png";
-import { nodeInfoFactory } from "../nodeInfoFactory";
+import { add_editor_info_to_ui_node } from "../add_editor_info_to_ui_node";
 
-import ShinyTextOutput from "./ShinyTextOutput";
+import classes from "./styles.module.css";
 
-export type ShinyTextOutputProps = {
-  outputId: string;
-};
-
-export const shinyTextOutputInfo = nodeInfoFactory<ShinyTextOutputProps>()({
-  id: "textOutput",
-  r_info: {
-    fn_name: "textOutput",
-    package: "shiny",
-  },
-  title: "Text Output",
-  takesChildren: false,
-  UiComponent: ShinyTextOutput,
-  settingsInfo: {
-    outputId: {
-      label: "Output ID",
-      inputType: "string",
-      defaultValue: "textOutput",
-    },
-  },
-  serverBindings: {
-    outputs: {
-      outputIdKey: "outputId",
-      renderScaffold: `renderText({\n  "Hello, World"\n})`,
-    },
-  },
+export const shinyTextOutputInfo = add_editor_info_to_ui_node(output_text, {
   iconSrc: uiIcon,
-  category: "Outputs",
-  description: `
-  Render a reactive output variable as text within an application page. 
-  Usually paired with \`renderText()\`.
-  `,
+  UiComponent: ({ namedArgs, wrapperProps }) => {
+    return (
+      <div className={classes.container} {...wrapperProps}>
+        Dynamic text from <code>output${namedArgs.outputId}</code>
+      </div>
+    );
+  },
 });
-export default ShinyTextOutput;

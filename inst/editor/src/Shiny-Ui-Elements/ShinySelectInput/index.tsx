@@ -1,51 +1,26 @@
+import { input_select } from "ui-node-definitions/src/Shiny/input_select";
+
 import selectBoxIcon from "../../assets/icons/shinySelectbox.png";
-import type { NamedList } from "../../components/Inputs/ListInput/NamedListInput";
-import { nodeInfoFactory } from "../nodeInfoFactory";
+import { add_editor_info_to_ui_node } from "../add_editor_info_to_ui_node";
 
-import ShinySelectInput from "./ShinySelectInput";
+import classes from "./styles.module.css";
 
-export type ShinySelectInputProps = {
-  inputId: string;
-  label: string;
-  choices: NamedList;
-};
-
-export const shinySelectInputInfo = nodeInfoFactory<ShinySelectInputProps>()({
-  id: "selectInput",
-  r_info: {
-    fn_name: "selectInput",
-    package: "shiny",
-  },
-  title: "Select Input",
-  takesChildren: false,
-  UiComponent: ShinySelectInput,
-  settingsInfo: {
-    inputId: {
-      inputType: "string",
-      label: "inputId",
-      defaultValue: "mySelectInput",
-    },
-    label: {
-      inputType: "string",
-      label: "label",
-      defaultValue: "Select Input",
-    },
-    choices: {
-      label: "Choices",
-      inputType: "list",
-      defaultValue: {
-        "choice a": "a",
-        "choice b": "b",
-      },
-    },
-  },
-  serverBindings: {
-    inputs: {
-      inputIdKey: "inputId",
-    },
-  },
+export const shinySelectInputInfo = add_editor_info_to_ui_node(input_select, {
   iconSrc: selectBoxIcon,
-  category: "Inputs",
-  description:
-    "Create a select list that can be used to choose a single or multiple items from a list of values.",
+  UiComponent: ({ namedArgs, wrapperProps }) => {
+    const choices = namedArgs.choices;
+    const id = namedArgs.inputId;
+    return (
+      <div className={classes.container} {...wrapperProps}>
+        <label htmlFor={id}>{namedArgs.label}</label>
+        <select id={id}>
+          {Object.keys(choices).map((key, i) => (
+            <option value={choices[key]} key={key}>
+              {key}
+            </option>
+          ))}
+        </select>
+      </div>
+    );
+  },
 });

@@ -1,8 +1,11 @@
+import { output_plot } from "ui-node-definitions/src/Shiny/output_plot";
+
 import plotIcon from "../../assets/icons/shinyPlot.png";
 import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
-import { nodeInfoFactory } from "../nodeInfoFactory";
+import { add_editor_info_to_ui_node } from "../add_editor_info_to_ui_node";
 
-import ShinyPlotOutput from "./ShinyPlotOutput";
+import { PlotPlaceholder } from "./PlotPlaceholder";
+import classes from "./styles.module.css";
 
 export type ShinyPlotOutputProps = {
   outputId: string;
@@ -10,48 +13,20 @@ export type ShinyPlotOutputProps = {
   height?: CSSMeasure;
 };
 
-export const shinyPlotOutputInfo = nodeInfoFactory<ShinyPlotOutputProps>()({
-  id: "plotOutput",
-  r_info: {
-    fn_name: "plotOutput",
-    package: "shiny",
-  },
-  py_info: {
-    fn_name: "ui.output_plot",
-    package: "shiny",
-  },
-  title: "Plot Output",
-  takesChildren: false,
-  UiComponent: ShinyPlotOutput,
-  settingsInfo: {
-    outputId: {
-      inputType: "string",
-      label: "Output ID for plot",
-      defaultValue: "plot",
-      py_name: "id",
-    },
-    width: {
-      label: "Width",
-      inputType: "cssMeasure",
-      defaultValue: "100%",
-      optional: true,
-    },
-    height: {
-      label: "Height",
-      inputType: "cssMeasure",
-      defaultValue: "400px",
-      optional: true,
-    },
-  },
-  serverBindings: {
-    outputs: {
-      outputIdKey: "outputId",
-      renderScaffold: `renderPlot({\n  #Plot code goes here\n  $0plot(rnorm(100))\n})`,
-    },
-  },
+export const shinyPlotOutputInfo = add_editor_info_to_ui_node(output_plot, {
   iconSrc: plotIcon,
-  category: "Outputs",
-  description: "Render a `renderPlot()` within an application page.",
+  UiComponent: ({
+    namedArgs: { outputId, width, height = "400px" },
+    wrapperProps,
+  }) => {
+    return (
+      <div
+        className={classes.container}
+        style={{ height, width }}
+        {...wrapperProps}
+      >
+        <PlotPlaceholder outputId={outputId} />
+      </div>
+    );
+  },
 });
-
-export default ShinyPlotOutput;

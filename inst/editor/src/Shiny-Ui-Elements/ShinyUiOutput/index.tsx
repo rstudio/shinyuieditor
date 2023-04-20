@@ -1,40 +1,21 @@
+import { output_ui } from "ui-node-definitions/src/Shiny/output_ui";
+
 import uiIcon from "../../assets/icons/shinyImage.png";
-import { nodeInfoFactory } from "../nodeInfoFactory";
+import { add_editor_info_to_ui_node } from "../add_editor_info_to_ui_node";
 
-import ShinyUiOutput from "./ShinyUiOutput";
+import classes from "./styles.module.css";
 
-export type ShinyUiOutputProps = {
-  outputId: string;
-};
-
-export const shinyUiOutputInfo = nodeInfoFactory<ShinyUiOutputProps>()({
-  id: "uiOutput",
-  r_info: {
-    fn_name: "uiOutput",
-    package: "shiny",
-  },
-  title: "Dynamic UI Output",
-  takesChildren: false,
-  UiComponent: ShinyUiOutput,
-  settingsInfo: {
-    outputId: {
-      label: "Output ID",
-      inputType: "string",
-      defaultValue: "dynamicUiOutput",
-    },
-  },
-  serverBindings: {
-    outputs: {
-      outputIdKey: "outputId",
-      renderScaffold: `renderUI({\n  h1("Hello, World")\n})`,
-    },
-  },
+export const shinyUiOutputInfo = add_editor_info_to_ui_node(output_ui, {
   iconSrc: uiIcon,
-  category: "Outputs",
-  description: `
-  Render a reactive output variable as HTML within an application page. 
-  The text will be included within an HTML \`div\` tag, and is presumed to 
-  contain HTML content which should not be escaped.
-  `,
+  UiComponent: ({ namedArgs, wrapperProps }) => {
+    const { outputId = "shiny-ui-output" } = namedArgs;
+
+    return (
+      <div className={classes.container} {...wrapperProps}>
+        <div style={{ gridArea: "1/1", placeSelf: "center" }}>
+          This is a a dynamic UI Output {outputId}!
+        </div>
+      </div>
+    );
+  },
 });
-export default ShinyUiOutput;

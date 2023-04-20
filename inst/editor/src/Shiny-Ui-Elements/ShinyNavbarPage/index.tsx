@@ -1,64 +1,52 @@
 // import icon from "../../assets/icons/tabsetPanel.png";
 
-import {
-  getFirstTabName,
-  getTabNames,
-} from "../../components/Tabs/Tabset/utils";
-import { nodeInfoFactory } from "../nodeInfoFactory";
-import type { ShinyUiParentNode } from "../uiNodeTypes";
+import { page_navbar } from "ui-node-definitions/src/Shiny/page_navbar";
 
-import ShinyNavbarPage from "./ShinyNavbarPage";
+import TabPanel from "../../components/Tabs/TabPanel/TabPanel";
+import Tabset from "../../components/Tabs/Tabset/Tabset";
+import UiNode from "../../components/UiNode/UiNode";
+import { add_editor_info_to_ui_node } from "../add_editor_info_to_ui_node";
+import { makeChildPath, pathToString } from "../nodePathUtils";
+import { isValidTabPanel } from "../ShinyTabPanel/isValidTabPanel";
 
-export type NavbarPageSettings = {
-  title: string;
-  collapsible: boolean;
-  id?: string;
-  selected?: string;
-  theme?: unknown;
-};
+import classes from "./ShinyNavbarPage.module.css";
 
-export const shinyNavbarPageInfo = nodeInfoFactory<NavbarPageSettings>()({
-  id: "navbarPage",
-  r_info: {
-    fn_name: "navbarPage",
-    package: "shiny",
+export const shinyNavbarPageInfo = add_editor_info_to_ui_node(page_navbar, {
+  UiComponent: ({ namedArgs: { title }, children, path, wrapperProps }) => {
+    const numChildren = children?.length ?? 0;
+    const hasChildren = numChildren > 0;
+
+    return (
+      <Tabset
+        path={path}
+        title={title}
+        className={classes.container}
+        {...wrapperProps}
+      >
+        {children ? (
+          children.map((node, i) => {
+            const nodePath = makeChildPath(path, i);
+            const title = isValidTabPanel(node)
+              ? node.namedArgs.title
+              : "unknown tab";
+            return (
+              <TabPanel key={pathToString(nodePath)} title={title}>
+                <UiNode path={nodePath} node={node} />
+              </TabPanel>
+            );
+          })
+        ) : (
+          <EmptyNavbarPageMessage hasChildren={hasChildren} />
+        )}
+      </Tabset>
+    );
   },
-  py_info: {
-    fn_name: "ui.page_navbar",
-    package: "shiny",
-  },
-  title: "Navbar Page",
-  takesChildren: true,
-  UiComponent: ShinyNavbarPage,
-  settingsInfo: {
-    title: {
-      inputType: "string",
-      label: "Page title",
-      defaultValue: "navbar-page",
-    },
-    collapsible: {
-      label: "Collapse navigation on mobile",
-      inputType: "boolean",
-      defaultValue: false,
-    },
-    id: {
-      inputType: "string",
-      label: "Id for tabset",
-      defaultValue: "tabset-default-id",
-      optional: true,
-    },
-    selected: {
-      inputType: "dropdown",
-      optional: true,
-      label: "Selected tab on load",
-      defaultValue: (node) =>
-        node ? getFirstTabName(node as ShinyUiParentNode) : "First Tab",
-      choices: (node) =>
-        node ? getTabNames(node as ShinyUiParentNode) : ["First Tab"],
-    },
-    theme: { inputType: "omitted", optional: true },
-  },
-  // iconSrc: icon,
-  category: "layouts",
-  description: "Layout an app with tab-based navigation",
 });
+
+function EmptyNavbarPageMessage({ hasChildren }: { hasChildren: boolean }) {
+  return hasChildren ? null : (
+    <div className={classes.noTabsMessage}>
+      <span>Empty page. Drag elements or Tab Panel on to add content</span>
+    </div>
+  );
+}
