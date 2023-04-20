@@ -1,4 +1,4 @@
-import type { TractDirection } from "../../GridlayoutGridPage/TractDirection";
+import type { TractDirection } from "util-functions/src/matrix-helpers";
 
 import type { TractUpdateValues } from "./tractUpdatingFunctions";
 import { drag_pixel_after } from "./tractUpdatingFunctions";

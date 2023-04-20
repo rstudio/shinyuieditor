@@ -1,4 +1,6 @@
 import type { GridItemSettings } from "ui-node-definitions/src/gridlayout/grid_card";
+import { areasOfChildren } from "ui-node-definitions/src/gridlayout/gridTemplates/areasOfChildren";
+import { emptyCell } from "ui-node-definitions/src/gridlayout/gridTemplates/itemLocations";
 import type { GridContainerNode } from "ui-node-definitions/src/gridlayout/isValidGridItem";
 import { isValidGridContainer } from "ui-node-definitions/src/gridlayout/isValidGridItem";
 import type { NodePath } from "ui-node-definitions/src/NodePath";
@@ -11,9 +13,6 @@ import type { RemoveNodeArguments } from "ui-node-definitions/src/TreeManipulati
 import type { UpdateNodeArguments } from "ui-node-definitions/src/TreeManipulation/updateNode";
 import type { ShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
 
-import { emptyCell } from "../../../utils/gridTemplates/itemLocations";
-
-import { areasOfChildren } from "./areasOfChildren";
 import { gridLayoutReducer } from "./GridContainerElement/gridLayoutReducer";
 
 // This function watches for changes in a grid layout childs grid area and

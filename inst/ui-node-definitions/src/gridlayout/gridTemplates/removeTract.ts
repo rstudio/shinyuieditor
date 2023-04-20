@@ -1,13 +1,12 @@
 import { joinPretty, removeAtIndex } from "util-functions/src/arrays";
+import type { TractDirection } from "util-functions/src/matrix-helpers";
 import { removeRowOrCol } from "util-functions/src/matrix-helpers";
-
-import type { TractDirection } from "../../Shiny-Ui-Elements/Gridlayout/GridlayoutGridPage/TractDirection";
-import type { TemplatedGridProps } from "../../Shiny-Ui-Elements/Gridlayout/Utils/EditableGridContainer/TemplatedGridProps";
 
 import { itemBoundsInDir } from "./itemBoundsInDir";
 import { areasToItemLocations } from "./itemLocations";
+import type { TemplatedGridProps } from "./TemplatedGridProps";
 
-export default function removeTract(
+export function removeTract(
   template: TemplatedGridProps,
   tract: { index: number; dir: TractDirection },
   force: boolean = false

@@ -1,7 +1,7 @@
 import clone from "just-clone";
 import { addAtIndex, removeAtIndex } from "util-functions/src/arrays";
 
-type TractDirection = "rows" | "cols";
+export type TractDirection = "rows" | "cols";
 type Matrix<T> = T[][];
 
 type RowOrCol = { index: number; dir: TractDirection };

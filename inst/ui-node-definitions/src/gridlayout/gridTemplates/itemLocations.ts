@@ -1,8 +1,7 @@
 import { arrayRange } from "util-functions/src/arrays";
 import { matrixDimensions } from "util-functions/src/matrix-helpers";
 
-import type { TemplatedGridProps } from "../../Shiny-Ui-Elements/Gridlayout/Utils/EditableGridContainer/TemplatedGridProps";
-
+import type { TemplatedGridProps } from "./TemplatedGridProps";
 import type { ItemLocation } from "./types";
 export const emptyCell = ".";
 

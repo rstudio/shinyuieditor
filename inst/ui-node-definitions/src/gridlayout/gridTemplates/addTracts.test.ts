@@ -1,4 +1,4 @@
-import addTract from "./addTract";
+import { addTract } from "./addTract";
 import { fillInPartialTemplate } from "./utils";
 
 describe("Add empty tracts", () => {

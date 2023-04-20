@@ -1,4 +1,4 @@
-import type { TractDirection } from "../../Shiny-Ui-Elements/Gridlayout/GridlayoutGridPage/TractDirection";
+import type { TractDirection } from "util-functions/src/matrix-helpers";
 
 import type { ItemLocation } from "./types";
 

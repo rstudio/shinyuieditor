@@ -1,10 +1,9 @@
+import { emptyCell } from "ui-node-definitions/src/gridlayout/gridTemplates/itemLocations";
+import type { TemplatedGridProps } from "ui-node-definitions/src/gridlayout/gridTemplates/TemplatedGridProps";
 import { fillArr } from "util-functions/src/arrays";
 import { matrixDimensions } from "util-functions/src/matrix-helpers";
 
-import { emptyCell } from "../../../../utils/gridTemplates/itemLocations";
-import type { TemplatedGridProps } from "../EditableGridContainer/TemplatedGridProps";
-
-import type { GridLayoutArgsProperlyBoxed } from "./ensureProperBoxedGridLayoutArts";
+import type { GridLayoutArgsProperlyBoxed } from "../../../../editor/src/Shiny-Ui-Elements/Gridlayout/Utils/GridContainerElement/ensureProperBoxedGridLayoutArts";
 
 export function parseGridLayoutArgs({
   layout,

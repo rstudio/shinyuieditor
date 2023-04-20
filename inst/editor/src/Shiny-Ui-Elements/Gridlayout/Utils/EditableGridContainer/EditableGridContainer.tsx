@@ -1,21 +1,21 @@
 import * as React from "react";
 
 import produce from "immer";
-import { ensureArray } from "util-functions/src/arrays";
+import { addTract } from "ui-node-definitions/src/gridlayout/gridTemplates/addTract";
+import { removeTract } from "ui-node-definitions/src/gridlayout/gridTemplates/removeTract";
+import type { TemplatedGridProps } from "ui-node-definitions/src/gridlayout/gridTemplates/TemplatedGridProps";
+import { buildRange, ensureArray } from "util-functions/src/arrays";
+import type { TractDirection } from "util-functions/src/matrix-helpers";
 
 import type { CSSMeasure } from "../../../../components/Inputs/CSSUnitInput/CSSMeasure";
-import addTract from "../../../../utils/gridTemplates/addTract";
-import removeTract from "../../../../utils/gridTemplates/removeTract";
 import { mergeClasses } from "../../../../utils/mergeClasses";
-import type { TractDirection } from "../../GridlayoutGridPage/TractDirection";
 
 import classes from "./resizableGrid.module.css";
-import type { TemplatedGridProps } from "./TemplatedGridProps";
 import { TractInfoDisplays } from "./TractInfoDisplay";
 import { TractSizerHandle } from "./TractSizer";
 import type { TractInfo } from "./useDragToResizeGrid";
 import { useDragToResizeGrid } from "./useDragToResizeGrid";
-import { buildRange, getTractSizesInPx, layoutDefToStyles } from "./utils";
+import { getTractSizesInPx, layoutDefToStyles } from "./utils";
 
 export type TractUpdateAction = { dir: TractInfo["dir"]; index: number } & (
   | { type: "RESIZE"; size: CSSMeasure }

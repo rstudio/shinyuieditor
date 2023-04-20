@@ -1,4 +1,4 @@
-import addItem from "./addItem";
+import { addItem } from "./addItem";
 import { fillInPartialTemplate } from "./utils";
 
 describe("Add items", () => {

@@ -1,8 +1,7 @@
 import { matrixDimensions } from "util-functions/src/matrix-helpers";
 
-import type { TemplatedGridProps } from "../../Shiny-Ui-Elements/Gridlayout/Utils/EditableGridContainer/TemplatedGridProps";
-
 import { emptyCell } from "./itemLocations";
+import type { TemplatedGridProps } from "./TemplatedGridProps";
 import type { GridCellLocation } from "./types";
 
 type GridAreas = TemplatedGridProps["areas"];

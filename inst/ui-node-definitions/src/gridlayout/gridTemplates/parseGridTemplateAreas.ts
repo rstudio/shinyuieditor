@@ -1,12 +1,13 @@
 import { fillArr } from "util-functions/src/arrays";
+import type { TractDirection } from "util-functions/src/matrix-helpers";
 import {
   uniqueMatrixElements,
   matrixDimensions,
 } from "util-functions/src/matrix-helpers";
 
-import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
-import type { TractDirection } from "../../Shiny-Ui-Elements/Gridlayout/GridlayoutGridPage/TractDirection";
-import type { TemplatedGridProps } from "../../Shiny-Ui-Elements/Gridlayout/Utils/EditableGridContainer/TemplatedGridProps";
+import type { CSSMeasure } from "../../inputFieldTypes";
+
+import type { TemplatedGridProps } from "./TemplatedGridProps";
 
 type ParsedGridTemplate = {
   numRows: number;

@@ -1,20 +1,21 @@
 import React from "react";
 
-import { within } from "util-functions/src/within";
-
-import findAvailableTracts from "../../../utils/gridTemplates/findAvailableTracts";
+import type { DragHandle } from "ui-node-definitions/src/gridlayout/gridTemplates/findAvailableTracts";
+import findAvailableTracts from "ui-node-definitions/src/gridlayout/gridTemplates/findAvailableTracts";
+import {
+  gridLocationToExtent,
+  sameLocation,
+} from "ui-node-definitions/src/gridlayout/gridTemplates/helpers";
+import type { TemplatedGridProps } from "ui-node-definitions/src/gridlayout/gridTemplates/TemplatedGridProps";
 import type {
   GridItemExtent,
   ItemLocation,
-} from "../../../utils/gridTemplates/types";
-import type { TractDirection } from "../GridlayoutGridPage/TractDirection";
+} from "ui-node-definitions/src/gridlayout/gridTemplates/types";
+import type { TractDirection } from "util-functions/src/matrix-helpers";
+import { within } from "util-functions/src/within";
 
-import type { TemplatedGridProps } from "./EditableGridContainer/TemplatedGridProps";
 import type { TractExtents } from "./getTractExtents";
 import { getTractExtents } from "./getTractExtents";
-import { gridLocationToExtent, sameLocation } from "./helpers";
-
-export type DragHandle = "left" | "right" | "up" | "down";
 
 type ResizeDragState = {
   dragHandle: DragHandle;

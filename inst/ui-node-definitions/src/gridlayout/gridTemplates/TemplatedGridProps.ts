@@ -1,4 +1,4 @@
-import type { CSSMeasure } from "../../../../components/Inputs/CSSUnitInput/CSSMeasure";
+import type { CSSMeasure } from "../../inputFieldTypes";
 
 export type TemplatedGridProps = {
   areas: string[][];

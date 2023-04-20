@@ -1,11 +1,12 @@
 import React from "react";
 
+import type { TemplatedGridProps } from "ui-node-definitions/src/gridlayout/gridTemplates/TemplatedGridProps";
+import type { TractDirection } from "util-functions/src/matrix-helpers";
+
 import type { CSSMeasure } from "../../../../components/Inputs/CSSUnitInput/CSSMeasure";
 import { validateRef } from "../../../../utils/validateRef";
-import type { TractDirection } from "../../GridlayoutGridPage/TractDirection";
 
 import { initDragState, updateDragState } from "./dragToResizeHelpers";
-import type { TemplatedGridProps } from "./TemplatedGridProps";
 import { hideOrShowTractInfo } from "./TractInfoDisplay";
 import { getLayoutFromGridElement } from "./utils";
 

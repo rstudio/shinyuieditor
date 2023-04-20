@@ -1,5 +1,13 @@
 import React from "react";
 
+import { findEmptyCells } from "ui-node-definitions/src/gridlayout/gridTemplates/findItemLocation";
+import { areasToItemLocations } from "ui-node-definitions/src/gridlayout/gridTemplates/itemLocations";
+import {
+  convertTemplatedLayoutToGridlayoutArgs,
+  parseGridLayoutArgs,
+} from "ui-node-definitions/src/gridlayout/gridTemplates/layoutParsing";
+import type { TemplatedGridProps } from "ui-node-definitions/src/gridlayout/gridTemplates/TemplatedGridProps";
+import type { GridItemExtent } from "ui-node-definitions/src/gridlayout/gridTemplates/types";
 import { isValidGridItem } from "ui-node-definitions/src/gridlayout/isValidGridItem";
 import { makeChildPath } from "ui-node-definitions/src/nodePathUtils";
 
@@ -7,14 +15,10 @@ import UiNode from "../../../../components/UiNode/UiNode";
 import type { DraggedNodeInfo } from "../../../../DragAndDropHelpers/DragAndDropHelpers";
 import { DropWatcherPanel } from "../../../../DragAndDropHelpers/DropWatcherPanel";
 import { usePlaceNode } from "../../../../state/usePlaceNode";
-import { findEmptyCells } from "../../../../utils/gridTemplates/findItemLocation";
-import { areasToItemLocations } from "../../../../utils/gridTemplates/itemLocations";
-import type { GridItemExtent } from "../../../../utils/gridTemplates/types";
 import type { UiNodeComponent } from "../../../utils/add_editor_info_to_ui_node";
 import { makeGridFriendlyNode } from "../../GridlayoutCard/makeGridFriendlyNode";
 import { AreaOverlay } from "../AreaOverlay";
 import EditableGridContainer from "../EditableGridContainer/EditableGridContainer";
-import type { TemplatedGridProps } from "../EditableGridContainer/TemplatedGridProps";
 import { NameNewPanelModal } from "../NameNewPanelModal";
 import { LayoutDispatchContext } from "../useSetLayout";
 import { useUpdateNamedArgs } from "../useUpdateUiArguments";
@@ -23,10 +27,6 @@ import { ensureProperBoxedGridLayoutArgs } from "./ensureProperBoxedGridLayoutAr
 import type { GridLayoutArgs } from "./GridLayoutArgs";
 import type { GridLayoutAction } from "./gridLayoutReducer";
 import { gridLayoutReducer } from "./gridLayoutReducer";
-import {
-  convertTemplatedLayoutToGridlayoutArgs,
-  parseGridLayoutArgs,
-} from "./layoutParsing";
 import classes from "./styles.module.css";
 
 export type NewItemInfo = DraggedNodeInfo & {

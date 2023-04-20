@@ -1,7 +1,4 @@
-import {
-  makeColumnAlignedTable,
-  parseGridLayoutArgs,
-} from "./GridContainerElement/layoutParsing";
+import { makeColumnAlignedTable, parseGridLayoutArgs } from "./layoutParsing";
 
 describe("Can parse meaningful info out of a layout argument", () => {
   const simpleLayout = parseGridLayoutArgs({

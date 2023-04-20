@@ -2,7 +2,7 @@ import { nodeInfoFactory } from "../nodeInfoFactory";
 
 import type { GridLayoutArgs } from "./GridLayoutArgs";
 
-export type TractDirection = "rows" | "cols";
+// export type TractDirection = "rows" | "cols";
 
 export const grid_page = nodeInfoFactory<
   GridLayoutArgs & { theme?: unknown }

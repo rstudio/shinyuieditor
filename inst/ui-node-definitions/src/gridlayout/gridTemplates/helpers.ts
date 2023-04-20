@@ -1,7 +1,4 @@
-import type {
-  ItemLocation,
-  GridItemExtent,
-} from "../../../utils/gridTemplates/types";
+import type { ItemLocation, GridItemExtent } from "./types";
 
 export function gridLocationToExtent({
   rowStart,

@@ -1,14 +1,14 @@
 import produce from "immer";
 import { fillArr, addAtIndex } from "util-functions/src/arrays";
+import type { TractDirection } from "util-functions/src/matrix-helpers";
 import { insertRowOrCol } from "util-functions/src/matrix-helpers";
 
-import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
-import type { TractDirection } from "../../Shiny-Ui-Elements/Gridlayout/GridlayoutGridPage/TractDirection";
-import type { TemplatedGridProps } from "../../Shiny-Ui-Elements/Gridlayout/Utils/EditableGridContainer/TemplatedGridProps";
+import type { CSSMeasure } from "../../inputFieldTypes";
 
 import { itemBoundsInDir } from "./itemBoundsInDir";
 import { areasToItemLocations, emptyCell } from "./itemLocations";
 import { getTractSizes } from "./parseGridTemplateAreas";
+import type { TemplatedGridProps } from "./TemplatedGridProps";
 
 type NewTract = {
   afterIndex: number;
@@ -16,7 +16,7 @@ type NewTract = {
   dir: TractDirection;
 };
 
-export default function addTract(
+export function addTract(
   originalTemplate: TemplatedGridProps,
   { afterIndex, size, dir }: NewTract
 ): TemplatedGridProps {

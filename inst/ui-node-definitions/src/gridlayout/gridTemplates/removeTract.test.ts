@@ -1,4 +1,4 @@
-import removeTract from "./removeTract";
+import { removeTract } from "./removeTract";
 
 describe("Remove empty tracts", () => {
   test("Remove column without fully contained items", () => {

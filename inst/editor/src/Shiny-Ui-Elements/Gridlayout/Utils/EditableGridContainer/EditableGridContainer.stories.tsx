@@ -1,8 +1,8 @@
 import React from "react";
 
-import EditableGridContainer from "./EditableGridContainer";
-import type { TemplatedGridProps } from "./TemplatedGridProps";
+import type { TemplatedGridProps } from "ui-node-definitions/src/gridlayout/gridTemplates/TemplatedGridProps";
 
+import EditableGridContainer from "./EditableGridContainer";
 
 export const EditableGridContainerShowcase = (opts: {
   layout: TemplatedGridProps;

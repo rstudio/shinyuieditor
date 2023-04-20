@@ -1,8 +1,8 @@
 import produce from "immer";
 
-import type { TemplatedGridProps } from "../../Shiny-Ui-Elements/Gridlayout/Utils/EditableGridContainer/TemplatedGridProps";
+import type { TemplatedGridProps } from "./TemplatedGridProps";
 
-function swapItems(
+export function swapItems(
   originalTemplate: TemplatedGridProps,
   { item_a, item_b }: { item_a: string; item_b: string }
 ): TemplatedGridProps {
@@ -40,7 +40,6 @@ function swapItems(
     }
   });
 }
-export default swapItems;
 
 function getLayoutDimensions(areas: TemplatedGridProps["areas"]): {
   n_rows: number;

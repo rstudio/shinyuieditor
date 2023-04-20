@@ -1,11 +1,10 @@
 import clone from "just-clone";
 
-import type { TemplatedGridProps } from "../../Shiny-Ui-Elements/Gridlayout/Utils/EditableGridContainer/TemplatedGridProps";
-
 import { emptyCell } from "./itemLocations";
+import type { TemplatedGridProps } from "./TemplatedGridProps";
 import type { GridItemExtent, ItemLocation } from "./types";
 
-export default function addItem(
+export function addItem(
   template: TemplatedGridProps,
   { name, ...item }: { name: string } & (ItemLocation | GridItemExtent)
 ): TemplatedGridProps {

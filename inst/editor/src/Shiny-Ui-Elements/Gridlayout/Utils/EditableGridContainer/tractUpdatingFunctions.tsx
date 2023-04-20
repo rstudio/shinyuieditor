@@ -1,3 +1,5 @@
+import { cleanNumber } from "util-functions/src/numbers";
+
 import type {
   DragBothPixel,
   DragBothRelative,
@@ -5,7 +7,6 @@ import type {
   DragPixelBefore,
   DragState,
 } from "./dragToResizeHelpers";
-import { cleanNumber } from "./utils";
 
 export type TractUpdateValues =
   | { beforeSize?: string; afterSize?: string }

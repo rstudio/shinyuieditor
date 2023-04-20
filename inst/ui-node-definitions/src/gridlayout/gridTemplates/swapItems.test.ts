@@ -1,6 +1,5 @@
-import type { TemplatedGridProps } from "../../Shiny-Ui-Elements/Gridlayout/Utils/EditableGridContainer/TemplatedGridProps";
-
-import swapItems from "./swapItems";
+import { swapItems } from "./swapItems";
+import type { TemplatedGridProps } from "./TemplatedGridProps";
 
 describe("Swap items", () => {
   const baseLayout: TemplatedGridProps = {

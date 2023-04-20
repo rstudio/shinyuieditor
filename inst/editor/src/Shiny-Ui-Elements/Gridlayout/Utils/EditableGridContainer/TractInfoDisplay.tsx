@@ -1,21 +1,21 @@
 import * as React from "react";
 
 import { FaPlus } from "react-icons/fa";
+import { conflictsToRemoveTract } from "ui-node-definitions/src/gridlayout/gridTemplates/removeTract";
+import type { TemplatedGridProps } from "ui-node-definitions/src/gridlayout/gridTemplates/TemplatedGridProps";
+import { cleanNumber } from "util-functions/src/numbers";
 
 import { Trash } from "../../../../components/Icons";
 import { parseCSSMeasure } from "../../../../components/Inputs/CSSUnitInput/CSSMeasure";
 import { CSSUnitChooser } from "../../../../components/Inputs/CSSUnitInput/CSSUnitChooser";
 import { NumberInputSimple } from "../../../../components/Inputs/NumberInput/NumberInput";
 import { TooltipButton } from "../../../../components/PopoverEl/Tooltip";
-import { conflictsToRemoveTract } from "../../../../utils/gridTemplates/removeTract";
 
 import { getUnitInfo } from "./dragToResizeHelpers";
 import type { TractUpdateAction } from "./EditableGridContainer";
-import type { TemplatedGridProps } from "./TemplatedGridProps";
 import classes from "./TractInfoDisplay.module.css";
 import { roundFr, roundPixel } from "./tractUpdatingFunctions";
 import type { TractInfo } from "./useDragToResizeGrid";
-import { cleanNumber } from "./utils";
 
 type TractUnit = "fr" | "px";
 const ALLOWED_UNITS: TractUnit[] = ["fr", "px"];

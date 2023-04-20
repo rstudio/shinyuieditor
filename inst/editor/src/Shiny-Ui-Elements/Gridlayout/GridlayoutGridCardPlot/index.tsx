@@ -2,9 +2,9 @@ import { grid_card_plot } from "ui-node-definitions/src/gridlayout/Grid_Card_Plo
 
 import icon from "../../../assets/icons/shinyPlot.png";
 import { mergeClasses } from "../../../utils/mergeClasses";
+import { PlotPlaceholder } from "../../ShinyPlotOutput/PlotPlaceholder";
 import type { UiComponent_from_info } from "../../utils/add_editor_info_to_ui_node";
 import { add_editor_info_to_ui_node } from "../../utils/add_editor_info_to_ui_node";
-import { PlotPlaceholder } from "../../ShinyPlotOutput/PlotPlaceholder";
 import { BsCard } from "../Utils/GridLayoutPanelHelpers/GridCards";
 import { useGridItemSwapping } from "../Utils/useGridItemSwapping";
 

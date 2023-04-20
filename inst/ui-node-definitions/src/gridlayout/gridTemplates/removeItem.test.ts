@@ -1,6 +1,5 @@
-import type { TemplatedGridProps } from "../../Shiny-Ui-Elements/Gridlayout/Utils/EditableGridContainer/TemplatedGridProps";
-
 import { removeItems, removeItem } from "./removeItem";
+import type { TemplatedGridProps } from "./TemplatedGridProps";
 
 describe("Remove single item", () => {
   const baseLayout: TemplatedGridProps = {

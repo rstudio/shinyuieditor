@@ -6,8 +6,8 @@ import type { NodePath } from "ui-node-definitions/src/NodePath";
 import type { ShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
 import { isParentNode } from "ui-node-definitions/src/uiNodeTypes";
 
-import type { UiNodeComponent } from "../../Shiny-Ui-Elements/utils/add_editor_info_to_ui_node";
 import { getUiNodeComponent } from "../../Shiny-Ui-Elements/registered_ui_nodes";
+import type { UiNodeComponent } from "../../Shiny-Ui-Elements/utils/add_editor_info_to_ui_node";
 
 import { UiNodeErrorView } from "./UiNodeErrorView";
 import { useMakeWrapperProps } from "./useMakeWrapperProps";

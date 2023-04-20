@@ -1,17 +1,17 @@
 import React from "react";
 
 import { FaGripLines, FaGripLinesVertical } from "react-icons/fa";
-
-import type { ResizeDirection } from "../../../utils/gridTemplates/availableMoves";
-import { availableMoves } from "../../../utils/gridTemplates/availableMoves";
+import type { ResizeDirection } from "ui-node-definitions/src/gridlayout/gridTemplates/availableMoves";
+import { availableMoves } from "ui-node-definitions/src/gridlayout/gridTemplates/availableMoves";
+import type { TemplatedGridProps } from "ui-node-definitions/src/gridlayout/gridTemplates/TemplatedGridProps";
 import type {
-  GridItemExtent,
   ItemLocation,
-} from "../../../utils/gridTemplates/types";
+  GridItemExtent,
+} from "ui-node-definitions/src/gridlayout/gridTemplates/types";
+
 import { mergeClasses } from "../../../utils/mergeClasses";
 
 import classes from "./AreaOverlay.module.css";
-import type { TemplatedGridProps } from "./EditableGridContainer/TemplatedGridProps";
 import { useResizeOnDrag } from "./useResizeOnDrag";
 
 export function AreaOverlay({

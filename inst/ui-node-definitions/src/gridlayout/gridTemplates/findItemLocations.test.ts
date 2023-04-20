@@ -1,6 +1,5 @@
-import type { TemplatedGridProps } from "../../Shiny-Ui-Elements/Gridlayout/Utils/EditableGridContainer/TemplatedGridProps";
-
 import { findItemLocations, findEmptyCells } from "./findItemLocation";
+import type { TemplatedGridProps } from "./TemplatedGridProps";
 
 describe("Finds single item locations", () => {
   const areas: TemplatedGridProps["areas"] = [

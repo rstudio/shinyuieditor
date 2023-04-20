@@ -1,11 +1,11 @@
 import { buildRange } from "util-functions/src/arrays";
 
-import type { TemplatedGridProps } from "../../Shiny-Ui-Elements/Gridlayout/Utils/EditableGridContainer/TemplatedGridProps";
-import { gridLocationToExtent } from "../../Shiny-Ui-Elements/Gridlayout/Utils/helpers";
-import type { DragHandle } from "../../Shiny-Ui-Elements/Gridlayout/Utils/useResizeOnDrag";
-
+import { gridLocationToExtent } from "./helpers";
 import { emptyCell } from "./itemLocations";
+import type { TemplatedGridProps } from "./TemplatedGridProps";
 import type { ItemLocation } from "./types";
+
+export type DragHandle = "left" | "right" | "up" | "down";
 
 export default function findAvailableTracts({
   dragDirection,

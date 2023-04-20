@@ -1,8 +1,7 @@
 import { buildRange } from "util-functions/src/arrays";
 
-import type { TemplatedGridProps } from "../../Shiny-Ui-Elements/Gridlayout/Utils/EditableGridContainer/TemplatedGridProps";
-
 import { emptyCell } from "./itemLocations";
+import type { TemplatedGridProps } from "./TemplatedGridProps";
 import type { ItemLocation } from "./types";
 
 export type ResizeDirection = "up" | "down" | "left" | "right";
