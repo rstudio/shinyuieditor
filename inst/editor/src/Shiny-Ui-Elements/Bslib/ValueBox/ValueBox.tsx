@@ -1,4 +1,4 @@
-import { value_box } from "ui-node-definitions/src/Bslib/ValueBox";
+import { value_box } from "ui-node-definitions/src/Bslib/value_box";
 
 import icon from "../../../assets/icons/shinyValueBox.png";
 import { PopoverButton } from "../../../components/Inputs/PopoverButton";
@@ -6,8 +6,8 @@ import { RadioInputs } from "../../../components/Inputs/RadioInputs/RadioInputsS
 import { InputLabelWrapper } from "../../../components/Inputs/SettingsFormBuilder/SettingsInput/SettingsInput";
 import { DropWatcherPanel } from "../../../DragAndDropHelpers/DropWatcherPanel";
 import { mergeClasses } from "../../../utils/mergeClasses";
-import type { UiComponent_from_info } from "../../add_editor_info_to_ui_node";
-import { add_editor_info_to_ui_node } from "../../add_editor_info_to_ui_node";
+import type { UiComponent_from_info } from "../../utils/add_editor_info_to_ui_node";
+import { add_editor_info_to_ui_node } from "../../utils/add_editor_info_to_ui_node";
 import { CardChildrenWithDropNodes } from "../Utils/ChildrenWithDropNodes";
 
 import { BsIcon } from "./BsIcon";

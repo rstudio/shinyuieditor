@@ -6,6 +6,7 @@ import type {
   Raw_App_Info,
 } from "communication-types/src/AppInfo";
 import { useSelector } from "react-redux";
+import type { ShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
 
 import { ensure_full_app_info } from "../ast_parsing/ensure_full_app_info";
 import type { TemplateChooserOptions } from "../components/TemplatePreviews/TemplateChooserView";
@@ -15,7 +16,6 @@ import type { RemoveNodeArguments } from "../components/UiNode/TreeManipulation/
 import { removeNodeMutating } from "../components/UiNode/TreeManipulation/removeNode";
 import type { UpdateNodeArguments } from "../components/UiNode/TreeManipulation/updateNode";
 import { updateNodeMutating } from "../components/UiNode/TreeManipulation/updateNode";
-import type { ShinyUiNode } from "../Shiny-Ui-Elements/uiNodeTypes";
 
 import {
   get_deletion_subscriptions,

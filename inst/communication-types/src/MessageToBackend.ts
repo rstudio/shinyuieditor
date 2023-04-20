@@ -1,5 +1,5 @@
-import type { ShinyUiNode } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
 import type { Script_Position } from "r-ast-parsing";
+import type { ShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
 
 import type {
   App_Type,

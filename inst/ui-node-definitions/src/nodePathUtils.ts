@@ -1,4 +1,4 @@
-import type { NodePath, PathElement } from "./uiNodeTypes";
+import type { NodePath, PathElement } from "./NodePath";
 
 export function makeChildPath(
   path: NodePath,

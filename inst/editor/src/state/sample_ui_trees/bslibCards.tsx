@@ -1,6 +1,6 @@
-import type { KnownShinyUiNode } from "../../Shiny-Ui-Elements/uiNodeTypes";
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
+import type { KnownShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
 
 export const bslibCards = {
   id: "grid_page",
@@ -19,19 +19,22 @@ export const bslibCards = {
           id: "card_body_fill",
           namedArgs: {},
           children: [
-
             {
               id: "value_box",
-              namedArgs: { title: "Value Box", showcase_icon: "github", value:{
-                id:"textNode",
-                namedArgs: {
-                  contents: "Lorem Ipsum",
-                }
-              } },
+              namedArgs: {
+                title: "Value Box",
+                showcase_icon: "github",
+                value: {
+                  id: "textNode",
+                  namedArgs: {
+                    contents: "Lorem Ipsum",
+                  },
+                },
+              },
               children: [],
             },
           ],
-        }
+        },
       ],
     },
     {

@@ -1,7 +1,7 @@
 import { grid_container } from "ui-node-definitions/src/gridlayout/grid_container";
 
 import icon from "../../../assets/icons/shinyGridContainer.png";
-import { add_editor_info_to_ui_node } from "../../add_editor_info_to_ui_node";
+import { add_editor_info_to_ui_node } from "../../utils/add_editor_info_to_ui_node";
 import { GridContainerElement } from "../Utils/GridContainerElement/GridContainerElement";
 import type { GridLayoutArgs } from "../Utils/GridContainerElement/GridLayoutArgs";
 import {

@@ -1,50 +1,36 @@
+import { output_plotly } from "ui-node-definitions/src/plotly/output_plotly";
+
 import icon from "../../assets/icons/shinyPlot.png";
-import type { CSSMeasure } from "../../components/Inputs/CSSUnitInput/CSSMeasure";
-import { nodeInfoFactory } from "../nodeInfoFactory";
+import { PlotPlaceholder } from "../../components/PlotPlaceholder/PlotPlaceholder";
+import { add_editor_info_to_ui_node } from "../utils/add_editor_info_to_ui_node";
+import { InputOutputTitle } from "../utils/InputOutputTitle";
 
-import PlotlyPlotlyOutput from "./PlotlyPlotlyOutput";
+import "./styles.scss";
 
-export type PlotlyOutputSettings = {
-  outputId: string;
-  width?: CSSMeasure;
-  height?: CSSMeasure;
-};
-
-export const plotlyPlotlyOutputInfo = nodeInfoFactory<PlotlyOutputSettings>()({
-  id: "plotlyOutput",
-  r_info: {
-    fn_name: "plotlyOutput",
-    package: "plotly",
-  },
-  title: "Plotly Plot",
-  takesChildren: false,
-  UiComponent: PlotlyPlotlyOutput,
-  settingsInfo: {
-    outputId: {
-      inputType: "string",
-      label: "Output ID for plot",
-      defaultValue: "plot",
+export const plotlyPlotlyOutputInfo = add_editor_info_to_ui_node(
+  output_plotly,
+  {
+    iconSrc: icon,
+    UiComponent: ({
+      namedArgs: { outputId, width = "100%", height = "400px" },
+      wrapperProps,
+    }) => {
+      return (
+        <div
+          className="plotlyPlotlyOutput"
+          style={{ height, width }}
+          {...wrapperProps}
+        >
+          <PlotPlaceholder
+            title={
+              <span className="title-bar">
+                <InputOutputTitle type="output" name={outputId} />
+                <span className="plotly-name">Plotly</span>
+              </span>
+            }
+          />
+        </div>
+      );
     },
-    width: {
-      label: "Width",
-      inputType: "cssMeasure",
-      defaultValue: "100%",
-      optional: true,
-    },
-    height: {
-      label: "Height",
-      inputType: "cssMeasure",
-      defaultValue: "400px",
-      optional: true,
-    },
-  },
-  serverBindings: {
-    outputs: {
-      outputIdKey: "outputId",
-      renderScaffold: `renderPlotly({\n  plot_ly(z = ~volcano, type = "surface")\n})`,
-    },
-  },
-  iconSrc: icon,
-  category: "Plotting",
-  description: "Output for interactive `plotly` plots.",
-});
+  }
+);

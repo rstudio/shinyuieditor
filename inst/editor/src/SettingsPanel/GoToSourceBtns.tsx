@@ -1,13 +1,13 @@
 import type { MessageToBackend } from "communication-types/src/MessageToBackend";
+import type {
+  ServerBindings,
+  ShinyUiNode,
+} from "ui-node-definitions/src/uiNodeTypes";
+import { getUiNodeInfo } from "ui-node-definitions/src/uiNodeTypes";
 import type { PickKeyFn } from "util-functions/src/TypescriptUtils";
 
 import { useBackendConnection } from "../backendCommunication/useBackendMessageCallbacks";
 import { TooltipButton } from "../components/PopoverEl/Tooltip";
-import type {
-  ServerBindings,
-  ShinyUiNode,
-} from "../Shiny-Ui-Elements/uiNodeTypes";
-import { getUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
 import { useCurrentAppInfo } from "../state/app_info";
 
 export function GoToSourceBtns({ node }: { node: ShinyUiNode | null }) {

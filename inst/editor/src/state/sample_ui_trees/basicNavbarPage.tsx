@@ -1,51 +1,51 @@
-import type { KnownShinyUiNode } from "../../Shiny-Ui-Elements/uiNodeTypes";
-
 /**
  * Basic navbar page with tabs
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
+import type { KnownShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
+
 export const basicNavbarPage = {
-  id: 'navbarPage',
+  id: "navbarPage",
   namedArgs: {
-    title: 'My Navbar Page',
-    collapsible: false
+    title: "My Navbar Page",
+    collapsible: false,
   },
   children: [
     {
-      id: 'tabPanel',
+      id: "tabPanel",
       namedArgs: {
-        title: 'Settings'
+        title: "Settings",
       },
       children: [
         {
-          id: 'sliderInput',
+          id: "sliderInput",
           namedArgs: {
-            inputId: 'inputId',
-            label: 'Slider Input',
+            inputId: "inputId",
+            label: "Slider Input",
             min: 0,
             max: 10,
             value: 5,
-            width: '100%'
-          }
-        }
-      ]
+            width: "100%",
+          },
+        },
+      ],
     },
     {
-      id: 'tabPanel',
+      id: "tabPanel",
       namedArgs: {
-        title: 'Plot 1'
+        title: "Plot 1",
       },
       children: [
         {
-          id: 'plotOutput',
+          id: "plotOutput",
           namedArgs: {
-            outputId: 'MyPlot',
-            width: '100%',
-            height: '100%'
-          }
-        }
-      ]
-    }
-  ]
+            outputId: "MyPlot",
+            width: "100%",
+            height: "100%",
+          },
+        },
+      ],
+    },
+  ],
 } satisfies KnownShinyUiNode;

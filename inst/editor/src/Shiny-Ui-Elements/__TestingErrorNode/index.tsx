@@ -2,7 +2,7 @@ import { useErrorBoundary } from "react-error-boundary";
 import { testing_error_node } from "ui-node-definitions/src/internal/testing_error_node";
 
 import Button from "../../components/Inputs/Button/Button";
-import { add_editor_info_to_ui_node } from "../add_editor_info_to_ui_node";
+import { add_editor_info_to_ui_node } from "../utils/add_editor_info_to_ui_node";
 
 import styles from "./styles.module.css";
 

@@ -1,7 +1,7 @@
+import type { UnknownUiNode } from "ui-node-definitions/src/internal/unknown_code";
+import { isKnownShinyUiNode } from "ui-node-definitions/src/isShinyUiNode";
 import { inANotInB } from "util-functions/src/arrays";
 
-import { isKnownShinyUiNode } from "../../../Shiny-Ui-Elements/isShinyUiNode";
-import type { UnknownUiNode } from "../../../Shiny-Ui-Elements/UnknownUiFunction";
 import { Trash } from "../../Icons";
 import { SimpleTooltip, TooltipButton } from "../../PopoverEl/Tooltip";
 

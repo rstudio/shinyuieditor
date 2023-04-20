@@ -6,7 +6,7 @@ import { TooltipButton } from "../../components/PopoverEl/Tooltip";
 import { Portal } from "../../components/PortalModal/Portal";
 import { sizes_inline_styles } from "../../EditorContainer/App_Layout_Sizes";
 import { mergeClasses } from "../../utils/mergeClasses";
-import type { args_from_info } from "../add_editor_info_to_ui_node";
+import type { args_from_info } from "../utils/add_editor_info_to_ui_node";
 
 import styles from "./BslibCard.module.css";
 

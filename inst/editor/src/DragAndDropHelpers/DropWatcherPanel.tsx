@@ -1,5 +1,14 @@
 import React from "react";
 
+import type { PathElement, NodePath } from "ui-node-definitions/src/NodePath";
+import { makeChildPath } from "ui-node-definitions/src/nodePathUtils";
+import type {
+  ShinyUiNode,
+  ShinyUiNodeIds,
+} from "ui-node-definitions/src/uiNodeTypes";
+import { getUiNodeTitle } from "ui-node-definitions/src/uiNodeTypes";
+import { getUiNodeInfo } from "ui-node-definitions/src/uiNodeTypes";
+
 import Button from "../components/Inputs/Button/Button";
 import {
   Tooltip,
@@ -9,15 +18,6 @@ import {
 import { getIsValidMove } from "../components/UiNode/TreeManipulation/getIsValidMove";
 import type { Wrapping_Node } from "../components/UiNode/TreeManipulation/wrapInNode";
 import UiNode from "../components/UiNode/UiNode";
-import { makeChildPath } from "../Shiny-Ui-Elements/nodePathUtils";
-import type {
-  NodePath,
-  PathElement,
-  ShinyUiNode,
-  ShinyUiNodeIds,
-} from "../Shiny-Ui-Elements/uiNodeTypes";
-import { getUiNodeTitle } from "../Shiny-Ui-Elements/uiNodeTypes";
-import { getUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
 import { usePlaceNode } from "../state/usePlaceNode";
 import { mergeClasses } from "../utils/mergeClasses";
 

@@ -4,9 +4,8 @@
  * @param bPath Path to node B
  */
 
+import type { NodePath } from "ui-node-definitions/src/NodePath";
 import { sameArray } from "util-functions/src/equalityCheckers";
-
-import type { NodePath } from "../../../Shiny-Ui-Elements/uiNodeTypes";
 
 export function pathsSameAtDepth(
   aPath: NodePath,

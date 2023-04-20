@@ -1,6 +1,5 @@
 import type { Branch_Node, Function_Node } from "r-ast-parsing";
-
-import type { KnownShinyUiNode } from "../Shiny-Ui-Elements/uiNodeTypes";
+import type { KnownShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
 
 import { ast_to_ui_node } from "./ast_to_shiny_ui_node";
 

@@ -1,17 +1,15 @@
-import type {
-  namedArgsObject,
-  ShinyUiNode,
-} from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
-import {
-  getUiNodeInfo,
-  rFnNameToNodeId,
-} from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
 import type { Branch_Node, R_AST_Node } from "r-ast-parsing";
 import {
   is_function_node,
   is_primative_node,
   IsNodeOfType,
 } from "r-ast-parsing/src/node_identity_checkers";
+import type {
+  ShinyUiNode,
+  namedArgsObject,
+} from "ui-node-definitions/src/uiNodeTypes";
+import { rFnNameToNodeId } from "ui-node-definitions/src/uiNodeTypes";
+import { getUiNodeInfo } from "ui-node-definitions/src/uiNodeTypes";
 import { identify_fn } from "util-functions/src/TypescriptUtils";
 
 import type { StaticInputOptions } from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";

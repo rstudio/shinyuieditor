@@ -8,7 +8,7 @@ import type {
 import type { DynamicArgumentInfo } from "./buildStaticSettingsInfo";
 import { get_ordered_positional_args } from "./get_ordered_positional_args";
 import type { ArgsToDynamicInfo } from "./inputFieldTypes";
-import type { shinyActionButtonInfo } from "./Shiny/ActionButton";
+import type { input_action_button } from "./Shiny/input_action_button";
 import type {
   namedArgsObject,
   ServerBindings,
@@ -108,46 +108,14 @@ export type Lang_Info<
 // Sanity tests for types
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 type testing = [
-  Expect<Equal<(typeof shinyActionButtonInfo)["id"], "actionButton">>,
+  Expect<Equal<(typeof input_action_button)["id"], "actionButton">>,
   Expect<
-    Equal<(typeof shinyActionButtonInfo)["r_info"]["fn_name"], "actionButton">
+    Equal<(typeof input_action_button)["r_info"]["fn_name"], "actionButton">
   >,
-  Expect<Equal<(typeof shinyActionButtonInfo)["category"], "Inputs">>,
-  Expect<Equal<(typeof shinyActionButtonInfo)["r_info"]["package"], "shiny">>
+  Expect<Equal<(typeof input_action_button)["category"], "Inputs">>,
+  Expect<Equal<(typeof input_action_button)["r_info"]["package"], "shiny">>
 ];
 
-/**
- * Path to a given node. Starts at [0] for the root. The first child for
- * instance would be then [0,1]
- */
-type PathElement = number | string;
-type NodePath = PathElement[];
-/**
- * Arguments to remove node from the Shiny Ui Node tree
- */
-type UpdateAction = (
-  tree: ShinyUiNode,
-  payload: {
-    /**
-     * The full current path of the node, if it is being moved and added
-     */
-    path: NodePath;
-    /**
-     * New node values to be added. This node will be merged with the old node so
-     * things like children wont get removed if you just change a setting
-     */
-    node: Partial<ShinyUiNode>;
-  }
-) => void;
-type DeleteAction = (
-  tree: ShinyUiNode,
-  payload: {
-    /**
-     * The full current path of the node, if it is being moved and added
-     */
-    path: NodePath;
-  }
-) => void;
 /**
  * Fields in info that we compute from passed static info.
  */

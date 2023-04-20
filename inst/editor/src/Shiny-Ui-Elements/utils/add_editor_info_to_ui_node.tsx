@@ -1,7 +1,9 @@
-import type { CustomFormRenderFn } from "../components/Inputs/SettingsFormBuilder/FormBuilder";
-import type { UpdateAction, DeleteAction } from "../state/app_info";
+import type { NodePath } from "ui-node-definitions/src/NodePath";
+import type { ShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
 
-import type { UiNodeComponent } from "./uiNodeTypes";
+import type { CustomFormRenderFn } from "../../components/Inputs/SettingsFormBuilder/FormBuilder";
+import type { useMakeWrapperProps } from "../../components/UiNode/useMakeWrapperProps";
+import type { UpdateAction, DeleteAction } from "../../state/app_info";
 
 export function add_editor_info_to_ui_node<
   Info extends { example_args?: unknown; takesChildren: boolean }
@@ -37,8 +39,21 @@ export type args_from_info<Info extends { example_args?: unknown }> =
     ? Args
     : never;
 
-type takes_child_from_info<Info extends { takesChildren: boolean }> =
-  Info extends { takesChildren: infer T } ? T : never;
+/**
+ * Type of component defining the app view of a given ui node
+ */
+export type UiNodeComponent<
+  NodeSettings extends object,
+  Opts extends { TakesChildren: boolean }
+> = (
+  props: {
+    namedArgs: NodeSettings;
+    path: NodePath;
+    wrapperProps: ReturnType<typeof useMakeWrapperProps>;
+  } & (Opts["TakesChildren"] extends true
+    ? { children: Array<ShinyUiNode> }
+    : {})
+) => JSX.Element;
 
 export type UiComponent_from_info<
   Info extends { example_args?: unknown; takesChildren: boolean }

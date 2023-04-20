@@ -5,11 +5,30 @@ import { card_body_fill } from "./Bslib/card_body_fill";
 import { card_footer } from "./Bslib/card_footer";
 import { card_header } from "./Bslib/card_header";
 import { value_box } from "./Bslib/value_box";
+import { output_dt } from "./DT/output_dt";
 import { grid_card } from "./gridlayout/grid_card";
 import { grid_card_plot } from "./gridlayout/grid_card_plot";
 import { grid_card_text } from "./gridlayout/grid_card_text";
 import { grid_container } from "./gridlayout/grid_container";
-import { shinyActionButtonInfo } from "./Shiny/ActionButton";
+import { grid_page } from "./gridlayout/grid_page";
+import { testing_error_node } from "./internal/testing_error_node";
+import { text_node } from "./internal/text_node";
+import { unknown_code } from "./internal/unknown_code";
+import { output_plotly } from "./plotly/output_plotly";
+import { input_action_button } from "./Shiny/input_action_button";
+import { input_checkbox } from "./Shiny/input_checkbox";
+import { input_checkbox_group } from "./Shiny/input_checkbox_group";
+import { input_numeric } from "./Shiny/input_numeric";
+import { input_radio_buttons } from "./Shiny/input_radio_buttons";
+import { input_select } from "./Shiny/input_select";
+import { input_slider } from "./Shiny/input_slider";
+import { input_text } from "./Shiny/input_text";
+import { output_plot } from "./Shiny/output_plot";
+import { output_text } from "./Shiny/output_text";
+import { output_ui } from "./Shiny/output_ui";
+import { page_navbar } from "./Shiny/page_navbar";
+import { tab_panel } from "./Shiny/tab_panel";
+import { tabset_panel } from "./Shiny/tabset_panel";
 
 export type namedArgsObject = Record<string, unknown | undefined>;
 
@@ -34,27 +53,46 @@ export type ServerBindings<
  * node info object is created and added here the ui-node will be usable within
  * the editor
  */
-export const shinyUiNodeInfoArray = [
-  shinyActionButtonInfo,
+export const all_node_info = [
+  page_navbar,
+  tab_panel,
+  tabset_panel,
+  grid_container,
   grid_card,
   grid_card_plot,
   grid_card_text,
   grid_container,
+  grid_page,
   bslib_card,
   value_box,
   card_body_fill,
   card_footer,
   card_header,
+  output_dt,
+  text_node,
+  output_dt,
+  output_plot,
+  output_plotly,
+  output_text,
+  output_ui,
+  input_action_button,
+  input_checkbox,
+  input_checkbox_group,
+  input_numeric,
+  input_radio_buttons,
+  input_select,
+  input_slider,
+  input_text,
+  testing_error_node,
+  unknown_code,
 ] as const;
 
 const shinyUiNodeInfo = new Map<string, ShinyUiNodeInfo>(
-  shinyUiNodeInfoArray.map((info) => [info.id, info])
+  all_node_info.map((info) => [info.id, info])
 );
 
 const containerNodes = new Set<string>(
-  shinyUiNodeInfoArray
-    .filter((info) => info.takesChildren)
-    .map((info) => info.id)
+  all_node_info.filter((info) => info.takesChildren).map((info) => info.id)
 );
 
 /**
@@ -80,7 +118,7 @@ export function getUiNodeTitle(id: string): string {
   return getUiNodeInfo(id).title;
 }
 
-export type ShinyUiNodeInfo = Expand<(typeof shinyUiNodeInfoArray)[number]>;
+export type ShinyUiNodeInfo = Expand<(typeof all_node_info)[number]>;
 export type ShinyUiNodeIds = ShinyUiNodeInfo["id"];
 export type ShinyUiNodePyPackages = ShinyUiNodeInfo["py_info"]["package"];
 export type ShinyUiNodePyFns = ShinyUiNodeInfo["py_info"]["fn_name"];
@@ -106,9 +144,7 @@ export type NodeInfoByRPackage = {
 /**
  * Names of all the available Ui elements
  */
-export const shinyids = new Set<string>(
-  shinyUiNodeInfoArray.map(({ id }) => id)
-);
+export const shinyids = new Set<string>(all_node_info.map(({ id }) => id));
 
 /**
  * Go from either an unnamespaced name (e.g. `sliderInput`) or a already
@@ -116,11 +152,11 @@ export const shinyids = new Set<string>(
  * a check for if a node is in known R functions
  * */
 export const rFnNameToNodeId = new Map<string, string>([
-  ...(shinyUiNodeInfoArray.map(({ r_info, id }) => [r_info.fn_name, id]) as [
+  ...(all_node_info.map(({ r_info, id }) => [r_info.fn_name, id]) as [
     string,
     string
   ][]),
-  ...(shinyUiNodeInfoArray.map(({ id }) => [id, id]) as [string, string][]),
+  ...(all_node_info.map(({ id }) => [id, id]) as [string, string][]),
 ]);
 
 /** A ui node type that type checks its values. Used for things like declaring test ui trees etc.. */
@@ -170,10 +206,3 @@ export type MakeShinyUiNode<
 export function isParentNode(node: ShinyUiNode): node is ShinyUiParentNode {
   return "children" in node || containerNodes.has(node.id);
 }
-
-/**
- * Path to a given node. Starts at [0] for the root. The first child for
- * instance would be then [0,1]
- */
-export type PathElement = number | string;
-export type NodePath = PathElement[];

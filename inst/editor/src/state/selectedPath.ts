@@ -3,8 +3,7 @@ import React from "react";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
-
-import type { NodePath } from "../Shiny-Ui-Elements/uiNodeTypes";
+import type { NodePath } from "ui-node-definitions/src/NodePath";
 
 import type { RootState } from "./store";
 

@@ -1,3 +1,9 @@
+import type { GridItemSettings } from "ui-node-definitions/src/gridlayout/grid_card";
+import type { GridContainerNode } from "ui-node-definitions/src/gridlayout/isValidGridItem";
+import { isValidGridContainer } from "ui-node-definitions/src/gridlayout/isValidGridItem";
+import type { NodePath } from "ui-node-definitions/src/NodePath";
+import type { ShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
+
 import { getNode } from "../../../components/UiNode/TreeManipulation/getNode";
 import {
   getChildIndex,
@@ -6,13 +12,9 @@ import {
 import type { RemoveNodeArguments } from "../../../components/UiNode/TreeManipulation/removeNode";
 import type { UpdateNodeArguments } from "../../../components/UiNode/TreeManipulation/updateNode";
 import { emptyCell } from "../../../utils/gridTemplates/itemLocations";
-import type { NodePath, ShinyUiNode } from "../../uiNodeTypes";
-import type { GridItemSettings } from "../GridlayoutCard";
 
 import { areasOfChildren } from "./areasOfChildren";
 import { gridLayoutReducer } from "./GridContainerElement/gridLayoutReducer";
-import type { GridContainerNode } from "./isValidGridContainer";
-import { isValidGridContainer } from "./isValidGridContainer";
 
 // This function watches for changes in a grid layout childs grid area and
 // updates the parent's layout names accordingly. Note that it mutates the tree

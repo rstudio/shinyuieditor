@@ -1,14 +1,14 @@
 import type { BackendConnection } from "communication-types";
 import { makeMessageDispatcher } from "communication-types/src/BackendConnection";
 import type { FallbackProps } from "react-error-boundary";
-import { ErrorBoundary } from "react-error-boundary";
-
 import "./App.css";
+import { ErrorBoundary } from "react-error-boundary";
+import type { ShinyUiRootNode } from "ui-node-definitions/src/uiNodeTypes";
+
 import { setupStaticBackend } from "./backendCommunication/staticBackend";
 import { BackendConnectionProvider } from "./backendCommunication/useBackendMessageCallbacks";
 import { GeneralErrorView } from "./components/ErrorCatcher/GeneralErrorView";
 import { EditorContainer } from "./EditorContainer/EditorContainer";
-import type { ShinyUiRootNode } from "./Shiny-Ui-Elements/uiNodeTypes";
 import ReduxProvider from "./state/ReduxProvider";
 import styles from "./SUE.module.css";
 import {

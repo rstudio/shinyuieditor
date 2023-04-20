@@ -1,13 +1,11 @@
 import React from "react";
 
 import { useSelector } from "react-redux";
+import { isKnownShinyUiNode } from "ui-node-definitions/src/isShinyUiNode";
+import type { NodePath } from "ui-node-definitions/src/NodePath";
+import { makeChildPath } from "ui-node-definitions/src/nodePathUtils";
+import type { ShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
 
-import { isKnownShinyUiNode } from "../../../Shiny-Ui-Elements/isShinyUiNode";
-import { makeChildPath } from "../../../Shiny-Ui-Elements/nodePathUtils";
-import type {
-  NodePath,
-  ShinyUiNode,
-} from "../../../Shiny-Ui-Elements/uiNodeTypes";
 import { useCurrentSelection } from "../../../state/selectedPath";
 import type { RootState } from "../../../state/store";
 import { getNode } from "../../UiNode/TreeManipulation/getNode";

@@ -1,12 +1,12 @@
+import { isTextUiNode } from "ui-node-definitions/src/internal/text_node";
+import type { UnknownUiNode } from "ui-node-definitions/src/internal/unknown_code";
+import { isUnknownUiNode } from "ui-node-definitions/src/internal/unknown_code";
 import type {
+  ShinyUiNodeInfo,
   KnownShinyUiNode,
   ShinyUiNode,
-  ShinyUiNodeInfo,
-} from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
+} from "ui-node-definitions/src/uiNodeTypes";
 
-import { isTextUiNode } from "../../Shiny-Ui-Elements/TextNode";
-import type { UnknownUiNode } from "../../Shiny-Ui-Elements/UnknownUiFunction";
-import { isUnknownUiNode } from "../../Shiny-Ui-Elements/UnknownUiFunction";
 import { text_node_to_code } from "../text_nodes/text_node_to_code";
 
 type InternalUiNodeNames = Extract<

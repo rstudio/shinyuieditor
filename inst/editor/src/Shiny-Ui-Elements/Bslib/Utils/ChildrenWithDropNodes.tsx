@@ -1,15 +1,16 @@
 import React from "react";
 
-import UiNode from "../../../components/UiNode/UiNode";
-import { DropWatcherPanel } from "../../../DragAndDropHelpers/DropWatcherPanel";
-import { makeChildPath } from "../../nodePathUtils";
+import type { NodePath } from "ui-node-definitions/src/NodePath";
+import { makeChildPath } from "ui-node-definitions/src/nodePathUtils";
 import type {
-  KnownShinyUiNode,
-  NodeInfoByRPackage,
-  NodePath,
   ShinyUiNodeIds,
   ShinyUiParentNode,
-} from "../../uiNodeTypes";
+  KnownShinyUiNode,
+  NodeInfoByRPackage,
+} from "ui-node-definitions/src/uiNodeTypes";
+
+import UiNode from "../../../components/UiNode/UiNode";
+import { DropWatcherPanel } from "../../../DragAndDropHelpers/DropWatcherPanel";
 
 import styles from "./CardUtils.module.css";
 

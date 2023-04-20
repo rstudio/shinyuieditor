@@ -1,13 +1,11 @@
 import React from "react";
 
 import { FaPlus } from "react-icons/fa";
+import type { NodePath } from "ui-node-definitions/src/NodePath";
+import { makeChildPath } from "ui-node-definitions/src/nodePathUtils";
+import type { ShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
 import { seqArray } from "util-functions/src/arrays";
 
-import { makeChildPath } from "../../../Shiny-Ui-Elements/nodePathUtils";
-import type {
-  NodePath,
-  ShinyUiNode,
-} from "../../../Shiny-Ui-Elements/uiNodeTypes";
 import { useCurrentSelection } from "../../../state/selectedPath";
 import { usePlaceNode } from "../../../state/usePlaceNode";
 import { mergeClasses } from "../../../utils/mergeClasses";

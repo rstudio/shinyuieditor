@@ -1,5 +1,7 @@
+import type { card_body_fill } from "ui-node-definitions/src/Bslib/card_body_fill";
+
 import { mergeClasses } from "../../../utils/mergeClasses";
-import type { CardBodyFillSettings } from "../BslibCardBodyFill";
+import type { args_from_info } from "../../utils/add_editor_info_to_ui_node";
 
 import styles from "./CardUtils.module.css";
 
@@ -16,7 +18,9 @@ export function CardBodyFill({
   children,
   args = {},
   ...props
-}: React.ComponentPropsWithoutRef<"div"> & { args?: CardBodyFillSettings }) {
+}: React.ComponentPropsWithoutRef<"div"> & {
+  args?: args_from_info<typeof card_body_fill>;
+}) {
   const content_styles = {
     gap: args?.gap,
   } as React.CSSProperties;

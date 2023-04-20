@@ -2,8 +2,8 @@ import { grid_card_text } from "ui-node-definitions/src/gridlayout/Grid_Card_Tex
 
 import textIcon from "../../../assets/icons/shinyText.png";
 import { mergeClasses } from "../../../utils/mergeClasses";
-import type { UiComponent_from_info } from "../../add_editor_info_to_ui_node";
-import { add_editor_info_to_ui_node } from "../../add_editor_info_to_ui_node";
+import type { UiComponent_from_info } from "../../utils/add_editor_info_to_ui_node";
+import { add_editor_info_to_ui_node } from "../../utils/add_editor_info_to_ui_node";
 import { BsCard } from "../Utils/GridLayoutPanelHelpers/GridCards";
 import { useGridItemSwapping } from "../Utils/useGridItemSwapping";
 

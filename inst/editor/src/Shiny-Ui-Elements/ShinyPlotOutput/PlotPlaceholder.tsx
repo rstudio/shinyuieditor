@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { GoGraph } from "react-icons/go";
 
-import { InputOutputTitle } from "../InputOutputTitle";
+import { InputOutputTitle } from "../utils/InputOutputTitle";
 
 import type { ShinyPlotOutputProps } from "./index";
 

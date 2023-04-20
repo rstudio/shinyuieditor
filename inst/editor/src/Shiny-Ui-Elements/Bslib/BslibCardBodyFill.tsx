@@ -1,6 +1,6 @@
 import { card_body_fill } from "ui-node-definitions/src/Bslib/card_body_fill";
 
-import { add_editor_info_to_ui_node } from "../add_editor_info_to_ui_node";
+import { add_editor_info_to_ui_node } from "../utils/add_editor_info_to_ui_node";
 
 import { CardBodyFill } from "./Utils/CardElements";
 import { CardChildrenWithDropNodes } from "./Utils/ChildrenWithDropNodes";

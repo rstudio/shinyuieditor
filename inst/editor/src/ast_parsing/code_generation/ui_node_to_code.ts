@@ -1,13 +1,13 @@
 import type { Generated_UI_Def } from "communication-types/src/MessageToBackend";
+import type { DynamicArgumentInfo } from "ui-node-definitions/src/buildStaticSettingsInfo";
+import { isShinyUiNode } from "ui-node-definitions/src/isShinyUiNode";
+import type { Lang_Info } from "ui-node-definitions/src/nodeInfoFactory";
 import type {
-  namedArgsObject,
   ShinyUiNode,
-} from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
-import { getUiNodeInfo } from "editor/src/Shiny-Ui-Elements/uiNodeTypes";
+  namedArgsObject,
+} from "ui-node-definitions/src/uiNodeTypes";
+import { getUiNodeInfo } from "ui-node-definitions/src/uiNodeTypes";
 
-import type { DynamicArgumentInfo } from "../../components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
-import { isShinyUiNode } from "../../Shiny-Ui-Elements/isShinyUiNode";
-import type { Lang_Info } from "../../Shiny-Ui-Elements/nodeInfoFactory";
 import type { Language_Mode } from "../../state/languageMode";
 
 import {

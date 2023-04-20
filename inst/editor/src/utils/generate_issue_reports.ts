@@ -1,6 +1,7 @@
+import type { NodePath } from "ui-node-definitions/src/NodePath";
+import type { ShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
 import { collapseText } from "util-functions/src/strings";
 
-import type { NodePath, ShinyUiNode } from "../Shiny-Ui-Elements/uiNodeTypes";
 import type { RootState } from "../state/store";
 
 /**

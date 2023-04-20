@@ -2,7 +2,7 @@ import { size_to_wrapper } from "ui-node-definitions/src/internal/is_text_node";
 import { text_node } from "ui-node-definitions/src/internal/text_node";
 
 import icon from "../../assets/icons/shinyText.png";
-import { add_editor_info_to_ui_node } from "../add_editor_info_to_ui_node";
+import { add_editor_info_to_ui_node } from "../utils/add_editor_info_to_ui_node";
 
 import styles from "./styles.module.css";
 

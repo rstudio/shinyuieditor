@@ -1,6 +1,6 @@
 import { card_header } from "ui-node-definitions/src/Bslib/card_header";
 
-import { add_editor_info_to_ui_node } from "../add_editor_info_to_ui_node";
+import { add_editor_info_to_ui_node } from "../utils/add_editor_info_to_ui_node";
 
 import { CardHeader } from "./Utils/CardElements";
 import { CardChildrenWithDropNodes } from "./Utils/ChildrenWithDropNodes";

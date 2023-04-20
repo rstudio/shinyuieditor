@@ -1,5 +1,8 @@
 import React from "react";
 
+import { isValidGridItem } from "ui-node-definitions/src/gridlayout/isValidGridItem";
+import { makeChildPath } from "ui-node-definitions/src/nodePathUtils";
+
 import UiNode from "../../../../components/UiNode/UiNode";
 import type { DraggedNodeInfo } from "../../../../DragAndDropHelpers/DragAndDropHelpers";
 import { DropWatcherPanel } from "../../../../DragAndDropHelpers/DropWatcherPanel";
@@ -7,13 +10,11 @@ import { usePlaceNode } from "../../../../state/usePlaceNode";
 import { findEmptyCells } from "../../../../utils/gridTemplates/findItemLocation";
 import { areasToItemLocations } from "../../../../utils/gridTemplates/itemLocations";
 import type { GridItemExtent } from "../../../../utils/gridTemplates/types";
-import { makeChildPath } from "../../../nodePathUtils";
-import type { UiNodeComponent } from "../../../uiNodeTypes";
+import type { UiNodeComponent } from "../../../utils/add_editor_info_to_ui_node";
 import { makeGridFriendlyNode } from "../../GridlayoutCard/makeGridFriendlyNode";
 import { AreaOverlay } from "../AreaOverlay";
 import EditableGridContainer from "../EditableGridContainer/EditableGridContainer";
 import type { TemplatedGridProps } from "../EditableGridContainer/TemplatedGridProps";
-import { isValidGridItem } from "../isValidGridItem";
 import { NameNewPanelModal } from "../NameNewPanelModal";
 import { LayoutDispatchContext } from "../useSetLayout";
 import { useUpdateNamedArgs } from "../useUpdateUiArguments";

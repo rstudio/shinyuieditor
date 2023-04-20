@@ -7,7 +7,7 @@ export type ShinyActionButtonArgs = {
   width?: CSSMeasure;
 };
 
-export const shinyActionButtonInfo = nodeInfoFactory<ShinyActionButtonArgs>()({
+export const input_action_button = nodeInfoFactory<ShinyActionButtonArgs>()({
   title: "Action Button",
   r_info: {
     fn_name: "actionButton",

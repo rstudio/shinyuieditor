@@ -1,6 +1,7 @@
+import type { ShinyUiNodeInfo } from "ui-node-definitions/src/uiNodeTypes";
+
 import { PanelHeader } from "../EditorLayout/PanelHeader";
-import type { ShinyUiNodeCategories } from "../Shiny-Ui-Elements/uiNodeTypes";
-import { shinyUiNodeInfoArray } from "../Shiny-Ui-Elements/uiNodeTypes";
+import { registered_ui_nodes } from "../Shiny-Ui-Elements/registered_ui_nodes";
 import type { Language_Mode } from "../state/languageMode";
 import { useLanguageMode } from "../state/languageMode";
 
@@ -20,9 +21,9 @@ const categoryOrder = Object.keys({
   Cards: 1,
   Plotting: 1,
   Uncategorized: 1,
-} satisfies Record<ShinyUiNodeCategories, 1>);
+} satisfies Record<Exclude<ShinyUiNodeInfo["category"], "TESTING">, 1>);
 
-type Node_Info = (typeof shinyUiNodeInfoArray)[number];
+type Node_Info = (typeof registered_ui_nodes)[number];
 
 function sortByCategory(info_a: Node_Info, info_b: Node_Info): number {
   const cat_a = categoryOrder.indexOf(info_a.category);
@@ -43,7 +44,7 @@ function filterToLanguage(info: Node_Info, language: Language_Mode): boolean {
 export default function ElementsPalette() {
   const languageMode = useLanguageMode();
 
-  const ui_node_names = shinyUiNodeInfoArray
+  const ui_node_names = registered_ui_nodes
     .filter((info) => filterToLanguage(info, languageMode))
     .sort(sortByCategory)
     .map((info) => info.id);

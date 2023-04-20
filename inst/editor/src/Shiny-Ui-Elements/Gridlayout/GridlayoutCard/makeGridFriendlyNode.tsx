@@ -1,13 +1,12 @@
-import { isBslibCard } from "../../Bslib/BslibCard";
+import { isBslibCard } from "ui-node-definitions/src/Bslib/card";
+import type { GridItemNode } from "ui-node-definitions/src/gridlayout/isValidGridItem";
+import { isValidGridItem } from "ui-node-definitions/src/gridlayout/isValidGridItem";
 import type {
+  ShinyUiNode,
   KnownShinyUiNode,
-  ShinyUiNode
-} from "../../uiNodeTypes";
-import type { GridItemNode} from "../Utils/isValidGridItem";
-import { isValidGridItem } from "../Utils/isValidGridItem";
+} from "ui-node-definitions/src/uiNodeTypes";
 
 import type { GridlayoutCardNode } from "./index";
-
 
 /**
  * Takes any ui node and makes sure that it can be placed on a gridlayout in the
@@ -20,9 +19,10 @@ import type { GridlayoutCardNode } from "./index";
  * wrapped as a child of a `grid_card` within the `bslib::card_body_fill`
  * element.
  */
-export function makeGridFriendlyNode(  node: ShinyUiNode,
-  area: string): GridItemNode {
-
+export function makeGridFriendlyNode(
+  node: ShinyUiNode,
+  area: string
+): GridItemNode {
   if (isValidGridItem(node)) {
     node.namedArgs.area = area;
 

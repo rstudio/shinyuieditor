@@ -2,16 +2,12 @@ import React from "react";
 
 import type { FallbackProps } from "react-error-boundary";
 import { ErrorBoundary } from "react-error-boundary";
+import type { NodePath } from "ui-node-definitions/src/NodePath";
+import type { ShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
+import { isParentNode } from "ui-node-definitions/src/uiNodeTypes";
 
-import type {
-  NodePath,
-  ShinyUiNode,
-  UiNodeComponent,
-} from "../../Shiny-Ui-Elements/uiNodeTypes";
-import {
-  getUiNodeInfo,
-  isParentNode,
-} from "../../Shiny-Ui-Elements/uiNodeTypes";
+import type { UiNodeComponent } from "../../Shiny-Ui-Elements/utils/add_editor_info_to_ui_node";
+import { getUiNodeComponent } from "../../Shiny-Ui-Elements/registered_ui_nodes";
 
 import { UiNodeErrorView } from "./UiNodeErrorView";
 import { useMakeWrapperProps } from "./useMakeWrapperProps";
@@ -25,13 +21,11 @@ export type UiNodeProps = {
  * Recursively render the nodes in a UI Tree
  */
 const UiNode = ({ path, node, canDrag = true }: UiNodeProps) => {
-  const node_info = getUiNodeInfo(node.id);
-
-  const Comp = node_info.UiComponent as UiNodeComponent<
+  // Bit ugly here.
+  const Comp = getUiNodeComponent(node.id) as UiNodeComponent<
     typeof node.namedArgs,
     { TakesChildren: true }
   >;
-
   const wrapperProps = useMakeWrapperProps({ path, node, canDrag });
 
   const fallbackRender = React.useMemo(

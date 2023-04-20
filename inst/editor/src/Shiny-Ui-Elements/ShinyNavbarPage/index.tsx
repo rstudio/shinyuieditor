@@ -1,13 +1,18 @@
 // import icon from "../../assets/icons/tabsetPanel.png";
 
-import { page_navbar } from "ui-node-definitions/src/Shiny/page_navbar";
+import {
+  makeChildPath,
+  pathToString,
+} from "ui-node-definitions/src/nodePathUtils";
+import {
+  getTabPanelTitle,
+  page_navbar,
+} from "ui-node-definitions/src/Shiny/page_navbar";
 
 import TabPanel from "../../components/Tabs/TabPanel/TabPanel";
 import Tabset from "../../components/Tabs/Tabset/Tabset";
 import UiNode from "../../components/UiNode/UiNode";
-import { add_editor_info_to_ui_node } from "../add_editor_info_to_ui_node";
-import { makeChildPath, pathToString } from "../nodePathUtils";
-import { isValidTabPanel } from "../ShinyTabPanel/isValidTabPanel";
+import { add_editor_info_to_ui_node } from "../utils/add_editor_info_to_ui_node";
 
 import classes from "./ShinyNavbarPage.module.css";
 
@@ -26,9 +31,7 @@ export const shinyNavbarPageInfo = add_editor_info_to_ui_node(page_navbar, {
         {children ? (
           children.map((node, i) => {
             const nodePath = makeChildPath(path, i);
-            const title = isValidTabPanel(node)
-              ? node.namedArgs.title
-              : "unknown tab";
+            const title = getTabPanelTitle(node) ?? "unknown tab";
             return (
               <TabPanel key={pathToString(nodePath)} title={title}>
                 <UiNode path={nodePath} node={node} />

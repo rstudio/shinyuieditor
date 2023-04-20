@@ -52,7 +52,7 @@ export const page_navbar = nodeInfoFactory<{
   description: "Layout an app with tab-based navigation",
 });
 
-function getTabPanelTitle(node: ShinyUiNode): string | null {
+export function getTabPanelTitle(node: ShinyUiNode): string | null {
   // if (isValidTabPanel(node)) {
   // return node.namedArgs.title;
   // }

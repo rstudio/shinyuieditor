@@ -1,5 +1,6 @@
+import { pathToString } from "ui-node-definitions/src/nodePathUtils";
+
 import { useMakeDraggable } from "../../DragAndDropHelpers/useMakeDraggable";
-import { pathToString } from "../../Shiny-Ui-Elements/nodePathUtils";
 
 import type { UiNodeProps } from "./UiNode";
 import { usePathInformation } from "./usePathInformation";

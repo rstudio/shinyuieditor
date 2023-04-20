@@ -2,7 +2,7 @@
  * component. This assumes that they are stored in the "area" property on the
  * namedArgs */
 
-import type { ShinyUiParentNode } from "../../uiNodeTypes";
+import type { ShinyUiParentNode } from "ui-node-definitions/src/uiNodeTypes";
 
 export function areasOfChildren(children: ShinyUiParentNode["children"] = []) {
   let all_children_areas: string[] = [];

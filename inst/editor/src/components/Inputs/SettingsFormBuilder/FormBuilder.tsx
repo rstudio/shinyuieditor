@@ -1,9 +1,9 @@
 import React from "react";
 
+import type { namedArgsObject } from "ui-node-definitions/src/uiNodeTypes";
 import { is_object } from "util-functions/src/is_object";
 import type { StringKeys } from "util-functions/src/TypescriptUtils";
 
-import type { namedArgsObject } from "../../../Shiny-Ui-Elements/uiNodeTypes";
 
 import type { DynamicArgumentInfo } from "./buildStaticSettingsInfo";
 import type { All_Input_Types } from "./inputFieldTypes";

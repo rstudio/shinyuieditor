@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-import type { KnownShinyUiNode } from "../src/Shiny-Ui-Elements/uiNodeTypes";
+import type { KnownShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
 
 import { mockBackendState } from "./utils/mockBackend";
 const shortCardTree: KnownShinyUiNode = {

@@ -1,6 +1,6 @@
-import type { KnownShinyUiNode } from "../../Shiny-Ui-Elements/uiNodeTypes";
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
+import type { KnownShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
 
 /**
  * An app with a node that spits errors for testing error catching.
@@ -33,4 +33,4 @@ export const errorTestingTree = {
       ],
     },
   ],
-}  satisfies KnownShinyUiNode;
+} satisfies KnownShinyUiNode;

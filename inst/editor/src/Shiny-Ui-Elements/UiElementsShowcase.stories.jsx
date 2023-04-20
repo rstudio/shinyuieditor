@@ -9,7 +9,8 @@ import ReduxProvider from "../state/ReduxProvider";
 
 import "../App.css";
 
-import { getUiNodeInfo } from "../Shiny-Ui-Elements/uiNodeTypes";
+import { shinyids } from "ui-node-definitions/src/uiNodeTypes";
+import { getUiNodeInfo } from "./registered_ui_nodes";
 import {
   buildStaticFormInfo,
   getDefaultSettings,
@@ -18,7 +19,6 @@ import { FormBuilder } from "../components/Inputs/SettingsFormBuilder/FormBuilde
 
 import classes from "./UiElementsShowcase.module.css";
 
-import { shinyids } from "./uiNodeTypes";
 function UiNodeAndSettings({ id, namedArgs }) {
   const [infoToRender, setInfoToRender] = React.useState(null);
 

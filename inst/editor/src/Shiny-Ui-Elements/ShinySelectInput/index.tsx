@@ -1,7 +1,7 @@
 import { input_select } from "ui-node-definitions/src/Shiny/input_select";
 
 import selectBoxIcon from "../../assets/icons/shinySelectbox.png";
-import { add_editor_info_to_ui_node } from "../add_editor_info_to_ui_node";
+import { add_editor_info_to_ui_node } from "../utils/add_editor_info_to_ui_node";
 
 import classes from "./styles.module.css";
 

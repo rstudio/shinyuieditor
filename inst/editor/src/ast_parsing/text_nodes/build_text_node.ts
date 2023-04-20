@@ -1,4 +1,4 @@
-import type { TextUiNode } from "../../Shiny-Ui-Elements/TextNode";
+import type { TextUiNode } from "ui-node-definitions/src/internal/text_node";
 
 import type { Text_Node } from "./is_text_node";
 import {

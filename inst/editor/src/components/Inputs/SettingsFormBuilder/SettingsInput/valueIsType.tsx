@@ -1,4 +1,5 @@
-import { isShinyUiNode } from "../../../../Shiny-Ui-Elements/isShinyUiNode";
+import { isShinyUiNode } from "ui-node-definitions/src/isShinyUiNode";
+
 import { isCSSMeasure } from "../../CSSUnitInput/CSSMeasure";
 import { isNamedList } from "../../ListInput/NamedListInput";
 import type { InputTypeNames, KnownInputFieldTypes } from "../inputFieldTypes";
