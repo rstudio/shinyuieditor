@@ -1,44 +1,27 @@
 import type {
-  Raw_App_Info,
   Full_App_Info,
-  Single_File_Raw_App_Info,
-  Single_File_Full_Info,
   Multi_File_Full_Info,
   Multi_File_Raw_App_Info,
+  Raw_App_Info,
+  Single_File_Full_Info,
+  Single_File_Raw_App_Info,
 } from "communication-types/src/AppInfo";
 import { SCRIPT_LOC_KEYS } from "communication-types/src/AppInfo";
 import type { Script_Position } from "r-ast-parsing";
-
-import type { EditingState, ErrorState } from "../state/app_info";
-
-import type { Parsed_Multi_File_AST } from "./parse_app_ast";
-import { parse_app_ast } from "./parse_app_ast";
+import type { Parsed_Multi_File_AST } from "r-ast-parsing/src/parse_app_ast";
+import { parse_app_ast } from "r-ast-parsing/src/parse_app_ast";
 
 export function ensure_full_app_info(
   info: Raw_App_Info | Full_App_Info
-): EditingState | ErrorState {
-  if ("ui_tree" in info) return { mode: "MAIN", ...info };
+): Full_App_Info {
+  if ("ui_tree" in info) return info;
 
-  try {
-    const full_info =
-      info.app_type === "SINGLE-FILE"
-        ? raw_single_file_app_info_to_full(info)
-        : raw_multi_file_app_info_to_full(info);
+  const full_info =
+    info.app_type === "SINGLE-FILE"
+      ? raw_single_file_app_info_to_full(info)
+      : raw_multi_file_app_info_to_full(info);
 
-    return { mode: "MAIN", ...full_info };
-  } catch (error) {
-    const error_msg = error instanceof Error ? error.message : null;
-
-    if (error_msg === null) {
-      // eslint-disable-next-line no-console
-      console.error("Unknown error type seen", error);
-    }
-    return {
-      mode: "ERROR",
-      msg: error_msg ?? "Unknown error",
-      context: "Parsing app information from backend",
-    };
-  }
+  return full_info;
 }
 
 function raw_single_file_app_info_to_full(

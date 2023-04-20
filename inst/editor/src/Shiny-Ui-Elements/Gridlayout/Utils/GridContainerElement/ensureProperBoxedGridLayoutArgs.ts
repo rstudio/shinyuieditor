@@ -1,15 +1,5 @@
+import type { GridLayoutArgs } from "ui-node-definitions/src/gridlayout/GridLayoutArgs";
 import { ensureArray } from "util-functions/src/arrays";
-
-import type { CSSMeasure } from "../../../../components/Inputs/CSSUnitInput/CSSMeasure";
-
-import type { GridLayoutArgs } from "./GridLayoutArgs";
-
-export type GridLayoutArgsProperlyBoxed = {
-  layout: string[];
-  row_sizes: CSSMeasure[];
-  col_sizes: CSSMeasure[];
-  gap_size: CSSMeasure;
-};
 
 /**
  * When we have layouts that are a single row or column we can have issues with
@@ -25,7 +15,7 @@ export function ensureProperBoxedGridLayoutArgs({
   row_sizes,
   col_sizes,
   gap_size,
-}: GridLayoutArgs): GridLayoutArgsProperlyBoxed {
+}: GridLayoutArgs): GridLayoutArgs {
   // Handle single row layout
   layout = ensureArray(layout);
   row_sizes = ensureArray(row_sizes);

@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { onMac } from "../onMac";
+import { onMac } from "./onMac";
 
 type KeyboardShortcutOptions = {
   /** Key code to listen for. E.g. `"Backspace"` **/

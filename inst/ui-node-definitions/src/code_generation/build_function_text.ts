@@ -2,7 +2,7 @@ import type { R_AST, R_AST_Node } from "r-ast-parsing";
 import { IsNodeOfType } from "r-ast-parsing/src/node_identity_checkers";
 import { indent_text_block } from "util-functions/src/strings";
 
-import { get_ast_is_array_or_list } from "../flatten_arrays_and_lists";
+import { get_ast_is_array_or_list } from "r-ast-parsing/src/flatten_arrays_and_lists";
 
 import {
   is_wrapped_function_def_node,

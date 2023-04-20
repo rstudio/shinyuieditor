@@ -1,4 +1,4 @@
-import type { HistoryInfo } from "../../state-logic/useUndoRedo";
+import type { HistoryInfo } from "../../HistoryNavigation/useUndoRedo";
 import { mergeClasses } from "../../utils/mergeClasses";
 import { Redo, Undo } from "../Icons";
 import Button from "../Inputs/Button/Button";

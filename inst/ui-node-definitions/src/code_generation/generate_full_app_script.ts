@@ -5,12 +5,10 @@ import type {
   Single_File_Full_Info,
 } from "communication-types/src/AppInfo";
 
-import type { Language_Mode } from "../state/languageMode";
-
 import { generate_ui_script } from "./generate_ui_script";
 
 type Script_Generation_Options = {
-  language: Language_Mode;
+  language: "R" | "PYTHON";
   include_info: boolean;
 };
 

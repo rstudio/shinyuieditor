@@ -9,11 +9,10 @@ import type {
   Single_File_Template_Selection,
   TemplateInfo,
 } from "communication-types/src/AppTemplates";
-
-import { indent_line_breaks } from "../../ast_parsing/code_generation/build_function_text";
-import { generate_full_app_script } from "../../ast_parsing/generate_full_app_script";
-import { write_R_library_calls } from "../../ast_parsing/generate_ui_script";
-import type { Language_Mode } from "../../state/languageMode";
+import { indent_line_breaks } from "ui-node-definitions/src/code_generation/build_function_text";
+import { generate_full_app_script } from "ui-node-definitions/src/code_generation/generate_full_app_script";
+import { write_R_library_calls } from "ui-node-definitions/src/code_generation/generate_ui_script";
+import type { Language_Mode } from "ui-node-definitions/src/code_generation/Language_Mode";
 
 import { chickWeightsGridTemplate } from "./templates/chickWeightsGrid";
 import { chickWeightsNavbar } from "./templates/chickWeightsNavbar";

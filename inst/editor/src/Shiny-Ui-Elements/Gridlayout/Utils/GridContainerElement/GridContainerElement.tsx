@@ -1,5 +1,6 @@
 import React from "react";
 
+import type { GridLayoutArgs } from "ui-node-definitions/src/gridlayout/GridLayoutArgs";
 import { findEmptyCells } from "ui-node-definitions/src/gridlayout/gridTemplates/findItemLocation";
 import { areasToItemLocations } from "ui-node-definitions/src/gridlayout/gridTemplates/itemLocations";
 import {
@@ -9,6 +10,7 @@ import {
 import type { TemplatedGridProps } from "ui-node-definitions/src/gridlayout/gridTemplates/TemplatedGridProps";
 import type { GridItemExtent } from "ui-node-definitions/src/gridlayout/gridTemplates/types";
 import { isValidGridItem } from "ui-node-definitions/src/gridlayout/isValidGridItem";
+import { makeGridFriendlyNode } from "ui-node-definitions/src/gridlayout/makeGridFriendlyNode";
 import { makeChildPath } from "ui-node-definitions/src/nodePathUtils";
 
 import UiNode from "../../../../components/UiNode/UiNode";
@@ -16,15 +18,13 @@ import type { DraggedNodeInfo } from "../../../../DragAndDropHelpers/DragAndDrop
 import { DropWatcherPanel } from "../../../../DragAndDropHelpers/DropWatcherPanel";
 import { usePlaceNode } from "../../../../state/usePlaceNode";
 import type { UiNodeComponent } from "../../../utils/add_editor_info_to_ui_node";
-import { makeGridFriendlyNode } from "../../GridlayoutCard/makeGridFriendlyNode";
 import { AreaOverlay } from "../AreaOverlay";
 import EditableGridContainer from "../EditableGridContainer/EditableGridContainer";
 import { NameNewPanelModal } from "../NameNewPanelModal";
 import { LayoutDispatchContext } from "../useSetLayout";
 import { useUpdateNamedArgs } from "../useUpdateUiArguments";
 
-import { ensureProperBoxedGridLayoutArgs } from "./ensureProperBoxedGridLayoutArts";
-import type { GridLayoutArgs } from "./GridLayoutArgs";
+import { ensureProperBoxedGridLayoutArgs } from "./ensureProperBoxedGridLayoutArgs";
 import type { GridLayoutAction } from "./gridLayoutReducer";
 import { gridLayoutReducer } from "./gridLayoutReducer";
 import classes from "./styles.module.css";

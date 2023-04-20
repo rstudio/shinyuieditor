@@ -8,7 +8,7 @@ import type { ShinyPlotOutputProps } from "./index";
 
 import classes from "./styles.module.css";
 
-export function PlotPlaceholder({ outputId }: ShinyPlotOutputProps) {
+export function StaticPlotPlaceholder({ outputId }: ShinyPlotOutputProps) {
   const plotHolderRef = React.useRef<HTMLDivElement>(null);
   // Start tiny so icon isn't the reason the container is big
   const containerDimensions = useContainerDimensions(plotHolderRef);

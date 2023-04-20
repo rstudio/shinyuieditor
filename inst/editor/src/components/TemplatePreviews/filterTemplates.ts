@@ -2,9 +2,9 @@ import React from "react";
 
 import type { App_Type } from "communication-types/src/AppInfo";
 import type { TemplateInfo } from "communication-types/src/AppTemplates";
+import { ui_node_to_code } from "ui-node-definitions/src/code_generation/ui_node_to_code";
 
 import { app_templates } from "../../assets/app-templates/app_templates";
-import { ui_node_to_code } from "../../ast_parsing/code_generation/ui_node_to_code";
 
 import type { TemplateChooserOptions } from "./TemplateChooserView";
 import type { LayoutType } from "./TemplatePreviewCard";

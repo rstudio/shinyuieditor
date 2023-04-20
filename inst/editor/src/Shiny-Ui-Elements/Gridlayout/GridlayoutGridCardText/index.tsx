@@ -4,7 +4,7 @@ import textIcon from "../../../assets/icons/shinyText.png";
 import { mergeClasses } from "../../../utils/mergeClasses";
 import type { UiComponent_from_info } from "../../utils/add_editor_info_to_ui_node";
 import { add_editor_info_to_ui_node } from "../../utils/add_editor_info_to_ui_node";
-import { BsCard } from "../Utils/GridLayoutPanelHelpers/GridCards";
+import { BsCard } from "../Utils/BsCard";
 import { useGridItemSwapping } from "../Utils/useGridItemSwapping";
 
 import classes from "./styles.module.css";

@@ -1,10 +1,8 @@
 import React from "react";
 
 import type { TemplatedGridProps } from "ui-node-definitions/src/gridlayout/gridTemplates/TemplatedGridProps";
+import type { CSSMeasure } from "ui-node-definitions/src/inputFieldTypes";
 import type { TractDirection } from "util-functions/src/matrix-helpers";
-
-import type { CSSMeasure } from "../../../../components/Inputs/CSSUnitInput/CSSMeasure";
-import { validateRef } from "../../../../utils/validateRef";
 
 import { initDragState, updateDragState } from "./dragToResizeHelpers";
 import { hideOrShowTractInfo } from "./TractInfoDisplay";
@@ -21,6 +19,16 @@ export type TractEventListener = (x: {
   dir: TractDirection;
   index: number;
 }) => void;
+
+function validateRef<RefType>(
+  x: React.RefObject<RefType | null>,
+  error_msg: string = "Ref is not yet initialized"
+): RefType {
+  if (x.current === null) {
+    throw new Error(error_msg);
+  }
+  return x.current;
+}
 
 export function useDragToResizeGrid({
   containerRef,

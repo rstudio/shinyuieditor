@@ -7,7 +7,7 @@ import type {
   ShinyUiNode,
 } from "ui-node-definitions/src/uiNodeTypes";
 
-import { text_node_to_code } from "../text_nodes/text_node_to_code";
+import { text_node_to_code } from "r-ast-parsing/src/text_nodes/text_node_to_code";
 
 type InternalUiNodeNames = Extract<
   ShinyUiNodeInfo,

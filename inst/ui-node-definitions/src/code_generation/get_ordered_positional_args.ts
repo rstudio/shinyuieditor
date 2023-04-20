@@ -1,4 +1,4 @@
-import type { DynamicArgumentInfo } from "../../components/Inputs/SettingsFormBuilder/buildStaticSettingsInfo";
+import type { DynamicArgumentInfo } from "../buildStaticSettingsInfo";
 
 export function get_ordered_positional_args(
   settingsInfo: DynamicArgumentInfo

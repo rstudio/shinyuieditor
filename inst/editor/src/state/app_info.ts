@@ -6,6 +6,7 @@ import type {
   Raw_App_Info,
 } from "communication-types/src/AppInfo";
 import { useSelector } from "react-redux";
+import { ensure_full_app_info } from "ui-node-definitions/src/ensure_full_app_info";
 import type { PlaceNodeArguments } from "ui-node-definitions/src/TreeManipulation/placeNode";
 import { placeNodeMutating } from "ui-node-definitions/src/TreeManipulation/placeNode";
 import type { RemoveNodeArguments } from "ui-node-definitions/src/TreeManipulation/removeNode";
@@ -14,7 +15,6 @@ import type { UpdateNodeArguments } from "ui-node-definitions/src/TreeManipulati
 import { updateNodeMutating } from "ui-node-definitions/src/TreeManipulation/updateNode";
 import type { ShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
 
-import { ensure_full_app_info } from "../ast_parsing/ensure_full_app_info";
 import type { TemplateChooserOptions } from "../components/TemplatePreviews/TemplateChooserView";
 
 import {
@@ -62,7 +62,25 @@ export const mainStateSlice = createSlice({
       tree,
       action: PayloadAction<Raw_App_Info | Full_App_Info>
     ) => {
-      return ensure_full_app_info(action.payload);
+      try {
+        const full_app_info: EditingState = {
+          mode: "MAIN",
+          ...ensure_full_app_info(action.payload),
+        };
+        return full_app_info;
+      } catch (error) {
+        const error_msg = error instanceof Error ? error.message : null;
+
+        if (error_msg === null) {
+          // eslint-disable-next-line no-console
+          console.error("Unknown error type seen", error);
+        }
+        return {
+          mode: "ERROR",
+          msg: error_msg ?? "Unknown error",
+          context: "Parsing app information from backend",
+        };
+      }
     },
     SET_ERROR: (
       state,

@@ -2,7 +2,7 @@ import React from "react";
 
 import { useDispatch } from "react-redux";
 
-import StateHistory from "../modules/StateHistory";
+import StateHistory from "../HistoryNavigation/StateHistory";
 import type { MainStateOption } from "../state/app_info";
 import { SET_FULL_STATE } from "../state/app_info";
 import type { RootState } from "../state/store";

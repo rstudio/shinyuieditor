@@ -1,10 +1,11 @@
 import type {
-  Single_File_Raw_App_Info,
   Multi_File_Raw_App_Info,
+  Single_File_Raw_App_Info,
 } from "communication-types/src/AppInfo";
 
 import { ensure_full_app_info } from "../ensure_full_app_info";
-import { generate_full_app_script } from "../generate_full_app_script";
+
+import { generate_full_app_script } from "./generate_full_app_script";
 
 describe("Single-File apps", () => {
   // It's super important the script and ast match eachother here.
@@ -146,9 +147,6 @@ shinyApp(ui, server)
   };
 
   const full_info = ensure_full_app_info(raw_info);
-  if (full_info.mode === "ERROR") {
-    throw new Error("Error processing info for tests");
-  }
 
   test("Libraries", () => {
     expect(full_info).toEqual(
@@ -317,9 +315,6 @@ server <- function(input, output) {
   };
 
   const full_info = ensure_full_app_info(raw_info);
-  if (full_info.mode === "ERROR") {
-    throw new Error("Error processing info for tests");
-  }
   test("Libraries", () => {
     expect(full_info).toEqual(
       expect.objectContaining({

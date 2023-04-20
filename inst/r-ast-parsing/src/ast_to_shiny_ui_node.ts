@@ -4,6 +4,8 @@ import {
   is_primative_node,
   IsNodeOfType,
 } from "r-ast-parsing/src/node_identity_checkers";
+import { print_node_val } from "ui-node-definitions/src/code_generation/build_function_text";
+import type { StaticInputOptions } from "ui-node-definitions/src/inputFieldTypes";
 import type {
   ShinyUiNode,
   namedArgsObject,
@@ -12,9 +14,6 @@ import { rFnNameToNodeId } from "ui-node-definitions/src/uiNodeTypes";
 import { getUiNodeInfo } from "ui-node-definitions/src/uiNodeTypes";
 import { identify_fn } from "util-functions/src/TypescriptUtils";
 
-import type { StaticInputOptions } from "../components/Inputs/SettingsFormBuilder/inputFieldTypes";
-
-import { print_node_val } from "./code_generation/build_function_text";
 import { create_unknownUiFunction } from "./create_unknownUiFunction";
 import {
   flatten_to_array,

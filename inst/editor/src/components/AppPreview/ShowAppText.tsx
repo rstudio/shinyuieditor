@@ -6,8 +6,8 @@ import type {
 } from "communication-types/src/AppInfo";
 import { ArrowUpRightSquare } from "react-bootstrap-icons";
 import { useStore } from "react-redux";
+import { generate_full_app_script } from "ui-node-definitions/src/code_generation/generate_full_app_script";
 
-import { generate_full_app_script } from "../../ast_parsing/generate_full_app_script";
 import { DialogPopover } from "../../EditorContainer/DialogPopover";
 import { PanelHeader } from "../../EditorLayout/PanelHeader";
 import { useLanguageMode } from "../../state/languageMode";

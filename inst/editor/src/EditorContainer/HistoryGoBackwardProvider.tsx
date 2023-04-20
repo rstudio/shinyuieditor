@@ -1,6 +1,6 @@
 import React from "react";
 
-import type { HistoryInfo } from "../state-logic/useUndoRedo";
+import type { HistoryInfo } from "../HistoryNavigation/useUndoRedo";
 
 type HistoryBackwardsValues = Pick<HistoryInfo, "canGoBackward" | "goBackward">;
 

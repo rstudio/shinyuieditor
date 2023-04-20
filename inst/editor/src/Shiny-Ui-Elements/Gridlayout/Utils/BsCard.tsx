@@ -13,11 +13,4 @@ const BsCard = React.forwardRef<HTMLDivElement, BsCardProps>(
   }
 );
 
-const BsCardHeader = React.forwardRef<HTMLDivElement, BsCardProps>(
-  ({ className = "", ...props }, ref) => {
-    const combinedClasses = className + " card-header";
-    return <div ref={ref} className={combinedClasses} {...props} />;
-  }
-);
-
-export { BsCard, BsCardHeader };
+export { BsCard };

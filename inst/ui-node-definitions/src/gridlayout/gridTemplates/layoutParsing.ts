@@ -3,14 +3,14 @@ import type { TemplatedGridProps } from "ui-node-definitions/src/gridlayout/grid
 import { fillArr } from "util-functions/src/arrays";
 import { matrixDimensions } from "util-functions/src/matrix-helpers";
 
-import type { GridLayoutArgsProperlyBoxed } from "../../../../editor/src/Shiny-Ui-Elements/Gridlayout/Utils/GridContainerElement/ensureProperBoxedGridLayoutArts";
+import type { GridLayoutArgs } from "../GridLayoutArgs";
 
 export function parseGridLayoutArgs({
   layout,
   row_sizes,
   col_sizes,
   gap_size,
-}: GridLayoutArgsProperlyBoxed): TemplatedGridProps & {
+}: GridLayoutArgs): TemplatedGridProps & {
   uniqueAreas: string[];
 } {
   let numCols: number = -1;
@@ -71,7 +71,7 @@ export function convertLayoutTableToMatrix(layoutTable: string[]): string[][] {
 export function convertTemplatedLayoutToGridlayoutArgs({
   areas,
   ...sizes
-}: TemplatedGridProps): GridLayoutArgsProperlyBoxed {
+}: TemplatedGridProps): GridLayoutArgs {
   return {
     layout: makeColumnAlignedTable(areas),
     ...sizes,
@@ -81,7 +81,7 @@ export function convertTemplatedLayoutToGridlayoutArgs({
 export function convertGridlayoutArgsToTemplatedLayout({
   layout,
   ...sizes
-}: GridLayoutArgsProperlyBoxed): TemplatedGridProps {
+}: GridLayoutArgs): TemplatedGridProps {
   return {
     areas: convertLayoutTableToMatrix(layout),
     ...sizes,

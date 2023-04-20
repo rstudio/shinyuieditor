@@ -8,14 +8,13 @@ import type {
 } from "ui-node-definitions/src/uiNodeTypes";
 import { getUiNodeInfo } from "ui-node-definitions/src/uiNodeTypes";
 
-import type { Language_Mode } from "../../state/languageMode";
-
 import {
   indent_line_breaks,
   LINE_BREAK_LENGTH,
   NL_INDENT,
   should_line_break,
 } from "./build_function_text";
+import type { Language_Mode } from "./Language_Mode";
 import {
   isInternalUiNode,
   print_internal_ui_nodes,

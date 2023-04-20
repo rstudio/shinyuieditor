@@ -1,8 +1,8 @@
+import type { Language_Mode } from "ui-node-definitions/src/code_generation/Language_Mode";
 import type { ShinyUiNodeInfo } from "ui-node-definitions/src/uiNodeTypes";
 
 import { PanelHeader } from "../EditorLayout/PanelHeader";
 import { registered_ui_nodes } from "../Shiny-Ui-Elements/registered_ui_nodes";
-import type { Language_Mode } from "../state/languageMode";
 import { useLanguageMode } from "../state/languageMode";
 
 import classes from "./styles.module.css";

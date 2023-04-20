@@ -1,8 +1,8 @@
 import { AppTour } from "../AppTour";
 import SvgShinyLogo from "../components/Icons/ShinyLogo";
 import { UndoRedoButtons } from "../components/UndoRedoButtons/UndoRedoButtons";
+import type { HistoryInfo } from "../HistoryNavigation/useUndoRedo";
 import type { MainStateOption } from "../state/app_info";
-import type { HistoryInfo } from "../state-logic/useUndoRedo";
 import { mergeClasses } from "../utils/mergeClasses";
 
 import styles from "./HeaderView.module.css";

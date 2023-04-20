@@ -1,4 +1,5 @@
 import clone from "just-clone";
+import type { GridLayoutArgs } from "ui-node-definitions/src/gridlayout/GridLayoutArgs";
 import { addItem } from "ui-node-definitions/src/gridlayout/gridTemplates/addItem";
 import { addTract } from "ui-node-definitions/src/gridlayout/gridTemplates/addTract";
 import {
@@ -17,8 +18,6 @@ import type { TemplatedGridProps } from "ui-node-definitions/src/gridlayout/grid
 import type { GridItemExtent } from "ui-node-definitions/src/gridlayout/gridTemplates/types";
 import type { CSSMeasure } from "ui-node-definitions/src/inputFieldTypes";
 import type { TractDirection } from "util-functions/src/matrix-helpers";
-
-import type { GridLayoutArgsProperlyBoxed } from "./ensureProperBoxedGridLayoutArts";
 
 export type GridLayoutAction =
   | { type: "ADD_ITEM"; name: string; pos: GridItemExtent }
@@ -50,9 +49,9 @@ export type GridLayoutAction =
     };
 
 export function gridLayoutReducer(
-  layout: GridLayoutArgsProperlyBoxed,
+  layout: GridLayoutArgs,
   action: GridLayoutAction
-): GridLayoutArgsProperlyBoxed {
+): GridLayoutArgs {
   const layoutToUpdate = convertGridlayoutArgsToTemplatedLayout(layout);
 
   return convertTemplatedLayoutToGridlayoutArgs(

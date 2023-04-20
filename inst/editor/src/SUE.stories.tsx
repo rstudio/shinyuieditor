@@ -1,6 +1,6 @@
-import { basicGridPage } from "./state/sample_ui_trees/basicGridPage";
-import { basicNavbarPage } from "./state/sample_ui_trees/basicNavbarPage";
-import { bslibCards } from "./state/sample_ui_trees/bslibCards";
+import { basicGridPage } from "ui-node-definitions/src/sample_ui_trees/basicGridPage";
+import { basicNavbarPage } from "ui-node-definitions/src/sample_ui_trees/basicNavbarPage";
+import { bslibCards } from "ui-node-definitions/src/sample_ui_trees/bslibCards";
 import type { SUE_Props } from "./SUE";
 import { SUE } from "./SUE";
 

@@ -1,9 +1,9 @@
 import { grid_container } from "ui-node-definitions/src/gridlayout/grid_container";
+import type { GridLayoutArgs } from "ui-node-definitions/src/gridlayout/GridLayoutArgs";
 
 import icon from "../../../assets/icons/shinyGridContainer.png";
 import { add_editor_info_to_ui_node } from "../../utils/add_editor_info_to_ui_node";
 import { GridContainerElement } from "../Utils/GridContainerElement/GridContainerElement";
-import type { GridLayoutArgs } from "../Utils/GridContainerElement/GridLayoutArgs";
 import {
   removeDeletedGridAreaFromLayout,
   updateGridLayoutAreaOnItemAreaChange,

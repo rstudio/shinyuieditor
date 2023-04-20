@@ -3,14 +3,9 @@ import React from "react";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
+import type { Language_Mode } from "ui-node-definitions/src/code_generation/language_mode";
 
 import type { RootState } from "./store";
-
-/**
- * What mode is the editor currently in. This will influence what code is
- * generated and elements are visible in the elements palette
- * */
-export type Language_Mode = "R" | "PYTHON";
 
 export const languageModeSlice = createSlice({
   name: "language_mode",

@@ -1,9 +1,8 @@
 import type { Multi_File_Full_Info } from "communication-types/src/AppInfo";
 import { SCRIPT_LOC_KEYS } from "communication-types/src/AppInfo";
 
-import type { Language_Mode } from "../state/languageMode";
-
-import { ui_node_to_code } from "./code_generation/ui_node_to_code";
+import type { Language_Mode } from "./Language_Mode";
+import { ui_node_to_code } from "./ui_node_to_code";
 
 export function generate_ui_script({
   ui_tree,

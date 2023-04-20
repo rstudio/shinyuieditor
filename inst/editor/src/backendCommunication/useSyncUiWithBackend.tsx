@@ -2,9 +2,10 @@ import * as React from "react";
 
 import debounce from "just-debounce-it";
 import { useDispatch } from "react-redux";
+import { generate_full_app_script } from "ui-node-definitions/src/code_generation/generate_full_app_script";
 
-import { generate_full_app_script } from "../ast_parsing/generate_full_app_script";
 import { useDeleteNode } from "../components/DeleteNodeButton/useDeleteNode";
+import { useUndoRedo } from "../HistoryNavigation/useUndoRedo";
 import {
   SET_APP_INFO,
   SET_ERROR,
@@ -13,8 +14,7 @@ import {
 } from "../state/app_info";
 import { useLanguageMode, useSetLanguageMode } from "../state/languageMode";
 import { useCurrentSelection } from "../state/selectedPath";
-import { useUndoRedo } from "../state-logic/useUndoRedo";
-import { useKeyboardShortcuts } from "../utils/hooks/useKeyboardShortcuts";
+import { useKeyboardShortcuts } from "../utils/useKeyboardShortcuts";
 
 import { useBackendConnection } from "./useBackendMessageCallbacks";
 
