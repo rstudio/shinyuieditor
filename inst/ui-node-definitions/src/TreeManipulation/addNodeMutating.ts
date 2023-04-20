@@ -1,7 +1,7 @@
 import { addAtIndex } from "util-functions/src/arrays";
 
 import type { NodePath } from "../NodePath";
-import type { ShinyUiNode, ShinyUiParentNode } from "../uiNodeTypes";
+import type { ShinyUiNode, ShinyUiParentNode } from "../ShinyUiNode";
 
 import { getNode } from "./getNode";
 import { separateIntoParentAndChildPaths } from "./getParentPath";

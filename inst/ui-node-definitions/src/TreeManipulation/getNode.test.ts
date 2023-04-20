@@ -1,4 +1,4 @@
-import type { ShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
+import type { ShinyUiNode } from "../ShinyUiNode";
 
 import { getNode } from "./getNode";
 

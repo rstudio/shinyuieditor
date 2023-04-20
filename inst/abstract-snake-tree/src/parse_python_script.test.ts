@@ -108,13 +108,16 @@ print("Hello world")
             { type: "number", value: 100 },
             { type: "number", value: 20 },
           ],
+          known: true,
         },
         {
           type: "call",
           fn_name: "ui.output_text_verbatim",
           args: [{ type: "string", value: "txt" }],
+          known: false,
         },
       ],
+      known: false,
     } satisfies Parsed_Ui_Node);
   });
 
@@ -130,6 +133,7 @@ print("Hello world")
     expect(node_to_uitree(ui_node)).toStrictEqual({
       type: "call",
       fn_name: "ui.page_navbar",
+      known: true,
       args: [
         {
           type: "call",
@@ -147,17 +151,21 @@ print("Hello world")
                 { name: "value", type: "number", value: 5.5 },
                 { name: "width", type: "string", value: "100%" },
               ],
+              known: true,
             },
           ],
+          known: true,
         },
         {
           type: "call",
           fn_name: "ui.nav",
+          known: true,
           args: [
             { type: "string", value: "Plot 1" },
             {
               type: "call",
               fn_name: "ui.output_plot",
+              known: true,
               args: [
                 { name: "id", type: "string", value: "MyPlot" },
                 { name: "width", type: "string", value: "100%" },

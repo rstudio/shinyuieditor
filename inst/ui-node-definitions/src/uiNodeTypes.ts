@@ -91,7 +91,7 @@ const shinyUiNodeInfo = new Map<string, ShinyUiNodeInfo>(
   all_node_info.map((info) => [info.id, info])
 );
 
-const containerNodes = new Set<string>(
+export const containerNodes = new Set<string>(
   all_node_info.filter((info) => info.takesChildren).map((info) => info.id)
 );
 
@@ -159,6 +159,20 @@ export const rFnNameToNodeId = new Map<string, string>([
   ...(all_node_info.map(({ id }) => [id, id]) as [string, string][]),
 ]);
 
+type Python_Aware_NodeInfo = Extract<ShinyUiNodeInfo, { py_info: any }>;
+/**
+ * Go from python function name (e.g. `ui.input_slider`) to the ui node id. Also
+ * acts as a check for if a node is in known python functions
+ * */
+export const pyFnNameToNodeInfo = new Map<string, Python_Aware_NodeInfo>(
+  all_node_info
+    .filter((info) => info.py_info)
+    .map((info) => [info.py_info.fn_name, info]) as [
+    string,
+    Python_Aware_NodeInfo
+  ][]
+);
+
 /** A ui node type that type checks its values. Used for things like declaring test ui trees etc.. */
 export type KnownShinyUiNode = {
   [NodeInfo in ShinyUiNodeInfo as NodeInfo["id"]]: {
@@ -170,39 +184,3 @@ export type KnownShinyUiNode = {
 }[ShinyUiNodeInfo["id"]];
 
 type KnownUiChildren = Array<KnownShinyUiNode>;
-
-/**
- * Ui Node with no children
- */
-export type ShinyUiLeafNode = {
-  id: string;
-  namedArgs: namedArgsObject;
-};
-
-/**
- * Ui Node with children
- */
-export type ShinyUiParentNode = ShinyUiLeafNode & {
-  children?: Array<ShinyUiNode>;
-};
-export type ShinyUiRootNode = ShinyUiParentNode | "TEMPLATE_CHOOSER";
-
-/**
- * General ui node that can be a leaf or a parent node
- */
-export type ShinyUiNode = ShinyUiLeafNode | ShinyUiParentNode;
-
-export type MakeShinyUiNode<
-  Args extends namedArgsObject,
-  TakesChildren extends boolean = false
-> = {
-  id: string;
-  namedArgs: Args;
-} & (TakesChildren extends true ? { children: Array<ShinyUiNode> } : {});
-
-/**
- * Narrow if a node is a parent node or not
- */
-export function isParentNode(node: ShinyUiNode): node is ShinyUiParentNode {
-  return "children" in node || containerNodes.has(node.id);
-}

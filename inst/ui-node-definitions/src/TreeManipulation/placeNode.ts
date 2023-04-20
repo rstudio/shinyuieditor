@@ -1,6 +1,6 @@
 import produce from "immer";
 
-import type { ShinyUiNode } from "../uiNodeTypes";
+import type { ShinyUiNode } from "../ShinyUiNode";
 
 import type { AddNodeArguments } from "./addNodeMutating";
 import { addNodeMutating } from "./addNodeMutating";

@@ -1,7 +1,7 @@
 import { moveElement } from "util-functions/src/arrays";
 
 import type { NodePath } from "../NodePath";
-import type { ShinyUiNode, ShinyUiParentNode } from "../uiNodeTypes";
+import type { ShinyUiNode, ShinyUiParentNode } from "../ShinyUiNode";
 
 import { addNodeMutating } from "./addNodeMutating";
 import { getNode } from "./getNode";

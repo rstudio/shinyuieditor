@@ -1,5 +1,5 @@
 import { isShinyUiNode } from "../isShinyUiNode";
-import type { ShinyUiNode } from "../uiNodeTypes";
+import type { ShinyUiNode } from "../ShinyUiNode";
 type PathElement = string | number;
 
 /**

@@ -1,5 +1,6 @@
 import { nodeInfoFactory } from "../nodeInfoFactory";
-import type { KnownShinyUiNode, ShinyUiNode } from "../uiNodeTypes";
+import type { KnownShinyUiNode } from "../uiNodeTypes";
+import type { ShinyUiNode } from "../ShinyUiNode";
 
 export type BslibCardArguments = {
   full_screen?: boolean;

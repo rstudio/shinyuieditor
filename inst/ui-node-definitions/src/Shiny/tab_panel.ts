@@ -1,5 +1,5 @@
 import { nodeInfoFactory } from "../nodeInfoFactory";
-import type { MakeShinyUiNode } from "../uiNodeTypes";
+import type { MakeShinyUiNode } from "../ShinyUiNode";
 
 type TabPanelSettings = {
   title: string;

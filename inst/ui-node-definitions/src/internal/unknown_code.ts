@@ -1,5 +1,5 @@
 import { nodeInfoFactory } from "../nodeInfoFactory";
-import type { MakeShinyUiNode, ShinyUiNode } from "../uiNodeTypes";
+import type { MakeShinyUiNode, ShinyUiNode } from "../ShinyUiNode";
 
 type UnknownUiFunctionProps = {
   text: string;

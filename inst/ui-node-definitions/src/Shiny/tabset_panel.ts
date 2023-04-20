@@ -1,5 +1,5 @@
 import { nodeInfoFactory } from "../nodeInfoFactory";
-import type { ShinyUiParentNode } from "../uiNodeTypes";
+import type { ShinyUiParentNode } from "../ShinyUiNode";
 
 import { getFirstTabName, getTabNames } from "./page_navbar";
 

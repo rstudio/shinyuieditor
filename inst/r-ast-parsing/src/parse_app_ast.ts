@@ -15,7 +15,7 @@ import {
   get_known_outputs,
   get_ui_assignment_node,
 } from "r-ast-parsing/src/get_assignment_nodes";
-import type { ShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
+import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 
 import { ast_to_ui_node } from "./ast_to_shiny_ui_node";
 

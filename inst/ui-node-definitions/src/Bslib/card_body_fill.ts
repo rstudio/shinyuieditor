@@ -1,6 +1,6 @@
 import type { CSSMeasure } from "../inputFieldTypes";
 import { nodeInfoFactory } from "../nodeInfoFactory";
-import type { MakeShinyUiNode } from "../uiNodeTypes";
+import type { MakeShinyUiNode } from "../ShinyUiNode";
 
 type CardBodyFillSettings = {
   gap?: CSSMeasure;

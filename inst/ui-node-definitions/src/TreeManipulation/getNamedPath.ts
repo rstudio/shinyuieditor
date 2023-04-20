@@ -1,6 +1,6 @@
 import type { NodePath } from "../NodePath";
 import { getUiNodeTitle } from "../uiNodeTypes";
-import type { ShinyUiNode } from "../uiNodeTypes";
+import type { ShinyUiNode } from "../ShinyUiNode";
 
 import { getNode } from "./getNode";
 

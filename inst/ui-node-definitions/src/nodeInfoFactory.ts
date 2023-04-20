@@ -9,11 +9,8 @@ import type { DynamicArgumentInfo } from "./buildStaticSettingsInfo";
 import { get_ordered_positional_args } from "./get_ordered_positional_args";
 import type { ArgsToDynamicInfo } from "./inputFieldTypes";
 import type { input_action_button } from "./Shiny/input_action_button";
-import type {
-  namedArgsObject,
-  ServerBindings,
-  ShinyUiNode,
-} from "./uiNodeTypes";
+import type { ShinyUiNode } from "./ShinyUiNode";
+import type { namedArgsObject, ServerBindings } from "./uiNodeTypes";
 
 /**
  * Typescript factory function that takes as a type parameter the arguments type

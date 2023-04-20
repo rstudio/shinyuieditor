@@ -1,7 +1,4 @@
-import type {
-  ShinyUiNode,
-  ShinyUiLeafNode,
-} from "ui-node-definitions/src/uiNodeTypes";
+import type { ShinyUiNode, ShinyUiLeafNode } from "../ShinyUiNode";
 
 import { getNode } from "./getNode";
 import { placeNode } from "./placeNode";

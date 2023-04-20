@@ -1,6 +1,7 @@
 import type { Expand } from "util-functions/src/TypescriptUtils";
 
-import type { ShinyUiNode, namedArgsObject } from "./uiNodeTypes";
+import type { ShinyUiNode } from "./ShinyUiNode";
+import type { namedArgsObject } from "./uiNodeTypes";
 
 export type CSSMeasure = `${number}${CSSUnit}` | "auto";
 export type CSSUnit = "fr" | "px" | "rem" | "%";

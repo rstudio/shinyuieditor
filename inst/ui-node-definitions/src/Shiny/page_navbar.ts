@@ -1,5 +1,5 @@
 import { nodeInfoFactory } from "../nodeInfoFactory";
-import type { ShinyUiParentNode, ShinyUiNode } from "../uiNodeTypes";
+import type { ShinyUiParentNode, ShinyUiNode } from "../ShinyUiNode";
 
 export const page_navbar = nodeInfoFactory<{
   title: string;

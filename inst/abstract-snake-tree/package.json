@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "tree-sitter": "^0.20.1",
-    "tree-sitter-python": "^0.20.1"
+    "tree-sitter-python": "^0.20.1",
+    "ui-node-definitions": "*"
   }
 }

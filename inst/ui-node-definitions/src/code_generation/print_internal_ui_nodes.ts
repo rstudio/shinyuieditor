@@ -4,8 +4,8 @@ import { isUnknownUiNode } from "ui-node-definitions/src/internal/unknown_code";
 import type {
   ShinyUiNodeInfo,
   KnownShinyUiNode,
-  ShinyUiNode,
 } from "ui-node-definitions/src/uiNodeTypes";
+import type { ShinyUiNode } from "../ShinyUiNode";
 
 import { text_node_to_code } from "r-ast-parsing/src/text_nodes/text_node_to_code";
 

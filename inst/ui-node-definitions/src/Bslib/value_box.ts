@@ -7,7 +7,8 @@ import {
 
 import { make_unknown_ui_function } from "../make_unknown_ui_function";
 import { nodeInfoFactory } from "../nodeInfoFactory";
-import type { ShinyUiNode, namedArgsObject } from "../uiNodeTypes";
+import type { namedArgsObject } from "../uiNodeTypes";
+import type { ShinyUiNode } from "../ShinyUiNode";
 
 const layout_dir_to_code = {
   left: "showcase_left_center()",

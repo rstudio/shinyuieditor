@@ -7,6 +7,7 @@ type Node_Fields_By_Type = {
   call: {
     fn_name: string;
     args: Parsed_Ui_Node[];
+    known: boolean;
   };
   string: {
     value: string;

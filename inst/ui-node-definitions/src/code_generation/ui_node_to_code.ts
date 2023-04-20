@@ -2,10 +2,8 @@ import type { Generated_UI_Def } from "communication-types/src/MessageToBackend"
 import type { DynamicArgumentInfo } from "ui-node-definitions/src/buildStaticSettingsInfo";
 import { isShinyUiNode } from "ui-node-definitions/src/isShinyUiNode";
 import type { Lang_Info } from "ui-node-definitions/src/nodeInfoFactory";
-import type {
-  ShinyUiNode,
-  namedArgsObject,
-} from "ui-node-definitions/src/uiNodeTypes";
+import type { namedArgsObject } from "ui-node-definitions/src/uiNodeTypes";
+import type { ShinyUiNode } from "../ShinyUiNode";
 import { getUiNodeInfo } from "ui-node-definitions/src/uiNodeTypes";
 
 import {

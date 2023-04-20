@@ -1,5 +1,5 @@
 import { nodeInfoFactory } from "../nodeInfoFactory";
-import type { MakeShinyUiNode, ShinyUiNode } from "../uiNodeTypes";
+import type { MakeShinyUiNode, ShinyUiNode } from "../ShinyUiNode";
 
 import type { TextNodeSettings } from "./is_text_node";
 

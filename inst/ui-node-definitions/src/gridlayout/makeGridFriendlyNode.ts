@@ -1,5 +1,6 @@
 import { isBslibCard } from "../Bslib/card";
-import type { KnownShinyUiNode, ShinyUiNode } from "../uiNodeTypes";
+import type { KnownShinyUiNode } from "../uiNodeTypes";
+import type { ShinyUiNode } from "../ShinyUiNode";
 
 import type { GridlayoutCardNode } from "./grid_card";
 import type { GridItemNode } from "./isValidGridItem";

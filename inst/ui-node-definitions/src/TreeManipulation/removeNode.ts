@@ -1,7 +1,7 @@
 import produce from "immer";
 
 import type { NodePath } from "../NodePath";
-import type { ShinyUiNode } from "../uiNodeTypes";
+import type { ShinyUiNode } from "../ShinyUiNode";
 
 import { getNode } from "./getNode";
 import { separateIntoParentAndChildPaths } from "./getParentPath";
