@@ -80,6 +80,5 @@ export function parse_call_node(
     type: "call",
     fn_name: node.functionNode.text,
     args: fn_args.map(node_to_uitree),
-    known: !!known_info,
   };
 }

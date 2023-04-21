@@ -1,40 +1,50 @@
 import { parse_python_script } from ".";
 
-import { simple_app_script } from "./example_app_scripts";
 import { get_assignment_nodes } from "./get_assignment_nodes";
 import { get_ui_assignment } from "./get_ui_assignment";
-import { node_to_uitree } from "./node_to_uitree";
 import { treesitter_to_ui_tree } from "./NodeTypes/ts_node_to_ui_tree";
 
-const sliderInputDef = `
+const navbar_page_app = `
 from shiny import *
 
-my_slider = ui.input_slider(
-  id = "inputId",
-  label = "Slider Input",
-  min = 0,
-  max = 10,
-  value = 5.5,
-  width = "100%"
+app_ui = ui.page_navbar(
+  ui.nav(
+    "Settings",
+    ui.input_slider(
+      id = "inputId",
+      label = "Slider Input",
+      min = 0,
+      max = 10,
+      value = 5.5,
+      width = "100%"
+    )
+  ),
+  ui.nav(
+    "Plot 1",
+    ui.output_plot(
+      id = "MyPlot",
+      width = "100%",
+      height = "100%"
+    )
+  ),
+  title = "My Navbar Page",
+  collapsible = False
 )
+
+def server(input, output, session):
+  pass
+
+app = App(app_ui, server)
 `;
-const assigned_nodes = get_assignment_nodes(
-  parse_python_script(sliderInputDef)
-);
 
-const slider_node = assigned_nodes.get("my_slider");
+debugger;
 
-// expect(slider_node).not.toBeUndefined();
-const converted_node = treesitter_to_ui_tree(slider_node!);
+const parsed_app = parse_python_script(navbar_page_app);
 
-// expect(converted_node).toStrictEqual({
-//   id: "sliderInput",
-//   namedArgs: {
-//     inputId: "inputId",
-//     label: "Slider Input",
-//     min: 0,
-//     max: 10,
-//     value: 5.5,
-//     width: "100%",
-//   },
-// });
+const assigned_nodes = get_assignment_nodes(parsed_app);
+
+const ui_node = get_ui_assignment(assigned_nodes);
+
+const ui_tree = treesitter_to_ui_tree(ui_node!);
+
+console.log(ui_tree);

@@ -38,10 +38,10 @@ export function treesitter_to_ui_tree(node: Parser.SyntaxNode): ShinyUiNode {
     id: known_info.id,
     namedArgs: {},
   };
-
-  // TODO: Also validate that the correct values are present and handle extra ones
-  // elegantly
+  // Make children a second variable in case it's not needed
   let children_nodes: ShinyUiNode[] = [];
+
+  // Run through all the args and add them to the appropriate place
   for (let i = 0; i < fn_args.length; i++) {
     const arg = fn_args[i];
 
@@ -69,7 +69,6 @@ export function treesitter_to_ui_tree(node: Parser.SyntaxNode): ShinyUiNode {
 
     // This must be a situation where a node with all named args has passed
     // those named arguments as positional
-
     const arg_name = named_arg_names[i];
     if (arg_name) {
       // TODO: Check to make sure the type matches what we are supposed to get

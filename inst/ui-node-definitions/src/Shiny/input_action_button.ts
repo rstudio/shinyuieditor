@@ -1,13 +1,11 @@
 import type { CSSMeasure } from "../inputFieldTypes";
 import { nodeInfoFactory } from "../nodeInfoFactory";
 
-export type ShinyActionButtonArgs = {
+export const input_action_button = nodeInfoFactory<{
   inputId: string;
   label: string;
   width?: CSSMeasure;
-};
-
-export const input_action_button = nodeInfoFactory<ShinyActionButtonArgs>()({
+}>()({
   title: "Action Button",
   r_info: {
     fn_name: "actionButton",
