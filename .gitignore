@@ -22,3 +22,4 @@ node_modules/
 inst/*/.turbo/
 **/storybook-static/*
 inst/inst/abstract_snake_tree/src/
+inst/inst/abstract-snake-tree/src/scratch.js

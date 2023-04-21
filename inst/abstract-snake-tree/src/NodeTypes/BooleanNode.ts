@@ -18,7 +18,7 @@ export function is_boolean_node(
  * @param node String node to extract the content from
  * @returns The text of the string node with the quotes removed
  */
-function extract_boolean_content(node: TSBooleanNode): boolean {
+export function extract_boolean_content(node: TSBooleanNode): boolean {
   let value: boolean;
 
   // Better safe than sorry here. We want to make sure we're not accidentally
