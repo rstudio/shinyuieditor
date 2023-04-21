@@ -83,7 +83,9 @@ def server(input, output, session):
 app = App(app_ui, server)
 `;
 
-const sliderInputDef = `
+describe("Can go from parsed-tree-sitter ast to proper ShinyUiNode", () => {
+  test("Simple slider input with all named args", () => {
+    const sliderInputDef = `
 my_slider = ui.input_slider(
   id = "inputId",
   label = "Slider Input",
@@ -93,9 +95,6 @@ my_slider = ui.input_slider(
   width = "100%"
 )
 `;
-
-describe("Can go from parsed-tree-sitter ast to proper ShinyUiNode", () => {
-  test("Simple slider input with all named args", () => {
     const assigned_nodes = get_assignment_nodes(
       parse_python_script(sliderInputDef)
     );
@@ -109,7 +108,7 @@ describe("Can go from parsed-tree-sitter ast to proper ShinyUiNode", () => {
     expect(converted_node).toStrictEqual({
       id: "sliderInput",
       namedArgs: {
-        id: "inputId",
+        inputId: "inputId",
         label: "Slider Input",
         min: 0,
         max: 10,
@@ -143,10 +142,29 @@ describe("Can go from parsed-tree-sitter ast to proper ShinyUiNode", () => {
         {
           id: "plotOutput",
           namedArgs: {
-            id: "MyPlot",
+            outputId: "MyPlot",
           },
         },
       ],
+    });
+  });
+
+  test("Handle when a leaf node has all its argument passed positionally", () => {
+    const nodeCode = `my_node =  ui.input_slider("n", "N", 0, 100, 20)`;
+    const assigned_nodes = get_assignment_nodes(parse_python_script(nodeCode));
+
+    const converted_node = treesitter_to_ui_tree(
+      assigned_nodes.get("my_node")!
+    );
+    expect(converted_node).toStrictEqual({
+      id: "sliderInput",
+      namedArgs: {
+        inputId: "n",
+        label: "N",
+        min: 0,
+        max: 100,
+        value: 20,
+      },
     });
   });
   // const ui_node = get_ui_assignment(

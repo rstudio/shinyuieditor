@@ -24,6 +24,16 @@ export function treesitter_to_ui_tree(node: Parser.SyntaxNode): ShinyUiNode {
   const positional_args = [...known_info.ordered_positional_args];
   const num_of_positional_args = positional_args.length;
 
+  const named_arg_names = Object.keys(known_info.settingsInfo);
+
+  // TODO add this to preprocessing
+  const py_arg_name_to_sue_arg_name = new Map<string, string>();
+  for (const [arg_name, arg_info] of Object.entries(known_info.settingsInfo)) {
+    if (arg_info.py_name) {
+      py_arg_name_to_sue_arg_name.set(arg_info.py_name, arg_name);
+    }
+  }
+
   const parsed_node: ShinyUiNode = {
     id: known_info.id,
     namedArgs: {},
@@ -38,18 +48,47 @@ export function treesitter_to_ui_tree(node: Parser.SyntaxNode): ShinyUiNode {
     if (i < num_of_positional_args) {
       // This is a positional argument so we need to gather it into the named
       // args
-      const arg_name = positional_args[i];
-      parsed_node.namedArgs[arg_name] = parse_arg_node(arg);
+      parsed_node.namedArgs[positional_args[i]] = parse_arg_node(arg);
       continue;
     }
 
     if (is_keyword_argument_node(arg)) {
-      parsed_node.namedArgs[arg.nameNode.text] = parse_arg_node(arg.valueNode);
+      const arg_name = py_arg_name_to_sue_arg_name.get(arg.nameNode.text);
+
+      parsed_node.namedArgs[arg_name ?? arg.nameNode.text] = parse_arg_node(
+        arg.valueNode
+      );
       continue;
     }
 
-    // Must be a child node, so add it to the children array
-    children_nodes.push(treesitter_to_ui_tree(arg));
+    if (known_info.takesChildren) {
+      // Must be a child node, so add it to the children array
+      children_nodes.push(treesitter_to_ui_tree(arg));
+      continue;
+    }
+
+    // This must be a situation where a node with all named args has passed
+    // those named arguments as positional
+
+    const arg_name = named_arg_names[i];
+    if (arg_name) {
+      // TODO: Check to make sure the type matches what we are supposed to get
+      parsed_node.namedArgs[arg_name] = parse_arg_node(arg);
+      continue;
+    }
+
+    // If we don't know what this argument is, then assume we're in the scenario
+    // where the user has passed all named arguments as positional arguments and
+    // we just havent added knowledge of all the args for the node. We can't
+    // work in this scenario because if the user adds or removes an optional
+    // parameter in the editor then the positions will get all messed up.
+    throw new Error(
+      `Error trying to parse node ${fn_name}.\n` +
+        `More positional arguments provided than expected. ` +
+        `To use the Ui Editor with your app make sure to type ` +
+        `out the names of parameters you're using if they are ` +
+        `not child nodes.\nFull call:\n${node.text}`
+    );
   }
 
   if (children_nodes.length > 0) {
