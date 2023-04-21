@@ -20,6 +20,9 @@ import classes from "./AppPreview.module.css";
 import { python_app_to_shinylive_url } from "./python_app_to_shinylive_url";
 import { usePreviewScale } from "./usePreviewScale";
 
+const DEBOUNCE_INTERVAL_MS = 500;
+const REFRESH_WAIT_MS = 50;
+
 function useLazyReloadShinyLivePreview() {
   const iframeRef = React.useRef<HTMLIFrameElement>(null);
   const appState = useCurrentAppInfo();
@@ -42,8 +45,8 @@ function useLazyReloadShinyLivePreview() {
       setTimeout(() => {
         if (!iframeRef.current || !most_recent_url.current) return;
         iframeRef.current.src = most_recent_url.current;
-      }, 10);
-    }, 200);
+      }, REFRESH_WAIT_MS);
+    }, DEBOUNCE_INTERVAL_MS);
   }, []);
 
   /**
