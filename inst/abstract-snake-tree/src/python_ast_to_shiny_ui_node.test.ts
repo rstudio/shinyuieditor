@@ -84,8 +84,6 @@ app = App(app_ui, server)
 `;
 
 const sliderInputDef = `
-from shiny import *
-
 my_slider = ui.input_slider(
   id = "inputId",
   label = "Slider Input",
@@ -118,6 +116,37 @@ describe("Can go from parsed-tree-sitter ast to proper ShinyUiNode", () => {
         value: 5.5,
         width: "100%",
       },
+    });
+  });
+
+  test("Can handle call with positional named argument", () => {
+    const navDef = `
+    my_nav = ui.nav(
+      "Plot 1",
+      ui.output_plot(id = "MyPlot")
+    )
+    `;
+    const assigned_nodes = get_assignment_nodes(parse_python_script(navDef));
+
+    const nav_node = assigned_nodes.get("my_nav");
+
+    expect(nav_node).not.toBeUndefined();
+
+    const converted_node = treesitter_to_ui_tree(nav_node!);
+
+    expect(converted_node).toStrictEqual({
+      id: "tabPanel",
+      namedArgs: {
+        title: "Plot 1",
+      },
+      children: [
+        {
+          id: "plotOutput",
+          namedArgs: {
+            id: "MyPlot",
+          },
+        },
+      ],
     });
   });
   // const ui_node = get_ui_assignment(

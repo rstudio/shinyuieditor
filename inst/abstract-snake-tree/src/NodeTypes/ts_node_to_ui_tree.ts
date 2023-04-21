@@ -21,32 +21,43 @@ export function treesitter_to_ui_tree(node: Parser.SyntaxNode): ShinyUiNode {
 
   const fn_args = node.argumentsNode.namedChildren;
 
-  const has_ordered_positional_args = known_info
-    ? known_info.ordered_positional_args.size > 0
-    : false;
+  const positional_args = [...known_info.ordered_positional_args];
+  const num_of_positional_args = positional_args.length;
 
   const parsed_node: ShinyUiNode = {
     id: known_info.id,
     namedArgs: {},
   };
 
-  if (has_ordered_positional_args) {
-    // TODO: Pull off the positional args from the args array and put them into
-    // the namedArgs field with the correct names
-  }
-
-  // TODO: Add all the keyword args to the namedArgs field as well. We should
-  // also validate that the correct values are present and handle extra ones
+  // TODO: Also validate that the correct values are present and handle extra ones
   // elegantly
-
+  let children_nodes: ShinyUiNode[] = [];
   for (let i = 0; i < fn_args.length; i++) {
     const arg = fn_args[i];
+
+    if (i < num_of_positional_args) {
+      // This is a positional argument so we need to gather it into the named
+      // args
+      const arg_name = positional_args[i];
+      parsed_node.namedArgs[arg_name] = parse_arg_node(arg);
+      continue;
+    }
+
     if (is_keyword_argument_node(arg)) {
       parsed_node.namedArgs[arg.nameNode.text] = parse_arg_node(arg.valueNode);
+      continue;
     }
+
+    // Must be a child node, so add it to the children array
+    children_nodes.push(treesitter_to_ui_tree(arg));
   }
 
-  // TODO: Gather remaining args into children array
+  if (children_nodes.length > 0) {
+    return {
+      ...parsed_node,
+      children: children_nodes,
+    };
+  }
 
   return parsed_node;
 }
