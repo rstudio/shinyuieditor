@@ -4,7 +4,7 @@ import { FaPlus } from "react-icons/fa";
 import type { NodePath } from "ui-node-definitions/src/NodePath";
 import { makeChildPath } from "ui-node-definitions/src/nodePathUtils";
 import { nodeDepth } from "ui-node-definitions/src/TreeManipulation/nodeDepth";
-import type { ShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
+import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 import { seqArray } from "util-functions/src/arrays";
 
 import { useCurrentSelection } from "../../../state/selectedPath";

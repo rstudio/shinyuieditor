@@ -1,6 +1,5 @@
 import { expect, test } from "@playwright/test";
-
-import type { ShinyUiNode } from "../src/main";
+import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 
 import { dragInDir } from "./utils/dragInDir";
 import { mockBackendState } from "./utils/mockBackend";

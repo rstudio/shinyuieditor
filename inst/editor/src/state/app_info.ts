@@ -13,7 +13,7 @@ import type { RemoveNodeArguments } from "ui-node-definitions/src/TreeManipulati
 import { removeNodeMutating } from "ui-node-definitions/src/TreeManipulation/removeNode";
 import type { UpdateNodeArguments } from "ui-node-definitions/src/TreeManipulation/updateNode";
 import { updateNodeMutating } from "ui-node-definitions/src/TreeManipulation/updateNode";
-import type { ShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
+import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 
 import type { TemplateChooserOptions } from "../components/TemplatePreviews/TemplateChooserView";
 

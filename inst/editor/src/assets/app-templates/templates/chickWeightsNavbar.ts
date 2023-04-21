@@ -1,5 +1,5 @@
 import type { TemplateInfo } from "communication-types/src/AppTemplates";
-import type { ShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
+import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 
 const navbarTree: ShinyUiNode = {
   id: "navbarPage",

@@ -1,6 +1,5 @@
 import type { Page } from "@playwright/test";
-
-import type { ShinyUiRootNode } from "../../src/Shiny-Ui-Elements/uiNodeTypes";
+import type { ShinyUiRootNode } from "ui-node-definitions/src/ShinyUiNode";
 
 export async function mockBackendState(page: Page, state: ShinyUiRootNode) {
   await page.route("/testing-tree", (route) =>

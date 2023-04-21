@@ -1,6 +1,5 @@
 import { test, expect } from "@playwright/test";
-
-import type { ShinyUiNode } from "../src/main";
+import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 
 import { mockBackendState } from "./utils/mockBackend";
 const testingUiTree: ShinyUiNode = {

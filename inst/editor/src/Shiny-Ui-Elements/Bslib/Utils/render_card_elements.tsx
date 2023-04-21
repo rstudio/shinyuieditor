@@ -1,6 +1,6 @@
 import type { NodePath } from "ui-node-definitions/src/NodePath";
 import { makeChildPath } from "ui-node-definitions/src/nodePathUtils";
-import type { ShinyUiParentNode } from "ui-node-definitions/src/uiNodeTypes";
+import type { ShinyUiParentNode } from "ui-node-definitions/src/ShinyUiNode";
 import { sum_booleans } from "util-functions/src/sum_booleans";
 
 import UiNode from "../../../components/UiNode/UiNode";

@@ -1,4 +1,4 @@
-import type { ShinyUiRootNode } from "ui-node-definitions/src/uiNodeTypes";
+import type { ShinyUiRootNode } from "ui-node-definitions/src/ShinyUiNode";
 
 /**
  * Get a ui tree to populate app state with either from prebuilt trees or from a

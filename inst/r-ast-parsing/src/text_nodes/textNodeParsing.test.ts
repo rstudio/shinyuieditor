@@ -1,5 +1,5 @@
 import type { Branch_Node, R_AST_Node } from "r-ast-parsing";
-import type { ShinyUiParentNode } from "ui-node-definitions/src/uiNodeTypes";
+import type { ShinyUiParentNode } from "ui-node-definitions/src/ShinyUiNode";
 
 import { ast_to_ui_node } from "../ast_to_shiny_ui_node";
 

@@ -3,7 +3,7 @@ import {
   makeChildPath,
   pathToString,
 } from "ui-node-definitions/src/nodePathUtils";
-import type { ShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
+import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 
 import UiNode from "../../components/UiNode/UiNode";
 

@@ -1,4 +1,4 @@
-import type { ShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
+import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 
 import type { Single_File_App_Type, Multi_File_App_Type } from "./AppInfo";
 import type { Generated_UI_Def } from "./MessageToBackend";

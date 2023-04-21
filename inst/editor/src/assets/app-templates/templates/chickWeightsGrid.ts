@@ -1,5 +1,5 @@
 import type { TemplateInfo } from "communication-types/src/AppTemplates";
-import type { ShinyUiParentNode } from "ui-node-definitions/src/uiNodeTypes";
+import type { ShinyUiParentNode } from "ui-node-definitions/src/ShinyUiNode";
 
 const navbarTree: ShinyUiParentNode = {
   id: "grid_page",

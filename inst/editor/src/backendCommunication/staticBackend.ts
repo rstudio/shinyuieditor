@@ -1,5 +1,5 @@
 import type { BackendConnection, MessageDispatcher } from "communication-types";
-import type { ShinyUiRootNode } from "ui-node-definitions/src/uiNodeTypes";
+import type { ShinyUiRootNode } from "ui-node-definitions/src/ShinyUiNode";
 
 import { getClientsideOnlyTree } from "./getClientsideOnlyTree";
 

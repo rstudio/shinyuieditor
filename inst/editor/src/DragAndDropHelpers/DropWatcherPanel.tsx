@@ -2,12 +2,10 @@ import React from "react";
 
 import type { PathElement, NodePath } from "ui-node-definitions/src/NodePath";
 import { makeChildPath } from "ui-node-definitions/src/nodePathUtils";
+import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 import { getIsValidMove } from "ui-node-definitions/src/TreeManipulation/getIsValidMove";
 import type { Wrapping_Node } from "ui-node-definitions/src/TreeManipulation/wrapInNode";
-import type {
-  ShinyUiNode,
-  ShinyUiNodeIds,
-} from "ui-node-definitions/src/uiNodeTypes";
+import type { ShinyUiNodeIds } from "ui-node-definitions/src/uiNodeTypes";
 import { getUiNodeTitle } from "ui-node-definitions/src/uiNodeTypes";
 import { getUiNodeInfo } from "ui-node-definitions/src/uiNodeTypes";
 

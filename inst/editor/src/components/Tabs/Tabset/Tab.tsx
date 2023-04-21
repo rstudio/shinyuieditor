@@ -6,7 +6,7 @@ import type { NodePath } from "ui-node-definitions/src/NodePath";
 import { makeChildPath } from "ui-node-definitions/src/nodePathUtils";
 import { getNode } from "ui-node-definitions/src/TreeManipulation/getNode";
 import { samePath } from "ui-node-definitions/src/TreeManipulation/samePath";
-import type { ShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
+import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 
 import { useCurrentSelection } from "../../../state/selectedPath";
 import type { RootState } from "../../../state/store";

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import type { BackendConnection } from "communication-types";
 import { makeMessageDispatcher } from "communication-types/src/BackendConnection";
-import type { ShinyUiRootNode } from "ui-node-definitions/src/uiNodeTypes";
+import type { ShinyUiRootNode } from "ui-node-definitions/src/ShinyUiNode";
 
 import { setupStaticBackend } from "./backendCommunication/staticBackend";
 import { setupWebsocketBackend } from "./backendCommunication/websocketBackend";

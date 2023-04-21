@@ -3,7 +3,7 @@ import { makeMessageDispatcher } from "communication-types/src/BackendConnection
 import type { FallbackProps } from "react-error-boundary";
 import "./App.css";
 import { ErrorBoundary } from "react-error-boundary";
-import type { ShinyUiRootNode } from "ui-node-definitions/src/uiNodeTypes";
+import type { ShinyUiRootNode } from "ui-node-definitions/src/ShinyUiNode";
 
 import { setupStaticBackend } from "./backendCommunication/staticBackend";
 import { BackendConnectionProvider } from "./backendCommunication/useBackendMessageCallbacks";

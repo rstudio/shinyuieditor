@@ -1,6 +1,6 @@
 import React from "react";
 
-import type { ShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
+import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 
 import UiNode from "../UiNode/UiNode";
 

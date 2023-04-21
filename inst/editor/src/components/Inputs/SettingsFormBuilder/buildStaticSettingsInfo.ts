@@ -1,6 +1,5 @@
-import type { ShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
+import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 import type { Expand } from "util-functions/src/TypescriptUtils";
-
 
 import type {
   InputOptions,

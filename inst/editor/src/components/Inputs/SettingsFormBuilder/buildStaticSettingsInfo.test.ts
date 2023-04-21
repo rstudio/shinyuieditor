@@ -2,7 +2,7 @@ import {
   getFirstTabName,
   getTabNames,
 } from "ui-node-definitions/src/Shiny/page_navbar";
-import type { ShinyUiParentNode } from "ui-node-definitions/src/uiNodeTypes";
+import type { ShinyUiParentNode } from "ui-node-definitions/src/ShinyUiNode";
 import type { Equal, Expect } from "util-functions/src/TypescriptUtils";
 
 import type { DynamicArgumentInfo } from "./buildStaticSettingsInfo";

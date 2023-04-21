@@ -1,8 +1,6 @@
 import type { MessageToBackend } from "communication-types/src/MessageToBackend";
-import type {
-  ServerBindings,
-  ShinyUiNode,
-} from "ui-node-definitions/src/uiNodeTypes";
+import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
+import type { ServerBindings } from "ui-node-definitions/src/uiNodeTypes";
 import { getUiNodeInfo } from "ui-node-definitions/src/uiNodeTypes";
 import type { PickKeyFn } from "util-functions/src/TypescriptUtils";
 

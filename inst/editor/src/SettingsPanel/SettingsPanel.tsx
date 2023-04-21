@@ -2,7 +2,7 @@ import React from "react";
 
 import type { FallbackProps } from "react-error-boundary";
 import { ErrorBoundary } from "react-error-boundary";
-import type { ShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
+import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 import { getUiNodeInfo } from "ui-node-definitions/src/uiNodeTypes";
 
 import DeleteNodeButton from "../components/DeleteNodeButton";
