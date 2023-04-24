@@ -68,11 +68,11 @@ export const mainStateSlice = createSlice({
     // what we expect in the app
     SET_APP_INFO: (tree, action: PayloadAction<App_Info>) => {
       try {
-        const full_app_info: EditingState = {
+        debugger;
+        return {
           mode: "MAIN",
           ...action.payload,
         };
-        return full_app_info;
       } catch (error) {
         const error_msg = error instanceof Error ? error.message : null;
 

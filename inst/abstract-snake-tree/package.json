@@ -1,5 +1,5 @@
 {
-  "name": "abstract_snake_tree",
+  "name": "abstract-snake-tree",
   "main": "src/index.ts",
   "version": "0.0.1",
   "private": true,

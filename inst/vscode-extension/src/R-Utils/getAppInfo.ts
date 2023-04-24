@@ -9,14 +9,14 @@ import type * as vscode from "vscode";
 import type { CommandOutputGeneric } from "./runRCommand";
 import type { ActiveRSession } from "./startBackgroundRProcess";
 
-type INFO_GET_RESULTS =
+export type INFO_GET_RESULTS =
   | {
       parsed_info: App_Info;
-      server_info: ReturnType<typeof parse_app_server_info>;
+      server_info?: ReturnType<typeof parse_app_server_info>;
     }
   | "EMPTY";
 
-async function getAppInfo(
+export async function getRAppInfo(
   rProc: ActiveRSession,
   fileText: string
 ): Promise<CommandOutputGeneric<INFO_GET_RESULTS>> {
@@ -104,7 +104,7 @@ function assert_is_ast_parse_response(
 
 export function make_cached_info_getter(
   document: vscode.TextDocument,
-  rProc: ActiveRSession
+  get_info_fn: (text: string) => Promise<CommandOutputGeneric<INFO_GET_RESULTS>>
 ) {
   let last_info_grabbed: {
     file_version: number;
@@ -119,7 +119,7 @@ export function make_cached_info_getter(
       return { status: "success", values: last_info_grabbed.info };
     }
 
-    const info_attempt = await getAppInfo(rProc, document.getText());
+    const info_attempt = await get_info_fn(document.getText());
 
     if (info_attempt.status === "error") {
       return info_attempt;

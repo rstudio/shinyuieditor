@@ -7,9 +7,8 @@ import * as vscode from "vscode";
 
 import { clearAppFile } from "./clearAppFile";
 import { openCodeCompanionEditor } from "./extension-api-utils/openCodeCompanionEditor";
-import { checkIfPkgAvailable } from "./R-Utils/checkIfPkgAvailable";
-import { make_cached_info_getter } from "./R-Utils/getAppInfo";
-import { startBackgroundRProcess } from "./R-Utils/startBackgroundRProcess";
+import { build_python_app_parser } from "./Python-Utils/build_python_app_parser";
+import { build_R_app_parser } from "./R-Utils/build_R_app_parser";
 import { startPreviewApp } from "./R-Utils/startPreviewApp";
 import {
   insert_code_snippet,
@@ -27,11 +26,6 @@ export type App_Location = {
   end_col: number;
 };
 
-type App_Parser = {
-  getAst: () => Promise<any>;
-  check_if_pkgs_installed: (pkgs: string) => Promise<boolean>;
-};
-
 export async function editorLogic({
   language,
   document,
@@ -41,11 +35,13 @@ export async function editorLogic({
   document: vscode.TextDocument;
   sendMessage: (msg: MessageToClient) => Thenable<boolean>;
 }) {
-  // Startup background R process
-  const RProcess = await startBackgroundRProcess();
-  if (!RProcess) {
-    throw new Error("Don't have an R Process to pass to editor backend!");
-  }
+  // TODO: Come up with a better name for this
+  const app_info_getter =
+    language === "R"
+      ? await build_R_app_parser(document)
+      : await build_python_app_parser(document);
+
+  const get_app_info = app_info_getter.getInfo;
 
   let hasInitialized: boolean = false;
 
@@ -56,8 +52,6 @@ export async function editorLogic({
    * Plain text editor with apps code side-by-side with custom editor
    */
   let codeCompanionEditor: vscode.TextEditor | undefined = undefined;
-
-  const get_app_ast = make_cached_info_getter(document, RProcess);
 
   const syncFileToClientState = async () => {
     const appFileText = document.getText();
@@ -72,9 +66,11 @@ export async function editorLogic({
     // If it's our first time connecting to the viewer, load our libraries and
     // let the user know if this failed and they need to fix it.
     if (!hasInitialized) {
-      const pkgsLoaded = await checkIfPkgAvailable(RProcess, "shinyuieditor");
+      const pkgsLoaded = await app_info_getter.check_if_pkgs_installed(
+        "shinyuieditor"
+      );
 
-      if (pkgsLoaded.status === "error") {
+      if (!pkgsLoaded.success) {
         sendMessage({
           path: "BACKEND-ERROR",
           payload: {
@@ -98,7 +94,7 @@ export async function editorLogic({
     }
 
     try {
-      const appAST = await get_app_ast();
+      const appAST = await get_app_info();
 
       if (appAST.status === "error") {
         sendMessage({
@@ -242,8 +238,12 @@ export async function editorLogic({
           return;
         }
         case "INSERT-SNIPPET": {
-          const appAST = await get_app_ast();
-          if (appAST.status === "success" && appAST.values !== "EMPTY") {
+          const appAST = await get_app_info();
+          if (
+            appAST.status === "success" &&
+            appAST.values !== "EMPTY" &&
+            appAST.values.server_info
+          ) {
             insert_code_snippet({
               editor: await get_companion_editor(),
               server_pos: appAST.values.server_info.server_pos,
@@ -260,8 +260,12 @@ export async function editorLogic({
               input: msg.payload,
             });
           } else {
-            const appAST = await get_app_ast();
-            if (appAST.status === "success" && appAST.values !== "EMPTY") {
+            const appAST = await get_app_info();
+            if (
+              appAST.status === "success" &&
+              appAST.values !== "EMPTY" &&
+              appAST.values.server_info
+            ) {
               select_app_lines({
                 editor: await get_companion_editor(),
                 selections:
