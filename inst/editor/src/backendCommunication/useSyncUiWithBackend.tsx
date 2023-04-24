@@ -74,7 +74,7 @@ export function useSyncUiWithBackend() {
     sendMsg({ path: "READY-FOR-STATE" });
 
     //! Remove this once basic setup is complete
-    // setLanguageMode("PYTHON");
+    setLanguageMode("PYTHON");
 
     return () => {
       updatedAppSubscription.unsubscribe();

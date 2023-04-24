@@ -23,3 +23,6 @@ inst/*/.turbo/
 **/storybook-static/*
 inst/inst/abstract_snake_tree/src/
 inst/inst/abstract-snake-tree/src/scratch.js
+
+# Sometimes the debug process spits out compiled js files to here. 
+inst/inst/

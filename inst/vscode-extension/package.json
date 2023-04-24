@@ -43,6 +43,9 @@
         "selector": [
           {
             "filenamePattern": "*app.R"
+          },
+          {
+            "filenamePattern": "*app.py"
           }
         ]
       }
@@ -66,11 +69,20 @@
         {
           "when": "resourceFilename =~ /app.R/",
           "command": "shinyuieditor.startEditorOnActiveFile"
+        },
+        {
+          "when": "resourceFilename =~ /app.py/",
+          "command": "shinyuieditor.startEditorOnActiveFile"
         }
       ],
       "editor/title": [
         {
           "when": "resourceFilename =~ /app.R/",
+          "command": "shinyuieditor.startEditorOnActiveFile",
+          "group": "navigation"
+        },
+        {
+          "when": "resourceFilename =~ /app.py/",
           "command": "shinyuieditor.startEditorOnActiveFile",
           "group": "navigation"
         }
