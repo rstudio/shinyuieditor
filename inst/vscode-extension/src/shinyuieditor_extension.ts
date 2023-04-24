@@ -4,7 +4,6 @@ import * as vscode from "vscode";
 
 import { editorLogic } from "./editorLogic";
 import { appScriptStatus } from "./R-Utils/appScriptStatus";
-import type { ActiveRSession } from "./R-Utils/startBackgroundRProcess";
 import { startBackgroundRProcess } from "./R-Utils/startBackgroundRProcess";
 import { getNonce } from "./util";
 
@@ -13,8 +12,6 @@ import { getNonce } from "./util";
  *
  */
 export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
-  private RProcess: ActiveRSession | null = null;
-
   private static readonly viewType = "shinyuieditor.appFile";
 
   public static register(context: vscode.ExtensionContext): vscode.Disposable {
@@ -35,12 +32,7 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
     return providerRegistration;
   }
 
-  constructor(private readonly context: vscode.ExtensionContext) {
-    // Spin up background R process for things like formatting code etc.
-    startBackgroundRProcess().then((rProc) => {
-      this.RProcess = rProc;
-    });
-  }
+  constructor(private readonly context: vscode.ExtensionContext) {}
 
   /**
    * Called when an instance of the custom editor is opened.
@@ -53,14 +45,14 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
     webviewPanel: vscode.WebviewPanel,
     _token: vscode.CancellationToken
   ): Promise<void> {
-    const isInvalidAppScript = appScriptStatus(document) === "invalid";
+    const scriptStatus = appScriptStatus(document);
 
-    if (isInvalidAppScript) {
-      const errMsg = `The active file doesn't appear to be a Shiny app. Make sure that the script is either empty or has a valid shiny app in it.`;
-      vscode.window.showErrorMessage(errMsg);
+    if (scriptStatus.status === "invalid") {
+      vscode.window.showErrorMessage(scriptStatus.reason);
       webviewPanel.dispose();
-      throw new Error(errMsg);
+      throw new Error(scriptStatus.reason);
     }
+
     // Setup initial content for the webview
     webviewPanel.webview.options = {
       enableScripts: true,
@@ -68,16 +60,24 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
 
     webviewPanel.webview.html = this.getHtmlForWebview(webviewPanel.webview);
 
-    if (!this.RProcess) {
-      throw new Error("Don't have an R Process to pass to editor backend!");
-    }
+    let editorBackend: ReturnType<typeof editorLogic>;
 
-    const editorBackend = editorLogic({
-      RProcess: this.RProcess,
-      document,
-      sendMessage: (msg: MessageToClient) =>
-        webviewPanel.webview.postMessage(msg),
-    });
+    if (scriptStatus.lang === "R") {
+      // Startup background R process
+      const RProcess = await startBackgroundRProcess();
+      if (!RProcess) {
+        throw new Error("Don't have an R Process to pass to editor backend!");
+      }
+
+      editorBackend = editorLogic({
+        RProcess,
+        document,
+        sendMessage: (msg: MessageToClient) =>
+          webviewPanel.webview.postMessage(msg),
+      });
+    } else {
+      throw new Error("Python support incoming");
+    }
 
     // Filter change and save events do only this current document
     const changeDocumentSubscription = vscode.workspace.onDidChangeTextDocument(
