@@ -1,4 +1,4 @@
-import type { Language_Mode } from "ui-node-definitions/src/code_generation/Language_Mode";
+import type { Language_Mode } from "communication-types/src/AppInfo";
 import type { ShinyUiNodeInfo } from "ui-node-definitions/src/uiNodeTypes";
 
 import { PanelHeader } from "../EditorLayout/PanelHeader";

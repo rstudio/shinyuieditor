@@ -1,15 +1,11 @@
-import type {
-  Multi_File_Raw_App_Info,
-  Single_File_Raw_App_Info,
-} from "communication-types/src/AppInfo";
-
-import { ensure_full_app_info } from "../ensure_full_app_info";
+import type { Raw_R_Info } from "r-ast-parsing";
+import { raw_R_info_to_app_info } from "r-ast-parsing/src/raw_R_info_to_app_info";
 
 import { generate_full_app_script } from "./generate_full_app_script";
 
 describe("Single-File apps", () => {
   // It's super important the script and ast match eachother here.
-  const raw_info: Single_File_Raw_App_Info = {
+  const raw_info: Raw_R_Info = {
     app_type: "SINGLE-FILE",
     app: {
       script: `library(shiny)
@@ -146,7 +142,7 @@ shinyApp(ui, server)
     },
   };
 
-  const full_info = ensure_full_app_info(raw_info);
+  const full_info = raw_R_info_to_app_info(raw_info);
 
   test("Libraries", () => {
     expect(full_info).toEqual(
@@ -173,7 +169,7 @@ shinyApp(ui, server)
 
 describe("Multi-File apps", () => {
   // It's super important the script and ast match eachother here.
-  const raw_info: Multi_File_Raw_App_Info = {
+  const raw_info: Raw_R_Info = {
     app_type: "MULTI-FILE",
     ui: {
       script: `library(shiny)
@@ -314,7 +310,7 @@ server <- function(input, output) {
     },
   };
 
-  const full_info = ensure_full_app_info(raw_info);
+  const full_info = raw_R_info_to_app_info(raw_info);
   test("Libraries", () => {
     expect(full_info).toEqual(
       expect.objectContaining({

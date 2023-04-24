@@ -1,7 +1,11 @@
-import type { Multi_File_Full_Info } from "communication-types/src/AppInfo";
-import { SCRIPT_LOC_KEYS } from "communication-types/src/AppInfo";
+import type {
+  Language_Mode,
+  Script_Generation_Template,
+} from "communication-types/src/AppInfo";
+import { SCRIPT_LOC_KEYS } from "r-ast-parsing/src/raw_R_info_to_app_info";
 
-import type { Language_Mode } from "./Language_Mode";
+import type { ShinyUiNode } from "../ShinyUiNode";
+
 import { ui_node_to_code } from "./ui_node_to_code";
 
 export function generate_ui_script({
@@ -10,9 +14,9 @@ export function generate_ui_script({
   language,
   code,
 }: {
-  ui_tree: Multi_File_Full_Info["ui_tree"];
+  ui_tree: ShinyUiNode;
   language: Language_Mode;
-} & Multi_File_Full_Info["ui"]): string {
+} & Script_Generation_Template): string {
   const ui_def = ui_node_to_code(ui_tree, language);
 
   // We need to check to make sure there aren't any libraries used in the ui
@@ -25,7 +29,7 @@ export function generate_ui_script({
   });
 
   const app_template =
-    code ?? (language === "R" ? dummy_R_code : dummy_python_code);
+    code === "" ? (language === "R" ? dummy_R_code : dummy_python_code) : code;
 
   const package_calls =
     language === "R"

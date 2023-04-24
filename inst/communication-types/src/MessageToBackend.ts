@@ -1,11 +1,6 @@
-import type { Script_Position } from "r-ast-parsing";
 import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 
-import type {
-  App_Type,
-  Multi_File_App_Script,
-  Single_File_App_Script,
-} from "./AppInfo";
+import type { App_Script_Info, App_Type } from "./AppInfo";
 import { isRecord } from "./isRecord";
 import type { MessageUnion } from "./MessageUnion";
 
@@ -14,7 +9,7 @@ import type { MessageUnion } from "./MessageUnion";
  */
 export type MessageToBackendByPath = {
   "READY-FOR-STATE": null;
-  "UPDATED-APP": Single_File_App_Script | Multi_File_App_Script;
+  "UPDATED-APP": App_Script_Info;
   "ENTERED-TEMPLATE-SELECTOR": null;
   "APP-PREVIEW-REQUEST": null;
   "APP-PREVIEW-RESTART": null;
@@ -68,6 +63,13 @@ export type Generated_UI_Def = {
  * Positions the user can request the companion editor to be placed in
  */
 export type CompanionEditorPosition = "BESIDE";
+
+type Script_Position = [
+  start_row: number,
+  start_col: number,
+  end_row: number,
+  end_col: number
+];
 
 export type ParsedAppInfo = {
   file_lines: string[];

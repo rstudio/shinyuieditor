@@ -60,3 +60,19 @@ export type Unparsable_Node = AST_Node_By_Key["s" | "m" | "u"];
 export type R_AST_Node = AST_Node_By_Key[keyof Node_Vals_By_Key];
 
 export type R_AST = Array<R_AST_Node>;
+
+type Raw_Script_Info = {
+  script: string;
+  ast: R_AST;
+};
+
+export type Raw_R_Info =
+  | {
+      app_type: "SINGLE-FILE";
+      app: Raw_Script_Info;
+    }
+  | {
+      app_type: "MULTI-FILE";
+      ui: Raw_Script_Info;
+      server: Raw_Script_Info;
+    };

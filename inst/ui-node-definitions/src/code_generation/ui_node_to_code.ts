@@ -1,10 +1,12 @@
+import type { Language_Mode } from "communication-types/src/AppInfo";
 import type { Generated_UI_Def } from "communication-types/src/MessageToBackend";
 import type { DynamicArgumentInfo } from "ui-node-definitions/src/buildStaticSettingsInfo";
 import { isShinyUiNode } from "ui-node-definitions/src/isShinyUiNode";
 import type { Lang_Info } from "ui-node-definitions/src/nodeInfoFactory";
-import type { namedArgsObject } from "ui-node-definitions/src/uiNodeTypes";
+
 import type { ShinyUiNode } from "../ShinyUiNode";
-import { getUiNodeInfo } from "ui-node-definitions/src/uiNodeTypes";
+import type { namedArgsObject } from "../uiNodeTypes";
+import { getUiNodeInfo } from "../uiNodeTypes";
 
 import {
   indent_line_breaks,
@@ -12,7 +14,6 @@ import {
   NL_INDENT,
   should_line_break,
 } from "./build_function_text";
-import type { Language_Mode } from "./Language_Mode";
 import {
   isInternalUiNode,
   print_internal_ui_nodes,

@@ -1,15 +1,15 @@
 import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 
-import type { Single_File_App_Type, Multi_File_App_Type } from "./AppInfo";
+import type { App_Type } from "./AppInfo";
 import type { Generated_UI_Def } from "./MessageToBackend";
 
 export type Single_File_Template_Selection = {
-  outputType: Single_File_App_Type;
+  outputType: Extract<App_Type, "SINGLE-FILE">;
 } & Omit<TemplateInfo, "title" | "description"> &
   Generated_UI_Def;
 
 export type Multi_File_Template_Selection = {
-  outputType: Multi_File_App_Type;
+  outputType: Extract<App_Type, "MULTI-FILE">;
 } & Omit<TemplateInfo, "title" | "description"> &
   Generated_UI_Def;
 

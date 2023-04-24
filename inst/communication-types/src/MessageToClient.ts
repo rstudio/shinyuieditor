@@ -1,4 +1,6 @@
-import type { Raw_App_Info, Full_App_Info, App_Type } from "./AppInfo";
+import type { Raw_R_Info } from "r-ast-parsing";
+
+import type { App_Type, App_Info } from "./AppInfo";
 import { isRecord } from "./isRecord";
 import type { MessageUnion } from "./MessageUnion";
 
@@ -7,7 +9,8 @@ import type { MessageUnion } from "./MessageUnion";
  * backend
  */
 export type MessageToClientByPath = {
-  "APP-INFO": Raw_App_Info | Full_App_Info;
+  "RAW-R-INFO": Raw_R_Info;
+  "APP-INFO": App_Info;
   "BACKEND-ERROR": {
     context: string;
     msg: string;

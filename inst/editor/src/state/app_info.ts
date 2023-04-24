@@ -1,19 +1,17 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import type { MessageToClientByPath } from "communication-types";
-import type {
-  Full_App_Info,
-  Raw_App_Info,
-} from "communication-types/src/AppInfo";
+import type { App_Info } from "communication-types/src/AppInfo";
+import type { Raw_R_Info } from "r-ast-parsing";
+import { raw_R_info_to_app_info } from "r-ast-parsing/src/raw_R_info_to_app_info";
 import { useSelector } from "react-redux";
-import { ensure_full_app_info } from "ui-node-definitions/src/ensure_full_app_info";
+import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 import type { PlaceNodeArguments } from "ui-node-definitions/src/TreeManipulation/placeNode";
 import { placeNodeMutating } from "ui-node-definitions/src/TreeManipulation/placeNode";
 import type { RemoveNodeArguments } from "ui-node-definitions/src/TreeManipulation/removeNode";
 import { removeNodeMutating } from "ui-node-definitions/src/TreeManipulation/removeNode";
 import type { UpdateNodeArguments } from "ui-node-definitions/src/TreeManipulation/updateNode";
 import { updateNodeMutating } from "ui-node-definitions/src/TreeManipulation/updateNode";
-import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 
 import type { TemplateChooserOptions } from "../components/TemplatePreviews/TemplateChooserView";
 
@@ -23,7 +21,9 @@ import {
 } from "./create_subscriber_getter";
 import type { RootState } from "./store";
 
-export type EditingState = { mode: "MAIN" } & Full_App_Info;
+export type EditingState = {
+  mode: "MAIN";
+} & App_Info;
 
 export type ErrorState = {
   mode: "ERROR";
@@ -56,16 +56,21 @@ export const mainStateSlice = createSlice({
     // This is used to teleport to a given state wholesale. E.g. undo-redo
     SET_FULL_STATE: (tree, action: PayloadAction<{ state: MainStateOption }>) =>
       action.payload.state,
+
+    SET_INFO_FROM_R: (tree, action: PayloadAction<Raw_R_Info>) => {
+      const full_info = raw_R_info_to_app_info(action.payload);
+      return {
+        mode: "MAIN",
+        ...full_info,
+      };
+    },
     // This will initialize a state while also making sure the arguments match
     // what we expect in the app
-    SET_APP_INFO: (
-      tree,
-      action: PayloadAction<Raw_App_Info | Full_App_Info>
-    ) => {
+    SET_APP_INFO: (tree, action: PayloadAction<App_Info>) => {
       try {
         const full_app_info: EditingState = {
           mode: "MAIN",
-          ...ensure_full_app_info(action.payload),
+          ...action.payload,
         };
         return full_app_info;
       } catch (error) {

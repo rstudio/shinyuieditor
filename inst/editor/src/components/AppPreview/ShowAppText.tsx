@@ -1,9 +1,6 @@
 import React from "react";
 
-import type {
-  Single_File_Full_Info,
-  Multi_File_Full_Info,
-} from "communication-types/src/AppInfo";
+import type { App_Info } from "communication-types/src/AppInfo";
 import { ArrowUpRightSquare } from "react-bootstrap-icons";
 import { useStore } from "react-redux";
 import { generate_full_app_script } from "ui-node-definitions/src/code_generation/generate_full_app_script";
@@ -19,11 +16,7 @@ import classes from "./AppPreview.module.css";
 import { python_app_to_shinylive_url } from "./python_app_to_shinylive_url";
 import styles from "./ShowAppText.module.css";
 
-function AppFilesViewer({
-  info,
-}: {
-  info: Single_File_Full_Info | Multi_File_Full_Info;
-}) {
+function AppFilesViewer({ info }: { info: App_Info }) {
   const language = useLanguageMode();
   const app_scripts = generate_full_app_script(info, {
     include_info: false,

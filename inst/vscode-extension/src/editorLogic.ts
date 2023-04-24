@@ -7,7 +7,7 @@ import * as vscode from "vscode";
 import { clearAppFile } from "./clearAppFile";
 import { openCodeCompanionEditor } from "./extension-api-utils/openCodeCompanionEditor";
 import { checkIfPkgAvailable } from "./R-Utils/checkIfPkgAvailable";
-import { make_cached_ast_getter } from "./R-Utils/getAppAST";
+import { make_cached_info_getter } from "./R-Utils/getAppInfo";
 import type { ActiveRSession } from "./R-Utils/startBackgroundRProcess";
 import { startPreviewApp } from "./R-Utils/startPreviewApp";
 import {
@@ -24,6 +24,11 @@ export type App_Location = {
   end_row: number;
   start_col: number;
   end_col: number;
+};
+
+type App_Parser = {
+  getAst: () => Promise<any>;
+  check_if_pkgs_installed: (pkgs: string) => Promise<boolean>;
 };
 
 export function editorLogic({
@@ -45,7 +50,7 @@ export function editorLogic({
    */
   let codeCompanionEditor: vscode.TextEditor | undefined = undefined;
 
-  const get_app_ast = make_cached_ast_getter(document, RProcess);
+  const get_app_ast = make_cached_info_getter(document, RProcess);
 
   const syncFileToClientState = async () => {
     const appFileText = document.getText();
@@ -113,15 +118,11 @@ export function editorLogic({
 
       latestAppWrite = appFileText;
 
+      const ui_info = appAST.values.parsed_info;
+
       sendMessage({
         path: "APP-INFO",
-        payload: {
-          app_type: "SINGLE-FILE",
-          app: {
-            script: appFileText,
-            ast: appAST.values.ast,
-          },
-        },
+        payload: ui_info,
       });
     } catch (e) {
       console.error("Failed to parse", e);

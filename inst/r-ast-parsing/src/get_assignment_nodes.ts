@@ -1,3 +1,5 @@
+import type { App_Info } from "communication-types/src/AppInfo";
+
 import type {
   Branch_Node,
   Expression_Node,
@@ -123,10 +125,9 @@ export function get_output_positions(
     }, {} as Output_Server_Pos);
 }
 
-export type Known_Outputs = Set<string>;
 export function get_known_outputs(
   all_asignments: Variable_Assignment[]
-): Known_Outputs {
+): App_Info["known_outputs"] {
   const output_nodes = all_asignments.filter(({ is_output }) => is_output);
 
   const known_names = new Set<string>();
@@ -152,9 +153,11 @@ function is_ui_assignment_node(
   return is_ast_branch_node(get_assignment_rhs(node));
 }
 
-export function get_ui_assignment_node(
-  all_asignments: Variable_Assignment[]
-): Ui_Assignment_Node {
+export function get_ui_assignment_node(all_asignments: Variable_Assignment[]): {
+  ui_root_node: Branch_Node;
+  ui_assignment_operator: Assignment_Operator;
+  ui_pos: Script_Position;
+} {
   const ui_assignment = all_asignments.find(
     ({ name, is_output }) => name === "ui" && !is_output
   );
@@ -174,7 +177,11 @@ export function get_ui_assignment_node(
     });
   }
 
-  return ui_node;
+  return {
+    ui_pos: ui_node.pos,
+    ui_root_node: ui_node.val[2],
+    ui_assignment_operator: ui_node.val[0].val,
+  };
 }
 
 export type Server_Assignment_Node = Required<

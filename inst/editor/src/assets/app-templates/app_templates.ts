@@ -1,18 +1,14 @@
 import type { MessageToBackendByPath } from "communication-types";
-import type {
-  Single_File_Full_Info,
-  Multi_File_Full_Info,
-} from "communication-types/src/AppInfo";
-import { SCRIPT_LOC_KEYS } from "communication-types/src/AppInfo";
+import type { App_Info, Language_Mode } from "communication-types/src/AppInfo";
 import type {
   Multi_File_Template_Selection,
   Single_File_Template_Selection,
   TemplateInfo,
 } from "communication-types/src/AppTemplates";
+import { SCRIPT_LOC_KEYS } from "r-ast-parsing/src/raw_R_info_to_app_info";
 import { indent_line_breaks } from "ui-node-definitions/src/code_generation/build_function_text";
 import { generate_full_app_script } from "ui-node-definitions/src/code_generation/generate_full_app_script";
 import { write_R_library_calls } from "ui-node-definitions/src/code_generation/generate_ui_script";
-import type { Language_Mode } from "ui-node-definitions/src/code_generation/Language_Mode";
 
 import { chickWeightsGridTemplate } from "./templates/chickWeightsGrid";
 import { chickWeightsNavbar } from "./templates/chickWeightsNavbar";
@@ -44,7 +40,7 @@ function template_to_single_file_info({
     serverFunctionBody = "",
     serverLibraries = [],
   },
-}: Single_File_Template_Selection): Single_File_Full_Info {
+}: Single_File_Template_Selection): App_Info {
   const code = `${SCRIPT_LOC_KEYS.packages}
 
 ${uiExtra}
@@ -60,8 +56,10 @@ shinyApp(ui, server)
 `;
 
   return {
-    app_type: "SINGLE-FILE",
     ui_tree: uiTree,
+    language: "R",
+    app_type: "SINGLE-FILE",
+    known_outputs: new Set<string>(),
     app: {
       code,
       packages: ["shiny", ...serverLibraries],
@@ -77,7 +75,7 @@ function template_to_multi_file_info({
     serverFunctionBody = "",
     serverLibraries = [],
   },
-}: Multi_File_Template_Selection): Multi_File_Full_Info {
+}: Multi_File_Template_Selection): App_Info {
   const ui_code = `${SCRIPT_LOC_KEYS.packages}
 
 ${uiExtra}
@@ -93,7 +91,9 @@ server <- function(input, output) {
 
   return {
     app_type: "MULTI-FILE",
+    language: "R",
     ui_tree: uiTree,
+    known_outputs: new Set<string>(),
     ui: {
       code: ui_code,
       packages: ["shiny", ...serverLibraries],

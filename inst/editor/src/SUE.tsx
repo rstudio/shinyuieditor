@@ -1,11 +1,8 @@
 import type { BackendConnection } from "communication-types";
-import { makeMessageDispatcher } from "communication-types/src/BackendConnection";
 import type { FallbackProps } from "react-error-boundary";
-import "./App.css";
 import { ErrorBoundary } from "react-error-boundary";
-import type { ShinyUiRootNode } from "ui-node-definitions/src/ShinyUiNode";
+import "./App.css";
 
-import { setupStaticBackend } from "./backendCommunication/staticBackend";
 import { BackendConnectionProvider } from "./backendCommunication/useBackendMessageCallbacks";
 import { GeneralErrorView } from "./components/ErrorCatcher/GeneralErrorView";
 import { EditorContainer } from "./EditorContainer/EditorContainer";
@@ -17,20 +14,13 @@ import {
 } from "./utils/generate_issue_reports";
 import { mergeClasses } from "./utils/mergeClasses";
 
-export type SUE_Props = {
-  backendDispatch?: BackendConnection;
-  showMessages?: boolean;
-  defaultTree?: ShinyUiRootNode;
-};
 export function SUE({
   showMessages = true,
-  defaultTree,
-  backendDispatch: { sendMsg, incomingMsgs, mode } = setupStaticBackend({
-    messageDispatch: makeMessageDispatcher(),
-    showMessages,
-    defaultTree: defaultTree ?? "TEMPLATE_CHOOSER",
-  }),
-}: SUE_Props) {
+  backendDispatch: { sendMsg, incomingMsgs, mode },
+}: {
+  backendDispatch: BackendConnection;
+  showMessages?: boolean;
+}) {
   const dispatch: BackendConnection = showMessages
     ? {
         sendMsg,

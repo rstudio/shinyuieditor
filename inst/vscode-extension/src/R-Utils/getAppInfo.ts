@@ -1,5 +1,7 @@
+import type { App_Info } from "communication-types/src/AppInfo";
 import type { R_AST } from "r-ast-parsing";
 import { parse_app_server_info } from "r-ast-parsing/src/parse_app_server_info";
+import { raw_R_info_to_app_info } from "r-ast-parsing/src/raw_R_info_to_app_info";
 import { is_object } from "util-functions/src/is_object";
 import { makePortableString } from "util-functions/src/strings";
 import type * as vscode from "vscode";
@@ -7,13 +9,17 @@ import type * as vscode from "vscode";
 import type { CommandOutputGeneric } from "./runRCommand";
 import type { ActiveRSession } from "./startBackgroundRProcess";
 
-type AST_GET_RESULTS =
-  | { ast: R_AST; server_info: ReturnType<typeof parse_app_server_info> }
+type INFO_GET_RESULTS =
+  | {
+      parsed_info: App_Info;
+      server_info: ReturnType<typeof parse_app_server_info>;
+    }
   | "EMPTY";
-async function getAppAST(
+
+async function getAppInfo(
   rProc: ActiveRSession,
   fileText: string
-): Promise<CommandOutputGeneric<AST_GET_RESULTS>> {
+): Promise<CommandOutputGeneric<INFO_GET_RESULTS>> {
   const escapedAppText = makePortableString(fileText);
 
   const parseCommand = `shinyuieditor:::safe_parse_and_serialize("${escapedAppText}")`;
@@ -46,11 +52,18 @@ async function getAppAST(
       return { status: "success", values: "EMPTY" };
     }
 
+    const raw_ast = output_response.ast;
+
+    const parsed_info = raw_R_info_to_app_info({
+      app_type: "SINGLE-FILE",
+      app: { ast: raw_ast, script: fileText },
+    });
+
     const server_info = parse_app_server_info(output_response.ast);
 
     return {
       status: "success",
-      values: { ast: output_response.ast, server_info },
+      values: { parsed_info, server_info },
     };
   } catch {
     return {
@@ -61,21 +74,21 @@ async function getAppAST(
   }
 }
 
-type Safe_AST_Parse_Success = {
+type Safe_Info_Parse_Success = {
   type: "success";
   ast: R_AST;
 };
 
-type Safe_AST_Parse_Error = {
+type Safe_Info_Parse_Error = {
   type: "error";
   msg: string;
 };
 
-type Safe_AST_Parse_Response = Safe_AST_Parse_Success | Safe_AST_Parse_Error;
+type Safe_Info_Parse_Response = Safe_Info_Parse_Success | Safe_Info_Parse_Error;
 
 function assert_is_ast_parse_response(
   parse_res: unknown
-): asserts parse_res is Safe_AST_Parse_Response {
+): asserts parse_res is Safe_Info_Parse_Response {
   if (
     is_object(parse_res) &&
     "type" in parse_res &&
@@ -89,38 +102,38 @@ function assert_is_ast_parse_response(
   );
 }
 
-export function make_cached_ast_getter(
+export function make_cached_info_getter(
   document: vscode.TextDocument,
   rProc: ActiveRSession
 ) {
-  let last_ast_grabbed: {
+  let last_info_grabbed: {
     file_version: number;
-    ast_info: AST_GET_RESULTS;
+    info: INFO_GET_RESULTS;
   } | null = null;
 
-  async function get_ast(): Promise<CommandOutputGeneric<AST_GET_RESULTS>> {
+  async function get_info(): Promise<CommandOutputGeneric<INFO_GET_RESULTS>> {
     const current_file_version = document.version;
 
-    if (current_file_version === last_ast_grabbed?.file_version) {
+    if (current_file_version === last_info_grabbed?.file_version) {
       // Use cached ast since nothing has changed!
-      return { status: "success", values: last_ast_grabbed.ast_info };
+      return { status: "success", values: last_info_grabbed.info };
     }
 
-    const ast_get_attempt = await getAppAST(rProc, document.getText());
+    const info_attempt = await getAppInfo(rProc, document.getText());
 
-    if (ast_get_attempt.status === "error") {
-      return ast_get_attempt;
+    if (info_attempt.status === "error") {
+      return info_attempt;
     }
 
-    const ast_info = ast_get_attempt.values;
+    const ast_info = info_attempt.values;
 
-    last_ast_grabbed = {
+    last_info_grabbed = {
       file_version: current_file_version,
-      ast_info,
+      info: ast_info,
     };
 
-    return ast_get_attempt;
+    return info_attempt;
   }
 
-  return get_ast;
+  return get_info;
 }

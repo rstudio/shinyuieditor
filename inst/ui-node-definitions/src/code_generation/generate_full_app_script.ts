@@ -1,8 +1,6 @@
 import type {
-  Multi_File_App_Script,
-  Multi_File_Full_Info,
-  Single_File_App_Script,
-  Single_File_Full_Info,
+  App_Info,
+  App_Script_Info,
 } from "communication-types/src/AppInfo";
 
 import { generate_ui_script } from "./generate_ui_script";
@@ -13,9 +11,9 @@ type Script_Generation_Options = {
 };
 
 export function generate_full_app_script(
-  info: Single_File_Full_Info | Multi_File_Full_Info,
+  info: App_Info,
   { include_info, language }: Script_Generation_Options
-): Single_File_App_Script | Multi_File_App_Script {
+): App_Script_Info {
   const { app_type, ui_tree } = info;
   switch (app_type) {
     case "SINGLE-FILE": {
