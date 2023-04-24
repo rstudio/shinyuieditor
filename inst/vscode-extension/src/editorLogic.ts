@@ -1,3 +1,4 @@
+import type { Language_Mode } from "communication-types/src/AppInfo";
 import type { MessageToBackend } from "communication-types/src/MessageToBackend";
 import { isMessageToBackend } from "communication-types/src/MessageToBackend";
 import type { MessageToClient } from "communication-types/src/MessageToClient";
@@ -8,12 +9,12 @@ import { clearAppFile } from "./clearAppFile";
 import { openCodeCompanionEditor } from "./extension-api-utils/openCodeCompanionEditor";
 import { checkIfPkgAvailable } from "./R-Utils/checkIfPkgAvailable";
 import { make_cached_info_getter } from "./R-Utils/getAppInfo";
-import type { ActiveRSession } from "./R-Utils/startBackgroundRProcess";
+import { startBackgroundRProcess } from "./R-Utils/startBackgroundRProcess";
 import { startPreviewApp } from "./R-Utils/startPreviewApp";
 import {
   insert_code_snippet,
-  selectInputReferences,
   select_app_lines,
+  selectInputReferences,
 } from "./selectServerReferences";
 import { update_app_file } from "./update_app_file";
 
@@ -31,15 +32,21 @@ type App_Parser = {
   check_if_pkgs_installed: (pkgs: string) => Promise<boolean>;
 };
 
-export function editorLogic({
-  RProcess,
+export async function editorLogic({
+  language,
   document,
   sendMessage,
 }: {
-  RProcess: ActiveRSession;
+  language: Language_Mode;
   document: vscode.TextDocument;
   sendMessage: (msg: MessageToClient) => Thenable<boolean>;
 }) {
+  // Startup background R process
+  const RProcess = await startBackgroundRProcess();
+  if (!RProcess) {
+    throw new Error("Don't have an R Process to pass to editor backend!");
+  }
+
   let hasInitialized: boolean = false;
 
   // Can probably replace this with the vscode.TextDocument's version field

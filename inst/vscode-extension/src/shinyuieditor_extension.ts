@@ -4,7 +4,6 @@ import * as vscode from "vscode";
 
 import { editorLogic } from "./editorLogic";
 import { appScriptStatus } from "./R-Utils/appScriptStatus";
-import { startBackgroundRProcess } from "./R-Utils/startBackgroundRProcess";
 import { getNonce } from "./util";
 
 /**
@@ -60,24 +59,12 @@ export class ShinyUiEditorProvider implements vscode.CustomTextEditorProvider {
 
     webviewPanel.webview.html = this.getHtmlForWebview(webviewPanel.webview);
 
-    let editorBackend: ReturnType<typeof editorLogic>;
-
-    if (scriptStatus.lang === "R") {
-      // Startup background R process
-      const RProcess = await startBackgroundRProcess();
-      if (!RProcess) {
-        throw new Error("Don't have an R Process to pass to editor backend!");
-      }
-
-      editorBackend = editorLogic({
-        RProcess,
-        document,
-        sendMessage: (msg: MessageToClient) =>
-          webviewPanel.webview.postMessage(msg),
-      });
-    } else {
-      throw new Error("Python support incoming");
-    }
+    const editorBackend = await editorLogic({
+      language: scriptStatus.lang,
+      document,
+      sendMessage: (msg: MessageToClient) =>
+        webviewPanel.webview.postMessage(msg),
+    });
 
     // Filter change and save events do only this current document
     const changeDocumentSubscription = vscode.workspace.onDidChangeTextDocument(
