@@ -112,8 +112,9 @@
   },
   "scripts": {
     "prod": "vsce package",
-    "vscode:prepublish": "yarn run esbuild-base -- --minify",
-    "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=build/extension.js --external:vscode \"--external:*.png\" \"--external:*.scss\" --format=cjs --platform=node",
+    "vscode:prepublish": "yarn run build-extension",
+    "build-extension": "tsx ./build.mts",
+    "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=build/extension.js --external:vscode --format=cjs --platform=node",
     "dev": "yarn run esbuild-base -- --sourcemap",
     "esbuild-watch": "yarn run esbuild-base -- --sourcemap --watch",
     "lint": "eslint \"src/**/*.ts\"",

@@ -1,5 +1,6 @@
-import Parser from "tree-sitter";
-import PythonGrammar from "tree-sitter-python";
+// import Parser from "tree-sitter";
+const Parser = require("tree-sitter");
+const PythonGrammar = require("tree-sitter-python");
 
 /**
  * Setup a tree-sitter parser with the Python grammar
