@@ -1,7 +1,5 @@
 import type Parser from "web-tree-sitter";
 
-import { assert_assignment_node } from "./NodeTypes/AssignmentNode";
-
 /**
  * A map keyed by name of all assignments in a given python script pointing to
  * the node being assigned
@@ -21,9 +19,17 @@ export function get_assignment_nodes(tree: Parser.Tree): Node_Assignment_Map {
       // The search for descendants of type assignment should mean we never have
       // to worry about this throwing, but by placing it here we narrow the types
       // to AssignmentNode
-      assert_assignment_node(node);
+      const assignment_name = node.namedChild(0)?.text;
 
-      return [node.leftNode.text, node.rightNode] as const;
+      if (assignment_name === undefined) {
+        throw new Error("Assignment node has no name");
+      }
+      const assigned_node = node.namedChild(1);
+      if (!assigned_node) {
+        throw new Error("Assignment node has no assigned node");
+      }
+
+      return [assignment_name, assigned_node] as const;
     });
 
   return new Map(assignment_pairs);

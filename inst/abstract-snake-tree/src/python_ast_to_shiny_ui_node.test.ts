@@ -1,6 +1,7 @@
+import { setup_python_parser } from "python-ts-parser";
 import type { KnownShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
 
-import { parse_python_script, setup_python_parser } from ".";
+import { parse_python_script } from ".";
 
 import { get_assignment_nodes } from "./get_assignment_nodes";
 import { treesitter_to_ui_tree } from "./NodeTypes/ts_node_to_ui_tree";

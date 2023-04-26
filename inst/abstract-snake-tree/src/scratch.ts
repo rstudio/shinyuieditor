@@ -1,3 +1,5 @@
+import { setup_python_parser } from "python-ts-parser";
+
 import { parse_python_script } from ".";
 
 import { get_assignment_nodes } from "./get_assignment_nodes";
@@ -37,9 +39,9 @@ def server(input, output, session):
 app = App(app_ui, server)
 `;
 
-debugger;
+const my_parser = await setup_python_parser();
 
-const parsed_app = parse_python_script(navbar_page_app);
+const parsed_app = parse_python_script(my_parser, navbar_page_app);
 
 const assigned_nodes = get_assignment_nodes(parsed_app);
 
