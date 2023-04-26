@@ -1,0 +1,26 @@
+{
+  "name": "python-ts-parser",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "description": "Makes a self-contained function for generating a python code parsing instance of tree-sitter",
+  "devDependencies": {
+    "esbuild": "^0.17.8",
+    "tree-sitter-cli": "^0.20.8",
+    "tsconfig": "*",
+    "typescript": "^5.0.4"
+  },
+  "scripts": {
+    "build-python-grammar": "tree-sitter build-wasm ../../node_modules/tree-sitter-python; mv tree-sitter-python.wasm assets/tree-sitter-python.wasm",
+    "build": "node build.mjs",
+    "gen-types": "tsc src/index.ts --esModuleInterop --declaration --emitDeclarationOnly --outDir dist",
+    "run-script": "node dist/index.js"
+  },
+  "dependencies": {
+    "tree-sitter-python": "^0.20.1",
+    "web-tree-sitter": "^0.20.8"
+  }
+}
