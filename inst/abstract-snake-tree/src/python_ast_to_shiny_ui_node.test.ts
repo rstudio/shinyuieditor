@@ -1,6 +1,6 @@
 import type { KnownShinyUiNode } from "ui-node-definitions/src/uiNodeTypes";
 
-import { parse_python_script } from ".";
+import { parse_python_script, setup_python_parser } from ".";
 
 import { get_assignment_nodes } from "./get_assignment_nodes";
 import { treesitter_to_ui_tree } from "./NodeTypes/ts_node_to_ui_tree";
@@ -50,7 +50,9 @@ export const basicNavbarPage = {
   ],
 } satisfies KnownShinyUiNode;
 
-describe("Can go from parsed-tree-sitter ast to proper ShinyUiNode", () => {
+describe("Can go from parsed-tree-sitter ast to proper ShinyUiNode", async () => {
+  const parser = await setup_python_parser();
+
   test("Simple slider input with all named args", () => {
     const sliderInputDef = `
 my_slider = ui.input_slider(
@@ -62,8 +64,9 @@ my_slider = ui.input_slider(
   width = "100%"
 )
 `;
+
     const assigned_nodes = get_assignment_nodes(
-      parse_python_script(sliderInputDef)
+      parse_python_script(parser, sliderInputDef)
     );
 
     const slider_node = assigned_nodes.get("my_slider");
@@ -92,7 +95,9 @@ my_slider = ui.input_slider(
       ui.output_plot(id = "MyPlot")
     )
     `;
-    const assigned_nodes = get_assignment_nodes(parse_python_script(navDef));
+    const assigned_nodes = get_assignment_nodes(
+      parse_python_script(parser, navDef)
+    );
 
     const nav_node = assigned_nodes.get("my_nav");
 
@@ -118,7 +123,9 @@ my_slider = ui.input_slider(
 
   test("Handle when a leaf node has all its argument passed positionally", () => {
     const nodeCode = `my_node =  ui.input_slider("n", "N", 0, 100, 20)`;
-    const assigned_nodes = get_assignment_nodes(parse_python_script(nodeCode));
+    const assigned_nodes = get_assignment_nodes(
+      parse_python_script(parser, nodeCode)
+    );
 
     const converted_node = treesitter_to_ui_tree(
       assigned_nodes.get("my_node")!

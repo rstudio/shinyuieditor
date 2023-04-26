@@ -1,4 +1,4 @@
-import type Parser from "tree-sitter";
+import type Parser from "web-tree-sitter";
 
 import { node_to_uitree } from "../node_to_uitree";
 

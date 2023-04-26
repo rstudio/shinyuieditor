@@ -1,13 +1,19 @@
-// import Parser from "tree-sitter";
-const Parser = require("tree-sitter");
-const PythonGrammar = require("tree-sitter-python");
+// import PythonGrammar from "tree-sitter-python";
+import Parser from "web-tree-sitter";
 
 /**
  * Setup a tree-sitter parser with the Python grammar
  * @returns A tree-sitter parser with the Python grammar
  */
-export function setup_python_parser() {
+export async function setup_python_parser() {
+  await Parser.init();
+
   const parser = new Parser();
+
+  const PythonGrammar = await Parser.Language.load(
+    "../tree-sitter-python.wasm"
+  );
+
   parser.setLanguage(PythonGrammar);
   return parser;
 }

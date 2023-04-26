@@ -1,4 +1,4 @@
-import { parse_python_script } from ".";
+import { parse_python_script, setup_python_parser } from ".";
 
 import { get_assignment_nodes } from "./get_assignment_nodes";
 import { get_ui_assignment } from "./get_ui_assignment";
@@ -54,13 +54,17 @@ def server(input, output, session):
 app = App(app_ui, server)
 `;
 
-describe("Parse simple app", () => {
+describe("Parse simple app", async () => {
+  const parser = await setup_python_parser();
+
   test("Can parse app successfully without failing", () => {
-    expect(() => parse_python_script(simple_app_script)).not.toThrowError();
+    expect(() =>
+      parse_python_script(parser, simple_app_script)
+    ).not.toThrowError();
   });
 
   test("Can find assignment nodes", () => {
-    const parsed = parse_python_script(simple_app_script);
+    const parsed = parse_python_script(parser, simple_app_script);
     const assignment_nodes = get_assignment_nodes(parsed);
     const assignment_node_names = [...assignment_nodes.keys()];
     expect(assignment_node_names).toEqual(["app_ui", "app"]);
@@ -68,7 +72,7 @@ describe("Parse simple app", () => {
 
   // Test that we can find ui node
   test("Can find ui node", () => {
-    const parsed = parse_python_script(simple_app_script);
+    const parsed = parse_python_script(parser, simple_app_script);
     const assignment_nodes = get_assignment_nodes(parsed);
     const ui_node = get_ui_assignment(assignment_nodes);
     expect(ui_node).not.toBeNull();
@@ -80,14 +84,16 @@ from shiny import App, render, ui
 
 print("Hello world")
 `;
-    const assignment_nodes = get_assignment_nodes(parse_python_script(no_ui));
+    const assignment_nodes = get_assignment_nodes(
+      parse_python_script(parser, no_ui)
+    );
     const ui_node = get_ui_assignment(assignment_nodes);
     expect(ui_node).toBeNull();
   });
 
   test("Can parse ui node", () => {
     const ui_node = get_ui_assignment(
-      get_assignment_nodes(parse_python_script(simple_app_script))
+      get_assignment_nodes(parse_python_script(parser, simple_app_script))
     );
 
     if (!ui_node) {
@@ -120,7 +126,7 @@ print("Hello world")
 
   test("Can parse navbar page", () => {
     const ui_node = get_ui_assignment(
-      get_assignment_nodes(parse_python_script(navbar_page_app))
+      get_assignment_nodes(parse_python_script(parser, navbar_page_app))
     );
 
     if (!ui_node) {

@@ -1,9 +1,11 @@
-import { setup_python_parser } from "./setup_python_parser";
+import type { setup_python_parser } from "./setup_python_parser";
 
 // Initialize a tree-sitter parser with the Python grammar
-const parser = setup_python_parser();
+// const parser = setup_python_parser();
 
-export function parse_python_script(script_text: string) {
+export type PythonParser = Awaited<ReturnType<typeof setup_python_parser>>;
+
+export function parse_python_script(parser: PythonParser, script_text: string) {
   // Parse the current script
   return parser.parse(script_text);
 }

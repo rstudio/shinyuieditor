@@ -1,4 +1,4 @@
-import type Parser from "tree-sitter";
+import type Parser from "web-tree-sitter";
 
 /**
  * Node representing an assignment in python. Has special properties for the

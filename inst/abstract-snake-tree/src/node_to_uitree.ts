@@ -1,4 +1,4 @@
-import type Parser from "tree-sitter";
+import type Parser from "web-tree-sitter";
 
 import { is_boolean_node, parse_boolean_node } from "./NodeTypes/BooleanNode";
 import { is_call_node, parse_call_node } from "./NodeTypes/CallNode";

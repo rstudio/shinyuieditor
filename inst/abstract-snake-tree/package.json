@@ -10,6 +10,7 @@
     "@typescript-eslint/parser": "^5.42.0",
     "esbuild": "^0.17.8",
     "eslint": "^8.26.0",
+    "tree-sitter-cli": "^0.20.8",
     "tsconfig": "*",
     "tsx": "^3.12.1",
     "typescript": "^5.0.4",
@@ -18,11 +19,12 @@
   "scripts": {
     "type-check": "tsc -p ./ --noEmit",
     "test": "vitest run --no-threads",
-    "test-watch": "vitest --no-threads"
+    "test-watch": "vitest --no-threads",
+    "build-python-grammar": "tree-sitter build-wasm ../../node_modules/tree-sitter-python; mv tree-sitter-python.wasm assets/tree-sitter-python.wasm"
   },
   "dependencies": {
-    "tree-sitter": "^0.20.1",
     "tree-sitter-python": "^0.20.1",
-    "ui-node-definitions": "*"
+    "ui-node-definitions": "*",
+    "web-tree-sitter": "^0.20.8"
   }
 }

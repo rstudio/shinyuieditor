@@ -1,7 +1,7 @@
-import type Parser from "tree-sitter";
 import { make_unknown_ui_function } from "ui-node-definitions/src/make_unknown_ui_function";
 import type { ShinyUiNode } from "ui-node-definitions/src/ShinyUiNode";
 import { pyFnNameToNodeInfo } from "ui-node-definitions/src/uiNodeTypes";
+import type Parser from "web-tree-sitter";
 
 import { extract_boolean_content, is_boolean_node } from "./BooleanNode";
 import { is_call_node } from "./CallNode";

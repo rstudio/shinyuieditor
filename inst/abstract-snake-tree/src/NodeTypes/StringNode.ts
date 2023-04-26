@@ -1,5 +1,5 @@
-import type Parser from "tree-sitter";
-import type { SyntaxNode } from "tree-sitter";
+import type { SyntaxNode } from "web-tree-sitter";
+import type Parser from "web-tree-sitter";
 
 import type { Parsed_Nodes_By_Type } from "./Parsed_Ui_Node";
 

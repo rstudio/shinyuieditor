@@ -1,6 +1,6 @@
-import type Parser from "tree-sitter";
 import type { namedArgsObject } from "ui-node-definitions/src/uiNodeTypes";
 import { pyFnNameToNodeInfo } from "ui-node-definitions/src/uiNodeTypes";
+import type Parser from "web-tree-sitter";
 
 import { node_to_uitree } from "../node_to_uitree";
 
