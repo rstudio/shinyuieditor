@@ -25,12 +25,24 @@
       "preLaunchTask": "dev build"
     },
     {
-      "name": "Debug Current TypeScript File",
       "type": "node",
       "request": "launch",
-      "runtimeArgs": ["-r", "ts-node/register/transpile-only", "--inspect"],
-      "args": ["${file}"],
-      "cwd": "${workspaceFolder}",
+      "name": "Debug Current Test File",
+      "autoAttachChildProcesses": true,
+      "runtimeExecutable": "/Users/nicholasstrayer/.nvm/versions/node/v18.16.0/bin/node",
+      "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+      "program": "${workspaceRoot}/node_modules/vitest/vitest.mjs",
+      "args": ["run", "${relativeFile}"],
+      "smartStep": true,
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Run Current TypeScript vite-node",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceRoot}/node_modules/vite-node/vite-node.mjs",
+      "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+      "args": ["${relativeFile}", "--sourcemap", "inline"],
       "console": "internalConsole",
       "internalConsoleOptions": "neverOpen",
       "sourceMaps": true,
@@ -39,24 +51,6 @@
         "${workspaceFolder}/inst/**",
         "!**/node_modules/**"
       ]
-      // "preLaunchTask": "Compile Current TypeScript File"
-    },
-    {
-      "name": "Run Current TypeScript File",
-      "type": "node",
-      "request": "launch",
-      "runtimeArgs": ["-r", "ts-node/register/transpile-only"],
-      "args": ["${file}"],
-      "cwd": "${workspaceFolder}",
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen",
-      "sourceMaps": true,
-      "outFiles": ["${workspaceFolder}/inst/**/*.js"],
-      "resolveSourceMapLocations": [
-        "${workspaceFolder}/inst/**",
-        "!**/node_modules/**"
-      ],
-      "preLaunchTask": "Compile Current TypeScript File"
     },
     {
       "name": "Run extension unit tests",
